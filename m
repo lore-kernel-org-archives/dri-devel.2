@@ -4,143 +4,166 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1252CC531D4
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 14:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 715EAC531D1
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 15:05:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6871E10E5A9;
-	Thu, 23 Jul 2026 14:52:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C981F10E584;
+	Thu, 23 Jul 2026 15:05:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Oclqc78F";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I+Q+dcsu";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Nh98EHUh";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E41CB10E5A9
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 14:52:33 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66NCvkTC4050184
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 14:52:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=6BuEKfXEzT6vDZyFzbYENFwq
- P2ZCaxQDHcuegPMajFs=; b=Oclqc78FRFy0zdixA2Y3PwskeExSft32Q9TAcno1
- DoClNaOebgIgx6+EOyz+3zErI62uO95sWF4ZN1Cz0V7yyIVS7h+KGLxGGtCHhabs
- 5MUO/kRqWIQ8WRaFQQZVsg7qssyGR5Sfshu2ssUp+/C8yLBv81CPykEnqwc7stFb
- wRdj5TFrDBXifcVCCa2MyKF0XW/KGqponjSOs4cpnn+Z/OYwbBhbznBf5+Wy5Peg
- p/NmqVSMaEzuAFqL2aEEKKyCCjc8g56BXbw4Ci/qSawK5m9Qf0n8Vs5hmMJkzHtS
- C7ZmxiPUxLl98y9Y2cdo4K2uquLoLcfee0YmIaGMqbec5w==
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fk28vmpy7-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 14:52:32 +0000 (GMT)
-Received: by mail-ot1-f70.google.com with SMTP id
- 46e09a7af769-7e6027a5761so481140a34.3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 07:52:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784818346; x=1785423146;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=6BuEKfXEzT6vDZyFzbYENFwqP2ZCaxQDHcuegPMajFs=;
- b=I+Q+dcsuPV8NIqtpXIzJmP+5/JW14aLssKLtNxe6UKfdWQm5HRnYKTTYI/Pxf0DLqo
- t1PrLIdkC+nxXfnBstUcX7MBvKui7Uyx8Iylso2DGn9r3cZ9ibp6gKT6V2JukeKQQebj
- PZqv+SRvH+QWly7hI8JH/lznws1FoUsaPtJ8bJNkA/CnBNBiybi1poC1j9tuG/LawzYt
- k00tIAN+qZB40St92yEpsF+3EpaKg9flIlD7DdeAWlm3kUZa7WL6DyGcta4vqqxIo4TJ
- 1CjIZQjyxnP9zuU5SZh3dG2DRvPjDT+Xk6T+mMl2Elo0USJFSC2L0Uth2Nu64Fn23zkx
- +prA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784818346; x=1785423146;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=6BuEKfXEzT6vDZyFzbYENFwqP2ZCaxQDHcuegPMajFs=;
- b=Rew7UWGMoLTmLGz+Ns4X2o1OLiAnZb0ZWplgpiAEKwISlzCM9YMHzDoPv85ptDELQw
- x+LyRIwuyhvPFPLlLfs1IB5gaGYoI+N2kp6EMS1dq6T1onAhXIeWtUuzPq3oq3eO4TtU
- 481zaIZdAPOXx7Urs/ic9cLDuSpTsVUoOkKh7fCI/dz5OiJrOhI1N1LOYnOHMHTk8RZw
- nGkIMpoU52BCKyCwg4Pq1loQp2XR0J+2+zTfx5dhY4xoVTgW0AA3djKPgaT3eyHgg8u7
- M3F4ChvI9DTvNWnllGbL3NXPA8KGMFNFvM1tTZYR1IOxlDmNMX+7M/i58R9yQdDsR3mk
- 27wA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RokMeQQ6MHMyGF62rKqcbSlyd+tGs/GjxNkvbWXrmgT3mwaCoTTr3b+j3hw+T3J+s1yYKZcgK4eqdU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxASBCs0/uweF7sPi8SThZaNnMlxc0VBoQwIObdMNpI8Ll87aKQ
- DzG1q/rAfCB+ITLOKcwNVGyVdFeirqGp1e2XfZHNkywPkodLLRgliwFPXwRmJMWUZHFtft1Uu/f
- k7StrZlKYza1ftLy0AnIGWXon7zMfYYW3bkPIw9kOvU04JuDI6yT65kuJldx3qAEs1SIQ4+o=
-X-Gm-Gg: AR+sD11ZcFa7KlfcOGNhsZTofWD3yfOZ2qPohJu2jJ64gvwQhjXQskZBFDgPrBV6Anu
- cgtogKHu7xjVQ8FfC4fLFQFwBKfWg6DEyHmjm2cgk/7MCHsYbSTGZMrfSddrotD8mbw9aWlFcdM
- 9WQbby86WWswq6b1bo+kwfGRdPRrN8xCmsq+bqqcp8s81ucpV/kvuhTXMhIZczu4+bySM7m4Ezs
- SSOm4E0xr7h1WyUJKTTsV1rFfRp0aK8VCK43n/9W9V7C/XTHlUK11mYXhRwZdwAPqVeEsoXyurI
- vZH2yNM3z8sLYi25FEFh4PYR3iy9b+JdkgjDiyd6hhDGPBIFqi3KxPsM5t5kMB+v5oyyZKR/mo8
- hKNwa6ygBzc/97kaF/UZS97hOGxxtUho3tl4C9bC8eiaRn0wzrLFs4eLdjiGqnS4vbpZ+HHqlv7
- sn9oGmmn3sW21YF2nIjOfm
-X-Received: by 2002:a05:6830:81f6:b0:7e9:b772:9ab2 with SMTP id
- 46e09a7af769-7ee52dc0600mr346515a34.7.1784818346159; 
- Thu, 23 Jul 2026 07:52:26 -0700 (PDT)
-X-Received: by 2002:a05:6830:81f6:b0:7e9:b772:9ab2 with SMTP id
- 46e09a7af769-7ee52dc0600mr346499a34.7.1784818345693; 
- Thu, 23 Jul 2026 07:52:25 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com
- (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7ee4f10b691sm785096a34.5.2026.07.23.07.52.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jul 2026 07:52:24 -0700 (PDT)
-Date: Thu, 23 Jul 2026 20:22:15 +0530
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Thierry Reding <thierry.reding@gmail.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com
-Subject: Re: [PATCH] dt-bindings: display: panel-lvds: Add boe,dv215fhm-r01
- compatible
-Message-ID: <amIqn2rJhgjkHDMS@hu-vishsain-blr.qualcomm.com>
-References: <20260719-b4-lvds-panel-doc-v1-1-6a18c213c2f6@oss.qualcomm.com>
- <20260722193954.GA1559082-robh@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE44410E110;
+ Thu, 23 Jul 2026 15:05:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784819108; x=1816355108;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=IP6TJCaGS7sLPITn0lffLKCLcEZYRTE6IykS6SS/Pkw=;
+ b=Nh98EHUh/uyJGxbjHotCskUlUvTlrVT2V+qVhNWQMCJu6A0H0XoZWgL0
+ CzvER7bzztRK+T07UkMdkgUyJn234w0evIr6gGMEN97dycwhhaDQwI3PE
+ InbiEN+uccW7Q3U3zEc+UeuZY1ssOrAmwVrKrXQPCuGSExakowpO1csRw
+ 8UX825gVA4swb6RJY01Sa1A1OoznhIhAJ+6WZid208FRyR0XN/lp+rWoI
+ yPEXGMx7VaA41UKxt4VCIP6ZZnX8OMCB6UO8+V2umhS/4Bm7gMybGPTiT
+ +k4LiR7M0AZWOZW3OSv+/nTn//qEDjCnV39gNg7mBRe55vFCb8ROZ2jWu Q==;
+X-CSE-ConnectionGUID: AyUdR55uR4SDcipq2yr7uw==
+X-CSE-MsgGUID: hK1ozBx0R66ILXaPiDhCkA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="95831460"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="95831460"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 08:05:07 -0700
+X-CSE-ConnectionGUID: VNyshCiVTqmcPwMUmpldCA==
+X-CSE-MsgGUID: sGejLgKvT4KUqZRuTcJTzQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="257907537"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 08:05:07 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 23 Jul 2026 08:05:06 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Thu, 23 Jul 2026 08:05:06 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.57) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Thu, 23 Jul 2026 08:05:04 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sySBqit/zVIW0/uU7Kv91sBcLC/+PesPkmFer3TPPO28v6xF0lBuWDPlZG8vuKfJJ7cnePgXA1sOk7pRkg3svjfDTFvUOsDx8cSj2GW9UWzmf+rMwkdQlRx6Q6NMR+UpKISMXxzm4+qh9Oa+gpAFhhaaMvIOXWwvjEmY/6aX5wy/c0T1Pm6lyc49eboWyyCstlkisCwiEa+3Cou+IH5owyLwu9vc9NLKu/loMJmeMOtfcn/+2mBWdVkQrH7njKc/cPmWR3Bwl+jH8v/EwCgEAKb/4P0HaDVz9BCYNHSZYdU5L4u41ZFs8ic3R8BYDRY/rIT7+LzhQZ+HjM3Fwfh7Wg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lz4h+ZGVN5dB65daWv420Dm0495I5nDK2k+wqQK6CBA=;
+ b=BDgg7DZef1/5rZNn1U7LoZK2MhUozbfQVo6eCo0DM4pw2z/WiLFMB7Rh4N9gqBYnvvxTewuiHEGT8hS/GI52ARwuGuPlBzYKr+MHGfLC0uHP/0YPKamT8VcJraA/FyiOXG3VwrdM2Q+irXyWJ9rJIbf9I2uycDoTB5ptgmhud/1ztkqoZFIFLi3/9WAfaX6yN//t+S+K/07rhw1hEhL2AnVztv9/9oTjpiDgwqNYd1qJZ62fUou2ZFPGVl9+kyYpke4fPtdcrPpG1cOPVBidYT0/+61IJpiFjBJEUMqvHrP4nHJ/VMEdT6lfnvI1dIOgdKaiyNvhTWnFiZYZTIx7Dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com (2603:10b6:8:f9::19) by
+ IA4PR11MB9057.namprd11.prod.outlook.com (2603:10b6:208:55d::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
+ 2026 15:05:01 +0000
+Received: from DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99]) by DS0PR11MB7958.namprd11.prod.outlook.com
+ ([fe80::8cb2:cffc:b684:9a99%4]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
+ 15:05:01 +0000
+Message-ID: <f08a30a8-afca-4cad-8353-5c3ce091a9ef@intel.com>
+Date: Thu, 23 Jul 2026 20:34:39 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/2] drm/xe/xe_ras: Report correctable/uncorrectable
+ error events to userspace
+To: Raag Jadav <raag.jadav@intel.com>
+CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <netdev@vger.kernel.org>, <aravind.iddamsetty@linux.intel.com>,
+ <anshuman.gupta@intel.com>, <rodrigo.vivi@intel.com>,
+ <joonas.lahtinen@linux.intel.com>, <kuba@kernel.org>,
+ <simona.vetter@ffwll.ch>, <airlied@gmail.com>, <pratik.bari@intel.com>,
+ <joshua.santosh.ranjan@intel.com>, <ashwin.kumar.kulkarni@intel.com>,
+ <shubham.kumar@intel.com>, <ravi.kishore.koppuravuri@intel.com>,
+ <maarten.lankhorst@linux.intel.com>, <mallesh.koujalagi@intel.com>,
+ <soham.purkait@intel.com>, Michal Wajdeczko <michal.wajdeczko@intel.com>
+References: <20260722094134.3036087-4-riana.tauro@intel.com>
+ <20260722094134.3036087-6-riana.tauro@intel.com>
+ <amDglMC44EIWChvp@black.igk.intel.com>
+Content-Language: en-US
+From: "Tauro, Riana" <riana.tauro@intel.com>
+In-Reply-To: <amDglMC44EIWChvp@black.igk.intel.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0200.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b2::15) To DS0PR11MB7958.namprd11.prod.outlook.com
+ (2603:10b6:8:f9::19)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260722193954.GA1559082-robh@kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIzMDE0NiBTYWx0ZWRfX+BCosgkv+ZJA
- ey+i7We0mLciZQg3nfJRxYXX63u/jzFqr3jIHunq0lfSWJxijk+dVrhQy2lYgDXpctqPUeMqZrl
- EJNqv7BB8sgSbXs1A2VNs1b/vW6IDHY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIzMDE0NiBTYWx0ZWRfX0l6hsFNyE4ck
- 4zWd7dfa/YwhFJeFVWTDzIRui9E70D3A2GtNrN5L/hCjNKp8m37PFOD7cUeJfoIBQRE/Bpof478
- QceWuLaLqSjS9NHTZ1xw0MxucuFyqoDAGVaNJoIxfG9xP6PqoaNKJxl4RdTN5vENxmbBhbQcoE3
- uW4Z7Jn4qnU5/ASQ5nFZTRuZ2Y5YQ8bNYYLm0+ZUepWAXT2pAaTFx2H7jz5+sqxY2UYxXS/iWpJ
- CANx621CPFnEKw69zRGZ+9YWreRuhYdGgbhbbmz3vEex7XPgEot/nfV9ApdqWZrHKN+WseULuAL
- yXAVUH1JZ1pTW9NhNkmUxMiOKqcNaKtAg0jgM+6tf/iXGxsWZ9mlAdaEu6H+KKrZreyn2zEEteo
- Mbwnvdcu+9sMQeHV7EP1HnbkV5YduLRM8OpuMk+JMMiufUm6/InWO0ojr5TpgCZg6LDKJqdt/8B
- i9msKkcKoL0aSUIOT5w==
-X-Proofpoint-ORIG-GUID: N3GO1tC7OAJgMPj3AvTY7Jk5dYCXV9Gx
-X-Proofpoint-GUID: N3GO1tC7OAJgMPj3AvTY7Jk5dYCXV9Gx
-X-Authority-Analysis: v=2.4 cv=D4V37PRj c=1 sm=1 tr=0 ts=6a622ab0 cx=c_pps
- a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=uidagIbUEOmi54HA150A:9 a=CjuIK1q_8ugA:10
- a=EXS-LbY8YePsIyqnH6vw:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-23_04,2026-07-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 priorityscore=1501
- phishscore=0 spamscore=0 bulkscore=0 suspectscore=0 impostorscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607230146
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7958:EE_|IA4PR11MB9057:EE_
+X-MS-Office365-Filtering-Correlation-Id: bdad415d-b414-411c-3c4f-08dee8cbc507
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|366016|1800799024|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: DVcm7EqtaoTZSS31AI9erMSUwk3wIrRq6s/0ILqN9+s7wRClQyvbFB14v12Ehn2XTRJ87TuN9xvc1iFvvFIRoZeott+hGs544y+fahGN1cAopJrsEH7pxPKJckrV5MCg1uWKMEB3C7zKDrOEuJjpvJ4adoioUeABWMOMKb1F031Vkikqt7P9uGigdld/DyHS20l6PVf24TOe4sMf0IjELVs3Ubn7UI6nttc6Rj0o//WufqJYDISIQznMvYFpfz3IXesGxFwvbB9wxhbfGPMAl6IxS8u20x1WvgctIlzpDveBtKFFp6kiv0N2FTkb9iBZiQglquB7iK26LEyJvwSGAzP9RGhc6ChU8zKOgfvFkP5az4qlk6H54pXSl+i5Rdu/giy6/Vk10Pgkoa2UTJoyiSZBnT4mA5zbPRU8LlPrlYjqNDpSA0/Sq+ElJWfJyNeovi8Ohsmo0NWahBagiLcbSP8GYHst2o/x80ob/AVCIi5X2jo3mXNdYTPNm3WRBVgBUQgnEObjqTT2m0MoSeJz/FTt5g8ERjXw16sfcCAX3es9u8ZBfaKvqJRZsxdGh7cddDZp1vCe+ntNHHW3NW1MiiSWaJiFqEJ7xM3j1S9WkWLfGk0ogsl3v5882i5CCbEHSptwy0lpV7//7koT/1xJ1bIZl5s8lGLJAX1GOK30PPo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB7958.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WTBQYkpldHRBczI1eHY3Tkl6NlE1YXFQUndIL0o1Vy9lTlJGcEplT2x0Z3E5?=
+ =?utf-8?B?a0xTWGZ5d01oVDJZdmVBTzZ4K0VVUmR1WSttWnUzS0J4QTY4R0t6ZTBVN3la?=
+ =?utf-8?B?d3UyRC9rOHdEbGk1cWtNM2k4UXlQK1pZbkxDWFFpVlFZSFZlMDVMZHpjMy81?=
+ =?utf-8?B?SlMrNXQ0T1lHcExjZ2Q4TEdzZnNBb3JyakI2ajhuNElVeGJ6U1Bwa3dUdHVJ?=
+ =?utf-8?B?d0FOTkJnOFRkUDlTUi9xNGQ4ZGFQdmREUFRRbmNLNzhrZE0wY2lpMUZZRndB?=
+ =?utf-8?B?Mmg3Uk53NkJUb2Y1emZra0N2dEdGd0UydDJLVHMxQTlBbHc1THErdlM5Z2U2?=
+ =?utf-8?B?NXVQQ1RQRFhpVDVSWitOODNwYUw1OEd2UkI2VGcrNXFoMlMvZ0Z0a2h4cTFw?=
+ =?utf-8?B?bHdCeFBHcnVQTXpWRjllME9McUFFTUlLM2dhbG9zRDRUcWNESXRCWTdKdU9U?=
+ =?utf-8?B?WEVwRVlYRktxcWtLZlhWa2xjZDFrN0dRb05vMGZJY09BN0JYeTUrUlhSVG14?=
+ =?utf-8?B?WEZweGdmT2NWaWY4SmZXV05kaFo3MllKYlg1UVB0QjBCMExBYUVPc2NCWS9D?=
+ =?utf-8?B?ZnVEZ04waERRcXpyVDJzdENSMElvdzBvNk54d1NFN1pVaVN4SWxSeWN2WVlF?=
+ =?utf-8?B?N2M0QnV4dzhVSktFbldlMVVsV1VsMEI2ZEVmZ3ByMGJoSUpVWFlkR2Z5eDQ2?=
+ =?utf-8?B?RkE5eTZoc0pJenc4bUlzUWt4Um9sVCtyZ09nd2xjdWhIZHZnYmQyRkxCYWJJ?=
+ =?utf-8?B?M2YzclFJUUNscXlqM3ZydHMwMzBCS25uYXA0a3cwQ25sNUUzNTlPZ3R1TnJ2?=
+ =?utf-8?B?NUZtTXNQaG5PSytjdUJGTDY0RzJIcURmbTBmSUxGZWRGemo2QXhjVjJqT1JW?=
+ =?utf-8?B?RW15WmlEdE1MZjlwVk9VbnNiWTZiZ0RQQXFGZE9wRDVNa3k2amUxR2tKVDZM?=
+ =?utf-8?B?SkhsejZhK1JrTVg4VDdtRjVkLzhidUxCd3RqRlRHOW9ybmZpYXhYUVJvODVU?=
+ =?utf-8?B?a20yM1ZxU0RYZXR0MVVXZkF6UUg0RHhBTjJGbENsWTJBTE9HYlpraTc2K2kr?=
+ =?utf-8?B?U1BvK2V3TklaRmZnbDhuWFJHYVdINHR3b2Jmdkw1NnF4QUR3dTY1ejBsam96?=
+ =?utf-8?B?YVZpRUZCZkZkd1lKSWJBS2N4RW5FdnUyWW5RSnkwZG1aU3JSQmxHdkhMWUpt?=
+ =?utf-8?B?MjZYMTdxKzFscUtSaTdpSEtBUHFpQW1uU3lSbHE2YThENVg0STNmT3JOVU5W?=
+ =?utf-8?B?QnRKWGJ0bWJqRXpwUmJETGtSOGJUVGpUamphNzJCUUdrRzd2ZmNwdlpUWHRB?=
+ =?utf-8?B?bklnRGFkcTR3cmJ1Nzg4RTMybFByWTBLVnJ3cDU0WEhzMllnTlNkSlMvNDV2?=
+ =?utf-8?B?SjR2blNLcmc0ZytoblFiYWFkWFdnODlveFRiQ2xqY2N2ZFZsZUtCb1hySGFU?=
+ =?utf-8?B?ZVV3QmZoZ0ZyRG1rakg4UG5MY2g5L0NGL3RuRlRLRFBXbDlzNVluSThKdlha?=
+ =?utf-8?B?SWVLYXpQbUozYm50TzhvZ0V6YXd4amtvTk4xMDBXYVRpbUI3enhIT2ExUlU4?=
+ =?utf-8?B?andFMldTVEw3TkdmSXdHTm53aXNaSFdqTXArMzZ2TDdvS1M2QURtTDcrdGlw?=
+ =?utf-8?B?MHU5dk1xVlVLKzdOT0ZEcmpNS0hUL2FZQ0l6U2xPL0VVYzFoUEpYTU92MTN5?=
+ =?utf-8?B?dC92N2d2c2drbjF1K2ZKYkVLSTNoRCtpc3ExOGljdHozSTNTdTk0RlRHb3JF?=
+ =?utf-8?B?TkRNMHo5UlEyQlArTVpjaGxUVFRUQ2trWnl6UGEvVXhmS3RXRWlrWlBoMUJP?=
+ =?utf-8?B?c2U3azZrYWJNUndvMVY4SkdEQmN6MVF1S2ZHNWtlMnVCa1NmbmFRQ0p6QzhX?=
+ =?utf-8?B?YjEvaFZwUU5lYTJScHNwaTkySWdxVzVSMTlDN2tlR0I2UEdsSkhZYlFUYVgy?=
+ =?utf-8?B?UWw5NDJ1aDlNQ3o3VVZhUk1oS0NaQmV2VGE1TVZSVm9BeHpVY3JPTGlxYTRl?=
+ =?utf-8?B?QTlsZUpkR3RCOExiNFpzK1EzWmJ0WkVQeHNENnRlaENvMmlNem1USmlPaXd3?=
+ =?utf-8?B?MnZHMEhaZ1M5ZGlNSS9BUW5BancwT1UyNUxaWDRmYjBkQjhCcCt1YmxTc2ZR?=
+ =?utf-8?B?a1RjSlNVWnlielE2NHp1VXNZVFl3cjNUa2xhMFBGaWZFNUQ0RnRDNzI2WHYy?=
+ =?utf-8?B?Z2FjbXMrWWxQVm1GZHBhb2NIS0RLWWZIdHZUUmcvSFMrc3NXRitiNmFIMjVN?=
+ =?utf-8?B?MFhWNjFSaHFPUWJUd3FBWC9KRUlIKzRCaWJ1VS9keU94Q3QvM2llaEtwWG5o?=
+ =?utf-8?B?N0xXZWMvQnZ4QzBHVVdjTnBPS0xsN2QySWU2TzR2NEs1TkJsNzZlZz09?=
+X-Exchange-RoutingPolicyChecked: ludUkaUJQ2vfmm4N1JPb5XLFi+ZIrClOEcLJQDsM12JaGJdqOFKhPVWwUblqhcerr7CcC1ssx9jbVZUBK7hcmpIx2VDPljGYyeJjODkB03p0IJ9ZjVjbvw8Nx3UKUohDDh8d38Mvv3UH4EX3/zK8DskBBYy4JhctvYmeGZ9w7YFnBdM2LBSL4JszkzsFGQ3wy7Te6a0abD6eILREpwLZL2EdBfkAwWf3sJJsJIN4HwUZ9PQvSd4YZXS3XEkTyuiJoBOxl6bH1p/8SeM9Kag9leyIVa/5fqWncowIqLQt8DvmpgplTNwsy48nSaW5ds/IGwW/zWKgDZfAuX1aaJvyFQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: bdad415d-b414-411c-3c4f-08dee8cbc507
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7958.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 15:05:01.6256 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gKW3CHaePh0r1NQTu5WHOZG2QQpLr64F+5Hk5L1ixfuUHrEOqQc1fCuGR8VZwJF0hKXjlAim+Ew2TYGVvB3SIw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA4PR11MB9057
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,32 +179,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 22, 2026 at 02:39:54PM -0500, Rob Herring wrote:
-> On Sun, Jul 19, 2026 at 09:38:36PM +0530, Vishnu Saini wrote:
-> > Add BOE DV215FHM-R01 21.5" FHD (1920x1080) dual-channel LVDS panel
-> > compatible string to the panel-lvds binding.
-> > 
-> > Also remove the 'port' requirement from the required list to allow
-> > dual-channel LVDS panels to use the 'ports' graph topology with
-> > separate port@0 (odd pixels) and port@1 (even pixels) nodes, as
-> > required by the dual-LVDS binding.
-> > 
-> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> > ---
-> >  .../devicetree/bindings/display/panel/panel-lvds.yaml          | 10 ++++++++--
-> >  1 file changed, 8 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-> > index b89f86bc0683..584818b2df6e 100644
-> > --- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-> > +++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
-> > @@ -58,6 +58,8 @@ properties:
-> >            - hydis,hv070wx2-1e0
-> >            # Jenson Display BL-JT60050-01A 7" WSVGA (1024x600) color TFT LCD LVDS panel
-> >            - jenson,bl-jt60050-01a
-> > +          # BOE DV215FHM-R01 21.5" FHD (1920x1080) dual-channel LVDS panel
-> > +          - boe,dv215fhm-r01
-> 
-> This belongs in panel-simple-lvds-dual-ports.yaml.
-I will use this path in next revision, this will also change DT. 
-> Rob
+
+On 22-07-2026 20:54, Raag Jadav wrote:
+> On Wed, Jul 22, 2026 at 03:11:37PM +0530, Riana Tauro wrote:
+>> When an interrupt is received for correctable errors indicating that error
+>> counter has crossed its threshold, read the current counter value and
+>> deliver a drm-ras error-event to userspace for each affected component.
+>>
+>> Also send drm-ras error-event to userspace for uncorrectable errors on
+>> receiving an AER.
+>>
+>> To avoid sending duplicate events when the same component appears multiple
+>> times in the response, Send the error-event once per component.
+> ...
+>
+>> @@ -425,6 +487,12 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
+>>   			xe_info(xe, "[RAS]: %s %s detected\n", comp_to_str(component),
+>>   				sev_to_str(severity));
+> Similar to threshold crossed case, we should probably have a BUILD_BUG_ON()
+> against XE_RAS_NUM_ERROR_ARR.
+
+This is already added part of correctable. Seems unnecessary to add it twice
+
+>
+> Reviewed-by: Raag Jadav <raag.jadav@intel.com>
+
+Thank you for the review.
+
+>
+>> +			/* Send event once per component */
+>> +			if (!(sent & BIT(component))) {
+>> +				sent |= BIT(component);
+>> +				ras_send_error_event(xe, severity, component);
+>> +			}
+>> +
+>>   			switch (component) {
+>>   			case XE_RAS_COMP_CORE_COMPUTE:
+>>   				action = handle_core_compute_errors(arr);
+>> -- 
+>> 2.47.1
+>>
