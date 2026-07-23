@@ -4,58 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AA51C531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 09:55:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E6C9C531CB
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 10:02:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A57F410E570;
-	Thu, 23 Jul 2026 09:55:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B6AB10F054;
+	Thu, 23 Jul 2026 10:02:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=dolcini.it header.i=@dolcini.it header.b="qaLWn5K1";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RDh7jmjL";
 	dkim-atps=neutral
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0AC710E570
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 09:55:46 +0000 (UTC)
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
- by mail11.truemail.it (Postfix) with ESMTPA id 93A361FB1B;
- Thu, 23 Jul 2026 11:55:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
- s=default; t=1784800545;
- bh=Y3tZ5O24GEXnRTH52xgqivlFmeqGANuaEw/IVeFgWqc=; h=From:To:Subject;
- b=qaLWn5K1d/MISN2NzJx2HXw7bDdBbvecuILtiHNRvSZhyp46mFlAwTbb8Qe+8eGFT
- GLaBdBwmbyw4K3/+6VuHJcjjQUPsR2v5ELfsah4//XT3newYLL96nefSjtF8D4u2NB
- zAwZhIi+vKXGDRdPTeZvg1iPu5prh4Wgd1NHHRS2uG+uNr5g/1XFDhvbOV0hy7TZx9
- vQ889N47V5i/SgaxofkXuUHobVY+odVGxV24t/I3fSEDPm4KaD8u7FH21W8h+dgK2q
- Zp9ONutZFDmFglyB2QKuEntZ9dhcRG13yMzzIZ7pRx85OpCbAFq/hCNSqMJJ5PkoHI
- u4LqSep0mTvWQ==
-Date: Thu, 23 Jul 2026 11:55:43 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Marco Felsch <m.felsch@pengutronix.de>
-Cc: Francesco Dolcini <francesco@dolcini.it>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Alexander Stein <alexander.stein@ew.tq-group.com>,
- imx@lists.linux.dev, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Francesco Dolcini <francesco.dolcini@toradex.com>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v2 2/4] drm: mxsfb: Add optional DPI output bus-width
- configuration
-Message-ID: <20260723095543.GB180480@francesco-nb>
-References: <20260723093813.180089-1-francesco@dolcini.it>
- <20260723093813.180089-3-francesco@dolcini.it>
- <nwemnkwk5sjo5w6yelba5nmdlxgu7pxsalrxjixnrjlhfyceza@tamb54s7iswz>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55E3B10F054
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 10:02:52 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id B218F1A11A5;
+ Thu, 23 Jul 2026 10:02:50 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 86151602B8;
+ Thu, 23 Jul 2026 10:02:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id D5CFD11C10330; 
+ Thu, 23 Jul 2026 12:02:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1784800970; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ in-reply-to:references; bh=PUgVr3xoru84whxS4+qfYYSdvhcNRo2BGQ0ueQFurr4=;
+ b=RDh7jmjLz//6vilz+TPdxwKpSpmULC1wyXsKIo8s58UDJRlBjial0BbpkcDcFZjXMYF/WJ
+ SjnxCHxRcZ6G0F/9aRjdPm8dfq6TsxdOerzq3N/DZwGw/oDRBToKTx9yVsrZxpAntcHbn1
+ yNAlpm+oK3w0sMi+BfwXzOMPLf9AafjqzRbxA8Vq+V2mEwcAKnczPIMBFl3j81M4YutB/w
+ KoMilsauvm+tLwh9VxdpHFy9aYVqlQ1530MpSBQjT+utYRwQRvI78Y63UkDzlw+rGXD4GJ
+ V0+MKYp0ESGff8pujDhqtPgAeJAksPphp2iAOUUpho9n3mtGfBSZo384Zib8dw==
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 1/2] drm/logicvc: Avoid use-after-free with
+ devm_kzalloc()
+Date: Thu, 23 Jul 2026 09:53:49 +0200
+Message-ID: <cV8thpNMTuqGECHamaJsPw@bootlin.com>
+In-Reply-To: <20260722100029.27C861F000E9@smtp.kernel.org>
+References: <20260722-logicvc-uaf-v3-0-f3b2319d58a6@bootlin.com>
+ <20260722-logicvc-uaf-v3-1-f3b2319d58a6@bootlin.com>
+ <20260722100029.27C861F000E9@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <nwemnkwk5sjo5w6yelba5nmdlxgu7pxsalrxjixnrjlhfyceza@tamb54s7iswz>
+Content-Type: multipart/signed; boundary="nextPartL3BGsdYcRdmZW2Iw6n2zNw";
+ micalg="pgp-sha512"; protocol="application/pgp-signature"
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,116 +62,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello Marco,
-thanks for the review
+--nextPartL3BGsdYcRdmZW2Iw6n2zNw
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Date: Thu, 23 Jul 2026 09:53:49 +0200
+Message-ID: <cV8thpNMTuqGECHamaJsPw@bootlin.com>
+In-Reply-To: <20260722100029.27C861F000E9@smtp.kernel.org>
+MIME-Version: 1.0
 
-On Thu, Jul 23, 2026 at 11:48:03AM +0200, Marco Felsch wrote:
-> On 26-07-23, Francesco Dolcini wrote:
-> > From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > 
-> > LCDIF programs LCD_DATABUS_WIDTH from the selected media bus format. The
-> > format reported by the downstream panel or bridge describes the display
-> > input, but it does not describe how the LCDIF data pins are physically
-> > wired on the board.
-> > 
-> > These can differ. For example, a 16-bit LCDIF bus can be connected to a
-> > 24-bit display by wiring the available color bits to the corresponding
-> > display inputs. In that case, using the display's 24-bit format to
-> > configure LCDIF selects the wrong data-bus mode and changes the assignment
-> > of color bits on the LCD_DATA pins.
-> > 
-> > Read the optional bus-width endpoint property from the LCDIF output port
-> > and use it to select the media bus format used to configure LCDIF. This
-> > allows the LCDIF bus mode to describe the physical interface
-> > independently of the downstream display format.
-> > 
-> > When the optional property is absent, continue using the format reported
-> > by the downstream display device, preserving the existing behavior.
-> > 
-> > Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-> > ---
-> > v2: use the common bus-width property instead of the legacy interface-pix-fmt
-> > ---
-> >  drivers/gpu/drm/mxsfb/mxsfb_drv.c | 24 ++++++++++++++++++++++++
-> >  drivers/gpu/drm/mxsfb/mxsfb_drv.h |  2 ++
-> >  drivers/gpu/drm/mxsfb/mxsfb_kms.c | 12 ++++++++++++
-> >  3 files changed, 38 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > index 9b8fbda85d28..0545718a4b65 100644
-> > --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> > @@ -12,7 +12,10 @@
-> >  #include <linux/clk.h>
-> >  #include <linux/dma-mapping.h>
-> >  #include <linux/io.h>
-> > +#include <linux/media-bus-format.h>
-> >  #include <linux/module.h>
-> > +#include <linux/of.h>
-> > +#include <linux/of_graph.h>
-> >  #include <linux/platform_device.h>
-> >  #include <linux/property.h>
-> >  #include <linux/pm_runtime.h>
-> > @@ -209,7 +212,10 @@ static int mxsfb_load(struct drm_device *drm,
-> >  		      const struct mxsfb_devdata *devdata)
-> >  {
-> >  	struct platform_device *pdev = to_platform_device(drm->dev);
-> > +	struct device_node *np = pdev->dev.of_node;
-> >  	struct mxsfb_drm_private *mxsfb;
-> > +	struct device_node *ep;
-> > +	u32 bus_width = 0;
+On Wednesday, 22 July 2026 12:00:28 CEST sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider: - [High] The local variable `bridge` is passed to
+> `drm_of_find_panel_or_bridge()` without initialization, leading to a crash
+> when the function returns an error without setting it. --
 > 
-> With this beeing set to '0' and ...
+> --- Patch [1]: [PATCH v3 1/2] drm/logicvc: Avoid use-after-free with
+> devm_kzalloc() --- commit 95ef468f51e9bfed648e230bd616663ec7bac106
+> Author: Romain Gantois <romain.gantois@bootlin.com>
 > 
+> drm/logicvc: Avoid use-after-free with devm_kzalloc()
+> 
+> This commit transitions the panel, CRTC, and encoder objects to DRM-managed
+> allocations. It removes devm_kzalloc usages in order to fix a use-after-free
+> bug.
+> 
+> > diff --git a/drivers/gpu/drm/logicvc/logicvc_interface.c
+> > b/drivers/gpu/drm/logicvc/logicvc_interface.c ---
+> > a/drivers/gpu/drm/logicvc/logicvc_interface.c
+> > +++ b/drivers/gpu/drm/logicvc/logicvc_interface.c
+> > @@ -147,36 +143,35 @@ int logicvc_interface_init(struct logicvc_drm
+> > *logicvc)>
+> > 
+> >  	int encoder_type = logicvc_interface_encoder_type(logicvc);
+> >  	int connector_type = logicvc_interface_connector_type(logicvc);
+> >  	bool native_connector = logicvc_interface_native_connector(logicvc);
+> > 
+> > +	struct drm_bridge *bridge;
+> > +	struct drm_panel *panel;
+> > 
 > >  	int ret;
-> >  
-> >  	mxsfb = devm_kzalloc(&pdev->dev, sizeof(*mxsfb), GFP_KERNEL);
-> > @@ -236,6 +242,24 @@ static int mxsfb_load(struct drm_device *drm,
-> >  	if (IS_ERR(mxsfb->clk_disp_axi))
-> >  		mxsfb->clk_disp_axi = NULL;
-> >  
-> > +	ep = of_graph_get_next_endpoint(np, NULL);
-> > +	if (ep) {
-> > +		of_property_read_u32(ep, "bus-width", &bus_width);
+> > 
+> > -	interface = devm_kzalloc(dev, sizeof(*interface), GFP_KERNEL);
+> > -	if (!interface) {
+> > -		ret = -ENOMEM;
+> > -		goto error_early;
+> > -	}
+> > -
+> > -	ret = drm_of_find_panel_or_bridge(of_node, 0, 0, &interface-
+>drm_panel,
+> > -					  &interface->drm_bridge);
+> > +	ret = drm_of_find_panel_or_bridge(of_node, 0, 0, &panel,
+> > +					  &bridge);
+> > 
+> >  	if (ret == -EPROBE_DEFER)
+> > 
+> > -		goto error_early;
 > 
-> no bus-width property present, this ...
+> [Severity: High]
+> Are panel and bridge guaranteed to be initialized if this call fails?
 > 
-> > +		of_node_put(ep);
+> When drm_of_find_panel_or_bridge() returns an error like -ENODEV (which
+> is valid for native DVI connectors without an OF graph), it might not
+> initialize these variables. Previously, interface was allocated with
+> devm_kzalloc(), so they were safely initialized to NULL. Now, they are
+> uninitialized stack variables.
 > 
-> Furthermore please see
-> 20260723-v6-18-topic-imx93-parallel-display-v13-1-ccf3f9bbc0fc@nxp.com
-> for a proper error handling.
-
-Not sure if I see the value on doing this. You are just doing the
-validation of the DT again in the code. My understanding is that this is
-not the way to go.
-
-BTW, I assume you are suggesting something like this, if this is not the
-case please let me know
-
-	if (ep) {
-		err = of_property_read_u32();
-		of_node_put(ep);
-
-		if (err && err != -EINVAL)
-			return dev_err_probe(dev, err,
-					     "failed to query bus-width\n");
-	}
-
+> > -	ret = drm_encoder_init(drm_dev, &interface->drm_encoder,
+> > -			       &logicvc_encoder_funcs, encoder_type, NULL);
+> > -	if (ret) {
+> > +	interface = drmm_encoder_alloc(drm_dev, struct logicvc_interface,
+> > drm_encoder, +				       NULL, encoder_type, 
+NULL);
+> > +	if (IS_ERR(interface)) {
+> > 
+> >  		drm_err(drm_dev, "Failed to initialize encoder\n");
+> > 
+> > -		goto error_early;
+> > +		return PTR_ERR(interface);
+> > 
+> >  	}
+> > 
+> > +	interface->drm_panel = panel;
+> > +	interface->drm_bridge = bridge;
 > 
-> > +	}
-> > +
-> > +	switch (bus_width) {
+> [Severity: High]
+> Could this assignment cause a crash later during driver initialization?
 > 
-> switch should fail. Therefore I would recommend to set the default to
-> 24 (bit) aka no limitation.
+> If drm_of_find_panel_or_bridge() returned -ENODEV, bridge will contain
+> stack garbage. Later in logicvc_interface_init(), the code evaluates
+> if (interface->drm_bridge) and calls drm_bridge_attach(), which would
+> dereference this uninitialized pointer and trigger a kernel panic.
 
-I would not do that.
+Indeed, these two stack variables need to be initialized to NULL.
 
-We have an optional property, the DT is validated against the binding
-for correctness, we should not validate it again in the code. If the
-property is not present or it contains an invalid value it is
-just ignored, preserving the existing behavior.
+-- 
+Romain Gantois, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-Francesco
+--nextPartL3BGsdYcRdmZW2Iw6n2zNw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEETFOGm0tqZfYwVxBymGofZEoxB4MFAmphyI0ACgkQmGofZEox
+B4O0hQ/9GIq1yFYGDRWcAHes/JCkM4TcBm0noQYQkwd9CUQaPMGNJPjYfbmbTquY
+da3Ab3Cq9E7VPJK9m+M5mXJT1OmDoTuzge38h6lxzoDT00qtlqWxxDKG51C96YPO
+m9K67qKwQvPFFkC6Zo7ZoAlNM087HFLhS6bg8hx0ls2OyayLtJnenm+Twv9te3aG
+sz3iqI85z2ff77wPVzSYBPhvAPIC0djjbTvQ6n5uG6cGS0P+lhGWf+1aGc0JMN4e
+5X30+b1AS8vTISswmEOafAyDFxNaxg2v//lQHPDporpzFsHuNpOvz6ZYhbudGgKE
+rLk0pucfspcLeHalfghacWK9UAh2n6H1X0M1ggmbsuVnJK2nBxYw+SvLWmF73G+T
+WX+UA9NRAES2wMpM19HOlr3FKSQutKAksnGlhVg7lFWBFmEm9pqQntyh4S+rjx1O
+UQWus4SYkSPBQNVaEPfYWInL5pNvOZMsPEDvvsIOa0CtA+xv7XD0q9Fyw51jXCso
+SokFPx0h3YDobfnOCpt6TcYtu81VT8h2lC5qOu8Z6z5652Ji59whkfNw3glZCqqD
+vqKFMSvlvMqRtOeNZLERcrzjjGFJSKu6STnt3lgG3RT9rdbrPmiA7CKph9FMb5oN
+5jCy2h9RjSEtrGj+Cx93fzpDgZBTKyapxHIPAw6KQs/P/OIQ2Po=
+=t1LC
+-----END PGP SIGNATURE-----
+
+--nextPartL3BGsdYcRdmZW2Iw6n2zNw--
+
+
 
