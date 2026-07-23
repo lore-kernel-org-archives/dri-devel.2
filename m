@@ -4,46 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CD52C531F8
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 16:05:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2952FC531F7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 16:07:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBE7010E1E5;
-	Thu, 23 Jul 2026 16:05:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 662D310E5BA;
+	Thu, 23 Jul 2026 16:07:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=emersion.fr header.i=@emersion.fr header.b="VlHWFXy8";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="PmCSnxoa";
 	dkim-atps=neutral
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D34E10E1E5
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 16:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=emersion.fr;
- s=protonmail2; t=1784822573; x=1785081773;
- bh=YBlrn9LSU6RohwwPap8BAU2aHQ6Vopgg+AeM1TtIJZI=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=VlHWFXy8pGidD90RZWG2r105bumMfuFzQWV/De7i/TLRE5NxWdZv/M6fJV+3lBFU9
- F2JwwaZZHBLq7LiLg7hdKsA0YQhNnmOg0C93GkPiKrolDI/Bjp66MXFeuNaOcv20vj
- PVJqkmsByZfZ7q4MxH0sGEvsm1/186THzTprjkywhzz2EZgsnyggkPC6P3smx24TBN
- f3y6mr1GMpHQfp25+KTCEQv54tsEIRQdtzFJ/8jy/6PD/gvPF760o3QB3XRc5xYEmI
- 6ODFiha+9p0k9wocSu3r3Ic9ihZhkORBqk9LtDGyMgrh234KnO/SzdXTjU2Qe0PEIM
- XRhmbj0eTnKqA==
-Date: Thu, 23 Jul 2026 16:02:48 +0000
-To: Pekka Paalanen <pekka.paalanen@collabora.com>
-From: Simon Ser <contact@emersion.fr>
-Cc: dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- Daniel Stone <daniel@fooishbar.org>,
- =?utf-8?Q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Simona Vetter <simona@ffwll.ch>
-Subject: Re: [PATCH] drm/atomic: introduce PAGE_FLIP_EVENT property
-Message-ID: <jfGv54IA2I9_Yz-NT7g1GnFb9ds45-b8I0j9wnP3z6tvZn-0GxizsDWBmfu_eiAKlx7cmnIrb2YPS7svOUULV1_QELnJTFeYW4LEE3PrH8A=@emersion.fr>
-In-Reply-To: <20260616141546.653a21b0@fluorite>
-References: <20260530171422.4615-1-contact@emersion.fr>
- <20260616141546.653a21b0@fluorite>
-Feedback-ID: 1358184:user:proton
-X-Pm-Message-ID: 8a8f426bb2d3ee4a239341219549041aacafcf37
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77CCD10E5BA
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 16:07:19 +0000 (UTC)
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-5b2a73da7e1so10908e87.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 09:07:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784822837; cv=none;
+ d=google.com; s=arc-20260327;
+ b=MK/OilXIkJnwybrRRx73aIQkrCR/kMLwjl9obi487Ac/2FFfv785B5fP3qKELv7UFW
+ jr6gZiW3FZhC5cakLDRt3/96eM8m6m/ZpjWktFZ7dNnZx2INJsSt/hLVJLAHh4kcTanR
+ sQfpXhB+dzLz3rFascNPNK27hWY+3l8vOCxlIYDlwVYNSTSWDIpOLct1KxHjXqBuGf6l
+ 1iuvWZ8x9t+frvIX03ARyFXtdU6fd7rkb6t0IrbgeUXrCyUJ4o6dkkTGcEyZHWcLbDM4
+ I9SFt3qKDXoOwo/PFxiVOBIKJuTACu1IcbRht8TcrvOrBaj5mocc9OsWJ1ULA3jYX5pk
+ Johw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=lLj8QIPDjw+wrnYmjqmWidOihzraKtluDpbS+qkgPXU=;
+ fh=OXHgIBeGL8aI6di25khw45sreZ9hu/YMw4A9qwm9XW4=;
+ b=QRHhOBoHOmfSr9ud0LTV4/lj2I4Otmu4xJpUPUcnPAPzr6z5bHdqmJLkb33gcSaOoy
+ ayt/zfTPwv3qloPpjDOkYOL2OxptfTYJbyGJvSF03yIiJwJQsxkT2SGyDvoofkzbWnzo
+ DBAUOtSG6c4diO4sEQ8CJ3Iu3zTxVbHSxREWHCT3ngTpKcglTQDZBRNOu0KUanghy699
+ rcMjT3icDv2ELwPYtxCXh80Ik2u8uMPtQE8fX1B93ZuWhmYFa4istG7ZceSmkOqMR29z
+ iQaXKIfluqaAFs8dSapyAcLUhX/TJ8xTwyOc/1/esY3r+qT7l7SGx8TXAhm575AOsgUq
+ Gvwg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1784822837; x=1785427637;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=lLj8QIPDjw+wrnYmjqmWidOihzraKtluDpbS+qkgPXU=;
+ b=PmCSnxoaVqqJeFY+jTmU4ZfpM7cmbM6tPTA4ijmC3BgAcAPHvUMO5LefRsV79rvuzo
+ tVKPEqNuEkSxR0x6kFbpn8v+Lsj+lIGEwrLQSGQqsKImr9jNSRV5E5prLUylTbnPZa5b
+ gzkRrdBRBqHgf2VrDsdCDmFj+Ue4i42UzAAWJOXUkwPR4+mpzf23w/5e5M37MGqlbkDX
+ rouzKzGCnz/kvBFfWOCuNZDaa4xi0GCcYrPnxgpFrZoGu6MPSpEET8UOvu/0i5tMaqEW
+ HemxutNxFCAXHRac0cTH+xQjzYxFCGGUNcfR0ZoewuhNeeChpjFfyvqdZTmBt8/d3eQ8
+ 25OA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784822837; x=1785427637;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=lLj8QIPDjw+wrnYmjqmWidOihzraKtluDpbS+qkgPXU=;
+ b=IX8awqepOi3YkW21YxaLnMJKwf97MQT+sujN6g2KJm+aq2ibTSuMeFlXuLfACXxgT2
+ YCaKy92Wcq0hoBHafdje8+K0VgynJ1B6vP16+c/eV81+d2KRbzyOABeLE/BTNyaB5gKj
+ LcZAcvuLWN/4C5eGBZFblIfPO381G05/9vTWSPVNArb8IAgrFSufl/VhmBMD84mSRQur
+ 5yVGaNRa7B9DJGRbHtR/rcKkDlWgIsgdBgmlNepu8FgHz4WYrsi0R75Xi8wsX9cAys3k
+ 3N7RE8CDk6DrPkkCHLsM8+mwkjS923ZTCgbdk2v9kTQYSBO0W1tPf5HzB7Jr/Nqwngum
+ KruA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrNMKqfh7gp2MABuZX8aup5sTiW/fEoTBAeBTTYVbShzrNYn2AO1WY2XF4omBlRwW1Kw9l0TbCjEmU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YynSOzrKVaKBFeJTPuYwGr2fWg8B+sZTPZDAF/Y6UBnBlZUfXLV
+ dqRh4axKa9pBJbyztFbRYyzwvf0Z/dwufer+DbG8jA+a4cF4aK/HxbGqwHm/nOWKczSLTda9oth
+ BWz9kWfWNuTS6OeJFnbJ71knHLOgdSJdNz+pal3E=
+X-Gm-Gg: AR+sD1073SCdyetWndhg6tvwF57zeN185UPsGoSXw1qAUJhhPaJuvvpO7R5zBRTOg5I
+ tEOB6/5EZalVRj3Y8yXZKIqWGUsGzv0SO2i7XeJhu+/p4p8TGv10U0svZqGYhfHudan7pqFFPua
+ NvVl/cXf1nvrHEFefMFadDeyKz+y0IQtesBDlPFs6ptfto/ZMQJKPyphYgxUUMXBEn72I6KFugt
+ r6AyNzWVWK6gJf9zzznf4Hvump+bsY/FV0Gl/5K5AAh/NbWhEmp+9DexNUoXkBHL5DwxPXWmM8d
+ Fnc6H4IomWzNw/E=
+X-Received: by 2002:a05:6512:3c8f:b0:5ae:a4e8:47be with SMTP id
+ 2adb3069b0e04-5b2b2968164mr196065e87.7.1784822836866; Thu, 23 Jul 2026
+ 09:07:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260623015459.1153884-1-xuehaohu@google.com>
+ <20260722233932.3997681-1-dhu@x6u.co>
+ <20260723094625.GE110966@unreal>
+In-Reply-To: <20260723094625.GE110966@unreal>
+From: David Hu <xuehaohu@google.com>
+Date: Thu, 23 Jul 2026 12:07:04 -0400
+X-Gm-Features: AUfX_mxZfBk3L4aJdDJNuS21FbP4tt0j-EIQJVeIi7KxTXcs6-s6PmQ53scVb6g
+Message-ID: <CAPd9Lg9ZL9VwubYbn350pdUbQnnfc7FwXoPU3nPgvBHWRxLOyA@mail.gmail.com>
+Subject: Re: [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk
+To: Leon Romanovsky <leon@kernel.org>
+Cc: dhu@x6u.co, Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, David Laight <david.laight.linux@gmail.com>, 
+ Nicolin Chen <nicolinc@nvidia.com>, Kevin Tian <kevin.tian@intel.com>, 
+ Ankit Agrawal <ankita@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
+ Pranjal Shrivastava <praan@google.com>, linux-media@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, stable@vger.kernel.org, 
+ jmoroni@google.com, kpberry@google.com, chriscli@google.com, 
+ viursachi@google.com, sashiko-bot <sashiko-bot@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,87 +117,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tuesday, June 16th, 2026 at 13:16, Pekka Paalanen <pekka.paalanen@collab=
-ora.com> wrote:
+On Thu, Jul 23, 2026 at 5:46=E2=80=AFAM Leon Romanovsky <leon@kernel.org> w=
+rote:
+>
+> On Wed, Jul 22, 2026 at 11:39:32PM +0000, dhu@x6u.co wrote:
+> > From: David Hu <xuehaohu@google.com>
+> >
+> > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
+> > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
+[ ... ]
+> >
+> >  drivers/dma-buf/dma-buf-mapping.c | 19 +++++++++++--------
+> >  1 file changed, 11 insertions(+), 8 deletions(-)
+>
+> Could you please avoid sending patches as replies? It severely disrupts
+> the reading flow when using mutt's threaded view.
+>
+> Regarding the patch,
+> Reviewed-by: Leon Romanovsky <leonro@nvidia.com>
+>
 
-> On Sat, 30 May 2026 17:14:44 +0000
-> Simon Ser <contact@emersion.fr> wrote:
->=20
-> > Currently user-space can only request page-flip events for all CRTCs in=
-cluded
-> > in an atomic commit. This is cumbersome with multi-CRTC commits: when m=
-oving a
-> > plane from a different CRTC, or when disabling a plane, user-space has =
-no way
-> > to opt-out of the page-flip events.
-> >=20
-> > Additionally, page-flip events are invalid for already-disable planes, =
-so
->=20
-> Hi Simon,
->=20
-> do you mean CRTCs? I find "already disabled" to be not really clear
-> that you mean off->off transition.
+Hi Leon,
 
-Oh, yeah, indeed!
+Understood. In the future, I'll start a new thread for new patch revisions.
 
-> > user-space needs to add special cases [1]. Libraries cannot add planes =
-to the
-> > commit without risking causing unexpected page-flip events for the
-> > compositor [2].
->=20
-> If a library adds a plane that is currently associated with another
-> CRTC, would it not be a logic error in userspace if it didn't expect
-> that CRTC to be involved? Mostly likely if it succeeds, the plane
-> would disappear from its old CRTC unintended.
->=20
-> If a CRTC is unexpectedly involved, userspace risks EBUSY when it wants
-> to update that CRTC for real.
+Thank you for your review.
 
-The plane is involved anyways, and the library can figure that out. The
-library is fully managing the plane, and has ensured it's turned off
-before migrating it to a new CRTC. What's unexpected and unavoidable is
-the page-flip event on the old CRTC.
-
-> > Figuring out what CRTCs get implicitly included in a commit is
-> > non-trivial [3].
->=20
-> Yes, but is this actually helpful rather than making the failures more
-> rare and harder to debug?
-
-I don't believe spurious page-flip events help that much in that regard
-TBH. This only helps if the page-flip flag is on and user-space didn't
-mean to include these other CRTCs. The benefits of the new API outweigh
-the small cost of sometimes finding a bug a bit quicker. If some
-user-space believes otherwise, they can still keep using the old global
-flag.
-
-> > diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
-> > index 63ead8ba6756..5ad6681bd47c 100644
-> > --- a/drivers/gpu/drm/drm_crtc.c
-> > +++ b/drivers/gpu/drm/drm_crtc.c
-> > @@ -248,6 +248,11 @@ struct dma_fence *drm_crtc_create_fence(struct drm=
-_crtc *crtc)
-> >   *=09The sharpness effect takes place post blending on the final compo=
-sed output.
-> >   *=09If the feature is disabled, the content remains same without any =
-sharpening effect
-> >   *=09and when this feature is applied, it enhances the clarity of the =
-content.
-> > + * PAGE_FLIP_EVENT:
-> > + *=09Atomic property for requesting a page-flip event on this CRTC.
-> > + *
-> > + *=09The value of this property is an integer value which always reads=
- as
-> > + *=09zero and can be written with 1 to request the event.
->=20
-> It took me a while to realise; should probably explain here that if one
-> uses this, then they would not use DRM_MODE_PAGE_FLIP_EVENT at the same
-> time.
-
-Right.
-
-> Does this allow asking for an event for a CRTC off->off
-> transition?
-
-It does not.
+Regards,
+David
