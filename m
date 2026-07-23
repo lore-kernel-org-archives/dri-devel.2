@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D4CC531F4
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:36:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 472A4C531C9
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:36:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85C1410EF37;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 523F110EF3F;
 	Thu, 23 Jul 2026 01:35:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Yaznco3S";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="OSNRC4G6";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6517E10EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B7B710EF09
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770541;
- bh=1Vzn7su6rOQ52y73RK6RVJhKKl0bPsG7lJ3gcEDnl2w=;
+ s=mail; t=1784770536;
+ bh=+vnOPavb35iYOmhQFn+rlvlLoNLZ072zJc+5bQT07Uk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Yaznco3S6ClKua9KFEbmIqEHoIlj5CSdw+xwqWojr4os+YCa2OLwqRcZ7S2wu2C8F
- Ljs3jC4MlBjI7Clf5tLj1RSDQI6VwHTnhBeFJIozPGGLo7sM3+DRqcsyj3eZwZLojv
- XHFodnFzc0TK6CFAj6Rbxw1Cv4qSYsIlcVQhKQIvZW6myknrtdBD7VnIOptk6l9Ula
- z+NO3VL/zqQjzomoI53epz4TEZVXAT2XEr/NcKlmtvxC3UhfkR+A/dgIj9VhyTySfP
- KU5B0k2NWSbATiwluRW/NRDIGGLZzpxa9e7u0apHi3xJfmVR9hVRnCLHSIEs2cbxg3
- FX+myUkDFrDeA==
+ b=OSNRC4G6eyIA4zMHq1az/iK0e6oiX0BzCH3c5Gj1WSd3u9hJRA3l/uFjGWlX9Mbca
+ +c5gipzgO7Mar+b9RqjCkqArB/55sK8iFjHweXcjT1hazymbkzn4JdvDZI4ZWp7B7c
+ u8HheRPr2f/v/CVQcaJj/jrTVPms3GO7awQ8bR47OZTBDGZBa05eD2pvLrOD1t78S1
+ zFoGFtXrTTYL3TekjPseMVOiEXbKGkq4GokSVt5FFYGr/CAjtp4kL/mRCNKRieNKcq
+ xU6d9x/Xz/IBfA1P6jBGJDXgMabNsjCheCy47FGTJdYgomj6MlnKGJsHOjQh+fT4ds
+ g09zkDh/gwNKQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1886017E0857;
- Thu, 23 Jul 2026 03:35:41 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D4AD317E1550;
+ Thu, 23 Jul 2026 03:35:36 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:45 +0300
-Subject: [PATCH v9 56/61] drm/tests: hdmi_state_helper: Add
- connector-provided max_tmds_char_rate coverage
+Date: Thu, 23 Jul 2026 04:35:39 +0300
+Subject: [PATCH v9 50/61] drm/tests: edid: Fix conformity for 4K RGB/YUV
+ 340MHz EDID
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-56-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-50-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -79,160 +79,191 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Test the hdmi_clock_valid() logic that rejects modes whose TMDS
-character rate exceeds connector->hdmi.max_tmds_char_rate.
+The test EDID added by commit 54a5f1c4d5f8 ("drm/tests: hdmi: Provide
+EDID supporting 4K@30Hz with RGB/YUV") fails 'edid-decode --check'
+(v1.33.0) with the following issues:
 
-Exercise both an explicit limit set through drm_connector_hdmi_funcs'
-supported_tmds_char_rate and the limit inferred from supported_hdmi_ver.
+  Warnings:
 
-Also verify that a driver hook can further restrict the connector limit.
+  Block 1, CTA-861 Extension Block:
+    IT Video Formats are overscanned by default, but normally this should be underscanned.
+    YCbCr 4:2:0 Capability Map Data Block: Some YCbCr 4:2:0 timings are invalid for HDMI 2.1
+      (which requires an RGB timings pixel rate >= 590 MHz).
+
+  Failures:
+
+  Block 0, Base EDID:
+    Vendor & Product Identification: EDID 1.3 does not support week 0xff.
+    Detailed Timing Descriptor #1: Mismatch of image size 1600x900 mm vs display size 960x540 mm.
+  Block 1, CTA-861 Extension Block:
+    Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8: Max TMDS rate is > 0 and <= 340 or > 600.
+    YCbCr 4:2:0 Video Data Block: This Data Block is empty.
+    Missing VCDB, needed for Set Selectable RGB Quantization to avoid interop issues.
+  EDID:
+    Base EDID: The DTD max image size is 1600x900mm, which is larger than the display size 960.0x540.0mm.
+
+Address them while preserving the advertised maximum resolution, BPC and
+TMDS clock used by the existing KUnit tests:
+
+- Week 0xff is not valid for EDID 1.3; set it to 0x00 so that the Model
+  year field becomes a regular Year of Manufacture.
+- Align the DTD image size with the Basic Display Parameters maximum
+  image size (96 cm x 54 cm).
+- The HDMI Forum VSDB Max TMDS Character Rate must be 0 when no rate
+  above 340 MHz is supported.  The HDMI VSDB still advertises 340 MHz as
+  Max TMDS Clock.
+- Drop the empty YCbCr 4:2:0 Video Data Block.  VIC 95 (3840x2160@30Hz)
+  remains advertised as YUV420-capable via the YCbCr 4:2:0 Capability
+  Map Data Block, which references the corresponding entry in the
+  regular Video Data Block.
+- Add a Video Capability Data Block advertising selectable RGB and YCC
+  quantization range plus underscan for IT/CE formats; also set the 'IT
+  Video Formats Underscanned' bit in the CTA-861 extension header to
+  match.
+
+The only remaining warning is HDMI 2.1 related and can be ignored, as it
+requires that any mode listed in the YCbCr 4:2:0 Video Data Block must
+have a corresponding RGB pixel clock >= 590 MHz.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 116 +++++++++++++++++++++
- 1 file changed, 116 insertions(+)
+ drivers/gpu/drm/tests/drm_kunit_edid.c | 57 ++++++++++++++++++++++------------
+ 1 file changed, 38 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-index 478c4b6c6207..6410eca57a99 100644
---- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-+++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
-@@ -189,6 +189,32 @@ static const struct drm_connector_hdmi_funcs reject_100mhz_connector_hdmi_funcs
- 	},
+diff --git a/drivers/gpu/drm/tests/drm_kunit_edid.c b/drivers/gpu/drm/tests/drm_kunit_edid.c
+index 4dff28fff796..a6c5e8d6077a 100644
+--- a/drivers/gpu/drm/tests/drm_kunit_edid.c
++++ b/drivers/gpu/drm/tests/drm_kunit_edid.c
+@@ -900,22 +900,22 @@ EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
+  * edid-decode (hex):
+  *
+  * 00 ff ff ff ff ff ff 00 31 d8 34 00 00 00 00 00
+- * ff 23 01 03 80 60 36 78 0f ee 91 a3 54 4c 99 26
++ * 00 23 01 03 80 60 36 78 0f ee 91 a3 54 4c 99 26
+  * 0f 50 54 20 00 00 01 01 01 01 01 01 01 01 01 01
+  * 01 01 01 01 01 01 04 74 00 30 f2 70 5a 80 b0 58
+- * 8a 00 40 84 63 00 00 1e 00 00 00 fc 00 54 65 73
++ * 8a 00 c0 1c 32 00 00 1e 00 00 00 fc 00 54 65 73
+  * 74 20 45 44 49 44 0a 20 20 20 00 00 00 fd 00 18
+  * 55 18 5e 22 00 0a 20 20 20 20 20 20 00 00 00 10
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 ce
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 e6
+  *
+- * 02 03 27 31 41 5f 6c 03 0c 00 10 00 78 44 20 00
+- * 00 01 03 6d d8 5d c4 01 44 80 07 00 00 00 00 00
+- * 00 e3 0f 01 00 e1 0e 00 00 00 00 00 00 00 00 00
++ * 02 03 28 b1 41 5f 6c 03 0c 00 10 00 78 44 20 00
++ * 00 01 03 6d d8 5d c4 01 00 80 07 00 00 00 00 00
++ * 00 e2 00 ca e3 0f 01 00 00 00 00 00 00 00 00 00
+  * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+- * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 84
++ * 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 8a
+  *
+  * ----------------
+  *
+@@ -924,7 +924,7 @@ EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
+  *   Vendor & Product Identification:
+  *     Manufacturer: LNX
+  *     Model: 52
+- *     Model year: 2025
++ *     Made in: 2025
+  *   Basic Display Parameters & Features:
+  *     Digital display
+  *     Maximum image size: 96 cm x 54 cm
+@@ -942,7 +942,7 @@ EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
+  *     DMT 0x04:   640x480    59.940476 Hz   4:3     31.469 kHz     25.175000 MHz
+  *   Standard Timings: none
+  *   Detailed Timing Descriptors:
+- *     DTD 1:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz (1600 mm x 900 mm)
++ *     DTD 1:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz (960 mm x 540 mm)
+  *                  Hfront  176 Hsync  88 Hback  296 Hpol P
+  *                  Vfront    8 Vsync  10 Vback   72 Vpol P
+  *     Display Product Name: 'Test EDID'
+@@ -950,12 +950,13 @@ EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
+  *       Monitor ranges (GTF): 24-85 Hz V, 24-94 kHz H, max dotclock 340 MHz
+  *     Dummy Descriptor:
+  *   Extension blocks: 1
+- * Checksum: 0xce
++ * Checksum: 0xe6
+  *
+  * ----------------
+  *
+  * Block 1, CTA-861 Extension Block:
+  *   Revision: 3
++ *   Underscans IT Video Formats by default
+  *   Supports YCbCr 4:4:4
+  *   Supports YCbCr 4:2:2
+  *   Native detailed modes: 1
+@@ -971,31 +972,49 @@ EXPORT_SYMBOL(test_edid_hdmi_1080p_rgb_yuv_4k_yuv420_dc_max_200mhz);
+  *     Extended HDMI video details:
+  *   Vendor-Specific Data Block (HDMI Forum), OUI C4-5D-D8:
+  *     Version: 1
+- *     Maximum TMDS Character Rate: 340 MHz
+  *     SCDC Present
+  *     Supports 16-bits/component Deep Color 4:2:0 Pixel Encoding
+  *     Supports 12-bits/component Deep Color 4:2:0 Pixel Encoding
+  *     Supports 10-bits/component Deep Color 4:2:0 Pixel Encoding
++ *     VRRmin: 0 Hz
++ *     VRRmax: 0 Hz
++ *   Video Capability Data Block:
++ *     YCbCr quantization: Selectable (via AVI YQ)
++ *     RGB quantization: Selectable (via AVI Q)
++ *     PT scan behavior: No Data
++ *     IT scan behavior: Always Underscanned
++ *     CE scan behavior: Always Underscanned
+  *   YCbCr 4:2:0 Capability Map Data Block:
+  *     VIC  95:  3840x2160   30.000000 Hz  16:9     67.500 kHz    297.000000 MHz
+- *   YCbCr 4:2:0 Video Data Block:
+- * Checksum: 0x84
++ * Checksum: 0x8a  Unused space in Extension Block: 87 bytes
++ *
++ * ----------------
++ *
++ * edid-decode 1.33.0
++ *
++ * Warnings:
++ *
++ * Block 1, CTA-861 Extension Block:
++ *   YCbCr 4:2:0 Capability Map Data Block: Some YCbCr 4:2:0 timings are invalid for HDMI 2.1
++ *     (which requires an RGB timings pixel rate >= 590 MHz).
++ *
++ * EDID conformity: PASS
+  */
+ const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[] = {
+ 	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x31, 0xd8, 0x34, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0xff, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x23, 0x01, 0x03, 0x80, 0x60, 0x36, 0x78,
+ 	0x0f, 0xee, 0x91, 0xa3, 0x54, 0x4c, 0x99, 0x26, 0x0f, 0x50, 0x54, 0x20,
+ 	0x00, 0x00, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
+ 	0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x04, 0x74, 0x00, 0x30, 0xf2, 0x70,
+-	0x5a, 0x80, 0xb0, 0x58, 0x8a, 0x00, 0x40, 0x84, 0x63, 0x00, 0x00, 0x1e,
++	0x5a, 0x80, 0xb0, 0x58, 0x8a, 0x00, 0xc0, 0x1c, 0x32, 0x00, 0x00, 0x1e,
+ 	0x00, 0x00, 0x00, 0xfc, 0x00, 0x54, 0x65, 0x73, 0x74, 0x20, 0x45, 0x44,
+ 	0x49, 0x44, 0x0a, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xfd, 0x00, 0x18,
+ 	0x55, 0x18, 0x5e, 0x22, 0x00, 0x0a, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
+ 	0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xce, 0x02, 0x03, 0x27, 0x31,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xe6, 0x02, 0x03, 0x28, 0xb1,
+ 	0x41, 0x5f, 0x6c, 0x03, 0x0c, 0x00, 0x10, 0x00, 0x78, 0x44, 0x20, 0x00,
+-	0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x44, 0x80, 0x07, 0x00,
+-	0x00, 0x00, 0x00, 0x00, 0x00, 0xe3, 0x0f, 0x01, 0x00, 0xe1, 0x0e, 0x00,
++	0x00, 0x01, 0x03, 0x6d, 0xd8, 0x5d, 0xc4, 0x01, 0x00, 0x80, 0x07, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0xe2, 0x00, 0xca, 0xe3, 0x0f, 0x01, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+@@ -1003,7 +1022,7 @@ const unsigned char test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz[] = {
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+ 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+-	0x00, 0x00, 0x00, 0x84
++	0x00, 0x00, 0x00, 0x8a,
  };
+ EXPORT_SYMBOL(test_edid_hdmi_4k_rgb_yuv420_dc_max_340mhz);
  
-+static enum drm_mode_status
-+accept_any_connector_tmds_char_rate_valid(const struct drm_connector *connector,
-+					  const struct drm_display_mode *mode,
-+					  unsigned long long tmds_rate)
-+{
-+	return MODE_OK;
-+}
-+
-+static const struct drm_connector_hdmi_funcs reject_over_165mhz_connector_hdmi_funcs = {
-+	.vendor = "Vendor",
-+	.product = "Product",
-+	.supported_hdmi_ver = HDMI_VERSION_1_3,
-+	.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ,
-+	.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-+	.max_bpc = 8,
-+	.tmds_char_rate_valid = accept_any_connector_tmds_char_rate_valid,
-+	.avi = {
-+		.clear_infoframe = accept_infoframe_clear_infoframe,
-+		.write_infoframe = accept_infoframe_write_infoframe,
-+	},
-+	.hdmi = {
-+		.clear_infoframe = accept_infoframe_clear_infoframe,
-+		.write_infoframe = accept_infoframe_write_infoframe,
-+	},
-+};
-+
- static int dummy_connector_get_modes(struct drm_connector *connector)
- {
- 	struct drm_atomic_helper_connector_hdmi_priv *priv =
-@@ -2751,6 +2777,93 @@ static void drm_test_check_mode_valid_reject_max_clock(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, preferred->clock, 25200);
- }
- 
-+/*
-+ * Test that the max_tmds_char_rate inferred from caps.supported_hdmi_ver
-+ * is applied as a mode-filtering limit: with an HDMI 1.3 connector and no
-+ * driver hook, drm_hdmi_connector_mode_valid() will reject modes whose TMDS
-+ * character rate exceeds 340 MHz, even though the sink itself advertises
-+ * a higher limit (600 MHz).
-+ */
-+static void
-+drm_test_check_mode_valid_reject_inferred_max_tmds_char_rate(struct kunit *test)
-+{
-+	struct drm_connector_hdmi_funcs hdmi_funcs = dummy_connector_hdmi_funcs;
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *preferred;
-+
-+	hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_3;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test, &hdmi_funcs,
-+					test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	KUNIT_ASSERT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
-+			HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ);
-+
-+	preferred = find_preferred_mode(&priv->connector);
-+	KUNIT_ASSERT_NOT_NULL(test, preferred);
-+	KUNIT_EXPECT_EQ(test, preferred->hdisplay, 2560);
-+	KUNIT_EXPECT_EQ(test, preferred->vdisplay, 1600);
-+	KUNIT_EXPECT_EQ(test, preferred->clock, 268500);
-+}
-+
-+/*
-+ * Test that a connector-provided max_tmds_char_rate limit (165 MHz) takes
-+ * precedence over a permissive .tmds_char_rate_valid() driver hook and
-+ * drm_hdmi_connector_mode_valid() will reject modes whose computed TMDS
-+ * character exceeds the connector limit.
-+ */
-+static void
-+drm_test_check_mode_valid_connector_max_tmds_char_rate_precedes_driver_hook(struct kunit *test)
-+{
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *preferred;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test,
-+					&reject_over_165mhz_connector_hdmi_funcs,
-+					test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	KUNIT_ASSERT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
-+			HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ);
-+
-+	preferred = find_preferred_mode(&priv->connector);
-+	KUNIT_ASSERT_NOT_NULL(test, preferred);
-+	KUNIT_EXPECT_EQ(test, preferred->hdisplay, 2048);
-+	KUNIT_EXPECT_EQ(test, preferred->vdisplay, 1152);
-+	KUNIT_EXPECT_EQ(test, preferred->clock, 162000);
-+}
-+
-+/*
-+ * Test that a connector-provided max_tmds_char_rate (165 MHz) can be further
-+ * limited by a more restrictive (100 MHz) .tmds_char_rate_valid() driver hook
-+ * and drm_hdmi_connector_mode_valid() will reject modes whose computed TMDS
-+ * character exceeds the hook limit.
-+ */
-+static void
-+drm_test_check_mode_valid_driver_hook_limits_connector_max_tmds_char_rate(struct kunit *test)
-+{
-+	struct drm_connector_hdmi_funcs hdmi_funcs = reject_100mhz_connector_hdmi_funcs;
-+	struct drm_atomic_helper_connector_hdmi_priv *priv;
-+	struct drm_display_mode *preferred;
-+
-+	hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_3;
-+	hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
-+
-+	priv = drm_kunit_helper_connector_hdmi_init_with_edid_funcs(test, &hdmi_funcs,
-+					test_edid_hdmi_4k_rgb_yuv420_dc_max_600mhz);
-+	KUNIT_ASSERT_NOT_NULL(test, priv);
-+
-+	KUNIT_ASSERT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
-+			HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ);
-+
-+	preferred = find_preferred_mode(&priv->connector);
-+	KUNIT_ASSERT_NOT_NULL(test, preferred);
-+	KUNIT_EXPECT_EQ(test, preferred->hdisplay, 1440);
-+	KUNIT_EXPECT_EQ(test, preferred->vdisplay, 900);
-+	KUNIT_EXPECT_EQ(test, preferred->clock, 88750);
-+}
-+
- /*
-  * Test that drm_hdmi_connector_mode_valid() will accept modes that require a
-  * 4:2:0 chroma subsampling, even if said mode would violate maximum clock
-@@ -2841,6 +2954,9 @@ static struct kunit_case drm_atomic_helper_connector_hdmi_mode_valid_tests[] = {
- 	KUNIT_CASE(drm_test_check_mode_valid_reject),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject_rate),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject_max_clock),
-+	KUNIT_CASE(drm_test_check_mode_valid_reject_inferred_max_tmds_char_rate),
-+	KUNIT_CASE(drm_test_check_mode_valid_connector_max_tmds_char_rate_precedes_driver_hook),
-+	KUNIT_CASE(drm_test_check_mode_valid_driver_hook_limits_connector_max_tmds_char_rate),
- 	KUNIT_CASE(drm_test_check_mode_valid_yuv420_only_max_clock),
- 	KUNIT_CASE(drm_test_check_mode_valid_reject_yuv420_only_connector),
- 	KUNIT_CASE(drm_test_check_mode_valid_accept_yuv420_also_connector_rgb),
 
 -- 
 2.55.0
