@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACC72C53214
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 22:17:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C39FC531CC
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 22:17:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A796510F230;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2FD610F231;
 	Thu, 23 Jul 2026 22:17:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NB1+Vu1f";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="KdXwRV0g";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D338C10F230
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B7EB610F225
  for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 22:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1784845043;
- bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
+ bh=KYozak7rIfIhFylDJ62mqmda5vQGHAVtZhaEHfRl5tc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NB1+Vu1fCV1nTwlfRNX8qIOTQOeHT0VDJjO29BiOv5/vnbUH4W9CcWE8u0QCO+uRe
- 414bGO78KmWtQrpd6debnqr4phILoNI3K/4igfqD43wC2Nds3qeMtHg4Bm1K9rU48V
- i6GEQElMGrMVhGiP7EoIC9cSGeFkQUNPoDWlRwBhbnVclhdg9Z6WNmjloZZBeOnhv+
- bQXqA2X9zz5a/Xw3yDQ6O9S4+OvHnEm+KKRIeAZykv00vAthEHMF3DjLuvw7+ybp+I
- Avg+Gveuxsd1XnVuTxD2r6DLKm01n75bMzggSBYZTUGWzmRgJQrWF/B6QXMenm8Hae
- wv8hZ+5gEbhTg==
+ b=KdXwRV0gqM3toPRPACwtJfFPRLoRLmM6oWg2F7igcLp6J4bzzfIg9JSLjrAzDJaDS
+ ulJgkjWq6Qq/RrZsxoIzuf/z5dTZ/4VL+gc8t03foRzSntQ1wXAepBT3IsUAd1i63Z
+ tuZpbXhqRngnnocJ/BHxG9BMYylJ5cTuJku4koZf7yLOmfMfhmEN6i4Lo0xRC7Y9ZC
+ AprTV2NCWt/UxS9H1n25BcKOHXsx5bemcM9k0lGD1hJaAoXA5kazRdjhZRgZoH+X7P
+ os98r+SLTJx3bW3MwBYXr70ee/5lGFOmV966/Up7JUqdukUp6kDZxkOzaZ/dVO9cdc
+ c7OHz2WtuYSFw==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D2AD917E3BAF;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C3DAF17E39BB;
  Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 20F9F480052; Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
+ id 1C431480048; Fri, 24 Jul 2026 00:17:22 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 24 Jul 2026 00:17:22 +0200
-Subject: [PATCH v5 14/15] dt-bindings: display: rockchip: dw-dp: Fix sound
- DAI cells
+Date: Fri, 24 Jul 2026 00:17:19 +0200
+Subject: [PATCH v5 11/15] drm/rockchip: dw_dp: Add runtime PM support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-synopsys-dw-dp-improvements-v5-14-9445c2e87441@collabora.com>
+Message-Id: <20260724-synopsys-dw-dp-improvements-v5-11-9445c2e87441@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
 In-Reply-To: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -66,21 +65,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3080;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4368;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=k0eRRol0juQKDRwk26Fz36sBhpAIKfOBZOjBCwiTCgw=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpikvGv9aRl1I9rdbdJ6KY1XhUsBepalYuih
- ZEu76KK2kiAaYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqYpLxAAoJENju1/PI
- O/qaRUgQAKkImUwS1rKg0zuMtEhVWrCaFS3D5vDthyqS7K+2R1JO/YNMsOFmSckaE2J1kcPhZt7
- AifYn6vnevhgWbH+rGjA/RheouA/KtUDjgpLrYD15Pxt58NTZUB6AMHUor2kuIKNVP03PLE0gul
- EVmrOFYUMwIccgtsfWn+9JwXXJWYTatbeRrL4VszH5iE4LDUnd/R6SAJ0sq9Gj9OdR5BInO8G6V
- tr/mB7HrqmkgZ6hPBTsnB/jv0ODAk+fbr4XPXvk8+JBnrlC9xudDSqhvizZSt9MTaH9CIktX7TK
- bHSRw7SyRgxjq27rtuVVQvC6V1zLquKTvzu7ACPn+PtiDFRpcUQ9mSz6tDkHIayTRRL849eplhE
- lmv3FXv6Ycun3P7IvxN99pObMxVBMTVkfmFvY4tGNIhxs121VLnt/XpOG0YXM9JKuhUxg6v63Ct
- /hjPG9RPmR7NGxczUFwfCfCB7PlpNqEGRUbCJ/6f15HKgeIf4icimMvzpyya+m3XFW+UGlcshZg
- X/wwQJC2JrMMYN2oXexH9GCBrLJ5MMQTLWhDxln21sUV/B+5dfUgNcMVDDVjVL6yUWpqwaWOXmu
- 6ecd2oKlbOHfyaVBujoM1A6PN66D1wc2LOR1ED3AtYgOCkaA+AisE9tvt+C/RJibbnBLFwu+LDX
- VqChl59YcHs6czxMnJ6o3lQ==
+ bh=KYozak7rIfIhFylDJ62mqmda5vQGHAVtZhaEHfRl5tc=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpikvFvd+2eWWxFgYSd9KMxTdgGjzaCWYNWr
+ DoDDsu1oONL64kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqYpLxAAoJENju1/PI
+ O/qaILcQAJlL3+e3pZun+4gmOOkKA5W1MNbrBn9wM9MDRX7zjgxIeoTXkaNXP/9s6CCecoYJJls
+ yOhN1MuN9wrKOCa8h6d9s8NshHJHGPWeRXmDJnXLvtiP4ONrjJ5vVOgCD//s87TdaMuP0aHOlTD
+ Lnj66PuQ6ke5rtNglslnkJLYrpEvZcTYtnboCqMnSEr9N2zt0NWqkMw7d3VkTxpaFYF/u/TI4N+
+ YANijCFEfsIGqRV/q8KRfaQXh+hjxWXfN+DC+/Q/E5r4cN4e5K2gZLeOKYcY7O6Gi5+qaWN874H
+ iLr4dAX6i2B7hZc1GetQj+cZsmUVJie/uxMg+v1Rrv4UIFb4qEQnJSV+nmVySm2L88QDcuo2rCW
+ 5sFLi7rxFCS/VKv1XhtGioe3lX5Z0hyI1ly+bAotw0F3LTjS0YSivybOWT/c3DhHlguTa52jmhH
+ qQqNk08ZpSqvEjdEhsuscqFNBRlz3Mn8zZBWqAc74OLDoFzaUQWUT8f81musSsXtIckwh5f8eDc
+ HsX5OO/mn3U/HXSutUq93ujeXJzDkQLvyiMbBR/6ZjWSuxPIKLTCeeAfwUOjp+/IEYLe/h4YYu6
+ FrcIceymfsrf+ciUyI1IsJLKQ2WuAl/SlzxhO9aBKaYZeh5WPxQWp5gdCfzI4W0Z0NKAA0/WY9x
+ dSqTNDgvgymEab0INsZgv8A==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,85 +97,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
-to select the right interface.
-
-In addition to that the RK3576 DisplayPort controller is configured
-with Multi Stream Transport (MST) enabled for up to 3 displays and
-thus has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
-stream). Meanwhile the RK3588 does not support MST and thus has only 2
-DAI interfaces.
-
-The binding update from this patch has only been tested with the simple
-single stream transport (SST) setup as the Linux driver does not yet
-support MST. Once MST support is added, the plan is to simply add more
-numbers to the argument, so that it looks like this for RK3576:
-
-0 = I2S on stream 0,
-1 = S/PDIF on stream 0
-2 = I2S on stream 1,
-3 = S/PDIF on stream 1
-4 = I2S on stream 2,
-5 = S/PDIF on stream 2
-
-As the arguments are not part of the binding itself the audio side
-is also ready for MST after this change.
-
-Switching '#sound-dai-cells' from 0 to 1 without keeping compatibility
-is an ABI break. The rationale for going that way is, that there is not
-a single known driver implementation for the current binding. It's also
-unclear how the current binding would be used (only support I2S or
-S/PDIF for stream 0?). The mainline rk3588 DTS include sets it to 0, but
-does not have any soundcard using the DAI. This will be fixed up
-separately. The RK3576 does not set it at all.
+Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
+DesignWare DisplayPort driver.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 65 +++++++++++++++++++++++++++++--
+ 1 file changed, 62 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-index 2b0d9e23e943..c4f8959dd65d 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-@@ -25,7 +25,7 @@ description: |
-   * Supports up to 8/10 bits per color component
-   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
-   * Pixel clock up to 594MHz
--  * I2S, SPDIF audio interface
-+  * I2S, S/PDIF audio interface
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index 0ecbad24dd4e..b1a69d8821a2 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -12,6 +12,7 @@
+ #include <linux/mfd/syscon.h>
+ #include <linux/of_device.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/videodev2.h>
  
- properties:
-   compatible:
-@@ -46,7 +46,7 @@ properties:
-       - description: DisplayPort AUX clock
-       - description: HDCP clock
-       - description: I2S interface clock
--      - description: SPDIF interfce clock
-+      - description: S/PDIF interfce clock
+@@ -54,9 +55,15 @@ static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
+ {
+ 	struct rockchip_dw_dp *dp = data;
+ 	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
++	int ret;
  
-   clock-names:
-     minItems: 3
-@@ -83,7 +83,8 @@ properties:
-     maxItems: 1
+ 	dp->hpd_sel = force_hpd_from_sw;
  
-   "#sound-dai-cells":
--    const: 0
-+    const: 1
-+    description: 0 for I2S, 1 for S/PDIF
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dp->dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return;
++
+ 	regmap_write(dp->vo_grf, hpd_reg,
+ 		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, dp->hpd_sel));
+ }
+@@ -65,11 +72,17 @@ static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
+ {
+ 	struct rockchip_dw_dp *dp = data;
+ 	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
++	int ret;
  
- required:
-   - compatible
-@@ -144,7 +145,7 @@ examples:
-         resets = <&cru SRST_DP0>;
-         phys = <&usbdp_phy0 PHY_TYPE_DP>;
-         power-domains = <&power RK3588_PD_VO0>;
--        #sound-dai-cells = <0>;
-+        #sound-dai-cells = <1>;
+ 	dev_dbg(dp->dev, "Force HPD connected=%s\n", str_yes_no(hpd));
  
-         ports {
-           #address-cells = <1>;
+ 	dp->hpd_cfg = hpd;
+ 
++	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dp->dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return;
++
+ 	regmap_write(dp->vo_grf, hpd_reg,
+ 		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_cfg));
+ }
+@@ -165,18 +178,32 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
+ 		return ret;
+ 	drm_encoder_helper_add(encoder, &dw_dp_encoder_helper_funcs);
+ 
++	pm_runtime_use_autosuspend(dev);
++	pm_runtime_set_autosuspend_delay(dev, 500);
++	pm_runtime_set_active(dev);
++	pm_runtime_enable(dev);
++
+ 	ret = dw_dp_bind(dp->base, encoder);
+ 	if (ret)
+ 		return ret;
+ 
+ 	connector = drm_bridge_connector_init(drm_dev, encoder);
+ 	if (IS_ERR(connector)) {
+-		dw_dp_unbind(dp->base);
+-		return dev_err_probe(dev, PTR_ERR(connector),
+-				     "Failed to init bridge connector\n");
++		ret = PTR_ERR(connector);
++		dev_err_probe(dev, ret, "Failed to init bridge connector\n");
++		goto error;
+ 	}
+ 
++	pm_request_idle(dev);
++
+ 	return 0;
++
++error:
++	pm_runtime_dont_use_autosuspend(dev);
++	pm_runtime_resume(dev);
++	pm_runtime_disable(dev);
++	dw_dp_unbind(dp->base);
++	return ret;
+ }
+ 
+ static void dw_dp_rockchip_unbind(struct device *dev, struct device *master,
+@@ -185,6 +212,9 @@ static void dw_dp_rockchip_unbind(struct device *dev, struct device *master,
+ 	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
+ 
+ 	dw_dp_unbind(dp->base);
++	pm_runtime_dont_use_autosuspend(dev);
++	pm_runtime_resume(dev);
++	pm_runtime_disable(dev);
+ }
+ 
+ static const struct component_ops dw_dp_rockchip_component_ops = {
+@@ -254,6 +284,34 @@ static void dw_dp_rockchip_remove(struct platform_device *pdev)
+ 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
+ }
+ 
++static int dw_dp_rockchip_runtime_suspend(struct device *dev)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
++
++	return dw_dp_runtime_suspend(dp->base);
++}
++
++static int dw_dp_rockchip_runtime_resume(struct device *dev)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
++	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
++	int ret;
++
++	ret = dw_dp_runtime_resume(dp->base);
++	if (ret)
++		return ret;
++
++	regmap_write(dp->vo_grf, hpd_reg,
++		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, dp->hpd_sel) |
++		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_cfg));
++
++	return 0;
++}
++
++static const struct dev_pm_ops dw_dp_pm_ops = {
++	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_resume, NULL)
++};
++
+ static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
+ 	.num_ctrls = 2,
+ 	.ctrl_ids = {0xfde50000, 0xfde60000},
+@@ -288,5 +346,6 @@ struct platform_driver dw_dp_driver = {
+ 	.driver = {
+ 		.name = "dw-dp",
+ 		.of_match_table = dw_dp_of_match,
++		.pm = pm_ptr(&dw_dp_pm_ops),
+ 	},
+ };
 
 -- 
 2.53.0
