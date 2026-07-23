@@ -4,45 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4D4BC4453E
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACB12C531C7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:41:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1972110EFA3;
-	Thu, 23 Jul 2026 06:41:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE31310EFA7;
+	Thu, 23 Jul 2026 06:41:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UDKJBAm7";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZfKgEej2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D41110EFA3
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 06:41:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 95C99431F6;
- Thu, 23 Jul 2026 06:41:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241E01F000E9;
- Thu, 23 Jul 2026 06:41:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784788884;
- bh=2mQiS4p6dyH3yVHqa9KsxAIcjrva99u6hYhFIaT3/OU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UDKJBAm7aadl2wRGRNQlQ8KmsW6P/S9eztESuFc2VMM+p9SxW81ywCEygHdJkVKHH
- /l9x0JQMgYogLrVivHWvaAXbnpA7ZNQ6kaZ8garH8OqDFje37jD7vIZZkAQ0Egawp3
- BoKzVIFGxpFAaWavUTAJ4PrmZxYrjieYeg/DnDaTBIHezS3Khv1unlk9ek2wz+IDGu
- g2PglKkGoXDxGaslw5kl4GJf+E1GPkM3zTQXYvySdDixKJWdxGqIL5rvxwGy4/A3zS
- pjXnkblydKVo0k6QkvvAQ2eHeR3i0ts2fITTj45wxQS3/JclhKNAbIszJ4Uh6ZNLuc
- 0xNHLVQcj5Z8A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/7] drm: nova: Add GETPARAM parameter to read the
- GPU chipid
-To: "Alistair Popple" <apopple@nvidia.com>
-Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260723063046.1265791-5-apopple@nvidia.com>
-References: <20260723063046.1265791-1-apopple@nvidia.com>
- <20260723063046.1265791-5-apopple@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 06:41:23 +0000
-Message-Id: <20260723064124.241E01F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7647610EFA6;
+ Thu, 23 Jul 2026 06:41:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784788891; x=1816324891;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=dndr+Q7ZbdWNVlT+QLoBDH1fcE11CMP/4FK8lYK2cI4=;
+ b=ZfKgEej2DFRn2r2dxXEOoh/aKYM/LVtj2Tm5VEETbMw73sskRTGNXh87
+ F/PQ6ctEJw8UWL2rifalf6nMOJQ13aktD87tfyBJEb9jXIrvjGN5U5q3Q
+ 0jzYhsMMmjnN/X9ELKHKlgBeGzw2uxoIdNg8cNnFLFtqM1twcIIyULpW1
+ hcS7yHzuDKCoBvgv1t+RVVGsQonGa/3NwNzKoyocb43n3P9MfnMN0Kvwf
+ h1HRb4wqODOOmRMMkpixohYHSUIn3uZZiSUwSqRunLcAKQsfEzzRMgUwS
+ C58tJaIFuhw5aXDxhfihmQioCl6oO6lh0mKEZHusy/+OO5g3LFcH1E+9z Q==;
+X-CSE-ConnectionGUID: fep24l8GRsqrnnWxEOlSMg==
+X-CSE-MsgGUID: DLZcGkQ9TICOomd19ubEbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="85555164"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="85555164"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2026 23:41:30 -0700
+X-CSE-ConnectionGUID: iyLNOZPCQN2e165/5ark1w==
+X-CSE-MsgGUID: F6r60qe8TOiEeLgGB9fBrg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="288321794"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Jul 2026 23:41:26 -0700
+Date: Thu, 23 Jul 2026 08:41:23 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Riana Tauro <riana.tauro@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ netdev@vger.kernel.org, aravind.iddamsetty@linux.intel.com,
+ anshuman.gupta@intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, kuba@kernel.org,
+ simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
+ joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
+ shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
+ maarten.lankhorst@linux.intel.com, mallesh.koujalagi@intel.com,
+ soham.purkait@intel.com, Michal Wajdeczko <michal.wajdeczko@intel.com>
+Subject: Re: [PATCH v6 2/2] drm/xe/xe_ras: Report correctable/uncorrectable
+ error events to userspace
+Message-ID: <amG3k8dNCJb_tHxT@black.igk.intel.com>
+References: <20260722094134.3036087-4-riana.tauro@intel.com>
+ <20260722094134.3036087-6-riana.tauro@intel.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722094134.3036087-6-riana.tauro@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,54 +74,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Conditional compilation error on 32-bit architectures due to mismat=
-ched match arm types.
---
+On Wed, Jul 22, 2026 at 03:11:37PM +0530, Riana Tauro wrote:
+> When an interrupt is received for correctable errors indicating that error
+> counter has crossed its threshold, read the current counter value and
+> deliver a drm-ras error-event to userspace for each affected component.
+> 
+> Also send drm-ras error-event to userspace for uncorrectable errors on
+> receiving an AER.
+> 
+> To avoid sending duplicate events when the same component appears multiple
+> times in the response, Send the error-event once per component.
 
---- Patch [4]: [PATCH v3 4/7] drm: nova: Add GETPARAM parameter to read the=
- GPU chipid ---
-commit c560fdc21fe8a1d71109ee27e0b91d35e7283f2a
-Author: Alistair Popple <apopple@nvidia.com>
+...
 
-drm: nova: Add GETPARAM parameter to read the GPU chipid
+> +/**
+> + * xe_drm_ras_event() - Report drm-ras error event to userspace
+> + * @xe: xe device structure
+> + * @component: error component (see &enum drm_xe_ras_error_component)
+> + * @severity: error severity (see &enum drm_xe_ras_error_severity)
+> + * @value: value of error counter
+> + *
+> + * Report an error-event to userspace.
+> + */
+> +void xe_drm_ras_event(struct xe_device *xe, u8 component, u8 severity, u32 value)
 
-One of the first things a user needs to know about a GPU is its chipid,
-so add a GETPARAM parameter to return that.
+Forgot to add. Looking at the existing xe_drm_ras code, this should be
 
-> diff --git a/drivers/gpu/drm/nova/file.rs b/drivers/gpu/drm/nova/file.rs
-> index 1156df51c533a..855f238777349 100644
-> --- a/drivers/gpu/drm/nova/file.rs
-> +++ b/drivers/gpu/drm/nova/file.rs
-[ ... ]
-> @@ -43,6 +43,7 @@ pub(crate) fn get_param(
-> =20
->          let value =3D match getparam.param as u32 {
->              uapi::NOVA_GETPARAM_VRAM_BAR_SIZE =3D> pdev.resource_len(1)?,
-> +            uapi::NOVA_GETPARAM_GPU_CHIPID =3D> reg_data.api.chipset() a=
-s u64,
+void xe_drm_ras_event(struct xe_device *xe, enum drm_xe_ras_error_severity severity,
+		      u32 error_id, u32 val)
 
-[Severity: Low]
-Does this cause a conditional compilation error on 32-bit architectures?
+but can be done as follow up.
 
-In File::get_param(), all match arms must evaluate to exactly the same
-type. The first arm evaluates to pdev.resource_len(1)? which returns a
-bindings::resource_size_t. The newly added second arm evaluates to u64
-via the explicit cast.
-
-On 32-bit kernel configurations without CONFIG_PHYS_ADDR_T_64BIT enabled,
-resource_size_t resolves to u32. This mismatch between u32 and u64 across
-the match arms will result in a hard build error.
-
->              _ =3D> return Err(EINVAL),
->          };
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723063046.1265=
-791-1-apopple@nvidia.com?part=3D4
+Raag
