@@ -4,135 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10CBEC531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:34:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D7F9C4453E
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:36:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F56810EF95;
-	Thu, 23 Jul 2026 06:34:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FFBA10EF97;
+	Thu, 23 Jul 2026 06:36:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="LydzzaEg";
+	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="Z0szN4EE";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010022.outbound.protection.outlook.com
- [52.101.193.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAEFE10EF95;
- Thu, 23 Jul 2026 06:34:31 +0000 (UTC)
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011032.outbound.protection.outlook.com [52.101.70.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCC6110EF97
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 06:36:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Fz9GGkzknjpO93EzwhJ5Dr/BW3mAbPPNnhUBHIyAhtXV6NzvXqtrq9gU+/vWs08/tP63PJYOuWB5Y4CSj0WqSr4g6UCLUv1K6PJlVdF+l+pXke9V4WYOnpQSIBSlt4lUyhxf3WhN3gSjFxJhakPujzl7Y6LHGhZqir4RKar7ExzLFlSOt8OjEBAjym6bWqNeAPz/HPGTWdDWkh1kLxonPET6lvLp62LfUvFdNdYth0EXoamUsbzd9NZdkPpQoj+YBUizGO4/7JGUQgmY+DjINlESgMUmHvltM5wgzBBMb773f2uiBk5fxIPmtOzzvq4/BCvIT7VAqh0CbFGhQuwzRw==
+ b=HndDsbsXcIR6wMuYac+/AwNBIqVqm6L/0QzVnMOfMJHZoXWtNXADd7zzQzsTsLl0v1gsbG6ax4cXXrdJrlfqO5RzXAQFPaND/u9u22cMlEvTUw2dF9hF0OpYx9nGwoGFg2zSSXyLOPIK/2wiTyTN0NThfzsY9ZfM8xi9kCnzBI5q45c+gridHeqC8ciZQPCF8s9w39rVVoiEu03Ww6SxJusLf42mzYOoUKoqQS4N95uwpSpvNL4cc7u03edHuuSymXDfessdBHObFJwnghd2MdhYuUeBLp8+7YR0GCP5AIPkjdKzTrz00r3vfvkT2JwQbHdaXWAA7F3UPEPKVbwNYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dwDQkFgnl16nRc7wiR4Ls4ScXDKhBmW5R03Tvulk/XQ=;
- b=WTpFqxBU+E/8T81H01qEl+eiO3uzPU7jWZkTFjBDgk4/p/NpShEKmsWlLvN9LQ2VCeXrwkwYzxlzfYwRI63/B2++AVeZl+M+Mp6pBgq7GxMkComIZjytU27d1SbHRjuKOApWh2zFZ2ikkxiS6Yi302bEjZiTySiwlJQdvuRDwKW3W9ij7FcRJ1IHw7kHSLM/qyK8vGBNPnKQvFJGM0a1iVpKUUA3j28Kqml0yEJA0GYUHV8FiGrT1UwlagLviyynodsgD0c+oFQdJU9CsRPQuKJk6YKNVuBBeeO0Nj0qukCXoL00X9T3BQt7cZJrAEriqMGi+TMCd7odH+gmXtJj4Q==
+ bh=3bcll1Z7gAXW7VYiRmfC/4GBFT5t2OsYs1JtyjGjvV8=;
+ b=NCddg9Ub7J8YNxI0xigY4fKFYcevvxJczX68gHNwPrIOpiOx1oVk2OrdUe/4lqPzAFIh5tmR1eo6OKg5bg+kovpUZU2xTYo1AMh2Y4m8zVtNmh1dTqYzRXULWwsmRi7xGcIzxXpmAPg6PE6XA2OUmIhotWVLquJSU7jxh3DZ5rRoizWym3uBwnYySNlR5ITrEKoIuhGE8O7GSIgjPekqdkNU4KivlBQp/BzZPhPc8fkNtPrTNbN/cpgUj3yRc4ImpMTARP4+4DZN4Wq7o1FaZSZTMnqOh10oORPcAEmWbC9KRMrQt/djPZaVVkia7iBkmBeo42WiybiyxMNQmN3MFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dwDQkFgnl16nRc7wiR4Ls4ScXDKhBmW5R03Tvulk/XQ=;
- b=LydzzaEgiMGL13NmS8WmC9GGIXlMx9J0HhMzc8Tmn/ziwofz2Gti0VtL4RaZFKQSQCfrtvzrHeh9VTI3eoDwm7IdxyzFB1pig3x41N125U+WTdpH/6dC1Ngq2c+z9RmsECedgQbZcceMekpx8skxPMeGyBSW76Xtat+BpztYaM5b0DPSto70J0BUekIWfm4Tu/xYz36vf3y8HfhG4Boagwl0rkgEGQBIyzyW9lAn9BB9zCpEtp3pk7wHFmlnoQqU0enURVRe94xt7akkIVjAmmarl5Gg1zgMcL+EjtHBXcqhqft86OZKLqcRYNy0rQfdPIFZMwzAtDlJH6+E1zwlfw==
+ bh=3bcll1Z7gAXW7VYiRmfC/4GBFT5t2OsYs1JtyjGjvV8=;
+ b=Z0szN4EE+c6iV13bVVHjKfDhehaL8QNF4jnOg9kfG5javr6H1MimzDhF8rGsSwO4iECXIaJHJvKQvprnYP7OiODvbQQQXVPsRh8Nql4JMAIlkTxhMaRMo1W7nqeHSF9bIqaOccG7DvJVHMJWtP9/XaBgHoh6YTHD6ysOcxHWcBiR5MeMx8zIbpYO81sHT8d6+A3iNPR2QBZbEuco2t7HzOa4z5UW6OoYO3DLTRfYbxCwHuo/NH7LITxFzxrzME3Nu5aXKOGWt4HaOHtO6COq2hzWZKw0XoLf5NheyJLBNFlyeaXGlo1vmDqcBBE7Pff3VNnAhZZC+8LHI798ONNZNw==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
- by IA1PR12MB6556.namprd12.prod.outlook.com (2603:10b6:208:3a0::14)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
+ by GVXPR04MB9878.eurprd04.prod.outlook.com (2603:10a6:150:116::20)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 06:34:25 +0000
-Received: from BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
- ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0245.010; Thu, 23 Jul 2026
- 06:34:25 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 23 Jul 2026 15:34:19 +0900
-Message-Id: <DK5QPF7HKME7.3D1CKLL5V2Y66@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-Subject: Re: [PATCH v2 05/10] gpu: nova-core: split FbLayout into FSP and
- non-FSP versions
-From: "Eliot Courtney" <ecourtney@nvidia.com>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260703-blackwell-fixes-v2-0-8e3d8bc32bb9@nvidia.com>
- <20260703-blackwell-fixes-v2-5-8e3d8bc32bb9@nvidia.com>
- <DK5OQWB04ZRE.1AHZZ9O7MPA75@nvidia.com>
-In-Reply-To: <DK5OQWB04ZRE.1AHZZ9O7MPA75@nvidia.com>
-X-ClientProxiedBy: TYCP301CA0036.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:400:380::20) To SN1PR12MB2368.namprd12.prod.outlook.com
- (2603:10b6:802:32::23)
+ 2026 06:36:15 +0000
+Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
+ ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0223.017; Thu, 23 Jul 2026
+ 06:36:15 +0000
+From: Liu Ying <victor.liu@nxp.com>
+Date: Thu, 23 Jul 2026 14:37:32 +0800
+Subject: [PATCH v13] drm/bridge: imx: Add i.MX93 parallel display format
+ configuration support
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260723-v6-18-topic-imx93-parallel-display-v13-1-ccf3f9bbc0fc@nxp.com>
+X-B4-Tracking: v=1; b=H4sIAKu2YWoC/5XQy2rDMBAF0F8JWldBo6edVf6jZKHHOBE4tpBd4
+ xD871UMJVl44S7nMpw7zJMMmCMO5HR4koxTHGLflQHE14H4m+2uSGMoAeGMK+AM6KQpVHTsU/Q
+ 03uda0GSzbVtsaYhDau2D1qqpuZCu0d6TAqWMTZzXlu9LmW9xGPv8WEsn/Ur/xZcVRo1jSiOgc
+ oDnhN31Z8x9F+djQPLqmMyny3e5prjcexQQtNSs2nSrP1czALHLrYorrfM+eGmEVZtu/emqXW6
+ 93quYApQOpNx0gb1hsfMRwIqshWyQG1N5Y7dl/pYN3ylzCtSqOjgng/Mgzt2cjr6/k8uyLL/D+
+ FbojwIAAA==
+X-Change-ID: 20251201-v6-18-topic-imx93-parallel-display-95f9234bf6cc
+To: festevam@gmail.com
+Cc: m.felsch@pengutronix.de, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Liu Ying <victor.liu@nxp.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: SG2P153CA0021.APCP153.PROD.OUTLOOK.COM (2603:1096:4:c7::8)
+ To AS1PR04MB9287.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4dd::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|IA1PR12MB6556:EE_
-X-MS-Office365-Filtering-Correlation-Id: 683b1bef-9a88-4af4-35ab-08dee8846f25
+X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|GVXPR04MB9878:EE_
+X-MS-Office365-Filtering-Correlation-Id: 098a23b6-03e0-4f99-24e0-08dee884b1fd
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|10070799003|366016|3023799007|6133799003|56012099006|11063799006|10067099003|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: G76blGPIMLZ75Cam8UwjKeUZM/pX1uy+KUr+kUQApnS+tNk9o2YnNa7jRBy57oPCKikkCd3x0Nt/ufcVUysKySZueaZkJlxy1I2Rv2EuC/9XsftJq5303oAjbpv6eOzVVD8eMTNa5yay/Ut8+DffxgIGoumhkNdOIy8FVjlaXiNJ1yAFn8DtDKn33A4B/TeYQhDrJ0o4kMXzU3UxG4s9H1QbfiKzXbHVUyOVEcDc3Ng/iVS0rzeYoZz6r0UVknabroGIuE6i4IP+OHX65QWBHPFl4vj+DUucjn5Basc6RF3Tn2qzRU755XbVaXvfK8XD+oCfzuD+ePB5r8K481qCksxUJe9MWMcMcib4Dd9cCLMJq3NiBk50NuZ3XVB3PQJeeQFGD8lKVq7Sy3w2teeaFl2tpDMtqiRYBLTrszd0qkVXFiiCrLFt+7jJw3VMeNhSvD2nsmmpmb6BCwN9+s/KGCFvOLI+/vT+JFJiTBn51lcEAicTCHAgYruPgRIclr5XS3RXSOellz0Qn8BbKDmbiRLOzGgQNeAj5Q559/fCZ40eH0SXiSfC5vclDPLKERoxdm+2ov566T2oRhKKCA6bz3ZR0szey2CznHk3yGUWXEdHpAise/2Mzs8IiG8zZD0/mFfzKrTTLJTcRwhL8Gz8vn9r4Zznoo4DySOpXYJIZVo=
+ ARA:13230040|376014|7416014|23010399003|19092799006|366016|1800799024|6133799003|11063799006|56012099006|10067099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: sk7vIPKxKrfRwUXRvXbAukBC38ThNfnwRKXsgN4UwxgFdjQP9FKxhbps7ium+Aqyq+cnCuhYYYsAC0khe1ZWcJjU+rWlMO54oGMfCA70UMXEZZ0Y0+PFCxGoFrp9PoFcPYbkjWB+5fdf3xT061n9gq1onf3SkDkGd2plNpbLgJSHW62+tTi/XquDMNFmI6/ueCGG1AsJfytScAZi8Wh8yljxVBj6gZ/OzVxDltRI/1RaMLufakHQ8lLagYwO3CimwutUquzbNXwjys+vBiV9eIS5XWTq0QeTIuUdgO73MXGi74gDiCiFJbFwx6T/fNREt3GDdcrRucfqv6s6rrksB+cWbCjUphIxu/8duH/XOzlFQPUqCmuyXkdyPMtrYeQCoBi5dJ33MSrLUbw2oQz5JhH6WGPqWjeU/DQ2Gs8Pn76OuCdt/2tQnB3Ebx9Bs0YvE/ZOVGFzx9C+3UDIRNCIbc+DLrgQareuozwVlQfAb1Y2Qixb1RuDYqdy31yrjQv/odOyiXiBVQzV0yNw4H0GKNL5/LXW9gDOTXKcYhEjYsYsUyiLAxNReX2Y4J+yMAV4pgK094agesyPDzAVfypEsIsaAclMqspouTQl3C/IMNGR7OVR/YjS2XUXCk3V8TgA
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(10070799003)(366016)(3023799007)(6133799003)(56012099006)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(19092799006)(366016)(1800799024)(6133799003)(11063799006)(56012099006)(10067099003)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?L1F1TCtoSnk0VUJiN0tPcnBDcVhKV0RsVWI3NVkyckpWaDhxUHMzU2ZVYjVU?=
- =?utf-8?B?aXdmUS9aanBIWEhEaU83ZE9jWHpzNkJpU1FGVVpKaVJsWHJkZEhFUHBEYTI4?=
- =?utf-8?B?VkJYTmJGaDdtQTErV3llYm4veUMvQnIyNFoySEZDc1BiK1VQMEp3bGgrR29w?=
- =?utf-8?B?MUF2aTRqTnZtMDJEaXppbC8zWWFVc24wZGxMZlptQkVIa3cyc3VlRCtOa0tZ?=
- =?utf-8?B?NFdQdEFzdERGLzhNcVM1TlF0WFlNa3N0VmJIQkttcEJFbG1KY0ZYT09yMU9i?=
- =?utf-8?B?U3hHbmlJaWplcVJtdUdJdGZnbXFWZk9ldWFkQzJSS3hRR3BiZm5NQStrL09N?=
- =?utf-8?B?VEl3QlY2YUhDNWxNUklXK21pNVNRME9YbFhyQkl2U2Exa3AvWDRQRDVXVGtv?=
- =?utf-8?B?bXl5c1hoZTVtUWtWQjViN0x4S2puZUgrK1k0aW9iWVh6UlluNzZvazFKSTV0?=
- =?utf-8?B?MnRsckw5SU9zZktpVVZtWWk4VHJXbzl0QW9Jb1J0SG9GS2RGd0JwQ2NUZ01H?=
- =?utf-8?B?QXpsWGZCNVdqV0JKK2FJb3JCdk5QMjdTTHQwTW5lV1d6N1B1SnNOOGVyK255?=
- =?utf-8?B?bEZxaDU4V3ZtN2EzSS92YUIvWU1CcXJ0SnhuSEt6WXNjVWFzS1E5dCs4R1dS?=
- =?utf-8?B?QjNlOHlza2JSOVIyWVUzUTNUWTBZQ2crdktlZUhsZEtSOWE5RHZ1UVVxbUw1?=
- =?utf-8?B?YjQ2OFE5S0VTQVY1QUtZK2pzMkw3dEFvMEVGRGg5eG8xTzNHYjE3MjJYZjNs?=
- =?utf-8?B?d0FYdlhMTTBvOW96K3J2NE5DZ01jQmJaT0x3NHQyUHNrNmwzQTA2UWJidmZs?=
- =?utf-8?B?c29WS1RWcXY1SzFjdUJEQkF6K2x1dkVNOG9kbFJraWtSWGNXbXdtdFdVVnZt?=
- =?utf-8?B?U2FiU2xiVExhRE5oTm9hVW5na0lpWkhzeUcrSkdObkVKUGJzdkdHK3dQRkVY?=
- =?utf-8?B?dTY5NTl5LzVpOVZsSGRzMjlBY0dMRVplbmZ4YnFmVGNpR0FFRWwxUUNRYlFY?=
- =?utf-8?B?YmtpL01XOTFkREJtWEF1UXd4bU45a3oxYlVMSUt1RENPZFJFaUcwZjU2V3lW?=
- =?utf-8?B?N0dVUmoyZHhMc2FnZklJaGF5WmxFWW5RY2VacW1YY2ZTekJHQk1oQkM5b0tE?=
- =?utf-8?B?R2ZPS0VGOThBOEpObmZXZVFNbUgybHhuQTFEK1phamkrSUNZa09QclcxVExi?=
- =?utf-8?B?NGZaRDNTdndxaE1WQTdZR1pKOEtRTXhGTWZYOThnS3VKeW9ZbUR5MzFVNkM3?=
- =?utf-8?B?akIxakhZVHhqNU8xaTFhbE44YTlOU3FqZzYySWhOZk8rSHJ6UUphS243QXlV?=
- =?utf-8?B?NE1rTDZkTDhHeHJ1MDV1RVJNY2RvQUtFTUdnWko1TXFsTW5IY0RFM2VsaXdu?=
- =?utf-8?B?TTJzcHp0ZzhCVG5Eb3dYVkpDSUFJWmlXNTR2dUcrdjlHRER0a0lkR2o2SkM0?=
- =?utf-8?B?cmxkbjhYZFMvUWNRS0VNeENIYkxGb01GV3h0ZnIxY2xwK1hSSmJRRHcvakxz?=
- =?utf-8?B?a0tITGxUMjlmRUNaN1JaWU5RUWFGTEhzQ2RVbzZQeDdMTlJFQVRwaE4ycXcx?=
- =?utf-8?B?bVBjdGs0MVJZcGZDVmVQeWlnZGR5TEUzM1dhZDR4OVlVS0JPQ2xEOXQxOUx6?=
- =?utf-8?B?cStIb3B6cnpDbTFTcEVqWGhJelFyUTFWeUczazduVTdmRndJTzBBSHh0QjZW?=
- =?utf-8?B?eHFVSU5QbHFTY0dsTzJhdmFXNFRtZmJLV3cvVjFldnZHeHkrendjV1lvVS8z?=
- =?utf-8?B?UWIvc1lzUWMrZHV4MVROYUZzTTZCemJmSWdIVDNPVTMxNkxINld1bCt1clgv?=
- =?utf-8?B?aXFWTWJkQlJHQUtnZlFseDRaZHhHSFZ6QmFKNHMyaVhUR2wrZytpR0cxOFJL?=
- =?utf-8?B?UTllV1pNSjBpbmtQTnVOaUJpbENLM2lTRWNJSjlLakpvclRQUzlnUlE4TlUz?=
- =?utf-8?B?K3FzM2dEWEI2MjlPanlMM0ZkemFvdTdSK25BSEI5Rlh2ekpyZ0xXUUJndlZF?=
- =?utf-8?B?ZGYvd1hyajE3TnB6WkQ1Q1VZWmVZM1dwVVRDTmlEU1F6d1VZZTR4VU0xK0J3?=
- =?utf-8?B?YkwvS0JLaFdodWNxdi94UERkUDhaMG0vZ3hQemxWS0dJcUhrR0tJQzdTem1n?=
- =?utf-8?B?UzE2WDJWbExaUVNvZFQvRkZOaTgyVHVKNHkyanU3Yll2M21PR2pOR2RhVitp?=
- =?utf-8?B?VmRBNFZrOWh3MXhVWFc2dFhNdkgyeVpobnFhZW9RWXplVGZxR0VzWFNaYWZG?=
- =?utf-8?B?MXVtSUYvM0ZsSWhTZUpIdnNCdnhVZENxOXRrRFVCYUxpaHZVd3NJR0QxVU5P?=
- =?utf-8?B?d0w3bW1La1diUmNSV3pVVW5zSGs1eVFKeGJqNEhqb0xubm5RUkZ3TzQyaUUv?=
- =?utf-8?Q?+S/o+bJEWAxQTURnESDKin1OghnwamlQsKUHrVqF4vSMs?=
-X-MS-Exchange-AntiSpam-MessageData-1: lzW/S29pQt3z2A==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 683b1bef-9a88-4af4-35ab-08dee8846f25
-X-MS-Exchange-CrossTenant-AuthSource: SN1PR12MB2368.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZEFKNCsrc2w3WVdmbGxnOEsxYVI5bGQxL05FMFh6WGJzMEZub0kwMDd4VGRT?=
+ =?utf-8?B?enMzdUZwcE9yVkE5QzIzVGduWGlHWTVTVktxOUtiQ25GdVEvTWExT3NHdUtB?=
+ =?utf-8?B?OUJ0dnFNcko1QkFnNGY1U3M3OFdCVFpnaE9uQWpUbnhuU3lSeldHMks0b004?=
+ =?utf-8?B?STk3UDkrTEhZWnduejlaeXd0S0xhR2dEMTRPdFlnZk5rMUlGUFg2cnJOWVNJ?=
+ =?utf-8?B?OXJWTXZZZG9EbG16Qmk0aGpRa0N2WldlcVZQWEwzYVJGM29hWlViNzRRemM2?=
+ =?utf-8?B?b0R3QTQwOU0yM0Nnek9RdFMzakg3NS93QUJmZm5oS0dRWHNTNlVpdTFZRlhY?=
+ =?utf-8?B?S3FFbzFnazg5MHFpV241Y3VydUpJTmp4QVcyNDVGQUNabnVXWDd0c0FjQ0du?=
+ =?utf-8?B?VjFOenFwSTJRSkUwbzRvMUU0M0dGRDN1Wmkwdkg0WnFONlh0ZFVqK0JoWTgv?=
+ =?utf-8?B?bFE4eVhNVzErVWEwcXdsYTVubmxGQzBTSnBrSnlGOTNSb0FSU3BobnlreFhO?=
+ =?utf-8?B?bWZiNDRBOVlTWmMxZEFpT1RRdFpOeThCUkVKVGZMN3paZml5elUxdmwzVnly?=
+ =?utf-8?B?cFlTeEdJd294VzB4MkIyUXk1WmxiR0Q2ZURBd3pBY283Zk9YUkJ4TmtoQzNX?=
+ =?utf-8?B?bk91aERoWERQbXJ4TUtQNXViV1p5UTJHOGJjN3U4TExLZm1pcXkvR3FkcnY4?=
+ =?utf-8?B?bDF2aFUwZ1VIU3JlZlgwMXIxZmpqL0k0eHZIWFQxU080ZklHQUdzMGtMV2h1?=
+ =?utf-8?B?MUI3TmhYUml0VCswSkRzcWQvazRsczY1U3cxTkxUcHE5aEYyVU9vemFpQ3Z4?=
+ =?utf-8?B?UmJVRlpXVE54OWNybHh5eG50VVRVZ3V0NlZka1ZUTlIwQ3BKRTQwandJUkFr?=
+ =?utf-8?B?U1oyYnVuM1k0OXJ1Q3E0emZhR0xUaDl5QTMvTSs5eFVzK2NuZm1KRGlFSi9p?=
+ =?utf-8?B?RExjVS9NUkUwcE0zYXQ4SUJOR1pGTmd6UytPMU02ckIyOWN6T2pYcVcyZzNI?=
+ =?utf-8?B?TVI1YXZlYXRzdDRKaVROYWEyWVcwdTA0YVQ1Lzc3MjlKNE4yOHBkcE01cXZu?=
+ =?utf-8?B?ODJ4M2NHREpKUW00eS8yOXRuQmlyMHJWeUZ2bTJlYXVJdTlXY3VGcXBhQjl3?=
+ =?utf-8?B?MHNxbzVhZUdDdUpESEJnTmpQTFBXcjdqYlpoUkQveU1WU3JacGVwQ1NwNHdU?=
+ =?utf-8?B?YnlxNHpKc0IvdG9BSjJUVHUxVFk5Rllxd2luUVVOeXpYa0VjZks0elN0SHNO?=
+ =?utf-8?B?T3pRZkM3N0Fac1JyMVVKNzhyQUZGai9HVk5hZkM2T1FSTmRCaVAxUWJUdll2?=
+ =?utf-8?B?MHh1VjdEVW13YzZWNFZkNHpnZ09qWUFFc2NrRHl0akhqVGVhdXR5T3ZTbVdL?=
+ =?utf-8?B?OVRpOTluU0V6L3MrY1hiZUVWbDFiQk5oOTlBY09vTldoSGJaRnRiWEJIRE1v?=
+ =?utf-8?B?NXRNTTRpaTJmdXArL1kwM3NZdW1Ka3BJTnFCVEU3ZCt0Z1QvWEQ2eEV6WUJ6?=
+ =?utf-8?B?V3VxU0Y3ZElpWGNaOUhlbXEwNUUwVTFUaHFCbHRMVHlzNTNXYkl4QnZReFdD?=
+ =?utf-8?B?SkxKSWVHS0RJL3REZ0IvdnZ5YjBET2w0MUZ6aHZtKzNwbUV4ZHNWWVh4Snht?=
+ =?utf-8?B?dC80UmM1a0JncUhsYlM4Nno3TzZIWWdOVGprQ2h1M05DejlqNGpWVTQzc25o?=
+ =?utf-8?B?SHhzc3QybHVuS0pZZWgwUFlDbmFQdHlnZ1B2MTZZMEVwSUVmRXVPMWUzK3RG?=
+ =?utf-8?B?S0IxaXlZb01icFordTF2RVVUb0h6SDRyV3JKUC95Tmt0Qm92SEpLdDgzM3Bp?=
+ =?utf-8?B?clJyRXpjKzF2TzlJaUxoU0JET1h6WlpWRG9yUFEyMjZxb1plbjRBSWR2Qkg2?=
+ =?utf-8?B?K2FoTk9WUllPUzh0SFpmOFpualp5RHBoTlpxN2NGMUp3VjBEcGFQNTRqVUs2?=
+ =?utf-8?B?TDQxNGpJQ2ZpOVY4dU01OVVlUnVCSlpWY0lUUWlnYUZoTVMrQ2xnRG1ybGRU?=
+ =?utf-8?B?SkNSWnp4RTNtM1F4ZG9yUE4xUWtoWnhPNGpUUmZjUG9WNDFSMEUvM0FudVdZ?=
+ =?utf-8?B?NnRWbkI4MXFObWdxd2VScmpSWkJzRlgxeThLMXJUaVpvbnFWQlNiNXcwNnVm?=
+ =?utf-8?B?eXdIckRqYkdoWG9vaHhNNm1oVW10RllERWtyaHFPQ3lEekk5VFM0T3puWDcv?=
+ =?utf-8?B?Mkx2WUIyKzBRcXBjeFF2NHd3dUpSZzh6NUYvczloZ3BFL3c4ZG92a3ZpQ0hk?=
+ =?utf-8?B?WGx5Z285TEdocjNlSnI5bHBDQ0FQRzNJSDUrMHRSU3ZPRyt0UmpEUlpMSkhk?=
+ =?utf-8?B?ZGgzQjQ2akJwcmFXNUNJYWVHVWF4ZDhyL1oxYmpwZ1ZUUTRCQk8yUT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 098a23b6-03e0-4f99-24e0-08dee884b1fd
+X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 06:34:24.6573 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 06:36:15.5342 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OGfrnnCWrPwk2fsjvLbamINj8qPpq3ogr2ZdC53iUFWgTslwaiJ4a6pGlctsEtdGXLOS/FQBDO4m2GnRJi4Egg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6556
+X-MS-Exchange-CrossTenant-UserPrincipalName: cVA4YWdR8OGB1zmG8SLB17btG73b7479oPC8QMsstQ7wMyNiChUvs46cXNrYOdik0PRqWnubfCW/AzKhp0F4KA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9878
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,526 +151,390 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu Jul 23, 2026 at 2:02 PM JST, Alexandre Courbot wrote:
-> On Fri Jul 3, 2026 at 7:22 PM JST, Eliot Courtney wrote:
->> `FbLayout` is currently used for both pre and post FSP architectures. It
->> contains ranges for each region of framebuffer, but on post FSP
->> architectures, only the size is actually used by GSP. The offsets are
->> not decided by the driver. So, for post FSP architectures `FbLayout`
->> contains essentially guesses for the offsets. Instead, make separate
->> types so that we only store the information that's actually needed,
->> rather than keeping around offsets that may not be correct.
->>
->> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
->
-> These patches (5-8) are the only one remaining from the series, which is
-> not entirely a coincidence since they are kind of a different series by
-> themselves. :)
->
-> The patch's premise looks correct to me; although I wonder if we
-> couldn't avoid the enum by making the FB layout information more local.
-> Its use in `boot.rs` is what makes it difficult.
->
-> Ordering nit: this patch introduces an architectural change, following
-> by smaller fixes (at least for patches 7-8). If the fixes had come
-> first, they could have been merged first and the larger change would
-> operate on a better base. This is not a request to reorder if doing so
-> is not easy; just a note for future series.
+NXP i.MX93 mediamix blk-ctrl contains one DISPLAY_MUX register which
+configures parallel display format by using the "PARALLEL_DISP_FORMAT"
+field. Add a DRM bridge driver to support the display format configuration.
 
-The reason I used this order is that the next patch introduces
-`fb_end_reserved_size` (which is needed to actually calculate the right
-values) but it's only used on FbSizes (since it's FSP only). Doing the
-reverse order would mean adding a new field that is only sometimes used
-to the existing `FbLayout`. The other two patches after this could have
-gone before this so that's fair enough.
+[m.felsch@pengutronix.de: port to v7.0-rc1]
+[m.felsch@pengutronix.de: add review feedback (Alexander)]
+[m.felsch@pengutronix.de: fix to short Kconfig description (checkpath)]
+[m.felsch@pengutronix.de: use "GPL" instead of "GPL v2" (checkpatch)]
+[m.felsch@pengutronix.de: add bus-width support]
+[ Liu Ying: Port to drm-misc/drm-misc-next(v7.2-rc2 based) ]
+[ Liu Ying: Add nxp,imx91-pdfc compatible string ]
+[ Liu Ying: Call drm_bridge_get() for next_bridge ]
+[ Liu Ying: Reject unsupported output bus fmt in .atomic_get_input_bus_fmts() ]
 
->
-> Some more comments inline.
->
->> ---
->>  drivers/gpu/nova-core/fb.rs            | 70 ++++++++++++++++++++++---
->>  drivers/gpu/nova-core/fsp.rs           | 15 +++---
->>  drivers/gpu/nova-core/gsp/boot.rs      | 26 +++++-----
->>  drivers/gpu/nova-core/gsp/fw.rs        | 95 ++++++++++++++++++++++++++-=
--------
->>  drivers/gpu/nova-core/gsp/hal.rs       |  4 +-
->>  drivers/gpu/nova-core/gsp/hal/gh100.rs | 10 ++--
->>  drivers/gpu/nova-core/gsp/hal/tu102.rs | 24 +++++----
->>  7 files changed, 178 insertions(+), 66 deletions(-)
->>
->> diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
->> index 273cff752fae..fd60f93258a9 100644
->> --- a/drivers/gpu/nova-core/fb.rs
->> +++ b/drivers/gpu/nova-core/fb.rs
->> @@ -144,11 +144,30 @@ fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::=
-Result {
->>      }
->>  }
->> =20
->> -/// Layout of the GPU framebuffer memory.
->> -///
->> -/// Contains ranges of GPU memory reserved for a given purpose during t=
-he GSP boot process.
->> +/// Framebuffer information required for GSP boot.
->>  #[derive(Debug)]
->> -pub(crate) struct FbLayout {
->> +pub(crate) enum GspFbInfo {
->> +    /// Concrete framebuffer ranges for host computed framebuffer layou=
-t.
->> +    Ranges(FbRanges),
->> +    /// Sizes of framebuffer ranges for GSP-FMC computed ranges.
->> +    Sizes(FbSizes),
->> +}
->> +
->> +impl GspFbInfo {
->> +    /// Computes the framebuffer region information required for boot.
->> +    pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirm=
-ware) -> Result<Self> {
->> +        match chipset.gsp_boot_method() {
->> +            gsp::GspBootMethod::Fsp =3D> FbSizes::new(chipset, bar).map=
-(Self::Sizes),
->> +            gsp::GspBootMethod::Sec2 { .. } =3D> {
->> +                FbRanges::new(chipset, bar, gsp_fw).map(Self::Ranges)
->> +            }
->> +        }
->> +    }
->> +}
->> +
->> +/// Framebuffer ranges needed for GSP boot process.
->> +#[derive(Debug)]
->> +pub(crate) struct FbRanges {
->>      /// Range of the framebuffer. Starts at `0`.
->>      pub(crate) fb: FbRange,
->>      /// VGA workspace, small area of reserved memory at the end of the =
-framebuffer.
->> @@ -163,15 +182,17 @@ pub(crate) struct FbLayout {
->>      pub(crate) wpr2_heap: FbRange,
->>      /// WPR2 region range, starting with an instance of `GspFwWprMeta`.
->>      pub(crate) wpr2: FbRange,
->> +    /// Non-WPR heap, located just below WPR2.
->>      pub(crate) heap: FbRange,
->> +    /// Number of VF partitions.
->>      pub(crate) vf_partition_count: u8,
->>      /// PMU reserved memory size, in bytes.
->>      pub(crate) pmu_reserved_size: u32,
->>  }
->> =20
->> -impl FbLayout {
->> -    /// Computes the FB layout for `chipset` required to run the `gsp_f=
-w` GSP firmware.
->> -    pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirm=
-ware) -> Result<Self> {
->> +impl FbRanges {
->> +    /// Computes concrete framebuffer ranges required on non-FSP bootin=
-g architectures.
->> +    fn new(chipset: Chipset, bar: Bar0<'_>, gsp_fw: &GspFirmware) -> Re=
-sult<Self> {
->>          let hal =3D hal::fb_hal(chipset);
->> =20
->>          let fb =3D {
->> @@ -270,3 +291,38 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, =
-gsp_fw: &GspFirmware) -> Resu
->>          })
->>      }
->>  }
->> +
->> +/// Framebuffer region sizes needed for GSP-FMC boot.
->> +#[derive(Debug)]
->> +pub(crate) struct FbSizes {
->> +    /// VGA workspace size, in bytes.
->> +    pub(crate) vga_workspace_size: u64,
->> +    /// FRTS size, in bytes.
->> +    pub(crate) frts_size: u64,
->> +    /// WPR2 heap size, in bytes.
->> +    pub(crate) wpr2_heap_size: u64,
->> +    /// Non-WPR heap size, in bytes.
->> +    pub(crate) heap_size: u64,
->> +    /// PMU reserved memory size, in bytes.
->> +    pub(crate) pmu_reserved_size: u32,
->> +    /// Number of VF partitions.
->> +    pub(crate) vf_partition_count: u8,
->> +}
->> +
->> +impl FbSizes {
->> +    /// Computes the framebuffer region sizes for GSP-FMC boot.
->> +    fn new(chipset: Chipset, bar: Bar0<'_>) -> Result<Self> {
->> +        let hal =3D hal::fb_hal(chipset);
->> +        let fb_size =3D hal.vidmem_size(bar);
->> +
->> +        Ok(Self {
->> +            vga_workspace_size: u64::SZ_128K,
->
-> If this is a const, do we need to store it here? Can't we define it and
-> use it where needed?
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+Signed-off-by: Liu Ying <victor.liu@nxp.com>
+---
+Hi,
 
-Yerp, I think so.
+I'm taking Marco Felsch's v11 work over and trying to add the imx93-pdfc.c
+driver.
 
->
->> +            frts_size: hal.frts_size(),
->> +            wpr2_heap_size: gsp::LibosParams::from_chipset(chipset)
->> +                .wpr_heap_size(chipset, fb_size)?,
->> +            heap_size: u64::from(hal.non_wpr_heap_size()),
->> +            pmu_reserved_size: hal.pmu_reserved_size(),
->> +            vf_partition_count: 0,
->> +        })
->> +    }
->> +}
->> diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
->> index 5b782aa2e3fd..533fb95573ab 100644
->> --- a/drivers/gpu/nova-core/fsp.rs
->> +++ b/drivers/gpu/nova-core/fsp.rs
->> @@ -31,7 +31,7 @@
->>          fsp::Fsp as FspEngine,
->>          Falcon, //
->>      },
->> -    fb::FbLayout,
->> +    fb::FbSizes,
->>      firmware::{
->>          fsp::{
->>              FmcSignatures,
->> @@ -136,14 +136,14 @@ struct FspCotMessage {
->>  impl FspCotMessage {
->>      /// Returns an in-place initializer for [`FspCotMessage`].
->>      fn new<'a>(
->> -        fb_layout: &FbLayout,
->> +        fb_info: &FbSizes,
->>          fsp_fw: &'a FspFirmware,
->>          args: &'a FmcBootArgs<'_>,
->>      ) -> Result<impl Init<Self> + 'a> {
->>          // frts_vidmem_offset is measured from the end of FB, so FRTS s=
-its at
->>          // (end of FB) - frts_vidmem_offset.
->>          let frts_vidmem_offset =3D if !args.resume {
->> -            let frts_reserved_size =3D fb_layout.heap.len() + u64::from=
-(fb_layout.pmu_reserved_size);
->> +            let frts_reserved_size =3D fb_info.heap_size + u64::from(fb=
-_info.pmu_reserved_size);
->> =20
->>              frts_reserved_size
->>                  .align_up(Alignment::new::<SZ_2M>())
->> @@ -153,7 +153,7 @@ fn new<'a>(
->>          };
->> =20
->>          let frts_size: u32 =3D if !args.resume {
->> -            fb_layout.frts.len().try_into()?
->> +            fb_info.frts_size.try_into()?
->>          } else {
->>              0
->>          };
->> @@ -339,15 +339,12 @@ fn send_sync_fsp<M>(&mut self, dev: &device::Devic=
-e, msg: &M) -> Result<KVec<u8>
->>      pub(crate) fn boot_fmc(
->>          &mut self,
->>          dev: &device::Device<device::Bound>,
->> -        fb_layout: &FbLayout,
->> +        fb_info: &FbSizes,
->>          args: &FmcBootArgs<'_>,
->>      ) -> Result {
->>          dev_dbg!(dev, "Starting FSP boot sequence for {}\n", args.chips=
-et);
->> =20
->> -        let msg =3D KBox::init(
->> -            FspCotMessage::new(fb_layout, &self.fsp_fw, args)?,
->> -            GFP_KERNEL,
->> -        )?;
->> +        let msg =3D KBox::init(FspCotMessage::new(fb_info, &self.fsp_fw=
-, args)?, GFP_KERNEL)?;
->> =20
->>          let _response_buf =3D self.send_sync_fsp(dev, &*msg)?;
->> =20
->> diff --git a/drivers/gpu/nova-core/gsp/boot.rs b/drivers/gpu/nova-core/g=
-sp/boot.rs
->> index c347558aa8e5..14fd96084746 100644
->> --- a/drivers/gpu/nova-core/gsp/boot.rs
->> +++ b/drivers/gpu/nova-core/gsp/boot.rs
->> @@ -16,7 +16,7 @@
->>          gsp::Gsp,
->>          Falcon, //
->>      },
->> -    fb::FbLayout,
->> +    fb::GspFbInfo,
->>      firmware::{
->>          gsp::GspFirmware,
->>          FIRMWARE_VERSION, //
->> @@ -50,23 +50,21 @@ pub(crate) fn boot(
->> =20
->>          let gsp_fw =3D KBox::pin_init(GspFirmware::new(dev, chipset, FI=
-RMWARE_VERSION), GFP_KERNEL)?;
->> =20
->> -        let fb_layout =3D FbLayout::new(chipset, bar, &gsp_fw)?;
->> -        dev_dbg!(dev, "{:#x?}\n", fb_layout);
->> +        let fb_info =3D GspFbInfo::new(chipset, bar, &gsp_fw)?;
->> +        dev_dbg!(dev, "{:#x?}\n", fb_info);
->> =20
->> -        let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::=
-new(&gsp_fw, &fb_layout))?;
->> +        let wpr_meta =3D Coherent::init(dev, GFP_KERNEL, GspFwWprMeta::=
-new(&gsp_fw, &fb_info))?;
->> =20
->>          // Perform the chipset-specific boot sequence, and retrieve the=
- unload bundle.
->> -        let unload_bundle =3D hal
->> -            .boot(&self, &mut ctx, &fb_layout, &wpr_meta)?
->> -            .or_else(|| {
->> -                dev_warn!(dev, "The GSP won't be able to unload properl=
-y on unbind.\n");
->> -                dev_warn!(
->> -                    dev,
->> -                    "The GPU will need to be reset before the driver ca=
-n bind again.\n"
->> -                );
->> +        let unload_bundle =3D hal.boot(&self, &mut ctx, &fb_info, &wpr_=
-meta)?.or_else(|| {
->> +            dev_warn!(dev, "The GSP won't be able to unload properly on=
- unbind.\n");
->> +            dev_warn!(
->> +                dev,
->> +                "The GPU will need to be reset before the driver can bi=
-nd again.\n"
->> +            );
->> =20
->> -                None
->> -            });
->> +            None
->> +        });
->> =20
->>          let mut unload_guard =3D
->>              ScopeGuard::new_with_data((ctx, unload_bundle), |(ctx, unlo=
-ad_bundle)| {
->> diff --git a/drivers/gpu/nova-core/gsp/fw.rs b/drivers/gpu/nova-core/gsp=
-/fw.rs
->> index 2590931262af..3b148147cb18 100644
->> --- a/drivers/gpu/nova-core/gsp/fw.rs
->> +++ b/drivers/gpu/nova-core/gsp/fw.rs
->> @@ -29,7 +29,7 @@
->>  };
->> =20
->>  use crate::{
->> -    fb::FbLayout,
->> +    fb::GspFbInfo,
->>      firmware::gsp::GspFirmware,
->>      gpu::{
->>          Architecture,
->> @@ -215,11 +215,65 @@ unsafe impl FromBytes for GspFwWprMeta {}
->> =20
->>  impl GspFwWprMeta {
->>      /// Returns an initializer for a `GspFwWprMeta` suitable for bootin=
-g `gsp_firmware` using the
->> -    /// `fb_layout` layout.
->> +    /// framebuffer information.
->>      pub(crate) fn new<'a>(
->>          gsp_firmware: &'a GspFirmware,
->> -        fb_layout: &'a FbLayout,
->> +        fb_info: &'a GspFbInfo,
->>      ) -> impl Init<Self> + 'a {
->> +        #[derive(Default)]
->> +        struct WprMetaFields {
->> +            gsp_fw_rsvd_start: u64,
->> +            non_wpr_heap_offset: u64,
->> +            non_wpr_heap_size: u64,
->> +            gsp_fw_wpr_start: u64,
->> +            gsp_fw_heap_offset: u64,
->> +            gsp_fw_heap_size: u64,
->> +            gsp_fw_offset: u64,
->> +            boot_bin_offset: u64,
->> +            frts_offset: u64,
->> +            frts_size: u64,
->> +            gsp_fw_wpr_end: u64,
->> +            gsp_fw_heap_vf_partition_count: u8,
->> +            fb_size: u64,
->> +            vga_workspace_offset: u64,
->> +            vga_workspace_size: u64,
->> +            pmu_reserved_size: u32,
->> +        }
->> +
->> +        let fields =3D match fb_info {
->> +            GspFbInfo::Ranges(ranges) =3D> WprMetaFields {
->> +                gsp_fw_rsvd_start: ranges.heap.start,
->> +                non_wpr_heap_offset: ranges.heap.start,
->> +                non_wpr_heap_size: ranges.heap.len(),
->> +                gsp_fw_wpr_start: ranges.wpr2.start,
->> +                gsp_fw_heap_offset: ranges.wpr2_heap.start,
->> +                gsp_fw_heap_size: ranges.wpr2_heap.len(),
->> +                gsp_fw_offset: ranges.elf.start,
->> +                boot_bin_offset: ranges.boot.start,
->> +                frts_offset: ranges.frts.start,
->> +                frts_size: ranges.frts.len(),
->> +                gsp_fw_wpr_end: ranges
->> +                    .vga_workspace
->> +                    .start
->> +                    .align_down(Alignment::new::<SZ_128K>()),
->> +                gsp_fw_heap_vf_partition_count: ranges.vf_partition_cou=
-nt,
->> +                fb_size: ranges.fb.len(),
->> +                vga_workspace_offset: ranges.vga_workspace.start,
->> +                vga_workspace_size: ranges.vga_workspace.len(),
->> +                pmu_reserved_size: ranges.pmu_reserved_size,
->> +            },
->> +            GspFbInfo::Sizes(sizes) =3D> WprMetaFields {
->> +                non_wpr_heap_size: sizes.heap_size,
->> +                gsp_fw_heap_size: sizes.wpr2_heap_size,
->> +                frts_size: sizes.frts_size,
->> +                gsp_fw_heap_vf_partition_count: sizes.vf_partition_coun=
-t,
->> +                vga_workspace_size: sizes.vga_workspace_size,
->> +                pmu_reserved_size: sizes.pmu_reserved_size,
->> +                // When only sizes are supplied, offsets and several ot=
-her parameters are not used.
->> +                ..Default::default()
->> +            },
->> +        };
->> +
->>          let init_inner =3D init!(bindings::GspFwWprMeta {
->>              // CAST: we want to store the bits of `GSP_FW_WPR_META_MAGI=
-C` unmodified.
->>              magic: bindings::GSP_FW_WPR_META_MAGIC as u64,
->> @@ -237,25 +291,22 @@ pub(crate) fn new<'a>(
->>                      sizeOfSignature: u64::from_safe_cast(gsp_firmware.s=
-ignatures.size()),
->>                  },
->>              },
->> -            gspFwRsvdStart: fb_layout.heap.start,
->> -            nonWprHeapOffset: fb_layout.heap.start,
->> -            nonWprHeapSize: fb_layout.heap.end - fb_layout.heap.start,
->> -            gspFwWprStart: fb_layout.wpr2.start,
->> -            gspFwHeapOffset: fb_layout.wpr2_heap.start,
->> -            gspFwHeapSize: fb_layout.wpr2_heap.end - fb_layout.wpr2_hea=
-p.start,
->> -            gspFwOffset: fb_layout.elf.start,
->> -            bootBinOffset: fb_layout.boot.start,
->> -            frtsOffset: fb_layout.frts.start,
->> -            frtsSize: fb_layout.frts.end - fb_layout.frts.start,
->> -            gspFwWprEnd: fb_layout
->> -                .vga_workspace
->> -                .start
->> -                .align_down(Alignment::new::<SZ_128K>()),
->> -            gspFwHeapVfPartitionCount: fb_layout.vf_partition_count,
->> -            fbSize: fb_layout.fb.end - fb_layout.fb.start,
->> -            vgaWorkspaceOffset: fb_layout.vga_workspace.start,
->> -            vgaWorkspaceSize: fb_layout.vga_workspace.end - fb_layout.v=
-ga_workspace.start,
->> -            pmuReservedSize: fb_layout.pmu_reserved_size,
->> +            gspFwRsvdStart: fields.gsp_fw_rsvd_start,
->> +            nonWprHeapOffset: fields.non_wpr_heap_offset,
->> +            nonWprHeapSize: fields.non_wpr_heap_size,
->> +            gspFwWprStart: fields.gsp_fw_wpr_start,
->> +            gspFwHeapOffset: fields.gsp_fw_heap_offset,
->> +            gspFwHeapSize: fields.gsp_fw_heap_size,
->> +            gspFwOffset: fields.gsp_fw_offset,
->> +            bootBinOffset: fields.boot_bin_offset,
->> +            frtsOffset: fields.frts_offset,
->> +            frtsSize: fields.frts_size,
->> +            gspFwWprEnd: fields.gsp_fw_wpr_end,
->> +            gspFwHeapVfPartitionCount: fields.gsp_fw_heap_vf_partition_=
-count,
->> +            fbSize: fields.fb_size,
->> +            vgaWorkspaceOffset: fields.vga_workspace_offset,
->> +            vgaWorkspaceSize: fields.vga_workspace_size,
->> +            pmuReservedSize: fields.pmu_reserved_size,
->>              ..Zeroable::init_zeroed()
->>          });
->> =20
->> diff --git a/drivers/gpu/nova-core/gsp/hal.rs b/drivers/gpu/nova-core/gs=
-p/hal.rs
->> index 46428c623087..ddd356fafc1e 100644
->> --- a/drivers/gpu/nova-core/gsp/hal.rs
->> +++ b/drivers/gpu/nova-core/gsp/hal.rs
->> @@ -11,7 +11,7 @@
->>  };
->> =20
->>  use crate::{
->> -    fb::FbLayout,
->> +    fb::GspFbInfo,
->>      firmware::gsp::GspFirmware,
->>      gpu::Chipset,
->>      gsp::{
->> @@ -42,7 +42,7 @@ fn boot(
->>          &self,
->>          gsp: &Gsp,
->>          ctx: &mut GspBootContext<'_, '_>,
->> -        fb_layout: &FbLayout,
->> +        fb_info: &GspFbInfo,
->>          wpr_meta: &Coherent<GspFwWprMeta>,
->>      ) -> Result<Option<crate::gsp::UnloadBundle>>;
->> =20
->> diff --git a/drivers/gpu/nova-core/gsp/hal/gh100.rs b/drivers/gpu/nova-c=
-ore/gsp/hal/gh100.rs
->> index 270703d0f5c6..6fc6d487e4c8 100644
->> --- a/drivers/gpu/nova-core/gsp/hal/gh100.rs
->> +++ b/drivers/gpu/nova-core/gsp/hal/gh100.rs
->> @@ -15,7 +15,7 @@
->>          gsp::Gsp as GspEngine,
->>          Falcon, //
->>      },
->> -    fb::FbLayout,
->> +    fb::GspFbInfo,
->>      fsp::FmcBootArgs,
->>      gsp::{
->>          hal::{
->> @@ -136,13 +136,17 @@ fn boot(
->>          &self,
->>          gsp: &Gsp,
->>          ctx: &mut GspBootContext<'_, '_>,
->> -        fb_layout: &FbLayout,
->> +        fb_info: &GspFbInfo,
->>          wpr_meta: &Coherent<GspFwWprMeta>,
->>      ) -> Result<Option<crate::gsp::UnloadBundle>> {
->>          let dev =3D ctx.dev();
->>          let chipset =3D ctx.chipset;
->>          let gsp_falcon =3D ctx.gsp_falcon;
->> =20
->> +        let GspFbInfo::Sizes(fb_sizes) =3D fb_info else {
->> +            return Err(EINVAL);
->> +        };
->
-> Mmm I wish we would avoid that, this is another example of a runtime
-> check that should not need to be performed.
->
-> In this case I think we can, as we also have access to the
-> `GspFwWprMeta` which contains the FRTS size information that we are
-> using. We would just need to construct the range from it, pass it to
-> `run_fwsec_frts`, and we remove visibility from a lot of information
-> that this method didn't need in the first place. This could be a
-> standalone cleanup patch that comes before this one.
->
-> All the same (and again IIUC), the GH100's GSP HAL `boot` method should
-> be able to work entirely with `GspFwWprMeta`.
->
-> With these two out of the way, the only place where the FB layout
-> information is required becomes the construction of `GspFwWprMeta`;
-> which should give us more opportunities to make things more local and
-> remove `GspFbInfo` altogether, maybe by making the construction of
-> `GspFwWprMeta` a HAL method of `Fb` so we can hide `FbRanges`/`FbSizes`
-> there?
->
-> It's still not completely clear to me, so let's first see if my
-> suggestion can be applied and what the resulting code looks like once it
-> is done. But I sense room for simplification. :)
+DT binding patch and DT patch in v11 have already landed, so only need
+to send the driver patch out for review.
+---
+Changes in v13:
+- Reject unsupported output bus fmt in .atomic_get_input_bus_fmts()  (Sashiko bot)
+- Tweak commit message about change log
+- Link to v12: https://patch.msgid.link/20260722-v6-18-topic-imx93-parallel-display-v12-1-a59dbb4dbc13@nxp.com
 
-Yeah it is unfortuante to have the runtime check but it's just another
-consequence of pushing stuff across the dynamic dispatch boundary on the
-HALs (see below for a method to avoid this). I am not sure about using
-GspFwWprMeta as the source of truth though, for the following reasons:
+Changes in v12:
+- Link to v11: https://lore.kernel.org/r/20260303-v6-18-topic-imx93-parallel-display-v11-0-1b03733c8461@pengutronix.de
+- Rebase onto latest drm-misc/drm-misc-next
+- Drop DT binding patch and DT patch because they have landed
+- Add nxp,imx91-pdfc compatible string
+- Call drm_bridge_get() for next_bridge
+- Cc Marco
 
-1. The next patch adds `fb_end_reserved_size` which is used by the FSP
-   code. It's not part of `GspFwWprMeta`. Meaning that GspFbInfo encodes
-   more info than just the wire format bindings required by some of the
-   hardware.
-2. It feels a little gross to me to use such a bindings adjacent
-   structure to be used upwardly instead of downwardly to the
-   firmware/RPC boundary.
-3. If fb.rs needs to depend on the hardware/firmware-specific
-   GspFwWprMeta I feel it dilutes the meaning of having fb.rs be a
-   separate module holding general info about the fb layout used by
-   multiple modules. The dependency direction feels a little awkward to
-   me.
+Changes in v11:
+- Link to v10: https://lore.kernel.org/r/20260302-v6-18-topic-imx93-parallel-display-v10-0-634fe2778c7a@pengutronix.de
+- Fix double space (Liu)
+- Drop 'const' (Liu)
+- Drop GFP_KERNEL from kmalloc_obj() (Liu)
+- Add r-b (Luca)
 
-Instead, I think it may be better to remove Coherent<GspFwWprMeta> from
-the boot signature and create it inside the HAL. I think it's a bit
-nicer to push that more HAL-y object downwards.
+Changes in v10:
+- Link to v9: https://lore.kernel.org/r/20260115-v6-18-topic-imx93-parallel-display-v9-0-2c5051e4b144@pengutronix.de
+- Add MEDIA_BUS_FMT_FIXED (Liu)
+- Drop next_bridge from driver struct and use bridge.next_bridge (Liu)
+- Drop linux/of_address.h include (Liu)
+- imx93-pdfc: drop bridge.driver_private usage++ (Liu)
+- Make use of kmalloc_obj() (Liu)
 
-If we do this we can also push the creation of FbSizes/FbRanges into
-each HAL implementation and get rid of the GspFbInfo enum and the
-runtime check. WDYT?
+Changes in v9:
+- Link to v8: https://lore.kernel.org/r/20260113-v6-18-topic-imx93-parallel-display-v8-0-4abccdc473a5@pengutronix.de
+- dt-bindings: drop unncessary changes (Frank)
+- imx93-pdfc: drop bridge.driver_private usage (Luca)
+- Kconfig: Adapt Kconfig symbol and prompt (Luca)
 
+Changes in v8:
+- Link to v7: https://lore.kernel.org/r/20251202-v6-18-topic-imx93-parallel-display-v7-0-2cce31d64608@pengutronix.de
+- dt-bindings: add nxp,imx91-pdfc compatible (Liu)
+- dt-bindings: use video-interfaces.yaml# (Liu)
+- dt-bindings: s/data lanes/data lines/ (Liu)
+- dt-bindings: drop 'reg' poperty
+- dt-bindings: drop #address-cells, #size-cells
+- imx93-pdfc: drop drm/drm_print.h include (Liu)
+- imx93-pdfc: s/exist/exists/ (Liu)
+- imx93-pdfc: drop MEDIA_BUS_FMT_FIXED from imx93_pdfc_bus_output_fmts
+- imx93-pdfc: imx93_pdfc_bus_output_fmt_supported: make fmt const
+- imx93-pdfc: Rework input-fmt selection to always fallback to a sane
+              default.
+- imx93-pdfc: imx93_pdfc_bridge_atomic_check: make use of
+	      imx93_pdfc_bus_output_fmt_supported()
+- imx93-pdfc: drop 'reg' dt-property usage
+- imx93-pdfc: imx93_pdfc_bridge_probe: pass -1 for endpoint reg value (Liu)
+
+Changes in v7:
+- Link to v6: https://lore.kernel.org/r/20251201-v6-18-topic-imx93-parallel-display-v6-0-7b056e1e5b1e@pengutronix.de
+- Add missing bits.h and bitfield.h headers (lkp)
+
+Changes in v6:
+- Link to v5: https://lore.kernel.org/all/20250304082434.834031-1-victor.liu@nxp.com/
+- Add bus-width support
+- rebase onto v6.18-rc1
+- add review feedback (Alexander)
+- driver license "GPL v2" -> "GPL" (checkpatch)
+- make use of reg of-property
+- fix to short Kconfig description (checkpath)
+- add OF integration
+
+To: Liu Ying <victor.liu@nxp.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Frank Li <Frank.Li@nxp.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+To: Pengutronix Kernel Team <kernel@pengutronix.de>
+To: Fabio Estevam <festevam@gmail.com>
+Cc: linux-kernel@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: Marco Felsch <m.felsch@pengutronix.de>
+---
+ drivers/gpu/drm/bridge/imx/Kconfig      |  11 ++
+ drivers/gpu/drm/bridge/imx/Makefile     |   1 +
+ drivers/gpu/drm/bridge/imx/imx93-pdfc.c | 222 ++++++++++++++++++++++++++++++++
+ 3 files changed, 234 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/imx/Kconfig b/drivers/gpu/drm/bridge/imx/Kconfig
+index 005a745e5c47..49fcecfee38e 100644
+--- a/drivers/gpu/drm/bridge/imx/Kconfig
++++ b/drivers/gpu/drm/bridge/imx/Kconfig
+@@ -107,4 +107,15 @@ config DRM_IMX93_MIPI_DSI
+ 	  Choose this to enable MIPI DSI controller found in Freescale i.MX93
+ 	  processor.
+ 
++config DRM_IMX93_PARALLEL_DISP_FMT_CONVERTER
++	tristate "NXP i.MX91/i.MX93 parallel display format converter"
++	depends on OF
++	select DRM_KMS_HELPER
++	help
++	  On i.MX93 and i.MX91 SoCs the parallel display format output is
++	  controlled via the MEDIAMIX BLK-CTRL DISPLAY_MUX.
++
++	  Say 'Y' or 'M' if you use the parallel display output path on a
++	  i.MX93 or i.MX91 SoC.
++
+ endif # ARCH_MXC || COMPILE_TEST
+diff --git a/drivers/gpu/drm/bridge/imx/Makefile b/drivers/gpu/drm/bridge/imx/Makefile
+index 94ac8c40ebe9..99f28cd013ae 100644
+--- a/drivers/gpu/drm/bridge/imx/Makefile
++++ b/drivers/gpu/drm/bridge/imx/Makefile
+@@ -10,3 +10,4 @@ obj-$(CONFIG_DRM_IMX8QXP_PIXEL_COMBINER) += imx8qxp-pixel-combiner.o
+ obj-$(CONFIG_DRM_IMX8QXP_PIXEL_LINK) += imx8qxp-pixel-link.o
+ obj-$(CONFIG_DRM_IMX8QXP_PIXEL_LINK_TO_DPI) += imx8qxp-pxl2dpi.o
+ obj-$(CONFIG_DRM_IMX93_MIPI_DSI) += imx93-mipi-dsi.o
++obj-$(CONFIG_DRM_IMX93_PARALLEL_DISP_FMT_CONVERTER) += imx93-pdfc.o
+diff --git a/drivers/gpu/drm/bridge/imx/imx93-pdfc.c b/drivers/gpu/drm/bridge/imx/imx93-pdfc.c
+new file mode 100644
+index 000000000000..2d6ca95ed554
+--- /dev/null
++++ b/drivers/gpu/drm/bridge/imx/imx93-pdfc.c
+@@ -0,0 +1,222 @@
++// SPDX-License-Identifier: GPL-2.0+
++
++/*
++ * Copyright 2022-2025 NXP
++ */
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/media-bus-format.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/of_graph.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++
++#include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_bridge.h>
++
++#define IMX93_DISPLAY_MUX_REG		0x60
++#define PARALLEL_DISP_FORMAT		GENMASK(10, 8)
++#define FORMAT_RGB888_TO_RGB888		FIELD_PREP(PARALLEL_DISP_FORMAT, 0)
++#define FORMAT_RGB888_TO_RGB666		FIELD_PREP(PARALLEL_DISP_FORMAT, 1)
++#define FORMAT_RGB565_TO_RGB565		FIELD_PREP(PARALLEL_DISP_FORMAT, 2)
++
++struct imx93_pdfc {
++	struct drm_bridge bridge;
++	struct device *dev;
++	struct regmap *regmap;
++	u32 phy_bus_width;
++};
++
++static struct imx93_pdfc *bridge_to_imx93_pdfc(struct drm_bridge *bridge)
++{
++	return container_of(bridge, struct imx93_pdfc, bridge);
++}
++
++static int
++imx93_pdfc_bridge_attach(struct drm_bridge *bridge, struct drm_encoder *encoder,
++			 enum drm_bridge_attach_flags flags)
++{
++	return drm_bridge_attach(bridge->encoder, bridge->next_bridge, bridge, flags);
++}
++
++static void imx93_pdfc_bridge_atomic_enable(struct drm_bridge *bridge,
++					    struct drm_atomic_commit *state)
++{
++	struct imx93_pdfc *pdfc = bridge_to_imx93_pdfc(bridge);
++	const struct drm_bridge_state *bridge_state;
++	unsigned int mask = PARALLEL_DISP_FORMAT;
++	unsigned int val;
++
++	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
++
++	switch (bridge_state->output_bus_cfg.format) {
++	case MEDIA_BUS_FMT_RGB888_1X24:
++	case MEDIA_BUS_FMT_FIXED:
++		val = FORMAT_RGB888_TO_RGB888;
++		if (pdfc->phy_bus_width == 18) {
++			/*
++			 * Can be valid if physical bus limitation exists,
++			 * therefore use dev_dbg().
++			 */
++			dev_dbg(pdfc->dev, "Truncate two LSBs from each color\n");
++			val = FORMAT_RGB888_TO_RGB666;
++		}
++		break;
++	case MEDIA_BUS_FMT_RGB666_1X18:
++		val = FORMAT_RGB888_TO_RGB666;
++		break;
++	case MEDIA_BUS_FMT_RGB565_1X16:
++		val = FORMAT_RGB565_TO_RGB565;
++		break;
++	}
++
++	regmap_update_bits(pdfc->regmap, IMX93_DISPLAY_MUX_REG, mask, val);
++}
++
++/* TODO: Add YUV formats */
++static const u32 imx93_pdfc_bus_output_fmts[] = {
++	MEDIA_BUS_FMT_FIXED,
++	MEDIA_BUS_FMT_RGB888_1X24,
++	MEDIA_BUS_FMT_RGB666_1X18,
++	MEDIA_BUS_FMT_RGB565_1X16,
++};
++
++static bool imx93_pdfc_bus_output_fmt_supported(u32 fmt)
++{
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(imx93_pdfc_bus_output_fmts); i++) {
++		if (imx93_pdfc_bus_output_fmts[i] == fmt)
++			return true;
++	}
++
++	return false;
++}
++
++static u32 *
++imx93_pdfc_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
++					    struct drm_bridge_state *bridge_state,
++					    struct drm_crtc_state *crtc_state,
++					    struct drm_connector_state *conn_state,
++					    u32 output_fmt,
++					    unsigned int *num_input_fmts)
++{
++	u32 *input_fmts;
++
++	*num_input_fmts = 0;
++
++	if (!imx93_pdfc_bus_output_fmt_supported(output_fmt))
++		return NULL;
++
++	input_fmts = kmalloc_obj(*input_fmts);
++	if (!input_fmts)
++		return NULL;
++
++	*num_input_fmts = 1;
++
++	switch (output_fmt) {
++	case MEDIA_BUS_FMT_RGB888_1X24:
++	case MEDIA_BUS_FMT_RGB565_1X16:
++		input_fmts[0] = output_fmt;
++		break;
++	case MEDIA_BUS_FMT_RGB666_1X18:
++	case MEDIA_BUS_FMT_FIXED:
++		input_fmts[0] = MEDIA_BUS_FMT_RGB888_1X24;
++		break;
++	}
++
++	return input_fmts;
++}
++
++static int imx93_pdfc_bridge_atomic_check(struct drm_bridge *bridge,
++					  struct drm_bridge_state *bridge_state,
++					  struct drm_crtc_state *crtc_state,
++					  struct drm_connector_state *conn_state)
++{
++	struct imx93_pdfc *pdfc = bridge_to_imx93_pdfc(bridge);
++	u32 format = bridge_state->output_bus_cfg.format;
++
++	if (imx93_pdfc_bus_output_fmt_supported(format))
++		return 0;
++
++	dev_warn(pdfc->dev, "Unsupported output bus format: 0x%x\n", format);
++
++	return -EINVAL;
++}
++
++static const struct drm_bridge_funcs funcs = {
++	.attach			= imx93_pdfc_bridge_attach,
++	.atomic_enable		= imx93_pdfc_bridge_atomic_enable,
++	.atomic_duplicate_state	= drm_atomic_helper_bridge_duplicate_state,
++	.atomic_destroy_state	= drm_atomic_helper_bridge_destroy_state,
++	.atomic_get_input_bus_fmts	= imx93_pdfc_bridge_atomic_get_input_bus_fmts,
++	.atomic_check		= imx93_pdfc_bridge_atomic_check,
++	.atomic_create_state	= drm_atomic_helper_bridge_create_state,
++};
++
++static int imx93_pdfc_bridge_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct drm_bridge *next_bridge;
++	struct imx93_pdfc *pdfc;
++	struct device_node *ep;
++	int err;
++
++	pdfc = devm_drm_bridge_alloc(dev, struct imx93_pdfc, bridge, &funcs);
++	if (IS_ERR(pdfc))
++		return PTR_ERR(pdfc);
++
++	pdfc->regmap = syscon_node_to_regmap(dev->of_node->parent);
++	if (IS_ERR(pdfc->regmap))
++		return dev_err_probe(dev, PTR_ERR(pdfc->regmap),
++				     "failed to get regmap\n");
++
++	/* No limits per default */
++	pdfc->phy_bus_width = 24;
++
++	/* Get output ep (port1/endpoint) */
++	ep = of_graph_get_endpoint_by_regs(dev->of_node, 1, -1);
++	if (ep) {
++		err = of_property_read_u32(ep, "bus-width", &pdfc->phy_bus_width);
++		of_node_put(ep);
++
++		/* bus-width is optional but it must have valid data if present */
++		if (err && err != -EINVAL)
++			return dev_err_probe(dev, err,
++					     "failed to query bus-width\n");
++	}
++
++	next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
++	if (IS_ERR(next_bridge))
++		return dev_err_probe(dev, PTR_ERR(next_bridge),
++				     "failed to get next bridge\n");
++	pdfc->dev = dev;
++	pdfc->bridge.of_node = dev->of_node;
++	pdfc->bridge.type = DRM_MODE_CONNECTOR_DPI;
++	pdfc->bridge.next_bridge = drm_bridge_get(next_bridge);
++
++	return devm_drm_bridge_add(dev, &pdfc->bridge);
++}
++
++static const struct of_device_id imx93_pdfc_dt_ids[] = {
++	{ .compatible = "nxp,imx91-pdfc", },
++	{ .compatible = "nxp,imx93-pdfc", },
++	{ /* sentinel */ }
++};
++MODULE_DEVICE_TABLE(of, imx93_pdfc_dt_ids);
++
++static struct platform_driver imx93_pdfc_bridge_driver = {
++	.probe	= imx93_pdfc_bridge_probe,
++	.driver	= {
++		.of_match_table = imx93_pdfc_dt_ids,
++		.name = "imx93_pdfc",
++	},
++};
++module_platform_driver(imx93_pdfc_bridge_driver);
++
++MODULE_DESCRIPTION("NXP i.MX93 parallel display format configuration driver");
++MODULE_AUTHOR("Liu Ying <victor.liu@nxp.com>");
++MODULE_LICENSE("GPL");
+
+---
+base-commit: 9499d3bc41a2c4e6a1badfb55f943b9d0c34f034
+change-id: 20251201-v6-18-topic-imx93-parallel-display-95f9234bf6cc
+
+Best regards,
+--  
+Regards,
+Liu Ying
 
