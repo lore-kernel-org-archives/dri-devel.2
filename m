@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2613C4453D
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E3BC531CE
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CC9310EF20;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0393610EF1E;
 	Thu, 23 Jul 2026 01:35:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oqPddgOo";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JZBYr7+C";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7113510EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED56A10EF1E
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770525;
- bh=2xeUyroivcy0FWJ5doDXcW6SCatzUXnv0VtZOEz+FLk=;
+ s=mail; t=1784770514;
+ bh=vkmohHBcUSuwS6ZyFCylIMegc4f1JtD3hk0obLRPOFI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=oqPddgOoMGHYJDLcfTZZlkNbmpgjVM1cOW91WHHRd/4DWKK3EFIOVPNjy3QVl5F9a
- bv1qz4YhR05Eit7bT+iv/O2lD0odITuhTID6Ep0tE3n0OY1Jq5bLXDZWX8QTYTqYbi
- GvDicAcHtd5UkwhHrxZmT8mWWAp64wX0mye01gnVpcUSc3skrKHhcvtiRyud3RXdhJ
- RXUeOVDSBGMFARWcx7tqLCXZ0S3eyIU5fBDznowvo+slj1DaPeOEBZwQpD1vZHCwUg
- DymbMgq0D2AYSM/gw9l6efMY61mJpc78o/A1jbo2ruwiy6COLyKQe7629AYM9gTbsB
- lWZlVl+zXA9Ww==
+ b=JZBYr7+C00r1wL0e/BjKmWVhQ8Pi6A+THSPgl+/zp8kk99hx+dS4egmsocS1JLzS4
+ 9qjuKCEvxTXcNCgMRgwBBOCc1tdf5UjPaQihvz6BsAraa4UMlCcH4OJivmIwngKz5Y
+ xSYGriIuRQNqHuI0eLim8jGkUI6enyKwjb6CUG2117DUbrUk/Lr5CQOGcrr7qQAOZP
+ D1/uhFonnoT6QKT8RfD/JJtZTQxvYs+k2nFpVBKQJN8x9hPoG+5AzhHAao7gAhreyj
+ aXyPLR4GXzbxCvtgRgtVb1WOID+vpfiDhYlwUJffI4+aZIJyAG87tvDAQx6rtDkeOm
+ 37adn59VBGxyw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 21BA217E0857;
- Thu, 23 Jul 2026 03:35:25 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9F81117E1064;
+ Thu, 23 Jul 2026 03:35:14 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:22 +0300
-Subject: [PATCH v9 33/61] drm/bridge: dw-hdmi-qp: Drop unused .setup_hpd()
- phy op
+Date: Thu, 23 Jul 2026 04:35:07 +0300
+Subject: [PATCH v9 18/61] drm/display: hdmi-state-helper: Set HDMI
+ scrambling requirement
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-33-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-18-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -80,43 +80,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With the transition to .{enable|disable}_hpd() phy ops complete in both
-the bridge and platform drivers, .setup_hpd() has no remaining callers.
-Drop it.
+Set drm_connector_hdmi_state.scrambler_needed when the computed TMDS
+character rate exceeds the HDMI 1.3 maximum TMDS character rate.
 
+HDMI 2.0 requires scrambling above 340 MHz.  Centralize that clock-based
+requirement in the HDMI state helper so drivers do not need to open-code
+the threshold check.
+
+Acked-by: Maxime Ripard <mripard@kernel.org>
 Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 3 ---
- include/drm/bridge/dw_hdmi_qp.h              | 1 -
- 2 files changed, 4 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index be1bd765cb03..8c1f7487efa9 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -1294,9 +1294,6 @@ static void dw_hdmi_qp_init_hw(struct dw_hdmi_qp *hdmi)
- 	/* Clear DONE and ERROR interrupts */
- 	dw_hdmi_qp_write(hdmi, I2CM_OP_DONE_CLEAR | I2CM_NACK_RCVD_CLEAR,
- 			 MAINUNIT_1_INT_CLEAR);
--
--	if (hdmi->phy.ops->setup_hpd)
--		hdmi->phy.ops->setup_hpd(hdmi, hdmi->phy.data);
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index ad59318a3e85..d112c1555517 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -594,6 +594,9 @@ hdmi_compute_clock(const struct drm_connector *connector,
+ 
+ 	conn_state->hdmi.tmds_char_rate = clock;
+ 
++	/* TODO: also check drm_display_info.hdmi.scdc.scrambling.low_rates */
++	conn_state->hdmi.scrambler_needed = (clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ);
++
+ 	return 0;
  }
  
- struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
-diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
-index b4fb1c578a5b..ad33f9cafdeb 100644
---- a/include/drm/bridge/dw_hdmi_qp.h
-+++ b/include/drm/bridge/dw_hdmi_qp.h
-@@ -16,7 +16,6 @@ struct dw_hdmi_qp_phy_ops {
- 	int (*init)(struct dw_hdmi_qp *hdmi, void *data);
- 	void (*disable)(struct dw_hdmi_qp *hdmi, void *data);
- 	enum drm_connector_status (*read_hpd)(struct dw_hdmi_qp *hdmi, void *data);
--	void (*setup_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- 	void (*enable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- 	void (*disable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- };
 
 -- 
 2.55.0
