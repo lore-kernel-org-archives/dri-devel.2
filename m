@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 37DA4C44524
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 03:47:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6951C4452B
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 03:47:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 898FA10E516;
-	Thu, 23 Jul 2026 03:47:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F85510E4C6;
+	Thu, 23 Jul 2026 03:47:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bUGBZpUG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hN7+YPfz";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACBE410E4C6
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E8CFF10E516
  for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 03:47:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9D860600AB;
- Thu, 23 Jul 2026 03:47:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B9FA1F000E9;
+ by tor.source.kernel.org (Postfix) with ESMTP id 6E029600AD;
+ Thu, 23 Jul 2026 03:47:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7C961F000E9;
  Thu, 23 Jul 2026 03:47:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784778451;
- bh=7LRm66cQFtvLNzRJ2kcEBPhMQwvK6FZeRtzNaY6kJhQ=;
+ s=k20260515; t=1784778452;
+ bh=q7Ij+g8nRSOtJyvM0j+dxZO+Pyahbv06Bz3HnudAoqA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bUGBZpUGP+RvtkZQtvYpeO4DoAV2czBTmekoH2UxrX/c4miHT3Stkw8EbqKU1oLUV
- 0C/8odFtXrLkFL1mWjKchY0u3vZgeMxTVqNFND5anEbK0RujcdF1OxCsrbJhDh8kU9
- pYgApS1S+mCCsAqEyc+DCez0G0FCKNhrPGdhO2vdVor5yHRoCNbjQ8SvKki5fUZhCA
- 5iKe70FefImoLl8yhpVSCIs55KhuTigZuypppEwN5qP5kV1xcqnnH7SYa84uTeprDu
- qCUjGiZPvYJjduA1MkgNlFZH6cVTCimlagyHxduANrZMHr071fGBzWuIdur//6/svD
- boIhOXj2jSCWw==
+ b=hN7+YPfzMidN1h19LgWQP+WmE/q+hgNH0/3KP/PQLtaMC2qII/ut7DzIZEc2YaSmZ
+ KYDBAEc9wKIuTDpmh8nIlZ+c55tsEZStwpJ/e8JRXL1rbVeq99FngG9srSkCjfZKWs
+ MnlSIfpTX0ZDy0POIRL8i/hyrl4/OZWz0Ko8hv3gpn2ZcVlLapfioN7EbdC8Ye9HHa
+ qMZtfaQJ9htKxX2jDlr5UVKxqs2SRgjLkaq1cLXBigfXTaCgKFGTPvc4/Jls2mPftd
+ NAvEEbW/jiuBWWnE56ezFgD/pD4+Nx+0l4pqR1u7UqdO4LKJf05FVqcm01V5UmEt61
+ 6ReSRRuCteN0A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/5] drm/ras: Introduce error threshold
+Subject: Re: [PATCH v5 1/5] drm/ras: Cancel and free message on get counter
+ failure
 To: "Raag Jadav" <raag.jadav@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260722034228.662746-3-raag.jadav@intel.com>
+In-Reply-To: <20260722034228.662746-2-raag.jadav@intel.com>
 References: <20260722034228.662746-1-raag.jadav@intel.com>
- <20260722034228.662746-3-raag.jadav@intel.com>
+ <20260722034228.662746-2-raag.jadav@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 03:47:30 +0000
-Message-Id: <20260723034731.2B9FA1F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 03:47:31 +0000
+Message-Id: <20260723034731.E7C961F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,124 +58,94 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [Medium] The `set-error-threshold` command only ACKs on success instead o=
-f replying with a full message, violating Netlink design rules.
-
 Pre-existing issues:
-- [High] Lockless access to the `drm_ras_xa` XArray without RCU protection =
-or reference counting leads to a Use-After-Free vulnerability when accessin=
-g `drm_ras_node`.
+- [High] Missing RCU read lock or refcounting causes a Use-After-Free of `d=
+rm_ras_node` in netlink callbacks.
 --
 
---- Patch [2]: [PATCH v5 2/5] drm/ras: Introduce error threshold ---
-commit c7d3a70f53c077dda897bf8be8b57f1fb2216708
+--- Patch [1]: [PATCH v5 1/5] drm/ras: Cancel and free message on get count=
+er failure ---
+commit a7d45a29dc348f6234c9ec9f5c9ccdf5d73188b7
 Author: Raag Jadav <raag.jadav@intel.com>
 
-drm/ras: Introduce error threshold
+drm/ras: Cancel and free message on get counter failure
 
-Adds get-error-threshold and set-error-threshold netlink commands to query
-and set RAS error thresholds for hardware error accumulation control.
-
-> diff --git a/Documentation/netlink/specs/drm_ras.yaml b/Documentation/net=
-link/specs/drm_ras.yaml
-> index e113056f8c016..9cf7f9cde2425 100644
-> --- a/Documentation/netlink/specs/drm_ras.yaml
-> +++ b/Documentation/netlink/specs/drm_ras.yaml
-> @@ -124,3 +128,31 @@ operations:
-[ ... ]
-> +    -
-> +      name: set-error-threshold
-> +      doc: >-
-> +           Set error threshold of a given counter.
-> +      attribute-set: error-counter-attrs
-> +      flags: [admin-perm]
-> +      do:
-> +        request:
-> +          attributes:
-> +            - node-id
-> +            - error-id
-> +            - error-threshold
-
-[Severity: Medium]
-Should this operation include a reply definition?
-
-The Netlink uAPI guidelines for new families state that all operations,
-especially SET or ADD commands, must reply with a full message rather than
-relying on a standard ACK.=20
-
-Once a command only ACKs, it becomes uAPI and cannot be fixed later. Would
-it be better to return the updated state of the threshold here instead of
-relying on a separate GET request?
+doit_reply_value() directly returns on get counter failure, which results
+in stale sk_buff and genetlink header that aren't cleaned up. Fix it and
+while at it, consolidate error handling using goto.
 
 > diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
-> index 467a169026fc1..9a7b3d2acd25d 100644
+> index d6eab29a1394c..467a169026fc1 100644
 > --- a/drivers/gpu/drm/drm_ras.c
 > +++ b/drivers/gpu/drm/drm_ras.c
-[ ... ]
-> @@ -168,6 +186,40 @@ static int get_node_error_counter(u32 node_id, u32 e=
-rror_id,
-> +static int get_node_error_threshold(u32 node_id, u32 error_id, const cha=
-r **name, u32 *threshold)
-> +{
-> +	struct drm_ras_node *node;
-> +
-> +	node =3D xa_load(&drm_ras_xa, node_id);
-> +	if (!node)
-> +		return -ENOENT;
-> +
-> +	if (!node->query_error_threshold)
+> @@ -201,25 +201,28 @@ static int doit_reply_value(struct genl_info *info,=
+ u32 node_id,
+> =20
+>  	hdr =3D genlmsg_iput(msg, info);
+>  	if (!hdr) {
+> -		nlmsg_free(msg);
+> -		return -EMSGSIZE;
+> +		ret =3D -EMSGSIZE;
+> +		goto free_msg;
+>  	}
+> =20
+>  	ret =3D get_node_error_counter(node_id, error_id,
+>  				     &error_name, &value);
 
 [Severity: High]
-This is a pre-existing issue with how this file accesses the xarray, but
-is it safe to dereference the node pointer here without RCU protection or
-a reference count?
+This is a pre-existing issue, but is there a missing RCU read lock around
+these node accesses?
 
-The generic netlink family drm_ras_nl_family sets .parallel_ops =3D true,
-meaning doit callbacks run without genl_mutex. While xa_load() takes the
-RCU read lock internally, it drops it before returning.
+Since drm_ras_nl_family uses parallel_ops =3D true, callbacks execute
+concurrently without the global genl_lock(). Looking at
+get_node_error_counter(), it retrieves the node using xa_load() and then
+dereferences it:
 
-If a DRM device is concurrently unbound and freed, couldn't this memory be
-freed before we call node->query_error_threshold(), resulting in a
-use-after-free?
+get_node_error_counter() {
+    node =3D xa_load(&drm_ras_xa, node_id);
+    if (!node || !node->query_error_counter)
+        return -ENOENT;
+    ...
+    return node->query_error_counter(node, error_id, name, value);
+}
 
-> +		return -EOPNOTSUPP;
-[ ... ]
-> @@ -358,6 +463,59 @@ int drm_ras_nl_clear_error_counter_doit(struct sk_bu=
-ff *skb,
-[ ... ]
-> +int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb, struct genl=
-_info *info)
-> +{
-> +	u32 node_id, error_id, threshold;
+Because xa_load() only holds the RCU read lock internally and drops it
+before returning, the node pointer is unprotected here. If a driver
+concurrently unregisters and frees the node memory, could this lead to a
+use-after-free when the callback dereferences node->query_error_counter?
+
+A similar issue appears to exist in drm_ras_nl_list_nodes_dumpit() where
+xa_for_each_start() is used without an encompassing rcu_read_lock().
+
+>  	if (ret)
+> -		return ret;
+> +		goto cancel_msg;
+> =20
+>  	ret =3D msg_reply_value(msg, error_id, error_name, value);
+> -	if (ret) {
+> -		genlmsg_cancel(msg, hdr);
+> -		nlmsg_free(msg);
+> -		return ret;
+> -	}
+> +	if (ret)
+> +		goto cancel_msg;
+> =20
+>  	genlmsg_end(msg, hdr);
+> =20
+>  	return genlmsg_reply(msg, info);
 > +
-> +	if (!info->attrs ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID) ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID) ||
-> +	    GENL_REQ_ATTR_CHECK(info, DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRES=
-HOLD))
-> +		return -EINVAL;
-> +
-> +	node_id =3D nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_=
-ID]);
-> +	error_id =3D nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERRO=
-R_ID]);
-> +	threshold =3D nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERR=
-OR_THRESHOLD]);
-> +
-> +	return set_node_error_threshold(node_id, error_id, threshold);
-> +}
-
-[Severity: Medium]
-Does this operation need to construct and return a reply message?
-
-By returning directly, this handler only emits a standard generic netlink
-ACK on success. As mentioned above, the Netlink design guidelines require
-operations to reply with a full message rather than just an ACK.
+> +cancel_msg:
+> +	genlmsg_cancel(msg, hdr);
+> +free_msg:
+> +	nlmsg_free(msg);
+> +	return ret;
+>  }
+> =20
+>  /**
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722034228.6627=
-46-1-raag.jadav@intel.com?part=3D2
+46-1-raag.jadav@intel.com?part=3D1
