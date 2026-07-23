@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 606ABC531CC
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 22:33:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CB7EC531CC
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 22:34:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9E9710F241;
-	Thu, 23 Jul 2026 22:33:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E667910F242;
+	Thu, 23 Jul 2026 22:34:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ouyJAUe8";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gYLpG8Di";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6032E10F241
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 22:33:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0F5F10F242
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 22:34:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0939943D41;
- Thu, 23 Jul 2026 22:33:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFBBD1F000E9;
- Thu, 23 Jul 2026 22:33:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DA91A4050A;
+ Thu, 23 Jul 2026 22:34:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F5F21F000E9;
+ Thu, 23 Jul 2026 22:34:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784846033;
- bh=lPjki70WcJDffDF1FmFSQ3srnaXt2k9oCo3W6tXgeP4=;
+ s=k20260515; t=1784846059;
+ bh=QlbJX5mQ02oqQKJvelC0JLCr/Y5xuwr8U78FZbaMwok=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ouyJAUe81xiWA1OlF7e9RssDl2KOp8CabmLGNdCXrhftx3yi7IrIXIWrn/ograG8b
- o1/VSlef2qwCfHffHzyxKpGJsqmrek3S5QQlGCZpsrbOYIVBI3lIa2ydnXIHTyA4FN
- iWzzXPA0xkLjTX5M0dlw1zHghfrucCDKa9xtK1WDVhqpQ9/PzYlCMOsr/JplvAvvU7
- PFbFh6kC+ANi9DR5nV/QR2vxLsDdzPzmpDVn8j98QVmMnZGEgQxXn/ezOeS1AyOYy0
- 1ZnvTTbt1X35HKCgM2H+T1k9ud6i4jFy0nBnxcN3vY7rI2CrxszxoxSGAFwVNp93Zk
- 9Yy9lUn2FZD3g==
+ b=gYLpG8DiiSlMkFziacj9DcCmx35TPt+J3+MZtqMUNn1r7+uQx8TEyGq5PGrlbYbMm
+ BOHgFdtxPQc16mORV1s0nf9Yvn0UPVtKhCP0n9N+TRP5WhKcVupom4BPhDG23xp4+j
+ 8Uy3lN9JpQXgillrpg3hx7CqTaDlLWlIWRxWZH/JfV1eaw6QUt3E3xcibh7UXGNicJ
+ 6RI53aV1kxMdkHnwBanHFxNwYaHPHkV6Uf49JWFqajHPz8KMQhQulqZ0GsXbofMj67
+ oODz6k9Qk8Ns1jRu0tZp99mzD1DPU2Kx4u6ZvoFmXdKit1rsXJVq+BgxgWkEwz6Vt4
+ QOlg0rTbUGIFQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm: add a EDID_QUIRK_IGNORE_STEREO_FLAG quirk
-To: =?utf-8?b?TWljaGHFgiBTem9sYw==?= <undefine@undefine.pl>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723220400.17190-2-undefine@undefine.pl>
-References: <20260723220400.17190-1-undefine@undefine.pl>
- <20260723220400.17190-2-undefine@undefine.pl>
+Subject: Re: [PATCH v5 01/15] drm/bridge: synopsys: dw-dp: Fix incorrect
+ resource lifetimes in bind callback
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260724-synopsys-dw-dp-improvements-v5-1-9445c2e87441@collabora.com>
+References: <20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com>
+ <20260724-synopsys-dw-dp-improvements-v5-1-9445c2e87441@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 22:33:53 +0000
-Message-Id: <20260723223353.BFBBD1F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 22:34:19 +0000
+Message-Id: <20260723223419.6F5F21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,67 +59,82 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The newly introduced `EDID_QUIRK_IGNORE_STEREO_FLAG` quirk is ne=
-ver assigned to any panel in the `edid_quirk_list`, making the added logic =
-dead code.
+
+Pre-existing issues:
+- [High] Missing cancel_work_sync(&dp->hpd_work) in dw_dp_unbind leads to u=
+se-after-free
+- [High] Missing reinit_completion() in AUX transfer function causes stale =
+completion state
 --
 
---- Patch [1]: [PATCH 1/2] drm: add a EDID_QUIRK_IGNORE_STEREO_FLAG quirk -=
---
-commit c12c9b1e2a3442319892a911d6fc20a3c6916841
-Author: Micha=C5=82 Szolc <undefine@undefine.pl>
+--- Patch [1]: [PATCH v5 01/15] drm/bridge: synopsys: dw-dp: Fix incorrect =
+resource lifetimes in bind callback ---
+commit f51b82393e0acdef468182d74c204f63a5e111ae
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm: add a EDID_QUIRK_IGNORE_STEREO_FLAG quirk
-   =20
-This commit introduces a new EDID quirk meant to ignore the stereo flag
-for screens that misrepresent certain modes.
+drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callb=
+ack
 
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index 07970e5b5f65e..4720217f99bff 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -96,6 +96,8 @@ enum drm_edid_internal_quirk {
->  	EDID_QUIRK_NON_DESKTOP,
->  	/* Cap the DSC target bitrate to 15bpp */
->  	EDID_QUIRK_CAP_DSC_15BPP,
-> +	/* Ignore stereo flag of modes */
-> +	EDID_QUIRK_IGNORE_STEREO_FLAG,
->  };
-> =20
->  #define MICROSOFT_IEEE_OUI	0xca125c
+Currently the Synopsys DesignWare DP controller driver's bind function
+requests lots of resources using device managed functions. These are
+free'd on driver removal instead of at unbind time. Fix this discrepancy
+by introducing a new probe helper function and moving over most of the
+early resource acquisitions.
+
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 3445c82e6f50e..368e1f85e6253 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
 [ ... ]
 
-> @@ -3538,7 +3540,8 @@ static struct drm_display_mode *drm_mode_detailed(s=
-truct drm_connector *connecto
->  	if (hactive < 64 || vactive < 64)
->  		return NULL;
-> =20
-> -	if (pt->misc & DRM_EDID_PT_STEREO) {
-> +	if (pt->misc & DRM_EDID_PT_STEREO &&
-> +		!drm_edid_has_internal_quirk(connector, EDID_QUIRK_IGNORE_STEREO_FLAG)=
-) {
+> +	dp->aux.transfer =3D dw_dp_aux_transfer;
 
-[Severity: Medium]
-Is this new quirk missing an entry in the edid_quirk_list[] array?
+[Severity: High]
+This isn't a bug introduced by this patch, but does the AUX transfer functi=
+on
+need a call to reinit_completion()?
 
-Because the quirk is internal to drm_edid.c and isn't currently mapped to a=
-ny=20
-specific vendor or product IDs in edid_quirk_list[], the call to=20
-drm_edid_has_internal_quirk() will unconditionally evaluate to false. This =
-makes
-the newly introduced logic unreachable.
+Looking at dw_dp_aux_transfer() in drivers/gpu/drm/bridge/synopsys/dw-dp.c,
+it waits for completion like this:
 
-Should a specific display panel be added to edid_quirk_list[] in this patch=
- to
-utilize the fix?
+	regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
+	status =3D wait_for_completion_timeout(&dp->complete, timeout);
 
->  		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Stereo mode not supported\n",
->  			    connector->base.id, connector->name);
->  		return NULL;
+If a previous transfer times out and the hardware interrupt eventually arri=
+ves
+late, it can leave dp->complete.done greater than zero. When the next trans=
+fer
+is initiated, wait_for_completion_timeout() could consume the leftover
+completion and return immediately without waiting for the new transfer to
+finish, causing it to read garbage DPCD data.
+
+> +	ret =3D drm_dp_aux_register(&dp->aux);
+
+[ ... ]
+
+> +void dw_dp_unbind(struct dw_dp *dp)
+> +{
+> +	disable_irq(dp->irq);
+>  	phy_exit(dp->phy);
+> +	drm_dp_aux_unregister(&dp->aux);
+> +	drm_bridge_remove(&dp->bridge);
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but does dw_dp_unbind() in
+drivers/gpu/drm/bridge/synopsys/dw-dp.c need to call
+cancel_work_sync(&dp->hpd_work) to prevent a use-after-free?
+
+If a hotplug event occurs when the driver is being unbound, the IRQ handler
+might schedule dp->hpd_work. The disable_irq() call here waits for the IRQ
+handler to finish but does not cancel pending workqueue items. After the
+driver unbinds and the devm-managed dp structure is freed, the workqueue
+could execute dw_dp_hpd_work() and access the freed dp structure.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723220400.1719=
-0-1-undefine@undefine.pl?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-synopsys-d=
+w-dp-improvements-v5-0-9445c2e87441@collabora.com?part=3D1
