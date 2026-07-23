@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91FF5C531CC
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 19:44:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60DE1C531CC
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 19:44:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB7EA89864;
-	Thu, 23 Jul 2026 19:44:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2B4010E5F1;
+	Thu, 23 Jul 2026 19:44:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="h346eplR";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dlYpT52u";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76DC910E5F6;
- Thu, 23 Jul 2026 19:44:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 692D610E5F1;
+ Thu, 23 Jul 2026 19:44:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=ANM+eSpahzqvwTWIXh7CuP5Wcj+NwCM3k9v5P8p6HW0=; b=h346eplRPhHoYuGW8wVYekjxMu
- QghtysnX7QdBNz76NJWqgX1UieBEchDa1n4Ewbmj8kA2K7ANCrkH3j9Id6wWcld1FERJJMfsEo0Ww
- vyU1hzzCtw+vWSvdGkDZbhsG1ZNfhe2F4WNoRqxOIJdVu9UADC8Ckf/qu3rIfbpinrQ3+SBDB1SFd
- it2pmEC++g4RIOkFY3bTQIGyxDzVJibzpNd5ThjLmOn7TdGPeXZKBjurV5YGVgAWeE/lPltISN2rf
- kHnYVByUKevjr+MqUxJwKwXdvDFXUlaNzrr4yXHRqtHdlSjNl3HpG8Uq9Czlc8vLnroNZTylrq1aB
- BVXPXryQ==;
+ bh=4N7ZrzUxksJCloF1voPrYmTsXCsDwjvdwNT3L8MC02k=; b=dlYpT52uTl6w9SSsZswjjF1MoP
+ C+6Ga+X+ZYuU2FkfXpaXR9HZs7A/o+bnY/RhMU7gud+R1OmuHo2d9JsCdgilgiRjrFKJq2+pYZrUq
+ ffHCXRXbHWkiAzhFArd/WE9c12xvbCb2alIMb0/i1x+rvgA0zfb/lI/Yuog78N9JKmsBgH8Pp4fC9
+ znqAeulLNRAHi8UqPQCKjbNPLcBjXxnLTSi3wZDObVletx/ec1xYIzY24Oz26R35EgRZWFFc/JSiD
+ a6m1qRwe2rF+3sUL8+qmp7EUdWm4S8DQmBYPoZYg9p1ZaRNOhMcXOMZyqquoW4/9uTz07cglhGN+i
+ LOjQ1wbg==;
 Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
  helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wmzL4-003a1P-U0; Thu, 23 Jul 2026 21:44:15 +0200
+ id 1wmzLB-003a1P-4i; Thu, 23 Jul 2026 21:44:21 +0200
 From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 To: igt-dev@lists.freedesktop.org
 Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
@@ -42,9 +42,10 @@ Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
  Vitaly Prosyak <vitaly.prosyak@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v5 3/7] lib/xe: add xe_cgroup_region_name() helper
-Date: Thu, 23 Jul 2026 16:43:09 -0300
-Message-ID: <20260723194313.2748143-4-cascardo@igalia.com>
+Subject: [PATCH i-g-t v5 4/7] lib/xe: Introduce dmem driver and implement Xe
+ support
+Date: Thu, 23 Jul 2026 16:43:10 -0300
+Message-ID: <20260723194313.2748143-5-cascardo@igalia.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260723194313.2748143-1-cascardo@igalia.com>
 References: <20260723194313.2748143-1-cascardo@igalia.com>
@@ -66,91 +67,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+In order to be reuse the same dmem tests with multiple drivers, we need to
+abstract a few operations. That includes getting the region name, and
+allocating and releasing VRAM. As there is some initialization also when
+multiple allocations are done, also provide init and deinit functions.
 
-Add xe_cgroup_region_name(fd, region) which constructs the dmem cgroup
-region path for a given xe memory region.  The returned string has the
-form "drm/<pci-slot>/<region>" (e.g. "drm/0000:03:00.0/vram0"),
-matching the name registered by the kernel via drmm_cgroup_register_region().
+The Xe implementation was based on the original operations from
+xe_cgroups.c written by Thomas Hellström. However, instead of doing a
+deferred backing, followed by a bind, it does a simple non-deferred GEM
+object creation on the VRAM region.
 
-Only VRAM regions are tracked by the dmem controller; system and stolen
-memory regions return NULL.
-
-Assisted-by: GitHub Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 ---
- lib/xe/xe_query.c | 32 ++++++++++++++++++++++++++++++++
- lib/xe/xe_query.h |  2 ++
- 2 files changed, 34 insertions(+)
+ lib/igt_dmem_driver.h |  24 ++++++++
+ lib/meson.build       |   1 +
+ lib/xe/xe_dmem.c      | 139 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 164 insertions(+)
+ create mode 100644 lib/igt_dmem_driver.h
+ create mode 100644 lib/xe/xe_dmem.c
 
-diff --git a/lib/xe/xe_query.c b/lib/xe/xe_query.c
-index 68e60ddc75a2..e2b25be21140 100644
---- a/lib/xe/xe_query.c
-+++ b/lib/xe/xe_query.c
-@@ -7,6 +7,7 @@
-  */
- 
- #include <fcntl.h>
-+#include <limits.h>
- #include <stdlib.h>
- #include <pthread.h>
- 
-@@ -21,6 +22,7 @@
- 
- #include "drmtest.h"
- #include "igt_debugfs.h"
-+#include "igt_device.h"
- #include "ioctl_wrappers.h"
- #include "igt_map.h"
- #include "intel_common.h"
-@@ -1304,6 +1306,36 @@ int xe_query_eu_thread_count(int fd, int gt)
- 		xe_hwconfig_lookup_value_u32(fd, INTEL_HWCONFIG_NUM_THREADS_PER_EU);
- }
- 
-+/**
-+ * xe_cgroup_region_name() - Build the dmem cgroup region name for an xe memory region.
-+ * @fd: xe device fd.
-+ * @region: Region mask (as used by xe_mem_region(), xe_region_name(), etc.).
-+ *
-+ * Constructs the full dmem cgroup region path for @region on the device
-+ * identified by @fd.  The returned string has the form
-+ * ``drm/<pci-slot>/<region>`` (e.g. ``drm/0000:03:00.0/vram0``), matching
-+ * the name registered by the kernel driver via drmm_cgroup_register_region().
-+ *
-+ * Only VRAM regions are registered with the dmem controller; passing a
-+ * system-memory region returns %NULL.
-+ *
-+ * Return: A newly allocated string that the caller must free(), or %NULL if
-+ * @region is not tracked by the dmem cgroup controller.
+diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+new file mode 100644
+index 000000000000..2f4a4673ab16
+--- /dev/null
++++ b/lib/igt_dmem_driver.h
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 + */
-+char *xe_cgroup_region_name(int fd, uint64_t region)
-+{
-+	char pci_slot[NAME_MAX];
-+	char *name;
 +
-+	if (xe_region_class(fd, region) != DRM_XE_MEM_REGION_CLASS_VRAM)
++#ifndef __IGT_DMEM_DRIVER_H__
++#define __IGT_DMEM_DRIVER_H__
++
++#include <stdlib.h>
++
++struct igt_dmem_driver {
++	const char *name;
++	char * (*get_region_name)(int fd);
++	int (*init)(void **ctx, int fd, int max_bo);
++	void (*deinit)(void *ctx);
++	int (*allocate_vram)(void *ctx, int n_bo, size_t len);
++	void (*free_vram)(void *ctx, int n_bo);
++};
++
++extern const struct igt_dmem_driver xe_dmem_driver;
++
++#endif
+diff --git a/lib/meson.build b/lib/meson.build
+index 868220408f8c..012802475de0 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -126,6 +126,7 @@ lib_sources = [
+ 	'igt_msm.c',
+ 	'igt_dsc.c',
+ 	'igt_hook.c',
++	'xe/xe_dmem.c',
+ 	'xe/xe_gt.c',
+ 	'xe/xe_ioctl.c',
+ 	'xe/xe_legacy.c',
+diff --git a/lib/xe/xe_dmem.c b/lib/xe/xe_dmem.c
+new file mode 100644
+index 000000000000..1dec8cf8b0a1
+--- /dev/null
++++ b/lib/xe/xe_dmem.c
+@@ -0,0 +1,139 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#include <errno.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++#include "igt_dmem_driver.h"
++#include "xe_drm.h"
++#include "xe/xe_ioctl.h"
++#include "xe/xe_query.h"
++
++static char * xe_dmem_get_region_name(int fd)
++{
++	uint64_t vram_region = 0;
++	uint64_t region;
++	char *cg_region;
++
++	/* Find first VRAM region */
++	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
++		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
++			vram_region = region;
++			break;
++		}
++	}
++	if (!vram_region)
 +		return NULL;
 +
-+	igt_device_get_pci_slot_name(fd, pci_slot);
++	cg_region = xe_cgroup_region_name(fd, vram_region);
 +
-+	igt_assert(asprintf(&name, "drm/%s/%s", pci_slot, xe_region_name(region)) > 0);
-+	return name;
++	return cg_region;
 +}
 +
- igt_constructor
- {
- 	xe_device_cache_init();
-diff --git a/lib/xe/xe_query.h b/lib/xe/xe_query.h
-index 59330d80fd1b..a6ef9cab9aa1 100644
---- a/lib/xe/xe_query.h
-+++ b/lib/xe/xe_query.h
-@@ -206,4 +206,6 @@ void xe_device_put(int fd);
- int xe_query_eu_count(int fd, int gt);
- int xe_query_eu_thread_count(int fd, int gt);
- 
-+char *xe_cgroup_region_name(int fd, uint64_t region);
++struct xe_bo {
++	uint32_t handle;
++	size_t len;
++};
 +
- #endif	/* XE_QUERY_H */
++struct xe_dmem_ctx {
++	int fd;
++	struct xe_bo *bos;
++	uint64_t vram_region;
++	int max_bo;
++};
++
++static int xe_dmem_init(void **ctx, int fd, int max_bo)
++{
++	struct xe_dmem_ctx *xe_ctx;
++	uint64_t region;
++
++	xe_ctx = malloc(sizeof(*xe_ctx));
++	if (!xe_ctx)
++		return -ENOMEM;
++
++	xe_ctx->bos = calloc(max_bo, sizeof(xe_ctx->bos[0]));
++	if (!xe_ctx->bos)
++		goto out;
++	memset(xe_ctx->bos, 0, max_bo * sizeof(xe_ctx->bos[0]));
++	xe_ctx->max_bo = max_bo;
++
++	xe_ctx->vram_region = 0;
++	/* Find first VRAM region */
++	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
++		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
++			xe_ctx->vram_region = region;
++			break;
++		}
++	}
++	if (!xe_ctx->vram_region)
++		goto out;
++
++	xe_ctx->fd = fd;
++
++	*ctx = xe_ctx;
++
++	return 0;
++
++out:
++	if (xe_ctx->bos)
++		free(xe_ctx->bos);
++	free(xe_ctx);
++
++	return -ENOMEM;
++}
++
++static void xe_dmem_deinit(void *ctx)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++
++	free(xe_ctx->bos);
++	free(xe_ctx);
++}
++
++static int xe_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++	uint32_t handle;
++	int err;
++
++	if (n_bo >= xe_ctx->max_bo)
++		return -ENOMEM;
++
++	err = __xe_bo_create(xe_ctx->fd, 0, len, xe_ctx->vram_region, 0,
++			     NULL, &handle);
++	if (err)
++		goto out;
++
++	xe_ctx->bos[n_bo].handle = handle;
++	xe_ctx->bos[n_bo].len = len;
++
++out:
++	return err;
++}
++
++static void xe_dmem_free_vram(void *ctx, int n_bo)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++	size_t len;
++	if (n_bo >= xe_ctx->max_bo)
++		return;
++	len = xe_ctx->bos[n_bo].len;
++	if (len) {
++		gem_close(xe_ctx->fd, xe_ctx->bos[n_bo].handle);
++		xe_ctx->bos[n_bo].len = 0;
++	}
++}
++
++const struct igt_dmem_driver xe_dmem_driver = {
++	.name = "xe",
++	.get_region_name = xe_dmem_get_region_name,
++	.init = xe_dmem_init,
++	.deinit = xe_dmem_deinit,
++	.allocate_vram = xe_dmem_allocate_vram,
++	.free_vram = xe_dmem_free_vram,
++};
 -- 
 2.47.3
 
