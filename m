@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F35D6C531CB
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 02:11:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A861AC4453A
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 02:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5BD5F10EF7E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 823F710EF7F;
 	Thu, 23 Jul 2026 02:11:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="soKETOWc";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="N+wSgFUP";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E85510EF70
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 02:11:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81FAD10EF77
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 02:11:24 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0849C44FA4;
+ by tor.source.kernel.org (Postfix) with ESMTP id 67A4460A7F;
  Thu, 23 Jul 2026 02:11:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6470AC2BCB3;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D83A8C2BCFC;
  Thu, 23 Jul 2026 02:11:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1784772682; bh=ouhDi1wJe8VGK20MEf1IZFZ5IYEJfw377WQZ4ejJ8YI=;
+ t=1784772682; bh=t9D2Px8pUwrEcOg/YTzMXGqqQKBGT5HfYznSBGN9YqI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=soKETOWc/MwjdYmmA62S5oe8slwJMNtmiFHqqMk99cysO7lga8HDQfxsrZJ2VPrWi
- uo+M3P6QWW6YY1hWjHDDB7RhCDeBEWptJjwTfTEtT/puBirrZFtJ6Rwgyl71z9Gdqn
- GSjEMc2kHrCeCVo0IhUk1cmOOHXfSv0yQvQfidtQ=
+ b=N+wSgFUPaBD8171l+J3Xvph9ARrvPMb+adPAc72ucMIdok9l2pihAzvE9AAA2ogVM
+ owO5k6LWXV2Ttrrncp24de7KOXSgWR6jcnDdCdQpLft203ZHFpuoJQ0z9suRdOeBRx
+ 90SH7Jx+EZuSRBx5fc6Tb5CSa+1usyV0FU70M8kc=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 424EEC4453D;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C0704C4453D;
  Thu, 23 Jul 2026 02:11:22 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Thu, 23 Jul 2026 10:10:25 +0800
-Subject: [PATCH v9 02/10] rust: module: add `THIS_MODULE` const to
- `ModuleMetadata` trait
+Date: Thu, 23 Jul 2026 10:10:30 +0800
+Subject: [PATCH v9 07/10] rust: configfs: use `LocalModule` for `THIS_MODULE`
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-fix-fops-owner-v9-2-c1c3af7f7bcb@linux.dev>
+Message-Id: <20260723-fix-fops-owner-v9-7-c1c3af7f7bcb@linux.dev>
 References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
 In-Reply-To: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -70,11 +69,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784772679; l=3642;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784772679; l=2926;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=ouhDi1wJe8VGK20MEf1IZFZ5IYEJfw377WQZ4ejJ8YI=;
- b=1IKe3MdMXW65w8esAMoVSrL3diqwoJGtpM/+HNPOuMlkFzxOm7NUOZ2S91rib+uGuo4IBgoTz
- NIVnyw3PMd/BWesjoKp8gg1gsMInp4ft0T9Re7q6mixm5fscFiPZhqS
+ bh=t9D2Px8pUwrEcOg/YTzMXGqqQKBGT5HfYznSBGN9YqI=;
+ b=QZpTbDGCiPyQZWT6ru0P3y8GEoRjWyDK+AFBRqjSgxVq0X4noWfmwaxT70UPXQMMvr7jlF35Z
+ vgBLVuANHIaAGbw26r2bwD49K5AuQ3MeM01jwmBqEq0KNl1K5JUsYXA
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -94,88 +93,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since `const_refs_to_static` has been stable as of the MSRV bump, a
-`ThisModule` pointer can now be used in const contexts.
-
-Add a `THIS_MODULE` const to the `ModuleMetadata` trait so that modules
-can provide their `ThisModule` pointer in const contexts such as static
-`file_operations`.
-
-Add a `this_module()` helper to retrieve the `THIS_MODULE` pointer of a
-given module type, and update `__init` to use it instead of the
-`THIS_MODULE` static generated by the `module!` macro.
-
-The `static THIS_MODULE` generated by the `module!` macro is retained
-for backwards compatibility with existing users and removed in a later
-patch once all references have been migrated.
+Replace the `THIS_MODULE` static reference in the `configfs_attrs!`
+macro with `this_module::<LocalModule>()`, and update
+rnull to import `LocalModule` instead of `THIS_MODULE`, consistent
+with the move of `THIS_MODULE` into the `ModuleMetadata` trait.
 
 Assisted-by: opencode:glm-5.2
 Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-Reviewed-by: Gary Guo <gary@garyguo.net>
 Acked-by: Danilo Krummrich <dakr@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
+Acked-by: Andreas Hindborg <a.hindborg@kernel.org>
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/kernel/module.rs |  9 +++++++++
- rust/macros/module.rs | 18 +++++++++++++++++-
- 2 files changed, 26 insertions(+), 1 deletion(-)
+ drivers/block/rnull/configfs.rs | 5 +----
+ rust/kernel/configfs.rs         | 9 ++++++---
+ 2 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/rust/kernel/module.rs b/rust/kernel/module.rs
-index be242a82e86d2..d713705984477 100644
---- a/rust/kernel/module.rs
-+++ b/rust/kernel/module.rs
-@@ -42,6 +42,15 @@ fn init(module: &'static ThisModule) -> impl pin_init::PinInit<Self, crate::erro
- pub trait ModuleMetadata {
-     /// The name of the module as specified in the `module!` macro.
-     const NAME: &'static crate::str::CStr;
-+
-+    /// The module's `THIS_MODULE` pointer.
-+    const THIS_MODULE: ThisModule;
-+}
-+
-+/// Returns a reference to the `THIS_MODULE` of the given module type.
-+#[inline]
-+pub const fn this_module<M: ModuleMetadata>() -> &'static ThisModule {
-+    &M::THIS_MODULE
- }
+diff --git a/drivers/block/rnull/configfs.rs b/drivers/block/rnull/configfs.rs
+index c10a55fc58948..9b28be2150933 100644
+--- a/drivers/block/rnull/configfs.rs
++++ b/drivers/block/rnull/configfs.rs
+@@ -1,9 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0
  
- /// Equivalent to `THIS_MODULE` in the C API.
-diff --git a/rust/macros/module.rs b/rust/macros/module.rs
-index 06c18e2075083..aa9a618d5d19e 100644
---- a/rust/macros/module.rs
-+++ b/rust/macros/module.rs
-@@ -519,6 +519,22 @@ pub(crate) fn module(info: ModuleInfo) -> Result<TokenStream> {
+-use super::{
+-    NullBlkDevice,
+-    THIS_MODULE, //
+-};
++use super::NullBlkDevice;
+ use kernel::{
+     block::mq::gen_disk::{
+         GenDisk,
+diff --git a/rust/kernel/configfs.rs b/rust/kernel/configfs.rs
+index 2339c6467325d..cd082b83e9e74 100644
+--- a/rust/kernel/configfs.rs
++++ b/rust/kernel/configfs.rs
+@@ -875,13 +875,14 @@ fn as_ptr(&self) -> *const bindings::config_item_type {
+ ///                 configfs::Subsystem<Configuration>,
+ ///                 Configuration
+ ///                 >::new_with_child_ctor::<N,Child>(
+-///             &THIS_MODULE,
++///             ::kernel::module::this_module::<crate::LocalModule>(),
+ ///             &CONFIGURATION_ATTRS
+ ///         );
+ ///
+ ///     &CONFIGURATION_TPE
+ /// }
+ /// ```
++#[allow(clippy::crate_in_macro_def)]
+ #[macro_export]
+ macro_rules! configfs_attrs {
+     (
+@@ -1021,7 +1022,8 @@ macro_rules! configfs_attrs {
  
-         impl ::kernel::ModuleMetadata for #type_ {
-             const NAME: &'static ::kernel::str::CStr = #name_cstr;
-+
-+            #[cfg(MODULE)]
-+            const THIS_MODULE: ::kernel::ThisModule = {
-+                extern "C" {
-+                    static __this_module: ::kernel::types::Opaque<::kernel::bindings::module>;
-+                }
-+
-+                // SAFETY: `__this_module` is constructed by the kernel at load time
-+                // and lives until the module is unloaded.
-+                unsafe { ::kernel::ThisModule::from_ptr(__this_module.get()) }
-+            };
-+
-+            #[cfg(not(MODULE))]
-+            const THIS_MODULE: ::kernel::ThisModule = unsafe {
-+                ::kernel::ThisModule::from_ptr(::core::ptr::null_mut())
-+            };
-         }
+                     static [< $data:upper _TPE >] : $crate::configfs::ItemType<$container, $data>  =
+                         $crate::configfs::ItemType::<$container, $data>::new::<N>(
+-                            &THIS_MODULE, &[<$ data:upper _ATTRS >]
++                            $crate::module::this_module::<crate::LocalModule>(),
++                            &[<$ data:upper _ATTRS >]
+                         );
+                 )?
  
-         // Double nested modules, since then nobody can access the public items inside.
-@@ -616,7 +632,7 @@ pub extern "C" fn #ident_exit() {
-                 /// This function must only be called once.
-                 unsafe fn __init() -> ::kernel::ffi::c_int {
-                     let initer = <super::super::LocalModule as ::kernel::InPlaceModule>::init(
--                        &super::super::THIS_MODULE
-+                        ::kernel::module::this_module::<super::super::LocalModule>()
-                     );
-                     // SAFETY: No data race, since `__MOD` can only be accessed by this module
-                     // and there only `__init` and `__exit` access it. These functions are only
+@@ -1030,7 +1032,8 @@ macro_rules! configfs_attrs {
+                         $crate::configfs::ItemType<$container, $data>  =
+                             $crate::configfs::ItemType::<$container, $data>::
+                             new_with_child_ctor::<N, $child>(
+-                                &THIS_MODULE, &[<$ data:upper _ATTRS >]
++                                $crate::module::this_module::<crate::LocalModule>(),
++                                &[<$ data:upper _ATTRS >]
+                             );
+                 )?
+ 
 
 -- 
 2.43.0
