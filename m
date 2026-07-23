@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C148C531F7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 16:11:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96A29C531F8
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 16:32:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4A2A210E5C3;
-	Thu, 23 Jul 2026 16:11:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D651910E5BE;
+	Thu, 23 Jul 2026 16:32:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OMdoClnp";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="JawhSxzA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 17B1210E5C2;
- Thu, 23 Jul 2026 16:11:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784823111; x=1816359111;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=jUcotzTeGHseDTEsvIVAaM/5dkYSEPp61sUE3M2Ha4I=;
- b=OMdoClnp0AUnUkdPMPkWejkdDqCfA5Yrurrzw6faf8BydyqO/PtX8hFd
- gZS8+WJM0T1IhtXBIVPsnes85tljGrXPwtQmG6SeDuy8S/Ei/sdFe4FtA
- 7DAvqE289YMoOOxJEnrT50BrPE0SI1QKU3g/CzgISG3T2OncB1TeuGGHI
- MFObJuzffPUIwM9HSWxt41hszjaiEcIPV645UnUAyAe/Onym1wpdg8Hlq
- a7B6Iz5mfB2RpALcR3DvTCt2dtjf+N7e12l/8ZFGPkyL6UFed8nUlX1mT
- VY9ZhyAOx48UP3pMpYdqOjb9KjjkVYwdNYQt9qENnHW2oDfRErF8naFhG Q==;
-X-CSE-ConnectionGUID: Lk4q/8XhQ/KtkDDHZkF1Lg==
-X-CSE-MsgGUID: YwXM8GzzRCO9IjdAhQzNxQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="102893201"
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="102893201"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 09:11:50 -0700
-X-CSE-ConnectionGUID: 0bMapSTvSbuSZqtNqgKM6w==
-X-CSE-MsgGUID: 7CSbUSIcTp6N/vvPakIgRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="281753336"
-Received: from black.igk.intel.com ([10.91.253.5])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 09:11:46 -0700
-Date: Thu, 23 Jul 2026 18:11:44 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: "Tauro, Riana" <riana.tauro@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, kuba@kernel.org,
- simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
- joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
- shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
- maarten.lankhorst@linux.intel.com, mallesh.koujalagi@intel.com,
- soham.purkait@intel.com, Michal Wajdeczko <michal.wajdeczko@intel.com>
-Subject: Re: [PATCH v6 2/2] drm/xe/xe_ras: Report correctable/uncorrectable
- error events to userspace
-Message-ID: <amI9QO9_4QcfG4jc@black.igk.intel.com>
-References: <20260722094134.3036087-4-riana.tauro@intel.com>
- <20260722094134.3036087-6-riana.tauro@intel.com>
- <amDglMC44EIWChvp@black.igk.intel.com>
- <f08a30a8-afca-4cad-8353-5c3ce091a9ef@intel.com>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A38A10E0AC
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 16:32:18 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 8C3B01A119C;
+ Thu, 23 Jul 2026 16:32:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5E3E86038D;
+ Thu, 23 Jul 2026 16:32:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 94D1E11C11162; 
+ Thu, 23 Jul 2026 18:32:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1784824335; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding; bh=DFknPV/GGHB02nua1SEKnaLuICGqgcjtDBUVB39Ztr4=;
+ b=JawhSxzAOl6E6aBJe0CaN1Gr8aoZxJvWHlkvwa7jKNFI2qDSJ1FIWdFoM7t/A9Oe7HZ39K
+ 7fNlAbALMJRDv661IJTVfaxsQbaiqxw24+xO2QuVs8r5Ae5sS7+aRJERcZ/fEL16LGqcRm
+ Z6aIBH2Ch4KMU40080tT8Y+uevL6m1K1KKpdjlMCCzMKCRur7X+aSMtYaZcvbLKa2CZAya
+ DaoadFv+KMhbTSvxKba/hG0gbsi0UVA3GnE2OZauyTL/AnpMjw26ZrmPs6NbcYcfcv4DR9
+ bsDURO+5tr3H+5KeuiYpN49CtP7prxuFkDQRiOLuDmfkmZQ5KjqGerejyWVPXg==
+From: Paul Louvel <paul.louvel@bootlin.com>
+Subject: [PATCH 0/2] drm/panel: simple: Add support for Ampire
+ AM-800480N3TZQW-00H TFT panel
+Date: Thu, 23 Jul 2026 18:31:48 +0200
+Message-Id: <20260723-support-am-800480n3tzqw-00h-v1-0-6a4ae0575a19@bootlin.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f08a30a8-afca-4cad-8353-5c3ce091a9ef@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ7CIAwA0F9ZerZJZaZDf8XsALM6TGRImRqX/
+ buox3d5C6jkIAqHZoEsj6BhihXbTQPD6OJFMJyqwZBh6kyLOqc05YLuhpZoZym25X1/ItGInXN
+ s2Xu7Z4Y6pCzn8Prtx/5vnf1VhvItYV0/r5aMYH8AAAA=
+X-Change-ID: 20260723-support-am-800480n3tzqw-00h-7aa686bb8966
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Paul Louvel <paul.louvel@bootlin.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784824328; l=706;
+ i=paul.louvel@bootlin.com; s=20260313; h=from:subject:message-id;
+ bh=3GsCtopjO+bT5HdhUJ/GppIlZFQfqMz+16aoNJV+tFA=;
+ b=/SzAMGo548M1mxkVtyd7zMansXGrN73Nu6oxSm3eBrfAHO0DdKLxHpZ8L65I4uSahSJJpcrrh
+ hPYCcs4dpYMDnB73y5lio91NSjE/x4L+R7lo+ybkrPDesz4CxLoJ4J7
+X-Developer-Key: i=paul.louvel@bootlin.com; a=ed25519;
+ pk=eLW50NT18UAvUT5cAcYf88zNbBCZDLFXuptpyLVhVIU=
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,29 +79,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 23, 2026 at 08:34:39PM +0530, Tauro, Riana wrote:
-> On 22-07-2026 20:54, Raag Jadav wrote:
-> > On Wed, Jul 22, 2026 at 03:11:37PM +0530, Riana Tauro wrote:
-> > > When an interrupt is received for correctable errors indicating that error
-> > > counter has crossed its threshold, read the current counter value and
-> > > deliver a drm-ras error-event to userspace for each affected component.
-> > > 
-> > > Also send drm-ras error-event to userspace for uncorrectable errors on
-> > > receiving an AER.
-> > > 
-> > > To avoid sending duplicate events when the same component appears multiple
-> > > times in the response, Send the error-event once per component.
-> > ...
-> > 
-> > > @@ -425,6 +487,12 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
-> > >   			xe_info(xe, "[RAS]: %s %s detected\n", comp_to_str(component),
-> > >   				sev_to_str(severity));
-> > Similar to threshold crossed case, we should probably have a BUILD_BUG_ON()
-> > against XE_RAS_NUM_ERROR_ARR.
-> 
-> This is already added part of correctable. Seems unnecessary to add it twice
+Hi,
 
-'sent' is a local variable and needs its own BUILD_BUG_ON() IMO, but
-upto you.
+This series add the support for the Ampire AM-800480N3TZQW-00H 5" WVGA
+TFT LCD panel.
 
-Raag
+Signed-off-by: Paul Louvel <paul.louvel@bootlin.com>
+---
+Paul Louvel (2):
+      dt-bindings: display: simple: Add Ampire AM-800480N3TZQW-00H
+      drm/panel: simple: Add Ampire AM-800480N3TZQW-00H
+
+ .../bindings/display/panel/panel-simple.yaml       |  2 ++
+ drivers/gpu/drm/panel/panel-simple.c               | 33 ++++++++++++++++++++++
+ 2 files changed, 35 insertions(+)
+---
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+change-id: 20260723-support-am-800480n3tzqw-00h-7aa686bb8966
+
+Best regards,
+--  
+Paul Louvel, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
