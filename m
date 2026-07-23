@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8A44C531D4
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22997C531D6
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:35:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C2D910EF09;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B235A10EF27;
 	Thu, 23 Jul 2026 01:35:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oLapfbuR";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JJldB6FD";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1612C10EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ECC610EF09
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770523;
- bh=C/E1cpRXtqps6AVDXl0dbsrmxcX9GEPjGXzQ3d8wF4c=;
+ s=mail; t=1784770518;
+ bh=T7Fb3/FvJZGQaNLv0cZ3OdL0hvfbtlb8F+Z2Tu/MECM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=oLapfbuRLtYztsrD5ve5hhxebPuS6qd+1ltXvQFaP9tSBaKrl4JAY24a3G0U4zxTy
- mr+PfGTkRv45gHr8UoSvdtl1UfL2XR/QpdPD5cw7v7CGeWzeZ784Z5RV2DCG5LcoV0
- QobWZ9bfWhDgq2R2zbYKFXYvJG8v3VwmQx5j+O/ikGGsUehUHDKKgFLG59TNbBcisV
- uo8VhjSz8XpXvT7KskzE+i6/1BpL0mS2WiE6YFivD723PhWMZ5NXq66ghPGafQQRSH
- 04gloFr3n6tYp9Ij9iT7Rg0pRoRGVGYpyAb8klJVdYTavagr+8CyvOzNY4ckV/p3n7
- 0Cw0K/EQyw5ug==
+ b=JJldB6FDZOpnrHrMHzt5pJZIgqAx46gX+IUnEZ2WsB2faFqcDV8QSz6FhyivZIlZW
+ Ib9VHvUVeMtk+au5DxAwrER7aLOGuCeskSbq1ad+UkhFmkxhUAUyDajdWaLPfvESG5
+ rLVp9HQbr6UnXeOqRiEmZltcagUbOSQj4w3T/nEE0QaLDn+NQkw6du1L+tXtFmL0P9
+ /J8UjfSjZzFqfDtODTrgg1L2kAMyK27dtMTfOvbpyObI5rOYZRt5DLZ5W9AnCCqwYn
+ 8rbWP3MD26zrEaYWxZdTN4UHPum7koUr0wNSprb32t3PsrepjBCZG1cJnm++NFVhiY
+ U6ChBQZRq9ghA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BA0A117E023C;
- Thu, 23 Jul 2026 03:35:23 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C979E17E1274;
+ Thu, 23 Jul 2026 03:35:18 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:20 +0300
-Subject: [PATCH v9 31/61] drm/rockchip: dw_hdmi_qp: Control the HPD IRQ
- line via the bridge HPD ops
+Date: Thu, 23 Jul 2026 04:35:13 +0300
+Subject: [PATCH v9 24/61] drm/rockchip: dw_hdmi_qp: Fix NULL deref in PM
+ ops on incomplete bind
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-31-4fb12ea22ac9@collabora.com>
+Message-Id: <20260723-dw-hdmi-qp-scramb-v9-24-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,7 +62,8 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,99 +80,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HPD interrupt must not be delivered before the DRM connector is fully
-set up, and it should be quiesced while the display pipeline is suspended.
-On top of that, the threaded handler re-arms HPD unconditionally after the
-hotplug debounce, which must not override an explicit disable requested by
-the DRM core.
+The system-sleep PM callbacks fetch the driver state via
+dev_get_drvdata() and dereference it unconditionally.  However, they can
+run while the device is not fully bound.  If the system suspends before
+the component framework invokes the bind callback (e.g. during a
+deferred probe waiting for the VOP), dev_get_drvdata() returns NULL.
+Moreover, if dw_hdmi_qp_bind() fails, drvdata is already set but
+hdmi->hdmi is left holding an error pointer.
 
-Request the HPD IRQ in bind() with IRQF_NO_AUTOEN so it stays disabled
-until the core arms it, and drive enable_irq()/disable_irq() from the
-phy ops invoked by the bridge through its hpd_{enable,disable}()
-callbacks.  This ensures the line is only armed after the connector is
-ready.  disable_irq() additionally waits for the threaded handler to
-finish, so its GRF re-arm can no longer race with and override a
-core-requested disable.
+In either case dw_hdmi_qp_rockchip_resume() dereferences an invalid
+pointer, causing a kernel panic; the suspend path is equally affected.
 
-Note that IRQF_NO_AUTOEN is incompatible with IRQF_SHARED; the latter is
-dropped as this IRQ has no other users.
+Guard both callbacks against NULL checks, and reset hdmi->hdmi to NULL
+when dw_hdmi_qp_bind() fails so the guards are effective.
+hdmi->ctrl_ops is assigned before platform_set_drvdata(), so it is safe
+to use whenever drvdata is non-NULL.
 
+Fixes: 128a9bf8ace2 ("drm/rockchip: Add basic RK3588 HDMI output support")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260702151550.8E14D1F000E9@smtp.kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 21 ++++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index cdddbbb8b80b..534a2c8da2a0 100644
+index 9c4cf68d79d5..7c9d26d79664 100644
 --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -99,6 +99,7 @@ struct rockchip_hdmi_qp {
- 	struct phy *phy;
- 	struct gpio_desc *frl_enable_gpio;
- 	struct delayed_work hpd_work;
-+	int hpd_irq;
- 	int port_id;
- 	const struct rockchip_hdmi_qp_ctrl_ops *ctrl_ops;
- 	unsigned long long tmds_char_rate;
-@@ -308,12 +309,14 @@ static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
+@@ -686,9 +686,12 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 	platform_set_drvdata(pdev, hdmi);
  
- 	dw_hdmi_qp_rk3588_unmask_hpd(hdmi);
-+	enable_irq(hdmi->hpd_irq);
- }
+ 	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
+-	if (IS_ERR(hdmi->hdmi))
+-		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
++	if (IS_ERR(hdmi->hdmi)) {
++		ret = PTR_ERR(hdmi->hdmi);
++		hdmi->hdmi = NULL;
++		return dev_err_probe(hdmi->dev, ret,
+ 				     "Failed to bind dw-hdmi-qp");
++	}
  
- static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ 	connector = drm_bridge_connector_init(drm, encoder);
+ 	if (IS_ERR(connector))
+@@ -726,7 +729,8 @@ static int __maybe_unused dw_hdmi_qp_rockchip_suspend(struct device *dev)
  {
- 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
+ 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
  
-+	disable_irq(hdmi->hpd_irq);
- 	dw_hdmi_qp_rk3588_mask_hpd(hdmi);
+-	dw_hdmi_qp_suspend(dev, hdmi->hdmi);
++	if (hdmi && hdmi->hdmi)
++		dw_hdmi_qp_suspend(dev, hdmi->hdmi);
+ 
+ 	return 0;
  }
- 
-@@ -355,12 +358,14 @@ static void dw_hdmi_qp_rk3576_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
- 
- 	dw_hdmi_qp_rk3576_unmask_hpd(hdmi);
-+	enable_irq(hdmi->hpd_irq);
- }
- 
- static void dw_hdmi_qp_rk3576_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+@@ -735,12 +739,15 @@ static int __maybe_unused dw_hdmi_qp_rockchip_resume(struct device *dev)
  {
- 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
+ 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
  
-+	disable_irq(hdmi->hpd_irq);
- 	dw_hdmi_qp_rk3576_mask_hpd(hdmi);
+-	hdmi->ctrl_ops->io_init(hdmi);
++	if (hdmi) {
++		hdmi->ctrl_ops->io_init(hdmi);
+ 
+-	dw_hdmi_qp_resume(dev, hdmi->hdmi);
++		if (hdmi->hdmi)
++			dw_hdmi_qp_resume(dev, hdmi->hdmi);
+ 
+-	if (hdmi->encoder.encoder.dev)
+-		drm_helper_hpd_irq_event(hdmi->encoder.encoder.dev);
++		if (hdmi->encoder.encoder.dev)
++			drm_helper_hpd_irq_event(hdmi->encoder.encoder.dev);
++	}
+ 
+ 	return 0;
  }
- 
-@@ -584,7 +589,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	struct resource *res;
- 	struct clk_bulk_data *clks;
- 	struct clk *ref_clk;
--	int ret, irq, i;
-+	int ret, i;
- 
- 	if (!dev->of_node)
- 		return -ENODEV;
-@@ -688,14 +693,14 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	if (plat_data.cec_irq < 0)
- 		return plat_data.cec_irq;
- 
--	irq = platform_get_irq_byname(pdev, "hpd");
--	if (irq < 0)
--		return irq;
-+	hdmi->hpd_irq = platform_get_irq_byname(pdev, "hpd");
-+	if (hdmi->hpd_irq < 0)
-+		return hdmi->hpd_irq;
- 
--	ret = devm_request_threaded_irq(dev, irq,
-+	ret = devm_request_threaded_irq(dev, hdmi->hpd_irq,
- 					cfg->ctrl_ops->hardirq_callback,
- 					cfg->ctrl_ops->irq_callback,
--					IRQF_SHARED, "dw-hdmi-qp-hpd",
-+					IRQF_NO_AUTOEN, "dw-hdmi-qp-hpd",
- 					hdmi);
- 	if (ret)
- 		return ret;
 
 -- 
 2.55.0
