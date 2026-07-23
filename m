@@ -4,66 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0488AC531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:36:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2673C44532
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 01:48:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9A4210EF50;
-	Thu, 23 Jul 2026 01:36:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C735510E4FC;
+	Thu, 23 Jul 2026 01:48:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Kwe+z6Iu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hf+zBgzU";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1904C10EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:35:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784770534;
- bh=plxawnmT20w7v+1sTZz825WPXTqg1jAro3a9cOhXJdQ=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Kwe+z6IuS+40ZV6QNqMGn9FLh4+oa+2lhAesYm/qptI82q+rXxONIAKEBKMr1NXLl
- 826jXqvzJ6quJxxfRPpHxrmPLvRAZeqMhC1hfvAjAfoyMysjJ4pyhH6XnSHJqgucu6
- FE1H+Buo29OmdYHtdwneBcJoIbwOrz5r2Sa2KNz2p8yIMK75tybnwQHNzZ0wIzP3Sq
- 0wUyg3y8g/4MrHZ59JpKs8KLebeFhb5e32oydpqO+BtxPTGYkb2DL0hyZ7VMr2zyIP
- mEV4oL7RpzG1f1xXf2whLtRFaHkkNbF6N2jgOBgWp84FM+9Ebx165tu6uAyxU7nLBv
- Fmze70hGLKGJg==
-Received: from localhost (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BE37817E1274;
- Thu, 23 Jul 2026 03:35:34 +0200 (CEST)
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Thu, 23 Jul 2026 04:35:36 +0300
-Subject: [PATCH v9 47/61] drm/sun4i: hdmi: Convert to
- drmm_connector_hdmi_init()
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-dw-hdmi-qp-scramb-v9-47-4fb12ea22ac9@collabora.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1911C10E4FC
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 01:48:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8C91E600AD;
+ Thu, 23 Jul 2026 01:48:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FC961F00A3A;
+ Thu, 23 Jul 2026 01:48:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784771280;
+ bh=hI0i7efmL2lkyS6wC7kGyPgxPrJS9rT7B578hvJBxTk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hf+zBgzUqkmrusuJiUA2U3YzJyTK3Go4MylS6X1L1TxkO4BV6FByT7x0EtkntOQct
+ KAmSGu1VQh32G4qAZBFK6iZ0ulwS0O5hYozET3ucWm4uiOl9w6RamzMYpTDII+ehO5
+ 285RU7gMe276iQBXSncyvLuIovFt4rFRpKUTTuvoC6sWUjkGnPMa8OZxrMIMmGlxuS
+ qr2KG8eIdE+QH4VQkF0AnTLpHxwmUCYOjkdk8ZyBFNdunCUfuzynFVnGHTeoUutUYx
+ ZgGZDDYHv0RC26loWZtU7TglLTY2Uas8uwHrTbk9FhRaGnthCygETz5MiQHkDo3NWq
+ 7AaoPO+mn2KRg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 10/61] drm/bridge: Remove redundant error check in
+ drm_bridge_helper_reset_crtc()
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-10-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
-In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Algea Cao <algea.cao@rock-chips.com>, 
- Daniel Stone <daniels@collabora.com>, Liu Ying <victor.liu@nxp.com>, 
- Phong LE <ple@baylibre.com>
-Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
-X-Mailer: b4 0.15.2
+ <20260723-dw-hdmi-qp-scramb-v9-10-4fb12ea22ac9@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 01:47:59 +0000
+Message-Id: <20260723014800.0FC961F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,77 +54,86 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Switch driver over to the new drmm_connector_hdmi_init() signature and
-advertise HDMI 1.2 support.  The vendor, product, supported_formats and
-max_bpc values previously passed as arguments are now provided through
-struct drm_connector_hdmi_funcs, together with the new
-supported_hdmi_ver field.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-The HDMI connector helpers infer the 165 MHz TMDS character rate ceiling
-from supported_hdmi_ver and reject modes exceeding it before invoking
-the driver's .tmds_char_rate_valid() hook.  This makes the explicit mode
-clock check in sun4i_hdmi_connector_clock_valid() redundant, so drop it.
+Pre-existing issues:
+- [High] Unconditional unlocking of a context-managed lock causes lock stri=
+pping and double unlocks.
+- [High] drm_atomic_get_connector_for_encoder() returns a connector without=
+ holding a reference, leading to a Use-After-Free.
+--
 
-No functional change intended.
+--- Patch [10]: [PATCH v9 10/61] drm/bridge: Remove redundant error check i=
+n drm_bridge_helper_reset_crtc() ---
+commit 9b5cf69b4268daeb09910d2aa6efb179fd6ada06
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
----
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+drm/bridge: Remove redundant error check in drm_bridge_helper_reset_crtc()
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-index 96b2b597caa6..850a8fecf0b5 100644
---- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-@@ -192,10 +192,6 @@ sun4i_hdmi_connector_clock_valid(const struct drm_connector *connector,
- 	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
- 		return MODE_BAD;
- 
--	/* HDMI 1.0 max TMDS character rate */
--	if (clock > HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ)
--		return MODE_CLOCK_HIGH;
--
- 	rounded_rate = clk_round_rate(hdmi->tmds_clk, clock);
- 	if (rounded_rate > 0 &&
- 	    max_t(unsigned long, rounded_rate, clock) -
-@@ -253,6 +249,11 @@ static struct i2c_adapter *sun4i_hdmi_get_ddc(struct device *dev)
- }
- 
- static const struct drm_connector_hdmi_funcs sun4i_hdmi_hdmi_connector_funcs = {
-+	.vendor = "AW",
-+	.product = "HDMI",
-+	.supported_hdmi_ver = HDMI_VERSION_1_2,
-+	.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
-+	.max_bpc = 8,
- 	.tmds_char_rate_valid	= sun4i_hdmi_connector_clock_valid,
- 	.avi = {
- 		.clear_infoframe	= sun4i_hdmi_clear_avi_infoframe,
-@@ -653,19 +654,16 @@ static int sun4i_hdmi_bind(struct device *dev, struct device *master,
- 
- 	drm_connector_helper_add(&hdmi->connector,
- 				 &sun4i_hdmi_connector_helper_funcs);
--	ret = drmm_connector_hdmi_ini2(drm, &hdmi->connector,
-+	ret = drmm_connector_hdmi_init(drm, &hdmi->connector,
- 				       /*
- 					* NOTE: Those are likely to be
- 					* wrong, but I couldn't find the
- 					* actual ones in the BSP.
- 					*/
--				       "AW", "HDMI",
- 				       &sun4i_hdmi_connector_funcs,
- 				       &sun4i_hdmi_hdmi_connector_funcs,
- 				       DRM_MODE_CONNECTOR_HDMIA,
--				       hdmi->ddc_i2c,
--				       BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
--				       8);
-+				       hdmi->ddc_i2c);
- 	if (ret) {
- 		dev_err(dev,
- 			"Couldn't initialise the HDMI connector\n");
+This commit removes the no-op error check after
+drm_atomic_helper_reset_crtc() since the goto target is the immediately
+following label. The return value is already propagated correctly
+without it.
 
--- 
-2.55.0
+> diff --git a/drivers/gpu/drm/drm_bridge_helper.c b/drivers/gpu/drm/drm_br=
+idge_helper.c
+> index 420f29cf3e543..0a3c8fee66b32 100644
+> --- a/drivers/gpu/drm/drm_bridge_helper.c
+> +++ b/drivers/gpu/drm/drm_bridge_helper.c
+> @@ -50,8 +50,6 @@ int drm_bridge_helper_reset_crtc(struct drm_bridge *bri=
+dge,
+> =20
+>  	crtc =3D connector->state->crtc;
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+[Severity: High]
+This is a pre-existing issue, but can this dereference cause a Use-After-Fr=
+ee?
+
+Looking at drm_atomic_get_connector_for_encoder() called earlier in this
+function, it finds a matching connector and breaks out of the
+drm_for_each_connector_iter() loop. It then calls
+drm_connector_list_iter_end(), which drops the reference on the found
+connector.
+
+The function then returns this connector without acquiring a new reference
+via drm_connector_get().
+
+If a concurrent hotplug event (like an MST display unplug) unregisters and
+frees the connector before we dereference connector->state here, would it
+result in a Use-After-Free?
+
+>  	ret =3D drm_atomic_helper_reset_crtc(crtc, ctx);
+> -	if (ret)
+> -		goto out;
+> =20
+>  out:
+>  	drm_modeset_unlock(&dev->mode_config.connection_mutex);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can this unconditional unlock
+lead to a double-unlock?
+
+Earlier in this function, drm_atomic_get_connector_for_encoder() is called
+and passed the acquire context ctx. Since connection_mutex was already lock=
+ed
+in ctx, the inner function's lock attempt returns -EALREADY (which is
+treated as success).
+
+However, at the end of drm_atomic_get_connector_for_encoder(), it
+unconditionally calls drm_modeset_unlock(). This unlinks the lock from the
+context and fully unlocks the WW mutex, stripping the lock from
+drm_bridge_helper_reset_crtc().
+
+When we reach this out label, does calling drm_modeset_unlock() again on the
+already unlocked mutex trigger a double-unlock warning or crash?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-dw-hdmi-qp=
+-scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D10
