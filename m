@@ -4,35 +4,29 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5053AC531CA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 12:31:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C52F4C531CA
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 12:38:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FB3010F0C7;
-	Thu, 23 Jul 2026 12:31:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AC6110F0DB;
+	Thu, 23 Jul 2026 12:38:31 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADFFE10F0B5;
- Thu, 23 Jul 2026 12:31:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34E0410F0DB
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 12:38:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0B76F600AD;
- Thu, 23 Jul 2026 12:31:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26E2A1F000E9;
- Thu, 23 Jul 2026 12:31:23 +0000 (UTC)
-Date: Thu, 23 Jul 2026 14:31:19 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Andi Shyti <andi.shyti@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>, 
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH] drm/i915/selftests: Disable live_pphwsp_runtime on
- graphics version 12
-Message-ID: <amIJMJ_CqJlTIdhL@zenone.zhora.eu>
-References: <20260721091615.2680038-1-krzysztof.karas@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260721091615.2680038-1-krzysztof.karas@intel.com>
+ by tor.source.kernel.org (Postfix) with ESMTP id 6C884600AD;
+ Thu, 23 Jul 2026 12:38:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020FF1F000E9;
+ Thu, 23 Jul 2026 12:38:28 +0000 (UTC)
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] fbdev: replace dead select with dependency
+To: "Julian Braha" <julianbraha@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260723122818.437802-1-julianbraha@gmail.com>
+References: <20260723122818.437802-1-julianbraha@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 23 Jul 2026 12:38:26 +0000
+Message-Id: <20260723123829.020FF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -45,30 +39,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Replacing `select` with `depends on` silently breaks `socrates_d=
+efconfig` and hides the Lime GDC driver.
+--
 
-On Tue, Jul 21, 2026 at 09:16:15AM +0000, Krzysztof Karas wrote:
-> When a context is saved and then restored, the timer delta is
-> calculated using signed 32 bit arithmetic on hardware written
-> value to PPHWSP/LRC image and previously stored value, which use
-> unsigned types. This difference may become negative for version
-> 12, due to hardware quirk on these platforms. This in turn,
-> would cause -EOVERFLOW to be thrown inside live_pphwsp_runtime
-> test.
+--- Patch [1]: [PATCH v2] fbdev: replace dead select with dependency ---
+commit bd0c1c5dd1e0309a476de7f3f80441e35d1d6474
+Author: Julian Braha <julianbraha@gmail.com>
 
-do we have any details on this hardware quirk?
+fbdev: replace dead select with dependency
 
-Thanks,
-Andi
+This commit modifies the Kconfig dependencies for the Fujitsu Lime GDC
+framebuffer driver. It replaces the select statements for foreign and
+little endian support with a direct dependency on either little endian
+or both endians.
 
-> Similar case has been observed [1] and addressed [2] already,
-> so follow suit and disable the test here as well.
-> 
-> [1] https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/13697
-> [2] "73782fc64793 (i915/gt/selftests: Disable lrc_timestamp test)"
-> 
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16521
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
+Link: https://lore.kernel.org/all/20260722220023.196029-1-julianbraha@gmail=
+.com/
+
+> diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
+> index 085d3a202148b..e8cd8cb76874b 100644
+> --- a/drivers/video/fbdev/Kconfig
+> +++ b/drivers/video/fbdev/Kconfig
+> @@ -1717,8 +1717,7 @@ config FB_MB862XX_PCI_GDC
+>  config FB_MB862XX_LIME
+>  	bool "Lime GDC"
+>  	depends on OF && PPC
+> -	select FB_FOREIGN_ENDIAN
+> -	select FB_LITTLE_ENDIAN
+> +	depends on FB_LITTLE_ENDIAN || FB_BOTH_ENDIAN
+
+[Severity: Medium]
+Will this change cause the driver to be silently dropped in
+socrates_defconfig?
+
+Looking at drivers/video/fbdev/core/Kconfig, FB_FOREIGN_ENDIAN defaults
+to 'n' and gates the endianness choice block:
+
+menuconfig FB_FOREIGN_ENDIAN
+	bool "Framebuffer foreign endianness support"
+	depends on FB
+
+Since arch/powerpc/configs/85xx/socrates_defconfig requests
+CONFIG_FB_MB862XX_LIME=3Dy but does not explicitly set
+CONFIG_FB_FOREIGN_ENDIAN=3Dy, removing the select statement means
+FB_FOREIGN_ENDIAN will now evaluate to 'n'.
+
+This hides the endianness choice block, forcing both FB_LITTLE_ENDIAN and
+FB_BOTH_ENDIAN to 'n'. Does this mean the new dependency will be unmet,
+causing the Lime GDC driver to be dropped during defconfig generation
+despite the commit message indicating this avoids breaking defconfig?
+
+>  	help
+>  	  Framebuffer support for Fujitsu Lime GDC on host CPU bus.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723122818.4378=
+02-1-julianbraha@gmail.com?part=3D1
