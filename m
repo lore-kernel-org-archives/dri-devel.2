@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEA40C531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:50:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1A99C531C7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33D4310EFB0;
-	Thu, 23 Jul 2026 06:50:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C27310E53A;
+	Thu, 23 Jul 2026 06:54:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NXGOqbD3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZMxbPK9S";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F4AA10EFB0
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 06:50:50 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8182410E53A
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 06:54:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A16AB600AF;
- Thu, 23 Jul 2026 06:50:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A9D1F000E9;
- Thu, 23 Jul 2026 06:50:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0CAC5429D5;
+ Thu, 23 Jul 2026 06:54:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B010B1F00A3A;
+ Thu, 23 Jul 2026 06:54:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784789449;
- bh=zjStDI5j7z8M4XNreuG+yWJmxxBM9LCrEz0iOtDNXS0=;
+ s=k20260515; t=1784789662;
+ bh=q0RtO5IgaHSjvkCtf0A+Tiz5g8fHKKHi1rEdz2tz7Xg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NXGOqbD3bBuZanhWGHSelVsJqeHuBZaUggoUFrBPr0yWdCq+ZHcCLMGoRC7qoHS0N
- uvFs8OKupehBep1GZ2HrLHei0HYdnygPwoshllwMPGAcyTWQBlpedsVtW4o2ZQwZeW
- ocRcdq95sSX+K+STW5GVE0Z5W/Y3Otg+ZOgvjKr4DOECgdYg5v/U05aF/vZuHJ3w/F
- YeuEcfoy5KSL1ghc8SXYcYdbU9GysQ83KLIf3Nf1WdjYH6sc0DNhwm88qeUP4kz+dH
- eVIDcrR8fwRwmf/8tn7/VDiO1Q9EQ1rQ0KABLzuTqMzw6qYJg40O7REoUKp6Ie36eC
- n5p3IKeaA6/MA==
+ b=ZMxbPK9Soi8mbjTQXDoxvuz+jfnx/l4xqYX35Vsaas/AxOTcuy6D/UTJS52xJq3qM
+ JHPID38b0lMHSaZi65Trd6FWbSiH0162KNz+M2Z/jG48zV1ZB4eXe36hYi3BrWn9cF
+ NaTq53OiveJBHEKhgcipbC6zGoC1xbSFnyTqnzbIWKr4hPPcbEdyYATl663I7FfYiX
+ qwfqsdAl1z4HzBXAkWBmJ27xbMMubRGKBHGPbORxSlwBIWQxtvgtJZGWcI95rt/3k5
+ 6iCA0QEZsBvdk1RpYuCnlMgQK+L6nQ8Nrtb3oEEv1bvhNjJY0skGA1edEs5GIHRTMx
+ HNuveGhNu/3cQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/7] gpu: nova-core: Add public driver API to nova-core
-To: "Alistair Popple" <apopple@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>,
- ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260723063046.1265791-2-apopple@nvidia.com>
-References: <20260723063046.1265791-1-apopple@nvidia.com>
- <20260723063046.1265791-2-apopple@nvidia.com>
+Subject: Re: [PATCH] drm/i915/userptr: Convert page APIs to folio
+ equivalents in put_pages
+To: "Hongfu Li" <hongfu.li@linux.dev>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260723064651.4100-1-hongfu.li@linux.dev>
+References: <20260723064651.4100-1-hongfu.li@linux.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 06:50:46 +0000
-Message-Id: <20260723065049.04A9D1F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 06:54:22 +0000
+Message-Id: <20260723065422.B010B1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,91 +59,66 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Forging a `'bound` lifetime for a local field reference inside a `=
-KBox` creates a reference that outlives its referent and violates strict al=
-iasing.
+
+Pre-existing issues:
+- [High] Unconditional PAGE_SIZE stepping over a scatterlist performs non-i=
+dempotent folio operations multiple times for large folios.
 --
 
---- Patch [1]: [PATCH v3 1/7] gpu: nova-core: Add public driver API to nova=
--core ---
-commit 75bdf4e26c67bf993498d459d03f978972444242
-Author: Alistair Popple <apopple@nvidia.com>
+--- Patch [1]: [PATCH] drm/i915/userptr: Convert page APIs to folio equival=
+ents in put_pages ---
+commit a2440a520ca40b971ab3143efb8ecac51e56d073
+Author: Hongfu Li <lihongfu@kylinos.cn>
 
-gpu: nova-core: Add public driver API to nova-core
+drm/i915/userptr: Convert page APIs to folio equivalents in put_pages
 
-Nova core will be used to export core functionality to other drivers
-which will bind to it via auxiliary bus devices. Add a NovaCoreApi type
-which drivers can use to call nova-core methods.
+This commit replaces page-based APIs with folio equivalents in
+i915_gem_userptr_put_pages(). It caches the folio at the start of the loop
+to avoid repeated compound head lookups inside page API wrappers.
 
-> diff --git a/drivers/gpu/nova-core/driver.rs b/drivers/gpu/nova-core/driv=
-er.rs
-> --- a/drivers/gpu/nova-core/driver.rs
-> +++ b/drivers/gpu/nova-core/driver.rs
-
+> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c b/drivers/gpu/dr=
+m/i915/gem/i915_gem_userptr.c
+> index 043095f93ac60..bd91782f4bbc7 100644
+> --- a/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
+> +++ b/drivers/gpu/drm/i915/gem/i915_gem_userptr.c
 [ ... ]
-
-> @@ -86,15 +90,33 @@ fn probe<'bound>(
->                  // (`try_pin_init!()` initializes fields in declaration =
-order), lives at a pinned
->                  // stable address, and is dropped after `gpu` (struct fi=
-eld drop order).
->                  gpu <- Gpu::new(pdev, unsafe { &*core::ptr::from_ref(bar=
-) }),
-> -                _reg: auxiliary::Registration::new(
-> -                    pdev.as_ref(),
-> -                    c"nova-drm",
-> -                    // TODO[XARR]: Use XArray or perhaps IDA for proper =
-ID allocation/recycling. For
-> -                    // now, use a simple atomic counter that never recyc=
-les IDs.
-> -                    AUXILIARY_ID_COUNTER.fetch_add(1, Relaxed),
-> -                    crate::MODULE_NAME,
-> -                    (),
-> -                )?,
+> @@ -177,7 +178,9 @@ i915_gem_userptr_put_pages(struct drm_i915_gem_object=
+ *obj,
+>  		obj->mm.dirty =3D false;
+> =20
+>  	for_each_sgt_page(page, sgt_iter, pages) {
+> -		if (obj->mm.dirty && trylock_page(page)) {
+> +		folio =3D page_folio(page);
 > +
-> +                _reg: {
-> +                    // TODO: Use `&gpu` self-referential pin-init syntax=
- once available.
-> +                    //
-> +                    // SAFETY: `gpu` is initialized before this expressi=
-on is evaluated
-> +                    // (`try_pin_init!()` initializes fields in declarat=
-ion order), lives at
-> +                    // a pinned stable address, and is dropped after `_r=
-eg` (struct field
-> +                    // drop order).
-> +                    let gpu =3D unsafe {
-> +                        Pin::new_unchecked(&*core::ptr::from_ref(gpu.as_=
-ref().get_ref()))
-> +                    };
+> +		if (obj->mm.dirty && folio_trylock(folio)) {
 
 [Severity: High]
-Does creating this reference to gpu violate Rust's strict aliasing rules?
+This isn't a bug introduced by this patch, but does this loop process the s=
+ame
+folio multiple times for large folios?
 
-Because NovaCore is dynamically allocated in a KBox during device probe,
-expanding the lifetime of the local gpu field reference to the longer 'bound
-lifetime appears unsafe. The KBox does not strictly outlive 'bound since it
-is dropped when the driver unbinds, which could eventually leave child
-drivers holding a dangling reference.
+In i915_gem_userptr_put_pages(), the for_each_sgt_page() macro unconditiona=
+lly
+steps by PAGE_SIZE. This causes page_folio() to repeatedly return the same =
+folio
+for the tail pages of a large folio.
 
-Furthermore, when the pin_init macro completes and forms the KBox, the
-underlying Box asserts unique ownership over the memory. If the previously
-created reference to gpu has escaped into the externally allocated
-registration data, it might be invalidated immediately under Stacked Borrows
-or Tree Borrows. This could potentially lead to undefined behavior when the
-reference is accessed later by the child driver.
+For non-idempotent operations, this causes the folio to be processed redund=
+antly.
+If the scatterlist is backed by a 2MB THP, the same folio is processed 512
+times. This means the code unnecessarily locks and unlocks the folio 512 ti=
+mes,
+and folio_mark_accessed() causes the folio to repeatedly toggle between
+referenced and active states.
 
-> +
-> +                    // SAFETY: `NovaCore` is dropped when the device is =
-unbound;
-> +                    // i.e. `mem::forget()` is never called on it.
-> +                    unsafe {
-> +                        auxiliary::Registration::new_with_lt(
-> +                            pdev.as_ref(),
-> +                            c"nova-drm",
+Because large folios bypass per-CPU LRU batches, this hammers the global zo=
+ne
+LRU spinlock repeatedly per THP, causing severe system-wide lock contention.
 
-[ ... ]
+Could we track the last processed folio to avoid duplicate processing of ta=
+il
+pages in this loop?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723063046.1265=
-791-1-apopple@nvidia.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723064651.4100=
+-1-hongfu.li@linux.dev?part=3D1
