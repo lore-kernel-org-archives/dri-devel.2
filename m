@@ -4,124 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75DC7C531CA
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 13:27:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63603C531CF
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 13:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2B1C10F112;
-	Thu, 23 Jul 2026 13:27:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D3C910F116;
+	Thu, 23 Jul 2026 13:28:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=vivo.com header.i=@vivo.com header.b="daYl0o3d";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="JU5vL2Fi";
 	dkim-atps=neutral
-Received: from TYPPR03CU001.outbound.protection.outlook.com
- (mail-japaneastazon11012004.outbound.protection.outlook.com [52.101.126.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2195910E594
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 13:17:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kl3iOJWCagIq8qbkWtp1PzCXydRPhzgE6//UOkbc44GdsoAj89J3UKrq9Pdo/iF9j/vFkTMjVU56JcxerrVNohAwxqqo4ckFg+KCt5hB5sL+1sx6WnUI+zNmhRwdVNr0aaE/C3vdeKX8zhIKA2IGcjxPvHQcWwAH1wRhFjZu69154AEP64b8b79ueBanE2e4kv2wai2bsHSDNuJwB8ajbtEwv8WXlktWEFuolOxKh9ZYaMpyxsjPgnd92CeJEW5jkkwK3jZTClW0xKi1oN+9v/LOStEKjiVAMVqewtU2erDVKtdo5Y06tLSGKaxtJcPNWHvcUkM1Au1kMdmx4ju7qA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/LrVIgBSFvkMixz75o8YqxXe3sBM3uOV6P6hNRCg7/k=;
- b=lI/91AjcqtuuyDi2OsqLatK9pN9Pun5e2Nd/XVCqQyxzH7tTa1sn/6LcSrzwVpfCMtyd/8Ga+yTKkT0US9pfbUx1ccfeHDy5jOhOk0+HVYTkKb5YHiLXOyCefRjV9JV0tfyzMEGGP6AKk9VamxBLX5TuzWIJR4vADQO6mq/RqGCqVtbPxUzFlXhHCnCP+W9zGxOnr8VpmaPTb1mh5qAs2xB9C8CNnU0BsEbjPLZVNAfqxCCOXbGodGtJHHGVHfzhYD2UENVwDhNGHeqWqV7mwWHwL6TTEbFIRFhIMp2AO3tJw0BpnEnU140yVs/uQvOU4ucdtCFT/mpP7HvfDo7a6w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
- dkim=pass header.d=vivo.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/LrVIgBSFvkMixz75o8YqxXe3sBM3uOV6P6hNRCg7/k=;
- b=daYl0o3dQSqCt5UJCu75R54miwxrONRNosMTZvjkZuas0/h1JIiSsvFKkqxbpF0wwSfP6blcpW3/iA1faAkbQXRy67mXyZcPO8E5KMU+zOQnOQHM4vaCac7seFqPR+9AeTXeNxBwC2llTNq/etbG6eBIEe3hpHc14ZF7AlKeoDsO/YatvqWmfiOkZy6PvKojU3hq5uQQktiW3GJEJRrrJn67xg9tK8ocIoa8ukRXP7F9R9nrKKRiu79m6PAlv6NVmN0lXGi4ktQCgnB1OmpQfCNCivOC/p+6SrCzDveFB74ZE+OvTB+p9DPTcImJr6+pd4mLIILO6bFMxvjMKIh3Ag==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vivo.com;
-Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
- by KUYPR06MB8724.apcprd06.prod.outlook.com (2603:1096:d10:91::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 13:17:27 +0000
-Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
- ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
- ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0245.009; Thu, 23 Jul 2026
- 13:17:27 +0000
-From: Pan Chuang <panchuang@vivo.com>
-To: Douglas Anderson <dianders@chromium.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org (open list:DRM DRIVERS),
- linux-kernel@vger.kernel.org (open list)
-Cc: Pan Chuang <panchuang@vivo.com>
-Subject: [PATCH 10/10] drm/bridge: ti-sn65dsi86: Remove redundant
- dev_err_probe()
-Date: Thu, 23 Jul 2026 21:16:42 +0800
-Message-Id: <20260723131649.134127-11-panchuang@vivo.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260723131649.134127-1-panchuang@vivo.com>
-References: <20260723131649.134127-1-panchuang@vivo.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: TY4PR01CA0084.jpnprd01.prod.outlook.com
- (2603:1096:405:36c::11) To SEZPR06MB5832.apcprd06.prod.outlook.com
- (2603:1096:101:c8::12)
+X-Greylist: delayed 399 seconds by postgrey-1.36 at gabe;
+ Thu, 23 Jul 2026 08:26:18 UTC
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.67.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFC1010E2FD
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 08:26:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1784795142;
+ bh=zyZoSgcSvPZa4Lztf92xnmwggXjnsZ8IVuTRvt3SQnI=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=JU5vL2Fi6InlRISIhDGfiI7RNJvk+wlIbfU0JuMWvg59ruRvP6LSyA1lNskCXZHEp
+ W5Uhjks1SLKDG6h1GJB8PU17Frg0KaVafr29wJ44nX84Sa8JO8oXqR/FtVHrpeHB1E
+ GGbDV0DC8WlKhz7Iu85JLVElln+2T8Oel/P9WOps=
+X-QQ-mid: zesmtpip2t1784794708t1baceda8
+X-QQ-Originating-IP: p0+WvO88PZWVCksv0PxY0bE07sYlxrtU4deG1JLaxR0=
+Received: from localhost.localdomain ( [localhost])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Thu, 23 Jul 2026 16:18:25 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 8067794102828428792
+EX-QQ-RecipientCnt: 26
+From: Gou Hao <gouhao@uniontech.com>
+To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ chleroy@kernel.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ bharat@chelsio.com, jgg@ziepe.ca, leon@kernel.org,
+ akpm@linux-foundation.org, ynorov@nvidia.com, namcao@linutronix.de,
+ mkchauras@gmail.com, sshegde@linux.ibm.com, nilay@linux.ibm.com,
+ kees@kernel.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-mm@kvack.org, gouhaojake@163.com, kernel@uniontech.com
+Subject: [PATCH 2/4] drm: remove dead WARN_ON NULL check after GFP_NOFAIL
+ allocation
+Date: Thu, 23 Jul 2026 16:18:11 +0800
+Message-Id: <20260723081813.176792-3-gouhao@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260723081813.176792-1-gouhao@uniontech.com>
+References: <20260723081813.176792-1-gouhao@uniontech.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|KUYPR06MB8724:EE_
-X-MS-Office365-Filtering-Correlation-Id: 14fbd3c2-6f9d-493b-1011-08dee8bcbdba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|7416014|52116014|376014|1800799024|38350700014|921020|6133799003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ucwluCIVPtvvIXHdUaMVxvmjYCIRTEcmvN9gU6K6DfXUu8xsgSgx9fI4M3SVH7KDuy+kgYnShoTJ9Mki23HokK2JjbUF2Fu/O1clAuKoU/K7jCAY2fLG9IVeSazQ3j4EAsLI31Y1P8Xr6T7C9167aRc3CWbalAWk/7WWWES7N9ZUmiipuLdtl7EWcJAR4dNltYEKkwnuhsteqlfo48VedO6MN0c7TG3IZEdZ1QA7FuJ7cSBUZjzOq6qQMbIaF8IH9TiZpccvlJ4YiPiyO6R/IkGysd2gx0Vc+P3fL8vnEdqasvy8X0WzthjiKo20ohjOJyqTBB74EdXStqfQsVWdFfbZa62Cxh0xAwqhhatUdZ05t5bHMU5O3Ey+2klD0I3Woj35GNWNoZjI/LL4nS8rLIOJjPFE335gneUiHuTw+/eLhAb1XqLLx+6HSzykaHUhyBqoZAKKTIGc0ccvkNsS6Qb1kMM0s7+Iyr7XOi2c3Y0Epc8rsagdNNsEm8YnartNoQXlGg7IHQCqZY9KVydosfYlzZ+PTzgpyvmAeiRBF/Bfjfc4ai5F8LZs8+5r12iW+ZlAVj7xe4EoxB6r2l70K82eyBWbDQUZE9AdCXp32PP4WBvQqaZEaFWmmaHQDaa7JXOUZYTAYsf0Eq+5Xfep9FWIUe2lbMGoQXIHHXcn1aV+Jj/xDtZr4lFKSbjmEjv+lf4tqqHNQEzmG/brd1JuumQe+FI8jTdi5avhnpejeMVMXPjjohKevrLl1SixI2Cy
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(52116014)(376014)(1800799024)(38350700014)(921020)(6133799003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?upigqR8PMHGZiub5RWsAJpD+b/5nHov2KSmc5isq960kwrPlE221OMc1huMI?=
- =?us-ascii?Q?b31asb0BIW+5swZPVxhRDqsvmOfVDtU05slwslcSXEVjMPKZTBSrhp2bwoNH?=
- =?us-ascii?Q?BfhltVMnifv/5N/kwreFK4WychV1hZNf8zxvj43+SOhncJliI5kb/l8q2YAN?=
- =?us-ascii?Q?zKZp6yRPU5umeg1cqJpcdNwFoKiJb1xK1xDjhXRTT6nHlerWc27+BDBihnVW?=
- =?us-ascii?Q?bawd8tS6Q7Imu83eSbOAapqxqsMaP9Mi3OCJ8QR3A52Cv0mmFvD5NnYJVNVw?=
- =?us-ascii?Q?0FoZPLs9E9ci3x9Uf6AWvlP7MQlIFcPkKoLV0Pw4tia9DSGBROvU76EcCAp8?=
- =?us-ascii?Q?8AxQx0bRynvZU4570WauszGvV1NN8RyyP9XE1TIiAUjbs7H5hu6J6HvDs+T/?=
- =?us-ascii?Q?zc1b/RF5aj6nPUgGLUv9SgMbhTpNTAHDQdJFaPc6IEWgSJOiQvnRbK0uknbd?=
- =?us-ascii?Q?Oym9HDgjETgV8h9l3fh/fW+xsPfsW9VuaBagytQCRok0l7Ekqcq2BZdbCOBM?=
- =?us-ascii?Q?I5SgbMNPZgP7VcUsqVGh6ez91qiL85rGOFkMSYlL6MnC1q3s/aAJW5sGx2lK?=
- =?us-ascii?Q?KF5LsH4D1cunOCMYXAtMkRw6hb/vRAf2VF+PleqCf8z7Nl/sodxFUpAcXiIJ?=
- =?us-ascii?Q?YHQkKaDy7HHaUWwsE7RYf1Nz6RRgNWgyKZq4HJyrWeVH45FsVpG3sXOA3w3+?=
- =?us-ascii?Q?B1NM1irbnomJJviD85Pwk34lWuM0RRFXUdcPimPFS+LWgnLdpQcN+A644VRC?=
- =?us-ascii?Q?YvPlJxzMsyFfsjOE2xHLL11ofKR+U7v7gNQm/TvzdvyefWEnarJyWzGIvh+h?=
- =?us-ascii?Q?vWCHl8EQEJROCGgt5HB6Uas27Pqhxu84wIMPd72nO7D/eRodnQ9nRRJNLcpe?=
- =?us-ascii?Q?mf0/AGgdMlAq9tbp4iIvrjpPNtBXXthBgErqprpZfrU9H9I2w4qrlaIhFfyn?=
- =?us-ascii?Q?1psdpD9AZ0eSNBkZ5xAyTfEcsLdcRZ4t7k8Osp65waprfNcya5+aIS6TBonx?=
- =?us-ascii?Q?x2u7FZV+6YEhltvdwi09lhrmKzNgvpaEQzxhZnBgVFYL+hCmFYKLrmP/PQkK?=
- =?us-ascii?Q?Jl1sprOekhFHSHusMl55hKAcHuS35xbxXyB9OIWI/WZ5+bZQOFFW7sRY4PYV?=
- =?us-ascii?Q?73G6DFnTHggWoN+ZkKu7KJdrEs2aaEQXGikDUGITivaigehbg8e9jcWNrbaK?=
- =?us-ascii?Q?kO9lVil8WczcyAsmZqIzvozp8Tl44wKRM2+JsneEla0mckmgpI/9wurISrpA?=
- =?us-ascii?Q?wqaoVxVYqsOaRl9n3lec77t7qK5izrAE9P4TSnPZEs/ROxKDGEWgO8O+nlrx?=
- =?us-ascii?Q?aij5WGhP0JoD+HATvJjBUIrjpmpCX1IEMlRLwbx2bcaxv83OJ2WDOnPd7GuL?=
- =?us-ascii?Q?Q9zOzQYbGdIU+X6NPCa6WqMdwCGMP/VvUaP1+08HapBov0hBQQIZUcmwpijl?=
- =?us-ascii?Q?kS7YygNJLGrDY34HR8eyA+2Z8XBKmx5TtxujbdoMczpP09gLCzrXt9LVOdW0?=
- =?us-ascii?Q?Ddz2Lubbm9Za6hfTGM0/lJ/djgKu4uIFRSG0DSktCzeE7nrUALeM4YI9Oqm+?=
- =?us-ascii?Q?Wm+MSs1WhVmNb4h3vPgLss7/qLtAW1aGEg2t4wlhz2mQiXI0py1uMZH65xzo?=
- =?us-ascii?Q?D3g5vHieJJoXNScjGSe8IharmBvblvT6O5un16i1/2KuKtxGzIRrzO7c6QCR?=
- =?us-ascii?Q?sSiYDgn/VGpXc9VpvG9vpBO7MmOVDeFEB3IKmFYRflbrZVu1gW4r952NEp6z?=
- =?us-ascii?Q?TwsUV7MOYA=3D=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 14fbd3c2-6f9d-493b-1011-08dee8bcbdba
-X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 13:17:26.9673 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nflDOpRTNtxnJBC8XfoEQEIpF7q8MKp7iFjnjaX9TiZyOwDMGO/vI3ayYVg3PNC8N7cXkId67flFs6KO9sIWAg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUYPR06MB8724
-X-Mailman-Approved-At: Thu, 23 Jul 2026 13:26:48 +0000
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: OZZSS56D9fAjckDqlfzJlu9LL6jBKKnBs3gN4vl4RgIFRz2rr4g8u2r/
+ 5oDA1kxi4D8m7gKqcKBytHZ37/d8kwxMNxytFpufJvo+1PoNJ2yCo9XGLog2QHCoZti7Cq1
+ rTMvmRVNkwt1AFI5oZFmHCgnjf6m8vXKDWhIsjNMZ4THr/WZCvyubhK7V2yE2gqnBrUgNlT
+ A8xpfIptvF/+QqPZheqkaPB7jDeTEai5zIxc/7O4LRdTu3qneA68tVNsjEcujdRXxZY7pM4
+ T1/XjdgWKo8D95AZNJRxRRtc9IO0FFEVnOFAFJFcDlAh+V3vN/DCZA4wUmcYv3VrY3jrKAO
+ 88WVuBtRJtMfw2yIqF5WAd5hgS44ov50EVRAd5UqmQAwHDgwORRuDiSY8KLTJO5JkgU3zaV
+ MvjF1GsPH5xzkoXO5e085ynR17nlBKBK5TbZDkm3qQc4mgi2uq4uHGVcxCE5fVOUApbf2F8
+ fyEt1Y28wVIm44VveTYi7cvtwcGhX4PpZHYyHyyQ+7RtqwXMAOuS8jC2eLBoTXkxMTLiJkP
+ 0WaL6Hncyu/HHCPyxQoCiP9xgvhtCznehDios/nZV78b+Yeh4IVvA27OKlbhZ73PVaiuoBH
+ sHOkDXp3Oh/xksbsWxJSsMFhUknNFvFkV8JqFIRHRV5tIVTVGapobfwc5Ck5Fqcupv4TopU
+ DouW0oD02RaPDMhDNINyT7hUtmdQ0Qyp54o6kwaL01D6dW3rMkZpYBXAUvHEA4pBDeDigDb
+ 2EuQKWkiSkABXumCUexXAKqGA/chEtMcVio01Z2XT3lENWDz1zsTaiin4d9nY79gp0JTuBU
+ alUC6kMwwcgF3O2AFlzlEWrbpTadhv0DNYmRGokf6fuv5NXra1KDvH6CFA3FgRkdqiKyb2a
+ hYVeXKPMLUZTlEtqVvmxgBNQRepTc0mJJwAeyboK8eLn7/+SmXnSM4ZvvbThgNs4XcHd/Bi
+ eiM+zPXJq5HgaAeofIGJ8WX6CZI7WIlgnlwaXYHIBlTiCJxNnRn17rZAV5lGwxOboazVfn1
+ IwQr9vBNH8WooN6fdVNH5+HGpWmnzHJEkPgPrtVUN5qwimQtbvvfYhQZ12BQZJEpiacjbDN
+ w==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
+X-Mailman-Approved-At: Thu, 23 Jul 2026 13:28:03 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,29 +90,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since commit
-55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()"),
-devm_request_threaded_irq() automatically logs detailed error messages on
-failure. Remove the now-redundant driver-specific dev_err_probe() call.
+kzalloc_obj with the __GFP_NOFAIL flag will never return NULL, so the
+subsequent WARN_ON(!ctx) is unreachable dead code. Remove it.
 
-Signed-off-by: Pan Chuang <panchuang@vivo.com>
+Signed-off-by: Gou Hao <gouhao@uniontech.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_modeset_lock.c | 4 ----
+ 1 file changed, 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-index 1da242f17413..2fcb4039fd61 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-@@ -2080,7 +2080,7 @@ static int ti_sn65dsi86_probe(struct i2c_client *client)
- 						dev_name(pdata->dev), pdata);
+diff --git a/drivers/gpu/drm/drm_modeset_lock.c b/drivers/gpu/drm/drm_modeset_lock.c
+index 2c806b0146d6..e14814c30d8c 100644
+--- a/drivers/gpu/drm/drm_modeset_lock.c
++++ b/drivers/gpu/drm/drm_modeset_lock.c
+@@ -149,11 +149,7 @@ void drm_modeset_lock_all(struct drm_device *dev)
+ 	int ret;
  
- 		if (ret)
--			return dev_err_probe(dev, ret, "failed to request interrupt\n");
-+			return ret;
- 	}
+ 	ctx = kzalloc_obj(*ctx, GFP_KERNEL | __GFP_NOFAIL);
+-	if (WARN_ON(!ctx))
+-		return;
+-
+ 	mutex_lock(&config->mutex);
+-
+ 	drm_modeset_acquire_init(ctx, 0);
  
- 	/*
+ retry:
 -- 
-2.34.1
+2.20.1
 
