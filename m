@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6617EC4453A
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 02:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F03AC531C7
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 02:11:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8370610EF76;
-	Thu, 23 Jul 2026 02:11:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2033A10EF7B;
+	Thu, 23 Jul 2026 02:11:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="HJ0N5ZtQ";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="qhUcu1OD";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E9DE10EF76
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 02:11:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 282AB10EF70
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 02:11:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9188B4516B;
+ by sea.source.kernel.org (Postfix) with ESMTP id 45570450A0;
  Thu, 23 Jul 2026 02:11:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3EC78C2BCFB;
- Thu, 23 Jul 2026 02:11:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C0582C4DDE8;
+ Thu, 23 Jul 2026 02:11:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1784772683; bh=/+TJBprKftruu09PkIGYhOVPOJy49bvIvHvN98E4jqA=;
+ t=1784772682; bh=F2CI+FBdyNzgpm/+lalqrgOCl4op0DIet6QiBNuXJNI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=HJ0N5ZtQKqWYDxSEPnLM1z5BMGS8Nj0FhoofJCdkdmx2DmTrCYZGUuQICBgnTKbk8
- cZzCpXoCSx2XYpV09HHNxRB8JKxdpGmbyXN0oOgUlMRzkeZZwLqy4an08dfuLTPv6K
- CDrjIFYNg3jpReV8oVUnKrQ8xW3Dja4PB2AuZSVk=
+ b=qhUcu1ODNgrlW2FGiwWAntJqTBAeyzWa/VchunRLoi5nbaHQfGDGVfc5z4WZpL7mg
+ MY8ZMB4xPI68EnviLVHBtuqLU4wDF7K4zCYWSx1Bc4eujg3FPGDnUFhhWXyjAIApGI
+ dgWy95WaPD0aQfvnmKxiKGHtNDxx/0MNxjaTW8Fo=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 28104C4453D;
- Thu, 23 Jul 2026 02:11:23 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id A91E9C44536;
+ Thu, 23 Jul 2026 02:11:22 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Thu, 23 Jul 2026 10:10:33 +0800
-Subject: [PATCH v9 10/10] rust: module: update MAINTAINERS to cover module.rs
+Date: Thu, 23 Jul 2026 10:10:29 +0800
+Subject: [PATCH v9 06/10] rust: miscdevice: set fops.owner from driver
+ module pointer
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260723-fix-fops-owner-v9-10-c1c3af7f7bcb@linux.dev>
+Message-Id: <20260723-fix-fops-owner-v9-6-c1c3af7f7bcb@linux.dev>
 References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
 In-Reply-To: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -69,11 +70,11 @@ Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
  linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
  linux-pci@vger.kernel.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784772679; l=1000;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784772679; l=1259;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=/+TJBprKftruu09PkIGYhOVPOJy49bvIvHvN98E4jqA=;
- b=86V23XzkQz5CzfR0RCwwYpyhbOuNvPOIf5ft8ndFw7YOO8vPwxWQ+942au721djMIOqpu04SV
- 5zRRTRmoKtyBerwGXttIDGfn87cB2KrhTBTBvapSB9SU79lCsGeHGhF
+ bh=F2CI+FBdyNzgpm/+lalqrgOCl4op0DIet6QiBNuXJNI=;
+ b=b1YiLB/69Su44v2ps7laeoetpRGghonjYzajdU0tUf089j7rW4bO8E1v6QG6ciuRN8OhQ0vn/
+ BSLz4daJXirBqvGF2coxaGuxm7sPbiDxeIYLc3vzgdLWZsq7KnM6Lmu
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -93,34 +94,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Module types now live in `rust/kernel/module.rs` alongside
-`rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
-from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
-files are covered.
+Set the miscdevice fops owner field from the driver module pointer
+via the `this_module::<T::OwnerModule>()` helper, instead of
+defaulting to null.
 
-Cc: Petr Pavlu <petr.pavlu@suse.com>
 Assisted-by: opencode:glm-5.2
-Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
+Reviewed-by: Gary Guo <gary@garyguo.net>
 Acked-by: Danilo Krummrich <dakr@kernel.org>
+Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- MAINTAINERS | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ rust/kernel/miscdevice.rs | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e035a3be797c4..74733de3e41ee 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17984,7 +17984,7 @@ F:	include/linux/module*.h
- F:	kernel/module/
- F:	lib/test_kmod.c
- F:	lib/tests/module/
--F:	rust/kernel/module_param.rs
-+F:	rust/kernel/module*.rs
- F:	rust/macros/module.rs
- F:	scripts/module*
- F:	tools/testing/selftests/kmod/
+diff --git a/rust/kernel/miscdevice.rs b/rust/kernel/miscdevice.rs
+index 83ce50def5ac9..2a4329f98614e 100644
+--- a/rust/kernel/miscdevice.rs
++++ b/rust/kernel/miscdevice.rs
+@@ -24,12 +24,13 @@
+         IovIterSource, //
+     },
+     mm::virt::VmaNew,
++    module::this_module,
+     prelude::*,
+     seq_file::SeqFile,
+     types::{
+         ForeignOwnable,
+         Opaque, //
+-    },
++    }, //
+ };
+ use core::marker::PhantomData;
+ 
+@@ -430,6 +431,7 @@ impl<T: MiscDevice> MiscdeviceVTable<T> {
+         } else {
+             None
+         },
++        owner: this_module::<T::OwnerModule>().as_ptr(),
+         ..pin_init::zeroed()
+     };
+ 
 
 -- 
 2.43.0
