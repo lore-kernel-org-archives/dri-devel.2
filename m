@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11C19C44532
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 02:01:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6811EC44536
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 02:01:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D0E810EF69;
-	Thu, 23 Jul 2026 02:00:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C98B310EF6A;
+	Thu, 23 Jul 2026 02:01:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n/oxGUVi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Jo421Dv4";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 09C1E10EF69
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 02:00:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 053BE10EF6A
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 02:01:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5EF6E600AB;
- Thu, 23 Jul 2026 02:00:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D65081F000E9;
- Thu, 23 Jul 2026 02:00:56 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E2ED241E7C;
+ Thu, 23 Jul 2026 02:01:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A9201F000E9;
+ Thu, 23 Jul 2026 02:01:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784772057;
- bh=jozKjk2J6NEYx/vndCj6GKzJOJ+ayBkah+8JkSadd9w=;
+ s=k20260515; t=1784772062;
+ bh=Jsj025+j5ajWSUEXfF8QGxVeM6i7mgTc2Fko/KuJWz4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=n/oxGUViAFrCsmsNWcSsi1hQ2wHYKkpApG77a6loDfDTT54xp8r4FZFzclFbAOl87
- u+kd3hmy1OeD7BpUfIIHus7+lxlSVZ026B/3n1Gc7Sp3Q07X6TtLsm9XhOTX6klalr
- Ec+d8+5kVFn3zNXEHdrY7/OhY1qjmWWfpMrq8TPe7B1Hfk/GxjMKuds4Qd0g7Sx34h
- G7oKGbseXiSFgGBRLyULLQACsCkhy9FspORjMY0N2ytGwMVYOsw2JCL2U2JgSkdmK5
- RxWFu5kgNE6ukzwm3Mxi43V3SsuwssebcTSHuoXKrk5UVXr5pQ1JAf93JjHNeRbNRD
- 2LDuKkP2TVmog==
+ b=Jo421Dv44BQ8JVDMO4QSVSsMGtVcLeVMo4yqWY4LCEtY2FaJirX4j1cuU9tkBlSQA
+ XW2PJvIxJAEcHJtbggLR/xT1B25QuYP974FWxbZLxda3p8vpccyjZSQGmuszRLbrlh
+ Fb6LVdT/Ua8w+FhPzM2+M+4f2Q+zyEJDQ7QHjqtiSACm5gQ8TLcL65PPGWapeHnBDl
+ R8M3SBDh14cre1d7pVYKH4ms9caNY9dih6SxemcZ37RBg1doWIvMwLV1cvXCyMWbA7
+ IBJUT6p+vuQVXYPyAAAc+z5vcgM3CMbPQCgKlIhiepPtChEp0Kbkfo07SJTRos++X6
+ kOZOxVLfLk2qA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 54/61] drm/tests: connector: Add HDMI source-side
- scrambler coverage
+Subject: Re: [PATCH v9 43/61] drm/bridge: ite-it6263: Advertise HDMI 1.3
+ capabilities
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
 Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-54-4fb12ea22ac9@collabora.com>
+In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-43-4fb12ea22ac9@collabora.com>
 References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
- <20260723-dw-hdmi-qp-scramb-v9-54-4fb12ea22ac9@collabora.com>
+ <20260723-dw-hdmi-qp-scramb-v9-43-4fb12ea22ac9@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 23 Jul 2026 02:00:56 +0000
-Message-Id: <20260723020056.D65081F000E9@smtp.kernel.org>
+Date: Thu, 23 Jul 2026 02:01:02 +0000
+Message-Id: <20260723020102.9A9201F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,68 +60,55 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Masked test failures in TMDS character rate validation tests.
+- [Low] The macro `MAX_HDMI_TMDS_CHAR_RATE_HZ` and its descriptive comment =
+are now unused and should be removed.
 --
 
---- Patch [54]: [PATCH v9 54/61] drm/tests: connector: Add HDMI source-side=
- scrambler coverage ---
-commit 51e9e33a81edd8b52502410a5e171c4a8d0bf3c5
+--- Patch [43]: [PATCH v9 43/61] drm/bridge: ite-it6263: Advertise HDMI 1.3=
+ capabilities ---
+commit 30b48bebf03b99c913be112fadde6e8cf5c4b197
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm/tests: connector: Add HDMI source-side scrambler coverage
+drm/bridge: ite-it6263: Advertise HDMI 1.3 capabilities
 
-This commit adds KUnit tests to validate the HDMI source-side scrambler che=
-cking
-in drmm_connector_hdmi_init(). It verifies that scrambler callbacks are
-correctly required for HDMI 2.0 and later, and rejected if provided for ear=
-lier
-HDMI versions.
+This commit advertises HDMI 1.3 support for the IT6263 bridge and drops the
+redundant it6263_hdmi_tmds_char_rate_valid hook. The TMDS character rate
+limit is now enforced via max_tmds_char_rate during connector atomic check.
 
-> diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm=
-/tests/drm_connector_test.c
-> index f14cd741b05e4..3d050ac5e5f6d 100644
-> --- a/drivers/gpu/drm/tests/drm_connector_test.c
-> +++ b/drivers/gpu/drm/tests/drm_connector_test.c
-> @@ -1412,6 +1412,89 @@ static void drm_test_connector_hdmi_init_max_tmds_=
-rate_no_version(struct kunit *
->  	KUNIT_EXPECT_LT(test, ret, 0);
+> diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge=
+/ite-it6263.c
+> index f166bb38998c0..73caf28c6ac77 100644
+> --- a/drivers/gpu/drm/bridge/ite-it6263.c
+> +++ b/drivers/gpu/drm/bridge/ite-it6263.c
+> @@ -738,20 +738,6 @@ it6263_bridge_atomic_get_input_bus_fmts(struct drm_b=
+ridge *bridge,
+>  	return input_fmts;
 >  }
 > =20
+> -static enum drm_mode_status
+> -it6263_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
+> -				 const struct drm_display_mode *mode,
+> -				 unsigned long long tmds_rate)
+> -{
+> -	if (mode->clock > MAX_PIXEL_CLOCK_KHZ)
+> -		return MODE_CLOCK_HIGH;
+> -
+> -	if (tmds_rate > MAX_HDMI_TMDS_CHAR_RATE_HZ)
 
-[Severity: Medium]
-Will the scrambler validation tested by this patch mask the TMDS rate limit
-tests located just above this hunk?
+[Severity: Low]
+Since this function is being removed, should the definition of
+MAX_HDMI_TMDS_CHAR_RATE_HZ in drivers/gpu/drm/bridge/ite-it6263.c also be
+removed? It appears this patch removes the only user, leaving the macro and
+its associated comment as dead code.
 
-In drm_test_connector_hdmi_init_max_tmds_rate_exceeds() and
-drm_test_connector_hdmi_init_max_tmds_rate_no_version(), the tests use
-dummy_hdmi_funcs_scrambler but set supported_hdmi_ver to HDMI_VERSION_1_4 or
-HDMI_VERSION_UNKNOWN:
-
-	struct drm_connector_hdmi_funcs hdmi_funcs =3D dummy_hdmi_funcs_scrambler;
-	...
-	hdmi_funcs.supported_hdmi_ver =3D HDMI_VERSION_1_4;
-
-Since drmm_connector_hdmi_init() rejects scrambler callbacks for HDMI
-versions < 2.0 by returning -EINVAL early, will these TMDS rate tests now f=
-ail
-during the scrambler check rather than actually validating the TMDS charact=
-er
-rate logic?
-
-Should they be updated to use a dummy struct without scrambler callbacks to
-ensure the max_tmds_char_rate limit is what actually causes the test to pas=
-s?
-
-> +/*
-> + * Test that the registration of an HDMI connector advertising source-si=
-de
-> + * scrambling support succeeds when the .scrambler_{enable,disable} call=
-backs
-> + * are provided.
-> + */
+> -		return MODE_CLOCK_HIGH;
+> -
+> -	return MODE_OK;
+> -}
+> -
 
 [ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-dw-hdmi-qp=
--scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D54
+-scramb-v9-0-4fb12ea22ac9@collabora.com?part=3D43
