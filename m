@@ -4,64 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACB12C531C7
-	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:41:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A04FC44524
+	for <dri-devel@archiver.kernel.org>; Thu, 23 Jul 2026 06:44:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE31310EFA7;
-	Thu, 23 Jul 2026 06:41:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7F1C10EFA6;
+	Thu, 23 Jul 2026 06:44:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ZfKgEej2";
+	dkim=pass (2048-bit key; unprotected) header.d=arndb.de header.i=@arndb.de header.b="jXOCscFB";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="G9KqN6vh";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7647610EFA6;
- Thu, 23 Jul 2026 06:41:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784788891; x=1816324891;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=dndr+Q7ZbdWNVlT+QLoBDH1fcE11CMP/4FK8lYK2cI4=;
- b=ZfKgEej2DFRn2r2dxXEOoh/aKYM/LVtj2Tm5VEETbMw73sskRTGNXh87
- F/PQ6ctEJw8UWL2rifalf6nMOJQ13aktD87tfyBJEb9jXIrvjGN5U5q3Q
- 0jzYhsMMmjnN/X9ELKHKlgBeGzw2uxoIdNg8cNnFLFtqM1twcIIyULpW1
- hcS7yHzuDKCoBvgv1t+RVVGsQonGa/3NwNzKoyocb43n3P9MfnMN0Kvwf
- h1HRb4wqODOOmRMMkpixohYHSUIn3uZZiSUwSqRunLcAKQsfEzzRMgUwS
- C58tJaIFuhw5aXDxhfihmQioCl6oO6lh0mKEZHusy/+OO5g3LFcH1E+9z Q==;
-X-CSE-ConnectionGUID: fep24l8GRsqrnnWxEOlSMg==
-X-CSE-MsgGUID: DLZcGkQ9TICOomd19ubEbw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="85555164"
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="85555164"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2026 23:41:30 -0700
-X-CSE-ConnectionGUID: iyLNOZPCQN2e165/5ark1w==
-X-CSE-MsgGUID: F6r60qe8TOiEeLgGB9fBrg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="288321794"
-Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 22 Jul 2026 23:41:26 -0700
-Date: Thu, 23 Jul 2026 08:41:23 +0200
-From: Raag Jadav <raag.jadav@intel.com>
-To: Riana Tauro <riana.tauro@intel.com>
-Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, aravind.iddamsetty@linux.intel.com,
- anshuman.gupta@intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, kuba@kernel.org,
- simona.vetter@ffwll.ch, airlied@gmail.com, pratik.bari@intel.com,
- joshua.santosh.ranjan@intel.com, ashwin.kumar.kulkarni@intel.com,
- shubham.kumar@intel.com, ravi.kishore.koppuravuri@intel.com,
- maarten.lankhorst@linux.intel.com, mallesh.koujalagi@intel.com,
- soham.purkait@intel.com, Michal Wajdeczko <michal.wajdeczko@intel.com>
-Subject: Re: [PATCH v6 2/2] drm/xe/xe_ras: Report correctable/uncorrectable
- error events to userspace
-Message-ID: <amG3k8dNCJb_tHxT@black.igk.intel.com>
-References: <20260722094134.3036087-4-riana.tauro@intel.com>
- <20260722094134.3036087-6-riana.tauro@intel.com>
+Received: from fhigh-a7-smtp.messagingengine.com
+ (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D033010EFC4
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 06:44:24 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 14D4114000ED;
+ Thu, 23 Jul 2026 02:44:24 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+ by phl-compute-04.internal (MEProxy); Thu, 23 Jul 2026 02:44:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1784789064;
+ x=1784875464; bh=HTbkVd6Wq6Ip4RQIXSUsnzOc5fWskilI0JTEv1l2AMo=; b=
+ jXOCscFBczbYwISru5b0WlMcuYHyvtRqw2pmaH6OT3Lb6EnHg4e5bng8wUhqQiKK
+ xgZt4o2JM5wf3TSoNfko74u0BizEFMJQcpUB0xyt8rUK/uh0Wxe3w6pkwJtMDrFp
+ 2HFxjBDBUBlRZvVzyIWpyQUitKEm+U1I5DX+S6phKqy8tKkeFuFQXiULWI7ls1Ae
+ AMVYgGqBwdmK19Vue5knOzfL5SV2TX+U5sHBRjIZLXqHipbTDbd1YByau6/qxdI0
+ 523mhrbGTm+JGVSd3rQslUvS4VT8zeFVOfHFKqvXdGKTGdxMmayAvZTQUTJMgdkI
+ 9IeP9BOPkpalxWOxw2UeCA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1784789064; x=
+ 1784875464; bh=HTbkVd6Wq6Ip4RQIXSUsnzOc5fWskilI0JTEv1l2AMo=; b=G
+ 9KqN6vhM/GhgdF8t3p/RBW3V+i7nfswuhNpM9vscPu0k/KZlQRZKvmTqWXWthJWG
+ wjO50yIoRaycr1bp3LBthGGuET/plJ+OyZ0YmXXUz81pH/xNb0NTEeeCKoXOnZeG
+ LtDE7OKaQetYzrQUCg4RBHuIwQbY2vndGA+bFHSyNaDrSmgytmYTAFwjLnmQZCSG
+ aUtJiXVukz/lO3jPDMfD2379ljH2+FhlRlN21wcjWJ9OOSxMy+p4PKphqEvbnoxY
+ yUOX7sM7Sg0MvhUlAXrvq1VBwwcrh7Bi4x2Fw1CApahvhRV7ZabgVejC2ytijVyI
+ TO5CV3cA11ehOG2y4YngA==
+X-ME-Sender: <xms:R7hhagKj-Zpuv1jlefp8cJ7niGwEwOjxShIUSP2rnCsmtRLMT4LKXg>
+ <xme:R7hhaq8HJSIluZXkhqZZydCpLGICihC5N3oMhhK898use9lPVR9zb528zRcCNSGxd
+ KVKZNoOM5Aa9pU76zN_ydY0rwa1nYbZ9e4PQL2qfKiXhATTq83Jik8>
+X-ME-Proxy-Cause: dmFkZTE6QZb+iHWpL1mO+WsK28M5HOJ6jSDCRX4MJVUuJmHkrp8fjQqcnHFMOWQPUMjSZ5
+ 0s8AasFJxawL3drXqEA4wDRNhL64B0zge06O2h3kUM5afAxmuuvgb8Qx08+jzxeNyg4/dI
+ 1C509wUMH/JyAZay4iFmSDPW1zzc9Nun5e7N8rEQs0a7yRhtOTjAyuNmL4Me2yxh5SgAvp
+ r0zUoj/aqBjFaNW/Jz4ckeuWIPcdBo3ePlbRtqlskTSCkN6XNQftiAi3lJsoYPVY0kozXf
+ ofydBXq4yrDomyA8hJ2sCZPhpfTdxDEyEAvfcGgizTxQVjP+6AwT252IobqADl7wftU0o/
+ gXOFbQFdLQPN6Hq6O9Slz5YZNemy/9SzKBmLpsIJv247uq99NafRJUJs6UPMzWEAjKmXPP
+ NWoq/3xjwKITazN5kSscyqH9sKe4rH5gwQ7T9Psi5qKNf6OBxMpexcyhEoylbCeWXu0E39
+ MYedRrKHgFiXHo3bz1DjXVInFZxijiLT/E9VI8JFu7QETP3PrXNbEa3bHdM/qgJSgG1Ild
+ /LfmHTZOU+8lLBEMJsQpFJ2wG2wNiQ0ht7ec336hH1SESCBgbPKVcMBrd5CJonKBBMdcS2
+ VClczfly6pNpgG9pgAw68pejhtlHxQgzR8Y42k+9AtXcqpb9KKLcp2+hlUOQ
+X-ME-Proxy: <xmx:R7hhanYltOus9jeW9PUOYpZ_XJN1B91raAupijg09bYoM4YE8GYRdg>
+ <xmx:R7hhaj7aEYzRyHTIC-reNM0ynROz06C8gW_QzCK2zQoaSkaxBqRH-g>
+ <xmx:R7hhasmTm0AqrqFNy8nDxKe-rnPZFyu2gaMzW51nqyEqXlWRU8XUsQ>
+ <xmx:R7hhajHQx5v4uZGsRIavqVQZ9Lu3um34IE_eNR7FluBRij1opvW1GQ>
+ <xmx:SLhhagizdM4t9BqIHhjFmoEGNfEAADeOSlJiNGCG5o8gcKRecpTFC-DJ>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id AACB6182007E; Thu, 23 Jul 2026 02:44:23 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260722094134.3036087-6-riana.tauro@intel.com>
+X-ThreadId: ADWwDUKQibi3
+Date: Thu, 23 Jul 2026 08:44:03 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Julian Braha" <julianbraha@gmail.com>, "Helge Deller" <deller@gmx.de>
+Cc: "Thomas Zimmermann" <tzimmermann@suse.de>, "Wei Liu" <wei.liu@kernel.org>, 
+ ptsm@linux.microsoft.com,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ hsukrut3@gmail.com, rob.github@jumpstation.co.uk,
+ "Ethan Nelson-Moore" <enelsonmoore@gmail.com>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Message-Id: <99391074-24d8-4725-8e8d-ac310a666f29@app.fastmail.com>
+In-Reply-To: <20260722220023.196029-1-julianbraha@gmail.com>
+References: <20260722220023.196029-1-julianbraha@gmail.com>
+Subject: Re: [PATCH] fbdev: replace dead select with dependency
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,35 +100,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 22, 2026 at 03:11:37PM +0530, Riana Tauro wrote:
-> When an interrupt is received for correctable errors indicating that error
-> counter has crossed its threshold, read the current counter value and
-> deliver a drm-ras error-event to userspace for each affected component.
-> 
-> Also send drm-ras error-event to userspace for uncorrectable errors on
-> receiving an AER.
-> 
-> To avoid sending duplicate events when the same component appears multiple
-> times in the response, Send the error-event once per component.
+On Thu, Jul 23, 2026, at 00:00, Julian Braha wrote:
+> diff --git a/drivers/video/fbdev/Kconfig b/drivers/video/fbdev/Kconfig
+> index 085d3a202148..1ed4506c0cb2 100644
+> --- a/drivers/video/fbdev/Kconfig
+> +++ b/drivers/video/fbdev/Kconfig
+> @@ -1717,8 +1717,8 @@ config FB_MB862XX_PCI_GDC
+>  config FB_MB862XX_LIME
+>  	bool "Lime GDC"
+>  	depends on OF && PPC
+> -	select FB_FOREIGN_ENDIAN
+> -	select FB_LITTLE_ENDIAN
+> +	depends on FB_FOREIGN_ENDIAN
+> +	depends on FB_LITTLE_ENDIAN
+>  	help
+>  	  Framebuffer support for Fujitsu Lime GDC on host CPU bus.
 
-...
+I would make this one
 
-> +/**
-> + * xe_drm_ras_event() - Report drm-ras error event to userspace
-> + * @xe: xe device structure
-> + * @component: error component (see &enum drm_xe_ras_error_component)
-> + * @severity: error severity (see &enum drm_xe_ras_error_severity)
-> + * @value: value of error counter
-> + *
-> + * Report an error-event to userspace.
-> + */
-> +void xe_drm_ras_event(struct xe_device *xe, u8 component, u8 severity, u32 value)
+       select FB_FOREIGN_ENDIAN
+       depends on FB_LITTLE_ENDIAN || FB_BOTH_ENDIAN
 
-Forgot to add. Looking at the existing xe_drm_ras code, this should be
+to avoid breanking defconfig files. The default choice is
+FB_BOTH_ENDIAN, and that should work fine here.
 
-void xe_drm_ras_event(struct xe_device *xe, enum drm_xe_ras_error_severity severity,
-		      u32 error_id, u32 val)
-
-but can be done as follow up.
-
-Raag
+     Arnd
