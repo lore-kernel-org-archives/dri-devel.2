@@ -4,71 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28F0FC531FA
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:28:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06A93C531FC
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:28:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1502B10F2EB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F3DF10F2F0;
 	Fri, 24 Jul 2026 07:28:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="VEpWfQTO";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="swJCnry/";
 	dkim-atps=neutral
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C94710E644
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 02:30:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1784860159;
- bh=nFjFFaXMkLzxoExHNfOEPPaBXmUVyvwpIJWfb32uFmU=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=VEpWfQTOL9zLFbyFogjNmCQMlKaiv1ch5DwkSrh7BZ+2RGOKv9qZ7NQ96vbvWgZmY
- KwQNpO8VjSAxaUait8NuD9BWwrJ1h3vH+OgEytvIu6MQ1/hxpbQjl0nsQJY4UcPi9c
- xu9ZTSK/V3GsC9xazytGPIPjuS5mw3UeNUlk2aLo=
-X-QQ-mid: zesmtpip4t1784860151te3c12dad
-X-QQ-Originating-IP: Q0VsYdJjns2x4KkOcgSLM6b/xTyYuD8mV2X7QLUMAvc=
-Received: from localhost.localdomain ( [localhost])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 24 Jul 2026 10:29:08 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9743323694755543151
-EX-QQ-RecipientCnt: 26
-From: Gou Hao <gouhao@uniontech.com>
-To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
- chleroy@kernel.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- bharat@chelsio.com, jgg@ziepe.ca, leon@kernel.org,
- akpm@linux-foundation.org, gouhao@uniontech.com, namcao@linutronix.de,
- ynorov@nvidia.com, sshegde@linux.ibm.com, nilay@linux.ibm.com, clg@kaod.org
-Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
- linux-mm@kvack.org, gouhaojake@163.com, kernel@uniontech.com
-Subject: [PATCH v2 3/6] powerpc/xive: fix use-after-free of xive_ipis
-Date: Fri, 24 Jul 2026 10:28:48 +0800
-Message-Id: <20260724022851.466017-4-gouhao@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260724022851.466017-1-gouhao@uniontech.com>
-References: <20260724022851.466017-1-gouhao@uniontech.com>
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1003110E5C9
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 18:46:08 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-38e3617ba36so976874a91.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 11:46:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784832367; x=1785437167; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6s5SzAkwTqv2cG0ZEuCiRJMYbGatFZIR2B9nCnRkYh8=;
+ b=swJCnry/ty0QL/7YNUuATb9PxZpkBgPmIWNpb3chH//atTMSEaSx9QGco/SI/GX5/c
+ 8DSV+QpPjLRs/7oIkWBVcUpPREQdHpMooy4jDlwY2rSFjJ8gRFmC/qROH9y3ItOHBD3H
+ +Cdkmu1ldYmpdaKpTvFrK2+83mAgQnQlH7Uczexp5KyTcGePjHkySSMQpz2+/yP086wp
+ 2PTT5xiZjb+UyixmWU67tdAyU+HH7qwx9Ezkawa+AbvMeqkHUH8eXlrHACJPzziiFwCI
+ ZGtbQLipg/qAZ+mMuBE4Z+BrP0ykuegOXh++7NJ971g7EXXfav2nVZCnie8s0g9LfGOJ
+ DT+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784832367; x=1785437167;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6s5SzAkwTqv2cG0ZEuCiRJMYbGatFZIR2B9nCnRkYh8=;
+ b=OtId6QqxH0Mu+W2l2P1phPMhGMIKhUKTnqyq3hisR/k+sFjfyXMgJG1s4VF0Pn8BI4
+ L4mChbVwn9oGyL9q7fKddOEC/UeKmal+Cn7PbAWTkU8w/VkicZ8q7sPfS+dDiJrkytRg
+ Dgm1RGdmVgck/7L3sVYM06hedYIJgpqabiBPVTiRaiZbyIMOu3omQglh4wBVClnsgOfO
+ rXrs+1e9AfveH10WFFhmaC69bcLOo9KLzGSz7Y6aWdTUIZFpMLp5VDih96usYr65Z+Vn
+ sByTkja4s4iB/QhTpeyCqcY6J2C2YOImLCXdy909APOS+9OHxc36Cqqtmu8fqrYWxxEA
+ sd5A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpVtxRZVdCKHzPncHS7WeRKEmPGpDEvZheIZGukEsdYaaHaQ+kzLzVZb6f4RbVhBp0yr5cAznw8Ty8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwLoqaiYRxPO+k3Eswqlp6kiUp82t29Kd63UG9bvHhzH4pLb6hW
+ r/GaZhyBuj8ubkJwwtq9TwyMfNfZhvDIoyRQ586GN9qjfnlSpG4mIDzd
+X-Gm-Gg: AR+sD12ZsPRuojF27DQd7kdg3hesDQqCbbtSXVTTTtcRLG5w9sHUVVbOD42c4j+NPlf
+ 54oLRO1Vz4UkgZiQKu4DS5AWPYstBdV/ucd4i7ZbYveaaasYuVIG3PqGCFE8XphKUSgswJrgSS9
+ tuEJRnKsZNhSn8jTVuulFYfsEU/2PHNjHB90ztcE1aQhkM/w9kxFJ5Z6w+rMl6iFWpX/TXwuE9U
+ 6m+y+wFoEfpu57SqXqiGw4k07ZhWNmUiKT1/pXug6mL9wCATU1uj7rYdn2QB2QjMDohHOUyMWLn
+ XaBDYworBZyBbU2P8RW0/WlcpXDIw+c2AXenvBDi0fF9H7LetKmyGHjtHaYxrhTfqISFkZasI1H
+ jnr6ClVaURFrJJfAJl3tFUMU0oQjG5dLXbXh0GWMh0oHkNoOP/JNB9va+nb5gQpIqX9bcnBEN
+X-Received: by 2002:a17:90b:4b92:b0:37c:18e0:90dc with SMTP id
+ 98e67ed59e1d1-38ec697d294mr3808455a91.16.1784832367424; 
+ Thu, 23 Jul 2026 11:46:07 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38f03af8a45sm308155a91.10.2026.07.23.11.46.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jul 2026 11:46:06 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Julia.Lawall@inria.fr, Jani Nikula <jani.nikula@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: cocci@inria.fr, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Zhenyu Wang <zhenyuw.linux@gmail.com>,
+ Zhi Wang <zhi.wang.linux@gmail.com>
+Subject: [PATCH 05/36] drm/i915: remove conditional return with no effect
+Date: Fri, 24 Jul 2026 03:45:07 +0900
+Message-ID: <20260723184538.3888637-6-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
+References: <20260723184538.3888637-1-ekffu200098@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: MShfLn39PbN2l+blDShduB1X9iebRAT5qDFedbrrqQbUgZS1c9E9R+x+
- 8Z5evE7qwSSNKS5fWkyAqsloxq8zg6kn48MO133LodvIgdUKORIw31oHWPzeU8n0+MFnAnY
- wqBpuCKD3QTroE/efd8m2YD2UdqtSJM+ZgmHjm1gERoup0o9MOqb9PNCCpTDe5b28emWvOq
- iVnbBDaHX3SpuHZy1qvjLrxijlJJeKUsHhjby03igj3EHpmzRguzUV3KoOm0yzbwlrh+cZt
- UdmhYmVY4WRiNAVbPz8/7RVLPhjmXHEakAeKofcwBXaa70Gi7u9TLAk0vjaiJY8mWtf2Qp8
- Uk3tbEsHWwJj5W3VW/jreYIJzuDKMbBA/k3+VMPvUmRpy5MIACpU1l/WPtnF2MBOhxIqzns
- mjN1DklG5Enuz0WA5zuubqpe1WNz9Fd67EWHOFeVYsvbKqxK2qPg9sXzvjvO2TCvgUvxMDv
- nQiBTIwopkRLpFSTmq7QY4lQcpD2JBHdYvOiLwg/CoOUtK7yw063vxcQizitZGEylNB5psT
- pR3j2NP76pW2nEL8MR8I99WHwPYAG3+txj8vJgLI0CbUYjQXCI82u0gAvc0x5QOweR7GGg/
- 0VfheQ1kacRfogatLT6U4vQg7XyIUEqqj+YXlcOZBIMuxZyFH5mlXGWfsQgYxPDkwFUir6b
- GNBXwTTSutBq9ry3CrYnIOqf7uiEo7iPrr3pe7U13BClVn04TuFlQj/WI4gDDmk6Ly/URD5
- cfDRV31qO686+IXjll03CTOy2pEfnEyIGzEinN4tiriAqOEyYm1MzbHNcZCRDgZ3TmLEoyL
- fHdD5moEFn6eChs6cfivVBhNK0nWBwyQbmPz3bCUPig272Urz7eQfCVUWVXKO1oXUO/ZfR1
- a7SAMZ/ewVTxvVEbwjuzKg2tD4DmQwdQ91jlPU657PB2HkMtYDRmjKCs3CrTttjMatffT1S
- q/ihiso+CPHMmrGNg+B1RFnUz2kvBMvsnA0LImGEsiRH4hjhQSlDpQV4gyKN2FPx/PDvJx3
- 3bA9b/G99k0IOK5zPVxr7zuntPpXdP+DJJG7YyE+u2WQwrA8AJNzvhHRqqYQE=
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:28:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,86 +94,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When irq_domain_alloc_irqs() fails in xive_init_ipis(), the error
-path frees the global xive_ipis array via kfree().  However,
-xive_smp_probe() ignores the error return and proceeds to call
-xive_setup_cpu_ipi(), which dereferences the already-freed xive_ipis
-pointer, resulting in a use-after-free.
+Both branches of the check return the same value, so the check has
+no effect. Remove it and return the value directly.
 
-Propagate the error from xive_init_ipis() through xive_smp_probe()
-and check it in both pnv_smp_probe() and pSeries_smp_probe() so that
-IPI setup is aborted cleanly on failure.
+This is the result of running the Coccinelle script from
+scripts/coccinelle/misc/cond_return_no_effect.cocci.
 
-Fixes: 7dcc37b3eff9 ("powerpc/xive: Map one IPI interrupt per node")
-Signed-off-by: Gou Hao <gouhao@uniontech.com>
-Reviewed-by: Wentao Guan <guanwentao@uniontech.com>
-Reviewed-by: jiazhenyuan <jiazhenyuan@uniontech.com>
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
 ---
- arch/powerpc/platforms/powernv/smp.c | 8 +++++---
- arch/powerpc/platforms/pseries/smp.c | 8 +++++---
- arch/powerpc/sysdev/xive/common.c    | 6 +++++-
- 3 files changed, 15 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 7 +------
+ drivers/gpu/drm/i915/gvt/gtt.c            | 8 ++------
+ 2 files changed, 3 insertions(+), 12 deletions(-)
 
-diff --git a/arch/powerpc/platforms/powernv/smp.c b/arch/powerpc/platforms/powernv/smp.c
-index 8f41ef364fc6f..b1201dbafcaf6 100644
---- a/arch/powerpc/platforms/powernv/smp.c
-+++ b/arch/powerpc/platforms/powernv/smp.c
-@@ -332,10 +332,12 @@ static void pnv_cause_ipi(int cpu)
- 
- static void __init pnv_smp_probe(void)
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
+index 8a019d3574df..90880be63a1e 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.c
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
+@@ -2658,13 +2658,8 @@ static int
+ intel_hdmi_connector_register(struct drm_connector *_connector)
  {
--	if (xive_enabled())
--		xive_smp_probe();
--	else
-+	if (xive_enabled()) {
-+		if (xive_smp_probe() < 0)
-+			return;
-+	} else {
- 		xics_smp_probe();
-+	}
+ 	struct intel_connector *connector = to_intel_connector(_connector);
+-	int ret;
  
- 	if (cpu_has_feature(CPU_FTR_DBELL)) {
- 		ic_cause_ipi = smp_ops->cause_ipi;
-diff --git a/arch/powerpc/platforms/pseries/smp.c b/arch/powerpc/platforms/pseries/smp.c
-index db99725e752bd..14cd0634eeca8 100644
---- a/arch/powerpc/platforms/pseries/smp.c
-+++ b/arch/powerpc/platforms/pseries/smp.c
-@@ -194,10 +194,12 @@ static int pseries_cause_nmi_ipi(int cpu)
+-	ret = intel_connector_register(&connector->base);
+-	if (ret)
+-		return ret;
+-
+-	return ret;
++	return intel_connector_register(&connector->base);
+ }
  
- static __init void pSeries_smp_probe(void)
+ static void intel_hdmi_connector_unregister(struct drm_connector *_connector)
+diff --git a/drivers/gpu/drm/i915/gvt/gtt.c b/drivers/gpu/drm/i915/gvt/gtt.c
+index 5056a5887b31..6bca40128d99 100644
+--- a/drivers/gpu/drm/i915/gvt/gtt.c
++++ b/drivers/gpu/drm/i915/gvt/gtt.c
+@@ -725,15 +725,11 @@ static int ppgtt_write_protection_handler(
  {
--	if (xive_enabled())
--		xive_smp_probe();
--	else
-+	if (xive_enabled()) {
-+		if (xive_smp_probe() < 0)
-+			return;
-+	} else {
- 		xics_smp_probe();
-+	}
+ 	struct intel_vgpu_ppgtt_spt *spt = page_track->priv_data;
  
- 	/* No doorbell facility, must use the interrupt controller for IPIs */
- 	if (!cpu_has_feature(CPU_FTR_DBELL))
-diff --git a/arch/powerpc/sysdev/xive/common.c b/arch/powerpc/sysdev/xive/common.c
-index f9a1229cede73..bb6ce07c1699e 100644
---- a/arch/powerpc/sysdev/xive/common.c
-+++ b/arch/powerpc/sysdev/xive/common.c
-@@ -1256,10 +1256,14 @@ noinstr static void xive_cleanup_cpu_ipi(unsigned int cpu, struct xive_cpu *xc)
+-	int ret;
+-
+ 	if (bytes != 4 && bytes != 8)
+ 		return -EINVAL;
  
- int __init xive_smp_probe(void)
- {
-+	int ret;
-+
- 	smp_ops->cause_ipi = xive_cause_ipi;
+-	ret = ppgtt_handle_guest_write_page_table_bytes(spt, gpa, data, bytes);
+-	if (ret)
+-		return ret;
+-	return ret;
++	return ppgtt_handle_guest_write_page_table_bytes(spt, gpa, data,
++							 bytes);
+ }
  
- 	/* Register the IPI */
--	xive_init_ipis();
-+	ret = xive_init_ipis();
-+	if (ret < 0)
-+		return ret;
- 
- 	/* Allocate and setup IPI for the boot CPU */
- 	xive_setup_cpu_ipi(smp_processor_id());
+ /* Find a spt by guest gfn. */
 -- 
-2.20.1
+2.43.0
 
