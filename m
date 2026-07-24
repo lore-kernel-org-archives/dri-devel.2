@@ -4,128 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7E42C531FA
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:08:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A38B7C531FA
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:08:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B750410F328;
-	Fri, 24 Jul 2026 08:08:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0DAF10F333;
+	Fri, 24 Jul 2026 08:08:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="MlcVgs3A";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=kanardia.eu header.i=@kanardia.eu header.b="MPU/7Yyk";
 	dkim-atps=neutral
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012068.outbound.protection.outlook.com [52.101.66.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E155510F328
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:08:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ryVjdQoPYOyv8mW109OGB9cee1tb6kH419a7aR/HpptuxWrWypRbBPmVcxEv7i23F0FpqwDgkzgEd6tcv6ILspkeLcdUOinxDs0BTEKm6V92aIj+fpkSg1cgAoTR3suhPtTxRN8PAXwuifBdHlH3UQOE+p7OB0cIGJNqwIFIbqAkmSLEdattiuJIDjTJdBB2lkOsrsudYlLVZIs8TLoCuKTr2mVSN3ID07WZCTWz00J7F9LyChNfOUDiDibdIYHNbJ+7Tu5JMxtjvvn+k3IhzfCfQi2M/AbtDNdpnd7+RMG+CTn+B6dYoAgHOTM5YS2z8WZ9qO3wFAtf8pkUfkMn8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=NK+cM4BNEoqgdvrL/bbIvZMO9dQn9vVkKWJyVNWi4JI=;
- b=Lu2NQJwx6BH9k3ZF+yi1fXSJAmS0nkzfk8/OsUIN/rO0IWDuZfRUuZD/nHJ/i12HeCrnQB/AzlsFHtuRCcxwLcH1/Bcc6PjjV5UQDHAv3kwYOwNW454vFlVODmGqDCWoYtvWFH5JNDzhz2U0JoV1RBEa5ZkLC2T3VrEDae8lN/Rhtu6NMD2V/Y+BWrEej91yN4q/Ib1e7L824cq1w7KghTjh4omMYY7bJ6hjAEHQIykLsEQr8XSA5AlHY8UKdiR8GRfeI9vqegJNXDCO65WeQNZqRCVK5O6RjFUnNBDL4UnrrmB6T4I9ARgsV9I10pm9F2YlKhhsQDeFxOY8dRtcLA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=NK+cM4BNEoqgdvrL/bbIvZMO9dQn9vVkKWJyVNWi4JI=;
- b=MlcVgs3A7Ty0Prnf3tkBzphP3/8SKfsQJw5RemxboEPSqwwCrA4kmELweLQsc02oHUtOvz7v6XQJxQ/DUVM/5npJQj2dwH7s9MNjufwwezqJP/9A5FXvOvB27LafNnJay+VqO3GMSC3oia/t644DWlF3pRrfDKQj3D4O8aJQ/0mgZkEGUR15Vx7Z//eYIzjLast5LhxuHfz+rr1EvzfuRmiKpQDxBla0Os58DMVlBUFFDROLezQDD7NGd0JB1A/KbaTrw/1DRweSjxE9hH0DBWSIH+H3kbt3w7goYiDDCBP9MTOb1U7R712pMaPq+5lUJGN8uV6XpPU2lg3nQey/lQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by VI0PR04MB11940.eurprd04.prod.outlook.com
- (2603:10a6:800:307::15) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 08:08:12 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%5]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 08:08:12 +0000
-Date: Fri, 24 Jul 2026 11:08:06 +0300
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Liu Ying <victor.liu@nxp.com>
-Cc: festevam@gmail.com, m.felsch@pengutronix.de, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v13] drm/bridge: imx: Add i.MX93 parallel display format
- configuration support
-Message-ID: <gvp7mfhjpgon6hju37ebswo5fjkdzio5lqgcdkhq25zfidayj5@kenuryj2sg3s>
-References: <20260723-v6-18-topic-imx93-parallel-display-v13-1-ccf3f9bbc0fc@nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723-v6-18-topic-imx93-parallel-display-v13-1-ccf3f9bbc0fc@nxp.com>
-X-ClientProxiedBy: AM9P195CA0016.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:20b:21f::21) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+Received: from th8-b.mail-neoserv.si (th8-b.mail-neoserv.si [152.89.234.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 247F810F333
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:08:38 +0000 (UTC)
+ARC-Seal: i=1; cv=none; a=rsa-sha256; d=th8.neoserv.si; s=default;
+ b=bLhSBkBjUBQXXbMfW/sgpCpyLu7i9NuI1bLPbTkp31vOckzawBPQPANyjx2z+ROJo5JolXIqw5
+ M4GBBYoiojIW/IH1gDrjeQYgozfQb+hpHtsxzo+grvv18QvLhJkXTrtnQ3c13uIOGOtPeGUKNQ
+ kP0vrzomT3W4C+A1bRKuORe6qhSk6g/VNgSaLRkIB0tITGhVAxbtdc08Cv/ED+4T/o6a3GKyrU
+ 19+lDtLVnfC4gudJKMj8CcaBtN7aMsMKJXXpTG1DjotYw6WaRK4Yx/ptmtB3CvzL1OtZgTZvlM
+ sK+GwNPIVWSSKGBpIR/tniV/yhNzHl1Ww9do1kozIyay6A==;
+ARC-Authentication-Results: i=1; th8.neoserv.si; smtp.remote-ip=193.77.36.193; 
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed; d=th8.neoserv.si;
+ s=default; 
+ bh=ZQ8Cmsj05infuNySaUQsheykvJcBzOdHA0m2LcyiQLU=;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:
+ Date:Subject:Cc:To:From:DKIM-Signature;
+ b=NGcBpE/eOko0hyGFeEQbjGJnyfltluMVxiGQsALhk+IBx05VUeykRxRWB3MAnFVHlsAmoL+nTe
+ yTonr5SBJOa4kfNWW3UgQ7G25ZxbDfLrEyfA1r7XrffkXX7PQfk8YGoYTMkNI41llc34E49RjO
+ 5YPzG+5MtipfpW/yCAoxGr+bfDQJ87Oj+Km+sUCaaadn7swwPHJcDQlJYuo5GCvBJD+lfvofIz
+ aMG8uSe+NsRLHqGHUtYw4LY8wgMzVtlcYz1XpmFYgi/1+NEj04G9cCrqUDpsg9XR8hdmHH58Jz
+ ts5BlQj+H/yveu0lteON8SCZcgccEOAQBgms3hmJ+Foh/g==;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=kanardia.eu
+ ; s=default;
+ h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+ Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=cm++ZQgvrV2LU/2T+Ex0Y95vEd8ge0y3k7zWNpsu80s=; b=MPU/7YykhW3Y+5/iiCIWsBtp7M
+ nPhatR1qsH3o+DE2WGHbVOYU4lzr4eWKJ17+tinjU6TzSFFsk2amxioi3efeiopIb36ACFQQfN3Da
+ LcWr5D6UEJ1zxTaSB5lD00tyt2Opgzf8fLUEEazBXVfbtJhaZrIPW4aVyWRGhrL8pK0n9CURKQ3vK
+ Lwlq9lPuAT8X8Sa9xmL14++Xgs2jEBy+BnoJ6jeEMtjmBMEzoNP+UHn3/8UubLz3qDoAzkqiR5GFs
+ soaffNi2vTp6Uo0+DDBLGYLY6LKfWKgbhLEeu0iwtxtZ1ANfOUPtaC7YXKjtpG7JHj/pS4+zAyPf8
+ H06Lkhbg==;
+Received: from [193.77.36.193] (port=41890 helo=rok-trip.kanardia.eu)
+ by th8.neoserv.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.99.4) (envelope-from <rok@kanardia.eu>)
+ id 1wnAxL-0000000AcoX-0w1h; Fri, 24 Jul 2026 10:08:31 +0200
+From: Rok Markovic <rok@kanardia.eu>
+To: Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Alibek Omarov <a1ba.omarov@gmail.com>,
+ Rok Markovic <rok@kanardia.eu>
+Subject: [PATCH v2 4/4] arm64: dts: rockchip: rk356x: add LVDS node
+Date: Fri, 24 Jul 2026 10:08:24 +0200
+Message-ID: <20260724080824.115260-5-rok@kanardia.eu>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260724080824.115260-1-rok@kanardia.eu>
+References: <20260724080824.115260-1-rok@kanardia.eu>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|VI0PR04MB11940:EE_
-X-MS-Office365-Filtering-Correlation-Id: 008824f1-93a0-4a18-6398-08dee95ab455
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|19092799006|23010399003|1800799024|376014|7416014|366016|56012099006|10067099003|18002099003|22082099003|6133799003|11063799006|3023799007;
-X-Microsoft-Antispam-Message-Info: abq30PL+eaG4AKoTH5+NFoJpzpIYbhjGCvy7H+Nl26DihRhbbqTx2PyP6bOR6Z7ALsLCL9H9VL2Bztaj7+pBxtMhGSHqMsVY6yOJdTNGkFjmvoPUo2PgfFgqM8mACq8ZEno0uDq/E6lG6Hx0kOoyrc91yYlGrOPgWkxw38hY9y0aGeK1SSzWCwWlB7Fzu1siNZ0wdZzCeVyUMNb1VU2hNLR/GUlr6kAKbwi9K/bSs8kTcWrfRkigFERRl++Pk2KquYaxos5clgnqU5+Xfwg6XeLhdAsDSzjjjqdltodiSpJ2CVvPwWRDfRV2LDweOIfdVfgZjupmbpBG+C0gcXV9EpajL69LAR4jWCa0+ZZObfToBEsRxKxKq0AbutqnB2snjh5antzTP9lmce72ejLm2EE/b5tc6uIDcOhf/d9qEAdC13C6rWXOlZTjJe67xFF16AoAIFIhjUjdaf/zGNEj0mLZa0Az54ClsehO6LR23qfrhbMhTPyZ3cucMCTDL/55RpbYY/PGC/GPn+Za87UKCNbKbKUXlagYI5U836PdTUPJZQFbDaiTKqiKfHc8LFAkA1GbyKlpjklLQ+lGLG0tXgfD+vn4trdSwGkw7LQWu680zCYla9PKu2fK4zNL40VZs7G+Am1XmtavRxP5I6AN95qE4/g98cG1hMfc7JuJkvQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(19092799006)(23010399003)(1800799024)(376014)(7416014)(366016)(56012099006)(10067099003)(18002099003)(22082099003)(6133799003)(11063799006)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ijBxzvpfUmRbenI7hzH1G4NcSa/8DsxfDWg4NK9+b+F6DNG8YQcEsL6mVlW8?=
- =?us-ascii?Q?DndIHBdiSs5zU6E+v9LH1nl8R7MFVLIskomqlSudtQ4wSq3pNJc/LOmgdaYf?=
- =?us-ascii?Q?1BV7ZJjpysRMi6Bdhy6a3KJFltVXItqYMl2OQbQFzsmPSE8vY5XOPdBVidB7?=
- =?us-ascii?Q?26bj+aiTmdnJ+nzoqgbBtzq2tXQiLUJmQpzIj6+y3kQqRdXxxBNOAsmk2hSN?=
- =?us-ascii?Q?P/ONQ/wGEjSYVyU1Mrw//7KVcrRMG8npJ3b4+aHyk028e5AUUitQ3ttJg6nn?=
- =?us-ascii?Q?Tnl/RW0SvgPLAnRYwnf3So1eQ5qubciZAxOEpOB9Tgte9qpuEyXleXdYZJGm?=
- =?us-ascii?Q?AeiqrmvE3rS3SXlxsnGEEeuZOK7jz6uzxfEHjXLAWtnva3klAk5tz8UhCUre?=
- =?us-ascii?Q?81DbFzC8t2oGlSdjXXkxWhIHtc7xvMeZFjRBVWnjXy2rGLUOy31LbZ9VLFsL?=
- =?us-ascii?Q?Mm+04gqyA8UW5uR9132ajTnQphVRnMjNC9/ui/IoKcrXCeph/GdGrKfKmyQy?=
- =?us-ascii?Q?9C2o6jvrrTDTiuEg6M8Sv6NNgI4houZ2iFiBZMPUjmj0OouAWEnH+p5B9Sd5?=
- =?us-ascii?Q?ne1QfAW6pmrhtTWKSo5NUeNZIJ68iWwjhbU+tjvxjCPP12oe3NcComYQpEKc?=
- =?us-ascii?Q?eANOthF38bXoUu0m1C9OGpDZN8B5ba+23PKL3N5rSNpUqLDinVhA+G4Eo/qw?=
- =?us-ascii?Q?X117A2uerpR44qt+JOZ2o4Lnzav5NLs2SBZ06TWaebDTgxyLB/2E5gKDd342?=
- =?us-ascii?Q?w5pqf2YDHKigSDd341lMOROpmOjh4CotGNeMJ/QjPUl0q8oxXMVXch/0QEad?=
- =?us-ascii?Q?v6cSg/EvRh2hx4IvUnkp/B1dtuB6UkLtOcNCc59Ylu+us4eEqhf60n9dRECo?=
- =?us-ascii?Q?DjDl9a099Jw49u4U7Ma2L8ZZcLcdhzaoGGUSbxZ3/nUbhU84AK7XSZlJTSrs?=
- =?us-ascii?Q?NtsBvRyLtXDjU27wWKeFJcS1vQRKsSM/X/1LHZ/tETsgj3boOrt6YYz/eiSy?=
- =?us-ascii?Q?FJ+2UYXjGUV61/xUYRjboYkqTOV+lq2NhyP7prOZLsMvrjsCttF0bMf4nvZR?=
- =?us-ascii?Q?inLWkA9gPOHoC8jC0ttDIRkkUW6BZsqrJmDSlMVWpMmKtXReNBndcLQlDuXg?=
- =?us-ascii?Q?td93chicgWlBpNfxIUFbGeEFNzmE1YGCeyeMriDbW4O/Q1M85vdlqA4XPFJ1?=
- =?us-ascii?Q?wSFhM0zdNJCa4mgsKYM+OTp1ineqWNe/DWCuWKpj4Id/9G8q+sO2jWW/90Hw?=
- =?us-ascii?Q?g+qF/JrPeLwos7g/gGk3+bOhUrX6mqkJacmM+mJf/b6yVcTT8seY41fHLPXK?=
- =?us-ascii?Q?2Tgc1sHH9GAPgxZfrdN8v/lTxoC2lljGbuxzDXM9oqGYYhcXlN9LNCIrThXP?=
- =?us-ascii?Q?XOWpsDTf4tEqQ0Gu05hpuZniSckHryVe0eUn2dx6eDchKu6ND/sf8w9nZsDS?=
- =?us-ascii?Q?Xr69lMrU/SYLbIt0xuwQZ+3fGHw1USVF3PSO8vVYYj5rsiFC8ZyE73mbLGt7?=
- =?us-ascii?Q?MJhXiSvRjAVGPX/WGRMdfYXEmuwSF6fTqh1QaBTPawrAcTv38afEn5VNG2ge?=
- =?us-ascii?Q?01m9qigB0Lu8XSXkJ13BilWb+/8WUG7oTBXI+9p0xthUUa7PQvLoTPVsR09F?=
- =?us-ascii?Q?V14QkLh1AeEhw7BiBnUQXe/O2CnWuR4eUZ3bQpnDyrTko6gpOiK7Au8PkPyC?=
- =?us-ascii?Q?gLxjgxGq0ISZ2tL2WNgPLTEYw54AG7PTj4r3UVQOTzcUXS2E/7X5XqVz/kLN?=
- =?us-ascii?Q?paxfdjzI0+8tJjwCPoOY8QBNZWcTPuE=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 008824f1-93a0-4a18-6398-08dee95ab455
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 08:08:11.9180 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: io9qR6ftCs37bun6F3wNLW2Ywn+q/ulSR0ylPf2lZgrb0ZUc1ynQ6M/u9fyOkshpKj2kNxUcbNUJ53yNJA5g2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11940
+Content-Transfer-Encoding: 8bit
+Authentication-Results: th8.neoserv.si;
+ auth=pass (PLAIN) smtp.auth=rok@kanardia.eu
+X-NEOSERV-MailScanner-Information: Please contact the ISP for more information
+X-NEOSERV-MailScanner-ID: 1wnAxL-0000000AcoX-0w1h
+X-NEOSERV-MailScanner: Found to be clean
+X-NEOSERV-MailScanner-SpamCheck: not spam, SpamAssassin (not cached,
+ score=1.31, required 7, ALL_TRUSTED -1.00, BAYES_50 0.80,
+ KAM_DMARC_QUARANTINE 1.50, KAM_DMARC_STATUS 0.01)
+X-NEOSERV-MailScanner-SpamScore: s
+X-NEOSERV-MailScanner-From: rok@kanardia.eu
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - th8.neoserv.si
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - kanardia.eu
+X-Get-Message-Sender-Via: th8.neoserv.si: authenticated_id: rok@kanardia.eu
+X-Authenticated-Sender: th8.neoserv.si: rok@kanardia.eu
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,70 +104,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Ying,
+This commit adds the LVDS transmitter node for the RK356x SoC, assigning
+its D-PHY, GRF handle and power domain. The block has no register block
+and no clock of its own. It is left disabled by default, to be enabled
+by specific board files.
 
-On Thu, Jul 23, 2026 at 02:37:32PM +0800, Liu Ying wrote:
-> NXP i.MX93 mediamix blk-ctrl contains one DISPLAY_MUX register which
-> configures parallel display format by using the "PARALLEL_DISP_FORMAT"
-> field. Add a DRM bridge driver to support the display format configuration.
-> 
-> [m.felsch@pengutronix.de: port to v7.0-rc1]
-> [m.felsch@pengutronix.de: add review feedback (Alexander)]
-> [m.felsch@pengutronix.de: fix to short Kconfig description (checkpath)]
-> [m.felsch@pengutronix.de: use "GPL" instead of "GPL v2" (checkpatch)]
-> [m.felsch@pengutronix.de: add bus-width support]
-> [ Liu Ying: Port to drm-misc/drm-misc-next(v7.2-rc2 based) ]
-> [ Liu Ying: Add nxp,imx91-pdfc compatible string ]
-> [ Liu Ying: Call drm_bridge_get() for next_bridge ]
-> [ Liu Ying: Reject unsupported output bus fmt in .atomic_get_input_bus_fmts() ]
-> 
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
-> Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> ---
+Signed-off-by: Rok Markovic <rok@kanardia.eu>
+Assisted-by: Claude:claude-opus-4-8
+---
+Changes in v2:
+  - Drop the clock from the LVDS node; the block takes none.
 
-[...]
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 23 +++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-> +static void imx93_pdfc_bridge_atomic_enable(struct drm_bridge *bridge,
-> +					    struct drm_atomic_commit *state)
-> +{
-> +	struct imx93_pdfc *pdfc = bridge_to_imx93_pdfc(bridge);
-> +	const struct drm_bridge_state *bridge_state;
-> +	unsigned int mask = PARALLEL_DISP_FORMAT;
-> +	unsigned int val;
-> +
-> +	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
-> +
-> +	switch (bridge_state->output_bus_cfg.format) {
-> +	case MEDIA_BUS_FMT_RGB888_1X24:
-> +	case MEDIA_BUS_FMT_FIXED:
-> +		val = FORMAT_RGB888_TO_RGB888;
-> +		if (pdfc->phy_bus_width == 18) {
-> +			/*
-> +			 * Can be valid if physical bus limitation exists,
-> +			 * therefore use dev_dbg().
-> +			 */
-> +			dev_dbg(pdfc->dev, "Truncate two LSBs from each color\n");
-> +			val = FORMAT_RGB888_TO_RGB666;
-> +		}
-> +		break;
-> +	case MEDIA_BUS_FMT_RGB666_1X18:
-> +		val = FORMAT_RGB888_TO_RGB666;
-> +		break;
-> +	case MEDIA_BUS_FMT_RGB565_1X16:
-> +		val = FORMAT_RGB565_TO_RGB565;
-> +		break;
-> +	}
-> +
-> +	regmap_update_bits(pdfc->regmap, IMX93_DISPLAY_MUX_REG, mask, val);
-
-Apparently, the 'mask' variable is only used in this call, nowhere else. Why
-not use PARALLEL_DISP_FORMAT macro directly here instead of declaring a
-variable just for that?
-
-Otherwise,
-Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+index 64bdd8b..61a932a 100644
+--- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+@@ -878,6 +878,29 @@
+ 		};
+ 	};
+ 
++	lvds: lvds {
++		compatible = "rockchip,rk3568-lvds";
++		phys = <&dsi_dphy0>;
++		phy-names = "dphy";
++		power-domains = <&power RK3568_PD_VO>;
++		rockchip,grf = <&grf>;
++		rockchip,output = "lvds";
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			lvds_in: port@0 {
++				reg = <0>;
++			};
++
++			lvds_out: port@1 {
++				reg = <1>;
++			};
++		};
++	};
++
+ 	qos_gpu: qos@fe128000 {
+ 		compatible = "rockchip,rk3568-qos", "syscon";
+ 		reg = <0x0 0xfe128000 0x0 0x20>;
 -- 
-Thanks,
-Laurentiu
+2.43.0
+
