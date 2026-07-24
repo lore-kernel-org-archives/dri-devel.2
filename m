@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4064C531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 22:30:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6D4AC531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 22:36:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27A4E10E0CC;
-	Fri, 24 Jul 2026 22:30:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D468610F4AB;
+	Fri, 24 Jul 2026 22:36:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kg0rN4VN";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Tn+SvPjX";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D79E010E0CC
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 22:30:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C13D10F4AC
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 22:36:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 921CF44EAE;
- Fri, 24 Jul 2026 22:30:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B40B1F00A3A;
- Fri, 24 Jul 2026 22:30:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9123C43CCB;
+ Fri, 24 Jul 2026 22:35:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49DCD1F000E9;
+ Fri, 24 Jul 2026 22:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784932236;
- bh=GS14DZQhW66q/6Q+X41QrQ1/gqGz9PBB64fXYqWc4+A=;
- h=Date:From:To:Cc:Subject:In-Reply-To;
- b=Kg0rN4VNZ6bV24H8SvNLXOhE+5jjor+DqTtJly6ByqD6Q0sM0vxfACb688tRlkE1q
- wjyKLglL9XwupGMR66ysdyTevHPvfSH+frGOISUTH4KavpyI0Lh/jPD+u7McPOXNmr
- cvRkSvmFUY2KGqROQSWSPngkxP/UbcDEzyMHHCWxHuDvS+ofDdvv6uC3OFDhFoxSsi
- mjfisqiO3UnipsNxl4hBMB2oOHn4243tNZpYLTGywhA86qUHF6rD9Jm97to+SU1ZwD
- zP7U+v/AqkntG2svYeCMp6iaxn+Tz4/MeoQWDbi+YyqcX/0VzDERrTXU6cl4ybbR03
- SnHpJDvqQGwGA==
-Date: Fri, 24 Jul 2026 17:30:35 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Gary Guo <gary@garyguo.net>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Zhenzhong Duan <zhenzhong.duan@gmail.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Danilo Krummrich <dakr@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
- Niklas Cassel <cassel@kernel.org>, GOTO Masanori <gotom@debian.or.jp>,
- YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Vaibhav Gupta <vaibhavgupta40@gmail.com>,
- Jens Taprogge <jens.taprogge@taprogge.org>,
- Ido Schimmel <idosch@nvidia.com>, Petr Machata <petrm@nvidia.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- David Airlie <airlied@redhat.com>, linux-pci@vger.kernel.org,
- driver-core@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-ide@vger.kernel.org, linux-scsi@vger.kernel.org,
- industrypack-devel@lists.sourceforge.net, netdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v4 9/9] PCI: Fix UAF when probe runs concurrent to dyn ID
- removal
-Message-ID: <20260724223035.GA1068309@bhelgaas>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260723-pci_id_fix-v4-9-3580726844e1@garyguo.net>
+ s=k20260515; t=1784932559;
+ bh=6Uf6yt9ZfQjre7JcJiQYlzwXCWQlNBUC6JYUBXbxFSA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Tn+SvPjXhYF5ipaJvp6AC1v5m9RSIt326jmMoiofPWpCdCuthBYyDP3mbljlwHzY4
+ hvVI14psb2E8chyycppHTnJXuzbb3C9VJJy3gYK7AF8ziPKXDKLnbaQK2o2lt0yI7p
+ mL6Evw8wqeYp4A30K0PhXIr0KxpzP505WHf1tmUARJ5KgRqsyzDqh6srQam7UyCfTi
+ vKkPPxkZqr0s9/kh/K+n48AfCcy6ak9BKCP2mRT9b+ipAwlgKzTtcZul2tNU96T1WI
+ qwffUDibFf2tc/zeHUL5pBLlaRCAhsusKFDVWKfhXedDcYwYcHNHHh8LWTZ/q5eJ2z
+ cRGJON/sRV71A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/etnaviv: honor read-only userptr flag in GPU MMU
+ mapping
+To: "Christopher Lusk" <clusk@northecho.dev>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260724222124.537101-1-clusk@northecho.dev>
+References: <20260514131401.2660079-1-clusk@northecho.dev>
+ <20260724222124.537101-1-clusk@northecho.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 22:35:58 +0000
+Message-Id: <20260724223559.49DCD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,121 +54,166 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 23, 2026 at 11:00:48PM +0100, Gary Guo wrote:
-> Dynamic IDs are only guaranteed to be valid when dynids.lock is held,
-> as remove_id_store() can free the node. Thus, make a copy in
-> pci_match_device(). Also, clarify that the id parameter is only valid
-> during probe.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/all/20260619170503.518F61F00A3A@smtp.kernel.org/
-> Fixes: 0994375e9614 ("PCI: add remove_id sysfs entry")
-> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
-> Signed-off-by: Gary Guo <gary@garyguo.net>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Pre-existing issues:
+- [Critical] MMUv1 hardware lacks read-only page protection, allowing unpri=
+vileged users to overwrite arbitrary read-only CPU pages (e.g., `/etc/passw=
+d`) via the GPU.
+- [Critical] The MMUv1 linear window shortcut for single-entry BOs bypasses=
+ page-table isolation, allowing unprivileged users to arbitrarily read and =
+write physical memory.
+- [High] Read-only userptr BOs are mapped using DMA_BIDIRECTIONAL, causing =
+memory corruption when SWIOTLB bounce buffers are unmapped.
+- [High] Calling drm_gem_object_put() on a partially initialized GEM object=
+ triggers a kernel panic via list_del() on an uninitialized list node.
+--
 
-> ---
->  drivers/pci/pci-driver.c | 28 +++++++++++++++-------------
->  include/linux/pci.h      |  1 +
->  2 files changed, 16 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-> index ab3bb756ce89..e16aa59dd7ac 100644
-> --- a/drivers/pci/pci-driver.c
-> +++ b/drivers/pci/pci-driver.c
-> @@ -180,6 +180,7 @@ static const struct pci_device_id pci_device_id_any = {
->   * pci_match_device - See if a device matches a driver's list of IDs
->   * @drv: the PCI driver to match against
->   * @dev: the PCI device structure to match against
-> + * @id_copy: place to store copy of pci_device_id for dynamic ID
->   *
->   * Used by a driver to check whether a PCI device is in its list of
->   * supported devices or in the dynids list, which may have been augmented
-> @@ -187,9 +188,9 @@ static const struct pci_device_id pci_device_id_any = {
->   * structure or %NULL if there is no match.
->   */
->  static const struct pci_device_id *pci_match_device(struct pci_driver *drv,
-> -						    struct pci_dev *dev)
-> +						    struct pci_dev *dev,
-> +						    struct pci_device_id *id_copy)
+--- Patch [1]: [PATCH v2] drm/etnaviv: honor read-only userptr flag in GPU =
+MMU mapping ---
+commit 3b31d2a8b362305b34038576c89dbe65957eea85
+Author: Christopher Lusk <clusk@northecho.dev>
+
+drm/etnaviv: honor read-only userptr flag in GPU MMU mapping
+
+The userptr interface records the requested access mode in
+etnaviv_obj->userptr.ro, but etnaviv_iommu_map_gem() ignores it and maps
+every buffer with ETNAVIV_PROT_READ | ETNAVIV_PROT_WRITE. This patch
+builds the protection mask from userptr.ro instead, enforcing read-only
+mappings on MMUv2 and confining the GPU to mapped pages on MMUv1.
+
+Link: https://lore.kernel.org/all/20260508180518.1417371-1-n7l8m4@u.northwe=
+stern.edu/
+
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etna=
+viv/etnaviv_gem.c
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+[ ... ]
+> @@ -735,9 +735,20 @@ int etnaviv_gem_new_userptr(struct drm_device *dev, =
+struct drm_file *file,
+>  	uintptr_t ptr, u32 size, u32 flags, u32 *handle)
 >  {
-> -	struct pci_dynid *dynid;
->  	const struct pci_device_id *found_id = NULL;
->  	struct pci_device_id dev_id;
+>  	struct etnaviv_gem_object *etnaviv_obj;
+> +	u32 bo_flags =3D ETNA_BO_CACHED;
 >  	int ret;
-> @@ -201,17 +202,16 @@ static const struct pci_device_id *pci_match_device(struct pci_driver *drv,
->  
->  	dev_id = pci_id_from_device(dev);
->  	/* Look at the dynamic ids first, before the static ones */
-> -	spin_lock(&drv->dynids.lock);
-> -	list_for_each_entry(dynid, &drv->dynids.list, node) {
-> -		if (pci_match_one_id(&dynid->id, &dev_id)) {
-> -			found_id = &dynid->id;
-> -			break;
-> +	scoped_guard(spinlock, &drv->dynids.lock) {
-> +		struct pci_dynid *dynid;
-> +
-> +		list_for_each_entry(dynid, &drv->dynids.list, node) {
-> +			if (pci_match_one_id(&dynid->id, &dev_id)) {
-> +				*id_copy = dynid->id;
-> +				return id_copy;
-> +			}
->  		}
->  	}
-> -	spin_unlock(&drv->dynids.lock);
-> -
-> -	if (found_id)
-> -		return found_id;
->  
->  	found_id = do_pci_match_id(drv->id_table, &dev_id, ret > 0);
->  	if (found_id)
-> @@ -467,12 +467,13 @@ void pci_probe_flush_workqueue(void)
->  static int __pci_device_probe(struct pci_driver *drv, struct pci_dev *pci_dev)
+> =20
+> -	ret =3D etnaviv_gem_new_private(dev, size, ETNA_BO_CACHED,
+> +	/*
+> +	 * Keep read-only userptr BOs out of the MMUv1 linear window, which
+> +	 * would expose far more than the pinned pages to the GPU.  MMUv1
+> +	 * PTEs have no writeable bit, so this confines the GPU rather than
+> +	 * making the BO read-only; MMUv2 enforces read-only per PTE in
+> +	 * etnaviv_iommu_map_gem().
+> +	 */
+> +	if (!(flags & ETNA_USERPTR_WRITE))
+> +		bo_flags |=3D ETNA_BO_FORCE_MMU;
+
+[Severity: Critical]
+This is a pre-existing issue, but does this explicitly leave read-only
+userptr BOs writable by the GPU on MMUv1 hardware?
+
+Since MMUv1 lacks read-only page protection and ignores the protection
+argument, an unprivileged user could pin a read-only file via the userptr
+ioctl and submit a GPU command stream to write to the mapped buffer.
+
+Does this allow arbitrary modification of read-only files or the zero
+page?
+
+[Severity: Critical]
+This is a pre-existing issue, but does the MMUv1 linear window shortcut
+bypass page-table isolation for single-entry BOs?
+
+While this patch forces ETNA_BO_FORCE_MMU for read-only userptrs, writable
+userptrs or standard shmem BOs lacking this flag are given an IOVA directly
+offset into a 2GB linear window in etnaviv_iommu_map_gem():
+
+	if (context->global->version =3D=3D ETNAVIV_IOMMU_V1 &&
+	    sgt->nents =3D=3D 1 && !(etnaviv_obj->flags & ETNA_BO_FORCE_MMU)) {
+		u32 iova;
+
+		iova =3D sg_dma_address(sgt->sgl) - memory_base;
+
+Without bounds checking, could a malicious command stream access this offset
+to read or write arbitrary physical pages in the contiguous memory area?
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c b/drivers/gpu/drm/etna=
+viv/etnaviv_mmu.c
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_mmu.c
+[ ... ]
+> @@ -269,10 +269,18 @@ int etnaviv_iommu_map_gem(struct etnaviv_iommu_cont=
+ext *context,
 >  {
->  	const struct pci_device_id *id;
-> +	struct pci_device_id id_copy;
->  	int error = 0;
->  
->  	if (drv->probe) {
->  		error = -ENODEV;
->  
-> -		id = pci_match_device(drv, pci_dev);
-> +		id = pci_match_device(drv, pci_dev, &id_copy);
->  		if (id)
->  			error = pci_call_probe(drv, pci_dev, id);
->  	}
-> @@ -1560,12 +1561,13 @@ static int pci_bus_match(struct device *dev, const struct device_driver *drv)
->  	struct pci_dev *pci_dev = to_pci_dev(dev);
->  	struct pci_driver *pci_drv;
->  	const struct pci_device_id *found_id;
-> +	struct pci_device_id id_copy;
->  
->  	if (pci_dev_binding_disallowed(pci_dev))
->  		return 0;
->  
->  	pci_drv = (struct pci_driver *)to_pci_driver(drv);
-> -	found_id = pci_match_device(pci_drv, pci_dev);
-> +	found_id = pci_match_device(pci_drv, pci_dev, &id_copy);
->  	if (found_id)
->  		return 1;
->  
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 64b308b6e61c..92c17c116de6 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -979,6 +979,7 @@ struct module;
->   *		function returns zero when the driver chooses to
->   *		take "ownership" of the device or an error code
->   *		(negative number) otherwise.
-> + *		The pci_device_id parameter is only valid during probe.
->   *		The probe function always gets called from process
->   *		context, so it can sleep.
->   * @remove:	The remove() function gets called whenever a device
-> 
-> -- 
-> 2.54.0
-> 
+>  	struct sg_table *sgt =3D etnaviv_obj->sgt;
+>  	struct drm_mm_node *node;
+> +	int prot =3D ETNAVIV_PROT_READ;
+>  	int ret;
+> =20
+>  	lockdep_assert_held(&etnaviv_obj->lock);
+> =20
+> +	/*
+> +	 * Read-only userptr BOs drop ETNAVIV_PROT_WRITE.  MMUv2 honors this
+> +	 * via MMUv2_PTE_WRITEABLE; MMUv1 ignores prot entirely.
+> +	 */
+> +	if (!etnaviv_obj->userptr.mm || !etnaviv_obj->userptr.ro)
+> +		prot |=3D ETNAVIV_PROT_WRITE;
+> +
+
+[Severity: Critical]
+This is a pre-existing issue, but does dropping ETNAVIV_PROT_WRITE only
+protect MMUv2?
+
+In etnaviv_iommu_map_gem(), since MMUv1 ignores the protection flag entirel=
+y,
+the read-only userptr remains writable by the GPU. Could this overwrite
+arbitrary read-only CPU pages?
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etna=
+viv/etnaviv_gem.c
+[ ... ]
+>  if (etnaviv_obj->flags & ETNA_BO_CACHE_MASK)
+>  	dma_map_sgtable(dev->dev, sgt, DMA_BIDIRECTIONAL, 0);
+
+[Severity: High]
+This is a pre-existing issue, but does etnaviv_gem_scatter_map() hardcode
+DMA_BIDIRECTIONAL for all cached BOs, including read-only userptrs?
+
+If the system uses SWIOTLB bounce buffering, dma_unmap_sgtable() with
+DMA_BIDIRECTIONAL in etnaviv_gem_scatterlist_unmap() will copy the
+modified bounce buffer contents back over the original CPU pages.
+
+For a userptr pinned without FOLL_WRITE, could this forcefully overwrite
+read-only file mappings or the zero page?
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/dr=
+m/etnaviv/etnaviv_gem_prime.c
+[ ... ]
+>  fail:
+>  	drm_gem_object_put(&etnaviv_obj->base);
+
+[Severity: High]
+This is a pre-existing issue, but can calling drm_gem_object_put() on a
+partially initialized GEM object trigger a kernel panic?
+
+In etnaviv_gem_prime_import_sg_table(), if object initialization fails,
+the error path drops the refcount to 0 and calls etnaviv_gem_free_object():
+
+	mutex_lock(&priv->gem_lock);
+	list_del(&etnaviv_obj->gem_node);
+	mutex_unlock(&priv->gem_lock);
+
+Since etnaviv_gem_obj_add() was not yet called, the gem_node is
+uninitialized. Will list_del() dereference NULL pointers and crash here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724222124.5371=
+01-1-clusk@northecho.dev?part=3D1
