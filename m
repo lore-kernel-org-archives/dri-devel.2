@@ -4,76 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30C33C531FA
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:28:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59374C531FA
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:28:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B1610F2E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DDEE10F2E6;
 	Fri, 24 Jul 2026 07:28:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i7EHKYGh";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="Thpc9fD+";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 616E310E476
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 18:46:02 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-38dfe7eb825so819587a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 11:46:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784832362; x=1785437162; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4ythMD/8HygMBBur9HX2jCV0xO6Blk6zNXYU5eF8R0o=;
- b=i7EHKYGhO+3WN/IEAd7bTsL+OaFHgwILUIcoz8/ejDBrbf0OrFV9oi1rIaeN6ioJiz
- +9bGT4Dbc4N+XCfyOcYQaMEBVY6S3/ZjoRBUXrByFoqG0/28+D72DA9YRMbJMhk0H6kI
- JnUi1S8fqv5DeC8pPQPrQy7TyBvgQo1qQB7jQuibxcok6YdHOvvxDBGBMIPV1T8B+7En
- a1FgyV8eTZtgtUMoWElZoSohX7+YmN/40MaLd0X1lc9oqfBIniDzAvDBm38+IfljZuSs
- seulrVgYvhpxJIbTorZ1RQTrqj2IkSVU2pV97S/WEmPbavXCskfYsN5K9j5UjtREETxl
- GVnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784832362; x=1785437162;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=4ythMD/8HygMBBur9HX2jCV0xO6Blk6zNXYU5eF8R0o=;
- b=pXkDpXsjH5p/BbJyC3YoUVU3z+Pv6fcZvniyY9wnZmKwLcYFDAHk31ZBtLzQs/IEfE
- xza71mUABq3RF8Cs2LFptnMOo6q2L8sHX1FKJNhJx+AaMf6+2RXn7w/bAlBVXJaODhC6
- gML12rLujwd2jMLv71r/YNtrmAwU+PqiuBA6RsF5yzD3k0P+kSHC8xgwxiIQVab0+q2U
- BlW3z9nGl1H0O5cS0QGW6mLkOKYL1H3Ht27R83IemfyhD6INArB+M+8HxdkPGiqUuQaA
- 2y5kHnrmdiwZy1zUax4F8leftsQZvIFBeygaNqI4IvEff/Oe6K+JDWjyMDQiHVoWcCm0
- By4w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpOIdzQU11VBXCC+PD9BJ1kf4xdDpjf0pE5bR0yJ3wXHxpJNxWakjFYmXmmK0lpQ6QfGxYfeU3QxIQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYW+iNuqELpvtWKPIxXOG9ih9ZPPdv+6MLYbVF/aYHbV6HsNOY
- vlGBLEWQkKbEDbPN+A9T5NfOfx+HC0SOKb4aDJ+7/VOldCnqBMDOkVB/
-X-Gm-Gg: AR+sD10A8+WKWRrX4jaEaPDbxAzCC3r1/u9p7pFThaQ30jkxSs5de7PREriBEYVMAQ3
- y61XnNzmhJ0fR44PB+fzuBb20dBXN67j2igmc0RefwZJ3Fpk2mrOsKPk8eA8Axj2LsSsA2mMSdj
- 2d2RQ0ikor71cUQWRAAlfFwObTNO1fQYmTmj8pUPR6PIseoDwYcTdt80YRPTygS8CWUOfwB5RB3
- DLX40MbLIGN32bkGvtp3ynlbwgNfsonrVVwfEFaYsQ46yJPG8kZY67GYXs3G+SyERYUScfnpwOC
- +RgSsfqWScdJIYVvQYBVhuy5RdEqvCsNVAsTOMcDhFo0dFyba5p52PV1DwWlvlRb5KsXfzH7oJI
- L7zpHshNdCeAf1XNT2H/QigEaosrNtUsK7brp+8ql7nKv6CZFq6by7dwjmeIeOru/zYbNFnuM
-X-Received: by 2002:a17:90b:524b:b0:38e:250b:122f with SMTP id
- 98e67ed59e1d1-38ec6461d6dmr4058236a91.16.1784832361816; 
- Thu, 23 Jul 2026 11:46:01 -0700 (PDT)
-Received: from ubuntu.. ([110.9.142.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38f03af8a45sm308155a91.10.2026.07.23.11.45.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jul 2026 11:46:01 -0700 (PDT)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 03/36] drm/radeon: remove conditional return with no effect
-Date: Fri, 24 Jul 2026 03:45:05 +0900
-Message-ID: <20260723184538.3888637-4-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
+X-Greylist: delayed 65408 seconds by postgrey-1.36 at gabe;
+ Fri, 24 Jul 2026 02:29:45 UTC
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91C1010F277
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 02:29:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1784860149;
+ bh=XcvnlsC3HhT/It5VuOwr2y7sGHW1GiSiBgnaGk3guqk=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=Thpc9fD+snLZvia4IvIECJR4/9ngZ61H2O5O1Og1QqoADevADqPMz/Bq1/8BXRRWz
+ JCrXR8+gXkama1LSqp+3/GKFYENpvhaX29P6kuiuDXji9ZyCg63LOcE/Yq33QZNkGR
+ BEJyJj84Px6hBhmJtbdXUe181psxM+dEj5Zv63ag=
+X-QQ-mid: zesmtpip4t1784860141tf7457151
+X-QQ-Originating-IP: mFrNixuyb/9G3t9a9hZZYveY0Gmd34ZMyBS60EAtLAY=
+Received: from localhost.localdomain ( [localhost])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Fri, 24 Jul 2026 10:28:58 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 9941543075585726979
+EX-QQ-RecipientCnt: 26
+From: Gou Hao <gouhao@uniontech.com>
+To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ chleroy@kernel.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ bharat@chelsio.com, jgg@ziepe.ca, leon@kernel.org,
+ akpm@linux-foundation.org, gouhao@uniontech.com, namcao@linutronix.de,
+ ynorov@nvidia.com, sshegde@linux.ibm.com, nilay@linux.ibm.com, clg@kaod.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-mm@kvack.org, gouhaojake@163.com, kernel@uniontech.com
+Subject: [PATCH v2 1/6] powerpc/xive: remove dead NULL check after GFP_NOFAIL
+ allocation
+Date: Fri, 24 Jul 2026 10:28:46 +0800
+Message-Id: <20260724022851.466017-2-gouhao@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260724022851.466017-1-gouhao@uniontech.com>
+References: <20260724022851.466017-1-gouhao@uniontech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: OZlI6rIAaqeCVBIJuOg6pSyzi2+V+qNJtXg/EdBlSl5leSYjAVpsVf8P
+ 4gyphOqRJvHke/U8z2EiQrL16xMAWfhmMUqq+TndOPgznxr06vEKPDe30trkjzQgYhatzsr
+ 5EWcCTo/4tCi71Ycj3WwxK7f8BDVkizacgveBvZfPt4kPmIV//9FJF3sGBTIqpkRl/CDlVp
+ is36P/De2EY5WFqUpIeD4Mj9v3YZ/G2DlHEYq+Wu7DYYdEtwofDtFtWSnrIpm9ZmAOPBGJ3
+ O54a2Fj7goQL6dvay0Hr+aokTz6bEl8yApWha629eIaTs2uC4k2eABDIfBpYrlhw0Ee38k5
+ lUnc5X6RbtTrUOjZyH3IDIhaAEW+oajchAvV8DAFGM65I5uHsrZYlclgKw0BuXOa5wxk80h
+ ET5+zJRwE3tcbTq7OkP4O6/tYyDNiJyvxIPYYQAFTJxTx4loS1ChCMXh0A521nldbTCMyb6
+ GYUpqE0OMhErjLdM/QgdlzaWDVmwkO1+LOWGI4zM0pIgu2uApw85BbMPHWmQS03hLZYkX1E
+ 3BewGtX94DlAWLKO9MLUOyuGto14uP6RcrCK8NSWARq2WmBIpIQGqCZL6X43aNEX9InnX/8
+ c/L7X7IxLZZ06t2orM+8oDo7r1PIJzuQKtedEiSIOosysnhRkU9Y+mQRJYlhzQG/h/j8lTe
+ piMlo5t7UMX6SyfK8bAUXhqMtab/tpHOG5WkaZWqA98hh7+fPIvmwcKd6j9+YxdK5YRE70e
+ OYG1EIkTAceKxm8wFX7ZcJbTKz2r1kuGTPhU66xnL1PcaN76+o9CwwpNEb1FAxvJFd1rLsi
+ M6FW/6HIkHVfdjBLkNBWl5HvomQrtqrtELzNhmnAl58WO8tz5xZAPfqgDhH4wJQGwuDMQo8
+ uQqtawgJiLOxXeKKH7OcskceNBA150RA3DvxqUKou79x7vnA70zxReWm/6B68gVDfoa+s7s
+ T9MBcUDpmB2wgZAxz+Yy5GgJkIL/KyHa7j8514qvmq2kchkYiTZC7eGm5kIPfgsWZGrcv5Q
+ I0LkxYTCDPyzYm6FQlq9bATbaDqPHB8iHmhYwZ5c/uXXx/F5tmqqhvGZnHb+NV/L/LHpXTW
+ YCFIdp4JpzG83IydauxFhw=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:28:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,113 +89,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Both branches of the check return the same value, so the check has
-no effect. Remove it and return the value directly.
+kzalloc_objs with the __GFP_NOFAIL flag will never return NULL, so the
+subsequent NULL check is unreachable dead code. Remove it.
 
-This is the result of running the Coccinelle script from
-scripts/coccinelle/misc/cond_return_no_effect.cocci.
-
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Signed-off-by: Gou Hao <gouhao@uniontech.com>
+Reviewed-by: Wentao Guan <guanwentao@uniontech.com>
+Reviewed-by: jiazhenyuan <jiazhenyuan@uniontech.com>
 ---
- drivers/gpu/drm/radeon/ci_dpm.c |  6 +-----
- drivers/gpu/drm/radeon/kv_dpm.c | 30 ++++++++++--------------------
- drivers/gpu/drm/radeon/si_dpm.c | 14 ++------------
- 3 files changed, 13 insertions(+), 37 deletions(-)
+ arch/powerpc/sysdev/xive/common.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-index 703848fac189..11707f5aaa6b 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.c
-+++ b/drivers/gpu/drm/radeon/ci_dpm.c
-@@ -5244,11 +5244,7 @@ static int ci_set_temperature_range(struct radeon_device *rdev)
- 	ret = ci_thermal_set_temperature_range(rdev, R600_TEMP_RANGE_MIN, R600_TEMP_RANGE_MAX);
- 	if (ret)
- 		return ret;
--	ret = ci_thermal_enable_alert(rdev, true);
--	if (ret)
--		return ret;
+diff --git a/arch/powerpc/sysdev/xive/common.c b/arch/powerpc/sysdev/xive/common.c
+index dadd1f46ec939..f2904a5c2b7bf 100644
+--- a/arch/powerpc/sysdev/xive/common.c
++++ b/arch/powerpc/sysdev/xive/common.c
+@@ -1134,9 +1134,6 @@ static int __init xive_init_ipis(void)
+ 
+ 	xive_ipis = kzalloc_objs(*xive_ipis, nr_node_ids,
+ 				 GFP_KERNEL | __GFP_NOFAIL);
+-	if (!xive_ipis)
+-		goto out_free_domain;
 -
--	return ret;
-+	return ci_thermal_enable_alert(rdev, true);
- }
+ 	for_each_node(node) {
+ 		struct xive_ipi_desc *xid = &xive_ipis[node];
+ 		struct xive_ipi_alloc_info info = { node };
+@@ -1158,7 +1155,7 @@ static int __init xive_init_ipis(void)
  
- int ci_dpm_late_enable(struct radeon_device *rdev)
-diff --git a/drivers/gpu/drm/radeon/kv_dpm.c b/drivers/gpu/drm/radeon/kv_dpm.c
-index 1693b36fc52d..fc5252ff2a26 100644
---- a/drivers/gpu/drm/radeon/kv_dpm.c
-+++ b/drivers/gpu/drm/radeon/kv_dpm.c
-@@ -843,16 +843,11 @@ static int kv_populate_samu_table(struct radeon_device *rdev)
- 	if (ret)
- 		return ret;
- 
--	ret = kv_copy_bytes_to_smc(rdev,
--				   pi->dpm_table_start +
--				   offsetof(SMU7_Fusion_DpmTable, SamuLevel),
--				   (u8 *)&pi->samu_level,
--				   sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_SAMU,
--				   pi->sram_end);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return kv_copy_bytes_to_smc(rdev,
-+				    pi->dpm_table_start + offsetof(SMU7_Fusion_DpmTable, SamuLevel),
-+				    (u8 *)&pi->samu_level,
-+				    sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_SAMU,
-+				    pi->sram_end);
- }
- 
- 
-@@ -902,16 +897,11 @@ static int kv_populate_acp_table(struct radeon_device *rdev)
- 	if (ret)
- 		return ret;
- 
--	ret = kv_copy_bytes_to_smc(rdev,
--				   pi->dpm_table_start +
--				   offsetof(SMU7_Fusion_DpmTable, AcpLevel),
--				   (u8 *)&pi->acp_level,
--				   sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_ACP,
--				   pi->sram_end);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return kv_copy_bytes_to_smc(rdev,
-+				    pi->dpm_table_start + offsetof(SMU7_Fusion_DpmTable, AcpLevel),
-+				    (u8 *)&pi->acp_level,
-+				    sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_ACP,
-+				    pi->sram_end);
- }
- 
- static void kv_calculate_dfs_bypass_settings(struct radeon_device *rdev)
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-index 4b10715f951c..4323f86000ac 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -6418,22 +6418,12 @@ static int si_set_temperature_range(struct radeon_device *rdev)
- 	ret = si_thermal_set_temperature_range(rdev, R600_TEMP_RANGE_MIN, R600_TEMP_RANGE_MAX);
- 	if (ret)
- 		return ret;
--	ret = si_thermal_enable_alert(rdev, true);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return si_thermal_enable_alert(rdev, true);
- }
- 
- int si_dpm_late_enable(struct radeon_device *rdev)
- {
--	int ret;
--
--	ret = si_set_temperature_range(rdev);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return si_set_temperature_range(rdev);
- }
- 
- void si_dpm_disable(struct radeon_device *rdev)
+ out_free_xive_ipis:
+ 	kfree(xive_ipis);
+-out_free_domain:
++	xive_ipis = NULL;
+ 	irq_domain_remove(ipi_domain);
+ out_free_fwnode:
+ 	irq_domain_free_fwnode(fwnode);
 -- 
-2.43.0
+2.20.1
 
