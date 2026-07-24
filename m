@@ -4,44 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD2E4C531CC
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:09:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11E1CC531CC
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:10:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D47D10F263;
-	Fri, 24 Jul 2026 00:09:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7060E10E618;
+	Fri, 24 Jul 2026 00:10:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z9RLo3fc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dGJ9B1HG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D06A010F263
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:09:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D256D10E618
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:10:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1FDA660A5A;
- Fri, 24 Jul 2026 00:09:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD3071F000E9;
- Fri, 24 Jul 2026 00:09:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9F1A5409AC
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:10:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8389D1F000E9
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:10:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784851740;
- bh=RC1JbDWQawxyG8QpiMPT5usF/TTosPNJTkHElK8uwqo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Z9RLo3fcRCg6dpzcoceJ3qp6qR9o5hMo+6EmqiLfkxokctvDJ+y8nptSdmWW8oONe
- ZRS+C0ZA9jXRsUgkToSpFgR/m4E2XYYq94X8HGC8ojIKT0deXVbOLiyu0qMTCVKbMS
- yBnH0428VONtM5HSKu6Y+p4pwMJSHwNgSAEi/T7fsvqOE9OEWGn3b77V2IE0N/OsZS
- ZEGaGc6hM6hSOsiB0TqMRqhNW+bzeASln4n1hAEu8yJAhPpDdHuic3L8lcKT/cjtE2
- icd3P3mYAt6517vXy+9UGUwNOXMUYmaLWPntkttc6HQ6fam4jVHkpSUE7E/TBwo1W8
- u8QyEskGtQ0qg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/13] drm/panfrost: Rewire reset sequence to avoid
- concurrent attempts
-To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724-claude-fixes-v3-8-542af61abd0f@collabora.com>
-References: <20260724-claude-fixes-v3-0-542af61abd0f@collabora.com>
- <20260724-claude-fixes-v3-8-542af61abd0f@collabora.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1784851847;
+ bh=LjacPsdtNV1p4l/sQfaVOtYLfOgONtMJVT+kTLVOtKI=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=dGJ9B1HGGr9MTYXoXXfILTJqaNWoaeaD6lEYSc1YBjJvZ6yLjbxkSHOpxrnvf8OVZ
+ aWWICcJ9JNVuXbLTVL1Xnkz05JKqxTFpWdIgociO3UZTOX3G6INvnh2CPaBDh7z2hY
+ 0BKOrbqqPlkLRqgU/ssukTWRdWc9wPFVW+7N69pblRtxf6u7ct7fLM9UmqMKl1QTPq
+ pbAxq04PLyG454o0qSi7RPqT+LrcmxmTqYckUQ9M/J6OVxy1DoBHJImXz4PvsG72yR
+ NXpQ4p1uhqnik1c5FV/Nn21nNDs+C00R7MGtPgNapsd9BodOAfrHNdWX6nGPCp4ldU
+ sO1OLLEIKs8AA==
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-38e69bdb0fcso951040a91.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 17:10:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrEzGucXnIupQw+mF1kTDhW5KilX1MFkZWR+tlI9OzbxEJ3j9ZVp4aO9I42An2ZJYLzoTc0BqOWuN0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwxYz4fVU0r7mOiw8xwfwLdkUd4byIU+2/czIlBWWfMMhtIpXl8
+ WXlj/qbXQ2QYAu+sMYAxEgaT2NlMEvpDt2pwmujMfwavSEUtAtl2YZzTuJsrEJ9YAlsmYbd6U7y
+ O642UzL5zknrPbHsM2lfEB6F0bCBtkg==
+X-Received: by 2002:a17:90b:1642:b0:37f:f4ae:5f25 with SMTP id
+ 98e67ed59e1d1-38ec6a51c61mr4741746a91.20.1784851847244; Thu, 23 Jul 2026
+ 17:10:47 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260716132103.1564995-1-johan@kernel.org>
+In-Reply-To: <20260716132103.1564995-1-johan@kernel.org>
+From: Chun-Kuang Hu <chunkuang.hu@kernel.org>
+Date: Fri, 24 Jul 2026 00:10:34 +0000
+X-Gmail-Original-Message-ID: <CAAOTY_8+u-yswp+Gsj1ZnaJWh3fZ6Ndxd=JeUie7ZVG1pBYyeA@mail.gmail.com>
+X-Gm-Features: AUfX_mwvrzL8b4TzBdDrdHDueSyF33BvYJFwjoUH9n9UYcfPUact2O614SD6X6A
+Message-ID: <CAAOTY_8+u-yswp+Gsj1ZnaJWh3fZ6Ndxd=JeUie7ZVG1pBYyeA@mail.gmail.com>
+Subject: Re: [PATCH] drm/mediatek: mtk_hdmi_common: take i2c adapter module
+ reference
+To: Johan Hovold <johan@kernel.org>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 00:09:00 +0000
-Message-Id: <20260724000900.AD3071F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,105 +73,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Workqueue deadlock in `panfrost_job_timedout()` due to waiting on =
-an ordered workqueue from a task executing on the same workqueue.
-- [High] The timed-out job is permanently leaked and bypasses karma account=
-ing because the asynchronous reset work executes with a NULL 'bad' job refe=
-rence.
-- [Medium] Unrealistically short wait timeout (60 milliseconds) for the GPU=
- reset sequence.
-- [Medium] Premature clearing of the `reset.pending` flag creates a data ra=
-ce with the TDR worker.
---
+Johan Hovold <johan@kernel.org> =E6=96=BC 2026=E5=B9=B47=E6=9C=8816=E6=97=
+=A5=E9=80=B1=E5=9B=9B =E4=B8=8B=E5=8D=881:21=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> The i2c subsystem currently blocks during adapter deregistration
+> whenever there are consumers holding a reference.
+>
+> Switch to using of_get_i2c_adapter_by_node() which also takes a
+> reference to the adapter module so that an attempt to unload the module
+> while in use fails gracefully instead of blocking uninterruptibly.
 
---- Patch [8]: [PATCH v3 08/13] drm/panfrost: Rewire reset sequence to avoi=
-d concurrent attempts ---
-commit 2c4929474201c3a58918917376876f5a96009f31
-Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
-Subject: drm/panfrost: Rewire reset sequence to avoid concurrent attempts
+Applied to mediatek-drm-fixes [1], thanks.
 
-This commit introduces a dedicated reset worker to serialize GPU resets.
-It uses an ordered workqueue and wait_event_timeout to block concurrent
-reset attempts while the ongoing reset thread completes.
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/chunkuang.hu/linux.git/=
+log/?h=3Dmediatek-drm-fixes
 
-Link: None provided
+Regards,
+Chun-Kuang.
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_job.c
-> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-> @@ -797,10 +798,12 @@ static enum drm_gpu_sched_stat panfrost_job_timedou=
-t(struct drm_sched_job
-> =20
->  	panfrost_core_dump(job);
-> =20
-> -	atomic_set(&pfdev->reset.pending, 1);
-> -	panfrost_reset(pfdev, sched_job);
-> +	panfrost_device_schedule_reset(pfdev);
-
-[Severity: High]
-By removing the synchronous panfrost_reset() call and relying on
-panfrost_reset_work(), we seem to lose the reference to the timed-out job.
-
-Looking at the new worker function:
-
-static void panfrost_reset_work(struct work_struct *work)
-{
-	struct panfrost_device *pfdev;
-
-	pfdev =3D container_of(work, struct panfrost_device, reset.work);
-	panfrost_reset(pfdev, NULL);
-}
-
-Since the guilty job is passed as NULL, it bypasses karma accounting and
-drm_sched_stop() will fail to reinsert it into the pending list. Will this
-cause the bad job to permanently leak and hang userspace?
-
-> +	ret =3D wait_event_timeout(pfdev->reset.wait,
-> +				 !atomic_read(&pfdev->reset.pending),
-> +				 msecs_to_jiffies(60));
-
-[Severity: High]
-Could this wait trigger a workqueue deadlock?
-
-In panfrost_jm_init(), args.timeout_wq is assigned to pfdev->reset.wq.
-This means the timeout handler runs on the ordered reset workqueue.
-
-By queuing pfdev->reset.work onto this exact same workqueue and synchronous=
-ly
-waiting for it to complete here, it seems the reset work can never execute
-because the single-threaded queue is blocked waiting for it.
-
-[Severity: Medium]
-Is this timeout duration sufficient?
-
-A 60 millisecond wait seems extremely short for a full GPU reset, which
-involves soft-stopping jobs and polling the hardware. If it expires
-prematurely, it will return ENODEV and abandon recovery. Could this have
-been intended to be 60 seconds (60000 msecs)?
-
-[Severity: Medium]
-Is it safe to rely on the pending flag to synchronize scheduler restart?
-
-In panfrost_reset(), atomic_set(&pfdev->reset.pending, 0) is called
-immediately after the hardware reset, but before drm_sched_resubmit_jobs()
-and drm_sched_start() have finished.
-
-If this wait_event_timeout() wakes up early or spuriously, it will unblock
-the DRM scheduler while the reset worker is still actively modifying
-scheduler lists. Should the flag be cleared only after the full reset
-sequence completes?
-
-> -	return DRM_GPU_SCHED_STAT_RESET;
-> +	return (ret) ? DRM_GPU_SCHED_STAT_RESET : DRM_GPU_SCHED_STAT_ENODEV;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-claude-fix=
-es-v3-0-542af61abd0f@collabora.com?part=3D8
+>
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
