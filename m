@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E864C53200
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFCA9C531C9
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:04:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B800E10F464;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 004EE10F473;
 	Fri, 24 Jul 2026 18:04:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fea1z+t5";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kzc6rivK";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B115310E06A
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:03:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08AC010E069
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:03:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784916209;
- bh=dD8wMemlHuF99b5V8VTvaNJwIEsVl6jSjpD/ac+VXXg=;
+ s=mail; t=1784916210;
+ bh=5CzJeiuI6wo/L5OxHOxynGVIdB4Nvan/pG5/QCPCpeY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=fea1z+t5+ZhpBkOI2wPHOM1IBxPRP5jrtAFpmfVFZQNuO8r3OsBmJ5e6+zqNlGN51
- t7Ei0nT20I14w2vsLLV06kT61X2gpKq0+GJZqKRbquVT1vTGHe9Nj/e9MzFgQ3zcRs
- 4BmmnGuBfCSoYfCFlRMmWuIpfs/8PiSvB5ej+lqbSOIIfA4n4HWNkUWrkKBNifTwDz
- oVxcPKIPPBWsz6YXYGZdRQ2S3a+dzLaxzj7Cd4cNZk3jQsQBuSQqlb1tOgePDawrm8
- AMempwCiBIG3d3c75O64Q/is7T+UHvVIT+lbJJLIeYJfq29INtCbwAaJNM5OGDFDcx
- oiMQnfFoBXiAw==
+ b=kzc6rivKRcJOre09ylKjq2AIGCnjGXpRBHi4LF1oWk+6Xku/5qh0lX3Pbf7N4W2cP
+ 3AOMnyJk2dq2QLcqqZsdPCKZN3TxXt+Pa3Uxcq06yFb4D+8kFnDVWN3zHr6XU87SWD
+ exsnBkoVHLbzobdA3go97j/eTIZbuREz4r4JF+Z8r8aXj+IFzsyzRjQPl5pZiv7Fyn
+ JUyfkuxl7ohpx5szlpFOfcMJXNaV6NdEbXt+Gg8thHj5hkLENITleUt9MQh/JWA2v1
+ jFMyZMURt4neosUwfuw/qm7zWDpUd1DD2UAkRcGMv8eEjnx/CbudchvZwTeBQ7MNwJ
+ oG8szxnHBBMvQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9704E17E02AD;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D376F17E037A;
  Fri, 24 Jul 2026 20:03:29 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id EA96B480047; Fri, 24 Jul 2026 20:03:28 +0200 (CEST)
+ id F3C02480061; Fri, 24 Jul 2026 20:03:28 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 24 Jul 2026 20:03:32 +0200
-Subject: [PATCH v6 10/16] drm/rockchip: dw_dp: Implement out-of-band HPD
- handling
+Date: Fri, 24 Jul 2026 20:03:38 +0200
+Subject: [PATCH v6 16/16] drm/bridge: synopsys: dw-dp: Add audio support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-synopsys-dw-dp-improvements-v6-10-041d99a19c4e@collabora.com>
+Message-Id: <20260724-synopsys-dw-dp-improvements-v6-16-041d99a19c4e@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
 In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -66,21 +65,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6500;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10909;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=dD8wMemlHuF99b5V8VTvaNJwIEsVl6jSjpD/ac+VXXg=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpjqPDp0lL9aFJMsPmCeJT8l3NQPY1hE82Gt
- MKMLEc8r1F7RYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqY6jwAAoJENju1/PI
- O/qa2BQP/imT9bDZ/z90BkrvrAvOOwx6q0BJHvCyJAoNGNjuDVh3C5QwZDswP/9VvrzUnxSOZ3v
- DpnN3I+0SCiUa+upE6yB2GlbXGJ9bqm7Gq1zfkm8NWm9kAiD+rIDyG32+zKoXhFWdADCkYAIKBC
- AwPpE5OsWUlnNYHQmYnJ47A6T2CniPFox2ks8/qejHpxBZ14pcsQNarr19jr66RA/B2SkeoGiQi
- NfTjVcIh5D9W/PGLhTOWAdoeer5qwXvJYijfvhS9gxvtIz4rf9Ix412ErfA/ZrtGCJGDf439A6l
- OLKlQr2N0W5ffbDGIe5y5Qk8cZmVGRIwodnAPNsQZBOmxNy6LrYKrIFcTpTO/PwQCGzmWwLFPxP
- 2F0nuqreSDcXQ1AYz8cN7JYTYb8hELuq01c/e8q6L3Ei89kXggZIAJM1tF2SoU5L3rmIjm+eIKa
- W1F+HmPD1x4RDUzQ/xjQp6tDCDqnrbz2JCHv+JxN87ZNYWngx5PGBS4ouho4vcizV9GQPEedKvT
- Uj3PkgPZSRydWDS1olqx/UndaMWPhkmn8H8wYgUntXL2TInhq5BoAIRvoh+oURjttKgcN9xPiiV
- FIHUf+5461ctJpY6x9W5rQkPKXWWYMfL27dUsqaDDhQN8z0oXbKM4QligAmC/gwOE7vACrRyVm8
- iSuWspnGja7PLSrh+IxosVA==
+ bh=5CzJeiuI6wo/L5OxHOxynGVIdB4Nvan/pG5/QCPCpeY=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpjqPD5VanXxrsiDazqxguJKDUeTqF7mC4eC
+ QShh4/HG0QdgYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqY6jwAAoJENju1/PI
+ O/qafbQP/jVLXAMR0FA4ht6+qHo+V0SkQjW/RH6Bl9qKnnnadc9+ynT4bg1o1Ld1yiaFQd7bSwF
+ HF2Rku7YKVEp5BDEDb4hUmtDGspmSDoyD3ew9B74oDFdM/2BpDwOsGVIC52vyFPvne7KtIPv3re
+ BoZWiH17+yA98lbYrgXI2/PGGKhSV6w+jto9OveDi7bt4CLeSDnz5dE9htfXpmBFZv6+0u5ziwN
+ UavdqmWvufb92iHUJqQl66iKTkTgWycq/9Et7A6NZ53YJZuo1F9EoT2SU7nmeLBTnOW31hLZxDW
+ 0IIKvHpw96pgSbNmbFOAn0wErztYqldyldPVOaNU9tgHl1hmzLtWZugq42IxiPg/1pc6pTdS3cp
+ xpyq4QkPK/UPDefiwVY0JLFP+qh65MP3GRDwlGam0Y1+VQvwOuZU0ohfwFgbiMpMoIi2UUFbug0
+ yqmd9P9E46LXYK9MK9eHDISPZiKSFoE9k9B0l1RmU84U9MBgXuiO/2IP8bUTibOVd4xJEc9c0UT
+ G0cnVH9IboUTijjCUwgJS12co51aWdkeAsFK+dbUTTU5uRwHNC0sLIrb3ChC2V8gLbpiCIFFr/x
+ /+iuLeO0q86sel9bAfqUMqIAg18vG09l2QhJRJtBbJkyj8tI+OLi90tK6cwZzNiaBp8A2B3ITGo
+ +I7I/H3rRZkvSEuEC9d8mwA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,212 +97,358 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement out-of-band hotplug handling, which will be used to receive
-external hotplug information from the USB-C state machine. This is
-currently handled by the USBDP PHY, which brings quite some trouble
-as the register being accessed requires the power-domain from the DP
-controller. Thus this patch prevents massive SError problems once
-runtime PM is enabled. Apart from that it avoids custom TypeC HPD
-info parsing in the USBDP PHY driver.
-
-In contrast to the USBDP PHY this does not just enable the hotplug
-signal when a DP AltMode capable adapter is plugged in, but instead
-properly detects if a cable is plugged in for things like USB-C to
-HDMI adapters.
+Implement audio support for the Synopsys DesignWare DisplayPort
+controller.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 124 ++++++++++++++++++++++++++++--
- 1 file changed, 119 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 263 +++++++++++++++++++++++++++++++-
+ 1 file changed, 261 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index 005938dc66c9..ee0bd696064e 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -7,9 +7,12 @@
-  */
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 44a13b5d62d3..c7d6f63b5e9a 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -23,17 +23,21 @@
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/display/drm_dp_helper.h>
++#include <drm/display/drm_hdmi_audio_helper.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+ #include <drm/drm_simple_kms_helper.h>
  
- #include <linux/component.h>
-+#include <linux/hw_bitfield.h>
- #include <linux/media-bus-format.h>
-+#include <linux/mfd/syscon.h>
- #include <linux/of_device.h>
- #include <linux/platform_device.h>
-+#include <linux/regmap.h>
- #include <linux/videodev2.h>
- 
- #include <drm/bridge/dw_dp.h>
-@@ -23,12 +26,54 @@
- 
- #include "rockchip_drm_drv.h"
- 
-+#define ROCKCHIP_MAX_CTRLS 2
++#include <sound/hdmi-codec.h>
 +
-+#define ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL BIT(10)
-+#define ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG BIT(11)
+ #define DW_DP_VERSION_NUMBER			0x0000
+ #define DW_DP_VERSION_TYPE			0x0004
+ #define DW_DP_ID				0x0008
+ 
+ #define DW_DP_CONFIG_REG1			0x0100
++#define AUDIO_SELECT				GENMASK(2, 1)
+ #define DW_DP_CONFIG_REG2			0x0104
+ #define DW_DP_CONFIG_REG3			0x0108
+ 
+@@ -110,6 +114,10 @@
+ #define HBR_MODE_ENABLE				BIT(10)
+ #define AUDIO_DATA_WIDTH			GENMASK(9, 5)
+ #define AUDIO_DATA_IN_EN			GENMASK(4, 1)
++#define AUDIO_DATA_IN_EN_CHANNEL12		BIT(0)
++#define AUDIO_DATA_IN_EN_CHANNEL34		BIT(1)
++#define AUDIO_DATA_IN_EN_CHANNEL56		BIT(2)
++#define AUDIO_DATA_IN_EN_CHANNEL78		BIT(3)
+ #define AUDIO_INF_SELECT			BIT(0)
+ 
+ #define DW_DP_SDP_VERTICAL_CTRL			0x0500
+@@ -253,6 +261,8 @@
+ 
+ #define SDP_REG_BANK_SIZE			16
+ 
++#define DW_DP_SDP_VERSION			0x12
 +
-+struct rockchip_dw_dp_plat_data {
-+	u8 num_ctrls;
-+	u32 ctrl_ids[ROCKCHIP_MAX_CTRLS];
-+	u32 max_link_rate;
-+	u8 pixel_mode;
-+	u32 hpd_reg[ROCKCHIP_MAX_CTRLS];
+ struct dw_dp_link_caps {
+ 	bool enhanced_framing;
+ 	bool tps3_supported;
+@@ -305,6 +315,19 @@ struct dw_dp_hotplug {
+ 	bool long_hpd;
+ };
+ 
++enum dw_dp_audio_interface_support {
++	DW_DP_AUDIO_I2S_ONLY = 0,
++	DW_DP_AUDIO_SPDIF_ONLY = 1,
++	DW_DP_AUDIO_I2S_AND_SPDIF = 2,
++	DW_DP_AUDIO_NONE = 3,
 +};
 +
- struct rockchip_dw_dp {
- 	struct dw_dp *base;
++enum dw_dp_audio_interface {
++	DW_DP_AUDIO_I2S = 0,
++	DW_DP_AUDIO_SPDIF = 1,
++	DW_DP_AUDIO_UNUSED,
++};
++
+ struct dw_dp {
+ 	struct drm_bridge bridge;
  	struct device *dev;
-+	const struct rockchip_dw_dp_plat_data *pdata;
-+	struct regmap *vo_grf;
- 	struct rockchip_encoder *encoder;
-+	int id;
-+	bool hpd_sel;
-+	bool hpd_cfg;
- };
+@@ -320,6 +343,9 @@ struct dw_dp {
+ 	int irq;
+ 	struct work_struct hpd_work;
+ 	struct dw_dp_hotplug hotplug;
++	enum dw_dp_audio_interface audio_interface;
++	int audio_channels;
++	int audio_sdp_nr;
+ 	/* Serialize hpd status access */
+ 	struct mutex irq_lock;
+ 	/* Serialize sdp_reg_bank access */
+@@ -1073,7 +1099,19 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
+ 		regmap_set_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
+ 				EN_HORIZONTAL_SDP << nr);
  
-+static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
-+{
-+	struct rockchip_dw_dp *dp = data;
-+	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
-+
-+	dp->hpd_sel = force_hpd_from_sw;
-+
-+	regmap_write(dp->vo_grf, hpd_reg,
-+		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, dp->hpd_sel));
+-	return 0;
++	return nr;
 +}
 +
-+static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
++static void dw_dp_clear_sdp(struct dw_dp *dp, int nr)
 +{
-+	struct rockchip_dw_dp *dp = data;
-+	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
++	regmap_clear_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
++			  EN_VERTICAL_SDP << nr);
 +
-+	dev_dbg(dp->dev, "Force HPD connected=%s\n", str_yes_no(hpd));
++	regmap_clear_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
++			  EN_HORIZONTAL_SDP << nr);
 +
-+	dp->hpd_cfg = hpd;
-+
-+	regmap_write(dp->vo_grf, hpd_reg,
-+		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_cfg));
-+}
-+
- static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
- 				      struct drm_crtc_state *crtc_state,
- 				      struct drm_connector_state *conn_state)
-@@ -71,6 +116,35 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
- 	.atomic_check		= dw_dp_encoder_atomic_check,
- };
- 
-+static struct regmap *dp_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *dp)
-+{
-+	struct device_node *np = dev_of_node(dp->dev);
-+	struct of_phandle_args args;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
-+	if (ret)
-+		return ERR_PTR(-ENODEV);
-+
-+	/*
-+	 * Limit this workaround to RK3576 and RK3588, potential future platforms
-+	 * reusing the driver should just add a VO GRF phandle in the DisplayPort
-+	 * controller DT node.
-+	 */
-+	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
-+	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
-+		regmap = ERR_PTR(-ENODEV);
-+		goto out_put_node;
-+	}
-+
-+	regmap = syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
-+
-+out_put_node:
-+	of_node_put(args.np);
-+	return regmap;
-+}
-+
- static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
- {
- 	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
-@@ -121,19 +195,53 @@ static const struct component_ops dw_dp_rockchip_component_ops = {
- 
- static int dw_dp_rockchip_probe(struct platform_device *pdev)
- {
--	const struct dw_dp_plat_data *plat_data;
-+	const struct rockchip_dw_dp_plat_data *plat_data_const;
-+	struct dw_dp_plat_data *plat_data;
- 	struct device *dev = &pdev->dev;
- 	struct rockchip_dw_dp *dp;
-+	struct resource *res;
-+	int id;
- 
--	plat_data = of_device_get_match_data(dev);
--	if (!plat_data)
-+	plat_data_const = device_get_match_data(dev);
-+	if (!plat_data_const)
- 		return -ENODEV;
- 
-+	plat_data = devm_kzalloc(dev, sizeof(*plat_data), GFP_KERNEL);
-+	if (!plat_data)
-+		return -ENOMEM;
-+
- 	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
- 	if (!dp)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, dp);
- 	dp->dev = dev;
-+	dp->pdata = plat_data_const;
-+
-+	res = platform_get_mem_or_io(pdev, 0);
-+	if (!res)
-+		return -ENODEV;
-+
-+	/* find the DisplayPort ID from the io address */
-+	dp->id = -ENODEV;
-+	for (id = 0; id < plat_data_const->num_ctrls; id++) {
-+		if (res->start == plat_data_const->ctrl_ids[id]) {
-+			dp->id = id;
-+			break;
-+		}
-+	}
-+
-+	if (dp->id < 0)
-+		return dp->id;
-+
-+	dp->vo_grf = dp_dp_rockchip_get_vo_grf(dp);
-+	if (IS_ERR(dp->vo_grf))
-+		return PTR_ERR(dp->vo_grf);
-+
-+	plat_data->max_link_rate = plat_data_const->max_link_rate;
-+	plat_data->pixel_mode = plat_data_const->pixel_mode;
-+	plat_data->hpd_sw_sel = dw_dp_rockchip_hpd_sw_sel;
-+	plat_data->hpd_sw_cfg = dw_dp_rockchip_hpd_sw_cfg;
-+	plat_data->data = dp;
- 
- 	dp->base = dw_dp_probe(pdev, plat_data);
- 	if (IS_ERR(dp->base))
-@@ -147,14 +255,20 @@ static void dw_dp_rockchip_remove(struct platform_device *pdev)
- 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
++	scoped_guard(mutex, &dp->sdp_lock)
++		clear_bit(nr, dp->sdp_reg_bank);
  }
  
--static const struct dw_dp_plat_data rk3588_dp_plat_data = {
-+static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
-+	.num_ctrls = 2,
-+	.ctrl_ids = {0xfde50000, 0xfde60000},
- 	.max_link_rate = 810000,
- 	.pixel_mode = DW_DP_MP_QUAD_PIXEL,
-+	.hpd_reg = {0x0000, 0x0008},
+ static int dw_dp_send_vsc_sdp(struct dw_dp *dp)
+@@ -1886,6 +1924,212 @@ static void dw_dp_bridge_oob_notify(struct drm_bridge *bridge,
+ 		dev_err_once(dp->dev, "Missing platform handler for OOB HPD handling\n");
+ }
+ 
++static int dw_dp_audio_infoframe_send(struct dw_dp *dp)
++{
++	struct hdmi_audio_infoframe frame;
++	struct dw_dp_sdp sdp;
++	int ret;
++
++	ret = hdmi_audio_infoframe_init(&frame);
++	if (ret < 0)
++		return ret;
++
++	frame.coding_type = HDMI_AUDIO_CODING_TYPE_STREAM;
++	frame.sample_frequency = HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
++	frame.sample_size = HDMI_AUDIO_SAMPLE_SIZE_STREAM;
++	frame.channels = dp->audio_channels;
++
++	ret = hdmi_audio_infoframe_pack_for_dp(&frame, &sdp.base, DW_DP_SDP_VERSION);
++	if (ret < 0)
++		return ret;
++
++	sdp.flags = DW_DP_SDP_VERTICAL_INTERVAL;
++
++	return dw_dp_send_sdp(dp, &sdp);
++}
++
++static int dw_dp_audio_startup(struct drm_bridge *bridge,
++			       struct drm_connector *connector)
++{
++	struct dw_dp *dp = bridge_to_dp(bridge);
++
++	dev_dbg(dp->dev, "audio startup\n");
++
++	return pm_runtime_resume_and_get(dp->dev);
++}
++
++static void dw_dp_audio_unprepare(struct drm_bridge *bridge,
++				  struct drm_connector *connector)
++{
++	struct dw_dp *dp = bridge_to_dp(bridge);
++
++	if (dp->audio_sdp_nr >= 0) {
++		dw_dp_clear_sdp(dp, dp->audio_sdp_nr);
++		dp->audio_sdp_nr = -1;
++	}
++
++	regmap_clear_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
++			  EN_AUDIO_STREAM_SDP | EN_AUDIO_TIMESTAMP_SDP);
++	regmap_clear_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
++			  EN_AUDIO_STREAM_SDP);
++
++	regmap_clear_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_DATA_IN_EN);
++
++	if (dp->audio_interface == DW_DP_AUDIO_SPDIF)
++		clk_disable_unprepare(dp->spdif_clk);
++	else if (dp->audio_interface == DW_DP_AUDIO_I2S)
++		clk_disable_unprepare(dp->i2s_clk);
++
++	dp->audio_interface = DW_DP_AUDIO_UNUSED;
++}
++
++static int dw_dp_audio_prepare(struct drm_bridge *bridge,
++			       struct drm_connector *connector,
++			       struct hdmi_codec_daifmt *daifmt,
++			       struct hdmi_codec_params *params)
++{
++	struct dw_dp *dp = bridge_to_dp(bridge);
++	u8 audio_data_in_en, supported_audio_interfaces;
++	enum dw_dp_audio_interface audio_interface;
++	u32 cfg1;
++	int ret;
++
++	/*
++	 * prepare might be called multiple times, so release the clocks
++	 * from previous calls to keep the calls in balance.
++	 */
++	if (dp->audio_interface != DW_DP_AUDIO_UNUSED)
++		dw_dp_audio_unprepare(bridge, connector);
++
++	/* The hardware is limited to 1,2 or 8 channels */
++	dp->audio_channels = params->cea.channels;
++	switch (params->cea.channels) {
++	case 1:
++	case 2:
++		audio_data_in_en = AUDIO_DATA_IN_EN_CHANNEL12;
++		break;
++	case 8:
++		audio_data_in_en = AUDIO_DATA_IN_EN_CHANNEL12 |
++				   AUDIO_DATA_IN_EN_CHANNEL34 |
++				   AUDIO_DATA_IN_EN_CHANNEL56 |
++				   AUDIO_DATA_IN_EN_CHANNEL78;
++		break;
++	default:
++		dev_err(dp->dev, "invalid audio channels %d\n", dp->audio_channels);
++		return -EINVAL;
++	}
++
++	if (params->sample_width < 16 || params->sample_width > 24) {
++		dev_err(dp->dev, "invalid data sample width %d\n", params->sample_width);
++		return -EINVAL;
++	}
++
++	switch (daifmt->fmt) {
++	case HDMI_SPDIF:
++		audio_interface = DW_DP_AUDIO_SPDIF;
++		break;
++	case HDMI_I2S:
++		/*
++		 * It is recommended to use SPDIF instead of I2S, since I2S mode requires
++		 * manually inserting PCUV control bits from userspace and this is done
++		 * automatically in hardware for SPDIF mode.
++		 */
++		audio_interface = DW_DP_AUDIO_I2S;
++		break;
++	default:
++		dev_err(dp->dev, "invalid DAI format %d\n", daifmt->fmt);
++		return -EINVAL;
++	}
++
++	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
++	supported_audio_interfaces = FIELD_GET(AUDIO_SELECT, cfg1);
++
++	if (supported_audio_interfaces != DW_DP_AUDIO_I2S_AND_SPDIF &&
++	    supported_audio_interfaces != audio_interface) {
++		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
++		return -EINVAL;
++	}
++
++	ret = clk_prepare_enable(dp->spdif_clk);
++	if (ret)
++		return ret;
++
++	ret = clk_prepare_enable(dp->i2s_clk);
++	if (ret) {
++		clk_disable_unprepare(dp->spdif_clk);
++		return ret;
++	}
++
++	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
++			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
++			   AUDIO_INF_SELECT | HBR_MODE_ENABLE,
++			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
++			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
++			   FIELD_PREP(AUDIO_DATA_WIDTH, params->sample_width) |
++			   FIELD_PREP(AUDIO_INF_SELECT, audio_interface) |
++			   FIELD_PREP(HBR_MODE_ENABLE, 0));
++
++	/* Wait for inf switch */
++	usleep_range(20, 40);
++
++	if (audio_interface == DW_DP_AUDIO_I2S)
++		clk_disable_unprepare(dp->spdif_clk);
++	else if (audio_interface == DW_DP_AUDIO_SPDIF)
++		clk_disable_unprepare(dp->i2s_clk);
++
++	dp->audio_interface = audio_interface;
++
++	/*
++	 * Send audio stream during vertical and horizontal blanking periods.
++	 * Send out audio timestamp SDP once per video frame during the vertical
++	 * blanking period
++	 */
++	regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
++			   EN_AUDIO_STREAM_SDP | EN_AUDIO_TIMESTAMP_SDP,
++			   FIELD_PREP(EN_AUDIO_STREAM_SDP, 1) |
++			   FIELD_PREP(EN_AUDIO_TIMESTAMP_SDP, 1));
++	regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
++			   EN_AUDIO_STREAM_SDP,
++			   FIELD_PREP(EN_AUDIO_STREAM_SDP, 1));
++
++	dp->audio_sdp_nr = dw_dp_audio_infoframe_send(dp);
++	if (dp->audio_sdp_nr < 0) {
++		dev_err(dp->dev, "failed to send audio infoframe\n");
++		dw_dp_audio_unprepare(bridge, connector);
++		return dp->audio_sdp_nr;
++	}
++
++	dev_dbg(dp->dev, "audio prepare with %d channels using DAI=%d\n",
++		dp->audio_channels, dp->audio_interface);
++
++	return 0;
++}
++
++static void dw_dp_audio_shutdown(struct drm_bridge *bridge,
++				 struct drm_connector *connector)
++{
++	struct dw_dp *dp = bridge_to_dp(bridge);
++
++	dev_dbg(dp->dev, "audio shutdown\n");
++
++	dw_dp_audio_unprepare(bridge, connector);
++	pm_runtime_put_autosuspend(dp->dev);
++}
++
++static int dw_dp_audio_mute_stream(struct drm_bridge *bridge,
++				   struct drm_connector *connector,
++				   bool enable, int direction)
++{
++	struct dw_dp *dp = bridge_to_dp(bridge);
++
++	dev_dbg(dp->dev, "audio %smute\n", enable ? "" : "un");
++
++	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_MUTE,
++			   FIELD_PREP(AUDIO_MUTE, enable));
++
++	return 0;
++}
++
+ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
+ 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+@@ -1899,6 +2143,11 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
+ 	.detect = dw_dp_bridge_detect,
+ 	.edid_read = dw_dp_bridge_edid_read,
+ 	.oob_notify = dw_dp_bridge_oob_notify,
++
++	.dp_audio_startup = dw_dp_audio_startup,
++	.dp_audio_prepare = dw_dp_audio_prepare,
++	.dp_audio_shutdown = dw_dp_audio_shutdown,
++	.dp_audio_mute_stream = dw_dp_audio_mute_stream,
  };
  
--static const struct dw_dp_plat_data rk3576_dp_plat_data = {
-+static const struct rockchip_dw_dp_plat_data rk3576_dp_plat_data = {
-+	.num_ctrls = 1,
-+	.ctrl_ids = {0x27e40000},
- 	.max_link_rate = 810000,
- 	.pixel_mode = DW_DP_MP_DUAL_PIXEL,
-+	.hpd_reg = {0x0000},
- };
+ static int dw_dp_link_retrain(struct dw_dp *dp)
+@@ -2057,10 +2306,20 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
  
- static const struct of_device_id dw_dp_of_match[] = {
+ 	bridge = &dp->bridge;
+ 	bridge->of_node = dev->of_node;
+-	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
++	bridge->ops = DRM_BRIDGE_OP_DP_AUDIO |
++		      DRM_BRIDGE_OP_DETECT |
++		      DRM_BRIDGE_OP_EDID |
++		      DRM_BRIDGE_OP_HPD;
+ 	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
+ 	bridge->ycbcr_420_allowed = true;
+ 
++	dp->audio_interface = DW_DP_AUDIO_UNUSED;
++	dp->audio_sdp_nr = -1;
++	bridge->hdmi_audio_dev = dev;
++	bridge->hdmi_audio_max_i2s_playback_channels = 8;
++	bridge->hdmi_audio_dai_port = 1;
++	bridge->hdmi_audio_spdif_playback = true;
++
+ 	drm_bridge_add(bridge);
+ 
+ 	dp->aux.dev = dev;
 
 -- 
 2.53.0
