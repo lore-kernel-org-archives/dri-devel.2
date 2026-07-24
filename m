@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70F77C531FA
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 09:52:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13C68C531FA
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 09:52:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAF9F10E00E;
-	Fri, 24 Jul 2026 09:52:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C19910E619;
+	Fri, 24 Jul 2026 09:52:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UuarixtG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hB5xMOis";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C15410E00E
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 09:52:21 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E205E10E619
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 09:52:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7C56C600C3;
- Fri, 24 Jul 2026 09:52:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40281F000E9;
- Fri, 24 Jul 2026 09:52:19 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 64AB0600AB;
+ Fri, 24 Jul 2026 09:52:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6AB01F000E9;
+ Fri, 24 Jul 2026 09:52:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784886740;
- bh=sQrovcqe5Xaw8Z00dGheB4mES5Aoe9+Lu3L4RtKxhqY=;
+ s=k20260515; t=1784886776;
+ bh=Ory928+6pZUntvdVDzNb8rVSb/UwWi9P+FeFBzyzG5I=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UuarixtG6QDO4+kpvCsKGTvdnJjAeW1zTgyQbq89azg87CVV7dS1ECfVnX8C3L00h
- E18jedco7LFPSUeN4Qooz4/iOx9OPNl2+dYUMPMeaHm0aOwKASgPY4m1Hhkao8Gvy0
- ACQAXn6ZTL+TbHgj8XRh7RHajB1I6n3S0dB6togIgYysCm0eLUzeyEQnuiOt4/yLpd
- yj+xqO2OuXiGAjFc4c3FSycchvCFIlv9RUoN2O5l0QyhztwVloi0hE2mbyiHVnt486
- +YCVlefA+FYGc08CrJG8UD/S4tnSA1zeYr1PQyfU3W5T4MyF6KRn0mFFo6Sehu18o9
- 5FFBFf+mPymQg==
+ b=hB5xMOisMtHOs2Ot7banv1QA2/QzPMJF5IR5RpBDIoA9e39Qu0+4TPR5aUHCk0UWa
+ fAC/knvz2bHgMDaDAejKbgkaCF+jYyGSW2cJ8QMEJMKMWvGkyp7ItSCjYSycy+nD/G
+ IcewPBUw9ZYYEKf+0GkWFuQwQM13nFhpAFowHPFUuOV2KDNqBPhH6MT/KG7IBuIeM4
+ CM7+RWdIG11hL4+siHFOFFUDIFOfSzRlDhTsNP9TcoVnI4kamoohRQ0mKlJBtKRJKa
+ +UEMa0jvasDM8XjKS+C7HSkCDEUweF3SgqgN9l2zK8pzXnoVZvRT3BKyyI2xLvZE0L
+ D+py8/UUiFKSw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/udl: Use iosys_map getter for virtual address
+Subject: Re: [PATCH 1/2] iosys-map: Add getter functions for virtual addresses
 To: oushixiong1025@163.com
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724093808.776138-2-oushixiong1025@163.com>
+In-Reply-To: <20260724093808.776138-1-oushixiong1025@163.com>
 References: <20260724093808.776138-1-oushixiong1025@163.com>
- <20260724093808.776138-2-oushixiong1025@163.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 09:52:19 +0000
-Message-Id: <20260724095219.F40281F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 09:52:55 +0000
+Message-Id: <20260724095255.E6AB01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +56,70 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The patch replaces direct access to `map->vaddr` with `iosys_map_g=
-et_vaddr()`. However, `iosys_map_get_vaddr()` explicitly warns and returns =
-`NULL` if the mapping points to I/O memory (`map->is_iomem =3D=3D true`). W=
-hen userspace imports a dma-buf from a discrete GPU (which typically export=
-s VRAM as I/O memory) into the UDL driver and uses it as a framebuffer, the=
- damage handler `udl_handle_damage()` will receive an I/O memory mapping. C=
-alling `iosys_map_get_vaddr()` on this mapping triggers a `WARN_ON` for eve=
-ry damage rectangle processed and fails the update by returning `-EFAULT`. =
-This functionally breaks PRIME imports from discrete GPUs to DisplayLink de=
-vices and creates a local Denial of Service (DoS) vector by allowing a loca=
-l user to spam the kernel log with warnings or trigger a panic if `panic_on=
-_warn` is enabled. The correct fix for the original architectural issue sho=
-uld have been using `iosys_map_rd()` or `iosys_map_memcpy_from()` rather th=
-an `iosys_map_get_vaddr()`.
+- [Medium] iosys_map_get_vaddr_iomem() unconditionally triggers a kernel wa=
+rning (WARN_ON) when called on an unset mapping, contradicting its document=
+ation.
+- [Low] The patch adds `iosys_map_get_vaddr` to `include/linux/iosys-map.h`=
+ but fails to remove the pre-existing static inline definition in `drivers/=
+firmware/tegra/ivc.c`, causing a build failure.
+- [Low] Missing <linux/bug.h> include for WARN_ON(), leading to potential b=
+uild breaks.
 --
 
---- Patch [2]: [PATCH 2/2] drm/udl: Use iosys_map getter for virtual addres=
-s ---
-commit 935887dfbb84bad699c0f9cf22dbe263fac86a93
+--- Patch [1]: [PATCH 1/2] iosys-map: Add getter functions for virtual addr=
+esses ---
+commit f14cef96efd32780d25ba0c941cea2c91611ddcd
 Author: Shixiong Ou <oushixiong@kylinos.cn>
 
-drm/udl: Use iosys_map getter for virtual address
-   =20
-Replace direct access to map->vaddr with the new iosys_map_get_vaddr()
-helper function. This properly uses the iosys_map abstraction layer
-instead of directly accessing structure members.
+iosys-map: Add getter functions for virtual addresses
 
-> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_=
-modeset.c
-> index 289711035b67c..06a3a4d149b9d 100644
-> --- a/drivers/gpu/drm/udl/udl_modeset.c
-> +++ b/drivers/gpu/drm/udl/udl_modeset.c
-> @@ -207,12 +207,16 @@ static int udl_handle_damage(struct drm_framebuffer=
- *fb,
->  {
->  	struct drm_device *dev =3D fb->dev;
->  	struct udl_device *udl =3D to_udl(dev);
-> -	void *vaddr =3D map->vaddr; /* TODO: Use mapping abstraction properly */
-> +	void *vaddr;
->  	int i, ret;
->  	char *cmd;
->  	struct urb *urb;
->  	int log_bpp;
+Add iosys_map_get_vaddr() and iosys_map_get_vaddr_iomem() as the
+counterparts to iosys_map_set_vaddr() and iosys_map_set_vaddr_iomem().
+
+This allows drivers to use the iosys_map abstraction layer properly
+instead of directly accessing the structure members, improving code
+maintainability and safety.
+
+> diff --git a/include/linux/iosys-map.h b/include/linux/iosys-map.h
+> index 3e85afe794c0a..658d5038498a7 100644
+> --- a/include/linux/iosys-map.h
+> +++ b/include/linux/iosys-map.h
+> @@ -200,6 +200,42 @@ static inline void iosys_map_set_vaddr_iomem(struct =
+iosys_map *map,
+>  	map->is_iomem =3D true;
+>  }
 > =20
-> +	vaddr =3D iosys_map_get_vaddr(map);
-> +	if (!vaddr)
-> +		return -EFAULT;
-> +
+> +/**
+> + * iosys_map_get_vaddr - Gets the virtual address of a system-memory map=
+ping
+> + * @map:	The iosys_map structure
+> + *
+> + * Returns the system-memory address. The caller must ensure the mapping
+> + * refers to system memory (not I/O memory).
+> + *
+> + * Returns:
+> + * The system-memory address, or NULL if the mapping is not set or refers
+> + * to I/O memory.
+> + */
+> +static inline void *iosys_map_get_vaddr(const struct iosys_map *map)
+> +{
+> +	if (WARN_ON(map->is_iomem))
+> +		return NULL;
 
-[Severity: High]
-Does this code break PRIME imports from discrete GPUs?
+[Severity: Low]
+Does this new usage of WARN_ON() require adding an include for <linux/bug.h=
+>?
 
-If userspace imports a dma-buf from a discrete GPU (which typically exports
-VRAM as I/O memory) into the UDL driver and uses it as a framebuffer, the
-map passed to udl_handle_damage() will be mapped as IOMEM.
+Files including <linux/iosys-map.h> that don't already include <linux/bug.h>
+might fail to compile due to implicit declaration of the function.
 
-Looking at iosys_map_get_vaddr() in include/linux/iosys-map.h:
+[Severity: Low]
+Could this conflict with the existing static inline definition of
+iosys_map_get_vaddr() in drivers/firmware/tegra/ivc.c?
+
+drivers/firmware/tegra/ivc.c already defines this function locally:
 
 static inline void *iosys_map_get_vaddr(const struct iosys_map *map)
 {
@@ -124,13 +128,45 @@ static inline void *iosys_map_get_vaddr(const struct iosys_map *map)
 	return map->vaddr;
 }
 
-This will trigger a WARN_ON for every damage rectangle processed and return
--EFAULT, failing the update. Could this create a local DoS if panic_on_warn
-is enabled, or spam the kernel log with warnings?
+It appears drivers/firmware/tegra/ivc.c might encounter a build failure due
+to function redefinition since it includes <linux/iosys-map.h> through
+<soc/tegra/ivc.h>.
 
-Would it be safer to use iosys_map_rd() or iosys_map_memcpy_from() here
-rather than iosys_map_get_vaddr() to properly handle IOMEM mappings?
+> +	return map->vaddr;
+> +}
+> +
+> +/**
+> + * iosys_map_get_vaddr_iomem - Gets the virtual address of an I/O-memory=
+ mapping
+> + * @map:	The iosys_map structure
+> + *
+> + * Returns the I/O-memory address. The caller must ensure the mapping
+> + * refers to I/O memory (not system memory).
+> + *
+> + * Returns:
+> + * The I/O-memory address, or NULL if the mapping is not set or refers
+> + * to system memory.
+> + */
+> +static inline void __iomem *iosys_map_get_vaddr_iomem(const struct iosys=
+_map *map)
+> +{
+> +	if (WARN_ON(!map->is_iomem))
+
+[Severity: Medium]
+Will this unconditionally trigger a kernel warning for an unset mapping?
+
+The kernel-doc for this function says it returns NULL if the mapping is not
+set. However, if iosys_map_clear() is called, the structure is zeroed and
+map->is_iomem becomes false.
+
+Calling iosys_map_get_vaddr_iomem() on this cleared mapping would then eval=
+uate
+!map->is_iomem as true and trigger the WARN_ON.
+
+> +		return NULL;
+> +	return map->vaddr_iomem;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724093808.7761=
-38-1-oushixiong1025@163.com?part=3D2
+38-1-oushixiong1025@163.com?part=3D1
