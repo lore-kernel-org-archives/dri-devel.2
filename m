@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C034C531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 14:23:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D955C531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 14:23:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5D2810F3BF;
-	Fri, 24 Jul 2026 14:23:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8FC210F3CC;
+	Fri, 24 Jul 2026 14:23:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="T5m3wFrq";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="fSIPeAja";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EA0F10E087
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 14:23:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784903003; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3D4410E060
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 14:23:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784902988; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=fhNUxl9nrqiMq8QoB6OURV4U0Kot5Mz6wBBsBqxT/Fsj2iCS+3IUG90wC3Pa/xK+PPx4LSkHGLzQ1XUMT2n507DsuYp8Xk2rjSJy7COg7pJqPKkO4i+YZj5bS0euqZsRnbPoL/veY3WTM9gFR2ZlNY9JkodImH8w/2IV4h8wk4E=
+ b=kbqIspr+cUC8RUJbXTmhve7wPOtTpcQQYaYF0QF+G16e2vFD8tD3bQob84w0GrwGydKOrDPKJL2EqRcb+gRGnSyd2WyS239IdSI1R0hW0WUXse7ZdroucX9aIFTGcfPulc71yHlLwfpVVrq6LoCydQnXQLygHo4R8FMcJiTmuI8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784903003;
+ s=zohoarc; t=1784902988;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=pMs0Yai6sNaBFiwj9DRM4zWkNi3KmcoR/32UidIACgk=; 
- b=bVBzobjit76C92oMgBteCfXI0XG4GWt58xCTB9rgLrpIkv4XC4k8YEyeAI3vAqxTzi/0Y+V+4dJGQ5mmI2s8uI5GOFVg4gV7njXUTsrnqo2Zf3fjP1PlZgew5XjyP22czSOsl1G2cyz87gejDKEPBdyn3aVTO+qMKzxQ2Hvi6oE=
+ bh=D0GUxHD8Q9JSYP82sYc8lospznA2NKpGPVZdowq2lU0=; 
+ b=WsAyRjka3QTIYx8TxwyAosI5tq+oMdFfm+fpoBT9QVdma/R6j6+vX8WQIRZoPB7PgoLCZBDN/lGckiBo33AKVw6/DM2yKkQnmRAYgZJx0QbCmTgXa7BIlWkLFt6FHRMydhh8rG7RgpWuEr91e6F2Iiq5cuuNJPQGGeTBFJVk1aE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784903003; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784902988; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=pMs0Yai6sNaBFiwj9DRM4zWkNi3KmcoR/32UidIACgk=;
- b=T5m3wFrq4WgR8a0b1csalTwBsPNynv8L1DKFfvD43Xrx10h4mvFGI5BUmztscTSl
- kKo73GhVm9ASBq1r+rYOwjgEzJDI154iYlSyaJMx1/O8cwU4urZU2sAj6Q9qviI11+P
- GQkYJvErRr2Mh4xlfyxQk888eOdhKhcyt3JD0x8U=
-Received: by mx.zohomail.com with SMTPS id 1784903001077134.12179153555007;
- Fri, 24 Jul 2026 07:23:21 -0700 (PDT)
+ bh=D0GUxHD8Q9JSYP82sYc8lospznA2NKpGPVZdowq2lU0=;
+ b=fSIPeAjaTuCMrA5HqVEjwoVjoJCBoM9yUiSSaps+/LgJVDAi9S3WQVqaZfBjnakN
+ +gRMe191iqnSElFuyEUQ0E589MGGmTSikMmy2D3S5igrhTUMpG50dhDRZVbKjHOpkIw
+ pEmZWbkABlaqmORSO0PGqDfSRtSMooB6Bn4G0Z0o=
+Received: by mx.zohomail.com with SMTPS id 178490298790344.75121009588497;
+ Fri, 24 Jul 2026 07:23:07 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Fri, 24 Jul 2026 16:22:38 +0200
-Subject: [PATCH v9 3/5] drm/scdc-helper: Implement parsing and printing
- HDMI 2.1 fields
+Date: Fri, 24 Jul 2026 16:22:36 +0200
+Subject: [PATCH v9 1/5] drm/scdc-helper: Don't use ssize_t return type for
+ scdc_read/write
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-scdc-link-health-v9-3-bdda406d016d@collabora.com>
+Message-Id: <20260724-scdc-link-health-v9-1-bdda406d016d@collabora.com>
 References: <20260724-scdc-link-health-v9-0-bdda406d016d@collabora.com>
 In-Reply-To: <20260724-scdc-link-health-v9-0-bdda406d016d@collabora.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>, 
@@ -82,357 +82,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-HDMI 2.1 redefines previously reserved fields in SCDC for various new
-uses. No version check needs to be performed, as an HDMI 2.0 sink's
-reserved SCDC fields are well-defined to be 0, and any zero-ness of
-these fields for an HDMI 2.0 sink is not a surprise for SCDC parsers for
-HDMI 2.1.
+drm_scdc_read and drm_scdc_write, both of which are only used within
+drm_scdc_helper (although exported), use a ssize_t as their return type.
 
-Implement reading and outputting these fields over debugfs.
+This would make sense if they returned the number of bytes read/written
+on success, and negative errno otherwise. However, they return 0 on
+success.
 
-Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Demote them to "int" as their return type, in order to avoid needlessly
+using 64 bits when less suffices.
+
+No functional change.
+
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Reviewed-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- drivers/gpu/drm/display/drm_scdc_helper.c | 103 ++++++++++++++++++++++++++++--
- include/drm/display/drm_scdc.h            |  21 +++++-
- include/drm/display/drm_scdc_helper.h     |  69 +++++++++++++++++++-
- 3 files changed, 185 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/display/drm_scdc_helper.c | 8 ++++----
+ include/drm/display/drm_scdc_helper.h     | 8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-index 129a2b85527b..d00da20862fc 100644
+index df878aad4a36..8403f2390ab6 100644
 --- a/drivers/gpu/drm/display/drm_scdc_helper.c
 +++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-@@ -21,6 +21,7 @@
-  * DEALINGS IN THE SOFTWARE.
+@@ -67,8 +67,8 @@
+  * Returns:
+  * 0 on success, negative error code on failure.
   */
- 
-+#include <linux/bitfield.h>
- #include <linux/export.h>
- #include <linux/i2c.h>
- #include <linux/slab.h>
-@@ -57,6 +58,38 @@
- 
- #define SCDC_I2C_SLAVE_ADDRESS 0x54
- 
-+static const char *drm_scdc_frl_rate_str(enum drm_scdc_frl_rate rate)
-+{
-+	switch (rate) {
-+	case SCDC_FRL_RATE_OFF:
-+		return "Off";
-+	case SCDC_FRL_RATE_3X3:
-+		return "3 Gbit/s x 3 lanes";
-+	case SCDC_FRL_RATE_6X3:
-+		return "6 Gbit/s x 3 lanes";
-+	case SCDC_FRL_RATE_6X4:
-+		return "6 Gbit/s x 4 lanes";
-+	case SCDC_FRL_RATE_8X4:
-+		return "8 Gbit/s x 4 lanes";
-+	case SCDC_FRL_RATE_10X4:
-+		return "10 Gbit/s x 4 lanes";
-+	case SCDC_FRL_RATE_12X4:
-+		return "12 Gbit/s x 4 lanes";
-+	case SCDC_FRL_RATE_RESV_7:
-+	case SCDC_FRL_RATE_RESV_8:
-+	case SCDC_FRL_RATE_RESV_9:
-+	case SCDC_FRL_RATE_RESV_10:
-+	case SCDC_FRL_RATE_RESV_11:
-+	case SCDC_FRL_RATE_RESV_12:
-+	case SCDC_FRL_RATE_RESV_13:
-+	case SCDC_FRL_RATE_RESV_14:
-+	case SCDC_FRL_RATE_RESV_15:
-+		return "(Reserved)";
-+	default:
-+		return NULL;
-+	}
-+}
-+
- /**
-  * drm_scdc_read - read a block of data from SCDC
-  * @adapter: I2C controller
-@@ -286,14 +319,41 @@ drm_scdc_parse_status0_flags(u8 val, struct drm_scdc_status_flags *flags)
- 	flags->ch0_locked = val & SCDC_CH0_LOCK;
- 	flags->ch1_locked = val & SCDC_CH1_LOCK;
- 	flags->ch2_locked = val & SCDC_CH2_LOCK;
-+	flags->ln3_locked = val & SCDC_LN3_LOCK;
-+	flags->flt_ready = val & SCDC_FLT_READY;
-+	flags->dsc_fail = val & SCDC_DSC_FAIL;
-+}
-+
-+static void
-+drm_scdc_parse_status1_2_flags(u8 val_flag1, u8 val_flag2,
-+			       struct drm_scdc_status_flags *flags)
-+{
-+	flags->ln0_training_pattern = FIELD_GET(SCDC_LN_EVEN_TRAIN_PTRN, val_flag1);
-+	flags->ln1_training_pattern = FIELD_GET(SCDC_LN_ODD_TRAIN_PTRN, val_flag1);
-+
-+	flags->ln2_training_pattern = FIELD_GET(SCDC_LN_EVEN_TRAIN_PTRN, val_flag2);
-+	flags->ln3_training_pattern = FIELD_GET(SCDC_LN_ODD_TRAIN_PTRN, val_flag2);
- }
- 
--static int drm_scdc_parse_error_counters(const u8 scdc[256], u16 counter[3])
-+static int drm_scdc_parse_error_counters(const u8 scdc[256], u16 counter[4],
-+					 unsigned int num_lanes)
+-ssize_t drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
+-		      size_t size)
++int drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
++		  size_t size)
  {
-+	u8 end_reg;
- 	u8 sum = 0;
- 	int i;
- 
--	for (i = SCDC_ERR_DET_0_L; i <= SCDC_ERR_DET_CHECKSUM ; i++)
-+	switch (num_lanes) {
-+	case 3:
-+		end_reg = SCDC_ERR_DET_CHECKSUM;
-+		break;
-+	case 4:
-+		end_reg = SCDC_ERR_DET_3_H;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	for (i = SCDC_ERR_DET_0_L; i <= end_reg; i++)
- 		sum = wrapping_add(u8, sum, scdc[i]);
- 
- 	if (sum)
-@@ -308,6 +368,12 @@ static int drm_scdc_parse_error_counters(const u8 scdc[256], u16 counter[3])
- 			counter[i] = 0;
- 	}
- 
-+	if (num_lanes == 4 && scdc[SCDC_ERR_DET_3_H] & SCDC_CHANNEL_VALID)
-+		counter[3] =  (scdc[SCDC_ERR_DET_3_H] & ~SCDC_CHANNEL_VALID) << 8 |
-+			      scdc[SCDC_ERR_DET_3_L];
-+	else
-+		counter[3] = 0;
-+
- 	return 0;
- }
- 
-@@ -325,6 +391,7 @@ int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *
- 	struct i2c_adapter *ddc;
- 	struct drm_scdc *scdc;
- 	u8 *buf = state->scdc;
-+	int num_lanes;
  	int ret;
- 
- 	if (!state || !connector)
-@@ -350,11 +417,26 @@ int drm_scdc_read_state(struct drm_connector *connector, struct drm_scdc_state *
- 
- 	state->scrambling_detected = buf[SCDC_SCRAMBLER_STATUS] & SCDC_SCRAMBLING_STATUS;
- 
-+	state->rate = FIELD_GET(SCDC_FRL_RATE, buf[SCDC_CONFIG_1]);
-+	num_lanes = drm_scdc_num_frl_lanes(state->rate);
-+	if (num_lanes < 0)
-+		return num_lanes;
-+	if (!num_lanes)
-+		num_lanes = 3;
-+
-+	state->ffe_levels = FIELD_GET(SCDC_FFE_LEVELS, buf[SCDC_CONFIG_1]);
-+
- 	drm_scdc_parse_status0_flags(buf[SCDC_STATUS_FLAGS_0], &state->stf);
--	ret = drm_scdc_parse_error_counters(buf, state->error_count);
-+	drm_scdc_parse_status1_2_flags(buf[SCDC_STATUS_FLAGS_1],
-+				       buf[SCDC_STATUS_FLAGS_2], &state->stf);
-+	ret = drm_scdc_parse_error_counters(buf, state->error_count, num_lanes);
- 	if (ret)
- 		return ret;
- 
-+	if (state->rate && (buf[SCDC_ERR_DET_RS_H] & SCDC_CHANNEL_VALID))
-+		state->rs_corrections = (buf[SCDC_ERR_DET_RS_H] & ~SCDC_CHANNEL_VALID) << 8 |
-+					buf[SCDC_ERR_DET_RS_L];
-+
- 	return 0;
- }
- EXPORT_SYMBOL(drm_scdc_read_state);
-@@ -371,7 +453,7 @@ static int scdc_status_show(struct seq_file *m, void *data)
- 	struct drm_connector *connector = m->private;
- 	struct drm_scdc *scdc = &connector->display_info.hdmi.scdc;
- 	struct drm_scdc_state *st;
--	int i, ret;
-+	int i, ret, frl_lanes;
- 
- 	drm_connector_get(connector);
- 
-@@ -414,8 +496,12 @@ static int scdc_status_show(struct seq_file *m, void *data)
- 
- 	drm_connector_put(connector);
- 
-+	frl_lanes = drm_scdc_num_frl_lanes(st->rate);
-+
- 	scdc_print_flag(m, "Scrambling Enabled", st->scrambling_enabled);
- 	scdc_print_flag(m, "Scrambling Detected", st->scrambling_detected);
-+	scdc_print_str(m, "FRL Rate", drm_scdc_frl_rate_str(st->rate));
-+	scdc_print_dec(m, "FFE Levels", st->ffe_levels);
- 
- 	if (st->tmds_bclk_x40)
- 		scdc_print_str(m, "TMDS Bit Clock Ratio", "1/40");
-@@ -426,10 +512,19 @@ static int scdc_status_show(struct seq_file *m, void *data)
- 	scdc_print_flag(m, "Channel 0 Locked", st->stf.ch0_locked);
- 	scdc_print_flag(m, "Channel 1 Locked", st->stf.ch1_locked);
- 	scdc_print_flag(m, "Channel 2 Locked", st->stf.ch2_locked);
-+	if (frl_lanes == 4)
-+		scdc_print_flag(m, "Lane 3 Locked", st->stf.ln3_locked);
-+
-+	scdc_print_flag(m, "Sink Ready For Link Training", st->stf.flt_ready);
-+	scdc_print_flag(m, "Sink Failed To Decode DSC", st->stf.dsc_fail);
- 
- 	scdc_print_dec(m, "Channel 0 Errors", st->error_count[0]);
- 	scdc_print_dec(m, "Channel 1 Errors", st->error_count[1]);
- 	scdc_print_dec(m, "Channel 2 Errors", st->error_count[2]);
-+	if (frl_lanes == 4)
-+		scdc_print_dec(m, "Lane 3 Errors", st->error_count[3]);
-+	if (frl_lanes > 0)
-+		scdc_print_dec(m, "Reed-Solomon Corrections", st->rs_corrections);
- 
- 	kfree(st);
- 
-diff --git a/include/drm/display/drm_scdc.h b/include/drm/display/drm_scdc.h
-index 3d58f37e8ed8..7f0b05b2f280 100644
---- a/include/drm/display/drm_scdc.h
-+++ b/include/drm/display/drm_scdc.h
-@@ -29,6 +29,8 @@
- #define SCDC_SOURCE_VERSION 0x02
- 
- #define SCDC_UPDATE_0 0x10
-+#define  SCDC_RSED_UPDATE (1 << 6)
-+#define  SCDC_FLT_UPDATE (1 << 5)
- #define  SCDC_READ_REQUEST_TEST (1 << 2)
- #define  SCDC_CED_UPDATE (1 << 1)
- #define  SCDC_STATUS_UPDATE (1 << 0)
-@@ -46,14 +48,25 @@
- #define SCDC_CONFIG_0 0x30
- #define  SCDC_READ_REQUEST_ENABLE (1 << 0)
- 
-+#define SCDC_CONFIG_1 0x31
-+#define  SCDC_FRL_RATE   0x0f
-+#define  SCDC_FFE_LEVELS 0xf0
-+
- #define SCDC_STATUS_FLAGS_0 0x40
-+#define  SCDC_DSC_FAIL (1 << 7)
-+#define  SCDC_FLT_READY (1 << 6)
-+#define  SCDC_LN3_LOCK (1 << 4)
- #define  SCDC_CH2_LOCK (1 << 3)
- #define  SCDC_CH1_LOCK (1 << 2)
- #define  SCDC_CH0_LOCK (1 << 1)
--#define  SCDC_CH_LOCK_MASK (SCDC_CH2_LOCK | SCDC_CH1_LOCK | SCDC_CH0_LOCK)
-+#define  SCDC_CH_LOCK_MASK (SCDC_LN3_LOCK | SCDC_CH2_LOCK | SCDC_CH1_LOCK | \
-+			    SCDC_CH0_LOCK)
- #define  SCDC_CLOCK_DETECT (1 << 0)
- 
- #define SCDC_STATUS_FLAGS_1 0x41
-+#define  SCDC_LN_EVEN_TRAIN_PTRN 0x0f
-+#define  SCDC_LN_ODD_TRAIN_PTRN 0xf0
-+#define SCDC_STATUS_FLAGS_2 0x42
- 
- #define SCDC_ERR_DET_0_L 0x50
- #define SCDC_ERR_DET_0_H 0x51
-@@ -65,6 +78,12 @@
- 
- #define SCDC_ERR_DET_CHECKSUM 0x56
- 
-+#define SCDC_ERR_DET_3_L 0x57
-+#define SCDC_ERR_DET_3_H 0x58
-+
-+#define SCDC_ERR_DET_RS_L 0x59
-+#define SCDC_ERR_DET_RS_H 0x5a
-+
- #define SCDC_TEST_CONFIG_0 0xc0
- #define  SCDC_TEST_READ_REQUEST (1 << 7)
- #define  SCDC_TEST_READ_REQUEST_DELAY(x) ((x) & 0x7f)
+ 	struct i2c_msg msgs[2] = {
+@@ -107,8 +107,8 @@ EXPORT_SYMBOL(drm_scdc_read);
+  * Returns:
+  * 0 on success, negative error code on failure.
+  */
+-ssize_t drm_scdc_write(struct i2c_adapter *adapter, u8 offset,
+-		       const void *buffer, size_t size)
++int drm_scdc_write(struct i2c_adapter *adapter, u8 offset, const void *buffer,
++		   size_t size)
+ {
+ 	struct i2c_msg msg = {
+ 		.addr = SCDC_I2C_SLAVE_ADDRESS,
 diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
-index e0b79d79e1ff..a3b20adaac7e 100644
+index 34600476a1b9..e9ccaeba56dd 100644
 --- a/include/drm/display/drm_scdc_helper.h
 +++ b/include/drm/display/drm_scdc_helper.h
-@@ -24,6 +24,7 @@
- #ifndef DRM_SCDC_HELPER_H
- #define DRM_SCDC_HELPER_H
+@@ -31,10 +31,10 @@
+ struct drm_connector;
+ struct i2c_adapter;
  
-+#include <linux/errno.h>
- #include <linux/types.h>
+-ssize_t drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
+-		      size_t size);
+-ssize_t drm_scdc_write(struct i2c_adapter *adapter, u8 offset,
+-		       const void *buffer, size_t size);
++int drm_scdc_read(struct i2c_adapter *adapter, u8 offset, void *buffer,
++		  size_t size);
++int drm_scdc_write(struct i2c_adapter *adapter, u8 offset, const void *buffer,
++		   size_t size);
  
- #include <drm/display/drm_scdc.h>
-@@ -38,8 +39,65 @@ struct drm_scdc_status_flags {
- 	bool ch0_locked;
- 	bool ch1_locked;
- 	bool ch2_locked;
-+	bool ln3_locked;
-+	bool flt_ready;
-+	bool dsc_fail;
-+
-+	/* Status Register 1 */
-+	u8 ln0_training_pattern : 4;
-+	u8 ln1_training_pattern : 4;
-+
-+	/* Status Register 2 */
-+	u8 ln2_training_pattern : 4;
-+	u8 ln3_training_pattern : 4;
-+};
-+
-+enum drm_scdc_frl_rate {
-+	SCDC_FRL_RATE_OFF = 0,
-+	SCDC_FRL_RATE_3X3 = 1,
-+	SCDC_FRL_RATE_6X3 = 2,
-+	SCDC_FRL_RATE_6X4 = 3,
-+	SCDC_FRL_RATE_8X4 = 4,
-+	SCDC_FRL_RATE_10X4 = 5,
-+	SCDC_FRL_RATE_12X4 = 6,
-+	SCDC_FRL_RATE_RESV_7 = 7,
-+	SCDC_FRL_RATE_RESV_8 = 8,
-+	SCDC_FRL_RATE_RESV_9 = 9,
-+	SCDC_FRL_RATE_RESV_10 = 10,
-+	SCDC_FRL_RATE_RESV_11 = 11,
-+	SCDC_FRL_RATE_RESV_12 = 12,
-+	SCDC_FRL_RATE_RESV_13 = 13,
-+	SCDC_FRL_RATE_RESV_14 = 14,
-+	SCDC_FRL_RATE_RESV_15 = 15
- };
- 
-+/**
-+ * drm_scdc_num_frl_lanes - get number of lanes for a given FRL rate
-+ * @rate: one of &enum drm_scdc_frl_rate
-+ *
-+ * For a given @rate, return the number of lanes it uses.
-+ *
-+ * Returns: %-EINVAL if @rate is not a valid FRL rate, or the number of lanes
-+ * for a given &enum drm_scdc_frl_rate on success (including %0 for "off")
-+ */
-+static inline __pure int drm_scdc_num_frl_lanes(enum drm_scdc_frl_rate rate)
-+{
-+	switch (rate) {
-+	case SCDC_FRL_RATE_OFF:
-+		return 0;
-+	case SCDC_FRL_RATE_3X3:
-+	case SCDC_FRL_RATE_6X3:
-+		return 3;
-+	case SCDC_FRL_RATE_6X4:
-+	case SCDC_FRL_RATE_8X4:
-+	case SCDC_FRL_RATE_10X4:
-+	case SCDC_FRL_RATE_12X4:
-+		return 4;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
- struct drm_scdc_state {
- 	/** @stf: contents of the status flag registers */
- 	struct drm_scdc_status_flags stf;
-@@ -52,9 +110,14 @@ struct drm_scdc_state {
- 	 * clock period, false if it's 1/10th of the clock period.
- 	 */
- 	bool tmds_bclk_x40;
--	/** @error_count: character error counts for each channel */
--	u16 error_count[3];
--
-+	/** @rate: FRL rate set by the source */
-+	enum drm_scdc_frl_rate rate : 4;
-+	/** @ffe_levels: The FFE levels for @rate set by the source */
-+	u8 ffe_levels : 4;
-+	/** @error_count: character error counts for each channel/link */
-+	u16 error_count[4];
-+	/** @rs_corrections: number of Reed-Solomon Corrections */
-+	u16 rs_corrections;
- 	/** @scdc: raw SCDC data buffer */
- 	u8 scdc[256];
- };
+ /**
+  * drm_scdc_readb - read a single byte from SCDC
 
 -- 
 2.55.0
