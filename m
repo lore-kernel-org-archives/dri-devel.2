@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16C43C531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:04:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 027C3C531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:04:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69BF010F2E0;
-	Fri, 24 Jul 2026 07:04:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4656310F2DF;
+	Fri, 24 Jul 2026 07:04:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iEVTmeYk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f0+ib+mJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5369B10F2E1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 07:04:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B807510F2DF
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 07:04:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9E26141ACA;
- Fri, 24 Jul 2026 07:04:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 264F01F000E9;
- Fri, 24 Jul 2026 07:04:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A0E8242BA0;
+ Fri, 24 Jul 2026 07:04:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC3E1F000E9;
+ Fri, 24 Jul 2026 07:04:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784876649;
- bh=cqug0gSmu0S/YmV9S5gilUBdfTKh6ONdcLQ52WeN0YQ=;
+ s=k20260515; t=1784876685;
+ bh=VMs/xq3GJDqlh81Aq/zinQPzA/3OsaqqHluc+UJDxks=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iEVTmeYk2Bdqm234kKGHV7Oio81P9KpX4ycz6zjZvtvRwA/kQvX0cK4t27ai78Ttd
- 2UmWi0pK1WyGHUZL0sYYrXTvnLTfdI2pjThaRG3Ejoe9KlAXrTEWwVB3zyFXEoYVxU
- d6urkONnHAC5G/67chgm26DNvHW84YeeQr1HNItYfxL4jZor6HSopmV08xTrDWIReW
- luBwU44ye3a7mBxexr5MUBlx9/Pag/KL3i4lmoID2YRjblKqtjcSR2hd9MJpdwH1yt
- ze+Qii/afXffaynywtEwFn2hMplYeecSrmBCWqHBr9bGGTNGpZdPqLNr9TBwHCNY6i
- 5oKTsEs6HMtKg==
+ b=f0+ib+mJWB5Gkvbe21bWbGydXeZAbIj1APMQnTSKtNs5W+i3dYO4kJ/+xrycMtpZR
+ IBpCkfw7i4J/9r3O1GQ9hfXAzeBxkEyOefYzRU54Pvui9ZWvgeItd7wT3X2t9gsYPq
+ hM31LqgHPi5P7MwheUkqQ5K+sRxyS3XRN2Dy9hzAaMor9XGOBrR76DaMVBmRUugQbM
+ ilE6W0CCo357cJdA2D6Rgub6+52h125mjTW9vVA5LPOa0SE1qxVNJuvJ6OFmmPnba7
+ +7eB3RHBlCWjOT0sxeKslaAuoOmtRt0O+l6wi405vspd10tgSIa6fJ2YEh19JU65CJ
+ WHUNb9FjBcbYQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/5] gpu: nova-core: rename heap size field
+Subject: Re: [PATCH v3 3/5] gpu: nova-core: return non-WPR heap size as u64
+ from HALs
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, ojeda@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724-blackwell-fixes-v3-2-01aa6a54e3fd@nvidia.com>
+Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
+ dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>
+In-Reply-To: <20260724-blackwell-fixes-v3-3-01aa6a54e3fd@nvidia.com>
 References: <20260724-blackwell-fixes-v3-0-01aa6a54e3fd@nvidia.com>
- <20260724-blackwell-fixes-v3-2-01aa6a54e3fd@nvidia.com>
+ <20260724-blackwell-fixes-v3-3-01aa6a54e3fd@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 07:04:08 +0000
-Message-Id: <20260724070409.264F01F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 07:04:44 +0000
+Message-Id: <20260724070445.2AC3E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,61 +63,58 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Framebuffer layout calculations use raw subtraction on hardware-pr=
-ovided values, leading to integer underflow if the hardware reports an insu=
-fficient framebuffer size.
+- [High] The driver lacks bounds checking for framebuffer size and VGA work=
+space addresses read from untrusted device MMIO, leading to integer underfl=
+ows and kernel panics.
 --
 
---- Patch [2]: [PATCH v3 2/5] gpu: nova-core: rename heap size field ---
-commit 11d9ee61e9c07ef3fa88364b2849b70d424c5735
+--- Patch [3]: [PATCH v3 3/5] gpu: nova-core: return non-WPR heap size as u=
+64 from HALs ---
+commit 607f14f3038014abfcbe45e7fcb56d2a70d0bac2
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-gpu: nova-core: rename heap size field
+gpu: nova-core: return non-WPR heap size as u64 from HALs
 
-This commit renames the heap field to non_wpr_heap in the nova-core driver's
-framebuffer layout struct, unifying the naming convention.
+This commit changes the non_wpr_heap_size() HAL function to return a u64
+directly, avoiding the need for a conversion when calculating the heap size.
+It updates the HAL implementations for various chipsets accordingly.
 
 > diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-> index 273cff752fae7..1f7b6a69e4db8 100644
+> index 1f7b6a69e4db8..f5832e59de599 100644
 > --- a/drivers/gpu/nova-core/fb.rs
 > +++ b/drivers/gpu/nova-core/fb.rs
-[ ... ]
-> @@ -251,9 +251,9 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gs=
+> @@ -252,7 +252,7 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gs=
 p_fw: &GspFirmware) -> Resu
->              FbRange(wpr2_addr..frts.end)
 >          };
 > =20
-> -        let heap =3D {
-> -            let heap_size =3D u64::from(hal.non_wpr_heap_size());
-> -            FbRange(wpr2.start - heap_size..wpr2.start)
-> +        let non_wpr_heap =3D {
-> +            let non_wpr_heap_size =3D u64::from(hal.non_wpr_heap_size());
-> +            FbRange(wpr2.start - non_wpr_heap_size..wpr2.start)
+>          let non_wpr_heap =3D {
+> -            let non_wpr_heap_size =3D u64::from(hal.non_wpr_heap_size());
+> +            let non_wpr_heap_size =3D hal.non_wpr_heap_size();
+>              FbRange(wpr2.start - non_wpr_heap_size..wpr2.start)
 
 [Severity: High]
-This isn't a bug introduced by this patch, but could this subtraction under=
-flow
-if the hardware reports a framebuffer size smaller than the required compon=
-ents?
+This is a pre-existing issue, but since we are modifying size calculations
+here in FbLayout::new(), could a malicious device cause an integer underflow
+earlier in this function?
 
-The layout calculations in FbLayout::new() sequentially subtract required
-firmware region sizes from the total hardware-provided vidmem_size. For exa=
-mple,
-an earlier calculation does fb.end - NV_PRAMIN_SIZE, which would underflow =
-if
-the reported size is less than 1MB. Similarly, the subtraction
-wpr2.start - non_wpr_heap_size here will underflow if the accumulated
-allocations exceed the total vidmem_size.
+If a device returns a framebuffer size smaller than NV_PRAMIN_SIZE (1MB) fr=
+om
+MMIO, the subtraction fb.end - NV_PRAMIN_SIZE will underflow and panic.
 
-Could this cause a panic in debug builds, or wrap to a very large offset in
-release builds, leading to memory corruption or crashes when interacting wi=
-th
-untrusted or malfunctioning hardware?
+Additionally, the untrusted VGA workspace address read from MMIO isn't boun=
+ded
+against fb.end. If the VGA workspace address is larger than the framebuffer
+size, it can result in a range where start > end. When FbRange::len() is
+called on this range, it will unconditionally subtract start from end, caus=
+ing
+another underflow panic.
+
+Could we add upper bounds checking for the framebuffer size and VGA workspa=
+ce
+address against MMIO registers to prevent these crashes?
 
 >          };
-> =20
->          Ok(Self {
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-blackwell-=
-fixes-v3-0-01aa6a54e3fd@nvidia.com?part=3D2
+fixes-v3-0-01aa6a54e3fd@nvidia.com?part=3D3
