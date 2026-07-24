@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCE00C531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 22:02:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F09F0C531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 22:02:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0397910F4A0;
-	Fri, 24 Jul 2026 22:02:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E62B510F49E;
+	Fri, 24 Jul 2026 22:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SW1jA5Cn";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="l/+E9H8I";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C344510F49A
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 22:02:08 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E676D10F49A
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 22:02:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AD06640534;
- Fri, 24 Jul 2026 22:02:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C05D1F00A3A;
- Fri, 24 Jul 2026 22:02:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CE98543CEA;
+ Fri, 24 Jul 2026 22:02:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56FBE1F00A3A;
+ Fri, 24 Jul 2026 22:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784930528;
- bh=butDrgyw+h/lIiHxHmoL8ZxppbWZX3+rlT+nnGvSiMc=;
+ s=k20260515; t=1784930526;
+ bh=mkoWK4tRjBvEhyBebMpk+L+0ro2wC3/xR9gBiiFgnrs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SW1jA5CnzzM8AHMJBEWjm28GEHl2IrbVpfyBsLGEPMSvCms1A4cNMTdkSb4ApBGcl
- o3b7VLVdWgVaoXeMbXM3ZCGmukwnwKdTZjZWuW5Le7mGRJLCnS6GBLrRhjwI+i9Poa
- RP/3y5F2cFSW2vDOUxuBq3a7z2LhVgkKo9sw03PDik9mYIWBLFg+vRFnj0NMuZ0SW7
- v9HBmpXwsZgxFX+jvyu0TJePHccKl/d1tw0JSXrt7f7F5Bg34DBXzRCPSx3qjkjP4J
- DrImmoBqJKriKA53LH4dKBv3HdsX4UoEytSLmOg+cnClz+rXiZlYKqN4wLFwrU0ANK
- p7kmv2V7NpNzw==
+ b=l/+E9H8It5/NME0ZVqwaG2HQG7Zk48SmzOnNmOcmpVptL1g/KOUnDe4ZoyUknrm2G
+ 6PhgzPOadfuMLUbeuFFRQEUsfa/gQSOUOtd8M0pkJ8mPy9WVM4/Qv6kvw6POuaFy86
+ H0EBjnVkJEIBuaqwAQRsSba2RXVWnHxCRbrP78eA2MnLRbJBaJ1yKP9aM1Gn+efgGY
+ vMARMW1tks+PC104w346Y3aEHcYGWphB6u6xw1g3sgT7pqsRHUssbD3HqWDgcOfL8A
+ oP1dLd14js3QcVLUkgw5NYsRpHrINsarxRtUslFPdTk6Y6fTaXcXk6dVi+NNT7dgZb
+ 5PnAw43Fl76FQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 8/9] PCI: Fix dyn_id add TOCTOU
+Subject: Re: [PATCH v4 5/9] agp/via: Don't rely on address of pci_device_id
 To: "Gary Guo" <gary@garyguo.net>
-Cc: cassel@kernel.org, linux-pci@vger.kernel.org, dlemoal@kernel.org,
- dri-devel@lists.freedesktop.org, linux-scsi@vger.kernel.org,
- linux-ide@vger.kernel.org
-In-Reply-To: <20260723-pci_id_fix-v4-8-3580726844e1@garyguo.net>
+Cc: dri-devel@lists.freedesktop.org, dlemoal@kernel.org, cassel@kernel.org,
+ linux-ide@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-pci@vger.kernel.org
+In-Reply-To: <20260723-pci_id_fix-v4-5-3580726844e1@garyguo.net>
 References: <20260723-pci_id_fix-v4-0-3580726844e1@garyguo.net>
- <20260723-pci_id_fix-v4-8-3580726844e1@garyguo.net>
+ <20260723-pci_id_fix-v4-5-3580726844e1@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 22:02:07 +0000
-Message-Id: <20260724220208.2C05D1F00A3A@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 22:02:05 +0000
+Message-Id: <20260724220206.56FBE1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,79 +63,62 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] `pci_match_device()` returns a pointer to the `id` field of a dyna=
-mically allocated `struct pci_dynid` after releasing the `drv->dynids.lock`=
- spinlock, which can result in a Use-After-Free in the probe path if the ID=
- is concurrently removed via sysfs.
+- [High] The exact same out-of-bounds array access vulnerability triggered =
+by dynamic IDs is fixed in via-agp but left unpatched in the adjacent amd-k=
+7-agp driver.
 --
 
---- Patch [8]: [PATCH v4 8/9] PCI: Fix dyn_id add TOCTOU ---
-commit b2b9cd8b65d097234cb7fc1e84df45480eb112de
+--- Patch [5]: [PATCH v4 5/9] agp/via: Don't rely on address of pci_device_=
+id ---
+commit 2a62b6ae1ca2d9be48b681d606a5d3d5afef208c
 Author: Gary Guo <gary@garyguo.net>
 
-PCI: Fix dyn_id add TOCTOU
+agp/via: Don't rely on address of pci_device_id
 
-Currently there is a TOCTOU issue in new_id_store() as the dyn ID insertion
-in pci_add_dynid() and the pci_match_device() are in separate critical
-sections.
+Address of pci_device_id cannot be relied on due to presence of dynamic ID
+and driver_override. Use driver_data instead.
 
-Fix this by moving the existing ID check to inside pci_add_dynid() and only
-check against the static ID table outside the critical section.
-
-> diff --git a/drivers/pci/pci-driver.c b/drivers/pci/pci-driver.c
-> index c9424edb45481..ab3bb756ce89a 100644
-> --- a/drivers/pci/pci-driver.c
-> +++ b/drivers/pci/pci-driver.c
+> diff --git a/drivers/char/agp/via-agp.c b/drivers/char/agp/via-agp.c
+> --- a/drivers/char/agp/via-agp.c
+> +++ b/drivers/char/agp/via-agp.c
 [ ... ]
-> @@ -153,7 +190,7 @@ static const struct pci_device_id *pci_match_device(s=
-truct pci_driver *drv,
->  						    struct pci_dev *dev)
+> @@ -437,17 +239,14 @@ static void check_via_agp3 (struct agp_bridge_data =
+*bridge)
+> =20
+>  static int agp_via_probe(struct pci_dev *pdev, const struct pci_device_i=
+d *ent)
 >  {
->  	struct pci_dynid *dynid;
-> -	const struct pci_device_id *found_id =3D NULL, *ids;
-> +	const struct pci_device_id *found_id =3D NULL;
+> -	struct agp_device_ids *devs =3D via_agp_device_ids;
+>  	struct agp_bridge_data *bridge;
+> -	int j =3D 0;
+>  	u8 cap_ptr;
+> =20
+>  	cap_ptr =3D pci_find_capability(pdev, PCI_CAP_ID_AGP);
+>  	if (!cap_ptr)
+>  		return -ENODEV;
+> =20
+> -	j =3D ent - agp_via_pci_table;
+> -	printk (KERN_INFO PFX "Detected VIA %s chipset\n", devs[j].chipset_name=
+);
+> +	dev_info(&pdev->dev, "Detected VIA %s chipset\n", (const char *)ent->dr=
+iver_data);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does pci_match_device() have=
- a
-use-after-free risk when returning dynamic IDs?
+This is a pre-existing issue, but the exact same out-of-bounds array access=
+=20
+vulnerability triggered by dynamic IDs is left unpatched in the adjacent=20
+drivers/char/agp/amd-k7-agp.c driver.
 
-It looks like it returns a pointer to the id field of a dynamically allocat=
-ed
-struct pci_dynid after releasing the drv->dynids.lock spinlock:
+Looking at agp_amdk7_probe() in amd-k7-agp.c:
 
-pci_match_device()
-    spin_lock(&drv->dynids.lock);
-    list_for_each_entry(dynid, &drv->dynids.list, node) {
-        if (pci_match_one_id(&dynid->id, &dev_id)) {
-            found_id =3D &dynid->id;
-            break;
-        }
-    }
-    spin_unlock(&drv->dynids.lock);
+    j =3D ent - agp_amdk7_pci_table;
+    dev_info(&pdev->dev, "AMD %s chipset\n",
+             amd_agp_device_ids[j].chipset_name);
 
-    if (found_id)
-        return found_id;
-
-If remove_id_store() is triggered via sysfs concurrently, it can acquire
-dynids.lock, remove the dynamic ID, and call kfree() on the structure:
-
-remove_id_store()
-    list_del(&dynid->node);
-    kfree(dynid);
-
-If this happens while __pci_device_probe() has matched the dynamic ID but
-hasn't finished executing the driver's probe() routine, could the driver
-dereference a freed struct pci_device_id?
-
-__pci_device_probe()
-    id =3D pci_match_device(drv, pci_dev);
-    if (id)
-        error =3D pci_call_probe(drv, pci_dev, id);
-
->  	struct pci_device_id dev_id;
->  	int ret;
+Should a similar fix be applied there as well, since userspace could trigge=
+r=20
+a kernel oops via sysfs driver_override or new_id entries?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-pci_id_fix=
--v4-0-3580726844e1@garyguo.net?part=3D8
+-v4-0-3580726844e1@garyguo.net?part=3D5
