@@ -4,45 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA86C531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:16:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B3B2C531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:23:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8703910E002;
-	Fri, 24 Jul 2026 07:16:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3173910E00C;
+	Fri, 24 Jul 2026 07:23:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O2Taiv8N";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UCmiJVWV";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C63910E002
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 07:16:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D92810E00C
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 07:23:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B445600AA;
- Fri, 24 Jul 2026 07:16:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8A31F000E9;
- Fri, 24 Jul 2026 07:16:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 191F243EFA
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 07:23:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E90691F00ACF
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 07:23:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784877367;
- bh=QzCOElfkN2lrjlgqSiSvtMtMB9vg70biI9vGX0w/2v0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=O2Taiv8NZhVBYX9FVlSh8GPICOgr86n45XlMbIy6QnouYDnESldquSyu+QnVdMFD5
- RruzEvQILH/oi7D1qIOlO1N4s4FbGBwMqI5iJjNnefxc/6XXbuOXzfYb1thfEBPAAT
- wbtx5Jd6IG5DUjrDp/2Q27MbHcSv7Yi8vQapEPTL/FlZgk0j2JiPT2mHAh8QR68Ale
- Tw3nliChw6yDgBHGpDa1kXBpoFX4eEt709QQhZgw50v+Wf0DbUVWNIZCnPmZ7uvRbe
- 3TAjC1bh3U0KpnVSZnpnet3h3uyT7vdqKXqdF7HLhWUKb0euleAuv/AYL6v7TB75iY
- 7f9cPRIVnrbGg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/5] gpu: nova-core: correct FRTS vidmem offset
- calculation
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724-blackwell-fixes-v3-1-01aa6a54e3fd@nvidia.com>
-References: <20260724-blackwell-fixes-v3-0-01aa6a54e3fd@nvidia.com>
- <20260724-blackwell-fixes-v3-1-01aa6a54e3fd@nvidia.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1784877805;
+ bh=0eQpJOs8a4sLi2e+Cp42G70EmXow6xIAasnVywVwzqw=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=UCmiJVWVyZysm2B9//3gwg4d9jUsIQNC8+s8XKZqKfYZ4cIi0aVw/WHlG+KK5J/sb
+ 6VYfIC7+kynvKZAtpBdnrAiAhkuL6s7/4Hewmuc0twlD4nMvSTbJdhLaToXIs34W5+
+ 8CQBY6gTxADOWN44rbxriudVVUp7ZzD9R+hipPFv4zVjV3KGdlNB4Pe/2iOjwq88/Z
+ P2pz4sEYl649/VcKQUL/rkWlM0TrU5/qRchThBsCM5aBf79qUYwViEw97kln+00b1U
+ SvLwfhHXSIFfnMny4FMeRlqy/OoMpsxvsYxL5Wqkmm6TKaGF5VxW6SNC5lsZrSvRkd
+ rVsGiSy1XJkyg==
+Received: by mail-lf1-f41.google.com with SMTP id
+ 2adb3069b0e04-5b00d083818so1054727e87.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:23:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrUvRA27bRgSJFKt1jL2IEaL9g8kDnQ6U1YhGpbsFH00IpammgsjtREaZn9PioeLs1KwHSchZMvetU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxOEklpFZt3NPSuKODL7wDILvpwj3wZDWdyv/NMp9jefrGDqXzF
+ oD1GzniCWBai9yOAQKOkwDQAG1kuaZixBKtw7z4Qn2P1gKawZTiiGWGz7u5cOIVcWFSTAah5scF
+ qH567DQUTlShAOXSO/aFhzfpkLB8nsHM=
+X-Received: by 2002:a05:6512:3b1e:b0:5ae:c3c6:245f with SMTP id
+ 2adb3069b0e04-5b2b303912bmr1100362e87.7.1784877804719; Fri, 24 Jul 2026
+ 00:23:24 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260715024130.186416-1-pengcan@kylinos.cn>
+In-Reply-To: <20260715024130.186416-1-pengcan@kylinos.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 24 Jul 2026 09:23:12 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmqJ9JYnmYKNkMYt8Y9XG9=et3VLrEd8Tv+9M-xFAeZOQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxmkI9aKkU_4f4OIOyE4P8FJoW1SGNBiG6fjIbqTzr0a_cJGJ4mks0xHjc
+Message-ID: <CAD++jLmqJ9JYnmYKNkMYt8Y9XG9=et3VLrEd8Tv+9M-xFAeZOQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/tve200: add OF module alias for autoloading
+To: Can Peng <pengcan@kylinos.cn>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, eric@anholt.net, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 07:16:06 +0000
-Message-Id: <20260724071607.6A8A31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,97 +68,23 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Wed, Jul 15, 2026 at 4:41=E2=80=AFAM Can Peng <pengcan@kylinos.cn> wrote=
+:
 
-New issues:
-- [Medium] Brittle Logic / Incorrect Condition for 2MiB alignment
+> The TVE200 DRM driver can be built as a module and uses tve200_of_match
+> as its OF match table, but the table is not exported for module alias
+> generation.
+>
+> Add the MODULE_DEVICE_TABLE(of, ...) entry so modpost can generate OF
+> module aliases for OF based module autoloading.
+>
+> Fixes: 179c02fe90a4 ("drm/tve200: Add new driver for TVE200")
+> Signed-off-by: Can Peng <pengcan@kylinos.cn>
 
-Pre-existing issues:
-- [Critical] Architecture/Memory Layout Mismatch
---
+Patch applied.
 
---- Patch [1]: [PATCH v3 1/5] gpu: nova-core: correct FRTS vidmem offset ca=
-lculation ---
-commit 281515add8e49de6b8ca823d190ac6318796ffcf
-Author: Eliot Courtney <ecourtney@nvidia.com>
-
-gpu: nova-core: correct FRTS vidmem offset calculation
-
-The commit updates how the FRTS vidmem offset is calculated for the FSP Cha=
-in
-of Trust message. It calculates this offset using a new per-architecture
-reserved size at the end of the framebuffer, plus the PMU reserved size.
-
-> diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
-> index 1475485bded32..30e53df81aa2f 100644
-> --- a/drivers/gpu/nova-core/fsp.rs
-> +++ b/drivers/gpu/nova-core/fsp.rs
-> @@ -134,20 +134,31 @@ struct FspCotMessage {
->  }
-> =20
->  impl FspCotMessage {
-> +    /// Computes the FRTS vidmem offset for the Chain-of-Trust message. =
-It is measured from the end
-> +    /// of the framebuffer.
-> +    fn frts_vidmem_offset(hal: &dyn hal::FspHal, fb_layout: &FbLayout) -=
-> Result<u64> {
-> +        let mut offset =3D u64::from(hal.fb_end_reserved_size());
-> +
-
-[Severity: Critical]
-This is a pre-existing issue, but by updating frts_vidmem_offset() to use
-hal.fb_end_reserved_size() + pmu_reserved_size, there is now a mismatch with
-how FbLayout::new() calculates the FRTS base address.
-
-FbLayout::new() calculates frts_base by subtracting frts_size directly from
-vga_workspace.start:
-
-drivers/gpu/nova-core/fb.rs:FbLayout::new() {
-    let frts =3D {
-        ...
-        let frts_size: u64 =3D hal.frts_size();
-        let frts_base =3D vga_workspace.start.align_down(FRTS_DOWN_ALIGN) -=
- frts_size;
-        ...
-    }
-}
-
-This completely omits the PMU reserved memory space. For architectures like
-GB202, FbLayout places FRTS ~2MiB from the end of the framebuffer, while the
-FSP is told it is located ~28MiB from the end.
-
-Could this discrepancy cause a regression where the host driver loads the G=
-SP
-firmware into physical memory locations that contradict the FSP's memory
-protection firewall?
-
-> +        if fb_layout.pmu_reserved_size !=3D 0 {
-> +            offset =3D (offset + u64::from(fb_layout.pmu_reserved_size))
-> +                // The 2 MiB alignment is r570-specific.
-> +                .align_up(Alignment::new::<SZ_2M>())
-> +                .ok_or(EINVAL)?;
-> +        }
-
-[Severity: Medium]
-Is it brittle to gate the 2MiB alignment behind fb_layout.pmu_reserved_size=
- !=3D 0?
-
-The comment notes this alignment is r570-specific. Using the presence of a =
-PMU
-reservation as a proxy for checking if the firmware is r570 (or CoT version=
- >=3D 2)
-could cause a regression if a future architecture or firmware requires the
-alignment but lacks a PMU reservation.
-
-Could this proxy logic fail if an architecture has no PMU reservation but u=
-ses
-r570-compatible firmware?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-blackwell-=
-fixes-v3-0-01aa6a54e3fd@nvidia.com?part=3D1
+Yours,
+Linus Walleij
