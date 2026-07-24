@@ -4,126 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FEDDC531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:22:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 17F00C531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:22:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56D5D10E004;
-	Fri, 24 Jul 2026 08:22:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 511C010E02A;
+	Fri, 24 Jul 2026 08:22:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="HIxtr9bL";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="hNIcP4OD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YBzm1kcn";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="hNIcP4OD";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="YBzm1kcn";
 	dkim-atps=neutral
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013021.outbound.protection.outlook.com [52.101.72.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6740D10E004
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:21:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=baGANeupM0I0Xqzag4eE0bhywz6SserYfynDdL+8iaAOX+iOuN24M8b4I6zlJarB9+mevmtpKNjQ6WtRGEYs7NjMM1/g7AoM7yPUoMIE89m0gGy1++ZrrGtYP8+DyR+PFXPo5qJR/mUpcLewDeWZqq4yVgs9slSLQl48Ifmcqd0lcuo5DT3xN6lBlv4otRy/Yi62DhAl+K2iz3ClXeyolOK2mtGyY36lrf1IgBfBi3/FyzdtKIQrS2b+6wvSEaFzWeMJbVTGD3euKYa0Fas6vnVGhcdDAMATtSMuyEUB1/flvBNQKeQVDgYTVT81/44g9Ai8Sn0XckmcRl/wVNQjPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IMgKbft/PKzhjUOJiEym5qkhMSFj6rdbnVBxSR5rHBY=;
- b=dHOB1od69E1CKM5NHwnf6j6rH6YZ1acdhP21Kdo/OnZu5OMUBUNQDNU3F+bwCByxrrXWuSOIIXhxUHAtdYyv858A3ZuWT10/LxixIiNy9SQsHdnZVLmlQSoXfZKIueDU9xz8lWwpjlgV7sOg0iVlgtMxGgIOrSOqPCW5eRUAb+zk0RW0iswgTjnsNhcpEXLZM7xzKQoVjznGHH84otnQxoVvMbPx3n3+qI1YFIxbMXBFXwqx8nJ4D7hSxXwG64D6zqrHewZTm9fXrF9Bn0HSU/Qd1B2wb6dpBTNnTRbVc2wVFplCFe4CVdjTFl3xPGT0D7uv96s2CoYFhw5iIlqp9w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IMgKbft/PKzhjUOJiEym5qkhMSFj6rdbnVBxSR5rHBY=;
- b=HIxtr9bLv5wFF7LSK+/621igEqc/x/dgnd4uPQ+FceOzFNnv6p6eRgxFkVv3moaZDOX9nJHIgy9qBd6DA44MHh63ZfSTUBROPa0n8PdT1M84b6zlta3YPghzQorQqIVVpqDYsbjdOsrWvxs6EOvH/gaREBU7bPzM0hovnEasBYhL7qxzcAPRl/wSTLCdobDq7Hz3dwGy193nuCWamOfJqnSOkkhT4ln9SAO8rrbxYh1YJmm/SxLRwGJIlbGtMfUoQoKYG7ktsrwg1ZdTbkgXuI0u9ACy2ks2fJvWGnWGuspZ46cWFCTcm+wzC0a5mlaXnK4ys79Ad21JWL/RewJvXw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by PAWPR04MB10006.eurprd04.prod.outlook.com (2603:10a6:102:380::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 08:21:50 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 08:21:50 +0000
-Date: Fri, 24 Jul 2026 16:23:17 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: festevam@gmail.com, m.felsch@pengutronix.de,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3228810E63D
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:22:08 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id B29863E6F;
+ Fri, 24 Jul 2026 08:22:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784881326; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pXNhgntt4H9EYe6kHPDzSmBU41EYKnSH/pNguOzn3qQ=;
+ b=hNIcP4ODkKB30M5sniYEtbC8l6SKc69OcVNt+jg8qpBusyOUUWjytPeWjZo0dKj442o8qD
+ fJydvMcNyZShY/AhjnDEArO+efBKLBqumaD5qVSQo/EbhPhHDEkfOK9dnD4hva6jBzSC14
+ EDiNy2f4QGyKmbD4NfyWyq8cdMe+484=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784881326;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pXNhgntt4H9EYe6kHPDzSmBU41EYKnSH/pNguOzn3qQ=;
+ b=YBzm1kcnVFc+1jF7g23mCmkikdyDBW74EuOYgmMtYFh8gJ9z95nxtBUt7yjAGem1W/IgQs
+ rAM8wiUjGCQ09eCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1784881326; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pXNhgntt4H9EYe6kHPDzSmBU41EYKnSH/pNguOzn3qQ=;
+ b=hNIcP4ODkKB30M5sniYEtbC8l6SKc69OcVNt+jg8qpBusyOUUWjytPeWjZo0dKj442o8qD
+ fJydvMcNyZShY/AhjnDEArO+efBKLBqumaD5qVSQo/EbhPhHDEkfOK9dnD4hva6jBzSC14
+ EDiNy2f4QGyKmbD4NfyWyq8cdMe+484=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1784881326;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=pXNhgntt4H9EYe6kHPDzSmBU41EYKnSH/pNguOzn3qQ=;
+ b=YBzm1kcnVFc+1jF7g23mCmkikdyDBW74EuOYgmMtYFh8gJ9z95nxtBUt7yjAGem1W/IgQs
+ rAM8wiUjGCQ09eCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4F577779BA;
+ Fri, 24 Jul 2026 08:22:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id Vg0bEq4gY2phdAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 24 Jul 2026 08:22:06 +0000
+Date: Fri, 24 Jul 2026 10:22:04 +0200
+From: Thomas Zimmermann <tzimmermann@suse.de>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v13] drm/bridge: imx: Add i.MX93 parallel display format
- configuration support
-Message-ID: <amMg9cOTWNzHsH35@raspi>
-References: <20260723-v6-18-topic-imx93-parallel-display-v13-1-ccf3f9bbc0fc@nxp.com>
- <gvp7mfhjpgon6hju37ebswo5fjkdzio5lqgcdkhq25zfidayj5@kenuryj2sg3s>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <gvp7mfhjpgon6hju37ebswo5fjkdzio5lqgcdkhq25zfidayj5@kenuryj2sg3s>
-X-ClientProxiedBy: MA0PR01CA0079.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:ae::7) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dim-tools@lists.freedesktop.org
+Subject: [PULL] drm-misc-next
+Message-ID: <20260724082204.GA18774@linux.fritz.box>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|PAWPR04MB10006:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6fcf32cf-f51f-466a-d8f8-08dee95c9c36
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|19092799006|1800799024|366016|376014|7416014|10067099003|11063799006|3023799007|4143699003|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info: kPHPZ1WY3sZehgDvyUlUeVo6pQ/4Loe643+R8lzRkfUlNDbPnJw/p+4Z5mc6flPOwOnNAyuF8QaG8lXz8puGzQ6KI9/fTLpy3MUV+v1bld/xj6PZatgPNTbIdX8YsVGVXEqGwuRrumsZn0MvIFbTBYpOFpbS/kX8MNaZyls2caieiML4RF37nhyF780cMutLouycn25e1fKkszBdk66Q1iggSgThq558yHcRyzhx6vKTgL5pNu127Ibnu4V2ZWmrcyUe7xjm3PNy0hrm55lFevYW67+TqBa60OPpkp0ZBUCaVf9SGmSUGgHI1Lg24s2k/RTeDWVOIH75h1jwnCm3EyiahZ7QxBiX4CUxOYRhZpqaFNJy9pJOzLhCZxQM/qrf87b4EhmIewqFcTekAz5fanFXDNZedqZlxavKZE8+xjN3mnCoXgNIaxGR7dcRSw5crhBcGMQFfH/EF1GzPvXz7i72yhQoRwOUZGAMj/0Y+0dybR2Qd75mRE8QiP+rZ2bg3fDv486h8FOOW5VWLXxu2Tc0ArKxAu5t/2PCIacgmaEF42QUyceRRADQxu/RyURjPD6cXatzm4FfsqkttWFTbQZx67wXWzHjtb//7d5dsTOEO7+uJaIn25z0ydZ3zto0QW0DUz4CrB8e/NsNIYUNFeaIwXXQtSlGdnMMjiFscU4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(19092799006)(1800799024)(366016)(376014)(7416014)(10067099003)(11063799006)(3023799007)(4143699003)(56012099006)(18002099003)(22082099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?6QmVNpstnbZAl3Nj7d+NALSgOXwuj7WruLmdH0E0AwD4Uhr/B5zLGJEK1cv3?=
- =?us-ascii?Q?SgwuKizihed28v6fB4jDbDpL7YipG3INwnRMvc0HRrWUr45UYahTIOIw2c4n?=
- =?us-ascii?Q?OyjDWf6t8K1K2958Ld5BdSU05d0UPGjB3uf7Un/38SsJ9hE9A5Ka9hj5rD8b?=
- =?us-ascii?Q?F0naVdJlo4KU9SPSMiJAW/33WL5oyjU4FjBgvSABiJM1HDCTB3gmOwOJC1Fp?=
- =?us-ascii?Q?Ssbl5N+r4iDIJh5BzUe5ecXa8evRqukpHAxmBUAwP+DA7Oe/FXx5CA2nZH88?=
- =?us-ascii?Q?sesLgEMFDgbOn1NUlBtj0o2CjFs2JKwSQTZ3Y02UZJswSfkSoI2EkMAPf2+d?=
- =?us-ascii?Q?8tZjRO2QENmkQZ93NRf8wlEyL8l7Fw6UCSf3e1gaLysZVTuB99D1Ae/zeLNI?=
- =?us-ascii?Q?XbX4tpwcEYwPTjdK001HreOA/NGsZX2GO+Lo7oZ/aNwPLM39v0RnA+6qpwHo?=
- =?us-ascii?Q?5Suz5iA3oH0PtvGI/v6Eg51zd1GIi8KqKmsB5qKtpEQvaGUvo35NUOKz5c5c?=
- =?us-ascii?Q?HOIHKldkR9d5rF6yw7ClrRqDxk31mkKIzib+DVOyb0GgWVx5EpZ8gvnPkAVl?=
- =?us-ascii?Q?cOOOKYW2QaKpnVLOL2gapNTCuz92wotT4l008YHNIL2DLu2yosiLX2syclve?=
- =?us-ascii?Q?jFkCBnXxS+yiy8o0L1o3QQ002WU+sAYrbNS2hA7IDeoVcyynA/ivrHoJ/34M?=
- =?us-ascii?Q?XyT0n5VijClwf6idkVnUaNiIs+a1Lo2ZzdkhauOvDhUQyUqgI+w4Aone1WKX?=
- =?us-ascii?Q?Q57kivdf2waWPURkHgoSqXkLzAE1axoUCnkNm4Mei70V+jh4n3fiZ2ENHTX4?=
- =?us-ascii?Q?3djT0D6DsexzSCsQehaTvGI8PRW2YMin/1TmoyMooaScXeVxwkMR3uwx9ymT?=
- =?us-ascii?Q?Wp040bc9ZABhATaYaWAKl3NPIFI897Bcn2e/lMM+MUo2Bq3BOR4bREFUVQPP?=
- =?us-ascii?Q?yBwnpx65GPGbIET1L30afv66DdZIfSykqKGKsC0ExBUGcHFWtstWFRePvKny?=
- =?us-ascii?Q?TNLh41zhM+fwAxpsmTY9tRoPzzNClMJCdgIvtrbWUHDRVTo68Tdy8Vk2zUBF?=
- =?us-ascii?Q?U0C8qpQ1fHlLPxi6NY44PVgEsCRx6YsbVZyYEsc1ObQseYTcmUewLVpUQzoh?=
- =?us-ascii?Q?cRyPqgkSLj/Y9DTRDAQULoFSCPuFab1V+q+oERzPb1QJqsYiMMRal4NISiwp?=
- =?us-ascii?Q?P6Vr0Z9O736p1zTlMDpBMfF8Xt2/Ua/BFF1RurNQwZAy+oKFrPP4l8SH1kgD?=
- =?us-ascii?Q?PvkyJHTjqY3y7m5xdsGpAEWd1rAgKJ5dLyU5Ze060jp4UN/EFFStabYe5TaO?=
- =?us-ascii?Q?+2w4Yq2KcFaSsJCxFqsN4cs9kdH1dDzgpFR+DG5lVMhgtYFM4CDXlYLHgq1T?=
- =?us-ascii?Q?ES//XdHmpRChckYTJuPaS8LYLrI4OaZD3uSxIsDT2uxjPGIfsG+W2I1Ttma8?=
- =?us-ascii?Q?iP8sEOE8zgyU6OO4/g2/1XHSIcguzXu3y1mmE0oa4G4VMBSqycpvWC6VbfRC?=
- =?us-ascii?Q?PKgIYo3peMaK3n9tdFs1eTLi+6yiUhidzcS36jAZexZCJQUHAwoLiBtpqJf7?=
- =?us-ascii?Q?UwFoxVd9quc0xvDldgnJxs4n1zrugSeJbBtxLEVVj9aLhz+4CHmgLuDk1eE6?=
- =?us-ascii?Q?Hn0OILosiJs3DWh6emJh2NZnIxkI8cjO1lVZemVUBatrlju6SEN5iyiNXZT/?=
- =?us-ascii?Q?F/5+F/f4Xm/LiAqkAii+ChrOPhjiENt/Q048xkAzAs9zUow0xEk68h+fG+zj?=
- =?us-ascii?Q?H1hqRdo0gg=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6fcf32cf-f51f-466a-d8f8-08dee95c9c36
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 08:21:50.3070 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yG1e3hlmFbD4RaUsFkOdsqkME08dKwhsh+YPHMhqr/XRDCEXTt0EOYiTKyZLJxFp1CPB0aiVJpT4AKqyNze6uQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAWPR04MB10006
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ FREEMAIL_TO(0.00)[gmail.com,ffwll.ch];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FUZZY_RATELIMITED(0.00)[rspamd.com];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
+ ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[16];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ MISSING_XM_UA(0.00)[]; FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo]
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,87 +116,383 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Jul 24, 2026 at 11:08:06AM +0300, Laurentiu Palcu wrote:
-> Hi Ying,
+Hi Dave, Sima,
 
-Hi Laurentiu,
+this is this week's PR from drm-misc-next. Note that there are two
+changes that slightly affect UAPI behaviour. One of them is in the
+cgroup subsystem.
 
-> 
-> On Thu, Jul 23, 2026 at 02:37:32PM +0800, Liu Ying wrote:
-> > NXP i.MX93 mediamix blk-ctrl contains one DISPLAY_MUX register which
-> > configures parallel display format by using the "PARALLEL_DISP_FORMAT"
-> > field. Add a DRM bridge driver to support the display format configuration.
-> > 
-> > [m.felsch@pengutronix.de: port to v7.0-rc1]
-> > [m.felsch@pengutronix.de: add review feedback (Alexander)]
-> > [m.felsch@pengutronix.de: fix to short Kconfig description (checkpath)]
-> > [m.felsch@pengutronix.de: use "GPL" instead of "GPL v2" (checkpatch)]
-> > [m.felsch@pengutronix.de: add bus-width support]
-> > [ Liu Ying: Port to drm-misc/drm-misc-next(v7.2-rc2 based) ]
-> > [ Liu Ying: Add nxp,imx91-pdfc compatible string ]
-> > [ Liu Ying: Call drm_bridge_get() for next_bridge ]
-> > [ Liu Ying: Reject unsupported output bus fmt in .atomic_get_input_bus_fmts() ]
-> > 
-> > Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-> > Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
-> > Signed-off-by: Liu Ying <victor.liu@nxp.com>
-> > ---
-> 
-> [...]
-> 
-> > +static void imx93_pdfc_bridge_atomic_enable(struct drm_bridge *bridge,
-> > +					    struct drm_atomic_commit *state)
-> > +{
-> > +	struct imx93_pdfc *pdfc = bridge_to_imx93_pdfc(bridge);
-> > +	const struct drm_bridge_state *bridge_state;
-> > +	unsigned int mask = PARALLEL_DISP_FORMAT;
-> > +	unsigned int val;
-> > +
-> > +	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
-> > +
-> > +	switch (bridge_state->output_bus_cfg.format) {
-> > +	case MEDIA_BUS_FMT_RGB888_1X24:
-> > +	case MEDIA_BUS_FMT_FIXED:
-> > +		val = FORMAT_RGB888_TO_RGB888;
-> > +		if (pdfc->phy_bus_width == 18) {
-> > +			/*
-> > +			 * Can be valid if physical bus limitation exists,
-> > +			 * therefore use dev_dbg().
-> > +			 */
-> > +			dev_dbg(pdfc->dev, "Truncate two LSBs from each color\n");
-> > +			val = FORMAT_RGB888_TO_RGB666;
-> > +		}
-> > +		break;
-> > +	case MEDIA_BUS_FMT_RGB666_1X18:
-> > +		val = FORMAT_RGB888_TO_RGB666;
-> > +		break;
-> > +	case MEDIA_BUS_FMT_RGB565_1X16:
-> > +		val = FORMAT_RGB565_TO_RGB565;
-> > +		break;
-> > +	}
-> > +
-> > +	regmap_update_bits(pdfc->regmap, IMX93_DISPLAY_MUX_REG, mask, val);
-> 
-> Apparently, the 'mask' variable is only used in this call, nowhere else. Why
-> not use PARALLEL_DISP_FORMAT macro directly here instead of declaring a
-> variable just for that?
+Apart from that, the PR has the usual fixes throughout drivers. There's
+support for several new panels. The larges change is in host1x and tegra,
+which now support Tegra264 SoCs.
 
-Marco introduced the mask variable to the code.  I'd say it makes the
-regmap_update_bits() call fit into one line, so it doesn't look too bad
-and I'm fine with it.
+Best regards
+Thomas
 
-> 
-> Otherwise,
-> Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+drm-misc-next-2026-07-24:
+drm-misc-next for v7.3:
 
-If no objections, may I take this R-b tag as a valid one if keeping the
-mask variable as-is?
+UAPI Changes:
 
-> 
-> -- 
-> Thanks,
-> Laurentiu
+cgroup:
+- dmem: accept one region per limit
+
+drm:
+- send per-connector hotplug events
+
+Core Changes:
+
+buddy:
+- tests: test buffer clearence on resume
+
+panel:
+- implement ref counting for struct drm_panel throughout the DRM tree
+
+Driver Changes:
+
+etnaviv:
+- force flush on power register ops
+
+gma:
+- replace simple-kms helpers with regular atomic helpers
+- clean up
+
+host1x:
+- support Tegra264 plus DT bindings
+- fix minor issues throughout driver
+
+hypervdrm:
+- clean up PCI-device binding
+
+imagination:
+- mark BXM-4-64 MC1 (36.52.104.182) as supported
+- clean up
+
+ivpu:
+- clean up
+
+nouveau:
+- remove redundant call to pm_runtime_mark_last_busy()
+
+panel:
+- support Novatek NT36536 plus DT bindings
+- sofef00: fix backlight updates
+- osd101t2587: use mipi_dsi_*_multi interface
+- panel-edp: adjust timing for AUO displays
+- panel-lvds: support Opto Logic SCX1001511GGC49
+- panel-simple: support Kyocera tcg070wvlq
+
+panfrost:
+- clean up
+
+solomon:
+- clean up variables
+
+tve200:
+- add OF module alias for autoloading
+
+v3d:
+- fix job BO handling
+
+vc4:
+- ref i2c-adapter module
+The following changes since commit ec6444a00c49e6c2b5e9a507272a28126677f9ee:
+
+  drm/bridge: tc358767: clamp the reported AUX read size to the request (2026-07-15 11:38:01 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-2026-07-24
+
+for you to fetch changes up to e55fead22ff9ee047ab9f1903860c4b43043514e:
+
+  drm/imagination: promote BXM-4-64 MC1 (36.52.104.182) to supported status (2026-07-24 08:37:01 +0100)
+
+----------------------------------------------------------------
+drm-misc-next for v7.3:
+
+UAPI Changes:
+
+cgroup:
+- dmem: accept one region per limit
+
+drm:
+- send per-connector hotplug events
+
+Core Changes:
+
+buddy:
+- tests: test buffer clearence on resume
+
+panel:
+- implement ref counting for struct drm_panel throughout the DRM tree
+
+Driver Changes:
+
+etnaviv:
+- force flush on power register ops
+
+gma:
+- replace simple-kms helpers with regular atomic helpers
+- clean up
+
+host1x:
+- support Tegra264 plus DT bindings
+- fix minor issues throughout driver
+
+hypervdrm:
+- clean up PCI-device binding
+
+imagination:
+- mark BXM-4-64 MC1 (36.52.104.182) as supported
+- clean up
+
+ivpu:
+- clean up
+
+nouveau:
+- remove redundant call to pm_runtime_mark_last_busy()
+
+panel:
+- support Novatek NT36536 plus DT bindings
+- sofef00: fix backlight updates
+- osd101t2587: use mipi_dsi_*_multi interface
+- panel-edp: adjust timing for AUO displays
+- panel-lvds: support Opto Logic SCX1001511GGC49
+- panel-simple: support Kyocera tcg070wvlq
+
+panfrost:
+- clean up
+
+solomon:
+- clean up variables
+
+tve200:
+- add OF module alias for autoloading
+
+v3d:
+- fix job BO handling
+
+vc4:
+- ref i2c-adapter module
+
+----------------------------------------------------------------
+Albert Esteve (4):
+      drm/panel: have drm_panel_add/remove manage a list reference
+      drm/bridge/panel: hold a reference to the wrapped panel
+      drm/panel: of_drm_find_panel() return a counted reference
+      drm/panel: find_panel_by_fwnode() return a counted reference
+
+Andrzej Kacprowski (1):
+      accel/ivpu: Remove unnecessary min_t()/max_t() usage
+
+Arunpravin Paneer Selvam (1):
+      drm/tests/gpu_buddy: add a new test case for buffer clearance during resume
+
+Can Peng (1):
+      drm/tve200: add OF module alias for autoloading
+
+Cédric Bellegarde (1):
+      drm/panel: sofef00: Fix DSI transfer errors on backlight update
+
+Dio Zhang (1):
+      drm/panel: panel-edp: Adjust T8 timing for AUO B116XAK01.6 and B140XTK02.4
+
+Diogo Silva (2):
+      drm/gma500: cdv_intel_dp: fix indentation to use tabs instead of spaces
+      drm/gma500: Remove dependency on DRM simple helpers
+
+Eric Chanudet (1):
+      cgroup/dmem: accept only one region per limit write
+
+Frank Binns (2):
+      drm/imagination: update GPU support documentation
+      drm/imagination: promote BXM-4-64 MC1 (36.52.104.182) to supported status
+
+Heiko Schocher (1):
+      drm/panel: simple: Add Kyocera tcg070wvlq panel
+
+Iker Pedrosa (1):
+      drm/solomon: remove unneeded variables in blit functions
+
+Johan Hovold (1):
+      drm/vc4: hdmi: take i2c adapter module reference
+
+Leonardo Costa (1):
+      dt-bindings: display: panel-lvds: Add compatible for Opto Logic SCX1001511GGC49
+
+Markus Elfring (1):
+      drm/nouveau: Omit a redundant pm_runtime_mark_last_busy() call in nouveau_pmops_runtime_idle()
+
+Matt Coster (2):
+      drm/imagination: Add and use FLEX_ARRAY_CHECK()
+      drm/imagination: Use struct_size_t()
+
+Maíra Canal (2):
+      drm/v3d: Associate BOs with every job that accesses them
+      drm/panfrost: Remove unused scheduled_jobs list
+
+Mikko Perttunen (11):
+      gpu: host1x: Wait for timeout worker completion on channel free
+      gpu: host1x: Avoid double device_add when clients already present
+      gpu: host1x: Fix offset calculation in trace_write_gather
+      gpu: host1x: Avoid stack over-read in debug output helpers
+      gpu: host1x: Change pin_job() return type to int
+      gpu: host1x: Annotate intentional syncpoint wrap-around
+      dt-bindings: display: tegra: Changes to support Tegra264
+      dt-bindings: display: tegra: Add Tegra264 compatible for VIC
+      gpu: host1x: Correctly parse linear ranges of context devices
+      drm/tegra: falcon: Add support for RISC-V external boot
+      drm/tegra: vic: Add Tegra264 support
+
+Natalie Vock (1):
+      MAINTAINERS: Update Natalie Vock's email
+
+Neil Armstrong (1):
+      drm: fix missing header include for drm_panel_put()
+
+Nicolas Frattaroli (2):
+      drm/connector: Fix epoch_counter docs to reflect reality
+      drm: Send per-connector hotplug events
+
+Pengyu Luo (2):
+      dt-bindings: display: panel: Add Novatek NT36536
+      drm/panel: Add Novatek NT36536 panel driver
+
+Randolph Sapp (1):
+      drm/etnaviv: force flush on power register ops
+
+Robert-Andrei Mercea (1):
+      drm/panel: osd101t2587: migrate to newer mipi_dsi* functions
+
+Santosh BS (1):
+      gpu: host1x: Add Tegra264 support
+
+Uwe Kleine-König (The Capable Hub) (3):
+      drm/hyperv: Unregister pci driver in error path before module unload
+      drm/hyperv: Explicitly set subvendor and subdevice for pci match array
+      drm/hyperv: Move MODULE_DEVICE_TABLE to the device_id arrays
+
+ .mailmap                                           |   3 +-
+ .../bindings/display/panel/novatek,nt36536.yaml    |  91 +++
+ .../bindings/display/panel/panel-lvds.yaml         |   2 +
+ .../display/tegra/nvidia,tegra124-vic.yaml         |   1 +
+ .../display/tegra/nvidia,tegra20-host1x.yaml       |  20 +-
+ MAINTAINERS                                        |   2 +-
+ drivers/accel/ivpu/ivpu_fw.c                       |   2 +-
+ drivers/accel/ivpu/ivpu_mmu_context.c              |   4 +-
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  12 +
+ drivers/gpu/drm/bridge/fsl-ldb.c                   |   1 +
+ drivers/gpu/drm/bridge/lontium-lt9211.c            |   1 +
+ drivers/gpu/drm/bridge/lvds-codec.c                |   1 +
+ drivers/gpu/drm/bridge/panel.c                     |  20 +-
+ drivers/gpu/drm/bridge/samsung-dsim.c              |   1 +
+ drivers/gpu/drm/bridge/ssd2825.c                   |   1 +
+ drivers/gpu/drm/bridge/tc358767.c                  |   2 +
+ drivers/gpu/drm/bridge/tc358768.c                  |   1 +
+ drivers/gpu/drm/bridge/waveshare-dsi.c             |   1 +
+ drivers/gpu/drm/drm_of.c                           |   3 +-
+ drivers/gpu/drm/drm_panel.c                        |  24 +-
+ drivers/gpu/drm/drm_panel.c.orig                   | 722 +++++++++++++++++++++
+ drivers/gpu/drm/drm_probe_helper.c                 |  53 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.c              |  10 +-
+ drivers/gpu/drm/etnaviv/etnaviv_gpu.h              |   6 +
+ drivers/gpu/drm/exynos/exynos_dp.c                 |  19 +-
+ drivers/gpu/drm/exynos/exynos_drm_dpi.c            |   3 +
+ drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          |  18 +
+ drivers/gpu/drm/gma500/cdv_intel_crt.c             |   9 +-
+ drivers/gpu/drm/gma500/cdv_intel_dp.c              | 120 ++--
+ drivers/gpu/drm/gma500/cdv_intel_hdmi.c            |  10 +-
+ drivers/gpu/drm/gma500/cdv_intel_lvds.c            |   9 +-
+ drivers/gpu/drm/gma500/oaktrail_hdmi.c             |   9 +-
+ drivers/gpu/drm/gma500/oaktrail_lvds.c             |   9 +-
+ drivers/gpu/drm/gma500/psb_intel_lvds.c            |   9 +-
+ drivers/gpu/drm/hyperv/hyperv_drm_drv.c            |  14 +-
+ drivers/gpu/drm/imagination/pvr_device.c           |   4 +-
+ drivers/gpu/drm/imagination/pvr_drv.c              |   5 +-
+ drivers/gpu/drm/imagination/pvr_queue.c            |  11 +-
+ drivers/gpu/drm/imagination/pvr_rogue_fwif_check.h |  19 +-
+ drivers/gpu/drm/imx/dcss/dcss-kms.c                |   4 +
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |   4 +-
+ drivers/gpu/drm/logicvc/logicvc_interface.c        |  12 +
+ drivers/gpu/drm/mcde/mcde_drv.c                    |   1 +
+ drivers/gpu/drm/mcde/mcde_dsi.c                    |   1 +
+ drivers/gpu/drm/mxsfb/mxsfb_drv.c                  |   2 +
+ drivers/gpu/drm/nouveau/nouveau_drm.c              |   1 -
+ drivers/gpu/drm/omapdrm/dss/output.c               |   1 +
+ drivers/gpu/drm/panel/Kconfig                      |  11 +
+ drivers/gpu/drm/panel/Makefile                     |   1 +
+ drivers/gpu/drm/panel/panel-edp.c                  |   4 +-
+ drivers/gpu/drm/panel/panel-novatek-nt36536.c      | 488 ++++++++++++++
+ drivers/gpu/drm/panel/panel-osd-osd101t2587-53ts.c |  14 +-
+ drivers/gpu/drm/panel/panel-samsung-sofef00.c      |   4 +
+ drivers/gpu/drm/panel/panel-simple.c               |   3 +
+ drivers/gpu/drm/panfrost/panfrost_device.c         |   1 -
+ drivers/gpu/drm/panfrost/panfrost_device.h         |   1 -
+ drivers/gpu/drm/pl111/pl111_drv.c                  |   1 +
+ drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c  |   1 +
+ drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c        |   1 +
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c   |   1 +
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    |  11 +
+ drivers/gpu/drm/rockchip/rockchip_lvds.c           |   4 +
+ drivers/gpu/drm/rockchip/rockchip_rgb.c            |   3 +
+ drivers/gpu/drm/solomon/ssd130x.c                  |   9 +-
+ drivers/gpu/drm/sti/sti_dvo.c                      |   3 +
+ drivers/gpu/drm/stm/ltdc.c                         |   2 +
+ drivers/gpu/drm/stm/lvds.c                         |  12 +-
+ drivers/gpu/drm/sun4i/sun4i_lvds.c                 |  13 +
+ drivers/gpu/drm/sun4i/sun4i_rgb.c                  |  13 +
+ drivers/gpu/drm/sun4i/sun4i_tcon.c                 |   2 +
+ drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             |   6 +-
+ drivers/gpu/drm/tegra/drm.c                        |   1 +
+ drivers/gpu/drm/tegra/dsi.c                        |   5 +
+ drivers/gpu/drm/tegra/falcon.c                     |  66 +-
+ drivers/gpu/drm/tegra/falcon.h                     |  23 +
+ drivers/gpu/drm/tegra/output.c                     |  24 +-
+ drivers/gpu/drm/tegra/vic.c                        |  92 ++-
+ drivers/gpu/drm/tegra/vic.h                        |   9 +-
+ drivers/gpu/drm/tidss/tidss_kms.c                  |  16 +-
+ drivers/gpu/drm/tve200/tve200_drv.c                |   2 +
+ drivers/gpu/drm/v3d/v3d_drv.h                      |   5 +
+ drivers/gpu/drm/v3d/v3d_submit.c                   |  92 ++-
+ drivers/gpu/drm/vc4/vc4_hdmi.c                     |   8 +-
+ drivers/gpu/host1x/Makefile                        |   3 +-
+ drivers/gpu/host1x/bus.c                           |   2 +-
+ drivers/gpu/host1x/cdma.c                          |   3 +-
+ drivers/gpu/host1x/context.c                       |  13 +-
+ drivers/gpu/host1x/debug.c                         |   4 +-
+ drivers/gpu/host1x/dev.c                           |  41 ++
+ drivers/gpu/host1x/hw/cdma_hw.c                    |  14 +-
+ drivers/gpu/host1x/hw/channel_hw.c                 |  15 +-
+ drivers/gpu/host1x/hw/host1x10.c                   |  33 +
+ drivers/gpu/host1x/hw/host1x10.h                   |  15 +
+ drivers/gpu/host1x/hw/host1x10_hardware.h          |  21 +
+ drivers/gpu/host1x/hw/hw_host1x10_common.h         |   6 +
+ drivers/gpu/host1x/hw/hw_host1x10_hypervisor.h     |  10 +
+ drivers/gpu/host1x/hw/hw_host1x10_uclass.h         | 181 ++++++
+ drivers/gpu/host1x/hw/hw_host1x10_vm.h             |  36 +
+ drivers/gpu/host1x/intr.c                          |   5 +-
+ drivers/gpu/host1x/job.c                           |   2 +-
+ drivers/gpu/host1x/syncpt.c                        |   7 +-
+ drivers/gpu/host1x/syncpt.h                        |   3 +-
+ drivers/gpu/tests/gpu_buddy_test.c                 |  41 ++
+ include/drm/drm_connector.h                        |   5 +-
+ kernel/cgroup/dmem.c                               |  71 +-
+ 105 files changed, 2459 insertions(+), 302 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36536.yaml
+ create mode 100644 drivers/gpu/drm/drm_panel.c.orig
+ create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36536.c
+ create mode 100644 drivers/gpu/host1x/hw/host1x10.c
+ create mode 100644 drivers/gpu/host1x/hw/host1x10.h
+ create mode 100644 drivers/gpu/host1x/hw/host1x10_hardware.h
+ create mode 100644 drivers/gpu/host1x/hw/hw_host1x10_common.h
+ create mode 100644 drivers/gpu/host1x/hw/hw_host1x10_hypervisor.h
+ create mode 100644 drivers/gpu/host1x/hw/hw_host1x10_uclass.h
+ create mode 100644 drivers/gpu/host1x/hw/hw_host1x10_vm.h
 
 -- 
-Regards,
-Liu Ying
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
