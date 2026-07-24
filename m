@@ -4,45 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E15C5C531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 09:44:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70F77C531FA
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 09:52:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 189F810E392;
-	Fri, 24 Jul 2026 09:44:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAF9F10E00E;
+	Fri, 24 Jul 2026 09:52:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="eCNCgd2U";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UuarixtG";
 	dkim-atps=neutral
-X-Greylist: delayed 388 seconds by postgrey-1.36 at gabe;
- Fri, 24 Jul 2026 09:44:52 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AE1F10E392
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 09:44:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=xj
- c26gtijyKlp0xxUy20a9plWJdLTseNUX+kKgc45QQ=; b=eCNCgd2UW9EqkTiLkL
- TYNG4kh5ec970h3yyWAYyOoTZM+b1+HSqogOx17qZPjBIifYrH7SDgbOVoIQ484M
- xwc/d9EfMTfJo6fCCvazfIGlhNInngs8N2/9OKHsAsRhJqDoHQs6DseS2MQwTxB0
- ZZ81vaSW8YnFNDjfE3bY7SIKE=
-Received: from localhost.localdomain (unknown [])
- by gzsmtp2 (Coremail) with SMTP id PSgvCgCnrOWJMmNqMRRwIA--.23923S2;
- Fri, 24 Jul 2026 17:38:17 +0800 (CST)
-From: oushixiong1025@163.com
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH 1/2] iosys-map: Add getter functions for virtual addresses
-Date: Fri, 24 Jul 2026 17:38:07 +0800
-Message-Id: <20260724093808.776138-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PSgvCgCnrOWJMmNqMRRwIA--.23923S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7WFyUtrW3Cr1Utw1xZw1rXrb_yoW8ur18pF
- nrGw43Gw48KFnxKFZ3Jw4UurZxX3WfK347WrySkas29r13XrW2yrn5Ca4UAFyDZrWUCr1j
- qFsxGrW5urnxJr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jj5l8UUUUU=
-X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4gkiMWpjMom8GAAA3u
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C15410E00E
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 09:52:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7C56C600C3;
+ Fri, 24 Jul 2026 09:52:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40281F000E9;
+ Fri, 24 Jul 2026 09:52:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784886740;
+ bh=sQrovcqe5Xaw8Z00dGheB4mES5Aoe9+Lu3L4RtKxhqY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UuarixtG6QDO4+kpvCsKGTvdnJjAeW1zTgyQbq89azg87CVV7dS1ECfVnX8C3L00h
+ E18jedco7LFPSUeN4Qooz4/iOx9OPNl2+dYUMPMeaHm0aOwKASgPY4m1Hhkao8Gvy0
+ ACQAXn6ZTL+TbHgj8XRh7RHajB1I6n3S0dB6togIgYysCm0eLUzeyEQnuiOt4/yLpd
+ yj+xqO2OuXiGAjFc4c3FSycchvCFIlv9RUoN2O5l0QyhztwVloi0hE2mbyiHVnt486
+ +YCVlefA+FYGc08CrJG8UD/S4tnSA1zeYr1PQyfU3W5T4MyF6KRn0mFFo6Sehu18o9
+ 5FFBFf+mPymQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] drm/udl: Use iosys_map getter for virtual address
+To: oushixiong1025@163.com
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260724093808.776138-2-oushixiong1025@163.com>
+References: <20260724093808.776138-1-oushixiong1025@163.com>
+ <20260724093808.776138-2-oushixiong1025@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 09:52:19 +0000
+Message-Id: <20260724095219.F40281F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,74 +53,84 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The patch replaces direct access to `map->vaddr` with `iosys_map_g=
+et_vaddr()`. However, `iosys_map_get_vaddr()` explicitly warns and returns =
+`NULL` if the mapping points to I/O memory (`map->is_iomem =3D=3D true`). W=
+hen userspace imports a dma-buf from a discrete GPU (which typically export=
+s VRAM as I/O memory) into the UDL driver and uses it as a framebuffer, the=
+ damage handler `udl_handle_damage()` will receive an I/O memory mapping. C=
+alling `iosys_map_get_vaddr()` on this mapping triggers a `WARN_ON` for eve=
+ry damage rectangle processed and fails the update by returning `-EFAULT`. =
+This functionally breaks PRIME imports from discrete GPUs to DisplayLink de=
+vices and creates a local Denial of Service (DoS) vector by allowing a loca=
+l user to spam the kernel log with warnings or trigger a panic if `panic_on=
+_warn` is enabled. The correct fix for the original architectural issue sho=
+uld have been using `iosys_map_rd()` or `iosys_map_memcpy_from()` rather th=
+an `iosys_map_get_vaddr()`.
+--
 
-Add iosys_map_get_vaddr() and iosys_map_get_vaddr_iomem() as the
-counterparts to iosys_map_set_vaddr() and iosys_map_set_vaddr_iomem().
+--- Patch [2]: [PATCH 2/2] drm/udl: Use iosys_map getter for virtual addres=
+s ---
+commit 935887dfbb84bad699c0f9cf22dbe263fac86a93
+Author: Shixiong Ou <oushixiong@kylinos.cn>
 
-This allows drivers to use the iosys_map abstraction layer properly
-instead of directly accessing the structure members, improving code
-maintainability and safety.
+drm/udl: Use iosys_map getter for virtual address
+   =20
+Replace direct access to map->vaddr with the new iosys_map_get_vaddr()
+helper function. This properly uses the iosys_map abstraction layer
+instead of directly accessing structure members.
 
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
----
- include/linux/iosys-map.h | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+> diff --git a/drivers/gpu/drm/udl/udl_modeset.c b/drivers/gpu/drm/udl/udl_=
+modeset.c
+> index 289711035b67c..06a3a4d149b9d 100644
+> --- a/drivers/gpu/drm/udl/udl_modeset.c
+> +++ b/drivers/gpu/drm/udl/udl_modeset.c
+> @@ -207,12 +207,16 @@ static int udl_handle_damage(struct drm_framebuffer=
+ *fb,
+>  {
+>  	struct drm_device *dev =3D fb->dev;
+>  	struct udl_device *udl =3D to_udl(dev);
+> -	void *vaddr =3D map->vaddr; /* TODO: Use mapping abstraction properly */
+> +	void *vaddr;
+>  	int i, ret;
+>  	char *cmd;
+>  	struct urb *urb;
+>  	int log_bpp;
+> =20
+> +	vaddr =3D iosys_map_get_vaddr(map);
+> +	if (!vaddr)
+> +		return -EFAULT;
+> +
 
-diff --git a/include/linux/iosys-map.h b/include/linux/iosys-map.h
-index 3e85afe794c0..658d5038498a 100644
---- a/include/linux/iosys-map.h
-+++ b/include/linux/iosys-map.h
-@@ -200,6 +200,42 @@ static inline void iosys_map_set_vaddr_iomem(struct iosys_map *map,
- 	map->is_iomem = true;
- }
- 
-+/**
-+ * iosys_map_get_vaddr - Gets the virtual address of a system-memory mapping
-+ * @map:	The iosys_map structure
-+ *
-+ * Returns the system-memory address. The caller must ensure the mapping
-+ * refers to system memory (not I/O memory).
-+ *
-+ * Returns:
-+ * The system-memory address, or NULL if the mapping is not set or refers
-+ * to I/O memory.
-+ */
-+static inline void *iosys_map_get_vaddr(const struct iosys_map *map)
-+{
-+	if (WARN_ON(map->is_iomem))
-+		return NULL;
-+	return map->vaddr;
-+}
-+
-+/**
-+ * iosys_map_get_vaddr_iomem - Gets the virtual address of an I/O-memory mapping
-+ * @map:	The iosys_map structure
-+ *
-+ * Returns the I/O-memory address. The caller must ensure the mapping
-+ * refers to I/O memory (not system memory).
-+ *
-+ * Returns:
-+ * The I/O-memory address, or NULL if the mapping is not set or refers
-+ * to system memory.
-+ */
-+static inline void __iomem *iosys_map_get_vaddr_iomem(const struct iosys_map *map)
-+{
-+	if (WARN_ON(!map->is_iomem))
-+		return NULL;
-+	return map->vaddr_iomem;
-+}
-+
- /**
-  * iosys_map_is_equal - Compares two iosys mapping structures for equality
-  * @lhs:	The iosys_map structure
--- 
-2.25.1
+[Severity: High]
+Does this code break PRIME imports from discrete GPUs?
 
+If userspace imports a dma-buf from a discrete GPU (which typically exports
+VRAM as I/O memory) into the UDL driver and uses it as a framebuffer, the
+map passed to udl_handle_damage() will be mapped as IOMEM.
 
-No virus found
-		Checked by Hillstone Network AntiVirus
+Looking at iosys_map_get_vaddr() in include/linux/iosys-map.h:
 
+static inline void *iosys_map_get_vaddr(const struct iosys_map *map)
+{
+	if (WARN_ON(map->is_iomem))
+		return NULL;
+	return map->vaddr;
+}
+
+This will trigger a WARN_ON for every damage rectangle processed and return
+-EFAULT, failing the update. Could this create a local DoS if panic_on_warn
+is enabled, or spam the kernel log with warnings?
+
+Would it be safer to use iosys_map_rd() or iosys_map_memcpy_from() here
+rather than iosys_map_get_vaddr() to properly handle IOMEM mappings?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724093808.7761=
+38-1-oushixiong1025@163.com?part=3D2
