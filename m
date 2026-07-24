@@ -4,44 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4363C531FA
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:59:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CA0FC531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:59:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2598410E053;
-	Fri, 24 Jul 2026 08:59:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA1CE10E552;
+	Fri, 24 Jul 2026 08:59:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UCi7ZHeF";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LBFNw8Uj";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F136510E051
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:59:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 59C5910E552
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:59:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A2EBB4093B;
+ by sea.source.kernel.org (Postfix) with ESMTP id 434DF4093B;
+ Fri, 24 Jul 2026 08:59:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3F181F000E9;
  Fri, 24 Jul 2026 08:59:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E93341F00A3A;
- Fri, 24 Jul 2026 08:59:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784883563;
- bh=dKusVM3kVcOjE7foTNZ9eX/mI/iaqI4t6R4iccmzPeQ=;
+ s=k20260515; t=1784883566;
+ bh=TzCoFLDYKfBuglSaXI1zoyf1U3HVpuaWEr07IUAs0KY=;
  h=From:To:Cc:In-Reply-To:References:Subject:Date;
- b=UCi7ZHeFNxXXCrLbCxs/iWD0b3gHpfgqHbcEQShM1fejtpNghYh2TB9HjV0wMM+Ed
- ZMK4mQ3ITFDkYOMkUWYcsJmva0eTUPyy+lYNmQo9LAPLnlYFPD5ptwTprf3TB8lXPA
- 9JlpZSC3U3TmAOT+nRMp3BwpNHQGQzY/OCEDJ8UwfFW9HLE53Ovc8q0Imwaihl7U1v
- rpmjzxCHiTEMPD7MFvEbawC55AoVyN+ssZaPJJsJdRK7fbz+ehqjzqa4hCn4oZ6KpF
- BJq69eENhCMci1RM2VMw1x3+rN8maKWTMbgUSEdztzU9m7UnnAkohz9Av0lwYud8fX
- GxSJaqseCDjXQ==
+ b=LBFNw8UjO//W4K6jJNzxAcGStiMl+APiNWF30d8yQ9CDL/pJYgAQpYelAh6iB58KS
+ yTYB/LXOiOcDcogJfs4QZUVmRWFBCPi1ylI/9sFrZEw/0yiWeAUlncTPr9RCNfnK18
+ /pJGvRQLJyMwC4eHXyxgz9nXWyCM6EuY4pbgqNkKwT9qKyJeFENSnbov50Z64KGbzs
+ 9qg6eRZwapTYS3fiVGkT/00gwY6wAcOJdjm9dq8DIj31PGGlh+mP9xemmNxcXcJuP/
+ XwqPa+e10BZcbEtAAxQmKgzul7PVDKiTHCqu+HKpAeo8O3B5CIc6mHEIX9iZDA+jY9
+ mrXm06TllyKag==
 From: Srinivas Kandagatla <srini@kernel.org>
-To: linux-arm-msm@vger.kernel.org, 
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: gregkh@linuxfoundation.org, quic_bkumar@quicinc.com, 
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, 
- dri-devel@lists.freedesktop.org, arnd@arndb.de, 
- dmitry.baryshkov@oss.qualcomm.com
-In-Reply-To: <20260713052236.3033744-1-ekansh.gupta@oss.qualcomm.com>
-References: <20260713052236.3033744-1-ekansh.gupta@oss.qualcomm.com>
-Subject: Re: [PATCH v13 0/4] misc: fastrpc: Add polling mode support
-Message-Id: <178488356170.437795.14308617091553113236.b4-ty@kernel.org>
-Date: Fri, 24 Jul 2026 09:59:21 +0100
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+In-Reply-To: <20260724085650.224899-1-shengchao.guo@oss.qualcomm.com>
+References: <20260724085650.224899-1-shengchao.guo@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: misc: qcom,fastrpc: Document Nord FastRPC
+Message-Id: <178488356375.437795.2129751296429802854.b4-ty@kernel.org>
+Date: Fri, 24 Jul 2026 09:59:23 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
@@ -62,26 +65,18 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
-On Mon, 13 Jul 2026 10:52:32 +0530, Ekansh Gupta wrote:
-> This patch series adds polling mode feature that have been missing in
-> upstream FastRPC driver.
+On Fri, 24 Jul 2026 16:56:50 +0800, Shawn Guo wrote:
+> Add compatible for Qualcomm Nord FastRPC which is compatible with
+> Kaanapali FastRPC.
 > 
-> - Add changes to move fdlist to ctx structure to avoid code duplicacy.
-> - Update context mask to support polling mode.
-> - Add changes to support polling feature.
+> As there are 4 CDSPs on Nord, add label for cdsp2 and cdsp3 as well.
 > 
-> [...]
+> 
 
 Applied, thanks!
 
-[1/4] misc: fastrpc: Move fdlist to invoke context structure
-      commit: a73359512125b686b010c25530f8768cb0fd4632
-[2/4] misc: fastrpc: Replace hardcoded ctxid mask with GENMASK
-      commit: 10555ba6126ede14a98af991c6613151a2cafa5a
-[3/4] misc: fastrpc: Expand context ID mask for DSP polling mode support
-      commit: c49f7643576630fb602adf927eb17399b19da6b0
-[4/4] misc: fastrpc: Add polling mode support for fastRPC driver
-      commit: fefb8b2aa4cc5273e7564903941ae49540e0dfc5
+[1/1] dt-bindings: misc: qcom,fastrpc: Document Nord FastRPC
+      commit: f52f4a167e0e24ed6769f6df9b8b00280d9adf85
 
 Best regards,
 -- 
