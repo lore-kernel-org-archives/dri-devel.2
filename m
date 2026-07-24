@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64C63C531CC
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98722C531CC
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:54:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C66C610F271;
-	Fri, 24 Jul 2026 00:17:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E72D388130;
+	Fri, 24 Jul 2026 00:54:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZKSC5coL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V6sgWkML";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01F2510F271
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:17:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3135688130
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:54:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CDE654048C;
- Fri, 24 Jul 2026 00:17:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 879331F000E9;
- Fri, 24 Jul 2026 00:17:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CE52341447;
+ Fri, 24 Jul 2026 00:54:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F621F000E9;
+ Fri, 24 Jul 2026 00:54:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784852238;
- bh=LNoBiZRIkqYaP7eETzGa30iNuatp+QWvr3IiVW15Vhg=;
+ s=k20260515; t=1784854463;
+ bh=cHJEDt5OOVKsXJhVeL5fwziSeplzB7IrUzt9Tj7MA68=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZKSC5coLVC9XZ9u55w8+hxd9R6ZKPr5KFkScIVPjXnz1eWorrFKZNuHodiniXaFc4
- fog1LzS65PgjwQ3tMWjEirzp2qoHFVuTF17yuFHBGe97DyNTRHypI0VnfYZ4pytX/C
- QAtQDAdVuL8gG0gfMilGYjrgbir3kNhA88Mgb1LQHyCbR9EUIWFay616m1PjAzT6xq
- heFb9dWG7DVpVLuktqZ4RZNS4uulRFYAyYz3YTEDbAGeEa/6EHPbqTCrYamtYJUXj6
- LISy7lZJO9m/LOTk46YffS3N5tlT1U216yWwOY8+ynNfGroJ3P8X5bdv+58NX/ZZss
- oO0fJl8Va76hA==
+ b=V6sgWkMLxDy5IWbbS94zjoulGzfpFYrfwKK7bLofYdZgtrSTdO9CueYIzZSus9gQc
+ xyDA2KLuRHRuJGFojmcRRcW5OOH2P/ipZVHUx3eM40+9xfphKvMYphBDbWWv4VtQJ6
+ TWH6gK3l+DSvcKHUlRSMtPXQktq3y0Vs/jKsGIKn+aJ9Dj+hhtYfowuSFkuR8AlxtB
+ dsjjy7t6K6Ulfq54EigjkIDUZjK1IGINco0BUjSwPVbKSlLIaC2yftfpw+p4U5YceR
+ +U8fcfWlb8A03ZCKsdu5hv88yjeIKl13sX24SyIydBsp273Hv1r7ZmUBip986S76VQ
+ Iwtsa+40s21Ow==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/13] drm/panfrost: Sync with IRQ before MMU disable
- and reset
-To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
+Subject: Re: [PATCH] video: fbdev: kyro: Validate overlay viewport coordinates
+To: "Danila Chernetsov" <listdansp@mail.ru>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724-claude-fixes-v3-7-542af61abd0f@collabora.com>
-References: <20260724-claude-fixes-v3-0-542af61abd0f@collabora.com>
- <20260724-claude-fixes-v3-7-542af61abd0f@collabora.com>
+In-Reply-To: <20260724004245.86764-1-listdansp@mail.ru>
+References: <20260724004245.86764-1-listdansp@mail.ru>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 00:17:18 +0000
-Message-Id: <20260724001718.879331F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 00:54:23 +0000
+Message-Id: <20260724005423.86F621F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,161 +56,87 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] panfrost_device_runtime_suspend unconditionally dereferences pfdev=
-->js, causing a kernel panic on early probe failure.
-- [High] Missing IRQ synchronization in panfrost_jm_fini and panfrost_gpu_f=
-ini allows concurrent IRQ handlers to access freed memory or disabled hardw=
-are.
-- [High] A Time-of-Check to Time-of-Use (TOCTOU) race condition between the=
- threaded IRQ handler and the IRQ suspend function can leave MMU hardware i=
-nterrupts enabled, leading to an unhandled interrupt storm.
+- [High] Missing validation for ulHeight =3D=3D 1 causes a division by zero=
+ panic in SetOverlayViewPort.
 --
 
---- Patch [7]: [PATCH v3 07/13] drm/panfrost: Sync with IRQ before MMU disa=
-ble and reset ---
-commit 50e811614859715a2c6f2e0b562e19db3f2c571c
-Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+--- Patch [1]: [PATCH] video: fbdev: kyro: Validate overlay viewport coordi=
+nates ---
+commit eccd0fc9ac01567bf3583eb92ff9c8b899a5e6b3
+Author: Danila Chernetsov <listdansp@mail.ru>
 
-drm/panfrost: Sync with IRQ before MMU disable and reset
+video: fbdev: kyro: Validate overlay viewport coordinates
 
-This commit synchronizes the MMU IRQ handler before disabling and resetting
-the MMU, preventing HW register accesses from spurious interrupts during
-device teardown or reset. It introduces panfrost_mmu_suspend_irq() to
-handle the IRQ suspension sequence.
+This commit adds coordinate validation in kyro_dev_overlay_viewport_set to
+prevent 32-bit wraparound before passing the values to SetOverlayViewPort.
+It explicitly checks for overflows when adding dimensions and restricts the
+adjusted coordinates to fit into 16-bit register fields.
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_mmu.c
-> index bb6c1614964b1..f067bcd360a89 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> @@ -347,6 +347,7 @@ void panfrost_mmu_reset(struct panfrost_device *pfdev)
->  	struct panfrost_mmu *mmu, *mmu_tmp;
-> =20
->  	clear_bit(PANFROST_COMP_BIT_MMU, pfdev->is_suspended);
-> +	synchronize_irq(pfdev->mmu_irq);
-> =20
->  	spin_lock(&pfdev->as_lock);
+> diff --git a/drivers/video/fbdev/kyro/fbdev.c b/drivers/video/fbdev/kyro/=
+fbdev.c
+> --- a/drivers/video/fbdev/kyro/fbdev.c
+> +++ b/drivers/video/fbdev/kyro/fbdev.c
 
 [ ... ]
 
-> @@ -980,11 +981,6 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
->  	return 0;
->  }
+> @@ -378,11 +381,30 @@ static int kyro_dev_overlay_viewport_set(u32 x, u32=
+ y, u32 ulWidth, u32 ulHeight
+>  	    (x < 2 && ulWidth + 2 =3D=3D 0))
+>  		return -EINVAL;
 > =20
-> -void panfrost_mmu_fini(struct panfrost_device *pfdev)
-> -{
-> -	mmu_write(pfdev, MMU_INT_MASK, 0);
-> -}
-> -
->  void panfrost_mmu_suspend_irq(struct panfrost_device *pfdev)
->  {
->  	set_bit(PANFROST_COMP_BIT_MMU, pfdev->is_suspended);
-> @@ -992,3 +988,8 @@ void panfrost_mmu_suspend_irq(struct panfrost_device =
-*pfdev)
->  	mmu_write(pfdev, MMU_INT_MASK, 0);
->  	synchronize_irq(pfdev->mmu_irq);
->  }
-
-[Severity: High]
-This is a pre-existing issue, but is there a Time-of-Check to Time-of-Use
-(TOCTOU) race condition between this suspend function and the threaded IRQ
-handler?
-
-If the threaded handler panfrost_mmu_irq_handler_thread() checks
-PANFROST_COMP_BIT_MMU without holding locks:
-
-	if (!test_bit(PANFROST_COMP_BIT_MMU, pfdev->is_suspended)) {
-		spin_lock(&pfdev->as_lock);
-		mmu_write(pfdev, MMU_INT_MASK, ~pfdev->as_faulty_mask);
-		spin_unlock(&pfdev->as_lock);
-	}
-
-Concurrently, panfrost_mmu_suspend_irq() sets the bit, writes 0 to
-MMU_INT_MASK, and calls synchronize_irq().
-
-If the threaded handler performs the test_bit() check just before the bit
-is set, it evaluates to true. Then suspend_irq() masks interrupts and
-waits, and finally the threaded handler overwrites the 0 with
-~pfdev->as_faulty_mask, re-enabling interrupts.
-
-Could this lead to an unhandled interrupt storm if the device asserts the
-interrupt and panfrost_mmu_irq_handler() returns IRQ_NONE?
-
+> +	/*
+> +	 * SetOverlayViewPort() adjusts X coordinates by +2 (left) and +1
+> +	 * (right) before packing them into 16-bit register fields.
+> +	 */
+> +	if (x > U16_MAX - 2 || y > U16_MAX)
+> +		return -EINVAL;
 > +
-> +void panfrost_mmu_fini(struct panfrost_device *pfdev)
-> +{
-> +	panfrost_mmu_suspend_irq(pfdev);
-> +}
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does early probe failure
-cause a kernel panic due to a NULL pointer dereference?
-
-If the device probe fails early (e.g., in panfrost_gpu_init() or
-panfrost_mmu_init()), panfrost_jm_init() is never reached, leaving
-pfdev->js as NULL. The error unwinding path calls
-panfrost_try_suspend_device(), which synchronously triggers
-panfrost_device_runtime_suspend().
-
-This suspend handler unconditionally calls panfrost_jm_is_idle(pfdev):
-
-drivers/gpu/drm/panfrost/panfrost_device.c:panfrost_device_runtime_suspend(=
-) {
-    ...
-    if (!panfrost_jm_is_idle(pfdev))
-        return -EBUSY;
-    ...
-}
-
-Which then dereferences pfdev->js->queue:
-
-drivers/gpu/drm/panfrost/panfrost_job.c:panfrost_jm_is_idle() {
-    struct panfrost_job_slot *js =3D pfdev->js;
-    ...
-    if (atomic_read(&js->queue[i].sched.credit_count))
-    ...
-}
-
-Can we safely call panfrost_jm_is_idle() before verifying if the job
-manager is initialized?
-
+> +	right =3D x + ulWidth;
+> +	bottom =3D y + ulHeight;
+> +
+> +	if (right < x || bottom < y)
+> +		return -EINVAL;
+> +
+> +	right--;
+> +	bottom--;
+> +
+> +	if (right > U16_MAX - 1 || bottom > U16_MAX)
+> +		return -EINVAL;
+> +
 
 [Severity: High]
-This is a pre-existing issue, but are there missing IRQ synchronizations in
-panfrost_jm_fini() and panfrost_gpu_fini() that could allow concurrent IRQ
-handlers to access freed memory or disabled hardware?
+This is a pre-existing issue, but does this validation block still allow a
+divide-by-zero panic if ulHeight is 1?
 
-In panfrost_jm_fini(), the driver masks job interrupts but fails to set the
-suspend bit (PANFROST_COMP_BIT_JOB) or wait for executing threaded handlers:
+If a user passes ySize =3D 1 via the KYRO_IOCTL_OVERLAY_VIEWPORT_SET ioctl,
+ulHeight will be 1. The code calculates bottom =3D y + ulHeight, then=20
+bottom--, which results in bottom =3D=3D y.
 
-drivers/gpu/drm/panfrost/panfrost_job.c:panfrost_jm_fini() {
+When these values are passed to SetOverlayViewPort(), it calculates ulDest
+as the difference between the y coordinates (bottom - top). Since they are
+equal, ulDest evaluates to 0:
+
+drivers/video/fbdev/kyro/STG4000OverlayDevice.c:SetOverlayViewPort() {
     ...
-    job_write(pfdev, JOB_INT_MASK, 0);
-
-    for (j =3D 0; j < NUM_JOB_SLOTS; j++) {
-        drm_sched_fini(&js->queue[j].sched);
-    }
+    ulDest =3D srcDest.lDstY2 - srcDest.lDstY1;
+    ...
+    ulFxScale =3D (ulDest << 11) / ulSrc;
+    ...
+    ulSrcBottom =3D ulSrcBottom - (ulFxOffset / ulFxScale);
     ...
 }
 
-Could a concurrently running IRQ thread access the destroyed scheduler
-queues or re-enable the interrupts?
+Because ulDest is 0, ulFxScale evaluates to 0. The subsequent division by
+ulFxScale then causes a kernel panic.
 
-Similarly, in panfrost_gpu_fini(), the GPU is powered off without
-synchronizing or suspending the shared GPU IRQ:
-
-drivers/gpu/drm/panfrost/panfrost_gpu.c:panfrost_gpu_fini() {
-    panfrost_gpu_power_off(pfdev);
-}
-
-If a shared interrupt fires, panfrost_gpu_irq_handler() will read
-GPU_FAULT_STATUS from powered-off hardware. Could this cause a bus fault?
+Should ulHeight =3D=3D 1 be rejected alongside the ulHeight =3D=3D 0 check =
+earlier
+in kyro_dev_overlay_viewport_set()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-claude-fix=
-es-v3-0-542af61abd0f@collabora.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724004245.8676=
+4-1-listdansp@mail.ru?part=3D1
