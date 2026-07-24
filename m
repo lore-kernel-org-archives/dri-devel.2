@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF947C531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 10:07:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C15BEC531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 10:13:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B4A310F345;
-	Fri, 24 Jul 2026 10:07:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 12D5D10F349;
+	Fri, 24 Jul 2026 10:13:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="StPBMpeo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Io3uIUW7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF20410F345;
- Fri, 24 Jul 2026 10:07:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784887649; x=1816423649;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=uZCz9VJqNxvd4EAqe1G4WGRgqlvZd6LuTmOA0y17K3E=;
- b=StPBMpeoI7wxtLsYA1s0pumbeVmHZVwwK15iMPxe4E8t8akSjXxBB16h
- k93Hfjxt2NBG0+KvsWxAAEBr5yNjPr1rKG5PPnLIcF9x9EiTaxZ8ZfRFW
- FgvXBIr5NNS9AkvXB/LyZ3yTZ4zBR3q112ZN+8OkdDbWiJb/Zqt7rmZwb
- YgraF9eau03pnYPnAsNfsqf3eWUuWeLYx59Z4BnrRYRPh9eGNYJfvBUhE
- 0S/muktckUA3RYutfPSKewADoAN9uX9dvu92Ocw6hZFIGLxG/tMJZX5Nh
- ykqGLB3YTsfUeti2RY0fc/mVRwty0EWUXWJ69rQrUzlGbMYDbobTtJJLn A==;
-X-CSE-ConnectionGUID: sJRgIYKUTOuhQfNUefdo/w==
-X-CSE-MsgGUID: ret5q7z3S26/FD42ulTLaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="85669020"
-X-IronPort-AV: E=Sophos;i="6.25,182,1779174000"; d="scan'208";a="85669020"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Jul 2026 03:07:28 -0700
-X-CSE-ConnectionGUID: 92f2XnccStK2Mxjv4Fpd0A==
-X-CSE-MsgGUID: XqRiuTHITfOAuhsd4Lb5Nw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,182,1779174000"; d="scan'208";a="262459900"
-Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by orviesa004.jf.intel.com with ESMTP; 24 Jul 2026 03:07:22 -0700
-From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com
-Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
- anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
- karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
- Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v12 4/4] drm/xe/ras: Use fault-inject to trigger punit error
- handler
-Date: Fri, 24 Jul 2026 15:33:07 +0530
-Message-ID: <20260724100302.706685-10-mallesh.koujalagi@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260724100302.706685-6-mallesh.koujalagi@intel.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2A5110F349
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 10:13:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id BBFBA600AD;
+ Fri, 24 Jul 2026 10:13:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE171F00A3E;
+ Fri, 24 Jul 2026 10:13:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784888020;
+ bh=ltkQubDNiWoE5txDd8/6t2qPd1LT3LiwdriZgzKyyl4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Io3uIUW7sNm6JtLbO/2Km/UlXHpGwMT0PBquclUZQH3qoYzMwWhW7vt3tVnHbfhbp
+ aBLj/4inB+lpmZqAZQgujeX1ejEwdUmPzEroYWKZhdVTy5hq3f6NFlHlHL6H0NswH5
+ 7SLRjSLtSdI8kuaPb7oIMo+dBG3anCOzP2K4bNSGRXDSMg9NXZd0HUGGi2m76qWYIh
+ q0D/4hIwUcBjz/Do00/043QwXWlofEgBekT71ZDWVlw4JGjaab1O/cSoodtV+Rb4YT
+ EOYG3RiMXUTYb2vvNrDaqWBYKubH9mbD242mr/WvT1UzxuUxJDV0lyy72EKF0UFNKH
+ 35bycfHQEXjcg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 2/4] drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET
+ recovery method
+To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260724100302.706685-8-mallesh.koujalagi@intel.com>
 References: <20260724100302.706685-6-mallesh.koujalagi@intel.com>
-MIME-Version: 1.0
+ <20260724100302.706685-8-mallesh.koujalagi@intel.com>
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 10:13:39 +0000
+Message-Id: <20260724101340.3EE171F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,104 +54,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use fault-inject framework to trigger punit_error_handler()
-for testing.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The cold-reset recovery script fails to find the hotplug slot fo=
+r standard single-endpoint PCIe GPUs because it starts its search at the pa=
+rent bridge, skipping the device itself.
+--
 
-Usage:
-  echo 100 > .../inject_punit_error/probability
-  echo 1   > .../inject_punit_error/times
+--- Patch [2]: [PATCH v12 2/4] drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RE=
+SET recovery method ---
+commit 40a35f3de596a4e78fa7c7c9f9433ec0c0f1b456
+Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET recovery method
 
-Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
----
- drivers/gpu/drm/xe/xe_debugfs.c |  4 ++++
- drivers/gpu/drm/xe/xe_debugfs.h |  2 ++
- drivers/gpu/drm/xe/xe_ras.c     | 17 +++++++++++++++++
- 3 files changed, 23 insertions(+)
+This commit adds documentation for the new "cold-reset" wedge recovery
+method. It updates the expectations table and provides an example udev
+rule and recovery script to perform a cold reset by removing the device,
+toggling slot power, and rescanning the PCI bus.
 
-diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_debugfs.c
-index 5a3877fcb0f0..5599d493feca 100644
---- a/drivers/gpu/drm/xe/xe_debugfs.c
-+++ b/drivers/gpu/drm/xe/xe_debugfs.c
-@@ -42,6 +42,7 @@
- 
- DECLARE_FAULT_ATTR(gt_reset_failure);
- DECLARE_FAULT_ATTR(inject_csc_hw_error);
-+DECLARE_FAULT_ATTR(inject_punit_error);
- 
- static bool csc_hw_error_available(struct xe_device *xe)
- {
-@@ -62,6 +63,8 @@ static struct {
- 	{ .name = "inject_csc_hw_error",
- 	  .attr = &inject_csc_hw_error,
- 	  .is_visible = csc_hw_error_available },
-+	{ .name = "inject_punit_error",
-+	  .attr = &inject_punit_error },
- };
- 
- /*
-@@ -76,6 +79,7 @@ bool xe_fault_##name(void)				\
- 
- FAULT_ACTION(gt_reset, gt_reset_failure)
- FAULT_ACTION(csc_hw_error, inject_csc_hw_error)
-+FAULT_ACTION(punit_error, inject_punit_error)
- 
- static void xe_fault_inject_debugfs_register(struct xe_device *xe,
- 					     struct dentry *root)
-diff --git a/drivers/gpu/drm/xe/xe_debugfs.h b/drivers/gpu/drm/xe/xe_debugfs.h
-index cd56f7442b99..dd57914dd4f2 100644
---- a/drivers/gpu/drm/xe/xe_debugfs.h
-+++ b/drivers/gpu/drm/xe/xe_debugfs.h
-@@ -13,10 +13,12 @@ struct xe_device;
- #ifdef CONFIG_DEBUG_FS
- bool xe_fault_gt_reset(void);
- bool xe_fault_csc_hw_error(void);
-+bool xe_fault_punit_error(void);
- void xe_debugfs_register(struct xe_device *xe);
- #else
- static inline bool xe_fault_gt_reset(void) { return false; }
- static inline bool xe_fault_csc_hw_error(void) { return false; }
-+static inline bool xe_fault_punit_error(void) { return false; }
- static inline void xe_debugfs_register(struct xe_device *xe) { }
- #endif
- 
-diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-index 92b4181026cb..da06c16cf7ed 100644
---- a/drivers/gpu/drm/xe/xe_ras.c
-+++ b/drivers/gpu/drm/xe/xe_ras.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2026 Intel Corporation
-  */
- 
-+#include "xe_debugfs.h"
- #include "xe_device.h"
- #include "xe_drm_ras.h"
- #include "xe_pm.h"
-@@ -391,6 +392,22 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
- 	size_t rlen;
- 	int ret;
- 
-+	/*
-+	 * Only allow the injected PUNIT error once the DRM device is registered.
-+	 * xe_ras_process_errors() also runs during probe (via xe_ras_init()), before
-+	 * drm_dev_register() calls device_add() on the DRM minor's kdev. At that
-+	 * point kdev->kobj.parent is not yet linked into the sysfs hierarchy, so
-+	 * kobject_get_path() returns "/card0" instead of the real sysfs path.
-+	 * drm_dev_wedged_event() would then emit a KOBJ_CHANGE uevent with a wrong
-+	 * DEVPATH that udev cannot resolve, silently dropping the event and leaving
-+	 * the cold-reset recovery broken.
-+	 */
-+	if (xe->drm.registered && xe_fault_punit_error()) {
-+		xe_err(xe, "[RAS]: PUNIT error injected\n");
-+		punit_error_handler(xe);
-+		return XE_RAS_RECOVERY_ACTION_DISCONNECT;
-+	}
-+
- 	if (!xe->info.has_sysctrl)
- 		return XE_RAS_RECOVERY_ACTION_RESET;
- 
--- 
-2.48.1
+> diff --git a/Documentation/gpu/drm-uapi.rst b/Documentation/gpu/drm-uapi.=
+rst
+> index 93df92c4ac8cf..52255247a6db9 100644
+> --- a/Documentation/gpu/drm-uapi.rst
+> +++ b/Documentation/gpu/drm-uapi.rst
+[ ... ]
+> @@ -530,6 +542,77 @@ Recovery script::
+>      echo -n $DEVICE > $DRIVER/unbind
+>      echo -n $DEVICE > $DRIVER/bind
+> =20
+> +Example - cold-reset
+> +--------------------
+> +
+> +Udev rule::
+> +
+> +    SUBSYSTEM=3D=3D"drm", ENV{WEDGED}=3D=3D"cold-reset", DEVPATH=3D=3D"*=
+/drm/card[0-9]", \
+> +    RUN+=3D"/path/to/cold-reset.sh $env{DEVPATH}"
+> +
+> +Recovery script::
+> +
+> +    #!/bin/sh
+> +    die() { echo "ERROR: $*" >&2; exit 1; }
+> +
+> +    [ -n "$1" ] || die "Usage: $0 <device-path>"
+> +
+> +    PCI_DEVS=3D/sys/bus/pci/devices
+> +    PCI_SLOTS=3D/sys/bus/pci/slots
+> +
+> +    syspath=3D$(readlink -f "/sys/$1/device" 2>/dev/null || readlink -f =
+"/sys/$1" 2>/dev/null)
+> +    [ -n "$syspath" ] || die "cannot resolve sysfs path for: $1"
+> +
+> +    dev=3D$(basename "$syspath")
+> +    [ -e "$PCI_DEVS/$dev" ] || die "not a PCI device: $dev"
+> +    echo "device : $dev"
+> +
+> +    slot=3D""
+> +    walk=3D$(dirname "$(readlink -f "$PCI_DEVS/$dev")")
 
+[Severity: Medium]
+Will this fail to find the hotplug slot for standard single-endpoint PCIe G=
+PUs?
+
+By initializing walk with dirname here, the script appears to start its sea=
+rch
+at the parent bridge, skipping the device itself. Since the device's own
+address typically matches the hotplug slot address, this skips checking the
+device's slot and will result in no hotplug slot being found for single
+endpoint devices.
+
+> +
+> +    while true; do
+> +        ancestor=3D$(basename "$walk")
+> +        case "$ancestor" in pci*) break ;; esac  # reached the virtual b=
+us root
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724100302.7066=
+85-6-mallesh.koujalagi@intel.com?part=3D2
