@@ -4,136 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CB6FC531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 13:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50192C531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 14:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E966710E061;
-	Fri, 24 Jul 2026 13:22:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8002010E05A;
+	Fri, 24 Jul 2026 14:23:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="srBWI/6m";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="cbh1ER+4";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021106.outbound.protection.outlook.com [52.101.100.106])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8749310E061
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 13:22:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mFa2dOldTsmXoYdbaJCa70uj1t2dYY6+8xc5wV7fqteYn+VK259Emi2iarhnDhemkQ8hSHFknujQo+1wvuAYDD4a6jRTyrzRQupflBWlsbE0oRcjCmPETwM7RkiLTyo93QiVvI44tb8dsoisf16wX/fl9L/Iy6VduNypHZy3wZpkcoj187pzhZSMlj8dNF441ECxBJVmx3nwjTM4q0dqPLmezkrtRwe/9f4R8Yoi+88gYDpRG5hS+ZWMxzkVQWfKw1CZg0dsYII6j5j1bGa3WZo3nUpr2oSwo8rZnP4m6FZopEWFQ05QL5z6mk+DhxSK/Ct/Lee+AJkwoABslNLgUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SP/n9gusqnMelDzwSpzt60029G8k5xRq+f1yTx6WNRs=;
- b=hQ51T/PGazGhfLZ6GOVpE6dE3mRKlwolYehqIvZ0/Nofzy9MJTyrft+KNv3Y388j99JhgsuWkKYYGJNqhHSbNpc8WB9+mPirfAq9EsfowL9TtjG0djwJZQ4MSowubne31orpNQSweIEN8u3MiCIjzLUUW8q/g7pP+ErGe0wRYRIZqEksa6Jm01EgukPxIHdGJe+/ajYhD93maPuiuxwuWBHfXvMz5fGWCxAf+OD4Zyq1D0Ri3gQ2FC2/f0NQx0HVlL8dmSpK37cL9N6/VCbk9gbl6rf6w03822jWNSY96Rp011pXP7jkEYS5Jfup020BwN5zvJj0uw5kAsNESGQFcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SP/n9gusqnMelDzwSpzt60029G8k5xRq+f1yTx6WNRs=;
- b=srBWI/6mHCUZnsW474HcvCv8XeilkDg8djHTW4rGwXEtM5mMlBeBvLlXZ1eGID6BLidoHzLTAXWdpzHh/lnzrlFuGm1MEuV+gCLkitFSHQTABp4k72jzoYZQPU6QyAG8S83t9xB7ee+JXEOg4s66Smxp7q1YIRyTyTZY02rsKxo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LOYP265MB2237.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:116::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 13:22:40 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%2]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 13:22:39 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 24 Jul 2026 14:22:39 +0100
-Message-Id: <DK6U0LR7D57N.3FW1CZG9R42YF@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH 01/10] rust: io: register: allow explicit base type
- specification
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
- <20260721-typed_register-v1-1-452d72b60262@garyguo.net>
- <DK6LF1ODPWC3.3QQV3SXQ55SXP@nvidia.com>
-In-Reply-To: <DK6LF1ODPWC3.3QQV3SXQ55SXP@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0687.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:37b::13) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8269A10E05A
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 14:23:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784902982; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=fqa4JviSFgVcy5kAGqKC0Oc7KqRKE6HGsDk/hxJ/tSI8epWIc7JEMAEVP6SKbcgy8HVA7KmREJa654g64ihofb+nZd4KvQ51jX/jeT02OrprSprby9gZ90E4rsw+dlB/QuJoqCzjR94BfPA9jk0pw7CNg7V6scL/ZGOwx86Imwg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784902982;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=+lCIrbZ134YaEQrfKjVf4P2/qfFEoPUp7GkSeHrd7gM=; 
+ b=JJkzsFXHSN/RX+pE/2wgCFwthc8zGoRW0WP44VuGHw8LkhMrXSzo8cY5vsz86hG9vmmNZTF2Sx4PFphpAXD7GNHYLiTwi7IXNJYz1KIFMTD5v1VWMB5ZOdwObyJ0aoTpzohvt4Fk3L04MS6epC3V62RP7s1SWAF3bUad1xsErUk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784902982; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=+lCIrbZ134YaEQrfKjVf4P2/qfFEoPUp7GkSeHrd7gM=;
+ b=cbh1ER+4qwbRbHxBS1ItDhuI0OmuCake7a6SdJvwko4zZkK/K77xXXN6KCrp/yJ1
+ MfnIdi6ImOb555SDkc2JrR9SLLVHC/vwrhGsj6I1Ic0GbbBCbBCJhw1XI6HjaBELcZx
+ MuB7EDls9R+txvimPyQb3W4qja3c1b8qPGFoQUNY=
+Received: by mx.zohomail.com with SMTPS id 178490298106412.815001569155925;
+ Fri, 24 Jul 2026 07:23:01 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v9 0/5] Add SCDC information to connector debugfs
+Date: Fri, 24 Jul 2026 16:22:35 +0200
+Message-Id: <20260724-scdc-link-health-v9-0-bdda406d016d@collabora.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LOYP265MB2237:EE_
-X-MS-Office365-Filtering-Correlation-Id: dae6347c-cca9-45b1-2175-08dee986a2a8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|10070799003|376014|7416014|22082099003|18002099003|5023799004|56012099006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: LgS7HDYXNS/TXs4n4QmFMwfMmkBNcRAf2riQI3tYPcHgB45YB/PImatQaqEHxbAzCH7HGydeyQmf6BSLq+YHN2NjIHhtYputWsGjCpIl37wTp1hSgncxYMacozUc9TTdsbwI4DCQ+WfE8Ox9eJ2AwMAQn45ceXixVeBDa9yJNAMrCqLljVIR0F8MZeDCLSsFmtuhQXxECZ1aNHYEbEZ/RWi9RD+O4aucic14djcV63oaScSkw+ZKXNM/rT6lNQFm3zfyAogoW036V9ohpC3aPdM0/8WIWjyU+jSTIJeC1cgNVtSck6CrvugAduLeBkOt28djA8i+UADnDzn+ynGaYaKH+jAYaaW6hWO7hSQGvEYW4dxfNpMnqhljAqczVU1TRRREtqKQfac6brH5KjqEVWJMBLKIFG9CQ6q4Hil0ZBY5Up+7URva0EOqrg7Gr+tbcdVtrp91/9HkyAD3PGaAdd6zhyqPHe0WIMHavnhw/SrZ6xAtMv+tEj93HgrvqEcIyo63GFDlbxYBqxSxeZ5I6B5mZZYaHezkf8ZUmKWBt6sU7Duou4XPrSZfhWa7jHYJqs2F6rdLraN3aO80rhac1a1/Xxzyj0WKCxjR0C+AG+hkeq3Sm211fhQLzhfpec8lvVcE7HeVn6htCoI4iJc4ng47/MK5t1XxAwmfQ7ykHlA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(10070799003)(376014)(7416014)(22082099003)(18002099003)(5023799004)(56012099006)(4143699003)(10067099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZmZKZWZnQXU2Z2lieFNleDNEN3orVEZhVVhPN0JrZnNIZU42RTZNVHhsY2lp?=
- =?utf-8?B?bCs1M2xBbGJtMDRHVHI0cmtETkFOUjFrMHhjd09IUXJNR2NKWE1NdDEwR2tu?=
- =?utf-8?B?R2tDRU41MCsvQ0d3S2RNbmN6NTRvTThxRGxIcXN3ZStFYkVURW0rd1diNnhY?=
- =?utf-8?B?a0FnZG1ERVUvdDFacHE3N21nUVdlRitxanRnN2VqakU5eXY3L1JTMjJvMTV2?=
- =?utf-8?B?NWZuYkZWVm1aSVpCK2FuOUlWem5hV05vNzZtQ0JWM1JVN3RQemdvdXdlK1Q5?=
- =?utf-8?B?MDVFWjVIdFhuOFY5T1Nyb3F6MnNvQzE1SVFDcW92NWNvRUx2Mm42MGZXRHhR?=
- =?utf-8?B?MzN0UU5YejVlNVVSa05nUXN5MWVVSFUxRmpNeG9McW9ySUZLbm9jZXZqMG1s?=
- =?utf-8?B?TUxmeE5PSWhNdXU2UVJiclc0YjJQYUhOQlBTN0hvT2hjSFYvaUFjTFpKR0FM?=
- =?utf-8?B?eEY5SFJQbFVwck5oMFUxcWVKN2g0ZElCdW9PWFgxY3Bhb2JNSUw3bHVrV1Nz?=
- =?utf-8?B?MFI5bU0yMzFERHN4Njcra1puenJRNEUwTDMyUG51NTh6dzl5c1FvaHBpeXBZ?=
- =?utf-8?B?dUxSZ2svaUFvWnNZSEpNUDFIUnlpeXRKMGdqRjlDeDYxMlNxMHJSN1RpeUdH?=
- =?utf-8?B?TU1HRlprc3VKandiUEg0b2oxT1pFbUVSTEhDdkZNVmU1RXpjR1hKY1BtZTJs?=
- =?utf-8?B?M2lqa2FvZWVzS21pbStVc2pQSDhzeXlET0k3OEg3VlFrM1FuMXFGMFRDSVc0?=
- =?utf-8?B?WkJSUUtQNityaFZKZk9NVUIvQ3dZTnExcVpEKzRjV1AwRnM3MFkzdHp3aGpp?=
- =?utf-8?B?REliUytEU3lhTVYybVlwV1NtbWZtSEtheFh3WURkZCtNV0MyTW5pSE80ZWY2?=
- =?utf-8?B?eHcxKzhudmgzazl0VGVPMnUrWFFJeHN2UDBlVDZEaEdjdDNBVHh3dzd3S3F1?=
- =?utf-8?B?bTRDQlFuaDJSUThZRGVLaDhUOHAxSHpKeXpSUWJja0Nwd0g5VkwreklZZ0Rt?=
- =?utf-8?B?ekVqelgxRE0ydWFZRW1BOTMwc3JBeVJmRkFnVEZydVR4R25mSFFNWm5nRjdp?=
- =?utf-8?B?dkpwZDdKanB5RWJEeFBXajB3NnJXODBzdHpQTkY5NC9ScHhobmdDQnAyaElu?=
- =?utf-8?B?b0xaVkRwVTc1WXFpVkpiZkNFT3FHcHd0bjhYcDdhRS9aZlB2YzVaYlVld0xP?=
- =?utf-8?B?Mm1IN2hiRmJaT2NQVWt3Q0pHZVk3RjN2TWJ0L2FVVjRMK2I3NDc3S3lzOTdU?=
- =?utf-8?B?VkNLTTU5MUlraUZZM0l3MnUyM0w1YjBRbUxNQVg5OHFaQTFTbkh3TFZHWFht?=
- =?utf-8?B?WEJaTWsxOXduTlFoM1M2a0dJWmJlNjF4cm1vbStkQjljK0hLNzEwVnZoSFdH?=
- =?utf-8?B?eDNKaFErZmpLTG5LL3l5NnNWVklVSjhGQnFmOStBeFQ1N2ZwUjFrOUtjY1JV?=
- =?utf-8?B?VUhtVnJGYkcxVW1MSHI2YUd0dlpPdnlUU2V5WTE2OTFXeWN0THIvRVl6YWRk?=
- =?utf-8?B?Vkhyb2RpejF4UEJlRnM5V0c4Vk1uNkpUYnNVTGQ3SFBhSlBGMFN0VGtuUTNS?=
- =?utf-8?B?bnhkL2NIVGljUTRkQURXZHZTcDNrS2hsMVorU2NiYVhxTElEc2d6ZUNyQkdF?=
- =?utf-8?B?MDVIT2VodVM5OTJZY1hnOFJOT1RGaFIzRVNYc2c0L2o3SjE2MzRHYUV4UnUy?=
- =?utf-8?B?bk5zZ05QdmxQRTZCU0FUMVdaakNiUUVRQkJaVS9lUzhyYTEvcWhGZTE1eHNt?=
- =?utf-8?B?OHR5RXZHYll3ekdDSmtwUTVkcFZNRnpLNjM4WHcrZWRIdnpndDhGeXd3WEVV?=
- =?utf-8?B?N25xRkoxWXN2Z0pXVVZlWWpyVHcwMGdqdUU0ZFZ6YzNacnBxUmlvdW16bk9z?=
- =?utf-8?B?N0lrQzQvWUtweTFIL1A5YmVBZmhwV3c1aUFua3F5VG0vcTRyeVgxeE1qNmIy?=
- =?utf-8?B?aEJOajRRR215cEE5cTZCbThTazJnVWp1V2tocU1qTGkwWFNONjR6Nmt3amxT?=
- =?utf-8?B?N2QvTjBZWXBZOEFJRzJhN2NkZUNHUy92cHZrMWFXUktNbzUyUVhtQ005M3BR?=
- =?utf-8?B?N0xlMk5rSWQzRThzNS9BZkk2RlozbVRnL3ErTGZwU2d1K1BlSTU1VWNsUDZS?=
- =?utf-8?B?bTVpNmd5aTNXeTMwN0JEZUpCMjRYcHNXcVZFcnJ5WVJOUU1mV3h4MzY0MXdO?=
- =?utf-8?B?Y1BmYi9JZW9WWERjazNPSDdvc3pPdkRxa3J1QUlXaXlQOTRSckJWejc0V0kv?=
- =?utf-8?B?aGFoZFoyRUp1SGJNMWZBNktNMkgvRVBaTWNpUnRTRVFFMm1QY05veUZ6SVZu?=
- =?utf-8?B?dlhOOWRYeGpyVk05MnZldzh6U0VDZWdrd29nV3RNRTZDV2dXdU83dz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: dae6347c-cca9-45b1-2175-08dee986a2a8
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 13:22:39.8237 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: svcPxgrOzyq8c1h+Thp+Jdo31BYk6Mzvq5GdAZESydDwTDmlluCxVUiRR18LZs3rX1JrgFi+/w8/A1aWtZwJHA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LOYP265MB2237
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23QzU7DMAwH8FeZciYQJ81Hd+I9EAcncWmgW0fbV
+ aBp707aTVolcoqs2D//5QsbaUg0sv3uwgaa05j6Yy7qpx0LLR4/iKeYayaFNKICxccQA+/S8Yu
+ 3hN3Ucler/AUq1iawPHYaqEk/K/n2fqvHs/+kMC3OvWOg73PeNd3amMeReOgPhzTtd3E48CmdX
+ u4vW5A2jVM//K4xZ1hn7on0/0QzcMEdWQXkHGEjXkPfdej7AZ/zkhWc5QPRUhQQmRENgA24EE3
+ lS4jaIqaAqAWpqcIKkTBCCam2iC0gVUaMlISVQGh0XUL0A8lXKSA6IwBglRcYVKQSYjYIQAExS
+ xIlrLMajddFxD4QK0uIzUgtYwPeYNRNKCFui8gC4jISIkQM3jsd/93ker3+AZ3bIjLcAgAA
+X-Change-ID: 20260413-scdc-link-health-89326013d96c
+To: Jani Nikula <jani.nikula@linux.intel.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Daniel Stone <daniel@fooishbar.org>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
+ Samuel Holland <samuel@sholland.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, linux-arm-kernel@lists.infradead.org, 
+ linux-sunxi@lists.linux.dev, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,146 +87,139 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 24, 2026 at 7:38 AM BST, Alexandre Courbot wrote:
-> nit: the base-commit trailer points to a commit that only exists in
-> linux-next (next-20260720) and is not easily discoverable - it would
-> help if you could mention the base in human-resolvable form in the cover
-> letter.
->
-> On Wed Jul 22, 2026 at 1:54 AM JST, Gary Guo wrote:
->> Currently registers work for all untyped I/O regions, which is not ideal=
-.
->> It allows registers defined for device A to work for another device B an=
-d
->> there is no safeguarding at all.
->
-> This doesn't sound like a real concern. Registers are typically local to
-> a driver, so one cannot use registers for device A on device B even now.
-> And within the same crate registers can be isolated by module if needed.
+HDMI uses the DDC I2C bus for communicating various bits of link status
+out of band with the actual HDMI video signal. This information can be
+useful for debugging issues like questionable cables sabotaged by feline
+teeth, Enthusiast Grade cables made of cow fencing wire, and other such
+problems that ruin one's media viewing plans.
 
-Even for a single driver you don't want to mix register definitions. E.g. i=
-f
-you have more bars, e.g. if you have subregions of registers, like PFALCON =
-and
-PFALCON2.
+Consequently, this series exposes various bits of pertinent information
+from the SCDC protocol in an HDMI connector's debugfs. To continually
+poll the link status, userspace can poll the debugfs file.
 
-Your relative register design uses an artifical marker type to distinguish
-between two different subregions, which is a very good motiviation to say t=
-hat
-registers should be typed.
+---
+Changes in v9:
+- Unlock mode_config.mutex on disconnected connector early exit
+- Calculate and print Reed-Solomon error corrections counter on != 4
+  lane FRL as well. Technically a functional change to an already
+  reviewed patch, but I kept the R-b because it's so minor.
+- Link to v8: https://patch.msgid.link/20260722-scdc-link-health-v8-0-cd1dacbb85d9@collabora.com
 
->
-> Even if we restrict the base type, the examples given in this patch only
-> partially address the issue: registers from different drivers using
-> regions of identical sizes could be used interchangeably without
-> complaint.
+Changes in v8:
+- Acquire mode_config mutex in an interruptible way during
+  scdc_status_show to avoid racing connector state
+- Remove scdc_debugfs_priv, use connector as debugfs entry priv instead
+- Allocate and free state in scdc_status_show, since it doesn't need to
+  persist across debugfs reads
+- Check for NULL ddc in drm_scdc_read_state in the unlikely event an
+  EDID with the SCDC flag was forced on a connector with no DDC
+- Note: drm_connector_get() is omitted from drm_scdc_debugfs_init
+  because drm_scdc_debugfs_init is called on connector construction and
+  the debugfs is removed on connector destruction. Adding a redundant
+  reference increase here would necessitate introducing a destruction
+  callback to mirror the debugfs_init connector op for the sole purpose
+  of decreasing the counter again.
+- Link to v7: https://patch.msgid.link/20260721-scdc-link-health-v7-0-92df1b6ad5fc@collabora.com
 
-This patch set gives you the way to do newtype on regions. Ideally all driv=
-ers
-would eventually use that and not use the `Region` type.
+Changes in v7:
+- Move HDMI debugfs registration to new state helper, fix up all users
+  (sun4i, vc4, bridge)
+- Register scdc debugfs in new hdmi debugfs helper
+- Link to v6: https://patch.msgid.link/20260611-scdc-link-health-v6-0-6307875a6b5e@collabora.com
 
->
-> So I don't think this patchset addresses this particular problem, for
-> which namespace isolation is the correct solution anyway.
->
->>
->> All users of the `register!` macro know what type it will be operating o=
-n,
->> and that type is consistent across the driver. Therefore, add a `base`
->> parameter to `register!`.
->>
->> Currently this parameter is unused in the generated code; it will be use=
-d
->> when all users of `register!` is converted to gain the parameter.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->> ---
->>  rust/kernel/io.rs          |  4 +++
->>  rust/kernel/io/register.rs | 79 +++++++++++++++++++++++++++++++++++++++=
-+++----
->>  2 files changed, 76 insertions(+), 7 deletions(-)
->>
->> diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
->> index 95f46bb75f9e..c5f07c38e59e 100644
->> --- a/rust/kernel/io.rs
->> +++ b/rust/kernel/io.rs
->> @@ -883,6 +883,8 @@ fn try_write<T, L>(self, location: L, value: T) -> R=
-esult
->>      /// };
->>      ///
->>      /// register! {
->> +    ///     base: Region;
->> +    ///
->>      ///     VERSION(u32) @ 0x100 {
->>      ///         15:8 major;
->>      ///         7:0  minor;
->> @@ -1028,6 +1030,8 @@ fn write<T, L>(self, location: L, value: T)
->>      /// };
->>      ///
->>      /// register! {
->> +    ///     base: Region<0x1000>;
->
-> I'd prefer if we could limit the `base:` parameter to registers defined
-> against a specific block (like the current relative registers). Having
-> it on all register definitions adds an artificial limitation (that e.g.
-> regions must be of a given size, which may not suit drivers that support
-> several generations of hardware with varying BAR sizes).
+Changes in v6:
+- Fix off-by-one error in drm_scdc_read_state
+- Link to v5: https://patch.msgid.link/20260604-scdc-link-health-v5-0-11173b0ac3de@collabora.com
 
-This is more or less intended. Your driver code would have a fixed known mi=
-nimum
-size, even if your code works with multiple generation of hardware.
+Changes in v5:
+- Read all SCDC data regardless of update flags
+- Dump SCDC data as hex before the human-readable output. It's separated
+  with "\n----------------\n\n".
+- No longer write 0 to read-only registers
+- Add Reed-Solomon Corrections counter parsing
+- Parsing has been kept. A desire was expressed to get this data without
+  any external userspace tooling, and the kernel will need to parse it
+  eventually anyway to set the link status.
+- Functions have been made static as of right now, since external users
+  may do another pass over the function signatures anyway.
+- Link to v4: https://patch.msgid.link/20260527-scdc-link-health-v4-0-622ea40a1f59@collabora.com
 
-It's just that code touches registers outside the known minimum size would =
-need
-to use fallible accessors because the bar is not guaranteed to be large eno=
-ugh.
+Changes in v4:
+- Don't use C struct bitfields for parsing status flags. Switch to
+  bitwise AND for boolean flags, and FIELD_GET for multi-bit values.
+- Drop the superfluous !! and parens
+- Drop the __pure attributes on static functions
+- Initialise stack local arrays with {}, not { 0 }.
+- I've kept the print macros and %-30s format. Reason being that I don't
+  want to repeat the format specifier and str_yes_no(foo) a bunch, and I
+  like the %-30s format because it means all values are aligned with the
+  value of the longest field, which is 30 chars long.
+- Link to v3: https://patch.msgid.link/20260526-scdc-link-health-v3-0-59e4a4aaead1@collabora.com
 
-If the code is written so you have dedicated HAL paths that the register wi=
-ll
-always exist, your should just create a new type for the larger region of
-specific hardware generation and define the register on that instead.
+Changes in v3:
+- Add patch to change return type of drm_scdc_read/write.
+- Rework error counter reading to duplicate less code.
+- Also check lane 3 counter valid flag when reading its error counter.
+- Use memset to clear buf for error counters, rather than doing it in
+  the loop.
+- Make read_error_counters not accept 0 as num_lanes; fix it up in the
+  caller instead.
+- Link to v2: https://patch.msgid.link/20260520-scdc-link-health-v2-0-511af18cd64b@collabora.com
 
-E.g.
-   =20
-    #[repr(align(4))]
-    #[derive(FromBytes, IntoBytes)]
-    struct MyNewGenHardware([u8; SZ_1G]); // This new hardware gen has huge=
- register space!
+Changes in v2:
+- Add HDMI 2.1 SCDC status reporting
+- Link to v1: https://patch.msgid.link/20260415-scdc-link-health-v1-0-8e731e88eaf0@collabora.com
 
-    register! {
-        base: MyNewGenHardware;
-    }
+To: Jani Nikula <jani.nikula@linux.intel.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Daniel Stone <daniel@fooishbar.org>
+To: Hans Verkuil <hverkuil+cisco@kernel.org>
+To: Chen-Yu Tsai <wens@kernel.org>
+To: Samuel Holland <samuel@sholland.org>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>
+To: Maíra Canal <mcanal@igalia.com>
+To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: kernel@collabora.com
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-sunxi@lists.linux.dev
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
->
-> Top-level registers are currently working fine without this, so it
-> doesn't seem justified except by the safeguarding argument, which I
-> don't think is relevant here.
+---
+Nicolas Frattaroli (5):
+      drm/scdc-helper: Don't use ssize_t return type for scdc_read/write
+      drm/scdc-helper: Add scdc_status debugfs entry
+      drm/scdc-helper: Implement parsing and printing HDMI 2.1 fields
+      drm/debugfs: Move HDMI debugfs registration to state helper
+      drm/display: hdmi-state-helper: Init SCDC debugfs for HDMI
 
-This *could* be done, but this means that we need to change register traits=
- to
-not have `Base` assoc type but have it as generics. It is however problemat=
-ic
-from trait coherence POV, because Rust complains that downstream crate can
-implement
+ drivers/gpu/drm/display/drm_bridge_connector.c  |   3 +
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 156 +++++++++++++
+ drivers/gpu/drm/display/drm_scdc_helper.c       | 289 +++++++++++++++++++++++-
+ drivers/gpu/drm/drm_debugfs.c                   | 157 -------------
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c          |   1 +
+ drivers/gpu/drm/vc4/vc4_hdmi.c                  |   1 +
+ include/drm/display/drm_hdmi_state_helper.h     |   3 +
+ include/drm/display/drm_scdc.h                  |  21 +-
+ include/drm/display/drm_scdc_helper.h           | 103 ++++++++-
+ 9 files changed, 568 insertions(+), 166 deletions(-)
+---
+base-commit: b747a63003130bef1a3d5d6ba97c94d0cee36f55
+change-id: 20260413-scdc-link-health-89326013d96c
 
-    impl FixedRegister<MyRegion> for () {}
-
-and conflict with blanket impl.
-
-Also I think this is not really needed with strongly typed regions (see abo=
-ve),
-hence the design.
-
-Best,
-Gary
-
->
-> The syntax (specifying `base:` only once at the top of a register block)
-> is a great improvement over the current one; if I were to pursue my own
-> fixup series I would definitely have adopted it.
->
-> Still going through the series in detail but wanted to raise this point
-> first. Overall I think I like the direction, it makes the falcon
-> register accesses read much more naturally.
-
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
