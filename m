@@ -4,52 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B50BFC531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 11:20:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD1C3C531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 11:37:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9A8110F377;
-	Fri, 24 Jul 2026 11:20:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9960E10E056;
+	Fri, 24 Jul 2026 11:37:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IUPsUUZY";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="RNIpZY3B";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8D2910F372
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 11:20:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 43EFF40BE3;
- Fri, 24 Jul 2026 11:20:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E03B71F000E9;
- Fri, 24 Jul 2026 11:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784892025;
- bh=jD9jX3+Wk2O1/peDNwAQtv6BxC4dDJGxHjIwOz7Rdx0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=IUPsUUZYtkF/b023RLp/rHDSgFjCxU83YfGO/x4srwBpb2uraVfiMh7tMYARy9KEQ
- FOkhpEpgOKA4F+Ao2+UTkiUmCJcOKIRv6kQ+zHzH3UXAoFcuymLyXBGuP/uDmCfijM
- VBOjq+OJRA7yGdr5INA4VoI4ay9upZ3IrXhnLLiqkJJJwEZ9JcQ6C36TqD4Rn2cl8X
- jD2RScODGan780x54c5ARPh2IRoadGZjut1FyH7hNl1TZfmGmPqRIqOULZPI7nPDcP
- OFkGol49lwLO3JBQ98Inxc6gFm/39ejBW4IG5GPCrv/MbKFeYn9tEQuWnpmvmFHYwe
- luzV2vCV3JHSQ==
-Message-ID: <c0218d64-3b31-4d21-b8c9-e03a4b5a7f91@kernel.org>
-Date: Fri, 24 Jul 2026 12:20:22 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] misc: fastrpc: fix context leak and hang on
- signal-interrupted invoke
-To: Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@kernel.org,
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-References: <20260701-master-v2-1-566bf8b7bd16@oss.qualcomm.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260701-master-v2-1-566bf8b7bd16@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011028.outbound.protection.outlook.com [52.101.57.28])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E305C10E04E
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 11:37:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fEJUAsbNMNx8mVWw6XCTyAijRyqacuevBXubapzLzeFdIW72DSC7R2y4Yov/ZRhcrxwSIT56e3jgSM9hMLxtV24QRl4Ipv9wRhg/n0x+2WNgGTO37euPthIR03HgJ7hlU8QlNsXUV3/HeCNzLk0OsDpBMy4T2HJZM2qFis+QAUAPUjQXXu1cmpyMfoY+iexkmCF6gqWInl3ItuQDbGvn3sbsMjQgn6uPGHg8ZLjMeyPbOiuatwNAuhllujpOEqzVHtysBduVwejx3rUSNVJotcwLXSddHpMPjbMbXQnLbg9xzOZsBlBEbED92C95T5dNvY9nJAzBBS8Bi5qypwiipQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zmLlFIgaTu5LB9vap/cEnzerfWMP353FZJMTeSCt24E=;
+ b=jXKovgCB47N0duvCrvWNP+143Ac4ilI8v9NYwFtZeVZcu6TjZt3mUSZcUX9ZPP+gpKyYY1a5D13r84UQ3KTSDXMk/CppLcNMZz4Xo3BsFb5ImXLSO0I3SAfzrGM2e8KDkrdt0xWMNXSx4/OotTqWE5cWogNxb4ns9vt543bGeCcQzBuGX1Mfj+4VDcNp7weri63KvS5GR2Fr6RTxECzs/nxW8ZP1/4/9Ihm0TdSyy9JzkTN/tXXYR/VVQkTMREZxfy2UU+hYYqwKK1uPULY7mRh7M7eC6KI/AjV+r0gusQQicA6GWzvRksHHmWQt/JmU+OPRsjXHKoWrlv2rcQOKrA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zmLlFIgaTu5LB9vap/cEnzerfWMP353FZJMTeSCt24E=;
+ b=RNIpZY3BydS9aBS5pYBaiAvE3nJHcMtxAcAxr1VMHinRPZ+heQX4QJExd10RdXrBLjJKJkYWkU6tNZeuwP9QATYuLl5JfihFGu6rLtr2/gmUDJSJj7VUHx99EuM/SktLIeH+Cd4xZtFkLQN7jhvmB4KB4v8KWswGsx2R5Ugfgm/tKagkcsjmAenw25cn3LA24S52LNZsfOqRmkjqfExT/DMr/o/i+MAHW/48PifKx4qqif0KKVO4fgQgfIy2qrMC/iAIQRNThf0BcjPl58mBilkJX35GXNw/PO0OJ7dtUqE7TjcGLQB+gCIORAhteNQbCnNOD4VGG+jXaMoTjujTsw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by MW4PR12MB6974.namprd12.prod.outlook.com (2603:10b6:303:207::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
+ 2026 11:37:14 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 11:37:14 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Subject: [PATCH v2 0/3] rust: io: register: a few fixups
+Date: Fri, 24 Jul 2026 20:37:03 +0900
+Message-Id: <20260724-registers_fix-v2-0-a0fb58b02185@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12NwQ6CMBBEf4Xs2ZpuMVQ9+R+GmLYssCYCabHRk
+ P67BW4e32TmzQKBPFOAa7GAp8iBxyGDOhTgejN0JLjJDEqqSp7wLDx1HGby4dHyR2hTabLUXqy
+ RkDeTpxxvvnu9c3jbJ7l5layNPq9H/90OI6693a0V/rkjCilKjWhViZqwvQ2RGzZHN76gTin9A
+ LGZ+X69AAAA
+X-Change-ID: 20260418-registers_fix-7a67ebef9ba0
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: TYCP286CA0116.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::8) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MW4PR12MB6974:EE_
+X-MS-Office365-Filtering-Correlation-Id: 771b49df-d3f0-452c-fabf-08dee977e877
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|23010399003|7416014|376014|1800799024|366016|11063799006|56012099006|10067099003|18002099003|921020;
+X-Microsoft-Antispam-Message-Info: 4t+8sb93/filrNjje6OGXlOgVmTzCvWPkeG/Qj4Sa6N99n6NrwGiXIr4pwB1WT84sa5ZXcXCFWMUyqXcHE+DFPM1zBCChx+Ix3r7CiR7/7Lz7+b8IhH0pfNEhRVpcM2O15ZvdcmhCTLIyyxF7+0ogp0wpnCXGBlxwOYSXRfY2rk8XIeugT1OC/WTs1BG+yUNQxybZzLWFE34n8MLsOpZqvFuUGElc1CXD/JE4dXfqb3QEi40rbbOtXXxVY4wxaQy8ArhplygLdWYHkyj9/QByc6gNhk6sZ3nGb9dJEk9ErQScTcslA7E58v4/4S7UDymTCk9VyEV8H+ajzek9XuBA01OHMHfoJZfpYqvjLB5JexSQMSAwpp9j1HV9JC1tCgzpq6RGowudXppebDu0PY5oOdRNA0MaNt/YD0zOGXnMZm0Ck0lj7tih0FllxyezshYM3WudIpdbbpxNEV/QI98YrYFDXMXI3fEvjOsZHHo/OYwbrEkFZ1hvNZywRm67+f7Xk3V5ThQJWldMOWYRqWFLU7xzB2rIfov0HkI/OCWXy3WMy2XuN+6fB2XXDDgt1vHH3O7GR1SFUzW7Ehi+UtlizrdvRhwD1F9AupfZMsOx0L9Tc7fShftBBUrQQFDuhEiEJ/44rel44OTjksoqSqYAnalWCglBqoE3xumMf20mgofF7iL+Z7/Wsjsr4BdAvCjPMmAjhrI8Wr5AKyyOTJjzA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(7416014)(376014)(1800799024)(366016)(11063799006)(56012099006)(10067099003)(18002099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YlJjdzlZcEo4djcvVTlQelFnczNyc2JxbGN3b3hmZ2U0TWJCbmYvR09BR25r?=
+ =?utf-8?B?N1doOElBU0ZwV2Zrejg4WmtZdzJscmI4dXhSYlZ5TGhlQitHYUxBTXhiRy9L?=
+ =?utf-8?B?MG5oakY1RnNBNlBSN2h6L2h4dHJZQTVIWGovM3U3UEx1WDZ6K1RxOW5aMFhi?=
+ =?utf-8?B?UlRQT2ZUc0YrTHdmM1JSM1B5ci8zRHVNVENtSjVnTHRadHQ0U1V2Mk9pM1cx?=
+ =?utf-8?B?L0lEcXgyNno5SmZzaW9Va3dqWG0zditJaUdkVDV6M2xhcDNMUjBzQktMdTBG?=
+ =?utf-8?B?amttSFhiY1pvZ1hMSXhjT1NqTHBxcEV2aGJTTTRva09jakpuNEdybzdieE9T?=
+ =?utf-8?B?bk1HdVI3Q1gxZEhBTnNqVU5pdWs1SkFaRmxwVWIxWEJCQWIwSmdacS9FZzJH?=
+ =?utf-8?B?UnVVM1VXTXQ5VmI1d2VtKzV4aHVDM2p5NjYxV2l1MVlQejQ5Q3d0L1ZXbEw3?=
+ =?utf-8?B?c0haNFJmeG1FbHBlWGRrclRQUEZFRDI2RHUxTXM4bUVXcjVkbmt0cDhKQzEr?=
+ =?utf-8?B?eWpBM2RGWjFhN21OT1VZcGp0VGNJYWV4eFI5STBuTHpuVUpGTEZ3VXUwT0Fr?=
+ =?utf-8?B?TEN1Y2RteS83MTgrcW4vdWJOTy9oZ2R1ckV4QlBQc0pneHdvUUhVWVFMUDRa?=
+ =?utf-8?B?a0NGZnlMSGxSdzJKTnJmN1FIbUJqQ3MveWlXa2dZV094MnFSejgzdnJVT0xF?=
+ =?utf-8?B?UjBFZDlvQng2d1Y3SitZdkM2S3BPZmVrMHBCNU1UeURTOVQyaWJ4alArVkNY?=
+ =?utf-8?B?bklMems5MTBpdUZmNEZPK3hQQ2h1Nmdzb2N4TFNMZm1KV2ZzZmhVZlVyZDBj?=
+ =?utf-8?B?bU55NU1EQUNhQ3NXcXdLZjJPallqOG1VSkdNbHNzSk9KMkc4U0hTUnpzTS9l?=
+ =?utf-8?B?UGhreFdXN3FpaDUzWkxXTUVIaHp4dzhKWThvRlU0OStJbWpvbWdqWjBJNEwz?=
+ =?utf-8?B?SXQ1dGw2NFJ5TmJaN1U3V2lOKzUyemx0QmtZYUhRakpVMVhkZkNBbXoyTWt6?=
+ =?utf-8?B?czV6OWdOWVh1NE5iVFFkYzJqU01DTFZ0cU4yWE1ZSDVKamlTR1VWMGZLQkxa?=
+ =?utf-8?B?Ukl0UVBaQ3JxZlNaVmMraTlpUkVjc2JBVFdTWGhwd3FTSWI2OEd1QUpLQ3Vr?=
+ =?utf-8?B?NndOYzNCNHRwL3pBRFNCWUxNUG55cWdhZFF4VjIzQVlzaXpqMjZHUVA5bzRl?=
+ =?utf-8?B?U3ZGeG9TN3RaQlpWTWIrYmpza3I1S0lGeFJ1SnZTKzRHVll5eTlpa242bC9v?=
+ =?utf-8?B?OTlyUGNQcmE5UzZxdVZ5STlya042clJGenF1SFFmQmVjdDhVSzJmN2RuVG5E?=
+ =?utf-8?B?T3cwTUIvanVSUmVHSWlHWDZBdFhKeEdDZHN1WE9kWStPaUs5RVdNNWJPcFFZ?=
+ =?utf-8?B?SW0wdTNJLzNJajVBRThTWmZuQ0tGZWkyQWhEUU43U0R2bmlmbnRyYVpMMmNQ?=
+ =?utf-8?B?V3hsallVditQVHAyU2hDdFVQKzhXLytGSGpOeWJYNnZOVUFtMHI5UFR0bDli?=
+ =?utf-8?B?WERHekNiN2EvK3M5VGNaKzMxeFc3bHV5UW54S21pUmtYeFlNVldMVnY4YXFt?=
+ =?utf-8?B?UWQxV3pCckk1Z3NPeThBK0ptMW5ibmtIQ0JqOFp3OWlxdys5UFhCM3dXU2Jn?=
+ =?utf-8?B?Y2tQdW9ZSzhyTGhESE95QnQxekxVY3ZZZEpoQlZZMFp6VlNzdTA3a29SbzRE?=
+ =?utf-8?B?azlkYURLWWZxSmFPSzduSGxxZTNNY1E1MWxQWS9CakpLcUdBS1FRbjVLaFpB?=
+ =?utf-8?B?cVJacnY1SVRTREZoaHZIT0lzNHpINENTQWFBTHpRRVZuMHBtV01YMjNNeW5Y?=
+ =?utf-8?B?R3EwU2QxZTJ3aUlTeWZpcTZnemdkVUVIVlo2Y1NUMHlWVmo3YWNYd0xjMzJY?=
+ =?utf-8?B?blJzSll1OEx1d1Q1SXo1WDZVTEQ0OUlKbFFNUnZuK0p4ZVI3S0t6S2ttaWIv?=
+ =?utf-8?B?UzdTdE10VWwxb09OYmRHSVJhUkk2b0xnWEI3YUdQVGZ1TEllRG5JWWIwT1ZF?=
+ =?utf-8?B?S3BnTjdTRzV3UXpsSXNmR0ZEUHc2dHQ4eXoyOEJwc0dueEw5d0lFTDFON05m?=
+ =?utf-8?B?aXNQNEt1aEp1SmpOS0hCNkNRMXJKd2FEWXY1U3NIQnB1engzWU9OZHBNNFRB?=
+ =?utf-8?B?bkJUcXVkaEYzQkhBbm9OMEsyQlZuei9qY3RTWkpmMWFPWHVTcUZ2UDNXRHZH?=
+ =?utf-8?B?ZGppQ0xPV0NRM0pvQmkrNVV5V0xIOGRKU3VBc21WSmtFT2dGdGZvZ29WS1ZZ?=
+ =?utf-8?B?WmFQcmVROThTMDNOYkw0bTFhay8vaFAyNTgzdWZhV0dqNlNydkdFeTJyUS83?=
+ =?utf-8?B?YjRYSkl1VFh4MEZyYk4wdFJEZkFJLy8rTjJKdnYwT1JiNUVJUEQybVJrcDdl?=
+ =?utf-8?Q?xfNgiiQUKMoI213vgeD+LQxDK53aIoE54yUsSxUHDKvU7?=
+X-MS-Exchange-AntiSpam-MessageData-1: oXHp8WB3/72Tcw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 771b49df-d3f0-452c-fabf-08dee977e877
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 11:37:14.5601 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: b1V3LLwISyIyEZRqEMNpPtWxkTF6DY+TJCWAo775k8JeNnHewrVlIqaA7NtZl9lf8oQBy/XkddcRNhVEKfHKSw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6974
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,312 +151,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+These patches implement a few fixes to the register macro, notably
+removing unused arguments from internal rules, and using the `path`
+fragment instead of `ident` when defining a register alias, since the
+aliased register is a type.
 
+It is considerably stripped down from the first revision; the original
+goal of the series was to fix an inconsistency with the way relative
+registers are defined, but since these are likely to go away soon [1],
+this part has been dropped and only these minor fixes remain.
 
-On 7/1/26 9:11 AM, Anandu Krishnan E wrote:
-> fastrpc invokes work by sending an RPC message to the DSP and blocking
-> in wait_for_completion_interruptible() until the DSP responds. If a
-> signal arrives during this wait, the syscall returns -ERESTARTSYS and
-> the invoke context which holds the in-flight DMA buffers and
-> completion state is left stranded in fl->pending.
-> 
-> On the next syscall attempt (either auto-restarted by the kernel via
-> SA_RESTART or manually retried by user-space after EINTR), a fresh
-> context is allocated and the RPC message is re-sent to the DSP. This
-> has two consequences:
-> 
->   - The original context leaks in fl->pending until the file is closed.
->   - The DSP receives a duplicate invocation. If the DSP was mid-way
->     through processing the first request and had issued a reverse RPC
->     call back to the host, the retry sends a new forward request
->     instead of the expected reverse-RPC response. The DSP thread
->     waiting for that response is never woken, causing a hang.
-> 
-> Fix this by saving the interrupted context to a new fl->interrupted
-> list on -ERESTARTSYS. When the same thread retries the invoke with a
-> matching sc, restore the context and jump directly to the wait,
-> skipping context allocation and message re-send.
-> 
-> Three additional bugs are also fixed:
-> 
-> 1. fastrpc_context_save_interrupted() did not drop the extra kref that
->    fastrpc_invoke_send() took, so the worker's put only reached 1 and
->    the context was never freed.  Drop the reference in save_interrupted()
->    so the worker's put reaches 0 and triggers context_free.
-> 
-> 2. The bail path skipped context cleanup on -ETIMEDOUT, leaking the
->    context.  Remove the -ETIMEDOUT exception so timed-out contexts are
->    freed like any other error path.
-> 
-> 3. fastrpc_context_free() did not remove the context from fl->interrupted
->    before freeing it.  A context freed via a racing channel removal left
->    a dangling node in the list.  Add list_del_init() guarded by fl->lock
->    before releasing resources.
-> 
-> Also drain fl->interrupted on process exit, complete any sleeping
-> contexts with -EPIPE and schedule put_wq to drop the worker ref when
-> the rpmsg channel is removed, and add dev_warn() on TIMEOUT and
-> ERESTARTSYS to aid post-mortem debugging.
-> 
-> Remove the obsolete invoke_interrupted_mmaps mechanism from
-> fastrpc_channel_ctx; context resources are now kept alive through the
-> context refcount rather than by migrating mmaps to a channel-level list.
-> 
-> Fixes: 387f625585d1 ("misc: fastrpc: handle interrupted contexts")
-> Cc: stable@kernel.org
-> Co-developed-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-> Signed-off-by: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-> ---
+This series applies on top of drm-rust-next.
 
-Does not apply to linux-next.
+[1] https://lore.kernel.org/all/20260721-typed_register-v1-0-452d72b60262@garyguo.net/
 
-Can you rebase and resend.
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+Changes in v2:
+- Move a missed conversion of an internal rule to patch 1.
+- Remove all patches related to relative registers.
+- Link to v1: https://patch.msgid.link/20260721-registers_fix-v1-0-3711b2317e1f@nvidia.com
 
---srini
+---
+Alexandre Courbot (3):
+      rust: io: register: dispatch shortcut rules internally
+      rust: io: register: remove unused rule arguments
+      rust: io: register: use path fragment for alias destination
 
-> This patch fixes a context leak and DSP hang that occur when a
-> fastrpc invoke syscall is interrupted by a signal, along with three
-> follow-on bugs found during review.
-> 
-> Changes in v2:
-> - Fix kref imbalance: fastrpc_context_save_interrupted() now drops the
->   extra reference taken by fastrpc_invoke_send(), so the worker's put
->   correctly reaches 0 and triggers context_free.
-> - Fix -ETIMEDOUT context leak: remove the ETIMEDOUT exception from the
->   bail path so timed-out kernel invocations go through the same
->   list_del_init + context_put cleanup as all other error paths.
-> - Fix dangling node: fastrpc_context_free() now calls list_del_init()
->   under fl->lock before releasing resources, preventing a dangling node
->   in fl->interrupted if a racing channel removal fires put_wq.
-> - fastrpc_notify_users() now calls schedule_work(&ctx->put_work) for
->   interrupted contexts to drop the worker ref on channel removal.
-> - Add dev_warn() on TIMEOUT and ERESTARTSYS for post-mortem debugging.
-> - Use list_del_init() instead of list_del() in the bail path.
-> 
-> Link to v1: https://lore.kernel.org/all/20260525124222.3082420-1-anandu.e@oss.qualcomm.com/
-> ---
->  drivers/misc/fastrpc.c | 101 +++++++++++++++++++++++++++++++++++++++----------
->  1 file changed, 82 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index f3a49384586d..c0859a501617 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -280,7 +280,6 @@ struct fastrpc_channel_ctx {
->  	struct fastrpc_device *secure_fdevice;
->  	struct fastrpc_device *fdevice;
->  	struct fastrpc_buf *remote_heap;
-> -	struct list_head invoke_interrupted_mmaps;
->  	bool secure;
->  	bool unsigned_support;
->  	u64 dma_mask;
-> @@ -297,6 +296,7 @@ struct fastrpc_user {
->  	struct list_head user;
->  	struct list_head maps;
->  	struct list_head pending;
-> +	struct list_head interrupted;
->  	struct list_head mmaps;
->  
->  	struct fastrpc_channel_ctx *cctx;
-> @@ -522,6 +522,11 @@ static void fastrpc_user_free(struct kref *ref)
->  		fastrpc_context_put(ctx);
->  	}
->  
-> +	list_for_each_entry_safe(ctx, n, &fl->interrupted, node) {
-> +		list_del(&ctx->node);
-> +		fastrpc_context_put(ctx);
-> +	}
-> +
->  	list_for_each_entry_safe(map, m, &fl->maps, node)
->  		fastrpc_map_put(map);
->  
-> @@ -557,6 +562,12 @@ static void fastrpc_context_free(struct kref *ref)
->  	cctx = ctx->cctx;
->  	fl = ctx->fl;
->  
-> +	/* Remove from fl->interrupted if present; no-op for normal paths. */
-> +	spin_lock(&fl->lock);
-> +	if (!list_empty(&ctx->node))
-> +		list_del_init(&ctx->node);
-> +	spin_unlock(&fl->lock);
-> +
->  	for (i = 0; i < ctx->nbufs; i++)
->  		fastrpc_map_put(ctx->maps[i]);
->  
-> @@ -594,6 +605,42 @@ static void fastrpc_context_put_wq(struct work_struct *work)
->  	fastrpc_context_put(ctx);
->  }
->  
-> +static void fastrpc_context_save_interrupted(struct fastrpc_invoke_ctx *ctx)
-> +{
-> +	spin_lock(&ctx->fl->lock);
-> +	list_del(&ctx->node);
-> +	list_add_tail(&ctx->node, &ctx->fl->interrupted);
-> +	spin_unlock(&ctx->fl->lock);
-> +	/*
-> +	 * invoke_send bumped the kref to 2; the bail path skips the put
-> +	 * for ERESTARTSYS.  Drop it here so the worker's put reaches 0
-> +	 * and triggers context_free.
-> +	 */
-> +	fastrpc_context_put(ctx);
-> +}
-> +
-> +static struct fastrpc_invoke_ctx *fastrpc_context_restore_interrupted(
-> +			struct fastrpc_user *fl, u32 sc)
-> +{
-> +	struct fastrpc_invoke_ctx *ctx = NULL, *ictx, *n;
-> +
-> +	spin_lock(&fl->lock);
-> +	list_for_each_entry_safe(ictx, n, &fl->interrupted, node) {
-> +		if (ictx->pid != current->pid)
-> +			continue;
-> +		if (ictx->sc != sc || ictx->fl != fl) {
-> +			spin_unlock(&fl->lock);
-> +			return ERR_PTR(-EINVAL);
-> +		}
-> +		ctx = ictx;
-> +		list_del(&ctx->node);
-> +		list_add_tail(&ctx->node, &fl->pending);
-> +		break;
-> +	}
-> +	spin_unlock(&fl->lock);
-> +	return ctx;
-> +}
-> +
->  #define CMP(aa, bb) ((aa) == (bb) ? 0 : (aa) < (bb) ? -1 : 1)
->  static int olaps_cmp(const void *a, const void *b)
->  {
-> @@ -1243,8 +1290,6 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->  				   struct fastrpc_invoke_args *args)
->  {
->  	struct fastrpc_invoke_ctx *ctx = NULL;
-> -	struct fastrpc_buf *buf, *b;
-> -
->  	int err = 0;
->  
->  	if (!fl->sctx)
-> @@ -1258,6 +1303,14 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->  		return -EPERM;
->  	}
->  
-> +	if (!kernel) {
-> +		ctx = fastrpc_context_restore_interrupted(fl, sc);
-> +		if (IS_ERR(ctx))
-> +			return PTR_ERR(ctx);
-> +		if (ctx)
-> +			goto wait;
-> +	}
-> +
->  	ctx = fastrpc_context_alloc(fl, kernel, sc, args);
->  	if (IS_ERR(ctx))
->  		return PTR_ERR(ctx);
-> @@ -1273,11 +1326,20 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->  	if (err)
->  		goto bail;
->  
-> +wait:
->  	if (kernel) {
-> -		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ))
-> +		if (!wait_for_completion_timeout(&ctx->work, 10 * HZ)) {
->  			err = -ETIMEDOUT;
-> +			dev_warn(fl->sctx->dev,
-> +				"fastrpc_invoke: TIMEOUT ctxid=0x%llx handle=0x%x nscalars=%d\n",
-> +				ctx->ctxid, handle, ctx->nscalars);
-> +		}
->  	} else {
->  		err = wait_for_completion_interruptible(&ctx->work);
-> +		if (err == -ERESTARTSYS)
-> +			dev_warn(fl->sctx->dev,
-> +				"fastrpc_invoke: INTERRUPTED ctxid=0x%llx handle=0x%x nscalars=%d\n",
-> +				ctx->ctxid, handle, ctx->nscalars);
->  	}
->  
->  	if (err)
-> @@ -1296,21 +1358,15 @@ static int fastrpc_internal_invoke(struct fastrpc_user *fl,  u32 kernel,
->  		goto bail;
->  
->  bail:
-> -	if (err != -ERESTARTSYS && err != -ETIMEDOUT) {
-> -		/* We are done with this compute context */
-> +	if (ctx && err == -ERESTARTSYS) {
-> +		fastrpc_context_save_interrupted(ctx);
-> +	} else if (ctx) {
->  		spin_lock(&fl->lock);
-> -		list_del(&ctx->node);
-> +		list_del_init(&ctx->node);
->  		spin_unlock(&fl->lock);
->  		fastrpc_context_put(ctx);
->  	}
->  
-> -	if (err == -ERESTARTSYS) {
-> -		list_for_each_entry_safe(buf, b, &fl->mmaps, node) {
-> -			list_del(&buf->node);
-> -			list_add_tail(&buf->node, &fl->cctx->invoke_interrupted_mmaps);
-> -		}
-> -	}
-> -
->  	if (err)
->  		dev_dbg(fl->sctx->dev, "Error: Invoke Failed %d\n", err);
->  
-> @@ -1662,6 +1718,7 @@ static int fastrpc_device_open(struct inode *inode, struct file *filp)
->  	spin_lock_init(&fl->lock);
->  	mutex_init(&fl->mutex);
->  	INIT_LIST_HEAD(&fl->pending);
-> +	INIT_LIST_HEAD(&fl->interrupted);
->  	INIT_LIST_HEAD(&fl->maps);
->  	INIT_LIST_HEAD(&fl->mmaps);
->  	INIT_LIST_HEAD(&fl->user);
-> @@ -2460,7 +2517,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
->  	rdev->dma_mask = &data->dma_mask;
->  	dma_set_mask_and_coherent(rdev, DMA_BIT_MASK(32));
->  	INIT_LIST_HEAD(&data->users);
-> -	INIT_LIST_HEAD(&data->invoke_interrupted_mmaps);
->  	spin_lock_init(&data->lock);
->  	idr_init(&data->ctx_idr);
->  	data->domain_id = domain_id;
-> @@ -2493,13 +2549,23 @@ static void fastrpc_notify_users(struct fastrpc_user *user)
->  		ctx->retval = -EPIPE;
->  		complete(&ctx->work);
->  	}
-> +	/*
-> +	 * Interrupted contexts hold two refs: one for the invoker and one
-> +	 * for the async worker from fastrpc_invoke_send.  Complete them so
-> +	 * any blocked retry wakes, and schedule put_wq to drop the worker
-> +	 * ref -- the invoker ref is released by fastrpc_user_free().
-> +	 */
-> +	list_for_each_entry(ctx, &user->interrupted, node) {
-> +		ctx->retval = -EPIPE;
-> +		complete(&ctx->work);
-> +		schedule_work(&ctx->put_work);
-> +	}
->  	spin_unlock(&user->lock);
->  }
->  
->  static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->  {
->  	struct fastrpc_channel_ctx *cctx = dev_get_drvdata(&rpdev->dev);
-> -	struct fastrpc_buf *buf, *b;
->  	struct fastrpc_user *user;
->  	unsigned long flags;
->  
-> @@ -2516,9 +2582,6 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
->  	if (cctx->secure_fdevice)
->  		misc_deregister(&cctx->secure_fdevice->miscdev);
->  
-> -	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
-> -		list_del(&buf->node);
-> -
->  	if (cctx->remote_heap)
->  		fastrpc_buf_free(cctx->remote_heap);
->  
-> 
-> ---
-> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-> change-id: 20260701-master-2ba6246f29d1
-> 
-> Best regards,
-> --  
-> Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-> 
+ rust/kernel/io/register.rs | 40 +++++++++++++++++++++-------------------
+ 1 file changed, 21 insertions(+), 19 deletions(-)
+---
+base-commit: 6dcbb4b1320fa91fee349462a52bb69135f2e45e
+change-id: 20260418-registers_fix-7a67ebef9ba0
+
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
 
