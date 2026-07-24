@@ -4,82 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11EA9C531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 17:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D60FC531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:03:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3648A10F445;
-	Fri, 24 Jul 2026 17:26:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA34810E058;
+	Fri, 24 Jul 2026 18:03:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D5mx34g3";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hX15Hf/9";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF4E810E355
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 17:26:26 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-47f96c5b722so512767f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 10:26:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784913985; x=1785518785; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ohKPnFyz+LLapn/ZZQ/A2iwQbIU5uk0jaD/t+e7o7KM=;
- b=D5mx34g3AW1BOdouirpfcmzduSD93AWh1FGZH8Cu+jtkOtxm72zLSypSK8UEg0U8QR
- EvpnKJ3xPc+boSS9s9upqnMhkjSmYUEsQ4G5Jle1MNR7FhH4myQuQY/Qzjlqe/OMgEeR
- mG9cQglg+V7302FbXxvUol6x/i8MwaulutqyLEN70KUdcH6reolI+QJE2PZvhMqR/Pex
- NnjW4C/mKyWiIvhQ4bPsa7FSqyKBJO/P+XZBB+ptGPt+IopYhSyFC+KiBloKPgcRM0RF
- n3GZ3/uab/UqCDac6NaPpGmxjDJBHr8kWxPY8ZeSxSXu+bUeP9Hx5Tanm0ps3MLSwMqC
- qM6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784913985; x=1785518785;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ohKPnFyz+LLapn/ZZQ/A2iwQbIU5uk0jaD/t+e7o7KM=;
- b=p969okQZg3TmsnfaiSQF1wTBG+0fZ9Jnig8p8VEMBP1ygwY+jHiHKyUqLXLWbfVFki
- fucxLbHzTTYw/ZbxT//3JtxIa9JP5hfc3dA+lfWdeDzIIVuIyof3BgzaTXZbyDqqswQF
- HT1KjdYbjVPn8MKLCs5vCagMWKs92NxIkPJuFZXlcw6bu9Ha6btOGo89T/Z05oCZRKIV
- 1ko7wh9j+HWEyusiJaS9Q9fjCofXpzk1P31Fj6XRtAKoAXA21NSXCj7sn0YEFp49rnrr
- +2qEwfK7la86opVsTffsOGyXjFdbbySGCgrt9ASe+zRSttyhDjzOw6OATmrGbDZLRBZq
- li+Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpQrP6Id1n5A9cwfDrdDeODgD3EbqmyiM9WuafSySQkp/Ir9OPXBUR0SmbLEFD0VZIWY/7B3cwlw2w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyVxPbbXI3ifpB6dmBpJExAtQF4CL5uhu7T/4D0clsOXO3DcxZj
- iIRvr3UPXL4zuTzV8sR1t4LKdYgEUevC5kz3L5JhMPm/dFaUSFaq3Wh0
-X-Gm-Gg: AR+sD12L4/iVE/0jpSt68S6QGWUmQvlxK5trWxeMRopwj3JXyVYr3HJBDNWW2PCIJjj
- oSKFJcSIBW11dllwmLoCIpSdNZkvVSwR+llT1ph7xeobmLgF6PAVLmM4hlpl+ZW+iYY8FOrUGBq
- WEjJBOF47wNvw8o5qKbNygCZM4VBcbCKOb9fgOJnlcUaBa7v9tzgYIBXvANA+VQ/zIMbB1qn4NW
- 5QFrdT6c3+Dre8uDEXMgKF3aAcCn0Ah2u+BLoBZ/Tu1MkEZwdUI3ozpUeaSCfL3Hyu/prrsyznv
- zedR/KooyPX9249Dvo/jqyqWo+PrDoq1axaLGJz9TQCBXwjJTWSAetfITZPP5telxKOgdu0lD36
- SPUw2hcB2lAVvX4SBCuJeBihf1gjDkWgKlfsidDi5E33z8HA2RxAGhO1eZYMROfjB+DqC4TIkfe
- i82nZ7fqu+KvHOX/A7XvMkNx+2OdZIcZPItWgI7C6DWAQvNNc36Q==
-X-Received: by 2002:a05:600c:468e:b0:495:7a36:bf5c with SMTP id
- 5b1f17b1804b1-4957a36bffbmr59403685e9.10.1784913984948; 
- Fri, 24 Jul 2026 10:26:24 -0700 (PDT)
-Received: from osama.. ([2a02:908:185:7e40:f13b:d8f5:8fee:f758])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-496b4858e28sm5411665e9.2.2026.07.24.10.26.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jul 2026 10:26:24 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] drm/panthor: skip zero-sized firmware sections
-Date: Fri, 24 Jul 2026 19:26:20 +0200
-Message-ID: <20260724172621.63046-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <c31aeec2-6336-4dad-93a8-982e3f4c525f@arm.com>
-References: <c31aeec2-6336-4dad-93a8-982e3f4c525f@arm.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2528810E058
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:03:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1784916209;
+ bh=K1Za5bWNUcnyTglAfKgP5KR/CLG+7GCG0v3x3t2iK7c=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=hX15Hf/9X+CVUa51M+H4hMh87dr+fBVbdDaU47SwjNZgs3Z+btzcSB9nPn0eIkHtw
+ h8YuOeiyGtHfxoMH3YGTPYUyXeIM8+8ppLxxsQzgM3k14tuj0qSgZ8YVbptAKcPFxV
+ HRdLxLD80ItpSMWTzAqKR3O8urZnoA0YbUmL5XAw0CW9NUzvoF6gVmiid+nDqFM7sG
+ RFIDDHArANCMIw+0fp0MIkEt0C6tIZ+5cH0weX8fcC1KwYwWYmHWCOZhV3/aySp5rO
+ O/1TQXxumtIuXGJGQSp3yqev+NcDzUJ+1e67Ykix1N6526n/sNpaUGlzXocPBiRPDL
+ j8eXMKxm6dwcg==
+Received: from jupiter.universe (unknown [100.64.1.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: sre)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3240517E0203;
+ Fri, 24 Jul 2026 20:03:29 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+ id DEBCE48002F; Fri, 24 Jul 2026 20:03:28 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 24 Jul 2026 20:03:25 +0200
+Subject: [PATCH v6 03/16] drm/bridge: synopsys: dw-dp: Add missing mutex
+ cleanups on module removal
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260724-synopsys-dw-dp-improvements-v6-3-041d99a19c4e@collabora.com>
+References: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
+In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1166;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=K1Za5bWNUcnyTglAfKgP5KR/CLG+7GCG0v3x3t2iK7c=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpjqPDGJdnZhc59GK1KDLRjF9Jl7LYQ91BvS
+ bRWTpG6CuDCD4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqY6jwAAoJENju1/PI
+ O/qa+9cP/ix24EjhRs9MFdFHjZ82uXi6N6SVX5BFk9ZCHGqhbdwr/XovPynmESWgj4k/gkzOCXv
+ W/8kMdEQRAnqpJIj5noQRpCq6akOcdQ6Twl5k67poAjtH7BMMYlvoJAMkYr5nx/dxOIrIp3rcLy
+ gV1Hoig4MJE/IFQr9RFb2iR/pqTo4XntvkqNM/cq27jo+hy4mNlCCkXbyzHRntJIIIcwCQGKUPA
+ wc1vsJbx/g5aEJ3MF/YmPvMciDkOP5g7MvYtNAntuwIm1NuH7hdOKEkQlFIWRzLmHy0DFKRQV/F
+ 6e0ZjmjIo2nOawjb2I5Vkcq+k4IVc1nSDPzEg0psT5D0dxaZJb7HpjmO7FeJGulTGgXD7AnImRZ
+ Yd2mN15thHUTyVRG9J8WFzHnUPsy7/iFV9JIf0xGUs46XGNi78TTRrmo0chkuk+aETXZMKMMXgk
+ zef9bByN+xjIJApPKmCawS0M5r0GsNXyk1bzoGEunR9IRuuzltmLfbebVHO8Rfrf4adtF/QHMfd
+ 2j0jyIdw0POkFYrBBzS8NsyTbLgVg9RGLw25OdwFd+Jd1feaHCsNQNhUxfo3xISwJVJjOEPWdzS
+ SjTeeI9c7zLY456ydEUCZZJRMjZHnPtRTopwhp3q6A8hXYTfheMYFfYaNXNDVmtVn6r0dCR7Byt
+ rJMNa5DSX4g8ZayQrltknZQ==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,43 +99,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-panthor_fw_load_section_entry() skips BO creation when the firmware section
-VA range is empty. If such a section is added to the firmware section list,
-section->mem is left as NULL.
+The driver is currently missing to fully clean up after itself. Ensure
+that the mutex is cleaned up.
 
-Later reload and unplug paths iterate over all firmware sections and
-dereference section->mem, which can lead to a NULL pointer dereference.
-
-Zero-sized firmware sections are valid, so accept them as no-op entries but
-skip adding them to the section list.
-
-Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-Cc: stable@vger.kernel.org
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_fw.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-v2:
-- Accept zero-sized firmware sections as no-op entries instead of rejecting
-  them, as suggested by Steven.
-
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index a338c4f0a7f5..66d9f5947af0 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -601,8 +601,11 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
- 	if (data_size > section_size) {
- 		drm_err(&ptdev->base, "Firmware corrupted, section data exceeds section size\n");
- 		return -EINVAL;
- 	}
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 21bd08571dcf..b28040d69fab 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -2031,10 +2031,13 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 	dp->pixel_mode = plat_data->pixel_mode;
+ 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
  
-+	if (!section_size)
-+		return 0;
+-	mutex_init(&dp->irq_lock);
+ 	INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
+ 	init_completion(&dp->complete);
+ 
++	ret = devm_mutex_init(dev, &dp->irq_lock);
++	if (ret)
++		return ERR_PTR(ret);
 +
- 	name_len = iter->size - iter->offset;
- 
- 	section = drmm_kzalloc(&ptdev->base, sizeof(*section), GFP_KERNEL);
+ 	res = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(res))
+ 		return ERR_CAST(res);
+
 -- 
-2.43.0
+2.53.0
 
