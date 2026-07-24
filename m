@@ -4,46 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 744F4C531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 21:26:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD1B8C531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 21:30:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CED7910E471;
-	Fri, 24 Jul 2026 21:26:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C41810E5CE;
+	Fri, 24 Jul 2026 21:30:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="j56e5YdY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dcY1My5Y";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6758210E471
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 21:26:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=VKPr7vt+/ZwyDQp920dmlLEI+tbeADMcslQoDZaKawA=; b=j56e5YdYvT7826UljtTaiBw8Ah
- pIysMN0gWd+XV30RwwsxCBP88ljLT6uvgE8fiW8ac4k1rjwUsnV+HMPQr6zT/8J3K+yboVokhlx2s
- mEXxf+iPO1l9zr8WSMytt7Z9IWM4x8Du+QsG5vnzComhkw+FURyvNTb8ZxHKkO2PicbR7ZTKNjuiZ
- +q6fLldOeq+Y3lcz51Yj0fbvu9q7844JT0ZDHu+wF3Vr3dxlWVGf6CzCs8NEjqdxLk0/H9uVG9aF8
- zCxDKLSUd3pAUxqDdEIxaOXMg2vadHgNO6Pin/eomuZi/CYGXxER2J2trCwa/kjt42uBvvR6tvyJP
- Q4fPYsCw==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wnNPK-00597v-9P; Fri, 24 Jul 2026 23:26:14 +0200
-Message-ID: <c05bed0f-81aa-4e55-820a-cc72c1715c43@Igalia.com>
-Date: Fri, 24 Jul 2026 14:26:09 -0700
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C445310E5CE
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 21:30:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AD92060A60;
+ Fri, 24 Jul 2026 21:30:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28DAC1F000E9;
+ Fri, 24 Jul 2026 21:30:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784928603;
+ bh=gbVBUykhRTMTCv/pcLItA/njGTwSduEcLdsDQAdKLvE=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=dcY1My5YAnKm9lrlAe9AkBnVNoKTg+LjQZSFSEtrrsbIe4ISCe95lqbKsVi0zkprl
+ DEOAZHkRY08fpYrwLG/fGpqxrYkWqi59hKgjRCr6GLz+rGfd0sgEz/Lm1hZrbOnbvo
+ j3Dq3EbM3CzJlaxn0jsudSRt6k5xqfjTKkfY+LlUEFJjYoEDfVAy8Mj+yFUrGH97hb
+ CHwYcsZPSzAQrgS3h5AnFv1TwdgmQOmqr8o242dVsq+coOLwEN4d6eYQTAwSX4s3Xa
+ GHz251yV3RIrCjHustUJC9T2M+3sYThMBKMWbahBT0EKU82w1FbIDOcGLcRjb7vLtv
+ DxGSY+0ClTaLA==
+Date: Fri, 24 Jul 2026 14:30:01 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: Donald Hunter <donald.hunter@gmail.com>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy
+ <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Shuah Khan
+ <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
+ sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
+ almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
+ dw@davidwei.uk, Joe Damato <joe@dama.to>, Bobby Eshleman
+ <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next v5 3/3] selftests/net: devmem.py: add
+ check_rx_large_niov
+Message-ID: <20260724143001.5afa8631@kernel.org>
+In-Reply-To: <amPTWGX/3LHepYR3@devvm29614.prn0.facebook.com>
+References: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com>
+ <20260708-tcpdm-large-niovs-v5-3-34bf6fac941b@meta.com>
+ <20260721110903.34840531@kernel.org>
+ <amPTWGX/3LHepYR3@devvm29614.prn0.facebook.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 3/8] drm/amd/display: use
- drmm_writeback_connector_init()
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-References: <20260723003205.330362-1-John.Harrison@Igalia.com>
- <20260723003205.330362-4-John.Harrison@Igalia.com>
- <20260723005320.BE8621F000E9@smtp.kernel.org>
-Content-Language: en-GB
-From: John Harrison <John.Harrison@Igalia.com>
-In-Reply-To: <20260723005320.BE8621F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,121 +72,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/22/26 17:53, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->
-> New issues:
-> - [Medium] Mismatched object lifetimes in KUnit test causes Use-After-Free when DRM device is torn down.
->
-> Pre-existing issues:
-> - [High] The struct dc_writeback_info allocated dynamically in dm_set_writeback() is leaked on every successful writeback job setup.
-> --
->
-> --- Patch [3]: [PATCH v8 3/8] drm/amd/display: use drmm_writeback_connector_init() ---
-> commit 4cc9223584993bb5748e535854c7b5fb0eba8f0d
-> Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
->
-> drm/amd/display: use drmm_writeback_connector_init()
->
-> The driver uses drmm_writeback_connector_init() to ensure proper job queue
-> cleanup. It also allocates a simple encoder using drmm_plain_encoder_alloc()
-> for the writeback connector.
->
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> index 289da9d00b056..ff7b21830fce9 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
->> @@ -5048,7 +5048,7 @@ static void dm_set_writeback(struct amdgpu_display_manager *dm,
->>   		return;
->>   	}
->>   
->> -	acrtc = to_amdgpu_crtc(wb_conn->encoder.crtc);
->> +	acrtc = to_amdgpu_crtc(crtc_state->base.crtc);
->>   	if (!acrtc) {
->>   		drm_err(adev_to_drm(adev), "no amdgpu_crtc found\n");
->>   		kfree(wb_info);
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does dm_set_writeback() leak
-> the dynamically allocated wb_info struct on success?
->
-> When userspace configures a writeback job, wb_info is allocated dynamically
-> using kzalloc_obj(). It is then passed to dc_stream_add_writeback():
->
-> 	dc_stream_add_writeback(dm->dc, crtc_state->stream, wb_info);
->
-> 	acrtc->wb_conn = wb_conn;
-> 	drm_writeback_queue_job(wb_conn, new_con_state);
->
-> However, dc_stream_add_writeback() copies the contents by value into an array
-> (stream->writeback_info[...] = *wb_info) but does not take ownership of the
-> pointer.
->
-> The function then returns without ever calling kfree(wb_info) on the success
-> path, which seems to result in a memory leak on every successful writeback
-> job setup.
->
->> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
->> index 9e7bad4d6ed0c..2bb86218e80b0 100644
->> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
->> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_wb.c
-> [ ... ]
->
->> @@ -197,17 +196,26 @@ int amdgpu_dm_wb_connector_init(struct amdgpu_display_manager *dm,
->>   	struct dc *dc = dm->dc;
->>   	struct dc_link *link = dc_get_link_at_index(dc, link_index);
->>   	int res;
->> +	struct drm_encoder *encoder;
->> +
->> +	encoder = drmm_plain_encoder_alloc(&dm->adev->ddev, NULL,
->> +					   DRM_MODE_ENCODER_VIRTUAL, NULL);
->> +	if (IS_ERR(encoder))
->> +		return PTR_ERR(encoder);
->> +
->> +	drm_encoder_helper_add(encoder, &amdgpu_dm_wb_encoder_helper_funcs);
->> +
->> +	encoder->possible_crtcs = amdgpu_dm_get_encoder_crtc_mask(dm->adev);
->>   
->>   	wbcon->link = link;
->>   
->>   	drm_connector_helper_add(&wbcon->base.base, &amdgpu_dm_wb_conn_helper_funcs);
->>   
->> -	res = drm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
->> +	res = drmm_writeback_connector_init(&dm->adev->ddev, &wbcon->base,
->>   					    &amdgpu_dm_wb_connector_funcs,
->> -					    &amdgpu_dm_wb_encoder_helper_funcs,
->> +					    encoder,
->>   					    amdgpu_dm_wb_formats,
->> -					    ARRAY_SIZE(amdgpu_dm_wb_formats),
->> -					    amdgpu_dm_get_encoder_crtc_mask(dm->adev));
->> +					    ARRAY_SIZE(amdgpu_dm_wb_formats));
-> [Severity: Medium]
-> Can this conversion to drmm_writeback_connector_init() cause a use-after-free
-> in the KUnit tests during DRM device teardown?
->
-> In the KUnit test dm_test_wb_connector_init_success(), the mock DRM device is
-> allocated via dm_kunit_alloc_adev() (which registers a KUnit cleanup action).
-> The test object wbcon is then allocated using kunit_kzalloc():
->
-> 	wbcon = kunit_kzalloc(test, sizeof(*wbcon), GFP_KERNEL);
-> 	KUNIT_ASSERT_NOT_NULL(test, wbcon);
->
-> 	ret = amdgpu_dm_wb_connector_init(dm, wbcon, 0);
->
-> Because KUnit cleanup actions run in LIFO order, when the test completes, it
-> first frees wbcon via kfree(), and then tears down the mock DRM device.
->
-> The device teardown triggers the drmm cleanup action registered by this patch
-> (drm_writeback_connector_cleanup), which will dereference the already-freed
-> wbcon to lock job_lock and iterate job_queue.
-The KUnit issue is actually not something introduced by this patch. It 
-is pre-existing and is broken for many tests. The above change is 
-actually required in order to fix the writeback specific issue (together 
-with a change to the KUnit test code). See 
-https://patchwork.freedesktop.org/series/171029/ for the general KUnit 
-fixes. The writeback specific one will be fixed with yet another rev of 
-this patch set.
+On Fri, 24 Jul 2026 14:04:24 -0700 Bobby Eshleman wrote:
+> On Tue, Jul 21, 2026 at 11:09:03AM -0700, Jakub Kicinski wrote:
+> > On Wed, 08 Jul 2026 15:55:06 -0700 Bobby Eshleman wrote:  
+> > > +@ksft_disruptive
+> > > +def check_rx_large_niov(cfg) -> None:
+> > > +    """Run the devmem RX test with rx-buf-size = 16 KiB."""
+> > > +    run_rx_large_niov(cfg)  
+> > 
+> > Any idea why the devmem tests sprinkle disruptive everywhere?
+> > Disruptive means we take the link down, I don't think this test 
+> > does that.  
+> 
+> Talked to Stan and he mentioned the original idea was not necessarily
+> just for link down, but any test that could be considered disruptive to
+> other tests, with the idea to eventually introduce some scheduling
+> (postpone disruptive until the end).
 
-John.
+Perhaps have such conversations on the list? IDK what Stan has in mind.
 
->
-
+> If we can get common agreement on its meaning, maybe I could submit
+> something into the documentation and update where its misused?
+> 
+> I'll drop it from this patch since it doesn't bring down the link (and
+> seemingly no worries about check_rx_hds() tests not having it).
