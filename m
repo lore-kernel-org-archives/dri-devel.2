@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD66C531D0
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:08:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD2E4C531CC
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:09:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF5010F25D;
-	Fri, 24 Jul 2026 00:08:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D47D10F263;
+	Fri, 24 Jul 2026 00:09:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jvynWntB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Z9RLo3fc";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68FCD10F25D
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:08:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D06A010F263
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:09:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2E6544361E;
- Fri, 24 Jul 2026 00:08:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC0A11F000E9;
- Fri, 24 Jul 2026 00:08:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1FDA660A5A;
+ Fri, 24 Jul 2026 00:09:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD3071F000E9;
+ Fri, 24 Jul 2026 00:09:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784851705;
- bh=S2IoASVP1juVBMSMsDLb0+ugKx8tAWD9DQwcmyvI8n0=;
+ s=k20260515; t=1784851740;
+ bh=RC1JbDWQawxyG8QpiMPT5usF/TTosPNJTkHElK8uwqo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jvynWntBRdcBxBYf9oYyM7g/KosnKaTdPWzsCpkCZ1N7dPOA/pZ606E6i8gJcFB5V
- 9HDL67yg35dcexIyPiYy2q00XEH5fG/T7UiT+wrUwZaFNX2PzBEhAJDYwiUrFrAeNf
- 6u2tktqxyxlGTac9AqGVUZFx8IY0sQUzCc1m/PYxnJaogJznKNPthShuqCmBpOD3eU
- wqwaCe9zWX8R2UP/wTcs10TAD+JPgr0XVmLWZZP2+wmqQzDuFKjxEo+j4EFuBIWEd9
- uxl9ag2O+TZeWKthYNcVrGcoapeeTEBEIgNdt3/rYRJ58lk2uuNlW1VuSEN0Ybije2
- s/8vHijUqb39A==
+ b=Z9RLo3fcRCg6dpzcoceJ3qp6qR9o5hMo+6EmqiLfkxokctvDJ+y8nptSdmWW8oONe
+ ZRS+C0ZA9jXRsUgkToSpFgR/m4E2XYYq94X8HGC8ojIKT0deXVbOLiyu0qMTCVKbMS
+ yBnH0428VONtM5HSKu6Y+p4pwMJSHwNgSAEi/T7fsvqOE9OEWGn3b77V2IE0N/OsZS
+ ZEGaGc6hM6hSOsiB0TqMRqhNW+bzeASln4n1hAEu8yJAhPpDdHuic3L8lcKT/cjtE2
+ icd3P3mYAt6517vXy+9UGUwNOXMUYmaLWPntkttc6HQ6fam4jVHkpSUE7E/TBwo1W8
+ u8QyEskGtQ0qg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 02/13] drm/panfrost: Prevent division by 0
+Subject: Re: [PATCH v3 08/13] drm/panfrost: Rewire reset sequence to avoid
+ concurrent attempts
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724-claude-fixes-v3-2-542af61abd0f@collabora.com>
+In-Reply-To: <20260724-claude-fixes-v3-8-542af61abd0f@collabora.com>
 References: <20260724-claude-fixes-v3-0-542af61abd0f@collabora.com>
- <20260724-claude-fixes-v3-2-542af61abd0f@collabora.com>
+ <20260724-claude-fixes-v3-8-542af61abd0f@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 00:08:24 +0000
-Message-Id: <20260724000824.DC0A11F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 00:09:00 +0000
+Message-Id: <20260724000900.AD3071F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,58 +58,101 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] Multiplication of `status->busy_time` by 100 overflows the 32-bi=
-t `unsigned long` type on 32-bit architectures, leading to completely incor=
-rect utilization percentages in the debug output.
-- [Medium] Meaningful code and commit message mismatch regarding the clampi=
-ng logic.
+- [High] Workqueue deadlock in `panfrost_job_timedout()` due to waiting on =
+an ordered workqueue from a task executing on the same workqueue.
+- [High] The timed-out job is permanently leaked and bypasses karma account=
+ing because the asynchronous reset work executes with a NULL 'bad' job refe=
+rence.
+- [Medium] Unrealistically short wait timeout (60 milliseconds) for the GPU=
+ reset sequence.
+- [Medium] Premature clearing of the `reset.pending` flag creates a data ra=
+ce with the TDR worker.
 --
 
---- Patch [2]: [PATCH v3 02/13] drm/panfrost: Prevent division by 0 ---
-commit 5fb0fa4b6ede9db49d32560487844d56d5235d47
+--- Patch [8]: [PATCH v3 08/13] drm/panfrost: Rewire reset sequence to avoi=
+d concurrent attempts ---
+commit 2c4929474201c3a58918917376876f5a96009f31
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+Subject: drm/panfrost: Rewire reset sequence to avoid concurrent attempts
 
-drm/panfrost: Prevent division by 0
-   =20
-When updating and debug-printing devfreq stats, in the very unlikely
-offchance that total device time is less than 100 ns, clamp it to 0 to
-avoid division by 0.
+This commit introduces a dedicated reset worker to serialize GPU resets.
+It uses an ordered workqueue and wait_event_timeout to block concurrent
+reset attempts while the ongoing reset thread completes.
+
+Link: None provided
+
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_job.c
+> --- a/drivers/gpu/drm/panfrost/panfrost_job.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+> @@ -797,10 +798,12 @@ static enum drm_gpu_sched_stat panfrost_job_timedou=
+t(struct drm_sched_job
+> =20
+>  	panfrost_core_dump(job);
+> =20
+> -	atomic_set(&pfdev->reset.pending, 1);
+> -	panfrost_reset(pfdev, sched_job);
+> +	panfrost_device_schedule_reset(pfdev);
+
+[Severity: High]
+By removing the synchronous panfrost_reset() call and relying on
+panfrost_reset_work(), we seem to lose the reference to the timed-out job.
+
+Looking at the new worker function:
+
+static void panfrost_reset_work(struct work_struct *work)
+{
+	struct panfrost_device *pfdev;
+
+	pfdev =3D container_of(work, struct panfrost_device, reset.work);
+	panfrost_reset(pfdev, NULL);
+}
+
+Since the guilty job is passed as NULL, it bypasses karma accounting and
+drm_sched_stop() will fail to reinsert it into the pending list. Will this
+cause the bad job to permanently leak and hang userspace?
+
+> +	ret =3D wait_event_timeout(pfdev->reset.wait,
+> +				 !atomic_read(&pfdev->reset.pending),
+> +				 msecs_to_jiffies(60));
+
+[Severity: High]
+Could this wait trigger a workqueue deadlock?
+
+In panfrost_jm_init(), args.timeout_wq is assigned to pfdev->reset.wq.
+This means the timeout handler runs on the ordered reset workqueue.
+
+By queuing pfdev->reset.work onto this exact same workqueue and synchronous=
+ly
+waiting for it to complete here, it seems the reset work can never execute
+because the single-threaded queue is blocked waiting for it.
 
 [Severity: Medium]
-The commit message says "clamp it to 0 to avoid division by 0". Is this
-description accurate? Clamping a divisor to 0 would guarantee a division
-by zero, and the actual code clamps the minimum value to 1 instead of 0.
+Is this timeout duration sufficient?
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/dr=
-m/panfrost/panfrost_devfreq.c
-> index b51c307788110..0fe81d259274e 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
-> @@ -78,7 +78,7 @@ static int panfrost_devfreq_get_dev_status(struct devic=
-e *dev,
-> =20
->  	dev_dbg(pfdev->base.dev, "busy %lu total %lu %lu %% freq %lu MHz\n",
->  		status->busy_time, status->total_time,
-> -		status->busy_time / (status->total_time / 100),
-> +		status->busy_time * 100 / MAX(status->total_time, 1),
+A 60 millisecond wait seems extremely short for a full GPU reset, which
+involves soft-stopping jobs and polling the hardware. If it expires
+prematurely, it will return ENODEV and abandon recovery. Could this have
+been intended to be 60 seconds (60000 msecs)?
 
 [Severity: Medium]
-Will this multiplication overflow on 32-bit architectures?
+Is it safe to rely on the pending flag to synchronize scheduler restart?
 
-Because `status->busy_time` is in nanoseconds, a fully busy GPU over a typi=
-cal
-50ms devfreq polling interval results in 50,000,000 ns. Multiplying this by=
- 100
-yields 5,000,000,000, which exceeds ULONG_MAX (4,294,967,295) on 32-bit sys=
-tems
-and would wrap around, reporting a roughly 14% utilization instead of 100%.
+In panfrost_reset(), atomic_set(&pfdev->reset.pending, 0) is called
+immediately after the hardware reset, but before drm_sched_resubmit_jobs()
+and drm_sched_start() have finished.
 
->  		status->current_frequency / 1000 / 1000);
-> =20
->  	return 0;
+If this wait_event_timeout() wakes up early or spuriously, it will unblock
+the DRM scheduler while the reset worker is still actively modifying
+scheduler lists. Should the flag be cleared only after the full reset
+sequence completes?
+
+> -	return DRM_GPU_SCHED_STAT_RESET;
+> +	return (ret) ? DRM_GPU_SCHED_STAT_RESET : DRM_GPU_SCHED_STAT_ENODEV;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-claude-fix=
-es-v3-0-542af61abd0f@collabora.com?part=3D2
+es-v3-0-542af61abd0f@collabora.com?part=3D8
