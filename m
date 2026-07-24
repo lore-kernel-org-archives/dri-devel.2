@@ -4,124 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CC96C531C9
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 06:11:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 328B5C531D0
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:16:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 760B010E654;
-	Sat, 25 Jul 2026 06:11:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3765710E2AC;
+	Mon, 27 Jul 2026 07:16:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bj/h2HCY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hNxg1vlm";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012000.outbound.protection.outlook.com [52.101.48.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45AD610E654;
- Sat, 25 Jul 2026 06:11:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JDrxoa3gf/zon9b/WIDJ4D+B1U08PkYk0xYbzzTwQhsG/f8f1hXufNDv2S2jtvhvl05tNw5iM8Zy0r7lFPLyOlleqD89jlAHj5IdQE+bxRqI18EC6ZvDYvWRzkt/liQ2X4zj3OUyJblnYOnmntOkRHKhe0p8KLZQgqaWie+GWlQbOPkEN+nISuLJLQmg7lduORc49ddWKgzk+8zHnT7cy2LYu2WeWa43yHX+IAgw/woc6AlUDwtkojRLYCe6tvaVY3dWYpmP7eaOJwGUBJMAhppyjvpHgZyt3PSwx3Qj6mWcOSRe4oTQmOvpFBl9RbGEtADnigU6Fa4eXEFkhSpXOA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WpT26J+1CcL3/dOp/lGfQtC3YMvVuUsLCcAwzL9o+Kc=;
- b=fmh4BFlPe0k8KyyfRc0zB7/gNzmKxcWEo8veXEhh/Uny/eTfRv1Hb9K6ZFFC9wYboCKZAwZdBC0+8xZLWYwRKC/IvwR9fYPqpGKqffK+0ozSyZpoQzq1+EmS0l/2kMbWBlrs39hUIGGTrfVKpUjBtmlVAFN8lLGBSCoH80Gb3MBQQqMDt3+1ptX7buPQbb0YXssi8bLOFoNoO/QcMhF1DJwsrnVTuLuTy/o6CwvsFGzAogvT2rywhxH5JA7b44qXJ/Wq84NAnpZOv254vu82dbd0CS9bj/lbB9E09e186CpGvN60CZwulzQAHelJW34e/bgAR9d5NabeWufdbLAjEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WpT26J+1CcL3/dOp/lGfQtC3YMvVuUsLCcAwzL9o+Kc=;
- b=Bj/h2HCYf3SbxHmH+5JTa2qzRIaYTnnbL+6idcAlw4zKnM3LYw+sEl0gURpncGbBbIJ5gWGS6u4ivYSMvxj5yycSx7g6tP+dzCk6G2UA53OfrdpdHc6pd/TIgyCzZ+0bfC0ggwZj6LDbL4X+ygGBqT8TB4eDpmnZKpTeLwrBd+w=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by IA0PPF1D04084C7.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bca) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.12; Sat, 25 Jul
- 2026 06:11:52 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0245.012; Sat, 25 Jul 2026
- 06:11:52 +0000
-Message-ID: <7fde6e93-3d62-419b-b9e7-30696297d663@amd.com>
-Date: Sat, 25 Jul 2026 00:11:50 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 11/11] drm/amd/display: Force GAMCOR for subsampled
- surfaces with PQ/Gamma22/HLG
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-12-harry.wentland@amd.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20260722134607.136293-12-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR13CA0151.namprd13.prod.outlook.com
- (2603:10b6:a03:2c7::6) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3228C10F2E1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 10:08:25 +0000 (UTC)
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-84e0688b859so104688b3a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 03:08:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784887705; x=1785492505; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=i0F3yBArKcXYT+DEWXeSbqqrZfyglayU3IMutIRKDs8=;
+ b=hNxg1vlmDvWyi2skWh2CZtxUU6HUGjToLd5lDyUG8LeJUiEWVncVDbI1sPRcdFrsco
+ w6QB0eH9tNtvwjURIKipM7VY3QnCfAwnG5yPDKM6c+7NSlWI8hhKjrpHAUd9VJ9cWEWO
+ vlRQrqy5wGnGfeid635SS4ttgxU6aTsA377l/d9NwN24fifwvhDoZywsdUwN1NR8Rqs2
+ L8ZIAZaoBK5TmoAmpERuq+kXNVRKx+/6ZlrZrGk1bg2y3CJ5jxSiKswI7VqgD7Gdhx4w
+ vDBetHRCLCtwNWv9AWnv1MYLR5KaFZZ5wdz8oOj9qO1ST/6UYoXUywDFqayrKdPE6svp
+ 75Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784887705; x=1785492505;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=i0F3yBArKcXYT+DEWXeSbqqrZfyglayU3IMutIRKDs8=;
+ b=mLLjMoJ/gCHkFW49iu/d2VPcSaxFTjMbDg+bS8Y3znmmZcp+YRX1vBwqZwJsgbeQcP
+ 0EmB5A3dFuuRZ/ut/K/rh0mJQUA2fpPJQYzXbpjvvgENk6Ems/WE+oFrxIPTV5mBAd+e
+ KuHcC4NEXSDczbEccZEa6zb3PKkFitbRfXpM9+QO6xlasMp6FwwSAfdIMahI4caKc3bZ
+ A3QRiI53PRJy3i8MzyOapIBC/i81f4F3gDdx9ba73qKQMMLlT3czkka+ADS1I1k4FNRy
+ FlXZNY3D0agKjHH3P55PmNiSnJlBOwxC5kt2WXwDko+DYEplf5uoam7Bx5rN5mk5ERx9
+ SMcw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpaC6mauiBabkcbX0fIxpljoHjRzQGO5naszEHZehb+MI19Uf2YAoXEE6jF7xC7PCvrLmJGjIITN9E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzUzRkGcNnkJM+QzF3k6BfhC3CvWjXj4SY2uWgz1yJ2rT6C59zT
+ lCzMEnXr1rH/1i+74Y+pc2dAfeZQJTGC8NtCbtZjnQNMGJ8XdPcsjFhT
+X-Gm-Gg: AR+sD13QRRbn0isRLIhAycQdZ+uO43e1hSv63JqlByk/SlmUU0s/Q2RiQZKzavDyaGz
+ 8eEV453aaY9CErhH6o6xqItBXPGYTrAKVLpJprOyGCEvPAtuwQqoLRn3z6MPIElE8Xhix6wPfSX
+ GtakBpTU1vRH02E1XmV50AngzLiqHC3Qt/jK66FccROjFQVuy6fMCW1o6y4pSlkcnh+2ALZmPAW
+ kCV0mehiEVF8wJrqWPV7wAnwBbell+K5glMyq/ERWoQYVofRN5ZInFjVARkHLceWg24RrzoucZA
+ VPPt2bEud96shvYPQKqd6/pTli4oVkdcgcipaDZoRj5DqzETLBknsK0ubETymiQIrG5MM+hX2ze
+ V93NxdLSQljhgDffDoh/kEqkZXjUMMakw0+66ZvblBiaoGehqmRQ2NEPhnpSh/7CvYQJplyCLFH
+ tgpfxEMuNXBvDmTpc05SAOp6ufxTxX9fHvjtCI7Z93MgxCsbhC6DPwIFW1e4FF7GhFkfcfM9jCV
+ gB4NjlqxwTF5Z47PJUnwQ==
+X-Received: by 2002:a05:6a00:299a:b0:848:8027:cac with SMTP id
+ d2e1a72fcca58-84e2b8988b8mr7358998b3a.23.1784887704633; 
+ Fri, 24 Jul 2026 03:08:24 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84e175cdc21sm4405335b3a.47.2026.07.24.03.08.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jul 2026 03:08:24 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 1/2] drm/bridge: adv7511: Reorder power_on() and power_off()
+Date: Fri, 24 Jul 2026 17:08:02 +0700
+Message-ID: <20260724100803.50169-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|IA0PPF1D04084C7:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd615a76-35fb-4908-1d32-08deea139eb5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: +XMALWprvbkNJp4tuC+UVU6P/LTV0YNu2yJe0LFSU710AHaij0DT+rxN4O1hS2syzFe+59yNaFDSphcnb74tIUm0S5OReE9DEimaCxxov2g4xFZP8aUwPPISf50G0mfgveUDBYaOQ+xAltUGOoesrK7Uvbb/rXtsFxgpc2FhG+Jsq6NcKS3VOtn1o7mI/+WNiZTy8Vp1wjFLkFH+ne50hy5S+mz/S1Ou4/ybV1jRe+DJ2wco+MnfYyw7RgA9egUXyrS/MUddP0EjaL+tIhPBkjvG3O7xdQ17tgXNgasKC7dTx8UihFA+ar9bGMw6jy07wWhm4b7bya4vYLiBDVZOdQzIVhCXDZzSMmRmiAbX+BHUHCTWc8C/LaxwUo8mLtHAgIq/vBlUYtY55hsFUCqpKq8SOEGs8oPkoexS0zOGUrE+aKxlU2HCUQiLUxoQ5I0wLM3P4VFkgbaKfEUZJpot6EcBqGvkWN1yofcwifJlP2+r5UjK2TvNRNBHS+zLAVE+r4hfBvsE9ONzSo0yu+uDvjWx8sLHTTFOO/MShEaTnSa3SB4bR2n0dz6jiElWrlftwtNxebLR95oNWmxkTUF1h5MpkYh0jS6BF6g8ppn8Mt5VgK8VOzNEoAPg5wUdEgDSuq1dlaBuKdD17TtZHuIjSXD48vrFdJsKWWLdeDauUh4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UUJKQTNXSnI4d3R5cDBjeXUyTjNzRmVRMW0rVEhZQzdCOUQ1RGtaZ2oxS0da?=
- =?utf-8?B?Q3l5TDd1VitwSmpmVGpEVUNabmIya1F6emdTbG45L1hGVURudWdkaWdCMXNr?=
- =?utf-8?B?WXpUaGRTSkxnbkhxeWJ6dnc0RTQ2ZmVjY1NMUTZqR24rRElua2tnZi81THBu?=
- =?utf-8?B?bWpxd1pka2YwUTAvQjI5aEFObjVMSGRNb3ZpU2hmaGF1cVZCc3duZHNYTDg4?=
- =?utf-8?B?eDZlUTl0bTdyZW9id3FYVnJ0UWYxL2p1ZnE5WXVNR1pDT2N6aWF2TEh3RFZh?=
- =?utf-8?B?TVE1VWF2WFhScTBFMS9EdXhYeWtQRUtMbitMMUhvOTBFaUluVlhVTTVGeEpE?=
- =?utf-8?B?K2V6U0hCOVMxYWJuVGxEV2V4WDdZVjEzV1ZHZ2llT2ZyeWdzTE9KSTRoeURr?=
- =?utf-8?B?Sk9EZ0RUbE1ZUkR0Qll1SjFpc3BIcS82MlR2d2RBVU81d3c4VmEvU0dZVVl1?=
- =?utf-8?B?K05UbFRBMnJwNlVKZDhkQlIvRmJ2a0RrUHZTNW5UUkxtVkJhc3hRemlpd2Vu?=
- =?utf-8?B?YVZ2alZEVVJLWXRYMks2a2NiUERLWVJUSU9JcWFMY1BjK01CbEUzWGI5QXF6?=
- =?utf-8?B?dU1hZitCV3N2TWhSRE9adjFhc0ZUaXd5QTN4Ym9RYTYzcTRhY0dJK2xRS0hW?=
- =?utf-8?B?bkJGazVFeVJHZ3BYcGw4ZFVmZUNXdzNUUlc1dnlwQkhVaVNEcHNsUFZjSndx?=
- =?utf-8?B?TXVrNk9xOFcxcXpSV1pSVEltSnZNYVhOMUM1eVdRb2NoQW1Vc01SK001N09B?=
- =?utf-8?B?OGRuUmhqNEZkeGczcGp3YTdKcDJpbXdyN09ZWnlLbXJLVkswZHZKMk0rSENy?=
- =?utf-8?B?cjhpR1B5NmdGTTBEVFRUUHRMR3BITnE3SlZVM3NMZ0JQSGJvaHFDSzNsWlZi?=
- =?utf-8?B?c285MFVFeSt6bjJlWnEwQ0ZOVFkzQ1owaVA4eC9lMk5VTVZlRkdpeGRvRzI3?=
- =?utf-8?B?L2RadWVOMXpKR2VuSXVMM2RFZGplWmdpRDVRL2xzV2RxUjJCNFNMSzh3alJm?=
- =?utf-8?B?Y3p1M0tJUkh4aHRRam40cjhnb005RjRmSklJdHZXSUp5Y1JTeWhJTmQ4eE1C?=
- =?utf-8?B?bEVmbGhmdldjbmFyemJja3podjk3YlUzN3hleWRBWXJtSkZ4cjcyd0xCeWdh?=
- =?utf-8?B?NmF0cHBiMVVmTzl5VzE3aUlEaDJNQWg3OTlGMW1CWFVOcjZiUkhhVGVRZFFa?=
- =?utf-8?B?SUNNdmZXQk5lMDd6Y3BoYWU4RzZ3dzFCM2N4Y0ZlV2dRdS9zQTZTYWlZK3g2?=
- =?utf-8?B?V0ZuV2krUWVWYzlCTk16dEVBSTNRZXVsVHdxVVUwM1NnU0tlVnM5TnRETXFO?=
- =?utf-8?B?aFVKRW13NThFV1Y3d3FTV1RlYmZOc3JjMjI5SlJTanEvVVd5cE1INFAvOVpR?=
- =?utf-8?B?c2RNajNDcU5GRmwxT2lvSnFSMVByODlrTWtDazVNb2JieFZ6ODZzRU5Da1BY?=
- =?utf-8?B?YjFkMmRIMUQyZXFWczhyOE91cGVacDdQakJuQU0yMUxxRG1NczRXOHl6Nmhh?=
- =?utf-8?B?V1VFRkQ0czV4TVNuQ3lybU43c3pHMzg1T20xWVlpWHV2V0ZRSmJUTUx6aUM0?=
- =?utf-8?B?U1NTUkdUQmMyazBhQ2g0ZCtRcFJOb2xIdWtBd09wMGFRaHVQam5SaGxNUzN4?=
- =?utf-8?B?OEVheExxOXJyaWZQa0txNmJwZHdoYjNiZ0g5Q1ZZajlnbUVTZ3VMYTJVNXNs?=
- =?utf-8?B?TXdpWm1KWHIraVZaaEJ2aFF5RDI0Vzk5b09OU3ptVjNKZm9vN2RBdE1YS0RH?=
- =?utf-8?B?em9jZk1LNkFER1g3V3I0ek5oVU0zTXl0U01BSGRtSklYMFQrQndWa3FsN2lM?=
- =?utf-8?B?WEE1SnFkaDBEQnArdk9RTERJTzhsSERKbjJqc3gzRWx1TWkyTE1aWG9pb1NK?=
- =?utf-8?B?b2JDaSt2MGFwbVVuWlhsNWZwaTRRV1BOMGQ2V3N1cnlxTHcrc1h6VlZUTFRI?=
- =?utf-8?B?OE5mbDQyZGV4UTIySHR5Z0VqdnlNeFZ4bzZrZzZlWkZHMis4NXN1ZXE2d1dt?=
- =?utf-8?B?RnFmTGQ5UlJKRHJKYXd3bHB0Zk5nNndzK1BKazYzMjZiMjJvQjlxS21jMGto?=
- =?utf-8?B?YTFOazM0YmVydUY2a280SVBoeHBGWHVYWTZrSUhuNnpmREtOSUVRVXNQRWg3?=
- =?utf-8?B?bkFvblkrcWxyWngwVVdmYjJoOW10d2g0b3BEdm1wYUgwOGoxWUloNGVqTk9j?=
- =?utf-8?B?TjNPYzJWS2RjM25Rc0lnRm5CVENBUHRuNHVsSVlGeHQ1YVEwcE1qdXNJZFVZ?=
- =?utf-8?B?bnFnQkMwS1N4ZU9tQ3VVbXAvV0pSdkxjMlZDVmdOOHpFRHhYODhEOWpEN0pq?=
- =?utf-8?Q?BddQ/SaW/HXD44hovv?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd615a76-35fb-4908-1d32-08deea139eb5
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Jul 2026 06:11:52.2185 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AdLnhf2L2UhBf3isvLrMDQCDkQSE0+haTxyZaROGwBb43iXeZTpFBvXtpkp/CTOMaWx714FreW35KbZT5lWS1A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF1D04084C7
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 27 Jul 2026 07:16:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,45 +96,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-On 7/22/26 07:46, Harry Wentland wrote:
-> The ROM early-return checks for PQ, Gamma 2.2, and HLG in
-> mod_color_calculate_degamma_params() do not consider the map_user_ramp
-> parameter. When map_user_ramp is true (indicating a subsampled surface
-> that requires post-scaler degamma via GAMCOR), the function still takes
-> the ROM path, programming PRE_DEGAM instead.
-> 
-> For subsampled formats the chroma channels must be upsampled by the
-> scaler before degamma is applied. PRE_DEGAM sits before the scaler in
-> the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
-> Using the ROM for subsampled surfaces means degamma is applied to
-> subsampled chroma before upsampling, producing incorrect results.
-> 
-> Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
-> forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
-> is subsampled.
-> 
-> Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Copilot:claude-opus-4.6
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-> index 03d88e78165d..5786ef5787ac 100644
-> --- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-> +++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-> @@ -1696,7 +1696,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
->   			return true;
->   
->   		if (dc_caps != NULL &&
-> -			dc_caps->dpp.dcn_arch == 1) {
-> +			dc_caps->dpp.dcn_arch == 1 &&
-> +			!map_user_ramp) {
->   
->   			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
->   					dc_caps->dpp.dgam_rom_caps.pq == 1)
+Move the power_on function block below the power_off function block
+to prepare for the following patch.
+
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 48 ++++++++++----------
+ 1 file changed, 24 insertions(+), 24 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 02f8f7e78a16..d98a8f7afc7f 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -302,6 +302,30 @@ static void adv7511_set_link_config(struct adv7511 *adv7511,
+ 	adv7511->rgb = config->input_colorspace == HDMI_COLORSPACE_RGB;
+ }
+ 
++static void __adv7511_power_off(struct adv7511 *adv7511)
++{
++	/* TODO: setup additional power down modes */
++	if (adv7511->info->hpd_override_enable)
++		regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER2,
++				   ADV7535_REG_POWER2_HPD_OVERRIDE, 0);
++
++	regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER,
++			   ADV7511_POWER_POWER_DOWN,
++			   ADV7511_POWER_POWER_DOWN);
++	regmap_update_bits(adv7511->regmap,
++			   ADV7511_REG_INT_ENABLE(1),
++			   ADV7511_INT1_DDC_ERROR, 0);
++	regcache_mark_dirty(adv7511->regmap);
++}
++
++static void adv7511_power_off(struct adv7511 *adv7511)
++{
++	__adv7511_power_off(adv7511);
++	if (adv7511->info->has_dsi)
++		adv7533_dsi_power_off(adv7511);
++	adv7511->powered = false;
++}
++
+ static void __adv7511_power_on(struct adv7511 *adv7511)
+ {
+ 	adv7511->current_edid_segment = -1;
+@@ -355,30 +379,6 @@ static void adv7511_power_on(struct adv7511 *adv7511)
+ 	adv7511->powered = true;
+ }
+ 
+-static void __adv7511_power_off(struct adv7511 *adv7511)
+-{
+-	/* TODO: setup additional power down modes */
+-	if (adv7511->info->hpd_override_enable)
+-		regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER2,
+-				   ADV7535_REG_POWER2_HPD_OVERRIDE, 0);
+-
+-	regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER,
+-			   ADV7511_POWER_POWER_DOWN,
+-			   ADV7511_POWER_POWER_DOWN);
+-	regmap_update_bits(adv7511->regmap,
+-			   ADV7511_REG_INT_ENABLE(1),
+-			   ADV7511_INT1_DDC_ERROR, 0);
+-	regcache_mark_dirty(adv7511->regmap);
+-}
+-
+-static void adv7511_power_off(struct adv7511 *adv7511)
+-{
+-	__adv7511_power_off(adv7511);
+-	if (adv7511->info->has_dsi)
+-		adv7533_dsi_power_off(adv7511);
+-	adv7511->powered = false;
+-}
+-
+ /* -----------------------------------------------------------------------------
+  * Interrupt and hotplug detection
+  */
+-- 
+2.43.0
 
