@@ -4,130 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0968CC531D0
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 02:25:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FF26C531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 02:25:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E5FD10E43C;
-	Fri, 24 Jul 2026 02:25:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50E2B10E62F;
+	Fri, 24 Jul 2026 02:25:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nxp.com header.i=@nxp.com header.b="f5xAFCAz";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="DusLLOf9";
 	dkim-atps=neutral
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013032.outbound.protection.outlook.com [40.107.159.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 39CF010E43C
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 02:25:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xhz22k7qc+I+tikRk0NpDWmQi0DbMT4zS9rZoIrcB4CuJ+ZEZxjkPZskwT1c+ITZISPmpBUd1+9f60Gbu8+G6KsZnnEcggKTPLV+ghLc41z7fwCSSThkrhdTWKszw+hK8KRZamGZmtisfe4aVsSzFbxq0/r6TW/S3X+nUtkCkAybMEgfwVV7ToTbSX1/qPOM2PRfe8WudvCOQAGWxL7QrflU1BqFEmOZM4wMVZm25MLhyElTdN0wOC+abIg7/OC1an4w/RtI1JjaDhMF1ZE8SfxUTZXWkaPli/TXNjakacvcfsTHe06ezOIxvPT5IvTq1Ds3HMt1XB5SBBPAR0Au4w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ixuvoYfoJYkUEx4+oSB66cEN5lAePAqdl2TR+wY3X2A=;
- b=xWZ9JQglLj/4KCrenLI04ttIjCMoEKhd5a600H991+HmSuH3Az248EjltPeuaAHLeaecps4HxlaxH4rCCRZM3OX9gt7Y5artQSWJiQD9QaDE8AI+bmIUU1VbCbjOzpBThNvroLHL6g42w7cJ2p/Nx4XqZr/qEDffA0JhGKyhu0GyTNT+l/NSxeJ5nwgSB5qhyOpJTIzPETjLysS1gxW1yOpAdLSAgxYEVmoK1ooWudpo7vZ9k7BZH9ykJ6FNp12bcrDLL3kmVYV36eF0ynPD7AvPhXc2RjolEvh4XDop9Vla0Ww5Xof+Zya+/eAoqNRMxyPnRTRQX+4DPA3tcACeKQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ixuvoYfoJYkUEx4+oSB66cEN5lAePAqdl2TR+wY3X2A=;
- b=f5xAFCAzTY5dW8JBPmPKmhDaZuPRRLJsq2g2zBX6U7iXvCz/FmBf3XfUK2pfn1PZ2IppdKGjaLcyy7iUYGF09wdxRtJmrxEpg4+N5ICw5r19QMVXXCDttdreIhEui3DMKCjcT5ZIT3gSuKsp4EjVbANslWK9G5w/E8sFz8xpUL6rcJPT+ybz1BtQQgj0ZSAdB9ygVGME+EE4dhd0s6xJoOkLTEa07qPtVoDt/CWYBMlSQz9iJ0elJE1VQBwCbH7D3tDtKMIKK1c9T+a72YNjLNfHk7/sdfpht1auztOJrjMJVKyjBZcLvPd93kkfK3u2IrLF6ul70Fbmebog5WVWaA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com (2603:10a6:20b:4dd::8)
- by VI2PR04MB10168.eurprd04.prod.outlook.com (2603:10a6:800:229::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
- 2026 02:25:44 +0000
-Received: from AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c]) by AS1PR04MB9287.eurprd04.prod.outlook.com
- ([fe80::6f30:763d:17d2:b79c%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 02:25:44 +0000
-Date: Fri, 24 Jul 2026 10:27:13 +0800
-From: Liu Ying <victor.liu@nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, Marek Vasut <marex@denx.de>,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Robert Chiras <robert.chiras@nxp.com>, Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v2 3/7] drm/panel: simple: Add waiken WKS101WX001-WCT
- support
-Message-ID: <amLNge6hp25xHDYc@raspi>
-References: <20260715-dxl_lcdif-v2-0-da797562636e@nxp.com>
- <20260715-dxl_lcdif-v2-3-da797562636e@nxp.com>
- <alnCL7ylMyvGD-ui@raspi> <amAJL9TIcDAK7kbh@SMW015318>
- <amA8iVS4c0exg6pT@raspi> <amA_lUpWkbOFal1y@raspi>
- <amFAXwoM4j2sIENj@SMW015318> <amF60o7yUcqAE24N@raspi>
- <amKJZ4CZJbeBw6L6@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <amKJZ4CZJbeBw6L6@SMW015318>
-X-ClientProxiedBy: SG2PR04CA0209.apcprd04.prod.outlook.com
- (2603:1096:4:187::12) To AS1PR04MB9287.eurprd04.prod.outlook.com
- (2603:10a6:20b:4dd::8)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFCC410E62F;
+ Fri, 24 Jul 2026 02:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+ s=s31663417; t=1784859953; x=1785464753; i=w_armin@gmx.de;
+ bh=1mJEEvm4FbiJHeJ6b+OnPJ/M4l9XDDZkezBn7mj51to=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=DusLLOf9K2rAvt/qeROYwQCVwKP94XQy6iUudrPTJ+wVX9E1xO6Vcoe+/IQKMzlj
+ nVFAajpmycU5pPOuUtvm1rd67KRF0z6CjWrJ+Aqzf6RZekTtjYvqQbcvm60+3jXqN
+ Fgn++rdHUkgG5N8VuhgLk1ons3KVlq/gMWpEr/xk6KacfGH3BjZf2n4YgPNVS4mFN
+ m9BcWJxn4avdybKdqTknR/YdjCgnvXKjnVfYuol/zWEYt9Ld7Yc+DCSiU3q+ZdSa5
+ O59KkM3qgXWfuVj3BP4f9nriFfM8QQJ5FwO8ox7MGt52L151Pi6uo5/UrbFoevQ4b
+ NVJygm9rRd6AONcnAA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1M42jQ-1wn5bk3Z2G-003Kl7; Fri, 24
+ Jul 2026 04:25:52 +0200
+From: Armin Wolf <W_Armin@gmx.de>
+To: hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux@weissschuh.net, rafael@kernel.org, lenb@kernel.org,
+ linux-acpi@vger.kernel.org, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
+ matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ intel-xe@lists.freedesktop.org
+Subject: [PATCH v2 1/3] platform/wmi: Remove dependency on CONFIG_X86
+Date: Fri, 24 Jul 2026 04:25:24 +0200
+Message-Id: <20260724022526.139370-2-W_Armin@gmx.de>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260724022526.139370-1-W_Armin@gmx.de>
+References: <20260724022526.139370-1-W_Armin@gmx.de>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS1PR04MB9287:EE_|VI2PR04MB10168:EE_
-X-MS-Office365-Filtering-Correlation-Id: 38eddd25-bd45-4a56-df07-08dee92add4c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|19092799006|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: cRIx+NBFcwTSNc8q63I/3k64Z/91oIvMfHPjA5UqSpGutZGrYT53l4OwTEastUx57U/trrSYXLrrG/iHoT7E/H8ImlCuSIzpkR4tzPkiVXavPEzyF8SJNcE6u0whfJRYl/fq306Bbg/x1W+duzx9S5UjWzVW2WokG5sbyugkEAD0tRjBeFTmne6VIkSZ46liqPbCpLH/LEx0sRIawBV5ho8G3xfKElWN005DuGJ0RjF6e1RO+NsnCIcpcRmKwzPhP4q4sV/zPUdpuFUhwkHpb1eIegRCQ/iILIlaTWYfP6GOGgFUl/ZL1nDIsEBq+x/EACkf8sBXMlrgbTgRNo67WmKhzXm4d6LKTNvX+JNdr5e8dOnD/3e0LdoLZI44iS0JpPHUCjTQ1LeQQQXNdggQPT8AggRmyWan+vvBs+LGRhT+bvEKQvVPknrQGVrf82U3JU80Q+hibitL2f2FfM/JBMNRRRRx+WR77toTDc/DBuwfyaoC+z/jzK6su9GadWobmRxy0AN5pO/my5rGDBQ0HcicHghxHxDZJcK7rs7c5s7FmwbZvtlaXfkP/YRmvNtzCZjDmbGrpC+WgOVsfeX87KBF121JfvNEIiQQ8yW4JxCCFwF2iND05/wdvNSE9ExD7DY5pM8xIvwQt47OmUNDBzr4v+H6ttJJbrtgTqTV+NA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS1PR04MB9287.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(19092799006)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?zvv9iDLDYLo8gFsjkDGINz6ed+IMwAMVm5SBfzCDXJujEbgfkjRKx2H9g9W/?=
- =?us-ascii?Q?rWBGGHnsNsOOF3ET01H4RPv+tIH9fs0SkKTvvOU2oO/Sm/kXtzfdh+RO/J+t?=
- =?us-ascii?Q?VyyBQ5itJAUN5j9rrLRjeg9JgbeniPxX7CAVnsG/cublrXkv6kCw0b0fFUjX?=
- =?us-ascii?Q?F3s9AJSq0iSkBR4wsNlRx7rM62LfKiGoVhym7dRGQLRrPLlULARD4pPdyB98?=
- =?us-ascii?Q?gvxHHwXflX72dM5B5TqwfhpnXtfBnrB3ISYbC+NYnB584Ygnys2ufa0rKl/5?=
- =?us-ascii?Q?X0pcyitGPPQdc48J+S9x0RlyteaohmJShPa+KHt3o63ZGxKeuVsGS03L1FjS?=
- =?us-ascii?Q?g3RSomJNkSuzDv9RAkOMcI/IOC3PZTVBoKPZ7VvEI8lZcbXwi6ZLHHmCYbX/?=
- =?us-ascii?Q?WEs5lYqCy1mMtb8/xTFH4ZXbhwCYCGZoGyC/414oBSY57lijhmKTCKnUrjos?=
- =?us-ascii?Q?9UJ3wbgU0urYrXx6cht1ulZ9Ugq+Le+mGT7FuYCCpARIoTaylhDfD83OCG59?=
- =?us-ascii?Q?fOAM6Rrd0nyJkvwG6spZ/fa4j5d0v7ITAxnDYpx31/aGDYEG3QYj2MhMU281?=
- =?us-ascii?Q?uiy+3aU+kg4igeuxbGrbDnh/N+oBPxRoGIBXoLmivTGZUqG7O0CsRkcLSFd1?=
- =?us-ascii?Q?qEEUWpIEqtd2kPtl/M8ILwdCeeiZf9SNcUg51MO5wn3lappZRJNb3cJl8dgg?=
- =?us-ascii?Q?jUoJS+PdXf1YnVGAdJ4LzrB8Kw6pgv9gyO2jSEab/+QpP25HyosOJru/SeGB?=
- =?us-ascii?Q?/MJKChQaaWt1IDluYuTa3VAhdG254O2w4dzqrHONgPejEaDdIv2KueaDihjH?=
- =?us-ascii?Q?6L/OCWt60NYSJGKqhpDIyUXFyPDtCRHZ5Dovu9Cp/KbVYctZBQ55G2zsVIGn?=
- =?us-ascii?Q?QT94cM7ujmJF1q7wxNIDkeFkzk1TSIeFc342G/SJug7A6/A+bYqlTUh22a0c?=
- =?us-ascii?Q?EbJgLAxmpIqG2ZN7PufsDuza2gCE3d1PBQvhZwljjwxLsTrVX1u/P+dO4+JY?=
- =?us-ascii?Q?cWiUgUTWKXo/cX8JndNxRnoqayq1ydaC6qpMPjBv9YO7/ffHcwwkkBr38Ede?=
- =?us-ascii?Q?p6S2fsOp8YP6K/mKfmDc32cL+ESuxmdF0J9VX17nGpF6EgjMPx7qWdp/AkX8?=
- =?us-ascii?Q?GVjtSVYnSYVyiXnBPqIonhMArYxgn+u+ngdU/Q5Wve6+vu/0JWqxFdn1NdX5?=
- =?us-ascii?Q?OteM8MsA2Pn3ZIKVOhQ4uW5JMEcx0X9x/s8i5yLMYeVaH+oTEVH5AsaGYl6V?=
- =?us-ascii?Q?BcMtevfDk/pRgjK41ni6EUw2rnuN6iWQXbsull/Jo93jl44rjiGAaUFEMicN?=
- =?us-ascii?Q?INpnaGD0PW5hfRO1f/Ii9sCbkOz6tIZK7lpq+6HAPwYetg2sEWWnmI/gA/IL?=
- =?us-ascii?Q?nwpD5M9z1lOkup7VncWCxTcQV7ezFCnKxUTgTmh0WFs9Y8LOPYP5/UWnynDf?=
- =?us-ascii?Q?hY9A1BICMc/B8bZxQITzDMTDMcSD4+xf8cHACDT5UAZL7PxdcA188H1S5q4a?=
- =?us-ascii?Q?4dtishsEpURRAtJQIk/pebMZApJQxYvxd9bpBndPlWCgOrqET/MUGW3uzKIR?=
- =?us-ascii?Q?syh+QGgyIZk65oryXZd7YlOisAhdbsu5a38ByJxG48y6ePT3NefmayjW9+Gz?=
- =?us-ascii?Q?8J8jSc54Ju3da79dtPtK8AHirz8zPJeWhvGBbtS7TxNy6kzpfik/sEFKoYjJ?=
- =?us-ascii?Q?VQLHOZNDqf2FH5CBi63uJoq9JseqUmuuCaxHzPVb4Ni4UzWF5+5puCBYChbp?=
- =?us-ascii?Q?0Tgo1E/57w=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 38eddd25-bd45-4a56-df07-08dee92add4c
-X-MS-Exchange-CrossTenant-AuthSource: AS1PR04MB9287.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 02:25:44.7088 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IcWvnSZVP0rNfv2ktUlc6KVH9lCPoogPRXYy6ukkUTiosEf1kB0h5AaQUgUNbBt01zU4/S2RL4c83IXeASiMOg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10168
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:CgCmZPyCuD2qT4pvEFdV7Fsj6O0PWstypQimAc+UY5sfxdGtyjy
+ iyUEZDc9wbsg+521FjneUH5gr36U4FdTkxYlKBWJDlTu8d3ZdD2D/+fETrjkXoy3YWfVj9R
+ +xdR/x63DacSfxjr9qWzlhz6QpnQ8OxLouYZUdfp7UJb1AxMzCoZqTjMzKzb937w5h/i48j
+ qBlBcMPzxoUOtaufeqtmQ==
+UI-OutboundReport: notjunk:1;M01:P0:Frwjl7mWmPU=;8dSL3+sTGeXEoY+PeKQjw9p6gJP
+ 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
+ pYsPwTAfgHACUUxqZSjtcgsuCRV9lY
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,142 +154,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 23, 2026 at 04:36:39PM -0500, Frank Li wrote:
-> On Thu, Jul 23, 2026 at 10:22:10AM +0800, Liu Ying wrote:
-> > On Wed, Jul 22, 2026 at 05:12:47PM -0500, Frank Li wrote:
-> > > On Wed, Jul 22, 2026 at 11:57:09AM +0800, Liu Ying wrote:
-> > > > On Wed, Jul 22, 2026 at 11:44:09AM +0800, Liu Ying wrote:
-> > > > > On Tue, Jul 21, 2026 at 07:05:03PM -0500, Frank Li wrote:
-> > > > > > On Fri, Jul 17, 2026 at 01:48:31PM +0800, Liu Ying wrote:
-> > > > > > > On Wed, Jul 15, 2026 at 02:34:48PM -0400, Frank.Li@oss.nxp.com wrote:
-> > > > > > > > From: Frank Li <Frank.Li@nxp.com>
-> > > > > > > >
-> > > > > > > > Add support for WKS101WX001-WCT panel, which is an industrial-grade
-> > > > > > > > 10.1-inch IPS TFT LCD capacitive touch screen display module.
-> > > > > > > >
-> > > > > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> > > > > > > > ---
-> > > > > > > > change in v2
-> > > > > > > > - update height to 135 from 136 (sashiko)
-> > > > > > > > ---
-> > > > > > > >  drivers/gpu/drm/panel/panel-simple.c | 31 +++++++++++++++++++++++++++++++
-> > > > > > > >  1 file changed, 31 insertions(+)
-> > > > >
-> > > > > [...]
-> > > > >
-> > > > > > > > +	.connector_type = DRM_MODE_CONNECTOR_DPI,
-> > > > > > >
-> > > > > > > Seems that the panel also supports LVDS input according to the specification,
-> > > > > > > since it mentions 'RGB or LVDS Interface'?
-> > > > > >
-> > > > > > Need hardware rework to use LVDS. Need remove banch of resistors. Should it
-> > > > > > be treat as difference panel by different compatible string? hardware
-> > > > > > actually changed.
-> > > > >
-> > > > > Not sure how to handle that.
-> > > >
-> > > > Wait, you probably may drop this patch, just document the compatible
-> > > > string in panel-simple.yaml and panel-lvds.yaml and use add a fallback
-> 
-> panel-simple.yaml don't allow fallback to panel-dpi. Need seperated yaml
-> for it.
+The aarch64-laptops project found out that some Windows-on-Arm
+notebooks contain WMI-ACPI mapping devices (PNP0C14) that work
+exactly like on x86. Remove the dependency on CONFIG_X86 to
+make it possible to build the ACPI-WMI driver on arm64.
 
-Really?  How does it disallow that?
+Link: https://lists.linaro.org/archives/list/aarch64-laptops@lists.linaro.=
+org/thread/U2IZENSIOOHZHGXVN7GM5HX5O3FD5KCF/
+Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+=2D--
+ drivers/platform/wmi/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-I can see newhaven,nhd-4.3-480272ef-atxl and osddisplays,osd070t1718-19ts
-are documented in panel-simple.yaml and used with the "panel-dpi" fallback
-compatible string.
+diff --git a/drivers/platform/wmi/Kconfig b/drivers/platform/wmi/Kconfig
+index d62f51ff3b7f..36934b5f0194 100644
+=2D-- a/drivers/platform/wmi/Kconfig
++++ b/drivers/platform/wmi/Kconfig
+@@ -5,7 +5,7 @@
+=20
+ menuconfig ACPI_WMI
+ 	tristate "ACPI-WMI support"
+-	depends on ACPI && X86
++	depends on ACPI
+ 	select NLS
+ 	help
+ 	  This option enables support for the ACPI-WMI driver core.
+=2D-=20
+2.39.5
 
-Documentation/devicetree/bindings/display/panel/panel-simple.yaml:244:      - newhaven,nhd-4.3-480272ef-atxl
-arch/arm/boot/dts/ti/omap/am437x-sk-evm.dts:127:                compatible = "newhaven,nhd-4.3-480272ef-atxl", "panel-dpi";
-
-Documentation/devicetree/bindings/display/panel/panel-simple.yaml:268:      - osddisplays,osd070t1718-19ts
-arch/arm/boot/dts/ti/omap/am437x-gp-evm.dts:89:         compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
-arch/arm/boot/dts/ti/omap/am43x-epos-evm.dts:45:                compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
-arch/arm/boot/dts/ti/omap/am57xx-evm.dtso:62:           compatible = "osddisplays,osd070t1718-19ts", "panel-dpi";
-
-> 
-> > > > compatible string "panel-dpi" or "panel-lvds" in device tree plus a
-> > > > panel-timing node.
-> 
-> previous dt-binding discuss, don't allow failback to two compatible string
-> sorry, I can't remember exactly thread.
-> 
-> like
-> items:
->   - const: ws101w001-wct
->   - enum:
->        - panel-dpi
->        - panel-lvds
-
-I meant just to document the panel in panel-simple.yaml and panel-lvds.yaml.
-No need to add a dedicated DT binding file with such a compatible property
-for this panel.
-
-> 
-> > >
-> > > Look like recently prefer add panel-timing informaiton into c code instead
-> > > of put it into dts file. But I am not sure about it. Just check recent's
-> > > log history.
-> >
-> > If display timing is specified in panel-simple.c, then you have to specify
-> > the connector_type there too, right?  The problem here is that you don't
-> > know the connector_type, as it could be either LVDS or DPI, and I'd assume
-> > that we don't want two compatible strings - one for LVDS and the other for
-> > DPI.
-> 
-> If supported both type, generally need customer property and new panel
-> driver to switch between dpi / lvds
-> 
-> or use
-> 	ports {
-> 
-> 		port@0: //connect dpi
-> 		port@1: //connect lvds
-> 	};
-
-I'd say a new panel driver for this panel is a bit overkill.
-
-> 
-> 
-> I think we can defer this lvds work until it is actually used because
-> - need a big hardware rework to support lvds, most likely it will not be
-
-Per panel spec, just remove a few resistors, which doesn't sound like a
-big rework to me.  But, perhaps, this doesn't impact SW solution a lot though.
-
-> appeared at real productions. If it mass production, vendor most likely use
-> difference module number for it.
-> - it may be end of life if there are not much users.
-
-I'd prefer a mature solution which handles both DPI and LVDS interfaces
-correctly in the first place.
-
-Anyway, just my two cents here.  "DRM PANEL DRIVERS" maintainers or DRM
-subsystem maintainers may override me.
-
-> 
-> Frank
-> 
-> > Although display timing in panel-simple.c avoids duplicated panel-timing
-> > nodes across various potential DT files, I think you have the "good" reason
-> > here to use the panel-timing node + fallback compatible string with one single
-> > panel specific compatible string.
-> >
-> > >
-> > > Add Neil Armstrong for comments.
-> > >
-> > > Frank
-> > >
-> > > >
-> > > > --
-> > > > Regards,
-> > > > Liu Ying
-> >
-> > --
-> > Regards,
-> > Liu Ying
-
--- 
-Regards,
-Liu Ying
