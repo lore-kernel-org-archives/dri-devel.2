@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 027C3C531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:04:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA86C531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:16:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4656310F2DF;
-	Fri, 24 Jul 2026 07:04:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8703910E002;
+	Fri, 24 Jul 2026 07:16:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f0+ib+mJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="O2Taiv8N";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B807510F2DF
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 07:04:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C63910E002
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 07:16:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A0E8242BA0;
- Fri, 24 Jul 2026 07:04:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AC3E1F000E9;
- Fri, 24 Jul 2026 07:04:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1B445600AA;
+ Fri, 24 Jul 2026 07:16:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8A31F000E9;
+ Fri, 24 Jul 2026 07:16:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784876685;
- bh=VMs/xq3GJDqlh81Aq/zinQPzA/3OsaqqHluc+UJDxks=;
+ s=k20260515; t=1784877367;
+ bh=QzCOElfkN2lrjlgqSiSvtMtMB9vg70biI9vGX0w/2v0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=f0+ib+mJWB5Gkvbe21bWbGydXeZAbIj1APMQnTSKtNs5W+i3dYO4kJ/+xrycMtpZR
- IBpCkfw7i4J/9r3O1GQ9hfXAzeBxkEyOefYzRU54Pvui9ZWvgeItd7wT3X2t9gsYPq
- hM31LqgHPi5P7MwheUkqQ5K+sRxyS3XRN2Dy9hzAaMor9XGOBrR76DaMVBmRUugQbM
- ilE6W0CCo357cJdA2D6Rgub6+52h125mjTW9vVA5LPOa0SE1qxVNJuvJ6OFmmPnba7
- +7eB3RHBlCWjOT0sxeKslaAuoOmtRt0O+l6wi405vspd10tgSIa6fJ2YEh19JU65CJ
- WHUNb9FjBcbYQ==
+ b=O2Taiv8NZhVBYX9FVlSh8GPICOgr86n45XlMbIy6QnouYDnESldquSyu+QnVdMFD5
+ RruzEvQILH/oi7D1qIOlO1N4s4FbGBwMqI5iJjNnefxc/6XXbuOXzfYb1thfEBPAAT
+ wbtx5Jd6IG5DUjrDp/2Q27MbHcSv7Yi8vQapEPTL/FlZgk0j2JiPT2mHAh8QR68Ale
+ Tw3nliChw6yDgBHGpDa1kXBpoFX4eEt709QQhZgw50v+Wf0DbUVWNIZCnPmZ7uvRbe
+ 3TAjC1bh3U0KpnVSZnpnet3h3uyT7vdqKXqdF7HLhWUKb0euleAuv/AYL6v7TB75iY
+ 7f9cPRIVnrbGg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] gpu: nova-core: return non-WPR heap size as u64
- from HALs
+Subject: Re: [PATCH v3 1/5] gpu: nova-core: correct FRTS vidmem offset
+ calculation
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: ojeda@kernel.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- dri-devel@lists.freedesktop.org, "Danilo Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260724-blackwell-fixes-v3-3-01aa6a54e3fd@nvidia.com>
+Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260724-blackwell-fixes-v3-1-01aa6a54e3fd@nvidia.com>
 References: <20260724-blackwell-fixes-v3-0-01aa6a54e3fd@nvidia.com>
- <20260724-blackwell-fixes-v3-3-01aa6a54e3fd@nvidia.com>
+ <20260724-blackwell-fixes-v3-1-01aa6a54e3fd@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 07:04:44 +0000
-Message-Id: <20260724070445.2AC3E1F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 07:16:06 +0000
+Message-Id: <20260724071607.6A8A31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,62 +59,93 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] Brittle Logic / Incorrect Condition for 2MiB alignment
+
 Pre-existing issues:
-- [High] The driver lacks bounds checking for framebuffer size and VGA work=
-space addresses read from untrusted device MMIO, leading to integer underfl=
-ows and kernel panics.
+- [Critical] Architecture/Memory Layout Mismatch
 --
 
---- Patch [3]: [PATCH v3 3/5] gpu: nova-core: return non-WPR heap size as u=
-64 from HALs ---
-commit 607f14f3038014abfcbe45e7fcb56d2a70d0bac2
+--- Patch [1]: [PATCH v3 1/5] gpu: nova-core: correct FRTS vidmem offset ca=
+lculation ---
+commit 281515add8e49de6b8ca823d190ac6318796ffcf
 Author: Eliot Courtney <ecourtney@nvidia.com>
 
-gpu: nova-core: return non-WPR heap size as u64 from HALs
+gpu: nova-core: correct FRTS vidmem offset calculation
 
-This commit changes the non_wpr_heap_size() HAL function to return a u64
-directly, avoiding the need for a conversion when calculating the heap size.
-It updates the HAL implementations for various chipsets accordingly.
+The commit updates how the FRTS vidmem offset is calculated for the FSP Cha=
+in
+of Trust message. It calculates this offset using a new per-architecture
+reserved size at the end of the framebuffer, plus the PMU reserved size.
 
-> diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-> index 1f7b6a69e4db8..f5832e59de599 100644
-> --- a/drivers/gpu/nova-core/fb.rs
-> +++ b/drivers/gpu/nova-core/fb.rs
-> @@ -252,7 +252,7 @@ pub(crate) fn new(chipset: Chipset, bar: Bar0<'_>, gs=
-p_fw: &GspFirmware) -> Resu
->          };
+> diff --git a/drivers/gpu/nova-core/fsp.rs b/drivers/gpu/nova-core/fsp.rs
+> index 1475485bded32..30e53df81aa2f 100644
+> --- a/drivers/gpu/nova-core/fsp.rs
+> +++ b/drivers/gpu/nova-core/fsp.rs
+> @@ -134,20 +134,31 @@ struct FspCotMessage {
+>  }
 > =20
->          let non_wpr_heap =3D {
-> -            let non_wpr_heap_size =3D u64::from(hal.non_wpr_heap_size());
-> +            let non_wpr_heap_size =3D hal.non_wpr_heap_size();
->              FbRange(wpr2.start - non_wpr_heap_size..wpr2.start)
+>  impl FspCotMessage {
+> +    /// Computes the FRTS vidmem offset for the Chain-of-Trust message. =
+It is measured from the end
+> +    /// of the framebuffer.
+> +    fn frts_vidmem_offset(hal: &dyn hal::FspHal, fb_layout: &FbLayout) -=
+> Result<u64> {
+> +        let mut offset =3D u64::from(hal.fb_end_reserved_size());
+> +
 
-[Severity: High]
-This is a pre-existing issue, but since we are modifying size calculations
-here in FbLayout::new(), could a malicious device cause an integer underflow
-earlier in this function?
+[Severity: Critical]
+This is a pre-existing issue, but by updating frts_vidmem_offset() to use
+hal.fb_end_reserved_size() + pmu_reserved_size, there is now a mismatch with
+how FbLayout::new() calculates the FRTS base address.
 
-If a device returns a framebuffer size smaller than NV_PRAMIN_SIZE (1MB) fr=
-om
-MMIO, the subtraction fb.end - NV_PRAMIN_SIZE will underflow and panic.
+FbLayout::new() calculates frts_base by subtracting frts_size directly from
+vga_workspace.start:
 
-Additionally, the untrusted VGA workspace address read from MMIO isn't boun=
-ded
-against fb.end. If the VGA workspace address is larger than the framebuffer
-size, it can result in a range where start > end. When FbRange::len() is
-called on this range, it will unconditionally subtract start from end, caus=
-ing
-another underflow panic.
+drivers/gpu/nova-core/fb.rs:FbLayout::new() {
+    let frts =3D {
+        ...
+        let frts_size: u64 =3D hal.frts_size();
+        let frts_base =3D vga_workspace.start.align_down(FRTS_DOWN_ALIGN) -=
+ frts_size;
+        ...
+    }
+}
 
-Could we add upper bounds checking for the framebuffer size and VGA workspa=
-ce
-address against MMIO registers to prevent these crashes?
+This completely omits the PMU reserved memory space. For architectures like
+GB202, FbLayout places FRTS ~2MiB from the end of the framebuffer, while the
+FSP is told it is located ~28MiB from the end.
 
->          };
+Could this discrepancy cause a regression where the host driver loads the G=
+SP
+firmware into physical memory locations that contradict the FSP's memory
+protection firewall?
+
+> +        if fb_layout.pmu_reserved_size !=3D 0 {
+> +            offset =3D (offset + u64::from(fb_layout.pmu_reserved_size))
+> +                // The 2 MiB alignment is r570-specific.
+> +                .align_up(Alignment::new::<SZ_2M>())
+> +                .ok_or(EINVAL)?;
+> +        }
+
+[Severity: Medium]
+Is it brittle to gate the 2MiB alignment behind fb_layout.pmu_reserved_size=
+ !=3D 0?
+
+The comment notes this alignment is r570-specific. Using the presence of a =
+PMU
+reservation as a proxy for checking if the firmware is r570 (or CoT version=
+ >=3D 2)
+could cause a regression if a future architecture or firmware requires the
+alignment but lacks a PMU reservation.
+
+Could this proxy logic fail if an architecture has no PMU reservation but u=
+ses
+r570-compatible firmware?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-blackwell-=
-fixes-v3-0-01aa6a54e3fd@nvidia.com?part=3D3
+fixes-v3-0-01aa6a54e3fd@nvidia.com?part=3D1
