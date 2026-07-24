@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B705C531CC
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:06:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD66C531D0
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:08:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6E8C10E620;
-	Fri, 24 Jul 2026 00:06:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAF5010F25D;
+	Fri, 24 Jul 2026 00:08:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ffy9Hzx/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jvynWntB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E6E710E620
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:06:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68FCD10F25D
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:08:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7A15E600B1;
- Fri, 24 Jul 2026 00:06:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086401F000E9;
- Fri, 24 Jul 2026 00:06:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2E6544361E;
+ Fri, 24 Jul 2026 00:08:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC0A11F000E9;
+ Fri, 24 Jul 2026 00:08:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784851573;
- bh=2uyPN9bcHZySTocNfytlYmSpxXSrp1MP/zZGpfq4e4k=;
+ s=k20260515; t=1784851705;
+ bh=S2IoASVP1juVBMSMsDLb0+ugKx8tAWD9DQwcmyvI8n0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ffy9Hzx/eZvRzc8s1XcReIPjvCCAngy9khpA/MqpRIYUMbEB2bdXYIqXZ+jUl+XDh
- whHz+adQB0nRTL77cibqyQSNGr67hp0uxek+Rx7DbDdd6KDS3L7SEVt0cC5V5/HDKZ
- W+nJbLP5pRvJi3NVP6qSIILQuL9ukrwvUe/K29DOVu03gbvv5wVC/B8WtXvv4F11iq
- S1DPfoptdaPbKbR/y8UPzJEe2fDrULb902KhYF79nkyIq/g9f/Pk442cmWtBucV34f
- 3nvLhP5TFd2PNjxt5e9byOFhJ7HUkgqmXnRGZ9KKFZ8uJimUL+/2zEnlodwF4OLXAB
- m+Ainx318VCVA==
+ b=jvynWntBRdcBxBYf9oYyM7g/KosnKaTdPWzsCpkCZ1N7dPOA/pZ606E6i8gJcFB5V
+ 9HDL67yg35dcexIyPiYy2q00XEH5fG/T7UiT+wrUwZaFNX2PzBEhAJDYwiUrFrAeNf
+ 6u2tktqxyxlGTac9AqGVUZFx8IY0sQUzCc1m/PYxnJaogJznKNPthShuqCmBpOD3eU
+ wqwaCe9zWX8R2UP/wTcs10TAD+JPgr0XVmLWZZP2+wmqQzDuFKjxEo+j4EFuBIWEd9
+ uxl9ag2O+TZeWKthYNcVrGcoapeeTEBEIgNdt3/rYRJ58lk2uuNlW1VuSEN0Ybije2
+ s/8vHijUqb39A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 04/13] drm/panfrost: Move shrinker initialization and
- unplug one level down
+Subject: Re: [PATCH v3 02/13] drm/panfrost: Prevent division by 0
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724-claude-fixes-v3-4-542af61abd0f@collabora.com>
+In-Reply-To: <20260724-claude-fixes-v3-2-542af61abd0f@collabora.com>
 References: <20260724-claude-fixes-v3-0-542af61abd0f@collabora.com>
- <20260724-claude-fixes-v3-4-542af61abd0f@collabora.com>
+ <20260724-claude-fixes-v3-2-542af61abd0f@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 00:06:12 +0000
-Message-Id: <20260724000613.086401F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 00:08:24 +0000
+Message-Id: <20260724000824.DC0A11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,69 +57,58 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The Panfrost GEM shrinker is silently skipped and left uninitializ=
-ed if transparent hugepages (THP) are disabled.
+- [Medium] Multiplication of `status->busy_time` by 100 overflows the 32-bi=
+t `unsigned long` type on 32-bit architectures, leading to completely incor=
+rect utilization percentages in the debug output.
+- [Medium] Meaningful code and commit message mismatch regarding the clampi=
+ng logic.
 --
 
---- Patch [4]: [PATCH v3 04/13] drm/panfrost: Move shrinker initialization =
-and unplug one level down ---
-commit ba73347cedd0ca5a2e99301107bfd0b9268d44b4
+--- Patch [2]: [PATCH v3 02/13] drm/panfrost: Prevent division by 0 ---
+commit 5fb0fa4b6ede9db49d32560487844d56d5235d47
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Move shrinker initialization and unplug one level down
+drm/panfrost: Prevent division by 0
+   =20
+When updating and debug-printing devfreq stats, in the very unlikely
+offchance that total device time is less than 100 ns, clamp it to 0 to
+avoid division by 0.
 
-This commit moves the panfrost shrinker initialization into
-panfrost_gem_init() so it is ready before drm_dev_register() completes.
-It also updates the shrinker functions to take a panfrost_device pointer.
+[Severity: Medium]
+The commit message says "clamp it to 0 to avoid division by 0". Is this
+description accurate? Clamping a divisor to 0 would guarantee a division
+by zero, and the actual code clamps the minimum value to 1 instead of 0.
 
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_gem.c
-> index 3a7fce4288987..d2cd357a2ae33 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_gem.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_gem.c
-> @@ -15,13 +15,13 @@
->  #include "panfrost_gem.h"
->  #include "panfrost_mmu.h"
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_devfreq.c b/drivers/gpu/dr=
+m/panfrost/panfrost_devfreq.c
+> index b51c307788110..0fe81d259274e 100644
+> --- a/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_devfreq.c
+> @@ -78,7 +78,7 @@ static int panfrost_devfreq_get_dev_status(struct devic=
+e *dev,
 > =20
-> -void panfrost_gem_init(struct panfrost_device *pfdev)
-> +int panfrost_gem_init(struct panfrost_device *pfdev)
->  {
->  	int err;
+>  	dev_dbg(pfdev->base.dev, "busy %lu total %lu %lu %% freq %lu MHz\n",
+>  		status->busy_time, status->total_time,
+> -		status->busy_time / (status->total_time / 100),
+> +		status->busy_time * 100 / MAX(status->total_time, 1),
+
+[Severity: Medium]
+Will this multiplication overflow on 32-bit architectures?
+
+Because `status->busy_time` is in nanoseconds, a fully busy GPU over a typi=
+cal
+50ms devfreq polling interval results in 50,000,000 ns. Multiplying this by=
+ 100
+yields 5,000,000,000, which exceeds ULONG_MAX (4,294,967,295) on 32-bit sys=
+tems
+and would wrap around, reporting a roughly 14% utilization instead of 100%.
+
+>  		status->current_frequency / 1000 / 1000);
 > =20
->  	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE) &&
->  	    !panfrost_transparent_hugepage)
-> -		return;
-> +		return 0;
-
-[Severity: High]
-Will this early return bypass the newly added shrinker initialization at the
-end of the function?
-
-If the kernel is compiled with CONFIG_TRANSPARENT_HUGEPAGE and the module
-parameter panfrost.transparent_hugepage is set to false, panfrost_gem_init(=
-)=20
-returns early here. This leaves the GEM shrinker completely uninitialized,=
-=20
-which could lead to out-of-memory conditions under memory pressure because
-memory reclaim capabilities for GEM objects are lost.
-
-> =20
->  	err =3D drm_gem_huge_mnt_create(&pfdev->base, "within_size");
->  	if (drm_gem_get_huge_mnt(&pfdev->base))
-> @@ -29,6 +29,8 @@ void panfrost_gem_init(struct panfrost_device *pfdev)
->  	else if (err)
->  		drm_warn(&pfdev->base, "Can't use Transparent Hugepage (%d)\n",
->  			 err);
-> +
-> +	return panfrost_gem_shrinker_init(pfdev);
->  }
-
-[ ... ]
+>  	return 0;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-claude-fix=
-es-v3-0-542af61abd0f@collabora.com?part=3D4
+es-v3-0-542af61abd0f@collabora.com?part=3D2
