@@ -4,87 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65832C531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36D0BC5321C
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A3BE10E2FE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30E7310E303;
 	Mon, 27 Jul 2026 07:17:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jVdjCg4w";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nF3H2Rvl";
 	dkim-atps=neutral
-Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 496D810E0E8
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:19:35 +0000 (UTC)
-Received: by mail-pz2-f1.google.com with SMTP id
- 41be03b00d2f7-ca034c989e2so560502a12.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 20:19:35 -0700 (PDT)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9A87410F2E1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 10:08:30 +0000 (UTC)
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-84e0688b859so104717b3a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 03:08:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784949575; x=1785554375; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1784887710; x=1785492510; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=TSv4z6+j0ETigrrBAdkCkvY/jDNAOWHrT+gEbT1n1Mw=;
- b=jVdjCg4wYK0S95Uy3N7LKUQ64HwAjSqeGH59YuHwWZyDdq8sgz3ksNhnPRAmpo7o1r
- INJ1buItoCYYrzsJ+I4/BekDvh+LTN3y5JF/7/YI0F0BiYc/2Cfy3gXZZg5SVToFbECW
- kYsGG2KpfEoV2InKerGIo2ih/WYFYuvc19Q4XK+ORAlEaMCcWWWcrY1gH7vD3R2+tQ4B
- 3rPzz+HbVYqCADxX9hGDDYMV5P3hNbf2d+0Ibx7SbOzX8gWCLXJJ4PzoCx7sJTavmgEv
- 4+BfvLZ5aln6cshDpl9b/ObX6HxR6ZNWUN7Pz1BFJc/SCFh6KOhUgSd27dHXqvAb3xUq
- iPWw==
+ bh=GPKCvlhCvKQtHeiybNzrxgoDIHKyA0cPY2rVSugIzn4=;
+ b=nF3H2RvlqVfIFcJbclggcVo23W2poufcL2l5gHJ048WNjPjztqHMGWBgpOEkFt5E5Y
+ Q/wmNHCiXb9erhHLI9txTy52ND2MKApllNMMd1nJdzw/+Th4hYIReOI7IrVMcKyxNWQG
+ 4uypyOgyNIUp5ORGfUnCa5A/hvGmQq0tirCg61d6xpbw6J4pvPzvHFmtb/ZaPJSFfmuy
+ fc6MZ9bxZwB5MvDjHAIRpbDgwOftjU6RI4y58L463NysxBgyk4/EvvrvsWC+TbEjZmVD
+ c78V7oZzJN0CsKW35HoltJmNB0b5ZAb7G+3Y8Mncm4H+QqRFCJykxzqv4egcbvaEJSZW
+ +bKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784949575; x=1785554375;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=TSv4z6+j0ETigrrBAdkCkvY/jDNAOWHrT+gEbT1n1Mw=;
- b=O1QEDK0qOI6RkqyuRzeOlExzl/pDtiISV+Z7SB2WzBlng8beubTt0GQmDWDGlGziFJ
- OYYdfVcXTOJwyUNS/qCaRl1J+BQ/E+LGlNJdzEWRItcXCMpTuM2FtsWMPYZqp2qVzxz3
- o5AfuiU513wMwq+FuQZlEUxLwUC8j77v1TIOvBwnB2V42hWCnHwPrIkHfrYc8zKKF2T8
- jsJJvfYAbsba7llUZLrG+SPVJV7CKJY7ARTkBdP0u2/sMmi3J0GrQw7IKii1XtLL6p5f
- DzCVPIQjKfCBOOK2sj4xSBrbjTufR/YgLMIdOlySOGNGdNRoe/UHMWqOWXqbb5bl9o/1
- IPBg==
-X-Gm-Message-State: AOJu0YxgibBSTFVP8QSlCty8V5KMz+9hY/A7jGVtU7SUMxIkD5D5LluW
- 63jDKFWSWel5wLnZy5H6h51U0rE90COrnKVb2LlxuJGeQwj/N+yEZA1C
-X-Gm-Gg: AR+sD10d1bGagZvHJNga97NYS3UADv0UA33E90TP/e8XugtowsEJhzZu6+gNcFoSoyf
- 5JYRk31VSGJ7PF/bWK/ZTlCpV7C2U/ovRVr51V67fd5DesWxpXKzBjqVtuucjTyeqat4t15UWqf
- vQRnvHqGoHYN0nb6/KKxZH5v+PRYbpx94UdOo0r7AsfYch0CwcTU+TDfTfIhgDV61w0vLxTk5Ti
- sKktAh6BKSLhX6JmxMhN/AmgkF3ANNnwR1m5FzbIwS+S3TgPUMAgTj9GDoTuehEsC1TDT8lOfXt
- aB74zH/KSA95LuDFxg1cX+cIh5x0aADAk1S4vaMkUmXo8q3qcwUlrTru0oVqfr00jBZnASvEGMR
- GAXZzhWdIC4+yGXmCQ+EN0NmihyWxndGhmOlojO68bwv0zmduvSXDPfY=
-X-Received: by 2002:a05:6a00:298a:b0:845:c906:5ff5 with SMTP id
- d2e1a72fcca58-84e5944d694mr613698b3a.30.1784949574747; 
- Fri, 24 Jul 2026 20:19:34 -0700 (PDT)
-Received: from [127.0.1.1] ([2a12:a305:4::403c])
+ d=1e100.net; s=20251104; t=1784887710; x=1785492510;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=GPKCvlhCvKQtHeiybNzrxgoDIHKyA0cPY2rVSugIzn4=;
+ b=DlHubxyuA+Rs9E74JnNVVYKjfps0Dx522QsfY2fEbkyRqi1K6uZd+IW9lBV7NSVkD2
+ kzubmDRe6K2FiMoTJqVaoEDZzZKGA6Hnsmr4+fgBApv5cUmJp0BlQBMuEVBYiEbI66vV
+ 4iioQq/lHHbitj/f7xnYVibvIQMK59CfoY186nv/XTedJJcMSq/16UXa3gNWtRrXfozS
+ XFA6+lkAvGqIe2AqxOD6zKVhsnJ/MttmoHZBtsG9LFhliWubDE2faZH+5pgHAccvjCak
+ mEXKl52nlMXgtKWtwHK7bxogtD9O26fAFDTkX7RTcCwwSwJr3aN31+dlTIoJEWyvtdRH
+ 0Qsg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr+nD5gP87/f05MXCF8oTErkTDx/xBM+/vwtGZ43bqDJ+IU3LdSlf15YUm5pST7++wL3vi2XgAVJpE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxSTxCyfmgQSkkm7h4FjMTwhJG0mMppvLmH4N5E+b5PqhahE85Y
+ 9SEOAxsMHaS5S1rWHAR6sZd4SuY1M3HoKYLttZYMJK5vwQ1oKulSkErf
+X-Gm-Gg: AR+sD13P1lmYaLLobvhQFUQ/M9d796FfnnS6exZWM/Jef49o+PBlh0DwMvWdhlDKahA
+ rXYeXQpohOjVJRjvjgsuFwYpQ5jmhktcEcUHeJYCfa6+i4zyfRZXGTX4SB8wxHMfJf4eohve72F
+ FbEydOy9M2HzquQT0cbWp5YQ+U7LVrQUTbdaLCnQAPW+F/2QE+e3s3QO03RodO9kXi27U0cdLYQ
+ eqoqBUYrCv34yPH6Amh3LZcuZ32X9ei+ckowVn8ufEUqR9dedbxEfgJfYow9Ntc6rIW2a6t7dkG
+ Qd5yaQdrDUQKEeqTBgCJKe4g5sUMT2EUYV448folqqJWRu9aM7QodjpcjdSaurirZjYyMOYgNnJ
+ eJlcV/WzakuRsGjceWwdCZ+0rlOiYMvTH9JBijn9mWkROU2iH+Pn9lIraDt4jm4CI3CfzD4c6kE
+ I9eFMnEKLod6lQK9U/KqIHZAA7TJ9/LGdX1Run+M+UqOFXLjM/pLZ76CyVppnBuqzi3rftmAanU
+ p8ADi2Yat3qWB6ARAgkBQ==
+X-Received: by 2002:a05:6a00:1f0b:b0:84e:23a:14ba with SMTP id
+ d2e1a72fcca58-84e2bba3b90mr7354559b3a.55.1784887710170; 
+ Fri, 24 Jul 2026 03:08:30 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e53432834sm640542b3a.50.2026.07.24.20.19.26
+ d2e1a72fcca58-84e175cdc21sm4405335b3a.47.2026.07.24.03.08.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jul 2026 20:19:33 -0700 (PDT)
-From: Cody Kang <codykang.hk@gmail.com>
-Date: Fri, 24 Jul 2026 23:16:48 -0400
-Subject: [PATCH 16/17] riscv: dts: spacemit: k3-com260-ifx: enable the
- DisplayPort output
+ Fri, 24 Jul 2026 03:08:29 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH 2/2] drm/bridge: adv7511: handle regcache_sync() failure on
+ power on
+Date: Fri, 24 Jul 2026 17:08:03 +0700
+Message-ID: <20260724100803.50169-2-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260724100803.50169-1-phucduc.bui@gmail.com>
+References: <20260724100803.50169-1-phucduc.bui@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-k3-display-v1-16-f22a10a52867@gmail.com>
-References: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
-In-Reply-To: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
- devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
- linux-clk@vger.kernel.org, Cody Kang <codykang.hk@gmail.com>
-X-Mailer: b4 0.15.1
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 27 Jul 2026 07:16:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,64 +100,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-CoM260-IFX carries a single DisplayPort output, so the second DPU and
-the DisplayPort controller it feeds are enabled.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+regcache_sync() failure in adv7511_power_on() is silently ignored,
+leaving the chip marked as powered on even though register
+synchronization may not have completed successfully. Log the error
+and attempt to power the chip back off on failure, to avoid the
+driver believing the chip is fully configured when it may not be.
+
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 11 +++++++++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi   | 11 +++++++++++
- 2 files changed, 22 insertions(+)
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-index 238bb03d0e9e..114d0e02fed9 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-@@ -5,6 +5,7 @@
-  */
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index d98a8f7afc7f..3e470366bce0 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -367,12 +367,20 @@ static void __adv7511_power_on(struct adv7511 *adv7511)
  
- #include "k3-com260.dtsi"
-+#include "k3-display.dtsi"
+ static void adv7511_power_on(struct adv7511 *adv7511)
+ {
++	int ret;
++
+ 	__adv7511_power_on(adv7511);
  
- / {
- 	model = "SpacemiT K3 CoM260 IFX";
-@@ -19,3 +20,13 @@ chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
- };
-+
-+&dpu1_crtc0 {
-+	status = "okay";
-+};
-+
-+&dp1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&dp1_3_cfg>;
-+	status = "okay";
-+};
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index 2f36eba20f1e..dbe8db4a8b76 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -22,6 +22,17 @@ dp1-pins {
- 		};
- 	};
+ 	/*
+ 	 * Most of the registers are reset during power down or when HPD is low.
+ 	 */
+-	regcache_sync(adv7511->regmap);
++	ret = regcache_sync(adv7511->regmap);
++	if (ret) {
++		dev_err(&adv7511->i2c_main->dev,
++			"Failed to sync register cache: %d\n", ret);
++		__adv7511_power_off(adv7511);
++		return;
++	}
  
-+	/omit-if-no-ref/
-+	dp1_3_cfg: dp1-3-cfg {
-+		dp1-pins {
-+			pinmux = <K3_PADCONF(72, 4)>;	/* dp1 hpd */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <3300>;
-+		};
-+	};
-+
- 	gmac0_rgmii_0_cfg: gmac0-rgmii-0-cfg {
- 		gmac0-rgmii-0-pins {
- 			pinmux = <K3_PADCONF(0, 1)>,	/* gmac0_rxdv */
-
+ 	if (adv7511->info->has_dsi)
+ 		adv7533_dsi_power_on(adv7511);
 -- 
 2.43.0
 
