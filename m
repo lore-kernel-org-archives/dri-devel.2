@@ -4,78 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7CA4C531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:00:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 970ACC531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:01:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E649610F320;
-	Fri, 24 Jul 2026 08:00:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE1E110F323;
+	Fri, 24 Jul 2026 08:01:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="RtfNEkn7";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OgcVk3NY";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36D8210F320;
- Fri, 24 Jul 2026 08:00:49 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66O7Vv3E012756; Fri, 24 Jul 2026 09:00:39 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=9
- u9TbNeMTSewIOxrna5HSE5r7SQWDsc9KN44NkGmu9E=; b=RtfNEkn74ArX6aHjw
- Fjt1+yCBZM8YjAWG/OgZo2HhipzCiJKqYPAT+dhWqkCfz40wVXnNH1ZjBsWKmRM/
- WZ459Iabj+ZiGnDPre3kw9UD70kyBDLGxBoaSkYoCTmpA02g7RxmN14jIRBunRrt
- w7JN+i0aKwiqZCtbIDk7qU0f8Z6NPI+sTsLvjI7bSFgoxfNpAiz1YVEJ0t+m/5BZ
- 34gmpiUgiXC25OlxV+v0xBGKEGTMJ50Gs7MchHBcn/5f9fnnmPH/5cB6GzWnZJMw
- xCluB6v+CZ/hIJuaa2ekrgZYoWWVL/V8re1PqaxWtX/Z39xVa/tQV6rltlYdg2VK
- 0kh0A==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4fhq52bgua-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 24 Jul 2026 09:00:39 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 24 Jul
- 2026 09:00:37 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Binns <frank.binns@imgtec.com>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-In-Reply-To: <20260720-promote-bxm-4-64-v1-0-39abcd1cf263@imgtec.com>
-References: <20260720-promote-bxm-4-64-v1-0-39abcd1cf263@imgtec.com>
-Subject: Re: [PATCH 0/2] drm/imagination: update BXM-4-64 MC1 support
- status & GPU support docs
-Message-ID: <178488003797.43576.6485440942998677610.b4-ty@imgtec.com>
-Date: Fri, 24 Jul 2026 09:00:37 +0100
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5315B10F323
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:01:47 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4954a9e8490so6241655e9.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 01:01:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1784880106; x=1785484906; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rAfX3k5wj/8KZVt25ucKMpfpE6MXGKKgl1Anbl2kKTI=;
+ b=OgcVk3NYoQ2HGJhau0l4yqVadlQwJAb1eYSfyzzxXB/H2UjrVc1OTuvvHt6Z/1P7FI
+ vscJr2g0fxvdfRk+pIAEDNynO+1CQaiFlmBlJDvIZcRy9Anp+KcB1YSFK857vyJ3qTZK
+ HBKFQNEyKbFoCJXKUF5kjnq1TrpSXd8fEJyJPXXheHKFYVTW9IXuZMiD7bwllvJpFlsa
+ 0qFs7I3KpvWivCFqsFLBFCzr1dwK7pN1Ydi+8T4/xCf9vlfQIWKM214mpciBruRWLIcJ
+ cSiFVESgNnLEjXrXrAYPF4/Pp8Sm42e7MfjdZDEU/lsLtYwqxDabvfo3s06Ynyh3VGOd
+ koUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784880106; x=1785484906;
+ h=content-transfer-encoding:content-type:mime-version:date:message-id
+ :subject:references:in-reply-to:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=rAfX3k5wj/8KZVt25ucKMpfpE6MXGKKgl1Anbl2kKTI=;
+ b=WhG/gyyGv+m7+z5W/rkyQ/mIJsliScCPatOBMGvcT40y3lZXMzV/MARvR6t6DwAH+f
+ qoSebnNopl8TjmzhXOllsE5tEdEM8oR3uMo/8opgXYxOWw5bcdlKbWEN67ZXOQQUS7nt
+ YVU4At2YRm5vuwX2k0yGrhY5IvJMsQ6WHmEYN7ZYcoFVucetVAVVgi7HLb/fI/2qC7tD
+ /ofzlHNb/QhLwtJnMFyMsAVefPdBAUqLR+nQSaNK8UmOzfEU5bcrbP1Lp305PIUKkR/b
+ Rf5dCLGgk6qm5d0r0JukTs0GgrN+aanj2L6qwA4v2my594jBhnaWScfQj1irJcYAAzO9
+ f4zQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq2FrWx8Sd9+fdjLZe2DOfouFeg6krxIDPfRPmMnU66bF4NL2fYgqSQ43cGxfW1CYTE64itmym7u/M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyzHd3v4AWfajNX9bTFqkKezsBObMP+o9+skSYR2YFcU1R19/Kp
+ MXdTP01zvKTIOoheMvxX/ZrgkYpONRuQ7NuDxqTjA5KLsHW9vFCHD7DyS8WiH1YaccA=
+X-Gm-Gg: AR+sD10MnY3dlqpjkAGK1MgtkEOk6t6ZG9NPXnFGQqaQlVP4LQa84fe5WH1w50OMk+f
+ oFSCldNyGfmkETv4tEuQgExP0hDypcH0r8sFu5N3XTQeQkIk8w/tq29LrSb0uiTRbnfi9ARf6JM
+ XsfFcXa1xkwuA/n9J80OamzoroSkLsYdHmouCOhGHDNr2+i/zgFlSYFwdPSzS5bA6l2S2uGd4Sj
+ W572Ocb61QmDr3RlfNR6Se8LMf58oSJ3f0n8h2rJ/u2QjFH8P2uJU0iEF0g/N0CbqfWGelEfqRO
+ cfglFMZgCs/6uK5puGieeYySWiE6hmJyDQxqBIcGKLoA5iTPITRQCv6A7UoYzsZNeyY7a9o0fps
+ eEy9zc1mAlSk8IhwLsDMJI1ruRh4DCSCzXNqZb5YgHA0SzX0wEHcFaYbw9YjosS09GryiBAoatk
+ qVK19++wliKuS82RwLGbc5wWQ=
+X-Received: by 2002:a05:600c:26d3:b0:493:f478:4c71 with SMTP id
+ 5b1f17b1804b1-49574593d20mr42472695e9.7.1784880105557; 
+ Fri, 24 Jul 2026 01:01:45 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4957af5d4d7sm54404835e9.2.2026.07.24.01.01.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jul 2026 01:01:45 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: laurent.pinchart@ideasonboard.com, jesszhan0024@gmail.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, nm@ti.com, vigneshr@ti.com, kristo@kernel.org, 
+ prabhakar.mahadev-lad.rj@bp.renesas.com, thierry.reding@gmail.com, 
+ sam@ravnborg.org, Leonardo Costa <leoreis.costa@gmail.com>
+Cc: leonardo.costa@toradex.com, dri-devel@lists.freedesktop.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260623195741.495734-1-leoreis.costa@gmail.com>
+References: <20260623195741.495734-1-leoreis.costa@gmail.com>
+Subject: Re: (subset) [PATCH 0/5] arm64: dts: ti: k3-am62-verdin: Add
+ Toradex Capacitive Touch Display 10.1" LVDS
+Message-Id: <178488010464.449291.8023888105582692289.b4-ty@b4>
+Date: Fri, 24 Jul 2026 10:01:44 +0200
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Originating-IP: [172.25.4.9]
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA3MSBTYWx0ZWRfX4+RQkHRFk7rw
- cYV/qL+FY/9bKQRK8kI9BCUTxuTB4NCX2R5b1Uos6Kakq+CzFsPzrZ1PbOgUWnsKFjazmyE5RPq
- UNOsdtMGMX3sIA1jjrKXP7CsVdccnBa4S7sywKbVs/D/vKGNJDKoNFNIaMyWJAa+rXY0DZYutvQ
- zXudgcedRZMkflo3rG2ql4T3PllMmlh/4VOepV/O4Q7/eMMWTpLuMh4U3krDVulNB4sxCWCLhSl
- /ZZOUxg3TvjCaY273pGD2eIzVmPEQy6tE9oJI3cVDHsUgI7PxcN7rQv7lOVUQMbVhpFXjZiNQmX
- 4rep1WoIfkfWierLTy33zxFRZ6kQXoW2jXrah7qWRr/qZDzCzVRLzSKMo4eH3OQM3dVXYk9agsW
- 22aHc1Nr6Nbe6e4N9Xc9R+EPsaBTAVIMW+etg8EFLZWpteihzfgVnzDgrLXcpVcvLt3Tj7ixgQl
- F/uSrmlloKXt8NSWTDA==
-X-Authority-Analysis: v=2.4 cv=B5+JFutM c=1 sm=1 tr=0 ts=6a631ba7 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=3nK9Oi-I4VOrm7s85ZoA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: 7ZjOo9t_D6zlIq3EeeWRs_LchaaimLkZ
-X-Proofpoint-ORIG-GUID: 7ZjOo9t_D6zlIq3EeeWRs_LchaaimLkZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA3MSBTYWx0ZWRfX1LxwPYDGykvx
- dfJXfIpYUqdLtluKWmfQdvEQBpJlw/VNs5AmIPYSx5PuUSKrjphRVc+PG9tjRP2+yoGYiQq8HCH
- 9OLH5oKWgWJ/OdLgVb0nMvl9DgwKySY=
+X-Mailer: b4 0.15.1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,25 +98,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 20 Jul 2026 12:37:11 +0100, Frank Binns wrote:
-> BXM-4-64 MC1 (with GPU ID 36.52.104.182) support is in pretty good shape now,
-> having gone through a full Vulkan CTS run and there only being a handful of
-> failures. The firmware was also recently merged upstream [1].
+Hi,
+
+On Tue, 23 Jun 2026 16:57:36 -0300, Leonardo Costa wrote:
+> From: Leonardo Costa <leonardo.costa@toradex.com>
 > 
-> The first patch in this series updates the GPU support documentation to replace
-> SoC names with GPU IDs (BVNCs) in order to avoid the documentation getting out
-> of date / out of sync with what's supported.
+> This series adds device tree overlays for Toradex Capacitive
+> Touch Display 10.1" LVDS V2 on Verdin AM62.
+> 
+> The display addition covers two interface types:
 > 
 > [...]
 
-Applied to drm-misc-next, thanks!
+Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/2] drm/imagination: update GPU support documentation
-      commit: 9b33d8e063f62074b729c52b052cc306b9369714
-[2/2] drm/imagination: promote BXM-4-64 MC1 (36.52.104.182) to supported status
-      commit: e55fead22ff9ee047ab9f1903860c4b43043514e
+[1/5] dt-bindings: vendor-prefixes: Add Opto Logic
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/4685230d8288a99f1c664768b6eb2bd1545524c7
 
-Best regards,
 -- 
-Alessio Belle <alessio.belle@imgtec.com>
+Neil
 
