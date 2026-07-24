@@ -4,104 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96431C531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48B42C5321C
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7403710E2EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA00F10E2EC;
 	Mon, 27 Jul 2026 07:17:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qP4RLgJ0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dC91NAnF";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F4DF10E054
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 12:20:15 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-84867f07d63so394779b3a.2
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 05:20:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784895615; cv=none;
- d=google.com; s=arc-20260327;
- b=OHKjP6ZP/bw/lntwQy2aUDskM9BRGyb5UdRcPSMR/nbo/f6vyqaS8YYBfL+iYnQZTC
- p2dUceXbo8jPbSdsvSKta4un5Y40SZmBgCHnutkyxNs+z7c2YOtZIQLPDHq/3yJ82Qrp
- HexFZGkteg4JzBQ02VKcGCGN/6h7iWZkEnR4nHRcf1DMyOod1akeyNKejv4N1Ptw+rez
- uIKFuKGQ41jolfBJxTZN7gdgqw52BNoFTa7vLVzKWBW6SXScw+t7QXbBkmgnlxX5vrjE
- squi988KZ1F6g/HEuUuijltmuCae3MbzmcyrjpH6W5lQ05cVz9O7tflSTERLZxKVRTwI
- YqUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=He9IylnwVU8PmFaikhcxjbNX9jpKW9Q6eph9elsXJ9I=;
- fh=hkonlULLIvIuVGMEYRlEapBqUO25i27+qunr3D/dz48=;
- b=qRoZaGAqVxUQCljohdGp4XIes7jbEIavfOokdNllkcDwb7ymqioE2G66fQy4WwyLLc
- UF2LAYOfXZgvxf6Na2/p39qW5ZalfGiG5RJEzMLtGS4TNZf4QIFgJ7tCksSKuE85mgOY
- PKxjbeDfjK0L3dzJzdNvbMfWz110wXr1n622+fljtHmg7yuxrDm+ho30loKhGlMyXF5O
- LlYx/tP+QF/A+7Pu3ant5KHVZWhJ3cr2wwOiRcO0TiZcMA+GNj3rm4hD5w25HaVrJZxn
- u3Lc5At0vf6q4CdqPOf15IyXwWHFX0nmlwVTEdUj517yigcVTRTHQSXFDrPThdV3TEIz
- AtkA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC3D310F36E
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 10:32:54 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-38a0c7e841fso267066a91.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 03:32:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784895614; x=1785500414; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=He9IylnwVU8PmFaikhcxjbNX9jpKW9Q6eph9elsXJ9I=;
- b=qP4RLgJ01hEoU+H4klGX99/BKPRDosujuJ+Bvdh7udRH5xhC2th59hUEfPMAsnHXes
- MwaNwutna5KyOgFKIm+zOPz7nkib+5FAce6AvKp+aO0KQWGAbCzEs1/MgPwe+KZNj2mm
- Z0qIQXNU3ja1IxkbI6Qn6LggvncJ3gdajKq2K4Hu3jfIZDOJVm5Qdpex6zZJOvrDe4gC
- Y3/3y9rpWr8s2upLF675CYqO+bpIV9ErFVkMIHMMhTuTjmIQoetbelLOH4tFdG9Oy4SC
- FsTovKXzw5t8BW5Q/zuFq+RpZ45Jc028+cDAFcoN0rEutfM0e6YhICPq3Ga1WJ2qqugs
- 2D4g==
+ d=gmail.com; s=20251104; t=1784889174; x=1785493974; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=N8npoSQwGZPTgzk4AH5B8xCVhVfiDXlculKLn8/8fTI=;
+ b=dC91NAnFqSKo+KFDhboTVytXyuY1GNvM4ifaGmoDBT4mByMBzG2gofAXd9gYHzK929
+ xu3mzVQVJnWZA9wZ4LHfCPbRRQMTxVmnpbXJz9aL6Rn9TF2S6wm3IxthFTNS+U1genL3
+ B5cIKNtbPsmcoPJjGovWn3PP2N5QVFtoGw014H6jRCapBoy3VAh6hyQtlrB8K2TH9S40
+ Tj3vWILBTLLHTYs3yD6s2MRja6z7l9gC5epUuM4uPMOObXuZ/b9HvDoL0nrWGbl8ynnw
+ uFR3fNs6+aHeu1sr/B3eFsU/N1ouMMcufESTLe3H57I6cBaH7lpQkf44T6W0nUntpmuZ
+ RjZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784895614; x=1785500414;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=He9IylnwVU8PmFaikhcxjbNX9jpKW9Q6eph9elsXJ9I=;
- b=e+XpxsdtZjC1JKfi939APQRufdt5XbRrVSb9buIDIWfKf805SCPEHpEc2vT6rDYO6q
- jIR2DFMI9TDh1VtjcFA1IUvUTTBnPFVfVN+WzzTUjtMXo9paeOr0dAgbVdlW0HELy9zT
- 5F1dd84LB04qlkEjd5GJIwJvHtrsEHpw9ddFkKnznTnL+of3kQpN2gesbgMM+fvzr2eG
- q0XpXpmrfu4DWq0953AGtEv5YkE7LUF+SKj0+Xcimfex0rsjtltPG+ToQhe6b+kF4SSg
- 3cZtEGPJ7eicxJfkOwIMrnEMe2idQyBwq79t6b9mjsbNaW8jwutoCUfHGc4veMt9T/XF
- YF7g==
+ d=1e100.net; s=20251104; t=1784889174; x=1785493974;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=N8npoSQwGZPTgzk4AH5B8xCVhVfiDXlculKLn8/8fTI=;
+ b=rkWGFxGFj2F23PfHUcEVdKrTQdk7KwzDd4AvJZIxS9Vvh6b04FVdOlpWWOlggdxXnt
+ 7ejHQ7MnxXxh7jd0NToPJ8m+me9nZc1qTntnvp/Dnzn0GUCuMoSapk2UHB1uuc1snn0k
+ Ylc3+IOH1fLjg4yDBiKHBDrSk4pDUagpHfoi6XiICwRa24fNpPQWWzcPGTkSWWoG6tu2
+ Qp6O7sD3N/6aTmsLWVA2Gt78UFxSiDlV/Bk3UF2cRlsap7ZwU77rj2lffaV7woc2PkCW
+ k72N1NrsJkwQRPbSS+VWWZqQTs/Y7hRbJRMZnN4xao1vHxWqdelYp4qNnUpMuf3iJN84
+ SWqw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoyU4+GN+FCsEDyUqbbZ/S0DwA40hmPeF8xMQqhKzrADpvNEDWqbiw6AL7hazg+48YBdVS7S9hbN6o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywu7gRPWZAf+SeIroh487aRL5n5d8SP0Q4DPzeH2rw4lJsXIVHs
- DEkALzfhj8k0w+jOFylal6PqrzNyLqTv0fa/xmjE1SiB/46tfcFCijEBP0t4DQFMoUL4AzX18mG
- y67JsSekle0vOlQgu9DZlo3PSe4zpQBA=
-X-Gm-Gg: AR+sD13oh2418Fv/DKv8m7vN/oUorOUeKmawccsXbaEFzaXL84qqtv2BgM1enj5Uc1p
- SOuJk+nFcu52RsPRfhAoSMb4n8lPFMXci5oJXeJFxG/zp1N3L8F6TUude3/lxpyi/04W0/cVLf7
- xxfYBCUlWFDKFaTtg4k/N5O1mm1NHXqO8dSZNGxpKdC/SyHXAhy5S5h02SRCSMqxOQWvN9NJjzo
- kpXaKDSNA9SrSQZSBCK0M5UTzBcRVl62GypSa3dZSRLKnfnalw27XJs1wVheefL+jHMHdzJHKXk
- d4jaZV9arHpY5ZwsIGgNBqvy9CENiq+74ZSOlJw5ckaDN688Wo/XjCny/9XievRZdqapTYiYW6B
- Ue67d8NjXOdHYh2XkI4bgrB8Ceu8gqz3Q
-X-Received: by 2002:a05:6a00:4b11:b0:848:77b3:579a with SMTP id
- d2e1a72fcca58-84e2b8336ccmr8195406b3a.17.1784895614595; Fri, 24 Jul 2026
- 05:20:14 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260724103235.57577-1-phucduc.bui@gmail.com>
- <20260724103901.GA1051157@killaraus.ideasonboard.com>
- <CAABR9nHd9eSsu49zhzimr0NVSnb6NnxU-bR=3rkeK99K_7CHAw@mail.gmail.com>
-In-Reply-To: <CAABR9nHd9eSsu49zhzimr0NVSnb6NnxU-bR=3rkeK99K_7CHAw@mail.gmail.com>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 24 Jul 2026 19:20:03 +0700
-X-Gm-Features: AUfX_myTbX55fcAEYedkvwfSBzfdrzs48vep1SE3KM8lISsyn7kckdQ4EGO5BNU
-Message-ID: <CAABR9nFQTmKTCZV+Bif96VF3Szw4BcTyGUToNXJti27yX5gk2w@mail.gmail.com>
-Subject: Re: [RFC PATCH] drm/bridge: adv7511: use cache_only during power down
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ AHgh+RpYeLTpiUyAqbXRTs7jEBBo+jqGyNA03nCRgvdXNtOKCRVTLicYUwWNK4nxfH2lyjAZSAk0MCltx2s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwcpxgSncMUzTOB4G4DRaUifquOyKUs82uRSgZLjVgKC/ecxI6N
+ Y0vpAZzaMdYCzwDk6VfvRHpaRj8INnhI5NfkNbDODe29B45ZH/TT0rY5
+X-Gm-Gg: AR+sD11m86g02lY0zNgc0hBEF1pubakZ1P0qQyA+CwyYnJcoccgDBH9UJyYQuuiuxzd
+ lecQFdABXVRcxl13CMJIxwovdIZjE3637XPgP17EcgVVD5w/261x+UdAjgFrGK6qNQzZ7D7eFlU
+ 99LCShRf1+QNxqh/CQ7C5mHp71N6yT2acqOO9su7abXiFkV7azrUaFI2R73ZNIrinSpFSumKApc
+ SJGg5gnk172hAvxAqC6FmEtvNicNHgrcgNeTWYTtJ9kjyHElFH4UOspuDltG4r8mByhh8s3kifI
+ M3VB5kPafD2VuJng5Jfs2QpHQcqzIwm3zKV3tLcRFWjc68DJu/k/jgW1v+tIWSi1E1p+KLq18Kz
+ qW3pJZz5R2v3CIyGoXgqNKj4ji2skqbQNjZ7oPHxQr22bKVMBsnEWlJLxC147V0Hp5h2W8cTwZD
+ FVf7oFecaQzyN+8p1rh1ZVtLn2BeKxRRjKI3m8SbhTw0a+2Wg4Gwpws/hyfeRvR+EEZwxc61mJr
+ f389Qs3oD+Ohr+kzUKljjkGPX1OD8ED
+X-Received: by 2002:a17:90b:53c4:b0:38d:ef48:b04 with SMTP id
+ 98e67ed59e1d1-38ec657558amr7473973a91.10.1784889174381; 
+ Fri, 24 Jul 2026 03:32:54 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38f039b1d3asm1212413a91.2.2026.07.24.03.32.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jul 2026 03:32:54 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, bui duc phuc <phucduc.bui@gmail.com>
+Subject: [RFC PATCH] drm/bridge: adv7511: use cache_only during power down
+Date: Fri, 24 Jul 2026 17:32:35 +0700
+Message-ID: <20260724103235.57577-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 27 Jul 2026 07:16:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -118,25 +96,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> >
-> > Please give a detailed example of a scenario where that can happen, and
-> > make sure you can reproduce the scenario and see the issue on your
-> > hardware.
->
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-An RFC is definitely helpful for discussion, though reproducing it on
-real hardware is always ideal.
-Speaking of which, it reminds me of a DRM patch I sent earlier=E2=80=94whic=
-h
-also deals with register state
-restoration across power cycles.
-It was a real bug that had existed for over 10 years, fully tested and
-verified on hardware,
-yet it hasn't been merged yet.
+adv7511_power_on() and adv7511_power_off() restore the register state
+using regcache_mark_dirty() and regcache_sync(), but nothing prevents
+other code paths from accessing the registers over I2C while the chip
+is powered down.
+Wrap the power-down window with regcache_cache_only() to prevent direct
+register accesses. It is unclear whether this is necessary or whether
+it could affect the CEC or packet sub-regmaps, so send this as an RFC.
 
-https://lore.kernel.org/all/20260226051338.27460-1-phucduc.bui@gmail.com/
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+---
 
-https://lore.kernel.org/all/20260707093004.987846-1-phucduc.bui@gmail.com/
+This RFC is related to the following patch series:
+https://lore.kernel.org/all/20260724100803.50169-1-phucduc.bui@gmail.com/
 
-Best regards,
-Phuc
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+index 3e470366bce0..49da1806797b 100644
+--- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
++++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+@@ -323,6 +323,7 @@ static void adv7511_power_off(struct adv7511 *adv7511)
+ 	__adv7511_power_off(adv7511);
+ 	if (adv7511->info->has_dsi)
+ 		adv7533_dsi_power_off(adv7511);
++	regcache_cache_only(adv7511->regmap, true);
+ 	adv7511->powered = false;
+ }
+ 
+@@ -374,11 +375,13 @@ static void adv7511_power_on(struct adv7511 *adv7511)
+ 	/*
+ 	 * Most of the registers are reset during power down or when HPD is low.
+ 	 */
++	regcache_cache_only(adv7511->regmap, false);
+ 	ret = regcache_sync(adv7511->regmap);
+ 	if (ret) {
+ 		dev_err(&adv7511->i2c_main->dev,
+ 			"Failed to sync register cache: %d\n", ret);
+ 		__adv7511_power_off(adv7511);
++		regcache_cache_only(adv7511->regmap, true);
+ 		return;
+ 	}
+ 
+-- 
+2.43.0
+
