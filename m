@@ -4,59 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62239C53200
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 14:24:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3B6BC531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 14:37:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9738810F3DE;
-	Fri, 24 Jul 2026 14:24:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B90E810E055;
+	Fri, 24 Jul 2026 14:37:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lkjGVVSx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nXYKgvS2";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C41610F3DE
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 14:24:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D847910E055
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 14:37:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6E656600B0;
- Fri, 24 Jul 2026 14:24:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D7341F000E9;
- Fri, 24 Jul 2026 14:24:20 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 185D5600AB;
+ Fri, 24 Jul 2026 14:37:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D94C1F000E9;
+ Fri, 24 Jul 2026 14:37:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784903061;
- bh=qVSKDC8t6hmFB8d5DchFcQsD5mrGgiBdRFoTRem4F7Y=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=lkjGVVSxy6IrXFoXa03Qc5UwKMemlqWxJ6ZPceECyfTcXzQItRF1XlPzBRA5nYTvl
- iUW8wEAy5VCEYzUbl2aLzXuuKIhM2meRLuK//wd/koBq2qLW7/8XkGmBRBLnKyqzFe
- 2BTpcGi5T6qt9fRPdQXkpnvPp+H/vZJChl8pBerTc6O7MOclrjZm3kphetNpFKidTu
- sK+cfBP/XGEayroxUzcEBT63urFbsAWhOBcoIP6KchBQY3ch8GcYgwctpMMkOiTH9o
- ET2PImBCKiAiVNXbBU+AvuC3EIdMjD5Otn8DXC5fqpZR9zV5wh6kfPr3MoK8NT9YbL
- FMKd0/Iw1zC7A==
-Date: Fri, 24 Jul 2026 07:24:19 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy
- <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Shuah Khan
- <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
- dw@davidwei.uk, Joe Damato <joe@dama.to>, Bobby Eshleman
- <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v5 1/3] net: devmem: allow rx-buf-size >
- PAGE_SIZE per dmabuf binding
-Message-ID: <20260724072419.62778bbe@kernel.org>
-In-Reply-To: <amKqlqgfZipKjrii@devvm29614.prn0.facebook.com>
-References: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com>
- <20260708-tcpdm-large-niovs-v5-1-34bf6fac941b@meta.com>
- <20260721110713.325d36ba@kernel.org>
- <amKqlqgfZipKjrii@devvm29614.prn0.facebook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1784903873;
+ bh=h+3m/a0+VAzpHEtakkcHAOVbiplofwcwQXhXAgAdmno=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nXYKgvS29n+qIyQ1ME988QwxQ8W4AYOmUiAXjF6wWmgriUySe9f9z+bEiz4VOlFcl
+ 9tyew5S/SUKYx9LUDiZBO3H5ithhf7fR9lfmOxnANSGJQ3D7Iern+3y8dBXDBtEsSw
+ kFuut+ifkY44FgSZPBYMNp1bfzDu2mbB3JHD27b2tMnlSZqRxQsIOq/3GXXAK6eDcr
+ 3DeJlHFIqfRQo/SB99KUjPo4d4HV8EeVRs5JdNksERlnEEFhrKQyuVQDlfXTsAep9G
+ SRLDd84ecCpJJzUhoE92se/O6LWQL4XUi84+TPUfwlQvoiV27hSzpYF6UwnAtt5Tss
+ Dvwn3LQFr3IUQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 3/5] drm/scdc-helper: Implement parsing and printing
+ HDMI 2.1 fields
+To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260724-scdc-link-health-v9-3-bdda406d016d@collabora.com>
+References: <20260724-scdc-link-health-v9-0-bdda406d016d@collabora.com>
+ <20260724-scdc-link-health-v9-3-bdda406d016d@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 24 Jul 2026 14:37:53 +0000
+Message-Id: <20260724143753.8D94C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,51 +54,129 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 23 Jul 2026 16:58:14 -0700 Bobby Eshleman wrote:
-> > > +	if (info->attrs[NETDEV_A_DMABUF_RX_BUF_SIZE]) {
-> > > +		u32 rx_buf_size = nla_get_u32(info->attrs[NETDEV_A_DMABUF_RX_BUF_SIZE]);
-> > > +
-> > > +		if (!rx_buf_size || !is_power_of_2(rx_buf_size) ||
-> > > +		    rx_buf_size < PAGE_SIZE) {  
-> > 
-> > we should add a check: min: page-size in the Netlink policy?  
-> 
-> I played around with this adding:
-> 
-> Documentation/netlink/specs/netdev.yaml:
->  definitions:
->  +  -
->  +    type: const
->  +    name: page-size
->  +    value: 4096  # dummy value, to pass ynl_gen_c.py checks
->  +    header: asm/page.h
->  +    scope: kernel
-> 
-> Generating:
-> 
-> +static const struct netlink_range_validation
-> netdev_a_dmabuf_rx_page_size_range = {
-> +       .min    = PAGE_SIZE,
-> +       .max    = U32_MAX,
-> +};
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The SCDC error counter checksum validation incorrectly includes La=
+ne 3 error registers, unconditionally breaking SCDC reads when errors occur=
+ on 4-lane FRL connections.
+- [Medium] The `state->rs_corrections` field is not cleared when the Reed-S=
+olomon channel becomes invalid, leaking stale state.
+- [Medium] Encountering a reserved FRL rate causes `drm_scdc_read_state` to=
+ abort, breaking forward compatibility.
+--
+
+--- Patch [3]: [PATCH v9 3/5] drm/scdc-helper: Implement parsing and printi=
+ng HDMI 2.1 fields ---
+commit da086d3bc120a56452dfbe550079b981dd21770b
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+drm/scdc-helper: Implement parsing and printing HDMI 2.1 fields
+
+This commit implements reading and parsing HDMI 2.1 FRL-specific
+fields over SCDC. It extracts FRL rate, FFE levels, Lane 3 error
+counters, and Reed-Solomon corrections to output via debugfs.
+
+> diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/=
+display/drm_scdc_helper.c
+> --- a/drivers/gpu/drm/display/drm_scdc_helper.c
+> +++ b/drivers/gpu/drm/display/drm_scdc_helper.c
+[ ... ]
+> @@ -286,14 +319,41 @@ drm_scdc_parse_status0_flags(u8 val, struct drm_scd=
+c_status_flags *flags)
+[ ... ]
+> -static int drm_scdc_parse_error_counters(const u8 scdc[256], u16 counter=
+[3])
+> +static int drm_scdc_parse_error_counters(const u8 scdc[256], u16 counter=
+[4],
+> +					 unsigned int num_lanes)
+>  {
+> +	u8 end_reg;
+>  	u8 sum =3D 0;
+>  	int i;
+> =20
+> -	for (i =3D SCDC_ERR_DET_0_L; i <=3D SCDC_ERR_DET_CHECKSUM ; i++)
+> +	switch (num_lanes) {
+> +	case 3:
+> +		end_reg =3D SCDC_ERR_DET_CHECKSUM;
+> +		break;
+> +	case 4:
+> +		end_reg =3D SCDC_ERR_DET_3_H;
+> +		break;
+
+[Severity: High]
+Does this inclusion of Lane 3 error registers break the checksum calculatio=
+n?
+
+The SCDC checksum byte (SCDC_ERR_DET_CHECKSUM) only covers bytes up to 0x56.
+By setting end_reg to SCDC_ERR_DET_3_H (0x58), the zero-sum calculation will
+include the Lane 3 error registers (0x57 and 0x58).=20
+
+If a 4-lane connection experiences any Lane 3 errors, the sum will be non-z=
+ero
+and cause drm_scdc_parse_error_counters() to abort with -EPROTO, breaking
+SCDC reads exactly when errors are present.
+
+> +	default:
+> +		return -EINVAL;
+> +	}
 > +
-> 
-> ... but the dummy 4096 is kind of annoying. ynl_gen_c.py can't know the
-> value of PAGE_SIZE but needs some value for its arithmetic checks (e.g.,
-> confirm min < max is true).
-> 
-> Should we stick with using a dummy value, or should we add a patch
-> teaching ynl_gen_c.py to allow value-less consts (skip the arithmetic
-> checks)? 
+> +	for (i =3D SCDC_ERR_DET_0_L; i <=3D end_reg; i++)
+>  		sum =3D wrapping_add(u8, sum, scdc[i]);
+[ ... ]
+> @@ -350,11 +417,26 @@ int drm_scdc_read_state(struct drm_connector *conne=
+ctor, struct drm_scdc_state *
+> =20
+>  	state->scrambling_detected =3D buf[SCDC_SCRAMBLER_STATUS] & SCDC_SCRAMB=
+LING_STATUS;
+> =20
+> +	state->rate =3D FIELD_GET(SCDC_FRL_RATE, buf[SCDC_CONFIG_1]);
+> +	num_lanes =3D drm_scdc_num_frl_lanes(state->rate);
+> +	if (num_lanes < 0)
+> +		return num_lanes;
 
-Let's stick to a dummy one for now, but maybe something obviously dummy
-like 0 ?
+[Severity: Medium]
+Will this direct error return abort all SCDC parsing for future FRL rates?
 
-BTW did you add both min and max checks? Cause the only risk with using
-a dummy value would be that the policy will be rendered inline, and
-inline policy is u16 so 64k wouldn't fit. But your sample above has a
-max of u32_max which forces the out-of-line policy, which is what we
-want.
+If a newer display uses a currently-reserved FRL rate (e.g., rates 7-15),
+drm_scdc_num_frl_lanes() will return -EINVAL.
+
+Propagating this error immediately prevents users from reading any SCDC sta=
+te
+(including TMDS and scrambling info) for displays with newer reserved rates.
+
+> +	if (!num_lanes)
+> +		num_lanes =3D 3;
+[ ... ]
+> +	ret =3D drm_scdc_parse_error_counters(buf, state->error_count, num_lane=
+s);
+>  	if (ret)
+>  		return ret;
+> =20
+> +	if (state->rate && (buf[SCDC_ERR_DET_RS_H] & SCDC_CHANNEL_VALID))
+> +		state->rs_corrections =3D (buf[SCDC_ERR_DET_RS_H] & ~SCDC_CHANNEL_VALI=
+D) << 8 |
+> +					buf[SCDC_ERR_DET_RS_L];
+
+[Severity: Medium]
+Should state->rs_corrections be explicitly cleared when the channel is inva=
+lid?
+
+Unlike the channel error counters which are explicitly zeroed out when
+SCDC_CHANNEL_VALID is not set, rs_corrections lacks an else branch.
+
+If the drm_scdc_state structure is reused by a caller instead of being fres=
+hly
+allocated, this could leak stale Reed-Solomon correction values from a
+previous read.
+
+> +
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-scdc-link-=
+health-v9-0-bdda406d016d@collabora.com?part=3D3
