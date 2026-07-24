@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 838CAC531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 05:04:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A119C531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 05:07:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C409010F2B8;
-	Fri, 24 Jul 2026 05:04:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D0FF10E63F;
+	Fri, 24 Jul 2026 05:07:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kaod.org header.i=@kaod.org header.b="Jrl9vdmH";
+	dkim=pass (2048-bit key; unprotected) header.d=kaod.org header.i=@kaod.org header.b="Oi9DC1Sq";
 	dkim-atps=neutral
-Received: from smtpout5.mo540.mail-out.ovh.net
- (smtpout5.mo540.mail-out.ovh.net [51.210.91.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D735610E63F
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 05:04:53 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net [79.137.60.36])
- by mo540.mail-out.ovh.net (Postfix) with ESMTPS id 4h5wfY2K4qz3wbY;
- Fri, 24 Jul 2026 04:55:33 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net. [127.0.0.1])
- by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <gouhaojake@163.com>; Fri, 24 Jul 2026 04:55:33 +0000 (UTC)
-Received: from mta2.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.110.101.119])
- by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4h5wfY0fFRz1xp5; Fri, 24 Jul 2026 04:55:33 +0000 (UTC)
-Received: from kaod.org (unknown [10.1.6.3])
+X-Greylist: delayed 502 seconds by postgrey-1.36 at gabe;
+ Fri, 24 Jul 2026 05:07:25 UTC
+Received: from smtpout1.mo528.mail-out.ovh.net
+ (smtpout1.mo528.mail-out.ovh.net [46.105.34.251])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC6D10E63F
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 05:07:25 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net [57.128.106.70])
+ by mo528.mail-out.ovh.net (Postfix) with ESMTPS id 4h5wkW3LJQz65Y5;
+ Fri, 24 Jul 2026 04:58:59 +0000 (UTC)
+Received: from director5.derp.mail-out.ovh.net
+ (director5.derp.mail-out.ovh.net. [127.0.0.1])
+ by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
+ for <gouhaojake@163.com>; Fri, 24 Jul 2026 04:58:59 +0000 (UTC)
+Received: from mta7.priv.ovhmail-u2.ea.mail.ovh.net (unknown [10.109.254.225])
+ by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id
+ 4h5wkV75Bsz7t8k; Fri, 24 Jul 2026 04:58:58 +0000 (UTC)
+Received: from kaod.org (unknown [10.1.6.2])
  (Authenticated sender: clg@kaod.org)
- by mta2.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id E5285941A0E; 
- Fri, 24 Jul 2026 04:55:29 +0000 (UTC)
+ by mta7.priv.ovhmail-u2.ea.mail.ovh.net (Postfix) with ESMTPSA id A7BCB203E0D; 
+ Fri, 24 Jul 2026 04:58:55 +0000 (UTC)
 Authentication-Results: garm.ovh; auth=pass
- (GARM-101G00445b33efe-36d1-4677-9dbd-4ef779dd762a,
+ (GARM-114S008995c4a97-46e5-4ed8-9387-61dacf530b60,
  4BD6B7741D2B27CC5BC6F5428A99E4613CF72FD8) smtp.auth=clg@kaod.org
 X-OVh-ClientIp: 82.64.250.170
-Message-ID: <87ff73dc-3d4b-400d-93f9-f9640c5196a6@kaod.org>
-Date: Fri, 24 Jul 2026 06:55:29 +0200
+Message-ID: <988bb08e-3c6b-49ff-9e33-0263b9216a65@kaod.org>
+Date: Fri, 24 Jul 2026 06:58:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] powerpc/xive: remove dead NULL check after
- GFP_NOFAIL allocation
+Subject: Re: [PATCH v2 3/6] powerpc/xive: fix use-after-free of xive_ipis
 To: Gou Hao <gouhao@uniontech.com>, maddy@linux.ibm.com, mpe@ellerman.id.au,
  npiggin@gmail.com, chleroy@kernel.org, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
@@ -51,7 +52,7 @@ Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
  linux-mm@kvack.org, gouhaojake@163.com, kernel@uniontech.com
 References: <20260724022851.466017-1-gouhao@uniontech.com>
- <20260724022851.466017-2-gouhao@uniontech.com>
+ <20260724022851.466017-4-gouhao@uniontech.com>
 Content-Language: en-US, fr
 From: =?UTF-8?Q?C=C3=A9dric_Le_Goater?= <clg@kaod.org>
 Autocrypt: addr=clg@kaod.org; keydata=
@@ -96,21 +97,21 @@ Autocrypt: addr=clg@kaod.org; keydata=
  3GlqivBNkmYsHYSlFsbxc37E1HpTEaSWsGfAHQoPn9qrDJgsgcbBVc1gkUT6hnxShKPp4Pls
  ZVMNjvPAnr5TEBgHkk54HQRhhwcYv1T2QumQizDiU6iOrUzBThaMhZO3i927SG2DwWDVzZlt
  KrCMD1aMPvb3NU8FOYRhNmIFR3fcalYr+9gDuVKe8BVz4atMOoktmt0GWTOC8P4=
-In-Reply-To: <20260724022851.466017-2-gouhao@uniontech.com>
+In-Reply-To: <20260724022851.466017-4-gouhao@uniontech.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 17313244342570036456
+x-ovh-tracer-id: 17371228191519649000
 X-VR-SPAMSTATE: OK
 X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFag79TUuknUcEyJ+fUBsqHM0xcaveY2xgVNjxV+qnKwhwsNTHa/2zdKcagVjzZotwGF8tiTuYDFnLfCREPZ40TItmps8VQlgCYXtQ5s/8YhU27P1l3fNA5vFk0wHWnMhXlAGEERA1YXEkq6NvX3J7mbulyb4PCNyOiCS02W8K6KQos/fdl/UFRJLB+bcrtLX5zpkrqLCS8UVIBGkLg2pXo1dt253286tHqmpjN4aJU4Momxnq4NCIh4qjGOU8oLxiXXbSRp93kS9K9HRz8GsPUGJVR2g6ypPWuPrcsxVVwSadqKe62E2LhGeYWeQK5G59ftKSi6eFNdIHZZqSwCU/JZgUTU2jQdp4fspPo3fPc+HP2egDV1EgUQzjxFw2a9A0wMtH5xWzPjQWRAF+Sg635i6W7cB4f3mMjRG7+yRxV1dsUXEG767heBlRrqZr6fLWKRZ+fvtQ5LVaoEnlx6Ht+BxYS5/Z/50NYJvsBrzTkngXeqe90vtZ1wS+mqVfi6dyIM27fChLynqPhuW4tfkFg1Zo6miZLGXX8BLGGc5mbauuAe2273a3bCM3BX1Db9UaW0FYe2HqxNXCA1Q8gEfl4x7UOC3VeJlgqD6btGHUq+zVcARFFkfqSmP+dxy3oGOa4myNk+cI0ojqOw3aWmNQLUXW6yG3Pgeys3eP+VZywcw
-DKIM-Signature: a=rsa-sha256; bh=McrFHMF4OqCuGHN2JECR9Xz9tBdtSI1b0xMZalX69Vg=; 
+X-VR-SPAMCAUSE: dmFkZTGaLDmC1sGz9F5x4qvEOawfsm4Qoc4PI5XkON1B5NhPBXhuasc2fQjXH+VDsmM8u20AJO5uw9QqMPdxtLUwzW4JHiund27yNotetwU2aoTKlSByjpVbPXNhOAm6Sbrj0YxwiaiRSE6c9ur3YhDfD71mXV5UmnBjw55DxC2402dux2yrfi55r5CK/DrF2UJJtPJ286dwRRmaSI8PMt00k91NBWQVZLH0x/WvzQLiEKxFqHDIN+rylQfVV+7TlQk8VLKe6IPkp1wpOzMV2quZF6Z2kCTGNe4BGIGTxDslcGATaCAjurvDo0ZhXXEBlCGlV6DzbWEZMkizxW3KZwTMjfSZFbyKXqSekAL1vm6pEBopH+PbZpV31cz44toPdcY+W23WTq2U2Z2wWgGPyHgTbrR/SjTpmdKXRd3WA/OL1C3MxvCbRXaEc2zN/xMgjFDHTdX/FZLFtDVoXf5m7gzWokQlFyav3Gx8WNXx8JUPWH5a4rm2+dD4+YexO+u0xNT9DMrGjkVABvkpWiVQ0EREuN2imnjX8yREyvRhjttusUNeEFdCWn82sNpOatRzHBukjfhAoZ0DzsOseDDPycnEnVJUpfFexpqRW0I+K2A0QazKCQPVe0HDupddfFM8R0YlH/d6o6GujYiFMJZBncFaPO7+LdSOLohtnsFrXxlz0sL4TA
+DKIM-Signature: a=rsa-sha256; bh=CufKqRzRWGP5C9wDDHrJPSM5oQL0vrGLL/dJi11OdLg=; 
  c=relaxed/relaxed; d=kaod.org; h=From; s=ovhmo393970-selector1;
- t=1784868935; v=1;
- b=Jrl9vdmH9ieiS5O1IR6RPvsCe6nbV3My+drtWyHnNimGFqNrk9xS2t6F95Jp0+/mkGW4lTra
- cNzcfHHg7EGzqFY4EFcUh5r8PatIIQhwDgODODrVtUU5dvrhViZSZmFI5ZJUQk8JXOGeT3MVtZ4
- wdkhxLfIBDmVr35+w4fSRxa3tXVAwqP+BH+AyElt9BhcL7dfy4CnObRW2j+pmVdgdv/1ZEg7tcM
- TnFasx/O4qYkAlFPqI+/2Li99Y7zDe9YY6qguVGd7xbWnBaKFte7zDOEVOCEM1znrzZbpR25eBL
- aaba/1mL1nEGtRW+y/gGaprznU29+DYZC1c9dCahQ7SjQ==
+ t=1784869142; v=1;
+ b=Oi9DC1SqdS+C169kqp7ZTc1rba+g6496Rbb8hgeNT6xdrYDQgtoU2Epb3yN+SadIbIyWphHo
+ 4/zyeJEaLnxlIVrcy2hJRVSHdtMSEjuRS/jee9HRb0LH90GlXQBVvwmpZfsm4YXeTaxLCMppjQt
+ RDtSBO48JUD2v8/Af6T1Wz50Rw3/mE5JnwKDAg8rgubPuruBP+F+TvXbhPq0lAva4mbyAOPWPX4
+ OIhzq2b8OkwIUynO8AThJKeWDgflQt4VvdHRCP/fsUDlKIXh7zrmvG8fULQEK1tc8XqIb3Kckzm
+ KaItUQ9ikaeZFd0wYoD2ZSOd3I5OaCZGTj8lCb+U/jf+Q==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,39 +128,86 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 7/24/26 04:28, Gou Hao wrote:
-> kzalloc_objs with the __GFP_NOFAIL flag will never return NULL, so the
-> subsequent NULL check is unreachable dead code. Remove it.
+> When irq_domain_alloc_irqs() fails in xive_init_ipis(), the error
+> path frees the global xive_ipis array via kfree().  However,
+> xive_smp_probe() ignores the error return and proceeds to call
+> xive_setup_cpu_ipi(), which dereferences the already-freed xive_ipis
+> pointer, resulting in a use-after-free.
 > 
+> Propagate the error from xive_init_ipis() through xive_smp_probe()
+> and check it in both pnv_smp_probe() and pSeries_smp_probe() so that
+> IPI setup is aborted cleanly on failure.
+> 
+> Fixes: 7dcc37b3eff9 ("powerpc/xive: Map one IPI interrupt per node")
 > Signed-off-by: Gou Hao <gouhao@uniontech.com>
 > Reviewed-by: Wentao Guan <guanwentao@uniontech.com>
 > Reviewed-by: jiazhenyuan <jiazhenyuan@uniontech.com>
 > ---
->   arch/powerpc/sysdev/xive/common.c | 5 +----
->   1 file changed, 1 insertion(+), 4 deletions(-)
+>   arch/powerpc/platforms/powernv/smp.c | 8 +++++---
+>   arch/powerpc/platforms/pseries/smp.c | 8 +++++---
+>   arch/powerpc/sysdev/xive/common.c    | 6 +++++-
+>   3 files changed, 15 insertions(+), 7 deletions(-)
 > 
+> diff --git a/arch/powerpc/platforms/powernv/smp.c b/arch/powerpc/platforms/powernv/smp.c
+> index 8f41ef364fc6f..b1201dbafcaf6 100644
+> --- a/arch/powerpc/platforms/powernv/smp.c
+> +++ b/arch/powerpc/platforms/powernv/smp.c
+> @@ -332,10 +332,12 @@ static void pnv_cause_ipi(int cpu)
+>   
+>   static void __init pnv_smp_probe(void)
+>   {
+> -	if (xive_enabled())
+> -		xive_smp_probe();
+> -	else
+> +	if (xive_enabled()) {
+> +		if (xive_smp_probe() < 0)
+> +			return;
+> +	} else {
+>   		xics_smp_probe();
+> +	}
+>   
+>   	if (cpu_has_feature(CPU_FTR_DBELL)) {
+>   		ic_cause_ipi = smp_ops->cause_ipi;
+> diff --git a/arch/powerpc/platforms/pseries/smp.c b/arch/powerpc/platforms/pseries/smp.c
+> index db99725e752bd..14cd0634eeca8 100644
+> --- a/arch/powerpc/platforms/pseries/smp.c
+> +++ b/arch/powerpc/platforms/pseries/smp.c
+> @@ -194,10 +194,12 @@ static int pseries_cause_nmi_ipi(int cpu)
+>   
+>   static __init void pSeries_smp_probe(void)
+>   {
+> -	if (xive_enabled())
+> -		xive_smp_probe();
+> -	else
+> +	if (xive_enabled()) {
+> +		if (xive_smp_probe() < 0)
+> +			return;
+> +	} else {
+>   		xics_smp_probe();
+> +	}
+>   
+>   	/* No doorbell facility, must use the interrupt controller for IPIs */
+>   	if (!cpu_has_feature(CPU_FTR_DBELL))
 > diff --git a/arch/powerpc/sysdev/xive/common.c b/arch/powerpc/sysdev/xive/common.c
-> index dadd1f46ec939..f2904a5c2b7bf 100644
+> index f9a1229cede73..bb6ce07c1699e 100644
 > --- a/arch/powerpc/sysdev/xive/common.c
 > +++ b/arch/powerpc/sysdev/xive/common.c
-> @@ -1134,9 +1134,6 @@ static int __init xive_init_ipis(void)
+> @@ -1256,10 +1256,14 @@ noinstr static void xive_cleanup_cpu_ipi(unsigned int cpu, struct xive_cpu *xc)
 >   
->   	xive_ipis = kzalloc_objs(*xive_ipis, nr_node_ids,
->   				 GFP_KERNEL | __GFP_NOFAIL);
-> -	if (!xive_ipis)
-> -		goto out_free_domain;
-> -
->   	for_each_node(node) {
->   		struct xive_ipi_desc *xid = &xive_ipis[node];
->   		struct xive_ipi_alloc_info info = { node };
-> @@ -1158,7 +1155,7 @@ static int __init xive_init_ipis(void)
+>   int __init xive_smp_probe(void)
+>   {
+> +	int ret;
+> +
+>   	smp_ops->cause_ipi = xive_cause_ipi;
 >   
->   out_free_xive_ipis:
->   	kfree(xive_ipis);
-> -out_free_domain:
-> +	xive_ipis = NULL;
->   	irq_domain_remove(ipi_domain);
->   out_free_fwnode:
->   	irq_domain_free_fwnode(fwnode);
+>   	/* Register the IPI */
+> -	xive_init_ipis();
+> +	ret = xive_init_ipis();
+> +	if (ret < 0)
+> +		return ret;
+>   
+>   	/* Allocate and setup IPI for the boot CPU */
+>   	xive_setup_cpu_ipi(smp_processor_id());
 
 Reviewed-by: Cédric Le Goater <clg@kaod.org>
 
