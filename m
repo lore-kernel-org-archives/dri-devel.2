@@ -4,62 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87721C531FC
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:28:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22A1EC531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:28:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2979F10F2E8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F2F710F2EF;
 	Fri, 24 Jul 2026 07:28:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="key not found in DNS" (0-bit key; unprotected) header.d=undefine.pl header.i=@undefine.pl header.b="k+a0gHPK";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="i5eHHhsH";
 	dkim-atps=neutral
-X-Greylist: delayed 2169 seconds by postgrey-1.36 at gabe;
- Thu, 23 Jul 2026 22:40:24 UTC
-Received: from 9.mo575.mail-out.ovh.net (9.mo575.mail-out.ovh.net
- [46.105.78.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFDA310F248
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 22:40:24 +0000 (UTC)
-Received: from director5.ghost.mail-out.ovh.net (unknown [10.110.0.52])
- by mo575.mail-out.ovh.net (Postfix) with ESMTP id 4h5lWx6fmsz5yD6
- for <dri-devel@lists.freedesktop.org>; Thu, 23 Jul 2026 22:04:13 +0000 (UTC)
-Received: from ghost-submission-7d8d68f679-gjk7l (unknown [10.108.42.33])
- by director5.ghost.mail-out.ovh.net (Postfix) with ESMTPS id F227B10016D;
- Thu, 23 Jul 2026 22:04:12 +0000 (UTC)
-Received: from undefine.pl ([37.59.142.109])
- by ghost-submission-7d8d68f679-gjk7l with ESMTPSA
- id xXZNJtuPYmpDCxMApf6feA:T2
- (envelope-from <undefine@undefine.pl>); Thu, 23 Jul 2026 22:04:12 +0000
-Authentication-Results: garm.ovh; auth=pass
- (GARM-109S003470e705d-f80c-48ed-97be-12732bdb10ec,
- 87426F91C55002030CE6BF1685E8511121647196) smtp.auth=undefine@undefine.pl
-X-OVh-ClientIp: 185.175.106.73
-From: =?UTF-8?q?Micha=C5=82=20Szolc?= <undefine@undefine.pl>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm: add a EDID_QUIRK_IGNORE_STEREO_FLAG quirk
-Date: Fri, 24 Jul 2026 00:03:59 +0200
-Message-ID: <20260723220400.17190-2-undefine@undefine.pl>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260723220400.17190-1-undefine@undefine.pl>
-References: <20260723220400.17190-1-undefine@undefine.pl>
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19D7110E662
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 02:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+ s=onoh2408; t=1784860154;
+ bh=HXOSjewrugfoFYAviBCdTNIHqggVZlJ3YZl/fwlFoCA=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=i5eHHhsHHpRZ0lSujb0HJstrwVUkYb7+cVuSksG1vsmtoOSLgnWMJNncKh4Jq/oaB
+ E5iamDL0pJ6SgoQ2IaLnL4bNnexSndtCdpGO8WSkkcKgIAzDcT/kRZj4JU819Ny3W4
+ Xlr1iEGiM/7AybrJrPCfiUzK321A4T9nXkI/EQjU=
+X-QQ-mid: zesmtpip4t1784860146t7ae6cf1f
+X-QQ-Originating-IP: wWBgv0NV/7CKCdcjUMM5igbrbPg1ViC8PwqJvYK5y/c=
+Received: from localhost.localdomain ( [localhost])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Fri, 24 Jul 2026 10:29:03 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 4050712520101716894
+EX-QQ-RecipientCnt: 26
+From: Gou Hao <gouhao@uniontech.com>
+To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+ chleroy@kernel.org, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
+ bharat@chelsio.com, jgg@ziepe.ca, leon@kernel.org,
+ akpm@linux-foundation.org, gouhao@uniontech.com, namcao@linutronix.de,
+ ynorov@nvidia.com, sshegde@linux.ibm.com, nilay@linux.ibm.com, clg@kaod.org
+Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
+ linux-mm@kvack.org, gouhaojake@163.com, kernel@uniontech.com
+Subject: [PATCH v2 2/6] powerpc/xive: add error return value to
+ xive_smp_probe()
+Date: Fri, 24 Jul 2026 10:28:47 +0800
+Message-Id: <20260724022851.466017-3-gouhao@uniontech.com>
+X-Mailer: git-send-email 2.20.1
+In-Reply-To: <20260724022851.466017-1-gouhao@uniontech.com>
+References: <20260724022851.466017-1-gouhao@uniontech.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 10366441917757843772
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTE1Vkf/yRSDN8TBjN/MQFUOXY5h8oCUhilcQVC8Yc+15HJDs24li9ZHVMGz9cSv2meJmkivvFx5r6Rw7rMzqwydNT3tAzI3VhrLwQTLG2GuXnSGVRJmJGBS7xUbodrTsslINZM/z3tecdtk1lWZ/SqLVmFOth5XkYxGnWsxrWYapCbMdEvLNcs87tYXQrQ1wv0AdczahYzsHpo7J2C4Xyhyb9h/BIKVJr9CzKIKc+2I+ZBoRwRB3MCABsbwvBHMImmg4hQlwmHWESVeFtZwy53VJ0k3P8MYrKEMuYuxsM1JXRRr+PQ6/BkruNEaoJELvX4y2iedQRajWLR36FZgOGD0HPKg/r1bqlH3Wt5k8JaXhTKJU8veV/cCmvSAzgcrZ6stuhMwf4HDozyEZ6rEd4i4pxXm6n0pZK9JS6vvqs1fvOC5AWuDJ26uGlXa3sUr3+T0xdyE/Ti4SRwvy9R4rFNoZZnXHk4PDaU8RYauZbCPloRIfidb6dCM6CpbTrHJ/hWs85rRBwR5mYHs8ySNn/ffPmC20p7QA6ySKy6UF+qz3sNfuVjqKCSM8KaTJgClFrQGvh1SQr26nwJqqv2D03EYPpze3IIIDWgjFcmLL+XbgzRZN66idZnul5fYrjL9/1aE7zIgoSGHEfYcKkqiMhHjaTHyLyfQ1MsjDhFvDjkxBw
-DKIM-Signature: a=rsa-sha256; bh=kcu6JAorbLfkj7+tK5/D3B8BDT5e+IFCeq31hNQmcSU=; 
- c=relaxed/relaxed; d=undefine.pl; h=From;
- s=ovhmo4647562-selector1; t=1784844254; v=1;
- b=k+a0gHPKjhCqDPIYzMtw6FyZeVRTf7ehADLPKtmuxi2ee03OQI+6BOXjx3y2mk0RBaqck/0i
- myjA13t65X0PPbWKgpnwyXiZVDd4A11Glw8MKcggaVWRJmf4UbY2AShwKhCQwOTdvXNodH3dv5w
- qxq7cIZSBKz5lzFb2rl4zvxIp280XM59PxUiz7izsZ+NUTA9OoJJatZkHAlTZSN/yA2sU03Kiba
- vptCr7Er5yTHSYumFBBGrsFUcBK4mkUToBtP0P2BIKKwJPHj72L1WApxHyVXcltlFYE9xu7ZTpG
- qmL358TNuiVm9JF/fEsZl6ssyY/zTWJAenGdCerEAqTmg==
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: NQPN/EATMxZDFUrjxbnurp8jsl8V7EKgnLU4Ts242AJtF9KqS9g/En7g
+ 8RhK1iaAVD5UARtgwQbJws9k1Xrw74Hn/bvmz/Z8oanQg4WPkb4M03uty0fgW12VdqYq1eb
+ s1U5eCdXjoplTA8fLgmfMiGTLF2NNuZ4Z9sVQPxFgW69skUQgT46AiP3jRp/e1noqnfLuKy
+ uQz91KT1RpM8Mn0USCPF4cAeNbDJLMk3ZkzTqsatiiRzPPbZ108UafcjEO73B3RDlB9klM8
+ E+gSzn3w+xuppSn4MzrRf7wH6la9gFcjQEH4ythDTlZIz6MM+5mt+1NAYd/QAigzYBrtIt2
+ Z11sfTdpg14dUdHJaE8vwBWt9J5wx9tj+lqATtXWqKNC6NU7C229ucLH34AIWdWoXblag8N
+ qBWC+gpQwIw8zoog+JsWTeO9meJPXb9a9kdYzlH2qa3abKHgLT9uDfyQdKJNjm4NHp/xGY7
+ MUjITUaFuKZs8Gk0mVuWfwzPSjXN93srws43u0j6jznaUOwGkV13F377svomEOA1n/tJDC7
+ zZaypIK/SSNEz8Hrd21qMfZGpefM7NK4SdP+7YE2NKWYW+3gAneJBKPbdEzcGXFz44jo34W
+ Ibt58us/TkGY6d9bLRbVpOriL+R/NUbKjALRsG4Ql4+YhZrGytOWxE0S7lWBgE8PtIxnePx
+ vK52ejH6Qm0LWLKaXQ4HlI1b5L6vU6As3mE9HN8C4kf3XvgjNVR1bt1Msy7GTNe5S8bkhGj
+ d56fjEObMC57jj5poV0h2BQWRuxYHEt2sS1k+NdIQsQ4E1Onx/Nqrcz7bkfWsaIScFghmMc
+ vF/r719kbl44xWA8/KwJ+p9/Lzr4vVxV5KdnUWQieYlw+sKXqMV+63rp/k90QDzS+B8k/mq
+ ysW0pdCMM1sYgupnWiFqE4GxhXLoYanLEzjbBpuHpQ0VueVylYuCinbbNjKrcgZydEc9JCg
+ XP1T80RUkK2pFyALT16P1fdJ8+VOJHjts+aNagZyR85RJDVrF3rpI25VWAZG7TjA5e/lLym
+ lPrJNF0rS4R9Lwh5xQCfkzA+zQLu/hmbbTIkZAlZMnjPIvyg8i
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:28:31 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,37 +86,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This quirk is meant for screens with EDID tables that misrepresent
-certain modes as stereo which causes them to be incorrectly ignored.
+xive_smp_probe() calls xive_init_ipis() which can fail, but its
+return value is currently ignored.  Change xive_smp_probe() to
+return int so that errors can be propagated to callers.
 
-Signed-off-by: Michał Szolc <undefine@undefine.pl>
+This is a preparatory patch for the next one.
+
+No functional change yet; the return value is always 0 at this point.
+
+Signed-off-by: Gou Hao <gouhao@uniontech.com>
+Reviewed-by: Wentao Guan <guanwentao@uniontech.com>
+Reviewed-by: jiazhenyuan <jiazhenyuan@uniontech.com>
 ---
- drivers/gpu/drm/drm_edid.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ arch/powerpc/include/asm/xive.h   | 4 ++--
+ arch/powerpc/sysdev/xive/common.c | 4 +++-
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index df3c25bac761..774530b081d2 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -96,6 +96,8 @@ enum drm_edid_internal_quirk {
- 	EDID_QUIRK_NON_DESKTOP,
- 	/* Cap the DSC target bitrate to 15bpp */
- 	EDID_QUIRK_CAP_DSC_15BPP,
-+	/* Ignore stereo flag of modes */
-+	EDID_QUIRK_IGNORE_STEREO_FLAG,
- };
+diff --git a/arch/powerpc/include/asm/xive.h b/arch/powerpc/include/asm/xive.h
+index efb0f5effcc69..4e3e3358993c0 100644
+--- a/arch/powerpc/include/asm/xive.h
++++ b/arch/powerpc/include/asm/xive.h
+@@ -91,7 +91,7 @@ static inline bool xive_enabled(void) { return __xive_enabled; }
  
- #define MICROSOFT_IEEE_OUI	0xca125c
-@@ -3538,7 +3540,8 @@ static struct drm_display_mode *drm_mode_detailed(struct drm_connector *connecto
- 	if (hactive < 64 || vactive < 64)
- 		return NULL;
+ bool xive_spapr_init(void);
+ bool xive_native_init(void);
+-void xive_smp_probe(void);
++int xive_smp_probe(void);
+ int  xive_smp_prepare_cpu(unsigned int cpu);
+ void xive_smp_setup_cpu(void);
+ void xive_smp_disable_cpu(void);
+@@ -153,7 +153,7 @@ static inline bool xive_enabled(void) { return false; }
  
--	if (pt->misc & DRM_EDID_PT_STEREO) {
-+	if (pt->misc & DRM_EDID_PT_STEREO &&
-+		!drm_edid_has_internal_quirk(connector, EDID_QUIRK_IGNORE_STEREO_FLAG)) {
- 		drm_dbg_kms(dev, "[CONNECTOR:%d:%s] Stereo mode not supported\n",
- 			    connector->base.id, connector->name);
- 		return NULL;
+ static inline bool xive_spapr_init(void) { return false; }
+ static inline bool xive_native_init(void) { return false; }
+-static inline void xive_smp_probe(void) { }
++static inline int xive_smp_probe(void) { return -EINVAL; }
+ static inline int  xive_smp_prepare_cpu(unsigned int cpu) { return -EINVAL; }
+ static inline void xive_smp_setup_cpu(void) { }
+ static inline void xive_smp_disable_cpu(void) { }
+diff --git a/arch/powerpc/sysdev/xive/common.c b/arch/powerpc/sysdev/xive/common.c
+index f2904a5c2b7bf..f9a1229cede73 100644
+--- a/arch/powerpc/sysdev/xive/common.c
++++ b/arch/powerpc/sysdev/xive/common.c
+@@ -1254,7 +1254,7 @@ noinstr static void xive_cleanup_cpu_ipi(unsigned int cpu, struct xive_cpu *xc)
+ 	xive_ops->put_ipi(cpu, xc);
+ }
+ 
+-void __init xive_smp_probe(void)
++int __init xive_smp_probe(void)
+ {
+ 	smp_ops->cause_ipi = xive_cause_ipi;
+ 
+@@ -1263,6 +1263,8 @@ void __init xive_smp_probe(void)
+ 
+ 	/* Allocate and setup IPI for the boot CPU */
+ 	xive_setup_cpu_ipi(smp_processor_id());
++
++	return 0;
+ }
+ 
+ #endif /* CONFIG_SMP */
 -- 
-2.55.0
+2.20.1
 
