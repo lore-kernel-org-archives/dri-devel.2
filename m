@@ -4,85 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 970ACC531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:01:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01299C531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 08:02:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE1E110F323;
-	Fri, 24 Jul 2026 08:01:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58FFF10F329;
+	Fri, 24 Jul 2026 08:02:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="OgcVk3NY";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="hy3DnTFl";
 	dkim-atps=neutral
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5315B10F323
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:01:47 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4954a9e8490so6241655e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 01:01:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1784880106; x=1785484906; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=rAfX3k5wj/8KZVt25ucKMpfpE6MXGKKgl1Anbl2kKTI=;
- b=OgcVk3NYoQ2HGJhau0l4yqVadlQwJAb1eYSfyzzxXB/H2UjrVc1OTuvvHt6Z/1P7FI
- vscJr2g0fxvdfRk+pIAEDNynO+1CQaiFlmBlJDvIZcRy9Anp+KcB1YSFK857vyJ3qTZK
- HBKFQNEyKbFoCJXKUF5kjnq1TrpSXd8fEJyJPXXheHKFYVTW9IXuZMiD7bwllvJpFlsa
- 0qFs7I3KpvWivCFqsFLBFCzr1dwK7pN1Ydi+8T4/xCf9vlfQIWKM214mpciBruRWLIcJ
- cSiFVESgNnLEjXrXrAYPF4/Pp8Sm42e7MfjdZDEU/lsLtYwqxDabvfo3s06Ynyh3VGOd
- koUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784880106; x=1785484906;
- h=content-transfer-encoding:content-type:mime-version:date:message-id
- :subject:references:in-reply-to:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=rAfX3k5wj/8KZVt25ucKMpfpE6MXGKKgl1Anbl2kKTI=;
- b=WhG/gyyGv+m7+z5W/rkyQ/mIJsliScCPatOBMGvcT40y3lZXMzV/MARvR6t6DwAH+f
- qoSebnNopl8TjmzhXOllsE5tEdEM8oR3uMo/8opgXYxOWw5bcdlKbWEN67ZXOQQUS7nt
- YVU4At2YRm5vuwX2k0yGrhY5IvJMsQ6WHmEYN7ZYcoFVucetVAVVgi7HLb/fI/2qC7tD
- /ofzlHNb/QhLwtJnMFyMsAVefPdBAUqLR+nQSaNK8UmOzfEU5bcrbP1Lp305PIUKkR/b
- Rf5dCLGgk6qm5d0r0JukTs0GgrN+aanj2L6qwA4v2my594jBhnaWScfQj1irJcYAAzO9
- f4zQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq2FrWx8Sd9+fdjLZe2DOfouFeg6krxIDPfRPmMnU66bF4NL2fYgqSQ43cGxfW1CYTE64itmym7u/M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyzHd3v4AWfajNX9bTFqkKezsBObMP+o9+skSYR2YFcU1R19/Kp
- MXdTP01zvKTIOoheMvxX/ZrgkYpONRuQ7NuDxqTjA5KLsHW9vFCHD7DyS8WiH1YaccA=
-X-Gm-Gg: AR+sD10MnY3dlqpjkAGK1MgtkEOk6t6ZG9NPXnFGQqaQlVP4LQa84fe5WH1w50OMk+f
- oFSCldNyGfmkETv4tEuQgExP0hDypcH0r8sFu5N3XTQeQkIk8w/tq29LrSb0uiTRbnfi9ARf6JM
- XsfFcXa1xkwuA/n9J80OamzoroSkLsYdHmouCOhGHDNr2+i/zgFlSYFwdPSzS5bA6l2S2uGd4Sj
- W572Ocb61QmDr3RlfNR6Se8LMf58oSJ3f0n8h2rJ/u2QjFH8P2uJU0iEF0g/N0CbqfWGelEfqRO
- cfglFMZgCs/6uK5puGieeYySWiE6hmJyDQxqBIcGKLoA5iTPITRQCv6A7UoYzsZNeyY7a9o0fps
- eEy9zc1mAlSk8IhwLsDMJI1ruRh4DCSCzXNqZb5YgHA0SzX0wEHcFaYbw9YjosS09GryiBAoatk
- qVK19++wliKuS82RwLGbc5wWQ=
-X-Received: by 2002:a05:600c:26d3:b0:493:f478:4c71 with SMTP id
- 5b1f17b1804b1-49574593d20mr42472695e9.7.1784880105557; 
- Fri, 24 Jul 2026 01:01:45 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4957af5d4d7sm54404835e9.2.2026.07.24.01.01.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jul 2026 01:01:45 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: laurent.pinchart@ideasonboard.com, jesszhan0024@gmail.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, nm@ti.com, vigneshr@ti.com, kristo@kernel.org, 
- prabhakar.mahadev-lad.rj@bp.renesas.com, thierry.reding@gmail.com, 
- sam@ravnborg.org, Leonardo Costa <leoreis.costa@gmail.com>
-Cc: leonardo.costa@toradex.com, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260623195741.495734-1-leoreis.costa@gmail.com>
-References: <20260623195741.495734-1-leoreis.costa@gmail.com>
-Subject: Re: (subset) [PATCH 0/5] arm64: dts: ti: k3-am62-verdin: Add
- Toradex Capacitive Touch Display 10.1" LVDS
-Message-Id: <178488010464.449291.8023888105582692289.b4-ty@b4>
-Date: Fri, 24 Jul 2026 10:01:44 +0200
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB5E210F328
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:02:32 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66O7avfi021025; Fri, 24 Jul 2026 09:02:24 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=J
+ 9X34VjSxlk1h3QSODJQpOllEpeK4zcV8bjlDOa3VDg=; b=hy3DnTFlR0yUyTfeu
+ WT1fdOl67Omm5/Ix6bHJbOdm/MQOzGeIsidAvo9P0noCPzzokqAKjmiWPXVgK0QS
+ kOtX0KdAJXOy8UOgavPiyKf3LWNhtEdUc/bAdFFfyabgh4E7vjLZcP+OQ2lbXlZW
+ ZkBjxKhZVW2lXPmG3byR73yvHGI0ncuvVCS7XISPhK01kwhX/lg7Y3gr5/8p7pu8
+ JW40Fn+PQk4Pb1G/CsLbCIlPyogd40g2Xz1rpMI1POzg8p6P/BArpVDaygJ2YwEv
+ Fh9gj0OsQ45lHQsL5pnwL0eFCalQdmnZN/7v08PWiu6tlZGNCYpbege+LVqGH11h
+ IWq4A==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4fhq52bgvc-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 24 Jul 2026 09:02:24 +0100 (BST)
+Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.9) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 24 Jul
+ 2026 09:02:23 +0100
+From: Alessio Belle <alessio.belle@imgtec.com>
+To: Luigi Santivetti <luigi.santivetti@imgtec.com>, Brajesh Gupta
+ <brajesh.gupta@imgtec.com>, Frank Binns <frank.binns@imgtec.com>,
+ "Alexandru Dadu" <alexandru.dadu@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alessio Belle <alessio.belle@imgtec.com>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+In-Reply-To: <20260720-fix-pvr-job-trace-hwrt-v1-1-b24551802efb@imgtec.com>
+References: <20260720-fix-pvr-job-trace-hwrt-v1-1-b24551802efb@imgtec.com>
+Subject: Re: [PATCH] drm/imagination: Fix value of HWRT address in
+ pvr_job_create tracepoint
+Message-ID: <178488014381.43731.11195246438931887622.b4-ty@imgtec.com>
+Date: Fri, 24 Jul 2026 09:02:23 +0100
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+X-Mailer: b4 0.14.3
+X-Originating-IP: [172.25.4.9]
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA3MiBTYWx0ZWRfX+e+y4lCGuDtX
+ d/zg7jMfsfbjmAObXVC1Qr2UVPpVBgaLhNcYDykaoSlOVK65vhim2PYUYA5Lp5j3LpmuTHBgvE2
+ ZMI2c6WBO6lENddCC+mHeBWWk6EVYbaSSd4NCtIYQDNENU91IxWPKjdEyC0vvD3AT+RHO6wWfnp
+ CYgNQWToCFMvjBAlpWJaAwsKGh9VFgaSUriYAdGrd98cOT+73HO9xnFmf1vrM1iIForgfSzv/1S
+ eCeSG8cSf6LAEIiYldD3WiHjr/dq986HYoXPq8AxeYrfqY9hNYtgxds8m8xCQYG233vaDdFKeaW
+ dN1cDXdmFF32frZpxIjYv2erF8aXtnLwwmvZV0HoPuqi4+OGUspoUxy3PUtToM2BIalbDF6Xm8S
+ +qm/ho8vUX44MCBZMzT6FZweT5KA/FkDCEsqNpyvZ9hVgiE+symr9/ZxJ/6wKocdyg0JKPEGxBk
+ m4V+5nzyWRv2G4GWeKg==
+X-Authority-Analysis: v=2.4 cv=B5+JFutM c=1 sm=1 tr=0 ts=6a631c10 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=rvaOABGgyOwA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=r_1tXGB3AAAA:8 a=6rTy5hXIHTOJUlV47kYA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: TPJ6O5y-XZZ6mFpGAhTyEINNAsjh3pRs
+X-Proofpoint-ORIG-GUID: TPJ6O5y-XZZ6mFpGAhTyEINNAsjh3pRs
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA3MiBTYWx0ZWRfX0rXMJRtqSymr
+ NhXOmyzxEeIl+ITIMW+s0ypv2RrgGn8r33y4F4X5tDFt15OVESjNIqAz6LVo+hLxTtWib1mt7o5
+ FGWEi4gbhJktfkwRORwLiQfoKlv287Q=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,23 +92,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
-
-On Tue, 23 Jun 2026 16:57:36 -0300, Leonardo Costa wrote:
-> From: Leonardo Costa <leonardo.costa@toradex.com>
+On Mon, 20 Jul 2026 16:07:28 +0100, Alessio Belle wrote:
+> The pvr_job_create tracepoint was using pvr_fw_object::fw_addr_offset
+> to display the firmware address of the render target structure attached
+> to a job, but that's an offset into the firmware heap, not the expected
+> full address, which is more useful in general e.g. for cross referencing
+> against firmware logs.
 > 
-> This series adds device tree overlays for Toradex Capacitive
-> Touch Display 10.1" LVDS V2 on Verdin AM62.
-> 
-> The display addition covers two interface types:
+> Use pvr_fw_object_get_fw_addr() to get the full firmware address.
 > 
 > [...]
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
+Applied to drm-misc-fixes, thanks!
 
-[1/5] dt-bindings: vendor-prefixes: Add Opto Logic
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/4685230d8288a99f1c664768b6eb2bd1545524c7
+[1/1] drm/imagination: Fix value of HWRT address in pvr_job_create tracepoint
+      commit: 112badb7245059c176e3924f9cd9ce2933cb0082
 
+Best regards,
 -- 
-Neil
+Alessio Belle <alessio.belle@imgtec.com>
 
