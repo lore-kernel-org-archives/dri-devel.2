@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80C43C531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 22:02:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA245C531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 22:02:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3F9810F498;
-	Fri, 24 Jul 2026 22:02:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52CE510F49A;
+	Fri, 24 Jul 2026 22:02:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BuwhY2zI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mb6Q+HWy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0791E10F498
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 415D810F498
  for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 22:02:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2DD5F60A80;
+ by sea.source.kernel.org (Postfix) with ESMTP id DBAC143B12;
  Fri, 24 Jul 2026 22:02:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 731C51F000E9;
- Fri, 24 Jul 2026 22:02:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 650461F00A3A;
+ Fri, 24 Jul 2026 22:02:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784930522;
- bh=19neDo4MQirpVjO0C6b65qm1NaBdKqFZ57sG6uJUNus=;
+ s=k20260515; t=1784930523;
+ bh=cYMEyouyBfQzCuTIahKBhshfk/yBTp5R9vQ8JJQX1aY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BuwhY2zIWODQmYcPMT8oZOiyLSlKJbI820rZB1d/2wT4fAkJJorHMu/eyqO/iyPj1
- hHAsbFIaCB5vrAHyMcYDcCfh0BlD0LFh/X3rO0arC25oGm6G5lJRqp96oKxm305oGc
- QKsNESB+n7uEQ2Qn300X1fR9do4Iw7MdhgtiZ3LCc5bZz7pq0qAKctcdknUBzU9bhN
- Lg4vlz9VC+1Lzqr+vcL9KDA+Jl7wG8C7ACpxV6wGYO0EIao/alKqbmy2GKw5eC51Ei
- SxgSpTlqeG+H9EMDOGoIsuH/oL0CIk+S0fa1mZ/pjG6kvAcDJ/CGaXM9un1LFRTTmi
- FfXzeEX1S9d3w==
+ b=mb6Q+HWyebIShFnA+ZTfpunoRLu+6rI2HLmpVhBp4IIlEL9xiqWHuxOFytylGvpQU
+ CYMJ6CeZ2c7PDVr0l0AeD4U6eqCjlRklgbXsk8itwfFm88JmSKNG0e+lKv5hcUPZpo
+ LI95/76ZSNOLxzHz0Dpr+yDJKMvFNnlHcXYRw4l5Utqgth2Cx7RuiC7ZbqqJWTC9U8
+ UKFpkLnxC90sXVDIrZNtYTnLFNiopZIqVKsMK22blIQSsZrBTNESZWkbyQ8XMrWJf9
+ NXudNTdmMHwqX88lsx+qzTZVDO89lddUkw2lWhZ1Kpeacck2qQLPu341xfRvZg2TOr
+ aUM47DvOgxAkw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/9] ipack: tpci200: don't store pci_device_id
+Subject: Re: [PATCH v4 6/9] agp/amd-k7: Don't rely on address of pci_device_id
 To: "Gary Guo" <gary@garyguo.net>
-Cc: dri-devel@lists.freedesktop.org, dlemoal@kernel.org,
- linux-pci@vger.kernel.org, cassel@kernel.org, linux-scsi@vger.kernel.org,
+Cc: dri-devel@lists.freedesktop.org, cassel@kernel.org,
+ linux-pci@vger.kernel.org, linux-scsi@vger.kernel.org, dlemoal@kernel.org,
  linux-ide@vger.kernel.org
-In-Reply-To: <20260723-pci_id_fix-v4-3-3580726844e1@garyguo.net>
+In-Reply-To: <20260723-pci_id_fix-v4-6-3580726844e1@garyguo.net>
 References: <20260723-pci_id_fix-v4-0-3580726844e1@garyguo.net>
- <20260723-pci_id_fix-v4-3-3580726844e1@garyguo.net>
+ <20260723-pci_id_fix-v4-6-3580726844e1@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 22:02:02 +0000
-Message-Id: <20260724220202.731C51F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 22:02:03 +0000
+Message-Id: <20260724220203.650461F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,66 +59,126 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] MMIO configuration registers are mapped and accessed before callin=
-g pci_enable_device(), which can lead to dropped writes or master aborts.
+- [Medium] Storing kernel string pointers in driver_data prevents adding dy=
+namic IDs via sysfs (new_id).
+- [Low] Binding the driver via driver_override passes a NULL pointer to a %=
+s format specifier.
 --
 
---- Patch [3]: [PATCH v4 3/9] ipack: tpci200: don't store pci_device_id ---
-commit eed0a798b7390c20259769af7ca3dfe410d112f0
+--- Patch [6]: [PATCH v4 6/9] agp/amd-k7: Don't rely on address of pci_devi=
+ce_id ---
+commit 6e944a8c8b19b7d71cd09452e813daa32931ee55
 Author: Gary Guo <gary@garyguo.net>
-Subject: ipack: tpci200: don't store pci_device_id
 
-This commit removes the stored pci_device_id from the tpci200_infos structu=
-re.
-Since dynamic IDs are not guaranteed to outlive the probe function, and the
-stored ID is unused, removing it prevents potential issues.
+agp/amd-k7: Don't rely on address of pci_device_id
+   =20
+Address of pci_device_id cannot be relied on due to presence of dynamic ID
+and driver_override. Use driver_data instead.
 
-> diff --git a/drivers/ipack/carriers/tpci200.c b/drivers/ipack/carriers/tp=
-ci200.c
-> index 05dcb6675cd66..1cf51f7632932 100644
-> --- a/drivers/ipack/carriers/tpci200.c
-> +++ b/drivers/ipack/carriers/tpci200.c
-> @@ -562,7 +562,6 @@ static int tpci200_pci_probe(struct pci_dev *pdev,
+> diff --git a/drivers/char/agp/amd-k7-agp.c b/drivers/char/agp/amd-k7-agp.c
+> index 898ff30ffd46b..4d201e71c5177 100644
+> --- a/drivers/char/agp/amd-k7-agp.c
+> +++ b/drivers/char/agp/amd-k7-agp.c
+
+[ ... ]
+
+> @@ -387,37 +387,17 @@ static const struct agp_bridge_driver amd_irongate_=
+driver =3D {
+>  	.agp_type_to_mask_type  =3D agp_generic_type_to_mask_type,
+>  };
 > =20
->  	/* Save struct pci_dev pointer */
->  	tpci200->info->pdev =3D pdev;
-> -	tpci200->info->id_table =3D (struct pci_device_id *)id;
+> -static struct agp_device_ids amd_agp_device_ids[] =3D
+> -{
+> -	{
+> -		.device_id	=3D PCI_DEVICE_ID_AMD_FE_GATE_7006,
+> -		.chipset_name	=3D "Irongate",
+> -	},
+> -	{
+> -		.device_id	=3D PCI_DEVICE_ID_AMD_FE_GATE_700E,
+> -		.chipset_name	=3D "761",
+> -	},
+> -	{
+> -		.device_id	=3D PCI_DEVICE_ID_AMD_FE_GATE_700C,
+> -		.chipset_name	=3D "760MP",
+> -	},
+> -	{ }, /* dummy final entry, always present */
+> -};
+> -
+>  static int agp_amdk7_probe(struct pci_dev *pdev,
+>  			   const struct pci_device_id *ent)
+>  {
+>  	struct agp_bridge_data *bridge;
+>  	u8 cap_ptr;
+> -	int j;
 > =20
->  	/* register the device and initialize it */
->  	ret =3D tpci200_install(tpci200);
+>  	cap_ptr =3D pci_find_capability(pdev, PCI_CAP_ID_AGP);
+>  	if (!cap_ptr)
+>  		return -ENODEV;
+> =20
+> -	j =3D ent - agp_amdk7_pci_table;
+> -	dev_info(&pdev->dev, "AMD %s chipset\n",
+> -		 amd_agp_device_ids[j].chipset_name);
+> +	dev_info(&pdev->dev, "AMD %s chipset\n", (const char *)ent->driver_data=
+);
 
-[Severity: High]
-This is a pre-existing issue, but I noticed that MMIO configuration registe=
-rs
-are mapped and accessed before pci_enable_device() is called.
+[Severity: Low]
+Does this pass a NULL pointer to a %s format specifier when the driver is b=
+ound
+via driver_override?
 
-Earlier in tpci200_pci_probe(), the driver maps the configuration memory bar
-and immediately accesses the registers to configure byte swapping:
+When a device is bound using the sysfs driver_override interface, the PCI c=
+ore
+passes a dummy pci_device_id_any structure where driver_data is 0 (NULL). T=
+his
+would result in an ungraceful log message like "AMD (null) chipset".
 
-    reg32 =3D ioread32(tpci200->info->cfg_regs + LAS1_DESC);
-    reg32 |=3D 1 << LAS_BIT_BIGENDIAN;
-    iowrite32(reg32, tpci200->info->cfg_regs + LAS1_DESC);
+Should we add a fallback check for NULL and print a string like "Unknown"
+instead?
 
-However, pci_enable_device() doesn't seem to be called until later in the
-probe sequence, when tpci200_install() eventually calls tpci200_register():
+> =20
+>  	bridge =3D agp_alloc_bridge();
+>  	if (!bridge)
 
-    if (pci_enable_device(tpci200->info->pdev) < 0)
-        return -ENODEV;
+[ ... ]
 
-Since the memory enable bit in the PCI command register is not guaranteed to
-be set by the firmware before probe, accessing MMIO regions before
-pci_enable_device() can result in reads returning 0xFFFFFFFF and writes bei=
-ng
-dropped. On some architectures, this might even trigger a system-crashing
-PCI master abort.
+> @@ -492,7 +472,6 @@ static int agp_amdk7_resume(struct device *dev)
+>  	return amd_irongate_driver.configure();
+>  }
+> =20
+> -/* must be the same order as name table above */
+>  static const struct pci_device_id agp_amdk7_pci_table[] =3D {
+>  	{
+>  	.class		=3D (PCI_CLASS_BRIDGE_HOST << 8),
+> @@ -501,6 +480,7 @@ static const struct pci_device_id agp_amdk7_pci_table=
+[] =3D {
+>  	.device		=3D PCI_DEVICE_ID_AMD_FE_GATE_7006,
+>  	.subvendor	=3D PCI_ANY_ID,
+>  	.subdevice	=3D PCI_ANY_ID,
+> +	.driver_data	=3D (kernel_ulong_t)"Irongate",
 
-Should pci_enable_device() be called earlier in tpci200_pci_probe() before
-any MMIO access occurs?
+[Severity: Medium]
+Will storing kernel memory addresses (string literals) in driver_data preve=
+nt
+users from adding dynamic IDs via sysfs?
+
+The PCI core's new_id_store validates the provided driver_data (which defau=
+lts
+to 0) against the driver_data in the driver's static id_table. Since this p=
+atch
+assigns string pointers to driver_data, users cannot supply a matching value
+via the new_id sysfs interface, causing new_id_store to always reject the i=
+nput
+with -EINVAL.
+
+Could the driver store an enum or integer index in driver_data and use it to
+look up the string array instead?
+
+>  	},
+>  	{
+>  	.class		=3D (PCI_CLASS_BRIDGE_HOST << 8),
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260723-pci_id_fix=
--v4-0-3580726844e1@garyguo.net?part=3D3
+-v4-0-3580726844e1@garyguo.net?part=3D6
