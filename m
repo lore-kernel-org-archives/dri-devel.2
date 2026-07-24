@@ -4,86 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B91BCC531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 15:02:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33FE2C531FA
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 15:02:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1ACF510F3F0;
-	Fri, 24 Jul 2026 15:02:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C07410F3FC;
+	Fri, 24 Jul 2026 15:02:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="BVqYR1vS";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="WQtn/r5u";
 	dkim-atps=neutral
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com
- [209.85.221.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F16810F3F0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 15:02:02 +0000 (UTC)
-Received: by mail-vk1-f170.google.com with SMTP id
- 71dfb90a1353d-5c2c0e261aeso143782e0c.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:02:02 -0700 (PDT)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
+ [209.85.221.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD92610F3FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 15:02:07 +0000 (UTC)
+Received: by mail-vk1-f181.google.com with SMTP id
+ 71dfb90a1353d-5c11362f67eso329529e0c.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:02:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784905321; x=1785510121;
+ d=chromium.org; s=google; t=1784905327; x=1785510127;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=RIgmCj66tNw1clv6mHU3c/fxIczuL5eauaO+8CdlWEQ=;
- b=BVqYR1vSFRZg8vaoBRLmEsnT0leV4KjrmBSuGrJe/ivsddQc/FWwmFMoPehZHT4O+7
- 4wA8SlQgDv1paSWLkpoedzUe5mgIYpp8dNAFJeXMXR40YLgmnXQYYegKpYICAho8ntFm
- 9xegZKrUZNKQ8WQa7ZJ4US3Ghjqucc8owsT/0=
+ bh=axUWldsUrrg2QWDYEZ5ZhUpTnF5ujfrkoBRN4xtb3XI=;
+ b=WQtn/r5uBbXRepcn8cpadmP1vZd8vpnl6/zoE5E0eis4o2e/cWIqf6LlIKAw6IUwHu
+ cWw7ImbarHe/UH+Ar8Wms0YVMsc/k3/RL8hfF+O78axxJMj7K/CQxoMS2pRvpoibMmf4
+ vdYY4bpv5jNkazHaUu3LyLJyZNpNiNlaZEGUE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784905321; x=1785510121;
+ d=1e100.net; s=20251104; t=1784905327; x=1785510127;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=RIgmCj66tNw1clv6mHU3c/fxIczuL5eauaO+8CdlWEQ=;
- b=ptALW5Ye99Zx0FGtG/yyfq4gKrzrGI2kr2ndVJQyHZomoCxi7zDKlOHqnftMcPgoTe
- Yf3q8BB4ldBjpkgUlGpY+toaF2a+rscraDMdVsslFkFZNt+zKc08WV+m3BU+3hNb5FrF
- NDnaVCKPRO11Gwhj5bSBg0jxBLu9fDxKmKU3OVYREUL50d49G4q5f04CzBou2nUSeaOk
- tyD/x6iBZo2hlNF7Blhe05k/JFTOPdGDBW6eXzHXCdp9dOGEhT2UbBxGGFGjlC/poCGt
- KfaYehCYhnse2LFFGZ3EFFob0N+6kzFFlP7lfplvqDBXYgsbtgQ/s+kkG2hYfbo1s+s6
- F7Bg==
+ bh=axUWldsUrrg2QWDYEZ5ZhUpTnF5ujfrkoBRN4xtb3XI=;
+ b=rBfpurtEW9oQzQupWPij1oAz6qcy77pADPK9uJCckra9vawulvPuIRSHLVltBjAxQC
+ aUYGAj1q14S4EEXlUqnrEPR6rVSx4l+P/WU/dY6bj6NbAPyFa21JEBOIPRwjlL7B19+T
+ ahmbCYGdlyRbEz0cLc7WKfEeH2JHUFvncjSAHNPXysnTpli/l3INmNvodoTcd/igQ1qj
+ P3LRqVbPKEmhh3zkF3HxwMEGBjM4Oe0LFETprNcG4yEDR0L6EXT4pcCvoQrTdlESSeK/
+ zfuCrgfgY6JCQxo24dM4ELP6rp8Z78icwKiKHTvHj+OgiWUnooQm7rQgBw4OZ0HWtdDF
+ W3DQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpz2JuDMwabkyFJ9FUcja50Jtk1NVVJnDjQ4O6QAUFLGm0qHrOibqd0wFgPryurR0Pj8uZJo/utowA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxW20f2QyNHP6VAgyIBcgYpMZEqUL2J0v84NBxGPiWGX10MKTUo
- qVGSg9VQZN5zaizRNy/Kt656lSPDXWIV6NlEnmI9cbcAg3w7IJrZYi5Txu8ZxCUGdB49Y2/GO3n
- LV+o=
-X-Gm-Gg: AR+sD13hVXXkiLm+iZYZ2xbEoG319zDECVlkYvk0Y2D9sxV9SkWVST0Q8ruSSooVXCo
- YmGX27HW/pYuEgpDaCf+mcRMJUFMPD4e44Nh2n0Vc7ThX6ZlvqeLTqZ4hPGZ4i3vXhf2behCSzB
- 8EgbKueG0Czr+i3+AB2YH2uQ3fqiONoVQ6ULL9AVSSJJxz6J0PHreVSpGtYr1F5pz9tnjlwsTvu
- 24TNrJwaXEOyXcPy9S1VGjuCNWCiGEU+r4XlDDFSqQjY6836s3EQBmh/mvtJS5qOmcVP9vWaJOU
- HffN/6RF2cWqvoY5xdGlgQtf4Dtc2XtmR0UASZMkWsWLQ68+PX4FbjPXxn2IZgaF63PM5CLfAZE
- Z1ikV/1T+uT5+x8mbVKahyzBmBsjvymS2oKy8DUU+Osi+dZKbPxAjuIdFxoNjRjxiCkJLKygcIa
- 5Wup7cNCPAwO0ACdxEDbF17iNWK3ns9mruK82ScxWV1ArJphRsSU7T7SQ=
-X-Received: by 2002:a05:6122:1811:b0:5bd:a7e6:10bd with SMTP id
- 71dfb90a1353d-5c2d9d5e0eamr3534381e0c.0.1784905314951; 
- Fri, 24 Jul 2026 08:01:54 -0700 (PDT)
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com.
- [209.85.221.179]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c2c627682dsm9444366e0c.2.2026.07.24.08.01.52
+ AHgh+Rq1cr//nkijmNPegorHrwa1qJ5odOzDFu7a0FbkWqmbIfEZdzMY5LOipp58HDsyU6ja7bLQcRspM+g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwFkzCdY6vsTN/h7COwVm/WiANrTDQONLTdA/AOGyR9BJt0iLbk
+ xNQTXCIzS52hUE5edAcEJsrAtt4K0aB5kJpvRNDBR5Brb3T7hXr1zdiVH+mP+L3TlVKhq8/JOrV
+ tv6A=
+X-Gm-Gg: AR+sD12+MI+iChmQiGGZA3gfCp5Pf1AIn8qB/OVn1pmSzngpN0Vdo3H29Olqq3kNCLK
+ Skz8T41vvzHuH1x1n1Sz8zkaexHZiU26Ez6YE2ZB8LKdeOPtxdjfhdH5O3yZ9aaDMXELDT0PMs/
+ FRYv99HLhy5Y3VxiyksyizOTOnvsZ56qJDYU6RfHGFu20RmD15bmZt2DlZLOXYcjxDrxXBSAibr
+ 9xkVjhxLrRkXzg69pO22D0waMCeQ73jPboj7h7x1vvbfVnYyeXybByjSxL9hUfTxwrlBjs+qVpx
+ 1LjBTzOY8PbHJUlAwGqYExnsNmLzxt//4o1h6vWSzyfSOT7I65bfFittF1twTAEGxNKgPcKvHdE
+ A+QXQihxBhRzfg666y9os0LNZHYp63oQ+IF3wS+Ve7BUCXSjnStyKIGvEPDMcN8+cn8U49M4fnV
+ PnWQ6FMjNzZfoBfaDRiBcGg3JEqgKpRLQHQpdU77xqE7ZX
+X-Received: by 2002:a05:6122:c9f:b0:5bd:9c71:11e with SMTP id
+ 71dfb90a1353d-5c2d9ffb5cemr3879795e0c.4.1784905326577; 
+ Fri, 24 Jul 2026 08:02:06 -0700 (PDT)
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com.
+ [209.85.221.177]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c2c648944esm9238379e0c.10.2026.07.24.08.02.04
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Jul 2026 08:01:52 -0700 (PDT)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-5c2b798d3a6so113295e0c.3
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:01:52 -0700 (PDT)
+ Fri, 24 Jul 2026 08:02:04 -0700 (PDT)
+Received: by mail-vk1-f177.google.com with SMTP id
+ 71dfb90a1353d-5c106c38e99so277970e0c.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 08:02:04 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AHgh+RpjQOmb6N243XptKvTJd5yTmroFUbI4GnP715nh4+GkKN/Vd5q+uePn9OPDHQp9haTXWKI4xP1x/WA=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:458b:b0:5bf:b500:c4fa with SMTP id
- 71dfb90a1353d-5c2d9fad6d9mr3426249e0c.2.1784905311020; Fri, 24 Jul 2026
- 08:01:51 -0700 (PDT)
+ AHgh+RrULj96JLAu7apdPYHfzlbLNT5LcX4WfCTNOBiZQQnvAiS7HfGM1d256LimGjmJFFicL9un8Ji0IOs=@lists.freedesktop.org
+X-Received: by 2002:a05:6123:6d:b0:5c2:c115:ef56 with SMTP id
+ 71dfb90a1353d-5c2da13e2cfmr3823856e0c.11.1784905323238; Fri, 24 Jul 2026
+ 08:02:03 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260717143119.1815106-1-johan@kernel.org>
- <20260717143119.1815106-2-johan@kernel.org>
- <CAD=FV=X33HQcz3atmFzor2oLJzxzcRBJsnsSu_ewErduSxy0gQ@mail.gmail.com>
- <al3Sa-l3Hq9fxZJp@hovoldconsulting.com>
-In-Reply-To: <al3Sa-l3Hq9fxZJp@hovoldconsulting.com>
+ <20260717143119.1815106-3-johan@kernel.org>
+ <CAD=FV=UNm2Lku-cfS9GMS7U4z6v6c3Ng-e9HGF1E_Ddvzc-q-g@mail.gmail.com>
+In-Reply-To: <CAD=FV=UNm2Lku-cfS9GMS7U4z6v6c3Ng-e9HGF1E_Ddvzc-q-g@mail.gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 24 Jul 2026 08:01:39 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V11GAw211Lz5cuUQ7B5GQQSGvxORPeBAMz7dsCd+2CDg@mail.gmail.com>
-X-Gm-Features: AUfX_mz8FsFYort56Yg4BUHp4NJjirUzx8eymnJU0jTrPekxP4TnKisnoQZfF3k
-Message-ID: <CAD=FV=V11GAw211Lz5cuUQ7B5GQQSGvxORPeBAMz7dsCd+2CDg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] drm/panel-edp: fix i2c adapter leak on probe
- failure
+Date: Fri, 24 Jul 2026 08:01:52 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UQTNhkSnDHb-4JBY=_vUxZU5K4r-gJnu38sWBv9FXmog@mail.gmail.com>
+X-Gm-Features: AUfX_mwZrrmFfwMS1-BxZS_e6zHcRY1XAG9kBB1dMvnlgwbCOlK90deUu8eHI_w
+Message-ID: <CAD=FV=UQTNhkSnDHb-4JBY=_vUxZU5K4r-gJnu38sWBv9FXmog@mail.gmail.com>
+Subject: Re: [PATCH v2 2/2] drm/panel-edp: take i2c adapter module reference
 To: Johan Hovold <johan@kernel.org>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, 
@@ -91,8 +89,7 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Maxime Ripard <mripard@kernel.org>, 
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -112,34 +109,29 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Mon, Jul 20, 2026 at 12:46=E2=80=AFAM Johan Hovold <johan@kernel.org> wr=
-ote:
+On Fri, Jul 17, 2026 at 10:04=E2=80=AFAM Doug Anderson <dianders@chromium.o=
+rg> wrote:
 >
-> On Fri, Jul 17, 2026 at 10:03:42AM -0700, Doug Anderson wrote:
+> Hi,
 >
-> > > @@ -878,6 +885,11 @@ static int panel_edp_probe(struct device *dev, c=
-onst struct panel_desc *desc,
-> > >
-> > >                 if (!panel->ddc)
-> > >                         return -EPROBE_DEFER;
-> > > +
-> > > +               err =3D devm_add_action_or_reset(dev, panel_edp_put_a=
-dapter,
-> > > +                                              panel->ddc);
-> > > +               if (err)
-> > > +                       return err;
+> On Fri, Jul 17, 2026 at 7:32=E2=80=AFAM Johan Hovold <johan@kernel.org> w=
+rote:
 > >
-> > Yeah, devm makes this so much nicer. Thanks for fixing!
+> > The i2c subsystem currently blocks during adapter deregistration
+> > whenever there are consumers holding a reference.
 > >
-> > Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> > Switch to using of_get_i2c_adapter_by_node() which also takes a
+> > reference to the adapter module so that an attempt to unload the module
+> > while in use fails gracefully instead of blocking uninterruptibly.
 > >
-> > I'll plan to apply this, probably to drm-misc-next next week. Unless
-> > someone objects, I won't land it -fixes because it's such a corner
-> > case.
+> > Signed-off-by: Johan Hovold <johan@kernel.org>
+> > ---
+> >  drivers/gpu/drm/panel/panel-edp.c | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> Sounds good. Thanks.
+> Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
 Pushed to drm-misc-next:
 
-[1/2] drm/panel-edp: fix i2c adapter leak on probe failure
-      commit: e2a9e291275a74e309a21cbb1def6296a72d6aed
+[2/2] drm/panel-edp: take i2c adapter module reference
+      commit: c7b77a538e01bb3289ae9eec70fc315f99798594
