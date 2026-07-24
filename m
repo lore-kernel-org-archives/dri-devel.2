@@ -4,81 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 328B5C531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:16:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 216F8C531FC
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:16:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3765710E2AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9240210E2D8;
 	Mon, 27 Jul 2026 07:16:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hNxg1vlm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mo2CEsbs";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3228C10F2E1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 10:08:25 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-84e0688b859so104688b3a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 03:08:25 -0700 (PDT)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D236310E03C
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 11:55:53 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-c99eaa1f020so319795a12.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 04:55:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784887705; x=1785492505; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=i0F3yBArKcXYT+DEWXeSbqqrZfyglayU3IMutIRKDs8=;
- b=hNxg1vlmDvWyi2skWh2CZtxUU6HUGjToLd5lDyUG8LeJUiEWVncVDbI1sPRcdFrsco
- w6QB0eH9tNtvwjURIKipM7VY3QnCfAwnG5yPDKM6c+7NSlWI8hhKjrpHAUd9VJ9cWEWO
- vlRQrqy5wGnGfeid635SS4ttgxU6aTsA377l/d9NwN24fifwvhDoZywsdUwN1NR8Rqs2
- L8ZIAZaoBK5TmoAmpERuq+kXNVRKx+/6ZlrZrGk1bg2y3CJ5jxSiKswI7VqgD7Gdhx4w
- vDBetHRCLCtwNWv9AWnv1MYLR5KaFZZ5wdz8oOj9qO1ST/6UYoXUywDFqayrKdPE6svp
- 75Qw==
+ d=gmail.com; s=20251104; t=1784894153; x=1785498953; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Y+Y1fqW1ooSKECeHK5MtsEg0yL2/pYBJJKbFGOS2vUo=;
+ b=mo2CEsbs4pi/gZ3C27jhBt1M4IPbsY1tQ1kpDEjDMHyBL58jtXO+eYY1la/3nwCT0v
+ e8gVFuCEwyTSRLpe6RxQFuDPR8hhX3vl78EjWTk4DiZ/JAW0ePTsCwT5OE9Ea44NlRWC
+ hkWwAFTxEpk/d9RaQJE+WTSs066sIBIEyFoQgw82/ZmymwPrgx5+WJwwet/WgUOQbBbW
+ IBuK0SYVl12lfC31kDid6YLENiUL8VueNEoNsHtBnWYz4hfLcEMckO+0EoaQN+k+IHsm
+ SNw/+QQXYHhr5awc0MWoD3E+XJr4iFLI9OdpWYg0D+3bXIP4wWK0DbovAU9efLUwCqqN
+ 5RVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784887705; x=1785492505;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=i0F3yBArKcXYT+DEWXeSbqqrZfyglayU3IMutIRKDs8=;
- b=mLLjMoJ/gCHkFW49iu/d2VPcSaxFTjMbDg+bS8Y3znmmZcp+YRX1vBwqZwJsgbeQcP
- 0EmB5A3dFuuRZ/ut/K/rh0mJQUA2fpPJQYzXbpjvvgENk6Ems/WE+oFrxIPTV5mBAd+e
- KuHcC4NEXSDczbEccZEa6zb3PKkFitbRfXpM9+QO6xlasMp6FwwSAfdIMahI4caKc3bZ
- A3QRiI53PRJy3i8MzyOapIBC/i81f4F3gDdx9ba73qKQMMLlT3czkka+ADS1I1k4FNRy
- FlXZNY3D0agKjHH3P55PmNiSnJlBOwxC5kt2WXwDko+DYEplf5uoam7Bx5rN5mk5ERx9
- SMcw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpaC6mauiBabkcbX0fIxpljoHjRzQGO5naszEHZehb+MI19Uf2YAoXEE6jF7xC7PCvrLmJGjIITN9E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzUzRkGcNnkJM+QzF3k6BfhC3CvWjXj4SY2uWgz1yJ2rT6C59zT
- lCzMEnXr1rH/1i+74Y+pc2dAfeZQJTGC8NtCbtZjnQNMGJ8XdPcsjFhT
-X-Gm-Gg: AR+sD13QRRbn0isRLIhAycQdZ+uO43e1hSv63JqlByk/SlmUU0s/Q2RiQZKzavDyaGz
- 8eEV453aaY9CErhH6o6xqItBXPGYTrAKVLpJprOyGCEvPAtuwQqoLRn3z6MPIElE8Xhix6wPfSX
- GtakBpTU1vRH02E1XmV50AngzLiqHC3Qt/jK66FccROjFQVuy6fMCW1o6y4pSlkcnh+2ALZmPAW
- kCV0mehiEVF8wJrqWPV7wAnwBbell+K5glMyq/ERWoQYVofRN5ZInFjVARkHLceWg24RrzoucZA
- VPPt2bEud96shvYPQKqd6/pTli4oVkdcgcipaDZoRj5DqzETLBknsK0ubETymiQIrG5MM+hX2ze
- V93NxdLSQljhgDffDoh/kEqkZXjUMMakw0+66ZvblBiaoGehqmRQ2NEPhnpSh/7CvYQJplyCLFH
- tgpfxEMuNXBvDmTpc05SAOp6ufxTxX9fHvjtCI7Z93MgxCsbhC6DPwIFW1e4FF7GhFkfcfM9jCV
- gB4NjlqxwTF5Z47PJUnwQ==
-X-Received: by 2002:a05:6a00:299a:b0:848:8027:cac with SMTP id
- d2e1a72fcca58-84e2b8988b8mr7358998b3a.23.1784887704633; 
- Fri, 24 Jul 2026 03:08:24 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e175cdc21sm4405335b3a.47.2026.07.24.03.08.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jul 2026 03:08:24 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH 1/2] drm/bridge: adv7511: Reorder power_on() and power_off()
-Date: Fri, 24 Jul 2026 17:08:02 +0700
-Message-ID: <20260724100803.50169-1-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ d=1e100.net; s=20251104; t=1784894153; x=1785498953;
+ h=content-transfer-encoding:content-type:subject:from:cc:to
+ :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Y+Y1fqW1ooSKECeHK5MtsEg0yL2/pYBJJKbFGOS2vUo=;
+ b=FuH4as41sxxlBC8byDYciqS8bjqQjmALtdFto09zYM63C5HDRcpYgRJBrmo4AI2mpR
+ WM8CTbl0v5a0GkhAfx0pi8viR4JNR9jP3LwBX2rESBWsnVkXp0CyUCztJ07rvCVRZkzO
+ esNFsriNay+JlM97nRvIwKPhpGuwodaKGjCjiC2L8FnVZZ/DEdLW3onxTzz9JW7TS33B
+ 6GPLYh57MgGeO3GLnHzoT4BwOKyR71C1fu9Xsb+pu47Em3bm8C8ds9Xnye1q8D14StfP
+ 2/ZJFeMLyJOe7kR6j5sG7YuWapwYv+7WMYI9qcdMjsWCQwTzeo1ayrx0/RnpEathMhOL
+ wfbA==
+X-Gm-Message-State: AOJu0YyxEbeC9djJBkBXyWRxYntTF1jMfJAc+qJTG3JzrX6nuhh10syh
+ ZTNjZAIGmZrBndbpF6jwEWF4QI1Q/Fggy4eDI6icRs6JTrpZMJOQsCSm
+X-Gm-Gg: AR+sD122Lq61Y6znJI/EGCKi8P+JytjIGWJHhh6ngrwLaPC7oniLyM/tTBmOXfmMqRR
+ RxuGVRtonhzGnRTuG+f27KMev4RU8SWS5RX/gGtMi61U//oBpRkN7wVOjXK2yc7ANFw1IuL6odD
+ Ra8dClyjrqLMl8gYWjB316BDIMOKQpnj2Z3AEJyuwG1o2sq8z2yZ+Nin/EChzBpGFbE2lXKk6dh
+ SKyiYLVhVOBdSjXOOsm06d+Hdl6vUkxSVJbfacBQv07v5pUByAHQot1UxRyq+po/ilZfGHSxflW
+ kWfgdvI3wLSb6zP7NBvIWC9VT0CU9ElaUIT2zQLYq1FsFEPRJwY773QDcvln1PjCLkCa4srPNyk
+ PQfG7WD9DfdIMiiVJ+U+M7SxHuwM4R1L4PDbJh71OcoymHvjS1DYPq0dQoQbr16zslyTtfY2m9N
+ zeBWgszw==
+X-Received: by 2002:a05:6a21:4a97:b0:3b2:a809:ffe with SMTP id
+ adf61e73a8af0-3c44afb58bamr8011332637.14.1784894153291; 
+ Fri, 24 Jul 2026 04:55:53 -0700 (PDT)
+Received: from [127.0.0.1] ([154.17.229.144]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3147dc9f2f0sm31657487eec.13.2026.07.24.04.55.51
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Jul 2026 04:55:53 -0700 (PDT)
+Message-ID: <697e79c2-98a9-4bb3-b5fb-db327cbe1bce@gmail.com>
+Date: Fri, 24 Jul 2026 19:55:48 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: dianders@chromium.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+From: Weiji Wang <nebclllo0444@gmail.com>
+Subject: [PATCH] drm/panel-edp: Add BOE NE140QDM-NX2
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 27 Jul 2026 07:16:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -96,82 +87,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Add timing for BOE NE140QDM-NX2.
 
-Move the power_on function block below the power_off function block
-to prepare for the following patch.
+edid-decode (hex):
 
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+00 ff ff ff ff ff ff 00 09 e5 f2 0a 00 00 00 00
+20 1f 01 04 a5 1e 13 78 03 ee 96 a3 54 4c 99 26
+0f 4e 51 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 60 d2 00 a0 a0 40 32 60 30 20
+35 00 2e bd 10 00 00 18 c8 9d 00 a0 a0 40 32 60
+30 20 35 00 2e bd 10 00 00 18 00 00 00 fd 00 30
+78 c6 c6 36 01 0a 20 20 20 20 20 20 00 00 00 fe
+00 4e 45 31 34 30 51 44 4d 2d 4e 58 32 20 01 f8
+
+70 13 79 00 00 03 01 14 30 69 00 05 ff 09 9f 00
+2f 00 1f 00 3f 06 31 00 02 00 04 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 4d 90
+
+Signed-off-by: Weiji Wang <nebclllo0444@gmail.com>
 ---
- drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 48 ++++++++++----------
- 1 file changed, 24 insertions(+), 24 deletions(-)
+  drivers/gpu/drm/panel/panel-edp.c | 1 +
+  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-index 02f8f7e78a16..d98a8f7afc7f 100644
---- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-+++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-@@ -302,6 +302,30 @@ static void adv7511_set_link_config(struct adv7511 *adv7511,
- 	adv7511->rgb = config->input_colorspace == HDMI_COLORSPACE_RGB;
- }
- 
-+static void __adv7511_power_off(struct adv7511 *adv7511)
-+{
-+	/* TODO: setup additional power down modes */
-+	if (adv7511->info->hpd_override_enable)
-+		regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER2,
-+				   ADV7535_REG_POWER2_HPD_OVERRIDE, 0);
-+
-+	regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER,
-+			   ADV7511_POWER_POWER_DOWN,
-+			   ADV7511_POWER_POWER_DOWN);
-+	regmap_update_bits(adv7511->regmap,
-+			   ADV7511_REG_INT_ENABLE(1),
-+			   ADV7511_INT1_DDC_ERROR, 0);
-+	regcache_mark_dirty(adv7511->regmap);
-+}
-+
-+static void adv7511_power_off(struct adv7511 *adv7511)
-+{
-+	__adv7511_power_off(adv7511);
-+	if (adv7511->info->has_dsi)
-+		adv7533_dsi_power_off(adv7511);
-+	adv7511->powered = false;
-+}
-+
- static void __adv7511_power_on(struct adv7511 *adv7511)
- {
- 	adv7511->current_edid_segment = -1;
-@@ -355,30 +379,6 @@ static void adv7511_power_on(struct adv7511 *adv7511)
- 	adv7511->powered = true;
- }
- 
--static void __adv7511_power_off(struct adv7511 *adv7511)
--{
--	/* TODO: setup additional power down modes */
--	if (adv7511->info->hpd_override_enable)
--		regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER2,
--				   ADV7535_REG_POWER2_HPD_OVERRIDE, 0);
--
--	regmap_update_bits(adv7511->regmap, ADV7511_REG_POWER,
--			   ADV7511_POWER_POWER_DOWN,
--			   ADV7511_POWER_POWER_DOWN);
--	regmap_update_bits(adv7511->regmap,
--			   ADV7511_REG_INT_ENABLE(1),
--			   ADV7511_INT1_DDC_ERROR, 0);
--	regcache_mark_dirty(adv7511->regmap);
--}
--
--static void adv7511_power_off(struct adv7511 *adv7511)
--{
--	__adv7511_power_off(adv7511);
--	if (adv7511->info->has_dsi)
--		adv7533_dsi_power_off(adv7511);
--	adv7511->powered = false;
--}
--
- /* -----------------------------------------------------------------------------
-  * Interrupt and hotplug detection
-  */
+diff --git a/drivers/gpu/drm/panel/panel-edp.c 
+b/drivers/gpu/drm/panel/panel-edp.c
+index df7286679446..9e0981ecbc1c 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2031,6 +2031,7 @@ static const struct edp_panel_entry edp_panels[] = {
+      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ae8, &delay_200_500_e50_p2e80, 
+"NV140WUM-N41"),
+      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b09, &delay_200_500_e50_po2e200, 
+"NV140FHM-NZ"),
+      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b1e, &delay_200_500_e80, 
+"NE140QDM-N6A"),
++    EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2, &delay_200_500_e80, 
+"NE140QDM-NX2"),
+      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b34, &delay_200_500_e80_d50, 
+"NV122WUM-N41"),
+      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b43, &delay_200_500_e200, 
+"NV140FHM-T09"),
+      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b56, &delay_200_500_e80, 
+"NT140FHM-N47"),
 -- 
-2.43.0
+2.51.0
 
