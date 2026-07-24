@@ -4,84 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2125CC531F9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:04:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61D94C531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:10:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FCE510F479;
-	Fri, 24 Jul 2026 18:04:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC9E010E072;
+	Fri, 24 Jul 2026 18:10:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qqQlg4s3";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Ig3+q04G";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE6D010E0B1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:03:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1784916209;
- bh=9OEEVTGH6CtYBorsugsyey8Z+5Bz4/YUYRXLfK0S0LI=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=qqQlg4s3J0va/64Bui7TTIsrOZvhbLNOrY3hZVHTVZuKP2kF8rH2Ke+9oowTJI+Z9
- 6m/K4OSbDyVmoByfU47LcuTjkN2LWnEycrBUyoA5vbfXltZUQji8vStfBAFHXB4QLZ
- XJTlI7PNqOFntSDbf3RUchFyjVK9gVcQ2qkdFg5CfNXHKau4MRfXAhLKeJsE0arn1a
- 3NF6rK4BMNZVtcl5HQkeKry1M2M8TJAqO9c3fQVkSsJ12CKom4/YCWrdbBmf3bLNlZ
- Txj0eXHjtj0twrGm1aL+mcNk3PYbqew0BeT4WTMbfIAHqEjcRFR5fj4A4+9+WVP/gM
- h8AvZQkithQ8w==
-Received: from jupiter.universe (unknown [100.64.1.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 8D10217E028D;
- Fri, 24 Jul 2026 20:03:29 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
- id E777D48003A; Fri, 24 Jul 2026 20:03:28 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 24 Jul 2026 20:03:30 +0200
-Subject: [PATCH v6 08/16] drm/bridge: Add out-of-band HPD notify handler
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013062.outbound.protection.outlook.com
+ [40.93.196.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7611510E072
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:10:47 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dWEP3wVrGAnTiDgRKJZ5pO9OiEYi2O6UNfDQa4fIZRCeNZcv0dEkr1mJvXy3Eh+ku1ZypqiLa/p9adcVJ2I+ex16Z1mZ7wBNprwGCAc5DV2OOwB9z2pOTezdeeLY89I4F2WBHJy5BjR/RQEEfk54x5ENsVmeSX+Rzq1lQd37xjskKBvrc3BqGZvgvLA79zSF+3fBT0MOlbcmDXZv14SxhdqNBhChI5OckXPDsIrm2SO1Rpv2unXoObO5m0EyVMxfL5La27QuEtX+RATJxx0WIw9NtftsqW37uirsE+WGe/gwNx0Bittcemghk7GYH8zRKrPatBSKeegcOa98nnuP+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NgkV+ZvU6cVHG2a7rF+5ajLGSVWITQ8xJqLd8uiQZ8o=;
+ b=CDXCXj1eAiNOWcB/7VznWJEJfOQ+DuV7hdoTjY2waXP/fHU2viIuEHYkIIp3riEXZ9ibEWbcPp8vtQJlrgQZv0pV8AAaMVCgxbGmncgZSRPM6nbpE85dELrnTIbiFh4bpRwPc7qc0yKdfK0eUkNmYzGwiNC8UotlH07PhDwntZ8RzJXMAHiFtlkVhaNzS3v1N4O8mMrCcrM918xxsoTQLnEnlhOaTBIpzlSkEMwAnwDqY9IEaIDa5MqVGqkES2k2U9XrRtW+DW/f9A7ijLzIx1xMMgShtfrbo+FybMNOvaevUI3l6o9Occ5Nh2lEWo7c4H1sJKNKCHFEGgJGa7kp+Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NgkV+ZvU6cVHG2a7rF+5ajLGSVWITQ8xJqLd8uiQZ8o=;
+ b=Ig3+q04GCTO51U2Q0ttpOGn2qUKNepNe0vu0hfMf2/pgne3Ay3MKOmwzywN6E0O0BiWLyv5fUgwdtJX7tZ5d/0RdktJE5a1OFeZp+txnmCYUYkHmx8dDGwi7d4B9Hv/lnK9tgD08HAU0dDQymQxnxUOOvoW/uStcVpVPOAC/GZKIXeBPJgjSmwZRT5CXfWIKmM5u0EYcpoDA77DuekQ1otBP9hHtP3TLIcgv8Q5DJ8wndGZy/oW4gL332dCMyr3NI3BqEkPGBL6jn1BtuNEOf15n9Er/KKyYKN6ToNU0mAuFOpYorxiR+Gnl9i5N4rx1ZNRkE0zp0ejltrkyZzUijA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com (2603:10b6:0:4b::8) by
+ SJ1PR12MB6172.namprd12.prod.outlook.com (2603:10b6:a03:459::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
+ 2026 18:10:42 +0000
+Received: from DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8]) by DM3PR12MB9416.namprd12.prod.outlook.com
+ ([fe80::8cdd:504c:7d2a:59c8%4]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 18:10:40 +0000
+Message-ID: <e7ba2c90-6d4f-487e-bd25-56d568ba1f26@nvidia.com>
+Date: Fri, 24 Jul 2026 11:10:38 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] gpu: nova-core: falcon: use I/O projection to check
+ transfer bounds
+To: Alexandre Courbot <acourbot@nvidia.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Gary Guo <gary@garyguo.net>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260724-falcon-dma-projections-v1-0-957028a7c0a7@nvidia.com>
+ <20260724-falcon-dma-projections-v1-2-957028a7c0a7@nvidia.com>
+Content-Language: en-US
+From: John Hubbard <jhubbard@nvidia.com>
+In-Reply-To: <20260724-falcon-dma-projections-v1-2-957028a7c0a7@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-synopsys-dw-dp-improvements-v6-8-041d99a19c4e@collabora.com>
-References: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
-In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2377;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=9OEEVTGH6CtYBorsugsyey8Z+5Bz4/YUYRXLfK0S0LI=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpjqPCLO1hqgdLcvIm1J1/HjibHgWKUkisyL
- nCXYizti/yk/4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqY6jwAAoJENju1/PI
- O/qaTxUQAJaUNfAmI1AqFkIK8zpKkq1v+firS2sTHl1ebp8PblkEfrkjZQhPvH9WH6el3hi+zP/
- Hz8YI7w2o8sG8wHfUppw0AhajM0v2ZV05OpQk+5PAQ+qQu3+YBp/ov52XbpZYJ3RDY+NCQIlcLL
- pnXCmXynQOEtNtrseiy58JCRlTAVN9ilSB1BTLF5BPe2c6K/yrk6nvBC6r6gV0wBXi5fInob67q
- d7xkRvvdTABTLWHqZJdeKr5MpMp5cbH4FItE2ebLMTxGXuoWsJYQeb2B2z+P/EcyxVIri39OkFL
- /Zj3dNUIet6DIIUpQYyP0ht+TxI+Z4VPAXYwVS8gSTlqCnToRCU1Po5fgVwws11n6MVxAjFhGYi
- ONQKNQBlQtVyNWg0l+SmVEcnwYFbNP2rIlUB4rbM8ImmWTNNLW4ae4vigZ1pKofd5B1TMI+3MC+
- tf/4PnZBK36wkV16HJ2SpD8HBqG4HU7hwjOV6KpnwtOUE/BwxQlU2zGxri7MsgQwnkA06DOVmhD
- GtU69uluKutDNKzSkw6fzmE8QTnvGKuOoGP/2BAbybA55y8WAK3165w0vXnIHTAcuoMYO29zdE8
- Ee+ftE6RYBkrS/oM+UVQud15BQiAj5wsPAaHlIudev52KgM/c3imSsxIucDIe0iOa3YInjdkhmn
- DTNPajLm2bbPLYGKvU1oj4A==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+X-ClientProxiedBy: SJ0PR05CA0090.namprd05.prod.outlook.com
+ (2603:10b6:a03:332::35) To DM3PR12MB9416.namprd12.prod.outlook.com
+ (2603:10b6:0:4b::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM3PR12MB9416:EE_|SJ1PR12MB6172:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7481c31c-c8e5-4413-df6a-08dee9aedee0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|1800799024|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: HX0Q4kMcHNTBAAY9qNfUyPEAEbmdE8SGQhpjNfsbkdKMkEpjlNA5seN5eBthondmXoIT4FLim0NQs6SAi6kqjC0068wplK0eh1syhpP089YG4d65v410dzBs4qphFNzmsSfl1uq+o+Q3L9Rs9tfKetYkcE+xZh2cTKf09iL2EtRncTOV4TKj6c2iknHAyaoJEM/Km4fRcKdBhQLlAgbQUlkUeGfQvSkh6RyR9O3yf/HcWJGPb16JVxUSmpWn9WR6SxNZmmW1gOtvkk9Qpejm/yHHrijDFRY0zhsMRl5adYFK2CbB+CQsox53OY91f1+UwlRc4X0MzMEbFEzgoGlvb8HydIGATtMDP5w/WOsn+w7PpTWnbakb1EON/gCB6dXcTBb8TcZ9fWPJhCBc44bm/3OPlk9d0EmNkjff8nyLYAyWZUC9UDrW7HPbeM4BOO4jrGJzZoCVSyhtw/NELybIj2R7SLIRDktt99iC7Z81vwDR2HJJLtDOg0x0GMWR4FBi0DPiV7ElTxwpTDvztSye31X2GAhOOE95IjteuMUVwGDuhbWOylwzY1W723wQIEmoOpw0A6bCDfUizddnVwFZBRQEsjG90oQhj8XKZIbZp+3XTJyyVLR/o4+H05N3XfkXKMcxplUfQC+jdn/GLzaXinMVgfc0R0IXM6GV1sjRqIQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM3PR12MB9416.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?N2UxWEVDWjl4QXp5TDJ6cVhkaU5ycWRVNWFiVTU1UEJ1NEYyUnhBVDFaWHZP?=
+ =?utf-8?B?RXRHeDRKL1d5QlRyUk92SU5IeE1xcDYxMG1XNVl3M2RBdDk3MXdyL05CQkJV?=
+ =?utf-8?B?Q1huS2xsbklXWG1CVGZQMC9QL2lROENGdGpUc1BtY0hxNGswZ1NZNDMzU2Vq?=
+ =?utf-8?B?eUd5VDBkQVBCdXBWOEhPbkhGMTZIN015bUxpODV3WGNFcThFWDMzcXhsZ2hR?=
+ =?utf-8?B?ZlUrWVdNMGY3dWFGQkZIYzJhc0gvL003b2xZTG5hQ1pLS1JBWXUvT3cvelpD?=
+ =?utf-8?B?WkxEanAwTS8yeG53anpNSHdERGN5R0dBQk1EeXBvMTRCQmY3amxyZ0NRVWZu?=
+ =?utf-8?B?Zno2eVNXNEJLUmpLYjE5S2poNXNST2ZBcGhCSStvZGFjY3VwN3dNWlhtVU5W?=
+ =?utf-8?B?WC91a0xGejM0NjRTL1VNdHNGOUxkQ1FETnMzVko3Qm9NSTVUU3YyN3B1OFhO?=
+ =?utf-8?B?RWhrUDFVa0JQY25pYlYrMUlCVjRSN3BTRmJmT3ZocVNhNnk1UU84c0pYWDJt?=
+ =?utf-8?B?WTAzVThmSUpqd2puZUZDNkJuRjdIRWpmMm82OHV3SWFsY0FaSTcyU2M0ZGFP?=
+ =?utf-8?B?R3hkZ3FtZnBsVVFvMlN3NG5iZGVZSmVVS3pQRXJIZHRWWnM5OXN0d0VwR0tu?=
+ =?utf-8?B?dm5oc2syeXFVOVY1THVMa3VBZDMvaUl3L05CeDRva1hWZnNDZ2xmclhTaTVV?=
+ =?utf-8?B?c01talBMcjVvUlRLaWo4WURhYTVSdU16aU9IS2RZdGEwaHdqRmhlOXJxeHRu?=
+ =?utf-8?B?cXcwOHpiUnpINzhEb2ZERGtUZTFrN2wvV0puZHlhYUt6RGw5OGV3M1Rwajd6?=
+ =?utf-8?B?UFczMTNDNU1BaGFvWlVtUVI4ZXFXZHp4TkRJRlZUczh6TzBiTHRLaWhBT1hI?=
+ =?utf-8?B?T3VpN2NVdklabW9jclUwdmxvRm5CZ2M0WjdkUExJQ25QbWIrZ0hPZHBGMXgz?=
+ =?utf-8?B?MEtmUkxueWlVOGo5TnBJdWF1bU41MXQ3cmdOelVjMmdNTDNzYUxuMHNKWlVT?=
+ =?utf-8?B?T0h3M2NZYXRFbitwenhsejFkVG5OclhscXZ4SUFYU0E0QmxnREVFSkN1czlP?=
+ =?utf-8?B?ZE51V1lib2d4SnhOU1VaVzlicHNDalJCV3d2VDNGdHhHWVhTYXg5UzNsRDlh?=
+ =?utf-8?B?WUtrbDR0YTFnSzJyMkRZNkk0UE1kVlM5ZVNvMURzYlI1UHV3dS82NFFHT3Yz?=
+ =?utf-8?B?NG1KVEtyOWltSTViSWYwU3E4UVIvenBWaXdTY1NLSXlmRk9SMThHTFNibngw?=
+ =?utf-8?B?M1lwb01WRlYwZkJzL0RHMGJPQngyY0sraTNOeU1QWUIrRytaSEVOaWtHQ3Rp?=
+ =?utf-8?B?TTd5OVdWckgwMDU0Q3p0QlZ1RWRLd0dCNXNLK29jcmRkeWlHUVoraU1FSERh?=
+ =?utf-8?B?dHdKUnM2bEhHTHJNdmNvR3VSODJwSUVCbnR5cnZBZVE5a2MrSHU1TGg2TjZ3?=
+ =?utf-8?B?cU1oUDB0WG9Xa1U1Ymt4Q1FLU2tDZjNKbmhyQlgvU1BUWFRjK1owSGxJNXJn?=
+ =?utf-8?B?Q0htY2ZpalN5QUFvNENmSXcrcURPWUNkZzcxNmhnTE9PenVNSzhvNXErcWNt?=
+ =?utf-8?B?WFdNMk1GWUQ3THl6Q09DMURORENHQUpuUEdhTlhLaFd4TlppcTJGeitHcnR6?=
+ =?utf-8?B?WG0vNGtmaWsyU3ZCd01lbVVUQVNodkdjcXlUT2xBekc4WWhiaGhnUFRTdnBp?=
+ =?utf-8?B?RWJ5V1F6bEdtcG54ZFhJRjZvSHM0bkgvbDVvWkxBaXpCbldGWnZ1WFVUak1T?=
+ =?utf-8?B?V2xrT0JjNzg3bk1KRnRLMGNtbjBXTEFEeitoZ004QjYrWmI2Wnp3bHUzSWxJ?=
+ =?utf-8?B?VWowSGt3bnU3RG9ybC90ejFyZ1NUR1J6VnVacjlwOUhBMCtoaDY2ei9oUWhM?=
+ =?utf-8?B?MzlObW05b0lLU2NQZVBBY2FiMGpyVy8vdTZ0UlovZGVUck5oc2RpZjNaNGlL?=
+ =?utf-8?B?d3QzcUdLMit1MUk0MTFCUGRXUWROUzZEQ28yajV1RUJiYnpmd21IaWNDUGZH?=
+ =?utf-8?B?Q2phRTU3VTVZdEJKTGZ5UVBhUFZlQ1VyZFpBcVZ4V0RGU3k5WVZFWnZGR3Vj?=
+ =?utf-8?B?cWg4RVRzL1dkL3ArdG03K1BPTmRTbHFlRUwrazRndzVaMlJER0ZNYktGTTdM?=
+ =?utf-8?B?WC84cVp3eHVYVmF5cmg2cG5tYVBkVU54K1lqc0RoeS8xL1JlUjlOV3pHaGRN?=
+ =?utf-8?B?bURWTzdWQ0NkREU1VGRJMXdlV2o5VWxDdmdSdEdJMFJXdjJsSlFYK1MrOFho?=
+ =?utf-8?B?VHFWZEJpQU9XWi9ZZVhmYS85Mm80MUJRUVZ5K2k2Q1hqVjVkN2hPcVNMc0g5?=
+ =?utf-8?B?ZE1wLy9Yd1BIWEsxRnRtYTdvVnBJU1ZyUXlQSmx2VDhjWm9naGREZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7481c31c-c8e5-4413-df6a-08dee9aedee0
+X-MS-Exchange-CrossTenant-AuthSource: DM3PR12MB9416.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 18:10:40.8186 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ShGTOUOQawX72jjl7hFmitW5OwgI5tLFjat7iAuj6gAzg4cxEjNrH/lkZs7uioDY4rqcKljH1moB0jYK1hK/eA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6172
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,67 +144,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For DP bridges, that can be used for DP AltMode, it might be necessary
-to enforce HPD status. There is an existing ->oob_hotplug_event() on
-the DRM connector, but it currently just calls into hpd_notify().
+On 7/24/26 4:10 AM, Alexandre Courbot wrote:
+> The DMA transfer routine was computing the start of the DMA area by
+> taking the handle to the beginning of the coherent allocation, and then
+> adding the transfer's start offset. It then checked manually that the
+> upper bound was valid.
+> 
+> Convert this to an I/O projection of the same region, which returns
+> `ERANGE` if the passed range does not fit within the coherent
+> allocation. This removes the need to perform arithmetic on DMA handles
+> and to explicitly check for the bounds' validity.
+> 
+> Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+> ---
+>   drivers/gpu/nova-core/falcon.rs | 55 +++++++++++++++++------------------------
+>   1 file changed, 23 insertions(+), 32 deletions(-)
+> 
+> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
+> index cd05985f5ee6..344cb1487295 100644
+> --- a/drivers/gpu/nova-core/falcon.rs
+> +++ b/drivers/gpu/nova-core/falcon.rs
+> @@ -12,6 +12,7 @@
+>           DmaAddress, //
+>       },
+>       io::{
+> +        io_project,
+>           poll::read_poll_timeout,
+>           register::{
+>               RegisterBase,
+> @@ -511,20 +512,31 @@ fn dma_wr(
+>       ) -> Result {
+>           const DMA_LEN: u32 = num::usize_into_u32::<{ MEM_BLOCK_ALIGNMENT }>();
+>   
+> +        // DMA transfers can only be done in units of 256 bytes. Compute how many such transfers we
+> +        // need to perform.
+> +        let num_transfers = load_offsets.len.div_ceil(DMA_LEN);
+> +
+>           // For IMEM, we want to use the start offset as a virtual address tag for each page, since
+>           // code addresses in the firmware (and the boot vector) are virtual.
+>           //
+> -        // For DMEM we can fold the start offset into the DMA handle.
+> +        // For DMEM, the start offset is folded into the DMA address.
+>           let (src_start, dma_start) = match target_mem {
+> -            FalconMem::ImemSecure | FalconMem::ImemNonSecure => {
+> -                (load_offsets.src_start, dma_obj.dma_handle())
+> -            }
+> -            FalconMem::Dmem => (
+> -                0,
+> -                dma_obj.dma_handle() + DmaAddress::from(load_offsets.src_start),
+> -            ),
+> +            FalconMem::ImemSecure | FalconMem::ImemNonSecure => (load_offsets.src_start, 0),
+> +            FalconMem::Dmem => (0, usize::from_safe_cast(load_offsets.src_start)),
+>           };
+> -        if dma_start % DmaAddress::from(DMA_LEN) > 0 {
+> +
+> +        let dma_handle = {
 
-As DP bridge drivers usually also implement .detect and that also
-generates calls into hpd_notify, this is a bad place to force the
-HPD status as the follow-up detect call might force it off again
-resulting in all follow-up calls to the detection routine also
-failing.
+Sort of "conceptually pre-existing" problem, but "handle" doesn't
+quite work as a name, because handles are supposed to be opaque
+items that one just uses to find and refer to things.
 
-Avoid this by having a dedicated function for OOB events.
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/gpu/drm/display/drm_bridge_connector.c |  6 ++++++
- include/drm/drm_bridge.h                       | 14 ++++++++++++++
- 2 files changed, 20 insertions(+)
+And below, that is violated:
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 8b54069fa53a..632cc3ae3b54 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
- 	struct drm_bridge_connector *bridge_connector =
- 		to_drm_bridge_connector(connector);
- 
-+	/* Notify all bridges in the pipeline of hotplug events. */
-+	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
-+		if (bridge->funcs->oob_notify)
-+			bridge->funcs->oob_notify(bridge, connector, status);
-+	}
-+
- 	drm_bridge_connector_handle_hpd(bridge_connector, status);
- }
- 
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 3ac84ed57ab2..f38010d2edd1 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -540,6 +540,20 @@ struct drm_bridge_funcs {
- 	 */
- 	void (*hpd_disable)(struct drm_bridge *bridge);
- 
-+	/**
-+	 * @oob_notify:
-+	 *
-+	 * Notify the bridge of out of band hot plug detection.
-+	 *
-+	 * This callback is optional, it may be implemented by bridges that
-+	 * need to be notified of display connection or disconnection for
-+	 * internal reasons. One use case is to force the DP controllers HPD
-+	 * signal for USB-C DP AltMode.
-+	 */
-+	void (*oob_notify)(struct drm_bridge *bridge,
-+			   struct drm_connector *connector,
-+			   enum drm_connector_status status);
-+
- 	/**
- 	 * @hdmi_tmds_char_rate_valid:
- 	 *
+> +            // Upper limit of transfer is `(num_transfers * DMA_LEN) + load_offsets.src_start`.
+> +            let dma_end = num_transfers
+> +                .checked_mul(DMA_LEN)
+> +                .and_then(|size| size.checked_add(load_offsets.src_start))
+> +                .map(usize::from_safe_cast)
+> +                .ok_or(EOVERFLOW)?;
+> +
+> +            io_project!(dma_obj, [try: dma_start..dma_end]).dma_handle()
+> +        };
+> +
+> +        if dma_handle % DmaAddress::from(DMA_LEN) > 0 {
+>               dev_err!(
+>                   self.dev,
+>                   "DMA transfer start addresses must be a multiple of {}\n",
+> @@ -533,27 +545,6 @@ fn dma_wr(
+>               return Err(EINVAL);
+>           }
+>   
+> -        // DMA transfers can only be done in units of 256 bytes. Compute how many such transfers we
+> -        // need to perform.
+> -        let num_transfers = load_offsets.len.div_ceil(DMA_LEN);
+> -
+> -        // Check that the area we are about to transfer is within the bounds of the DMA object.
+> -        // Upper limit of transfer is `(num_transfers * DMA_LEN) + load_offsets.src_start`.
+> -        match num_transfers
+> -            .checked_mul(DMA_LEN)
+> -            .and_then(|size| size.checked_add(load_offsets.src_start))
+> -        {
+> -            None => {
+> -                dev_err!(self.dev, "DMA transfer length overflow\n");
+> -                return Err(EOVERFLOW);
+> -            }
+> -            Some(upper_bound) if usize::from_safe_cast(upper_bound) > dma_obj.size() => {
+> -                dev_err!(self.dev, "DMA transfer goes beyond range of DMA object\n");
+> -                return Err(EINVAL);
+> -            }
+> -            Some(_) => (),
+> -        };
+> -
+>           // Set up the base source DMA address.
+>   
+>           self.bar.write(
+> @@ -561,12 +552,12 @@ fn dma_wr(
+>               regs::NV_PFALCON_FALCON_DMATRFBASE::zeroed().with_base(
+>                   // CAST: `as u32` is used on purpose since we do want to strip the upper bits,
+>                   // which will be written to `NV_PFALCON_FALCON_DMATRFBASE1`.
+> -                (dma_start >> 8) as u32,
+> +                (dma_handle >> 8) as u32,
 
+This is a "whaaat?" moment: shifting dma_start makes sense,
+but shifting a handle does not.
+
+Thoughts?
+
+
+thanks,
 -- 
-2.53.0
+John Hubbard
 
