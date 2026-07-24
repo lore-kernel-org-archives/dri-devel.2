@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20D3AC531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:27:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18368C531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:34:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC6B10E083;
-	Fri, 24 Jul 2026 18:27:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ADE410E082;
+	Fri, 24 Jul 2026 18:34:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cOrQxY/f";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BO9JCQuL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 97F2A10E080
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:27:37 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14BE610E082
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:34:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1C5F0600AD;
- Fri, 24 Jul 2026 18:27:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7934B1F000E9;
- Fri, 24 Jul 2026 18:27:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D7B4C41291;
+ Fri, 24 Jul 2026 18:34:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CAE21F000E9;
+ Fri, 24 Jul 2026 18:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784917656;
- bh=RK0pJA6FI5zk+xBpHtAiSTkxqbPxYzZaoCr0aVhOkew=;
+ s=k20260515; t=1784918079;
+ bh=2PNwBExVz2anWXXqfRrCVp5X8IWf9pYpKRyr8ctS4vk=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cOrQxY/fDgX2pM3Q/ll1oWV4BtRBKcId7fhtEXCGKPtT6rywPRyVjnu+o+LK0lofQ
- OIZKncZYBFeILR8uP3FmMQSGS7ENGSGNgPmTfSlHR62RuL4JrFhqR0CXISc1qiMXV6
- j+hcLtPvLamq4ERE471YHmORaiVa8oUsls8psUWcdsTv7Vdna0LqGhOXhTuHD60yzr
- DnC+DnZ2MlB6cpSu7DjRfeDJw06oIChJ7Pf9o5WxbgOfO6zQOSUvBBSRqXYz8Ye75m
- JBAX5P51oL0V2C5tRlBqYRzEmysd4zZwjLeow7LUKj7vw2MI5AxW8D8D7QV8DhB/1P
- 8G0jNGow5MalQ==
+ b=BO9JCQuLv2sSaPceSrkOioDonFBKYHQRYeLCNVbkESd+Niuro/tgn1/r9w1TDgwTu
+ vH2Yl8vwhyJGJ+2yrZGC3Q/g0AC8Ocje5jRjxwAkYPDJl3jZ7tenIMLG2UNHDMhAZe
+ /N1wc4sl1l8zUB8JmRPo8rXhnNlRfOfgiiqR2LsmSACXxcVj9kuHi7t1yRGPE8Eil8
+ 4stmP5lirQF8Pr4sp3St1sJWFABmGkXih8k6zGK/7Wqb8GafeUv6OIo94+12v/h23p
+ 3Y9eAR6EAEjjdguk71mfg/Cjdz0QH3x48ADgAvslFMFNnA7nz7MWQ5/OdAd06sG2pI
+ SkpbEjJRzl5bA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 12/16] drm/rockchip: dw_dp: Add runtime PM support
+Subject: Re: [PATCH v6 16/16] drm/bridge: synopsys: dw-dp: Add audio support
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-12-041d99a19c4e@collabora.com>
+In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-16-041d99a19c4e@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
- <20260724-synopsys-dw-dp-improvements-v6-12-041d99a19c4e@collabora.com>
+ <20260724-synopsys-dw-dp-improvements-v6-16-041d99a19c4e@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 18:27:36 +0000
-Message-Id: <20260724182736.7934B1F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 18:34:38 +0000
+Message-Id: <20260724183439.6CAE21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,69 +60,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The DW DP core driver uses `guard(pm_runtime_noresume)` in its int=
-errupt handler, allowing hardware register accesses while the device is sus=
-pended and its clocks are disabled.
+- [High] DRM atomic_disable zeroes the SDP slot allocator bitmap without in=
+validating the audio subsystem's active SDP slot (audio_sdp_nr), causing cr=
+oss-subsystem races and hardware state corruption.
 --
 
---- Patch [12]: [PATCH v6 12/16] drm/rockchip: dw_dp: Add runtime PM suppor=
-t ---
-commit 76fb970e196b210c9742e601b51113d5f65dd02f
+--- Patch [16]: [PATCH v6 16/16] drm/bridge: synopsys: dw-dp: Add audio sup=
+port ---
+commit 9b3a7d6fa62f20557e06c0ea7d9cc504eddb75d9
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm/rockchip: dw_dp: Add runtime PM support
+drm/bridge: synopsys: dw-dp: Add audio support
 
-This commit adds support for runtime PM to the Rockchip RK3576/3588 Synopsys
-DesignWare DisplayPort driver.
+Implement audio support for the Synopsys DesignWare DisplayPort
+controller.
 
-> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
-rockchip/dw_dp-rockchip.c
-> index ee0bd696064eb..b8138e796c4d5 100644
-> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 44a13b5d62d39..c7d6f63b5e9a1 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 [ ... ]
-
-> @@ -247,6 +260,12 @@ static int dw_dp_rockchip_probe(struct platform_devi=
-ce *pdev)
->  	if (IS_ERR(dp->base))
->  		return PTR_ERR(dp->base);
-> =20
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, 500);
-> +	ret =3D devm_pm_runtime_enable(dev);
+> @@ -1886,6 +1924,212 @@ static void dw_dp_bridge_oob_notify(struct drm_br=
+idge *bridge,
+[ ... ]
+> +static void dw_dp_audio_unprepare(struct drm_bridge *bridge,
+> +				  struct drm_connector *connector)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +
+> +	if (dp->audio_sdp_nr >=3D 0) {
+> +		dw_dp_clear_sdp(dp, dp->audio_sdp_nr);
+> +		dp->audio_sdp_nr =3D -1;
+> +	}
 
 [Severity: High]
-Does enabling runtime PM here expose a bus fault in the core dw_dp_irq
-handler on suspended devices?
+Does this leave dp->audio_sdp_nr dangling if the display is disabled while
+audio is active?
 
-The core DW DP driver uses guard(pm_runtime_noresume) which only increments
-the PM usage counter without checking the actual power state:
+Looking at dw_dp_bridge_atomic_disable(), the SDP allocation bitmap is
+bulk-cleared without resetting the audio subsystem's active SDP slot:
 
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_irq() {
-	/* interrupt can only trigger for running device */
-	guard(pm_runtime_noresume)(dp->dev);
-
-	regmap_read(dp->regmap, DW_DP_GENERAL_INTERRUPT, &value);
-	...
+drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_bridge_atomic_disable() {
+    ...
+    scoped_guard(mutex, &dp->sdp_lock)
+        bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+    ...
 }
 
-If a spurious or delayed interrupt fires while the DP controller is
-suspended and its clocks are disabled, this allows the handler to execute
-and read from DW_DP_GENERAL_INTERRUPT.
+If userspace triggers a display disable, dw_dp_bridge_atomic_disable() zero=
+es
+the bitmap without resetting dp->audio_sdp_nr. When the display is re-enabl=
+ed,
+dw_dp_bridge_atomic_enable() might allocate that same slot for a video SDP.
 
-Accessing memory-mapped registers over a disabled APB bus can cause a bus
-fault (such as an SError on ARM) resulting in a kernel panic.
-
-Should the core driver be updated to use pm_runtime_get_if_active()
-to safely verify the device is active before accessing hardware registers?
-
-> +	if (ret)
-> +		return ret;
-> +
->  	return component_add(&pdev->dev, &dw_dp_rockchip_component_ops);
->  }
+If userspace later stops the audio stream, dw_dp_audio_unprepare() would see
+the stale dp->audio_sdp_nr and clear the hardware registers for the newly
+allocated video SDP.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-synopsys-d=
-w-dp-improvements-v6-0-041d99a19c4e@collabora.com?part=3D12
+w-dp-improvements-v6-0-041d99a19c4e@collabora.com?part=3D16
