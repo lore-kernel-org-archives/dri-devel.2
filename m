@@ -4,34 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99F13C53209
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:29:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D09CC53213
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:29:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A51C810F2F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD97110F2F7;
 	Fri, 24 Jul 2026 07:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="ImOl3V+3";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="a8ZgaGCX";
 	dkim-atps=neutral
-X-Greylist: delayed 65036 seconds by postgrey-1.36 at gabe;
- Fri, 24 Jul 2026 02:30:10 UTC
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FB1110E644
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 02:30:09 +0000 (UTC)
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15E5810E644
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 02:29:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1784860168;
- bh=OyqXJDBODKL4i9r4faSbxqKqbqbjK9rOASLwkWPXzB4=;
+ s=onoh2408; t=1784860143;
+ bh=COw6l4tZGKI2EtZCsRNwhO9S4qZRY68UndjXev8R1FQ=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=ImOl3V+3qmGjRisyVUVd9mh2AZ0NFSJDdEzDIqUpNvqoNTKhOzOi6KGDffGACMmtR
- Ieie27rcygsxcHg/b5/K/9wRnsRHf46IlOy9eN5HlR7Vl9LPGQaDr1c7Xc6lm8x8IL
- 1q3YhVXJS2PN8fyIiZ8h9JL89x+DGRIhNn+dO7mU=
-X-QQ-mid: zesmtpip4t1784860161t8fb1ed23
-X-QQ-Originating-IP: aBJCglJ9q/YAKBS1d2e+RK0bytOzmdANKIZ+RTuS4uM=
+ b=a8ZgaGCX7IP5ahgjzhrcLvGxA79o86aLmAaixDvnoatm0iH/CuHlIahNxBq7/llHi
+ p5l/nAesT3f/p3Pxei/j2qxdXQ+6eS3qwAi6Sn84gZn1tHNwHbqUK2aY7qpPgr9n3h
+ KSgV/tcfu9fPTyhIygu0udE1a21kpVGJhe6Q0pF4=
+X-QQ-mid: zesmtpip4t1784860135t56239e5a
+X-QQ-Originating-IP: uxNb/JIeTaYaqS/plW1kaXfiKOf+TwmtfXaiPsha900=
 Received: from localhost.localdomain ( [localhost])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 24 Jul 2026 10:29:19 +0800 (CST)
+ id ; Fri, 24 Jul 2026 10:28:51 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 645947347967007313
+X-BIZMAIL-ID: 5628155496822218120
 EX-QQ-RecipientCnt: 26
 From: Gou Hao <gouhao@uniontech.com>
 To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
@@ -43,33 +41,31 @@ To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
 Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
  linux-mm@kvack.org, gouhaojake@163.com, kernel@uniontech.com
-Subject: [PATCH v2 5/6] lib/test_hmm: remove dead NULL checks after GFP_NOFAIL
- allocations
-Date: Fri, 24 Jul 2026 10:28:50 +0800
-Message-Id: <20260724022851.466017-6-gouhao@uniontech.com>
+Subject: [PATCH v2 0/6] remove dead NULL checks after GFP_NOFAIL allocations
+ and fix xive use-after-free
+Date: Fri, 24 Jul 2026 10:28:45 +0800
+Message-Id: <20260724022851.466017-1-gouhao@uniontech.com>
 X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260724022851.466017-1-gouhao@uniontech.com>
-References: <20260724022851.466017-1-gouhao@uniontech.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: Np0qb5kW85KCuNY3xhEmso47MerfeFTbCZJksQvsspwKG4y8W/dSUAIJ
- o6T2XrDMq8Ny079obbh/15my0oIoTTh5Al/5YBcUGt1SrNHpB6XoRjGZn4I4WIyKhhQD4yp
- wL7/KGUC/5HnZgk+vOC85+Q85wemSC5rwAmNTgxHO7VYvN0cbzDl2XaE7anozmElgRsHxf4
- SwBbBLKDAjZ1hFTffhFP4yPGT4YkayfvoNQSJ96qgKuempHLdy2lFVVGVe7OyvFR0+LrhL1
- ow+Vo3ryePzZI3ZLJBQdS8lOFHch9FxLyJMvSvLYvRNHYGtHA25tDAXaOcGLpPPQ4QEAl3u
- AK7wV3wid9+QuzR+YvEtHrxFoI2XUqVcO9kduuOyGFn1f1A5wASrI+Ms4zuS/Qnmelfqud/
- hgYdWPHGXnp0/5S5Yg3VyTODWbxn8UHMMoNG/FT/DOSmXvldmRiF+zGVPRBlFtFiMqIAUeb
- OMmn4w8UzEAzQuF217Yxnw3q0NJQiTrfhEMHDYpn6qTYy+iaFCxRxcZgZtAO3Tt2xvePc5Z
- Lk1hCqd+HruliBG0wIkiLet8vYVKF4RdemSAmTH55HCPsppaGOIVJA9VhhItBk7q9HPaw/b
- Hon3kA/KYYZxnEBPN2I8+q/ZX/BNjpUy3l+yOTTIG5YJPdZ0YyZjowrqehl/g0j+qVOhSD8
- /eiMyMQarJTFCaV2KE+vYEu5CsF1e4HQVL6BblgB2mb8xSkEIpXhSaJVgkz5ewZP2EFRhAI
- zsV3vbv9d/s+fVkcqmgTpBjo9ZX+XK+B/oKLOEiukvTtTVhnOJfa8xTSbQyzPIo9DBlAhDF
- 9Occ8f3ZhFpGklfTu/PjRRvVRW2vrzD+Bk7oy9yvaapbDkuvlp3glUjr7ijgZGub/muIQ+y
- KALgB9mmIAVqAAud3IYSLDySzrSR8e9/BzO/NzCILP+7UnYh3EC6ZhjxgYy6Zsq82jTY73c
- 7jdM0SZuDPpkNmKdllRZ34UEXgpDAGb7FLqqSgZab6AJk32fR8DaSerg3iBO4YIhirJwqzb
- X7WJrXUhAh9+l/6CovzVRJbyG4pgo0bAMZaK7aCOJDJPqcIXXWJ9HDz1tdfGY=
+X-QQ-XMAILINFO: NkIlkbzvNbmq+cKfi/KPSk/jPEwqsDvwwTO3JJ+qAg96W5gFrIaKDGbx
+ UYTorCu2QUbbK7cIiWDTtQncxhHka/MC/c+9AnQacYzJmjMZtLVW1eP1FPI85Fj0RVpLq5M
+ /Q+u2+rfxxz40qagDsmTrJ7bCsHsWLrdCiDL+d5h5pK2tFg37b6E1mxE+kernL+T/GCNNcM
+ 1NCAfhy5911m9MYxLOxfwJoomOWZaM91tdoDZaeuxTyOncV9j+3YJ+Qtwrgl98jdO1dvZMG
+ GXYtGkoFFyEMx1TKZgGhpB/iOW8hZnpyAqRwrVAjd04PslJ/MT0Ds21UfID6VPpTs3V0SmL
+ JyM/vNQ5GxP4I/RdE42eE2xVFzWDGEbpu/LiFFPOtedf3afDH/IUQRuCoqveeF0Aji/nDoR
+ 8rGCXmEBVWZIu4xwcVe0b5kIB2oXg8nGktm0kNuCxwVXo/BbQO4fJVuMb9aXI6aLFan0K1r
+ 4oj3ptF7Ho3GwXpKK0L8fyWE6muZmGAzBqq+1iJr0i0X2nwCiFrKz80XKDLyzqkOpfjyRBL
+ hoV5Rcqpy0rJbJR4icjgaXO1703lrDrIl7MYma/8fLCebiAUm7zw9gVxWouEN7i64iJnApg
+ mXqv4/sE2jxNoqQf9dzNdjMGJhWo69LYIUrxPzkRPDGJpff5Ps6BYRGaRMD7/Sbxjy+oi+L
+ ZtBlAEI6e/Of7RSpbeqwjHDybXtk30/E8pW+SINymM0ZYuV27cTovnA5S39BuU6Q4EDNJVf
+ TCZwI+/m4YYGNddZcQUDz5MaL8ZAmw6fdJ0m2TY0aHORzsNGUOhzExlpm4P8EadRKmkwZNf
+ hlGNTugYmlN7E7c/gUiyojiUM2EhYr1uy5lrXiYyFXvoYgJh60YGdOhucJOFW4HE7OVXBc4
+ 8xDr2JnUEZVX3XdDe9VCItL9w2qY3omUkZPnn5t85FZZjEBiAnn4M1UUQLiCjviRgSGa5xl
+ 9dy/zjgOTtjasXcPO/ePWfH8poJbIQIrlegXLaSjhZudBiW7nxE3x7FfcIX74kbgvhm1QZZ
+ qY0yrOI+tP1KrsPfVStHzmX71BQuOrZDc7OvNNcw==
 X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
 X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:28:31 +0000
@@ -88,35 +84,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-kvcalloc with the __GFP_NOFAIL flag will never return NULL, so the
-subsequent NULL checks are unreachable dead code. Remove them.
+Changes in v2:
+- Remove the now-unused out_free_domain error label in the xive
+  patch after deleting the unreachable NULL check goto.
+- Fix a use-after-free of xive_ipis: when xive_init_ipis() fails,
+  the error path frees xive_ipis but xive_smp_probe() ignores the
+  error and proceeds to dereference it in xive_setup_cpu_ipi().
+  Propagate the error return through xive_smp_probe() and check
+  it in both pnv_smp_probe() and pSeries_smp_probe().
 
-Signed-off-by: Gou Hao <gouhao@uniontech.com>
----
- lib/test_hmm.c | 6 ------
- 1 file changed, 6 deletions(-)
+This is a code cleanup series that removes unreachable
+NULL checks (and associated error handling) that follow allocations
+using __GFP_NOFAIL, which guarantees non-NULL return.
 
-diff --git a/lib/test_hmm.c b/lib/test_hmm.c
-index 9c59d1ceb5b57..d615e4e5fc447 100644
---- a/lib/test_hmm.c
-+++ b/lib/test_hmm.c
-@@ -1209,16 +1209,10 @@ static int dmirror_migrate_to_device(struct dmirror *dmirror,
- 	if (!mmget_not_zero(mm))
- 		return -EINVAL;
- 
--	ret = -ENOMEM;
- 	src_pfns = kvcalloc(PTRS_PER_PTE, sizeof(*src_pfns),
- 			  GFP_KERNEL | __GFP_NOFAIL);
--	if (!src_pfns)
--		goto free_mem;
--
- 	dst_pfns = kvcalloc(PTRS_PER_PTE, sizeof(*dst_pfns),
- 			  GFP_KERNEL | __GFP_NOFAIL);
--	if (!dst_pfns)
--		goto free_mem;
- 
- 	ret = 0;
- 	mmap_read_lock(mm);
+Gou Hao (6):
+  powerpc/xive: remove dead NULL check after GFP_NOFAIL allocation
+  powerpc/xive: add error return value to xive_smp_probe()
+  powerpc/xive: fix use-after-free of xive_ipis
+  drm: remove dead WARN_ON NULL check after GFP_NOFAIL allocation
+  lib/test_hmm: remove dead NULL checks after GFP_NOFAIL allocations
+  RDMA/cxgb4: remove dead NULL checks after GFP_NOFAIL allocations
+
+ arch/powerpc/include/asm/xive.h      |  4 ++--
+ arch/powerpc/platforms/powernv/smp.c |  8 +++++---
+ arch/powerpc/platforms/pseries/smp.c |  8 +++++---
+ arch/powerpc/sysdev/xive/common.c    | 15 +++++++++------
+ drivers/gpu/drm/drm_modeset_lock.c   |  4 ----
+ drivers/infiniband/hw/cxgb4/mem.c    | 10 ++--------
+ lib/test_hmm.c                       |  6 ------
+ 7 files changed, 23 insertions(+), 32 deletions(-)
+
 -- 
 2.20.1
 
