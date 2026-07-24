@@ -4,44 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A40A8C531FF
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:13:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 483A5C531CC
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 00:13:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0678F10F266;
-	Fri, 24 Jul 2026 00:13:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8B4910F26C;
+	Fri, 24 Jul 2026 00:13:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iFCH4IEb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dY1l+6xN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5B14F10F266
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:13:31 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5E84810F26C
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 00:13:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DAD8E40741;
- Fri, 24 Jul 2026 00:13:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EF21F000E9;
- Fri, 24 Jul 2026 00:13:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D639B600B1;
+ Fri, 24 Jul 2026 00:13:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9DC1F000E9;
+ Fri, 24 Jul 2026 00:13:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784852010;
- bh=fqAIIbHMDebpJeHJXGPfIfuuZqjDPwcHi+9hMhsVB98=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iFCH4IEb2sj2VH6+i3mRhjahjCFJZqFp2ADm8WPEbCS6IUvGNu5jC/PsdKJi+P7aO
- fv6+Guv3Z9vLX8mJJpPuYOzAs7QHEpCQnH0ksdjHLUJQWnldSUfQ0hZ5LzHjKfxmPF
- ZB1aiV7E7snZB23KPBQ1C8F9AWWNh0NqqJuceP1j7KferUqdFMHJEN43HOsv/+bj9k
- Wc4mPj2QK/QQlVBIwOdKtQyalfAwaKPoGvzhXHccPxcbRCvVbooADu08mbZBXEBS5N
- YJkL6pg92UJPggHyMul4yilJWvuMWS16saQwFpMv65o+kKvMAhp6saH8uyUbDxOlLJ
- jZz9O+jiFC5Eg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/13] drm/panfrost: Explicitly enable MMU interrupts
- at device init
-To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724-claude-fixes-v3-6-542af61abd0f@collabora.com>
-References: <20260724-claude-fixes-v3-0-542af61abd0f@collabora.com>
- <20260724-claude-fixes-v3-6-542af61abd0f@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 00:13:30 +0000
-Message-Id: <20260724001330.93EF21F000E9@smtp.kernel.org>
+ s=k20260515; t=1784852027;
+ bh=vV8SHVjTvcYQq16HYBY/lONPVrjZ6kNVzEGGtrciPts=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=dY1l+6xNcFo3rz4Dt3iclqEw2EUP3Ft0aroaZGaGqL6/XjguFqJ+XWMcYGYWWfYfG
+ MNfgUiONFWs7JFanWwteVGQ+kVLIA6g9/yqBElieVwGy07CjuBsdurJY3iAFJcyaGU
+ C/qkzvreZslcgvgowrVZXciNyzkAakDqsTU0xfepRjyaV2dCVDqTLr7TtJD9ZMZW2B
+ ceze1n/B4MKPrz2a5tBh3M1memlPANA6Vxn0aIEQODZp0MQB9tJdsee3gYulDNv1tP
+ E17ArD9dgqxzy+Iu1+JINh3pn2fee9OW8j1/az4JtG/9DYjMSd0YB8I5S8v2pMckZH
+ impkerrA2eyRQ==
+Date: Fri, 24 Jul 2026 01:13:42 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Usama Arif <usama.arif@linux.dev>, linux-mm@kvack.org,
+ dri-devel@lists.freedesktop.org, linux-next@vger.kernel.org
+Subject: Re: Semantic conflict between 04b177544a04 in drm-misc-fixes and
+ 0b6b1bb28482 in -mm
+Message-ID: <93289e91-ef9f-4786-bf49-e93d91afc1ad@sirena.org.uk>
+References: <20260722225605.GA1910198@ax162>
+ <amFPJc1NQbuYWlSp@gsse-cloud1.jf.intel.com>
+ <20260723212724.GA999236@ax162>
+ <20260723160942.b58b065d771401aba117bc77@linux-foundation.org>
+ <amKftG6NRZy0Ii2/@gsse-cloud1.jf.intel.com>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="fKoPW98d3CeKyWXz"
+Content-Disposition: inline
+In-Reply-To: <amKftG6NRZy0Ii2/@gsse-cloud1.jf.intel.com>
+X-Cookie: (null cookie
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,83 +66,37 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Premature unmasking of MMU interrupts before reset workqueue initi=
-alization leads to a NULL pointer dereference.
---
 
---- Patch [6]: [PATCH v3 06/13] drm/panfrost: Explicitly enable MMU interru=
-pts at device init ---
-commit 28382212258245805fe4be63994981403a3d9c1c
-Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
+--fKoPW98d3CeKyWXz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-drm/panfrost: Explicitly enable MMU interrupts at device init
+On Thu, Jul 23, 2026 at 04:11:48PM -0700, Matthew Brost wrote:
+> On Thu, Jul 23, 2026 at 04:09:42PM -0700, Andrew Morton wrote:
 
-Because the device must be in a position to accept jobs between the time
-drm_dev_register() is called and autosuspend first kicks in, there's a very
-narrow window inbetween during which jobs targeting the tiler buffer
-object would time out, since the device's PM status is 'Active', but no MMU
-interrupts were enabled at device initialisation time.
+> > I'm fine the drm people changing things ;)
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_mmu.c
-> index 4a3162c3b659f..bb6c1614964b1 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+> I'll jump make a DRM change so this is all worked out when it gets to
+> Linus.
 
-[ ... ]
+So should I drop Nathan's fixup then?
 
-> @@ -970,6 +975,8 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
->  		return err;
->  	}
-> =20
-> +	panfrost_mmu_enable_interrupts(pfdev);
-> +
+--fKoPW98d3CeKyWXz
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: High]
-Could this premature unmasking of MMU interrupts lead to a NULL pointer
-dereference during driver initialization?
+-----BEGIN PGP SIGNATURE-----
 
-If the GPU asserts an MMU interrupt (e.g., due to leftover state from the
-bootloader or a hardware glitch) right after interrupts are enabled here, t=
-he
-IRQ handler thread might encounter a fault and eventually attempt a reset.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpirjYACgkQJNaLcl1U
+h9AqhQf+KthYj9FPBRNjt7aix5PlE9HA5FGCZpsxTVHHy1cvEyiZw/wwp9hNVUTe
+emIcdoj3CNZDT5pkVttPqtDC2T/TOi+CSQ4oA9tJjENnDXAsT/riLdxeagqz76Vo
+hkwo1c3ixmlItxRnTmPAu2f7fK5WpXaJS+ra6FUmyv00wKd3nwqWG+Bk5xNUZVLU
+z3sE4+IlkU/EXO51fH//NX0bqW77sLFRr40gSDzAITZmizC66LIXf2s0SGWRtJlE
+nhYpApQ96bL9os5zg3RP38naQQa2ri5ibgSsQ6XAVs7L7XIQ5E0lNmwjSOl80BQu
+fVPDJ/W9/bQkgUEFFfxGmM5eCiIBqA==
+=lo9P
+-----END PGP SIGNATURE-----
 
-However, the reset workqueue hasn't been allocated yet, because
-panfrost_mmu_init() is called before panfrost_jm_init():
-
-drivers/gpu/drm/panfrost/panfrost_device.c:panfrost_device_init() {
-    ...
-    err =3D panfrost_mmu_init(pfdev);
-    if (err)
-        goto out_gpu;
-
-    err =3D panfrost_jm_init(pfdev);
-    ...
-}
-
-If panfrost_mmu_irq_handler_thread() triggers a timeout in wait_ready(), it
-will call panfrost_device_schedule_reset(), which assumes the reset
-workqueue is already initialized:
-
-drivers/gpu/drm/panfrost/panfrost_device.h:panfrost_device_schedule_reset()=
- {
-    ...
-    queue_work(pfdev->reset.wq, &pfdev->reset.work);
-}
-
-Will this dereference the NULL pfdev->reset.wq pointer if the interrupt
-fires before panfrost_jm_init() runs?
-
->  	return 0;
->  }
->
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-claude-fix=
-es-v3-0-542af61abd0f@collabora.com?part=3D6
+--fKoPW98d3CeKyWXz--
