@@ -4,32 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C0DEC531FA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99F13C53209
 	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 07:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FFCA10F2F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A51C810F2F6;
 	Fri, 24 Jul 2026 07:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="JfRBL6vG";
+	dkim=pass (1024-bit key; unprotected) header.d=uniontech.com header.i=@uniontech.com header.b="ImOl3V+3";
 	dkim-atps=neutral
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C0EC10E644
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 02:30:21 +0000 (UTC)
+X-Greylist: delayed 65036 seconds by postgrey-1.36 at gabe;
+ Fri, 24 Jul 2026 02:30:10 UTC
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FB1110E644
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 02:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
- s=onoh2408; t=1784860173;
- bh=Yn0Gyoe5DqjP71R2buJi41mG3iZ0k1ZX3eDGImr8Sq0=;
+ s=onoh2408; t=1784860168;
+ bh=OyqXJDBODKL4i9r4faSbxqKqbqbjK9rOASLwkWPXzB4=;
  h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=JfRBL6vGX+km3YMzXlEy7HJjnZqr5bN52rjPOVAQnKRIbluO+xg2UR2JNwgYqwD0z
- SXyUg4OftBJTjKaq6Dj2Mo8/uGJrhggOebDVx6pkjdosAv8MRFez9vbIMWQeQE8m6Q
- WIIski7wchHE/k3u849ZwaM0Ku3cvTGxYk+Yhn7A=
-X-QQ-mid: zesmtpip4t1784860167t2acc5bb8
-X-QQ-Originating-IP: qIXv24m5LF8xLoOUC1kXo/DM9tGPxEiRVtvDS4LSMeI=
+ b=ImOl3V+3qmGjRisyVUVd9mh2AZ0NFSJDdEzDIqUpNvqoNTKhOzOi6KGDffGACMmtR
+ Ieie27rcygsxcHg/b5/K/9wRnsRHf46IlOy9eN5HlR7Vl9LPGQaDr1c7Xc6lm8x8IL
+ 1q3YhVXJS2PN8fyIiZ8h9JL89x+DGRIhNn+dO7mU=
+X-QQ-mid: zesmtpip4t1784860161t8fb1ed23
+X-QQ-Originating-IP: aBJCglJ9q/YAKBS1d2e+RK0bytOzmdANKIZ+RTuS4uM=
 Received: from localhost.localdomain ( [localhost])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Fri, 24 Jul 2026 10:29:24 +0800 (CST)
+ id ; Fri, 24 Jul 2026 10:29:19 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 530311859156334886
+X-BIZMAIL-ID: 645947347967007313
 EX-QQ-RecipientCnt: 26
 From: Gou Hao <gouhao@uniontech.com>
 To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
@@ -41,10 +43,10 @@ To: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
 Cc: linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-rdma@vger.kernel.org,
  linux-mm@kvack.org, gouhaojake@163.com, kernel@uniontech.com
-Subject: [PATCH v2 6/6] RDMA/cxgb4: remove dead NULL checks after GFP_NOFAIL
+Subject: [PATCH v2 5/6] lib/test_hmm: remove dead NULL checks after GFP_NOFAIL
  allocations
-Date: Fri, 24 Jul 2026 10:28:51 +0800
-Message-Id: <20260724022851.466017-7-gouhao@uniontech.com>
+Date: Fri, 24 Jul 2026 10:28:50 +0800
+Message-Id: <20260724022851.466017-6-gouhao@uniontech.com>
 X-Mailer: git-send-email 2.20.1
 In-Reply-To: <20260724022851.466017-1-gouhao@uniontech.com>
 References: <20260724022851.466017-1-gouhao@uniontech.com>
@@ -52,23 +54,22 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-QQ-SENDSIZE: 520
 Feedback-ID: zesmtpip:uniontech.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: MNU5/P5d/Qy9RNPRk664Q0Xw109pxpzpMGKL379ZUzcshP83H9MiEsd1
- IyV+Onok3MeRQ1T+ngmr1xzbcU1xx+vFpwEVY+wuxNIJ201zV+NLvRFmflO7umpKgp1BOqJ
- z96wlYlqfUeBqPpOrRu4Laygf+MwqB4o3eF9GDKsAqt1h1VQsiKHgtTL078FspqslJclih/
- LSAdIRnaQcF3IsZ1FJYVJGUgcyRdHm3VLF50Ti6RUr0HwtqBlNFPHlKZMXhexrgtrw+Cphc
- JxY4JP/I25QaZKybpvkHDPy08pNjAmBdVxjk0nf/6T5JalR1ahtqR1+/MMoONxBhdS2CsHv
- xV2HJAgpiNZDWaaU5uNCEb8xAmJQqQRbeOo4oMDIYKkBIknl1Y2SKe2EtrMIhYHgYrLnR1p
- gpvduyt1R9gOS9tB9ky8rDkPS8a93XY/5/nFLCw526fv+nxxOpLAPFA2QeC33sEk5hEOIoj
- jxlWS3gKZXLrPbp7sz3IgyUWYT0KgMJmS2eU/TrQmKHZqCf+A6FEOh7ojp1+ZCsflDc0So3
- hDt8vEmZCr4JboY7d0ioM7Ik1oPszFjKauAqy9I/eMTzw4T6SC74qx+BWS6DHBgdpmK4EgZ
- +oSX/7H/vhqwP6G+ZcKjg9apZetYQghWsY00AzS6acYNqzs6N+6O1s28hNCPtwTflFQ29Hc
- j4Wm8jlXEFJwQ8dF/uge/PUGtom7egTNBopX5QYvI6AqFuNpql4a4YCGllUNzkHD+EB6hTY
- 1sXdeMhMu5RMuOmHNYdgvRq90t2lH+BpCB45/yhvHe8d+b4mo8a61E5Tmr3FyYtwYzQ2C1k
- g50UjxEbNb63M5p5MDZjalDvYBmhXZVavsT52GOJIoelTYVS57GN9n+2LsZuRhmYg3901xe
- TZUqUqMPxqlw9dxzw1uzo5NR/JK0hfLbc5BRBqhys6pO/TYlWDrDUomU5GAa6KikVlW1Emx
- 7zRhVMRn6Gw+Kpk4/7xPqX4HtdKoLinAtIJM709TwoMwB1MvH1A2AobZFepeMpyuEHBmEsD
- YCa4gwXfwzozIlgRG18qaCcxyGCN5lPeUDTUEgeScH5/oFd5PlvpxkI5HE4sGUDT4K5RUPf
- PQAKWbWwxwx2FrvruhkVRaqZqEn1ylT8XAY5Ly8DqJqJwep8AItIZU=
+X-QQ-XMAILINFO: Np0qb5kW85KCuNY3xhEmso47MerfeFTbCZJksQvsspwKG4y8W/dSUAIJ
+ o6T2XrDMq8Ny079obbh/15my0oIoTTh5Al/5YBcUGt1SrNHpB6XoRjGZn4I4WIyKhhQD4yp
+ wL7/KGUC/5HnZgk+vOC85+Q85wemSC5rwAmNTgxHO7VYvN0cbzDl2XaE7anozmElgRsHxf4
+ SwBbBLKDAjZ1hFTffhFP4yPGT4YkayfvoNQSJ96qgKuempHLdy2lFVVGVe7OyvFR0+LrhL1
+ ow+Vo3ryePzZI3ZLJBQdS8lOFHch9FxLyJMvSvLYvRNHYGtHA25tDAXaOcGLpPPQ4QEAl3u
+ AK7wV3wid9+QuzR+YvEtHrxFoI2XUqVcO9kduuOyGFn1f1A5wASrI+Ms4zuS/Qnmelfqud/
+ hgYdWPHGXnp0/5S5Yg3VyTODWbxn8UHMMoNG/FT/DOSmXvldmRiF+zGVPRBlFtFiMqIAUeb
+ OMmn4w8UzEAzQuF217Yxnw3q0NJQiTrfhEMHDYpn6qTYy+iaFCxRxcZgZtAO3Tt2xvePc5Z
+ Lk1hCqd+HruliBG0wIkiLet8vYVKF4RdemSAmTH55HCPsppaGOIVJA9VhhItBk7q9HPaw/b
+ Hon3kA/KYYZxnEBPN2I8+q/ZX/BNjpUy3l+yOTTIG5YJPdZ0YyZjowrqehl/g0j+qVOhSD8
+ /eiMyMQarJTFCaV2KE+vYEu5CsF1e4HQVL6BblgB2mb8xSkEIpXhSaJVgkz5ewZP2EFRhAI
+ zsV3vbv9d/s+fVkcqmgTpBjo9ZX+XK+B/oKLOEiukvTtTVhnOJfa8xTSbQyzPIo9DBlAhDF
+ 9Occ8f3ZhFpGklfTu/PjRRvVRW2vrzD+Bk7oy9yvaapbDkuvlp3glUjr7ijgZGub/muIQ+y
+ KALgB9mmIAVqAAud3IYSLDySzrSR8e9/BzO/NzCILP+7UnYh3EC6ZhjxgYy6Zsq82jTY73c
+ 7jdM0SZuDPpkNmKdllRZ34UEXgpDAGb7FLqqSgZab6AJk32fR8DaSerg3iBO4YIhirJwqzb
+ X7WJrXUhAh9+l/6CovzVRJbyG4pgo0bAMZaK7aCOJDJPqcIXXWJ9HDz1tdfGY=
 X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
 X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:28:31 +0000
@@ -87,45 +88,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-alloc_skb() with the __GFP_NOFAIL flag will never return NULL,
-so the subsequent NULL checks and error handling are unreachable
-dead code. Remove them.
+kvcalloc with the __GFP_NOFAIL flag will never return NULL, so the
+subsequent NULL checks are unreachable dead code. Remove them.
 
 Signed-off-by: Gou Hao <gouhao@uniontech.com>
 ---
- drivers/infiniband/hw/cxgb4/mem.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+ lib/test_hmm.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/infiniband/hw/cxgb4/mem.c b/drivers/infiniband/hw/cxgb4/mem.c
-index cd1b010141984..08631de17c0a3 100644
---- a/drivers/infiniband/hw/cxgb4/mem.c
-+++ b/drivers/infiniband/hw/cxgb4/mem.c
-@@ -74,11 +74,8 @@ static int _c4iw_write_mem_dma_aligned(struct c4iw_rdev *rdev, u32 addr,
- 		c4iw_init_wr_wait(wr_waitp);
- 	wr_len = roundup(sizeof(*req) + sizeof(*sgl), 16);
+diff --git a/lib/test_hmm.c b/lib/test_hmm.c
+index 9c59d1ceb5b57..d615e4e5fc447 100644
+--- a/lib/test_hmm.c
++++ b/lib/test_hmm.c
+@@ -1209,16 +1209,10 @@ static int dmirror_migrate_to_device(struct dmirror *dmirror,
+ 	if (!mmget_not_zero(mm))
+ 		return -EINVAL;
  
--	if (!skb) {
-+	if (!skb)
- 		skb = alloc_skb(wr_len, GFP_KERNEL | __GFP_NOFAIL);
--		if (!skb)
--			return -ENOMEM;
--	}
- 	set_wr_txq(skb, CPL_PRIORITY_CONTROL, 0);
+-	ret = -ENOMEM;
+ 	src_pfns = kvcalloc(PTRS_PER_PTE, sizeof(*src_pfns),
+ 			  GFP_KERNEL | __GFP_NOFAIL);
+-	if (!src_pfns)
+-		goto free_mem;
+-
+ 	dst_pfns = kvcalloc(PTRS_PER_PTE, sizeof(*dst_pfns),
+ 			  GFP_KERNEL | __GFP_NOFAIL);
+-	if (!dst_pfns)
+-		goto free_mem;
  
- 	req = __skb_put_zero(skb, wr_len);
-@@ -134,11 +131,8 @@ static int _c4iw_write_mem_inline(struct c4iw_rdev *rdev, u32 addr, u32 len,
- 					 roundup(copy_len, T4_ULPTX_MIN_IO),
- 				 16);
- 
--		if (!skb) {
-+		if (!skb)
- 			skb = alloc_skb(wr_len, GFP_KERNEL | __GFP_NOFAIL);
--			if (!skb)
--				return -ENOMEM;
--		}
- 		set_wr_txq(skb, CPL_PRIORITY_CONTROL, 0);
- 
- 		req = __skb_put_zero(skb, wr_len);
+ 	ret = 0;
+ 	mmap_read_lock(mm);
 -- 
 2.20.1
 
