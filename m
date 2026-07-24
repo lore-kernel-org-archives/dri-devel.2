@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B6E8C531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 10:24:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01591C531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 10:29:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C24E10F34F;
-	Fri, 24 Jul 2026 10:24:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5531010F35C;
+	Fri, 24 Jul 2026 10:29:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="c974r5Dk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T16xpMK2";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8EF5310F34F
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 10:24:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAE8B10F35C
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 10:29:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0484D600AA;
- Fri, 24 Jul 2026 10:24:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CF731F000E9;
- Fri, 24 Jul 2026 10:24:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id EBB32600AB;
+ Fri, 24 Jul 2026 10:29:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FEBE1F000E9;
+ Fri, 24 Jul 2026 10:29:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784888672;
- bh=FDERCKr0uap56WThdPTp3Nj4DCI51vDUy9QhoxLJhqI=;
+ s=k20260515; t=1784888952;
+ bh=05kUCSXIcLexNamdryQwBCWU7PraAAH79lgUwlTPYww=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c974r5DkgwWMMnaYoY2dBnvreCQrcP4GaGRWz7CCQXQMUScmOi/kPooGQuEAhN67d
- LQhsE3BSL+mO5rOF5mRGtMvxzYq0gJCTJ4g0g5doVi9YyL4CCHP2BjmqjeVB+axEk9
- ROargY+qkWsK5MDY2hpaBVATeEMWwEMf2Ot5X8Q3UEPqv9Zsd9dl/xOrGQ3HpCWder
- cg10wnxiCv5N3dlhYYaAUOe9/oc0dLm3bhxajBFAZO0Hgc8kXGmt/z8HyzyayiECMb
- caZCk/lfBbFy3V1iC03yG+HT5h9WAvdVyKQzY3BFBf7+TBoyimQ8NgCFABK5FE0RFx
- 8HVHI16esXcHw==
+ b=T16xpMK2Ho1YpZTV+bj5YQVfCp8U54AGodEmjYwRLHNCPIjRBxTXntwi3X1Ibv8Vu
+ hIAVvuY+jq2Em3AFgoNy4J5r7KVzgzrYH3yr4hSCC8qxjOgASIWaciVeLWH/uLY7GC
+ lujkcmiRpwDILv4RJ8mpd+nsXh4Ek5GhykMZGiRLDZ9xrC8gpdOwlf6to7hBhBss0G
+ k9gKStUo2eg+B39akZ9Y7eKgvsRSFAAkS+IAqQ6KaPtFWYcbG82xfUR0BYuQtv08EN
+ tlKTlWEPB14VYw0Z5CcDM+pX/+ulII1rI8dlaAiEf+k/TH+s/ZToJ02yKu3prbU0Jl
+ agdCAxFCy29QQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/bridge: adv7511: handle regcache_sync() failure
- on power on
-To: phucduc.bui@gmail.com
+Subject: Re: [PATCH v12 3/4] drm/xe: Handle PUNIT errors by requesting
+ cold-reset recovery
+To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260724100803.50169-2-phucduc.bui@gmail.com>
-References: <20260724100803.50169-1-phucduc.bui@gmail.com>
- <20260724100803.50169-2-phucduc.bui@gmail.com>
+In-Reply-To: <20260724100302.706685-9-mallesh.koujalagi@intel.com>
+References: <20260724100302.706685-6-mallesh.koujalagi@intel.com>
+ <20260724100302.706685-9-mallesh.koujalagi@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 10:24:31 +0000
-Message-Id: <20260724102432.7CF731F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 10:29:11 +0000
+Message-Id: <20260724102912.6FEBE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,96 +58,88 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Incomplete error handling in `adv7511_power_on()` leaves state out=
- of sync
-
-Pre-existing issues:
-- [High] Missing `cancel_work_sync()` in removal path causes Use-After-Free
-- [Low] I2C device ID array uses positional initializers
+- [High] Calling `xe_device_declare_wedged()` during driver probe silently =
+drops the `WEDGED` uevent because the DRM device is not yet registered in s=
+ysfs, and `xe_ras_init()` ignores the disconnect return value, leaving user=
+space unaware of a permanently wedged device.
+- [High] Unprotected writes to `xe->wedged.method` cause a data race with c=
+oncurrent wedge events, which can overwrite the critical `DRM_WEDGE_RECOVER=
+Y_COLD_RESET` recovery method, and lack of state checking leads to redundan=
+t uevent flooding.
 --
 
---- Patch [2]: [PATCH 2/2] drm/bridge: adv7511: handle regcache_sync() fail=
-ure on power on ---
-commit 5725e03d2519d4fb324dba03e70e2f0824a5bd67
-Author: bui duc phuc <phucduc.bui@gmail.com>
+--- Patch [3]: [PATCH v12 3/4] drm/xe: Handle PUNIT errors by requesting co=
+ld-reset recovery ---
+commit 340a6fc7bdb22fd2c21615ec29270c2b330f42ea
+Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 
-drm/bridge: adv7511: handle regcache_sync() failure on power on
+drm/xe: Handle PUNIT errors by requesting cold-reset recovery
 
-The commit adds error handling for regcache_sync() in adv7511_power_on().
-If it fails, it logs an error and attempts to power off the chip.
+This commit handles PUNIT errors by setting the wedge recovery method to
+cold reset and declaring the device wedged. This ensures that userspace is
+notified that a complete device power cycle is required to restore normal
+operation.
 
-> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/d=
-rm/bridge/adv7511/adv7511_drv.c
-> index db55423781ea9..452180a95c384 100644
-> --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-> @@ -367,12 +367,20 @@ static void __adv7511_power_on(struct adv7511 *adv7=
-511)
+> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+> index a31e06b8aa67a..92b4181026cbe 100644
+> --- a/drivers/gpu/drm/xe/xe_ras.c
+> +++ b/drivers/gpu/drm/xe/xe_ras.c
+> @@ -236,6 +236,12 @@ static u8 handle_core_compute_errors(struct xe_ras_e=
+rror_array *arr)
+>  	return XE_RAS_RECOVERY_ACTION_RECOVERED;
+>  }
 > =20
->  static void adv7511_power_on(struct adv7511 *adv7511)
->  {
-> +	int ret;
-> +
->  	__adv7511_power_on(adv7511);
-> =20
->  	/*
->  	 * Most of the registers are reset during power down or when HPD is low.
->  	 */
-> -	regcache_sync(adv7511->regmap);
-> +	ret =3D regcache_sync(adv7511->regmap);
-> +	if (ret) {
-> +		dev_err(&adv7511->i2c_main->dev,
-> +			"Failed to sync register cache: %d\n", ret);
-> +		__adv7511_power_off(adv7511);
-> +		return;
-> +	}
+> +static void punit_error_handler(struct xe_device *xe)
+> +{
+> +	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
 
 [Severity: High]
-Does this early return leave the hardware state out of sync?
+Does this unprotected write to xe->wedged.method create a data race?
 
-If adv7511_power_on() is called when the device was already logically
-powered, this early return bypasses setting adv7511->powered =3D false and
-skips calling adv7533_dsi_power_off().
+If another thread (e.g., PCI AER or GT reset) concurrently calls
+xe_device_declare_wedged(), it could evaluate if (!xe->wedged.method) before
+this assignment, and overwrite DRM_WEDGE_RECOVERY_COLD_RESET with the defau=
+lt
+DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET.
 
-Could this leave the DSI hardware powered on while the software state
-remains powered =3D=3D true, causing subsequent EDID reads to fail because
-they see powered =3D=3D true and attempt to read from a chip where the
-rest of the components are powered off?
+Also, since xe_ras_process_errors() processes multiple errors in a loop:
 
-> =20
->  	if (adv7511->info->has_dsi)
->  		adv7533_dsi_power_on(adv7511);
+drivers/gpu/drm/xe/xe_ras.c:xe_ras_process_errors() {
+    ...
+    for (int i =3D 0; i < response.num_errors && i < XE_RAS_NUM_ERROR_ARR; =
+i++) {
+        // error handler called
+    ...
+}
 
-While reviewing this, I noticed a pre-existing issue in the removal path:
+Will this cause a flood of redundant uevents and wedge method assignments if
+multiple PUNIT errors are returned in a single response?
 
-> static void adv7511_remove(struct i2c_client *i2c)
-> {
-> 	struct adv7511 *adv7511 =3D i2c_get_clientdata(i2c);
+> +	xe_device_declare_wedged(xe);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this function need to
-cancel the hotplug work item?
+Can this call silently drop the WEDGED uevent if it occurs during driver pr=
+obe?
 
-If a hotplug interrupt fires and schedules adv7511->hpd_work just before or
-during adv7511_remove(), the work could run after the memory is freed by
-devres, resulting in a use-after-free.
+If a PUNIT error is detected during early probe via:
+xe_device_probe() -> xe_ras_init() -> xe_ras_process_errors() ->=20
+handle_soc_internal_errors() -> punit_error_handler()
 
-Would adding cancel_work_sync(&adv7511->hpd_work) here prevent this?
+The uevent sent by drm_dev_wedged_event() (called from
+xe_device_declare_wedged()) will fail with -EINVAL because the DRM device is
+not yet registered in sysfs (kobj->state_in_sysfs is false).
 
-I also noticed another pre-existing issue in the I2C device ID array:
+Furthermore, since xe_ras_init() ignores the XE_RAS_RECOVERY_ACTION_DISCONN=
+ECT
+return value, will the system boot with a wedged GPU while userspace is
+completely unaware?
 
-> static const struct i2c_device_id adv7511_i2c_ids[] =3D {
-> 	{ "adv7511", (kernel_ulong_t)&adv7511_chip_info },
-> 	{ "adv7511w", (kernel_ulong_t)&adv7511_chip_info },
+> +}
 
-[Severity: Low]
-This is a pre-existing issue, but the I2C subsystem guidelines state that
-initialized arrays of type struct i2c_device_id must use named initializers.
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724100803.5016=
-9-1-phucduc.bui@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724100302.7066=
+85-6-mallesh.koujalagi@intel.com?part=3D3
