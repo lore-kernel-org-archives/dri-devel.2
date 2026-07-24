@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0261C531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:21:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3B2DC531C9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:24:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BE6810E03F;
-	Fri, 24 Jul 2026 18:21:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D99BA10E070;
+	Fri, 24 Jul 2026 18:24:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HuPiuZG9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hBWkFlpu";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EB7210E03F
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:21:25 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9331710E070
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:24:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5CA7B600AD;
- Fri, 24 Jul 2026 18:21:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B758C1F000E9;
- Fri, 24 Jul 2026 18:21:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 23A7C407F4;
+ Fri, 24 Jul 2026 18:24:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68671F000E9;
+ Fri, 24 Jul 2026 18:24:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784917284;
- bh=LXgAI2htp1mFlmxQZ3kjsfjll7ugDUtAnE/rkv9LOJU=;
+ s=k20260515; t=1784917451;
+ bh=g9+QYbvXJnUumwUdYc/n2S69RPFeeHQ6XYmOLdaj7AI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=HuPiuZG9Bk+2BC1hGz23BOMgLJhGFktUByfqwHazFQoRPIHSc8UzDIHMkYuUfUXq3
- O0zeNV+HgY8dwfs1apyY7N3EmKWxcj+RbjyJ4AXE+RCQyzhwk7V3+vT6EBK9G8ixNI
- GTDw7CUet5ViQeSy0eiK1j30YOG+8Ux+hggzVVduh2X5cSPId9GutXZyEKgm9lnnAd
- 0e2BMLVzHAS3QsIAke9jyqetEyfnXY0iELEwFJ0SUksuq/KsKYLFCCrQI2T+Pj7mfR
- L5nDiArgt6mYgTJ8mF+6CD9Wi5yx0iBCamiEZg+6cAyRkBewxAhoHNdO3fsx1XYSV4
- A5ALDOK/RgYXA==
+ b=hBWkFlpu2QAvl/gXT6SGCb6Jnmm13QnKHXbeX7YIlYAcceWbQN6moDzSKC0BhsmNQ
+ UNu9mhC+dh7UYaR+P3oH7WTkc1vrPTcqSaCjieC+m5LBAoxy2NlBO2ewAQpM8EHB6v
+ Z0iJxzMup/m4mOUM2JtR+zWFlGfrKO0ev3jaV7XEkI13lkyXlxfvDMhI+TpMt36szJ
+ uJCeyTszes5xP9tO67pmLJ9TfQfzbD4irZnrYprK96NbbX53kA7j4x6m9/ruWFVSea
+ TLVsurZI8yZ8pyhcnENOIswG1BaHDUSZK33OwW8vdeI13zwgs9zpZyBNG71Y+OvZzk
+ /LXmrVMERZKNw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 04/16] drm/bridge: synopsys: dw-dp: Add missing
- reinit_completion
+Subject: Re: [PATCH v6 11/16] drm/bridge: synopsys: dw-dp: Add Runtime PM
+ support
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-4-041d99a19c4e@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-11-041d99a19c4e@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
- <20260724-synopsys-dw-dp-improvements-v6-4-041d99a19c4e@collabora.com>
+ <20260724-synopsys-dw-dp-improvements-v6-11-041d99a19c4e@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 18:21:23 +0000
-Message-Id: <20260724182123.B758C1F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 18:24:09 +0000
+Message-Id: <20260724182410.B68671F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,144 +59,119 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Using `guard(pm_runtime_noresume)` in the interrupt handler allows=
+ hardware access on a suspended device.
+- [High] Unhandled failure of PM resume in `dw_dp_bridge_atomic_enable()` c=
+auses unbalanced PM operations and unclocked register accesses during teard=
+own.
+
 Pre-existing issues:
-- [High] The patch attempts to fix spurious completions from timed-out AUX =
-transfers by adding `reinit_completion()`, but the fix is insufficient due =
-to a TOCTOU race with the driver's threaded IRQ handler.
-- [High] The driver fails to support DP AUX short reads, incorrectly reject=
-ing them with -EBUSY instead of returning the number of bytes successfully =
-transferred, which breaks I2C-over-AUX.
-- [High] Missing hardware reset on AUX transfer timeout leaves the controll=
-er in an undefined/busy state.
-- [High] The DP AUX channel and I2C adapter are registered and exposed befo=
-re the hardware is initialized and interrupts are enabled, causing early ac=
-cess to fail with timeouts.
-- [High] DP AUX transfers can execute with the PHY powered off, leading to =
-hardware timeouts or crashes.
+- [High] `drm_dp_aux_unregister()` is called too late in `dw_dp_unbind()`, =
+allowing userspace to trigger AUX transfers on torn-down hardware.
 --
 
---- Patch [4]: [PATCH v6 04/16] drm/bridge: synopsys: dw-dp: Add missing re=
-init_completion ---
-commit fc6159d600f530845f6f08962e449b720526ee08
+--- Patch [11]: [PATCH v6 11/16] drm/bridge: synopsys: dw-dp: Add Runtime P=
+M support ---
+commit fb3ecb0112d9fff7c3a992e9273e0b7eaa8b8174
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-drm/bridge: synopsys: dw-dp: Add missing reinit_completion
 
-This patch adds a reinit_completion call before sending an AUX command
-to prevent subsequent transfers from immediately triggering if an earlier
-one timed out and the interrupt fired later.
+    drm/bridge: synopsys: dw-dp: Add Runtime PM support
+   =20
+    Add runtime PM stubs to the Synopsys DesignWare DisplayPort bridge
+    driver. Support is not enabled automatically and must be hooked up
+    in the vendor specific glue code.
 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
 idge/synopsys/dw-dp.c
-> index b28040d69fabf..2f0ee7ab7febd 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux=
- *aux,
->  	if (WARN_ON(msg->size > 16))
->  		return -E2BIG;
+
+[ ... ]
+
+> @@ -1659,6 +1665,12 @@ static void dw_dp_bridge_atomic_enable(struct drm_=
+bridge *bridge,
+>  	struct drm_connector_state *conn_state;
+>  	int ret;
 > =20
-> +	reinit_completion(&dp->complete);
+> +	ret =3D pm_runtime_get_active(dp->dev, RPM_TRANSPARENT);
+> +	if (ret) {
+> +		dev_err(dp->dev, "runtime PM failure\n");
+> +		return;
+> +	}
 > +
 
 [Severity: High]
-This isn't a bug introduced by this patch, but the attempt to fix the
-spurious completions seems incomplete due to a race condition. Because
-reinit_completion is called locklessly here, could the threaded IRQ handler
-execute concurrently?
+If acquiring the PM reference fails here, we log an error and return
+early, but does the DRM core proceed as if the bridge is enabled?
 
-If dw_dp_irq is processing a delayed interrupt from a previous timeout:
+Later, when tearing down the display pipeline,
+dw_dp_bridge_atomic_disable() is called unconditionally. It executes
+dw_dp_reset() (which accesses hardware registers) and
+pm_runtime_put_autosuspend() (which drops a reference that was never
+acquired). Could this lead to unclocked register accesses causing a bus
+fault, and a PM usage counter underflow?
 
-dw_dp_irq() {
-    ...
-    complete(&dp->complete);
-}
+>  	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
+ncoder);
+>  	if (!connector) {
+>  		dev_err(dp->dev, "failed to get connector\n");
 
-Doesn't this mean it could call complete immediately after this
-reinit_completion, instantly satisfying the new wait and causing the driver
-to read garbage hardware status?
+[ ... ]
 
->  	switch (msg->request & ~DP_AUX_I2C_MOT) {
->  	case DP_AUX_NATIVE_WRITE:
->  	case DP_AUX_I2C_WRITE:
-
-[Severity: High]
-This is a pre-existing issue, but does this driver fail to support DP AUX
-short reads?
-
-Later in dw_dp_aux_transfer:
-
-    if (count !=3D msg->size)
-        return -EBUSY;
-
-If the hardware returns fewer bytes than requested, returning -EBUSY causes
-the DRM core helper drm_dp_i2c_do_msg to endlessly retry the exact same
-full-length transfer without advancing its buffer. Could this break
-communication with I2C devices on the DP bus?
+> @@ -1966,6 +1988,9 @@ static irqreturn_t dw_dp_irq(int irq, void *data)
+>  	struct dw_dp *dp =3D data;
+>  	u32 value;
+> =20
+> +	/* interrupt can only trigger for running device */
+> +	guard(pm_runtime_noresume)(dp->dev);
+> +
+>  	regmap_read(dp->regmap, DW_DP_GENERAL_INTERRUPT, &value);
 
 [Severity: High]
-This is a pre-existing issue, but is a hardware reset missing when an AUX
-transfer times out?
+Does using guard(pm_runtime_noresume) allow hardware access on a suspended
+device?
 
-In the error path of dw_dp_aux_transfer:
+Since dw_dp_runtime_suspend() disables clocks but does not disable the
+IRQ, a shared interrupt or a glitch on the IRQ line while the device is
+in runtime suspend could cause this handler to execute and read
+DW_DP_GENERAL_INTERRUPT while clocks are off.
 
-    if (!status) {
-        dev_err(dp->dev, "timeout waiting for AUX reply\n");
-        return -ETIMEDOUT;
-    }
+Should this use pm_runtime_get_if_active() instead to avoid a bus fault?
 
-If wait_for_completion_timeout expires, returning -ETIMEDOUT without
-resetting the underlying AUX controller or clearing the pending state might
-leave the hardware state machine permanently stuck. Will subsequent transfe=
-rs
-fail because the hardware is still busy?
+>  	if (!value)
+>  		return IRQ_NONE;
 
-[Severity: High]
-This isn't a bug introduced by this patch, but is the AUX channel registered
-before interrupts are enabled?
+[ ... ]
 
-Looking at dw_dp_bind, the channel is registered early:
-
-    ret =3D drm_dp_aux_register(&dp->aux);
-
-But interrupts are enabled much later in the same function:
-
-    enable_irq(dp->irq);
-
-If a userspace tool like ddcutil or an I2C auto-prober attempts a transacti=
-on
-in this window, won't dw_dp_aux_transfer fail because the hardware cannot
-yet generate interrupts?
+> @@ -2101,6 +2152,11 @@ void dw_dp_unbind(struct dw_dp *dp)
+>  	disable_irq(dp->irq);
+>  	cancel_work_sync(&dp->hpd_work);
+>  	phy_exit(dp->phy);
+> +	if (!dp->usbc_mode)
+> +		pm_runtime_put_sync(dp->dev);
+> +	/* suspend once if runtime PM is disabled */
+> +	if (!pm_runtime_enabled(dp->dev))
+> +		dw_dp_runtime_suspend(dp);
+>  	drm_bridge_put(dp->next_bridge);
+>  	drm_dp_aux_unregister(&dp->aux);
 
 [Severity: High]
-This is a pre-existing issue, but can DP AUX transfers execute with the PHY
-powered off?
+This is a pre-existing issue, but is drm_dp_aux_unregister() called too
+late here?
 
-Direct accesses from userspace via the character device call directly into:
+During device unbind, phy_exit() and disable_irq() are called before
+drm_dp_aux_unregister(). Because the AUX device is still registered and
+accessible to userspace, a userspace process could initiate an AUX
+transfer that calls dw_dp_aux_transfer() while the PHY is uninitialized
+and the IRQ is disabled, potentially causing a hardware fault or timeout.
 
-static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
-                                  struct drm_dp_aux_msg *msg)
-
-Internal callers wrap this to ensure the PHY is powered on:
-
-dw_dp_bridge_edid_read() {
-    ...
-    ret =3D phy_power_on(dp->phy);
-    if (ret)
-        return NULL;
-
-    edid =3D drm_edid_read_ddc(connector, &dp->aux.ddc);
-
-    phy_power_off(dp->phy);
-    ...
-}
-
-Since dw_dp_aux_transfer itself doesn't check or manage the PHY power state,
-could a direct userspace access while the display is suspended cause MMIO
-timeouts or system crashes?
+>  	drm_bridge_remove(&dp->bridge);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-synopsys-d=
-w-dp-improvements-v6-0-041d99a19c4e@collabora.com?part=3D4
+w-dp-improvements-v6-0-041d99a19c4e@collabora.com?part=3D11
