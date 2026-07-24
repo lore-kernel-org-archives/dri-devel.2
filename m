@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3B2DC531C9
-	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:24:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E6B2C531F9
+	for <dri-devel@archiver.kernel.org>; Fri, 24 Jul 2026 18:27:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D99BA10E070;
-	Fri, 24 Jul 2026 18:24:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6DD610E07D;
+	Fri, 24 Jul 2026 18:27:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hBWkFlpu";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JB/MXlNn";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9331710E070
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:24:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C18710E07D
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:27:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 23A7C407F4;
- Fri, 24 Jul 2026 18:24:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68671F000E9;
- Fri, 24 Jul 2026 18:24:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 61D0B600AD;
+ Fri, 24 Jul 2026 18:27:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC1D91F000E9;
+ Fri, 24 Jul 2026 18:27:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784917451;
- bh=g9+QYbvXJnUumwUdYc/n2S69RPFeeHQ6XYmOLdaj7AI=;
+ s=k20260515; t=1784917645;
+ bh=TfOh/sKx1AqeZI03b8TTJPy1BPILWZ07q36+0gQ1tvg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hBWkFlpu2QAvl/gXT6SGCb6Jnmm13QnKHXbeX7YIlYAcceWbQN6moDzSKC0BhsmNQ
- UNu9mhC+dh7UYaR+P3oH7WTkc1vrPTcqSaCjieC+m5LBAoxy2NlBO2ewAQpM8EHB6v
- Z0iJxzMup/m4mOUM2JtR+zWFlGfrKO0ev3jaV7XEkI13lkyXlxfvDMhI+TpMt36szJ
- uJCeyTszes5xP9tO67pmLJ9TfQfzbD4irZnrYprK96NbbX53kA7j4x6m9/ruWFVSea
- TLVsurZI8yZ8pyhcnENOIswG1BaHDUSZK33OwW8vdeI13zwgs9zpZyBNG71Y+OvZzk
- /LXmrVMERZKNw==
+ b=JB/MXlNnrUnl8kR7VQjD3BZYYFXNQhjp33Iu6QjBIsyCzh3AsoLAqxNGwhzNSJlVy
+ j3COGXPs/mSfIMqQWKwG1CmUWTio6sqWk34Mctt05t4EkhqNBQpfTNkkJ8J76xGNmd
+ H0ciqqnm1b/G7iVpWoijsTEpyiIkrsRBgnbfOHETa1+TderZmFGj0S1m1kxdvO5gvX
+ 2Hu7rrfRNi1pOtNLkEg+85tDxGLLFq5wgEb8Hok6uElGl1WyiSlwB53OwyzFNXZbmy
+ PF+0dx9EUsSjJhdA5CJpKaMsrmHk6b+q/1C7HrRNNA3k0i8g0Cr00xbUyB1wc10sj6
+ 0bMwixNWwCCHA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 11/16] drm/bridge: synopsys: dw-dp: Add Runtime PM
- support
+Subject: Re: [PATCH v6 10/16] drm/rockchip: dw_dp: Implement out-of-band HPD
+ handling
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-11-041d99a19c4e@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260724-synopsys-dw-dp-improvements-v6-10-041d99a19c4e@collabora.com>
 References: <20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com>
- <20260724-synopsys-dw-dp-improvements-v6-11-041d99a19c4e@collabora.com>
+ <20260724-synopsys-dw-dp-improvements-v6-10-041d99a19c4e@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 24 Jul 2026 18:24:09 +0000
-Message-Id: <20260724182410.B68671F000E9@smtp.kernel.org>
+Date: Fri, 24 Jul 2026 18:27:24 +0000
+Message-Id: <20260724182724.BC1D91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,119 +59,91 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Using `guard(pm_runtime_noresume)` in the interrupt handler allows=
- hardware access on a suspended device.
-- [High] Unhandled failure of PM resume in `dw_dp_bridge_atomic_enable()` c=
-auses unbalanced PM operations and unclocked register accesses during teard=
-own.
-
-Pre-existing issues:
-- [High] `drm_dp_aux_unregister()` is called too late in `dw_dp_unbind()`, =
-allowing userspace to trigger AUX transfers on torn-down hardware.
+- [Medium] Broken forward compatibility in dp_dp_rockchip_get_vo_grf.
+- [Low] Typo in the newly introduced function name `dp_dp_rockchip_get_vo_g=
+rf`.
 --
 
---- Patch [11]: [PATCH v6 11/16] drm/bridge: synopsys: dw-dp: Add Runtime P=
-M support ---
-commit fb3ecb0112d9fff7c3a992e9273e0b7eaa8b8174
+--- Patch [10]: [PATCH v6 10/16] drm/rockchip: dw_dp: Implement out-of-band=
+ HPD handling ---
+commit 75a9965306b4d818663f8d48b44dc43031d1cb8f
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-    drm/bridge: synopsys: dw-dp: Add Runtime PM support
-   =20
-    Add runtime PM stubs to the Synopsys DesignWare DisplayPort bridge
-    driver. Support is not enabled automatically and must be hooked up
-    in the vendor specific glue code.
+drm/rockchip: dw_dp: Implement out-of-band HPD handling
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+This commit implements out-of-band hotplug handling to receive external HPD
+information from the USB-C state machine via a syscon regmap (vo-grf). It
+prevents SError problems on RK3576/RK3588 platforms when runtime PM is
+enabled.
+
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
 
 [ ... ]
 
-> @@ -1659,6 +1665,12 @@ static void dw_dp_bridge_atomic_enable(struct drm_=
-bridge *bridge,
->  	struct drm_connector_state *conn_state;
->  	int ret;
+> @@ -71,6 +116,35 @@ static const struct drm_encoder_helper_funcs dw_dp_en=
+coder_helper_funcs =3D {
+>  	.atomic_check		=3D dw_dp_encoder_atomic_check,
+>  };
 > =20
-> +	ret =3D pm_runtime_get_active(dp->dev, RPM_TRANSPARENT);
-> +	if (ret) {
-> +		dev_err(dp->dev, "runtime PM failure\n");
-> +		return;
+> +static struct regmap *dp_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *d=
+p)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: Low]
+This isn't a bug, but there is a typo in the function prefix. Should this be
+named dw_dp_rockchip_get_vo_grf to match the rest of the driver's naming
+conventions?
+
+> +{
+> +	struct device_node *np =3D dev_of_node(dp->dev);
+> +	struct of_phandle_args args;
+> +	struct regmap *regmap;
+> +	int ret;
+> +
+> +	ret =3D of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
+> +	if (ret)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	/*
+> +	 * Limit this workaround to RK3576 and RK3588, potential future platfor=
+ms
+> +	 * reusing the driver should just add a VO GRF phandle in the DisplayPo=
+rt
+> +	 * controller DT node.
+> +	 */
+> +	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
+> +	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
+> +		regmap =3D ERR_PTR(-ENODEV);
+> +		goto out_put_node;
 > +	}
 > +
+> +	regmap =3D syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
 
-[Severity: High]
-If acquiring the PM reference fails here, we log an error and return
-early, but does the DRM core proceed as if the bridge is enabled?
+[Severity: Medium]
+Will this break forward compatibility for future platforms as described in
+the comment above?
 
-Later, when tearing down the display pipeline,
-dw_dp_bridge_atomic_disable() is called unconditionally. It executes
-dw_dp_reset() (which accesses hardware registers) and
-pm_runtime_put_autosuspend() (which drops a reference that was never
-acquired). Could this lead to unclocked register accesses causing a bus
-fault, and a PM usage counter underflow?
+If a future platform omits the "phys" property or uses a different PHY
+compatible, this function unconditionally returns ERR_PTR(-ENODEV) and abor=
+ts.
+It never attempts to look up the "rockchip,vo-grf" phandle directly from the
+DisplayPort controller DT node (np) as a fallback.
 
->  	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
-ncoder);
->  	if (!connector) {
->  		dev_err(dp->dev, "failed to get connector\n");
+Does this need a fallback path to check syscon_regmap_lookup_by_phandle(np,=
+ ...)
+if the PHY checks fail?
 
-[ ... ]
-
-> @@ -1966,6 +1988,9 @@ static irqreturn_t dw_dp_irq(int irq, void *data)
->  	struct dw_dp *dp =3D data;
->  	u32 value;
-> =20
-> +	/* interrupt can only trigger for running device */
-> +	guard(pm_runtime_noresume)(dp->dev);
 > +
->  	regmap_read(dp->regmap, DW_DP_GENERAL_INTERRUPT, &value);
-
-[Severity: High]
-Does using guard(pm_runtime_noresume) allow hardware access on a suspended
-device?
-
-Since dw_dp_runtime_suspend() disables clocks but does not disable the
-IRQ, a shared interrupt or a glitch on the IRQ line while the device is
-in runtime suspend could cause this handler to execute and read
-DW_DP_GENERAL_INTERRUPT while clocks are off.
-
-Should this use pm_runtime_get_if_active() instead to avoid a bus fault?
-
->  	if (!value)
->  		return IRQ_NONE;
-
-[ ... ]
-
-> @@ -2101,6 +2152,11 @@ void dw_dp_unbind(struct dw_dp *dp)
->  	disable_irq(dp->irq);
->  	cancel_work_sync(&dp->hpd_work);
->  	phy_exit(dp->phy);
-> +	if (!dp->usbc_mode)
-> +		pm_runtime_put_sync(dp->dev);
-> +	/* suspend once if runtime PM is disabled */
-> +	if (!pm_runtime_enabled(dp->dev))
-> +		dw_dp_runtime_suspend(dp);
->  	drm_bridge_put(dp->next_bridge);
->  	drm_dp_aux_unregister(&dp->aux);
-
-[Severity: High]
-This is a pre-existing issue, but is drm_dp_aux_unregister() called too
-late here?
-
-During device unbind, phy_exit() and disable_irq() are called before
-drm_dp_aux_unregister(). Because the AUX device is still registered and
-accessible to userspace, a userspace process could initiate an AUX
-transfer that calls dw_dp_aux_transfer() while the PHY is uninitialized
-and the IRQ is disabled, potentially causing a hardware fault or timeout.
-
->  	drm_bridge_remove(&dp->bridge);
->  }
+> +out_put_node:
+> +	of_node_put(args.np);
+> +	return regmap;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-synopsys-d=
-w-dp-improvements-v6-0-041d99a19c4e@collabora.com?part=3D11
+w-dp-improvements-v6-0-041d99a19c4e@collabora.com?part=3D10
