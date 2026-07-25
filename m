@@ -4,71 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2D57C531D0
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 04:52:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 261BEC531C9
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 05:02:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13EF610F4FB;
-	Sat, 25 Jul 2026 04:52:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E64810F4F9;
+	Sat, 25 Jul 2026 05:02:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TM4o68rb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LF0mP8Xg";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4667B10E102
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 04:51:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 13F5660A9D;
- Sat, 25 Jul 2026 04:51:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BEBB7C32782;
- Sat, 25 Jul 2026 04:51:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1784955084;
- bh=h23e9CNwRploVNDSGj2Szx9Ab6gHyPZmRNnyd50/Q7Q=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=TM4o68rbtp5RcaW+siQiqpIFqp4yUgzBV+vF4xCrnasSSXj4ptt070HLy/mT4rN0u
- Lp3BaiKjRQ8cg2qIMXEgta13HOi/BWROwxpAiyuGj8D6Vl+d6mnVvTszjxPuqhlk8k
- +YyHZQH5ax89/rBeJv5EN578u8LneT1mdCH0NMSfweAgGUqKnwzyXncxuhe5rPWyyB
- kpP/0clcu7y+zBb2uJHwEiXgO85KM1OwR70ZAb90yzwiweYAAth6DRkJaEaGbl6rFQ
- n64qFJkpYftNpb4EUVTiw3/r9Ilx/iVaKrh9frEuwXiMWLVT5c8PEE5LLIp8hIqLLw
- QZPg44zhD2P0g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id AB4D2C53219;
- Sat, 25 Jul 2026 04:51:24 +0000 (UTC)
-From: Cody Kang via B4 Relay <devnull+codykang.hk.gmail.com@kernel.org>
-Date: Sat, 25 Jul 2026 00:51:19 -0400
-Subject: [PATCH RESEND 10/17] drm/spacemit: add Saturn DPU KMS pipeline
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260725-k3-display-v1-10-6de34d80e86c@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB10210F4F9
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 05:02:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 36E6744E52;
+ Sat, 25 Jul 2026 05:02:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F7091F000E9;
+ Sat, 25 Jul 2026 05:02:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784955775;
+ bh=j1l9WKvO3rqihB+U+ZgLEcKN9WSynhxIvhL+TFeCEdI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=LF0mP8XgbF6W80UoI8X3N3ws4Sx2ZtpY8lDg5kjT9ZfxFyxShSVl0EC1Ory6GoYjQ
+ Y8S/E59plDih7/SvQ2u7A0URV3AfCvK8oQGECTPxaHopEKKpXzyXaZ1VunlMfPkeDj
+ t1bT/EvIE4kJwNFbYubzMe3CdYNDlTdDnyEIQ2qGiATUZQXYXzlzb9tt41sTkZkHbn
+ rIPhn9fSghVYvXZNQ+zbj+6EB7MTs015F7sLSM5UqYrSwufJApy6hYZd49SjT/LDcn
+ EVa2w9rUhSWSlVgBNK0eBQRDA4HwjL7ifn8Fzi+PThpv/1xEDxteksJMqoSnKq65+2
+ RzHpjtcl7UA/g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND 05/17] phy: spacemit: add Innosilicon DP TX PHY
+ driver
+To: "Cody Kang" <codykang.hk@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, vkoul@kernel.org,
+ linux-phy@lists.infradead.org, neil.armstrong@linaro.org, robh@kernel.org,
+ devicetree@vger.kernel.org, olteanv@gmail.com, conor+dt@kernel.org
+In-Reply-To: <20260725-k3-display-v1-5-6de34d80e86c@gmail.com>
 References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
-In-Reply-To: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>
-Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
- devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
- linux-clk@vger.kernel.org, Cody Kang <codykang.hk@gmail.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784955080; l=35312;
- i=codykang.hk@gmail.com; s=codykang; h=from:subject:message-id;
- bh=ZEoYNn9QpwojVlEy/W3DuhVg79WMVjvpmtCNLwTCICs=;
- b=37j1bQfAKTYXhe2b6TzPrn5rUBAybZDc3Mx3mDU2udaJ6qwhmB8mCqXikNhilKsnoCYKWDsnm
- wSXYfsAqMpVDeeVKqlG21xCbEkGIVHHuuJcs81CYKgsusmPqePcfieQ
-X-Developer-Key: i=codykang.hk@gmail.com; a=ed25519;
- pk=Osn6/cs9Su/mHHw4P19cmVc3v2FMQfiWahjsN0vEkuk=
-X-Endpoint-Received: by B4 Relay for codykang.hk@gmail.com/codykang with
- auth_id=895
-X-Original-From: Cody Kang <codykang.hk@gmail.com>
+ <20260725-k3-display-v1-5-6de34d80e86c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 25 Jul 2026 05:02:54 +0000
+Message-Id: <20260725050254.9F7091F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,1230 +56,228 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: codykang.hk@gmail.com
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Cody Kang <codykang.hk@gmail.com>
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] PHY provider is registered before probe finishes, exposing it to e=
+arly concurrent access and potential Use-After-Free (UAF) on probe failure.
+- [High] Lack of driver-level synchronization between CCF and PHY framework=
+s leads to concurrent hardware state corruption.
+- [Medium] The MPLL (main link PLL) is powered on during PHY initialization=
+ but is never powered off in the power down sequence.
+- [Medium] Missing hardware state cleanup on error paths in `k3_inno_dp_phy=
+_power_on` leaves the PHY powered on.
+- [Medium] Rate configuration functions unconditionally power on the PLLs, =
+overriding the logical PHY power state.
+- [Medium] PLL programming functions do not poll for hardware lock before p=
+roceeding.
+--
 
-Add the atomic KMS implementation on top of the hardware backend: one
-CRTC and one primary plane per DPU instance. atomic_check validates
-the plane rectangle 1:1 against the mode and sizes the per-channel FBC
-line buffer; atomic commit builds the cmdlist batches, maps the
-framebuffer through the DMMU and arms the cfg-ready handshake, with
-vblank events driven from the DPU interrupt.
+--- Patch [5]: [PATCH RESEND 05/17] phy: spacemit: add Innosilicon DP TX PH=
+Y driver ---
+commit 31db74eae7dc59ddc61373dbe3e2c6c1e6966ccd
+Author: Cody Kang <codykang.hk@gmail.com>
+Subject: phy: spacemit: add Innosilicon DP TX PHY driver
 
-Signed-off-by: Cody Kang <codykang.hk@gmail.com>
----
- drivers/gpu/drm/spacemit/spacemit_crtc.c   | 815 +++++++++++++++++++++++++++++
- drivers/gpu/drm/spacemit/spacemit_planes.c | 376 +++++++++++++
- 2 files changed, 1191 insertions(+)
+This commit introduces the SpacemiT K3 Innosilicon DisplayPort PHY driver.
+It integrates the PHY as a child of the DP controller, registering a PHY
+provider and exposing the pixel PLL as a clock provider.
 
-diff --git a/drivers/gpu/drm/spacemit/spacemit_crtc.c b/drivers/gpu/drm/spacemit/spacemit_crtc.c
-new file mode 100644
-index 000000000000..b75ff6320501
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/spacemit_crtc.c
-@@ -0,0 +1,815 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-+ *
-+ */
-+
-+#include <drm/drm_print.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_crtc_helper.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_plane_helper.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_managed.h>
-+#include <drm/clients/drm_client_setup.h>
-+#include <linux/aperture.h>
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/component.h>
-+#include <linux/interrupt.h>
-+#include <linux/of.h>
-+#include <linux/of_address.h>
-+#include <linux/of_irq.h>
-+#include <linux/pm_qos.h>
-+#include <linux/property.h>
-+#include <linux/mutex.h>
-+#include <linux/string.h>
-+#include <linux/trace_events.h>
-+#include <linux/of_platform.h>
-+#include <linux/regmap.h>
-+#include "spacemit_dpu_ids.h"
-+#include <linux/reset.h>
-+#include "spacemit_cmdlist.h"
-+#include "spacemit_dmmu.h"
-+#include "spacemit_drm.h"
-+#include "spacemit_crtc.h"
-+#include "dpu/dpu_saturn.h"
-+#include "dpu/dpu_trace.h"
-+
-+static int spacemit_crtc_init(struct spacemit_crtc *a_crtc);
-+static int spacemit_crtc_uninit(struct spacemit_crtc *a_crtc);
-+static int dpu_pm_suspend(struct device *dev);
-+static int dpu_pm_resume(struct device *dev);
-+static void dpu_reset_assert(struct device *dev, const char *name,
-+			     struct reset_control *rstc);
-+
-+static void saturn_count_rdma_use(struct drm_crtc_state *crtc_state)
-+{
-+	struct drm_plane *plane;
-+	struct spacemit_crtc_state *spacemit_state =
-+			to_spacemit_crtc_state(crtc_state);
-+	struct spacemit_crtc_rdma *rdmas = spacemit_state->rdmas;
-+	u32 rdma_id = 0;
-+	const struct drm_plane_state *pstate;
-+
-+	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
-+		rdma_id = to_spacemit_plane_state(pstate)->rdma_id;
-+		if (rdma_id != RDMA_INVALID_ID)
-+			rdmas[rdma_id].use_cnt++;
-+	}
-+}
-+
-+static int spacemit_crtc_atomic_check_fbmem(struct drm_crtc *crtc,
-+					    struct drm_crtc_state *crtc_state)
-+{
-+	struct spacemit_crtc_rdma *rdmas =
-+			to_spacemit_crtc_state(crtc_state)->rdmas;
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+	struct spacemit_drm_private *priv = crtc->dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	const struct drm_plane_state *pstate;
-+	struct drm_plane *plane;
-+
-+	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
-+		u32 rdma_id = to_spacemit_plane_state(pstate)->rdma_id;
-+		u32 layer_fbcmem_size =
-+				to_spacemit_plane_state(pstate)->fbcmem_size;
-+
-+		if (rdma_id != RDMA_INVALID_ID)
-+			rdmas[rdma_id].fbcmem.size = max(layer_fbcmem_size,
-+				rdmas[rdma_id].fbcmem.size);
-+	}
-+
-+	return a_crtc->core->adjust_rdma_fbcmem(hwdev, rdmas);
-+}
-+
-+static void spacemit_crtc_atomic_enable(struct drm_crtc *crtc,
-+					struct drm_atomic_commit *old_state)
-+{
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+	int idx;
-+
-+	if (!drm_dev_enter(crtc->dev, &idx))
-+		return;
-+
-+	trace_spacemit_crtc_atomic_enable(a_crtc->dev_id);
-+
-+	/*
-+	 * U-Boot leaves its boot-logo pipeline running. Hard-stop it with the
-+	 * resets alone; the clocks are not ours to gate until we have enabled
-+	 * them.
-+	 */
-+	if (unlikely(a_crtc->first_modeset)) {
-+		dpu_reset_assert(a_crtc->dev, "lcd", a_crtc->lcd_reset);
-+		dpu_reset_assert(a_crtc->dev, "esc", a_crtc->esc_reset);
-+		dpu_reset_assert(a_crtc->dev, "mclk", a_crtc->mclk_reset);
-+		dpu_reset_assert(a_crtc->dev, "aclk", a_crtc->aclk_reset);
-+		dpu_reset_assert(a_crtc->dev, "dsc", a_crtc->dsc_reset);
-+		usleep_range(10000, 20000);
-+		a_crtc->first_modeset = false;
-+	}
-+
-+	if (!a_crtc->clocks_on) {
-+		a_crtc->clocks_on = true;
-+		dpu_pm_resume(a_crtc->dev);
-+
-+		/*
-+		 * The DPU must settle after reset deassert or CFG_RDY races
-+		 * the flush.
-+		 */
-+		usleep_range(10000, 20000);
-+	}
-+
-+	drm_crtc_vblank_on(&a_crtc->crtc);
-+
-+	spacemit_crtc_init(a_crtc);
-+
-+	drm_dev_exit(idx);
-+}
-+
-+static void spacemit_crtc_atomic_disable(struct drm_crtc *crtc,
-+					 struct drm_atomic_commit *old_state)
-+{
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+	struct drm_device *drm = a_crtc->crtc.dev;
-+	int idx;
-+
-+	if (!drm_dev_enter(drm, &idx))
-+		return;
-+
-+	trace_spacemit_crtc_atomic_disable(a_crtc->dev_id);
-+
-+	spacemit_crtc_uninit(a_crtc);
-+
-+	drm_crtc_vblank_off(&a_crtc->crtc);
-+
-+	/*
-+	 * MMIO on a clock-gated DPU stalls the bus, so an in-flight handler
-+	 * must finish its status reads before dpu_pm_suspend() gates the
-+	 * clocks.
-+	 */
-+	if (a_crtc->irq_online > 0)
-+		synchronize_irq(a_crtc->irq_online);
-+
-+	/*
-+	 * Nothing else cancels the watchdog; it would fire against freed state.
-+	 */
-+	timer_delete_sync(&a_crtc->cfg_rdy_timer);
-+
-+	/* Close the ISR's MMIO gate before the clocks actually stop. */
-+	a_crtc->clocks_on = false;
-+	dpu_pm_suspend(a_crtc->dev);
-+
-+	spin_lock_irq(&drm->event_lock);
-+	if (crtc->state->event) {
-+		drm_crtc_send_vblank_event(crtc, crtc->state->event);
-+		crtc->state->event = NULL;
-+	}
-+	spin_unlock_irq(&drm->event_lock);
-+
-+	drm_dev_exit(idx);
-+}
-+
-+static int spacemit_crtc_atomic_check(struct drm_crtc *crtc,
-+				      struct drm_atomic_commit *atomic_state)
-+{
-+	struct drm_crtc_state *state =
-+			drm_atomic_get_new_crtc_state(atomic_state, crtc);
-+	struct spacemit_crtc_state *cstate = to_spacemit_crtc_state(state);
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+	int ret = 0;
-+
-+	trace_spacemit_crtc_atomic_check(a_crtc->dev_id);
-+
-+	ret = spacemit_crtc_atomic_check_fbmem(crtc, state);
-+	if (ret) {
-+		drm_dbg_kms(crtc->dev,
-+			    "failed to satisfy fbcmem size for all rdmas\n");
-+		return ret;
-+	}
-+
-+	saturn_count_rdma_use(state);
-+
-+	ret = spacemit_cmdlist_alloc(a_crtc->dev, &cstate->cl);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static void spacemit_crtc_atomic_begin(struct drm_crtc *crtc,
-+				       struct drm_atomic_commit *state)
-+{
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+
-+	trace_spacemit_crtc_atomic_begin(a_crtc->dev_id);
-+}
-+
-+static void spacemit_crtc_atomic_flush(struct drm_crtc *crtc,
-+				       struct drm_atomic_commit *state)
-+{
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+	struct drm_crtc_state *old_state = drm_atomic_get_old_crtc_state(state,
-+		crtc);
-+	int idx;
-+
-+	if (!drm_dev_enter(crtc->dev, &idx))
-+		return;
-+
-+	trace_spacemit_crtc_atomic_flush(a_crtc->dev_id);
-+
-+	spacemit_crtc_run(crtc, old_state);
-+
-+	drm_dev_exit(idx);
-+}
-+
-+static struct drm_crtc_state *
-+spacemit_crtc_duplicate_state(struct drm_crtc *crtc)
-+{
-+	struct spacemit_crtc_state *state;
-+	struct spacemit_drm_private *priv = crtc->dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	u8 n_rdma;
-+
-+	if (WARN_ON(!crtc->state))
-+		return NULL;
-+
-+	state = kzalloc_obj(*state);
-+	if (!state)
-+		return NULL;
-+
-+	__drm_atomic_helper_crtc_duplicate_state(crtc, &state->base);
-+
-+	n_rdma = hwdev->rdma_nums;
-+	state->rdmas = kzalloc_objs(*state->rdmas, n_rdma);
-+	if (!state->rdmas) {
-+		kfree(state);
-+		return NULL;
-+	}
-+
-+	state->cl.type = CMDLIST_CRTC;
-+
-+	return &state->base;
-+}
-+
-+static void spacemit_crtc_destroy_state(struct drm_crtc *crtc,
-+					struct drm_crtc_state *state)
-+{
-+	struct spacemit_crtc_state *spacemit_state = NULL;
-+	struct spacemit_crtc *a_crtc = NULL;
-+
-+	if (state) {
-+		spacemit_state = to_spacemit_crtc_state(state);
-+		__drm_atomic_helper_crtc_destroy_state(state);
-+		a_crtc = to_spacemit_crtc(crtc);
-+		if (spacemit_state->cl.va)
-+			dma_free_coherent(a_crtc->dev,
-+					  spacemit_state->cl.size,
-+					  spacemit_state->cl.va,
-+					  spacemit_state->cl.pa);
-+		kfree(spacemit_state->rdmas);
-+		kfree(spacemit_state);
-+	}
-+}
-+
-+static void spacemit_crtc_reset(struct drm_crtc *crtc)
-+{
-+	struct spacemit_drm_private *priv = crtc->dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	struct spacemit_crtc_state *state;
-+
-+	if (crtc->state)
-+		spacemit_crtc_destroy_state(crtc, crtc->state);
-+
-+	state = kzalloc_obj(*state);
-+	if (!state) {
-+		__drm_atomic_helper_crtc_reset(crtc, NULL);
-+		return;
-+	}
-+
-+	state->rdmas = kzalloc_objs(*state->rdmas, hwdev->rdma_nums);
-+	if (!state->rdmas) {
-+		kfree(state);
-+		__drm_atomic_helper_crtc_reset(crtc, NULL);
-+		return;
-+	}
-+
-+	__drm_atomic_helper_crtc_reset(crtc, &state->base);
-+}
-+
-+static int spacemit_crtc_enable_vblank(struct drm_crtc *crtc)
-+{
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+
-+	trace_spacemit_crtc_enable_vblank(a_crtc->dev_id);
-+
-+	if (a_crtc->core && a_crtc->core->enable_vsync)
-+		a_crtc->core->enable_vsync(a_crtc);
-+
-+	return 0;
-+}
-+
-+static void spacemit_crtc_disable_vblank(struct drm_crtc *crtc)
-+{
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+
-+	trace_spacemit_crtc_disable_vblank(a_crtc->dev_id);
-+
-+	if (a_crtc->core && a_crtc->core->disable_vsync)
-+		a_crtc->core->disable_vsync(a_crtc);
-+}
-+
-+static const struct drm_crtc_helper_funcs spacemit_crtc_helper_funcs = {
-+	.atomic_check = spacemit_crtc_atomic_check,
-+	.atomic_begin = spacemit_crtc_atomic_begin,
-+	.atomic_flush = spacemit_crtc_atomic_flush,
-+	.atomic_enable = spacemit_crtc_atomic_enable,
-+	.atomic_disable = spacemit_crtc_atomic_disable,
-+};
-+
-+static const struct drm_crtc_funcs spacemit_crtc_funcs = {
-+	.destroy = drm_crtc_cleanup,
-+	.set_config = drm_atomic_helper_set_config,
-+	.page_flip = drm_atomic_helper_page_flip,
-+	.reset = spacemit_crtc_reset,
-+	.atomic_duplicate_state = spacemit_crtc_duplicate_state,
-+	.atomic_destroy_state = spacemit_crtc_destroy_state,
-+	.enable_vblank = spacemit_crtc_enable_vblank,
-+	.disable_vblank = spacemit_crtc_disable_vblank,
-+};
-+
-+static void spacemit_crtc_put_port(struct drm_device *drm, void *port)
-+{
-+	of_node_put(port);
-+}
-+
-+static int spacemit_crtc_bind_init(struct drm_device *drm, struct drm_crtc *crtc,
-+				   struct drm_plane *primary, struct device_node *port)
-+{
-+	int err;
-+
-+	/*
-+	 * drm_of_find_possible_crtcs() walks crtc->port for the life of the
-+	 * drm_device.
-+	 */
-+	crtc->port = of_node_get(port);
-+	err = drmm_add_action_or_reset(drm, spacemit_crtc_put_port, port);
-+	if (err)
-+		return err;
-+
-+	err = drm_crtc_init_with_planes(drm, crtc, primary, NULL,
-+					&spacemit_crtc_funcs, NULL);
-+	if (err) {
-+		drm_err(drm, "failed to init crtc\n");
-+		return err;
-+	}
-+
-+	drm_mode_crtc_set_gamma_size(crtc, 256);
-+
-+	drm_crtc_helper_add(crtc, &spacemit_crtc_helper_funcs);
-+
-+	return 0;
-+}
-+
-+int spacemit_crtc_run(struct drm_crtc *crtc,
-+		      struct drm_crtc_state *old_state)
-+{
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+
-+	trace_spacemit_crtc_run(a_crtc->dev_id);
-+
-+	if (a_crtc->core && a_crtc->core->run)
-+		a_crtc->core->run(crtc, old_state);
-+
-+	return 0;
-+}
-+
-+static int spacemit_crtc_init(struct spacemit_crtc *a_crtc)
-+{
-+	trace_spacemit_crtc_init(a_crtc->dev_id);
-+
-+	if (a_crtc->core && a_crtc->core->init)
-+		a_crtc->core->init(a_crtc);
-+
-+	a_crtc->is_1st_f = true;
-+
-+	return 0;
-+}
-+
-+static int spacemit_crtc_uninit(struct spacemit_crtc *a_crtc)
-+{
-+	trace_spacemit_crtc_uninit(a_crtc->dev_id);
-+
-+	if (a_crtc->core && a_crtc->core->uninit)
-+		a_crtc->core->uninit(a_crtc);
-+
-+	return 0;
-+}
-+
-+static irqreturn_t spacemit_dpu_isr(int irq, void *data)
-+{
-+	struct spacemit_drm_private *priv = data;
-+	struct spacemit_crtc *a_crtc = priv->a_crtc;
-+	int idx;
-+
-+	if (!a_crtc)
-+		return IRQ_NONE;
-+
-+	if (!drm_dev_enter(a_crtc->crtc.dev, &idx))
-+		return IRQ_NONE;
-+
-+	/* Reading a clock-gated DPU's status registers stalls the bus. */
-+	if (unlikely(!a_crtc->clocks_on)) {
-+		drm_dev_exit(idx);
-+		return IRQ_NONE;
-+	}
-+
-+	if (a_crtc->core && a_crtc->core->online_isr)
-+		a_crtc->core->online_isr(a_crtc);
-+
-+	drm_dev_exit(idx);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+/*
-+ * Acquire at probe, not at bind: the aggregate can rebind without this device
-+ * detaching, and the exclusive resets would not be handed out a second time.
-+ */
-+static int spacemit_dpu_hw_resources_init(struct spacemit_drm_private *priv,
-+					  struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	int ret;
-+
-+	ret = dpu_parse_clocks(dev, &priv->clk_ctx);
-+	if (ret)
-+		return ret;
-+
-+	priv->mclk_reset = devm_reset_control_get_optional_exclusive(dev,
-+								     "mclk");
-+	if (IS_ERR(priv->mclk_reset))
-+		return dev_err_probe(dev, PTR_ERR(priv->mclk_reset),
-+				     "failed to get mclk reset\n");
-+	priv->esc_reset = devm_reset_control_get_optional_exclusive(dev, "esc");
-+	if (IS_ERR(priv->esc_reset))
-+		return dev_err_probe(dev, PTR_ERR(priv->esc_reset),
-+				     "failed to get esc reset\n");
-+	priv->lcd_reset = devm_reset_control_get_optional_exclusive(dev, "lcd");
-+	if (IS_ERR(priv->lcd_reset))
-+		return dev_err_probe(dev, PTR_ERR(priv->lcd_reset),
-+				     "failed to get lcd reset\n");
-+	priv->aclk_reset = devm_reset_control_get_optional_exclusive(dev,
-+								     "aclk");
-+	if (IS_ERR(priv->aclk_reset))
-+		return dev_err_probe(dev, PTR_ERR(priv->aclk_reset),
-+				     "failed to get aclk reset\n");
-+	priv->dsc_reset = devm_reset_control_get_optional_exclusive(dev, "dsc");
-+	if (IS_ERR(priv->dsc_reset))
-+		return dev_err_probe(dev, PTR_ERR(priv->dsc_reset),
-+				     "failed to get dsc reset\n");
-+
-+	priv->irq_online = platform_get_irq_byname(pdev, "online");
-+	if (priv->irq_online < 0)
-+		return priv->irq_online;
-+
-+	/*
-+	 * Keep the line disabled until bind: the handler needs bind-created
-+	 * state, and a bootloader-left display can raise an interrupt during
-+	 * probe.
-+	 */
-+	ret = devm_request_irq(dev, priv->irq_online, spacemit_dpu_isr,
-+			       IRQF_NO_AUTOEN, "DPU_ONLINE", priv);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to request online IRQ\n");
-+
-+	return 0;
-+}
-+
-+static const struct regmap_config spacemit_dpu_regmap_config = {
-+	.name		= "dpu",
-+	.reg_bits	= 32,
-+	.val_bits	= 32,
-+	.reg_stride	= 4,
-+	.max_register	= 0x53ffc,	/* 0x54000-byte DPU MMIO from binding */
-+};
-+
-+/* Bind-scope wrapper so devm_drm_dev_alloc has a struct to embed into. */
-+struct spacemit_kms {
-+	struct drm_device drm;
-+};
-+
-+static int spacemit_drm_master_bind(struct device *dev)
-+{
-+	struct spacemit_drm_private *priv = dev_get_drvdata(dev);
-+	struct device_node *np = dev->of_node;
-+	struct device_node *ports = NULL, *port = NULL;
-+	struct spacemit_crtc *a_crtc;
-+	struct drm_plane *plane;
-+	struct spacemit_kms *kms;
-+	struct drm_device *drm;
-+	int ret;
-+
-+	ret = aperture_remove_all_conflicting_devices(spacemit_drm_drv.name);
-+	if (ret) {
-+		dev_err(dev, "failed to remove existing framebuffers: %d\n",
-+			ret);
-+		return ret;
-+	}
-+
-+	kms = devm_drm_dev_alloc(dev, &spacemit_drm_drv,
-+				 struct spacemit_kms, drm);
-+	if (IS_ERR(kms))
-+		return PTR_ERR(kms);
-+	drm = &kms->drm;
-+	priv->ddev = drm;
-+	drm->dev_private = priv;
-+
-+	ret = spacemit_drm_mode_config_init(drm);
-+	if (ret)
-+		return ret;
-+
-+	a_crtc = drmm_kzalloc(drm, sizeof(*a_crtc), GFP_KERNEL);
-+	if (!a_crtc) {
-+		ret = -ENOMEM;
-+		goto err_dc;
-+	}
-+	a_crtc->dev = dev;
-+	a_crtc->first_modeset = true;
-+	priv->a_crtc = a_crtc;
-+
-+	a_crtc->clk_ctx = priv->clk_ctx;
-+	a_crtc->aclk = DPU_AXICLK_DEFAULT;
-+	a_crtc->mclk_reset = priv->mclk_reset;
-+	a_crtc->esc_reset = priv->esc_reset;
-+	a_crtc->lcd_reset = priv->lcd_reset;
-+	a_crtc->aclk_reset = priv->aclk_reset;
-+	a_crtc->dsc_reset = priv->dsc_reset;
-+	a_crtc->irq_online = priv->irq_online;
-+
-+	/* Both K3 DPU instances are COMPOSER1 in the Saturn IRQ tables. */
-+	a_crtc->dev_id = COMPOSER1;
-+
-+	/* The K3 pipeline always hands RGB888 to the DP/eDP encoder. */
-+	a_crtc->out_format = OUTFMT_RGB888;
-+
-+	a_crtc->core = &dpu_saturn_ops;
-+
-+	timer_setup(&a_crtc->cfg_rdy_timer, spacemit_cfg_rdy_timer_handler, 0);
-+
-+	plane = spacemit_plane_init(drm, a_crtc);
-+	if (IS_ERR(plane)) {
-+		ret = PTR_ERR(plane);
-+		goto err_dc;
-+	}
-+
-+	ports = of_get_child_by_name(np, "ports");
-+	if (!ports) {
-+		dev_err(dev, "CRTC %pOF has no ports node\n", np);
-+		ret = -EINVAL;
-+		goto err_dc;
-+	}
-+
-+	port = of_get_child_by_name(ports, "port");
-+	if (!port) {
-+		dev_err(dev, "CRTC %pOF has no port@X node\n", np);
-+		ret = -EINVAL;
-+		goto err_ports_put;
-+	}
-+
-+	ret = spacemit_crtc_bind_init(drm, &a_crtc->crtc, plane, port);
-+	of_node_put(port);
-+	of_node_put(ports);
-+	port = NULL;
-+	ports = NULL;
-+	if (ret)
-+		goto err_dc;
-+
-+	/*
-+	 * component_bind_all() unbinds what it bound before returning an error.
-+	 */
-+	ret = component_bind_all(dev, drm);
-+	if (ret) {
-+		dev_err(dev, "failed to bind all components\n");
-+		goto err_dc;
-+	}
-+
-+	ret = drm_vblank_init(drm, drm->mode_config.num_crtc);
-+	if (ret) {
-+		dev_err(dev, "failed to initialize vblank\n");
-+		goto err_unbind_all;
-+	}
-+
-+	drm_mode_config_reset(drm);
-+	drmm_kms_helper_poll_init(drm);
-+	drm_helper_hpd_irq_event(drm);
-+
-+	enable_irq(priv->irq_online);
-+
-+	ret = drm_dev_register(drm, 0);
-+	if (ret < 0)
-+		goto err_disable_irq;
-+	drm_client_setup(drm, NULL);
-+
-+	return 0;
-+
-+err_disable_irq:
-+	disable_irq(priv->irq_online);
-+
-+err_unbind_all:
-+	component_unbind_all(dev, drm);
-+	goto err_dc;
-+err_ports_put:
-+	of_node_put(port);
-+	of_node_put(ports);
-+err_dc:
-+	/*
-+	 * .shutdown tests priv->ddev; never leave it on a half-initialised
-+	 * device.
-+	 */
-+	priv->ddev = NULL;
-+	priv->a_crtc = NULL;
-+	return ret;
-+}
-+
-+static void spacemit_drm_master_unbind(struct device *dev)
-+{
-+	struct spacemit_drm_private *priv = dev_get_drvdata(dev);
-+	struct drm_device *drm = priv->ddev;
-+
-+	disable_irq(priv->irq_online);
-+
-+	drm_dev_unregister(drm);
-+	drm_atomic_helper_shutdown(drm);
-+	component_unbind_all(dev, drm);
-+
-+	/* .shutdown and a later re-bind must not touch the stale instance. */
-+	priv->ddev = NULL;
-+	priv->a_crtc = NULL;
-+}
-+
-+const struct component_master_ops spacemit_drm_master_ops = {
-+	.bind = spacemit_drm_master_bind,
-+	.unbind = spacemit_drm_master_unbind,
-+};
-+
-+static int spacemit_dpu_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	const struct spacemit_hw_device *hwdev_template;
-+	struct spacemit_drm_private *priv;
-+	struct device_node *np = dev->of_node;
-+	int ret;
-+
-+	if (!np) {
-+		dev_err(dev, "no OF node for the DPU\n");
-+		return -ENODEV;
-+	}
-+
-+	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(64));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to set DMA mask\n");
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+	priv->dev = dev;
-+	dev_set_drvdata(dev, priv);
-+
-+	/* The match data is shared const; the MMIO mapping is per-instance. */
-+	hwdev_template = device_get_match_data(dev);
-+	if (!hwdev_template)
-+		return -ENODEV;
-+	priv->hwdev = devm_kmemdup(dev, hwdev_template,
-+				   sizeof(*hwdev_template), GFP_KERNEL);
-+	if (!priv->hwdev)
-+		return -ENOMEM;
-+
-+	priv->cmdlist_groups = devm_kcalloc(dev,
-+		priv->hwdev->rdma_nums + priv->hwdev->crtc_nums,
-+		sizeof(*priv->cmdlist_groups), GFP_KERNEL);
-+	if (!priv->cmdlist_groups)
-+		return -ENOMEM;
-+
-+	priv->hwdev->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->hwdev->base))
-+		return PTR_ERR(priv->hwdev->base);
-+
-+	priv->hwdev->regmap = devm_regmap_init_mmio(dev, priv->hwdev->base,
-+		&spacemit_dpu_regmap_config);
-+	if (IS_ERR(priv->hwdev->regmap))
-+		return dev_err_probe(dev, PTR_ERR(priv->hwdev->regmap),
-+				     "failed to init DPU regmap\n");
-+
-+	ret = spacemit_dpu_hw_resources_init(priv, pdev);
-+	if (ret)
-+		return ret;
-+
-+	return spacemit_drm_of_component_probe(dev);
-+}
-+
-+static void spacemit_dpu_remove(struct platform_device *pdev)
-+{
-+	component_master_del(&pdev->dev, &spacemit_drm_master_ops);
-+}
-+
-+static void spacemit_dpu_shutdown(struct platform_device *pdev)
-+{
-+	struct spacemit_drm_private *priv = dev_get_drvdata(&pdev->dev);
-+	struct drm_device *drm = priv->ddev;
-+
-+	if (!drm) {
-+		dev_warn(&pdev->dev,
-+			 "drm device is not available, no shutdown\n");
-+		return;
-+	}
-+
-+	drm_atomic_helper_shutdown(drm);
-+}
-+
-+/*
-+ * The assert and deassert orders are not mirror images: the hardware wants
-+ * these.
-+ */
-+static void dpu_reset_assert(struct device *dev, const char *name,
-+			     struct reset_control *rstc)
-+{
-+	int ret = reset_control_assert(rstc);
-+
-+	if (ret)
-+		dev_warn(dev, "failed to assert %s reset: %d\n", name, ret);
-+}
-+
-+static void dpu_reset_deassert(struct device *dev, const char *name,
-+			       struct reset_control *rstc)
-+{
-+	int ret = reset_control_deassert(rstc);
-+
-+	if (ret)
-+		dev_warn(dev, "failed to deassert %s reset: %d\n", name, ret);
-+}
-+
-+static int dpu_pm_suspend(struct device *dev)
-+{
-+	struct spacemit_drm_private *priv = dev_get_drvdata(dev);
-+	struct spacemit_crtc *a_crtc = priv->a_crtc;
-+
-+	/*
-+	 * Assert before gating: a reset asserted into an already-gated block
-+	 * has no clock edges to propagate on and leaves the register file
-+	 * untouched.
-+	 */
-+	dpu_reset_assert(dev, "lcd", a_crtc->lcd_reset);
-+	dpu_reset_assert(dev, "esc", a_crtc->esc_reset);
-+	dpu_reset_assert(dev, "mclk", a_crtc->mclk_reset);
-+	dpu_reset_assert(dev, "aclk", a_crtc->aclk_reset);
-+	dpu_reset_assert(dev, "dsc", a_crtc->dsc_reset);
-+	usleep_range(10000, 20000);
-+
-+	if (a_crtc->core && a_crtc->core->disable_clk)
-+		a_crtc->core->disable_clk(a_crtc);
-+
-+	return 0;
-+}
-+
-+static int dpu_pm_resume(struct device *dev)
-+{
-+	struct spacemit_drm_private *priv = dev_get_drvdata(dev);
-+	struct spacemit_crtc *a_crtc = priv->a_crtc;
-+
-+	dpu_reset_deassert(dev, "mclk", a_crtc->mclk_reset);
-+	dpu_reset_deassert(dev, "esc", a_crtc->esc_reset);
-+	dpu_reset_deassert(dev, "lcd", a_crtc->lcd_reset);
-+	dpu_reset_deassert(dev, "aclk", a_crtc->aclk_reset);
-+	dpu_reset_deassert(dev, "dsc", a_crtc->dsc_reset);
-+
-+	if (a_crtc->core && a_crtc->core->enable_clk)
-+		a_crtc->core->enable_clk(a_crtc);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id dpu_match_table[] = {
-+	{
-+		.compatible = "spacemit,k3-saturn-dpu",
-+		.data = &k3_saturn_dpu,
-+	},
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, dpu_match_table);
-+
-+static struct platform_driver spacemit_dpu_driver = {
-+	.probe = spacemit_dpu_probe,
-+	.remove = spacemit_dpu_remove,
-+	.shutdown = spacemit_dpu_shutdown,
-+	.driver = {
-+		.name = "spacemit-dpu-drv",
-+		.of_match_table = dpu_match_table,
-+		.suppress_bind_attrs = true,
-+	},
-+};
-+module_platform_driver(spacemit_dpu_driver);
-+
-+MODULE_DESCRIPTION("SpacemiT DRM KMS master driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/gpu/drm/spacemit/spacemit_planes.c b/drivers/gpu/drm/spacemit/spacemit_planes.c
-new file mode 100644
-index 000000000000..3442013b0c37
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/spacemit_planes.c
-@@ -0,0 +1,376 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-+ *
-+ */
-+
-+#include <drm/drm_print.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_blend.h>
-+#include <drm/drm_atomic_uapi.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_managed.h>
-+#include <drm/drm_plane.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_plane_helper.h>
-+#include <drm/drm_color_mgmt.h>
-+#include <drm/drm_gem.h>
-+#include <linux/component.h>
-+#include <linux/dma-mapping.h>
-+#include "spacemit_cmdlist.h"
-+#include "spacemit_dmmu.h"
-+#include "spacemit_drm.h"
-+#include "dpu/dpu_saturn.h"
-+#include "dpu/dpu_trace.h"
-+#include "dpu/saturn_fbcmem.h"
-+
-+/* The AFBC decoder exists but no modifier has been validated on hardware. */
-+static const u64 supported_format_modifiers[] = {
-+	DRM_FORMAT_MOD_LINEAR,
-+	DRM_FORMAT_MOD_INVALID
-+};
-+
-+struct spacemit_plane *to_spacemit_plane(struct drm_plane *plane)
-+{
-+	return container_of(plane, struct spacemit_plane, plane);
-+}
-+
-+static int spacemit_plane_atomic_check(struct drm_plane *plane,
-+				       struct drm_atomic_commit *atomic_state)
-+{
-+	struct drm_plane_state *state =
-+			drm_atomic_get_new_plane_state(atomic_state, plane);
-+	struct drm_framebuffer *fb = state->fb;
-+	u32 src_w, src_h, src_x, src_y;
-+	u32 crtc_w, crtc_h;
-+	struct spacemit_plane_state *cur_state = to_spacemit_plane_state(state);
-+	u32 cur_rdma_id = cur_state->rdma_id;
-+	struct spacemit_drm_private *priv = plane->dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	struct spacemit_crtc *a_crtc = NULL;
-+
-+	struct drm_crtc_state *crtc_state = NULL;
-+	int ret;
-+
-+	if (state->crtc)
-+		crtc_state = drm_atomic_get_new_crtc_state(atomic_state,
-+							   state->crtc);
-+
-+	ret = drm_atomic_helper_check_plane_state(state, crtc_state,
-+						  DRM_PLANE_NO_SCALING,
-+						  DRM_PLANE_NO_SCALING,
-+						  true, false);
-+	if (ret)
-+		return ret;
-+
-+	if (!state->visible)
-+		return 0;
-+
-+	a_crtc = to_spacemit_crtc(state->crtc);
-+	trace_spacemit_plane_atomic_check(a_crtc->dev_id);
-+
-+	src_x = state->src_x >> 16;
-+	src_y = state->src_y >> 16;
-+	src_w = state->src_w >> 16;
-+	src_h = state->src_h >> 16;
-+	crtc_w = state->crtc_w;
-+	crtc_h = state->crtc_h;
-+
-+	/* The programming paths use the raw rectangles, so refuse to clip. */
-+	if ((state->src.x1 >> 16) != src_x || (state->src.y1 >> 16) != src_y ||
-+	    (drm_rect_width(&state->src) >> 16) != src_w ||
-+	    (drm_rect_height(&state->src) >> 16) != src_h ||
-+	    state->dst.x1 != state->crtc_x || state->dst.y1 != state->crtc_y ||
-+	    drm_rect_width(&state->dst) != crtc_w ||
-+	    drm_rect_height(&state->dst) != crtc_h) {
-+		drm_dbg_kms(plane->dev,
-+			    "clipped plane rectangles not supported\n");
-+		return -EINVAL;
-+	}
-+
-+	/* One-dimensional sources are invalid (only 0x0 = constant fill) */
-+	if ((src_w == 0) != (src_h == 0)) {
-+		drm_dbg_kms(plane->dev, "unsupported src_w %d src_h %d\n",
-+			    src_w, src_h);
-+		return -EINVAL;
-+	}
-+
-+	if (src_w == 0 && src_h == 0)
-+		cur_rdma_id = RDMA_INVALID_ID;	/* constant-fill layer, no RDMA */
-+	else if (cur_rdma_id == RDMA_INVALID_ID)
-+		cur_rdma_id = state->zpos;	/* first commit: bind channel by zpos */
-+	cur_state->rdma_id = cur_rdma_id;
-+
-+	if (cur_rdma_id != RDMA_INVALID_ID) {
-+		if (cur_rdma_id >= hwdev->rdma_nums) {
-+			drm_dbg_kms(plane->dev, "invalid rdma id %d\n",
-+				    cur_rdma_id);
-+			return -EINVAL;
-+		}
-+
-+		if (a_crtc->core->cal_layer_fbcmem_size(plane, state)) {
-+			drm_dbg_kms(plane->dev,
-+				    "plane %d: invalid fbcmem size\n",
-+				    state->zpos);
-+			return -EINVAL;
-+		}
-+
-+		cur_state->mmu_tbl.size =
-+			((PAGE_ALIGN(fb->obj[0]->size) >> PAGE_SHIFT) +
-+			 HW_ALIGN_TTB_NUM) * 4;
-+		cur_state->mmu_tbl.va =
-+			dma_alloc_coherent(a_crtc->dev, cur_state->mmu_tbl.size,
-+					   &cur_state->mmu_tbl.pa,
-+					   GFP_KERNEL | __GFP_ZERO);
-+		if (!cur_state->mmu_tbl.va)
-+			return -ENOMEM;
-+	}
-+
-+	/*
-+	 * The commit cannot fail, so take the DMA buffer while -ENOMEM is an
-+	 * answer.
-+	 */
-+	ret = spacemit_cmdlist_alloc(a_crtc->dev, &cur_state->cl);
-+	if (ret)
-+		return ret;
-+
-+	cur_state->format = spacemit_plane_hw_get_format_id(fb->format->format);
-+	if (cur_state->format == SPACEMIT_DPU_INVALID_FORMAT_ID) {
-+		drm_dbg_kms(plane->dev, "unsupported format %p4cc\n",
-+			    &fb->format->format);
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static void spacemit_plane_atomic_update(struct drm_plane *plane,
-+					 struct drm_atomic_commit *state)
-+{
-+	int ret = 0;
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(plane->state->crtc);
-+	struct spacemit_plane_state *spacemit_pstate =
-+			to_spacemit_plane_state(plane->state);
-+	struct spacemit_drm_private *priv = plane->dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	u32 rdma_id = spacemit_pstate->rdma_id;
-+	struct cmdlist *cl = NULL;
-+	int idx;
-+
-+	if (!drm_dev_enter(plane->dev, &idx))
-+		return;
-+
-+	trace_spacemit_plane_atomic_update(a_crtc->dev_id);
-+
-+	hwdev->get_cl_rdma_buf(a_crtc);
-+
-+	hwdev->plane_update_hw_channel(plane);
-+
-+	/* Solid-fill layers have no RDMA and no page table */
-+	if (rdma_id < hwdev->rdma_nums && spacemit_pstate->mmu_tbl.va) {
-+		u8 tbu_id = rdma_id * 2;
-+
-+		ret = spacemit_dmmu_map(plane->state->fb,
-+					&spacemit_pstate->mmu_tbl, tbu_id,
-+					a_crtc->cl_rdma, plane);
-+		if (!ret)
-+			cmdlist_regs_packing(plane_to_cl(plane),
-+					     CMDLIST_MOD_RDMA, a_crtc->cl_rdma);
-+		else
-+			drm_err(plane->dev, "failed to map plane: %d\n", ret);
-+	}
-+
-+	cl = &spacemit_pstate->cl;
-+	cl->rch_start_cmps_y = CMDLIST_SENTINEL_POISON;
-+	cl->cmdlist_ch_y_other = CMDLIST_SENTINEL_POISON;
-+	free_cmdlist_regs(a_crtc->cl_rdma);
-+
-+	drm_dev_exit(idx);
-+}
-+
-+static void spacemit_plane_atomic_disable(struct drm_plane *plane,
-+					  struct drm_atomic_commit *state)
-+{
-+	struct drm_plane_state *old_state =
-+			drm_atomic_get_old_plane_state(state, plane);
-+	struct spacemit_drm_private *priv = plane->dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	int idx;
-+
-+	if (!drm_dev_enter(plane->dev, &idx))
-+		return;
-+
-+	hwdev->plane_disable_hw_channel(plane, old_state);
-+
-+	drm_dev_exit(idx);
-+}
-+
-+static void spacemit_plane_reset(struct drm_plane *plane)
-+{
-+	struct spacemit_plane_state *s;
-+
-+	if (plane->state) {
-+		s = to_spacemit_plane_state(plane->state);
-+		__drm_atomic_helper_plane_destroy_state(plane->state);
-+		kfree(s);
-+		plane->state = NULL;
-+	}
-+
-+	s = kzalloc(sizeof(*s), GFP_KERNEL);
-+	if (s) {
-+		__drm_atomic_helper_plane_reset(plane, &s->state);
-+		s->rdma_id = RDMA_INVALID_ID;
-+	}
-+}
-+
-+static struct drm_plane_state *
-+spacemit_plane_atomic_duplicate_state(struct drm_plane *plane)
-+{
-+	struct spacemit_plane_state *s;
-+	struct spacemit_plane_state *old_state =
-+			to_spacemit_plane_state(plane->state);
-+	struct spacemit_crtc *a_crtc = NULL;
-+
-+	if (plane->crtc) {
-+		a_crtc = to_spacemit_crtc(plane->crtc);
-+		trace_spacemit_plane_atomic_duplicate_state(a_crtc->dev_id);
-+	}
-+
-+	s = kzalloc(sizeof(*s), GFP_KERNEL);
-+	if (!s)
-+		return NULL;
-+
-+	__drm_atomic_helper_plane_duplicate_state(plane, &s->state);
-+
-+	WARN_ON(s->state.plane != plane);
-+
-+	s->cl.type = CMDLIST_PLANE;
-+
-+	s->rdma_id = old_state->rdma_id;
-+	s->format = old_state->format;
-+	s->fbcmem_size = 0;
-+
-+	return &s->state;
-+}
-+
-+static void spacemit_plane_atomic_destroy_state(struct drm_plane *plane,
-+						struct drm_plane_state *state)
-+{
-+	struct spacemit_plane_state *spacemit_pstate =
-+			to_spacemit_plane_state(state);
-+	struct spacemit_crtc *a_crtc = NULL;
-+
-+	if (state->crtc) {
-+		a_crtc = to_spacemit_crtc(state->crtc);
-+
-+		if (spacemit_pstate->mmu_tbl.va)
-+			dma_free_coherent(a_crtc->dev,
-+					  spacemit_pstate->mmu_tbl.size,
-+					  spacemit_pstate->mmu_tbl.va,
-+					  spacemit_pstate->mmu_tbl.pa);
-+
-+		if (spacemit_pstate->cl.va)
-+			dma_free_coherent(a_crtc->dev,
-+					  spacemit_pstate->cl.size,
-+					  spacemit_pstate->cl.va,
-+					  spacemit_pstate->cl.pa);
-+		trace_spacemit_plane_atomic_destroy_state(a_crtc->dev_id);
-+	}
-+	__drm_atomic_helper_plane_destroy_state(state);
-+
-+	kfree(to_spacemit_plane_state(state));
-+}
-+
-+static void spacemit_plane_create_properties(struct spacemit_plane *p)
-+{
-+	unsigned int support_modes = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
-+		BIT(DRM_MODE_BLEND_PREMULTI) |
-+		BIT(DRM_MODE_BLEND_COVERAGE);
-+
-+	drm_plane_create_alpha_property(&p->plane);
-+
-+	drm_plane_create_blend_mode_property(&p->plane, support_modes);
-+}
-+
-+static const struct drm_plane_helper_funcs spacemit_plane_helper_funcs = {
-+	.atomic_check = spacemit_plane_atomic_check,
-+	.atomic_update = spacemit_plane_atomic_update,
-+	.atomic_disable = spacemit_plane_atomic_disable,
-+};
-+
-+static const struct drm_plane_funcs spacemit_plane_funcs = {
-+	.update_plane = drm_atomic_helper_update_plane,
-+	.disable_plane	= drm_atomic_helper_disable_plane,
-+	.destroy = drm_plane_cleanup,
-+	.reset = spacemit_plane_reset,
-+	.atomic_duplicate_state = spacemit_plane_atomic_duplicate_state,
-+	.atomic_destroy_state = spacemit_plane_atomic_destroy_state,
-+};
-+
-+struct drm_plane *spacemit_plane_init(struct drm_device *drm,
-+				      struct spacemit_crtc *a_crtc)
-+{
-+	struct spacemit_plane *p = NULL;
-+	int err, j;
-+	u32 *formats;
-+	struct spacemit_drm_private *priv = drm->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	u8 n_formats = hwdev->n_formats;
-+	u8 n_fbcmems = hwdev->n_fbcmems;
-+	u8 n_rdmas = hwdev->rdma_nums;
-+	u32 plane_crtc_mask;
-+
-+	trace_spacemit_plane_init(a_crtc->dev_id);
-+	if (n_fbcmems * 2 != n_rdmas) {
-+		drm_err(drm, "mismatched rdma/fbcmem counts: %d vs %d\n",
-+			n_rdmas, n_fbcmems);
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	for (j = 0; j < n_fbcmems; j++) {
-+		if (hwdev->fbcmem_sizes[j] < FBCMEM_UNIT) {
-+			drm_err(drm, "invalid fbcmem_sizes[%d] = %u\n",
-+				j, hwdev->fbcmem_sizes[j]);
-+			return ERR_PTR(-EINVAL);
-+		}
-+	}
-+
-+	formats = kcalloc(n_formats, sizeof(*formats), GFP_KERNEL);
-+	if (!formats)
-+		return ERR_PTR(-ENOMEM);
-+
-+	/*
-+	 * The CRTC is created right after this, so its index is the current
-+	 * count.
-+	 */
-+	plane_crtc_mask = 1 << drm->mode_config.num_crtc;
-+
-+	/* drmm, not devm: an open DRM fd outlives the platform unbind. */
-+	p = drmm_kzalloc(drm, sizeof(*p), GFP_KERNEL);
-+	if (!p) {
-+		kfree(formats);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	for (j = 0; j < n_formats; j++)
-+		formats[j] = hwdev->formats[j].format;
-+
-+	err = drm_universal_plane_init(drm, &p->plane, plane_crtc_mask,
-+				       &spacemit_plane_funcs, formats,
-+				       n_formats, supported_format_modifiers,
-+				       DRM_PLANE_TYPE_PRIMARY, NULL);
-+	kfree(formats);
-+	if (err) {
-+		drm_err(drm, "failed to init primary plane\n");
-+		return ERR_PTR(err);
-+	}
-+
-+	drm_plane_helper_add(&p->plane, &spacemit_plane_helper_funcs);
-+
-+	spacemit_plane_create_properties(p);
-+
-+	p->hwdev = hwdev;
-+
-+	return &p->plane;
-+}
+> diff --git a/drivers/phy/spacemit/phy-k3-inno-dp.c b/drivers/phy/spacemit=
+/phy-k3-inno-dp.c
+> new file mode 100644
+> index 0000000000000..9dd62edb7a5af
+> --- /dev/null
+> +++ b/drivers/phy/spacemit/phy-k3-inno-dp.c
+> @@ -0,0 +1,948 @@
 
--- 
-2.43.0
+[ ... ]
 
+> +static int k3_inno_dp_phy_power_on(struct phy *phy)
+> +{
+> +	struct k3_inno_dp_phy *p =3D phy_get_drvdata(phy);
+> +	u32 lane_en;
+> +	u32 val;
+> +	int ret;
 
+[ ... ]
+
+> +	ret =3D regmap_read_poll_timeout(p->regmap, DPTX_ANA_MPLL, val,
+> +				       val & DPTX_ANA_MPLL_LOCKED,
+> +				       2000, 10 * 1000);
+> +	if (ret) {
+> +		dev_err(p->dev, "DP PHY core PLL lock timed out\n");
+> +		return ret;
+> +	}
+
+[Severity: Medium]
+If the MPLL or PREPLL fails to lock within 10ms, this immediately returns an
+error without restoring the power down bits or XMIT_EN.
+
+Since the generic PHY framework does not automatically call phy_power_off()
+when phy_power_on() fails, could this leave the hardware running in an
+inconsistent state and leak power?
+
+> +
+> +	ret =3D regmap_read_poll_timeout(p->regmap, DPTX_ANA_PREPLL, val,
+> +				       val & DPTX_ANA_PREPLL_LOCKED,
+> +				       2000, 10 * 1000);
+> +	if (ret)
+> +		dev_err(p->dev, "DP PHY pixel PLL lock timed out\n");
+> +
+> +	return ret;
+> +}
+> +
+> +static int k3_inno_dp_phy_power_off(struct phy *phy)
+> +{
+> +	struct k3_inno_dp_phy *p =3D phy_get_drvdata(phy);
+> +
+> +	regmap_write_bits(p->regmap, DPTX_PHY_CTRL, DPTX_PHY_CTRL_XMIT_EN, 0);
+> +	usleep_range(2000, 4000);
+> +
+> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
+> +			  DPTX_ANA_PREPLL_PD);
+> +	usleep_range(2000, 4000);
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does this power down sequence omit the MPLL?
+
+The k3_inno_dp_phy_power_on() function powers up the MPLL by clearing
+DPTX_ANA_MPLL_PD, but this power_off function does not appear to re-assert
+it. Could this leave the main link PLL running indefinitely when the DP
+controller is suspended or torn down?
+
+[ ... ]
+
+> +static void k3_inno_dp_phy_program_mpll(struct k3_inno_dp_phy *p,
+> +					const struct k3_inno_dp_mpll_cfg *cfg)
+> +{
+> +	struct regmap *rm =3D p->regmap;
+
+[ ... ]
+
+> +	regmap_write_bits(rm, DPTX_ANA_PREPLL_CTRL, DPTX_ANA_PREPLL_LOCK_BYPEN,
+> +		FIELD_PREP(DPTX_ANA_PREPLL_LOCK_BYPEN, 1));
+> +
+> +	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PD,
+> +		FIELD_PREP(DPTX_ANA_MPLL_PD, 0));
+
+[Severity: Medium]
+Does unconditionally writing 0 to DPTX_ANA_MPLL_PD override the logical
+power state of the PHY?
+
+If a DRM driver configures the link rate (calling phy_configure()) while the
+PHY is logically powered off, this will force the PLL to run and
+desynchronize the hardware from the PHY framework's power state.
+
+> +	usleep_range(2000, 4000);
+> +}
+
+[Severity: Medium]
+Is it safe to rely on a fixed 2-4ms sleep here instead of polling
+DPTX_ANA_MPLL_LOCKED?
+
+The power_on() function polls the locked bit for up to 10ms. A fixed delay
+here might proceed with an unstable clock if the hardware takes longer to
+lock, potentially causing display failures or link training issues.
+
+[ ... ]
+
+> +static void k3_inno_dp_program_prepll(struct k3_inno_dp_phy *p,
+> +				      const struct k3_inno_dp_prepll_cfg *cfg)
+> +{
+> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
+> +		FIELD_PREP(DPTX_ANA_PREPLL_PD, 1));
+> +	usleep_range(2000, 4000);
+
+[Severity: High]
+Is a driver-level lock needed to synchronize access to the PHY registers
+between the CCF and PHY frameworks?
+
+Since this driver exposes both a clock (via CCF) and a PHY that share the
+same hardware registers, concurrent calls to clk_set_rate() and
+phy_power_on() can interleave.
+
+If clk_set_rate() begins this multi-step programming sequence, a concurrent
+phy_power_on() could clear the PD bit while the clock is still being
+configured, corrupting the hardware state.
+
+[ ... ]
+
+> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
+> +		DPTX_ANA_PREPLL_PCLK_NORMAL,
+> +		FIELD_PREP(DPTX_ANA_PREPLL_PCLK_NORMAL, 1));
+> +	usleep_range(2000, 4000);
+> +
+> +	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
+> +		FIELD_PREP(DPTX_ANA_PREPLL_PD, 0));
+
+[Severity: Medium]
+Similar to the MPLL configuration, does unconditionally clearing
+DPTX_ANA_PREPLL_PD here override the PHY power state if the clock rate is
+set while the PHY is logically off?
+
+> +	usleep_range(2000, 4000);
+> +}
+
+[Severity: Medium]
+Is it safe to rely on a fixed delay here instead of polling the
+DPTX_ANA_PREPLL_LOCKED bit, which could lead to proceeding with an unstable
+pixel clock?
+
+[ ... ]
+
+> +static int k3_inno_dp_phy_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct k3_inno_dp_phy *p;
+> +	struct phy_provider *provider;
+> +	struct clk_init_data init =3D {};
+> +	int ret;
+
+[ ... ]
+
+> +	provider =3D devm_of_phy_provider_register(dev, of_phy_simple_xlate);
+> +	if (IS_ERR(provider))
+> +		return dev_err_probe(dev, PTR_ERR(provider),
+> +				     "failed to register PHY provider\n");
+> +
+> +	/* PHY takes a 24 MHz reference clock */
+> +	p->ref_clk_khz =3D 24000;
+> +
+> +	/* The APMU pixel-clock mux references this clock by name. */
+> +	of_property_read_string(dev->of_node, "clock-output-names", &init.name);
+> +	if (!init.name)
+> +		init.name =3D dev_name(dev);
+> +	init.ops =3D &k3_inno_dp_pxclk_ops;
+> +	init.parent_names =3D NULL;
+> +	init.num_parents =3D 0;
+> +	init.flags =3D 0;
+> +	p->pxclk_hw.init =3D &init;
+> +
+> +	ret =3D devm_clk_hw_register(dev, &p->pxclk_hw);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to register pixel clock\n");
+
+[Severity: High]
+Can the PHY provider be accessed by consumers before probe completes
+successfully?
+
+The PHY provider is registered via devm_of_phy_provider_register() before
+the pixel clock is registered. If devm_clk_hw_register() fails, probe will
+return an error and devres will free the driver context struct.
+
+If a consumer driver acquires a reference to the PHY during this race
+window, it could retain the reference after probe fails, leading to a
+use-after-free when it attempts PHY operations on the freed pointer.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725-k3-display=
+-v1-0-6de34d80e86c@gmail.com?part=3D5
