@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B92C531D0
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 05:08:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 947F0C531D0
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 05:12:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B52E410F506;
-	Sat, 25 Jul 2026 05:08:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8A3B10F507;
+	Sat, 25 Jul 2026 05:12:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hv00ONOU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Xape2hWe";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E373310F506
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 05:08:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B840910F507
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 05:12:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8B20A40622;
- Sat, 25 Jul 2026 05:08:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72A21F000E9;
- Sat, 25 Jul 2026 05:08:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6880E42D53;
+ Sat, 25 Jul 2026 05:12:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64D01F000E9;
+ Sat, 25 Jul 2026 05:12:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784956099;
- bh=GN6aqntHEPq5XDOXgFW8etw4HsuTNEBa3VPzvY5PKqU=;
+ s=k20260515; t=1784956323;
+ bh=zfDIe0jTVWLaFGOUrSraY+Ff1wIleInx4p1re0OCiRI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Hv00ONOULMkkAlpWMUxcUCoLfA508BVmyB1VpzWromTSYnMrnx+zDS95OZxuM7L0W
- MO8tuW58ZI5U/PWkC9ATIBTKBaW2AbhHH6MiShZhS0j8Hbilk1qWPZjtY0wiXqx76W
- HH1V2xQsNQ62Qd+UMw2tfC2rtA5O6C7KEuSNZAEZcm8pTmpMYkAyLjC62tYMRsIpkn
- MwFX2HeZjOg9u+sVyCNimyGq8GHJPskT3u59Lowa8q89eVOB4s1rT/bYl2M0UUCaCp
- mULbGyYEKvO7I6e954TJBDF6Jb52waBnNB8WfI9GLD33yk2cckpkrJJ6EO/U2hakG/
- TKuY6r4/A7y9Q==
+ b=Xape2hWexNPq6GbnmbuuCpBIQ2DGvKC4NPtjqhCIr6sQsOQQjifP2pXjoIvWwtAGN
+ CYWK2zEB+9uWmJiEXShV8tkH2hnXHDmpj0dgJZXN3sMU8D6SE7NBPEXogY1emgEVIj
+ A0WJJxSKYrAJstAOMUGbDdi54GR7rfjPV5C1k4hgg2PeeWawf1AS1PRMvfmjMtPUvD
+ YMRX+B2oU5PUa3ko2dPPSoJoJfzOokUIT4igmwqXuUmO0ivk884ZDkoJ5TSHLtm/UR
+ H4vWrSFdnjU0SUB5wkWNARBhr3Sxm8XtObk12ki8Ro98MZjIEInor5YHCLuY0QD2Kj
+ KEkKzD5mdI5Mg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 14/17] riscv: dts: spacemit: k3: add display nodes
+Subject: Re: [PATCH RESEND 15/17] riscv: dts: spacemit: k3-pico-itx: enable
+ the DisplayPort output
 To: "Cody Kang" <codykang.hk@gmail.com>
-Cc: robh@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org,
- conor+dt@kernel.org, vkoul@kernel.org, dri-devel@lists.freedesktop.org,
- neil.armstrong@linaro.org, devicetree@vger.kernel.org
-In-Reply-To: <20260725-k3-display-v1-14-6de34d80e86c@gmail.com>
+Cc: vkoul@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org,
+ linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260725-k3-display-v1-15-6de34d80e86c@gmail.com>
 References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-14-6de34d80e86c@gmail.com>
+ <20260725-k3-display-v1-15-6de34d80e86c@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 05:08:18 +0000
-Message-Id: <20260725050818.E72A21F000E9@smtp.kernel.org>
+Date: Sat, 25 Jul 2026 05:12:02 +0000
+Message-Id: <20260725051202.C64D01F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,98 +62,105 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The DP controller hardware is not initialized before the eDP panel=
- probe is triggered, causing synchronous AUX transfers to fail or hang.
-- [High] The custom EDID read function violates the I2C EEPROM protocol by =
-omitting the Middle-of-Transaction (MOT) bit, breaking EDID reads on sinks =
-that require a repeated START.
+- [High] Precision Loss in DP Timing Configuration due to integer division
+- [High] Protocol Violation in I2C-over-AUX EDID Read (Missing MOT flag)
 --
 
---- Patch [14]: [PATCH RESEND 14/17] riscv: dts: spacemit: k3: add display =
-nodes ---
-commit 9b9ee39195ad90a76f056f9bddbdabb8377b67ec
+--- Patch [15]: [PATCH RESEND 15/17] riscv: dts: spacemit: k3-pico-itx: ena=
+ble the DisplayPort output ---
+commit 8521347c30ea3dc057bb9d8b08c1de584bd6ba67
 Author: Cody Kang <codykang.hk@gmail.com>
 
-riscv: dts: spacemit: k3: add display nodes
+riscv: dts: spacemit: k3-pico-itx: enable the DisplayPort output
 
-Add the SoC-level display nodes: the two Saturn DPUs, the two DP/eDP
-controllers with their PHY children.
+This commit enables the second Saturn DPU and the corresponding DisplayPort
+controller on the Pico-ITX board. While this patch configures the devicetree
+to route the DPU output, it exposes regressions in the newly added underlyi=
+ng
+Innosilicon DP/eDP driver.
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-display.dtsi b/arch/riscv/bo=
-ot/dts/spacemit/k3-display.dtsi
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_inno_dp.c b/drivers/gpu/dr=
+m/spacemit/spacemit_inno_dp.c
 > new file mode 100644
-> index 0000000000000..4892ee6acda22
 > --- /dev/null
-> +++ b/arch/riscv/boot/dts/spacemit/k3-display.dtsi
-> @@ -0,0 +1,156 @@
+> +++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
 [ ... ]
-> +&soc {
-[ ... ]
-> +	edp0: edp@cac84000 {
-> +		compatible =3D "spacemit,k3-inno-dp";
+> @@ -982,19 +982,19 @@ static void spacemit_dp_hw_set_msa_and_enable_video=
+(struct spacemit_dp_dev *dp,
+>  						    const struct drm_display_mode *mode,
+>  					       enum spacemit_dp_link_rate rate,
+>  					       enum spacemit_dp_lane_count lanes,
+>  		u32 color_format)
+>  {
+>  	u64 hb_num;
+>  	u32 link_rate;
+>  	u32 fp; /* Pixel clock in MHz */
+>  	u32 bpp, misc0;
+>  	u32 tu, tu_frac, tu_int, rd_thres;
+>  	u32 hsync_len;
+> =20
+>  	/* mode->clock unit is kHz, fp unit is MHz */
+>  	if (dp->use_ext_pixel_clock)
+>  		fp =3D dp->pixel_clock / 1000;
+>  	else
+>  		fp =3D mode->clock / 1000;
+> =20
+>  	if (fp =3D=3D 0)
+>  		fp =3D 1; /* Prevent division by zero */
 
 [Severity: High]
-Does enabling this device node cause the eDP panel probe to fail?
+Will dividing by 1000 here truncate necessary precision?
 
-Looking at inno_dp_probe() in drivers/gpu/drm/spacemit/spacemit_inno_dp.c, =
-it
-populates the eDP panel device on the AUX bus:
+Since mode->clock / 1000 discards the fractional part (for example, a 74.25
+MHz clock becomes 74 MHz), this truncated value is used in calculating the
+Transfer Unit size and horizontal blanking interval. This discrepancy can
+cause the display controller and the DP transmitter to disagree on the
+required bandwidth, resulting in the DP TX FIFO overflowing and corrupting
+the display for common standard resolutions like 720p and 1080p.
 
-    ret =3D devm_of_dp_aux_populate_bus(&dp->aux,
-                                      spacemit_dp_edp_link_panel);
-
-The panel driver probes synchronously and attempts an AUX transfer to read =
-the
-EDID.
-
-However, the DP controller's hardware registers (including the AUX clock
-divider DP_AUX_CTRL_CLK_DIV and soft resets) are not initialized until late=
-r:
-
-spacemit_inno_dp.c:spacemit_dp_bind() {
-    ...
-    ret =3D spacemit_dp_dev_init(dp);
-    ...
-}
-
-The uninitialized controller ignores the transfer or the AUX state machine
-does not start, causing an unavoidable timeout.
-
-> +		reg =3D <0x0 0xcac84000 0x0 0x4000>;
 [ ... ]
-> +	dp1: dp@cac88000 {
-> +		compatible =3D "spacemit,k3-inno-dp";
+> @@ -1278,9 +1278,9 @@ static int spacemit_dp_aux_i2c_write(struct spacemi=
+t_dp_dev *dp, u32 address,
+>  				     const u8 *buf, size_t len)
+>  {
+>  	struct drm_dp_aux_msg msg =3D {
+>  		.address =3D address,
+>  		.request =3D DP_AUX_I2C_WRITE,
 
 [Severity: High]
-Will EDID reads fail for sinks connected to this node?
+Is it intentional to hardcode DP_AUX_I2C_WRITE here without allowing the
+DP_AUX_I2C_MOT (Middle Of Transaction) flag to be appended?
 
-When reading EDID, the driver splits the transaction into a write and a rea=
-d:
+[ ... ]
+> @@ -1320,11 +1320,11 @@ static int spacemit_dp_conn_get_edid_block(void *=
+data, u8 *buf,
+>  	int ret, retry;
+>  	size_t offset;
+> =20
+>  	if (segment) {
+>  		for (retry =3D 0; retry < 3; retry++) {
+>  			ret =3D spacemit_dp_aux_i2c_write(dp,
+>  				SPACEMIT_DP_DDC_SEGMENT_ADDR, &segment, 1);
+>  			if (!ret)
+>  				break;
+>  		}
 
-spacemit_inno_dp.c:spacemit_dp_conn_get_edid_block() {
-    ...
-    ret =3D spacemit_dp_aux_i2c_write(dp, DDC_ADDR,
-                                    &edid_offset, 1);
-    ...
-}
+[Severity: High]
+Can this segment write cause the hardware to generate an I2C STOP condition?
 
-It calls spacemit_dp_aux_i2c_write() which hardcodes the request:
+Because spacemit_dp_aux_i2c_write() lacks the MOT flag, writing the E-DDC
+segment pointer without it directs the hardware to generate a STOP conditio=
+n.
+According to the E-DDC specification, a STOP condition immediately after
+writing the segment pointer forces the display EEPROM to reset its segment
+pointer to 0.
 
-spacemit_inno_dp.c:spacemit_dp_aux_i2c_write() {
-    ...
-    .request =3D DP_AUX_I2C_WRITE,
-    ...
-}
-
-The missing MOT (Middle-of-Transaction) bit guarantees an I2C STOP condition
-after writing the offset address. This resets the internal address pointer =
-of
-many standard EEPROMs, causing the subsequent read to repeatedly fetch bloc=
-k 0
-instead of the requested extension block.
-
-> +		reg =3D <0x0 0xcac88000 0x0 0x4000>;
+As a result, subsequent reads might always fetch EDID blocks 0 and 1, making
+it impossible to correctly read EDID blocks >=3D 2 (such as CTA-861 extensi=
+on
+blocks) and potentially breaking support for advanced resolutions and audio
+and HDR features.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725-k3-display=
--v1-0-6de34d80e86c@gmail.com?part=3D14
+-v1-0-6de34d80e86c@gmail.com?part=3D15
