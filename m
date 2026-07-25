@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5CBBC54F4C
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65832C531D0
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A814710E2FB;
-	Mon, 27 Jul 2026 07:17:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A3BE10E2FE;
+	Mon, 27 Jul 2026 07:17:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qt271UWY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jVdjCg4w";
 	dkim-atps=neutral
 Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75BEA10F4D3
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:18:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 496D810E0E8
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:19:35 +0000 (UTC)
 Received: by mail-pz2-f1.google.com with SMTP id
- 41be03b00d2f7-ca7d1dc4554so538600a12.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 20:18:50 -0700 (PDT)
+ 41be03b00d2f7-ca034c989e2so560502a12.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 20:19:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784949530; x=1785554330; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784949575; x=1785554375; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=62YcKoWbwf7Xh2pmJjiLRuJIzfIQtFYxUsfYj2T/BQY=;
- b=Qt271UWYGEVk9NMmEkWf/PhcukfLC6koUWkS9KMG4GY8WSiz1ewy9a1sV3DcKCIbDa
- C16nY9tA+ML2KjrF44OdlUAtt4UVEJ0CJrmK7E8HQETN+hT3uI4eg/LupGt6PB91kjGk
- PePnl4NeJGCMKAjogvfVD63M3ZzO3rJg/TKOqe1IVSqYz4imnr5LhrlzDI3cZpq5aNbP
- ohL9KWdw6lULsyVU8lT5/01Lp9jEie3E1qcxtKvi5xEpHTpd6hXa4zO7VjFIxDkkIxZM
- 1y6W8nxVE5fdFJ4OcduV29St5CO04C0Iz8sPNn0s+npS1RAdF+x/6KV1zaJucreJz7x/
- 1b5w==
+ bh=TSv4z6+j0ETigrrBAdkCkvY/jDNAOWHrT+gEbT1n1Mw=;
+ b=jVdjCg4wYK0S95Uy3N7LKUQ64HwAjSqeGH59YuHwWZyDdq8sgz3ksNhnPRAmpo7o1r
+ INJ1buItoCYYrzsJ+I4/BekDvh+LTN3y5JF/7/YI0F0BiYc/2Cfy3gXZZg5SVToFbECW
+ kYsGG2KpfEoV2InKerGIo2ih/WYFYuvc19Q4XK+ORAlEaMCcWWWcrY1gH7vD3R2+tQ4B
+ 3rPzz+HbVYqCADxX9hGDDYMV5P3hNbf2d+0Ibx7SbOzX8gWCLXJJ4PzoCx7sJTavmgEv
+ 4+BfvLZ5aln6cshDpl9b/ObX6HxR6ZNWUN7Pz1BFJc/SCFh6KOhUgSd27dHXqvAb3xUq
+ iPWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784949530; x=1785554330;
+ d=1e100.net; s=20251104; t=1784949575; x=1785554375;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=62YcKoWbwf7Xh2pmJjiLRuJIzfIQtFYxUsfYj2T/BQY=;
- b=ARh6YGPkCBVPkP1uAsCZ2KBDa44AsRsKgLlMXb7t1Cg12NqZXSrRDuVoFqVM1658wb
- r2c3QC2KYmTzUeBEIhtek2zdkcOEnASVjv8ZnbF5O1J6m5MkaC6I0GfAVuqwwyuS1vjK
- cx985y6Dc0yYRFR11C/S3j3E+QYIxwYzKbHWNUfBU+jx63oAGHaHuUGnQ09nyRKxXi2V
- y48yskKcGMKfAJjUUS/3ebdqmPp3n6sTjvWsRNqpvkUyonXDojipXjVoRqsMiC58Co9K
- a2jQuvSNfxSrK5QkoLOqs76PUfs7gV1mrYcz5mtrHFEcioxttW8Q8oKGT5MzLf0lS4Pl
- UxRQ==
-X-Gm-Message-State: AOJu0YzB+5M4TUoxQkVMRTve0jfkrIKEcjOPXc692PuYC3nlEDwK9PFn
- U2VXN9zQ/NQIiw6i4189o/kQHyf7S5pkAUnki/I1DyMgM06VP3JWFzLF
-X-Gm-Gg: AR+sD13a4vu/BTW+Hb8xcPDHihDHFOtgb/KNQ48KS24csjoNqz3atrre+UO54pWbgyB
- SeqE1kbAGp5gLvdtkFvBzH5/UpKyomB7Cz9d2GXQIOo55wycB+2qCGJB7mLKySQv2S+il/loC/Z
- ODTT9VIHs4pJrOwZDm0AGw2QQWcoR+UyWCjSG9MfZ4rikbw2eIPm5+/K3IlrdcE9jfyACrpKW1W
- bCbZpPr+2nJLf+KsT2y3VqPjVnYTKRuKqId2zMTLHKcuLg7vaHI/Rosp6hAWAngCCXblElp1hhZ
- 44C+xcAl7hn18hcx9C3LSucxoTeMkrTO/VL2EO8ZiDztJ/rDZBmCmqFxnOYcW7eBQZ1DrKlTgvb
- U2b1u3lqMNFqnzHKDMmSXTaMZuYC3M248+qjY5x13HtWMHuszL4zzroM=
-X-Received: by 2002:a05:6a00:4291:b0:84e:1a34:2470 with SMTP id
- d2e1a72fcca58-84e5949a18bmr638140b3a.30.1784949529988; 
- Fri, 24 Jul 2026 20:18:49 -0700 (PDT)
+ bh=TSv4z6+j0ETigrrBAdkCkvY/jDNAOWHrT+gEbT1n1Mw=;
+ b=O1QEDK0qOI6RkqyuRzeOlExzl/pDtiISV+Z7SB2WzBlng8beubTt0GQmDWDGlGziFJ
+ OYYdfVcXTOJwyUNS/qCaRl1J+BQ/E+LGlNJdzEWRItcXCMpTuM2FtsWMPYZqp2qVzxz3
+ o5AfuiU513wMwq+FuQZlEUxLwUC8j77v1TIOvBwnB2V42hWCnHwPrIkHfrYc8zKKF2T8
+ jsJJvfYAbsba7llUZLrG+SPVJV7CKJY7ARTkBdP0u2/sMmi3J0GrQw7IKii1XtLL6p5f
+ DzCVPIQjKfCBOOK2sj4xSBrbjTufR/YgLMIdOlySOGNGdNRoe/UHMWqOWXqbb5bl9o/1
+ IPBg==
+X-Gm-Message-State: AOJu0YxgibBSTFVP8QSlCty8V5KMz+9hY/A7jGVtU7SUMxIkD5D5LluW
+ 63jDKFWSWel5wLnZy5H6h51U0rE90COrnKVb2LlxuJGeQwj/N+yEZA1C
+X-Gm-Gg: AR+sD10d1bGagZvHJNga97NYS3UADv0UA33E90TP/e8XugtowsEJhzZu6+gNcFoSoyf
+ 5JYRk31VSGJ7PF/bWK/ZTlCpV7C2U/ovRVr51V67fd5DesWxpXKzBjqVtuucjTyeqat4t15UWqf
+ vQRnvHqGoHYN0nb6/KKxZH5v+PRYbpx94UdOo0r7AsfYch0CwcTU+TDfTfIhgDV61w0vLxTk5Ti
+ sKktAh6BKSLhX6JmxMhN/AmgkF3ANNnwR1m5FzbIwS+S3TgPUMAgTj9GDoTuehEsC1TDT8lOfXt
+ aB74zH/KSA95LuDFxg1cX+cIh5x0aADAk1S4vaMkUmXo8q3qcwUlrTru0oVqfr00jBZnASvEGMR
+ GAXZzhWdIC4+yGXmCQ+EN0NmihyWxndGhmOlojO68bwv0zmduvSXDPfY=
+X-Received: by 2002:a05:6a00:298a:b0:845:c906:5ff5 with SMTP id
+ d2e1a72fcca58-84e5944d694mr613698b3a.30.1784949574747; 
+ Fri, 24 Jul 2026 20:19:34 -0700 (PDT)
 Received: from [127.0.1.1] ([2a12:a305:4::403c])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e53432834sm640542b3a.50.2026.07.24.20.18.42
+ d2e1a72fcca58-84e53432834sm640542b3a.50.2026.07.24.20.19.26
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jul 2026 20:18:48 -0700 (PDT)
+ Fri, 24 Jul 2026 20:19:33 -0700 (PDT)
 From: Cody Kang <codykang.hk@gmail.com>
-Date: Fri, 24 Jul 2026 23:16:43 -0400
-Subject: [PATCH 11/17] drm/spacemit: add Saturn DPU DRM device driver
+Date: Fri, 24 Jul 2026 23:16:48 -0400
+Subject: [PATCH 16/17] riscv: dts: spacemit: k3-com260-ifx: enable the
+ DisplayPort output
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-k3-display-v1-11-f22a10a52867@gmail.com>
+Message-Id: <20260724-k3-display-v1-16-f22a10a52867@gmail.com>
 References: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
 In-Reply-To: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -100,227 +101,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the DRM device for the SpacemiT K3 Saturn display processing unit
-and hook the driver up to the build. The SoC has two DPU instances;
-each drives one CRTC that scans out a single primary plane in linear
-RGB at up to 3840x2160@60 and feeds a downstream DP/eDP controller
-over an OF-graph endpoint. Buffers use drm_gem_shmem_helper. The
-AFBC/compressed decode path is not exposed and writeback is not
-implemented.
+CoM260-IFX carries a single DisplayPort output, so the second DPU and
+the DisplayPort controller it feeds are enabled.
 
 Signed-off-by: Cody Kang <codykang.hk@gmail.com>
 ---
- drivers/gpu/drm/Kconfig                 |   1 +
- drivers/gpu/drm/Makefile                |   1 +
- drivers/gpu/drm/spacemit/Kconfig        |  18 +++++
- drivers/gpu/drm/spacemit/Makefile       |  12 +++
- drivers/gpu/drm/spacemit/spacemit_drm.c | 132 ++++++++++++++++++++++++++++++++
- 5 files changed, 164 insertions(+)
+ arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 11 +++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi   | 11 +++++++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 323422861e8f..81081562a6da 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -341,6 +341,7 @@ source "drivers/gpu/drm/renesas/Kconfig"
- source "drivers/gpu/drm/rockchip/Kconfig"
- source "drivers/gpu/drm/sitronix/Kconfig"
- source "drivers/gpu/drm/solomon/Kconfig"
-+source "drivers/gpu/drm/spacemit/Kconfig"
- source "drivers/gpu/drm/sprd/Kconfig"
- source "drivers/gpu/drm/sti/Kconfig"
- source "drivers/gpu/drm/stm/Kconfig"
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index e97faabcd783..4a105520ee91 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -204,6 +204,7 @@ obj-$(CONFIG_DRM_MSM) += msm/
- obj-$(CONFIG_DRM_TEGRA) += tegra/
- obj-$(CONFIG_DRM_STM) += stm/
- obj-$(CONFIG_DRM_STI) += sti/
-+obj-$(CONFIG_DRM_SPACEMIT) += spacemit/
- obj-y 			+= imx/
- obj-$(CONFIG_DRM_INGENIC) += ingenic/
- obj-$(CONFIG_DRM_LOGICVC) += logicvc/
-diff --git a/drivers/gpu/drm/spacemit/Kconfig b/drivers/gpu/drm/spacemit/Kconfig
-new file mode 100644
-index 000000000000..51e38dabfdba
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/Kconfig
-@@ -0,0 +1,18 @@
-+# SPDX-License-Identifier: GPL-2.0
+diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+index 238bb03d0e9e..114d0e02fed9 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+@@ -5,6 +5,7 @@
+  */
+ 
+ #include "k3-com260.dtsi"
++#include "k3-display.dtsi"
+ 
+ / {
+ 	model = "SpacemiT K3 CoM260 IFX";
+@@ -19,3 +20,13 @@ chosen {
+ 		stdout-path = "serial0:115200n8";
+ 	};
+ };
 +
-+config DRM_SPACEMIT
-+	tristate "DRM support for SpacemiT display controllers"
-+	depends on DRM && OF && MMU
-+	depends on ARCH_SPACEMIT || COMPILE_TEST
-+	select DRM_CLIENT_SELECTION
-+	select DRM_KMS_HELPER
-+	select DRM_GEM_SHMEM_HELPER
-+	select REGMAP_MMIO
-+	select VIDEOMODE_HELPERS
-+	help
-+	  Choose this option if you have a SpacemiT SoC with the Saturn
-+	  display processing unit, such as the K3. The DPU scans out
-+	  framebuffers through its private display MMU and feeds a
-+	  DisplayPort or embedded DisplayPort controller.
-+
-+	  If M is selected the module will be called spacemit-drm.
-diff --git a/drivers/gpu/drm/spacemit/Makefile b/drivers/gpu/drm/spacemit/Makefile
-new file mode 100644
-index 000000000000..b3b148000cf7
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/Makefile
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+spacemit-drm-y := spacemit_drm.o \
-+		  spacemit_crtc.o \
-+		  spacemit_cmdlist.o \
-+		  spacemit_planes.o \
-+		  spacemit_dmmu.o \
-+		  dpu/dpu_saturn.o \
-+		  dpu/dpu_saturn_hee.o \
-+		  dpu/saturn_fbcmem.o
-+
-+obj-$(CONFIG_DRM_SPACEMIT) += spacemit-drm.o
-diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c b/drivers/gpu/drm/spacemit/spacemit_drm.c
-new file mode 100644
-index 000000000000..9fb6a7661b48
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
-@@ -0,0 +1,132 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-+ *
-+ */
-+
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_fbdev_shmem.h>
-+#include <linux/component.h>
-+#include <linux/of_graph.h>
-+
-+#include "spacemit_drm.h"
-+#include "spacemit_crtc.h"
-+
-+#define DRIVER_NAME	"spacemit"
-+#define DRIVER_DESC	"SpacemiT SoC DRM driver"
-+#define DRIVER_MAJOR	1
-+#define DRIVER_MINOR	0
-+
-+static void spacemit_drm_atomic_commit_tail(struct drm_atomic_commit *old_state)
-+{
-+	struct drm_device *dev = old_state->dev;
-+
-+	drm_atomic_helper_commit_modeset_disables(dev, old_state);
-+
-+	drm_atomic_helper_commit_modeset_enables(dev, old_state);
-+
-+	drm_atomic_helper_commit_planes(dev, old_state,
-+					DRM_PLANE_COMMIT_ACTIVE_ONLY);
-+
-+	drm_atomic_helper_wait_for_flip_done(dev, old_state);
-+
-+	drm_atomic_helper_commit_hw_done(old_state);
-+
-+	drm_atomic_helper_cleanup_planes(dev, old_state);
-+}
-+
-+static const struct drm_mode_config_helper_funcs spacemit_drm_mode_config_helper = {
-+	.atomic_commit_tail = spacemit_drm_atomic_commit_tail,
++&dpu1_crtc0 {
++	status = "okay";
 +};
 +
-+static const struct drm_mode_config_funcs spacemit_drm_mode_config_funcs = {
-+	.fb_create = drm_gem_fb_create,
-+	.atomic_check = drm_atomic_helper_check,
-+	.atomic_commit = drm_atomic_helper_commit,
++&dp1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&dp1_3_cfg>;
++	status = "okay";
 +};
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+index 2f36eba20f1e..dbe8db4a8b76 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+@@ -22,6 +22,17 @@ dp1-pins {
+ 		};
+ 	};
+ 
++	/omit-if-no-ref/
++	dp1_3_cfg: dp1-3-cfg {
++		dp1-pins {
++			pinmux = <K3_PADCONF(72, 4)>;	/* dp1 hpd */
 +
-+int spacemit_drm_mode_config_init(struct drm_device *drm)
-+{
-+	int ret;
++			bias-disable;
++			drive-strength = <25>;
++			power-source = <3300>;
++		};
++	};
 +
-+	ret = drmm_mode_config_init(drm);
-+	if (ret)
-+		return ret;
-+
-+	drm->mode_config.min_width = 1;
-+	drm->mode_config.min_height = 1;
-+	/* K3 user manual: each DPU scans out at most 3840x2160@60 */
-+	drm->mode_config.max_width = 3840;
-+	drm->mode_config.max_height = 2160;
-+
-+	drm->mode_config.funcs = &spacemit_drm_mode_config_funcs;
-+	drm->mode_config.helper_private = &spacemit_drm_mode_config_helper;
-+
-+	return 0;
-+}
-+
-+DEFINE_DRM_GEM_FOPS(spacemit_drm_fops);
-+
-+struct drm_driver spacemit_drm_drv = {
-+	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
-+	.fops = &spacemit_drm_fops,
-+
-+	DRM_GEM_SHMEM_DRIVER_OPS,
-+	DRM_FBDEV_SHMEM_DRIVER_OPS,
-+
-+	.name		= DRIVER_NAME,
-+	.desc		= DRIVER_DESC,
-+	.major		= DRIVER_MAJOR,
-+	.minor		= DRIVER_MINOR,
-+};
-+
-+static int compare_of(struct device *dev, void *data)
-+{
-+	return dev->of_node == data;
-+}
-+
-+int spacemit_drm_of_component_probe(struct device *dev)
-+{
-+	struct device_node *ports, *port, *ep;
-+	struct device_node *remote;
-+	struct component_match *match = NULL;
-+
-+	if (!dev->of_node)
-+		return -EINVAL;
-+
-+	/* The DPU is the drm root: its OF graph names the DP/eDP components. */
-+	ports = of_get_child_by_name(dev->of_node, "ports");
-+	if (!ports) {
-+		dev_err(dev, "missing 'ports' child node\n");
-+		return -EINVAL;
-+	}
-+
-+	for_each_child_of_node(ports, port) {
-+		if (!of_node_name_eq(port, "port"))
-+			continue;
-+		for_each_child_of_node(port, ep) {
-+			if (!of_node_name_eq(ep, "endpoint"))
-+				continue;
-+			remote = of_graph_get_remote_port_parent(ep);
-+			if (!remote)
-+				continue;
-+			if (of_device_is_available(remote))
-+				drm_of_component_match_add(dev, &match,
-+							   compare_of, remote);
-+			of_node_put(remote);
-+		}
-+	}
-+	of_node_put(ports);
-+
-+	if (!match) {
-+		dev_err(dev, "no downstream component available\n");
-+		return -ENODEV;
-+	}
-+
-+	return component_master_add_with_match(dev, &spacemit_drm_master_ops,
-+					       match);
-+}
+ 	gmac0_rgmii_0_cfg: gmac0-rgmii-0-cfg {
+ 		gmac0-rgmii-0-pins {
+ 			pinmux = <K3_PADCONF(0, 1)>,	/* gmac0_rxdv */
 
 -- 
 2.43.0
