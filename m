@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB49DC5321C
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF420C531D0
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44BB910E2F6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B0FD10E2FA;
 	Mon, 27 Jul 2026 07:17:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NmTZB8Tt";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pDeiK3St";
 	dkim-atps=neutral
 Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E521D10F4C9
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:17:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD2D10E0E8
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:19:26 +0000 (UTC)
 Received: by mail-pz2-f1.google.com with SMTP id
- 41be03b00d2f7-ca7a25cd87dso1015072a12.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 20:17:44 -0700 (PDT)
+ 41be03b00d2f7-cbb818e57c9so551865a12.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 20:19:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784949464; x=1785554264; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784949566; x=1785554366; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=+s3XIzGgmCw98QusnVJUh5PtZQnQQOXqs7KUawjh9Mc=;
- b=NmTZB8TtVvxUP6hMiPKJ3cjcyB2hLLrqy+dMybAWlC1IKCONavirvadEU4E8D+MDDS
- fMnVN/quX8FAZ7OSmPArEKVfptVoKb6d6y0WUhAFji1STGEjaPjXJszohzGhGImBqZ4k
- AeHMtuSA38N5cR/2JgoEijY5NIuYywRRbBhN55X/mZXaLA2HTmxBuWFFH6oepQ10zxw9
- Ig69D1F4xBUyU8ennHeSZXZv0IzVGjQ+8hZqOIjzp8yqMkpqCvXkbVZq0uO3Nm1jtXw2
- ul85xhirAKLMm2F463DKjpyDV+c2tq/hQ6TYsPcgAZRZLWjBUHOoxVCp9yc6vTgU2up3
- vAcw==
+ bh=VnOgmyFyaaGmxr13glRiK2+qIyg9Qu4CO8mOwq+CLUM=;
+ b=pDeiK3StGdG5zO0kBDDGxwCYVWF4X9Cd5Uan0o1jaC8qSJv0HbCkMElJtBfPfFt/CU
+ YsHOZ+TiB1cJMEz1D1CFylsp3J9pyWHPJbwq87OM/kQls9Lz9Ezop8/SZgDn2TjGvuS6
+ 17OpV3A9VMSj46Bt+kXwA7y16C/qrIpIlU5a95jbT+B+edWDV5cTC1r13150bQiEj5f8
+ 1EyHXCA5ArGRD/kyDnlXGgEr7s1mV2QxDzvOplB/3AUPFpW29uiKDNiqcCd6oAAbbpeg
+ tIpuacz632uIvjVOqyNV14sF8I/ZfFuIHQMr36FovmjSAJmELh8mY34ir374RS6Dkcoi
+ vS9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784949464; x=1785554264;
+ d=1e100.net; s=20251104; t=1784949566; x=1785554366;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+s3XIzGgmCw98QusnVJUh5PtZQnQQOXqs7KUawjh9Mc=;
- b=oNqn2g7DhEREOFbwCcTFjk6cks+6GNDOH9LIb+XW2j824ExWkIrzIVRJd+o82hpDA8
- CCErWKcMDSdsEvSVaApSegneSuEPmxqrfKgP7vTXqR0oNGY9ZHHQ81nzMguo9YuByLe/
- QcoNQWk47EnyVIYYC/sjcMAx8BlhCLE6KCalvyh8iXIJ6p3DmKFFPOUNnmrOnscm2dh0
- 3DKXkIBfqmJdfSc2mkLc1axuwQKxrzEujv2lnQK/3UxfnHUB0FdMvhIcmqYKfVyjo+6x
- Y4XUbSHJZXVeQ3lfTattpdq4Mk4tN3IF0OaAIaQSt/d/x3Ps7smu4Io79jKcPzBbW1md
- pbPg==
-X-Gm-Message-State: AOJu0YyG2aFKviClQKuMkhaIRXOOfLbVMppInYNH0AALuhBTFaugDxJt
- 4PPDBuQrr5buF5KWze1xfJ/0rKS7sScsDdMIOZMrvbvbLTw4jDcne9yQ
-X-Gm-Gg: AR+sD10jblm7Sk4USqJ35odu/HqkvZfmsBK9alDmtMVWI6L0PYdEqRpiMGxyuMR/4a8
- zC9KtgKcXpQMy0hEJHdT702Z/Cz3XUj9mcgM1zWlRSCeudxNIWbeTT/lgSrAH6qs6b8+ageyplk
- c79MjQTdVQe2ET+wKGmV6vDyufUuoZu2WdVv0QQNUWAnA+zZubRuCUcHKS1hPYk/RKEOIUXHSti
- 8fff+croSFIOsm1Sami4dNYogtDdmrIcT8TPXayTYUjgSw1rUB6vomSPxim8Q3RWFPsrEMWQ5Xc
- PNs8gjPDPFIKRXhbRWXxV7H9eG+86sIGWHMVu5s/1QydBKuRS4IGSFtGMkykFM96t9aMuc3PCbz
- wgmtDogI/YLYMbJBJGN0iN0y9RdzCXkxiHup07OFoGShJjyfKW2AS9cM=
-X-Received: by 2002:a05:6a00:9288:b0:848:2f77:e2da with SMTP id
- d2e1a72fcca58-84e595d33e9mr653832b3a.67.1784949464300; 
- Fri, 24 Jul 2026 20:17:44 -0700 (PDT)
+ bh=VnOgmyFyaaGmxr13glRiK2+qIyg9Qu4CO8mOwq+CLUM=;
+ b=A3eiljlzBApdKdTe53ZtfizQ7CyLZDbLC/b5YsqqQdo6nFtfnu9u9sCU5ScvsGfcX6
+ hRkZqCSNj+jnIWvF2BiRQ0q77fKc0T7/EzVZ+0FcYn2pQNcJNLgIQ9oa+mFRfp4PUrtR
+ qyWviC+G9B2b0c/9ed3JmXX5BMCz69/Cj0HgS2WS/UKncwyazp9anGcfLAXCGUSePGGb
+ p4eU0DVompaZCc6CrsaM7rDMTvDCMlx59URLSht5EmVZ+h/fpmoyF/MDJvokLs6O3hYa
+ sCmO64Kz07WIY1p09jRgczyV3JkNLww1YTUTSjBzYDlypWGkUNG2gDdXkQj3yBffhcd5
+ xt7g==
+X-Gm-Message-State: AOJu0YxJETWcm8+bzWESNfz4wh7SnZHwv4MS9HlMYGwBWlCd/jlbqQiK
+ n2veAnA59sQSW8Eo30UQ3AbPP9fAKwjfK3dR4XFOnwj9gtoB3wwNUe9i
+X-Gm-Gg: AR+sD132zkMoIpZYI3/qBCsMjJfP1DHI9xDXG+hf5hlDD2vYI2h2JzCVTmj54OK85EG
+ 8Dw+ia+88DzrGwtzFC184stJMvz/noECvXeQORLzX3zruKIZMAtIqhYPJd3B9XjKKXcPurCX70H
+ UpWL4c3QNMJGOwclMiPSKS//FOY8m6mc8LqSqE0sHLO77/Wu5PM925C82q++rgQOhGdd2BtPHT5
+ MzAzKygBpAr6HtIVK3Q519GpjeVNp955GMnhbKxVxZKquDhEv1fTSrG3eJWcpKn9l3vu3+QoQMj
+ S+CSW/aZhXMV/pskVtjAKRI5pEidjzhfPF3OiCxTu6IhbACwDg7ruwOxrOd35gLvzg8wJvoPHwB
+ YY8QSHu0haksqM8otSSpxHaaJv2ryIFu6KM9RAk2xww17sJXm3OEDzkI=
+X-Received: by 2002:a05:6a00:2d9b:b0:848:2a71:a48a with SMTP id
+ d2e1a72fcca58-84e593ff0ccmr648871b3a.13.1784949566154; 
+ Fri, 24 Jul 2026 20:19:26 -0700 (PDT)
 Received: from [127.0.1.1] ([2a12:a305:4::403c])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e53432834sm640542b3a.50.2026.07.24.20.17.36
+ d2e1a72fcca58-84e53432834sm640542b3a.50.2026.07.24.20.19.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jul 2026 20:17:43 -0700 (PDT)
+ Fri, 24 Jul 2026 20:19:24 -0700 (PDT)
 From: Cody Kang <codykang.hk@gmail.com>
-Date: Fri, 24 Jul 2026 23:16:36 -0400
-Subject: [PATCH 04/17] dt-bindings: soc: spacemit: allow eDP/DP PHY PLL
- pixel clocks on K3 APMU
+Date: Fri, 24 Jul 2026 23:16:47 -0400
+Subject: [PATCH 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
+ DisplayPort output
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-k3-display-v1-4-f22a10a52867@gmail.com>
+Message-Id: <20260724-k3-display-v1-15-f22a10a52867@gmail.com>
 References: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
 In-Reply-To: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -101,72 +101,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The APMU's eDP pixel-clock muxes select the DP PHY PLLs as parents, so the
-K3 syscon takes two clock inputs the other variants do not have.
-
-Gate them behind the K3 compatible instead of widening the shared clock
-list, so a non-K3 syscon cannot silently accept clocks it has no mux for.
+Pico-ITX brings the second DPU's output to an external DisplayPort
+connector. Enable that DPU and the DisplayPort controller it feeds.
 
 Signed-off-by: Cody Kang <codykang.hk@gmail.com>
 ---
- .../bindings/soc/spacemit/spacemit,k1-syscon.yaml  | 30 +++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+ arch/riscv/boot/dts/spacemit/k3-pico-itx.dts | 11 +++++++++++
+ arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi | 11 +++++++++++
+ 2 files changed, 22 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml b/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
-index d3a7c93c3c54..b8fc6632a392 100644
---- a/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
-+++ b/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
-@@ -31,14 +31,18 @@ properties:
-     maxItems: 1
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+index b89c1521e664..6c31460990a7 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
++++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+@@ -6,6 +6,7 @@
+ #include <dt-bindings/gpio/gpio.h>
  
-   clocks:
--    maxItems: 4
-+    minItems: 4
-+    maxItems: 6
+ #include "k3.dtsi"
++#include "k3-display.dtsi"
+ #include "k3-pinctrl.dtsi"
  
-   clock-names:
-+    minItems: 4
-     items:
-       - const: osc
-       - const: vctcxo_1m
-       - const: vctcxo_3m
-       - const: vctcxo_24m
-+      - const: edp0_pll_pxclk
-+      - const: edp1_pll_pxclk
+ / {
+@@ -221,3 +222,13 @@ hub@1 {
+ &usb2_phy {
+ 	status = "okay";
+ };
++
++&dpu1_crtc0 {
++	status = "okay";
++};
++
++&dp1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&dp1_1_cfg>;
++	status = "okay";
++};
+diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+index 3ee1471f3798..2f36eba20f1e 100644
+--- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
+@@ -11,6 +11,17 @@
+ #define K3_GPIO(x)	(x / 32) (x % 32)
  
-   "#clock-cells":
-     const: 1
-@@ -95,6 +99,30 @@ allOf:
-         - clocks
-         - clock-names
-         - "#clock-cells"
-+  # Only the K3 APMU exposes the two eDP/DP PHY PLL pixel clocks as extra
-+  # inputs (parents of its eDP pixel-clock muxes); every other variant has
-+  # the four base oscillator inputs only.
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: spacemit,k3-syscon-apmu
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 4
-+          maxItems: 6
-+        clock-names:
-+          minItems: 4
-+          maxItems: 6
-+    else:
-+      properties:
-+        clocks:
-+          minItems: 4
-+          maxItems: 4
-+        clock-names:
-+          minItems: 4
-+          maxItems: 4
- 
- additionalProperties: false
- 
+ &pinctrl {
++	/omit-if-no-ref/
++	dp1_1_cfg: dp1-1-cfg {
++		dp1-pins {
++			pinmux = <K3_PADCONF(24, 6)>;	/* dp1 hpd */
++
++			bias-disable;
++			drive-strength = <25>;
++			power-source = <3300>;
++		};
++	};
++
+ 	gmac0_rgmii_0_cfg: gmac0-rgmii-0-cfg {
+ 		gmac0-rgmii-0-pins {
+ 			pinmux = <K3_PADCONF(0, 1)>,	/* gmac0_rxdv */
 
 -- 
 2.43.0
