@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82859C531C9
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:00:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AED4C531FC
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9C8B10E59A;
-	Sat, 25 Jul 2026 03:00:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC4B010E640;
+	Sat, 25 Jul 2026 03:00:31 +0000 (UTC)
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC3210E59A
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:00:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F8EC10E640
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:00:30 +0000 (UTC)
 Received: from local
  by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
- id 1wnScS-0000000034X-1DyX; Sat, 25 Jul 2026 03:00:08 +0000
-Date: Sat, 25 Jul 2026 04:00:05 +0100
+ id 1wnSch-0000000035X-3Gla; Sat, 25 Jul 2026 03:00:23 +0000
+Date: Sat, 25 Jul 2026 04:00:20 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -34,9 +34,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
  Chen-Yu Tsai <wenst@chromium.org>
-Subject: [PATCH v6 09/13] drm/bridge: it6505: hold endpoint OF node reference
- while parsing it
-Message-ID: <d5abbb920321da662a735c880378513ff825fe39.1784947240.git.daniel@makrotopia.org>
+Subject: [PATCH v6 10/13] drm/bridge: it6505: reject a too short
+ link-frequencies property
+Message-ID: <44684d199a5a6e6b30d84aed463c1c4ec4e9b014.1784947240.git.daniel@makrotopia.org>
 References: <cover.1784947240.git.daniel@makrotopia.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -57,55 +57,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-it6505_parse_dt() drops the reference to each endpoint node right
-after looking it up and then keeps reading its properties, racing
-with the node being freed under CONFIG_OF_DYNAMIC. Put the node only
-once parsing is done.
+of_property_read_variable_u64_array() is asked for a minimum array
+size of zero, so a link-frequencies property shorter than one u64 --
+a 32-bit value written by mistake, say -- returns 0 without storing
+anything. it6505_parse_dt() reads that as success and derives
+max_dpi_pixel_clock from an uninitialised stack variable. Ask for one
+element so a short property lands in the existing error path.
 
 Fixes: 380d920b582d ("drm/bridge: add it6505 driver to read data-lanes and link-frequencies from dt")
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
 ---
-v6: no changes
+v6: new patch
 
-v5: new patch
-
- drivers/gpu/drm/bridge/ite-it6505.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/ite-it6505.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index f4ee5c81d3b8..0da8b40dd88a 100644
+index 0da8b40dd88a..1678ec5b3ba7 100644
 --- a/drivers/gpu/drm/bridge/ite-it6505.c
 +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -3366,7 +3366,6 @@ static void it6505_parse_dt(struct it6505 *it6505)
- 	}
- 
- 	ep = of_graph_get_endpoint_by_regs(np, 1, 0);
--	of_node_put(ep);
- 
- 	if (ep) {
- 		len = it6505_get_data_lanes_count(ep, 1, 4);
-@@ -3379,13 +3378,13 @@ static void it6505_parse_dt(struct it6505 *it6505)
- 			*max_lane_count = MAX_LANE_COUNT;
- 			dev_err(dev, "error data-lanes, use default");
- 		}
-+		of_node_put(ep);
- 	} else {
- 		*max_lane_count = MAX_LANE_COUNT;
- 		dev_err(dev, "error endpoint, use default");
- 	}
- 
- 	ep = of_graph_get_endpoint_by_regs(np, 0, 0);
--	of_node_put(ep);
- 
+@@ -3389,7 +3389,7 @@ static void it6505_parse_dt(struct it6505 *it6505)
  	if (ep) {
  		len = of_property_read_variable_u64_array(ep,
-@@ -3405,6 +3404,7 @@ static void it6505_parse_dt(struct it6505 *it6505)
- 			dev_err(dev, "error link frequencies, use default");
- 			*max_dpi_pixel_clock = DPI_PIXEL_CLK_MAX;
- 		}
-+		of_node_put(ep);
- 	} else {
- 		dev_err(dev, "error endpoint, use default");
- 		*max_dpi_pixel_clock = DPI_PIXEL_CLK_MAX;
+ 							  "link-frequencies",
+-							  &link_frequencies, 0,
++							  &link_frequencies, 1,
+ 							  1);
+ 		if (len >= 0) {
+ 			do_div(link_frequencies, 1000);
 -- 
 2.55.0
