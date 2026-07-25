@@ -4,82 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C030C531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4A76C531FC
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 07:17:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09C8510E2F1;
-	Mon, 27 Jul 2026 07:17:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFCE710E2EB;
+	Mon, 27 Jul 2026 07:17:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jk67WzRc";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CZYbbDKJ";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B693010E041
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 12:23:31 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2caced6038eso4479015ad.0
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 05:23:31 -0700 (PDT)
+Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AF1310F4D3
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:19:16 +0000 (UTC)
+Received: by mail-pz2-f1.google.com with SMTP id
+ 41be03b00d2f7-ca7a25cd87dso1015993a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 20:19:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784895811; x=1785500611; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1784949556; x=1785554356; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=QqQ0c1cxoYl2N2Q2vFVFFoPIeqLYjgaTaw2HcL81u74=;
- b=jk67WzRcBOTM+Y2GvipZFDH9O/dyvJIVxGXX8YJbQOFswsjEgSc8Fs8jlpVoDzgYyX
- rdUThTAgqRweytf3ylZ5HC462tS0+Ekuc0jpyqV/pzLeBLX+eIKEERi4dYOToEWpwAx0
- c1nc4r3s+KRndb52zPsZ/XD7EBtVI2kNgFFKUHorQYn9+NPTBWqcJDgxUhVRgUnocOCN
- X4AgA0jnbYGteN2QrbTcv5Lu82RjfzcJVzjS+OyT+zwYOncInOuI/ILmNvdbQK5v2bDU
- oIw1Ais6q1QvevMFcaejuYowzjhTILCRFGlbNt8i4zz7VU7A6XaKX168m2mXUV+b7sBf
- MFQQ==
+ bh=e4C2qDdMDmFuAaCYr0SQwKrHQit4QrHO7xfMnvBhehM=;
+ b=CZYbbDKJPGOtOYRi1yBl/DQjJYMEr8Qin9Jx6oNRW/qgSyARXmONZ4PXNPw6Eu2K2F
+ hbba2BhT0f1FDGglHPSKbvSG3bqKsOiy1BXcp+3SAC4juLCVFuuH2RMy78ZkBNqMtXJ7
+ zUDlY/VINLJ2MrInzK2WOrdLcpi9TcsR3VoU5HgGP/fpqmzIFCsOr6oOBNQq4aCSqh6t
+ ozvV30IzwufUWMCLoMB2CgGzgQCBCZu2Q9NO3pE0XV3r9T5MnoFciCASaHn2mCdqzKCA
+ G3rS/2GCoPoV/bFqZMJndp+vxnO2s3+G6rlebsUCOqmOIcRKgCcnMn/8XCZjizwP2ERj
+ 4Q3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784895811; x=1785500611;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=QqQ0c1cxoYl2N2Q2vFVFFoPIeqLYjgaTaw2HcL81u74=;
- b=sz4HRG5EeHKjGRwS/QqFyq4G2W3v5+jHXz7PdZWqUa8GJJiUkYhgSxj7AtdMMoV1Ut
- KANmiYP9A5aNsg3rvs3m46RbJXMo/kMomjpT0iPaoF3XKUISYEQNgU3CWGFZlJoMvCVd
- rVLlb4AR/D2PdFHt0mYuT9NH8L0KGPFF1p9ufNN+qLUVaEHRiiqSzTNbiykDlICE/v+2
- gcWmw3ueA3MBN10YHNxDymAnncU3pLg3w6Z69kvPRHNO/jZnhXw3cDsdNABTDiSpcc7G
- kWoiAtw/k9fhlfjGXkjkfgjnRC0VW9TdyECMBjMypRS3coOzpuc277/KSYSH9XtPknbp
- gLtQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RodxhHEU0aYmEPaEd3dkpe3JkZixQPqRpmISvxBITOGpaFCoRX68KxNSL0BdgsM9xI1DYfWxWtiKtM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw+Xxb0KKNmDUhx7/R4wT3r38UlBMUObvsvAPnGytZMpK3mGEPu
- DvBd5Eh+d3ag7h/KkACjOmZfsoXl2YGQpAgq0dxVj1/rqdtic7dwXz1q
-X-Gm-Gg: AR+sD10On2Ua/MroTSu92hr/hvcx7w/vLuUnR4Bjpyi8SqfqSWdVcWP6E0i/56gGcQA
- 3LMRYGdz+gPuO09I5Zp9gPJicgTg0zb7MKEHHkgtws7qvf5/hRe0IJzX8DuRBLqj0/1Ptym1NFj
- aj0Ti2rPsA/852e6vpCO56CqO6SuEN+teEGomBtIGRWfnAgr7SC8AUtSMbyZD8MJSRqtBqRfHJO
- LiQyh+GycLWUtZ2Nlm27bEfM6RnA2u3Z1KTZkO5OC4gUkIO5fhzGtmTYQp01rUWWRlxjgErdB1c
- GFvptTaAXDe4LR/AWy5BEOzedP6Ubduf18bkKZNOxQFhtw5a10VHBmSgseOnF+GR7HCmc3G/AWZ
- Xg3ze4KkQECeoqOEhltcHOxFWwq64PPobxmpSunGPTjiJE2z6HrfEWmqru7zavGXc/iI/9QaThi
- YJRYCZ0Pk6MjQ=
-X-Received: by 2002:a17:903:228e:b0:2c9:994c:9a5 with SMTP id
- d9443c01a7336-2cfd72c810emr2927585ad.30.1784895811180; 
- Fri, 24 Jul 2026 05:23:31 -0700 (PDT)
-Received: from ubuntu.. ([2405:201:8026:213e:9261:769c:50a5:6d0e])
+ d=1e100.net; s=20251104; t=1784949556; x=1785554356;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=e4C2qDdMDmFuAaCYr0SQwKrHQit4QrHO7xfMnvBhehM=;
+ b=hKXtrFygQ3AIY74xhfZqz6xkc70W4ltgyBn2OlNmSPG6ALe8dSgxOZFBwztM/g69v1
+ LQnSxCHC4AwMk77vTfYKNQztuhbhPwXhBBMtNP9AQbewVN5Pq3g5Tvm+Feg3BNByKwiO
+ etQY7tOP2f8CrCLWONYXbJS1DrHK6dcYhZ4mThcQd6VrI5gjpmXd+glavpq0yBANtEbB
+ HzBRiq2d2MHOESUcclRNtBVwBeS/IFCa3fpqnIBov8fRYQ9CUmofcsD+w/igHcqdpuiT
+ G8eSqR201I7rblMeg9LhdccAkBJygDfxBVzWUAU0ebT1QOczuby80NQe/HVwKxwqwHcW
+ QFzQ==
+X-Gm-Message-State: AOJu0YwWc00lbxUH0oMVJf2YhvC4rjXVXuxAq5XiPzqSPS+71SkvCCKz
+ jvW9GJm1Co7y9vs9q6vfG5IPzIPoKQ7Rj0erAGJVpCl4XyeqMaP8M2ff
+X-Gm-Gg: AR+sD11EZDRtKNCf9cKMwveYmoMx+9Hjt50W8hTUdFdS/1wOnoJ3OwpKJSgqmvalKic
+ oUoadgXSwFkVHsnMfHbjc2rpH3nv691ySUwj1lW+zjNXT02O2tLpn2gCtfxsSCZufHV2ouSgEYR
+ rOIFUI0qvc21SpiO4lwo/+5qr/2mpUEu+W68kLBK+KRIXtxvmKklN826pQLEzpvm+vhnLiBZPKs
+ WACBEnOwfzRPs7GNYYV2BjtxB6asHEG4pj1B8n4bP1lOGodkYwhVpoU9g4mfWo6bB7KMxKUb+/H
+ qUB0BU3ThYAIibT9HUFskkRkQCm+Fge1Fs/pFWgIX/Cy/AtfhuR+D0KS+WJwSoOww52beRb/xhN
+ QFsvVkzVRS13JiZdIj5twKl6txCurItFaXR8Zw6z+TDS91O0C8MSD4SViifa5ZGrs7w==
+X-Received: by 2002:a05:6a00:180c:b0:84e:2d5d:5e4d with SMTP id
+ d2e1a72fcca58-84e595d6eccmr712341b3a.68.1784949555818; 
+ Fri, 24 Jul 2026 20:19:15 -0700 (PDT)
+Received: from [127.0.1.1] ([2a12:a305:4::403c])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3147e081985sm31448346eec.23.2026.07.24.05.23.24
+ d2e1a72fcca58-84e53432834sm640542b3a.50.2026.07.24.20.19.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Jul 2026 05:23:30 -0700 (PDT)
-From: mdshahid03@gmail.com
-To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/exynos: vidi: use memdup_user() instead of kmalloc()
- and copy_from_user()
-Date: Fri, 24 Jul 2026 17:52:54 +0530
-Message-ID: <20260724122254.121935-1-mdshahid03@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260705110221.153481-1-mdshahid03@gmail.com>
-References: <20260705110221.153481-1-mdshahid03@gmail.com>
+ Fri, 24 Jul 2026 20:19:15 -0700 (PDT)
+From: Cody Kang <codykang.hk@gmail.com>
+Date: Fri, 24 Jul 2026 23:16:46 -0400
+Subject: [PATCH 14/17] riscv: dts: spacemit: k3: add display nodes
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260724-k3-display-v1-14-f22a10a52867@gmail.com>
+References: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
+In-Reply-To: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
+To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
+ devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-clk@vger.kernel.org, Cody Kang <codykang.hk@gmail.com>
+X-Mailer: b4 0.15.1
 X-Mailman-Approved-At: Mon, 27 Jul 2026 07:16:35 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,13 +100,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Add the SoC-level display nodes: the two Saturn DPUs, the two DP/eDP
+controllers with their PHY children.
 
-Gentle ping on this patch.
+The PHY PLLs are fed back into the APMU as pixel-clock mux parents, so
+updated the &syscon_apmu node in the display dtsi.
 
-Could please take a look when time permits?
+Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+---
+ arch/riscv/boot/dts/spacemit/k3-display.dtsi | 156 +++++++++++++++++++++++++++
+ 1 file changed, 156 insertions(+)
 
-Thanks!
+diff --git a/arch/riscv/boot/dts/spacemit/k3-display.dtsi b/arch/riscv/boot/dts/spacemit/k3-display.dtsi
+new file mode 100644
+index 000000000000..4892ee6acda2
+--- /dev/null
++++ b/arch/riscv/boot/dts/spacemit/k3-display.dtsi
+@@ -0,0 +1,156 @@
++// SPDX-License-Identifier: (GPL-2.0 OR MIT)
++/*
++ * SpacemiT K3 display subsystem (DPU0/eDP0 + DPU1/DP1) shared
++ * device-tree definitions for inclusion alongside k3.dtsi.
++ *
++ * Copyright (C) 2026 SpacemiT Co., Ltd.
++ */
++
++#include <dt-bindings/clock/spacemit,k3-clocks.h>
++#include <dt-bindings/reset/spacemit,k3-resets.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++&soc {
++	dpu0_crtc0: dpu@c0340000 {
++		compatible = "spacemit,k3-saturn-dpu";
++		reg = <0x0 0xc0340000 0x0 0x54000>;
++		interrupts = <90 IRQ_TYPE_LEVEL_HIGH>,
++			     <89 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "online", "offline";
++		clocks = <&syscon_apmu CLK_APMU_LCD_PXCLK>,
++			 <&syscon_apmu CLK_APMU_LCD_MCLK>,
++			 <&syscon_apmu CLK_APMU_DPU_ACLK>,
++			 <&syscon_apmu CLK_APMU_DSI_ESC>,
++			 <&syscon_apmu CLK_APMU_LCD_DSC>;
++		clock-names = "pxclk", "mclk", "aclk", "escclk", "dscclk";
++		resets = <&syscon_apmu RESET_APMU_LCD_MCLK>,
++			 <&syscon_apmu RESET_APMU_LCD>,
++			 <&syscon_apmu RESET_APMU_DSI_ESC>,
++			 <&syscon_apmu RESET_APMU_DPU_ACLK>,
++			 <&syscon_apmu RESET_APMU_LCD_DSCCLK>;
++		reset-names = "mclk", "lcd", "esc",
++			      "aclk", "dsc";
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				dpu0_out: endpoint {
++					remote-endpoint = <&edp0_in>;
++				};
++			};
++		};
++	};
++
++	edp0: edp@cac84000 {
++		compatible = "spacemit,k3-inno-dp";
++		reg = <0x0 0xcac84000 0x0 0x4000>;
++		interrupts = <132 IRQ_TYPE_LEVEL_HIGH>;
++		clocks = <&syscon_apmu CLK_APMU_EDP0_PXCLK>, <&edp0_phy>;
++		clock-names = "pxclk", "pll";
++		resets = <&syscon_apmu RESET_APMU_EDP0>;
++		phys = <&edp0_phy>;
++		phy-names = "dp";
++		status = "disabled";
++
++		edp0_phy: phy {
++			compatible = "spacemit,k3-inno-dp-phy";
++			#phy-cells = <0>;
++			#clock-cells = <0>;
++			clock-output-names = "edp0_pll_pxclk";
++		};
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				edp0_in: endpoint {
++					remote-endpoint = <&dpu0_out>;
++				};
++			};
++			/* port@1 (panel output) is added by boards fitting an eDP panel */
++		};
++	};
++
++	dpu1_crtc0: dpu@c0440000 {
++		compatible = "spacemit,k3-saturn-dpu";
++		reg = <0x0 0xc0440000 0x0 0x54000>;
++		interrupts = <139 IRQ_TYPE_LEVEL_HIGH>,
++			     <138 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "online", "offline";
++		clocks = <&syscon_apmu CLK_APMU_DSI4LN2_LCD_PXCLK>,
++			 <&syscon_apmu CLK_APMU_DSI4LN2_LCD_MCLK>,
++			 <&syscon_apmu CLK_APMU_DSI4LN2_DPU_ACLK>,
++			 <&syscon_apmu CLK_APMU_DSI4LN2_DSI_ESC>,
++			 <&syscon_apmu CLK_APMU_DSI4LN2_LCD_DSC>;
++		clock-names = "pxclk", "mclk", "aclk", "escclk", "dscclk";
++		resets = <&syscon_apmu RESET_APMU_DSI4LN2_LCD_MCLK>,
++			 <&syscon_apmu RESET_APMU_DSI4LN2_LCD_SW>,
++			 <&syscon_apmu RESET_APMU_DSI4LN2_ESCCLK>,
++			 <&syscon_apmu RESET_APMU_DSI4LN2_DPU_ACLK>,
++			 <&syscon_apmu RESET_APMU_DSI4LN2_LCD_DSCCLK>;
++		reset-names = "mclk", "lcd", "esc",
++			      "aclk", "dsc";
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				dpu1_out: endpoint {
++					remote-endpoint = <&dp1_in>;
++				};
++			};
++		};
++	};
++
++	dp1: dp@cac88000 {
++		compatible = "spacemit,k3-inno-dp";
++		reg = <0x0 0xcac88000 0x0 0x4000>;
++		interrupts = <140 IRQ_TYPE_LEVEL_HIGH>;
++		clocks = <&syscon_apmu CLK_APMU_EDP1_PXCLK>, <&dp1_phy>;
++		clock-names = "pxclk", "pll";
++		resets = <&syscon_apmu RESET_APMU_EDP1>;
++		phys = <&dp1_phy>;
++		phy-names = "dp";
++		status = "disabled";
++
++		dp1_phy: phy {
++			compatible = "spacemit,k3-inno-dp-phy";
++			#phy-cells = <0>;
++			#clock-cells = <0>;
++			clock-output-names = "edp1_pll_pxclk";
++		};
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				dp1_in: endpoint {
++					remote-endpoint = <&dpu1_out>;
++				};
++			};
++			/* no port@1: the DP TX drives the external connector directly */
++		};
++	};
++};
++
++/*
++ * Feed the PHY PLL pixel clocks back in as the APMU mux parents. This lives
++ * here, not in k3.dtsi: the PHYs only exist where this file is included.
++ */
++&syscon_apmu {
++	clocks = <&osc_32k>, <&vctcxo_1m>, <&vctcxo_3m>, <&vctcxo_24m>,
++		 <&edp0_phy>, <&dp1_phy>;
++	clock-names = "osc", "vctcxo_1m", "vctcxo_3m", "vctcxo_24m",
++		      "edp0_pll_pxclk", "edp1_pll_pxclk";
++};
 
-Mohammad Shahid
+-- 
+2.43.0
 
