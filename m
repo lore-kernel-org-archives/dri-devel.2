@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D29DC531C9
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:16:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE1CC531C9
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:17:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F69A10E0D6;
-	Sat, 25 Jul 2026 03:16:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA5F310F402;
+	Sat, 25 Jul 2026 03:17:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jhzG8tex";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gt4bMWxH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CC7210E0D6
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:16:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEDB10F402
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:17:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1576A42A9D;
- Sat, 25 Jul 2026 03:16:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3E191F000E9;
- Sat, 25 Jul 2026 03:16:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F249D600AD;
+ Sat, 25 Jul 2026 03:17:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818A51F000E9;
+ Sat, 25 Jul 2026 03:17:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784949384;
- bh=vIwpGcQl3GWAN9j3Ip8H+OV+bkorLPHrAaSl7g0iJ3E=;
+ s=k20260515; t=1784949429;
+ bh=nDN/EP+/SGgBQ/3/i9yrlNg4A4i6vRxytwvIvj27ze0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jhzG8tex6G6jJRlrdTinb8TdQQD2+lV48DIbVTwIu4IEf+xK8I0MplXR1apC27KTz
- e3ppWi71q0oO71WE0hlrzeqFl2x04P4pzMzNi0gdweLIKqmUBihV4kUBdIptlGZqML
- V6K5gaVbauSs+CNVbfmQrtTQ3KllqHeJbPufr0EmcD2I1zGgOiHU+FGKV3s+8eEt25
- Rq4WDJJl7ugQXc0WPe5RfG+OUEN4ZLEwW5w+Hx0cQY0PGclYGlmMYVxa20p97CjHh6
- c+o/x0HU0HV4qCSTXITCYoxrMpPdXCAkxIIrqzgOYGh+AiAKJYXb07FHE2w/0akoMA
- duLzgU5NFKpdw==
+ b=gt4bMWxHd6bZI0Ixh+BXZkWAYkF9EzB5y1bBrWQCBj7e0Ahe0INtDGBuEp3TtPQZr
+ izIrunHrxyGE95rpj5x7rMOnJxtpWv1LWUdHB6IsfYJOQTV6BAvyDf0BZWZ/WRRnWR
+ MtVqLdT4uXqY535JecrqsgT6nHMg6fNyitdGI53sgzejvgt6ve1I6gBjJGeKD0jyab
+ /j9yc813n1nE1TdC2fojq/QacQiUHcPnQPtQmRHW9Mnl2uC60Om3NPZe0yE4Z/fxkD
+ y81M6SFHiiQFweGnNl2PejwYHzIUPzKc8oOdGXWL3Kqrqe9BuKvuUPXY+IYG+mDCvh
+ HOYLmNsWAqN1w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 07/13] drm/bridge: it6505: avoid division by zero in
- audio FS debug print
+Subject: Re: [PATCH v6 03/13] drm/bridge: it6505: unregister DP AUX adapter
+ on bridge detach
 To: "Daniel Golle" <daniel@makrotopia.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <b3e19f2081a34df3814f766ab1ab95dc6f12a02d.1784947240.git.daniel@makrotopia.org>
+In-Reply-To: <e18f8cf3b9c6993c9d628f28f64b0f39c111e2a7.1784947240.git.daniel@makrotopia.org>
 References: <cover.1784947240.git.daniel@makrotopia.org>
- <b3e19f2081a34df3814f766ab1ab95dc6f12a02d.1784947240.git.daniel@makrotopia.org>
+ <e18f8cf3b9c6993c9d628f28f64b0f39c111e2a7.1784947240.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 03:16:23 +0000
-Message-Id: <20260725031623.C3E191F000E9@smtp.kernel.org>
+Date: Sat, 25 Jul 2026 03:17:09 +0000
+Message-Id: <20260725031709.818A51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,85 +58,72 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Unhandled negative error code from it6505_read() is written back t=
-o REG_RESET_CTRL, inadvertently resetting the entire device.
-- [High] Unhandled negative error codes from it6505_read_word() silently co=
-rrupt the video timing calculations.
+- [High] Removing `drm_dp_aux_unregister()` from the I2C `remove` function =
+causes a use-after-free and leaves a zombie DP AUX adapter if the I2C drive=
+r is unbound while the DRM device remains attached.
 --
 
---- Patch [7]: [PATCH v6 07/13] drm/bridge: it6505: avoid division by zero =
-in audio FS debug print ---
-commit fb85e4882527f59c0b49c06140294c57c71382ab
+--- Patch [3]: [PATCH v6 03/13] drm/bridge: it6505: unregister DP AUX adapt=
+er on bridge detach ---
+commit d6c69e9e1c11461da60c039acb301f1120930d47
 Author: Daniel Golle <daniel@makrotopia.org>
 
-drm/bridge: it6505: avoid division by zero in audio FS debug print
+drm/bridge: it6505: unregister DP AUX adapter on bridge detach
 
-This commit ensures the divisor is greater than zero before calculating and
-printing the audio input frequency in the debug output. This prevents a div=
-ision
-by zero crash if the audio clock hasn't been latched and it6505_read() retu=
-rns 0.
+This commit moves the DP AUX adapter unregistration from the I2C remove
+routine to the DRM bridge detach and attach error paths, to avoid
+registering the adapter multiple times during unbind/rebind cycles.
 
 > diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
 /ite-it6505.c
-> index b7eb746c8f8e5..04711c8f4a041 100644
+> index 7c61b02cc7e60..c10cc6a786b5d 100644
 > --- a/drivers/gpu/drm/bridge/ite-it6505.c
 > +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -1623,8 +1623,11 @@ static void it6505_enable_audio(struct it6505 *it6=
-505)
->  	it6505_set_bits(it6505, REG_AUDIO_SRC_CTRL, AUDIO_FIFO_RESET, 0x00);
->  	it6505_set_bits(it6505, REG_RESET_CTRL, AUDIO_RESET, 0x00);
->  	regbe =3D it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
-> -	DRM_DEV_DEBUG_DRIVER(dev, "regbe:0x%02x audio input fs: %d.%d kHz",
-> -			     regbe, 6750 / regbe, (6750 % regbe) * 10 / regbe);
-> +	if (regbe > 0)
-> +		DRM_DEV_DEBUG_DRIVER(dev,
-> +				     "regbe:0x%02x audio input fs: %d.%d kHz",
-> +				     regbe, 6750 / regbe,
-> +				     (6750 % regbe) * 10 / regbe);
->  	it6505_set_bits(it6505, REG_DATA_MUTE_CTRL, EN_AUD_MUTE, 0x00);
+[ ... ]
+> @@ -3106,6 +3107,7 @@ static void it6505_bridge_detach(struct drm_bridge =
+*bridge)
+> =20
+>  	flush_work(&it6505->link_works);
+>  	it6505_remove_notifier_module(it6505);
+> +	drm_dp_aux_unregister(&it6505->aux);
 >  }
+> =20
+[ ... ]
+> @@ -3654,7 +3656,6 @@ static void it6505_i2c_remove(struct i2c_client *cl=
+ient)
+>  	struct it6505 *it6505 =3D i2c_get_clientdata(client);
+> =20
+>  	drm_bridge_remove(&it6505->bridge);
+> -	drm_dp_aux_unregister(&it6505->aux);
 
 [Severity: High]
-This is a pre-existing issue, but I noticed another place where it6505_read=
-()
-errors might cause problems. In it6505_audio_input(), if an I2C read fails,
-does this write the negative error code back to REG_RESET_CTRL?
+Does removing drm_dp_aux_unregister() here cause a use-after-free if the I2C
+driver is unbound while the DRM device is still attached?
 
-drivers/gpu/drm/bridge/ite-it6505.c:it6505_audio_input() {
-    ...
-    reg05 =3D it6505_read(it6505, REG_RESET_CTRL);
-    ...
-    it6505_write(it6505, REG_RESET_CTRL, reg05);
-    ...
-}
+If the I2C driver is unbound (e.g., via sysfs) while the DRM display
+controller is still bound, it6505_i2c_remove() is called. The
+drm_bridge_remove() call only moves the bridge to a lingering list and
+does not immediately call it6505_bridge_detach().
 
-If it6505_read() returns -19 (-ENODEV), the lower 8 bits (0xED) would set
-both ALL_LOGIC_RESET (BIT 2) and VIDEO_RESET (BIT 0). Could this
-unintentionally reset the entire hardware state machine?
+Because drm_dp_aux_unregister() was removed from this path, the AUX adapter
+remains registered. When the remove function returns, devres frees the
+it6505 structure.=20
 
-[Severity: High]
-This is also a pre-existing issue, but similar unhandled negative error cod=
-es
-seem to be present in it6505_calc_video_info():
+Could a local user trigger a use-after-free by accessing the leaked
+/dev/drm_dp_auxN character device or I2C sysfs nodes which now point to
+the freed structure?
 
-drivers/gpu/drm/bridge/ite-it6505.c:it6505_calc_video_info() {
-    ...
-    htotal =3D it6505_read_word(it6505, REG_INPUT_HTOTAL) & 0x1FFF;
-    hdes =3D it6505_read_word(it6505, REG_INPUT_HACTIVE_START) & 0x1FFF;
-    ...
-}
+Since i2c_del_adapter() and drm_dp_aux_unregister_devnode() both contain
+safety guards against unregistered adapters, is it safer to leave
+drm_dp_aux_unregister() in the remove path as well to ensure it is always
+unregistered before devres frees the memory?
 
-If it6505_read_word() returns a negative error code (e.g. -19), would the
-bitwise AND with 0x1FFF transform it into a large positive integer (e.g.
-0x1FED)?  Could these invalid values then corrupt the video timing state wh=
-en
-accumulated into the pixel clock calculations?
+>  	it6505_debugfs_remove(it6505);
+>  	it6505_remove_notifier_module(it6505);
+>  	disable_irq(it6505->irq);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784947240.gi=
-t.daniel@makrotopia.org?part=3D7
+t.daniel@makrotopia.org?part=3D3
