@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44971C531C9
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:01:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5EDCC531FC
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99EBC10F4AD;
-	Sat, 25 Jul 2026 03:01:50 +0000 (UTC)
-Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B1CB10F39D
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:01:49 +0000 (UTC)
-Received: from local
- by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
- (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
- id 1wnSdz-00000000385-1ddo; Sat, 25 Jul 2026 03:01:43 +0000
-Date: Sat, 25 Jul 2026 04:01:40 +0100
-From: Daniel Golle <daniel@makrotopia.org>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Allen Chen <allen.chen@ite.com.tw>, Hermes Wu <hermes.wu@ite.com.tw>,
- Pin-yen Lin <treapking@chromium.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- Chen-Yu Tsai <wenst@chromium.org>
-Subject: [PATCH v6 13/13] drm/bridge: it6505: Don't reject audio hw_params
- without an encoder
-Message-ID: <3ff0cd53a0c585285f497ee0b5f63de4cee0c9eb.1784947240.git.daniel@makrotopia.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38A7F10F39D;
+	Sat, 25 Jul 2026 03:16:00 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DiHvpwB9";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEC5310E0D6
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:15:58 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5FE15406F1;
+ Sat, 25 Jul 2026 03:15:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18CC31F000E9;
+ Sat, 25 Jul 2026 03:15:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784949358;
+ bh=V5F2XSq9vNYGp4ajcYragdOCT8MnNXbR5G1w3eeXucY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DiHvpwB9fioqWce2zwIka/glgJiKSZlJoDW0GXsaOnfcaoUMwbA48P0VNgeTZrEQN
+ chGVAwICMvmbeODiHMzxtj3aV8urAGkTpG4gV17q/kVwu8Gmt3sdx2Bic7J98iDD1M
+ 4aaXeEyxcF6cofvp6uLF1/0tKlkq4CliKFHzXIKHtq4Xvy409J6wySRujYKk9eXpge
+ bb8HdmuCPbbdMHmxgLOyuAvTY3YEY3o2D1oXPVlVD4pa9TVIvcQ57RGnzlk93D1zxT
+ ttXFMgnJ3vBywTqxHhPxlxFK6vqqTpB3odK3SF3HEVQuHPIM5j1W/Rdq3a84H2nXd5
+ nRsDbu6Q99qWw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 09/13] drm/bridge: it6505: hold endpoint OF node
+ reference while parsing it
+To: "Daniel Golle" <daniel@makrotopia.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <d5abbb920321da662a735c880378513ff825fe39.1784947240.git.daniel@makrotopia.org>
 References: <cover.1784947240.git.daniel@makrotopia.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cover.1784947240.git.daniel@makrotopia.org>
+ <d5abbb920321da662a735c880378513ff825fe39.1784947240.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 25 Jul 2026 03:15:57 +0000
+Message-Id: <20260725031558.18CC31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,85 +54,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-it6505_audio_setup_hw_params() returns -ENODEV when no encoder is
-attached. With it6505 registering an hdmi-audio-codec this runs for
-every stream on the I2S DAI, and on mt8186-corsola, where the rt1019
-speaker amplifier shares I2S3, the error tears down the whole DPCM
-backend and breaks speaker playback whenever no display is attached.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-The function only caches stream parameters, which needs no encoder.
-Drop the check, and apply the audio defaults once at probe instead of
-in it6505_variable_config(), which would clobber the cached
-parameters again on every hotplug. Actual audio output remains gated
-by it6505->powered.
+Pre-existing issues:
+- [High] Uninitialized stack variable `link_frequencies` is used if `of_pro=
+perty_read_variable_u64_array()` reads 0 elements.
+--
 
-Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
-Signed-off-by: Daniel Golle <daniel@makrotopia.org>
----
-v6: no changes
+--- Patch [9]: [PATCH v6 09/13] drm/bridge: it6505: hold endpoint OF node r=
+eference while parsing it ---
+commit 635833fd1fe628586cc12b54a91fac7c8f243c4c
+Author: Daniel Golle <daniel@makrotopia.org>
 
-v5: no changes
+drm/bridge: it6505: hold endpoint OF node reference while parsing it
 
-v4: apply audio defaults at probe time instead of in
-    it6505_variable_config()
+This commit delays dropping the reference to endpoint nodes in it6505_parse=
+_dt()
+until after their properties have been parsed. This prevents a race conditi=
+on
+where the node could be freed while its properties are still being read when
+CONFIG_OF_DYNAMIC is enabled.
 
-v3: no changes
+> diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
+/ite-it6505.c
+> --- a/drivers/gpu/drm/bridge/ite-it6505.c
+> +++ b/drivers/gpu/drm/bridge/ite-it6505.c
+[ ... ]
+> @@ -3379,13 +3378,13 @@ static void it6505_parse_dt(struct it6505 *it6505)
+[ ... ]
+>  	ep =3D of_graph_get_endpoint_by_regs(np, 0, 0);
+> -	of_node_put(ep);
+> =20
+>  	if (ep) {
+>  		len =3D of_property_read_variable_u64_array(ep,
 
-v2: drop the encoder check entirely instead of returning 0 early
+[Severity: High]
+This is a pre-existing issue, but can this lead to using uninitialized stack
+memory?
 
- drivers/gpu/drm/bridge/ite-it6505.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+If the link-frequencies property exists in the device tree but is empty,
+of_property_read_variable_u64_array() (called with sz_min set to 0) will
+return 0 and leave the link_frequencies stack variable unmodified.
 
-diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index c560f1258f6d..0cb16be45d93 100644
---- a/drivers/gpu/drm/bridge/ite-it6505.c
-+++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -1371,16 +1371,6 @@ static void it6505_variable_config(struct it6505 *it6505)
- 	it6505->link_state = LINK_IDLE;
- 	it6505->hdcp_desired = HDCP_DESIRED;
- 	it6505->auto_train_retry = AUTO_TRAIN_RETRY;
--	it6505->audio.select = AUDIO_SELECT;
--	it6505->audio.sample_rate = AUDIO_SAMPLE_RATE;
--	it6505->audio.channel_count = AUDIO_CHANNEL_COUNT;
--	it6505->audio.type = AUDIO_TYPE;
--	it6505->audio.i2s_input_format = I2S_INPUT_FORMAT;
--	it6505->audio.i2s_justified = I2S_JUSTIFIED;
--	it6505->audio.i2s_data_delay = I2S_DATA_DELAY;
--	it6505->audio.i2s_ws_channel = I2S_WS_CHANNEL;
--	it6505->audio.i2s_data_sequence = I2S_DATA_SEQUENCE;
--	it6505->audio.word_length = AUDIO_WORD_LENGTH;
- 	memset(it6505->sha1_input, 0, sizeof(it6505->sha1_input));
- 	memset(it6505->bksvs, 0, sizeof(it6505->bksvs));
- }
-@@ -3025,9 +3015,6 @@ static int it6505_audio_setup_hw_params(struct it6505 *it6505,
- 			     params->sample_rate, params->sample_width,
- 			     params->cea.channels);
- 
--	if (!it6505->bridge.encoder)
--		return -ENODEV;
--
- 	if (params->cea.channels <= 1 || params->cea.channels > 8) {
- 		DRM_DEV_DEBUG_DRIVER(dev, "channel number: %d not support",
- 				     params->cea.channels);
-@@ -3159,6 +3146,16 @@ static int it6505_register_audio_driver(struct device *dev)
- 	};
- 	struct platform_device *pdev;
- 
-+	it6505->audio.select = AUDIO_SELECT;
-+	it6505->audio.sample_rate = AUDIO_SAMPLE_RATE;
-+	it6505->audio.channel_count = AUDIO_CHANNEL_COUNT;
-+	it6505->audio.type = AUDIO_TYPE;
-+	it6505->audio.i2s_input_format = I2S_INPUT_FORMAT;
-+	it6505->audio.i2s_justified = I2S_JUSTIFIED;
-+	it6505->audio.i2s_data_delay = I2S_DATA_DELAY;
-+	it6505->audio.i2s_ws_channel = I2S_WS_CHANNEL;
-+	it6505->audio.i2s_data_sequence = I2S_DATA_SEQUENCE;
-+	it6505->audio.word_length = AUDIO_WORD_LENGTH;
- 	it6505->audio.mute = true;
- 	INIT_DELAYED_WORK(&it6505->delayed_audio, it6505_delayed_audio);
- 
--- 
-2.55.0
+Since the subsequent check if (len >=3D 0) evaluates to true, won't the code
+proceed to pass the uninitialized link_frequencies variable to do_div()
+and use it to calculate the maximum DPI pixel clock?
+
+> @@ -3405,6 +3404,7 @@ static void it6505_parse_dt(struct it6505 *it6505)
+>  			dev_err(dev, "error link frequencies, use default");
+>  			*max_dpi_pixel_clock =3D DPI_PIXEL_CLK_MAX;
+>  		}
+> +		of_node_put(ep);
+>  	} else {
+>  		dev_err(dev, "error endpoint, use default");
+>  		*max_dpi_pixel_clock =3D DPI_PIXEL_CLK_MAX;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784947240.gi=
+t.daniel@makrotopia.org?part=3D9
