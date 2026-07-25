@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95AE5C531D0
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:19:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA3EBC531C9
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:20:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3B5D10E0E8;
-	Sat, 25 Jul 2026 03:19:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 595D110F4D3;
+	Sat, 25 Jul 2026 03:20:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZMbZfdd/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fFMapHMn";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F39BF10E0E8
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:19:42 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3189610F4D3
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:20:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4569F600AD;
- Sat, 25 Jul 2026 03:19:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1C461F000E9;
- Sat, 25 Jul 2026 03:19:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D8E004108D;
+ Sat, 25 Jul 2026 03:20:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C9E31F000E9;
+ Sat, 25 Jul 2026 03:20:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784949582;
- bh=e+x3fYW7voHvdNOsUanVj3YOW+ag07DI0d9ADXnChro=;
+ s=k20260515; t=1784949622;
+ bh=i3Rica2tPlmJrd2mRLAG0g5uBhemlN0utdaFnVQgc8c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZMbZfdd/IE/sHim8tGI0B6/1sXFowBZyN0byHD4qzbiisdw2rztaeOM4BzRXRS4pl
- tC1X2G+WsRh9cyHVJ+ALSFFNAnZQRXOhup3JZ9gT3hm+6g+9HJJKcYUqIYVt5i2PbJ
- T8n7/5lONhhweg9GCdG22UtheEH2hFPeFhoygDos0Zsqc8h5b7qtwm3X0USlg7+Nfp
- zggZhBuVmg72qw8ofpbJF9AwvOEH3hxvfCxx86yQtrcbXe2HEvzPX7fzd2QOtdEoE7
- eXxSevV/9Pzev3pER3fN7S/HdghdtVHgBdaFBQnoyFhnrnoh1AeIBkqIL08weneUKd
- RKE5diZ2Bitwg==
+ b=fFMapHMnFNhHiihDH+qlrPtjG/oIk+roQynB5CTuMQD1LAbtnLEZef/jZQM7nfNvC
+ Kz6Tz15V/yJ2aDgLZAohfm0azoo8wrytcfUr8NL7zyPs7CF7emu7ij88tq2fI6YFwh
+ mydY1ACYnM8EZb/cKNW71fcIY/cEHGfLpy9oS0a+WCGhjAIC7zDw5aSMKY96M7ySRB
+ TugvoS2Zk5oxL7KjkJH9ikYKUm+1sh02nQ6I9Wg5/JUCcZzn4vpNDAr4Ge9BaxzQUN
+ j2JI7MbtUaGVsHKGeVTg+sr4kMObJiRQQzXdgtcMWjOQ3XYaR97MDmGzViQATcch2z
+ XalrxVS0K4X9g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 11/13] drm/bridge: it6505: don't write an error code
- back to the reset register
+Subject: Re: [PATCH v6 06/13] drm/bridge: it6505: avoid division by zero in
+ pixel clock calculation
 To: "Daniel Golle" <daniel@makrotopia.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <e0e8ff86b0ac7f8d75cb254ebf6d22bcf79d2d34.1784947240.git.daniel@makrotopia.org>
+In-Reply-To: <a9664c9ddd026a22cd246c0aac878d3c0e204d50.1784947240.git.daniel@makrotopia.org>
 References: <cover.1784947240.git.daniel@makrotopia.org>
- <e0e8ff86b0ac7f8d75cb254ebf6d22bcf79d2d34.1784947240.git.daniel@makrotopia.org>
+ <a9664c9ddd026a22cd246c0aac878d3c0e204d50.1784947240.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 03:19:41 +0000
-Message-Id: <20260725031941.D1C461F000E9@smtp.kernel.org>
+Date: Sat, 25 Jul 2026 03:20:22 +0000
+Message-Id: <20260725032022.9C9E31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,104 +58,115 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing error check for it6505_read() inside it6505_aux_i2c_wait()=
- causes I2C read failures to be silently truncated and falsely treated as s=
-uccessful AUX operations, populating caller buffers with error codes masque=
-rading as valid data.
-- [High] Blind restoration of the entire REG_RESET_CTRL register in it6505_=
-audio_input() clobbers concurrent modifications made by other threads or wo=
-rkqueues.
+- [High] Unhandled hardware state when reading REG_AUDIO_INPUT_FREQ leads t=
+o division by zero and kernel panic.
+- [Medium] Missing error handling for I2C reads leads to data corruption in=
+ video timing calculations.
+- [Medium] Data race in `it6505_calc_video_info` corrupts pixel clock count=
+er reading.
 --
 
---- Patch [11]: [PATCH v6 11/13] drm/bridge: it6505: don't write an error c=
-ode back to the reset register ---
-commit 6cdd627967e5d418a885e4cc00b3b1ef771660fc
+--- Patch [6]: [PATCH v6 06/13] drm/bridge: it6505: avoid division by zero =
+in pixel clock calculation ---
+commit 00522edef86150c061773cb0103cee92136a7a79
 Author: Daniel Golle <daniel@makrotopia.org>
+Subject: drm/bridge: it6505: avoid division by zero in pixel clock calculat=
+ion
 
-drm/bridge: it6505: don't write an error code back to the reset register
-
-This commit addresses an issue in it6505_audio_input() where a negative
-error code from it6505_read() could be written back to the reset register.
-It adds a check to return early if reading REG_RESET_CTRL fails, and also
-ensures the audio input frequency readback is strictly positive.
+This commit fixes a potential division by zero in the pixel clock
+computation. It moves the division of the counter sum to after the zero
+check to avoid truncation of small values. This prevents sums of 1 or 2
+from being evaluated as 0 and bypassing the check.
 
 > diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
 /ite-it6505.c
-> index 1678ec5b3ba70..aeaa7b5ecf5aa 100644
+> index 3806b0b966376..b7eb746c8f8e5 100644
 > --- a/drivers/gpu/drm/bridge/ite-it6505.c
 > +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-> @@ -1516,12 +1516,15 @@ static bool it6505_audio_input(struct it6505 *it6=
-505)
->  	int reg05, regbe;
+> @@ -751,12 +751,13 @@ static void it6505_calc_video_info(struct it6505 *i=
+t6505)
+>  		sum +=3D rddata;
+
+[Severity: Medium]
+This is a pre-existing issue, but does this bitwise mask without checking f=
+or
+negative error codes cause data corruption?
+
+If I2C reads fail and return -ENODEV, the negative return value is
+directly bitwise-masked and treated as a valid hardware reading.
+
+For example, earlier in it6505_calc_video_info():
+
+    htotal =3D it6505_read_word(it6505, REG_INPUT_HTOTAL) & 0x1FFF;
+
+And similarly for the counter:
+
+    rddata =3D it6505_read_word(it6505, REG_PCLK_COUNTER_VALUE) & 0xFFF;
+    sum +=3D rddata;
+
+Could this lead to negative error codes being added to the counter sum,
+corrupting the subsequent pixel clock math?
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but is there a data race in
+it6505_calc_video_info() that corrupts the pixel clock counter reading?
+
+This function performs a multi-step hardware sequence without holding any
+locks:
+
+    it6505_set_bits(it6505, REG_DATA_CTRL0, ENABLE_PCLK_COUNTER,
+                    ENABLE_PCLK_COUNTER);
+    usleep_range(10000, 15000);
+    it6505_set_bits(it6505, REG_DATA_CTRL0, ENABLE_PCLK_COUNTER, 0x00);
+    rddata =3D ...
+
+Since this can be executed concurrently by the threaded IRQ handler
+it6505_irq_scdt() and the debugfs read handler
+receive_timing_debugfs_show(), could a debugfs read occurring during the IRQ
+handling interleave register writes?
+
+One thread might disable the counter prematurely while the other is sleepin=
+g,
+resulting in an abnormally small reading.
+
+Is this race condition the root cause of the division by zero that this pat=
+ch
+attempts to mitigate?
+
+>  	}
 > =20
->  	reg05 =3D it6505_read(it6505, REG_RESET_CTRL);
-> +	if (reg05 < 0)
-> +		return false;
+> +	sum /=3D 3;
 > +
->  	it6505_set_bits(it6505, REG_RESET_CTRL, AUDIO_RESET, 0x00);
->  	usleep_range(3000, 4000);
->  	regbe =3D it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
->  	it6505_write(it6505, REG_RESET_CTRL, reg05);
-
-[Severity: High]
-This is a pre-existing issue, but does this blind write back of the cached
-reg05 value clobber concurrent modifications?
-
-If this is called from the threaded IRQ handler or link_works, it can run
-concurrently with the hdcp_work delayed workqueue. If hdcp_work clears
-HDCP_RESET during the 3000-4000us sleep window, that concurrent change
-will be permanently overwritten and lost when the stale reg05 value is
-restored here.
-
-> -	return regbe !=3D 0xFF;
-> +	return regbe > 0 && regbe !=3D 0xFF;
->  }
+>  	if (sum =3D=3D 0) {
+>  		DRM_DEV_DEBUG_DRIVER(dev, "calc video timing error");
+>  		return;
+>  	}
 > =20
->  static void it6505_setup_audio_channel_status(struct it6505 *it6505)
-
-
-While reviewing this fix for missing error checks, I noticed another similar
-pre-existing issue in the same file:
+> -	sum /=3D 3;
+>  	pclk =3D 13500 * 2048 / sum;
+>  	it6505->video_info.clock =3D pclk;
+>  	it6505->video_info.hdisplay =3D hdew;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the lack of an error
-check for it6505_read() inside it6505_aux_i2c_wait() cause I2C read failures
-to be treated as successful operations?
+This is a pre-existing issue not introduced by this patch, but can reading =
+an
+unhandled hardware state lead to a kernel panic?
 
-drivers/gpu/drm/bridge/ite-it6505.c:it6505_aux_i2c_wait() {
-    ...
-    if (it6505_read(it6505, REG_AUX_USER_CTRL) & AUX_EVENT)
-        break;
-    ...
-    *reply =3D it6505_read(it6505, REG_AUX_USER_REPLY) >> 4;
-    ...
-}
+Looking at it6505_enable_audio():
 
-If it6505_read(it6505, REG_AUX_USER_CTRL) fails, it returns a negative errno
-like -EIO (-5 =3D 0xFFFFFFFB). The bitwise check & AUX_EVENT (0x10) will
-incorrectly evaluate to true, breaking the wait loop.
+    regbe =3D it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
+    DRM_DEV_DEBUG_DRIVER(dev, "regbe:0x%02x audio input fs: %d.%d kHz",
+                         regbe, 6750 / regbe, (6750 % regbe) * 10 / regbe);
 
-Then, if the read of REG_AUX_USER_REPLY also fails, the negative return is
-right-shifted and truncated to 0xFF, which avoids error assignment and retu=
-rns
-success.
-
-This eventually leads to it6505_aux_i2c_readb() reading garbage data into
-the output buffer:
-
-drivers/gpu/drm/bridge/ite-it6505.c:it6505_aux_i2c_readb() {
-    ...
-    buf[i] =3D it6505_read(it6505, REG_AUX_USER_RXB(0 + i));
-    ...
-}
-
-Could this silently propagate hardware error codes to the DRM layer as valid
-data?
+If the hardware register contains 0, for instance if the audio clock is not
+fully active or uninitialized, will the subsequent DRM_DEV_DEBUG_DRIVER mac=
+ro
+trigger a division by zero when evaluating 6750 / regbe?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784947240.gi=
-t.daniel@makrotopia.org?part=3D11
+t.daniel@makrotopia.org?part=3D6
