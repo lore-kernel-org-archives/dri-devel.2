@@ -4,46 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82EC5C531C9
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 05:05:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B92C531D0
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 05:08:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CBC0610F503;
-	Sat, 25 Jul 2026 05:05:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B52E410F506;
+	Sat, 25 Jul 2026 05:08:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E+CsFBSP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hv00ONOU";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1928310F503
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 05:05:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E373310F506
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 05:08:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D830E42B8A;
- Sat, 25 Jul 2026 05:05:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FEEF1F000E9;
- Sat, 25 Jul 2026 05:05:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8B20A40622;
+ Sat, 25 Jul 2026 05:08:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72A21F000E9;
+ Sat, 25 Jul 2026 05:08:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784955930;
- bh=GXJnhZf3O9BDdmnRyZyAEoVbDcvDgbstiYUjYyIK5V4=;
+ s=k20260515; t=1784956099;
+ bh=GN6aqntHEPq5XDOXgFW8etw4HsuTNEBa3VPzvY5PKqU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=E+CsFBSPMJUxvNByeRBAHS33GnTsSf2C8eLSoiFRKe2mweYmEpgWemNj2+j3PWou0
- ExN97AD+wq2Nv7x/NN2EBfzGMWMVjIb5KTCgxirVqS3A2LVCqW0N2gpW/tWCNsveGF
- rPB9REUErKa7P0TzrdRJLULNeAn1es8o3b2HVyj2aF+T1eZM1j7mOPFEJaIOH6ys1a
- SUbEEquphRSAO/kdkI/qHxF1MR53g5zoO3J1B+QrJKLePkWPZh3Q9PTJQVAFcsJvAW
- tnfNaCjHRP+7eK3kz6uDlGhEgh0b7HZg+N2jdKchJ32VfDdrkREWbN7ZYrX6AMOL42
- 0g/vQ0I1mdzYQ==
+ b=Hv00ONOULMkkAlpWMUxcUCoLfA508BVmyB1VpzWromTSYnMrnx+zDS95OZxuM7L0W
+ MO8tuW58ZI5U/PWkC9ATIBTKBaW2AbhHH6MiShZhS0j8Hbilk1qWPZjtY0wiXqx76W
+ HH1V2xQsNQ62Qd+UMw2tfC2rtA5O6C7KEuSNZAEZcm8pTmpMYkAyLjC62tYMRsIpkn
+ MwFX2HeZjOg9u+sVyCNimyGq8GHJPskT3u59Lowa8q89eVOB4s1rT/bYl2M0UUCaCp
+ mULbGyYEKvO7I6e954TJBDF6Jb52waBnNB8WfI9GLD33yk2cckpkrJJ6EO/U2hakG/
+ TKuY6r4/A7y9Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 11/17] drm/spacemit: add Saturn DPU DRM device
- driver
+Subject: Re: [PATCH RESEND 14/17] riscv: dts: spacemit: k3: add display nodes
 To: "Cody Kang" <codykang.hk@gmail.com>
-Cc: robh@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org, olteanv@gmail.com,
- vkoul@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260725-k3-display-v1-11-6de34d80e86c@gmail.com>
+Cc: robh@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org,
+ conor+dt@kernel.org, vkoul@kernel.org, dri-devel@lists.freedesktop.org,
+ neil.armstrong@linaro.org, devicetree@vger.kernel.org
+In-Reply-To: <20260725-k3-display-v1-14-6de34d80e86c@gmail.com>
 References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-11-6de34d80e86c@gmail.com>
+ <20260725-k3-display-v1-14-6de34d80e86c@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 05:05:29 +0000
-Message-Id: <20260725050530.3FEEF1F000E9@smtp.kernel.org>
+Date: Sat, 25 Jul 2026 05:08:18 +0000
+Message-Id: <20260725050818.E72A21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,153 +59,100 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Stalling the atomic commit pipeline by calling wait_for_flip_done(=
-) before commit_hw_done()
-- [High] Sleeping functions (usleep_range) called from atomic context in CR=
-TC enable/disable
-- [High] Sleeping function called from atomic context in plane update due t=
-o missing prepare_fb
+- [High] The DP controller hardware is not initialized before the eDP panel=
+ probe is triggered, causing synchronous AUX transfers to fail or hang.
+- [High] The custom EDID read function violates the I2C EEPROM protocol by =
+omitting the Middle-of-Transaction (MOT) bit, breaking EDID reads on sinks =
+that require a repeated START.
 --
 
---- Patch [11]: [PATCH RESEND 11/17] drm/spacemit: add Saturn DPU DRM devic=
-e driver ---
-commit db43bd6ae677a859cea76ccf2390ca3d109d0fe0
+--- Patch [14]: [PATCH RESEND 14/17] riscv: dts: spacemit: k3: add display =
+nodes ---
+commit 9b9ee39195ad90a76f056f9bddbdabb8377b67ec
 Author: Cody Kang <codykang.hk@gmail.com>
 
-drm/spacemit: add Saturn DPU DRM device driver
+riscv: dts: spacemit: k3: add display nodes
 
-Add the DRM device for the SpacemiT K3 Saturn display processing unit
-and hook the driver up to the build. The SoC has two DPU instances;
-each drives one CRTC that scans out a single primary plane in linear
-RGB at up to 3840x2160@60 and feeds a downstream DP/eDP controller
-over an OF-graph endpoint. Buffers use drm_gem_shmem_helper. The
-AFBC/compressed decode path is not exposed and writeback is not
-implemented.
+Add the SoC-level display nodes: the two Saturn DPUs, the two DP/eDP
+controllers with their PHY children.
 
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c b/drivers/gpu/drm/sp=
-acemit/spacemit_drm.c
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-display.dtsi b/arch/riscv/bo=
+ot/dts/spacemit/k3-display.dtsi
 > new file mode 100644
-> index 0000000000000..9fb6a7661b484
+> index 0000000000000..4892ee6acda22
 > --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
-> @@ -0,0 +1,132 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-> + *
-> + */
-
+> +++ b/arch/riscv/boot/dts/spacemit/k3-display.dtsi
+> @@ -0,0 +1,156 @@
 [ ... ]
-
-> +static void spacemit_drm_atomic_commit_tail(struct drm_atomic_commit *ol=
-d_state)
-> +{
-> +	struct drm_device *dev =3D old_state->dev;
-> +
-> +	drm_atomic_helper_commit_modeset_disables(dev, old_state);
-> +
-> +	drm_atomic_helper_commit_modeset_enables(dev, old_state);
-> +
-> +	drm_atomic_helper_commit_planes(dev, old_state,
-> +					DRM_PLANE_COMMIT_ACTIVE_ONLY);
-> +
-> +	drm_atomic_helper_wait_for_flip_done(dev, old_state);
-> +
-> +	drm_atomic_helper_commit_hw_done(old_state);
+> +&soc {
+[ ... ]
+> +	edp0: edp@cac84000 {
+> +		compatible =3D "spacemit,k3-inno-dp";
 
 [Severity: High]
-Does calling drm_atomic_helper_wait_for_flip_done() before
-drm_atomic_helper_commit_hw_done() stall the commit pipeline?
+Does enabling this device node cause the eDP panel probe to fail?
 
-drm_atomic_helper_commit_hw_done() signals that the driver has finished
-programming the hardware, which unblocks subsequent non-blocking atomic com=
-mits.
+Looking at inno_dp_probe() in drivers/gpu/drm/spacemit/spacemit_inno_dp.c, =
+it
+populates the eDP panel device on the AUX bus:
 
-Waiting for the VBLANK page flip to complete before signaling hw_done blocks
-all subsequent commits, artificially serializing the commit pipeline and
-defeating the non-blocking design of atomic KMS.
+    ret =3D devm_of_dp_aux_populate_bus(&dp->aux,
+                                      spacemit_dp_edp_link_panel);
 
-Could this lead to UI stutter and performance regressions?
+The panel driver probes synchronously and attempts an AUX transfer to read =
+the
+EDID.
 
-> +
-> +	drm_atomic_helper_cleanup_planes(dev, old_state);
-> +}
+However, the DP controller's hardware registers (including the AUX clock
+divider DP_AUX_CTRL_CLK_DIV and soft resets) are not initialized until late=
+r:
 
-I also noticed a few additional regressions in files that appear to be part=
- of
-this driver series:
+spacemit_inno_dp.c:spacemit_dp_bind() {
+    ...
+    ret =3D spacemit_dp_dev_init(dp);
+    ...
+}
+
+The uninitialized controller ignores the transfer or the AUX state machine
+does not start, causing an unavoidable timeout.
+
+> +		reg =3D <0x0 0xcac84000 0x0 0x4000>;
+[ ... ]
+> +	dp1: dp@cac88000 {
+> +		compatible =3D "spacemit,k3-inno-dp";
 
 [Severity: High]
-Are these usleep_range() calls safe in atomic context?
+Will EDID reads fail for sinks connected to this node?
 
-According to DRM subsystem guidelines, CRTC atomic enable/disable callbacks
-execute in atomic context during non-blocking commits where sleeping is
-forbidden.
+When reading EDID, the driver splits the transaction into a write and a rea=
+d:
 
-Both spacemit_crtc_atomic_enable() and dpu_pm_suspend() (called from
-spacemit_crtc_atomic_disable()) invoke usleep_range():
-
-drivers/gpu/drm/spacemit/spacemit_crtc.c:spacemit_crtc_atomic_enable() {
+spacemit_inno_dp.c:spacemit_dp_conn_get_edid_block() {
     ...
-		dpu_reset_assert(a_crtc->dev, "mclk", a_crtc->mclk_reset);
-		dpu_reset_assert(a_crtc->dev, "aclk", a_crtc->aclk_reset);
-		dpu_reset_assert(a_crtc->dev, "dsc", a_crtc->dsc_reset);
-		usleep_range(10000, 20000);
+    ret =3D spacemit_dp_aux_i2c_write(dp, DDC_ADDR,
+                                    &edid_offset, 1);
     ...
 }
 
-drivers/gpu/drm/spacemit/spacemit_crtc.c:dpu_pm_suspend() {
+It calls spacemit_dp_aux_i2c_write() which hardcodes the request:
+
+spacemit_inno_dp.c:spacemit_dp_aux_i2c_write() {
     ...
-	dpu_reset_assert(dev, "aclk", a_crtc->aclk_reset);
-	dpu_reset_assert(dev, "dsc", a_crtc->dsc_reset);
-	usleep_range(10000, 20000);
-    ...
-}
-
-Calling sleeping functions in this context causes kernel warnings and system
-instability.
-
-Should non-sleeping delays like udelay() be used instead?
-
-
-[Severity: High]
-Does spacemit_plane_atomic_update() sleep in atomic context?
-
-The DRM subsystem guidelines explicitly state that Plane atomic update call=
-backs
-execute in atomic context where sleeping is forbidden.
-
-spacemit_plane_atomic_update() calls spacemit_dmmu_map():
-
-drivers/gpu/drm/spacemit/spacemit_planes.c:spacemit_plane_atomic_update() {
-    ...
-		ret =3D spacemit_dmmu_map(plane->state->fb,
-					&spacemit_pstate->mmu_tbl, tbu_id,
-					a_crtc->cl_rdma, plane);
+    .request =3D DP_AUX_I2C_WRITE,
     ...
 }
 
-which then calls drm_gem_shmem_get_pages_sgt():
+The missing MOT (Middle-of-Transaction) bit guarantees an I2C STOP condition
+after writing the offset address. This resets the internal address pointer =
+of
+many standard EEPROMs, causing the subsequent read to repeatedly fetch bloc=
+k 0
+instead of the requested extension block.
 
-drivers/gpu/drm/spacemit/spacemit_dmmu.c:spacemit_dmmu_map() {
-    ...
-	sgt =3D drm_gem_shmem_get_pages_sgt(to_drm_gem_shmem_obj(fb->obj[0]));
-	if (IS_ERR(sgt))
-    ...
-}
-
-This helper acquires a sleeping mutex via dma_resv_lock_interruptible(). Th=
-is
-causes a sleep in atomic context, risking kernel panics.
-
-Should the driver implement a prepare_fb hook (e.g.
-drm_gem_shmem_plane_helper_prepare_fb) to pin the pages and obtain the SGT
-outside of the atomic update phase?
+> +		reg =3D <0x0 0xcac88000 0x0 0x4000>;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725-k3-display=
--v1-0-6de34d80e86c@gmail.com?part=3D11
+-v1-0-6de34d80e86c@gmail.com?part=3D14
