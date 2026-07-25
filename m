@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FE1CC531C9
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:17:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33F1EC531C9
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 03:18:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA5F310F402;
-	Sat, 25 Jul 2026 03:17:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7516D10F4C9;
+	Sat, 25 Jul 2026 03:18:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gt4bMWxH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hRAg+xb1";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CEDB10F402
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:17:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E343D10F4C9
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 03:18:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F249D600AD;
- Sat, 25 Jul 2026 03:17:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818A51F000E9;
- Sat, 25 Jul 2026 03:17:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9F7F64038B;
+ Sat, 25 Jul 2026 03:18:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D9A1F000E9;
+ Sat, 25 Jul 2026 03:18:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784949429;
- bh=nDN/EP+/SGgBQ/3/i9yrlNg4A4i6vRxytwvIvj27ze0=;
+ s=k20260515; t=1784949480;
+ bh=XZar44MkxYatYAARV70UkTG/EWuR4iE7twsMWzPxu0U=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gt4bMWxHd6bZI0Ixh+BXZkWAYkF9EzB5y1bBrWQCBj7e0Ahe0INtDGBuEp3TtPQZr
- izIrunHrxyGE95rpj5x7rMOnJxtpWv1LWUdHB6IsfYJOQTV6BAvyDf0BZWZ/WRRnWR
- MtVqLdT4uXqY535JecrqsgT6nHMg6fNyitdGI53sgzejvgt6ve1I6gBjJGeKD0jyab
- /j9yc813n1nE1TdC2fojq/QacQiUHcPnQPtQmRHW9Mnl2uC60Om3NPZe0yE4Z/fxkD
- y81M6SFHiiQFweGnNl2PejwYHzIUPzKc8oOdGXWL3Kqrqe9BuKvuUPXY+IYG+mDCvh
- HOYLmNsWAqN1w==
+ b=hRAg+xb1M30dvWZmvIB2C292Apa90lH31gT+VJWqMZmUlUgHO7Q5uVrt/cPiRjTN8
+ eya5Fycj89gG16Ow9ACVPBStKx3qIesFtFVbvuTQPgDrYu0oTrRejAjhYcOs4Wm9N2
+ kgOeUDMdYbw2AWy9zYGU0QC85PlKrYc5wsQzcd7NmpViMCIV01kNUoDD2tKSuKCeON
+ eySH1Khzv81CB2JtbTXN8FDc/QGxNMF1Lz9iBQ+2eeZ0JanFfgCsL6WxGhOnpKmMEd
+ 4/e2BthGKAhd/mwvRf+rviJ51ltRVP2GJ5h18ysflYOrQFOOagj82dOeWiYwocE3/j
+ 02t989QX0pZcQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/13] drm/bridge: it6505: unregister DP AUX adapter
- on bridge detach
+Subject: Re: [PATCH v6 04/13] drm/bridge: it6505: complete poweroff even if
+ disabling regulators fails
 To: "Daniel Golle" <daniel@makrotopia.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <e18f8cf3b9c6993c9d628f28f64b0f39c111e2a7.1784947240.git.daniel@makrotopia.org>
+In-Reply-To: <a5b76e4b0c348dc19595d918a14867b785e8af07.1784947240.git.daniel@makrotopia.org>
 References: <cover.1784947240.git.daniel@makrotopia.org>
- <e18f8cf3b9c6993c9d628f28f64b0f39c111e2a7.1784947240.git.daniel@makrotopia.org>
+ <a5b76e4b0c348dc19595d918a14867b785e8af07.1784947240.git.daniel@makrotopia.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 03:17:09 +0000
-Message-Id: <20260725031709.818A51F000E9@smtp.kernel.org>
+Date: Sat, 25 Jul 2026 03:17:59 +0000
+Message-Id: <20260725031800.62D9A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,72 +58,110 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Removing `drm_dp_aux_unregister()` from the I2C `remove` function =
-causes a use-after-free and leaves a zombie DP AUX adapter if the I2C drive=
-r is unbound while the DRM device remains attached.
+
+New issues:
+- [Low] Missing newline (`\n`) in the newly added `dev_err` format strings.
+
+Pre-existing issues:
+- [High] The interrupt handler does not check the return value of `it6505_r=
+ead()` for error codes, causing spurious interrupt triggers.
+- [High] The power-off sequence disables the IVDD (`pwr18`) regulator befor=
+e the OVDD (`ovdd`) regulator, violating the reverse-order power-down requi=
+rement.
 --
 
---- Patch [3]: [PATCH v6 03/13] drm/bridge: it6505: unregister DP AUX adapt=
-er on bridge detach ---
-commit d6c69e9e1c11461da60c039acb301f1120930d47
+--- Patch [4]: [PATCH v6 04/13] drm/bridge: it6505: complete poweroff even =
+if disabling regulators fails ---
+commit 1009be5a50c31876cc2fed6f2166f7843b4776a3
 Author: Daniel Golle <daniel@makrotopia.org>
 
-drm/bridge: it6505: unregister DP AUX adapter on bridge detach
-
-This commit moves the DP AUX adapter unregistration from the I2C remove
-routine to the DRM bridge detach and attach error paths, to avoid
-registering the adapter multiple times during unbind/rebind cycles.
+drm/bridge: it6505: complete poweroff even if disabling regulators fails
+   =20
+it6505_poweroff() returns early when regulator_disable() fails,
+leaving it6505->powered set with the IRQ already disabled. The next
+it6505_poweron() then takes its early return and never re-enables the
+IRQ, leaving the bridge deaf to hotplug and link training interrupts.
+The regulator core keeps the consumer's enable count on a failed
+disable either way, so bailing out only adds a wedged bridge on top of
+the leaked reference. Log the error and complete the power-off state
+transition instead.
 
 > diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge=
 /ite-it6505.c
-> index 7c61b02cc7e60..c10cc6a786b5d 100644
+> index c10cc6a786b5d..fb6030a2c18cb 100644
 > --- a/drivers/gpu/drm/bridge/ite-it6505.c
 > +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-[ ... ]
-> @@ -3106,6 +3107,7 @@ static void it6505_bridge_detach(struct drm_bridge =
-*bridge)
-> =20
->  	flush_work(&it6505->link_works);
->  	it6505_remove_notifier_module(it6505);
-> +	drm_dp_aux_unregister(&it6505->aux);
->  }
-> =20
-[ ... ]
-> @@ -3654,7 +3656,6 @@ static void it6505_i2c_remove(struct i2c_client *cl=
-ient)
->  	struct it6505 *it6505 =3D i2c_get_clientdata(client);
-> =20
->  	drm_bridge_remove(&it6505->bridge);
-> -	drm_dp_aux_unregister(&it6505->aux);
+> @@ -2811,13 +2811,15 @@ static int it6505_poweroff(struct it6505 *it6505)
+>  	if (pdata->pwr18) {
+>  		err =3D regulator_disable(pdata->pwr18);
 
 [Severity: High]
-Does removing drm_dp_aux_unregister() here cause a use-after-free if the I2C
-driver is unbound while the DRM device is still attached?
+This isn't a bug introduced by this patch, but does this power-off sequence
+violate the reverse-order power-down requirement?
 
-If the I2C driver is unbound (e.g., via sysfs) while the DRM display
-controller is still bound, it6505_i2c_remove() is called. The
-drm_bridge_remove() call only moves the bridge to a lingering list and
-does not immediately call it6505_bridge_detach().
+The it6505_poweron() function explicitly enforces pwr18 -> ovdd ordering,
+but this disables the core voltage (IVDD/pwr18) before the IO voltage
+(OVDD/ovdd).
 
-Because drm_dp_aux_unregister() was removed from this path, the AUX adapter
-remains registered. When the remove function returns, devres frees the
-it6505 structure.=20
+Could this forward order create reverse current paths through ESD diodes,
+leading to hardware latch-up or degradation?
 
-Could a local user trigger a use-after-free by accessing the leaked
-/dev/drm_dp_auxN character device or I2C sysfs nodes which now point to
-the freed structure?
+Should we disable ovdd before pwr18 here?
 
-Since i2c_del_adapter() and drm_dp_aux_unregister_devnode() both contain
-safety guards against unregistered adapters, is it safer to leave
-drm_dp_aux_unregister() in the remove path as well to ensure it is always
-unregistered before devres frees the memory?
+>  		if (err)
+> -			return err;
+> +			dev_err(dev, "cannot disable pwr18 regulator: %d",
+> +				err);
 
->  	it6505_debugfs_remove(it6505);
->  	it6505_remove_notifier_module(it6505);
->  	disable_irq(it6505->irq);
+[Severity: Low]
+Is this missing a trailing newline?
+
+Without a \n in the format string, subsequent kernel log messages from other
+subsystems might be concatenated on the same line, resulting in mangled
+dmesg output.
+
+>  	}
+> =20
+>  	if (pdata->ovdd) {
+>  		err =3D regulator_disable(pdata->ovdd);
+>  		if (err)
+> -			return err;
+> +			dev_err(dev, "cannot disable ovdd regulator: %d",
+> +				err);
+
+[Severity: Low]
+Does this dev_err() also need a trailing newline?
+
+>  	}
+> =20
+>  	it6505->powered =3D false;
+
+[Severity: High]
+This is a pre-existing issue, but does it6505_int_threaded_handler() fail
+to check it6505_read() for error codes?
+
+If an I2C read fails due to a transient bus error or occurring during
+power-down, it6505_read() returns a negative error code (e.g., -ENODEV).
+
+This negative value is directly assigned to the int_status array:
+
+drivers/gpu/drm/bridge/ite-it6505.c:it6505_int_threaded_handler() {
+	int_status[0] =3D it6505_read(it6505, INT_STATUS_01);
+	int_status[1] =3D it6505_read(it6505, INT_STATUS_02);
+	int_status[2] =3D it6505_read(it6505, INT_STATUS_03);
+...
+}
+
+In two's complement, negative values have many high bits set. This causes
+it6505_test_bit() to incorrectly evaluate to true for multiple random
+interrupts.
+
+Could this lead to the spurious execution of handlers and writing back garb=
+age
+to the interrupt clear register?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1784947240.gi=
-t.daniel@makrotopia.org?part=3D3
+t.daniel@makrotopia.org?part=3D4
