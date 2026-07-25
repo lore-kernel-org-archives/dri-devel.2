@@ -4,97 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C626C531C9
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 02:11:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A127C531C9
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 02:15:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD5510E0A4;
-	Sat, 25 Jul 2026 02:11:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F0E910E0CF;
+	Sat, 25 Jul 2026 02:15:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="SUSTD1X+";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="J9XhQcgu";
 	dkim-atps=neutral
-Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
- [209.85.217.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CC2810E0A4
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 02:11:41 +0000 (UTC)
-Received: by mail-vs1-f46.google.com with SMTP id
- ada2fe7eead31-7475a4f8b05so573353137.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 19:11:40 -0700 (PDT)
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com
+ [209.85.222.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31FB810E0CF
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 02:15:43 +0000 (UTC)
+Received: by mail-ua1-f46.google.com with SMTP id
+ a1e0cc1a2514c-97715c7df46so257720241.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 19:15:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784945500; x=1785550300;
+ d=chromium.org; s=google; t=1784945742; x=1785550542;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=ITWgm3LbruDN95S8X4TMqb36NkMYZxZKrEm7Vc1Llhw=;
- b=SUSTD1X+GI6Z1E2WUFjeDjJN5TCaJshb3d1H4t+7Id7TPP46+zWnkFFbd9QB8AMLq5
- ZVEyIQOLGk9l+0jFWGetOqzM/N5v3v9ICOumNTa2rJyf+nwfeWbyVaUHDRUWW0uH4N8w
- wFqokDnI/WqaVIK8jLwYkxyOw2GVg7d1aqHkU=
+ bh=nqNPVvSW5V5bY/RZvF68OH9COyKKZVjvtcYkEWUBduo=;
+ b=J9XhQcguTbJSqlPKHM150a2OwehDIOxatWeaW4uKTIgccd/HILNRe8vwrTdAOhNcAG
+ M21RUFf6l1ltPGFfeoz1kNMge1n7tsS1wZTRyK0h5dGXcUlv1WaNKjX04rNEn5DSHCju
+ ARFCN52KJCYzmofecd2oxrvSgIQjRLv56N/98=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784945500; x=1785550300;
+ d=1e100.net; s=20251104; t=1784945742; x=1785550542;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=ITWgm3LbruDN95S8X4TMqb36NkMYZxZKrEm7Vc1Llhw=;
- b=LzR4Q7ZNS8Atfb+FeuG2+SAF9hg+cmRwGivoKPJt20T80kTkEbSRk2YvZ6fQwC8Nyk
- 6Yv4qXfYGyGKd6VX64dIcD6VJQc4yvRrOnXiEaO/8XcKLPxL/CDChIZZ1cM80/4dmA+m
- AMpMTCz9Es586t8kxWN6H/+mkpNfYWiGXd/mrXDW+5aGwtiibruDPfjuXcVhNToP3jFZ
- r8aUQQkclkMC4aTzPPhHs1P+a/nwMFfvRvunbwJH1AZC4d8Y/szMGgSkldcGJd8IweEh
- yE69WbIq6GzuF5wcOFJChvt1L8w/dSKARbCcz45xBI5t81fb75Bj+fBG/P8CAaeMtJOG
- SGMg==
+ bh=nqNPVvSW5V5bY/RZvF68OH9COyKKZVjvtcYkEWUBduo=;
+ b=O+RO4mAyMHJl5Efg7I7ZHTKdfJHKI7008O1t1nfDuMlyXAr/RO713MSCCseQ8m4UZH
+ iSLwSLHZ9Us2joKrZ4OFp8Y4IgRPWx5JpZ9ptJgb13O5hG0c4T6z+p5R6iZvuV6nB0BM
+ w540aysUIteFBFa9IGLLv8UgYGYGXBEk5bBYHsKYzsSm02waoAq6904pp5BxOfGNfYOe
+ 0V95lSKtvl3xLld0U9aKJZpVblvLnoh5vYgaJ596we8/xNnC9Oi0XfI7LTF0zpekNySn
+ 8373O38Flo7AykeSahUWNhDPsrL+jK9pplAxZcjUZq6RnKkLmEh6OLfWMMyB82HjluDu
+ z1Ow==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro03DvpF94UjE3M+pJY2mq2c2ocFCQCZ+Q1KqWi4wMP6EWcJyPAiiGwG/sANFWlHC7CAZJKu5WyB+E=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy9N1ofjXdZxlQQ5+CWEJGo7y5EbfSOcqIUSBslnVr0JLIpwJB4
- QRX5xWsoxwjFYPdm1+O5Y59QnLAbpfMNVLETYmhmkWRct1y0ULqJnTaHno0OKBP3CHsguiijYJZ
- klZI=
-X-Gm-Gg: AR+sD10X19uQ6BofDnnM2r/3L71hLiC7tLxWSA883BgdI9UUMKF+Ul/sJW3J8gHjM8+
- pDH1Q1pWHq0AXolmxWIRbrAI7uydzz2yDXxBZ3hik03svo/npGRk5UKXNLVIJGdluRfYdb+L0dy
- pj4+wdHa1CVE0r0ELf2SQ7JbAqjQfX8/bc1ODSc/MYqsoA6GUQfQOPK46ZoGVWx3McuBfcTWAhM
- GljqXS/YYSn9mXZ1YL9MzU5d1mWKbc/Q2POkVeaI50VILUZmM25BEI59+DrPvX9BqhugA5OAqsG
- wDVjELgm0MQwiwtPJVRwcf1R3BEsb8gO6cIbrdqFYaIjP7oWEHyB8SAhu/8BI93jnv84tGur6nU
- kUGQ8Rtpx72iJ76Jc3IVxqQ2QEO0M55u1RDUjnaotUUtg0DXa8fpB9UeNAhEWL5RI729btPGIQ3
- ib43d5UDwhB6+gsiCdiqJ0zyty/XBZdph32LwLy1A3C6fs
-X-Received: by 2002:a05:6102:4bcb:b0:650:9174:32b with SMTP id
- ada2fe7eead31-7503e2562e9mr852635137.1.1784945499608; 
- Fri, 24 Jul 2026 19:11:39 -0700 (PDT)
-Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com.
- [209.85.221.169]) by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-75036705086sm541790137.12.2026.07.24.19.11.38
+ AHgh+RrO/gKGNSCK+0svuxLJ4gcZxRE3+pYJIMudwJyczSUM8KsXuOUF7TTa8CTMKB3PIX5LDUU5g+xMYSo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwUJYqmL2Jv6BfLqEk9eIQZ62/ks94Dpr41uSgIhO4ia7Hjg4Ts
+ hUAL6lzozu6/fm1AeNnQexA4yDYQaalZ1Qn/6rdrz73cIopah1JoUeGqnJMM6B04hx0a6PaHeaC
+ AwJg=
+X-Gm-Gg: AR+sD13+EFfLXKcuO3Ah+L6btbMVhrIUZZ6g6OwcRGhwk5LBxKrNMm8kaIzUdVqrrb4
+ 96oChJxWDJaGeNFu8++nVrB865u8R0+R1AEwrLWiw19s+cfMqsWVmMRqv6kLIg0LARgGnI3nBue
+ ChBmcEwPgOXoqEdaPZNZaxxoJgGhJ+VmFvQFcDvyQ9gv1OEpiC5ZzBYPTZ7eCtrboRcEkGZjxBj
+ fGo6eZmm1t0qbjnaxqGzMMAao4/W+I94VJLVVId+NpbQhIVzQjE0XUSNfR1oYdiwYs/yjihoC1w
+ I3o8r9/X4Fe8+yEBGkt84YYHwGN6mj+5y9kO+F3DeWJmuw7Ne0tedlNR1XddS1lvxQMGR63qbAO
+ CRppmVYYHo6TDG+tZYn7/PLwannrZe0hkUtScqLGyCNjCrfuNUI+JmI76MPN8hju65fI6YJetA5
+ hSE64Om7yhZwlv03xmV2I9Vrrzw5+PSWfkTCLVEZ3lz3E791tyW9s=
+X-Received: by 2002:a05:6102:5794:b0:74a:b5e3:e96f with SMTP id
+ ada2fe7eead31-7503e26761cmr790080137.7.1784945741714; 
+ Fri, 24 Jul 2026 19:15:41 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com.
+ [209.85.217.53]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-7503436f542sm565561137.4.2026.07.24.19.15.40
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Jul 2026 19:11:38 -0700 (PDT)
-Received: by mail-vk1-f169.google.com with SMTP id
- 71dfb90a1353d-5c2ae02f69eso638787e0c.2
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 19:11:38 -0700 (PDT)
+ Fri, 24 Jul 2026 19:15:41 -0700 (PDT)
+Received: by mail-vs1-f53.google.com with SMTP id
+ ada2fe7eead31-745497ac8fcso373524137.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 19:15:40 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AHgh+Rrpl31vvz/lBKXpl/XKiJ0D92EgxxrPere6iaDz+cS2Em0Bx3o85ceIogBu3OJFp0RThxsebuvB3Zo=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:1d11:b0:5bf:5edc:9aa0 with SMTP id
- 71dfb90a1353d-5c306c6e6a0mr461779e0c.7.1784945497117; Fri, 24 Jul 2026
- 19:11:37 -0700 (PDT)
+ AHgh+Rokbqwu8CQXpaJE5JeZ0QtMf8whHatv6yWmrWvn2Cc9qvp3eoNc/C2iD0BFa5aLTmHRq9SlXFz0UXs=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:3711:b0:737:f0ba:508f with SMTP id
+ ada2fe7eead31-7503dc567d0mr833841137.3.1784945739245; Fri, 24 Jul 2026
+ 19:15:39 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260723131649.134127-1-panchuang@vivo.com>
- <20260723131649.134127-11-panchuang@vivo.com>
-In-Reply-To: <20260723131649.134127-11-panchuang@vivo.com>
+References: <20260723203601.806697-1-michail.tatas@gmail.com>
+In-Reply-To: <20260723203601.806697-1-michail.tatas@gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 24 Jul 2026 19:11:26 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=WPC92HLyRbo72KK5E9jTQ2TZN9F9gogZk7oNfpat4YRg@mail.gmail.com>
-X-Gm-Features: AUfX_mwYBdpfV5llTrtZnWm9mscp0kId0KzN0JiFztTWZRgnb7phFSC1CRdZtvI
-Message-ID: <CAD=FV=WPC92HLyRbo72KK5E9jTQ2TZN9F9gogZk7oNfpat4YRg@mail.gmail.com>
-Subject: Re: [PATCH 10/10] drm/bridge: ti-sn65dsi86: Remove redundant
- dev_err_probe()
-To: Pan Chuang <panchuang@vivo.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- "open list:DRM DRIVERS" <dri-devel@lists.freedesktop.org>,
- open list <linux-kernel@vger.kernel.org>
+Date: Fri, 24 Jul 2026 19:15:27 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X+0_oVB2oHg=R+JAyFZFd2EXWAVhHv5oX6QGjB0RCKUg@mail.gmail.com>
+X-Gm-Features: AUfX_myjo6U8AtleOEUxdwK7ailr_GVvsZOgZmUBfuocWHRjrNIT4c9QCnE8IrA
+Message-ID: <CAD=FV=X+0_oVB2oHg=R+JAyFZFd2EXWAVhHv5oX6QGjB0RCKUg@mail.gmail.com>
+Subject: Re: [PATCH v4 0/3] drm/panel: ilitek-ili9805: convert to *_multi API
+To: Michail Tatas <michail.tatas@gmail.com>
+Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org, 
+ jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -114,23 +104,31 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Thu, Jul 23, 2026 at 6:17=E2=80=AFAM Pan Chuang <panchuang@vivo.com> wro=
-te:
+On Thu, Jul 23, 2026 at 1:36=E2=80=AFPM Michail Tatas <michail.tatas@gmail.=
+com> wrote:
 >
-> Since commit
-> 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq()"=
-),
-> devm_request_threaded_irq() automatically logs detailed error messages on
-> failure. Remove the now-redundant driver-specific dev_err_probe() call.
+> This series converts panel-ilitek-ili9805 to the
+> mipi_dsi_*_multi helpers and cleans up the resulting code.
 >
-> Signed-off-by: Pan Chuang <panchuang@vivo.com>
-> ---
->  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Patch 1: Convert the individual DSI calls to their
+> *_multi variants
+>
+> Patch 2: Replace the ILI9805_INSTR table with per
+> panel init functions using the *_multi API, dropping
+> struct ili9805_instr
+>
+> Patch 3: makes ili9805_power_off() and ili9805_deactivate()
+> return void, since no one checks their return values.
+>
+> Michail Tatas (3):
+>   drm/panel: ilitek-ili9805: Use _multi variants
+>   drm/panel: ilitek-ili9805: Use dsi_multi in init
+>   drm/panel: ilitek-ili9805: make cleanup funcs void
+>
+>  drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 212 ++++++++-----------
+>  1 file changed, 87 insertions(+), 125 deletions(-)
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-I'll plan to apply this to drm-misc-next in ~1 week unless anything comes u=
-p.
+Thanks for the extra small cleanups. Planning to apply v4 mid-next
+week unless something comes up.
 
 -Doug
