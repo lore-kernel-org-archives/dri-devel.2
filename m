@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1254FC531D0
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 05:22:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7834CC53200
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 05:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7078410F511;
-	Sat, 25 Jul 2026 05:22:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE65010F512;
+	Sat, 25 Jul 2026 05:23:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="STmcpFqq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DmhiTzte";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B52CD10F511
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 05:22:03 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AC1310F512
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 05:23:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6988A43B27;
- Sat, 25 Jul 2026 05:22:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6AEE1F000E9;
- Sat, 25 Jul 2026 05:22:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B0E6860A85;
+ Sat, 25 Jul 2026 05:23:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB92B1F000E9;
+ Sat, 25 Jul 2026 05:23:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784956923;
- bh=bG66rhHvJ03E/3MxvHqTQu0vzSPnTuJRVoJfRS1ke/A=;
+ s=k20260515; t=1784956989;
+ bh=8zdUiXBGz2VORpIqv5g6dxpTkhPL1Q4b9q6AGNx/aBc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=STmcpFqqNkddAsNbnqEkO6fcohLg7IzzhVnv/YKT1KlsnfYUsWHlO6imbbMWjqLTT
- EcfPpNStzl3xhcNOuJYyBxHxqAzyJm3NNxX6lrbEgRY+mwCFIwaGSXXcp6oJAFGtPV
- yomTfztGQoJTsLO2TI5AvEqoznPLcsSiY9TsLt7Zso7mMBVpAQXN/aS7KuSmnTFEMV
- U6LAdjuqO+2CLihQVTxSzn9kxBTv5AJB7KyG0+bVe1fZHoE9J54QoQpmpIe9gA4pp4
- 2zoBagh6HV9WpGenJ0Tp3sCBJ26e0oR2KZzXpce3WTAilyNcRXJScQyo15S3E6l+n6
- q5MnQ00IBJa3w==
+ b=DmhiTzteTVZUqnaS/92H6FX73KR+s/jWIgnHNsspOJMoTpHU3ivqa4Lo04TGWrMA0
+ vvpICXe1rT1kYBzFkMqLVPbDktQUvnIWqMFxvHfyQx3Qbekzh6fhq6r7/AtyRdDQkx
+ O3JIkoXcE7e3nyRobRJV5ONNJBnMzbfdgjZb2+gIDEQq1ne9rN2bsMa09a7gySU13n
+ V5CiZOquXdnUlp3LJNmO9koR8uyKXYysZ3OVz/ijr9VWXcMg9Q88XhRTlk9DfUu5XD
+ KOPdRadv9awVzUwtxupJW9IrtsjrSHNjKllFirImBCPfief0yO0OGBZwAXixozX3G3
+ HZmGAJGRoPz5A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 09/17] drm/spacemit: add Saturn DPU hardware backend
+Subject: Re: [PATCH 15/17] riscv: dts: spacemit: k3-pico-itx: enable the
+ DisplayPort output
 To: "Cody Kang" <codykang.hk@gmail.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, vkoul@kernel.org,
- robh@kernel.org, dri-devel@lists.freedesktop.org, olteanv@gmail.com,
- neil.armstrong@linaro.org, conor+dt@kernel.org
-In-Reply-To: <20260724-k3-display-v1-9-f22a10a52867@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org, robh@kernel.org,
+ conor+dt@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org,
+ olteanv@gmail.com, devicetree@vger.kernel.org
+In-Reply-To: <20260724-k3-display-v1-15-f22a10a52867@gmail.com>
 References: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
- <20260724-k3-display-v1-9-f22a10a52867@gmail.com>
+ <20260724-k3-display-v1-15-f22a10a52867@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 05:22:02 +0000
-Message-Id: <20260725052202.C6AEE1F000E9@smtp.kernel.org>
+Date: Sat, 25 Jul 2026 05:23:08 +0000
+Message-Id: <20260725052308.EB92B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,303 +60,145 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Usage of sleep-capable functions in atomic CRTC and plane hardware=
- programming callbacks.
-- [High] Unchecked return value of `clk_round_rate` leads to hardware misco=
-nfiguration.
-- [High] Data race on `flip_done` between the timeout handler and ISR leadi=
-ng to vblank refcount underflow.
-- [High] Unconditional dereference of `state->fb` triggers kernel panic for=
- solid fill planes.
-- [High] When the cmdlist buffer overflows, `cl->nod_len` is incremented de=
-spite the row write being aborted, causing the hardware to read out-of-boun=
-ds DMA memory.
-- [High] The `cl_rdma` register buffer is never packed into the cmdlist and=
- gets corrupted when shared across planes.
-- [High] Signed plane coordinates are directly cast to u32, causing massive=
- out-of-bounds register programming when off-screen.
-- [Medium] The `INT_VSYNC_UPDATE` interrupt is missing from the `irq_list` =
-mapping array, preventing its status from being cleared.
+- [High] Pixel clock truncation causes DisplayPort Transfer Unit (TU) misca=
+lculation.
+- [High] EDID extension block reads fail due to omitted DP_AUX_I2C_MOT bit =
+in I2C-over-AUX transactions.
+- [Medium] Missing get_modes implementation for DRM_BRIDGE_OP_MODES capabil=
+ity.
+- [Medium] Dropped hotplug interrupt notifications due to omitted DRM_BRIDG=
+E_OP_HPD.
 --
 
---- Patch [9]: [PATCH 09/17] drm/spacemit: add Saturn DPU hardware backend =
----
-commit 1cf09ad0cc7d13639bcbfc63e90d8f431590bfbd
+--- Patch [15]: [PATCH 15/17] riscv: dts: spacemit: k3-pico-itx: enable the=
+ DisplayPort output ---
+commit 81b9c7b43f433a109ef12eb306af123e3e5941fc
 Author: Cody Kang <codykang.hk@gmail.com>
 
-drm/spacemit: add Saturn DPU hardware backend
+riscv: dts: spacemit: k3-pico-itx: enable the DisplayPort output
+   =20
+Pico-ITX brings the second DPU's output to an external DisplayPort
+connector. Enable that DPU and the DisplayPort controller it feeds.
 
-Add the register-level programming of one Saturn instance: clock and
-reset bring-up, scene control and timing generator setup, RDMA channel
-and composer layer programming, FBC line-buffer budgeting, interrupt
-dispatch and the cfg-ready/vsync handshake that paces commits. The
-backend is exposed as an ops table and hardware descriptor to be
-aggregated by the KMS layer in an upcoming patch.
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/bo=
+ot/dts/spacemit/k3-pico-itx.dts
+> index b89c1521e6649..6c31460990a75 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
 
-> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c b/drivers/gpu/drm/=
-spacemit/dpu/dpu_saturn.c
-> index 0000000000000..8d5f13bc5373c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c
 [ ... ]
-> +static int dpu_enable_clocks(struct spacemit_crtc *a_crtc)
-> +{
-> +	struct dpu_clk_context *clk_ctx =3D &a_crtc->clk_ctx;
-> +	struct drm_crtc *crtc =3D &a_crtc->crtc;
-> +	struct drm_display_mode *mode =3D &crtc->mode;
-> +	u64 clk_val;
-> +	u64 set_clk_val;
-> +	int ret;
+
+> @@ -221,3 +222,13 @@ hub@1 {
+>  &usb2_phy {
+>  	status =3D "okay";
+>  };
 > +
-> +	ret =3D clk_prepare_enable(clk_ctx->pxclk);
-> +	if (ret)
-> +		goto err;
-> +	set_clk_val =3D mode->clock * 1000;
-> +	if (set_clk_val) {
-> +		set_clk_val =3D clk_round_rate(clk_ctx->pxclk, set_clk_val);
-
-[Severity: High]
-Does this code properly handle negative error codes from clk_round_rate()?
-
-If clk_round_rate() fails and returns an error like -EINVAL, the unchecked
-value is cast directly to u64 set_clk_val. This will sign-extend the error
-code into a massive positive integer before it gets passed to clk_set_rate(=
-),
-which can lead to hardware misconfiguration.
-
-> +		clk_val =3D clk_get_rate(clk_ctx->pxclk);
-> +		if (clk_val !=3D set_clk_val) {
-> +			clk_set_rate(clk_ctx->pxclk, set_clk_val);
-> +			drm_dbg(crtc->dev, "pxclk=3D%lld\n", clk_val);
-> +		}
-> +	}
-[ ... ]
-> +static inline void dpu_isr_vblank(struct spacemit_crtc *a_crtc, bool *fl=
-ip)
-> +{
-> +	struct drm_crtc *crtc =3D &a_crtc->crtc;
-> +	struct drm_device *drm =3D crtc->dev;
-> +	struct drm_pending_vblank_event *event;
+> +&dpu1_crtc0 {
+> +	status =3D "okay";
+> +};
 > +
-> +	drm_crtc_handle_vblank(crtc);
-> +
-> +	if (*flip)
-> +		return;
-> +	*flip =3D true;
-
-[Severity: High]
-Can this race condition cause a vblank reference underflow?
-
-The timer handler spacemit_cfg_rdy_timer_handler() sets flip_done to true a=
-nd
-calls drm_crtc_vblank_put() asynchronously.
-
-If the ISR runs concurrently, both threads can observe flip_done as false
-due to the lockless TOCTOU check here. They will both set it to true and
-drop the vblank reference, putting the reference twice.
-
-> +
-> +	/*
-> +	 * event_lock serialises this against the commit arming
-> +	 * crtc->state->event.
-> +	 */
-> +	spin_lock(&drm->event_lock);
-[ ... ]
-> +static u32 dpu_online_isr(struct spacemit_crtc *a_crtc)
-> +{
-> +	u32 irq_raw, irq_bit, irq_ur_bit;
-> +	struct spacemit_drm_private *priv =3D a_crtc->crtc.dev->dev_private;
-> +	struct spacemit_hw_device *hwdev =3D priv->hwdev;
-> +	int dev_id =3D a_crtc->dev_id;
-> +
-> +	trace_dpu_isr(a_crtc->dev_id);
-[ ... ]
-> +	irq_bit =3D hwdev->get_irq_bit(INT_REST, dev_id) | irq_ur_bit;
-> +	if (irq_raw & irq_bit)
-> +		hwdev->clr_int_sts(a_crtc, irq_bit, dev_id);
-> +
-> +	irq_bit =3D hwdev->get_irq_bit(INT_VSYNC_UPDATE, dev_id);
-> +	if (irq_raw & irq_bit)
-> +		hwdev->clr_int_sts(a_crtc, irq_bit, dev_id);
+> +&dp1 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&dp1_1_cfg>;
+> +	status =3D "okay";
+> +};
 
 [Severity: Medium]
-Is it possible to clear the INT_VSYNC_UPDATE interrupt?
+Enabling this DisplayPort output exposes some issues in the underlying driv=
+er.
+Does the DisplayPort driver incorrectly declare support for
+DRM_BRIDGE_OP_MODES?
 
-The irq_list array in dpu_saturn_hee.c only defines up to INT_REST.
+drivers/gpu/drm/spacemit/spacemit_inno_dp.c:spacemit_dp_bind()
+		dp->bridge.ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
+				 DRM_BRIDGE_OP_MODES;
 
-When get_irq_bit() is called with INT_VSYNC_UPDATE (index 5), it triggers
-the ARRAY_SIZE(irq_list) check and returns 0. Consequently, the interrupt
-status can never be cleared by this handler.
+The callback structure omits the logically required .get_modes callback:
 
-> +
-> +	return 0;
-> +}
-[ ... ]
-> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c b/drivers/gpu/=
-drm/spacemit/dpu/dpu_saturn_hee.c
-> index 0000000000000..c23e4ca36d26b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c
-[ ... ]
-> +void saturn_hee_plane_update_hw_channel(struct drm_plane *plane)
-> +{
-> +	struct drm_plane_state *state =3D plane->state;
-> +	struct spacemit_crtc *a_crtc =3D to_spacemit_crtc(state->crtc);
-> +	struct drm_framebuffer *fb =3D plane->state->fb;
-[ ... ]
-> +	src_w =3D state->src_w >> 16;
-> +	src_h =3D state->src_h >> 16;
-> +	src_x =3D state->src_x >> 16;
-> +	src_y =3D state->src_y >> 16;
-> +
-> +	crtc_w =3D state->crtc_w;
-> +	crtc_h =3D state->crtc_h;
-> +	crtc_x =3D state->crtc_x;
-> +	crtc_y =3D state->crtc_y;
+drivers/gpu/drm/spacemit/spacemit_inno_dp.c:spacemit_dp_bridge_funcs
+static const struct drm_bridge_funcs spacemit_dp_bridge_funcs =3D {
+	.attach				=3D spacemit_dp_bridge_attach,
+...
 
-[Severity: High]
-Can this cause massive out-of-bounds register programming if the plane is
-partially off-screen?
 
-The plane coordinates state->crtc_x and state->crtc_y are signed 32-bit
-integers. Directly assigning them to unsigned 32-bit variables will cause
-negative values to overflow into extremely large positive integers.
+[Severity: Medium]
+Will hotplug events be silently dropped here?  The driver omits the
+DRM_BRIDGE_OP_HPD flag:
 
-When these are written to the hardware area control registers, it creates
-invalid constraints like area_left being greater than area_right.
+drivers/gpu/drm/spacemit/spacemit_inno_dp.c:spacemit_dp_bind()
+		/*
+		 * No OP_HPD: the HPD interrupt is gated by the DP pixel clock.
+		 * Leaving it out marks the connector POLL_CONNECT |
+		 * POLL_DISCONNECT instead.
+		 */
+		dp->bridge.ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
+				 DRM_BRIDGE_OP_MODES;
 
-> +
-> +	drm_dbg(plane->dev, "crtc_x %u crtc_y %u\n", crtc_x, crtc_y);
-> +
-> +	if (rdma_id =3D=3D RDMA_INVALID_ID)
-> +		solid_en =3D true;
-> +
-> +	trace_dpu_plane_info(state, fb, rdma_id, alpha, state->rotation);
-> +
-> +	/* For solid color both src_w and src_h are 0 */
-> +	if (!solid_en) {
-> +		base =3D RDMA_BASE_ADDR[rdma_id];
-> +		/* linear scanout only: the FBC decode path is not exposed */
-> +		dpu_write(hwdev, RDMA_PATH_X_REG, base, layer_mode, 0, cl_rdma);
+However, the hardware interrupt is fully enabled:
+
+drivers/gpu/drm/spacemit/spacemit_inno_dp.c:spacemit_dp_dev_init()
+	enable_irq(dp->irq);
+
+And the handler invokes the notification function:
+
+drivers/gpu/drm/spacemit/spacemit_inno_dp.c:spacemit_dp_hotplug_event_handl=
+er()
+	drm_bridge_hpd_notify(&dp->bridge, status);
+
+Because DRM_BRIDGE_OP_HPD is omitted, the DRM core never registers a hotplug
+callback. This turns the notification into a no-op and forces the system to
+fall back to a 10-second polling interval.
+
 
 [Severity: High]
-Is the cl_rdma register buffer ever flushed to the command list?
+Could this calculation result in an incorrect DisplayPort Transfer Unit (TU=
+)?
 
-RDMA configurations are written to a_crtc->cl_rdma, but cmdlist_regs_packin=
-g()
-is never called for this buffer, meaning the configurations are discarded a=
-nd
-never reach the hardware.
+drivers/gpu/drm/spacemit/spacemit_inno_dp.c:spacemit_dp_hw_set_msa_and_enab=
+le_video()
+		fp =3D mode->clock / 1000;
 
-Furthermore, does sharing a_crtc->cl_rdma across planes corrupt the state?
-When dpu_write() is called, it unconditionally overwrites cl_p->base. If
-multiple planes are updated concurrently, the last plane will overwrite the
-base address for all prior planes' registers in this shared buffer.
+The pixel clock is truncated from kHz to an integer MHz value, losing
+precision for standard clocks like 148.5 MHz.  This truncated value is then
+used directly to compute the Transfer Unit:
 
-> +		dpu_write(hwdev, RDMA_PATH_X_REG, base, layer_cmpsr_id,
-> +			  a_crtc->dev_id, cl_rdma);
-[ ... ]
-> +	} else {
-> +		/* Constant-fill layer: zero-size source, transparent black. */
-> +		solid_r =3D 0;
-> +		solid_g =3D 0;
-> +		solid_b =3D 0;
-> +		solid_a =3D 0;
-> +	}
-> +
-> +	switch (pixel_alpha) {
-[ ... ]
-> +	}
-> +
-> +	if (state->fb->format && state->fb->format->has_alpha &&
+drivers/gpu/drm/spacemit/spacemit_inno_dp.c:spacemit_dp_hw_set_msa_and_enab=
+le_video()
+	/* Transfer unit: tu =3D fp * bpp * 640 / (8 * lanes * link_rate) */
+	{
+		u64 temp_tu =3D (u64)fp * bpp * 640;
+
+This math error produces a systematically incorrect Transfer Unit which can
+lead to FIFO underflows and video corruption.
+
 
 [Severity: High]
-Will this crash if the plane is a solid fill plane?
+Can EDID extension block reads fail due to protocol violations on the
+I2C-over-AUX transactions?
 
-In DRM, solid fill planes do not require an attached framebuffer, meaning
-state->fb can be NULL. Unconditionally dereferencing state->fb->format here
-without verifying if state->fb is valid will trigger a kernel panic.
+drivers/gpu/drm/spacemit/spacemit_inno_dp.c:spacemit_dp_conn_get_edid_block=
+()
+			ret =3D spacemit_dp_aux_i2c_write(dp, DDC_ADDR,
+							&edid_offset, 1);
+			if (ret)
+				continue;
 
-> +	    pixel_alpha !=3D DRM_MODE_BLEND_PIXEL_NONE) {
-> +		if (alpha !=3D 0xff)
-> +			alpha_sel =3D 0x2;
-> +		else
-> +			alpha_sel =3D 0x1;
-> +	} else {
-> +		blend_mode =3D 0x0;
-> +		alpha_sel =3D 0x0;
-> +	}
-> +
-> +	cl_cmp =3D alloc_cmdlist_regs(CMPS_X_REG);
+			ret =3D spacemit_dp_aux_i2c_read(dp, DDC_ADDR,
+						       buf + offset, chunk);
 
-[Severity: High]
-Since plane atomic update callbacks execute in atomic context during
-non-blocking commits, is it safe to allocate memory here?
+The custom message request explicitly lacks the DP_AUX_I2C_MOT (Middle Of
+Transaction) bit:
 
-The alloc_cmdlist_regs() macro uses kzalloc() with GFP_KERNEL. Calling
-sleeping functions from an atomic context causes kernel warnings,
-system instability, and potential deadlocks.
+drivers/gpu/drm/spacemit/spacemit_inno_dp.c:spacemit_dp_aux_i2c_write()
+		.request =3D DP_AUX_I2C_WRITE,
 
-> +
-> +	base =3D CMP_BASE_ADDR[a_crtc->dev_id];
-> +	dpu_write(hwdev, CMPS_X_REG, base, dst_w, mode->hdisplay, cl_cmp);
-[ ... ]
-> +void saturn_hee_cmdlist_fill_data_row(struct cmdlist *cl, u32 strobe,
-> +				      u32 offset, u32 value[])
-> +{
-> +	struct cmdlist_row *row;
-> +	u8 i;
-> +
-> +	/*
-> +	 * packing counts rows blindly; drop the row rather than the buffer end
-> +	 */
-> +	if (WARN_ONCE(CL_HEADER_SZ + (cl->nod_len + 1) * CL_ROW_SZ > cl->size,
-> +		      "cmdlist buffer full (rows %u)\n", cl->nod_len))
-> +		return;
-
-[Severity: High]
-Does this correctly handle command list buffer overflows?
-
-When the cmdlist buffer is full, this function issues a warning and returns
-early without writing the row.
-
-However, its caller in cmdlist_regs_packing() ignores this failure and
-still increments cl->nod_len. This artificially inflates the length in the
-header. When the DPU hardware parses the cmdlist, it will attempt to read
-out-of-bounds DMA memory.
-
-> +
-> +	row =3D (struct cmdlist_row *)((char *)cl->va + CL_HEADER_SZ) + cl->nod=
-_len;
-[ ... ]
-> diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c b/drivers/gpu/d=
-rm/spacemit/dpu/saturn_fbcmem.c
-> index 0000000000000..144716ec9b80c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c
-[ ... ]
-> +int saturn_cal_layer_fbcmem_size(struct drm_plane *plane,
-> +				 struct drm_plane_state *state)
-> +{
-> +	struct spacemit_plane_state *pstate =3D to_spacemit_plane_state(state);
-> +	u32 drm_4cc_fmt =3D pstate->state.fb->format->format;
-
-[Severity: High]
-Will this crash if the plane is a solid fill plane?
-
-In DRM, solid fill planes do not require an attached framebuffer, meaning
-state->fb can be NULL. Unconditionally dereferencing state->fb->format here
-without verifying if state->fb is valid will trigger a kernel panic.
-
-> +	u32 crop_w =3D pstate->state.src_w >> 16;
-> +
-> +	/* Only linear sizing: the compressed path is not exposed. */
-> +	return get_raw_data_plane_rdma_mem_size(drm_4cc_fmt, crop_w,
-> +						&pstate->fbcmem_size);
-> +}
+Issuing a write and a read separately without maintaining I2C transaction
+continuity triggers an I2C STOP condition.  This can cause I2C EEPROMs to
+reset their address pointers, preventing the reading of EDID extension bloc=
+ks.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260724-k3-display=
--v1-0-f22a10a52867@gmail.com?part=3D9
+-v1-0-f22a10a52867@gmail.com?part=3D15
