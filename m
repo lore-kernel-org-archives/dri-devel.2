@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38FCCC54EFC
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 04:51:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A037C531C9
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 04:51:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8F9C910F4EC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDD0A10F4ED;
 	Sat, 25 Jul 2026 04:51:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DIz7JN69";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AYuTlsUc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65DD910F4EC
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6251F10E645
  for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 04:51:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 353FC60AA4;
+ by sea.source.kernel.org (Postfix) with ESMTP id 5BAAA4519C;
  Sat, 25 Jul 2026 04:51:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CCB91C32786;
- Sat, 25 Jul 2026 04:51:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 12845C4AF13;
+ Sat, 25 Jul 2026 04:51:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1784955084;
- bh=Ip52DWDNGd4Rqb+ZyPoPiUVDHf2UciANlwgKpL5YTks=;
+ s=k20201202; t=1784955085;
+ bh=wonA2vEJhnyXD4bYv5jPRPqPzb4hwC+tlaZ3VFa9dHk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=DIz7JN69gJL2RisIgv9AAShFa7dHdRcfYXn0pES9w36vLnSdAoqXuB2t8ZidaF8/3
- Npz/sGs/Ch+VX7F1JenSTzw8Pk9fa3t37x+1eeeaa6kdQlDCcogzM6vt2nX7+OTrlM
- C3LVceZ9YzeBCdRCkWXrp6iq68AQ8JirClDIxMPPtQXDFNGdtVtXVleK4JJrAqnVRk
- QNC8kpZr2Yt8VUpEQnIvr2lr2m3YovmhI8cjLm4qsHw4IGPHwoN94R9AsIa2GL7o1x
- AbE78J5rxoddv/PewgBwSchtLIHpgMZ/OdFqE9M4y5bn/jmgOmr/H7OkpOakM/xahx
- RipTcoHxnIbJA==
+ b=AYuTlsUcxM5dFsQ7xt3r1TZt1hWoixxBMRPYeWjf9eZorntcJFx9lYPP9xM3dv+/7
+ vm4KfLS20OkyY9CJFVtBvGYwKmtO2V0wM1Ij6D6sQbUXxz8H/+MxUeaqHPkRcQXcT+
+ gXsuRYiaIvMDat0rt8GkEB3uqK26a2Xs+ZFRGvIOtIIrU2lyQ6V3GWzgzCSgbtnycu
+ 1yEM09Ar3Z17XRHO5aZbp0I4NDXMpjKU1bUqpvtm7sVsSY18mfT4OgpObKK5VP2w8p
+ MCI1k+f+nO0MfGIpAMYk4YFCKSyn6nIZEbhR+BaadmLBzCE+3BaZXjpeDqLXkqNWgH
+ 7Y3FmcsqNKZEw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id BAA3FC531C9;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id E1EDAC53209;
  Sat, 25 Jul 2026 04:51:24 +0000 (UTC)
 From: Cody Kang via B4 Relay <devnull+codykang.hk.gmail.com@kernel.org>
-Date: Sat, 25 Jul 2026 00:51:20 -0400
-Subject: [PATCH RESEND 11/17] drm/spacemit: add Saturn DPU DRM device
- driver
+Date: Sat, 25 Jul 2026 00:51:22 -0400
+Subject: [PATCH RESEND 13/17] MAINTAINERS: add SpacemiT K3 display driver entry
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260725-k3-display-v1-11-6de34d80e86c@gmail.com>
+Message-Id: <20260725-k3-display-v1-13-6de34d80e86c@gmail.com>
 References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
 In-Reply-To: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -60,11 +59,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
  linux-clk@vger.kernel.org, Cody Kang <codykang.hk@gmail.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1784955080; l=6990;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784955080; l=963;
  i=codykang.hk@gmail.com; s=codykang; h=from:subject:message-id;
- bh=YS1hsBOLAQ7oWGJy4HGO+rqgDHn9Jl4BFLeWRFyCA3Q=;
- b=DKvQAm9vs48vFtEHKfNVx7TCvL0Y303BHdfv5BqbB9g+su0wdlCuAlCts8wtBoVrMLl1vb6cS
- 9flxZjxsIoFC40gp8rxZnhwWtiSMmFw88iC5pn6+iXkedbNkE3l/gTz
+ bh=sD70Be1EFEVlYgvCDT/fN9L+7DpFEJJVPuxwpoqy0M0=;
+ b=JunK0B0lMIefh4A2iXSV7mdOgkju4O+Ip2oD/jP3gQ1IV9rknEXR45NmcpGfCiwONNCsyxIa4
+ piKVtcIPjs8CV9u1I06GpLyqhHNqh9LkOPsNiDzAwapYUZCCiH8sZ9c
 X-Developer-Key: i=codykang.hk@gmail.com; a=ed25519;
  pk=Osn6/cs9Su/mHHw4P19cmVc3v2FMQfiWahjsN0vEkuk=
 X-Endpoint-Received: by B4 Relay for codykang.hk@gmail.com/codykang with
@@ -88,227 +87,35 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Cody Kang <codykang.hk@gmail.com>
 
-Add the DRM device for the SpacemiT K3 Saturn display processing unit
-and hook the driver up to the build. The SoC has two DPU instances;
-each drives one CRTC that scans out a single primary plane in linear
-RGB at up to 3840x2160@60 and feeds a downstream DP/eDP controller
-over an OF-graph endpoint. Buffers use drm_gem_shmem_helper. The
-AFBC/compressed decode path is not exposed and writeback is not
-implemented.
+Cover the Saturn DPU, the Innosilicon DP/eDP controller, the DP PHY and
+their bindings.
 
 Signed-off-by: Cody Kang <codykang.hk@gmail.com>
 ---
- drivers/gpu/drm/Kconfig                 |   1 +
- drivers/gpu/drm/Makefile                |   1 +
- drivers/gpu/drm/spacemit/Kconfig        |  18 +++++
- drivers/gpu/drm/spacemit/Makefile       |  12 +++
- drivers/gpu/drm/spacemit/spacemit_drm.c | 132 ++++++++++++++++++++++++++++++++
- 5 files changed, 164 insertions(+)
+ MAINTAINERS | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-index 323422861e8f..81081562a6da 100644
---- a/drivers/gpu/drm/Kconfig
-+++ b/drivers/gpu/drm/Kconfig
-@@ -341,6 +341,7 @@ source "drivers/gpu/drm/renesas/Kconfig"
- source "drivers/gpu/drm/rockchip/Kconfig"
- source "drivers/gpu/drm/sitronix/Kconfig"
- source "drivers/gpu/drm/solomon/Kconfig"
-+source "drivers/gpu/drm/spacemit/Kconfig"
- source "drivers/gpu/drm/sprd/Kconfig"
- source "drivers/gpu/drm/sti/Kconfig"
- source "drivers/gpu/drm/stm/Kconfig"
-diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-index e97faabcd783..4a105520ee91 100644
---- a/drivers/gpu/drm/Makefile
-+++ b/drivers/gpu/drm/Makefile
-@@ -204,6 +204,7 @@ obj-$(CONFIG_DRM_MSM) += msm/
- obj-$(CONFIG_DRM_TEGRA) += tegra/
- obj-$(CONFIG_DRM_STM) += stm/
- obj-$(CONFIG_DRM_STI) += sti/
-+obj-$(CONFIG_DRM_SPACEMIT) += spacemit/
- obj-y 			+= imx/
- obj-$(CONFIG_DRM_INGENIC) += ingenic/
- obj-$(CONFIG_DRM_LOGICVC) += logicvc/
-diff --git a/drivers/gpu/drm/spacemit/Kconfig b/drivers/gpu/drm/spacemit/Kconfig
-new file mode 100644
-index 000000000000..51e38dabfdba
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/Kconfig
-@@ -0,0 +1,18 @@
-+# SPDX-License-Identifier: GPL-2.0
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6dea93a41962..9f2910a17c38 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25436,6 +25436,16 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/i2c/spacemit,k1-i2c.yaml
+ F:	drivers/i2c/busses/i2c-k1.c
+ 
++SPACEMIT K3 DISPLAY DRIVER
++M:	Cody Kang <codykang.hk@gmail.com>
++L:	dri-devel@lists.freedesktop.org
++L:	linux-riscv@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/spacemit/
++F:	Documentation/devicetree/bindings/phy/spacemit,k3-inno-dp-phy.yaml
++F:	drivers/gpu/drm/spacemit/
++F:	drivers/phy/spacemit/phy-k3-inno-dp.c
 +
-+config DRM_SPACEMIT
-+	tristate "DRM support for SpacemiT display controllers"
-+	depends on DRM && OF && MMU
-+	depends on ARCH_SPACEMIT || COMPILE_TEST
-+	select DRM_CLIENT_SELECTION
-+	select DRM_KMS_HELPER
-+	select DRM_GEM_SHMEM_HELPER
-+	select REGMAP_MMIO
-+	select VIDEOMODE_HELPERS
-+	help
-+	  Choose this option if you have a SpacemiT SoC with the Saturn
-+	  display processing unit, such as the K3. The DPU scans out
-+	  framebuffers through its private display MMU and feeds a
-+	  DisplayPort or embedded DisplayPort controller.
-+
-+	  If M is selected the module will be called spacemit-drm.
-diff --git a/drivers/gpu/drm/spacemit/Makefile b/drivers/gpu/drm/spacemit/Makefile
-new file mode 100644
-index 000000000000..b3b148000cf7
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/Makefile
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0
-+
-+spacemit-drm-y := spacemit_drm.o \
-+		  spacemit_crtc.o \
-+		  spacemit_cmdlist.o \
-+		  spacemit_planes.o \
-+		  spacemit_dmmu.o \
-+		  dpu/dpu_saturn.o \
-+		  dpu/dpu_saturn_hee.o \
-+		  dpu/saturn_fbcmem.o
-+
-+obj-$(CONFIG_DRM_SPACEMIT) += spacemit-drm.o
-diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c b/drivers/gpu/drm/spacemit/spacemit_drm.c
-new file mode 100644
-index 000000000000..9fb6a7661b48
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
-@@ -0,0 +1,132 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-+ *
-+ */
-+
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_fbdev_shmem.h>
-+#include <linux/component.h>
-+#include <linux/of_graph.h>
-+
-+#include "spacemit_drm.h"
-+#include "spacemit_crtc.h"
-+
-+#define DRIVER_NAME	"spacemit"
-+#define DRIVER_DESC	"SpacemiT SoC DRM driver"
-+#define DRIVER_MAJOR	1
-+#define DRIVER_MINOR	0
-+
-+static void spacemit_drm_atomic_commit_tail(struct drm_atomic_commit *old_state)
-+{
-+	struct drm_device *dev = old_state->dev;
-+
-+	drm_atomic_helper_commit_modeset_disables(dev, old_state);
-+
-+	drm_atomic_helper_commit_modeset_enables(dev, old_state);
-+
-+	drm_atomic_helper_commit_planes(dev, old_state,
-+					DRM_PLANE_COMMIT_ACTIVE_ONLY);
-+
-+	drm_atomic_helper_wait_for_flip_done(dev, old_state);
-+
-+	drm_atomic_helper_commit_hw_done(old_state);
-+
-+	drm_atomic_helper_cleanup_planes(dev, old_state);
-+}
-+
-+static const struct drm_mode_config_helper_funcs spacemit_drm_mode_config_helper = {
-+	.atomic_commit_tail = spacemit_drm_atomic_commit_tail,
-+};
-+
-+static const struct drm_mode_config_funcs spacemit_drm_mode_config_funcs = {
-+	.fb_create = drm_gem_fb_create,
-+	.atomic_check = drm_atomic_helper_check,
-+	.atomic_commit = drm_atomic_helper_commit,
-+};
-+
-+int spacemit_drm_mode_config_init(struct drm_device *drm)
-+{
-+	int ret;
-+
-+	ret = drmm_mode_config_init(drm);
-+	if (ret)
-+		return ret;
-+
-+	drm->mode_config.min_width = 1;
-+	drm->mode_config.min_height = 1;
-+	/* K3 user manual: each DPU scans out at most 3840x2160@60 */
-+	drm->mode_config.max_width = 3840;
-+	drm->mode_config.max_height = 2160;
-+
-+	drm->mode_config.funcs = &spacemit_drm_mode_config_funcs;
-+	drm->mode_config.helper_private = &spacemit_drm_mode_config_helper;
-+
-+	return 0;
-+}
-+
-+DEFINE_DRM_GEM_FOPS(spacemit_drm_fops);
-+
-+struct drm_driver spacemit_drm_drv = {
-+	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
-+	.fops = &spacemit_drm_fops,
-+
-+	DRM_GEM_SHMEM_DRIVER_OPS,
-+	DRM_FBDEV_SHMEM_DRIVER_OPS,
-+
-+	.name		= DRIVER_NAME,
-+	.desc		= DRIVER_DESC,
-+	.major		= DRIVER_MAJOR,
-+	.minor		= DRIVER_MINOR,
-+};
-+
-+static int compare_of(struct device *dev, void *data)
-+{
-+	return dev->of_node == data;
-+}
-+
-+int spacemit_drm_of_component_probe(struct device *dev)
-+{
-+	struct device_node *ports, *port, *ep;
-+	struct device_node *remote;
-+	struct component_match *match = NULL;
-+
-+	if (!dev->of_node)
-+		return -EINVAL;
-+
-+	/* The DPU is the drm root: its OF graph names the DP/eDP components. */
-+	ports = of_get_child_by_name(dev->of_node, "ports");
-+	if (!ports) {
-+		dev_err(dev, "missing 'ports' child node\n");
-+		return -EINVAL;
-+	}
-+
-+	for_each_child_of_node(ports, port) {
-+		if (!of_node_name_eq(port, "port"))
-+			continue;
-+		for_each_child_of_node(port, ep) {
-+			if (!of_node_name_eq(ep, "endpoint"))
-+				continue;
-+			remote = of_graph_get_remote_port_parent(ep);
-+			if (!remote)
-+				continue;
-+			if (of_device_is_available(remote))
-+				drm_of_component_match_add(dev, &match,
-+							   compare_of, remote);
-+			of_node_put(remote);
-+		}
-+	}
-+	of_node_put(ports);
-+
-+	if (!match) {
-+		dev_err(dev, "no downstream component available\n");
-+		return -ENODEV;
-+	}
-+
-+	return component_master_add_with_match(dev, &spacemit_drm_master_ops,
-+					       match);
-+}
+ SPANISH DOCUMENTATION
+ M:	Carlos Bilbao <carlos.bilbao@kernel.org>
+ R:	Avadhut Naik <avadhut.naik@amd.com>
 
 -- 
 2.43.0
