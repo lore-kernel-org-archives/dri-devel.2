@@ -4,97 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6490C531FC
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 01:03:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 258AFC531C9
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 01:22:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC14510E078;
-	Sat, 25 Jul 2026 01:03:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B90D10E086;
+	Sat, 25 Jul 2026 01:22:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="QfOssLO1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GMb5UJWl";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2465A10E078
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 01:03:26 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2ce87c7e3bbso11580295ad.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:03:26 -0700 (PDT)
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07B6F10E086
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 01:22:45 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-38e08baf860so1052591a91.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:22:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1784941405; x=1785546205;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1784942564; x=1785547364; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=XIjmTusWB12bxyGcigZiT96smwtyfL390XuUtvO+14w=;
- b=QfOssLO1yTK2Y0s5BOKDgGrxSpgB3Ef+ttqNc6d2S4uO2SRURn6HFkSC5G8D/+t+9o
- YGzXJHBH0XDUt6vdNaLDH918E60whVEStLJ6Vl7S4MX0SJMJtJ6Ti7VuCZcX90gt4bhH
- 86fPLv0YKlZLpxUZPsVeesPMSk8FQGIEmjkTY=
+ bh=evBctyG9uOAPggGOtV7ej6S8jtXBTYTc0DEyRDvPdb8=;
+ b=GMb5UJWlApWs3diskGNFB6X7TVnKU6mmtmFbVWAIkRsKLpS5AnRLK9AGrjnNlS7SWa
+ X+EQQYbHZfbUJ49T8D/A21QAQceJhnJTjIv7h2BVU37ez7uhZfICeEogsDo0aiyRvBEh
+ E/k1VJo5AuFBfi2XbpCT1EtANsi+fW2OjEnq/SPGucaasnjDeYzRF5TNv9fx/Vkk18Nr
+ ZUWavST6UdLNodHBsUsS/wxsInChIJjMsx50LXC+0t8kozukO8kKY+PMUOClpyOokEtk
+ rKdiGiOj9DPZubJyGJvFgv7SycrNYjyUsg9eqQnVzYn3zVutoReI6c1h6LYRR/+nJxtT
+ FkQQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784941405; x=1785546205;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1784942564; x=1785547364;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=XIjmTusWB12bxyGcigZiT96smwtyfL390XuUtvO+14w=;
- b=ocMMT5hw5dUhGSWapy2B1kSlcxl1daR8RMoNWvRSwVfJN/h4smgn4qubMR2jcRHk6T
- MOY2IuS6epUep1bJp38idReRKaEgK0W7QiwR+NE91eiWvouzVVlOy+rI/zg8QCzSoZ6C
- RusaXeDRMy0JrXEUWj4WP4Y74d9qk1NqKZY071QC8e3PXT5JYud1y4ewVE/KsI2HWMmB
- JLo1pmf/lofyIi5tmO+DGeuTaL2TM0WG9lgT+DQDCUZ7lnF9OGHgzntS5fPJdvrpVDHS
- ZAgGVP3ePhsbO47BN9qQ/kgoziD812yyuw8I7DJCd9IKP2xqBFsC/7ewX6ZzCFr0g1vP
- hEog==
+ bh=evBctyG9uOAPggGOtV7ej6S8jtXBTYTc0DEyRDvPdb8=;
+ b=LaD7zCZ9o4+ffHnM9qdaSTXl9+p6DROati4dlq3h5NN53rtOYt/BRAQ/AOaLwSYKMX
+ alHu9EvuusJLCmdRybbsgvLnwkjH0hAA2+e5FCTsAr5ST+offmaXcGrRHz17wFWafNSF
+ 6k1vrr8TvxFa06o02FabbRex17wx40vMUyPwXMjBf4i/Z9+AV2u8D0gUTkyhlYRPdRAd
+ cb6U8ei1qdidLixCshvvB5Gg88/UA/+EYe0X4t4rkVrjNxHHpRBbkIjDpxydNubn33hc
+ 1wHJj31V0cWhdg6gC0a1S15/0WgCR2SIGxyvYsWmo7tuvGO6CzUJcTEjRxlz7KrqZ/Be
+ rHXA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpv4rWZqvMrBKDMZ3S5yzfMS0lJDXzju4qCo82z3d64y1YbGFKPik1AI32bgVcfcJ07zQI1dryhVeY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yynn+N48xG8V2Px6xPZU5fF6L3hU3KVYFMB2G4z/Zl98xoi6WlA
- 5Ni/I+j3vlnw7ovEUdLQKH/Q1/WA+gO8+DKecWrI5ghyAz5xA706SzsJ1bV4hvqPVo7ba0N0Gba
- 2QBc=
-X-Gm-Gg: AR+sD13FtjLC6GFmon+uD8Z0Tm8z60QxiAjq4Bp/UUiwV1fQq9DlaWP9c1xtaRuc6VO
- mybZbVUnBjCxNYu2tfXBfFnKoECyFJHTdDencoP6ttDaOxfToLSSMNZlrk9Q3vQSLC/LiUTB3CA
- LknBs2tmO0CxOKeDTlgfCeL3BxUuCfSyo9KkKCZelIlqj49PZMZoU0uvvRkxIPAkCK+IAniTjgT
- 94/q/Mgk0LGWmALQ8TacHlBS03xju0E000JIT/ltu9gNOYpMl3RIvILq8Qk9LlMFrm5TQieq61o
- zT4FS3a8B5nqeKEsXR+nG8GLIsGej46oULAo8r6jH/jpYVtVv+vkFQRFOyHsjT+bkf0cL+Crvzh
- FCts9iLirL85NtIezoMMFAskp4k3mdvV46KM0Y5uylPn0I+zYJock77ISSvz7YmNhpNQCr7CZ4K
- 4poAaDCWTdVYsbz/Kyn0UlkcgQKRekin1YbVSXu7h5
-X-Received: by 2002:a17:902:d581:b0:2cc:f5aa:9513 with SMTP id
- d9443c01a7336-2cfde7903a1mr5845745ad.10.1784941405600; 
- Fri, 24 Jul 2026 18:03:25 -0700 (PDT)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com.
- [209.85.216.45]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cfde59b885sm2363445ad.15.2026.07.24.18.03.25
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Jul 2026 18:03:25 -0700 (PDT)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-38dcbade417so1091968a91.1
- for <dri-devel@lists.freedesktop.org>; Fri, 24 Jul 2026 18:03:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrl4xQA0jrzxJfrBs22lBN6VSIx2hh3E7x8Ec1r6o17w/X+V2C3AlUCjNKp5WKEslVqk6NFEzR83iM=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:3f48:b0:740:2d5f:e37b with SMTP id
- ada2fe7eead31-75040edb533mr763712137.29.1784940919042; Fri, 24 Jul 2026
- 17:55:19 -0700 (PDT)
+ AHgh+RoMcqcysYBWKHnbaUXNEU1O46E4yWXt0OU/uyNB8MaA1396LdzUhru4vhc0ZoVkBozj9Pb7RZq07DA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy2ZXezkDr1h2OpJsZdEfv7/SHV028sOL0tq/idq4qQHArpHCFV
+ h/FqlYxgNRAE7TMzv09DOXD4YUuPZLviizfHgn8aILg+h13wJeXrMJz7
+X-Gm-Gg: AR+sD10c18KGuM7ahZm8VvLal3ACFOoywGHl0UwDLAR5VTwRVNRQ+8TzdFMNl+I9UPo
+ 4CSGpE6dD2PCMIZfz2zW7MX4iIfOqWgr5ge4htQhaspyPsCb01UdO4T2wnA1aweh5sDPBOwu10f
+ Vh7JswOKqPHvMtqQdYf+ybMbrQGfmac1ZqxIbzrvzZztYvMW5FHVXjXpq+NYLea7Ens460drDZC
+ VRy/8VbcgwY8DfOrh5r+eOoBDMnQ+LsOiZJiF6CrCY/9N+1kWZj0gZtdj9Qp0Z/3l1JwZyDFlRR
+ vPl16iL3gMhZqf+QnGMeA2h4VFWG43emu74BJPBPxGs4ZDHUi9I+8d8aLD1JlxtX4JqIRO7eQCw
+ 7SVSAoS2XzVL2iNmFOsQk5CAxVc6qpBY5vS2gPEN4PRPjka2y0jEE/qH2NBZYrcdcLMBrGVQlVk
+ jQJaqwyruLvC3Qa5eJuD5BJT9ojxdlXOU5o1MSNDjQeB4=
+X-Received: by 2002:a17:90b:254c:b0:387:e0db:3d8d with SMTP id
+ 98e67ed59e1d1-38f298859c2mr719734a91.40.1784942564547; 
+ Fri, 24 Jul 2026 18:22:44 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:40e1:40e4:dabe:543e])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-314bc5cb670sm5037501eec.31.2026.07.24.18.22.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 24 Jul 2026 18:22:43 -0700 (PDT)
+Date: Fri, 24 Jul 2026 18:22:40 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Eduard Bostina <egbostina@gmail.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, 
+ Jingoo Han <jingoohan1@gmail.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Lee Jones <lee@kernel.org>,
+ linux-input@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-omap@vger.kernel.org, 
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Roger Quadros <rogerq@kernel.org>, 
+ Tony Lindgren <tony@atomide.com>, daniel.baluta@nxp.com, simona.toaca@nxp.com, 
+ goledhruva@gmail.com, m-chawdhry@ti.com
+Subject: Re: [PATCH v2 2/3] dt-bindings: input: Convert TI TPS65217 power
+ button to DT schema
+Message-ID: <amQPyzm6P4BUUGHk@google.com>
+References: <20260718215632.3295049-1-egbostina@gmail.com>
+ <20260718215632.3295049-3-egbostina@gmail.com>
+ <amP4csGgdg51VRZw@google.com>
 MIME-Version: 1.0
-References: <20260723103509.2-ps8640-v2-pengpeng@iscas.ac.cn>
-In-Reply-To: <20260723103509.2-ps8640-v2-pengpeng@iscas.ac.cn>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 24 Jul 2026 17:55:07 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Vo-VQDmRVDhpFbBQ1A4NxqETiBMbgwHZdUTHL3cmJa9A@mail.gmail.com>
-X-Gm-Features: AUfX_mzNm0opznBrZoHzgDpOdeSJ0d5GIrQEB0Lk6NT0NzBqTtHZTJ8Wbf8vw_s
-Message-ID: <CAD=FV=Vo-VQDmRVDhpFbBQ1A4NxqETiBMbgwHZdUTHL3cmJa9A@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/bridge: ps8640: propagate AUX transfer register
- errors
-To: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amP4csGgdg51VRZw@google.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,37 +104,16 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Fri, Jul 24, 2026 at 04:42:46PM -0700, Dmitry Torokhov wrote:
+> On Sat, Jul 18, 2026 at 09:56:31PM +0000, Eduard Bostina wrote:
+> > Convert the Texas Instruments TPS65217 and TPS65218 Power Button
+> > bindings to DT schema.
+> > 
+> > Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+> 
+> Applied, thank you.
 
-On Wed, Jul 22, 2026 at 7:38=E2=80=AFPM Pengpeng Hou <pengpeng@iscas.ac.cn>=
- wrote:
->
-> ps8640_aux_transfer_msg() programs the AUX address registers, starts the
-> AUX transfer, waits for SWAUX_SEND to clear, and reads the AUX status
-> register. Several of those regmap operations have return values, but the
-> function only checks a stale ret after the status read.
->
-> Propagate failures from the address write, transfer start, completion
-> poll, and status read. This avoids returning a transfer length when the
-> bridge register transaction or AUX completion wait failed.
->
-> Fixes: 13afcdd7277e ("drm/bridge: parade-ps8640: Add support for AUX chan=
-nel")
-> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> ---
-> Changes since v1: https://lore.kernel.org/all/20260623060635.16064-1-peng=
-peng@iscas.ac.cn/
-> - include the AUX address and length in the address-write diagnostic
-> - describe poll failures without assuming that every error is a timeout
-> - add the Fixes tag suggested by Doug
-> - rebase onto the current drm-misc-next tree
->
->  drivers/gpu/drm/bridge/parade-ps8640.c | 27 +++++++++++++++++++++------
->  1 file changed, 21 insertions(+), 6 deletions(-)
+I actually picked up v4 of the patch.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-Assuming nothing else comes up, I'll plan to apply to drm-misc-fixes next w=
-eek.
-
--Doug
+-- 
+Dmitry
