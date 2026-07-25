@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA3E8C531C9
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 05:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60B1BC53200
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 05:04:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BFDC10E659;
-	Sat, 25 Jul 2026 05:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B137110E672;
+	Sat, 25 Jul 2026 05:04:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W8iof5dT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="awMd5Abg";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 046BE10E672
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 05:04:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFA7D10E672
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 05:04:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C087843BE9;
- Sat, 25 Jul 2026 05:04:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33AE91F000E9;
- Sat, 25 Jul 2026 05:04:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B5E7340AC4;
+ Sat, 25 Jul 2026 05:04:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A4CB1F00A3A;
+ Sat, 25 Jul 2026 05:04:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784955867;
- bh=ut+438AG3bp1406wS3uQ/QfvCDFxEWBO9W7UtMXiDew=;
+ s=k20260515; t=1784955879;
+ bh=5XEF+qAkWLuT5nSe/bguE8gYGpt4U9yK4reEWVi3igs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=W8iof5dTQBVMQ+pWzQUGbIOAbSnCoZpG7k76AX4rfnZFz1MgYiJVcUeyVmmAV7dHz
- GgsvJyzW+BxZSV8LAFxbGc6vUp0igMxs2ba1bCYOo9fqqg3GT7fJa5n0dwPht/i+nQ
- XESPVtr9431i7QlfFTJgjxx7EdAWpNCVrOvkLOHz0Ouj42fuc/64aDXvkr5bKWFwrz
- jyGXMoRR4QRf1zzsA6Bi7NluFN/87/r0JRDYNd6WPLPAFLRcDkK9ec0ilPrdKv7EGh
- 9WDoSGpwKBICUlK2x0OtodkWFv+vyCu4nXHHmR6buTanD0QlKKM5gXR2xJk1/sLGPR
- JxLzW79PAQnag==
+ b=awMd5Abg8UavHKA/stIUBpgXUGPnMi3cgoP7b4Hzg0BxqAXk7CevaHQB6f7uPnSOg
+ JlyXRr0Luxl19BxhG5MKtSDda7cWVnxcZVQsWUjF2KLfJCRcWZppM8Vc++0Eb6IWCe
+ N5YGoR4EcHHai+n30Y/jQftugbzNZq4nvz3zGd/yDMOkWtiLCjgHCjrul9guyZA1He
+ ZLPAUXSRNjN8lFNXGxmAsT0jrdX8W2kJrG+RI1bPz0UyW74YkG+xH42lfw7WUTOcZ1
+ SV/LZicOovhAol2woZzmuz64+Rw4frA7BpuJWuTMYY0XyrXPlv0ahcpDpRSdTCdQgs
+ NIKhHyV68rGGQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 10/17] drm/spacemit: add Saturn DPU KMS pipeline
+Subject: Re: [PATCH RESEND 08/17] drm/spacemit: add Saturn DPU core types,
+ cmdlist and display MMU
 To: "Cody Kang" <codykang.hk@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-phy@lists.infradead.org,
- olteanv@gmail.com, conor+dt@kernel.org, vkoul@kernel.org,
- neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260725-k3-display-v1-10-6de34d80e86c@gmail.com>
+Cc: conor+dt@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org,
+ neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, robh@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260725-k3-display-v1-8-6de34d80e86c@gmail.com>
 References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-10-6de34d80e86c@gmail.com>
+ <20260725-k3-display-v1-8-6de34d80e86c@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 25 Jul 2026 05:04:26 +0000
-Message-Id: <20260725050427.33AE91F000E9@smtp.kernel.org>
+Date: Sat, 25 Jul 2026 05:04:38 +0000
+Message-Id: <20260725050439.2A4CB1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,255 +60,388 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
+Thank you for your contribution! Sashiko AI review found 12 potential issue=
 (s) to consider:
-- [High] Sleeping functions are called from CRTC atomic enable and disable =
-callbacks, which execute in atomic context.
-- [High] TOCTOU race when updating the `clocks_on` flag and gating hardware=
- clocks leads to MMIO stalls.
-- [High] Calling `devm_drm_dev_alloc` inside a component `bind` callback le=
-aks the DRM device on rebinds.
-- [High] Enabling the DPU interrupt before hardware is initialized leads to=
- an unhandled IRQ storm.
-- [High] `spacemit_plane_reset` bypasses the custom state destructor, leaki=
-ng DMA coherent memory.
-- [High] `disable_irq()` is called before `drm_atomic_helper_shutdown()` du=
-ring driver unbind, causing shutdown to hang.
-- [High] `spacemit_plane_atomic_check()` assigns RDMA channels based on unv=
-alidated `zpos`, leading to channel collisions.
-- [High] Unconditional `spin_unlock_irq` used in atomic context improperly =
-re-enables interrupts.
-- [Medium] Leaking DRM property blob references in `spacemit_crtc_duplicate=
-_state` on error.
-- [Medium] Missing NULL check on `plane->state` in `spacemit_plane_atomic_d=
-uplicate_state` causes a crash if the state is missing.
+- [Critical] DMMU page table size calculation underflow allows arbitrary ph=
+ysical memory access.
+- [Critical] Shallow copy of DMA buffers in atomic state causes active disp=
+lay corruption.
+- [High] crtc_cmdlist_atomic_commit() passes a guaranteed NULL pointer to t=
+he hardware command list execution callback.
+- [High] Global `cmdlist_groups` array causes data races across concurrent =
+atomic commits.
+- [High] Unconditional dereference of `first_cl` in `cmdlist_atomic_commit(=
+)` causes a kernel panic if the command list group is empty.
+- [High] DMMU maps only the first GEM object, breaking multi-planar framebu=
+ffers.
+- [High] NULL pointer dereference in `dpu_plane_info` tracepoint.
+- [High] Sleeping in atomic context via `drm_gem_shmem_get_pages_sgt()`.
+- [High] Missing bounds check on `nod_len` causes DMA buffer overflow.
+- [Medium] Unaligned base virtual addresses are used for DMMU translation r=
+egions.
+- [Medium] Memory leak of DMA buffers upon atomic state destruction.
+- [Medium] Speculative array out-of-bounds access in `cmdlist_sort_by_group=
+()`.
 --
 
---- Patch [10]: [PATCH RESEND 10/17] drm/spacemit: add Saturn DPU KMS pipel=
-ine ---
-commit cf6665928c2c5fcf07a88c5cd2141feb18245e17
+--- Patch [8]: [PATCH RESEND 08/17] drm/spacemit: add Saturn DPU core types=
+, cmdlist and display MMU ---
+commit dc983d68951c3577447bb897e17c833e557da908
 Author: Cody Kang <codykang.hk@gmail.com>
-Subject: drm/spacemit: add Saturn DPU KMS pipeline
 
-Add the atomic KMS implementation on top of the hardware backend: one
-CRTC and one primary plane per DPU instance. atomic_check validates
-the plane rectangle 1:1 against the mode and sizes the per-channel FBC
-line buffer.
+drm/spacemit: add Saturn DPU core types, cmdlist and display MMU
 
-> diff --git a/drivers/gpu/drm/spacemit/spacemit_crtc.c b/drivers/gpu/drm/s=
-pacemit/spacemit_crtc.c
-> new file mode 100644
-> index 0000000000000..b75ff63205011
+This commit introduces the shared driver types, MMIO accessors, trace
+events, command-list builder, and DMMU table code for the Saturn DPU.
+It enables batched register programming by building per-module register
+lists in memory, which the hardware command-list engine replays.
+
+> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_trace.h b/drivers/gpu/drm/s=
+pacemit/dpu/dpu_trace.h
+> index 0000000000000..abfe34a67a4bd 100644
 > --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/spacemit_crtc.c
-
+> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_trace.h
 [ ... ]
-
-> @@ -91,7 +91,7 @@ static void spacemit_crtc_atomic_enable(struct drm_crtc=
- *crtc,
->  		dpu_reset_assert(a_crtc->dev, "lcd", a_crtc->lcd_reset);
->  		dpu_reset_assert(a_crtc->dev, "esc", a_crtc->esc_reset);
->  		dpu_reset_assert(a_crtc->dev, "mclk", a_crtc->mclk_reset);
->  		dpu_reset_assert(a_crtc->dev, "aclk", a_crtc->aclk_reset);
->  		dpu_reset_assert(a_crtc->dev, "dsc", a_crtc->dsc_reset);
->  		usleep_range(10000, 20000);
+> +TRACE_EVENT(dpu_plane_info,
+> +	    TP_PROTO(struct drm_plane_state *state, struct drm_framebuffer *fb,
+> +		     u32 rdma_id, u32 alpha, u32 rotation),
+> +	TP_ARGS(state, fb, rdma_id, alpha, rotation),
+> +	TP_STRUCT__entry(
+> +			__field(u32, rdma_id)
+> +			__field(u32, src_w)
+> +			__field(u32, src_h)
+> +			__field(u32, src_x)
+> +			__field(u32, src_y)
+> +			__field(u32, crtc_w)
+> +			__field(u32, crtc_h)
+> +			__field(u32, crtc_x)
+> +			__field(u32, crtc_y)
+> +			__field(u32, width)
+> +			__field(u32, height)
+> +			__field(u32, format)
+> +			__field(u32, blend_mode)
+> +			__field(u32, alpha)
+> +			__field(u32, zpos)
+> +			__field(u32, rotation)
+> +	),
+> +	TP_fast_assign(
+> +			__entry->rdma_id =3D rdma_id;
+> +			__entry->src_w =3D state->src_w >> 16;
+> +			__entry->src_h =3D state->src_h >> 16;
+> +			__entry->src_x =3D state->src_x >> 16;
+> +			__entry->src_y =3D state->src_y >> 16;
+> +			__entry->crtc_w =3D state->crtc_w;
+> +			__entry->crtc_h =3D state->crtc_h;
+> +			__entry->crtc_x =3D state->crtc_x;
+> +			__entry->crtc_y =3D state->crtc_y;
+> +			__entry->width =3D fb->width;
+> +			__entry->height =3D fb->height;
+> +			__entry->format =3D fb->format->format;
 
 [Severity: High]
-Does this sleep in an atomic context? The spacemit_crtc_atomic_enable
-callback is executed during a non-blocking DRM atomic commit, which runs
-in an atomic context. Calling usleep_range() here might violate atomic
-context rules and lead to scheduling-while-atomic warnings.
+Can this dereference a NULL pointer? When a plane is disabled during an
+atomic commit, state->fb might be NULL. Unconditionally reading fb->width
+here could cause a kernel panic if tracing is enabled.
 
+> +			__entry->blend_mode =3D state->pixel_blend_mode;
+> +			__entry->alpha =3D alpha;
+> +			__entry->zpos =3D state->zpos;
+> +			__entry->rotation =3D rotation;
+> +	),
 [ ... ]
-
-> @@ -145,13 +145,13 @@ static void spacemit_crtc_atomic_disable(struct drm=
-_crtc *crtc,
->  	 * must finish its status reads before dpu_pm_suspend() gates the
->  	 * clocks.
->  	 */
->  	if (a_crtc->irq_online > 0)
->  		synchronize_irq(a_crtc->irq_online);
-
-[Severity: High]
-Can synchronize_irq() safely execute here? This callback runs in an atomic
-context, but synchronize_irq() blocks waiting for executing handlers.
-
-[Severity: High]
-Does this code leave a race window before the flags are updated? An interru=
-pt
-could fire immediately after synchronize_irq() returns but before clocks_on
-is toggled to false, leading the ISR to access MMIO while dpu_pm_suspend()
-is shutting down the clocks.
-
-> =20
->  	/*
->  	 * Nothing else cancels the watchdog; it would fire against freed state.
->  	 */
->  	timer_delete_sync(&a_crtc->cfg_rdy_timer);
-> =20
->  	/* Close the ISR's MMIO gate before the clocks actually stop. */
->  	a_crtc->clocks_on =3D false;
->  	dpu_pm_suspend(a_crtc->dev);
-
-[Severity: High]
-Does dpu_pm_suspend() sleep in this atomic context? It calls usleep_range()
-which could trigger kernel warnings and deadlocks when reached via
-spacemit_crtc_atomic_disable().
-
-> =20
->  	spin_lock_irq(&drm->event_lock);
->  	if (crtc->state->event) {
->  		drm_crtc_send_vblank_event(crtc, crtc->state->event);
->  		crtc->state->event =3D NULL;
->  	}
->  	spin_unlock_irq(&drm->event_lock);
-
-[Severity: High]
-Is it safe to use unconditional spin_unlock_irq() here? Since this callback
-executes in an atomic context (e.g. from drm_atomic_helper_commit_tail),
-unconditionally re-enabling interrupts breaks the caller's atomic assumptio=
-ns.
-Should this use spin_lock_irqsave() and spin_unlock_irqrestore() instead?
-
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_cmdlist.c b/drivers/gpu/dr=
+m/spacemit/spacemit_cmdlist.c
+> index 0000000000000..787d38e9e135f 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_cmdlist.c
 [ ... ]
+> +void cmdlist_regs_packing(struct cmdlist *cl, enum cmdlist_mode_type mod,
+> +			  struct cmdlist_regs *cl_regs)
+> +{
+[ ... ]
+> +	for (i =3D 0; i < cl_regs->size;) {
+> +		u32 value[CMDLIST_ROW_REGS] =3D {0x0};
+> +		u32 offset, strobe =3D 0;
+> +		u8 regs_in_row =3D 0;
+> +
+> +		if (cl_regs->flags[i]) {
+> +			offset =3D cl_regs->base + i * sizeof(u32);
+> +			for (u8 j =3D 0; j < CMDLIST_ROW_REGS; j++) {
+> +				index =3D i + j;
+> +				if (likely(index < cl_regs->size)) {
+> +					if (cl_regs->flags[index]) {
+> +						value[j] =3D reg_base[index];
+> +						regs_in_row++;
+> +						strobe |=3D CMDLIST_REG_STROBE(j);
+> +					}
+> +				} else {
+> +					break;
+> +				}
+> +			}
+> +			hwdev->cmdlist_fill_data_row(cl, strobe, offset, value);
+> +			/*
+> +			 * the row covers the whole window; a shorter stride
+> +			 * would revisit covered words as duplicate rows
+> +			 */
+> +			i +=3D CMDLIST_ROW_REGS;
+> +			cl->nod_len++;
 
-> @@ -231,6 +231,5 @@ static struct drm_crtc_state *
->  	__drm_atomic_helper_crtc_duplicate_state(crtc, &state->base);
-> =20
->  	n_rdma =3D hwdev->rdma_nums;
->  	state->rdmas =3D kzalloc_objs(*state->rdmas, n_rdma);
->  	if (!state->rdmas) {
->  		kfree(state);
->  		return NULL;
->  	}
+[Severity: High]
+Is there a risk of overflowing the DMA command list buffer here? The loop
+increments cl->nod_len and writes to memory, but there doesn't seem to be
+a bounds check to ensure the packed rows do not exceed the allocated
+capacity in cl->size.
+
+> +		} else {
+> +			i++;
+> +		}
+> +	}
+> +
+> +	drm_dbg(a_crtc->crtc.dev, "row_num =3D %d\n", cl->nod_len);
+> +}
+> +
+> +void cmdlist_sort_by_group(struct drm_crtc *crtc)
+> +{
+> +	struct cmdlist *first_cl;
+> +	struct cmdlist *last_cl;
+> +	struct cmdlist *p;
+> +	struct cmdlist *prev;
+> +	struct drm_plane *plane;
+> +	struct spacemit_crtc_rdma *rdmas =3D
+> +			to_spacemit_crtc_state(crtc->state)->rdmas;
+> +	struct spacemit_drm_private *priv =3D crtc->dev->dev_private;
+> +
+> +	drm_atomic_crtc_for_each_plane(plane, crtc) {
+> +		struct spacemit_plane_state *spacemit_pstate =3D
+> +			to_spacemit_plane_state(plane->state);
+> +		u32 rdma_id =3D spacemit_pstate->rdma_id;
+> +
+> +		first_cl =3D &spacemit_pstate->cl;
+> +		if (!first_cl->va)
+> +			continue;
+> +
+> +		last_cl =3D first_cl;
+> +		last_cl->next =3D NULL;
+> +
+> +		rdmas[rdma_id].in_use =3D true;
 
 [Severity: Medium]
-Does this error path leak DRM property blob references?
-__drm_atomic_helper_crtc_duplicate_state() increments references on blobs
-like mode_blob, ctm, and gamma_lut. Returning NULL here without releasing
-them could leak those references.
+Could rdma_id exceed the bounds of the array? It is used directly as an
+index for the rdmas array without checking if it is within hwdev->rdma_nums.
 
-[ ... ]
-
-> @@ -418,6 +418,5 @@ static irqreturn_t spacemit_dpu_isr(int irq, void *da=
-ta)
->  	/* Reading a clock-gated DPU's status registers stalls the bus. */
->  	if (unlikely(!a_crtc->clocks_on)) {
->  		drm_dev_exit(idx);
->  		return IRQ_NONE;
->  	}
+> +		if (priv->cmdlist_groups[rdma_id]) {
 
 [Severity: High]
-Does this code cause an IRQ storm? By returning IRQ_NONE without clearing
-the hardware interrupt status when clocks_on is false, the interrupt
-controller might continuously re-trigger the ISR if the bootloader left the
-interrupt asserted.
+Does modifying the global priv->cmdlist_groups array here cause data races?
+Since this array is stored in the shared spacemit_drm_private structure,
+concurrent atomic commits on multiple CRTCs might overwrite each other's
+command lists without locking.
 
+> +			p =3D priv->cmdlist_groups[rdma_id];
+> +			prev =3D NULL;
+> +			while (p) {
+> +				if (cl_to_spacemit_pstate(p)->state.crtc_y <
+> +				    spacemit_pstate->state.crtc_y) {
+> +					prev =3D p;
+> +					p =3D p->next;
+> +				} else {
+> +					break;
+> +				}
+> +			}
+> +			if (!prev) {
+> +				priv->cmdlist_groups[rdma_id] =3D first_cl;
+> +				last_cl->next =3D p;
+> +			} else {
+> +				prev->next =3D first_cl;
+> +				last_cl->next =3D p;
+> +			}
+> +		} else {
+> +			priv->cmdlist_groups[rdma_id] =3D first_cl;
+> +		}
+> +	}
+> +}
+> +
+> +void cmdlist_atomic_commit(struct drm_crtc *crtc,
+> +			   struct drm_crtc_state *old_state)
+> +{
 [ ... ]
-
-> @@ -496,6 +496,5 @@ static int spacemit_drm_master_bind(struct device *de=
-v)
->  	}
-> =20
->  	kms =3D devm_drm_dev_alloc(dev, &spacemit_drm_drv,
->  				 struct spacemit_kms, drm);
->  	if (IS_ERR(kms))
+> +	for (i =3D 0; i < hwdev->rdma_nums; i++) {
+> +		if (old_rdmas[i].in_use)
+> +			hwdev->enable_cmdlist(a_crtc, hwdev, i, false);
+> +
+> +		if (cur_rdmas[i].in_use) {
+> +			drm_dbg(crtc->dev, "cmdlist group =3D %d\n", i);
+> +			cur_cl =3D priv->cmdlist_groups[i];
+> +			first_cl =3D cur_cl;
+> +			while (cur_cl) {
+> +				hwdev->cmdlist_fill_conf_row(cur_cl, hwdev,
+> +					CMDLIST_CMP_INVALID);
+> +				cmdlist_dump_node(cur_cl);
+> +				cur_cl =3D cur_cl->next;
+> +			}
+> +			chy =3D cl_to_spacemit_pstate(first_cl)->state.crtc_y;
 
 [Severity: High]
-Will this leak the DRM device on rebind? devm_drm_dev_alloc ties the
-allocation lifetime to the platform device's probe/remove cycle. If the
-component unbinds and rebinds, new DRM devices are allocated but the old
-ones are never freed.
+Could first_cl be NULL here? If cur_rdmas[i].in_use is true but
+priv->cmdlist_groups[i] is empty, first_cl would be NULL. This can happen
+if planes are removed from the state but in_use was copied as true from the
+old state. The cl_to_spacemit_pstate macro would yield a negative offset
+from NULL, resulting in a crash.
 
+> +			addrl =3D (lower_32_bits(priv->cmdlist_groups[i]->pa) &
+> +				 CMDLIST_ADDRL_ALIGN_MASK) >> CMDLIST_ADDRL_ALIGN_BITS;
+> +
+> +			addrh =3D upper_32_bits(priv->cmdlist_groups[i]->pa);
+> +			hwdev->cfg_cmdlist(hwdev, i, chy, addrl, addrh);
+> +			hwdev->enable_cmdlist(a_crtc, hwdev, i, true);
+> +			priv->cmdlist_groups[i] =3D NULL;
+> +		}
+> +	}
+> +}
+> +
 [ ... ]
-
-> @@ -573,6 +573,5 @@ static int spacemit_drm_master_bind(struct device *de=
-v)
->  	drm_mode_config_reset(drm);
->  	drmm_kms_helper_poll_init(drm);
->  	drm_helper_hpd_irq_event(drm);
-> =20
->  	enable_irq(priv->irq_online);
+> +void crtc_cmdlist_atomic_commit(struct spacemit_crtc *a_crtc)
+> +{
+> +	struct cmdlist *cur_cl;
+> +	struct drm_crtc *crtc =3D &a_crtc->crtc;
+> +	struct spacemit_drm_private *priv =3D crtc->dev->dev_private;
+> +	struct spacemit_hw_device *hwdev =3D priv->hwdev;
+> +	u8 crtc_id =3D drm_crtc_index(crtc);
+> +	u8 dev_id =3D a_crtc->dev_id;
+> +
+> +	drm_dbg(crtc->dev, "cmdlist group =3D %d\n",
+> +		hwdev->rdma_nums + crtc_id);
+> +	cur_cl =3D priv->cmdlist_groups[hwdev->rdma_nums + crtc_id];
+> +	while (cur_cl) {
+> +		hwdev->cmdlist_fill_conf_row(cur_cl, hwdev, dev_id);
+> +		cmdlist_dump_node(cur_cl);
+> +		cur_cl =3D cur_cl->next;
+> +	}
+> +	hwdev->crtc_cmdlist(cur_cl, hwdev, priv, crtc_id, dev_id);
 
 [Severity: High]
-Is it safe to enable the IRQ before the hardware state is fully initialized?
-If the bootloader left the display hardware active, the ISR might fire
-immediately while a_crtc->clocks_on is still false, leading to the IRQ storm
-mentioned above.
+Does this pass a guaranteed NULL pointer to the hardware callback?
+The while loop exhausts cur_cl to NULL, which is then immediately passed
+to hwdev->crtc_cmdlist. It looks like the head of the list should be
+passed instead.
 
-[ ... ]
+> +}
+> +
+> +/* Called from atomic_check(), where -ENOMEM is still an answer. */
+> +int spacemit_cmdlist_alloc(struct device *dev, struct cmdlist *cl)
+> +{
+> +	if (cl->va)
+> +		return 0;
 
-> @@ -594,6 +594,5 @@ static void spacemit_drm_master_unbind(struct device =
-*dev)
-> =20
->  	disable_irq(priv->irq_online);
-> =20
->  	drm_dev_unregister(drm);
->  	drm_atomic_helper_shutdown(drm);
->  	component_unbind_all(dev, drm);
+[Severity: Critical]
+Does returning early when cl->va is present cause active display corruption?
+Because struct cmdlist is embedded directly in the plane state, DRM's state
+duplication will shallow-copy cl->va. If atomic_update mutates this same
+virtual address while the hardware is actively reading it from the old
+state, it could lead to screen tearing or DPU hangs. DMA buffers for
+command lists generally need to be multi-buffered or allocated per-state.
 
-[Severity: High]
-Will calling drm_atomic_helper_shutdown() hang if the IRQ is already
-disabled? The shutdown helper flushes pending atomic commits and disables
-CRTCs, which requires the hardware vblank interrupt to signal completion.
-Without it, the commit wait could time out.
-
-> diff --git a/drivers/gpu/drm/spacemit/spacemit_planes.c b/drivers/gpu/drm=
-/spacemit/spacemit_planes.c
-> new file mode 100644
-> index 0000000000000..3442013b0c37f
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/spacemit_planes.c
-
-[ ... ]
-
-> @@ -98,6 +98,5 @@ static int spacemit_plane_atomic_check(struct drm_plane=
- *plane,
->  	if (src_w =3D=3D 0 && src_h =3D=3D 0)
->  		cur_rdma_id =3D RDMA_INVALID_ID;	/* constant-fill layer, no RDMA */
->  	else if (cur_rdma_id =3D=3D RDMA_INVALID_ID)
->  		cur_rdma_id =3D state->zpos;	/* first commit: bind channel by zpos */
->  	cur_state->rdma_id =3D cur_rdma_id;
-
-[Severity: High]
-Does this code assign RDMA channels based on unvalidated zpos? Userspace
-could submit a configuration with duplicate zpos values across multiple
-planes, resulting in channel collisions where planes overwrite each other's
-hardware registers during spacemit_plane_atomic_update().
-
-[ ... ]
-
-> @@ -193,7 +193,6 @@ static void spacemit_plane_reset(struct drm_plane *pl=
-ane)
->  	if (plane->state) {
->  		s =3D to_spacemit_plane_state(plane->state);
->  		__drm_atomic_helper_plane_destroy_state(plane->state);
->  		kfree(s);
->  		plane->state =3D NULL;
->  	}
-
-[Severity: High]
-Does freeing the state directly bypass the driver's custom destructor?
-Calling kfree(s) directly in spacemit_plane_reset() skips
-spacemit_plane_atomic_destroy_state(), which means the DMA coherent buffers
-for mmu_tbl.va and cl.va could be permanently leaked when a plane is reset.
-
-[ ... ]
-
-> @@ -211,6 +211,5 @@ static struct drm_plane_state *
->  spacemit_plane_atomic_duplicate_state(struct drm_plane *plane)
->  {
->  	struct spacemit_plane_state *s;
->  	struct spacemit_plane_state *old_state =3D
->  			to_spacemit_plane_state(plane->state);
->  	struct spacemit_crtc *a_crtc =3D NULL;
+> +
+> +	cl->size =3D PER_CMDLIST_SIZE;
+> +	cl->va =3D dma_alloc_coherent(dev, cl->size, &cl->pa,
+> +				    GFP_KERNEL | __GFP_ZERO);
+> +	if (!cl->va)
+> +		return -ENOMEM;
 
 [Severity: Medium]
-Will this crash if plane->state is NULL? The to_spacemit_plane_state()
-macro uses container_of, which will produce a negative pointer if
-plane->state is NULL. Dereferencing old_state->rdma_id later would trigger
-a fault.
+Is there a corresponding dma_free_coherent() during state destruction?
+If the allocated cl->va is never freed when the atomic state is destroyed,
+this might cause a steady leak of DMA memory.
+
+> +
+> +	return 0;
+> +}
+[ ... ]
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_dmmu.c b/drivers/gpu/drm/s=
+pacemit/spacemit_dmmu.c
+> index 0000000000000..2ae30dd1a4f23 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_dmmu.c
+[ ... ]
+> +int spacemit_dmmu_map(struct drm_framebuffer *fb, struct dpu_mmu_tbl *mm=
+u_tbl,
+> +		      u8 tbu_id, struct cmdlist_regs *cl_rdma,
+> +		 struct drm_plane *plane)
+> +{
+> +	struct spacemit_drm_private *priv =3D fb->dev->dev_private;
+> +	struct spacemit_hw_device *hwdev =3D priv->hwdev;
+> +	const struct drm_format_info *format =3D NULL;
+> +	struct sg_table *sgt =3D NULL;
+> +	u32 total_size, offset1, offset2;
+> +	struct tbu_instance tbu =3D { };
+> +	u8 plane_num;
+> +	u32 val;
+> +
+> +	format =3D fb->format;
+> +	sgt =3D drm_gem_shmem_get_pages_sgt(to_drm_gem_shmem_obj(fb->obj[0]));
+
+[Severity: High]
+Will this sleep in atomic context? This function appears to be called
+during hardware programming in the atomic commit phase. Calling
+drm_gem_shmem_get_pages_sgt allocates memory and can acquire a mutex,
+which is forbidden in atomic context. Buffer mapping typically needs to be
+deferred to the sleepable prepare_fb callback.
+
+[Severity: High]
+Does mapping only fb->obj[0] break multi-planar framebuffers? If userspace
+provides a multi-planar framebuffer where the planes reside in different GEM
+objects, extracting the SG table only for obj[0] will result in incorrect
+physical memory pages for the secondary planes.
+
+> +	if (IS_ERR(sgt))
+> +		return PTR_ERR(sgt);
+> +
+> +	plane_num =3D format->num_planes;
+> +
+> +	total_size =3D roundup(fb->obj[0]->size, PAGE_SIZE);
+> +
+> +	offset1 =3D plane_num > 1 ? fb->offsets[1] : total_size;
+> +	offset2 =3D plane_num > 2 ? fb->offsets[2] : total_size;
+> +
+> +	switch (plane_num) {
+> +	case 3:
+> +		tbu.ttb_pa[2] =3D mmu_tbl->pa + (offset2 >> PAGE_SHIFT) * 4;
+> +		tbu.tbu_va[2] =3D TBU_BASE_VA(tbu_id) + offset2;
+
+[Severity: Medium]
+Could adding offset2 directly to TBU_BASE_VA result in unaligned base
+virtual addresses? If userspace supplies an offset that is not a multiple
+of PAGE_SIZE, programming an unaligned virtual address might confuse the
+hardware MMU.
+
+> +		tbu.ttb_size[2] =3D PAGE_ALIGN(total_size - rounddown(offset2, PAGE_SI=
+ZE))
+> +				  >> PAGE_SHIFT;
+
+[Severity: Critical]
+Can this size calculation underflow? If a malicious userspace client
+provides offset2 smaller than offset1, the unsigned subtraction
+offset2 - rounddown(offset1, PAGE_SIZE) will underflow to a massive
+positive value. This could program the DMMU with a huge translation block,
+allowing arbitrary out-of-bounds physical memory reads.
+
+> +		fallthrough;
+> +	case 2:
+> +		tbu.ttb_pa[1] =3D mmu_tbl->pa + (offset1 >> PAGE_SHIFT) * 4;
+> +		tbu.tbu_va[1] =3D TBU_BASE_VA(tbu_id) + offset1;
+> +		tbu.ttb_size[1] =3D PAGE_ALIGN(offset2 - rounddown(offset1, PAGE_SIZE)=
+) >> PAGE_SHIFT;
+> +		fallthrough;
+> +	case 1:
+> +		tbu.ttb_pa[0] =3D mmu_tbl->pa;
+> +		tbu.tbu_va[0] =3D TBU_BASE_VA(tbu_id);
+> +		tbu.ttb_size[0] =3D PAGE_ALIGN(offset1) >> PAGE_SHIFT;
+> +		fallthrough;
+> +	default:
+> +		break;
+> +	}
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260725-k3-display=
--v1-0-6de34d80e86c@gmail.com?part=3D10
+-v1-0-6de34d80e86c@gmail.com?part=3D8
