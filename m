@@ -4,19 +4,19 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EAF4C531C9
-	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 02:59:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5F01C531FC
+	for <dri-devel@archiver.kernel.org>; Sat, 25 Jul 2026 02:59:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C785F10E103;
-	Sat, 25 Jul 2026 02:59:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CF6E10E104;
+	Sat, 25 Jul 2026 02:59:47 +0000 (UTC)
 Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E06A010E103
- for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 02:59:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D998810E104
+ for <dri-devel@lists.freedesktop.org>; Sat, 25 Jul 2026 02:59:45 +0000 (UTC)
 Received: from local
  by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
  (Exim 4.99) (envelope-from <daniel@makrotopia.org>)
- id 1wnSbp-0000000032V-3ApD; Sat, 25 Jul 2026 02:59:29 +0000
-Date: Sat, 25 Jul 2026 03:59:26 +0100
+ id 1wnSc0-0000000032p-0cCd; Sat, 25 Jul 2026 02:59:40 +0000
+Date: Sat, 25 Jul 2026 03:59:36 +0100
 From: Daniel Golle <daniel@makrotopia.org>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -34,9 +34,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
  Chen-Yu Tsai <wenst@chromium.org>
-Subject: [PATCH v6 06/13] drm/bridge: it6505: avoid division by zero in pixel
- clock calculation
-Message-ID: <a9664c9ddd026a22cd246c0aac878d3c0e204d50.1784947240.git.daniel@makrotopia.org>
+Subject: [PATCH v6 07/13] drm/bridge: it6505: avoid division by zero in audio
+ FS debug print
+Message-ID: <b3e19f2081a34df3814f766ab1ab95dc6f12a02d.1784947240.git.daniel@makrotopia.org>
 References: <cover.1784947240.git.daniel@makrotopia.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -57,10 +57,11 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-it6505_calc_video_info() checks the sum of the three pixel clock
-counter samples for zero before dividing it by 3, so sums of 1 or 2
-truncate to 0 and the following pixel clock calculation divides by
-zero. Divide first and check the result.
+REG_AUDIO_INPUT_FREQ reads back 0 when no audio clock has been
+latched, and it6505_read() returns a negative errno on i2c failure.
+The debug print divides by the readback, and its arguments are
+evaluated even with debug output disabled. Only print when the value
+is usable as a divisor.
 
 Fixes: b5c84a9edcd4 ("drm/bridge: add it6505 driver")
 Signed-off-by: Daniel Golle <daniel@makrotopia.org>
@@ -69,27 +70,26 @@ v6: no changes
 
 v5: new patch
 
- drivers/gpu/drm/bridge/ite-it6505.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/ite-it6505.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it6505.c b/drivers/gpu/drm/bridge/ite-it6505.c
-index 3806b0b96637..b7eb746c8f8e 100644
+index b7eb746c8f8e..04711c8f4a04 100644
 --- a/drivers/gpu/drm/bridge/ite-it6505.c
 +++ b/drivers/gpu/drm/bridge/ite-it6505.c
-@@ -751,12 +751,13 @@ static void it6505_calc_video_info(struct it6505 *it6505)
- 		sum += rddata;
- 	}
+@@ -1623,8 +1623,11 @@ static void it6505_enable_audio(struct it6505 *it6505)
+ 	it6505_set_bits(it6505, REG_AUDIO_SRC_CTRL, AUDIO_FIFO_RESET, 0x00);
+ 	it6505_set_bits(it6505, REG_RESET_CTRL, AUDIO_RESET, 0x00);
+ 	regbe = it6505_read(it6505, REG_AUDIO_INPUT_FREQ);
+-	DRM_DEV_DEBUG_DRIVER(dev, "regbe:0x%02x audio input fs: %d.%d kHz",
+-			     regbe, 6750 / regbe, (6750 % regbe) * 10 / regbe);
++	if (regbe > 0)
++		DRM_DEV_DEBUG_DRIVER(dev,
++				     "regbe:0x%02x audio input fs: %d.%d kHz",
++				     regbe, 6750 / regbe,
++				     (6750 % regbe) * 10 / regbe);
+ 	it6505_set_bits(it6505, REG_DATA_MUTE_CTRL, EN_AUD_MUTE, 0x00);
+ }
  
-+	sum /= 3;
-+
- 	if (sum == 0) {
- 		DRM_DEV_DEBUG_DRIVER(dev, "calc video timing error");
- 		return;
- 	}
- 
--	sum /= 3;
- 	pclk = 13500 * 2048 / sum;
- 	it6505->video_info.clock = pclk;
- 	it6505->video_info.hdisplay = hdew;
 -- 
 2.55.0
