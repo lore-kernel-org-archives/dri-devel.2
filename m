@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F046C54F52
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CF70C54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2115C10E7C2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 325C710E7CA;
 	Tue, 28 Jul 2026 07:21:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="TlXTwoRR";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="d9t9pVk3";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 4839F10E48C;
- Mon, 27 Jul 2026 16:48:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1013210E491;
+ Mon, 27 Jul 2026 16:47:54 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A6CE6176C;
- Mon, 27 Jul 2026 09:48:43 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6328C1756;
+ Mon, 27 Jul 2026 09:47:49 -0700 (PDT)
 Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
  [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1BF0A3F86F;
- Mon, 27 Jul 2026 09:48:38 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CAAF73F86F;
+ Mon, 27 Jul 2026 09:47:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785170927; bh=CNlHVT/CmxBUOVY6CfuxFxYbSX5ewnbm7YL5RcchowM=;
+ t=1785170873; bh=OeHCtGC0uAROhEyzqyRGicgDGQ57E/f+pQoW3sVwCjU=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=TlXTwoRRK0Q+V8Za5J7DYjVsZ+if5g4kXVfJnfFmctfVLxFq2SX4GBaC2bi0e8NWA
- LRsIxqAUpqOoTQRWDck8+AFKBOsKSw/bVdMcjgbwsUa/PtG9bA/8DxKrDHKwh6kbPY
- j6c92y4Zs0E3dmXI/jy7qtPoQSWFIvG//eGdf5FY=
+ b=d9t9pVk3z+LotvxypYLqFho7KP5XEkp7l8lfha+xgcBRash4qGjZ0Vd/mV34z3ngj
+ YCiqC4R9lIHqddTtejnz0iRZ+amGDO4RrpcG6DeJWoifcWXWkFCXl4PCx8iVJw3r/E
+ fHskF6P1T34bdcplSjvRlLirD1a3/E+yp9d0XlLw=
 From: Muhammad Usama Anjum <usama.anjum@arm.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -71,9 +71,9 @@ Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
  linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
  linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: [PATCH RFC 08/11] drm/i915: use hw_pte_t for PTE range callbacks
-Date: Mon, 27 Jul 2026 17:46:59 +0100
-Message-ID: <20260727164715.2866609-9-usama.anjum@arm.com>
+Subject: [PATCH RFC 02/11] mm: make hw_pte_t visible to generic PTE interfaces
+Date: Mon, 27 Jul 2026 17:46:53 +0100
+Message-ID: <20260727164715.2866609-3-usama.anjum@arm.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260727164715.2866609-1-usama.anjum@arm.com>
 References: <20260727164715.2866609-1-usama.anjum@arm.com>
@@ -95,61 +95,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-apply_to_page_range() now passes PTE table storage to its callback as
-hw_pte_t *. Update the i915 remap and selftest callbacks to match the new
-type.
+Later conversions use hw_pte_t in page-table checking, generic page-table
+helpers, and vmalloc interfaces. Include linux/pgtable_types.h from the
+headers that declare those interfaces before changing their types.
 
-Continue to use ptep_get() for logical values and set_pte_at() for updates.
+For vmalloc.h, replace the direct asm/page.h include with
+linux/pgtable_types.h. The latter includes asm/page.h, so pgprot_t remains
+available.
 
 Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
- drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c | 4 ++--
- drivers/gpu/drm/i915/i915_mm.c                     | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ include/linux/page_table_check.h | 2 ++
+ include/linux/pgtable.h          | 1 +
+ include/linux/vmalloc.h          | 2 +-
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-index d01acfb7d93d0..056faf4a3618b 100644
---- a/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-+++ b/drivers/gpu/drm/i915/gem/selftests/i915_gem_mman.c
-@@ -1690,7 +1690,7 @@ static int igt_mmap_gpu(void *arg)
- 	return 0;
- }
+diff --git a/include/linux/page_table_check.h b/include/linux/page_table_check.h
+index 12268a32e8be1..12ee6d16ad339 100644
+--- a/include/linux/page_table_check.h
++++ b/include/linux/page_table_check.h
+@@ -7,6 +7,8 @@
+ #ifndef __LINUX_PAGE_TABLE_CHECK_H
+ #define __LINUX_PAGE_TABLE_CHECK_H
  
--static int check_present_pte(pte_t *pte, unsigned long addr, void *data)
-+static int check_present_pte(hw_pte_t *pte, unsigned long addr, void *data)
- {
- 	pte_t ptent = ptep_get(pte);
++#include <linux/pgtable_types.h>
++
+ #ifdef CONFIG_PAGE_TABLE_CHECK
+ #include <linux/jump_label.h>
  
-@@ -1703,7 +1703,7 @@ static int check_present_pte(pte_t *pte, unsigned long addr, void *data)
- 	return 0;
- }
+diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+index 8c093c119e5a8..cf595608cc4c4 100644
+--- a/include/linux/pgtable.h
++++ b/include/linux/pgtable.h
+@@ -4,6 +4,7 @@
  
--static int check_absent_pte(pte_t *pte, unsigned long addr, void *data)
-+static int check_absent_pte(hw_pte_t *pte, unsigned long addr, void *data)
- {
- 	pte_t ptent = ptep_get(pte);
+ #include <linux/pfn.h>
+ #include <asm/pgtable.h>
++#include <linux/pgtable_types.h>
  
-diff --git a/drivers/gpu/drm/i915/i915_mm.c b/drivers/gpu/drm/i915/i915_mm.c
-index fd89e7c7d8d6f..aab88e8edf946 100644
---- a/drivers/gpu/drm/i915/i915_mm.c
-+++ b/drivers/gpu/drm/i915/i915_mm.c
-@@ -48,7 +48,7 @@ static inline unsigned long sgt_pfn(const struct remap_pfn *r)
- 		return r->sgt.pfn + (r->sgt.curr >> PAGE_SHIFT);
- }
- 
--static int remap_sg(pte_t *pte, unsigned long addr, void *data)
-+static int remap_sg(hw_pte_t *pte, unsigned long addr, void *data)
- {
- 	struct remap_pfn *r = data;
- 
-@@ -70,7 +70,7 @@ static int remap_sg(pte_t *pte, unsigned long addr, void *data)
- #define EXPECTED_FLAGS (VM_PFNMAP | VM_DONTEXPAND | VM_DONTDUMP)
- 
- #if IS_ENABLED(CONFIG_X86)
--static int remap_pfn(pte_t *pte, unsigned long addr, void *data)
-+static int remap_pfn(hw_pte_t *pte, unsigned long addr, void *data)
- {
- 	struct remap_pfn *r = data;
+ #define PMD_ORDER	(PMD_SHIFT - PAGE_SHIFT)
+ #define PUD_ORDER	(PUD_SHIFT - PAGE_SHIFT)
+diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+index e4d8d0a9f30f9..c59a68c183110 100644
+--- a/include/linux/vmalloc.h
++++ b/include/linux/vmalloc.h
+@@ -8,7 +8,7 @@
+ #include <linux/init.h>
+ #include <linux/list.h>
+ #include <linux/llist.h>
+-#include <asm/page.h>		/* pgprot_t */
++#include <linux/pgtable_types.h>	/* pgprot_t, hw_pte_t */
+ #include <linux/rbtree.h>
+ #include <linux/overflow.h>
  
 -- 
 2.47.3
