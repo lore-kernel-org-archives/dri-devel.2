@@ -4,50 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05FEEC53209
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 20:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A75C53209
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 21:26:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 696EC10E0C1;
-	Mon, 27 Jul 2026 20:46:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42E5E10E4DD;
+	Mon, 27 Jul 2026 21:26:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WIosT/Ov";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b/KKTSp2";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57E1B10E0C1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 20:46:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=yl0NUMr0TDqZO/IOU8fA9DWQn4BnbIyksUsi7vU4w4g=; b=WIosT/Ov5wZZCiXhk55/xVWVOA
- eIViSQ8E6CYKWKAtervfugn9S6xah6P4KmyuY3EqecmT+JguEKIyQ59cDgucnC67dQLQOq5aPfjCo
- /Iw6NBWO2gwJWs5bOlHIJ+5IVeGu3ptYrsZszNkRRLzgPJJfpcnBMVdCLUaafTRGN1XWXJsIWHJa/
- LSn8tpw9yNo/79/JrTSlBsMHtRxDKY+nv0rEPYUrLj7o4NnNCP+rCSU+n7DsPDgsU2J9w2B3IUgwG
- aJtRdQ9Oh735pWK2aItdew3e4yJNafzMRhWrwcmhD+3utWBqhWtCJViQ8JtYMDY2DF060wQl8qC0M
- X3Wgyoxw==;
-Received: from 179-125-64-236-dinamico.pombonet.net.br ([179.125.64.236]
- helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1woSDD-006gjL-44; Mon, 27 Jul 2026 22:46:11 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Date: Mon, 27 Jul 2026 17:45:49 -0300
-Subject: [PATCH] drm: Fix drm_crtc_commit leak if signaled when
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6185310E742
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 21:26:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 695036013A;
+ Mon, 27 Jul 2026 21:26:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACDE91F00A3A;
+ Mon, 27 Jul 2026 21:26:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785187608;
+ bh=vut7nL0kXH2gpOrV2CtJrgUZsy4tni/ZnbJ0ix/3VrA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=b/KKTSp2TLkEs9grEORK7/X0y7A75ouo+lHI7VHnPs4WEotwHDA+Muj6iIrDJLLIG
+ H8dJcYG6fg7PkaGA+uvotkWfSOmaotGjG9txV2/3k9x7HRZFlQZaLg5tobrTVsML7j
+ mP0ebuOBZe2BpAsJ5Dl80nR0EVg0tegkU2GOPj9Uh9UspTNtzgvWxsN0LWb4i6w8yg
+ Aj0qNQ5YhKVVUTpVNbk05mCyKzAs5xLwNVX8iSZstENRkO6fhq88IVbavd18EzpB62
+ 3QAqSv1uq/SQUAv7hIRo3MTr9atJk+C2iPKW/PavUXjU3BMWzUnBxvxI3owDuf9JQa
+ aQbNRgONczsDQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm: Fix drm_crtc_commit leak if signaled when
  PAGE_FLIP_EVENT is used
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com>
-X-B4-Tracking: v=1; b=H4sIAHzDZ2oC/yXMQQrCMBAAwK+UPTfQxrYBvyIlJJtVV00jmyiF0
- r8b9TiX2SCTMGU4NhsIvTlzWir6tgG8uuVCikM16E5PndFGBYkWpaB1JUVGiylGLvZB7q6GQCO
- ZsZ+0P0AdnkJnXn/7af47v/yNsHxL2PcPyXMzOH8AAAA=
-X-Change-ID: 20260727-drm_crtc_atomic_commit_leak-4de5e75162b3
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel-dev@igalia.com, stable@vger.kernel.org, 
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-X-Mailer: b4 0.16-dev-62088
+To: "Thadeu Lima de Souza Cascardo" <cascardo@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com>
+References: <20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 21:26:47 +0000
+Message-Id: <20260727212647.ACDE91F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,51 +53,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 1c6ceeee6ebb ("drm/atomic: Fix memleak on ERESTARTSYS during
-non-blocking commits") fixed a very similar issue when the event was
-allocated by drm_atomic_helper_setup_commit() itself.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-However, if the event is allocated in prepare_signaling(), it will also be
-set to NULL in complete_signaling(), which prevents drm_crtc_commit from
-being put in __drm_atomic_helper_crtc_destroy_state().
+Pre-existing issues:
+- [High] Memory leak of drm_pending_vblank_event in prepare_signaling() err=
+or path.
+--
 
-Dropping the reference when the event is set to NULL at
-complete_signaling() fixes the leak.
+--- Patch [1]: [PATCH] drm: Fix drm_crtc_commit leak if signaled when PAGE_=
+FLIP_EVENT is used ---
+commit 7e124359c795a6d6965d1810c1067f7ff33a7631
+Author: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
-The leak can be reproduced by sending a signal to the thread using
-DRM_MODE_PAGE_FLIP_EVENT and using a sw_sync fence to cause the atomic
-ioctl to block at drm_atomic_helper_wait_for_fences(). It happened both
-with amdgpu and vkms.
+drm: Fix drm_crtc_commit leak if signaled when PAGE_FLIP_EVENT is used
 
-Fixes: 24835e442f28 ("drm: reference count event->completion")
-Cc: stable@vger.kernel.org
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
----
- drivers/gpu/drm/drm_atomic_uapi.c | 2 ++
- 1 file changed, 2 insertions(+)
+This commit fixes a memory leak in the atomic commit path when the ioctl is
+signaled while waiting for fences. It ensures the reference to the
+drm_crtc_commit is properly dropped if the event allocated in
+prepare_signaling() is cleared in complete_signaling().
 
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index e997917819e8..7b951af5ab32 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -1563,6 +1563,8 @@ static void complete_signaling(struct drm_device *dev,
- 		 * to prevent a double free in drm_atomic_commit_clear.
- 		 */
- 		if (event && (event->base.fence || event->base.file_priv)) {
-+			if (crtc_state->commit && crtc_state->commit->abort_completion)
-+				drm_crtc_commit_put(crtc_state->commit);
- 			drm_event_cancel_free(dev, &event->base);
- 			crtc_state->event = NULL;
- 		}
+> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
+ic_uapi.c
+> index e997917819e8e..7b951af5ab320 100644
+> --- a/drivers/gpu/drm/drm_atomic_uapi.c
+> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
+> @@ -1563,6 +1563,8 @@ static void complete_signaling(struct drm_device *d=
+ev,
+>  		 * to prevent a double free in drm_atomic_commit_clear.
+>  		 */
+>  		if (event && (event->base.fence || event->base.file_priv)) {
 
----
-base-commit: d5efb1e1b1d7cd27c642654042f80d19a7ba3caf
-change-id: 20260727-drm_crtc_atomic_commit_leak-4de5e75162b3
+[Severity: High]
+This is a pre-existing issue, but does this conditional inadvertently leak =
+the
+event under certain error conditions?
 
-Best regards,
---  
-Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+If userspace calls DRM_IOCTL_MODE_ATOMIC with an OUT_FENCE_PTR but without
+the DRM_MODE_PAGE_FLIP_EVENT flag, prepare_signaling() allocates the event:
 
+    e =3D create_vblank_event(crtc, arg->user_data);
+    if (!e)
+        return -ENOMEM;
+    crtc_state->event =3D e;
+
+Since PAGE_FLIP_EVENT is not set, drm_event_reserve_init() is skipped, leav=
+ing
+event->base.file_priv as NULL. If setup_out_fence() then fails (for example,
+due to file descriptor exhaustion), prepare_signaling() returns an error
+before event->base.fence is set:
+
+    ret =3D setup_out_fence(&f[(*num_fences)++], fence);
+    if (ret) {
+        dma_fence_put(fence);
+        return ret;
+    }
+
+When complete_signaling() cleans up the error path, both event->base.fence
+and event->base.file_priv are NULL, causing this block to be skipped.=20
+
+The event is left in crtc_state->event, but=20
+__drm_atomic_helper_crtc_destroy_state() does not free it (it only frees
+state->commit->event), leading to a memory leak. Could this be triggered by
+untrusted userspace to reliably exhaust kernel memory?
+
+> +			if (crtc_state->commit && crtc_state->commit->abort_completion)
+> +				drm_crtc_commit_put(crtc_state->commit);
+>  			drm_event_cancel_free(dev, &event->base);
+>  			crtc_state->event =3D NULL;
+>  		}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-drm_crtc_a=
+tomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=3D1
