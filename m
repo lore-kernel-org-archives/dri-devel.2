@@ -4,122 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DA0AC53209
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 17:33:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBDDC53209
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 17:33:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98CC410E483;
-	Mon, 27 Jul 2026 17:33:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4E00810E4AD;
+	Mon, 27 Jul 2026 17:33:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="VhbbGycb";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YMWdwxko";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="H6yZMlzt";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B3axaHUK";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A0E5C10E483
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 17:33:31 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C97010E4AD
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 17:33:37 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66RDlgiK033208
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 17:33:31 GMT
+ 66RHKcXK194040
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 17:33:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=Xrd7+mMUbjl+qLUo2m9xXeSQiJ457xxEDq2
- gJokXZ3M=; b=VhbbGycbI5Om9lPripyfCVxjpPAUivKodLYbtstHuWZ59Du22g2
- qHM84SZN6ksncb+BXmfx4doEBT8oDLpZba0dICNGHSxIC4yxvdOFs0lDGy+yDfPA
- Q1VV0JMOCluAISVAVCIoxZLrMhAQ0N+KL0AS6hwap/ispOFrQgnxynUXPVN9SWrw
- v12EStWcCsT2z7hzh6c8XJnmhSvr9KQAA/rlnQcLpgv3M85IbtpeQSd8UWFAcUqj
- jHvP81p8q3IIlM1nfjsAtILQZPabAw2d6a1PHDU4qL9siyppw8WUugiPw4brbGgI
- o2Ua456AWTH+trt3XPs5n4AzwAvbo/ujvAA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
- [209.85.160.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4c6267d-1
+ cc:content-transfer-encoding:date:from:in-reply-to:message-id
+ :mime-version:references:subject:to; s=qcppdkim1; bh=YhD2+q7DI4A
+ UEN5rkLNrrIb48BZuP48MkgWKn7wK1dc=; b=H6yZMlztaVJxlWo5rCHHOWyWfA8
+ g5ItqUw6r53slx3ZcT/46RSMcr3ATeMalBR6NJsVJhp8UKBiiUF2xcu45raH1L4v
+ ZoN1u47sx5+A8cMhyBHpJjQaENZOOt76Sk7k2usbJbXvEvd9AhRYjSzSbT5CxUTw
+ NuQPTqB0rKkK6mCS62lRk4CT10n1KDu+IvrPPUUU2/W1uf5RlO02HSpHZMpSEyXg
+ bddbw47FJ2rioypZQxWLOx8azF61pOb3vKd1/f6EX6Gr6fx0opGuRTuztjsv+hvD
+ lT4I/b7UuFcj7cQBfng7pKcIkqTkyrq5vufTNH4YzifrwkC1yUqm9SW9yiA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpbn881tu-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 17:33:31 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id
- d75a77b69052e-5283fa0656dso1725681cf.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 10:33:30 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 17:33:35 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-51c1eb52e1fso54419551cf.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 10:33:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785173610; x=1785778410;
+ d=oss.qualcomm.com; s=google; t=1785173615; x=1785778415;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Xrd7+mMUbjl+qLUo2m9xXeSQiJ457xxEDq2gJokXZ3M=;
- b=YMWdwxkoBesRLEdrMnrGTd/Mh6ZZbQMUMtqWoWTSUM5Mh4YDjm3aUZhxwJsXGCZPqq
- hhWHU87dYyEXjOJEJ9qo7GwbYEK+K7vST+yWRw4Tq8NFq+Fm0So7OKyQU8c+O1MA4UZ8
- 8WRS+LNYLw4bEkIXHjlqk/tr63DIWc+GtWGRQVvrrwZ4wXtOZrbDlsjLDY6Oc/55hM9T
- JOnsw/0UoQqZfZdZwVOmozkkwWc2AEzUNkUZyFo7cYbmQoPInCEBIgJsnJAW0OA9Q1Uf
- 24a754n4TeV0aVlZAcVgRpwnvRKvRqnsJqmH7Gae448juq6tQl2BjlLQlDnu9S59Tqh+
- uW1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785173610; x=1785778410;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Xrd7+mMUbjl+qLUo2m9xXeSQiJ457xxEDq2gJokXZ3M=;
- b=T42wSvmNeuG/L5tenFrnGnPplQ7qzZw5yIJWzke5WvCQF9f+K5XWqIoolDaTlGFD7x
- hfcYUt2+TJAn1jVlBFqpJWFIjbcadD4zzVwMrkEpPZw6eZj3V1ZLNJo9JCfD2cFU9DCK
- oTeZMjevzpN85Q3c2O3j4mAjQitT2NlVEETgSvHMncNqif7hiodOzNhmeE7XBQ3Xvgu/
- B0IgrXlINLu4GWEkOUMCLMqlO9MDtMvl4yyk1hCbKNZkDFoGERwr+OlhM1GstcogCRKt
- yRa7R/K+2JtYcPolUoxHbqEsCsEZLy5TLb/j+PCRvz3gupr7os8LIqgY1cGP1EjqUW8h
- Ok2A==
+ bh=YhD2+q7DI4AUEN5rkLNrrIb48BZuP48MkgWKn7wK1dc=;
+ b=B3axaHUKEoL1jIhFgz4E7cqZsEh+AiPq7KQhKhVAdUvtzPP1JF7YGEsgKq11W3Hphx
+ UrpkovYcqkbpmLtgQw6jjHqxZRU6SUvZyAoe2fnloM8aHZcq0MXtAiC9iS2qpUvIxX4+
+ b2JfkcuaQyLgLR5Z5LC+3OlNT3tw+IihPVQn7Vhka7xYSy7khMBUKS8HiPzB5Mc8/n0l
+ 3A0Enycd64xln37k076tUqRp6MZr3VUtXiLqD0vog4h13jkuYl0U4nBqfN0DnkvPmBkB
+ PHVqnijIF5cNNdCZOYCELb6DmY2c+OkeABhNMMd9bs2989MF1NpqiMMSOUraRIOnkmDF
+ 8V5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785173615; x=1785778415;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YhD2+q7DI4AUEN5rkLNrrIb48BZuP48MkgWKn7wK1dc=;
+ b=a6Pv+Vvyr5FbyFFjEqDGthJdhiLUNFWzNuYTPbtyiikyqBRBoW3jaa/G68drNzyfe5
+ Ni8NIzvc7vaHsDKAg4AKUYYCuesGzZIKq0m8q0xCuAi2NfT2u67YXWXePuEH/dXxPTsj
+ U6r7IoQeIlzbaODseqDUdz2XYTpAeSfRsBCPgN804IHw8kMKVuK0IcOscXhJ7b0OLGo2
+ PU4VWKE/XGMyLLFiKtOX3OPkNJyGsWQuWcE3aelmPBbtCSVjlpGHEafAWPmH8nBdCQ2Y
+ 5ht1EZXuVpinAAYCByGaoj8D6icbDDKPW+8n7Ibx44NvOoItGpgUKVOUIHmgP5i133Dm
+ ZtkQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoGiINETlMqe97zVfH3zNqS+fFdU5GcuFDPu5VW0x23tf6SlM69oU6b4kn1awqPhTkRBevEEFljUgA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzWn49L6dZ76fVXJ4txmOj1b/l0vWsYEaVTAZ/GIybeDV/xon+B
- 1lNA+w8CzYeW7MyF0DIhaphXK8wk9C43GBePOZZGo1T7CPIjEUZdmRM56cqOWPtkaRe7Aj5aiZp
- q++5q3BtfsJn1qCfuXd/pJmFWk5+dN5PQu6BV7Aelup4sHxViY7sWEYFRCv8HNSkVILeGTFA=
-X-Gm-Gg: AR+sD12O0nISC4k3xouqAvoMAj+Es3s6Svvo/cRFNj87z7tn0URoME4oVJWlCHh92pC
- 50/mwc1ik7sPVklzzaQv7wcBV5UlpVhkte3uQVz0BbB/8+oKWJwQQQojN2GH5aMfGs/435yl7pr
- oBr7BC7YTs/XnIdEzcMWgPsrTGjzxIcCTGxWsb64ZPhINdLGlPFkUdAJBlYgYcAh/AbHvb7z3y1
- fHhDGeRSa1O7AuS5xMTeCojz9JXE2JCTKuwLPEVE/j83wUdqVBglgRCId/lruZZGcu/axhG1ZUv
- 3mA9Hb0kgqvQhfamWvnhnBy8OHs43fGMmTJrYTclZvKUpYy+N7EFnWqCOFSkw08BCvGxb0Hlr7a
- 2FFsIO0daNV1y+lfGPPsGmIIQfADxxfPe4OLtRHdp
-X-Received: by 2002:ac8:588d:0:b0:51c:7aa7:e0f0 with SMTP id
- d75a77b69052e-529d1fd79b1mr3817801cf.43.1785173610030; 
- Mon, 27 Jul 2026 10:33:30 -0700 (PDT)
-X-Received: by 2002:ac8:588d:0:b0:51c:7aa7:e0f0 with SMTP id
- d75a77b69052e-529d1fd79b1mr3817511cf.43.1785173609636; 
- Mon, 27 Jul 2026 10:33:29 -0700 (PDT)
+ AHgh+RrlGYsCKA747zOPJ3WQD5QkhpphJ6KeRxpW7n8rzgTf6JTx5I90ioThofjZwfnLMWSil4NzZpm3GMk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx13xw33/xtTG3TAvt7D9lWOvdn/r+zteOhIRQHQDGEVCMouF/P
+ u3HN7RVjvNtGG/3hbsuJflU5DxncvLDEiOlAG+oP2h/gjGnXNHyQLJ1dr+gWHRhDnVIR56jJ/SG
+ 1V9ynjgt936DXE8F9tx84N7gMcgJdgm+RNAHkaqzfileR5MtVrmOAL22cZ+jbwWeFD/s77fU=
+X-Gm-Gg: AR+sD10DhPiMNyFtpSDV92CywkA5NcEAU74uua0q066krsR/7BAl3BAmjlirRjtj5bH
+ I6kQaFLz8t7AJK1cIhsPyylWV64qBmZack1YigwT1nxlGyUjo0ZVo+kPV8RmUwNk5ld0srZ0UpO
+ ctZvPkrJjhwjkWMKkuSgUdDwV3ghq6b4zH2wLLajL7IyxjKsO9Oqpw4u3UtPXhgblpoqSOcrZnl
+ q+2AC3xBFOz4T4R3E9Nb/nAoyXnxQySGjghluNwwIKz3zM3EyZEsl9BuMc4vOKiDdSbTxTgL+re
+ OeEoU70vv+XSwQ637oCrDcIOE+jhnxbDHXvNrwlkb897z4d7Y2+4hB1vxJK2A9NqHN6iLRtVwNV
+ bfgB2XUbsmvZG9hY+JuiHajvcwlhkuAlu1TIWOnm8
+X-Received: by 2002:ac8:5813:0:b0:51c:7b12:5fda with SMTP id
+ d75a77b69052e-529d1c72479mr5131631cf.86.1785173614990; 
+ Mon, 27 Jul 2026 10:33:34 -0700 (PDT)
+X-Received: by 2002:ac8:5813:0:b0:51c:7b12:5fda with SMTP id
+ d75a77b69052e-529d1c72479mr5131231cf.86.1785173614486; 
+ Mon, 27 Jul 2026 10:33:34 -0700 (PDT)
 Received: from hu-yabdulra-ams.qualcomm.com ([212.136.9.4])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-69fb5543370sm2945391a12.15.2026.07.27.10.33.27
+ 4fb4d7f45d1cf-69fb5543370sm2945391a12.15.2026.07.27.10.33.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jul 2026 10:33:28 -0700 (PDT)
+ Mon, 27 Jul 2026 10:33:33 -0700 (PDT)
 From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
 To: jeff.hugo@oss.qualcomm.com, carl.vanderlip@oss.qualcomm.com,
  troy.hanson@oss.qualcomm.com, zachary.mckevitt@oss.qualcomm.com
 Cc: ogabbay@kernel.org, lizhi.hou@amd.com, linux-arm-msm@vger.kernel.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH 0/5] accel/qaic: Add missing <linux/device-id/mhi.h> to .c
- files
-Date: Mon, 27 Jul 2026 19:33:21 +0200
-Message-ID: <20260727173326.2219191-1-youssef.abdulrahman@oss.qualcomm.com>
+Subject: [PATCH 2/5] accel/qaic: Add <linux/device-id/mhi.h> to qaic_drv.c
+Date: Mon, 27 Jul 2026 19:33:23 +0200
+Message-ID: <20260727173326.2219191-3-youssef.abdulrahman@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260727173326.2219191-1-youssef.abdulrahman@oss.qualcomm.com>
+References: <20260727173326.2219191-1-youssef.abdulrahman@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=eYQNubEH c=1 sm=1 tr=0 ts=6a67966b cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDE2MiBTYWx0ZWRfX/PF/0mSSQ9vS
+ ZdYjMLXJfa0J4bBI7sGm5rd4f7dB2L8PLDADV/yNnuA0Y2NMVSXchJf13XO30eDxfhu5PpV4ij4
+ jTd2UQ/xVL3Z7XXKg9ftld+T+xXAZRn/Iq3jcbRrQEm0M8RIGjqVnWs9Mbx0Z0d8fbT3gviL1at
+ +Wv4gk5Jrg1fCIH1HCiMXDNfT45bf3qZazfPUk/eJXAMqG+VanAEHwbcLVApFNdW5JouIs6NSYn
+ gGsAY3geb5ubhghogOy89opK7YPFO5ZKf6oLNC/60HuzzUeeVbcypf4XsYybKBKc0BMY5/zURxY
+ Ca6lTQ0xMXLmOfsmwyEjVZczDoDGVLYyH55K5c2vKcJQ3CACPqA2Kb34VfjB43mySXSdhs+ySPC
+ t7tujdNs/CMrfgH+FyKgqE68vB4TuZBVoI3yZT/zd0SgLGWgpATutjp8AnubEz2erRSc8Qv4XsH
+ EcsgBaNIxMpst1m7fhg==
+X-Authority-Analysis: v=2.4 cv=RO+D2Yi+ c=1 sm=1 tr=0 ts=6a67966f cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=XT_LLXgTnYouiiFBU3wA:9
- a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDE2MiBTYWx0ZWRfX3fpDzImPUDnN
- IrZKlilkf5Sj2dzHirMbRFd7b8bHCH2M0XDTRc10Cz4PDbbFzIo8Utjknx2pbAgmgzMsPxkjpAL
- OB43QjSxGu9IAN5aUK3o0Z5KFN7Bqls=
-X-Proofpoint-ORIG-GUID: zjA-hQa0R3jaojE-3vVKsvC3MtZTwKN8
-X-Proofpoint-GUID: zjA-hQa0R3jaojE-3vVKsvC3MtZTwKN8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDE2MiBTYWx0ZWRfX7SrrHNJM5hnB
- wmKQb0ukjB/SROkt4DedG6l5Ra13x5qCwFkiLr7450Pt4RdybWN9m+Xt7Iz76LcUwdyls5ojyJi
- WoyWRFWu3s7KO5uhInyE/pJzjuNe3MNqDc3uLZLlpR2dpiTeitQaTANEGyQyyRAhGXBMhf6QYh7
- fOuP9uTNnMDRqAg/EDLl8fCx64bvKxE2MAQPLlBkrObJF8tLUgXkvW44/2ldk+ScrWHJtwhr4vF
- jX6XtI8PsKIAVy+jygDPCUjwB+SRycXlKWtydt2brZKSIfB438tS7nUPl61SoXlBI4PLbGUajIr
- rB/L8nIMZjBO1Lwd2nqe/gKuT2kZcM0fSy58AxpR2HWoJRU0GQSWdWE/EKuSdZA8d8PEozeVb86
- eI/Q5r/FF+oC4sGGwz1XO5BWKASDHSSJyTF7Xkk2Li6FG4G41U0sZnrdoSpRnyXiBE1Ov3c3ykr
- tZOBePNx7EuzLF4WPjg==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
+ a=470nOrkEHAbYtoG9YpMA:9 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-ORIG-GUID: oGykzpssOKtPjb6EmbsRo6jMyGFRIPln
+X-Proofpoint-GUID: oGykzpssOKtPjb6EmbsRo6jMyGFRIPln
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDE2MiBTYWx0ZWRfX4OrD2xlk7koa
+ wOYeMOhRptk1gwGxd+kJt6gY0+Jm4UkXyNic2iP+C/UgKDsGEX53tQnrVm7BqpOGkaQXICJbqSJ
+ xEXcPYV6JiejIeKJoWSbEhR5m8vB6GY=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 spamscore=0 adultscore=0 priorityscore=1501
- lowpriorityscore=0 bulkscore=0 impostorscore=0 malwarescore=0 clxscore=1011
+ impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0
+ lowpriorityscore=0 adultscore=0 clxscore=1011 malwarescore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270162
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -137,27 +139,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Although the qaic driver is using MHI, it is missing the inclusion of
-<linux/mod_devicetable.h>, or the more recent <linux/device-id/mhi.h>,
-in some of its .c files.
+qaic_drv.c uses mhi_device_id implicitly. Include <linux/device-id/mhi.h>.
 
-This series adds the missing includes to the relevant .c files.
+Fixes: c501ca23a6a3 ("accel/qaic: Add uapi and core driver file")
+Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+---
+ drivers/accel/qaic/qaic_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Youssef Samir (5):
-  accel/qaic: Add missing <linux/device-id/mhi.h> to sahara and timesync
-  accel/qaic: Add <linux/device-id/mhi.h> to qaic_drv.c
-  accel/qaic: Add <linux/device-id/mhi.h> to qaic_debugfs.c
-  accel/qaic: Add <linux/device-id/mhi.h> to qaic_ras.c
-  accel/qaic: Add <linux/device-id/mhi.h> to qaic_ssr.c
-
- drivers/accel/qaic/qaic_debugfs.c  | 1 +
- drivers/accel/qaic/qaic_drv.c      | 1 +
- drivers/accel/qaic/qaic_ras.c      | 1 +
- drivers/accel/qaic/qaic_ssr.c      | 1 +
- drivers/accel/qaic/qaic_timesync.c | 1 +
- drivers/accel/qaic/sahara.c        | 1 +
- 6 files changed, 6 insertions(+)
-
+diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+index 0acf6cdd44f8..c1bb6db78d12 100644
+--- a/drivers/accel/qaic/qaic_drv.c
++++ b/drivers/accel/qaic/qaic_drv.c
+@@ -4,6 +4,7 @@
+ /* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. */
+ 
+ #include <linux/delay.h>
++#include <linux/device-id/mhi.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/idr.h>
+ #include <linux/interrupt.h>
 -- 
 2.43.0
 
