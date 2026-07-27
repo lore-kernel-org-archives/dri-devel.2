@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F199C53209
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 16:58:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03F38C53209
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 17:06:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7A0089919;
-	Mon, 27 Jul 2026 16:58:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BA5310E64A;
+	Mon, 27 Jul 2026 17:06:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XdM+l9ol";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eQKAQIYq";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5FA089919
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 16:58:24 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1C1410E4AA
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 17:06:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6135240907;
- Mon, 27 Jul 2026 16:58:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0377C1F000E9;
- Mon, 27 Jul 2026 16:58:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B1A6E60A59;
+ Mon, 27 Jul 2026 17:06:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B8A21F00A3A;
+ Mon, 27 Jul 2026 17:06:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785171504;
- bh=zeYfh6Ae+1xJhea6+9HT4lCqDt/7bYv2LK0Gd+dP4ds=;
+ s=k20260515; t=1785172014;
+ bh=g87WMwuws+VANruMejxcqQAAkoeK94qaInNTk/9P8MM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XdM+l9olRW8cKalogx7n+VU3fSaNCRSPkhHZMGpLzCiNnF5n2MXamqP4NMDF773oD
- GREnikG0Why5GUAYX0IpZTwNhzGp5bqoFZ0pTi/+O9mFL1g7myQ0E72UPFZPwN67P7
- vLkGWiGJSKvlxkAerr6IvifRL31O/YDcEVwbm/yFVEB9K1OfnQdyXmJ4aGulx1l8TJ
- 3zdTwLFo4GTutJPOhxu+P+MyssSMxzGPfj7LOwbVamNxOjols3+UjYMG21tr7V3m8o
- EouQobx+MZzv5jPF0GkDVCQFsaqrzLuNfbIHeCVhpRlMHCN9tR5erpTF6gxNXokLCX
- Zd2B1b9xWPqtQ==
+ b=eQKAQIYqzxRloI9oceYUuvwMrQQnljrJzDOdNP+OkpXVimLYUyuINC0mNOcXsOvHZ
+ rxFpNjUphykN/lmBJkJCNFlQjqvS4t//ozsCjcbckpsuAK6RIkVsMkK8zNCdYk8dqx
+ PLc1do8DGPY0qAlOfWeJ9M4DSuLO8mcKrziexe7MLhKjBHdtr5Vdn5l8/C/3eaLTJF
+ CSXRl+wuurylRUSj/sfOIqa5LUs+P/rDVV8CDgQkOpJ4LOeEsG3dh6Rp6U9cD2ydau
+ Wa+TM4RzioY0BbmAsC4jxCdv+Ckbusf/mw7cF9bS/ZshI2jkndw1utJxF+HrcIjzd9
+ P4RaKxLtIEKXA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table storage
+Subject: Re: [PATCH RFC 11/11] xen: use hw_pte_t for PTE range callbacks
 To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
-Cc: linux-perf-users@vger.kernel.org, damon@lists.linux.dev,
- bpf@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260727164715.2866609-2-usama.anjum@arm.com>
+Cc: linux-perf-users@vger.kernel.org, bpf@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, damon@lists.linux.dev
+In-Reply-To: <20260727164715.2866609-12-usama.anjum@arm.com>
 References: <20260727164715.2866609-1-usama.anjum@arm.com>
- <20260727164715.2866609-2-usama.anjum@arm.com>
+ <20260727164715.2866609-12-usama.anjum@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 16:58:23 +0000
-Message-Id: <20260727165824.0377C1F000E9@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 17:06:53 +0000
+Message-Id: <20260727170654.1B8A21F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,59 +58,93 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The header `<linux/pgtable_types.h>` incorrectly assumes `<asm/p=
-age.h>` universally defines `pte_t` and architecture opt-ins, leading to mi=
-ssing types on x86 and a structural inclusion hazard for opting in.
+
+Pre-existing issues:
+- [Critical] Missing VMA boundary checks in privcmd_ioctl_mmap_resource all=
+ows arbitrary page table overwrites.
+- [High] User-triggerable BUG_ON in alloc_empty_pages via multiple privcmd =
+ioctls on the same VMA.
 --
 
---- Patch [1]: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table stora=
-ge ---
-commit de503ea03294c1c9976ce045b5e820dbc0f34eba
+--- Patch [11]: [PATCH RFC 11/11] xen: use hw_pte_t for PTE range callbacks=
+ ---
+commit f1d3c6242b9edd333d296aa7d48a89b6d4261d91
 Author: Muhammad Usama Anjum <usama.anjum@arm.com>
 
-mm: introduce hw_pte_t for PTE table storage
+xen: use hw_pte_t for PTE range callbacks
 
-This commit introduces hw_pte_t as a generic name for a PTE table element.
-It defines it as an alias of pte_t by default, allowing architectures to
-retain their existing representation until they opt in to a distinct type.
+This commit updates generic PTE range and remapping helpers in Xen drivers=
+=20
+to use hw_pte_t * for PTE table storage pointers, replacing pte_t *. It=20
+retains logical PTE access via existing helpers.
 
-> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> new file mode 100644
-> index 0000000000000..ed5dba42a4f8c
-> --- /dev/null
-> +++ b/include/linux/pgtable_types.h
-> @@ -0,0 +1,11 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +#ifndef _LINUX_PGTABLE_TYPES_H
-> +#define _LINUX_PGTABLE_TYPES_H
-> +
-> +#include <asm/page.h>
-> +
-> +#ifndef __HAVE_ARCH_HW_PTE_T
-> +#define hw_pte_t pte_t
-> +#endif
+[ ... ]
+> diff --git a/drivers/xen/privcmd.c b/drivers/xen/privcmd.c
+> index 725a49a0eee72..b4a487dcc9ecb 100644
+> --- a/drivers/xen/privcmd.c
+> +++ b/drivers/xen/privcmd.c
+> @@ -1658,7 +1658,7 @@ static int privcmd_mmap(struct file *file, struct v=
+m_area_struct *vma)
+>   * on a per pfn/pte basis. Mapping calls that fail with ENOENT
+>   * can be then retried until success.
+>   */
+> -static int is_mapped_fn(pte_t *pte, unsigned long addr, void *data)
+> +static int is_mapped_fn(hw_pte_t *pte, unsigned long addr, void *data)
+>  {
+>  	return pte_none(ptep_get(pte)) ? 0 : -EBUSY;
+>  }
 
-[Severity: Medium]
-Is <asm/page.h> guaranteed to define pte_t on all architectures before it is
-used here?
+[Severity: High]
+This is a pre-existing issue, but can a user trigger a kernel panic via
+multiple ioctls on the same VMA?
 
-On x86, pte_t is defined in <asm/pgtable_types.h>, which is not included by
-<asm/page.h>. This means pte_t might not be defined when the default hw_pte=
-_t
-alias is created.
+Looking at drivers/xen/privcmd.c, privcmd_ioctl_mmap_resource()=20
+unconditionally calls alloc_empty_pages() which contains a BUG_ON:
 
-Could this also create an inclusion hazard for architectures opting in?
+privcmd_ioctl_mmap_resource() {
+    ...
+		rc =3D alloc_empty_pages(vma, nr);
+		if (rc < 0)
+			goto out;
+    ...
+}
 
-If x86 were to opt into hw_pte_t by defining __HAVE_ARCH_HW_PTE_T in
-<asm/pgtable_types.h>, any files including <linux/pgtable_types.h> first wo=
-uld
-incorrectly alias hw_pte_t to pte_t. When <asm/pgtable_types.h> is
-subsequently included, its explicit definition of hw_pte_t would macro-expa=
-nd
-to a conflicting redefinition of pte_t, breaking the build.
+alloc_empty_pages() {
+    ...
+	BUG_ON(vma->vm_private_data !=3D NULL);
+	vma->vm_private_data =3D pages;
+    ...
+}
+
+If a user maps /dev/xen/privcmd and calls IOCTL_PRIVCMD_MMAP_RESOURCE twice
+with the same mapped address, will the second call trigger this BUG_ON and
+cause a local denial of service?
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but does
+privcmd_ioctl_mmap_resource() miss VMA boundary checks that could allow
+arbitrary page table overwrites?
+
+Looking at privcmd_ioctl_mmap_resource() in drivers/xen/privcmd.c:
+
+	vma =3D find_vma(mm, kdata.addr);
+	if (!vma || vma->vm_ops !=3D &privcmd_vm_ops) {
+		rc =3D -EINVAL;
+		goto out;
+	}
+
+Since find_vma() only verifies that vma->vm_end > kdata.addr, does this
+allow a caller to pass a size (num) that extends far beyond the end of the
+VMA?=20
+
+If so, could the subsequent calls to xen_remap_domain_mfn_array() or=20
+xen_remap_vma_range() (which use apply_to_page_range()) overwrite PTEs of=20
+adjacent VMAs with Xen foreign memory mappings?
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727164715.2866=
-609-1-usama.anjum@arm.com?part=3D1
+609-1-usama.anjum@arm.com?part=3D11
