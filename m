@@ -4,112 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD7F9C53209
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 18:53:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C564C531D0
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 20:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30B3710E093;
-	Mon, 27 Jul 2026 18:53:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C653A10E0D8;
+	Mon, 27 Jul 2026 20:12:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="qXG5ZGrl";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gQr27peA";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F74410E093
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 18:53:57 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-84e27035206so3032937b3a.3
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 11:53:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785178437; cv=none;
- d=google.com; s=arc-20260327;
- b=PH/M3kzhTBwKcXyeOVQ58CctbqcdRiu4kGR9lr5u5C8xpmn4rPvbbvuZIzsRDlk38I
- t0ZNkVj3zi583IW/F6DRM9AH22HBSIlGmY8U+H8zbMjPMTUjhhRnR6+xEsI1wXja9PqM
- +6dIws4ETVhS4L95aKc5lqw0GSlFApFQk6TzhiSb6c4JVl8C+b628DLTuzIbE4eDUIeh
- +AfYxSoo8kyeChMeWIYP8nAqAL76amNIAm6XZBbRFwC4mY5/2T+3cpKkyEJ2taOVSn5H
- 1NuYCpMU4F8XsoXxtYfPpnJjAj0WI9Q5Dd0MBQrQpleBMBwjchCTmYhPKcy4JejlfTnp
- xlBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
- :from:dkim-signature;
- bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
- fh=HZI0I939twrxRuP1O6ZiH3edBIvx6zR5Ju+cRQWNK1M=;
- b=aS4vsI7fTJxU4g0z9WBER5pSjXk5lIMwWBvG24yhjk/Udp3gLk2FnpW5fMGbzlYHZA
- 5fSG53aUI4uc5kmdkSUGr7h2Now+SI5YDmolh9j4Gc0oW2RlUy0fhccAVlyqfMb5GInS
- 70tFrcQcg1zCFDHydYSFKvGMMgYIFxkRJXgm7iT5GN7JD/3g/0368GlmUcL4VRqoLeUG
- IXvg9KmcJg5XWAJn4gSw7eHYjy3nCPHhTGa3emkE+hdVqDSO9jWePzlFxhiBML6HOBif
- WHfGOYsns9Ifo0SltWEnl/h5W25T1hb+4Hu9qTwyrWQJe9xuHmJCYNBTxBmMBM1XDcz0
- Ac8Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1785178437; x=1785783237;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:mime-version:references
- :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
- b=qXG5ZGrlWscn703UjBbrrckMxnNQ6w/rEYKZqmwGbH/LXXE60BLNBAEzaf6CyYp7mw
- iX48vYiV98Gr3CWmpPQ0j1LhpKXZlZvCAsfiFNGCqUZzSgn9+5ZCMZrM9BVQWgueYKO5
- uKYpieX0PcaL5zlc+AOXPYO6vjvciuVbpL4Rf5c9wB9fQwS52fq+Dn4U48a+dF/NtsAg
- pxwm9s0yPIxiNB08IRcPJzCFIxJsrTr0Lsn0O8fao8+oYlONLYnfzV40tT79esZbngBg
- A7mblzRkirVJ1GQuBZO1KNg0bagvKjmcURk1CIeh6BYAdCGojtSVFT0kfWNxVfF8HjxF
- xRlw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785178437; x=1785783237;
- h=content-type:cc:to:subject:message-id:date:mime-version:references
- :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
- b=aqvfxu2U6Z85sKnYjjGL7Bn4tO299pI5jKcwD5XOGZ/aUz/sXKrkdgaoa3Dls+/DUL
- IAwQ+KkqALKcmiXMZLZETHjEVzBdmEQvZfwfcPG4g6TlbeXwBlqPPGTBZHodcC7qaNuE
- l8fxf3HV8pmdWaNVqZFblYwdKLegehRJz4NVgFxWjWHkE7k/Xfbk9wNwUOurP8GX1MWe
- MhEvGuIF2ZPODi5P6LYACtUdMUnpDj3eNaYvKhZlRH30eO7zuiNHwBTI0EvDw+YWiNtH
- 3RPU6x1/C4n0MGJ3loceLUPdKGksNo4VUX6hX14FtOXDnjOSCgTowG0d/ePnpylz4SJ9
- WI7g==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro8aOLGOCv73sj6d8K7Q8oqpldUW0OKyC8otrgzHrXskqLclexX6EWWF6EVqZKnBg/rD4+EDecEWRo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwgRUPRhNXt17E6sL0KhEzOUPYe0DVKzegO+8A5jAyFnVUULx9u
- MIefJJGHvuTmo7/RxUpRyIFGHwPx8BeZ78DsXRfS/oaBf+KwEEKEdYtDIxEeaQeKbPLIk7abNOv
- XJt0HWrohnZMYxJLZ4e8rTL8pbfXxv9ncWm6+EKa2
-X-Gm-Gg: AR+sD13it2kdO5CqIvgEos8sc+nVe0biMM2i4QflAKPLrVQdq9CwdimrEqu67eAZGQp
- jpy3HvpyVTE3qXnnz2K+3P6GQkruUMtsK51J630SbUUP2qUfRcvqGxM2Cigo717EGUcC5tsL5x9
- EOBkmEWKLfuBezfVrB3O7k4h2sbbaKFuehv0IUdbb+p1nqg8jwaXh/ztX10lq0sAz4e4Fv8l9oc
- y2EHt3Td89wF/AAQ6tddZxIHbxYNODZ1Efq2+B2JGqHVoHc1eDeFaidYnmtK1/rzFtgw7O9eejK
- 6Dn1nQpVEpMwa8YoYod6I9lJceDx/XSiyfnj7pQnP3060L5E
-X-Received: by 2002:a05:6a20:6a05:b0:3c3:7a0a:18a7 with SMTP id
- adf61e73a8af0-3c6c7fb20d4mr796670637.55.1785178436210; Mon, 27 Jul 2026
- 11:53:56 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 27 Jul 2026 11:53:55 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 27 Jul 2026 11:53:55 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
-References: <20250529053513.1592088-1-yilun.xu@linux.intel.com>
- <20250529053513.1592088-11-yilun.xu@linux.intel.com>
- <20250602133009.GC233377@nvidia.com>
- <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
- <20260712221934.GF674038@nvidia.com>
- <CAEvNRgEo2kLUmaGU-Vsgx2sTQvU_NNUJ4bRp5Z4Ygs_xvVLOYA@mail.gmail.com>
- <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66AD210E0D8
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 20:11:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=TgnCmxnSP86ORG8Jx3Ike9v0VKpkJUqKwbQ7FfHRR9I=; b=gQr27peAyGBXBHoqUvb4nulyN+
+ pd/oWqIFoqrUR7KQgGCIzLzFERA8OXKAkh+2N9h3QdcyZI8+NtPCSTim6l1/Hj/RdsjPz/9HEAouw
+ 1M+My06YesXFG3Bo+bqHuPZFhbuPjAKoSoZpH4ei0WtNFj4NTPYLMXRouT9ZLuMy9LEioCtb5OJ7l
+ J1lgtQkR5JKc0whjA1lj0epOxqXYGnDyCsj4l+HDurdv2jbR476/lvJ1biesOZwqimF7O51F9CmyB
+ UIOC8fZaCQnzhfJrdl5Cje8fr22Jo0zpUrP2LwLLmVoC/ZJjH/PLvo/wPkH9GMNz4HqiuXMqJu9PI
+ sY4+wBBw==;
+Received: from [187.36.208.132] (helo=[192.168.1.103])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1woRfs-006g2e-Mc; Mon, 27 Jul 2026 22:11:44 +0200
+Message-ID: <d8f9dbd9-0af1-4761-b577-0ad0b46a2ed4@igalia.com>
+Date: Mon, 27 Jul 2026 17:11:39 -0300
 MIME-Version: 1.0
-Date: Mon, 27 Jul 2026 11:53:55 -0700
-X-Gm-Features: AUfX_mylYj_x8eQp0BvgfyW8gHfhB_jFskLbUbWzV0Fgf00qZT4Qn9h3hPlqeKo
-Message-ID: <CAEvNRgGYc0B1YyhDhS0Khfm3N85hbkYGMTfDLiXYn+WHTLF2EQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 10/30] vfio/pci: Export vfio dma-buf specific info for
- importers
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, kvm@vger.kernel.org,
- sumit.semwal@linaro.org, 
- christian.koenig@amd.com, pbonzini@redhat.com, seanjc@google.com, 
- alex.williamson@redhat.com, dan.j.williams@intel.com, aik@amd.com, 
- linux-coco@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- vivek.kasireddy@intel.com, yilun.xu@intel.com, linux-kernel@vger.kernel.org, 
- lukas@wunner.de, yan.y.zhao@intel.com, daniel.vetter@ffwll.ch, 
- leon@kernel.org, baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, 
- tao1.su@intel.com, linux-pci@vger.kernel.org, zhiw@nvidia.com, 
- simona.vetter@ffwll.ch, shameerali.kolothum.thodi@huawei.com, 
- aneesh.kumar@kernel.org, iommu@lists.linux.dev, kevin.tian@intel.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/v3d: release CPU job resources on pre-init failures
+To: Guangshuo Li <lgs201920130244@gmail.com>, Melissa Wen <mwen@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Iago Toral Quiroga <itoral@igalia.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260718071047.3037514-1-lgs201920130244@gmail.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260718071047.3037514-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,67 +85,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Xu Yilun <yilun.xu@linux.intel.com> writes:
+Hi Guangshuo,
 
->> > If VFIO can create one
->
-> It is an interesting idea to let VFIO create a guest_memfd instance, if
-> DMABUF doesn't work. But to achieve this goal, I think we still need to
-> refactor guest_memfd to allow for different memory/MMIO resource
-> exporters/creators, and different resource importers/users like KVM MMU
-> & IOMMUFD.
->
+While reviewing your patch, I noticed that this patch is no longer
+needed in drm-misc-next due to commit f59d986943af ("drm/v3d: Convert
+submit helpers to operate on struct v3d_submit").
 
-Yup I think both ways we'd need some level of integration from both
-sides :)
+Considering that this is just a simple error in the error path, I
+believe it's okay to leave stable as it is, considering that the issue
+is already addressed in drm-misc-next.
 
->>
->> At guest_memfd creation time, guest_memfd is always created for a
->> KVM. This is the first place where it is bound to a kvm instance. This
->> is one place where it helps Yilun with Confidential VMs, so KVM can be
->> sure that the memory was meant for a specific CoCo kvm and not any VM.
->>
->> I think it might be weird to have VFIO take a kvm fd to create a
->> guest_memfd?
->
-> I think having VFIO create a guest_memfd is better than having KVM
-> create a guest_memfd on behalf of VFIO.
->
-> The lifecycle of the MMIO resources should be managed by VFIO, cause
-> the availability of these MMIO resouces are impacted by device
-> operations, e.g., device reset, PCI Memory Space Enable (MSE) ...
-> You can't export MMIO resources to KVM MMU without VFIO's awareness.
->
+Best regards,
+- Maíra
 
-Thanks for explaining the above!
+On 18/07/26 04:10, Guangshuo Li wrote:
+> The changes referenced by the Fixes tags moved CPU job resource cleanup
+> to v3d_cpu_job_free(), the CPU job kref destructor.
+> 
+> However, CPU job extensions are parsed before v3d_job_init() has
+> successfully installed that destructor. Timestamp and performance query
+> arrays, their syncobj references, and the indirect CSD GEM reference can
+> therefore be acquired before the CPU job is managed by the kref cleanup
+> path.
+> 
+> If a later pre-init validation fails, or if v3d_job_init() itself fails,
+> the CPU job can be cleaned up or deallocated without running
+> v3d_cpu_job_free(). Those extension resources are then leaked.
+> 
+> Move the CPU-job-owned resource release into a helper and call it both
+> from the normal CPU job destructor and from the pre-init error paths.
+> 
+> Fixes: b0fe80c0b925 ("drm/v3d: Fix use-after-free of CPU job query arrays on error path")
+> Fixes: 6eb6e5acafa4 ("drm/v3d: Release indirect CSD GEM reference on CPU job free")
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+> v3:
+>    - Do not call v3d_cpu_job_free_resources() after v3d_get_extensions()
+>      fails, since v3d_get_extensions() already handles the cleanup
+>      internally, as pointed out by Maíra Canal.
+> 
+> v2:
+>    - Rebase onto drm-misc-fixes.
+>    - Fold the indirect CSD GEM pre-init failure fix into this patch.
+>    - Drop unnecessary pointer and count resets after releasing resources,
+>      as suggested by Maíra Canal.
+> 
+>   drivers/gpu/drm/v3d/v3d_submit.c | 15 ++++++++++++---
+>   1 file changed, 12 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/v3d/v3d_submit.c b/drivers/gpu/drm/v3d/v3d_submit.c
+> index 7682b24f13ec..77e94c25b2af 100644
+> --- a/drivers/gpu/drm/v3d/v3d_submit.c
+> +++ b/drivers/gpu/drm/v3d/v3d_submit.c
+> @@ -127,10 +127,8 @@ v3d_render_job_free(struct kref *ref)
+>   }
+>   
+>   static void
+> -v3d_cpu_job_free(struct kref *ref)
+> +v3d_cpu_job_free_resources(struct v3d_cpu_job *job)
+>   {
+> -	struct v3d_cpu_job *job = container_of(ref, struct v3d_cpu_job,
+> -					       base.refcount);
+>   
+>   	v3d_timestamp_query_info_free(&job->timestamp_query,
+>   				      job->timestamp_query.count);
+> @@ -140,7 +138,15 @@ v3d_cpu_job_free(struct kref *ref)
+>   
+>   	if (job->indirect_csd.indirect)
+>   		drm_gem_object_put(job->indirect_csd.indirect);
+> +}
+> +
+> +static void
+> +v3d_cpu_job_free(struct kref *ref)
+> +{
+> +	struct v3d_cpu_job *job = container_of(ref, struct v3d_cpu_job,
+> +					       base.refcount);
+>   
+> +	v3d_cpu_job_free_resources(job);
+>   	v3d_job_free(ref);
+>   }
+>   
+> @@ -1320,12 +1326,14 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   	/* Every CPU job must have a CPU job user extension */
+>   	if (!cpu_job->job_type) {
+>   		drm_dbg(dev, "CPU job must have a CPU job user extension.\n");
+> +		v3d_cpu_job_free_resources(cpu_job);
+>   		ret = -EINVAL;
+>   		goto fail;
+>   	}
+>   
+>   	if (args->bo_handle_count != cpu_job_bo_handle_count[cpu_job->job_type]) {
+>   		drm_dbg(dev, "This CPU job was not submitted with the proper number of BOs.\n");
+> +		v3d_cpu_job_free_resources(cpu_job);
+>   		ret = -EINVAL;
+>   		goto fail;
+>   	}
+> @@ -1335,6 +1343,7 @@ v3d_submit_cpu_ioctl(struct drm_device *dev, void *data,
+>   	ret = v3d_job_init(v3d, file_priv, &cpu_job->base,
+>   			   v3d_cpu_job_free, 0, &se, V3D_CPU);
+>   	if (ret) {
+> +		v3d_cpu_job_free_resources(cpu_job);
+>   		v3d_job_deallocate((void *)&cpu_job);
+>   		goto fail;
+>   	}
 
-Do you mean that as long as VFIO knows that some addresses are not
-usable, those addressses have to be removed from the stage 2 page tables
-that KVM manages?
-
-> And VFIO doesn't have to take a kvm fd paramter to create a guest_memfd,
-> VFIO has got the kvm instance via KVM_DEV_VFIO_FILE_ADD.
->
-
-I'm new to this - looks to me KVM_DEV_VFIO_FILE_ADD is for linking VFIO
-to KVM but some mmap-ing is also required (pre-CoCo) to set up memslots?
-
-With CoCo, setting up memslots would use some fd (guest_memfd wrapping
-VFIO or the VFIO-created guest_memfd like you were suggesting) and I'd
-think there will still be some notifiers between KVM and VFIO for the
-mapping.
-
-Btw is it right to say that KVM_DEV_VFIO_FILE_ADD is only in the case of
-setting up irqchip? Is irqchip a requirement for Confidential IO?
-
-
-Hope you also had a chance to look at [1] that David Woodhouse is
-working on :)
-
-[1] https://lore.kernel.org/all/1dc299af6b795a40c8887b3d84f915024f6446a9.camel@infradead.org/
-
->>
->> I was thinking that the userspace VMM could do something like:
->>
->>   int vfio_fd = open("/dev/vfio/devices/vfio0");
->>   int gmem_fd = ioctl(KVM_CREATE_GUEST_MEMFD, { .fd = vfio_fd });
