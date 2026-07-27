@@ -4,123 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 566E4C531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 14:58:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0C9FC53209
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 15:07:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9123310E433;
-	Mon, 27 Jul 2026 14:58:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2493210E46B;
+	Mon, 27 Jul 2026 15:07:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="JNiX4z1P";
+	dkim=pass (2048-bit key; unprotected) header.d=nanonej.com header.i=@nanonej.com header.b="RiOmNjGG";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFF6510E433
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 14:58:15 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-476a130c138so2750193f8f.0
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 07:58:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1785164294; x=1785769094; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=cdTAOusKdU7cIGVdiXhGRlX7Lluomu67uAna+oJrbLI=;
- b=JNiX4z1P5qMzkhhAQMcshgmagj/c3rfMbjF2UFTjXnc55LfNK4KNnYbUPN/KxpOBIu
- 6D+UTRtAQ7e3miPnL8YsWGfeQM5vj3LWeQSy7qUvG0qL2kcTrh8+PsUBdvqJws9eGDUF
- DyDbhM0MH+Wd4S7SbEUzO9rqovklEvkKH6n3lHkFK8dwmQi6IxtPW7zcKai+VK6pgLqt
- W+sLGVFdrgjKnS+gs0zhYhiE6Eg8dKDrMmF41TZni0ouz7LuBN5xaMQWUoVbn9R3QUzQ
- 0ioxD78thcL/Na6h90tbgOOPo0E/2hgNC/YPtcI8YaQUseE8TaxXSjpWsIMTfyZk84tb
- dORA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785164294; x=1785769094;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=cdTAOusKdU7cIGVdiXhGRlX7Lluomu67uAna+oJrbLI=;
- b=aNU41dtkcbd/fTjYKdXMAnQqrBvwMF+V202dPKubp7PSqxyBiHFnSILkkkbL6zABT+
- 1+4DfowOie8ZIGxp1/2hUgK4ci7NTbJklwC17TCV7lLC7OToTi80288qVxHFs++fLKaa
- yXfN3FhkACqyVcQncs59jWlX5e9VPU2s8Rn7R19VC6v76HgqCrbcgAaOSkDgxyR+n2Ue
- ZaiXsGCZEcN+xWb3kkAsAcn5UwxKJuZqQAl8G3CUCl3Ix/z1//fWN6HtGQ38I4IiGo57
- PjnT7ooyQlK6mYL20meAjnf/UJDcvOWdaPMWki4s0qDFRnr4cQ0S9/J6CfJa+dxTU4pL
- TuwA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoAiHAnhjt20e8rm/5bii4jbip2YESITgD/3FDE7ct65xyNbOsBb+lQzOg833eH/gOZysBDQnJjips=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxeCJzyxVFshBVOLROwHMJl671v2MBHOIjFaHzuKw+QAgWbZf1+
- qSmXcluCZmb6quOMrn5eGWkQKRnsVpzeZLC6rRfEPW4MpU9W9A4J+RwPKBxkNtZeJck=
-X-Gm-Gg: AR+sD13cVgsFVHXnKEn2hMTimLsP+YUE7NrTV8Kq/ZrtJcMINIe0Y8A26xWjnXHs4RN
- Q3FkTtdObY7lm7/mlgl9sKSYfOnyubPJque5pWVvhALNBzrLbkXQZlKNjkES9j8kONH341A2Kgz
- asPFLAGEnLI6Pg16Tv1W/0fDP6ZbG//UGQsW/c9li0VMnLrgRC2kafkb64S21+dT+t3uajk3YDL
- FRCMr7x6H+T7jfffq8aev4WGeBxx1rq61LLcebwNXiRNgj99QW5wP1ftKw879WgkbSpN9my7jyX
- 8+8LexwWpc8GDCSRebyocNQKM6br1fPyHh/GyXZMAX5PovuB6EwG6nbWctEpfrTc+TpKumOIErm
- bK+8aEG3SXGiHpCGswL6Lcei7gp+B4jchJKGVLkobbMBsHvd/9m0mihWEG6IqJot4+oqpWvlhEl
- yh8gCaSjhaYmC5bq7PqTkmR4pEwfojjbys1gj24D0=
-X-Received: by 2002:a05:600c:1553:b0:493:e97c:216e with SMTP id
- 5b1f17b1804b1-496b5731987mr114339235e9.39.1785164294020; 
- Mon, 27 Jul 2026 07:58:14 -0700 (PDT)
-Received: from ?IPV6:2a07:de40:8100:0:fc6c:f9a2:4a0a:6354?
- ([2001:af0:8000:1409:193:86:92:181])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-496b4ee0e91sm231594995e9.4.2026.07.27.07.58.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jul 2026 07:58:13 -0700 (PDT)
-Message-ID: <ead73f81-26ef-4a46-9ad8-fcd2915563e1@suse.com>
-Date: Mon, 27 Jul 2026 16:58:11 +0200
+Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch
+ [79.135.106.109])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C1BC810E44F
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 15:07:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
+ s=protonmail2; t=1785164844; x=1785424044;
+ bh=xkuxvFccmFVRVInzuu2EHAa2xXh1BYNKHx93LHBfZrY=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=RiOmNjGG51L1C0DmB5UBZBOuHYkfR4GzjmV9pFPVgVXAbAX2fom56/P+iM4NDNp2Q
+ 6eum65Gp8iTRw7wU7tL83FmV3Lfev/cSfkBMU3MZfm7Rk1d9BvJmAmuJ8G+Vo6dSOQ
+ F0mN+qZLBkCINPe3gCbbM9kJdvYRpijgysOZoqL2Lyap7sVFpaHIyhmAecSt+jMblC
+ RwN1Vx5padPSEzTr37it1OiT8CEUPEPY2eHrEW6iNDX2ugUifH5paIxBUDnuJBM0AC
+ Jd9ORCnt5C6b8l1MCP7wSNMBxZ7FsMcXUuywqN22j9pyCxCyj9W5Mz1nTcPwDNLnDD
+ NfeYVKL3qhOJg==
+Date: Mon, 27 Jul 2026 15:07:20 +0000
+To: Alexandre Courbot <acourbot@nvidia.com>
+From: Nanonej Dev <dev@nanonej.com>
+Cc: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, daniel.almeida@collabora.com
+Subject: Re: [PATCH 1/3] gpu: nova-core: Add function to query WPR2 range
+Message-ID: <IljsM9ZnqA5Z6gdvmYSbSJAjRNiW5wACb-IG-yIvmYV0JUFWFzWeK5vV1jv_gPjEqtHqeg7JES3GwsNhnLv87mzf7N98YKqUmPbcIjz2gZY=@nanonej.com>
+In-Reply-To: <DK7OOBTQZKDQ.QOMIKY35YTVP@nvidia.com>
+References: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
+ <20260721-nova-core-regs-split-v1-1-384fa2a42244@nanonej.com>
+ <DK7OOBTQZKDQ.QOMIKY35YTVP@nvidia.com>
+Feedback-ID: 32181229:user:proton
+X-Pm-Message-ID: 7ba01f28ddd1c1f530d2a1a010c348a8909060f8
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] time/jiffies: Include linux/sysctl.h for
- proc_int_u2k_conv_uop(), ...
-To: Thomas Gleixner <tglx@kernel.org>
-Cc: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
- Ingo Molnar <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Jens Axboe <axboe@kernel.dk>, Johan Hovold <johan@kernel.org>,
- Alex Elder <elder@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Michal Januszewski <spock@gentoo.org>, Helge Deller <deller@gmx.de>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Trond Myklebust <trondmy@kernel.org>, Anna Schumaker <anna@kernel.org>,
- Chuck Lever <cel@kernel.org>, Jeff Layton <jlayton@kernel.org>,
- NeilBrown <neil@brown.name>, Olga Kornievskaia <okorniev@redhat.com>,
- Dai Ngo <Dai.Ngo@oracle.com>, Tom Talpey <tom@talpey.com>,
- Mark Fasheh <mark@fasheh.com>, Joel Becker <jlbec@evilplan.org>,
- Joseph Qi <joseph.qi@linux.alibaba.com>, Tejun Heo <tj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
- <mkoutny@suse.com>, Luis Chamberlain <mcgrof@kernel.org>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>, Pavel Machek <pavel@kernel.org>,
- Len Brown <lenb@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Nikolay Aleksandrov
- <razor@blackwall.org>, Ido Schimmel <idosch@nvidia.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, David Howells <dhowells@redhat.com>,
- Jarkko Sakkinen <jarkko@kernel.org>, Paul Moore <paul@paul-moore.com>,
- James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- Kentaro Takeda <takedakn@nttdata.co.jp>,
- Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
- linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org,
- drbd-dev@lists.linux.dev, linux-block@vger.kernel.org,
- greybus-dev@lists.linaro.org, linuxppc-dev@lists.ozlabs.org,
- linux-acpi@vger.kernel.org, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org,
- linux-nfs@vger.kernel.org, ocfs2-devel@lists.linux.dev,
- cgroups@vger.kernel.org, linux-modules@vger.kernel.org,
- linux-pm@vger.kernel.org, driver-core@lists.linux.dev,
- bridge@lists.linux.dev, netdev@vger.kernel.org, keyrings@vger.kernel.org,
- linux-security-module@vger.kernel.org
-References: <20260721131207.803760-1-petr.pavlu@suse.com>
- <20260721131207.803760-3-petr.pavlu@suse.com> <874ihmke0k.ffs@fw13>
-Content-Language: en-US
-From: Petr Pavlu <petr.pavlu@suse.com>
-In-Reply-To: <874ihmke0k.ffs@fw13>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; protocol="application/pgp-signature";
+ micalg=pgp-sha512;
+ boundary="------37fd3545826f383248dcc478093c8c09fb6b1d7be79bac7e88bb897bce576508";
+ charset=utf-8
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,41 +64,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/25/26 10:31 PM, Thomas Gleixner wrote:
-> On Tue, Jul 21 2026 at 15:11, Petr Pavlu wrote:
-> 
->> The kernel/time/jiffies.c file uses proc_int_u2k_conv_uop(),
-> 
-> jiffies.c uses ...
-> 
->> proc_int_k2u_conv_kop(), proc_int_conv(), proc_dointvec_conv() and
->> proc_doulongvec_minmax_conv(), which are declared in linux/sysctl.h. It
->> currently relies on this header being included indirectly through
->> linux/module.h -> linux/kmod.h. Add the missing include in preparation for
->> removing the linux/sysctl.h include from linux/kmod.h.
-> 
-> Can you please split that spaghetti sentence into paragraphs?
-> 
-> https://docs.kernel.org/process/maintainer-tip.html#changelog
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------37fd3545826f383248dcc478093c8c09fb6b1d7be79bac7e88bb897bce576508
+Content-Type: multipart/mixed;boundary=---------------------612aad6bea675f4cfa53d1c6e7628293
 
-I will update it to:
+-----------------------612aad6bea675f4cfa53d1c6e7628293
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-    jiffies.c uses proc_int_u2k_conv_uop(), proc_int_k2u_conv_kop(),
-    proc_int_conv(), proc_dointvec_conv() and proc_doulongvec_minmax_conv(),
-    which are declared in linux/sysctl.h. It currently gets that header
-    indirectly through linux/module.h -> linux/kmod.h, but the latter no longer
-    needs to include linux/sysctl.h.
+> To preserve the current semantics, let's read WPR_ADDR_HI first, check
+> `is_wpr2_set` (and early-return `None` if not set), and then read
+> `WPR_ADDR_LO` to build the range.
 
-    Include linux/sysctl.h directly in jiffies.c ahead of removing the
-    unnecessary include from linux/kmod.h.
+Ok, I'm udpating the function flow then.
 
-> 
->> Signed-off-by: Petr Pavlu <petr.pavlu@suse.com>
-> 
-> Other than that.
-> 
-> Acked-by: Thomas Gleixner <tglx@kernel.org>
+> > +        // Check that the WPR2 region does not already exist -
+> > +        // if it does, we cannot run FWSEC-FRTS until the GPU is rese=
+t.
+> =
 
--- 
-Thanks,
-Petr
+
+> This comment is reformatted for now good reason iiuc.
+
+My 80 columns OCD probably triggered, sorry for that, reverting this chang=
+e.
+-----------------------612aad6bea675f4cfa53d1c6e7628293--
+
+--------37fd3545826f383248dcc478093c8c09fb6b1d7be79bac7e88bb897bce576508
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmpndA8JEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdvFx2z7wqc+SThorTb21CD3mEN3epB6SM0POI+
+xH7NgxYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAAAijAEAnBty0jtnXMHXRu6A
+1TsIGaztACF1FEup8otcJBQ27Z0A/2dlYwMaNKZOCPQSs0pYS8HXAkTCvwiw
+Vw7H9+CV+CUJ
+=vb76
+-----END PGP SIGNATURE-----
+
+
+--------37fd3545826f383248dcc478093c8c09fb6b1d7be79bac7e88bb897bce576508--
+
