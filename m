@@ -4,96 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A8DCC531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 16:04:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA9A7C531C9
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 16:14:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB0710E462;
-	Mon, 27 Jul 2026 16:04:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE7BF10E464;
+	Mon, 27 Jul 2026 16:14:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NzlbiIbs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hBbJECsj";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A31710E462
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 16:04:53 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-384caf7b168so299953a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 09:04:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785168293; cv=none;
- d=google.com; s=arc-20260327;
- b=aaFaVyIhmZoCzlonPz0y+x8e3LD5CBEyCQABt8x3u5NHBRn/RoC1S9rxKoCXBhBDNC
- nN6cBCj3z0vPs8IgIWwr2UNpyPmotVAD2dFAYnQhJqrFPPQXx6CV/i3DoG0oNP2sse5n
- 06raVeEUMCU31UagYdfXMstuIbzf+uT2lntKcVN3JuyqVoNGMp1eOq2pg6sKcvbsv/05
- vJ98+WU1qMDuflSW9BhkFP1+L/7VBxgHw0Khp/HQdKtHIpXglpbP6j/R5u/8Bsb03MF8
- 43N4leI9gYs3oW1dXOt6NdOf83OKN98Nvbk8bOkMM0ZbeDF9iFUprDyQqX9s3ElauUoD
- spwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=mV132EboBiIC6aD49jRxyvOFo9SoecgWipLHtdHMdLE=;
- fh=BpErldt3C/vOJJ9M0Z1IxElA1nHZGCAHTX4vC+/KAN4=;
- b=UCWqT7nUg9wZw2ChI+bjC+FOxvXA3hSEyoeRkq1BHun6WJjCEWdD/X2eUwD6qyQYby
- 5RQVBiNu1CZVH2tm6f+Y3bf6j4TByOr5T45AnJNUzNKRvBblZkiFMr1u1hLW+hx1P8Y1
- lR3sZi5UXWofsLccXdr0ddCuUyFt7oETv0JT7vBCWOHfxuCJ3Z+We7FUy3jd5ZTHUEac
- OUAK7kY1cgoh6CR5xUzf7rnYkr/+0hlgvjd+CZms/cwT7pS69eZlhDGdQOHgKaxtJZTP
- 9i+FpvrHIYLL9Q/1jjHQ28RgQtcEIaNEQAknOA5SNSW3bALi1ceg35G/H0Ehy/WN/CFQ
- URGQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785168293; x=1785773093; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=mV132EboBiIC6aD49jRxyvOFo9SoecgWipLHtdHMdLE=;
- b=NzlbiIbsopJIFqTQRXg3vkEs+hRFxTiIL/jEHXjrIPY7Yn1y4xvjBzxpWXvVHs0pTw
- 1hl2UuY8c7QWa1AsHQMrJ3J7k9YiUwHm3w2pJONSU2S/zZiU2CAA3Ll+VXHAE9Ls3WP+
- mGiEeIi1QAqCwqA3AWhVq+yDZ4lZ52SneAIX+lyWiiU5GcY/ypnA35m/OjMbr/sTlY5e
- EpzJqq3nTivUCq9N4ClbLPd6ue391wVk89b7z7EXbSfdMwY5ilniDXgRxSEuH457onq9
- fR7sSqiVmMCIHrsbgNT0fuODXpDb9L6QCBtY6E92hNeR6wLgUOfCDJR2mSfoi2M4+DZF
- Q4NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785168293; x=1785773093;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=mV132EboBiIC6aD49jRxyvOFo9SoecgWipLHtdHMdLE=;
- b=UQgQxvzuEkuZnEjiOno4dYC+2onWOqFKrVlAKGOK2QN+r/0pfj/dRqMBzC1ED/NpKT
- S/lf17jPbyl6iVo9Ck+WGCLm/7Ou8ZM3XYxZSIFenVucYa0BFr9F20MHdow9ZsS86rao
- T+RhnHKsWh8Wh+jppHWFp2AN2dKOG7XbRyUe6nPPvSgupuh7RCU74XyP7wGZamoOz0Ph
- kkYX82WBqLcuUI3TcfeGeuWkEUB9Jgc+5ruRayo/FJFSGkF2KpGFoMrnV6E+zGAK8Rti
- IWIjNphpMKvnG7sAvEttiCwMa16SdL8ZTn2I0KBL77lEJsVM5h7d5J+A+CXcuPxwp4fn
- 5XBA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrJbgw6nE6d9+MhpKXg2H/wzoJT1HIihNeQ3E7sLz9rpWvJ7bRX3izPAKVmLyBDMqZOIUwoF0UM2jo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzDI/gYApV9blYtXRQqZywaWHhnkHx/iXlssOMZ6XJdJygq/Cl/
- dnW9LiapHyKPbgufIOUzd84fjGPTOrV8GU9Zq64UbQUn9ne/kMbnd9MB4VVakaU/jhY0RniuoKl
- Dvg27oC8RfSzNB+/HMLFzUnazkYBFUU0TjQ==
-X-Gm-Gg: AR+sD11iGk9cNGld3zkoVh9mp6eO11dHUcObcrGNZWJrZnj9QnHRZPV7BElC0yBrXrV
- Xf4N6p4/n35QaHYRMPa0Q0gXDNGfRzgYTtylaXyN2FFNZ/pR6I4yeSQDFeukc5dsHnmNuUT0Wsq
- JQ/BJog4EO8wUrGQxvtI8GwhB3yubKLMSH3OJtqIwYsMgK4HFOV6rMOCuRlRnvCmlcaVeph4/qp
- Ftb3p2aS3S2vpp3uieL/zjcbQBKxVCR/R89vL6QcdImDFCzAPnoZyNpHPCjqC9K4crxeqIEhzMG
- aylDsITvlQr04WUFNxEW674I5axJicVqLiVJ7oYwAQcqM/hd
-X-Received: by 2002:a17:90a:c796:b0:38f:57f0:1f51 with SMTP id
- 98e67ed59e1d1-38f57f023e2mr2502724a91.0.1785168292617; Mon, 27 Jul 2026
- 09:04:52 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C6CF10E464;
+ Mon, 27 Jul 2026 16:14:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 83C8260A5F;
+ Mon, 27 Jul 2026 16:14:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B49F1F000E9;
+ Mon, 27 Jul 2026 16:14:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785168877;
+ bh=iUBQr0c6cfBgnBRtRZuOkHQjVx4FPP38ZqFPQO2xjHM=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=hBbJECsjR/ABBeFVEscDgGInU4tuipfquKm7gG5w2KTUm/uHA/D34VEFtHkQjg/1K
+ miBrZ9wWjb7UgdB/p/Gn4asAgaZocJCJswhPAdaANLNor67IZaNHGkvaXS/S0LonFz
+ kT9Da4hlDcQZGfjsQYJwCbePoRGN9TMkszo9tuwGjnBa1inKlR0zwMYeejWpqwYdXq
+ qkVxnJ3S9jBKmWAyF7GkdgmHSsBwF4FkroXOhSGnc7oNMw/zHJr/klYisDdD9dti6J
+ +C+0DmF2qJXCRnrQp9h6QR5c8pzLpTZ4H6fhpwvrprOgwmWEiSkMPvTa+6907YS1RP
+ f4Oort3IcgU5A==
+Date: Mon, 27 Jul 2026 11:14:35 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Alessio Belle <alessio.belle@imgtec.com>,
+ Luigi Santivetti <luigi.santivetti@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jeff Johnson <jjohnson@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ linux-pm@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, imagination@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-wireless@vger.kernel.org,
+ ath10k@lists.infradead.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH RFC] power: sequencing: rename pwrseq_power_on/off() to
+ pwrseq_vote_on/off()
+Message-ID: <20260727161435.GA1219282@bhelgaas>
 MIME-Version: 1.0
-References: <20260722165925.15805-1-timur.kristof@gmail.com>
- <20260722165925.15805-5-timur.kristof@gmail.com>
- <20260722173453.CF3FA1F000E9@smtp.kernel.org>
- <CADnq5_P7-_RfV=MbbNw8w8CVEmE12t8ZgVSa5Pbz+ujjkB7Xcw@mail.gmail.com>
-In-Reply-To: <CADnq5_P7-_RfV=MbbNw8w8CVEmE12t8ZgVSa5Pbz+ujjkB7Xcw@mail.gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Jul 2026 12:04:40 -0400
-X-Gm-Features: AUfX_mwpq0JK-tagzmnnC3l8RlwAoLulYEgYgRhrWefqgs1LtECeYxmJjsirTog
-Message-ID: <CADnq5_Og8M+0Xn3U1+SY48PEstC13RgxqoKsoixco6bJw8h2Bg@mail.gmail.com>
-Subject: Re: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore
-To: sashiko-reviews@lists.linux.dev
-Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260727-pwrseq-vote-rename-v1-1-a2029aeeac65@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,84 +74,299 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+On Mon, Jul 27, 2026 at 11:57:38AM +0200, Bartosz Golaszewski wrote:
+> The way power sequencing works means that a call to pwrseq_power_on()
+> does not necessarily result in the pwrseq target being powered-on at
+> that time: it may have already been powered on before. Similarly: a call
+> to pwrseq_power_off() does not have to result in an actual powering off
+> of resources: there may still be other users that requested a power-on
+> before.
+> 
+> We will also introduce the concept of "non-controllable" pwrseq targets
+> soon which further increases the disconnect between the naming
+> convention and the actual semantics.
+> 
+> What consumers of pwrseq descriptors actually do is: they *vote* for a
+> powering on of a given target or retract that vote. These operations
+> could be called get/put in line with runtime PM but this could become
+> confusing since we already provide pwrseq_get/put() for a different
+> purpose.
 
-Alex
+I see the possible confusion with get/put interfaces, but "vote"
+doesn't seem exactly right because it really is refcounting, not a
+majority vote thing.
 
-On Mon, Jul 27, 2026 at 11:44=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
-m> wrote:
->
-> On Wed, Jul 22, 2026 at 2:14=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-> >
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [High] Missing 2D tiling format modifier for 8 bpp formats on GFX6-8 =
-breaks NV12/NV21 video playback.
-> > --
-> >
-> > --- Patch [4]: [PATCH 4/4] drm/amd/display: Don't use tiling flags anym=
-ore ---
-> > commit 9ecc330329837cba2c5f2f431e911a3b7ec6c4df
-> > Author: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > Subject: drm/amd/display: Don't use tiling flags anymore
-> >
-> > The commit removes the usage of legacy tiling flags from the amdgpu_dm
-> > display code, transitioning all supported GPU generations to rely
-> > completely on DRM format modifiers. It updates plane attribute filling,
-> > surface updates, and cursor checks to reflect this change.
-> >
-> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c =
-b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > > index a593a44ef97bc..87187c965d55c 100644
-> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-> > [ ... ]
-> > > @@ -1235,8 +1201,6 @@ int amdgpu_dm_plane_fill_plane_buffer_attribute=
-s(struct amdgpu_device *adev,
-> > >                                                                      =
-         address);
-> > >               if (ret)
-> > >                       return ret;
-> > > -     } else if (afb->base.modifier =3D=3D DRM_FORMAT_MOD_INVALID) {
-> > > -             amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(tiling=
-_info, tiling_flags);
-> > >       } else {
-> > >               ret =3D amdgpu_dm_plane_fill_gfx6_tiling_info_from_modi=
-fier(tiling_info,
-> > >                                                                      =
-   afb->base.modifier);
-> >
-> > [Severity: High]
-> > By removing the legacy tiling flags fallback here, does this break NV12=
-/NV21
-> > video playback on GFX6-8?
-> >
-> > Looking at amdgpu_dm_plane_add_gfx6_modifiers(), it appears to add 2D t=
-iled
-> > modifiers only for 16, 32, and 64 bpp:
-> >
-> >         amdgpu_dm_plane_add_modifier(mods, size, capacity,
-> >                 amdgpu_dm_plane_calc_gfx6_mod(adev, 16, DC_ARRAY_2D_TIL=
-ED_THIN1));
-> >         amdgpu_dm_plane_add_modifier_dedup(mods, size, capacity,
-> >                 amdgpu_dm_plane_calc_gfx6_mod(adev, 32, DC_ARRAY_2D_TIL=
-ED_THIN1));
-> >         amdgpu_dm_plane_add_modifier_dedup(mods, size, capacity,
-> >                 amdgpu_dm_plane_calc_gfx6_mod(adev, 64, DC_ARRAY_2D_TIL=
-ED_THIN1));
-> >
-> > Since the modifier calculation for 8 bpp (which is required for NV12/NV=
-21
-> > formats) is missing, when userspace allocates a 2D-tiled NV12 framebuff=
-er,
-> > won't drm_plane_check_pixel_format() reject the atomic commit since it
-> > cannot find the 8bpp modifier in the plane's advertised list?
->
-> Shouldn't be an issue as we don't expose any YUV planes on DCE hardware.
->
-> Alex
->
-> >
-> > --
-> > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722165925.=
-15805-1-timur.kristof@gmail.com?part=3D4
+Maybe enable/disable is a possibility, since regulator_enable() and
+regulator_disable() have the same kind of refcount behavior?
+
+Whatever you end up with:
+
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>	# drivers/pci
+
+> Change the name of the two functions to pwrseq_vote_on/off() which
+> better reflects their purpose and semantics. No functional change
+> intended.
+> 
+> If at any point users need to know *when* the exact power event happens,
+> we can provide that information in the form of a notifier.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+> I've floated the idea to rename the two pwrseq functions from "power
+> on/off" to "vote on/off". Here's a concrete proposal.
+> 
+> I'm sending it as an RFC but if there's agreement, I can queue it as is.
+> 
+> I'm doing it in a single commit that should go through the pwrseq tree
+> with Acks from subsystem maintainers.
+> 
+> [1] https://lore.kernel.org/all/CAMRc=Mefxn81d0VUwmQgwFtffkL1=Er_1VQZCbC1Sa-Qph4t1w@mail.gmail.com/
+> ---
+>  Documentation/driver-api/pwrseq.rst      |  4 ++--
+>  drivers/bluetooth/hci_qca.c              |  4 ++--
+>  drivers/gpu/drm/imagination/pvr_power.c  |  4 ++--
+>  drivers/net/wireless/ath/ath10k/snoc.c   |  6 +++---
+>  drivers/pci/pwrctrl/generic.c            |  4 ++--
+>  drivers/pci/pwrctrl/pci-pwrctrl-pwrseq.c |  4 ++--
+>  drivers/power/sequencing/core.c          | 16 ++++++++--------
+>  include/linux/pwrseq/consumer.h          |  8 ++++----
+>  8 files changed, 25 insertions(+), 25 deletions(-)
+> 
+> diff --git a/Documentation/driver-api/pwrseq.rst b/Documentation/driver-api/pwrseq.rst
+> index ad18b2326b689a41471216f3889480b11768ca82..faba5a8e3337e878c6dac0cc91d23b3577cab6fd 100644
+> --- a/Documentation/driver-api/pwrseq.rst
+> +++ b/Documentation/driver-api/pwrseq.rst
+> @@ -50,9 +50,9 @@ Consumer interface
+>  The consumer API is aimed to be as simple as possible. The driver interested in
+>  getting a descriptor from the power sequencer should call pwrseq_get() and
+>  specify the name of the target it wants to reach in the sequence after calling
+> -pwrseq_power_up(). The descriptor can be released by calling pwrseq_put() and
+> +pwrseq_vote_on(). The descriptor can be released by calling pwrseq_put() and
+>  the consumer can request the powering down of its target with
+> -pwrseq_power_off(). Note that there is no guarantee that pwrseq_power_off()
+> +pwrseq_vote_off(). Note that there is no guarantee that pwrseq_vote_off()
+>  will have any effect as there may be multiple users of the underlying resources
+>  who may keep them active.
+>  
+> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> index e6d107f67759f54eee2647d92bb8bfd4e68c9358..5aaabc9fb1b66eb6b24da25f77158690a2f03c84 100644
+> --- a/drivers/bluetooth/hci_qca.c
+> +++ b/drivers/bluetooth/hci_qca.c
+> @@ -2259,7 +2259,7 @@ static void qca_power_off(struct hci_uart *hu)
+>  	}
+>  
+>  	if (power && power->pwrseq) {
+> -		pwrseq_power_off(power->pwrseq);
+> +		pwrseq_vote_off(power->pwrseq);
+>  		set_bit(QCA_BT_OFF, &qca->flags);
+>  		return;
+>          }
+> @@ -2319,7 +2319,7 @@ static int qca_regulator_enable(struct qca_serdev *qcadev)
+>  	int ret;
+>  
+>  	if (power->pwrseq)
+> -		return pwrseq_power_on(power->pwrseq);
+> +		return pwrseq_vote_on(power->pwrseq);
+>  
+>  	/* Already enabled */
+>  	if (power->vregs_on)
+> diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
+> index a71d5b35601e7b996428312028a4c0542a5b1350..c6dfa2685ee64086c53281d06563e6169109c00f 100644
+> --- a/drivers/gpu/drm/imagination/pvr_power.c
+> +++ b/drivers/gpu/drm/imagination/pvr_power.c
+> @@ -352,12 +352,12 @@ static int pvr_power_init_pwrseq(struct pvr_device *pvr_dev)
+>  
+>  static int pvr_power_on_sequence_pwrseq(struct pvr_device *pvr_dev)
+>  {
+> -	return pwrseq_power_on(pvr_dev->pwrseq);
+> +	return pwrseq_vote_on(pvr_dev->pwrseq);
+>  }
+>  
+>  static int pvr_power_off_sequence_pwrseq(struct pvr_device *pvr_dev)
+>  {
+> -	return pwrseq_power_off(pvr_dev->pwrseq);
+> +	return pwrseq_vote_off(pvr_dev->pwrseq);
+>  }
+>  
+>  const struct pvr_power_sequence_ops pvr_power_sequence_ops_pwrseq = {
+> diff --git a/drivers/net/wireless/ath/ath10k/snoc.c b/drivers/net/wireless/ath/ath10k/snoc.c
+> index 3106502275781d32d17a45a661362206144df6b3..f87e56576e29124902dccd1a21600fd3407b2922 100644
+> --- a/drivers/net/wireless/ath/ath10k/snoc.c
+> +++ b/drivers/net/wireless/ath/ath10k/snoc.c
+> @@ -1025,7 +1025,7 @@ static int ath10k_hw_power_on(struct ath10k *ar)
+>  
+>  	ath10k_dbg(ar, ATH10K_DBG_SNOC, "soc power on\n");
+>  
+> -	ret = pwrseq_power_on(ar_snoc->pwrseq);
+> +	ret = pwrseq_vote_on(ar_snoc->pwrseq);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -1042,7 +1042,7 @@ static int ath10k_hw_power_on(struct ath10k *ar)
+>  vreg_off:
+>  	regulator_bulk_disable(ar_snoc->num_vregs, ar_snoc->vregs);
+>  pwrseq_off:
+> -	pwrseq_power_off(ar_snoc->pwrseq);
+> +	pwrseq_vote_off(ar_snoc->pwrseq);
+>  
+>  	return ret;
+>  }
+> @@ -1060,7 +1060,7 @@ static int ath10k_hw_power_off(struct ath10k *ar)
+>  	ret_vreg = regulator_bulk_disable(ar_snoc->num_vregs, ar_snoc->vregs);
+>  
+>  	if (ar_snoc->pwrseq)
+> -		ret_seq = pwrseq_power_off(ar_snoc->pwrseq);
+> +		ret_seq = pwrseq_vote_off(ar_snoc->pwrseq);
+>  
+>  	return ret_vreg ? : ret_seq;
+>  }
+> diff --git a/drivers/pci/pwrctrl/generic.c b/drivers/pci/pwrctrl/generic.c
+> index a7e599d841e6289db161b19a93ba5a61d9e0ab1c..8872f6501352d7273a9b4f20589c2f74d6accc65 100644
+> --- a/drivers/pci/pwrctrl/generic.c
+> +++ b/drivers/pci/pwrctrl/generic.c
+> @@ -29,7 +29,7 @@ static int slot_pwrctrl_power_on(struct pci_pwrctrl *pwrctrl)
+>  	int ret;
+>  
+>  	if (slot->pwrseq) {
+> -		pwrseq_power_on(slot->pwrseq);
+> +		pwrseq_vote_on(slot->pwrseq);
+>  		return 0;
+>  	}
+>  
+> @@ -48,7 +48,7 @@ static int slot_pwrctrl_power_off(struct pci_pwrctrl *pwrctrl)
+>  						struct slot_pwrctrl, pwrctrl);
+>  
+>  	if (slot->pwrseq) {
+> -		pwrseq_power_off(slot->pwrseq);
+> +		pwrseq_vote_off(slot->pwrseq);
+>  		return 0;
+>  	}
+>  
+> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-pwrseq.c b/drivers/pci/pwrctrl/pci-pwrctrl-pwrseq.c
+> index a308bf4b5fc01d23b75db4cd396201c3ba3fe695..86822f0f645eb757455f575000f81122bce82e60 100644
+> --- a/drivers/pci/pwrctrl/pci-pwrctrl-pwrseq.c
+> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-pwrseq.c
+> @@ -56,7 +56,7 @@ static int pwrseq_pwrctrl_power_on(struct pci_pwrctrl *pwrctrl)
+>  	struct pwrseq_pwrctrl *pwrseq = container_of(pwrctrl,
+>  					   struct pwrseq_pwrctrl, pwrctrl);
+>  
+> -	return pwrseq_power_on(pwrseq->pwrseq);
+> +	return pwrseq_vote_on(pwrseq->pwrseq);
+>  }
+>  
+>  static int pwrseq_pwrctrl_power_off(struct pci_pwrctrl *pwrctrl)
+> @@ -64,7 +64,7 @@ static int pwrseq_pwrctrl_power_off(struct pci_pwrctrl *pwrctrl)
+>  	struct pwrseq_pwrctrl *pwrseq = container_of(pwrctrl,
+>  					   struct pwrseq_pwrctrl, pwrctrl);
+>  
+> -	return pwrseq_power_off(pwrseq->pwrseq);
+> +	return pwrseq_vote_off(pwrseq->pwrseq);
+>  }
+>  
+>  static int pwrseq_pwrctrl_probe(struct platform_device *pdev)
+> diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/core.c
+> index 02f42da915985339d3de507fc36dd158b0035a99..c630b14f6f2c478f05e4b2893b386aab0cddaaf5 100644
+> --- a/drivers/power/sequencing/core.c
+> +++ b/drivers/power/sequencing/core.c
+> @@ -708,7 +708,7 @@ void pwrseq_put(struct pwrseq_desc *desc)
+>  	pwrseq = desc->pwrseq;
+>  
+>  	if (desc->powered_on)
+> -		pwrseq_power_off(desc);
+> +		pwrseq_vote_off(desc);
+>  
+>  	kfree(desc);
+>  	module_put(pwrseq->owner);
+> @@ -874,7 +874,7 @@ static int pwrseq_unit_disable(struct pwrseq_device *pwrseq,
+>  }
+>  
+>  /**
+> - * pwrseq_power_on() - Issue a power-on request on behalf of the consumer
+> + * pwrseq_vote_on() - Issue a power-on request on behalf of the consumer
+>   *                     device.
+>   * @desc: Descriptor referencing the power sequencer.
+>   *
+> @@ -887,7 +887,7 @@ static int pwrseq_unit_disable(struct pwrseq_device *pwrseq,
+>   * Returns:
+>   * 0 on success, negative error number on failure.
+>   */
+> -int pwrseq_power_on(struct pwrseq_desc *desc)
+> +int pwrseq_vote_on(struct pwrseq_desc *desc)
+>  {
+>  	struct pwrseq_device *pwrseq;
+>  	struct pwrseq_target *target;
+> @@ -925,14 +925,14 @@ int pwrseq_power_on(struct pwrseq_desc *desc)
+>  
+>  	return ret;
+>  }
+> -EXPORT_SYMBOL_GPL(pwrseq_power_on);
+> +EXPORT_SYMBOL_GPL(pwrseq_vote_on);
+>  
+>  /**
+> - * pwrseq_power_off() - Issue a power-off request on behalf of the consumer
+> + * pwrseq_vote_off() - Issue a power-off request on behalf of the consumer
+>   *                      device.
+>   * @desc: Descriptor referencing the power sequencer.
+>   *
+> - * This undoes the effects of pwrseq_power_on(). It issues a power-off request
+> + * This undoes the effects of pwrseq_vote_on(). It issues a power-off request
+>   * on behalf of the consumer and when the last remaining user does so, the
+>   * power-down sequence will be started. If one is in progress, the function
+>   * will block until it's complete and then return.
+> @@ -940,7 +940,7 @@ EXPORT_SYMBOL_GPL(pwrseq_power_on);
+>   * Returns:
+>   * 0 on success, negative error number on failure.
+>   */
+> -int pwrseq_power_off(struct pwrseq_desc *desc)
+> +int pwrseq_vote_off(struct pwrseq_desc *desc)
+>  {
+>  	struct pwrseq_device *pwrseq;
+>  	struct pwrseq_unit *unit;
+> @@ -966,7 +966,7 @@ int pwrseq_power_off(struct pwrseq_desc *desc)
+>  
+>  	return ret;
+>  }
+> -EXPORT_SYMBOL_GPL(pwrseq_power_off);
+> +EXPORT_SYMBOL_GPL(pwrseq_vote_off);
+>  
+>  /**
+>   * pwrseq_to_device() - Get the pwrseq device pointer from a descriptor.
+> diff --git a/include/linux/pwrseq/consumer.h b/include/linux/pwrseq/consumer.h
+> index 3c907c9e1885dc2958043a9a733fbe20bdf95f6e..e4d2cb321354f0cb7e1d1d72e6b5a96b94129da3 100644
+> --- a/include/linux/pwrseq/consumer.h
+> +++ b/include/linux/pwrseq/consumer.h
+> @@ -20,8 +20,8 @@ void pwrseq_put(struct pwrseq_desc *desc);
+>  struct pwrseq_desc * __must_check
+>  devm_pwrseq_get(struct device *dev, const char *target);
+>  
+> -int pwrseq_power_on(struct pwrseq_desc *desc);
+> -int pwrseq_power_off(struct pwrseq_desc *desc);
+> +int pwrseq_vote_on(struct pwrseq_desc *desc);
+> +int pwrseq_vote_off(struct pwrseq_desc *desc);
+>  
+>  struct device *pwrseq_to_device(struct pwrseq_desc *desc);
+>  
+> @@ -43,12 +43,12 @@ devm_pwrseq_get(struct device *dev, const char *target)
+>  	return ERR_PTR(-ENOSYS);
+>  }
+>  
+> -static inline int pwrseq_power_on(struct pwrseq_desc *desc)
+> +static inline int pwrseq_vote_on(struct pwrseq_desc *desc)
+>  {
+>  	return -ENOSYS;
+>  }
+>  
+> -static inline int pwrseq_power_off(struct pwrseq_desc *desc)
+> +static inline int pwrseq_vote_off(struct pwrseq_desc *desc)
+>  {
+>  	return -ENOSYS;
+>  }
+> 
+> ---
+> base-commit: c5e32e86ca02b003f86e095d379b38148999293d
+> change-id: 20260727-pwrseq-vote-rename-b7cd21032668
+> 
+> Best regards,
+> -- 
+> Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> 
