@@ -4,101 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A26E7C53209
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 21:34:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2509EC53209
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 22:56:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED55E10E4C8;
-	Mon, 27 Jul 2026 21:34:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C37F10E4E2;
+	Mon, 27 Jul 2026 22:56:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ffBQyM+3";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iwaG5uRX";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 617A010E4C8;
- Mon, 27 Jul 2026 21:34:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ijA2w6BFngkXt3TGw2ZP9akziyImCoIwlScDMM3RwTVPn+mQuluSEDAeIiijmMXKUeV6Dz6GLimCDnRyS+Rqa4pWCaZoWGjP6+4cT2skttVUmyUrR/dBe2NJFUCli/zngC3uo6hq4WCC7AJknSKgSlkCH1wRY/Z4nqRlJe2dH8hGoC8RZHNeHKTc846jtLQk0tNeQTCzYIJCiZQxwnSm1xA5RX/tnnE2IgypglNp351AyaRnU4mVyQrQmSFe44uKDtitjw44eiP6s5GZkJGz3zkDb+f20uYse3K2ze8U97e/m3rrNK0MBwvComhtelo7UP6263IJw+8yI62036q54A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=X8OO98+aPGNSnyiywJclYh954vipkobr2wv4ccDTAco=;
- b=Ba9CGv/LLQTY+3Nfw4PXaXVxPeaZUL2q5T7imkx0xvlb6B3plWp9NbOa3YdJWqs7kjY6Sm6MD3/UL2MXp1nQlZo6/WUPyLSEanuQFNz/cK3jLtLQ63R3zpzsqTz5lv1Xyc9dQcYL8Dlt0H9JYNjsP0qzSV8SBeZr5I9DQCztwxsq4NomOsHOqvgg3bdXJ4hNa9iPOGsKQybMWzRZ37Q+990MbIdNgECtv4beR563QDRlfu2fC3nada1cqkLqvnDGONzMzmvRszIxY67ga2s7xwQbdcvegymGvVEirAwJEepR4XyIo8P3+WyVW0iJKatWwgD+wt4S5K9/j/duGjCs9A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=X8OO98+aPGNSnyiywJclYh954vipkobr2wv4ccDTAco=;
- b=ffBQyM+3A7Nuxpqc5U6ZHdiMDE4ihcQtMTo3f6dSoR0+yhr5SW3MraaznDGMKAMASgCmhjmP4eWly73DOz6ibxWPPYzHD3tlTpxVTfF8l64wdutvCH+BztqrPHd7ovvRB3WUbUSJkKjOpEMg/J+H2DQkojZ4h1twTufKfP7k/rI=
-Received: from BL1P223CA0035.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:5b6::19)
- by CH2PR12MB4325.namprd12.prod.outlook.com (2603:10b6:610:a9::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 21:34:17 +0000
-Received: from BL6PEPF00020E66.namprd04.prod.outlook.com
- (2603:10b6:208:5b6:cafe::86) by BL1P223CA0035.outlook.office365.com
- (2603:10b6:208:5b6::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.13 via Frontend Transport; Mon,
- 27 Jul 2026 21:34:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF00020E66.mail.protection.outlook.com (10.167.249.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Mon, 27 Jul 2026 21:34:17 +0000
-Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 27 Jul
- 2026 16:34:05 -0500
-From: Fangzhi Zuo <jerry.zuo@amd.com>
-To: <timo.proemer04@gmail.com>
-CC: Fangzhi Zuo <jerry.zuo@amd.com>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v2 2/2] drm/amd/display: Use drm_edid_block_count()
- instead of raw extensions
-Date: Mon, 27 Jul 2026 17:33:05 -0400
-Message-ID: <20260727213305.810014-1-jerry.zuo@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260713194945.2AFE11F00A3A@smtp.kernel.org>
-References: <20260713193237.2639-1-timo.proemer04@gmail.com>
- <20260713193237.2639-3-timo.proemer04@gmail.com>
- <20260713194945.2AFE11F00A3A@smtp.kernel.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD81010E09A;
+ Mon, 27 Jul 2026 22:56:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3854F40426;
+ Mon, 27 Jul 2026 22:56:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CDB1F000E9;
+ Mon, 27 Jul 2026 22:55:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785192964;
+ bh=QggSvxtNQ67iS+XUwqrDlrH2xraHrxGb+vgcG7y0WsY=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=iwaG5uRX32rTgcSQn1oI8cDhvVdBgF7xNVMcmwA5nB2roQEpjWkBM9/elDUKMWR+e
+ A0p9zb+3tSs36tELwjTyibEs5znVgnOoeBgaUwvlk+h9jnbCN1e+v9elShDExZRawl
+ S9FIBGMRZSowIq2RtsqIUQJ/GKy2epEJEkS13zWkXc/uH+dFvxm4jWJtqykilYp8FZ
+ n/dZuVVGnI4Oh8Jv/TOV8zbNHWDjAXhVQbUPhHErbAZOrGNAAwjAULYVaj3h2kBbW9
+ ED2feS2pNPbAGb5xCgo1ctL4J3aD2Ir+AJmF+Wa3lGIyvJ/mNC9waIoSbc3rE33Rm4
+ vgzkKLQuteGUQ==
+From: Mark Brown <broonie@kernel.org>
+To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>, 
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
+ Borislav Petkov <bp@alien8.de>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+ Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Johan Hovold <johan@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ "Martin K. Petersen" <martin.petersen@oracle.com>, 
+ Matthew Sakai <msakai@redhat.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Mike Rapoport <rppt@kernel.org>, 
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
+ Nicolas Palix <nicolas.palix@imag.fr>, 
+ Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>, 
+ Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
+ Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>, 
+ Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>, 
+ Thomas Renninger <trenn@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, Vinod Koul <vkoul@kernel.org>, 
+ Will Deacon <will@kernel.org>, Yazen Ghannam <Yazen.Ghannam@amd.com>, 
+ Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org, 
+ dmaengine@vger.kernel.org, dm-devel@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
+ linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-crypto@vger.kernel.org, linux-edac@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, 
+ linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
+ linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-sound@vger.kernel.org, linux-usb@vger.kernel.org, 
+ linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org, 
+ netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+ nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
+References: <20260723184538.3888637-1-ekffu200098@gmail.com>
+Subject: Re: (subset) [PATCH 00/36] treewide: remove conditional returns
+ with no effect
+Message-Id: <178515520105.50339.6347304746485042237.b4-ty@b4>
+Date: Mon, 27 Jul 2026 13:26:41 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E66:EE_|CH2PR12MB4325:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70886c6c-3dd6-4f56-03a0-08deec26cfed
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|23010399003|376014|82310400026|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 2qDEAOmMqJ/oQY1RSPDn6AyQIwcCnztoxHQ9FEk4PQc3YptfQlMl27l4mhjBeGK25vOQ4/KZxg+0W5tv5dN/lJeh4XL7Kvs0i6YVzaJ+i33t9kQCqTinSpvt1ZHoO5aBLGo+uOBB9sCx0CP2kGXGIxcrrxRA0x4qk1jW6DzkXOe78L3tjGEHZa28a26TUvSTPo16ZEcOxWBtvH9P5QC733vX0m7DA1I/gfPXF3BUY2SRJeTnF6RlxjcxfJGK14/IVSwNm8+KiZZLdyEFHNKO8DhCVL2/nbLQ+uZp+tH+aSdx9iS4f5RxGheGrRePsRA+x0rDmJj0vv40DkjslfFUTlZFYWuLKmE//0D3qYSk+bh6KsHgtK4n9d8ZcyrMq5l4OhMoJoinkWEu71vlUD0ZqCdweEBr5/RvRBx73JojbQ98reSBsc6k/M8CYQ0LwJPXqzZrd0U0WFX2k257ilZHmlNJ3FrygPmZPjGoVPJqOh71s6PgAwzg3cMy4cyc44XDazaQMLmLpelThvQy03ALO4QbteOgL1m91BBOmo3NEY0MyBw/qTu3kytOsZ98aB55ONKi/m4HDg4xtx6dX7hWl+lyaYF3EghGlBhZWmX+y5M6gOjNk1l1yfY1aLspMQRjIiYUj7BpDfrxVkRti4M60cajEu+g0Ix0uonyfv20+d/3SII9sVtXGsudkv6DOd4a80XjKyPonEoB1+MkM8DcTg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(82310400026)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: sF8LcwvBnInIXj5PqOzMZ05IkGE4c3P1HE55gOmWEP3zcn76Chdud3mWRIhAf43HW17vQvyQAj/DRP9v70XzVqPxP/qppalkZvs8Pxc/f66G1HglTlT4gzxxziokf9VXHBjhDqs4YuFKOE0AFa9XmIr0kgLW7hINYedF4WYR0wHJqe+W1boVB9eoOIoiWgvpJAOkYHg74zS45bPWFQ73ZAyDUdJKD3egsQ+rV7fV3LYBxvfhRfpTFZqnkvf76HfSwh1F5LbzsbLLK0E6/TGu3yOPeL7NZNIs3SrhE+dSwHTeOEchTgOY7VLtmHcahErcSIyiZ/irrxRtHN5A+dYiI1cr+m8nnglcUOiU6eBDMweWCU2SufT+4TJDGCpjL8L5LgZvpbCTcWdBqHBprfe3C/E6oB68XdOHcewu31vayRh6nOaeYtJBmNwlilMHeEIh
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 21:34:17.4151 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70886c6c-3dd6-4f56-03a0-08deec26cfed
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E66.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4325
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1395; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=oEgoEtojyQ9PC8g7uhG7viM9B7fGAJubrsCe9lk5/YY=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqZ+HxlIWhtS7M/+/D/kSsIotZNE7ycdvTNKMa6
+ lyMcsUy1YGJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamfh8QAKCRAk1otyXVSH
+ 0NGoB/9aZSWKSSxB+DoiO9o+r0R7LvQ0b9P0b+u/ow+7Ti4Va043c7UzGI2RzCGdUpf18XgLn6f
+ SgEv95GzlB+upqVsxmPG9VHhXWw4Ho9J4p/hSGXTDgAS8ErF8GjIkiAzWtWwlF1NwqBzKdr1HBU
+ 4bzLooMHmkm+sRhw0K+K8vYxKzoIVIF4rw3OtvuVpbcnMjoni4zgFcLTc5cd+g7gZ+ms/PpNPge
+ 1bCGwvXOdpSE1Sx0RqUVVFnzDZUByQ/Qgq4t95aAwkznICTyGzRGtCagn7hNdby/Adb/VqLQiGG
+ EXfGwi5kgCay4GMGfP+CcNTcNXARRSisUOfJQUCdGh8to0xz
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,26 +127,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Timo,
+On Fri, 24 Jul 2026 03:45:02 +0900, Sang-Heon Jeon wrote:
+> treewide: remove conditional returns with no effect
+> 
+> Hello,
+> 
+> While reading mm/memblock, I found a conditional return where both
+> branches return the same value:
+> 
+> [...]
 
-Thanks for the patch. Heads-up that this overlaps with a fix already in
-amd-staging-drm-next:
+Applied to
 
-  21590e1adc9e ("drm/amd/display: Fix 8K Mode Not Parsed by EDID")
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
 
-That commit addresses the same underlying problem your patch targets --
-edid->extensions (byte 0x7e) not accounting for HF-EEODB blocks, so only
-2 of 4 blocks of an HDMI 2.1 EDID get copied into sink->dc_edid and the
-8K modes in the DisplayID extension blocks are lost. It takes a slightly
-different approach: instead of drm_edid_block_count(), it populates
-edid_blob_ptr with a full, HF-EEODB-aware blob and copies
-edid_blob_ptr->length. So on current amd-staging the
-dm_helpers_read_local_edid() hunk here no longer applies cleanly.
+Thanks!
 
-Could you rebase on the latest amd-staging-drm-next and see what, if
-anything, is still needed on top? There may still be value in the
-helper conversion for readability, but we should avoid re-fixing the
-same HF-EEODB issue two different ways.
+[14/36] ASoC: remove conditional return with no effect
+        https://git.kernel.org/broonie/misc/c/ca9b51f41c9d
+[28/36] regulator: wm831x-isink: remove conditional return with no effect
+        https://git.kernel.org/broonie/misc/c/9396a1d9e142
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Jerry
+Mark
+
