@@ -4,43 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A75C53209
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 21:26:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A26E7C53209
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 21:34:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42E5E10E4DD;
-	Mon, 27 Jul 2026 21:26:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED55E10E4C8;
+	Mon, 27 Jul 2026 21:34:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b/KKTSp2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ffBQyM+3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6185310E742
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 21:26:49 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 695036013A;
- Mon, 27 Jul 2026 21:26:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACDE91F00A3A;
- Mon, 27 Jul 2026 21:26:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785187608;
- bh=vut7nL0kXH2gpOrV2CtJrgUZsy4tni/ZnbJ0ix/3VrA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=b/KKTSp2TLkEs9grEORK7/X0y7A75ouo+lHI7VHnPs4WEotwHDA+Muj6iIrDJLLIG
- H8dJcYG6fg7PkaGA+uvotkWfSOmaotGjG9txV2/3k9x7HRZFlQZaLg5tobrTVsML7j
- mP0ebuOBZe2BpAsJ5Dl80nR0EVg0tegkU2GOPj9Uh9UspTNtzgvWxsN0LWb4i6w8yg
- Aj0qNQ5YhKVVUTpVNbk05mCyKzAs5xLwNVX8iSZstENRkO6fhq88IVbavd18EzpB62
- 3QAqSv1uq/SQUAv7hIRo3MTr9atJk+C2iPKW/PavUXjU3BMWzUnBxvxI3owDuf9JQa
- aQbNRgONczsDQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm: Fix drm_crtc_commit leak if signaled when
- PAGE_FLIP_EVENT is used
-To: "Thadeu Lima de Souza Cascardo" <cascardo@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com>
-References: <20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 21:26:47 +0000
-Message-Id: <20260727212647.ACDE91F00A3A@smtp.kernel.org>
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 617A010E4C8;
+ Mon, 27 Jul 2026 21:34:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ijA2w6BFngkXt3TGw2ZP9akziyImCoIwlScDMM3RwTVPn+mQuluSEDAeIiijmMXKUeV6Dz6GLimCDnRyS+Rqa4pWCaZoWGjP6+4cT2skttVUmyUrR/dBe2NJFUCli/zngC3uo6hq4WCC7AJknSKgSlkCH1wRY/Z4nqRlJe2dH8hGoC8RZHNeHKTc846jtLQk0tNeQTCzYIJCiZQxwnSm1xA5RX/tnnE2IgypglNp351AyaRnU4mVyQrQmSFe44uKDtitjw44eiP6s5GZkJGz3zkDb+f20uYse3K2ze8U97e/m3rrNK0MBwvComhtelo7UP6263IJw+8yI62036q54A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=X8OO98+aPGNSnyiywJclYh954vipkobr2wv4ccDTAco=;
+ b=Ba9CGv/LLQTY+3Nfw4PXaXVxPeaZUL2q5T7imkx0xvlb6B3plWp9NbOa3YdJWqs7kjY6Sm6MD3/UL2MXp1nQlZo6/WUPyLSEanuQFNz/cK3jLtLQ63R3zpzsqTz5lv1Xyc9dQcYL8Dlt0H9JYNjsP0qzSV8SBeZr5I9DQCztwxsq4NomOsHOqvgg3bdXJ4hNa9iPOGsKQybMWzRZ37Q+990MbIdNgECtv4beR563QDRlfu2fC3nada1cqkLqvnDGONzMzmvRszIxY67ga2s7xwQbdcvegymGvVEirAwJEepR4XyIo8P3+WyVW0iJKatWwgD+wt4S5K9/j/duGjCs9A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=X8OO98+aPGNSnyiywJclYh954vipkobr2wv4ccDTAco=;
+ b=ffBQyM+3A7Nuxpqc5U6ZHdiMDE4ihcQtMTo3f6dSoR0+yhr5SW3MraaznDGMKAMASgCmhjmP4eWly73DOz6ibxWPPYzHD3tlTpxVTfF8l64wdutvCH+BztqrPHd7ovvRB3WUbUSJkKjOpEMg/J+H2DQkojZ4h1twTufKfP7k/rI=
+Received: from BL1P223CA0035.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:5b6::19)
+ by CH2PR12MB4325.namprd12.prod.outlook.com (2603:10b6:610:a9::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
+ 2026 21:34:17 +0000
+Received: from BL6PEPF00020E66.namprd04.prod.outlook.com
+ (2603:10b6:208:5b6:cafe::86) by BL1P223CA0035.outlook.office365.com
+ (2603:10b6:208:5b6::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.13 via Frontend Transport; Mon,
+ 27 Jul 2026 21:34:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00020E66.mail.protection.outlook.com (10.167.249.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Mon, 27 Jul 2026 21:34:17 +0000
+Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 27 Jul
+ 2026 16:34:05 -0500
+From: Fangzhi Zuo <jerry.zuo@amd.com>
+To: <timo.proemer04@gmail.com>
+CC: Fangzhi Zuo <jerry.zuo@amd.com>, <dri-devel@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v2 2/2] drm/amd/display: Use drm_edid_block_count()
+ instead of raw extensions
+Date: Mon, 27 Jul 2026 17:33:05 -0400
+Message-ID: <20260727213305.810014-1-jerry.zuo@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260713194945.2AFE11F00A3A@smtp.kernel.org>
+References: <20260713193237.2639-1-timo.proemer04@gmail.com>
+ <20260713193237.2639-3-timo.proemer04@gmail.com>
+ <20260713194945.2AFE11F00A3A@smtp.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E66:EE_|CH2PR12MB4325:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70886c6c-3dd6-4f56-03a0-08deec26cfed
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|23010399003|376014|82310400026|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 2qDEAOmMqJ/oQY1RSPDn6AyQIwcCnztoxHQ9FEk4PQc3YptfQlMl27l4mhjBeGK25vOQ4/KZxg+0W5tv5dN/lJeh4XL7Kvs0i6YVzaJ+i33t9kQCqTinSpvt1ZHoO5aBLGo+uOBB9sCx0CP2kGXGIxcrrxRA0x4qk1jW6DzkXOe78L3tjGEHZa28a26TUvSTPo16ZEcOxWBtvH9P5QC733vX0m7DA1I/gfPXF3BUY2SRJeTnF6RlxjcxfJGK14/IVSwNm8+KiZZLdyEFHNKO8DhCVL2/nbLQ+uZp+tH+aSdx9iS4f5RxGheGrRePsRA+x0rDmJj0vv40DkjslfFUTlZFYWuLKmE//0D3qYSk+bh6KsHgtK4n9d8ZcyrMq5l4OhMoJoinkWEu71vlUD0ZqCdweEBr5/RvRBx73JojbQ98reSBsc6k/M8CYQ0LwJPXqzZrd0U0WFX2k257ilZHmlNJ3FrygPmZPjGoVPJqOh71s6PgAwzg3cMy4cyc44XDazaQMLmLpelThvQy03ALO4QbteOgL1m91BBOmo3NEY0MyBw/qTu3kytOsZ98aB55ONKi/m4HDg4xtx6dX7hWl+lyaYF3EghGlBhZWmX+y5M6gOjNk1l1yfY1aLspMQRjIiYUj7BpDfrxVkRti4M60cajEu+g0Ix0uonyfv20+d/3SII9sVtXGsudkv6DOd4a80XjKyPonEoB1+MkM8DcTg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(23010399003)(376014)(82310400026)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: sF8LcwvBnInIXj5PqOzMZ05IkGE4c3P1HE55gOmWEP3zcn76Chdud3mWRIhAf43HW17vQvyQAj/DRP9v70XzVqPxP/qppalkZvs8Pxc/f66G1HglTlT4gzxxziokf9VXHBjhDqs4YuFKOE0AFa9XmIr0kgLW7hINYedF4WYR0wHJqe+W1boVB9eoOIoiWgvpJAOkYHg74zS45bPWFQ73ZAyDUdJKD3egsQ+rV7fV3LYBxvfhRfpTFZqnkvf76HfSwh1F5LbzsbLLK0E6/TGu3yOPeL7NZNIs3SrhE+dSwHTeOEchTgOY7VLtmHcahErcSIyiZ/irrxRtHN5A+dYiI1cr+m8nnglcUOiU6eBDMweWCU2SufT+4TJDGCpjL8L5LgZvpbCTcWdBqHBprfe3C/E6oB68XdOHcewu31vayRh6nOaeYtJBmNwlilMHeEIh
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 21:34:17.4151 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70886c6c-3dd6-4f56-03a0-08deec26cfed
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E66.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4325
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,80 +111,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Timo,
 
-Pre-existing issues:
-- [High] Memory leak of drm_pending_vblank_event in prepare_signaling() err=
-or path.
---
+Thanks for the patch. Heads-up that this overlaps with a fix already in
+amd-staging-drm-next:
 
---- Patch [1]: [PATCH] drm: Fix drm_crtc_commit leak if signaled when PAGE_=
-FLIP_EVENT is used ---
-commit 7e124359c795a6d6965d1810c1067f7ff33a7631
-Author: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+  21590e1adc9e ("drm/amd/display: Fix 8K Mode Not Parsed by EDID")
 
-drm: Fix drm_crtc_commit leak if signaled when PAGE_FLIP_EVENT is used
+That commit addresses the same underlying problem your patch targets --
+edid->extensions (byte 0x7e) not accounting for HF-EEODB blocks, so only
+2 of 4 blocks of an HDMI 2.1 EDID get copied into sink->dc_edid and the
+8K modes in the DisplayID extension blocks are lost. It takes a slightly
+different approach: instead of drm_edid_block_count(), it populates
+edid_blob_ptr with a full, HF-EEODB-aware blob and copies
+edid_blob_ptr->length. So on current amd-staging the
+dm_helpers_read_local_edid() hunk here no longer applies cleanly.
 
-This commit fixes a memory leak in the atomic commit path when the ioctl is
-signaled while waiting for fences. It ensures the reference to the
-drm_crtc_commit is properly dropped if the event allocated in
-prepare_signaling() is cleared in complete_signaling().
+Could you rebase on the latest amd-staging-drm-next and see what, if
+anything, is still needed on top? There may still be value in the
+helper conversion for readability, but we should avoid re-fixing the
+same HF-EEODB issue two different ways.
 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index e997917819e8e..7b951af5ab320 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -1563,6 +1563,8 @@ static void complete_signaling(struct drm_device *d=
-ev,
->  		 * to prevent a double free in drm_atomic_commit_clear.
->  		 */
->  		if (event && (event->base.fence || event->base.file_priv)) {
-
-[Severity: High]
-This is a pre-existing issue, but does this conditional inadvertently leak =
-the
-event under certain error conditions?
-
-If userspace calls DRM_IOCTL_MODE_ATOMIC with an OUT_FENCE_PTR but without
-the DRM_MODE_PAGE_FLIP_EVENT flag, prepare_signaling() allocates the event:
-
-    e =3D create_vblank_event(crtc, arg->user_data);
-    if (!e)
-        return -ENOMEM;
-    crtc_state->event =3D e;
-
-Since PAGE_FLIP_EVENT is not set, drm_event_reserve_init() is skipped, leav=
-ing
-event->base.file_priv as NULL. If setup_out_fence() then fails (for example,
-due to file descriptor exhaustion), prepare_signaling() returns an error
-before event->base.fence is set:
-
-    ret =3D setup_out_fence(&f[(*num_fences)++], fence);
-    if (ret) {
-        dma_fence_put(fence);
-        return ret;
-    }
-
-When complete_signaling() cleans up the error path, both event->base.fence
-and event->base.file_priv are NULL, causing this block to be skipped.=20
-
-The event is left in crtc_state->event, but=20
-__drm_atomic_helper_crtc_destroy_state() does not free it (it only frees
-state->commit->event), leading to a memory leak. Could this be triggered by
-untrusted userspace to reliably exhaust kernel memory?
-
-> +			if (crtc_state->commit && crtc_state->commit->abort_completion)
-> +				drm_crtc_commit_put(crtc_state->commit);
->  			drm_event_cancel_free(dev, &event->base);
->  			crtc_state->event =3D NULL;
->  		}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-drm_crtc_a=
-tomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=3D1
+Thanks,
+Jerry
