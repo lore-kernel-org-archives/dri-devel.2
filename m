@@ -4,31 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0C9FC53209
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 15:07:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D3F9C531FC
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 15:18:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2493210E46B;
-	Mon, 27 Jul 2026 15:07:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF0FA10E45F;
+	Mon, 27 Jul 2026 15:18:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=nanonej.com header.i=@nanonej.com header.b="RiOmNjGG";
+	dkim=pass (2048-bit key; unprotected) header.d=nanonej.com header.i=@nanonej.com header.b="N9/u+lxe";
 	dkim-atps=neutral
-Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch
- [79.135.106.109])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1BC810E44F
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 15:07:31 +0000 (UTC)
+X-Greylist: delayed 632 seconds by postgrey-1.36 at gabe;
+ Mon, 27 Jul 2026 15:17:59 UTC
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5A8610E45F
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 15:17:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nanonej.com;
- s=protonmail2; t=1785164844; x=1785424044;
- bh=xkuxvFccmFVRVInzuu2EHAa2xXh1BYNKHx93LHBfZrY=;
+ s=protonmail2; t=1785165478; x=1785424678;
+ bh=xGEwWjcvmhqyJlo7tPYR7Vxyx4ELoWw7nbEoSG9TT+Q=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=RiOmNjGG51L1C0DmB5UBZBOuHYkfR4GzjmV9pFPVgVXAbAX2fom56/P+iM4NDNp2Q
- 6eum65Gp8iTRw7wU7tL83FmV3Lfev/cSfkBMU3MZfm7Rk1d9BvJmAmuJ8G+Vo6dSOQ
- F0mN+qZLBkCINPe3gCbbM9kJdvYRpijgysOZoqL2Lyap7sVFpaHIyhmAecSt+jMblC
- RwN1Vx5padPSEzTr37it1OiT8CEUPEPY2eHrEW6iNDX2ugUifH5paIxBUDnuJBM0AC
- Jd9ORCnt5C6b8l1MCP7wSNMBxZ7FsMcXUuywqN22j9pyCxCyj9W5Mz1nTcPwDNLnDD
- NfeYVKL3qhOJg==
-Date: Mon, 27 Jul 2026 15:07:20 +0000
+ b=N9/u+lxeNj0d34+PTcqC+OPR+9hHFG8Cr5ZQve3DxFE1zEsC2p1ql9eIufrm96xaU
+ ASY5hsAfE0/zWCpvHYIX6GclvpnTHrhH+zbgimqQKSA0D7T/TY9Z5y5iakbwRHXB+j
+ sriHH0WSzCwPJEfynKg//dzM6sfQUxr1dQxucgQKjttPubC1CYPVLOaWZx8t5ih0nk
+ Nz7LDi824vf5AtcTwZkXuQzAc9eV6ocp2eMPrL7oJ5XamUSnnmujsoMu0I7Xlv1Cy+
+ C7voaxZcJDwVj2bQmX4cNq6DEfjr9yOhmaLslli9+JaICF0OK+bgXOgOtPqXMfBngH
+ Ow6M/p1UkX51g==
+Date: Mon, 27 Jul 2026 15:17:53 +0000
 To: Alexandre Courbot <acourbot@nvidia.com>
 From: Nanonej Dev <dev@nanonej.com>
 Cc: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>,
@@ -36,18 +37,18 @@ Cc: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, daniel.almeida@collabora.com
-Subject: Re: [PATCH 1/3] gpu: nova-core: Add function to query WPR2 range
-Message-ID: <IljsM9ZnqA5Z6gdvmYSbSJAjRNiW5wACb-IG-yIvmYV0JUFWFzWeK5vV1jv_gPjEqtHqeg7JES3GwsNhnLv87mzf7N98YKqUmPbcIjz2gZY=@nanonej.com>
-In-Reply-To: <DK7OOBTQZKDQ.QOMIKY35YTVP@nvidia.com>
+Subject: Re: [PATCH 2/3] gpu: nova-core: Move PFB registers definitions
+Message-ID: <cN4Q2hbbRw9FAjcXaAsublR_qeeRSpeV4MYDxyR4lZet4wMCdudh-4NZ1omxTpA-q8ZkDmpwmpBRnpwbm3Fa-Z1kxH-Z2ga4L3iZU3FMt5I=@nanonej.com>
+In-Reply-To: <DK7OQQAYBCQV.3PKBRU8CYCUNG@nvidia.com>
 References: <20260721-nova-core-regs-split-v1-0-384fa2a42244@nanonej.com>
- <20260721-nova-core-regs-split-v1-1-384fa2a42244@nanonej.com>
- <DK7OOBTQZKDQ.QOMIKY35YTVP@nvidia.com>
+ <20260721-nova-core-regs-split-v1-2-384fa2a42244@nanonej.com>
+ <DK7OQQAYBCQV.3PKBRU8CYCUNG@nvidia.com>
 Feedback-ID: 32181229:user:proton
-X-Pm-Message-ID: 7ba01f28ddd1c1f530d2a1a010c348a8909060f8
+X-Pm-Message-ID: 2d3853188b6656ddb0d50f11b1c2973d9f48822a
 MIME-Version: 1.0
 Content-Type: multipart/signed; protocol="application/pgp-signature";
  micalg=pgp-sha512;
- boundary="------37fd3545826f383248dcc478093c8c09fb6b1d7be79bac7e88bb897bce576508";
+ boundary="------062b81900832d9fd48c31af0f76290d25e570df9d84b46b45996312013de7305";
  charset=utf-8
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,32 +66,39 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------37fd3545826f383248dcc478093c8c09fb6b1d7be79bac7e88bb897bce576508
-Content-Type: multipart/mixed;boundary=---------------------612aad6bea675f4cfa53d1c6e7628293
+--------062b81900832d9fd48c31af0f76290d25e570df9d84b46b45996312013de7305
+Content-Type: multipart/mixed;boundary=---------------------78f145c0554e067b9125a7fea6ccbc39
 
------------------------612aad6bea675f4cfa53d1c6e7628293
+-----------------------78f145c0554e067b9125a7fea6ccbc39
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain;charset=utf-8
 
-> To preserve the current semantics, let's read WPR_ADDR_HI first, check
-> `is_wpr2_set` (and early-return `None` if not set), and then read
-> `WPR_ADDR_LO` to build the range.
+> Every patch needs a commit message, even if short.
 
-Ok, I'm udpating the function flow then.
+Ok, you mean a body then I guess?
+Cause my commit have a message but b4 turned it in the patch subject, so I=
+ guess I must also add a body.
 
-> > +        // Check that the WPR2 region does not already exist -
-> > +        // if it does, we cannot run FWSEC-FRTS until the GPU is rese=
-t.
-> =
+> (also please check whether the issue raised by Sashiko [1] has merit)
+>
+> [1] https://sashiko.dev/#/patchset/20260721-nova-core-regs-split-v1-0-38=
+4fa2a42244@nanonej.com?part=3D2
 
+It make sense, but I didn't find how to check the generated doc in docs ke=
+rnel rust [1].
+So for my fix I just reverted to the absolute `crate::fb::SysmemFlush`, bu=
+t if it is really tied to rustdoc I would be glad to know how to generate =
+it and check it correctly.
 
-> This comment is reformatted for now good reason iiuc.
+[1] https://docs.kernel.org/rust
 
-My 80 columns OCD probably triggered, sorry for that, reverting this chang=
-e.
------------------------612aad6bea675f4cfa53d1c6e7628293--
+> One more comment inline, but this is pretty much what I had in mind; so
+> looking pretty good imho!
 
---------37fd3545826f383248dcc478093c8c09fb6b1d7be79bac7e88bb897bce576508
+Ok, happy to read that, thanks!
+-----------------------78f145c0554e067b9125a7fea6ccbc39--
+
+--------062b81900832d9fd48c31af0f76290d25e570df9d84b46b45996312013de7305
 Content-Type: application/pgp-signature; name="signature.asc"
 Content-Description: OpenPGP digital signature
 Content-Disposition: attachment; filename="signature.asc"
@@ -98,14 +106,14 @@ Content-Disposition: attachment; filename="signature.asc"
 -----BEGIN PGP SIGNATURE-----
 Version: ProtonMail
 
-wrsEARYKAG0FgmpndA8JEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
-b25zLm9wZW5wZ3Bqcy5vcmdvFx2z7wqc+SThorTb21CD3mEN3epB6SM0POI+
-xH7NgxYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAAAijAEAnBty0jtnXMHXRu6A
-1TsIGaztACF1FEup8otcJBQ27Z0A/2dlYwMaNKZOCPQSs0pYS8HXAkTCvwiw
-Vw7H9+CV+CUJ
-=vb76
+wrsEARYKAG0FgmpndooJEFKmzSsu6sDwRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmfMcgiZCeO+WFZOOPtgJE0EeVkZIxfONYkoYotV
+bRmwEhYhBI+99gDJjAW7MoHJ0VKmzSsu6sDwAAAtDAD6ApGHfXvnPCd+17Xu
+Hy2gSlxiu2Lpvpa/GFNpIqJVlcEA/RFS+K2l8LG6/DY3Xm5YMrfC04Z4zjlS
+BJVWfH1Sb9kP
+=c9XG
 -----END PGP SIGNATURE-----
 
 
---------37fd3545826f383248dcc478093c8c09fb6b1d7be79bac7e88bb897bce576508--
+--------062b81900832d9fd48c31af0f76290d25e570df9d84b46b45996312013de7305--
 
