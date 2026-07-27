@@ -4,61 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3AD4C531C9
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 15:54:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A8DCC531D0
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 16:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53B5510E17E;
-	Mon, 27 Jul 2026 15:54:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB0710E462;
+	Mon, 27 Jul 2026 16:04:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="YFUuvbNi";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NzlbiIbs";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 817CB10E17E
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 15:54:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785167644;
- bh=m/4LIVR30IBua4ghe8uxIwH1JxrU1wTrekYPUFn2Rys=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=YFUuvbNi1+0GTNVtDtnF6tPnEvMf1kZ5wTgo6KSmp6GDFgDPMzihJY4SDrMy45HoG
- aRZ3F4h7/V6GaB0/8ER5EZ3ZaCfBB1Q4ixiiH1uyO7spXsuqy+V8g0LHDHULPIs/Wp
- TD9y6ioYsW241FwuDcOheZtyTOc/80dwwnsjSMVZNtvMEy08GzI05F9Ii4NqCuOwUB
- y5qe00SBfnl1jfwDJg68XZM3z3oovC1ki9DtwOHuHa0ANWrHBikwhJfmFrUw4jQj9t
- 1RcXKUTdWU7/4QpIu8l0nlGEnD5M4Hg0LXs9d5LCF0pOkT+zFW0y9/rBdh4bd8jDh0
- CbYVoG9jTp2FQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7ACC617E051A;
- Mon, 27 Jul 2026 17:54:03 +0200 (CEST)
-Message-ID: <5c7e81e7-28e1-4993-ac4e-724ec7664ebf@collabora.com>
-Date: Mon, 27 Jul 2026 17:54:02 +0200
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A31710E462
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 16:04:53 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-384caf7b168so299953a91.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 09:04:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785168293; cv=none;
+ d=google.com; s=arc-20260327;
+ b=aaFaVyIhmZoCzlonPz0y+x8e3LD5CBEyCQABt8x3u5NHBRn/RoC1S9rxKoCXBhBDNC
+ nN6cBCj3z0vPs8IgIWwr2UNpyPmotVAD2dFAYnQhJqrFPPQXx6CV/i3DoG0oNP2sse5n
+ 06raVeEUMCU31UagYdfXMstuIbzf+uT2lntKcVN3JuyqVoNGMp1eOq2pg6sKcvbsv/05
+ vJ98+WU1qMDuflSW9BhkFP1+L/7VBxgHw0Khp/HQdKtHIpXglpbP6j/R5u/8Bsb03MF8
+ 43N4leI9gYs3oW1dXOt6NdOf83OKN98Nvbk8bOkMM0ZbeDF9iFUprDyQqX9s3ElauUoD
+ spwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=mV132EboBiIC6aD49jRxyvOFo9SoecgWipLHtdHMdLE=;
+ fh=BpErldt3C/vOJJ9M0Z1IxElA1nHZGCAHTX4vC+/KAN4=;
+ b=UCWqT7nUg9wZw2ChI+bjC+FOxvXA3hSEyoeRkq1BHun6WJjCEWdD/X2eUwD6qyQYby
+ 5RQVBiNu1CZVH2tm6f+Y3bf6j4TByOr5T45AnJNUzNKRvBblZkiFMr1u1hLW+hx1P8Y1
+ lR3sZi5UXWofsLccXdr0ddCuUyFt7oETv0JT7vBCWOHfxuCJ3Z+We7FUy3jd5ZTHUEac
+ OUAK7kY1cgoh6CR5xUzf7rnYkr/+0hlgvjd+CZms/cwT7pS69eZlhDGdQOHgKaxtJZTP
+ 9i+FpvrHIYLL9Q/1jjHQ28RgQtcEIaNEQAknOA5SNSW3bALi1ceg35G/H0Ehy/WN/CFQ
+ URGQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785168293; x=1785773093; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=mV132EboBiIC6aD49jRxyvOFo9SoecgWipLHtdHMdLE=;
+ b=NzlbiIbsopJIFqTQRXg3vkEs+hRFxTiIL/jEHXjrIPY7Yn1y4xvjBzxpWXvVHs0pTw
+ 1hl2UuY8c7QWa1AsHQMrJ3J7k9YiUwHm3w2pJONSU2S/zZiU2CAA3Ll+VXHAE9Ls3WP+
+ mGiEeIi1QAqCwqA3AWhVq+yDZ4lZ52SneAIX+lyWiiU5GcY/ypnA35m/OjMbr/sTlY5e
+ EpzJqq3nTivUCq9N4ClbLPd6ue391wVk89b7z7EXbSfdMwY5ilniDXgRxSEuH457onq9
+ fR7sSqiVmMCIHrsbgNT0fuODXpDb9L6QCBtY6E92hNeR6wLgUOfCDJR2mSfoi2M4+DZF
+ Q4NA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785168293; x=1785773093;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=mV132EboBiIC6aD49jRxyvOFo9SoecgWipLHtdHMdLE=;
+ b=UQgQxvzuEkuZnEjiOno4dYC+2onWOqFKrVlAKGOK2QN+r/0pfj/dRqMBzC1ED/NpKT
+ S/lf17jPbyl6iVo9Ck+WGCLm/7Ou8ZM3XYxZSIFenVucYa0BFr9F20MHdow9ZsS86rao
+ T+RhnHKsWh8Wh+jppHWFp2AN2dKOG7XbRyUe6nPPvSgupuh7RCU74XyP7wGZamoOz0Ph
+ kkYX82WBqLcuUI3TcfeGeuWkEUB9Jgc+5ruRayo/FJFSGkF2KpGFoMrnV6E+zGAK8Rti
+ IWIjNphpMKvnG7sAvEttiCwMa16SdL8ZTn2I0KBL77lEJsVM5h7d5J+A+CXcuPxwp4fn
+ 5XBA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrJbgw6nE6d9+MhpKXg2H/wzoJT1HIihNeQ3E7sLz9rpWvJ7bRX3izPAKVmLyBDMqZOIUwoF0UM2jo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzDI/gYApV9blYtXRQqZywaWHhnkHx/iXlssOMZ6XJdJygq/Cl/
+ dnW9LiapHyKPbgufIOUzd84fjGPTOrV8GU9Zq64UbQUn9ne/kMbnd9MB4VVakaU/jhY0RniuoKl
+ Dvg27oC8RfSzNB+/HMLFzUnazkYBFUU0TjQ==
+X-Gm-Gg: AR+sD11iGk9cNGld3zkoVh9mp6eO11dHUcObcrGNZWJrZnj9QnHRZPV7BElC0yBrXrV
+ Xf4N6p4/n35QaHYRMPa0Q0gXDNGfRzgYTtylaXyN2FFNZ/pR6I4yeSQDFeukc5dsHnmNuUT0Wsq
+ JQ/BJog4EO8wUrGQxvtI8GwhB3yubKLMSH3OJtqIwYsMgK4HFOV6rMOCuRlRnvCmlcaVeph4/qp
+ Ftb3p2aS3S2vpp3uieL/zjcbQBKxVCR/R89vL6QcdImDFCzAPnoZyNpHPCjqC9K4crxeqIEhzMG
+ aylDsITvlQr04WUFNxEW674I5axJicVqLiVJ7oYwAQcqM/hd
+X-Received: by 2002:a17:90a:c796:b0:38f:57f0:1f51 with SMTP id
+ 98e67ed59e1d1-38f57f023e2mr2502724a91.0.1785168292617; Mon, 27 Jul 2026
+ 09:04:52 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/mediatek: mtk_dsi: enable hs clock during pre-enable
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- Gary Bisson <bisson.gary@gmail.com>, Adam Thiede <me@adamthiede.com>
-Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Esben Haabendal <esben@geanix.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Matthias Brugger <matthias.bgg@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
- <8733xko1ms.fsf@geanix.com>
- <0f719c00-3cf5-4403-afbf-713b07255981@collabora.com> <aleM9Wy9otpd6Je3@owl5>
- <aRN3_2FHX8XmTcwduTAPwz4UFde4B0tbB09ajyeUg5qZxiIYMmbvMkG7CPoNTl4iySYMZawbLMWijO47R22gkg==@protonmail.internalid>
- <65558ccc-4f2c-492d-8c74-627d27dce864@collabora.com>
- <87h5m0mkca.fsf@geanix.com> <alpTEPsy-SIQv_Oc@owl5>
- <b26a4890-12e9-4995-a71d-d0b7458b1570@leemhuis.info> <amdTnudq48tZUTG2@owl5>
- <1826ddd9-6edd-4481-a31d-6cbb083b3a56@leemhuis.info>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <1826ddd9-6edd-4481-a31d-6cbb083b3a56@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260722165925.15805-1-timur.kristof@gmail.com>
+ <20260722165925.15805-5-timur.kristof@gmail.com>
+ <20260722173453.CF3FA1F000E9@smtp.kernel.org>
+ <CADnq5_P7-_RfV=MbbNw8w8CVEmE12t8ZgVSa5Pbz+ujjkB7Xcw@mail.gmail.com>
+In-Reply-To: <CADnq5_P7-_RfV=MbbNw8w8CVEmE12t8ZgVSa5Pbz+ujjkB7Xcw@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 27 Jul 2026 12:04:40 -0400
+X-Gm-Features: AUfX_mwpq0JK-tagzmnnC3l8RlwAoLulYEgYgRhrWefqgs1LtECeYxmJjsirTog
+Message-ID: <CADnq5_Og8M+0Xn3U1+SY48PEstC13RgxqoKsoixco6bJw8h2Bg@mail.gmail.com>
+Subject: Re: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore
+To: sashiko-reviews@lists.linux.dev
+Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,102 +109,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/27/26 16:23, Thorsten Leemhuis wrote:
-> On 7/27/26 14:48, Gary Bisson wrote:
->> On Mon, Jul 27, 2026 at 02:28:56PM +0200, Thorsten Leemhuis wrote:
->>> [top-posting to facilitate]
->>>
->>> Gary, Angelo, what's the status here? It looks like this fell through
->>> the cracks -- or was this issue fixed in between somehow? If yes: great!
->>> If not: Would be good to finally resolve this, as we are long past "fix
->>> within a week" rule of thumb from Linus:
->>> https://www.kernel.org/doc/html/latest/process/handling-regressions.html#on-how-quickly-regressions-should-be-fixed
->>
->> Not much happened I'm afraid. The status as I see is:
->> - this patch is necessary to have TI SN65DSI83 working
->> - this patch also follows the DRM guidelines saying that HS clock must
->>    be enabled during pre_enable (see previous answer / [1])
->> - this patch has been successfully tested against MIPI-DSI panels (by
->>    Angelo) and LVDS panels via TI bridge (by myself)
->> - Adam reported an issue with another bridge (PS8640) where resume is
->>    broken
->> - Esben offered a patch to the TI bridge that would fix the issue we
->>    were seeing in the first place.
->>
->> But for the last two points, I'm not sure this calls for a revert yet:
->> - enabling HS clock in pre_enable still is what should be done [1]
->> - maybe the issue Adam is facing is due to the bridge driver instead as
->>    it could not be reproduced with another setup
->> - Esben patch would break the SN65DSI83 init sequence, suggesting that
->>    the culprit really is the MIPI bridge for not following the HS clock
->>    requirement in pre_enable instead [2]
-> It's tricky, yes, but I suspect the right time for a revert was weeks
-> ago. What Linus afaics basically wants in situations like this (espe.
-> with two reporters) boils down to "something broke recently, no fix was
-> found within a week or maybe two, so we go back to the previous state to
-> restart from there -- and this is nothing bad, that's just done to buy
-> us time."
-> 
-> If something is right by some hardware or DRM specs often doesn't matter
-> much. What makes this tricky is the fact that the revert might cause a
-> regression for those that relied on the functionally the change brought.
-> But I suspect even then Linus prefers a revert, as it's a recent change
-> that only went into 7.1. The quoted from Linus on this page cover this iirc:
-> https://www.kernel.org/doc/html/latest/process/handling-regressions.html#quotes-from-linus-about-regression
-> 
-> If we can't agree on this, we maybe should ask Simona or Airlied for advice.
-> 
-> Ciao, Thorsten
+Applied the series.  Thanks!
 
-Thorsten,
-I agree with you, and it's fine for me to get this commit reverted, for the sake
-of following the rule (which is something I agree about: as a user, the last thing
-that should happen is to be afraid of what breaks if I update my system!!!!),
-even though reverting this actually breaks anything that is not PS8640.
+Alex
 
-......though......
-
-Everyone, please, look at how fundamentally broken PS8640 is... Qualcomm people had
-the same issue as what is currently happening here.
-
-They had to fix their DSI driver, as it was kind-of broken in a vagualy similar way
-compared to MediaTek - and then they found out that they needed (and upstreamed) a
-*hack* that had to be done specifically for the PS8640 Bridge [1]: their issue was
-never really resolved, as then the same bridge started casually working for unknown
-reasons (is it still working?), so they removed the hack [2] and called it a day.
-
-[1]: 
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/msm/dsi/dsi_manager.c?h=next-20260726&id=ec7981e6c614254937b37ce0af9eac09901c05c5
-[2]: 
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/gpu/drm/msm/dsi/dsi_manager.c?h=next-20260726&id=9e15123eca7942caa8a3e1f58ec0df7d088df149
-
-Especially in [2], the assmption from Dmitry sadly isn't correct, because this is
-happening now on MediaTek, and here Runtime PM makes sure that the PS8640 is also
-being enabled "a wee bit" earlier than DSI... but that doesn't seem to be enough.
-
-
-Now, here I'm kind of shotgunning at the driver, but I wonder if anyone can try
-the following patch before reverting this commit in mtk_dsi? Adam?
-
----
-  drivers/gpu/drm/bridge/parade-ps8640.c | 1 +
-  1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c 
-b/drivers/gpu/drm/bridge/parade-ps8640.c
-index 96332721cb69..54ebf2fc8d1c 100644
---- a/drivers/gpu/drm/bridge/parade-ps8640.c
-+++ b/drivers/gpu/drm/bridge/parade-ps8640.c
-@@ -665,6 +665,7 @@ static int ps8640_probe(struct i2c_client *client)
-
-  	ps_bridge->bridge.of_node = dev->of_node;
-  	ps_bridge->bridge.type = DRM_MODE_CONNECTOR_eDP;
-+	ps_bridge->bridge.pre_enable_prev_first = true;
-
-  	/*
-  	 * Get MIPI DSI resources early. These can return -EPROBE_DEFER so
--- 
-2.55.0
-
-Cheers,
-Angelo
+On Mon, Jul 27, 2026 at 11:44=E2=80=AFAM Alex Deucher <alexdeucher@gmail.co=
+m> wrote:
+>
+> On Wed, Jul 22, 2026 at 2:14=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+> >
+> > Thank you for your contribution! Sashiko AI review found 1 potential is=
+sue(s) to consider:
+> > - [High] Missing 2D tiling format modifier for 8 bpp formats on GFX6-8 =
+breaks NV12/NV21 video playback.
+> > --
+> >
+> > --- Patch [4]: [PATCH 4/4] drm/amd/display: Don't use tiling flags anym=
+ore ---
+> > commit 9ecc330329837cba2c5f2f431e911a3b7ec6c4df
+> > Author: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> > Subject: drm/amd/display: Don't use tiling flags anymore
+> >
+> > The commit removes the usage of legacy tiling flags from the amdgpu_dm
+> > display code, transitioning all supported GPU generations to rely
+> > completely on DRM format modifiers. It updates plane attribute filling,
+> > surface updates, and cursor checks to reflect this change.
+> >
+> > > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c =
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > > index a593a44ef97bc..87187c965d55c 100644
+> > > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> > [ ... ]
+> > > @@ -1235,8 +1201,6 @@ int amdgpu_dm_plane_fill_plane_buffer_attribute=
+s(struct amdgpu_device *adev,
+> > >                                                                      =
+         address);
+> > >               if (ret)
+> > >                       return ret;
+> > > -     } else if (afb->base.modifier =3D=3D DRM_FORMAT_MOD_INVALID) {
+> > > -             amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(tiling=
+_info, tiling_flags);
+> > >       } else {
+> > >               ret =3D amdgpu_dm_plane_fill_gfx6_tiling_info_from_modi=
+fier(tiling_info,
+> > >                                                                      =
+   afb->base.modifier);
+> >
+> > [Severity: High]
+> > By removing the legacy tiling flags fallback here, does this break NV12=
+/NV21
+> > video playback on GFX6-8?
+> >
+> > Looking at amdgpu_dm_plane_add_gfx6_modifiers(), it appears to add 2D t=
+iled
+> > modifiers only for 16, 32, and 64 bpp:
+> >
+> >         amdgpu_dm_plane_add_modifier(mods, size, capacity,
+> >                 amdgpu_dm_plane_calc_gfx6_mod(adev, 16, DC_ARRAY_2D_TIL=
+ED_THIN1));
+> >         amdgpu_dm_plane_add_modifier_dedup(mods, size, capacity,
+> >                 amdgpu_dm_plane_calc_gfx6_mod(adev, 32, DC_ARRAY_2D_TIL=
+ED_THIN1));
+> >         amdgpu_dm_plane_add_modifier_dedup(mods, size, capacity,
+> >                 amdgpu_dm_plane_calc_gfx6_mod(adev, 64, DC_ARRAY_2D_TIL=
+ED_THIN1));
+> >
+> > Since the modifier calculation for 8 bpp (which is required for NV12/NV=
+21
+> > formats) is missing, when userspace allocates a 2D-tiled NV12 framebuff=
+er,
+> > won't drm_plane_check_pixel_format() reject the atomic commit since it
+> > cannot find the 8bpp modifier in the plane's advertised list?
+>
+> Shouldn't be an issue as we don't expose any YUV planes on DCE hardware.
+>
+> Alex
+>
+> >
+> > --
+> > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260722165925.=
+15805-1-timur.kristof@gmail.com?part=3D4
