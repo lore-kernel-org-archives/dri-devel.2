@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 842B5C531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 15:52:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A596C531C9
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 15:52:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D56AC10E470;
-	Mon, 27 Jul 2026 15:52:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A4C210E46E;
+	Mon, 27 Jul 2026 15:52:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mwi8VXEq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="srOU7yij";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 534C110E470
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52DEE10E0B7
  for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 15:51:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3A6AE60008;
+ by tor.source.kernel.org (Postfix) with ESMTP id 4834D600AB;
  Mon, 27 Jul 2026 15:51:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id DACF7C19425;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F21A9C2BCFB;
  Mon, 27 Jul 2026 15:51:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1785167513;
- bh=VyfPIXDvScrtMc7exUuLCZcbY2lJ8lQecsOnN8icPhs=;
+ s=k20201202; t=1785167514;
+ bh=AqkQNbeanM9zW6wuUJlQf2mT318ZwQ2Ism0wOYOAqHY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=mwi8VXEqI+tfMY0XDJg0X2JJDyT5LfeZ85/AuaB96ugNSCrWKN+wYz5I2kwiTipkt
- hXnejut1r+JQJyalZPxwLguWcV/noKBGXp3QuqjS+nrV9emrBPZRZkMtpPMC930yQg
- lNtZm9ldqWi1igFxatiIVpwq9JOwA+/WQRY32m87zJb5l9EcpVKGT4v7Qa83hNWHVw
- Ow/c794KmIPSK+p41HybK35y8TZHZraafMoibscAzvlE/icVDQ/aF/RMomA4+EE2ES
- /d95XaCQ82ikewu0tM6ttMFbLKkhIgydB2OtoRjgzQZQDNsNWtXpnq7roA/Bvdp8n6
- MFQEOb0Oynq0g==
+ b=srOU7yijRw1zgh+R/Xr0SWRnQWOqXFngj1bgkDhI+aPcUQ8vU4jhWYk+iRxMWpVqE
+ gUfZg5Nzk4j3j4OCLrpArEbh14tTpr/JpzGNs7Wq63oOgliFDhX+QF8ga2v/D7P4Ef
+ sa6rdWLN2jetbr7qfEU29Ddbkbby+BFA8PWoNd7lywrhw2EawhDhIAMNREZjokxVWo
+ HRsl/GOvNwfbwSBMoX44UjmZLASayYhpWk+yXRXyLlYvJrCSTSzVRF82fuHfv4AOru
+ JXmU5XbFAwx/uEok2lKC1yQjfYxix2X8GIndK3ogSzJKgz+jaexMatPCuuoWuYuBq9
+ NHCLtwwLMxP4g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id BB6FFC53209;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D93A1C54F4C;
  Mon, 27 Jul 2026 15:51:53 +0000 (UTC)
 From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
-Date: Mon, 27 Jul 2026 17:51:51 +0200
-Subject: [PATCH v2 1/3] gpu: nova-core: Add function to query WPR2 range
+Date: Mon, 27 Jul 2026 17:51:53 +0200
+Subject: [PATCH v2 3/3] gpu: nova-core: Move one PBUS register definition
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-nova-core-regs-split-v2-1-21b5e6e32ea5@nanonej.com>
+Message-Id: <20260727-nova-core-regs-split-v2-3-21b5e6e32ea5@nanonej.com>
 References: <20260727-nova-core-regs-split-v2-0-21b5e6e32ea5@nanonej.com>
 In-Reply-To: <20260727-nova-core-regs-split-v2-0-21b5e6e32ea5@nanonej.com>
 To: Danilo Krummrich <dakr@kernel.org>, 
@@ -50,21 +50,21 @@ Cc: nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, daniel.almeida@collabora.com, 
  Antonin Malzieu Ridolfi <dev@nanonej.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4879; i=dev@nanonej.com;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2187; i=dev@nanonej.com;
  h=from:subject:message-id;
- bh=8bETYkuuIHsCTAujHK5w+nTqj633Zqrj3sEiuYUcjpc=;
- b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqZ36Y27cWmggZIYQ15ZCqIKq4EnbovdX8n3AiQ
- f/kDIsgfI+JAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCamd+mAAKCRBmh/EjChUV
- /VfMD/9RWRTpTe8sjILZPrbr5vuU5OBJG65IbMPDeyozXm9TtmyoUtMVuq+g4MMENVzBdrXwr9x
- 9HW+mRIan3nIi6NjP/H4cqDUGqeHVDusx5ZMT4zkj6JXKQfRMN2+DkaRZNpgSUBb6Nsszt/69/X
- VnRC71wJvE//siw4VwVC25vq+FLB6goLsXZSxD4gjPQbd0v8XlakXWthFKpjF5uAh62ppW8PD8+
- hLpMt1UuivNscZvIRQXKwg7HmgUU8mvSc1qZWvx5Yi+ZZqQlKMBUCmrQ77P0RPFRfrVLXfbmAnB
- D1M/ZekSL4yzjgEUJIkp4JVgtAHWcvyDXG/DGWkVG03JSzq9ZmLnivqPYnTbZEpvX/XVvhD37xW
- rrrVn4rbdNqVamzVuxyqqhaF8mLPOhu2Dqg1yB3sojC9uhOIjPq/yubHxSkhLBmMAmRrQFa71ja
- ACalKNYZH7mm9irYyPHCsJfatZEg6Z6wbQuMCuxL5Fi6GiuBVY89UWp+YU7esB2mycdTyLExPng
- rjIExNqESsOt2YXeYRUfYeXAVKaMhv5AUnt8Yw2ItOpo27+rbCe/qOsRwIAzr0VIq9j3iUQK3Rb
- EaGm5rhUwXowqKGMbr5v/8PPmCa5i3ZtZGmL8DD6DLJzQSV/8LJY9/7PIrKLzFMdE1PwfY35EPW
- qoV25bOc+l8kDow==
+ bh=qOJasvBGolfcKNveGr8i56M3y3jIZjt5WfhPmfMSDp0=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqZ36YwzbmECPY9PMLjR9ZtL3x+H1Rel0p7M1f+
+ hVKzfaOxXCJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCamd+mAAKCRBmh/EjChUV
+ /U2JD/9K8X8H8FrpLrJ1s9dCv4pbm87c3s+nuhStRKklPaViSsBfxZZwI1pYlUb85Wrzd2EJzTS
+ Lkg0xkb6FfirKFJ6NnEToWn1QMqHE1mkM90C1yNbR/+iZ//LuU0OGbIi1IQp3svRJSceL+otbLe
+ IgCPO21xs+1ubKozOyVgf0h9qBtev1n530DpIBn/OdV8GOQwHTPeC0xAg96Zqi+Vs0Z8VyY3g2Z
+ jGmjLU/E8EYoB5ECTKm8JzYAByOQMXC3LjwlyE0AdYLBcXxEh9SnzpM4NZwIk8OJZVOev0RnYHo
+ JB2fUQbA55LlFpUTxIHqLj9MpqlURH7UgBiWZjRFfsoaNbXOYcNTPLrN2zqJzQoelHJJy3riigx
+ X8fitta0iCJi2TSUKr4m9sLc1kBzzwrOHZd9Se1gTb0wXSLa6RvTUek7C2ygDK63PBymcWg/QsH
+ 7ckAFNzmxIFqNiLHBB6dTp1ctpLGL6/4jNYEl56bEMVPy2NZrX4HIpYmMhLoJIY0N1OBEqlTFx2
+ SbAytO/rJlNT5fMewiF75CY6VIep4BrWR/9RAp2xWWEZ+36RMoSfm5Mw6walh5IJA9y7Xu+gmza
+ 3YkJ/Svcf9a98UnhhZnJ+DZLb1ym7R7dKoajRaquWBZSUotUk2TLvDpB5nf+dWmL4TQPihAwGdn
+ E5eToZHJQ2WqxOQ==
 X-Developer-Key: i=dev@nanonej.com; a=openpgp;
  fpr=83B64FB07C91212F5285227D6687F1230A1515FD
 X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
@@ -87,137 +87,78 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-Create new function abstracting WPR2 region range query.
-Refactor gsp hal tu102 to query the WPR2 region range using this new
-function.
+Move NV_PBUS_SW_SCRATCH_0E_FRTS_ERR register definition into gsp
+module and update registers visibility.
 
 Suggested-by: Alexandre Courbot <acourbot@nvidia.com>
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
 Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
 ---
- drivers/gpu/nova-core/fb.rs            | 14 +++++++++
- drivers/gpu/nova-core/gsp/hal/tu102.rs | 54 +++++++++++++++-------------------
- 2 files changed, 38 insertions(+), 30 deletions(-)
+ drivers/gpu/nova-core/gsp/hal/tu102.rs |  2 +-
+ drivers/gpu/nova-core/gsp/regs.rs      | 11 +++++++++++
+ drivers/gpu/nova-core/regs.rs          |  5 -----
+ 3 files changed, 12 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/nova-core/fb.rs b/drivers/gpu/nova-core/fb.rs
-index 365db7abf7db..8934efc5f436 100644
---- a/drivers/gpu/nova-core/fb.rs
-+++ b/drivers/gpu/nova-core/fb.rs
-@@ -289,3 +289,17 @@ pub(crate) fn new(
-         })
+diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+index 03861add8e20..03133f723faf 100644
+--- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
++++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
+@@ -40,12 +40,12 @@
+             GspHal,
+             UnloadBundle, //
+         },
++        regs,
+         sequencer::GspSequencer,
+         Gsp,
+         GspBootContext,
+         GspFwWprMeta, //
+     },
+-    regs,
+     vbios::Vbios, //
+ };
+ 
+diff --git a/drivers/gpu/nova-core/gsp/regs.rs b/drivers/gpu/nova-core/gsp/regs.rs
+index a76dea3c3ab0..9a48aa87e7fb 100644
+--- a/drivers/gpu/nova-core/gsp/regs.rs
++++ b/drivers/gpu/nova-core/gsp/regs.rs
+@@ -2,6 +2,8 @@
+ 
+ use kernel::io::register;
+ 
++use crate::regs::NV_PBUS_SW_SCRATCH;
++
+ // PGSP
+ 
+ register! {
+@@ -9,3 +11,12 @@
+         31:0    address;
      }
  }
 +
-+/// Reads the WPR2 memory region registers and returns the range if set.
-+/// Returns `None` if the WPR2 region is not set.
-+pub(crate) fn wpr2_range(bar: Bar0<'_>) -> Option<Range<u64>> {
-+    let wpr2_hi = bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
++// PBUS
 +
-+    if !wpr2_hi.is_wpr2_set() {
-+        return None;
++register! {
++    /// Scratch register 0xe used as FRTS firmware error code.
++    pub(super) NV_PBUS_SW_SCRATCH_0E_FRTS_ERR(u32) => NV_PBUS_SW_SCRATCH[0xe] {
++        31:16   frts_err_code;
 +    }
-+
-+    let wpr2_lo = bar.read(crate::regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO);
-+
-+    Some(wpr2_lo.lower_bound()..wpr2_hi.higher_bound())
 +}
-diff --git a/drivers/gpu/nova-core/gsp/hal/tu102.rs b/drivers/gpu/nova-core/gsp/hal/tu102.rs
-index 648657e248da..03861add8e20 100644
---- a/drivers/gpu/nova-core/gsp/hal/tu102.rs
-+++ b/drivers/gpu/nova-core/gsp/hal/tu102.rs
-@@ -17,7 +17,10 @@
-         sec2::Sec2,
-         Falcon, //
-     },
--    fb::FbLayout,
-+    fb::{
-+        wpr2_range,
-+        FbLayout, //
-+    },
-     firmware::{
-         booter::{
-             BooterFirmware,
-@@ -90,9 +93,8 @@ fn run(&self, ctx: &mut GspBootContext<'_, '_>) -> Result {
-             .inspect_err(|e| dev_err!(dev, "FWSEC-SB failed to run: {:?}\n", e));
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index d58dc6dd0f04..caeef4d85874 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -109,11 +109,6 @@ fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
  
-         // Remove WPR2 region if set.
--        let wpr2_hi = bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
-         let booter_unloader_res = (|| {
--            if !wpr2_hi.is_wpr2_set() {
-+            if wpr2_range(bar).is_none() {
-                 return Ok(());
-             }
- 
-@@ -110,8 +112,7 @@ fn run(&self, ctx: &mut GspBootContext<'_, '_>) -> Result {
-             }
- 
-             // Confirm that the WPR2 region has been removed.
--            let wpr2_hi = bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI);
--            if wpr2_hi.is_wpr2_set() {
-+            if wpr2_range(bar).is_some() {
-                 dev_err!(
-                     dev,
-                     "WPR2 region still set after Booter Unloader returned\n"
-@@ -146,7 +147,7 @@ fn run_fwsec_frts(
-     ) -> Result {
-         // Check that the WPR2 region does not already exist - if it does, we cannot run
-         // FWSEC-FRTS until the GPU is reset.
--        if bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound() != 0 {
-+        if wpr2_range(bar).is_some() {
-             dev_err!(
-                 dev,
-                 "WPR2 region already exists - GPU needs to be reset to proceed\n"
-@@ -189,34 +190,27 @@ fn run_fwsec_frts(
-         }
- 
-         // Check that the WPR2 region has been created as we requested.
--        let (wpr2_lo, wpr2_hi) = (
--            bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_LO).lower_bound(),
--            bar.read(regs::NV_PFB_PRI_MMU_WPR2_ADDR_HI).higher_bound(),
--        );
+ register! {
+     pub(crate) NV_PBUS_SW_SCRATCH(u32)[64] @ 0x00001400 {}
 -
--        match (wpr2_lo, wpr2_hi) {
--            (_, 0) => {
--                dev_err!(dev, "WPR2 region not created after running FWSEC-FRTS\n");
-+        let Some(wpr2_range) = wpr2_range(bar) else {
-+            dev_err!(dev, "WPR2 region not created after running FWSEC-FRTS\n");
+-    /// Scratch register 0xe used as FRTS firmware error code.
+-    pub(crate) NV_PBUS_SW_SCRATCH_0E_FRTS_ERR(u32) => NV_PBUS_SW_SCRATCH[0xe] {
+-        31:16   frts_err_code;
+-    }
+ }
  
--                Err(EIO)
--            }
--            (wpr2_lo, _) if wpr2_lo != fb_layout.frts.start => {
--                dev_err!(
--                    dev,
--                    "WPR2 region created at unexpected address {:#x}; expected {:#x}\n",
--                    wpr2_lo,
--                    fb_layout.frts.start,
--                );
-+            return Err(EIO);
-+        };
- 
--                Err(EIO)
--            }
--            (wpr2_lo, wpr2_hi) => {
--                dev_dbg!(dev, "WPR2: {:#x}-{:#x}\n", wpr2_lo, wpr2_hi);
--                dev_dbg!(dev, "GPU instance built\n");
-+        if wpr2_range.start != fb_layout.frts.start {
-+            dev_err!(
-+                dev,
-+                "WPR2 region created at unexpected address {:#x}; expected {:#x}\n",
-+                wpr2_range.start,
-+                fb_layout.frts.start,
-+            );
- 
--                Ok(())
--            }
-+            return Err(EIO);
-         }
-+
-+        dev_dbg!(dev, "WPR2: {:#x}-{:#x}\n", wpr2_range.start, wpr2_range.end);
-+        dev_dbg!(dev, "GPU instance built\n");
-+
-+        Ok(())
-     }
- 
-     /// Load and prepare the resources required to properly reset the GSP after it has been stopped.
+ // PGC6 register space.
 
 -- 
 2.55.0
