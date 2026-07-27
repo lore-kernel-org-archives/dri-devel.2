@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61008C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF9A4C54F56
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EAF410E540;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11AEF10E534;
 	Tue, 28 Jul 2026 07:21:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="VrTwGW4m";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="cD/2EUfM";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id EBAA510E491;
- Mon, 27 Jul 2026 16:48:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1541410E491;
+ Mon, 27 Jul 2026 16:47:45 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5F7E01713;
- Mon, 27 Jul 2026 09:47:58 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5F79516F8;
+ Mon, 27 Jul 2026 09:47:40 -0700 (PDT)
 Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
  [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C99943F86F;
- Mon, 27 Jul 2026 09:47:53 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id CB9873F86F;
+ Mon, 27 Jul 2026 09:47:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785170882; bh=1nPdXqpMGrD8xhrtZLy0UKY4t0IJBjPnmmBVyVTpx2M=;
+ t=1785170864; bh=HTxL5I80nQ3dFGJzsPYMsGaUEA0cATezEAGoZ6SZAko=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=VrTwGW4mYDqQ+Z27OKZvmrSWlMxIF9vB8wItFBCFzOD96K2SMpyMovHX9gdNiY0K6
- KTkZ43BeXBYATryo387K8Y/zE/PbD147zbQij+iKgrmmKw6au5gN84pjtEpgkqn/nN
- weSnIFswO51i+rS/asQ1MifW24hm3Y/lBeLNUCWM=
+ b=cD/2EUfMuUeyBVWNFHChNrDBH7K/jYSjTJKf2AXn2R9DI+PVxfhjgfb453XXO3T00
+ wM2xtUT1X0QX+sopNRnwbQI/o96tO4ir4xNQ7qJwgqdJF5QNcWrVk4USoCTYK5iOy/
+ 9Wp82ZRCjM6t4RzOb3pUepvrD42VVL0Lu3oBSBc0=
 From: Muhammad Usama Anjum <usama.anjum@arm.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -71,9 +71,9 @@ Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
  linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
  linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: [PATCH RFC 03/11] mm: name pointers to copied PTE values ptentp
-Date: Mon, 27 Jul 2026 17:46:54 +0100
-Message-ID: <20260727164715.2866609-4-usama.anjum@arm.com>
+Subject: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table storage
+Date: Mon, 27 Jul 2026 17:46:52 +0100
+Message-ID: <20260727164715.2866609-2-usama.anjum@arm.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260727164715.2866609-1-usama.anjum@arm.com>
 References: <20260727164715.2866609-1-usama.anjum@arm.com>
@@ -95,79 +95,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The hw_pte_t conversion must retain pte_t * for pointers to standalone PTE
-values. Name the value parameters ptentp in the install_pte callback,
-write_protect_page(), and guard_install_set_pte() so the later mechanical
-conversion can distinguish them from pointers to PTE table storage.
+pte_t is used both for logical PTE values and for entries stored in a PTE
+table, so pte_t * does not distinguish a pointer to a copied value from a
+pointer to table storage.
 
-Some functions already use the ptentp name, including:
-- madvise_folio_pte_batch()
-- folio_pte_batch_flags()
-No need to convert them.
+Introduce hw_pte_t as the generic name for a PTE table element. Define it
+as an alias of pte_t by default so architectures retain their existing
+representation and behavior until they opt in to a distinct storage type.
 
-This is a naming-only change.
+Include asm/page.h so pte_t is defined before the generic alias.
 
 Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
- include/linux/pagewalk.h | 2 +-
- mm/ksm.c                 | 4 ++--
- mm/madvise.c             | 4 ++--
- 3 files changed, 5 insertions(+), 5 deletions(-)
+ MAINTAINERS                   |  1 +
+ include/linux/pgtable_types.h | 11 +++++++++++
+ 2 files changed, 12 insertions(+)
+ create mode 100644 include/linux/pgtable_types.h
 
-diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
-index b41d7265c01bc..c34d826c5e4a2 100644
---- a/include/linux/pagewalk.h
-+++ b/include/linux/pagewalk.h
-@@ -89,7 +89,7 @@ struct mm_walk_ops {
- 		       struct mm_walk *walk);
- 	void (*post_vma)(struct mm_walk *walk);
- 	int (*install_pte)(unsigned long addr, unsigned long next,
--			   pte_t *ptep, struct mm_walk *walk);
-+			   pte_t *ptentp, struct mm_walk *walk);
- 	enum page_walk_lock walk_lock;
- };
- 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index b9b32f7bfb691..c41b2c241bb09 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -1292,7 +1292,7 @@ static u32 calc_checksum(struct page *page)
- }
- 
- static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
--			      pte_t *orig_pte)
-+			      pte_t *ptentp)
- {
- 	struct mm_struct *mm = vma->vm_mm;
- 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, 0, 0);
-@@ -1371,7 +1371,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
- 
- 		set_pte_at(mm, pvmw.address, pvmw.pte, entry);
- 	}
--	*orig_pte = entry;
-+	*ptentp = entry;
- 	err = 0;
- 
- out_unlock:
-diff --git a/mm/madvise.c b/mm/madvise.c
-index 07a21ca31bad4..c324cc991f841 100644
---- a/mm/madvise.c
-+++ b/mm/madvise.c
-@@ -1101,12 +1101,12 @@ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
- }
- 
- static int guard_install_set_pte(unsigned long addr, unsigned long next,
--				 pte_t *ptep, struct mm_walk *walk)
-+				 pte_t *ptentp, struct mm_walk *walk)
- {
- 	unsigned long *nr_pages = (unsigned long *)walk->private;
- 
- 	/* Simply install a PTE marker, this causes segfault on access. */
--	*ptep = make_pte_marker(PTE_MARKER_GUARD);
-+	*ptentp = make_pte_marker(PTE_MARKER_GUARD);
- 	(*nr_pages)++;
- 
- 	return 0;
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 15dd00c7ffec5..78aac05949829 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -16981,6 +16981,7 @@ F:	include/linux/mmu_notifier.h
+ F:	include/linux/pagewalk.h
+ F:	include/linux/pgalloc.h
+ F:	include/linux/pgtable.h
++F:	include/linux/pgtable_types.h
+ F:	include/linux/ptdump.h
+ F:	include/linux/vmpressure.h
+ F:	include/linux/vmstat.h
+diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+new file mode 100644
+index 0000000000000..ed5dba42a4f8c
+--- /dev/null
++++ b/include/linux/pgtable_types.h
+@@ -0,0 +1,11 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#ifndef _LINUX_PGTABLE_TYPES_H
++#define _LINUX_PGTABLE_TYPES_H
++
++#include <asm/page.h>
++
++#ifndef __HAVE_ARCH_HW_PTE_T
++#define hw_pte_t pte_t
++#endif
++
++#endif /* _LINUX_PGTABLE_TYPES_H */
 -- 
 2.47.3
 
