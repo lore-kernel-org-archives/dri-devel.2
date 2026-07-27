@@ -4,90 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC6CFC531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 18:21:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1C97C53209
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 18:22:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3002910E124;
-	Mon, 27 Jul 2026 18:21:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 454E310E6C0;
+	Mon, 27 Jul 2026 18:22:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="AtlcJW1a";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="CCyuTXR1";
 	dkim-atps=neutral
-Received: from mail-yx1-f98.google.com (mail-yx1-f98.google.com
- [74.125.224.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6C9910E124
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 18:21:54 +0000 (UTC)
-Received: by mail-yx1-f98.google.com with SMTP id
- 956f58d0204a3-6681e7911b0so4097726d50.0
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 11:21:54 -0700 (PDT)
+Received: from mail-pf1-f226.google.com (mail-pf1-f226.google.com
+ [209.85.210.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6ED8310E6C0
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 18:22:00 +0000 (UTC)
+Received: by mail-pf1-f226.google.com with SMTP id
+ d2e1a72fcca58-84536ecfc5bso3509034b3a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 11:22:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785176513; x=1785781313;
+ d=1e100.net; s=20251104; t=1785176520; x=1785781320;
  h=content-transfer-encoding:mime-version:reply-to:references
  :in-reply-to:message-id:date:subject:cc:to:from:dkim-signature
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to:content-type;
- bh=EhH+MqcwbN22J9I+qOwSEx25qMnne6EHpjiOSvHSUJQ=;
- b=gJdA+VVxP3o6LQZBhNzVmZpsv9lnlquVleQT1XFIfotGrl5/UFQ/nMgnqKC52JDebY
- NUKVdjNMhxm7/tB6UETV42lzmwQilgRiS82Qy1LihiMdP3Ajyj0n3Vm3d+p75AfuSRjL
- ij4CGY3hZozSBLHmNuCo/tgtakI8Sg7ZArmFxyp1ovs4FO/MZmV0C3woKEmUS3myQyBm
- VCjU/lL4qcIb54vje3dtLv9ZxtWHNBVRPyw+a6DzidIUWIKj+EKWHRZkdsHWH4Cn+wp4
- UYPQLFhYtfpbLx/+verV+aJSBv7j3pRST9NSTM9TtpwKq6Ib1PkWXcEf66PYkuj07AQ5
- RtVA==
-X-Gm-Message-State: AOJu0YwLK9xCrza/ddcyL4LMvxsjDdvcja80MSvCbsNq9T0QdZGwMuIX
- 3ZAqpYwO/PS3bN5QQIiDRPINzMjLT2mutpYs+NuFBI8LkFxT54ugun3ZOyc4WWGEyRW5KqPPCXj
- 2V7EFjBn+XgQvCNcohF4NRMD/THXB8TeCRmMZHasRsMfcozjihkHP0iEwdSLkW+XfWZQbnCPW+I
- Ytq2RHoqMUxK8I2Zv9MF/3XxDvJIEZ8NJltg7IGoDR+fbgyLp69C400R3ncOLhQVTax6jLQhUac
- 13ECSXgueFskaI/42rY5yzxQ/ot
-X-Gm-Gg: AR+sD10vFELHr5x6vILKISXltjkbQDu2g0ns5q8HJKZ0leQzYc4Dzt+UW7WmGb1VePN
- v0vTeaJqcQ7wt+3QzzAn+JYNESoQPdHnVxvl0IADNDMeTWIozVHIBGtcozStt1Il7Zyw3buQB0Q
- dIkVe8bx4eZJoEsNf8VyIUIzu7l3l7hSV3W357zxDEKJdm/6yRM8cnW1ufCiEUAqVKhiQIMk2q7
- NwTghwJm401FLgrN9ULrc9ZnEpJI1Tywl2R3oUnHaQkJ8WG4IZ3UK5Jr/02O11gHtIyv64NdbUU
- tdyB9Q5yYAxUsXGvrw7NwAqXy1pPb/badJpuKaiif6CCLLTLg+mU9A3Fbrayp3VByWP9vPyULV8
- I3JWgRSTegoLmZ3vMUwpp9mQUv3AT1SHQwqks3tx9dj0bZVWbFw6HJSDR0sBTZ5ngPEqXoxBTtC
- RRHfPivNpo5URbVRS54eCd283S8TbgTIoL+dMVnUuK
-X-Received: by 2002:a05:690e:490:b0:664:ed6f:4eb1 with SMTP id
- 956f58d0204a3-668ffc362bamr116118d50.16.1785176513105; 
- Mon, 27 Jul 2026 11:21:53 -0700 (PDT)
+ bh=06h5ZECmEU4jnkS2bbRvNkToLLJM0JZ9FQmgH2xrJyA=;
+ b=bVH+3ZDGtV2wdvBNr2qV9zd94H6CjMnvP9ofsuNDLHCkuEmPdUuK9cHXB4t1DdYQ3V
+ ZQ60yyWDs83jvJoseunfiC00fwa50hcRtCUmMajNzuVJ2VFZWas7aoiaJE9FOr+5EiO+
+ PuSuvet3Kv4+k5tlfDWU+3GDDNm1xcn9IjfGB0lUVQiMlPxuedw4YIQ0SJZ5Braagims
+ RuP7xhNAp96tVRuUnhSh3JOqMh9HdtFXt5eOV1XIGbYqy6U+xSURjlASjBEuTgwGJDQY
+ iL0uGifh+6GENpF2/38ghruv47ZNaZuPTl84yyHrOa2u12rCPZcdlyl3Gwjjq29Vx43a
+ CpfQ==
+X-Gm-Message-State: AOJu0Ywhi5wCOEfQwLfZcOxhGOvhanBOlxAISjsQyFu6fDlXitBywRj/
+ xtybsl3h/LTqYcNZGIjbnyAsq025zfLrwXF5u0EYITridRbFH7ATdNlkbFMTEmITyoNmW/QZN1u
+ +WDIAL1vTbxfchi/vjYJn0t6eF/3ByMQrH8qHrA63khWOTZH+jkH4Pe/nA3g8GeAO3p4YTv4RYl
+ odU1n5ZnzdcdT87raOkXqmwL34bMKf2TrnWxb4BKwPZT94aFEWkqKbxaSfEBINoQb4O5Q4GkKHx
+ u+7UuSBtk0+NQF2WqhJ7IkkMRIr
+X-Gm-Gg: AR+sD12CbqNlI4dzdNGOhIK26l+8mwBPDUJG77kG4PTzAqok4za70Xw0sK7u9av3SjI
+ ezcHyrYTyujeUUU2xrQtI0dFcSblZDTn4wAulztvUAnLyjnRLpHMCHxyMDI9wkL0tA1WmJ0hBUq
+ dDUBy/jkPLqLqhWld/LDSYlOhGMAVTeBH6vP8o6vY0C6US7AWgqmFrugXSd2ykEjPVuWnh6xn7c
+ MN/haqGg6nCa6a8kiPSaoYDtqezuBi2YIm7BC4EQRr1zHEdNO4Ve9VjxozX3uvcjz6VOtba8o01
+ AC0VhmpQR/JalR9M9URUiUp8Lte519JaVhV8SWbkPZVzNyidjYNtOeGHB46s+Sm07IZDuEZKOgL
+ Z/6YsugQiYBEN3a5C1fa8Aug2flBJm8+AY7rTnt1wHzY+laL2c8zkVxLqAErTKUvGSSC3yr97zM
+ wM5TLop3O7i031HRan29CxhGOYooFtUvBkrgumJz1I
+X-Received: by 2002:a05:6a00:1912:b0:848:2f84:f435 with SMTP id
+ d2e1a72fcca58-84e595cbfe4mr7654547b3a.78.1785176519739; 
+ Mon, 27 Jul 2026 11:21:59 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-26.dlp.protect.broadcom.com. [144.49.247.26])
+ (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
  by smtp-relay.gmail.com with ESMTPS id
- 956f58d0204a3-668c6ad70d9sm700542d50.0.2026.07.27.11.21.52
+ 41be03b00d2f7-cbbb66d391dsm640345a12.11.2026.07.27.11.21.58
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Mon, 27 Jul 2026 11:21:52 -0700 (PDT)
+ Mon, 27 Jul 2026 11:21:59 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-ej1-f72.google.com with SMTP id
- a640c23a62f3a-c1c4715cf0eso308999166b.2
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 11:21:51 -0700 (PDT)
+Received: by mail-ej1-f71.google.com with SMTP id
+ a640c23a62f3a-c15e555a164so14578966b.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 11:21:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1785176511; x=1785781311;
+ d=broadcom.com; s=google; t=1785176517; x=1785781317;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:reply-to:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=EhH+MqcwbN22J9I+qOwSEx25qMnne6EHpjiOSvHSUJQ=;
- b=AtlcJW1aybRKIUDQ1iJo37rKMSjOxkE3NPmjexu8aZ3uE0br0w2XWNekc34u3rovSn
- J9QWNn0jFD3Y6mp8z8B2qm/W2O7VSvB8jQr3iJNno+iAw8JDeCRXRGR5HtKyGI2B+0/x
- IFihFdM3L0yt0z3sXBd1rHwvOtDPgfo+SEPuY=
-X-Received: by 2002:a17:907:c081:b0:c12:8fe9:3a42 with SMTP id
- a640c23a62f3a-c1f1f09fc91mr370671166b.35.1785176510847; 
- Mon, 27 Jul 2026 11:21:50 -0700 (PDT)
-X-Received: by 2002:a17:907:c081:b0:c12:8fe9:3a42 with SMTP id
- a640c23a62f3a-c1f1f09fc91mr370670166b.35.1785176510372; 
- Mon, 27 Jul 2026 11:21:50 -0700 (PDT)
+ bh=06h5ZECmEU4jnkS2bbRvNkToLLJM0JZ9FQmgH2xrJyA=;
+ b=CCyuTXR1F6AAtkJWQoEaSmZFJfLly3plgHXLDi3MAoVRuHMYG9185Nqkpn8EQFIdnI
+ xMwowH40LNG7ruGHo8/Vg0o3ToGPiZTHSCstti6CcE3M9g+E/JcRrNEKT18j4f+aRjah
+ zdPIxG+j2tJRXYtr6cFRwsfoZFPA2vpKsB+LE=
+X-Received: by 2002:a17:907:3e20:b0:beb:d461:7b09 with SMTP id
+ a640c23a62f3a-c1f678473e4mr25759666b.11.1785176517168; 
+ Mon, 27 Jul 2026 11:21:57 -0700 (PDT)
+X-Received: by 2002:a17:907:3e20:b0:beb:d461:7b09 with SMTP id
+ a640c23a62f3a-c1f678473e4mr25758066b.11.1785176516679; 
+ Mon, 27 Jul 2026 11:21:56 -0700 (PDT)
 Received: from mombasawalam-Precision-5820-Tower.cap.broadcom.net
  ([192.19.50.250]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1f5e717da4sm82222366b.4.2026.07.27.11.21.47
+ a640c23a62f3a-c1f5e717da4sm82222366b.4.2026.07.27.11.21.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jul 2026 11:21:49 -0700 (PDT)
+ Mon, 27 Jul 2026 11:21:55 -0700 (PDT)
 From: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 To: dri-devel@lists.freedesktop.org
 Cc: bcm-kernel-feedback-list@broadcom.com, ian.forbes@broadcom.com,
  zack.rusin@broadcom.com, Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-Subject: [PATCH v6 1/4] drm/vmwgfx: Add some checks to
- vmw_cursor_plane_atomic_update
-Date: Mon, 27 Jul 2026 11:26:19 -0700
-Message-ID: <20260727182622.236086-2-maaz.mombasawala@broadcom.com>
+Subject: [PATCH v6 2/4] drm/vmwgfx: Check vrefresh in drm_mode_setcrtc.
+Date: Mon, 27 Jul 2026 11:26:20 -0700
+Message-ID: <20260727182622.236086-3-maaz.mombasawala@broadcom.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260727182622.236086-1-maaz.mombasawala@broadcom.com>
 References: <20260727182622.236086-1-maaz.mombasawala@broadcom.com>
@@ -110,55 +109,111 @@ Reply-To: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In cases where old_state may not be present we hit a null dereference.
-Get display unit from cursor plane instead to fix this and also do an
-early return if there is no new_state since there is nothing to do in
-that case.
-This fixes igt test kms_cursor_legacy@torture-bo.
+Add the mode_valid() callback in drm_mode_config_funcs to check for valid
+mode during drm_mode_setcrtc.
+Both the mode_valid() callbacks also check if the vrefresh value is
+correct.
+This fixes igt test kms_invalid_mode@overflow-vrefresh.
 
-Fixes: 965544150d1c ("drm/vmwgfx: Refactor cursor handling")
-Cc: Zack Rusin <zack.rusin@broadcom.com>
-Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org
 Signed-off-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 ---
- drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.c  | 30 ++++++++++++++++++++++++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_kms.h  |  9 +++++++++
+ drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c | 12 +++--------
+ 3 files changed, 42 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-index d1e7df500190..563812f1e23e 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c
-@@ -22,6 +22,9 @@
- #define VMW_CURSOR_SNOOP_WIDTH 64
- #define VMW_CURSOR_SNOOP_HEIGHT 64
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+index 1b407b61f683..c7d977aba3f9 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.c
+@@ -1063,8 +1063,38 @@ vmw_kms_atomic_check_modeset(struct drm_device *dev,
+ 	return ret;
+ }
  
-+#define vmw_cursor_to_du(cursor_plane) \
-+	container_of(cursor_plane, struct vmw_display_unit, cursor.base)
++static enum drm_mode_status
++vmw_kms_config_mode_valid(struct drm_device *dev,
++			  const struct drm_display_mode *mode)
++{
++	enum drm_mode_status ret;
++	struct vmw_private *dev_priv = vmw_priv(dev);
++	u64 assumed_cpp = dev_priv->assume_16bpp ? 2 : 4;
++	/* Align width and height to account for GPU tile over-alignment */
++	u64 required_mem = 0;
 +
- struct vmw_svga_fifo_cmd_define_cursor {
- 	u32 cmd;
- 	SVGAFifoCmdDefineAlphaCursor cursor;
-@@ -781,13 +784,14 @@ vmw_cursor_plane_atomic_update(struct drm_plane *plane,
- 			       struct drm_atomic_commit *state)
- {
- 	struct vmw_bo *bo;
--	struct drm_plane_state *new_state =
--		drm_atomic_get_new_plane_state(state, plane);
--	struct drm_plane_state *old_state =
--		drm_atomic_get_old_plane_state(state, plane);
--	struct drm_crtc *crtc = new_state->crtc ?: old_state->crtc;
-+	struct drm_plane_state *new_state;
++	ret = drm_mode_validate_size(mode, dev_priv->texture_max_width,
++				     dev_priv->texture_max_height);
++	if (ret != MODE_OK)
++		return ret;
 +
-+	new_state = drm_atomic_get_new_plane_state(state, plane);
-+	if (!new_state)
-+		return;
++	required_mem = (u64)ALIGN(mode->hdisplay, GPU_TILE_SIZE) *
++		       ALIGN(mode->vdisplay, GPU_TILE_SIZE) *
++		       assumed_cpp;
++	required_mem = ALIGN(required_mem, PAGE_SIZE);
 +
- 	struct vmw_private *dev_priv = vmw_priv(plane->dev);
--	struct vmw_display_unit *du = vmw_crtc_to_du(crtc);
-+	struct vmw_display_unit *du = vmw_cursor_to_du(plane);
- 	struct vmw_plane_state *vps = vmw_plane_state_to_vps(new_state);
- 	s32 hotspot_x, hotspot_y, cursor_x, cursor_y;
++	if (required_mem > dev_priv->max_primary_mem)
++		return MODE_MEM;
++
++	if (!drm_mode_vrefresh(mode))
++		return MODE_BAD;
++
++	return MODE_OK;
++}
++
+ static const struct drm_mode_config_funcs vmw_kms_funcs = {
+ 	.fb_create = vmw_kms_fb_create,
++	.mode_valid = vmw_kms_config_mode_valid,
+ 	.atomic_check = vmw_kms_atomic_check_modeset,
+ 	.atomic_commit = drm_atomic_helper_commit,
+ };
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
+index 2224d7d91d1b..1b717caecc78 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_kms.h
+@@ -16,6 +16,15 @@
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_probe_helper.h>
+ 
++/*
++ * Some renderers such as llvmpipe will align the width and height of their
++ * buffers to match their tile size. We need to keep this in mind when exposing
++ * modes to userspace so that this possible over-allocation will not exceed
++ * graphics memory. 64x64 pixels seems to be a reasonable upper bound for the
++ * tile size of current renderers.
++ */
++#define GPU_TILE_SIZE 64
++
+ /**
+  * struct vmw_du_update_plane - Closure structure for vmw_du_helper_plane_update
+  * @plane: Plane which is being updated.
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+index 4139837f4caf..04c5c20588d8 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c
+@@ -45,15 +45,6 @@
+ #define vmw_connector_to_stdu(x) \
+ 	container_of(x, struct vmw_screen_target_display_unit, base.connector)
+ 
+-/*
+- * Some renderers such as llvmpipe will align the width and height of their
+- * buffers to match their tile size. We need to keep this in mind when exposing
+- * modes to userspace so that this possible over-allocation will not exceed
+- * graphics memory. 64x64 pixels seems to be a reasonable upper bound for the
+- * tile size of current renderers.
+- */
+-#define GPU_TILE_SIZE 64
+-
+ enum stdu_content_type {
+ 	SAME_AS_DISPLAY = 0,
+ 	SEPARATE_SURFACE,
+@@ -870,6 +861,9 @@ vmw_stdu_connector_mode_valid(struct drm_connector *connector,
+ 	if (required_mem > dev_priv->max_mob_size)
+ 		return MODE_MEM;
+ 
++	if (!drm_mode_vrefresh(mode))
++		return MODE_BAD;
++
+ 	return MODE_OK;
+ }
  
 -- 
 2.54.0
