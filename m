@@ -4,59 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09316C531FC
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 14:33:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21BAFC531FC
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 14:48:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 559EA10E425;
-	Mon, 27 Jul 2026 14:33:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4618C10E428;
+	Mon, 27 Jul 2026 14:48:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qsZEErWb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kVheJb9L";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0507610E424
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 14:32:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
- MIME-Version:Subject:Date:From:From:Reply-To;
- bh=sgG09Bj+OFHPqopUOsnfZjwfVwjhh8/cAB4JsW7RTXU=; b=qsZEErWbP2ky40hILACrUb648d
- CM5G0dHWgjJN0qU+K3irONO3rGTVomYuf9KGaa9YLHFcGTMZ5cP/OZWT7JEv2mVKCOvLRp1v0z4ES
- F65i4eTVm8PZhL019bUp/ZyhR0cwwgzD2EZA4YF2IJFC8qPd8vUCh0ITMAG3R539bshKTUvN5xftz
- CG+0cOhdbBZX7FqPyOPy+kl0E01a9hfxUAw/IAyW1v8cjypdkDy445j0wqfKPKFtdP0SBAIjKZ2wQ
- JN3ZLeukhA+21TFHEtnEpb8wOGuglbwpFVScy9Y5Jtew+jLb8BBKIsVN0Zj4Ss/FwLHFRB7MqXfuW
- ERZQ28Hw==;
-Received: from [187.36.208.132] (helo=[10.0.0.1])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1woMNk-006B5g-L8; Mon, 27 Jul 2026 16:32:40 +0200
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Mon, 27 Jul 2026 11:32:28 -0300
-Subject: [PATCH RESEND v2 1/2] drm/vc4: Supply the overflow slot size in
- BPOS, not the whole bin BO size
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260727-vc4-bin-oom-fixes-v2-1-0d8a5eddc7c9@igalia.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB56910E428
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 14:48:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id ED040600AA;
+ Mon, 27 Jul 2026 14:48:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ED221F000E9;
+ Mon, 27 Jul 2026 14:48:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785163686;
+ bh=scnaVbUkAPuJU/AE0LjSDTX3CCN2iMGJrjFzW6gD9yE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=kVheJb9LQTFCwENhhVF3VsoOuijWF/tYtlGuRtoWkpxrHT7nsv5IcBSjvcegNhTkt
+ Oez+ePdvcPvF/6raUPwMHpQUYA0HvucwtUaKefs879b2FHdXQ7/m+FpROrg+3rUBcI
+ j4VYJ9t3DwLdOcyyohEIHsfBWUXtKm3IyeGNt/k3wUNTQ4AdFGIqAWnOP52FxA1qHr
+ SnRMe0ti52DjYTTWdN1WqnhBVDr7qG56EB1Y88YSEouNOhTRqG4AhvNpmheqZyDM1l
+ 7D8ayuuPQNZ7B9iGSeowvOmepCqr1WnZkJHkvAbsKkQatne2loo9jbM6Wi+lARXmfW
+ GweWZRxP0aBZw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND v2 2/2] drm/vc4: Zero the tile state data array
+ before each BIN job
+To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260727-vc4-bin-oom-fixes-v2-2-0d8a5eddc7c9@igalia.com>
 References: <20260727-vc4-bin-oom-fixes-v2-0-0d8a5eddc7c9@igalia.com>
-In-Reply-To: <20260727-vc4-bin-oom-fixes-v2-0-0d8a5eddc7c9@igalia.com>
-To: Jose Maria Casanova Crespo <jmcasanova@igalia.com>, 
- Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2012; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=HlcdIdrKDQdlDk3DhCiv3RVPzx+2v9fGg12OcAB36Ps=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqZ2wBN8N+85xVn5qSkff7rJ7QksP9P265KTqA/
- LzF/AwaJSqJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCamdsAQAKCRA/8w6Kdoj6
- qpx/B/4sudsHNYRo+AfRMjI9hpGe16881Uae6yKD4hPBusJN9Ki6dnFgjYHq84AQBH55alGKmxR
- FeR9mov3RcxqsbAfegVXb1aOe3II3TLgsnGh+Ps/yfKElgWTdLcHcZTNSgLA2Qxo0U5l/qzzEb0
- rzFdtt+bhQWthWNO5IOGIHqcZrMGsaaL5tW9n8ADPMhd4vCv1es9WruXMvnY8boo18KcIK2VqfW
- 3vuIa0OJkYhH1AzB/KHTfG56tut5RFOLoBehcMcSmu4CC4kyijxI45ufLgX3zfV5TDnVnMqqyds
- rVP/x8FzotlVqhWyzmFF9ByBSvYptHW2f6j3E0SU7eIR8SXt
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
+ <20260727-vc4-bin-oom-fixes-v2-2-0d8a5eddc7c9@igalia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 14:48:06 +0000
+Message-Id: <20260727144806.8ED221F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,52 +54,122 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-vc4_overflow_mem_work() points BPOA at a 512KB slot inside the 16MB
-binner BO, but writes the size of the whole BO to BPOS. On every binner
-out-of-memory event the PTB is therefore authorized to write tile lists
-across all the other slots (which may hold the tile state, tile alloc and
-overflow memory of in-flight jobs) and, for any slot but the first, past
-the end of the binner BO into unrelated CMA memory.
+Pre-existing issues:
+- [Critical] Unprotected access to `vc4->bin_bo` during command list valida=
+tion leads to NULL Pointer Dereference or Use-After-Free, which the patch e=
+scalates to a severe memory write via `memset`.
+--
 
-Since CMA pages are recycled into page cache and user allocations, this
-is arbitrary memory corruption by GPU DMA. In practice it shows up as GPU
-hangs with corrupted control list pointers, userspace heap corruption, a
-GPU that stays permanently wedged after the first hang, and occasional
-full system crashes, whenever a job overflows the initial binner slot.
+--- Patch [2]: [PATCH RESEND v2 2/2] drm/vc4: Zero the tile state data arra=
+y before each BIN job ---
+commit e8713542a8743898c85cf163587b5ea2ab0ad42b
+Author: Ma=C3=ADra Canal <mcanal@igalia.com>
 
-The bug dates back to the conversion from a dedicated overflow BO (where
-writing the full BO size was correct) to the slotted binner BO.
+drm/vc4: Zero the tile state data array before each BIN job
 
-Fixes: 553c942f8b2c ("drm/vc4: Allow using more than 256MB of CMA memory.")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-4.8
-Signed-off-by: Jose Maria Casanova Crespo <jmcasanova@igalia.com>
-Reviewed-by: Maíra Canal <mcanal@igalia.com>
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
----
- drivers/gpu/drm/vc4/vc4_irq.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The binner BO is a single 16MB buffer split into 512KB slots that are
+handed out to jobs at submission time and recycled as jobs complete,
+without ever being cleared. Each slot holds the job's Tile State Data
+Array (TSDA) at its start, followed by the tile allocation pool.
 
-diff --git a/drivers/gpu/drm/vc4/vc4_irq.c b/drivers/gpu/drm/vc4/vc4_irq.c
-index 8e5141bb5075..7877d493d80e 100644
---- a/drivers/gpu/drm/vc4/vc4_irq.c
-+++ b/drivers/gpu/drm/vc4/vc4_irq.c
-@@ -104,7 +104,7 @@ vc4_overflow_mem_work(struct work_struct *work)
- 	vc4->bin_alloc_overflow = BIT(bin_bo_slot);
- 
- 	V3D_WRITE(V3D_BPOA, bo->base.dma_addr + bin_bo_slot * vc4->bin_alloc_size);
--	V3D_WRITE(V3D_BPOS, bo->base.base.size);
-+	V3D_WRITE(V3D_BPOS, vc4->bin_alloc_size);
- 	V3D_WRITE(V3D_INTCTL, V3D_INT_OUTOMEM);
- 	V3D_WRITE(V3D_INTENA, V3D_INT_OUTOMEM);
- 	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+Link: https://github.com/raspberrypi/linux/issues/3221 [1]
+Link: https://github.com/raspberrypi/linux/issues/5780 [2]
 
--- 
-2.55.0
+> diff --git a/drivers/gpu/drm/vc4/vc4_validate.c b/drivers/gpu/drm/vc4/vc4=
+_validate.c
+> index 7f2fadfde7a8e..d2a65c968b1f9 100644
+> --- a/drivers/gpu/drm/vc4/vc4_validate.c
+> +++ b/drivers/gpu/drm/vc4/vc4_validate.c
+> @@ -385,6 +385,23 @@ validate_tile_binning_config(VALIDATE_ARGS)
+>  		return -EINVAL;
+>  	}
+> =20
+> +	/* The tile state data array is 48 bytes per tile, and we put it at
+> +	 * the start of a BO containing both it and the tile alloc.
+> +	 */
+> +	tile_state_size =3D 48 * tile_count;
+> +
+> +	/* Since the tile alloc array will follow us, align. */
+> +	tile_state_size =3D roundup(tile_state_size, 4096);
+> +
+> +	/* Reject configurations whose tile state would leave no room for
+> +	 * the tile alloc pool that follows it in the slot.
+> +	 */
+> +	if (tile_state_size >=3D vc4->bin_alloc_size) {
+> +		DRM_DEBUG("Tile binning config of %dx%d too large\n",
+> +			  exec->bin_tiles_x, exec->bin_tiles_y);
+> +		return -EINVAL;
+> +	}
+> +
+>  	bin_slot =3D vc4_v3d_get_bin_slot(vc4);
 
+[ ... ]
+
+> @@ -400,13 +417,13 @@ validate_tile_binning_config(VALIDATE_ARGS)
+>  	exec->bin_slots |=3D BIT(bin_slot);
+>  	bin_addr =3D vc4->bin_bo->base.dma_addr + bin_slot * vc4->bin_alloc_siz=
+e;
+> =20
+> -	/* The tile state data array is 48 bytes per tile, and we put it at
+> -	 * the start of a BO containing both it and the tile alloc.
+> -	 */
+> -	tile_state_size =3D 48 * tile_count;
+> +	exec->tile_alloc_offset =3D bin_addr + tile_state_size;
+> =20
+> -	/* Since the tile alloc array will follow us, align. */
+> -	exec->tile_alloc_offset =3D bin_addr + roundup(tile_state_size, 4096);
+> +	/* The TSDA area must be zeroed out before use, otherwise the PTB might
+> +	 * consume a stale tile state.
+> +	 */
+> +	memset(vc4->bin_bo->base.vaddr + bin_slot * vc4->bin_alloc_size, 0,
+> +	       tile_state_size);
+
+[Severity: Critical]
+This is a pre-existing issue, but this patch escalates it to a potential ke=
+rnel
+memory corruption via a NULL pointer dereference or use-after-free write.
+
+During command list validation, vc4->bin_bo is accessed here before it is
+guaranteed to be allocated or referenced. The actual reference to the BO
+is obtained later in vc4_get_bcl():
+
+drivers/gpu/drm/vc4/vc4_gem.c:vc4_get_bcl() {
+    ...
+    ret =3D vc4_validate_bin_cl(dev, ...);
+    ...
+    if (exec->found_tile_binning_mode_config_packet) {
+        ret =3D vc4_v3d_bin_bo_get(vc4, &exec->bin_bo_used);
+    ...
+}
+
+If a user imports PRIME BOs without creating a local BO first, vc4->bin_bo
+can be NULL.
+
+Furthermore, if a previous BO was freed, bin_bo_release() sets vc4->bin_bo
+to NULL but leaves vc4->bin_alloc_size as a stale non-zero value:
+
+drivers/gpu/drm/vc4/vc4_v3d.c:bin_bo_release() {
+    ...
+    drm_gem_object_put(&vc4->bin_bo->base.base);
+    vc4->bin_bo =3D NULL;
+}
+
+Because vc4->bin_alloc_size is not reset, the newly added size check
+(tile_state_size >=3D vc4->bin_alloc_size) can pass, allowing the memset to
+dereference a NULL or freed vc4->bin_bo and write up to ~512KB into
+unallocated memory.
+
+Could we ensure vc4->bin_bo is valid and properly referenced before
+attempting to clear the memory here, or defer the initialization until
+after vc4_v3d_bin_bo_get() has been called?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-vc4-bin-oo=
+m-fixes-v2-0-0d8a5eddc7c9@igalia.com?part=3D2
