@@ -4,72 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D7C1C54F52
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE911C54F53
 	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CE4210E7C4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 90C7910E7C5;
 	Tue, 28 Jul 2026 07:21:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jjGqbq9s";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="cDo3Do/r";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33B3189C29
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 19:58:25 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-cbb85186d43so1503588a12.3
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 12:58:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785182305; x=1785787105; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Sqd7xY3TaLuQY6NkycJy1WSdnW1yt4Ypj0KHceVm2q4=;
- b=jjGqbq9sA6VMFUG4nh0BPyfaS5ob/5X7wV/3HMzf5BPHcb9ZUavsANyNzWLIuRO/eN
- 40S230jkCQSgljUDNIkd8pzo4wuRdz0KT4qKLGe/nHblHlSYUL8Y1pzz1sru0vg92zYg
- HRRZWunGRO95Jma1a0BPQQbKy/Om04Ws0xl1eSSUUnwqm9d7RKAuCpBxtJTRh7tMZSbO
- D0NV6xROHKJthVzZXGg4+OSnAZE+hCcxxJtwJkdXu8DFVNpk+s4DP+HoZrRTfKI+owN6
- oNDJKGtJqKT/8xKlC0a4WHErGRWUa6hhTZEI2tB5vAcpV/w3xb5LKatlyzMUIqajGouW
- Xp3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785182305; x=1785787105;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Sqd7xY3TaLuQY6NkycJy1WSdnW1yt4Ypj0KHceVm2q4=;
- b=VwZqKvkVI0Ns+aE79kf1xr6eGuRNxZOsXG5F23cJqGBKEwn1L72PlKV1TBL41PAFIc
- iwTLcwLC47Jh/9Hn78lBEO8T1DVI2J9if8RiFbrX5eOKxI7CsAFnm97KMZRTn1HWF/LJ
- b3p/IV73KDt4IkvkauEPeqag1t+9/OdQ0VjMT0TYSfUOTbgX2X2DfGAtAfIZgMeLW1m1
- wwTvA5LAalgTUBSJR41qLVOXg1AMMTIwPvjCgoSqD46fNhL0MmIbnGDBf026q4uP2rNi
- uEpsbGWuyJYAfTYdhy8r7LhIGxX0cQeAqGny33qR5Zd3HILx93UWV7uyC0c6sqiXOSwU
- W9ng==
-X-Gm-Message-State: AOJu0YznCdCQFxQuCc/SJWetItYTLBy0cnXO9AXmlhdNiGzhlfRSeof6
- R/tDeNspyd5WVL7ZZ3fw35ovksZ+bsnz/AjgUyt0KOXChCm6NfIM7s/vuPAfsZZ7
-X-Gm-Gg: AR+sD12ctsUyqADfEu86wwDVhGlZnD5IoSxx2L+ewCaehYLpw4CwbMt/a5PkvvxLesY
- +7G/MdjekeuknUbov9dcsfxi5tETtBg6SYks9AKo1onvN093WIt/y+vv6OhVMu8/qdavkwauCap
- bVhhd1xFweetYmIeE93phHowMTwLofvyyQDEYpItCutWTwIHAqV4xtoELyC4DZIf3PDwvtXDkr1
- z+1BSaf6IFtU+o6u9QROFzuIw2x2MMuQBK1Zjk0qBnK0GkupEc0Kwyq+l5sUDvoV6nGSluypgMb
- bb2Dm3V112oQeEJih92FcT+rWHFUW8AF5IeoA1L6t3awREkkEBwQFe4yfhlGjpe40WK47aa4D0V
- BbkER3QlwOid+veZGAsY7WFqs8pFCrFUG1akQzWKPirCiXJwZ1BUMX2ch86KDmu3xszHYa4aw3q
- G1up1VleQQ04Gs1LeWgvtgQeVlk6GqzGZLKMkR090s2HWmVXpZ12D9QWgr9MpYFnbB
-X-Received: by 2002:a05:6a21:e081:b0:3c3:6928:8b25 with SMTP id
- adf61e73a8af0-3c67da6f7dcmr9114574637.17.1785182304559; 
- Mon, 27 Jul 2026 12:58:24 -0700 (PDT)
-Received: from [127.0.0.1] ([154.17.229.144]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-13d130cc5ebsm74265164c88.12.2026.07.27.12.58.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jul 2026 12:58:24 -0700 (PDT)
-Message-ID: <82fc6395-3425-4f71-ba58-813856cee61d@gmail.com>
-Date: Tue, 28 Jul 2026 03:58:20 +0800
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4358F10E48C;
+ Mon, 27 Jul 2026 16:48:57 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A614F1764;
+ Mon, 27 Jul 2026 09:48:52 -0700 (PDT)
+Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
+ [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1AEFB3F86F;
+ Mon, 27 Jul 2026 09:48:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785170936; bh=qEy/4+Wk/vbSZVdyK/qjuUUSc2n2G8gdddSYiTCTNvs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=cDo3Do/rskCw4TMjsksYR/tTcB5Uv/vDrx6ixPR1mOTM9Q1q7fU9kGjz12p9Id7LU
+ nUuEt+vwKjZkAjRnRdC1eDlKTRvfsr1Lh1WkbMYT2XqOqXc7LIJh1KJzggyS6NyLvN
+ HLK4yn08JVV6tDRzci16mxLBAw0vZjMCqreNmXG8=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
+ ryan.roberts@arm.com
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: [PATCH RFC 09/11] misc/sgi-gru: use ptep_get() for page-table reads
+Date: Mon, 27 Jul 2026 17:47:00 +0100
+Message-ID: <20260727164715.2866609-10-usama.anjum@arm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260727164715.2866609-1-usama.anjum@arm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Doug Anderson <dianders@chromium.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-From: Weiji Wang <nebclllo0444@gmail.com>
-Subject: [PATCH v2] drm/panel-edp: Add BOE NE140QDM-NX2
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 28 Jul 2026 07:21:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -87,58 +95,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add timing from datasheet for BOE NE140QDM-NX2.
+A leaf PMD is being read through ptep_get() by treating the PMD address
+as PTE-sized table storage. ptep_get() now accepts hw_pte_t *, so update
+the cast accordingly.
 
-edid-decode (hex):
+pte_offset_kernel() also returns hw_pte_t *. Get pte_t value by calling
+ptep_get().
 
-00 ff ff ff ff ff ff 00 09 e5 f2 0a 00 00 00 00
-20 1f 01 04 a5 1e 13 78 03 ee 96 a3 54 4c 99 26
-0f 4e 51 00 00 00 01 01 01 01 01 01 01 01 01 01
-01 01 01 01 01 01 60 d2 00 a0 a0 40 32 60 30 20
-35 00 2e bd 10 00 00 18 c8 9d 00 a0 a0 40 32 60
-30 20 35 00 2e bd 10 00 00 18 00 00 00 fd 00 30
-78 c6 c6 36 01 0a 20 20 20 20 20 20 00 00 00 fe
-00 4e 45 31 34 30 51 44 4d 2d 4e 58 32 20 01 f8
-
-70 13 79 00 00 03 01 14 30 69 00 05 ff 09 9f 00
-2f 00 1f 00 3f 06 31 00 02 00 04 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-00 00 00 00 00 00 00 00 00 00 00 00 00 00 4d 90
-
-Signed-off-by: Weiji Wang <nebclllo0444@gmail.com>
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
-V1 -> V2: Changed entry sorting and shifted to 'delay_200_500_e50_p2e80'
+ drivers/misc/sgi-gru/grufault.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-v1: 
-https://lore.kernel.org/dri-devel/697e79c2-98a9-4bb3-b5fb-db327cbe1bce@gmail.com/
-
-  drivers/gpu/drm/panel/panel-edp.c | 1 +
-  1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/panel/panel-edp.c 
-b/drivers/gpu/drm/panel/panel-edp.c
-index 14dd40afa899..c6cdcd12002e 100644
---- a/drivers/gpu/drm/panel/panel-edp.c
-+++ b/drivers/gpu/drm/panel/panel-edp.c
-@@ -2036,6 +2036,7 @@ static const struct edp_panel_entry edp_panels[] = {
-      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a84, &delay_200_500_e50, 
-"NV133WUM-T01"),
-      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ac5, &delay_200_500_e50, 
-"NV116WHM-N4C"),
-      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ae8, &delay_200_500_e50_p2e80, 
-"NV140WUM-N41"),
-+    EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2, &delay_200_500_e50_p2e80, 
-"NE140QDM-NX2"),
-      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b09, &delay_200_500_e50_po2e200, 
-"NV140FHM-NZ"),
-      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b1e, &delay_200_500_e80, 
-"NE140QDM-N6A"),
-      EDP_PANEL_ENTRY('B', 'O', 'E', 0x0b34, &delay_200_500_e80_d50, 
-"NV122WUM-N41"),
+diff --git a/drivers/misc/sgi-gru/grufault.c b/drivers/misc/sgi-gru/grufault.c
+index 3557d78ee47a2..ff89d34ad2aa4 100644
+--- a/drivers/misc/sgi-gru/grufault.c
++++ b/drivers/misc/sgi-gru/grufault.c
+@@ -228,10 +228,10 @@ static int atomic_pte_lookup(struct vm_area_struct *vma, unsigned long vaddr,
+ 		goto err;
+ #ifdef CONFIG_X86_64
+ 	if (unlikely(pmd_leaf(*pmdp)))
+-		pte = ptep_get((pte_t *)pmdp);
++		pte = ptep_get((hw_pte_t *)pmdp);
+ 	else
+ #endif
+-		pte = *pte_offset_kernel(pmdp, vaddr);
++		pte = ptep_get(pte_offset_kernel(pmdp, vaddr));
+ 
+ 	if (unlikely(!pte_present(pte) ||
+ 		     (write && (!pte_write(pte) || !pte_dirty(pte)))))
 -- 
-2.51.0
+2.47.3
 
