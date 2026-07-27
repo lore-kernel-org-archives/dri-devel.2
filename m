@@ -4,99 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0373AC531C9
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 16:46:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5207CC531D0
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 16:58:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F58710E689;
-	Mon, 27 Jul 2026 16:46:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27C4C10E485;
+	Mon, 27 Jul 2026 16:58:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VnJTbcQE";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i/Jm4eCp";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFDBF10E648
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 16:46:42 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-38f0f3c8da5so180155a91.3
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 09:46:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785170802; cv=none;
- d=google.com; s=arc-20260327;
- b=NUA1xbnundEXpGR3XOFBT2O33Be9ougmECpX8JbuGNTbwqFPbdIJwV0ErmnefuPT0I
- CIxxrZpZpZnjpJrJdchd+U2xgsyulo9JBq5v3T7t7FK4BjHTpKlwzebtbleTeu4cEANp
- AcoRZl7uEemkmgZsWx4NULfQzmOsOSl2kxOK9FGMPz3sJnTn8DJc0UI8aQMiTwJ6oCfr
- vx6zw7ts42XUuxwXPEEVWwZk5pfZgFFiHH1pWba2NiVkin2knWd8vyH6a4IbVEy4c7jb
- QMUx3yOAGytTKscq4iHd3sG2J4IFJN8MICEZBdf94P1l3mzDMb2clVtyVzlSrBTmdLku
- fBDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ZYf/rihhYlrBAKYiCrpMlaiVI/+cGiqgdriA9fSdZao=;
- fh=2uMRJdq6QFX+fyMeVXZRiXo7qlOM7y1ovVXqEqGC0pA=;
- b=ctjGsN+3NHNUIP2D3usREtnxwptri7n8fqlud/WKsRbIL0LbTiSVKBwqg7wmut14nt
- 0Q7oZZreLuhusoKaQqN7lSCThgGLTkbTonhqsdIiCArn8d0eYRxTQ0EgQ3EFS0H5NKjY
- W9kEZvjNBEjvXN3uZzMpknSro6f9UG8cDl5kwpVLFL0LRV6JeGF8qQ59Gk8G0l/vK2ch
- YVmLbjdBAOhcNIMs4ygJxl1kONQxc4DmRxGDt4YXOwXG9WwuwD23FSGUXkKBRc/5oyNo
- 6G4nCyJrtwT0IfYYlzYZ5d1mGVjUwgp8Y8OyKZifl9vWfLdaQxHWMZ3o2rxsPCGX6h3i
- g5RA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785170802; x=1785775602; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ZYf/rihhYlrBAKYiCrpMlaiVI/+cGiqgdriA9fSdZao=;
- b=VnJTbcQEf6X8UxXL0p8s85FpkEyHhVNH3YFAL5SQfJ+h63vSt/3drr0KzfVoUxW0Zz
- VSLzKreHH77L9bANr6/5VlUwKFA+cAi0238QI04MRSTBaVkeFa+mUaRv/yjgDP0w9Jcj
- PPZS9uyODYz2DLbBd2Pl8n7T8fCrNHnUT99pDjN/TX1s4jsjsIu5gdAZi33D7VJFMdQB
- 7JbuWJJkInE5pLPhFvecoBEVh4gHNi2WEF+7rrt37FJwVTwU32szcDXb78O3IHli2NfA
- rLZGv4v+Wn5vs9nWDtGspFcccpj0k1E/343XLWVpEXQOf/jxyog73idRMRbkwjAyukMo
- 5Prw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785170802; x=1785775602;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZYf/rihhYlrBAKYiCrpMlaiVI/+cGiqgdriA9fSdZao=;
- b=EaG1xXOGgNDCe9kxjmq/6U/A8EBBjHi1gGWmWxblHZyBtTL2uGqGKAfAQiYdpD7gTq
- QXwYyJRY71KuhynKv7qbTWrPF5MAw/i4Hl/yolkeXzNxuWxT0r5Sj6YCPMKTPr04ygmP
- Qt92ZAGvTjgr8sH0vJlKKAbAPInaWesiZW2FHDPzfExOz+acecaPpfdQuxGc0vcuQpEF
- uZ+v0Y7JOb3p/evVNCY27HhIxOVKnT4A4ygCZmcqfQ2IDA7P9HhAehdpBsF4EEXQj0qs
- qQNEOIszEgx4aCg0WcckpgxPO6SRXWnG1vZEfyN/njxLJYuahmvSVPAzSfnaYo52sCV8
- Ye1g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RooMYuevt/eJjQGjEajx6SIfn8OgouGf1rX1cYYrtMFSSBwx7HA4bcb+YScsxJnRRPSLO6QCSnmlIE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxj634EOZNypYsWKHMd3MbFwUzCDmLIs+BySLJmjOwTdN+BUHKy
- Imc+rGkrjdjE/ebOWanZcQmE3dUB1z0OCKwLYi/Wb3UHTYswdNYUcY/aDPgr4jpdy03pQvcBfaI
- kNn36PzCgZvsMwXtUwl1AeOOsM8xP1TXPKA==
-X-Gm-Gg: AR+sD10r2kLzRONktBHhLRjq1eNLYRDuVgAIV1CRnW0Gn//utbo4TtOpHwv5DjSKmMM
- V5n6MlVG6H3MwawMqybA7gX8OigikTL8gtMWva9JbDfT0ZvVG13YB7R857kvpyH2VDizx1FKgOW
- 2tXtoLx04zX9hUdf/HlHmU3KtNiq7F7HXIaS3N1Iw4hQwtsFxo9gH/4EfIe+wniRdcpyZWIXQVO
- HPNI4kn81P9nVYnTcrRbB5HvOLScVNEwumJ3TYv0+z7JKktTOnULG1wpb4kPrt/7jtvqQFVquA8
- Lt90DxfeZcBx0AAfkqbPUY3YnUKQUhA5L2sPv9KclS54JoybhwsFYun35m2/xro/bMXAgOcJct/
- bZsHUxJkDV2pcjUbYrvl56xD5ll0ZN3A=
-X-Received: by 2002:a17:90b:2c87:b0:380:9cd1:d985 with SMTP id
- 98e67ed59e1d1-38f628a2013mr619020a91.6.1785170802281; Mon, 27 Jul 2026
- 09:46:42 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260429171644.8406-2-u.kleine-koenig@baylibre.com>
- <aimWvtBTQvd7O2F0@monoceros> <al4HlJxVqCDae5yL@monoceros>
-In-Reply-To: <al4HlJxVqCDae5yL@monoceros>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Jul 2026 12:46:30 -0400
-X-Gm-Features: AUfX_mxH9LpbVN3XQked1-UcBEsMG3vSzn_JrwmOJW3uHzU_2audivCCcr6wjdA
-Message-ID: <CADnq5_PtuGS_FXJJB6kh_xVUPFDXznLQbKuAGZN+choXhPTH9w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Consistently define pci_device_ids using
- named initializers
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Markus Schneider-Pargmann <msp@baylibre.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC3610E48C
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 16:58:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 33D3A60008;
+ Mon, 27 Jul 2026 16:58:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9212C1F000E9;
+ Mon, 27 Jul 2026 16:58:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785171487;
+ bh=A9bjCVqW/Ej3dLMulthxoTyFz5V81faOSr+gAOE/olo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=i/Jm4eCpGh2eE/GF0a0/6UO6EDBt38eLRhNh0wRLi5Iz79NBA0f/7WjSA9BCfQ+Iq
+ B/3husOAhcsPhxSFyY20tKzeSkHBd6KBJa+mlmzgnNTSX8vyDo1lAWAjkd3d7FPxsx
+ j01rtH2V63/OujMeEcrGwuNDzjBg5bl45mcVrRFIIBDagYFZYHnLyJ9mI2SWCk8gYq
+ Zsmrong6YMMhuJrczsYYq4ADSKuX9eK4ui+UcEbKlX7x1GHOQ2F2bfG2Mhg492P1g6
+ NT/6YYKFZfOOfZlPodzPjRaqp58pEfcu9bcBpu8mT8kt4cG/yKfIenvY1H/qwbl6v0
+ LKqqUMbuDz9VQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 05/11] mm: convert PTE table entries in ptep_get()
+To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
+Cc: dri-devel@lists.freedesktop.org, damon@lists.linux.dev, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org
+In-Reply-To: <20260727164715.2866609-6-usama.anjum@arm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <20260727164715.2866609-6-usama.anjum@arm.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Mon, 27 Jul 2026 16:58:06 +0000
+Message-Id: <20260727165807.9212C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,52 +54,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Incorrect placement of READ_ONCE() around __pte_from_hw() in ptep_=
+get() breaks atomic PTE reads and causes compilation failures for architect=
+ures overriding the hook.
+- [Medium] ptep_get_lockless() fails to apply the __pte_from_hw() conversio=
+n hook when CONFIG_GUP_GET_PXX_LOW_HIGH is enabled.
+--
 
-Alex
+--- Patch [5]: [PATCH RFC 05/11] mm: convert PTE table entries in ptep_get(=
+) ---
+commit e1a429a7f2c12fbd880800f901c43b4ccbc922d7
+Author: Muhammad Usama Anjum <usama.anjum@arm.com>
 
-On Mon, Jul 20, 2026 at 7:44=E2=80=AFAM Uwe Kleine-K=C3=B6nig (The Capable =
-Hub)
-<u.kleine-koenig@baylibre.com> wrote:
->
-> Hello,
->
-> On Wed, Jun 10, 2026 at 06:55:09PM +0200, Uwe Kleine-K=C3=B6nig (The Capa=
-ble Hub) wrote:
-> > On Wed, Apr 29, 2026 at 07:16:44PM +0200, Uwe Kleine-K=C3=B6nig (The Ca=
-pable Hub) wrote:
-> > > ... and PCI device helpers.
-> > >
-> > > The struct pci_device_id array of supported device was initialized
-> > > by list expressions. This isn't easily readable if you're not into PC=
-I.
-> > >
-> > > Use PCI_DEVICE* helper macros and named initializers which is more
-> > > explicit and thus easier to parse. Also skip explicit assignments of =
-0
-> > > (which the compiler then takes care of).
-> > >
-> > > The secret plan is to make struct pci_device_id::driver_data an
-> > > anonymous union (similar to
-> > > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@bayl=
-ibre.com/)
-> > > and that requires named initializers. But it's also a nice cleanup on
-> > > its own.
-> > >
-> > > This change doesn't introduce changes to the compiled pci_device_id
-> > > array. Tested on x86 and arm64.
-> > >
-> > > Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koen=
-ig@baylibre.com>
-> >
-> > Gentil ping! I'd like to work on changing pci_device_id, but that
-> > requires that this patch hits mainline first ...
->
-> Would it help to resend? Did I fail to Cc: someone to get this patch
-> into some tracking?
->
-> Best regards
-> Uwe
+mm: convert PTE table entries in ptep_get()
+
+This commit introduces a conversion hook __pte_from_hw() for ptep_get(),
+allowing the function to accept a pointer to hw_pte_t and return a logical
+pte_t value. The generic ptep_get() implementation is updated to use this
+new hook.
+
+> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> index dad80d264aac2..3003ac9cd81fe 100644
+> --- a/include/linux/pgtable.h
+> +++ b/include/linux/pgtable.h
+> @@ -493,7 +493,7 @@ static inline int pudp_set_access_flags(struct vm_are=
+a_struct *vma,
+>  #ifndef ptep_get
+>  static inline pte_t ptep_get(hw_pte_t *ptep)
+>  {
+> -	return READ_ONCE(*ptep);
+> +	return READ_ONCE(__pte_from_hw(*ptep));
+
+[Severity: High]
+Does wrapping __pte_from_hw() inside READ_ONCE() break the atomic read
+semantics and build stability?
+
+READ_ONCE() requires an lvalue to perform a volatile read. If an architectu=
+re
+implements __pte_from_hw() as an inline function returning an rvalue, this
+will cause a compilation error (lvalue required as unary '&' operand).
+
+If implemented as a macro returning a compound literal, it compiles but the
+actual read of *ptep occurs outside the volatile scope during the
+initialization of the stack temporary. This allows the compiler to tear or
+reorder the memory load, potentially breaking the concurrency safety of the
+page table read.
+
+Should this be __pte_from_hw(READ_ONCE(*ptep)) instead, to ensure the memory
+is read atomically before the conversion is applied?
+
+[Severity: Medium]
+Does the lockless fallback loop in ptep_get_lockless() also need to apply
+this new __pte_from_hw() conversion hook?
+
+Looking at ptep_get_lockless() in include/linux/pgtable.h for architectures
+using CONFIG_GUP_GET_PXX_LOW_HIGH, it currently constructs and returns an
+unconverted PTE directly:
+
+	do {
+		pte.pte_low =3D ptep->pte_low;
+		smp_rmb();
+		pte.pte_high =3D ptep->pte_high;
+		smp_rmb();
+	} while (unlikely(pte.pte_low !=3D ptep->pte_low));
+
+	return pte;
+
+If an architecture using this configuration requires a custom hw_pte_t
+conversion, callers might misinterpret the logical bits of the unconverted
+hardware PTE. Is it necessary to apply __pte_from_hw() to the assembled
+PTE before returning it?
+
+>  }
+>  #endif
+> =20
+> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+> index ed5dba42a4f8c..61afe27307ec2 100644
+> --- a/include/linux/pgtable_types.h
+> +++ b/include/linux/pgtable_types.h
+> @@ -6,6 +6,7 @@
+> =20
+>  #ifndef __HAVE_ARCH_HW_PTE_T
+>  #define hw_pte_t pte_t
+> +#define __pte_from_hw(pte)	(pte)
+>  #endif
+> =20
+>  #endif /* _LINUX_PGTABLE_TYPES_H */
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727164715.2866=
+609-1-usama.anjum@arm.com?part=3D5
