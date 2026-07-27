@@ -4,43 +4,112 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FCA6C53209
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 18:50:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD7F9C53209
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 18:53:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BC28510E6D8;
-	Mon, 27 Jul 2026 18:50:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30B3710E093;
+	Mon, 27 Jul 2026 18:53:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VcCxQp+s";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="qXG5ZGrl";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECDD310E6D8
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 18:50:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 69F924141B;
- Mon, 27 Jul 2026 18:50:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C7DD1F000E9;
- Mon, 27 Jul 2026 18:50:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785178204;
- bh=XN+AQZblzTXQOEOaPlayUTnhVJK/Ofl9vQkupe+womU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VcCxQp+suBv2a88jEpFpyYSu2UZhljEL2v343arKNSUXOEg6m+Y+QQnO6EqjMa6YS
- rP+HFtGF7x8ofMQiZzDa3AEnJr7EhTHl6NftBMLXSK1ryNRL8pKPVO1d6K4N1VvLkw
- FHcT/MdDX855kLW88j5EIDKBWv8pzTK+nyDyO30cC4tBw+1zn51+5L/nHgVCsKgdxx
- WtzdqJNNaCJ2lII0wpRSfaT3R6tsNQPZaP3mdL2ZaqiP5ba3Q3eRbcAyBn0Lxz65jV
- Dt8+oN5hVUewokmllpUp491clccAA5imKkRqcI1Qz4KXkAxiV9vHqLK+hVWjYh1G3K
- IcHgvx0KpIpEw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/4] drm/vmwgfx: Change ttm refs for dumb buffers.
-To: "Maaz Mombasawala" <maaz.mombasawala@broadcom.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260727182622.236086-5-maaz.mombasawala@broadcom.com>
-References: <20260727182622.236086-1-maaz.mombasawala@broadcom.com>
- <20260727182622.236086-5-maaz.mombasawala@broadcom.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 18:50:03 +0000
-Message-Id: <20260727185004.2C7DD1F000E9@smtp.kernel.org>
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F74410E093
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 18:53:57 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-84e27035206so3032937b3a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 11:53:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785178437; cv=none;
+ d=google.com; s=arc-20260327;
+ b=PH/M3kzhTBwKcXyeOVQ58CctbqcdRiu4kGR9lr5u5C8xpmn4rPvbbvuZIzsRDlk38I
+ t0ZNkVj3zi583IW/F6DRM9AH22HBSIlGmY8U+H8zbMjPMTUjhhRnR6+xEsI1wXja9PqM
+ +6dIws4ETVhS4L95aKc5lqw0GSlFApFQk6TzhiSb6c4JVl8C+b628DLTuzIbE4eDUIeh
+ +AfYxSoo8kyeChMeWIYP8nAqAL76amNIAm6XZBbRFwC4mY5/2T+3cpKkyEJ2taOVSn5H
+ 1NuYCpMU4F8XsoXxtYfPpnJjAj0WI9Q5Dd0MBQrQpleBMBwjchCTmYhPKcy4JejlfTnp
+ xlBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+ :from:dkim-signature;
+ bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
+ fh=HZI0I939twrxRuP1O6ZiH3edBIvx6zR5Ju+cRQWNK1M=;
+ b=aS4vsI7fTJxU4g0z9WBER5pSjXk5lIMwWBvG24yhjk/Udp3gLk2FnpW5fMGbzlYHZA
+ 5fSG53aUI4uc5kmdkSUGr7h2Now+SI5YDmolh9j4Gc0oW2RlUy0fhccAVlyqfMb5GInS
+ 70tFrcQcg1zCFDHydYSFKvGMMgYIFxkRJXgm7iT5GN7JD/3g/0368GlmUcL4VRqoLeUG
+ IXvg9KmcJg5XWAJn4gSw7eHYjy3nCPHhTGa3emkE+hdVqDSO9jWePzlFxhiBML6HOBif
+ WHfGOYsns9Ifo0SltWEnl/h5W25T1hb+4Hu9qTwyrWQJe9xuHmJCYNBTxBmMBM1XDcz0
+ Ac8Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1785178437; x=1785783237;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:mime-version:references
+ :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
+ b=qXG5ZGrlWscn703UjBbrrckMxnNQ6w/rEYKZqmwGbH/LXXE60BLNBAEzaf6CyYp7mw
+ iX48vYiV98Gr3CWmpPQ0j1LhpKXZlZvCAsfiFNGCqUZzSgn9+5ZCMZrM9BVQWgueYKO5
+ uKYpieX0PcaL5zlc+AOXPYO6vjvciuVbpL4Rf5c9wB9fQwS52fq+Dn4U48a+dF/NtsAg
+ pxwm9s0yPIxiNB08IRcPJzCFIxJsrTr0Lsn0O8fao8+oYlONLYnfzV40tT79esZbngBg
+ A7mblzRkirVJ1GQuBZO1KNg0bagvKjmcURk1CIeh6BYAdCGojtSVFT0kfWNxVfF8HjxF
+ xRlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785178437; x=1785783237;
+ h=content-type:cc:to:subject:message-id:date:mime-version:references
+ :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
+ b=aqvfxu2U6Z85sKnYjjGL7Bn4tO299pI5jKcwD5XOGZ/aUz/sXKrkdgaoa3Dls+/DUL
+ IAwQ+KkqALKcmiXMZLZETHjEVzBdmEQvZfwfcPG4g6TlbeXwBlqPPGTBZHodcC7qaNuE
+ l8fxf3HV8pmdWaNVqZFblYwdKLegehRJz4NVgFxWjWHkE7k/Xfbk9wNwUOurP8GX1MWe
+ MhEvGuIF2ZPODi5P6LYACtUdMUnpDj3eNaYvKhZlRH30eO7zuiNHwBTI0EvDw+YWiNtH
+ 3RPU6x1/C4n0MGJ3loceLUPdKGksNo4VUX6hX14FtOXDnjOSCgTowG0d/ePnpylz4SJ9
+ WI7g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro8aOLGOCv73sj6d8K7Q8oqpldUW0OKyC8otrgzHrXskqLclexX6EWWF6EVqZKnBg/rD4+EDecEWRo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwgRUPRhNXt17E6sL0KhEzOUPYe0DVKzegO+8A5jAyFnVUULx9u
+ MIefJJGHvuTmo7/RxUpRyIFGHwPx8BeZ78DsXRfS/oaBf+KwEEKEdYtDIxEeaQeKbPLIk7abNOv
+ XJt0HWrohnZMYxJLZ4e8rTL8pbfXxv9ncWm6+EKa2
+X-Gm-Gg: AR+sD13it2kdO5CqIvgEos8sc+nVe0biMM2i4QflAKPLrVQdq9CwdimrEqu67eAZGQp
+ jpy3HvpyVTE3qXnnz2K+3P6GQkruUMtsK51J630SbUUP2qUfRcvqGxM2Cigo717EGUcC5tsL5x9
+ EOBkmEWKLfuBezfVrB3O7k4h2sbbaKFuehv0IUdbb+p1nqg8jwaXh/ztX10lq0sAz4e4Fv8l9oc
+ y2EHt3Td89wF/AAQ6tddZxIHbxYNODZ1Efq2+B2JGqHVoHc1eDeFaidYnmtK1/rzFtgw7O9eejK
+ 6Dn1nQpVEpMwa8YoYod6I9lJceDx/XSiyfnj7pQnP3060L5E
+X-Received: by 2002:a05:6a20:6a05:b0:3c3:7a0a:18a7 with SMTP id
+ adf61e73a8af0-3c6c7fb20d4mr796670637.55.1785178436210; Mon, 27 Jul 2026
+ 11:53:56 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 27 Jul 2026 11:53:55 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 27 Jul 2026 11:53:55 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
+References: <20250529053513.1592088-1-yilun.xu@linux.intel.com>
+ <20250529053513.1592088-11-yilun.xu@linux.intel.com>
+ <20250602133009.GC233377@nvidia.com>
+ <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
+ <20260712221934.GF674038@nvidia.com>
+ <CAEvNRgEo2kLUmaGU-Vsgx2sTQvU_NNUJ4bRp5Z4Ygs_xvVLOYA@mail.gmail.com>
+ <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
+MIME-Version: 1.0
+Date: Mon, 27 Jul 2026 11:53:55 -0700
+X-Gm-Features: AUfX_mylYj_x8eQp0BvgfyW8gHfhB_jFskLbUbWzV0Fgf00qZT4Qn9h3hPlqeKo
+Message-ID: <CAEvNRgGYc0B1YyhDhS0Khfm3N85hbkYGMTfDLiXYn+WHTLF2EQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 10/30] vfio/pci: Export vfio dma-buf specific info for
+ importers
+To: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, kvm@vger.kernel.org,
+ sumit.semwal@linaro.org, 
+ christian.koenig@amd.com, pbonzini@redhat.com, seanjc@google.com, 
+ alex.williamson@redhat.com, dan.j.williams@intel.com, aik@amd.com, 
+ linux-coco@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ vivek.kasireddy@intel.com, yilun.xu@intel.com, linux-kernel@vger.kernel.org, 
+ lukas@wunner.de, yan.y.zhao@intel.com, daniel.vetter@ffwll.ch, 
+ leon@kernel.org, baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, 
+ tao1.su@intel.com, linux-pci@vger.kernel.org, zhiw@nvidia.com, 
+ simona.vetter@ffwll.ch, shameerali.kolothum.thodi@huawei.com, 
+ aneesh.kumar@kernel.org, iommu@lists.linux.dev, kevin.tian@intel.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,108 +122,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Xu Yilun <yilun.xu@linux.intel.com> writes:
 
-New issues:
-- [Critical] Artificial pinning of the base object causes a reliable Use-Af=
-ter-Free.
-- [High] Refcount underflow and potential use-after-free because `ttm_base_=
-object_lookup_for_ref` return value is ignored.
-- [Medium] Leaked mutex state due to bypassing `ttm_prime_refcount_release`.
+>> > If VFIO can create one
+>
+> It is an interesting idea to let VFIO create a guest_memfd instance, if
+> DMABUF doesn't work. But to achieve this goal, I think we still need to
+> refactor guest_memfd to allow for different memory/MMIO resource
+> exporters/creators, and different resource importers/users like KVM MMU
+> & IOMMUFD.
+>
 
-Pre-existing issues:
-- [High] Race condition causing Use-After-Free due to premature `drm_gem_ob=
-ject_put`.
---
+Yup I think both ways we'd need some level of integration from both
+sides :)
 
---- Patch [4]: [PATCH v6 4/4] drm/vmwgfx: Change ttm refs for dumb buffers.=
- ---
-commit 1eb9390d984c556a9fb59cfdc777988b3f118fac
-Author: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+>>
+>> At guest_memfd creation time, guest_memfd is always created for a
+>> KVM. This is the first place where it is bound to a kvm instance. This
+>> is one place where it helps Yilun with Confidential VMs, so KVM can be
+>> sure that the memory was meant for a specific CoCo kvm and not any VM.
+>>
+>> I think it might be weird to have VFIO take a kvm fd to create a
+>> guest_memfd?
+>
+> I think having VFIO create a guest_memfd is better than having KVM
+> create a guest_memfd on behalf of VFIO.
+>
+> The lifecycle of the MMIO resources should be managed by VFIO, cause
+> the availability of these MMIO resouces are impacted by device
+> operations, e.g., device reset, PCI Memory Space Enable (MSE) ...
+> You can't export MMIO resources to KVM MMU without VFIO's awareness.
+>
 
-drm/vmwgfx: Change ttm refs for dumb buffers.
+Thanks for explaining the above!
 
-This commit preserves a reference to the surface during dumb buffer creation
-to keep the dumb buffer valid for framebuffer usage. This fixes IGT tests
-that use dumb buffers.
+Do you mean that as long as VFIO knows that some addresses are not
+usable, those addressses have to be removed from the stage 2 page tables
+that KVM manages?
 
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vm=
-wgfx/vmwgfx_surface.c
-> index bd0563741e89d..74e11baa7095f 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> @@ -2340,11 +2340,21 @@ int vmw_dumb_create(struct drm_file *file_priv,
->  	struct vmw_user_surface *usurf =3D container_of(vbo->dumb_surface,
->  						struct vmw_user_surface, srf);
+> And VFIO doesn't have to take a kvm fd paramter to create a guest_memfd,
+> VFIO has got the kvm instance via KVM_DEV_VFIO_FILE_ADD.
+>
 
-[Severity: High]
-This is a pre-existing issue, but can accessing vbo->dumb_surface here
-lead to a use-after-free?
+I'm new to this - looks to me KVM_DEV_VFIO_FILE_ADD is for linking VFIO
+to KVM but some mmap-ing is also required (pre-CoCo) to set up memslots?
 
-Looking at vmw_dumb_create(), the vbo reference is dropped slightly
-earlier via drm_gem_object_put(). If a concurrent thread guesses the
-gem handle and closes it, the final reference could be dropped. This
-would free vbo before this container_of() calculation and assignment occur.
+With CoCo, setting up memslots would use some fd (guest_memfd wrapping
+VFIO or the VFIO-created guest_memfd like you were suggesting) and I'd
+think there will still be some notifiers between KVM and VFIO for the
+mapping.
 
->  	usurf->prime.base.refcount_release =3D NULL;
+Btw is it right to say that KVM_DEV_VFIO_FILE_ADD is only in the case of
+setting up irqchip? Is irqchip a requirement for Confidential IO?
 
-[Severity: Medium]
-Does setting the release callback to NULL bypass
-ttm_prime_refcount_release() and leak the prime object's mutex?
 
-This appears to prevent explicitly destroying the mutex, which can
-trigger warnings when kernel mutex debugging is enabled.
+Hope you also had a chance to look at [1] that David Woodhouse is
+working on :)
 
-> +	ttm_base_object_lookup_for_ref(dev_priv->tdev, arg.rep.handle);
+[1] https://lore.kernel.org/all/1dc299af6b795a40c8887b3d84f915024f6446a9.camel@infradead.org/
 
-[Severity: High]
-Can this lookup fail if a concurrent thread guesses the sequential IDR
-handle and calls the unref surface ioctl?
-
-If the lookup fails and returns NULL, the internal reference is not
-acquired. Because the return value is ignored here, the unconditional
-unref later in vmw_dumb_surface_unref() might cause a kref underflow.
-
->  err:
->  	if (res)
->  		vmw_resource_unreference(&res);
-> -
->  	ttm_ref_object_base_unref(tfile, arg.rep.handle);
-> =20
->  	return ret;
->  }
-> +
-> +void vmw_dumb_surface_unref(struct vmw_surface **dumb_surface)
-> +{
-> +	struct vmw_user_surface *usurf =3D container_of(*dumb_surface,
-> +						struct vmw_user_surface, srf);
-> +	struct ttm_base_object *base =3D &usurf->prime.base;
-> +
-> +	ttm_base_object_unref(&base);
-> +	vmw_surface_unreference(dumb_surface);
-
-[Severity: Critical]
-Does setting refcount_release to NULL earlier and decoupling the base
-object lifecycle from the underlying resource create a use-after-free
-regression here?
-
-If userspace concurrently grabs an extra reference to the surface via
-the ref surface ioctl, the base object's refcount is incremented.
-When the gem handle is later closed, ttm_base_object_unref() drops one
-reference, leaving the refcount > 0.
-
-However, vmw_surface_unreference() unconditionally drops the resource
-refcount to 0, which frees the usurf object containing the base object.
-The base object would remain in the IDR tree, and later accesses to it
-would use freed memory.
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727182622.2360=
-86-1-maaz.mombasawala@broadcom.com?part=3D4
+>>
+>> I was thinking that the userspace VMM could do something like:
+>>
+>>   int vfio_fd = open("/dev/vfio/devices/vfio0");
+>>   int gmem_fd = ioctl(KVM_CREATE_GUEST_MEMFD, { .fd = vfio_fd });
