@@ -4,80 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DABE6C54F52
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61008C53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B11310E7C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1EAF410E540;
 	Tue, 28 Jul 2026 07:21:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="caOuAUS9";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="VrTwGW4m";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BFF510E2DB
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 19:55:35 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-381216921aaso3041048a91.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 12:55:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785182135; x=1785786935; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Oed6vlTg2jovt+HXI4BLBlvs0THVNl54mqZ9EdzbJV0=;
- b=caOuAUS9iVFOC+taM2zXpLRJWJWwtjPygtJH/ipjLNSZy45SX9/jjNkQ3reTUlFf3x
- f7Emx7h5l5f+ac6RA/U/OUuYaKvATd20dkEypDDQmi7WHFMGFXOM92kvFfnQulrlNTPB
- IEoVfFmlR49Wn3eCxQBWUmQ2Qya+mTXmlIMDMVNg4h49BYlm9AWP1tRuc9PWiAbyFqp1
- tg/TP3Di7L/XX5FqQiCGf8+Ve+7OZb/Ij5at/AmNaeZczgO4hocm/f6iftAFvho7wlJc
- veaBXjHbBBZLaSIbHPSCuVv63EOBWBnlGAkna0WTbAB8ZDvxISrW7mGe6TMXbFysx76m
- 9UCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785182135; x=1785786935;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Oed6vlTg2jovt+HXI4BLBlvs0THVNl54mqZ9EdzbJV0=;
- b=Knpufu/hsUkmwxBJh6Ado9ESWouYmJfC3F0TX9pVfn0+XMfWAHhJJVM51Ug7FCtpxR
- uR3C5EGn6PZflR/tMTpor85XuqyKrpWSN2+5MEZJmPEJvgqCy/uaeK3P4EuFq6O/S764
- jGXDZyCJwZBggnEDyStNZ87CJ0pImTMcyq1wewkYv1T945LRMQYRVgcfI+6Z8GMVBJTw
- xOthIDIwXw67PLAt9DbHqEiq6ePlV6HOKfMRzCeQ52q+0MyM3Opew4p37WPD2D7zY8ih
- k7Z7ZvgUrIz0y1vIJIJ/Vz73zKq7aVuW0/jbmy3UFbj7GYJj6IDJjTPWJpo29+V6iPWJ
- 049A==
-X-Gm-Message-State: AOJu0Yw4jSJ2yYEY6+SHEISryFvMLBaayWrKk6OTGREogd97RydIguD9
- YpiN5kUYUKPBm2i8d/JEjvCV22PzN1AVgi2S3JYCxtOWX8g+CRFn/U6v
-X-Gm-Gg: AR+sD13q6VCBGD1l78ystUiTHih+f5Q3GepCjUm0SR89hN4vaNjqqSsmdKnpgrMvoz9
- xsaJJyvJShpQHsdrhrLlKPrHHdvTaGrtXp6bHh/Gr1wWq0iCBdpR15E8c5JDHyxBWMfUnR9ymlJ
- 9cVj2fnFe5WpADLA91LqitUurhJwd8sH5TYtz29C8RgShFt/Obm2haqd+2fk2W375lV/cQeaxEk
- wuLlHCfR62eWPISk9VhpJgXMF1ER6m7CanHzQjh5LRQW1OxUTX7OB6hNMqw0EApGD5KqLRS1wWZ
- 5HluzV6lZegd9q+aPFoXWNUjGGOWsQrLswqxyocFdEowWCoxO+sVcTLLU35H3h5au4/rea2hlf4
- LFwbPQoPw/sUErISxPydAhRP7Xr0Xk46V/PY7wNcHVav390XwUPycCmE+JoUEnhj8dcoH1rKSOk
- OhzIZtRlpkPGt4jWMp
-X-Received: by 2002:a17:90b:3942:b0:38e:7cb6:5c36 with SMTP id
- 98e67ed59e1d1-38f64d03974mr604558a91.40.1785182134811; 
- Mon, 27 Jul 2026 12:55:34 -0700 (PDT)
-Received: from [127.0.0.1] ([154.17.229.144]) by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-13e53094d65sm27505674c88.13.2026.07.27.12.55.32
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jul 2026 12:55:34 -0700 (PDT)
-Message-ID: <5e845a21-776e-4206-9bce-cd809f6122f6@gmail.com>
-Date: Tue, 28 Jul 2026 03:55:28 +0800
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EBAA510E491;
+ Mon, 27 Jul 2026 16:48:02 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5F7E01713;
+ Mon, 27 Jul 2026 09:47:58 -0700 (PDT)
+Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
+ [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C99943F86F;
+ Mon, 27 Jul 2026 09:47:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785170882; bh=1nPdXqpMGrD8xhrtZLy0UKY4t0IJBjPnmmBVyVTpx2M=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=VrTwGW4mYDqQ+Z27OKZvmrSWlMxIF9vB8wItFBCFzOD96K2SMpyMovHX9gdNiY0K6
+ KTkZ43BeXBYATryo387K8Y/zE/PbD147zbQij+iKgrmmKw6au5gN84pjtEpgkqn/nN
+ weSnIFswO51i+rS/asQ1MifW24hm3Y/lBeLNUCWM=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
+ ryan.roberts@arm.com
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: [PATCH RFC 03/11] mm: name pointers to copied PTE values ptentp
+Date: Mon, 27 Jul 2026 17:46:54 +0100
+Message-ID: <20260727164715.2866609-4-usama.anjum@arm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260727164715.2866609-1-usama.anjum@arm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/panel-edp: Add BOE NE140QDM-NX2
-To: Doug Anderson <dianders@chromium.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <697e79c2-98a9-4bb3-b5fb-db327cbe1bce@gmail.com>
- <CAD=FV=UmtBnHuOc6oFeKAPrZSeAcx1EcjMdfm+FDV7uZgxa=zw@mail.gmail.com>
- <051ca77a-4308-4084-b9c1-5bbe4ea39f9c@gmail.com>
- <CAD=FV=VVjZRst=SCY0SCuwynzcG4vpjJ3ZAiRR=q+2ry-rt9CQ@mail.gmail.com>
- <9f2d7be0-e93e-480e-bcb1-6bc494f42640@gmail.com>
- <CAD=FV=XtR3YuUJoMk5sFPBihamdXY+WsETsPXf_oKHh1zT_Udg@mail.gmail.com>
-Content-Language: en-US
-From: Weiji Wang <nebclllo0444@gmail.com>
-In-Reply-To: <CAD=FV=XtR3YuUJoMk5sFPBihamdXY+WsETsPXf_oKHh1zT_Udg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 28 Jul 2026 07:21:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -94,14 +95,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+The hw_pte_t conversion must retain pte_t * for pointers to standalone PTE
+values. Name the value parameters ptentp in the install_pte callback,
+write_protect_page(), and guard_install_set_pte() so the later mechanical
+conversion can distinguish them from pointers to PTE table storage.
 
+Some functions already use the ptentp name, including:
+- madvise_folio_pte_batch()
+- folio_pte_batch_flags()
+No need to convert them.
 
-On 7/26/26 07:48, Doug Anderson wrote:
-> If it doesn't mention T6-min, then the assumption is that the panel
-> has no constraints on T6. Thus, T6-min would be 0.
+This is a naming-only change.
 
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+---
+ include/linux/pagewalk.h | 2 +-
+ mm/ksm.c                 | 4 ++--
+ mm/madvise.c             | 4 ++--
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
-Many thanks for your help. Verified this change on 'next-20260726' and
-will file a patch v2 for it.
+diff --git a/include/linux/pagewalk.h b/include/linux/pagewalk.h
+index b41d7265c01bc..c34d826c5e4a2 100644
+--- a/include/linux/pagewalk.h
++++ b/include/linux/pagewalk.h
+@@ -89,7 +89,7 @@ struct mm_walk_ops {
+ 		       struct mm_walk *walk);
+ 	void (*post_vma)(struct mm_walk *walk);
+ 	int (*install_pte)(unsigned long addr, unsigned long next,
+-			   pte_t *ptep, struct mm_walk *walk);
++			   pte_t *ptentp, struct mm_walk *walk);
+ 	enum page_walk_lock walk_lock;
+ };
+ 
+diff --git a/mm/ksm.c b/mm/ksm.c
+index b9b32f7bfb691..c41b2c241bb09 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -1292,7 +1292,7 @@ static u32 calc_checksum(struct page *page)
+ }
+ 
+ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+-			      pte_t *orig_pte)
++			      pte_t *ptentp)
+ {
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, 0, 0);
+@@ -1371,7 +1371,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+ 
+ 		set_pte_at(mm, pvmw.address, pvmw.pte, entry);
+ 	}
+-	*orig_pte = entry;
++	*ptentp = entry;
+ 	err = 0;
+ 
+ out_unlock:
+diff --git a/mm/madvise.c b/mm/madvise.c
+index 07a21ca31bad4..c324cc991f841 100644
+--- a/mm/madvise.c
++++ b/mm/madvise.c
+@@ -1101,12 +1101,12 @@ static int guard_install_pte_entry(pte_t *pte, unsigned long addr,
+ }
+ 
+ static int guard_install_set_pte(unsigned long addr, unsigned long next,
+-				 pte_t *ptep, struct mm_walk *walk)
++				 pte_t *ptentp, struct mm_walk *walk)
+ {
+ 	unsigned long *nr_pages = (unsigned long *)walk->private;
+ 
+ 	/* Simply install a PTE marker, this causes segfault on access. */
+-	*ptep = make_pte_marker(PTE_MARKER_GUARD);
++	*ptentp = make_pte_marker(PTE_MARKER_GUARD);
+ 	(*nr_pages)++;
+ 
+ 	return 0;
+-- 
+2.47.3
 
