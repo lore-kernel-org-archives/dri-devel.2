@@ -4,69 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2C6FC53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7AF6C54F53
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F55010E7D3;
-	Tue, 28 Jul 2026 07:21:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1B0410E7D6;
+	Tue, 28 Jul 2026 07:21:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sF4tPvLB";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="cGls7zQn";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E804010E453
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 15:05:57 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-47640541585so1779504f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 08:05:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785164756; x=1785769556; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=xR8fBXhyULcS9rw8dxfF/pU3nQ4nEDbAUP33X1bCS3I=;
- b=sF4tPvLBPXPfTAf3vowz7uoAWly/kZIDmJxIDjTlPy8ZmG7Q80lDLnqrJr5FEbSkyQ
- UsJmTsThI8AXdZjIGcU8JmIbL/Zv/5VJZDZrEKhxYXT/YEwhpRZf0lXkfVqDzKcySyYU
- dhlmQSOLGdOxMXNnx2UUP1WTL3/+wefYaa4hT28fG/G37u16SwxEe/CMODI+wHCTF8aF
- usAKQpHtTb+vvsAwsRbY2yyDGeFg9Ehcg6MhqKfbQsDpN2r6CUA5RNtb2SYTdX1wD9RP
- nl9Hak4EZMWJal14Bb5eX2dFQc4CVaJVauHsZf6HgH7bNLKVkfvEA9JXVi9ekiyjZKKA
- NBRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785164756; x=1785769556;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=xR8fBXhyULcS9rw8dxfF/pU3nQ4nEDbAUP33X1bCS3I=;
- b=H7Qmk1hQYkk7ZX/VwCZLB5R3Mi6QAabzCzjOJ/9/4Vw6EQn5xo5rUSWMmhNVYj6SKZ
- XUenaFmEw/o+CC/HlLZgJHmmLxLMo3S0DbxeHParKUS2F818IeREi7eagYdRIjJrnsZ2
- c+/LtKj5SwwTa1vMAiLevmNp+ziJzqpgt0QCAspelpIDQcydOb/Dv6i2B8s1N0eXAflv
- uyq6zeC3eTCErBNIHr0B89y6HCU0a6TBbigz1CfvgRD5YOQE1rqLjt8QEdNbM8pOF9Gh
- N4UtMyXb3ahVuP8qxEHlq+QQ/3Hh7TzCM5HbObf3BwHAboUSJkVLcnuBRlfcQNnCHztp
- kbpw==
-X-Gm-Message-State: AOJu0Yw2DxVmElGDgob58BFFQLRpIuFjY/zxfYneNttkxeBR9yDCaH1t
- JhdqqHKU0BEsMFGfCfXolbGBjlZP/g1A+uBpnNW4WV5Fnlse8IZ9/kmP7Hox3aOD
-X-Gm-Gg: AR+sD10rqn/i3R+7Q+hO+Vb3hOp9jmLqcLNHLYkjRSt0ShQ57OVnOXdAlLrwZq5oxkf
- KGl4TOEHZIcDnqF73BhG2MMXpgqvtA6IwZQIfYf0OUwKqq6/4xaFZc8chZthnBctV98GOLNmZCn
- 0F2qdY3QC2DIP3qx6fws+Gb4vYX91rM9mPboh9uM1xLvydqIYfOhloClCDbk4Uk2v4qzBK/ip+L
- Z/NaMLPdapb4/V7UCNNV1tK658LmwV11i4sbIpzqxQengpcef+MvEjsvNTj8osaxmqqSvdehLRx
- PZwDLJVjZn6fkI4y+tA7zhRJ6ZyfoGxopSOLaV13Yi/9yARGLACW3R1mHzemoT9ySd+c9SpeIc/
- J6csuMoRu7MipRrHC3kMjAhrQzNcJiCP6fLIMRxCGzzP6ldPj8MO+N2D3FdQqHS+HabI24H6GP0
- gy2Dzwodg=
-X-Received: by 2002:a5d:5e87:0:b0:47d:ea8a:d224 with SMTP id
- ffacd0b85a97d-47f9fe96330mr11316857f8f.23.1785164754717; 
- Mon, 27 Jul 2026 08:05:54 -0700 (PDT)
-Received: from fra-x8664.lan ([151.16.232.22])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f85b9a5a2sm54242960f8f.7.2026.07.27.08.05.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jul 2026 08:05:52 -0700 (PDT)
-From: Francesco Magazzu <postadelmaga@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: nouveau@lists.freedesktop.org
-Subject: [PATCH 0/2] drm/nouveau/clk: fix RAM error handling and pstate desync
- in nvkm_pstate_prog
-Date: Mon, 27 Jul 2026 17:05:44 +0200
-Message-ID: <20260727150546.121357-1-postadelmaga@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 44CBE10E48C;
+ Mon, 27 Jul 2026 16:48:30 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAB971762;
+ Mon, 27 Jul 2026 09:48:25 -0700 (PDT)
+Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
+ [10.2.198.93])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1D0C13F86F;
+ Mon, 27 Jul 2026 09:48:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785170909; bh=qlMBEgSYanOpxaG5+GObNIcpflrmglgvjw2BYgGRiAs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=cGls7zQnlsACMOdTrPwDBJKOvhD8kH8mv7YPFdOjvjhXwbN8u4sgWSL3YZNOD0Pml
+ XyFgMqudxOPDpAUOdEAXMsBPUM1LKrruj30a0mmvs9giDguNXB6O7JxdB2zaKUWPNm
+ 8j3C5nbVhGELOQy1dslFMHRX+rphcvgUZy5T3uvw=
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
+ ryan.roberts@arm.com
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: [PATCH RFC 06/11] mm/kasan: use hw_pte_t for the early shadow PTE
+ table
+Date: Mon, 27 Jul 2026 17:46:57 +0100
+Message-ID: <20260727164715.2866609-7-usama.anjum@arm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260727164715.2866609-1-usama.anjum@arm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 28 Jul 2026 07:21:09 +0000
@@ -85,27 +96,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Follow-up to "[PATCH v2 0/4] drm/nouveau: fix list cursor use after loop
-in the clk pstate paths" (20260712123616.1180830-1-postadelmaga@gmail.com).
-Sashiko AI review flagged three pre-existing issues while reviewing patch
-2/4 of that series; the third (clk->func->prog()'s error being clobbered
-by nvkm_volt_set_id() in nvkm_cstate_prog()) is already fixed by patch 4/4
-of that series. These two patches address the other two:
+kasan_early_shadow_pte is a complete PTE table rather than a
+standalone PTE value. Declare and define its elements as hw_pte_t so
+the object uses the PTE table storage type.
 
-  1. nvkm_pstate_prog() drops the RAM reclock error and falls through to
-     core clock programming anyway.
-  2. nvkm_pstate_prog() commits clk->pstate to the new state before the
-     hardware transition has actually succeeded.
+Read the first element through ptep_get(), which returns the logical
+pte_t value expected by note_page_pte(), instead of accessing hw_pte_t
+storage directly. This also uses the accessor selected by the
+architecture.
 
-Francesco Magazzu (2):
-  drm/nouveau/clk: don't ignore RAM clock programming errors in
-    nvkm_pstate_prog
-  drm/nouveau/clk: only update clk->pstate after hardware programming
-    succeeds
+The generic hw_pte_t remains an alias of pte_t, so the storage
+representation is unchanged.
 
- nvkm/subdev/clk/base.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+---
+ include/linux/kasan.h | 2 +-
+ mm/kasan/init.c       | 2 +-
+ mm/ptdump.c           | 2 +-
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
+diff --git a/include/linux/kasan.h b/include/linux/kasan.h
+index bf233bde68c7e..ff41949c0ac08 100644
+--- a/include/linux/kasan.h
++++ b/include/linux/kasan.h
+@@ -51,7 +51,7 @@ typedef unsigned int __bitwise kasan_vmalloc_flags_t;
+ #endif
+ 
+ extern unsigned char kasan_early_shadow_page[PAGE_SIZE];
+-extern pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS];
++extern hw_pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS];
+ extern pmd_t kasan_early_shadow_pmd[MAX_PTRS_PER_PMD];
+ extern pud_t kasan_early_shadow_pud[MAX_PTRS_PER_PUD];
+ extern p4d_t kasan_early_shadow_p4d[MAX_PTRS_PER_P4D];
+diff --git a/mm/kasan/init.c b/mm/kasan/init.c
+index 30c5266eaf37e..9bbc2a41d23f0 100644
+--- a/mm/kasan/init.c
++++ b/mm/kasan/init.c
+@@ -64,7 +64,7 @@ static inline bool kasan_pmd_table(pud_t pud)
+ 	return false;
+ }
+ #endif
+-pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS]
++hw_pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS]
+ 	__bss_pgtbl;
+ 
+ static inline bool kasan_pte_table(pmd_t pmd)
+diff --git a/mm/ptdump.c b/mm/ptdump.c
+index 376880071ca2a..8f19f20be3c44 100644
+--- a/mm/ptdump.c
++++ b/mm/ptdump.c
+@@ -19,7 +19,7 @@ static inline int note_kasan_page_table(struct mm_walk *walk,
+ {
+ 	struct ptdump_state *st = walk->private;
+ 
+-	st->note_page_pte(st, addr, kasan_early_shadow_pte[0]);
++	st->note_page_pte(st, addr, ptep_get(kasan_early_shadow_pte));
+ 
+ 	walk->action = ACTION_CONTINUE;
+ 
 -- 
-2.55.0
+2.47.3
 
