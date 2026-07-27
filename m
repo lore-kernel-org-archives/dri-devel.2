@@ -4,81 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6AF25C531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 14:32:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EB8BC531FC
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 14:32:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A56E110E40E;
-	Mon, 27 Jul 2026 14:32:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D72C10E423;
+	Mon, 27 Jul 2026 14:32:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="f2/2sxdF";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qnHlYAYb";
 	dkim-atps=neutral
-X-Greylist: delayed 491 seconds by postgrey-1.36 at gabe;
- Mon, 27 Jul 2026 14:32:10 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [46.38.247.119])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 526B410E40E
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 14:32:10 +0000 (UTC)
-Received: from mors-relay-8404.netcup.net (localhost [127.0.0.1])
- by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4h816M5wNBz8CwK;
- Mon, 27 Jul 2026 16:23:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1785162203;
- bh=JBhZ+LwoQ70+qErV2cTCemtVryLVM0RxTuEG+2Y3/co=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=f2/2sxdFVhE94wwd/yWnIycOJh85rGDGpXQf71t2SYYDe4U+iSLNHJd8sUrzcZmaB
- HPIoqQvSKphfyTmKBJXpjXOBTYrYKmi7JsliX2RN8lwJUA/wl6rTMT1oXG8Drs8hKB
- rB3xT8wfUN2oOH9lSje2PQkTXmJngjvF5qrUxXM2cumLdwjWoViQWpwJtMCMiWnb0T
- wanxcSKA98IMuBPfNroyvvV/dD7Qp1GRQthFvDNiat7NqEw02qPj8YhcfUmLn10s96
- JIG8vb0OjwjevlH0ml8bPMHAydxfektsxPewXwXBbIzjLTp++CQgWc+zs7/XoKxHhZ
- w23KkSOKbfZSQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8404.netcup.net (Postfix) with ESMTPS id 4h816M5BSGz4xtW;
- Mon, 27 Jul 2026 16:23:23 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4h816K0sHxz8svG;
- Mon, 27 Jul 2026 16:23:21 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id 1FA265FA76;
- Mon, 27 Jul 2026 16:23:16 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <1826ddd9-6edd-4481-a31d-6cbb083b3a56@leemhuis.info>
-Date: Mon, 27 Jul 2026 16:23:15 +0200
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 927E910E423
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 14:32:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:From:Reply-To;
+ bh=DiE4IxzE17usoM51qOTZlsKT9PGucUwiHg87MbGicCY=; b=qnHlYAYbKvxNdYuWcrBw61i7EE
+ z2XK0h0R7hLeJD0cpMOAlnEA2x4sJNm8N8LWFFONmS0QFGDyasPNVdDlQmRPSoWq5A0Fi9+0rvuz7
+ foRPtfq5YCeeAVW3zpmwUDh5p4Tmj/NdGbzA114blyLUxoD5SeWHoKoHGBNn7J/mi69wr/7hyn7OU
+ ireXud7usQ5QfeFGDMWYhT7jpkBRDVF13sFuOdtXZcsaXnyB6CqFLkr4VpPUYn4ilgKL8JTXwibrW
+ n/meKG02sBBworD/ym0dAy9qnAF/LkIUKzByHFAqcuuepzHXXO3YYXcTqd4zKWiHJRrT37YL77Xbp
+ 36aQ4yiw==;
+Received: from [187.36.208.132] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1woMNh-006B5g-8r; Mon, 27 Jul 2026 16:32:37 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH RESEND v2 0/2] drm/vc4: Fix binner overflow-memory
+ corruption and GPU hangs
+Date: Mon, 27 Jul 2026 11:32:27 -0300
+Message-Id: <20260727-vc4-bin-oom-fixes-v2-0-0d8a5eddc7c9@igalia.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/mediatek: mtk_dsi: enable hs clock during pre-enable
-To: Gary Bisson <bisson.gary@gmail.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, Esben Haabendal <esben@geanix.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>,
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Adam Thiede <me@adamthiede.com>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
- <8733xko1ms.fsf@geanix.com>
- <0f719c00-3cf5-4403-afbf-713b07255981@collabora.com> <aleM9Wy9otpd6Je3@owl5>
- <aRN3_2FHX8XmTcwduTAPwz4UFde4B0tbB09ajyeUg5qZxiIYMmbvMkG7CPoNTl4iySYMZawbLMWijO47R22gkg==@protonmail.internalid>
- <65558ccc-4f2c-492d-8c74-627d27dce864@collabora.com>
- <87h5m0mkca.fsf@geanix.com> <alpTEPsy-SIQv_Oc@owl5>
- <b26a4890-12e9-4995-a71d-d0b7458b1570@leemhuis.info> <amdTnudq48tZUTG2@owl5>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <amdTnudq48tZUTG2@owl5>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178516219658.2742281.2869505277937587540@mxe9fb.netcup.net>
-X-Rspamd-Server: rspamd-worker-8404
-X-Rspamd-Queue-Id: 1FA265FA76
-X-NC-CID: 43uR6QNMyemn/nPkJoEiLbUEjzWk0VHzRbV5Th599RFa0TAAe38=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+To: Jose Maria Casanova Crespo <jmcasanova@igalia.com>, 
+ Iago Toral <itoral@igalia.com>, Maxime Ripard <mripard@kernel.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2373; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=YGYthqmSkC8h78b1vWRmPeKQhegvHzR1P6XUSWdp1l8=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqZ2wBwXggYGVsbJywWmivlGDi8AwVIwNveKVcx
+ 5ACTO6puv6JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCamdsAQAKCRA/8w6Kdoj6
+ qleZB/91AUuq06t34wK9WMCx84IuxJ806HeXrZtP/D0aR6X94Fax2X+3FVfNEfyGGG1Ro3rvb9d
+ cMI2bl9UMX9oTSVqC66pcx4aSpkEOl/RI5A66DDYk3G6H7sdrbudXXuWb7AO+uEhUomKX1K9wNh
+ CIo1sKbvIFjiueQAk2IDQ6YoXsvfOPz+vRg6hEKDBrffREFIsh3+b9GP/9mEs0ddDvorv+GWpjN
+ w3eqLNCv39Plb9Hza1fxgRfMx92FPhKA8RxHayDtcHO2G0bcY+CB0CLnKkvzOKui4tULy0NA8A7
+ HFMI8hXi3OV6FBUi2Gx0XckgFHfLKkDH1qP94RvHhaV6hlmk
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,48 +70,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/27/26 14:48, Gary Bisson wrote:
-> On Mon, Jul 27, 2026 at 02:28:56PM +0200, Thorsten Leemhuis wrote:
->> [top-posting to facilitate]
->>
->> Gary, Angelo, what's the status here? It looks like this fell through
->> the cracks -- or was this issue fixed in between somehow? If yes: great!
->> If not: Would be good to finally resolve this, as we are long past "fix
->> within a week" rule of thumb from Linus:
->> https://www.kernel.org/doc/html/latest/process/handling-regressions.html#on-how-quickly-regressions-should-be-fixed
-> 
-> Not much happened I'm afraid. The status as I see is:
-> - this patch is necessary to have TI SN65DSI83 working
-> - this patch also follows the DRM guidelines saying that HS clock must
->   be enabled during pre_enable (see previous answer / [1])
-> - this patch has been successfully tested against MIPI-DSI panels (by
->   Angelo) and LVDS panels via TI bridge (by myself)
-> - Adam reported an issue with another bridge (PS8640) where resume is
->   broken
-> - Esben offered a patch to the TI bridge that would fix the issue we
->   were seeing in the first place.
-> 
-> But for the last two points, I'm not sure this calls for a revert yet:
-> - enabling HS clock in pre_enable still is what should be done [1]
-> - maybe the issue Adam is facing is due to the bridge driver instead as
->   it could not be reproduced with another setup
-> - Esben patch would break the SN65DSI83 init sequence, suggesting that
->   the culprit really is the MIPI bridge for not following the HS clock
->   requirement in pre_enable instead [2]
-It's tricky, yes, but I suspect the right time for a revert was weeks
-ago. What Linus afaics basically wants in situations like this (espe.
-with two reporters) boils down to "something broke recently, no fix was
-found within a week or maybe two, so we go back to the previous state to
-restart from there -- and this is nothing bad, that's just done to buy
-us time."
+This series fixes two long-standing bugs in the VC4 binner's out-of-memory
+(overflow) path. The binner writes each tile's binned command list into a
+per-job binner BO that is carved into fixed slots, and spills into overflow
+memory whenever a tile's list outgrows its initial tile-alloc block. Bugs in
+that path have been reported for years as GPU hangs, userspace heap corruption
+and occasional full system crashes [1][2].
 
-If something is right by some hardware or DRM specs often doesn't matter
-much. What makes this tricky is the fact that the revert might cause a
-regression for those that relied on the functionally the change brought.
-But I suspect even then Linus prefers a revert, as it's a recent change
-that only went into 7.1. The quoted from Linus on this page cover this iirc:
-https://www.kernel.org/doc/html/latest/process/handling-regressions.html#quotes-from-linus-about-regression
+The two patches address distinct problems and can be reviewed independently,
+though they were all found while chasing the same reports.
 
-If we can't agree on this, we maybe should ask Simona or Airlied for advice.
+Patch 1 addresses an issue in vc4_overflow_mem_work(). The function points
+BPOA at a 512KB slot inside the 16MB binner BO but writes the size of the
+*whole* BO to BPOS, so on every binner OOM event the hardware is authorized
+to DMA tile lists across other in-flight jobs' slots and, for any slot but
+the first, past the end of the BO into unrelated CMA memory.
 
-Ciao, Thorsten
+Patch 2 zeroes the Tile State Data Array (TSDA) when a job's binning slot
+is configured. Binner slots are recycled between jobs without ever being
+cleared and, although the kernel sets the "Auto-initialise Tile State Data
+Array" flag, the PTB demonstrably still acts on stale tile state left by the
+slot's previous user, generating invalid command streams with invalid primitive
+streams and branches that hang the GPU.
+
+[1] https://github.com/raspberrypi/linux/issues/3221
+[2] https://github.com/raspberrypi/linux/issues/5780
+
+Best regards,
+- Maíra
+
+---
+v1 -> v2: https://lore.kernel.org/r/20260718-vc4-bin-oom-fixes-v1-0-8cba09558c33@igalia.com
+
+- Drop the GPU-reset overflow-allocator fix and the dynamic initial tile-alloc
+  block sizing in favor of new patch.
+- [1/2] Add Iago's R-b (Iago Toral)
+- [2/2] NEW PATCH: "drm/vc4: Zero the tile state data array before each BIN job"
+
+---
+Jose Maria Casanova Crespo (1):
+      drm/vc4: Supply the overflow slot size in BPOS, not the whole bin BO size
+
+Maíra Canal (1):
+      drm/vc4: Zero the tile state data array before each BIN job
+
+ drivers/gpu/drm/vc4/vc4_irq.c      |  2 +-
+ drivers/gpu/drm/vc4/vc4_validate.c | 29 +++++++++++++++++++++++------
+ 2 files changed, 24 insertions(+), 7 deletions(-)
+---
+base-commit: a3caaa06809248b996254be5b47e10804a3494e2
+change-id: 20260718-vc4-bin-oom-fixes-29cf2cce2562
+-- 
+Maíra Canal <mcanal@igalia.com>
+
