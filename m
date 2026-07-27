@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5207CC531D0
-	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 16:58:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F199C53209
+	for <dri-devel@archiver.kernel.org>; Mon, 27 Jul 2026 16:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27C4C10E485;
-	Mon, 27 Jul 2026 16:58:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D7A0089919;
+	Mon, 27 Jul 2026 16:58:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i/Jm4eCp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XdM+l9ol";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EC3610E48C
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 16:58:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5FA089919
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 16:58:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 33D3A60008;
- Mon, 27 Jul 2026 16:58:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9212C1F000E9;
- Mon, 27 Jul 2026 16:58:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6135240907;
+ Mon, 27 Jul 2026 16:58:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0377C1F000E9;
+ Mon, 27 Jul 2026 16:58:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785171487;
- bh=A9bjCVqW/Ej3dLMulthxoTyFz5V81faOSr+gAOE/olo=;
+ s=k20260515; t=1785171504;
+ bh=zeYfh6Ae+1xJhea6+9HT4lCqDt/7bYv2LK0Gd+dP4ds=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=i/Jm4eCpGh2eE/GF0a0/6UO6EDBt38eLRhNh0wRLi5Iz79NBA0f/7WjSA9BCfQ+Iq
- B/3husOAhcsPhxSFyY20tKzeSkHBd6KBJa+mlmzgnNTSX8vyDo1lAWAjkd3d7FPxsx
- j01rtH2V63/OujMeEcrGwuNDzjBg5bl45mcVrRFIIBDagYFZYHnLyJ9mI2SWCk8gYq
- Zsmrong6YMMhuJrczsYYq4ADSKuX9eK4ui+UcEbKlX7x1GHOQ2F2bfG2Mhg492P1g6
- NT/6YYKFZfOOfZlPodzPjRaqp58pEfcu9bcBpu8mT8kt4cG/yKfIenvY1H/qwbl6v0
- LKqqUMbuDz9VQ==
+ b=XdM+l9olRW8cKalogx7n+VU3fSaNCRSPkhHZMGpLzCiNnF5n2MXamqP4NMDF773oD
+ GREnikG0Why5GUAYX0IpZTwNhzGp5bqoFZ0pTi/+O9mFL1g7myQ0E72UPFZPwN67P7
+ vLkGWiGJSKvlxkAerr6IvifRL31O/YDcEVwbm/yFVEB9K1OfnQdyXmJ4aGulx1l8TJ
+ 3zdTwLFo4GTutJPOhxu+P+MyssSMxzGPfj7LOwbVamNxOjols3+UjYMG21tr7V3m8o
+ EouQobx+MZzv5jPF0GkDVCQFsaqrzLuNfbIHeCVhpRlMHCN9tR5erpTF6gxNXokLCX
+ Zd2B1b9xWPqtQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 05/11] mm: convert PTE table entries in ptep_get()
+Subject: Re: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table storage
 To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
-Cc: dri-devel@lists.freedesktop.org, damon@lists.linux.dev, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org
-In-Reply-To: <20260727164715.2866609-6-usama.anjum@arm.com>
+Cc: linux-perf-users@vger.kernel.org, damon@lists.linux.dev,
+ bpf@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260727164715.2866609-2-usama.anjum@arm.com>
 References: <20260727164715.2866609-1-usama.anjum@arm.com>
- <20260727164715.2866609-6-usama.anjum@arm.com>
+ <20260727164715.2866609-2-usama.anjum@arm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 27 Jul 2026 16:58:06 +0000
-Message-Id: <20260727165807.9212C1F000E9@smtp.kernel.org>
+Date: Mon, 27 Jul 2026 16:58:23 +0000
+Message-Id: <20260727165824.0377C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,95 +58,59 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Incorrect placement of READ_ONCE() around __pte_from_hw() in ptep_=
-get() breaks atomic PTE reads and causes compilation failures for architect=
-ures overriding the hook.
-- [Medium] ptep_get_lockless() fails to apply the __pte_from_hw() conversio=
-n hook when CONFIG_GUP_GET_PXX_LOW_HIGH is enabled.
+- [Medium] The header `<linux/pgtable_types.h>` incorrectly assumes `<asm/p=
+age.h>` universally defines `pte_t` and architecture opt-ins, leading to mi=
+ssing types on x86 and a structural inclusion hazard for opting in.
 --
 
---- Patch [5]: [PATCH RFC 05/11] mm: convert PTE table entries in ptep_get(=
-) ---
-commit e1a429a7f2c12fbd880800f901c43b4ccbc922d7
+--- Patch [1]: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table stora=
+ge ---
+commit de503ea03294c1c9976ce045b5e820dbc0f34eba
 Author: Muhammad Usama Anjum <usama.anjum@arm.com>
 
-mm: convert PTE table entries in ptep_get()
+mm: introduce hw_pte_t for PTE table storage
 
-This commit introduces a conversion hook __pte_from_hw() for ptep_get(),
-allowing the function to accept a pointer to hw_pte_t and return a logical
-pte_t value. The generic ptep_get() implementation is updated to use this
-new hook.
+This commit introduces hw_pte_t as a generic name for a PTE table element.
+It defines it as an alias of pte_t by default, allowing architectures to
+retain their existing representation until they opt in to a distinct type.
 
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index dad80d264aac2..3003ac9cd81fe 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -493,7 +493,7 @@ static inline int pudp_set_access_flags(struct vm_are=
-a_struct *vma,
->  #ifndef ptep_get
->  static inline pte_t ptep_get(hw_pte_t *ptep)
->  {
-> -	return READ_ONCE(*ptep);
-> +	return READ_ONCE(__pte_from_hw(*ptep));
-
-[Severity: High]
-Does wrapping __pte_from_hw() inside READ_ONCE() break the atomic read
-semantics and build stability?
-
-READ_ONCE() requires an lvalue to perform a volatile read. If an architectu=
-re
-implements __pte_from_hw() as an inline function returning an rvalue, this
-will cause a compilation error (lvalue required as unary '&' operand).
-
-If implemented as a macro returning a compound literal, it compiles but the
-actual read of *ptep occurs outside the volatile scope during the
-initialization of the stack temporary. This allows the compiler to tear or
-reorder the memory load, potentially breaking the concurrency safety of the
-page table read.
-
-Should this be __pte_from_hw(READ_ONCE(*ptep)) instead, to ensure the memory
-is read atomically before the conversion is applied?
+> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+> new file mode 100644
+> index 0000000000000..ed5dba42a4f8c
+> --- /dev/null
+> +++ b/include/linux/pgtable_types.h
+> @@ -0,0 +1,11 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +#ifndef _LINUX_PGTABLE_TYPES_H
+> +#define _LINUX_PGTABLE_TYPES_H
+> +
+> +#include <asm/page.h>
+> +
+> +#ifndef __HAVE_ARCH_HW_PTE_T
+> +#define hw_pte_t pte_t
+> +#endif
 
 [Severity: Medium]
-Does the lockless fallback loop in ptep_get_lockless() also need to apply
-this new __pte_from_hw() conversion hook?
+Is <asm/page.h> guaranteed to define pte_t on all architectures before it is
+used here?
 
-Looking at ptep_get_lockless() in include/linux/pgtable.h for architectures
-using CONFIG_GUP_GET_PXX_LOW_HIGH, it currently constructs and returns an
-unconverted PTE directly:
+On x86, pte_t is defined in <asm/pgtable_types.h>, which is not included by
+<asm/page.h>. This means pte_t might not be defined when the default hw_pte=
+_t
+alias is created.
 
-	do {
-		pte.pte_low =3D ptep->pte_low;
-		smp_rmb();
-		pte.pte_high =3D ptep->pte_high;
-		smp_rmb();
-	} while (unlikely(pte.pte_low !=3D ptep->pte_low));
+Could this also create an inclusion hazard for architectures opting in?
 
-	return pte;
-
-If an architecture using this configuration requires a custom hw_pte_t
-conversion, callers might misinterpret the logical bits of the unconverted
-hardware PTE. Is it necessary to apply __pte_from_hw() to the assembled
-PTE before returning it?
-
->  }
->  #endif
-> =20
-> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-> index ed5dba42a4f8c..61afe27307ec2 100644
-> --- a/include/linux/pgtable_types.h
-> +++ b/include/linux/pgtable_types.h
-> @@ -6,6 +6,7 @@
-> =20
->  #ifndef __HAVE_ARCH_HW_PTE_T
->  #define hw_pte_t pte_t
-> +#define __pte_from_hw(pte)	(pte)
->  #endif
-> =20
->  #endif /* _LINUX_PGTABLE_TYPES_H */
+If x86 were to opt into hw_pte_t by defining __HAVE_ARCH_HW_PTE_T in
+<asm/pgtable_types.h>, any files including <linux/pgtable_types.h> first wo=
+uld
+incorrectly alias hw_pte_t to pte_t. When <asm/pgtable_types.h> is
+subsequently included, its explicit definition of hw_pte_t would macro-expa=
+nd
+to a conflicting redefinition of pte_t, breaking the build.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727164715.2866=
-609-1-usama.anjum@arm.com?part=3D5
+609-1-usama.anjum@arm.com?part=3D1
