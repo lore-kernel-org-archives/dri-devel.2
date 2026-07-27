@@ -4,80 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7AF6C54F53
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98961C54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1B0410E7D6;
-	Tue, 28 Jul 2026 07:21:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D51310E7DA;
+	Tue, 28 Jul 2026 07:21:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="cGls7zQn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AonkEpf4";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 44CBE10E48C;
- Mon, 27 Jul 2026 16:48:30 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id AAB971762;
- Mon, 27 Jul 2026 09:48:25 -0700 (PDT)
-Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
- [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 1D0C13F86F;
- Mon, 27 Jul 2026 09:48:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785170909; bh=qlMBEgSYanOpxaG5+GObNIcpflrmglgvjw2BYgGRiAs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=cGls7zQnlsACMOdTrPwDBJKOvhD8kH8mv7YPFdOjvjhXwbN8u4sgWSL3YZNOD0Pml
- XyFgMqudxOPDpAUOdEAXMsBPUM1LKrruj30a0mmvs9giDguNXB6O7JxdB2zaKUWPNm
- 8j3C5nbVhGELOQy1dslFMHRX+rphcvgUZy5T3uvw=
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
- ryan.roberts@arm.com
-Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: [PATCH RFC 06/11] mm/kasan: use hw_pte_t for the early shadow PTE
- table
-Date: Mon, 27 Jul 2026 17:46:57 +0100
-Message-ID: <20260727164715.2866609-7-usama.anjum@arm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260727164715.2866609-1-usama.anjum@arm.com>
-References: <20260727164715.2866609-1-usama.anjum@arm.com>
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0575D10E4C4
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 15:28:30 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-495590dde14so31492455e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 08:28:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785166108; x=1785770908; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=bgMfUYC7ZpwL2pGUZegRGSOZuFsMOmvyJZY8xkpkpds=;
+ b=AonkEpf4Et3f0mMfZzeiTpAZXzo6RjHmT9CCeHx7/pwqHg+TlBEKzRHLKR/g0/nAFs
+ yYakLwLOKWWMYPmbOxfx4DJKMc6WmLHk8N81P+2nyMl08xBk6VSnVcpt7yuIE9V31pEk
+ L4W5235j9aDUfgw4cQHX+KXpe+s3jeMPqdc5Wu8NR4xiP7VvkJPc2b970hhuTG2FVpBw
+ quFzevEwiVXxBtswuSuHtG9swOFaWm+yzdUti82hD+qGENr2sl7MnlDZnX1cCGfnTFdm
+ 6/zaA9hloY359HwN1nuAE0EY8rNLCcxi7yPHxYLLU37oEQ+W4MerNjNM2Rx2vHBhRmab
+ 9xCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785166108; x=1785770908;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bgMfUYC7ZpwL2pGUZegRGSOZuFsMOmvyJZY8xkpkpds=;
+ b=nbJw63RcLwV9ZSZlOCvxMVeV25W8DqR8vysKSf/QXL5ML0+WPTADc1bKpUViNBVFiL
+ dE6pWOI3aZKD5A7T/ww9u4pXz0qZL8DNZjj7cxhiSb1Gcqf2MWhAyUHspZXJ3kGKQ5T2
+ mCk646bzdXObua72HKBD8ywrM7gaqtnb8rf5QKpVgXGiCc5EioRZ9ViXkIn753ONMeJ/
+ oyC9Ap9gfthoT+eudBofQBLWw2TEYHYenVV6NBconWBJA3b94uuevBw3FHOqq+mSrS+x
+ a/pBl/JWGeEzfQCXi33SGMDdU13a8y7rzrR8As74iXmcX/6z6EWZgYE544VWTvdw7tuQ
+ zP3g==
+X-Gm-Message-State: AOJu0YwJFJ5nqee6t1qBYzA/mR5+QBCSBy8DE2eNPW0C6MZYMqy0WDHM
+ DxcrokfwDu9nCZXOJjBEHeyM11O1fCYOra2n1MwDVrQblXjqOIeYqCBr
+X-Gm-Gg: AR+sD125cE//UsDUZw8HDZx/XC2OnNp0DSPkZzqy5chh4UJPRjxl4oSORSYT4Ckxq0B
+ cE343vROFr9crW4e70Dk/5FX+qC3DMafCUCDgUrJDx3MWRhw/R47zElJrPd/Qgx28NcRWz3Y0qy
+ ZJa4AWnAv+t51A+s+T+RilNGzssOafId+uezjOUj3uaDyg0+p/mxj/ZRuqQDbZoI61QkLQizy1C
+ 0UuTgI3P7fb9k7JvGM7FB5LH6dABLeS2ik026VfEdQa2oG4mSz5u7ZYa0se8bDNQb5CGbSshOmC
+ yXGvKiLymhh/pKxU22mBNSmgr5oJlPoxkh/KycdxnvaTyCQthMIIOxwVtpEqhE2AInDd+Uo3JI8
+ G6lSo3ewWzaYcRc0TrGiNK4MAKd5TElsqJGDFcPQXgll5xHJFqX0L7OpSfoMXMtMC4wERxKsEf7
+ djbDLwm8M=
+X-Received: by 2002:a05:600c:3488:b0:495:7a23:1eee with SMTP id
+ 5b1f17b1804b1-496c3a0cc27mr15603325e9.12.1785166108275; 
+ Mon, 27 Jul 2026 08:28:28 -0700 (PDT)
+Received: from fra-x8664.lan ([151.16.232.22])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4957b816ef8sm214838735e9.1.2026.07.27.08.28.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jul 2026 08:28:27 -0700 (PDT)
+From: Francesco Magazzu <postadelmaga@gmail.com>
+To: Lyude Paul <lyude@redhat.com>,
+	Danilo Krummrich <dakr@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Karol Herbst <kherbst@redhat.com>
+Subject: [PATCH 2/2] drm/nouveau/clk: only update clk->pstate after hardware
+ programming succeeds
+Date: Mon, 27 Jul 2026 17:28:21 +0200
+Message-ID: <20260727152821.128432-3-postadelmaga@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260727152821.128432-1-postadelmaga@gmail.com>
+References: <20260727152821.128432-1-postadelmaga@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 28 Jul 2026 07:21:09 +0000
@@ -96,64 +90,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-kasan_early_shadow_pte is a complete PTE table rather than a
-standalone PTE value. Declare and define its elements as hw_pte_t so
-the object uses the PTE table storage type.
+nvkm_pstate_prog() wrote clk->pstate = pstatei before attempting the RAM
+and core clock reprogramming. If either step failed, the software state
+tracker had already committed to the new pstate even though the hardware
+transition never completed, and a later re-request for that same state
+could be skipped (pstate != clk->pstate would be false), leaving the
+hardware stuck out of sync with what the driver believes it's running.
 
-Read the first element through ptep_get(), which returns the logical
-pte_t value expected by note_page_pte(), instead of accessing hw_pte_t
-storage directly. This also uses the accessor selected by the
-architecture.
+Move the assignment to after nvkm_cstate_prog() returns, and only commit
+it on success.
 
-The generic hw_pte_t remains an alias of pte_t, so the storage
-representation is unchanged.
+Found by Sashiko AI review (https://sashiko.dev) while reviewing
+"[PATCH v2 2/4] drm/nouveau/clk: don't use the pstate cursor after the
+loop" (20260712123616.1180830-1-postadelmaga@gmail.com) as a
+pre-existing issue.
 
-Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Signed-off-by: Francesco Magazzu <postadelmaga@gmail.com>
 ---
- include/linux/kasan.h | 2 +-
- mm/kasan/init.c       | 2 +-
- mm/ptdump.c           | 2 +-
- 3 files changed, 3 insertions(+), 3 deletions(-)
+ nvkm/subdev/clk/base.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/kasan.h b/include/linux/kasan.h
-index bf233bde68c7e..ff41949c0ac08 100644
---- a/include/linux/kasan.h
-+++ b/include/linux/kasan.h
-@@ -51,7 +51,7 @@ typedef unsigned int __bitwise kasan_vmalloc_flags_t;
- #endif
+diff --git a/nvkm/subdev/clk/base.c b/nvkm/subdev/clk/base.c
+index 737bec8..91c51d4 100644
+--- a/nvkm/subdev/clk/base.c
++++ b/nvkm/subdev/clk/base.c
+@@ -285,7 +285,6 @@ nvkm_pstate_prog(struct nvkm_clk *clk, int pstatei)
+ 		return -EINVAL;
  
- extern unsigned char kasan_early_shadow_page[PAGE_SIZE];
--extern pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS];
-+extern hw_pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS];
- extern pmd_t kasan_early_shadow_pmd[MAX_PTRS_PER_PMD];
- extern pud_t kasan_early_shadow_pud[MAX_PTRS_PER_PUD];
- extern p4d_t kasan_early_shadow_p4d[MAX_PTRS_PER_P4D];
-diff --git a/mm/kasan/init.c b/mm/kasan/init.c
-index 30c5266eaf37e..9bbc2a41d23f0 100644
---- a/mm/kasan/init.c
-+++ b/mm/kasan/init.c
-@@ -64,7 +64,7 @@ static inline bool kasan_pmd_table(pud_t pud)
- 	return false;
+ 	nvkm_debug(subdev, "setting performance state %d\n", pstatei);
+-	clk->pstate = pstatei;
+ 
+ 	nvkm_pcie_set_link(pci, pstate->pcie_speed, pstate->pcie_width);
+ 
+@@ -302,7 +301,11 @@ nvkm_pstate_prog(struct nvkm_clk *clk, int pstatei)
+ 			return ret;
+ 	}
+ 
+-	return nvkm_cstate_prog(clk, pstate, NVKM_CLK_CSTATE_HIGHEST);
++	ret = nvkm_cstate_prog(clk, pstate, NVKM_CLK_CSTATE_HIGHEST);
++	if (ret == 0)
++		clk->pstate = pstatei;
++
++	return ret;
  }
- #endif
--pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS]
-+hw_pte_t kasan_early_shadow_pte[MAX_PTRS_PER_PTE + PTE_HWTABLE_PTRS]
- 	__bss_pgtbl;
  
- static inline bool kasan_pte_table(pmd_t pmd)
-diff --git a/mm/ptdump.c b/mm/ptdump.c
-index 376880071ca2a..8f19f20be3c44 100644
---- a/mm/ptdump.c
-+++ b/mm/ptdump.c
-@@ -19,7 +19,7 @@ static inline int note_kasan_page_table(struct mm_walk *walk,
- {
- 	struct ptdump_state *st = walk->private;
- 
--	st->note_page_pte(st, addr, kasan_early_shadow_pte[0]);
-+	st->note_page_pte(st, addr, ptep_get(kasan_early_shadow_pte));
- 
- 	walk->action = ACTION_CONTINUE;
- 
+ static void
 -- 
-2.47.3
+2.55.0
 
