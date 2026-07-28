@@ -4,105 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A559C54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 06:37:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AEAC3C54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 06:46:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEACC10E52A;
-	Tue, 28 Jul 2026 06:37:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E430010E52C;
+	Tue, 28 Jul 2026 06:46:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="nfmaMUk+";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VLDA1OZ/";
 	dkim-atps=neutral
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCE8C10E530
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 06:37:34 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-7dbcb505578so32214207b3.3
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 23:37:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785220654; cv=none;
- d=google.com; s=arc-20260327;
- b=FSrNAwqI1rFe57Uw8l2EYnmFKbdukJNSdwu4HznoET8FXQApC5YMQLLAERhz6nSSEf
- 2e7hnbaSNMl/ROPfoUE9B107rCQGfoTmf8skG520EkkM+YH8VWEJrvhM7Wk9piBgrdll
- 4LOp5p9h0neZFv53Y7iApfxQOhJl9J/4W93kISGwZJTZoKzsMvle5y1jYSdnogtx+Ura
- xaN4JzrHWNprMaC3YB+Pa8cnlAwyxyRjKZyg6wEaJiyI2YaKk9yMlpQSq03jloKKIeOE
- OwL42Lz/i3sy1fhd9P5ExSDLV1pP5MuKDxhcq/1hLLKDDLWSQz8iACOrKe3d00Nj3xrq
- W7Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=iwoDhJK5JZbrMblzbHvyi1tLJRZPTflh+Yp8TazZZnk=;
- fh=uNOFbLkk2fjX1cBYg0hAO7GELCuMmAGE1cQqIX9EVh0=;
- b=ivNBbBCLHPe8DYSuoSDLZOmLCNfhodQZPvJiArOPOlxOpclF3fVGlPOjkfvZqcHzk+
- /hH7MiJ5eMjHrzf4BvxQzQ6M58gD0lXSiwWiIYzeJxgi2p6It+ibXTk/aV96pnaf/xFs
- MO9VJECdP2hYmAXOezqyPb/AzitPkaUrRBGnAA0N2vXO9nQL761knqN11QEzjoQE+xMG
- eRhK9PjiieojPs5CSU2QWTbJlUbzS83+xpJlSUjs1BO9wdpIPN8eFKQnWGQoTafsYk4W
- iG4nVUvGjvIPgqtUkgMshW8efT4Duz4ocmVIFGguxwsg43BCbZYqO7kTwioZVMwKh6MR
- 1b+w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1785220654; x=1785825454;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=iwoDhJK5JZbrMblzbHvyi1tLJRZPTflh+Yp8TazZZnk=;
- b=nfmaMUk+ro+9FmqHuzvso/pJDXz/YXaQ0XCOD+g8aBTeMhxNOHphBy+upexjtyM9MY
- oJETi4VAiToQhjSiH6RfnwuLnld9j5sDI0TwZDI6gPB8mcUVH/m4T6/TzLTUMTI9hRKs
- FzMmJcYaIYOonbap59jG26jX7zo4e9QQj9IwI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785220654; x=1785825454;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=iwoDhJK5JZbrMblzbHvyi1tLJRZPTflh+Yp8TazZZnk=;
- b=s6fRpYZ2CGE2cnVNPyRjCJttLu7kgN7zJTPF2FXcqkZNy+LxZ3j25WOGqSV0i3mA1V
- DbWbIGsPN83RdrsznW7ZWIELjpuOsJIx3Ph2xfVm3+dQxiD9HkThRt8OMNDwNdi8H8tq
- xlh4OJrYJJRnoJHQn2zVE+rXdVnxxuRkAqFBBZsbjUplpxqqTmx9gZRBzLim+QnQN5J6
- LUqAA4gaCcn5lgbcOKQtUKD/XF7VlbjHKz10VziC3ML+Ni4rFt6pA7X/j6jZdcHViIzh
- /wV3rw6EEnE3xqcXep1xx9laYWnzbX/ChcBqL/WMPKgoZ90fkYp5I+8+vVy28sOWElui
- FVIg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp7c/iCMDfLgZfBAuaY24v6+jz3WGaTRxDVDfF3dIuxhnhJj7JIkjDRXugUi5ePkfwhw9ICaclUfUI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzFiGNas2jEkf+QvgrUsdUeoozPS9mEB0rFgOzWAiFeFe8m0TYP
- d9EPugcNFchKkKpxhbMh8Bga9xueslDp7C2CaRJygsQNJW3JD51qBZTSzDiQhfkVdgF1crcYrYk
- 1p/ZJb+aSK3mxjr9BSyI9h/IgCSQayPS6o+cUFI8a
-X-Gm-Gg: AR+sD12EjHkbdcl8zCNARoj41FZMTSHE8hlL8wpuDsg+Gk5euGrY0BcZV5uOdl8jaHo
- TRMxFOrkVf+yM+qX5R7OAItGN+f2vHj8MIrNPn4oO7Xx378PXIYD6npOjs7fPV6lm6vEJwsiUC6
- aAFWN5QufDZyYuDrOBJF6oYN4hI3x0mpNeKargiGgomXV229Vinb0jIMPKqndBwQInpucZs3w8V
- L4xHli2mMBAyNrePPWq8ap0f5MPypTRf9NCHGZygTZEy0fUVpZpwRd8m38hSG+IQLrH0drroKLb
- AzRqzL2iScaTkFiF
-X-Received: by 2002:a05:690c:6513:b0:81e:6fd:93b4 with SMTP id
- 00721157ae682-81f990e37e0mr5299807b3.19.1785220653618; Mon, 27 Jul 2026
- 23:37:33 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260727091555.1023910-1-wenst@chromium.org>
- <CA+m4KrCkk_p213=JVVcuxjvO2tCREw7_mL596xu-RWJ0Dz3p5w@mail.gmail.com>
-In-Reply-To: <CA+m4KrCkk_p213=JVVcuxjvO2tCREw7_mL596xu-RWJ0Dz3p5w@mail.gmail.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Tue, 28 Jul 2026 14:37:22 +0800
-X-Gm-Features: AUfX_myB_DUT8i6FRV-3BSUxtj0ldOLM5BCdGMqxKm6_-hJ1ByrCEGHtFfO4OGY
-Message-ID: <CAGXv+5HXf9U6CdMudVkrWL_62jktW6jYQvtrjAFGc=+UnoKQXA@mail.gmail.com>
-Subject: Re: [PATCH v3 0/5] powervr: MT8173 GPU support
-To: YoungJoon Lee <getfeus@gmail.com>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Dan Carpenter <dan.carpenter@linaro.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, imagination@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010055.outbound.protection.outlook.com
+ [40.93.198.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A61310E52C
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 06:46:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pUTkgIFvFnoLTa4wca+CUAaN/Xy7Y7pgtfU6gRUOrp+vjv9Akz+BfcUoQWKjByCv3va0gWfQ1JZQns3qYjbno+6Xf5TNHWBd/tQrKiQbO7nOdOVE35O2rbkXO3O0NzTWsVyPm244f9+GpBBpLg1B4QtyddyIIZIrmW0o6HZEWpR/qnygmXXwaIQ3bYmM2S/w2qYzsFWdktbsyly1LIji8EpMpYagPJNBqJ71QJ85hnCUsONN74h9IBsrCzd/Hxky17YlVL0sTxjhGkYzFhuAm2Ysm+OjZE0IiC5dcbQsms88e7vtOh7ixHut9Bds07jAscCrJQrSlDx46BzHpai7Mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=I1ieTHOQy7n3qPyOpJMSgsRJL+oGxnaI8CtwZs7TbqE=;
+ b=ppCRTwNpjmdd4jz+qYjkxapTm3m8Cc1npjhHDnZb/uSOxF8HhGc5xltkU+KuQ1BjKgBvYMCKemPXKkXwcL/Ix1D+zUAebuyh8nvKS23gkNgU+6VHVYoK43pg4V3B7+KsnoOrrwXJGD7Pi1RSTNXcyaC1qYPoQrDupmosUbrMwit4ov5CuuhKB0x56ruq0bxONLkMu+FhUWTKuUX5eZM0ao3If4C1dYxbwXJYQmFk3L/+6u2EdX5/GUMcyKpvFMLFUQehyzmTDYALx16RqX2akA6f5kqVpSjTzxx1nsLpWU0P8nL8+gSwku8byrLR3uE0dH/XuE43g/R0aPf4dMitLQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=I1ieTHOQy7n3qPyOpJMSgsRJL+oGxnaI8CtwZs7TbqE=;
+ b=VLDA1OZ/JJRO4S8ovsifa9YQFzkbQL81b8sX2Bozi8dzsO3vqxkqyyu59o31RZDgJA9gTsZTW3aPWL0W6U4StbjvZHsAU3HRkKpYAVxUo/YTW486RMYca45bSA0MEi262Sg61cFqYC/jj+1Hahd4tIkGsEXCtmJrEZ3y+0Qv3w7CD9RzJ0xHf7Hyw+A4t9+5n/b4Hq7Ml/lexXUx4BscuMDmjUknEVKuez6ZJddW0GQ27ZZPyBU5NEUXuhvSERhB2ZQZkCSnPnKs2H+MBYaqOOFAEeuI99QXc0dM/5W8McC5scSvtVfYyAetXm1YZ/mVxY7tjoBRjtk5L/v0VVozSQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by DS0PR12MB7874.namprd12.prod.outlook.com (2603:10b6:8:141::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 28 Jul
+ 2026 06:45:54 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
+ 06:45:53 +0000
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Jul 2026 15:45:49 +0900
+Message-Id: <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+ <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
+In-Reply-To: <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
+X-ClientProxiedBy: TY4P301CA0071.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:36f::10) To MN2PR12MB3997.namprd12.prod.outlook.com
+ (2603:10b6:208:161::11)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS0PR12MB7874:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29569ede-6891-4279-a219-08deec73de32
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|23010399003|376014|7416014|1800799024|366016|56012099006|11063799006|4143699003|10067099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: +AKk1rVCemQPkTv7kg0ZZ0nDoDw1YZ85rib0X4f6WrLStEgaKK+DIrIIsgUkBVqPQTtNHq2oRdV+icw88XH959LZb9lGZyvWIhHjrMFKeYr3AEJt3xSvmA8fpzEbRxpifE2cS/eO5qKtndGa3WXo8I1GkS689+acUzeLqAMiUryMcmfHeDuta9dGbizm+WONDhStFDskLXFFeewUt7swYCPV1LtsyABec0hagmC0XxXx7dBq1pVHjFMh5E84MFwreNVs5o9u1ZZwUlILMdjSu4e6Sw4pylKXJKqaYUR7enwaYYJFcrBAoIyDQ6pKv34jEnR1lFTdD4zt/cWuk/57PgFX+I28CYnB+v2+jz2QOPKgjm0t/lFu3eCMMNKVWGa5Y4KxRqTld9JxHOVd3ccKSZTgQoP50ZyEbLGz6+N0VW22/VVnTIwgWH8SnJ3Db+n1zqzk3RJ+mQmNmrmgSoYzRJl6p4OGZrexiSNDFE7hh/c8Q59p7XbMLP4iyEeBFrWGKU4GxnV/k5+QuTMyWkUEdDRn9GPORF+pTR6tQgd/DfVBXgTndvdceeMzM20RRK5EvaVOhYSGkHPB27YLvIGpL+VLLRhcL3AQG7O847/XrRb8tHdBDAElOWDiqF5dd/cj9y2eTRtSlqGtXe4eRG+B6G9PALkQI+tcsYeXiVg6LHs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(376014)(7416014)(1800799024)(366016)(56012099006)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUx0LzBIQkUxTUlZYnRncFovYUlPejVRYm5NY0ZQTUlnREZJN3hzZm5PbTlv?=
+ =?utf-8?B?c0xuaW4yOUZRa2FmQnoxcHNxUWR1QXRwc3hYVTE4OHN4NXVPUjJ4Q1lFUW0w?=
+ =?utf-8?B?blYzZUNPcEdwU3V1Yk9YWllJZ3FwOXRVTmQwdGc5NVovbzBkVmJVUDRFWlZ1?=
+ =?utf-8?B?NklYeFhZeUYyczJaSEYyRFF6UDd5Q1N4bWZrTFNWZEQrZGtScE04MnJSRE1K?=
+ =?utf-8?B?NWJ4SUFiSEx0Y3hoTzVhdUk2Nm9QRVFZU290YUxkVTNwZU0zMklYWEF4bzJ1?=
+ =?utf-8?B?Vlkzanp2NkRKbG4zb2w3QUFOZGdzQlBsanRnWWVtMDludEpwYXZkcjg5dXgw?=
+ =?utf-8?B?MlZJSXdMQm5Ob2d1MjRibzFmWG5PWHAzL05BejJPeklXU1RqVTR0cXhCU3Rk?=
+ =?utf-8?B?eHRXeXppOW9qd3RYSVF3d0JNblBGd3NOdjFrUVVRQkMvYWoydWo4bE11REFu?=
+ =?utf-8?B?NWNxSHR1N1BnS1A4dlRnQUJsRDgwZHlVcmg4YnBpVlM3bDJnRDU3VUNSOG90?=
+ =?utf-8?B?YVQ1OHJIZHVzTFNFRzJBS1pOT056RWQybVdJY3JtbGFBZHArR3p1cFQwOHY5?=
+ =?utf-8?B?YWV5UXB0bzdIYXhWcmhpTHFzUVhyZHRSQ2NLa1k1TTIwdGRpZ2NZeTE5L09q?=
+ =?utf-8?B?VW0remQrVmRFNjdGU0RrT0FOeWZEOXFPV0h5UzdWbWZKRjYrU1NOUkllc0hR?=
+ =?utf-8?B?S3Z3OWlEc0dvbStkNVRuRm1QNld1Tmo5VmUxVzAxNFJwYTFOTS9FeFI0NHZG?=
+ =?utf-8?B?Q3lFU2tDVEFaNnVHeWJZcjBkbWJwTkYxUGtZdGtOeG1JQ1Q2MHdGNG5tNGJn?=
+ =?utf-8?B?dnMzdEV4aXo4enhrWjlGcjQrY2Y2SWZ5bzhVQmp2OEJzWHR3SmdDZFZnSVNw?=
+ =?utf-8?B?cHJIQ0xxWmVOTFp2anRIdXVOM0w3d3grejVxZzNTenhTdDhMeHpJcVpPckJv?=
+ =?utf-8?B?T3VlejRySGdpWmN0Q2pUS1lEY0pvZ2MvNFZCQS9GQ2hOMEM2QnJEdTFVcy9v?=
+ =?utf-8?B?c0lndHR1ZlZSam84RHFxUHY3RndPZ3Uxbld4ZmZKK3VrS242RFg3ak0yZy9Z?=
+ =?utf-8?B?WGFZTTFnT2lqK0d3QmVkUzZtZjlJWG0rYmlPdDRvSGNWOGpXeGkyMDZFOUda?=
+ =?utf-8?B?V2FKSHcvOVZvb2JIU0IxemhVZ0JhZU83VVF4L29VRXg1Nng2ZEdyQWJIUmlT?=
+ =?utf-8?B?U3VENVNZbCtLbEkxaUp0NmJvUFFZLzBLY1pRZHZYbUZIN0RIdnpPejhvdERG?=
+ =?utf-8?B?T3BGNkhyekFOWmdNTXpJalY3L3hJQk1SbFIxWlJnaDZLRnJXbk8zb1VySU9t?=
+ =?utf-8?B?VEF1QUxTWWNJZSt1ajZUNkx6bSt0QjNiL2lZcDg1aFNHRk54T0pXZWw3MkFr?=
+ =?utf-8?B?U2FCZ2szN1VGZmxQdGlRdVdWU25NTDFWc0Zpamx4TDFIenNPNk1yVFpsdVBU?=
+ =?utf-8?B?NjBRcGZsdTkvc002bXRhR3IwazNBS2t5K2lJVVN3OFM4L3lwRWNUV0pWK2Vt?=
+ =?utf-8?B?WDMzTmxoa2dBWlpIU0c4aUZzTnNKemxnZnFXVnppZlJoakc1c1RNdlQ4VSs0?=
+ =?utf-8?B?NEd4R1BWeWpZU1ZoZ2tEcW9UQ1REOGxqVGtaQUdNb09paXc4OVR1L2ZiLytM?=
+ =?utf-8?B?NWhIZHhWL0VTOUtDU29UZUZSZXZwdVlhRVlCckxWRHEwb1M2Z3RXZjNmVllO?=
+ =?utf-8?B?YXo5cGNKQ0R4b1IvY1JvdFVBWWxuVThCZzBENFRDN1VwWGprNktYRlI5ejlz?=
+ =?utf-8?B?MVNmUjZCTmxsMmxPakErRVVRV0dsNHBIQjNiT3pOclJwNWxNQmFEdnRYNXRn?=
+ =?utf-8?B?MzNDdW9EeS9RVTFuWEZhRVdoSmJ5UW1qYzYyb09qL0EyVUdaUU1pM2g1Nzh5?=
+ =?utf-8?B?Wm4wOFFIa3BvRDNqbGFjMkRtbjRuWTBRRUlRSytoemo5RVQvQUYwNFNTc2FF?=
+ =?utf-8?B?ajlmL1NGYjNmSUNHYVhXOEhDRytwRnlreWVOQm51dnN1c1V0TzZMSGFhUHdW?=
+ =?utf-8?B?WVZzNmErQlZSWUZ3TzA3Q01ZODdQakltQW5XU1RxMk9aNDVITERWZGdZdXJG?=
+ =?utf-8?B?eWJUZ1lneVhYRDhwVXpKVHZ6Z0cvMDlqRGVvMEpMaGw2WUxuTmxWdEcvSlJs?=
+ =?utf-8?B?cU5UZGprY0xRZDlJVnp4QzVUYnlGNmZDNzlMQnlqbFgyVzBYa2VteGpzZkRK?=
+ =?utf-8?B?MnU4MFczeEEzVUFFdnRKSXAreXEyYm1WZ25QK3ZKYlRIbU5jSGRTNUZ1MjhP?=
+ =?utf-8?B?SzJma2lZc3luVktrb1VVZWlLRUNjLzRPYW1ad0EvTDFsYnUzL1krU3ZvSUlX?=
+ =?utf-8?B?VGdGb3NQRDhmbWpvazI3YThXV3pTSjJyQkpFbll4NXlIb0hUamJpQk5QaWV5?=
+ =?utf-8?Q?w72iZ6TjzFmQCYkyptavZAeMWfMvNQl4Iph2ABkq9cw7w?=
+X-MS-Exchange-AntiSpam-MessageData-1: DBFHhUDIEziYyw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29569ede-6891-4279-a219-08deec73de32
+X-MS-Exchange-CrossTenant-AuthSource: MN2PR12MB3997.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 06:45:53.4873 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: joxLdJm7q52Z+KymHjr7gZM+PEFkjjqACoKmDjA4pE1WCyRg2XhNSwziBCh/lJidvhYY0rAqPQ9gI6aweFiWcQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7874
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,379 +150,130 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 27, 2026 at 11:49=E2=80=AFPM YoungJoon Lee <getfeus@gmail.com> =
-wrote:
+On Wed Jul 22, 2026 at 1:54 AM JST, Gary Guo wrote:
+> Add fixed size region types for these and add projection methods that
+> project from `Bar0` into these. Update these registers to be registers on
+> `PFalconRegisters` and `PFalcon2Registers` and not relative registers on
+> `NovaRegisters`.
 >
-> Hello,
+> The use sites are updated mechanically; calls to the projection methods a=
+re
+> not extracted in this commit.
 >
-> I tested patches 1/5 through 5/5 from the MT8173 PowerVR v3 series on
-> an Acer Chromebook R13 (Google Elm), which uses an MT8173 SoC and a
-> PowerVR Rogue GX6250 GPU with BVNC 4.40.2.51.
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> ---
+>  drivers/gpu/nova-core/falcon.rs                    | 158 +++++++++------=
+------
+>  drivers/gpu/nova-core/falcon/fsp.rs                |  53 +++----
+>  drivers/gpu/nova-core/falcon/gsp.rs                |  43 +++---
+>  drivers/gpu/nova-core/falcon/hal/ga102.rs          |  39 ++---
+>  drivers/gpu/nova-core/falcon/hal/tu102.rs          |   8 +-
+>  drivers/gpu/nova-core/falcon/sec2.rs               |  32 +++--
+>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  11 +-
+>  drivers/gpu/nova-core/regs.rs                      |  81 ++++++-----
+>  8 files changed, 193 insertions(+), 232 deletions(-)
 >
-> For clarity, I applied the five actual patches numbered 1/5 through
-> 5/5. The 0/5 cover letter itself was not applied.
->
-> Kernel:
->   Linux 7.1.3-stb-cbm-pvr-v3
+> diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falc=
+on.rs
+> index 78948cc8bff3..3cd065019a66 100644
+> --- a/drivers/gpu/nova-core/falcon.rs
+> +++ b/drivers/gpu/nova-core/falcon.rs
+> @@ -14,13 +14,12 @@
+>      },
+>      io::{
+>          poll::read_poll_timeout,
+> -        register::{
+> -            RegisterBase,
+> -            WithBase, //
+> -        },
+> +        register::Array,
+>          Io,
+> +        Mmio, //
+>      },
+>      prelude::*,
+> +    sizes::SZ_4K,
+>      time::Delta,
+>  };
+> =20
+> @@ -165,18 +164,22 @@ pub(crate) enum FalconFbifMemType with From<Bounded=
+<u32, 1>> {
+>      }
+>  }
+> =20
+> -/// Type used to represent the `PFALCON` registers address base for a gi=
+ven falcon engine.
+> -pub(crate) struct PFalconBase(());
+> +/// Type used to represent the `PFALCON` registers.
+> +#[repr(align(4))]
+> +#[derive(FromBytes, IntoBytes)]
+> +pub(crate) struct PFalconRegisters([u8; SZ_4K]);
 
-Please at least try linux-next. There's around 30 patches for powervr
-between v7.1 and next-20260727, 15 if you count from v7.1 to v7.2-rc1.
+nit: `SZ_4K` looks correct for both PFALCON and PFALCON2, but the size
+should be defined at a const of its own.
 
-> Relevant kernel configuration:
->   CONFIG_DRM_POWERVR=3Dm
->   CONFIG_COMMON_CLK_MT8173_MFGTOP=3Dy
->
-> Kernel command line:
->   powervr.exp_hw_support=3D1
->
-> Firmware:
->   powervr/rogue_4.40.2.51_v1.fw
->
-> The driver probes successfully, loads the firmware, and initializes the
-> DRM device:
->
->   [    6.110569] powervr 13000000.gpu:
->                  [drm] Running on unknown hardware; expect issues.
->   [    6.117454] powervr 13000000.gpu:
->                  [drm] loaded firmware
->                  powervr/rogue_4.40.2.51_v1.fw
->   [    6.118010] powervr 13000000.gpu:
->                  [drm] FW version v1.0 (build 6476056 OS)
->   [    6.122992] [drm] Initialized powervr 1.0.0
->                  for 13000000.gpu on minor 1
->
-> The following DRM device nodes are created:
->
->   /dev/dri/card0
->   /dev/dri/card1
->   /dev/dri/renderD128
->
-> However, on a clean boot, without manually running vulkaninfo, vkcube,
-> or another Vulkan application, the driver reports that the GPU has been
-> lost approximately six seconds after DRM initialization:
->
->   [   12.084078] powervr 13000000.gpu:
->                 [drm] *ERROR* GPU device lost
->
-> The relevant boot sequence is therefore:
->
->   [    6.110569] PowerVR probe begins
->   [    6.117454] Firmware is loaded
->   [    6.118010] Firmware version is reported
->   [    6.122992] DRM initialization completes
->   [   12.084078] GPU device lost
->
-> The unused-regulator shutdown occurs considerably later:
->
->   [   31.712124] vgpu: disabling
->
-> Therefore, the later "vgpu: disabling" message does not appear to be
-> the immediate cause of the device loss. The GPU is reported lost about
-> 20 seconds before that regulator shutdown message.
->
-> After the failure, regulator_summary reports:
->
->   vgpu  0  0  0  normal  1000mV  0mA  700mV  1350mV
+> =20
+> -/// Type used to represent the `PFALCON2` registers address base for a g=
+iven falcon engine.
+> -pub(crate) struct PFalcon2Base(());
+> +/// Type used to represent the `PFALCON2` registers.
+> +#[repr(align(4))]
+> +#[derive(FromBytes, IntoBytes)]
+> +pub(crate) struct PFalcon2Registers([u8; SZ_4K]);
+> =20
+>  /// Trait defining the parameters of a given Falcon engine.
+>  ///
+>  /// Each engine provides one base for `PFALCON` and `PFALCON2` registers=
+.
+> -pub(crate) trait FalconEngine:
+> -    Send + Sync + RegisterBase<PFalconBase> + RegisterBase<PFalcon2Base>=
+ + Sized
+> -{
+> +pub(crate) trait FalconEngine: Send + Sync + Sized {
+> +    fn pfalcon(io: Bar0<'_>) -> Mmio<'_, PFalconRegisters>;
+> +    fn pfalcon2(io: Bar0<'_>) -> Mmio<'_, PFalcon2Registers>;
 
-This is unrelated. This regulator output is _really_ unused. "vgpu" is
-just the default name on the PMIC.
+We are calling these methods quite a bit throughout the code. I
+understand they are supposed to be optimized away, but that's still a
+lot of repetition.
 
+Since we now have HRTB and `Falcon` is already referencing the `Bar0`,
+how about storing the projected `Mmio` inside the `Falcon` instance?
 
-> This output was collected after the GPU had already been reported lost,
-> so I do not know whether the regulator state was different during probe
-> or immediately before the failure.
->
-> The PowerVR-related clocks appear enabled in clk_summary:
->
->   mfg_26m       26000000 Hz
->
->   mem_mfg_in_sel
->     rate:       455000000 Hz
->     enable:     1
->     prepare:    1
->
->   mfg_mem
->     rate:       455000000 Hz
->     enable:     1
->     prepare:    1
->     consumer:   13000000.gpu
->     clock name: mem
->
->   mfg_sel
->     rate:       455000000 Hz
->     enable:     1
->     prepare:    1
->
->   mfg_g3d
->     rate:       455000000 Hz
->     enable:     1
->     prepare:    1
->     consumer:   13000000.gpu
->     clock name: core
->
->   axi_mfg_in_sel
->     rate:       208000000 Hz
->     enable:     2
->     prepare:    2
->     consumer:   power-domain@7
->
->   mfg_axi
->     rate:       208000000 Hz
->     enable:     1
->     prepare:    1
->     consumer:   13000000.gpu
->     clock name: sys
->
-> I also installed Mesa 26.1.5 and vulkan-powervr 26.1.5 and tested the
-> Vulkan ICD with:
->
->   PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
->   VK_DRIVER_FILES=3D/usr/share/vulkan/icd.d/powervr_mesa_icd.json \
->   vulkaninfo --summary
->
-> The PowerVR ICD was found and loaded. Before hanging, Mesa printed:
->
->   WARNING: powervr is not a conformant Vulkan implementation,
->            testing use only.
->
->   FINISHME: Missing reset support for brn51764
->   FINISHME: Missing reset support for brn58839
->   FINISHME: Missing support for brn62269
->   FINISHME: Devices without tpu_border_colour_enhanced require entries
->             for compressed formats to be stored in the table
->             pre-compressed.
->
-> The vulkaninfo process then remained in uninterruptible sleep:
->
->   PID   STAT  WCHAN             COMMAND
->   3244  Dl+   synchronize_srcu  vulkaninfo --summary
->
-> It could not be terminated normally while in that state, and a reboot
-> was required.
->
-> However, the clean-boot log shows that "GPU device lost" occurs even
-> without starting vulkaninfo manually. The vulkaninfo hang may therefore
-> be a consequence of the GPU already being in the lost state, rather than
-> the original cause of the failure.
->
-> At this point, the following parts appear to work:
->
->   - MT8173 GPU device-tree node probing
->   - MFGTOP clock registration
->   - PowerVR kernel module probing
->   - Firmware loading
->   - Firmware version reporting
->   - DRM device initialization
->   - Creation of card1 and renderD128
->
-> The remaining problem is that the GPU becomes lost approximately six
-> seconds after initialization.
+    pub(crate) struct Falcon<'a, E: FalconEngine> {
+        ...
+        pfalcon: Mmio<'a, PFalconRegisters>,
+        pfalcon2: Mmio<'a, PFalcon2Registers>,
+    }
 
-Sorry. I'm not seeing this on my device. I'm running the patches on
-top of next-20260727 this round.
+    pub(crate) fn new(...) -> Result<Self> {
+        Ok(Self {
+            ...
+            pfalcon: E::pfalcon(bar),
+            pfalcon2: E::pfalcon2(bar),
+        })
+    }
 
+That way all the
 
-ChenYu
+    E::pfalcon(self.bar)...
 
-> Could this be related to an interrupt not being delivered, firmware
-> heartbeat handling, reset sequencing, runtime PM, a missing regulator
-> consumer relationship, or another MT8173-specific power-domain
-> requirement?
->
-> Please let me know which additional kernel debug options, DRM debug
-> settings, tracepoints, interrupt statistics, register dumps, or test
-> patches would be useful. I have physical access to the device and can
-> build and test further kernel changes.
->
-> Thank you for working on MT8173 support.
->
-> Best regards,
-> YoungJoon Lee
->
-> 2026=E5=B9=B47=E6=9C=8827=E6=97=A5(=E6=9C=88) 18:16 Chen-Yu Tsai <wenst@c=
-hromium.org>:
-> >
-> > Hi everyone,
-> >
-> > This is v3 of my MT8173 PowerVR GPU support series.
-> >
-> > I got another inquiry on the status of this patch series, so I thought
-> > I'd dig it out, fix all the issues and send another version.
-> >
-> > This time around Mesa was ready for basic testing, using both vulkanmar=
-k
-> > and glmark2-es2-drm (with Zink). Details below.
-> >
-> > Changes since v2 (all in the clk driver patch):
-> > - Made COMMON_CLK_MT8173_MFGTOP depend on PM
-> >   - Needed since the driver implements PM domains using the generic PM
-> >     domain library, which also depends on PM
-> >   - Fixes build breakage (kernel test robot)
-> > - Fixed "RST_DELAY_CNT" name (Brian)
-> > - Dropped unused mfg_desc (Brian)
-> > - Added check of clk_prepare_enable()'s return value in
-> >   clk_mt8173_mfgtop_power_on() (Brian)
-> > - Saved error value for return in IS_ERR(data->clk_26m) branch
-> >   (Dan Carpenter / kernel test robot w/ smatch)
-> >
-> > Changes since v1:
-> > - Adapted to changed DT bindings
-> > - Dropped driver change
-> > - Use same power domain for "a" and "b" GPU power domains
-> >
-> >
-> > This series enables the PowerVR GPU found in the MT8173 SoC, found in
-> > some Chromebooks.
-> >
-> > This version is different from the initial powervr driver submission [1=
-]
-> > in that it splits out the GPU glue layer support out of the powervr
-> > driver and into a separate clock and power domain driver. The glue code
-> > is otherwise the same, and also the same as found in the ChromeOS
-> > kernels, with some extra comments and macro names added where possible.
-> >
-> > Patch 1 adds a binding for the glue layer, called mfgtop. The glue laye=
-r
-> > contains clock and power controls for the GPU.
-> >
-> > Patch 2 adds a driver for the glue layer, implemented as a clock driver
-> > that also provides power domains.
-> >
-> > Patch 3 adds an entry for the MT8173 GPU and 6XT series to the PowerVR
-> > binding.
-> >
-> > Patch 4 corrects the clock for the GPU (called MFG) power domain.
-> >
-> > Patch 5 adds device nodes for the GPU and glue layer to the MT8173 dtsi
-> > file.
-> >
-> > The kernel driver successfully probes the hardware and loads the
-> > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination Technologies [=
-2].
-> > The "exp_hw_support" module parameter needs to be set for the driver to
-> > probe successfully.
-> >
-> > This was tested with Mesa 26.1.5 from Debian Forky. With this version
-> > vkmark and glmark2-es2 (over Zink) both run fine. Mesa spits out a bunc=
-h
-> > of warnings since the GX6250 core is not officially supported.
-> >
-> >     # PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 vkmark
-> >     WARNING: powervr is not a conformant Vulkan implementation, testing=
- use only.
-> >     WARNING: powervr is not a conformant Vulkan implementation, testing=
- use only.
-> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:73:=
- FINISHME: Missing reset support for brn51764
-> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:76:=
- FINISHME: Missing reset support for brn58839
-> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:523=
-: FINISHME: Missing support for brn62269
-> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_border.c:244: FIN=
-ISHME: Devices without tpu_border_colour_enhanced require entries for compr=
-essed formats to be stored in the table pre-compressed.
-> >     WARNING: powervr is not a conformant Vulkan implementation, testing=
- use only.
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >         vkmark 2025.01
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >         Vendor ID:      0x1010
-> >         Device ID:      0x6250
-> >         Device Name:    PowerVR Rogue GX6250
-> >         Driver Version: 109056005
-> >         Device UUID:    d04cd6f3a25fd4900f89c151bccfdfcf
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >     [vertex] device-local=3Dtrue: FPS: 251 FrameTime: 3.984 ms
-> >     [vertex] device-local=3Dfalse: FPS: 220 FrameTime: 4.545 ms
-> >     [texture] anisotropy=3D0:^C FPS: 223 FrameTime: 4.484 ms
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >                                        vkmark Score: 231
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >
-> >     # PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 glmark2-es2-drm
-> >     WARNING: powervr is not a conformant Vulkan implementation, testing=
- use only.
-> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:73:=
- FINISHME: Missing reset support for brn51764
-> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:76:=
- FINISHME: Missing reset support for brn58839
-> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:523=
-: FINISHME: Missing support for brn62269
-> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_border.c:244: FIN=
-ISHME: Devices without tpu_border_colour_enhanced require entries for compr=
-essed formats to be stored in the table pre-compressed.
-> >     Warning: DRM_CAP_ASYNC_PAGE_FLIP not supported, falling back to 'ma=
-ilbox' mode for SwapInterval(0).
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >         glmark2 2023.01
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >         OpenGL Information
-> >         GL_VENDOR:      Mesa
-> >         GL_RENDERER:    zink Vulkan 1.2(PowerVR Rogue GX6250 (IMAGINATI=
-ON_OPEN_SOURCE_MESA))
-> >         GL_VERSION:     OpenGL ES 2.0 Mesa 26.1.5-1
-> >         Surface Config: buf=3D32 r=3D8 g=3D8 b=3D8 a=3D8 depth=3D24 ste=
-ncil=3D0 samples=3D0
-> >         Surface Size:   1366x768 fullscreen
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >     [build] use-vbo=3Dfalse: FPS: 49 FrameTime: 20.473 ms
-> >     [build] use-vbo=3Dtrue: FPS: 45 FrameTime: 22.660 ms
-> >     [texture] texture-filter=3Dnearest: FPS: 45 FrameTime: 22.642 ms
-> >     [texture] texture-filter=3Dlinear:^C FPS: 50 FrameTime: 20.172 ms
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >                                       glmark2 Score: 46
-> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D
-> >
-> >
-> > Please have a look.
-> >
-> > Thanks
-> > ChenYu
-> >
-> > [1] https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.wal=
-ker@imgtec.com/
-> > [2] https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/po=
-wervr
-> >
-> > Chen-Yu Tsai (5):
-> >   dt-bindings: clock: mediatek: Add mt8173 mfgtop
-> >   clk: mediatek: Add mt8173-mfgtop driver
-> >   dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
-> >   arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
-> >   arm64: dts: mediatek: mt8173: Add GPU device nodes
-> >
-> >  .../clock/mediatek,mt8173-mfgtop.yaml         |  70 +++++
-> >  .../bindings/gpu/img,powervr-rogue.yaml       |   1 +
-> >  arch/arm64/boot/dts/mediatek/mt8173.dtsi      |  33 ++-
-> >  drivers/clk/mediatek/Kconfig                  |  10 +
-> >  drivers/clk/mediatek/Makefile                 |   1 +
-> >  drivers/clk/mediatek/clk-mt8173-mfgtop.c      | 241 ++++++++++++++++++
-> >  include/dt-bindings/clock/mt8173-clk.h        |   7 +
-> >  7 files changed, 362 insertions(+), 1 deletion(-)
-> >  create mode 100644 Documentation/devicetree/bindings/clock/mediatek,mt=
-8173-mfgtop.yaml
-> >  create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
-> >
-> > --
-> > 2.55.0.229.g6434b31f56-goog
-> >
+Can become simply
+
+    self.pfalcon
+
+And I suspect that once this is generalized, `Falcon` won't even need to
+store a reference to the `Bar0` (and potentially poke the I/O of other
+engines) anymore.
+
+Actually I would like to push that even further and replace the
+`pfalcon()` and `pfalcon2()` trait methods by associated constants used
+to construct the projected view in `Falcon::new`, since the projections
+are all constructed the same way, but doing so requires
+`generic_const_exprs`. :/
+
+We could make it work by moving the `OFFSET` generic argument of
+`subregion` into a regular argument and enforcing its invariants using
+`build_assert!`, but that would require `subregion` to be
+`#[inline(always)]`. I don't know if there is another trick we can use,
+if not otherwise I guess the trait methods are ok, especially if they
+are only called once in the constructor.
