@@ -4,90 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81F07C54F51
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 06:37:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A559C54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 06:37:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B34C910E529;
-	Tue, 28 Jul 2026 06:37:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEACC10E52A;
+	Tue, 28 Jul 2026 06:37:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="FLFrzTNS";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="nfmaMUk+";
 	dkim-atps=neutral
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com
- [74.125.224.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88EEB10E529
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 06:37:31 +0000 (UTC)
-Received: by mail-yx1-f50.google.com with SMTP id
- 956f58d0204a3-6679d88abdcso4331402d50.2
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 23:37:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785220650; cv=none;
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCE8C10E530
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 06:37:34 +0000 (UTC)
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-7dbcb505578so32214207b3.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 23:37:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785220654; cv=none;
  d=google.com; s=arc-20260327;
- b=YqGlkvZd51L52GaFR/7at9keVOsAl9YtnGFdSJ7csUE68haaLBg0lAZzD8Y8Lyh8rQ
- 6CUqBXimn3s2HPNTk5XgsjzT5VpWAOJEPxwD2dUN8nO9aAsJufNR3FQ5u8I0un2bWboH
- t+9NtFJsCfEl0fi2R2i32i/NOM8OMIQzTwYfFTOhoMUkBPM6l3zPZNlWW5auZlM1rvEQ
- J0OrMIKmGWDdsttHeZxFPoCocEyuBjCR48olngbaV0IjZAEizNGw4VuxsKz9IIC3OTAx
- KiG798kGuzc4U2rsZIAy6nibi5VfyFlJAIyLiXiN+tg9dIDXVEEkL/uauruZCcfUfOwR
- p0KQ==
+ b=FSrNAwqI1rFe57Uw8l2EYnmFKbdukJNSdwu4HznoET8FXQApC5YMQLLAERhz6nSSEf
+ 2e7hnbaSNMl/ROPfoUE9B107rCQGfoTmf8skG520EkkM+YH8VWEJrvhM7Wk9piBgrdll
+ 4LOp5p9h0neZFv53Y7iApfxQOhJl9J/4W93kISGwZJTZoKzsMvle5y1jYSdnogtx+Ura
+ xaN4JzrHWNprMaC3YB+Pa8cnlAwyxyRjKZyg6wEaJiyI2YaKk9yMlpQSq03jloKKIeOE
+ OwL42Lz/i3sy1fhd9P5ExSDLV1pP5MuKDxhcq/1hLLKDDLWSQz8iACOrKe3d00Nj3xrq
+ W7Qw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=mk5KhGYTlO9SDZQRF1URMyQmuKRxWDOHbudIP8iEbWc=;
- fh=bN3WHTlzXcVIr2RkgMpk3NXK/DwXOefqRaFpMbeYf7s=;
- b=mw+/xsO/WSqZK678NeG7TuXJcABysX1EtPIpZ7nVDl+BRbZwWn2YX5slaoHImTFIN/
- dpNTJu3Qso2GE+FXuFqM/J/0nA3A5Wm3mgrpU9ef3rwTf3OlqAoM59cpaFAZBRvKOAa+
- GlHzHFmC0Yy+ZeGPv+hZzVOp20/ilMaWwkvYc26ITA6VJ+8GNusqmTFV58cEzfEebNI/
- 0pFV4blEM5T3OicvRWpPFr5NvtXeOKP0JRBGsCqYYYc3rbIq5SNC9XRCTi5IpkSLuKld
- N6E5acdojXsQmHPXdDmRSy15TstLIWL0PFvod8HOeFQVLn3oAval7SmK4Mg0MOz6oFjI
- 9p6A==; darn=lists.freedesktop.org
+ bh=iwoDhJK5JZbrMblzbHvyi1tLJRZPTflh+Yp8TazZZnk=;
+ fh=uNOFbLkk2fjX1cBYg0hAO7GELCuMmAGE1cQqIX9EVh0=;
+ b=ivNBbBCLHPe8DYSuoSDLZOmLCNfhodQZPvJiArOPOlxOpclF3fVGlPOjkfvZqcHzk+
+ /hH7MiJ5eMjHrzf4BvxQzQ6M58gD0lXSiwWiIYzeJxgi2p6It+ibXTk/aV96pnaf/xFs
+ MO9VJECdP2hYmAXOezqyPb/AzitPkaUrRBGnAA0N2vXO9nQL761knqN11QEzjoQE+xMG
+ eRhK9PjiieojPs5CSU2QWTbJlUbzS83+xpJlSUjs1BO9wdpIPN8eFKQnWGQoTafsYk4W
+ iG4nVUvGjvIPgqtUkgMshW8efT4Duz4ocmVIFGguxwsg43BCbZYqO7kTwioZVMwKh6MR
+ 1b+w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1785220650; x=1785825450; darn=lists.freedesktop.org;
+ d=chromium.org; s=google; t=1785220654; x=1785825454;
+ darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=mk5KhGYTlO9SDZQRF1URMyQmuKRxWDOHbudIP8iEbWc=;
- b=FLFrzTNSAr7sSIe37rGF18BkSsisTe330Qm5rqUj/TNWod7nfJQLJMdS5hijP5hgw1
- G8BUBMtnoJUJK8w4OrHMDztRfl0P14QNhkEjT/8XrHs+w2w3YESKYscPSCubCa6rEwce
- ezAD2UbG+ksVQ9zF9cNTAS3FrjWJRSKAAtX61D36zrpvmMkgXKhw98LObBlaAG8a0X9y
- Suy38tYOs8y2Ex1Ucz19w82Phuqd28F9Xd0ghkAa+Wk1aqfbaAqHKMuP1MsEDLHY8uc+
- 5Nr9rPtWstMlxH/RGNfzEqxxGx5CjtfbimnyvaVWE5rXZzSJc6VPRS9pmsG+5K6wHb4Q
- nUnQ==
+ bh=iwoDhJK5JZbrMblzbHvyi1tLJRZPTflh+Yp8TazZZnk=;
+ b=nfmaMUk+ro+9FmqHuzvso/pJDXz/YXaQ0XCOD+g8aBTeMhxNOHphBy+upexjtyM9MY
+ oJETi4VAiToQhjSiH6RfnwuLnld9j5sDI0TwZDI6gPB8mcUVH/m4T6/TzLTUMTI9hRKs
+ FzMmJcYaIYOonbap59jG26jX7zo4e9QQj9IwI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785220650; x=1785825450;
+ d=1e100.net; s=20251104; t=1785220654; x=1785825454;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=mk5KhGYTlO9SDZQRF1URMyQmuKRxWDOHbudIP8iEbWc=;
- b=lp1y+NjLGEk79HTgsjpBScNfiz8CBMYuePW1QSn+KqhO3++rDU5hD/bJ7CryrMcY5x
- eiyxctF6MVEbnkQ+B3GKCLN6d/FoxHRbAxu0E3bHWuUKRzgSAzDWO+nqc9rJL9/mXhnq
- YIq9Ad8AhBZaJV6rVmD5DCeTGSBpBmUuHEpjN4/bNkMIriQSKRa+ADgbc+fOE1D/nXHu
- SGCv49GMbL1RZh8XcMcn7X5UHqDxTGiRFe+eoIkJo17ygCgQtbXfxFIAeslNGId76a/x
- OjFEsvANzTOORrWuhLX7BkQYWkZt4Kc6qYJuFO/AYzyhMgQvTkNbvkp+55NNKM0n19zU
- dl/g==
-X-Gm-Message-State: AOJu0Yx7etlxqBhKryfDVTVqK5ikKK1SCMSkxeA+zKFFu1bZZrRSTeFA
- vaqI+fPX4/zKY9xFx4NSL6sqeEhieDjmAOVysTJisKm2S5fVPk+J86t0mGNOBTG3ktuCrJ822IV
- pBxf82jTU8XcwIK48yaoCAwJk5CW64yc7vYuGmY3RYA==
-X-Gm-Gg: AR+sD10CKhYLHDzpGKIeoG1aGGoI7TzLyGnw41wn024iR2oMHfpFL4TPZ+hl6xq6XZ4
- OFYdBWT9M9L7LHtzxV/8KRICu7jmlRwfz4rvp6vHODCONa2aiehlY5kAca7gV7PjzsQ6icdszyT
- 2Gvhh1RFiSWAdOIOn9QHbleeH7nlDs65b5F1BrVVheSHP9y+VpfNN656m15YVOK9pzJyEWhufPC
- k1r1QgeukINf/6GjI93iOS75tLldzKRa/sntFWNcvm2nPvhtxA71XTt+bOWA/mlzZg89/3EEUcj
- 1nDvWeWWHeXUikQZiLMh/sZVllwE/VG+CxGcM9cYu+LKc9b4ImZ/49+jOg==
-X-Received: by 2002:a05:690e:4399:b0:667:bc49:373d with SMTP id
- 956f58d0204a3-669056d0cf1mr334752d50.33.1785220650016; Mon, 27 Jul 2026
- 23:37:30 -0700 (PDT)
+ bh=iwoDhJK5JZbrMblzbHvyi1tLJRZPTflh+Yp8TazZZnk=;
+ b=s6fRpYZ2CGE2cnVNPyRjCJttLu7kgN7zJTPF2FXcqkZNy+LxZ3j25WOGqSV0i3mA1V
+ DbWbIGsPN83RdrsznW7ZWIELjpuOsJIx3Ph2xfVm3+dQxiD9HkThRt8OMNDwNdi8H8tq
+ xlh4OJrYJJRnoJHQn2zVE+rXdVnxxuRkAqFBBZsbjUplpxqqTmx9gZRBzLim+QnQN5J6
+ LUqAA4gaCcn5lgbcOKQtUKD/XF7VlbjHKz10VziC3ML+Ni4rFt6pA7X/j6jZdcHViIzh
+ /wV3rw6EEnE3xqcXep1xx9laYWnzbX/ChcBqL/WMPKgoZ90fkYp5I+8+vVy28sOWElui
+ FVIg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp7c/iCMDfLgZfBAuaY24v6+jz3WGaTRxDVDfF3dIuxhnhJj7JIkjDRXugUi5ePkfwhw9ICaclUfUI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzFiGNas2jEkf+QvgrUsdUeoozPS9mEB0rFgOzWAiFeFe8m0TYP
+ d9EPugcNFchKkKpxhbMh8Bga9xueslDp7C2CaRJygsQNJW3JD51qBZTSzDiQhfkVdgF1crcYrYk
+ 1p/ZJb+aSK3mxjr9BSyI9h/IgCSQayPS6o+cUFI8a
+X-Gm-Gg: AR+sD12EjHkbdcl8zCNARoj41FZMTSHE8hlL8wpuDsg+Gk5euGrY0BcZV5uOdl8jaHo
+ TRMxFOrkVf+yM+qX5R7OAItGN+f2vHj8MIrNPn4oO7Xx378PXIYD6npOjs7fPV6lm6vEJwsiUC6
+ aAFWN5QufDZyYuDrOBJF6oYN4hI3x0mpNeKargiGgomXV229Vinb0jIMPKqndBwQInpucZs3w8V
+ L4xHli2mMBAyNrePPWq8ap0f5MPypTRf9NCHGZygTZEy0fUVpZpwRd8m38hSG+IQLrH0drroKLb
+ AzRqzL2iScaTkFiF
+X-Received: by 2002:a05:690c:6513:b0:81e:6fd:93b4 with SMTP id
+ 00721157ae682-81f990e37e0mr5299807b3.19.1785220653618; Mon, 27 Jul 2026
+ 23:37:33 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260727-msm-next-quad-pipe-split-v21-1-965dfa5b669e@linaro.org>
- <20260727095508.AFE0B1F00A3A@smtp.kernel.org>
-In-Reply-To: <20260727095508.AFE0B1F00A3A@smtp.kernel.org>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Tue, 28 Jul 2026 14:37:18 +0800
-X-Gm-Features: AUfX_mxx-inJEI6IbUDD3Rqk6HOiXBBAdRSlUJRhQEKqDucg-a4vSYyIbI9dTFw
-Message-ID: <CABymUCPWn8qz7pg8VOtA+N15yHG8id7L87fpkMMsTV=2SovM1g@mail.gmail.com>
-Subject: Re: [PATCH v21] drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI
- case
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
+References: <20260727091555.1023910-1-wenst@chromium.org>
+ <CA+m4KrCkk_p213=JVVcuxjvO2tCREw7_mL596xu-RWJ0Dz3p5w@mail.gmail.com>
+In-Reply-To: <CA+m4KrCkk_p213=JVVcuxjvO2tCREw7_mL596xu-RWJ0Dz3p5w@mail.gmail.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Tue, 28 Jul 2026 14:37:22 +0800
+X-Gm-Features: AUfX_myB_DUT8i6FRV-3BSUxtj0ldOLM5BCdGMqxKm6_-hJ1ByrCEGHtFfO4OGY
+Message-ID: <CAGXv+5HXf9U6CdMudVkrWL_62jktW6jYQvtrjAFGc=+UnoKQXA@mail.gmail.com>
+Subject: Re: [PATCH v3 0/5] powervr: MT8173 GPU support
+To: YoungJoon Lee <getfeus@gmail.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Alessio Belle <alessio.belle@imgtec.com>,
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Dan Carpenter <dan.carpenter@linaro.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, imagination@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -105,232 +118,379 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B47=E6=9C=8827=E6=97=A5=E5=91=
-=A8=E4=B8=80 17:55=E5=86=99=E9=81=93=EF=BC=9A
+On Mon, Jul 27, 2026 at 11:49=E2=80=AFPM YoungJoon Lee <getfeus@gmail.com> =
+wrote:
+>
+> Hello,
+>
+> I tested patches 1/5 through 5/5 from the MT8173 PowerVR v3 series on
+> an Acer Chromebook R13 (Google Elm), which uses an MT8173 SoC and a
+> PowerVR Rogue GX6250 GPU with BVNC 4.40.2.51.
+>
+> For clarity, I applied the five actual patches numbered 1/5 through
+> 5/5. The 0/5 cover letter itself was not applied.
+>
+> Kernel:
+>   Linux 7.1.3-stb-cbm-pvr-v3
 
->
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
->
-> New issues:
-> - [High] Unused pipe configurations are not cleared when transitioning fr=
-om quad-pipe to fewer pipes, leading to underflows, stale pointer dereferen=
-ces, and hardware corruption.
-> - [High] Missing VSYNC source configuration for the second physical encod=
-er in quad-pipe configurations.
->
-> Pre-existing issues:
-> - [High] `dpu_crtc_get_lm_crc` and `dpu_crtc_get_encoder_crc` leak uninit=
-ialized kernel stack memory to userspace.
-> --
->
-> --- Patch [1]: [PATCH v21] drm/msm/dpu: Enable quad-pipe for DSC and dual=
--DSI case ---
-> commit f34d7a5a3191bc6943da26710d69eaffa718ab5d
-> Author: Jun Nie <jun.nie@linaro.org>
-> Subject: drm/msm/dpu: Enable quad-pipe for DSC and dual-DSI case
->
-> This commit expands the pipe array size to 4 to support quad-pipe topolog=
-ies.
-> It requests 4 mixers and 4 DSCs for high-resolution scenarios where dual
-> interfaces are enabled for virtual planes. Additional pipes enable parall=
-el
-> data processing to stay within width constraints and MDP clock rates.
->
-> Link: https://lore.kernel.org/r/20250918-v6-16-rc2-quad-pipe-upstream-4-v=
-16-10-ff6232e3472f@linaro.org
->
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm=
-/msm/disp/dpu1/dpu_crtc.c
-> > index 42d0a529b4d51..1c6d65ca561fd 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
-> > @@ -200,7 +200,7 @@ static int dpu_crtc_get_lm_crc(struct drm_crtc *crt=
-c,
-> >               struct dpu_crtc_state *crtc_state)
-> >  {
-> >       struct dpu_crtc_mixer *m;
-> > -     u32 crcs[CRTC_DUAL_MIXERS];
-> > +     u32 crcs[CRTC_QUAD_MIXERS];
->
-> [Severity: High]
-> This is a pre-existing issue, but does expanding this array to 4 increase=
- the
-> amount of uninitialized kernel stack memory leaked to userspace?
->
-> When populating the array in dpu_crtc_get_lm_crc(), if a layer mixer is
-> unassigned or lacks the collect_misr operation, the loop skips initializa=
-tion
-> for that element. Also, if num_mixers dynamically decreases after CRC
-> generation is enabled, drm_crtc_add_crc_entry() still copies values_cnt
-> elements, which can read past the initialized elements.
->
-> Can this same uninitialized stack memory leak occur in
-> dpu_crtc_get_encoder_crc() with crcs[INTF_MAX]?
+Please at least try linux-next. There's around 30 patches for powervr
+between v7.1 and next-20260727, 15 if you count from v7.1 to v7.2-rc1.
 
-Increasing the array size here does not mean leaking stack to user space. T=
-he
-crc data is copied to user space with necessary length that's from the
-calculation
-of  dpu_encoder_get_crc_values_cnt().
+> Relevant kernel configuration:
+>   CONFIG_DRM_POWERVR=3Dm
+>   CONFIG_COMMON_CLK_MT8173_MFGTOP=3Dy
 >
-> [ ... ]
+> Kernel command line:
+>   powervr.exp_hw_support=3D1
 >
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/=
-drm/msm/disp/dpu1/dpu_encoder.c
-> > index 778e231d49677..90d44c4777fd0 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
-> > @@ -55,7 +55,7 @@
-> >  #define MAX_PHYS_ENCODERS_PER_VIRTUAL \
-> >       (MAX_H_TILES_PER_DISPLAY * NUM_PHYS_ENCODER_TYPES)
+> Firmware:
+>   powervr/rogue_4.40.2.51_v1.fw
+>
+> The driver probes successfully, loads the firmware, and initializes the
+> DRM device:
+>
+>   [    6.110569] powervr 13000000.gpu:
+>                  [drm] Running on unknown hardware; expect issues.
+>   [    6.117454] powervr 13000000.gpu:
+>                  [drm] loaded firmware
+>                  powervr/rogue_4.40.2.51_v1.fw
+>   [    6.118010] powervr 13000000.gpu:
+>                  [drm] FW version v1.0 (build 6476056 OS)
+>   [    6.122992] [drm] Initialized powervr 1.0.0
+>                  for 13000000.gpu on minor 1
+>
+> The following DRM device nodes are created:
+>
+>   /dev/dri/card0
+>   /dev/dri/card1
+>   /dev/dri/renderD128
+>
+> However, on a clean boot, without manually running vulkaninfo, vkcube,
+> or another Vulkan application, the driver reports that the GPU has been
+> lost approximately six seconds after DRM initialization:
+>
+>   [   12.084078] powervr 13000000.gpu:
+>                 [drm] *ERROR* GPU device lost
+>
+> The relevant boot sequence is therefore:
+>
+>   [    6.110569] PowerVR probe begins
+>   [    6.117454] Firmware is loaded
+>   [    6.118010] Firmware version is reported
+>   [    6.122992] DRM initialization completes
+>   [   12.084078] GPU device lost
+>
+> The unused-regulator shutdown occurs considerably later:
+>
+>   [   31.712124] vgpu: disabling
+>
+> Therefore, the later "vgpu: disabling" message does not appear to be
+> the immediate cause of the device loss. The GPU is reported lost about
+> 20 seconds before that regulator shutdown message.
+>
+> After the failure, regulator_summary reports:
+>
+>   vgpu  0  0  0  normal  1000mV  0mA  700mV  1350mV
+
+This is unrelated. This regulator output is _really_ unused. "vgpu" is
+just the default name on the PMIC.
+
+
+> This output was collected after the GPU had already been reported lost,
+> so I do not know whether the regulator state was different during probe
+> or immediately before the failure.
+>
+> The PowerVR-related clocks appear enabled in clk_summary:
+>
+>   mfg_26m       26000000 Hz
+>
+>   mem_mfg_in_sel
+>     rate:       455000000 Hz
+>     enable:     1
+>     prepare:    1
+>
+>   mfg_mem
+>     rate:       455000000 Hz
+>     enable:     1
+>     prepare:    1
+>     consumer:   13000000.gpu
+>     clock name: mem
+>
+>   mfg_sel
+>     rate:       455000000 Hz
+>     enable:     1
+>     prepare:    1
+>
+>   mfg_g3d
+>     rate:       455000000 Hz
+>     enable:     1
+>     prepare:    1
+>     consumer:   13000000.gpu
+>     clock name: core
+>
+>   axi_mfg_in_sel
+>     rate:       208000000 Hz
+>     enable:     2
+>     prepare:    2
+>     consumer:   power-domain@7
+>
+>   mfg_axi
+>     rate:       208000000 Hz
+>     enable:     1
+>     prepare:    1
+>     consumer:   13000000.gpu
+>     clock name: sys
+>
+> I also installed Mesa 26.1.5 and vulkan-powervr 26.1.5 and tested the
+> Vulkan ICD with:
+>
+>   PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 \
+>   VK_DRIVER_FILES=3D/usr/share/vulkan/icd.d/powervr_mesa_icd.json \
+>   vulkaninfo --summary
+>
+> The PowerVR ICD was found and loaded. Before hanging, Mesa printed:
+>
+>   WARNING: powervr is not a conformant Vulkan implementation,
+>            testing use only.
+>
+>   FINISHME: Missing reset support for brn51764
+>   FINISHME: Missing reset support for brn58839
+>   FINISHME: Missing support for brn62269
+>   FINISHME: Devices without tpu_border_colour_enhanced require entries
+>             for compressed formats to be stored in the table
+>             pre-compressed.
+>
+> The vulkaninfo process then remained in uninterruptible sleep:
+>
+>   PID   STAT  WCHAN             COMMAND
+>   3244  Dl+   synchronize_srcu  vulkaninfo --summary
+>
+> It could not be terminated normally while in that state, and a reboot
+> was required.
+>
+> However, the clean-boot log shows that "GPU device lost" occurs even
+> without starting vulkaninfo manually. The vulkaninfo hang may therefore
+> be a consequence of the GPU already being in the lost state, rather than
+> the original cause of the failure.
+>
+> At this point, the following parts appear to work:
+>
+>   - MT8173 GPU device-tree node probing
+>   - MFGTOP clock registration
+>   - PowerVR kernel module probing
+>   - Firmware loading
+>   - Firmware version reporting
+>   - DRM device initialization
+>   - Creation of card1 and renderD128
+>
+> The remaining problem is that the GPU becomes lost approximately six
+> seconds after initialization.
+
+Sorry. I'm not seeing this on my device. I'm running the patches on
+top of next-20260727 this round.
+
+
+ChenYu
+
+> Could this be related to an interrupt not being delivered, firmware
+> heartbeat handling, reset sequencing, runtime PM, a missing regulator
+> consumer relationship, or another MT8173-specific power-domain
+> requirement?
+>
+> Please let me know which additional kernel debug options, DRM debug
+> settings, tracepoints, interrupt statistics, register dumps, or test
+> patches would be useful. I have physical access to the device and can
+> build and test further kernel changes.
+>
+> Thank you for working on MT8173 support.
+>
+> Best regards,
+> YoungJoon Lee
+>
+> 2026=E5=B9=B47=E6=9C=8827=E6=97=A5(=E6=9C=88) 18:16 Chen-Yu Tsai <wenst@c=
+hromium.org>:
 > >
-> > -#define MAX_CHANNELS_PER_ENC 2
-> > +#define MAX_CHANNELS_PER_ENC 4
->
-> [Severity: High]
-> Does this quad-pipe configuration leave the second interface without a va=
-lid
-> VSYNC source?
->
-> In a quad-pipe dual-interface configuration, the mapping between physical
-> encoders and pingpong blocks uses a stride of 2 (the first uses hw_pp[0] =
-and
-> the second uses hw_pp[2]).
->
-> However, _dpu_encoder_update_vsync_source() appears to assign VSYNC sourc=
-es
-> using sequential indices:
->
-> drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c:_dpu_encoder_update_vsync_sou=
-rce() {
->     ...
->     for (i =3D 0; i < dpu_enc->num_phys_encs; i++)
->         vsync_cfg.ppnumber[i] =3D dpu_enc->hw_pp[i]->idx;
->     ...
-> }
->
-> Will this configure hw_pp[0] and hw_pp[1] instead of the intended hw_pp[0=
+> > Hi everyone,
+> >
+> > This is v3 of my MT8173 PowerVR GPU support series.
+> >
+> > I got another inquiry on the status of this patch series, so I thought
+> > I'd dig it out, fix all the issues and send another version.
+> >
+> > This time around Mesa was ready for basic testing, using both vulkanmar=
+k
+> > and glmark2-es2-drm (with Zink). Details below.
+> >
+> > Changes since v2 (all in the clk driver patch):
+> > - Made COMMON_CLK_MT8173_MFGTOP depend on PM
+> >   - Needed since the driver implements PM domains using the generic PM
+> >     domain library, which also depends on PM
+> >   - Fixes build breakage (kernel test robot)
+> > - Fixed "RST_DELAY_CNT" name (Brian)
+> > - Dropped unused mfg_desc (Brian)
+> > - Added check of clk_prepare_enable()'s return value in
+> >   clk_mt8173_mfgtop_power_on() (Brian)
+> > - Saved error value for return in IS_ERR(data->clk_26m) branch
+> >   (Dan Carpenter / kernel test robot w/ smatch)
+> >
+> > Changes since v1:
+> > - Adapted to changed DT bindings
+> > - Dropped driver change
+> > - Use same power domain for "a" and "b" GPU power domains
+> >
+> >
+> > This series enables the PowerVR GPU found in the MT8173 SoC, found in
+> > some Chromebooks.
+> >
+> > This version is different from the initial powervr driver submission [1=
 ]
-> and hw_pp[2], potentially causing TE timeouts and visual tearing?
-
-_dpu_encoder_update_vsync_source is used only for cmd mode DSI panel. While=
- only
-video mode panel is supported for dual panel currently. And the VSYNC
-source should
-be aligned in timing, due to the 2 panel are modeled as single logic
-panel in CRTC level.
-So there is only 1 VSYNC source in high level DRM framework.
->
-> [ ... ]
->
-> > diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/=
-drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > index 0e65bf5ddc4a6..fd1f3e7982062 100644
-> > --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> > @@ -34,7 +34,7 @@
-> >  #define DPU_MAX_PLANES                       4
-> >  #endif
+> > in that it splits out the GPU glue layer support out of the powervr
+> > driver and into a separate clock and power domain driver. The glue code
+> > is otherwise the same, and also the same as found in the ChromeOS
+> > kernels, with some extra comments and macro names added where possible.
 > >
-> > -#define STAGES_PER_PLANE             1
-> > +#define STAGES_PER_PLANE             2
->
-> [Severity: High]
-> Can increasing STAGES_PER_PLANE to 2 lead to a stale pointer dereference =
-or
-> hardware corruption when transitioning to fewer pipes?
->
-> When transitioning from a quad-pipe topology (4 mixers, 2 stages) to a si=
-ngle
-> or dual-pipe topology (1 stage), the duplicated pipe_cfg array retains st=
-ale
-> rectangle configurations because dpu_plane_split() only clears up to the =
-new
-> num_stages:
->
-> drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c:dpu_plane_split() {
->     ...
->     for (stage_id =3D 0; stage_id < num_stages; stage_id++) {
->     ...
-> }
->
-> Later, dpu_plane_virtual_assign_resources() iterates up to STAGES_PER_PLA=
-NE
-> and allocates an SSPP for the stale configuration.
->
-> During the atomic commit, if cstate->num_mixers shrinks to 1, the calcula=
-tion
-> in _dpu_crtc_blend_setup_mixer() underflows:
->
-> drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c:_dpu_crtc_blend_setup_mixer() {
->     ...
->     lms_in_pair =3D min(cstate->num_mixers - (stage * PIPES_PER_STAGE),
->                       PIPES_PER_STAGE);
->     ...
-> }
->
-> This causes min(4294967295U, 2U) to evaluate to 2.
->
-> Will _dpu_crtc_blend_setup_pipe() then attempt to program lms_in_pair =3D=
- 2
-> mixers using a pointer starting at mixer[2]? Since num_mixers =3D=3D 1, c=
-ould
-> accessing mixer[lm_idx].lm_ctl->ops.update_pending_flush_sspp(...) cause =
-a
-> NULL pointer dereference?
-
-No. It will not happen, because pipe and pipe_cfg is allocated and zeroed f=
-or
-every plane preparation in dpu_crtc_assign_planes. If num_mixers is reset, =
-the
-pipe_cfg is reconfigured, sspp will not be allocated for unused pipe_cfg. T=
-hus
-below check in _dpu_crtc_blend_setup_mixer() will avoid accessing to unused
- mixer[lm_idx]
-
-if (!pstate->pipe[pipe_idx].sspp)
-   continue;
-
-+++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
-@@ -883,6 +883,8 @@ static int dpu_plane_split(struct drm_plane *plane,
-        u32 num_lm;
-        int stage_id, num_stages;
-
-+       memset(&pstate->pipe[0], PIPES_PER_PLANE * sizeof(struct dpu_sw_pip=
-e));
-+       memset(&pstate->pipe_cfg[0], PIPES_PER_PLANE * sizeof(struct
-dpu_sw_pipe_cfg));
-        max_linewidth =3D pdpu->catalog->caps->max_linewidth;
-
-        /* In non-virtual plane case, one mixer pair is always needed. */
-@@ -936,11 +938,8 @@ static int dpu_plane_split(struct drm_plane *plane,
-                 */
-                if (!drm_rect_clip_scaled(&pipe_cfg->src_rect,
-                                          &pipe_cfg->dst_rect,
--                                         &mixer_rect)) {
--                       memset(pipe_cfg, 0, 2 * sizeof(struct dpu_sw_pipe_c=
-fg));
--
-+                                         &mixer_rect))
-                        continue;
--               }
-
-                pipe_cfg->dst_rect.x1 -=3D mixer_rect.x1;
-                pipe_cfg->dst_rect.x2 -=3D mixer_rect.x1;
-@@ -967,8 +966,6 @@ static int dpu_plane_split(struct drm_plane *plane,
-                                        DRM_RECT_FMT " and " DRM_RECT_FMT "=
-\n",
-                                        DRM_RECT_ARG(&pipe_cfg->src_rect),
-                                        DRM_RECT_ARG(&r_pipe_cfg->src_rect)=
-);
--               } else {
--                       memset(r_pipe_cfg, 0, sizeof(struct dpu_sw_pipe_cfg=
-));
-                }
-
-
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-msm-next=
--quad-pipe-split-v21-1-965dfa5b669e@linaro.org?part=3D1
+> > Patch 1 adds a binding for the glue layer, called mfgtop. The glue laye=
+r
+> > contains clock and power controls for the GPU.
+> >
+> > Patch 2 adds a driver for the glue layer, implemented as a clock driver
+> > that also provides power domains.
+> >
+> > Patch 3 adds an entry for the MT8173 GPU and 6XT series to the PowerVR
+> > binding.
+> >
+> > Patch 4 corrects the clock for the GPU (called MFG) power domain.
+> >
+> > Patch 5 adds device nodes for the GPU and glue layer to the MT8173 dtsi
+> > file.
+> >
+> > The kernel driver successfully probes the hardware and loads the
+> > "rogue_4.40.2.51_v1.fw" firmware provided by Imagination Technologies [=
+2].
+> > The "exp_hw_support" module parameter needs to be set for the driver to
+> > probe successfully.
+> >
+> > This was tested with Mesa 26.1.5 from Debian Forky. With this version
+> > vkmark and glmark2-es2 (over Zink) both run fine. Mesa spits out a bunc=
+h
+> > of warnings since the GX6250 core is not officially supported.
+> >
+> >     # PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 vkmark
+> >     WARNING: powervr is not a conformant Vulkan implementation, testing=
+ use only.
+> >     WARNING: powervr is not a conformant Vulkan implementation, testing=
+ use only.
+> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:73:=
+ FINISHME: Missing reset support for brn51764
+> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:76:=
+ FINISHME: Missing reset support for brn58839
+> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:523=
+: FINISHME: Missing support for brn62269
+> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_border.c:244: FIN=
+ISHME: Devices without tpu_border_colour_enhanced require entries for compr=
+essed formats to be stored in the table pre-compressed.
+> >     WARNING: powervr is not a conformant Vulkan implementation, testing=
+ use only.
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >         vkmark 2025.01
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >         Vendor ID:      0x1010
+> >         Device ID:      0x6250
+> >         Device Name:    PowerVR Rogue GX6250
+> >         Driver Version: 109056005
+> >         Device UUID:    d04cd6f3a25fd4900f89c151bccfdfcf
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >     [vertex] device-local=3Dtrue: FPS: 251 FrameTime: 3.984 ms
+> >     [vertex] device-local=3Dfalse: FPS: 220 FrameTime: 4.545 ms
+> >     [texture] anisotropy=3D0:^C FPS: 223 FrameTime: 4.484 ms
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >                                        vkmark Score: 231
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >
+> >     # PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 glmark2-es2-drm
+> >     WARNING: powervr is not a conformant Vulkan implementation, testing=
+ use only.
+> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:73:=
+ FINISHME: Missing reset support for brn51764
+> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:76:=
+ FINISHME: Missing reset support for brn58839
+> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_job_context.c:523=
+: FINISHME: Missing support for brn62269
+> >     MESA: warning: ../src/imagination/vulkan/pvr_arch_border.c:244: FIN=
+ISHME: Devices without tpu_border_colour_enhanced require entries for compr=
+essed formats to be stored in the table pre-compressed.
+> >     Warning: DRM_CAP_ASYNC_PAGE_FLIP not supported, falling back to 'ma=
+ilbox' mode for SwapInterval(0).
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >         glmark2 2023.01
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >         OpenGL Information
+> >         GL_VENDOR:      Mesa
+> >         GL_RENDERER:    zink Vulkan 1.2(PowerVR Rogue GX6250 (IMAGINATI=
+ON_OPEN_SOURCE_MESA))
+> >         GL_VERSION:     OpenGL ES 2.0 Mesa 26.1.5-1
+> >         Surface Config: buf=3D32 r=3D8 g=3D8 b=3D8 a=3D8 depth=3D24 ste=
+ncil=3D0 samples=3D0
+> >         Surface Size:   1366x768 fullscreen
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >     [build] use-vbo=3Dfalse: FPS: 49 FrameTime: 20.473 ms
+> >     [build] use-vbo=3Dtrue: FPS: 45 FrameTime: 22.660 ms
+> >     [texture] texture-filter=3Dnearest: FPS: 45 FrameTime: 22.642 ms
+> >     [texture] texture-filter=3Dlinear:^C FPS: 50 FrameTime: 20.172 ms
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >                                       glmark2 Score: 46
+> >     =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D
+> >
+> >
+> > Please have a look.
+> >
+> > Thanks
+> > ChenYu
+> >
+> > [1] https://lore.kernel.org/dri-devel/20220815165156.118212-2-sarah.wal=
+ker@imgtec.com/
+> > [2] https://gitlab.freedesktop.org/imagination/linux-firmware/-/tree/po=
+wervr
+> >
+> > Chen-Yu Tsai (5):
+> >   dt-bindings: clock: mediatek: Add mt8173 mfgtop
+> >   clk: mediatek: Add mt8173-mfgtop driver
+> >   dt-bindings: gpu: powervr-rogue: Add MediaTek MT8173 GPU
+> >   arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
+> >   arm64: dts: mediatek: mt8173: Add GPU device nodes
+> >
+> >  .../clock/mediatek,mt8173-mfgtop.yaml         |  70 +++++
+> >  .../bindings/gpu/img,powervr-rogue.yaml       |   1 +
+> >  arch/arm64/boot/dts/mediatek/mt8173.dtsi      |  33 ++-
+> >  drivers/clk/mediatek/Kconfig                  |  10 +
+> >  drivers/clk/mediatek/Makefile                 |   1 +
+> >  drivers/clk/mediatek/clk-mt8173-mfgtop.c      | 241 ++++++++++++++++++
+> >  include/dt-bindings/clock/mt8173-clk.h        |   7 +
+> >  7 files changed, 362 insertions(+), 1 deletion(-)
+> >  create mode 100644 Documentation/devicetree/bindings/clock/mediatek,mt=
+8173-mfgtop.yaml
+> >  create mode 100644 drivers/clk/mediatek/clk-mt8173-mfgtop.c
+> >
+> > --
+> > 2.55.0.229.g6434b31f56-goog
+> >
