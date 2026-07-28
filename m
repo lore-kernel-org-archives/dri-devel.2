@@ -4,63 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3998FC53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:07:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFFBDC531F9
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:21:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7170B10E55E;
-	Tue, 28 Jul 2026 10:07:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB3A210E545;
+	Tue, 28 Jul 2026 10:21:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="g3/eAVDJ";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OPJZmu95";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A/iagPjZ";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB3F10E859;
- Tue, 28 Jul 2026 10:07:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785233233; x=1816769233;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=JGaiF4bZcDJ2OYtmcrPSHqMEIHOX0Jb//tse+ADji3A=;
- b=g3/eAVDJXkrT4o/NnC8KlEFT2Vkr2hrgqO2wBkeQIpzcPTU1PKZ7wQx/
- 9K09VJipY0R3x2bbRIiBIl9wl0+BFVteYAILXJx5Lko0ARkWpFIG19Z21
- J2tfDaCTM+au8Md50GR9gBdXu6boYamE17EC3LUcvJVzajQA/HFS/2hkz
- pTEJ6YaEOXIx0Gu1FKevjvDbCp4SWXtoVslczdv0BAuTLnpdd0SkDZxtG
- ++J+bf6FH4TawEHRHtFkGr3NDk9TfY/+3k5UnhoRvMaRd/w+Fok8AJAD2
- FS6vnwzhPQVW7nQLL2ZGZhixPZBsjIeCb9Mx59nKAWM70LFwLOcViNgI9 Q==;
-X-CSE-ConnectionGUID: fS2nYclqRyyoaO+4uWITvw==
-X-CSE-MsgGUID: 2djP7h6RSOSg38NK/DYiXQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="85852773"
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="85852773"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2026 03:07:12 -0700
-X-CSE-ConnectionGUID: PiwpZWrJSPq3Blrki/GnOQ==
-X-CSE-MsgGUID: +rt0jrK+TlGQAqp+LK07RA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="256997793"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.76])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2026 03:07:08 -0700
-From: Jani Nikula <jani.nikula@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>, Thomas =?utf-8?Q?Hellstr=C3=B6m?=
- <thomas.hellstrom@linux.intel.com>, Oded Gabbay <ogabbay@kernel.org>,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dim-tools@lists.freedesktop.org
-Subject: [PULL] drm-intel-next
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-Date: Tue, 28 Jul 2026 13:07:05 +0300
-Message-ID: <cb1b5a644d75589cbcdcc8ec8160968140426439@intel.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B750610E42D
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:21:42 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66S82uHO2276192
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:21:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=k8XTLlBbBhkHOutm9hULJG
+ eDDzcY4ZTHIOHZViR0U8U=; b=OPJZmu95ErJ0Jle4ahjW/+fqD+SOPtJ0Bd/TRM
+ haYzXarxO2uIBJWB0oJAg3VoT8Ndsw51Pct/dciiZ3TQskIVjyI9QSQM0JzBEOkU
+ G41VSOVPjVDtHf4mGaSo2Ku0klbJwp/hC/ppkXKEwfW5PF1h9ygw8sGuX7ZCzdPt
+ HeIzygMX9EIN5f0rop3dAeEgkn/Q0hw8IRv0M1BfjE1aSk3odT82uwp1J4dXqerg
+ eVj34oTHfjz21+7hcwe5MrjYL3WcJ1Kb8QfsHZL2Yftt/J4cuMEs1z/XMNESXwvd
+ c5O77Q2b06b0TEa2MMtEKuMONpEfNS/s+k6jfassqUcF5J3w==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpbrsupuw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:21:41 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id
+ 6a1803df08f44-907c59bd73bso72332516d6.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 03:21:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1785234101; x=1785838901;
+ darn=lists.freedesktop.org; 
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=k8XTLlBbBhkHOutm9hULJGeDDzcY4ZTHIOHZViR0U8U=;
+ b=A/iagPjZRF4qXELhGfBwNx19/K7TMzoWlOLzMHpuMrgglHPc/QKvjvYi/EaH3XnzK5
+ t5M+z3v7HNEnET1fEeEOupQJcU6LAPY+49BB6q2UC4VbXOHz8HQCcLU5w8uEZj88Oi0O
+ jGsAiPyRitJw3DEXko3gHg3giNjIM1D0AKydGVbg3BTL3emzsbexWmadfQtX4Hla40HY
+ PXfhKC4Q5ULsFJepg7u+FpeohLxzHuwCzv/qGSuogjtghYIR0RrFRCaG66A4eZBzS0L+
+ Ec5oTHJvKbE+x+PTPZ5Aa4pncfh4E2IK6jYHQvXhhxxYTMQd3eKZ9os8Q2R00S4gJ/3H
+ Tzdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785234101; x=1785838901;
+ h=cc:to:content-transfer-encoding:content-type:mime-version
+ :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=k8XTLlBbBhkHOutm9hULJGeDDzcY4ZTHIOHZViR0U8U=;
+ b=lHuNZ5NrMM35Lde7w+e5A14vxPUXZJoKGA1rijYBW0Tx51ai7zxVsQX4JtB4xc613c
+ /LerJjFhP/hiYTzWPJYIgUvCvaJWCK85MU+OkTZg3HcfVLQZG41MlStGYTWus4tul9FJ
+ lDoNPl78rVK+sFmsMvbJrWJiBUUy0t138/1zuZrz0r/dXmDHxoCG3jO/Ki1gEGrk+Aul
+ Lq5axhP2wEWpJknuKvO4A0ahd6LAgtX5WAAmqUJTXfbp0iB3+/Gw+Lkz6FPoymbNzN13
+ hBgr/FBHvILqyo1btqNwjPUEw3Zqcn/em6IozFJqB2mM0wJYmWD2R4W8YP+EAp6WMzGQ
+ Ga1Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpUfiu7HBBrqTBJ2WgNKoCFosEAgK/NEer0rWhFxVOw4sYR9S+TWsl33IMFCp/n7kWMWXM9Kzp3vvI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwntqMzfiRAMO/6GANxxHF83i6TxWVAqH6VoFsFJwVwLFMYDX7S
+ ljei8phmxMKcAQzHGMWL7/LOda4zATcg80IVHMUpkrTgaVOt91UPubDKfLe7vEkXpKj3ZNUmUNg
+ QIjQBIl5MAOS2phM5n53rTuuU9LvNsgpJtuOwHHSwYSIMjyaiSCWDZZuNojyWZVkVTpdGLRo=
+X-Gm-Gg: AR+sD107x/nG5oYuokyaAI11aoah7HCTP/NlM3vtw4E4jcufTAbLzRKtg+q52IBv6Ba
+ utaW4C3HOcn5GEI1jx8qC/P8eFs3V/IOytf/Y3L2wnJBixS9n9ryZ0p7OCv7xY9GYe18GEplerS
+ r7gcqMtQXOnosdwhnlOenZ5Z39qSCgDi6+STAQ58OkrBARs/fBBE8QF5lMpiVKdTEJkjuEApvWM
+ hz568P6lkJayj0azriTxAqiz+rX5GDSJReNGBn6y179hCwuPfePCAlAwZ4n5mh/rh8hm+/nMDhj
+ Xmh7YSui5IXxDr7TzNNPH6Jcg0m1D1qskh0f4GOedmYt2zAibCuZz7LyEduHPgLjv4Z1Z3c4+zN
+ iPRuih4atlBYY5MkW5cWIpCbqjLJ629D8kSmSpgdLxtcTpRGP4uL3NdN0/R51EAw=
+X-Received: by 2002:a05:6214:328a:b0:8f4:d86:ec0f with SMTP id
+ 6a1803df08f44-908172f03e2mr16435416d6.27.1785234100753; 
+ Tue, 28 Jul 2026 03:21:40 -0700 (PDT)
+X-Received: by 2002:a05:6214:328a:b0:8f4:d86:ec0f with SMTP id
+ 6a1803df08f44-908172f03e2mr16435176d6.27.1785234100331; 
+ Tue, 28 Jul 2026 03:21:40 -0700 (PDT)
+Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
+ [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-907e869ba73sm84791396d6.25.2026.07.28.03.21.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Jul 2026 03:21:40 -0700 (PDT)
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Subject: [PATCH v9 00/14] drm/msm/dp: Prerequisite cleanup for upcoming MST
+ support
+Date: Tue, 28 Jul 2026 18:21:29 +0800
+Message-Id: <20260728-dp_mstclean-v9-0-f7779fce10f4@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKmCaGoC/3XOTWrDMBAF4KsYrasgjWz9ZNV7lFJG8qgRxHZiO
+ aYl+O5VnEVqSDYDb2C+eVeWaUyU2b66spHmlNPQl+DeKhYO2H8TT23JDARo0YDl7emry1M4EvY
+ 8ClcHQhsQalYuTiPF9LNqH5/3PNL5UtDpvmQeM/EwdF2a9pUw0oJV6MH6oJwwJIXXErWvPelIE
+ WXwHiK7WYeUp2H8XYvOzYo97TQ3XHB0ADLIKKPy70POu/MFj7e3uzJWbtYPQgvYEroQEKSJsRb
+ oPLwgzH/CbQlTCEJRS6nIglIvCPsgDIgtYQvhCUFLH2sy7RNiWZY/JU4jfsIBAAA=
+X-Change-ID: 20260528-dp_mstclean-f094cea8ca24
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785234095; l=4913;
+ i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
+ bh=gtymclkuEBC4Gtb94q3hrKBPv0k6dPhp4Zvr7BCSBZc=;
+ b=oegzPO8otejUM5f4IcbJYl4OPhMycVz/WsBZm7Vs0UxhdDOBrAhCuXOs0BaA4gslJ6kZNbQl2
+ WaG5Fj7c3f7CFiXJFl7KHkjw5JBQqKGkocYi5w/+TV8Jq86a8DR/JQs
+X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
+ pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA5MSBTYWx0ZWRfXx20nOI7uEkHL
+ 4azfBBqlxuDBw923qTTVZNmdfJsc2VDOVT1mGyyHiYHgEEkPznv4ZcoQkhGk3bD1tAIwf7R1SzT
+ j4eddknC76FoFcs/BLe6hYgzIXP4q4zRb3TuS4ClFbKg+0nYdFJnTJQvZtRXLUeCDE6GL6FqSo8
+ 1bXwc4mGM2TC71LxH5oFKDXDJgTlAYjuAhkhLlyNVHJXhqSjpLwLH0B9pz5pJcl+9Qx+iWiDMv2
+ H4WO0Put59qUXaWoCUqzsnF22J+BIj94gaXl19DTEYNLxBpw8aJlJ8B6ocGokwchavp4+fAfGrg
+ c9wOn155DvWtUv2rUW/rhiPe6yXD8qzmG0T/QCRkh7DdcXIdtYNu4MRxbZ0grsphQtA+2ek1Cml
+ eUv4fhruJifHJynN1HrKxQlmwKMYHc1JgS2f9p6hsLTuVE4sPC7AZ2kEudY5RlO0T0y+s/JgcSv
+ aE+Jc5EjSdbuseGVGNg==
+X-Proofpoint-ORIG-GUID: SIkrtTnK8vSPcc2uwGM0Rnx_F9YEwPPz
+X-Proofpoint-GUID: SIkrtTnK8vSPcc2uwGM0Rnx_F9YEwPPz
+X-Authority-Analysis: v=2.4 cv=ALkdLnG8 c=1 sm=1 tr=0 ts=6a6882b5 cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=DCnoF1gdW_jtja5s6fsA:9 a=QEXdDO2ut3YA:10
+ a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA5MSBTYWx0ZWRfX3HL1uO1DkPPy
+ lsMJ0922L/v5Or3jDhJZiDxxVNN8J86FkhG1SkVWiuaNP8kSVBaN9xk62M+llJ3dVONSILhdiAT
+ gN4Yhnhk3mn77KN87FOGAABS5SIEVYc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607280091
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,331 +161,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This series is the SST-only prerequisite portion of the MSM DP MST
+work. It refactors the existing DP code paths so that MST can
+plug in cleanly in a follow-up series, without bundling the cleanup
+with MST functionality in the same submission.
 
-Hi Dave & Sima -
+SST behaviour is preserved end-to-end; no new functionality is added
+here. The intent is to land these refactors first to keep the
+follow-up MST series focused, smaller, and easier to review.
 
-Final i915 pull request for v7.3, mostly i915 and xe display.
+Patch 01 and patch 02 pick from Dmitry series
+https://lore.kernel.org/dri-devel/20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com/T/#t 
+and no code change, just rebase on top of it.
 
-BR,
-Jani.
+Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+---
+Changes in v9:
+- pick patch 01/patch 02 from
+  https://lore.kernel.org/dri-devel/20260722-drm-msm-display-interface-v1-0-368c10fe62fd@oss.qualcomm.com/T/#t.
+- patch 04: clear Clear the stream-specific fields before
+    OR-ing new values.
+- patch 10: move the panel->hw_revision assignment outside the conditional. 
+- patch 13: also move atomic_pre_enable from dp_drm.c into dp_display.c and leave a thin bridge wrapper, matching the pattern used for the other bridge helpers.
+- Drop "separate dp_display_prepare() into its own API" due to patch 2
+  add .atomic_pre_enable() and don't need it anymore.
+- Link to v8: https://lore.kernel.org/r/20260720-dp_mstclean-v8-0-bea261bf4e7d@oss.qualcomm.com
 
-drm-intel-next-2026-07-28:
-drm/i915 feature pull #2 for v7.3:
+Changes in v8:
+- Rebase to next-20260717.
+- patch 04: also call msm_dp_ctrl_config_ctrl_streams() in link_train(). [sashiko-bot]
+- patch 07: propagate msm_dp_ctrl_on_pixel_clk() error. [sashiko-bot]
+- patch 08: return -ENOTCONN on sink_count == 0; return on link-train failure. [sashiko-bot]
+- patch 10: pass panel to config_ctrl_streams() in link_train().
+- patch 15: use passed-in msm_dp_panel in msm_dp_ctrl_off_link(); fix kdoc name.
+- Link to v7: https://lore.kernel.org/r/20260609-dp_mstclean-v7-0-ea04113e8233@oss.qualcomm.com
 
-Features and functionality:
-- Enable UHBR link rates on Thunderbolt tunneled links (Imre)
-- Reduce Xe3+ PM demand peak bandwidth for power savings (Vinod)
-- Add the blend mode property to all planes that support alpha blending (Ch=
-aitanya)
-- Enable pipe DMC error interrupts for display 30+ (Dibin)
-- Add KUnit tests for DP link config selection and fallback (Imre)
+Changes in v7:
+- patch 7: Use WARN_ON_ONCE() when pixel clock is already on. [Konrad]  
+- Link to v6: https://lore.kernel.org/r/20260602-dp_mstclean-v6-0-2c17ff40a9b2@oss.qualcomm.com
 
-Refactoring and cleanups:
-- Refactor DP link config selection and unify across use cases (Imre)
-- Unify i915 and xe display runtime PM calls (Jani)
-- Refactor BIOS framebuffer takeover (Ville)
+Changes in v6:
+- patch 4: fixed the RMW comments. [Dmitry]
+- patch 10: do not rename the existing struct. [Dmitry]
+- Link to v5: https://lore.kernel.org/r/20260528-dp_mstclean-v5-0-a9221c1f1f3b@oss.qualcomm.com
 
-Fixes:
-- Fix HD audio on DP UHBR SST (Kai Vehmanen)
-- Fixes to xe driver BIOS framebuffer takeover (Ville)
-- Fix 2 pixels-per-clock CDCLK calculation to avoid underruns (Ville)
-- Fix incorrectly set VSC SDP Main Stream Attribute (Chaitanya)
-- Fix BPC and DSC selection for HDMI sinks (Alexander Kaplan)
-- Fix PCON max FRL rate selection (Alexander Kaplan)
-- Workaround Xe3P PSR2 screen corruption (Dibin)
-- Fix NVL A & B stepping vtotal setting (Suraj)
-- Fix xe DPT allocation paths (Maarten)
-- Prefer system memory instead of stolen for new framebuffers in xe (Maarte=
-n)
-- Fix transcoder mask sizes (John Harrison)
-- Clear stale UV/Y plane DDB entries on plane disable (Vinod)
-- Fix some DP AUX backlight control issues, again (Suraj)
-- Fix switching between HDCP 1.4 and 2.2 authentication (Suraj)
-- Remove unnecessary Xe2_LPD+ FBC plane width and surface size limits (Vino=
-d)
-- Ensure non-zero DSB safe window for PTL+ (Ankit)
-- Fix bandwidth calculation to account for 16 DRAM channels (Uma)
-- Fix NV12 ceiling division for bigjoiner case (Vidya)
+Changes in v5:
+- Split out from v4: only the SST prerequisite cleanup (patches 1-15)
+  is sent here; the MST implementation will follow on top.
+- Rebased onto linux-next-20260527; adapted bridge callbacks to the
+  new drm_atomic_commit* API.
+- patch 3: added Suggested-by: Dmitry Baryshkov.
+- patch 4: fixed "splite" typo, reworded body, added RMW comment
+  covering both SST and MST paths. [Dmitry]
+- patch 10: drop cached panel from msm_dp_ctrl_private; pass panel
+  explicitly to all stream-related dp_ctrl APIs. [Dmitry]
+- patch 13/14: introduce bridge wrappers and atomic_prepare with
+  drm_atomic_commit* from the start to preserve bisectability.
+- patch 15: fixed pass panel inside the func. [Dmitry]
+- Link to v4: https://lore.kernel.org/all/20260410-msm-dp-mst-v4-0-b20518dea8de@oss.qualcomm.com/
 
-DRM core changes:
-- Add Thunderbolt UHBR tunneling support (Imre)
+---
+Abhinav Kumar (5):
+      drm/msm/dp: break up dp_display_enable into two parts
+      drm/msm/dp: re-arrange dp_display_disable() into functional parts
+      drm/msm/dp: allow dp_ctrl stream APIs to use any panel passed to it
+      drm/msm/dp: split dp_ctrl_off() into stream and link parts
+      drm/msm/dp: make bridge helpers use dp_display to allow re-use
 
+Yongxing Mou (9):
+      drm/msm/dp: remove cached drm_edid from panel
+      drm/msm/dp: drop deprecated .mode_set() and use .atomic_pre_enable
+      drm/msm/dp: move mode setup into msm_dp_panel_init_panel_info()
+      drm/msm/dp: split msm_dp_ctrl_config_ctrl() into link parts and stream parts
+      drm/msm/dp: extract MISC1_MISC0 configuration into a separate function
+      drm/msm/dp: split link setup from source params
+      drm/msm/dp: move the pixel clock control to its own API
+      drm/msm/dp: simplify link and clock disable sequence
+      drm/msm/dp: pass panel to display enable/disable helpers
 
-The following changes since commit 8e27f752037e72ccee9c4a7c4a6202ecf3daf603:
+ drivers/gpu/drm/msm/dp/dp_ctrl.c    | 390 ++++++++++++++++++++----------------
+ drivers/gpu/drm/msm/dp/dp_ctrl.h    |  30 ++-
+ drivers/gpu/drm/msm/dp/dp_display.c | 283 +++++++++++++-------------
+ drivers/gpu/drm/msm/dp/dp_display.h |   9 +
+ drivers/gpu/drm/msm/dp/dp_drm.c     |  52 ++++-
+ drivers/gpu/drm/msm/dp/dp_drm.h     |  12 --
+ drivers/gpu/drm/msm/dp/dp_panel.c   |  77 ++-----
+ drivers/gpu/drm/msm/dp/dp_panel.h   |  17 +-
+ drivers/gpu/drm/msm/dp/dp_reg.h     |   2 +
+ 9 files changed, 477 insertions(+), 395 deletions(-)
+---
+base-commit: 0718283ab28bc3907e10b61a6b4be6fefa1cbb2f
+change-id: 20260528-dp_mstclean-f094cea8ca24
 
-  drm/i915/ltphy: Fix SSC Enablement bit in PORT_CLOCK_CTL (2026-07-02 09:1=
-9:23 +0530)
+Best regards,
+-- 
+Yongxing Mou <yongxing.mou@oss.qualcomm.com>
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/i915/kernel.git tags/drm-intel-next-20=
-26-07-28
-
-for you to fetch changes up to f0cabcc880aba3f05ca59d735f6d166b7fceca80:
-
-  drm/i915/fbc: No surface size restrictions from LNL onwards (2026-07-24 1=
-1:48:36 +0300)
-
-----------------------------------------------------------------
-drm/i915 feature pull #2 for v7.3:
-
-Features and functionality:
-- Enable UHBR link rates on Thunderbolt tunneled links (Imre)
-- Reduce Xe3+ PM demand peak bandwidth for power savings (Vinod)
-- Add the blend mode property to all planes that support alpha blending (Ch=
-aitanya)
-- Enable pipe DMC error interrupts for display 30+ (Dibin)
-- Add KUnit tests for DP link config selection and fallback (Imre)
-
-Refactoring and cleanups:
-- Refactor DP link config selection and unify across use cases (Imre)
-- Unify i915 and xe display runtime PM calls (Jani)
-- Refactor BIOS framebuffer takeover (Ville)
-
-Fixes:
-- Fix HD audio on DP UHBR SST (Kai Vehmanen)
-- Fixes to xe driver BIOS framebuffer takeover (Ville)
-- Fix 2 pixels-per-clock CDCLK calculation to avoid underruns (Ville)
-- Fix incorrectly set VSC SDP Main Stream Attribute (Chaitanya)
-- Fix BPC and DSC selection for HDMI sinks (Alexander Kaplan)
-- Fix PCON max FRL rate selection (Alexander Kaplan)
-- Workaround Xe3P PSR2 screen corruption (Dibin)
-- Fix NVL A & B stepping vtotal setting (Suraj)
-- Fix xe DPT allocation paths (Maarten)
-- Prefer system memory instead of stolen for new framebuffers in xe (Maarte=
-n)
-- Fix transcoder mask sizes (John Harrison)
-- Clear stale UV/Y plane DDB entries on plane disable (Vinod)
-- Fix some DP AUX backlight control issues, again (Suraj)
-- Fix switching between HDCP 1.4 and 2.2 authentication (Suraj)
-- Remove unnecessary Xe2_LPD+ FBC plane width and surface size limits (Vino=
-d)
-- Ensure non-zero DSB safe window for PTL+ (Ankit)
-- Fix bandwidth calculation to account for 16 DRAM channels (Uma)
-- Fix NV12 ceiling division for bigjoiner case (Vidya)
-
-DRM core changes:
-- Add Thunderbolt UHBR tunneling support (Imre)
-
-----------------------------------------------------------------
-Alexander Kaplan (2):
-      drm/i915/dp: Prefer DSC over 6 bpc uncompressed output for HDMI sinks
-      drm/i915/dp: Ignore the sink's DSC max FRL rate without a PCON DSC en=
-coder
-
-Ankit Nautiyal (1):
-      drm/i915/display: Ensure a non-zero safe window from PTL onwards
-
-Chaitanya Kumar Borah (3):
-      drm/i915/display: expose blend mode on alpha-capable planes
-      drm/i915/dp: s/intel_dp_needs_vsc_sdp/intel_dp_needs_vsc_colorimetry
-      drm/i915/dp: set VSC_SDP MSA delegation only for capable sinks
-
-Colin Ian King (1):
-      drm/i915/bw: Fix spelling mistake "threshod" -> "threshold"
-
-Dibin Moolakadan Subrahmanian (2):
-      drm/i915/psr: Block DC3CO entry during active frame
-      drm/i915/dmc: Enable PIPEDMC_ERROR interrupt on display version 30+
-
-Imre Deak (40):
-      drm/i915/doc: Document DP link capabilities
-      drm/i915/dp_link_caps: Factor out helper to get link config by index
-      drm/i915/dp_link_caps: Add support for link rate, lane count iteratio=
-n orders
-      drm/i915/dp_link_caps: Add link configuration iterator
-      drm/i915/dp_link_caps: Add helper to get iteration order for a connec=
-tor
-      drm/i915/dp_link_caps: Validate max link limits
-      drm/i915/dp_link_caps: Add filter for enabled link configurations
-      drm/i915/dp_link_caps: Re-enable link configurations after a link res=
-et
-      drm/i915/dp_link_caps: Re-enable link configurations after sink caps =
-change
-      drm/i915/dp_link_caps: Drop noupdate postfix from max link limit set =
-helpers
-      drm/i915/dp_link_caps: Add debugfs entry showing allowed configuratio=
-ns
-      drm/i915/dp: Add link configuration filter for modeset computation
-      drm/i915/dp_link_caps: Add helper to query max BW link configuration
-      drm/i915/dp: Query max BW config via link_caps during mode validation
-      drm/i915/dp_tunnel: Query max BW config via link_caps for BW computat=
-ion
-      drm/i915/dp_test: Use link caps for compliance link configs
-      drm/i915/dp: Iterate configurations via link_caps for SST non-DSC
-      drm/i915/dp: Iterate configurations via link_caps for SST DSC
-      drm/i915/dp: Use link caps for eDP DSC config selection
-      drm/i915/dp_mst: Use link caps for non-DSC config selection
-      drm/i915/dp_mst: Use link caps for MST DSC config selection
-      drm/i915/dp: Remove min/max link config limits
-      drm/i915/dp_link_training: Reset the max link limits in the fallback =
-code
-      drm/i915/dp_link_training: Use config iterator for fallback
-      drm/i915/dp_link_training: Disable failed config during fallback
-      drm/i915/kunit: Enable KUnit tests
-      drm/i915/kunit: Add DP link test stub
-      drm/xe/kunit: Add display test config
-      drm/xe/kunit: Build DP link display tests
-      drm/i915/kunit: Setup DP link test context
-      drm/i915/kunit: Export link training and caps funcs for testing
-      drm/i915/kunit: DP link: add baseline fixed table reference test
-      drm/i915/kunit: DP link: add update config tests
-      drm/i915/kunit: DP link: add fallback tests
-      drm/dp_tunnel: Add UHBR tunneling support
-      drm/i915/dp: End link configuration loops properly
-      drm/i915/dp: Enable SST fallback between UHBR and non-UHBR rates
-      drm/i915/dp: Remove UHBR dependency from SST fallback kunit test
-      drm/i915/dp: Disable UHBR link configs with 1/2 lanes
-      drm/i915/dp_tunnel: Add UHBR tunneling support
-
-Jani Nikula (9):
-      drm/i915: call intel_uncore_runtime_resume() for each gt
-      drm/i915: call intel_display_power_runtime_resume() on suspend error =
-path
-      drm/i915: move some display runtime suspend operations earlier
-      drm/i915: add intel_display_driver_pm_runtime*() functions
-      drm/{i915, xe}: add new intel_display_driver_runtime_pm_{enable, disa=
-ble}()
-      drm/xe/display: separate d3cold handling from xe_display_pm_runtime_s=
-uspend_late()
-      drm/xe/display: add xe_display_pm_runtime_resume_early()
-      drm/xe/display: unify runtime suspend/resume with i915 for non-d3cold
-      drm/i915/mst: limit DP MST ESI service loop
-
-John Harrison (1):
-      drm/i915/display: Fix too few bits in transcoder mask variables
-
-Kai Vehmanen (1):
-      drm/i915/audio: treat UHBR SST like MST for cpu_transcoder signalling
-
-Maarten Lankhorst (2):
-      drm/xe: Fix DPT allocation paths.
-      drm/xe/display: Do not allocate into stolen for new framebuffers.
-
-Suraj Kandpal (3):
-      drm/i915/display: Skip TRANS_VTOTAL.Vtotal write on NVL pre-C0
-      drm/i915/backlight: Remove DP_EDP_BACKLIGHT_AUX_ENABLE_CAP check for =
-DPCD backlight
-      drm/i915/hdcp: Make hdcp2_encrypted and hdcp_encrypted mutually exclu=
-sive
-
-Uma Shankar (2):
-      drm/i915/dram: Interpret 0xF populated-channel count as 16
-      drm/i915/bw: Update bw calculation to account for 16 channels
-
-Vidya Srinivas (1):
-      drm/i915/display: Fix NV12 ceiling division for bigjoiner case
-
-Ville Syrj=C3=A4l=C3=A4 (15):
-      drm/i915: Disable the plane if initial plane config readout failed
-      drm/i915/fbdev: Extract bios_fb_ok()
-      drm/i915: Throw away the BIOS fb if has the wrong depth/bpp
-      drm/i915: Use drm_dbg_kms() for initial FB debugs
-      drm/xe: Do the initial FB size alignment earlier
-      drm/xe: Print a debug message if we have no stolen for the initial FB
-      drm/xe: Abstract the initial FB PTE checks a bit
-      drm/xe: Check the PTE local memory bit for initial FB in stolen
-      drm/xe: s/bar2/lmembar/
-      drm/i915: Fix BIOS FB memory region name debug prints
-      drm/i915: Print the phys_base in addition to the dma_addr for the BIO=
-S FB
-      drm/i915/cdclk: Use intel_cdclk_ppc() in intel_modeset_readout_hw_sta=
-te()
-      drm/i915/cdclk: Introduce HAS_2PPC()
-      drm/i915/cdclk: Introduce crtc_state->pixel_rate_cdclk
-      drm/i915/cdclk: Deal with 2 PPC hscale issues when calculating min CD=
-CLK
-
-Vinod Govindapillai (10):
-      drm/i915/wm: clear the plane ddb_y entries on plane disable
-      drm/i915/pm_demand: introduce HAS_PMDEMAND macro
-      drm/i915/display: sagv pre/post plane calls to check pmdemand support
-      drm/i915/bw: Extract icl_init_qgv_info()
-      drm/i915/bw: extract update_sagv_status()
-      drm/i915/bw: avoid replicating the update_sagv_status() calls
-      drm/i915/bw: introduce the peak bandwidth threshold
-      drm/xe/display: Expose plane max width/height helpers to global scope
-      drm/i915/fbc: No need of any hardcoded plane width limit from LNL+
-      drm/i915/fbc: No surface size restrictions from LNL onwards
-
- .../gpu/intel-display/dp-link-capabilities.rst     |   11 +
- Documentation/gpu/intel-display/index.rst          |    1 +
- drivers/gpu/drm/display/drm_dp_tunnel.c            |  116 +-
- drivers/gpu/drm/i915/.kunitconfig                  |    9 +
- drivers/gpu/drm/i915/Kconfig.debug                 |   12 +
- drivers/gpu/drm/i915/Makefile                      |    2 +
- drivers/gpu/drm/i915/display/hsw_ips.c             |    2 +-
- drivers/gpu/drm/i915/display/i9xx_plane.c          |    8 +-
- drivers/gpu/drm/i915/display/intel_audio.c         |   55 +-
- drivers/gpu/drm/i915/display/intel_bw.c            |  112 +-
- drivers/gpu/drm/i915/display/intel_cdclk.c         |    6 +-
- drivers/gpu/drm/i915/display/intel_cdclk.h         |    1 +
- drivers/gpu/drm/i915/display/intel_cursor.c        |    3 +
- drivers/gpu/drm/i915/display/intel_ddi.c           |   10 +-
- drivers/gpu/drm/i915/display/intel_display.c       |   76 +-
- drivers/gpu/drm/i915/display/intel_display_core.h  |    2 +
- .../gpu/drm/i915/display/intel_display_device.h    |    3 +
- .../gpu/drm/i915/display/intel_display_driver.c    |   71 +
- .../gpu/drm/i915/display/intel_display_driver.h    |    8 +
- drivers/gpu/drm/i915/display/intel_display_irq.c   |    2 +-
- drivers/gpu/drm/i915/display/intel_display_power.c |    4 +-
- drivers/gpu/drm/i915/display/intel_display_regs.h  |    3 +
- drivers/gpu/drm/i915/display/intel_display_types.h |   10 +-
- drivers/gpu/drm/i915/display/intel_display_wa.c    |    4 +
- drivers/gpu/drm/i915/display/intel_display_wa.h    |    2 +
- drivers/gpu/drm/i915/display/intel_dmc.c           |   10 +-
- drivers/gpu/drm/i915/display/intel_dp.c            |  407 +++---
- drivers/gpu/drm/i915/display/intel_dp.h            |   15 +-
- .../gpu/drm/i915/display/intel_dp_aux_backlight.c  |    7 +-
- drivers/gpu/drm/i915/display/intel_dp_link_caps.c  |  759 ++++++++++-
- drivers/gpu/drm/i915/display/intel_dp_link_caps.h  |  172 ++-
- .../gpu/drm/i915/display/intel_dp_link_training.c  |  232 ++--
- .../gpu/drm/i915/display/intel_dp_link_training.h  |   31 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |   79 +-
- drivers/gpu/drm/i915/display/intel_dp_test.c       |  107 +-
- drivers/gpu/drm/i915/display/intel_dp_test.h       |    3 +-
- drivers/gpu/drm/i915/display/intel_dp_tunnel.c     |   53 +-
- drivers/gpu/drm/i915/display/intel_dp_tunnel.h     |   17 +
- drivers/gpu/drm/i915/display/intel_dram.c          |   14 +-
- drivers/gpu/drm/i915/display/intel_fbc.c           |   21 +-
- drivers/gpu/drm/i915/display/intel_fbdev.c         |   35 +-
- drivers/gpu/drm/i915/display/intel_hdcp.c          |    2 +
- drivers/gpu/drm/i915/display/intel_initial_plane.c |    6 +-
- drivers/gpu/drm/i915/display/intel_modeset_setup.c |   30 +-
- drivers/gpu/drm/i915/display/intel_plane.c         |   55 +
- drivers/gpu/drm/i915/display/intel_plane.h         |    5 +
- drivers/gpu/drm/i915/display/intel_pmdemand.c      |   12 +-
- drivers/gpu/drm/i915/display/intel_psr.c           |   16 +
- drivers/gpu/drm/i915/display/intel_sprite.c        |   22 +-
- drivers/gpu/drm/i915/display/intel_vrr.c           |    6 +
- drivers/gpu/drm/i915/display/skl_universal_plane.c |   55 +-
- drivers/gpu/drm/i915/display/skl_universal_plane.h |    9 +
- drivers/gpu/drm/i915/display/skl_watermark.c       |    8 +-
- drivers/gpu/drm/i915/display/tests/Makefile        |    7 +
- .../drm/i915/display/tests/intel_dp_link_test.c    | 1408 ++++++++++++++++=
-++++
- drivers/gpu/drm/i915/i915_driver.c                 |   58 +-
- drivers/gpu/drm/i915/i915_initial_plane.c          |   12 +-
- drivers/gpu/drm/xe/.gitignore                      |    1 +
- drivers/gpu/drm/xe/.kunitconfig-display            |   11 +
- drivers/gpu/drm/xe/Makefile                        |    3 +
- drivers/gpu/drm/xe/display/tests/Makefile          |   13 +
- drivers/gpu/drm/xe/display/xe_display.c            |   44 +-
- drivers/gpu/drm/xe/display/xe_display.h            |    2 +
- drivers/gpu/drm/xe/display/xe_display_bo.c         |   33 +-
- drivers/gpu/drm/xe/display/xe_fb_pin.c             |   33 +-
- drivers/gpu/drm/xe/display/xe_initial_plane.c      |   58 +-
- drivers/gpu/drm/xe/xe_pm.c                         |    2 +
- drivers/gpu/drm/xe/xe_ttm_stolen_mgr.c             |   16 +-
- include/drm/display/drm_dp.h                       |   12 +
- include/drm/display/drm_dp_tunnel.h                |   21 +
- 70 files changed, 3739 insertions(+), 716 deletions(-)
- create mode 100644 Documentation/gpu/intel-display/dp-link-capabilities.rst
- create mode 100644 drivers/gpu/drm/i915/.kunitconfig
- create mode 100644 drivers/gpu/drm/i915/display/tests/Makefile
- create mode 100644 drivers/gpu/drm/i915/display/tests/intel_dp_link_test.c
- create mode 100644 drivers/gpu/drm/xe/.kunitconfig-display
- create mode 100644 drivers/gpu/drm/xe/display/tests/Makefile
-
---=20
-Jani Nikula, Intel
