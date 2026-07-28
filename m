@@ -4,149 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D947DC53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 16:40:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF590C53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 16:46:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3418D10E5C5;
-	Tue, 28 Jul 2026 16:40:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2FAA210E5C0;
+	Tue, 28 Jul 2026 16:46:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ohjcwOzd";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IAVScbdW";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="k/O054kz";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3C26610E5C0
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 16:40:48 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66SEcf3Z2996439
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 16:40:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6XIAYpvOZNxgfjo9PcaotLY0G9PU+jDGlLgxgEzrF9U=; b=ohjcwOzdL6AkZGFs
- gzft2ifcLHgXwDO5sF/vklzZAuWYqB+Lnz05gIhX+C0AefvCzbMX7fJu1YxN5ig3
- DKbRkbHZeoiiv1DZS4ABaQWgoFGTC2u4gID8O5MsvgudL40l5YdYxphTocJaNijx
- v6x1SWh8DhNwKXXgDHzwn2VRV28D5hX0k6ugKXFwgcVDgrMW1O9dcniQCixiVZrF
- RURGZm6X4D2MqEdHEinQ6guhPrGk7kp3Jw4eAaLz8hlV7m40HA+EFXFuJXrteLqI
- TqcpIM45cQMp2o6Yw8Sr09I9MTpPH/IWTfpSMSxZdhp7McA9C64ZTElRXrDXgL6y
- OgtcPA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpqxjjn9p-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 16:40:47 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-51ca37ce4c3so41661cf.3
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 09:40:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785256847; x=1785861647;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=6XIAYpvOZNxgfjo9PcaotLY0G9PU+jDGlLgxgEzrF9U=;
- b=IAVScbdW0WnrAGuTqBy7/HSyr0AnokV00eMsm85sgVqMW0zZGBLTKbX+wC6LIZY3n8
- UjE91A7Ug6tJr6ookIDkGMbKr0EbX1V9R9kuWggUIYVlnbfRBISwg87k8M4vuA7T0hkg
- TtshoR5+aWbO7nuEZgzKKvU1E04U297fo+5B4lpbX1t5ZkS31w4DZER28w6wjqWjTZFt
- hQjBMf983Q5LNJWswx0gbTwOkL1aBRdLhEtjIQVbmyUHP63ifFzgmEjvhVtezAu6SgCI
- 1jOU1miYn8Rx6M7aNsE0xB6YUPWHGP+BCKKIMhHZTX2+95CTxKksizL0e6LDFicFZDNM
- rQmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785256847; x=1785861647;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6XIAYpvOZNxgfjo9PcaotLY0G9PU+jDGlLgxgEzrF9U=;
- b=layTZzyxGOMuRxafMLiAeLPD+TE7eu5WIiHKMepUbL7zzqsU9DNKk4eusFTDVF7X60
- iPqA3wrivWvsjoBa6tL2DyFAIcYQHaaczIfHdFWwBGN9sUuswSob1YxMBnFEY1iG9BCs
- qUTANC7LmhGVOwmgyv3cHjShafNetI3V2+ndWQAVuwqsBjrGcj1T5/sY2ING2BjAGPxN
- kSCeMg5KWhNVtmCwOJ/0c1sPVXOcEEejsv0w4+VJH0QRk3LqFgYf/7uDu5/z13sUl+ub
- GRsey8R0ACpl0X2wLwFMnIIP1ufXDRDr/jyTJehkDOd5ypk8gkVzHgnUrgRQ4Cs2cTe5
- metA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrM6kY/S/Y8IBqcq4Z3csVLNxP5ev9lkaTlug/ovWUo245SQjFGyVVGQDlksqRGpF+3zTBmHupoM+Q=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxicbyF+Po4kPPzPCby1jvZ0oLrwjhUuAIhUOYi/xaa5oludH17
- 06VvJX4ITS9XFF9S3/367z5M9Fizfm/uyPcr/l2BsOzl13Z7Oj9Rfm454QiRb0EOoQxVph3zBaQ
- ZsZDVKdJ465ZMOmDyCTvNSh7wPBCJ/X+VZDbsw8ypN4jC6KccXrryucjJcXL5ED9i0SoNOkw=
-X-Gm-Gg: AR+sD11ECtT44q+ttd7+8Oicajn6AwloSF/iF2PMmA1dVANTcwWnmwr4CFLiWx2yH8P
- u/la9by7HALhzmKoOj6LEE5g/9nT1QKPf7oAK77TWlYqeKNQC9MJf1vpGLl7h5KVjMr8GcSQ2pP
- ZUF+5yJL4BTlYHwKwmI/ebLIZ+GKnxN16bQNaDnWFfiFwoVjzWdm3RScspp8o1cnsvSIOSbiE2j
- heCk+orOWxn7c1FzuU9lStbjpdd1MGWRx4ylp8FogI6KGu0Vd6QmCk0QhbHsmXeFwY77jHBaGrq
- e5N2Z6XPQ/gK/rCDOIssm6JqR3/NjnAWVgKwEbRswESu4KvqVniAvUvmGUeVMec60oUhDlKnE88
- Jx7a+wn+sLn97CyjVEBHJ8t15
-X-Received: by 2002:a05:622a:a98e:20b0:51c:1c73:51a6 with SMTP id
- d75a77b69052e-529d6fe33e2mr18917481cf.5.1785256846481; 
- Tue, 28 Jul 2026 09:40:46 -0700 (PDT)
-X-Received: by 2002:a05:622a:a98e:20b0:51c:1c73:51a6 with SMTP id
- d75a77b69052e-529d6fe33e2mr18917181cf.5.1785256846019; 
- Tue, 28 Jul 2026 09:40:46 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1f83d27f47sm8254366b.26.2026.07.28.09.40.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jul 2026 09:40:45 -0700 (PDT)
-Message-ID: <28a1cf31-1edf-4980-90c4-a3bd89b638f5@oss.qualcomm.com>
-Date: Tue, 28 Jul 2026 18:40:42 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] drm/msm/dpu: Drop sneaky dev_pm_opp_set_rate(0)
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 4075310E5C0
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 16:46:54 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74F2516A3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 09:46:49 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 25B5B3F763
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 09:46:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785257213; bh=YSeEwN3+2wsd8dokO+SbzSW/EA0lGFIlG4J/MQOO50w=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=k/O054kzMwyy+8yOGs/9vYPEJox3PskIwxGKZFLuLIhXUNrFs1xgGPYJquP/ymnNn
+ lHfV0CNPZ0aAeIirJTtKYIM019ZaaMEBM5HhnD/Ak/ibbPC4awhZZpE11KZucw+J8b
+ VAvdZWwrxEa5TlZ5CLSyVRXiDB6FgJUKuo0aGFF0=
+Date: Tue, 28 Jul 2026 17:46:42 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Guangliu Ding <guangliu.ding@nxp.com>
+Cc: Steven Price <steven.price@arm.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rajendra Nayak <quic_rjendra@quicinc.com>,
- Matthias Kaehlcke <mka@chromium.org>,
- Sravanthi Kollukuduru <skolluku@codeaurora.org>,
- Rajesh Yadav <ryadav@codeaurora.org>,
- Chandan Uddaraju <chandanu@codeaurora.org>,
- Jeykumar Sankaran <jsanka@codeaurora.org>,
- Vara Reddy <quic_varar@quicinc.com>, Stephen Boyd <swboyd@chromium.org>,
- Guenter Roeck <groeck@chromium.org>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Archit Taneja <architt@codeaurora.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tanmay Shah <tanmay@codeaurora.org>
-References: <20260728-topic-dpu_power-v1-0-e7783b859a70@oss.qualcomm.com>
- <20260728-topic-dpu_power-v1-1-e7783b859a70@oss.qualcomm.com>
- <twedkppa74qxgbphy4xqhreb4a4s524jfjuzaqydtizeutpjql@tht3pklgptp7>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <twedkppa74qxgbphy4xqhreb4a4s524jfjuzaqydtizeutpjql@tht3pklgptp7>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: qZRKPGVCNUn0AORRN_FfppQn3XOF73mA
-X-Authority-Analysis: v=2.4 cv=MORQXsZl c=1 sm=1 tr=0 ts=6a68db8f cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=9gYuhPn4vmGLrIwqE-QA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDE0NyBTYWx0ZWRfX7qir/w+X0q/C
- MszNWgWVyJuFKROJeAq51DDNZb1qf5PkbY8TEjoiATyrEHKVU5omZMKgk47lOGcu4TeMpgUzSQz
- co6aGdl+Vn/sPZ2kx4bKMpiq3fs2B/s=
-X-Proofpoint-ORIG-GUID: qZRKPGVCNUn0AORRN_FfppQn3XOF73mA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDE0NyBTYWx0ZWRfX5Abh0rWWEN2c
- baFDvw6aKH2kSFvOUNAST/qsp2YHSii6pwoknHCtjjgHsbRxYlj3Vc+j4Rx79WPrnEi+wOz1/9d
- KVbXKn+aTaw8G8NTspwZ0ujgjb1mHMU4Z7It1w87Cv/TtQeK8VXiOOj67Zhz6A7nf/WGnjxxfI+
- /ZfvSJK0NS5iRe+e0YUkeyU27+ETgdAemWTP0l7PfhDPmHsT139fUL9+V6c1JvrQ7wdCOFBF1B2
- ifoefipF0nb+QOnFS/RQfs///1YqJ0XviTQezC8+OdBqt1ylI0mbi2ndNvdmpBu5SNDSP71B0an
- HvbpH5KC63Im24l7CcyPqui1YYz+wNwY35mgd3LH7F17zMtb19TXuwyKeLyYKFDtBfT8Qln8+hD
- zIf/Wc2qXdDK0eE82I3DEzFsYYoyrvEUNDASHGlZbMaYWQ9OqLFmbUBnvRFcBO97GVEUC9cAs1p
- exs5jySIHrPUHELVLrA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_04,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 suspectscore=0 impostorscore=0 bulkscore=0
- malwarescore=0 priorityscore=1501 spamscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280147
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: Re: Re: [PATCH] drm/panthor: add gpu_load debugfs node
+Message-ID: <amjc8p4n5F5xHcOv@e142607>
+References: <20260708-master-v1-1-713a00fe35ec@nxp.com>
+ <98345cd1-9693-447d-b4cd-08a889b2303b@arm.com>
+ <GVXPR04MB12158DCAE296381B3A0E7195FF3FA2@GVXPR04MB12158.eurprd04.prod.outlook.com>
+ <6e9cdc1f-de2d-4ef4-9a30-42592752fd49@arm.com>
+ <GVXPR04MB12158872FC4B07EEA08071FD9F3C72@GVXPR04MB12158.eurprd04.prod.outlook.com>
+ <ali1-3Yc1i4sVliI@e142607>
+ <GVXPR04MB12158D92B532A7C71F76DE6D7F3C72@GVXPR04MB12158.eurprd04.prod.outlook.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <GVXPR04MB12158D92B532A7C71F76DE6D7F3C72@GVXPR04MB12158.eurprd04.prod.outlook.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -162,48 +68,400 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/28/26 3:57 PM, Dmitry Baryshkov wrote:
-> On Tue, Jul 28, 2026 at 03:20:45PM +0200, Konrad Dybcio wrote:
->> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->>
->> dev_pm_opp_set_rate(0) removes the vote specified in required-opps but
->> does not actually park the clock, making it run without the necessary
->> power backing. Prevent that from happening when
->> _dpu_core_perf_get_core_clk_rate() returns 0.
->>
->> Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
->> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->> ---
->>  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 4 ++++
->>  1 file changed, 4 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
->> index 2ff255d7795e..fea173e37464 100644
->> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
->> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
->> @@ -394,6 +394,10 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
->>  
->>  		trace_dpu_core_perf_update_clk(kms->dev, !crtc->enabled, clk_rate);
->>  
->> +		/* If we're going offline, PM callbacks will disable the clocks instead */
->> +		if (!clk_rate)
->> +			return 0;
-> 
-> Is 0 here an actual case? If it is coming from the core_perf, then the
-> next line will handle it.
+On Thu, Jul 16, 2026 at 04:38:36PM +0000, Guangliu Ding wrote:
+> > On Thu, Jul 16, 2026 at 02:05:47AM +0000, Guangliu Ding wrote:
+> > > > On 13/07/2026 04:19, Guangliu Ding wrote:
+> > > > >> On 08/07/2026 04:24, Guangliu Ding wrote:
+> > > > >>> Expose GPU utilization via /sys/kernel/debug/dri/<N>/gpu_load.
+> > > > >>> The file reports busy_time_ns, idle_time_ns and gpu_load %.
+> > > > >>>
+> > > > >>> Values are snapshotted at the end of each devfreq sampling
+> > > > >>> window
+> > > > >>> (~50 ms) rather than read from live accumulators, avoiding load
+> > > > >>> swings over short observation intervals.
+> > > > >>>
+> > > > >>> The snapshot is cleared on suspend to avoid stale data when the
+> > > > >>> GPU is powered off.
+> > > > >>>
+> > > > >>> Signed-off-by: Guangliu Ding <guangliu.ding@nxp.com>
+> > > > >>
+> > > > >> Hi Guangliu,
+> > > > >>
+> > > > >> I'm puzzled exactly what you're trying to achieve with this. I
+> > > > >> can see that getting the GPU load might be useful, we do already
+> > > > >> have the 'fdinfo' mechanism to do this in a per-client manner but
+> > > > >> nothing good for
+> > > > "whole GPU"
+> > > > >> measurements.
+> > > > >>
+> > > > >> But stashing it in debugfs and formatting it as a string seems odd.
+> > > > >> Do you have a tool which uses this file, or is just for 'cat'ing
+> > > > >> to see the
+> > > > instantaneous load?
+> > > > >>
+> > > > >> Ideally we'd have something that would provide this information
+> > > > >> in a format that all drivers could implement, and not rely on debugfs
+> > files.
+> > > > >>
+> > > > >> Thanks,
+> > > > >> Steve
+> > > > >>
+> > > > >
+> > > > > Hi Steve
+> > > > >
+> > > > > Panthor currently exposes very limited runtime telemetry. The
+> > > > > intent is to expose utilization in this patch, together with other
+> > > > > device-wide GPU runtime metrics (frequency, shader activity,
+> > > > > draw-call counts,
+> > > > memory usage, etc.) to a userspace tool for monitoring and
+> > > > workload-optimization purposes.
+> > > > >
+> > > > > fdinfo is primarily a per-client interface. Since it requires an
+> > > > > open DRM fd and reports information associated with that client,
+> > > > > it does not map particularly well to the global metrics exported by this
+> > patch.
+> > > > >
+> > > > > If a generic cross-driver interface for this kind of GPU telemetry
+> > > > > emerges, I'm happy to switch to it. However, no such interface
+> > > > > currently exists for devfreq-based device utilization, so debugfs
+> > > > > seemed like the most appropriate existing option. Suggestions for
+> > > > > a better
+> > > > interface are welcome.
+> > > >
+> > > > So my point really is someone should ideally implement a better
+> > > > interface that multiple drivers can use. Having a point hack for one
+> > > > driver doesn't really help the situation.
+> > > >
+> > > > Indeed you can get the load information with ftrace already:
+> > > >
+> > > >   cd /sys/kernel/tracing
+> > > >   echo 0 > tracing_on
+> > > >   echo > trace
+> > > >   echo 'dev_name == "fb000000.gpu"' >
+> > events/devfreq/devfreq_monitor/filter
+> > > >   echo 1 > events/devfreq/devfreq_monitor/enable
+> > > >   echo 1 > tracing_on
+> > > >   cat trace_pipe
+> > > >
+> > > > And you'll get a stream of messages when the GPU is in use which
+> > > > includes a "load=xx" value at the end.
+> > > >
+> > > > If this is going to be extended to other properties for a user space
+> > > > tool then we should probably be putting this in sysfs and trying to
+> > > > come up with a design that other drivers can copy.
+> > > >
+> > > > Thanks,
+> > > > Steve
+> > > >
+> > >
+> > > Hi Steve,
+> > >
+> > > Thanks for the feedback and sharing.
+> > > I agree that a generic interface shared by multiple drivers would be
+> > preferable in the long term.
+> > >
+> > > For our use case, we need to provide customers with a simple way to
+> > > quickly observe GPU performance metrics from a userspace tuning tool.
+> > > Even though the devfreq_monitor tracepoint already exposes the load
+> > > information, ftrace is typically not enabled or supported in our deployed
+> > products, making it unsuitable as a user-facing interface for the tool.
+> > 
+> > You are enabling debugfs but not ftrace? Seems like an odd choice if you want
+> > to monitor and tune your system.
+> > 
+> > We are working on adding performance counters support to Panthor that will
+> > expose performance metrics in a more meaningful way.
+> > 
+> > >
+> > > As far as I know, there is currently no generic DRM/devfreq interface
+> > > for querying device-wide GPU utilization on demand. Given that gap,
+> > > exporting the information through debugfs seemed like the most practical
+> > option for Panthor today.
+> > 
+> > Knowing that the GPU was 80% busy without knowing exactly who was
+> > submitting jobs is not a particularly useful information, in my opinion. I would
+> > like to understand better what you are trying to do with the information and
+> > why implementing a devfreq governor for your usecase would not be useful
+> > here.
+> > 
+> > Best regards,
+> > Liviu
+> > 
+> Hi Liviu
 
-Yes it is (upon suspend) and it will not be handled because it's a min()
-and not a max() below
+Hi Guangliu,
 
-Konrad
+Sorry for the delay in response, I was on holiday for a week.
 
 > 
->> +
->>  		clk_rate = min(clk_rate, kms->perf.max_core_clk_rate);
->>  		ret = dev_pm_opp_set_rate(&kms->pdev->dev, clk_rate);
->>  		if (ret) {
->>
->> -- 
->> 2.55.0
->>
+> Happy to hear that performance counters will be supported to Panthor.
+> Are there any plans to expose detailed utilization statistics of gpu device/
+> fragment shader/non-fragment shader/tiler to panthor debugfs? 
+> If yes, do you have a rough timeline for this?
+
+The way we're going to expose counters will be per-app and with checks for
+permission to view the counters, so not a debugfs interface.
+
 > 
+> The userspace tuning tool is developed to gather both overall gpu statistics
+> (frequency, utilization, etc.) and gpu per-process information (memory usage,
+> etc.) from debugfs and expose to user for reference.
+> The original idea of this patch is that performance counters are not available yet,
+> so obtaining overall gpu utilization from DVFS appears to be the most practical
+> approach for now.
+> 
+> The tool is also intended to work without ftrace, since ftrace is usually disabled 
+> by default. As a result, debugfs is currently our preferred interface for collecting 
+> such information.
+
+Our plan is to support Perfetto for getting the statistics out of the GPU as that
+is more of a standard tool for app developers. Did you had a look it and are you sure
+it doesn't meet your requirements?
+
+Best regards,
+Liviu
+
+> 
+> Thanks,
+> Guangliu
+> 
+> > >
+> > > Thanks,
+> > > Guangliu
+> > >
+> > > > > Best Regards,
+> > > > > Guangliu
+> > > > >
+> > > > >>> ---
+> > > > >>> Add /sys/kernel/debug/dri/<N>/gpu_load to expose GPU utilisation
+> > > > >>> from the last devfreq sampling window (~50 ms).
+> > > > >>> The file reports busy_time_ns, idle_time_ns and load percentage.
+> > > > >>>
+> > > > >>> Tested on NXP i.MX95 EVK (Mali-G310 V2).
+> > > > >>> ---
+> > > > >>>  drivers/gpu/drm/panthor/panthor_devfreq.c | 80
+> > > > >>> +++++++++++++++++++++++++++++++
+> > > > >> drivers/gpu/drm/panthor/panthor_devfreq.h |  6 +++
+> > > > >>>  drivers/gpu/drm/panthor/panthor_drv.c     |  2 +
+> > > > >>>  3 files changed, 88 insertions(+)
+> > > > >>>
+> > > > >>> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.c
+> > > > >>> b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> > > > >>> index 2249b41ca4af..1b3f58ddfbd3 100644
+> > > > >>> --- a/drivers/gpu/drm/panthor/panthor_devfreq.c
+> > > > >>> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.c
+> > > > >>> @@ -1,12 +1,16 @@
+> > > > >>>  // SPDX-License-Identifier: GPL-2.0 or MIT
+> > > > >>>  /* Copyright 2019 Collabora ltd. */
+> > > > >>> +/* Copyright 2026 NXP */
+> > > > >>>
+> > > > >>>  #include <linux/clk.h>
+> > > > >>> +#include <linux/debugfs.h>
+> > > > >>>  #include <linux/devfreq.h>
+> > > > >>>  #include <linux/devfreq_cooling.h>
+> > > > >>> +#include <linux/math64.h>
+> > > > >>>  #include <linux/platform_device.h>  #include <linux/pm_opp.h>
+> > > > >>>
+> > > > >>> +#include <drm/drm_file.h>
+> > > > >>>  #include <drm/drm_managed.h>
+> > > > >>>  #include <drm/drm_print.h>
+> > > > >>>
+> > > > >>> @@ -43,6 +47,22 @@ struct panthor_devfreq {
+> > > > >>>        * and panthor_devfreq_record_{busy,idle}().
+> > > > >>>        */
+> > > > >>>       spinlock_t lock;
+> > > > >>> +
+> > > > >>> +#ifdef CONFIG_DEBUG_FS
+> > > > >>> +     /**
+> > > > >>> +      * @last_busy_ns: Busy time in nanoseconds of the last
+> > > > >>> +completed
+> > > > >> devfreq window.
+> > > > >>> +      * Updated by panthor_devfreq_get_dev_status() before
+> > > > >>> + resetting the
+> > > > >> counters.
+> > > > >>> +      * Protected by @lock.
+> > > > >>> +      */
+> > > > >>> +     u64 last_busy_ns;
+> > > > >>> +
+> > > > >>> +     /**
+> > > > >>> +      * @last_total_ns: Total time in nanoseconds of the last
+> > > > >>> + completed
+> > > > >> devfreq window.
+> > > > >>> +      * Updated by panthor_devfreq_get_dev_status() before
+> > > > >>> + resetting the
+> > > > >> counters.
+> > > > >>> +      * Protected by @lock.
+> > > > >>> +      */
+> > > > >>> +     u64 last_total_ns;
+> > > > >>> +#endif
+> > > > >>>  };
+> > > > >>>
+> > > > >>>  static void panthor_devfreq_update_utilization(struct
+> > > > >>> panthor_devfreq
+> > > > >>> *pdevfreq) @@ -101,6 +121,11 @@ static int
+> > > > >>> panthor_devfreq_get_dev_status(struct device *dev,
+> > > > >>>
+> > > > >>>       status->busy_time = ktime_to_ns(pdevfreq->busy_time);
+> > > > >>>
+> > > > >>> +#ifdef CONFIG_DEBUG_FS
+> > > > >>> +     pdevfreq->last_busy_ns = status->busy_time;
+> > > > >>> +     pdevfreq->last_total_ns = status->total_time; #endif
+> > > > >>> +
+> > > > >>>       panthor_devfreq_reset(pdevfreq);
+> > > > >>>
+> > > > >>>       spin_unlock_irqrestore(&pdevfreq->lock, irqflags); @@
+> > > > >>> -283,6
+> > > > >>> +308,17 @@ void panthor_devfreq_suspend(struct panthor_device
+> > > > >>> +*ptdev)
+> > > > >>>               return;
+> > > > >>>
+> > > > >>>       drm_WARN_ON(&ptdev->base,
+> > > > >>> devfreq_suspend_device(pdevfreq->devfreq));
+> > > > >>> +
+> > > > >>> +#ifdef CONFIG_DEBUG_FS
+> > > > >>> +     {
+> > > > >>> +             unsigned long irqflags;
+> > > > >>> +
+> > > > >>> +             spin_lock_irqsave(&pdevfreq->lock, irqflags);
+> > > > >>> +             pdevfreq->last_busy_ns = 0;
+> > > > >>> +             pdevfreq->last_total_ns = 0;
+> > > > >>> +             spin_unlock_irqrestore(&pdevfreq->lock, irqflags);
+> > > > >>> +     }
+> > > > >>> +#endif
+> > > > >>>  }
+> > > > >>>
+> > > > >>>  void panthor_devfreq_record_busy(struct panthor_device *ptdev)
+> > > > >>> @@
+> > > > >>> -332,3 +368,47 @@ unsigned long panthor_devfreq_get_freq(struct
+> > > > >>> panthor_device *ptdev)
+> > > > >>>
+> > > > >>>       return freq;
+> > > > >>>  }
+> > > > >>> +
+> > > > >>> +#ifdef CONFIG_DEBUG_FS
+> > > > >>> +static int panthor_devfreq_gpu_load_show(struct seq_file *m,
+> > > > >>> +void
+> > > > >>> +*unused) {
+> > > > >>> +     struct panthor_device *ptdev = m->private;
+> > > > >>> +     struct panthor_devfreq *pdevfreq = ptdev->devfreq;
+> > > > >>> +     unsigned long irqflags;
+> > > > >>> +     unsigned int gpu_load;
+> > > > >>> +     u64 total_ns;
+> > > > >>> +     u64 busy_ns;
+> > > > >>> +
+> > > > >>> +     if (!pdevfreq->devfreq) {
+> > > > >>> +             seq_puts(m, "devfreq not initialized\n");
+> > > > >>> +             return 0;
+> > > > >>> +     }
+> > > > >>> +
+> > > > >>> +     spin_lock_irqsave(&pdevfreq->lock, irqflags);
+> > > > >>> +     busy_ns = pdevfreq->last_busy_ns;
+> > > > >>> +     total_ns = pdevfreq->last_total_ns;
+> > > > >>> +     spin_unlock_irqrestore(&pdevfreq->lock, irqflags);
+> > > > >>> +
+> > > > >>> +     busy_ns = min(busy_ns, total_ns);
+> > > > >>> +     gpu_load = total_ns ? (unsigned int)div64_u64(busy_ns *
+> > > > >>> + 100ULL,
+> > > > >>> + total_ns) : 0;
+> > > > >>> +
+> > > > >>> +     seq_printf(m, "busy_time_ns: %llu  idle_time_ns: %llu
+> > > > >> gpu_load: %u%%\n",
+> > > > >>> +                busy_ns, total_ns - busy_ns, gpu_load);
+> > > > >>> +
+> > > > >>> +     return 0;
+> > > > >>> +}
+> > > > >>> +DEFINE_SHOW_ATTRIBUTE(panthor_devfreq_gpu_load);
+> > > > >>> +
+> > > > >>> +/**
+> > > > >>> + * panthor_devfreq_debugfs_init() - Initialize devfreq debugfs
+> > > > >>> +entries
+> > > > >>> + * @minor: DRM minor.
+> > > > >>> + */
+> > > > >>> +void panthor_devfreq_debugfs_init(struct drm_minor *minor) {
+> > > > >>> +     struct panthor_device *ptdev = container_of(minor->dev,
+> > > > >>> +                                                 struct
+> > > > >>> +panthor_device, base);
+> > > > >>> +
+> > > > >>> +     debugfs_create_file("gpu_load", 0444, minor->debugfs_root,
+> > ptdev,
+> > > > >>> +                         &panthor_devfreq_gpu_load_fops); }
+> > > > #endif
+> > > > >> /*
+> > > > >>> +CONFIG_DEBUG_FS */
+> > > > >>> diff --git a/drivers/gpu/drm/panthor/panthor_devfreq.h
+> > > > >>> b/drivers/gpu/drm/panthor/panthor_devfreq.h
+> > > > >>> index f8e29e02f66c..4552569abfe4 100644
+> > > > >>> --- a/drivers/gpu/drm/panthor/panthor_devfreq.h
+> > > > >>> +++ b/drivers/gpu/drm/panthor/panthor_devfreq.h
+> > > > >>> @@ -1,5 +1,6 @@
+> > > > >>>  /* SPDX-License-Identifier: GPL-2.0 or MIT */
+> > > > >>>  /* Copyright 2019 Collabora ltd. */
+> > > > >>> +/* Copyright 2026 NXP */
+> > > > >>>
+> > > > >>>  #ifndef __PANTHOR_DEVFREQ_H__
+> > > > >>>  #define __PANTHOR_DEVFREQ_H__
+> > > > >>> @@ -20,4 +21,9 @@ void panthor_devfreq_record_idle(struct
+> > > > >>> panthor_device *ptdev);
+> > > > >>>
+> > > > >>>  unsigned long panthor_devfreq_get_freq(struct panthor_device
+> > > > >>> *ptdev);
+> > > > >>>
+> > > > >>> +#ifdef CONFIG_DEBUG_FS
+> > > > >>> +struct drm_minor;
+> > > > >>> +void panthor_devfreq_debugfs_init(struct drm_minor *minor);
+> > > > >>> +#endif
+> > > > >>> +
+> > > > >>>  #endif /* __PANTHOR_DEVFREQ_H__ */ diff --git
+> > > > >>> a/drivers/gpu/drm/panthor/panthor_drv.c
+> > > > >>> b/drivers/gpu/drm/panthor/panthor_drv.c
+> > > > >>> index e8dc4096c1d2..4093a6d21337 100644
+> > > > >>> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> > > > >>> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> > > > >>> @@ -2,6 +2,7 @@
+> > > > >>>  /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+> > > > >>>  /* Copyright 2019 Linaro, Ltd., Rob Herring <robh@kernel.org>
+> > > > >>> */
+> > > > >>>  /* Copyright 2019 Collabora ltd. */
+> > > > >>> +/* Copyright 2026 NXP */
+> > > > >>>
+> > > > >>>  #ifdef CONFIG_ARM_ARCH_TIMER
+> > > > >>>  #include <asm/arch_timer.h>
+> > > > >>> @@ -1761,6 +1762,7 @@ static void panthor_debugfs_init(struct
+> > > > >>> drm_minor *minor)  {
+> > > > >>>       panthor_mmu_debugfs_init(minor);
+> > > > >>>       panthor_gem_debugfs_init(minor);
+> > > > >>> +     panthor_devfreq_debugfs_init(minor);
+> > > > >>>  }
+> > > > >>>  #endif
+> > > > >>>
+> > > > >>>
+> > > > >>> ---
+> > > > >>> base-commit: 8cdeaa50eae8dad34885515f62559ee83e7e8dda
+> > > > >>> change-id: 20260706-master-bd0eef99ca8e
+> > > > >>>
+> > > > >>> Best regards,
+> > > > >>> --
+> > > > >>> Guangliu Ding <guangliu.ding@nxp.com>
+> > > > >>>
+> > > > >
+> > >
+> > 
+> > --
+> > ====================
+> > | I would like to |
+> > | fix the world,  |
+> > | but they're not |
+> > | giving me the   |
+> >  \ source code!  /
+> >   ---------------
+> >     ¯\_(ツ)_/¯
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
