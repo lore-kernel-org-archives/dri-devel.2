@@ -4,150 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFD2FC53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 22:05:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DF3AC53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 22:33:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB08410E5F4;
-	Tue, 28 Jul 2026 22:05:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8910B10E604;
+	Tue, 28 Jul 2026 22:33:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X04r+lDE";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="RrGRPZNE";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="HW2ClQnn";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0E2810E5F4;
- Tue, 28 Jul 2026 22:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785276346; x=1816812346;
- h=date:from:to:cc:subject:message-id:references:
- content-transfer-encoding:in-reply-to:mime-version;
- bh=1ulvnnJlAbf8YAqn/mOOiYw2LNDVw/+WjJ7BDjgsj6I=;
- b=X04r+lDE69lpbhVXPOZO4o/6g84G0UDCppoeeoxH9kzZwT0cF+pDow0Z
- VC6xvr+Gfp4WSEgbYq7pCJux/PWT6wDqCJRkzJdu+kM3QrkuuZcJh3zEr
- dfVeNArr6mYc7uHLIybE836sSRoezB+79QSV4UzyKFH3P0UZFSphnbztB
- JeLjtztKHIq2WuIDZfVvdpZEsIwp6oEcgAnFsZb+9JFhYko1FNwJf6egi
- /+rxP7RSMxtd6CkEH1zh82+Ft53VdR1md3WVMgVQBRYLF/uyuAmwIAUPC
- JurJNnjl56O+dzvVwFV/C+qF7Da5j+n3CncL0GXWpuqOMWlVM/r61gPnv A==;
-X-CSE-ConnectionGUID: Kn5bynaaROyctfl8TEFvGw==
-X-CSE-MsgGUID: OFyIiyhZQHiPdlASbC2Wrg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85003085"
-X-IronPort-AV: E=Sophos;i="6.25,191,1779174000"; d="scan'208";a="85003085"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2026 15:05:46 -0700
-X-CSE-ConnectionGUID: vZWLUlYGTUWek7wzXhm3zg==
-X-CSE-MsgGUID: PnAqZzoJQQONQdxmkooZ/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,191,1779174000"; d="scan'208";a="289782785"
-Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
- by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2026 15:05:46 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 28 Jul 2026 15:05:45 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Tue, 28 Jul 2026 15:05:45 -0700
-Received: from DM5PR21CU001.outbound.protection.outlook.com (52.101.62.7) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 28 Jul 2026 15:05:45 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X+UTgfWsZAjJocijLzH2zW3XeNJ1p3DNwre6zD3vripSBn0/A6I90NBVVPY+5GcYKBAlbmkDMVhAi8frc95Hr91MbJr28L3loXQI+EmuM7nBC1cEsr+44yM8uez2tElFQdV8VpaxveVEpfHTK56WSmg4oQQB79ksa+D1352dcUE8F9suZYDwKjLo1/DZY17l11ZZm7g92+f+juDzH4vyzxdBWkPlLQZwZJJpBGk2xdX3F8pYXltn4jUZCyqZeMmw9OJNIS1UMvaWPptbgCHN6mwJSUg3vAONWZidHOlNUsnaJfKHIcC6WgKOm/5hT34+QoPVP7bK3I8/XhpHBm6+vQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=spqLgG7EaM+cOOkSMJX3AWoYS7+uO1GwDKNNy/PsVBc=;
- b=K5LWuR9zkhek5mwuwyD5y+XfvRsDkPF8fFnO3u/DnDWdRXM05J3IW4Sk/RNGJ1gF/g/DjYyYCWYD7z/RdwqFhDBADf2IIoC0yEhu5Cyc//lgiGQ19GqRUxGc6fm/idDypRxtjk+EZ9zdKpKmvqT0wzlI7hnX7wkGMrW4CEbNDGyFsWBzX+w9m1OOo3EnP5gY9YRI5JXL0mleJVOAvAx+gpH7QiN0LAFgQy04ankg+CEyCGNfDsBTeP0b+BiiDTq3XFm9iWGquS1081kixxFoMWehJ+ju1Tyv9kxapfg6sBjImCLvHMqoFkCLxScKRhzxUx8NIykusmraPOLPvzIL7Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by PH0PR11MB5079.namprd11.prod.outlook.com (2603:10b6:510:3d::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Tue, 28 Jul
- 2026 22:05:42 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
- 22:05:42 +0000
-Date: Tue, 28 Jul 2026 15:05:39 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: Arvind Yadav <arvind.yadav@intel.com>
-CC: <intel-xe@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <simona@ffwll.ch>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>,
- <maarten.lankhorst@linux.intel.com>, <himal.prasad.ghimiray@intel.com>,
- <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH] drm/pagemap: Reset migration page count on eviction retry
-Message-ID: <amkns0g0yHlAKbpr@gsse-cloud1.jf.intel.com>
-References: <20260728090304.1264759-1-arvind.yadav@intel.com>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260728090304.1264759-1-arvind.yadav@intel.com>
-X-ClientProxiedBy: MW4PR03CA0332.namprd03.prod.outlook.com
- (2603:10b6:303:dc::7) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+Received: from fhigh-b6-smtp.messagingengine.com
+ (fhigh-b6-smtp.messagingengine.com [202.12.124.157])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E536410E604
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 22:33:48 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 85A7C7A0433;
+ Tue, 28 Jul 2026 18:33:47 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Tue, 28 Jul 2026 18:33:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1785278027;
+ x=1785364427; bh=RDaRKUND8/3gk25/lHTP0OYZkkdZ5mqeTDNtxKRT2fM=; b=
+ RrGRPZNEic/aojp6xKpKAAjAGcmmu90vMIKI1+cOD+WRWbAStdT982ugouDIHgXR
+ WesIaQ/RKqOZvmMkY/K1Q4qBnOUNlYFXSHPbkr72Ex5u4jM0i9u1u1/5H+6ojSsS
+ FA21HDR/oH6zIG+MRIXK5QUCI+BqO1+ctwj4/m4xDXX6tglCkjb0j+kGt9XQBpZS
+ IPzgc4jYSIm2NjAReoJl/Pvgtod+qbSEm/gcYHXViiOcT8ynmjLUzymsZYXQ29do
+ Sz/DXhJwwMmV5Mj7DznRwxxCqRLymepo0LcSD/mAGNOAl44+jEwrKHKIVT7ufyDP
+ zUe7uSX/PCq1p+wVlAhW8g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785278027; x=
+ 1785364427; bh=RDaRKUND8/3gk25/lHTP0OYZkkdZ5mqeTDNtxKRT2fM=; b=H
+ W2ClQnnixgRUv1/Oz5YOKnsYuR63DU9JhFCASo1mMC6bSNVlo+t/vt1qRk1blhFK
+ 7KM1TiolrKQ5hHS0ufd9Xh03sDww1xJ0fHNQZ2x/J/wBcOFHVooEwfjyJolZGfhX
+ uL5AfNpAeSFYB7LJ/FTHbmUnJHgG+iCDjn6HFZgxHXGVAao9aorGgJDi7u2WCc+M
+ gFZJI6tt8u3vMN9n74tMsao0MnAU/505MP2ltjZptIxH8EfJpROX49+IjFbxuLhq
+ HnCLYdHBVjhi8feAsKN7SPz5ZEqmvg8kZLsyKbvneNIW3l6yejQeNB8rlVFSyjSg
+ uw2DIiUrpCOBnq3Uo7krA==
+X-ME-Sender: <xms:Si5paj-WwcqYbBTuMG9kU4pzxgg4yJVGrBReABFpHqBnyyZj2xaBig>
+ <xme:Si5parKkxmQ_xbaVEyK-YtluhC0XrgywDuLwH5AwtMXXYXN6D8wx2Z3cNIuG5R7Wi
+ primTl8_boupaeMbNPFj7sjLfu8i4HuG8DHYFrQ1zSwVqS4kkeFBA>
+X-ME-Received: <xmr:Si5pavsxleCc8PAzfQ-RyC0cnj2X2PzHoAXwLCl9rm_J3mdB3dlPBOKQdmeJew>
+X-ME-Proxy-Cause: dmFkZTE60u0wQVNp+1V1P8Y+ugG4Mm06p+BCTZSg5m2nLQpQOas6Eit8OllMj3iEIZ2ABj
+ BngHGmQ/gxbFAMxadefXCJSTqZoKDPYmBc0OSqCf8hc9bmxpfIUdPZLRGy5yN+orhBfBG8
+ upvAh0qUf5Es3W8zNg3VX0NHl8usvyXS9yEAJyCWngbDDymLn/P/QUzGkGBufy15NhJmZI
+ FmxhUWO3IprDNaG2PtQtZaB5wV2ZjiDAnrzr0T8E++k0jJiZZkrOGHw8hCYG2jwTjHfMoe
+ B/wM+qNsuCOhBC0/DZyuLGLJOcil9CmdmhATovhEbXU4Cp7Bfcjk+pLLvfElUjFKwaoUa6
+ eIWB89NS++2O3GxK7k2WT+qklu6X7IhmjZsvr6gflrFh2uvd0jYoiBPdJ535J9hTca/iyx
+ yx5/6kyW4iwU+p/JW7SafK0ofi8GxZrSkBGsiv9NoA+YW6HakRDKseDRN/w7T6azIHkhzQ
+ KlyssLfu15iSAjMZgB6iD1IGmjOKycByclIFRfa5/Dk4nJpxmcRVwtBY0IFJVlXW5eZqZn
+ RvpOkzxJBv9nGUgZIgJzfh7KZZkm+0jpeuSZVsV+Mu7xqQr9atfq8Wjaety2BNmnJ5qJ7l
+ MF+7Ke6UADF8EjFZt1pjpa5pZmy/6vGP2lx7mO998R1D4/Y22Dnro8ft1F6w
+X-ME-Proxy: <xmx:Si5pasn4c8CjgFVz2cqecN6Z04ZQnaBj0mzjN60GC002Sd2lqaSjeA>
+ <xmx:Si5paunPe_JfaumlO8NwR6gZ6ueKy2RUw4wyy3pZeE10RvAbnHZMwA>
+ <xmx:Si5panh3q8cYYyozTc2Xk_rq_-BpS8okiCyNGIxuJ7BQh7AiZqTsfA>
+ <xmx:Si5pagFf9kC_SZjX4tn-wkb_e6Z3587H0P7L8ID02l2uk2-fNxHqQg>
+ <xmx:Sy5pauuCSlAZM2GjEPapQUpAv9nraqlOi7BfM96zoKuh0DvwLwPorw4Y>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 28 Jul 2026 18:33:44 -0400 (EDT)
+Date: Tue, 28 Jul 2026 16:33:43 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <matt@ozlabs.org>, Leon Romanovsky <leon@kernel.org>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Bjorn Helgaas
+ <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>, Kevin Tian
+ <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>, Longfang
+ Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>, David
+ Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal
+ <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>, Vivek Kasireddy
+ <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH v5 1/9] PCI/P2PDMA: Split pool-related cleanup out of
+ pci_p2pdma_release()
+Message-ID: <20260728163343.2a39a8d1@shazbot.org>
+In-Reply-To: <20260715174737.15287-2-matt@ozlabs.org>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-2-matt@ozlabs.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|PH0PR11MB5079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c04bdd6-a204-4278-1ea6-08deecf45d92
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: jWm3kof1IWQyTFDzmZ+vnZJeYKXrocVG0Quq0RFmm7TfRIggmFuGaHa7WEnzp46ZPqXGrTDOXal0e8Sb/I3SIgohUMA6qEcEgS94Lv1fkp+v5rwoQfb08nEBMvaI8kkya1rv/Xf3Fwiw0AgGMtYHRFeWsYMocgwjT8sMp93KaLwoABhRziEhQui8Tx9niBah/+2CjX2b6/TPw86IMphx/2+crQpCUQ37BuXq/bB1uiQtdPnYuA8XRNX7d/XckLtYs1ma4xOgPaNqHKT0/rSMvjr3hwG+rZrlz6Vhpc2r6afMxapNHWPXXuX3abxtx4a+Mh+Gz0CUeTG0txjuMJRum/ioXc5TNf3FfFW1OnScaRTSn0L2tNEvmE3N+FCyAv/qTqHv05klXG3hPRSR3GGlsKI6T2j1YRJ3jbc9EUcJ+9qa+8hHRZbKccFroWFUFmImxCT80RbCshGa6cD2IiDqInQ7QWLexbCOYp0mcadKyQK+DflJzni2s/bf/4L+PF8rq7gJD/mC37HCePkXexvrsFCEW3hdS4h9FqLKjpbjvtF8jgm6yzaseKsYDa0LLKHhP0N/Mp2jPxWzTtSd57hCt9ldlC7P/KqcXOKJM07+FVQDVYb2iiHOFgYFORhEHfJ82G2vwtz4kiqH5Ec88IusmBrK2vULNQPZJLXLefOgZtY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?znlSX8uZXnMZXTi9dtr3QhPW6vSgqGu2drljjxMP48j3yhFt35ZqvSCUMV?=
- =?iso-8859-1?Q?1ntoaiC6ZGULtld5scd2z7tQu1msdLg0G6pB8AtApOeCnxrvn2nQLZ+XT0?=
- =?iso-8859-1?Q?PZvbwxcJzzqS6OnP1kf37PZqMGSK67N/FiiD00IiMZlvLTZTHSFT9bMSvr?=
- =?iso-8859-1?Q?jLjLOQ3Ilkwo1aqU5+lX/SDQ0eSv0Fjlg2HqaU8Usiu4hxbiKSMhxXfzew?=
- =?iso-8859-1?Q?JkvZ9HZFhv+9c/Uz/qvA8FA2BiMcVZejX87SGpXFAqWq7Li6y7PWIwitGV?=
- =?iso-8859-1?Q?P3UziS7VtCHymQMaG5iSmYVVztxTBsqy6xx0AnQM64j22M26d/0hV1ySIY?=
- =?iso-8859-1?Q?LAKKeZT9kePHuR0KOnGpUGcBhybBAw707YWrR+CVcSxKg1q82cTEfxTKwT?=
- =?iso-8859-1?Q?eIEkZAdgl3SbopiQUQ11EEiZ0EUlqKg54EeaB+xTJvJdyw9WdgicwPjviF?=
- =?iso-8859-1?Q?Bks+Ht/C0j3U772RoFcFYJP/ezpJjyIcLTATBe9Z+cxJJrWEHEca64545m?=
- =?iso-8859-1?Q?pY0u//n5MdpWOMu5bY3pSB03nO9ufMf59G2Ct5Kt7tBXEP3PX8kqMS+wrR?=
- =?iso-8859-1?Q?6chWFDdd1ShoFqSH4imolFmkn+WrVWmehl0pAzwLhzBvMpPeTFbHXNlW7N?=
- =?iso-8859-1?Q?erR8iHhDlzZzwt/32McjLlMVYsE1CowMxm0W+9WGuyod5TpOEqE+q8szyO?=
- =?iso-8859-1?Q?rSYeV8TwJxoCCE80tzIBEyxdgjY2RwMuovS4FELCpFccWBP77TmLjFCz4g?=
- =?iso-8859-1?Q?ST7poZVdxl0tn5nG1u3boELF8wDBXeqvDVQlzQKW88NqIWMI67YK9+9ypn?=
- =?iso-8859-1?Q?O6CrCrthNBzJAW15rJOv9r6VQqHNjTUR6wzTZhsOex2jPHpWkst+4OdPKv?=
- =?iso-8859-1?Q?FqoKloI6Gt8cw660rqe3Ra7wU2ewSzp2y+fmEBEXtggqniBhAwLqjRNbRT?=
- =?iso-8859-1?Q?1vNP/uuacYPOwPpWy76KNkpJ63o7ADdwVorMmCymeCDmRXzkaLvEOwzXYE?=
- =?iso-8859-1?Q?RSnLy3P/GWQYSdohffUgwAXt++MLn6s2xZGyHmIqHgOFGG0gNIjnwyt1AQ?=
- =?iso-8859-1?Q?linyEfev4IEO20Oi3VsH4E53/XVJjvAI2qHndKl3XF/tIp6Fw+ljF7fVuQ?=
- =?iso-8859-1?Q?JAAgchxNSoWFiZwEwaT3ozReAUZ/ZRkS2fw7LSeSMQeiBHqiIn+jAMuF4x?=
- =?iso-8859-1?Q?rS6L8as7ITwEyH8/G3AIWQU1JCSuLXb4JlCcp43UyTmxGivxd+VTjCvkIr?=
- =?iso-8859-1?Q?Ah3RDuNPdK+2wMLLBiK/FRqb5KoEyaVl5wESkqc0cgso9eqqj4hsDYgblf?=
- =?iso-8859-1?Q?on/AGrdIZIh1CsmWwnDDmpG4kU4eV0gFsDKgRG2EIlWAV0hk+jyeLBpuj/?=
- =?iso-8859-1?Q?F91a83zfVAP76McUueaA3ljJYizvtGHDpWzkQttFx4C7cDheWD7j4y66AZ?=
- =?iso-8859-1?Q?pRTw6BPiVDSIU4U4apz1mMhABCuAmhL2k3MhZv2t7anwFw/O5LhywGBJdK?=
- =?iso-8859-1?Q?FGygUxDx5g3uVwlty+439of1eKDMdJhOp/2tGFZCk9c63UPFfjUZ5D66k2?=
- =?iso-8859-1?Q?B9NwvAyUkQLU6RyYBFIU50fN78Qa9m2cIIem1JwZNvlsdwtb/kR02VuZQy?=
- =?iso-8859-1?Q?jzhtGimUmq5T0c6o6VqwLydNz/xqx48xImioNnBUMYk9v7wPBOLiHWXxGZ?=
- =?iso-8859-1?Q?ufzMfra0blXGVLM9MAGrcmt43CGypRbkpZq5Np5JzvftB7nUTzDl3ih+BR?=
- =?iso-8859-1?Q?2/JSdnVtYad1TcMXMtnKLttUh8s6L+Kfv0OaGI3s20ma7tZabOJfS1Ckju?=
- =?iso-8859-1?Q?UaoCKKvzWf/z86t7QRqqwerDA7VgKVM=3D?=
-X-Exchange-RoutingPolicyChecked: TWZAIAIbmaK17/9yi6a8iz0AJXNsVl+nVeQED9cac2/6nFsE6ANal+UjI7AEmuhcibhIzN9rGbXO2FsljZWXvfbMnA7yH8vqqvp6kjEq+WUISB9aYSV3BeUjMn1wVQNMF6GTjFaXa2iXFuOZK72Jc0vGCkTyR6m1eBnsaMdFdnAjKvW2ckWyFxKzANlTn/1YOj7ZnzBDgphZ/BxNqVZg6s42b8dmlOjOu4fVbxguQ+6yX67mlZA9x5VHUmhw9BfiGWhQyWu6fq6iOlGUT3F2I6r9kHY9CXD6zS7qgl+yUpEQHRbZeMC11ijMJWGhHtCpc5MlKiX3JuthDS7MHCiaVw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c04bdd6-a204-4278-1ea6-08deecf45d92
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 22:05:42.4687 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: y8RSzOlVkhV5Rnls1EQnmWx8vWkcInKiJ8IiJvBuXDjvP/4Shmi6esgb3M9SXURHlPgZ9TwsUf3ZhNWED+X1Uw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5079
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,58 +108,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 28, 2026 at 02:33:04PM +0530, Arvind Yadav wrote:
-> drm_pagemap_evict_to_ram() may retry eviction, but mpages retains
-> the count from the previous attempt. A retry can therefore continue
-> to the copy path even when no RAM pages were populated.
+Hi Leon,
+
+Please see below...
+
+On Wed, 15 Jul 2026 18:47:24 +0100
+Matt Evans <matt@ozlabs.org> wrote:
+
+> Preparing for a refactor in a subsequent patch, split the pool-related
+> release code into a new pci_p2pdma_release_pool() function.
 > 
-> Reset mpages at the retry label so it reflects only the current
-> attempt.
+> This allows future compile-time selection of a null implementation for
+> pci_p2pdma_release_pool(), when p2pdma.c is refactored into core- and
+> P2P-related files.
 > 
-> Fixes: 99624bdff867 ("drm/gpusvm: Add support for GPU Shared Virtual Memory")
-
-I think you also want the patch which moved drm_pagemap to its own file:
-
-f86ad0ed620c drm/gpusvm, drm/pagemap: Move migration functionality to drm_pagemap
-
-> Cc: Matthew Brost <matthew.brost@intel.com>
-
-Fix itself LGTM:
-Reviewed-by: Matthew Brost <matthew.brost@intel.com>
-
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 > ---
->  drivers/gpu/drm/drm_pagemap.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
+>  drivers/pci/p2pdma.c | 24 ++++++++++++++----------
+>  1 file changed, 14 insertions(+), 10 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> index 4a794544b7dc..7faba4acd59f 100644
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
-> @@ -1122,7 +1122,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
+> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
+> index b2d5266f8653..498bca257419 100644
+> --- a/drivers/pci/p2pdma.c
+> +++ b/drivers/pci/p2pdma.c
+> @@ -226,6 +226,17 @@ static const struct dev_pagemap_ops p2pdma_pgmap_ops = {
+>  	.folio_free = p2pdma_folio_free,
+>  };
+>  
+> +static void pci_p2pdma_release_pool(struct pci_dev *pdev,
+> +				    struct pci_p2pdma *p2pdma)
+> +{
+> +	if (!p2pdma->pool)
+> +		return;
+> +
+> +	synchronize_rcu();
+
+Sashiko notes[1] a high, preexisting issue here that looks like it was
+introduced via 372d6d1b8ae3 ("PCI/P2PDMA: Refactor to separate core P2P
+functionality from memory allocation").  That commit creates a two-tier
+scheme where the optional memory allocation capabilities, such as the
+pool, live above a core layer.  Prior to that commit, this synchronize
+RCU call was unconditional.  Making it conditional on the pool suggests
+it was only considered relevant to the optional layer.
+
+However, map_types, which remains in the core layer, is RCU referenced.
+Was the synchronize_rcu() call here miscategorized into the optional
+tier?  Should it instead have remained unconditional?
+
+We might need a precursor Fixes: patch to this series that makes it
+unconditional in pci_p2pdma_release(), so that it remains there with
+this refactor rather than becoming part of this new pool release
+function.  Thanks,
+
+Alex
+
+[1]https://lore.kernel.org/all/20260715180521.3CDD61F00A3A@smtp.kernel.org/
+
+> +	gen_pool_destroy(p2pdma->pool);
+> +	sysfs_remove_group(&pdev->dev.kobj, &p2pmem_group);
+> +}
+> +
+>  static void pci_p2pdma_release(void *data)
 >  {
->  	const struct drm_pagemap_devmem_ops *ops = devmem_allocation->ops;
->  	struct drm_pagemap_iova_state state = {};
-> -	unsigned long npages, mpages = 0;
-> +	unsigned long npages, mpages;
->  	struct page **pages;
->  	unsigned long *src, *dst;
->  	struct drm_pagemap_addr *pagemap_addr;
-> @@ -1133,6 +1133,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
->  	npages = devmem_allocation->size >> PAGE_SHIFT;
+>  	struct pci_dev *pdev = data;
+> @@ -237,15 +248,8 @@ static void pci_p2pdma_release(void *data)
 >  
->  retry:
-> +	mpages = 0;
->  	if (!mmget_not_zero(devmem_allocation->mm))
->  		return -EFAULT;
+>  	/* Flush and disable pci_alloc_p2p_mem() */
+>  	pdev->p2pdma = NULL;
+> -	if (p2pdma->pool)
+> -		synchronize_rcu();
+> +	pci_p2pdma_release_pool(pdev, p2pdma);
+>  	xa_destroy(&p2pdma->map_types);
+> -
+> -	if (!p2pdma->pool)
+> -		return;
+> -
+> -	gen_pool_destroy(p2pdma->pool);
+> -	sysfs_remove_group(&pdev->dev.kobj, &p2pmem_group);
+>  }
 >  
-> -- 
-> 2.43.0
-> 
+>  /**
+> @@ -946,8 +950,8 @@ void *pci_alloc_p2pmem(struct pci_dev *pdev, size_t size)
+>  	struct pci_p2pdma *p2pdma;
+>  
+>  	/*
+> -	 * Pairs with synchronize_rcu() in pci_p2pdma_release() to
+> -	 * ensure pdev->p2pdma is non-NULL for the duration of the
+> +	 * Pairs with synchronize_rcu() in pci_p2pdma_release_pool()
+> +	 * to ensure pdev->p2pdma is non-NULL for the duration of the
+>  	 * read-lock.
+>  	 */
+>  	rcu_read_lock();
+
