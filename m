@@ -4,73 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27E8AC53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 13:49:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E56B2C54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 13:49:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 751FC10E066;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A1EE10EBCE;
 	Wed, 29 Jul 2026 13:49:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rsyKqCtK";
+	dkim=pass (2048-bit key; secure) header.d=usp.br header.i=@usp.br header.b="AMYDnEZb";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 904E710E60A
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 23:47:26 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4955c545a94so224385e9.3
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 16:47:26 -0700 (PDT)
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
+ [209.85.215.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B68A210E621
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 22:24:45 +0000 (UTC)
+Received: by mail-pg1-f180.google.com with SMTP id
+ 41be03b00d2f7-cbb973e6749so309240a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:24:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785282445; x=1785887245; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=I0sepYElNWpFKOjgjeV3qn5PVGIr7EC4aWTxpcIRLkc=;
- b=rsyKqCtKuutrmZAHJsHlg5XnCVqH75FvECxefavw5vtOyKQj7AVFCPxR7kMNB/WSeS
- Po5WzAy59ckUf/BpEnnK9eYOwVfrgLrD9DWckSwO4HGK2KHeV2QvT708maDSKQgkgNon
- 8bRMN3cT2orIUMkJRAPoLc59WKsYgUUlSVMlGeFDn4lkoQ/prjcFubnwYocjn/ouhMMz
- d1y+7TcYjvbuxnj3Xr0qd9jof0LG3XSRNm2b8yiZQZjRfDHh9OD/8jyo5ecZlp6hul1b
- NMpUwmRmnzYZttfwVhP3InFVcLab+85wtIWxUykFJdTFhn86cqW0DayyId4A1M7DEgwR
- Wnsw==
+ d=usp.br; s=usp-google; t=1785277485; x=1785882285; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=LwBMGAMsIUTN2reHfg9pCJRS35YlsvPIR79zq15iPHA=;
+ b=AMYDnEZbzm8ctU+esmZOzJ/3c6zb+FuSIRCMMfz+tfrFImk4hYJih3W9z4tZR4aCng
+ kexGKb5FeaEjfi/IfJ9GsDa9EpL38b3iJSHZLnK+rqclI32xY/Q7vk8tQld84APUiDr8
+ ov2/uPdd2bkxH/adPSw1wGHvI8t2If44DynmtbSqd3Zfa0F6g0ywQ1CCZW1SYFKjK4D3
+ 4KXFhOWWjCpHwK6RzsAR/5T1MiNE5mCnIxH8mypQVaayugPNlF99l008fbli1V4pbx5h
+ qaK6v1cg+DrlvSwE2adIQwUw32JS1ICFmTPKOnFy/qjHOG1puxZrCYhCDa0ZszFFR1fN
+ exvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785282445; x=1785887245;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=I0sepYElNWpFKOjgjeV3qn5PVGIr7EC4aWTxpcIRLkc=;
- b=M0zbRxGGq2yXioCQo/UNQ8iywOSVT0BV5N6YsxIttbnTZlPy16v7OeEOtguYliVtYP
- xAYy/5PSne+93g3QfjsVrQs5wJo9iQxiMV9HJx72BcsDbrM2/GD0DfYNzg0xP9qTqpJU
- kY+efpkDsqDET8YCB3uricOl+SK6Gk7qXt5v7QJqi4Ciobclq68asrZ1gcGYKuIXJfLK
- 0Hi3yV+n3BUoC2JMWosSnHwPoOSO/p3cuPLswgoiKRNW1LGYvG442gdL1CIX2f5nqnks
- tBSzfjNnB9Snn81bULPy6KVzgXVMgLwZKkDLHto4RCrUK8xML4BEiItFPBVwpoUn4CGI
- /zMA==
+ d=1e100.net; s=20251104; t=1785277485; x=1785882285;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=LwBMGAMsIUTN2reHfg9pCJRS35YlsvPIR79zq15iPHA=;
+ b=IdSS6+DKH0kMypKOyJFb0+lgJyI0909E8dc2fjoPu9eleSW6mEouJ6L/DL9z4eWSc5
+ m5hIddayXF2XizX/ibEOcYe70J388kKy5OjrDcQe05d60AGPJbLDY05fpTN0FtnBc1hz
+ MEC61pKkfF8IjgYudt5Ecxow7qW9QZO+z7SpVcKyEyan1RRm1SbtfNe/LTt/JiGo15F3
+ jQmMNQkzMfqJNBsHUg7zdGbnKMTy1TI7HERDb4VLKcZlHO7NuCwy+XJUx0DorMt2HOS8
+ k3aOy79cNDbI03jR2UyWjSBC4J0JNCN21+TOLX7ArH8i1Nk0YS/VUcodTMqRHmIVLKRv
+ 65eg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrwGnKjeCHJFWA9Y714e22tJsPQRCcyUsAkMoCW/Ap3jdFfdt91t+UUzwhBvmrpLuTbQcUy/ObQj6w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzkpZ1CpwYlPpeErT00R7RwEPzVlC7WSvYiMhe6+IsCoNzxNnoL
- pZu2EnSvxGwwanV9/YmmiWz8SBLdn1HPADjM7NWR7Bdrcb/kGzUOag3L
-X-Gm-Gg: AR+sD10o3ccWqEYCsO1imj8CsBaZx62kha4dWwm07s9w3Skav/msAnrIGhAOprpM4sJ
- PHdmZK4FGcyldWFE8MdvzPQeja1hLEaLKw6GrXdf7EF7/5cg4QutNEbOjX9+JRhQ+DAfVpp/Xsu
- 9is3vt0hQ59CsF7fpbFOKA2nd7Q2rvALJ6RqMLIG+u7Gbc92muvdD/74o0XJCuznJtn9OXSPAQA
- UW/5E/VF5TXXvyWGRkcmGDIyXtmo/NycvlicsiSKamfszDHmtQXDm825zAA3zVhOK0up3i/R64H
- 2wgfs61HscbZ5uXr5VLL4tDNbSNzkdDHe8u3E38/DzG91yL8M+ZqOFKo5tZG+1r+Kcv9sseTjKV
- 8M4GqwPKN/XPVqMicVimWAuGeJUIY0vbUNAjmvH1YlFpsq8B1FEELdWd7q2Rih36bv1Cm9aROd6
- FmOM4vWF8u/RwBVh/SRArtDWpgJ3Qs27fl5l+qXwUXgnz7LAArn9DWWaUSsOHOiz7BiLWi1sY=
-X-Received: by 2002:a05:600c:1d19:b0:495:4505:dad0 with SMTP id
- 5b1f17b1804b1-496c641546bmr34409585e9.2.1785282444813; 
- Tue, 28 Jul 2026 16:47:24 -0700 (PDT)
-Received: from zephyrus-teodor ([92.84.22.76])
+ AHgh+RqoBk+SDi9OgeO86GMwiVNsCt0eqClLXVqd82tCXJnQAeRu5XK7hXY3d6zXTgTVo6QPdWP6OShv51E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz7a7tc9hKcDWIfmqjRDqLbtmJG6VTJarnz9uBgQPmarFJQ/p0M
+ nv8KUo5XkhnLTxLKOJaP0SVojQAzTsMF9A414cQjRJPHP5HjZlaWIGKYfVrWVAwZoO4=
+X-Gm-Gg: AR+sD12zb0BSpq10X1MefywjYG+latcBHUsS7gxm5qua1ILytYPU6rvQ0jDE22mwYGw
+ Q/kjb4OcJPGJvY9lfEVJxx/CEnxpfs1EaASOtolLR7hyEFixjtH9nw51gt8qI2UT84OFb5qMFxl
+ OSd8aWyFOXe+/sJt5G3gANjS5QQJmtCu63oZM1OCQoTwRUzdBh6259Gcc0f1HpXHP+yz51YG74x
+ gR7p10Qm9Ud6qCeEprx1frGvrwodlATxqtq6uZoS9kndYmTzdSapMIdjLb48f78v/eecaPduOTT
+ nuXmZ1RsR4NtgcVyZNglDC1tJa3JBYSpvJuGMvo2CKdkIzKG8tyYa/X5kofpvbAnhYKJZbY395u
+ lnDfJXEVR58zcrSKJdjViuc2P/13w1HqN3LpoRMnQYG3RhS6ZYo5TnvT63aA9LKsvuOqvm8i1ok
+ HjzMyaXE4EDSTPKExwtwkAqdhRo9q85Z6pmfEhe8l2aKc2YSDSPd9oEsWYVo+ow0SP74fKDmAOy
+ A==
+X-Received: by 2002:a05:6a20:450c:b0:3c0:9c1b:d0b5 with SMTP id
+ adf61e73a8af0-3c8ba627823mr5764691637.64.1785277484815; 
+ Tue, 28 Jul 2026 15:24:44 -0700 (PDT)
+Received: from localhost.localdomain ([152.234.118.71])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-496c45b1c76sm108157275e9.6.2026.07.28.16.47.23
+ 5a478bee46e88-31504cc73b6sm2323584eec.18.2026.07.28.15.24.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2026 16:47:24 -0700 (PDT)
-From: Teodor Bostan <teobsn@gmail.com>
-To: amd-gfx@lists.freedesktop.org, kenneth.feng@amd.com,
- alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, mario.limonciello@amd.com,
- dri-devel@lists.freedesktop.org, Teodor Bostan <teobsn@gmail.com>
-Subject: [PATCH] drm/amd/pm: Add PPTable power limit quirk for ASUS G14 GA402R
-Date: Wed, 29 Jul 2026 02:46:26 +0300
-Message-ID: <20260728234626.86008-1-teobsn@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Tue, 28 Jul 2026 15:24:44 -0700 (PDT)
+From: Ulisses Paixao <ulissespaixao@usp.br>
+To: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: Ulisses Paixao <ulissespaixao@usp.br>, Felipe Sousa <felipesousa@usp.br>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH v6] drm/amd/amdgpu: remove duplicated code in gfx_v11 and
+ gfx_v12
+Date: Tue, 28 Jul 2026 19:24:35 -0300
+Message-Id: <20260728222436.8393-1-ulissespaixao@usp.br>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260728072643.5F3A71F000E9@smtp.kernel.org>
+References: 
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 29 Jul 2026 13:49:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,51 +95,253 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ASUS ROG Zephyrus G14 (2022) GA402RJ and GA402RK laptops use custom AC
-power limits of 100W (RX 6700S) and 105W (RX 6800S). On resume from
-suspend, the SMU firmware resets to the reference vBIOS default of 80W,
-hard-capping GPU performance.
+The functions gfx_v11_0_handle_priv_fault and
+gfx_v12_0_handle_priv_fault share the same logic for searching and
+triggering a scheduler fault on a ring. This patch moves the shared
+ring-searching logic to a common function, amdgpu_gfx_handle_priv_fault,
+in amdgpu_gfx.c. The hardware-specific decoding of ring IDs remains in
+the version-specific files to maintain proper architectural separation.
 
-Override SocketPowerLimitAc in sienna_cichlid_patch_pptable_quirk for
-these subsystem IDs so the driver restores the platform's intended AC
-power limit when reloading PPTable during boot and resume.
-
-Signed-off-by: Teodor Bostan <teobsn@gmail.com>
+Signed-off-by: Ulisses Paixao <ulissespaixao@usp.br>
+Co-developed-by: Felipe Sousa <felipesousa@usp.br>
+Signed-off-by: Felipe Sousa <felipesousa@usp.br>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+v6:
+Updated code with latest changes from amd-staging-drm-next.
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index cef628752..10d330edb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -479,6 +479,7 @@ static int sienna_cichlid_patch_pptable_quirk(struct smu_context *smu)
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t *board_reserved;
- 	uint16_t *freq_table_gfx;
-+	uint16_t *power_limit;
- 	uint32_t i;
+v5:
+Return early on adv->gfx.disable_kq check.
+
+v4:
+Restore the adev->gfx.disable_kq check to prevent falsely triggering
+scheduler faults on idle kernel rings when MES is managing user queues.
+
+v3:
+Return early if the ring is found in the gfx rings loop.
+
+v2:
+Keep the HW-specific decoding in gfx_v11_0.c and gfx_v12_0.c.
+Remove the redundant check for adev->gfx.disable_kq.
+Simplify the search loop in amdgpu_gfx_handle_priv_fault to iterate over
+all gfx and compute rings without a switch statement.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 53 +++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 ++
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 49 +++--------------------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 50 +++--------------------
+ 4 files changed, 66 insertions(+), 89 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+index 9d3b40c38..9ff0829ac 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+@@ -34,6 +34,7 @@
+ #include "amdgpu_xcp.h"
+ #include "amdgpu_xgmi.h"
+ #include "amdgpu_mes.h"
++#include "amdgpu_userq.h"
+ #include "mes_userqueue.h"
+ #include "nvd.h"
  
- 	/* Fix some OEM SKU specific stability issues */
-@@ -501,6 +502,18 @@ static int sienna_cichlid_patch_pptable_quirk(struct smu_context *smu)
- 		}
- 	}
+@@ -855,6 +856,58 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev, int xcc_id)
+ 	return r;
+ }
  
-+	/* Fix some OEM SKU specific power limit issues */
-+	if ((adev->pdev->device == 0x73EF) &&
-+	    (adev->pdev->subsystem_vendor == 0x1043)) {
-+		if (adev->pdev->subsystem_device == 0x1DEC) {
-+			GET_PPTABLE_MEMBER(SocketPowerLimitAc, &power_limit);
-+			power_limit[PPT_THROTTLER_PPT0] = 100;
-+		} else if (adev->pdev->subsystem_device == 0x1DCC) {
-+			GET_PPTABLE_MEMBER(SocketPowerLimitAc, &power_limit);
-+			power_limit[PPT_THROTTLER_PPT0] = 105;
++/**
++ * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
++ *
++ * @adev: amdgpu_device pointer
++ * @entry: interrupt vector entry containing fault information
++ * @me_id: micro-engine ID of the faulty ring
++ * @pipe_id: pipe ID of the faulty ring
++ * @queue_id: queue ID of the faulty ring
++ *
++ * This function handles privileged instruction faults by identifying
++ * the faulty ring (gfx or compute) and triggering a scheduler fault
++ */
++void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
++					struct amdgpu_iv_entry *entry,
++					u8 me_id, u8 pipe_id, u8 queue_id)
++{
++	struct amdgpu_ring *ring;
++	int i;
++
++	/*
++	 * Try KQ first by ring_id (HW slot is authoritative). The
++	 * KMD compute_hqd_mask contract guarantees KCQ and user queues
++	 * never share a HW slot.
++	 */
++	if (!adev->gfx.disable_kq) {
++		for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
++			ring = &adev->gfx.gfx_ring[i];
++			if (ring->me == me_id && ring->pipe == pipe_id &&
++			    ring->queue == queue_id) {
++				drm_sched_fault(&ring->sched);
++				return;
++			}
++		}
++
++		for (i = 0; i < adev->gfx.num_compute_rings; i++) {
++			ring = &adev->gfx.compute_ring[i];
++			if (ring->me == me_id && ring->pipe == pipe_id &&
++			    ring->queue == queue_id) {
++				drm_sched_fault(&ring->sched);
++				return;
++			}
 +		}
 +	}
 +
- 	return 0;
++	u32 doorbell_offset = entry->src_data[0] & AMDGPU_CTXID0_DOORBELL_ID_MASK;
++
++	/* No KQ matched: HW slot is a MES-scheduled user queue. */
++	if (adev->enable_mes && doorbell_offset)
++		amdgpu_userq_process_reset_irq(adev, entry->pasid,
++					       doorbell_offset);
++}
++
+ static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enable,
+ 				   bool no_delay)
+ {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index aefd4f03b..c15f45a73 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -620,6 +620,9 @@ bool amdgpu_gfx_is_high_priority_graphics_queue(struct amdgpu_device *adev,
+ 						struct amdgpu_ring *ring);
+ bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
+ 				    int pipe, int queue);
++void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
++					struct amdgpu_iv_entry *entry,
++					u8 me_id, u8 pipe_id, u8 queue_id);
+ void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
+ void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enable);
+ int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *value);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 0cbbdc369..489e0c97e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -6710,52 +6710,13 @@ static int gfx_v11_0_set_priv_inst_fault_state(struct amdgpu_device *adev,
+ static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
+ 					struct amdgpu_iv_entry *entry)
+ {
+-	u32 doorbell_offset = entry->src_data[0] & AMDGPU_CTXID0_DOORBELL_ID_MASK;
++	u8 me_id, pipe_id, queue_id;
+ 
+-	/*
+-	 * Try KQ first by ring_id (HW slot is authoritative). The
+-	 * KMD compute_hqd_mask contract guarantees KCQ and user queues
+-	 * never share a HW slot.
+-	 */
+-	if (!adev->gfx.disable_kq) {
+-		u8 me_id = (entry->ring_id & 0x0c) >> 2;
+-		u8 pipe_id = (entry->ring_id & 0x03) >> 0;
+-		u8 queue_id = (entry->ring_id & 0x70) >> 4;
+-		struct amdgpu_ring *ring;
+-		int i;
+-
+-		switch (me_id) {
+-		case 0:
+-			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+-				ring = &adev->gfx.gfx_ring[i];
+-				if (ring->me == me_id && ring->pipe == pipe_id &&
+-				    ring->queue == queue_id) {
+-					drm_sched_fault(&ring->sched);
+-					return;
+-				}
+-			}
+-			break;
+-		case 1:
+-		case 2:
+-			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+-				ring = &adev->gfx.compute_ring[i];
+-				if (ring->me == me_id && ring->pipe == pipe_id &&
+-				    ring->queue == queue_id) {
+-					drm_sched_fault(&ring->sched);
+-					return;
+-				}
+-			}
+-			break;
+-		default:
+-			BUG();
+-			break;
+-		}
+-	}
++	me_id = (entry->ring_id & 0x0c) >> 2;
++	pipe_id = (entry->ring_id & 0x03) >> 0;
++	queue_id = (entry->ring_id & 0x70) >> 4;
+ 
+-	/* No KQ matched: HW slot is a MES-scheduled user queue. */
+-	if (adev->enable_mes && doorbell_offset)
+-		amdgpu_userq_process_reset_irq(adev, entry->pasid,
+-					       doorbell_offset);
++	amdgpu_gfx_handle_priv_fault(adev, entry, me_id, pipe_id, queue_id);
  }
  
+ static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index b3887c526..32cd9ad66 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -5041,53 +5041,13 @@ static int gfx_v12_0_set_priv_inst_fault_state(struct amdgpu_device *adev,
+ static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
+ 					struct amdgpu_iv_entry *entry)
+ {
+-	u32 doorbell_offset = entry->src_data[0] & AMDGPU_CTXID0_DOORBELL_ID_MASK;
++	u8 me_id, pipe_id, queue_id;
+ 
+-	/*
+-	 * Try KQ first by ring_id; UQ as fallback. KCQ and UQ never share
+-	 * a HW slot (compute_hqd_mask contract).
+-	 */
+-	if (!adev->gfx.disable_kq) {
+-		u8 me_id, pipe_id, queue_id;
+-		struct amdgpu_ring *ring;
+-		int i;
+-
+-		me_id = (entry->ring_id & 0x0c) >> 2;
+-		pipe_id = (entry->ring_id & 0x03) >> 0;
+-		queue_id = (entry->ring_id & 0x70) >> 4;
+-
+-		switch (me_id) {
+-		case 0:
+-			for (i = 0; i < adev->gfx.num_gfx_rings; i++) {
+-				ring = &adev->gfx.gfx_ring[i];
+-				if (ring->me == me_id && ring->pipe == pipe_id &&
+-				    ring->queue == queue_id) {
+-					drm_sched_fault(&ring->sched);
+-					return;
+-				}
+-			}
+-			break;
+-		case 1:
+-		case 2:
+-			for (i = 0; i < adev->gfx.num_compute_rings; i++) {
+-				ring = &adev->gfx.compute_ring[i];
+-				if (ring->me == me_id && ring->pipe == pipe_id &&
+-				    ring->queue == queue_id) {
+-					drm_sched_fault(&ring->sched);
+-					return;
+-				}
+-			}
+-			break;
+-		default:
+-			BUG();
+-			break;
+-		}
+-	}
++	me_id = (entry->ring_id & 0x0c) >> 2;
++	pipe_id = (entry->ring_id & 0x03) >> 0;
++	queue_id = (entry->ring_id & 0x70) >> 4;
+ 
+-	/* No KQ matched: HW slot is a MES-scheduled user queue. */
+-	if (adev->enable_mes && doorbell_offset)
+-		amdgpu_userq_process_reset_irq(adev, entry->pasid,
+-					       doorbell_offset);
++	amdgpu_gfx_handle_priv_fault(adev, entry, me_id, pipe_id, queue_id);
+ }
+ 
+ static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
 -- 
-2.55.0
+2.34.1
 
