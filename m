@@ -4,85 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84095C54F4D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 17:46:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4622C54F4D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 17:57:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C656210E9A5;
-	Tue, 28 Jul 2026 17:45:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6E2410E24A;
+	Tue, 28 Jul 2026 17:57:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MLiKDsLf";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bhMmEIxM";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ACAD10E9A5
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 17:45:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785260755;
- bh=xx2ceQmEUbIedwsjjbjRenF93i96lCbY3WSb7wtpe/k=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=MLiKDsLfVUHaqH04VuEbrLsuogJm+icQZggr2kp73tZFXic4VW6ENoGIhJbclInKs
- PxMy/3KBQ/27kKKd6J6zmUucHR3motgvoIBDjtidGmv5eSb/hPv/Q1G6NutF24K9gM
- hL5qUZnYwNTMYG0HnANnNSamSXOcB8EYCLXUtxDXufq9ikcJiPZa/7WrRTwCarq5Uu
- +xliEwMzq8A7Tu61++DIu4/Q5GSGxjipz5dgrVtES0ZXYZKKj0PwZ68i1fTcC9CUEf
- S1uXZncQjowz3MzyobiDkaKp02/59lGE6hwD280pm/YuyrdV0KyJUS8kueQ/fjZaco
- UOQFfebqgrBiA==
-Received: from jupiter.universe (unknown [100.64.1.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id AEBC117E0055;
- Tue, 28 Jul 2026 19:45:55 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
- id 22E72480062; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 28 Jul 2026 19:40:53 +0200
-Subject: [PATCH v7 17/18] drm/bridge: synopsys: dw-dp: Clear only enabled
- SDPs on atomic disable
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F3FC10E24A
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 17:57:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785261451; x=1816797451;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=08GOUG1DRD7jG2RJDUWUWRL5nA7DqEQ0wel6pbzah/0=;
+ b=bhMmEIxMjYNyR6cwRchaQESQm4HbLTg95D/rBApGr7vW8DfvwfuIe78V
+ om+t2nvkkgMUTQRSfD/Ncs3vyqI4alTBztsyd1bn8hHt2pd5JlCkxg+dc
+ QL3mxu8cDAG4MnzGGGCc8HbEuyPieXpc5lJqmijW4qSr3VuS27M58XeRX
+ rNdaQeEwXFIVK/hq+cP8mYadGSWXRuZtomU+EE6ntQCWS+g7Q7sxn//3J
+ aYXLu2hJeIiVb5Hu+Pp/Iq/b4m+3Ah25EYQVnaRuraJGuIhkGMnVlGs0h
+ k9kGJ9NugBIPHP1JycjOnO3NZjk0FfbenSFuc5gNJo5z8MS28HQOhn8y9 A==;
+X-CSE-ConnectionGUID: wNKC0tvyRAGu328+9t9xBA==
+X-CSE-MsgGUID: wj1bFb2sQNqRPDFcVXgMzQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85731556"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="85731556"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2026 10:56:55 -0700
+X-CSE-ConnectionGUID: SfJcc5M/QDeVnlxiFW6sIg==
+X-CSE-MsgGUID: 505xIfEvRrymIwRqDhtdgw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="298005961"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.76])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2026 10:56:51 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Mallesh Koujalagi <mallesh.koujalagi@intel.com>,
+ dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com
+Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona.vetter@ffwll.ch, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
+ Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Subject: Re: [PATCH v3] drm/drv: Convert wedged event string building to
+ seq_buf
+In-Reply-To: <20260728140630.891508-2-mallesh.koujalagi@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260728140630.891508-2-mallesh.koujalagi@intel.com>
+Date: Tue, 28 Jul 2026 20:56:48 +0300
+Message-ID: <ecdd45e4b366ed7a9680bda5b948223c4208a942@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-synopsys-dw-dp-improvements-v7-17-b7640fa8cf48@collabora.com>
-References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2923;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=xx2ceQmEUbIedwsjjbjRenF93i96lCbY3WSb7wtpe/k=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z2TH9QEE5IGgxdn2lcYgPGBGBf08gCki
- skZKuJPIDbIpIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
- O/qa+tQP/j49CBJZazsEA66kEeViFH0deAbEoQPJyHrmxS473n0LcmIkiclGWOxgkxNKHs656pb
- MHcHUWwH83mJdlxOdZpFY4QKMIUByUhB1HMHGzqvmJ9OJ/m6s5UfKWk5rP3f2TVUF7u1TBCtDfh
- FKBjtp/48EzA/XZ7ALG2w7Lj+C8jRBnW7J1KY8GBy4k5vvnp0JKoC/Iij07dh1p4HRQGQ8mujmA
- ffJZAKRQUfqwA7KPRRgJbOaLbMllR3EhXc4nsBcz/h/d97IWgWMcgt84fOAb0/f4TdwZWY65xev
- eJjIHmLZUSkvtOPfmPvOJYNAnmvjjWOQ3oAHL9uygnZFLf+95AHctVBPtfajrsZ2dnZD8cC+VZG
- S4JIumsZdyHoLvigWa08+CWMqyVyI/0fFBkRyYybWR3k5xO4Iy9r3ButTrVKEjxmaDlJibh9j/a
- FXCWK8PLeMQGrOxPy5405xpcfrstdDuc+flvTCAjACdPXG+p+w82z7lc1BgBIkwc7mSEqCRJNZM
- XUQ00tPH9fcOUyQje60xtjF/8rpJkdGRflL0r2fjOfsS8rrJbhbF1MGhdxdM9o3chbeteW6Fw7X
- c65g9EHGijqyB2C+jo4W8K6wbG6fWCMybIaea3+E6rqP6KKXHRWw8bjWMFbYwbcaAf5B9PzUgMS
- AlMFjfIVKh4fxKXDuyooyJg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,92 +77,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-dw_dp_bridge_atomic_disable() bulk-cleared the whole SDP register bank
-allocation bitmap via bitmap_zero() resulting in the loss of all
-tracking information. This results in a slot potentially being handed
-out again by dw_dp_send_sdp(), which is still considered to be held
-by the previous owner. Then the previous owner might free up the wrong
-SDP later on.
+On Tue, 28 Jul 2026, Mallesh Koujalagi <mallesh.koujalagi@intel.com> wrote:
+> event_string[] has a fixed size of WEDGE_STR_LEN (32) bytes.
+> The original scnprintf()-based loop required a manual pre-flight
+> bounds check.
+>
+> Replace the manual bookkeeping with seq_buf, which tracks overflow
+> internally. seq_buf_printf() writes each "method," token into the
+> buffer, and seq_buf_has_overflowed() detects truncation immediately
+> after the write that caused it =E2=80=94 using drm_WARN_ONCE() to report =
+it.
+>
+> On overflow, len retains the position of the last
+> successful write, so the trailing comma is stripped cleanly without
+> including any partial method name in the uevent payload.
+>
+> Fixes: b7cf9f4ac1b8 ("drm: Introduce device wedged event")
+> Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+> ---
+> v2:
+> - Add proper logic to handle recovery string. (Raag)
+>
+> v3:
+> - Convert manual bounds check to seq_buf. (Jani Nikula)
+> - Use drm_WARN_ONCE() instead of drm_WARN_ON() for overflow. (Raag)
+> ---
+>  drivers/gpu/drm/drm_drv.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> index e51ed959da89..6a5e3fa1350c 100644
+> --- a/drivers/gpu/drm/drm_drv.c
+> +++ b/drivers/gpu/drm/drm_drv.c
+> @@ -36,6 +36,7 @@
+>  #include <linux/mount.h>
+>  #include <linux/pseudo_fs.h>
+>  #include <linux/sched.h>
+> +#include <linux/seq_buf.h>
+>  #include <linux/slab.h>
+>  #include <linux/sprintf.h>
+>  #include <linux/srcu.h>
+> @@ -578,15 +579,22 @@ int drm_dev_wedged_event(struct drm_device *dev, un=
+signed long method,
+>  	char *envp[] =3D { event_string, NULL, NULL, NULL };
+>  	const char *recovery =3D NULL;
+>  	unsigned int len, opt;
+> +	struct seq_buf buf;
+>=20=20
+> -	len =3D scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=3D"=
+);
+> +	seq_buf_init(&buf, event_string, sizeof(event_string));
 
-Instead of bulk clearing the tracking information, the new
-implementation only clears the SDPs actually configured during
-dw_dp_bridge_atomic_enable() instead of the entire bank. The
-introduced functionality for that will also be used by the to-be-added
-audio infrastructure.
+See DECLARE_SEQ_BUF(). Remove event_string altogether (or make that the
+seq_buf name).
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 27 ++++++++++++++++++++++++---
- 1 file changed, 24 insertions(+), 3 deletions(-)
+> +	seq_buf_puts(&buf, "WEDGED=3D");
+> +	len =3D seq_buf_used(&buf);
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index fcee47c6716a..c0026bd4c7b5 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -336,6 +336,7 @@ struct dw_dp {
- 
- 	struct drm_bridge *next_bridge;
- 
-+	int vsc_sdp_nr;
- 	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
- };
- 
-@@ -1075,7 +1076,19 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
- 		regmap_set_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
- 				EN_HORIZONTAL_SDP << nr);
- 
--	return 0;
-+	return nr;
-+}
-+
-+static void dw_dp_clear_sdp(struct dw_dp *dp, int nr)
-+{
-+	regmap_clear_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-+			  EN_VERTICAL_SDP << nr);
-+
-+	regmap_clear_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-+			  EN_HORIZONTAL_SDP << nr);
-+
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		clear_bit(nr, dp->sdp_reg_bank);
- }
- 
- static int dw_dp_send_vsc_sdp(struct dw_dp *dp)
-@@ -1393,7 +1406,7 @@ static int dw_dp_video_enable(struct dw_dp *dp)
- 			   FIELD_PREP(VIDEO_STREAM_ENABLE, 1));
- 
- 	if (dw_dp_video_need_vsc_sdp(dp))
--		dw_dp_send_vsc_sdp(dp);
-+		dp->vsc_sdp_nr = dw_dp_send_vsc_sdp(dp);
- 
- 	return 0;
- }
-@@ -1738,8 +1751,14 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 
- 	dw_dp_video_disable(dp);
- 	dw_dp_link_disable(dp);
-+
-+	if (dp->vsc_sdp_nr >= 0) {
-+		dw_dp_clear_sdp(dp, dp->vsc_sdp_nr);
-+		dp->vsc_sdp_nr = -1;
-+	}
- 	scoped_guard(mutex, &dp->sdp_lock)
--		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+		clear_bit(0, dp->sdp_reg_bank);
-+
- 	dw_dp_reset(dp);
- 	pm_runtime_put_autosuspend(dp->dev);
- }
-@@ -2191,6 +2210,8 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
- 	dp->plat_data.data = plat_data->data;
- 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
- 
-+	dp->vsc_sdp_nr = -1;
-+
- 	bridge = &dp->bridge;
- 	bridge->of_node = dev->of_node;
- 	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
+Why do you need to keep len around?
 
--- 
-2.53.0
+>=20=20
+>  	for_each_set_bit(opt, &method, BITS_PER_TYPE(method)) {
+>  		recovery =3D drm_get_wedge_recovery(opt);
+>  		if (drm_WARN_ONCE(dev, !recovery, "invalid recovery method %u\n", opt))
+>  			break;
+>=20=20
+> -		len +=3D scnprintf(event_string + len, sizeof(event_string) - len, "%s=
+,", recovery);
+> +		seq_buf_printf(&buf, "%s,", recovery);
+> +		if (drm_WARN_ONCE(dev, seq_buf_has_overflowed(&buf),
+> +				  "WEDGED event string truncated\n"))
+> +			break;
 
+Nah, you can keep printing to seq_buf, and only check at the end once
+instead of looping.
+
+> +		len =3D seq_buf_used(&buf);
+>  	}
+>=20=20
+>  	if (recovery)
+
+--=20
+Jani Nikula, Intel
