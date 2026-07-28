@@ -4,67 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3192C54F51
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 20:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ABB0C53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 20:50:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B80110E5D9;
-	Tue, 28 Jul 2026 20:35:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E5D8A10E5E3;
+	Tue, 28 Jul 2026 20:50:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="H1LIDzYy";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eIiqCe7N";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D27910E5D9
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 20:35:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785270928; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=f2/jRC+MITzs+rDlKhMHrYc3cx38Cx5UCcIzffZ8twp5YQltQEEA1imSuNP8GmGFBImSKWsTRamuleFkXLxdh/3Z1+sK8aSbvw3pQX8KBRJ2ouBm5/v/CsqOp/BF8teQo34FumXDv9nI3FnFILBwzNWsX9Elif73I4ReAhINDKE=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785270928;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=YhxTGf5YXkQYjZLE3DoklfRuPngjyDj+Ylg5ViviS+g=; 
- b=Zokw+rmBE/8vtwEgAJtsKPycT5uqipcMQ9nCZouODuVT+foJmcYO9CTZyV8oqQc8ev3qDDU+uVeW93N7CmoSv3ykcwTAsHTqtVv9ewIapBPX0qqssDIKGhM7J5zgKXJKaW9N6FTNm6/tzCrIZEljuEZpj4y9GCLaeeOdNc8wuPw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785270928; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=YhxTGf5YXkQYjZLE3DoklfRuPngjyDj+Ylg5ViviS+g=;
- b=H1LIDzYyE3qnL2DpZtUbBsCMb8P+4gVaco4Asw2jesTz1aJRJ3fGtMEkpp1ZGBHm
- oDKN0taXlwBqvwlKfJvMssKJk5Qu8FQv7XSVHAvY/ANNY5vOo4sn57rMjn6AyR0zFWn
- Ut7OhLjA5rPwMyvjzMupq38Ws2U/0GvTdyrI5xMo=
-Received: by mx.zohomail.com with SMTPS id 1785270925370174.37285430042743;
- Tue, 28 Jul 2026 13:35:25 -0700 (PDT)
-Date: Tue, 28 Jul 2026 13:35:24 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Benno Lossin <lossin@kernel.org>,
- Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, laura.nao@collabora.com,
- samitolvanen@google.com, lyude@redhat.com, beata.michalska@arm.com,
- boris.brezillon@collabora.com, steven.price@arm.com, alvin.sun@linux.dev
-Subject: Re: [PATCH v10 3/7] drm/tyr: add Memory Management Unit (MMU) support
-Message-ID: <amkSjDCt_P-TfXHD@um790>
-References: <20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com>
- <20260728-fw-boot-b4-v10-3-9187aefa3f2f@collabora.com>
- <DKAGDGAGBRXN.T20HFE198R5A@kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DKAGDGAGBRXN.T20HFE198R5A@kernel.org>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/285.252.37
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C80C410E5E3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 20:50:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5DF5540A3D;
+ Tue, 28 Jul 2026 20:50:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2A21F000E9;
+ Tue, 28 Jul 2026 20:50:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785271827;
+ bh=LCL1QNvxMPjzTjFmC0W8Ajtf4tzoBIcO2WYr15c4cMU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eIiqCe7NOB+cT/HHlB5QEwva/h/LoyHSEzCvOV2puRNgBhZKqwWgtzGIwlZA63elw
+ M77EwJhXWsDnZlGHqJZpWnGfzTc0uwcOgBhimDydUHwz4aAgCj38HOl5LDsxtsXhPK
+ aBhZqITeDnVOFRL1Tj91m3ajFK2adqet/NAY75KlgrK9le0y1AgCmTeJY5jesqeq+2
+ E+DClHwN62IZYx3IBJhYKEM96TGAIzSB9cXhIl9lrqDrP5YXkfQzvsbrLZnxDTMOiL
+ ZgYOPjyZgQ+TKphZvjUA6Po0BErlnKqASlbWfu0lb0ZFIWET2vYb+njjD1SbHDjDcP
+ 2IxeQKtPSnz9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 17/18] drm/bridge: synopsys: dw-dp: Clear only
+ enabled SDPs on atomic disable
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-17-b7640fa8cf48@collabora.com>
+References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
+ <20260728-synopsys-dw-dp-improvements-v7-17-b7640fa8cf48@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 20:50:26 +0000
+Message-Id: <20260728205026.EF2A21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,46 +55,100 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 28, 2026 at 09:31:50PM +0200, Danilo Krummrich wrote:
-> On Tue Jul 28, 2026 at 8:39 PM CEST, Deborah Brouwer wrote:
-> > +/// Locked wrapper for carrying out virtual memory (VM) operations on the MMU.
-> > +#[pin_data]
-> > +pub(crate) struct Mmu<'drm> {
-> 
-> This shouldn't be 'drm, but 'mmu or just something generic like 'a.
-> 
-> The rationale is that Mmu might be shorter lived than 'drm once we have
-> self-referencial pin-init. Currently it is straight forward, such as in
-> 
-> 	struct Foo<'foo> {
-> 	    dev: &'foo platform::Device<Bound>,
-> 	}
-> 	
-> 	struct Data<'bound> {
-> 	    foo: Foo<'bound>,
-> 	}
-> 
-> where the lifetime of `dev` really ties back to 'bound. However, with
-> self-referencial pin-init it could looks like this:
-> 
-> 	struct Foo<'foo> {
-> 	    dev: &'foo platform::Device<Bound>,
-> 	    io: &'foo IoMem<'foo>,
-> 	}
-> 	
-> 	struct Data<'bound> {
-> 	    foo: Foo<'io>,
-> 	    io: IoMem<'bound>,
-> 	}
-> 
-> Now Foo is not constrained to 'bound anymore, as this would be longer lived than
-> `io`, so it has to capture 'io instead in order to still compile.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Danilo, would you be ok with renaming this lifetime as a follow up
-patch? Currently, if I understand this correctly, the mmu lifetime is
-still tied to the DRM registration data, so the name is not inaccurate
-for Tyr at least as it stands right now.
+Pre-existing issues:
+- [High] Unbalanced and unconditional clearing of SDP slot 0 defeats tracki=
+ng and risks concurrent stream corruption.
+- [High] Sleeping functions are called from an atomic commit callback path =
+in violation of DRM rules.
+--
 
+--- Patch [17]: [PATCH v7 17/18] drm/bridge: synopsys: dw-dp: Clear only en=
+abled SDPs on atomic disable ---
+commit 7e0bb4945c91158df2f4360bed9dbdb18041404b
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+
+drm/bridge: synopsys: dw-dp: Clear only enabled SDPs on atomic disable
+
+This commit updates dw_dp_bridge_atomic_disable() to selectively clear only
+the previously configured SDPs (like VSC SDP) instead of bulk clearing the
+entire SDP allocation bitmap. This aims to prevent handing out in-use SDPs
+to other systems like the upcoming audio infrastructure.
+
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index fcee47c6716a7..c0026bd4c7b53 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+
+[ ... ]
+
+> +static void dw_dp_clear_sdp(struct dw_dp *dp, int nr)
+> +{
+> +	regmap_clear_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
+> +			  EN_VERTICAL_SDP << nr);
+> +
+> +	regmap_clear_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
+> +			  EN_HORIZONTAL_SDP << nr);
+> +
+> +	scoped_guard(mutex, &dp->sdp_lock)
+> +		clear_bit(nr, dp->sdp_reg_bank);
+> +}
+
+[ ... ]
+
+> @@ -1738,8 +1751,14 @@ static void dw_dp_bridge_atomic_disable(struct drm=
+_bridge *bridge,
+> =20
+>  	dw_dp_video_disable(dp);
+>  	dw_dp_link_disable(dp);
+> +
+> +	if (dp->vsc_sdp_nr >=3D 0) {
+> +		dw_dp_clear_sdp(dp, dp->vsc_sdp_nr);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code call sleeping
+functions in an atomic commit path?
+
+The DRM subsystem calls dw_dp_bridge_atomic_disable() during non-blocking
+commits via drm_atomic_helper_commit_tail(), which runs in atomic context.
+This patch adds a call to dw_dp_clear_sdp(), which acquires a mutex using
+scoped_guard(mutex, &dp->sdp_lock).=20
+
+While the function already acquired this mutex and called sleeping functions
+on this path previously, adding new mutex acquisitions here can lead to
+system instability or deadlocks when the display mode is disabled.
+
+> +		dp->vsc_sdp_nr =3D -1;
+> +	}
+>  	scoped_guard(mutex, &dp->sdp_lock)
+> -		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+> +		clear_bit(0, dp->sdp_reg_bank);
+
+[Severity: High]
+This is a pre-existing issue, but does unconditionally clearing bit 0 here
+defeat the tracking mechanism?
+
+If userspace opens the ALSA PCM device while the DRM bridge is disabled,
+ASoC might allocate slot 0 for audio. When the display is later enabled
+and disabled, dw_dp_bridge_atomic_disable() unconditionally executes
+clear_bit(0, dp->sdp_reg_bank).=20
+
+This silently revokes the active audio allocation, allowing another
+allocation to claim it while the audio subsystem still believes it owns
+the slot.
+
+While the previous code wiped the entire bank via bitmap_zero(),
+explicitly clearing bit 0 seems to leave the audio tracking vulnerable.
+Should this unconditional clear_bit() be removed entirely since
+vsc_sdp_nr is now being handled explicitly?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
+w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D17
