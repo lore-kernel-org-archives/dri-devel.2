@@ -4,109 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D088BC54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:34:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E02DC54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:43:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 411D710E598;
-	Tue, 28 Jul 2026 15:34:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14CD910E951;
+	Tue, 28 Jul 2026 15:43:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="Qvt4TVUt";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="O3dDRqZu";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB9FC10E598
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:34:49 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-496b7622a83so21173345e9.2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:34:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1785252888; x=1785857688; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Y5Zf7wRSskDiF2pA206nVhKZfl95/heLe/kfq7vnsjU=;
- b=Qvt4TVUt8ptCujW3zem5uebnKvH2/6DdqWhYXgN3Q6L3oHwr0Cme8rBpHR6RDNSlJP
- yiJqxCJOQCyTCrQHbzi9Ze0WYKbIx2u3jPf2zPzDRZ++CL5UMvqY5QkTMAOw2E+M4fw+
- s+6ZJnP81MGekFgU7CNYfvnbnlwxLuvm1DhmzmzzZKIYsMZuqxAjfHibziNiNPMFtXYc
- DH+a+YGKRevfVw8ELcmT10tqIYDN4lJMDGrosUJ9QFNqaPwh9LIsOdjmTZdKQX2tdgnr
- Ip3P8U4JPP1Z1bfmgaMFrNUF0RQWJ8q9sd1AKols3mdBCigFo/+WsM3IpgJQBsBhfAyF
- kY2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785252888; x=1785857688;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Y5Zf7wRSskDiF2pA206nVhKZfl95/heLe/kfq7vnsjU=;
- b=pfxITbAMegWus9HjH7dSLVtRdjZqeC6Ct34koDQl/GelaGDYe6Lu+7BfhmnD/veyK+
- 5ZQtNzxBR0E6hOGyHEiN5bHWX308BZPcUZ9vjUMAJgxtIeNejTaNivcE/95w4ePzojVd
- JeoUXlDmNI6F/6B5uyWtCdw26yh6vra68D/KMsCwAoWrf42p75pQrcwbkfKBlV1wE9Io
- 4F9Z/9OBuLuC3YUYOudWS3XBqavdybZ5snG/ECB8cjCuAX4g1Yn8doGyiJL6s0TirBiq
- SwfWVwdCwASVRFJHBghj/KjP0a8tGsm5d/qUeDlfqv7OVZhdyKpfyturNoz9AAJcMpa1
- UMWw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqFnMpWG0iZ0b0lpG4VE9ubTOn4WmFu3vfYvZjUZX9hjKnxJRoywU40yIqDQqkVX4xfrirZzhGmswA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw4wAWaiSWwB7EaETEpVIPqWYRP2wyi5D/JeoxYv0nVHrmsBtFB
- oa+fBZsGxrAbsQcCX0CDXArcq8YU5tw9dsOiY8vuZvQPvHw0KfgA3Is6skX3OF+D1V0=
-X-Gm-Gg: AR+sD10wCQZeNchuh8c7PNQhcOZemmtLwI5HsnZBEUQUxfBaO1Z6bQ5ic1NsgEQ7hEu
- JHdUQkBYR9oZOQlocdxCMChQCaDi9QTWICwiaE3f7hkbGM+mTP21BEAmcqObzc343I/mM+wKMRC
- 4/F6CRzGkPXIcG0rQ6bVAW4WcwSd//Bbd+qLKaGew8GS8ejUYTB1Uy96WcGkyq8w5tAEEmB+Dl0
- 2tdyOUeGcIS8zPVpOeZJebK8syuyFgejgguyPgHxNCqm4NaHulm1WWq+2X0C3iEsB3bGrbm6+yj
- k1aIyFvaClsHPXpsttzdxkr/xVuZm3B9YpOBdpDxjL5wqE/ffX6H5JvGuNVmvWPy5h4FusLbnVq
- 0Wwxq4aTZ4zDxOIzG+XTXVTfC1etA3t9cZt+UFUXi6SV4coGcu/SYMyiPpgq9q4y21llfqmK8DO
- llAYTypRG4BBp/yG8Tj1eUG1LPM7VpbCoNGOjNilPdp12fFB1zB17OvuyOww==
-X-Received: by 2002:a05:600c:c4b8:b0:495:5858:8101 with SMTP id
- 5b1f17b1804b1-496c642fe09mr37096115e9.15.1785252888034; 
- Tue, 28 Jul 2026 08:34:48 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:6843:9af3:9745:9034?
- ([2a01:e0a:106d:1080:6843:9af3:9745:9034])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-496c45ba4b0sm88914705e9.6.2026.07.28.08.34.47
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jul 2026 08:34:47 -0700 (PDT)
-Message-ID: <97ebc5b4-0a54-42f5-a3c9-560852f19330@linaro.org>
-Date: Tue, 28 Jul 2026 17:34:47 +0200
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C52E110E5AB;
+ Tue, 28 Jul 2026 15:43:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785253404; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=HVTUjRIRgLqsAx/dzVAchOo9Xk29LDCXM3sJc4WRD6frLaTBHrTEMC5Ez46q8ZHqGFiurYodDAEaTkCNt2Eb4R9eAHCGT31z/cwmHuCQNx4ATtBiSEFQ5UKWF4PG9W92Q2dnJKHHnmcoXuhdXBbutnMFo0LUZw44G086MtS36rM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785253404;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=72vhiB75dtSSEYnY+N+m98v6v93SiwbnTyn4KxFrTi0=; 
+ b=hHVNmSNOOek1dm3AorfJW2fCrPP57XCVthWc1wpSPXB+opzrzEclDO8Djy/IIxDgzputgudkCreWiVQxQaAkYX1gENwkfBq8dcndQ+v4Wf/6Pgj9djYW1N4ImdSMyunAsmlLFgVZOikHCnjl62Ld0PAiGqxcuo02fob81W0t+Jk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785253404; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=72vhiB75dtSSEYnY+N+m98v6v93SiwbnTyn4KxFrTi0=;
+ b=O3dDRqZuwcJUaUmklTYE+zJKyTI554o11s4IuHx9Ijd5aOHmkfXAfJ7PIhwcjzPQ
+ H9S9vIWdLA1nVGD0QFyE3hO6EpYvm5PXH3d7loSw97+7jTvyzFT4/lOtOVUGO33KIC1
+ ddyuv61Bh1jq9UofRWI/mUynsFzQwb5IRCrP/lxg=
+Received: by mx.zohomail.com with SMTPS id 1785253402997922.333191260817;
+ Tue, 28 Jul 2026 08:43:22 -0700 (PDT)
+Message-ID: <19aeee36-e14e-44ca-95cf-f6617b31af48@collabora.com>
+Date: Tue, 28 Jul 2026 17:43:15 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH] drm/panel: chipwealth-ch13726a: Fix washed out colors on
- 120hz mode
-To: Aaron Kling <webgeek1234@gmail.com>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260727-ch13726a-washout-v1-1-bf869ddfc5cf@gmail.com>
- <CALHNRZ_EQyP6apD-0YboXEua5Hk1u2oVMo1M7vACK6vzMRp03g@mail.gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <CALHNRZ_EQyP6apD-0YboXEua5Hk1u2oVMo1M7vACK6vzMRp03g@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 00/20] drm/drm_colorop: add post-blend colorop
+ support to AMD display driver
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, harry.wentland@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, simona@ffwll.ch,
+ siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Ariel DAlessandro <ariel.dalessandro@collabora.com>,
+ "Nicolas F . R . A . Prado" <nfraprado@collabora.com>,
+ Alex Hung <alex.hung@amd.com>, Simon Ser <contact@emersion.fr>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Xaver Hugl <xaver.hugl@kde.org>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ John Harrison <John.Harrison@Igalia.com>, kernel-dev@igalia.com,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260716160556.227556-1-mwen@igalia.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260716160556.227556-1-mwen@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -121,87 +74,268 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/28/26 03:38, Aaron Kling wrote:
-> On Mon, Jul 27, 2026 at 7:44 PM Aaron Kling via B4 Relay
-> <devnull+webgeek1234.gmail.com@kernel.org> wrote:
->>
->> From: Aaron Kling <webgeek1234@gmail.com>
->>
->> The issue was determined to be two-fold:
->>
->> 1. The non-continuous clock dropping into LPM during blanks causes
->>     voltage drift at 120hz enough to affect the gamma curve.
->>
->> 2. The agressive horizontal blanking width did not allow enough settle
->>     time, further compounding the voltage drift.
->>
->> In addition to switching to continuous clock, burst mode is also enabled
->> to further stabilize the blank intervals.
->>
->> Assisted-by: Gemini:2.5-Pro
->> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
->> ---
->> For the initial submission, the washed out colors were expected to need
->> to be fixed by a color profile. However, further investigation showed
->> there was a problem with the timings.
->> ---
->>   drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 10 +++++-----
->>   1 file changed, 5 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
->> index 562dc573528dd..92f0c4f1587cb 100644
->> --- a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
->> +++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
->> @@ -128,11 +128,11 @@ static int ch13726a_unprepare(struct drm_panel *panel)
->>   static const struct drm_display_mode thor_bottom_modes[] = {
->>          {
->>                  /* 120Hz */
->> -               .clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
->> +               .clock = (1080 + 60 + 8 + 60) * (1240 + 16 + 4 + 8) * 120 / 1000,
->>                  .hdisplay = 1080,
->> -               .hsync_start = 1080 + 28,
->> -               .hsync_end = 1080 + 28 + 4,
->> -               .htotal = 1080 + 28 + 4 + 36,
->> +               .hsync_start = 1080 + 60,
->> +               .hsync_end = 1080 + 28 + 8,
->> +               .htotal = 1080 + 28 + 4 + 60,
->>                  .vdisplay = 1240,
->>                  .vsync_start = 1240 + 16,
->>                  .vsync_end = 1240 + 16 + 4,
->> @@ -281,7 +281,7 @@ static int ch13726a_probe(struct mipi_dsi_device *dsi)
->>          dsi->lanes = 4;
->>          dsi->format = MIPI_DSI_FMT_RGB888;
->>          dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
->> -                         MIPI_DSI_CLOCK_NON_CONTINUOUS;
->> +                         MIPI_DSI_MODE_VIDEO_BURST;
->>
->>          ctx->panel.prepare_prev_first = true;
->>
->>
->> ---
->> base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
->> change-id: 20260727-ch13726a-washout-54ef8fa65be6
->>
->> Best regards,
->> --
->> Aaron Kling <webgeek1234@gmail.com>
->>
->>
-> The sashiko report that the timings in this change are inconsistent is
-> correct. Which caused the 120hz mode to be discarded entirely, so the
-> 60hz mode was being used which has correct colors. Fixing the timings
-> to be consistent restores the 120hz mode, but still with incorrect
-> colors. So this patch should be abandoned while further investigations
-> continue. Sorry for the churn.
+Hi Melissa,
 
-OK, please add a Fixes tag when you find a proper fix.
+thanks a lot for this series!
 
-Thanks,
-Neil
+On 16.07.26 18:02, Melissa Wen wrote:
+> Hey,
+>
+> I have been working on gamescope migration from AMD driver-specific
+> color props to KMS colorop API [1] and, with the fixed-matrix
+> replacement for COLOR_ENCODING and COLOR_RANGE[2], the only missing
+> color prop was the CRTC AMD REGAMMA TF (the 1D Curve). So I worked on top
+> of Ariel&Nícolas proposal for post-blend colorop API [3], discarded
+> patches for DRM_CAP_CRTC_COLOR_PIPELINE driver cap flag (as commented in
+> this year Linux Display Hackfest), fixed some issues based on plane
+> colorop recent changes and exposed AMD post-blend colorop pipeline with
+> CTM -> 1D Curve -> 1D LUT, since post-blend Degamma is not actually
+> supported by AMD (even though there is a workaround for enable it in
+> CRTC color mgmt properties).
+>
+> I have a gamescope implementation that fully migrates its color pipeline
+> from AMD private plane/CRTC color props to pre- and post-blend colorops
+> running on a custom kernel with the required colorop support for AMD.
+>
+> - Gamescope draft:
+> https://github.com/ValveSoftware/gamescope/pull/2113/commits
+>
+> - Kernel branch with all necessary patches:
+> https://gitlab.freedesktop.org/mwen/drm-misc/-/commits/gamescope_pipeline_w_colorop
 
-> 
-> Aaron
+I used your branch as base for my own one [1] to create an experimental 
+Weston MR [2] testing a typical proper YCbCr color pipeline, using fixed 
+matrix, gamma 2.4 pre-blend (not quite correct for bt1886, I know...) 
+and gamma 2.2 for post-blend - focused on VKMS.
+
+API-wise I'd say it works great and think we should go forward with it. 
+I'll add some more comments regarding the implementation, however 
+overall I hope we can land this in the near future.
+
+Best regards,
+
+Robert
+
+1: https://gitlab.com/rmader/linux/-/commits/gamescope_pipeline_w_colorop-2026-07-28
+
+2: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2157
+
+>
+> This series doesn't take into account the inactive color pipeline work
+> I've been doing for plane color pipeline. My plan is to apply a similar
+> approach post-blend when we agree that the plane series is correct.
+>
+> - Patch 1-13 are essentially Ariel&Nicolas work for DRM post-blend
+>    colorop support where I added patch 10 for tracking plane vs CRTC
+>    colorop changes.
+> - Patch 14 completes deprecation of CRTC color mgmt properties if
+>    post-blend color pipeline is enabled by hiding them;
+> - Patch 15 applies the same bug fix logic as Robert did to guard plane
+>    client cap[4];
+> - Patch 16-20 add support to post-blend colorop API on AMD driver based
+>    on plane colorop work.
+>
+> This is one example of `drm_info` output on Steam Deck with
+> SteamOS/gamescope implementation and this kernel work:
+>
+> ├───CRTCs
+> │   ├───CRTC 0
+> │   │   ├───Object ID: 399
+> [...]
+> │   │       └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 400} = Color Pipeline 400
+> │   │           ├───Bypass
+> │   │           └───Color Pipeline 400
+> │   │               ├───Color Operation 400
+> │   │               │   └───Properties
+> │   │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 3x4 Matrix
+> │   │               │       ├───"BYPASS" (atomic): range [0, 1] = 1
+> │   │               │       ├───"NEXT" (atomic, immutable): object colorop = 405
+> │   │               │       └───"DATA" (atomic): blob = 0
+> │   │               ├───Color Operation 405
+> │   │               │   └───Properties
+> │   │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
+> │   │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
+> │   │               │       ├───"NEXT" (atomic, immutable): object colorop = 410
+> │   │               │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB Inverse EOTF, PQ 125 Inverse EOTF, BT.2020 OETF, Gamma 2.2 Inverse, Gamma 2.4 Inverse, Gamma 2.6 Inverse} = PQ 125 Inverse EOTF
+> │   │               └───Color Operation 410
+> │   │                   └───Properties
+> │   │                       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D LUT
+> │   │                       ├───"BYPASS" (atomic): range [0, 1] = 1
+> │   │                       ├───"NEXT" (atomic, immutable): object colorop = 0
+> │   │                       ├───"SIZE" (atomic, immutable): range [0, UINT32_MAX] = 4096
+> │   │                       ├───"LUT1D_INTERPOLATION": enum {Linear} = Linear
+> │   │                       └───"DATA" (atomic): blob = 0
+>
+> [...]
+>
+>      ├───Plane 3
+>      │   ├───Object ID: 218
+> [...]
+>      │   └───Properties
+>      │       ├───"type" (immutable): enum {Overlay, Primary, Cursor} = Primary
+>      │       ├───"FB_ID" (atomic): object framebuffer = 513
+>      │       │   ├───Object ID: 513
+> [...]
+>      │       └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 224} = Color Pipeline 224
+>      │           ├───Bypass
+>      │           └───Color Pipeline 224
+>      │               ├───Color Operation 224
+>      │               │   └───Properties
+>      │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
+>      │               │       ├───"BYPASS" (atomic): range [0, 1] = 1
+>      │               │       ├───"NEXT" (atomic, immutable): object colorop = 229
+>      │               │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 601 Limited to RGB, YCbCr 709 Full to RGB, YCbCr 709 Limited to RGB, YCbCr 2020 NC Full to RGB, YCbCr 2020 NC Limited to RGB} = YCbCr 601 Full to RGB
+>      │               ├───Color Operation 229
+>      │               │   └───Properties
+>      │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
+>      │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
+>      │               │       ├───"NEXT" (atomic, immutable): object colorop = 234
+>      │               │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, PQ 125 EOTF, BT.2020 Inverse OETF, Gamma 2.2, Gamma 2.4, Gamma 2.6} = sRGB EOTF
+>      │               ├───Color Operation 234
+>      │               │   └───Properties
+>      │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Multiplier
+>      │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
+>      │               │       ├───"NEXT" (atomic, immutable): object colorop = 239
+>      │               │       └───"MULTIPLIER" (atomic): range [0, UINT64_MAX] = 4294967296
+>      │               ├───Color Operation 239
+>      │               │   └───Properties
+>      │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 3x4 Matrix
+>      │               │       ├───"BYPASS" (atomic): range [0, 1] = 1
+>      │               │       ├───"NEXT" (atomic, immutable): object colorop = 244
+>      │               │       └───"DATA" (atomic): blob = 0
+>      │               ├───Color Operation 244
+>      │               │   └───Properties
+>      │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
+>      │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
+>      │               │       ├───"NEXT" (atomic, immutable): object colorop = 249
+>      │               │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB Inverse EOTF, PQ 125 Inverse EOTF, BT.2020 OETF, Gamma 2.2 Inverse, Gamma 2.4 Inverse, Gamma 2.6 Inverse} = sRGB Inverse EOTF
+>      │               ├───Color Operation 249
+>      │               │   └───Properties
+>      │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D LUT
+>      │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
+>      │               │       ├───"NEXT" (atomic, immutable): object colorop = 256
+>      │               │       ├───"SIZE" (atomic, immutable): range [0, UINT32_MAX] = 4096
+>      │               │       ├───"LUT1D_INTERPOLATION": enum {Linear} = Linear
+>      │               │       └───"DATA" (atomic): blob = 528
+>      │               ├───Color Operation 256
+>      │               │   └───Properties
+>      │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 3D LUT
+>      │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
+>      │               │       ├───"NEXT" (atomic, immutable): object colorop = 263
+>      │               │       ├───"SIZE" (atomic, immutable): range [0, UINT32_MAX] = 17
+>      │               │       ├───"LUT3D_INTERPOLATION": enum {Tetrahedral} = Tetrahedral
+>      │               │       └───"DATA" (atomic): blob = 529
+>      │               ├───Color Operation 263
+>      │               │   └───Properties
+>      │               │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
+>      │               │       ├───"BYPASS" (atomic): range [0, 1] = 0
+>      │               │       ├───"NEXT" (atomic, immutable): object colorop = 268
+>      │               │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, PQ 125 EOTF, BT.2020 Inverse OETF, Gamma 2.2, Gamma 2.4, Gamma 2.6} = PQ 125 EOTF
+>      │               └───Color Operation 268
+>      │                   └───Properties
+>      │                       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D LUT
+>      │                       ├───"BYPASS" (atomic): range [0, 1] = 1
+>      │                       ├───"NEXT" (atomic, immutable): object colorop = 0
+>      │                       ├───"SIZE" (atomic, immutable): range [0, UINT32_MAX] = 4096
+>      │                       ├───"LUT1D_INTERPOLATION": enum {Linear} = Linear
+>      │                       └───"DATA" (atomic): blob = 0
+>
+> FWIW, here is the `drm_info` diff:
+>
+> diff --git a/drm_info.h b/drm_info.h
+> index e61fda7..f7f2017 100644
+> --- a/drm_info.h
+> +++ b/drm_info.h
+> @@ -21,5 +21,6 @@ enum {
+>   /* Remove after updating libdrm */
+>   #define DRM_MODE_OBJECT_COLOROP 0xfafafafa
+>   #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE    7
+> +#define DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE     8
+>   
+>   #endif
+> diff --git a/json.c b/json.c
+> index c9f8c72..b2c306b 100644
+> --- a/json.c
+> +++ b/json.c
+> @@ -29,6 +29,7 @@ static const struct {
+>          { "WRITEBACK_CONNECTORS", DRM_CLIENT_CAP_WRITEBACK_CONNECTORS },
+>          { "CURSOR_PLANE_HOTSPOT", DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT },
+>          { "PLANE_COLOR_PIPELINE", DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE },
+> +       { "CRTC_COLOR_PIPELINE", DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE },
+>   };
+>
+>
+> [1] https://github.com/ValveSoftware/gamescope/pull/2113
+> [2] https://lore.kernel.org/dri-devel/20260623164812.81110-2-harry.wentland@amd.com/
+> [3] https://lore.kernel.org/dri-devel/20251223-mtk-post-blend-color-pipeline-v3-0-7d969f9a37a0@collabora.com/
+> [4] https://lore.kernel.org/dri-devel/20260703073230.19982-1-robert.mader@collabora.com/
+>
+> Let me know your thoughts!
+>
+> Melissa
+>
+> Ariel D'Alessandro (2):
+>    drm: Add helper to extract a 3x4 matrix from any CTM matrix dimensions
+>    drm: Add helper to extract a LUT entry from either 16-bit or 32-bit
+>      LUT
+>
+> Melissa Wen (8):
+>    drm/colorop: distinguish whether a colorop belongs to a plane or a
+>      CRTC
+>    drm/drm_mode_object: hide deprecated CRTC color mgmt props if colorop
+>      is set
+>    drm/drm_ioctl: guard DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
+>    drm/amd/display: add support to post-blend CTM colorop
+>    drm/amd/display: add support to post-blend 1D-Curve colorop
+>    drm/amd/display: add support to post-blend 1D-LUT colorop
+>    drm/amd/display: move CRTC CTM color mgmt prop to check helper
+>    drm/amd/display: enable post-blend colorop properties
+>
+> Nícolas F. R. A. Prado (10):
+>    drm/crtc: Add color pipeline to CRTC state
+>    drm/colorop: Allow parenting colorop to CRTC
+>    drm: Factor out common color_pipeline property initialization code
+>    drm/crtc: Add COLOR_PIPELINE property
+>    drm: Introduce DRM_CLIENT_CAP_CRTC_COLOR_PIPELINE
+>    drm/atomic: Pass crtc_color_pipeline client cap to atomic check
+>    drm/atomic: Print the color pipeline as part of the CRTC state print
+>    drm/colorop: Factor out common paths from colorops helpers
+>    drm/colorop: Introduce colorop helpers for crtc
+>    drm/crtc: Track crtc color pipeline client cap in drm_crtc_state
+>
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 250 +++++++++++++---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  76 +++++
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   2 +
+>   .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  42 +++
+>   drivers/gpu/drm/drm_atomic.c                  |   9 +-
+>   drivers/gpu/drm/drm_atomic_uapi.c             |  97 +++++-
+>   drivers/gpu/drm/drm_colorop.c                 | 282 ++++++++++++++----
+>   drivers/gpu/drm/drm_connector.c               |   1 +
+>   drivers/gpu/drm/drm_crtc.c                    |  31 ++
+>   drivers/gpu/drm/drm_crtc_internal.h           |   1 +
+>   drivers/gpu/drm/drm_ioctl.c                   |  20 ++
+>   drivers/gpu/drm/drm_mode_object.c             |  18 ++
+>   drivers/gpu/drm/drm_plane.c                   |  34 +--
+>   drivers/gpu/drm/drm_property.c                |  44 +++
+>   include/drm/drm_atomic.h                      |  20 ++
+>   include/drm/drm_atomic_uapi.h                 |   2 +
+>   include/drm/drm_color_mgmt.h                  |  61 ++++
+>   include/drm/drm_colorop.h                     |  32 +-
+>   include/drm/drm_crtc.h                        |  27 ++
+>   include/drm/drm_file.h                        |   7 +
+>   include/drm/drm_property.h                    |   5 +
+>   include/uapi/drm/drm.h                        |  19 ++
+>   23 files changed, 939 insertions(+), 144 deletions(-)
+>
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
+
