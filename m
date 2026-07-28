@@ -4,95 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 504D1C54F51
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 13:16:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 697E4C54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 13:21:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 460CA10E8F6;
-	Tue, 28 Jul 2026 13:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69B4810E57C;
+	Tue, 28 Jul 2026 13:21:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FCJ2pPG9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FCX90AJi";
 	dkim-atps=neutral
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com
- [209.85.217.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B380F10E59C
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:16:14 +0000 (UTC)
-Received: by mail-vs1-f50.google.com with SMTP id
- ada2fe7eead31-73843e514a3so119692137.2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 06:16:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785244573; cv=none;
- d=google.com; s=arc-20260327;
- b=K0JHZ6DHZwCnRyjIBGy7pqJKIo344b7iMvyCWKii8d99woXPkV55tBA52MQ1eRSqeK
- NMLEa+88TQLVn7+1DTm6rur6pA7ELh/VOa84323aBHE0kcybN/vcygB5coQYMLWZRaNH
- 9rmrJWMzRbTSSnOD5j9wCFTEWqyNpSHJXSw/njNxRl3NUnQJ57LGRtP/DojPHq2fz9R0
- xlq5GxoQWkCfOWmM9B9CWrsrud4ikJp8pm/LJTmL7i9eMdEgSsOjlsytX5yBb0wkBh6p
- 1/rIn62juEv7X1ExuWTDaQhe8mKmhtP1ct30m7k+fZlXQMraqG9Ug86LH8mxYNMxfNkZ
- Iymg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=N+wMACBSaEfqBTHaUE/2bmCOeGWhvGf/4mtYL4kGMBE=;
- fh=5oXSUsjluli5PrR09+p4+JWVUQ7nYWDKUP4CgkzNFRQ=;
- b=X049/rusaBmNxSlq299nmsjBD2TzpSFQdsEQ7xUBeJdxBu5CPqgIpnihfY8mfG/8CU
- uwqZw7f8cm36b/ftyKdroL9sT2qR541iCJtcoD6A6Ya7OBkVOvjEmtRDQHYb352C+r25
- 03arVLgt+I4hwJYmZgspdxSzc+cIvdDpIti8uZqKcnOzJjkarriA7EXagWKBELkzzG36
- sixabMe4I99RhFO+DuxO1GowumB+Jy/CSmmOPYV1B9r4dwwaxeRc2jItj/N8x97RJgNN
- BL84XxY96QTu0Di1vjQuMBQ+EnOM6TQkGm33Ll8OMAjk6S+h8CfloSOz7vmZUJYeOpFA
- A87g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785244573; x=1785849373; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=N+wMACBSaEfqBTHaUE/2bmCOeGWhvGf/4mtYL4kGMBE=;
- b=FCJ2pPG9uQuSz5Xpo/TxomniNAxgyfidXv67fuwk+V4EzSQ1+L1WsWttfczyfTJZyp
- t7E4PqPljzioxRrVY4wcFGKmhb3y44U10YQ2JTEgQhNI2Pti4LVxzAWzmeZkjOsLz77R
- z/9fx9fW+rLP1A1z3Ay5T580Z/rQ4qskeVuAxQhnhPLbh4ohgt5wbZSaWaGDeROGQH0M
- cynnTq8SrjxcwfxZAPmJ4ByX1qhXT/173zPYH8HUJk2Qd6aIVMy7oHQLeRGhJMT7Urkt
- Zwctu4HN8LIFvT2RMDjAI6IbcEmU5F0mi5piL5Y7xSrl1MubiMZo8oKkEt2fF3CcyHYt
- BuVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785244573; x=1785849373;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=N+wMACBSaEfqBTHaUE/2bmCOeGWhvGf/4mtYL4kGMBE=;
- b=olIsPNTpOTYwKIBCVeVZGUtq1zXmwrsIfQzV8pTcwJ6rHoZSE9E5BA/w2c0CtSj2MC
- kx4leDxw02NGjpCTq3A32KvTPvj3mcOF3IMYEjSJO8XZWtmWrGb6lUQM5eOGQIksTIst
- 61RJbdVEJMTJKGureRhUfWdpNEJQIuI0/XdWD2hQCOzHmNu0tHNqhi+WdS+vRi4kCkyd
- qN9agV6MU4oONF/tSHw3IZMuIprb8aAxkEKfTFtZwarerCKAvSCATjEZC2tFvePg/ckn
- CfeQYDhhTzkktx4pCUCqdZdiWFsLR7ntpqU6vrbMSB1xNNMJTo2Rg78mqBx5uWV7gZ4Z
- 9bvQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqBimqwqo8anqI39Xd6MwaazEXAZaE5xG0VOeMUjLPcb+2+Yer7kssjvlBC7a3/Lk7UkGT6pSlEEZI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxrloXNPqLFByrbeqpL2PRD33XJekfwOp0eNEYR7FwaqTlibT90
- EhmrpfKlk6GXGYVEM4KBrQGKE/5OIkCNwSU/djHCPddL3cMvuzDqNqAwowZiVFXVbrnisXtNPDY
- PG3Gw+OrqQhxFwPr09ihXPfrJ3Ey5IKs=
-X-Gm-Gg: AR+sD11KY6UOmRDJ3Uq0ZZe8AOaMyEhNDJAMsNBVUQg6hfRab4t8/IU2kAol6bHhgY8
- LzDHGYl16hy/FuMhIPnvJUWsAStLzkrQok9CO0CHg98jCxpOJTfVqPlpE3wHNAhowqpTbyr/YhF
- 4PVkFqOwt+Nxr9vmWtmAk7cUjle40/N6bNJ3g5AS+ZWGSibiYAMcxM+MN9/JqpSSL1cAfZleGoa
- licYFEd7CAvIGND8KP8uKv5MXU3fXe0Hj/BzFtG83xS+1iDXjLBt9hZA2V6iRx5LMKkengzgcx3
- J9FZX1wA91//r8T/Fl2XSWXMYel6k4Fh34Dcmf3uCx3z+F1HJB0ML752zluScxcP7X6S3YiK37e
- AFKNEFAnpF3cIpKn9Rt1jM+OEiC+jRLA=
-X-Received: by 2002:a05:6102:4405:b0:745:17b0:10cc with SMTP id
- ada2fe7eead31-754a1eaa48fmr376392137.4.1785244573368; Tue, 28 Jul 2026
- 06:16:13 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38C1D10E57C;
+ Tue, 28 Jul 2026 13:21:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 58A4A600FC;
+ Tue, 28 Jul 2026 13:20:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3F41F000E9;
+ Tue, 28 Jul 2026 13:20:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785244859;
+ bh=5wIfZ0sm6CEy7MJilr4iQeAgvnopeXOM1phyT95Vzgk=;
+ h=From:Subject:Date:To:Cc;
+ b=FCX90AJi2Tbai/riSjra6VQYBMpCeDvQ4iLopY+0oZbAQgHSgeEYL75P4gHwRpuXw
+ P4b8TOTGuabvDniChxKuoYA3XnjakS6g8lYcr8jcvNm/w3NhjAlRH+3vZlutiObMqy
+ S5eSnftlxkwsOUKnzLVmxV2HGwYU/sW3roGf4Zi72Zm25csgp+H7/wxoNnferhFMS8
+ f50IQ2UNKYfrNBBg2RLx3LjlIfaSbruLmHHyb9kbOLhyt+0m/u+H1Gqz8tWeB7+xfv
+ Cvk+Ai7/XVy+g+TFp4GyCRhXydMqh+vAjQA4tT6K5t1feMcHFWdixd0fIrO/XYAgXb
+ s9Yc4k9UY7/fw==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Subject: [PATCH 0/3] Remove brownout risks from DPU
+Date: Tue, 28 Jul 2026 15:20:44 +0200
+Message-Id: <20260728-topic-dpu_power-v1-0-e7783b859a70@oss.qualcomm.com>
 MIME-Version: 1.0
-References: <b911abf7-40df-445a-9c3a-403903c94920@gmail.com>
-In-Reply-To: <b911abf7-40df-445a-9c3a-403903c94920@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Jul 2026 09:16:00 -0400
-X-Gm-Features: AUfX_mxJa_OE17OOC67gJOUfJ46TGvI7WafpRxJWHPSNgBPo2DXy-Aa6Mrj5ax0
-Message-ID: <CADnq5_NW=5LFi6Rf9HYg1zgu5B6wEerQs9ErMD_y3m3GWvGS3Q@mail.gmail.com>
-Subject: Re: [bug report] amdgpu/TTM: NULL/UAF deref in
- ttm_resource_manager_next
- during hibernation swapout (ttm_device_prepare_hibernation) on Phoenix APU
-To: Bernardo <bernardomagri21@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDXR+ncVEaEGY6FNq0jE3RXLb
+ /HeBRYNoYUquMDgTpbU6sHDAOTcrRMyGrxBRCKLclGwTWmSbNCu1epAw0Q8piWPe87LBHylDY5
+ 0fse6+W1dv6Dc3g3c9wMbMtZScwAAAA==
+X-Change-ID: 20260728-topic-dpu_power-23f5913b1194
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rajendra Nayak <quic_rjendra@quicinc.com>, 
+ Matthias Kaehlcke <mka@chromium.org>, 
+ Sravanthi Kollukuduru <skolluku@codeaurora.org>, 
+ Rajesh Yadav <ryadav@codeaurora.org>, 
+ Chandan Uddaraju <chandanu@codeaurora.org>, 
+ Jeykumar Sankaran <jsanka@codeaurora.org>, 
+ Vara Reddy <quic_varar@quicinc.com>, Stephen Boyd <swboyd@chromium.org>, 
+ Guenter Roeck <groeck@chromium.org>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
+ Archit Taneja <architt@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Tanmay Shah <tanmay@codeaurora.org>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785244852; l=994;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=DDTk0H5cNvK8WiltkuOC+5GnAZO1/0LoS+J7bv4xQsw=;
+ b=+wjZYMXr9We+PzarZidZZBP6SyD/jlQVmwX2lbOnKcsuZA+MO3K9ry0Off/ndM1O97MtGcGCn
+ ETFFMVxYf8MBMeT3GqgDbduIgj0GxW5MDu60xA84jVN3Pfaj13Yc8zp
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,140 +83,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 26, 2026 at 8:32=E2=80=AFPM Bernardo <bernardomagri21@gmail.com=
-> wrote:
->
-> Dear maintainers,
->
-> Please find the bug report below. Thanks!
->
-> Cheers,
-> BM
->
->
-> ## Summary
-> Intermittent kernel oops (NULL/near-NULL deref) during hibernation *entry=
-*, in the
-> TTM GPU-memory eviction path invoked by amdgpu's freeze callback
-> (ttm_device_prepare_hibernation -> ttm_bo_swapout -> LRU walk ->
-> ttm_resource_manager_next). The oops occurs in the device-freeze phase, b=
-efore the
-> hibernation image is written, so the next boot reports "PM: Image not fou=
-nd (code -22)"
-> and the session is lost. On my machine oops=3Dpanic is set, so it escalat=
-es to a full
-> panic+reboot, but the underlying event is the NULL-deref oops shown below=
-.
+Things generally run better when plugged in. That also happens to hold
+for clocks. To ensure that is the case, remove calls that drop the
+performance state votes while the clocks are still running.
 
-I think you are seeing this issue:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5387
-Please follow that ticket for the latest.
+This helps Glymur devices not crash upon resume when a display
+(incl. the internal one) is plugged in.
 
-Alex
+The DSI patch is compile-tested only.
 
->
-> ## Hardware
-> - Lenovo ThinkPad T14s Gen 4 (MT 21F8CTO1WW), BIOS R2EET46W 1.27 (2025-09=
--24)
-> - CPU/APU: AMD Ryzen 7 PRO 7840U (Phoenix)
-> - GPU: integrated Radeon 780M, gfx_v11_0, PCI 1002:15bf (rev dd), subsyst=
-em 17aa:50d8
->   - amdgpu reports "VRAM: 1024M ... (1024M used)" =E2=80=94 UMA carve-out=
-, no discrete VRAM
-> - Storage: NVMe; root on LUKS+BTRFS; hibernation to a BTRFS swapfile (res=
-ume_offset set)
->
-> ## Kernel
-> - 7.1.4 (vanilla upstream; distro build tag "#1-NixOS PREEMPT(lazy)")
-> - Taint: G O. The out-of-tree modules loaded are ddcci, ddcci_backlight, =
-acpi_call,
->   v4l2loopback =E2=80=94 none appear in the backtrace and none touch TTM;=
- the taint is unrelated.
->
-> ## Frequency / trigger
-> Intermittent: 2 failures out of 5 hibernation attempts over 5 days (3 cle=
-an successes
-> with "PM: hibernation: hibernation exit"). Reproduces on both `systemctl =
-hibernate` and
-> systemd suspend-then-hibernate. Not correlated with a config change =E2=
-=80=94 fails and succeeds
-> on the same kernel. The intermittency is consistent with a race dependent=
- on GPU buffer
-> residency at freeze time (see analysis).
->
-> ## Backtrace (from efi-pstore; consoles were already suspended, so this i=
-s what was captured)
-> PM: hibernation: hibernation entry
-> ...
-> PM: hibernation: Allocated 12299604 kbytes in 7.45 seconds (1650.95 MB/s)
-> Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
-> printk: Suspending console(s) (use no_console_suspend to debug)
-> BUG: kernel NULL pointer dereference, address: 0000000000000268
-> #PF: supervisor read access in kernel mode
-> #PF: error_code(0x0000) - not-present page
-> PGD 0 P4D 0
-> Oops: 0000 [#1] SMP NOPTI
-> CPU: 2 UID: 0 PID: 1026678 Comm: kworker/u64:16 Tainted: G           O   =
-     7.1.4 #1-NixOS PREEMPT(lazy)
-> Hardware name: LENOVO 21F8CTO1WW/21F8CTO1WW, BIOS R2EET46W (1.27 ) 09/24/=
-2025
-> Workqueue: async async_run_entry_fn
-> RIP: 0010:ttm_resource_manager_next+0x94/0x200 [ttm]
-> RSP: 0018:ffffd0f08294fba0 EFLAGS: 00010202
-> RAX: ffffd0f08294fc40 RBX: ffff8c0846d306a0 RCX: ffffd0f08294fc40
-> RDX: ffffd0f08294fc40 RSI: ffffd0f08294fc40 RDI: ffffd0f08294fc40
-> RBP: ffffd0f08294fc20 R08: 0000000000000001 R09: 0000000000000000
-> R10: ffff8c029c30ed90 R11: ffff8c04001c6880 R12: 0000000000000020
-> R13: ffffd0f08294fc40 R14: ffffd0f08294fcc0 R15: 0000000000000260
-> CR2: 0000000000000268
-> Call Trace:
->  <TASK>
->  __ttm_bo_lru_cursor_next+0x60/0x300 [ttm]
->  ttm_lru_walk_for_evict+0xde/0x1d0 [ttm]
->  ttm_bo_swapout+0x5c/0x80 [ttm]
->  ttm_device_prepare_hibernation+0x71/0xb0 [ttm]
->  amdgpu_device_evict_resources+0x62/0x80 [amdgpu]
->  amdgpu_device_suspend+0x13a/0x230 [amdgpu]
->  amdgpu_pmops_freeze+0x1e/0x70 [amdgpu]
->  pci_pm_freeze+0x5b/0xe0
->  dpm_run_callback+0x51/0x180
->  device_suspend+0x1aa/0x5d0
->  async_suspend+0x21/0x30
->  async_run_entry_fn+0x34/0x150
->  process_one_work+0x199/0x390
->  worker_thread+0x177/0x2e0
->  kthread+0xe2/0x110
->  ret_from_fork+0x251/0x330
->  ret_from_fork_asm+0x1a/0x30
->  </TASK>
-> Kernel panic - not syncing: Fatal exception   (because this host runs wit=
-h oops=3Dpanic)
->
-> ## Source observations (v7.1.4)
-> Reading the faulting path in 7.1.4:
-> - The swapout walk __ttm_bo_lru_cursor_next() (drivers/gpu/drm/ttm/ttm_bo=
-_util.c)
->   drops the lru_lock (spin_unlock at ~line 1012) and re-acquires it (~lin=
-e 1031). Its
->   own comment (~lines 1016-1022) notes that in that window "the resource =
-may have been
->   freed and allocated again with a different memory type." On the next it=
-eration it calls
->   ttm_resource_manager_next(&curs->res_curs) (~line 994).
-> - ttm_resource_manager_next() (drivers/gpu/drm/ttm/ttm_resource.c:690) ha=
-s no guard on
->   cursor->man / the LRU state, whereas its sibling ttm_resource_manager_f=
-irst() (:673)
->   does (WARN_ON_ONCE(!man)). CR2=3D0x268 with what looks like a valid man=
-ager in RBX
->   suggests the cursor walked into a freed/reallocated LRU entry rather th=
-an a NULL
->   top-level manager =E2=80=94 i.e. a use-after-free/TOCTOU in the lock-dr=
-opped walk.
-> - This tree already contains the "move swapped objects off the manager's =
-LRU list"
->   rework (ttm_resource_is_swapped(), the `unevictable` list), so that ear=
-lier issue is
->   not the cause here.
-> (These are just pointers for triage; I have not root-caused the exact fre=
-ed object.)
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+Konrad Dybcio (3):
+      drm/msm/dpu: Drop sneaky dev_pm_opp_set_rate(0)
+      drm/msm/dp: Drop dev_pm_opp_set_rate(0)
+      drm/msm/dsi: Drop dev_pm_opp_set_rate(0)
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 4 ++++
+ drivers/gpu/drm/msm/dp/dp_ctrl.c              | 6 +-----
+ drivers/gpu/drm/msm/dsi/dsi_host.c            | 2 --
+ 3 files changed, 5 insertions(+), 7 deletions(-)
+---
+base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
+change-id: 20260728-topic-dpu_power-23f5913b1194
+
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
