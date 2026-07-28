@@ -4,134 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D822EC54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:06:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE57C53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45A7010E09F;
-	Tue, 28 Jul 2026 15:06:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98F2410E218;
+	Tue, 28 Jul 2026 15:09:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="SbDL25U/";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jyvq8Clt";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="CbRk+CfK";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEFBF10E09F
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:06:54 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66SEcddT3412678
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:06:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- jzk0wHYCJIe5nmkz4JIZUJPyE7lMjwoFgqtF0y0W4q4=; b=SbDL25U/2geADA3b
- dKw6KHKUZwwavaLllYw87lhC807pNZQInF/NISCbqsGjKfZNA8qbHgKqy5iYF034
- V6jkmWwP/qvrCq9uk9g3PA/yx1DmcQ82UmefVy1mfWgTrEhTDvcCMrEVYu2LBT1c
- 9mJxEtnZN9Ezns1wxIuDd1bHpd+LOI7eH0CgfYiQy4rSvBoNyoe0qQvfLMU7sSEX
- 2YuVwWR8ekBc1K9hoZrL35It/acpc/RBcyhBgJkVSfMRNzdSf/a4jDXSo0v6cQxQ
- DIufxOC4g0owA2a0/F59Tz9bxl6wXE7Ndx8r35Ib1/JxDtZtJY4h0HNTSwy6oZqi
- hZt/FA==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
- [209.85.217.70])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpmy12spk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:06:53 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id
- ada2fe7eead31-737d2f02d2fso3467127137.1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:06:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785251212; x=1785856012;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=jzk0wHYCJIe5nmkz4JIZUJPyE7lMjwoFgqtF0y0W4q4=;
- b=jyvq8Clt3s0B6mSHSrXqraxh/0nO/+OnvFYeeviW0PSwOnFxfI3gMjRL9fbFOUbpzY
- mGFTULpv1a5QTcMHA/PIQaEHaBOCV7pppJR63b3lUE8eNlBR2C/y9FeI/S0EC60c+Mgw
- IEqL73GbJW1rk0Es9mSqPJWnG79k/mYX9/t4ew/OW9rYGuip6ofwnGl+14GXnt+itUpx
- bcoRpqx3YQ9CH9tD2Q7EBhRod4vcITuROwhvgfZK7/YJHEAtezXVoDx4xsA4KUNDe9GY
- F6wwmaoihPTIkXKQpAiUX8an29TEluCnM1i0aJDpMvGXkWimbWkFwV+w5MdxXac+3W53
- Vx/w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785251212; x=1785856012;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=jzk0wHYCJIe5nmkz4JIZUJPyE7lMjwoFgqtF0y0W4q4=;
- b=JhFMFN1d2p5y3u+khOt3WWgKc3oRmoDXqI7rk+0A+gPFqwNDvo+eRhKc0FzgtJ9yQf
- P5FpMf64DX8o1hbDA+nCMye7rweVsCr+nkQxoAt5+Temq2yn5ghbJ0uU7FZYwiIjPyAN
- UVUcZKiVGln8l8kpL+GFHU9iOh+ig5jZ4/+r1jA6VOt8k8viRpGBm3SeBdEVCLL7vLvM
- D6AEuB0+XjNOqqkRF2To6b90mRqu7N+ob5/FmFckPe9cHb7DzT+dpiOaOopFQ6+d4vaO
- N5LAcmRTeh8hX3oAp57zc/umELt85CqEI67dJz7RYVYqFzbvLful/AMi7e9Yv0E7DZMl
- 56Cw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrkoBZ4kziH8iT0N2OOeEcCpd+59zBnPOVyVWz7fzpPREJTfSRpgKZ+N6IBmYfXgXY6OXMkydXVOqk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwSgJcWsnRiX7jnf+NRwA9P1VZo7lw4/3oRKmFZ++aavWDIaOJJ
- 1B70p2zsDynzIWuJS3qHr/yhxZhcZgl9fpJr+zaeiP+7cR7SvBrJXchgBFylgfVht+Z8bWQrXYW
- 5Dk3ir0DAlEFpwNYu/tLvQR1a+ySJKAiRGyd3eB7dyb4jfCPMi+N1qXjHMfYVeDzVC2Q98rU=
-X-Gm-Gg: AR+sD112yAmx2xb+5xA70kdt7DwpjMTj4rR2fkarzc7Kz/F9MEua89MipUYzwAAT3Wd
- AZCh+45GCFcPNVQVgncn7Fq3joYqXNCcC4t4FF8MscBrvmWIs0ZypY2cadETAklkLRd5xRYwmgL
- f9C9yfT8YNScvs4UZhLVyML23SqiBdWwgYiILlIy2R4xYf0/K+NEdWI683fwZpfJOKPMst6tnav
- zGqOJeMMLSawtU2OuRdED7dYBrG7FQivm8sk5JMBxgl/giD5JjLrvMo5hxPLUKtTwUT7szBSudl
- q/iBXOlxRaMWJOcaEu0FFZIAXBnTm6NCxQ6QtbH6pIbw/14O1X0tdBbyJNs+XZZvE2lFlnJt9/q
- VHYDF45Idb+4ReBO7MeM96GO+Dgw=
-X-Received: by 2002:a05:6102:3f13:b0:727:fb8:f269 with SMTP id
- ada2fe7eead31-754a1fc3789mr1383404137.22.1785251212268; 
- Tue, 28 Jul 2026 08:06:52 -0700 (PDT)
-X-Received: by 2002:a05:6102:3f13:b0:727:fb8:f269 with SMTP id
- ada2fe7eead31-754a1fc3789mr1383369137.22.1785251211806; 
- Tue, 28 Jul 2026 08:06:51 -0700 (PDT)
-Received: from [192.168.68.112] ([5.133.47.210])
- by smtp.googlemail.com with ESMTPSA id
- a640c23a62f3a-c1c32ac0fa4sm782164166b.20.2026.07.28.08.06.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 28 Jul 2026 08:06:51 -0700 (PDT)
-Message-ID: <7761fab5-089a-463a-8de9-1922da2ff602@oss.qualcomm.com>
-Date: Tue, 28 Jul 2026 16:06:50 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] misc: fastrpc: Drop unhandled DSP PD exit notification
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260728073851.682023-1-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <20260728073851.682023-1-shengchao.guo@oss.qualcomm.com>
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012068.outbound.protection.outlook.com
+ [40.107.200.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA3510E2AF
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:09:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AGaP86XtwI0ObU5EQaspgo6uniTYTTFNX2DF6RoIXekZ7m0NJmoeDoV3Mo/7HDG2v7/OCTDecB+Mac5zwAXuZAHpbxIYcGplM7806FpsBdkpqlE3vuJHt2BYtkkmuW/8kxCwBA7+4JFmWXpujNpnvHsFr9pmB7Jfl1leALEjtTq0yMpL3/mloC0brYqDKZLWTBo8PdD2ES2hu5qVFZ/rq8UHb7YKDlgdE8oJZFWS+VbRzTBJ/Y4mVPQo08OSn0elEgYe8eHx22l3NE0Vn2He/DcYb+nwiC+ngxLFmTa8J8zG9r7e0w91NBZatKxtSgU5ZiQWR+UWQoWtzJNq6FxnWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JQLs4y+PPMItTj3+3wYWiJ/o03oy2+UPiIL5+Mgtw2A=;
+ b=Zp0SruyfLW2Hp3KurvkY7KGfQey0zyxQntKPU6X8f0kGf1/uuyEaOKWGeqi+on5cMLpQt85s5jGIvcgOctY+KYMP1y7gm/hDghiAIOxlYu1qTZNWh43EWAq5L0RsM7gfK8C6O182NZ+Cc2mQgxc2utUZJbI9pU1h2nJVAanuQZ0EIKOlPEsYG413Dddz/XJhdsqwZmQREzj5bJwkgvdQ0gt5c8itc4Fg8w4MCopIUqKLqjFGqhQVuMXY9QkBRXrm7JS/4VT4Ng9vi+kzlPdLsuunSmgkK21PHheMtnH6Fx8g+wu6BZsmkX/jOdCPoNPlvZIVJe6iT9r0xIwp4ICTAg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JQLs4y+PPMItTj3+3wYWiJ/o03oy2+UPiIL5+Mgtw2A=;
+ b=CbRk+CfKieG+50uRSE3CssIFCse1juZbmsF4B0aJtHLoM8IQLW47jNyncdSherzcuPAlAvRXhcjAAkS9a437oltaiPjGxnoGrCq1hoXUjVWuw3DO9eLl1t4ephmjS9kVqiwudEcIl7blIB2jMVrvvZCGw0xKm/QTsiQF1cOgUVZJKQQ3ujSc5+jL7iFKEYaQBP/VgQRIHDKKgq8Yf2LnkW0Uo04e9bZ4iq5E51NzToX0aLcr85eebW5dRy/RANKqIGcI+8NX46XxE5Nm0StLzByJ7oGsJFRCl923Et9HCslY1OadZbQdPFzx9aUvz+tTalviHusjQjI3XNaMtFlH4A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by SJ0PR12MB7460.namprd12.prod.outlook.com (2603:10b6:a03:48d::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
+ 2026 15:09:47 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
+ 15:09:47 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: t3VHVslY1EXdE_WPWKzkgBOjVhG-llrm
-X-Proofpoint-ORIG-GUID: t3VHVslY1EXdE_WPWKzkgBOjVhG-llrm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDEzNCBTYWx0ZWRfX237aXPqcrvAg
- pGGO3GCzpO88ss+gKmGfeYCCnVJ6AEdcMFT1Wkt8Ocg7aXiQTYJqKSCMgef5hmRPZ1VJ7gDhqFt
- 9iXIWncqcK000NqI9gAdbTN3EibwhyxXV0Ld1pJo4+wlUTGYlpBmvaZ8Tg8oBHE2lzD9QF+ZtXV
- 2GNzZRRN7Iqie2HIe3LHAXgSPUgTV70ZBKSTpsJBqb8Uag3S++skwskEhic3tMAp3J+J6VFC+Oo
- aVJJmFpXQPzHpntGMYt+NE3ocRGK9G09vLCPQWBG/uf5Ti0wUABAOMXwz+pzSRGIw/weYXvMDqm
- 3mZZCeT2zNtWObGzVTFYv440mj8tJvOg01icVZxMcX3j/56Zr6e0L2Uj8LoQut6Acl2r6X40r+r
- ujAYcON3gdg69UsINYPegR4VCRtIM7O+Ny3ZJ+xcrMYlTmrgaD6spFjsVD+MyVhTLkxNOwQ/vJ7
- 5c04SvPSaLcsP6wohHg==
-X-Authority-Analysis: v=2.4 cv=PJo/P/qC c=1 sm=1 tr=0 ts=6a68c58d cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=RPlQG0zoIX3xp8xdtFQA:9 a=QEXdDO2ut3YA:10
- a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDEzNCBTYWx0ZWRfX6W8fGNEClBqy
- 9Uz5Fo6r5sraTORaxu+ylp1P0Co/btLElDrMZcgBfLLQT3VPDsedsEPOO3qVC6WcMeOiLiNi4Cv
- MPkshklB3lv2MEiMLTB0WEPsM46VLV4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_04,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 adultscore=0 suspectscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280134
+Date: Wed, 29 Jul 2026 00:09:43 +0900
+Message-Id: <DKAASRCK3M06.G9XODK0T5AAK@nvidia.com>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Gary Guo" <gary@garyguo.net>
+References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+ <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
+ <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
+ <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
+In-Reply-To: <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
+X-ClientProxiedBy: TYCPR01CA0182.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b0::6) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SJ0PR12MB7460:EE_
+X-MS-Office365-Filtering-Correlation-Id: 69421325-5cc4-46b5-cd4d-08deecba4318
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|366016|7416014|1800799024|376014|23010399003|4143699003|18002099003|22082099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: iCtc+w9WNltX5jgESujR5la/okxmXOSy6mbvrs+YCAJma0lPljzCCO3CV50rM5Yxoae3XZIFTnspno+b2yOr4zbuZWegtAUdvjUn+TwJeB9H7R+IcS/XEAAF1XXfhbRunIU0xeHjbotrxcv0ybhsidqzfpyJtiWVdcCBQmXfVJd5/gkf6hVecjudihaR47aVUrCkzy7ANYZQ8iEfvpIF8PLnNHeyO6ebQDxO6JJB25D12cObg3TVlGITXT4evAWy/60ynEc4CAEC3HnQbKOAA0rjh/XpYYktl27/Vo7rwutRmVFX4w5/9RNxN7r6TW2/p/AbEiK4+xq4gAggPW8vHstA1N1H2iXHWo+ehJT1Cg7b/lDo0zCzmFt42eo/fSKqmPD5l4FIOxpOfYaNTR3+FQngQVTl5ET0sm5o0B6/iiZ5sNS+02oq1UoCN0TPhA8Cq73HTSMMWONOGzdW7LqbWqxH/rQzImzI6Iwm3brqO7XCSjOVQ2yLRQZmahwDkEZ89fAMhs+S9Sl/ZAjV8sGIb0iOJZn+1RE2dXKN25s5RJxQYAvsFJ8ng7k1jDcwu8qia3drEFYi97VWRfI0f69vTmDrBpPj+4Zogqto/abjg7R8Yg/tAWeFWUXNnvR1wADBgm8r3TpJLhryCkdqddCvy8c74GQOg093D1dKCIKe6b0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(366016)(7416014)(1800799024)(376014)(23010399003)(4143699003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnpkRVdKUVNSR2ZmSDVVSDFBMWVZbWtGMk50bVovOFI5NExDU1FSdWNhbXFt?=
+ =?utf-8?B?aTdmYWpvY1g0R2d4bUFlVEU5NmU1L04wL1AwK3h3SUdGSFhQVDROVDJUSDd0?=
+ =?utf-8?B?dVc1Wnh3WDRpS2hqUnJ6VlpNSHRjSXBsVEtyeVd1aGtleHhpc1lqZlhnV3BZ?=
+ =?utf-8?B?UlFOVTVCQnl1NURzaHRKV1RibFlTSjRGbnpTTWlKVThhWERtQ1pyR2V4SWt2?=
+ =?utf-8?B?ekRSWkNtcW5Xc1FXalBseVR3TllzdS9CU3JhOUJ5NVRpLzcxRXZYZjJGVGpS?=
+ =?utf-8?B?TlZTNjR3WkR5TDdsaWZ4cDB2NFNpYmpjQ0Y5OVhDdXVpUEFwYXRkRHZVQ3R2?=
+ =?utf-8?B?YXFaempFQ29yM050YzhKN2JiOHl3Tnd5UUlSYjJQa2pBN2wvTExLNVZJSnR6?=
+ =?utf-8?B?UklGbXd4MThhMDhVRTltNlF2SlI4U0NOcTRTUmQ4QU8wWlcyUlhUVmFaaUhM?=
+ =?utf-8?B?UEdvbVBNVExBZlRtOTI0TWMzekl5L3B1NkJUdnZHUHlVWElQaFF2Z1JRUVN3?=
+ =?utf-8?B?MjNka0VvbUQvbzZraDdFNFlla0pJZTI0a0tYc2NsSTA0N0dpVXRuYnhkbzc1?=
+ =?utf-8?B?bmkyUG5RT25mVG9YRVB3Q1puSERCU3F3ZHlpZkt3a3pvanV4aDZrU3FFZjMz?=
+ =?utf-8?B?aFViNnJQWEdDcGQ1SUpWbVhidkdHa2RkUGMvZElJdkJKTXl0Q3VUdmxoMDdW?=
+ =?utf-8?B?bjdlWWJMaW1CZEg5c1UzOWw4UWJEN2pVQzBLZzZTZmNjbFh2ekJjdCtBdit1?=
+ =?utf-8?B?V2RGSlBneC9YS2tlL29jWlpKdEhRQmVqQmFDR1RHakhjMmZpOHdxbldSMURM?=
+ =?utf-8?B?dE1TQUx5clR4QUs5STBUWFJ4WnNUdU9mcnRvTWYvZkIybng4b20yc1ROL25o?=
+ =?utf-8?B?MldWZFZwWWd0UU9nR1NiZ2lCbXJRQXJUa3A3Tjk4aXFNQzBhQ0JoYWZ6L3lG?=
+ =?utf-8?B?RmFVaUgwZUdiR0VJWjJLVXZ0eG51ZmtwaHh2VmpxMW9hSFVHRFA0Z2VFOUZv?=
+ =?utf-8?B?dVpmaFREaGlPdUxTREMvU3ExdS82V1hQNkdjTXZka1NMcmd2MHZSRGpmMGhy?=
+ =?utf-8?B?ZDZqQ0xjVklrS2U1dkp2TVM5anMzbVhqa2xXcXdidUszTjhBU2FxbFhzZko0?=
+ =?utf-8?B?VUZIdUtTVjdOS1NlcXZNNE55MDMxTUozc1NMc0tMK1NXSjdVQ2hqME91TWJK?=
+ =?utf-8?B?ZE1Rd0YvdWlZMWVzWWxjQWpxOHZGZ3VYdFB5TzA1Y1RVMWtWZDZ0QkgxRVRN?=
+ =?utf-8?B?VFZVd0VwMzFUSVg3dVpLTWRLNGhWa0JxSmNoYWJvREc3bkt2Z1JxK0g0MVd2?=
+ =?utf-8?B?VHVGc3Y5ekFoYklETEc2UG92OG9rN2lyVkJSaENwSUVUWHFQdjdPazFNUmtT?=
+ =?utf-8?B?azN5MGovT1I5N0M1TE5pc1NlVjcvd3NDRUtDMWlUazRNWnpWMFYvdDJiMTIy?=
+ =?utf-8?B?QXkvcVJkODVmN05GeUlxdXRuUnc1R3BJTXpTbEorRXhySlNCRitjekt5RkRo?=
+ =?utf-8?B?Z3VFd3F5TzlVd1RjeHl6K3ZNTzAvMm1nK3h3YXpwVFR2ZGp4cS9BbjJLeENv?=
+ =?utf-8?B?MEwyNmk4b0MrVGpvNmNUMTBtL1VDM3U5cDdjbHR6QzE3MTRpMC95anMrb01F?=
+ =?utf-8?B?VWxyMXUrNzExdTYwNXdhbmlhakZXd090ZW93QTlGZ3Z3aHhYQnk5TUNlODQ4?=
+ =?utf-8?B?by9sYkVKNGYrbUlnK09OUXp4VXBWRnJMWGp5OEZ2ZFZlbEYxZ1kvT1B0OVpE?=
+ =?utf-8?B?MkY1VWZjWHgzc0FiY1VjbnRLVmVhMkdCbzdQUWxqTjhrWHpGK2RLd2VXMWlh?=
+ =?utf-8?B?aUF4ajl0MUpEVngvby9Bckl0SzFXYWVXeVdGNzYrTTBISW5neGJEdXVmWWNv?=
+ =?utf-8?B?a1l1WWtMTlRGd3VaaXlySHJpTnBoeTJsR1hmelZVUVNhcU9ZbWpxeU9XcUdv?=
+ =?utf-8?B?Q1VvNURTRmdUZ2RrZTFac3doaWtHU1dHNDU2eTBzOU5aSyt5eWVxajNFZitp?=
+ =?utf-8?B?VkVKMzBUNlBsT0hOL092NWVCQ2dnV3VGbXZNSSs2WWMrMEJXUmE4c1VTcW9K?=
+ =?utf-8?B?RmE5SW9qbnRaSXY4KzQycDhwTFdRaGdVSzdmQXJiMHZtOWRrMGFZckZ2cTRi?=
+ =?utf-8?B?NlgrKzZPdkJMVkVNRTk3cEtvV0QvemxsWEJYZXNRTzNQdis1dnFsTDRYMmhy?=
+ =?utf-8?B?eFAxbGJocFRPY2F0NnprM0d4blU1bkFMNGpObkNxQTE5WXV1MWZUdE4yOHNp?=
+ =?utf-8?B?dnZJUzVoY3RWNzAxQ2M0V3k1MVZBaW9iL3NxU21MWW1YZnRBWTZiQzZzQnRC?=
+ =?utf-8?B?TjZ2eEQ4SVYzN3JJQzBUT3dBaUpmOElvRUE5TFBNZm56bjNGZWk3TmVMcjZW?=
+ =?utf-8?Q?iv/9c5Hae8G1M0oP/fNtqqCGlruZLXFiIWoBlpO/381AE?=
+X-MS-Exchange-AntiSpam-MessageData-1: VPwMhcOKsrWzNA==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 69421325-5cc4-46b5-cd4d-08deecba4318
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 15:09:46.9303 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: h4TaqJtixLEu0l7NW6S7kCOY6GYNhveorCywqoLRL+E7A0WlkCX5mXVf4M4MSsE918GOK7BCHu+VescxW+dI6A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7460
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,85 +152,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Tue Jul 28, 2026 at 7:24 PM JST, Gary Guo wrote:
+> On Tue Jul 28, 2026 at 7:45 AM BST, Alexandre Courbot wrote:
+>> On Wed Jul 22, 2026 at 1:54 AM JST, Gary Guo wrote:
+>>> Add fixed size region types for these and add projection methods that
+>>> project from `Bar0` into these. Update these registers to be registers =
+on
+>>> `PFalconRegisters` and `PFalcon2Registers` and not relative registers o=
+n
+>>> `NovaRegisters`.
+>>>
+>>> The use sites are updated mechanically; calls to the projection methods=
+ are
+>>> not extracted in this commit.
+>>>
+>>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>>> ---
+>>>  drivers/gpu/nova-core/falcon.rs                    | 158 +++++++++----=
+--------
+>>>  drivers/gpu/nova-core/falcon/fsp.rs                |  53 +++----
+>>>  drivers/gpu/nova-core/falcon/gsp.rs                |  43 +++---
+>>>  drivers/gpu/nova-core/falcon/hal/ga102.rs          |  39 ++---
+>>>  drivers/gpu/nova-core/falcon/hal/tu102.rs          |   8 +-
+>>>  drivers/gpu/nova-core/falcon/sec2.rs               |  32 +++--
+>>>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  11 +-
+>>>  drivers/gpu/nova-core/regs.rs                      |  81 ++++++-----
+>>>  8 files changed, 193 insertions(+), 232 deletions(-)
+>>>
+>> We are calling these methods quite a bit throughout the code. I
+>> understand they are supposed to be optimized away, but that's still a
+>> lot of repetition.
+>>
+>> Since we now have HRTB and `Falcon` is already referencing the `Bar0`,
+>> how about storing the projected `Mmio` inside the `Falcon` instance?
+>>
+>>     pub(crate) struct Falcon<'a, E: FalconEngine> {
+>>         ...
+>>         pfalcon: Mmio<'a, PFalconRegisters>,
+>>         pfalcon2: Mmio<'a, PFalcon2Registers>,
+>>     }
+>>
+>>     pub(crate) fn new(...) -> Result<Self> {
+>>         Ok(Self {
+>>             ...
+>>             pfalcon: E::pfalcon(bar),
+>>             pfalcon2: E::pfalcon2(bar),
+>>         })
+>>     }
+>>
+>> That way all the
+>>
+>>     E::pfalcon(self.bar)...
+>>
+>> Can become simply
+>>
+>>     self.pfalcon
+>
+> Right, this is the direction that I do think we should head to. As descri=
+bed in
+> commit message, this commit is intended as a mechanical conversion and re=
+factors
+> are left to the future.
 
+Great, keeping this commit purely mechanical sounds good to me if you
+prefer it that way (although one can argue that the refactor itself is
+also mostly mechanical as the end result shouldn't be more complex).
 
-On 7/28/26 8:38 AM, Shawn Guo wrote:
-> Newer DSP firmware implements a PD (Protection Domain) notification
-> framework that sends PD state notifications upon request. The PD exit
-> notification is unconditionally sent by the DSP with a fixed sentinel
-> 0xABCDABCD in the context field.
-> 
-> fastrpc_rpmsg_callback() treats every inbound message as an invoke
-> response, so the sentinel is masked and shifted like any real response
-> ((0xABCDABCD & 0xFF0) >> 4 == 188) and looked up in the channel's
-> context idr.
-> 
-> This is not merely cosmetic. In the common case idr slot 188 is empty,
-> the lookup fails, and the driver only logs a spurious "No context ID
-> matches response" error on every teardown. But the context idr is shared
-> by every protection domain and the listener thread on the channel and is
-> filled cyclically over [1, FASTRPC_CTX_MAX]. If slot 188 holds a live
-> context when the sentinel arrives, the sentinel's return value is written
-> into that unrelated in-flight invocation and it is completed early.
-> 
-> Since neither the fastrpc library nor the driver supports the DSP PD
-> notification framework, it is safe to drop the PD exit notification
-> before it is ever turned into a context lookup. This removes both the
-> log spam and the mis-completion race. A genuine response can never be
-> masked: a real context is (idr_index << 4) | pd (at most 0xFF3) and
-> can never equal the sentinel.
-> 
-> Assisted-by: Claude:claude-opus-4-8
-> Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
+>
+>>
+>> And I suspect that once this is generalized, `Falcon` won't even need to
+>> store a reference to the `Bar0` (and potentially poke the I/O of other
+>> engines) anymore.
+>>
+>> Actually I would like to push that even further and replace the
+>> `pfalcon()` and `pfalcon2()` trait methods by associated constants used
+>> to construct the projected view in `Falcon::new`, since the projections
+>> are all constructed the same way, but doing so requires
+>> `generic_const_exprs`. :/
+>>
+>> We could make it work by moving the `OFFSET` generic argument of
+>> `subregion` into a regular argument and enforcing its invariants using
+>> `build_assert!`, but that would require `subregion` to be
+>> `#[inline(always)]`. I don't know if there is another trick we can use,
+>> if not otherwise I guess the trait methods are ok, especially if they
+>> are only called once in the constructor.
+>
+> This was definitely one option that I have considered, however as `NEW_SI=
+ZE`
+> still needs to be generic so we're not entirely turbofish-free. But if ma=
+king
+> `offset` become an effective const parameter helps nova impl, it might ma=
+ke
+> sense to use `build_assert!` for this.
 
-Does not apply to linux-next, can you rebase it pl.
-
-thanks,
-Srini
-> Changes for v2:
-> - Update per Ekansh's input about PD state notification (Thanks Ekansh!)
-> - Link to v1: https://lore.kernel.org/all/20260727130940.577721-1-shengchao.guo@oss.qualcomm.com/
-> 
->  drivers/misc/fastrpc.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d86e79134c68..97c60271f94a 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -38,6 +38,17 @@
->  #define FASTRPC_INIT_HANDLE	1
->  #define FASTRPC_DSP_UTILITIES_HANDLE	2
->  #define FASTRPC_CTXID_MASK (0xFF0)
-> +
-> +/*
-> + * Newer DSP firmware implements a PD (Protection Domain) notification
-> + * framework that sends PD state notifications upon request. The PD exit
-> + * notification is unconditionally sent by the DSP with this fixed sentinel
-> + * in the context field rather than the context of an outstanding invocation.
-> + * Since the fastrpc driver does not support the DSP PD notification framework,
-> + * this message must be dropped rather than matched against the context idr.
-> + */
-> +#define FASTRPC_DSP_PD_NOTIFY_CTX	0xABCDABCD
-> +
->  #define INIT_FILELEN_MAX (2 * 1024 * 1024)
->  #define INIT_FILE_NAMELEN_MAX (128)
->  #define FASTRPC_DEVICE_NAME	"fastrpc"
-> @@ -2552,6 +2563,14 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
->  	if (!cctx)
->  		return -ENODEV;
->  
-> +	/*
-> +	 * A PD exit notification from the DSP PD notification framework carries
-> +	 * this sentinel rather than a real context. Drop it: a real context is
-> +	 * (idr_index << 4) | pd and can never collide with this value.
-> +	 */
-> +	if (rsp->ctx == FASTRPC_DSP_PD_NOTIFY_CTX)
-> +		return 0;
-> +
->  	ctxid = ((rsp->ctx & FASTRPC_CTXID_MASK) >> 4);
->  
->  	spin_lock_irqsave(&cctx->lock, flags);
-
+Maybe we can have another variant of `subregion` that operates that way,
+but your call. I don't see any obvious flaw with the current
+implementation, it's just that the `FalconEngine` methods should not be
+useful outside of the constructor eventually, so it seems a bit
+superfluous to have them visible to the whole crate.
