@@ -4,63 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1214CC54F52
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 20:07:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 008C3C54F52
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 20:14:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4C59910E0FF;
-	Tue, 28 Jul 2026 20:07:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AC6710E243;
+	Tue, 28 Jul 2026 20:14:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SeDRXvjI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h7LMQcS+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB5F810E0FF
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 20:07:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0219D10E243
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 20:14:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D68944374B;
- Tue, 28 Jul 2026 20:07:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728331F000E9;
- Tue, 28 Jul 2026 20:07:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5390D60A6C;
+ Tue, 28 Jul 2026 20:14:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7AD71F000E9;
+ Tue, 28 Jul 2026 20:14:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785269257;
- bh=g58gRfs5c0V3SCdYvHY5lSFx4//gOQF/FXNiiAMSmC8=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=SeDRXvjIo0PeOAWB+qm714ij5PQEMCtF/M5mCTstkRgZ5GlDTjfpliDRdVBI01r24
- A3mnQRZfkOZz1ImfR3pup6DRJGJAXc8bp6jDvuUQ6vmzewnNFVDqc212us6hPGnbQg
- itJjunYpXKxrSJvCRsQsgLR+fqzJ86ZG/k7ji2fpN780oeUu1BQtUlomxQEWx9lPeP
- e9GMLHy8TXVI55RXMR5QGi9kUQURJV8RhboPjw9lH944vH0J9PRhJKWHnK1eljsRX4
- zXiTvp1K/R5u52VQHfNvycvV7Nuwud/mx5T2+cfbOHNA/igp4artW42pcwECRKvhMJ
- m+39UEt+/dkIw==
-Mime-Version: 1.0
+ s=k20260515; t=1785269676;
+ bh=w3E+2fLn21qNNZLc5r92yrlAt1YbI2ZDUIoLBqHXaoU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=h7LMQcS+F7WKyJC2rFSIavZAvyUtzbWZmEDNYfkeAwMrDE4H/+dYBGq00Ks9CMDE4
+ mSYt7KlT+HwO6dRMrCKz9ooEAWCCugvWUwdGmii1UXbtBnmUcqRIlEArOsHStx3SoH
+ yJdbHdp1on0zrJtxKUGfQ+oKcK/Ie7gDsJwAEBS4T0Fn5DrTubvR3dOFlF/1Yv76Ij
+ jj10dQlLXuWP8CrUMkJyDGqqQoG9ohoPn7TsyYq42H9qt5lC+ivXz7U1abAL0/RqeX
+ Ew1KvrBJaWTHbhK93cB5yHGI9wLjS3d5Kr15ijY5LMXJ3Th0Dg4SLphrYTocMC4+tc
+ VjBc544j7cLAQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 13/18] drm/rockchip: dw_dp: Add runtime PM support
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-13-b7640fa8cf48@collabora.com>
+References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
+ <20260728-synopsys-dw-dp-improvements-v7-13-b7640fa8cf48@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Jul 2026 22:07:31 +0200
-Message-Id: <DKAH4S5IE3RZ.10VD33NMVVLDR@kernel.org>
-Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
- PFALCON2 registers
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Boqun Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Tamir Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>
-To: "Gary Guo" <gary@garyguo.net>, "Miguel Ojeda" <ojeda@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
- <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
- <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
- <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
- <DKAASRCK3M06.G9XODK0T5AAK@nvidia.com>
- <DKAD64Q7CEQD.Z15OS6MRHEKE@kernel.org>
- <DKAEZ4LDA10F.1RFA9JKBGY2CF@garyguo.net>
- <DKAFMD8X5LFP.UPKPHK5FYZPH@kernel.org>
- <DKAFRETW93IW.SXUWFVB47V3B@garyguo.net>
-In-Reply-To: <DKAFRETW93IW.SXUWFVB47V3B@garyguo.net>
+Date: Tue, 28 Jul 2026 20:14:35 +0000
+Message-Id: <20260728201435.A7AD71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,62 +54,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jul 28, 2026 at 9:03 PM CEST, Gary Guo wrote:
-> On Tue Jul 28, 2026 at 7:56 PM BST, Danilo Krummrich wrote:
->> On Tue Jul 28, 2026 at 8:26 PM CEST, Gary Guo wrote:
->>> On Tue Jul 28, 2026 at 6:01 PM BST, Danilo Krummrich wrote:
->>>> I may have a slight preference for a separate subregion() variant for =
-the
->>>> purpose of working around generic_const_exprs, as it probably is a bit=
- closer to
->>>> the final solution, but trait methods are fine with me too.
->>>
->>> I am not sure that's the final solution that I want. I want arg-positio=
-n
->>> const-generics which would syntactically look more similar to `build_as=
-sert!`.
->>
->> arg-position const generics would be great, but that's just a syntax dif=
-ference
->> and not related to supporting expressions involving const generics?
->>
->> In any case, I think my point about being closer to the final solution h=
-olds
->> regardless.
->>
->>> Personally I think most issues with `build_assert!` can be fixed by hav=
-ing
->>> lints, which is on my radar.
->>
->> I think it can be improved, but in the end it relies on compiler optimiz=
-ation
->> that may or may not happen as expected.
->
-> It'd be a compiler bug if const folding is expected to happen, the whole
-> BUILD_BUG_ON depends on it working.
->
-> `build_assert!` is a useful tool that I'm not giving up. If there is a ne=
-ed to
-> use it, then I'd use it compared to having two variants to do the same th=
-ing
-> with different syntax.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Incorrect ordering of GRF (Video Output General Register File) res=
+toration in `dw_dp_rockchip_runtime_resume` delays HPD signal visibility to=
+ the DP hardware, breaking link training.
+- [Medium] Missing system sleep callbacks prevent the device and its power =
+domain from suspending during system sleep for native DP configurations.
+--
 
-It is indeed useful and I don't want to give up on it either.
+--- Patch [13]: [PATCH v7 13/18] drm/rockchip: dw_dp: Add runtime PM suppor=
+t ---
+commit ea12bfaf9ea353b204570fe194d520aa064c1270
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-But, it is more fragile than const evaluation, so we should only use it whe=
-re
-const evaluation is not sufficient.
+drm/rockchip: dw_dp: Add runtime PM support
 
-In the case we are discussing the problem is that const expressions involvi=
-ng
-const generics are not yet supported, but in general it should be.
+Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
+DesignWare DisplayPort driver.
 
-This is different compared to e.g. read() where the syntax difference would
-actually hurt and const generics would limit flexibility, where we actually=
- rely
-on the compiler to eliminate unreachable code paths regardless of a value b=
-eing
-known at runtime only.
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index b2e817044c942..01915f7b24d59 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+[ ... ]
+> @@ -255,6 +274,34 @@ static void dw_dp_rockchip_remove(struct platform_de=
+vice *pdev)
+[ ... ]
+> +static int dw_dp_rockchip_runtime_resume(struct device *dev)
+> +{
+> +	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
+> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
+> +	int ret;
+> +
+> +	ret =3D dw_dp_runtime_resume(dp->base);
+> +	if (ret)
+> +		return ret;
+> +
+> +	regmap_write(dp->vo_grf, hpd_reg,
+> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, dp->hpd_sel) |
+> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, dp->hpd_cfg));
+
+[Severity: High]
+Does restoring the GRF state after dw_dp_runtime_resume() break link traini=
+ng?
+
+Looking at dw_dp_runtime_resume(), it initializes the hardware and sleeps
+for 110ms to debounce the HPD signal. Because the power domain was off, the
+VO GRF is in its reset state, so during this 110ms wait, the DP controller
+will see HPD as LOW.
+
+Once the GRF is finally written here, the controller sees HPD go HIGH and
+starts a new hardware debounce. Any immediate attempt to access the sink
+by the display core might fail because the DP controller still believes
+HPD is disconnected.
+
+Should the GRF state be restored before calling dw_dp_runtime_resume() so
+the hardware debounce sees the correct HPD signal?
+
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct dev_pm_ops dw_dp_pm_ops =3D {
+> +	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_r=
+esume, NULL)
+> +};
+
+[Severity: Medium]
+Will this prevent the system from entering deeper sleep states during system
+suspend?
+
+For native DP configurations, the core dw_dp driver acquires a runtime PM
+reference in dw_dp_bind() and holds it indefinitely for Hot-Plug Detect
+purposes. During system suspend (S3), since dw_dp_pm_ops is defined using
+only RUNTIME_PM_OPS without system sleep callbacks, the PM core won't force
+the device into a suspended state.
+
+This means the generic PM domain might see the device as active and refuse
+to power off the domain. Should system sleep callbacks be added to handle
+this?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
+w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D13
