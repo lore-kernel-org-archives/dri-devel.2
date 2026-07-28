@@ -4,50 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31966C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 17:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99D0DC54F55
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 17:40:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D6BC10E547;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4AA8E10E97C;
 	Tue, 28 Jul 2026 17:40:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="D/AfTC/0";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Nu7/gU3B";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 413C810E974
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 491E310E97C
  for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 17:40:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1785260446;
- bh=yOYlvkVc1eBUyxl5pSQRrhXqtYPM9HzCSbokrdQbUlw=;
- h=From:Subject:Date:To:Cc:From;
- b=D/AfTC/0lwe6J5yzNwwAbZwMpgN6l37tfmo+EfAUmKT0M21oDXZ9OLt5800MHHEns
- 06h8fylT2YyxIPBG52OXP1y6mFC49FI5XyU6rHMI05RE/MAJgwjZ99EJahtsk7tU1Z
- g0T1lWT14IREZLUUDjDA58zx/YBtgHFJ6rLw3+cUGiY8E2I/GjsFydTQ+ZrKnJ3jQ8
- NyF/o73RF8OE1wVeJJCgGQMFIn0L7E8Qe++4y7pukerKnlqVVM6wkbRtOqyxjROhiA
- h1OnCoYDxPmb0/8RCuHfJ5JD3OBx6wmFIq12pK7cbldMecNNXkjN5Qbu1eS8rY3/wV
- a0/vAKGRGgxTQ==
+ bh=s3y9UJW5vjY/F9vnsKUWN91co8P1mxjq0gKYAdPfQJ0=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=Nu7/gU3B6qnsPCrx05Nge7eKo24p/jHZDn11WZ2dEt03mIm3iUaW1EMxeE7CPHviI
+ M02TpPC8jhvr8xKdc3HaXf9PKGe1vtw0KU5Cy1EnphLnm1PMT8gIfJUVwRdphasvFN
+ Gs5ZmJdGkipBiP3Ak4VvXKtl2JYyvOyk26MwHcSF6Pwlt5NAhStyNJIYQGY69hu35B
+ bcK/O4WGTCi/+O3OdWXrmSZtiQXmDMzQQeTMDzXkUc8WVtwjC74ZY2i86yhlEcoelb
+ G4nAADvKp6xnsCLps0HCGXfzfcyCvcdlt8xrOy5TJVHwTTm+BWNoA/CRkxK9JSX5oW
+ h4QI8aUfobSdA==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 580F717E06FF;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 5576C17E028D;
  Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 0A366480029; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
+ id 0BB6E480028; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: [PATCH v7 00/18] Synopsys DisplayPort Controller improvements for
- Rockchip platforms
-Date: Tue, 28 Jul 2026 19:40:36 +0200
-Message-Id: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
+Date: Tue, 28 Jul 2026 19:40:37 +0200
+Subject: [PATCH v7 01/18] drm/bridge: synopsys: dw-dp: Fix incorrect
+ resource lifetimes in bind callback
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5XOwWrDMAyA4VcpPs/DVmQ77mnvMXZwbWU1tHGwS
- 7ZQ8u5zCiNjhIwdfyE+6c4K5UiFHQ93lmmMJaa+hnk6MH92/TvxGGozEKBFA4qXqU9DmQoPHzw
- MPF6HnEa6Un8r3AQHZNvQyRBYFYZMXfx86K9vtc+x3FKeHsdGuUy/Xb3rjpILroRs0UoNYMWLT
- 5eLO6Xsnn26ssUeYfXq6r4H1QuGTKdPzhvTbXnN6mkJ+16zeF5L0o0CJdotD1fPwB//YfU60aF
- DCmQkbHnqp4f7nqqeRVQeqDWIcsvT//B09QTKYK2T1iP99uZ5/gKXtQOpWgIAAA==
-X-Change-ID: 20260325-synopsys-dw-dp-improvements-7da2e98df1dd
+Message-Id: <20260728-synopsys-dw-dp-improvements-v7-1-b7640fa8cf48@collabora.com>
+References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
+In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
  =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
  Andy Yan <andy.yan@rock-chips.com>, 
@@ -69,24 +65,23 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9807;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9419;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=yOYlvkVc1eBUyxl5pSQRrhXqtYPM9HzCSbokrdQbUlw=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z1yJI0vrg/aDtlJn8KCxpSSAAMuvYIJX
- 8b105R+FHXj24kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
- O/qasJQP/26m6Kqc55TDEAIUPaNMgaqc8tLCNTxnre04YSTmQE2VSIRZzQEF446+RepFrYHLOyL
- QSgkcZx+mijBSRQer9ZT8VsbcGdbfOfQ7KGQ/8Bl9GEN8NAP9ah2yNiMl5BdDUEeHhPn64NQANW
- nSxctNfwClnHKAqmg0Y2asZ8xxIdMnbxSO97rCy1bQsJ/3WOhB2k3Glxja6sQdkbX66EHIYaPxK
- lLtpbUbeKmfEYahn2S8r5rXv2me7XovYRCOBdJSHlVvUtzJ6zoopidoFMh3t1vneWUzjirTNWTK
- qtzFW121U0QR7PMHcnlK1EYr10KDRnmTdWkgxnClKBWh2FfcnZkW6ow0cfPHX22dck4nmtfPkHG
- hUaRLFDpVZwdtCWcg+FULmwOjQ0OMogN8LEw2CWLeqL+IEae3rYhij2YRJeza841CdMtzymuh+B
- zpe+k3qQAxtxMU170+yEdyUFGuKJXsdq1S2/HOrw+ApMMIn62ZI/4zAhtiUg53iDIAdvIJGwoU+
- bOIpVpcsajaLNJM1RtCH3VQ2rDV07BB3G1VDvg0uTbZ+3uCgmuKFeh1cIzxCyZ0yZYoT3YGyv4M
- rOGmmjG0gL1eP/vClJEfsAWrMXZ9/fqu0a17+R1TFqLHDpF4ZTXybzvyvt5IaZ+HvATVYVmqT49
- q8RbMksVPKqnH8onRXQkuYw==
+ bh=s3y9UJW5vjY/F9vnsKUWN91co8P1mxjq0gKYAdPfQJ0=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z1fViPg6+W+eShivLIGFmnr1hSp10d4l
+ 2caER08FquP1YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
+ O/qaGLwP/2Xeo0Joq4I105cnfpusOv0OSZKKPup3HOEAMva9qQ/4cr7edzY7ieW4XzSlYvzvhiS
+ +Iv01uZ2dJZG77g+9nMnAbPxt/5PugZgCfkUXlk1TGeuls+pGEUKMvF9LWa1/+ZgVlgJ6lrdBPc
+ ubbKod9Q6Czr7llc6zalATCQvEl6caQ+LCaC1K+vVOcIO4zzAusBNSufbVUt8r+0sYNAKeXo85g
+ CM9AJihHr05DwoVyXj0nDl5WQo88LscWPBVOB0C+G19+CoWWAhTqZC1q2iX+jSrzDfrzsa0iRCX
+ cbLWLYy+QUGMx/ZUsCjYEuJ8l2vGlKrYSB3CmckRHL7ylnG3IhVXpJwmXHm/t20m33hVkzUOhPL
+ ky9bl4tbEFGed9SbZ4zCKN7k1PPFuPEo+TzKVqn2pzrREEGHt974NuPiJRIS+wX2XoRLAZzmwqP
+ 756nwAyygV32yOhVIQXnNdtYnXiIZF/Yp+5CCAwbx954oNcmkILCNJOvR+lcF0f/dgCQI1s2/k+
+ X8OXlvP66ixm/rrd2N3QTn2FzTYRbbzKc9UNNMb5xSCzUbCtIhYM25z87vmsFOL6juVuiB2h6pE
+ g7s6EdSYUaqG1VKa32Xpsll4WmgDAdkA7rNhN3B6cWXNoDHKrVzYI7JQl3UwDlz8IRLjUrmJgLc
+ 9+4U6Fzpq4WWRFxqs1UMx+A==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -104,186 +99,305 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series updates the Synopsys Designware DisplayPort bridge
-together with the only existing user: The Rockchip RK3576/RK3588:
+Currently the Synopsys DesignWare DP controller driver's bind function
+requests lots of resources using device managed functions. These are
+free'd on driver removal instead of at unbind time. Fix this discrepancy
+by introducing a new probe helper function and moving over most of the
+early resource acquisitions.
 
- 1. Follow-up bridges (PHY, USB-C connector)
-    This is needed to get USB-C DP AltMode working; I've followed
-    the Qualcomm driver as reference
-
- 2. Runtime PM
-    The initial driver has been upstreamed without RPM; add it to
-    avoid wasting power when nothing is plugged
-
- 3. Audio
-    The initial driver has been upstreamed without audio support;
-    this adds all missing bits for audio with single stream transport
-
-To properly make use of the bridge code the following USBDP PHY series
-is also needed:
-
-https://lore.kernel.org/all/20260714-rockchip-usbdp-cleanup-v13-0-6cb3e769d4c5@collabora.com/
-
-This series can be applied without the USBDP side. In that case USB-C
-support won't work as the mainline USBDP side does not register as a
-DRM bridge. As upstream DT binding for USBDP does not yet support
-proper ports, no such board should be upstream.
-
-Boards using the DP controller for native DP connectors (or HDMI
-bridges), currently directly link to the connector/hdmi bridge. These
-are not affected by the USBDP changes and should keep working in any
-case. The difference is, that this series the DRM side is aware of the
-link. I don't have any of those boards, so this code path is untested.
-
-I added a dedicated bridge callback for out-of-band hotplug events,
-which is separate from the hotplug_notify. I have a feeling, that
-there might be a better solution, but haven't found it. Please comment.
-
-Changes in v7:
-- Link to v6: https://lore.kernel.org/r/20260724-synopsys-dw-dp-improvements-v6-0-041d99a19c4e@collabora.com
-- Move drm_bridge_add() to probe and only attach it in the bind
-  function, as the object is re-used and not fully cleared by
-  drm_bridge_remove (Sashiko)
-- Add a new patch resetting the DP AUX sub-controller on message
-  timeout to have decent error recovery (Sashiko)
-- Fix dp_dp_rockchip_get_vo_grf -> dw_dp_rockchip_get_vo_grf (Sashiko)
-- Introduce pm_active in the PM runtime patch, to early exit
-  on atomic_disable when atomic_enable failed to get runtime
-  PM enabled (Sashiko)
-- Introduce drm_bound in the PM runtime patch, which is (un)set
-  when the driver is bound to a DRM encoder and used to enable
-  IRQ enabling in the runtime PM handlers. This in turn protects
-  the system of potential spurious interrupts. (Sashiko)
-- In the audio patch, fix support for hotplug with a running
-  audio stream. (Sashiko)
-- To avoid further blowing up the series, I've decided not to
-  act on these "pre-existing" issues reported by Sashiko. I
-  think it makes sense to handle them separately:
-    * Short HPD and Long HPD events share a single boolean state
-      variable, causing critical hot plug events to be lost if
-      interrupts arrive in quick succession.
-    * DP AUX lifetime complains (registered too early / unregistered
-      too late); reported multiple times
-    * The driver fails to support DP AUX short reads, incorrectly
-      rejecting them with -EBUSY instead of returning the number
-      of bytes successfully transferred, which breaks I2C-over-AUX.
-- Collected Reviewed-by from Krzysztof Kozlowski on the
-  DT binding patch
-
-Changes in v6:
-- Link to v5: https://lore.kernel.org/r/20260724-synopsys-dw-dp-improvements-v5-0-9445c2e87441@collabora.com
-- Fix overlong commit message in mutex patch
-- Update MEDIA_BUS_FMT_FIXED patch, to use input format as output format
-  when output format is MEDIA_BUS_FMT_FIXED (Sashiko)
-- Drop patch moving dw_dp_bridge_atomic_get_output_bus_fmts (no longer
-  needed)
-- Reword the comment about platforms other than RK3576 and RK3588
-  shouldn't get the VO GRF from the USBDP to make it more obvious
-  that no such platform exist at the moment and thus the alternative
-  path will not be implemented at this point in time (Sashiko)
-- Update the runtime PM code to have much better error handling
-  as well as support for platforms not using runtime PM (Sashiko)
-- Update the runtime PM code to keep the device suspended when
-  probed, but unbound as a nice side effect
-- Fix error handling for dw_dp_audio_infoframe_send() in audio
-  patch (Sashiko)
-- Fix typo in sample width check in audio patch (Sashiko)
-- Improve cleanup of SDP in audio patch (Sashiko)
-
-Changes in v5:
-- Link to v4: https://lore.kernel.org/r/20260721-synopsys-dw-dp-improvements-v4-0-f0f4a4ede712@collabora.com
-- Add new patch to cancel pending HPD work on unbind (Sashiko)
-- Add new patch to add missing mutex cleanups on module removal (Sashiko)
-- Add new patch moving dw_dp_bridge_atomic_get_output_bus_fmts
-- Update MEDIA_BUS_FMT_FIXED patch to avoid fixed RGB888 format
-  and instead use whatever works for the negotiated bandwidth (Sashiko)
-- Add more error checking for runtime PM patches (Sashiko)
-- Ensure runtime PM is held in interrupt handler (Sashiko)
-- Fix usbc_mode logic inversion for runtime PM in unbind (Sashiko)
-- Move sleep for HPD_HOT_PLUG from hotplug handler to runtime
-  resume function; no need to sleep when runtime PM is kept
-  active and runtime PM resume is a slow operation anyways. (Sashiko)
-- Add new patch to protect sdp_reg_bank from concurrent access (Sashiko)
-- Add new patch to use regmap_set_bits in dw_dp_send_sdp()
-- Update DT binding patch to be all about the selected solution and
-  mention the ABI break
-- Clear SDP in the audio patch on unprepare (Sashiko)
-- Add a comment, that only 1,2 or 8 channels are supported (Sashiko)
-- Error out on unsupported sample_width (Sashiko)
-- Fix missing error check for clock enable (Sashiko)
-
-Changes in PATCHv4:
- - Link to v3: https://lore.kernel.org/all/20260612-synopsys-dw-dp-improvements-v3-0-dc61e6352508@collabora.com/
- - Drop "Simplify driver data setting" (effectively reverted later on)
- - Add "Fix incorrect resource lifetimes in bind callback", which
-   affects all following patches quite a bit (Sashiko)
- - Update "Add follow-up bridge support" to mention that fatal errors
-   are fine (Sashiko)
- - Update "Add out-of-band HPD notify handler" to use
-   drm_for_each_bridge_in_chain() instead of
-   drm_for_each_bridge_in_chain_scoped() required after rebase to
-   latest drm-misc-next
- - Add 100ms sleep in hpd detect functions after runtime resume in the
-   "Add Runtime PM support" patch (Andy Yan)
- - Keep runtime PM enabled if DP is used without USB-C to avoid missing
-   HPD signals in "Add Runtime PM support" patch (Andy Yan)
- - Update patch description of DT binding patch and drop RFC tag
- - Use pm_runtime_resume_and_get() in the audio startup function, which
-   allows easy error handling (Sashiko)
- - Avoid updating audio_interface in the audio prepare function when
-   an error related early exit happens (Sashiko)
- - Add error handling for clock prepare calls in audio prepare function
-   (Sashiko)
-
-Changes in PATCHv3:
-- Link to v2: https://lore.kernel.org/r/20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com
-- Collect Reviewed-by on "Simplify driver data setting" patch (Andy Yan)
-- Use of_drm_get_bridge_by_endpoint instead of devm_drm_of_get_bridge (Luca Ceresoli)
-- Use FIELD_PREP_WM16 instead of FIELD_PREP_WM16_CONST (Chaoyi Chen)
-- Rebase to latest drm-misc-next (Dropped Cristian's patches)
-
-Changes in PATCHv2:
- * Link to v1: https://lore.kernel.org/r/20260326-synopsys-dw-dp-improvements-v1-0-501849162290@collabora.com
- * rebased to latest drm-misc-next
- * prepended the Patches from Cristian's cleanup series, as they also
-   needed a rebase and should be merged first
-   https://lore.kernel.org/dri-devel/20260327-drm-rk-fixes-v3-0-fd2e6900c08c@collabora.com/
- * fix issue with the audio stream (un)prepare handling in last patch
-
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
-Sebastian Reichel (18):
-      drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callback
-      drm/bridge: synopsys: dw-dp: Cancel pending HPD work on unbind
-      drm/bridge: synopsys: dw-dp: Add missing mutex cleanups on module removal
-      drm/bridge: synopsys: dw-dp: Add missing reinit_completion
-      drm/bridge: synopsys: dw-dp: Reset AUX channel on transfer timeout
-      drm/bridge: synopsys: dw-dp: Free output_fmts when none are valid
-      drm/bridge: synopsys: dw-dp: Support MEDIA_BUS_FMT_FIXED
-      drm/bridge: synopsys: dw-dp: Add follow-up bridge support
-      drm/bridge: Add out-of-band HPD notify handler
-      drm/bridge: synopsys: dw-dp: Support software triggered OOB HPD
-      drm/rockchip: dw_dp: Implement out-of-band HPD handling
-      drm/bridge: synopsys: dw-dp: Add Runtime PM support
-      drm/rockchip: dw_dp: Add runtime PM support
-      drm/bridge: synopsys: dw-dp: Protect sdp_reg_bank from concurrent access
-      drm/bridge: synopsys: dw-dp: Use regmap_set_bits in dw_dp_send_sdp
-      dt-bindings: display: rockchip: dw-dp: Fix sound DAI cells
-      drm/bridge: synopsys: dw-dp: Clear only enabled SDPs on atomic disable
-      drm/bridge: synopsys: dw-dp: Add audio support
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c   | 121 +++++++++++++++---------------
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c |  53 +++++++------
+ include/drm/bridge/dw_dp.h                |   5 +-
+ 3 files changed, 94 insertions(+), 85 deletions(-)
 
- .../bindings/display/rockchip/rockchip,dw-dp.yaml  |   9 +-
- drivers/gpu/drm/bridge/synopsys/dw-dp.c            | 684 ++++++++++++++++++---
- drivers/gpu/drm/display/drm_bridge_connector.c     |   6 +
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c          | 219 ++++++-
- include/drm/bridge/dw_dp.h                         |  11 +-
- include/drm/drm_bridge.h                           |  14 +
- 6 files changed, 840 insertions(+), 103 deletions(-)
----
-base-commit: df0311845915442ab75d03ee89fb443b444c1370
-change-id: 20260325-synopsys-dw-dp-improvements-7da2e98df1dd
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 3445c82e6f50..67d9cd0bf5fd 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1954,20 +1954,59 @@ static const struct regmap_config dw_dp_regmap_config = {
+ 	.rd_table = &dw_dp_readable_table,
+ };
+ 
+-static void dw_dp_phy_exit(void *data)
++int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+ {
+-	struct dw_dp *dp = data;
++	struct device *dev = dp->dev;
++	struct drm_bridge *bridge = &dp->bridge;
++	int ret;
++
++	dp->aux.dev = dev;
++	dp->aux.drm_dev = encoder->dev;
++	dp->aux.name = dev_name(dev);
++	dp->aux.transfer = dw_dp_aux_transfer;
++	ret = drm_dp_aux_register(&dp->aux);
++	if (ret)
++		return dev_err_probe(dev, ret, "Aux register failed\n");
++
++	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	if (ret) {
++		dev_err_probe(dev, ret, "Failed to attach bridge\n");
++		goto unregister_aux;
++	}
++
++	dw_dp_init_hw(dp);
+ 
++	ret = phy_init(dp->phy);
++	if (ret) {
++		dev_err_probe(dev, ret, "phy init failed\n");
++		goto unregister_aux;
++	}
++
++	enable_irq(dp->irq);
++
++	return 0;
++
++unregister_aux:
++	drm_dp_aux_unregister(&dp->aux);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(dw_dp_bind);
++
++void dw_dp_unbind(struct dw_dp *dp)
++{
++	disable_irq(dp->irq);
+ 	phy_exit(dp->phy);
++	drm_dp_aux_unregister(&dp->aux);
+ }
++EXPORT_SYMBOL_GPL(dw_dp_unbind);
+ 
+-struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+-			 const struct dw_dp_plat_data *plat_data)
++struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	struct dw_dp *dp;
++	struct device *dev = &pdev->dev;
+ 	struct drm_bridge *bridge;
+ 	void __iomem *res;
++	struct dw_dp *dp;
+ 	int ret;
+ 
+ 	dp = devm_drm_bridge_alloc(dev, struct dw_dp, bridge, &dw_dp_bridge_funcs);
+@@ -1976,9 +2015,18 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 
+ 	dp->dev = dev;
+ 	dp->pixel_mode = plat_data->pixel_mode;
+-
+ 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
++
+ 	bridge = &dp->bridge;
++	bridge->of_node = dev->of_node;
++	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
++	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
++	bridge->ycbcr_420_allowed = true;
++
++	ret = devm_drm_bridge_add(dev, bridge);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	mutex_init(&dp->irq_lock);
+ 	INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
+ 	init_completion(&dp->complete);
+@@ -2035,69 +2083,20 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 		return ERR_CAST(dp->rstc);
+ 	}
+ 
+-	bridge->of_node = dev->of_node;
+-	bridge->ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_OP_HPD;
+-	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
+-	bridge->ycbcr_420_allowed = true;
+-
+-	ret = devm_drm_bridge_add(dev, bridge);
+-	if (ret)
+-		return ERR_PTR(ret);
+-
+-	dp->aux.dev = dev;
+-	dp->aux.drm_dev = encoder->dev;
+-	dp->aux.name = dev_name(dev);
+-	dp->aux.transfer = dw_dp_aux_transfer;
+-	ret = drm_dp_aux_register(&dp->aux);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "Aux register failed\n");
+-		return ERR_PTR(ret);
+-	}
+-
+-	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "Failed to attach bridge\n");
+-		goto unregister_aux;
+-	}
+-
+-	dw_dp_init_hw(dp);
+-
+-	ret = phy_init(dp->phy);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "phy init failed\n");
+-		goto unregister_aux;
+-	}
+-
+-	ret = devm_add_action_or_reset(dev, dw_dp_phy_exit, dp);
+-	if (ret)
+-		goto unregister_aux;
+-
+ 	dp->irq = platform_get_irq(pdev, 0);
+-	if (dp->irq < 0) {
+-		ret = dp->irq;
+-		goto unregister_aux;
+-	}
++	if (dp->irq < 0)
++		return ERR_PTR(dp->irq);
+ 
+ 	ret = devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
+-					IRQF_ONESHOT, dev_name(dev), dp);
++					IRQF_ONESHOT | IRQF_NO_AUTOEN, dev_name(dev), dp);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "failed to request irq\n");
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	return dp;
+-
+-unregister_aux:
+-	drm_dp_aux_unregister(&dp->aux);
+-	return ERR_PTR(ret);
+-}
+-EXPORT_SYMBOL_GPL(dw_dp_bind);
+-
+-void dw_dp_unbind(struct dw_dp *dp)
+-{
+-	drm_dp_aux_unregister(&dp->aux);
+ }
+-EXPORT_SYMBOL_GPL(dw_dp_unbind);
++EXPORT_SYMBOL_GPL(dw_dp_probe);
+ 
+ MODULE_AUTHOR("Andy Yan <andyshrk@163.com>");
+ MODULE_DESCRIPTION("DW DP Core Library");
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index b23efb153c9e..005938dc66c9 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -26,7 +26,7 @@
+ struct rockchip_dw_dp {
+ 	struct dw_dp *base;
+ 	struct device *dev;
+-	struct rockchip_encoder encoder;
++	struct rockchip_encoder *encoder;
+ };
+ 
+ static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
+@@ -73,37 +73,28 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
+ 
+ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
+ {
+-	struct platform_device *pdev = to_platform_device(dev);
+-	const struct dw_dp_plat_data *plat_data;
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
+ 	struct drm_device *drm_dev = data;
+-	struct rockchip_dw_dp *dp;
+ 	struct drm_encoder *encoder;
+ 	struct drm_connector *connector;
+ 	int ret;
+ 
+-	dp = drmm_kzalloc(drm_dev, sizeof(*dp), GFP_KERNEL);
+-	if (!dp)
++	dp->encoder = drmm_kzalloc(drm_dev, sizeof(*dp->encoder), GFP_KERNEL);
++	if (!dp->encoder)
+ 		return -ENOMEM;
+ 
+-	dp->dev = dev;
+-	platform_set_drvdata(pdev, dp);
+-
+-	plat_data = of_device_get_match_data(dev);
+-	if (!plat_data)
+-		return -ENODEV;
+-
+-	encoder = &dp->encoder.encoder;
++	encoder = &dp->encoder->encoder;
+ 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev, dev->of_node);
+-	rockchip_drm_encoder_set_crtc_endpoint_id(&dp->encoder, dev->of_node, 0, 0);
++	rockchip_drm_encoder_set_crtc_endpoint_id(dp->encoder, dev->of_node, 0, 0);
+ 
+ 	ret = drmm_encoder_init(drm_dev, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
+ 	if (ret)
+ 		return ret;
+ 	drm_encoder_helper_add(encoder, &dw_dp_encoder_helper_funcs);
+ 
+-	dp->base = dw_dp_bind(dev, encoder, plat_data);
+-	if (IS_ERR(dp->base))
+-		return PTR_ERR(dp->base);
++	ret = dw_dp_bind(dp->base, encoder);
++	if (ret)
++		return ret;
+ 
+ 	connector = drm_bridge_connector_init(drm_dev, encoder);
+ 	if (IS_ERR(connector)) {
+@@ -128,12 +119,30 @@ static const struct component_ops dw_dp_rockchip_component_ops = {
+ 	.unbind = dw_dp_rockchip_unbind,
+ };
+ 
+-static int dw_dp_probe(struct platform_device *pdev)
++static int dw_dp_rockchip_probe(struct platform_device *pdev)
+ {
++	const struct dw_dp_plat_data *plat_data;
++	struct device *dev = &pdev->dev;
++	struct rockchip_dw_dp *dp;
++
++	plat_data = of_device_get_match_data(dev);
++	if (!plat_data)
++		return -ENODEV;
++
++	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
++	if (!dp)
++		return -ENOMEM;
++	platform_set_drvdata(pdev, dp);
++	dp->dev = dev;
++
++	dp->base = dw_dp_probe(pdev, plat_data);
++	if (IS_ERR(dp->base))
++		return PTR_ERR(dp->base);
++
+ 	return component_add(&pdev->dev, &dw_dp_rockchip_component_ops);
+ }
+ 
+-static void dw_dp_remove(struct platform_device *pdev)
++static void dw_dp_rockchip_remove(struct platform_device *pdev)
+ {
+ 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
+ }
+@@ -161,8 +170,8 @@ static const struct of_device_id dw_dp_of_match[] = {
+ MODULE_DEVICE_TABLE(of, dw_dp_of_match);
+ 
+ struct platform_driver dw_dp_driver = {
+-	.probe	= dw_dp_probe,
+-	.remove = dw_dp_remove,
++	.probe	= dw_dp_rockchip_probe,
++	.remove = dw_dp_rockchip_remove,
+ 	.driver = {
+ 		.name = "dw-dp",
+ 		.of_match_table = dw_dp_of_match,
+diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
+index 22105c3e8e4d..a82412a9e769 100644
+--- a/include/drm/bridge/dw_dp.h
++++ b/include/drm/bridge/dw_dp.h
+@@ -22,7 +22,8 @@ struct dw_dp_plat_data {
+ 	u8 pixel_mode;
+ };
+ 
+-struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+-			 const struct dw_dp_plat_data *plat_data);
++int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder);
+ void dw_dp_unbind(struct dw_dp *dp);
++
++struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data);
+ #endif /* __DW_DP__ */
 
-Best regards,
---  
-Sebastian Reichel <sebastian.reichel@collabora.com>
+-- 
+2.53.0
 
