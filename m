@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB7AAC54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 12:44:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD8BCC54F52
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 12:45:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A40F10E2A4;
-	Tue, 28 Jul 2026 12:44:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 45A9B10E8C7;
+	Tue, 28 Jul 2026 12:45:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="m1+S8pl5";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="YvmLjE8E";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 33CBA10E8C9;
- Tue, 28 Jul 2026 12:44:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BB49210E8CB;
+ Tue, 28 Jul 2026 12:44:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785242694; x=1816778694;
+ t=1785242697; x=1816778697;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=WhxeAqGs+63xVRuXzDaIbBkxmvPuHNu7Wvp/jiRmaBE=;
- b=m1+S8pl5ypcqwDeTd9jHYfJljHvY3A1844VMOU8/xs9lYFmal83hxRyD
- FaXL55vxnUHPgIf5Gw/FdGejYp/nv2gci7CiU7Wj84BkzQOOnhpLC1rkj
- SeMGKwgnlgPT1NIQDyz0YfgwYztm+rqMVKdDz8z0Qp+zvTC/8YK0TbKys
- QSaJdMsXF30FhgX3RjQk61p1xgHAty/38Hl8feL2ynSuoqgJIj0TGlFaj
- wlTV/T0FtPXGWubR/1Jot/fucGbKU0ykc8cnzZliW8hUPTUaFY6oh4eTl
- WI70Nuy6gC3TFqHSHKhOaw69M4je8edBig0FeKra83ahiF/7C9rU0c0la g==;
-X-CSE-ConnectionGUID: 4NPW+/z4T26Znpm5Q/71wQ==
-X-CSE-MsgGUID: OPTc/Z4tQgey7sIXFbV3dw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="85838497"
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="85838497"
+ bh=oJEWluF3qV0Q4ZiRpqwYVGAcF3GxkC7JAotv3fSsfbI=;
+ b=YvmLjE8EIt8oHrl4dQW2GP3bkvBn7BpFvMiINIcH9AqiPNhvP6ZmOzYB
+ 7MDX1PlEz90DHr2PZmRabXYHkbWMMY3glYR+qoSACo1OZT+JViXUZ9DDz
+ BW2sdmh01pbiSPnA0ZKvTUdgPsyiYRSubYQf8iX69ysdIOaJuGKdgrXE5
+ AoR4sKnrxCiUdcjnz5N01GqYS2eNZh1tpeQL3D2b0B+2BecJSwFeyiEkz
+ JrU9E8DbeK3TxGTS9X8abBXv6d7PFNDE5hnl+wJQZYmgmxnWf58ZRWZb+
+ mwItPunRX0/Z5taUg04KuB5XdVRQxeJOSZvY6TGzyDjdsZa0wsg1h1tgk A==;
+X-CSE-ConnectionGUID: UJMMkqvZTByEPSUBrz4YIA==
+X-CSE-MsgGUID: DJ8RkCSfRhuyppaOghZG0w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="85838501"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="85838501"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2026 05:44:54 -0700
-X-CSE-ConnectionGUID: B0AHX7V7RFOY27Vn9Tggzg==
-X-CSE-MsgGUID: RD9Ic3qGTgCGQl3qrq4TJg==
+ 28 Jul 2026 05:44:57 -0700
+X-CSE-ConnectionGUID: 49lljwgvSnKAM6kF+whyGQ==
+X-CSE-MsgGUID: qRN8/rx2QheL7T1WhlkY6Q==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="284234887"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="284234890"
 Received: from tejasupa-desk.iind.intel.com (HELO tejasupa-desk)
  ([10.190.239.37])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 28 Jul 2026 05:44:51 -0700
+ 28 Jul 2026 05:44:54 -0700
 From: Tejas Upadhyay <tejas.upadhyay@intel.com>
 To: intel-xe@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: matthew.auld@intel.com, arunpravin.paneerselvam@amd.com,
- Tejas Upadhyay <tejas.upadhyay@intel.com>,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Subject: [PATCH V3 1/2] drm/gpu: Add gpu_buddy_allocated_addr_to_block helper
-Date: Tue, 28 Jul 2026 18:14:40 +0530
-Message-ID: <20260728124438.2679542-5-tejas.upadhyay@intel.com>
+ Tejas Upadhyay <tejas.upadhyay@intel.com>
+Subject: [PATCH V3 2/2] gpu/tests/gpu_buddy: Add KUnit test for
+ gpu_buddy_allocated_addr_to_block
+Date: Tue, 28 Jul 2026 18:14:41 +0530
+Message-ID: <20260728124438.2679542-6-tejas.upadhyay@intel.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260728124438.2679542-4-tejas.upadhyay@intel.com>
 References: <20260728124438.2679542-4-tejas.upadhyay@intel.com>
@@ -71,102 +71,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add helper with primary purpose is to efficiently trace a specific
-physical memory address back to its corresponding TTM buffer object.
+Add a new KUnit test gpu_test_buddy_addr_to_block() that validates the
+gpu_buddy_allocated_addr_to_block() helper which traces a address back
+to its allocated buddy block.
 
-v3:
-- use mm->chunk_size minimum allocation granularity (Arun)
-v2:
-- %s/gpu_buddy_addr_to_block/gpu_buddy_allocated_addr_to_block(MattA)
-- remove clear->avail and split nodes check(MattA)
-- Adapt lockdep(MattB)
+The test covers:
+- Exact address matching returns the correct allocated block
+- An unallocated address inside the manager should return NULL
+- An address outside the manager should return -ENXIO
+
+v3(Sashiko):
+- remove unused target_addr variable
+v2(Sashiko):
+- Drop the mutex and lockdep annotation; standalone KUnit tests do
+  not register a driver lock.
 
 Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
-Cc: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 ---
- drivers/gpu/buddy.c       | 53 +++++++++++++++++++++++++++++++++++++++
- include/linux/gpu_buddy.h |  2 ++
- 2 files changed, 55 insertions(+)
+ drivers/gpu/tests/gpu_buddy_test.c | 41 ++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
-index 3c73ae87f3c5..a5553fcec28c 100644
---- a/drivers/gpu/buddy.c
-+++ b/drivers/gpu/buddy.c
-@@ -630,6 +630,59 @@ void gpu_buddy_free_block(struct gpu_buddy *mm,
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index 89698563c61b..21c90e96ac13 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -1422,6 +1422,46 @@ static void gpu_test_buddy_alloc_exceeds_max_order(struct kunit *test)
+ 	gpu_buddy_fini(&mm);
  }
- EXPORT_SYMBOL(gpu_buddy_free_block);
  
-+/**
-+ * gpu_buddy_allocated_addr_to_block - given relative address find the allocated block
-+ *
-+ * @mm: GPU buddy manager
-+ * @addr: Relative address
-+ *
-+ * Returns:
-+ * gpu_buddy_block on success, NULL or error code on failure
-+ */
-+struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr)
++static void gpu_test_buddy_addr_to_block(struct kunit *test)
 +{
-+	struct gpu_buddy_block *block;
-+	LIST_HEAD(dfs);
-+	u64 end;
-+	int i;
++	struct gpu_buddy_block *allocated_block, *found_block;
++	LIST_HEAD(allocated_list);
++	const u64 test_size = SZ_4M + SZ_2M;
++	const u64 alloc_start = SZ_4M;
++	const u64 alloc_size = SZ_4K;
++	const u64 chunk_size = SZ_4K;
++	struct gpu_buddy mm;
 +
-+	gpu_buddy_driver_lock_held(mm);
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, test_size, chunk_size),
++			       "buddy_init failed\n");
 +
-+	end = addr + mm->chunk_size - 1;
-+	for (i = 0; i < mm->n_roots; ++i)
-+		list_add_tail(&mm->roots[i]->tmp_link, &dfs);
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, alloc_start,
++							    alloc_start + alloc_size,
++							    alloc_size, chunk_size,
++							    &allocated_list, 0),
++			       "buddy_alloc failed\n");
 +
-+	do {
-+		u64 block_start;
-+		u64 block_end;
++	allocated_block = list_first_entry(&allocated_list, struct gpu_buddy_block, link);
++	KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(allocated_block), alloc_start);
++	KUNIT_EXPECT_EQ(test, gpu_buddy_block_size(&mm, allocated_block), alloc_size);
 +
-+		block = list_first_entry_or_null(&dfs,
-+						 struct gpu_buddy_block,
-+						 tmp_link);
-+		if (!block)
-+			break;
++	found_block = gpu_buddy_allocated_addr_to_block(&mm, alloc_start);
++	KUNIT_EXPECT_PTR_EQ(test, found_block, allocated_block);
 +
-+		list_del(&block->tmp_link);
++	/* An unallocated address inside the manager should return NULL. */
++	found_block = gpu_buddy_allocated_addr_to_block(&mm,
++							alloc_start - chunk_size);
++	KUNIT_EXPECT_NULL(test, found_block);
 +
-+		block_start = gpu_buddy_block_offset(block);
-+		block_end = block_start + gpu_buddy_block_size(mm, block) - 1;
++	/* An address outside the manager should return -ENXIO. */
++	found_block = gpu_buddy_allocated_addr_to_block(&mm, test_size);
++	KUNIT_EXPECT_EQ(test, PTR_ERR(found_block), -ENXIO);
 +
-+		if (!overlaps(addr, end, block_start, block_end))
-+			continue;
-+
-+		if (gpu_buddy_block_is_allocated(block))
-+			return block;
-+		else if (gpu_buddy_block_is_free(block))
-+			return NULL;
-+
-+		list_add(&block->right->tmp_link, &dfs);
-+		list_add(&block->left->tmp_link, &dfs);
-+	} while (1);
-+
-+	return ERR_PTR(-ENXIO);
++	/* 3. Standard inline cleanup flow */
++	gpu_buddy_free_list(&mm, &allocated_list, 0);
++	gpu_buddy_fini(&mm);
 +}
-+EXPORT_SYMBOL(gpu_buddy_allocated_addr_to_block);
 +
- static void __gpu_buddy_free_list(struct gpu_buddy *mm,
- 				  struct list_head *objects,
- 				  bool mark_clear,
-diff --git a/include/linux/gpu_buddy.h b/include/linux/gpu_buddy.h
-index e037714563d8..2c36124bb696 100644
---- a/include/linux/gpu_buddy.h
-+++ b/include/linux/gpu_buddy.h
-@@ -287,6 +287,8 @@ void gpu_buddy_reset_clear(struct gpu_buddy *mm, bool is_clear);
+ static int gpu_buddy_suite_init(struct kunit_suite *suite)
+ {
+ 	while (!random_seed)
+@@ -1446,6 +1486,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+ 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+ 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
++	KUNIT_CASE(gpu_test_buddy_addr_to_block),
+ 	{}
+ };
  
- void gpu_buddy_free_block(struct gpu_buddy *mm, struct gpu_buddy_block *block);
- 
-+struct gpu_buddy_block *gpu_buddy_allocated_addr_to_block(struct gpu_buddy *mm, u64 addr);
-+
- void gpu_buddy_free_list(struct gpu_buddy *mm,
- 			 struct list_head *objects,
- 			 unsigned int flags);
 -- 
 2.52.0
 
