@@ -4,130 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C82FC54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:10:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8AEEAC54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AECAD10E4BA;
-	Tue, 28 Jul 2026 07:10:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2403B10E6EE;
+	Tue, 28 Jul 2026 07:21:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="gLLBNyM4";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CpJ95F6Y";
+	dkim=pass (1024-bit key; unprotected) header.d=ugreen.com header.i=@ugreen.com header.b="JGc2T21h";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 925C410E4BA
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 07:10:54 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66S3aXPL1303438
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 07:10:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=HmWG3QTmOnBSsr7ji3RsIoKz
- XkevaF/neS5MK/vu+co=; b=gLLBNyM488Sns2hlx6jFPKHgZvpN2pYKoAJ2SBQQ
- Qa6jVXobvr8IU9/q5KCJlifxnGvSpcQhMAejnB6eFB1pvhSCPGiSn+fUGoxzQPT2
- ekCl7udLoA2iK90njQB2rUZfEu2fEBYAx4s3lS018CPEwLOjpwLhjY9lOzEeg2b8
- tQupFcU5HadQLWcLRacwOZBPTplwwN+1w56DgiYAgLLvAd/tCkVjslD7mvWxRdZ1
- Op1Vz0TBbQbRxhKxQjaHlyLkhkAWdo9MW68hrTsYmUgk4bxJkuPfM0lBiH9C4kwS
- U1e7ewvQVVFzdXMGG5li0kTjKNlRmFc/CuOkcwBI1gTlqw==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpbp8b1da-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 07:10:53 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-8484ba00601so4031054b3a.1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 00:10:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785222653; x=1785827453;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=HmWG3QTmOnBSsr7ji3RsIoKzXkevaF/neS5MK/vu+co=;
- b=CpJ95F6YHH7Azw0kQTTyqPnOzLMY5gd8y2VQXrstk0YkbHEF43Dy2bsonFcGU+BKnR
- PvP/FXDcHGVFTIyxuQNIeKLBabVM4dwgo1eN2+4V69CNjLEIGZjrWoo3V8Hpgw7q4+4h
- ozEnV3yWBGrsuaGxLcR9X6h8wb9YhL4myy0ELdOzYCzxczytm1Iuk2gqniQ1GEzD7tmw
- A0gffN7wODNMuXrzcuvz4soRUV8VNCcTXoIc01LUrULW3XCqtlK0AaYYUGYXWN4FhRKS
- jTesGG7NeXwu7oslHGow67/vExqioNa9rlWDfAkAZKqI0J/Fy3Cwdv1Xk9VLxIMs9g07
- fVcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785222653; x=1785827453;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HmWG3QTmOnBSsr7ji3RsIoKzXkevaF/neS5MK/vu+co=;
- b=QxIUjLCQc/pi8FaLzyFz3bwbxk+CWiaWHwjsqyVkEeVCos4WFlRiQkm/R1iXK2GQ0h
- OLH2uC4uNFylfeDUUDgB1q5AWYESko6q91xvWgZT4PY8isJUymXAYa3nx616sDjNZYnO
- MLwv46J97MXj2HjCgv6O7OGgZz6MbD11Wt1QBqtLspSbOKarxpwNHxwPDICfXpaDUZJk
- litjCXycpaTOCnbMykkgKZ49SWPXrqFeUoi7M57FO6aJ0+mN4vDgY4vTAvBSt0/LY4rv
- wcuJr4lU03LERnOeX3JL8HMMQUQWw0dBQceAvfZOCe5zmHDTPWZK1rZcgUkvnS3bGm49
- l1Mw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr3bgTHr+TCrbowyZnCfrp0TluiBT4JQM3qXN8wlDBXoZ+i4AkVdCGvD0DRkn40mPj38zc4OppUPnc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YznxoBZGwxvXYI7hfCT7Qp8mIzATW+YPPbR94z8d4uqHhZPUyUO
- O/AD5NTOlG/JDcwuotjfjmCh1Pe8KaB+JXbDv3peESTOAOCJ4sEkPGWWdFvvEQ5kQruhNlmL24C
- SaK0fk6ZGNqpJ8qgfsyWnE6yQGekPXjAhuELdTRVV4i42+Wetpo91C2Ajoq9UpJqCfwvD9Vc=
-X-Gm-Gg: AR+sD12fIwxgAfWulacjX+hEjzx8czPg4LbubgGJdXG3lHbPU/TaLUryJ601xHbqaa7
- XyfwUmFlhPT9QFXfrd4MzHatu3N5lTnae6vIZX4JD4jzMvqyHO7wyRFePdY4i46SloZpqKdI15h
- VTm+hba0eN9MGOR1+mPcqB98vZ9WtrnReTnIJz2PUKm4fiFqvQT1BYpNkoK5guGXos2eQXqAPAb
- HCnSfHiVSbdBvUlx29Ttcn2HB2mPbjxXL15r8VPB2HQvWpOqtR9t2gLMudnHvojRwE4sMa2Ta+h
- SUgiPzH4wQcI1FWzqYqNw3YvktDjd+mEKsfVJoZbq7s4Oy/ofyFiaKXNedZfZqzTImeyQ2ebQYh
- Gok3FiphkWbg2v4aElxxf3VaZN69vIEgiX3EJY+vGrlQ=
-X-Received: by 2002:a05:6a00:3c84:b0:848:6dd1:8195 with SMTP id
- d2e1a72fcca58-84e9332af58mr1188307b3a.34.1785222653231; 
- Tue, 28 Jul 2026 00:10:53 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3c84:b0:848:6dd1:8195 with SMTP id
- d2e1a72fcca58-84e9332af58mr1188280b3a.34.1785222652756; 
- Tue, 28 Jul 2026 00:10:52 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e533d13f0sm3980391b3a.35.2026.07.28.00.10.49
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2026 00:10:52 -0700 (PDT)
-Date: Tue, 28 Jul 2026 15:10:47 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] misc: fastrpc: Ignore unsolicited DSP response sentinel
-Message-ID: <amhV90DXoo7l8XUD@QCOM-aGQu4IUr3Y>
-References: <20260727130940.577721-1-shengchao.guo@oss.qualcomm.com>
- <3a83e00a-9e4c-4411-b554-1edb9d02c799@oss.qualcomm.com>
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A788610E52A;
+ Tue, 28 Jul 2026 06:18:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
+ s=pkvm2402; t=1785219454;
+ bh=IKr/xBiap9QPDPCSVpn98P0/Z/fzgZ4/NfU/RLKVtCc=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=JGc2T21hWsZTe9sKmr9UTziWlturj7SmsB8oM2o0f5XJZo2CRlvhsjgkAyzFMPiQY
+ 6wcTB7dCgJI4TemJh18pQ02x8k41FsrWEv7lPsZ9xafrOuVsSrhLP7WQ+AmyquimDE
+ 5ETZ5D0mpc//WoduIuDbCH0wZ9NCHMah5dVXj3AE=
+X-QQ-mid: zesmtpsz7t1785219446t70fee9d6
+X-QQ-Originating-IP: p8L3zlY7hvQavcP/y5EST1VwZSbwTEWUR43h+3UjyqY=
+Received: from localhost.localdomain ( [113.90.157.158])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 28 Jul 2026 14:16:55 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 11062680780444015281
+From: Neil Zhong <neil.zhong@ugreen.com>
+To: intel-xe@lists.freedesktop.org
+Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 1/1] drm/xe: keep VM-bound WC BOs resident during reclaim
+Date: Tue, 28 Jul 2026 14:14:43 +0800
+Message-ID: <4BF27CE161436C73+20260728061443.33616-2-neil.zhong@ugreen.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260728061443.33616-1-neil.zhong@ugreen.com>
+References: <20260728061443.33616-1-neil.zhong@ugreen.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3a83e00a-9e4c-4411-b554-1edb9d02c799@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA2MSBTYWx0ZWRfX3u2Kp9hAFPNw
- fXwJQ0DdfevM+tVsmtUN8xVAesknMgYFJ4pTMkUQXhP7nHjmvbBJ+p/w2yKVyYv3qxzPBJZuNiR
- cLfiGhT/kl0PygKcFfpHKgusscgDX94=
-X-Proofpoint-GUID: WV-Ftj1jjo5rHs5zIcOEZfGSpG1Ys6pD
-X-Proofpoint-ORIG-GUID: WV-Ftj1jjo5rHs5zIcOEZfGSpG1Ys6pD
-X-Authority-Analysis: v=2.4 cv=KLJqylFo c=1 sm=1 tr=0 ts=6a6855fd cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=L035sEZy4BSS5_ho3PYA:9 a=CjuIK1q_8ugA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA2MSBTYWx0ZWRfX1FUNQ71Uk8zS
- AvhCy3UpYTg0jHVVKFR+REVrGAV2QhDWAPYHxgWydv1s4Ro90TJBtM26oIs3L94V7ecPaDLwCW7
- +XU8bwZ6cHaqgKWbvMNJivUyhNcD0b0nM8ApWjDXqS8lACo4+UZophFzblQRvIjT26pu11JyXtz
- yQw6Rt+HSbWOG5OAd0TyBuNP4vVyyHwVQCtAdNTRvbd2q4PKYGy6iRQRDxMNBwTLgXbka6DVzhp
- Iz1B5yugQZOWN7CfplBWwLmnYbkaMq5mr8QdNZirwIkguXG9zGKe8gHTTeDYVIQVnUnhliNEpFR
- FuZFv3+iN+wq7FUQDBSSk3cT3paBBAvG5f/hwFtvO7B7iqcj9IboiNmGFJtslMikHfkdU7tFRjl
- czDHmMy/OumPK/gEwcUEWY8+Pr8xC47wegUQoTIX9wTG9+t17NRx0nSFRGkWwOd3oQVZB50vrll
- NjsMRQHa+5fx9cfRc4A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_01,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 suspectscore=0 spamscore=0 impostorscore=0
- lowpriorityscore=0 malwarescore=0 adultscore=0 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280061
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NuZvjORXcxgLG6wmvnSq4ukANbhuoLEMKgwd/q4ObQNKuxEqYD7Xntvh
+ b0Lw3nQFGCwYjr1cWl3/CgFERbzZq/gYQ3wtDOLj/k9Ph1nkXkMvp5iqwC4lnyqkl7AtXIr
+ cwI57xkMUoHt8mtU/iwW6S+8TPZ+RYbhfTpMJ0I4hJj6gV1bOZzJVKpqqSncde1ocZLzkxj
+ dw2Ny0VpkvpkWkbgUvhWkMcTsP320WfkGHiu4D6Rzj7itkZp7htBc/BuuOa7/+laL751CtN
+ zskPXM2ztazK185J6i27TUVWrInMXqhAggTKY9QDQcj4yq+8yp4HfvSkY3+8m08IhR9izjM
+ CMg9M7hoPXK55ESoWsS+tCaKNgx5X8v4CVDg/CkATxg5gwYfmWfIm0Oi33gKKZZCPseXD8c
+ dz9feZAztBt2EMhv8Sz9u2lnmgy2huppzeipp4hIAMKOXRadbsumPL74wBzYAlOn8fHhrU1
+ cbwCoxt60/6OMQRqaqZRKquvx+iI2BlwQa8+nYP2StZaCqmVHHZZZ6Yhzckpez1dYV9EoZm
+ uDUqG6XZOzS6zcV0rbUyH1EPR+5TwF2i1LI87X6lcHEo78Pf9n7xkSfmYHfOYg2IE5rav+d
+ 1dEwQ3ifwQLAVs1tef7QX3DivNslrMQ4HfD5Jxwk7ni4bBubJlWGwmE5uPJiycBs4qYPXxZ
+ c/zZCdjoI7glPlJUUYBgZVX5G02MbS+4pMrEnBCE0A3S94pYVgqKaRlcdyJqXu1Fi1gJkVn
+ H5A4nOnalksOyYF4KJhXA7VPEc4k+MbwRQKz4g/XhsC4LalDySrJ7fgVUHOrsuVHo1MhaWJ
+ QmR7U8+n+ERFrN1l5iid1jqq159ixB1q5B8HA9fsMSE/H3KCoJGdUTnZYHYQGE75RRz1SI/
+ YY74brpGkgb0UnXSobNHijN/pG9MNX70syye0DEUod0C1f4qns4jMnEM+jKjnTl4M5Du+sK
+ uUyUT4Gu6Z6r4MRKZcwRDvbT2nAMLpHwZSJqK+T/FuIgVt3zknCrbxuGKXJb7DrYLRQ4NSs
+ RgozFbT/KFgnbitYwr
+X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
+X-QQ-RECHKSPAM: 0
+X-Mailman-Approved-At: Tue, 28 Jul 2026 07:21:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,49 +79,151 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 28, 2026 at 09:17:34AM +0530, Ekansh Gupta wrote:
-> On 27-07-2026 18:39, Shawn Guo wrote:
-> > The DSP firmware on Nord targets emits an unsolicited glink message
-> > during process teardown whose context field holds a fixed sentinel
-> > (0xABCDABCD) rather than the context of an outstanding invocation.
-> > fastrpc_rpmsg_callback() treats every inbound message as an invoke
-> > response, so the sentinel is masked and shifted like any real response
-> > ((0xABCDABCD & 0xFF0) >> 4 == 188) and looked up in the channel's
-> > context idr.
-> > 
-> > This is not merely cosmetic. In the common case idr slot 188 is empty,
-> > the lookup fails, and the driver only logs a spurious "No context ID
-> > matches response" error on every teardown. But the context idr is shared
-> > by every protection domain and the listener thread on the channel and is
-> > filled cyclically over [1, FASTRPC_CTX_MAX]. If slot 188 holds a live
-> > context when the sentinel arrives, the sentinel's return value is written
-> > into that unrelated in-flight invocation and it is completed early. That
-> > is a latent, timing-dependent bug that just does not happen to trigger in
-> > current test runs.
-> > 
-> > Drop the sentinel before it is ever turned into a context lookup.
-> > This removes both the log spam and the mis-completion race. A genuine
-> > response can never be masked: a real context is (idr_index << 4) | pd
-> > (at most 0xFF3) and can never equal the sentinel.
-> > 
-> > Lemans and other targets are unaffected: their DSP firmware does not send
-> > this message, so the new check never fires.
-> > 
-> Sharing more details for this context:
-> 
-> On newer firmware, there is a support for DSP PD notification where DSP
-> sends PD state notifications on certain states as per user request. PD
-> exit notification is always sent by DSP which is with context id
-> 0xABCDABCD. As of today, DSP notification framework is not supported by
-> fastrpc lib or driver and it's safe to ignore this callback.
+On x86, restoring a backed-up write-combined (WC) buffer object can be
+expensive. The restore path allocates WB pages and converts them with
+set_pages_array_wc(), which performs synchronous cache and TLB flushes.
 
-Ah, great information! I should have consulted you internally. I will
-update.
+Xe currently allows its shrinker to back up the pages of a WC BO while
+the BO still has GPUVA mappings created by VM_BIND. A later validation
+restores the pages while holding the BO's dma-resv. The cache-attribute
+conversion then serializes EXEC, VM_BIND and dma-buf users on that
+reservation object.
 
-> With this,
-> 
-> Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+This was observed as intermittent HDR 4K60 playback stalls on two
+Panther Lake systems with 8 GiB of memory. In a pre-change reproducer,
+the maximum ioctl latencies were 549 ms for XE_EXEC, 291 ms for
+XE_VM_BIND and 343 ms for DMA-BUF IMPORT. ttm_tt_restore reached 80.6 ms.
 
-Thank you, Ekansh!
+Keep a non-purgeable WC BO resident while it has at least one GPUVA
+mapping. Purgeable BOs are still discarded, and after the last
+VM_UNBIND the BO becomes reclaimable again. Add an A/B module parameter
+which can restore the old behavior.
 
-Shawn
+With the change, a 21-minute capture had no XE_EXEC, XE_VM_BIND or
+DMA-BUF ioctl over the 16.7 ms frame interval. Their respective maxima
+were 348 us, 136 us and 20 us. The ttm_tt_restore maximum was 8.33 ms,
+and the set_pages_array_wc call rate fell from 14.64/s to 0.179/s.
+
+The change intentionally trades reclaimable memory for latency while a
+WC BO remains mapped. It does not take an additional BO reference or
+change teardown: VM destruction and process exit remove the GPUVA
+mappings and drop their existing references. During testing,
+MemAvailable remained near 3 GiB and the dma-buf working set released
+five 24 MiB surfaces while playback continued.
+
+Signed-off-by: Neil Zhong <neil.zhong@ugreen.com>
+---
+ drivers/gpu/drm/xe/xe_defaults.h |  1 +
+ drivers/gpu/drm/xe/xe_module.c   |  6 ++++++
+ drivers/gpu/drm/xe/xe_module.h   |  2 +-
+ drivers/gpu/drm/xe/xe_shrinker.c | 28 ++++++++++++++++++++++++++++
+ 4 files changed, 36 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/xe/xe_defaults.h b/drivers/gpu/drm/xe/xe_defaults.h
+index c8ae1d5f..645e289f 100644
+--- a/drivers/gpu/drm/xe/xe_defaults.h
++++ b/drivers/gpu/drm/xe/xe_defaults.h
+@@ -22,5 +22,6 @@
+ #define XE_DEFAULT_WEDGED_MODE			XE_WEDGED_MODE_UPON_CRITICAL_ERROR
+ #define XE_DEFAULT_WEDGED_MODE_STR		"upon-critical-error"
+ #define XE_DEFAULT_SVM_NOTIFIER_SIZE		512
++#define XE_DEFAULT_ALLOW_BOUND_WC_SHRINK	false
+ 
+ #endif
+diff --git a/drivers/gpu/drm/xe/xe_module.c b/drivers/gpu/drm/xe/xe_module.c
+index 848d6526..67bcaf54 100644
+--- a/drivers/gpu/drm/xe/xe_module.c
++++ b/drivers/gpu/drm/xe/xe_module.c
+@@ -22,6 +22,7 @@
+ #include "xe_sched_job.h"
+ 
+ struct xe_modparam xe_modparam = {
++	.allow_bound_wc_shrink = XE_DEFAULT_ALLOW_BOUND_WC_SHRINK,
+ 	.probe_display =	XE_DEFAULT_PROBE_DISPLAY,
+ 	.guc_log_level =	XE_DEFAULT_GUC_LOG_LEVEL,
+ 	.force_probe =		XE_DEFAULT_FORCE_PROBE,
+@@ -33,6 +34,11 @@ struct xe_modparam xe_modparam = {
+ 	/* the rest are 0 by default */
+ };
+ 
++module_param_named(allow_bound_wc_shrink, xe_modparam.allow_bound_wc_shrink,
++		   bool, 0600);
++MODULE_PARM_DESC(allow_bound_wc_shrink,
++		 "Permit reclaim of VM-bound write-combined BOs");
++
+ module_param_named(svm_notifier_size, xe_modparam.svm_notifier_size, uint, 0600);
+ MODULE_PARM_DESC(svm_notifier_size, "Set the svm notifier size in MiB, must be power of 2 "
+ 		 "[default=" __stringify(XE_DEFAULT_SVM_NOTIFIER_SIZE) "]");
+diff --git a/drivers/gpu/drm/xe/xe_module.h b/drivers/gpu/drm/xe/xe_module.h
+index a0eb7db0..bf2c49ce 100644
+--- a/drivers/gpu/drm/xe/xe_module.h
++++ b/drivers/gpu/drm/xe/xe_module.h
+@@ -12,6 +12,7 @@ struct work_struct;
+ 
+ /* Module modprobe variables */
+ struct xe_modparam {
++	bool allow_bound_wc_shrink;
+ 	bool probe_display;
+ 	int force_vram_bar_size;
+ 	int guc_log_level;
+@@ -32,4 +33,3 @@ bool xe_destroy_wq_queue(struct work_struct *work);
+ void xe_destroy_wq_flush(void);
+ 
+ #endif
+-
+diff --git a/drivers/gpu/drm/xe/xe_shrinker.c b/drivers/gpu/drm/xe/xe_shrinker.c
+index 83374cd5..caa39f39 100644
+--- a/drivers/gpu/drm/xe/xe_shrinker.c
++++ b/drivers/gpu/drm/xe/xe_shrinker.c
+@@ -11,6 +11,7 @@
+ #include <drm/ttm/ttm_tt.h>
+ 
+ #include "xe_bo.h"
++#include "xe_module.h"
+ #include "xe_pm.h"
+ #include "xe_shrinker.h"
+ 
+@@ -54,6 +55,30 @@ xe_shrinker_mod_pages(struct xe_shrinker *shrinker, long shrinkable, long purgea
+ 	write_unlock(&shrinker->lock);
+ }
+ 
++static bool xe_shrinker_skip_bound_wc(struct ttm_buffer_object *ttm_bo,
++				      const struct xe_bo_shrink_flags flags)
++{
++	struct xe_bo *bo;
++
++	if (flags.purge || xe_modparam.allow_bound_wc_shrink ||
++	    !xe_bo_is_xe_bo(ttm_bo))
++		return false;
++
++	bo = ttm_to_xe_bo(ttm_bo);
++
++	/*
++	 * Restoring a backed-up WC BO changes freshly allocated WB pages to WC.
++	 * On x86 that runs CPA cache/TLB flushes synchronously while validation
++	 * holds this BO's dma-resv. A VM-bound BO is also likely to be reused by
++	 * a following EXEC, so reclaiming it can turn moderate memory pressure
++	 * into a multi-client reservation-lock stall. Keep that working set
++	 * resident; purgeable objects and objects after VM_UNBIND remain
++	 * reclaimable.
++	 */
++	return ttm_bo->ttm->caching == ttm_write_combined &&
++		xe_bo_is_vm_bound(bo);
++}
++
+ static s64 __xe_shrinker_walk(struct xe_device *xe,
+ 			      struct ttm_operation_ctx *ctx,
+ 			      const struct xe_bo_shrink_flags flags,
+@@ -75,6 +100,9 @@ static s64 __xe_shrinker_walk(struct xe_device *xe,
+ 			continue;
+ 
+ 		ttm_bo_lru_for_each_reserved_guarded(&curs, man, &arg, ttm_bo) {
++			if (xe_shrinker_skip_bound_wc(ttm_bo, flags))
++				continue;
++
+ 			if (!ttm_bo_shrink_suitable(ttm_bo, ctx))
+ 				continue;
+ 
+-- 
+2.50.1 (Apple Git-155)
+
