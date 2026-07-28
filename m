@@ -4,45 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D493DC531F9
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 11:14:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 664D4C531F9
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 11:22:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3280710E886;
-	Tue, 28 Jul 2026 11:14:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D053F10E346;
+	Tue, 28 Jul 2026 11:22:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VwXNNFH9";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hYLBAnqO";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99DD510E884
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 11:14:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9FB9760A9F;
- Tue, 28 Jul 2026 11:14:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EC7A1F00A3A;
- Tue, 28 Jul 2026 11:14:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785237278;
- bh=qK1rq2pN5UkDLoQmfh04o60rR2ywXluT5EU3UZDapfU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VwXNNFH9qx62vFiD/C0GrXwnji2dFkpR5UXuM0qwy5NvFl98PGS3b/v8Yk4LiqB+G
- qk74qs4kRDrn1vDp8thendEjzLFSsP3voVpDP3U8aX/pVyD34+TJfz4FeNVREvZnlu
- HmUhKti1sf4iu1N9VDjUtcRv0pmrAHN//uG+QRO34I/lj8T5Ya1SHtCqFQ2YSYJu2r
- vDm6H0MMRiFd6aJc9RGlW/RC+gr8IXdmgFAsTRh9tl7p9JVpxOimPgQIrt8MctjtWr
- Eh2j+SCNV1eOD+MIkIxvelBwRe8k9ngciI6j6YQkgwWwN7SVezBS79W5nST7jpGsi1
- c5OcU9u4G3cyw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: mohit.dsor@oss.qualcomm.com
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260728-lt9611c-v7-v8-1-bda216bfaf37@oss.qualcomm.com>
-References: <20260728-lt9611c-v7-v8-0-bda216bfaf37@oss.qualcomm.com>
- <20260728-lt9611c-v7-v8-1-bda216bfaf37@oss.qualcomm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4638410E346
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 11:22:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785237739; x=1816773739;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=CEC0PWc9c8Dk5MrGNLXkXa/+6f3RiIpIJLGkeqttGJQ=;
+ b=hYLBAnqO9vgq6W8NFTj0R2/lLO/DerlzY+9DT4FbagmuMUB3i3Udpmmf
+ 6SyJSUR/F1ipnQdxXkuuteA3srw7eTOKyCrH3c2iw7+reo2JAXNqEsx/R
+ ToFIAPFSUYHEr5mPdATkUl/zeenfSoyIs8zeialCZx3l0UxJFXvl2eGrN
+ h7QtJ5jGVjolUgH0cwmImMQrr///rlYJD7BIzGiu3s0upVmtdwPjtZOTy
+ UnniLxymESIfg8xSAM5kWAjWyuyTXVHDp1GYDM1b31+UWC1V3UoZPLIgu
+ XhXRdJEWhoNyxrBL1cLDAGRElGWHc0B3RhsQm9Mi3CUDYDPbodHEqsIBe A==;
+X-CSE-ConnectionGUID: /GWaVA5TSBuKv+ZECoHDhQ==
+X-CSE-MsgGUID: PdCWBbbySDmg4CdxZhiscA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="89488454"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="89488454"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2026 04:22:19 -0700
+X-CSE-ConnectionGUID: 3FETktcxT6WFbLk1YrodRw==
+X-CSE-MsgGUID: BF3nxl86SzOUPs5VoOgAxA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="255741093"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by fmviesa010.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2026 04:22:15 -0700
+Date: Tue, 28 Jul 2026 13:22:12 +0200
+From: Raag Jadav <raag.jadav@intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Mallesh Koujalagi <mallesh.koujalagi@intel.com>,
+ dri-devel@lists.freedesktop.org, rodrigo.vivi@intel.com,
+ andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona.vetter@ffwll.ch, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ anshuman.gupta@intel.com, badal.nilawar@intel.com,
+ riana.tauro@intel.com, karthik.poosa@intel.com, sk.anirban@intel.com
+Subject: Re: [PATCH v2] drm/drv: Add buffer bounds check in
+ drm_dev_wedged_event()
+Message-ID: <amiQ5AAHmCG2ra8e@black.igk.intel.com>
+References: <20260724063005.703631-2-mallesh.koujalagi@intel.com>
+ <93a1cbea41d0cc337b8e38b12ab405757b6854b9@intel.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 11:14:37 +0000
-Message-Id: <20260728111438.1EC7A1F00A3A@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <93a1cbea41d0cc337b8e38b12ab405757b6854b9@intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,83 +73,65 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The schema lacks a conditional constraint to restrict `port@1` f=
-or the 1-port LT9611C variant, and the title incorrectly describes all devi=
-ces as 2-port.
-- [Low] Use of Chinese ideographic commas instead of standard ASCII commas =
-in the description.
---
+On Tue, Jul 28, 2026 at 01:59:44PM +0300, Jani Nikula wrote:
+> On Fri, 24 Jul 2026, Mallesh Koujalagi <mallesh.koujalagi@intel.com> wrote:
+> > event_string[] has a fixed size of WEDGE_STR_LEN (32) bytes.
+> > scnprintf(buf, size, "%s,", recovery) writes strlen(recovery)+1
+> > content bytes (token + comma) and requires one additional byte
+> > for the NUL terminator within 'size'.
+> >
+> > Without a bounds check, if the remaining space is insufficient,
+> > scnprintf() silently truncates the recovery token mid-name,
+> > producing a malformed uevent payload (e.g. "WEDGED=bus-reset,vendor-spe").
+> >
+> > Add a pre-flight drm_WARN_ON() guard:
+> >
+> >   len + strlen(recovery) + 1 >= WEDGE_STR_LEN
+> 
+> The kernel has seq_buf precisely to avoid manually rolling tedious and
+> error prone bounds checks everywhere. Please consider converting the
+> whole thing to it instead.
 
---- Patch [1]: [PATCH v8 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/U=
-XD) MIPI DSI to HDMI driver ---
-commit 479e58120e4ea7ccc6ba2a2452966c2bdee319fa
-Author: Sunyun Yang <syyang@lontium.com>
++1, much better.
 
-dt-bindings: bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+Raag
 
-This commit adds compatible strings and documentation for the Lontium LT961=
-1C,
-LT9611EX, and LT9611UXD MIPI DSI to HDMI bridges.
-
-> diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt9=
-611.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.=
-yaml
-> index 429a06057ae85..e0821a63d9d74 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
-> @@ -4,19 +4,23 @@
->  $id: http://devicetree.org/schemas/display/bridge/lontium,lt9611.yaml#
->  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> =20
-> -title: Lontium LT9611(UXC) 2 Port MIPI to HDMI Bridge
-> +title: Lontium LT9611(UXC/C/EX/UXD) 2 Port MIPI DSI to HDMI Bridge
-
-[Severity: Medium]
-The commit message notes that the LT9611C variant supports 1-port MIPI DSI.
-Does this title need to be adjusted since it broadly describes all of the
-supported devices as "2 Port"?
-
->  maintainers:
->    - Vinod Koul <vkoul@kernel.org>
-> =20
->  description: |
-> -  The LT9611 and LT9611UXC are bridge devices which convert DSI to HDMI
-> +  The LT9611=E3=80=81LT9611UXC=E3=80=81LT9611C=E3=80=81LT9611EX and LT96=
-11UXD
-
-[Severity: Low]
-This isn't a bug, but there appear to be non-ascii ideographic commas
-used in this list instead of standard commas. Should these be replaced to
-prevent rendering or text-processing quirks in the documentation?
-
-> +  are bridge devices which convert DSI to HDMI
-> =20
->  properties:
->    compatible:
->      enum:
->        - lontium,lt9611
-> +      - lontium,lt9611c
-
-[Severity: Medium]
-Since the LT9611C variant only supports a single MIPI DSI port, should the
-schema include an allOf: conditional block to explicitly set port@1: false
-for the lontium,lt9611c compatible string?
-
-Without this constraint, device tree configurations that accidentally inclu=
-de
-an invalid second DSI port (port@1) will silently pass schema validation
-for this hardware variant.
-
-> +      - lontium,lt9611ex
->        - lontium,lt9611uxc
-> +      - lontium,lt9611uxd
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-lt9611c-v7=
--v8-0-bda216bfaf37@oss.qualcomm.com?part=3D1
+> > Fixes: b7cf9f4ac1b8 ("drm: Introduce device wedged event")
+> > Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+> > ---
+> > v2:
+> > - Add proper logic to handle recovery string. (Raag)
+> > ---
+> >  drivers/gpu/drm/drm_drv.c | 14 ++++++++++++++
+> >  1 file changed, 14 insertions(+)
+> >
+> > diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+> > index e51ed959da89..e48b22ca38bd 100644
+> > --- a/drivers/gpu/drm/drm_drv.c
+> > +++ b/drivers/gpu/drm/drm_drv.c
+> > @@ -586,6 +586,20 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+> >  		if (drm_WARN_ONCE(dev, !recovery, "invalid recovery method %u\n", opt))
+> >  			break;
+> >  
+> > +		/*
+> > +		 * scnprintf(buf, size, "%s,", recovery) writes strlen(recovery)+1
+> > +		 * content bytes (token + comma) and reserves 1 byte for NUL within
+> > +		 * 'size'.  It fits without truncation when:
+> > +		 *   len + strlen(recovery) + 1 <= WEDGE_STR_LEN - 1  (safe)
+> > +		 * so warn and bail when:
+> > +		 *   len + strlen(recovery) + 1 >= WEDGE_STR_LEN       (would truncate)
+> > +		 * Note: ">= WEDGE_STR_LEN - 1" would be off-by-one — it would
+> > +		 * incorrectly reject the exact-fit case where NUL lands on the last
+> > +		 * valid byte (index WEDGE_STR_LEN - 1).
+> > +		 */
+> > +		if (drm_WARN_ON(dev, len + strlen(recovery) + 1 >= WEDGE_STR_LEN))
+> > +			break;
+> > +
+> >  		len += scnprintf(event_string + len, sizeof(event_string) - len, "%s,", recovery);
+> >  	}
+> 
+> -- 
+> Jani Nikula, Intel
