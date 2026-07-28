@@ -4,45 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 674CDC53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 19:58:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1214CC54F52
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 20:07:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C402F10E35D;
-	Tue, 28 Jul 2026 19:58:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C59910E0FF;
+	Tue, 28 Jul 2026 20:07:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a17YPGc2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SeDRXvjI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 560E410E35D
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 19:58:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB5F810E0FF
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 20:07:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EA4B641494;
- Tue, 28 Jul 2026 19:58:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E9431F000E9;
- Tue, 28 Jul 2026 19:58:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D68944374B;
+ Tue, 28 Jul 2026 20:07:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 728331F000E9;
+ Tue, 28 Jul 2026 20:07:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785268732;
- bh=vXe274rOutSkaybKnxWKfkpNu58tVP13XdupURSxxQA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=a17YPGc2KhmVOtBWXdilEG9G0iPu2DUx3aZv4l3sR3XcHajfefi/XuKZ8Ig5zT//5
- JTOy10jaUur8v8FTeeLqpyI7/SQPUt7anHfQhvr07zfvfiom2Qx47BLpLnJVr+8h4o
- JkuAKbKIWxNZrhwGX4PIYB0K5BY/oj6m7HpWce8tOrWYsrQygimu7p3sH4iePMFai4
- 5tFMISWIZYseDjqQ8thEsOkkLwY/Rz/5PUJzYaFOul8gQEpK3LiuFQMkgs4PFhyjxn
- Tq4z14Ed1zhzWasYS7sAcSydDB4VD3hnWMq2Vzr3XcCr7bnVcrYWJz40+d4ErVuD8A
- 2JBmAeWwR4plw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/18] drm/bridge: synopsys: dw-dp: Add Runtime PM
- support
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-12-b7640fa8cf48@collabora.com>
-References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
- <20260728-synopsys-dw-dp-improvements-v7-12-b7640fa8cf48@collabora.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1785269257;
+ bh=g58gRfs5c0V3SCdYvHY5lSFx4//gOQF/FXNiiAMSmC8=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=SeDRXvjIo0PeOAWB+qm714ij5PQEMCtF/M5mCTstkRgZ5GlDTjfpliDRdVBI01r24
+ A3mnQRZfkOZz1ImfR3pup6DRJGJAXc8bp6jDvuUQ6vmzewnNFVDqc212us6hPGnbQg
+ itJjunYpXKxrSJvCRsQsgLR+fqzJ86ZG/k7ji2fpN780oeUu1BQtUlomxQEWx9lPeP
+ e9GMLHy8TXVI55RXMR5QGi9kUQURJV8RhboPjw9lH944vH0J9PRhJKWHnK1eljsRX4
+ zXiTvp1K/R5u52VQHfNvycvV7Nuwud/mx5T2+cfbOHNA/igp4artW42pcwECRKvhMJ
+ m+39UEt+/dkIw==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 19:58:52 +0000
-Message-Id: <20260728195852.7E9431F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Jul 2026 22:07:31 +0200
+Message-Id: <DKAH4S5IE3RZ.10VD33NMVVLDR@kernel.org>
+Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Boqun Feng" <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Tamir Duberstein" <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Bjorn Helgaas" <bhelgaas@google.com>,
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ <driver-core@lists.linux.dev>, <rust-for-linux@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>, "Miguel Ojeda" <ojeda@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+ <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
+ <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
+ <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
+ <DKAASRCK3M06.G9XODK0T5AAK@nvidia.com>
+ <DKAD64Q7CEQD.Z15OS6MRHEKE@kernel.org>
+ <DKAEZ4LDA10F.1RFA9JKBGY2CF@garyguo.net>
+ <DKAFMD8X5LFP.UPKPHK5FYZPH@kernel.org>
+ <DKAFRETW93IW.SXUWFVB47V3B@garyguo.net>
+In-Reply-To: <DKAFRETW93IW.SXUWFVB47V3B@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,172 +73,62 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Tue Jul 28, 2026 at 9:03 PM CEST, Gary Guo wrote:
+> On Tue Jul 28, 2026 at 7:56 PM BST, Danilo Krummrich wrote:
+>> On Tue Jul 28, 2026 at 8:26 PM CEST, Gary Guo wrote:
+>>> On Tue Jul 28, 2026 at 6:01 PM BST, Danilo Krummrich wrote:
+>>>> I may have a slight preference for a separate subregion() variant for =
+the
+>>>> purpose of working around generic_const_exprs, as it probably is a bit=
+ closer to
+>>>> the final solution, but trait methods are fine with me too.
+>>>
+>>> I am not sure that's the final solution that I want. I want arg-positio=
+n
+>>> const-generics which would syntactically look more similar to `build_as=
+sert!`.
+>>
+>> arg-position const generics would be great, but that's just a syntax dif=
+ference
+>> and not related to supporting expressions involving const generics?
+>>
+>> In any case, I think my point about being closer to the final solution h=
+olds
+>> regardless.
+>>
+>>> Personally I think most issues with `build_assert!` can be fixed by hav=
+ing
+>>> lints, which is on my radar.
+>>
+>> I think it can be improved, but in the end it relies on compiler optimiz=
+ation
+>> that may or may not happen as expected.
+>
+> It'd be a compiler bug if const folding is expected to happen, the whole
+> BUILD_BUG_ON depends on it working.
+>
+> `build_assert!` is a useful tool that I'm not giving up. If there is a ne=
+ed to
+> use it, then I'd use it compared to having two variants to do the same th=
+ing
+> with different syntax.
 
-New issues:
-- [Critical] Incorrect teardown order in dw_dp_unbind() allows AUX transfer=
-s to cause a kernel panic or hang.
-- [High] Calling a sleeping function (msleep) from a runtime PM resume call=
-back that is reachable from an atomic commit path.
+It is indeed useful and I don't want to give up on it either.
 
-Pre-existing issues:
-- [High] Unbalanced phy_power_off() in dw_dp_bridge_atomic_disable() corrup=
-ts the PHY power count when atomic_enable() fails early.
---
+But, it is more fragile than const evaluation, so we should only use it whe=
+re
+const evaluation is not sufficient.
 
---- Patch [12]: [PATCH v7 12/18] drm/bridge: synopsys: dw-dp: Add Runtime P=
-M support ---
-commit 6fa63f17bf7f03d90ce981c3f9cd86d3e8761c32
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+In the case we are discussing the problem is that const expressions involvi=
+ng
+const generics are not yet supported, but in general it should be.
 
-drm/bridge: synopsys: dw-dp: Add Runtime PM support
-
-This commit adds runtime PM support to the Synopsys DesignWare DisplayPort
-bridge driver. The support is not enabled automatically and must be hooked
-up in the vendor specific glue code.
-
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index d4f75b7f85d0a..8b650f904575d 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-
-[ ... ]
-
-> @@ -1664,6 +1672,13 @@ static void dw_dp_bridge_atomic_enable(struct drm_=
-bridge *bridge,
->  	struct drm_connector_state *conn_state;
->  	int ret;
-> =20
-> +	ret =3D pm_runtime_get_active(dp->dev, RPM_TRANSPARENT);
-> +	if (ret) {
-> +		dev_err(dp->dev, "runtime PM failure\n");
-> +		return;
-> +	}
-> +	dp->pm_active =3D true;
-> +
->  	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
-ncoder);
->  	if (!connector) {
->  		dev_err(dp->dev, "failed to get connector\n");
->  		return;
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but does this early return cause an unbalanced
-phy_power_off() later?
-
-If dw_dp_bridge_atomic_enable() returns early here, it skips a successful
-phy_power_on(). However, the subsequent dw_dp_bridge_atomic_disable()
-unconditionally calls dw_dp_link_disable(), which executes phy_power_off().
-
-Would calling phy_power_off() without a preceding successful phy_power_on()
-decrease the PHY power count below 0 and permanently prevent the PHY from
-being powered on again?
-
-[ ... ]
-
-> @@ -2090,9 +2146,22 @@ EXPORT_SYMBOL_GPL(dw_dp_bind);
-> =20
->  void dw_dp_unbind(struct dw_dp *dp)
->  {
-> +	if (dp->usbc_mode)
-> +		pm_runtime_get_sync(dp->dev);
-> +
-> +	dp->drm_bound =3D false;
->  	disable_irq(dp->irq);
-> +
->  	cancel_work_sync(&dp->hpd_work);
->  	phy_exit(dp->phy);
-> +
-> +	/* Last PM runtime suspend must be done with drm_bound =3D false */
-> +	pm_runtime_put_sync(dp->dev);
-> +
-> +	/* suspend once if runtime PM is disabled */
-> +	if (!pm_runtime_enabled(dp->dev))
-> +		dw_dp_runtime_suspend(dp);
-> +
->  	drm_bridge_put(dp->next_bridge);
->  	drm_dp_aux_unregister(&dp->aux);
->  }
-
-[Severity: Critical]
-Does this teardown order in dw_dp_unbind() introduce a race condition with
-concurrent AUX transfers?
-
-Because drm_dp_aux_unregister() is called at the very end, the AUX interface
-remains active while the underlying hardware is shut down.
-
-If a concurrent dw_dp_aux_transfer() occurs from userspace while runtime PM
-is disabled, dw_dp_unbind() will manually call dw_dp_runtime_suspend()
-disabling the APB clock. The AUX transfer will succeed its PM guard and
-its subsequent regmap_write() will access unclocked hardware, triggering a
-synchronous bus abort.
-
-[ ... ]
-
-> @@ -2202,6 +2271,47 @@ struct dw_dp *dw_dp_probe(struct platform_device *=
-pdev, const struct dw_dp_plat_
->  }
->  EXPORT_SYMBOL_GPL(dw_dp_probe);
-> =20
-> +int dw_dp_runtime_suspend(struct dw_dp *dp)
-> +{
-> +	if (dp->drm_bound)
-> +		disable_irq(dp->irq);
-> +
-> +	clk_disable_unprepare(dp->aux_clk);
-> +	clk_disable_unprepare(dp->apb_clk);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(dw_dp_runtime_suspend);
-> +
-> +int dw_dp_runtime_resume(struct dw_dp *dp)
-> +{
-> +	int ret;
-> +
-> +	ret =3D clk_prepare_enable(dp->apb_clk);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D clk_prepare_enable(dp->aux_clk);
-> +	if (ret) {
-> +		clk_disable_unprepare(dp->apb_clk);
-> +		return ret;
-> +	}
-> +
-> +	dw_dp_init_hw(dp);
-> +
-> +	/*
-> +	 * HPD_HOT_PLUG bit is asserted only after the sink holds HPD
-> +	 * high for at least 100ms.
-> +	 */
-> +	msleep(110);
-> +
-> +	if (dp->drm_bound)
-> +		enable_irq(dp->irq);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(dw_dp_runtime_resume);
-
-[Severity: High]
-Does this introduce a sleeping delay in an atomic commit path?
-
-The drm_atomic_helper_commit_tail() path is an atomic context in DRM display
-drivers. During a commit, it calls dw_dp_bridge_atomic_enable(), which now
-makes a synchronous pm_runtime_get_active() call.
-
-That will invoke this dw_dp_runtime_resume() callback which executes
-msleep(110). Calling a sleeping function from an atomic commit path violates
-DRM subsystem requirements and can cause system instability and warnings.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
-w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D12
+This is different compared to e.g. read() where the syntax difference would
+actually hurt and const generics would limit flexibility, where we actually=
+ rely
+on the compiler to eliminate unreachable code paths regardless of a value b=
+eing
+known at runtime only.
