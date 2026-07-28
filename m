@@ -4,44 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7191AC54EFC
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 08:34:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FC08C54EFC
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 08:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9748710E543;
-	Tue, 28 Jul 2026 08:34:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E47F10E53D;
+	Tue, 28 Jul 2026 08:39:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ef1KFYbY";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="D+tASYGg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD11A10E543
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:34:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A08F943EEC;
- Tue, 28 Jul 2026 08:34:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A16E1F000E9;
- Tue, 28 Jul 2026 08:34:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785227654;
- bh=oSgw9JKuyf5VJGRcraqf0O7rqLlJ0lkZHOdrngWFHX8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ef1KFYbYIUFBtkNycLs1pkUu799W/QqCBjmj89IlyqXSXP2Qke++f4ml85URItIYL
- brPZ1A8GAUZb1y1AIwqC8+D6afuQNNoprwSSRyHVKNCogTRHcCgdr4wme7jKhfZNGu
- AW4kwi+KqmRrdqInTZG8v4ca8Y1ym50t0MzJBU/KuqAYdQLeBthVRwiDV5giNeUnpy
- HogvRxzMy+y4Wv/MVum3xr9rj0k1oFU5nLkpNpVCsqXKsKwaq+linD/NkLNTwlNsrH
- r98sRzQnj5vslVYuToizYjiBXIgHhyEtRtmaLtQL3B7QZq52CzVOO1CIcjyutKolgO
- OSKTsVVa4hJ0g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 4/4] firmware: coreboot: Add CFR firmware attributes
- driver
-To: "Sean Rhodes" <sean@starlabs.systems>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <c0e5bc377342ef9a5e2e90f65cc00093f89fbb1c.1785226810.git.sean@starlabs.systems>
-References: <cover.1785226809.git.sean@starlabs.systems>
- <c0e5bc377342ef9a5e2e90f65cc00093f89fbb1c.1785226810.git.sean@starlabs.systems>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 08:34:13 +0000
-Message-Id: <20260728083414.5A16E1F000E9@smtp.kernel.org>
+Received: from out-172.mta0.migadu.com (out-172.mta0.migadu.com
+ [91.218.175.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E314710E53D
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:39:17 +0000 (UTC)
+Message-ID: <a9dde63a-5f2d-494b-95dd-7567879de38d@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1785227954;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=QbXjOIDNQAqLnMcNmNhhIkcZFnXKaj7v9jSB+IKjoGY=;
+ b=D+tASYGgBFHhUl7vxy1SvTJuUlL1fyINBlClOvQ9K4T3edtuSqXNpaYIxcusYBqtHtCGKn
+ 4YFV+wfUruytiAPKlK/iMkIxiHxJeSoVj5BDR22K0phFcndN0nozhMJatVZeJF2M3nsdd0
+ JVFwwEIRGf5pB3U4V6tfCHcV69RCL/I=
+Date: Tue, 28 Jul 2026 16:38:44 +0800
+MIME-Version: 1.0
+Subject: Re: [PATCH v9 00/10] Fix missing fops.owner in Rust DRM/misc
+ abstractions
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: rust-for-linux@vger.kernel.org, linux-modules@vger.kernel.org,
+ driver-core@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ nova-gpu@lists.linux.dev, linux-kselftest@vger.kernel.org,
+ kunit-dev@googlegroups.com, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-pci@vger.kernel.org, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
+ <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Igor Korotin <igor.korotin@linux.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
+ Carlos Llamas <cmllamas@google.com>
+References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Alvin Sun <alvin.sun@linux.dev>
+In-Reply-To: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,89 +80,182 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Mixing goto-based error handling with scope-based cleanup helper=
-s (`__free` and `guard`) in the same function.
---
+Hi Miguel,
 
---- Patch [4]: [PATCH v10 4/4] firmware: coreboot: Add CFR firmware attribu=
-tes driver ---
-commit f075e88024f4dbd198791a1dc20f657a026b2206
-Author: Sean Rhodes <sean@starlabs.systems>
+Back in v3, Gary suggested this series go via the rust tree.
+Would you be happy with that, or would you prefer a different
+path? If so, is there anything else needed from my side?
 
-firmware: coreboot: Add CFR firmware attributes driver
+Best regards,
+Alvin
 
-This commit adds a firmware-attributes driver for coreboot CFR settings. It
-exposes runtime EFI variable-backed configuration options to userspace via
-sysfs, allowing modification and handling of runtime-apply mechanisms.
-
-Link: https://doc.coreboot.org/drivers/cfr.html
-Link: https://doc.coreboot.org/drivers/cfr_internal.html
-
-> diff --git a/drivers/firmware/coreboot/coreboot-cfr.c b/drivers/firmware/=
-coreboot/coreboot-cfr.c
-> new file mode 100644
-> index 0000000000000..21b06aa363111
-> --- /dev/null
-> +++ b/drivers/firmware/coreboot/coreboot-cfr.c
-
-[ ... ]
-
-> +static int coreboot_cfr_write_value(struct coreboot_cfr_setting *setting,
-> +				    u32 value)
-> +{
-> +	efi_char16_t *efi_name __free(kfree) =3D NULL;
-> +	u32 attrs;
-> +	u32 old;
-> +	int restore_ret;
-> +	int ret;
-> +
-> +	if (setting->read_only)
-> +		return -EACCES;
-> +
-> +	efi_name =3D coreboot_cfr_efi_name(setting->name);
-> +	if (IS_ERR(efi_name))
-> +		return PTR_ERR(no_free_ptr(efi_name));
-> +
-> +	guard(mutex)(&setting->drvdata->lock);
-> +
-> +	ret =3D efivar_lock();
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D coreboot_cfr_read_efi_value(efi_name, &old, &attrs);
-> +	if (ret)
-> +		goto out_unlock_efi;
-
-[ ... ]
-
-> +
-> +out_unlock_efi:
-> +	efivar_unlock();
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Does this mix goto-based error handling with scope-based cleanups in the sa=
-me
-function?
-
-According to include/linux/cleanup.h, the expectation is that usage of goto
-and cleanup helpers (like __free and guard) should never be mixed in the
-same routine. Mixing them creates confusing resource ownership semantics and
-increases the risk of future resource leaks.
-
-Could this be unified to exclusively use either traditional goto labels or
-scope-based cleanups? For instance, efivar_lock() could potentially use a
-cleanup helper to avoid the goto out_unlock_efi labels entirely.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785226809.gi=
-t.sean@starlabs.systems?part=3D4
+On 7/23/26 10:10, Alvin Sun wrote:
+> During tyr debugfs development, a kernel NULL pointer dereference was
+> encountered after `rmmod tyr` while gnome-shell still held /dev/card1 open:
+>
+> ```
+>    [158827.868132] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+>    [158827.868918] Mem abort info:
+>    [158827.869177]   ESR = 0x0000000086000004
+>    [158827.869519]   EC = 0x21: IABT (current EL), IL = 32 bits
+>    [158827.870000]   SET = 0, FnV = 0
+>    [158827.870281]   EA = 0, S1PTW = 0
+>    [158827.870571]   FSC = 0x04: level 0 translation fault
+>    [158827.871043] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000108dec000
+>    [158827.871623] [0000000000000000] pgd=0000000000000000, p4d=0000000000000000
+>    [158827.872242] Internal error: Oops: 0000000086000004 [#1]  SMP
+>    [158827.872246] Modules linked in: tyr sunrpc snd_soc_simple_card rk805_pwrkey snd_soc_simple_card_utils rtw88_8822bu display_connector rtw88_usb rtw88_8822b snd_soc_rockchip_i2s_tdm snd_soc_hdmi_codec
+>    rtw88_core]
+>    [158827.872337] CPU: 4 UID: 1000 PID: 11276 Comm: gnome-s:disk$0 Tainted: G                 N  7.1.0-rc1+ #331 PREEMPT
+>    [158827.880534] Tainted: [N]=TEST
+>    [158827.880535] Hardware name: FriendlyElec NanoPi R6C/NanoPi R6C, BIOS v1.1 04/09/2025
+>    [158827.880538] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+>    [158827.880542] pc : 0x0
+>    [158827.880547] lr : _RNvNtCs257m05FHVbX_3tyr2vm8pt_unmap+0x8c/0x12c [tyr]
+>    [158827.880578] sp : ffff800083c236b0
+>    [158827.880579] x29: ffff800083c236d0 x28: ffff00013f8a0000 x27: 0000000000000000
+>    [158827.880585] x26: 000000000000007c x25: ffff000108e6ed80 x24: 0000000000401000
+>    [158827.880590] x23: 0000000000000000 x22: 0000000040000000 x21: 0000000000001000
+>    [158827.880595] x20: ffff00010f778138 x19: 0000000000400000 x18: 00000000ffffffff
+>    [158827.880600] x17: 000000040044ffff x16: 045000f2b5503510 x15: 0720072007200720
+>    [158827.880606] x14: 0720072007200720 x13: 0000000000401000 x12: 0000000000400000
+>    [158827.880611] x11: ffff800083c239d0 x10: ffff000141e4fd88 x9 : 0000000000000000
+>    [158827.880615] x8 : 0000000000000000 x7 : 0000000000000000 x6 : 0000000000400000
+>    [158827.880620] x5 : ffff00013f8a0000 x4 : 0000000000000000 x3 : 0000000000000001
+>    [158827.880625] x2 : 0000000000001000 x1 : 0000000000400000 x0 : ffff00010f778138
+>    [158827.880630] Call trace:
+>    [158827.880632]  0x0 (P)
+>    [158827.880635]  _RNvXs6_NtCs257m05FHVbX_3tyr2vmNtB5_9GpuVmDataNtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm11DriverGpuVm13sm_step_unmap+0x3c/0x120 [tyr]
+>    [158827.891166]  _RNvMs4_NtNtNtCsgmSOfgXi5CZ_6kernel3drm5gpuvm6sm_opsINtB7_5GpuVmNtNtCs257m05FHVbX_3tyr2vm9GpuVmDataE13sm_step_unmapB13_+0x18/0x34 [tyr]
+>    [158827.891187]  op_unmap_cb+0x78/0xb0
+>    [158827.891196]  __drm_gpuvm_sm_unmap+0x18c/0x1b4
+>    [158827.891204]  drm_gpuvm_sm_unmap+0x38/0x4c
+>    [158827.891209]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm7exec_op+0x1cc/0x254 [tyr]
+>    [158827.894085]  _RNvMs5_NtCs257m05FHVbX_3tyr2vmNtB5_2Vm11unmap_range+0x124/0x188 [tyr]
+>    [158827.894105]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeNtNtCs257m05FHVbX_3tyr3gem8KernelBoEBK_+0x44/0xd8 [tyr]
+>    [158827.894125]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel5alloc4kvec3VecNtNtCs257m05FHVbX_3tyr2fw7SectionNtNtBL_9allocator7KmallocEEB1r_+0x3c/0x100 [tyr]
+>    [158827.894147]  _RINvNtCs5hGKnPbRUFW_4core3ptr13drop_in_placeINtNtNtCsgmSOfgXi5CZ_6kernel4sync3arc3ArcNtNtCs257m05FHVbX_3tyr2fw8FirmwareEEB1p_+0x94/0x190 [tyr]
+>    [158827.894167]  _RNvMs4_NtNtCsgmSOfgXi5CZ_6kernel3drm6deviceINtB5_6DeviceNtNtCs257m05FHVbX_3tyr6driver12TyrDrmDriverE7releaseBW_+0x30/0x98 [tyr]
+>    [158827.899550]  drm_dev_put.part.0+0x88/0xc0
+>    [158827.899557]  drm_minor_release+0x18/0x28
+>    [158827.899562]  drm_release+0x144/0x170
+>    [158827.899567]  __fput+0xe4/0x30c
+>    [158827.899573]  ____fput+0x14/0x20
+>    [158827.899579]  task_work_run+0x7c/0xe8
+>    [158827.899586]  do_exit+0x2a8/0xac4
+>    [158827.899590]  do_group_exit+0x34/0x90
+>    [158827.899594]  get_signal+0xaac/0xabc
+>    [158827.899599]  arch_do_signal_or_restart+0x90/0x3e8
+>    [158827.899606]  exit_to_user_mode_loop+0x140/0x1d0
+>    [158827.899613]  el0_svc+0x2f4/0x2f8
+>    [158827.899620]  el0t_64_sync_handler+0xa0/0xe4
+>    [158827.899627]  el0t_64_sync+0x198/0x19c
+>    [158827.899632] ---[ end trace 0000000000000000 ]---
+> ```
+>
+> The root cause: `fops.owner` was `NULL` in Rust DRM drivers, so the kernel
+> never blocked module unloading while file descriptors were open. This leads to
+> use-after-free when drm_release (or other fops) is called on freed module code.
+>
+> The series moves `THIS_MODULE` into the `ModuleMetadata` as a const, threads it
+> through `#[vtable]` to set `fops.owner` in DRM/miscdevice, and updates configfs
+> and rnull to use `this_module::<LocalModule>()`.
+>
+> Assisted-by: opencode:glm-5.2
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> ---
+> Changes in v9:
+> - Rename the binder commit prefix from `rust: binder:` to `rust_binder:`
+>    to match the in-tree module name.
+> - Link to v8: https://lore.kernel.org/r/20260713-fix-fops-owner-v8-0-2495cfa82d47@linux.dev
+>
+> Changes in v8:
+> - Remove unused `crate::LocalModule` import in rnull configfs.
+> - Link to v7: https://lore.kernel.org/r/20260627-fix-fops-owner-v7-0-33cd3990edf0@linux.dev
+>
+> Changes in v7:
+> - Use `crate::LocalModule` in `configfs_attrs!` and silence `clippy::crate_in_macro_def`, per Gary's review.
+> - Link to v6: https://lore.kernel.org/r/20260624-fix-fops-owner-v6-0-5295e333cb3e@linux.dev
+>
+> Changes in v6:
+> - Update MAINTAINERS to cover the new `rust/kernel/module.rs`.
+> - Link to v5: https://lore.kernel.org/r/20260624-fix-fops-owner-v5-0-aa1cba242f05@linux.dev
+>
+> Changes in v5:
+> - Add `#[inline]` to the `this_module()` helper.
+> - Fix configfs doc comment to reference `crate::LocalModule` instead of
+>    bare `LocalModule`.
+> - Link to v4: https://lore.kernel.org/r/20260623-fix-fops-owner-v4-0-0daf5f077d5c@linux.dev
+>
+> Changes in v4:
+> - Move module-related types into a new `rust/kernel/module.rs`.
+> - Migrate binder from the `module!`-generated `THIS_MODULE` static to
+>    `this_module::<LocalModule>()`.
+> - Reorganise the series so that every commit builds independently, and
+>    drop the legacy `THIS_MODULE` static once all users are migrated.
+> - Link to v3: https://lore.kernel.org/r/20260622-fix-fops-owner-v3-0-49d45cb37032@linux.dev
+>
+> Changes in v3:
+> - Renamed vtable associated type `ThisModule` to `OwnerModule`
+> - Added `this_module()` helper for ergonomic `THIS_MODULE` access
+> - Refined vtable macro implementation: one-liner detection and single `defined_items` set
+> - Reordered commits to place doctest fallback before vtable auto-insert
+> - Link to v2: https://lore.kernel.org/r/20260521-fix-fops-owner-v2-0-fd99079c5a04@linux.dev
+>
+> Changes in v2:
+> - Merged old `static THIS_MODULE` and v1's `MODULE_PTR` into a single
+>    `ModuleMetadata::THIS_MODULE` const
+> - `#[vtable]` macro now auto-inserts `type ThisModule`, removing all per-driver
+>    manual patches from v1
+> - Added configfs & rnull usage site updates and doctest `LocalModule` fallback
+> - Link to v1: https://lore.kernel.org/r/20260519-fix-fops-owner-v1-0-2ded9830da14@linux.dev
+>
+> ---
+> Alvin Sun (10):
+>        rust: module: move module types into `module.rs`
+>        rust: module: add `THIS_MODULE` const to `ModuleMetadata` trait
+>        rust: doctest: add LocalModule fallback for #[vtable] ThisModule
+>        rust: macros: auto-insert OwnerModule in #[vtable]
+>        rust: drm: set fops.owner from driver module pointer
+>        rust: miscdevice: set fops.owner from driver module pointer
+>        rust: configfs: use `LocalModule` for `THIS_MODULE`
+>        rust_binder: use `LocalModule` for `THIS_MODULE`
+>        rust: macros: remove `THIS_MODULE` static from `module!`
+>        rust: module: update MAINTAINERS to cover module.rs
+>
+>   MAINTAINERS                                |  2 +-
+>   drivers/android/binder/rust_binder_main.rs |  3 +-
+>   drivers/block/rnull/configfs.rs            |  5 +-
+>   rust/kernel/auxiliary.rs                   |  2 +-
+>   rust/kernel/configfs.rs                    |  9 ++--
+>   rust/kernel/drm/device.rs                  |  3 +-
+>   rust/kernel/drm/gem/mod.rs                 |  4 +-
+>   rust/kernel/i2c.rs                         |  2 +-
+>   rust/kernel/lib.rs                         | 75 +++-------------------------
+>   rust/kernel/miscdevice.rs                  |  4 +-
+>   rust/kernel/module.rs                      | 80 ++++++++++++++++++++++++++++++
+>   rust/kernel/net/phy.rs                     |  6 ++-
+>   rust/kernel/pci.rs                         |  2 +-
+>   rust/kernel/platform.rs                    |  2 +-
+>   rust/kernel/usb.rs                         |  2 +-
+>   rust/macros/lib.rs                         |  6 +++
+>   rust/macros/module.rs                      | 34 ++++++-------
+>   rust/macros/vtable.rs                      | 41 +++++++++++++--
+>   scripts/rustdoc_test_gen.rs                | 16 ++++++
+>   19 files changed, 189 insertions(+), 109 deletions(-)
+> ---
+> base-commit: b7e5ac83cb16f7ffd11dc23736f84276602100ed
+> change-id: 20260519-fix-fops-owner-e3a77bb27c6c
+> prerequisite-change-id: 20260519-miscdev-use-format-9ab7e83b1c11:v3
+> prerequisite-patch-id: 405b334ff0d48ad350014f05a2321bdbaa025400
+> prerequisite-patch-id: 604b631c81d5423f4ebb2e12ba2d22e9ce371bfc
+> prerequisite-patch-id: cb550d94cefe01920e0d3ced2b2bcbecd76f3907
+> prerequisite-patch-id: 3bc830839742591460cb86d9472c04f4686dc600
+> prerequisite-patch-id: 571058244bc8c7088638d2e3225713011246c7e9
+> prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
+> prerequisite-patch-id: 3e202d988b56b88446f7535e90d3f00cf5f15701
+>
+> Best regards,
