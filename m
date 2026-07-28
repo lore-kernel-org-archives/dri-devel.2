@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FDB8C54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 08:07:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B4BCC54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 08:09:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D0B510E807;
-	Tue, 28 Jul 2026 08:07:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6664810E830;
+	Tue, 28 Jul 2026 08:09:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ibKaJtCs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="npDBOj5n";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1525910E807
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:07:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F08610E812
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:09:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B1FF4411AB;
- Tue, 28 Jul 2026 08:07:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D17D1F00A3A;
- Tue, 28 Jul 2026 08:07:48 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C54D340F5A;
+ Tue, 28 Jul 2026 08:09:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC8921F000E9;
+ Tue, 28 Jul 2026 08:09:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785226069;
- bh=5tUbDStS0GQHCB8UWlXzniMXPIvID1g2YNoMDc83vHg=;
+ s=k20260515; t=1785226149;
+ bh=kLUsG0cxbOOBudd9ddbSRV7/2qqz/2T6DEko4eZD+JA=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=ibKaJtCs/Qd5j69W9sTrfRdHt2aqYwhpM13lzbZurR679wG5biaM6HF6vj8PpT4Bl
- 7cRJEMKJG77s1/T/242kV67r1MeEfhLBT/UDmNakaOid+m123sxDa+wElTdxQ/oX/j
- Nts9AUb2hhxPGuW7ei+eXtgeDYNf/2S2pIwL3ynlLyJN0leG4nJUzAZlZFKauXRwOJ
- PgABLe65zTF3lDWd3YkPxz51vZistWQxkiGExxRc9fQUOHeVQxgHhWeVSIibIhyttu
- fL+UZbnz9xk12CzKrPPTvQQfR/FcWAtuhcNf8nb1AHTatH2WN9pSHk6Z3jrlTi8Als
- z+8EsaSs6cpHA==
-Date: Tue, 28 Jul 2026 10:07:45 +0200
+ b=npDBOj5nREIEihM99fSB/33zEtJ+Yy5WSSoqibreMFXFDTZcyr7qpYw36GAUO22ec
+ YJDJ6AgzLYiahlEMG8ZL63DYhVybsnNVX7StxXCjcm9eaY/RJfJePe6uBTgkqsyrqw
+ CiaYpqOSCFgzP8/ly7F1FidIYDfj1W5mPIj2uXBqMuLplZ/4xqh163KAB2KkaOxk49
+ 5s90PPNgPkqsFHfImU3I5OXlpdh8jtWs8QpRiKmg05nSAJPaz0q4VqLlEE7kyCY9Px
+ qEGiovcVvJiPiIZdP1RMC8PX4TL2b6e8Qr6mUX099rUEJJmG2n8k0rbLHQ+Ah1uHip
+ rfHLOvqeBmPUw==
+Date: Tue, 28 Jul 2026 10:09:05 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Sterling-Ash <liangbaihui@linux.spacemit.com>
 Cc: Frank Binns <frank.binns@imgtec.com>, Rob Herring <robh@kernel.org>, 
@@ -41,7 +41,7 @@ Cc: Frank Binns <frank.binns@imgtec.com>, Rob Herring <robh@kernel.org>,
  linux-riscv@lists.infradead.org, spacemit@lists.linux.dev
 Subject: Re: [PATCH v3 1/2] dt-bindings: gpu: img,powervr-rogue: add
  spacemit,k3-gpu
-Message-ID: <20260728-proud-coyote-of-happiness-e99c24@quoll>
+Message-ID: <20260728-chivalrous-mongrel-of-leadership-dd3bf2@quoll>
 References: <75c9382d2bda766aa459b00321153d715254d1a4.camel@imgtec.com>
  <20260728010513.1627950-1-liangbaihui@linux.spacemit.com>
  <20260728010513.1627950-2-liangbaihui@linux.spacemit.com>
@@ -78,50 +78,16 @@ On Tue, Jul 28, 2026 at 09:05:12AM +0800, Sterling-Ash wrote:
 > ti,j721s2-gpu "if" block that restricts clocks to a single entry,
 > since K3 has the same single-clock requirement. It does not match any
 > "if" block that constrains power-domains, so that property falls back
-
-I don't get this explanation. Are you explaining what the patch is doing
-or explaining WHY you did this that way?
-
 > to this schema's general constraints, where it is optional. This
 > leaves room for a power-domains provider to be added later without a
 > further binding change, should one ever be modelled in Linux for this
 > SoC.
-
-No, you need to provide constraints now. Please read carefully
-writing-bindings.
-
 > 
 > Signed-off-by: Sterling-Ash <liangbaihui@linux.spacemit.com>
-> ---
 
-Do not attach (thread) your patchsets to some other threads (unrelated
-or older versions). This buries them deep in the mailbox and might
-interfere with applying entire sets. See also:
-https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/submitting-patches.rst#L830
-
-> v3: also add spacemit,k3-gpu to the existing ti,am62-gpu/ti,am62p-gpu/
->     ti,j721s2-gpu "if" block restricting clocks to a single entry --
->     previously it fell back to this schema's general clocks constraint
->     (1-3 items), which would have let an invalid DT with 2 or 3 clocks
->     pass validation (found by automated review on v2).
-> 
->  .../devicetree/bindings/gpu/img,powervr-rogue.yaml          | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> index a1f54dbae3f3..d29f0d163b91 100644
-> --- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> +++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> @@ -38,6 +38,11 @@ properties:
->                - thead,th1520-gpu
->            - const: img,img-bxm-4-64
->            - const: img,img-rogue
-> +      - items:
-> +          - enum:
-> +              - spacemit,k3-gpu
-
-Why isn't this part of other enum (and remember about the alphabetical
-order of entries)?
+Also, are you sure your Latin transliteration of your name includes a
+hyphen? Email differs and we do not take anonymous contributions, so
+this must much your name in the known identity.
 
 Best regards,
 Krzysztof
