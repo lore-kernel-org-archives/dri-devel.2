@@ -4,57 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F618C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 14:35:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5A8C54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 14:39:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2E2210E921;
-	Tue, 28 Jul 2026 14:35:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B31D410E582;
+	Tue, 28 Jul 2026 14:39:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="DPK+/krd";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="gvKUagFu";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81B9210E941;
- Tue, 28 Jul 2026 14:35:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785249315;
- bh=hi1tKX7EjWI5J4ogBRa8uDUOJpWIFZD5uMblt8+TA5k=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=DPK+/krdDGlW7ypWcXs70J7Jg8Jj6H0ImjrHo+kXM1WxxwL+PLT5nx/uEDQ37DF40
- 1IH8wxxUKt6EI+kKy0MjO8C49AQVHXzDIDxFes5kCh1AjiAQ7W5U/bXJRgaX8tX5mN
- kZNmv4AhGPoy8l7KsfYTWg9ov0d/nOniJuBkXgTij2wQlUWUKYDYJG0s0WEJzQDsIA
- 98CF5QL+cilwXgIa4ooFhHpv3CxgOf4Vwl9dJdZXog8W0mMKqUiE+fgRSvjmh3/QUe
- aq32xyjL9IrjIhUP3y6Qs9O6Xh2cidVT9N2W/uyLMBowLMlwJ8f3hQhz4oiKa9EF6/
- Ed/RZScjTs39A==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7321417E019E;
- Tue, 28 Jul 2026 16:35:14 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- YoungJoon Lee <getfeus@gmail.com>
-In-Reply-To: <20260728091804.382753-1-wenst@chromium.org>
-References: <20260728091804.382753-1-wenst@chromium.org>
-Subject: Re: (subset) [PATCH v4 0/5] powervr: MT8173 GPU support
-Message-Id: <178524931441.575499.11268846943253988242.b4-ty@b4>
-Date: Tue, 28 Jul 2026 16:35:14 +0200
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4E2610E582
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 14:39:10 +0000 (UTC)
+Received: by mail-wm1-f70.google.com with SMTP id
+ 5b1f17b1804b1-496b4cc049fso8540795e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 07:39:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1785249549; x=1785854349;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=0XSJlAL0oJRgavLZJ2pbR+4e0/apKArSpd9q4NmNpMM=;
+ b=gvKUagFuGJvXGxoBnej9Mh5TvZLEmDc+AQSHqXUvkpSSD34NxHWQmTQiGNlrKORllI
+ /Tgp8q1LAj1u7xTH5NLYW/ms9ky5J50Rar0H7BfWorJiLFXkYTJC/nz0AK1X8QbLF5WJ
+ kPSpNqy+AGIo6ppxAJQZNB+f3qYR2VYqapsgH9xtNUMx/UNlVuF/ACpM3hlen0qvBArt
+ RTVNX4C1G0F1ooRi2QMMxXWLx0wLd4dyW1kUpr2a1L2DOtlYofth1ASysi9TRXDGj+Hy
+ QM6QF0xZUBquOQQqXR4NZbTSOXZQ+DTRVXc6zvPyTv+X03X+792HXNd4vJtpTabzjDgi
+ 8irw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785249549; x=1785854349;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=0XSJlAL0oJRgavLZJ2pbR+4e0/apKArSpd9q4NmNpMM=;
+ b=Gobdc+AGyfnKpz8es4rY2OjcqumyFkRIkAS58pZzhUYFim8FXhMh1JLYwKcbF1BPra
+ iFPvWSf8Jgstlnwf6j2uxvu+q0bP9dew/KoeGXwXxiizYTQWAH/OPurT37QF1RUrMS0y
+ aBVpJxIV6jFsHdJaDisM5hqK4ccoijeQHQ+JRM5bdHv1ku8V7JxiVfb9EiYW4kpjk7y7
+ r+L+7na7ssHl/X5ln1q5E13C0zeTxMNGqrXowEPQB5XMZy4F1Vn11ieQyYcynlb/yjA8
+ drHNVOG5vWFkPTEm6waAuBj7tty0aHVOxgvjKf0Ln2TmKFhyrEpPehnI9tUnRXzP+m/7
+ tQrg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rrnw3u+TTg7AnEclqibOv/CmyySsnvEF5idHkh2eqasix5si6DWc5Wsqsi0oZRG5E6xj+teoTTYclg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw9VU9romvx1Hbo3a5rvbhmMFNzVJu7StaWbStCCv5fZQC9pgSC
+ zRIVwNWl22WRyfLKxqmXQKnZXZ98/v7TrgBHwlpnT7G1u+JMY5g5HSRsOCDx4btF1UeJ6ok6JVr
+ TYA==
+X-Received: from wrfa12.prod.google.com ([2002:a05:6000:50c:b0:472:9520:f359])
+ (user=pimyn job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:564b:b0:495:4f89:8117
+ with SMTP id 5b1f17b1804b1-496c64122e4mr21664665e9.1.1785249549118; Tue, 28
+ Jul 2026 07:39:09 -0700 (PDT)
+Date: Tue, 28 Jul 2026 16:38:59 +0200
+In-Reply-To: <d65b4673-007e-41f1-ad8a-b21c018be3e7@bootlin.com>
+Mime-Version: 1.0
+References: <d65b4673-007e-41f1-ad8a-b21c018be3e7@bootlin.com>
+X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
+Message-ID: <20260728143858.1498697-2-pimyn@google.com>
+Subject: Re: [PATCH] [PATCH] drm/vkms: Advertise PREMULTI blend mode
+From: Pimyn Girgis <pimyn@google.com>
+To: louis.chauvet@bootlin.com
+Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
+ hamohammed.sa@gmail.com, linux-kernel@vger.kernel.org, 
+ maarten.lankhorst@linux.intel.com, melissa.srw@gmail.com, 
+ michail.tatas@gmail.com, mripard@kernel.org, simona@ffwll.ch, 
+ tzimmermann@suse.de
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,26 +83,12 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 28 Jul 2026 17:17:58 +0800, Chen-Yu Tsai wrote:
-> This is v4 of my MT8173 PowerVR GPU support series.
-> 
-> This time around Mesa was ready for basic testing, using both vulkanmark
-> and glmark2-es2-drm (with Zink). Details below.
-> 
-> Changes since v3 (all in the clk driver patch):
-> - Changed pm_runtime_put() to pm_runtime_put_sync()
-> - Added missing of_node_put() in remove function
-> 
-> [...]
+Hi Louis and DRM maintainers,
 
-Applied to v7.2-next/dts64, thanks!
+Now that Louis has reviewed and approved this fix, could someone please
+pick it up for the appropriate branch for linux-next?
 
-[4/5] arm64: dts: mediatek: mt8173: Fix MFG_ASYNC power domain clock
-      commit: 3549c85d4c0e942d3ac9972a6b35ce0078bd3550
-[5/5] arm64: dts: mediatek: mt8173: Add GPU device nodes
-      commit: 75bfd9e7cdae0ae04dbaaf8dfc487adb67b7680e
+This bug is currently breaking one of our syzbot managers, so getting
+it merged there would help unblock our fuzzing.
 
-Cheers,
-Angelo
-
-
+Thanks!
