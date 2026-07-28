@@ -4,43 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 164F3C54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 13:34:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A19DFC54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 13:41:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 797C510E8F8;
-	Tue, 28 Jul 2026 13:34:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3EE910E90C;
+	Tue, 28 Jul 2026 13:41:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X964kWtL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VOtQRQ1F";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C99F310E8F8
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:34:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B246910E90C
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:40:59 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id ACE68410CF
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:34:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C7941F00A3A;
- Tue, 28 Jul 2026 13:34:52 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 64BA643714
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:40:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 442771F00ADB
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:40:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785245692;
- bh=lqutoZvLmcaetsb4FI5xQY3Nq1BA3DPwOZ6J34eQOx8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X964kWtLKKdc0RHgz9OvJVNY8fk1/UJdCW8XxXs89PKM7YbH67/qoRjewDdKDlQwe
- rIuD+mzremrJPxFsJ6NZPyf62eTdDY9pL4AyEvp6iiWGyxmGmoaCUh3rbqQwBP4BYI
- eFyoxRPTW/8FW5pUppV9ajhM4jeWLEGQeJjCoVI/l+16uSWF3q/svAl7Oj1XdtO7xc
- LbjvpHDq8z6xfamc32naBqOx15B8sy+ZZYs8aBDhDKeFoY8zXzDO3rvJLKX91tTnka
- 4lfDnDrd3BgxSiFWL5rYI53kl7AMqTnWhspqmfv9H1RweFdqz/hxikZ2Etsjp9YV9s
- DPMLkqmpSpq3w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] drm/msm/dsi: Drop dev_pm_opp_set_rate(0)
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260728-topic-dpu_power-v1-3-e7783b859a70@oss.qualcomm.com>
-References: <20260728-topic-dpu_power-v1-0-e7783b859a70@oss.qualcomm.com>
- <20260728-topic-dpu_power-v1-3-e7783b859a70@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1785246059;
+ bh=uLE38ZE2Nl64r7ZYfy8C3Gaet0hedSBZyrnSuaM9AOo=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=VOtQRQ1FNHpJCY6oZv+tRM7rG9KnugRqsOTe8hlqzlQ8jYSSZU6bbWmAZBX4ACMb2
+ ZIHFthXA17nF/SHqFUfiJdgQo7fR3M58h3L3q1iMyesmMYEfxTKk6TWyEUoYD17UJd
+ PvXMB51Shd7xCpfH3wHC1Dr07oxsmEk1+JqJmk9v8cQMBexHzDoJioBoiDI1L+XueJ
+ vkB+e8EyB8QwO/W5b0e6uD9QuwWiQ3FKTW1oKpzszaiMrdlaMkKVi9rEZl7ZWHGPqc
+ /CcrGqfisQMhMqU901n1J5ldGQChP1nfpVTFXZhF/BYETGAEYR69Ji1w5q2Wr3agTO
+ GEm5wH+FwHOLA==
+Received: by mail-ej1-f46.google.com with SMTP id
+ a640c23a62f3a-c197e7e4e94so658866666b.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 06:40:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpvk0zcy6FktfoKBi5i6yr2bF4DeL8+fJWhh8VWZnKJh7l1qhTZw8pMRVBlbk1+k2agVE2FQ1mS8VA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywhh818+0JaPDFo7JNWEPNTdo7KlPHgCVelyb7zStEl2ZDqqSfi
+ IsFvzYnejPXg6Ku07OAutjke4imfcV/fSAphlARloPzVboM8oZmSMqj6irUzXP4d0s97vbrLeIY
+ QUNZNky96HmYMuXVbTawxsZ3ibR8FNw==
+X-Received: by 2002:a17:906:ee81:b0:c19:6104:e5e4 with SMTP id
+ a640c23a62f3a-c1f7209ca5cmr127185766b.20.1785246057830; Tue, 28 Jul 2026
+ 06:40:57 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-43-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260714114414.184512-43-angelogioacchino.delregno@collabora.com>
+From: Rob Herring <robh@kernel.org>
+Date: Tue, 28 Jul 2026 08:40:45 -0500
+X-Gmail-Original-Message-ID: <CAL_JsqJXpY8jHEgSHcHz4QZTFEZe8PLbO6vbpxWH4qobs0MPyA@mail.gmail.com>
+X-Gm-Features: AUfX_mxvmD92NXelgjlyAlofvaufu78xVu0ncLV-YvDBbjclxGqXQU3uLBZ5iYE
+Message-ID: <CAL_JsqJXpY8jHEgSHcHz4QZTFEZe8PLbO6vbpxWH4qobs0MPyA@mail.gmail.com>
+Subject: Re: [PATCH v2 42/46] dt-bindings: display: mediatek: Introduce MT8196
+ 2D Sharpness Processor
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 13:34:51 +0000
-Message-Id: <20260728133452.5C7941F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,176 +74,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On Tue, Jul 14, 2026 at 6:45=E2=80=AFAM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+>
+> Add documentation for the Two-Dimension Sharpness Processor, or
+> "TDSHP", found in many MediaTek SoCs including MT8196 and its
+> variants.
+>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+> ---
+>  .../mediatek/mediatek,mt8196-tdshp.yaml       | 98 +++++++++++++++++++
+>  1 file changed, 98 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/mediatek/me=
+diatek,mt8196-tdshp.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,=
+mt8196-tdshp.yaml b/Documentation/devicetree/bindings/display/mediatek/medi=
+atek,mt8196-tdshp.yaml
+> new file mode 100644
+> index 000000000000..ccd6a8443443
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt8196-=
+tdshp.yaml
+> @@ -0,0 +1,98 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/mediatek/mediatek,mt8196-tdsh=
+p.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: MediaTek Display Two-Dimension Sharpness Processor (TDSHP)
+> +
+> +maintainers:
+> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> +
+> +description:
+> +  The MediaTek 2D Sharpness Processor (TDSHP) is responsible for perform=
+ing
+> +  image sharpness adjustments/enhancements in a display pipeline.
+> +  This hardware block supports adjusting the luma and contour 2d histogr=
+ams,
+> +  frequency weighting, luma-chroma gain and others, with adaptive weight=
+s.
+> +
+> +properties:
+> +  compatible:
+> +    const: mediatek,mt8196-disp-tdshp
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +  trigger-sources:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
 
-Pre-existing issues:
-- [High] Asynchronous pm_runtime_put() in power-off path races with device =
-teardown, leaking bus clocks.
-- [High] Ignored return values for clock enablement in msm_dsi_host_xfer_pr=
-epare() leading to unclocked register access.
-- [High] Unclocked register access crash due to missing cancel_work_sync() =
-for err_work.
-- [High] Double put_device() on the PHY device when dsi_get_phy() defers pr=
-obe.
-- [High] Asynchronous pm_runtime_put() causes hardware sequencing violation=
- by disabling regulators while bus clocks are still running.
---
+This causes a warning.
 
---- Patch [3]: [PATCH 3/3] drm/msm/dsi: Drop dev_pm_opp_set_rate(0) ---
-commit 9d791038937d59c654ef91edf07d2b7ff4432725
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Seems this is in linux-next already, but no reviews?
 
-drm/msm/dsi: Drop dev_pm_opp_set_rate(0)
-
-This commit removes the dev_pm_opp_set_rate(0) call from
-dsi_link_clk_disable_6g() because it removes the power vote without
-parking the clock. It relies on the subsequent pm_runtime_put() to rescind
-the power vote.
-
->     Every call site of ops->link_clk_disable() is followed by
->     pm_runtime_put(), so the power vote will be rescinded if deemed safe.
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does relying on the
-asynchronous pm_runtime_put() cause a resource leak during teardown?
-
-In msm_dsi_host_power_off(), pm_runtime_put() is called to queue an async
-suspend. However, if the device is immediately torn down,
-msm_dsi_host_destroy() cancels any pending async work:
-
-drivers/gpu/drm/msm/dsi/dsi_host.c:msm_dsi_host_destroy() {
-    ...
-    pm_runtime_disable(&msm_host->pdev->dev);
-    ...
-}
-
-Because the async suspend is canceled, does this leave the device in the
-RPM_ACTIVE state and permanently leak the bus clocks? Should
-pm_runtime_put_sync() be used instead?
-
-
-[Severity: High]
-This is a pre-existing issue, but does this asynchronous pm_runtime_put() a=
-lso
-cause a hardware power-sequencing violation?
-
-In msm_dsi_host_power_off(), the regulators are disabled immediately after
-the async put:
-
-drivers/gpu/drm/msm/dsi/dsi_host.c:msm_dsi_host_power_off() {
-    ...
-    pm_runtime_put(&msm_host->pdev->dev);
-
-    regulator_bulk_disable(msm_host->cfg_hnd->cfg->num_regulators,
-                           msm_host->supplies);
-    ...
-}
-
-Since pm_runtime_put() returns immediately while bus clocks are still runni=
-ng,
-does this remove power before the clocks are actually disabled by the
-asynchronous suspend?
-
-
-[Severity: High]
-This is a pre-existing issue, but is there a risk of an unclocked register
-access crash during power off?
-
-When the display is turned off in msm_dsi_host_power_off(), hardware clocks
-are disabled but there is no call to cancel_work_sync() for err_work:
-
-drivers/gpu/drm/msm/dsi/dsi_host.c:msm_dsi_host_power_off() {
-    ...
-    cfg_hnd->ops->link_clk_disable(msm_host);
-    pm_runtime_put(&msm_host->pdev->dev);
-    ...
-}
-
-If err_work executes after clocks are disabled or is flushed during driver
-teardown:
-
-drivers/gpu/drm/msm/dsi/dsi_host.c:dsi_err_worker() {
-    ...
-        dsi_sw_reset(msm_host);
-    ...
-}
-
-Will this unconditional hardware access cause a synchronous external abort?
-
-
-> diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi=
-/dsi_host.c
-> index 59125d342fcb6..7e4e3718b536c 100644
-> --- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-> +++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-> @@ -550,8 +550,6 @@ int dsi_link_clk_enable_v2(struct msm_dsi_host *msm_h=
-ost)
-> =20
->  void dsi_link_clk_disable_6g(struct msm_dsi_host *msm_host)
->  {
-> -	/* Drop the performance state vote */
-> -	dev_pm_opp_set_rate(&msm_host->pdev->dev, 0);
-
-[Severity: High]
-This is a pre-existing issue, but is it possible for a similar sequence to
-cause a kernel panic due to ignored return values when enabling clocks?
-
-In msm_dsi_host_xfer_prepare(), the return values for enablement are ignore=
-d:
-
-drivers/gpu/drm/msm/dsi/dsi_host.c:msm_dsi_host_xfer_prepare() {
-    ...
-    pm_runtime_get_sync(&msm_host->pdev->dev);
-    cfg_hnd->ops->link_clk_set_rate(msm_host);
-    cfg_hnd->ops->link_clk_enable(msm_host);
-    ...
-    msm_host->dma_cmd_ctrl_restore =3D dsi_read(msm_host, REG_DSI_CTRL);
-    ...
-}
-
-If clock enablement fails, will the unconditional dsi_read() to an unclocked
-register cause a synchronous external abort?
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does dsi_get_phy() double fr=
-ee
-the PHY device on probe deferral?
-
-If the PHY driver is not ready, dsi_get_phy() drops the reference but leave=
-s a
-dangling pointer in msm_dsi->phy_dev:
-
-drivers/gpu/drm/msm/dsi/dsi.c:dsi_get_phy() {
-    ...
-        put_device(&phy_pdev->dev);
-        DRM_DEV_ERROR(&pdev->dev, "%s: phy driver is not ready\n", __func__=
-);
-        return -EPROBE_DEFER;
-    ...
-}
-
-When the error is handled during dsi_init(), it calls dsi_destroy() which
-drops the reference a second time:
-
-drivers/gpu/drm/msm/dsi/dsi.c:dsi_destroy() {
-    ...
-    if (msm_dsi->phy_dev) {
-        put_device(msm_dsi->phy_dev);
-    ...
-}
-
-Could this lead to a reference count underflow?
-
->  	clk_disable_unprepare(msm_host->esc_clk);
->  	clk_disable_unprepare(msm_host->pixel_clk);
->  	clk_disable_unprepare(msm_host->byte_intf_clk);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-topic-dpu_=
-power-v1-0-e7783b859a70@oss.qualcomm.com?part=3D3
+Rob
