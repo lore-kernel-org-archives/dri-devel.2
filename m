@@ -4,69 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 611DFC54F53
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:24:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6631BC53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:26:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82E4210E7E9;
-	Tue, 28 Jul 2026 07:24:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BC2910E7E6;
+	Tue, 28 Jul 2026 07:26:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="JNI2Wuwt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VtCRSZV3";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44C9510E358
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 01:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
- s=mxsw2412; t=1785200737;
- bh=abrj0YhkjdX5tIEw1QYlhdxieuLgqQ+aot0tju4kSGo=;
- h=From:To:Subject:Date:Message-Id:MIME-Version;
- b=JNI2WuwtuIBzEoKe9qh4X4evFWllqWx6ySLc+Um73cA0whw54D40RFj0PlXxzqPOd
- 1hx7drZbbbWkbvCmdreTsTBMDg0DAT9w1/IfZFpRJ0pHucmDuvJI0MxO9I9iSiWrk0
- E3i6haleN0oOEPbuMVy4QoRXr7MZUOtK4LwJ0k7A=
-X-QQ-mid: esmtpsz20t1785200729t3d4b9290
-X-QQ-Originating-IP: a2tKt8NaLB4fW8LMxzOmxD7eLoRxrdnEhFFebeT55yw=
-Received: from snode5.. ( [120.237.158.181]) by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 28 Jul 2026 09:05:25 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 17787826967055244228
-From: Sterling-Ash <liangbaihui@linux.spacemit.com>
-To: Frank Binns <frank.binns@imgtec.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev
-Subject: [PATCH v3 2/2] drm/imagination: allow probe when no power-domains are
- described
-Date: Tue, 28 Jul 2026 09:05:13 +0800
-Message-Id: <20260728010513.1627950-3-liangbaihui@linux.spacemit.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260728010513.1627950-1-liangbaihui@linux.spacemit.com>
-References: <75c9382d2bda766aa459b00321153d715254d1a4.camel@imgtec.com>
- <20260728010513.1627950-1-liangbaihui@linux.spacemit.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NAtipnnbTPeaCe3+ePoEXunKLK732IY2Mx39vHQruFW1ZY1NJW5TTLgu
- ZO6zVyaZryJEzz1eXOFHlfs43NYKhUHSovd/2td74GNOR4Wg8HCTwbVb3dQYuz3i9FVQC8T
- NXXKoM/MLapVNNIjG17WcIb+Yc3vXVPWqIogFcb0+z61n1hLiUraG7aE7X4qIaTqVmXMSxl
- QYmkNSjv694jVqQyFlqtb1ajpilqdcQ84Gvd8VWeLeMjVpNKZJXJX8BKkOX7mhyiuQOAa41
- 7Jy4AF1Eolly4CKuCjBY32V8zElFV8Ewra8iYG7q763ArejUEoDWKSzroi/tkNO/Tyy7CRk
- R0derfZfqBSQAOY5uXwmd84mwopOZiJ/5U+0q+nD8F4ZGR8FbJmN+069Bxr4UHxLIh93P6Q
- Dp8FjEpj1F7wxRdgsJegooTAMj+w/cpQeHZhvaxpZYnbRJ+s0oEjp99w7HcXJxW/lOJv+CY
- 44ojXGeqoq6lsZynU4HVmbxzYTJHXK8JtN+5vVhvXuDGmZBu5fw11wB/eerdthLJcqeFcan
- mn5U9RI3W4oTPtD9qbvx3izCfIaza69eOP7EPe3XlvTetRnijyLK8/uHP9u/cZ1Nsnv8Rez
- F5h19eFIbSKt+q1lQU3XQn2ZUWz5bjCZUWBS1boZdyjSyIr/paoZaxaaugxPSv4YIIkebfB
- Mf0u8mrKNiDnO0Kbov+B85i43jZP5HdUhPGqUvbCzopS7m6dqCw+bzqxoG5OpWpdYQDFbdp
- chVLEbvHyPMQ/YLt245Ky1UUlXYIB0czREA3rd1ewZxkmY2jc+EzPdw10oOtRoF3210pXq+
- YbgDrRlsQh/31uuslbbTdpLpfCxzxp1+w3RVLwe3+LhBFIfTUSeVX1PRqTlkoetAgS8iNVU
- /hL2yKqftGbJ2/NfQbh8/JuXaI/cIkvaEA1v5lpVLAjA3p7rLwGkULU160SvhnkaAbkISDl
- RWewezgbRqwyLw8BTgxemW/fWYb3B+/0iBP9sKINjjK6sc82OMONGG85dZ+UA7lhRGnEWcZ
- nmsf+qWQ==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
-X-Mailman-Approved-At: Tue, 28 Jul 2026 07:21:09 +0000
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A812210E7E6
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 07:26:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id D56EC60A62;
+ Tue, 28 Jul 2026 07:26:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F3A71F000E9;
+ Tue, 28 Jul 2026 07:26:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785223603;
+ bh=Y0X7YRVnwTXm1bVs+2+BJUZJBU7vjqsJiFjYIhAUXWI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=VtCRSZV3poSGZVgF3Fj+t2NbpLGma7NzK11A4S5n8kTbhWW9KKJYrIo02NniFkUP/
+ fgDC0NtHHBe2wy6jISQsD0QySzUe+MfP+E9MfAGDzu4E1KWlJKLcG/GLFZYmwvdmWd
+ 4Y92SpZj+4apHk7ObiQ4PNl4uGm2tInUkwLMOH7ZynuAvV70TwjMxDzlMW6c/lLEk/
+ trhyj+f+0fqQ/Lhe6bTxizmQ9kyZyRpd931kPaBxMOrCQSp/chjAHeHvPTI0XV1WF4
+ E+lqGX/cWKSiiT7yf+CE/P76JKWO7emNawh5ThWgqTiu/CQeFHafBbtRHsL2kT1RY2
+ DmpZ+GE3aWQ6A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6] drm/amd/amdgpu: remove duplicated code in gfx_v11
+ and gfx_v12
+To: "Ulisses Paixao" <ulissespaixao@usp.br>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260728025048.14970-1-ulissespaixao@usp.br>
+References: <20260728025048.14970-1-ulissespaixao@usp.br>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 07:26:40 +0000
+Message-Id: <20260728072643.5F3A71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,43 +53,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pvr_power_domains_init() currently fails probe with -ENOENT when the
-device tree node has no "power-domains" property. On some platforms
-(e.g. SpacemiT K3) the GPU power domain is brought up by the bootloader
-and is not modeled or managed by Linux, so there is legitimately no
-power-domains phandle to attach.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing early return in the compute ring search loop causes unin=
+tended fall-through to user queue processing.
+--
 
-Treat a missing "power-domains" property as "nothing to attach" and
-continue probing, rather than failing.
+--- Patch [1]: [PATCH v6] drm/amd/amdgpu: remove duplicated code in gfx_v11=
+ and gfx_v12 ---
+commit 554dbb6c1295b4176f2248f06098908b58cf4225
+Author: Ulisses Paixao <ulissespaixao@usp.br>
 
-Signed-off-by: Sterling-Ash <liangbaihui@linux.spacemit.com>
----
- drivers/gpu/drm/imagination/pvr_power.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+drm/amd/amdgpu: remove duplicated code in gfx_v11 and gfx_v12
+   =20
+This commit consolidates the shared logic for finding and handling a
+scheduler fault on a ring into a common function, amdgpu_gfx_handle_priv_fa=
+ult,
+in amdgpu_gfx.c.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
-index a71d5b35601e..5751e2d814b0 100644
---- a/drivers/gpu/drm/imagination/pvr_power.c
-+++ b/drivers/gpu/drm/imagination/pvr_power.c
-@@ -635,6 +635,15 @@ int pvr_power_domains_init(struct pvr_device *pvr_dev)
- 
- 	domain_count = of_count_phandle_with_args(dev->of_node, "power-domains",
- 						  "#power-domain-cells");
-+	if (domain_count == -ENOENT) {
-+		/*
-+		 * No "power-domains" property in the device tree: the platform
-+		 * handles power domains transparently or at the firmware/bootloader level,
-+		 * so there is no domain to attach. Treat this as non-fatal.
-+		 */
-+		err = 0;
-+		goto out;
-+	}
- 	if (domain_count < 0) {
- 		err = domain_count;
- 		goto out;
--- 
-2.34.1
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 1e275c2e7dd3e..3b612e9a5bb8d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
 
+[ ... ]
+
+> @@ -855,6 +856,56 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev=
+, int xcc_id)
+>  	return r;
+>  }
+> =20
+> +/**
+> + * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @entry: interrupt vector entry containing fault information
+> + * @me_id: micro-engine ID of the faulty ring
+> + * @pipe_id: pipe ID of the faulty ring
+> + * @queue_id: queue ID of the faulty ring
+> + *
+> + * This function handles privileged instruction faults by identifying
+> + * the faulty ring (gfx or compute) and triggering a scheduler fault
+> + */
+> +void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
+> +					struct amdgpu_iv_entry *entry,
+> +					u8 me_id, u8 pipe_id, u8 queue_id)
+> +{
+> +	struct amdgpu_ring *ring;
+> +	int i;
+> +
+> +	/*
+> +	 * Try KQ first by ring_id (HW slot is authoritative). The
+> +	 * KMD compute_hqd_mask contract guarantees KCQ and user queues
+> +	 * never share a HW slot.
+> +	 */
+> +	if (!adev->gfx.disable_kq) {
+> +		for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
+> +			ring =3D &adev->gfx.gfx_ring[i];
+> +			if (ring->me =3D=3D me_id && ring->pipe =3D=3D pipe_id &&
+> +			    ring->queue =3D=3D queue_id) {
+> +				drm_sched_fault(&ring->sched);
+> +				return;
+> +			}
+> +		}
+> +
+> +		for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+> +			ring =3D &adev->gfx.compute_ring[i];
+> +			if (ring->me =3D=3D me_id && ring->pipe =3D=3D pipe_id &&
+> +			    ring->queue =3D=3D queue_id)
+> +				drm_sched_fault(&ring->sched);
+
+[Severity: Medium]
+Should there be a return statement here?=20
+
+Without an early return, the loop correctly triggers a scheduler fault on a
+matching compute ring, but then execution erroneously continues to the MES
+user queue fallback logic below. This could result in spuriously processing=
+ a
+reset IRQ for a user queue if the PASID and doorbell offset happen to alias.
+
+> +		}
+> +	}
+> +
+> +	u32 doorbell_offset =3D entry->src_data[0] & AMDGPU_CTXID0_DOORBELL_ID_=
+MASK;
+> +
+> +	/* No KQ matched: HW slot is a MES-scheduled user queue. */
+> +	if (adev->enable_mes && doorbell_offset)
+> +		amdgpu_userq_process_reset_irq(adev, entry->pasid,
+> +					       doorbell_offset);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728025048.1497=
+0-1-ulissespaixao@usp.br?part=3D1
