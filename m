@@ -4,87 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8726BC531F9
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 16:23:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25DF9C531F9
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 16:24:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96E1A10E5AC;
-	Tue, 28 Jul 2026 16:23:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 827A210E1E5;
+	Tue, 28 Jul 2026 16:24:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="URDB69Cv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZDl/Eg/5";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 648C010E5AC
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 16:23:01 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C68C4175D
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 09:22:56 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- A4CE63F763
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 09:23:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785255780; bh=MuoYv/trvB+apkFilFU7ge8EmIYL0Cz7Mp4H5bYBY04=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=URDB69CvqR106/LZ2jVw0QTJi8hxma+w2H/QHYwNCp3bfs0tW4kHO5POUuDwJ7+04
- tXWdXi3p7w5lcDjhtx+OvYqIvIoVeHV0Gh/rtMVnR4XsuHXPuKC58xU2GjTgk72Itr
- knqbKt8qAovoXe0WcR9xXq9MI6rvk1u5JzOyTwd8=
-Date: Tue, 28 Jul 2026 17:21:58 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Diogo Silva <diogompaissilva@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, Inki Dae <inki.dae@samsung.com>,
- Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Michal Simek <michal.simek@amd.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Stefan Agner <stefan@agner.ch>, Alison Wang <alison.wang@nxp.com>,
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>,
- Chia-I Wu <olvaffe@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Liu Ying <victor.liu@nxp.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Xinliang Liu <xinliang.liu@linaro.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Yongqin Liu <yongqin.liu@linaro.org>, John Stultz <jstultz@google.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org, virtualization@lists.linux.dev,
- imx@lists.linux.dev, linux-mediatek@lists.infradead.org,
- linux-renesas-soc@vger.kernel.org,
- linux-amlogic@lists.infradead.org, linux-doc@vger.kernel.org
-Subject: Re: [PATCH 12/15] drm/arm/komeda: remove dependency on DRM simple
- helpers
-Message-ID: <amjXJrbgka00CQX2@e142607>
-References: <20260719-drm_simple_encoder_init-v1-0-a78c509e3062@gmail.com>
- <20260719-drm_simple_encoder_init-v1-12-a78c509e3062@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A329010E1E5
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 16:24:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 84C3D601DE;
+ Tue, 28 Jul 2026 16:24:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E87A1F000E9;
+ Tue, 28 Jul 2026 16:24:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785255874;
+ bh=3fXCTqKDFPeeZSKzhi12ENj/QYFjEH9zdFLqJrbhbl0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=ZDl/Eg/5GYecAKoOepubuSjKK4tQcE2cGvzc6/PoNqMpaF64vYbLgx0hO6rO7EpAO
+ CR1aeoc0PB9OiKpERm5of50mGf1K7fQRIrPM9+T2vqShuHZR3UKwpz9T6+KFtMivrE
+ ZmPFWDDEKKF6AcVc+7DYIvAVXdKvJMqtCbW7W1dcBP5gvHAQ03jgr9GNVDKqUfjX4z
+ CJHbEk3YrTKyBtHGzK5MzBc6M9WzEGs4DNRcZZsXFlKK2MH26/KoDMbrwOLia7ka3a
+ R8zoj080ZIGAm5/xkJel9vNoQ4KasX5uHhXTPskf4j9HDYePFt6Qn8ATd20RJ9BJXs
+ Dnw/YrDPq4taw==
+Date: Tue, 28 Jul 2026 11:24:32 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Gary Guo <gary@garyguo.net>, David Airlie <airlied@redhat.com>,
+ Vaibhav Gupta <vaibhavgupta40@gmail.com>,
+ Jens Taprogge <jens.taprogge@taprogge.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ GOTO Masanori <gotom@debian.or.jp>,
+ YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Zhenzhong Duan <zhenzhong.duan@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Damien Le Moal <dlemoal@kernel.org>,
+ Niklas Cassel <cassel@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Ido Schimmel <idosch@nvidia.com>, Petr Machata <petrm@nvidia.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-pci@vger.kernel.org, driver-core@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-ide@vger.kernel.org,
+ linux-scsi@vger.kernel.org,
+ industrypack-devel@lists.sourceforge.net, netdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v4 7/9] PCI: Make pci_match_one_device() match on ID
+ instead of device
+Message-ID: <20260728162432.GA1322140@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260719-drm_simple_encoder_init-v1-12-a78c509e3062@gmail.com>
+In-Reply-To: <DK7N9IZPWPIT.2AKSZR5CU1H9L@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,71 +77,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 19, 2026 at 01:35:43AM +0200, Diogo Silva wrote:
-> The simple KMS helpers are deprecated because they only add an
-> intermediate layer between drivers and atomic modesetting.
-> 
-> Open-code drm_simple_encoder_init() by calling drm_encoder_init()
-> directly and providing driver-local drm_encoder_funcs.
-> 
-> Signed-off-by: Diogo Silva <diogompaissilva@gmail.com>
+[cc->to: Dave, Vaibhav, Jens, Greg, GOTO, YOKOTA: possible acks?
+series: https://lore.kernel.org/all/20260723-pci_id_fix-v4-0-3580726844e1@garyguo.net]
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
-> ---
->  drivers/gpu/drm/arm/display/komeda/komeda_crtc.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
+On Sat, Jul 25, 2026 at 01:17:50PM +0100, Gary Guo wrote:
+> On Fri Jul 24, 2026 at 11:29 PM BST, Bjorn Helgaas wrote:
+> > On Thu, Jul 23, 2026 at 11:00:46PM +0100, Gary Guo wrote:
+> >> PCI dynamic ID needs to match IDs against a new ID to see if it already
+> >> exists. Existing APIs can only match IDs against devices, causing the
+> >> dynamic ID insertion code to create a temporary device only for matching
+> >> purpose. Rename pci_match_one_device() to pci_match_one_id() so it can be
+> >> used for this purpose instead; add a pci_id_from_device() helper to make it
+> >> easy to convert users.
+> >
+> > s/causing the ... code to create/so the ... code creates/
+> > s/purpose/purposes/
+> >
+> >> Similarly, convert pci_match_id() to do_pci_match_id(). But keep the
+> >> existing API because there are many users.
+> >> 
+> >> Reviewed-by: Danilo Krummrich <dakr@kernel.org>
+> >> Signed-off-by: Gary Guo <gary@garyguo.net>
+> >
+> > Reviewed-by: Bjorn Helgaas <bhelgaas@google.com>
+> > Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+> >
+> > What's the merge strategy?  If these all need to be merged
+> > together, feel free to include the PCI patches whereever you merge
+> > the series.
 > 
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
-> index e8cb782a6f8e..719568d9f7c2 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_crtc.c
-> @@ -11,9 +11,9 @@
->  
->  #include <drm/drm_atomic.h>
->  #include <drm/drm_atomic_helper.h>
-> +#include <drm/drm_encoder.h>
->  #include <drm/drm_print.h>
->  #include <drm/drm_vblank.h>
-> -#include <drm/drm_simple_kms_helper.h>
->  #include <drm/drm_bridge.h>
->  
->  #include "komeda_dev.h"
-> @@ -635,6 +635,10 @@ static int komeda_attach_bridge(struct device *dev,
->  	return err;
->  }
->  
-> +static const struct drm_encoder_funcs komeda_encoder_funcs = {
-> +	.destroy = drm_encoder_cleanup,
-> +};
-> +
->  static int komeda_crtc_add(struct komeda_kms_dev *kms,
->  			   struct komeda_crtc *kcrtc)
->  {
-> @@ -658,7 +662,8 @@ static int komeda_crtc_add(struct komeda_kms_dev *kms,
->  	 * bridge
->  	 */
->  	kcrtc->encoder.possible_crtcs = drm_crtc_mask(crtc);
-> -	err = drm_simple_encoder_init(base, encoder, DRM_MODE_ENCODER_TMDS);
-> +	err = drm_encoder_init(base, encoder, &komeda_encoder_funcs,
-> +			       DRM_MODE_ENCODER_TMDS, NULL);
->  	if (err)
->  		return err;
->  
+> I think the series should be merged together, as I consider the
+> driver changes included in this series being "fixing the users".
 > 
-> -- 
-> 2.54.0
+> The series should probably be taken via the PCI tree. I suppose one
+> can also argue that the lifetime issue with device IDs isn't unique
+> to PCI bus so this can also be considered driver-core material, but
+> given that Greg has already taken the USB fixes via the USB tree the
+> only unfixed bus left is PCI.
 > 
+> So unless Danilo thinks otherwise I'd suggest the series be taken as
+> a whole via PCI.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+I'm happy to take via PCI.  It would be great to have acks/reviewed-by
+from the non-PCI maintainers:
+
+  David Airlie <airlied@redhat.com> (agp)
+
+  Vaibhav Gupta <vaibhavgupta40@gmail.com> (tpci200)
+  Jens Taprogge <jens.taprogge@taprogge.org> (tpci200)
+  Greg Kroah-Hartman <gregkh@linuxfoundation.org> (tpci200)
+
+  GOTO Masanori <gotom@debian.or.jp> (nsp32)
+  YOKOTA Hiroshi <yokota@netlab.is.tsukuba.ac.jp> (nsp32)
