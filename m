@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ABB0C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 20:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2F09C54F51
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 21:05:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5D8A10E5E3;
-	Tue, 28 Jul 2026 20:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AAA410E5EB;
+	Tue, 28 Jul 2026 21:05:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eIiqCe7N";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IUSKAcvA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C80C410E5E3
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 20:50:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4D9410E5EB
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 21:05:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5DF5540A3D;
- Tue, 28 Jul 2026 20:50:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF2A21F000E9;
- Tue, 28 Jul 2026 20:50:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B544E60A5E;
+ Tue, 28 Jul 2026 21:05:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86DF1F000E9;
+ Tue, 28 Jul 2026 21:05:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785271827;
- bh=LCL1QNvxMPjzTjFmC0W8Ajtf4tzoBIcO2WYr15c4cMU=;
+ s=k20260515; t=1785272702;
+ bh=uSJvW2aSZaQQcpZ5Wgx/kgiX7MWXoK21J3zNsJ/g27w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eIiqCe7NOB+cT/HHlB5QEwva/h/LoyHSEzCvOV2puRNgBhZKqwWgtzGIwlZA63elw
- M77EwJhXWsDnZlGHqJZpWnGfzTc0uwcOgBhimDydUHwz4aAgCj38HOl5LDsxtsXhPK
- aBhZqITeDnVOFRL1Tj91m3ajFK2adqet/NAY75KlgrK9le0y1AgCmTeJY5jesqeq+2
- E+DClHwN62IZYx3IBJhYKEM96TGAIzSB9cXhIl9lrqDrP5YXkfQzvsbrLZnxDTMOiL
- ZgYOPjyZgQ+TKphZvjUA6Po0BErlnKqASlbWfu0lb0ZFIWET2vYb+njjD1SbHDjDcP
- 2IxeQKtPSnz9g==
+ b=IUSKAcvAFnQBBdYTmPce10MMR5kcY+XGTHsAlm3Wexv/AxS25RL6o/83NCvxLYx0p
+ lYUxc7YuC15JfE1r4OZPUFh8mums6DSoLWES7N5uPOp7XQrpMgbia8dGoXp21E2MLF
+ fzBDy8+JJpPqk4Q4WWKPLBwTobtUzhajqG8LQ14It056tQCSy1/csBESSeIQc/5GPq
+ PlyqnAnaQ2TB3t4p23wIk/6bXdPoTK+AnfRG8XytQPzU1Iu9u/lMkxRx870dM09SCy
+ ATAzOJR9BwszNnhIV3l5/3kA36q63MWzUjVeGoX2pNZtR2tHbNNQb9jKiFS1DWoi61
+ V8FzlnI4ZJBNA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 17/18] drm/bridge: synopsys: dw-dp: Clear only
- enabled SDPs on atomic disable
+Subject: Re: [PATCH v7 18/18] drm/bridge: synopsys: dw-dp: Add audio support
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-17-b7640fa8cf48@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-18-b7640fa8cf48@collabora.com>
 References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
- <20260728-synopsys-dw-dp-improvements-v7-17-b7640fa8cf48@collabora.com>
+ <20260728-synopsys-dw-dp-improvements-v7-18-b7640fa8cf48@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 20:50:26 +0000
-Message-Id: <20260728205026.EF2A21F000E9@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 21:05:01 +0000
+Message-Id: <20260728210501.D86DF1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,96 +58,173 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Unbalanced and unconditional clearing of SDP slot 0 defeats tracki=
-ng and risks concurrent stream corruption.
-- [High] Sleeping functions are called from an atomic commit callback path =
-in violation of DRM rules.
+- [High] Multichannel audio channel allocation is hardcoded to 0 (stereo), =
+breaking surround sound routing.
+- [High] Audio InfoFrame can steal SDP slot 0, which is hardcoded for Video=
+ Stream Configuration (VSC), corrupting the VSC packet if ALSA prepares aud=
+io before the display is enabled.
+- [Medium] Unconditional attempt to enable both I2S and SPDIF clocks causes=
+ valid audio configurations to fail if the unused clock cannot be enabled.
+- [Medium] The audio mute state (AUDIO_MUTE) is lost across DisplayPort con=
+troller resets during atomic_disable/atomic_enable cycles.
 --
 
---- Patch [17]: [PATCH v7 17/18] drm/bridge: synopsys: dw-dp: Clear only en=
-abled SDPs on atomic disable ---
-commit 7e0bb4945c91158df2f4360bed9dbdb18041404b
+--- Patch [18]: [PATCH v7 18/18] drm/bridge: synopsys: dw-dp: Add audio sup=
+port ---
+commit 5e1e4e31e16d403e05ea9b2201464ef6e1a35fc1
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm/bridge: synopsys: dw-dp: Clear only enabled SDPs on atomic disable
+drm/bridge: synopsys: dw-dp: Add audio support
 
-This commit updates dw_dp_bridge_atomic_disable() to selectively clear only
-the previously configured SDPs (like VSC SDP) instead of bulk clearing the
-entire SDP allocation bitmap. This aims to prevent handing out in-use SDPs
-to other systems like the upcoming audio infrastructure.
+Implement audio support for the Synopsys DesignWare DisplayPort controller.
 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
 idge/synopsys/dw-dp.c
-> index fcee47c6716a7..c0026bd4c7b53 100644
+> index c0026bd4c7b53..3b73e822478d7 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
 [ ... ]
 
-> +static void dw_dp_clear_sdp(struct dw_dp *dp, int nr)
+> @@ -1679,6 +1708,247 @@ static int dw_dp_link_enable(struct dw_dp *dp)
+>  	return ret;
+>  }
+> =20
+> +static int dw_dp_audio_infoframe_send(struct dw_dp *dp)
 > +{
-> +	regmap_clear_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-> +			  EN_VERTICAL_SDP << nr);
+> +	struct hdmi_audio_infoframe frame;
+> +	struct dw_dp_sdp sdp;
+> +	int ret;
 > +
-> +	regmap_clear_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-> +			  EN_HORIZONTAL_SDP << nr);
+> +	ret =3D hdmi_audio_infoframe_init(&frame);
+
+[Severity: High]
+The hdmi_audio_infoframe_init() function initializes the frame to zero, whi=
+ch
+implicitly sets the channel allocation to 0 (stereo).
+
+Since dw_dp_audio_prepare() receives the channel allocation in
+params->cea.channel_allocation but does not save it, will multi-channel aud=
+io
+(like 5.1 or 7.1) be transmitted incorrectly as stereo, potentially causing
+the AV receiver to drop or improperly route channels?
+
+> +	if (ret < 0)
+> +		return ret;
 > +
-> +	scoped_guard(mutex, &dp->sdp_lock)
-> +		clear_bit(nr, dp->sdp_reg_bank);
-> +}
+> +	frame.coding_type =3D HDMI_AUDIO_CODING_TYPE_STREAM;
+> +	frame.sample_frequency =3D HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
+> +	frame.sample_size =3D HDMI_AUDIO_SAMPLE_SIZE_STREAM;
+> +	frame.channels =3D dp->audio_channels;
 
 [ ... ]
 
-> @@ -1738,8 +1751,14 @@ static void dw_dp_bridge_atomic_disable(struct drm=
-_bridge *bridge,
-> =20
->  	dw_dp_video_disable(dp);
->  	dw_dp_link_disable(dp);
+> +static int __dw_dp_audio_enable(struct dw_dp *dp)
+> +{
+> +	u8 audio_data_in_en;
 > +
-> +	if (dp->vsc_sdp_nr >=3D 0) {
-> +		dw_dp_clear_sdp(dp, dp->vsc_sdp_nr);
+> +	switch (dp->audio_channels) {
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this code call sleeping
-functions in an atomic commit path?
+[ ... ]
 
-The DRM subsystem calls dw_dp_bridge_atomic_disable() during non-blocking
-commits via drm_atomic_helper_commit_tail(), which runs in atomic context.
-This patch adds a call to dw_dp_clear_sdp(), which acquires a mutex using
-scoped_guard(mutex, &dp->sdp_lock).=20
-
-While the function already acquired this mutex and called sleeping functions
-on this path previously, adding new mutex acquisitions here can lead to
-system instability or deadlocks when the display mode is disabled.
-
-> +		dp->vsc_sdp_nr =3D -1;
 > +	}
->  	scoped_guard(mutex, &dp->sdp_lock)
-> -		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-> +		clear_bit(0, dp->sdp_reg_bank);
+> +
+> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
+> +			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
+> +			   AUDIO_INF_SELECT | HBR_MODE_ENABLE,
+
+[Severity: Medium]
+The dw_dp_audio_mute_stream() function sets the AUDIO_MUTE bit in hardware,
+but it does not save this state in the software context.
+
+If the display is disabled and re-enabled (causing a hardware reset),
+__dw_dp_audio_enable() restores DW_DP_AUD_CONFIG1 here but does not include
+AUDIO_MUTE in its update mask.
+
+Will an intentionally muted audio stream suddenly become unmuted after a
+display power cycle?
+
+> +			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
+> +			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
+
+[ ... ]
+
+> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
+> +			       struct drm_connector *connector,
+> +			       struct hdmi_codec_daifmt *daifmt,
+> +			       struct hdmi_codec_params *params)
+> +{
+
+[ ... ]
+
+> +	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
+> +	supported_audio_interfaces =3D FIELD_GET(AUDIO_SELECT, cfg1);
+> +
+> +	if (supported_audio_interfaces !=3D DW_DP_AUDIO_I2S_AND_SPDIF &&
+> +	    supported_audio_interfaces !=3D audio_interface) {
+> +		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
+> +		return -EINVAL;
+> +	}
+> +
+> +	ret =3D clk_prepare_enable(dp->spdif_clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D clk_prepare_enable(dp->i2s_clk);
+> +	if (ret) {
+> +		clk_disable_unprepare(dp->spdif_clk);
+> +		return ret;
+> +	}
+
+[Severity: Medium]
+This code attempts to enable both the spdif_clk and i2s_clk unconditionally,
+returning an error if either fails.
+
+If a platform has one of these clocks defined in the device tree but it
+temporarily or permanently fails to enable, will this cause the entire audio
+preparation to fail even if the user only requested the other (working) aud=
+io
+interface?
+
+> +
+> +	if (audio_interface =3D=3D DW_DP_AUDIO_I2S)
+> +		clk_disable_unprepare(dp->spdif_clk);
+
+[ ... ]
+
+> @@ -1720,6 +1990,14 @@ static void dw_dp_bridge_atomic_enable(struct drm_=
+bridge *bridge,
+>  		dev_err(dp->dev, "failed to enable video: %d\n", ret);
+>  		return;
+>  	}
+> +
+> +	scoped_guard(mutex, &dp->audio_lock) {
+> +		if (dp->audio_interface !=3D DW_DP_AUDIO_UNUSED) {
+> +			ret =3D __dw_dp_audio_enable(dp);
 
 [Severity: High]
-This is a pre-existing issue, but does unconditionally clearing bit 0 here
-defeat the tracking mechanism?
+If userspace prepares audio while the display is disabled, dw_dp_send_sdp()
+might allocate the first free slot (slot 0) for the Audio InfoFrame.
 
-If userspace opens the ALSA PCM device while the DRM bridge is disabled,
-ASoC might allocate slot 0 for audio. When the display is later enabled
-and disabled, dw_dp_bridge_atomic_disable() unconditionally executes
-clear_bit(0, dp->sdp_reg_bank).=20
+Earlier in this function, dw_dp_bridge_atomic_enable() hardcodes a reservat=
+ion
+for slot 0 for the Video Stream Configuration (VSC) packet:
 
-This silently revokes the active audio allocation, allowing another
-allocation to claim it while the audio subsystem still believes it owns
-the slot.
+	scoped_guard(mutex, &dp->sdp_lock)
+		set_bit(0, dp->sdp_reg_bank);
 
-While the previous code wiped the entire bank via bitmap_zero(),
-explicitly clearing bit 0 seems to leave the audio tracking vulnerable.
-Should this unconditional clear_bit() be removed entirely since
-vsc_sdp_nr is now being handled explicitly?
+Does calling __dw_dp_audio_enable() here then clear slot 0 (wiping out the =
+VSC
+packet) and reallocate it to audio since audio previously held slot 0?
+
+> +			if (ret < 0)
+> +				dev_err(dp->dev, "failed to restore audio: %d\n", ret);
+> +		}
+> +	}
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
-w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D17
+w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D18
