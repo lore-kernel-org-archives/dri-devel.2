@@ -4,48 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D69BC53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 14:06:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45A3DC53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 14:06:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D7EC10E589;
-	Tue, 28 Jul 2026 14:06:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB99710E910;
+	Tue, 28 Jul 2026 14:06:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="vr7OFN72";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Wi0XNT3u";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id C5FDE10E589
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 14:06:49 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 147361650
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 07:06:45 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- DC0E53F66F
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 07:06:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785247609; bh=oh/tz0oaXwZk1r+xJ7nKsqhdVTLA4/q103YvNyJqQlk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=vr7OFN72RWiwQ6Qe91tcWum2bF6WmGcD0sObSMiL3215uYLhj+GT/GmxPLfMIuC/G
- jl3rZoCSshV4AQ+VymC+vjW/7fbcLvbIPZqRU4QgJchCaXcAWwknfKoUVjbK+mwtvp
- GC7/ZiQM6S4Pec1ZUoe8J3n7PD6KLVHHSMgjJk3c=
-Date: Tue, 28 Jul 2026 15:06:47 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Raveendra Talabattula <raveendra.talabattula@arm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- james.qian.wang@arm.com, vincenzo.frascino@arm.com,
- nayden.kanchev@arm.com, charvi.mehta@arm.com,
- Asad Malik <asad.malik@arm.com>
-Subject: Re: [PATCH 1/2] drm/komeda: Fix bits parsing of GLB_CORE_ID
-Message-ID: <ami3d4pvkRrOtJoZ@e142607>
-References: <20260721135227.439413-1-raveendra.talabattula@arm.com>
- <20260721135227.439413-2-raveendra.talabattula@arm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24FC710E910
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 14:06:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785247614; x=1816783614;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=TZINwW7YB7EhgbrD5JVJnkAjPkelIORdV7sgpRwLNIQ=;
+ b=Wi0XNT3ujHkb4n++Uj4OSvFXsRAc1Ufqs0JJ8tbmxxrqIWnYK7aH8GP5
+ ZlSncv7+JqxYETDF9ehodU9+Sbq6Oxelqjo+SHRdGtTXHSXT+9GuT0UGF
+ FD0rM57AqHjWYmhLbyLB/SfiRes9659m3bR54qKtX6uQpuTe/h82WWk80
+ H1ng2odW8b7LRNv+xr8y0oJFOsZDg/FvZCpq7EaL7Px3H7kESoIPKb6Eo
+ GTRZMviJOE3n4LgU/FTgSNI4pu/8h/eJ3rxXC7FkPiCrmNeWfAuusaBZZ
+ T3sfMrwqr7vCdfXsSoQ3Cq8FmaLVWMHCPeHrLXwFd6IOTwQOY947vg3AP A==;
+X-CSE-ConnectionGUID: lIAMBDUOSXWxxLYtlWU0qw==
+X-CSE-MsgGUID: 6c5L5yebSUGdNPSXx/BaBA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85775156"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="85775156"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Jul 2026 07:06:54 -0700
+X-CSE-ConnectionGUID: ObVYU6/LR6+HOStR4Ue6QQ==
+X-CSE-MsgGUID: mX5nnkaeT+6A7hqMrlENVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; d="scan'208";a="255789521"
+Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
+ by fmviesa010.fm.intel.com with ESMTP; 28 Jul 2026 07:06:49 -0700
+From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	rodrigo.vivi@intel.com
+Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona.vetter@ffwll.ch, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
+ Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Subject: [PATCH v3] drm/drv: Convert wedged event string building to seq_buf
+Date: Tue, 28 Jul 2026 19:36:31 +0530
+Message-ID: <20260728140630.891508-2-mallesh.koujalagi@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260721135227.439413-2-raveendra.talabattula@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,72 +71,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 21, 2026 at 02:52:26PM +0100, Raveendra Talabattula wrote:
-> GLB_CORE_ID contains the product and version information returned by the
-> hardware. The current macros parses VERSION_MINOR as a 4-bit field and
-> VERSION_STATUS as an 8-bit field, which does not match the register
-> layout. As a result, the driver reports an incorrect version number.
-> 
-> Fix the parsing macros to match the hardware specification:
-> - VERSION_MINOR is 8 bits at [11:4]
-> - VERSION_STATUS is 4 bits at [3:0]
-> 
-> Fixes: bd628c1bed79 ("drm/komeda: komeda_dev/pipeline/component definition and initialzation")
-> Signed-off-by: Asad Malik <asad.malik@arm.com>
-> Signed-off-by: Raveendra Talabattula <raveendra.talabattula@arm.com>
-> ---
->  drivers/gpu/drm/arm/display/include/malidp_product.h | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/arm/display/include/malidp_product.h b/drivers/gpu/drm/arm/display/include/malidp_product.h
-> index 6f954bcdf40e..bf63c4e05c3e 100644
-> --- a/drivers/gpu/drm/arm/display/include/malidp_product.h
-> +++ b/drivers/gpu/drm/arm/display/include/malidp_product.h
-> @@ -8,14 +8,18 @@
->  #define _MALIDP_PRODUCT_H_
->  
->  /* Product identification */
-> +/* GLB_CORE_ID fields as per HW specification:
-> + * MINOR is 8 bits ([11:4]) and STATUS is 4 bits ([3:0]).
-> + * Update masks/shifts accordingly.
-> + */
->  #define MALIDP_CORE_ID(__product, __major, __minor, __status) \
->  	((((__product) & 0xFFFF) << 16) | (((__major) & 0xF) << 12) | \
-> -	(((__minor) & 0xF) << 8) | ((__status) & 0xFF))
-> +	(((__minor) & 0xFF) << 4) | ((__status) & 0xF))
->  
-> -#define MALIDP_CORE_ID_PRODUCT_ID(__core_id) ((__u32)(__core_id) >> 16)
-> +#define MALIDP_CORE_ID_PRODUCT_ID(__core_id) (((__u32)(__core_id) >> 16) & 0xFFFF)
+event_string[] has a fixed size of WEDGE_STR_LEN (32) bytes.
+The original scnprintf()-based loop required a manual pre-flight
+bounds check.
 
-This change is redundant.
+Replace the manual bookkeeping with seq_buf, which tracks overflow
+internally. seq_buf_printf() writes each "method," token into the
+buffer, and seq_buf_has_overflowed() detects truncation immediately
+after the write that caused it — using drm_WARN_ONCE() to report it.
 
->  #define MALIDP_CORE_ID_MAJOR(__core_id)      (((__u32)(__core_id) >> 12) & 0xF)
-> -#define MALIDP_CORE_ID_MINOR(__core_id)      (((__u32)(__core_id) >> 8) & 0xF)
-> -#define MALIDP_CORE_ID_STATUS(__core_id)     (((__u32)(__core_id)) & 0xFF)
-> +#define MALIDP_CORE_ID_MINOR(__core_id)      (((__u32)(__core_id) >>  4) & 0xFF)
-> +#define MALIDP_CORE_ID_STATUS(__core_id)     (((__u32)(__core_id) >>  0) & 0xF)
+On overflow, len retains the position of the last
+successful write, so the trailing comma is stripped cleanly without
+including any partial method name in the uevent payload.
 
-Shift by zero is unnecessary. Simple bitwise AND is enough.
+Fixes: b7cf9f4ac1b8 ("drm: Introduce device wedged event")
+Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+---
+v2:
+- Add proper logic to handle recovery string. (Raag)
 
+v3:
+- Convert manual bounds check to seq_buf. (Jani Nikula)
+- Use drm_WARN_ONCE() instead of drm_WARN_ON() for overflow. (Raag)
+---
+ drivers/gpu/drm/drm_drv.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-
-Best regards,
-Liviu
-
->  
->  /* Mali-display product IDs */
->  #define MALIDP_D71_PRODUCT_ID	0x0071
-> -- 
-> 2.43.0
-> 
-
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index e51ed959da89..6a5e3fa1350c 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -36,6 +36,7 @@
+ #include <linux/mount.h>
+ #include <linux/pseudo_fs.h>
+ #include <linux/sched.h>
++#include <linux/seq_buf.h>
+ #include <linux/slab.h>
+ #include <linux/sprintf.h>
+ #include <linux/srcu.h>
+@@ -578,15 +579,22 @@ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+ 	char *envp[] = { event_string, NULL, NULL, NULL };
+ 	const char *recovery = NULL;
+ 	unsigned int len, opt;
++	struct seq_buf buf;
+ 
+-	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
++	seq_buf_init(&buf, event_string, sizeof(event_string));
++	seq_buf_puts(&buf, "WEDGED=");
++	len = seq_buf_used(&buf);
+ 
+ 	for_each_set_bit(opt, &method, BITS_PER_TYPE(method)) {
+ 		recovery = drm_get_wedge_recovery(opt);
+ 		if (drm_WARN_ONCE(dev, !recovery, "invalid recovery method %u\n", opt))
+ 			break;
+ 
+-		len += scnprintf(event_string + len, sizeof(event_string) - len, "%s,", recovery);
++		seq_buf_printf(&buf, "%s,", recovery);
++		if (drm_WARN_ONCE(dev, seq_buf_has_overflowed(&buf),
++				  "WEDGED event string truncated\n"))
++			break;
++		len = seq_buf_used(&buf);
+ 	}
+ 
+ 	if (recovery)
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.48.1
+
