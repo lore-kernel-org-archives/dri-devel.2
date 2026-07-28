@@ -4,70 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F5A8C54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 14:39:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E54AAC53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 14:40:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B31D410E582;
-	Tue, 28 Jul 2026 14:39:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57E9310E5AA;
+	Tue, 28 Jul 2026 14:40:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="gvKUagFu";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="KvTdKRlH";
 	dkim-atps=neutral
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E4E2610E582
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 14:39:10 +0000 (UTC)
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-496b4cc049fso8540795e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 07:39:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1785249549; x=1785854349;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=0XSJlAL0oJRgavLZJ2pbR+4e0/apKArSpd9q4NmNpMM=;
- b=gvKUagFuGJvXGxoBnej9Mh5TvZLEmDc+AQSHqXUvkpSSD34NxHWQmTQiGNlrKORllI
- /Tgp8q1LAj1u7xTH5NLYW/ms9ky5J50Rar0H7BfWorJiLFXkYTJC/nz0AK1X8QbLF5WJ
- kPSpNqy+AGIo6ppxAJQZNB+f3qYR2VYqapsgH9xtNUMx/UNlVuF/ACpM3hlen0qvBArt
- RTVNX4C1G0F1ooRi2QMMxXWLx0wLd4dyW1kUpr2a1L2DOtlYofth1ASysi9TRXDGj+Hy
- QM6QF0xZUBquOQQqXR4NZbTSOXZQ+DTRVXc6zvPyTv+X03X+792HXNd4vJtpTabzjDgi
- 8irw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785249549; x=1785854349;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=0XSJlAL0oJRgavLZJ2pbR+4e0/apKArSpd9q4NmNpMM=;
- b=Gobdc+AGyfnKpz8es4rY2OjcqumyFkRIkAS58pZzhUYFim8FXhMh1JLYwKcbF1BPra
- iFPvWSf8Jgstlnwf6j2uxvu+q0bP9dew/KoeGXwXxiizYTQWAH/OPurT37QF1RUrMS0y
- aBVpJxIV6jFsHdJaDisM5hqK4ccoijeQHQ+JRM5bdHv1ku8V7JxiVfb9EiYW4kpjk7y7
- r+L+7na7ssHl/X5ln1q5E13C0zeTxMNGqrXowEPQB5XMZy4F1Vn11ieQyYcynlb/yjA8
- drHNVOG5vWFkPTEm6waAuBj7tty0aHVOxgvjKf0Ln2TmKFhyrEpPehnI9tUnRXzP+m/7
- tQrg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrnw3u+TTg7AnEclqibOv/CmyySsnvEF5idHkh2eqasix5si6DWc5Wsqsi0oZRG5E6xj+teoTTYclg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9VU9romvx1Hbo3a5rvbhmMFNzVJu7StaWbStCCv5fZQC9pgSC
- zRIVwNWl22WRyfLKxqmXQKnZXZ98/v7TrgBHwlpnT7G1u+JMY5g5HSRsOCDx4btF1UeJ6ok6JVr
- TYA==
-X-Received: from wrfa12.prod.google.com ([2002:a05:6000:50c:b0:472:9520:f359])
- (user=pimyn job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:564b:b0:495:4f89:8117
- with SMTP id 5b1f17b1804b1-496c64122e4mr21664665e9.1.1785249549118; Tue, 28
- Jul 2026 07:39:09 -0700 (PDT)
-Date: Tue, 28 Jul 2026 16:38:59 +0200
-In-Reply-To: <d65b4673-007e-41f1-ad8a-b21c018be3e7@bootlin.com>
-Mime-Version: 1.0
-References: <d65b4673-007e-41f1-ad8a-b21c018be3e7@bootlin.com>
-X-Mailer: git-send-email 2.55.0.229.g6434b31f56-goog
-Message-ID: <20260728143858.1498697-2-pimyn@google.com>
-Subject: Re: [PATCH] [PATCH] drm/vkms: Advertise PREMULTI blend mode
-From: Pimyn Girgis <pimyn@google.com>
-To: louis.chauvet@bootlin.com
-Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
- hamohammed.sa@gmail.com, linux-kernel@vger.kernel.org, 
- maarten.lankhorst@linux.intel.com, melissa.srw@gmail.com, 
- michail.tatas@gmail.com, mripard@kernel.org, simona@ffwll.ch, 
- tzimmermann@suse.de
-Content-Type: text/plain; charset="UTF-8"
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F17FF10E92D
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 14:40:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+ MIME-Version:Subject:Date:From:From:Reply-To;
+ bh=WyaYypMu9GEX/jik9oVHBLv+UPV8MwQgAiUyGC1vieY=; b=KvTdKRlH5+ZsJOJrg+Pr073rdT
+ NH+SZ1akyw3+/pcMcgVjMn0rfsXHGL6aDQOJRA0OVi6wHzACDzyQaTHLjp9bHrROG4mNoj10D+8/2
+ pygh+TjLXw7rm9/Y7zq7/o4wt3sxAITPztPKtBG+Hex7YIVLDIVMeFFLdBVFLk63FGCXmUWWi4kqV
+ Cck76n9mL5aLxj6OSx7q/zR6P3+BDxBL7lx8JK4iW2QRillRbL2Ex2tDcSm2ehI0wvaJ5mafgInLX
+ HrL8CC/Hw6TGQaimZONPjCR8ZhxZgQvifXICu7Q65HwOeZBms0cd0NSCPE+1kW3chuhUM/IR3Vs/V
+ CT5OlAYg==;
+Received: from 179-125-64-236-dinamico.pombonet.net.br ([179.125.64.236]
+ helo=[127.0.0.1]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1woiyg-0071wF-8I; Tue, 28 Jul 2026 16:40:18 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Date: Tue, 28 Jul 2026 11:39:48 -0300
+Subject: [PATCH] drm: Fix drm_pending_vblank_event in error path for
+ out_fence_ptr
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260728-drm_pending_vblank_event_leak-v1-1-08429b920b16@igalia.com>
+X-B4-Tracking: v=1; b=H4sIADS/aGoC/yXMTQrCMBAG0KuUWRuoEVL1KiIhP591bB1LUoNQe
+ ndTXb7NWygjMTKdm4USCmd+ScV+11C4O+mhOFaTbrVpO31UMT3tBIksvS1+dDJYFMhsR7hBuYM
+ JiF6fjHdUjynhxp/ff7n+nd/+gTBvKa3rF570UH+BAAAA
+X-Change-ID: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel-dev@igalia.com, sashiko-bot@kernel.org, 
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+X-Mailer: b4 0.16-dev-62088
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,12 +63,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Louis and DRM maintainers,
+When an out_fence_ptr is provided but DRM_MODE_PAGE_FLIP_EVENT is not
+set, a drm_pending_vblank_event will be allocated. If later, there is an
+allocation failure or another failure at setup_out_fence(), that event
+will not have base.fence set and it will not be released at
+complete_signaling().
 
-Now that Louis has reviewed and approved this fix, could someone please
-pick it up for the appropriate branch for linux-next?
+Release the event and set crtc_state->event to NULL just like in the
+DRM_MODE_PAGE_FLIP_EVENT case when there is a failure at
+drm_event_reserve_init(). That is, prepare_signaling() releases the
+event and there is nothing to be done at complete_signaling().
 
-This bug is currently breaking one of our syzbot managers, so getting
-it merged there would help unblock our fuzzing.
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260727-drm_crtc_atomic_commit_leak-v1-1-23d9948a9d7c@igalia.com?part=1
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+---
+ drivers/gpu/drm/drm_atomic_uapi.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-Thanks!
+diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
+index 1050dddadb17..aca35fb4b1f9 100644
+--- a/drivers/gpu/drm/drm_atomic_uapi.c
++++ b/drivers/gpu/drm/drm_atomic_uapi.c
+@@ -1464,11 +1464,15 @@ static int prepare_signaling(struct drm_device *dev,
+ 		if (fence_ptr) {
+ 			struct dma_fence *fence;
+ 			struct drm_out_fence_state *f;
++			struct drm_pending_vblank_event *e = crtc_state->event;
+ 
+ 			f = krealloc(*fence_state, sizeof(**fence_state) *
+ 				     (*num_fences + 1), GFP_KERNEL);
+-			if (!f)
++			if (!f) {
++				kfree(e);
++				crtc_state->event = NULL;
+ 				return -ENOMEM;
++			}
+ 
+ 			memset(&f[*num_fences], 0, sizeof(*f));
+ 
+@@ -1476,12 +1480,17 @@ static int prepare_signaling(struct drm_device *dev,
+ 			*fence_state = f;
+ 
+ 			fence = drm_crtc_create_fence(crtc);
+-			if (!fence)
++			if (!fence) {
++				kfree(e);
++				crtc_state->event = NULL;
+ 				return -ENOMEM;
++			}
+ 
+ 			ret = setup_out_fence(&f[(*num_fences)++], fence);
+ 			if (ret) {
+ 				dma_fence_put(fence);
++				kfree(e);
++				crtc_state->event = NULL;
+ 				return ret;
+ 			}
+ 
+
+---
+base-commit: df0311845915442ab75d03ee89fb443b444c1370
+change-id: 20260728-drm_pending_vblank_event_leak-a36cedb296ba
+
+Best regards,
+--  
+Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+
