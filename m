@@ -4,45 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94943C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 18:34:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9824C53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 18:39:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED2C210E9C9;
-	Tue, 28 Jul 2026 18:34:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C7CE10E9B9;
+	Tue, 28 Jul 2026 18:39:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WrBVrJ+T";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="In+vig4v";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CFE910E9C2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 18:34:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A93B960AA8;
- Tue, 28 Jul 2026 18:34:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112AB1F00A3A;
- Tue, 28 Jul 2026 18:34:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785263652;
- bh=KUnYNM4EcT1EcztmtmOsGV/aFPsN8JQgJ+zixAcde54=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WrBVrJ+TmQED8PSIHVdqHZo7qWsmQyzWKvflOFEsd4KXlh0+t6HljlpjwnXOW/zWr
- iVrPQez2w4nhVkSDSpxtzqU0qi1PF3J+PIkTyNplzgNEVRtlryA/3LhBmDAGebo5cB
- 7XIiddZ/ow8puVbxmi5etWm+dPHvzrV/PoX1JpZhPC1KRqm5C1CXluGa3Khc0ZILCK
- d8CtZ0Tm7QD2sc7g+3VzqIoojnhJcL+5BL9RQ73Urd+kKQ88jC61xVaSQSjyk7NYfU
- +EGrFmcsHHMiRNXImVXvoWYAQR1/2LYa+Vu0do3Ij5Um0sEVfJnw1NHFxJhYPOd8Zv
- hF5sIbuGK4ZEg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 04/18] drm/bridge: synopsys: dw-dp: Add missing
- reinit_completion
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-4-b7640fa8cf48@collabora.com>
-References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
- <20260728-synopsys-dw-dp-improvements-v7-4-b7640fa8cf48@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 18:34:11 +0000
-Message-Id: <20260728183412.112AB1F00A3A@smtp.kernel.org>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2241510E9B9
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 18:39:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785263972; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=l8cF46xC8WNLdWAq5UImiTF41Np5X+2kkp1zAICTL01zurI5Y2/Fz7GYINPGorAVMakCoH7eWN1ggjRC8D8AVytFRXPHgeLpDZO4fHJ1MOF88BKhID5aYEol+UDDFWrnzBBykSzmZWpcbHfYEed1PzkP4q+BFCx8Rj70yFRgS0A=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785263972;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=C8L41XL+9w4dA28uTpK5rTYNFopPU7UCuhx9QkmCyJM=; 
+ b=F6/EfUA0Z+VuTaAZ8UKJero3thhHp03Lmu2BWvVDzwY0a2Yz+kWaO1EAhjTOx5xngxUErGd7J3rK/giEZvlouAppSNNbw3fen6RNIwDqlTX3HQbe9qXnKo9wDaVANolrXtK4nd2g5ZC7LOenVucphsJ05AZhBKSEFRUi+9/eWhc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
+ dmarc=pass header.from=<deborah.brouwer@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785263972; 
+ s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=C8L41XL+9w4dA28uTpK5rTYNFopPU7UCuhx9QkmCyJM=;
+ b=In+vig4vkiK2nciJKvbh3NJ97PeWKu3VKsyK0/OibV9qxMjbSEirR9VJIYWxCzcP
+ sBjCqfftQTESGTVHeX3/EhX/4Kj/eRDsKqMNUsDHwpj7u0JBSy1s9Bdm8I0/UCP6AYA
+ KN+YOn+7QreDTXiowEH0wrviWvFZinFLx5ZFLU2w=
+Received: by mx.zohomail.com with SMTPS id 1785263971531962.3514704408411;
+ Tue, 28 Jul 2026 11:39:31 -0700 (PDT)
+From: Deborah Brouwer <deborah.brouwer@collabora.com>
+Date: Tue, 28 Jul 2026 11:39:23 -0700
+Subject: [PATCH v10 1/7] drm/tyr: add resources to RegistrationData
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260728-fw-boot-b4-v10-1-9187aefa3f2f@collabora.com>
+References: <20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com>
+In-Reply-To: <20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com>
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>, laura.nao@collabora.com, 
+ samitolvanen@google.com, lyude@redhat.com, beata.michalska@arm.com, 
+ boris.brezillon@collabora.com, steven.price@arm.com, alvin.sun@linux.dev
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5779;
+ i=deborah.brouwer@collabora.com; h=from:subject:message-id;
+ bh=3HDTihCPAbJ+G6Sv/2fJzcd+ujn64YTyAfde1Cm3Oog=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFkZ3xO0YzoX+j9M//D8dKxd0fNZP54L8nbGbe1MyJDbF
+ uS131iho5SFQYyLQVZMkeWsvVGPeNV7I935/5th5rAygQxh4OIUgInkWjH8s3Re2ni0sV1oqpa7
+ UE6/OcO6Vexd5ncSCo2POb2dmKRmxsjQ/dp7+s3FzG8smY4EXPmWE27WYzRjW1WQ2/Ed75S0Dh3
+ mBQA=
+X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
+ fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,175 +83,173 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+Currently Tyr is not storing any resources in its drm::Driver
+RegistrationData.
 
-New issues:
-- [High] The addition of `reinit_completion()` introduces a data race on `c=
-omplete.done` and incorrectly mitigates spurious IRQs, causing a TOCTOU win=
-dow due to threaded IRQ scheduling delays.
+Move Tyr's device-private resources and gpu information from
+drm::Driver::Data to drm::Driver::RegistrationData. This allows Tyr to
+access this data safely within the lifetime of its binding to its parent
+platform device and while registered with userspace.
 
-Pre-existing issues:
-- [High] Lifecycle ordering bug: the AUX I2C interface is exposed to usersp=
-ace before hardware is initialized, and unregistered after hardware is torn=
- down.
-- [High] A divide-by-zero vulnerability exists in dw_dp_video_enable when p=
-rocessing a display mode with a clock value of 1.
-- [High] I2C-over-AUX reply status (NACK/DEFER) is silently discarded, caus=
-ing deferred I2C transactions to falsely succeed and return garbage data.
-- [High] dw_dp_aux_transfer improperly rejects short AUX reads by returning=
- -EBUSY.
-- [High] dw_dp_aux_transfer accesses the AUX hardware without ensuring the =
-PHY is powered on.
---
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+---
+ drivers/gpu/drm/tyr/driver.rs | 42 +++++++++++++++++++++---------------------
+ drivers/gpu/drm/tyr/file.rs   | 11 ++++++-----
+ 2 files changed, 27 insertions(+), 26 deletions(-)
 
---- Patch [4]: [PATCH v7 04/18] drm/bridge: synopsys: dw-dp: Add missing re=
-init_completion ---
-commit e066df83b1559151eb45281e1a32fbe600503fc1
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index 8348c6cd3929..728a8388d591 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -6,6 +6,7 @@
+         OptionalClk, //
+     },
+     device::{
++        Bound,
+         Core,
+         Device,
+         DeviceContext, //
+@@ -27,10 +28,7 @@
+     regulator,
+     regulator::Regulator,
+     sizes::SZ_2M,
+-    sync::{
+-        aref::ARef,
+-        Mutex, //
+-    },
++    sync::Mutex,
+     time, //
+ };
+ 
+@@ -53,13 +51,17 @@
+ 
+ #[pin_data(PinnedDrop)]
+ pub(crate) struct TyrPlatformDriverData<'bound> {
+-    _device: ARef<TyrDrmDevice>,
+     _reg: drm::Registration<'bound, TyrDrmDriver>,
+ }
+ 
++/// Data owned by the DRM [`Registration`].
++///
++/// This data can have references tied to the parent platform device binding scope
++/// and is accessible only while the DRM device is registered with userspace.
+ #[pin_data]
+-pub(crate) struct TyrDrmDeviceData {
+-    pub(crate) pdev: ARef<platform::Device>,
++pub(crate) struct TyrDrmRegistrationData<'drm> {
++    /// Parent platform device.
++    pub(crate) pdev: &'drm platform::Device<Bound>,
+ 
+     #[pin]
+     clks: Mutex<Clocks>,
+@@ -67,9 +69,10 @@ pub(crate) struct TyrDrmDeviceData {
+     #[pin]
+     regulators: Mutex<Regulators>,
+ 
+-    /// Some information on the GPU.
+-    ///
+-    /// This is mainly queried by userspace, i.e.: Mesa.
++    /// GPU MMIO register mapping.
++    pub(crate) iomem: IoMem<'drm>,
++
++    /// GPU information read from hardware during probe.
+     pub(crate) gpu_info: GpuInfo,
+ }
+ 
+@@ -134,10 +137,10 @@ fn probe<'bound>(
+         // other threads of execution.
+         unsafe { pdev.dma_set_mask_and_coherent(DmaMask::try_new(pa_bits)?)? };
+ 
+-        let platform: ARef<platform::Device> = pdev.into();
++        let unreg_dev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, Ok(()))?;
+ 
+-        let data = try_pin_init!(TyrDrmDeviceData {
+-                pdev: platform.clone(),
++        let reg_data = try_pin_init!(TyrDrmRegistrationData {
++                pdev,
+                 clks <- new_mutex!(Clocks {
+                     core: core_clk,
+                     stacks: stacks_clk,
+@@ -147,18 +150,15 @@ fn probe<'bound>(
+                     _mali: mali_regulator,
+                     _sram: sram_regulator,
+                 }),
++                iomem,
+                 gpu_info,
+         });
+ 
+-        let tdev = drm::UnregisteredDevice::<TyrDrmDriver>::new(pdev, data)?;
+         // SAFETY: `reg` is stored in `TyrPlatformDriverData` and dropped when the driver is
+         // unbound; it is never forgotten.
+-        let reg = unsafe { drm::Registration::new(pdev.as_ref(), tdev, (), 0)? };
++        let reg = unsafe { drm::Registration::new(pdev.as_ref(), unreg_dev, reg_data, 0)? };
+ 
+-        let driver = TyrPlatformDriverData {
+-            _device: reg.device().into(),
+-            _reg: reg,
+-        };
++        let driver = TyrPlatformDriverData { _reg: reg };
+ 
+         // We need this to be dev_info!() because dev_dbg!() does not work at
+         // all in Rust for now, and we need to see whether probe succeeded.
+@@ -184,8 +184,8 @@ fn drop(self: Pin<&mut Self>) {}
+ 
+ #[vtable]
+ impl drm::Driver for TyrDrmDriver {
+-    type Data = TyrDrmDeviceData;
+-    type RegistrationData<'a> = ();
++    type Data = ();
++    type RegistrationData<'drm> = TyrDrmRegistrationData<'drm>;
+     type File = TyrDrmFileData;
+     type Object = drm::gem::shmem::Object<BoData>;
+     type ParentDevice<Ctx: DeviceContext> = platform::Device<Ctx>;
+diff --git a/drivers/gpu/drm/tyr/file.rs b/drivers/gpu/drm/tyr/file.rs
+index b686041d5d6b..9f60a90d4948 100644
+--- a/drivers/gpu/drm/tyr/file.rs
++++ b/drivers/gpu/drm/tyr/file.rs
+@@ -12,7 +12,8 @@
+ 
+ use crate::driver::{
+     TyrDrmDevice,
+-    TyrDrmDriver, //
++    TyrDrmDriver,
++    TyrDrmRegistrationData, //
+ };
+ 
+ #[pin_data]
+@@ -31,15 +32,15 @@ fn open(_dev: &drm::Device<Self::Driver>) -> Result<Pin<KBox<Self>>> {
+ 
+ impl TyrDrmFileData {
+     pub(crate) fn dev_query(
+-        ddev: &TyrDrmDevice<Registered>,
+-        _reg_data: &(),
++        _ddev: &TyrDrmDevice<Registered>,
++        reg_data: &TyrDrmRegistrationData<'_>,
+         devquery: &mut uapi::drm_panthor_dev_query,
+         _file: &TyrDrmFile,
+     ) -> Result<u32> {
+         if devquery.pointer == 0 {
+             match devquery.type_ {
+                 uapi::drm_panthor_dev_query_type_DRM_PANTHOR_DEV_QUERY_GPU_INFO => {
+-                    devquery.size = core::mem::size_of_val(&ddev.gpu_info) as u32;
++                    devquery.size = core::mem::size_of_val(&reg_data.gpu_info) as u32;
+                     Ok(0)
+                 }
+                 _ => Err(EINVAL),
+@@ -53,7 +54,7 @@ pub(crate) fn dev_query(
+                     )
+                     .writer();
+ 
+-                    writer.write(&ddev.gpu_info)?;
++                    writer.write(&reg_data.gpu_info)?;
+ 
+                     Ok(0)
+                 }
 
-drm/bridge: synopsys: dw-dp: Add missing reinit_completion
+-- 
+2.55.0
 
-The DP AUX transfer method uses a completion triggered by an interrupt,
-which can timeout. If the function runs into the timeout and the
-interrupt fires afterwards, the following DP aux transfer completion
-would trigger immediately without waiting for the interrupt. This in
-turn means the next one would also be broken and so on.
-
-Fix this potential issue by re-initializing the completion before
-sending the AUX command.
-
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index ca7ff544d243a..951f1e280e478 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1465,6 +1465,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux=
- *aux,
->  	if (WARN_ON(msg->size > 16))
->  		return -E2BIG;
-> =20
-> +	reinit_completion(&dp->complete);
-> +
-
-[Severity: High]
-Does this lockless modification of the completion state race with the
-threaded interrupt handler?
-
-If an AUX transfer times out, an AUX_REPLY_EVENT interrupt follows, and
-Linux schedules the threaded IRQ handler. If a new AUX transfer is initiated
-concurrently, it will call reinit_completion() and start the hardware.
-
-The delayed IRQ handler might then execute:
-
-dw_dp_irq() {
-    ...
-    complete(&dp->complete);
-}
-
-Could this immediately satisfy the wait for the new transfer before the
-hardware finishes, causing the new transfer to proceed with a stale or
-intermediate status? Should we drain or synchronize with the IRQ thread
-before issuing a new hardware command?
-
-[Severity: High]
-This is a pre-existing issue, but does dw_dp_aux_transfer() access the AUX
-hardware without ensuring the PHY is powered on?
-
-Later in dw_dp_aux_transfer():
-
-dw_dp_aux_transfer() {
-    ...
-    regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
-    status =3D wait_for_completion_timeout(&dp->complete, timeout);
-}
-
-If userspace tools query an inactive monitor while the PHY is powered off,
-could these hardware register writes cause timeouts or bus hangs? Should
-there be a phy_power_on() block surrounding this transfer?
-
-[Severity: High]
-This is a pre-existing issue, but are we silently discarding the
-I2C-over-AUX reply status?
-
-Also in dw_dp_aux_transfer():
-
-dw_dp_aux_transfer() {
-    ...
-    msg->reply =3D FIELD_GET(AUX_STATUS, value);
-}
-
-Because AUX_STATUS masks bits 7..4 and shifts them down, the resulting
-value lacks the original bits 4 and 5. The DRM core mask
-DP_AUX_I2C_REPLY_MASK expects these bits in their original positions.
-
-Since the value will be at most 0xF, applying the 0x30 mask will extract 0
-(DP_AUX_I2C_REPLY_ACK). Does this cause deferred I2C transactions or NACKs
-to falsely succeed and return garbage data?
-
-[Severity: High]
-This is a pre-existing issue, but does dw_dp_aux_transfer() improperly
-reject short reads?
-
-dw_dp_aux_transfer() {
-    ...
-    if (count !=3D msg->size)
-        return -EBUSY;
-}
-
-If a DP sink returns fewer bytes than requested, the DRM DP helper expects
-the actual number of bytes transferred so it can adjust the offset. By
-returning -EBUSY, drm_dp_i2c_do_msg() will retry the exact same sized
-transfer instead. Could this cause a complete failure to read EDID data
-from sinks that restrict reply lengths?
-
-[Severity: High]
-This is a pre-existing issue, but does the driver expose the AUX I2C
-interface to userspace before the hardware is fully initialized?
-
-Looking at dw_dp_bind(), it registers the interface:
-
-dw_dp_bind() {
-    ...
-    ret =3D drm_dp_aux_register(&dp->aux);
-}
-
-If userspace opens the device node and issues an ioctl before phy_init() is
-called, could this lead to bus hangs or synchronous aborts when accessing
-uninitialized DP registers?
-
-Similarly, dw_dp_unbind() unregisters the AUX interface after the hardware
-is torn down:
-
-dw_dp_unbind() {
-    ...
-    phy_exit(dp->phy);
-    drm_dp_aux_unregister(&dp->aux);
-}
-
-[Severity: High]
-This is a pre-existing issue, but is there a potential divide-by-zero here?
-
-In dw_dp_video_enable(), when configuring the threshold:
-
-dw_dp_video_enable() {
-    ...
-    if (color_format =3D=3D DRM_OUTPUT_COLOR_FORMAT_YCBCR420)
-        t2 =3D (link->rate / 4) * 1000 / (mode->clock / 2);
-}
-
-If a local user configures a custom DRM mode with a clock value of 1,
-(mode->clock / 2) evaluates to 0. Since drm_mode_convert_umode() does not
-reject clock values of 1, could this trigger a kernel panic?
-
->  	switch (msg->request & ~DP_AUX_I2C_MOT) {
->  	case DP_AUX_NATIVE_WRITE:
->  	case DP_AUX_I2C_WRITE:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
-w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D4
