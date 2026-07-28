@@ -4,43 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92B1EC53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 13:11:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8BC29C53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 13:14:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECE5110E591;
-	Tue, 28 Jul 2026 13:11:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C075110E108;
+	Tue, 28 Jul 2026 13:14:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jhLAtdF/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cCaobtUE";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AED3810E591
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:11:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E2DF10E108
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:14:03 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 970F260A77;
- Tue, 28 Jul 2026 13:11:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8F41F000E9;
- Tue, 28 Jul 2026 13:11:02 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1F13343E56
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:14:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 069F31F00A3E
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 13:14:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785244262;
- bh=/DHybVfKQhGUih2P0VJfkof6KAVUHkjdB/Zz4kKvXEU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jhLAtdF/wTdyGtpxIYxV5yDSRSHf+BX05zIQ7fTsSqRQMQbgykBoYPJIr94swTukP
- MMjtaGcdeRB1glxEzCXznEFjO6u73wynF9Gex1BC5J4BdZoete4muEMoTATXJ2LYkT
- qcWvJeEnNAlYLEwxiQl6ARGE6D1fRS+K1dkA9LlQnmMo/1dFkG1zhEgE7UVcmrZE3+
- Ntuf0OBfPlU91oppCDRmcyzbBIGtmGKG//H5fWscTaHPpN+ex/TGAxuOc3nQmwct1H
- eKTOWIzVXOho/xMVDvndd6Cl/3DIv7rC6n1pZlZL1tIPCD60D0r4ZvzKCyf1op0o5t
- uatUKHO0/dK/g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd property
-To: "Yashas D" <y-d@ti.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260728125336.776116-3-y-d@ti.com>
-References: <20260728125336.776116-1-y-d@ti.com>
- <20260728125336.776116-3-y-d@ti.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1785244443;
+ bh=HstpdYfbywLWh4CB6nynAIB64mnsBl07BDpNKOrgIFE=;
+ h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+ b=cCaobtUEdzz6WRAUNsTL3Z2vgY+Co9DP4VkHm+Gsb7xa6sbxVRRo0eJmjA0z5lLco
+ AEhqign9VQ1QldpFiba9OJX6QVUyv8VKT584kgql4jr0NllmZSJN+79lHqyIy2ug76
+ AwNOw/8sBO2jiGYABfcfoAQ1qWvEgMdVR48oD8gN5wnNzvGn1KqXUEOXgplHORXW3Q
+ R63ziezh8499ch4nkSEg/J2YWrYrfc+ktmsMa053XWGZamjCcJb2zyf2c7cOZOi8eB
+ WOOy/DpYkNYX1/In6ThKJH/honitiwtyjASzpa/u0XJnE+PGssiBRxQaPRUxX3M56q
+ xEXhTcDtCa+Aw==
+Received: by mail-oi1-f174.google.com with SMTP id
+ 5614622812f47-4a416619cb2so1984901b6e.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 06:14:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqkZSJCciuwYVd6ZfdtlZZ7CFbv2CcTJY3W2xXfvruypdpL55b5e5W5BiA7arDZvIdnqhga7c9/13U=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzyH8Du3R0YuVgVl+6e505vMhP9LtHWj2D2xgAyClOGGEg9wdex
+ HCpa3owCIuwWD1ktIJmkWynj/clxn4T+zW0/dae7+Gbk0ib1sYO/xuyUiQdE3ZInKvT8Q6ZWVce
+ 3sibmhJxSSmT7jKcp/srI4DvWnqTEfz0=
+X-Received: by 2002:a05:6808:d4b:b0:497:ce6a:c1e3 with SMTP id
+ 5614622812f47-4ad5b9ee590mr1487519b6e.31.1785244442094; Tue, 28 Jul 2026
+ 06:14:02 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260728091804.382753-1-wenst@chromium.org>
+ <amiqKRkFItYwD6oL@redhat.com>
+In-Reply-To: <amiqKRkFItYwD6oL@redhat.com>
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Tue, 28 Jul 2026 21:13:46 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
+X-Gm-Features: AUfX_myW1QhqVL6Ph24cCnrD1naOOoxnlCT_fOiXs5oLs21mzKAdeU9Y2nOIEvw
+Message-ID: <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
+Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
+To: Brian Masney <bmasney@redhat.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Stephen Boyd <sboyd@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Alessio Belle <alessio.belle@imgtec.com>,
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ YoungJoon Lee <getfeus@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 13:11:01 +0000
-Message-Id: <20260728131102.2C8F41F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,182 +80,57 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: wens@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Reading `DP_LANE0_1_STATUS` (0x202) for connection polling violate=
-s DRM guidelines and disrupts link training state machines.
-- [High] The `.detect()` callback unconditionally triggers hardware stream =
-re-enablement during periodic polling in `no-hpd` mode.
-- [High] Resource leak of `drm_dp_aux` if firmware loading times out during=
- `cdns_mhdp_attach()`, leading to a Use-After-Free.
-- [Medium] Hardcoded 100ms timeout for asynchronous firmware loading in `cd=
-ns_mhdp_attach()` can spuriously fail bridge attachment.
-- [Medium] Changing DPCD read failures to `dev_err()` will flood the kernel=
- log with false-positive errors during normal operations.
---
+On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@redhat.com> w=
+rote:
+>
+> Hi Chen-Yu,
+>
+> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
+> > Hi everyone,
+> >
+> > This is v4 of my MT8173 PowerVR GPU support series.
+> >
+> > This time around Mesa was ready for basic testing, using both vulkanmar=
+k
+> > and glmark2-es2-drm (with Zink). Details below.
+> >
+> > Changes since v3 (all in the clk driver patch):
+> > - Changed pm_runtime_put() to pm_runtime_put_sync()
+> > - Added missing of_node_put() in remove function
+> >
+> > Changes since v2 (all in the clk driver patch):
+> > - Made COMMON_CLK_MT8173_MFGTOP depend on PM
+> >   - Needed since the driver implements PM domains using the generic PM
+> >     domain library, which also depends on PM
+> >   - Fixes build breakage (kernel test robot)
+> > - Fixed "RST_DELAY_CNT" name (Brian)
+> > - Dropped unused mfg_desc (Brian)
+> > - Added check of clk_prepare_enable()'s return value in
+> >   clk_mt8173_mfgtop_power_on() (Brian)
+> > - Saved error value for return in IS_ERR(data->clk_26m) branch
+> >   (Dan Carpenter / kernel test robot w/ smatch)
+> >
+> > Changes since v1:
+> > - Adapted to changed DT bindings
+> > - Dropped driver change
+> > - Use same power domain for "a" and "b" GPU power domains
+> >
+> >
+> > This series enables the PowerVR GPU found in the MT8173 SoC, found in
+> > some Chromebooks.
+>
+> I'm making a pull for Stephen for the clk changes. Should patches 1,2,4
+> go through the clk tree? Patches 3,5 go through the DRM tree?
 
---- Patch [2]: [PATCH v5 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd proper=
-ty ---
-commit d6385d712222c0d749e282f8179c659c2e87c45d
-Author: Rahul T R <r-ravikumar@ti.com>
-Subject: drm: bridge: cdns-mhdp8546: Add no-hpd property
+Only patches 1 and 2 should go through the clock tree.
 
-This commit adds a 'no-hpd' property to support boards where the HPD line
-cannot be used for hotplug detection due to hardware limitations. When set,
-the driver uses auxiliary channel (AUX) DPCD reads to detect monitor presen=
-ce
-by polling the connection status via the .detect() callback.
+Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick up
+DT binding patches. Otherwise I can push patch 3 through drm-misc.
 
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
-s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-[ ... ]
-> @@ -788,9 +792,14 @@ static ssize_t cdns_mhdp_transfer(struct drm_dp_aux =
-*aux,
->  		ret =3D cdns_mhdp_dpcd_read(mhdp, msg->address,
->  					  msg->buffer, msg->size);
->  		if (ret) {
-> -			dev_dbg(mhdp->dev,
-> -				"Failed to read DPCD addr %u\n",
-> -				msg->address);
-> +			if (mhdp->no_hpd)
-> +				dev_dbg(mhdp->dev,
-> +					"Failed to read DPCD addr %u\n",
-> +					msg->address);
-> +			else
-> +				dev_err(mhdp->dev,
-> +					"Failed to read DPCD addr %u\n",
-> +					msg->address);
 
-[Severity: Medium]
-Will this change spam the kernel log with false-positive errors during norm=
-al
-operations?
-
-DP AUX channel transactions routinely fail during normal operations, such as
-when a disconnected monitor is probed, during DP sleep states, or when the
-DRM DP helper retries transient link training failures. Emitting a dev_err()
-on every AUX read failure might flood the kernel log on standard hardware.
-
-[ ... ]
-> @@ -1523,6 +1532,26 @@ static int cdns_mhdp_attach(struct drm_bridge *bri=
-dge,
-> =20
->  	spin_unlock(&mhdp->start_lock);
-> =20
-> +	if (mhdp->no_hpd) {
-> +		/*
-> +		 * In no-hpd mode there is no interrupt to signal firmware
-> +		 * readiness. The firmware loads asynchronously after probe(),
-> +		 * so we must wait here until the uCPU is running before
-> +		 * attempting the first AUX channel poll for monitor presence.
-> +		 */
-> +		ret =3D wait_event_timeout(mhdp->fw_load_wq,
-> +					 mhdp->hw_state =3D=3D MHDP_HW_READY,
-> +					 msecs_to_jiffies(100));
-
-[Severity: Medium]
-Could this hardcoded 100ms timeout spuriously fail bridge attachment?
-
-Firmware loading from a filesystem (via request_firmware_nowait) can easily
-take hundreds of milliseconds or longer depending on storage performance and
-system load. If the timeout expires prematurely, the driver aborts with
--ETIMEDOUT, which could permanently break the display pipeline for that boo=
-t.
-
-> +		if (ret =3D=3D 0) {
-> +			dev_err(mhdp->dev, "%s: Timeout waiting for fw loading\n",
-> +				__func__);
-> +			return -ETIMEDOUT;
-
-[Severity: High]
-Does this direct return leak the drm_dp_aux resource?
-
-If the firmware loading timeout expires, this returns -ETIMEDOUT directly
-instead of jumping to the aux_unregister error handling label.
-
-Since drm_dp_aux_register() sets up an I2C adapter and the DRM core does not
-call .detach() if attach fails, bypassing drm_dp_aux_unregister() leaks the
-I2C adapter. Because the memory backing the drm_dp_aux structure is
-devm-managed, unloading the module frees the memory while the adapter is st=
-ill
-registered, which can cause a use-after-free when the I2C subsystem accesses
-it.
-
-> +		}
-> +
-> +		cdns_mhdp_update_link_status(mhdp);
-> +		return 0;
-> +	}
-[ ... ]
-> @@ -2100,7 +2132,16 @@ static int cdns_mhdp_update_link_status(struct cdn=
-s_mhdp_device *mhdp)
-> =20
->  	mutex_lock(&mhdp->link_mutex);
-> =20
-> -	mhdp->plugged =3D cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-> +	if (mhdp->no_hpd) {
-> +		ret =3D drm_dp_dpcd_read_link_status(&mhdp->aux, status);
-
-[Severity: High]
-Does reading the link status here violate DRM subsystem guidelines and disr=
-upt
-link training state machines?
-
-The DRM core polls .detect() every 10 seconds when no-hpd is set, which
-calls cdns_mhdp_update_link_status(). This unconditionally calls
-drm_dp_dpcd_read_link_status() which reads DP_LANE0_1_STATUS (0x202).
-
-According to DRM guidelines, registers in the link training status range
-(0x202-0x207) participate in the CR/EQ training state machine and are not
-safe for arbitrary read access outside of a link training sequence. Reading
-this register continuously for presence detection can induce hardware
-instability, screen flickering, and link drops. Should a safe register like
-DP_DPCD_REV (0x000) be used instead?
-
-> +		hpd_pulse =3D false;
-
-[Severity: High]
-Does hardcoding hpd_pulse to false cause the active display stream to be
-re-initialized on every 10-second poll?
-
-In no-hpd mode, .detect() is polled every 10 seconds. Because hpd_pulse is
-hardcoded to false here, the later logic bypasses the check that validates
-link status without state mutation:
-
-    if (hpd_pulse && old_plugged =3D=3D mhdp->plugged) {
-        ret =3D drm_dp_dpcd_read_link_status(&mhdp->aux, status);
-        if (!ret && ...)
-            goto out;
-        ...
-    }
-
-Instead, execution falls through to the end of the function. If
-mhdp->bridge_enabled is true, this causes cdns_mhdp_sst_enable() to be
-called:
-
-    if (mhdp->bridge_enabled) {
-        ...
-        cdns_mhdp_sst_enable(mhdp, current_mode);
-    }
-
-This repeatedly re-programs active stream and framer configuration registers
-on every poll, which can cause the active video stream to reset and glitch
-every 10 seconds.
-
-> +		if (ret < 0)
-> +			mhdp->plugged =3D false;
-> +		else
-> +			mhdp->plugged =3D true;
-> +	} else {
-> +		mhdp->plugged =3D cdns_mhdp_detect_hpd(mhdp, &hpd_pulse);
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728125336.7761=
-16-1-y-d@ti.com?part=3D2
+Thanks
+ChenYu
