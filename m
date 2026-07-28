@@ -4,90 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A58BC54F4D
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 611DFC54F53
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D681A10E7E7;
-	Tue, 28 Jul 2026 07:24:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 82E4210E7E9;
+	Tue, 28 Jul 2026 07:24:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ggcpjy9Z";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="JNI2Wuwt";
 	dkim-atps=neutral
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
- [209.85.210.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0922010E4C8
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 21:14:22 +0000 (UTC)
-Received: by mail-pf1-f180.google.com with SMTP id
- d2e1a72fcca58-8485b358552so3336830b3a.2
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 14:14:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785186861; x=1785791661; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=aTwGwys18fLpJ9xlKbE47qZQ9XXoD+aeMygdr9DdQKQ=;
- b=Ggcpjy9ZvcculEEgap9pdpXYklvMio4yfviX7IKQqZlF8h3BoiyZ1lGvCGFGFEqpbC
- XJPHr9qIdwNnTrCgdBXqeBdsjy/4WkcPRaQFcu0E3A8ZeVzNd7rd/xZsO2b8LkI7vdC2
- HPjT2z85QLcSlopPyv/OHB9uOGY3+PMKghnQTGowrrjtM2bjRWUN68ju/4VcWp4eH8Uw
- APUQb52JfoXn5JNPmRJhQ3dOwu3gM5taFI9SZy8IQXz4+e204b4M64fnTzSoxLrazyuG
- vi1xz4N6WYL9Ug+Y7uxXXxC6QG6AchdRzdPzTPLE9hWM4TNuuwsUnl1/D80P7mlRKoON
- i2wQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785186861; x=1785791661;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=aTwGwys18fLpJ9xlKbE47qZQ9XXoD+aeMygdr9DdQKQ=;
- b=iCMIiX2oISfIoVPFZL5KlSsmXQZdcInzJ7Pn00uluP8KM7ugBOPvE2cF91RIrxJSRD
- LLJYkpZIhz7VJqdypj8poCymbh1U2Z5Bne2PPMyxp/L43eUSdZbLNxkWMlmD2tDakGHh
- DyoiX2toNJ2fVSn0JXnaq2K59Cl7ORXuVj655eMqEMgCIxQYp/nOtNyiIAkP4Rjh5vPU
- c/NSUSinYR/9mo8M2DOfc+SaJYTO29TXrLz3jeT8OGNzdPH2KWqgrMYeLIF6DOtzgRmm
- xTFsNhl30gSnw1+b3JlFI3lamWEfWKZYdfxjXc5bHl5VkqLHNZVxcxGhnUR1C4fs7cQE
- 9Fvw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpuzZuylcLN+pu8g05yDOcBY+yqzgXosiCeEYehco+zpp98JUIPDFxBAUzjlBoLRvSkZOMeWiXoq5A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWhB+GbloO7A0EEpH1RoFFO8FAw9E6uZx2xnqIaDbQC1N6mkbF
- oCm7UWrrqLJ1dNljyPbwxYx7tx7dBm8uaiUr3ajlfeY5aBg96WXRR5uj
-X-Gm-Gg: AR+sD12k965lrn99thfq2hjKTP/a108fbWJ5ERBRWUmizmIqvJ+I5jB8KmBKUN80THV
- FM2gSwyCgrwcraJ6akuYN2JMn40tyta7QA/kkwq4HRinPOMCb7keil3b1MRMBGGEY+lK06ds3lv
- JXDCikHbiRrmeAmXBKUDNtdLxobi8Cmt9+Emo8HWDVkf1oMGnTuA3c14uKlPTfwsx/JBFBvgZ86
- fJuyB3zsM73cGYOx5rB3k8HS0NISx6PDHwHCpsmSQjsQ72Fdh/gQiulbIr8fTuv47Nk3U2vlbmF
- QT9aav8Jr1UnIzEv8aybEpJMf7qhbZS/tdpAafOoaooFe2SHL7pD2tJxUVt/StQpVAcTGM2kvpD
- Q8sih57pA2Ne72FgdRrVNRysw3yVJuKBjEIp3LYKbNRmHKBcGjVo/LfYNSTJH3qZz3YXeKNw=
-X-Received: by 2002:a05:6a21:70c8:b0:3c3:a1e6:a624 with SMTP id
- adf61e73a8af0-3c6c7b921edmr1333695637.29.1785186861417; 
- Mon, 27 Jul 2026 14:14:21 -0700 (PDT)
-Received: from archd ([2601:640:8c00:a:1544:c19e:8a1c:4058])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-314bc3e127asm58456645eec.2.2026.07.27.14.14.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Jul 2026 14:14:21 -0700 (PDT)
-From: Daniel Pesic <danny.pesic@gmail.com>
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, Daniel Pesic <danny.pesic@gmail.com>
-Subject: [PATCH 1/2] drm/gpuvm: export drm_gpuvm_bo_destroy_not_in_lists()
-Date: Mon, 27 Jul 2026 07:11:20 -0700
-Message-ID: <20260727141121.11975-2-danny.pesic@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260727141121.11975-1-danny.pesic@gmail.com>
-References: <20260727141121.11975-1-danny.pesic@gmail.com>
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 44C9510E358
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 01:05:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+ s=mxsw2412; t=1785200737;
+ bh=abrj0YhkjdX5tIEw1QYlhdxieuLgqQ+aot0tju4kSGo=;
+ h=From:To:Subject:Date:Message-Id:MIME-Version;
+ b=JNI2WuwtuIBzEoKe9qh4X4evFWllqWx6ySLc+Um73cA0whw54D40RFj0PlXxzqPOd
+ 1hx7drZbbbWkbvCmdreTsTBMDg0DAT9w1/IfZFpRJ0pHucmDuvJI0MxO9I9iSiWrk0
+ E3i6haleN0oOEPbuMVy4QoRXr7MZUOtK4LwJ0k7A=
+X-QQ-mid: esmtpsz20t1785200729t3d4b9290
+X-QQ-Originating-IP: a2tKt8NaLB4fW8LMxzOmxD7eLoRxrdnEhFFebeT55yw=
+Received: from snode5.. ( [120.237.158.181]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 28 Jul 2026 09:05:25 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 17787826967055244228
+From: Sterling-Ash <liangbaihui@linux.spacemit.com>
+To: Frank Binns <frank.binns@imgtec.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev
+Subject: [PATCH v3 2/2] drm/imagination: allow probe when no power-domains are
+ described
+Date: Tue, 28 Jul 2026 09:05:13 +0800
+Message-Id: <20260728010513.1627950-3-liangbaihui@linux.spacemit.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260728010513.1627950-1-liangbaihui@linux.spacemit.com>
+References: <75c9382d2bda766aa459b00321153d715254d1a4.camel@imgtec.com>
+ <20260728010513.1627950-1-liangbaihui@linux.spacemit.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NAtipnnbTPeaCe3+ePoEXunKLK732IY2Mx39vHQruFW1ZY1NJW5TTLgu
+ ZO6zVyaZryJEzz1eXOFHlfs43NYKhUHSovd/2td74GNOR4Wg8HCTwbVb3dQYuz3i9FVQC8T
+ NXXKoM/MLapVNNIjG17WcIb+Yc3vXVPWqIogFcb0+z61n1hLiUraG7aE7X4qIaTqVmXMSxl
+ QYmkNSjv694jVqQyFlqtb1ajpilqdcQ84Gvd8VWeLeMjVpNKZJXJX8BKkOX7mhyiuQOAa41
+ 7Jy4AF1Eolly4CKuCjBY32V8zElFV8Ewra8iYG7q763ArejUEoDWKSzroi/tkNO/Tyy7CRk
+ R0derfZfqBSQAOY5uXwmd84mwopOZiJ/5U+0q+nD8F4ZGR8FbJmN+069Bxr4UHxLIh93P6Q
+ Dp8FjEpj1F7wxRdgsJegooTAMj+w/cpQeHZhvaxpZYnbRJ+s0oEjp99w7HcXJxW/lOJv+CY
+ 44ojXGeqoq6lsZynU4HVmbxzYTJHXK8JtN+5vVhvXuDGmZBu5fw11wB/eerdthLJcqeFcan
+ mn5U9RI3W4oTPtD9qbvx3izCfIaza69eOP7EPe3XlvTetRnijyLK8/uHP9u/cZ1Nsnv8Rez
+ F5h19eFIbSKt+q1lQU3XQn2ZUWz5bjCZUWBS1boZdyjSyIr/paoZaxaaugxPSv4YIIkebfB
+ Mf0u8mrKNiDnO0Kbov+B85i43jZP5HdUhPGqUvbCzopS7m6dqCw+bzqxoG5OpWpdYQDFbdp
+ chVLEbvHyPMQ/YLt245Ky1UUlXYIB0czREA3rd1ewZxkmY2jc+EzPdw10oOtRoF3210pXq+
+ YbgDrRlsQh/31uuslbbTdpLpfCxzxp1+w3RVLwe3+LhBFIfTUSeVX1PRqTlkoetAgS8iNVU
+ /hL2yKqftGbJ2/NfQbh8/JuXaI/cIkvaEA1v5lpVLAjA3p7rLwGkULU160SvhnkaAbkISDl
+ RWewezgbRqwyLw8BTgxemW/fWYb3B+/0iBP9sKINjjK6sc82OMONGG85dZ+UA7lhRGnEWcZ
+ nmsf+qWQ==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Tue, 28 Jul 2026 07:21:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,60 +82,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_gpuvm_bo_obtain_prealloc() currently calls this function directly to
-destroy a losing preallocated drm_gpuvm_bo. Export it and promote its
-comment to kernel-doc so the upcoming Rust GpuVmBoAlloc binding can call
-it the same way.
+pvr_power_domains_init() currently fails probe with -ENOENT when the
+device tree node has no "power-domains" property. On some platforms
+(e.g. SpacemiT K3) the GPU power domain is brought up by the bootloader
+and is not modeled or managed by Linux, so there is legitimately no
+power-domains phandle to attach.
 
-Signed-off-by: Daniel Pesic <danny.pesic@gmail.com>
+Treat a missing "power-domains" property as "nothing to attach" and
+continue probing, rather than failing.
+
+Signed-off-by: Sterling-Ash <liangbaihui@linux.spacemit.com>
 ---
- drivers/gpu/drm/drm_gpuvm.c | 5 +++--
- include/drm/drm_gpuvm.h     | 2 ++
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/imagination/pvr_power.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_gpuvm.c b/drivers/gpu/drm/drm_gpuvm.c
-index d1c80ad3dead..30c134455547 100644
---- a/drivers/gpu/drm/drm_gpuvm.c
-+++ b/drivers/gpu/drm/drm_gpuvm.c
-@@ -1608,7 +1608,7 @@ drm_gpuvm_bo_create(struct drm_gpuvm *gpuvm,
- }
- EXPORT_SYMBOL_GPL(drm_gpuvm_bo_create);
+diff --git a/drivers/gpu/drm/imagination/pvr_power.c b/drivers/gpu/drm/imagination/pvr_power.c
+index a71d5b35601e..5751e2d814b0 100644
+--- a/drivers/gpu/drm/imagination/pvr_power.c
++++ b/drivers/gpu/drm/imagination/pvr_power.c
+@@ -635,6 +635,15 @@ int pvr_power_domains_init(struct pvr_device *pvr_dev)
  
--/*
-+/**
-  * drm_gpuvm_bo_destroy_not_in_lists() - final part of drm_gpuvm_bo cleanup
-  * @vm_bo: the &drm_gpuvm_bo to destroy
-  *
-@@ -1619,7 +1619,7 @@ EXPORT_SYMBOL_GPL(drm_gpuvm_bo_create);
-  * object if the refcount reaches zero. It's illegal for this to happen if the
-  * caller holds the GEMs gpuva mutex because it would free the mutex.
-  */
--static void
-+void
- drm_gpuvm_bo_destroy_not_in_lists(struct drm_gpuvm_bo *vm_bo)
- {
- 	struct drm_gpuvm *gpuvm = vm_bo->vm;
-@@ -1634,6 +1634,7 @@ drm_gpuvm_bo_destroy_not_in_lists(struct drm_gpuvm_bo *vm_bo)
- 	drm_gpuvm_put(gpuvm);
- 	drm_gem_object_put(obj);
- }
-+EXPORT_SYMBOL_GPL(drm_gpuvm_bo_destroy_not_in_lists);
- 
- static void
- drm_gpuvm_bo_destroy_not_in_lists_kref(struct kref *kref)
-diff --git a/include/drm/drm_gpuvm.h b/include/drm/drm_gpuvm.h
-index 38221d83285b..d014a389405c 100644
---- a/include/drm/drm_gpuvm.h
-+++ b/include/drm/drm_gpuvm.h
-@@ -760,6 +760,8 @@ bool drm_gpuvm_bo_put(struct drm_gpuvm_bo *vm_bo);
- bool drm_gpuvm_bo_put_deferred(struct drm_gpuvm_bo *vm_bo);
- void drm_gpuvm_bo_deferred_cleanup(struct drm_gpuvm *gpuvm);
- 
-+void drm_gpuvm_bo_destroy_not_in_lists(struct drm_gpuvm_bo *vm_bo);
-+
- struct drm_gpuvm_bo *
- drm_gpuvm_bo_find(struct drm_gpuvm *gpuvm,
- 		  struct drm_gem_object *obj);
+ 	domain_count = of_count_phandle_with_args(dev->of_node, "power-domains",
+ 						  "#power-domain-cells");
++	if (domain_count == -ENOENT) {
++		/*
++		 * No "power-domains" property in the device tree: the platform
++		 * handles power domains transparently or at the firmware/bootloader level,
++		 * so there is no domain to attach. Treat this as non-fatal.
++		 */
++		err = 0;
++		goto out;
++	}
+ 	if (domain_count < 0) {
+ 		err = domain_count;
+ 		goto out;
 -- 
-2.55.0
+2.34.1
 
