@@ -4,54 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6595C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:17:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BCC6C54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:28:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08CE210E95E;
-	Tue, 28 Jul 2026 15:17:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 625C210E960;
+	Tue, 28 Jul 2026 15:28:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="Tyv1jQvY";
+	dkim=pass (2048-bit key; secure) header.d=adamthiede.com header.i=@adamthiede.com header.b="Gv2mccAT";
 	dkim-atps=neutral
-Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
- [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8303010E95D;
- Tue, 28 Jul 2026 15:17:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785251859; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=OY+xcp1qPjdaWbDgiEqtg8Rm8DRVYbGIOzGYHwmAm5Cb9qsqVqh/dgzlWS24dSSD1HVtjeJPOCcVQKo1kpxr1R6uOOGZYHfTJNip752NERBpzGpD4XYwuRcDBKu3Qv1evBckS4k4+WJ7ywvcQfaMex/8M7m/esED6P8xD11V6y8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785251859;
- h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=/3245s+WIJM5WfX9Sovv9ivArZH82MVlC2lkJGR8Wjk=; 
- b=mb0s4ooPYw7mVLWeWn1I1GBIGPs9Tfaww468Xsc7UAr1+5EDjaOXSf3IhIjCLXtz24g7m3NgyZ7UHvZ/j6HZPX/N8sDRG1h/nUhrteu7GPtMg1JVidlMsTdhxaA2OzcGMopRCwYs0ad7SluAw4ShspgFC1pMj8zWEXZIltBCbq8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785251859; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
- bh=/3245s+WIJM5WfX9Sovv9ivArZH82MVlC2lkJGR8Wjk=;
- b=Tyv1jQvYo8Uql8P4q7qYEvPYW3sw+Ih+lroFgOlA3MN+phNOev3IWOUCrWnBpBOG
- 87pyvTcpcXL5dKDaoUQ6r2XZTeYBApTwcW/SeirLEjkqpry6gzGOGvH4KMrvHbxjGT+
- i8fdtlAEqfMO+HPGBy7EruztwTQlSjliYk9D1Pb8=
-Received: by mx.zohomail.com with SMTPS id 1785251856894116.72725239123395;
- Tue, 28 Jul 2026 08:17:36 -0700 (PDT)
-Message-ID: <f24753a9-43c6-455d-b6b3-20b7fd406fbc@collabora.com>
-Date: Tue, 28 Jul 2026 17:17:34 +0200
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 08C0310E59E
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:28:13 +0000 (UTC)
+Received: from smtp102.mailbox.org (unknown [10.196.197.102])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h8fVd3TZ9z8v1p;
+ Tue, 28 Jul 2026 17:28:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adamthiede.com;
+ s=MBO0001; t=1785252489;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=q/ofy9c+vvaBdm9QGCAzkK8DUg6QZ4PHYy0Szqg3p54=;
+ b=Gv2mccATccfvmuJXOFMch5iahBraRgstG5CStwCEDyeuyW+ZNejEn34tEGMs7GLLNErgu4
+ dTI8E39NE7xEoot0ztEKDmT05LKU0XFkaO2VP1B4y3MN1MZhljZ6KL1ywz2zC7v9HZ+dFx
+ jT/Hlm0NCNaP91rLZAKWuHL6afOIQFBhnCPQ6W8/4OjRylFhT/DU9VqREI9s/I7ceOWBz8
+ nBi2+7nTwj6W2HIVAqOLdN0FbQIe90eM6m+sbjBgdP//ShTy36GhVJFxzfwOZG7mGKYNoM
+ rvskAB17r4/7nFhnn/5ACpemTzaWHQ1y4YKfm2PZ8GAzoq/sneoB8OWuIlQT7g==
+Message-ID: <ce8a8be3-920c-4361-bce2-a46fd99f14d4@adamthiede.com>
+Date: Tue, 28 Jul 2026 10:27:59 -0500
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/11] drm/vkms: Add KUnit test for YCbCr to RGB
- conversion matrices
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-4-harry.wentland@amd.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260722134607.136293-4-harry.wentland@amd.com>
+Subject: Re: [PATCH] drm/mediatek: mtk_dsi: enable hs clock during pre-enable
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>,
+ Gary Bisson <bisson.gary@gmail.com>
+Cc: Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Esben Haabendal <esben@geanix.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Matthias Brugger <matthias.bgg@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20260120-mtkdsi-v1-1-b0f4094f3ac3@gmail.com>
+ <8733xko1ms.fsf@geanix.com>
+ <0f719c00-3cf5-4403-afbf-713b07255981@collabora.com> <aleM9Wy9otpd6Je3@owl5>
+ <aRN3_2FHX8XmTcwduTAPwz4UFde4B0tbB09ajyeUg5qZxiIYMmbvMkG7CPoNTl4iySYMZawbLMWijO47R22gkg==@protonmail.internalid>
+ <65558ccc-4f2c-492d-8c74-627d27dce864@collabora.com>
+ <87h5m0mkca.fsf@geanix.com> <alpTEPsy-SIQv_Oc@owl5>
+ <b26a4890-12e9-4995-a71d-d0b7458b1570@leemhuis.info> <amdTnudq48tZUTG2@owl5>
+ <1826ddd9-6edd-4481-a31d-6cbb083b3a56@leemhuis.info>
+ <5c7e81e7-28e1-4993-ac4e-724ec7664ebf@collabora.com>
+ <806f042f-cf40-451a-8412-eb4a5e31963f@adamthiede.com>
+ <6b344cc5-e07f-4a7e-b061-5f41d7ecfba1@collabora.com>
+Content-Language: en-US
+From: Adam Thiede <me@adamthiede.com>
+Autocrypt: addr=me@adamthiede.com; keydata=
+ xsBNBF+n+90BCAC2ZRLVcvdXDgfY7EppN05eNor3U7/eeiNCCEIWZkYLhikUEP1ReLGBkXpK
+ Pc70hfnKAKkCoth3IwhDty9WXMNU+iLNei4ieb2luW+UqluR6xIUIA+txahMU9YcjVaQTKf/
+ yZWO4yl6pfBPCxC2UdPZKBAdGoi5NnE0ABFNbhBETQhhBic533lZn33ByupfI3acECnQdjgQ
+ llCUpDbw4I+S/N1iFiEHcbMXH7ZB00e3IYNorZ1E9v7p++5rDY1fQ9gXpieg1vFKwSq1NJWo
+ 9xx336YjaTUbX0EwrdKd9l8AktA3yRjckaK5TAcwSQaDtHvhpbl4ebvPhtwHh699MroXABEB
+ AAHNH0FkYW0gVGhpZWRlIDxtZUBhZGFtdGhpZWRlLmNvbT7CwI4EEwEIADgCGwMFCwkIBwIG
+ FQoJCAsCBBYCAwECHgECF4AWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1HxQAKCRAC7fV9
+ o/vRzgyRB/wLqRCvvWhQCMgvzeKvru9wcXquhb77K8H/ByLbfiT8YBuP3lZFVh0IQhgO9Ylk
+ fIoOJE4V+jjxyOnO2d9xjGbvAmmR6yT0gfLzSVWqrC4k+V9MWLv43nrNzxt41dvo5j824FAl
+ X+zaiRZCdO8Jtxg5Elpiop2SKLi1utX1Z8i6YZh+ccJZlchUBAGUTk+D4UjK7vUcjLWT96ya
+ CtdtTfXyw36CvGOPEWfc6++Kkl/5sgej1i7biPYzu/r0vssaQYTXKSrv6Cfa3Maa89ASiTtv
+ q4qmhLnJeCrPxWlRAf6LEizeBEkOasYni2u8sp4wBezEq45Ozu45sfPkqLpPolG7zsBNBF+n
+ +90BCADBRt+vrToRBEG580n77S99qSEkbKD+oJtCVyovnjMNkg0K9UG68LIeCX/ezngiV1M8
+ JISvw5iFOuUFqGX/1hLl9wgt/YpuIrgWOp8XxkotavTCloLDvQmufJPO1L8bnnA+WgP2YgVZ
+ 5MJTj/t4DI+yQgysEjsH8aurHO2uuqgJE+xK+2dy6Cl/wskuGxObksSPmmFH5PH0Joziwrtl
+ 61ouLE2XwKbkMgIGEKkbFgbfwz3/QuLZGBni+OOtLzXeZ9wNTW/AHUPy6S9U4F+5z6/09fVT
+ tTH0cvrgAGjbASlYx2VqGONXAsxCfjulq6ryJBFlPLp949c/JTTgOojukCSbABEBAAHCwHYE
+ GAEIACACGwwWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1H0gAKCRAC7fV9o/vRzlamCACs
+ vHw+0heTm+BfC3S8DUST6889gidIIwdqBep1ByzetCph7Bq8Y8BlT5YTX0u/bSKkxCzFgeTm
+ vC341Q09ST2XjLAl1ZTdzGhH9gcgYyOw34pr5fPQRJLB392mPzD8YReRzciNbhWzj+DLgeVe
+ ouyfGajd6jDjkf4FEq+trQLGZhpfsKn3JnDbzBUs945D50l/vz9q/QN3qZO+H4F6g8ZeMnqo
+ FOEFN26xVtdEDr+0DNFsbgKmEzs675kdAY78ZZdbEetX/FSknxJ+FK1ZW3J7Yswwulj34AXP
+ LB49Mk8Ot7fo6mdt0DkV11JS9LmKxKvpY+KTlrKG+i7pVCSZvVUx
+In-Reply-To: <6b344cc5-e07f-4a7e-b061-5f41d7ecfba1@collabora.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,171 +102,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-TBH this test feels a bit redundant to me, given that it just repeats 
-the exact values, which again just get memcpy'd. I suggest to drop it.
-
-On 22.07.26 15:45, Harry Wentland wrote:
-> The existing yuv_u16_to_argb_u16 test performs a full RGB->YCbCr->RGB
-> round trip with a tolerance of 0x1ff. That tolerance is required because
-> fully saturated primaries clamp their chroma at encode time and cannot
-> round-trip exactly, but it also makes the test unable to detect small
-> scaling errors in the conversion matrices (such as using a 2^n instead
-> of a 2^n - 1 full-range maximum for limited range, an error of ~129 at
-> gray - below the tolerance).
->
-> Add a parameterised test that checks the exact S31.32 fixed-point
-> coefficients and luma offset returned by
-> get_conversion_matrix_to_argb_u16() for each encoding and range against
-> reference values. This directly pins the matrices and catches
-> sub-tolerance regressions that the round-trip test cannot.
->
-> Assisted-by: Copilot:claude-opus-4.8
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+On 7/28/26 09:08, AngeloGioacchino Del Regno wrote:
+> On 7/27/26 18:34, Adam Thiede wrote:
+>> On 7/27/26 10:54, AngeloGioacchino Del Regno wrote:
+>>> On 7/27/26 16:23, Thorsten Leemhuis wrote:
+>>>> On 7/27/26 14:48, Gary Bisson wrote:
+>>>>> On Mon, Jul 27, 2026 at 02:28:56PM +0200, Thorsten Leemhuis wrote:
+>>>>>> [top-posting to facilitate]
+>>>>>>
+>>>>>> Gary, Angelo, what's the status here? It looks like this fell through
+>>>>>> the cracks -- or was this issue fixed in between somehow? If yes: 
+>>>>>> great!
+>>>>>> If not: Would be good to finally resolve this, as we are long past 
+>>>>>> "fix
+>>>>>> within a week" rule of thumb from Linus:
+>>>>>> https://www.kernel.org/doc/html/latest/process/handling- 
+>>>>>> regressions.html#on- how-quickly-regressions-should-be-fixed
+>>>>>
+>>>>> Not much happened I'm afraid. The status as I see is:
+>>>>> - this patch is necessary to have TI SN65DSI83 working
+>>>>> - this patch also follows the DRM guidelines saying that HS clock must
+>>>>>    be enabled during pre_enable (see previous answer / [1])
+>>>>> - this patch has been successfully tested against MIPI-DSI panels (by
+>>>>>    Angelo) and LVDS panels via TI bridge (by myself)
+>>>>> - Adam reported an issue with another bridge (PS8640) where resume is
+>>>>>    broken
+>>>>> - Esben offered a patch to the TI bridge that would fix the issue we
+>>>>>    were seeing in the first place.
+>>>>>
+>>>>> But for the last two points, I'm not sure this calls for a revert yet:
+>>>>> - enabling HS clock in pre_enable still is what should be done [1]
+>>>>> - maybe the issue Adam is facing is due to the bridge driver 
+>>>>> instead as
+>>>>>    it could not be reproduced with another setup
+>>>>> - Esben patch would break the SN65DSI83 init sequence, suggesting that
+>>>>>    the culprit really is the MIPI bridge for not following the HS 
+>>>>> clock
+>>>>>    requirement in pre_enable instead [2]
+>>>> It's tricky, yes, but I suspect the right time for a revert was weeks
+>>>> ago. What Linus afaics basically wants in situations like this (espe.
+>>>> with two reporters) boils down to "something broke recently, no fix was
+>>>> found within a week or maybe two, so we go back to the previous 
+>>>> state to
+>>>> restart from there -- and this is nothing bad, that's just done to buy
+>>>> us time."
+>>>>
+>>>> If something is right by some hardware or DRM specs often doesn't 
+>>>> matter
+>>>> much. What makes this tricky is the fact that the revert might cause a
+>>>> regression for those that relied on the functionally the change 
+>>>> brought.
+>>>> But I suspect even then Linus prefers a revert, as it's a recent change
+>>>> that only went into 7.1. The quoted from Linus on this page cover 
+>>>> this iirc:
+>>>> https://www.kernel.org/doc/html/latest/process/handling- 
+>>>> regressions.html#quotes-from-linus-about-regression
+>>>>
+>>>> If we can't agree on this, we maybe should ask Simona or Airlied for 
+>>>> advice.
+>>>>
+>>>> Ciao, Thorsten
+>>>
+>>> Thorsten,
+>>> I agree with you, and it's fine for me to get this commit reverted, 
+>>> for the sake
+>>> of following the rule (which is something I agree about: as a user, 
+>>> the last thing
+>>> that should happen is to be afraid of what breaks if I update my 
+>>> system!!!!),
+>>> even though reverting this actually breaks anything that is not PS8640.
+>>>
+>>> ......though......
+>>>
+>>> Everyone, please, look at how fundamentally broken PS8640 is... 
+>>> Qualcomm people had
+>>> the same issue as what is currently happening here.
+>>>
+>>> They had to fix their DSI driver, as it was kind-of broken in a 
+>>> vagualy similar way
+>>> compared to MediaTek - and then they found out that they needed (and 
+>>> upstreamed) a
+>>> *hack* that had to be done specifically for the PS8640 Bridge [1]: 
+>>> their issue was
+>>> never really resolved, as then the same bridge started casually 
+>>> working for unknown
+>>> reasons (is it still working?), so they removed the hack [2] and 
+>>> called it a day.
+>>>
+>>> [1]: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux- 
+>>> next.git/commit/ drivers/gpu/drm/msm/dsi/dsi_manager.c? 
+>>> h=next-20260726&id=ec7981e6c614254937b37ce0af9eac09901c05c5
+>>> [2]: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux- 
+>>> next.git/commit/ drivers/gpu/drm/msm/dsi/dsi_manager.c? 
+>>> h=next-20260726&id=9e15123eca7942caa8a3e1f58ec0df7d088df149
+>>>
+>>> Especially in [2], the assmption from Dmitry sadly isn't correct, 
+>>> because this is
+>>> happening now on MediaTek, and here Runtime PM makes sure that the 
+>>> PS8640 is also
+>>> being enabled "a wee bit" earlier than DSI... but that doesn't seem 
+>>> to be enough.
+>>>
+>>>
+>>> Now, here I'm kind of shotgunning at the driver, but I wonder if 
+>>> anyone can try
+>>> the following patch before reverting this commit in mtk_dsi? Adam?
+>>>
+>>> ---
+>>>   drivers/gpu/drm/bridge/parade-ps8640.c | 1 +
+>>>   1 file changed, 1 insertion(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/ 
+>>> drm/ bridge/ parade-ps8640.c
+>>> index 96332721cb69..54ebf2fc8d1c 100644
+>>> --- a/drivers/gpu/drm/bridge/parade-ps8640.c
+>>> +++ b/drivers/gpu/drm/bridge/parade-ps8640.c
+>>> @@ -665,6 +665,7 @@ static int ps8640_probe(struct i2c_client *client)
+>>>
+>>>       ps_bridge->bridge.of_node = dev->of_node;
+>>>       ps_bridge->bridge.type = DRM_MODE_CONNECTOR_eDP;
+>>> +    ps_bridge->bridge.pre_enable_prev_first = true;
+>>>
+>>>       /*
+>>>        * Get MIPI DSI resources early. These can return -EPROBE_DEFER so
+>> This does not fix the issue. I built 7.1.5 with this patch applied, 
+>> and without the revert.
+> 
+> I think I know what's going on.
+> 
+> This is just mediatek-drm calling the ddp_start() callback, which is 
+> needed to
+> start enabling the DSI, but putting the lane_ready(), hs_mode() calls in 
+> the
+> mtk_dsi_poweron() function is wrong, because that's enabling the HS 
+> clock way
+> before DRM bridge callbacks are executed.
+> 
+> I said multiple times that I wanted to remove that ddp_start() and 
+> ddp_stop()
+> nonsense from mediatek-drm, and I think if what I think is happening is 
+> what
+> is actually happening, I have one more reason to clean up that .. stuff 
+> (more
+> than what I've just done with my more-than-50-commits of cleanup).
+> 
+> Adam, one more test please. That's not shotgunning, and I'm fairly 
+> confident
+> that this is going to work.
+> 
 > ---
->   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 122 ++++++++++++++++++
->   1 file changed, 122 insertions(+)
->
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> index 789c59d07ffb..e746b18bf37b 100644
-> --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> @@ -263,8 +263,130 @@ KUNIT_ARRAY_PARAM(yuv_u16_to_argb_u16, yuv_u16_to_argb_u16_cases,
->   		  vkms_format_test_yuv_u16_to_argb_u16_case_desc
->   );
->   
-> +/*
-> + * struct conversion_matrix_case - Reference matrix to test the YUV to RGB
-> + * conversion matrices returned by get_conversion_matrix_to_argb_u16()
-> + *
-> + * @encoding: Encoding of the conversion matrix under test
-> + * @range: Range of the conversion matrix under test
-> + * @expected: Expected S31.32 fixed-point matrix and luma offset
-> + *
-> + * The limited-range coefficients use the studio-range scaling mandated by the
-> + * DRM UAPI and IGT's igt_ycbcr_to_rgb_matrix(): the narrow range is expanded
-> + * relative to a full-range maximum of 2^n - 1 (255 for 8-bit), i.e. luma by
-> + * 255/(235 - 16) and chroma by 255/(240 - 128). Generating them with the
-> + * common 2^n normalisation (as colour.matrix_YCbCr(is_legal=True) does) is off
-> + * by a factor of 256/255. See the DRM_COLOROP_FM_YCBCR*_LIMITED_RGB
-> + * documentation in <drm/drm_colorop.h>.
-> + */
-> +struct conversion_matrix_case {
-> +	enum drm_color_encoding encoding;
-> +	enum drm_color_range range;
-> +	struct conversion_matrix expected;
-> +};
+>   drivers/gpu/drm/mediatek/mtk_dsi.c | 5 +++--
+>   1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/ 
+> mediatek/mtk_dsi.c
+> index dc0c4e867179..c729a163bda6 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
+> @@ -1165,8 +1165,6 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
+>           goto err_disable_dsi_and_digital_clk;
+> 
+>       mtk_dsi_set_interrupt_enable(dsi);
+> -    mtk_dsi_lane_ready(dsi);
+> -    mtk_dsi_clk_hs_mode(dsi, 1);
+> 
+>       return 0;
+> 
+> @@ -1284,6 +1282,9 @@ static void 
+> mtk_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
+>       ret = mtk_dsi_poweron(dsi);
+>       if (ret < 0)
+>           drm_err(drm, "failed to power on dsi\n");
 > +
-> +static struct conversion_matrix_case conversion_matrix_cases[] = {
-> +	{
-> +		.encoding = DRM_COLOR_YCBCR_BT601,
-> +		.range = DRM_COLOR_YCBCR_FULL_RANGE,
-> +		.expected = { .matrix = {
-> +			{ 4294967296, 0,           6021544149 },
-> +			{ 4294967296, -1478054095, -3067191994 },
-> +			{ 4294967296, 7610682049,  0 },
-> +		}, .y_offset = 0 },
-> +	},
-> +	{
-> +		.encoding = DRM_COLOR_YCBCR_BT601,
-> +		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
-> +		.expected = { .matrix = {
-> +			{ 5000989317, 0,           6854882848 },
-> +			{ 5000989317, -1682606224, -3491669458 },
-> +			{ 5000989317, 8663946082,  0 },
-> +		}, .y_offset = 16 },
-> +	},
-> +	{
-> +		.encoding = DRM_COLOR_YCBCR_BT709,
-> +		.range = DRM_COLOR_YCBCR_FULL_RANGE,
-> +		.expected = { .matrix = {
-> +			{ 4294967296, 0,          6763714498 },
-> +			{ 4294967296, -804551626, -2010578443 },
-> +			{ 4294967296, 7969741314, 0 },
-> +		}, .y_offset = 0 },
-> +	},
-> +	{
-> +		.encoding = DRM_COLOR_YCBCR_BT709,
-> +		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
-> +		.expected = { .matrix = {
-> +			{ 5000989317, 0,          7699764272 },
-> +			{ 5000989317, -915895824, -2288828138 },
-> +			{ 5000989317, 9072696586, 0 },
-> +		}, .y_offset = 16 },
-> +	},
-> +	{
-> +		.encoding = DRM_COLOR_YCBCR_BT2020,
-> +		.range = DRM_COLOR_YCBCR_FULL_RANGE,
-> +		.expected = { .matrix = {
-> +			{ 4294967296, 0,          6333358775 },
-> +			{ 4294967296, -706750298, -2453942994 },
-> +			{ 4294967296, 8080551471, 0 },
-> +		}, .y_offset = 0 },
-> +	},
-> +	{
-> +		.encoding = DRM_COLOR_YCBCR_BT2020,
-> +		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
-> +		.expected = { .matrix = {
-> +			{ 5000989317, 0,          7209850391 },
-> +			{ 5000989317, -804559491, -2793551177 },
-> +			{ 5000989317, 9198842076, 0 },
-> +		}, .y_offset = 16 },
-> +	},
-> +};
-> +
-> +/*
-> + * vkms_format_test_conversion_matrix - Verify the YUV to RGB conversion matrices
-> + *
-> + * This test checks that get_conversion_matrix_to_argb_u16() returns the exact
-> + * fixed-point coefficients expected for each encoding and range. Unlike the
-> + * round-trip test above, it is sensitive to small (sub-tolerance) scaling
-> + * errors such as using a 2^n instead of a 2^n - 1 full-range maximum for the
-> + * limited-range matrices.
-> + */
-> +static void vkms_format_test_conversion_matrix(struct kunit *test)
-> +{
-> +	const struct conversion_matrix_case *param = test->param_value;
-> +	struct conversion_matrix matrix;
-> +
-> +	get_conversion_matrix_to_argb_u16(DRM_FORMAT_NV12, param->encoding,
-> +					  param->range, false, &matrix);
-> +
-> +	for (size_t i = 0; i < 3; i++) {
-> +		for (size_t j = 0; j < 3; j++) {
-> +			KUNIT_EXPECT_EQ_MSG(test, matrix.matrix[i][j],
-> +					    param->expected.matrix[i][j],
-> +					    "matrix[%zu][%zu] mismatch for %s - %s",
-> +					    i, j,
-> +					    drm_get_color_encoding_name(param->encoding),
-> +					    drm_get_color_range_name(param->range));
-> +		}
-> +	}
-> +
-> +	KUNIT_EXPECT_EQ(test, matrix.y_offset, param->expected.y_offset);
-> +}
-> +
-> +static void vkms_format_test_conversion_matrix_case_desc(struct conversion_matrix_case *t,
-> +							 char *desc)
-> +{
-> +	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s - %s",
-> +		 drm_get_color_encoding_name(t->encoding), drm_get_color_range_name(t->range));
-> +}
-> +
-> +KUNIT_ARRAY_PARAM(conversion_matrix, conversion_matrix_cases,
-> +		  vkms_format_test_conversion_matrix_case_desc
-> +);
-> +
->   static struct kunit_case vkms_format_test_cases[] = {
->   	KUNIT_CASE_PARAM(vkms_format_test_yuv_u16_to_argb_u16, yuv_u16_to_argb_u16_gen_params),
-> +	KUNIT_CASE_PARAM(vkms_format_test_conversion_matrix, conversion_matrix_gen_params),
->   	{}
->   };
->   
-
--- 
-Robert Mader
-Consultant Software Developer
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
-
+> +    mtk_dsi_lane_ready(dsi);
+> +    mtk_dsi_clk_hs_mode(dsi, 1);
+>   }
+> 
+>   static void mtk_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+This works - screen goes off and comes back on. Thank you!
