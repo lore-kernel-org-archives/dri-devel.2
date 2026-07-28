@@ -4,133 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26370C531F9
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 03:47:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89736C53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 03:59:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E0A910E509;
-	Tue, 28 Jul 2026 03:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D776010E511;
+	Tue, 28 Jul 2026 03:59:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="RoxL19td";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LFjROgK5";
+	dkim=pass (2048-bit key; unprotected) header.d=compal-corp-partner-google-com.20251104.gappssmtp.com header.i=@compal-corp-partner-google-com.20251104.gappssmtp.com header.b="d+nZIYrZ";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1105110E509
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 03:47:41 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66S3aZ7s1714770
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 03:47:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yo/lWxHJw9yNZPh3KLPiwdIL7Wsz2tn7HHED+a/H1h4=; b=RoxL19tdNYhKSsSr
- ivep5JCeOPtMK9paYkEeGCn2c8PH3H6DYpB5QybV5YW6aaAXRKmzqHqpFQHN0swb
- wUhEsoDsx7C+4QIeU8osOvGyk34/YL3cPBwyBgx6lhFk3V/vXIVz7BagSQo3F5WB
- 2/P4fndKqM/zv8i5EFQHj6L02N3BJMJeOVac3/AIwmYrCC+R3HzfYMbtEnTzBDb7
- ido4KdQG5JOVRnnIrEgvSnLp+qbln+LDGpPCZx+scYLm0J2hNkDe0otvO+ZARIl2
- eXSwQi0RLsY7FQin4OAgjeI3vu5Hc9pPCQWk0eRVSUijibPIwoqGado8Fav/G4wJ
- go0haQ==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpadkjsc3-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 03:47:40 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-848d21bbb55so5428231b3a.0
- for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 20:47:40 -0700 (PDT)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3372910E511
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 03:59:38 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-848743155bcso1279579b3a.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 27 Jul 2026 20:59:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785210459; x=1785815259;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=yo/lWxHJw9yNZPh3KLPiwdIL7Wsz2tn7HHED+a/H1h4=;
- b=LFjROgK52gRA4N0F67GvqWO4O3YGX88oBj2nm2v0kSTlPHQU4GtviDvkJ7X1hYYYD9
- 3JTO1Z4aUXC+GdcKoJf/sFOlq7XAT56Tee64xJPR9IF9J9tAJyDBz9bD02yKBhbm1alm
- pDwupzs19DNMHqIal/FZLyuFmqzgCSA/neMS89avFTTnq2bV+8r0AoD66eF/lNaD5EwZ
- sUuB3JaP+g5PEJ4SdubxdH4h7LN5L3ihut0Z2sAHrvbzKby/g5J+G8N4XIvx4MorLFqt
- yeVs/0v9ExnqQbxrrwb3m507eH+hL2ErCY5lxVbUyCumFuOCUgEtRg7e7q26QTN01TA1
- 5bWw==
+ d=compal-corp-partner-google-com.20251104.gappssmtp.com; s=20251104;
+ t=1785211178; x=1785815978; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZG17+S0Su867GFZUeLwXbhHQn4EdEHkEzu2G3eNwLI4=;
+ b=d+nZIYrZGFaOEtdVLp6QFT2ead4DMJ5uIfTMaS/ac/aZzfq85dhVp4Zxe/RjwCPgDS
+ MHhia63DByS85f+B1e8v45etVXymjMHKHNM2S/xTmKEUN3ty+M4+a3BU/A2SBQJsFNHd
+ pBMk6XbY8Z0EZSt3aPCjkMGgxhgM4O7JsXIFOArqsQeaIiY6PNhyfuQCLJMMkIOfqfcd
+ aq9ZzJySiTOBetRBEaGxXoo/cBcHUR5T/37PYxo2iS0daPbf0BnaL8G3oy9bFKZegXLS
+ ZIUYaMB5UH1i8Dz0gmy4hn6toNd1mIlEIxtG0tP1GWazmurVizcFcntWMZb224SWUynw
+ I11Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785210459; x=1785815259;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1785211178; x=1785815978;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=yo/lWxHJw9yNZPh3KLPiwdIL7Wsz2tn7HHED+a/H1h4=;
- b=h+NkI8L6AekM59aTZWJSfGdYKx9EhB8P4XvMzGdtr0H2y4w/LP+ePCvRnCSW7vJ8/f
- maUhieEPd2wCXj7M2xARvp9uNiAJ4jGgQVO0rXp+p4147bFLR49AvYEJmNv+IwdriWTp
- 16oePA6KKtRQCDmyN3Ae8cqtZ1FNgqiw/U+pbXVqqPBS+ILq7pScsiuthV15NttnryfU
- psPu3WbIutFJswpl/SUsLoP4sG3ysYwSM7QjZnJKqvud9N8wI2gQWQpUgvrx9Jpw2D3k
- 6DbfE/v+d4e35M7OfIhyFN+PQISg5jYGkvHyMEMJR8kpWBYoCy6QDyVy2xzAH/KDDG/E
- xdBw==
+ bh=ZG17+S0Su867GFZUeLwXbhHQn4EdEHkEzu2G3eNwLI4=;
+ b=daoeozF3+e1QqGZ4tXITLgO5/mOj7EPlqZSfAJmcMxXtGtnvRiMeY0mluB96erJ1td
+ 3g8yPgr+gsz1HcmqphI9ilnBPJGeGqZf0eeC7kfVAZo6nQnyVg6pUSOFradukI5LfKKH
+ qaegUkzm+dEeZ2MqjuPlE1dkHiKNbxXQsNVunTItFmo6OVFZ8bo62HnGW762tBUpzUFw
+ U1zIrDoOzUuFYtjW/1lScmORB+IxS1hE264hjmS3eGCgMV477xkXnv7n61W8uOA4UeLy
+ SsfvzIcY9nM/+R57njzSYtMER9FNk5H6dEP5TGRU9Ai4yq+qWyVanGljWWGmX8sEEHqt
+ 73pg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpgNOJM9n/1tSoSOAfHHEqgTUcAQmTUuGQvllYoQjr3q+8zlf+LcKfSNH3yYmO/l1uTOGiBGtWiE/k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxv3H/BITugsUIbAWM4HfhHUu5hOpxVoAA0RE0x2OZWAc1a5t6Z
- ov3MaewvslqhObg0vlMqK7WRYNap/6xcvZAsmrY20b4YX9UeXZ49rs1dGvVbefGsp6nJaB/Mi41
- fayd2+dFT5c1lyD1V4VM43v0kVi9UKJG3DZC0ZTJ+Wb01AxLJRMOpll93vV28Qq/jSCcjPU0=
-X-Gm-Gg: AR+sD13e9qFqs7OzYGiyOFhWeTZ5FsKehbKgiSvCdr1NI3S2I74gyf4xs8XrgKnvzyf
- lhlJgrYLzkzHCGKQk8wTsP8by/jGBfDe+WxA5PSDjo2/nuqnTw0n60j1DsVwuGcu2zLppESa7jw
- fqpSfdURAl2u3m3xmuSx/EP1LxDrmAJvtSc2JrKxhPytGS/EUcL2O5qdhl2ajS2e7Hbpclfm4P1
- Mz9DMHn998g6SaAZQBe9U96rUrhWrobKWsSNwINn3VYT/RVAvcWp//AzvWGFoSHodUM7lmfnBeJ
- 7XZUC4yT/R75FXCgj8/HOEdKjIXDNol4Fw9ctnMa96LNo8ZMewBxAPwZHRM2QNmxL3pUSHMLdFj
- 0qAD/9nroIjddXAT+FHCHR+2d8xNZUQ==
-X-Received: by 2002:a05:6a20:6f93:b0:3c3:bbe6:95c9 with SMTP id
- adf61e73a8af0-3c8aaf877a9mr932516637.16.1785210459482; 
- Mon, 27 Jul 2026 20:47:39 -0700 (PDT)
-X-Received: by 2002:a05:6a20:6f93:b0:3c3:bbe6:95c9 with SMTP id
- adf61e73a8af0-3c8aaf877a9mr932490637.16.1785210459089; 
- Mon, 27 Jul 2026 20:47:39 -0700 (PDT)
-Received: from [10.204.78.209] ([202.46.23.25])
+ AHgh+RpQYbfjyApV0uGB9GpXImzh155q3jfhk48VWEK09IUcFmPSr4D57Q6kLoLo8NpRrU0Mo/5LdIBB2Q4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YynSj6E360ThmVkYzm7CieecAcAP9T0frC5biPPfVrjAj9SPva8
+ 4UdjP05mZT600BbB+RDdgcaiwWGmzhqsQThVgtLHBldZ/TrTGMNQQrQ9CuIoORPAJQY=
+X-Gm-Gg: AR+sD1320u6H2Ta+ovfEVa/a+selyHnI47wU1Vyc7AUI5uICi0lE55Is/18WLqKA1Si
+ 4euA12koifLjkhjZiIXjanrHFtG4eSAjNYu4KW1qQ7XXGZOpo1uSQ46hoK0v+W6zI8hxKHsyBaJ
+ ahdDees+b/cKn8+dQFvR7nPWr2ZEfa1ouXk+uAjbqgbIIvnY0H1mRzlNNqPpfpeiATaPYrgyJGo
+ PhB3vrhwWLiCsYFwx0NhnjkxZsMeOhJzBtBM9BUfE4qWWknVQwbQQl3K792kl3uazN0FyZNCoS7
+ neq4WYRw4DrJtHEGzfSvbr4woHEFd53rKm/jKkWxml070RhNdIrf9Gvsi2VkXPJkwt2tCjDxs5O
+ +9EJc6H8D653KyWR3BD3ocitUktkhW14K95MYACt9vZplqvpOVE2Zeq/KCiZZSK3PA9fBkHVkiz
+ kqxa3TUzyOrZ+Rsue3Udv47tUmRrcFilhlun/aPfWWU28yZU/f2Ak8yXKlbhHrq1GNCE8=
+X-Received: by 2002:a05:6a00:451c:b0:848:732b:6b1c with SMTP id
+ d2e1a72fcca58-84e932ca702mr673309b3a.60.1785211177675; 
+ Mon, 27 Jul 2026 20:59:37 -0700 (PDT)
+Received: from terryhsiao (61-219-175-100.hinet-ip.hinet.net. [61.219.175.100])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-314bc59cfb4sm37084511eec.26.2026.07.27.20.47.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 27 Jul 2026 20:47:38 -0700 (PDT)
-Message-ID: <3a83e00a-9e4c-4411-b554-1edb9d02c799@oss.qualcomm.com>
-Date: Tue, 28 Jul 2026 09:17:34 +0530
+ d2e1a72fcca58-84e53418f58sm3779860b3a.40.2026.07.27.20.59.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jul 2026 20:59:37 -0700 (PDT)
+From: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+To: linux-kernel@vger.kernel.org
+Cc: Douglas Anderson <dianders@chromium.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+Subject: [PATCH v2] drm/panel-edp: Add CMN N116BCP-EA2 (HW: C3)
+Date: Tue, 28 Jul 2026 11:59:24 +0800
+Message-ID: <20260728035931.10342-1-terry_hsiao@compal.corp-partner.google.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misc: fastrpc: Ignore unsolicited DSP response sentinel
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260727130940.577721-1-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260727130940.577721-1-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Zu5lIrUFzHzS5Jb21oMwhMJwlpfQ5GuG
-X-Proofpoint-GUID: Zu5lIrUFzHzS5Jb21oMwhMJwlpfQ5GuG
-X-Authority-Analysis: v=2.4 cv=Ns7htcdJ c=1 sm=1 tr=0 ts=6a68265c cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=RR3Qzd7dXdH_FvX10yoA:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDAzMSBTYWx0ZWRfXyCijMAT2svsz
- 84bCAUmv28NyTW3EIRkGkxT87yrZ+c0rZqGLo6dCI0NOxby8DYGD9X3WT7+Mtdjb1Y97R6W4TlP
- yuExS2EcOlVZHBOmu/I37VoDG+g4uQyu3mSh4fFBZMrQ7rc0f+upz6Jf+uZYNWNpHjcAZuFEDQm
- OsxeDkqHl+PSt0VTV8dDwWOF2HfYh2b1+DuGZY/vn3JgXoX0v9757vJInzj7myvMvS0p9QUqcLv
- ZjigScPVrU7Ws3QPgyHtdt3slrYmZOilmD1PVr0QEU/Oz/XiHdP7EWA2ehx/mfzDepKtu3eQ2yg
- HiTMeBr5NhJciksEg0a7GeCM8Kj3InCXKzCpOI0GhCXmkBlDPl56lPCIyQ/9nII+lKI/wpdbeJO
- lSfCnB+TnfBdAbjI+JH+Wr/vTDmPB6NKYXs3pJvQz7HFlu6q2+NnWgTUlfNWi9SSlFZfHaF7egX
- ntpA3Kpjm+YN4z4/RVw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDAzMSBTYWx0ZWRfX/xZoyR192lrp
- dSfNFplljnYhjnmRXKylqMEnRC8zSCGbgGY5PVdOaNRTGjOsDD3he0SC4Vn6bf9jx+arqzZYzzD
- wkmIPVZ8/5XF9sqNXwdtRG0IqzNHSd0=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_01,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 malwarescore=0 impostorscore=0 phishscore=0 spamscore=0
- clxscore=1015 adultscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280031
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,84 +93,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 27-07-2026 18:39, Shawn Guo wrote:
-> The DSP firmware on Nord targets emits an unsolicited glink message
-> during process teardown whose context field holds a fixed sentinel
-> (0xABCDABCD) rather than the context of an outstanding invocation.
-> fastrpc_rpmsg_callback() treats every inbound message as an invoke
-> response, so the sentinel is masked and shifted like any real response
-> ((0xABCDABCD & 0xFF0) >> 4 == 188) and looked up in the channel's
-> context idr.
-> 
-> This is not merely cosmetic. In the common case idr slot 188 is empty,
-> the lookup fails, and the driver only logs a spurious "No context ID
-> matches response" error on every teardown. But the context idr is shared
-> by every protection domain and the listener thread on the channel and is
-> filled cyclically over [1, FASTRPC_CTX_MAX]. If slot 188 holds a live
-> context when the sentinel arrives, the sentinel's return value is written
-> into that unrelated in-flight invocation and it is completed early. That
-> is a latent, timing-dependent bug that just does not happen to trigger in
-> current test runs.
-> 
-> Drop the sentinel before it is ever turned into a context lookup.
-> This removes both the log spam and the mis-completion race. A genuine
-> response can never be masked: a real context is (idr_index << 4) | pd
-> (at most 0xFF3) and can never equal the sentinel.
-> 
-> Lemans and other targets are unaffected: their DSP firmware does not send
-> this message, so the new check never fires.
-> 
-Sharing more details for this context:
+The raw EDID:
+00 ff ff ff ff ff ff 00 0d ae 6c 11 00 00 00 00
+02 24 01 04 95 1a 0e 78 03 67 75 98 59 53 90 27
+1c 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 da 1d 56 e2 50 00 20 30 30 20
+a6 00 00 90 10 00 00 1a e7 13 56 e2 50 00 20 30
+30 20 a6 00 00 90 10 00 00 1a 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+00 0c 47 ff 08 3c 7d 0d 0a 15 7d 00 00 00 00 05
 
-On newer firmware, there is a support for DSP PD notification where DSP
-sends PD state notifications on certain states as per user request. PD
-exit notification is always sent by DSP which is with context id
-0xABCDABCD. As of today, DSP notification framework is not supported by
-fastrpc lib or driver and it's safe to ignore this callback.
+Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+---
+Change from v1 to v2
+* Modify the signed-off
+* Correct the subject line
+ drivers/gpu/drm/panel/panel-edp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-With this,
-
-Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
->  drivers/misc/fastrpc.c | 17 +++++++++++++++++
->  1 file changed, 17 insertions(+)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index d86e79134c68..be9f102690f6 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -38,6 +38,15 @@
->  #define FASTRPC_INIT_HANDLE	1
->  #define FASTRPC_DSP_UTILITIES_HANDLE	2
->  #define FASTRPC_CTXID_MASK (0xFF0)
-> +
-> +/*
-> + * DSP firmware on some targets (e.g. the Nord remoteproc) sends an unsolicited
-> + * message during process teardown that carries this sentinel in the context
-> + * field instead of the context of an outstanding invocation. It is not a
-> + * response, so it must be dropped rather than matched against the context idr.
-> + */
-> +#define FASTRPC_RSP_CTX_SENTINEL	0xABCDABCD
-> +
->  #define INIT_FILELEN_MAX (2 * 1024 * 1024)
->  #define INIT_FILE_NAMELEN_MAX (128)
->  #define FASTRPC_DEVICE_NAME	"fastrpc"
-> @@ -2552,6 +2561,14 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
->  	if (!cctx)
->  		return -ENODEV;
->  
-> +	/*
-> +	 * A sentinel context marks an unsolicited message from the DSP rather
-> +	 * than a response to an outstanding invocation. Drop it: a real context
-> +	 * is (idr_index << 4) | pd and can never collide with this value.
-> +	 */
-> +	if (rsp->ctx == FASTRPC_RSP_CTX_SENTINEL)
-> +		return 0;
-> +
->  	ctxid = ((rsp->ctx & FASTRPC_CTXID_MASK) >> 4);
->  
->  	spin_lock_irqsave(&cctx->lock, flags);
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 14dd40afa899d..bbe5c29405a08 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2083,6 +2083,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1161, &delay_200_500_e80, "N116BCP-EA2"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1163, &delay_200_500_e80_d50, "N116BCJ-EAK"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1169, &delay_200_500_e80_d50, "N116BCN-EA1"),
++	EDP_PANEL_ENTRY('C', 'M', 'N', 0x116c, &delay_200_500_e80_d50, "N116BCP-EA2"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x116d, &delay_200_500_e80_d50, "N116BCP-EA2"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x117a, &delay_200_500_e80_d50, "N116BCL-EAK"),
+ 	EDP_PANEL_ENTRY('C', 'M', 'N', 0x1247, &delay_200_500_e80_d50, "N120ACA-EA1"),
+-- 
+2.53.0
 
