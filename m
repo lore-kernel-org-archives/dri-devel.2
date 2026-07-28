@@ -4,144 +4,136 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73B86C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F5F1C531F9
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:24:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE51110E86D;
-	Tue, 28 Jul 2026 10:22:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F82710E396;
+	Tue, 28 Jul 2026 10:24:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="h6DVw3Vy";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZhVwsroY";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="k2sWR89Z";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F339A10E879
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:22:48 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66S82GhE2128832
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:22:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Z788nYiu2HLdFhRfZEP+hSwajDMxayhxM5i9UjJG2QM=; b=h6DVw3Vyp6PF6c9P
- npKWxg4heoyO9CifxkQgx+YwOA0NznY/BdD2yYb7g3wlPbnT0wNBXtkDFU/ox59P
- g49dIlteIxqMPzcoH0SrgXjx1IOjGFxpGWo/JdHg9sLem4ukgd+KCS87jqYqXJyp
- N2pjqe2SfmsCtCGsH8cfyCqk9q/F+qXtAVQ9asz9LIYOFfSbvU/YFWieYg+JjxZP
- LTpbYKTwPvkZrO/MQt8AkLmWlV/Wsyt9RM2cQSyvqTxD+26H2fnBxJ8OlfD2ur+3
- PkO+gSNqtXJSEaV9yVqp0ZFdxs2x7gGzf8TqCTrIiaI/HjlJpfbSRyScA9ePsWBR
- ODkHdw==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
- [209.85.219.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpbn8bqb5-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:22:48 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id
- 6a1803df08f44-8ea75996387so87953956d6.1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 03:22:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785234167; x=1785838967;
- darn=lists.freedesktop.org; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Z788nYiu2HLdFhRfZEP+hSwajDMxayhxM5i9UjJG2QM=;
- b=ZhVwsroYNxvUZrbuCBERYX7M96R1gaHsemfjKM4AxZ91djc8z0jRxWAVcqSV1uiszk
- 6VISJaYbOZw+uNRSMXRr/l/szyohu+22gaOsU0vd3RSA1OPFLwh3be++FFHtLTOHJhh5
- HgDCFCSSm+Sv2efZ3hNihwxkm/DVyqrx2V2EGb7SeOa0D/ZkPn/Fd9HRtPjHjpii37zx
- NAkcIodZUN8ELSo1uJvZgehPOVMlTjOaDUCM5Y2bWUuhRYdADjBdNWfpUHj3p23wTtoH
- dcqdxDNJfttXUaT3lUgjfygAcJ3/xcpB7hEujmfREKYq75M8pu4q7kLVwmO7Bd3CiJLC
- sfAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785234167; x=1785838967;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Z788nYiu2HLdFhRfZEP+hSwajDMxayhxM5i9UjJG2QM=;
- b=m0LseHzbKWUNtggwdudbkRiwXuF/S8aHvbbMh/6lgkGk1tXIR2Je8dnuv5AQ9b4woI
- d7DRr0FNM2pFx2Zjpf6hmj3jj+JgzWCFLRoLfnwqs06tO0lz9KfZrpM3oydbILrJBhj3
- hU1Zo6o6pmit1oLVtuGt5XrbMGYT6FtNeDAxQliUrwB5YNkXaMeaRKVEGJ/aP1iTNMXK
- /+S6iprcupX/editkX4y8UsvjAWvJazGwivxLvfj2/V2eqXiyh4gxy7mj1g98dSo6mKt
- GaNQzMdLmsRGUxsz6LSs2YjCpLztVr/jekW+m37QAQgjsXLFgnt482Acjra4OICKh3lx
- jpHw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqUZ1vtByCmDiehJL8L4ptKnPpqS4jIDvw1Zf8rYBaK0MKjNI9LGUqBOSPaEHwdMZfhvklrQ7nzi4I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YytyM+ucN3HN4whr/0oLqkbReytw3LkMjET6kIgUhtf2mTTTHOe
- uv/x4p20aV0hcYXC/zrwiNkNvdoItg13+TgRuoyHEnrQfmxeCDnNQQhU5XcvpVlEbEXrTqo1a2R
- YjWoQC3WdQrz+VTJ1XSofJZc+1cVbLmBm6c5cBDRfCw587zBs3P+JXOGS5n4ETFcJACPN/wU=
-X-Gm-Gg: AR+sD11OVZkoed09dj9MW4HJPjlMNUORnpa6Rqcu3zxb2LDGR0tZqsSAK44dwm+/1w1
- rUXuXVwh881zK79KRpSptRmoVsFmF/vfyXz+xfJkd35PnpQ1cjAdl0mfjNfERWvwbdSKU8K2Zbp
- x30fMFGjf+XOrKlUfSU8d9SwPESNjssYUg1KKOvHS1KlgA/wkpzYhMAx3z/xiFLDpyXii5r78/k
- JviFXCtIn8xcGjpWoLYFMGXFudysD9bFSSdpV8A4q2q3eHilfiw+u4ENg7f4SoAjFadwCRWGaOj
- nf2puzGMk4WZVurCSEtv29KOJY9loaxjjrx52cdJsyZ+dmv+NWOD7g2hD0nb59A+UB5tt20l4tZ
- msmPlmLFTG+xHiElnNdne9P8SpXDCNm0MnHySKIe/rxkdNsWhtfN1yve0ZRiA7j0=
-X-Received: by 2002:a05:6214:4984:b0:8ef:cb5b:6de3 with SMTP id
- 6a1803df08f44-9081700485fmr15792656d6.29.1785234167451; 
- Tue, 28 Jul 2026 03:22:47 -0700 (PDT)
-X-Received: by 2002:a05:6214:4984:b0:8ef:cb5b:6de3 with SMTP id
- 6a1803df08f44-9081700485fmr15792436d6.29.1785234167075; 
- Tue, 28 Jul 2026 03:22:47 -0700 (PDT)
-Received: from yongmou2.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com.
- [129.46.232.65]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-907e869ba73sm84791396d6.25.2026.07.28.03.22.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2026 03:22:46 -0700 (PDT)
-From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Date: Tue, 28 Jul 2026 18:21:43 +0800
-Subject: [PATCH v9 14/14] drm/msm/dp: pass panel to display enable/disable
- helpers
+Received: from CWXP265CU009.outbound.protection.outlook.com
+ (mail-ukwestazon11021134.outbound.protection.outlook.com [52.101.100.134])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 449A510E396
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:24:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yasptY5YNzpiu4x5w2MAIE9Er9j9wCtzhWrbPLM60FEIyVJTlgLMlWzT/TjV2fXM0dZl80BnsdTTaIae+ZQXtZALOo3f0AkhnJtjXM9eTGbw3D633Vbwsgspat42sKJF4pE84r2xIbJrvZyFztzXElOw1JLBAPb/UgUNqBogxTVj/HUGh8jrcYds3ApcuZf1MqknlcH/oHjUJv4p+mP7Sd+MsSwEdr8Pw6UT3NsXrTRSwT3aGfK4GiAIWqTZEO1bS8cvQWSarcq2vyjWofYVMDosfc1lP1riTxV4Zvx9KnzzsYmPYaEupyRNVfBzOGAur706fMdQFT8qpxH3Iya3Hg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=17JWjymosbOvB189m9F3qQAiCUNLQoRUACSrJfvhIE0=;
+ b=Dw+oRaI4XxwA0mBQoGyM8qitZQuA5WWO8BsSf1WdPuz/9SsRJ2NN9Nq2QlUa0NuSAt9VcTwX6fzfaFmbjAifex7v5JisO9BbYqXyaKqkF1u9Gs14Yuu5gUDV9nCdRmiJjDVxMLzoZiddzz+xVfsQQX1C0uMh7qYca7dxv8dkQT5/flQFdx3dtAo3FvyWr7vCG9QPBpaWX+WmUIBL+cAAwwyLfBqZ+1pbngyay5+bXnh4b5Ql/tUDEksHoLs09JnLMK2U8dNp6AWYmm1kTOumQIu/kfqMQaU5RjlpP/Kh4hQzTnmjR1IC0SeCI+3UenIaUH3sU32lG5q+0h4Uw6Kqvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=17JWjymosbOvB189m9F3qQAiCUNLQoRUACSrJfvhIE0=;
+ b=k2sWR89ZGxro3p6mOQ01nOY+ity6B0Miuei3C5oSR9BrvKoRaW7lT3NPRgXenz7iWpsav03awmlhKqVTyQ8LH7P4aLhTvLholnidmYpIGBRErTyMbzKLZxj3K3yVqpmT0juUzIe5odojdWpgyhgTWAK+iOHG2aqBFBqz73YTGeE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO0P265MB3227.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:15c::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Tue, 28 Jul
+ 2026 10:24:13 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%2]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
+ 10:24:13 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Jul 2026 11:24:12 +0100
+Message-Id: <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
+Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
+ <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
+ "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+X-Mailer: aerc 0.21.0
+References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+ <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
+ <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
+In-Reply-To: <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0122.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:192::19) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-dp_mstclean-v9-14-f7779fce10f4@oss.qualcomm.com>
-References: <20260728-dp_mstclean-v9-0-f7779fce10f4@oss.qualcomm.com>
-In-Reply-To: <20260728-dp_mstclean-v9-0-f7779fce10f4@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785234095; l=3579;
- i=yongxing.mou@oss.qualcomm.com; s=20250910; h=from:subject:message-id;
- bh=nh2+kNLn2Vl0YimiFzcscodcZxyMDV+yOeRvY1eg5ZY=;
- b=vkly1nbRCoVTFo4zj2O+gkpXzL7xe0O9DRyIM62cqVFCAUX0K1SiGsvBKcmg29YHxr2AWv3zZ
- Wk3RcmvzuKjA8IS3Preg07HA4Hde3X6SQU6E9kupvNTk16K90WVsPM5
-X-Developer-Key: i=yongxing.mou@oss.qualcomm.com; a=ed25519;
- pk=rAy5J1eP+V7OXqH5FJ7ngMCtUrnHhut30ZTldOj52UM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA5MSBTYWx0ZWRfX9S9+FPmfAsI9
- Rds1hSpJ35TRDJzf3znvmKA8wqbnMvy08MH7zbXk/phzUV+tD8fYbSAVmJrbdzKA/84Lt+mXzQh
- rypvGgh9CyaJtgDr2OoLIqvqdMvdFiDFkTcidVRcoH+ZG/vb+UVBXfcS8tuRUruG0SAAGr/1/NZ
- iNdvxlaeQKXiCgWuUr6N+KCpasdHMk6bdvSiuhXocoO24g65Nud3JYmIx0GjhZbW/Pp4nHO2xu4
- clY0zzUE7LoqSDODZgA4J4lArnRt/BGn7MhKy74SmBtzD1H24fboI3v19dho9C6Gwx5CJ6ScEVq
- 3BiznoszMO4nluB+SfAKS2WY8wiADyc0c/iXDoXPl9bUx/5ZXMSlZp/o/JhZ/omwtuSuNOuk344
- sdhPpzLNeS3nz+tyXzGKhorhDuZFb531WGltGi4xvf3ui10cBhMV0RqJdy22DlsuBT+sOYnjdro
- CjjH7iODdXyDrgs7b/g==
-X-Authority-Analysis: v=2.4 cv=RO+D2Yi+ c=1 sm=1 tr=0 ts=6a6882f8 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=7Bdkmk_NF71dONvui9QA:9 a=QEXdDO2ut3YA:10
- a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: EVtgXz7aNR5M4uQrPXnDnBdrr6GJ8bB_
-X-Proofpoint-GUID: EVtgXz7aNR5M4uQrPXnDnBdrr6GJ8bB_
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA5MSBTYWx0ZWRfX8horbi1g89vW
- sRhbHEUL+JVts48SzRG4SRTvvW8XOgLKW1lXVgbEgZsfJsjKbbGxAJt1RGjBnkG7+Rtlf0ZoqAy
- 3pZNy9AR4O+/jPl5PV6WubPfxQ7K7yk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 phishscore=0 priorityscore=1501 spamscore=0
- lowpriorityscore=0 adultscore=0 clxscore=1015 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280091
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3227:EE_
+X-MS-Office365-Filtering-Correlation-Id: 929fb716-237f-416c-6c06-08deec925ed8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: QJgCTfWQ5Rr/MH9TR6h9Kl0NNNgVFlI+PPPfKlOB51JQmD/Gle8HhmyTamHTX1OghwHV/3Cv5ko2kg/jJOheQlEUNGKeLtFBQ88zwsJn3SdzLWt/QKA9/t6o5cLHSpVPK6XGB2NodW4oeyTU33txkTp5LD0iC1KqzcYiZqx3uavbYjyUX6u2gyq6VWPaEF6yP8r81qHs7sxwOBWmCukk0tQ1PcuMvbriYkh9QGXRyENlYCRnwg/sdrVMjBV4kLbQo1Dh2/DMmGNsBT9TlBJtIT4ezw74Aa/Hzl8H0dBSgfTJ27ma1Z5yvPzWI32sZbjjjzuJdXajmKaM/U6iASvPRNke6K+9DYQZX2q+MIZFEoLzYWs/5FgFrPbeaOcnvFXJ1ZHu9qoTtrF8FT4QTC2gNk4mq+AsrnmCc4EL2rY+u/IH7eu5oR5QULpHmR8gdTILGY7m3j9zvvDMZZcVW4zTHZIgSYd2r9RZ56Bd6ouRj2Qiv6BmVqdl0JFVXZhmR3us43N40VQf0ieCeOMzgDmKzNIe1iyMG8Eq/T0RCiC9l7tlMq+Y4QDGEZkThvjlB8/hHP5U9Z0Y9TW1p/oSNQHzXAbUsdZLtuN+1AePwgWcpCwgofX1C2lRNZ3kZcDLPuoG129yoi4uYgwM59L9Mkzkyu4Jjtq6RsMB49ib6exBmiQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0pYMDh2WVZ4YVhEdUJjbkdqMUxEdDNyVHgwSThIdTg1bVRubkhMK2M4TkxD?=
+ =?utf-8?B?SFpYOGxVWUIxcVlFeUNPZjYxVU5aSmVOK3RsV2ZmOXZUcFFjRW0zTkpZUDha?=
+ =?utf-8?B?d0p1VTJuWE43ckVQZTFRaDJDMERaamptdXpkWUFGeEs4dEkvVmVlQXRla0Yz?=
+ =?utf-8?B?dEh1Y21JOVJRcVVtMDZ4TDNUU2tpL3NkbkRBTUlVdWxKbldtcXU5NnNNNnMw?=
+ =?utf-8?B?T1kyTXcxVkRBU2VTdDM2UFlkS1B2ZW1jT1BnN3g0N0llNG1xbFpBZHNMTWth?=
+ =?utf-8?B?bHFteFF1bWJZR3V4R21lV0NWWWZXMFJQSWc4dXNBeHFWT0pVRVBKczNrQ3dF?=
+ =?utf-8?B?Y0NLTFRNc2U4WEdkYTRxb2o4Q2JFWXROTXZaSGF1cy9kZUMrbGo2cSs2K1lj?=
+ =?utf-8?B?bGpjYk1DeDdiNnFaVVI5cVNjbGorTlordXhvc3NCRy85blFXMzROc0w5Mkhj?=
+ =?utf-8?B?dkZyeFZndk45Qm5zeWZYSzdFSFduRE1JZ0VFbGxLSWxrQ0N3TmROOWZ0SmZT?=
+ =?utf-8?B?RkdXN1RoVTlyTWxnRDc3eStPTnhyYkw5eUFQNkVDZXVZUVFZa0ovSVVTajU0?=
+ =?utf-8?B?SHVaRG1WYjdaSkRTYUhYT2I2dzdyU3VYMi9ZRkhEby9jeWdCMCs0RjFFYWUw?=
+ =?utf-8?B?NVRKcDdPSDhicnhGemhoaWZBVDdxaDdhcmQ2RDF2dWVDWWI1YjZTTUZuWEJr?=
+ =?utf-8?B?RzFDUm5PM0tKdFZiaGhoL0tGeFFMZGdYc3kwT1M1L3hYR1pQVGk4OWdQRVg2?=
+ =?utf-8?B?SkFzeGZoQndwTVptZEE4U0VNdGNMNXBmdzFEd0JveTRiN2ZKN3FNRURJMGt0?=
+ =?utf-8?B?a1pPNDVQQlpiSXJmZno1dm5UMUFFZzcwUGVnYWhXbGUvVkhWOU1renU0M1lZ?=
+ =?utf-8?B?MlRJN1YzdTVaL21hNzVjK3pyOUZUWVRMKzRaR0pQeE56emIreHdKZHZEbWx4?=
+ =?utf-8?B?dm1vMGNhTTRuVnoxVFNVbkFBblU1eElnczFtZEwwWXlsNlp6SnFMVUFHV0E5?=
+ =?utf-8?B?MVZsYVl1RmJHVkRZS3JaRFh0cTkxOEUrbVpheklZa09WUE03aWJjaWlNS2ZD?=
+ =?utf-8?B?bjZLcXE2STllRUtOUzZuUUxCemZ0YWw0NVZuMHBOYUcvRCtqZFRPMTZ0cUlO?=
+ =?utf-8?B?SGF6QUdMREZGdGE4RTduakloNjdUY056UUVVdHlvZ2V2Mjd5TkdtZHFmUk0z?=
+ =?utf-8?B?WkkxcVE5ZWxSZnp5MWg1cHJsOXQ2NlNSZDhiWG5KcStWc0NyYW93N3J1ZUF5?=
+ =?utf-8?B?d1lnVHMwcm9NVzFSTGVLUG1xZjFQQjAxcngvbkNoaWlXamdRam5IZlVyZVpY?=
+ =?utf-8?B?TGVhYXc1bEE0cURxN056Y0g3Y2cyZmJxWFFkWSszVHBYS2p2MEhpTDg0WVp5?=
+ =?utf-8?B?SHh4NGdCbGpsaXowYmd3VFFYZnA2WjJwWVpFU0xXbE1MZFpNQ0xiTTZBeWNw?=
+ =?utf-8?B?OVFPejg5V1M0UDAvaVlZdCs5cWJwVnFBd1V3cStnbmg3VHpnNFVZVmFobExi?=
+ =?utf-8?B?MGlyeUFDUnp2a3lwQXNTVitDNVhES0g2M0lnN1U2amJjT3ZNdFdhSStMSXk4?=
+ =?utf-8?B?VVV3cjQrQnBJQmR5UDFGYnJkcElIREwxbGZlMW1aTlgrcyswNWZhQnZESmcz?=
+ =?utf-8?B?MEs5VlBaVEg5RDBGRzlRQzd3SDFSbmIvSXV0UStONGNHUXBNbGNsdE1MRWVY?=
+ =?utf-8?B?cktudUJLN1RpQWhDenozUC8xSXd0SmRrNTRacmtWeG5icEpKT1JSQ1F0WXNP?=
+ =?utf-8?B?Uk4vaGpKaGhIbklsT2ZMclBJalZjRStDM0hjbnJ2VmVNd1VkZjNmeEtoZGNU?=
+ =?utf-8?B?R2hIdmcwSlI3eTgzK21USWd5NW5lbE83QkFsalRXQ2d5anRhbTVrZ2lneE1a?=
+ =?utf-8?B?eCtYczQzSlFPck1TWjBackROaFZLWS81SGhOUmZleWhmeTFpVU9tZWVCb1dY?=
+ =?utf-8?B?UjB0dEpDa2RkSlNlZjR2TUZEWjBRWnBmbitLWHlpK1FxNnJsSmp6Z1pFWkpo?=
+ =?utf-8?B?QTVXZHVqRVBRWERMeXVrL2x3TS80QWxjQ0YxR1Mwczk2S3hqaFM3d2NRck8w?=
+ =?utf-8?B?OVlUdElMY2dFVVk5aldsL0RjanRXaDZoVkw1c0Zjb0JFOU9rMkZWZG9yTXcw?=
+ =?utf-8?B?eTFxVitneXFqcURYWVcxR01pbzhRWitxNEZHVlBCWDdUdVV3NG1YZ1NGNWd6?=
+ =?utf-8?B?YWdYdmdWZUtscVRPeGhXWnBEcmx1bE81L29VbW42WnZhSGc4U21vWjhIellk?=
+ =?utf-8?B?SXc2Q3dxQmd5aWJSQVF2RGZpNHhuandJbndRalAxemphamhvMEswODYrSFZD?=
+ =?utf-8?Q?dHFLKmrxyYhiA/h8fi?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 929fb716-237f-416c-6c06-08deec925ed8
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 10:24:13.4467 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9hwXlBLE7Gvumw/obmGPxkt4l0/qQzkxw/Fts5Joxxq/oFyJZ5l8Oc4SPSBofP5x567S2YxaWGMgGVy9rBkDoQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3227
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,102 +149,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Pass struct msm_dp_panel to the display enable/disable helpers to make
-them easier to reuse for MST stream handling.
+On Tue Jul 28, 2026 at 7:45 AM BST, Alexandre Courbot wrote:
+> On Wed Jul 22, 2026 at 1:54 AM JST, Gary Guo wrote:
+>> Add fixed size region types for these and add projection methods that
+>> project from `Bar0` into these. Update these registers to be registers o=
+n
+>> `PFalconRegisters` and `PFalcon2Registers` and not relative registers on
+>> `NovaRegisters`.
+>>
+>> The use sites are updated mechanically; calls to the projection methods =
+are
+>> not extracted in this commit.
+>>
+>> Signed-off-by: Gary Guo <gary@garyguo.net>
+>> ---
+>>  drivers/gpu/nova-core/falcon.rs                    | 158 +++++++++-----=
+-------
+>>  drivers/gpu/nova-core/falcon/fsp.rs                |  53 +++----
+>>  drivers/gpu/nova-core/falcon/gsp.rs                |  43 +++---
+>>  drivers/gpu/nova-core/falcon/hal/ga102.rs          |  39 ++---
+>>  drivers/gpu/nova-core/falcon/hal/tu102.rs          |   8 +-
+>>  drivers/gpu/nova-core/falcon/sec2.rs               |  32 +++--
+>>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  11 +-
+>>  drivers/gpu/nova-core/regs.rs                      |  81 ++++++-----
+>>  8 files changed, 193 insertions(+), 232 deletions(-)
+>>
+> We are calling these methods quite a bit throughout the code. I
+> understand they are supposed to be optimized away, but that's still a
+> lot of repetition.
+>
+> Since we now have HRTB and `Falcon` is already referencing the `Bar0`,
+> how about storing the projected `Mmio` inside the `Falcon` instance?
+>
+>     pub(crate) struct Falcon<'a, E: FalconEngine> {
+>         ...
+>         pfalcon: Mmio<'a, PFalconRegisters>,
+>         pfalcon2: Mmio<'a, PFalcon2Registers>,
+>     }
+>
+>     pub(crate) fn new(...) -> Result<Self> {
+>         Ok(Self {
+>             ...
+>             pfalcon: E::pfalcon(bar),
+>             pfalcon2: E::pfalcon2(bar),
+>         })
+>     }
+>
+> That way all the
+>
+>     E::pfalcon(self.bar)...
+>
+> Can become simply
+>
+>     self.pfalcon
 
-Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+Right, this is the direction that I do think we should head to. As describe=
+d in
+commit message, this commit is intended as a mechanical conversion and refa=
+ctors
+are left to the future.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index 88ca263010c6..8a2366e28eec 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -652,7 +652,8 @@ static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
- 	return msm_dp_ctrl_prepare_stream_on(dp->ctrl, dp->panel, force_link_train);
- }
- 
--static int msm_dp_display_enable(struct msm_dp_display_private *dp)
-+static int msm_dp_display_enable(struct msm_dp_display_private *dp,
-+				 struct msm_dp_panel *msm_dp_panel)
- {
- 	int rc = 0;
- 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
-@@ -663,7 +664,7 @@ static int msm_dp_display_enable(struct msm_dp_display_private *dp)
- 		return 0;
- 	}
- 
--	rc = msm_dp_ctrl_on_stream(dp->ctrl, dp->panel);
-+	rc = msm_dp_ctrl_on_stream(dp->ctrl, msm_dp_panel);
- 	if (!rc)
- 		msm_dp_display->power_on = true;
- 
-@@ -709,22 +710,23 @@ static void msm_dp_display_audio_notify_disable(struct msm_dp_display_private *d
- 	msm_dp_display->audio_enabled = false;
- }
- 
--static int msm_dp_display_disable(struct msm_dp_display_private *dp)
-+static int msm_dp_display_disable(struct msm_dp_display_private *dp,
-+				  struct msm_dp_panel *msm_dp_panel)
- {
- 	struct msm_dp *msm_dp_display = &dp->msm_dp_display;
- 
- 	if (!msm_dp_display->power_on)
- 		return 0;
- 
--	msm_dp_panel_disable_vsc_sdp(dp->panel);
-+	msm_dp_panel_disable_vsc_sdp(msm_dp_panel);
- 
- 	msm_dp_ctrl_off_pixel_clk(dp->ctrl);
- 
- 	/* dongle is still connected but sinks are disconnected */
- 	if (dp->link->sink_count == 0)
--		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
-+		msm_dp_link_psm_config(dp->link, &msm_dp_panel->link_info, true);
- 
--	msm_dp_ctrl_off_link(dp->ctrl, dp->panel);
-+	msm_dp_ctrl_off_link(dp->ctrl, msm_dp_panel);
- 
- 	if (dp->link->sink_count == 0)
- 		/* re-init the PHY so that we can listen to Dongle disconnect */
-@@ -739,7 +741,7 @@ static int msm_dp_display_disable(struct msm_dp_display_private *dp)
- }
- 
- /**
-- * msm_dp_bridge_mode_valid - callback to determine if specified mode is valid
-+ * msm_dp_display_mode_valid - callback to determine if specified mode is valid
-  * @dp: Pointer to dp display structure
-  * @info: display info
-  * @mode: Pointer to drm mode structure
-@@ -1441,14 +1443,14 @@ void msm_dp_display_atomic_enable(struct msm_dp *msm_dp_display,
- 		return;
- 	}
- 
--	rc = msm_dp_display_enable(dp);
-+	rc = msm_dp_display_enable(dp, dp->panel);
- 	if (rc)
- 		DRM_ERROR("DP display enable failed, rc=%d\n", rc);
- 
- 	rc = msm_dp_display_post_enable(msm_dp_display);
- 	if (rc) {
- 		DRM_ERROR("DP display post enable failed, rc=%d\n", rc);
--		msm_dp_display_disable(dp);
-+		msm_dp_display_disable(dp, dp->panel);
- 	}
- 
- 	drm_dbg_dp(msm_dp_display->drm_dev, "type=%d Done\n", msm_dp_display->connector_type);
-@@ -1483,7 +1485,7 @@ void msm_dp_display_atomic_post_disable(struct msm_dp *dp)
- 
- 	msm_dp_display_audio_notify_disable(msm_dp_display);
- 
--	msm_dp_display_disable(msm_dp_display);
-+	msm_dp_display_disable(msm_dp_display, msm_dp_display->panel);
- 
- 	msm_dp_display_unprepare(msm_dp_display);
- }
+>
+> And I suspect that once this is generalized, `Falcon` won't even need to
+> store a reference to the `Bar0` (and potentially poke the I/O of other
+> engines) anymore.
+>
+> Actually I would like to push that even further and replace the
+> `pfalcon()` and `pfalcon2()` trait methods by associated constants used
+> to construct the projected view in `Falcon::new`, since the projections
+> are all constructed the same way, but doing so requires
+> `generic_const_exprs`. :/
+>
+> We could make it work by moving the `OFFSET` generic argument of
+> `subregion` into a regular argument and enforcing its invariants using
+> `build_assert!`, but that would require `subregion` to be
+> `#[inline(always)]`. I don't know if there is another trick we can use,
+> if not otherwise I guess the trait methods are ok, especially if they
+> are only called once in the constructor.
 
--- 
-2.43.0
+This was definitely one option that I have considered, however as `NEW_SIZE=
+`
+still needs to be generic so we're not entirely turbofish-free. But if maki=
+ng
+`offset` become an effective const parameter helps nova impl, it might make
+sense to use `build_assert!` for this.
+
+Best,
+Gary
+
+
 
