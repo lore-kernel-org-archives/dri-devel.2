@@ -4,77 +4,143 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A56BC54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:48:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EEFCC54F54
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:52:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C2C7910E5B1;
-	Tue, 28 Jul 2026 15:47:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5B1610E597;
+	Tue, 28 Jul 2026 15:52:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=adamthiede.com header.i=@adamthiede.com header.b="D6qqTCX2";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="S6xZHZLT";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69EED10E5B1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:47:58 +0000 (UTC)
-Received: from smtp2.mailbox.org (unknown [10.196.197.2])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4h8fxQ4dq0z8v22;
- Tue, 28 Jul 2026 17:47:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=adamthiede.com;
- s=MBO0001; t=1785253674;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=m0jzKJEPepVGepYcMIeTQbCbRTzWsK+sr+7McMSIGg4=;
- b=D6qqTCX2p14zOOjeMNhLND/fWWTF5yY8lwc9VkHE58VDJEp/Tvpp+zdV59jna769cR9eMM
- UyClvjI4IPjitzMfh+JUPhU9F3DS5Z+WB6Fo2E0EkOzQF5TNTtOojeBqjd5sQ95l4phNw8
- O3vIdTiBuMeA0HNQUZrRfk2KEzEbm6SVRgLJzjN3qncI4ECyXJRu8c12NWuKxLGfF18FEF
- eVdx3jOENOlE+UwOGR4Zq0DsxL/CHJLBTp06Eb77fDu+wxeTlQjfQ5QkLXyy9oAEhhC/+T
- G8LdXZjEd4weRn9vKAxm9oI5hWf7es9iXXMRmEifZjpXM+e2JXXfxPdDoglXQQ==
-Message-ID: <22898b98-1d46-44b7-b5c7-e636cfc110c5@adamthiede.com>
-Date: Tue, 28 Jul 2026 10:47:45 -0500
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012007.outbound.protection.outlook.com
+ [40.93.195.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E15510E526;
+ Tue, 28 Jul 2026 15:52:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PQhVbNc2U4P836sNHtCo9tyKrCyUnol+dpwmhha+7ebQMoLGbMYHowGdw6ej/FrT74u3TzMAZlwRnDFoe6Yogaif7R3zeYTIyk8oayXfd7SV62QbrRSKJpq3Y8bPK+50v5xp1siufpYpCUFSzArPC7PLVQNn4QuhCyvlHFAVuR+IoBmPRAU8SdLYXDvqnGUjB3NVX8Ahj/cGB4GHAyjDidQRLX+9PkxKknnqFhpOjz7dCmHWYd48Dvc0zCLKJlizc2V31S/XlFhIWZcBQJRVt+ybSEeKReta4rJIwMFIKm/wR5ksdMDRx9HDyn8KqaOCSAabX4YU03ZTK6lKJTD3IQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KQvuONd6sNka9ZQMxYV6S/sSmLeA7Fc0BjCasjm7aXw=;
+ b=qG+ko6EkCEFx+LF+IPIt15F8MZeexktnbBDYfxOxK0gtC4P4KckFrp5FXflIDYyP8jzNfNAEZbF31Smpo2oNK59IkoJQVI6UGml7/sd+wXbbV17G/hrjO2H5bUeaCN7conwT1iZEhflyDf0K1556KJ0Sdy8pQoVIZOGOFeISWr88whodSrWGrZuzX9n8mvWa3goNNnkc/A0VopRVz98jY3IxPC/5lmuExWQmKFt881JcodRtdg5PXbjsgMREytJAYYRCsuwVXkjehvir7tVO9Kho9eS7mTyY7tWLc/TlQovPbaVWtrJEMXHBbSmUl/vErsi1Ymx4ouff4gyxokJ3vQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KQvuONd6sNka9ZQMxYV6S/sSmLeA7Fc0BjCasjm7aXw=;
+ b=S6xZHZLTUthmXIB2gAykuSCDcWwvCndBOPl71W8sZsEPxZuVhAA6nL5kHMH0gFdQuMP6CwmGFGoUj32cYNd4SADCAij3qn2X/6+77J488rAVQlRzKyh3D8cq2KFAyLXTDyn23ujZ64fwVFMuLGDcGkoOLCIIp1/RAD8oT5WmO8J6Stec12ZZpzYj4TmhHyblpgh2pqYh3cDQ68EuzpcvgbwrI+BVShVCl362N36BiA+ZffVUI9arTCFF1eFYfioNlLfQWFNvpuNEp6gam8nR4jY4PADu/PaYYrJsgQxi7T/o1kvf+lRRC4yXZx8kJij8ho7hSXC+C1t1LUk/tzHcJA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by DM4PR12MB6542.namprd12.prod.outlook.com (2603:10b6:8:89::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.12; Tue, 28 Jul 2026 15:52:22 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%5]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
+ 15:52:21 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>
+Cc: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Dave Airlie <airlied@redhat.com>, 
+ Matthew Wilcox <willy@infradead.org>
+Subject: Re: [PATCH 1/3] mm/huge_memory: add folio_split_driver_managed()
+Date: Tue, 28 Jul 2026 11:52:19 -0400
+X-Mailer: MailMate (3.0r7024)
+Message-ID: <00499B8B-F546-4A4E-84A6-126BAE5BC239@nvidia.com>
+In-Reply-To: <ami_wF2QhQ1ZM6-f@lucifer>
+References: <20260722044220.1110278-1-matthew.brost@intel.com>
+ <DK564OOZ3JUK.292JORO9KGKEV@nvidia.com>
+ <DK57FVTRTLR2.1A906PYJ2TCE4@nvidia.com>
+ <a0c06d8c-fc3a-4ede-8aba-8c7430027a35@kernel.org>
+ <2FD2B991-09B3-40EE-8230-49BE3A239EEC@nvidia.com>
+ <603ef1ec-bccc-4fe4-9523-e8b8a731be63@kernel.org> <ami_wF2QhQ1ZM6-f@lucifer>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BLAPR05CA0029.namprd05.prod.outlook.com
+ (2603:10b6:208:335::10) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 MIME-Version: 1.0
-Subject: Re: [PATCH] drm/mediatek: mtk_dsi: Enable HS clock only at pre-enable
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- chunkuang.hu@kernel.org
-Cc: bisson.gary@gmail.com, regressions@leemhuis.info, p.zabel@pengutronix.de, 
- airlied@gmail.com, simona@ffwll.ch, matthias.bgg@gmail.com,
- ck.hu@mediatek.com, dri-devel@lists.freedesktop.org,
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
- stable@vger.kernel.org
-References: <20260728153145.578404-1-angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-From: Adam Thiede <me@adamthiede.com>
-Autocrypt: addr=me@adamthiede.com; keydata=
- xsBNBF+n+90BCAC2ZRLVcvdXDgfY7EppN05eNor3U7/eeiNCCEIWZkYLhikUEP1ReLGBkXpK
- Pc70hfnKAKkCoth3IwhDty9WXMNU+iLNei4ieb2luW+UqluR6xIUIA+txahMU9YcjVaQTKf/
- yZWO4yl6pfBPCxC2UdPZKBAdGoi5NnE0ABFNbhBETQhhBic533lZn33ByupfI3acECnQdjgQ
- llCUpDbw4I+S/N1iFiEHcbMXH7ZB00e3IYNorZ1E9v7p++5rDY1fQ9gXpieg1vFKwSq1NJWo
- 9xx336YjaTUbX0EwrdKd9l8AktA3yRjckaK5TAcwSQaDtHvhpbl4ebvPhtwHh699MroXABEB
- AAHNH0FkYW0gVGhpZWRlIDxtZUBhZGFtdGhpZWRlLmNvbT7CwI4EEwEIADgCGwMFCwkIBwIG
- FQoJCAsCBBYCAwECHgECF4AWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1HxQAKCRAC7fV9
- o/vRzgyRB/wLqRCvvWhQCMgvzeKvru9wcXquhb77K8H/ByLbfiT8YBuP3lZFVh0IQhgO9Ylk
- fIoOJE4V+jjxyOnO2d9xjGbvAmmR6yT0gfLzSVWqrC4k+V9MWLv43nrNzxt41dvo5j824FAl
- X+zaiRZCdO8Jtxg5Elpiop2SKLi1utX1Z8i6YZh+ccJZlchUBAGUTk+D4UjK7vUcjLWT96ya
- CtdtTfXyw36CvGOPEWfc6++Kkl/5sgej1i7biPYzu/r0vssaQYTXKSrv6Cfa3Maa89ASiTtv
- q4qmhLnJeCrPxWlRAf6LEizeBEkOasYni2u8sp4wBezEq45Ozu45sfPkqLpPolG7zsBNBF+n
- +90BCADBRt+vrToRBEG580n77S99qSEkbKD+oJtCVyovnjMNkg0K9UG68LIeCX/ezngiV1M8
- JISvw5iFOuUFqGX/1hLl9wgt/YpuIrgWOp8XxkotavTCloLDvQmufJPO1L8bnnA+WgP2YgVZ
- 5MJTj/t4DI+yQgysEjsH8aurHO2uuqgJE+xK+2dy6Cl/wskuGxObksSPmmFH5PH0Joziwrtl
- 61ouLE2XwKbkMgIGEKkbFgbfwz3/QuLZGBni+OOtLzXeZ9wNTW/AHUPy6S9U4F+5z6/09fVT
- tTH0cvrgAGjbASlYx2VqGONXAsxCfjulq6ryJBFlPLp949c/JTTgOojukCSbABEBAAHCwHYE
- GAEIACACGwwWIQQtG9pGQ7sz3tf8M/kC7fV9o/vRzgUCZL1H0gAKCRAC7fV9o/vRzlamCACs
- vHw+0heTm+BfC3S8DUST6889gidIIwdqBep1ByzetCph7Bq8Y8BlT5YTX0u/bSKkxCzFgeTm
- vC341Q09ST2XjLAl1ZTdzGhH9gcgYyOw34pr5fPQRJLB392mPzD8YReRzciNbhWzj+DLgeVe
- ouyfGajd6jDjkf4FEq+trQLGZhpfsKn3JnDbzBUs945D50l/vz9q/QN3qZO+H4F6g8ZeMnqo
- FOEFN26xVtdEDr+0DNFsbgKmEzs675kdAY78ZZdbEetX/FSknxJ+FK1ZW3J7Yswwulj34AXP
- LB49Mk8Ot7fo6mdt0DkV11JS9LmKxKvpY+KTlrKG+i7pVCSZvVUx
-In-Reply-To: <20260728153145.578404-1-angelogioacchino.delregno@collabora.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|DM4PR12MB6542:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8044430a-dd81-4ffd-4b2e-08deecc035d2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|23010399003|366016|1800799024|22082099003|56012099006|4143699003|11063799006|18002099003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: Rvjk+j1kFw3t7ia8SQxnIL4df3c/IE/IPWWYeNT6xgXXqBSfWGcehw0w9LDKawt8XgKH9V/NcRaubXAKfM66/e6Mg9WDZhzt2uNv/AOh17dRx0CmrW4TdMcJmrwFPnlRogJudKTLuqaJNQUfxjzgbxAoRIOS9fKsqYs9HTVmrNP09WeaPiN+ft3xm35xDdpc3dE5rqPZfVPgSiB+vtTV9QyBrFFhCCLHU0+ax5XoA8/hqWBqW3b1ETpVXie+HoGXfH7giv2YHbTUC2SWdXJMS4ve25iaG77Up7wSmPoh1CF/IRDXNkD7SF/+RTCx7N7hBDGsLpc0aBhUw91gBtv+MGYNxWKp8ULUXXvTIF3Ub6lXIQbNVCXPsJXegv8P75zdJUWE50DDiMHfQ28xfzRuBs/vM8UHHKt9pYL1YDZvxind8MvvHJhCpJUhdHTZJV4RvLVzP8QLCyE6oca0LtEz8GrvfSkjkmUYVxhZrv7YyG68iZy0XILS+8gKrs+/3xmLKBLBYGLEo3pEapRlzKQtSsfRgEyVIPKi3Wmn6ihclNum8qeV4ON6WwVbtQJEwbiDIocqbLy0Ph7uH7vwcTTCA6vjyz/YCsLbt0/rMLzPvEXgxtJFQqj+K/cPb63xSC0ZsaNl6jpO23AP/kNYN/YCJ+p5JhwkUi05NRfDL0ZsUmg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:IA0PR12MB8374.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(22082099003)(56012099006)(4143699003)(11063799006)(18002099003)(6133799003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T0xsZmtWc1ZwQmF2ZHh2WmczbEcwRmYwbWcyMU5LeS9EQXZNRHhtTC9GbG1O?=
+ =?utf-8?B?OGVsbVRsUXd6L0tKR1FvSTN1V2JyNjYza0NSU0drZGxFVjdhcWRBRkVXZ2Jx?=
+ =?utf-8?B?UWhnNGVPbjZZSzZuY3ZwN1BMU2Q4ZW4vY2kyWWxGcmJNL0NBMzhLSU1YbU5J?=
+ =?utf-8?B?WnVOcUhCWW43OU1nK0x3NnhpVzI5c0pkSXdnS2VLVXg1QVAzMnhSTFB0K21t?=
+ =?utf-8?B?K1Q5NlR5bW5BUHRGaXEyZ2gwR252QkRZU2xYS3M5NlR1cUxKaEowWkduTHVr?=
+ =?utf-8?B?eS9HK1lMU000TXdLcEdLTk8xQ1NkUDFkejdqUHdoVHpUdmI4NHZLRy9HUUF6?=
+ =?utf-8?B?ZlBzTDFYRnBsNDh0Vk0zM3JuTG51U2ZpT0pHeTlqdXZlYU9Xb1BEN21vd0VZ?=
+ =?utf-8?B?ajV6SHBuTWorNUhxVGs5K3pXd3I2ZnMzWkZxUW9UNTQ4YzgwdEVQOEFBR001?=
+ =?utf-8?B?b0NCVlZyMThwWmg3Z1MzancySGU4VndXdmZ5ZUFkMWNCRGkzV1FhWit4S3Nu?=
+ =?utf-8?B?WC9aVkRjUWVBWCtqS3JUREcwNExhMkpaNE44Qk44bUZPSXh3WkpUQncraUtx?=
+ =?utf-8?B?OEdxWnMwVDEvT1ErbWl1S1Z2TXRqeUlSWTAwL3NBdlR3cTkvQmQwaWJtWWVJ?=
+ =?utf-8?B?ZE9SRFJ1bkl3UU5Ebi9VRzlXaGVmR0xlTTNVeWI0cXhlSy9yTFJPeGRZdVhO?=
+ =?utf-8?B?amVYb1UrQ0hFRThabGVJM3JPK2ZSTzhCVkZBN1RmZVNMK2U3MExFYVUvT1N5?=
+ =?utf-8?B?S3BlQmhzVzhVUkdra0hGQjdjWDN3RGNIUlNIcitXTXZRYVFVajNOVjJEempL?=
+ =?utf-8?B?OEc4T0VBYXgyYmZhbHd4RXhveGQ4NEtHaEdwWDdQWnBlM2VnMU5oOXppdE51?=
+ =?utf-8?B?TThXcjZrU3hrMTA2WUd4d1M1OWUyR0pITHo4M2xubnRZZVYrT29KRVlGSitC?=
+ =?utf-8?B?eW8rSVI1MEhkNnVnSHFyMUZ4TmttZ0FIbC9XOU5aM2pxTk90VlQyK2dtYmxW?=
+ =?utf-8?B?U1AzWURhWTZKUmJFbVdER3d4RWV0bG12OUhNaXZGN1NTVEVYZUdKWXQ0amlL?=
+ =?utf-8?B?VFNMNFhsbnE3d2RyUmx1Z3dhdnRLNjVHaWdoZ2JkM3EveUpHOGpNNXRuYWFt?=
+ =?utf-8?B?MXF0VXNndVYxZDFoaXFzdzVRZk1DNHRpaFdpU3dRUmdMbXg2N1p3aUFaR1JC?=
+ =?utf-8?B?UDNSVGJPYmlnam5ZbGNqZjdzOEVTSDRpSjJCTzRhSHdodG5Ed0lQZG5TejV4?=
+ =?utf-8?B?ZkQ1VlEvMCtwSjREeVh4NHI0QzF5bXEzY2xZMHQ2aFhFcUtXdW14c2t1RkYy?=
+ =?utf-8?B?bjNQMkRTQ2FuYkZMR05ac0hoTFlXQ0xjUnE5OGVNeTVmS3J0N3V6Z1A5aW8x?=
+ =?utf-8?B?LzJLOHM1VmlvbTR5ZnJvVnZRY1JTdFN1QnBvc1p2ZGdGaGlqaUo0eFhYYVRC?=
+ =?utf-8?B?TVcvNFJ4ZktkaWVqZTM1L1BSTVc2TjRzQ0J1SlRST2xOTnU2RVNRdGxHV1dw?=
+ =?utf-8?B?STBHN25DZE84MWg1bk9HTzRaRGZEbDBuS2ppNjk1OGRSeFdZY3NOMHNVdjQw?=
+ =?utf-8?B?V2JPaVloalV5c3hTNy9pa2ZDN1M3b0VhWXZsbVNnLzdSWWl4ZFdsNEZmMHpk?=
+ =?utf-8?B?WEZNTEFBWU1FU3k5RFZyS3ZBdkJOcHAvdWJvSVhLTHd4Q2dkNlZtNzZSUHd4?=
+ =?utf-8?B?YlZOVXZQU0hKQWkzbWJqOU52enVDU3Y4U0loUkFQUHdyTVpRMmJ1RmszVXl2?=
+ =?utf-8?B?d2tHR3FhTWtOL1BJWjZsTEV2TEx5a3UzT0dCSm4zSDdwMFk2dUFsQ1NENWxG?=
+ =?utf-8?B?OWlBYmZqUktITk1Wd0MxVkNja1REbnRaZG9FQ3VKVHlyanVIYWFsRmkxZHRD?=
+ =?utf-8?B?RWJCMnV1VE0reTVhVHRYWmxCdTRwaU42UE9FcU9rbzJKNEhSeU9mdkM0dGJI?=
+ =?utf-8?B?TVdlNDVmbmR6NC9rdEY1Q293NjZUblVDSm5iNVIwalNBSFlEQU5KaHpydEtX?=
+ =?utf-8?B?VE84a3RlcXg1clB1RXFRemFMa3E3S29LeldCY3IzVTA0cE9tbUtRNWFSeGZE?=
+ =?utf-8?B?RldZUmtBZnhROFNXUTFzbDQzdUhMejFyajVhSUkvU09HZ1FTTDBEeHpKc0NZ?=
+ =?utf-8?B?SXE3cnF2Rit3OVIrV0cxNEh6Tjc0TEk0dWk5ZXhMUXZxdmJ5L1VpbHBSdmVi?=
+ =?utf-8?B?QmJhOXlyWmVocGdLbm1lTDc3T24yRzkya202dHFUZW8weUZDZmtnRFVBTlpK?=
+ =?utf-8?B?RlVyT2p6SDNRcGxxbjBleUZHWlFaWUpmYWpEWlU3OTdPYnkrckFOeE5SUXRT?=
+ =?utf-8?Q?nYTyZK/oIm4TrXCLGk?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8044430a-dd81-4ffd-4b2e-08deecc035d2
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 15:52:21.7356 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ASeMUIPDKpNnurr71F0hUcPRzD0rHkkRjTx5bPLcT1fCqpXtLDWluAhnZNHyZ6nG
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6542
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,51 +156,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/28/26 10:31, AngeloGioacchino Del Regno wrote:
-> Commit 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock
-> during pre-enable") rightfully moves the HS clock enablement to
-> before atomic_enable(), but it's moving it to mtk_dsi_poweron(),
-> which is not only called in the .atomic_pre_enable() callback
-> for the DRM bridge, but also in the MediaTek DRM's .ddp_start()
-> callback, which happens way before the bridge ones.
-> 
-> The HS clock enablement should be done at just the right time,
-> otherwise some bridge chips (or some Display Driver ICs) may
-> not work correctly: this is seen at least with a Parade DSI to
-> eDP bridge (PS8640) on the MT8173 Elm Chromebook.
-> 
-> This resolves a regression that was seen on the aforementioned
-> machine, which was happening only after a suspend-resume cycle.
-> 
-> Cc: <stable@vger.kernel.org> # 7.1.x
-> Fixes: 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock during pre-enable")
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->   drivers/gpu/drm/mediatek/mtk_dsi.c | 5 +++--
->   1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> index dc0c4e867179..c729a163bda6 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-> @@ -1165,8 +1165,6 @@ static int mtk_dsi_poweron(struct mtk_dsi *dsi)
->   		goto err_disable_dsi_and_digital_clk;
->   
->   	mtk_dsi_set_interrupt_enable(dsi);
-> -	mtk_dsi_lane_ready(dsi);
-> -	mtk_dsi_clk_hs_mode(dsi, 1);
->   
->   	return 0;
->   
-> @@ -1284,6 +1282,9 @@ static void mtk_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
->   	ret = mtk_dsi_poweron(dsi);
->   	if (ret < 0)
->   		drm_err(drm, "failed to power on dsi\n");
-> +
-> +	mtk_dsi_lane_ready(dsi);
-> +	mtk_dsi_clk_hs_mode(dsi, 1);
->   }
->   
->   static void mtk_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+On 28 Jul 2026, at 10:44, Lorenzo Stoakes (ARM) wrote:
 
-Tested-by: Adam Thiede <me@adamthiede.com>
+> On Tue, Jul 28, 2026 at 02:58:39PM +0200, David Hildenbrand (Arm) wrote:
+>> On 7/27/26 20:23, Zi Yan wrote:
+>>> On 27 Jul 2026, at 13:33, David Hildenbrand (Arm) wrote:
+>>>
+>>>> On 7/22/26 17:28, Zi Yan wrote:
+>>>>>
+>>>>> Strickly speaking, these vm_insert*() compound pages are not folios,
+>>>>> since folios are supposed to be rmappable and they are either anonymous
+>>>>> memory or file-backed memory. I am working on separating them from
+>>>>> rmappable folios by replacing PG_private with PG_folio and marking all
+>>>>> pages in a folio with PG_folio in page_rmappable_folio().
+>>>>>
+>>>>> Hopefully, we can find a better name, like refcounted_folio, later for
+>>>>> these non-rmappable compound pages.
+>>>>
+>>>> They wouldn't really be folios, I guess. They would likely be a simple
+>>>> "refcounted" memtype that allows for compound pages.
+>>>
+>>> Yes, they are not folios. But “folio” was started to replace “compound page”
+>>> and slowly becomes rmappable anon and file-backed. People outside MM still
+>>> thinks “folio” == “compound page”.
+>>
+>> Yes, it's a bit of a mess now.
+>>
+>>> But once I manage to remove PG_private
+>>> and get us PG_folio, page_folio() will return NULL for non-folio compound
+>>> pages and we will need a new type for them, “refcounted_XXX”. We can decide
+>>> XXX when I get there. :)
+>>
+>> So far willy did not document a type that just has a refcount.
+>>
+>> https://kernelnewbies.org/MatthewWilcox/Memdescs
+>
+> I was going to say.
+>
+> It seems a bit specific, because different things might have a different use for
+> 'pages with refcounts that shouldn't be touched by core mm' and different
+> semantics perhaps.
+>
+> Obviously if it was a different memdesc type then it'd not be a folio.
+
+Yes, this part is easy. Slab uses GFP_COMP and no one regards large slab pages
+as folios. The confusion comes from large pages without a page_type.
+
+>
+>>
+>> Maybe "Managed memory" (struct mgdesc) could be the right thing for some memory
+>> with a refcount.
+
+For driver allocated memory, probably yes. I also see allocations listed below
+with GFP_KERNEL_ACCOUNT | __GFP_COMP, so AcctMem would also be a candidate.
+
+1. arch/s390/kvm/dat.c
+2. io_uring/memmap.c
+3. drivers/dma-buf/heaps/system_heap.c when mem_accounting is enabled.
+
+>>
+>> The question is, if the use case at hand would even require a refcount, of if
+>> frozen pages would be good enough.
+
+I hope so and that could simplify our work without handling refcount. But I assume
+user outside MM would still want a refcount to do the page life time management
+work, otherwise they might need to build their own one(s).
+
+>>
+>>>
+>>>>
+>>>> But what is the conclusion here? It sounds like "folio_split_" is the entirely
+>>>> wrong interface for these compound pages.
+>
+> Yeah the thing is we need some clarification on what is a folio exactly.
+>
+> 	A folio is a physically, virtually and logically contiguous set of
+> 	bytes.  It is a power-of-two in size, and it is aligned to that same
+> 	power-of-two.  It is at least as large as %PAGE_SIZE.  If it is in the
+> 	page cache, it is at a file offset which is a multiple of that
+> 	power-of-two.  It may be mapped into userspace at an address which is at
+> 	an arbitrary page offset, but its kernel virtual address is aligned to
+> 	its size.
+>
+> By that definition a compound page _is_ a folio. And anything that _could_ be
+> mapped into userland.
+>
+> But if we are going to say folio == rmappable then can we actually update the
+> description of folio to say so?
+>
+> Or perhaps reference the fact that 'transitionally' it is as above, but in
+> future will mean only rmappable.
+
+I can come up with a patch clarifying the comment.
+
+>
+>>>
+>>> We probably would allow folio_split() to be used on compound pages now
+>>> until we can make a clean distinction, e.g., using PG_folio, between them.
+>>>
+>>> Yes, folio_split() and its helper functions are meant for rmappable anon and
+>>> file-backed folios. But currently “folio” is de facto “compound page”, since
+>>> for example prep_compound_head() initializes folio fields even if it is meant
+>>> only for compound pages.
+>>
+>> If we can stop more abuse right from the start, that would be nice.
+>
+> Yes.
+>
+>>
+>> We do have split_page() that splits a non-compound higher-order page. Maybe we
+>> want a split_compound_page(), or allow for split_page() to accept compound pages.
+>
+> Ha! I read this after making this very same suggestion. High.. 5?
+>
+> But yeah obviously agree.
+>
+>>
+>> Because splitting a folio is really something different than splitting just some
+>> compound page (no mapping/pagecache/whatever involved).
+>
+> Yup.
+
+It sounds like split_compound_page() gets some love (David, Lorenzo, and Matthew
+all want it). I can add one to mm/page_alloc.c, so that Matthew can build
+his patchset on top of it.
+
+
+Best Regards,
+Yan, Zi
