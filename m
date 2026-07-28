@@ -4,51 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73705C54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 14:00:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A31BEC53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 14:04:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE35110E580;
-	Tue, 28 Jul 2026 14:00:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07BB110E90E;
+	Tue, 28 Jul 2026 14:04:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E9We/73g";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nzWGKaPj";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 48FAD10E580
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 14:00:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5F8310E90D
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 14:04:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0B95E60A9B;
- Tue, 28 Jul 2026 14:00:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227EA1F00A3E;
- Tue, 28 Jul 2026 14:00:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A944860A77;
+ Tue, 28 Jul 2026 14:04:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41CC21F000E9;
+ Tue, 28 Jul 2026 14:04:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785247240;
- bh=pr1vRv75P3Jq8SN5A5e7cCnzBkGW+yIIc60BaHcuzac=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=E9We/73gnCP20b7oLKGMh3gzsjHVFEl4ahBBhneBBkNWQSBwuEdPoHMNE+dVk2Nfr
- UwNH0WcxTU9S3Heu7J9QKMDbqiNe6LMDWw66NGIfe8w1CtUuewO/EGh7gE8nU83QH6
- +tqpgVZnRc++y9M6u4scjXfYOXnt7r+TCl21G3P8gxISve60dF4On4UORHzz1yqHCF
- Iet97krNbCRVNtLQzEM41xamobWlZdXdDXSzIeVK49cnH8mPsHj108mZj/f48Ssmre
- AtlPyuDECCi3iuJVC6kbxgl0lGgaTspr76Sk6rZTleDFmWw4IC2wBgzQLyWW1QGZ5G
- Ndx2Vro1/6MAA==
-Mime-Version: 1.0
+ s=k20260515; t=1785247451;
+ bh=7bRDoEeLAxKSlDCywHX/Hl6y+eo3pF7vZKKs+imgsmE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=nzWGKaPjfcYTCV+kjHnMRMRpE47P0ZCgJdSRuwdDi3g66DGZOa68Dqztj1fZYDQJt
+ MWmDOFyNQny+3xY/9rEWhiNnMJu62bYwchjaHO4j8YjXfL0FZo1ngPSv6fas45qCUI
+ 0TISSAP9q831NpS9Hqw7LssnFg0boksIwnjrj68MwTt9cNMEg4S6cwYb/MqrZMXOpX
+ lV9iOwWHmRb2glBC1VDXgpv9YwoqKdtBm36/75/B7oOuklfVdJX8dlem4yMhB7LDE5
+ 81/s73CN0A7OXVXjmihVxddBa27vM93AsFqOvt1/Up6K9eNmWo9V84xdhcGPhBB6Mx
+ B9bXk0bQoWpfg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/bridge: adv7511: cancel HPD work during teardown
+To: "Hongyan Xu" <getshell@seu.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260728135205.859-1-getshell@seu.edu.cn>
+References: <20260728135205.859-1-getshell@seu.edu.cn>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Jul 2026 16:00:36 +0200
-Message-Id: <DKA9BUHLJY6R.9PNR3BP9FSBI@kernel.org>
-Subject: Re: [PATCH v3 4/5] gpu: nova-core: split FbLayout into FSP and
- non-FSP versions
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260724-blackwell-fixes-v3-0-01aa6a54e3fd@nvidia.com>
- <20260724-blackwell-fixes-v3-4-01aa6a54e3fd@nvidia.com>
-In-Reply-To: <20260724-blackwell-fixes-v3-4-01aa6a54e3fd@nvidia.com>
+Date: Tue, 28 Jul 2026 14:04:10 +0000
+Message-Id: <20260728140411.41CC21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,52 +52,157 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 24, 2026 at 8:56 AM CEST, Eliot Courtney wrote:
-> `FbLayout` is currently used for both pre and post FSP architectures. It
-> contains ranges for each region of framebuffer, but on post FSP
-> architectures, only the size is actually used by GSP. The offsets are
-> not decided by the driver.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-GSP may be a bit fuzzy here, it should be ACR, right?
+Pre-existing issues:
+- [High] drm_bridge_add() is called prematurely in adv7511_probe(), exposin=
+g the bridge to concurrent access before initialization completes and riski=
+ng a Use-After-Free if later probe steps fail.
+- [High] Hardware regulators are disabled before the DRM bridge is unregist=
+ered in adv7511_remove(), allowing concurrent I2C access to powered-down ha=
+rdware.
+- [High] Concurrent execution of HPD work and bridge detection modifies har=
+dware sequences and state without synchronization.
+--
 
-Also, maybe we should be more explicit and say that with the FSP architectu=
-re
-ACR defines the location for each region and the driver only has to provide=
- the
-corresponding sizes.
+--- Patch [1]: [PATCH] drm/bridge: adv7511: cancel HPD work during teardown=
+ ---
+commit b44080d3f93c1a423486c2876b7db016031c7403
+Author: Hongyan Xu <getshell@seu.edu.cn>
 
-> +/// Framebuffer region sizes needed for GSP-FMC boot.
+drm/bridge: adv7511: cancel HPD work during teardown
 
-Some of them (e.g. frts_size or pmu_reserved_size) seem to be hardcoded bas=
-ed on
-chipid, architecture or FW version; could this eventually be handled by the
-firmware as well?
+The threaded IRQ handler queues hpd_work. The work accesses the regmap
+and calls drm_bridge_hpd_notify(), so it must not run after the bridge or
+the devm-allocated driver data has been released.
 
-> +#[derive(Debug)]
-> +pub(crate) struct FbSizes {
-> +    /// FRTS size, in bytes.
-> +    pub(crate) frts_size: u64,
-> +    /// WPR2 heap size, in bytes.
-> +    pub(crate) wpr2_heap_size: u64,
-> +    /// Non-WPR heap size, in bytes.
-> +    pub(crate) non_wpr_heap_size: u64,
-> +    /// PMU reserved memory size, in bytes.
-> +    pub(crate) pmu_reserved_size: u32,
-> +    /// Number of VF partitions.
-> +    pub(crate) vf_partition_count: u8,
-> +}
+Free the IRQ before cancelling hpd_work so the handler cannot queue the
+work again. Do this in remove and when adv7533_attach_dsi() fails after
+the IRQ has been registered.
 
-[...]
+The remove-side race was reported previously, but the proposed fix did
+not cover the late probe failure path.
 
-> +    pub(crate) fn from_sizes<'a>(
-> +        gsp_firmware: &'a GspFirmware,
-> +        sizes: &'a FbSizes,
-> +    ) -> impl Init<Self> + 'a {
-> +        /// VGA workspace size to reserve at the end of the framebuffer,=
- in bytes.
-> +        const VGA_WORKSPACE_SIZE: u64 =3D u64::SZ_128K;
+This issue was found by a static analysis tool.
 
-I assume this could also be handled by firmware?
+Link: https://lore.kernel.org/r/20230413065943.198088-1-zyytlz.wz@163.com
+
+> diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/d=
+rm/bridge/adv7511/adv7511_drv.c
+> index db99e252aeebc..316b9f80d7429 100644
+> --- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> +++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
+> @@ -1400,11 +1400,15 @@ static int adv7511_probe(struct i2c_client *i2c)
+>  	if (adv7511->info->has_dsi) {
+>  		ret =3D adv7533_attach_dsi(adv7511);
+>  		if (ret)
+> -			goto err_unregister_audio;
+> +			goto err_free_irq;
+>  	}
+> =20
+>  	return 0;
+> =20
+> +err_free_irq:
+> +	if (i2c->irq)
+> +		devm_free_irq(dev, i2c->irq, adv7511);
+> +	cancel_work_sync(&adv7511->hpd_work);
+>  err_unregister_audio:
+>  	drm_bridge_remove(&adv7511->bridge);
+
+[Severity: High]
+This is a pre-existing issue, but is it safe to expose the bridge before pr=
+obe
+completes?
+
+drm_bridge_add() is called earlier in adv7511_probe(), before critical
+structures like the waitqueue are initialized:
+
+	drm_bridge_add(&adv7511->bridge);
+
+	if (i2c->irq) {
+		init_waitqueue_head(&adv7511->wq);
+
+If a concurrent KMS driver discovers the bridge and initiates operations,
+could it crash on the uninitialized waitqueue?
+
+For example, adv7511_wait_for_edid() accesses this waitqueue:
+
+		ret =3D wait_event_interruptible_timeout(adv7511->wq,
+				adv7511->edid_read, msecs_to_jiffies(timeout));
+
+Also, if the probe subsequently fails and we reach this cleanup path,
+could the concurrent KMS driver be left with a dangling pointer to
+devres-allocated memory?
+
+[ ... ]
+> @@ -1425,6 +1429,10 @@ static void adv7511_remove(struct i2c_client *i2c)
+>  {
+>  	struct adv7511 *adv7511 =3D i2c_get_clientdata(i2c);
+> =20
+> +	if (i2c->irq)
+> +		devm_free_irq(&i2c->dev, i2c->irq, adv7511);
+> +	cancel_work_sync(&adv7511->hpd_work);
+> +
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the driver have an
+unsynchronized concurrency issue between HPD work and bridge detection?
+
+adv7511_hpd_work() runs asynchronously and modifies state:
+
+	if (status =3D=3D connector_status_connected &&
+	    adv7511->status =3D=3D connector_status_disconnected &&
+	    adv7511->powered) {
+		regcache_mark_dirty(adv7511->regmap);
+		adv7511_power_on(adv7511);
+	}
+
+	if (adv7511->status !=3D status) {
+		adv7511->status =3D status;
+
+At the same time, KMS can concurrently call adv7511_detect():
+
+	if (status =3D=3D connector_status_connected && hpd && adv7511->powered) {
+		regcache_mark_dirty(adv7511->regmap);
+		adv7511_power_on(adv7511);
+		if (adv7511->status =3D=3D connector_status_connected)
+			status =3D connector_status_disconnected;
+	}
+
+Since neither function holds a lock while reading and modifying
+adv7511->status and adv7511->powered, could both evaluate the state as
+requiring a power cycle?
+
+This might cause both to concurrently invoke adv7511_power_on(),
+resulting in non-atomic, interleaved I2C register writes and overlapping
+regcache_sync operations.
+
+>  	of_node_put(adv7511->host_node);
+> =20
+>  	adv7511_uninit_regulators(adv7511);
+> =20
+>  	drm_bridge_remove(&adv7511->bridge);
+
+[Severity: High]
+This is a pre-existing issue, but does removing regulators before the
+bridge is unregistered allow concurrent I2C access to powered-down
+hardware?
+
+In adv7511_remove(), adv7511_uninit_regulators() cuts power to the chip.
+
+If a concurrent modeset, hotplug polling thread, or sysfs EDID read
+invokes bridge operations (like adv7511_detect() or adv7511_edid_read())
+before drm_bridge_remove() executes, could the driver attempt I2C
+transactions on an unresponsive chip?
+
+This could potentially cause hardware crashes, I2C bus timeouts, or
+driver lockups.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728135205.859-=
+1-getshell@seu.edu.cn?part=3D1
