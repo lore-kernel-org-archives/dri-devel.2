@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A9B9C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:13:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 607ADC54F4C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:17:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 794FC10E5A3;
-	Tue, 28 Jul 2026 15:13:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE1D710E952;
+	Tue, 28 Jul 2026 15:17:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="vTQ6PwFg";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="Jsdau/+x";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1264E10E5A3
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:13:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id D7E7C10E952
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:17:26 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 727EC1A9A
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:13:01 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 48306169E
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:17:22 -0700 (PDT)
 Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 5183C3F66F
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:13:05 -0700 (PDT)
+ 2658A3F66F
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 08:17:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785251585; bh=dNUDuI1pWJWA0MvVa+UypasPomGd1aQYtrd9nXUXhlQ=;
+ t=1785251846; bh=dZ8qagvGKJMyPa0EnzkJtY2emQs3MSkWMyx5Z+Vj9P0=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=vTQ6PwFgd3/2qbbMIRFAzIZPiwGlJ4fQK+urUjD9k2gxgGJZqh6sTlR40ahhwE824
- xqlIFM3bhzOowutswYLuUtpnQz/lplPJnm2305lZolwd/6kpjmlJr525IOBti4HKTQ
- 7VbEJL7fB8l2476Ea/NUDD6PxzdVtqJGW/53obAI=
-Date: Tue, 28 Jul 2026 16:12:53 +0100
+ b=Jsdau/+xL4PxOGKT8B2k2DAhOnBaBMBg6jUF2iuAONexJ5YZ+S1vASlOz8PTKf6rI
+ vsBmnWQCDLxF3lEyYw0vduRprfCo/ZW37VzeeHXostNCqg8glP7GTH8jLljOEk/gRh
+ Sp5DoBa5EbcQV3eJ71OnswMagGeK6CjpQGr8SUig=
+Date: Tue, 28 Jul 2026 16:17:14 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Osama Abdelkader <osama.abdelkader@gmail.com>
 Cc: Boris Brezillon <boris.brezillon@collabora.com>,
@@ -39,14 +39,15 @@ Cc: Boris Brezillon <boris.brezillon@collabora.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: fix firmware control interface bounds checks
-Message-ID: <amjG9WVZrb6v92_h@e142607>
-References: <20260720134435.13377-1-osama.abdelkader@gmail.com>
+Subject: Re: [PATCH] drm/panthor: snapshot firmware interface counts before
+ loops
+Message-ID: <amjH-v6-2POzmj1q@e142607>
+References: <20260720135518.17927-1-osama.abdelkader@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260720134435.13377-1-osama.abdelkader@gmail.com>
+In-Reply-To: <20260720135518.17927-1-osama.abdelkader@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,98 +63,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 20, 2026 at 03:44:35PM +0200, Osama Abdelkader wrote:
-> panthor_init_cs_iface() and panthor_init_csg_iface() validate firmware
-> control interface offsets with 32-bit arithmetic and the size of the host
-> wrapper structures. The offsets are derived from firmware-provided strides,
-> so the arithmetic can wrap before the bounds check, and the host wrapper
-> size is not the size of the firmware control interface being mapped.
+On Mon, Jul 20, 2026 at 03:55:18PM +0200, Osama Abdelkader wrote:
+> The firmware exposes the global group count and per-group stream count in
+> the shared control interface. These values are validated before being used
+> as loop bounds, but the memory is shared with the MCU firmware and can be
+> changed after validation.
 
-How can the offsets wrap with the firmware-provided strides? It's not like
-the firmware provides arbitrarily large strides.
+Again, you're making statements that need to be proven here. How is MCU
+firmware going to change the content of the memory shared with the driver?
 
 > 
-> Use 64-bit arithmetic for the computed offsets and validate against the
-> actual firmware control interface structure sizes with subtraction-based
-> bounds checks. Also validate that the shared section is large enough for
-> the global control interface before using it.
-> 
-> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-> ---
->  drivers/gpu/drm/panthor/panthor_fw.c | 18 +++++++++++++-----
->  1 file changed, 13 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> index eee2bc7e8541..e2fcbd639c3c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -897,15 +897,16 @@ static int panthor_init_cs_iface(struct panthor_device *ptdev,
->  	struct panthor_fw_csg_iface *csg_iface = panthor_fw_get_csg_iface(ptdev, csg_idx);
->  	struct panthor_fw_cs_iface *cs_iface = &ptdev->fw->iface.streams[csg_idx][cs_idx];
->  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> -			   (csg_idx * glb_iface->control->group_stride) +
-> +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> +			   ((u64)csg_idx * glb_iface->control->group_stride) +
->  			   CSF_STREAM_CONTROL_OFFSET +
-> -			   (cs_idx * csg_iface->control->stream_stride);
-> +			   ((u64)cs_idx * csg_iface->control->stream_stride);
->  	struct panthor_fw_cs_iface *first_cs_iface =
->  		panthor_fw_get_cs_iface(ptdev, 0, 0);
->  
-> -	if (iface_offset + sizeof(*cs_iface) >= shared_section_sz)
-> +	if (iface_offset > shared_section_sz ||
-> +	    sizeof(*cs_iface->control) > shared_section_sz - iface_offset)
->  		return -EINVAL;
->  
->  	spin_lock_init(&cs_iface->lock);
->  	cs_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> @@ -955,11 +956,13 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
->  	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
->  	struct panthor_fw_csg_iface *csg_iface = &ptdev->fw->iface.groups[csg_idx];
->  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET + (csg_idx * glb_iface->control->group_stride);
-> +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> +			   ((u64)csg_idx * glb_iface->control->group_stride);
->  	unsigned int i;
->  
-> -	if (iface_offset + sizeof(*csg_iface) >= shared_section_sz)
-> +	if (iface_offset > shared_section_sz ||
-> +	    sizeof(*csg_iface->control) > shared_section_sz - iface_offset)
->  		return -EINVAL;
->  
->  	spin_lock_init(&csg_iface->lock);
->  	csg_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> @@ -1011,12 +1014,16 @@ static u32 panthor_get_instr_features(struct panthor_device *ptdev)
->  static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
->  {
->  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
-> +	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
->  	unsigned int i;
->  
->  	if (!ptdev->fw->shared_section->mem->kmap)
->  		return -EINVAL;
->  
-> +	if (sizeof(*glb_iface->control) > shared_section_sz)
-> +		return -EINVAL;
-> +
->  	spin_lock_init(&glb_iface->lock);
->  	glb_iface->control = ptdev->fw->shared_section->mem->kmap;
->  
->  	if (!glb_iface->control->version) {
-> -- 
-> 2.43.0
-> 
+> Read each count once with READ_ONCE() and use the validated snapshot as the
+> loop bound. This keeps the loop bounds consistent with the validation and
+> prevents the compiler from reloading a firmware-controlled count during
+> iteration.
 
-I'm OK with the general content of the patch, so:
+As an optimisation I'm fine with it, so:
 
 Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
 Best regards,
 Liviu
 
+> 
+> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_fw.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index e2fcbd639c3c..6e6da98d795e 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -959,6 +959,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+>  	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
+>  			   ((u64)csg_idx * glb_iface->control->group_stride);
+> +	u32 stream_num;
+>  	unsigned int i;
+>  
+>  	if (iface_offset > shared_section_sz ||
+> @@ -972,8 +973,8 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>  	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
+>  						 sizeof(*csg_iface->output));
+>  
+> -	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
+> -	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
+> +	stream_num = READ_ONCE(csg_iface->control->stream_num);
+> +	if (stream_num < MIN_CS_PER_CSG || stream_num > MAX_CS_PER_CSG)
+>  		return -EINVAL;
+>  
+>  	if (!csg_iface->input || !csg_iface->output) {
+> @@ -990,7 +991,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>  		}
+>  	}
+>  
+> -	for (i = 0; i < csg_iface->control->stream_num; i++) {
+> +	for (i = 0; i < stream_num; i++) {
+>  		int ret = panthor_init_cs_iface(ptdev, csg_idx, i);
+>  
+>  		if (ret)
+> @@ -1015,6 +1016,7 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
+>  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+> +	u32 group_num;
+>  	unsigned int i;
+>  
+>  	if (!ptdev->fw->shared_section->mem->kmap)
+> @@ -1034,17 +1036,17 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+>  		return -EINVAL;
+>  	}
+>  
+> -	if (glb_iface->control->group_num > MAX_CSGS ||
+> -	    glb_iface->control->group_num < MIN_CSGS) {
+> +	group_num = READ_ONCE(glb_iface->control->group_num);
+> +	if (group_num > MAX_CSGS || group_num < MIN_CSGS) {
+>  		drm_err(&ptdev->base, "Invalid number of control groups");
+>  		return -EINVAL;
+>  	}
+>  
+> -	for (i = 0; i < glb_iface->control->group_num; i++) {
+> +	for (i = 0; i < group_num; i++) {
+>  		int ret = panthor_init_csg_iface(ptdev, i);
+>  
+>  		if (ret)
+>  			return ret;
+>  	}
+>  
+>  	drm_info(&ptdev->base, "CSF FW using interface v%d.%d.%d, Features %#x Instrumentation features %#x",
+> -- 
+> 2.43.0
+> 
 
 -- 
 ====================
