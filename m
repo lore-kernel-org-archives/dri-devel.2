@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0A7CC53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 18:39:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0AD0C54F55
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 18:39:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D2F310E9BC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CCAE910E9CA;
 	Tue, 28 Jul 2026 18:39:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="WTV539/c";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="LOPzFWGF";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0DAB110E9BC
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA9F210E9BC
  for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 18:39:40 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785263976; cv=none; 
+ARC-Seal: i=1; a=rsa-sha256; t=1785263978; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=koKRKROJJMMeJ00S62KqKppvtYscReS+r4ozHbWAV8UO4vgSsznSXBstW5coglwsHF3Hn72KmUz9vG/HznQNssjBXVSIIlmMDaivEFIW60dCRD3rNkm4j/KeyBVksnH4v/Xo8gfYXCjic60u1BYIFfck6bfdYE5sP7RYN3fWccA=
+ b=PFSehVabJ4LTg+99KXw/ctC+cH5pMFDM0wzr88r8crt67BukEKMCEfSBLBPQlnoZA+Qw9935nIuUqUsreZFzOV7q3kDRphDpitaK5rwu/UtCzjxpdU9FoBCZF4fm0k/yWtVUdDt6tFjuTrFnhKS+aOd4NRXU1EGAtbRj5qM2/I4=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785263976;
+ s=zohoarc; t=1785263978;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=24KRahSZWGLqNQO7MG3Thz8WFmuXZ/bIfdJ0XvRZa14=; 
- b=Mw+x3MxHUt8DOse0f1/SRy6CYJ0kM2LzDjkpPNdDpyeVADl7eZqkXS50HZUm4gtQ/w+QMDh0c2i01XciggZunXI4uBvP/ELmSq0SqNpRizL5HikCryxftEf5lVh03S/bskcyRCc/PkmyvFKHlDW/cFzVh3hL6kI7UVXE9f+0iOs=
+ bh=TvXnYwGRr/5R68oyHjBcZr5UU+E2jdQ7GiYszvmDWyE=; 
+ b=eAVok7/dUo9NBJaRicwsaAzHPmFbbw76vfI3Ymx49rPY8gq6bgQDJ/Ces9vYDkiIouPBCzI/YoXgFvhHlNZMaYBRwnSBi4akyItbVcUwbCkADPpbzI5//ClW29iIelppv8E0qJlichrIvg/eMEi3uXGdqw4up6dStl4LMjYNmLA=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
  dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785263976; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785263978; 
  s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=24KRahSZWGLqNQO7MG3Thz8WFmuXZ/bIfdJ0XvRZa14=;
- b=WTV539/c0HRW13NHXXWlPkIktGn6A9hZfPMRcwLMB4b84GiX5EPqPemj5ihq0rMt
- Sbt7Ql/VBg7Tzuo2aligvyYKffzmpyUDZMFom88gM00TdKVJZJ52211DiUuNCuo5X7x
- 402B3BiHOOMZmzUhfuwp4Im2d6JBxpMEYrKg2mrc=
-Received: by mx.zohomail.com with SMTPS id 1785263975091542.2795906513692;
- Tue, 28 Jul 2026 11:39:35 -0700 (PDT)
+ bh=TvXnYwGRr/5R68oyHjBcZr5UU+E2jdQ7GiYszvmDWyE=;
+ b=LOPzFWGFSv8CmAaw6OA1Q85M7k4AI1loopx3aercpV0jHTHrzndYxJKy6bUN7GUe
+ H8mGv2jon2XNgrZwPD5A+tVWLMgA/bkoIY2EbqbzZEZ5kWs0Fe0/5hGpydmc9BJJHgk
+ vPXs7zIXOMW7Wld/gJzbRAII4DMjGJYCFVj4/634=
+Received: by mx.zohomail.com with SMTPS id 1785263977222570.0891668311016;
+ Tue, 28 Jul 2026 11:39:37 -0700 (PDT)
 From: Deborah Brouwer <deborah.brouwer@collabora.com>
-Date: Tue, 28 Jul 2026 11:39:26 -0700
-Subject: [PATCH v10 4/7] drm/tyr: add GPU virtual memory (VM) support
+Date: Tue, 28 Jul 2026 11:39:28 -0700
+Subject: [PATCH v10 6/7] drm/tyr: add parser for firmware binary
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-fw-boot-b4-v10-4-9187aefa3f2f@collabora.com>
+Message-Id: <20260728-fw-boot-b4-v10-6-9187aefa3f2f@collabora.com>
 References: <20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com>
 In-Reply-To: <20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -62,13 +62,13 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  samitolvanen@google.com, lyude@redhat.com, beata.michalska@arm.com, 
  boris.brezillon@collabora.com, steven.price@arm.com, alvin.sun@linux.dev
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=37267;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=20040;
  i=deborah.brouwer@collabora.com; h=from:subject:message-id;
- bh=/fmB5l2jK4Oxm4nrYS3Qhc4j2jXKbfRLS9L4bJew8zw=;
- b=owGbwMvMwCVWuULzOU9c7WvG02pJDFkZ3xNEJlcJLmy58/bT6byWmxM8lmzTTl8QdVk0Qu7aF
- kWZw/GFHaUsDGJcDLJiiixn7Y16xKveG+nO/98MM4eVCWQIAxenAEzk7l6Gf8qHEj6+0zjyvMJm
- UtFL9okv9h9iPx7ddNIhfvk+9kdnOJYz/OG/dD1r4cyXWf6CrTrLM/OCj9xeZWnKtU3a6Y3BDgk
- LFS4A
+ bh=4uauGNrmbFrjJl21ZnqBGuRTt3aBiHgNWqTuGmxqjWA=;
+ b=owGbwMvMwCVWuULzOU9c7WvG02pJDFkZ3xNW7vmktG/+ktQdnoce2ek2fzS69fnUpXnTxU9Zl
+ LR++n7nXkcpC4MYF4OsmCLLWXujHvGq90a68/83w8xhZQIZwsDFKQATed/ByLDI5VaBUHftxE0c
+ bk/LUvN0vuXYL/2xet/+uJicJfta8rYw/OHOf31CoPXIR5+JW69O0XzRJrpBNchvveLc7Ms12t3
+ 6htwA
 X-Developer-Key: i=deborah.brouwer@collabora.com; a=openpgp;
  fpr=CD3F328C177AEF322D9FFF8379A829E70C5E7DEB
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -86,1089 +86,621 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Boris Brezillon <boris.brezillon@collabora.com>
+From: Daniel Almeida <daniel.almeida@collabora.com>
 
-Add GPU virtual address space management using the DRM GPUVM framework.
-Each virtual memory (VM) space is backed by ARM64 LPAE Stage 1 page tables
-and can be mapped into hardware address space (AS) slots for GPU execution.
+Add a parser for the Mali CSF GPU firmware binary format. The firmware
+consists of a header followed by entries describing how to load firmware
+sections into the MCU's memory.
 
-The implementation provides memory isolation and virtual address
-allocation. VMs support mapping GEM buffer objects with configurable
-protection flags (readonly, noexec, uncached) and handle both 4KB and 2MB
-page sizes. A new_dummy_object() helper is provided to create a dummy GEM
-object for use as a GPUVM root.
+The parser extracts section metadata including virtual address ranges,
+data byte offsets within the binary, and section flags controlling
+permissions and cache modes. It validates the basic firmware structure
+and alignment and ignores protected-mode sections for now.
 
-The vm module integrates with the MMU for address space activation and
-provides map/unmap/remap operations with page table synchronization.
-
-Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Co-developed-by: Beata Michalska <beata.michalska@arm.com>
+Signed-off-by: Beata Michalska <beata.michalska@arm.com>
+Co-developed-by: Boris Brezillon <boris.brezillon@collabora.com>
+Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
 ---
- drivers/gpu/drm/tyr/Kconfig   |   1 +
- drivers/gpu/drm/tyr/driver.rs |   4 +-
- drivers/gpu/drm/tyr/gem.rs    |  26 +-
- drivers/gpu/drm/tyr/mmu.rs    |   1 -
- drivers/gpu/drm/tyr/tyr.rs    |   1 +
- drivers/gpu/drm/tyr/vm.rs     | 950 ++++++++++++++++++++++++++++++++++++++++++
- 6 files changed, 978 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/tyr/fw/parser.rs | 588 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 588 insertions(+)
 
-diff --git a/drivers/gpu/drm/tyr/Kconfig b/drivers/gpu/drm/tyr/Kconfig
-index 61a2fd6f961a..79ea4bb214de 100644
---- a/drivers/gpu/drm/tyr/Kconfig
-+++ b/drivers/gpu/drm/tyr/Kconfig
-@@ -12,6 +12,7 @@ config DRM_TYR
- 	default n
- 	select IOMMU_IO_PGTABLE_LPAE
- 	select RUST_DRM_GEM_SHMEM_HELPER
-+	select RUST_DRM_GPUVM
- 	help
- 	  Rust DRM driver for ARM Mali CSF-based GPUs.
- 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 92c9d98e3aab..f487b3996293 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -37,7 +37,7 @@
- 
- use crate::{
-     file::TyrDrmFileData,
--    gem::BoData,
-+    gem::Bo,
-     gpu,
-     gpu::GpuInfo,
-     mmu::Mmu,
-@@ -194,7 +194,7 @@ impl drm::Driver for TyrDrmDriver {
-     type Data = ();
-     type RegistrationData<'drm> = TyrDrmRegistrationData<'drm>;
-     type File = TyrDrmFileData;
--    type Object = drm::gem::shmem::Object<BoData>;
-+    type Object = Bo;
-     type ParentDevice<Ctx: DeviceContext> = platform::Device<Ctx>;
- 
-     const INFO: drm::DriverInfo = INFO;
-diff --git a/drivers/gpu/drm/tyr/gem.rs b/drivers/gpu/drm/tyr/gem.rs
-index 1640a161754b..c28be61a01bb 100644
---- a/drivers/gpu/drm/tyr/gem.rs
-+++ b/drivers/gpu/drm/tyr/gem.rs
-@@ -5,8 +5,12 @@
- //! DRM's GEM subsystem with shmem backing.
- 
- use kernel::{
--    drm::gem,
--    prelude::*, //
-+    drm::gem::{
-+        self,
-+        shmem, //
-+    },
-+    prelude::*,
-+    sync::aref::ARef, //
- };
- 
- use crate::driver::{
-@@ -34,3 +38,21 @@ fn new(_dev: &TyrDrmDevice, _size: usize, args: BoCreateArgs) -> impl PinInit<Se
-         try_pin_init!(Self { flags: args.flags })
-     }
- }
-+
-+/// Type alias for Tyr GEM buffer objects.
-+pub(crate) type Bo = gem::shmem::Object<BoData>;
-+
-+/// Creates a dummy GEM object to serve as the root of a GPUVM.
-+pub(crate) fn new_dummy_object(ddev: &TyrDrmDevice) -> Result<ARef<Bo>> {
-+    let bo = Bo::new(
-+        ddev,
-+        4096,
-+        shmem::ObjectConfig {
-+            map_wc: true,
-+            parent_resv_obj: None,
-+        },
-+        BoCreateArgs { flags: 0 },
-+    )?;
-+
-+    Ok(bo)
-+}
-diff --git a/drivers/gpu/drm/tyr/mmu.rs b/drivers/gpu/drm/tyr/mmu.rs
-index 83e022f9168b..5e88c9e6a4cd 100644
---- a/drivers/gpu/drm/tyr/mmu.rs
-+++ b/drivers/gpu/drm/tyr/mmu.rs
-@@ -10,7 +10,6 @@
- //! The [`SlotManager`] manages the assignment of virtual address spaces to hardware address-space
- //! (AS) slots. MMU commands such as updates and flushes are carried out by the
- //! [`AddressSpaceManager`] which actually writes to the MMU registers.
--#![expect(dead_code)]
- 
- use core::ops::Range;
- 
-diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
-index 79045d0135a8..92f6885cdaae 100644
---- a/drivers/gpu/drm/tyr/tyr.rs
-+++ b/drivers/gpu/drm/tyr/tyr.rs
-@@ -14,6 +14,7 @@
- mod mmu;
- mod regs;
- mod slot;
-+mod vm;
- 
- kernel::module_platform_driver! {
-     type: TyrPlatformDriver,
-diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
+diff --git a/drivers/gpu/drm/tyr/fw/parser.rs b/drivers/gpu/drm/tyr/fw/parser.rs
 new file mode 100644
-index 000000000000..53a17dd8d949
+index 000000000000..c4d0ad1d7899
 --- /dev/null
-+++ b/drivers/gpu/drm/tyr/vm.rs
-@@ -0,0 +1,950 @@
++++ b/drivers/gpu/drm/tyr/fw/parser.rs
+@@ -0,0 +1,588 @@
 +// SPDX-License-Identifier: GPL-2.0 or MIT
 +
-+//! GPU virtual memory management using the DRM GPUVM framework.
++//! Firmware binary parser for Mali CSF (Command Stream Frontend) GPU.
 +//!
-+//! This module manages GPU virtual address spaces, providing memory isolation and
-+//! the illusion of owning the entire virtual address (VA) range, similar to CPU virtual memory.
-+//! Each virtual memory (VM) area is backed by ARM64 LPAE Stage 1 page tables and can be
-+//! mapped into hardware address space (AS) slots for GPU execution.
-+#![expect(dead_code)]
++//! This module implements a parser for the Mali GPU firmware binary format. The firmware
++//! file contains a header followed by a sequence of entries, each describing how to load
++//! firmware sections into the MCU (Microcontroller Unit) memory. The parser extracts section
++//! metadata including:
++//! - Virtual address ranges where sections should be mapped
++//! - Data ranges (byte offsets) within the firmware binary
++//! - Section flags (permissions, cache modes)
 +
-+use core::marker::PhantomData;
-+use core::ops::Range;
++use core::{
++    mem::size_of,
++    ops::Range, //
++};
 +
 +use kernel::{
-+    device::{
-+        Bound,
-+        Device, //
-+    },
-+    drm::{
-+        gem::BaseObject,
-+        gpuvm::{
-+            DriverGpuVm,
-+            GpuVaAlloc,
-+            GpuVm,
-+            GpuVmBo,
-+            OpMap,
-+            OpMapRequest,
-+            OpMapped,
-+            OpRemap,
-+            OpRemapped,
-+            OpUnmap,
-+            OpUnmapped,
-+            UniqueRefGpuVm, //
-+        }, //
-+    },
-+    fmt,
-+    impl_flags,
-+    iommu::pgtable::{
-+        prot,
-+        IoPageTable,
-+        ARM64LPAES1, //
-+    },
-+    new_mutex,
++    bits::bit_u32,
++    device::Device,
 +    prelude::*,
-+    sizes::{
-+        SZ_1G,
-+        SZ_2M,
-+        SZ_4K, //
-+    },
-+    sync::{
-+        aref::ARef,
-+        Arc,
-+        ArcBorrow,
-+        Mutex, //
-+    },
-+    uapi, //
++    sizes::SZ_4K, //
 +};
 +
 +use crate::{
-+    driver::{
-+        TyrDrmDevice,
-+        TyrDrmDriver, //
++    fw::{
++        CacheMode,
++        SectionFlags,
++        CSF_MCU_SHARED_REGION_START, //
 +    },
-+    gem,
-+    gem::Bo,
-+    gpu::GpuInfo,
-+    mmu::{
-+        address_space::VmAsData,
-+        Mmu, //
-+    },
-+    regs::gpu_control::MMU_FEATURES,
++    vm::{
++        VmFlag,
++        VmMapFlags, //
++    }, //
 +};
 +
-+impl_flags!(
-+    /// Flags controlling virtual memory mapping behavior.
-+    ///
-+    /// These flags control access permissions and caching behavior for GPU virtual
-+    /// memory mappings.
-+    #[derive(Debug, Clone, Default, Copy, PartialEq, Eq)]
-+    pub(crate) struct VmMapFlags(u32);
-+
-+    /// Individual flags that can be combined in [`VmMapFlags`].
-+    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-+    pub(crate) enum VmFlag {
-+        /// Map as read-only.
-+        Readonly = uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_READONLY as u32,
-+        /// Map as non-executable.
-+        Noexec = uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_NOEXEC as u32,
-+        /// Map as uncached.
-+        Uncached = uapi::drm_panthor_vm_bind_op_flags_DRM_PANTHOR_VM_BIND_OP_MAP_UNCACHED as u32,
-+    }
-+);
-+
-+impl VmMapFlags {
-+    /// Convert the flags to `pgtable::prot`.
-+    fn to_prot(self) -> u32 {
-+        let mut prot = 0;
-+
-+        if self.contains(VmFlag::Readonly) {
-+            prot |= prot::READ;
-+        } else {
-+            prot |= prot::READ | prot::WRITE;
-+        }
-+
-+        if self.contains(VmFlag::Noexec) {
-+            prot |= prot::NOEXEC;
-+        }
-+
-+        if !self.contains(VmFlag::Uncached) {
-+            prot |= prot::CACHE;
-+        }
-+
-+        prot
-+    }
++/// A parsed firmware section ready for loading into MCU memory.
++///
++/// Represents a single firmware section extracted from the firmware binary, containing
++/// all information needed to map the section's data into the MCU's virtual address space.
++pub(super) struct ParsedSection {
++    /// Byte offset range within the firmware binary where this section's data resides.
++    pub(super) data_range: Range<u32>,
++    /// MCU virtual address range where this section should be mapped.
++    pub(super) va: Range<u32>,
++    /// Memory protection and caching flags for the mapping.
++    pub(super) vm_map_flags: VmMapFlags,
 +}
 +
-+impl fmt::Display for VmMapFlags {
-+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-+        let mut first = true;
++/// A bare-bones `std::io::Cursor<[u8]>` clone to keep track of the current position in the
++/// firmware binary.
++///
++/// Provides methods to sequentially read primitive types and byte arrays from the firmware
++/// binary while maintaining the current read position.
++struct Cursor<'a> {
++    dev: &'a Device,
++    data: &'a [u8],
++    pos: usize,
++}
 +
-+        if self.contains(VmFlag::Readonly) {
-+            write!(f, "READONLY")?;
-+            first = false;
++impl<'a> Cursor<'a> {
++    fn new(dev: &'a Device, data: &'a [u8]) -> Self {
++        Self { dev, data, pos: 0 }
++    }
++
++    fn len(&self) -> usize {
++        self.data.len()
++    }
++
++    fn pos(&self) -> usize {
++        self.pos
++    }
++
++    /// Returns a view into the cursor's data.
++    ///
++    /// This spawns a new cursor, leaving the current cursor unchanged.
++    fn view(&self, range: Range<usize>) -> Result<Cursor<'_>> {
++        if range.start < self.pos || range.end > self.data.len() {
++            dev_err!(
++                self.dev,
++                "Invalid cursor range {:?} for data of length {}",
++                range,
++                self.data.len()
++            );
++
++            Err(EINVAL)
++        } else {
++            Ok(Self {
++                dev: self.dev,
++                data: &self.data[range],
++                pos: 0,
++            })
 +        }
-+        if self.contains(VmFlag::Noexec) {
-+            if !first {
-+                write!(f, " | ")?;
-+            }
-+            write!(f, "NOEXEC")?;
-+            first = false;
++    }
++
++    /// Reads a slice of bytes from the current position and advances the cursor.
++    ///
++    /// Returns an error if the read would exceed the data bounds.
++    fn read(&mut self, nbytes: usize) -> Result<&[u8]> {
++        let start = self.pos;
++        let end = start + nbytes;
++
++        if end > self.data.len() {
++            dev_err!(
++                self.dev,
++                "Invalid firmware file: read of size {} at position {} is out of bounds",
++                nbytes,
++                start,
++            );
++            return Err(EINVAL);
 +        }
 +
-+        if self.contains(VmFlag::Uncached) {
-+            if !first {
-+                write!(f, " | ")?;
-+            }
-+            write!(f, "UNCACHED")?;
-+        }
++        self.pos += nbytes;
++        Ok(&self.data[start..end])
++    }
 +
++    /// Reads a little-endian `u8` from the current position and advances the cursor.
++    fn read_u8(&mut self) -> Result<u8> {
++        let bytes = self.read(size_of::<u8>())?;
++        Ok(bytes[0])
++    }
++
++    /// Reads a little-endian `u16` from the current position and advances the cursor.
++    fn read_u16(&mut self) -> Result<u16> {
++        let bytes: [u8; 2] = self
++            .read(size_of::<u16>())?
++            .try_into()
++            .map_err(|_| EINVAL)?;
++
++        Ok(u16::from_le_bytes(bytes))
++    }
++
++    /// Reads a little-endian `u32` from the current position and advances the cursor.
++    fn read_u32(&mut self) -> Result<u32> {
++        let bytes: [u8; 4] = self
++            .read(size_of::<u32>())?
++            .try_into()
++            .map_err(|_| EINVAL)?;
++
++        Ok(u32::from_le_bytes(bytes))
++    }
++
++    /// Advances the cursor position by the specified number of bytes.
++    ///
++    /// Returns an error if the advance would exceed the data bounds.
++    fn advance(&mut self, nbytes: usize) -> Result {
++        if self.pos + nbytes > self.data.len() {
++            dev_err!(
++                self.dev,
++                "Invalid firmware file: advance of size {} at position {} is out of bounds",
++                nbytes,
++                self.pos,
++            );
++            return Err(EINVAL);
++        }
++        self.pos += nbytes;
 +        Ok(())
 +    }
 +}
 +
-+impl TryFrom<u32> for VmMapFlags {
-+    type Error = Error;
++/// Parser for Mali CSF GPU firmware binaries.
++///
++/// Parses the firmware binary format, extracting section metadata including virtual
++/// address ranges, data offsets, and memory protection flags needed to load firmware
++/// into the MCU's memory.
++pub(super) struct FwParser<'a> {
++    cursor: Cursor<'a>,
++}
 +
-+    fn try_from(value: u32) -> Result<Self, Self::Error> {
-+        let valid = VmFlag::Readonly as u32 | VmFlag::Noexec as u32 | VmFlag::Uncached as u32;
++impl<'a> FwParser<'a> {
++    /// Creates a new firmware parser for the given firmware binary data.
++    pub(super) fn new(dev: &'a Device, data: &'a [u8]) -> Self {
++        Self {
++            cursor: Cursor::new(dev, data),
++        }
++    }
 +
-+        if value & !valid != 0 {
++    /// Parses the firmware binary and returns a collection of parsed sections.
++    ///
++    /// This method validates the firmware header and iterates through all entries
++    /// in the binary, extracting section information needed for loading.
++    pub(super) fn parse(&mut self) -> Result<KVec<ParsedSection>> {
++        let fw_header = self.parse_fw_header()?;
++        let header_end = fw_header.size as usize;
++
++        let mut parsed_sections = KVec::new();
++        while self.cursor.pos() < header_end {
++            let entry_section = self.parse_entry(header_end)?;
++
++            if let Some(inner) = entry_section.inner {
++                parsed_sections.push(inner, GFP_KERNEL)?;
++            }
++        }
++
++        if parsed_sections.is_empty() {
++            dev_err!(self.cursor.dev, "Firmware contains no loadable sections");
 +            return Err(EINVAL);
 +        }
-+        Ok(Self(value))
++
++        Ok(parsed_sections)
++    }
++
++    fn parse_fw_header(&mut self) -> Result<FirmwareHeader> {
++        let fw_header: FirmwareHeader = match FirmwareHeader::new(&mut self.cursor) {
++            Ok(fw_header) => fw_header,
++            Err(e) => {
++                dev_err!(self.cursor.dev, "Invalid firmware file: {}", e.to_errno());
++                return Err(e);
++            }
++        };
++
++        if fw_header.size as usize > self.cursor.len() {
++            dev_err!(self.cursor.dev, "Firmware image is truncated");
++            return Err(EINVAL);
++        }
++        Ok(fw_header)
++    }
++
++    fn parse_entry(&mut self, header_end: usize) -> Result<EntrySection> {
++        let entry_start = self.cursor.pos();
++
++        let entry_header_end = entry_start
++            .checked_add(size_of::<EntryHeader>())
++            .ok_or(EINVAL)?;
++
++        if entry_header_end > header_end {
++            dev_err!(
++                self.cursor.dev,
++                "Firmware entry header at {:#x} exceeds header region ending at {:#x}",
++                entry_start,
++                header_end
++            );
++            return Err(EINVAL);
++        }
++
++        let entry_section = EntrySection {
++            entry_hdr: EntryHeader(self.cursor.read_u32()?),
++            inner: None,
++        };
++
++        let firmware_size = self.cursor.len();
++        let entry_size = entry_section.entry_hdr.size() as usize;
++
++        if self.cursor.pos() % size_of::<u32>() != 0
++            || entry_size % size_of::<u32>() != 0
++            || entry_size < size_of::<EntryHeader>()
++        {
++            dev_err!(
++                self.cursor.dev,
++                "Firmware entry isn't 32 bit aligned, offset={:#x} size={:#x}",
++                self.cursor.pos() - size_of::<u32>(),
++                entry_size
++            );
++            return Err(EINVAL);
++        }
++
++        let entry_end = entry_start.checked_add(entry_size).ok_or(EINVAL)?;
++
++        if entry_end > header_end {
++            dev_err!(
++                self.cursor.dev,
++                "Firmware entry at {:#x} extends beyond header region ending at {:#x}",
++                entry_start,
++                header_end
++            );
++            return Err(EINVAL);
++        }
++
++        let section_hdr_size = entry_size - size_of::<EntryHeader>();
++
++        let entry_section = {
++            let mut entry_cursor = self.cursor.view(self.cursor.pos()..entry_end)?;
++
++            match entry_section.entry_hdr.entry_type() {
++                Ok(EntryType::Iface) => Ok(EntrySection {
++                    entry_hdr: entry_section.entry_hdr,
++                    inner: Self::parse_section_entry(&mut entry_cursor, firmware_size)?,
++                }),
++                Ok(
++                    EntryType::Config
++                    | EntryType::FutfTest
++                    | EntryType::TraceBuffer
++                    | EntryType::TimelineMetadata
++                    | EntryType::BuildInfoMetadata,
++                ) => Ok(entry_section),
++
++                Err(_) => {
++                    if entry_section.entry_hdr.optional() {
++                        Ok(entry_section)
++                    } else {
++                        dev_err!(
++                            self.cursor.dev,
++                            "Failed to handle firmware entry type: {}",
++                            entry_section.entry_hdr.entry_type_raw()
++                        );
++                        Err(EINVAL)
++                    }
++                }
++            }
++        };
++
++        if entry_section.is_ok() {
++            self.cursor.advance(section_hdr_size)?;
++        }
++
++        entry_section
++    }
++
++    fn parse_section_entry(
++        entry_cursor: &mut Cursor<'_>,
++        firmware_size: usize,
++    ) -> Result<Option<ParsedSection>> {
++        let section_hdr: SectionHeader = SectionHeader::new(entry_cursor)?;
++
++        if section_hdr.data.end < section_hdr.data.start {
++            dev_err!(
++                entry_cursor.dev,
++                "Firmware corrupted, data.end < data.start (0x{:x} < 0x{:x})",
++                section_hdr.data.end,
++                section_hdr.data.start
++            );
++            return Err(EINVAL);
++        }
++
++        if section_hdr.data.end as usize > firmware_size {
++            dev_err!(
++                entry_cursor.dev,
++                "Firmware data range {:#x}..{:#x} exceeds firmware size {:#x}",
++                section_hdr.data.start,
++                section_hdr.data.end,
++                firmware_size,
++            );
++            return Err(EINVAL);
++        }
++
++        if section_hdr.va.start as usize % SZ_4K != 0 || section_hdr.va.end as usize % SZ_4K != 0 {
++            dev_err!(
++                entry_cursor.dev,
++                "Firmware virtual address range {:#x}..{:#x} is not page aligned",
++                section_hdr.va.start,
++                section_hdr.va.end
++            );
++            return Err(EINVAL);
++        }
++
++        if section_hdr.section_flags.prot() {
++            dev_dbg!(
++                entry_cursor.dev,
++                "Firmware protected mode entry not supported, ignoring"
++            );
++            return Ok(None);
++        }
++
++        if section_hdr.va.start == CSF_MCU_SHARED_REGION_START
++            && !section_hdr.section_flags.shared()
++        {
++            dev_err!(
++                entry_cursor.dev,
++                "Interface at 0x{:x} must be shared",
++                CSF_MCU_SHARED_REGION_START
++            );
++            return Err(EINVAL);
++        }
++
++        if section_hdr.va.is_empty() {
++            return Ok(None);
++        }
++
++        let mut vm_map_flags = VmMapFlags::empty();
++
++        if !section_hdr.section_flags.write() {
++            vm_map_flags |= VmFlag::Readonly;
++        }
++
++        if !section_hdr.section_flags.exec() {
++            vm_map_flags |= VmFlag::Noexec;
++        }
++
++        // TODO: As in Panthor, map coherent firmware sections uncached until the VM
++        // supports a coherent mapping attribute.
++        if section_hdr.section_flags.cache_mode() != CacheMode::Cached {
++            vm_map_flags |= VmFlag::Uncached;
++        }
++
++        Ok(Some(ParsedSection {
++            data_range: section_hdr.data.clone(),
++            va: section_hdr.va,
++            vm_map_flags,
++        }))
 +    }
 +}
 +
-+/// Arguments for a virtual memory map operation.
-+struct VmMapArgs<'drm> {
-+    /// Access permissions and caching behavior for the mapping.
-+    flags: VmMapFlags,
-+    /// GEM buffer object registered with the GPUVM framework.
-+    vm_bo: ARef<GpuVmBo<GpuVmData<'drm>>>,
-+    /// Offset in bytes from the start of the buffer object.
-+    bo_offset: u64,
-+}
-+
-+/// Type of virtual memory operation.
-+enum VmOpType<'drm> {
-+    /// Map a GEM buffer object into the virtual address space.
-+    Map(VmMapArgs<'drm>),
-+    /// Unmap a region from the virtual address space.
-+    Unmap,
-+}
-+
-+/// Preallocated resources needed to execute a VM operation.
++/// Firmware binary header containing version and size information.
 +///
-+/// VM operations may require allocating new GPUVA objects to track mappings.
-+/// To avoid allocation failures during the operation, preallocate the
-+/// maximum number of GPUVAs that might be needed.
-+struct VmOpResources<'drm> {
-+    /// Preallocated GPUVA objects for remap operations.
++/// The header is located at the beginning of the firmware binary and contains
++/// a magic value for validation, version information, and the total size of
++/// all structured headers that follow.
++#[expect(dead_code)]
++struct FirmwareHeader {
++    /// Magic value to check binary validity.
++    magic: u32,
++
++    /// Minor firmware version.
++    minor: u8,
++
++    /// Major firmware version.
++    major: u8,
++
++    /// Padding. Must be set to zero.
++    _padding1: u16,
++
++    /// Firmware version hash.
++    version_hash: u32,
++
++    /// Padding. Must be set to zero.
++    _padding2: u32,
++
++    /// Total size of all the structured data headers at beginning of firmware binary.
++    size: u32,
++}
++
++impl FirmwareHeader {
++    const FW_BINARY_MAGIC: u32 = 0xc3f13a6e;
++    const FW_BINARY_MAJOR_MAX: u8 = 0;
++
++    /// Reads and validates a firmware header from the cursor.
 +    ///
-+    /// Partial unmap requests or map requests overlapping existing mappings
-+    /// will trigger a remap call, which needs to register up to three VA
-+    /// objects (one for the new mapping, and two for the previous and next
-+    /// mappings).
-+    preallocated_gpuvas: [Option<GpuVaAlloc<GpuVmData<'drm>>>; 3],
++    /// Verifies the magic value, version compatibility, and padding fields.
++    fn new(cursor: &mut Cursor<'_>) -> Result<Self> {
++        let magic = cursor.read_u32()?;
++        if magic != Self::FW_BINARY_MAGIC {
++            dev_err!(cursor.dev, "Invalid firmware magic");
++            return Err(EINVAL);
++        }
++
++        let minor = cursor.read_u8()?;
++        let major = cursor.read_u8()?;
++
++        if major > Self::FW_BINARY_MAJOR_MAX {
++            dev_err!(
++                cursor.dev,
++                "Unsupported firmware binary header version {}.{} (expected {}.x)",
++                major,
++                minor,
++                Self::FW_BINARY_MAJOR_MAX
++            );
++            return Err(EINVAL);
++        }
++
++        let padding1 = cursor.read_u16()?;
++        let version_hash = cursor.read_u32()?;
++        let padding2 = cursor.read_u32()?;
++        let size = cursor.read_u32()?;
++
++        if padding1 != 0 || padding2 != 0 {
++            dev_err!(
++                cursor.dev,
++                "Invalid firmware file: header padding is not zero"
++            );
++            return Err(EINVAL);
++        }
++
++        let fw_header = Self {
++            magic,
++            minor,
++            major,
++            _padding1: padding1,
++            version_hash,
++            _padding2: padding2,
++            size,
++        };
++
++        Ok(fw_header)
++    }
 +}
 +
-+/// Request to execute a virtual memory operation.
-+struct VmOpRequest<'drm> {
-+    /// Request type.
-+    op_type: VmOpType<'drm>,
-+
-+    /// Region of the virtual address space covered by this request.
-+    region: Range<u64>,
++/// Firmware section header for loading binary sections into MCU memory.
++#[derive(Debug)]
++struct SectionHeader {
++    section_flags: SectionFlags,
++    /// MCU virtual range to map this binary section to.
++    va: Range<u32>,
++    /// References the data in the FW binary.
++    data: Range<u32>,
 +}
 +
-+/// Arguments for a page table map operation.
-+struct PtMapArgs {
-+    /// Memory protection flags describing allowed accesses for this mapping.
++impl SectionHeader {
++    /// Reads and validates a section header from the cursor.
 +    ///
-+    /// This is directly derived from [`VmMapFlags`] via [`VmMapFlags::to_prot`].
-+    prot: u32,
-+}
++    /// Parses section flags, virtual address range, and data range from the firmware binary.
++    fn new(cursor: &mut Cursor<'_>) -> Result<Self> {
++        let section_flags = SectionFlags::try_from_fw(cursor.read_u32()?)?;
 +
-+/// Type of page table operation.
-+enum PtOpType {
-+    /// Map pages into the page table.
-+    Map(PtMapArgs),
-+    /// Unmap pages from the page table.
-+    Unmap,
-+}
++        let va_start = cursor.read_u32()?;
++        let va_end = cursor.read_u32()?;
 +
-+/// Context for updating the GPU page table.
-+///
-+/// This context is created when beginning a page table update operation and
-+/// automatically flushes changes when dropped. It ensures that the
-+/// Memory Management Unit (MMU) state is properly managed and Translation
-+/// Lookaside Buffer (TLB) entries are flushed.
-+pub(crate) struct PtUpdateContext<'ctx, 'drm> {
-+    /// Device used for DMA-mapping GEM shmem SG tables.
-+    dev: &'ctx Device<Bound>,
++        let va = va_start..va_end;
 +
-+    /// Page table.
-+    pt: &'ctx IoPageTable<'drm, ARM64LPAES1>,
++        if va.end < va.start {
++            dev_err!(
++                cursor.dev,
++                "Invalid firmware file: VA end precedes start at pos {}",
++                cursor.pos(),
++            );
++            return Err(EINVAL);
++        }
 +
-+    /// MMU manager.
-+    mmu: &'ctx Mmu<'drm>,
-+
-+    /// Reference to the address space data to pass to the MMU functions.
-+    as_data: &'ctx VmAsData<'drm>,
-+
-+    /// Region of the virtual address space covered by this request.
-+    region: Range<u64>,
-+
-+    /// Operation type.
-+    op_type: PtOpType,
-+
-+    /// Preallocated resources that can be used when executing the request.
-+    resources: &'ctx mut VmOpResources<'drm>,
-+}
-+
-+impl<'ctx, 'drm> PtUpdateContext<'ctx, 'drm> {
-+    /// Creates a new page table update context.
-+    ///
-+    /// This prepares the MMU for a page table update.
-+    /// The context will automatically flush the TLB and
-+    /// complete the update when dropped.
-+    fn new(
-+        dev: &'ctx Device<Bound>,
-+        pt: &'ctx IoPageTable<'drm, ARM64LPAES1>,
-+        mmu: &'ctx Mmu<'drm>,
-+        as_data: &'ctx VmAsData<'drm>,
-+        region: Range<u64>,
-+        op_type: PtOpType,
-+        resources: &'ctx mut VmOpResources<'drm>,
-+    ) -> Result<PtUpdateContext<'ctx, 'drm>> {
-+        mmu.start_vm_update(as_data, &region)?;
++        let data_start = cursor.read_u32()?;
++        let data_end = cursor.read_u32()?;
++        let data = data_start..data_end;
 +
 +        Ok(Self {
-+            dev,
-+            pt,
-+            mmu,
-+            as_data,
-+            region,
-+            op_type,
-+            resources,
++            section_flags,
++            va,
++            data,
 +        })
 +    }
-+
-+    /// Finds one of our pre-allocated VAs.
-+    fn preallocated_gpuva(&mut self) -> Result<GpuVaAlloc<GpuVmData<'drm>>> {
-+        self.resources
-+            .preallocated_gpuvas
-+            .iter_mut()
-+            .find_map(|f| f.take())
-+            .ok_or(EINVAL)
-+    }
-+
-+    /// Returns an unused GPUVA object to the preallocated pool.
-+    /// If the pool is already full, the unused allocation is simply dropped.
-+    fn return_preallocated_gpuva(&mut self, gpuva: GpuVaAlloc<GpuVmData<'drm>>) {
-+        if let Some(slot) = self
-+            .resources
-+            .preallocated_gpuvas
-+            .iter_mut()
-+            .find(|slot| slot.is_none())
-+        {
-+            *slot = Some(gpuva);
-+        }
-+    }
 +}
 +
-+impl Drop for PtUpdateContext<'_, '_> {
-+    fn drop(&mut self) {
-+        if let Err(e) = self.mmu.end_vm_update(self.as_data) {
-+            dev_err!(self.dev, "Failed to end VM update {:?}", e);
-+        }
-+
-+        if let Err(e) = self.mmu.flush_vm(self.as_data) {
-+            dev_err!(self.dev, "Failed to flush VM {:?}", e);
-+        }
-+    }
-+}
-+
-+/// Driver implementation for the GPUVM framework.
++/// A firmware entry containing a header and optional parsed section data.
 +///
-+/// Implements [`DriverGpuVm`] to provide VM operation callbacks (map, unmap, remap)
-+/// and associated types for buffer objects, virtual addresses, and contexts.
-+pub(crate) struct GpuVmData<'drm> {
-+    _phantom: PhantomData<&'drm ()>,
++/// Represents a single entry in the firmware binary, which may contain loadable
++/// section data or metadata that doesn't require loading.
++struct EntrySection {
++    entry_hdr: EntryHeader,
++    inner: Option<ParsedSection>,
 +}
 +
-+/// GPU virtual address space.
++/// Header for a firmware entry, packed into a single u32.
 +///
-+/// Each VM can be mapped into a hardware address space slot.
-+#[pin_data]
-+pub(crate) struct Vm<'drm> {
-+    /// Data referenced by an AS when the VM is active
-+    as_data: Arc<VmAsData<'drm>>,
-+    /// MMU manager.
-+    mmu: Arc<Mmu<'drm>>,
-+    /// Parent device used for DMA mapping and page-table operations.
-+    dev: &'drm Device<Bound>,
-+    /// DRM GPUVM core for managing virtual address space.
-+    #[pin]
-+    gpuvm_unique: Mutex<UniqueRefGpuVm<GpuVmData<'drm>>>,
-+    /// Non-core part of the GPUVM. Can be used for stuff that doesn't modify the
-+    /// internal mapping tree, like GpuVm::obtain()
-+    gpuvm: ARef<GpuVm<GpuVmData<'drm>>>,
-+    /// VA range for this VM.
-+    va_range: Range<u64>,
-+}
++/// The entry header encodes the entry type, size, and optional flag in a
++/// 32-bit value with the following layout:
++/// - Bits 0-7: Entry type
++/// - Bits 8-15: Size in bytes
++/// - Bit 31: Optional flag
++struct EntryHeader(u32);
 +
-+impl<'drm> Vm<'drm> {
-+    /// Creates a new GPU virtual address space.
-+    ///
-+    /// The VM is initialized with a page table configured according to the GPU's
-+    /// address translation capabilities and registered with the GPUVM framework.
-+    pub(crate) fn new(
-+        dev: &'drm Device<Bound>,
-+        ddev: &TyrDrmDevice,
-+        mmu: ArcBorrow<'_, Mmu<'drm>>,
-+        gpu_info: &GpuInfo,
-+    ) -> Result<Arc<Vm<'drm>>> {
-+        let mmu_features = MMU_FEATURES::from_raw(gpu_info.mmu_features);
-+        let va_bits = mmu_features.va_bits().get();
-+        let pa_bits = mmu_features.pa_bits().get();
-+
-+        let range = 0..(1u64 << va_bits);
-+        let reserve_range = 0..0u64;
-+
-+        // dummy_obj is used to initialize the GPUVM tree.
-+        let dummy_obj = gem::new_dummy_object(ddev).inspect_err(|e| {
-+            dev_err!(dev, "Failed to create dummy GEM object: {:?}", e);
-+        })?;
-+
-+        let gpuvm_unique = GpuVm::new::<Error, _>(
-+            c"Tyr::GpuVm",
-+            ddev,
-+            &*dummy_obj,
-+            range.clone(),
-+            reserve_range,
-+            GpuVmData::<'drm> {
-+                _phantom: PhantomData::<&()>,
-+            },
-+        )
-+        .inspect_err(|e| {
-+            dev_err!(dev, "Failed to create GpuVm: {:?}", e);
-+        })?;
-+        let gpuvm = ARef::from(&*gpuvm_unique);
-+
-+        let as_data = Arc::pin_init(VmAsData::new(&mmu, dev, va_bits, pa_bits), GFP_KERNEL)?;
-+
-+        let vm = Arc::pin_init(
-+            pin_init!(Self{
-+                as_data,
-+                dev,
-+                mmu: mmu.into(),
-+                gpuvm,
-+                gpuvm_unique <- new_mutex!(gpuvm_unique),
-+                va_range: range,
-+            }),
-+            GFP_KERNEL,
-+        )?;
-+
-+        Ok(vm)
++impl EntryHeader {
++    fn entry_type_raw(&self) -> u8 {
++        (self.0 & 0xff) as u8
 +    }
 +
-+    /// Returns the parent device used by this VM for DMA mapping and page-table operations.
-+    pub(crate) fn dev(&self) -> &'drm Device<Bound> {
-+        self.dev
++    fn entry_type(&self) -> Result<EntryType> {
++        let v = self.entry_type_raw();
++        EntryType::try_from(v)
 +    }
 +
-+    /// Activate the VM in a hardware address space slot.
-+    pub(crate) fn activate(&self) -> Result {
-+        self.mmu
-+            .activate_vm(self.as_data.as_arc_borrow())
-+            .inspect_err(|e| {
-+                dev_err!(self.dev, "Failed to activate VM: {:?}", e);
-+            })
++    fn optional(&self) -> bool {
++        self.0 & bit_u32(31) != 0
 +    }
 +
-+    /// Deactivate the VM by evicting it from its address space slot.
-+    fn deactivate(&self) -> Result {
-+        self.mmu.deactivate_vm(&self.as_data).inspect_err(|e| {
-+            dev_err!(self.dev, "Failed to deactivate VM: {:?}", e);
-+        })
-+    }
-+
-+    /// Kills the VM by deactivating it and unmapping all regions.
-+    pub(crate) fn kill(&self) {
-+        // TODO: Turn the VM into a state where it can't be used.
-+        let _ = self.deactivate();
-+        let _ = self
-+            .unmap_range(self.va_range.start, self.va_range.end - self.va_range.start)
-+            .inspect_err(|e| {
-+                dev_err!(self.dev, "Failed to unmap range during deactivate: {:?}", e);
-+            });
-+    }
-+
-+    /// Executes a virtual memory operation.
-+    ///
-+    /// This handles both map and unmap operations by coordinating between the
-+    /// GPUVM framework and the hardware page table.
-+    fn exec_op<'a>(
-+        &self,
-+        gpuvm_unique: &mut UniqueRefGpuVm<GpuVmData<'drm>>,
-+        req: VmOpRequest<'drm>,
-+        resources: &'a mut VmOpResources<'drm>,
-+    ) -> Result {
-+        let pt = &self.as_data.page_table;
-+
-+        match req.op_type {
-+            VmOpType::Map(args) => {
-+                let mut pt_upd = PtUpdateContext::new(
-+                    self.dev,
-+                    pt,
-+                    &self.mmu,
-+                    &self.as_data,
-+                    req.region,
-+                    PtOpType::Map(PtMapArgs {
-+                        prot: args.flags.to_prot(),
-+                    }),
-+                    resources,
-+                )?;
-+
-+                gpuvm_unique.sm_map(OpMapRequest {
-+                    addr: pt_upd.region.start,
-+                    range: pt_upd.region.end - pt_upd.region.start,
-+                    gem_offset: args.bo_offset,
-+                    vm_bo: &args.vm_bo,
-+                    context: &mut pt_upd,
-+                })
-+                //PtUpdateContext drops here flushing the page table
-+            }
-+            VmOpType::Unmap => {
-+                let mut pt_upd = PtUpdateContext::new(
-+                    self.dev,
-+                    pt,
-+                    &self.mmu,
-+                    &self.as_data,
-+                    req.region,
-+                    PtOpType::Unmap,
-+                    resources,
-+                )?;
-+
-+                gpuvm_unique.sm_unmap(
-+                    pt_upd.region.start,
-+                    pt_upd.region.end - pt_upd.region.start,
-+                    &mut pt_upd,
-+                )
-+                //PtUpdateContext drops here flushing the page table
-+            }
-+        }
-+    }
-+
-+    /// Maps a GEM buffer object range into the VM at the specified virtual address.
-+    ///
-+    /// This creates a mapping from GPU virtual address `va` to the physical pages
-+    /// backing the GEM object, starting at `bo_offset` bytes into the object and
-+    /// spanning `map_size` bytes. The mapping respects the access permissions and
-+    /// caching behavior specified in `flags`.
-+    pub(crate) fn map_bo_range(
-+        &self,
-+        bo: &Bo,
-+        bo_offset: u64,
-+        map_size: u64,
-+        va: u64,
-+        flags: VmMapFlags,
-+    ) -> Result {
-+        if map_size == 0
-+            || va % SZ_4K as u64 != 0
-+            || bo_offset % SZ_4K as u64 != 0
-+            || map_size % SZ_4K as u64 != 0
-+        {
-+            return Err(EINVAL);
-+        }
-+
-+        let bo_size = u64::try_from(bo.size()).map_err(|_| EOVERFLOW)?;
-+        let bo_end = bo_offset.checked_add(map_size).ok_or(EINVAL)?;
-+
-+        if bo_end > bo_size {
-+            dev_err!(
-+                self.dev,
-+                "BO mapping range {:#x}..{:#x} exceeds BO size {:#x}",
-+                bo_offset,
-+                bo_end,
-+                bo_size
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let va_end: u64 = va.checked_add(map_size).ok_or(EINVAL)?;
-+
-+        let req = VmOpRequest {
-+            op_type: VmOpType::Map(VmMapArgs {
-+                vm_bo: self.gpuvm.obtain(bo, ())?,
-+                flags,
-+                bo_offset,
-+            }),
-+            region: va..va_end,
-+        };
-+        let mut resources = VmOpResources {
-+            preallocated_gpuvas: [
-+                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
-+                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
-+                Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
-+            ],
-+        };
-+        let result = {
-+            let mut gpuvm_unique = self.gpuvm_unique.lock();
-+            self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)
-+        };
-+        // We flush the defer cleanup list now. Things will be different in
-+        // the asynchronous VM_BIND path, where we want the cleanup to
-+        // happen outside the DMA signalling path.
-+        self.gpuvm.deferred_cleanup();
-+        result
-+    }
-+
-+    /// Unmaps a virtual address range from the VM.
-+    ///
-+    /// This removes any existing mappings in the specified range, freeing the
-+    /// virtual address space for reuse.
-+    pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
-+        if size == 0 || va % SZ_4K as u64 != 0 || size % SZ_4K as u64 != 0 {
-+            return Err(EINVAL);
-+        }
-+
-+        let end = va.checked_add(size).ok_or(EINVAL)?;
-+
-+        if va < self.va_range.start || end > self.va_range.end {
-+            dev_err!(
-+                self.dev,
-+                "Unmap range {:#x}..{:#x} exceeds VM range {:#x}..{:#x}",
-+                va,
-+                end,
-+                self.va_range.start,
-+                self.va_range.end
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let req = VmOpRequest {
-+            op_type: VmOpType::Unmap,
-+            region: va..end,
-+        };
-+
-+        let full_vm = va == self.va_range.start && end == self.va_range.end;
-+
-+        let mut resources = VmOpResources {
-+            preallocated_gpuvas: if full_vm {
-+                // Unmapping the entire VM cannot split an existing mapping,
-+                // so no GPUVA objects are needed for remap operations.
-+                [None, None, None]
-+            } else {
-+                [
-+                    Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
-+                    Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
-+                    Some(GpuVaAlloc::<GpuVmData<'drm>>::new(GFP_KERNEL)?),
-+                ]
-+            },
-+        };
-+        let result = {
-+            let mut gpuvm_unique = self.gpuvm_unique.lock();
-+            self.exec_op(gpuvm_unique.as_mut().get_mut(), req, &mut resources)
-+        };
-+        // We flush the defer cleanup list now. Things will be different in
-+        // the asynchronous VM_BIND path, where we want the cleanup to
-+        // happen outside the DMA signalling path.
-+        self.gpuvm.deferred_cleanup();
-+        result
++    fn size(&self) -> u32 {
++        self.0 >> 8 & 0xff
 +    }
 +}
 +
-+impl<'drm> DriverGpuVm for GpuVmData<'drm> {
-+    type Driver = TyrDrmDriver;
-+    type Object = Bo;
-+    type VmBoData = ();
-+    type VaData = ();
-+    type SmContext<'ctx>
-+        = PtUpdateContext<'ctx, 'drm>
-+    where
-+        Self: 'ctx;
-+
-+    /// Create a new mapping.
-+    fn sm_step_map<'op>(
-+        &mut self,
-+        op: OpMap<'op, Self>,
-+        context: &mut Self::SmContext<'_>,
-+    ) -> Result<OpMapped<'op, Self>, Error> {
-+        let start_iova = op.addr();
-+        let mut iova = start_iova;
-+        let mut bytes_left_to_map = op.length();
-+        let mut gem_offset = op.gem_offset();
-+
-+        // Make sure that the end of the requested GEM range doesn't run past the
-+        // end of the GEM buffer itself.
-+        let gem_range_end = op.gem_offset().checked_add(op.length()).ok_or(EINVAL)?;
-+
-+        if gem_range_end > op.obj().size() as u64 {
-+            dev_err!(
-+                context.dev,
-+                "Requested GEM range ends at {} which is beyond the GEM buffer size {}",
-+                gem_range_end,
-+                op.obj().size()
-+            );
-+            return Err(EINVAL);
-+        }
-+
-+        let sgt = op.obj().sg_table(context.dev).inspect_err(|e| {
-+            dev_err!(context.dev, "Failed to get sg_table: {:?}", e);
-+        })?;
-+        let prot = match &context.op_type {
-+            PtOpType::Map(args) => args.prot,
-+            _ => {
-+                return Err(EINVAL);
-+            }
-+        };
-+
-+        for sgt_entry in sgt.iter() {
-+            // Expressly convert to u64 to work with arm 32-bit builds.
-+            #[allow(clippy::useless_conversion)]
-+            let mut paddr = u64::from(sgt_entry.dma_address());
-+            #[allow(clippy::useless_conversion)]
-+            let mut sgt_entry_length = u64::from(sgt_entry.dma_len());
-+
-+            if bytes_left_to_map == 0 {
-+                break;
-+            }
-+
-+            if gem_offset > 0 {
-+                // Skip the entire SGT entry if the gem_offset exceeds its length.
-+                let skip = u64::min(sgt_entry_length, gem_offset);
-+                paddr += skip;
-+                sgt_entry_length -= skip;
-+                gem_offset -= skip;
-+            }
-+
-+            if sgt_entry_length == 0 {
-+                continue;
-+            }
-+
-+            let len = u64::min(sgt_entry_length, bytes_left_to_map);
-+
-+            let segment_mapped = match pt_map(context.dev, context.pt, iova, paddr, len, prot) {
-+                Ok(segment_mapped) => segment_mapped,
-+                Err(e) => {
-+                    // clean up any successful mappings from previous SGT entries.
-+                    let total_mapped = iova - start_iova;
-+                    if total_mapped > 0 {
-+                        let _ = pt_unmap(
-+                            context.dev,
-+                            context.pt,
-+                            start_iova..(start_iova + total_mapped),
-+                        );
-+                    }
-+                    return Err(e);
-+                }
-+            };
-+
-+            bytes_left_to_map -= segment_mapped;
-+            iova += segment_mapped;
-+        }
-+
-+        if bytes_left_to_map != 0 {
-+            let total_mapped = iova - start_iova;
-+
-+            if total_mapped > 0 {
-+                let _ = pt_unmap(context.dev, context.pt, start_iova..iova);
-+            }
-+
-+            dev_err!(
-+                context.dev,
-+                "SG table is too small for requested mapping: {} bytes remain",
-+                bytes_left_to_map
-+            );
-+
-+            return Err(EINVAL);
-+        }
-+
-+        let gpuva = context.preallocated_gpuva()?;
-+        let op = op.insert(gpuva, pin_init::init_zeroed());
-+
-+        Ok(op)
-+    }
-+
-+    /// Indicates that an existing mapping should be removed.
-+    fn sm_step_unmap<'op>(
-+        &mut self,
-+        op: OpUnmap<'op, Self>,
-+        context: &mut Self::SmContext<'_>,
-+    ) -> Result<OpUnmapped<'op, Self>, Error> {
-+        let start_iova = op.va().addr();
-+        let length = op.va().length();
-+
-+        let region = start_iova..(start_iova + length);
-+        pt_unmap(context.dev, context.pt, region.clone()).inspect_err(|e| {
-+            dev_err!(
-+                context.dev,
-+                "Failed to unmap region {:#x}..{:#x}: {:?}",
-+                region.start,
-+                region.end,
-+                e
-+            );
-+        })?;
-+
-+        let (op_unmapped, _va_removed) = op.remove();
-+
-+        Ok(op_unmapped)
-+    }
-+
-+    /// Split up an existing mapping.
-+    fn sm_step_remap<'op>(
-+        &mut self,
-+        op: OpRemap<'op, Self>,
-+        context: &mut Self::SmContext<'_>,
-+    ) -> Result<OpRemapped<'op, Self>, Error> {
-+        let unmap_start = if let Some(prev) = op.prev() {
-+            prev.addr() + prev.length()
-+        } else {
-+            op.va_to_unmap().addr()
-+        };
-+
-+        let unmap_end = if let Some(next) = op.next() {
-+            next.addr()
-+        } else {
-+            op.va_to_unmap().addr() + op.va_to_unmap().length()
-+        };
-+
-+        let unmap_length = unmap_end - unmap_start;
-+
-+        if unmap_length > 0 {
-+            let region = unmap_start..(unmap_start + unmap_length);
-+            pt_unmap(context.dev, context.pt, region.clone()).inspect_err(|e| {
-+                dev_err!(
-+                    context.dev,
-+                    "Failed to unmap remap region {:#x}..{:#x}: {:?}",
-+                    region.start,
-+                    region.end,
-+                    e
-+                );
-+            })?;
-+        }
-+
-+        let prev_va = context.preallocated_gpuva()?;
-+        let next_va = context.preallocated_gpuva()?;
-+
-+        let (op_remapped, remap_ret) = op.remap(
-+            [prev_va, next_va],
-+            pin_init::init_zeroed(),
-+            pin_init::init_zeroed(),
-+        );
-+
-+        if let Some(unused_va) = remap_ret.unused_va {
-+            context.return_preallocated_gpuva(unused_va);
-+        }
-+
-+        Ok(op_remapped)
-+    }
++#[derive(Clone, Copy, Debug)]
++#[repr(u8)]
++enum EntryType {
++    /// Host <-> FW interface.
++    Iface = 0,
++    /// FW config.
++    Config = 1,
++    /// Unit tests.
++    FutfTest = 2,
++    /// Trace buffer interface.
++    TraceBuffer = 3,
++    /// Timeline metadata interface.
++    TimelineMetadata = 4,
++    /// Metadata about how the FW binary was built.
++    BuildInfoMetadata = 6,
 +}
 +
-+/// This function selects the largest supported block size (currently 4KB or 2MB)
-+/// that can be used for a mapping at the given address and size, respecting alignment constraints.
-+///
-+/// We can map multiple pages at once but we can't exceed the size of the
-+/// table entry itself. So, if mapping 4KB pages, figure out how many pages
-+/// can be mapped before we hit the 2MB boundary. Or, if mapping 2MB pages,
-+/// figure out how many pages can be mapped before hitting the 1GB boundary
-+/// Returns the page size (4KB or 2MB) and the number of pages that can be mapped at that size.
-+fn get_pgsize(addr: u64, size: u64) -> (u64, u64) {
-+    // Get the distance to the next boundary of 2MB block
-+    let blk_offset_2m = addr.wrapping_neg() % (SZ_2M as u64);
++impl TryFrom<u8> for EntryType {
++    type Error = Error;
 +
-+    // Use 4K blocks if the address is not 2MB aligned, or we have less than 2MB to map
-+    if blk_offset_2m != 0 || size < SZ_2M as u64 {
-+        let pgcount = if blk_offset_2m == 0 {
-+            size / SZ_4K as u64
-+        } else {
-+            u64::min(blk_offset_2m, size) / SZ_4K as u64
-+        };
-+        return (SZ_4K as u64, pgcount);
-+    }
-+
-+    let blk_offset_1g = addr.wrapping_neg() % (SZ_1G as u64);
-+    let blk_offset = if blk_offset_1g == 0 {
-+        SZ_1G as u64
-+    } else {
-+        blk_offset_1g
-+    };
-+    let pgcount = u64::min(blk_offset, size) / SZ_2M as u64;
-+
-+    (SZ_2M as u64, pgcount)
-+}
-+
-+/// Maps a physical address range into the page table at the specified virtual address.
-+///
-+/// This function maps `len` bytes of physical memory starting at `paddr` to the
-+/// virtual address `iova`, using the protection flags specified in `prot`. It
-+/// automatically selects optimal page sizes to minimize page table overhead.
-+///
-+/// If the mapping fails partway through, all successfully mapped pages are
-+/// unmapped before returning an error.
-+///
-+/// Returns the number of bytes successfully mapped.
-+fn pt_map(
-+    dev: &Device,
-+    pt: &IoPageTable<'_, ARM64LPAES1>,
-+    iova: u64,
-+    paddr: u64,
-+    len: u64,
-+    prot: u32,
-+) -> Result<u64> {
-+    let mut segment_mapped = 0u64;
-+    while segment_mapped < len {
-+        let remaining = len - segment_mapped;
-+        let curr_iova = iova + segment_mapped;
-+        let curr_paddr = paddr + segment_mapped;
-+
-+        let (pgsize, pgcount) = get_pgsize(curr_iova | curr_paddr, remaining);
-+
-+        // On 32-bit systems, usize is only 32 bits, so check that
-+        // the iova can be converted without truncation.
-+        let curr_iova = match usize::try_from(curr_iova) {
-+            Ok(curr_iova) => curr_iova,
-+            Err(_) => {
-+                dev_err!(
-+                    dev,
-+                    "curr_iova {:#x} cannot be represented as usize (max {:#x})",
-+                    curr_iova,
-+                    usize::MAX
-+                );
-+
-+                if segment_mapped > 0 {
-+                    let _ = pt_unmap(dev, pt, iova..(iova + segment_mapped));
-+                }
-+
-+                return Err(EOVERFLOW);
-+            }
-+        };
-+
-+        // SAFETY:
-+        // No other io-pgtable operation can currently access this range because Tyr holds
-+        // the gpuvm_unique mutex for the entire sm_map() operation.
-+        // The addresses being mapped won't overlap any existing mappings in this
-+        // page table because drm_gpuvm_sm_map() checks each requested mapping and either unmaps
-+        // or remaps any overlap before creating the new mapping.
-+        let (mapped, result) = unsafe {
-+            pt.map_pages(
-+                curr_iova,
-+                curr_paddr,
-+                pgsize as usize,
-+                pgcount as usize,
-+                prot,
-+                GFP_KERNEL,
-+            )
-+        };
-+
-+        if let Err(e) = result {
-+            // If map_pages fails, mapped will be zero because the ARM LPAE backend
-+            // only updates the mapped value after the entire request succeeds.
-+            dev_err!(dev, "pt.map_pages failed at iova {:#x}: {:?}", curr_iova, e);
-+            if segment_mapped > 0 {
-+                let _ = pt_unmap(dev, pt, iova..(iova + segment_mapped));
-+            }
-+            return Err(e);
++    fn try_from(value: u8) -> Result<Self, Self::Error> {
++        match value {
++            0 => Ok(EntryType::Iface),
++            1 => Ok(EntryType::Config),
++            2 => Ok(EntryType::FutfTest),
++            3 => Ok(EntryType::TraceBuffer),
++            4 => Ok(EntryType::TimelineMetadata),
++            6 => Ok(EntryType::BuildInfoMetadata),
++            _ => Err(EINVAL),
 +        }
-+
-+        if mapped == 0 {
-+            dev_err!(dev, "Failed to map any pages at iova {:#x}", curr_iova);
-+            if segment_mapped > 0 {
-+                let _ = pt_unmap(dev, pt, iova..(iova + segment_mapped));
-+            }
-+            return Err(ENOMEM);
-+        }
-+
-+        segment_mapped += mapped as u64;
 +    }
-+
-+    Ok(segment_mapped)
-+}
-+
-+/// Unmaps a virtual address range from the page table.
-+///
-+/// This function removes all page table entries in the specified range,
-+/// automatically handling different page sizes that may be present.
-+fn pt_unmap(dev: &Device, pt: &IoPageTable<'_, ARM64LPAES1>, range: Range<u64>) -> Result {
-+    let mut iova = range.start;
-+    let mut bytes_left_to_unmap = range.end - range.start;
-+
-+    while bytes_left_to_unmap > 0 {
-+        // It is fine to use just the iova to determine the page size
-+        // because if the actual mapping was represented with smaller page sizes,
-+        // (e.g. because the physical address was not 2MiB aligned)
-+        // the ARM LPAE backend will notice and handle the lower-level table correctly.
-+        let (pgsize, pgcount) = get_pgsize(iova, bytes_left_to_unmap);
-+
-+        // On 32-bit systems, usize is only 32 bits, so check that
-+        // the iova can be converted without truncation.
-+        let iova_usize = usize::try_from(iova).map_err(|_| {
-+            dev_err!(
-+                dev,
-+                "IOVA {:#x} cannot be represented as usize (max {:#x})",
-+                iova,
-+                usize::MAX
-+            );
-+            EOVERFLOW
-+        })?;
-+
-+        // SAFETY:
-+        // No other io-pgtable operation can currently access this range because Tyr holds
-+        // the gpuvm_unique mutex for the entire sm_unmap() operation.
-+        // We know that this page table has one or more consecutive mappings
-+        // starting at `iova` with the total size of `pgcount * pgsize` because
-+        // gpuvm callbacks provide exactly the range that was previously mapped.
-+        let unmapped = unsafe { pt.unmap_pages(iova_usize, pgsize as usize, pgcount as usize) };
-+
-+        if unmapped == 0 {
-+            dev_err!(dev, "Failed to unmap any bytes at iova {:#x}", iova_usize);
-+            return Err(EINVAL);
-+        }
-+
-+        bytes_left_to_unmap -= unmapped as u64;
-+        iova += unmapped as u64;
-+    }
-+
-+    Ok(())
 +}
 
 -- 
