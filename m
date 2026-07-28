@@ -4,136 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F5F1C531F9
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:24:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB18DC531F9
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:27:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F82710E396;
-	Tue, 28 Jul 2026 10:24:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF65710E495;
+	Tue, 28 Jul 2026 10:27:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="k2sWR89Z";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YUG0hYoc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YNYCAL29";
 	dkim-atps=neutral
-Received: from CWXP265CU009.outbound.protection.outlook.com
- (mail-ukwestazon11021134.outbound.protection.outlook.com [52.101.100.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 449A510E396
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:24:17 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yasptY5YNzpiu4x5w2MAIE9Er9j9wCtzhWrbPLM60FEIyVJTlgLMlWzT/TjV2fXM0dZl80BnsdTTaIae+ZQXtZALOo3f0AkhnJtjXM9eTGbw3D633Vbwsgspat42sKJF4pE84r2xIbJrvZyFztzXElOw1JLBAPb/UgUNqBogxTVj/HUGh8jrcYds3ApcuZf1MqknlcH/oHjUJv4p+mP7Sd+MsSwEdr8Pw6UT3NsXrTRSwT3aGfK4GiAIWqTZEO1bS8cvQWSarcq2vyjWofYVMDosfc1lP1riTxV4Zvx9KnzzsYmPYaEupyRNVfBzOGAur706fMdQFT8qpxH3Iya3Hg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=17JWjymosbOvB189m9F3qQAiCUNLQoRUACSrJfvhIE0=;
- b=Dw+oRaI4XxwA0mBQoGyM8qitZQuA5WWO8BsSf1WdPuz/9SsRJ2NN9Nq2QlUa0NuSAt9VcTwX6fzfaFmbjAifex7v5JisO9BbYqXyaKqkF1u9Gs14Yuu5gUDV9nCdRmiJjDVxMLzoZiddzz+xVfsQQX1C0uMh7qYca7dxv8dkQT5/flQFdx3dtAo3FvyWr7vCG9QPBpaWX+WmUIBL+cAAwwyLfBqZ+1pbngyay5+bXnh4b5Ql/tUDEksHoLs09JnLMK2U8dNp6AWYmm1kTOumQIu/kfqMQaU5RjlpP/Kh4hQzTnmjR1IC0SeCI+3UenIaUH3sU32lG5q+0h4Uw6Kqvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=17JWjymosbOvB189m9F3qQAiCUNLQoRUACSrJfvhIE0=;
- b=k2sWR89ZGxro3p6mOQ01nOY+ity6B0Miuei3C5oSR9BrvKoRaW7lT3NPRgXenz7iWpsav03awmlhKqVTyQ8LH7P4aLhTvLholnidmYpIGBRErTyMbzKLZxj3K3yVqpmT0juUzIe5odojdWpgyhgTWAK+iOHG2aqBFBqz73YTGeE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO0P265MB3227.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:15c::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Tue, 28 Jul
- 2026 10:24:13 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%2]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
- 10:24:13 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Jul 2026 11:24:12 +0100
-Message-Id: <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
- PFALCON2 registers
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
- <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
- <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
-In-Reply-To: <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0122.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:192::19) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18BC010E495
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:27:23 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66S82kEr2275973
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:27:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ KLZ5WSf9P35tXLsEc25HzV/wI2h837sZFl1AcAxf2gA=; b=YUG0hYoc1LFSM5AZ
+ L/UFDaMDb3Tq1qzfxpGmtKiLfKNPOiva0SmtzAyPkf9b87d7N6mUngzZ0DCJvj55
+ G2DyoKfly36fRrjRCa92hE6Bx93F+z+8qEJBmbOujVtEYhHJf8LDp3O52s9S1F0+
+ l/RGibWNeCTXv7EmeU+dVCVk/t7OWSJqBFtEK+ltYcQ1yxxxODAkmdkT83vZUE4G
+ 02Z98EVC8Ig8QILCzRKbZ3QmaDZO2Ukpipyk63A7JaDchkMi2SZh80A3SNMmQnJg
+ p29rvQ3oEcxdfeb0XHHpteA/Io/t9Jm/7qfpSfil9hXvdWy3muAefv+dkqzNLEhO
+ V0e+LQ==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
+ [209.85.210.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpbrsuqk4-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:27:21 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id
+ d2e1a72fcca58-8488ac68185so1701597b3a.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 03:27:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1785234441; x=1785839241;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=KLZ5WSf9P35tXLsEc25HzV/wI2h837sZFl1AcAxf2gA=;
+ b=YNYCAL29kuiwj2KHKhzqvi+ShmcJtKtfzMuah8YAq1it/IE12BLrQBud9SMqkDgn2i
+ 0f0gswaTaXABgCROs6nH71jl0WvaqMJYF1O13mqX0JI7GxlMbOWAoMiXc582p9qUmNHE
+ ofcRoPUCSFR6yagKmjtqyjEJSOGyzUjq61Zpz6J4xX0IL3FbX6leIn9OhDs3Fvd9s+dU
+ dcw/g2L9BCaxdpFbV2pj9mIKSfxgw6de9YCyJR6fSRfb2WHFRJc75PZn+KQWjOcQozvK
+ ifXYxWM7GENzRgAA7jTJsOt7nUAAgxcbjukEJqaxjSNDbDaYgACW4zs0kfbn/r7ttQ/7
+ WR6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785234441; x=1785839241;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=KLZ5WSf9P35tXLsEc25HzV/wI2h837sZFl1AcAxf2gA=;
+ b=kbgEuqjFh51ngrAj346rWNcJ69IQ1vOjDrHEOeqrfAp8fL21TlKXz9sHHrZjRqkiTd
+ Z/fyN56l/ij4qoPHwuESFpFl8lKOkckvStplJZjLuZ5C2R54NTBcWrcOyg2kOj184ErJ
+ W9SRr5L/wxbxmSJccnJdd/EeBUW/Pam0DbNG5XwW4wFFWBNnHtyCkwOPNkqULMMOht1O
+ 6TnMCgpjCE2upwDNFKBjQ3fDRlJmMTUw0wFCDLq8fe6uEWsn0dvhMIHEiW6EyP4X5zt0
+ iEz7ixwU/nlaK7zPFMI6uRj+h7jDgV6dCeiIHf7rjH29ht8sWDZtUqzDvcE+0ifRO90n
+ LMQw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqFMtTOr/3EqctqmIWzI0+mHKSeg//XaOdMWd4oc7mtNBxjcR7gLT1h+0myVPu/LrpyWKObXHqSPqk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzyo4EqrqFu2f2U8iaDjyFSA62Q3+S2ETggPEXvLJzJrFi82YRG
+ P0W3fpewfiPktYV1deJ0NgSdncP8y9pPBxi3RAbkSBesqiwjK8/YecvPPDaLp+phpAXcOFqZSWA
+ vd/B8YPFBYc8/hVRRjHzELx7J7JGKK8620tCY3/A/wMggALNEV5B5+ssKxRbxC8Xd/PxxnDfSGD
+ 4WFv3naecq
+X-Gm-Gg: AR+sD11OCa5TP1mkJD+VD9rfvRLdZftfCYMpTTn8rUGRkLCz7FB4qPPe/v90hDRmsZL
+ FTXfpmu3VrphXwBByej7yHJWTOfyJYqb7IFSPHRCHPVC1cOIbDax8FZCgUsWiNa8tD7RYGF49fJ
+ 8/c8oWPQ86hR8+p7drHHF+MB6zWLC5L3YMpB9axYsESwrdQV3hdpgXLz8iwSrETxsEox10DtW92
+ DuFEkRYLOU4izy90ev50WOVWFFaQEas397BQJBTnCj5v4diCMT4aIdiR/XRHM168leUey4HYd8Z
+ RYN391XqZsloDWJTdpWKpwpMZv8X5wbzx/35lMW3TpgwY7/l/4rJjdvZu0dP1SAOYNQgLYmSgPz
+ K0wqyRyPLG7cOJmpvh5OZXQF75bRbuwO4LyTSrwhR/ztBrbTTA/dvHQPex1s1qe7xGMTJdX0DEL
+ Hwu0EB6eIial7m0w==
+X-Received: by 2002:a05:6a00:10ca:b0:848:2a55:7110 with SMTP id
+ d2e1a72fcca58-84e932ed557mr1733303b3a.36.1785234440950; 
+ Tue, 28 Jul 2026 03:27:20 -0700 (PDT)
+X-Received: by 2002:ac8:7d81:0:b0:528:2e9:c0e8 with SMTP id
+ d75a77b69052e-529d7260239mr12216511cf.79.1785234005745; 
+ Tue, 28 Jul 2026 03:20:05 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b2be0806d8sm1946188e87.22.2026.07.28.03.20.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Jul 2026 03:20:04 -0700 (PDT)
+Date: Tue, 28 Jul 2026 13:20:02 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Sunyun Yang <syyang@lontium.com>
+Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v17 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
+ DSI bridge
+Message-ID: <kp6eg7dierl5iqkr26e3uflyshjxes4kxrzgcw45etqfzop7d2@os3chspox42p>
+References: <20260715015438.2770155-1-syyang@lontium.com>
+ <20260715015438.2770155-3-syyang@lontium.com>
+ <20260715020616.B73771F000E9@smtp.kernel.org>
+ <CAFQXuNZdwNxbAsnK7P4zs0eZnm4pN+6kKkO-aP6Q_higPEW-yg@mail.gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO0P265MB3227:EE_
-X-MS-Office365-Filtering-Correlation-Id: 929fb716-237f-416c-6c06-08deec925ed8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: QJgCTfWQ5Rr/MH9TR6h9Kl0NNNgVFlI+PPPfKlOB51JQmD/Gle8HhmyTamHTX1OghwHV/3Cv5ko2kg/jJOheQlEUNGKeLtFBQ88zwsJn3SdzLWt/QKA9/t6o5cLHSpVPK6XGB2NodW4oeyTU33txkTp5LD0iC1KqzcYiZqx3uavbYjyUX6u2gyq6VWPaEF6yP8r81qHs7sxwOBWmCukk0tQ1PcuMvbriYkh9QGXRyENlYCRnwg/sdrVMjBV4kLbQo1Dh2/DMmGNsBT9TlBJtIT4ezw74Aa/Hzl8H0dBSgfTJ27ma1Z5yvPzWI32sZbjjjzuJdXajmKaM/U6iASvPRNke6K+9DYQZX2q+MIZFEoLzYWs/5FgFrPbeaOcnvFXJ1ZHu9qoTtrF8FT4QTC2gNk4mq+AsrnmCc4EL2rY+u/IH7eu5oR5QULpHmR8gdTILGY7m3j9zvvDMZZcVW4zTHZIgSYd2r9RZ56Bd6ouRj2Qiv6BmVqdl0JFVXZhmR3us43N40VQf0ieCeOMzgDmKzNIe1iyMG8Eq/T0RCiC9l7tlMq+Y4QDGEZkThvjlB8/hHP5U9Z0Y9TW1p/oSNQHzXAbUsdZLtuN+1AePwgWcpCwgofX1C2lRNZ3kZcDLPuoG129yoi4uYgwM59L9Mkzkyu4Jjtq6RsMB49ib6exBmiQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0pYMDh2WVZ4YVhEdUJjbkdqMUxEdDNyVHgwSThIdTg1bVRubkhMK2M4TkxD?=
- =?utf-8?B?SFpYOGxVWUIxcVlFeUNPZjYxVU5aSmVOK3RsV2ZmOXZUcFFjRW0zTkpZUDha?=
- =?utf-8?B?d0p1VTJuWE43ckVQZTFRaDJDMERaamptdXpkWUFGeEs4dEkvVmVlQXRla0Yz?=
- =?utf-8?B?dEh1Y21JOVJRcVVtMDZ4TDNUU2tpL3NkbkRBTUlVdWxKbldtcXU5NnNNNnMw?=
- =?utf-8?B?T1kyTXcxVkRBU2VTdDM2UFlkS1B2ZW1jT1BnN3g0N0llNG1xbFpBZHNMTWth?=
- =?utf-8?B?bHFteFF1bWJZR3V4R21lV0NWWWZXMFJQSWc4dXNBeHFWT0pVRVBKczNrQ3dF?=
- =?utf-8?B?Y0NLTFRNc2U4WEdkYTRxb2o4Q2JFWXROTXZaSGF1cy9kZUMrbGo2cSs2K1lj?=
- =?utf-8?B?bGpjYk1DeDdiNnFaVVI5cVNjbGorTlordXhvc3NCRy85blFXMzROc0w5Mkhj?=
- =?utf-8?B?dkZyeFZndk45Qm5zeWZYSzdFSFduRE1JZ0VFbGxLSWxrQ0N3TmROOWZ0SmZT?=
- =?utf-8?B?RkdXN1RoVTlyTWxnRDc3eStPTnhyYkw5eUFQNkVDZXVZUVFZa0ovSVVTajU0?=
- =?utf-8?B?SHVaRG1WYjdaSkRTYUhYT2I2dzdyU3VYMi9ZRkhEby9jeWdCMCs0RjFFYWUw?=
- =?utf-8?B?NVRKcDdPSDhicnhGemhoaWZBVDdxaDdhcmQ2RDF2dWVDWWI1YjZTTUZuWEJr?=
- =?utf-8?B?RzFDUm5PM0tKdFZiaGhoL0tGeFFMZGdYc3kwT1M1L3hYR1pQVGk4OWdQRVg2?=
- =?utf-8?B?SkFzeGZoQndwTVptZEE4U0VNdGNMNXBmdzFEd0JveTRiN2ZKN3FNRURJMGt0?=
- =?utf-8?B?a1pPNDVQQlpiSXJmZno1dm5UMUFFZzcwUGVnYWhXbGUvVkhWOU1renU0M1lZ?=
- =?utf-8?B?MlRJN1YzdTVaL21hNzVjK3pyOUZUWVRMKzRaR0pQeE56emIreHdKZHZEbWx4?=
- =?utf-8?B?dm1vMGNhTTRuVnoxVFNVbkFBblU1eElnczFtZEwwWXlsNlp6SnFMVUFHV0E5?=
- =?utf-8?B?MVZsYVl1RmJHVkRZS3JaRFh0cTkxOEUrbVpheklZa09WUE03aWJjaWlNS2ZD?=
- =?utf-8?B?bjZLcXE2STllRUtOUzZuUUxCemZ0YWw0NVZuMHBOYUcvRCtqZFRPMTZ0cUlO?=
- =?utf-8?B?SGF6QUdMREZGdGE4RTduakloNjdUY056UUVVdHlvZ2V2Mjd5TkdtZHFmUk0z?=
- =?utf-8?B?WkkxcVE5ZWxSZnp5MWg1cHJsOXQ2NlNSZDhiWG5KcStWc0NyYW93N3J1ZUF5?=
- =?utf-8?B?d1lnVHMwcm9NVzFSTGVLUG1xZjFQQjAxcngvbkNoaWlXamdRam5IZlVyZVpY?=
- =?utf-8?B?TGVhYXc1bEE0cURxN056Y0g3Y2cyZmJxWFFkWSszVHBYS2p2MEhpTDg0WVp5?=
- =?utf-8?B?SHh4NGdCbGpsaXowYmd3VFFYZnA2WjJwWVpFU0xXbE1MZFpNQ0xiTTZBeWNw?=
- =?utf-8?B?OVFPejg5V1M0UDAvaVlZdCs5cWJwVnFBd1V3cStnbmg3VHpnNFVZVmFobExi?=
- =?utf-8?B?MGlyeUFDUnp2a3lwQXNTVitDNVhES0g2M0lnN1U2amJjT3ZNdFdhSStMSXk4?=
- =?utf-8?B?VVV3cjQrQnBJQmR5UDFGYnJkcElIREwxbGZlMW1aTlgrcyswNWZhQnZESmcz?=
- =?utf-8?B?MEs5VlBaVEg5RDBGRzlRQzd3SDFSbmIvSXV0UStONGNHUXBNbGNsdE1MRWVY?=
- =?utf-8?B?cktudUJLN1RpQWhDenozUC8xSXd0SmRrNTRacmtWeG5icEpKT1JSQ1F0WXNP?=
- =?utf-8?B?Uk4vaGpKaGhIbklsT2ZMclBJalZjRStDM0hjbnJ2VmVNd1VkZjNmeEtoZGNU?=
- =?utf-8?B?R2hIdmcwSlI3eTgzK21USWd5NW5lbE83QkFsalRXQ2d5anRhbTVrZ2lneE1a?=
- =?utf-8?B?eCtYczQzSlFPck1TWjBackROaFZLWS81SGhOUmZleWhmeTFpVU9tZWVCb1dY?=
- =?utf-8?B?UjB0dEpDa2RkSlNlZjR2TUZEWjBRWnBmbitLWHlpK1FxNnJsSmp6Z1pFWkpo?=
- =?utf-8?B?QTVXZHVqRVBRWERMeXVrL2x3TS80QWxjQ0YxR1Mwczk2S3hqaFM3d2NRck8w?=
- =?utf-8?B?OVlUdElMY2dFVVk5aldsL0RjanRXaDZoVkw1c0Zjb0JFOU9rMkZWZG9yTXcw?=
- =?utf-8?B?eTFxVitneXFqcURYWVcxR01pbzhRWitxNEZHVlBCWDdUdVV3NG1YZ1NGNWd6?=
- =?utf-8?B?YWdYdmdWZUtscVRPeGhXWnBEcmx1bE81L29VbW42WnZhSGc4U21vWjhIellk?=
- =?utf-8?B?SXc2Q3dxQmd5aWJSQVF2RGZpNHhuandJbndRalAxemphamhvMEswODYrSFZD?=
- =?utf-8?Q?dHFLKmrxyYhiA/h8fi?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 929fb716-237f-416c-6c06-08deec925ed8
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 10:24:13.4467 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9hwXlBLE7Gvumw/obmGPxkt4l0/qQzkxw/Fts5Joxxq/oFyJZ5l8Oc4SPSBofP5x567S2YxaWGMgGVy9rBkDoQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3227
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAFQXuNZdwNxbAsnK7P4zs0eZnm4pN+6kKkO-aP6Q_higPEW-yg@mail.gmail.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA5MSBTYWx0ZWRfX6F4Qt1JwdPFb
+ IKNOKo07lNgVnsRM7kMZk+IOrgHzlfYFobC08N1AHy/hrRhGWgiLVxpKke95wWWq6rtU/F0KdrB
+ BrNvrqxC3CBr6cioLB+t6kIOW+0Ko2Cd1qwnpZjHGEb1SN/3H7ayVf1a5tIue0Nfeuda+WKoKYw
+ GNqpZY1BFb5sM106ZIewFi4Tiqn1wBNy7vJ/IcH90b3APrwGqRd6+7UwV1XsofHX6sruvI5OJ6g
+ KmDvoLs6E94j+J7vu5YdThjEGQLLjm5gNxWwiiTPvl3Ob7Op9yPGrh/EfA1wTff+hhcGw5aIwO9
+ leqGCECC3zAiTZAkWwhVVfCCaBfhW2Q8JcLjhoTiRnj3xvn7sSqrbIJ/dtv9NTrnhVDSkpO2/zq
+ yqolrmOad2buhwMnR40x584xxEPyC+Sf3Ai2MiiTQA60xl5umFAEnptkVTJBW3WCAULZcTA/7hq
+ hrxMv+ZjoIoGowoQzUA==
+X-Proofpoint-ORIG-GUID: 7AaOBiRmmbhzWBQGWyBev7RCHccH7HMl
+X-Proofpoint-GUID: 7AaOBiRmmbhzWBQGWyBev7RCHccH7HMl
+X-Authority-Analysis: v=2.4 cv=ALkdLnG8 c=1 sm=1 tr=0 ts=6a68840a cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
+ a=tlYR4POETLUKK-67TRcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA5MSBTYWx0ZWRfX/qGvfO9d2DZs
+ mEGvXFFTDdIHds4GdAt5NUPnLYfAUNqQ4VfFfP4BZypR7kpQzNjd1X17TPRNF+/0kGLbs3OIwpz
+ m3lCF3Sg2Eg4swtqXQ2Lhgca4PRa9RI=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607280091
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,93 +151,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jul 28, 2026 at 7:45 AM BST, Alexandre Courbot wrote:
-> On Wed Jul 22, 2026 at 1:54 AM JST, Gary Guo wrote:
->> Add fixed size region types for these and add projection methods that
->> project from `Bar0` into these. Update these registers to be registers o=
-n
->> `PFalconRegisters` and `PFalcon2Registers` and not relative registers on
->> `NovaRegisters`.
->>
->> The use sites are updated mechanically; calls to the projection methods =
-are
->> not extracted in this commit.
->>
->> Signed-off-by: Gary Guo <gary@garyguo.net>
->> ---
->>  drivers/gpu/nova-core/falcon.rs                    | 158 +++++++++-----=
--------
->>  drivers/gpu/nova-core/falcon/fsp.rs                |  53 +++----
->>  drivers/gpu/nova-core/falcon/gsp.rs                |  43 +++---
->>  drivers/gpu/nova-core/falcon/hal/ga102.rs          |  39 ++---
->>  drivers/gpu/nova-core/falcon/hal/tu102.rs          |   8 +-
->>  drivers/gpu/nova-core/falcon/sec2.rs               |  32 +++--
->>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  11 +-
->>  drivers/gpu/nova-core/regs.rs                      |  81 ++++++-----
->>  8 files changed, 193 insertions(+), 232 deletions(-)
->>
-> We are calling these methods quite a bit throughout the code. I
-> understand they are supposed to be optimized away, but that's still a
-> lot of repetition.
->
-> Since we now have HRTB and `Falcon` is already referencing the `Bar0`,
-> how about storing the projected `Mmio` inside the `Falcon` instance?
->
->     pub(crate) struct Falcon<'a, E: FalconEngine> {
->         ...
->         pfalcon: Mmio<'a, PFalconRegisters>,
->         pfalcon2: Mmio<'a, PFalcon2Registers>,
->     }
->
->     pub(crate) fn new(...) -> Result<Self> {
->         Ok(Self {
->             ...
->             pfalcon: E::pfalcon(bar),
->             pfalcon2: E::pfalcon2(bar),
->         })
->     }
->
-> That way all the
->
->     E::pfalcon(self.bar)...
->
-> Can become simply
->
->     self.pfalcon
+On Wed, Jul 15, 2026 at 03:42:55PM +0800, Sunyun Yang wrote:
+> <sashiko-bot@kernel.org> 于2026年7月15日周三 10:06写道：
+> >
+> > Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+> > - [High] Missing cleanup of `output_bridge` in `mipi_dsi_host_detach` prevents DSI device rebinds and causes use-after-free.
+> 
+> Intentional design, consistent with cdns-dsi-core.c cdns_dsi_detach()
+> (lines 1082-1091) which does not clear output->dev. Clearing
+> output_bridge would allow re-attach, causing devm_drm_of_get_bridge()
+> to allocate new devres without freeing the previous one, resulting in
+> a real memory leak. The DRM bridge framework does not support dynamic
+> bridge chain reconfiguration. No use-after-free: the -EBUSY guard
+> returns before dereferencing output_bridge, and bridge_attach is not
+> called by the SoC encoder after drm_bridge_remove().
 
-Right, this is the direction that I do think we should head to. As describe=
-d in
-commit message, this commit is intended as a mechanical conversion and refa=
-ctors
-are left to the future.
-
->
-> And I suspect that once this is generalized, `Falcon` won't even need to
-> store a reference to the `Bar0` (and potentially poke the I/O of other
-> engines) anymore.
->
-> Actually I would like to push that even further and replace the
-> `pfalcon()` and `pfalcon2()` trait methods by associated constants used
-> to construct the projected view in `Falcon::new`, since the projections
-> are all constructed the same way, but doing so requires
-> `generic_const_exprs`. :/
->
-> We could make it work by moving the `OFFSET` generic argument of
-> `subregion` into a regular argument and enforcing its invariants using
-> `build_assert!`, but that would require `subregion` to be
-> `#[inline(always)]`. I don't know if there is another trick we can use,
-> if not otherwise I guess the trait methods are ok, especially if they
-> are only called once in the constructor.
-
-This was definitely one option that I have considered, however as `NEW_SIZE=
-`
-still needs to be generic so we're not entirely turbofish-free. But if maki=
-ng
-`offset` become an effective const parameter helps nova impl, it might make
-sense to use `build_assert!` for this.
-
-Best,
-Gary
+Luca is working on supporting (more) dynamic bridge chains. Don't make
+his work harder. So far:
 
 
+- Let the DSI sync be detached and then reattached. There might be
+  reasons for that (e.g. big DSI panels which use two DSI hosts). Ignore
+  devm_drm_of_get_bridge for now (though I thought Luca has provided a
+  better API for that).
 
+- Use next_bridge provided to you by the framework.
+
+> 
+> > - [High] Sysfs attribute `lt7911exc_firmware` is accessible before the driver has finished initialization in `probe`, leading to a kernel panic.
+> 
+> False positive. The driver core creates dev_groups sysfs attributes
+> AFTER probe() returns successfully. In drivers/base/dd.c
+> really_probe(), call_driver_probe() (line 706) executes before
+> device_add_groups(dev, drv->dev_groups) (line 725). By the time the
+> sysfs file is visible to userspace, all mutexes, workqueue, and regmap
+> are fully initialized. There is no window where userspace can access
+> the sysfs attribute before initialization completes.
+> 
+> > - [High] Asynchronous firmware upgrade worker accesses `bridge.dev` without holding a reference, causing a Use-After-Free if the DRM display controller unbinds.
+> 
+> This is a known DRM bridge framework limitation, not specific to this
+> driver. drm_bridge_remove() does not clear bridge.dev, so all bridge
+> drivers calling drm_kms_helper_hotplug_event() share this risk. A
+> proper fix requires framework-level bridge-to-drm_device lifetime
+> tracking. Triggering requires root sysfs access to start firmware
+> upgrade while simultaneously unbinding the DRM master driver — an
+> administrator operation outside normal usage.
+
+I'd say, I don't have strong opinion here.
+
+> 
+> > - [Medium] Driver illegitimately mutates the state of a downstream bridge object by explicitly modifying `pre_enable_prev_first`.
+> 
+> Hardware constraint. The DSI output stream (register 0xe0b0) must be
+> enabled after the panel is powered on. The override is safe because
+> transfer() is a stub — panel DCS commands are silently discarded and
+> panel initialization is handled entirely by the chip's internal
+> firmware. The panel driver's prepare_prev_first preference is
+> therefore irrelevant for this chip. The comment above the assignment
+> documents this rationale.
+
+Commented in the driver review.
+
+> 
+> > - [Low] The `lt7911exc->removed` flag is read without a lock or memory barrier in the firmware upgrade work, leading to a data race.
+> 
+> Valid.
+
+Should be fixed.
+
+
+-- 
+With best wishes
+Dmitry
