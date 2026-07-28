@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 761F7C54F55
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 17:41:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CCC0C54F5C
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 17:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0702B10E9A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FF6510E9A3;
 	Tue, 28 Jul 2026 17:41:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="UBwARCCH";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="g4XPpNla";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D984410E98C
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 17:40:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 826CC10E989
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 17:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785260447;
- bh=k6sF2HKDGpbYJ4giz4Isms+1Pyqz8ej1CUvnf29xAd0=;
+ s=mail; t=1785260446;
+ bh=Ccx+QhJeQ1KNv7xuRbgnsS8npvB/wRINLZz8iwrkLyk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=UBwARCCHu6jzLlnY3v9sdyNX0XBl1fffHZOvWGHX0k3hWtgReUB6ErY97P+/rR0UV
- uGfz30jqJpyXmm97fsDm0tUB4oE2gVdJ57tyeCG1cmXkstFNmpFxqmG89CYxBiy1cI
- X7e6lZwsk6XwTGr/OSCl5WQlpLIsoE9CePECzax41TiAqBTenvq98IMNicMINyjvCj
- WRnfChZAXCgUgwFMb/qXQhcoyg6pu362Cs7L23yxcAuKMPr4NyZZCBCwVCbcGPVtiU
- RGSfFfT7v4kOqnoXq0gIleGuc/or9aklyFm1f5ADsXzBCA45OUy/8KA7aUkNSqtvXW
- EicDjezGKk6hQ==
+ b=g4XPpNlaT7gZK98tmTUODI//Ku9evjTe/ATkJaZXTo/W1QqsYQ+EY3iwzXwQg8lYd
+ HRysTQmP3t4LTIqSl/eRGuF44UFsniLagGU0drSIIcHoY3NDdkfCPdZK/phLQzQick
+ azdNoE23npSnTui9J0TrNlyO1PpJYqf4WIJLZ38phEyn5tRh4Qp/VpPyFP21Qv2RAN
+ UBBd7Sl4/J959dSWmiwHuftgwzFWjWMQB8TpVCaiv8n8jqwaO1Hb4BvLdWP3susw2j
+ RLr57FoxSiV/OHpn9UMcUVbZud4oeGFYlVXgyuWFv1QuB1J2f6b7mhsN6dx/FWBAVR
+ vh4YmBSicZmBw==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id D3F5917E07B5;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A978617E0742;
  Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 1E7C7480052; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
+ id 12785480035; Tue, 28 Jul 2026 19:40:46 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Tue, 28 Jul 2026 19:40:50 +0200
-Subject: [PATCH v7 14/18] drm/bridge: synopsys: dw-dp: Protect sdp_reg_bank
- from concurrent access
+Date: Tue, 28 Jul 2026 19:40:42 +0200
+Subject: [PATCH v7 06/18] drm/bridge: synopsys: dw-dp: Free output_fmts
+ when none are valid
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260728-synopsys-dw-dp-improvements-v7-14-b7640fa8cf48@collabora.com>
+Message-Id: <20260728-synopsys-dw-dp-improvements-v7-6-b7640fa8cf48@collabora.com>
 References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
 In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -64,23 +64,24 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2444;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1057;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=k6sF2HKDGpbYJ4giz4Isms+1Pyqz8ej1CUvnf29xAd0=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z2AGJLeE3hrxzZ6A/40rWPxeBi/HIfR+
- AA3Wc341MW6mokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
- O/qaq0YP/2z3MS7BUW4ZpNYzgGIleur8LZHDRUEYYR2z0ye2vP1lfVvmYlxuNQ1PpUnZzAPpXo9
- Pz+O3pVSqmvN4Ind8fzmZA+lcHjjSrDeoLriMr+2wC3Xn7GKKVza/CW8+EveG0qqJBO6DgaybrZ
- zGWKhNGr3dl4PkUpxBFYRk6xPNmJDhaBXXo34J63/dCJlOqjkaXI8uHPRs4dkLw+lHbvlFgrIht
- RGvWdTYTzEiONrMuoneHQbwoOHLOsureXAlpdKZkhIJyfhVQKz1gXsfd4JRUTfYAXUfuB/OLVag
- eMcSNDSSnIktFAsk7navbKDOWJ0t74EdTWjbAbwOrgct5HVYdDBQo0usSOOktP+cfMjNmGFOxRf
- MABSTnCgPdC23VyG89PQmifLSvpBmXhIcj7Ir/WgjzURLpds+SsTmDls6Abfz5mfZk+jQImsNtA
- D2IYMpshXBgPl6rKG8TRo4wkmaUhJwSQhkymYgL6cQ4c+gXNCJGIWki6QYNouXX97qqBGTDYD5h
- QSKjqVDbLPFc4/MeYGUj1Ks0lVAfFl1kioclZ9G+FUS1+DnXOqZmFAjmz1w2GiGm5eoY55OA0Pv
- 3lRonEa3XsLYSTspqf/967e5M6X0S75BzmTx0Fsdv7Y5V3xsxx8kX/WulCkqvWgKxy6nHy4Y33V
- qY+BY9FxfUq4+Rb8oijEt9A==
+ bh=Ccx+QhJeQ1KNv7xuRbgnsS8npvB/wRINLZz8iwrkLyk=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpo6Z2VOflWC8HvxPS5FNVqexeGhxvDVz8Fl
+ cjjXCwxkY1yL4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqaOmdAAoJENju1/PI
+ O/qa/YsP/1nWJ9Pl4XZcTE431N5GCG0Hk7Y2ZRgSE2ffZivIsg3j5MaNYWCpDsk1EUbdxiWcvAQ
+ DBf0IALCKRLdgfvTBCJpii8rhis9LD4T8dkjL8enC4F7iYvDge33S6q+KQ73PC10OQx/I/niUz3
+ V7ED2SnmUuKd/GjYU4DM9Y+4GdIf8Igr4T4/jDaBUceXWpAE/MG9u1s90K10aUsWLfwDpeycjBa
+ myDatRGFNzTkhB6undPhOyhv3Le8JCf5RsVMj4kK7BYoibIFZx7LpRixH+gbT2YqvVxptHcv1Li
+ Zc+Azx8RFvPqamn0bKJX51arsuc2SYTSg4NisVDLNkhFF7KQeOQnSZZHdOYRfR+U+5idykRlOdO
+ jag3Ne/yRFZLlZrvY7kzmMoBVow6moOCsBgmlU6MvPpcO+j013Ii62CDWqLBWpHSb66vboCyyMU
+ zL2w391lK8L8LmyUf0PWc2+EH4oLNqw/6MC4G1me2x5frgTw0SMs7/Pi2uEeQM8MZIPi/Pxyw8n
+ puV3P2f8k1l7J2WqxZNlZ+2USkZxWmeTbskLcVw62Hu4Z+UInPNjktRbrpH4yiG/dHMNwEgA9K1
+ L/2/VYaV3YGmCbMfRTFyBAkbyqI+pUEyTWwjl8q7DEUsCkYc7F+536ARvBE+XEfMgkaCHjhnbzC
+ gzqb8HUGubaQJCtst79c0hg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,80 +99,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Right now sdp_reg_bank is only used during atomic enable/disable and
-thus there is no risk of two threads accidently claiming the same bit.
+If dw_dp_bandwidth_ok() returns false for all formats, *num_output_fmts
+might end up becoming 0. In this case functions calling it assume that
+nothing needs to be free'd, so free output_fmts within the function to
+avoid leaking memory.
 
-This changes once more SDP users (like audio support) are added, so
-introduce a mutex to protect concurrent access to the bitmap.
-
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 8b650f904575..50eb7a467932 100644
+index 1281fe28b0f9..ebb7280ad84c 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -322,6 +322,8 @@ struct dw_dp {
- 	struct dw_dp_hotplug hotplug;
- 	/* Serialize hpd status access */
- 	struct mutex irq_lock;
-+	/* Serialize sdp_reg_bank access */
-+	struct mutex sdp_lock;
- 
- 	struct drm_dp_aux aux;
- 
-@@ -1047,11 +1049,13 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
- 	u32 reg;
- 	int i, nr;
- 
--	nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
--	if (nr < SDP_REG_BANK_SIZE)
--		set_bit(nr, dp->sdp_reg_bank);
--	else
--		return -EBUSY;
-+	scoped_guard(mutex, &dp->sdp_lock) {
-+		nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+		if (nr < SDP_REG_BANK_SIZE)
-+			set_bit(nr, dp->sdp_reg_bank);
-+		else
-+			return -EBUSY;
-+	}
- 
- 	reg = DW_DP_SDP_REGISTER_BANK + nr * 9 * 4;
- 
-@@ -1691,7 +1695,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
+@@ -1802,6 +1802,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+ 		output_fmts[j++] = fmt->bus_format;
  	}
  
--	set_bit(0, dp->sdp_reg_bank);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		set_bit(0, dp->sdp_reg_bank);
- 
- 	ret = dw_dp_link_enable(dp);
- 	if (ret < 0) {
-@@ -1735,7 +1740,8 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 
- 	dw_dp_video_disable(dp);
- 	dw_dp_link_disable(dp);
--	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
- 	dw_dp_reset(dp);
- 	pm_runtime_put_autosuspend(dp->dev);
- }
-@@ -2204,6 +2210,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-+	ret = devm_mutex_init(dev, &dp->sdp_lock);
-+	if (ret)
-+		return ERR_PTR(ret);
++	if (j == 0) {
++		kfree(output_fmts);
++		output_fmts = NULL;
++	}
 +
- 	res = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(res))
- 		return ERR_CAST(res);
+ 	*num_output_fmts = j;
+ 
+ 	return output_fmts;
 
 -- 
 2.53.0
