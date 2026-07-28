@@ -4,107 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7CF8C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 12:58:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 928BEC53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 13:00:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3208510E8C9;
-	Tue, 28 Jul 2026 12:58:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA8FD10E8CB;
+	Tue, 28 Jul 2026 13:00:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A74PjBdP";
+	dkim=pass (2048-bit key; unprotected) header.d=mt.com header.i=@mt.com header.b="quQppPH6";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAF4610E591;
- Tue, 28 Jul 2026 12:58:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3CB57415C3;
- Tue, 28 Jul 2026 12:58:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91F4E1F00A3D;
- Tue, 28 Jul 2026 12:58:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785243530;
- bh=Q62HDP0Erg3czKft4bDyd8KVyyjoOUqBzq5NLqx4itk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=A74PjBdPW4zj0Mph7aGGoQTiCKy7aBTkYKaPkXhU9DiPxbDItjnucxCc4wTPBAw31
- 6WKOggkK4srMsM1op220wzimf2PiKU+bjI/+nw/wscb8ODi6EWqGhSlrSC2YJUu/gS
- TZVI8hIZHhJtktozqoPxcqVbsbZQ0jMwNrjTSE5TvsEDu43qhYFfNSb3zJ3HNnLQ8s
- GEq5dELXkQS+tWYVbpfD+YinxIfqEnQ1KTZ9aaGNCDnVk0wCZMtLU3RX7akTc2DlAS
- gSXpMFwgJcb2NzMDoki6Kwknqac/0q1hmigYSq63YHNhQ8RK7SivqG7+vSS4kX+0Eg
- ZXb7DQ2En0crA==
-Message-ID: <603ef1ec-bccc-4fe4-9523-e8b8a731be63@kernel.org>
-Date: Tue, 28 Jul 2026 14:58:39 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] mm/huge_memory: add folio_split_driver_managed()
-To: Zi Yan <ziy@nvidia.com>
-Cc: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010021.outbound.protection.outlook.com [52.101.69.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B9B610E450
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 12:20:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ejMr78JH1JUExtd3dyX61w3xY3hpOgWGE55NRPXvwRnp9l1M9pngphDsj1S3V1Xv3JKEc0WL5lGSZnC0XtUBlysXUMXBp0d3JY1AcFPY5eQjREqalj9DlvWUjjy+OgRUzxFEkVF9MTvZEX25YUbfgWiqq1G4IM3Ab0yUOGSXa9UUr5FtWktZMrlhq88ai6NCOrGC6EW51JZkTEpx5VRH47PvuATb97pqrgLQiWZLTQx8MctyRsZ4DVMmkZwltiK+UCo0u2sJBlL36AQadQCTvSm0MOekaGYJxGXg9FXfECCjtwsdStzYAA7h34l3wB7e57THAk2iTL4C+uvjlSdrwA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=d25AIFuqzErVn7LstllqwZuK0E5hnI3B/xiCd1j6+Tc=;
+ b=ur2OeJ8vt54tVSK0OKCsuW1dRdpQAGN1fwaeoXH698mV5vMq93/MvHGxT5cGnRRaMkJRnZ7mLUC/Ovwibx3sCoybsPc7rJ75qcWCEtj7SUVGuv9sOKNNZhQFfOxwm2Hk1vm2qHeNt6bZun/THIeJmseDJODvYHktKpiwGH77h/qFuyiKAGNscKAsXQaTsazsJeFF/p+c3GpoACqrDsiE/PraKrjop3N5G9Vs2ixqR5cBqh0K5INlsl62j9BiG6Y3iI8i6xxGu1+xLfXQfgpD4JckPT30Ga3WZ0LbHQhGa4nFEk6LDwE+1jZfBdg0wzKJDMuiqXiLbR1yzY+DCrmnQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mt.com; dmarc=pass action=none header.from=mt.com; dkim=pass
+ header.d=mt.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mt.com; s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=d25AIFuqzErVn7LstllqwZuK0E5hnI3B/xiCd1j6+Tc=;
+ b=quQppPH6EKDHLZQi9yt5zgp9ObG6XDL2XAzNxCU4iqalqZCudEpJKeUIIGO7ql/skhAOLD6XyfIyd95ap3fjv2lAeR9Z+imWwTatIwien+Y9vH0D3KAUd7guCdWJJeMlhjKzyPkJd61tjuuDlGY66WRKVp2m1fEJEgFDjxvhtQo8gjPoEPCq656kzLQOjgXM3RQsX1g5Iwab+ZKytuoax94fy0uH8GmySSBqFkViJ6OTaWFtYWn4s5SRuI/TZjyELGDgcy+Pj9vyUtDPMSAkjtMk5rOJ8Mci09tDPJyiBKQy37hW7gJR2r3ZqnRzKHzQFZjvl/sAz0zoJnCboGn4ww==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=mt.com;
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com (2603:10a6:10:22d::13)
+ by AM9PR03MB7993.eurprd03.prod.outlook.com (2603:10a6:20b:43c::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
+ 2026 12:20:47 +0000
+Received: from DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc]) by DB9PR03MB7180.eurprd03.prod.outlook.com
+ ([fe80::6fd2:12a9:4423:8ddc%6]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
+ 12:20:47 +0000
+From: Wojciech Dubowik <wojciech.dubowik@mt.com>
+To: linux-kernel@vger.kernel.org
+Cc: Wojciech Dubowik <Wojciech.Dubowik@mt.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Dave Airlie
- <airlied@redhat.com>, Matthew Wilcox <willy@infradead.org>
-References: <20260722044220.1110278-1-matthew.brost@intel.com>
- <DK564OOZ3JUK.292JORO9KGKEV@nvidia.com>
- <DK57FVTRTLR2.1A906PYJ2TCE4@nvidia.com>
- <a0c06d8c-fc3a-4ede-8aba-8c7430027a35@kernel.org>
- <2FD2B991-09B3-40EE-8230-49BE3A239EEC@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <2FD2B991-09B3-40EE-8230-49BE3A239EEC@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Subject: [PATCH v7 2/3] dt-bindings: display: sn65dsi83: Add output data-lanes
+ property
+Date: Tue, 28 Jul 2026 14:20:30 +0200
+Message-ID: <20260728122032.692482-3-wojciech.dubowik@mt.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260728122032.692482-1-wojciech.dubowik@mt.com>
+References: <20260728122032.692482-1-wojciech.dubowik@mt.com>
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: GV0P278CA0031.CHEP278.PROD.OUTLOOK.COM
+ (2603:10a6:710:28::18) To DB9PR03MB7180.eurprd03.prod.outlook.com
+ (2603:10a6:10:22d::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB9PR03MB7180:EE_|AM9PR03MB7993:EE_
+X-MS-Office365-Filtering-Correlation-Id: dadcd531-3215-4101-a68d-08deeca2a778
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|19092799006|23010399003|366016|376014|7416014|3023799007|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: TedyA+9PaWL7TD2bujA3+5Es+Pcr6YN35SYmlWf4nHJsramldfDMoA/qI7aYQ/WyAhGskVNesfOsDdLD31NJNg+8XtDeOYOz0XGLxuPfyEtD/BEBTXMd2aMsY/ixX2bbP29QCjI0juHjWg3C+LpLkkHqIQekZM8LCE3w1aZ6EkcoFiBoYhdvRTpl69kheRoFVhJyc9j2cPfcxrXdGqrCqfTRG4pUKJwZIX4vXONZsc3baWC5UBlLsuD7O2f6p5UhFznhfPz19HgdjA4rDmac3i7ez6ld8OSCNcrJCz/IijvPjH6DkGX320ub9peHyTKKJWU7kdJySoXaZiwE4zjrHPGUuV3/MI0+sJorYiOxtKPZ5jO7LCIRqTrQMfetkXpgnf8XMVvVubp/NfuRCjIA4yWKT/7OyetFt+nu/Pw8eH92GkixyCc5auv2JooJ74i1CcDWH173XUirZjRzAf4D2BwHNcQTLCbc/mXdqAaNOXMoWd/3LIq/T52s/vesYv4jkCQjLsGbtQJ24tlzXn19j9slb1Ui5XfXEIWzp/S9GRjkU/X/QOjpMalAL0fXqL6lvELI65ZR8D1cEoC/5isaiZSnM82BNbT3zxTuwR0hE9X3HqqXM7CLCAEGP/McUjYQtRkPfgddd9zPPYgkhokhEYmRL0/vDp/ImRGfJB8g+q0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DB9PR03MB7180.eurprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(19092799006)(23010399003)(366016)(376014)(7416014)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?eTFoZDbmpZnWTil7eVAk6n+0uoLgrYAeXf+IGPX54ay1iQKHqPTtXa1ognhq?=
+ =?us-ascii?Q?bRKtLjcmI9IHxk0EsO3oP7CvOjGfzbSPel5kFKCZ7KxcSLxibr/W+43T6GHg?=
+ =?us-ascii?Q?AWqm1O3/eFEQMQOunu1BsDSxLUF8iFg6GJFef0I6ooB97LZeOlBwvypQ4ouk?=
+ =?us-ascii?Q?RMDD17dgx4fSksoLIPYbZjijCqibjkGd65/JxSGvNS7DBZA7xe/l6TEg2F+H?=
+ =?us-ascii?Q?YSgcjs7hEOjn9d9kh4GaRkU+GT/RgVrhFhxJCKPv6ph1Dyo1OsKfbM3pAy7P?=
+ =?us-ascii?Q?+p8zWXRqF3Z4OssSaOT1vY2YHeF6RACdFDVnxoHkNvS7Yigk/UmKcXrRuDvd?=
+ =?us-ascii?Q?bOy6ynb3xsyUCyMEV6th4hxzuCVhXbg38WxRdMDeTP3/mHjIZARQCxLvYQCX?=
+ =?us-ascii?Q?sOYCjbijlhn1KoG+4b6SxRf8awrI4IRU1knqaNmZOW9ljm3S8nsjYC7Ffgm+?=
+ =?us-ascii?Q?Xem4Ap9j2kY/CCq6dQW5ZFizwCSEnmeBF2IDl0EQIZufZffRiHT6Lp1eLlgK?=
+ =?us-ascii?Q?vc9Jb6iCMOwA5qVwkN26ZJUagr/JL5l40z2C5DlKRYoChwW6h6ehobAYmEdK?=
+ =?us-ascii?Q?/LRmqGFUlvIRNY0GEUHkc0YXqDn10ZFieZw7MWZArCh7bL6vqWTpl29+4gup?=
+ =?us-ascii?Q?i8oG1ASab/7WmnygeODYi3EqK+avwKKc/2EmgTi5NLPj4O8ZQz/OYgRGXn/O?=
+ =?us-ascii?Q?/OAWfsn5RgPd0MX3FVyzUzBw0BIURIwfuaP8jUJ4+VemHWZVRRKlwey6yQhL?=
+ =?us-ascii?Q?h3jNJv29ml4CXDiw1Coq90v54cUd83LiBOM491BpJbsBhfLbjX2CdHAb+vdo?=
+ =?us-ascii?Q?7qN8xmUH/nBQbKcvX67mQEWlb/2HPnf+2eE3qvZwL+q/MDUptMqcLInjKHHS?=
+ =?us-ascii?Q?THFFGNVHdlTyNQDsX1va/ojYsOOhLdyqxy53B6bIoGl5fszinltancvGQu50?=
+ =?us-ascii?Q?3Pgxd1b9raoSMZRX5FFrY8NigSQrxcEYu5Ra/PTtSudGnz03Zhl5OQcBglUs?=
+ =?us-ascii?Q?4ePDKv/9AQb1xru4IE9RiwIzyv7+EkuSxNSByXcdWsQaS9+CgW3I+E5tQrzc?=
+ =?us-ascii?Q?St3f1UdhBz2O57FzcSj8U8rqhZ2Z+f89dC6GQy2+rqF6hEaK6gDUoPucyE5d?=
+ =?us-ascii?Q?O5l3aq3rHo+JHg6dL2RZYxCloRoHF7sl7Z8N+ks59Uk1jaLGRCalXPCQHaaV?=
+ =?us-ascii?Q?lseMNHY5aPqQfpxiXFrNuDxkhAWGLdZ+E8iLKNmvx+ETI3pd0hKoDBfhILKA?=
+ =?us-ascii?Q?X1h1hFeD81qPKvtyNm1ircfeaLEOXuAwzTDgbIpjLqMoeWExsFxs9ouIjMio?=
+ =?us-ascii?Q?6AhNiJfrwIETaZNbxVNgU4Hv4SLA2z2i8778WmNCKyCK8K91eeZr3qI2sSOx?=
+ =?us-ascii?Q?gk0y3vliUaJvkJmltu8dW0jWUfVTpQFq48kUvZhz4IL4mycTy8MiL9uVTcHR?=
+ =?us-ascii?Q?qO+s2ZxAsszmdupjxH2W4XZnhwbw7lEiWsWxZLnNhOLxf3eERPDRnSzzeJCa?=
+ =?us-ascii?Q?hz+iZbXQE8N0r2zRPWsbHIcpaiicDq3VSuucqiuDzm+uGU3sjuRU6NhkSedz?=
+ =?us-ascii?Q?u5zT/9JLNXKJyEZtUtMdaAUk2axoMUgQIKRaF7I98/HzH6Qz2G+9Vouy+j08?=
+ =?us-ascii?Q?5rshOQS15utD9Jlna3qxtAKxSkqFQK0w4xIYbKEZvdMeSCBpbKNOvkuOKWc0?=
+ =?us-ascii?Q?3DcvXQXi0kO2BNBei34v7RqfBigROtySMj4gDwc7Hrhk9Xwycc7QfLb/P8/A?=
+ =?us-ascii?Q?c6O5wMvjeA=3D=3D?=
+X-OriginatorOrg: mt.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dadcd531-3215-4101-a68d-08deeca2a778
+X-MS-Exchange-CrossTenant-AuthSource: DB9PR03MB7180.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 12:20:47.3161 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fb4c0aee-6cd2-482f-a1a5-717e7c02496b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9eSp2FS9E9ZfrkihLND75ghukg0Ox2R8YoAdammfS+Z6yEOIVEnZRXCUf+3efIIrXystrNdq9xJybC0zJ1g2Jg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR03MB7993
+X-Mailman-Approved-At: Tue, 28 Jul 2026 13:00:37 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,66 +138,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/27/26 20:23, Zi Yan wrote:
-> On 27 Jul 2026, at 13:33, David Hildenbrand (Arm) wrote:
-> 
->> On 7/22/26 17:28, Zi Yan wrote:
->>>
->>> Strickly speaking, these vm_insert*() compound pages are not folios,
->>> since folios are supposed to be rmappable and they are either anonymous
->>> memory or file-backed memory. I am working on separating them from
->>> rmappable folios by replacing PG_private with PG_folio and marking all
->>> pages in a folio with PG_folio in page_rmappable_folio().
->>>
->>> Hopefully, we can find a better name, like refcounted_folio, later for
->>> these non-rmappable compound pages.
->>
->> They wouldn't really be folios, I guess. They would likely be a simple
->> "refcounted" memtype that allows for compound pages.
-> 
-> Yes, they are not folios. But “folio” was started to replace “compound page”
-> and slowly becomes rmappable anon and file-backed. People outside MM still
-> thinks “folio” == “compound page”.
+From: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
 
-Yes, it's a bit of a mess now.
+Add an optional output lvds data lanes property with two allowed values
+for default and reversed layout.
 
-> But once I manage to remove PG_private
-> and get us PG_folio, page_folio() will return NULL for non-folio compound
-> pages and we will need a new type for them, “refcounted_XXX”. We can decide
-> XXX when I get there. :)
+Signed-off-by: Wojciech Dubowik <Wojciech.Dubowik@mt.com>
+---
+ .../bindings/display/bridge/ti,sn65dsi83.yaml     | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-So far willy did not document a type that just has a refcount.
-
-https://kernelnewbies.org/MatthewWilcox/Memdescs
-
-Maybe "Managed memory" (struct mgdesc) could be the right thing for some memory
-with a refcount.
-
-The question is, if the use case at hand would even require a refcount, of if
-frozen pages would be good enough.
-
-> 
->>
->> But what is the conclusion here? It sounds like "folio_split_" is the entirely
->> wrong interface for these compound pages.
-> 
-> We probably would allow folio_split() to be used on compound pages now
-> until we can make a clean distinction, e.g., using PG_folio, between them.
-> 
-> Yes, folio_split() and its helper functions are meant for rmappable anon and
-> file-backed folios. But currently “folio” is de facto “compound page”, since
-> for example prep_compound_head() initializes folio fields even if it is meant
-> only for compound pages.
-
-If we can stop more abuse right from the start, that would be nice.
-
-We do have split_page() that splits a non-compound higher-order page. Maybe we
-want a split_compound_page(), or allow for split_page() to accept compound pages.
-
-Because splitting a folio is really something different than splitting just some
-compound page (no mapping/pagecache/whatever involved).
-
+diff --git a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
+index e69b6343a8eb..0eb3913acc9d 100644
+--- a/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/ti,sn65dsi83.yaml
+@@ -125,6 +125,21 @@ $defs:
+               lanes in microvolts.
+             maxItems: 2
+ 
++          data-lanes:
++            description:
++              Array of physical LVDS data lane indexes
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++              - items:
++                  - const: 4
++                  - const: 3
++                  - const: 2
++                  - const: 1
++
+ allOf:
+   - if:
+       properties:
 -- 
-Cheers,
+2.47.3
 
-David
