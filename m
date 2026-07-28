@@ -4,127 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D5F9C54F54
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 19:26:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79905C54F52
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 19:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E74F10E9E5;
-	Tue, 28 Jul 2026 19:26:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78E1110E9E6;
+	Tue, 28 Jul 2026 19:30:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wk+Dy2Ld";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YmRIWNo4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A58ED10E5D7;
- Tue, 28 Jul 2026 19:26:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3F73C4404A;
- Tue, 28 Jul 2026 19:26:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55FCD1F000E9;
- Tue, 28 Jul 2026 19:26:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785266786;
- bh=B9zPErIOkKOvWU4JJG+dspgkrLmx8WSjgAIhjf1cHOk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Wk+Dy2LdjSS++FUG8ogDF9T7pT+EAMTNcB05WeR4hXNaXglCVPisWY+LtMICE7Ccn
- wg89k4Kvgy+wj1Z+MYeBAhF/fpDBT5QBmapIlx+G9nPNFi+PtoCZcgFGdFDnLbAXt0
- xB9tb7u8wQORuyWEL/5BRGQ2JQ2k9CqZ2ZVyyUj8/EZCr1Qepptpcml/7TGdY1D8nm
- GSTIcvePc1fP69qF+FthXNV/zsYPQIg7psEdREpgXn9BbFwQhb7/ZitQjH5BdGIeL5
- 10/HbxBCKZnA9MQ0tzrL6PXNOGh1zI0y/tMqhlx3SWm/HNYuS05o09qLSvFYiNKTIz
- dUsn/WiERIxzg==
-Message-ID: <2c19247e-bee6-45f4-a353-2fcc60db26e6@kernel.org>
-Date: Tue, 28 Jul 2026 21:26:06 +0200
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
+ [209.85.214.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AC1F10E9E6
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 19:30:27 +0000 (UTC)
+Received: by mail-pl1-f177.google.com with SMTP id
+ d9443c01a7336-2ceeee8c46bso373985ad.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 12:30:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785267027; cv=none;
+ d=google.com; s=arc-20260327;
+ b=kpsWJRxygCJPVxXLAtqnX+nz3wCYTroS6UjOmTEb0Py4GCcKCtmNiqErLFESSYE5TO
+ UcCwO8CjG9NziPNf65lOz5brD9MCB5rn4lOGAQcY0VnL+mkRVV3krpgcRy8CwYsy6b+X
+ oxif637VHNaJbFqCXCXLWcBGvYuqfmSJDz4gpYeSBhSD0DRa2RmduGf+A3r/aq0D3iYG
+ AaoQrtEfQyj34G+P3u3kOoEA7a7LpX7eLvM0Gg1yhWQyMckB3ONHt2Ww1oj5uIaph9fI
+ m7v5S2fERCpuIwmfdi6NBbc0XSzXta8FhV/7+jUzS9Daw69FCtEXhfqsEMo0edMaofak
+ 42Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=YOlnY10tnr4QkKaIlxFYxTs9Lp19ftPVrjCjqbroCWQ=;
+ fh=gR2ki9Roug6sMr8hGBtyCssRA5rRN4zMYgDxmqc2UfU=;
+ b=MOu2wXCC3QyjW3SS68F+n1985eiymuBVo5J+DFrYZPAN3TczFi31i/lWxi3Tzqnr7J
+ AwPYdB/AzcYLE9l1ECAzB61cdi98wRckBxne96+0Za2ogTQbvyJRa2ztS9N/6IPOFgF2
+ mkm0mmeB6CyI4anj18AaEe/cSglv8vQBg3cbyRGmq8+Tm/zEIwEGaomK8iGV7amm3A4y
+ /m/BYnRaQuO/gu5w7lLOa/Xvm+4FHQGExjQTVpWO28KCc6ATxlQ8ZlgWP57phyLgU3pF
+ ab4SHzT3ockr5LP+WjHSNAeZNL1sSuapcdQSvdnagvv/bX6zz5kurz1z4VOgWPDoSrSq
+ TyAw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785267027; x=1785871827; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=YOlnY10tnr4QkKaIlxFYxTs9Lp19ftPVrjCjqbroCWQ=;
+ b=YmRIWNo4QtgU3IxMq/DjNGXkjm29CRX2Hq4LtLDeJjN+cxZxnd7+j59SYy5wtBXUmr
+ vEZ4gtBE4lBULTqMS5zUWdHkk+q8VFHgfnvMyf7IbNUOE3faUCxmvbQcBhhZL0iZQ3Wz
+ FoF2lQFyBL0NjUzYuV2ZXtb2G2LGis/Ii0sY82wlaXdC2fwz0kxtvyJyL2enk9+tu6Q3
+ cjQjTm1se25WqJqfH1RO28oOYMGVJQvFC0e/ZcgcDAmleDTh+nKN6QkPQ4PjOx6L7DsR
+ 88+Pwv7OKWFMUMV0QGDj/OlnQ7c2Cwjhcy2cJ4AzktYJM3+R2tNB6Q0K8yDhaBhkTiZO
+ 1fPg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785267027; x=1785871827;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=YOlnY10tnr4QkKaIlxFYxTs9Lp19ftPVrjCjqbroCWQ=;
+ b=Bgwza2zby3ZCJeQ7L9hzEmOmfErx0BWAj5LfXwC7GlhF+xDRqFbN/OJllxBN1QAcWK
+ N/cVhZkT5DDmzOhjTpDyMHZ7fXHF6BuZiYqYKLhG3oQP1v5dOwJMJ4/auPIijobR+u6M
+ xsilBXZt+5EZHfsIaa/Tp2Gd/JrRb4SatliotmTai2B+7T1I8sYfrOTu1+6d8YhwSajK
+ /KLx/uRXe6lU2yP57dZ3hav8VD5w9dmVXk65pkh6izMcDkYIUXqpHnEdTAEkMRduw73l
+ nfx8zNmA2qy5mp+wEc4PlbhN9AYCQqJaRjR8dnyNUBQ1FGLIkr3+nyLNNA32uhmprpjW
+ 5Pbw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoL6neQp/hzAxLoQdHIiEOy+P9H8DCNgIVG2Wv1EwPFe6Z/T5BopRmxd2xi+yTOaYvQgnM6x9q7wno=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDdKf/eHtg2vNCdazy5Mjj7TkewsphtkxnjX6Ch3RELEmOcJje
+ i+9BrE75Yel96d3YkS1Jp6V8nlu+S3twxBXZ+xTmRHBCFi6Na6/kVC0MBnG8DGcxYgRBeDBV7DT
+ Q4+SfBnqgqaTtZyOTCxVxekobMCbGEvI=
+X-Gm-Gg: AR+sD12Nn2R9bLeCSkYh0PapHKW8ek6P0f1B2SJ/UX8+7hRQbPGxOIdqfvU1W2DKeA2
+ VaO/sPVBk+qDbbK1ViBVJlwmSlCZppj1eFmS/4GwdNaaS+cDEU+trVSBV8Yuv1hoB+SYSuiVcpd
+ /Q9vBI6Jlnf9PmVC0GAjEM9yl0kSlxk+TNY7QqmfTu4u4b5IFG66vXG0cNregij9xClNf424d94
+ sTnexyD/uFjchS/K5vimnRV8K7LgyjpDUheWZNHB+agqX8H8WQhVU80neGT44p9rRxwfkKUqZW2
+ 0/KFsS3YinPzt6Bjac89NATC2GRWl/Q96NqqjbgGZlVT1939Doi3PDXBt9s+0yfSzytWSDzcbZW
+ 8ZH4gV0eMMOMFWrVKYfbdhlojZa7ao3xw/o7rUMS4RqpfCAtp9UMinNmcOJ/y
+X-Received: by 2002:a17:902:e88c:b0:2ca:de3:15eb with SMTP id
+ d9443c01a7336-2d0157877cfmr34510465ad.0.1785267026639; Tue, 28 Jul 2026
+ 12:30:26 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 00/11] mm: distinguish PTE table storage from PTE
- values
-To: Muhammad Usama Anjum <usama.anjum@arm.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
- ryan.roberts@arm.com
-Cc: linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-References: <20260727164715.2866609-1-usama.anjum@arm.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260727164715.2866609-1-usama.anjum@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+ <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
+ <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
+ <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
+ <DKAASRCK3M06.G9XODK0T5AAK@nvidia.com>
+ <DKAD64Q7CEQD.Z15OS6MRHEKE@kernel.org>
+ <DKAEZ4LDA10F.1RFA9JKBGY2CF@garyguo.net>
+ <DKAFMD8X5LFP.UPKPHK5FYZPH@kernel.org> <DKAFRETW93IW.SXUWFVB47V3B@garyguo.net>
+In-Reply-To: <DKAFRETW93IW.SXUWFVB47V3B@garyguo.net>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 28 Jul 2026 21:30:14 +0200
+X-Gm-Features: AUfX_my7ge7MYUh2zUi3Gt3zgCDTbiWd0Gi_L5P50g4KhlbsBg8SdJA5xeWd3II
+Message-ID: <CANiq72kqRh=ucvE8ibPmesyrWdLnwbOwcsmTx2A0iD34DdUsVA@mail.gmail.com>
+Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Bjorn Helgaas <bhelgaas@google.com>, 
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,52 +127,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/27/26 18:46, Muhammad Usama Anjum wrote:
-> Hi,
-> 
-> pte_t currently describes both a logical PTE value and an element stored in
-> a PTE table. Consequently, pte_t * can point either to a standalone value,
-> often a stack copy, or to a PTE-table slot. The compiler cannot distinguish
-> these cases. A value pointer can therefore be passed to an interface that
-> expects table storage, while table storage can be read by direct
-> dereference instead of the architecture accessor.
-> 
-> This series begins a staged conversion at the PTE level. It introduces
-> hw_pte_t as the element type for PTE-table storage and converts generic MM
-> to use hw_pte_t *. Logical PTE values remain pte_t. Interfaces that
-> intentionally return a value through pte_t *, such as install_pte, remain
-> value interfaces; the relevant parameters are named ptentp to make that
-> distinction explicit.
-> 
-> The generic definition aliases hw_pte_t to pte_t, so this series preserves
-> the representation and behaviour of every architecture. ptep_get() keeps
-> its existing READ_ONCE() semantics and converts the stored element through
-> __pte_from_hw(). An architecture can later define a distinct hw_pte_t and
-> convert its PTE interfaces to make the distinction compiler-enforced.
-> Architecture PTE implementations and most architecture code are
-> deliberately left for those later opt-in conversions.
-> 
-> Here, hw_pte_t identifies PTE-table storage rather than table lifetime:
-> complete PTE tables use hw_pte_t whether or not they are currently linked
-> into a page-table hierarchy, while standalone copied values use pte_t. The
-> distinction between complete but unlinked tables and hardware-reachable
-> tables was raised during discussion and remains an important point for
-> review.
-> 
-> PMD, PUD, P4D and PGD storage are deliberately out of scope. They can be
-> converted in later series after the PTE boundary is agreed, avoiding the
-> PMD-specific cases that made an all-level conversion difficult to review.
-> 
-> Most mechanical pointer conversions were generated with the Coccinelle
-> script included below, then audited and fixed by hand.
-> 
-> This series does not add a second ptep_get_once() accessor and does not
-> remove or replace STRICT_MM_TYPECHECKS.
+On Tue, Jul 28, 2026 at 9:03=E2=80=AFPM Gary Guo <gary@garyguo.net> wrote:
+>
+> It'd be a compiler bug if const folding is expected to happen, the whole
+> BUILD_BUG_ON depends on it working.
+>
+> `build_assert!` is a useful tool that I'm not giving up. If there is a ne=
+ed to
+> use it, then I'd use it compared to having two variants to do the same th=
+ing
+> with different syntax.
 
-Do you have a pointer at the arm64 part, so people can get a feeling for how an
-actual hw_pte_t implementation can look like.
+Yeah, and on this topic, the overall concept is being discussed in the
+C standard committee due to paper:
 
--- 
+  N3846 2026/03/10 Grant, compile_assert =E2=80=93 optimization-enforced
+conditions at compile time
+  https://www.open-std.org/jtc1/sc22/WG14/www/docs/n3846.pdf
+
+I gave the author some feedback on the prior art in Linux (at least
+since 2002, originally using the linker approach) and GCC (adding the
+compiler attribute in 2007 from what I could see), including our Rust
+macro too, starting in 2022.
+
+Hopefully the discussion will continue -- the thread was active up to
+a few days ago.
+
 Cheers,
-
-David
+Miguel
