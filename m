@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 830F2C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 21:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 749BFC54F56
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 21:30:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 704A710E600;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8861F10E5F9;
 	Tue, 28 Jul 2026 21:29:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g3TUgXsJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NaXy+33K";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9377110E5F9
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 21:29:55 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-4957eefd361so2202565e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 14:29:55 -0700 (PDT)
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B9B210E5F7
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 21:29:50 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-4954d383e64so1812305e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 14:29:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785274194; x=1785878994; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785274188; x=1785878988; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=xDZPkMbwSk/lf5c8/cMXuQv/8k90Wcurvg4IHgK0Syc=;
- b=g3TUgXsJpDqny4Rys8V9lLNVuyuRYmGmsL2Z1A/tsSFyZ+FRHaIep6eShnCCbBPJIH
- Hw1Ij83auJ8ff/kktiV7f0eQ7o8+VUbSFyUMuUyDNhn8zfZx4N1jpojS97hpE1AMo+Z3
- xdDfRxqOmtXl438GVMfzVG5OYt87eTEK9w9G/7j63rY5ARJby2iKx6LmBUdXWDbuYZSR
- b/x4JTTM8NeMYK0gMFwU+ctW/xCSyfU+arwpWFhQ7y+Gd47MixElbecn1mh1TeW1UHJj
- Si4MC9yJPy7HSBAAuksHhZ7hQhTbufcO/cvqp/ZA6gLKJksbteixoCkn+f9zY7ZUvjGG
- QAWg==
+ bh=KAdhuCPBbi9s1JIVvrZZHT+Af39OUgdkqflLHhFSDdo=;
+ b=NaXy+33K3BQndBBrVhIQoPkruYFFijxWVUQUVoABsS4iIY05S+HETvPEB8E7H95i5P
+ xbnnRka31nAMDYyctrATyezR3uwbLcH5bKHV2Ad6zTwu18OHbryD9PloLBFzdv3VG2aU
+ 4pSE7NsBq7+kFq8hsBr1AWkDYQg3bZX7WYN5+G2lqCuu+dlKHzWV1NFwPBoskx/mEvJD
+ IVDU9fLgIXSh1cjHlAHVaRLnXuI24Ak0u99d8MzBq6l7s1GvQzPP9eFoxWNPemQisDdJ
+ EgwFadc86NxAymaJnJIzTiopLYCR4D4cq5lBnBqe2zJW5jB+2F1Tqp5WdAgCWajzVO42
+ LNaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785274194; x=1785878994;
+ d=1e100.net; s=20251104; t=1785274188; x=1785878988;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=xDZPkMbwSk/lf5c8/cMXuQv/8k90Wcurvg4IHgK0Syc=;
- b=GfZmL+DLFBqt5ArG3mOsarrtA7eTHSPzFcWB+Eop9SI6HBq8qQkUGo/EqB58vSE12H
- 361Gc8W6Qp8GmqUwVG7nC+WtNOyW9bCPplxFt8YoiEDJ7Alk3HSkBkQI3BrOFy+cBZti
- uhJEaiJ4z5Op+7oiUs4665nUk/wXtEvmyY5jH0ff/kOEIvxrouUxm40MRuhwe0AMnUZW
- q8MKWuv0IWiikujMeJdmD9wIw2Nszghd93VhExODmg45mxQQDxN8H7MGrA8EUWPT+BMs
- kcTnR1A92UO/a2rI1JkyjrA3FOpdXlCcVDzPBQ5A2y4Zk0r2FNmkYVxnfqLksGzx2rd6
- Dchw==
+ bh=KAdhuCPBbi9s1JIVvrZZHT+Af39OUgdkqflLHhFSDdo=;
+ b=KNgCryAMbqcc+PxYi9nhrd8bEaFwTituAc58oY3iOLi/lTxokLW7TzmjOlUZ7p9UJe
+ phrwCT21ENkLS6qlbNgokM8QaY+b8qh1uu8YeOs3FPrdCk8reBgg3nleDicHNnaFjSKI
+ zmt7+C+OZy3LfN+/DmOxIuqopxYmy2xvwV4G5tlmVP3oskltIMhOq40w79467g8V+nk+
+ zBu4GsPPXmQ6nlGeAOi2fFr50i2uqkRv/CGbN7FByWybjv3VhkGPUf7aGh6WKkoRGC9w
+ LVge0b3CNTItNxurqmtbKc7Pe9dTQCPkrm0RVz16I+kE6TUmaqj2aSBxfQB3K5MLq5oE
+ VNXw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rrj0ZF0HNJvhne+4FNRaaPRqbw2+XeqPjcgI1KHnMF8F8Psl4NVrA8APNqT0+tXmvl4+mPJGWLjub8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxzga/vgcw9gu8RsaJrG9tcMVjGu2M4AeNQwL09aEApxJPJ6u1L
- pjUrudc+XL2jKUmFFmpayFfp207r+omVjIXwU+NBlphXSJWXm8T4QY4o
-X-Gm-Gg: AR+sD10zqnY7JnyEWvAtPKoDrTF2PpI4M3OgWbT2J3/hBQnAKgOeTKvtPqeituT83FJ
- 6b0HI3jkgM40EWJ30LU/iOUjb99VahD+VlGYZkYLFXqOem0TPLlYU/Hdhiu+vY9iemJPWCC8My6
- bTOh5QOIp+PO9AbaW4R9Zzxd+Zn4ZJt3ZZdNDWQiA4Ld3aWznPTB78wFXtXtwObXAypQ5EyE0tf
- N8glLNUXN9EOGAWJka7lnpLeotD+65obu1+uKP409loLS5+blSVnnKFzavfEU5xDirKd4EwpbZS
- M8svZEvMWGVdgRA0Z+wqyPNbaj4sjc6SdTrf2rAQYPrUvsfEDhP4+ImY1g9bMK/7bOTnF2lwmK6
- y+GYX0wCQaiPiRChXsXd6J9NAeNlw4RhsP2hhqP1nC742Qz67OQH8A4erkMCWFUg22L7hoEp3Ec
- cwwASpO4ZJk+9u+QYwoMxA0o9qHOvyc3YRgpt41rmPiR7CftbJQkkIZZgJrhvOixuNQfUhFGCKT
- 3n1MZn/o2Z7TrSUnl72+BGuZ+GTVWYhFvghf8/eRhUtp6bf1OL9ZiyzYRCmiG8KQHU=
-X-Received: by 2002:a05:600c:4504:b0:496:c93d:e2f with SMTP id
- 5b1f17b1804b1-496c93d0e44mr30643425e9.15.1785274193855; 
- Tue, 28 Jul 2026 14:29:53 -0700 (PDT)
+ AHgh+Rp5BBu4Ydrou9vawQoo3RNmWQrqMhVWFRxMAd1esICFbulir09vMG/UUzNR08zG+CsjJ+mv6rPdEaE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwrucGYaYdop2Ltp2meNjT9FSb1Vs06mzMopvV6dpl5Ef7kKtIE
+ n4jOn+me6RCU81KWkIqCzCbfUTD3T4Z6lJ+DdlaNrl7V/tG8UOXaJ0XQ
+X-Gm-Gg: AR+sD12dJpRJgr1IonTBbGqJ7BarPk02BZ/pa33/iemZMtpgnnNp+vrKK/08t7vcFVR
+ dnJGn9yThjwI16ZXFTXp5Tz5S457VcTsdmR9PwWkHosFbI44eJKIZwEqjww2sHmxGk+8UdAnWRq
+ ZwlDfCira+OZRR05R307847dsqXDiZYxxrnwDshZJod9l3wTrtYImNKzRm3Co9+WbPj68Tykra6
+ K2wvNKukTnTTzv4TZ4r24ZJIbcQdJWnaMWFZzqUlpw7MnLfIVbRCFgZflsiu8XfmFqyIA/Y1MoM
+ xSYdAdahYaTuH34HD+FCbsxfdzQDq4oIb/lDoxmeB+fZ1iHdX9B4XdCr/Z9THwMV3z8eZd2FSZ8
+ a1Rm91sN4a1YmaKN/BTD/OTyoGnj381auxWbz48BwtZtP7Tphp6x5OkkDMWmF9AuriiynkgIvqO
+ u8hj5SIa4a5y1bpip+f+lm/G7hDgtcz22cVgN9jxcgjxFPmh4BmS1bWXI5lHFpAq41Au6on0v6c
+ DAOrEACN3O/vqX9zRXqPj/jh6GypaxWr5FLEdrU7f+qvzzZDkuTrw07D0xjewdrDJo=
+X-Received: by 2002:a05:600c:638f:b0:495:7b1b:f387 with SMTP id
+ 5b1f17b1804b1-496c659069amr44876195e9.24.1785274188157; 
+ Tue, 28 Jul 2026 14:29:48 -0700 (PDT)
 Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fb6ac44bcsm2245329f8f.11.2026.07.28.14.29.51
+ ffacd0b85a97d-47fb6ac44bcsm2245329f8f.11.2026.07.28.14.29.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2026 14:29:52 -0700 (PDT)
+ Tue, 28 Jul 2026 14:29:46 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
  Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
@@ -86,9 +86,9 @@ Cc: asml.silence@gmail.com, Alexander Viro <viro@zeniv.linux.org.uk>,
  Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
  nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
  ceph-devel@vger.kernel.org
-Subject: [PATCH v4 06/14] block: introduce dma map backed bio type
-Date: Tue, 28 Jul 2026 22:29:18 +0100
-Message-ID: <f97985ac5cfff3d9f7777b93f11456af57e253e2.1785274111.git.asml.silence@gmail.com>
+Subject: [PATCH v4 03/14] block: rename bi_bvec_done
+Date: Tue, 28 Jul 2026 22:29:15 +0100
+Message-ID: <8344f6eb7f075653374c9c395ffed7d453045b4b.1785274111.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1785274111.git.asml.silence@gmail.com>
 References: <cover.1785274111.git.asml.silence@gmail.com>
@@ -109,232 +109,384 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Premapped buffers don't require a generic bio_vec since these have
-already been dma mapped. Repurpose the bi_io_vec space to strore dmabuf
-maps as they are mutually exclusive.
+struct bvec_iter::bi_bvec_done is used an offset in the current bvec,
+let's rename it accordingly for better clarity. We're also going to use
+it for non-bvec based iteration, so drop the "bvec" part.
 
-Suggested-by: Keith Busch <kbusch@kernel.org>
+Suggested-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- block/bio.c               | 23 ++++++++++++++++++++++-
- block/blk-merge.c         | 15 +++++++++++++++
- block/fops.c              |  2 ++
- include/linux/bio.h       | 10 ++++++----
- include/linux/blk-mq.h    |  7 +++++++
- include/linux/blk_types.h | 14 +++++++++++++-
- include/linux/bvec.h      |  3 ++-
- 7 files changed, 67 insertions(+), 7 deletions(-)
+ Documentation/block/biovecs.rst |  8 ++++----
+ block/bio.c                     |  4 ++--
+ block/blk-merge.c               |  8 ++++----
+ block/blk-mq-dma.c              |  2 +-
+ block/blk.h                     |  2 +-
+ drivers/block/loop.c            |  2 +-
+ drivers/block/zloop.c           |  2 +-
+ drivers/md/dm-io-rewind.c       | 10 +++++-----
+ drivers/md/dm-pcache/segment.c  |  4 ++--
+ drivers/nvdimm/btt.c            |  2 +-
+ drivers/nvme/host/tcp.c         |  2 +-
+ fs/btrfs/misc.h                 |  2 +-
+ include/linux/bvec.h            | 14 +++++++-------
+ io_uring/net.c                  |  4 ++--
+ lib/iov_iter.c                  |  2 +-
+ net/ceph/messenger.c            |  4 ++--
+ 16 files changed, 36 insertions(+), 36 deletions(-)
 
+diff --git a/Documentation/block/biovecs.rst b/Documentation/block/biovecs.rst
+index 11126ed6f40f..49da2147b7d8 100644
+--- a/Documentation/block/biovecs.rst
++++ b/Documentation/block/biovecs.rst
+@@ -16,16 +16,16 @@ bv_len by the number of bytes completed in that biovec.
+ In the new scheme of things, everything that must be mutated in order to
+ partially complete a bio is segregated into struct bvec_iter: bi_sector,
+ bi_size and bi_idx have been moved there; and instead of modifying bv_offset
+-and bv_len, struct bvec_iter has bi_bvec_done, which represents the number of
++and bv_len, struct bvec_iter has bi_offset, which represents the number of
+ bytes completed in the current bvec.
+ 
+ There are a bunch of new helper macros for hiding the gory details - in
+ particular, presenting the illusion of partially completed biovecs so that
+-normal code doesn't have to deal with bi_bvec_done.
++normal code doesn't have to deal with bi_offset.
+ 
+  * Driver code should no longer refer to biovecs directly; we now have
+    bio_iovec() and bio_iter_iovec() macros that return literal struct biovecs,
+-   constructed from the raw biovecs but taking into account bi_bvec_done and
++   constructed from the raw biovecs but taking into account bi_offset and
+    bi_size.
+ 
+    bio_for_each_segment() has been updated to take a bvec_iter argument
+@@ -101,7 +101,7 @@ Other implications:
+    I.e. instead of using bio_iovec_idx() (or bio->bi_iovec[bio->bi_idx]), you
+    now use bio_iter_iovec(), which takes a bvec_iter and returns a
+    literal struct bio_vec - constructed on the fly from the raw biovec but
+-   taking into account bi_bvec_done (and bi_size).
++   taking into account bi_offset (and bi_size).
+ 
+  * bi_vcnt can't be trusted or relied upon by driver code - i.e. anything that
+    doesn't actually own the bio. The reason is twofold: firstly, it's not
 diff --git a/block/bio.c b/block/bio.c
-index 57c127aee116..cc2bb9183c1a 100644
+index 6a2f6fc3413e..bfaede30a54f 100644
 --- a/block/bio.c
 +++ b/block/bio.c
-@@ -860,7 +860,12 @@ static int __bio_clone(struct bio *bio, struct bio *bio_src, gfp_t gfp)
- 	bio->bi_write_hint = bio_src->bi_write_hint;
- 	bio->bi_write_stream = bio_src->bi_write_stream;
- 	bio->bi_iter = bio_src->bi_iter;
--	bio->bi_io_vec = bio_src->bi_io_vec;
-+
-+	if (op_is_dmabuf(bio->bi_opf)) {
-+		bio->bi_dmabuf_map = bio_src->bi_dmabuf_map;
-+	} else {
-+		bio->bi_io_vec = bio_src->bi_io_vec;
-+	}
+@@ -229,7 +229,7 @@ void bio_init(struct bio *bio, struct block_device *bdev, struct bio_vec *table,
+ 	bio->bi_iter.bi_sector = 0;
+ 	bio->bi_iter.bi_size = 0;
+ 	bio->bi_iter.bi_idx = 0;
+-	bio->bi_iter.bi_bvec_done = 0;
++	bio->bi_iter.bi_offset = 0;
+ 	bio->bi_end_io = NULL;
+ 	bio->bi_private = NULL;
+ #ifdef CONFIG_BLK_CGROUP
+@@ -1188,7 +1188,7 @@ void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter)
  
- 	if (bio->bi_bdev) {
- 		if (bio->bi_bdev == bio_src->bi_bdev &&
-@@ -1192,6 +1197,17 @@ void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter)
+ 	bio->bi_io_vec = (struct bio_vec *)iter->bvec;
+ 	bio->bi_iter.bi_idx = 0;
+-	bio->bi_iter.bi_bvec_done = iter->iov_offset;
++	bio->bi_iter.bi_offset = iter->iov_offset;
+ 	bio->bi_iter.bi_size = iov_iter_count(iter);
  	bio_set_flag(bio, BIO_CLONED);
  }
- 
-+void bio_dmabuf_map_set(struct bio *bio, struct iov_iter *iter)
-+{
-+	WARN_ON_ONCE(bio->bi_max_vecs);
-+
-+	bio->bi_dmabuf_map = iter->dmabuf_map;
-+	bio->bi_vcnt = 0;
-+	bio->bi_iter.bi_offset = iter->iov_offset;
-+	bio->bi_iter.bi_size = iov_iter_count(iter);
-+	bio->bi_opf |= REQ_NOMERGE | REQ_DMABUF;
-+}
-+
- /*
-  * Aligns the bio size to the len_align_mask, releasing excessive bio vecs that
-  * __bio_iov_iter_get_pages may have inserted, and reverts the trimmed length
-@@ -1254,6 +1270,11 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
- 		iov_iter_advance(iter, bio->bi_iter.bi_size);
- 		return 0;
- 	}
-+	if (iov_iter_is_dmabuf_map(iter)) {
-+		bio_dmabuf_map_set(bio, iter);
-+		iov_iter_advance(iter, bio->bi_iter.bi_size);
-+		return 0;
-+	}
- 
- 	if (iov_iter_extract_will_pin(iter))
- 		bio_set_flag(bio, BIO_PAGE_PINNED);
 diff --git a/block/blk-merge.c b/block/blk-merge.c
-index 258a726071d1..6f0cabfe25ef 100644
+index ab1161ca69f1..258a726071d1 100644
 --- a/block/blk-merge.c
 +++ b/block/blk-merge.c
-@@ -346,6 +346,20 @@ int bio_split_io_at(struct bio *bio, const struct queue_limits *lim,
- 		len_align_mask |= (bc->bc_key->crypto_cfg.data_unit_size - 1);
- 	}
+@@ -33,7 +33,7 @@ static inline void bio_get_last_bvec(struct bio *bio, struct bio_vec *bv)
  
-+	if (op_is_dmabuf(bio->bi_opf)) {
-+		/* single contiguous range into the dma-buf */
-+		nsegs = 1;
-+
-+		if ((bio->bi_iter.bi_offset & start_align_mask) ||
-+		    (bio->bi_iter.bi_size & len_align_mask))
-+			return -EINVAL;
-+		if (bio->bi_iter.bi_size > max_bytes) {
-+			bytes = max_bytes;
-+			goto split;
-+		}
-+		goto out;
-+	}
-+
- 	bio_for_each_bvec(bv, bio, iter) {
- 		if (bv.bv_offset & start_align_mask ||
- 		    bv.bv_len & len_align_mask)
-@@ -376,6 +390,7 @@ int bio_split_io_at(struct bio *bio, const struct queue_limits *lim,
- 		bvprvp = &bvprv;
- 	}
+ 	bio_advance_iter(bio, &iter, iter.bi_size);
  
-+out:
- 	*segs = nsegs;
- 	bio->bi_bvec_gap_bit = ffs(gaps);
- 	return 0;
-diff --git a/block/fops.c b/block/fops.c
-index 15783a6180de..37d491f45015 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -348,6 +348,8 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
- 		 * bio_iov_iter_get_pages() and set the bvec directly.
- 		 */
- 		bio_iov_bvec_set(bio, iter);
-+	} else if (iov_iter_is_dmabuf_map(iter)) {
-+		bio_dmabuf_map_set(bio, iter);
- 	} else {
- 		ret = blkdev_iov_iter_get_pages(bio, iter, bdev);
- 		if (unlikely(ret))
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index dea9f567379d..c053e9444514 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -80,7 +80,8 @@ static inline bool bio_no_advance_iter(const struct bio *bio)
- {
- 	return bio_op(bio) == REQ_OP_DISCARD ||
- 	       bio_op(bio) == REQ_OP_SECURE_ERASE ||
--	       bio_op(bio) == REQ_OP_WRITE_ZEROES;
-+	       bio_op(bio) == REQ_OP_WRITE_ZEROES ||
-+	       op_is_dmabuf(bio->bi_opf);
- }
+-	if (!iter.bi_bvec_done)
++	if (!iter.bi_offset)
+ 		idx = iter.bi_idx - 1;
+ 	else	/* in the middle of bvec */
+ 		idx = iter.bi_idx;
+@@ -41,11 +41,11 @@ static inline void bio_get_last_bvec(struct bio *bio, struct bio_vec *bv)
+ 	*bv = bio->bi_io_vec[idx];
  
- static inline void *bio_data(struct bio *bio)
-@@ -399,12 +400,12 @@ static inline void bio_wouldblock_error(struct bio *bio)
- 
- /*
-  * Calculate number of bvec segments that should be allocated to fit data
-- * pointed by @iter. If @iter is backed by bvec it's going to be reused
-- * instead of allocating a new one.
-+ * pointed by @iter. If @iter is backed by a bvec or a dmabuf, the bvec array /
-+ * the dma map are going to be reused, and so no extra allocation is required.
-  */
- static inline int bio_iov_vecs_to_alloc(struct iov_iter *iter, int max_segs)
- {
--	if (iov_iter_is_bvec(iter))
-+	if (iov_iter_is_bvec(iter) || iov_iter_is_dmabuf_map(iter))
- 		return 0;
- 	return iov_iter_npages(iter, max_segs);
- }
-@@ -484,6 +485,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
- 		unsigned len_align_mask);
- 
- void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter);
-+void bio_dmabuf_map_set(struct bio *bio, struct iov_iter *iter);
- void __bio_release_pages(struct bio *bio, bool mark_dirty);
- extern void bio_set_pages_dirty(struct bio *bio);
- extern void bio_check_pages_dirty(struct bio *bio);
-diff --git a/include/linux/blk-mq.h b/include/linux/blk-mq.h
-index af878597afb8..7c7504c84e09 100644
---- a/include/linux/blk-mq.h
-+++ b/include/linux/blk-mq.h
-@@ -1017,6 +1017,13 @@ static inline void *blk_mq_rq_to_pdu(struct request *rq)
- 	return rq + 1;
- }
- 
-+static inline bool blk_mq_rq_is_dmabuf(struct request *rq)
-+{
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return false;
-+	return rq->bio && op_is_dmabuf(rq->bio->bi_opf);
-+}
-+
- static inline struct blk_mq_hw_ctx *queue_hctx(struct request_queue *q, int id)
- {
- 	struct blk_mq_hw_ctx *hctx;
-diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 8808ee76e73c..d605e31712d4 100644
---- a/include/linux/blk_types.h
-+++ b/include/linux/blk_types.h
-@@ -233,7 +233,12 @@ struct bio {
- 	atomic_t		__bi_remaining;
- 
- 	/* The actual vec list, preserved by bio_reset() */
--	struct bio_vec		*bi_io_vec;
-+	union {
-+		struct bio_vec		*bi_io_vec;
-+		/* Driver specific dma map, valid IFF REQ_DMABUF is set */
-+		struct dma_buf_io_map	*bi_dmabuf_map;
-+	};
-+
- 	struct bvec_iter	bi_iter;
- 
- 	union {
-@@ -401,6 +406,7 @@ enum req_flag_bits {
- 	__REQ_DRV,		/* for driver use */
- 	__REQ_FS_PRIVATE,	/* for file system (submitter) use */
- 	__REQ_ATOMIC,		/* for atomic write operations */
-+	__REQ_DMABUF,		/* Using premmaped dma buffers */
  	/*
- 	 * Command specific flags, keep last:
+-	 * iter.bi_bvec_done records actual length of the last bvec
++	 * iter.bi_offset records actual length of the last bvec
+ 	 * if this bio ends in the middle of one io vector
  	 */
-@@ -433,6 +439,7 @@ enum req_flag_bits {
- #define REQ_DRV		(__force blk_opf_t)(1ULL << __REQ_DRV)
- #define REQ_FS_PRIVATE	(__force blk_opf_t)(1ULL << __REQ_FS_PRIVATE)
- #define REQ_ATOMIC	(__force blk_opf_t)(1ULL << __REQ_ATOMIC)
-+#define REQ_DMABUF	(__force blk_opf_t)(1ULL << __REQ_DMABUF)
- 
- #define REQ_NOUNMAP	(__force blk_opf_t)(1ULL << __REQ_NOUNMAP)
- 
-@@ -486,6 +493,11 @@ static inline bool op_is_discard(blk_opf_t op)
- 	return (op & REQ_OP_MASK) == REQ_OP_DISCARD;
+-	if (iter.bi_bvec_done)
+-		bv->bv_len = iter.bi_bvec_done;
++	if (iter.bi_offset)
++		bv->bv_len = iter.bi_offset;
  }
  
-+static inline bool op_is_dmabuf(blk_opf_t op)
-+{
-+	return op & REQ_DMABUF;
-+}
-+
- /*
-  * Check if a bio or request operation is a zone management operation.
-  */
+ static inline bool bio_will_gap(struct request_queue *q,
+diff --git a/block/blk-mq-dma.c b/block/blk-mq-dma.c
+index bfdb9ed70741..88fd9cbc951f 100644
+--- a/block/blk-mq-dma.c
++++ b/block/blk-mq-dma.c
+@@ -44,7 +44,7 @@ static bool blk_map_iter_next(struct request *req, struct blk_map_iter *iter,
+ 	 * one could be merged into it.  This typically happens when moving to
+ 	 * the next bio, but some callers also don't pack bvecs tight.
+ 	 */
+-	while (!iter->iter.bi_size || !iter->iter.bi_bvec_done) {
++	while (!iter->iter.bi_size || !iter->iter.bi_offset) {
+ 		struct bio_vec next;
+ 
+ 		if (!__blk_map_iter_next(iter))
+diff --git a/block/blk.h b/block/blk.h
+index eaac05815cb0..50abfd932886 100644
+--- a/block/blk.h
++++ b/block/blk.h
+@@ -406,7 +406,7 @@ static inline bool bio_may_need_split(struct bio *bio,
+ 		return true;
+ 
+ 	bv = __bvec_iter_bvec(bio->bi_io_vec, bio->bi_iter);
+-	if (bio->bi_iter.bi_size > bv->bv_len - bio->bi_iter.bi_bvec_done)
++	if (bio->bi_iter.bi_size > bv->bv_len - bio->bi_iter.bi_offset)
+ 		return true;
+ 	if ((bv->bv_offset | bv->bv_len) & lim->dma_alignment)
+ 		return true;
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index 1faecef33009..0b125ccb2663 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -378,7 +378,7 @@ static int lo_rw_aio(struct loop_device *lo, struct loop_cmd *cmd,
+ 		iov_iter_bvec(&iter, rw,
+ 			__bvec_iter_bvec(rq->bio->bi_io_vec, rq->bio->bi_iter),
+ 			nr_bvec, blk_rq_bytes(rq));
+-		iter.iov_offset = rq->bio->bi_iter.bi_bvec_done;
++		iter.iov_offset = rq->bio->bi_iter.bi_offset;
+ 	}
+ 	atomic_set(&cmd->ref, 2);
+ 
+diff --git a/drivers/block/zloop.c b/drivers/block/zloop.c
+index 55eeb6aac0ea..6f4b44a1ee2f 100644
+--- a/drivers/block/zloop.c
++++ b/drivers/block/zloop.c
+@@ -553,7 +553,7 @@ static int zloop_do_rw(struct zloop_cmd *cmd)
+ 		iov_iter_bvec(&iter, rw,
+ 			__bvec_iter_bvec(rq->bio->bi_io_vec, rq->bio->bi_iter),
+ 					nr_bvec, blk_rq_bytes(rq));
+-		iter.iov_offset = rq->bio->bi_iter.bi_bvec_done;
++		iter.iov_offset = rq->bio->bi_iter.bi_offset;
+ 	}
+ 
+ 	cmd->iocb.ki_pos = (cmd->sector - zone->start) << SECTOR_SHIFT;
+diff --git a/drivers/md/dm-io-rewind.c b/drivers/md/dm-io-rewind.c
+index 6155b0117c9d..04f3fc8aeb6f 100644
+--- a/drivers/md/dm-io-rewind.c
++++ b/drivers/md/dm-io-rewind.c
+@@ -16,12 +16,12 @@ static inline bool dm_bvec_iter_rewind(const struct bio_vec *bv,
+ 	int idx;
+ 
+ 	iter->bi_size += bytes;
+-	if (bytes <= iter->bi_bvec_done) {
+-		iter->bi_bvec_done -= bytes;
++	if (bytes <= iter->bi_offset) {
++		iter->bi_offset -= bytes;
+ 		return true;
+ 	}
+ 
+-	bytes -= iter->bi_bvec_done;
++	bytes -= iter->bi_offset;
+ 	idx = iter->bi_idx - 1;
+ 
+ 	while (idx >= 0 && bytes && bytes > bv[idx].bv_len) {
+@@ -32,13 +32,13 @@ static inline bool dm_bvec_iter_rewind(const struct bio_vec *bv,
+ 	if (WARN_ONCE(idx < 0 && bytes,
+ 		      "Attempted to rewind iter beyond bvec's boundaries\n")) {
+ 		iter->bi_size -= bytes;
+-		iter->bi_bvec_done = 0;
++		iter->bi_offset = 0;
+ 		iter->bi_idx = 0;
+ 		return false;
+ 	}
+ 
+ 	iter->bi_idx = idx;
+-	iter->bi_bvec_done = bv[idx].bv_len - bytes;
++	iter->bi_offset = bv[idx].bv_len - bytes;
+ 	return true;
+ }
+ 
+diff --git a/drivers/md/dm-pcache/segment.c b/drivers/md/dm-pcache/segment.c
+index 7e9818701445..8f8816e1c539 100644
+--- a/drivers/md/dm-pcache/segment.c
++++ b/drivers/md/dm-pcache/segment.c
+@@ -14,7 +14,7 @@ int segment_copy_to_bio(struct pcache_segment *segment,
+ 
+ 	iov_iter_bvec(&iter, ITER_DEST, &bio->bi_io_vec[bio->bi_iter.bi_idx],
+ 			bio_segments(bio), bio->bi_iter.bi_size);
+-	iter.iov_offset = bio->bi_iter.bi_bvec_done;
++	iter.iov_offset = bio->bi_iter.bi_offset;
+ 	if (bio_off)
+ 		iov_iter_advance(&iter, bio_off);
+ 
+@@ -35,7 +35,7 @@ int segment_copy_from_bio(struct pcache_segment *segment,
+ 
+ 	iov_iter_bvec(&iter, ITER_SOURCE, &bio->bi_io_vec[bio->bi_iter.bi_idx],
+ 			bio_segments(bio), bio->bi_iter.bi_size);
+-	iter.iov_offset = bio->bi_iter.bi_bvec_done;
++	iter.iov_offset = bio->bi_iter.bi_offset;
+ 	if (bio_off)
+ 		iov_iter_advance(&iter, bio_off);
+ 
+diff --git a/drivers/nvdimm/btt.c b/drivers/nvdimm/btt.c
+index 7e1112960d7f..5d910a64503d 100644
+--- a/drivers/nvdimm/btt.c
++++ b/drivers/nvdimm/btt.c
+@@ -1155,7 +1155,7 @@ static int btt_rw_integrity(struct btt *btt, struct bio_integrity_payload *bip,
+ 		bv = bvec_iter_bvec(bip->bip_vec, bip->bip_iter);
+ 		/*
+ 		 * The 'bv' obtained from bvec_iter_bvec has its .bv_len and
+-		 * .bv_offset already adjusted for iter->bi_bvec_done, and we
++		 * .bv_offset already adjusted for iter->bi_offset, and we
+ 		 * can use those directly
+ 		 */
+ 
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index ba5c7b3e2a7c..ce03a0ea4ded 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -357,7 +357,7 @@ static void nvme_tcp_init_iter(struct nvme_tcp_request *req,
+ 		iov_iter_bvec(&req->iter, dir,
+ 			__bvec_iter_bvec(bio->bi_io_vec, bio->bi_iter), nr_bvec,
+ 			bio->bi_iter.bi_size);
+-		req->iter.iov_offset = bio->bi_iter.bi_bvec_done;
++		req->iter.iov_offset = bio->bi_iter.bi_offset;
+ 	}
+ }
+ 
+diff --git a/fs/btrfs/misc.h b/fs/btrfs/misc.h
+index 694be6d0562a..802060943180 100644
+--- a/fs/btrfs/misc.h
++++ b/fs/btrfs/misc.h
+@@ -74,7 +74,7 @@ static inline struct bvec_iter init_bvec_iter_for_bio(struct bio *bio)
+ 		.bi_sector = 0,
+ 		.bi_size = bio_size,
+ 		.bi_idx = 0,
+-		.bi_bvec_done = 0,
++		.bi_offset = 0,
+ 	};
+ }
+ 
 diff --git a/include/linux/bvec.h b/include/linux/bvec.h
-index fc566ee1c1ff..b63914ff56e3 100644
+index 92837e2743f1..fc566ee1c1ff 100644
 --- a/include/linux/bvec.h
 +++ b/include/linux/bvec.h
-@@ -108,7 +108,8 @@ struct bvec_iter {
- 	unsigned int		bi_idx;
- 
+@@ -110,7 +110,7 @@ struct bvec_iter {
  	/*
--	 * Current offset in the bvec entry pointed to by `bi_idx`.
-+	 * Current offset in the bvec entry pointed to by `bi_idx` or into
-+	 * a dma-buf map.
+ 	 * Current offset in the bvec entry pointed to by `bi_idx`.
  	 */
- 	unsigned int		bi_offset;
+-	unsigned int		bi_bvec_done;
++	unsigned int		bi_offset;
  } __packed __aligned(4);
+ 
+ struct bvec_iter_all {
+@@ -135,14 +135,14 @@ mp_bvec_iter_page(const struct bio_vec *bvecs, const struct bvec_iter iter)
+ static __always_inline unsigned int
+ mp_bvec_iter_len(const struct bio_vec *bvecs, const struct bvec_iter iter)
+ {
+-	return min(__bvec_iter_bvec(bvecs, iter)->bv_len - iter.bi_bvec_done,
++	return min(__bvec_iter_bvec(bvecs, iter)->bv_len - iter.bi_offset,
+ 			iter.bi_size);
+ }
+ 
+ static __always_inline unsigned int
+ mp_bvec_iter_offset(const struct bio_vec *bvecs, const struct bvec_iter iter)
+ {
+-	return __bvec_iter_bvec(bvecs, iter)->bv_offset + iter.bi_bvec_done;
++	return __bvec_iter_bvec(bvecs, iter)->bv_offset + iter.bi_offset;
+ }
+ 
+ static __always_inline unsigned int
+@@ -204,7 +204,7 @@ static inline bool bvec_iter_advance(const struct bio_vec *bv,
+ 	}
+ 
+ 	iter->bi_size -= bytes;
+-	bytes += iter->bi_bvec_done;
++	bytes += iter->bi_offset;
+ 
+ 	while (bytes && bytes >= bv[idx].bv_len) {
+ 		bytes -= bv[idx].bv_len;
+@@ -212,7 +212,7 @@ static inline bool bvec_iter_advance(const struct bio_vec *bv,
+ 	}
+ 
+ 	iter->bi_idx = idx;
+-	iter->bi_bvec_done = bytes;
++	iter->bi_offset = bytes;
+ 	return true;
+ }
+ 
+@@ -223,13 +223,13 @@ static inline bool bvec_iter_advance(const struct bio_vec *bv,
+ static inline void bvec_iter_advance_single(const struct bio_vec *bv,
+ 				struct bvec_iter *iter, unsigned int bytes)
+ {
+-	unsigned int done = iter->bi_bvec_done + bytes;
++	unsigned int done = iter->bi_offset + bytes;
+ 
+ 	if (done == bv[iter->bi_idx].bv_len) {
+ 		done = 0;
+ 		iter->bi_idx++;
+ 	}
+-	iter->bi_bvec_done = done;
++	iter->bi_offset = done;
+ 	iter->bi_size -= bytes;
+ }
+ 
+diff --git a/io_uring/net.c b/io_uring/net.c
+index a74d15f7b7d2..439c99ad1884 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -1471,7 +1471,7 @@ static int io_sg_from_iter(struct sk_buff *skb,
+ 		return zerocopy_fill_skb_from_iter(skb, from, length);
+ 
+ 	bi.bi_size = min(from->count, length);
+-	bi.bi_bvec_done = from->iov_offset;
++	bi.bi_offset = from->iov_offset;
+ 	bi.bi_idx = 0;
+ 
+ 	while (bi.bi_size && frag < MAX_SKB_FRAGS) {
+@@ -1490,7 +1490,7 @@ static int io_sg_from_iter(struct sk_buff *skb,
+ 	from->bvec += bi.bi_idx;
+ 	from->nr_segs -= bi.bi_idx;
+ 	from->count -= copied;
+-	from->iov_offset = bi.bi_bvec_done;
++	from->iov_offset = bi.bi_offset;
+ 
+ 	skb->data_len += copied;
+ 	skb->len += copied;
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index 6398b306d0e2..146e5ed80c7c 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -1642,7 +1642,7 @@ static ssize_t iov_iter_extract_bvec_pages(struct iov_iter *i,
+ 	}
+ 	bi.bi_idx = 0;
+ 	bi.bi_size = maxsize;
+-	bi.bi_bvec_done = skip;
++	bi.bi_offset = skip;
+ 
+ 	maxpages = want_pages_array(pages, maxsize, skip, maxpages);
+ 
+diff --git a/net/ceph/messenger.c b/net/ceph/messenger.c
+index 34b3097b4c7b..9c1b6cf8c36f 100644
+--- a/net/ceph/messenger.c
++++ b/net/ceph/messenger.c
+@@ -762,7 +762,7 @@ static bool ceph_msg_data_bio_advance(struct ceph_msg_data_cursor *cursor,
+ 	if (!cursor->resid)
+ 		return false;   /* no more data */
+ 
+-	if (!bytes || (it->iter.bi_size && it->iter.bi_bvec_done &&
++	if (!bytes || (it->iter.bi_size && it->iter.bi_offset &&
+ 		       page == bio_iter_page(it->bio, it->iter)))
+ 		return false;	/* more bytes to process in this segment */
+ 
+@@ -817,7 +817,7 @@ static bool ceph_msg_data_bvecs_advance(struct ceph_msg_data_cursor *cursor,
+ 	if (!cursor->resid)
+ 		return false;   /* no more data */
+ 
+-	if (!bytes || (cursor->bvec_iter.bi_bvec_done &&
++	if (!bytes || (cursor->bvec_iter.bi_offset &&
+ 		       page == bvec_iter_page(bvecs, cursor->bvec_iter)))
+ 		return false;	/* more bytes to process in this segment */
+ 
 -- 
 2.54.0
 
