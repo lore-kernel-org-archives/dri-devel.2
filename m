@@ -4,51 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B922C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 07:17:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13133C53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 07:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E94C10E008;
-	Wed, 29 Jul 2026 07:17:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66AF510EAC9;
+	Wed, 29 Jul 2026 07:23:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SZY+xk3C";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="PPvRyX8S";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A863C10E008
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 07:17:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3F825408D7;
- Wed, 29 Jul 2026 07:17:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306111F00A3A;
- Wed, 29 Jul 2026 07:17:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785309446;
- bh=vcKTh0I2lSYn5EdTqVPQ1XHW1xDK2XtabNERv8UPWJs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=SZY+xk3CJfhei5xkSER8CywGOqN7Zn6HMpGCSnbk+eLXhoFEOIEg1XMdEYx44seIG
- mZ7M6TJqFOF5B6J8iJ3FgVJXmduL82ZzsqueM5Sl8sgqQDYbhdHE2FGPfHn9PCyNAE
- +indXKkLyCWeG0ISch+6Nv123peeXaL//lc1VHvNEQjfIV3nuXhaDCJuAcTapSWm3l
- RmyH1ZYal6+6rT9ep0n7pNhh7vlLpPgAuOoSpKH/InHbt7QiMOycVyTcSqDy+mVg1I
- mYDGL4X8IRLZPrNOmo22My63hWhVEqmV+1uiN2/Sjkkee3RYaULJSlN2Dfy02BVwP4
- 0Upz3osXRzcVw==
-Message-ID: <753a164a-c297-4357-8024-77f8579d1380@kernel.org>
-Date: Wed, 29 Jul 2026 08:17:23 +0100
+X-Greylist: delayed 2405 seconds by postgrey-1.36 at gabe;
+ Wed, 29 Jul 2026 07:23:53 UTC
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD82610EAC9
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 07:23:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=In-Reply-To:References:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=u7mFonr551F9VYPr/lHHsnNE6ZPOkdA8vxn4kpv/EKI=; t=1785309833; x=1786519433; 
+ b=PPvRyX8SfBLLN5WVXCD2QlJPZDG8LcRJ9zmad1axYCTOUCuP43IDLmyaUhgkwIuPhO6SsL3edNQ
+ JT1ZmEqcsBqBFJsuFAvCm5k4p+pnNDwZbd94rtEMCJrWmDPwF3iDCxocRLUWztROxYUKlZTat60Be
+ At+pZ4AuiU3uhdsr3H8u2TGDh2F24pfcOJctoPw0DOGvDwAoJM7uIu3vwmCpELJgalfc3VQHO4vb+
+ gb8grK+0zUtFokDpljgXI0o6fm7TuEChFtVDCYuc7Abbk2Fq6zUAM3L9uGoVvGIxNVlYPHu5hIg2c
+ 78NwKCdJIPNYGFG8yc6tTV7KIdFl4BnHyWQA==;
+Date: Tue, 28 Jul 2026 20:36:09 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, lumag@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND] drm/connector: check if destroy function exist
+Message-ID: <amj2mUdABXd3XW9G@akepd>
+References: <20260702191453.611070-1-andreas@kemnade.info>
+ <44557a30-dc86-409a-b430-2b4db151843b@suse.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 RESEND] misc: fastrpc: Drop unhandled DSP PD exit
- notification
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260729071235.946502-1-shengchao.guo@oss.qualcomm.com>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260729071235.946502-1-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <44557a30-dc86-409a-b430-2b4db151843b@suse.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,86 +56,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 7/29/26 8:12 AM, Shawn Guo wrote:
-> Newer DSP firmware implements a PD (Protection Domain) notification
-> framework that sends PD state notifications upon request. The PD exit
-> notification is unconditionally sent by the DSP with a fixed sentinel
-> 0xABCDABCD in the context field.
+On Fri, Jul 03, 2026 at 09:09:46AM +0200, Thomas Zimmermann wrote:
+> Hi
 > 
-> fastrpc_rpmsg_callback() treats every inbound message as an invoke
-> response, so the sentinel is masked and shifted like any real response
-> ((0xABCDABCD & 0xFF0) >> 4 == 188) and looked up in the channel's
-> context idr.
+> Am 02.07.26 um 21:14 schrieb Andreas Kemnade:
+> > Connectors might have not resources needed to be manually freed.
+> > E.g. the drm_bridge_connector does not have such a callback.
+> > 
+> > Fixes: c12907be57b1 ("drm/bridge-connector: switch to using drmm allocations")
 > 
-> This is not merely cosmetic. In the common case idr slot 188 is empty,
-> the lookup fails, and the driver only logs a spurious "No context ID
-> matches response" error on every teardown. But the context idr is shared
-> by every protection domain and the listener thread on the channel and is
-> filled cyclically over [1, FASTRPC_CTX_MAX]. If slot 188 holds a live
-> context when the sentinel arrives, the sentinel's return value is written
-> into that unrelated in-flight invocation and it is completed early.
+> This patch uses drmm_connector_init() for the cleanup, which is a mis-design
+> IMHO.  Rather than calling drm_connector_cleanup(), it should call
+> connector->funcs->destroy, which then points to drm_connector_cleanup. This
+> would make the whole thing more useful and not require fixups (like this
+> one) elsewhere in the code. Just just my 2cts.
 > 
-> Since neither the fastrpc library nor the driver supports the DSP PD
-> notification framework, it is safe to drop the PD exit notification
-> before it is ever turned into a context lookup. This removes both the
-> log spam and the mis-completion race. A genuine response can never be
-> masked: a real context is (idr_index << 4) | pd (at most 0xFF3) and
-> can never equal the sentinel.
+That just sounds like a revert to me. But maybe I misunterstand your comment
+> Best regards
+> Thomas
 > 
-> Assisted-by: Claude:claude-opus-4-8
-> Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
-
-Applied thanks,
-
--srini
-> Resend by rebasing on Srini's fastrpc for-next branch
 > 
-> Changes for v2:
-> - Update per Ekansh's input about PD state notification (Thanks Ekansh!)
-> - Link to v1: https://lore.kernel.org/all/20260727130940.577721-1-shengchao.guo@oss.qualcomm.com/
+> > Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+> > ---
+> >   drivers/gpu/drm/drm_connector.c | 8 ++++++--
+> >   1 file changed, 6 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+> > index 47dc53c4a738..d2dfc6e8f7d0 100644
+> > --- a/drivers/gpu/drm/drm_connector.c
+> > +++ b/drivers/gpu/drm/drm_connector.c
+> > @@ -198,7 +198,9 @@ static void drm_connector_free(struct kref *kref)
+> >   	struct drm_device *dev = connector->dev;
+> >   	drm_mode_object_unregister(dev, &connector->base);
+> > -	connector->funcs->destroy(connector);
+> > +
+> > +	if (connector->funcs->destroy)
+> > +		connector->funcs->destroy(connector);
+> >   }
+> >   void drm_connector_free_work_fn(struct work_struct *work)
+> > @@ -216,7 +218,9 @@ void drm_connector_free_work_fn(struct work_struct *work)
+> >   	llist_for_each_entry_safe(connector, n, freed, free_node) {
+> >   		drm_mode_object_unregister(dev, &connector->base);
+> > -		connector->funcs->destroy(connector);
+> > +
+> > +		if (connector->funcs->destroy)
+> > +			connector->funcs->destroy(connector);
+> >   	}
+> >   }
 > 
->  drivers/misc/fastrpc.c | 19 +++++++++++++++++++
->  1 file changed, 19 insertions(+)
+> -- 
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+> GF: Jochen Jaser, Andrew McDonald, Werner Knoblich, (HRB 36809, AG Nürnberg)
 > 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index a859edb75499..dd51d475a74e 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -51,6 +51,17 @@
->  /* Sequence number occupies bits 63:16 of the ctxid / message context */
->  #define FASTRPC_CTXID_SEQ_SHIFT	16
->  #define FASTRPC_CTXID_SEQ_MASK	GENMASK_ULL(63, 16)
-> +
-> +/*
-> + * Newer DSP firmware implements a PD (Protection Domain) notification
-> + * framework that sends PD state notifications upon request. The PD exit
-> + * notification is unconditionally sent by the DSP with this fixed sentinel
-> + * in the context field rather than the context of an outstanding invocation.
-> + * Since the fastrpc driver does not support the DSP PD notification framework,
-> + * this message must be dropped rather than matched against the context idr.
-> + */
-> +#define FASTRPC_DSP_PD_NOTIFY_CTX	0xABCDABCD
-> +
->  #define INIT_FILELEN_MAX (2 * 1024 * 1024)
->  #define INIT_FILE_NAMELEN_MAX (128)
->  #define FASTRPC_DEVICE_NAME	"fastrpc"
-> @@ -2710,6 +2721,14 @@ static int fastrpc_rpmsg_callback(struct rpmsg_device *rpdev, void *data,
->  	if (!cctx)
->  		return -ENODEV;
->  
-> +	/*
-> +	 * A PD exit notification from the DSP PD notification framework carries
-> +	 * this sentinel rather than a real context. Drop it: a real context is
-> +	 * (idr_index << 4) | pd and can never collide with this value.
-> +	 */
-> +	if (rsp->ctx == FASTRPC_DSP_PD_NOTIFY_CTX)
-> +		return 0;
-> +
->  	ctxid = FIELD_GET(FASTRPC_CTXID_MASK, rsp->ctx);
->  
->  	spin_lock_irqsave(&cctx->lock, flags);
-
+> 
+> 
