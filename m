@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B052CC531F9
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:34:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B595AC531F9
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:34:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AF7210E414;
-	Tue, 28 Jul 2026 10:34:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 10E3C10E3CD;
+	Tue, 28 Jul 2026 10:34:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SfUd2KgT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oM4046/R";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB00610E414
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:34:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 692EF10E3CD
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:34:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E7F0060051;
- Tue, 28 Jul 2026 10:34:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7279F1F000E9;
- Tue, 28 Jul 2026 10:34:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id DC1C443D42;
+ Tue, 28 Jul 2026 10:34:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5051F00A3E;
+ Tue, 28 Jul 2026 10:34:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785234873;
- bh=y+sgWBy/cfQhh+dKF9OLuGmqAbWrfFgsVsKw8OEZlCY=;
+ s=k20260515; t=1785234879;
+ bh=GZCCrRTrJ1Oarri6pdnog3jpnxoDt8qJImHu5Z9tyZo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SfUd2KgTRD/lDAaYMNhT8i2xby+jGIEn/NHnuTl7MCTf7v7X69FT1hEEGTKCijoCn
- Rx5CWeiahi4IM0iehymkB4Pf2ZQh7I7n9iXTNibTkyefkqfkVdHfAWPl/oHOVIvYWf
- MTm/effBeUwZpRIOJThx/e4kbRY5Q/ekJbg922UspUa9zAO0IRYMbdLR4qoaN0jQId
- 3V6KL5mn4cPFHVCQvmuiYv9yEnWju+ajfmr9JUNzBwQEd2H3KLGWYqX+wSLSxinrXn
- 19T0eJY5MAcQg5gRJViyEPQ+2Nmxw4eKV6rp8NDuwbE40Ju3juMpHzLKLEW1cA8ZVP
- cP5GP6ZhF77VQ==
+ b=oM4046/RyQoC2GMpDlxWrwlqcg14AOaQ3EvdDBObGBi2tytnMyCKTqqHqkoTpqdxj
+ Avv7GwySM/WpC9S/VPsEzhvjGCOPHYrU7mHYlUfo9mblZIuGKeLAKoy1lluB7QNHk1
+ VLNsDWFkri77qdeMYdoLHjj179itOZRNdhqHwoi9biGVgoTfT7sjt3hCnM5G+uRdTm
+ BUu/6UyfTBBxeJHeTQ03aVAJqrSAMJyvSN1YriICH4GF1LhJybPP61kfqpyPcEoSVS
+ k58tta3Fb1R4j5R3u+by2x+osN8YOWKmIrFwscWAy0zjMm9Hnf5B2ixhG94585AIQi
+ aK3xgpDH/5p3A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 02/14] drm/msm/dp: drop deprecated .mode_set() and
- use .atomic_pre_enable
+Subject: Re: [PATCH v9 08/14] drm/msm/dp: break up dp_display_enable into
+ two parts
 To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260728-dp_mstclean-v9-2-f7779fce10f4@oss.qualcomm.com>
+In-Reply-To: <20260728-dp_mstclean-v9-8-f7779fce10f4@oss.qualcomm.com>
 References: <20260728-dp_mstclean-v9-0-f7779fce10f4@oss.qualcomm.com>
- <20260728-dp_mstclean-v9-2-f7779fce10f4@oss.qualcomm.com>
+ <20260728-dp_mstclean-v9-8-f7779fce10f4@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 10:34:32 +0000
-Message-Id: <20260728103433.7279F1F000E9@smtp.kernel.org>
+Date: Tue, 28 Jul 2026 10:34:39 +0000
+Message-Id: <20260728103439.9E5051F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,71 +58,130 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Silent inversion of hardware initialization sequence (pixel clock =
+and link retraining)
+- [Medium] API split fails to support inserting MST payload programming as =
+claimed
+
 Pre-existing issues:
-- [High] msm_dp_bridge_mode_valid() evaluates wide bus availability using t=
-he previously committed mode's YUV420 state rather than the state of the mo=
-de being validated. This causes valid high-bandwidth RGB modes to be incorr=
-ectly rejected if a YUV420 mode was previously committed.
+- [High] Unpowered hardware register access causes kernel panic on error pa=
+th
 --
 
---- Patch [2]: [PATCH v9 02/14] drm/msm/dp: drop deprecated .mode_set() and=
- use .atomic_pre_enable ---
-commit 9ae2d320a8d0fa2507140b418f1dff372f81454c
-Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+--- Patch [8]: [PATCH v9 08/14] drm/msm/dp: break up dp_display_enable into=
+ two parts ---
+commit 722ccac6521827b0527a34404c0521cf56234857
+Author: Abhinav Kumar <quic_abhinavk@quicinc.com>
 
-drm/msm/dp: drop deprecated .mode_set() and use .atomic_pre_enable
-   =20
-The bridge .mode_set() callback is deprecated. Remove it and move the
-mode setup logic to .atomic_pre_enable(), where the adjusted_mode is
-available from the atomic CRTC state. Drop msm_dp_mode from
-msm_dp_display_private and store the mode directly in the panel.
+drm/msm/dp: break up dp_display_enable into two parts
+
+Split dp_display_enable into prepare and enable APIs. This aims to
+support MST bridges_enable inserting MST payload functions between
+enabling stream clocks and programming registers.
+
+> dp_display_enable() currently re-trains the link if needed and then
+> enables the pixel clock, programs the controller to start sending the
+> pixel stream. Split these two parts into prepare/enable APIs, to support
+> MST bridges_enable insert the MST payloads funcs between enable
+> stream_clks and program register.
+
+[Severity: Medium]
+Does this split actually allow inserting MST payload functions between
+enabling stream clocks and programming the registers?
+
+Looking at the implementation of msm_dp_ctrl_on_stream() below, the call to
+msm_dp_ctrl_on_pixel_clk() and the subsequent register programming are still
+tightly coupled in the same function. It doesn't seem possible for an
+external caller to inject payload programming between them.
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
+_ctrl.c
+> index 068d4f8b673f6..43094dda34349 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
+
+[ ... ]
+
+> -int msm_dp_ctrl_on_stream(struct msm_dp_ctrl *msm_dp_ctrl, bool force_li=
+nk_train)
+> +int msm_dp_ctrl_prepare_stream_on(struct msm_dp_ctrl *msm_dp_ctrl, bool =
+force_link_train)
+>  {
+>  	int ret =3D 0;
+
+[ ... ]
+
+> -	ret =3D msm_dp_ctrl_on_pixel_clk(ctrl, pixel_rate);
+> -	if (ret)
+> -		return ret;
+> -
+>  	if (force_link_train || !msm_dp_ctrl_channel_eq_ok(ctrl))
+>  		msm_dp_ctrl_link_retrain(ctrl);
+
+[Severity: High]
+Does this change invert the hardware initialization sequence?
+
+Before this patch, msm_dp_ctrl_on_stream() called msm_dp_ctrl_on_pixel_clk()
+to enable the pixel clock before performing the link retraining.
+
+With the new split, msm_dp_ctrl_prepare_stream_on() performs link retrainin=
+g,
+but the pixel clock isn't enabled until msm_dp_ctrl_on_stream() is called
+later. Could this cause link training failures or black screens by retraini=
+ng
+before the pixel clock is ready?
+
+[ ... ]
 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
 /dp_display.c
-> index bce165bac106b..c106aabda588e 100644
+> index 2a84a6ffedbb5..d094d484474cd 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+
 [ ... ]
-> @@ -1309,7 +1325,7 @@ bool msm_dp_wide_bus_available(const struct msm_dp =
-*msm_dp_display)
-> =20
->  	dp =3D container_of(msm_dp_display, struct msm_dp_display_private, msm_=
-dp_display);
-> =20
-> -	if (dp->msm_dp_mode.out_fmt_is_yuv_420)
-> +	if (dp->panel->msm_dp_mode.out_fmt_is_yuv_420)
+
+> -static int msm_dp_display_enable(struct msm_dp_display_private *dp, bool=
+ force_link_train)
+> +static int msm_dp_display_prepare_link(struct msm_dp_display_private *dp)
+> +{
+> +	struct msm_dp *msm_dp_display =3D &dp->msm_dp_display;
+> +	int rc =3D 0;
+> +	bool force_link_train =3D false;
+> +
+> +	drm_dbg_dp(dp->drm_dev, "sink_count=3D%d\n", dp->link->sink_count);
+> +
+> +	if (msm_dp_display->is_edp)
+> +		msm_dp_hpd_plug_handle(dp);
+> +
+> +	rc =3D pm_runtime_resume_and_get(&msm_dp_display->pdev->dev);
+> +	if (rc) {
+> +		DRM_ERROR("failed to pm_runtime_resume\n");
+> +		return rc;
+> +	}
 
 [Severity: High]
-This is a pre-existing issue, but does evaluating wide bus availability usi=
-ng
-the previously committed mode's YUV420 state cause valid high-bandwidth RGB
-modes to be incorrectly rejected?
+This is a pre-existing issue, but if pm_runtime_resume_and_get() fails here,
+the device is left unpowered while the DRM state considers it enabled.
 
-When a user sets a YUV420 mode, out_fmt_is_yuv_420 is set to true during
-atomic_pre_enable. If the driver later probes or validates modes from EDID,
-msm_dp_bridge_mode_valid() calls msm_dp_wide_bus_available():
+Since msm_dp_bridge_atomic_enable() returns void and cannot abort the overa=
+ll
+atomic commit if this fails, msm_dp_bridge_atomic_disable() will
+unconditionally be called later during teardown.
 
-msm_dp_bridge_mode_valid()
-    if (msm_dp_wide_bus_available(dp))
-        mode_pclk_khz /=3D 2;
+That disable path eventually calls msm_dp_ctrl_push_idle() which accesses
+unclocked and unpowered DP hardware registers, leading to a synchronous
+external abort (kernel panic).
 
-This function then reads the stale out_fmt_is_yuv_420 flag and returns fals=
-e.
-Consequently, the pixel clock for high-bandwidth RGB modes is not halved,
-causing them to exceed the maximum pixel clock and be rejected.
+Should there be a way to prevent hardware access during disable if the
+device never successfully resumed?
 
-While this patch addresses a similar state leak for the DPU encoder by movi=
-ng
-the mode state update to atomic_pre_enable, it seems mode validation (which
-runs before atomic_pre_enable) still relies on this stale state.
-
->  		return false;
-> =20
->  	return dp->wide_bus_supported;
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-dp_mstclea=
-n-v9-0-f7779fce10f4@oss.qualcomm.com?part=3D2
+n-v9-0-f7779fce10f4@oss.qualcomm.com?part=3D8
