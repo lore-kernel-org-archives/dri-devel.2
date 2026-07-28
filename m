@@ -4,55 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54008C531F9
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 16:04:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2EA53C54F4D
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 16:09:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B618210E6BC;
-	Tue, 28 Jul 2026 16:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D57E10E5B8;
+	Tue, 28 Jul 2026 16:09:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="RVKh4/87";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="QqWo7Gfb";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6848710E6BC;
- Tue, 28 Jul 2026 16:04:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785254661; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=fCDXW+xN27AwVDADSVJXlgrNdoCsTkPMyAC9P+zNRHe+EC6oClhMfBOzXCP/uULWl0wTAC3u6ZsE2AMvfMPjzYu0E0hCtuWK9kZtompw4/S8lV8zN6denNNtRDRiVgAoVtB4wRd9hcgmF/3d8TqHdZ6eeztcaBVPgGodjk2kc/U=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785254661;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=g2ZNPfP3HNApN5J6GdDW8YjdQ0sYn+p9DH8T7XAMWkA=; 
- b=KOZzSFuV9xkjZDsCdxswAYl+MDtihcdzv/CAEMemYYuNQmbmvlDc1z0m6TX+8T/p1Rg98w8lpnoTZM3bMh0VOw1zNmOIyYMRyRqdzTeG9/w/S8YWJ+E4RDFpA5jUdK9z8AxSqqp+p6NHyetbjjoOwfV5dALGtD/i4bqefUaBe3A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785254661; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=g2ZNPfP3HNApN5J6GdDW8YjdQ0sYn+p9DH8T7XAMWkA=;
- b=RVKh4/875GX5RPKRF1DAyLryqAiXrckk+E/U0o7iVU2DzXEsvFWYowxghd2py6wY
- 1C78Dy+DdVsBM2oYCOJdzKyxToio7O5sSPnEJ7zS+nDvBPNdTHMh2Sb9uYV56thqg1b
- BZ7L3Mp2klATDE4z4rtxbWEQsdKltCOaP91/nmWU=
-Received: by mx.zohomail.com with SMTPS id 1785254659532630.9169189760559;
- Tue, 28 Jul 2026 09:04:19 -0700 (PDT)
-Message-ID: <bc61b46f-8833-4785-bb1b-7832011caf07@collabora.com>
-Date: Tue, 28 Jul 2026 18:04:16 +0200
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 37C3210E5B8
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 16:09:42 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8CF4F16F2
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 09:09:37 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 6457C3F763
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 09:09:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785254981; bh=q6mrCLoh7TTNCGFPKiKdXibBGMULCO0YWhvoUknTgb4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QqWo7GfbRpIsWDITDBz6DWZwW6WbO7cC8VpLM/lfG5opzfFTDDcvpIpE9/Th9g55Y
+ ygUHt/r5XqWwNEaLNLaWRjxainiC6XnzuUxLtK2FGdC8BQFBz+bkrvv/NbIII5VE96
+ yVEjQGId5HdLnNjf0egT08dFOAdKqSEW0yx/ELZ0=
+Date: Tue, 28 Jul 2026 17:09:29 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/panthor: skip zero-sized firmware sections
+Message-ID: <amjUOezjoGoKSEVA@e142607>
+References: <c31aeec2-6336-4dad-93a8-982e3f4c525f@arm.com>
+ <20260724172621.63046-1-osama.abdelkader@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 11/11] drm/amd/display: Force GAMCOR for subsampled
- surfaces with PQ/Gamma22/HLG
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-12-harry.wentland@amd.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260722134607.136293-12-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260724172621.63046-1-osama.abdelkader@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,53 +63,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Tested-by: Robert Mader <robert.mader@collabora.com>
-
-On 22.07.26 15:46, Harry Wentland wrote:
-> The ROM early-return checks for PQ, Gamma 2.2, and HLG in
-> mod_color_calculate_degamma_params() do not consider the map_user_ramp
-> parameter. When map_user_ramp is true (indicating a subsampled surface
-> that requires post-scaler degamma via GAMCOR), the function still takes
-> the ROM path, programming PRE_DEGAM instead.
->
-> For subsampled formats the chroma channels must be upsampled by the
-> scaler before degamma is applied. PRE_DEGAM sits before the scaler in
-> the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
-> Using the ROM for subsampled surfaces means degamma is applied to
-> subsampled chroma before upsampling, producing incorrect results.
->
-> Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
-> forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
-> is subsampled.
->
-> Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
+On Fri, Jul 24, 2026 at 07:26:20PM +0200, Osama Abdelkader wrote:
+> panthor_fw_load_section_entry() skips BO creation when the firmware section
+> VA range is empty. If such a section is added to the firmware section list,
+> section->mem is left as NULL.
+> 
+> Later reload and unplug paths iterate over all firmware sections and
+> dereference section->mem, which can lead to a NULL pointer dereference.
+> 
+> Zero-sized firmware sections are valid, so accept them as no-op entries but
+> skip adding them to the section list.
+> 
+> Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Copilot:claude-opus-4.6
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Best regards,
+Liviu
+
 > ---
->   drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-> index 03d88e78165d..5786ef5787ac 100644
-> --- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-> +++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-> @@ -1696,7 +1696,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
->   			return true;
->   
->   		if (dc_caps != NULL &&
-> -			dc_caps->dpp.dcn_arch == 1) {
-> +			dc_caps->dpp.dcn_arch == 1 &&
-> +			!map_user_ramp) {
->   
->   			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
->   					dc_caps->dpp.dgam_rom_caps.pq == 1)
+>  drivers/gpu/drm/panthor/panthor_fw.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> v2:
+> - Accept zero-sized firmware sections as no-op entries instead of rejecting
+>   them, as suggested by Steven.
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index a338c4f0a7f5..66d9f5947af0 100644
+> --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> @@ -601,8 +601,11 @@ static int panthor_fw_load_section_entry(struct panthor_device *ptdev,
+>  	if (data_size > section_size) {
+>  		drm_err(&ptdev->base, "Firmware corrupted, section data exceeds section size\n");
+>  		return -EINVAL;
+>  	}
+>  
+> +	if (!section_size)
+> +		return 0;
+> +
+>  	name_len = iter->size - iter->offset;
+>  
+>  	section = drmm_kzalloc(&ptdev->base, sizeof(*section), GFP_KERNEL);
+> -- 
+> 2.43.0
+> 
 
 -- 
-Robert Mader
-Consultant Software Developer
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
-
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
