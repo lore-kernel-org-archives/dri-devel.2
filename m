@@ -4,79 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C2BBC54F55
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A956C54F54
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 07:21:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 456FD10E7BF;
-	Tue, 28 Jul 2026 07:21:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40E7B10E7C3;
+	Tue, 28 Jul 2026 07:21:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="eNStiesH";
+	dkim=pass (1024-bit key; unprotected) header.d=ugreen.com header.i=@ugreen.com header.b="IBvMuJv/";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 361F910E491;
- Mon, 27 Jul 2026 16:47:36 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 635E51682;
- Mon, 27 Jul 2026 09:47:31 -0700 (PDT)
-Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
- [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id C8E073F86F;
- Mon, 27 Jul 2026 09:47:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785170855; bh=w4k+bQmvUuHGI/24VevNijHqxyxPwL/+LhPYxLtjyuU=;
- h=From:To:Cc:Subject:Date:From;
- b=eNStiesHwmBomV6wrOQ8H5zsD4tgspqHk2F4hp05t+nsAbON7NhhaJZIlsbIoaDE5
- MQeD7VCk0M0n0M/zvl59Kf+yEaeZvKmNlr01S/W3ryf24Ziy0VJkB3GKbm+aeaR8ZL
- t+/uPNoYKFC+9W5v+wKeGdyfY/NjlIvdqscmhDX0=
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
- ryan.roberts@arm.com
-Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: [PATCH RFC 00/11] mm: distinguish PTE table storage from PTE values
-Date: Mon, 27 Jul 2026 17:46:51 +0100
-Message-ID: <20260727164715.2866609-1-usama.anjum@arm.com>
-X-Mailer: git-send-email 2.47.3
+X-Greylist: delayed 2311 seconds by postgrey-1.36 at gabe;
+ Tue, 28 Jul 2026 06:56:06 UTC
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF7B010E532;
+ Tue, 28 Jul 2026 06:56:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
+ s=pkvm2402; t=1785221727;
+ bh=DItCFw3ZM1/6TvIXqKKL/PLAbi+vl6KkZbM1Uo4hj7Q=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=IBvMuJv/gaZzOPfp0t2MrR6LrSyUGxVM5XB4jxmiw3DDb9aLTF75D+SykawE4k6kQ
+ 81sOpvPPtAZy5JTuQ+Y5REEvzyZ+Mujtkkj++jmE/pXCQSgnzvnzTn9pU5WwRc4Ut9
+ iwqALUkuvxPOenUPe5bjFetKBJuYOIOhHhISv5T0=
+X-QQ-mid: esmtpgz16t1785221719tc3b98b08
+X-QQ-Originating-IP: 9innfBLIQxQZSvkaPMkFYtB2dnrE+VaVX2kptGcGCk8=
+Received: from localhost.localdomain ( [113.90.157.158])
+ by bizesmtp.qq.com (ESMTP) with 
+ id ; Tue, 28 Jul 2026 14:55:17 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2462819298408965018
+From: Neil Zhong <neil.zhong@ugreen.com>
+To: intel-xe@lists.freedesktop.org
+Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [RFC PATCH v2 1/1] drm/xe: keep VM-bound WC BOs resident during
+ reclaim
+Date: Tue, 28 Jul 2026 14:55:12 +0800
+Message-ID: <FEC04D5B1E58A204+20260728065512.59911-2-neil.zhong@ugreen.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260728065512.59911-1-neil.zhong@ugreen.com>
+References: <20260728065512.59911-1-neil.zhong@ugreen.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OQhZ3T0tjf0aXvfI3wMhvPcgzynO5MSCVEVTMjx2o05qF9QC51noEaNQ
+ zZGSBKjQLaJg07Fb8tf1B82+6gNiD6vi3M/uoLRC7AviAoHzbuovY4zfKByEXD4xQ1W7KWc
+ 0/7dqNSZBkcceg2o8C4Pro3FEM4AvvqYylhjxfQOeLWCaGHyaMexq0TelY6bpZ9b+PRA3dH
+ 0Vhdx6n7hOd5k3UBpM77mOpIsD7B4jAHyftADknOax0EEWMLP2dAmp+BAI4ssizzVJkyf6R
+ TLTCPvLIiZYtjBAdEvX//CC9JDlVSbwCwzPmpQyPBp7jOrkyz8yQ3W4sY1mCLO8L3iyz4gf
+ VtX3xiIWxv2MsiZiwhguRFWeqlRj3I5bs6k7pBj+kimi79AevjBJfSeqT3bmTT9olLyIeSK
+ PM+yinuvrgyKoSe+O5prq7CXlCujy7a6KXiqF9N7ME0rEtiX5dPRN8UoK6gYpRbrbEdp5N6
+ IbSSVE31s/71LLbRS+0AsxvDumCbaVU1MjpIKBsGdIVlGlhJBoX8cPLWDqFpR8ikxquBUXg
+ x9dXLgxdfyh2b1xX0BMQ5aheO9cgbbmRHfGMcr8MCIq3nrpJ/fz0vMxG555iUooRLVhvMl7
+ LOrVm5evntfamf/D7S26W51M9kVndo4zAsDRYq7YC3OuTUS9Ow46OHRPK3D1m5MJRsDEUd1
+ u9vxz+HC2Sci5CLSfH+mUiJGamd31UhfVXUQugevVezHvW68eTMa5zS8ZEL6pl+iZiw+dLj
+ sezch/YKnsTWmAs6PrudjJCtbz2uV1tLds0s26qJ7V++i8hfyZ+YmpoZ78oQHIeztzW51KH
+ g/5dBaxX5vBar4nnVrk9D4KgwI3govOEoMmowQQVjqYMFR6L6I1Nkt+Y2mIZbJYMUE06jDu
+ bJDHB2VRllMvmRE++lu7nmslY/n9Q7ftyJNukPV/faa0/3VWMvvHcUmrEMFgfqDP/1hSOpT
+ 2Frs6fx8Ou9d9VMj2qk3cD7BxEpIbJ46x2N9ePxemDNVsDftaZSDx3eZzsfOslXDat5cePS
+ RjSGz4lypAm2X10g8sHLR5Kf871tTB1dFpNiRIiJww5opcdtmDrz/NVJOPs3N3HZvqXC8e+
+ A==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Tue, 28 Jul 2026 07:21:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,399 +83,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On x86, restoring a backed-up write-combined (WC) buffer object can be
+expensive. The restore path allocates WB pages and converts them with
+set_pages_array_wc(), which performs synchronous cache and TLB flushes.
 
-pte_t currently describes both a logical PTE value and an element stored in
-a PTE table. Consequently, pte_t * can point either to a standalone value,
-often a stack copy, or to a PTE-table slot. The compiler cannot distinguish
-these cases. A value pointer can therefore be passed to an interface that
-expects table storage, while table storage can be read by direct
-dereference instead of the architecture accessor.
+Xe currently allows its shrinker to back up the pages of a WC BO while
+the BO still has GPUVA mappings created by VM_BIND. A later validation
+restores the pages while holding the BO's dma-resv. The cache-attribute
+conversion then serializes EXEC, VM_BIND and dma-buf users on that
+reservation object.
 
-This series begins a staged conversion at the PTE level. It introduces
-hw_pte_t as the element type for PTE-table storage and converts generic MM
-to use hw_pte_t *. Logical PTE values remain pte_t. Interfaces that
-intentionally return a value through pte_t *, such as install_pte, remain
-value interfaces; the relevant parameters are named ptentp to make that
-distinction explicit.
+This was observed as intermittent HDR 4K60 playback stalls on two
+Panther Lake systems with 8 GiB of memory. In a pre-change reproducer,
+the maximum ioctl latencies were 549 ms for XE_EXEC, 291 ms for
+XE_VM_BIND and 343 ms for DMA-BUF IMPORT. ttm_tt_restore reached 80.6 ms.
 
-The generic definition aliases hw_pte_t to pte_t, so this series preserves
-the representation and behaviour of every architecture. ptep_get() keeps
-its existing READ_ONCE() semantics and converts the stored element through
-__pte_from_hw(). An architecture can later define a distinct hw_pte_t and
-convert its PTE interfaces to make the distinction compiler-enforced.
-Architecture PTE implementations and most architecture code are
-deliberately left for those later opt-in conversions.
+Keep a non-purgeable WC BO resident while it has at least one GPUVA
+mapping. Purgeable BOs are still discarded, and after the last
+VM_UNBIND the BO becomes reclaimable again. Add an A/B module parameter
+which can restore the old behavior.
 
-Here, hw_pte_t identifies PTE-table storage rather than table lifetime:
-complete PTE tables use hw_pte_t whether or not they are currently linked
-into a page-table hierarchy, while standalone copied values use pte_t. The
-distinction between complete but unlinked tables and hardware-reachable
-tables was raised during discussion and remains an important point for
-review.
+With the change, a 21-minute capture had no XE_EXEC, XE_VM_BIND or
+DMA-BUF ioctl over the 16.7 ms frame interval. Their respective maxima
+were 348 us, 136 us and 20 us. The ttm_tt_restore maximum was 8.33 ms,
+and the set_pages_array_wc call rate fell from 14.64/s to 0.179/s.
 
-PMD, PUD, P4D and PGD storage are deliberately out of scope. They can be
-converted in later series after the PTE boundary is agreed, avoiding the
-PMD-specific cases that made an all-level conversion difficult to review.
+The change intentionally trades reclaimable memory for latency while a
+WC BO remains mapped. It does not take an additional BO reference or
+change teardown: VM destruction and process exit remove the GPUVA
+mappings and drop their existing references. During testing,
+MemAvailable remained near 3 GiB and the dma-buf working set released
+five 24 MiB surfaces while playback continued.
 
-Most mechanical pointer conversions were generated with the Coccinelle
-script included below, then audited and fixed by hand.
-
-This series does not add a second ptep_get_once() accessor and does not
-remove or replace STRICT_MM_TYPECHECKS.
-
-The design discussion is available at [1]; while the original idea came from
-[2].
-
-[1] https://lore.kernel.org/all/6110202c-057b-4701-8c04-1a76ee7bb9ab@arm.com/
-[2] https://lore.kernel.org/all/a063f6c5-2785-4a9f-8079-25edb3e54cef@arm.com
-
-Thanks,
-Usama
+Signed-off-by: Neil Zhong <neil.zhong@ugreen.com>
 ---
-// SPDX-License-Identifier: GPL-2.0-only
-///
-/// Rename raw PTE pointer types to hardware PTE pointer types.
-///
-/// This is a mechanical type rename. It converts common declarations,
-/// function parameters, prototypes, return types and casts from "pte_t *"
-/// to "hw_pte_t *". Plain "pte_t" objects are intentionally left unchanged.
-/// Pointers named "ptentp" refer to temporary logical PTE values and are
-/// intentionally ignored in all modes.
-/// Re-run in context mode afterwards to audit remaining raw pte_t pointers
-/// and cases that need hand conversion, such as trace macros and mixed
-/// declarations.
-///
-/// Confidence: Moderate
-// Options: --no-includes --include-headers
+Changes in v2:
+- Call ttm_bo_shrink_suitable() before the Xe-specific WC predicate, so
+  ttm_bo->ttm is known to be non-NULL before checking its cache mode.
 
-virtual patch
-virtual report
-virtual context
+ drivers/gpu/drm/xe/xe_defaults.h |  1 +
+ drivers/gpu/drm/xe/xe_module.c   |  6 ++++++
+ drivers/gpu/drm/xe/xe_module.h   |  2 +-
+ drivers/gpu/drm/xe/xe_shrinker.c | 28 ++++++++++++++++++++++++++++
+ 4 files changed, 36 insertions(+), 1 deletion(-)
 
-@local_decl depends on patch@
-identifier x != ptentp;
-@@
-- pte_t *x;
-+ hw_pte_t *x;
-
-@local_decl_init depends on patch@
-identifier x != ptentp;
-expression e;
-@@
-- pte_t *x = e;
-+ hw_pte_t *x = e;
-
-@param_proto depends on patch@
-identifier f;
-identifier x != ptentp;
-type R;
-@@
-R f(...,
-- pte_t *x
-+ hw_pte_t *x
-,...);
-
-@param_proto_unnamed depends on patch@
-identifier f;
-type R;
-@@
-R f(...,
-- pte_t *
-+ hw_pte_t *
-,...);
-
-@param_def depends on patch@
-identifier f;
-identifier x != ptentp;
-type R;
-@@
-R f(...,
-- pte_t *x
-+ hw_pte_t *x
-,...)
-{ ... }
-
-@ret_proto depends on patch@
-identifier f;
-parameter list ps;
-@@
-- pte_t *
-+ hw_pte_t *
-  f(ps);
-
-@ret_def depends on patch@
-identifier f;
-parameter list ps;
-@@
-- pte_t *
-+ hw_pte_t *
-  f(ps)
-{ ... }
-
-@struct_member depends on patch@
-identifier S;
-identifier x != ptentp;
-@@
-struct S {
-...
-- pte_t *x;
-+ hw_pte_t *x;
-...
-};
-
-@union_member depends on patch@
-identifier x != ptentp;
-@@
-union {
-...
-- pte_t *x;
-+ hw_pte_t *x;
-...
-};
-
-@union_member_in_struct depends on patch@
-identifier S;
-identifier x != ptentp;
-@@
-struct S {
-...
-union {
-...
-- pte_t *x;
-+ hw_pte_t *x;
-...
-};
-...
-};
-
-@fnptr_struct_member depends on patch@
-identifier S,f;
-identifier x != ptentp;
-type R;
-@@
-struct S {
-...
-R (*f)(...,
-- pte_t *x
-+ hw_pte_t *x
-,...);
-...
-};
-
-@fnptr_typedef_pte_fn_t depends on patch@
-identifier x != ptentp;
-@@
-typedef int (*pte_fn_t)(...,
-- pte_t *x
-+ hw_pte_t *x
-,...);
-
-@cast depends on patch@
-expression e;
-@@
-- (pte_t *)e
-+ (hw_pte_t *)e
-
-@remaining_decl depends on context || report@
-identifier x != ptentp;
-position p;
-@@
-* pte_t *x@p;
-
-@remaining_decl_init depends on context || report@
-identifier x != ptentp;
-expression e;
-position p;
-@@
-* pte_t *x@p = e;
-
-@remaining_param_proto depends on context || report@
-identifier f;
-identifier x != ptentp;
-type R;
-position p;
-@@
-R f(...,
-* pte_t *x@p
-,...);
-
-@remaining_param_proto_unnamed depends on context || report@
-identifier f;
-type R;
-position p;
-@@
-R f(...,
-* pte_t *@p
-,...);
-
-@remaining_param_def depends on context || report@
-identifier f;
-identifier x != ptentp;
-type R;
-position p;
-@@
-R f(...,
-* pte_t *x@p
-,...)
-{ ... }
-
-@remaining_ret_proto depends on context || report@
-identifier f;
-parameter list ps;
-position p;
-@@
-* pte_t *f@p(ps);
-
-@remaining_ret_def depends on context || report@
-identifier f;
-parameter list ps;
-position p;
-@@
-* pte_t *f@p(ps)
-{ ... }
-
-@remaining_struct_member depends on context || report@
-identifier S;
-identifier x != ptentp;
-position p;
-@@
-struct S {
-...
-* pte_t *x@p;
-...
-};
-
-@remaining_union_member depends on context || report@
-identifier x != ptentp;
-position p;
-@@
-union {
-...
-* pte_t *x@p;
-...
-};
-
-@remaining_union_member_in_struct depends on context || report@
-identifier S;
-identifier x != ptentp;
-position p;
-@@
-struct S {
-...
-union {
-...
-* pte_t *x@p;
-...
-};
-...
-};
-
-@remaining_fnptr_struct_member depends on context || report@
-identifier S,f;
-identifier x != ptentp;
-type R;
-position p;
-@@
-struct S {
-...
-R (*f)(...,
-* pte_t *x@p
-,...);
-...
-};
-
-@remaining_fnptr_typedef_pte_fn_t depends on context || report@
-identifier x != ptentp;
-position p;
-@@
-typedef int (*pte_fn_t)(...,
-* pte_t *x@p
-,...);
-
-Muhammad Usama Anjum (11):
-  mm: introduce hw_pte_t for PTE table storage
-  mm: make hw_pte_t visible to generic PTE interfaces
-  mm: name pointers to copied PTE values ptentp
-  mm: use hw_pte_t for generic PTE table storage
-  mm: convert PTE table entries in ptep_get()
-  mm/kasan: use hw_pte_t for the early shadow PTE table
-  mm/mremap: use ptep_get() for the destination PTE
-  drm/i915: use hw_pte_t for PTE range callbacks
-  misc/sgi-gru: use ptep_get() for page-table reads
-  parisc: use hw_pte_t for the data-break callback
-  xen: use hw_pte_t for PTE range callbacks
-
- MAINTAINERS                                   |  1 +
- .../drm/i915/gem/selftests/i915_gem_mman.c    |  4 +-
- drivers/gpu/drm/i915/i915_mm.c                |  4 +-
- drivers/misc/sgi-gru/grufault.c               |  4 +-
- drivers/parisc/sba_iommu.c                    |  4 +-
- drivers/xen/gntdev.c                          |  2 +-
- drivers/xen/privcmd.c                         |  2 +-
- drivers/xen/xenbus/xenbus_client.c            |  2 +-
- drivers/xen/xlate_mmu.c                       |  4 +-
- fs/hugetlbfs/inode.c                          |  3 +-
- fs/proc/task_mmu.c                            | 39 ++++-----
- include/asm-generic/hugetlb.h                 | 15 ++--
- include/asm-generic/pgalloc.h                 |  6 +-
- include/asm-generic/tlb.h                     |  6 +-
- include/linux/hugetlb.h                       | 50 +++++++-----
- include/linux/kasan.h                         |  2 +-
- include/linux/mm.h                            | 26 +++---
- include/linux/page_table_check.h              | 10 ++-
- include/linux/pagewalk.h                      | 10 +--
- include/linux/pgtable.h                       | 81 ++++++++++---------
- include/linux/pgtable_types.h                 | 12 +++
- include/linux/rmap.h                          |  2 +-
- include/linux/swapops.h                       |  6 +-
- include/linux/vmalloc.h                       |  4 +-
- include/trace/events/xen.h                    | 10 +--
- kernel/bpf/arena.c                            |  9 ++-
- kernel/events/core.c                          |  3 +-
- mm/damon/ops-common.c                         |  2 +-
- mm/damon/ops-common.h                         |  2 +-
- mm/damon/vaddr.c                              | 20 ++---
- mm/debug_vm_pgtable.c                         |  2 +-
- mm/filemap.c                                  |  4 +-
- mm/gup.c                                      |  9 ++-
- mm/highmem.c                                  | 15 ++--
- mm/hmm.c                                      |  6 +-
- mm/huge_memory.c                              |  4 +-
- mm/hugetlb.c                                  | 60 +++++++-------
- mm/hugetlb_vmemmap.c                          | 13 +--
- mm/internal.h                                 | 16 ++--
- mm/kasan/init.c                               | 14 ++--
- mm/kasan/shadow.c                             |  6 +-
- mm/khugepaged.c                               | 23 +++---
- mm/ksm.c                                      | 11 +--
- mm/madvise.c                                  | 18 +++--
- mm/mapping_dirty_helpers.c                    |  4 +-
- mm/memory-failure.c                           |  6 +-
- mm/memory.c                                   | 78 +++++++++---------
- mm/mempolicy.c                                |  4 +-
- mm/migrate.c                                  |  4 +-
- mm/migrate_device.c                           |  4 +-
- mm/mincore.c                                  |  4 +-
- mm/mlock.c                                    |  4 +-
- mm/mprotect.c                                 | 19 ++---
- mm/mremap.c                                   |  6 +-
- mm/page_table_check.c                         |  4 +-
- mm/pagewalk.c                                 |  9 ++-
- mm/percpu.c                                   |  2 +-
- mm/pgtable-generic.c                          | 20 ++---
- mm/ptdump.c                                   |  4 +-
- mm/rmap.c                                     |  6 +-
- mm/sparse-vmemmap.c                           | 24 +++---
- mm/swap_state.c                               |  3 +-
- mm/swapfile.c                                 |  5 +-
- mm/userfaultfd.c                              | 32 ++++----
- mm/util.c                                     |  2 +-
- mm/vmalloc.c                                  | 13 +--
- mm/vmscan.c                                   |  6 +-
- 67 files changed, 435 insertions(+), 374 deletions(-)
- create mode 100644 include/linux/pgtable_types.h
-
+diff --git a/drivers/gpu/drm/xe/xe_defaults.h b/drivers/gpu/drm/xe/xe_defaults.h
+index c8ae1d5f..645e289f 100644
+--- a/drivers/gpu/drm/xe/xe_defaults.h
++++ b/drivers/gpu/drm/xe/xe_defaults.h
+@@ -22,5 +22,6 @@
+ #define XE_DEFAULT_WEDGED_MODE			XE_WEDGED_MODE_UPON_CRITICAL_ERROR
+ #define XE_DEFAULT_WEDGED_MODE_STR		"upon-critical-error"
+ #define XE_DEFAULT_SVM_NOTIFIER_SIZE		512
++#define XE_DEFAULT_ALLOW_BOUND_WC_SHRINK	false
+ 
+ #endif
+diff --git a/drivers/gpu/drm/xe/xe_module.c b/drivers/gpu/drm/xe/xe_module.c
+index 848d6526..67bcaf54 100644
+--- a/drivers/gpu/drm/xe/xe_module.c
++++ b/drivers/gpu/drm/xe/xe_module.c
+@@ -22,6 +22,7 @@
+ #include "xe_sched_job.h"
+ 
+ struct xe_modparam xe_modparam = {
++	.allow_bound_wc_shrink = XE_DEFAULT_ALLOW_BOUND_WC_SHRINK,
+ 	.probe_display =	XE_DEFAULT_PROBE_DISPLAY,
+ 	.guc_log_level =	XE_DEFAULT_GUC_LOG_LEVEL,
+ 	.force_probe =		XE_DEFAULT_FORCE_PROBE,
+@@ -33,6 +34,11 @@ struct xe_modparam xe_modparam = {
+ 	/* the rest are 0 by default */
+ };
+ 
++module_param_named(allow_bound_wc_shrink, xe_modparam.allow_bound_wc_shrink,
++		   bool, 0600);
++MODULE_PARM_DESC(allow_bound_wc_shrink,
++		 "Permit reclaim of VM-bound write-combined BOs");
++
+ module_param_named(svm_notifier_size, xe_modparam.svm_notifier_size, uint, 0600);
+ MODULE_PARM_DESC(svm_notifier_size, "Set the svm notifier size in MiB, must be power of 2 "
+ 		 "[default=" __stringify(XE_DEFAULT_SVM_NOTIFIER_SIZE) "]");
+diff --git a/drivers/gpu/drm/xe/xe_module.h b/drivers/gpu/drm/xe/xe_module.h
+index a0eb7db0..bf2c49ce 100644
+--- a/drivers/gpu/drm/xe/xe_module.h
++++ b/drivers/gpu/drm/xe/xe_module.h
+@@ -12,6 +12,7 @@ struct work_struct;
+ 
+ /* Module modprobe variables */
+ struct xe_modparam {
++	bool allow_bound_wc_shrink;
+ 	bool probe_display;
+ 	int force_vram_bar_size;
+ 	int guc_log_level;
+@@ -32,4 +33,3 @@ bool xe_destroy_wq_queue(struct work_struct *work);
+ void xe_destroy_wq_flush(void);
+ 
+ #endif
+-
+diff --git a/drivers/gpu/drm/xe/xe_shrinker.c b/drivers/gpu/drm/xe/xe_shrinker.c
+index 83374cd5..edbc22b2 100644
+--- a/drivers/gpu/drm/xe/xe_shrinker.c
++++ b/drivers/gpu/drm/xe/xe_shrinker.c
+@@ -11,6 +11,7 @@
+ #include <drm/ttm/ttm_tt.h>
+ 
+ #include "xe_bo.h"
++#include "xe_module.h"
+ #include "xe_pm.h"
+ #include "xe_shrinker.h"
+ 
+@@ -54,6 +55,30 @@ xe_shrinker_mod_pages(struct xe_shrinker *shrinker, long shrinkable, long purgea
+ 	write_unlock(&shrinker->lock);
+ }
+ 
++static bool xe_shrinker_skip_bound_wc(struct ttm_buffer_object *ttm_bo,
++				      const struct xe_bo_shrink_flags flags)
++{
++	struct xe_bo *bo;
++
++	if (flags.purge || xe_modparam.allow_bound_wc_shrink ||
++	    !xe_bo_is_xe_bo(ttm_bo))
++		return false;
++
++	bo = ttm_to_xe_bo(ttm_bo);
++
++	/*
++	 * Restoring a backed-up WC BO changes freshly allocated WB pages to WC.
++	 * On x86 that runs CPA cache/TLB flushes synchronously while validation
++	 * holds this BO's dma-resv. A VM-bound BO is also likely to be reused by
++	 * a following EXEC, so reclaiming it can turn moderate memory pressure
++	 * into a multi-client reservation-lock stall. Keep that working set
++	 * resident; purgeable objects and objects after VM_UNBIND remain
++	 * reclaimable.
++	 */
++	return ttm_bo->ttm->caching == ttm_write_combined &&
++		xe_bo_is_vm_bound(bo);
++}
++
+ static s64 __xe_shrinker_walk(struct xe_device *xe,
+ 			      struct ttm_operation_ctx *ctx,
+ 			      const struct xe_bo_shrink_flags flags,
+@@ -78,6 +103,9 @@ static s64 __xe_shrinker_walk(struct xe_device *xe,
+ 			if (!ttm_bo_shrink_suitable(ttm_bo, ctx))
+ 				continue;
+ 
++			if (xe_shrinker_skip_bound_wc(ttm_bo, flags))
++				continue;
++
+ 			lret = xe_bo_shrink(ctx, ttm_bo, flags, scanned);
+ 			if (lret < 0)
+ 				return lret;
 -- 
-2.47.3
-
+2.50.1 (Apple Git-155)
