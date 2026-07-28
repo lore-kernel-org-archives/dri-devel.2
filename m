@@ -4,66 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E121BC531D0
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 00:44:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 943B7C53209
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 00:47:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32BA410E2E5;
-	Tue, 28 Jul 2026 00:44:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1AA910E44D;
+	Tue, 28 Jul 2026 00:47:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="orwXGXMV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dqv9bU1J";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2377310E2E5
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 00:44:37 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 28D48600FC;
- Tue, 28 Jul 2026 00:44:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CBAFDC19425;
- Tue, 28 Jul 2026 00:44:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1785199475;
- bh=MT6xRizjHPG2rndpwUUmGmlZkiCBLxG9ecyBoYCt6f4=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=orwXGXMVfyNl+R6Vf0raXO0L8EASmybw7i/a+X4vYXcWr+kblp6KH4lG6eM6mb16K
- R7Mw9VoQrWwKsx5dTFG8O8nnk8Wpo64KGBnVyFUynVhzvj4kaSMP6/e0fK+RT+CnU6
- 7A8zNc7rXaQoi72uqGojB+7/8BXRz5Kpzz8hii+1zHk4oJzSCpE1mmoOwr2I+aIsgn
- y4pWPuYaQniK/VMUEAShRw/oKsXGIGj03bZYAHZhfKAMMFipdkCyI4lVXzsnMgtKNc
- yPrDY5uThfjlbLG9Kru0WDC8910zqGWSlJm03kUNEP5PRfTutKMAMsToAS6gc6uXdM
- 7etT5iJBztopQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id A795EC531D0;
- Tue, 28 Jul 2026 00:44:35 +0000 (UTC)
-From: Aaron Kling via B4 Relay <devnull+webgeek1234.gmail.com@kernel.org>
-Date: Mon, 27 Jul 2026 19:44:25 -0500
-Subject: [PATCH] drm/panel: chipwealth-ch13726a: Fix washed out colors on
- 120hz mode
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260727-ch13726a-washout-v1-1-bf869ddfc5cf@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqAIBBA4avIrBPSSqOrRAurMWejof2BdPek5
- bd4L0PCSJhgYBkiXpQo+AJRMVic8RtyWotB1lLVWmq+ONFoqQy/TXLhPHjXou2tUd2MCkq2R7T
- 0/Mtxet8PXhZZYGIAAAA=
-X-Change-ID: 20260727-ch13726a-washout-54ef8fa65be6
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Aaron Kling <webgeek1234@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785199475; l=2151;
- i=webgeek1234@gmail.com; s=20250217; h=from:subject:message-id;
- bh=g/5SbkmC5RAHR0XS4bGD1LzSsL/iHrUXQcUx6GYaBS4=;
- b=zqizgOxduvcvgbyRXHN36jqHklor2L3TpekQi18GYWn2Cs5sPkdQlY5+wC/MaGFyK63E0/GNv
- oq9kehJydQ/BlL1dnaDEPQMWRHjCzTMkhz9oWzb1ROz95akgdX7MSow
-X-Developer-Key: i=webgeek1234@gmail.com; a=ed25519;
- pk=TQwd6q26txw7bkK7B8qtI/kcAohZc7bHHGSD7domdrU=
-X-Endpoint-Received: by B4 Relay for webgeek1234@gmail.com/20250217 with
- auth_id=342
-X-Original-From: Aaron Kling <webgeek1234@gmail.com>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 106EB10E44D
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 00:47:30 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3B3EC600FC;
+ Tue, 28 Jul 2026 00:47:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC9C51F000E9;
+ Tue, 28 Jul 2026 00:47:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785199648;
+ bh=QYR8/hE/kTCOkkFQIQeyNsNeqvjRLGHzklCsPTWGUs4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Dqv9bU1J6lpj4PdcH+Qco0pOHsLuC1DwPNfG3a9FRMUGFOUGeOh9HcVrBy5RYoDYm
+ 54MSzMGhdXEG6maJ/v1twsdkVbxqmYKhOAYbw4ZzPdHPRif0pF700qaHqF7lFaRnw8
+ RKGK997/vozJGK7ixjE6Zu2fm32LUUKQb4T9+TZXbfpoBo9VbJzvXY00OEFlBdDzAD
+ ZkGG1e/4LqdYITJcl5QvJeSimO6+EKDxzM/KfgJsVNZgnPUy2r+srAMKdxLUR99Yuw
+ Nz0Co79WmQsiyVwOVeZLKagqpkmfVIWv5Zf4WnLWn7y2yI4DA3HDMb2THQbdiiybjx
+ NFWfHwfyiXQ4Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/panel: chipwealth-ch13726a: Fix washed out colors
+ on 120hz mode
+To: "Aaron Kling" <webgeek1234@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260727-ch13726a-washout-v1-1-bf869ddfc5cf@gmail.com>
+References: <20260727-ch13726a-washout-v1-1-bf869ddfc5cf@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 28 Jul 2026 00:47:28 +0000
+Message-Id: <20260728004728.AC9C51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,69 +53,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: webgeek1234@gmail.com
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Aaron Kling <webgeek1234@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The newly introduced horizontal display timings for the 120Hz mode=
+ are mathematically incorrect, resulting in `hsync_end` being smaller than =
+`hsync_start`, and an `htotal` value that doesn't match the `.clock` multip=
+lier.
+--
 
-The issue was determined to be two-fold:
+--- Patch [1]: [PATCH] drm/panel: chipwealth-ch13726a: Fix washed out color=
+s on 120hz mode ---
+commit 87afbda6cc13589f090573e5294d277fb599926d
+Author: Aaron Kling <webgeek1234@gmail.com>
 
-1. The non-continuous clock dropping into LPM during blanks causes
-   voltage drift at 120hz enough to affect the gamma curve.
+drm/panel: chipwealth-ch13726a: Fix washed out colors on 120hz mode
 
-2. The agressive horizontal blanking width did not allow enough settle
-   time, further compounding the voltage drift.
+This commit attempts to fix a washed out color issue at 120Hz by adjusting
+the horizontal display timings and enabling continuous clock and burst mode
+to stabilize blank intervals.
 
-In addition to switching to continuous clock, burst mode is also enabled
-to further stabilize the blank intervals.
+> diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/=
+gpu/drm/panel/panel-chipwealth-ch13726a.c
+> --- a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+> +++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
+> @@ -128,11 +128,11 @@ static int ch13726a_unprepare(struct drm_panel *pan=
+el)
+>  static const struct drm_display_mode thor_bottom_modes[] =3D {
+>  	{
+>  		/* 120Hz */
+> -		.clock =3D (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
+> +		.clock =3D (1080 + 60 + 8 + 60) * (1240 + 16 + 4 + 8) * 120 / 1000,
+>  		.hdisplay =3D 1080,
+> -		.hsync_start =3D 1080 + 28,
+> -		.hsync_end =3D 1080 + 28 + 4,
+> -		.htotal =3D 1080 + 28 + 4 + 36,
+> +		.hsync_start =3D 1080 + 60,
+> +		.hsync_end =3D 1080 + 28 + 8,
+> +		.htotal =3D 1080 + 28 + 4 + 60,
 
-Assisted-by: Gemini:2.5-Pro
-Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
----
-For the initial submission, the washed out colors were expected to need
-to be fixed by a color profile. However, further investigation showed
-there was a problem with the timings.
----
- drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+[Severity: High]
+Will this cause the hsync_end value to be smaller than the hsync_start valu=
+e?
 
-diff --git a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-index 562dc573528dd..92f0c4f1587cb 100644
---- a/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-+++ b/drivers/gpu/drm/panel/panel-chipwealth-ch13726a.c
-@@ -128,11 +128,11 @@ static int ch13726a_unprepare(struct drm_panel *panel)
- static const struct drm_display_mode thor_bottom_modes[] = {
- 	{
- 		/* 120Hz */
--		.clock = (1080 + 28 + 4 + 36) * (1240 + 16 + 4 + 8) * 120 / 1000,
-+		.clock = (1080 + 60 + 8 + 60) * (1240 + 16 + 4 + 8) * 120 / 1000,
- 		.hdisplay = 1080,
--		.hsync_start = 1080 + 28,
--		.hsync_end = 1080 + 28 + 4,
--		.htotal = 1080 + 28 + 4 + 36,
-+		.hsync_start = 1080 + 60,
-+		.hsync_end = 1080 + 28 + 8,
-+		.htotal = 1080 + 28 + 4 + 60,
- 		.vdisplay = 1240,
- 		.vsync_start = 1240 + 16,
- 		.vsync_end = 1240 + 16 + 4,
-@@ -281,7 +281,7 @@ static int ch13726a_probe(struct mipi_dsi_device *dsi)
- 	dsi->lanes = 4;
- 	dsi->format = MIPI_DSI_FMT_RGB888;
- 	dsi->mode_flags = MIPI_DSI_MODE_VIDEO |
--			  MIPI_DSI_CLOCK_NON_CONTINUOUS;
-+			  MIPI_DSI_MODE_VIDEO_BURST;
- 
- 	ctx->panel.prepare_prev_first = true;
- 
+In the updated 120Hz mode timings, hsync_start evaluates to 1140 (1080 + 60=
+),
+while hsync_end evaluates to 1116 (1080 + 28 + 8). If hsync_end is smaller
+than hsync_start, the DRM core's basic validation checks in
+drm_mode_validate_basic() will likely mark the mode as MODE_H_ILLEGAL and
+prune it, making the 120Hz mode unavailable.
 
----
-base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
-change-id: 20260727-ch13726a-washout-54ef8fa65be6
+Additionally, htotal evaluates to 1172 (1080 + 28 + 4 + 60), but the .clock
+calculation uses a horizontal multiplier of 1208 (1080 + 60 + 8 + 60). Shou=
+ld
+htotal match the multiplier used in the clock calculation?
 
-Best regards,
--- 
-Aaron Kling <webgeek1234@gmail.com>
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260727-ch13726a-w=
+ashout-v1-1-bf869ddfc5cf@gmail.com?part=3D1
