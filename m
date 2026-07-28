@@ -4,138 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB18DC531F9
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:27:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 645A2C53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 10:30:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BF65710E495;
-	Tue, 28 Jul 2026 10:27:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7078C10E86E;
+	Tue, 28 Jul 2026 10:30:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="YUG0hYoc";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YNYCAL29";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JPkT91Sj";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18BC010E495
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:27:23 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66S82kEr2275973
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:27:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- KLZ5WSf9P35tXLsEc25HzV/wI2h837sZFl1AcAxf2gA=; b=YUG0hYoc1LFSM5AZ
- L/UFDaMDb3Tq1qzfxpGmtKiLfKNPOiva0SmtzAyPkf9b87d7N6mUngzZ0DCJvj55
- G2DyoKfly36fRrjRCa92hE6Bx93F+z+8qEJBmbOujVtEYhHJf8LDp3O52s9S1F0+
- l/RGibWNeCTXv7EmeU+dVCVk/t7OWSJqBFtEK+ltYcQ1yxxxODAkmdkT83vZUE4G
- 02Z98EVC8Ig8QILCzRKbZ3QmaDZO2Ukpipyk63A7JaDchkMi2SZh80A3SNMmQnJg
- p29rvQ3oEcxdfeb0XHHpteA/Io/t9Jm/7qfpSfil9hXvdWy3muAefv+dkqzNLEhO
- V0e+LQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpbrsuqk4-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 10:27:21 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-8488ac68185so1701597b3a.2
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 03:27:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785234441; x=1785839241;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=KLZ5WSf9P35tXLsEc25HzV/wI2h837sZFl1AcAxf2gA=;
- b=YNYCAL29kuiwj2KHKhzqvi+ShmcJtKtfzMuah8YAq1it/IE12BLrQBud9SMqkDgn2i
- 0f0gswaTaXABgCROs6nH71jl0WvaqMJYF1O13mqX0JI7GxlMbOWAoMiXc582p9qUmNHE
- ofcRoPUCSFR6yagKmjtqyjEJSOGyzUjq61Zpz6J4xX0IL3FbX6leIn9OhDs3Fvd9s+dU
- dcw/g2L9BCaxdpFbV2pj9mIKSfxgw6de9YCyJR6fSRfb2WHFRJc75PZn+KQWjOcQozvK
- ifXYxWM7GENzRgAA7jTJsOt7nUAAgxcbjukEJqaxjSNDbDaYgACW4zs0kfbn/r7ttQ/7
- WR6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785234441; x=1785839241;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=KLZ5WSf9P35tXLsEc25HzV/wI2h837sZFl1AcAxf2gA=;
- b=kbgEuqjFh51ngrAj346rWNcJ69IQ1vOjDrHEOeqrfAp8fL21TlKXz9sHHrZjRqkiTd
- Z/fyN56l/ij4qoPHwuESFpFl8lKOkckvStplJZjLuZ5C2R54NTBcWrcOyg2kOj184ErJ
- W9SRr5L/wxbxmSJccnJdd/EeBUW/Pam0DbNG5XwW4wFFWBNnHtyCkwOPNkqULMMOht1O
- 6TnMCgpjCE2upwDNFKBjQ3fDRlJmMTUw0wFCDLq8fe6uEWsn0dvhMIHEiW6EyP4X5zt0
- iEz7ixwU/nlaK7zPFMI6uRj+h7jDgV6dCeiIHf7rjH29ht8sWDZtUqzDvcE+0ifRO90n
- LMQw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqFMtTOr/3EqctqmIWzI0+mHKSeg//XaOdMWd4oc7mtNBxjcR7gLT1h+0myVPu/LrpyWKObXHqSPqk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzyo4EqrqFu2f2U8iaDjyFSA62Q3+S2ETggPEXvLJzJrFi82YRG
- P0W3fpewfiPktYV1deJ0NgSdncP8y9pPBxi3RAbkSBesqiwjK8/YecvPPDaLp+phpAXcOFqZSWA
- vd/B8YPFBYc8/hVRRjHzELx7J7JGKK8620tCY3/A/wMggALNEV5B5+ssKxRbxC8Xd/PxxnDfSGD
- 4WFv3naecq
-X-Gm-Gg: AR+sD11OCa5TP1mkJD+VD9rfvRLdZftfCYMpTTn8rUGRkLCz7FB4qPPe/v90hDRmsZL
- FTXfpmu3VrphXwBByej7yHJWTOfyJYqb7IFSPHRCHPVC1cOIbDax8FZCgUsWiNa8tD7RYGF49fJ
- 8/c8oWPQ86hR8+p7drHHF+MB6zWLC5L3YMpB9axYsESwrdQV3hdpgXLz8iwSrETxsEox10DtW92
- DuFEkRYLOU4izy90ev50WOVWFFaQEas397BQJBTnCj5v4diCMT4aIdiR/XRHM168leUey4HYd8Z
- RYN391XqZsloDWJTdpWKpwpMZv8X5wbzx/35lMW3TpgwY7/l/4rJjdvZu0dP1SAOYNQgLYmSgPz
- K0wqyRyPLG7cOJmpvh5OZXQF75bRbuwO4LyTSrwhR/ztBrbTTA/dvHQPex1s1qe7xGMTJdX0DEL
- Hwu0EB6eIial7m0w==
-X-Received: by 2002:a05:6a00:10ca:b0:848:2a55:7110 with SMTP id
- d2e1a72fcca58-84e932ed557mr1733303b3a.36.1785234440950; 
- Tue, 28 Jul 2026 03:27:20 -0700 (PDT)
-X-Received: by 2002:ac8:7d81:0:b0:528:2e9:c0e8 with SMTP id
- d75a77b69052e-529d7260239mr12216511cf.79.1785234005745; 
- Tue, 28 Jul 2026 03:20:05 -0700 (PDT)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b2be0806d8sm1946188e87.22.2026.07.28.03.20.04
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2026 03:20:04 -0700 (PDT)
-Date: Tue, 28 Jul 2026 13:20:02 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Sunyun Yang <syyang@lontium.com>
-Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v17 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
- DSI bridge
-Message-ID: <kp6eg7dierl5iqkr26e3uflyshjxes4kxrzgcw45etqfzop7d2@os3chspox42p>
-References: <20260715015438.2770155-1-syyang@lontium.com>
- <20260715015438.2770155-3-syyang@lontium.com>
- <20260715020616.B73771F000E9@smtp.kernel.org>
- <CAFQXuNZdwNxbAsnK7P4zs0eZnm4pN+6kKkO-aP6Q_higPEW-yg@mail.gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23E5110E42D;
+ Tue, 28 Jul 2026 10:30:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:From:Reply-To;
+ bh=TALPIU4YyXMuYB6eUTevqI4rH4Gmsh+4e7cVmh8hE6E=; b=JPkT91SjZX7eVTsl2VV9wOOc+Y
+ K9xYz3fEgZnTcUv22+AFFVnOyH4Gj6vgLo2u3R/PxTIMh8af/q+OpAotyABmErbND/Rd6TG9yjQMn
+ 6iMWstPCxr8+57vw6y9VahjraVXB32OXpVUvjQJtUV3Ac7tcEVYs1spM+ka031W74sO30oNGfA+zJ
+ zmjiP1mshu89iOcw1cNTOXWB3+B3MTZIGaAxqDJZfAfQCIqrNNE65afJQ94uEO426iOCRyboxqiPf
+ mYvTuIGIzREM5Ca9ygQ23VygkhQ7i1paD/B599AJFLGgeVxGWIGwYJFjjut7jVojTtJFAa0JFexFG
+ +XSs8COA==;
+Received: from 179-125-64-236-dinamico.pombonet.net.br ([179.125.64.236]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wof4z-006wmg-6P; Tue, 28 Jul 2026 12:30:33 +0200
+Date: Tue, 28 Jul 2026 07:30:23 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Cc: intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>,
+ Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
+ Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 0/6] Add reclaim to the dmem cgroup controller
+Message-ID: <amiEvz13Br2AB2B7@quatroqueijos.cascardo.eti.br>
+References: <20260725100036.2372-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAFQXuNZdwNxbAsnK7P4zs0eZnm4pN+6kKkO-aP6Q_higPEW-yg@mail.gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA5MSBTYWx0ZWRfX6F4Qt1JwdPFb
- IKNOKo07lNgVnsRM7kMZk+IOrgHzlfYFobC08N1AHy/hrRhGWgiLVxpKke95wWWq6rtU/F0KdrB
- BrNvrqxC3CBr6cioLB+t6kIOW+0Ko2Cd1qwnpZjHGEb1SN/3H7ayVf1a5tIue0Nfeuda+WKoKYw
- GNqpZY1BFb5sM106ZIewFi4Tiqn1wBNy7vJ/IcH90b3APrwGqRd6+7UwV1XsofHX6sruvI5OJ6g
- KmDvoLs6E94j+J7vu5YdThjEGQLLjm5gNxWwiiTPvl3Ob7Op9yPGrh/EfA1wTff+hhcGw5aIwO9
- leqGCECC3zAiTZAkWwhVVfCCaBfhW2Q8JcLjhoTiRnj3xvn7sSqrbIJ/dtv9NTrnhVDSkpO2/zq
- yqolrmOad2buhwMnR40x584xxEPyC+Sf3Ai2MiiTQA60xl5umFAEnptkVTJBW3WCAULZcTA/7hq
- hrxMv+ZjoIoGowoQzUA==
-X-Proofpoint-ORIG-GUID: 7AaOBiRmmbhzWBQGWyBev7RCHccH7HMl
-X-Proofpoint-GUID: 7AaOBiRmmbhzWBQGWyBev7RCHccH7HMl
-X-Authority-Analysis: v=2.4 cv=ALkdLnG8 c=1 sm=1 tr=0 ts=6a68840a cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8
- a=tlYR4POETLUKK-67TRcA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA5MSBTYWx0ZWRfX/qGvfO9d2DZs
- mEGvXFFTDdIHds4GdAt5NUPnLYfAUNqQ4VfFfP4BZypR7kpQzNjd1X17TPRNF+/0kGLbs3OIwpz
- m3lCF3Sg2Eg4swtqXQ2Lhgca4PRa9RI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 phishscore=0 bulkscore=0 clxscore=1015
- priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607280091
+In-Reply-To: <20260725100036.2372-1-thomas.hellstrom@linux.intel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,76 +71,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 15, 2026 at 03:42:55PM +0800, Sunyun Yang wrote:
-> <sashiko-bot@kernel.org> 于2026年7月15日周三 10:06写道：
-> >
-> > Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> > - [High] Missing cleanup of `output_bridge` in `mipi_dsi_host_detach` prevents DSI device rebinds and causes use-after-free.
+On Sat, Jul 25, 2026 at 12:00:30PM +0200, Thomas Hellstr�m wrote:
+> When writing a "max" limit lower than the current usage, the
+> existing code silently failed. This series aims to improve
+> on that by returning -EBUSY on failure and also attempt
+> to synchronously reclaim device memory to push the usage
+> under the new max limit to avoid the error.
 > 
-> Intentional design, consistent with cdns-dsi-core.c cdns_dsi_detach()
-> (lines 1082-1091) which does not clear output->dev. Clearing
-> output_bridge would allow re-attach, causing devm_drm_of_get_bridge()
-> to allocate new devres without freeing the previous one, resulting in
-> a real memory leak. The DRM bridge framework does not support dynamic
-> bridge chain reconfiguration. No use-after-free: the -EBUSY guard
-> returns before dereferencing output_bridge, and bridge_attach is not
-> called by the SoC encoder after drm_bridge_remove().
-
-Luca is working on supporting (more) dynamic bridge chains. Don't make
-his work harder. So far:
-
-
-- Let the DSI sync be detached and then reattached. There might be
-  reasons for that (e.g. big DSI panels which use two DSI hosts). Ignore
-  devm_drm_of_get_bridge for now (though I thought Luca has provided a
-  better API for that).
-
-- Use next_bridge provided to you by the framework.
-
+> Patch 1 fixes a pre-existing amdgpu_vram_mgr_init() error path
+> Patch 2 introduces struct dmem_cgroup_init for extensible region
+>       registration.
+> Patch 3 implements and documents a reclaim callback interface
+>       for the dmem controller.
+> Patch 4 implements a TTM reclaim callback.
+> Patches 5-6 hook up the reclaim callback to the dmem cgroup-aware
+>       drivers xe and amdgpu.
 > 
-> > - [High] Sysfs attribute `lt7911exc_firmware` is accessible before the driver has finished initialization in `probe`, leading to a kernel panic.
+> v2:
+> - Remove the error propagation that was in a previous series (Maarten)
+> - A number of updates in patch 1. See its commit message for
+>   details (Maarten)
 > 
-> False positive. The driver core creates dev_groups sysfs attributes
-> AFTER probe() returns successfully. In drivers/base/dd.c
-> really_probe(), call_driver_probe() (line 706) executes before
-> device_add_groups(dev, drv->dev_groups) (line 725). By the time the
-> sysfs file is visible to userspace, all mutexes, workqueue, and regmap
-> are fully initialized. There is no window where userspace can access
-> the sysfs attribute before initialization completes.
+> v3:
+> - Add patch 1 fixing a pre-existing amdgpu_vram_mgr_init() error path
+>   bug where drmm_cgroup_register_region() was called before
+>   INIT_LIST_HEAD() and gpu_buddy_init(), causing a kernel panic on
+>   failure. (Sashiko-bot)
+> - Use an rwsem to protect reclaim callback registration and region
+>   unregister against concurrent reclaim invocations. (Sashiko-bot)
+> - Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+>   in man->cg unconditionally. (Sashiko-bot)
+> - Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+>   ttm_resource_manager_set_dmem_region().
 > 
-> > - [High] Asynchronous firmware upgrade worker accesses `bridge.dev` without holding a reference, causing a Use-After-Free if the DRM display controller unbinds.
+> v4:
+> - Rebased on drm-tip; dropped the XE_PL_STOLEN guard in the xe patch
+>   as stolen memory uses a separate TTM manager.
 > 
-> This is a known DRM bridge framework limitation, not specific to this
-> driver. drm_bridge_remove() does not clear bridge.dev, so all bridge
-> drivers calling drm_kms_helper_hotplug_event() share this risk. A
-> proper fix requires framework-level bridge-to-drm_device lifetime
-> tracking. Triggering requires root sysfs access to start firmware
-> upgrade while simultaneously unbinding the DRM master driver — an
-> administrator operation outside normal usage.
-
-I'd say, I don't have strong opinion here.
-
+> v5:
+> - Add patch 2 introducing struct dmem_cgroup_init to make the
+>   dmem_cgroup_register_region() API extensible without adding positional
+>   arguments in the future.
+> - Use nonblock=true in reset_all_resource_limits() to avoid sleeping
+>   inside rcu_read_lock() in dmemcs_offline(). (Sashiko-bot)
+> - Compare usage against the truncated limit stored in cnt.max, not the
+>   original u64. (Sashiko-bot)
+> - Use DMEM_MAX_RECLAIM_RETRIES (16) retry budget instead of 5, matching
+>   the memcg controller; only -ENOSPC (no progress) counts against the
+>   budget, other errors abort immediately.
+> - Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
+>   the reclaim callback, preventing use-after-free when the manager is
+>   torn down while the dmem region outlives it. (Sashiko-bot)
+> - Return 0 on any eviction progress; reserve -ENOSPC for zero progress.
+> - Clear the reclaim callback in xe and amdgpu fini paths to prevent
+>   use-after-free after driver unbind with open DRM file descriptors.
+>   (Sashiko-bot)
+> - Register xe fini devres action before drmm_cgroup_register_region()
+>   so LIFO teardown runs unregister first, draining callbacks before the
+>   manager is destroyed. (Sashiko-bot)
+> - Switch amdgpu to explicit dmem_cgroup_unregister_region() at the top
+>   of amdgpu_vram_mgr_fini() before any manager teardown, since amdgpu's
+>   fini is called explicitly during driver unbind before drmm cleanup.
+>   (Sashiko-bot)
+> - Wrap the xe reclaim callback with drm_dev_enter()/drm_dev_exit() to
+>   prevent TTM reclaim from running after driver unbind.
 > 
-> > - [Medium] Driver illegitimately mutates the state of a downstream bridge object by explicitly modifying `pre_enable_prev_first`.
+> v6:
+> - Move the ops check inside down_read() in set_resource_max(), guarded
+>   by region->unregistered, to close a UAF race against
+>   dmem_cgroup_unregister_region(). (Sashiko-bot)
+> - Fix dmem_cgroup_ops->reclaim docstring: -ENOSPC is retried up to
+>   DMEM_MAX_RECLAIM_RETRIES times, not an immediate stop. (Sashiko-bot)
+> - Fix mgr->cg_region never being assigned in amdgpu_vram_mgr_init(),
+>   causing dmem_cgroup_unregister_region() in fini to silently no-op.
+>   (Sashiko-bot)
+> - Reorder amdgpu_vram_mgr_fini() to call set_used(false) and
+>   evict_all() before dmem_cgroup_unregister_region(), so
+>   ttm_resource_free() can uncharge via man->cg during eviction; clear
+>   man->cg after unregister. (Sashiko-bot)
 > 
-> Hardware constraint. The DSI output stream (register 0xe0b0) must be
-> enabled after the panel is powered on. The override is safe because
-> transfer() is a stub — panel DCS commands are silently discarded and
-> panel initialization is handled entirely by the chip's internal
-> firmware. The panel driver's prepare_prev_first preference is
-> therefore irrelevant for this chip. The comment above the assignment
-> documents this rationale.
-
-Commented in the driver review.
-
+> v7:
+> - Replace the per-region rw_semaphore with a static SRCU domain
+>   (dmemcg_srcu). SRCU is a better fit: it avoids per-region lock
+>   overhead on every reclaim call, and synchronize_srcu() at unregister
+>   time is a rare, shutdown-time operation. (Maarten)
+> - Trim in-function comments to focus on what rather than how.
+> - Switch back to drmm_cgroup_register_region() with a drm_dev_enter/
+>   exit guard in the reclaim callback (matching xe), rather than manual
+>   register/unregister.  drm_dev_unplug() fires before vram_mgr_fini(),
+>   so drm_dev_enter() returning false prevents any reclaim from touching
+>   the manager during teardown.  This also fixes the "vram" name
+>   collision on multi-GPU systems, since drmm_cgroup_register_region()
+>   automatically prefixes with "drm/<pci-addr>/". (Sashiko-bot)
 > 
-> > - [Low] The `lt7911exc->removed` flag is read without a lock or memory barrier in the firmware upgrade work, leading to a data race.
+> v8:
+> - Fix ttm_resource_manager_set_dmem_region() using IS_ERR_OR_NULL(),
+>   which skipped the assignment for a NULL region and thus never cleared
+>   man->cg. Use IS_ERR() so that a NULL region detaches the region as the
+>   kernel-doc and the v5 changelog intended. (Sashiko-bot)
+> - Move the amdgpu dmem cgroup region teardown back into
+>   amdgpu_vram_mgr_fini() with an explicit dmem_cgroup_unregister_region()
+>   after evict_all(), keeping the drm_dev_enter() guard. The v7 drmm-only
+>   approach left a use-after-free on the probe-error teardown path, where
+>   drm_dev_unplug() is never called so the drm_dev_enter() guard stays
+>   open while drm_driver.release destroys the manager before the drmm
+>   action unregisters the region. (Sashiko-bot)
 > 
-> Valid.
+> v9:
+> - Init / fini race fixes. (Sashiko-bot, Thomas)
+> - Drop a misleading comment. (Maarten)
+> - Acquire runtime PM before reclaim. (Sashiko-bot) 
+> 
+> User-space tests are at
+> https://patchwork.freedesktop.org/series/163935/
+> 
 
-Should be fixed.
+I used https://gitlab.freedesktop.org/cascardo/igt-gpu-tools/-/commits/dmem_max?ref_type=heads,
+on top of my v5 to test this version.
 
+Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
 
--- 
-With best wishes
-Dmitry
+> Test-with: 20260428065411.4222-1-thomas.hellstrom@linux.intel.com
+> 
+> Thomas Hellstr�m (6):
+>   drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+>   cgroup/dmem: Introduce struct dmem_cgroup_init for region
+>     initialization
+>   cgroup/dmem: Add reclaim callback for lowering max below current usage
+>   drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
+>     controller
+>   drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+>   drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
+> 
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 65 +++++++++++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  3 +
+>  drivers/gpu/drm/drm_drv.c                    |  8 +-
+>  drivers/gpu/drm/ttm/ttm_bo.c                 | 94 +++++++++++++++++++-
+>  drivers/gpu/drm/ttm/ttm_bo_util.c            |  3 +-
+>  drivers/gpu/drm/ttm/ttm_resource.c           | 54 ++++++++++-
+>  drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         | 71 +++++++++++++--
+>  include/drm/drm_drv.h                        |  4 +-
+>  include/drm/ttm/ttm_bo.h                     | 10 +++
+>  include/drm/ttm/ttm_resource.h               |  7 ++
+>  include/linux/cgroup_dmem.h                  | 38 +++++++-
+>  kernel/cgroup/dmem.c                         | 90 +++++++++++++++----
+>  13 files changed, 408 insertions(+), 41 deletions(-)
+> 
+> -- 
+> 2.55.0
+> 
