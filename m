@@ -4,44 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C2F09C54F51
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 21:05:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBBACC53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 21:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1AAA410E5EB;
-	Tue, 28 Jul 2026 21:05:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C03D10E5F0;
+	Tue, 28 Jul 2026 21:19:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IUSKAcvA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AB8Hdtvi";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4D9410E5EB
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 21:05:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A27910E5F6
+ for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 21:19:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B544E60A5E;
- Tue, 28 Jul 2026 21:05:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D86DF1F000E9;
- Tue, 28 Jul 2026 21:05:01 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5C7AB60A5E;
+ Tue, 28 Jul 2026 21:19:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FD091F000E9;
+ Tue, 28 Jul 2026 21:19:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785272702;
- bh=uSJvW2aSZaQQcpZ5Wgx/kgiX7MWXoK21J3zNsJ/g27w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IUSKAcvAFnQBBdYTmPce10MMR5kcY+XGTHsAlm3Wexv/AxS25RL6o/83NCvxLYx0p
- lYUxc7YuC15JfE1r4OZPUFh8mums6DSoLWES7N5uPOp7XQrpMgbia8dGoXp21E2MLF
- fzBDy8+JJpPqk4Q4WWKPLBwTobtUzhajqG8LQ14It056tQCSy1/csBESSeIQc/5GPq
- PlyqnAnaQ2TB3t4p23wIk/6bXdPoTK+AnfRG8XytQPzU1Iu9u/lMkxRx870dM09SCy
- ATAzOJR9BwszNnhIV3l5/3kA36q63MWzUjVeGoX2pNZtR2tHbNNQb9jKiFS1DWoi61
- V8FzlnI4ZJBNA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 18/18] drm/bridge: synopsys: dw-dp: Add audio support
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260728-synopsys-dw-dp-improvements-v7-18-b7640fa8cf48@collabora.com>
-References: <20260728-synopsys-dw-dp-improvements-v7-0-b7640fa8cf48@collabora.com>
- <20260728-synopsys-dw-dp-improvements-v7-18-b7640fa8cf48@collabora.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1785273576;
+ bh=fxkDtK6W3BPwY9DO64uDltPIF0WLXh8u9Q1M77Uioz4=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=AB8Hdtviz41ewwGNKiRl2gJ0RzpcaAA5D4RbEA94D+ZA8jxN9KBRnNnOSsNJ93Sp4
+ wJx4Xu+VUsX+thUNBEc8SR2eHUFIJ+SW3izpLlnfbzG/F6Mz+Jyh9lXvri2Mql0H/9
+ elSuWVNu5q6uokv5VZy83lIldOsJ0v8Mu1yXhAqsq5iwQGxZvsYfWDXlShfDd7UU2E
+ Mv6YQjWfFKIx6sf6tVQ3d8ALrErk+eLiAQSCXdoICgTEnm2nvE/gt8F8L9ZqusZdzo
+ gWD90ye2mK656HdbnnijuGz/EcWJBg7BIWDiWzg8JAAST9YR/o9nmxhQOwO73Bb/Gk
+ dm6Gw4AKbCn/A==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 28 Jul 2026 21:05:01 +0000
-Message-Id: <20260728210501.D86DF1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 28 Jul 2026 23:19:29 +0200
+Message-Id: <DKAINVQDNE79.3JRKZDQJCSX9@kernel.org>
+Subject: Re: [PATCH v10 3/7] drm/tyr: add Memory Management Unit (MMU) support
+Cc: "Daniel Almeida" <daniel.almeida@collabora.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Benno Lossin" <lossin@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Andreas Hindborg" <a.hindborg@kernel.org>,
+ "Trevor Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <laura.nao@collabora.com>, <samitolvanen@google.com>, <lyude@redhat.com>,
+ <beata.michalska@arm.com>, <boris.brezillon@collabora.com>,
+ <steven.price@arm.com>, <alvin.sun@linux.dev>
+To: "Deborah Brouwer" <deborah.brouwer@collabora.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com>
+ <20260728-fw-boot-b4-v10-3-9187aefa3f2f@collabora.com>
+ <DKAGDGAGBRXN.T20HFE198R5A@kernel.org> <amkSjDCt_P-TfXHD@um790>
+In-Reply-To: <amkSjDCt_P-TfXHD@um790>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,177 +67,68 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Multichannel audio channel allocation is hardcoded to 0 (stereo), =
-breaking surround sound routing.
-- [High] Audio InfoFrame can steal SDP slot 0, which is hardcoded for Video=
- Stream Configuration (VSC), corrupting the VSC packet if ALSA prepares aud=
-io before the display is enabled.
-- [Medium] Unconditional attempt to enable both I2S and SPDIF clocks causes=
- valid audio configurations to fail if the unused clock cannot be enabled.
-- [Medium] The audio mute state (AUDIO_MUTE) is lost across DisplayPort con=
-troller resets during atomic_disable/atomic_enable cycles.
---
+On Tue Jul 28, 2026 at 10:35 PM CEST, Deborah Brouwer wrote:
+> On Tue, Jul 28, 2026 at 09:31:50PM +0200, Danilo Krummrich wrote:
+>> On Tue Jul 28, 2026 at 8:39 PM CEST, Deborah Brouwer wrote:
+>> > +/// Locked wrapper for carrying out virtual memory (VM) operations on=
+ the MMU.
+>> > +#[pin_data]
+>> > +pub(crate) struct Mmu<'drm> {
+>>=20
+>> This shouldn't be 'drm, but 'mmu or just something generic like 'a.
+>>=20
+>> The rationale is that Mmu might be shorter lived than 'drm once we have
+>> self-referencial pin-init. Currently it is straight forward, such as in
+>>=20
+>> 	struct Foo<'foo> {
+>> 	    dev: &'foo platform::Device<Bound>,
+>> 	}
+>> =09
+>> 	struct Data<'bound> {
+>> 	    foo: Foo<'bound>,
+>> 	}
+>>=20
+>> where the lifetime of `dev` really ties back to 'bound. However, with
+>> self-referencial pin-init it could looks like this:
+>>=20
+>> 	struct Foo<'foo> {
+>> 	    dev: &'foo platform::Device<Bound>,
+>> 	    io: &'foo IoMem<'foo>,
+>> 	}
+>> =09
+>> 	struct Data<'bound> {
+>> 	    foo: Foo<'io>,
+>> 	    io: IoMem<'bound>,
+>> 	}
+>>=20
+>> Now Foo is not constrained to 'bound anymore, as this would be longer li=
+ved than
+>> `io`, so it has to capture 'io instead in order to still compile.
+>
+> Danilo, would you be ok with renaming this lifetime as a follow up
+> patch?
 
---- Patch [18]: [PATCH v7 18/18] drm/bridge: synopsys: dw-dp: Add audio sup=
-port ---
-commit 5e1e4e31e16d403e05ea9b2201464ef6e1a35fc1
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+Sure; note that I also said that I'm happy for this to be a follow-up in th=
+e
+previous version. :)
 
-drm/bridge: synopsys: dw-dp: Add audio support
+> Currently, if I understand this correctly, the mmu lifetime is still tied=
+ to
+> the DRM registration data, so the name is not inaccurate for Tyr at least=
+ as
+> it stands right now.
 
-Implement audio support for the Synopsys DesignWare DisplayPort controller.
+With the current implementation, the Mmu lifetime technically ties back to
+'bound; the DRM registration data itself is shorter lived (it is dropped be=
+fore
+'bound ends).
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index c0026bd4c7b53..3b73e822478d7 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-
-[ ... ]
-
-> @@ -1679,6 +1708,247 @@ static int dw_dp_link_enable(struct dw_dp *dp)
->  	return ret;
->  }
-> =20
-> +static int dw_dp_audio_infoframe_send(struct dw_dp *dp)
-> +{
-> +	struct hdmi_audio_infoframe frame;
-> +	struct dw_dp_sdp sdp;
-> +	int ret;
-> +
-> +	ret =3D hdmi_audio_infoframe_init(&frame);
-
-[Severity: High]
-The hdmi_audio_infoframe_init() function initializes the frame to zero, whi=
-ch
-implicitly sets the channel allocation to 0 (stereo).
-
-Since dw_dp_audio_prepare() receives the channel allocation in
-params->cea.channel_allocation but does not save it, will multi-channel aud=
-io
-(like 5.1 or 7.1) be transmitted incorrectly as stereo, potentially causing
-the AV receiver to drop or improperly route channels?
-
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	frame.coding_type =3D HDMI_AUDIO_CODING_TYPE_STREAM;
-> +	frame.sample_frequency =3D HDMI_AUDIO_SAMPLE_FREQUENCY_STREAM;
-> +	frame.sample_size =3D HDMI_AUDIO_SAMPLE_SIZE_STREAM;
-> +	frame.channels =3D dp->audio_channels;
-
-[ ... ]
-
-> +static int __dw_dp_audio_enable(struct dw_dp *dp)
-> +{
-> +	u8 audio_data_in_en;
-> +
-> +	switch (dp->audio_channels) {
-
-[ ... ]
-
-> +	}
-> +
-> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
-> +			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
-> +			   AUDIO_INF_SELECT | HBR_MODE_ENABLE,
-
-[Severity: Medium]
-The dw_dp_audio_mute_stream() function sets the AUDIO_MUTE bit in hardware,
-but it does not save this state in the software context.
-
-If the display is disabled and re-enabled (causing a hardware reset),
-__dw_dp_audio_enable() restores DW_DP_AUD_CONFIG1 here but does not include
-AUDIO_MUTE in its update mask.
-
-Will an intentionally muted audio stream suddenly become unmuted after a
-display power cycle?
-
-> +			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
-> +			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
-
-[ ... ]
-
-> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
-> +			       struct drm_connector *connector,
-> +			       struct hdmi_codec_daifmt *daifmt,
-> +			       struct hdmi_codec_params *params)
-> +{
-
-[ ... ]
-
-> +	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
-> +	supported_audio_interfaces =3D FIELD_GET(AUDIO_SELECT, cfg1);
-> +
-> +	if (supported_audio_interfaces !=3D DW_DP_AUDIO_I2S_AND_SPDIF &&
-> +	    supported_audio_interfaces !=3D audio_interface) {
-> +		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret =3D clk_prepare_enable(dp->spdif_clk);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D clk_prepare_enable(dp->i2s_clk);
-> +	if (ret) {
-> +		clk_disable_unprepare(dp->spdif_clk);
-> +		return ret;
-> +	}
-
-[Severity: Medium]
-This code attempts to enable both the spdif_clk and i2s_clk unconditionally,
-returning an error if either fails.
-
-If a platform has one of these clocks defined in the device tree but it
-temporarily or permanently fails to enable, will this cause the entire audio
-preparation to fail even if the user only requested the other (working) aud=
-io
-interface?
-
-> +
-> +	if (audio_interface =3D=3D DW_DP_AUDIO_I2S)
-> +		clk_disable_unprepare(dp->spdif_clk);
-
-[ ... ]
-
-> @@ -1720,6 +1990,14 @@ static void dw_dp_bridge_atomic_enable(struct drm_=
-bridge *bridge,
->  		dev_err(dp->dev, "failed to enable video: %d\n", ret);
->  		return;
->  	}
-> +
-> +	scoped_guard(mutex, &dp->audio_lock) {
-> +		if (dp->audio_interface !=3D DW_DP_AUDIO_UNUSED) {
-> +			ret =3D __dw_dp_audio_enable(dp);
-
-[Severity: High]
-If userspace prepares audio while the display is disabled, dw_dp_send_sdp()
-might allocate the first free slot (slot 0) for the Audio InfoFrame.
-
-Earlier in this function, dw_dp_bridge_atomic_enable() hardcodes a reservat=
-ion
-for slot 0 for the Video Stream Configuration (VSC) packet:
-
-	scoped_guard(mutex, &dp->sdp_lock)
-		set_bit(0, dp->sdp_reg_bank);
-
-Does calling __dw_dp_audio_enable() here then clear slot 0 (wiping out the =
-VSC
-packet) and reallocate it to audio since audio previously held slot 0?
-
-> +			if (ret < 0)
-> +				dev_err(dp->dev, "failed to restore audio: %d\n", ret);
-> +		}
-> +	}
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-synopsys-d=
-w-dp-improvements-v7-0-b7640fa8cf48@collabora.com?part=3D18
+The reason I mentioned not to use the 'bound lifetime name in the first pla=
+ce is
+that we agreed to not use the 'bound lifetime name on structs that may be
+shorter lived than the device being bound, which is true for anything other=
+ than
+the bus device private data struct.
