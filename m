@@ -4,43 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 697E4C54F4C
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 13:21:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A017C53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 13:21:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69B4810E57C;
-	Tue, 28 Jul 2026 13:21:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C79910E8FE;
+	Tue, 28 Jul 2026 13:21:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FCX90AJi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iQjuHdFk";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38C1D10E57C;
- Tue, 28 Jul 2026 13:21:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0316410E8F8;
+ Tue, 28 Jul 2026 13:21:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 58A4A600FC;
+ by sea.source.kernel.org (Postfix) with ESMTP id 9DD8142E0F;
+ Tue, 28 Jul 2026 13:21:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F0BB1F00A3D;
  Tue, 28 Jul 2026 13:20:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C3F41F000E9;
- Tue, 28 Jul 2026 13:20:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785244859;
- bh=5wIfZ0sm6CEy7MJilr4iQeAgvnopeXOM1phyT95Vzgk=;
- h=From:Subject:Date:To:Cc;
- b=FCX90AJi2Tbai/riSjra6VQYBMpCeDvQ4iLopY+0oZbAQgHSgeEYL75P4gHwRpuXw
- P4b8TOTGuabvDniChxKuoYA3XnjakS6g8lYcr8jcvNm/w3NhjAlRH+3vZlutiObMqy
- S5eSnftlxkwsOUKnzLVmxV2HGwYU/sW3roGf4Zi72Zm25csgp+H7/wxoNnferhFMS8
- f50IQ2UNKYfrNBBg2RLx3LjlIfaSbruLmHHyb9kbOLhyt+0m/u+H1Gqz8tWeB7+xfv
- Cvk+Ai7/XVy+g+TFp4GyCRhXydMqh+vAjQA4tT6K5t1feMcHFWdixd0fIrO/XYAgXb
- s9Yc4k9UY7/fw==
+ s=k20260515; t=1785244865;
+ bh=WzbjNysmiUvYLH752H5oOl/ZbZFr3wIfjqCltPziglE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=iQjuHdFk7CXYfjYUqGCIYetzNIAaMQXM1L2CDqh5x8Y4pIfL6p1yTKvpyZk/EStr1
+ BvucOV/NMy7AE56/uUpMsTuZ4Qwld2hywhWSPboV2EOedgOAHDrQjerV5MKGOI3bWb
+ YAgoK/jF09iPxDnn2Pa6FwUZWGgqyuvXCDdF6HkJlG2alfCPCJFyceyci36iRQ8EsG
+ nnKbX4YV5ItQbFVl+mFZgwlasQEGTYK8uLPse3xGH526ETdAdYzPaJ6E232ULhvAdH
+ 7aBFqEagRrRWHVBf5yvsVLzRcPEVSGDQ9hLWqnwmgd8OLHF+jpYzmL/4cccbLwZEXj
+ gzrnIv+Jq8b8g==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Subject: [PATCH 0/3] Remove brownout risks from DPU
-Date: Tue, 28 Jul 2026 15:20:44 +0200
-Message-Id: <20260728-topic-dpu_power-v1-0-e7783b859a70@oss.qualcomm.com>
+Date: Tue, 28 Jul 2026 15:20:45 +0200
+Subject: [PATCH 1/3] drm/msm/dpu: Drop sneaky dev_pm_opp_set_rate(0)
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDXR+ncVEaEGY6FNq0jE3RXLb
- /HeBRYNoYUquMDgTpbU6sHDAOTcrRMyGrxBRCKLclGwTWmSbNCu1epAw0Q8piWPe87LBHylDY5
- 0fse6+W1dv6Dc3g3c9wMbMtZScwAAAA==
-X-Change-ID: 20260728-topic-dpu_power-23f5913b1194
+Message-Id: <20260728-topic-dpu_power-v1-1-e7783b859a70@oss.qualcomm.com>
+References: <20260728-topic-dpu_power-v1-0-e7783b859a70@oss.qualcomm.com>
+In-Reply-To: <20260728-topic-dpu_power-v1-0-e7783b859a70@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
  Dmitry Baryshkov <lumag@kernel.org>, 
  Abhinav Kumar <abhinav.kumar@linux.dev>, 
@@ -61,11 +59,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Tanmay Shah <tanmay@codeaurora.org>, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785244852; l=994;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785244852; l=1130;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=DDTk0H5cNvK8WiltkuOC+5GnAZO1/0LoS+J7bv4xQsw=;
- b=+wjZYMXr9We+PzarZidZZBP6SyD/jlQVmwX2lbOnKcsuZA+MO3K9ry0Off/ndM1O97MtGcGCn
- ETFFMVxYf8MBMeT3GqgDbduIgj0GxW5MDu60xA84jVN3Pfaj13Yc8zp
+ bh=yfqTGowzRcTl5W6r1eNs68O8Q1W7J54QaQ8unavorIE=;
+ b=H83w8sIqf9L0xGK9zWX6S7lFaH+HNY8giZXgBSR74Zw8vXLW/hsUOLGsaaxkjPoqzqywr+4nM
+ h0hPWwrE9F4A/V5XXr0yXo6kzqhi/0hhjWrvTroUjb2Nky7lGsqo6/w
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -83,31 +81,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Things generally run better when plugged in. That also happens to hold
-for clocks. To ensure that is the case, remove calls that drop the
-performance state votes while the clocks are still running.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-This helps Glymur devices not crash upon resume when a display
-(incl. the internal one) is plugged in.
+dev_pm_opp_set_rate(0) removes the vote specified in required-opps but
+does not actually park the clock, making it run without the necessary
+power backing. Prevent that from happening when
+_dpu_core_perf_get_core_clk_rate() returns 0.
 
-The DSI patch is compile-tested only.
-
+Fixes: 25fdd5933e4c ("drm/msm: Add SDM845 DPU support")
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
-Konrad Dybcio (3):
-      drm/msm/dpu: Drop sneaky dev_pm_opp_set_rate(0)
-      drm/msm/dp: Drop dev_pm_opp_set_rate(0)
-      drm/msm/dsi: Drop dev_pm_opp_set_rate(0)
-
  drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c | 4 ++++
- drivers/gpu/drm/msm/dp/dp_ctrl.c              | 6 +-----
- drivers/gpu/drm/msm/dsi/dsi_host.c            | 2 --
- 3 files changed, 5 insertions(+), 7 deletions(-)
----
-base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
-change-id: 20260728-topic-dpu_power-23f5913b1194
+ 1 file changed, 4 insertions(+)
 
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+index 2ff255d7795e..fea173e37464 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_core_perf.c
+@@ -394,6 +394,10 @@ int dpu_core_perf_crtc_update(struct drm_crtc *crtc,
+ 
+ 		trace_dpu_core_perf_update_clk(kms->dev, !crtc->enabled, clk_rate);
+ 
++		/* If we're going offline, PM callbacks will disable the clocks instead */
++		if (!clk_rate)
++			return 0;
++
+ 		clk_rate = min(clk_rate, kms->perf.max_core_clk_rate);
+ 		ret = dev_pm_opp_set_rate(&kms->pdev->dev, clk_rate);
+ 		if (ret) {
+
+-- 
+2.55.0
 
