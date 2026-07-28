@@ -4,139 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CE57C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:09:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BCDECC53219
+	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 15:11:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98F2410E218;
-	Tue, 28 Jul 2026 15:09:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0955E10E861;
+	Tue, 28 Jul 2026 15:11:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="CbRk+CfK";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="BoTR8gPP";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012068.outbound.protection.outlook.com
- [40.107.200.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7BA3510E2AF
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 15:09:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AGaP86XtwI0ObU5EQaspgo6uniTYTTFNX2DF6RoIXekZ7m0NJmoeDoV3Mo/7HDG2v7/OCTDecB+Mac5zwAXuZAHpbxIYcGplM7806FpsBdkpqlE3vuJHt2BYtkkmuW/8kxCwBA7+4JFmWXpujNpnvHsFr9pmB7Jfl1leALEjtTq0yMpL3/mloC0brYqDKZLWTBo8PdD2ES2hu5qVFZ/rq8UHb7YKDlgdE8oJZFWS+VbRzTBJ/Y4mVPQo08OSn0elEgYe8eHx22l3NE0Vn2He/DcYb+nwiC+ngxLFmTa8J8zG9r7e0w91NBZatKxtSgU5ZiQWR+UWQoWtzJNq6FxnWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JQLs4y+PPMItTj3+3wYWiJ/o03oy2+UPiIL5+Mgtw2A=;
- b=Zp0SruyfLW2Hp3KurvkY7KGfQey0zyxQntKPU6X8f0kGf1/uuyEaOKWGeqi+on5cMLpQt85s5jGIvcgOctY+KYMP1y7gm/hDghiAIOxlYu1qTZNWh43EWAq5L0RsM7gfK8C6O182NZ+Cc2mQgxc2utUZJbI9pU1h2nJVAanuQZ0EIKOlPEsYG413Dddz/XJhdsqwZmQREzj5bJwkgvdQ0gt5c8itc4Fg8w4MCopIUqKLqjFGqhQVuMXY9QkBRXrm7JS/4VT4Ng9vi+kzlPdLsuunSmgkK21PHheMtnH6Fx8g+wu6BZsmkX/jOdCPoNPlvZIVJe6iT9r0xIwp4ICTAg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JQLs4y+PPMItTj3+3wYWiJ/o03oy2+UPiIL5+Mgtw2A=;
- b=CbRk+CfKieG+50uRSE3CssIFCse1juZbmsF4B0aJtHLoM8IQLW47jNyncdSherzcuPAlAvRXhcjAAkS9a437oltaiPjGxnoGrCq1hoXUjVWuw3DO9eLl1t4ephmjS9kVqiwudEcIl7blIB2jMVrvvZCGw0xKm/QTsiQF1cOgUVZJKQQ3ujSc5+jL7iFKEYaQBP/VgQRIHDKKgq8Yf2LnkW0Uo04e9bZ4iq5E51NzToX0aLcr85eebW5dRy/RANKqIGcI+8NX46XxE5Nm0StLzByJ7oGsJFRCl923Et9HCslY1OadZbQdPFzx9aUvz+tTalviHusjQjI3XNaMtFlH4A==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by SJ0PR12MB7460.namprd12.prod.outlook.com (2603:10b6:a03:48d::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
- 2026 15:09:47 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%6]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
- 15:09:47 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 29 Jul 2026 00:09:43 +0900
-Message-Id: <DKAASRCK3M06.G9XODK0T5AAK@nvidia.com>
-Cc: "Danilo Krummrich" <dakr@kernel.org>, "Alice Ryhl"
- <aliceryhl@google.com>, "Daniel Almeida" <daniel.almeida@collabora.com>,
- "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
- <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-pci@vger.kernel.org>
-Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
- PFALCON2 registers
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Gary Guo" <gary@garyguo.net>
-References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
- <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
- <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
- <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
-In-Reply-To: <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
-X-ClientProxiedBy: TYCPR01CA0182.jpnprd01.prod.outlook.com
- (2603:1096:400:2b0::6) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE9D110E713;
+ Tue, 28 Jul 2026 15:11:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785251477; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=NHGlV6NtX30BatGWgnjkodTfwQRV/LAVCcIibCVTiTE9BEBBcc19C5W9I9ZJdZtHe+5LgB32eefI8ZodKtaomPVLtNNDwQEcfgnM2yCozEhvJ/OghxgFBzyVwzNB3zWYg6VgZ4v33GMdViS39VyrStMTM0HWCNMvCzgcDeZzRlc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785251477;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=jYkK6lXlHec/yo2Mdvqq9xeIg01QvKzH13q6ig5pKx4=; 
+ b=dcu5Hx0jWK9jQMnNCW6w9ylpjpwcnc18/mosvR+n49Bot35JFJCjaBufxkoGcybFHRsXRp2Y+iYRmVp58WeWLKRqWcv7MIdyD2xkpXLsPAyAyhzy2mQ62/BD39bV1iaeCRGNLSZcOa8QHKKHEP4X1zyn3TjaGsKJ+bCbo0K1G5s=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785251477; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+ bh=jYkK6lXlHec/yo2Mdvqq9xeIg01QvKzH13q6ig5pKx4=;
+ b=BoTR8gPP5ewR9qzxZC3QDv8KECH4AO1982m8Pu7kFC3wkkO/U4x2lvRrhNe5ivps
+ 6pnImB8u/HUtJ+L4B2gGDg86sSiwj9sdpykvNExFk+gu/yoVm4ygB/rzvERErUwvx3Q
+ 6bRH+flLjUfnYHhswjwUPJUvxxaD54R364+1/7Fg=
+Received: by mx.zohomail.com with SMTPS id 178525147659829.065885387314438;
+ Tue, 28 Jul 2026 08:11:16 -0700 (PDT)
+Message-ID: <81c2e5ef-0fbb-451d-a1cb-8c1d96ffd656@collabora.com>
+Date: Tue, 28 Jul 2026 17:11:14 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SJ0PR12MB7460:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69421325-5cc4-46b5-cd4d-08deecba4318
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|366016|7416014|1800799024|376014|23010399003|4143699003|18002099003|22082099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: iCtc+w9WNltX5jgESujR5la/okxmXOSy6mbvrs+YCAJma0lPljzCCO3CV50rM5Yxoae3XZIFTnspno+b2yOr4zbuZWegtAUdvjUn+TwJeB9H7R+IcS/XEAAF1XXfhbRunIU0xeHjbotrxcv0ybhsidqzfpyJtiWVdcCBQmXfVJd5/gkf6hVecjudihaR47aVUrCkzy7ANYZQ8iEfvpIF8PLnNHeyO6ebQDxO6JJB25D12cObg3TVlGITXT4evAWy/60ynEc4CAEC3HnQbKOAA0rjh/XpYYktl27/Vo7rwutRmVFX4w5/9RNxN7r6TW2/p/AbEiK4+xq4gAggPW8vHstA1N1H2iXHWo+ehJT1Cg7b/lDo0zCzmFt42eo/fSKqmPD5l4FIOxpOfYaNTR3+FQngQVTl5ET0sm5o0B6/iiZ5sNS+02oq1UoCN0TPhA8Cq73HTSMMWONOGzdW7LqbWqxH/rQzImzI6Iwm3brqO7XCSjOVQ2yLRQZmahwDkEZ89fAMhs+S9Sl/ZAjV8sGIb0iOJZn+1RE2dXKN25s5RJxQYAvsFJ8ng7k1jDcwu8qia3drEFYi97VWRfI0f69vTmDrBpPj+4Zogqto/abjg7R8Yg/tAWeFWUXNnvR1wADBgm8r3TpJLhryCkdqddCvy8c74GQOg093D1dKCIKe6b0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(366016)(7416014)(1800799024)(376014)(23010399003)(4143699003)(18002099003)(22082099003)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WnpkRVdKUVNSR2ZmSDVVSDFBMWVZbWtGMk50bVovOFI5NExDU1FSdWNhbXFt?=
- =?utf-8?B?aTdmYWpvY1g0R2d4bUFlVEU5NmU1L04wL1AwK3h3SUdGSFhQVDROVDJUSDd0?=
- =?utf-8?B?dVc1Wnh3WDRpS2hqUnJ6VlpNSHRjSXBsVEtyeVd1aGtleHhpc1lqZlhnV3BZ?=
- =?utf-8?B?UlFOVTVCQnl1NURzaHRKV1RibFlTSjRGbnpTTWlKVThhWERtQ1pyR2V4SWt2?=
- =?utf-8?B?ekRSWkNtcW5Xc1FXalBseVR3TllzdS9CU3JhOUJ5NVRpLzcxRXZYZjJGVGpS?=
- =?utf-8?B?TlZTNjR3WkR5TDdsaWZ4cDB2NFNpYmpjQ0Y5OVhDdXVpUEFwYXRkRHZVQ3R2?=
- =?utf-8?B?YXFaempFQ29yM050YzhKN2JiOHl3Tnd5UUlSYjJQa2pBN2wvTExLNVZJSnR6?=
- =?utf-8?B?UklGbXd4MThhMDhVRTltNlF2SlI4U0NOcTRTUmQ4QU8wWlcyUlhUVmFaaUhM?=
- =?utf-8?B?UEdvbVBNVExBZlRtOTI0TWMzekl5L3B1NkJUdnZHUHlVWElQaFF2Z1JRUVN3?=
- =?utf-8?B?MjNka0VvbUQvbzZraDdFNFlla0pJZTI0a0tYc2NsSTA0N0dpVXRuYnhkbzc1?=
- =?utf-8?B?bmkyUG5RT25mVG9YRVB3Q1puSERCU3F3ZHlpZkt3a3pvanV4aDZrU3FFZjMz?=
- =?utf-8?B?aFViNnJQWEdDcGQ1SUpWbVhidkdHa2RkUGMvZElJdkJKTXl0Q3VUdmxoMDdW?=
- =?utf-8?B?bjdlWWJMaW1CZEg5c1UzOWw4UWJEN2pVQzBLZzZTZmNjbFh2ekJjdCtBdit1?=
- =?utf-8?B?V2RGSlBneC9YS2tlL29jWlpKdEhRQmVqQmFDR1RHakhjMmZpOHdxbldSMURM?=
- =?utf-8?B?dE1TQUx5clR4QUs5STBUWFJ4WnNUdU9mcnRvTWYvZkIybng4b20yc1ROL25o?=
- =?utf-8?B?MldWZFZwWWd0UU9nR1NiZ2lCbXJRQXJUa3A3Tjk4aXFNQzBhQ0JoYWZ6L3lG?=
- =?utf-8?B?RmFVaUgwZUdiR0VJWjJLVXZ0eG51ZmtwaHh2VmpxMW9hSFVHRFA0Z2VFOUZv?=
- =?utf-8?B?dVpmaFREaGlPdUxTREMvU3ExdS82V1hQNkdjTXZka1NMcmd2MHZSRGpmMGhy?=
- =?utf-8?B?ZDZqQ0xjVklrS2U1dkp2TVM5anMzbVhqa2xXcXdidUszTjhBU2FxbFhzZko0?=
- =?utf-8?B?VUZIdUtTVjdOS1NlcXZNNE55MDMxTUozc1NMc0tMK1NXSjdVQ2hqME91TWJK?=
- =?utf-8?B?ZE1Rd0YvdWlZMWVzWWxjQWpxOHZGZ3VYdFB5TzA1Y1RVMWtWZDZ0QkgxRVRN?=
- =?utf-8?B?VFZVd0VwMzFUSVg3dVpLTWRLNGhWa0JxSmNoYWJvREc3bkt2Z1JxK0g0MVd2?=
- =?utf-8?B?VHVGc3Y5ekFoYklETEc2UG92OG9rN2lyVkJSaENwSUVUWHFQdjdPazFNUmtT?=
- =?utf-8?B?azN5MGovT1I5N0M1TE5pc1NlVjcvd3NDRUtDMWlUazRNWnpWMFYvdDJiMTIy?=
- =?utf-8?B?QXkvcVJkODVmN05GeUlxdXRuUnc1R3BJTXpTbEorRXhySlNCRitjekt5RkRo?=
- =?utf-8?B?Z3VFd3F5TzlVd1RjeHl6K3ZNTzAvMm1nK3h3YXpwVFR2ZGp4cS9BbjJLeENv?=
- =?utf-8?B?MEwyNmk4b0MrVGpvNmNUMTBtL1VDM3U5cDdjbHR6QzE3MTRpMC95anMrb01F?=
- =?utf-8?B?VWxyMXUrNzExdTYwNXdhbmlhakZXd090ZW93QTlGZ3Z3aHhYQnk5TUNlODQ4?=
- =?utf-8?B?by9sYkVKNGYrbUlnK09OUXp4VXBWRnJMWGp5OEZ2ZFZlbEYxZ1kvT1B0OVpE?=
- =?utf-8?B?MkY1VWZjWHgzc0FiY1VjbnRLVmVhMkdCbzdQUWxqTjhrWHpGK2RLd2VXMWlh?=
- =?utf-8?B?aUF4ajl0MUpEVngvby9Bckl0SzFXYWVXeVdGNzYrTTBISW5neGJEdXVmWWNv?=
- =?utf-8?B?a1l1WWtMTlRGd3VaaXlySHJpTnBoeTJsR1hmelZVUVNhcU9ZbWpxeU9XcUdv?=
- =?utf-8?B?Q1VvNURTRmdUZ2RrZTFac3doaWtHU1dHNDU2eTBzOU5aSyt5eWVxajNFZitp?=
- =?utf-8?B?VkVKMzBUNlBsT0hOL092NWVCQ2dnV3VGbXZNSSs2WWMrMEJXUmE4c1VTcW9K?=
- =?utf-8?B?RmE5SW9qbnRaSXY4KzQycDhwTFdRaGdVSzdmQXJiMHZtOWRrMGFZckZ2cTRi?=
- =?utf-8?B?NlgrKzZPdkJMVkVNRTk3cEtvV0QvemxsWEJYZXNRTzNQdis1dnFsTDRYMmhy?=
- =?utf-8?B?eFAxbGJocFRPY2F0NnprM0d4blU1bkFMNGpObkNxQTE5WXV1MWZUdE4yOHNp?=
- =?utf-8?B?dnZJUzVoY3RWNzAxQ2M0V3k1MVZBaW9iL3NxU21MWW1YZnRBWTZiQzZzQnRC?=
- =?utf-8?B?TjZ2eEQ4SVYzN3JJQzBUT3dBaUpmOElvRUE5TFBNZm56bjNGZWk3TmVMcjZW?=
- =?utf-8?Q?iv/9c5Hae8G1M0oP/fNtqqCGlruZLXFiIWoBlpO/381AE?=
-X-MS-Exchange-AntiSpam-MessageData-1: VPwMhcOKsrWzNA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69421325-5cc4-46b5-cd4d-08deecba4318
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 15:09:46.9303 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: h4TaqJtixLEu0l7NW6S7kCOY6GYNhveorCywqoLRL+E7A0WlkCX5mXVf4M4MSsE918GOK7BCHu+VescxW+dI6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB7460
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/11] drm/vkms: Fix limited-range YCbCr to RGB
+ conversion scaling
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+References: <20260722134607.136293-1-harry.wentland@amd.com>
+ <20260722134607.136293-3-harry.wentland@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260722134607.136293-3-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,101 +67,219 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jul 28, 2026 at 7:24 PM JST, Gary Guo wrote:
-> On Tue Jul 28, 2026 at 7:45 AM BST, Alexandre Courbot wrote:
->> On Wed Jul 22, 2026 at 1:54 AM JST, Gary Guo wrote:
->>> Add fixed size region types for these and add projection methods that
->>> project from `Bar0` into these. Update these registers to be registers =
-on
->>> `PFalconRegisters` and `PFalcon2Registers` and not relative registers o=
-n
->>> `NovaRegisters`.
->>>
->>> The use sites are updated mechanically; calls to the projection methods=
- are
->>> not extracted in this commit.
->>>
->>> Signed-off-by: Gary Guo <gary@garyguo.net>
->>> ---
->>>  drivers/gpu/nova-core/falcon.rs                    | 158 +++++++++----=
---------
->>>  drivers/gpu/nova-core/falcon/fsp.rs                |  53 +++----
->>>  drivers/gpu/nova-core/falcon/gsp.rs                |  43 +++---
->>>  drivers/gpu/nova-core/falcon/hal/ga102.rs          |  39 ++---
->>>  drivers/gpu/nova-core/falcon/hal/tu102.rs          |   8 +-
->>>  drivers/gpu/nova-core/falcon/sec2.rs               |  32 +++--
->>>  drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |  11 +-
->>>  drivers/gpu/nova-core/regs.rs                      |  81 ++++++-----
->>>  8 files changed, 193 insertions(+), 232 deletions(-)
->>>
->> We are calling these methods quite a bit throughout the code. I
->> understand they are supposed to be optimized away, but that's still a
->> lot of repetition.
->>
->> Since we now have HRTB and `Falcon` is already referencing the `Bar0`,
->> how about storing the projected `Mmio` inside the `Falcon` instance?
->>
->>     pub(crate) struct Falcon<'a, E: FalconEngine> {
->>         ...
->>         pfalcon: Mmio<'a, PFalconRegisters>,
->>         pfalcon2: Mmio<'a, PFalcon2Registers>,
->>     }
->>
->>     pub(crate) fn new(...) -> Result<Self> {
->>         Ok(Self {
->>             ...
->>             pfalcon: E::pfalcon(bar),
->>             pfalcon2: E::pfalcon2(bar),
->>         })
->>     }
->>
->> That way all the
->>
->>     E::pfalcon(self.bar)...
->>
->> Can become simply
->>
->>     self.pfalcon
->
-> Right, this is the direction that I do think we should head to. As descri=
-bed in
-> commit message, this commit is intended as a mechanical conversion and re=
-factors
-> are left to the future.
+Hi,
 
-Great, keeping this commit purely mechanical sounds good to me if you
-prefer it that way (although one can argue that the refactor itself is
-also mostly mechanical as the end result shouldn't be more complex).
+On 22.07.26 15:45, Harry Wentland wrote:
+> The limited-/studio-range YCbCr to RGB conversion matrices were generated
+> with colour.matrix_YCbCr(is_legal=True, bits=8), which normalises the
+> narrow range by 2^bits (256 for 8-bit) rather than by the full-range
+> maximum 2^bits - 1 (255). As a result the luma scale was 256/219 and the
+> chroma scale 256/224 instead of the correct 255/219 and 255/224.
+
+I'm a bit embarrassed that the Weston CI didn't catch this - looks like 
+our "fuzzy" ranges [1] are a bit too high :/
+
+I verified that with this patch the corresponding tests (testing all six 
+combinations) still succeed. The reasoning also makes total sense to me 
+- but I didn't check the values yet.
+
+Thus for now:
+
+Tested-by: Robert Mader <robert.mader@collabora.com>
+
+1: 
+https://gitlab.freedesktop.org/wayland/weston/-/blob/0bb1ce3bd3a6ba1867b52ea0916bb864e26f7300/tests/harness/weston-test-client-helper.c#L2240
 
 >
->>
->> And I suspect that once this is generalized, `Falcon` won't even need to
->> store a reference to the `Bar0` (and potentially poke the I/O of other
->> engines) anymore.
->>
->> Actually I would like to push that even further and replace the
->> `pfalcon()` and `pfalcon2()` trait methods by associated constants used
->> to construct the projected view in `Falcon::new`, since the projections
->> are all constructed the same way, but doing so requires
->> `generic_const_exprs`. :/
->>
->> We could make it work by moving the `OFFSET` generic argument of
->> `subregion` into a regular argument and enforcing its invariants using
->> `build_assert!`, but that would require `subregion` to be
->> `#[inline(always)]`. I don't know if there is another trick we can use,
->> if not otherwise I guess the trait methods are ok, especially if they
->> are only called once in the constructor.
+> This over-scales every limited-range conversion by a factor of 256/255,
+> producing an error of up to ~3/255 (8-bit) and causing IGT tests that
+> compare software-computed surfaces against VKMS-processed ones to fail.
 >
-> This was definitely one option that I have considered, however as `NEW_SI=
-ZE`
-> still needs to be generic so we're not entirely turbofish-free. But if ma=
-king
-> `offset` become an effective const parameter helps nova impl, it might ma=
-ke
-> sense to use `build_assert!` for this.
+> Recompute the three limited-range matrices from first principles rather
+> than relying on colour's is_legal scaling:
+>
+>   1. Start from the standard ITU-R YCbCr -> RGB relations for the luma
+>      weights Kr, Kb (Kg = 1 - Kr - Kb) of each encoding (BT.601, BT.709
+>      and BT.2020 non-constant luminance). These are the same relations
+>      that produce the existing full-range matrices.
+>   2. Expand the studio input range to full range relative to a full-range
+>      maximum of 2^n - 1: the luma coefficient by 255/(235 - 16) and the
+>      chroma coefficients by 255/(240 - 16). This matches the DRM UAPI
+>      definition and IGT's igt_ycbcr_to_rgb_matrix().
+>   3. Convert each coefficient to S31.32 fixed point (round(coeff * 2^32)).
+>
+> The full-range matrices (is_legal=False) are unaffected as they use exact
+> 1.0/2.0 scaling.
+>
+> Update the limited-range reference values in the vkms-format KUnit test
+> accordingly: the expected YCbCr inputs now use the studio-range encoding
+> consistent with the corrected matrices (8-bit value v placed at v * 257,
+> i.e. relative to a full-range maximum of 255).
+>
+> Fixes: fe22d21e9342 ("drm/vkms: Add YUV support")
+> Assisted-by: Copilot:claude-opus-4.8
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> ---
+>   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 36 ++++++------
+>   drivers/gpu/drm/vkms/vkms_formats.c           | 55 +++++++++++++------
+>   2 files changed, 55 insertions(+), 36 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+> index a7788fbc45dc..789c59d07ffb 100644
+> --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+> +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+> @@ -101,12 +101,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
+>   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+>   		.n_colors = 6,
+>   		.colors = {
+> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> -			{ "red",   { 0x517b, 0x5a34, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> -			{ "green", { 0x908e, 0x35cc, 0x2237 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> -			{ "blue",  { 0x28f7, 0xf000, 0x6dc9 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> +			{ "red",   { 0x51cd, 0x5a8e, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> +			{ "green", { 0x911e, 0x3602, 0x2259 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> +			{ "blue",  { 0x2920, 0xf0f0, 0x6e37 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+>   		}
+>   	},
+>   	/*
+> @@ -151,12 +151,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
+>   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+>   		.n_colors = 6,
+>   		.colors = {
+> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> -			{ "red",   { 0x3e8f, 0x6656, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> -			{ "green", { 0xaca1, 0x29aa, 0x1a45 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> -			{ "blue",  { 0x1fd0, 0xf000, 0x75bb }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> +			{ "red",   { 0x3ece, 0x66bc, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> +			{ "green", { 0xad4e, 0x29d4, 0x1a5f }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> +			{ "blue",  { 0x1ff0, 0xf0f0, 0x7631 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+>   		}
+>   	},
+>   	/*
+> @@ -201,12 +201,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
+>   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+>   		.n_colors = 6,
+>   		.colors = {
+> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> -			{ "red",   { 0x4988, 0x60b9, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> -			{ "green", { 0xa47b, 0x2f47, 0x1902 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> -			{ "blue",  { 0x1cfd, 0xf000, 0x76fe }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> +			{ "red",   { 0x49d2, 0x611a, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> +			{ "green", { 0xa520, 0x2f76, 0x191b }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> +			{ "blue",  { 0x1d1a, 0xf0f0, 0x7775 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+>   		}
+>   	},
+>   };
+> diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
+> index dfb8e13cba87..4d5fcaeb82c5 100644
+> --- a/drivers/gpu/drm/vkms/vkms_formats.c
+> +++ b/drivers/gpu/drm/vkms/vkms_formats.c
+> @@ -788,15 +788,36 @@ static const struct conversion_matrix yuv_bt601_full = {
+>   };
+>   
+>   /*
+> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.601"],
+> - *                                  is_legal = True,
+> - *                                  bits = 8) * 2**32).astype(int)
+> + * BT.601 limited-/studio-range YCbCr to full-range RGB.
+> + *
+> + * The coefficients are derived as follows:
+> + *
+> + *  1. Take the standard ITU-R YCbCr -> RGB relations for luma weights
+> + *     Kr, Kb (Kg = 1 - Kr - Kb), with Y in [0, 1] and Cb, Cr in
+> + *     [-0.5, 0.5]. For BT.601 Kr = 0.299 and Kb = 0.114:
+> + *
+> + *       R = Y                                + 2 * (1 - Kr)          * Cr
+> + *       G = Y - 2 * (1 - Kb) * Kb / Kg * Cb - 2 * (1 - Kr) * Kr / Kg * Cr
+> + *       B = Y + 2 * (1 - Kb)          * Cb
+> + *
+> + *     These are exactly the yuv_bt601_full coefficients above.
+> + *
+> + *  2. Expand the studio input range to full range, relative to a
+> + *     full-range maximum of 2^n - 1 (255 for 8-bit): the luma
+> + *     coefficient is scaled by 255/(235 - 16) and the chroma
+> + *     coefficients by 255/(240 - 16). This matches the DRM UAPI
+> + *     definition and IGT's igt_ycbcr_to_rgb_matrix(). Note this differs
+> + *     from colour.matrix_YCbCr(is_legal=True), which normalises by 2^n
+> + *     and is thus off by a factor of 256/255.
+> + *
+> + *  3. Convert each coefficient to S31.32 fixed point, i.e.
+> + *     round(coeff * 2^32).
+>    */
+>   static const struct conversion_matrix yuv_bt601_limited = {
+>   	.matrix = {
+> -		{ 5020601039, 0,           6881764740 },
+> -		{ 5020601039, -1689204679, -3505362278 },
+> -		{ 5020601039, 8697922339,  0 },
+> +		{ 5000989317, 0,           6854882848 },
+> +		{ 5000989317, -1682606224, -3491669458 },
+> +		{ 5000989317, 8663946082,  0 },
+>   	},
+>   	.y_offset = 16,
+>   };
+> @@ -816,15 +837,14 @@ static const struct conversion_matrix yuv_bt709_full = {
+>   };
+>   
+>   /*
+> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.709"],
+> - *                                  is_legal = True,
+> - *                                  bits = 8) * 2**32).astype(int)
+> + * BT.709 limited-range YCbCr to full-range RGB (Kr = 0.2126, Kb = 0.0722).
+> + * Derived as described for yuv_bt601_limited.
+>    */
+>   static const struct conversion_matrix yuv_bt709_limited = {
+>   	.matrix = {
+> -		{ 5020601039, 0,          7729959424 },
+> -		{ 5020601039, -919487572, -2297803934 },
+> -		{ 5020601039, 9108275786, 0 },
+> +		{ 5000989317, 0,          7699764272 },
+> +		{ 5000989317, -915895824, -2288828138 },
+> +		{ 5000989317, 9072696586, 0 },
+>   	},
+>   	.y_offset = 16,
+>   };
+> @@ -844,15 +864,14 @@ static const struct conversion_matrix yuv_bt2020_full = {
+>   };
+>   
+>   /*
+> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.2020"],
+> - *                                  is_legal = True,
+> - *                                  bits = 8) * 2**32).astype(int)
+> + * BT.2020 non-constant-luminance limited-range YCbCr to full-range RGB
+> + * (Kr = 0.2627, Kb = 0.0593). Derived as described for yuv_bt601_limited.
+>    */
+>   static const struct conversion_matrix yuv_bt2020_limited = {
+>   	.matrix = {
+> -		{ 5020601039, 0,          7238124312 },
+> -		{ 5020601039, -807714626, -2804506279 },
+> -		{ 5020601039, 9234915964, 0 },
+> +		{ 5000989317, 0,          7209850391 },
+> +		{ 5000989317, -804559491, -2793551177 },
+> +		{ 5000989317, 9198842076, 0 },
+>   	},
+>   	.y_offset = 16,
+>   };
 
-Maybe we can have another variant of `subregion` that operates that way,
-but your call. I don't see any obvious flaw with the current
-implementation, it's just that the `FalconEngine` methods should not be
-useful outside of the constructor eventually, so it seems a bit
-superfluous to have them visible to the whole crate.
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
+
