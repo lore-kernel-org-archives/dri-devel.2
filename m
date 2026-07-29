@@ -4,61 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4515BC54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 13:20:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8E19C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 13:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CFA610E044;
-	Wed, 29 Jul 2026 13:20:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F07310EC39;
+	Wed, 29 Jul 2026 13:22:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ik.me header.i=@ik.me header.b="rcUc2SLJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q/OrKSDV";
 	dkim-atps=neutral
-X-Greylist: delayed 3602 seconds by postgrey-1.36 at gabe;
- Wed, 29 Jul 2026 13:20:37 UTC
-Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch
- [83.166.143.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92ABD10EC39
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 13:20:37 +0000 (UTC)
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch
- [10.4.36.108])
- by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4h9B6L0XGlzVsQ;
- Wed, 29 Jul 2026 14:12:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ik.me; s=20200325;
- t=1785327145; bh=/Mf6oc8o3rgfoSd5qIUTbDR7145wWJf1XLsdkjAYlNw=;
- h=Subject:Date:From:To:Cc:Reply-To:References:In-Reply-To:From;
- b=rcUc2SLJbe1wzDhxkVtnNpyfZuacNYzGkoWzztqh41/Q9OMgk5a1JTmH9v/vlMYLn
- 6IU7fZUwGKjqot+2Qsy3EA/CfVct3kB0DTt4baZ+z8izxFAfL8cY4mMilelunAAiTR
- c/HmWP8hggNo+QgRqxxaBCn3XHlN1pU5unx6SNvM=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA
- id 4h9B6J68gszHKs; Wed, 29 Jul 2026 14:12:24 +0200 (CEST)
-Subject: Re: [PATCH v2] drm/tyr: add Job IRQ handling
-Message-ID: <9cf1107a-3dfd-43a6-9f25-d8e01595c9e3@mail.infomaniak.com>
-Date: Wed, 29 Jul 2026 14:12:24 +0200
-From: Ewan Chorynski <ewan.chorynski@ik.me>
-To: Laura Nao <laura.nao@collabora.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>, Alice Ryhl
- <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?utf-8?Q?Bj=C3=B6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, Tamir
- Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?utf-8?Q?=C3=96zkan?= <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, kernel@collabora.com, Deborah Brouwer
- <deborah.brouwer@collabora.com>
-X-WS-Location: eJxzKUpMKykGAAfpAmU-
-References: <20260729-tyr-irq-v2-v2-1-c2750fc11d59@collabora.com>
-In-Reply-To: <20260729-tyr-irq-v2-v2-1-c2750fc11d59@collabora.com>
-X-Mailer: Infomaniak Workspace (1.3.1317)
-X-WS-User-Origin: eyJpdiI6InY2WER6UW9XQ0puUVJCN2l1NTVuUnc9PSIsInZhbHVlIjoiZWc1OFV4dktJWFJkWVlIbkdCL3h0dz09IiwibWFjIjoiNzVlMDczZjBkNThiZDVhYTlhOGI1OTgyYjU3ZGE5OWY1ZjFhMTkyODc0MmVmYzU2NzFmNWY1NjE0Y2IwY2U2ZSIsInRhZyI6IiJ9
-X-WS-User-Mbox: eyJpdiI6ImpKb3dxUHpkZWZvSWpyaW4zaVo0TlE9PSIsInZhbHVlIjoiWGVwbGprK1RQMkJqUVRsS1owNU12QT09IiwibWFjIjoiOGE0OTAxZWJjNDU0YzdlZmE3ZmYxMTI5MjhiMmQyYzBiMDBjZTA1NGU2YzdmZDE2MGE0YWQ3NjFhNDI1Y2RjYyIsInRhZyI6IiJ9
-X-WS-LOCALE: fr_FR
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B58A10EC39
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 13:22:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id AF30A41990;
+ Wed, 29 Jul 2026 13:22:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D4731F000E9;
+ Wed, 29 Jul 2026 13:22:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785331333;
+ bh=AZ1yPPrl2P0u7w9cdReJbg5gscSANvY1BwyeTTrXNIY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Q/OrKSDVS5W8aNJKpqPLoYnmOwXKU7B+/QWfyxZ6FqxiSFrkANpIBBtq7uA+Ghc4V
+ wcFLI6uCrTYRua4xQFfCKrykDbu3EZcZ3ZGSiRDeYTcqhQZp3OohQxEF8EPN0rfEMs
+ +vR58seSsbSnBzfqobIFF8rH6Myeiv/YuXJ3JmbRmoV2LBEVPfUaqTZFjzPL9Ukg9z
+ RMa7XS3kxvUXU2SNXkMd5823DgmCtFfWoYcltTKyEhixLqNBfaKWetOq+90PlnGtT8
+ iZy6h291+83BBHndo70kkHE2jz3MTRQQ5arX6iejZtHDI9AhAQ8Bi+UhJEHSwBV5Ll
+ IC5rSsG+2uZxA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] accel/rocket: request the core clocks by name
+To: "Igor Paunovic" <royalnet026@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260729130743.128876-1-royalnet026@gmail.com>
+References: <20260729130743.128876-1-royalnet026@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Feedback-ID: :b8ff05a3410f642:ham:e74197f626dda86
-X-Infomaniak-Routing: alpha
+Date: Wed, 29 Jul 2026 13:22:12 +0000
+Message-Id: <20260729132213.4D4731F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,38 +52,142 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Ewan Chorynski <ewan.chorynski@ik.me>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 11:58:29AM +0200, Laura Nao wrote:
-> [...]
-> +
-> +impl<T: TyrIrqTrait> TyrIrq<T> {
-> +    pub(crate) fn request<'a>(
-> +        pdev: &'a platform::Device<Bound>,
-> +        name: &'static CStr,
-> +        irq: T,
-> +    ) -> Result<impl PinInit<ThreadedRegistration<'a, Self>, Error> + 'a=
->
-> +    where
-> +        T: 'a,
-> +    {
-> +        let handler =3D try_pin_init!(Self {
-> +            irq,
-> +            _pin: PhantomPinned,
-> +        });
-> +
-> +        // SAFETY: The resulting `PinInit` is not leaked, it is consumed=
- by the caller to
-> +        // initialize a pinned `ThreadedRegistration`.
-> +        Ok(unsafe { pdev.request_threaded_irq_by_name(Flags::SHARED, nam=
-e, name, handler) })
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-I think your `request` function should be unsafe with the same
-requirements as `request_threaded_irq_by_name`, otherwise how do you
-guarantee that this safety justification holds ?
+Pre-existing issues:
+- [Critical] If `rocket_device_init` fails during the first core's probe, t=
+he global `rdev` pointer is left as an `ERR_PTR` rather than being reset to=
+ `NULL`, causing a kernel panic on subsequent probes.
+- [High] The driver leaks the shared `rdev` and `rdev->cores` structures up=
+on probe deferral or failure.
+- [High] The driver incorrectly uses `rdev->num_cores` both as a count of a=
+ctive cores and as the boundary index, causing state corruption and resourc=
+e leaks upon out-of-order unbind.
+--
 
-> +    }
-> +}
-> [...]
+--- Patch [1]: [PATCH v2] accel/rocket: request the core clocks by name ---
+commit 4687ac2abf99b6ec4120f9d98c0f4148fc2a6b97
+Author: Igor Paunovic <royalnet026@gmail.com>
+accel/rocket: request the core clocks by name
+
+This commit fixes clock initialization by setting the proper names for the
+"aclk", "hclk", "npu", and "pclk" clocks before requesting them. Previously,
+all four clocks defaulted to index 0, which meant only the AXI clock was
+controlled by the driver.
+
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index b3b2fa9ba645a..5dd260bacbff6 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get resets for core %d\n", c=
+ore->index);
+> =20
+> +	core->clks[0].id =3D "aclk";
+> +	core->clks[1].id =3D "hclk";
+> +	core->clks[2].id =3D "npu";
+> +	core->clks[3].id =3D "pclk";
+>  	err =3D devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", c=
+ore->index);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but this devm_clk_bulk_get() call
+can defer probe. If rocket_core_init() fails here, I noticed a potential=20
+memory leak in the cleanup path.
+
+In drivers/accel/rocket/rocket_device.c:rocket_device_init(), the rdev=20
+structure is allocated via devres attached to the static drm_dev device:
+
+drivers/accel/rocket/rocket_device.c:rocket_device_init() {
+...
+	rdev =3D devm_drm_dev_alloc(dev, rocket_drm_driver, struct rocket_device, =
+ddev);
+...
+}
+
+However, if probe fails, drivers/accel/rocket/rocket_drv.c:rocket_probe()=20
+abandons it without freeing the devres:
+
+drivers/accel/rocket/rocket_drv.c:rocket_probe() {
+...
+		if (rdev->num_cores =3D=3D 0) {
+			rocket_device_fini(rdev);
+			rdev =3D NULL;
+		}
+...
+}
+
+Since drm_dev is never unbound while the module is loaded, does this leak=20
+the rdev and rdev->cores structures on every probe deferral?
+
+[Severity: Critical]
+This is a pre-existing issue, but looking at the error handling in=20
+drivers/accel/rocket/rocket_drv.c:rocket_probe():
+
+drivers/accel/rocket/rocket_drv.c:rocket_probe() {
+...
+	if (rdev =3D=3D NULL) {
+		/* First core probing, initialize DRM device. */
+		rdev =3D rocket_device_init(drm_dev, &rocket_drm_driver);
+		if (IS_ERR(rdev)) {
+			dev_err(&pdev->dev, "failed to initialize rocket device\n");
+			return PTR_ERR(rdev);
+		}
+	}
+
+	unsigned int core =3D rdev->num_cores;
+...
+}
+
+If rocket_device_init() returns an error, rdev is left holding an ERR_PTR=20
+instead of being reset to NULL. Will a subsequent probe attempt try to=20
+dereference the poisoned rdev pointer when evaluating rdev->num_cores?
+
+[Severity: High]
+This is a pre-existing issue, but does the driver mishandle out-of-order=20
+unbinds?=20
+
+In drivers/accel/rocket/rocket_drv.c:find_core_for_dev(), num_cores is used
+as a strict upper bound:
+
+drivers/accel/rocket/rocket_drv.c:find_core_for_dev() {
+...
+	for (unsigned int core =3D 0; core < rdev->num_cores; core++) {
+		if (dev =3D=3D rdev->cores[core].dev)
+			return core;
+	}
+...
+}
+
+If an earlier core is unbound, num_cores is decremented. If a higher-indexe=
+d=20
+core is then unbound, find_core_for_dev() won't search far enough to find i=
+t.=20
+
+Furthermore, if another core is then bound, rocket_probe() inserts it using=
+=20
+num_cores as the index:
+
+drivers/accel/rocket/rocket_drv.c:rocket_probe() {
+...
+	rdev->cores[core].rdev =3D rdev;
+	rdev->cores[core].dev =3D &pdev->dev;
+...
+}
+
+Could this overwrite an active higher-indexed core that was never properly=
+=20
+cleaned up?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729130743.1288=
+76-1-royalnet026@gmail.com?part=3D1
