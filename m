@@ -4,75 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A551FC54FDF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1234C55164
 	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 07:21:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9890010EDEF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C60910EDF1;
 	Thu, 30 Jul 2026 07:21:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="A/Eu0FLn";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="eDWsTaNm";
 	dkim-atps=neutral
-X-Greylist: delayed 115969 seconds by postgrey-1.36 at gabe;
- Wed, 29 Jul 2026 09:22:56 UTC
-Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.64.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B8D810E641
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 09:22:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
- s=mxsw2412; t=1785316953;
- bh=Z8jgFnSsfsBCNp8MTSDgq+awuLrAuj0O13qIpQRlAas=;
- h=Mime-Version:Date:Message-Id:Subject:From:To;
- b=A/Eu0FLnd/l5zV9WJ3K2ZGV+AHKJQYTJMGs5UkVIIxpzfg/ePGrbJJByZjmrS78Bu
- PmGV9TiGKZcNryCuUZDyzLMByKWQT3KUBhlBry2t2gsP8l7Tadf/Bmmu98B0BszGyc
- g1yQw1Gmj3hBDYX44YIZhTdJTq1q3ZejX6/0lypk=
-X-QQ-mid: zesmtpgz6t1785316944t7d5426a8
-X-QQ-Originating-IP: uiN5hJeyCk8Cgn2Kllv6CP7k2E6uuJH+qdj4J3W2DYo=
-Received: from localhost ( [120.237.158.181]) by bizesmtp.qq.com (ESMTP) with 
- id ; Wed, 29 Jul 2026 17:22:22 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3554096686797190771
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 29 Jul 2026 17:22:21 +0800
-Message-Id: <DKAY1CLOY1DD.189ONPFZX1G4O@linux.spacemit.com>
-Cc: "frank.binns" <frank.binns@imgtec.com>, "robh" <robh@kernel.org>,
- "krzk+dt" <krzk+dt@kernel.org>, "conor+dt" <conor+dt@kernel.org>, "dlan"
- <dlan@kernel.org>, "dri-devel" <dri-devel@lists.freedesktop.org>,
- "devicetree" <devicetree@vger.kernel.org>, "linux-kernel"
- <linux-kernel@vger.kernel.org>, "linux-riscv"
- <linux-riscv@lists.infradead.org>, "spacemit" <spacemit@lists.linux.dev>
-Subject: Re: [PATCH v3 1/2] dt-bindings: gpu: img,powervr-rogue: add
- spacemit,k3-gpu
-From: "Baihui Liang" <liangbaihui@linux.spacemit.com>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>
-X-Mailer: aerc 0.17.0
-References: <75c9382d2bda766aa459b00321153d715254d1a4.camel@imgtec.com>
- <20260728010513.1627950-1-liangbaihui@linux.spacemit.com>
- <20260728010513.1627950-2-liangbaihui@linux.spacemit.com>
- <20260728-proud-coyote-of-happiness-e99c24@quoll>
-In-Reply-To: <20260728-proud-coyote-of-happiness-e99c24@quoll>
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NT1GeB58nkv+mzDjZP/id+gTZoP6XTyxXhcCU83WSNEiw5+vi09e/sWr
- zJmBGCiHvwFfUATXeI0QI2yjz353BV9HXLrvndAtMzNczWAuS6oaYTG3RPmKGg3R2pV+qU3
- k32GeRLUrNUzkdwASKFUYLcFKSzTylueffeD62lO7I6WM0Vvp9ExkDHa/HZV48sdtfR26V/
- pkx1BjVE6/u5/CAZU58eLp2NA2d7P9VGR+s134G6lhohcH85uaaAHSFppk/TNNHTrIYKkXb
- qR0NFxM1bh7WaObvWDNSlhLhfU2hv/qzLm8GxI9bOWoIqE+0WcZuLC6U4O9YUk1ln4ceeEY
- svVlekVtd2E6/zcY3G5xauAOwNYUCvNlR0oc8qscR9cri0Q+5kirgjJSdNirbuDsMjXppCt
- HtI1WVxTGN82KPXy9ELJ/M6bjmm8hqZcl7qz9KT9M/5nPOyoQDYXuAnF8qQEhg3vBpCY7bQ
- QFUvLNRnIDABocRVYkGpV1L/HQ3ry2Ez4ifkZ8tKs9m8EclKibb8j382DDlkm9Rwn3VqNgy
- 4Ixy2wJe90P/yk7aFcAlOJBDk/TTLZIQmhp9UaJXJ+VW+pHRaaM3tKNh3nTtQNL4MGAHCS6
- baIZCDYpSoVzjFhcNc9LxlZMZvKmGMUCBctfQPGnF881nESu77ZZkY4txcKxyBMdLS7hSPH
- ALtIxbBeCTZVrjcII7onljISfwNRy3rtdsZ81UbVlJQSQlwP/mlPhAHcchDxORSR4XimCkC
- qUEGrIsOROD2ch9WlxUx4pc28aap72OsTue7IyqSy4F2p7KWRBmzO5bUvV+a3q1+BmCfiwN
- eQRVpXO4FLxl6xTBOWgv9JmtQjTn832pCRG/pD0/s9RA7ayhINtdHgMimsacgU6Qrc6dt7G
- e/2+JB0mimd0NGwsMcGzt5ugpR3d56biZKObrPr3IylJSDWXJy9IE/T5bc//5hoEY4LU7qs
- JpBQvGDSuOAMxhRR2LeFrXm1P5dnpHiFLMne/U2mWKBzyt72GMG/wg3CJK5t/3dOOhSGWpz
- Q1KSLU2INxcYQ/FMe6BwGWWbdSa2DDBTPqBzeNqKFWpDmwXONrRACxVw5zIQ4=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
-X-Mailman-Approved-At: Thu, 30 Jul 2026 07:19:55 +0000
+X-Greylist: delayed 526 seconds by postgrey-1.36 at gabe;
+ Wed, 29 Jul 2026 10:28:52 UTC
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52FED10EB49
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:28:52 +0000 (UTC)
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20260729102004epoutp04a6403b75b5e06d6cf3e472c8420bbbbc~Gu3LiDozw0592505925epoutp04P;
+ Wed, 29 Jul 2026 10:20:04 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
+ 20260729102004epoutp04a6403b75b5e06d6cf3e472c8420bbbbc~Gu3LiDozw0592505925epoutp04P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1785320404;
+ bh=YCW02Jxoo99jpNlsyhoDkdRYpwZg1zR6VRHvl0BIrE8=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=eDWsTaNmgcGwi1kazmv+E5CPogPPPr6vL2mmbeB1RfWehFQsKfcAB9zpXj77o3NNE
+ kIQwZVVXiHqiLsmtO/MXIpcWlp7GBSIvMnTfb59L4HkAZ30XCSg0iNP74B6djfVWXE
+ knTC/ZRw43C2ERbPsPMwRyLELRQ8MHVxrQnA+IW0=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+ epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+ 20260729102004epcas5p2561f4970a332635bb0bcb22dc8aab55d~Gu3LO-Erh0974809748epcas5p2K;
+ Wed, 29 Jul 2026 10:20:04 +0000 (GMT)
+Received: from epcpadp1new (unknown [182.195.40.141]) by
+ epsnrtp04.localdomain (Postfix) with ESMTP id 4h97cg6qpPz6B9mB; Wed, 29 Jul
+ 2026 10:20:03 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+ epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260729101729epcas5p22470163e142ebd0396fde02f3ab2532b~Gu07MoEUA0811408114epcas5p2g;
+ Wed, 29 Jul 2026 10:17:29 +0000 (GMT)
+Received: from [107.122.10.194] (unknown [107.122.10.194]) by
+ epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260729101724epsmtip20bd2616b77b7372e21c910f8cdc4cc60~Gu02psnJC1532915329epsmtip2D;
+ Wed, 29 Jul 2026 10:17:24 +0000 (GMT)
+Message-ID: <81412691.21785320403945.JavaMail.epsvc@epcpadp1new>
+Date: Wed, 29 Jul 2026 15:47:23 +0530
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/14] nvme-pci: add SGL support for the dmabuf path
+To: Christoph Hellwig <hch@lst.de>, Pavel Begunkov <asml.silence@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Sagi
+ Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Andrew Morton
+ <akpm@linux-foundation.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Nitesh Shetty
+ <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, Tushar Gohad
+ <tushar.gohad@intel.com>, William Power <william.power@intel.com>, Phil
+ Cayton <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>, Damien Le
+ Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>, Mike Snitzer
+ <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, Benjamin
+ Marzinski <bmarzins@redhat.com>, Vishal Verma <vishal.l.verma@intel.com>,
+ David Sterba <dsterba@suse.com>, Ilya Dryomov <idryomov@gmail.com>,
+ dm-devel@lists.linux.dev, nvdimm@lists.linux.dev,
+ linux-btrfs@vger.kernel.org, ceph-devel@vger.kernel.org, cpgs@samsung.com
+Content-Language: en-US
+From: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>
+In-Reply-To: <20260729072117.GI9534@lst.de>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260729101729epcas5p22470163e142ebd0396fde02f3ab2532b
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+X-CMS-RootMailID: 20260729072126epcas5p3ad4422a45f1274b71f15dec8bf487fcc
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <5c2e9c3bdd3e87c0c9a6e4395ea199002b83fd36.1785274111.git.asml.silence@gmail.com>
+ <CGME20260729072126epcas5p3ad4422a45f1274b71f15dec8bf487fcc@epcas5p3.samsung.com>
+ <20260729072117.GI9534@lst.de>
+X-Mailman-Approved-At: Thu, 30 Jul 2026 07:19:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,115 +100,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jul 28, 2026 at 4:07 PM CST, Krzysztof Kozlowski wrote:
-> On Tue, Jul 28, 2026 at 09:05:12AM +0800, Sterling-Ash wrote:
-> > Add a compatible string for the IMG BXM-4-64 GPU integrated into the
-> > SpacemiT K3 SoC. It shares the same core as thead,th1520-gpu but is
-> > kept as a separate compatible entry, since the K3 integration differs
-> > from TH1520 in its clock and power-domain requirements: K3 has a
-> > single "core" clock rather than three, and its GPU power domain is
-> > enabled by the bootloader before Linux boots rather than being
-> > modelled and switched by Linux, so no power-domains property is
-> > required for this platform (unlike the other img,img-bxm-4-64 user).
-> >=20
-> > spacemit,k3-gpu is added to the existing ti,am62-gpu/ti,am62p-gpu/
-> > ti,j721s2-gpu "if" block that restricts clocks to a single entry,
-> > since K3 has the same single-clock requirement. It does not match any
-> > "if" block that constrains power-domains, so that property falls back
+>> +static void nvme_pci_sgl_set_data_addr(struct nvme_sgl_desc *sge,
+>> +				       dma_addr_t addr, u32 len)
+>> +{
+>> +	sge->addr = cpu_to_le64(addr);
+>> +	sge->length = cpu_to_le32(len);
+>> +	sge->type = NVME_SGL_FMT_DATA_DESC << 4;
+>> +}
+>> +
+>>   static void nvme_pci_sgl_set_data(struct nvme_sgl_desc *sge,
+>>   		struct blk_dma_iter *iter)
+>>   {
+>> -	sge->addr = cpu_to_le64(iter->addr);
+>> -	sge->length = cpu_to_le32(iter->len);
+>> -	sge->type = NVME_SGL_FMT_DATA_DESC << 4;
+>> +	nvme_pci_sgl_set_data_addr(sge, iter->addr, iter->len);
+>>   }
+> 
+> The naming is a bit confusing (and me passing the iter to
+> nvme_pci_sgl_set_data is probably at faul for that).  So maybe
+> spin out a prep patch to rename the old nvme_pci_sgl_set_data
+> to nvme_pci_dma_iter_set_sgl or so, and then add the new one
+> as nvme_pci_sgl_set_data (as before the dma_iter conversion).
 >
-> I don't get this explanation. Are you explaining what the patch is doing
-> or explaining WHY you did this that way?
 
-That paragraph was describing schema mechanics, which does not belong in
-a commit message. v4 will drop it and state only the hardware facts: the
-K3 integration of the BXM-4-64 has a single "core" clock, and it has no
-software-controllable GPU power domain.
+Thanks for the detailed review! Will split the rename into a prep patch.
 
-> > to this schema's general constraints, where it is optional. This
-> > leaves room for a power-domains provider to be added later without a
-> > further binding change, should one ever be modelled in Linux for this
-> > SoC.
->
-> No, you need to provide constraints now. Please read carefully
-> writing-bindings.
+>>
+>> +static unsigned int nvme_pci_dmabuf_sgl_nents(struct request *req,
+>> +					      dma_addr_t *first_dma,
+>> +					      u32 *first_len)
+> 
+> This is a really good example why the aligning to the opening braces
+> produces totally unreadble code..
+> 
+> But I also don't understand what the use case for this function
+> is to start with.  struct sg_table tells us how many segments
+> exist on the DMA side in the nents member, which should be just
+> fine for the SGL threshold calculation.
 
-Understood. spacemit,k3-gpu currently matches no power-domains "if"
-block, so it falls back to the top-level 1-2 domains with
-power-domain-names "a"/"b". That would let a K3 DT with two power
-domains pass validation, which does not describe this hardware. v4 will
-add an explicit "if" block:
+sg_table->nents covers the entire exported buffer (<=1GiB), while a
+request only covers a subrange[bi_offset, bi_offset+payload). Using
+nents would overcount the request's segments.
 
-    - if:
-        properties:
-          compatible:
-            contains:
-              const: spacemit,k3-gpu
-      then:
-        properties:
-          power-domains: false
-          power-domain-names: false
+> 
+>> +{
+>> +	struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
+>> +	struct bio *bio = req->bio;
+>> +	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
+>> +	size_t length = blk_rq_payload_bytes(req);
+>> +	struct nvme_sgl_desc *sg_list = NULL;
+>> +	dma_addr_t sgl_dma = 0, last_end = 0;
+>> +	unsigned int mapped = 0;
+>> +	unsigned long tmp;
+>> +	struct scatterlist *sg;
+>> +	size_t offset, remaining;
+>> +	bool have = false;
+>> +
+>> +	if (!entries)
+>> +		return BLK_STS_IOERR;
+>> +	if (entries > NVME_MAX_SEGS)
+>> +		return BLK_STS_AGAIN;
+> 
+> Given that the block layer enforced data in rw/command and the
+> max_segments limit, why do we need the extra check here?
 
-The K3 integration of the BXM-4-64 has no software-controllable GPU
-power domain, so both properties are disallowed rather than constrained.
-This is the one place K3 differs from the other bxm-4-64 user: on
-TH1520 the GPU sits in a single unified domain, and that block stays as
-it is.
+A dmabuf bio reports nsegs=1 (bio_split_io_at) to the block layer, so 
+max_segments isn't enforced against the SG entries actually spanned by 
+the request. Hence the explicit check.
 
-> >=20
-> > Signed-off-by: Sterling-Ash <liangbaihui@linux.spacemit.com>
-> > ---
->
-> Do not attach (thread) your patchsets to some other threads (unrelated
-> or older versions). This buries them deep in the mailbox and might
-> interfere with applying entire sets. See also:
-> https://elixir.bootlin.com/linux/v6.16-rc2/source/Documentation/process/s=
-ubmitting-patches.rst#L830
+> 
+>> +			continue;
+>> +		}
+>> +
+>> +		addr += offset;
+>> +		sg_len -= offset;
+>> +		offset = 0;
+>> +
+>> +		while (sg_len && remaining) {
+> 
+> These can't be false on the first iteration, so maybe turn this into
+> a do {} while loop?
 
-Sorry about that -- v2 and v3 were both sent in reply to the v1 review
-thread. v4 will be sent as its own top-level thread.
+Will do.
 
-> > v3: also add spacemit,k3-gpu to the existing ti,am62-gpu/ti,am62p-gpu/
-> >     ti,j721s2-gpu "if" block restricting clocks to a single entry --
-> >     previously it fell back to this schema's general clocks constraint
-> >     (1-3 items), which would have let an invalid DT with 2 or 3 clocks
-> >     pass validation (found by automated review on v2).
-> >=20
-> >  .../devicetree/bindings/gpu/img,powervr-rogue.yaml          | 6 ++++++
-> >  1 file changed, 6 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.ya=
-ml b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> > index a1f54dbae3f3..d29f0d163b91 100644
-> > --- a/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> > +++ b/Documentation/devicetree/bindings/gpu/img,powervr-rogue.yaml
-> > @@ -38,6 +38,11 @@ properties:
-> >                - thead,th1520-gpu
-> >            - const: img,img-bxm-4-64
-> >            - const: img,img-rogue
-> > +      - items:
-> > +          - enum:
-> > +              - spacemit,k3-gpu
->
-> Why isn't this part of other enum (and remember about the alphabetical
-> order of entries)?
+> 
+>> +			u32 chunk = min_t(size_t, remaining, sg_len);
+>> +
+>> +			if (have && last_end == addr) {
+>> +				u32 old = le32_to_cpu(sg_list[mapped - 1].length);
+>> +
+>> +				sg_list[mapped - 1].length = cpu_to_le32(old + chunk);
+> 
+> Overly long line.
+> 
+>> +			} else {
+>> +				if (WARN_ON_ONCE(mapped == entries))
+>> +					goto err_free;
+>> +				nvme_pci_sgl_set_data_addr(&sg_list[mapped++],
+>> +							   addr, chunk);
+>> +			}
+> 
+> Why do we need this merging?  dma_map_sg should have already done
+> any interesting merging, or am I missing something?
 
-No reason -- it was simply wrong. That block is identical to the
-thead,th1520-gpu one apart from the SoC compatible, and the differing
-clock/power-domain constraints live in "allOf", not here. v4 will fold
-it in, in alphabetical order:
+Will drop it.
 
-      - items:
-          - enum:
-              - spacemit,k3-gpu
-              - thead,th1520-gpu
-          - const: img,img-bxm-4-64
-          - const: img,img-rogue
-
-The DTS user, and the drm/imagination change it depends on, will be sent
-separately once a boot issue on the K3 board is resolved.
-
-> Best regards,
-> Krzysztof
-
-Best regards,
-Baihui Liang
