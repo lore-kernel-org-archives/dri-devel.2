@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7544C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:16:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC99EC54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:19:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4097210E631;
-	Wed, 29 Jul 2026 11:16:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CC1110E82A;
+	Wed, 29 Jul 2026 11:19:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZKrW5yeH";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mgByOp7k";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D541B10E631
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:16:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 327B710E82A
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:19:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8BF2C401A7;
- Wed, 29 Jul 2026 11:16:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E8701F000E9;
- Wed, 29 Jul 2026 11:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785323810;
- bh=wXNO+WGHkIQHfI7jdpYH3atc6g9Q49Cs8pAyRCXe0dU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ZKrW5yeHT4CDwawJSyxoYhUzNjcvqQnQk8UIAWUYBq8aNs1LLKh8N+QonYLasFaIv
- 8onBeizZG48UawAdkOHE05hRwJ/XwpS7R/c1Ix0XY8XMQFInmAtWD2dfwJMQ0SlA0f
- 6RDuEYzlxlHZxJLGV+cHW9oHOoZQhwZobGmo3h1e1VLyP+vNmoziUeozICQEpHOxlc
- bjpVOMCvpILr17EKvL5IKkbUSFd2ddRIrLLXkVw7STSnOGCMcAXeSoO0OqpjMilTmQ
- geTopjDqGh4HeiMGcFVzavKSwBdCN8kVUCfcSXeu4muUSFfmBLIAONYuk61U0T99X+
- rl8aocSlA0Yiw==
-From: sashiko-bot@kernel.org
-Subject: Re: Patch "drm/sysfb: Avoid truncating maximum stride" has been
- added to the 6.18-stable tree
-To: gregkh@linuxfoundation.org
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <2026072945-lather-carmaker-b8ca@gregkh>
-References: <2026072945-lather-carmaker-b8ca@gregkh>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 11:16:49 +0000
-Message-Id: <20260729111650.4E8701F000E9@smtp.kernel.org>
+ by tor.source.kernel.org (Postfix) with ESMTP id 9B40B60A6C;
+ Wed, 29 Jul 2026 11:19:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C620D1F000E9;
+ Wed, 29 Jul 2026 11:19:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1785323972;
+ bh=MHM6n3nUid2W7L3XY3MqRcGqYxkw5YAgkTYwqBkIbns=;
+ h=Subject:To:Cc:From:Date;
+ b=mgByOp7kwiPPU8uxmkm10N+c1tK5JXuEiPdPIoQtYuvBHIzzuJy/SyoA2ue67Dcvo
+ BIa81l2TSECm5eS+r5aEi1QW/1V/6w626QI1ueP2LlAGBLDTZMY40SU35VWlPXZRuk
+ lxMKD12Gb9MHCHCSQYey220O0x3W+51UNLmddFh8=
+Subject: Patch "drm/amd/display: Handle struct
+ drm_plane_state.ignore_damage_clips" has been added to the 6.6-stable tree
+To: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, harry.wentland@amd.com, javierm@redhat.com,
+ tzimmermann@suse.de, zackr@vmware.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 29 Jul 2026 13:19:09 +0200
+Message-ID: <2026072909-underwear-t-shirt-d74f@gregkh>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,113 +53,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Calculation of vsize inside drm_sysfb_get_visible_size_si suffers =
-from a 32-bit integer overflow before PAGE_ALIGN, leading to a truncated me=
-mory mapping.
-- [High] drm_sysfb_get_visible_size_si implicitly casts a negative errno to=
- u64, bypassing the error checks in callers and causing resource registrati=
-on corruption.
---
+This is a note to let you know that I've just added the patch titled
 
---- Patch [1]: Patch "drm/sysfb: Avoid truncating maximum stride" has been =
-added to the 6.18-stable tree ---
-commit afbe56da35160af0caa025f567da427b14e63119
-Author: gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>
+    drm/amd/display: Handle struct drm_plane_state.ignore_damage_clips
 
-Patch "drm/sysfb: Avoid truncating maximum stride" has been added to the 6.=
-18-stable tree
+to the 6.6-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-Passing a maximum as 64-bit type to drm_sysfb_get_validated_int0()
-can truncate the value to 32 bits. Use drm_sysfb_get_validated_size0(),
-which uses 64-bit arithmetics. Then test the returned stride against
-the limits of int to avoid truncations in the returned value. A valid
-stride is in the range of [1, INT_MAX] inclusive.
+The filename of the patch is:
+     drm-amd-display-handle-struct-drm_plane_state.ignore_damage_clips.patch
+and it can be found in the queue-6.6 subdirectory.
 
-Link: https://patch.msgid.link/20260618084327.46567-5-tzimmermann@suse.de
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c b/drivers/gpu/=
-drm/sysfb/drm_sysfb_screen_info.c
-> index 885864168c54f..7c336360556d1 100644
-> --- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
-> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
-> @@ -56,11 +56,17 @@ int drm_sysfb_get_stride_si(struct drm_device *dev, c=
-onst struct screen_info *si
->  			    unsigned int width, unsigned int height, u64 size)
->  {
->  	u64 lfb_linelength =3D si->lfb_linelength;
-> +	s64 stride;
-> =20
->  	if (!lfb_linelength)
->  		lfb_linelength =3D drm_format_info_min_pitch(format, 0, width);
-> =20
-> -	return drm_sysfb_get_validated_int0(dev, "stride", lfb_linelength, div6=
-4_u64(size, height));
-> +	stride =3D drm_sysfb_get_validated_size0(dev, "stride", lfb_linelength,
-> +					       div64_u64(size, height));
-> +	if (stride < INT_MIN || stride > INT_MAX)
-> +		return -EINVAL;
-> +
-> +	return (int)stride; /* stride or negative errno code */
->  }
->  EXPORT_SYMBOL(drm_sysfb_get_stride_si);
 
-[Severity: High]
-This isn't a regression introduced by this patch, but looking at the next
-function in this file, drm_sysfb_get_visible_size_si(), is there a 32-bit
-overflow risk here?
+From ac11060c6d4959e2d4ceada037d2e1e1bfcf6645 Mon Sep 17 00:00:00 2001
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Date: Wed, 10 Jun 2026 17:18:17 +0200
+Subject: drm/amd/display: Handle struct drm_plane_state.ignore_damage_clips
 
-drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c:drm_sysfb_get_visible_size_si=
-() {
-	u64 vsize =3D PAGE_ALIGN(height * stride);
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-Since height and stride are both 32-bit unsigned integers, their product is
-calculated using 32-bit arithmetic before being passed to PAGE_ALIGN and
-widened to u64.
+commit ac11060c6d4959e2d4ceada037d2e1e1bfcf6645 upstream.
 
-If the bootloader supplies screen dimensions that cause the product to exce=
-ed
-4GB, would this overflow wrap around to a small size and cause the driver to
-allocate and map an insufficient memory region?
+The mode-setting pipeline can disabled damage clippings for a commit
+by setting ignore_damage_clips in struct drm_plane_state. The commit
+will then do a full display update.
 
-[Severity: High]
-This is also a pre-existing issue, but does this implicitly cast a negative
-errno to u64?
+Test the flag in DCN code and do a full update in DCN code if it has
+been set.
 
-drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c:drm_sysfb_get_visible_size_si=
-() {
-	...
-	return drm_sysfb_get_validated_size0(dev, "visible size", vsize, size);
-}
+Commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers
+to ignore damage clips") introduced ignore_damage_clips to selectively
+ignore damage clipping in certain framebuffer changes. This driver does
+not do that, but DRM's damage iterator will soon rely on the flag.
+Therefore supporting it here as well make sense for consistency.
 
-drm_sysfb_get_validated_size0() returns s64, which can be an error code like
--EINVAL.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Zack Rusin <zackr@vmware.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit a24019f6480fad5c077b5956eed942c8960323d6)
+Cc: <stable@vger.kernel.org> # v6.8+
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-Since drm_sysfb_get_visible_size_si() returns u64, -EINVAL is cast to a
-massive positive number.
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -5180,8 +5180,8 @@ static void fill_dc_dirty_rects(struct d
+ {
+ 	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
+ 	struct rect *dirty_rects = flip_addrs->dirty_rects;
+-	u32 num_clips;
+-	struct drm_mode_rect *clips;
++	u32 num_clips = 0;
++	struct drm_mode_rect *clips = NULL;
+ 	bool bb_changed;
+ 	bool fb_changed;
+ 	u32 i = 0;
+@@ -5197,8 +5197,10 @@ static void fill_dc_dirty_rects(struct d
+ 	if (new_plane_state->rotation != DRM_MODE_ROTATE_0)
+ 		goto ffu;
+ 
+-	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
+-	clips = drm_plane_get_damage_clips(new_plane_state);
++	if (!new_plane_state->ignore_damage_clips) {
++		num_clips = drm_plane_get_damage_clips_count(new_plane_state);
++		clips = drm_plane_get_damage_clips(new_plane_state);
++	}
+ 
+ 	if (!dm_crtc_state->mpo_requested) {
+ 		if (!num_clips || num_clips > DC_MAX_DIRTY_RECTS)
 
-If the framebuffer size is not page-aligned, drm_sysfb_get_validated_size0()
-returns -EINVAL.
 
-Will callers that only check for zero fail to catch this?
+Patches currently in stable-queue which might be from tzimmermann@suse.de are
 
-For example, in drivers/gpu/drm/sysfb/efidrm.c:efidrm_device_create():
-
-	if (!vsize)
-		return ERR_PTR(-EINVAL);
-
-Could this massive u64 value then be passed to
-devm_aperture_acquire_for_platform_device(), resulting in the driver
-registering a corrupt aperture that spans almost the entire physical address
-space and spuriously detaches the primary firmware framebuffer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2026072945-lather-c=
-armaker-b8ca@gregkh?part=3D1
+queue-6.6/drm-amd-display-handle-struct-drm_plane_state.ignore_damage_clips.patch
