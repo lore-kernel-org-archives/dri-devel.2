@@ -4,53 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69AA1C53219
-	for <dri-devel@archiver.kernel.org>; Tue, 28 Jul 2026 22:58:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEED8C54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 01:34:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5604B10E609;
-	Tue, 28 Jul 2026 22:57:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0EE110E36C;
+	Wed, 29 Jul 2026 01:34:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ImypsxfZ";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="euk3LVDo";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C975810E609
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 22:57:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6117D43675;
- Tue, 28 Jul 2026 22:57:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE0251F000E9;
- Tue, 28 Jul 2026 22:57:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785279478;
- bh=Q5+bJVq2NtUHitRnBcOQ2qLuXZ52yMoJcvSTojTBjzo=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=ImypsxfZw71LtTrY9CCzThSxefznXxQtb70tcCMyzxoggrdS3RbRbcS7gR3e5B7YD
- Zzy/o2B1iKniiyOfjP0Mlukr9zKqvPn3r8yhjfHfx/vUtt2PwBeacPaEyKkEOOuBE6
- xhi/8e/ZU2E2TiyWBoG0FjmaUWOFSFmuutugZtuyD8ICSxp4qRD0xncXe6iQBVpGZv
- ExvzfXC3spdtTP+fcBPBGlEklHTDzg6y/rxFOkRT54rAHkJxYlQ0QmUNaxsnmYYkRf
- YlJqfXxVGBUvQ5aoQOHEhdOl0xyXN8HLUGefABvWbbACc3Zdp6D7z35YKi4sBSSlR2
- Yci/bgAW6eyVg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-m60247.netease.com (mail-m60247.netease.com
+ [210.79.60.247])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 10CAF10E36C
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 01:34:50 +0000 (UTC)
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 47f0092e5;
+ Wed, 29 Jul 2026 09:34:46 +0800 (GMT+08:00)
+Message-ID: <e4b1051c-fc91-44a7-ab29-1da888fcc0c2@rock-chips.com>
+Date: Wed, 29 Jul 2026 09:34:44 +0800
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/5] This series is split from the v15 "Add Type-C DP
+ support for RK3399 EVB
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Vinod Koul <vkoul@kernel.org>,
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-phy@lists.infradead.org
+References: <20260727064408.101-1-kernel@airkyi.com> <amgMXujurBrB5B0L@venus>
+ <e22072d9-7fee-4f83-9ae9-5428e45c7507@rock-chips.com>
+ <amh1sK_4KnD5zTlZ@venus>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <amh1sK_4KnD5zTlZ@venus>
 Content-Type: text/plain; charset=UTF-8
-Date: Wed, 29 Jul 2026 00:57:54 +0200
-Message-Id: <DKAKR85QX9UM.1VYAAL82QBWJ5@kernel.org>
-Subject: Re: [PATCH v3 3/7] drm: nova: Add chipid enum to nova-drm UAPI
-Cc: "Alistair Popple" <apopple@nvidia.com>, <nova-gpu@lists.linux.dev>,
- "Alice Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
-To: "John Hubbard" <jhubbard@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260723063046.1265791-1-apopple@nvidia.com>
- <20260723063046.1265791-4-apopple@nvidia.com>
- <DK7R7PB91GUE.1PS77AQM8ZR99@kernel.org>
- <amhdA35CcMD_uY2f@nvdebian.thelocal>
- <DKAIVPSA45O9.1NZES5S3BII10@kernel.org>
- <57e2b956-89fd-43e8-8cb3-a15aee272660@nvidia.com>
-In-Reply-To: <57e2b956-89fd-43e8-8cb3-a15aee272660@nvidia.com>
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9fab82895203a7kunm36abcb353ae33c
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHR0aVh1NT0xNSU0dS0hKSVYVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
+ 5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+ b=euk3LVDokfDwuFpxIXJN4jzuLkRvCtZqL8jRDZoAMRvU+JjIgJ35lxzKyNXNiyGRtGCK9NBFxvWfNY3AwjI7dfY2R/DKuVwUmhyZKQT6VIaXik4yqyNkfEz9392PYWmVGRCtPRe5Cchs2S75m7iquG3+ruNflhaXQLxwkVZbv1o=;
+ s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
+ bh=R4MBbntBTw+WzVk7B5pQ1YM1qPjQxWB0im3ZJJbI4sU=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,100 +76,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue Jul 28, 2026 at 11:49 PM CEST, John Hubbard wrote:
-> On 7/28/26 2:29 PM, Danilo Krummrich wrote:
->> On Tue Jul 28, 2026 at 10:00 AM CEST, Alistair Popple wrote:
->>> On 2026-07-26 at 01:23 +1000, Danilo Krummrich <dakr@kernel.org> wrote.=
-..
->>>> On Thu Jul 23, 2026 at 8:30 AM CEST, Alistair Popple wrote:
-> ...
->>>> For instance, what's valid for userspace to extract from this? Given c=
-hipid is a
->>>> composed value, is userspace e.g. allowed to make assumptions on extra=
-cting the
->>>> architecture? Or is this something we want to expose separately and te=
-ll
->>>> userspace that the chipid is an opaque value identifying a specific ch=
-ip only?
+Hi Sebastian,
+
+On 7/28/2026 6:44 PM, Sebastian Reichel wrote:
+> Hello Chaoyi,
+> 
+> On Tue, Jul 28, 2026 at 10:33:48AM +0800, Chaoyi Chen wrote:
+>>>> Changes in v4:
+>>>> - Link to v3: https://lore.kernel.org/all/20260717072323.96-1-kernel@airkyi.com/
+>>>> - Scan the entire typec_bus and attempt to register the hpd bridge,
+>>>>   so as not to miss devices that were already added during initialization.
 >>>
->>> I _think_ it makes sense for this to just be an opaque value, but it's =
-a good
->>> question that I should probably try and get some internal feedback on a=
-s well.
->>> Reading the arch would then be a separate parameter.
->>=20
->> I'd prefer exposing it as an opaque value and provide other information
->> separately; the kernel already does the work anyway, so why duplicate it=
- in
->> userspace. It would also remain much cleaner if encoding details ever ch=
-ange.
->>=20
+>>> While that may help with the module being loaded late, it does not
+>>> help with triggering the module load in the first place.
+>>>
+>>> The module does not have any MODULE_DEVICE_TABLE() helping with
+>>> that. So basically any system relying on the automatic hpd bridge
+>>> registration and using a modular kernel (e.g. the arm64 defconfig or
+>>> the kernels usually provided by Linux distributions) requires
+>>> manually loading that module to get any graphical output.
+>>>
+>>
+>> Thank you for pointing this out. I will add it in v5.
+> 
+> Add what exactly? As this code is quite generic, you don't have
+> anything for a MODULE_DEVICE_TABLE() (i.e. no OF, no I2C, ...).
+> 
+
+That is:
+
+static const struct typec_device_id dp_typec_id[] = {
+	{ USB_TYPEC_DP_SID },
+	{ },
+};
+MODULE_DEVICE_TABLE(typec, dp_typec_id);
+
+Just like the modules in drivers/usb/typec/altmodes/ .
+
+> One solution I see to keep the notifier design would be to add
+> 
+> MODULE_SOFTDEP("pre: aux-hpd-typec-dp-bridge")
+> 
+> to some other module and piggy-back on it. Alternatively integrate
+> it directly to some other module, such as "drm_display_helper",
+> which already has DRM_DISPLAY_DP_HELPER and DRM_DISPLAY_DP_TUNNEL.
+> Adding TypeC DP AltMode as part of it seems sensible to me.
 >
-> Just to orient myself, I'm assuming that by "opaque values", you mean usi=
-ng
-> something that just counts up from, say, 1, instead of using real boot42
-> values below, right?
+
+I agree, placing it on the DRM side looks more reasonable.
+
+> FWIW I suggest you test booting your patches work with the arm64
+> defconfig before your next submission ;)
 >
-> That seems like a good approach to me, too. Because I can't imagine anyth=
-ing
-> particularly good coming from providing unnecessary details to user space
-> here. :)
 
-I'd probably not be too worried about keeping it as is, but just document i=
-t as
-being an opaque value that shouldn't be messed with.
+Oh, I will. It's just that I've always been using buildroot. I'll check 
+the situation with other distributions.
 
-If we expose the encoded information separately I don't see a huge incentiv=
-e for
-userspace to redo the work and mess with it anyway.
 
-The advantage of keeping the values as they are is that we avoid having to =
-deal
-with mapping values back and forth. I kind of like that nova-core uses the
-values from the uAPI header to define the Chipset struct, passes it to nova=
--drm
-and nova-drm does use it to fill in the userspace exposed data.
+> Greetings,
+> 
+> -- Sebastian
 
-Something else worth to consider in this context is whether we really want =
-to go
-with the key-value pair GETPARAM approach, which can become a bit tedious.
-
-I think for the basic GPU information we could have a struct drm_nova_gpu_i=
-nfo,
-which contains all the relevant information obtained at probe time, such as
-chipid, architecture, VRAM size, etc.
-
-If everything is available in a single struct there should be no reason for
-userspace to mess with the chipid value. However, I'd also not object to ma=
-ke it
-a "real" opaque value.
-
-In order to deal with additions to the struct we could take a two stage app=
-roach
-to obtain the information from userspace; probe size first, then allocate w=
-ith
-the returned size:
-
-We can have a DRM_NOVA_INFO ioctl, which takes a struct containing the info
-identifier (e.g. DRM_NOVA_GPU_INFO), a size and a pointer to the actual inf=
-o
-structure.
-
-	struct drm_nova_info {
-		__u32 id;
-		__u32 size;
-		__u64 info;
-	};
-
-Userspace can call the DRM_NOVA_INFO with the identifier (e.g.
-DRM_NOVA_GPU_INFO), size and info pointer set to zero, and the kernel fills=
- in
-the size of the info struct (e.g. struct drm_nova_gpu_info).
-
-Subsequently, userspace can allocate memory with the size reported by the k=
-ernel
-and call the same ioctl with the info pointer set to the allocated memory.
-
-This way existing info structs remain extensible (as long as the layout isn=
-'t
-changed of course) and new ones can be added at any time.
+-- 
+Best, 
+Chaoyi
