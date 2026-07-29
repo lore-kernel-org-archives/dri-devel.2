@@ -4,78 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67B83C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 18:58:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA55CC53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 19:28:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAF1089089;
-	Wed, 29 Jul 2026 18:58:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFC4710E088;
+	Wed, 29 Jul 2026 19:28:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RupjfiUe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dRXtw6tS";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4983989089
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:58:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A7288735
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 19:28:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6BF3D40290;
- Wed, 29 Jul 2026 18:58:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EBD61F000E9;
- Wed, 29 Jul 2026 18:58:44 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C6576410D1;
+ Wed, 29 Jul 2026 19:28:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3292A1F000E9;
+ Wed, 29 Jul 2026 19:28:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785351524;
- bh=a7xQnZiq/bBhFVL1TMInPD93nGWgpZ8+XaCM3fzGCUQ=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
- b=RupjfiUe9ot/VVh0BFkPolgJigl1mNHSVogjNJPzkceLbZcRO3tKy5t9rAn8oX4Ff
- bosOwYXIXIPZk1rXLh8hwj29hinId2E8M9thaTarxrCct/OOnl43VnXUGwEcNje7dw
- R/XdnOwJmQVuHfrcNuO1lvf/YWZb+0MxAq2FRspnof3XBtz24l8AcyjrhtFATGF+eK
- N50fEXvs4//aoienjBWZqLrLwkTApIP2AhfmpKPYO7zjkBm8m2p+dlUDQ7VxYWYY4L
- 69S/bls7q2q4aX5G5yINLBtAygomTF368kXXrKMNUHrft4y11HNuHvGXm3EDcqj/zu
- nRaeFxH45/vkw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id 05987CE0B67; Wed, 29 Jul 2026 11:58:44 -0700 (PDT)
-Date: Wed, 29 Jul 2026 11:58:44 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Gary Guo <gary@garyguo.net>
-Cc: Philipp Stanner <phasta@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Boqun Feng <boqun@kernel.org>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Lyude Paul <lyude@redhat.com>, Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Eliot Courtney <ecourtney@nvidia.com>,
- Mirko Adzic <adzicmirko97@gmail.com>, Timur Tabi <ttabi@nvidia.com>,
- Daniel del Castillo <delcastillodelarosadaniel@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org,
- Julia Lawall <julia.lawall@inria.fr>
-Subject: Re: [PATCH v7 3/5] rust: sync: Add abstraction for rcu_barrier()
-Message-ID: <f680fb1b-ecbc-47b4-a252-b792933bfe3e@paulmck-laptop>
-References: <20260729094542.302965-2-phasta@kernel.org>
- <20260729094542.302965-5-phasta@kernel.org>
- <296c71c4-4d2f-416d-bfbe-40fd911b44db@paulmck-laptop>
- <DKBA29HOEUIX.H4CDPOQQXRD0@garyguo.net>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <DKBA29HOEUIX.H4CDPOQQXRD0@garyguo.net>
+ s=k20260515; t=1785353287;
+ bh=4R/0n+N4ulmB6HFZBWN2atbMsZoR5KA7qt0R9Wi8aQY=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=dRXtw6tStg1MZ/KeEAAJu3mjRuTvmyqH/7b1K78OvAkXMNWtRjfTJTPJ9MA6dD3Qx
+ I6TvbmMxkSK2nmERJTC/FhDkn3BZsPJwh2KTT4FX4loX0jINNzP4Q2mBJyFXaPJZ9V
+ liz2QQtK5MrEePIFbIE74S7BAwu8j2e0oOfVn3WHt6zNFM7S1b3bUR7mf1eVbyqnKA
+ m66DrWmjAXM7hsA59hVLqBBrtFqfxlVp1SMwMj/tmuVSHsBqm6Oyqj2S0yxcaS/Qps
+ CxobFI9nr3txmUlDx8JCeONUXajcBW7n1V1DZjei2PpIyz6U9Gf9btpBYymG5mhiNq
+ P15efMzPuJASw==
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 29 Jul 2026 21:28:01 +0200
+Message-Id: <DKBAX2P3POG1.3CVTICXR9RYHS@kernel.org>
+Subject: Re: [PATCH 08/10] gpu: nova-core: use projection for PFALCON and
+ PFALCON2 registers
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Alexandre Courbot"
+ <acourbot@nvidia.com>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Boqun Feng" <boqun@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-pci@vger.kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260721-typed_register-v1-0-452d72b60262@garyguo.net>
+ <20260721-typed_register-v1-8-452d72b60262@garyguo.net>
+ <DKA02Y5RE1YJ.2FGI97Z60X96R@nvidia.com>
+ <DKA4Q5QUBUXM.1K6QS2QPXT12H@garyguo.net>
+ <DKAASRCK3M06.G9XODK0T5AAK@nvidia.com>
+ <DKAD64Q7CEQD.Z15OS6MRHEKE@kernel.org>
+ <DKAEZ4LDA10F.1RFA9JKBGY2CF@garyguo.net>
+ <DKAFMD8X5LFP.UPKPHK5FYZPH@kernel.org>
+ <DKAFRETW93IW.SXUWFVB47V3B@garyguo.net>
+ <DKAH4S5IE3RZ.10VD33NMVVLDR@kernel.org>
+ <DKAZD90KWY0L.2E1289J71UF8Z@garyguo.net>
+In-Reply-To: <DKAZD90KWY0L.2E1289J71UF8Z@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,39 +76,121 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: paulmck@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 07:47:46PM +0100, Gary Guo wrote:
-> On Wed Jul 29, 2026 at 6:18 PM BST, Paul E. McKenney wrote:
-> > On Wed, Jul 29, 2026 at 11:45:40AM +0200, Philipp Stanner wrote:
-> >> rcu_barrier() is a frequently used C function which is always safe to be
-> >> called.
-> >
-> > Just checking...  Here "always safe" means only from task level, with BH,
-> > preemption, and interrupts all enabled, correct?
-> >
-> > In contrast, if you do this:
-> >
-> > 	preempt_disable();
-> > 	rcu_barrier();
-> > 	preempt_enable();
-> >
-> > the results won't be safe.
-> 
-> This is same for all sleepable functions. In order to avoid having to mark all
-> sleeping function unsafe, we've decided that sleeping from non-preemptable
-> context is "safe", but is a bug regardless.
+On Wed Jul 29, 2026 at 12:24 PM CEST, Gary Guo wrote:
+> On Tue Jul 28, 2026 at 9:07 PM BST, Danilo Krummrich wrote:
+>> On Tue Jul 28, 2026 at 9:03 PM CEST, Gary Guo wrote:
+>>> On Tue Jul 28, 2026 at 7:56 PM BST, Danilo Krummrich wrote:
+>>>> On Tue Jul 28, 2026 at 8:26 PM CEST, Gary Guo wrote:
+>>>>> On Tue Jul 28, 2026 at 6:01 PM BST, Danilo Krummrich wrote:
+>>>>>> I may have a slight preference for a separate subregion() variant fo=
+r the
+>>>>>> purpose of working around generic_const_exprs, as it probably is a b=
+it closer to
+>>>>>> the final solution, but trait methods are fine with me too.
+>>>>>
+>>>>> I am not sure that's the final solution that I want. I want arg-posit=
+ion
+>>>>> const-generics which would syntactically look more similar to `build_=
+assert!`.
+>>>>
+>>>> arg-position const generics would be great, but that's just a syntax d=
+ifference
+>>>> and not related to supporting expressions involving const generics?
+>>>>
+>>>> In any case, I think my point about being closer to the final solution=
+ holds
+>>>> regardless.
+>>>>
+>>>>> Personally I think most issues with `build_assert!` can be fixed by h=
+aving
+>>>>> lints, which is on my radar.
+>>>>
+>>>> I think it can be improved, but in the end it relies on compiler optim=
+ization
+>>>> that may or may not happen as expected.
+>>>
+>>> It'd be a compiler bug if const folding is expected to happen, the whol=
+e
+>>> BUILD_BUG_ON depends on it working.
+>>>
+>>> `build_assert!` is a useful tool that I'm not giving up. If there is a =
+need to
+>>> use it, then I'd use it compared to having two variants to do the same =
+thing
+>>> with different syntax.
+>>
+>> It is indeed useful and I don't want to give up on it either.
+>>
+>> But, it is more fragile than const evaluation, so we should only use it =
+where
+>> const evaluation is not sufficient.
+>>
+>> In the case we are discussing the problem is that const expressions invo=
+lving
+>> const generics are not yet supported, but in general it should be.
+>>
+>> This is different compared to e.g. read() where the syntax difference wo=
+uld
+>> actually hurt and const generics would limit flexibility, where we actua=
+lly rely
+>> on the compiler to eliminate unreachable code paths regardless of a valu=
+e being
+>> known at runtime only.
+>
+> The offset for `subregion` is no different to the offset for `read()`. In=
+ both
+> cases you are supposed to only supply build-time const values; and in bot=
+h cases
+> you can argue they are needed there due to const generics being too limit=
+ed to
+> what they do.
 
-Got it, thank you!
+I see where you are coming from, but I see it from a different angle:
 
-I tried to resist parameterizing "safe" over things like execution
-contexts, but obviously failed to do so.  Besides, there is a name for
-that sort of thing, and that name is "precondition".  ;-)
+An offset given to read() can legitimately be a runtime value that happens =
+to be
+constrained in a way that the compiler can proof that it is within bounds (=
+with
+dead code elimination doing the rest). We have reasonable use-cases where t=
+he
+offset given to read() is not a "true" constant, and hence build_assert! is=
+ the
+correct tool.
 
-Adding Julia Lawall on CC based on her recent work with preconditions,
-which might be an act of kindness or of vandalism.  You guys get to
-decide.  ;-)
+subregion() is different in this regard, as we do not have reasonable use-c=
+ases
+where the offset is not a "true" constant. (And I would guess that this als=
+o
+made you choose the implementation you picked for this patch.)
 
-							Thanx, Paul
+It just happens that we hit a language limitation where const evaluation of=
+ a
+"true" constant does not work, but that does not make build time assertion =
+the
+correct tool, it just makes it a workaround for the existing limitation.
+
+This is also in line with the documentation in rust/kernel/build_assert.rs.
+
+> We probably could even just add a method that gives you a subregion based=
+ on
+> `IoLoc` similar to other methods. This actually might be a good idea that=
+ I'd
+> pursue in next version.
+
+So, you are proposing that subregion() takes an argument of type
+L: impl IoLoc<_>?
+
+Where would this argument come from?
+
+I assume you would need to bring back
+
+	impl RegisterBase<Foo> for Bar {
+	    const BASE: usize =3D 0xff;
+	}
+
+impl blocks? Which seems like just adding boilerplate? Or do you have somet=
+hing
+else in mind?
