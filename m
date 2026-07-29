@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89969C54FD2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:40:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ED0BC531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 07:19:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E52D310EDC2;
-	Thu, 30 Jul 2026 06:40:52 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SHMpg6L4";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D20510EDC2
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:40:52 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 16F33600B1;
- Thu, 30 Jul 2026 06:40:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479471F000E9;
- Thu, 30 Jul 2026 06:40:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785393650;
- bh=NiIb7RqRgtKwQXxE/o903wj3h+HKjxUFji0hdxVtzM0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SHMpg6L4iQD/qLdANp6QMBKxcPeXe+4jwrd2V25X5t8nYyZgSwBlh2zGJ6EYCgHS1
- Tc7K+vRN77Owjn/wNe3n9OxwfJaueQ0wCCWGpTN5l/EUSl9m8GKXrA072WasRe9rr8
- KjuujY3zxJVaP2IZX0BbIwyMxo2jXdY+PPupk2WOlu2OakWrlPhaq56EdyxxayEPaD
- ZECQ6UQeKOam55MsuGfFtHsYv248pIP4KbX2GOmH+9rOX7eDRJaULz6wsRRZvZ31OU
- kJSafhwQ53ncb/N8i+Uxyq6EyEVzY+OdZ7Fh2drAlO8KQ1l6/sb1jkeQaVfR2zbA/P
- wzxmMNdvm7f0Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/4] drm/prime: use dma_buf_fd_install() to preserve
- export tracing
-To: "Baineng Shou" <shoubaineng@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260730062645.233148-4-shoubaineng@gmail.com>
-References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
- <20260730062645.233148-1-shoubaineng@gmail.com>
- <20260730062645.233148-4-shoubaineng@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 06:40:49 +0000
-Message-Id: <20260730064050.479471F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50B3F10EDCD;
+	Thu, 30 Jul 2026 07:19:57 +0000 (UTC)
+X-Greylist: delayed 3700 seconds by postgrey-1.36 at gabe;
+ Thu, 30 Jul 2026 00:26:37 UTC
+Received: from mail-gw-fk003.vdone.jp (mail-gw-fk003.vdone.jp
+ [160.251.152.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FE6010E0BF
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 00:26:37 +0000 (UTC)
+Received: from mail-gw-fk003.vdone.jp (localhost.localdomain [127.0.0.1])
+ by mail-gw-fk003.vdone.jp (Proxmox) with ESMTP id 92C024015A643
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 08:24:55 +0900 (JST)
+Received: from e3.valueserver.jp (e3.valueserver.jp [157.7.184.13])
+ by mail-gw-fk003.vdone.jp (Proxmox) with ESMTPS id 8A1B1401583AD
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 08:24:54 +0900 (JST)
+Received: (qmail 287325 invoked by uid 89); 30 Jul 2026 08:24:54 +0900
+Received: from p1706034-ipxg06601niigatani.niigata.ocn.ne.jp (HELO
+ localhost.localdomain) (jack@supremeoverlordjabs.co)
+ by e3.valueserver.jp with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 30 Jul 2026 08:24:54 +0900
+From: Tomonori Nakagawa <jack@supremeoverlordjabs.co>
+To: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Tomonori Nakagawa <jack@supremeoverlordjabs.co>
+Subject: [PATCH] drm/rockchip: vop2: give rk3576 VP2 a primary plane
+Date: Thu, 30 Jul 2026 08:24:50 +0900
+Message-ID: <20260729232450.13797-1-jack@supremeoverlordjabs.co>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 30 Jul 2026 07:19:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,89 +56,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+The rk3576 VOP2 has three video ports. VP0 and VP1 each have a Cluster
+window that acts as their primary plane, but VP2 - the port wired to the
+DesignWare DP controller - only has Esmart windows, all typed
+DRM_PLANE_TYPE_OVERLAY.
 
-Pre-existing issues:
-- [High] The file descriptor is published to userspace before the `copy_to_=
-user()` operation succeeds, leading to a leaked fd and `dma_buf` reference =
-if the copy fails.
---
+The driver requires every active video port to own a
+DRM_PLANE_TYPE_PRIMARY plane. When VP2 is driven (a board that uses the
+DP output) it finds none, CRTC creation returns -ENOENT, and the whole
+VOP2 bind fails, taking down the entire display subsystem.
 
---- Patch [3]: [PATCH v5 3/4] drm/prime: use dma_buf_fd_install() to preser=
-ve export tracing ---
-commit 50a50a53aa7179af6880f9711b00fcaf6105ea33
-Author: Baineng Shou <shoubaineng@gmail.com>
+Promote Esmart0 to DRM_PLANE_TYPE_PRIMARY so VP2 has a primary plane.
+Esmart0's possible_vp_mask already includes VP2 (BIT(2)) and its
+layer_sel_id[2] = 0 is a valid VP2 layer slot, while VP0 keeps Cluster0
+as its primary, so the existing VP0/VP1 assignments are unchanged:
 
-drm/prime: use dma_buf_fd_install() to preserve export tracing
+  VP0: primary=Cluster0, overlay=Esmart2
+  VP1: primary=Cluster1, overlays=Esmart1, Esmart3
+  VP2: primary=Esmart0,  overlays=Esmart1, Esmart2, Esmart3
 
-This commit replaces the open-coded fd reservation and installation in
-drm_gem_prime_handle_to_fd with dma_buf_fd_install. This restores the
-trace_dma_buf_fd tracepoint coverage that was bypassed by using fd_install
-directly.
+Tested on Anbernic RG Vita Pro (rk3576) with the DP alt-mode output.
 
-Link: https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubainen=
-g@gmail.com/
+Signed-off-by: Tomonori Nakagawa <jack@supremeoverlordjabs.co>
+---
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> Replace the bare fd_install() with dma_buf_fd_install(), which wraps
-> fd_install() together with DMA_BUF_TRACE(), restoring full tracepoint
-> coverage.  No functional change; the fd lifecycle (get_unused_fd_flags
-> =E2=86=92 work =E2=86=92 install) is already correct.
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index 17eda592b..e7d013dc3 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -894,7 +894,7 @@ static const struct vop2_win_data rk3576_vop_win_data[] = {
+ 		.format_modifiers = format_modifiers,
+ 		.layer_sel_id = { 2, 0xf, 0, 0xf },
+ 		.supported_rotations = DRM_MODE_REFLECT_Y,
+-		.type = DRM_PLANE_TYPE_OVERLAY,
++		.type = DRM_PLANE_TYPE_PRIMARY,
+ 		.axi_bus_id = 0,
+ 		.axi_yrgb_r_id = 0x10,
+ 		.axi_uv_r_id = 0x11,
+-- 
+2.54.0
 
-[Severity: High]
-This is a pre-existing issue, but is the statement about the fd lifecycle
-being already correct accurate?
 
-In drm_gem_prime_handle_to_fd(), the file descriptor is published to the
-process's fd table before the ioctl data is copied back to user space:
-
-drivers/gpu/drm/drm_prime.c:drm_gem_prime_handle_to_fd() {
-	...
-	dma_buf_fd_install(dmabuf, fd);
-	*prime_fd =3D fd;
-	return 0;
-}
-
-The actual copy_to_user() happens later in the DRM ioctl wrapper:
-
-drivers/gpu/drm/drm_ioctl.c:drm_ioctl() {
-	...
-	retcode =3D drm_ioctl_kernel(filp, func, kdata, ioctl->flags);
-	if (copy_to_user((void __user *)arg, kdata, out_size) !=3D 0)
-		retcode =3D -EFAULT;
-	...
-}
-
-If a user application allocates a page, maps it as read-only, constructs
-a valid drm_prime_handle payload within it, and invokes
-DRM_IOCTL_PRIME_HANDLE_TO_FD, the core drm_ioctl() successfully reads the
-input. The handler executes, allocates the dmabuf, and publishes the file
-descriptor.
-
-When drm_ioctl() attempts to write the result back via copy_to_user(), it
-fails due to the read-only mapping, causing the ioctl to return -EFAULT.
-Since the fd is already published and the userspace application does not
-know the fd number to close it, does this result in a leak of the file
-descriptor and dmabuf references?
-
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 9b44c78cd77fc..fe3436d1235db 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
->  		return PTR_ERR(dmabuf);
->  	}
-> =20
-> -	fd_install(fd, dmabuf->file);
-> +	dma_buf_fd_install(dmabuf, fd);
->  	*prime_fd =3D fd;
->  	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730062645.2331=
-48-1-shoubaineng@gmail.com?part=3D3
