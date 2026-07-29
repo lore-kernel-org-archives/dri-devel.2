@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFACEC53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 02:55:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F31FC54F55
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 02:55:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 047BC10EA73;
-	Wed, 29 Jul 2026 02:55:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D40EA10EA63;
+	Wed, 29 Jul 2026 02:55:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="ZU4r8lHZ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="CVIy3xt4";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 868F110EA6F
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 02:55:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785293695; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16ADD10EA5D
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 02:55:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785293699; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=cQ8sZJIutw2aqIK/Y3gzTvEmVh8aE6ia4JzXggra33IZqDZRQIK6YGUuJ1we0SsLbcT6D+y5GtUQC1WosyzjNwDww1bvsMQ+9oUgsh0Y7j09Wlvg9Higa1XWFtuEjCyekf9tGBOUz2QzvSoSrryo3ijL8QMqpdIbBG4rjReyb70=
+ b=m/wQ7nqthThPIWKYOyqPX+iAuQZ9LAY2S/BeSq9v3RApw9T8MmRJLhcfRg/mX0pkgLUnMrK5qUcVBgWIOj3Brxy4p619u4Jw96Tsa5kfTWnQavPEMzVlIMY2cr7sadGMS5VOI6xUlu30ydkqA01ZgSez1GWqlwz9rvpY9pB79HE=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785293695;
+ s=zohoarc; t=1785293699;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=oiYbBKD6ZY+jwgFsAD9KN+Mmq6A7JTPK40kyIvdjJeI=; 
- b=ZPpD5WEXVsmY7hXXSq+pB155gaJme4d9vam+SZHh6mfguVnXioTD9mQgveleij/ceSm0DY07+wAYGX7BIADtD7YeC6J3wwg4hNq+TGe4Qhh7oz6h9i5yfS+jirS76WUV8xjtsJ9toTdu4L7VPV//N2+kj0bTVmq9iep8e9MknY0=
+ bh=roa9aGQFh0eqti0cxf4vab8pH+6qbvw31FCU884l9ek=; 
+ b=NS0VHB72S4uL8Mdn1oKVwxycpS5vStAOewyIqePrrTJJBB7Y6MWstrEDKBmeV4VmqSPxo010IDAE/ZcHtThBmCMcWTgFZustDd+90hW5HkyyiIy1pJWADi3PN6XalL828ysEJevi0txWN5LyaLXKfC1tXaYzQS+jjuF1JBN0P4Y=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785293695; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785293699; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=oiYbBKD6ZY+jwgFsAD9KN+Mmq6A7JTPK40kyIvdjJeI=;
- b=ZU4r8lHZvdZ7evlLbeXXKWJvSMf0U0jS8QDHLmMrSdD5oW72mX8n58gGrKnzwzsG
- s5Rj3yan06A+PXMr5+f7brErJDq23y1zNWC6sQMqkl8kuE6lp7KSszonhpJcZ5DeRnX
- 11GwBtG5R+X9eDFjY/6mfjijSSzgs2lSvpBnC/80=
-Received: by mx.zohomail.com with SMTPS id 178529369282118.5347202918598;
- Tue, 28 Jul 2026 19:54:52 -0700 (PDT)
+ bh=roa9aGQFh0eqti0cxf4vab8pH+6qbvw31FCU884l9ek=;
+ b=CVIy3xt4pdGTsUiHwDzVt7JIt8XOsFvxFDOwp8vy7MQ/QqtmExZcFghk5U9LG8fN
+ OJ3Mx6e2LXrGbJs0rZScEPJjaHgWi9kkPuVUXvshhzymi+qrAE21guJiS3aRYDCdYOj
+ jNvTYlr4aB8lVZwx4wWkHksrN2XByz9cQ+BbLiaY=
+Received: by mx.zohomail.com with SMTPS id 1785293697917896.9563487815353;
+ Tue, 28 Jul 2026 19:54:57 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Wed, 29 Jul 2026 03:54:18 +0100
-Subject: [PATCH v4 06/13] drm/panfrost: Explicitly enable MMU interrupts at
- device init
+Date: Wed, 29 Jul 2026 03:54:19 +0100
+Subject: [PATCH v4 07/13] drm/panfrost: Sync with IRQ before MMU disable
+ and reset
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260729-claude-fixes-v4-6-01968f2ec77a@collabora.com>
+Message-Id: <20260729-claude-fixes-v4-7-01968f2ec77a@collabora.com>
 References: <20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com>
 In-Reply-To: <20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -62,18 +62,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2806;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1704;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=J6nU29PKwOnLrEaVubTgA9gTgNhKP8lp81h/14jKNeQ=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqaWtX37kzAJQmfPr7Zx3tD8JXjs1Ja8SXCctO1
- PYZIZ/4x8eJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCamlrVwAKCRAOJn5M7lND
- Pa47C/4vxiRfNFZ7ArpFHlW1W80rWx6gNOfhmVr4x4gsPdvzGGzMua4xbsknQOoSmXJ+EChN5ka
- yS/HD+SDREl+qQN4NWA2ScmFVg8b7kFolPKbayuTDhcs/F4kB1OWOQWq1CUDjBf7SoSVIB74+Xm
- ZCSPohV5K+HjreWhgmEApixtlDWjbyjA562POIJA9Ivucf8kSUhIPIKHvRDZvfnz1WRyF+jJM/Y
- vA5YYGu1iWr1UCxIoD402MNYBoQm75h9oN8GemJsdKEd1orOwcCCINn5oRGruvx/XyUBqVfqHO+
- sqHDJVvkQy8XTFeDpMdREYVI5h/TzXMmQ5rKHZs+OCETgrh2hhs1KRvNsL9wLVZVH6Id137jvlJ
- QyEltIXBsqBYgpTjih6eehfKvqTrmGGHdWqy2Ybc6P3bWskMb/Ba94C/mPSpTQapSVB96oaKo8A
- zESDdy12fCDITA+n2WU7h1P3VerXFit1jN3CVu1VgPdo1i1T4SKXLfIHyLapEKPsOegGg=
+ bh=6iLiszGglw9IGdCLHufsdy/h+OCU2n77y5FkSXCvJ9Y=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqaWtXDyFAnjBZv6y+Ay348/uyXsXcabmoOKsxq
+ 0TT8q6pNw+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCamlrVwAKCRAOJn5M7lND
+ PfXgDACLtT0fxavwBF2Mp9EAGieAQbt2y/bx58R4QsDskzDHPxXdqdEJOwEf0VKrFVt9tH3TvRW
+ CR+MIKVIkIf17BL5RcVdmxVXdMlrP+s3ylPNs/IYqEXShOUWChOO1Spfsm4+h+kfB5hksH7Z9EP
+ 3g8ipWx+9GXwECIRaM/KP42dctcLN1r7wE+VR5ce5LzXc3h0dcqx8bqB+UrMo6IYtLDILlipJbF
+ JdVDham/1q+lBJjwQWC7EvqOWlUKbYCS+bbJ1YpPOzMV1hNYYF96TPUmqAPIb2rV81ja+SxdEzT
+ A8R26n+w73JrvtxpiTOzj3KkGZgCkm4nnCiNL48V9E56i/MZMH+71KGOEGW+khvgH805/y3Lo0P
+ OJXKPKL0twqEBGi8+X43jmG2oCUE5keik0YB3jV8hqFvfhB2effGiyYA5rdgf7wK5h3rmwXv0Sx
+ EgsctMbxfZdmRHNouq+TcAPdDgesA7j+RdrB+imAwZzsWeg3lOuPYf+LhqPRVEahLswac=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,86 +91,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Because the device must be in a position to accept jobs between the time
-drm_dev_register() is called and autosuspend first kicks in, there's a very
-narrow window inbetween during which jobs targeting the tiler buffer
-object would time out, since the device's PM status is 'Active', but no MMU
-interrupts were enabled at device initialisation time.
+There was a pitfall of the MMU threaded IRQ handler accessing HW
+registers after a spurious interrupt at the same time the device is
+being premature taking down because of a failed probe sequence.
+
+Let's make sure MMU IRQ's are marked suspended and synchronised with
+before unwinding further.
+
+Also, during a device reset, make sure we also sync with the MMU IRQ
+handler so that AS aren't clobbered while a map operation is ongoing.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-Fixes: 73e467f60acd ("drm/panfrost: Consolidate reset handling")
 ---
- drivers/gpu/drm/panfrost/panfrost_job.c |  3 ++-
- drivers/gpu/drm/panfrost/panfrost_mmu.c | 14 ++++++++++++--
- 2 files changed, 14 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 35ff5b0f0013..bda1494eb430 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -871,7 +871,6 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
- 	js = devm_kzalloc(pfdev->base.dev, sizeof(*js), GFP_KERNEL);
- 	if (!js)
- 		return -ENOMEM;
--	pfdev->js = js;
- 
- 	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
- 	spin_lock_init(&js->job_lock);
-@@ -906,6 +905,8 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
- 		}
- 	}
- 
-+	pfdev->js = js;
-+
- 	panfrost_jm_reset_interrupts(pfdev);
- 	panfrost_jm_enable_interrupts(pfdev);
- 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-index 4a3162c3b659..aad0cd31516d 100644
+index aad0cd31516d..2d0ef6575f06 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-@@ -336,6 +336,12 @@ void panfrost_mmu_as_put(struct panfrost_device *pfdev, struct panfrost_mmu *mmu
- 	WARN_ON(atomic_read(&mmu->as_count) < 0);
- }
- 
-+static void panfrost_mmu_enable_interrupts(struct panfrost_device *pfdev)
-+{
-+	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
-+	mmu_write(pfdev, MMU_INT_MASK, ~0);
-+}
-+
- void panfrost_mmu_reset(struct panfrost_device *pfdev)
- {
+@@ -347,6 +347,7 @@ void panfrost_mmu_reset(struct panfrost_device *pfdev)
  	struct panfrost_mmu *mmu, *mmu_tmp;
-@@ -355,8 +361,7 @@ void panfrost_mmu_reset(struct panfrost_device *pfdev)
  
- 	spin_unlock(&pfdev->as_lock);
+ 	clear_bit(PANFROST_COMP_BIT_MMU, pfdev->is_suspended);
++	synchronize_irq(pfdev->mmu_irq);
  
--	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
--	mmu_write(pfdev, MMU_INT_MASK, ~0);
-+	panfrost_mmu_enable_interrupts(pfdev);
- }
+ 	spin_lock(&pfdev->as_lock);
  
- static size_t get_pgsize(u64 addr, size_t size, size_t *count)
-@@ -880,6 +885,9 @@ static irqreturn_t panfrost_mmu_irq_handler_thread(int irq, void *data)
- 	u32 status = mmu_read(pfdev, MMU_INT_RAWSTAT);
- 	int ret;
- 
-+	if (!pfdev->js)
-+		return IRQ_NONE;
-+
- 	while (status) {
- 		u32 as = ffs(status | (status >> 16)) - 1;
- 		u32 mask = BIT(as) | BIT(as + 16);
-@@ -970,6 +978,8 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
- 		return err;
- 	}
- 
-+	panfrost_mmu_enable_interrupts(pfdev);
-+
+@@ -983,11 +984,6 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
  	return 0;
  }
  
+-void panfrost_mmu_fini(struct panfrost_device *pfdev)
+-{
+-	mmu_write(pfdev, MMU_INT_MASK, 0);
+-}
+-
+ void panfrost_mmu_suspend_irq(struct panfrost_device *pfdev)
+ {
+ 	set_bit(PANFROST_COMP_BIT_MMU, pfdev->is_suspended);
+@@ -995,3 +991,8 @@ void panfrost_mmu_suspend_irq(struct panfrost_device *pfdev)
+ 	mmu_write(pfdev, MMU_INT_MASK, 0);
+ 	synchronize_irq(pfdev->mmu_irq);
+ }
++
++void panfrost_mmu_fini(struct panfrost_device *pfdev)
++{
++	panfrost_mmu_suspend_irq(pfdev);
++}
 
 -- 
 2.55.0
