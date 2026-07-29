@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B22A4C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:20:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 035A4C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:20:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB4910E00A;
-	Wed, 29 Jul 2026 11:20:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6525F10E037;
+	Wed, 29 Jul 2026 11:20:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NJQcrUhl";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LCjOB2Ee";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4613810E00A
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:20:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 67B7610E037
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:20:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 146CA4131A;
- Wed, 29 Jul 2026 11:20:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6201F000E9;
- Wed, 29 Jul 2026 11:20:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 58A4560A5E;
+ Wed, 29 Jul 2026 11:20:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8468C1F000E9;
+ Wed, 29 Jul 2026 11:20:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785324009;
- bh=0iyRKyqgXoWD2NaGAmyqllqzeIyaRiZZ5q+d1wDVnNw=;
+ s=korg; t=1785324038;
+ bh=AzcR5oOyTETIKSOZ7+ejnKAWTvpCplTpPFXoWFhpb0Y=;
  h=Subject:To:Cc:From:Date;
- b=NJQcrUhl7Yq/U97DtWea6t0+Jn1PpBINeZ/5LD8MiArInRFDLa+KAihJfTN6iaDMm
- 73I27VvLJNpyx/ErLp7JFSEP/EeYYzd3Ar2Y2Ucmmen87W35HBuoYCFCSlpD8tR8c+
- X3yKjNLc0cpGRUwnpje8x+Prscin+c62IujE+/rY=
+ b=LCjOB2EemCG3hKMzcI+E1VhwD5U/2yshISvpyY7oviwYxHUUliey6U5sZ2/uCnyeb
+ gkY5blhC8FNCpqmxygz+x4yP+M0CuuoFYomVktarl0pQOp4HgmJQY9myR1x4c3EHWP
+ OhjQlC1xp8FLHzXPNdKvCpWg5t8M63KiGr+vCtRg=
 Subject: Patch "drm/amd/display: Handle struct
- drm_plane_state.ignore_damage_clips" has been added to the 6.18-stable tree
+ drm_plane_state.ignore_damage_clips" has been added to the 7.1-stable tree
 To: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org,
  gregkh@linuxfoundation.org, harry.wentland@amd.com, javierm@redhat.com,
  tzimmermann@suse.de, zackr@vmware.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 13:19:28 +0200
-Message-ID: <2026072928-caring-papaya-ed97@gregkh>
+Date: Wed, 29 Jul 2026 13:19:38 +0200
+Message-ID: <2026072938-sprain-irritate-78fe@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -61,12 +61,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/amd/display: Handle struct drm_plane_state.ignore_damage_clips
 
-to the 6.18-stable tree which can be found at:
+to the 7.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-amd-display-handle-struct-drm_plane_state.ignore_damage_clips.patch
-and it can be found in the queue-6.18 subdirectory.
+and it can be found in the queue-7.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -112,7 +112,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6240,8 +6240,8 @@ static void fill_dc_dirty_rects(struct d
+@@ -6440,8 +6440,8 @@ static void fill_dc_dirty_rects(struct d
  {
  	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
  	struct rect *dirty_rects = flip_addrs->dirty_rects;
@@ -123,7 +123,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	bool bb_changed;
  	bool fb_changed;
  	u32 i = 0;
-@@ -6257,8 +6257,10 @@ static void fill_dc_dirty_rects(struct d
+@@ -6457,8 +6457,10 @@ static void fill_dc_dirty_rects(struct d
  	if (new_plane_state->rotation != DRM_MODE_ROTATE_0)
  		goto ffu;
  
@@ -140,9 +140,11 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from tzimmermann@suse.de are
 
-queue-6.18/drm-tests-shmem-set-dma-mask-to-64-bit-in-drm_gem_sh.patch
-queue-6.18/drm-sysfb-avoid-possible-truncation-with-calculating-visible-size.patch
-queue-6.18/drm-sysfb-do-not-page-align-visible-size-of-the-framebuffer.patch
-queue-6.18/drm-sysfb-return-errno-code-from-drm_sysfb_get_visible_size.patch
-queue-6.18/drm-sysfb-avoid-truncating-maximum-stride.patch
-queue-6.18/drm-amd-display-handle-struct-drm_plane_state.ignore_damage_clips.patch
+queue-7.1/drm-tests-shmem-set-dma-mask-to-64-bit-in-drm_gem_sh.patch
+queue-7.1/drm-exynos-fbdev-remove-offset-into-screen_buffer.patch
+queue-7.1/drm-sysfb-avoid-possible-truncation-with-calculating-visible-size.patch
+queue-7.1/drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
+queue-7.1/drm-sysfb-do-not-page-align-visible-size-of-the-framebuffer.patch
+queue-7.1/drm-sysfb-return-errno-code-from-drm_sysfb_get_visible_size.patch
+queue-7.1/drm-sysfb-avoid-truncating-maximum-stride.patch
+queue-7.1/drm-amd-display-handle-struct-drm_plane_state.ignore_damage_clips.patch
