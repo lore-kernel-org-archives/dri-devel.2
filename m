@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F171AC54F5E
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 04:17:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A228DC53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 04:17:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B28D10E42F;
-	Wed, 29 Jul 2026 04:17:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05F8D10E1FF;
+	Wed, 29 Jul 2026 04:17:31 +0000 (UTC)
 Received: from us-smtp-delivery-44.mimecast.com
  (us-smtp-delivery-44.mimecast.com [205.139.111.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB43710E38E
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 04:17:13 +0000 (UTC)
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 13D8310E1FF
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 04:17:20 +0000 (UTC)
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-50-lFiVfnobNOaF5Fsl5L7Yyw-1; Wed,
- 29 Jul 2026 00:17:10 -0400
-X-MC-Unique: lFiVfnobNOaF5Fsl5L7Yyw-1
-X-Mimecast-MFC-AGG-ID: lFiVfnobNOaF5Fsl5L7Yyw_1785298629
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-508-XlZbwSr5MaaWpz6LXqycQA-1; Wed,
+ 29 Jul 2026 00:17:16 -0400
+X-MC-Unique: XlZbwSr5MaaWpz6LXqycQA-1
+X-Mimecast-MFC-AGG-ID: XlZbwSr5MaaWpz6LXqycQA_1785298635
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 54F53195604D; Wed, 29 Jul 2026 04:17:09 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B7D8C18004D4; Wed, 29 Jul 2026 04:17:15 +0000 (UTC)
 Received: from dreadlord.redhat.com (unknown [10.67.32.13])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 179071800480; Wed, 29 Jul 2026 04:17:06 +0000 (UTC)
+ id 64A801800480; Wed, 29 Jul 2026 04:17:12 +0000 (UTC)
 From: Dave Airlie <airlied@gmail.com>
 To: dri-devel@lists.freedesktop.org
 Cc: nouveau@lists.freedesktop.org,
 	dakr@kernel.org
-Subject: [PATCH 3/6] nouveau/gsp: add logging entries for r570
-Date: Wed, 29 Jul 2026 14:15:27 +1000
-Message-ID: <20260729041653.3985549-4-airlied@gmail.com>
+Subject: [PATCH 5/6] nouveau/gsp: add some more fields to r570 system info
+Date: Wed, 29 Jul 2026 14:15:29 +1000
+Message-ID: <20260729041653.3985549-6-airlied@gmail.com>
 In-Reply-To: <20260729041653.3985549-1-airlied@gmail.com>
 References: <20260729041653.3985549-1-airlied@gmail.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 9aR5LISbZLbs0Pso1xTsa3eTNSXK4METeHFq5fE7dTU_1785298629
+X-Mimecast-MFC-PROC-ID: VK2D-E4qJXieoBG7RGjKmJbr1LgAAFkA1ZiVOYbJShI_1785298635
 X-Mimecast-Originator: gmail.com
 Content-Transfer-Encoding: quoted-printable
 content-type: text/plain; charset=WINDOWS-1252; x-default=true
@@ -63,134 +63,107 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Dave Airlie <airlied@redhat.com>
 
-r570 adds logmnoc and logkrnl. logkrnl is only used for libos3, so
-add a flag to pick libos2 out and not init on that.
+This just adds the pci io bar, link cap and os page size to the r570.
 
 Signed-off-by: Dave Airlie <airlied@redhat.com>
 ---
- .../gpu/drm/nouveau/include/nvkm/subdev/gsp.h |  2 ++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c |  2 ++
- .../drm/nouveau/nvkm/subdev/gsp/rm/r535/rm.c  |  1 +
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c | 23 +++++++++++++++----
- .../drm/nouveau/nvkm/subdev/gsp/rm/r570/rm.c  |  1 +
- .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h   |  1 +
- 6 files changed, 25 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/nouveau/include/nvkm/core/device.h  |  2 ++
+ drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c    | 13 +++++++++++++
+ .../gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c   |  5 +++++
+ 3 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h b/drivers/gp=
-u/drm/nouveau/include/nvkm/subdev/gsp.h
-index 64fed208e4cf..d45351ce08a1 100644
---- a/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-+++ b/drivers/gpu/drm/nouveau/include/nvkm/subdev/gsp.h
-@@ -145,6 +145,8 @@ struct nvkm_gsp {
- =09struct nvkm_gsp_mem loginit;
- =09struct nvkm_gsp_mem logintr;
- =09struct nvkm_gsp_mem logrm;
-+=09struct nvkm_gsp_mem logmnoc;
-+=09struct nvkm_gsp_mem logkrnl;
- =09struct nvkm_gsp_mem rmargs;
-=20
- =09struct nvkm_gsp_mem wpr_meta;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c b/driver=
-s/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-index 8e1ad2e79d3e..77a5a1882472 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/gsp.c
-@@ -2108,6 +2108,8 @@ r535_gsp_dtor(struct nvkm_gsp *gsp)
-=20
- =09r535_gsp_libos_debugfs_fini(gsp);
-=20
-+=09nvkm_gsp_mem_dtor(&gsp->logkrnl);
-+=09nvkm_gsp_mem_dtor(&gsp->logmnoc);
- =09nvkm_gsp_mem_dtor(&gsp->loginit);
- =09nvkm_gsp_mem_dtor(&gsp->logintr);
- =09nvkm_gsp_mem_dtor(&gsp->logrm);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rm.c b/drivers=
-/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rm.c
-index a4190676e1ad..e198212df9c5 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rm.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r535/rm.c
-@@ -11,6 +11,7 @@ r535_wpr_libos2 =3D {
- =09.os_carveout_size =3D GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS2,
- =09.base_size =3D GSP_FW_HEAP_PARAM_BASE_RM_SIZE_TU10X,
- =09.heap_size_min =3D GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB,
-+=09.is_libos2 =3D true,
+diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/device.h b/drivers/g=
+pu/drm/nouveau/include/nvkm/core/device.h
+index 954a89d43bad..68b2d8a0b78c 100644
+--- a/drivers/gpu/drm/nouveau/include/nvkm/core/device.h
++++ b/drivers/gpu/drm/nouveau/include/nvkm/core/device.h
+@@ -86,6 +86,7 @@ enum nvkm_bar_id {
+ =09NVKM_BAR0_PRI,
+ =09NVKM_BAR1_FB,
+ =09NVKM_BAR2_INST,
++=09NVKM_BAR3_IO,
  };
 =20
- static const struct nvkm_rm_wpr
+ struct nvkm_device_func {
+@@ -99,6 +100,7 @@ struct nvkm_device_func {
+ =09resource_size_t (*resource_addr)(struct nvkm_device *, enum nvkm_bar_id=
+);
+ =09resource_size_t (*resource_size)(struct nvkm_device *, enum nvkm_bar_id=
+);
+ =09bool cpu_coherent;
++=09int (*link_cap)(struct nvkm_device *, u32 *lnk_cap);
+ };
+=20
+ struct nvkm_device_quirk {
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c b/drivers/gpu=
+/drm/nouveau/nvkm/engine/device/pci.c
+index 248623b91e29..7cfa21d9abaa 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/pci.c
+@@ -1576,6 +1576,10 @@ nvkm_device_pci_resource_idx(struct nvkm_device_pci =
+*pdev, enum nvkm_bar_id bar)
+ =09if (bar =3D=3D NVKM_BAR2_INST)
+ =09=09return idx;
+=20
++=09idx +=3D (pci_resource_flags(pdev->pdev, idx) & IORESOURCE_MEM_64) ? 2 =
+: 1;
++=09if (bar =3D=3D NVKM_BAR3_IO)
++=09=09return idx;
++
+ =09WARN_ON(1);
+ =09return -1;
+ }
+@@ -1628,6 +1632,14 @@ nvkm_device_pci_preinit(struct nvkm_device *device)
+ =09return 0;
+ }
+=20
++static int
++nvkm_device_pci_link_cap(struct nvkm_device *device, u32 *lnk_cap)
++{
++=09struct nvkm_device_pci *pdev =3D nvkm_device_pci(device);
++
++=09return pcie_capability_read_dword(pdev->pdev, PCI_EXP_LNKCAP, lnk_cap);
++}
++
+ static void *
+ nvkm_device_pci_dtor(struct nvkm_device *device)
+ {
+@@ -1646,6 +1658,7 @@ nvkm_device_pci_func =3D {
+ =09.resource_addr =3D nvkm_device_pci_resource_addr,
+ =09.resource_size =3D nvkm_device_pci_resource_size,
+ =09.cpu_coherent =3D !IS_ENABLED(CONFIG_ARM),
++=09.link_cap =3D nvkm_device_pci_link_cap,
+ };
+=20
+ int
 diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c b/driver=
 s/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-index 64011430f4c0..d9786830153d 100644
+index d9786830153d..857eda1e7439 100644
 --- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
 +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/gsp.c
-@@ -236,6 +236,7 @@ r570_gsp_libos_init(struct nvkm_gsp *gsp)
- {
- =09LibosMemoryRegionInitArgument *args;
- =09int ret;
-+=09int idx;
-=20
- =09ret =3D nvkm_gsp_mem_ctor(gsp, 0x1000, &gsp->libos);
- =09if (ret)
-@@ -255,15 +256,27 @@ r570_gsp_libos_init(struct nvkm_gsp *gsp)
- =09if (ret)
- =09=09return ret;
-=20
-+=09ret =3D gsp_fill_libos_entry(gsp, &args[3], 0x10000, &gsp->logmnoc, "LO=
-GMNOC");
-+=09if (ret)
-+=09=09return ret;
+@@ -165,6 +165,7 @@ r570_gsp_set_system_info(struct nvkm_gsp *gsp)
+ =09info->gpuPhysAddr =3D device->func->resource_addr(device, NVKM_BAR0_PRI=
+);
+ =09info->gpuPhysFbAddr =3D device->func->resource_addr(device, NVKM_BAR1_F=
+B);
+ =09info->gpuPhysInstAddr =3D device->func->resource_addr(device, NVKM_BAR2=
+_INST);
++=09info->gpuPhysIoAddr =3D device->func->resource_addr(device, NVKM_BAR3_I=
+O);
+ =09info->nvDomainBusDeviceFunc =3D pci_dev_id(pdev);
+ =09info->maxUserVa =3D TASK_SIZE;
+ =09info->pciConfigMirrorBase =3D device->pci->func->cfg.addr;
+@@ -175,6 +176,10 @@ r570_gsp_set_system_info(struct nvkm_gsp *gsp)
+ =09r570_gsp_acpi_info(gsp, &info->acpiMethodData);
+ =09info->bIsPrimary =3D video_is_primary_device(device->dev);
+ =09info->bPreserveVideoMemoryAllocations =3D false;
++=09info->hostPageSize =3D PAGE_SIZE;
 +
-+=09idx =3D 4;
-+=09if (!gsp->rm->wpr->is_libos2) {
-+=09=09ret =3D gsp_fill_libos_entry(gsp, &args[idx], 0x10000, &gsp->logkrnl=
-, "LOGKRNL");
-+=09=09if (ret)
-+=09=09=09return ret;
-+=09=09idx++;
-+=09}
-+
- =09ret =3D r535_gsp_rmargs_init(gsp, false);
- =09if (ret)
- =09=09return ret;
++=09if (device->func->link_cap)
++=09=09device->func->link_cap(device, &info->pcieConfigReg.linkCap);
 =20
--=09args[3].id8  =3D r535_gsp_libos_id8("RMARGS");
--=09args[3].pa   =3D gsp->rmargs.addr;
--=09args[3].size =3D gsp->rmargs.size;
--=09args[3].kind =3D LIBOS_MEMORY_REGION_CONTIGUOUS;
--=09args[3].loc  =3D LIBOS_MEMORY_REGION_LOC_SYSMEM;
-+=09args[idx].id8  =3D r535_gsp_libos_id8("RMARGS");
-+=09args[idx].pa   =3D gsp->rmargs.addr;
-+=09args[idx].size =3D gsp->rmargs.size;
-+=09args[idx].kind =3D LIBOS_MEMORY_REGION_CONTIGUOUS;
-+=09args[idx].loc  =3D LIBOS_MEMORY_REGION_LOC_SYSMEM;
-=20
- #ifdef CONFIG_DEBUG_FS
- =09r535_gsp_libos_debugfs_init(gsp);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rm.c b/drivers=
-/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rm.c
-index 498658d0c60c..fa012756a731 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rm.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/r570/rm.c
-@@ -11,6 +11,7 @@ r570_wpr_libos2 =3D {
- =09.os_carveout_size =3D GSP_FW_HEAP_PARAM_OS_SIZE_LIBOS2,
- =09.base_size =3D GSP_FW_HEAP_PARAM_BASE_RM_SIZE_TU10X,
- =09.heap_size_min =3D GSP_FW_HEAP_SIZE_OVERRIDE_LIBOS2_MIN_MB,
-+=09.is_libos2 =3D true,
- };
-=20
- static const struct nvkm_rm_wpr
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h b/drivers/gpu/=
-drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-index cc9f33202673..b77059e0ac12 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/gsp/rm/rm.h
-@@ -28,6 +28,7 @@ struct nvkm_rm_wpr {
- =09u32 heap_size_non_wpr;
- =09u32 rsvd_size_pmu;
- =09bool offset_set_by_acr;
-+=09bool is_libos2;
- };
-=20
- struct nvkm_rm_api {
+ =09return nvkm_gsp_rpc_wr(gsp, info, NVKM_GSP_RPC_REPLY_NOSEQ);
+ }
 --=20
 2.55.0
 
