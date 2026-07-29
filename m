@@ -4,77 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A1ACC53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65331C53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:21:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B671310ECCA;
-	Wed, 29 Jul 2026 16:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5B2B10E025;
+	Wed, 29 Jul 2026 16:21:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sYxaD8bf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MMre3tzh";
 	dkim-atps=neutral
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01EA410ECE4
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:16:20 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-69f7130b47dso1660154a12.3
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 09:16:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785341779; x=1785946579; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=eMJlBiwtyHistA8GT4XhygeFXexQs5/OtNgJ+24npX4=;
- b=sYxaD8bfGW6MVgjaddgvchrHWgkOmKFwOaN9fIfU4Qkk43MJJwWXAmDdmmwAfmHMu6
- nES661hfXLeLLvE0403t6tuqKEhs1WOsCnGVQUQzXWd5JeB4odJEzCgekL9tc+YtcWjX
- bic8lqW9WgUiBhlj1JY4RUVon5ryN59P5NHzwFGBcu5vN3jefWKDUvvNcN4+0QMikGPI
- eBDEsd98It9wr7QujcHsuNyrIVrxESE6ZfBXqF/0mskr3Ox0qKcali3O8ipSeXfodiiD
- VMKIKcHBCplIC9YpSPmExrh9r3oMTK1hDFomS0RdlY958BJ/BnPe7dXYYWW79YKRuqub
- 59yA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785341779; x=1785946579;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eMJlBiwtyHistA8GT4XhygeFXexQs5/OtNgJ+24npX4=;
- b=Ft0p+veSdzJ8BzokNjZa5NdbcrKysCl23v/F08Ww4i75Nka2aJIupHCv3xAFHaoAKw
- y2nW+1z+InWAUoHZPpFJxK3n/C7//4Sacmq+TquAZ2FTS3PqJk6OiUQNxfjdAddHS/r8
- 8jU43Bucdv6bWQ/9a7RO1Lfok+bwt+Prsr5IHfA86bk32kY31gAUH05c2mAFw0xA7ZWY
- GlLBQ5MWS52tWHuQFOCbhK/Url5dryIrWZSlHvmqBxEbjDOWZ5zVY7fnElFxBlv0ahEr
- yF+AuZI7GTUK1tNgy799S5NPeVEDlai03msh5RdkyX8onkD4IKn4sbBPpy2RIbVn49+V
- 9zxA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrLlD8n39/y6uzku2x4rlHtOPZ1hv7gBFP8PLuqGVJHb4a5TriQ9Ub0o3m5G4W56Cw1JYLlotjNZgQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6CljQNq4gpEIKy1AmP6Dz88MAAAfxzm8iUUcYkJ05u+8NtoZj
- xBmJ7TLqqRCM1l9NF47fIV7GqN/LdTk2O6sgd7960oZtDSDmITchHSEq
-X-Gm-Gg: AR+sD11rJAFuJlk7TZHzNkYu/FmdCA+Iftrd5jXro9rG3Or3gccqALVCisxHlL8S0v7
- 2V9XkTtFuSFTUwSfWKhyg50D5L/QkpzzE6h1DznD8RSVdELMUpai0pX+8tgTixgaIuTdP9mUClR
- nA/Gx6sS0lJObXS3lWsTTAVsFJnnlITqgVw8P3JuYkN56a5Ts0m1NF0KyEjucFVYigD9PZiaUuD
- 4gp7Z2I8lQKbaxkArHrr/8MKOa77umRdYiaM+OEEDaE9+N96Pvxmb9lV5pzUzMkW6CCyb6jlBlF
- J35JVV0rlLOvf7LUxNwjKjYr1s6PRnrPLD9GZSJkQeeOhJoMqXdkktd8QMCCyTa/zeik+kXXeAc
- s6H9fKyctvFB7VVy6ZFRwSZ6zZdqJtZCGLKjidHUgL/w0B8rZjOFw9r3TLlMAu4TuT3Zs9g7Xo0
- XpGO9O9BaNtby0mk16kqYvJrfiyVrv3XqStyPCAQ0kuBrkq8GmU4GK+TqtgaRVuVU7H5Z60d+LQ
- x7qm+6zQeKJI1ZYjlZ5mXKeuwvr3cS1dFsQdZ55atfbNOQ=
-X-Received: by 2002:a05:6402:20db:b0:69f:c197:9e8e with SMTP id
- 4fb4d7f45d1cf-6a034a345e5mr3985008a12.14.1785341779258; 
- Wed, 29 Jul 2026 09:16:19 -0700 (PDT)
-Received: from JTOLLET-M-FKW7.cisco.com
- ([2603:5004:2080:100c:3523:a231:e3ca:acc8])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a050c60154sm1030511a12.24.2026.07.29.09.16.14
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 29 Jul 2026 09:16:16 -0700 (PDT)
-From: Jerome Tollet <jerome.tollet@gmail.com>
-To: jani.nikula@linux.intel.com
-Cc: ankit.k.nautiyal@intel.com, ville.syrjala@linux.intel.com,
- arun.r.murthy@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Jerome Tollet <jerome.tollet@gmail.com>
-Subject: Question about drm-intel-next vs drm-intel-next-fixes for HDMI
- scrambling patch
-Date: Wed, 29 Jul 2026 18:16:06 +0200
-Message-ID: <20260729161606.81668-1-jerome.tollet@gmail.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F11310E025
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:21:48 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E4A7E41715;
+ Wed, 29 Jul 2026 16:21:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5B11F000E9;
+ Wed, 29 Jul 2026 16:21:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785342107;
+ bh=mpKl1yrKpRwzs/OwwlkKbdLE1MxKzQ65vcUABt86wX8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=MMre3tzhVKgU6IKyFDsosG+Q1bWM3Bpqo80DNQ9XYrG2/UC450IJ3aGLyf+XI1qsb
+ QMCKq7bt7ZjmoFbLhhlopUgRuIrc0r2jQ9MxQiCgbJVrln4fRTk0FH8LaEwagv1rNl
+ kCbd5xAXFUWLtYgl8RR2zsZcrDrfCKpd69DoQhg2sbVUv2z2yPwcLxtOnlPczyr4Ui
+ c/h3UNhHl851hJYpnGRn4Y87kxY9IFl0Z3iqygwhFkJQ7Ung9hN8gQXKj08+mSnKCa
+ 607dlSNztdoIZ97CfyQ28wk61qV3UxxqJva4cuOMuVX6aawFmhuXxpzgTTNG/bTskF
+ B9lVMm8FG+xYA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 02/17] drm/msm: Rework queuelock
+To: "Rob Clark" <robin.clark@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260729155609.20190-3-robin.clark@oss.qualcomm.com>
+References: <20260729155609.20190-1-robin.clark@oss.qualcomm.com>
+ <20260729155609.20190-3-robin.clark@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 16:21:47 +0000
+Message-Id: <20260729162147.9D5B11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,28 +53,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jani,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-I would like to better understand the i915 patch flow, rather than question
-the decision itself.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the return value=
+ of `drm_sched_entity_init()` is ignored when creating a VM_BIND submitqueu=
+e, which can lead to a kernel crash if the allocation fails.
+--
 
-The commit b7d51d65e4f1 ("drm/i915/hdmi: Poll for 200 msec for
-TMDS_Scrambler_Status") was pushed to drm-intel-next on June 11. It was then
-included in the July 2 drm-intel-next pull, described as the first feature
-pull towards v7.3.
+--- Patch [2]: [PATCH v7 02/17] drm/msm: Rework queuelock ---
+commit 1fecfbcd368f21f80f7078762ebd5da9fae4c122
+Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-However, it was not included in the drm-intel-next-fixes pulls for v7.2,
-including the June 25 pull, and it is consequently not present in v7.2-rc5.
+drm/msm: Rework queuelock
 
-Could you please explain how the decision is made to route a patch to
-drm-intel-next versus drm-intel-next-fixes? In this particular case, was
-there a technical or review reason why the patch was not considered for the
-v7.2 fixes pull, or was it mainly a timing/queueing decision?
+This commit renames queuelock to ctxlock and transitions it to use cleanup
+guards. The change is intended to allow the lock to be reused for other
+per-context read/write serialization tasks such as VM creation.
 
-I am asking to understand the process for future contributions.
+> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/=
+msm_submitqueue.c
+> index 1a5a77b280163..8b5980d5a6a79 100644
+> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
+> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
 
-Thanks,
-Jerome
+[ ... ]
+
+> @@ -237,7 +234,7 @@ int msm_submitqueue_create(struct drm_device *drm, st=
+ruct msm_context *ctx,
+>  		return ret;
+>  	}
+> =20
+> -	write_lock(&ctx->queuelock);
+> +	guard(rwsem_write)(&ctx->ctxlock);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but I noticed a potential bug in
+the VM_BIND queue initialization just above this locking change in
+msm_submitqueue_create().
+
+Does this code fail to catch allocation errors from drm_sched_entity_init()?
+
+	if (flags & MSM_SUBMITQUEUE_VM_BIND) {
+		...
+		drm_sched_entity_init(queue->entity, DRM_SCHED_PRIORITY_KERNEL,
+				      &sched, 1, NULL);
+	} else {
+		...
+	}
+
+	if (IS_ERR(queue->entity)) {
+		ret =3D PTR_ERR(queue->entity);
+		...
+
+If drm_sched_entity_init() fails, it returns an error but the return value =
+is
+silently ignored. The subsequent check for IS_ERR(queue->entity) will evalu=
+ate
+to false because queue->entity points to a valid inline struct array element
+(&queue->_vm_bind_entity[0]).
+
+Could this result in a NULL pointer dereference later on if a job is submit=
+ted
+to this partially initialized scheduler entity?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729155609.2019=
+0-1-robin.clark@oss.qualcomm.com?part=3D2
