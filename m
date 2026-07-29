@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7699EC54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:55:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94413C54F52
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:55:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5ACE10E035;
-	Wed, 29 Jul 2026 10:55:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08AD410E1C4;
+	Wed, 29 Jul 2026 10:55:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="caih/zd4";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gtx3pTd6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E519F10E035
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:55:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C67110E1C4
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:55:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E445360A65;
- Wed, 29 Jul 2026 10:55:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18F351F000E9;
- Wed, 29 Jul 2026 10:55:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 52FA740591;
+ Wed, 29 Jul 2026 10:55:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE6371F000E9;
+ Wed, 29 Jul 2026 10:55:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785322518;
- bh=/Os9/+MEtW2fpvdkzwuK0+rDGtoqz8YS9F0rAcR217w=;
+ s=korg; t=1785322524;
+ bh=zQj1yFt3In7jc3rGCAuNzp0GdN7kk30lMbZkcJwRfcs=;
  h=Subject:To:Cc:From:Date;
- b=caih/zd4aonXbCziaVD4N6j5ittwufMqBFE83+VHRdwSC6/oxWBikHkeSE147Pixx
- GZ8FTfCCkmoh+yfOUzmZN/KRessEkQfNz0cWaxpheS+DrXtRyk5Cs5QuojRvlg8pp5
- TSNP0IOxn2391JClbq8RZDpPoZNaBcw0cWbGhtdY=
-Subject: Patch "drm/sysfb: Avoid possible truncation with calculating visible
- size" has been added to the 7.1-stable tree
+ b=gtx3pTd6TuR1Xrs2jjlp4NFGRtOuPQ5f+grZRMFf/nDkMUgXpNHjy8t7T4lYAW7b7
+ ToYQsGnLuXbhESiMKmYqXTth9ejhMzC5yb8MqCgXlnbDffzsdUBThBZMGtLR/4CuQD
+ KqplwiCTtELM3sSbf3s6FNQpLc6MgyeHJJ2qdxGc=
+Subject: Patch "drm/sysfb: Do not page-align visible size of the framebuffer"
+ has been added to the 7.1-stable tree
 To: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- javierm@redhat.com, sashiko-bot@kernel.org, tzimmermann@suse.de
+ javierm@redhat.com, tzimmermann@suse.de
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 29 Jul 2026 12:54:27 +0200
-Message-ID: <2026072927-corporate-spill-5d6f@gregkh>
+Message-ID: <2026072927-gully-blinks-e7c9@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -58,65 +58,55 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 This is a note to let you know that I've just added the patch titled
 
-    drm/sysfb: Avoid possible truncation with calculating visible size
+    drm/sysfb: Do not page-align visible size of the framebuffer
 
 to the 7.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     drm-sysfb-avoid-possible-truncation-with-calculating-visible-size.patch
+     drm-sysfb-do-not-page-align-visible-size-of-the-framebuffer.patch
 and it can be found in the queue-7.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From b771974988ec7ce077a7246fa0fa588c246fe581 Mon Sep 17 00:00:00 2001
+From 134844856c399bfa9462a159dcf860bfdb748055 Mon Sep 17 00:00:00 2001
 From: Thomas Zimmermann <tzimmermann@suse.de>
-Date: Thu, 18 Jun 2026 10:41:58 +0200
-Subject: drm/sysfb: Avoid possible truncation with calculating visible size
+Date: Thu, 18 Jun 2026 10:41:57 +0200
+Subject: drm/sysfb: Do not page-align visible size of the framebuffer
 
 From: Thomas Zimmermann <tzimmermann@suse.de>
 
-commit b771974988ec7ce077a7246fa0fa588c246fe581 upstream.
+commit 134844856c399bfa9462a159dcf860bfdb748055 upstream.
 
-Calculating the visible size of the system framebuffer can result in
-truncation of the result. The calculation uses 32-bit arithmetics,
-which can overflow if the values for height and stride are large. Fix
-the issue by multiplying with mul_u32_u32().
+Only return the actually visible size of the system framebuffer in
+drm_sysfb_get_visible_size_si(). Drivers use this size value for
+reserving access to framebuffer memory. Increasing the value can
+make later attempts to do so fail.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
 Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
 Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/dri-devel/20260617114027.1F2A71F000E9@smtp.kernel.org/
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Javier Martinez Canillas <javierm@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
 Cc: <stable@vger.kernel.org> # v6.16+
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Link: https://patch.msgid.link/20260618084327.46567-3-tzimmermann@suse.de
+Link: https://patch.msgid.link/20260618084327.46567-2-tzimmermann@suse.de
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c |    3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 --- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
 +++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
-@@ -2,6 +2,7 @@
- 
- #include <linux/export.h>
- #include <linux/limits.h>
-+#include <linux/math64.h>
- #include <linux/minmax.h>
- #include <linux/screen_info.h>
- 
-@@ -73,7 +74,7 @@ EXPORT_SYMBOL(drm_sysfb_get_stride_si);
+@@ -67,7 +67,7 @@ EXPORT_SYMBOL(drm_sysfb_get_stride_si);
  u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
  				  unsigned int height, unsigned int stride, u64 size)
  {
--	u64 vsize = height * stride;
-+	u64 vsize = mul_u32_u32(height, stride);
+-	u64 vsize = PAGE_ALIGN(height * stride);
++	u64 vsize = height * stride;
  
  	return drm_sysfb_get_validated_size0(dev, "visible size", vsize, size);
  }
