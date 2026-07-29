@@ -4,110 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7819C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 13:50:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D89AC54F52
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 13:50:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35E2810EC08;
-	Wed, 29 Jul 2026 13:50:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD05A10EBD0;
+	Wed, 29 Jul 2026 13:50:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UVsR1any";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="HXliJDOE";
 	dkim-atps=neutral
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8A0310E5C1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 00:08:53 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id
- 5614622812f47-4a483a552efso154253b6e.1
- for <dri-devel@lists.freedesktop.org>; Tue, 28 Jul 2026 17:08:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785283733; cv=none;
- d=google.com; s=arc-20260327;
- b=nnx8rQMKCMkSbUrUHuxHkbL7dHNhuqPHStQMg2tb4yLYMi8Y5ZwQBDfREI5rTdzUHO
- QK/kSfMYyvaXwCy6nE23DEWY8X707qxJfRoCE1p2CiYbR0SnLPj0yncDapc6YCdNjeaF
- UHPyV6hyAgH818yFxcBZJveOIRv5DqhDKZAdv5batFe8WdqDFqBcS9dXl0hGTqQrGNeY
- Zqh/tl85FYkbh5mFkB6xAOjS/uOTiqYPHk9BxvWKJf/a7uRZ6T9xfQ1kLVT3LAgRlkia
- nYw4gNEgSXDeGqUBCpLn8EcA9PTQ9MLODRkApBledYgG3wnMeZdL9aknUJN5QB7oZQLj
- D+VQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=kyoFypV4ziVMyYM4rNHMecvIB5wpcxkRGbJyRri9dnY=;
- fh=2GSsj6U+YlAxKattHGJucl6BDfOlKX/jgHZCzdjooMU=;
- b=mK5kY3sD9GOKwRMoN/d2pXrae4a0mz8N43KhrDMy2Lgcq9Rh9ydMosso5XHlRI/VfT
- xXIQhVvXgJuJpzp8PeohFFtmovdY/F6Fet6lMUyAkcpEdJ9C2uWR7TlkadA1UAtJxKjt
- 25+PmXTP8RnYUKbYgMd0ywPGZPi2KFBLpGcVSIz4usA3YlYAYVwyMVsuNq76/71h09+m
- zqxwZjjBgI3E+h5zsxwxZ8RDcftGB1J7RDdKKOIfqvDPzLBlj19awIrZaA5D/+AjDMPL
- rbu5FsAWZYpqZ5CuFdTVQrmz6GxwezhYhUle3tTZ/AzeC2Tlv7TWd07hPY/FDgQGMwgi
- K8xA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785283733; x=1785888533; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=kyoFypV4ziVMyYM4rNHMecvIB5wpcxkRGbJyRri9dnY=;
- b=UVsR1any3H9cEgq7QuPZg5ik+sXGfJ0+dBiGqTT/CN/K4umsoVrmvgWAXl1TzMFT8z
- sQ3NyVQOIiFl3oQDGAzUVfym9No4/nAXV20bIKzoNj/UGz48rMU5bcxubnQPu9JuQNhd
- V5XUynaa9NGl9WLZK/nwypt1wVO3zoNtf/NoY54x8pJyTB/0UwRSdSgqLYc1gudDQ9L9
- tm2irhZR/vT0OzwcO5MW9aLJ9eF0Cq11tpxlNewzOxZbR87HHGA3ChMSwdMGesddLL94
- S+vdgW9gwUffeOlE9WpDfuBtrBrUzUpStakfhN0CbBqU/El6B6YvYxWdEVI1HZuIbVfK
- 2aMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785283733; x=1785888533;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kyoFypV4ziVMyYM4rNHMecvIB5wpcxkRGbJyRri9dnY=;
- b=DytEtr/HBq93HhZhRv7pAot4SnECrW++dqQkwpG2zaUwFoQWa9eh1hNfPLHXaJ8jf1
- 9QW1Gc1LaMHpnBwb4FAMZYGTjPIONLIfkw4flJ8iqYdEDB7mrIDxfR/sH7uJNhkrpmX7
- ZI15iz94ZTLXQiDKpse+94nMrHEce69Dja4iC1s+4++5KJKXH+DLnWkj7S/H6EhVVSGe
- mNgQH/UQwLc6rihZkorv46OyWoeDEgPqk2dWS516KFkI4aOKberFZnc322or9AKJog+s
- 67tJZKzmbNbbJP9SKw30EkHOQiaFJv0LD1N9n3o4SdlpLVachmu4cuRFDwq82eFZVidU
- 2Xtg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqPpQ0X/LBCRXA+UDNOF27f25EIZJCuBDPEkZIiuqvsC+UQCLJpLiBZn8PrgnOxKkQSra86lV38wj4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx2Z+zCABNVURvpOQOnQipEMsxo1hvIe1IHSeg/JPHKGmtoEMVe
- VFUKsyssRgEtdnoSKaZulnvH3R9u3r4ENAJ3lvIJKgHFO5TxJTDH/V/3+uBs72ht+BlSqM+ayGG
- CuqD/hloTn96Wn4NZP+W4iHE6m0marOU=
-X-Gm-Gg: AR+sD12smGDkEMZdAYuoimrv4hFqrJU1SBC9hRuYSfLqlG1CH45fR6CXgfs6T1XXGDe
- Jyyq/qvFUusvE3nk0tSJMO79jqAq6izuDpvw+MnghFROqXgpPVoGXmKrldtc05n8b8JDkgHI12w
- eWavCVHYjzRLQgnyMTBgl9Y+0/EJQSHKjeX4+YzSaepCbpM9TpxNcjTVfq6x7/WRlJv8k46MMEE
- q/esJAuX7KEWYs7IqnzThpxQejwDec0Aw7Lv2F27suT8Z+eeRGvhCXbzWdf0A+RyIUMTqKaZJqg
- U7az1jC0sxTkSINIRLhlsPavSo4dlwciMsNk9BELhSI49lka4Mdh/WR5e/4Japob6LLdQqRS3XZ
- 1jrkd+PInokzozw==
-X-Received: by 2002:a05:6808:220f:b0:496:2b3:ae71 with SMTP id
- 5614622812f47-4ad5b9cb9dfmr3003896b6e.18.1785283732989; Tue, 28 Jul 2026
- 17:08:52 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260728091804.382753-1-wenst@chromium.org>
- <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
- <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
- <CAGb2v67VRhy_xzkdwUAYhzM_sWzoXyfZ3rYSHYLYaxuve9H17w@mail.gmail.com>
- <a0ae9525-9288-4d13-a080-9cb3d965d536@collabora.com>
-In-Reply-To: <a0ae9525-9288-4d13-a080-9cb3d965d536@collabora.com>
-From: YoungJoon Lee <getfeus@gmail.com>
-Date: Wed, 29 Jul 2026 09:08:40 +0900
-X-Gm-Features: AUfX_mxJyiSm31bWY5a0snpvZu7asEtmvztGs1v4_zBGPb9VpXQsQKFqM4tmGnM
-Message-ID: <CA+m4KrAvATV9qMMN9h+tKcPdrHRp7-jFJ0-Jq3DeCZLi3Z6RsA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: wens@kernel.org, Brian Masney <bmasney@redhat.com>,
- Chen-Yu Tsai <wenst@chromium.org>, 
- Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B7B510EADB
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 07:47:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+ s=mxsw2412; t=1785311203;
+ bh=nren6W8cSS2uMYeX64uz9A3I11tBs3UPcoP+O2n12Xc=;
+ h=From:To:Subject:Mime-Version:Date:Message-ID;
+ b=HXliJDOEHyrUADwfY5WMx9Yr6m+Ezvv5FFAVRBA0UR4RmQc85aMFlBkz0ChCXnQ6G
+ K/+We5gw34axwTVljGJk30cVNbJZwG83kE9LSG4eOzSJ8xVgoQMQ/2nen7OENXFGju
+ 1/lk9cq6lGFvcayY8olXGHcPbBsCEhGxXmMm2mHA=
+EX-QQ-RecipientCnt: 11
+X-QQ-GoodBg: 2
+X-QQ-SSF: 0040000000000010
+X-QQ-FEAT: D4aqtcRDiqRATRUtBnW9lcLjwmbowsOUwlBKKJPUsxA=
+X-QQ-BUSINESS-ORIGIN: 2
+X-QQ-Originating-IP: 3pOxOau04IHoub2UGv4cXhNN1QbSVmzE9P1ofqsDeEU=
+X-Originating-IP: 120.237.120.210
+X-QQ-STYLE: 
+X-QQ-mid: lv2gz5b-1t1785311194ted16f001
+From: "=?utf-8?B?QmFpaHVpIExpYW5n?=" <liangbaihui@linux.spacemit.com>
+To: "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk@kernel.org>
+Cc: "=?utf-8?B?RnJhbmsgQmlubnM=?=" <frank.binns@imgtec.com>,
+ "=?utf-8?B?Um9iIEhlcnJpbmc=?=" <robh@kernel.org>,
+ "=?utf-8?B?S3J6eXN6dG9mIEtvemxvd3NraQ==?=" <krzk+dt@kernel.org>,
+ "=?utf-8?B?Q29ub3IgRG9vbGV5?=" <conor+dt@kernel.org>,
+ "=?utf-8?B?WWl4dW4gTGFu?=" <dlan@kernel.org>,
+ "=?utf-8?B?ZHJpLWRldmVs?=" <dri-devel@lists.freedesktop.org>,
+ "=?utf-8?B?ZGV2aWNldHJlZQ==?=" <devicetree@vger.kernel.org>,
+ "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>,
+ "=?utf-8?B?bGludXgtcmlzY3Y=?=" <linux-riscv@lists.infradead.org>,
+ "=?utf-8?B?c3BhY2VtaXQ=?=" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v3 1/2] dt-bindings: gpu: img, powervr-rogue: add spacemit,
+ k3-gpu
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="----=_NextPart_6A69AFDA_EDC157C0_2CA9B138"
+Content-Transfer-Encoding: 8Bit
+Date: Wed, 29 Jul 2026 15:46:34 +0800
+X-Priority: 3
+Message-ID: <tencent_79CE08BE248E9ACA2E62BF64@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+X-BIZMAIL-ID: 9576013502428276568
+X-Address-Ticket: version=; type=; ticket_id=; id_list=; display_name=;
+ session_id=; 
+X-QQ-SENDSIZE: 520
+Received: from qq.com (unknown [127.0.0.1]) by smtp.qq.com (ESMTP) with SMTP
+ id ; Wed, 29 Jul 2026 15:46:35 +0800 (CST)
+Feedback-ID: lv:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: Nkqq4bFvvULW3N9Ek+XOEG5XOk/iQZD+zWYAo1kJ89i7KV11grULZN2/
+ rQJSEDhXaS5V68UI+cB2vEXPZbFp06Fy1hkrHPWg5/aDq3fiYIVF3LJ5F0ngwAkcvDbxCrW
+ j6V+aR4m4VmevzhfaZqF+nVPIjeZ7fNeoOrWJ0I5eqxwz5YNPbTu0btXTHp8TUPa9XRSVAa
+ IHdZaWHWgUmqO/pBaDLKAgiPvxQExgfcEoGoDsmH8+kiqh/FI/JhQh66d+xoCKp1LttTDo7
+ Yy9r0sp23hyNIfk8BIMnT0iXFU7fHgNb/zs3EuYfH2vmwsO0Kv4KeDIHMv/4SHmkj1YmJv5
+ f76pOq6Q//+B58wrB9OF3j6XaVN4PHIsECKFfji5B1PorclCkmAnFNwY/KrhV9ieYdQwZgV
+ MQ07B2hUomcx00nhDO2Qkzm4HplACXJUT+2o9GOgCFbbhEXTcqS7bSQ79wjJ0giFaDMY90r
+ g1lwRjcLM1DlR90UiodtphMGsDsK0heG9UCIcaRSFVcwAQF+rQ/E+gC14xX4txOqK7XC5DC
+ O6kzFT7whW430Vh0iSSJLl0stXIU+FzetY8Me1QZJU94nBEDdEXN2dhbZwUBfWOvvVSkvw6
+ ubIi3+a0wxYyaY8VOwFFPsPi81k7swlF0uGAQhxv/H2sgY2dybRtII+vlKLwWZHDGDsnLtK
+ hr5hlMW1/tusCf0RC0MsHGdJII2WoO+Bq7P5NP9UDbewPvyjF7U/la/ecfDVUz12k0z4Ior
+ L/WHqFzQVXGN+8p4kUa0QdAhzfvNuKCXLr4OB4DPYNUELv/Lixrr66h1x4GyXdR8t4OxXA5
+ kuoxhm1/xTQsAvgPGdb8fa16BSwpV+2vUJYDhJEGI8saa5paXKjIVC7CfPm5tNdv/AmcW7U
+ a20IB96fdfMdmHLM0TI731djlGgTPi9v+QJkBqlRk83TBvwHBP9VNVxAiOMzoTuU/CxC03U
+ bvG6SuhPEAo1vDD3h25LDjh4ku+eO6GDLGopRS2kMqVzxP3LJNpdsCFzaDwmGQWe735Q3Yn
+ lcFr05DiAO+Hprnfl5PYZiDTE9kXpnamgblsmFi+7gVDPNXIzFz1BnXFaaF1Bb6+LH+wUEi
+ g==
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Wed, 29 Jul 2026 13:49:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -124,167 +97,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Chen-Yu,
+This is a multi-part message in MIME format.
 
-Thank you for posting the v4 series.
+------=_NextPart_6A69AFDA_EDC157C0_2CA9B138
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
 
-I tested the complete v4 series on my MT8173 Chromebook, but I am
-seeing a GPU device loss as soon as Mesa initializes the Vulkan device.
+T24gVHVlLCBKdWwgMjgsIDIwMjYsIEtyenlzenRvZiBLb3psb3dza2kgd3JvdGU6DQomZ3Q7
+ICZndDsgWy4uLl0NCiZndDsgJmd0OyBzcGFjZW1pdCxrMy1ncHUgaXMgYWRkZWQgdG8gdGhl
+IGV4aXN0aW5nIHRpLGFtNjItZ3B1L3RpLGFtNjJwLWdwdS8NCiZndDsgJmd0OyB0aSxqNzIx
+czItZ3B1ICJpZiIgYmxvY2sgdGhhdCByZXN0cmljdHMgY2xvY2tzIHRvIGEgc2luZ2xlIGVu
+dHJ5LA0KJmd0OyAmZ3Q7IHNpbmNlIEszIGhhcyB0aGUgc2FtZSBzaW5nbGUtY2xvY2sgcmVx
+dWlyZW1lbnQuIEl0IGRvZXMgbm90IG1hdGNoIGFueQ0KJmd0OyAmZ3Q7ICJpZiIgYmxvY2sg
+dGhhdCBjb25zdHJhaW5zIHBvd2VyLWRvbWFpbnMsIHNvIHRoYXQgcHJvcGVydHkgZmFsbHMg
+YmFjaw0KJmd0Ow0KJmd0OyBJIGRvbid0IGdldCB0aGlzIGV4cGxhbmF0aW9uLiBBcmUgeW91
+IGV4cGxhaW5pbmcgd2hhdCB0aGUgcGF0Y2ggaXMgZG9pbmcNCiZndDsgb3IgZXhwbGFpbmlu
+ZyBXSFkgeW91IGRpZCB0aGlzIHRoYXQgd2F5Pw0KDQoNClRoYXQgcGFyYWdyYXBoIHdhcyBk
+ZXNjcmliaW5nIHNjaGVtYSBtZWNoYW5pY3MsIHdoaWNoIGRvZXMgbm90IGJlbG9uZyBpbg0K
+YSBjb21taXQgbWVzc2FnZS4gdjQgd2lsbCBkcm9wIGl0IGFuZCBzdGF0ZSBvbmx5IHRoZSBo
+YXJkd2FyZSBmYWN0czogdGhlDQpLMyBpbnRlZ3JhdGlvbiBvZiB0aGUgQlhNLTQtNjQgaGFz
+IGEgc2luZ2xlICJjb3JlIiBjbG9jaywgYW5kIGl0IGhhcyBubw0Kc29mdHdhcmUtY29udHJv
+bGxhYmxlIEdQVSBwb3dlciBkb21haW4uDQoNCg0KJmd0OyAmZ3Q7IHRvIHRoaXMgc2NoZW1h
+J3MgZ2VuZXJhbCBjb25zdHJhaW50cywgd2hlcmUgaXQgaXMgb3B0aW9uYWwuIFRoaXMNCiZn
+dDsgJmd0OyBsZWF2ZXMgcm9vbSBmb3IgYSBwb3dlci1kb21haW5zIHByb3ZpZGVyIHRvIGJl
+IGFkZGVkIGxhdGVyIHdpdGhvdXQgYQ0KJmd0OyAmZ3Q7IGZ1cnRoZXIgYmluZGluZyBjaGFu
+Z2UsIHNob3VsZCBvbmUgZXZlciBiZSBtb2RlbGxlZCBpbiBMaW51eCBmb3IgdGhpcw0KJmd0
+OyAmZ3Q7IFNvQy4NCiZndDsNCiZndDsgTm8sIHlvdSBuZWVkIHRvIHByb3ZpZGUgY29uc3Ry
+YWludHMgbm93LiBQbGVhc2UgcmVhZCBjYXJlZnVsbHkNCiZndDsgd3JpdGluZy1iaW5kaW5n
+cy4NCg0KDQpVbmRlcnN0b29kLiBzcGFjZW1pdCxrMy1ncHUgY3VycmVudGx5IG1hdGNoZXMg
+bm8gcG93ZXItZG9tYWlucyAiaWYiDQpibG9jaywgc28gaXQgZmFsbHMgYmFjayB0byB0aGUg
+dG9wLWxldmVsIDEtMiBkb21haW5zIHdpdGgNCnBvd2VyLWRvbWFpbi1uYW1lcyAiYSIvImIi
+LiBUaGF0IHdvdWxkIGxldCBhIEszIERUIHdpdGggdHdvIHBvd2VyDQpkb21haW5zIHBhc3Mg
+dmFsaWRhdGlvbiwgd2hpY2ggZG9lcyBub3QgZGVzY3JpYmUgdGhpcyBoYXJkd2FyZS4gdjQg
+d2lsbA0KYWRkIGFuIGV4cGxpY2l0ICJpZiIgYmxvY2s6DQoNCg0KJm5ic3A7ICZuYnNwOyAt
+IGlmOg0KJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IHByb3BlcnRpZXM6DQombmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IGNvbXBhdGlibGU6DQombmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBjb250YWluczoNCiZuYnNwOyAmbmJzcDsg
+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBjb25zdDogc3BhY2VtaXQsazMt
+Z3B1DQombmJzcDsgJm5ic3A7ICZuYnNwOyB0aGVuOg0KJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7IHByb3BlcnRpZXM6DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+IHBvd2VyLWRvbWFpbnM6IGZhbHNlDQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7IHBvd2VyLWRvbWFpbi1uYW1lczogZmFsc2UNCg0KDQpUaGUgSzMgaW50ZWdyYXRpb24g
+b2YgdGhlIEJYTS00LTY0IGhhcyBubyBzb2Z0d2FyZS1jb250cm9sbGFibGUgR1BVDQpwb3dl
+ciBkb21haW4sIHNvIGJvdGggcHJvcGVydGllcyBhcmUgZGlzYWxsb3dlZCByYXRoZXIgdGhh
+biBjb25zdHJhaW5lZC4NClRoaXMgaXMgdGhlIG9uZSBwbGFjZSBLMyBkaWZmZXJzIGZyb20g
+dGhlIG90aGVyIGJ4bS00LTY0IHVzZXI6IG9uDQpUSDE1MjAgdGhlIEdQVSBzaXRzIGluIGEg
+c2luZ2xlIHVuaWZpZWQgZG9tYWluLCBhbmQgdGhhdCBibG9jayBzdGF5cyBhcw0KaXQgaXMu
+DQoNCg0KJmd0OyBEbyBub3QgYXR0YWNoICh0aHJlYWQpIHlvdXIgcGF0Y2hzZXRzIHRvIHNv
+bWUgb3RoZXIgdGhyZWFkcyAodW5yZWxhdGVkDQomZ3Q7IG9yIG9sZGVyIHZlcnNpb25zKS4g
+VGhpcyBidXJpZXMgdGhlbSBkZWVwIGluIHRoZSBtYWlsYm94IGFuZCBtaWdodA0KJmd0OyBp
+bnRlcmZlcmUgd2l0aCBhcHBseWluZyBlbnRpcmUgc2V0cy4NCg0KDQpTb3JyeSBhYm91dCB0
+aGF0IC0tIHYyIGFuZCB2MyB3ZXJlIGJvdGggc2VudCBpbiByZXBseSB0byB0aGUgdjEgcmV2
+aWV3DQp0aHJlYWQuIHY0IHdpbGwgYmUgc2VudCBhcyBpdHMgb3duIHRvcC1sZXZlbCB0aHJl
+YWQuDQoNCg0KJmd0OyBXaHkgaXNuJ3QgdGhpcyBwYXJ0IG9mIG90aGVyIGVudW0gKGFuZCBy
+ZW1lbWJlciBhYm91dCB0aGUgYWxwaGFiZXRpY2FsDQomZ3Q7IG9yZGVyIG9mIGVudHJpZXMp
+Pw0KJmd0Ow0KJmd0OyAmZ3Q7ICsmbmJzcDsgJm5ic3A7ICZuYnNwOyAtIGl0ZW1zOg0KJmd0
+OyAmZ3Q7ICsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IC0gZW51bToNCiZn
+dDsgJmd0OyArJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7IC0gc3BhY2VtaXQsazMtZ3B1DQoNCg0KTm8gcmVhc29uIC0tIGl0IHdhcyBzaW1wbHkg
+d3JvbmcuIFRoYXQgYmxvY2sgaXMgaWRlbnRpY2FsIHRvIHRoZQ0KdGhlYWQsdGgxNTIwLWdw
+dSBvbmUgYXBhcnQgZnJvbSB0aGUgU29DIGNvbXBhdGlibGUsIGFuZCB0aGUgZGlmZmVyaW5n
+DQpjbG9jay9wb3dlci1kb21haW4gY29uc3RyYWludHMgbGl2ZSBpbiAiYWxsT2YiLCBub3Qg
+aGVyZS4gdjQgd2lsbCBmb2xkDQppdCBpbiwgaW4gYWxwaGFiZXRpY2FsIG9yZGVyOg0KDQoN
+CiZuYnNwOyAmbmJzcDsgJm5ic3A7IC0gaXRlbXM6DQombmJzcDsgJm5ic3A7ICZuYnNwOyAm
+bmJzcDsgJm5ic3A7IC0gZW51bToNCiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAtIHNwYWNlbWl0LGszLWdwdQ0KJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IC0gdGhlYWQsdGgxNTIwLWdwdQ0KJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAtIGNvbnN0OiBpbWcsaW1nLWJ4bS00
+LTY0DQombmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IC0gY29uc3Q6IGltZyxp
+bWctcm9ndWUNCg0KDQpUaGUgRFRTIHVzZXIsIGFuZCB0aGUgZHJtL2ltYWdpbmF0aW9uIGNo
+YW5nZSBpdCBkZXBlbmRzIG9uLCB3aWxsIGJlIHNlbnQNCnNlcGFyYXRlbHkgb25jZSBhIGJv
+b3QgaXNzdWUgb24gdGhlIEszIGJvYXJkIGlzIHJlc29sdmVkLg0KDQoNCkJlc3QgcmVnYXJk
+cywNCkJhaWh1aSBMaWFuZw==
 
-My current setup is:
+------=_NextPart_6A69AFDA_EDC157C0_2CA9B138
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
 
-  Board: Google Elm / Acer Chromebook R13 (CB5-312T)
-  Kernel:
-    linux-next next-20260727
-    commit: 33d6e5134c70446eddafbb3fd5ad088e848a7ad6
-    (next-20260727-5-g33d6e5134c70)
+PGRpdj48Zm9udD48ZGl2Pk9uIFR1ZSwgSnVsIDI4LCAyMDI2LCBLcnp5c3p0b2YgS296bG93
+c2tpIHdyb3RlOjwvZGl2PjxkaXY+Jmd0OyAmZ3Q7IFsuLi5dPC9kaXY+PGRpdj4mZ3Q7ICZn
+dDsgc3BhY2VtaXQsazMtZ3B1IGlzIGFkZGVkIHRvIHRoZSBleGlzdGluZyB0aSxhbTYyLWdw
+dS90aSxhbTYycC1ncHUvPC9kaXY+PGRpdj4mZ3Q7ICZndDsgdGksajcyMXMyLWdwdSAiaWYi
+IGJsb2NrIHRoYXQgcmVzdHJpY3RzIGNsb2NrcyB0byBhIHNpbmdsZSBlbnRyeSw8L2Rpdj48
+ZGl2PiZndDsgJmd0OyBzaW5jZSBLMyBoYXMgdGhlIHNhbWUgc2luZ2xlLWNsb2NrIHJlcXVp
+cmVtZW50LiBJdCBkb2VzIG5vdCBtYXRjaCBhbnk8L2Rpdj48ZGl2PiZndDsgJmd0OyAiaWYi
+IGJsb2NrIHRoYXQgY29uc3RyYWlucyBwb3dlci1kb21haW5zLCBzbyB0aGF0IHByb3BlcnR5
+IGZhbGxzIGJhY2s8L2Rpdj48ZGl2PiZndDs8L2Rpdj48ZGl2PiZndDsgSSBkb24ndCBnZXQg
+dGhpcyBleHBsYW5hdGlvbi4gQXJlIHlvdSBleHBsYWluaW5nIHdoYXQgdGhlIHBhdGNoIGlz
+IGRvaW5nPC9kaXY+PGRpdj4mZ3Q7IG9yIGV4cGxhaW5pbmcgV0hZIHlvdSBkaWQgdGhpcyB0
+aGF0IHdheT88L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PlRoYXQgcGFyYWdyYXBoIHdhcyBk
+ZXNjcmliaW5nIHNjaGVtYSBtZWNoYW5pY3MsIHdoaWNoIGRvZXMgbm90IGJlbG9uZyBpbjwv
+ZGl2PjxkaXY+YSBjb21taXQgbWVzc2FnZS4gdjQgd2lsbCBkcm9wIGl0IGFuZCBzdGF0ZSBv
+bmx5IHRoZSBoYXJkd2FyZSBmYWN0czogdGhlPC9kaXY+PGRpdj5LMyBpbnRlZ3JhdGlvbiBv
+ZiB0aGUgQlhNLTQtNjQgaGFzIGEgc2luZ2xlICJjb3JlIiBjbG9jaywgYW5kIGl0IGhhcyBu
+bzwvZGl2PjxkaXY+c29mdHdhcmUtY29udHJvbGxhYmxlIEdQVSBwb3dlciBkb21haW4uPC9k
+aXY+PGRpdj48YnI+PC9kaXY+PGRpdj4mZ3Q7ICZndDsgdG8gdGhpcyBzY2hlbWEncyBnZW5l
+cmFsIGNvbnN0cmFpbnRzLCB3aGVyZSBpdCBpcyBvcHRpb25hbC4gVGhpczwvZGl2PjxkaXY+
+Jmd0OyAmZ3Q7IGxlYXZlcyByb29tIGZvciBhIHBvd2VyLWRvbWFpbnMgcHJvdmlkZXIgdG8g
+YmUgYWRkZWQgbGF0ZXIgd2l0aG91dCBhPC9kaXY+PGRpdj4mZ3Q7ICZndDsgZnVydGhlciBi
+aW5kaW5nIGNoYW5nZSwgc2hvdWxkIG9uZSBldmVyIGJlIG1vZGVsbGVkIGluIExpbnV4IGZv
+ciB0aGlzPC9kaXY+PGRpdj4mZ3Q7ICZndDsgU29DLjwvZGl2PjxkaXY+Jmd0OzwvZGl2Pjxk
+aXY+Jmd0OyBObywgeW91IG5lZWQgdG8gcHJvdmlkZSBjb25zdHJhaW50cyBub3cuIFBsZWFz
+ZSByZWFkIGNhcmVmdWxseTwvZGl2PjxkaXY+Jmd0OyB3cml0aW5nLWJpbmRpbmdzLjwvZGl2
+PjxkaXY+PGJyPjwvZGl2PjxkaXY+VW5kZXJzdG9vZC4gc3BhY2VtaXQsazMtZ3B1IGN1cnJl
+bnRseSBtYXRjaGVzIG5vIHBvd2VyLWRvbWFpbnMgImlmIjwvZGl2PjxkaXY+YmxvY2ssIHNv
+IGl0IGZhbGxzIGJhY2sgdG8gdGhlIHRvcC1sZXZlbCAxLTIgZG9tYWlucyB3aXRoPC9kaXY+
+PGRpdj5wb3dlci1kb21haW4tbmFtZXMgImEiLyJiIi4gVGhhdCB3b3VsZCBsZXQgYSBLMyBE
+VCB3aXRoIHR3byBwb3dlcjwvZGl2PjxkaXY+ZG9tYWlucyBwYXNzIHZhbGlkYXRpb24sIHdo
+aWNoIGRvZXMgbm90IGRlc2NyaWJlIHRoaXMgaGFyZHdhcmUuIHY0IHdpbGw8L2Rpdj48ZGl2
+PmFkZCBhbiBleHBsaWNpdCAiaWYiIGJsb2NrOjwvZGl2PjxkaXY+PGJyPjwvZGl2PjxkaXY+
+Jm5ic3A7ICZuYnNwOyAtIGlmOjwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5i
+c3A7IHByb3BlcnRpZXM6PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsg
+Jm5ic3A7IGNvbXBhdGlibGU6PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJz
+cDsgJm5ic3A7ICZuYnNwOyBjb250YWluczo8L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyBjb25zdDogc3BhY2VtaXQsazMtZ3B1
+PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyB0aGVuOjwvZGl2PjxkaXY+Jm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7IHByb3BlcnRpZXM6PC9kaXY+PGRpdj4mbmJzcDsgJm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IHBvd2VyLWRvbWFpbnM6IGZhbHNlPC9kaXY+PGRp
+dj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IHBvd2VyLWRvbWFpbi1uYW1l
+czogZmFsc2U8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PlRoZSBLMyBpbnRlZ3JhdGlvbiBv
+ZiB0aGUgQlhNLTQtNjQgaGFzIG5vIHNvZnR3YXJlLWNvbnRyb2xsYWJsZSBHUFU8L2Rpdj48
+ZGl2PnBvd2VyIGRvbWFpbiwgc28gYm90aCBwcm9wZXJ0aWVzIGFyZSBkaXNhbGxvd2VkIHJh
+dGhlciB0aGFuIGNvbnN0cmFpbmVkLjwvZGl2PjxkaXY+VGhpcyBpcyB0aGUgb25lIHBsYWNl
+IEszIGRpZmZlcnMgZnJvbSB0aGUgb3RoZXIgYnhtLTQtNjQgdXNlcjogb248L2Rpdj48ZGl2
+PlRIMTUyMCB0aGUgR1BVIHNpdHMgaW4gYSBzaW5nbGUgdW5pZmllZCBkb21haW4sIGFuZCB0
+aGF0IGJsb2NrIHN0YXlzIGFzPC9kaXY+PGRpdj5pdCBpcy48L2Rpdj48ZGl2Pjxicj48L2Rp
+dj48ZGl2PiZndDsgRG8gbm90IGF0dGFjaCAodGhyZWFkKSB5b3VyIHBhdGNoc2V0cyB0byBz
+b21lIG90aGVyIHRocmVhZHMgKHVucmVsYXRlZDwvZGl2PjxkaXY+Jmd0OyBvciBvbGRlciB2
+ZXJzaW9ucykuIFRoaXMgYnVyaWVzIHRoZW0gZGVlcCBpbiB0aGUgbWFpbGJveCBhbmQgbWln
+aHQ8L2Rpdj48ZGl2PiZndDsgaW50ZXJmZXJlIHdpdGggYXBwbHlpbmcgZW50aXJlIHNldHMu
+PC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5Tb3JyeSBhYm91dCB0aGF0IC0tIHYyIGFuZCB2
+MyB3ZXJlIGJvdGggc2VudCBpbiByZXBseSB0byB0aGUgdjEgcmV2aWV3PC9kaXY+PGRpdj50
+aHJlYWQuIHY0IHdpbGwgYmUgc2VudCBhcyBpdHMgb3duIHRvcC1sZXZlbCB0aHJlYWQuPC9k
+aXY+PGRpdj48YnI+PC9kaXY+PGRpdj4mZ3Q7IFdoeSBpc24ndCB0aGlzIHBhcnQgb2Ygb3Ro
+ZXIgZW51bSAoYW5kIHJlbWVtYmVyIGFib3V0IHRoZSBhbHBoYWJldGljYWw8L2Rpdj48ZGl2
+PiZndDsgb3JkZXIgb2YgZW50cmllcyk/PC9kaXY+PGRpdj4mZ3Q7PC9kaXY+PGRpdj4mZ3Q7
+ICZndDsgKyZuYnNwOyAmbmJzcDsgJm5ic3A7IC0gaXRlbXM6PC9kaXY+PGRpdj4mZ3Q7ICZn
+dDsgKyZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgLSBlbnVtOjwvZGl2Pjxk
+aXY+Jmd0OyAmZ3Q7ICsmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNw
+OyAmbmJzcDsgLSBzcGFjZW1pdCxrMy1ncHU8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2Pk5v
+IHJlYXNvbiAtLSBpdCB3YXMgc2ltcGx5IHdyb25nLiBUaGF0IGJsb2NrIGlzIGlkZW50aWNh
+bCB0byB0aGU8L2Rpdj48ZGl2PnRoZWFkLHRoMTUyMC1ncHUgb25lIGFwYXJ0IGZyb20gdGhl
+IFNvQyBjb21wYXRpYmxlLCBhbmQgdGhlIGRpZmZlcmluZzwvZGl2PjxkaXY+Y2xvY2svcG93
+ZXItZG9tYWluIGNvbnN0cmFpbnRzIGxpdmUgaW4gImFsbE9mIiwgbm90IGhlcmUuIHY0IHdp
+bGwgZm9sZDwvZGl2PjxkaXY+aXQgaW4sIGluIGFscGhhYmV0aWNhbCBvcmRlcjo8L2Rpdj48
+ZGl2Pjxicj48L2Rpdj48ZGl2PiZuYnNwOyAmbmJzcDsgJm5ic3A7IC0gaXRlbXM6PC9kaXY+
+PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IC0gZW51bTo8L2Rpdj48
+ZGl2PiZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAt
+IHNwYWNlbWl0LGszLWdwdTwvZGl2PjxkaXY+Jm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7
+ICZuYnNwOyAmbmJzcDsgJm5ic3A7IC0gdGhlYWQsdGgxNTIwLWdwdTwvZGl2PjxkaXY+Jm5i
+c3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7ICZuYnNwOyAtIGNvbnN0OiBpbWcsaW1nLWJ4bS00
+LTY0PC9kaXY+PGRpdj4mbmJzcDsgJm5ic3A7ICZuYnNwOyAmbmJzcDsgJm5ic3A7IC0gY29u
+c3Q6IGltZyxpbWctcm9ndWU8L2Rpdj48ZGl2Pjxicj48L2Rpdj48ZGl2PlRoZSBEVFMgdXNl
+ciwgYW5kIHRoZSBkcm0vaW1hZ2luYXRpb24gY2hhbmdlIGl0IGRlcGVuZHMgb24sIHdpbGwg
+YmUgc2VudDwvZGl2PjxkaXY+c2VwYXJhdGVseSBvbmNlIGEgYm9vdCBpc3N1ZSBvbiB0aGUg
+SzMgYm9hcmQgaXMgcmVzb2x2ZWQuPC9kaXY+PGRpdj48YnI+PC9kaXY+PGRpdj5CZXN0IHJl
+Z2FyZHMsPC9kaXY+PGRpdj5CYWlodWkgTGlhbmc8L2Rpdj48L2ZvbnQ+PC9kaXY+PCEtLTwh
+W2VuZGlmXS0tPg==
 
-  Kernel release: 7.2.0-rc5-next-20260727-stb-cbm-next-pvr-v4+
+------=_NextPart_6A69AFDA_EDC157C0_2CA9B138--
 
-  Mesa: 26.1.5
-  vulkan-powervr: 26.1.5
-  Firmware:
-    rogue_4.40.2.51_v1.fw
-    SHA256:
-    f44b7056992fb4057c987dcd7073468bec628aa56cb9815b1162f1cb7c1d73f2
-
-All five patches applied cleanly. The PowerVR driver probes, loads the
-firmware, and creates the DRM render node successfully.
-
-However, when I run the following from an SSH session without GDM or
-another graphical session running:
-
-  PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 vulkaninfo --summary
-
-Mesa prints the expected GX6250 warnings:
-
-  Missing reset support for brn51764
-  Missing reset support for brn58839
-  Missing support for brn62269
-
-The command then hangs, and the kernel reports:
-
-  powervr 13000000.gpu: [drm] *ERROR* GPU device lost
-
-There are no additional timeout, MMU fault, firmware, clock, or runtime
-PM messages immediately before the device-lost message.
-
-I originally also observed the same failure when GDM started GNOME
-Shell, but reproducing it with vulkaninfo from a non-graphical SSH
-session indicates that this is not specific to Mutter or GNOME.
-
-Since your cover letter reports that vkmark and glmark2-es2-drm work
-with Mesa 26.1.5, I suspect that there may be a difference in the
-kernel configuration or another part of the test environment.
-
-Could you please share the following details from your working setup?
-
-  1. The exact Chromebook board/model used for testing
-  2. The exact kernel base commit
-  3. The kernel configuration, or at least the relevant DRM, PM,
-     generic power-domain, IOMMU, and MediaTek clock options
-  4. Whether CONFIG_DRM_POWERVR was built-in or built as a module
-  5. The firmware SHA256
-  6. The kernel command line and bootloader used
-  7. Whether `vulkaninfo --summary` also completes successfully
-
-My current relevant configuration includes:
-
-CONFIG_PM_SLEEP=3Dy
-CONFIG_PM=3Dy
-CONFIG_PM_GENERIC_DOMAINS=3Dy
-CONFIG_MODULES=3Dy
-CONFIG_DMA_SHARED_BUFFER=3Dy
-CONFIG_DRM_POWERVR=3Dm
-CONFIG_DRM_MEDIATEK=3Dy
-CONFIG_SYNC_FILE=3Dy
-CONFIG_COMMON_CLK_MT8173_MFGTOP=3Dy
-CONFIG_IOMMU_SUPPORT=3Dy
-CONFIG_ARM_SMMU=3Dy
-CONFIG_MTK_IOMMU=3Dy
-
-I would be happy to test additional patches or provide any further
-logs, kernel configuration, or debugging information if that would
-help.
-
-Thanks,
-YoungJoon Lee
-
-2026=E5=B9=B47=E6=9C=8829=E6=97=A5(=E6=B0=B4) 0:28 AngeloGioacchino Del Reg=
-no
-<angelogioacchino.delregno@collabora.com>:
->
-> On 7/28/26 16:44, Chen-Yu Tsai wrote:
-> > On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Regno
-> > <angelogioacchino.delregno@collabora.com> wrote:
-> >>
-> >> On 7/28/26 15:13, Chen-Yu Tsai wrote:
-> >>> On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@redhat.=
-com> wrote:
-> >>>>
-> >>>> Hi Chen-Yu,
-> >>>>
-> >>>> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
-> >>>>> Hi everyone,
-> >>>>>
-> >>>>> This is v4 of my MT8173 PowerVR GPU support series.
-> >>>>>
-> >>>>> This time around Mesa was ready for basic testing, using both vulka=
-nmark
-> >>>>> and glmark2-es2-drm (with Zink). Details below.
-> >>>>>
-> >>>>> Changes since v3 (all in the clk driver patch):
-> >>>>> - Changed pm_runtime_put() to pm_runtime_put_sync()
-> >>>>> - Added missing of_node_put() in remove function
-> >>>>>
-> >>>>> Changes since v2 (all in the clk driver patch):
-> >>>>> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
-> >>>>>     - Needed since the driver implements PM domains using the gener=
-ic PM
-> >>>>>       domain library, which also depends on PM
-> >>>>>     - Fixes build breakage (kernel test robot)
-> >>>>> - Fixed "RST_DELAY_CNT" name (Brian)
-> >>>>> - Dropped unused mfg_desc (Brian)
-> >>>>> - Added check of clk_prepare_enable()'s return value in
-> >>>>>     clk_mt8173_mfgtop_power_on() (Brian)
-> >>>>> - Saved error value for return in IS_ERR(data->clk_26m) branch
-> >>>>>     (Dan Carpenter / kernel test robot w/ smatch)
-> >>>>>
-> >>>>> Changes since v1:
-> >>>>> - Adapted to changed DT bindings
-> >>>>> - Dropped driver change
-> >>>>> - Use same power domain for "a" and "b" GPU power domains
-> >>>>>
-> >>>>>
-> >>>>> This series enables the PowerVR GPU found in the MT8173 SoC, found =
-in
-> >>>>> some Chromebooks.
-> >>>>
-> >>>> I'm making a pull for Stephen for the clk changes. Should patches 1,=
-2,4
-> >>>> go through the clk tree? Patches 3,5 go through the DRM tree?
-> >>>
-> >>> Only patches 1 and 2 should go through the clock tree.
-> >>>
-> >>> Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick=
- up
-> >>> DT binding patches. Otherwise I can push patch 3 through drm-misc.
-> >>>
-> >>
-> >> Not sure if I can really take the DRM bindings patch through soc.
-> >>
-> >> I will take the devicetree ones exactly right now, even though it's go=
-ing to
-> >> give warnings.
-> >>
-> >> I trust that you'll make the binding get into linux-next before it's t=
-oo late.
-> >
-> > Rob beat me to it. :D
->
-> Love it!
->
-> Thanks Rob :-D
->
-> Cheers,
-> Angelo
