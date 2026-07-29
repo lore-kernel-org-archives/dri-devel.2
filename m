@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35D92C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 06:20:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BD75C53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 06:20:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66EC010E233;
-	Wed, 29 Jul 2026 06:20:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 090B710EA97;
+	Wed, 29 Jul 2026 06:20:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="CEDGyZxp";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="B3QU/YLD";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F302210E233
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:20:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785306010; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 52C0A10EA97
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:20:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785306016; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=SxENcy4tAWPxuWcNsnzQZy+NRXukQck1HEgibJdYohf5+GOXWjJzdD4vgWq0vj/Mo23/o98LSN+4/bnRfLjkRPHB8vEcqtXE/rH/rpfJ/+Xs5/NtVW/yZRVdhbRla1s3mNAtZsKKk5YCF/H84Zdl5PbF1x6RSNJnufccR5NK9MM=
+ b=WXYb/2I64GQPJquB2wSbI3VDKibY7uUvb+RBiO7SBGCIGlmboHyxjSYT4PSut3H3ddSK/ZdtnXF+0QjX3syav40kZV5pqYOEK969pw4eIm4/Ej/xRbsN1lkGLNVIUZvi4Omt1xrwXPNh3kvtx4XPb14T1k3WRnQdMN4jrvVm6RM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785306010;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=LcPy/OklKjXHhgvBvBHEu3COEFzG3JBaEkM4/MoUaTE=; 
- b=Ulp58vzVpnn/U5S6ERm1Ffn/n0y+SdYub/vXCKr4UNNiodDTqvskVS+mdoTnzeDqnUbPjDvafo0jt4itCHcpDlqVWo4Iy2y2u+xvJGdxCdj22S6Yee+bD/rZK+sRri85w85SNgiuB5nGcM16iusvJqSAv/kWnjcDV22qJ7xPYHM=
+ s=zohoarc; t=1785306016;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=A/S77ywcJNEWNYibuHZlunu83Y1+7/T5c7HCPO1HImM=; 
+ b=HArlFG22J0QAWm54fR56EsOBd2Pr0zqSm3IxN0Hn17ugdnf4X3tgQa3A8Ijyf5FM34NKEEydhWiXQ2UqF3/TdRe/KzA5HQy9+uwSmv5gQ6R3YLDQiLGWF7t7gW+x5TQ5zvJe6mNVqdyFcQxV/7idfbPxiRl7CNurXouk5UpZDGA=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785306010; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785306016; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=LcPy/OklKjXHhgvBvBHEu3COEFzG3JBaEkM4/MoUaTE=;
- b=CEDGyZxpEA3OY7CQut62GIFC1HbN2zo2berK78ebV1ydLX3T+3I0YU6k0Y2BJ/od
- FuUlGKIcu8FaD9DxV31i+LbCnxIGKpb2or2djF9Hb8UgBkSviCn+N304+/k+gWM0G6Y
- 4rh3EX29+lQr2HWmRpYPKlL7vZ7urtHuPXfYyQQM=
-Received: by mx.zohomail.com with SMTPS id 1785306008697356.1189702710186;
- Tue, 28 Jul 2026 23:20:08 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=A/S77ywcJNEWNYibuHZlunu83Y1+7/T5c7HCPO1HImM=;
+ b=B3QU/YLDsWtynt68Z5gWKAyrV/8Co6Z8JXYdcIqj7jQWbgMwdHv2SCDw7OROD/TX
+ p1btkTLsDBMLj2L+Ss7moaAlmEDE5jdBjlEAQU7KQmmgRRZjfCp4NuFLq22hxA2tDVz
+ NkKKzXmdSzSx5UK/YoKYGBqG1VJM24vd2ys5n2yc=
+Received: by mx.zohomail.com with SMTPS id 1785306014417121.58010653555687;
+ Tue, 28 Jul 2026 23:20:14 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: [PATCH 0/3] Rework panthor's cache flush and soft reset locking
-Date: Wed, 29 Jul 2026 08:19:48 +0200
-Message-Id: <20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com>
+Date: Wed, 29 Jul 2026 08:19:49 +0200
+Subject: [PATCH 1/3] wait: Introduce non-irq variants of
+ wait_event_lock_timeout
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NTQ6CMBCFr9LM2olQIipXMSzaYbBjLGBbjAnh7
- lZh9fK9vJ8FIgfhCI1aIPBbooxDhvKggJwZ7ozSZQZd6Lo46wtOZkhuDEiGHGP/nKPDXj5oq5p
- seeqvmirI7Slwtv/Lt3bjONsHU/rN7YnArzlfpi0G1kRGGr2X1KgueEwyHXeFdl2/VC+/Za4AA
- AA=
-X-Change-ID: 20260728-panthor-cache-flush-fix-b36cb15f92c3
+Message-Id: <20260729-panthor-cache-flush-fix-v1-1-205921ed3c81@collabora.com>
+References: <20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com>
+In-Reply-To: <20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com>
 To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
  Juri Lelli <juri.lelli@redhat.com>, 
  Vincent Guittot <vincent.guittot@linaro.org>, 
@@ -80,41 +78,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There are two problems in panthor's cache flushing/soft reset code
-related to locking.
+For locks that are never acquired in an interrupt context, the non-irq
+variants for spin_lock()/spin_unlock() are more efficient. However, so
+far, wait.h only provided wait_event_lock_irq_timeout and
+wait_event_interruptible_lock_irq_timeout, both of which use
+spin_lock_irq()/spin_unlock_irq().
 
-The first problem is that the spinlocks are taken with _irqsave, even
-though the contended lock is never acquired in a raw interrupt handler.
-Only a threaded handler locks it.
-
-The second problem is that the wait_event condition references
-pending_reqs without holding the required lock. This means there's a
-data race.
-
-While resolving the first problem is easy, the second problem requires
-adding some more macro variants to wait.h, which is done in the first
-patch.
-
-New tracepoints to debug cache flushing duration without initial locking
-waits is thrown in for good measure as well, to complement what's in
-lock_stat and what the function tracer can already do.
+Rectify this by adding new non-irq variants of these two macros.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
-Nicolas Frattaroli (3):
-      wait: Introduce non-irq variants of wait_event_lock_timeout
-      drm/panthor: Revisit reqs_lock handling in flush/reset paths
-      drm/panthor: Add tracepoints for cache flushing
+ include/linux/wait.h | 84 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
 
- drivers/gpu/drm/panthor/panthor_gpu.c   | 28 +++++------
- drivers/gpu/drm/panthor/panthor_trace.h | 58 +++++++++++++++++++++++
- include/linux/wait.h                    | 84 +++++++++++++++++++++++++++++++++
- 3 files changed, 156 insertions(+), 14 deletions(-)
----
-base-commit: f57436380d5de1c1ded898e21378b0b4159c8790
-change-id: 20260728-panthor-cache-flush-fix-b36cb15f92c3
+diff --git a/include/linux/wait.h b/include/linux/wait.h
+index dce055e6add3..cd9b989c120e 100644
+--- a/include/linux/wait.h
++++ b/include/linux/wait.h
+@@ -1174,6 +1174,13 @@ do {										\
+ 		      __ret = schedule_timeout(__ret);				\
+ 		      spin_lock_irq(&lock));
+ 
++#define __wait_event_lock_timeout(wq_head, condition, lock, timeout, state)	\
++	___wait_event(wq_head, ___wait_cond_timeout(condition),			\
++		      state, 0, timeout,					\
++		      spin_unlock(&lock);					\
++		      __ret = schedule_timeout(__ret);				\
++		      spin_lock(&lock))
++
+ /**
+  * wait_event_interruptible_lock_irq_timeout - sleep until a condition gets
+  *		true or a timeout elapses. The condition is checked under
+@@ -1219,6 +1226,83 @@ do {										\
+ 	__ret;									\
+ })
+ 
++/**
++ * wait_event_interruptible_lock_timeout - sleep until a condition gets
++ *		true or a timeout elapses. The condition is checked under
++ *		the lock with IRQs enabled. This is expected to be called
++ *		with the lock taken.
++ * @wq_head: the waitqueue to wait on
++ * @condition: a C expression for the event to wait for
++ * @lock: a spinlock_t that has been locked with spin_lock(), which will be
++ *	  released before schedule() and reacquired afterwards.
++ * @timeout: timeout, in jiffies
++ *
++ * The process is put to sleep (TASK_INTERRUPTIBLE) until the
++ * @condition evaluates to true or signal is received. The @condition is
++ * checked each time the waitqueue @wq_head is woken up.
++ *
++ * wake_up() has to be called after changing any variable that could
++ * change the result of the wait condition.
++ *
++ * This is supposed to be called while holding the lock. The lock is
++ * dropped before going to sleep using spin_unlock() and is reacquired
++ * using spin_lock() afterwards, but without globally disabling IRQs.
++ * This is in contrast to wait_event_interruptible_lock_irq_timeout(),
++ * which uses the spin_lock_irq() and spin_unlock_irq() functions instead.
++ *
++ * The function returns 0 if the @timeout elapsed, -ERESTARTSYS if it
++ * was interrupted by a signal, and the remaining jiffies otherwise
++ * if the condition evaluated to true before the timeout elapsed.
++ */
++#define wait_event_interruptible_lock_timeout(wq_head, condition, lock,		\
++					      timeout)				\
++({										\
++	long __ret = timeout;							\
++	if (!___wait_cond_timeout(condition))					\
++		__ret = __wait_event_lock_timeout(				\
++					wq_head, condition, lock, timeout,	\
++					TASK_INTERRUPTIBLE);			\
++	__ret;									\
++})
++
++/**
++ * wait_event_lock_timeout - sleep until a condition gets true or a timeout
++ *		elapses. The condition is checked under the lock with IRQs
++ *		enabled. This is expected to be called with the lock taken.
++ * @wq_head: the waitqueue to wait on
++ * @condition: a C expression for the event to wait for
++ * @lock: a spinlock_t that has been locked with spin_lock(), which will be
++ *	  released before schedule() and reacquired afterwards.
++ * @timeout: timeout, in jiffies
++ *
++ * The process is put to sleep (TASK_UNINTERRUPTIBLE) until the
++ * @condition evaluates to true or signal is received. The @condition is
++ * checked each time the waitqueue @wq_head is woken up.
++ *
++ * wake_up() has to be called after changing any variable that could
++ * change the result of the wait condition.
++ *
++ * This is supposed to be called while holding the lock. The lock is
++ * dropped before going to sleep using spin_unlock() and is reacquired
++ * using spin_lock() afterwards, but without globally disabling IRQs.
++ * This is in contrast to wait_event_lock_irq_timeout(), which uses the
++ * spin_lock_irq() and spin_unlock_irq() functions instead. Compared to
++ * wait_event_interruptible_lock_timeout(), it uses the %TASK_UNINTERRUPTIBLE
++ * instead of allowing the task to be interrupted.
++ *
++ * The function returns 0 if the @timeout elapsed, or the remaining jiffies
++ * otherwise if the condition evaluated to true before the timeout elapsed.
++ */
++#define wait_event_lock_timeout(wq_head, condition, lock, timeout)		\
++({										\
++	long __ret = timeout;							\
++	if (!___wait_cond_timeout(condition))					\
++		__ret = __wait_event_lock_timeout(				\
++					wq_head, condition, lock, timeout,	\
++					TASK_UNINTERRUPTIBLE);			\
++	__ret;									\
++})
++
+ /*
+  * Waitqueues which are removed from the waitqueue_head at wakeup time
+  */
 
-Best regards,
---  
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+-- 
+2.55.0
 
