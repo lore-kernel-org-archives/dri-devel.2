@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44E10C54F54
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 02:55:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFACEC53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 02:55:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7315610EA59;
-	Wed, 29 Jul 2026 02:54:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 047BC10EA73;
+	Wed, 29 Jul 2026 02:55:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="WML/7ZzY";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="ZU4r8lHZ";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD43210EA59
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 02:54:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785293689; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 868F110EA6F
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 02:55:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785293695; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=kJa9F0hjB/l6GOJfecg4Eueapb/Nr1F9jBpxaTVvc57aHRccGQtenRlQTjwnT3BaxcO6+UGSotP7+YxcpoXZ/OO1GTteAC1ok9uqqOi/yegjdIrx0qCyk6PwQh9cDU3z4+n0Mqo0yW/v6KQFhCTq3zZwF1LE1B2JbYL/0g9pcUE=
+ b=cQ8sZJIutw2aqIK/Y3gzTvEmVh8aE6ia4JzXggra33IZqDZRQIK6YGUuJ1we0SsLbcT6D+y5GtUQC1WosyzjNwDww1bvsMQ+9oUgsh0Y7j09Wlvg9Higa1XWFtuEjCyekf9tGBOUz2QzvSoSrryo3ijL8QMqpdIbBG4rjReyb70=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785293689;
+ s=zohoarc; t=1785293695;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=yPLfD3500/vrXH7qcELp0bpFW2WRgTgl2zoGZbOnWzs=; 
- b=ajflg5NYlKkad/SPeOiGeUZmqpa9rz01XxR/nhAD/qXa576/cCcg6csAiPJUHnFDVDe6/+UftgS+ykW8s4uqXYYDggqPD0JVCPLPglddGUEXdKOgEG6mh28Kfp3e/7iIiZJ1PiImd4PoeiAGAmc08ftFIeIgVlxMz0S/wwOaxV4=
+ bh=oiYbBKD6ZY+jwgFsAD9KN+Mmq6A7JTPK40kyIvdjJeI=; 
+ b=ZPpD5WEXVsmY7hXXSq+pB155gaJme4d9vam+SZHh6mfguVnXioTD9mQgveleij/ceSm0DY07+wAYGX7BIADtD7YeC6J3wwg4hNq+TGe4Qhh7oz6h9i5yfS+jirS76WUV8xjtsJ9toTdu4L7VPV//N2+kj0bTVmq9iep8e9MknY0=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785293689; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785293695; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=yPLfD3500/vrXH7qcELp0bpFW2WRgTgl2zoGZbOnWzs=;
- b=WML/7ZzY6nGBS/kU6BAhBBHH4SWbFIcWp9CqJHDuWF1DbBJgK6PXeAL7vIiKoxi5
- BjQ3LtpWFuZIIL82eplMhF4pCjnT/dXi8hSesgoK3DUhWS/YDjY7UAclmXnsAx2R5L9
- i+68RE2vfO/6ybWkKLi0l51drHa4OxIh7k/sDk88=
-Received: by mx.zohomail.com with SMTPS id 1785293687178785.3300739659528;
- Tue, 28 Jul 2026 19:54:47 -0700 (PDT)
+ bh=oiYbBKD6ZY+jwgFsAD9KN+Mmq6A7JTPK40kyIvdjJeI=;
+ b=ZU4r8lHZvdZ7evlLbeXXKWJvSMf0U0jS8QDHLmMrSdD5oW72mX8n58gGrKnzwzsG
+ s5Rj3yan06A+PXMr5+f7brErJDq23y1zNWC6sQMqkl8kuE6lp7KSszonhpJcZ5DeRnX
+ 11GwBtG5R+X9eDFjY/6mfjijSSzgs2lSvpBnC/80=
+Received: by mx.zohomail.com with SMTPS id 178529369282118.5347202918598;
+ Tue, 28 Jul 2026 19:54:52 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Wed, 29 Jul 2026 03:54:17 +0100
-Subject: [PATCH v4 05/13] drm/panfrost: Move all device power up and down
- into RPM callbacks
+Date: Wed, 29 Jul 2026 03:54:18 +0100
+Subject: [PATCH v4 06/13] drm/panfrost: Explicitly enable MMU interrupts at
+ device init
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260729-claude-fixes-v4-5-01968f2ec77a@collabora.com>
+Message-Id: <20260729-claude-fixes-v4-6-01968f2ec77a@collabora.com>
 References: <20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com>
 In-Reply-To: <20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -62,18 +62,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=18100;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2806;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=h0kEk3AZj4WJnx4rY4h7bXZgIJKX00zoy7//2kCOg6g=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqaWtXY3NRsWmPqNjxvIU09zp/A0owNYLKcWtxq
- 70BR3Up76SJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCamlrVwAKCRAOJn5M7lND
- PRnKDACS9ZamIbVMcsbR/c0zPcWUOCDg5Fy4nTQ7D4pfUgJ7x7RNIh7eK3ZToinM9TcW9KBc6yE
- EiLjz5E+rQSWaWfJm4cTQfNUsCf59FGi6412F9CTj/DySpYejSRidlDcIBVrR8hsu0d2Gr8IF9o
- Vep4OMadfhqem3PaPsndNakEKUPZmvMn50Bx2jD3sxyB/VmLCjq2N9ncvNlwpz+RO9rVqsyee1Q
- 2AxEJhfbyx4INmYFV6GcC13sSFGLW0G76ajxMNbNmZQWm8ZX0sZNfu4PxADsJyM/v0wwQBGexDX
- LTf+ZS6RQrv/ai7X9B6tzChHYe9hQ+QF71RSBVV+ZFJJSTSDxOpAVLScvzcg2nmdpHH8Ju89zlX
- jyOlF+C2LrETE5GFdIegYSe63rs+HtbL/vyc5D6w9JHUJaSLwSQYNvxkYFOWC1XRp59Y46X8Ir1
- /aHc+VatlcqBFYPGyq9M9XhHZtk+chCGDX+xO/mWaThL1zWdcYP12CCH9GJseIQkHgefk=
+ bh=J6nU29PKwOnLrEaVubTgA9gTgNhKP8lp81h/14jKNeQ=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqaWtX37kzAJQmfPr7Zx3tD8JXjs1Ja8SXCctO1
+ PYZIZ/4x8eJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCamlrVwAKCRAOJn5M7lND
+ Pa47C/4vxiRfNFZ7ArpFHlW1W80rWx6gNOfhmVr4x4gsPdvzGGzMua4xbsknQOoSmXJ+EChN5ka
+ yS/HD+SDREl+qQN4NWA2ScmFVg8b7kFolPKbayuTDhcs/F4kB1OWOQWq1CUDjBf7SoSVIB74+Xm
+ ZCSPohV5K+HjreWhgmEApixtlDWjbyjA562POIJA9Ivucf8kSUhIPIKHvRDZvfnz1WRyF+jJM/Y
+ vA5YYGu1iWr1UCxIoD402MNYBoQm75h9oN8GemJsdKEd1orOwcCCINn5oRGruvx/XyUBqVfqHO+
+ sqHDJVvkQy8XTFeDpMdREYVI5h/TzXMmQ5rKHZs+OCETgrh2hhs1KRvNsL9wLVZVH6Id137jvlJ
+ QyEltIXBsqBYgpTjih6eehfKvqTrmGGHdWqy2Ybc6P3bWskMb/Ba94C/mPSpTQapSVB96oaKo8A
+ zESDdy12fCDITA+n2WU7h1P3VerXFit1jN3CVu1VgPdo1i1T4SKXLfIHyLapEKPsOegGg=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,631 +91,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-During device probe(), failure to do a PM get() will leave the usage_count
-set to 0, which is the value assigned at device creation time. That means
-when the autosuspend delay expires, runtime suspend callback won't be
-invoked, so the device will remain powered on forever.
-
-On top of that, failure to call PM put() during device unplug means
-Panfrost device's PM usage_count increases monotonically for every new
-module reload.
-
-The combined outcome of both of the above was that devfreq OPP transition
-notifications would be printed all the time, even when no jobs are being
-submitted. This quickly fills the kernel ring buffer with junk.
-
-Even direr than that was the fact MMU interrupts are only enabled when
-the device is reset, so after device probe() the very first job targeting
-the tiler heap BO would always time out, because the driver's PM runtime
-resume callback would not be invoked.
-
-Fix all that by moving all GPU enabling and disabling into RPM resume and
-suspend callbacks, and making sure we resume the device right before
-touching any HW registers. This is done in imitation of the Panthor model.
+Because the device must be in a position to accept jobs between the time
+drm_dev_register() is called and autosuspend first kicks in, there's a very
+narrow window inbetween during which jobs targeting the tiler buffer
+object would time out, since the device's PM status is 'Active', but no MMU
+interrupts were enabled at device initialisation time.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-Fixes: 635430797d3f ("drm/panfrost: Rework runtime PM initialization")
-Fixes: 876b15d2c88d ("drm/panfrost: Fix module unload")
+Fixes: 73e467f60acd ("drm/panfrost: Consolidate reset handling")
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c | 375 +++++++++++++++++------------
- drivers/gpu/drm/panfrost/panfrost_device.h |   9 +
- drivers/gpu/drm/panfrost/panfrost_drv.c    |  10 +-
- drivers/gpu/drm/panfrost/panfrost_gpu.c    |   7 +-
- drivers/gpu/drm/panfrost/panfrost_job.c    |   7 +-
- 5 files changed, 237 insertions(+), 171 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_job.c |  3 ++-
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 14 ++++++++++++--
+ 2 files changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index 03905495aee2..a9d29d9ee22b 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -34,6 +34,40 @@ static void panfrost_reset_fini(struct panfrost_device *pfdev)
- 	reset_control_assert(pfdev->rstc);
- }
- 
-+static int panfrost_clk_enable(struct panfrost_device *pfdev)
-+{
-+	int err;
-+
-+	err = clk_enable(pfdev->clock);
-+	if (err)
-+		return err;
-+
-+	err = clk_enable(pfdev->bus_clock);
-+	if (err)
-+		goto disable_clock;
-+
-+	err = clk_enable(pfdev->bus_ace_clock);
-+	if (err)
-+		goto disable_bus_clock;
-+
-+	return 0;
-+
-+disable_bus_clock:
-+	clk_disable(pfdev->bus_clock);
-+disable_clock:
-+	clk_disable(pfdev->clock);
-+
-+	return err;
-+}
-+
-+static void panfrost_clk_disable(struct panfrost_device *pfdev)
-+{
-+	clk_disable(pfdev->bus_ace_clock);
-+	clk_disable(pfdev->bus_clock);
-+	clk_disable(pfdev->clock);
-+	reset_control_assert(pfdev->rstc);
-+}
-+
- static int panfrost_clk_init(struct panfrost_device *pfdev)
- {
- 	int err;
-@@ -48,7 +82,7 @@ static int panfrost_clk_init(struct panfrost_device *pfdev)
- 	rate = clk_get_rate(pfdev->clock);
- 	dev_info(pfdev->base.dev, "clock rate = %lu\n", rate);
- 
--	err = clk_prepare_enable(pfdev->clock);
-+	err = clk_prepare(pfdev->clock);
- 	if (err)
- 		return err;
- 
-@@ -57,44 +91,55 @@ static int panfrost_clk_init(struct panfrost_device *pfdev)
- 		dev_err(pfdev->base.dev, "get bus_clock failed %ld\n",
- 			PTR_ERR(pfdev->bus_clock));
- 		err = PTR_ERR(pfdev->bus_clock);
--		goto disable_clock;
-+		goto unprepare_clock;
- 	}
- 
- 	if (pfdev->bus_clock) {
- 		rate = clk_get_rate(pfdev->bus_clock);
- 		dev_info(pfdev->base.dev, "bus_clock rate = %lu\n", rate);
- 
--		err = clk_prepare_enable(pfdev->bus_clock);
-+		err = clk_prepare(pfdev->bus_clock);
- 		if (err)
--			goto disable_clock;
-+			goto unprepare_clock;
- 	}
- 
- 	pfdev->bus_ace_clock = devm_clk_get_optional(pfdev->base.dev, "bus_ace");
- 	if (IS_ERR(pfdev->bus_ace_clock)) {
- 		err = PTR_ERR(pfdev->bus_ace_clock);
- 		dev_err(pfdev->base.dev, "get bus_ace_clock failed %d\n", err);
--		goto disable_bus_clock;
-+		goto unprepare_bus_clock;
- 	}
- 
--	err = clk_prepare_enable(pfdev->bus_ace_clock);
-+	err = clk_prepare(pfdev->bus_ace_clock);
- 	if (err)
--		goto disable_bus_clock;
-+		goto unprepare_bus_clock;
-+
-+	if (!(pfdev->comp->pm_features & BIT(GPU_PM_RT))) {
-+		err = panfrost_clk_enable(pfdev);
-+		if (err)
-+			goto unprepare_bus_ace_clock;
-+	}
- 
- 	return 0;
- 
--disable_bus_clock:
--	clk_disable_unprepare(pfdev->bus_clock);
--disable_clock:
--	clk_disable_unprepare(pfdev->clock);
-+unprepare_bus_ace_clock:
-+	clk_unprepare(pfdev->bus_ace_clock);
-+unprepare_bus_clock:
-+	clk_unprepare(pfdev->bus_clock);
-+unprepare_clock:
-+	clk_unprepare(pfdev->clock);
- 
- 	return err;
- }
- 
- static void panfrost_clk_fini(struct panfrost_device *pfdev)
- {
--	clk_disable_unprepare(pfdev->bus_ace_clock);
--	clk_disable_unprepare(pfdev->bus_clock);
--	clk_disable_unprepare(pfdev->clock);
-+	if (!(pfdev->comp->pm_features & BIT(GPU_PM_RT)))
-+		panfrost_clk_disable(pfdev);
-+
-+	clk_unprepare(pfdev->bus_ace_clock);
-+	clk_unprepare(pfdev->bus_clock);
-+	clk_unprepare(pfdev->clock);
- }
- 
- static int panfrost_regulator_init(struct panfrost_device *pfdev)
-@@ -212,6 +257,133 @@ static int panfrost_pm_domain_init(struct panfrost_device *pfdev)
- 	return err;
- }
- 
-+static int panfrost_device_runtime_resume(struct device *dev)
-+{
-+	struct panfrost_device *pfdev = dev_get_drvdata(dev);
-+	int ret;
-+
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
-+		ret = reset_control_deassert(pfdev->rstc);
-+		if (ret)
-+			return ret;
-+
-+		ret = panfrost_clk_enable(pfdev);
-+		if (ret)
-+			goto err_clk;
-+	}
-+
-+	panfrost_device_reset(pfdev, true);
-+	panfrost_devfreq_resume(pfdev);
-+
-+	return 0;
-+
-+err_clk:
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
-+		reset_control_assert(pfdev->rstc);
-+	return ret;
-+}
-+
-+static int panfrost_device_runtime_suspend(struct device *dev)
-+{
-+	struct panfrost_device *pfdev = dev_get_drvdata(dev);
-+
-+	if (!panfrost_jm_is_idle(pfdev))
-+		return -EBUSY;
-+
-+	panfrost_devfreq_suspend(pfdev);
-+	panfrost_jm_suspend_irq(pfdev);
-+	panfrost_mmu_suspend_irq(pfdev);
-+	panfrost_gpu_suspend_irq(pfdev);
-+	panfrost_gpu_power_off(pfdev);
-+
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
-+		panfrost_clk_disable(pfdev);
-+
-+	return 0;
-+}
-+
-+static int panfrost_device_resume(struct device *dev)
-+{
-+	struct panfrost_device *pfdev = dev_get_drvdata(dev);
-+	int ret;
-+
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF)) {
-+		unsigned long freq = pfdev->pfdevfreq.fast_rate;
-+		struct dev_pm_opp *opp;
-+
-+		opp = dev_pm_opp_find_freq_ceil(dev, &freq);
-+		if (IS_ERR(opp))
-+			return PTR_ERR(opp);
-+		dev_pm_opp_set_opp(dev, opp);
-+		dev_pm_opp_put(opp);
-+	}
-+
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
-+		ret = clk_enable(pfdev->clock);
-+		if (ret)
-+			goto err_clk;
-+
-+		if (pfdev->bus_clock) {
-+			ret = clk_enable(pfdev->bus_clock);
-+			if (ret)
-+				goto err_bus_clk;
-+		}
-+	}
-+
-+	ret = pm_runtime_force_resume(dev);
-+	if (ret)
-+		goto err_resume;
-+
-+	return 0;
-+
-+err_resume:
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS) && pfdev->bus_clock)
-+		clk_disable(pfdev->bus_clock);
-+err_bus_clk:
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
-+		clk_disable(pfdev->clock);
-+err_clk:
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
-+		dev_pm_opp_set_opp(dev, NULL);
-+	return ret;
-+}
-+
-+static int panfrost_device_suspend(struct device *dev)
-+{
-+	struct panfrost_device *pfdev = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = pm_runtime_force_suspend(dev);
-+	if (ret)
-+		return ret;
-+
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
-+		if (pfdev->bus_clock)
-+			clk_disable(pfdev->bus_clock);
-+
-+		clk_disable(pfdev->clock);
-+	}
-+
-+	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
-+		dev_pm_opp_set_opp(dev, NULL);
-+
-+	return 0;
-+}
-+
-+EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
-+	RUNTIME_PM_OPS(panfrost_device_runtime_suspend, panfrost_device_runtime_resume, NULL)
-+	SYSTEM_SLEEP_PM_OPS(panfrost_device_suspend, panfrost_device_resume)
-+};
-+
-+void panfrost_try_suspend_device(struct panfrost_device *pfdev)
-+{
-+	pm_runtime_put_sync_suspend(pfdev->base.dev);
-+
-+	/* If PM is disabled, we need to call the suspend handler manually. */
-+	if (!IS_ENABLED(CONFIG_PM))
-+		panfrost_device_runtime_suspend(pfdev->base.dev);
-+}
-+
- int panfrost_device_init(struct panfrost_device *pfdev)
- {
- 	int err;
-@@ -265,10 +437,25 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- 		goto out_regulator;
- 	}
- 
--	err = panfrost_gpu_init(pfdev);
-+	err = devm_pm_runtime_enable(pfdev->base.dev);
- 	if (err)
- 		goto out_regulator;
- 
-+	err = pm_runtime_resume_and_get(pfdev->base.dev);
-+	if (err)
-+		goto out_regulator;
-+
-+	/* If PM is disabled, we need to call panfrost_device_runtime_resume() manually. */
-+	if (!IS_ENABLED(CONFIG_PM)) {
-+		err = panfrost_device_runtime_resume(pfdev->base.dev);
-+		if (err)
-+			goto out_regulator;
-+	}
-+
-+	err = panfrost_gpu_init(pfdev);
-+	if (err)
-+		goto out_rpm_put;
-+
- 	err = panfrost_mmu_init(pfdev);
- 	if (err)
- 		goto out_gpu;
-@@ -295,6 +482,8 @@ int panfrost_device_init(struct panfrost_device *pfdev)
- 	panfrost_mmu_fini(pfdev);
- out_gpu:
- 	panfrost_gpu_fini(pfdev);
-+out_rpm_put:
-+	panfrost_try_suspend_device(pfdev);
- out_regulator:
- 	panfrost_regulator_fini(pfdev);
- out_devfreq:
-@@ -313,12 +502,10 @@ void panfrost_device_fini(struct panfrost_device *pfdev)
- 	panfrost_gem_shrinker_fini(pfdev);
- 	panfrost_perfcnt_fini(pfdev);
- 	panfrost_jm_fini(pfdev);
--	panfrost_mmu_fini(pfdev);
--	panfrost_gpu_fini(pfdev);
--	panfrost_devfreq_fini(pfdev);
-+	panfrost_try_suspend_device(pfdev);
- 	panfrost_regulator_fini(pfdev);
-+	panfrost_devfreq_fini(pfdev);
- 	panfrost_clk_fini(pfdev);
--	panfrost_reset_fini(pfdev);
- 	panfrost_pm_domain_fini(pfdev);
- }
- 
-@@ -424,148 +611,20 @@ bool panfrost_exception_needs_reset(const struct panfrost_device *pfdev,
- 
- void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_job_int)
- {
--	panfrost_gpu_soft_reset(pfdev);
--
--	panfrost_gpu_power_on(pfdev);
--	panfrost_mmu_reset(pfdev);
--
--	panfrost_jm_reset_interrupts(pfdev);
--	if (enable_job_int)
--		panfrost_jm_enable_interrupts(pfdev);
--}
--
--static int panfrost_device_runtime_resume(struct device *dev)
--{
--	struct panfrost_device *pfdev = dev_get_drvdata(dev);
--	int ret;
--
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
--		ret = reset_control_deassert(pfdev->rstc);
--		if (ret)
--			return ret;
--
--		ret = clk_enable(pfdev->clock);
--		if (ret)
--			goto err_clk;
--
--		ret = clk_enable(pfdev->bus_clock);
--		if (ret)
--			goto err_bus_clk;
--
--		ret = clk_enable(pfdev->bus_ace_clock);
--		if (ret)
--			goto err_bus_ace_clk;
--	}
--
--	panfrost_device_reset(pfdev, true);
--	panfrost_devfreq_resume(pfdev);
--
--	return 0;
--
--err_bus_ace_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
--		clk_disable(pfdev->bus_clock);
--err_bus_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
--		clk_disable(pfdev->clock);
--err_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT))
--		reset_control_assert(pfdev->rstc);
--	return ret;
--}
--
--static int panfrost_device_runtime_suspend(struct device *dev)
--{
--	struct panfrost_device *pfdev = dev_get_drvdata(dev);
--
--	if (!panfrost_jm_is_idle(pfdev))
--		return -EBUSY;
--
--	panfrost_devfreq_suspend(pfdev);
--	panfrost_jm_suspend_irq(pfdev);
--	panfrost_mmu_suspend_irq(pfdev);
--	panfrost_gpu_suspend_irq(pfdev);
--	panfrost_gpu_power_off(pfdev);
--
--	if (pfdev->comp->pm_features & BIT(GPU_PM_RT)) {
--		clk_disable(pfdev->bus_ace_clock);
--		clk_disable(pfdev->bus_clock);
--		clk_disable(pfdev->clock);
--		reset_control_assert(pfdev->rstc);
--	}
--
--	return 0;
--}
--
--static int panfrost_device_resume(struct device *dev)
--{
--	struct panfrost_device *pfdev = dev_get_drvdata(dev);
--	int ret;
--
--	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF)) {
--		unsigned long freq = pfdev->pfdevfreq.fast_rate;
--		struct dev_pm_opp *opp;
--
--		opp = dev_pm_opp_find_freq_ceil(dev, &freq);
--		if (IS_ERR(opp))
--			return PTR_ERR(opp);
--		dev_pm_opp_set_opp(dev, opp);
--		dev_pm_opp_put(opp);
--	}
--
--	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
--		ret = clk_enable(pfdev->clock);
--		if (ret)
--			goto err_clk;
--
--		if (pfdev->bus_clock) {
--			ret = clk_enable(pfdev->bus_clock);
--			if (ret)
--				goto err_bus_clk;
--		}
--	}
--
--	ret = pm_runtime_force_resume(dev);
--	if (ret)
--		goto err_resume;
--
--	return 0;
--
--err_resume:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS) && pfdev->bus_clock)
--		clk_disable(pfdev->bus_clock);
--err_bus_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS))
--		clk_disable(pfdev->clock);
--err_clk:
--	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
--		dev_pm_opp_set_opp(dev, NULL);
--	return ret;
--}
--
--static int panfrost_device_suspend(struct device *dev)
--{
--	struct panfrost_device *pfdev = dev_get_drvdata(dev);
- 	int ret;
- 
--	ret = pm_runtime_force_suspend(dev);
--	if (ret)
--		return ret;
--
--	if (pfdev->comp->pm_features & BIT(GPU_PM_CLK_DIS)) {
--		if (pfdev->bus_clock)
--			clk_disable(pfdev->bus_clock);
-+	/* Do the actual device reset */
-+	ret = panfrost_gpu_soft_reset(pfdev);
-+	panfrost_gpu_power_on(pfdev);
- 
--		clk_disable(pfdev->clock);
-+	/* Post-reset */
-+	if (panfrost_device_started(pfdev)) {
-+		panfrost_mmu_reset(pfdev);
-+		panfrost_jm_reset_interrupts(pfdev);
-+		if (enable_job_int)
-+			panfrost_jm_enable_interrupts(pfdev);
- 	}
- 
--	if (pfdev->comp->pm_features & BIT(GPU_PM_VREG_OFF))
--		dev_pm_opp_set_opp(dev, NULL);
--
--	return 0;
-+	if (!panfrost_device_started(pfdev) && !ret)
-+		pfdev->gpu_started = true;
- }
--
--EXPORT_GPL_DEV_PM_OPS(panfrost_pm_ops) = {
--	RUNTIME_PM_OPS(panfrost_device_runtime_suspend, panfrost_device_runtime_resume, NULL)
--	SYSTEM_SLEEP_PM_OPS(panfrost_device_suspend, panfrost_device_resume)
--};
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
-index ec55c136b1b6..eeca57efcbec 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.h
-@@ -142,6 +142,7 @@ struct panfrost_device {
- 	/* pm_domains for devices with more than one. */
- 	struct device *pm_domain_devs[MAX_PM_DOMAINS];
- 	struct device_link *pm_domain_links[MAX_PM_DOMAINS];
-+	bool gpu_started;
- 	bool coherent;
- 
- 	struct panfrost_features features;
-@@ -253,6 +254,8 @@ int panfrost_device_init(struct panfrost_device *pfdev);
- void panfrost_device_fini(struct panfrost_device *pfdev);
- void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_job_int);
- 
-+void panfrost_try_suspend_device(struct panfrost_device *pfdev);
-+
- extern const struct dev_pm_ops panfrost_pm_ops;
- 
- enum drm_panfrost_exception_type {
-@@ -342,4 +345,10 @@ panfrost_device_schedule_reset(struct panfrost_device *pfdev)
- 	queue_work(pfdev->reset.wq, &pfdev->reset.work);
- }
- 
-+static inline bool
-+panfrost_device_started(struct panfrost_device *pfdev)
-+{
-+	return pfdev->gpu_started;
-+}
-+
- #endif
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index 331a3bd5b98c..27f4c4b217f5 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -988,9 +988,7 @@ static int panfrost_probe(struct platform_device *pdev)
- 		goto err_out0;
- 	}
- 
--	pm_runtime_set_active(pfdev->base.dev);
- 	pm_runtime_mark_last_busy(pfdev->base.dev);
--	pm_runtime_enable(pfdev->base.dev);
- 	pm_runtime_set_autosuspend_delay(pfdev->base.dev, 50); /* ~3 frames */
- 	pm_runtime_use_autosuspend(pfdev->base.dev);
- 
-@@ -1002,13 +1000,12 @@ static int panfrost_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		goto err_out1;
- 
-+	pm_runtime_put_autosuspend(pfdev->base.dev);
- 
- 	return 0;
- 
- err_out1:
--	pm_runtime_disable(pfdev->base.dev);
- 	panfrost_device_fini(pfdev);
--	pm_runtime_set_suspended(pfdev->base.dev);
- err_out0:
- 	return err;
- }
-@@ -1019,10 +1016,9 @@ static void panfrost_remove(struct platform_device *pdev)
- 
- 	drm_dev_unregister(&pfdev->base);
- 
--	pm_runtime_get_sync(pfdev->base.dev);
--	pm_runtime_disable(pfdev->base.dev);
-+	drm_WARN_ON(&pfdev->base, pm_runtime_get_sync(pfdev->base.dev) < 0);
-+
- 	panfrost_device_fini(pfdev);
--	pm_runtime_set_suspended(pfdev->base.dev);
- }
- 
- static ssize_t profiling_show(struct device *dev,
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-index 7d555e63e21a..416964282138 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
-@@ -516,9 +516,8 @@ int panfrost_gpu_init(struct panfrost_device *pfdev)
- {
- 	int err;
- 
--	err = panfrost_gpu_soft_reset(pfdev);
--	if (err)
--		return err;
-+	if (!panfrost_device_started(pfdev))
-+		return -ETIMEDOUT;
- 
- 	err = panfrost_gpu_init_features(pfdev);
- 	if (err)
-@@ -543,8 +542,6 @@ int panfrost_gpu_init(struct panfrost_device *pfdev)
- 		return err;
- 	}
- 
--	panfrost_gpu_power_on(pfdev);
--
- 	return 0;
- }
- 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 2d12b83e900a..35ff5b0f0013 100644
+index 35ff5b0f0013..bda1494eb430 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_job.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -446,7 +446,9 @@ void panfrost_jm_suspend_irq(struct panfrost_device *pfdev)
- 	set_bit(PANFROST_COMP_BIT_JOB, pfdev->is_suspended);
+@@ -871,7 +871,6 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ 	js = devm_kzalloc(pfdev->base.dev, sizeof(*js), GFP_KERNEL);
+ 	if (!js)
+ 		return -ENOMEM;
+-	pfdev->js = js;
  
- 	job_write(pfdev, JOB_INT_MASK, 0);
--	synchronize_irq(pfdev->js->irq);
+ 	INIT_WORK(&pfdev->reset.work, panfrost_reset_work);
+ 	spin_lock_init(&js->job_lock);
+@@ -906,6 +905,8 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ 		}
+ 	}
+ 
++	pfdev->js = js;
 +
-+	if (pfdev->js)
-+		synchronize_irq(pfdev->js->irq);
+ 	panfrost_jm_reset_interrupts(pfdev);
+ 	panfrost_jm_enable_interrupts(pfdev);
+ 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index 4a3162c3b659..aad0cd31516d 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -336,6 +336,12 @@ void panfrost_mmu_as_put(struct panfrost_device *pfdev, struct panfrost_mmu *mmu
+ 	WARN_ON(atomic_read(&mmu->as_count) < 0);
  }
  
- static void panfrost_job_handle_err(struct panfrost_device *pfdev,
-@@ -971,6 +973,9 @@ int panfrost_jm_is_idle(struct panfrost_device *pfdev)
- 	struct panfrost_job_slot *js = pfdev->js;
- 	int i;
- 
-+	if (!js)
-+		return true;
++static void panfrost_mmu_enable_interrupts(struct panfrost_device *pfdev)
++{
++	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
++	mmu_write(pfdev, MMU_INT_MASK, ~0);
++}
 +
- 	for (i = 0; i < NUM_JOB_SLOTS; i++) {
- 		/* If there are any jobs in the HW queue, we're not idle */
- 		if (atomic_read(&js->queue[i].sched.credit_count))
+ void panfrost_mmu_reset(struct panfrost_device *pfdev)
+ {
+ 	struct panfrost_mmu *mmu, *mmu_tmp;
+@@ -355,8 +361,7 @@ void panfrost_mmu_reset(struct panfrost_device *pfdev)
+ 
+ 	spin_unlock(&pfdev->as_lock);
+ 
+-	mmu_write(pfdev, MMU_INT_CLEAR, ~0);
+-	mmu_write(pfdev, MMU_INT_MASK, ~0);
++	panfrost_mmu_enable_interrupts(pfdev);
+ }
+ 
+ static size_t get_pgsize(u64 addr, size_t size, size_t *count)
+@@ -880,6 +885,9 @@ static irqreturn_t panfrost_mmu_irq_handler_thread(int irq, void *data)
+ 	u32 status = mmu_read(pfdev, MMU_INT_RAWSTAT);
+ 	int ret;
+ 
++	if (!pfdev->js)
++		return IRQ_NONE;
++
+ 	while (status) {
+ 		u32 as = ffs(status | (status >> 16)) - 1;
+ 		u32 mask = BIT(as) | BIT(as + 16);
+@@ -970,6 +978,8 @@ int panfrost_mmu_init(struct panfrost_device *pfdev)
+ 		return err;
+ 	}
+ 
++	panfrost_mmu_enable_interrupts(pfdev);
++
+ 	return 0;
+ }
+ 
 
 -- 
 2.55.0
