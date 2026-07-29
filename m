@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 584D2C54F52
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 02:25:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1829C54F52
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 02:43:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FA7E10E618;
-	Wed, 29 Jul 2026 02:25:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E44F210E61C;
+	Wed, 29 Jul 2026 02:43:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IDs9rHcX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="i7AmDx0K";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB5E010E618
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 02:25:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B1F10E61C
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 02:43:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0A1BB60A5E;
- Wed, 29 Jul 2026 02:25:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952BF1F000E9;
- Wed, 29 Jul 2026 02:25:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5656060A5E;
+ Wed, 29 Jul 2026 02:43:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D71681F000E9;
+ Wed, 29 Jul 2026 02:42:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785291931;
- bh=5Rrfz3SGLL7zST/1WMuap9Ub/7b6BU0FiCspDMMNIdI=;
+ s=k20260515; t=1785292980;
+ bh=1qXmM2YWBVgrm+9laSJYiqQDI8Ei38IIkYsmREM7oD0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IDs9rHcXTm8r2XSnDRLqY3GA1mM5SkCVGrOj0eLwdq1JsoHqKu3Ih64qjYkU328q0
- HimFxVieztItQXwGMyH2Q5juCaWJkbijHx82IV8DCU+CvoPL85nS0+cb2OS41Tk+q4
- 3tlO8vlP5+xOpeIkewxfb6xIUBxg0+56CHmrPBs3QntiaU0h+0cUqjW5mwKt/JMOYV
- 38zmAHxZfz2c7aRB2OW7rs58ZdGzbkhbjLcXlpW+/xZBY1GDRVBXfspU1TZjT4VE9s
- 9d/keXSYbT9b09EZJK5XZeIKypRHWQRzT/kFwxVyTGRsa7qgxgyyQyQrKBZklkAB0P
- 0IZqXEx7SXk0w==
+ b=i7AmDx0K2FXcNTDdQ0SqzRE7QuOw2rOwy6E4zFlwwL43fl9ZKvhuklHpYN6IChM/v
+ SpZSv5fXdEv0QMBET0OZCW4h8wYlCbhZWSuCM6FLT2ar7gM8rJrUQeOR/8oiF8Rs0X
+ rE4po8RQUZH7fFfkQe85XXlAICmOmVEdMNkN/vD0BGNCyDM3r+IwnQ52i4Xb/tXPfl
+ PIrgbhvjESlraZcLn8S5SCgAbwYFoG6GbK96b9HgAWOj0K66Mrr7S5OWHY3MWr2XiZ
+ C2+HXg5gTC/72rKU9SmwXMkGzljfrGMd5w8aSmIz8hOiLEWaUQmE98GvqPz+AQmJ/Z
+ qhMAzhpKhCy8w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/v3d: Serialize the scheduler timeout handlers
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
+Subject: Re: [PATCH V3] fbdev: Fix out-of-bounds access when rotating
+ console after font resize
+To: "Zizhi Wo" <wozizhi@huaweicloud.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260728-v3d-order-global-reset-v1-1-e47be838158d@igalia.com>
-References: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
- <20260728-v3d-order-global-reset-v1-1-e47be838158d@igalia.com>
+In-Reply-To: <20260729021204.3385299-1-wozizhi@huaweicloud.com>
+References: <20260729021204.3385299-1-wozizhi@huaweicloud.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 02:25:30 +0000
-Message-Id: <20260729022531.952BF1F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 02:42:59 +0000
+Message-Id: <20260729024259.D71681F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,109 +57,169 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Schedulers for V3D_CACHE_CLEAN and V3D_CPU are configured with=
- a 500ms timeout but do not provide a `.timedout_job` callback, leading to =
-a NULL pointer dereference crash if a job times out.
-- [High] GPU reset upon timeout causes a NULL pointer dereference on device=
-s without CSD support (e.g., V3D 3.x), due to accessing uninitialized DRM s=
-chedulers.
+- [High] Ineffective fallback logic on memory allocation failure causes a N=
+ULL pointer dereference in the console rendering path.
+- [High] Out-of-bounds access or NULL pointer dereference in fbcon_init() d=
+ue to missing selection pre-clearing fix.
+- [High] Out-of-bounds access when changing font size on an actively rotate=
+d console.
+- [High] Ignored vc_resize() return value leaves stale geometry, causing an=
+ out-of-bounds memory access.
 --
 
---- Patch [1]: [PATCH 1/2] drm/v3d: Serialize the scheduler timeout handler=
-s ---
-commit 4242eaaa6f3d95b4fe7ea352d6d1d5bebceb401d
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+--- Patch [1]: [PATCH V3] fbdev: Fix out-of-bounds access when rotating con=
+sole after font resize ---
+commit f333e84fec0269170d8087f048fca7b2a06cbd02
+Author: Zizhi Wo <wozizhi@huawei.com>
 
-drm/v3d: Serialize the scheduler timeout handlers
+fbdev: Fix out-of-bounds access when rotating console after font resize
+   =20
+This commit fixes an out-of-bounds access when rotating the console after a
+font resize. It resolves the issue by pre-clearing the selection before
+switching bitops in fbcon_modechanged() and fbcon_set_all_vcs(), ensuring
+that par->rotated.buf is rebuilt before subsequent updates.
 
-This patch introduces an ordered workqueue to serialize the scheduler timeo=
-ut
-handlers for all V3D hardware queues. By sharing a single workqueue, it
-prevents concurrent execution of timeout handlers and avoids a race conditi=
-on
-that corrupts scheduler credits during a global GPU reset.
+Link: https://lore.kernel.org/all/20260722062216.2574546-1-wozizhi@huaweicl=
+oud.com/
+Link: https://lore.kernel.org/all/20250905024340.337521-1-wozizhi@huaweiclo=
+ud.com/
 
-Cc: stable@vger.kernel.org # 6.15
-
-> diff --git a/drivers/gpu/drm/v3d/v3d_drv.h b/drivers/gpu/drm/v3d/v3d_drv.h
-> index 423bcfe331a01..8779a42c65081 100644
-> --- a/drivers/gpu/drm/v3d/v3d_drv.h
-> +++ b/drivers/gpu/drm/v3d/v3d_drv.h
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sc=
-hed.c
-> index c35f9f70cf8d6..63dd95b828c85 100644
-> --- a/drivers/gpu/drm/v3d/v3d_sched.c
-> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
-> @@ -837,6 +837,7 @@ v3d_queue_sched_init(struct v3d_dev *v3d, const struc=
-t drm_sched_backend_ops *op
->  	struct drm_sched_init_args args =3D {
->  		.credit_limit =3D 1,
->  		.timeout =3D msecs_to_jiffies(500),
-> +		.timeout_wq =3D v3d->reset_wq,
->  		.dev =3D v3d->drm.dev,
->  	};
-
-[Severity: Critical]
-This is a pre-existing issue, but since we are modifying the timeout=20
-configuration for all queues, what happens if a V3D_CPU or V3D_CACHE_CLEAN
-job times out?
-
-Both of these queues are configured with a 500ms timeout by the arguments
-above, but their backend operations lack a .timedout_job callback:
-
-static const struct drm_sched_backend_ops v3d_cpu_sched_ops =3D {
-	.run_job =3D v3d_cpu_job_run,
-	.free_job =3D v3d_sched_job_free
-};
-
-If a user-space program submits a CPU job (e.g.=20
-V3D_CPU_JOB_TYPE_COPY_TIMESTAMP_QUERY) with a very large count parameter=20
-that takes longer than 500ms, or if the OS preempts the thread under heavy
-load, drm_sched_job_timedout() will execute.
-
-Since job->sched->ops->timedout_job is NULL for these schedulers, won't thi=
-s=20
-result in a NULL pointer dereference?
-
-[ ... ]
-
-> @@ -896,4 +901,6 @@ v3d_sched_fini(struct v3d_dev *v3d)
->  		if (v3d->queue[q].sched.ready)
->  			drm_sched_fini(&v3d->queue[q].sched);
->  	}
+> diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/=
+fbcon.c
+> index 9f5c4c101581d..23b3c536d53d1 100644
+> --- a/drivers/video/fbdev/core/fbcon.c
+> +++ b/drivers/video/fbdev/core/fbcon.c
+> @@ -2641,9 +2641,31 @@ static void fbcon_modechanged(struct fb_info *info)
+>  	    fbcon_info_from_console(par->currcon) !=3D info)
+>  		return;
+> =20
+> +	/*
+> +	 * Clear the selection before switching bitops.  Without this, the
+> +	 * clear_selection() inside vc_resize() below repaints the highlighted
+> +	 * cells through the new bitops while the console geometry(vc_rows/vc_c=
+ols)
+> +	 * has not been updated to match, so the repaint is computed from a
+> +	 * half-switched geometry and overflows the framebuffer address.
+> +	 * Pre-clearing makes that repaint a no-op.
+> +	 */
+> +	clear_selection();
 > +
-> +	destroy_workqueue(v3d->reset_wq);
->  }
+>  	p =3D &fb_display[vc->vc_num];
+>  	set_blitting_type(vc, info);
+> =20
+> +	/*
+> +	 * Rebuild par->rotated.buf for the new rotation now that bitops have
+> +	 * switched.  The new putcs/cursor ops read this buffer; if it is still
+> +	 * sized for the old rotation, fbcon_putcs() and the cursor path reached
+> +	 * via update_screen() below overflow it.  Mirrors fbcon_switch(); fall
+> +	 * back to unrotated rendering on allocation failure.
+> +	 */
+> +	if (par->bitops->rotate_font && par->bitops->rotate_font(info, vc)) {
+> +		par->rotate =3D FB_ROTATE_UR;
+> +		set_blitting_type(vc, info);
+> +	}
 
 [Severity: High]
-This is a pre-existing issue, but noticing the queue iteration here in=20
-v3d_sched_fini() where we safely check v3d->queue[q].sched.ready, does=20
-v3d_gpu_reset_for_timeout() have a similar safeguard?
+This is a pre-existing issue, but does this fallback logic actually prevent
+the crash on allocation failure?
 
-Looking at v3d_gpu_reset_for_timeout(), it iterates over all queues=20
-indiscriminately:
+When rotate_font() fails, par->rotated.buf is freed and set to NULL. The
+fallback attempts to revert to unrotated rendering by setting par->rotate =
+=3D
+FB_ROTATE_UR and calling set_blitting_type(vc, info).
 
-	for (i =3D 0; i < V3D_MAX_QUEUES; i++)
-		drm_sched_stop(&v3d->queue[i].sched, sched_job);
+However, set_blitting_type() internally calls fbcon_set_rotation(info),
+which resets par->rotate back to the failing requested rotation from
+par->p->con_rotate:
 
-On devices without CSD support (like V3D 3.x), v3d_has_csd() returns false,
-meaning the schedulers for V3D_CSD and V3D_CACHE_CLEAN are skipped during
-initialization and remain zero-initialized.
+drivers/video/fbdev/core/fbcon.c:set_blitting_type() {
+    ...
+    fbcon_set_rotation(info);
+    fbcon_set_bitops(par);
+}
 
-When a timeout occurs on these older variants and v3d_gpu_reset_for_timeout=
-()
-is triggered, wouldn't calling drm_sched_stop() on these zero-initialized
-schedulers cause a NULL pointer dereference when it attempts to iterate ove=
-r=20
-sched->pending_list?
+This causes the rotated bitops to be selected again. Subsequent screen upda=
+tes
+will then dereference the now-NULL par->rotated.buf. Should par->p->con_rot=
+ate
+also be updated to FB_ROTATE_UR in this fallback path?
+
+[ ... ]
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to ignore the ret=
+urn
+value of vc_resize() later in fbcon_modechanged()?
+
+If vc_resize() fails (e.g., due to kzalloc returning -ENOMEM), it leaves
+vc->vc_cols and vc->vc_rows unmodified, potentially at older, larger values.
+The execution then continues unconditionally to update_screen():
+
+drivers/video/fbdev/core/fbcon.c:fbcon_modechanged() {
+    ...
+    vc_resize(vc, cols, rows);
+    ...
+    update_screen(vc);
+}
+
+This loops over the stale, oversized vc->vc_cols. In ccw_putcs(), the
+calculation:
+
+image.dy =3D vyres - ((xx + count) * vc->vc_font.width)
+
+can underflow because the stale xx + count is too large for the new vyres.
+This results in a massive image.dy offset and a page fault when calculating
+the framebuffer address, reintroducing the out-of-bounds access upon
+allocation failure.
+
+[Severity: High]
+This is a pre-existing issue, but does fbcon_init() suffer from the same
+missing selection pre-clearing issue this patch addresses?
+
+In fbcon_init(), set_blitting_type() is called to switch bitops before
+rotate_font() is invoked:
+
+drivers/video/fbdev/core/fbcon.c:fbcon_init() {
+    set_blitting_type(vc, info);
+    ...
+    if (init) {
+        vc->vc_cols =3D new_cols;
+        vc->vc_rows =3D new_rows;
+    } else
+        vc_resize(vc, new_cols, new_rows);
+    ...
+}
+
+If the console is visible and has a selection, vc_resize() triggers
+clear_selection(), which forces a screen redraw. Since rotate_font() has not
+yet been called, par->rotated.buf may be NULL or improperly sized, leading
+the newly-switched bitops to read out-of-bounds or dereference NULL.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could changing the font size=
+ on
+an actively rotated console cause an out-of-bounds access?
+
+When a KDFONTOP ioctl increases the font size on a rotated console,
+fbcon_do_set_font() updates the font dimensions and calls vc_resize():
+
+drivers/video/fbdev/core/fbcon.c:fbcon_do_set_font() {
+    ...
+    ret =3D vc_resize(vc, cols, rows);
+    ...
+}
+
+vc_resize() triggers a screen update using the new font geometry. However,
+fbcon_do_set_font() never calls par->bitops->rotate_font() to reallocate
+par->rotated.buf for the new dimensions. During the redraw, rotated renderi=
+ng
+functions like ccw_putcs() calculate memory offsets based on the larger font
+sizes, reading past the end of the existing, too-small par->rotated.buf.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260728-v3d-order-=
-global-reset-v1-0-e47be838158d@igalia.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729021204.3385=
+299-1-wozizhi@huaweicloud.com?part=3D1
