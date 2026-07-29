@@ -4,101 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73A47C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:28:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFDC3C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:29:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D366E10E021;
-	Wed, 29 Jul 2026 11:28:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 295E210EB97;
+	Wed, 29 Jul 2026 11:29:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="odZQmLKi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ELdn2V0I";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0773C10E021
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:28:42 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c15f020a223so130718166b.1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 04:28:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785324520; x=1785929320; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=LDeRfN9blSLpZUyGDvy3JYR8gWm0jeyVXT2Ay7oVK6c=;
- b=odZQmLKil7FZTds8DT2yNCK4BYQorMheQc63tAADXXFhV01RGwpYB8CWKu16FHmt7J
- ZcntLaRjDaVLk6o0/qkT3PGyiHrc50m5D0Q1hLiwcS+Mz11ns3JVc7VQLuCZ/nvd044Z
- l5RRk2QfVXtsM89nEPH6T48lyVeJoO/7qSpv2x5UlxH40kHG9LJfuBvjXfLCSDPybAuZ
- 4najRIXKqz9+DJGJtHYGU97f30KPnv7ZBFGzdtSn+XvH4dWkj3NXFUo9Phcom2UylO17
- gQKnVt60D237Hb6XWJhJvguqcinrNYflvDEuhDrHKDvMRErOMijSBva4xjDhCLDd5t1+
- 5YGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785324520; x=1785929320;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=LDeRfN9blSLpZUyGDvy3JYR8gWm0jeyVXT2Ay7oVK6c=;
- b=FHHD+qbBgWE/NQ8HoioKJbnArkRHjw4w6sQTe2T0AXdlhuM0wldh/xYDl2q2lNsMpY
- owDdU/5nTr8hJKLWoYFA6zPc2EV31+N0pgsJqKbUZA9xATBAjwiwE0TsCcFWPR36o2VV
- abVDzlAsqrcPVSB5Q/EczTFpRUOCd0N0JHyxBb9WjQEKDhBGonX8y6CdJbKGKdElzQ8K
- HKifZ2PQHr0Unj/ixDGgbzQdFXMS1vgJr8UT+7xlDYuqecbYTHo6J2mzI74AEG6CJ8Be
- aZwbZv+iCgJSzSVy3beuMMUXug0CMCWKcTUVRk4rRsvzLw8LxdVQg45HQoG7XdMt31HJ
- ZNjA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrU4BcPUC2lstpBEQxrlsFDNUr2VxjguyNi0XotQjJyM+OO6TQ6Ue6X5xSi8DOx66TCpXkawymmGzk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwMa1rlddQIZYu2QAFWMiPJxZK/Qac3pxzuefCOSkE9FwTphWJv
- 81mHNnb0BLA5DMkqO/NsL6vXdUlLhxzYS+RBFGO/n8DB68lqYhjVdIq/
-X-Gm-Gg: AR+sD13TCiugfjyZ56zd5wz8jEinmpBNK2GcRQxozWpToT0Ajzl6SIzwTh9PRAOqAql
- 6F0Sh9yOKrOo020v1qKbB78D8TECHEza/NaDTIF+6ESBrAHwZvoQW9tS7D6pPHcpopLrrp4lHxc
- Ipy6o4s2SbsDe+/gNYapK3aSgQ1S4aWJFd8fMe9tx3aQ40pNaL98kT2nyEDACQApxznNaGifwsA
- kZ3Fy84bgSN/AGDYZyQ8gnMAgVNb2aLYHWhQTDHwQUmfZi457egjhsCBTRMF/iOw8TExBtaVZGC
- 6Omp53pltw8K1u1wG+vztYIgpuGXfFghzyBqrJoVOGQUfYxEWRsExeGrSOXaHeiBRdflxUDavwd
- hsURJ4XETPLq4hG8e8o9BJ/dcMbq8FgT1LvpXSAH0PvV0qIJi93EBPHlXCGnuYOjhu0ZbAEkK7O
- f/J+fpU+AxuMnA6vL1+XscEbpE5ccvn6qSRWv/dk8XlI7mtFKUh/Q7fRZ5YvZXoD9EnAQXYc280
- QvI0CC5JmLacapiw3xDskEZG4RKPpcd0WGbFFkvGH3GPW5fTuAEiMuK+3PepbBweZkZY45MlReE
- 3ePu
-X-Received: by 2002:a17:907:842:b0:c16:5b3f:52e0 with SMTP id
- a640c23a62f3a-c1f72147104mr346195966b.38.1785324520387; 
- Wed, 29 Jul 2026 04:28:40 -0700 (PDT)
-Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
- ([2620:10d:c092:600::1:640]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1f83cea5f8sm100629666b.24.2026.07.29.04.28.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2026 04:28:39 -0700 (PDT)
-Message-ID: <872e7a5e-011e-4415-98dc-96c9066b0614@gmail.com>
-Date: Wed, 29 Jul 2026 12:28:30 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 00/14] Add dmabuf read/write via io_uring
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org
-References: <cover.1785274111.git.asml.silence@gmail.com>
- <20260729065421.GA9468@lst.de>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260729065421.GA9468@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D52210EB97
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:29:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id A943143CB0;
+ Wed, 29 Jul 2026 11:29:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618B61F000E9;
+ Wed, 29 Jul 2026 11:29:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785324580;
+ bh=EiUKvhoYlClq7lbdmkrgcZcEt3xFD1qKgsr4T9wMlNg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ELdn2V0ITmoW+1/wISPeI/b0GTxLlmKPsHSQn5DW6jxHr2TLkwMwMRpfFbrbuRgxZ
+ 6oGHVCdzUgReL5xXJNbV9TZNoF0vJiVv1yB51UTdWV9+Ln+1qQ1nErrkmkpw31J0t1
+ a6sEldgtFvkRX59KBa2AYbxd93Yy27w9tKNSnutlQGnFc+JQS92iRzKjuSqTxzgl0o
+ bAhb3/2+xx9S8WEoFoMtdC98BaD35StArvLpD2zP7SBbsWFXMdbIt0DAvdrGKLZV2N
+ vCgd10AJT3nPUT4+c+M7M/DRLPJ8AI8/UHW0EugjlAo6NnmCZoc+jtKJvhoQ07Qmo0
+ rQLkCsdaqH3DA==
+From: sashiko-bot@kernel.org
+Subject: Re: Patch "drm/amd/display: Handle struct
+ drm_plane_state.ignore_damage_clips" has been added to the 6.18-stable tree
+To: gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <2026072928-caring-papaya-ed97@gregkh>
+References: <2026072928-caring-papaya-ed97@gregkh>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 11:29:39 +0000
+Message-Id: <20260729112940.618B61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,17 +53,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/29/26 07:54, Christoph Hellwig wrote:
-> Might help to say this applies to Jens' for-next branch for those trying
-> to apply the patches..
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] In the MPO (Multi-Plane Overlay) path, setting `ignore_damage_clip=
+s` fails to trigger a full update if the framebuffer and bounding box haven=
+'t changed, resulting in a dropped display update.
+--
 
-Ah yes, and there is a branch as well:
-git: https://github.com/isilence/linux.git rw-dmabuf-v4
-url: https://github.com/isilence/linux/tree/rw-dmabuf-v4
+--- Patch [1]: Patch "drm/amd/display: Handle struct drm_plane_state.ignore=
+_damage_clips" has been added to the 6.18-stable tree ---
+commit e9e0d8ca6e7cebee70fe44f3b50f1d51b508e3bf
+Author: gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>
+Subject: drm/amd/display: Handle struct drm_plane_state.ignore_damage_clips
 
--- 
-Pavel Begunkov
+This commit updates the DCN driver code to support the ignore_damage_clips
+flag from drm_plane_state. By bypassing damage clip retrieval when this flag
+is set, the driver is intended to perform a full display update instead of a
+partial one.
 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 7fe40bbba2658..97e14e02bf8c0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+
+[ ... ]
+
+> @@ -6229,8 +6229,10 @@ static void fill_dc_dirty_rects(struct drm_plane *=
+plane,
+>  	if (new_plane_state->rotation !=3D DRM_MODE_ROTATE_0)
+>  		goto ffu;
+> =20
+> -	num_clips =3D drm_plane_get_damage_clips_count(new_plane_state);
+> -	clips =3D drm_plane_get_damage_clips(new_plane_state);
+> +	if (!new_plane_state->ignore_damage_clips) {
+> +		num_clips =3D drm_plane_get_damage_clips_count(new_plane_state);
+> +		clips =3D drm_plane_get_damage_clips(new_plane_state);
+> +	}
+> =20
+
+[Severity: High]
+When ignore_damage_clips is true, num_clips remains 0. Does this cause an
+issue for the MPO (Multi-Plane Overlay) path further down in this function?
+
+Looking at the MPO path later in fill_dc_dirty_rects():
+
+drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c:fill_dc_dirty_rects() {
+    ...
+    fb_changed =3D old_plane_state->fb->base.id !=3D
+                 new_plane_state->fb->base.id;
+    bb_changed =3D (old_plane_state->crtc_x !=3D new_plane_state->crtc_x ||
+                  old_plane_state->crtc_y !=3D new_plane_state->crtc_y ||
+                  ...);
+    ...
+    if (num_clips) {
+        for (; i < num_clips; clips++)
+            ...
+    } else if (fb_changed && !bb_changed) {
+        fill_dc_dirty_rect(new_plane_state->plane, &dirty_rects[i],
+            ...
+    }
+
+    flip_addrs->dirty_rect_count =3D i;
+    return;
+}
+
+If dm_crtc_state->mpo_requested is true, and both fb_changed and bb_changed
+are false, the code bypasses the goto ffu (Full Frame Update) logic used by
+the non-MPO path.
+
+Since num_clips is 0, the MPO logic will not add any dirty rects, resulting=
+ in
+flip_addrs->dirty_rect_count being 0.=20
+
+Instead of forcing a full display update when ignore_damage_clips is set,=20
+could this silently drop the display update entirely?
+
+>  	if (num_clips && (!amdgpu_damage_clips || (amdgpu_damage_clips < 0 &&
+>  						   is_psr_su)))
+>  		goto ffu;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2026072928-caring-p=
+apaya-ed97@gregkh?part=3D1
