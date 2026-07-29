@@ -4,163 +4,178 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EB17C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 221ABC53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:35:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B34510EBA0;
-	Wed, 29 Jul 2026 11:30:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84AD310EBA2;
+	Wed, 29 Jul 2026 11:35:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="SQjlp/nH";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ksKtZWY2";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ksKtZWY2";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B33A10EB98;
- Wed, 29 Jul 2026 11:30:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785324655; x=1816860655;
- h=content-transfer-encoding:date:message-id:cc:subject:
- from:to:references:in-reply-to:mime-version;
- bh=Rdu0twBQe+uHUApyCJ6b4aSll89IVZbFqGCpkVko+bg=;
- b=SQjlp/nHFbpYGRKEJZw2We8DHX0ap8eX9aKwvfKaC1/M6xvxgg78yo3V
- ZSCquupnqUkUVYuuaOzFIVDJAXOpGGPRUXIerCSjea+3W4jJO/E0LL25Z
- iEJH3wcKOe+rQ2oC3xF2NmlGQtIw+vqEZc7DF0Uwp6bakTJBKOAuseKMG
- upRCw8YI4NzSNhleKNTWnwcK9M9O4W4J6rwFlVOChVlztCMClc65Vb35x
- mlXSTp/5RtHRBUaJjmgJQMIkg3Ijmk+REODEFXSenPCIAz8vsnle7x/ad
- rB57GQncnvhKMVSToN/ByvmKlZnmRvUX5XAm+ovoGaLUhDFnsvHmgmumH A==;
-X-CSE-ConnectionGUID: zF8qEzQ8R2qbn97qBQUHBQ==
-X-CSE-MsgGUID: M3MGT0EMTL+BPatyNnAHhA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="73461554"
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="73461554"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 04:30:55 -0700
-X-CSE-ConnectionGUID: ZiN4LPuoSieikez7OOfEew==
-X-CSE-MsgGUID: 09iUxPxLS5e0GeJbysD7/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="263789183"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 04:30:54 -0700
-Received: from ORSMSX903.amr.corp.intel.com (10.22.229.25) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 29 Jul 2026 04:30:53 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Wed, 29 Jul 2026 04:30:53 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.18) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 29 Jul 2026 04:30:53 -0700
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013021.outbound.protection.outlook.com [40.107.159.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5001010EB9E;
+ Wed, 29 Jul 2026 11:35:15 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=A0HR24kZDbdXI4a/j+W5uOS1BNTVcKv7x8tvSi2YHu8yMad/MsqwZGb/NJi8uFOBMrlNYmmWl2Rm1nKxAwKIJrtqlG0aWLHOo6JrHn9bcf4K3utuO71Nl9+1W+ekFP5rGPxQBBpx5HrbmNFZadcP0x9jySqIOAyqj6LdmM9kUkWd0qyyU802LfbuUMQ4tnfybtQMdwsuh8O9YkkFd6612CLEKxnn/+AQ7d99YwOO2BRdond9yAORF2pEENKAgd+jbsLLdNHoWuxoV0zj5fiWlhUQr3pJZp770MynLqO6+nBdD4UKAAaxLJwrii+NKwtA12sJdOVFPbmZZHECix5GRg==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
+ b=BFsgFfOFx+g1LqdbnsNcP9Mta+fH8KgKvQh9mG1wSSCsa4lSKu3Z0Po77OiEWXhXoJqeQ/W1T5x3erVAQMx1V9WFI48OgQZXz5DMx4DGUMPApsVUL7kc0HvyOQA2v1p//bKfPQ7isPHd8RP6mAVuXj5oLZvT2Q9WK0BF9UsDzEZv6VnIz69O2P2kc1OclYyN8aptYjCkwC7OVa05NdXu4XLXTmaYOL/n02y/oOAPD2l3e9mXOd8SJ6cT700tlmK+0W3akPngcdld/vEBMETeGU3TnG46jgeOWauj8uIj1qEt8THqHPb66Hirtn5aL02L5PKtjRz/z2UnF6YZmzGjww==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
+ b=ksKtZWY285/taAao6Zu94jYQ9CxkEq+fxreWsLvoSuuGlXnU8kVZuGWinZRmgHUqlXh2H8ehJfihGsewMVLpcP0p4NTP5TSWEBd1rlhEOE/htrE5Y72OIC3h18agAcY8Z7LmW4ODIa3lVlkSosdTORWVuiQa5ownc1NjI4R50Dw=
+Received: from AS9PR06CA0536.eurprd06.prod.outlook.com (2603:10a6:20b:49d::35)
+ by AMBPR08MB11653.eurprd08.prod.outlook.com (2603:10a6:20b:737::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
+ 2026 11:35:07 +0000
+Received: from AM1PEPF000252DB.eurprd07.prod.outlook.com
+ (2603:10a6:20b:49d:cafe::1a) by AS9PR06CA0536.outlook.office365.com
+ (2603:10a6:20b:49d::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Wed,
+ 29 Jul 2026 11:35:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AM1PEPF000252DB.mail.protection.outlook.com (10.167.16.53) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.5
+ via Frontend Transport; Wed, 29 Jul 2026 11:35:07 +0000
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wVkEHFpMwiuC42NKzuzHHEGfo/hLnFZ5LFqhUKPMf+jPEzHxWS8eu7lVEDWZ2JIWymWhi2ameBxP7e0p9CmucloZrsbWE7GDjiDM617/KQe5UEXrLj6ej3XvMz6af6q90IAkDnZI087jvZT7LC81ZAUY1blCR/Je0RBZ5wb7ihJlk7bIraASJlicPxXu2qETTXIBjwCa/H5qCZhTrJjlXHzBZXunZHMn6sQ5l6x1An3KRyZwF0KzSYoOn8Wlxm2tTrg/KClkRi35ROQ88Z87Z/ZVCZIXD0gCaFQy/pixhW/MyAF6+eHDzCziXppO6XDP2jFoRvO/osd25+49nfjpPw==
+ b=LSnYCeslggQxQSwqDV21tCiTCB6yv8A+BS3ksQcSqchYF8y/ZNsAtgL0N35LiyfAZzzgu6CFfPr+4Z/jtZITRHUsUumNcy5zzVQAnPqM3VRufn9reQPjHWPaK8Pj7EDfD37hxf743LYKws4P1U7yZLiZhTQTebxZdAfvX0pxn8qBK/O59CWXr/vIup/HsaO52swjgJ3vZIVe6gEa8AZJVLfmK3gMj3QRTDNYKxJdKZkQvGnCTqjLIUS7CMlceliqGPUFH8bRlOqeuLnsULe/0Tj0P/2E4g0W9AMwkNBpIFShHrEEk41mfUoVPibG4ot/fWkN1/fW69dPWS3InikcOQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7fWzVInbMO2Ez6H75qAQEn/Tn5m6/49+JuE7UbFTg0c=;
- b=GWFMd+F57H6MBOXPRd11K0vbgnjvcaz1Q7hZQUluarrNoW6qpPIM98MpiREEh6ljdfojnEgc15TnZutK59gH0C76QG1Yuz2dHdMUBM/9ymXKGD7iefIc+0b0xrm3d5ResbwqeIcqXiv4Q3tAHxRPBj4FAFZ2Mv64RHIg7ltUREXXC2qxadW0+gy1B1ixVhy+m4lKFHhXr85hnTmY6TzTrqFNc6orLJ9qTErt+xhE6b6ZQ9Z+OCeJfRCr1px2szri1jQ3aaLzorFZG7q79gQ0GAtasVjEWh7ApcdhuyDUWJu44SryCpLxmyG6pCJHGp/CzJhHDW3GDpKUNbh6E50qCA==
+ bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
+ b=t0rDZriZ6OpjaJ3T+spCrkqxr0d5LZEkUqpA31+K0IeeP51GOkFxCAm2lAS5Q8F4u+dt4CDGHN+ySvjZ4FoheyMLxqAS+fzUEP5vxGEUC60TZkjJkpGBrEpiRHexoSmk49tdqfDRLFPFbhEaUy7T533Xf7eXs+VOcyrb3fPt/B9ApU1SwduBz3HHS2tK887X0YwWfuYfMY+/QuzU4kLdOyosqkubs/H7/w7YG+0PvbVto5HiaqcGCYxIHmgnJKvJwFzs/yQdDJzfyfMvIBGONVO9ZuXztwHAERguCkH3mp7H0xn/Vn9Usf3vRW8AcTTCAVVTyezLQTu4dQxTarwKcw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from MW4PR11MB6909.namprd11.prod.outlook.com (2603:10b6:303:224::12)
- by DM3PPFF3F4DC26A.namprd11.prod.outlook.com (2603:10b6:f:fc00::f62)
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
+ b=ksKtZWY285/taAao6Zu94jYQ9CxkEq+fxreWsLvoSuuGlXnU8kVZuGWinZRmgHUqlXh2H8ehJfihGsewMVLpcP0p4NTP5TSWEBd1rlhEOE/htrE5Y72OIC3h18agAcY8Z7LmW4ODIa3lVlkSosdTORWVuiQa5ownc1NjI4R50Dw=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
+ by GV2PR08MB7955.eurprd08.prod.outlook.com (2603:10a6:150:7f::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 11:30:49 +0000
-Received: from MW4PR11MB6909.namprd11.prod.outlook.com
- ([fe80::9eab:962:806:3794]) by MW4PR11MB6909.namprd11.prod.outlook.com
- ([fe80::9eab:962:806:3794%4]) with mapi id 15.21.0270.009; Wed, 29 Jul 2026
- 11:30:49 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="UTF-8"
-Date: Wed, 29 Jul 2026 13:32:00 +0200
-Message-ID: <DKB0SM0HNAGR.1XWQNAVPB5YTG@intel.com>
-CC: Andi Shyti <andi.shyti@linux.intel.com>, Robin Murphy
- <robin.murphy@arm.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- =?utf-8?q?Micha=C5=82_Grzelak?= <michal.grzelak@intel.com>, "Janusz
- Krzysztofik" <janusz.krzysztofik@linux.intel.com>, Sebastian Brzezinka
- <sebastian.brzezinka@intel.com>, Krzysztof Niemiec
- <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v4 1/5] drm/i915/gem: Count mapped pages in a folio
-From: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-To: Krzysztof Karas <krzysztof.karas@intel.com>,
- <intel-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <iommu@lists.linux.dev>
-X-Mailer: aerc 0.21.0
-References: <20260723102542.3245495-1-krzysztof.karas@intel.com>
- <20260723102542.3245495-2-krzysztof.karas@intel.com>
-In-Reply-To: <20260723102542.3245495-2-krzysztof.karas@intel.com>
-X-ClientProxiedBy: DU7P250CA0002.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:10:54f::15) To MW4PR11MB6909.namprd11.prod.outlook.com
- (2603:10b6:303:224::12)
+ 2026 11:34:00 +0000
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0270.009; Wed, 29 Jul 2026
+ 11:34:00 +0000
+Message-ID: <46319967-0338-4532-b953-dbea77084fe3@arm.com>
+Date: Wed, 29 Jul 2026 12:33:57 +0100
+User-Agent: Mozilla Thunderbird
+Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH RFC 00/11] mm: distinguish PTE table storage from PTE
+ values
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Alexander Gordeev <agordeev@linux.ibm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <2c19247e-bee6-45f4-a353-2fcc60db26e6@kernel.org>
+ <7813b5fe-e767-442c-a356-afc1a5c567ad-agordeev@linux.ibm.com>
+ <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Content-Language: en-US
+In-Reply-To: <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0161.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:188::22) To VI1PR08MB3421.eurprd08.prod.outlook.com
+ (2603:10a6:803:80::16)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR11MB6909:EE_|DM3PPFF3F4DC26A:EE_
-X-MS-Office365-Filtering-Correlation-Id: e663e3cc-a844-4cb6-9cb7-08deed64d6bc
+X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|GV2PR08MB7955:EE_|AM1PEPF000252DB:EE_|AMBPR08MB11653:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1cfd4d6e-e159-4f74-d058-08deed6570e2
+x-checkrecipientrouted: true
+NoDisclaimer: true
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|7416014|366016|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original: xfbEy9xFy2KjtgbtZQwVRo/4rDSmq7tan+BAO+pWdsGQt606AZahYR8QjfxNwepbtpCMtOOt+8wN6/aZUrVxGXdve9SNgmI8m3i49FVH1QvKzgN5iWDAyc/qG37Ap0G5Y97odKPEnoyFqd5WWCZrVDk5WcqlYn1UwCiLpvduHOQ4yKJHDxymZa3ezH7yIgpM65fy1J5UWO78alRqVRYlrkDOFWL2EaCUXoJxhmlAjJf/9UOgfdXHsNXdCO/znX3umbrqmhM0sQPcJ5r2VzRsoQeAv+i6QegXoExunECasQNkLXlSXuF1rfAjl27hyVJfWLP1kh6Wm1wg//SMzutnVr0XBV1zVP+5KkRjixIEliIfiHgPajlHGFEg0DSfY+ITRVfPTuzgauKHtZXF4IJPVHsDbIGz7qKh3qavST24XYL4oY8gg7unjuuFv0XeSHMU+/FxCkxzesBUNQBZN/20qiLgprM6KvcPUSbXs7HPQiJI0p45cXsivdzB+efiv0xLdN4ZMqtdCHKXfaRp/J6a1owLvwowpLkBOkJkar4nFaDFO7GgG4qvbOjtHKBP5iQNtpNOHdII6lgDMrPlunWF1g3wYJI2ezCDEC9O7KZd6Sf89Vm+sXMSJ5YifvkjccdnRSEDGI26zF05DhcTtdnoNfWBagvIF7AW8rx0Rv6l+2k=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: bfpSLQDM89AGYUqYoFAxdTSUxQeWzvqrXWN01Q8nSdOHv09YbMqZwEkh4De+S90bWZhKDnix564/0iluBMAaDBLsP/eTzmgwj8zSC8MqbERlfS0mpGodCyOiNyPtSf7Pe+nzMgJoUgaYugPoxE6pM543p0DW/yTGW6oZ7bODJ5DM1V+j55iRlovzyeqTGf9Sb2QjeloUSNBQhR4N/qRtUg106VYsNxb8LiTmvTM4/T7wuyg3rWvD8R0cLWaftev4/sKlE31/5RJ3yOUwg/+bPmqGyASd1WLyfVazwE4VmC1+AShpm0prYuFDu0FzTmqdeirtBDGb4Y/uPepsm/ldrw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB7955
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM1PEPF000252DB.eurprd07.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 191f0cd4-83b2-41b7-9c2f-08deed6548c6
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|6133799003|18002099003|22082099003|4143699003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: FvinyVV9RucFG99YB0mvKCkzJkgi35vgvoVdvbnNDcV8PrkHzIP5g6Owsv6V3GCPCuFJQiIdqGTAj8bI1cN/7eLenLGpZEY7rTXNBbrG40LjC+F5CIfuFswHiHMr9zk7iJAzOec86ycRuJ0khjixt3bdc046bwgvl5ZiZW8ZNkPNQk1PFtCqqyzhQjbkx02uX2yBx5nAimU/wZTiHUUKf1jkQFyc5leoOTdWMx3LtRVa5Eh86G/C2AzAWu7wjo3hsSICgHoAuRtyELAHo4VoBzp2ESi9+bbLHzfW8PCkaPLq/Axq2hSObGPD5jixvZdW55engmBxgId5T88zMuf/RFYShveHLgREZcOms8LWCPWaU9v0gIsZYxZNz9adWAJ/Pl1Z8KHEaYQy+zW+sdQ8YgN3tVikTNvuGtJdL7fj8yTDXEYu00nzdzz/Af4znYivtaWdLQzQpmkP55/LlypmakL/Er+/RjviNE9upwIvQz/5T85JciD/sRLavQFSOARqqgojwe2uV1P5hKdwiBNEQ4k+AZvriHYhzJdB/PqVGvaPcNeloS1a2OHL6oJFlOrQAApUafzdkGCWMzOFwURLrtB8ZPRvSjIz0kTvfRrbsQFdiLC3e0CV+LCpCYqpZNJO
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR11MB6909.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(6133799003)(18002099003)(22082099003)(4143699003)(11063799006)(56012099006)(10067099003);
+ ARA:13230040|14060799003|1800799024|82310400026|35042699022|36860700016|376014|7416014|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: z16m1iP5gJN11a0jHm2h5qPOvpYoNr0dsqnEGISR6jYEFwxRynbmbpuiqBvgMacxSIEx5YgZ1PwjI/B9Sb9qPESFT+ZKOzcpvp5wGg5c8wFb5VifVw9YxWu3jtI1X8Y0UKz7eDfqmnn4zZCjk9sUGyf8kW5nyjz3XUG3wcikRyU77msznLp6gKihMrp7u+N5DfYb/ZDcfjTyI7Rlr79hpWV2IcgXmQNbclHFb6Rq6JKpIdfruwnLVHkKlTWBUzeNugtyI3rXG4GiTCpREqnQ1bwnzXH3ZnCHuRsWA1Olns91kFs21geX+8loQjA3qKxaOU5s+fbSJhCwxoUhOT8ccWvQ69YVooyCBgyvKfCZHpy31IRO4xc33DWQzHXuNhS8Fl3qzZSyIjpOgukT90izO06tZEBoOeC2N2dPYJapJN+F+L4pTMNfznbH2+UtMKogru9eNptrEb+M8/uJKDP0mf7A03ZcH7pWmbm/a2H5kgRcDgkK8hcF5kjrjKAbvKNxkvHQqA0GpT1YZ0rl651rwF1U/tgwvIkXpDYm1PKALpA+velo2OYakXWZdXf9KYpJITaddu7xFyAb8yeSZB7/l5loYr/hKxTr/1/ItLgUkYm2YR/d4z5RRKPprkSOic3eWuDYHegrbt3MuncmtPR/bd5+17L8W730bwCGNTOzAyDzLqbC1ZA4nkYvfNni0/DwtNnIs7/ljjvCCXn5zPInpQ==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(14060799003)(1800799024)(82310400026)(35042699022)(36860700016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ekNNbllZVStaU3ZkNVBYR3pCTkxzK3cycGRkM0E4QVZrb3JFaTZDaGlWYzI0?=
- =?utf-8?B?UjBzdnFxNmVRSXpQTkZMOS82VUVTd2NpUFB4S0VBaDY2a3JWSzhVMlEyZkN5?=
- =?utf-8?B?eHRSRFRVa1BtajN4dzcrK1hwWWVuNWs1WGJjZE5EZVpEeHh3RitwQzF1ZWtj?=
- =?utf-8?B?QXdUZ0djVTcwQ3BwUmNiTzdGVEFjWkkyVC9UcllRQmRDdlByL1dhRTJXdm93?=
- =?utf-8?B?V1dQUUxDcDRvMklSSFlsZmpreElGVGZqdzZyQkF4QTd2eUUyalBKK3BNRHcz?=
- =?utf-8?B?dWlFR05aRnlIbW5QdnJyVkN3ekgrUkxFdzl3ZjVlcERrUVNxT3dDOTFyN2lM?=
- =?utf-8?B?STV1NFJmcnU3Szl6WE1MN0c3VUh0ZVhURUFiNFJJVDVtRk1lL1p4d2RXS0hC?=
- =?utf-8?B?MmVZZVRwTkRnM1JqRnFHWXN5a094TCtmVGQ3RmhYRC94T0UyVFJjWFF3M05V?=
- =?utf-8?B?bS84UksrMXFZQk53cTFHWmdHQnQxcm11Z05BMHhjRDlKVHE0NEtTY3ovMGEr?=
- =?utf-8?B?WUlSN2pVVGJpN2lzemlXRDhtWlMwemhOWWhpQTlhelBwYm44L1NvTUdVS21B?=
- =?utf-8?B?b205U2gxQWN1ejFpaGVSQkgxMFlZRVpEQ2VqakxzdUZocmJqRnFWM2d0SStl?=
- =?utf-8?B?dTlmbWorUTFpdDNMY2EydjErVEczOFMzU24ybytTS0hYZEt6eURnb25Kazlr?=
- =?utf-8?B?YUIyRWFFazlobDhqYUVzQ3VZM0I4VE5EWmhaV2NQZjdSTHg0TzZpSE1zVVRl?=
- =?utf-8?B?VFJ4Q0tMcU5vdkI2WkQ2cjV1ck5HMHovT3RYbzNXcEpsMVhVZXB5cHRZOW5Z?=
- =?utf-8?B?VU1uYzgvNkhRTzltTXFTeXd6Wm90NDZHWWFRVy8yeXA3bjJnZ2RlSE8rRnZP?=
- =?utf-8?B?a09tN3E2cnB1MDU0V1BDbWJJdjd4MUpYUVdJVThwNVpmdnpKMzNYblZqM2w1?=
- =?utf-8?B?bjE2Z29XSE0zOUZwN3ZTRE44SEtMTFliT2dSTXhwbHFLSzF4L0xvL04xenBo?=
- =?utf-8?B?UGRRcUpkQ2M0MGtBNUw3WU9HYitlK0ZjaDgvZWFwRWRTMm5qZWdiMllYYngz?=
- =?utf-8?B?dURSa0E2b0ZxS2pPdm1oRWpKaXpJaFRaVlNiR1l5TlVOSnJvSW9XbDNmSjdX?=
- =?utf-8?B?eUhCeVgvajlCSzhEMEd2S2lBMk9zci9NYnVLak1wUkxPMU1QcUluVDNBNW1l?=
- =?utf-8?B?MWhoeCtMZXNTZWxiUmdoaEtiT3V3WjZtUlRCSkhNZ3BGZ1pSMXd3YTY0ejY2?=
- =?utf-8?B?ZzdMajlxSWJRTXFyQzg1MXdQVXhsSjlXRXZkRjBVeFU4K010N0EyOGNDdHFJ?=
- =?utf-8?B?am9TN05jalhabFlhZEFVdU9Wcml1dmNyYm9Lc3NUNDdTblQyUm9WY3g5dmVL?=
- =?utf-8?B?MUM4Y2Z2T2lGc0JxaWM3QWVhVGVscm5ZRHpGbnJPK2FGeUZoL0x5UTJyNUo2?=
- =?utf-8?B?OTJyZ01wNlN5K0w1RjN4a2NsRGFUNGZsVVd3RWY5cytjZjZQL1R4ZTFuMVc1?=
- =?utf-8?B?Uy9TamNmUDRTSnZReTVvS2h4bUY5ZFNZYUdua0s4N0doR2FPekhOeFBHNEpO?=
- =?utf-8?B?SWVWb0R0V1hnV2sxTG45ZXpaaGNuV1dxRVdpcWNjblY4ZGpEVnVaYnZyUjZu?=
- =?utf-8?B?d2tkd2hYdlgzMXNwRFltbGs0TFNyR0xpTVNLbi8wMnFETytOZG9YZUtZT3Ey?=
- =?utf-8?B?bnBkQVVTWHBhNVEwZ1FxcmFIbVRrRlppNngvRmRycExGc0RMTGNMdEVOdXhH?=
- =?utf-8?B?bUdDWUg5ZWZjSi83VGRlUGJ6YlM2M1ptOTEwa0xjODZ0clhuMzV0TE1UK0V5?=
- =?utf-8?B?R2hob2dRWFYvcnJ1eGJjVlQwOUhoZVMvUklvOStMSDB6Q1NMaGJaaTR4ajNK?=
- =?utf-8?B?S1IreUVQZTBVMHBPaU5ONHFJd3ZLdjZkK010emlBR28vRlhPUzBDRndOM2NH?=
- =?utf-8?B?bU1lT2Q4S2M0ems1RkJLUFA0ZllPenowYTAxNjRrVXg4LytrRy9CL1ZtaDRu?=
- =?utf-8?B?UmlqMTRKTUlUYVZueThicGFvSnJqM0hmRjdXQVdZWjdidVZOQ1FpcFU5bWtv?=
- =?utf-8?B?WHM3aVRNT1FGVHEvQXhVUURjN3o0TkJxYWlZRHQ1TkRJSG1jS2dTNUtmZlRX?=
- =?utf-8?B?QzJ3WXA5YnBnZ1FsQVBmaTVNaE1uSUJCT1dzRXlFWVFNTkZDcm00OEUwN2Fl?=
- =?utf-8?B?TGtWTDJWOERqUjJTVDZBcGxqQitzd2R1Z3lvVlJPTk9Mc1R6ckhnRmZwQUpa?=
- =?utf-8?B?bEtJMkFlRXJZRUJSTUVoc2d2aytWdTR5QzJvR2VLZHV4R0NUdkcreHFOdWhH?=
- =?utf-8?B?T2pEdU85Q0dlUHpKRXhRa1gwdTRMNXdaWXZBN1VhSHRkMGlLd0pBbXF4UUlL?=
- =?utf-8?Q?yk1nwSDppDEL16Zg=3D?=
-X-Exchange-RoutingPolicyChecked: DKgQX3LiadnoNsCoElsreAfuU/FFCbEhflXThta8tITnGx4MBw3mkpR3YtvDOExu8PZ3o0HaX4Oepj7gCoUEYar5CLDnvl6+sq/p0lZS5SVXRxo6YJHk42CMxN2rvfo8z8Egj4sY3fSz80l5qEu6lmnuMxllLGKWfTK/ax/3B8oRbb/drLbH7mkbDNNVVV03JiI5G0U1giOUbAwU8mx4oXt9MyBJCSLsyZ3Kv/qOCJzO1zPSyERepg7CJXf+AiuM03cX2ChBFeVX4MxT59FscphTi6iKXf8sNobMci35ma8idRMdQFfEDH214qEv3PqzrvovrEFwtAsxihQ4y4cx9g==
-X-MS-Exchange-CrossTenant-Network-Message-Id: e663e3cc-a844-4cb6-9cb7-08deed64d6bc
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR11MB6909.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 11:30:49.0606 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jCTd9kGgnTuhXNP5hgQMi9VLcY5zYWWdVLkWo3KG4jcycHB+MoQo0dJjGGh8U5aqqxt7Bs/IYdVTNbhAFrZun+mmEoxZZNUbx3C0YHAZBrg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPFF3F4DC26A
-X-OriginatorOrg: intel.com
+X-MS-Exchange-AntiSpam-MessageData-0: ENzrXljKBm6j88ocfFU+EglvTRz9gwEO2XclvPfJlM0SMYPml8qBN7VBr1UkWY8PlHkL84VSx17YuFpoNXHSN9TAEg+fpXudNoKAQuufrKipXBvCdefFXy/otThCc4mhQCcQIzvdSgFZ2/NXWMDasEHm6joFxEaxOzo0pcNvuM/aKekIYFDqxzwKJpVTyGnsVF72jogbVQ1JvzKGEjGbLVgAnhQkZkVN0pNBp+RVkEGrGe8Mf4yb60Ze8uXoz2VgXcZr3jpOAKd3Hk5uwBWM0yd1FD0l4DqE6NotxNQLr8TTkmipYeqe+WEdDNGs9SBaDTvggiqSszP5Ujwp8VFA7i5mZo1Dt63ktCIBR3GP7Di9PrmjkWf1b5iHgiGDuvKuGlAVCe9fHk8Kj9WPYVctHjkR3F3VoAIqJE/PdzZeunCxtniBF9CW0J/7gL7gFZC0
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 11:35:07.3851 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1cfd4d6e-e159-4f74-d058-08deed6570e2
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM1PEPF000252DB.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR08MB11653
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,158 +191,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
+On 29/07/2026 12:05 pm, David Hildenbrand (Arm) wrote:
+> On 7/29/26 12:13, Alexander Gordeev wrote:
+>> On Tue, Jul 28, 2026 at 09:26:06PM +0200, David Hildenbrand (Arm) wrote:
+>>>> The generic definition aliases hw_pte_t to pte_t, so this series preserves
+>>>> the representation and behaviour of every architecture. ptep_get() keeps
+>>>> its existing READ_ONCE() semantics and converts the stored element through
+>>>> __pte_from_hw(). An architecture can later define a distinct hw_pte_t and
+>>>> convert its PTE interfaces to make the distinction compiler-enforced.
+>>>> Architecture PTE implementations and most architecture code are
+>>>> deliberately left for those later opt-in conversions.
+>> ...
+>>> Do you have a pointer at the arm64 part, so people can get a feeling for how an
+>>> actual hw_pte_t implementation can look like.
+>>
+>> May be we need the generic hw_pte_t implementation as { pte_t pte; }
+>> right away?
+> 
+> Indeed, that makes sense. We just need a way for the architecture to opt-in that
+> it did the conversion.
+Yeah and architecture cannot opt-in until its converted. So we should leave
+it to architecture to define hw_pte_t.
 
-On Thu Jul 23, 2026 at 12:25 PM CEST, Krzysztof Karas wrote:
-> Before addition of commit 029ae067431a
-> ("drm/i915: Fix potential overflow of shmem scatterlist length")
-> and after folios were introduced complete folios were always
-> allocated, possibly overloading the scatterlist capacity which
-> was never truly limited to PAGE_SIZE when requested via
-> max_segment. The above commit addressed scatterlist overloading,
-> but unintentionally disabled PAGE_SIZE as a valid max_segment
-> value and failed to take care of remaining pages from folios
-> above max_segment boundary.
->
-> This created a state, where multitude of scatterlists were used
-> for the same folio, but never counting enough of its pages to
-> jump to the next folio.
->
-> Track how many pages have already been counted in a folio and
-> use that number as an offset on consecutive allocations from the
-> same folio to ensure it is fully covered before reading next
-> folio.
->
-> Fixes: 029ae067431a ("drm/i915: Fix potential overflow of shmem scatterli=
-st length")
-> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15816
-> Signed-off-by: Krzysztof Karas <krzysztof.karas@intel.com>
-> ---
-> v4:
->  * Rewrote commit message to be more explicit about the problem
->   (Janusz);
->  * Moved max_segment validation to the beginning of the function
->   (Janusz);
->
->  drivers/gpu/drm/i915/gem/i915_gem_shmem.c | 123 ++++++++++++++--------
->  1 file changed, 77 insertions(+), 46 deletions(-)
->
-> diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c b/drivers/gpu/drm/=
-i915/gem/i915_gem_shmem.c
-> index 06543ae60706..af195db63038 100644
-> --- a/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> +++ b/drivers/gpu/drm/i915/gem/i915_gem_shmem.c
-> @@ -68,10 +68,13 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  			 unsigned int max_segment)
->  {
->  	unsigned int page_count; /* restricted by sg_alloc_table */
-> -	unsigned long i;
-> +	unsigned long next_pfn =3D 0; /* suppress gcc warning */
-> +	unsigned long folio_start =3D 0;
-> +	unsigned long folio_end =3D 0;
-> +	struct folio *folio =3D NULL;
->  	struct scatterlist *sg;
-> -	unsigned long next_pfn =3D 0;	/* suppress gcc warning */
->  	gfp_t noreclaim;
-> +	unsigned long i;
->  	int ret;
-> =20
->  	if (overflows_type(size / PAGE_SIZE, page_count))
-> @@ -88,6 +91,9 @@ int shmem_sg_alloc_table(struct drm_i915_private *i915,=
- struct sg_table *st,
->  	if (sg_alloc_table(st, page_count, GFP_KERNEL | __GFP_NOWARN))
->  		return -ENOMEM;
-> =20
-> +	if (max_segment < PAGE_SIZE)
-> +		return -EINVAL;
-> +
-Move this validation before sg_alloc_table,right now you're leaking st.
+> 
+>>
+>> Also, can you envision a case when sizeof(pte_t) != sizeof(hw_pte_t)?
+>> If not, the compile-time check is worth adding.
+> 
+> That wouldn't work as is. We'd have to intercept ptep++ and instead have a
+> helper to advance the ptep pointer.
+> 
+> One idea for that would be to let the compiler catch that by marking hw_pte_t an
+> undefined struct (unknown size), such that the compiler would indicate any usage
+> of ptep++ properly.
+> 
+> That can be done when it would actually required, so as a first step having a
+> generic hw_pte_t would just work.
+> 
 
->  	/*
->  	 * Get the list of pages out of our struct file.  They'll be pinned
->  	 * at this point until we release them.
-> @@ -101,7 +107,7 @@ int shmem_sg_alloc_table(struct drm_i915_private *i91=
-5, struct sg_table *st,
->  	sg =3D st->sgl;
->  	st->nents =3D 0;
->  	for (i =3D 0; i < page_count; i++) {
-> -		struct folio *folio;
-> +		unsigned long folio_page_index =3D 0;
->  		unsigned long nr_pages;
->  		const unsigned int shrink[] =3D {
->  			I915_SHRINK_BOUND | I915_SHRINK_UNBOUND,
-> @@ -109,71 +115,95 @@ int shmem_sg_alloc_table(struct drm_i915_private *i=
-915, struct sg_table *st,
->  		}, *s =3D shrink;
->  		gfp_t gfp =3D noreclaim;
-> =20
-> -		do {
-> -			cond_resched();
-> -			folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> -			if (!IS_ERR(folio))
-> -				break;
-> +		/* Grab the next folio if we exhausted the current one. */
-> +		if (!i || i > folio_end) {
-> +			do {
-> +				cond_resched();
-> +				folio =3D shmem_read_folio_gfp(mapping, i, gfp);
-> +				if (!IS_ERR(folio))
-> +					break;
-> =20
-> -			if (!*s) {
-> -				ret =3D PTR_ERR(folio);
-> -				goto err_sg;
-> -			}
-> +				if (!*s) {
-> +					ret =3D PTR_ERR(folio);
-> +					goto err_sg;
-> +				}
-> =20
-> -			i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> -
-> -			/*
-> -			 * We've tried hard to allocate the memory by reaping
-> -			 * our own buffer, now let the real VM do its job and
-> -			 * go down in flames if truly OOM.
-> -			 *
-> -			 * However, since graphics tend to be disposable,
-> -			 * defer the oom here by reporting the ENOMEM back
-> -			 * to userspace.
-> -			 */
-> -			if (!*s) {
-> -				/* reclaim and warn, but no oom */
-> -				gfp =3D mapping_gfp_mask(mapping);
-> +				i915_gem_shrink(NULL, i915, 2 * page_count, NULL, *s++);
-> =20
->  				/*
-> -				 * Our bo are always dirty and so we require
-> -				 * kswapd to reclaim our pages (direct reclaim
-> -				 * does not effectively begin pageout of our
-> -				 * buffers on its own). However, direct reclaim
-> -				 * only waits for kswapd when under allocation
-> -				 * congestion. So as a result __GFP_RECLAIM is
-> -				 * unreliable and fails to actually reclaim our
-> -				 * dirty pages -- unless you try over and over
-> -				 * again with !__GFP_NORETRY. However, we still
-> -				 * want to fail this allocation rather than
-> -				 * trigger the out-of-memory killer and for
-> -				 * this we want __GFP_RETRY_MAYFAIL.
-> -				 */
-> -				gfp |=3D __GFP_RETRY_MAYFAIL | __GFP_NOWARN;
-> -			}
-> -		} while (1);
-> +				* We've tried hard to allocate the memory by reaping
-> +				* our own buffer, now let the real VM do its job and
-> +				* go down in flames if truly OOM.
-> +				*
-> +				* However, since graphics tend to be disposable,
-> +				* defer the oom here by reporting the ENOMEM back
-> +				* to userspace.
-> +				*/
-Looks like this comments are missing space in aligment.
-
---=20
-Best regards,
-Sebastian
+-- 
+Thanks,
+Usama
 
