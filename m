@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45007C53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 02:55:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7D4CC54F55
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 02:55:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A84AF10EA4F;
-	Wed, 29 Jul 2026 02:55:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C4D010EA5B;
+	Wed, 29 Jul 2026 02:55:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="fIPmPzgQ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="kNl6unK9";
 	dkim-atps=neutral
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
  [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0BB910EA4F
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 02:55:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785293705; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B640510EA5B
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 02:55:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785293709; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Lh80LjnU0HlaUxC/93bRp1SHYIrHpUupfO/p/5dS9M87PWLLVcDV+Ge2cSHCINlfQSyhG22+r3toWslE8+cmcB272wXQynYhgdUJ8COl3OZszzMSTvMxebkKRz3PQahwdT7gaiZzD6E/CM/1MsDlMYljMnspv3Mq2Z7jFJKV8Ns=
+ b=XOAqPiicBAa4WvKO3fxwHnLB8Luziepj13WUeyekfocQeJwkme/yt7FhcNvrWrX0+/RKhCSGWAKKz5ANccm8GbUE4ZgxFqCTEyDPuMDCkqfjJIih3u62Ukti23EQsux/o41a+xb66h2s+8FFVBUKVbHbsPHFBo0WywY4F81N2JU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785293705;
+ s=zohoarc; t=1785293709;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=3qgDQ3rUjvL+eb8I8XqukOtYvP/7VixYHtbf1CqS7dw=; 
- b=D312AZKO9BFWiKTAQXAWpptmksEGGy10h0g4xfg3FYAJrrlEPV9VyoXaoU5do6fF0Guzl//OOIuVoSEWQajqVv9Ad8Yh17G1Y7dIkSzMh/AkE/bunI13KppMmXH01baeuW6yb6htDUelskxMmxlnSAI9hQyN6CYocjwpyh3FXaw=
+ bh=Y6/txCpkEA9o/9Hb21p6HQfPYmUI3SJWcARAzkRK1P8=; 
+ b=d2VyomKUVW+Xronc4GG3RDfD2Dn4GkoNsTR7MNEEfEYAI2h5v+7HQdZ6pRfTSgTlft7Rkq1e70ULvq+XXNWLpf/pwpikMZY+KqPXxFuUMwcrrds1eQxJSD+n1eDbefUXA3flHPHNTQySWi0gK+gBJJX97jgQLMSGsUxhq1/CToo=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
  dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785293705; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785293709; 
  s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=3qgDQ3rUjvL+eb8I8XqukOtYvP/7VixYHtbf1CqS7dw=;
- b=fIPmPzgQIi8/WRi8rcgYELzVR1omFOhUdxLCLEjroGZKUDCWvMcAWYcDTxGdVZ8P
- w09crDk9MNUZoK0uerzDFR8SendrIfvLIDyjL8aM1bP7/2/hyXGVpRG2ek15oaX+NKz
- QTRHNSNEzXjeSJMJQ43ndlDT4Krgz3JoQx80JuXk=
-Received: by mx.zohomail.com with SMTPS id 1785293703305223.904484387485;
- Tue, 28 Jul 2026 19:55:03 -0700 (PDT)
+ bh=Y6/txCpkEA9o/9Hb21p6HQfPYmUI3SJWcARAzkRK1P8=;
+ b=kNl6unK9OeBsqs4407PwCxNB6K0YQAIo939ykr7vm7agD8Pms2SGZjN79xZyY4ii
+ OzKCjg4LOMmRBdfza10T/qKvoZEfnEvCbSCBLYjAr7r8omaLoxQRdS45AkDAcLpRe84
+ r9SGiXzWwqCI5zW1GX+xV1Az1b3cj24K4gMyAiKI=
+Received: by mx.zohomail.com with SMTPS id 178529370825151.029050959387746;
+ Tue, 28 Jul 2026 19:55:08 -0700 (PDT)
 From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Wed, 29 Jul 2026 03:54:20 +0100
-Subject: [PATCH v4 08/13] drm/panfrost: Rewire reset sequence to avoid
- concurrent attempts
+Date: Wed, 29 Jul 2026 03:54:21 +0100
+Subject: [PATCH v4 09/13] drm/panfrost: Add debugfs knob for manually
+ triggering a GPU reset
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260729-claude-fixes-v4-8-01968f2ec77a@collabora.com>
+Message-Id: <20260729-claude-fixes-v4-9-01968f2ec77a@collabora.com>
 References: <20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com>
 In-Reply-To: <20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -62,18 +62,18 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3022;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3132;
  i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=EOBTYehPZP710M/xi1UXjadKS0g0JvyEZbZf3MSq+lQ=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqaWtXQoZW+u1WMJRSfvxmK/c2SNjVN/Al3Nye7
- Th+PajF8z+JAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCamlrVwAKCRAOJn5M7lND
- PezLC/0TdqAardxYoauuQreof5sGx8AKWrzieJ9vhVTvBlFlrWHQruMBcuxM2lVVePD4WVRB9Fr
- zwFknCHYQ0oKsuzSex8lO4zc7JqcFuxdKjztiMGPSeYmY3e/e69ZACmby8qstE5j4TkFHJcAOE8
- ypq5GxIDlqh3w8Sr/UTCLNnIZbihtb/lX9msvVi9McuRVcw3RuieWrwAEdhXzB/13pXvuF+uYxZ
- rpotS61pZDzKw1gUKBXEOus5JvvhV6X/nRLJrhs/uAQiiWXOQuCkPoZpHMOhUbIY9Gs8BR5vmSP
- kyq86yjfXTHpaRQS5Jda0XioPIHBLDstG0ytiXbdRozUcP8JD2mL5qYY0pFMt9lIaYwHzPrCyFI
- 2xDAUBiXD9Mt/G3zzDaXWsXVrTOmoYultqr58mYhSldkQD+uts5kyD1RdArzEykueSybzyrkx5j
- QUAsBhh2Wfa080fqzAKh1UYkx3Pj3JCBjYgyWVa60c7l7mgq9P8FNh3z9R89YjnwKFk7k=
+ bh=7nO+c+xPqoWz2WRorGOFNFAUj4TQ2MfRWQoearaVypM=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqaWtXueZbHGwD1NYdjh2lDbesCsYOFngR9PgKy
+ FX/aPTBoUyJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCamlrVwAKCRAOJn5M7lND
+ PSD4C/9iDhl+iXj665aFJZ736Z0DhqrXqpoDLEFdQdZTG/nnsZz9ytSgdW8QYMpbX08VgtOTMvi
+ 9HhxyuZwvJ5ZichFcrGFFSaZAG/U/nJQo/W1bM9F6r11xSAxOIqEevIprIJpIEa9SDNFqDjAJ+X
+ xg37yUzw1lmdv3nqq5eEjBHThJVP4SbDfHHdlG/FOYF9vB5KySuUbVUmtLSOHa5PP4WmF4aZrkh
+ Bt4U6hM1F5om9iJMlzyciLSrJhWjJas1PW22eifBxCGB9UP3OGnmkeVW13bSS6qqM99kh+J6N57
+ SGNyNf67oNcJHhbVo0wZ1Ma4rtqiOyRgvkIA3aH9k/ja1wQi9uQBRk/0AdfkOBeWUdEtnGseoMW
+ yNl7LTDq140pcKYPtb6wUn8Zg1h8xIvW3L0lvtaOaX/k6BcqABnbGm5HISasTW+Prf4wPl05Ehp
+ CrxuhHxUs7zbaEEOEz5svW+RBUFUNv/5q5G0FCYK2HrgYovmR9DYZ5GtrPHTUbUzClxAY=
 X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
  fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -91,85 +91,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This way, and in imitation of Panthor, only a single reset thread can
-progress at a time, and other threads wanting to trigger it just wait
-on the ongoing one to finish and wake them up.
+This will be of great help when testing potential races between the GPU
+reset sequence and other parts of the code accessing HW registers.
 
 Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.c | 1 +
- drivers/gpu/drm/panfrost/panfrost_device.h | 5 +++--
- drivers/gpu/drm/panfrost/panfrost_job.c    | 7 ++++---
- 3 files changed, 8 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_device.c | 41 ++++++++++++++++++++++++++++++
+ drivers/gpu/drm/panfrost/panfrost_device.h |  3 +++
+ drivers/gpu/drm/panfrost/panfrost_drv.c    |  1 +
+ 3 files changed, 45 insertions(+)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_device.c b/drivers/gpu/drm/panfrost/panfrost_device.c
-index a9d29d9ee22b..a51f1ef8563c 100644
+index a51f1ef8563c..c0334b72c70b 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_device.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_device.c
-@@ -8,6 +8,7 @@
- #include <linux/pm_domain.h>
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/wait.h>
+@@ -2,6 +2,7 @@
+ /* Copyright 2018 Marty E. Plummer <hanetzer@startmail.com> */
+ /* Copyright 2019 Linaro, Ltd, Rob Herring <robh@kernel.org> */
  
- #include "panfrost_device.h"
- #include "panfrost_devfreq.h"
++#include <linux/debugfs.h>
+ #include <linux/clk.h>
+ #include <linux/reset.h>
+ #include <linux/platform_device.h>
+@@ -629,3 +630,43 @@ void panfrost_device_reset(struct panfrost_device *pfdev, bool enable_job_int)
+ 	if (!panfrost_device_started(pfdev) && !ret)
+ 		pfdev->gpu_started = true;
+ }
++
++#ifdef CONFIG_DEBUG_FS
++static int reset_get(void *data, u64 *val)
++{
++	struct panfrost_device *pfdev =
++		container_of(data, struct panfrost_device, base);
++
++	*val = atomic_read(&pfdev->reset.pending);
++	return 0;
++}
++
++static int reset_set(void *data, u64 val)
++{
++	struct panfrost_device *pfdev =
++		container_of(data, struct panfrost_device, base);
++	int ret;
++
++	ret = pm_runtime_get_if_in_use(pfdev->base.dev);
++
++	if (ret > 0) {
++		panfrost_device_schedule_reset(pfdev);
++		ret = wait_event_interruptible_timeout(pfdev->reset.wait,
++						       !atomic_read(&pfdev->reset.pending),
++						       msecs_to_jiffies(60));
++		pm_runtime_put(pfdev->base.dev);
++	}
++
++	return (ret > 0) ? 0 : -ETIMEDOUT;
++}
++
++DEFINE_DEBUGFS_ATTRIBUTE(panfrost_reset_debugfs_fops,
++			 reset_get, reset_set,
++			 "0x%08llx\n");
++
++void panfrost_reset_debugfs_init(struct drm_minor *minor)
++{
++	debugfs_create_file("reset", 0600, minor->debugfs_root,
++			    minor->dev, &panfrost_reset_debugfs_fops);
++}
++#endif // CONFIG_DEBUG_FS
 diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
-index eeca57efcbec..f0acfc634cd4 100644
+index f0acfc634cd4..f96ba50dfa91 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_device.h
 +++ b/drivers/gpu/drm/panfrost/panfrost_device.h
-@@ -167,6 +167,7 @@ struct panfrost_device {
- 	struct {
- 		struct workqueue_struct *wq;
- 		struct work_struct work;
-+		wait_queue_head_t wait;
- 		atomic_t pending;
- 	} reset;
+@@ -352,4 +352,7 @@ panfrost_device_started(struct panfrost_device *pfdev)
+ 	return pfdev->gpu_started;
+ }
  
-@@ -341,8 +342,8 @@ bool panfrost_exception_needs_reset(const struct panfrost_device *pfdev,
- static inline void
- panfrost_device_schedule_reset(struct panfrost_device *pfdev)
++#ifdef CONFIG_DEBUG_FS
++void panfrost_reset_debugfs_init(struct drm_minor *minor);
++#endif // CONFIG_DEBUG_FS
+ #endif
+diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
+index 27f4c4b217f5..fac5be20ad60 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_drv.c
++++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+@@ -916,6 +916,7 @@ static void panfrost_debugfs_init(struct drm_minor *minor)
  {
--	atomic_set(&pfdev->reset.pending, 1);
--	queue_work(pfdev->reset.wq, &pfdev->reset.work);
-+	if (!atomic_cmpxchg(&pfdev->reset.pending, 0, 1))
-+		queue_work(pfdev->reset.wq, &pfdev->reset.work);
+ 	panthor_gems_debugfs_init(minor);
+ 	panfrost_sched_debugfs_init(minor);
++	panfrost_reset_debugfs_init(minor);
  }
+ #endif
  
- static inline bool
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index bda1494eb430..ed8a1fabd47b 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -499,10 +499,8 @@ static void panfrost_job_handle_err(struct panfrost_device *pfdev,
- 
- 	pm_runtime_put_autosuspend(pfdev->base.dev);
- 
--	if (panfrost_exception_needs_reset(pfdev, js_status)) {
--		atomic_set(&pfdev->reset.pending, 1);
-+	if (panfrost_exception_needs_reset(pfdev, js_status))
- 		drm_sched_fault(&pfdev->js->queue[js].sched);
--	}
- }
- 
- static void panfrost_jm_handle_done(struct panfrost_device *pfdev,
-@@ -757,6 +755,8 @@ panfrost_reset(struct panfrost_device *pfdev,
- 	panfrost_jm_enable_interrupts(pfdev);
- 
- 	dma_fence_end_signalling(cookie);
-+
-+	wake_up_all(&pfdev->reset.wait);
- }
- 
- static enum drm_gpu_sched_stat panfrost_job_timedout(struct drm_sched_job
-@@ -893,6 +893,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
- 	if (!pfdev->reset.wq)
- 		return -ENOMEM;
- 	args.timeout_wq = pfdev->reset.wq;
-+	init_waitqueue_head(&pfdev->reset.wait);
- 
- 	for (j = 0; j < NUM_JOB_SLOTS; j++) {
- 		js->queue[j].fence_context = dma_fence_context_alloc(1);
 
 -- 
 2.55.0
