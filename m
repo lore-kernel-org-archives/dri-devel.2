@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AAECC53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:11:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08CEDC53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:12:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0779F10ECE0;
-	Wed, 29 Jul 2026 16:11:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 696FA10ECE1;
+	Wed, 29 Jul 2026 16:12:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VdBvM2AX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CZ+NWejb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5043D10ECE0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:11:58 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A8E010ECE1
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:12:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C82686001D;
- Wed, 29 Jul 2026 16:11:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514881F00A3A;
- Wed, 29 Jul 2026 16:11:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5C00341774;
+ Wed, 29 Jul 2026 16:12:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121C81F00A3A;
+ Wed, 29 Jul 2026 16:12:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785341517;
- bh=lzTu5E+J2OY8qGiIlDcajOjhHJZ2FwNaiUolPvs8I/c=;
+ s=k20260515; t=1785341533;
+ bh=OsoCDgIp2mQLWpjaIS74a0iK6I/On/yJkMt7CbVF4Vo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VdBvM2AXk5SNjFbHir6lZNpMBCQKHZ+L2X1KxYFOR7DviAYstDKVfDAx3Uk3T3Da5
- eTpdPmOXkvXwOTTTw9Z2IrsxwweYmgsG2RW/oi4gVkz7I3lwpsmZU/b1VWlq9gM9JB
- n5s0zZYH/p146v09zgYhGffcop5nhhpvFkl0+hIBWt8nL3nv72LrCPMZPQDIGeJs/n
- cVyr/JRsXrTC3CXE1/pMTkzmL46V/GqnlU+Ua+0+8Pw0dEHsUia2V6iP9SypBKkK3M
- Kiwu7tHcAjDaOb6BK0pGVQwdf1jmyfaQdE2NF+PbK9hEQAiaHljoqIUvcRpghODzyV
- Nkcl1UZa30NRg==
+ b=CZ+NWejbYBSejPTo4to8hQ2GJea/D4SDZHLQENFa9tTazeV86rl+OSjealxKhfZrg
+ M7ubg+FEESGBXAhplY+eisIRaofc3R/wgtfwJ73RKwMvwSOshbguVrQ5IrXmRbbtnB
+ PwhBdk8gE1AnrVHmrAePOpzZkZ+OFFHtfeuVOXxPD2pqjE7IAThFWuBGEuyGkP3zIo
+ YjN7rtAD1Nl+ef28k1gktvHy5ZAmAekKutoT0caPogjAy3v60oOk8IqUbGYuINTRkn
+ gi9cg6PGTbmr8NNCu6hdJcAkiRi9l46BTwxTLNhRqRi68NL1pqxRrulhjYJuiaUczM
+ S9zH5ciJXE3Sw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 08/17] drm/msm: Add helper to check for per-process
- pgtables VM
+Subject: Re: [PATCH v7 07/17] drm/msm/a6xx: Access VM directly in submit path
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260729155609.20190-9-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20260729155609.20190-8-robin.clark@oss.qualcomm.com>
 References: <20260729155609.20190-1-robin.clark@oss.qualcomm.com>
- <20260729155609.20190-9-robin.clark@oss.qualcomm.com>
+ <20260729155609.20190-8-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 16:11:56 +0000
-Message-Id: <20260729161157.514881F00A3A@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 16:12:12 +0000
+Message-Id: <20260729161213.121C81F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,100 +57,93 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Direct access to `ctx->vm` in `adreno_set_param()` bypasses capabi=
-lity checks for per-process pgtables, allowing userspace to enable VM_BIND =
-on unsupported hardware and crash the kernel.
+- [Critical] Direct access to ctx->vm in ioctl entry point without precedin=
+g call to msm_context_vm() causes NULL pointer dereference.
+- [High] Unchecked ERR_PTR assignment from msm_context_vm() leads to kernel=
+ crash in submit_lock_objects().
 --
 
---- Patch [8]: [PATCH v7 08/17] drm/msm: Add helper to check for per-proces=
-s pgtables VM ---
-commit c61563d7d541358abb7f78356a4f5b717a237572
+--- Patch [7]: [PATCH v7 07/17] drm/msm/a6xx: Access VM directly in submit =
+path ---
+commit fb968654323d1792a0d26ac37c9d0a8e1d71c1dd
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm: Add helper to check for per-process pgtables VM
+drm/msm/a6xx: Access VM directly in submit path
 
-This patch adds a helper function to validate whether a GPU VM supports
-per-process pagetables. It then updates adreno_get_param() to use this
-new helper.
+The GEM_SUBMIT ioctl has already ensured that the VM is created, so we
+aren't expecting to lazily create the VM this deep into the ioctl.
 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.c
-> index 0d54141ff089c..5738eac9aebd6 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -356,6 +356,12 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsign=
-ed long iova, int flags,
->  	return 0;
->  }
-> =20
-> +static bool
-> +valid_per_process_vm(struct msm_gpu *gpu, struct drm_gpuvm *vm)
-> +{
-> +	return (vm !=3D gpu->vm);
-> +}
-> +
->  int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
->  		     uint32_t param, uint64_t *value, uint32_t *len)
+> diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/=
+adreno/a6xx_gpu.c
+> index e293b4ca808a4..9240c4af687c9 100644
+> --- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+> @@ -229,7 +229,7 @@ static void a6xx_set_pagetable(struct a6xx_gpu *a6xx_=
+gpu,
 >  {
-> @@ -414,12 +420,12 @@ int adreno_get_param(struct msm_gpu *gpu, struct ms=
-m_context *ctx,
->  		*value =3D gpu->suspend_count;
->  		return 0;
->  	case MSM_PARAM_VA_START:
-> -		if (vm =3D=3D gpu->vm)
-> +		if (!valid_per_process_vm(gpu, vm))
->  			return UERR(EINVAL, drm, "requires per-process pgtables");
->  		*value =3D vm->mm_start;
->  		return 0;
->  	case MSM_PARAM_VA_SIZE:
-> -		if (vm =3D=3D gpu->vm)
-> +		if (!valid_per_process_vm(gpu, vm))
->  			return UERR(EINVAL, drm, "requires per-process pgtables");
->  		*value =3D vm->mm_range;
->  		return 0;
+>  	bool sysprof =3D msm_gpu_sysprof_no_perfcntr_zap(&a6xx_gpu->base.base);
+>  	struct msm_context *ctx =3D submit->queue->ctx;
+> -	struct drm_gpuvm *vm =3D msm_context_vm(submit->dev, ctx);
+> +	struct drm_gpuvm *vm =3D ctx->vm;
 
-[Severity: High]
-This isn't a bug introduced by this patch, but while you are updating the
-VM checks here, should the same logic be applied to adreno_set_param()?
+[Severity: Critical]
+This is a pre-existing issue, but since the commit message mentions that
+the GEM_SUBMIT ioctl has already ensured that the VM is created, I wanted to
+ask about msm_ioctl_gem_submit().
 
-Looking at adreno_set_param() for MSM_PARAM_EN_VM_BIND, it accesses ctx->vm
-directly:
+Looking at msm_ioctl_gem_submit() in drivers/gpu/drm/msm/msm_gem_submit.c, =
+it
+accesses ctx->vm directly:
 
-drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_set_param() {
+drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit() {
     ...
-	case MSM_PARAM_EN_VM_BIND: {
-		guard(rwsem_read)(&ctx->ctxlock);
+	if (args->pad)
+		return -EINVAL;
 
-		/* We can only support VM_BIND with per-process pgtables: */
-		if (ctx->vm =3D=3D gpu->vm)
-			return UERR(EINVAL, drm, "requires per-process pgtables");
-
-		/*
-		 * We can only swtich to VM_BIND mode if the VM has not yet
-		 * been created:
-		 */
-		if (ctx->vm)
-			return UERR(EBUSY, drm, "VM already created");
+	if (to_msm_vm(ctx->vm)->unusable)
+		return UERR(EPIPE, dev, "context is unusable");
     ...
 }
 
-Because msm uses lazy initialization for virtual memory, isn't ctx->vm
-guaranteed to be NULL here prior to creation?=20
+Can this cause a NULL pointer dereference if an unprivileged user creates a
+legacy submit queue without VM_BIND and immediately calls the submit ioctl?
+The VM is initialized lazily, so it seems ctx->vm could be NULL here if we
+haven't called msm_context_vm() first.
 
-If ctx->vm is NULL, then ctx->vm =3D=3D gpu->vm evaluates to false, which b=
-ypasses
-the capability check intended to prevent VM_BIND on platforms lacking
-per-process pgtables.
+[Severity: High]
+This is another pre-existing issue, but I wanted to check how we handle VM
+allocation failures in the submit path.
 
-Could this allow userspace to enable VM_BIND on older hardware and subseque=
-ntly
-crash the kernel when it binds to an uninitialized scheduler on the global =
-VM?
+In submit_create() in drivers/gpu/drm/msm/msm_gem_submit.c:
+
+drivers/gpu/drm/msm/msm_gem_submit.c:submit_create() {
+    ...
+	submit->vm =3D msm_context_vm(dev, queue->ctx);
+    ...
+}
+
+msm_context_vm() can return an ERR_PTR(-ENOMEM). Later in the same ioctl,
+submit_lock_objects() unconditionally dereferences it:
+
+drivers/gpu/drm/msm/msm_gem_submit.c:submit_lock_objects() {
+    ...
+	drm_exec_until_all_locked (&submit->exec) {
+		ret =3D drm_exec_lock_obj(&submit->exec,
+					drm_gpuvm_resv_obj(submit->vm));
+    ...
+}
+
+Does submit->vm need an IS_ERR() check after calling msm_context_vm() to
+prevent a kernel crash if the VM allocation fails?
+
+>  	struct adreno_gpu *adreno_gpu =3D &a6xx_gpu->base;
+>  	phys_addr_t ttbr;
+>  	u32 asid;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729155609.2019=
-0-1-robin.clark@oss.qualcomm.com?part=3D8
+0-1-robin.clark@oss.qualcomm.com?part=3D7
