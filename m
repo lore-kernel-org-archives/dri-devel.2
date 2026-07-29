@@ -4,89 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F322C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 12:56:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1CF8C54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 13:00:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A9F110EC1A;
-	Wed, 29 Jul 2026 12:56:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FCBD10EC03;
+	Wed, 29 Jul 2026 13:00:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Y9GhDhTa";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VQ9b5kuB";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E26A110EBF8
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 12:55:40 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-495437bb891so7564475e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 05:55:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785329739; x=1785934539; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=WDRSJDVd3VXOgHTH1+NDEg8JKjycOMoApjMhHdJ4q2Q=;
- b=Y9GhDhTaYrm11xkUNtlHQHNRTP3Zk32YT2xAIpLebmBl6ebxXkKmod/T2WU33qV518
- inWngx6WGFAI9bbB1XpTLPzvQRU8jwM8sehancKU/xxDEV/Ezw75LHl+0CKYLi1XUva2
- N+4wZnhArrSApUNUTyxMqaXiBEbNwQLXDjfUduVifo71vkzKmlVfzUMhhTw9vY00Cb3E
- iNssxPWuefxjsYWAqTthmsADztOmBFymu3X4BRwddyW/oKgHhVc0yIyQCJV4kb2bZhGb
- GFEuAEFZUWsyaPvo5j8lqsFxMB6gUHyf5tfZ/TXPDbeUhz3V7qhA5vxWbeUM2YyaPuJS
- 4kcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785329739; x=1785934539;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=WDRSJDVd3VXOgHTH1+NDEg8JKjycOMoApjMhHdJ4q2Q=;
- b=BH08sADQUyDJYAn1stBTLl5JhKPVugfCS9RFnt1gfJSP1cpg46bJTZjWppwIrhmWoQ
- uMqT2j4+G0pSH2Vmd+kdHNJlIiqNWRJaaNUOlIwm9tRrPbxw0GefIOaN79vHq2xdvjA3
- tKVd+8kW6coTssBwLwm1dlAKx1QF7SeWmRzem8tRriQ4WpspT+ibR01DWw4nCppGOrtD
- BMTfLcM+Q1RqGyR6YOqWR6d8nNp1uMp5YZMnjsCe2/e5X3qL/NvAQpTHc54nvHp6O6BS
- hRDfKWTth61AHCiChYeFy9DxWTb6v/6SitzSSygwkUtE9NoHTfFirLV+Npwc90v3akiN
- MAPw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrM4jcmCxRgxglG76WysQaEjy/k9Z8MEJV3lYPdvAMcIEXnldASEAIofHlLtY9XbXrtXyU2JkKKB/8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxczJ6aKnYjTzib1HCmxppUvVslIEh4J1G14Ik0aUk91l2k7bbV
- GNcrRucN0vHIlhAlG8/HxmIgP/v1wWCpjxSIzISzpWJ+QTZJcSuffYWi
-X-Gm-Gg: AR+sD13DZS7ajtbh+0T7dtQAVUiUExU5fcYIeeq/QbWqG0/N/yl7PtDpzEc58x7vqVw
- n91m0QwbBL+lACfcbjYEWoigExl21uf3tW0b2cSOajmeAvDARENLGEUWpTI5VnWt8TsymQxodLJ
- jGmZZkb/0Jdh4HGitul+bBy/qSZtUFkmWsBGn8N+9HLaLJnuKbAJXJT1WqqXbxFW/ZfFCrMQ2UV
- ZZ+dmRogG7X8OFTJfeXPCfmwUVwEw/xwkJ17l1EWQSf4GSHnrNA3fuVR7aLibyLFE454b5MPAxh
- hLh0MMxv3oT2oEQKPgGQmFa/iiJ7/pc7aafTOd6UEaWKX4z0Uk90M6R3QEjMZIh6jzs32dZoD8c
- +Z5RgIOKJLQwrZl4SFFAZiRn8pRIROUeGpwUV0+Gmxft6cn5Cezc0zTPDrjOBbQWkrqBRKR+j/P
- s2gL+MhvHim1PoQCphux1rSkqsdRas5wDtA+QOPgfhVXo0ieCtWgdbCX/9RfiOlLsw/7xW3Cwf4
- W+IGjuiJRZyRQ==
-X-Received: by 2002:a05:600c:3e0c:b0:495:549f:8a86 with SMTP id
- 5b1f17b1804b1-497fd309a0bmr28406125e9.17.1785329739179; 
- Wed, 29 Jul 2026 05:55:39 -0700 (PDT)
-Received: from localhost.localdomain
- ([2a00:23c4:a702:d301:10b8:4461:ee04:15e2])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fb6b189e5sm9264645f8f.27.2026.07.29.05.55.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2026 05:55:38 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Biju Das <biju.das.jz@bp.renesas.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Biju Das <biju.das.au@gmail.com>,
- Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Subject: [PATCH v2 10/16] drm: renesas: rz-du: Add support for RZ/G3L LVDS
- encoder
-Date: Wed, 29 Jul 2026 13:55:02 +0100
-Message-ID: <20260729125516.230757-11-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260729125516.230757-1-biju.das.jz@bp.renesas.com>
-References: <20260729125516.230757-1-biju.das.jz@bp.renesas.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0D7F10E43A
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 13:00:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1A21443AFE;
+ Wed, 29 Jul 2026 13:00:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72AAD1F00A3A;
+ Wed, 29 Jul 2026 13:00:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1785330024;
+ bh=uhz+J/YxxTD8IcItdB4CggtV+vA3SxdDFa9uBHDaSis=;
+ h=Subject:To:Cc:From:Date;
+ b=VQ9b5kuBzQRjtdd3yO1M8gVNbh46W3g2xSIyon8qtsoIiR0MZm3g7w3Q5Pj01GRPR
+ lPW+aQv9gQZbuEAshax2L/9ZZlVE/RwcEYuX+ut4yqMg0y5uL20LlR5XvRbmu5inY3
+ 9YrEvJoqS6RBtlsrcss0oh936oxMmeLJ4H8LLPFU=
+Subject: Patch "drm/ttm/pool: back up at native page order" has been added to
+ the 7.1-stable tree
+To: airlied@gmail.com, christian.koenig@amd.com,
+ dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
+ matthew.brost@intel.com, mripard@kernel.org, ray.huang@amd.com,
+ simona@ffwll.ch, thomas.hellstrom@linux.intel.com, tzimmermann@suse.de
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 29 Jul 2026 14:56:08 +0200
+Message-ID: <2026072908-huddle-rewrite-c35c@gregkh>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,442 +58,490 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add support for the RZ/G3L LVDS encoder driver. It operates in single-link
-mode with 4 lanes (Data) + 1 lane (Clock) and supports pixel clock rates
-from 25 to 87 MHz. The LVDS module cannot be used at the same time as
-MIPI-DSI. However, LVDS and the DSI interface share a peripheral clock and
-the MIPI_DSI_PRESET_N reset signal. Also, the MIPI_DSI_CMN_RSTB and
-MIPI_DSI_ARESET_N reset signals must be asserted before using the LVDS
-module.
+This is a note to let you know that I've just added the patch titled
 
-Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Tested-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Reviewed-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+    drm/ttm/pool: back up at native page order
+
+to the 7.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     drm-ttm-pool-back-up-at-native-page-order.patch
+and it can be found in the queue-7.1 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From a3fdf74ffa5966e5b4a17f1e9c5687f73bb0d536 Mon Sep 17 00:00:00 2001
+From: Matthew Brost <matthew.brost@intel.com>
+Date: Thu, 16 Jul 2026 13:13:58 -0700
+Subject: drm/ttm/pool: back up at native page order
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+From: Matthew Brost <matthew.brost@intel.com>
+
+commit a3fdf74ffa5966e5b4a17f1e9c5687f73bb0d536 upstream.
+
+ttm_pool_split_for_swap() unconditionally splits high-order pool pages
+into order-0 pages before backup, so every compound the shrinker
+touches is shattered even when the rest of the system would prefer it
+stay intact. Under sustained kswapd pressure this fragments memory
+enough to drive other parts of MM into recovery loops.
+
+Back up each compound at its native order instead. In
+ttm_pool_backup(), hand the full compound to the new
+ttm_backup_backup_folio(), which backs up subpages to a contiguous
+range of shmem indices and returns the base handle plus the number of
+subpages actually backed up (@nr_backed). On full success, free the
+compound once at its native order -- no split_page(), no per-4K
+refcount juggling.
+
+A per-folio backup can't be made fully atomic under memory pressure:
+ttm_backup_backup_folio() must allocate shmem folios before source
+subpages can be released, so under true OOM any subpage may fail
+while the rest of the compound is still live. Two mechanisms handle
+this without regressing reclaim behaviour:
+
+  - alloc_gfp gets __GFP_NOMEMALLOC whenever order > 0 (cleared again
+    for order-0), so a high-order backup fails fast with -ENOMEM
+    instead of draining kernel reserves, leaving them for other
+    allocations under the same pressure.
+
+  - If ttm_backup_backup_folio() still returns a short @nr_backed with
+    a valid handle for the successfully-backed prefix, split the
+    source compound with ttm_pool_split_for_swap(), free the prefix as
+    order-0 pages (already safely in shmem), and retry the remaining
+    subpages at order 0, where __GFP_NOMEMALLOC is cleared and
+    reserves may be used as a last resort.
+
+This preserves the original split-on-OOM fallback while keeping the
+common case fragmentation-free, and preserves the "partial backup is
+allowed" contract (shrunken is incremented per subpage backed up).
+
+The restore-side leftover-page split in ttm_pool_restore_commit() is
+left as-is: it's unreachable in practice and not worth complicating
+the restore state machine to avoid.
+
+Testing: the existing backup_fault_inject point only truncated
+tt->num_pages, which never exercised the reactive split path above
+since it never left a compound partially backed up. Wire fault
+injection into ttm_backup_backup_folio() itself: past the first
+subpage of a compound, synthesize a -ENOMEM in place of
+shmem_read_folio_gfp() when should_fail() trips, producing the same
+short @nr_pages_backed a real failure would and forcing
+ttm_pool_backup() through the split-and-retry path. The fault_attr
+stays private to ttm_pool.c; ttm_backup.c reaches it through
+ttm_backup_fault_inject_folio(), declared in ttm_pool_internal.h.
+
+While converting the writeback branch to operate on the whole folio,
+the unlock condition after shmem_writeout() also changed from `if
+(ret)` to `if (ret == AOP_WRITEPAGE_ACTIVATE)`, matching the actual
+contract: shmem_writeout()/swap_writeout() only leave the folio locked
+when returning AOP_WRITEPAGE_ACTIVATE; any other return (including a
+hard error from arch_prepare_to_swap()) means the folio was already
+unlocked internally. The old `if (ret)` check would have double-
+unlocked in that hard-error case.
+
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+Suggested-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Assisted-by: Claude:claude-opus-4.6
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Link: https://patch.msgid.link/20260716201358.4086085-1-matthew.brost@intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-v1->v2:
- * No change.
-v5[1]->v1:
- * Added clk.h as LVDS requires 4:7 duty clock and moved this handling to
-   LVDS driver
- * Avoided accessing register in disable if clk is disabled.
-v5[1]: https://lore.kernel.org/all/20260625172359.292631-3-biju.das.jz@bp.renesas.com/
-v4->v5:
- * Added Kconfig functional dependency for DRM_RZG2L_DU
- * Dropped DRM_PANEL from DRM_RZG3L_LVDS config
- * Dropped unused headers of_device.h,of_graph.h and drm_panel.h
- * Dropped the unused macro LVDS_CMN_RST_PHY0_SEL_CH0
- * Used plain number for macro LVDS_0_PHY_CH_IO_EN0_MSK
- * Retained the tag as the above changes are trivial.
-v3->v4:
- * Dropped the header files clk.h and syscon.h
- * Dropped next_bridge check in attach().
- * Dropped syscon for getting regmap.
- * Replaced the below macros to match with hardware manual:
-	LVDS_0_CTL_FMT_SEL_MSK->LVDS_0_CTL_FMT_SEL0_MSK
-	LVDS_0_PHY_CH_IO_EN_MSK->LVDS_0_PHY_CH_IO_EN0_MSK
-	Replaced LVDS_0_PHY_CH_IO_EN->LVDS_0_PHY_CH_IO_EN0
- * Replaced atomic_reset()->atomic_create_state()
- * Dropped the tags as there are new changes.
-v2->v3:
- * Collected tags.
-v2->v2[1]:
- * Replace drm_atomic_state with drm_atomic_commit in
-   rzg3l_lvds_atomic_{en,dis}able().
- * Drop local variable ret and dev_err() messages in
-   rzg3l_lvds_atomic_enable(); use WARN_ON() instead to
-   capture unexpected failures since atomic_enable should not fail.
- * Drop local variable next_bridge from rzg3l_lvds_probe().
-[1] https://lore.kernel.org/all/20260524194457.479681-3-biju.das.jz@bp.renesas.com/
-v1->v2:
- * Dropped unused function rzg3l_lvds_is_connected() and removed the 
-   corresponding header file rzg3l_lvds.h
- * Dropped next_bridge from struct rzg3l_lvds instead using bridge's
-   next_bridge.
- * Replaced pm_runtime_resume_and_get()->pm_runtime_get_sync() as
-   atomic_enable doesn't fail and for each enable there always will be an
-   atomic_disable() call.
- * Started using DEFINE_RUNTIME_DEV_PM_OPS for PM callback.
- * Replaced rzg3l_lvds_parse_dt() with devm_drm_of_get_bridge() in probe()
- * Started using reset_control_bulk_*() in rzg3l_lvds_pm_runtime_{suspend,
-   resume}()
----
- drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
- drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
- drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 299 ++++++++++++++++++
- .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
- 4 files changed, 338 insertions(+)
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
- create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
+ drivers/gpu/drm/ttm/ttm_backup.c        |  127 +++++++++++++++++++++-----------
+ drivers/gpu/drm/ttm/ttm_pool.c          |   89 ++++++++++++++++++----
+ drivers/gpu/drm/ttm/ttm_pool_internal.h |    8 ++
+ include/drm/ttm/ttm_backup.h            |   12 +--
+ 4 files changed, 172 insertions(+), 64 deletions(-)
 
-diff --git a/drivers/gpu/drm/renesas/rz-du/Kconfig b/drivers/gpu/drm/renesas/rz-du/Kconfig
-index 7f2ef7137ae5..0dbe86bd65d0 100644
---- a/drivers/gpu/drm/renesas/rz-du/Kconfig
-+++ b/drivers/gpu/drm/renesas/rz-du/Kconfig
-@@ -26,3 +26,16 @@ config DRM_RZG2L_MIPI_DSI
- 	def_tristate DRM_RZG2L_DU
- 	depends on DRM_RZG2L_USE_MIPI_DSI
- 	select DRM_MIPI_DSI
-+
-+config DRM_RZG3L_USE_LVDS
-+	bool "RZ/G3L DU LVDS Encoder Support"
-+	depends on DRM_BRIDGE && OF
-+	depends on DRM_RZG2L_DU || COMPILE_TEST
-+	default DRM_RZG2L_DU
-+	help
-+	  Enable support for the RZ/G3L Display Unit embedded LVDS encoder.
-+
-+config DRM_RZG3L_LVDS
-+	def_tristate DRM_RZG2L_DU
-+	depends on DRM_RZG3L_USE_LVDS
-+	select DRM_KMS_HELPER
-diff --git a/drivers/gpu/drm/renesas/rz-du/Makefile b/drivers/gpu/drm/renesas/rz-du/Makefile
-index 2987900ea6b6..46decb7ac4f1 100644
---- a/drivers/gpu/drm/renesas/rz-du/Makefile
-+++ b/drivers/gpu/drm/renesas/rz-du/Makefile
-@@ -8,3 +8,4 @@ rzg2l-du-drm-$(CONFIG_VIDEO_RENESAS_VSP1)	+= rzg2l_du_vsp.o
- obj-$(CONFIG_DRM_RZG2L_DU)		+= rzg2l-du-drm.o
+--- a/drivers/gpu/drm/ttm/ttm_backup.c
++++ b/drivers/gpu/drm/ttm/ttm_backup.c
+@@ -6,9 +6,10 @@
+ #include <drm/ttm/ttm_backup.h>
  
- obj-$(CONFIG_DRM_RZG2L_MIPI_DSI)	+= rzg2l_mipi_dsi.o
-+obj-$(CONFIG_DRM_RZG3L_LVDS)		+= rzg3l_lvds.o
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c b/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
-new file mode 100644
-index 000000000000..7d06c1a683e6
---- /dev/null
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
-@@ -0,0 +1,299 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * RZ/G3L LVDS Encoder Driver
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corporation
-+ */
+ #include <linux/export.h>
+-#include <linux/page-flags.h>
+ #include <linux/swap.h>
+ 
++#include "ttm_pool_internal.h"
 +
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/io.h>
-+#include <linux/media-bus-format.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/reset.h>
+ /*
+  * Need to map shmem indices to handle since a handle value
+  * of 0 means error, following the swp_entry_t convention.
+@@ -68,17 +69,23 @@ int ttm_backup_copy_page(struct file *ba
+ }
+ 
+ /**
+- * ttm_backup_backup_page() - Backup a page
++ * ttm_backup_backup_folio() - Backup a folio
+  * @backup: The struct backup pointer to use.
+- * @page: The page to back up.
+- * @writeback: Whether to perform immediate writeback of the page.
++ * @folio: The folio to back up.
++ * @order: The allocation order of @folio.  Since TTM allocates higher-order
++ *         pages without __GFP_COMP, folio_nr_pages(@folio) would always
++ *         return 1; the caller must pass the true order explicitly.
++ * @writeback: Whether to perform immediate writeback of the folio's pages.
+  * This may have performance implications.
+- * @idx: A unique integer for each page and each struct backup.
++ * @idx: A unique integer for the first page of the folio and each struct backup.
+  * This allows the backup implementation to avoid managing
+  * its address space separately.
+- * @page_gfp: The gfp value used when the page was allocated.
+- * This is used for accounting purposes.
++ * @folio_gfp: The gfp value used when the folio was allocated.
++ * Currently unused.
+  * @alloc_gfp: The gfp to be used when allocating memory.
++ * @nr_pages_backed: Output. On a successful return, set to the number of
++ * pages actually backed up, which may be less than (1 << @order)
++ * if an -ENOMEM was encountered mid-folio.
+  *
+  * Context: If called from reclaim context, the caller needs to
+  * assert that the shrinker gfp has __GFP_FS set, to avoid
+@@ -87,53 +94,87 @@ int ttm_backup_copy_page(struct file *ba
+  * that the shrinker gfp has __GFP_IO set, since without it,
+  * we're not allowed to start backup IO.
+  *
+- * Return: A handle on success. Negative error code on failure.
+- *
+- * Note: This function could be extended to back up a folio and
+- * implementations would then split the folio internally if needed.
+- * Drawback is that the caller would then have to keep track of
+- * the folio size- and usage.
++ * Return: A handle for the first backed-up page on success (handles for
++ * subsequent pages follow sequentially). -ENOMEM if no pages could be backed
++ * up. Any other negative error code if a non-ENOMEM failure occurred; in that
++ * case any pages backed up so far are truncated before returning.
+  */
+ s64
+-ttm_backup_backup_page(struct file *backup, struct page *page,
+-		       bool writeback, pgoff_t idx, gfp_t page_gfp,
+-		       gfp_t alloc_gfp)
++ttm_backup_backup_folio(struct file *backup, struct folio *folio,
++			unsigned int order, bool writeback, pgoff_t idx,
++			gfp_t folio_gfp, gfp_t alloc_gfp,
++			pgoff_t *nr_pages_backed)
+ {
+ 	struct address_space *mapping = backup->f_mapping;
+-	unsigned long handle = 0;
++	int nr_pages = 1 << order;
+ 	struct folio *to_folio;
+-	int ret;
++	int ret, i;
 +
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_probe_helper.h>
++	*nr_pages_backed = 0;
 +
-+#include "rzg3l_lvds_regs.h"
++	for (i = 0; i < nr_pages; ) {
++		int to_nr, j;
+ 
+-	to_folio = shmem_read_folio_gfp(mapping, idx, alloc_gfp);
+-	if (IS_ERR(to_folio))
+-		return PTR_ERR(to_folio);
+-
+-	folio_mark_accessed(to_folio);
+-	folio_lock(to_folio);
+-	folio_mark_dirty(to_folio);
+-	copy_highpage(folio_file_page(to_folio, idx), page);
+-	handle = ttm_backup_shmem_idx_to_handle(idx);
+-
+-	if (writeback && !folio_mapped(to_folio) &&
+-	    folio_clear_dirty_for_io(to_folio)) {
+-		folio_set_reclaim(to_folio);
+-		ret = shmem_writeout(to_folio, NULL, NULL);
+-		if (!folio_test_writeback(to_folio))
+-			folio_clear_reclaim(to_folio);
+ 		/*
+-		 * If writeout succeeds, it unlocks the folio.	errors
+-		 * are otherwise dropped, since writeout is only best
+-		 * effort here.
++		 * Only inject past the first subpage so *nr_pages_backed is
++		 * always > 0 here, matching a genuine mid-compound -ENOMEM
++		 * and driving the caller's reactive split fallback instead
++		 * of an early, no-progress failure.
+ 		 */
+-		if (ret)
++		if (IS_ENABLED(CONFIG_FAULT_INJECTION) && i &&
++		    ttm_backup_fault_inject_folio())
++			to_folio = ERR_PTR(-ENOMEM);
++		else
++			to_folio = shmem_read_folio_gfp(mapping, idx + i, alloc_gfp);
++		if (IS_ERR(to_folio)) {
++			int err = PTR_ERR(to_folio);
 +
-+enum rzg3l_lvds_mode {
-+	RZG3L_LVDS_MODE_JEIDA = 0,
-+	RZG3L_LVDS_MODE_JEIDA_MIRROR = 1,
-+	RZG3L_LVDS_MODE_MODE2 = 2,
-+	RZG3L_LVDS_MODE_MODE2_MIRROR = 3,
-+	RZG3L_LVDS_MODE_VESA = 4,
-+	RZG3L_LVDS_MODE_VESA_MIRROR = 5,
-+	RZG3L_LVDS_MODE_MODE6 = 6,
-+	RZG3L_LVDS_MODE_MODE6_MIRROR = 7,
-+};
++			if (err == -ENOMEM && *nr_pages_backed)
++				return ttm_backup_shmem_idx_to_handle(idx);
 +
-+struct rzg3l_lvds {
-+	struct device *dev;
-+	struct clk *dotclk;
-+	struct reset_control *prstc;
-+	struct reset_control *lvd_rstc;
-+	struct regmap *regmap;
-+	struct drm_bridge bridge;
-+};
++			if (*nr_pages_backed) {
++				shmem_truncate_range(file_inode(backup),
++						     (loff_t)idx << PAGE_SHIFT,
++						     ((loff_t)(idx + i) << PAGE_SHIFT) - 1);
++				/*
++				 * The pages just truncated are no longer
++				 * backed up; don't let the caller mistake
++				 * them for valid handles.
++				 */
++				*nr_pages_backed = 0;
++			}
++			return err;
++		}
 +
-+#define bridge_to_rzg3l_lvds(b) \
-+	container_of(b, struct rzg3l_lvds, bridge)
++		to_nr = min_t(int, nr_pages - i,
++			      folio_next_index(to_folio) - (idx + i));
 +
-+static const struct regmap_config rzg3l_lvds_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = LVDS_0_CTL_OFFSET,
-+};
++		folio_mark_accessed(to_folio);
++		folio_lock(to_folio);
++		folio_mark_dirty(to_folio);
 +
-+/* -----------------------------------------------------------------------------
-+ * Bridge
-+ */
++		for (j = 0; j < to_nr; j++)
++			copy_highpage(folio_file_page(to_folio, idx + i + j),
++				      folio_page(folio, i + j));
 +
-+static void rzg3l_lvds_atomic_enable(struct drm_bridge *bridge,
-+				     struct drm_atomic_commit *state)
-+{
-+	struct rzg3l_lvds *lvds = bridge_to_rzg3l_lvds(bridge);
-+	const struct drm_bridge_state *bridge_state;
-+	u32 fmt;
-+
-+	/* Get the LVDS format from the bridge state. */
-+	bridge_state = drm_atomic_get_new_bridge_state(state, bridge);
-+	if (WARN_ON(!bridge_state))
-+		return;
-+
-+	switch (bridge_state->output_bus_cfg.format) {
-+	case MEDIA_BUS_FMT_RGB888_1X7X4_JEIDA:
-+		fmt = RZG3L_LVDS_MODE_JEIDA;
-+		break;
-+	case MEDIA_BUS_FMT_RGB888_1X7X4_SPWG:
-+		fmt = RZG3L_LVDS_MODE_VESA;
-+		break;
-+	default:
-+		fmt = RZG3L_LVDS_MODE_VESA;
-+		dev_warn(lvds->dev, "Unsupported bus fmt 0x%04x\n",
-+			 bridge_state->output_bus_cfg.format);
-+		break;
++		if (writeback && !folio_mapped(to_folio) &&
++		    folio_clear_dirty_for_io(to_folio)) {
++			folio_set_reclaim(to_folio);
++			ret = shmem_writeout(to_folio, NULL, NULL);
++			if (!folio_test_writeback(to_folio))
++				folio_clear_reclaim(to_folio);
++			if (ret == AOP_WRITEPAGE_ACTIVATE)
++				folio_unlock(to_folio);
++		} else {
+ 			folio_unlock(to_folio);
+-	} else {
+-		folio_unlock(to_folio);
+-	}
++		}
+ 
+-	folio_put(to_folio);
++		folio_put(to_folio);
++		i += to_nr;
++		*nr_pages_backed = i;
 +	}
+ 
+-	return handle;
++	return ttm_backup_shmem_idx_to_handle(idx);
+ }
+ 
+ /**
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -53,8 +53,23 @@
+ #ifdef CONFIG_FAULT_INJECTION
+ #include <linux/fault-inject.h>
+ static DECLARE_FAULT_ATTR(backup_fault_inject);
 +
-+	if (WARN_ON(pm_runtime_get_sync(lvds->dev) < 0))
-+		return;
-+
-+	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
-+			   LVDS_0_PHY_CH_EN_BGR, LVDS_0_PHY_CH_EN_BGR);
-+	fsleep(20);
-+
-+	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
-+			   LVDS_0_PHY_CH_EN_LDO, LVDS_0_PHY_CH_EN_LDO);
-+	fsleep(10);
-+
-+	regmap_write(lvds->regmap, LVDS_CMN, LVDS_CMN_RST_PHY0_SEL);
-+	regmap_update_bits(lvds->regmap, LVDS_0_CTL_OFFSET,
-+			   LVDS_0_CTL_FMT_SEL0_MSK,
-+			   FIELD_PREP(LVDS_0_CTL_FMT_SEL0_MSK, fmt));
-+	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
-+			   LVDS_0_PHY_CH_IO_EN0_MSK, LVDS_0_PHY_CH_IO_EN0);
-+	regmap_write(lvds->regmap, LVDS_CMN,
-+		     LVDS_CMN_RST_PHY0_SEL | LVDS_CMN_PHY_RESET);
-+	fsleep(100);
-+}
-+
-+static void rzg3l_lvds_atomic_disable(struct drm_bridge *bridge,
-+				      struct drm_atomic_commit *state)
-+{
-+	struct rzg3l_lvds *lvds = bridge_to_rzg3l_lvds(bridge);
-+	int ret;
-+
-+	PM_RUNTIME_ACQUIRE_IF_ENABLED(lvds->dev, pm);
-+	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-+	if (ret < 0)
-+		goto pm_put_sync;
-+
-+	regmap_update_bits(lvds->regmap, LVDS_CMN, LVDS_CMN_PHY_RESET, 0);
-+	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
-+			   LVDS_0_PHY_CH_IO_EN0_MSK, 0);
-+	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
-+			   LVDS_0_PHY_CH_EN_LDO, 0);
-+	regmap_update_bits(lvds->regmap, LVDS_0_PHY_OFFSET,
-+			   LVDS_0_PHY_CH_EN_BGR, 0);
-+
-+pm_put_sync:
-+	pm_runtime_put_sync(lvds->dev);
-+}
-+
-+static int rzg3l_lvds_attach(struct drm_bridge *bridge,
-+			     struct drm_encoder *encoder,
-+			     enum drm_bridge_attach_flags flags)
-+{
-+	struct rzg3l_lvds *lvds = bridge_to_rzg3l_lvds(bridge);
-+	struct clk *clk_parent;
-+
-+	clk_parent = clk_get_parent(lvds->dotclk);
-+	clk_set_duty_cycle(clk_parent, 4, 7);
-+
-+	return drm_bridge_attach(encoder, lvds->bridge.next_bridge, bridge, flags);
-+}
-+
-+static enum drm_mode_status
-+rzg3l_lvds_bridge_mode_valid(struct drm_bridge *bridge,
-+			     const struct drm_display_info *info,
-+			     const struct drm_display_mode *mode)
-+{
-+	if (mode->clock > 87000)
-+		return MODE_CLOCK_HIGH;
-+
-+	if (mode->clock < 25000)
-+		return MODE_CLOCK_LOW;
-+
-+	return MODE_OK;
-+}
-+
-+static const struct drm_bridge_funcs rzg3l_lvds_bridge_ops = {
-+	.attach = rzg3l_lvds_attach,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+	.atomic_create_state = drm_atomic_helper_bridge_create_state,
-+	.atomic_enable = rzg3l_lvds_atomic_enable,
-+	.atomic_disable = rzg3l_lvds_atomic_disable,
-+	.mode_valid = rzg3l_lvds_bridge_mode_valid,
-+};
-+
-+/* -----------------------------------------------------------------------------
-+ * Power Management
-+ */
-+
-+static int rzg3l_lvds_pm_runtime_suspend(struct device *dev)
-+{
-+	struct rzg3l_lvds *lvds = dev_get_drvdata(dev);
-+	struct reset_control_bulk_data resets[] = {
-+		{ .rstc = lvds->lvd_rstc },
-+		{ .rstc = lvds->prstc },
-+	};
-+
-+	return reset_control_bulk_assert(ARRAY_SIZE(resets), resets);
-+}
-+
-+static int rzg3l_lvds_pm_runtime_resume(struct device *dev)
-+{
-+	struct rzg3l_lvds *lvds = dev_get_drvdata(dev);
-+	struct reset_control_bulk_data resets[] = {
-+		{ .rstc = lvds->lvd_rstc },
-+		{ .rstc = lvds->prstc },
-+	};
-+
-+	return reset_control_bulk_deassert(ARRAY_SIZE(resets), resets);
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(rzg3l_lvds_pm_ops,
-+				 rzg3l_lvds_pm_runtime_suspend,
-+				 rzg3l_lvds_pm_runtime_resume, NULL);
-+
-+/* -----------------------------------------------------------------------------
-+ * Probe & Remove
-+ */
-+
-+static int rzg3l_lvds_probe(struct platform_device *pdev)
-+{
-+	struct reset_control *rstc, *arstc;
-+	struct device *dev = &pdev->dev;
-+	struct rzg3l_lvds *lvds;
-+	void __iomem *base;
-+	int ret;
-+
-+	lvds = devm_drm_bridge_alloc(dev, struct rzg3l_lvds, bridge,
-+				     &rzg3l_lvds_bridge_ops);
-+	if (IS_ERR(lvds))
-+		return PTR_ERR(lvds);
-+
-+	lvds->dev = dev;
-+	lvds->bridge.of_node = pdev->dev.of_node;
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	lvds->regmap = devm_regmap_init_mmio(dev, base, &rzg3l_lvds_regmap_config);
-+	if (IS_ERR(lvds->regmap))
-+		return dev_err_probe(dev, PTR_ERR(lvds->regmap),
-+				     "failed to init regmap\n");
-+
-+	lvds->dotclk = devm_clk_get(dev, "dotclk");
-+	if (IS_ERR(lvds->dotclk))
-+		return PTR_ERR(lvds->dotclk);
-+
-+	rstc = devm_reset_control_get_exclusive(dev, "rst");
-+	if (IS_ERR(rstc))
-+		return dev_err_probe(dev, PTR_ERR(rstc), "failed to get rst\n");
-+
-+	arstc = devm_reset_control_get_exclusive(dev, "arst");
-+	if (IS_ERR(arstc))
-+		return dev_err_probe(dev, PTR_ERR(arstc),
-+				     "failed to get arst\n");
-+
-+	lvds->prstc = devm_reset_control_get_exclusive(dev, "prst");
-+	if (IS_ERR(lvds->prstc))
-+		return dev_err_probe(dev, PTR_ERR(lvds->prstc),
-+				     "failed to get prst\n");
-+
-+	lvds->lvd_rstc = devm_reset_control_get_exclusive(dev, "lvdrst");
-+	if (IS_ERR(lvds->lvd_rstc))
-+		return dev_err_probe(dev, PTR_ERR(lvds->lvd_rstc),
-+				     "failed to get core reset\n");
-+
-+	platform_set_drvdata(pdev, lvds);
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable Runtime PM\n");
-+
-+	lvds->bridge.next_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 1, 0);
-+	if (IS_ERR(lvds->bridge.next_bridge))
-+		return dev_err_probe(dev, PTR_ERR(lvds->bridge.next_bridge),
-+				     "failed to get next bridge\n");
-+
-+	ret = reset_control_assert(rstc);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = reset_control_assert(arstc);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = devm_drm_bridge_add(dev, &lvds->bridge);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to register drm bridge\n");
-+
-+	return ret;
-+}
-+
-+static const struct of_device_id rzg3l_lvds_of_table[] = {
-+	{ .compatible = "renesas,r9a08g046-lvds" },
-+	{ /* sentinel */ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, rzg3l_lvds_of_table);
-+
-+static struct platform_driver rzg3l_lvds_platform_driver = {
-+	.probe		= rzg3l_lvds_probe,
-+	.driver		= {
-+		.name	= "rzg3l-lvds",
-+		.pm	= pm_ptr(&rzg3l_lvds_pm_ops),
-+		.of_match_table = rzg3l_lvds_of_table,
-+	},
-+};
-+
-+module_platform_driver(rzg3l_lvds_platform_driver);
-+
-+MODULE_AUTHOR("Biju Das <biju.das.jz@bp.renesas.com>");
-+MODULE_AUTHOR("Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>");
-+MODULE_DESCRIPTION("Renesas RZ/G3L LVDS Encoder Driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h b/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
-new file mode 100644
-index 000000000000..5b276cca9a5d
---- /dev/null
-+++ b/drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
-@@ -0,0 +1,25 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
 +/*
-+ * RZ/G3L LVDS Interface Registers Definitions
-+ *
-+ * Copyright (C) 2026 Renesas Electronics Corporation
-+ *
++ * Exposed to ttm_backup.c so a mid-compound subpage can be made to fail
++ * with -ENOMEM, exercising the reactive split-and-retry fallback in
++ * ttm_pool_backup() for high-order backups.
 + */
++bool ttm_backup_fault_inject_folio(void)
++{
++	return should_fail(&backup_fault_inject, 1);
++}
+ #else
+ #define should_fail(...) false
 +
-+#ifndef __RZG3L_LVDS_REGS_H__
-+#define __RZG3L_LVDS_REGS_H__
++bool ttm_backup_fault_inject_folio(void)
++{
++	return false;
++}
+ #endif
+ 
+ /**
+@@ -487,7 +502,7 @@ static void ttm_pool_split_for_swap(stru
+ /**
+  * DOC: Partial backup and restoration of a struct ttm_tt.
+  *
+- * Swapout using ttm_backup_backup_page() and swapin using
++ * Swapout using ttm_backup_backup_folio() and swapin using
+  * ttm_backup_copy_page() may fail.
+  * The former most likely due to lack of swap-space or memory, the latter due
+  * to lack of memory or because of signal interruption during waits.
+@@ -1036,12 +1051,12 @@ long ttm_pool_backup(struct ttm_pool *po
+ {
+ 	struct file *backup = tt->backup;
+ 	struct page *page;
+-	unsigned long handle;
+ 	gfp_t alloc_gfp;
+ 	gfp_t gfp;
+ 	int ret = 0;
+ 	pgoff_t shrunken = 0;
+-	pgoff_t i, num_pages;
++	pgoff_t i, j, num_pages, npages;
++	pgoff_t nr_backed;
+ 
+ 	if (WARN_ON(ttm_tt_is_backed_up(tt)))
+ 		return -EINVAL;
+@@ -1119,9 +1134,11 @@ long ttm_pool_backup(struct ttm_pool *po
+ 	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && should_fail(&backup_fault_inject, 1))
+ 		num_pages = DIV_ROUND_UP(num_pages, 2);
+ 
+-	for (i = 0; i < num_pages; ++i) {
+-		s64 shandle;
++	for (i = 0; i < num_pages; i += npages) {
++		unsigned int order;
++		s64 handle;
+ 
++		npages = 1;
+ 		page = tt->pages[i];
+ 		if (unlikely(!page))
+ 			continue;
+@@ -1130,19 +1147,61 @@ long ttm_pool_backup(struct ttm_pool *po
+ 		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
+ 			continue;
+ 
+-		ttm_pool_split_for_swap(pool, page);
++		order = ttm_pool_page_order(pool, page);
++		npages = 1UL << order;
 +
-+#define LVDS_CMN			0x00
-+#define LVDS_CMN_RST_PHY0_SEL		BIT(24)
-+#define LVDS_CMN_PHY_RESET		BIT(0)
++		/*
++		 * We don't allow dipping kernel reserves for high order backup
++		 */
++		if (order)
++			alloc_gfp |= __GFP_NOMEMALLOC;
++		else
++			alloc_gfp &= ~__GFP_NOMEMALLOC;
 +
-+#define LVDS_0_PHY_OFFSET		0x10
-+#define LVDS_0_PHY_CH_IO_EN0_MSK	0x1f
-+#define LVDS_0_PHY_CH_IO_EN0		(LVDS_0_PHY_CH_IO_EN0_MSK << 0)
-+#define LVDS_0_PHY_CH_EN_BGR		BIT(8)
-+#define LVDS_0_PHY_CH_EN_LDO		BIT(9)
++		/*
++		 * Back up the compound atomically at its native order. If
++		 * fault injection truncated num_pages mid-compound, skip
++		 * the partial tail rather than splitting.
++		 */
++		if (unlikely(i + npages > num_pages))
++			break;
+ 
+-		shandle = ttm_backup_backup_page(backup, page, flags->writeback, i,
+-						 gfp, alloc_gfp);
+-		if (shandle < 0) {
+-			/* We allow partially shrunken tts */
+-			ret = shandle;
++		handle = ttm_backup_backup_folio(backup, page_folio(page),
++						 order, flags->writeback, i,
++						 gfp, alloc_gfp,
++						 &nr_backed);
++		/*
++		 * Zero progress on this compound (whether order 0 or a
++		 * high-order compound that failed before backing up even
++		 * its first subpage) is unrecoverable: bail out rather than
++		 * looping forever with npages == nr_backed == 0 below.
++		 */
++		if (unlikely(handle < 0 && !nr_backed)) {
++			ret = handle;
+ 			break;
+ 		}
+-		handle = shandle;
+-		tt->pages[i] = ttm_backup_handle_to_page_ptr(handle);
+-		__free_pages_gpu_account(page, 0, false);
+-		shrunken++;
 +
-+#define LVDS_0_CTL_OFFSET		0x14
-+#define LVDS_0_CTL_FMT_SEL0_MSK		GENMASK(23, 20)
++		for (j = 0; j < nr_backed; j++)
++			tt->pages[i + j] = ttm_backup_handle_to_page_ptr(handle + j);
 +
-+#endif /* __RZG3L_LVDS_REGS_H__ */
--- 
-2.43.0
++		shrunken += nr_backed;
++
++		if (unlikely(nr_backed < npages)) {
++			/*
++			 * Partial OOM backup: split the compound and free the
++			 * subpages whose content is now in shmem. Continue the
++			 * loop from the first un-backed order-0 page.
++			 */
++			ttm_pool_split_for_swap(pool, page);
++			for (j = 0; j < nr_backed; j++)
++				__free_pages_gpu_account(page + j, 0, false);
++			npages = nr_backed;
++			continue;
++		}
++
++		/* Fully backed up: free at native order. */
++		page->private = 0;
++		__free_pages_gpu_account(page, order, false);
+ 	}
+ 
+ 	return shrunken ? shrunken : ret;
+--- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
++++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+@@ -22,4 +22,12 @@ static inline unsigned int ttm_pool_bene
+ 	return pool->alloc_flags & 0xff;
+ }
+ 
++/*
++ * Implemented in ttm_pool.c, used by ttm_backup.c. Returns true if a fault
++ * should be injected mid-compound to test the reactive split-and-retry
++ * fallback in ttm_pool_backup(). Always returns false when
++ * CONFIG_FAULT_INJECTION is disabled.
++ */
++bool ttm_backup_fault_inject_folio(void);
++
+ #endif
+--- a/include/drm/ttm/ttm_backup.h
++++ b/include/drm/ttm/ttm_backup.h
+@@ -13,9 +13,8 @@
+  * ttm_backup_handle_to_page_ptr() - Convert handle to struct page pointer
+  * @handle: The handle to convert.
+  *
+- * Converts an opaque handle received from the
+- * ttm_backup_backup_page() function to an (invalid)
+- * struct page pointer suitable for a struct page array.
++ * Converts an opaque handle received from a ttm_backup_backup_*()
++ * function to an (invalid) struct page pointer suitable for a struct page array.
+  *
+  * Return: An (invalid) struct page pointer.
+  */
+@@ -59,9 +58,10 @@ int ttm_backup_copy_page(struct file *ba
+ 			 pgoff_t handle, bool intr, gfp_t additional_gfp);
+ 
+ s64
+-ttm_backup_backup_page(struct file *backup, struct page *page,
+-		       bool writeback, pgoff_t idx, gfp_t page_gfp,
+-		       gfp_t alloc_gfp);
++ttm_backup_backup_folio(struct file *backup, struct folio *folio,
++			unsigned int order, bool writeback, pgoff_t idx,
++			gfp_t folio_gfp, gfp_t alloc_gfp,
++			pgoff_t *nr_pages_backed);
+ 
+ void ttm_backup_fini(struct file *backup);
+ 
 
+
+Patches currently in stable-queue which might be from matthew.brost@intel.com are
+
+queue-7.1/drm-xe-guc-fix-buffer-overflow-in-steered-register-list-allocation.patch
+queue-7.1/drm-ttm-pool-back-up-at-native-page-order.patch
+queue-7.1/drm-i915-gem-add-missing-nospec-on-parallel-submit-slot.patch
+queue-7.1/drm-xe-vf-add-drm_dev-guards-when-detaching-ccs-read.patch
+queue-7.1/drm-xe-vm-fix-bo-prefetch-with-consult_mem_advise_pref_loc.patch
+queue-7.1/drm-xe-display-skip-force_wc-and-vm_bound-check-for-external-dma-bufs.patch
+queue-7.1/drm-pagemap-guard-hpage_pmd_order-use-with-config_arch_enable_thp_migration.patch
+queue-7.1/drm-ttm-account-for-null-and-handle-pages-in-ttm_pool_backup.patch
+queue-7.1/drm-xe-pt-reset-current_op-in-xe_pt_update_ops_init.patch
+queue-7.1/drm-gpusvm-fix-mm-reference-leak-in-drm_gpusvm_range_evict.patch
+queue-7.1/drm-xe-return-error-on-non-migratable-faults-requiring-devmem.patch
+queue-7.1/drm-xe-vm-fix-svm-leak-on-resv-obj-alloc-failure-in-.patch
+queue-7.1/drm-pagemap-clear-driver-provided-pfns-from-migration-pfn-array.patch
+queue-7.1/drm-xe-fix-pte-index-in-xe_vm_populate_pgtable-for-chunked-binds.patch
+queue-7.1/drm-xe-assign-queue-name-in-time-for-drm_sched_init.patch
+queue-7.1/drm-xe-madvise-skip-invalidation-for-purgeable-state-updates.patch
+queue-7.1/drm-xe-vf-fix-vf-ccs-attach-detach-race-with-in-flig.patch
+queue-7.1/drm-gpusvm-publish-dpagemap-early-to-avoid-device-mapping-leak-on-error.patch
+queue-7.1/drm-xe-guc-hold-device-ref-until-queue-teardown-comp.patch
+queue-7.1/drm-xe-guc-keep-scheduler-timeline-name-alive.patch
+queue-7.1/drm-i915-gt-fix-null-deref-on-sched_engine-alloc-failure.patch
+queue-7.1/drm-xe-add-compact-pt-and-addr-mask-handling-for-page-reclaim.patch
+queue-7.1/drm-gpusvm-zero-hmm-pfns-before-scanning-ranges.patch
