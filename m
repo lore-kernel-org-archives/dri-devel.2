@@ -4,103 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8CDD4C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:37:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49D7DC53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:38:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D069210EB8F;
-	Wed, 29 Jul 2026 10:37:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A91BC10EB6E;
+	Wed, 29 Jul 2026 10:38:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KdnQl/ux";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="b0xMjSIZ";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E75C10EB6E
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:37:31 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c12614b81c9so141396066b.3
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 03:37:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785321450; x=1785926250; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=p8KbmJYcU1SAlCdU+OP1hBT5okmuW3fRl/0GYAxB+Rg=;
- b=KdnQl/uxGsmM3HVwSLKuc5nRS5UwnaGlq0Itxg2UVPjOYjCndQIanT6XLNavGBW4bC
- t9CzVdzTJGbOE2fO5GWCidcDMhsNv4Zt5zwVj3eIp3Hv0rZG6A/tNl9PH/ss0ozrCqlz
- 4PptpAlZeoyQA9ltctybB6JewXSsGOVZBj59QX2SwlRb2gJSdzP8Lcv14Hqoq41VYXQC
- 5SM8ycOOmhKqRahNKaajw7c5IKAhx7WeY5X9QXjhij005GQht2PkELEqdBZQJHvLYpNX
- 6Frgp5jk4eWs6MP5Vt6/un/ivj8T0J+NCebyxdc0zO3tncaNhvjG6swDASWWhA7Sqyao
- N1rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785321450; x=1785926250;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=p8KbmJYcU1SAlCdU+OP1hBT5okmuW3fRl/0GYAxB+Rg=;
- b=TmJ6pVlRHfkpV93AgM4xDLtzEjJsozZwdMKToJisNqVFTiyNAbpoLJv9O243EATsIV
- 1iuLx6qX29TqWF2HRsJcAWtyopAEi6LxVK73X+R1B4LmIlBonwLqLTievcRG8H8Kfita
- +l3PjNteMl+CEGPFOdR20eapgc6Sv+MZxCVdD3IIouvLDTew6N8tu3GjgGs97LxBiQY9
- ry568l7j8ZfXWOcXivGaZS7An9Zma73wVOPe2DGjPxvI8COVcj+cikfi0beK4ovnJD9J
- xyyD1DXJMQ8kGARQIhBHiq5LC62uLjEcP//JGzI52PLEjlWD+K5uZs/biapF0gbZaqHL
- JNAQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rozg7z4P/Xpg4ZqY0KzbzQOe/kh/aneeEMSsUWocCZzaI5m0ZY1CptzOYNgkt1CkYLzN6NbtRkD8D4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDWh+ab+Sue1i/1ybEFi5Q/r2aOlXWLQ3SrckrEQmUSTIHFnIk
- n3hu7Cx5XT3Nvqco5Z0RMuuxnubxFGPBjwBOl0Na1EEcdWLehVXPZSId
-X-Gm-Gg: AR+sD12fdLEMQf1FkjLhna5r1yodXNZhKhFoiMImLRXndCQsxiOgfMOa4JFeTOqJ5EZ
- rbalmSzyQ755uzRbVbdHJFFG1IyX59kz80KVbbEQckjHuNFLFQVvVFrExqCQv6bJzlz62ZPz9ye
- hxzOavnJ5DaLXGgdj5xehZx7TPLEBAbkuVMuUinRDrbRBM45C0mmuKjySJDc+vwn/1XljpN6/dj
- p+Xhg2uYbYHW85/hZQTQGhDDgUx6L6ixmD1eOXn2WvE1C4w1hn9G4ZZJqhPgP0D1XkcXgxGUcuR
- tDhUJMg5pf1sOvxyb3rNBk9Gd8aWy6m71nwiiWFzpMQ2ncs8pQtL3+lQj8hDvbIK9T3XhTJYOIt
- 4cs5tqqJGy1UE60K9BJjmFwcC0tATAfaUgpNFUPueSHJK0JwPrKMeYJE+IZ0ACQaeM9iXQi8q3Y
- tqrLM/WEFqILdZfB3iDt2PXeHTv5vMgZQNRtQ/8NJ4Egf7PCga8fUwaGCs0q6UF2yaP/EG5Ww9h
- 65XutVsdPHcR0Es/zQ71Yfu6b0POatQua6z0Q5f2dkyEfCLPoMi3IncZzONdzQJu0IazWRU5Rdd
- HSeSsWKdCqMGJ5w9jUE=
-X-Received: by 2002:a17:907:9617:b0:c1c:62b4:1ebf with SMTP id
- a640c23a62f3a-c1f721913ddmr365145166b.60.1785321449861; 
- Wed, 29 Jul 2026 03:37:29 -0700 (PDT)
-Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
- ([2620:10d:c092:600::1:640]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1f84026c47sm93918766b.63.2026.07.29.03.37.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2026 03:37:28 -0700 (PDT)
-Message-ID: <340dd033-2a45-49e7-afd6-95dbbbf624da@gmail.com>
-Date: Wed, 29 Jul 2026 11:37:19 +0100
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0C7110EB6E
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:38:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
+ From:Subject:Message-ID:From:Reply-To;
+ bh=CzWdkDBUO23WPA9eDnkD5lVNphAZDOuwjctA8Qh6eNE=; b=b0xMjSIZ+V8t02AIivaLXmZK5y
+ rmtyvL3UFcUW+OijbX0lsrfNc5nAsJ/6llnzaPcdXz9V+Z4vFCjlp+ASDm8Q/bJHggsP/v6AKKV1+
+ 60zdZVtvdlcBxHJhIXkbgzUaGI3OsGPyGSfz1qrii+nOYKdIMAJFYwnwMKmTcZf4VqZdjnnzmJNd+
+ 9pTtBHTjBGnOjm/LbSgEsV0BhWCCuZF/vNUW//c5QJbNgOKShJz96vbVeyMXfwnYwtg2NwxC8/SUP
+ yJ+a/a5MVOdh9Od9NNPatsBM7UMYkoRUcW2KwD8x65Bt/YhEgOw6jImMnhaXyA2nkUw/BCSSUeLV6
+ ILg/PqFw==;
+Received: from [159.147.19.205] (helo=[192.168.0.17])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wp1gW-007Rs9-0n; Wed, 29 Jul 2026 12:38:48 +0200
+Message-ID: <f580c161a074eb1d30646afd24bbd4e4657c44f0.camel@igalia.com>
+Subject: Re: [PATCH 0/2] drm/v3d: Fix system freezes by serializing the GPU
+ reset
+From: Iago Toral <itoral@igalia.com>
+To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
+ <mwen@igalia.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org
+Date: Wed, 29 Jul 2026 12:38:37 +0200
+In-Reply-To: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
+References: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/14] dma-buf: introduce initial file I/O
- infrastructure
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org
-References: <cover.1785274111.git.asml.silence@gmail.com>
- <bc20381e8daf85ac58811c344325d8192cde9d1e.1785274111.git.asml.silence@gmail.com>
- <20260729065927.GA9534@lst.de>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260729065927.GA9534@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,19 +59,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/29/26 07:59, Christoph Hellwig wrote:
-> The method name feels a bit convoluted, but given all the
-> previous discussions I don't care too strongly.  I'll leave
-> the dma-buf side review to those who understand it.
+Good catch!
 
-I assume you mean this:
+Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
 
-+	int (*init_dma_buf_io_ctx)(struct file *, struct dma_buf_io_ctx *);
-
-I agree, and all dma_buf_io_[ctx,map] look clunky, but I don't
-see what I can drop out of the name. Suggestions? Maybe I at least
-should make the fs op sth like "register_dma_buf".
-
--- 
-Pavel Begunkov
+El mar, 28-07-2026 a las 23:09 -0300, Ma=C3=ADra Canal escribi=C3=B3:
+> V3D exposes several independent hardware queues, but it only has a
+> single,
+> global reset. Therefore, when a job times out in one queue, the
+> timeout
+> handler has to stop, reset and restart the schedulers of every other
+> queue
+> as well. As each scheduler queues its timeout work on the system
+> workqueue,
+> those handlers run concurrently and can interfere with each other.
+>=20
+> This can be reproduced on a Raspberry Pi 4 or 5 by running glmark2-
+> wayland,
+> which keeps the CL queues busy, while a second application triggers a
+> GPU
+> reset in the CSD queue every 0.5 seconds. The failure is non-
+> deterministic,
+> but it usually shows up after a dozen resets: the DRM scheduler warns
+> about
+> a credit imbalance in one of the CL queues,
+>=20
+> =C2=A0=C2=A0=C2=A0 WARNING: CPU: 2 PID: 43 at
+> drivers/gpu/drm/scheduler/sched_main.c:102
+> drm_sched_run_job_work+0x238/0x4d0 [gpu_sched]
+>=20
+> and, from that point on, the UI freezes and the machine is unusable.
+>=20
+> The DRM scheduler already provides the synchronization that this kind
+> of
+> hardware needs: an ordered workqueue passed as drm_sched_init()'s
+> @timeout_wq parameter, which guarantees that the timeout handlers of
+> the
+> different schedulers are executed sequentially. Patch 1 gives all of
+> the
+> V3D queues such a workqueue. Patch 2 removes `reset_lock`, which only
+> ever covered the driver's callback and is made redundant by the
+> ordered
+> workqueue.
+>=20
+> Only patch 1 is Cc'ed to stable, in order to keep the backport
+> minimal.
+>=20
+> Best regards,
+> - Ma=C3=ADra
+>=20
+> ---
+> Ma=C3=ADra Canal (2):
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Serialize the scheduler timeout h=
+andlers
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/v3d: Remove the now-redundant reset lo=
+ck
+>=20
+> =C2=A0drivers/gpu/drm/v3d/v3d_drv.h=C2=A0=C2=A0 |=C2=A0 8 ++++----
+> =C2=A0drivers/gpu/drm/v3d/v3d_gem.c=C2=A0=C2=A0 |=C2=A0 3 ---
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 13 ++++++++-----
+> =C2=A03 files changed, 12 insertions(+), 12 deletions(-)
+> ---
+> base-commit: 48a570c964d8e37d353381e4195106277e17f5cb
+> change-id: 20260728-v3d-order-global-reset-7736b445e0b8
+>=20
+>=20
 
