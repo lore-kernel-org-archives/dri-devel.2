@@ -4,88 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B4DFC54FDF
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 07:20:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C5FFC531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 07:20:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 704A410EDD4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7583710EDD9;
 	Thu, 30 Jul 2026 07:19:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.b="r/oLO9AF";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="B/Ee5JNH";
 	dkim-atps=neutral
-Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com
- [34.2.82.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A6CF10E14B
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:49:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048;
- t=1785322176; bh=uxve866BWF4htd0+CpMI2/Yr/XqQcHixAEiZK3UmVoQ=;
- h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To;
- b=r/oLO9AFViCRBKgswai6DoE1qp59XiIj8hlVP2eKJYE3tSduf5kvRojeCRrA9COfStVLsfMd257vNcb8O28ok+XHS4f/9fEcKbn5JVSXXelAzYNnqtjuOoDdsk+Ze1L7zDCU6JF2HpT7CCTQz32r6T0FFsDQirpE6uIlYNtCZqbq6uAZG8T48IBRudH1v7FZgmmwcXShtXhQo1KsDPMYaXIbKqEKskTUZ+pXnpEOTcc7dHshZioupLsjyFdS2tUpmhZEbmIlmosw1aVzOivs6ZQXohxcTmrCRUx10oP6vaZ8uLpbQmv3YgExFIUbNzras/PmzE1+IJSJJF74dx/FMw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048;
- t=1785322176; bh=0txDAdqkQeVMnTeBx7ONn8K1Mad+UlpB9gvmCojtVMV=;
- h=X-Sonic-MF:From:Date:Subject:To:From:Subject;
- b=VqGjtUaGaJUV/LsGrf3xMIO+qw8tsZC5iOEpV99Ek9dd9fiap/CC1U5g14TOMjI6/aM6Z52alebpYEguzV1XOtGFM2SScE6apXm3loRVsw43WkgUCnnGgsIHE2V4axs1PS7kpvLxx/K517CKiVXDwbkrjPcRdTYOgTG9Ozbr5uw9kR1iPkopq/gmGT1xla3z3Pw4buFQP4uS8Gv5hHe0j2f2kNWj43+eulA6ErnP2qKFymW3WRIH6SMc9wc5utZBSYqid4ntJk8UteJDd2vCGZLklMbD4WciEmBxxwfRR6sP0JZSvIxCV5FHzACDIwvzu70CO6KT1S51KNih5rZk+A==
-X-YMail-OSG: VUJu24IVM1mEqiOHtHeWkIGRHPvkQHCoy0RQnbWt7J6oM2M0Ju6S1_TKpxFfD6G
- F6wR6lVinD6HSIyN19YwqYhkKxNPctz5Taf9WLROw0Wp8n6JXN9mO4JguRU3uqX4mGLpRAgs0zGT
- ypw5VNbzUaCjd489fHgUCyrYGym43gEiNNog9FmjsG5TkSR6DH1t.lVu_bArHfWsHg7hYB_0Ifxd
- oCJY0EKeqMHWPnSGgbmcaQGPg3VqcthkjM3QpJmHi6cV52W6tqMO0Svwihyan0vKjC.lMvUccqSO
- iRa9BdZnYHvXJX8mUkI4W.zNyacPqbGktlTkJlwhioXUeiDxl2_uJv_v1fPfubjCA.dJs7n3z.n0
- jUPLFw3SmvNV.9KXNxGPbNEX76GRviHEjKRhdjFOv8kVNe9r_2NInbkZyst9oMcQgpYH7xya1dmb
- ayf_3PWvmQs1e9c0PvkUNjgIDIbQu8UfONuiCTdMH_7Kb.rK7MD_fax6MPr6v3PNuho4O5upBYDt
- Eh9mJA0CPa4yw4ibF5rBgHuiRVZlpndq8hZhZcuxD8n8D74QFsVCK0.Vh8Ia6YPZxPg_6RDgOkuK
- KnPpuKuKUPL4L3MlIyOUQTbFIL4YPwFfNrHRQ.v0RjfOlvUZe.8k_Dv98vGrXBTlR6znoNzlrsZy
- P5KQSyoJ51dQyJubAama52HRLPz3l6Lp9xaqYJ9BkU7gJDTcVnOMeHHO9XhzaMC.EHjZlBtD5LPW
- eVrambySjBI.iDZS1lAas6XjbF5nuHceBinc7sZ99lsdLpfSSUCJDIxN.dSxonCdn_y4xZ63HpmR
- UJv1dcPfwxM8l_nyEEGfFbmlzQl30g1gbDjEJE4VE1nw5fpZEZ58qpiNZQ1j1b2sgprQzNrFAZ31
- lEW5X5odav27Qe39Bu6rmvjzkUcxevIOAShXonNhPvbGx9oS.xL2fhSV3.ao.MHXRCK6Gf4oUWCG
- L.pnAkkqwvVSQ4B4LjG7xy8C9GyCZb_n9GZ0eZ7r3iQGTj4kTrwME_nvltourCyjbHfKoilKnGdd
- .UoEU1kIjQ6TUGCi3Tuj4CaLkJkmYBOo6wN.3ZHd1vyfUwmezRQvQwmpluQbPXoEKhaI5qErfhY0
- k3l4Ey5a7jLuitrtmHBmJdzcsQGy1gbZj5fENOuW11iF7_hGLqsOa8eVRO9VTVDnwZb.QJ5omVAq
- RPCDRTYLBVWErgLbGXXmEuhpprWkwcUyFyC5qMU4Hb26QpoAp7I1mDx0tG5F8TrSkhBC1wTCoAYz
- MgiNzK.qRJn_yFmabQyLuRba.9TRYg3da8LtV27y5CBkiIvmo.iEZf1AeghKvgg9KUgwyeriQK0N
- yqWIxD6L6lBaq0l_njg.Nkf5Xi3JPWjUKJlv2To2gYobZmh6avkgaqO7.q2EB_K1Tgjizz1yqyJv
- rjHQyCbSMnSKRuN7ycVf_zaxDbxHScrg4foV1JSkSIHydvVraCyYWC3r37.9Sy64w7mf4LYWTUW_
- OLZp3.WMAU6xck9pFJSr4hDjxBPmwYMxris7ctbwDViWHwWZOVIcyPRnrDS7CdbMBVAncarq48fB
- TDmeD8JalCDVq.rAbdRyJKL1NV8vITwzehkbI2XvnpMMzrDrVtaDG5x9romujTW8hZVE.XKSu3DV
- 2RhSF.7slSR5ua6hZOpDoIyyfuSXylKyh4u9Zl8kDdpaJS0rxY07mg4XsEOi7HLeuudPyQvbfyit
- mLXMm5HrNdjifkBKqIYYitj5fAuhkLNDVgtJe5bP_NOBn.NwITE33HPohi1LI3qkn_VZBhEl.p0A
- AshhgUVSaru_XAFaRE8o.uZu61Czbvxc4u8O3bNiep_6koDIAfyaXfE5Q_jigrNIBx6KWO.QpYrO
- OujqLLzvGHhw5ZE4R9ezYCNCNbFDws4JozxRGsRVYdhRFgePqS05qt49g_unBHg0asoiHYi_EF1s
- tSdpMjExD_nGeuJHCO9zVdnyIJE7bTcCAm3zjHcRyB1k_84VzHHxQIqTVNC29UFlac3gNffI3aO2
- Tt7qRS.2lmzXFJsxrV.jSWcDvZ6_xBlYbl43MVLEtGH6m9eJxt0_qKDdtIzo.Hn627A5QbMGKoKM
- DWBm3
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 9838cddb-c3db-4c47-8765-365365e09484
-Received: from sonic.gate.mail.ne1.yahoo.com by
- mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-102 with HTTP;
- Wed, 29 Jul 2026 10:49:36 +0000
-Received: from dip182.lsn.ir2.yahoo.com ([87.248.99.191])
- by hello (SMTP) with SMTP ID 55ed7eb25d4b538459b72a781fc4e23e;
- Wed, 29 Jul 2026 10:49:34 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Wed, 29 Jul 2026 12:49:35 +0200
-Subject: [PATCH] staging: fbtft: fix typo in fb_upd161704.c comment
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-upd161704-typo-v3-v1-1-69c962e35d59@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAL7aaWoC/yXMTQ6DIBBA4auYWTsJPxaSXqXpQnBspwskIEZjv
- LtUl9/ivR0yJaYMz2aHRAtnnkKFbBvw3z58CHmoBiWUEVZZLHGQRlrR4bzFCReNJI2mR++0dwZ
- qFxONvF7P1/t2Lu5Hfv6P4DhO05YSrHUAAAA=
-X-Change-ID: 20260727-upd161704-typo-v3-e163e5ab3cb6
-To: Andy Shevchenko <andy@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785322179; l=1089;
- i=tomasz.unger@yahoo.pl; s=20260611; h=from:subject:message-id;
- bh=csNuAcxNQxEm0JFQBbE30OkWlqKgkmwFKZ1ttNV2frY=;
- b=G47v76Ny6yUZ7ibrRTdY5NkJWZTUwHVOvWCnpBnqpgt9J+OBIpTkcz7L9OBRxDg5rsbOvcF9Y
- Bb4ZLnBBvbyB5yBUaubzhwssd5KaqpTlbW/+FZlPR5xWLGz/Sj85fD1
-X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
- pk=elW+gk1cZhyVAkPUfX4QaVHbxERM6w8ByGYxz0Rijl0=
-References: <20260729-upd161704-typo-v3-v1-1-69c962e35d59.ref@yahoo.pl>
+Received: from bg1.exmail.qq.com (bg1.exmail.qq.com [114.132.64.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C99F10E392
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:05:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+ s=mxsw2412; t=1785319491;
+ bh=rGjRoJY2bcOuoh/YLY1s9eXB07hnFRse6TYTrFiBgo0=;
+ h=Mime-Version:Date:Message-Id:Subject:From:To;
+ b=B/Ee5JNHBb6O03VFB1ylyBJ/8BqoGaS6ExKQEnnPpLv9EtzyomiggXWib6OUSc9DG
+ 0iiTbfH2/jDxpBRZ1f90D4CGck/40j3MTpudAbAlRxnGmn4F48ZYMVhRFwq1GIOw7H
+ ho36qc9UFEeqhhZBMEr1HHVSPFjpurRTDlgij9cI=
+X-QQ-mid: zesmtpgz6t1785319483t91deea57
+X-QQ-Originating-IP: 5tTKMPmo2435qtvnLyHekoCjA48pilenE9UZy9JvxsA=
+Received: from localhost ( [120.237.158.181]) by bizesmtp.qq.com (ESMTP) with 
+ id ; Wed, 29 Jul 2026 18:04:41 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 286073189035881177
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 29 Jul 2026 18:04:41 +0800
+Message-Id: <DKAYXR5BO1X3.3R5L4FN5KF6L7@linux.spacemit.com>
+Cc: "frank.binns" <frank.binns@imgtec.com>, "robh" <robh@kernel.org>,
+ "krzk+dt" <krzk+dt@kernel.org>, "conor+dt" <conor+dt@kernel.org>, "dlan"
+ <dlan@kernel.org>, "dri-devel" <dri-devel@lists.freedesktop.org>,
+ "devicetree" <devicetree@vger.kernel.org>, "linux-kernel"
+ <linux-kernel@vger.kernel.org>, "linux-riscv"
+ <linux-riscv@lists.infradead.org>, "spacemit" <spacemit@lists.linux.dev>
+Subject: Re: [PATCH v3 1/2] dt-bindings: gpu: img,powervr-rogue: add
+ spacemit,k3-gpu
+From: "Baihui Liang" <liangbaihui@linux.spacemit.com>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+X-Mailer: aerc 0.17.0
+References: <tencent_79CE08BE248E9ACA2E62BF64@qq.com>
+ <065a229b-e6a8-4cce-8725-9c2e19c8f463@kernel.org>
+ <DKAXV3CTQ6B1.36715CJUMEB9A@linux.spacemit.com>
+ <39f12852-a0d4-4d90-8ea3-dbfa7e1c2059@kernel.org>
+In-Reply-To: <39f12852-a0d4-4d90-8ea3-dbfa7e1c2059@kernel.org>
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: NFQMG86uACrUwTrKvbPcTPng7ir3UJFqNOcGB1iYuTWJpwGjyDBbqxZ0
+ 9F/a9j2pPoGkkGb7JA7F7A7iEA+F0ZYKNs+N+KRlSdwjw8fT4Ss4NZ+r6CZ1MfNDf8o6h3D
+ tVrPPLlpwhovr7zfTfxr9QaJ5q0tALhqpiPUBEwgO2SrAFYaCytnZNgNrvlImgERVVEtKQI
+ 3KnnzeXkOU0LtZrITZpMU2RFt+zLvXS++mVQollO4embq9qR1PNNUfaI4PBD4q83ULKQCTI
+ y1QPDnLwemgeydmajD/NisDpS+1IPyx3+DTQFEPED9iunGjq9+u/+hZV6xTBWd1EgGA41CZ
+ h8N2IEEMU1w6At4CuLEWZjjss9J9a+OAcEFuO56vH7VIIGb8UNF32WUeRmD/LY2qtUgcQVH
+ +JLNnjBzLFGfzRIcF3Q2MGC3YNvnnDR2JyzTklZ1oqg9HRujvGpIrAuxlNic7wbs0aNZAZD
+ nanRQ4FCbBSdZL0wVGudfkG3A26Oln6khbSSsYXR2dPH3hobOwCTsllxAB1bfCjWpoMTVOy
+ S7b7OsIwxlCh3pMwR9lQ7trtRQnQhpD3KbT4qWdu0KIh+pLOfGAU/peHgIKNgOXtOpy/TeS
+ zy/c/LSZkJE6u5s06eu/owszPXzfwKEngXw3e3aQGSZiS3/3Q/plaoFxE3zznw6zKxRgQY9
+ Ymyd9yuuQd9T/9bnDqOxlzsn3okUlP+pvf3TvZeO4Zq+0Z0xijlqSDqF5FO5/GP89XaQJ+T
+ lKmK3O/uCCqpib3yPSL6L7PYiNip+b4g7s7Qi6Visb280rduV3jLr17P+2Q2trPVYNT+9aq
+ t8fbM7bWMB1Myfi/1VE4CE80HoKcqLwU/cxguTZPpv1PbYwtTHkCBNAu6mGfeagCo5mh3Ie
+ W/H3uh3533b5MXL0wsJNydzDxo08ZvlwqYxaJzKp3sS8vHWlc7fcAFy8Zb13TcUGGFXDnrZ
+ UfqmKdBKu8nWip8GQHPjTCVyo+pNsAdPwnXfHCUPBzCy+oDiVacK/B3hnhh9/YrJbbWTf+h
+ hotNKNCJarIFvk1WWUYNMAXA3SVTHjoFRTOnOOQgBDK4lRZRl5
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 X-Mailman-Approved-At: Thu, 30 Jul 2026 07:19:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,32 +86,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Fix 'cencter' typo to 'center' in a register setting comment.
+On Wed Jul 29, 2026 at 5:16 PM CST, Krzysztof Kozlowski wrote:
+> On 29/07/2026 11:14, Baihui Liang wrote:
+> > On Wed Jul 29, 2026 at 3:57 PM CST, Krzysztof Kozlowski wrote:
+> >> On 29/07/2026 09:46, Baihui Liang wrote:
+> >>> On Tue, Jul 28, 2026, Krzysztof Kozlowski wrote:
+> >>> &gt; &gt; [...]
+> >>> &gt; &gt; spacemit,k3-gpu is added to the existing ti,am62-gpu/ti,am6=
+2p-gpu/
+> >>> &gt; &gt; ti,j721s2-gpu "if" block that restricts clocks to a single =
+entry,
+> >>> &gt; &gt; since K3 has the same single-clock requirement. It does not=
+ match any
+> >>> &gt; &gt; "if" block that constrains power-domains, so that property =
+falls back
+> >>> &gt;
+> >>> &gt; I don't get this explanation. Are you explaining what the patch =
+is doing
+> >>> &gt; or explaining WHY you did this that way?
+> >>>
+> >>>
+> >>> That paragraph was describing schema mechanics, which does not belong=
+ in
+> >>> a commit message. v4 will drop it and state only the hardware facts: =
+the
+> >>> K3 integration of the BXM-4-64 has a single "core" clock, and it has =
+no
+> >>> software-controllable GPU power domain.
+> >>>
+> >>>
+> >>> &gt; &gt; to this schema's general constraints, where it is optional.=
+ This
+> >>> &gt; &gt; leaves room for a power-domains provider to be added later =
+without a
+> >>> &gt; &gt; further binding change, should one ever be modelled in Linu=
+x for this
+> >>> &gt; &gt; SoC.
+> >>> &gt;
+> >>> &gt; No, you need to provide constraints now. Please read carefully
+> >>> &gt; writing-bindings.
+> >>>
+> >>>
+> >>> Understood. spacemit,k3-gpu currently matches no power-domains "if"
+> >>> block, so it falls back to the top-level 1-2 domains with
+> >>> power-domain-names "a"/"b". That would let a K3 DT with two power
+> >>> domains pass validation, which does not describe this hardware. v4 wi=
+ll
+> >>> add an explicit "if" block:
+> >>>
+> >>>
+> >>> &nbsp; &nbsp; - if:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; properties:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; compatible:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; contains:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; const: spacemit,k3-g=
+pu
+> >>> &nbsp; &nbsp; &nbsp; then:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; properties:
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; power-domains: false
+> >>> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; power-domain-names: false
+> >>
+> >> I understand only half of this. Please fix your email client.
+> >>
+> >> And why this reply misses reply-to header which connects it to proper
+> >> thread? How am I supposed to find the thread now, among 200 I received
+> >> yesterday?
+> >=20
+> > Sorry -- that went out through a webmail client which sent HTML, so the
+> > quoting and the YAML indentation were destroyed, and it composed a new
+> > message instead of replying in place, which is why it lost the thread.
+> > I have switched to git send-email over our own SMTP; this reply should
+> > be plain text and properly threaded.
+> >=20
+> >> So your name is presented here as "Baihui Liang" then why do you use
+> >> some fake company name?
+> >=20
+> > liangbaihui@linux.spacemit.com is my real work address at SpacemiT. It =
+is
+> > now sent through the company's own mail server.
+>
+> Again: then why do you use fake company name as name? Actually not a
+> company name, but laminated product of some company?
+>
+> What is Sterling-Ash?
+>
+> Best regards,
+> Krzysztof
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
----
- drivers/staging/fbtft/fb_upd161704.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Sorry, I misread what you were asking and answered the wrong question.
 
-diff --git a/drivers/staging/fbtft/fb_upd161704.c b/drivers/staging/fbtft/fb_upd161704.c
-index c680160d6380..7288140e7c3e 100644
---- a/drivers/staging/fbtft/fb_upd161704.c
-+++ b/drivers/staging/fbtft/fb_upd161704.c
-@@ -67,7 +67,7 @@ static int init_display(struct fbtft_par *par)
- 	write_reg(par, 0x001D, 0x0000);	/* Regulator current setting */
- 	write_reg(par, 0x001E, 0x0009);	/* VCOM output setting */
- 	write_reg(par, 0x001F, 0x0035);	/* VCOM amplitude setting */
--	write_reg(par, 0x0020, 0x0015);	/* VCOMM cencter setting */
-+	write_reg(par, 0x0020, 0x0015);	/* VCOMM center setting */
- 	write_reg(par, 0x0018, 0x1E7B);	/* DC/DC operation setting */
- 
- 	/* windows setting */
+"Sterling-Ash" is not a company and not a product name. It was a
+personal nickname left over in my git config, and I did not notice it
+was being used as the author name on the patches until you asked. It is
+not my name and should not have appeared there.
 
----
-base-commit: f5098b6bae761e346ebcd9da7f95622c04733cff
-change-id: 20260727-upd161704-typo-v3-e163e5ab3cb6
+The git config is fixed, and v4 will be sent with:
+
+  From: Baihui Liang <liangbaihui@linux.spacemit.com>
+  Signed-off-by: Baihui Liang <liangbaihui@linux.spacemit.com>
 
 Best regards,
---  
-Tomasz Unger <tomasz.unger@yahoo.pl>
-
+Baihui Liang
