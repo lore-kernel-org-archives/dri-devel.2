@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5ADCC53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 06:23:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 114CDC53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 06:34:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46DAE10EAA3;
-	Wed, 29 Jul 2026 06:23:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D68010EAA5;
+	Wed, 29 Jul 2026 06:34:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ve+AcaiM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ohr5o9DD";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 709B510EAA3
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:23:43 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 766DF10EAA5
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:34:32 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 37A5843258;
- Wed, 29 Jul 2026 06:23:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E449A1F000E9;
- Wed, 29 Jul 2026 06:23:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A1BD860A61;
+ Wed, 29 Jul 2026 06:34:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363B61F000E9;
+ Wed, 29 Jul 2026 06:34:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785306223;
- bh=aPZ7zaWlch7YgBi0Nazs9zIrozHSpe5lg0UdFb5axII=;
+ s=k20260515; t=1785306871;
+ bh=REbYZDKk9Tlp9gekluscvyYnusT6uZK/5tkBQ/7cuOg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ve+AcaiM4/ah1mTySKLuYwrEtESd3cHevpSdd0uBLkWitscTW4he8sXDVn1r37r4J
- EuZf2q0qiOjt/muc7L2bxjg/LBmtg0i+6NskGsAllljwl1fRxMKbgpn/OCCqa2hUIb
- 46Yosx1iDKfD4iNQN7QMVzBzX69HCDM00cBY8OJV10fMu5tirKeP3UsCM2+IGCGtSO
- W/5e+9rAfg9vtVupRXYEt7SqPBJJEcmBRTNrWo/eGvyQ0Ami6wKbo2FWds26wTFJAM
- IzzfeTfChLRMf57xBKp1BxfM3X8sc6tMsgihAJqekTZXcYIh8Y4PlCpBAp4YPEUmCU
- 7nwNEqy72maVg==
+ b=ohr5o9DDlsM5tEjj19E5v/pTmxKwo/psgc4OR/oVE7/h3rvMq5qkCKDleqrLxlJbg
+ 0+oSAEhLKsrETqGUY2ln4cdBUfH/F1Im75gKjjlfJ/v7mJpIp3hMrNerpJykIzr/xS
+ IXs9cEjPcac+Ri46CNoM+oyYKkzcXO7mZ7xfJWdPl4e2LAC0KiD+nkD7Eq+yFgsCXH
+ 2ZTdWXQWNt++k1Xn5uO5jVul7UYQKwg6BYBqEgJrklo/vRYG8wDH70MVydtnmo4yaG
+ umK6WHT4V+6WSCXLHkeLWSVR7zAHofjMxucTzvSNrvcz0IAMYsf3Pz8BTx90MgANR/
+ mrG4zPWkAiLxw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm: Fix drm_pending_vblank_event leak in error path
- for out_fence_ptr
-To: "Thadeu Lima de Souza Cascardo" <cascardo@igalia.com>
+Subject: Re: [PATCH 2/3] drm/panthor: Revisit reqs_lock handling in
+ flush/reset paths
+To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260729-drm_pending_vblank_event_leak-v2-1-a5074aae07df@igalia.com>
-References: <20260729-drm_pending_vblank_event_leak-v2-1-a5074aae07df@igalia.com>
+In-Reply-To: <20260729-panthor-cache-flush-fix-v1-2-205921ed3c81@collabora.com>
+References: <20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com>
+ <20260729-panthor-cache-flush-fix-v1-2-205921ed3c81@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 06:23:42 +0000
-Message-Id: <20260729062342.E449A1F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 06:34:30 +0000
+Message-Id: <20260729063431.363B61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,96 +58,117 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Medium] API Contract Violation: out_fence_ptr is not set to -1 on certai=
-n error paths
+- [High] The timeout fallback logic creates a TOCTOU race with the threaded=
+ IRQ handler, potentially causing subsequent requests to falsely succeed im=
+mediately.
+- [High] If a soft reset actually times out in hardware, the pending flag i=
+s never cleared, permanently breaking all future soft reset attempts.
 --
 
---- Patch [1]: [PATCH v2] drm: Fix drm_pending_vblank_event leak in error p=
-ath for out_fence_ptr ---
-commit ee648481e8c7946df39aedd0d40de2f6f6522bf2
-Author: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+--- Patch [2]: [PATCH 2/3] drm/panthor: Revisit reqs_lock handling in flush=
+/reset paths ---
+commit 179344ff59dcf475c58ff1e22983a6fa7e1203f4
+Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-drm: Fix drm_pending_vblank_event leak in error path for out_fence_ptr
+drm/panthor: Revisit reqs_lock handling in flush/reset paths
 
-This commit fixes a memory leak in the error path of prepare_signaling when
-DRM_MODE_PAGE_FLIP_EVENT is not set but an out_fence_ptr is provided. It
-ensures the pending vblank event is properly released and the crtc state
-event pointer is cleared on allocation or fence creation failures.
+This patch revisits the handling of the reqs_lock in the panthor driver's
+flush and reset paths. It switches from using spin_lock_irqsave() around a
+wait_event_timeout() block to using wait_event_lock_timeout() with standard
+spinlocks. This ensures the pending_reqs register is read and updated under
+the lock without unnecessarily disabling interrupts.
 
-Link: https://patch.msgid.link/20260728-drm_pending_vblank_event_leak-v1-1-=
-08429b920b16@igalia.com
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/pant=
+hor/panthor_gpu.c
+> index c013d6bf9a599..f015bde80abf0 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+[ ... ]
+> @@ -330,35 +330,34 @@ int panthor_gpu_flush_caches(struct panthor_device =
+*ptdev,
+>  			     u32 l2, u32 lsc, u32 other)
+>  {
+[ ... ]
+> -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+> +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
+> -				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> +				ptdev->gpu->reqs_lock, msecs_to_jiffies(100))) {
+>  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) !=3D 0=
+ &&
+>  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COM=
+PLETED))
+>  			ret =3D -ETIMEDOUT;
+>  		else
+>  			ptdev->gpu->pending_reqs &=3D ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
 
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atom=
-ic_uapi.c
-> index 1050dddadb17e..aed6040182eb6 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -1464,11 +1464,15 @@ static int prepare_signaling(struct drm_device *d=
-ev,
->  		if (fence_ptr) {
->  			struct dma_fence *fence;
->  			struct drm_out_fence_state *f;
-> +			struct drm_pending_vblank_event *e =3D crtc_state->event;
+[Severity: High]
+This isn't a bug introduced by this patch, but does this timeout fallback=20
+logic create a race condition with the threaded IRQ handler?
+
+If the timeout occurs because the threaded IRQ handler was delayed (e.g. by
+high CPU load), the fallback path clears the pending_reqs flag based on=20
+INT_RAWSTAT, but it doesn't clear the physical interrupt via INT_CLEAR.
+
+When the threaded IRQ handler eventually runs, won't it read the pending
+interrupt and clear pending_reqs again? If a subsequent request was submitt=
+ed
+in the meantime, could its pending flag be spuriously cleared, causing its
+wait to falsely succeed immediately?
+
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  	}
+> +	spin_unlock(&ptdev->gpu->reqs_lock);
 > =20
->  			f =3D krealloc(*fence_state, sizeof(**fence_state) *
->  				     (*num_fences + 1), GFP_KERNEL);
-> -			if (!f)
-> +			if (!f) {
-> +				drm_event_cancel_free(dev, &e->base);
-> +				crtc_state->event =3D NULL;
->  				return -ENOMEM;
-> +			}
+>  	if (ret) {
+>  		panthor_device_schedule_reset(ptdev);
+[ ... ]
+> @@ -378,27 +377,25 @@ int panthor_gpu_soft_reset(struct panthor_device *p=
+tdev)
+>  {
+[ ... ]
+> -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+> +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
+> +				ptdev->gpu->reqs_lock,
+>  				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+>  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) !=3D 0 &&
+>  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+>  			timedout =3D true;
+>  		else
+>  			ptdev->gpu->pending_reqs &=3D ~GPU_IRQ_RESET_COMPLETED;
 
-[Severity: Medium]
-This is a pre-existing issue, but I noticed a potential UAPI contract
-violation here.
+[Severity: High]
+This is the same pre-existing race condition as in panthor_gpu_flush_caches=
+(),
+where clearing the pending flag without clearing the hardware interrupt cou=
+ld
+allow a subsequent soft reset to succeed spuriously.
 
-If krealloc fails, we return -ENOMEM before out_fence_ptr is added
-to the fence_state array or num_fences is incremented.
-
-Does this mean complete_signaling() will skip this element and fail to write
--1 back to the userspace out_fence_ptr, leaving userspace with an
-uninitialized or stale fd value?
-
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  	}
 > =20
->  			memset(&f[*num_fences], 0, sizeof(*f));
-> =20
-> @@ -1476,12 +1480,17 @@ static int prepare_signaling(struct drm_device *d=
-ev,
->  			*fence_state =3D f;
-> =20
->  			fence =3D drm_crtc_create_fence(crtc);
-> -			if (!fence)
-> +			if (!fence) {
-> +				drm_event_cancel_free(dev, &e->base);
-> +				crtc_state->event =3D NULL;
->  				return -ENOMEM;
-> +			}
+>  	if (timedout) {
 
-[Severity: Medium]
-This is also a pre-existing issue, but similarly, if drm_crtc_create_fence
-fails, out_fence_ptr is written to the array but num_fences is not
-incremented.
+[Severity: High]
+This is a pre-existing issue, but if a soft reset actually times out in
+hardware and timedout is set to true, does this early return bypass
+clearing GPU_IRQ_RESET_COMPLETED from pending_reqs?
 
-Will the cleanup routine skip this pointer and fail to write -1 to userspac=
-e?
+Looking at the end of panthor_gpu_soft_reset(), there is a
+ptdev->gpu->pending_reqs =3D 0; after the timeout check. If we return early
+here via return -ETIMEDOUT, the pending flag is left set.
 
-It looks like this same pattern also exists in the connector loop later in
-prepare_signaling() when drm_writeback_get_out_fence() fails.
-
-> =20
->  			ret =3D setup_out_fence(&f[(*num_fences)++], fence);
->  			if (ret) {
->  				dma_fence_put(fence);
-> +				drm_event_cancel_free(dev, &e->base);
-> +				crtc_state->event =3D NULL;
->  				return ret;
->  			}
+Would any subsequent calls to panthor_gpu_soft_reset() hit the drm_WARN_ON
+check at the start of the function, skip issuing the hardware command, and
+permanently fail with a timeout?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-drm_pendin=
-g_vblank_event_leak-v2-1-a5074aae07df@igalia.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-panthor-ca=
+che-flush-fix-v1-0-205921ed3c81@collabora.com?part=3D2
