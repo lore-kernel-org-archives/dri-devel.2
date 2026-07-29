@@ -4,55 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC30C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:22:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73A47C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:28:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDDBB10EA93;
-	Wed, 29 Jul 2026 11:22:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D366E10E021;
+	Wed, 29 Jul 2026 11:28:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EZeIv7HK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="odZQmLKi";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DDFDC10EA93
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:22:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AFD2A43FE3;
- Wed, 29 Jul 2026 11:22:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41C921F00A3A;
- Wed, 29 Jul 2026 11:22:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785324147;
- bh=Iyvl6ldDVcJQRwOTFkwENJGNteJzfpY7qz7JnLdEsp8=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=EZeIv7HKaQj5ikLdnyIfzVZQW6VzigiIgWHvW4Y0heigR5R7jvwRXgAexjhQ+U6dQ
- +6ulFhOAecMIUg7nbEySax7QhmUT6a8gTnf0+DR3fhKhjNJqfrgHN0zvs59AcZ7S5T
- J839jZLVkiUgEwKRIpRjrPmi+XLMeYYYaBqYV5os6gWZrP0A7m0gsbiSDMxu9iPteT
- QtEqAqKdzWnBJz5T1rBAg2l/359IW3Xlmn3UFR+esgerZm2ucSyr05L2ODoEEdce1Y
- xoDbfP5GIgLN4z6kBOYVGDnvRHVlAOzNeszd2PrVdDekJCmcUTZgaWE7FogKdN42Zv
- RxPMJJIvj9aaw==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 29 Jul 2026 13:22:23 +0200
-Message-Id: <DKB0L93Q3OKI.26PNHHQOIF3EH@kernel.org>
-Subject: Re: [PATCH v3 3/7] drm: nova: Add chipid enum to nova-drm UAPI
-Cc: "John Hubbard" <jhubbard@nvidia.com>, <nova-gpu@lists.linux.dev>, "Alice
- Ryhl" <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>,
- "Alexandre Courbot" <acourbot@nvidia.com>, "Benno Lossin"
- <lossin@kernel.org>, "Gary Guo" <gary@garyguo.net>, "Eliot Courtney"
- <ecourtney@nvidia.com>, <linux-kernel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <rust-for-linux@vger.kernel.org>
-To: "Alistair Popple" <apopple@nvidia.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260723063046.1265791-1-apopple@nvidia.com>
- <20260723063046.1265791-4-apopple@nvidia.com>
- <DK7R7PB91GUE.1PS77AQM8ZR99@kernel.org>
- <amhdA35CcMD_uY2f@nvdebian.thelocal>
- <DKAIVPSA45O9.1NZES5S3BII10@kernel.org>
- <57e2b956-89fd-43e8-8cb3-a15aee272660@nvidia.com>
- <DKAKR85QX9UM.1VYAAL82QBWJ5@kernel.org>
- <ammyfspYkXOwMsdU@nvdebian.thelocal>
-In-Reply-To: <ammyfspYkXOwMsdU@nvdebian.thelocal>
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0773C10E021
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:28:42 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-c15f020a223so130718166b.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 04:28:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785324520; x=1785929320; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=LDeRfN9blSLpZUyGDvy3JYR8gWm0jeyVXT2Ay7oVK6c=;
+ b=odZQmLKil7FZTds8DT2yNCK4BYQorMheQc63tAADXXFhV01RGwpYB8CWKu16FHmt7J
+ ZcntLaRjDaVLk6o0/qkT3PGyiHrc50m5D0Q1hLiwcS+Mz11ns3JVc7VQLuCZ/nvd044Z
+ l5RRk2QfVXtsM89nEPH6T48lyVeJoO/7qSpv2x5UlxH40kHG9LJfuBvjXfLCSDPybAuZ
+ 4najRIXKqz9+DJGJtHYGU97f30KPnv7ZBFGzdtSn+XvH4dWkj3NXFUo9Phcom2UylO17
+ gQKnVt60D237Hb6XWJhJvguqcinrNYflvDEuhDrHKDvMRErOMijSBva4xjDhCLDd5t1+
+ 5YGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785324520; x=1785929320;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=LDeRfN9blSLpZUyGDvy3JYR8gWm0jeyVXT2Ay7oVK6c=;
+ b=FHHD+qbBgWE/NQ8HoioKJbnArkRHjw4w6sQTe2T0AXdlhuM0wldh/xYDl2q2lNsMpY
+ owDdU/5nTr8hJKLWoYFA6zPc2EV31+N0pgsJqKbUZA9xATBAjwiwE0TsCcFWPR36o2VV
+ abVDzlAsqrcPVSB5Q/EczTFpRUOCd0N0JHyxBb9WjQEKDhBGonX8y6CdJbKGKdElzQ8K
+ HKifZ2PQHr0Unj/ixDGgbzQdFXMS1vgJr8UT+7xlDYuqecbYTHo6J2mzI74AEG6CJ8Be
+ aZwbZv+iCgJSzSVy3beuMMUXug0CMCWKcTUVRk4rRsvzLw8LxdVQg45HQoG7XdMt31HJ
+ ZNjA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrU4BcPUC2lstpBEQxrlsFDNUr2VxjguyNi0XotQjJyM+OO6TQ6Ue6X5xSi8DOx66TCpXkawymmGzk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwMa1rlddQIZYu2QAFWMiPJxZK/Qac3pxzuefCOSkE9FwTphWJv
+ 81mHNnb0BLA5DMkqO/NsL6vXdUlLhxzYS+RBFGO/n8DB68lqYhjVdIq/
+X-Gm-Gg: AR+sD13TCiugfjyZ56zd5wz8jEinmpBNK2GcRQxozWpToT0Ajzl6SIzwTh9PRAOqAql
+ 6F0Sh9yOKrOo020v1qKbB78D8TECHEza/NaDTIF+6ESBrAHwZvoQW9tS7D6pPHcpopLrrp4lHxc
+ Ipy6o4s2SbsDe+/gNYapK3aSgQ1S4aWJFd8fMe9tx3aQ40pNaL98kT2nyEDACQApxznNaGifwsA
+ kZ3Fy84bgSN/AGDYZyQ8gnMAgVNb2aLYHWhQTDHwQUmfZi457egjhsCBTRMF/iOw8TExBtaVZGC
+ 6Omp53pltw8K1u1wG+vztYIgpuGXfFghzyBqrJoVOGQUfYxEWRsExeGrSOXaHeiBRdflxUDavwd
+ hsURJ4XETPLq4hG8e8o9BJ/dcMbq8FgT1LvpXSAH0PvV0qIJi93EBPHlXCGnuYOjhu0ZbAEkK7O
+ f/J+fpU+AxuMnA6vL1+XscEbpE5ccvn6qSRWv/dk8XlI7mtFKUh/Q7fRZ5YvZXoD9EnAQXYc280
+ QvI0CC5JmLacapiw3xDskEZG4RKPpcd0WGbFFkvGH3GPW5fTuAEiMuK+3PepbBweZkZY45MlReE
+ 3ePu
+X-Received: by 2002:a17:907:842:b0:c16:5b3f:52e0 with SMTP id
+ a640c23a62f3a-c1f72147104mr346195966b.38.1785324520387; 
+ Wed, 29 Jul 2026 04:28:40 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
+ ([2620:10d:c092:600::1:640]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c1f83cea5f8sm100629666b.24.2026.07.29.04.28.38
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jul 2026 04:28:39 -0700 (PDT)
+Message-ID: <872e7a5e-011e-4415-98dc-96c9066b0614@gmail.com>
+Date: Wed, 29 Jul 2026 12:28:30 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/14] Add dmabuf read/write via io_uring
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <20260729065421.GA9468@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260729065421.GA9468@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,175 +114,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Jul 29, 2026 at 10:24 AM CEST, Alistair Popple wrote:
-> On 2026-07-29 at 08:57 +1000, Danilo Krummrich <dakr@kernel.org> wrote...
->> On Tue Jul 28, 2026 at 11:49 PM CEST, John Hubbard wrote:
->> > On 7/28/26 2:29 PM, Danilo Krummrich wrote:
->> >> On Tue Jul 28, 2026 at 10:00 AM CEST, Alistair Popple wrote:
->> >>> On 2026-07-26 at 01:23 +1000, Danilo Krummrich <dakr@kernel.org> wro=
-te...
->> >>>> On Thu Jul 23, 2026 at 8:30 AM CEST, Alistair Popple wrote:
->> > ...
->> >>>> For instance, what's valid for userspace to extract from this? Give=
-n chipid is a
->> >>>> composed value, is userspace e.g. allowed to make assumptions on ex=
-tracting the
->> >>>> architecture? Or is this something we want to expose separately and=
- tell
->> >>>> userspace that the chipid is an opaque value identifying a specific=
- chip only?
->> >>>
->> >>> I _think_ it makes sense for this to just be an opaque value, but it=
-'s a good
->> >>> question that I should probably try and get some internal feedback o=
-n as well.
->> >>> Reading the arch would then be a separate parameter.
->> >>=20
->> >> I'd prefer exposing it as an opaque value and provide other informati=
-on
->> >> separately; the kernel already does the work anyway, so why duplicate=
- it in
->> >> userspace. It would also remain much cleaner if encoding details ever=
- change.
->
-> Yep, I agree. Just want to make sure we get everyone in agreement.
->
->> >
->> > Just to orient myself, I'm assuming that by "opaque values", you mean =
-using
->> > something that just counts up from, say, 1, instead of using real boot=
-42
->> > values below, right?
->
-> No. We'd just document these as a unique magic value that identifies the =
-GPU
-> chip rather than something that could be decoded into anything else.
->
->> > That seems like a good approach to me, too. Because I can't imagine an=
-ything
->> > particularly good coming from providing unnecessary details to user sp=
-ace
->> > here. :)
->>=20
->> I'd probably not be too worried about keeping it as is, but just documen=
-t it as
->> being an opaque value that shouldn't be messed with.
->
-> Yes, agree with this. I don't think we want to mess with the value. It ju=
-st
-> makes life hard when a new chip is added thats only difference from the n=
-ova-drm
-> perspective is a new chipid. You don't want to have to worry about backpo=
-rting
-> patches to distros and kernels just to add the identifier for say TU117 e=
-ven
-> though it's functionally the same as TU116 from a Nova perspective.
->
-> Obviously chipid would still get added to the header and eventually backp=
-orted,
-> but having been there and done that it's not a good user story to require=
- it.
->
->> If we expose the encoded information separately I don't see a huge incen=
-tive for
->> userspace to redo the work and mess with it anyway.
->>=20
->> The advantage of keeping the values as they are is that we avoid having =
-to deal
->> with mapping values back and forth. I kind of like that nova-core uses t=
-he
->> values from the uAPI header to define the Chipset struct, passes it to n=
-ova-drm
->> and nova-drm does use it to fill in the userspace exposed data.
->
-> So do I.
->
->> Something else worth to consider in this context is whether we really wa=
-nt to go
->> with the key-value pair GETPARAM approach, which can become a bit tediou=
-s.
->>=20
->> I think for the basic GPU information we could have a struct drm_nova_gp=
-u_info,
->> which contains all the relevant information obtained at probe time, such=
- as
->> chipid, architecture, VRAM size, etc.
->>=20
->> If everything is available in a single struct there should be no reason =
-for
->> userspace to mess with the chipid value. However, I'd also not object to=
- make it
->> a "real" opaque value.
->>=20
->> In order to deal with additions to the struct we could take a two stage =
-approach
->> to obtain the information from userspace; probe size first, then allocat=
-e with
->> the returned size:
->>=20
->> We can have a DRM_NOVA_INFO ioctl, which takes a struct containing the i=
-nfo
->> identifier (e.g. DRM_NOVA_GPU_INFO), a size and a pointer to the actual =
-info
->> structure.
->>=20
->> 	struct drm_nova_info {
->> 		__u32 id;
->> 		__u32 size;
->> 		__u64 info;
->> 	};
->>=20
->> Userspace can call the DRM_NOVA_INFO with the identifier (e.g.
->> DRM_NOVA_GPU_INFO), size and info pointer set to zero, and the kernel fi=
-lls in
->> the size of the info struct (e.g. struct drm_nova_gpu_info).
->>=20
->> Subsequently, userspace can allocate memory with the size reported by th=
-e kernel
->> and call the same ioctl with the info pointer set to the allocated memor=
-y.
->>=20
->> This way existing info structs remain extensible (as long as the layout =
-isn't
->> changed of course) and new ones can be added at any time.
->
-> I did consider an approach like this but having to do the two ioctl memor=
-y
-> allocation dance doesn't seem any less tedious.
+On 7/29/26 07:54, Christoph Hellwig wrote:
+> Might help to say this applies to Jens' for-next branch for those trying
+> to apply the patches..
 
-Well, it is two ioctls for a structured set of properties, whereas GETPARAM=
- is N
-ioctls with no structure and slightly less type information.
+Ah yes, and there is a branch as well:
+git: https://github.com/isilence/linux.git rw-dmabuf-v4
+url: https://github.com/isilence/linux/tree/rw-dmabuf-v4
 
-> Also my experience is these structs tend to just grow over time and becom=
-e
-> unwieldy as new bits of info get added
+-- 
+Pavel Begunkov
 
-Note that there's no need to grow existing info groups endlessly; if someth=
-ing
-truly becomes a separate concern we can just add a new group, e.g.
-DRM_NOVA_MEMORY_INFO.
-
-> and old ones deprecated forcing userspace to allocate memory for things i=
-t
-> might no longer care about.
-
-This is equally true of GETPARAM; we accumulate keys that nobody uses anymo=
-re.
-
-Allocating for one or two deprecated fields for a single query doesn't seem=
- like
-a big deal; plus we can always create a new info group and leave the old on=
-e
-alone, just like a deprecated GETPARAM key.
-
-> Ultimately though I'm thinking (hoping?) there will not be a huge number =
-of
-> these - a lot of this info should probably get exposed via sysfs anyway.
-
-I don't think sysfs is a good fit; it seems tedious for a UMD to do a bunch=
- of
-sysfs file reads, each of them requiring at least three syscalls. Plus the
-effort to parse the value from the string sysfs provides, which is more err=
-or
-prone than reading a typed struct.
