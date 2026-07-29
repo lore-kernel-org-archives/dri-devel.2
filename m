@@ -4,47 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BD75C53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 06:20:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB41FC53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 06:20:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 090B710EA97;
-	Wed, 29 Jul 2026 06:20:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3126010EA99;
+	Wed, 29 Jul 2026 06:20:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="B3QU/YLD";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="d7IaOg2g";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52C0A10EA97
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:20:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785306016; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3963610EA99
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:20:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785306022; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=WXYb/2I64GQPJquB2wSbI3VDKibY7uUvb+RBiO7SBGCIGlmboHyxjSYT4PSut3H3ddSK/ZdtnXF+0QjX3syav40kZV5pqYOEK969pw4eIm4/Ej/xRbsN1lkGLNVIUZvi4Omt1xrwXPNh3kvtx4XPb14T1k3WRnQdMN4jrvVm6RM=
+ b=hTm6mJgKTmYN4jtSU7rE+fSb8AFUmpcGVy99koq5SMVCWOjLgeXTA0FhmhTSpMDI6K7fi1wnB8F5wwSCg3sI1478O3Na34knYw8cXjuLnoOliZ8/BsDR+GpNZ++i2jjy1VEOAp1fimJMZ2LAl+rtx3+FRBAIeDy0xiDmYlttC6k=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785306016;
+ s=zohoarc; t=1785306022;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=A/S77ywcJNEWNYibuHZlunu83Y1+7/T5c7HCPO1HImM=; 
- b=HArlFG22J0QAWm54fR56EsOBd2Pr0zqSm3IxN0Hn17ugdnf4X3tgQa3A8Ijyf5FM34NKEEydhWiXQ2UqF3/TdRe/KzA5HQy9+uwSmv5gQ6R3YLDQiLGWF7t7gW+x5TQ5zvJe6mNVqdyFcQxV/7idfbPxiRl7CNurXouk5UpZDGA=
+ bh=i1bEwzpAqbXOusu5i/g7M0H3+pJayV2PwHxpSPHzwqY=; 
+ b=hKKZfjr7hm/GcNCcAS6pEEW/mVaJmxQq5blxeHEwS0lPiQEY4glRTacCAw0fTyxzz5QHtLjeUk5RC3Vzz7oQb/Yl8p+8tqazMJnM/C6LbrMHqoiYJAzFeHmwlQtOqBlbXfRohigX31lnD2vUmnzBfdwkFiXT0znYKwSQ2XSzHn4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785306016; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785306022; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
  h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
- bh=A/S77ywcJNEWNYibuHZlunu83Y1+7/T5c7HCPO1HImM=;
- b=B3QU/YLDsWtynt68Z5gWKAyrV/8Co6Z8JXYdcIqj7jQWbgMwdHv2SCDw7OROD/TX
- p1btkTLsDBMLj2L+Ss7moaAlmEDE5jdBjlEAQU7KQmmgRRZjfCp4NuFLq22hxA2tDVz
- NkKKzXmdSzSx5UK/YoKYGBqG1VJM24vd2ys5n2yc=
-Received: by mx.zohomail.com with SMTPS id 1785306014417121.58010653555687;
- Tue, 28 Jul 2026 23:20:14 -0700 (PDT)
+ bh=i1bEwzpAqbXOusu5i/g7M0H3+pJayV2PwHxpSPHzwqY=;
+ b=d7IaOg2gWurXtDXl+63f3tMNXPHhfkVzDJGQMwBQK0T04XXdGKVuCIoe3IdUhb7K
+ PpuHEws207ks4ZcoG6oooMGEmu0zPKiwwdQucW7DGm2u2IiWDI6PnGsYvA0JJxQNqmq
+ XHwsNIZDVPsFLLBz3X2WdpgM/fQ9LSTYcXG2GlrU=
+Received: by mx.zohomail.com with SMTPS id 1785306019891954.3081043448323;
+ Tue, 28 Jul 2026 23:20:19 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Wed, 29 Jul 2026 08:19:49 +0200
-Subject: [PATCH 1/3] wait: Introduce non-irq variants of
- wait_event_lock_timeout
+Date: Wed, 29 Jul 2026 08:19:50 +0200
+Subject: [PATCH 2/3] drm/panthor: Revisit reqs_lock handling in flush/reset
+ paths
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-panthor-cache-flush-fix-v1-1-205921ed3c81@collabora.com>
+Message-Id: <20260729-panthor-cache-flush-fix-v1-2-205921ed3c81@collabora.com>
 References: <20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com>
 In-Reply-To: <20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com>
 To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
@@ -78,121 +78,100 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-For locks that are never acquired in an interrupt context, the non-irq
-variants for spin_lock()/spin_unlock() are more efficient. However, so
-far, wait.h only provided wait_event_lock_irq_timeout and
-wait_event_interruptible_lock_irq_timeout, both of which use
-spin_lock_irq()/spin_unlock_irq().
+panthor_gpu_flush_caches() and panthor_gpu_soft_reset() would read (and
+even reset) the contents of the pending_reqs register outside of holding
+the reqs_lock. Additionally, when it did hold the lock, it did so with
+the irqsave/irqrestore variants, even though the spinlock was never
+acquired in an atomic context, just the threaded handler.
 
-Rectify this by adding new non-irq variants of these two macros.
+Use the new wait_event_lock_timeout() macro to check pending_reqs under
+the lock, and only do so without disabling interrupts.
 
+Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
- include/linux/wait.h | 84 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 84 insertions(+)
+ drivers/gpu/drm/panthor/panthor_gpu.c | 25 +++++++++++--------------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
-diff --git a/include/linux/wait.h b/include/linux/wait.h
-index dce055e6add3..cd9b989c120e 100644
---- a/include/linux/wait.h
-+++ b/include/linux/wait.h
-@@ -1174,6 +1174,13 @@ do {										\
- 		      __ret = schedule_timeout(__ret);				\
- 		      spin_lock_irq(&lock));
+diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+index c013d6bf9a59..f015bde80abf 100644
+--- a/drivers/gpu/drm/panthor/panthor_gpu.c
++++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+@@ -330,35 +330,34 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+ 			     u32 l2, u32 lsc, u32 other)
+ {
+ 	struct panthor_gpu *gpu = ptdev->gpu;
+-	unsigned long flags;
+ 	int ret = 0;
  
-+#define __wait_event_lock_timeout(wq_head, condition, lock, timeout, state)	\
-+	___wait_event(wq_head, ___wait_cond_timeout(condition),			\
-+		      state, 0, timeout,					\
-+		      spin_unlock(&lock);					\
-+		      __ret = schedule_timeout(__ret);				\
-+		      spin_lock(&lock))
-+
- /**
-  * wait_event_interruptible_lock_irq_timeout - sleep until a condition gets
-  *		true or a timeout elapses. The condition is checked under
-@@ -1219,6 +1226,83 @@ do {										\
- 	__ret;									\
- })
+ 	/* Serialize cache flush operations. */
+ 	guard(mutex)(&ptdev->gpu->cache_flush_lock);
  
-+/**
-+ * wait_event_interruptible_lock_timeout - sleep until a condition gets
-+ *		true or a timeout elapses. The condition is checked under
-+ *		the lock with IRQs enabled. This is expected to be called
-+ *		with the lock taken.
-+ * @wq_head: the waitqueue to wait on
-+ * @condition: a C expression for the event to wait for
-+ * @lock: a spinlock_t that has been locked with spin_lock(), which will be
-+ *	  released before schedule() and reacquired afterwards.
-+ * @timeout: timeout, in jiffies
-+ *
-+ * The process is put to sleep (TASK_INTERRUPTIBLE) until the
-+ * @condition evaluates to true or signal is received. The @condition is
-+ * checked each time the waitqueue @wq_head is woken up.
-+ *
-+ * wake_up() has to be called after changing any variable that could
-+ * change the result of the wait condition.
-+ *
-+ * This is supposed to be called while holding the lock. The lock is
-+ * dropped before going to sleep using spin_unlock() and is reacquired
-+ * using spin_lock() afterwards, but without globally disabling IRQs.
-+ * This is in contrast to wait_event_interruptible_lock_irq_timeout(),
-+ * which uses the spin_lock_irq() and spin_unlock_irq() functions instead.
-+ *
-+ * The function returns 0 if the @timeout elapsed, -ERESTARTSYS if it
-+ * was interrupted by a signal, and the remaining jiffies otherwise
-+ * if the condition evaluated to true before the timeout elapsed.
-+ */
-+#define wait_event_interruptible_lock_timeout(wq_head, condition, lock,		\
-+					      timeout)				\
-+({										\
-+	long __ret = timeout;							\
-+	if (!___wait_cond_timeout(condition))					\
-+		__ret = __wait_event_lock_timeout(				\
-+					wq_head, condition, lock, timeout,	\
-+					TASK_INTERRUPTIBLE);			\
-+	__ret;									\
-+})
+-	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
++	spin_lock(&ptdev->gpu->reqs_lock);
+ 	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+ 		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+ 		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+ 	} else {
+ 		ret = -EIO;
+ 	}
+-	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+ 
+-	if (ret)
++	if (ret) {
++		spin_unlock(&ptdev->gpu->reqs_lock);
+ 		return ret;
++	}
+ 
+-	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
++	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
+ 				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
+-				msecs_to_jiffies(100))) {
+-		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
++				ptdev->gpu->reqs_lock, msecs_to_jiffies(100))) {
+ 		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+ 		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+ 			ret = -ETIMEDOUT;
+ 		else
+ 			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+-		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+ 	}
++	spin_unlock(&ptdev->gpu->reqs_lock);
+ 
+ 	if (ret) {
+ 		panthor_device_schedule_reset(ptdev);
+@@ -378,27 +377,25 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+ {
+ 	struct panthor_gpu *gpu = ptdev->gpu;
+ 	bool timedout = false;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
++	guard(spinlock)(&ptdev->gpu->reqs_lock);
 +
-+/**
-+ * wait_event_lock_timeout - sleep until a condition gets true or a timeout
-+ *		elapses. The condition is checked under the lock with IRQs
-+ *		enabled. This is expected to be called with the lock taken.
-+ * @wq_head: the waitqueue to wait on
-+ * @condition: a C expression for the event to wait for
-+ * @lock: a spinlock_t that has been locked with spin_lock(), which will be
-+ *	  released before schedule() and reacquired afterwards.
-+ * @timeout: timeout, in jiffies
-+ *
-+ * The process is put to sleep (TASK_UNINTERRUPTIBLE) until the
-+ * @condition evaluates to true or signal is received. The @condition is
-+ * checked each time the waitqueue @wq_head is woken up.
-+ *
-+ * wake_up() has to be called after changing any variable that could
-+ * change the result of the wait condition.
-+ *
-+ * This is supposed to be called while holding the lock. The lock is
-+ * dropped before going to sleep using spin_unlock() and is reacquired
-+ * using spin_lock() afterwards, but without globally disabling IRQs.
-+ * This is in contrast to wait_event_lock_irq_timeout(), which uses the
-+ * spin_lock_irq() and spin_unlock_irq() functions instead. Compared to
-+ * wait_event_interruptible_lock_timeout(), it uses the %TASK_UNINTERRUPTIBLE
-+ * instead of allowing the task to be interrupted.
-+ *
-+ * The function returns 0 if the @timeout elapsed, or the remaining jiffies
-+ * otherwise if the condition evaluated to true before the timeout elapsed.
-+ */
-+#define wait_event_lock_timeout(wq_head, condition, lock, timeout)		\
-+({										\
-+	long __ret = timeout;							\
-+	if (!___wait_cond_timeout(condition))					\
-+		__ret = __wait_event_lock_timeout(				\
-+					wq_head, condition, lock, timeout,	\
-+					TASK_UNINTERRUPTIBLE);			\
-+	__ret;									\
-+})
-+
- /*
-  * Waitqueues which are removed from the waitqueue_head at wakeup time
-  */
+ 	if (!drm_WARN_ON(&ptdev->base,
+ 			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+ 		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+ 		gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+ 		gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
+ 	}
+-	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+ 
+-	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
++	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
+ 				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
++				ptdev->gpu->reqs_lock,
+ 				msecs_to_jiffies(100))) {
+-		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+ 		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+ 		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+ 			timedout = true;
+ 		else
+ 			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+-		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+ 	}
+ 
+ 	if (timedout) {
 
 -- 
 2.55.0
