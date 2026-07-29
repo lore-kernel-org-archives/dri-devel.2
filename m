@@ -4,102 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50F70C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 06:19:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35D92C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 06:20:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A215510E239;
-	Wed, 29 Jul 2026 06:19:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66EC010E233;
+	Wed, 29 Jul 2026 06:20:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ECp9MwtF";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="CEDGyZxp";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 595F110E239
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:19:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6B57560A5F;
- Wed, 29 Jul 2026 06:19:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F8A1F000E9;
- Wed, 29 Jul 2026 06:19:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785305951;
- bh=83QpMuzhVNwMA8Mz3/80sRgX6wbFFLPpVL4qq1W45Dg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=ECp9MwtFUSfAmvKWXslahwOhIby0vsqLk8qBNAnk5+dhjrCyp/p5Uk0ntWhM7sV5h
- Vk4phCXbQxgnvYSOOSTIjLG+N9RcnsMBuFCqpEWJ05rsoTanVMFRMBCFHHeTHNYZlh
- sYev3Q2gCQM3eGoL+n26mUd4/TYR5KipLdk/TJTwjCli9FhwmPgiImhFWTT/xSc8zA
- XhHE9vXidcKl6pKAhKhPxZKW6RqOQd6o5C4rUl3h4oFmIzFjqaf6nKLyYi7pcvi2xE
- P1rSpgeNf66PKLN+znVVPhHotWxcdYHSADlXYl74MC1fHRu5jmEcHrTMQMmBfxhjLw
- XXcJ5kN0zo31w==
-Message-ID: <114159dd-0271-4d15-b07d-20fc1e28ee6d@kernel.org>
-Date: Wed, 29 Jul 2026 08:18:58 +0200
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F302210E233
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:20:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785306010; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=SxENcy4tAWPxuWcNsnzQZy+NRXukQck1HEgibJdYohf5+GOXWjJzdD4vgWq0vj/Mo23/o98LSN+4/bnRfLjkRPHB8vEcqtXE/rH/rpfJ/+Xs5/NtVW/yZRVdhbRla1s3mNAtZsKKk5YCF/H84Zdl5PbF1x6RSNJnufccR5NK9MM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785306010;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=LcPy/OklKjXHhgvBvBHEu3COEFzG3JBaEkM4/MoUaTE=; 
+ b=Ulp58vzVpnn/U5S6ERm1Ffn/n0y+SdYub/vXCKr4UNNiodDTqvskVS+mdoTnzeDqnUbPjDvafo0jt4itCHcpDlqVWo4Iy2y2u+xvJGdxCdj22S6Yee+bD/rZK+sRri85w85SNgiuB5nGcM16iusvJqSAv/kWnjcDV22qJ7xPYHM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785306010; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=LcPy/OklKjXHhgvBvBHEu3COEFzG3JBaEkM4/MoUaTE=;
+ b=CEDGyZxpEA3OY7CQut62GIFC1HbN2zo2berK78ebV1ydLX3T+3I0YU6k0Y2BJ/od
+ FuUlGKIcu8FaD9DxV31i+LbCnxIGKpb2or2djF9Hb8UgBkSviCn+N304+/k+gWM0G6Y
+ 4rh3EX29+lQr2HWmRpYPKlL7vZ7urtHuPXfYyQQM=
+Received: by mx.zohomail.com with SMTPS id 1785306008697356.1189702710186;
+ Tue, 28 Jul 2026 23:20:08 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH 0/3] Rework panthor's cache flush and soft reset locking
+Date: Wed, 29 Jul 2026 08:19:48 +0200
+Message-Id: <20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-To: mohit.dsor@oss.qualcomm.com, Sunyun Yang <syyang@lontium.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>, Mohit Dsor <mdsor@oss.qualcomm.com>
-References: <20260728-lt9611c-v7-v8-0-bda216bfaf37@oss.qualcomm.com>
- <20260728-lt9611c-v7-v8-1-bda216bfaf37@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260728-lt9611c-v7-v8-1-bda216bfaf37@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NTQ6CMBCFr9LM2olQIipXMSzaYbBjLGBbjAnh7
+ lZh9fK9vJ8FIgfhCI1aIPBbooxDhvKggJwZ7ozSZQZd6Lo46wtOZkhuDEiGHGP/nKPDXj5oq5p
+ seeqvmirI7Slwtv/Lt3bjONsHU/rN7YnArzlfpi0G1kRGGr2X1KgueEwyHXeFdl2/VC+/Za4AA
+ AA=
+X-Change-ID: 20260728-panthor-cache-flush-fix-b36cb15f92c3
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Grant Likely <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,20 +80,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 28/07/2026 13:09, mohit.dsor@oss.qualcomm.com wrote:
-> From: Sunyun Yang <syyang@lontium.com>
-> 
-> LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> mipi dsi and output hdmi, differences in hardware features:
-> - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> 
-> Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> Signed-off-by: Mohit Dsor <mdsor@oss.qualcomm.com>
-> ---
+There are two problems in panthor's cache flushing/soft reset code
+related to locking.
 
-NAK. You received review. Sending the same is wasting our time.
+The first problem is that the spinlocks are taken with _irqsave, even
+though the contended lock is never acquired in a raw interrupt handler.
+Only a threaded handler locks it.
+
+The second problem is that the wait_event condition references
+pending_reqs without holding the required lock. This means there's a
+data race.
+
+While resolving the first problem is easy, the second problem requires
+adding some more macro variants to wait.h, which is done in the first
+patch.
+
+New tracepoints to debug cache flushing duration without initial locking
+waits is thrown in for good measure as well, to complement what's in
+lock_stat and what the function tracer can already do.
+
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+Nicolas Frattaroli (3):
+      wait: Introduce non-irq variants of wait_event_lock_timeout
+      drm/panthor: Revisit reqs_lock handling in flush/reset paths
+      drm/panthor: Add tracepoints for cache flushing
+
+ drivers/gpu/drm/panthor/panthor_gpu.c   | 28 +++++------
+ drivers/gpu/drm/panthor/panthor_trace.h | 58 +++++++++++++++++++++++
+ include/linux/wait.h                    | 84 +++++++++++++++++++++++++++++++++
+ 3 files changed, 156 insertions(+), 14 deletions(-)
+---
+base-commit: f57436380d5de1c1ded898e21378b0b4159c8790
+change-id: 20260728-panthor-cache-flush-fix-b36cb15f92c3
 
 Best regards,
-Krzysztof
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
