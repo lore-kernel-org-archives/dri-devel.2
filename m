@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 011F5C53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:12:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28541C53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:15:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E60610ECE2;
-	Wed, 29 Jul 2026 16:12:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 853A310ECBB;
+	Wed, 29 Jul 2026 16:15:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oF8em5N/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LCck5IkD";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE7EE10ECEA
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:12:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23C7710ECBB
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:15:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D7ECB43486;
- Wed, 29 Jul 2026 16:12:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 906E71F00A3A;
- Wed, 29 Jul 2026 16:12:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 52B516001D;
+ Wed, 29 Jul 2026 16:15:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4DA31F00A3A;
+ Wed, 29 Jul 2026 16:15:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785341569;
- bh=zHw/eT+IbDqMnM7XMS5Btqbb6oxX2tcrbsBNjwNtYw0=;
+ s=k20260515; t=1785341706;
+ bh=H0/aNtZEq38iyubsPkHfAxQ8gJ19sq3+u24qtjHea4w=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oF8em5N/IN4u1+uRDO9u9xtHRZ97s8XJpGVDU61Kixs76zlt5+yHngtGvPTwxEVFt
- QTs1Dw5lLBlAayrrmH5lBGhlX2hC7JcvSNb/G7zcCsK2XxlQrD+7z4NsK28te1WoqJ
- sJ1J+reNTKbpNJ4WDW9mQQ/N4W4l3IWUc65HcTOeMjBrFI0mIjhnNwEDpkkGw+lVff
- SyQVMTPDX5OUMGSivoZBx5xK9o1JlPJIDSouIGeno5jJ7wdVHvSGufEh1Y3j2b7KLF
- EDly7oyK4Yg06b3mwUn/2jUla9OQsqjOLvT510BHYP056qXOXRWDWr5xY5oa/mrfjW
- 4sjnI6AMlnOag==
+ b=LCck5IkDWI+lhR2aL/KeyQzBf2ZjbIpjzp6U6++Fr0i5Stv7Sx7iVUb426T0FQE7j
+ Vfyu8AMQ/L2hSAj4GypKH4Y09x60GgqqfPB9ez2Ck56VHvtxMLBnFpmBynLGRTCXGE
+ bX/KSP1eX8qUD22HUUVR1gD8RoWw852/JZakFCMoB4JLeBA15mi8SuWSiNXv6DqbNb
+ jVWxtAhW9HZd3ahyTPBODP/UyOxzXjY8Rf7C30znjy5HzOIZPBvaXt22LPsMUMrZAZ
+ INmK+hvU/PA2Z5+6GN/VgdBb1NDpwzOq4S4V9HS9QieRA+2OCgF3XZsrNSEYY/6VGd
+ 2lE1J1nA7qEfw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 04/17] drm/msm: Synchronize set_sysprof on ctxlock
+Subject: Re: [PATCH v7 01/17] drm/msm: Fix barriers accessing ctx vm
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260729155609.20190-5-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20260729155609.20190-2-robin.clark@oss.qualcomm.com>
 References: <20260729155609.20190-1-robin.clark@oss.qualcomm.com>
- <20260729155609.20190-5-robin.clark@oss.qualcomm.com>
+ <20260729155609.20190-2-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 16:12:49 +0000
-Message-Id: <20260729161249.906E71F00A3A@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 16:15:05 +0000
+Message-Id: <20260729161505.C4DA31F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,74 +57,163 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Direct access to uninitialized `ctx->vm` allows userspace to enabl=
-e VM_BIND on hardware lacking per-process page tables.
+- [Critical] Directly accessing `ctx->vm` in ioctl entry points before ensu=
+ring the VM is initialized via `msm_context_vm()` causes a NULL pointer der=
+eference on the first operation.
+- [Critical] `msm_context_vm()` unconditionally caches an `ERR_PTR` inside =
+`ctx->vm` upon allocation failure, permanently breaking the context and cau=
+sing crashes on subsequent accesses.
+- [Critical] Callers of `msm_context_vm()` fail to check if the returned va=
+lue is an error pointer, leading to a crash on VM creation failure.
+- [High] The patch misses concurrent readers like `msm_gem_close()` that st=
+ill perform plain reads of `ctx->vm`, leaving them vulnerable to data races=
+ and partially initialized VM states.
 --
 
---- Patch [4]: [PATCH v7 04/17] drm/msm: Synchronize set_sysprof on ctxlock=
- ---
-commit 80ad21c966f9ce52663d9bf52f28781c4e97e7e0
+--- Patch [1]: [PATCH v7 01/17] drm/msm: Fix barriers accessing ctx vm ---
+Commit SHA: 8c0550637c7f990d073da2dbc73f127555883df0
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
+Subject: drm/msm: Fix barriers accessing ctx vm
 
-drm/msm: Synchronize set_sysprof on ctxlock
+This commit updates msm_context_vm() to use proper memory barriers
+(smp_load_acquire and smp_store_release) to prevent callers from observing
+a partially initialized VM.
 
-A user that was perfmon_capable() could try to race setting SYSPROF
-param on multiple threads to trigger a reference leak.
-
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/=
-msm_submitqueue.c
-> index 8b5980d5a6a79..233c4f35ab121 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
-> @@ -9,6 +9,8 @@
-> =20
->  int msm_context_set_sysprof(struct msm_context *ctx, struct msm_gpu *gpu=
-, int sysprof)
+> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+> index ac86b427c0e53..29075aafc5cc5 100644
+> --- a/drivers/gpu/drm/msm/msm_drv.c
+> +++ b/drivers/gpu/drm/msm/msm_drv.c
+> @@ -224,18 +224,19 @@ struct drm_gpuvm *msm_context_vm(struct drm_device =
+*dev, struct msm_context *ctx
 >  {
-> +	guard(rwsem_write)(&ctx->ctxlock);
+>  	static DEFINE_MUTEX(init_lock);
+>  	struct msm_drm_private *priv =3D dev->dev_private;
+> +	struct drm_gpuvm *vm =3D smp_load_acquire(&ctx->vm);
+> =20
+>  	/* Once ctx->vm is created it is valid for the lifetime of the context:=
+ */
+> -	if (ctx->vm)
+> -		return ctx->vm;
+> +	if (vm)
+> +		return vm;
 > +
->  	/*
->  	 * Since pm_runtime and sysprof_active are both refcounts, we
->  	 * call apply the new value first, and then unwind the previous
+> +	guard(mutex)(&init_lock);
+> =20
+> -	mutex_lock(&init_lock);
+>  	if (!ctx->vm) {
+> -		ctx->vm =3D msm_gpu_create_private_vm(
+> +		vm =3D msm_gpu_create_private_vm(
+>  			priv->gpu, current, !ctx->userspace_managed_vm);
+> -
+> +		smp_store_release(&ctx->vm, vm);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but there is a pre-existing issu=
-e in
-adreno_set_param() when handling MSM_PARAM_EN_VM_BIND:
+[Severity: Critical]
+This is a pre-existing issue, but I noticed that msm_gpu_create_private_vm()
+can return an ERR_PTR on failure (e.g., if page table allocation fails).=20
 
-drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_set_param() {
-    ...
-	case MSM_PARAM_EN_VM_BIND: {
-		guard(rwsem_read)(&ctx->ctxlock);
+If we store that ERR_PTR into ctx->vm without an IS_ERR() check, will=20
+future fast-path readers see this truthy pointer and attempt to dereference=
+=20
+the error value as a valid VM?
 
-		/* We can only support VM_BIND with per-process pgtables: */
-		if (ctx->vm =3D=3D gpu->vm)
-			return UERR(EINVAL, drm, "requires per-process pgtables");
-    ...
+>  	}
+> -	mutex_unlock(&init_lock);
+> =20
+>  	return ctx->vm;
+>  }
+
+[Severity: Critical]
+This is also a pre-existing issue, but does submit_create() need to check=20
+the return value of msm_context_vm() before assigning it to submit->vm?
+
+drivers/gpu/drm/msm/msm_gem_submit.c:submit_create() {
+	...
+	submit->dev =3D dev;
+	submit->vm =3D msm_context_vm(dev, queue->ctx);
+	submit->gpu =3D gpu;
+	...
 }
 
-Does this direct comparison against an uninitialized (NULL) ctx->vm fail to
-reject the VM_BIND enablement on GPUs without per-process page tables?
+If it returns an ERR_PTR, it will eventually cause a panic when submit->vm=
+=20
+is dereferenced.
 
-If a userspace program calls the MSM_PARAM_EN_VM_BIND ioctl early, ctx->vm =
-is
-NULL due to lazy initialization. The check if (ctx->vm =3D=3D gpu->vm) in
-adreno_set_param() evaluates to false, bypassing the hardware capability
-check and incorrectly setting ctx->userspace_managed_vm =3D true.
+Similarly, in msm_submitqueue_create():
 
-Later, when msm_context_vm() is called, msm_gpu_create_private_vm() returns
-the global gpu->vm because the hardware lacks support for private VMs.
-Userspace can then use the MSM_VM_BIND ioctl to map memory directly in the
-global GPU VM.
+drivers/gpu/drm/msm/msm_submitqueue.c:msm_submitqueue_create() {
+	...
+	if (flags & MSM_SUBMITQUEUE_VM_BIND) {
+		struct drm_gpu_scheduler *sched =3D
+			&to_msm_vm(msm_context_vm(drm, ctx))->sched;
 
-Could a malicious userspace program exploit this to map and unmap arbitrary
-memory in the global GPU page tables, potentially overwriting mappings of
-other contexts and the kernel?
+		queue->entity =3D &queue->_vm_bind_entity[0];
+	...
+}
+
+Does this code risk a crash by passing an unchecked pointer to to_msm_vm(),=
+=20
+which computes an offset from the error pointer and then accesses sched?
+
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but I noticed some paths directl=
+y=20
+access ctx->vm before it's guaranteed to be initialized. For example:
+
+drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit() {
+	...
+	if (args->pad)
+		return -EINVAL;
+
+	if (to_msm_vm(ctx->vm)->unusable)
+		return UERR(EPIPE, dev, "context is unusable");
+	...
+}
+
+If an unprivileged user calls this ioctl as the very first operation on a
+new context, won't ctx->vm still be NULL here, leading to an invalid
+pointer dereference via the to_msm_vm() offset macro?
+
+I noticed a similar pattern in msm_gem_new_handle():
+
+drivers/gpu/drm/msm/msm_gem.c:msm_gem_new_handle() {
+	...
+	if (flags & MSM_BO_NO_SHARE) {
+		struct msm_context *ctx =3D file->driver_priv;
+		struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(ctx->vm);
+
+		drm_gem_object_get(r_obj);
+	...
+}
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since the patch addresses=20
+concurrent access to ctx->vm, does msm_gem_close() also need to use=20
+smp_load_acquire() instead of a plain read?
+
+drivers/gpu/drm/msm/msm_gem.c:msm_gem_close() {
+	...
+	msm_gem_vma_put(obj);
+
+	/*
+	 * If VM isn't created yet, nothing to cleanup.  And in fact calling
+	 * put_iova_spaces() with vm=3DNULL would be bad, in that it will tear-
+	 * down the mappings of shared buffers in other contexts.
+	 */
+	if (!ctx->vm)
+		return;
+	...
+}
+
+Without a read barrier, could a concurrent ioctl that initializes the VM
+cause this function to observe a non-NULL pointer but read uninitialized
+memory from the VM structure?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729155609.2019=
-0-1-robin.clark@oss.qualcomm.com?part=3D4
+0-1-robin.clark@oss.qualcomm.com?part=3D1
