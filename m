@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B7C1C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:20:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B22A4C54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:20:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DEC010E963;
-	Wed, 29 Jul 2026 11:20:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DB4910E00A;
+	Wed, 29 Jul 2026 11:20:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AZ6SQfaS";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NJQcrUhl";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FA5810E82A
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:19:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4613810E00A
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:20:09 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 28BAE60A99;
- Wed, 29 Jul 2026 11:19:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1F701F000E9;
- Wed, 29 Jul 2026 11:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785323947;
- bh=nwPkYfXnuT7PkwPYsvO93vWfRFik3bXnbhYyulrFdww=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AZ6SQfaSbuwwBlZ3MEh7CtOeD0zoOlU0X3QksZ+IURTURJxHfArZXUSPyPaJkitUY
- Ug8phUAjTqfEaKBZPC33St6s3LQvEMB+AdRcVX1BGQxMUmRdNFxxcJLB3AKvU9wSkE
- HyPP2tXxIqP9rRT+wIiIBQX8By2emPDbqbrRfw3KXoL00qYC1x6yARQF9iukpxAQZ2
- uNihatGLSAftkxw9p8Xk0IPWYXQoI/aIYfgD9jgM27+K/EAdezCQRM2WzGTqzpgKD2
- n/eLwH0oFgSCigFG4kDEeV5usHaNDfNhfambgNEVZQTV6WP/tSf9x6B+ctorG/BcRC
- VIFzOJZriKYXQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/log: Fix division by zero when scale module
- parameter is 0
-To: oushixiong1025@163.com
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260729105840.865696-1-oushixiong1025@163.com>
-References: <20260729105840.865696-1-oushixiong1025@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 11:19:07 +0000
-Message-Id: <20260729111907.B1F701F000E9@smtp.kernel.org>
+ by sea.source.kernel.org (Postfix) with ESMTP id 146CA4131A;
+ Wed, 29 Jul 2026 11:20:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C6201F000E9;
+ Wed, 29 Jul 2026 11:20:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1785324009;
+ bh=0iyRKyqgXoWD2NaGAmyqllqzeIyaRiZZ5q+d1wDVnNw=;
+ h=Subject:To:Cc:From:Date;
+ b=NJQcrUhl7Yq/U97DtWea6t0+Jn1PpBINeZ/5LD8MiArInRFDLa+KAihJfTN6iaDMm
+ 73I27VvLJNpyx/ErLp7JFSEP/EeYYzd3Ar2Y2Ucmmen87W35HBuoYCFCSlpD8tR8c+
+ X3yKjNLc0cpGRUwnpje8x+Prscin+c62IujE+/rY=
+Subject: Patch "drm/amd/display: Handle struct
+ drm_plane_state.ignore_damage_clips" has been added to the 6.18-stable tree
+To: alexander.deucher@amd.com, dri-devel@lists.freedesktop.org,
+ gregkh@linuxfoundation.org, harry.wentland@amd.com, javierm@redhat.com,
+ tzimmermann@suse.de, zackr@vmware.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 29 Jul 2026 13:19:28 +0200
+Message-ID: <2026072928-caring-papaya-ed97@gregkh>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,153 +53,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Unbounded module parameter scale causes integer overflow leading t=
-o division by zero.
-- [High] TOCTOU race in scale evaluation causes out-of-bounds memory read i=
-n blitter.
-- [High] Unbounded scale causes scanout->columns to evaluate to 0, creating=
- a fatal infinite loop.
-- [High] Unbounded scale causes massive out-of-bounds memset when clearing =
-console lines.
---
+This is a note to let you know that I've just added the patch titled
 
---- Patch [1]: [PATCH v2] drm/log: Fix division by zero when scale module p=
-arameter is 0 ---
-commit e2670bb0ffa13ef9c42c7647657baa7cbc2302c7
-Author: Shixiong Ou <oushixiong@kylinos.cn>
+    drm/amd/display: Handle struct drm_plane_state.ignore_damage_clips
 
-drm/log: Fix division by zero when scale module parameter is 0
+to the 6.18-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-The scale module parameter can be set to 0 via kernel command line or
-sysfs. When scale is 0, scaled_font_h and scaled_font_w become 0,
-causing a division by zero in the rows/columns calculation.
+The filename of the patch is:
+     drm-amd-display-handle-struct-drm_plane_state.ignore_damage_clips.patch
+and it can be found in the queue-6.18 subdirectory.
 
-Introduce a drm_log_scale() helper that returns scale ?: 1, and use it
-at all read sites. This avoids a race that a setter-based clamp would
-have between param_set_uint() and the subsequent check, where another
-CPU could observe scale =3D=3D 0.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-> diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/=
-drm_log.c
-> index e3e02c84a4cfe..fc30dfc048ae9 100644
-> --- a/drivers/gpu/drm/clients/drm_log.c
-> +++ b/drivers/gpu/drm/clients/drm_log.c
 
-[ ... ]
+From ac11060c6d4959e2d4ceada037d2e1e1bfcf6645 Mon Sep 17 00:00:00 2001
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Date: Wed, 10 Jun 2026 17:18:17 +0200
+Subject: drm/amd/display: Handle struct drm_plane_state.ignore_damage_clips
 
-> @@ -76,13 +81,13 @@ static void drm_log_blit(struct iosys_map *dst, unsig=
-ned int dst_pitch,
->  {
->  	switch (px_width) {
->  	case 2:
-> -		drm_draw_blit16(dst, dst_pitch, src, src_pitch, height, width, scale, =
-color);
-> +		drm_draw_blit16(dst, dst_pitch, src, src_pitch, height, width, drm_log=
-_scale(), color);
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does evaluating the scale
-parameter dynamically during rendering create a time-of-check to time-of-use
-race?
+commit ac11060c6d4959e2d4ceada037d2e1e1bfcf6645 upstream.
 
-If the scale parameter is modified concurrently between modeset and renderi=
-ng:
+The mode-setting pipeline can disabled damage clippings for a commit
+by setting ignore_damage_clips in struct drm_plane_state. The commit
+will then do a full display update.
 
-drm_draw.c:drm_draw_blit16() {
-    ...
-	for (y =3D 0; y < height; y++)
-		for (x =3D 0; x < width; x++)
-			if (drm_draw_is_pixel_fg(sbuf8, spitch, x / scale, y / scale))
-    ...
-}
+Test the flag in DCN code and do a full update in DCN code if it has
+been set.
 
-Can the loop execute based on old, larger height bounds while dividing y by=
- a
-new, smaller scale, causing the font glyph array indices to drastically exc=
-eed
-the bounds of the unscaled font source buffer?
+Commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers
+to ignore damage clips") introduced ignore_damage_clips to selectively
+ignore damage clipping in certain framebuffer changes. This driver does
+not do that, but DRM's damage iterator will soon rely on the flag.
+Therefore supporting it here as well make sense for consistency.
 
->  		break;
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Zack Rusin <zackr@vmware.com>
+Cc: dri-devel@lists.freedesktop.org
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit a24019f6480fad5c077b5956eed942c8960323d6)
+Cc: <stable@vger.kernel.org> # v6.8+
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-[ ... ]
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6240,8 +6240,8 @@ static void fill_dc_dirty_rects(struct d
+ {
+ 	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
+ 	struct rect *dirty_rects = flip_addrs->dirty_rects;
+-	u32 num_clips;
+-	struct drm_mode_rect *clips;
++	u32 num_clips = 0;
++	struct drm_mode_rect *clips = NULL;
+ 	bool bb_changed;
+ 	bool fb_changed;
+ 	u32 i = 0;
+@@ -6257,8 +6257,10 @@ static void fill_dc_dirty_rects(struct d
+ 	if (new_plane_state->rotation != DRM_MODE_ROTATE_0)
+ 		goto ffu;
+ 
+-	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
+-	clips = drm_plane_get_damage_clips(new_plane_state);
++	if (!new_plane_state->ignore_damage_clips) {
++		num_clips = drm_plane_get_damage_clips_count(new_plane_state);
++		clips = drm_plane_get_damage_clips(new_plane_state);
++	}
+ 
+ 	if (num_clips && (!amdgpu_damage_clips || (amdgpu_damage_clips < 0 &&
+ 						   is_psr_su)))
 
-> @@ -213,8 +218,8 @@ static int drm_log_setup_modeset(struct drm_client_de=
-v *client,
->  		return -ENOMEM;
->  	}
->  	mode_set->fb =3D scanout->buffer->fb;
-> -	scanout->scaled_font_h =3D scanout->font->height * scale;
-> -	scanout->scaled_font_w =3D scanout->font->width * scale;
-> +	scanout->scaled_font_h =3D scanout->font->height * drm_log_scale();
-> +	scanout->scaled_font_w =3D scanout->font->width * drm_log_scale();
 
-[Severity: High]
-This is a pre-existing issue, but can this multiplication overflow 32-bit
-arithmetic if the scale module parameter is set to a very large value?
+Patches currently in stable-queue which might be from tzimmermann@suse.de are
 
-Because scale is unbounded, a large value like 0x10000000 could cause the
-result to wrap exactly to 0.
-
->  	scanout->rows =3D height / scanout->scaled_font_h;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but if scanout->scaled_font_h
-wraps to 0 due to an overflow, does this result in the same division by zero
-panic that this patch is attempting to fix?
-
->  	scanout->columns =3D width / scanout->scaled_font_w;
-
-[Severity: High]
-This is a pre-existing issue, but if an excessively large scale is provided
-such that scanout->scaled_font_w is greater than width, does scanout->colum=
-ns
-evaluate to 0?
-
-If columns becomes 0, could this trap the logging thread in an infinite loop
-when drawing records?
-
-drm_log.c:drm_log_draw_kmsg_record() {
-    ...
-    while (len > scanout->columns) {
-        ...
-        len -=3D scanout->columns;
-    }
-    ...
-}
-
-If scanout->columns is 0, len will never decrease and the loop will never
-terminate.
-
-Additionally, this isn't a bug introduced by this patch, but can an unbound=
-ed
-scale cause an out-of-bounds memset when clearing console lines?
-
-drm_log.c:drm_log_draw_new_line() {
-    ...
-    drm_log_clear_line(scanout, 2);
-    ...
-}
-
-drm_log.c:drm_log_clear_line() {
-    ...
-    iosys_map_memset(&map, r.y1 * fb->pitches[0], 0, height * fb->pitches[0=
-]);
-    ...
-}
-
-If the excessively large scale makes scaled_font_h extremely large, could t=
-he
-attempt to unconditionally clear the first three lines overwrite memory
-completely outside the bounds of the framebuffer?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729105840.8656=
-96-1-oushixiong1025@163.com?part=3D1
+queue-6.18/drm-tests-shmem-set-dma-mask-to-64-bit-in-drm_gem_sh.patch
+queue-6.18/drm-sysfb-avoid-possible-truncation-with-calculating-visible-size.patch
+queue-6.18/drm-sysfb-do-not-page-align-visible-size-of-the-framebuffer.patch
+queue-6.18/drm-sysfb-return-errno-code-from-drm_sysfb_get_visible_size.patch
+queue-6.18/drm-sysfb-avoid-truncating-maximum-stride.patch
+queue-6.18/drm-amd-display-handle-struct-drm_plane_state.ignore_damage_clips.patch
