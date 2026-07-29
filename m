@@ -4,52 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0778CC54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:15:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7544C54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:16:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70B3710EB93;
-	Wed, 29 Jul 2026 11:15:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4097210E631;
+	Wed, 29 Jul 2026 11:16:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="UaKHHXN7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZKrW5yeH";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 00B1910E631
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:15:38 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7A2F419C;
- Wed, 29 Jul 2026 13:14:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1785323672;
- bh=gUuCfUtOb85tDdPzGoRIzPIcJj5GwVQkb8T2n6kQVN4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=UaKHHXN7cE5QGzdupJ0rdab4haVGTOnnbDYV7w4gVY39ViQEUwUKuyO3tIk2YoORr
- gIkQQfWj/552Pm70wBLAyhouc96sE3mNo6pJs5YSwqsd9vo6aIlSO9n65NjlkngE4l
- JLyIctzKKDOyKYqMAS6eoYhFwCjSovWQU+yOUJCs=
-Message-ID: <39434782-9909-4bb4-b3da-a507acfc5e3d@ideasonboard.com>
-Date: Wed, 29 Jul 2026 14:15:33 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5] drm/omap: dsi: avoid sending bta sync all the time in
- writes
-To: Andreas Kemnade <andreas@kemnade.info>
-Cc: Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>,
- hns@goldelico.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tony Lindgren <tony@atomide.com>,
- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-References: <20260725165909.508612-1-andreas@kemnade.info>
-Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <20260725165909.508612-1-andreas@kemnade.info>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D541B10E631
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:16:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8BF2C401A7;
+ Wed, 29 Jul 2026 11:16:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E8701F000E9;
+ Wed, 29 Jul 2026 11:16:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785323810;
+ bh=wXNO+WGHkIQHfI7jdpYH3atc6g9Q49Cs8pAyRCXe0dU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ZKrW5yeHT4CDwawJSyxoYhUzNjcvqQnQk8UIAWUYBq8aNs1LLKh8N+QonYLasFaIv
+ 8onBeizZG48UawAdkOHE05hRwJ/XwpS7R/c1Ix0XY8XMQFInmAtWD2dfwJMQ0SlA0f
+ 6RDuEYzlxlHZxJLGV+cHW9oHOoZQhwZobGmo3h1e1VLyP+vNmoziUeozICQEpHOxlc
+ bjpVOMCvpILr17EKvL5IKkbUSFd2ddRIrLLXkVw7STSnOGCMcAXeSoO0OqpjMilTmQ
+ geTopjDqGh4HeiMGcFVzavKSwBdCN8kVUCfcSXeu4muUSFfmBLIAONYuk61U0T99X+
+ rl8aocSlA0Yiw==
+From: sashiko-bot@kernel.org
+Subject: Re: Patch "drm/sysfb: Avoid truncating maximum stride" has been
+ added to the 6.18-stable tree
+To: gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <2026072945-lather-carmaker-b8ca@gregkh>
+References: <2026072945-lather-carmaker-b8ca@gregkh>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 11:16:49 +0000
+Message-Id: <20260729111650.4E8701F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,121 +53,113 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On 25/07/2026 19:59, Andreas Kemnade wrote:
-> Some chips need configuration commands to be sent first, before they can
-> send data. TC358762 for example needs PPI_LPTXTIMECNT configured
-> and PPI_STARTPPI set to 1 to be able to transmit anything. To be able to
-> configure such chips, do not send bta sync during writes if no acks are
-> requested. Instead just wait for the packet to be sent to avoid FIFO
-> overflows. There might be more to do about acks, but there seem to be
-> virtually no users of that flag.
-> 
-> This came to light when fiddling with the Epson Moverio BT-200 display
-> which consists of 2 TC358762 bridges with SPI funneled through
-> to the unknown display chip. With that patch the bridge can be accessed,
-> Reading back registers works, when the above-mentioned registers are set.
-> 
-> In Command-Mode update, there was a nop sent, apparently the most
-> relevant part was the bta sync to actually force low power mode.
-> 
-> Video mode panel at OMAP4 (BT-200) and video mode at OMAP5 was tested.
-> 
-> Fixes: e70965386353e ("drm/omap: dsi: simplify write function")
-> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
-> ---
-> Changes in v5:
-> - send bta sync on VC_CMD again
-> 
-> Changes in v4:
-> - wait on completition on all packets (was limited to long packets only,
->    because I had the wrong impression that there is no confirmation on
->    these)
-> - Link to v3: https://patch.msgid.link/20260628-vm-upstr-v3-1-9e9add93378b@kemnade.info
-> 
-> Changes in v3:
-> 
-> - Link to v2: https://patch.msgid.link/20260529-vm-upstr-v2-1-24c30671719f@kernel.org
-> - fix things mentioned by claude here:
->    https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-patch1-20260529-vm-upstr-v2-1-24c30671719f@kernel.org/
->    - fix typos
->    - register ISR before sending packet
->    - check for RX_FIFO_NOT_EMPTY also in for short packets
-> 
-> Changes in v2:
-> - fix commandmode update, need bta sync there
-> - do not wait on short packets
-> - Link to v1: https://patch.msgid.link/20260528-vm-upstr-v1-1-fb93ef8cbe47@kernel.org
-> ---
->   drivers/gpu/drm/omapdrm/dss/dsi.c | 53 ++++++++++++++-----------------
->   1 file changed, 24 insertions(+), 29 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
-> index 27fe7bca9e2cf..eb3cd0d23cae3 100644
-> --- a/drivers/gpu/drm/omapdrm/dss/dsi.c
-> +++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
-> @@ -2194,28 +2194,38 @@ static int dsi_vc_send_null(struct dsi_data *dsi, int vc, int channel)
->   static int dsi_vc_write_common(struct omap_dss_device *dssdev, int vc,
->   			       const struct mipi_dsi_msg *msg)
->   {
-> +	DECLARE_COMPLETION_ONSTACK(completion);
->   	struct dsi_data *dsi = to_dsi_data(dssdev);
->   	int r;
->   
-> +	/* wait for IRQ for packet transmission confirmation */
-> +	r = dsi_register_isr_vc(dsi, vc, dsi_completion_handler,
-> +				&completion, DSI_VC_IRQ_PACKET_SENT);
-> +	if (r)
-> +		return r;
+Pre-existing issues:
+- [High] Calculation of vsize inside drm_sysfb_get_visible_size_si suffers =
+from a 32-bit integer overflow before PAGE_ALIGN, leading to a truncated me=
+mory mapping.
+- [High] drm_sysfb_get_visible_size_si implicitly casts a negative errno to=
+ u64, bypassing the error checks in callers and causing resource registrati=
+on corruption.
+--
+
+--- Patch [1]: Patch "drm/sysfb: Avoid truncating maximum stride" has been =
+added to the 6.18-stable tree ---
+commit afbe56da35160af0caa025f567da427b14e63119
+Author: gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>
+
+Patch "drm/sysfb: Avoid truncating maximum stride" has been added to the 6.=
+18-stable tree
+
+Passing a maximum as 64-bit type to drm_sysfb_get_validated_int0()
+can truncate the value to 32 bits. Use drm_sysfb_get_validated_size0(),
+which uses 64-bit arithmetics. Then test the returned stride against
+the limits of int to avoid truncations in the returned value. A valid
+stride is in the range of [1, INT_MAX] inclusive.
+
+Link: https://patch.msgid.link/20260618084327.46567-5-tzimmermann@suse.de
+
+> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c b/drivers/gpu/=
+drm/sysfb/drm_sysfb_screen_info.c
+> index 885864168c54f..7c336360556d1 100644
+> --- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
+> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
+> @@ -56,11 +56,17 @@ int drm_sysfb_get_stride_si(struct drm_device *dev, c=
+onst struct screen_info *si
+>  			    unsigned int width, unsigned int height, u64 size)
+>  {
+>  	u64 lfb_linelength =3D si->lfb_linelength;
+> +	s64 stride;
+> =20
+>  	if (!lfb_linelength)
+>  		lfb_linelength =3D drm_format_info_min_pitch(format, 0, width);
+> =20
+> -	return drm_sysfb_get_validated_int0(dev, "stride", lfb_linelength, div6=
+4_u64(size, height));
+> +	stride =3D drm_sysfb_get_validated_size0(dev, "stride", lfb_linelength,
+> +					       div64_u64(size, height));
+> +	if (stride < INT_MIN || stride > INT_MAX)
+> +		return -EINVAL;
 > +
->   	if (mipi_dsi_packet_format_is_short(msg->type))
->   		r = dsi_vc_send_short(dsi, vc, msg);
->   	else
->   		r = dsi_vc_send_long(dsi, vc, msg);
->   
-> -	if (r < 0)
-> +	if ((!r) && wait_for_completion_timeout(&completion,
-> +				msecs_to_jiffies(500)) == 0)
-> +		r = -EIO;
-> +
-> +	dsi_unregister_isr_vc(dsi, vc, dsi_completion_handler,
-> +			      &completion, DSI_VC_IRQ_PACKET_SENT);
-> +	if (r)
->   		return r;
->   
-> -	/*
-> -	 * TODO: we do not always have to do the BTA sync, for example
-> -	 * we can improve performance by setting the update window
-> -	 * information without sending BTA sync between the commands.
-> -	 * In that case we can return early.
-> -	 */
-> +	/* TODO: find out if more needs to be done for MIPI_DSI_MSG_REQ_ACK */
->   
-> -	r = dsi_vc_send_bta_sync(dssdev, vc);
-> -	if (r) {
-> -		DSSERR("bta sync failed\n");
-> -		return r;
-> +	if (msg->flags & MIPI_DSI_MSG_REQ_ACK) {
-> +		r = dsi_vc_send_bta_sync(dssdev, vc);
-> +		if (r) {
-> +			DSSERR("bta sync failed\n");
-> +			return r;
-> +		}
->   	}
+> +	return (int)stride; /* stride or negative errno code */
+>  }
+>  EXPORT_SYMBOL(drm_sysfb_get_stride_si);
 
-The dsi_vc_send_bta_sync() function does dsi_get_errors(), which we now 
-don't always do here. I think that might cause any errors to be left 
-there, which would trigger error handling on next read or write-with-bta.
+[Severity: High]
+This isn't a regression introduced by this patch, but looking at the next
+function in this file, drm_sysfb_get_visible_size_si(), is there a 32-bit
+overflow risk here?
 
-_omap_dsi_host_transfer forward declaration can now be remove.
+drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c:drm_sysfb_get_visible_size_si=
+() {
+	u64 vsize =3D PAGE_ALIGN(height * stride);
 
-I don't have HW to test this, but other than the above, it looks 
-reasonable. Although I have to say, based on my past experience, it's 
-also very easy to break a use case =).
+Since height and stride are both 32-bit unsigned integers, their product is
+calculated using 32-bit arithmetic before being passed to PAGE_ALIGN and
+widened to u64.
 
-  Tomi
+If the bootloader supplies screen dimensions that cause the product to exce=
+ed
+4GB, would this overflow wrap around to a small size and cause the driver to
+allocate and map an insufficient memory region?
 
+[Severity: High]
+This is also a pre-existing issue, but does this implicitly cast a negative
+errno to u64?
+
+drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c:drm_sysfb_get_visible_size_si=
+() {
+	...
+	return drm_sysfb_get_validated_size0(dev, "visible size", vsize, size);
+}
+
+drm_sysfb_get_validated_size0() returns s64, which can be an error code like
+-EINVAL.
+
+Since drm_sysfb_get_visible_size_si() returns u64, -EINVAL is cast to a
+massive positive number.
+
+If the framebuffer size is not page-aligned, drm_sysfb_get_validated_size0()
+returns -EINVAL.
+
+Will callers that only check for zero fail to catch this?
+
+For example, in drivers/gpu/drm/sysfb/efidrm.c:efidrm_device_create():
+
+	if (!vsize)
+		return ERR_PTR(-EINVAL);
+
+Could this massive u64 value then be passed to
+devm_aperture_acquire_for_platform_device(), resulting in the driver
+registering a corrupt aperture that spans almost the entire physical address
+space and spuriously detaches the primary firmware framebuffer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2026072945-lather-c=
+armaker-b8ca@gregkh?part=3D1
