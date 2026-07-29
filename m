@@ -4,106 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CD98C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 17:46:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39416C53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 17:52:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0507510ED46;
-	Wed, 29 Jul 2026 17:46:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BD0D10E067;
+	Wed, 29 Jul 2026 17:52:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IVFNeosq";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="YMXaaqaS";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="GYA1SkGa";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A2A510ED65
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 17:46:10 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-4956242332dso10966545e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:46:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785347168; x=1785951968; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=WKE9xNdjsRTW2zyuw6/ikQhgmzmnupdLH1iSl4caYw4=;
- b=IVFNeosqFvHnAdM+pbk2+IYWfA0C4udKh+EW7R8MKlmMuJWV2vEidN8j2JsGW50T2t
- WtJsiqDkxScvJsntdut7bDeCoShY4SnoaMTGIpS06gdaSTRZaZx7IVYDWqX1IkQ2UnKp
- HfBxEel/HTBPfmsNUz6RgZH8TuCJNyywH//5PCO2kw/Ubgg6lz0JrFbBsbbcytxpCsai
- nVSHiULaldOVoktalSt/0+Khb9dPyO9uLl48Ys9ftZc9rPBLXoOYM7q+Xnv6N8g2FpCO
- nSbJ+3b3VaR7J1enKSaC5fHC/BiI2iunEVhJtuvNt38aqywOLuHPNi7ZWFWNOAE8B/9O
- I/Bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785347168; x=1785951968;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=WKE9xNdjsRTW2zyuw6/ikQhgmzmnupdLH1iSl4caYw4=;
- b=M8ejld4Rvn9vWLM1KQp2SHYcp+/TZa4KCJwig+WMI2phtrpZGWN6q60dJSZ5+QHmwc
- /Lxs/MU+qpDnTPLUX2sMieua6cXDnSgW5et7V6dYXm0tnhro1cq+ofo5Z5/lIjX4BxDN
- on5ZVtvIm2D0xibYsA8jFIY0Pla4d4/pfvFGo4EnhLU5r2rkJz4O3kjod+26c5gnz0Q2
- 2NWhmiNmcFjR/AiMQN9mq8QO+kc2C9iEnmcFFogO2jtQPXdoC1s1wrwdH9hOp8pRjXwt
- ThpTBKet7Gw4ZPvS806D+CZDkaK2Z7Bb2PU7vVYoaE5DJSwMPi+3uNNSKrRSgmsbrWo4
- NlHw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoFwjqdZzGjVR63HNhxSXjnWdHWCbhE3KQEv7ctP0EU42quSBffRzbiqzQY29wpJi/us96S2BKLyq8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YydwIWOilnIALt/ZrGc979WFjANp2d8mcGyrZkD+ng/IMV0mr5T
- q1ZNqaqcsmSRAngUFc+Im8L4eUZW+xZPpFlG1/gJ4v2fH4zt15/81N87
-X-Gm-Gg: AR+sD11nJLhoEZgmMSILv5c3MOZEklVnGbzIX8exAOabHy/1b7yi6by5gdqf0rP1JW+
- QUO+By8mTW70fsych4YteKtzU5r7HINyXJeOEqiFMWSoHLqjSMvpu4g/QavEdVtMF/dxkuPnxxF
- jTyydIgzj4XGBGM2DCkxSpEXGkGLwBz6zkefS3EvUnXUzGl9O4AjLikDJpuYGLNPkCJLqFCt3Ok
- M6f5Phw/txgCwdNHeWgRIw7PufDbdUC+4qjkghHrDmQjWdBHN2wL0I/C6Rrn4cwXRntywUN8JP7
- Bxcdg4Kn0fWAJPbTGL0y9fjQmk5SyzOwB5O6reK2a7SqwqNcnFXUOaSboygENMtPJHtGweQ4tUz
- vr0ZryT2JztM/ubGNR3JxmKeVCsZSPK8MKZZ9dH8TS5LyzgVQL8I2rPJv0BYiRDHtMDet49KvkA
- ehcPXD9ITZRYhqoCxTzoCw+iCRoZe9mw7a88wJrTJN+FKNYaskTbDDrwiePQp6PCLqhx0bEikCG
- f2Lt4wmmsU7wcXokkkVBOQxF/WTX9Dtw1RpRXrZWoaTVlDt5Sw2/tzC8YhrizVc515f0YOQq5Ol
- 6XUODl/gCnQURGPvzpk3XXmxV6WytbqDtVim8ok=
-X-Received: by 2002:a05:600c:4fd2:b0:493:e79e:da6b with SMTP id
- 5b1f17b1804b1-496c6590660mr98300165e9.21.1785347168019; 
- Wed, 29 Jul 2026 10:46:08 -0700 (PDT)
-Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c?
- ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-496c45b1c2asm171605965e9.5.2026.07.29.10.46.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2026 10:46:07 -0700 (PDT)
-Message-ID: <5afa3726-6c15-41c8-af19-766eb76b4b46@gmail.com>
-Date: Wed, 29 Jul 2026 18:45:58 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 14/14] io_uring/rsrc: add dmabuf backed registered
- buffers
-To: Anuj gupta <anuj1072538@gmail.com>
-Cc: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>, Jens Axboe
- <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
- io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+Received: from fhigh-b1-smtp.messagingengine.com
+ (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BBBD10E067
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 17:52:39 +0000 (UTC)
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 6E1EF7A0101;
+ Wed, 29 Jul 2026 13:52:38 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Wed, 29 Jul 2026 13:52:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1785347558;
+ x=1785433958; bh=D5KLqWCTQA2QDpEdxZuXTTNt/FdG3ghMWYTA5+524n8=; b=
+ YMXaaqaS0aQ/zPMUBhOq/ctrW26MTILBE8iUncYt56mdqlvSr4VMhlHiVyBZPzMD
+ /xEKORv2KHTpCQqG/y+lsmqnWgfHP/NF1wCulpRUUdGtjT2DHLr5HBSg222j0H0A
+ eFdfzylf4SQqBfRb/OYyit+zSfV4vRQWa262ygp87kw4Yg5Qo0v3pHt5EWI71TWq
+ 2IiJ2nJDWvfGUroACOiMmKuz7WWmqCygttVz6YifZQUS1YWzA/VqGmDPZtxu52NT
+ 7tNoJcKNxU9yMcW9NNfEE408f3JOGnpTYD1oAlfqMUIpSMOuO8ixdyc780r+VWBj
+ YjbjkLJnbMqHS4Uce1YhKg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785347558; x=
+ 1785433958; bh=D5KLqWCTQA2QDpEdxZuXTTNt/FdG3ghMWYTA5+524n8=; b=G
+ YA1SkGaZCWjAwMlhAdsQdznHaJNSzaGJY+m0HRWFcSsaMjegcVNJ38TFmZ+/gRfi
+ TeZ5RJmdKgFjeD5pNOQ8nraNoiu6s6CxC5BB9Xo+282ZPuVGk+rLDOQHTmNSJqIi
+ 2y66oG4bgN0Di5Ezv0re5PJLUsEWOOiOfhS4YWPDIDkAQdKXglOSbtNkzCVeMJZU
+ l2hnOB+54fjwe4c5Av99e0duKYF0gLwzZPsFLkCzgeVLwa50IIJi9i/1WgjosZOU
+ SWHsHxCIFnsUh1InFz56JdoswZ7eqibVS/ZW/ot4EJbh9pnwD00XeXGVnhzj5QJS
+ bMt7O5SwTxGlB5wQby8ow==
+X-ME-Sender: <xms:5D1qagWYaIIbptzkbmpvs6Y2TiDJqhOcHtPKfwD7BIWvmSe6BDEc6A>
+ <xme:5D1qagBKAvkTTrvIhx1mV4Qqhg07O_6eq_9I8YapsFUoARP44LL1f3WLMdQtRkALi
+ QubY9Th8VPxkr9FPdPtI9BPmDcCq381g1tj4FFMi_5stS5NAY0sGg>
+X-ME-Received: <xmr:5D1qajGoZpya9SQvSSSq2aRIy8lJz3IWwP1920feVBXoNdSiGBJelCXG7kULkw>
+X-ME-Proxy-Cause: dmFkZTGl05Q9wRGUWHkduWO3wZl/xrZz4kajZ8zaPjiF9sDpbasCsIvWKG0Kx7MA/yQKDI
+ yypxVnOugzA8KvSYDGOF5LXICBeDbAIJ4cWd5Z/vJ0+46K3Ll9oGFrVkBIGhuqTNs8pUei
+ eaPGTwi+QY0Q+EYeFhNnXAy/iYAqBfyzTdKhFVZmoaYWH1pLSjKpELRhjRki+hhUPVnXpT
+ lWR7CJgsRUir1V3meZuOeSXzV/MghUC0Sqt/s4HkpQCtmYiWr5caV//gMexYRpgKuv7DKv
+ Ec9zyKUlMm41GeT/Rmb9aSsA9bh7vDpWwxM8v5VFi+UwyrITdyzWTvJcPLhn85QmG2QEO7
+ gpoEhIgmn5R2uhB2eukSpphuksTHZvkADJfJqnb9HmWLyfy7j8FFhT14d72vNTAGWadVme
+ Mj9UPDnESUm9IKK8R9JvOIZ/mnK8amdk8E8UsM/pFtnOBl2LQSN5wLzLrBe1i1OI1H0RgG
+ TrEtjCaUBGJrecfNb03S4uWUhl++Zdl7tU1p9TXXzPc+KYW0boggANFgmvPNj9+2I5vpD4
+ Fv2dD0lZ22pjAPuFar4laEfG6SZLJCKFZI3oqdmQn0N724QI/RVKPy24wvpDOB+2N/sknH
+ 7w8YAlByGWU/44zrNmYotNTWXQh4y5yQ8xgvyGpVlKZwJdwn5ymgfXg6dAJQ
+X-ME-Proxy: <xmx:5D1qasfRn7aCRyKJJAz2PIokAJ5nCuBnSdmv0ND5zghRLsRT9A6LeA>
+ <xmx:5T1qag9oQ3Y9LDNx_lBPbN4uImhmdY0Izuqjfdzp6x_VvNsXX8IJgQ>
+ <xmx:5T1qaqZjYW2MjbImQjKqqkejcpoU2mOMCrNT3SBeRdinVI_Evl6FDg>
+ <xmx:5T1qapdCBeApI_xwR6xzCAqJKOMNVQGbnDTfOqAWiLR9TXTueSCRFw>
+ <xmx:5j1qajG_TpQxnxWKc8ezzVQiRV90W1SPZ57tG3676nimiT5N6WSnAWT7>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 29 Jul 2026 13:52:35 -0400 (EDT)
+Date: Wed, 29 Jul 2026 11:52:04 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
+ Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
+ Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair
+ Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Jason Gunthorpe <jgg@nvidia.com>, Damien Le Moal <dlemoal@kernel.org>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>, David Sterba <dsterba@suse.com>,
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org
-References: <cover.1785274111.git.asml.silence@gmail.com>
- <CGME20260728213020epcas5p1721e72ba5544abf0b61482da005120d9@epcas5p1.samsung.com>
- <26dcd0ae5c87a3ada5710b14b6894ef343cec6fe.1785274111.git.asml.silence@gmail.com>
- <583fdfb2-5368-467f-a388-6d388859c995@samsung.com>
- <0df2f832-e8a8-4fdd-a5b6-e08657c2891f@gmail.com>
- <CACzX3Atj+hJmF+Au1Yw5KMk--EHy_J=7Yof1aQNkUV0hCrdVEA@mail.gmail.com>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <CACzX3Atj+hJmF+Au1Yw5KMk--EHy_J=7Yof1aQNkUV0hCrdVEA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
+Message-ID: <20260729115204.2a9a50b2@shazbot.org>
+In-Reply-To: <20260715174737.15287-8-matt@ozlabs.org>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-8-matt@ozlabs.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,46 +107,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/29/26 17:52, Anuj gupta wrote:
-> On Wed, Jul 29, 2026 at 7:37 PM Pavel Begunkov <asml.silence@gmail.com> wrote:
->>>> +static int io_import_dmabuf(struct io_kiocb *req,
->>>> +                       int ddir, struct iov_iter *iter,
->>>> +                       struct io_mapped_ubuf *imu,
->>>> +                       size_t len, size_t offset,
->>>> +                       unsigned issue_flags)
->>>> +{
->>>> +    struct io_regbuf_dma *db = imu->priv;
->>>> +    struct dma_buf_io_map *map;
->>>> +
->>>> +    if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
->>>> +            return -EOPNOTSUPP;
->>>> +    if (!len)
->>>> +            return -EFAULT;
->>>> +    if (req->file != db->target_file)
->>>> +            return -EBADF;
->>>> +
->>>> +    if (req->flags & REQ_F_DROP_DMABUF) {
->>>> +            map = req->dmabuf_map;
->>>> +            goto init_iter;
->>>> +    }
->>>
->>> O_DIRECT is checked only during registration; we should recheck
->>> (file->f_flags & O_DIRECT) per request.
->>
->> Nobody should be able to clear O_DIRECT, unless I missed something?
->> And fwiw, io_uring wouldn't be the right place to do it.
->>
-> 
-> fcntl(fd, F_SETFL, flags & ~O_DIRECT) on an already registered, already
-> open fd succeeds. The consequence is that subsequent I/Os switch to
+On Wed, 15 Jul 2026 18:47:30 +0100
+Matt Evans <matt@ozlabs.org> wrote:
+> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+> index 9a1674c152aa..e2b4252e7c3f 100644
+> --- a/include/linux/vfio_pci_core.h
+> +++ b/include/linux/vfio_pci_core.h
+> @@ -134,6 +134,7 @@ struct vfio_pci_core_device {
+>  	bool			pm_intx_masked;
+>  	bool			pm_runtime_engaged;
+>  	bool			sriov_active;
+> +	bool			zap_bars_on_revoke;
+>  	struct pci_saved_state	*pci_saved_state;
+>  	struct pci_saved_state	*pm_save;
+>  	int			ioeventfds_nr;
 
-Very exciting.
+This should be in the bitfield usage group since it's only modified at
+init time.  Thanks,
 
-> buffered I/O and cause silent data loss. Something on this path needs
-> to reject this combination.
-
-Yeah, I'll fix it, thanks
-
--- 
-Pavel Begunkov
-
+Alex
