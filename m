@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54BF5C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:57:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E71FC53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:58:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C042C10E362;
-	Wed, 29 Jul 2026 10:57:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD93210E36E;
+	Wed, 29 Jul 2026 10:57:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qXsalotL";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Q0mN+HuA";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80D4710E362
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:57:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AACF710E36E
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:57:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 673C9414F9;
- Wed, 29 Jul 2026 10:57:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE2971F000E9;
- Wed, 29 Jul 2026 10:57:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2F4B860A9B;
+ Wed, 29 Jul 2026 10:57:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B9E61F00A3E;
+ Wed, 29 Jul 2026 10:57:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785322669;
- bh=QoUCRJ+Cuu4O+UuyRM21VyOyHnSW7QsYqiehOolOwzY=;
+ s=korg; t=1785322674;
+ bh=+FNtu0r+7XHhHhNhHWn0egstGti/YGh/VoLSZ0NbnF8=;
  h=Subject:To:Cc:From:Date;
- b=qXsalotL6khI6hNem/8WqgUiZeZNyXobpNKD/91gkTcYERrlpP7QhKFvWGz6yehCg
- OA3cuaUkVb4W3Fv7+qSZ+LtC+aqD1Y6npPx5rkSa2KiioXAwi+nYHFRy9WKKXQ4l0h
- iPHJcScdyCDknamNglLY3QxFGSf/nye1evYvjo/g=
-Subject: Patch "drm/sysfb: Avoid truncating maximum stride" has been added to
- the 6.18-stable tree
+ b=Q0mN+HuAUTKG+ptesWAFBUrpXJeMpl9Iz32ym+EdtHTo3rLsrHXj6Sb4BXOSSfrJS
+ DABRBj9M1vM/ghi5yNi2AWLmsqi6pIft63qXmNyk5ey4fvGhXJEZ6QPljPa261fhB+
+ 6Lj+1CSQnGzLzMGAtePdqoQWrxqlzrgFttMCmK3s=
+Subject: Patch "drm/sysfb: Return errno code from
+ drm_sysfb_get_visible_size()" has been added to the 6.18-stable tree
 To: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- javierm@redhat.com, sashiko-bot@kernel.org, tzimmermann@suse.de
+ javierm@redhat.com, tzimmermann@suse.de
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:56:45 +0200
-Message-ID: <2026072945-lather-carmaker-b8ca@gregkh>
+Date: Wed, 29 Jul 2026 12:56:46 +0200
+Message-ID: <2026072946-encrust-runt-fee2@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -58,71 +58,124 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 This is a note to let you know that I've just added the patch titled
 
-    drm/sysfb: Avoid truncating maximum stride
+    drm/sysfb: Return errno code from drm_sysfb_get_visible_size()
 
 to the 6.18-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     drm-sysfb-avoid-truncating-maximum-stride.patch
+     drm-sysfb-return-errno-code-from-drm_sysfb_get_visible_size.patch
 and it can be found in the queue-6.18 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
-From 9206b22fb959f4a9cf1921f34aed0df1dcb1ab04 Mon Sep 17 00:00:00 2001
+From 7bab0f09d753f098977bbba3955d694c2e2c25da Mon Sep 17 00:00:00 2001
 From: Thomas Zimmermann <tzimmermann@suse.de>
-Date: Thu, 18 Jun 2026 10:42:00 +0200
-Subject: drm/sysfb: Avoid truncating maximum stride
+Date: Thu, 18 Jun 2026 10:41:59 +0200
+Subject: drm/sysfb: Return errno code from drm_sysfb_get_visible_size()
 
 From: Thomas Zimmermann <tzimmermann@suse.de>
 
-commit 9206b22fb959f4a9cf1921f34aed0df1dcb1ab04 upstream.
+commit 7bab0f09d753f098977bbba3955d694c2e2c25da upstream.
 
-Passing a maximum as 64-bit type to drm_sysfb_get_validated_int0()
-can truncate the value to 32 bits. Use drm_sysfb_get_validated_size0(),
-which uses 64-bit arithmetics. Then test the returned stride against
-the limits of int to avoid truncations in the returned value. A valid
-stride is in the range of [1, INT_MAX] inclusive.
+Change the return type of drm_sysfb_get_visible_size() to s64 so
+that it returns a possible errno code from _get_validated_size0().
+Fix callers to handle the errno code.
+
+The currently returned unsigned type converts an errno code to a
+very large size value, which drivers interpret as visible size of
+the system framebuffer. Later efforts to reserve the framebuffer
+resource fail.
+
+The bug has been present since efidrm and vesadrm got merged. It
+was then part of each driver.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/dri-devel/20260617114016.5A5991F000E9@smtp.kernel.org/
 Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
 Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Javier Martinez Canillas <javierm@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
 Cc: <stable@vger.kernel.org> # v6.16+
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Link: https://patch.msgid.link/20260618084327.46567-5-tzimmermann@suse.de
+Link: https://patch.msgid.link/20260618084327.46567-4-tzimmermann@suse.de
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c |    8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/sysfb/drm_sysfb_helper.h      |    2 +-
+ drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c |    2 +-
+ drivers/gpu/drm/sysfb/efidrm.c                |    7 ++++---
+ drivers/gpu/drm/sysfb/vesadrm.c               |    6 +++---
+ 4 files changed, 9 insertions(+), 8 deletions(-)
 
+--- a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
++++ b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
+@@ -39,7 +39,7 @@ struct resource *drm_sysfb_get_memory_si
+ int drm_sysfb_get_stride_si(struct drm_device *dev, const struct screen_info *si,
+ 			    const struct drm_format_info *format,
+ 			    unsigned int width, unsigned int height, u64 size);
+-u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
++s64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
+ 				  unsigned int height, unsigned int stride, u64 size);
+ const struct drm_format_info *drm_sysfb_get_format_si(struct drm_device *dev,
+ 						      const struct drm_sysfb_format *formats,
 --- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
 +++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
-@@ -56,11 +56,17 @@ int drm_sysfb_get_stride_si(struct drm_d
- 			    unsigned int width, unsigned int height, u64 size)
- {
- 	u64 lfb_linelength = si->lfb_linelength;
-+	s64 stride;
- 
- 	if (!lfb_linelength)
- 		lfb_linelength = drm_format_info_min_pitch(format, 0, width);
- 
--	return drm_sysfb_get_validated_int0(dev, "stride", lfb_linelength, div64_u64(size, height));
-+	stride = drm_sysfb_get_validated_size0(dev, "stride", lfb_linelength,
-+					       div64_u64(size, height));
-+	if (stride < INT_MIN || stride > INT_MAX)
-+		return -EINVAL;
-+
-+	return (int)stride; /* stride or negative errno code */
+@@ -71,7 +71,7 @@ int drm_sysfb_get_stride_si(struct drm_d
  }
  EXPORT_SYMBOL(drm_sysfb_get_stride_si);
  
+-u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
++s64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
+ 				  unsigned int height, unsigned int stride, u64 size)
+ {
+ 	u64 vsize = mul_u32_u32(height, stride);
+--- a/drivers/gpu/drm/sysfb/efidrm.c
++++ b/drivers/gpu/drm/sysfb/efidrm.c
+@@ -143,7 +143,8 @@ static struct efidrm_device *efidrm_devi
+ 	const struct screen_info *si;
+ 	const struct drm_format_info *format;
+ 	int width, height, stride;
+-	u64 vsize, mem_flags;
++	s64 vsize;
++	u64 mem_flags;
+ 	struct resource resbuf;
+ 	struct resource *res;
+ 	struct efidrm_device *efi;
+@@ -195,8 +196,8 @@ static struct efidrm_device *efidrm_devi
+ 	if (stride < 0)
+ 		return ERR_PTR(stride);
+ 	vsize = drm_sysfb_get_visible_size_si(dev, si, height, stride, resource_size(res));
+-	if (!vsize)
+-		return ERR_PTR(-EINVAL);
++	if (vsize < 0)
++		return ERR_PTR(vsize);
+ 
+ 	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, stride=%d bytes\n",
+ 		&format->format, width, height, stride);
+--- a/drivers/gpu/drm/sysfb/vesadrm.c
++++ b/drivers/gpu/drm/sysfb/vesadrm.c
+@@ -392,7 +392,7 @@ static struct vesadrm_device *vesadrm_de
+ 	const struct screen_info *si;
+ 	const struct drm_format_info *format;
+ 	int width, height, stride;
+-	u64 vsize;
++	s64 vsize;
+ 	struct resource resbuf;
+ 	struct resource *res;
+ 	struct vesadrm_device *vesa;
+@@ -445,8 +445,8 @@ static struct vesadrm_device *vesadrm_de
+ 	if (stride < 0)
+ 		return ERR_PTR(stride);
+ 	vsize = drm_sysfb_get_visible_size_si(dev, si, height, stride, resource_size(res));
+-	if (!vsize)
+-		return ERR_PTR(-EINVAL);
++	if (vsize < 0)
++		return ERR_PTR(vsize);
+ 
+ 	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, stride=%d bytes\n",
+ 		&format->format, width, height, stride);
 
 
 Patches currently in stable-queue which might be from tzimmermann@suse.de are
