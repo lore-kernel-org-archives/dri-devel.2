@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFCC4C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 12:46:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1935C54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 12:46:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3279210EC00;
-	Wed, 29 Jul 2026 12:46:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16C6110EC02;
+	Wed, 29 Jul 2026 12:46:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nkzr10MD";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RG5vQoAj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3558E10EC00
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 12:46:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4AAD810EC02
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 12:46:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B2F0E4125F;
- Wed, 29 Jul 2026 12:46:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 158761F000E9;
- Wed, 29 Jul 2026 12:46:09 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A6C7A600BB;
+ Wed, 29 Jul 2026 12:46:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D5D1F000E9;
+ Wed, 29 Jul 2026 12:46:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785329170;
- bh=hYP9VN6tsuHbVTjt7S+rFAE+HflAhuiJd5pEWBElp0k=;
+ s=korg; t=1785329207;
+ bh=a2byaAF8ldc4WIwV9Vh4p9XJQr1c4U4rkAf7BtCyRuc=;
  h=Subject:To:Cc:From:Date;
- b=nkzr10MDWeXL007lrBKTJGLwm1X5nMTUXqYdR8UGh01EIkrx+YBBOLeSl5D7Q1cEs
- yNhMmGhpmMEIVLdoi+m0Gu4gVoMjiOyVIyZ7Y3+snRjEwzkPNLXwCqQ00o+lZH3rcj
- guYlp8OI1naKCNDyxeNRlYlh0Pr+4XWr2UJalupw=
+ b=RG5vQoAjJardDvTxaj9sZcc6bMuOCIdiM+PNa421T+KlUL1iiPe9HT294XbviGX2u
+ lleYLUtfsbj2tcF6k81cpZ+NftVTvPyCL8vDGqA/FdHRr6PLCQOg1IIYbx/ELDa2Y8
+ tGo1Kk5cIMP5qfLjCOqiHWzFKmzR88FgpzFvwxsY=
 Subject: Patch "drm/ttm: Account for NULL and handle pages in ttm_pool_backup"
- has been added to the 6.18-stable tree
+ has been added to the 7.1-stable tree
 To: airlied@gmail.com, christian.koenig@amd.com,
  dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
  maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
@@ -36,8 +36,8 @@ To: airlied@gmail.com, christian.koenig@amd.com,
  simona@ffwll.ch, thomas.hellstrom@linux.intel.com, tzimmermann@suse.de
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 14:45:24 +0200
-Message-ID: <2026072924-debate-parched-01e5@gregkh>
+Date: Wed, 29 Jul 2026 14:45:35 +0200
+Message-ID: <2026072935-claim-pediatric-f8bf@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -63,12 +63,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/ttm: Account for NULL and handle pages in ttm_pool_backup
 
-to the 6.18-stable tree which can be found at:
+to the 7.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-ttm-account-for-null-and-handle-pages-in-ttm_pool_backup.patch
-and it can be found in the queue-6.18 subdirectory.
+and it can be found in the queue-7.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -163,7 +163,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 --- a/drivers/gpu/drm/ttm/ttm_pool.c
 +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -981,9 +981,31 @@ long ttm_pool_backup(struct ttm_pool *po
+@@ -1051,9 +1051,31 @@ long ttm_pool_backup(struct ttm_pool *po
  		return -EBUSY;
  
  #ifdef CONFIG_X86
@@ -198,7 +198,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  #endif
  
  	if (tt->dma_address || flags->purge) {
-@@ -991,7 +1013,7 @@ long ttm_pool_backup(struct ttm_pool *po
+@@ -1061,7 +1083,7 @@ long ttm_pool_backup(struct ttm_pool *po
  			unsigned int order;
  
  			page = tt->pages[i];
@@ -207,7 +207,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  				num_pages = 1;
  				continue;
  			}
-@@ -1034,6 +1056,10 @@ long ttm_pool_backup(struct ttm_pool *po
+@@ -1104,6 +1126,10 @@ long ttm_pool_backup(struct ttm_pool *po
  		if (unlikely(!page))
  			continue;
  
@@ -222,11 +222,21 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from matthew.brost@intel.com are
 
-queue-6.18/drm-i915-gem-add-missing-nospec-on-parallel-submit-slot.patch
-queue-6.18/drm-ttm-account-for-null-and-handle-pages-in-ttm_pool_backup.patch
-queue-6.18/drm-xe-vf-shadow-buffer-management-for-ccs-read-writ.patch
-queue-6.18/drm-xe-return-error-on-non-migratable-faults-requiring-devmem.patch
-queue-6.18/drm-xe-vm-fix-svm-leak-on-resv-obj-alloc-failure-in-.patch
-queue-6.18/drm-xe-fix-pte-index-in-xe_vm_populate_pgtable-for-chunked-binds.patch
-queue-6.18/drm-xe-sa-shadow-buffer-support-in-the-sub-allocator.patch
-queue-6.18/drm-xe-vf-fix-vf-ccs-attach-detach-race-with-in-flig.patch
+queue-7.1/drm-xe-guc-fix-buffer-overflow-in-steered-register-list-allocation.patch
+queue-7.1/drm-i915-gem-add-missing-nospec-on-parallel-submit-slot.patch
+queue-7.1/drm-xe-vf-add-drm_dev-guards-when-detaching-ccs-read.patch
+queue-7.1/drm-xe-vm-fix-bo-prefetch-with-consult_mem_advise_pref_loc.patch
+queue-7.1/drm-xe-display-skip-force_wc-and-vm_bound-check-for-external-dma-bufs.patch
+queue-7.1/drm-ttm-account-for-null-and-handle-pages-in-ttm_pool_backup.patch
+queue-7.1/drm-xe-pt-reset-current_op-in-xe_pt_update_ops_init.patch
+queue-7.1/drm-xe-return-error-on-non-migratable-faults-requiring-devmem.patch
+queue-7.1/drm-xe-vm-fix-svm-leak-on-resv-obj-alloc-failure-in-.patch
+queue-7.1/drm-xe-fix-pte-index-in-xe_vm_populate_pgtable-for-chunked-binds.patch
+queue-7.1/drm-xe-assign-queue-name-in-time-for-drm_sched_init.patch
+queue-7.1/drm-xe-madvise-skip-invalidation-for-purgeable-state-updates.patch
+queue-7.1/drm-xe-vf-fix-vf-ccs-attach-detach-race-with-in-flig.patch
+queue-7.1/drm-gpusvm-publish-dpagemap-early-to-avoid-device-mapping-leak-on-error.patch
+queue-7.1/drm-xe-guc-hold-device-ref-until-queue-teardown-comp.patch
+queue-7.1/drm-xe-guc-keep-scheduler-timeline-name-alive.patch
+queue-7.1/drm-i915-gt-fix-null-deref-on-sched_engine-alloc-failure.patch
+queue-7.1/drm-xe-add-compact-pt-and-addr-mask-handling-for-page-reclaim.patch
