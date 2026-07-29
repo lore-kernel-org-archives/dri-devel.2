@@ -4,95 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21FD1C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 15:18:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 172FEC53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 15:20:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60C3910E564;
-	Wed, 29 Jul 2026 15:18:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C51E10EC7B;
+	Wed, 29 Jul 2026 15:20:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UGjVWERa";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="S/3Q0Bnq";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA14110E564
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 15:18:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785338328;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=MWA02cKyEG3MnhMw4GWqcBnQsQ4t1ignU/WFOZgIXMc=;
- b=UGjVWERaVTIIsZiFTBi7Gc7SCd+jTt27lvKCksNt+r+bhjUIwyrc+5cQnuHy9WKxvyj+8V
- qlVKoGr/vFWFvurdIdQYO/22lV6YlNKKqXXXMvVA5Vhe6BErq7MBU9Zf+dsaP48agWogg1
- 9gdIlpcr/2piv2C8jcTm/l0f7Z4pNiI=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-211-7-A7RCW_OcejjA3weOnL_w-1; Wed, 29 Jul 2026 11:18:47 -0400
-X-MC-Unique: 7-A7RCW_OcejjA3weOnL_w-1
-X-Mimecast-MFC-AGG-ID: 7-A7RCW_OcejjA3weOnL_w_1785338326
-Received: by mail-wr1-f71.google.com with SMTP id
- ffacd0b85a97d-47d81cf0c4cso742741f8f.2
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 08:18:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785338326; x=1785943126;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=MWA02cKyEG3MnhMw4GWqcBnQsQ4t1ignU/WFOZgIXMc=;
- b=BIgDS96Q/mOasncnllPPvH+jjAHMseGhJox8BwjFEWUImrqj+UG/f/37N2r+RferSs
- mFus7AuBnqTFG3FGEV8YtH7wBv8hCTbG/PHbH8eIIA2W6MFWpODrg+cwfPgBNQkwzQfg
- Furqz16IKorja5eTgHdjyREUDnOD/N5Ruptxx3LlIsh1V4+2nCMLvwM7Hy/qsLdMf/U4
- iZIflkk1B7RXZRnIzCtpjq/1gwfeSHmN6Vz42grWAuZ3Fvw0+5LfLjlTYPHsqvn+H9ro
- oTF32crKodFilGms1zMA/POm5ewkYoCw2ofo9BnhnZyQNozOLqF/sOfXU6/6WaeY6wgc
- EQtA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq4yEMLUzGeIw7G+UqGNZSk6xmRZ8iQusbTCvmkq0ulwDuv04JnqsPDO1gokyFG31BvQbYGuB66+jA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyhwmjpdkrrZXDH6Si0idfSQkhwasjrTwWvT0m8rKhSaYOBENWA
- 8iQcpBq/utFxKosw+ilGrNbLQ6zMPl0vcSvzfyOANztkaPogj8V3la5hL6axjAFWtO7xiOAA1Ln
- HBa0oucBMHqluzs50PNYomDfmrdIquSSwfR7BDv0tNLyb/0qfE/eQJKZq1IdC/pLJw9ZCWA==
-X-Gm-Gg: AR+sD12jvmfZ7ouwOMnAM/Jy/ye4eGibiXRQg8FCwyPT3D61KF6Sa89CfS8GFBVKhcM
- 6Ji29e3mI07h10H3OuHLmQt0e0e60qxAixJwjzgVN7s+6BSTgjdgGlLIAMRw0NEhMWVPP8X8WvG
- 8GjJEkiesYrGQV+olAi7sSutuKLHQIYJmRq9JX/qBBe5FZQ3O+LvBwSTcwH6DmtFaEY/qYv4neD
- TDiUaX12Q7qt3mmQZIvzhwK7OaoFv8aglMsHNy655X5iD6qP47socg9ZevPMIS5lREX8F4aKvhB
- /TuI7TLYeC+HbWnjV7R0G4aEeuvDOePEEpyWX3FKPbDEN8hD/lQXjWmsZbh7lTECmgANFb9OCSo
- w1dWDyLs5ji/xEhfjVOdLW56bfIO3QzWJlNW15ZgXAOuQTw==
-X-Received: by 2002:a05:600c:3b10:b0:495:4d00:2fda with SMTP id
- 5b1f17b1804b1-496c6410476mr77216185e9.2.1785338325971; 
- Wed, 29 Jul 2026 08:18:45 -0700 (PDT)
-X-Received: by 2002:a05:600c:3b10:b0:495:4d00:2fda with SMTP id
- 5b1f17b1804b1-496c6410476mr77215675e9.2.1785338325364; 
- Wed, 29 Jul 2026 08:18:45 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:9b4:d000:c3c5:df83:3a33:2c51?
- ([2a01:e0a:9b4:d000:c3c5:df83:3a33:2c51])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49764d8e81asm64980995e9.7.2026.07.29.08.18.44
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2026 08:18:44 -0700 (PDT)
-Message-ID: <acfd13bd-bc0b-404e-8a5e-bdbea823a708@redhat.com>
-Date: Wed, 29 Jul 2026 17:18:41 +0200
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DAFEF10EC90
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 15:20:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=mABh2OQBhAUA7eN+87r478yGoqxajXeOENCfKZxWJeA=; b=S/3Q0Bnq4xPJ4O8no5JeqAx3On
+ L9u7qtyvrLbPLK4sNmOsNDmzx9YGxap/s+dXIkE2DVu1ePPrSMnIV79P7QE9N5XcLzNxY09nJ3xCF
+ rEEgJamiwBjfHBhSX9+f8Bz+22fl2aj3ZRymXrTXZIV2N+Thzq55RYVYtQhl50/RwmGEKqAe5Bhi9
+ qZ+EKCMhKWJ0nD4k4/RSkthYkuh2tL43W+0nlOMTkyxN9NjgW8j2PDHfREpLbzMmdW36IwtGhWVVG
+ i/W+ZxBUrMtVlZieZ0H0WZJ/58Ih5M3OwisS3zcDQ/thjEONoREPev7ACzSt4YaVIO6oJmSsSWMJj
+ FRPC5c7g==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: tomeu@tomeuvizoso.net, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, joro@8bytes.org, will@kernel.org, robin.murphy@arm.com,
+ ulfh@kernel.org, p.zabel@pengutronix.de, ogabbay@kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Cc: chaoyi.chen@rock-chips.com, dri-devel@lists.freedesktop.org,
+ linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject: Re: [RFC PATCH v2 2/8] pmdomain/rockchip: add optional per-domain
+ power-on settle delay
+Date: Wed, 29 Jul 2026 17:20:20 +0200
+Message-ID: <3322194.D8ZAKjAxdT@diego>
+In-Reply-To: <20260718031146.3368811-3-gahing@gahingwoo.com>
+References: <20260718031146.3368811-1-gahing@gahingwoo.com>
+ <20260718031146.3368811-3-gahing@gahingwoo.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/log: Fix infinite loop when scale is too large
- for display
-To: oushixiong1025@163.com
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Shixiong Ou <oushixiong@kylinos.cn>
-References: <20260729084815.692944-1-oushixiong1025@163.com>
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260729084815.692944-1-oushixiong1025@163.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: V27Bs9vsu3ov6Crw8id8LyXe2Eeq4CBDZEKmnxfEahE_1785338326
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,41 +60,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/07/2026 10:48, oushixiong1025@163.com wrote:
-> From: Shixiong Ou <oushixiong@kylinos.cn>
-> 
-> When scale is large enough that scaled_font exceeds the display
-> dimensions, rows or columns become 0. A columns value of 0 causes
-> an infinite loop in drm_log_draw_kmsg_record() because the loop
-> never decrements len.
-> 
-> Check for zero rows/columns in drm_log_setup_modeset() and return
-> an error, cleaning up the already allocated buffer to avoid a leak.
-
-Thanks, it looks good to me.
-
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-> 
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+Am Samstag, 18. Juli 2026, 05:11:40 Mitteleurop=C3=A4ische Sommerzeit schri=
+eb Jiaxing Hu:
+> The RK3576 NPU domains need a short settle time after the idle
+> request is released before the QoS registers behind the domain are
+> written: restoring QoS immediately after de-idle can raise an SError
+> on the register access while the NoC is still settling (observed on
+> ROCK 4D as a panic inside rockchip_pd_power() during NPU runtime-PM
+> cycling).
+>=20
+> The vendor kernel handles this with a per-domain delay_us field
+> applied between the de-idle request and the QoS restore, carrying
+> 15us for the RK3576 NPUTOP domain.  Mirror that: add delay_us to
+> rockchip_domain_info, honor it in rockchip_pd_power() right before
+> rockchip_pmu_restore_qos(), and set 15us for NPUTOP, NPU0 and NPU1
+> (the two core domains power-cycle constantly under runtime PM and
+> showed the same symptom during bring-up).  All other domains keep 0,
+> so nothing changes for them.
+>=20
+> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 > ---
->   drivers/gpu/drm/clients/drm_log.c | 6 ++++++
->   1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
-> index a04f651e8265..63577aeb705c 100644
-> --- a/drivers/gpu/drm/clients/drm_log.c
-> +++ b/drivers/gpu/drm/clients/drm_log.c
-> @@ -240,6 +240,12 @@ static int drm_log_setup_modeset(struct drm_client_dev *client,
->   	scanout->scaled_font_w = scanout->font->width * scale;
->   	scanout->rows = height / scanout->scaled_font_h;
->   	scanout->columns = width / scanout->scaled_font_w;
-> +	if (!scanout->rows || !scanout->columns) {
-> +		drm_client_buffer_delete(scanout->buffer);
-> +		scanout->buffer = NULL;
-> +		mode_set->fb = NULL;
-> +		return -EINVAL;
-> +	}
->   	scanout->front_color = drm_draw_color_from_xrgb8888(0xffffff, format);
->   	scanout->prefix_color = drm_draw_color_from_xrgb8888(0x4e9a06, format);
->   	return 0;
+>  drivers/pmdomain/rockchip/pm-domains.c | 51 ++++++++++++++------------
+>  1 file changed, 28 insertions(+), 23 deletions(-)
+>=20
+> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
+ckchip/pm-domains.c
+> index 490bbb1d1..1787f62ba 100644
+> --- a/drivers/pmdomain/rockchip/pm-domains.c
+> +++ b/drivers/pmdomain/rockchip/pm-domains.c
+> @@ -59,6 +59,7 @@ struct rockchip_domain_info {
+>  	u32 pwr_offset;
+>  	u32 mem_offset;
+>  	u32 req_offset;
+> +	u32 delay_us;
+>  };
+> =20
+>  struct rockchip_pmu_info {
+> @@ -185,7 +186,7 @@ struct rockchip_pmu {
+>  	.need_regulator =3D regulator,			\
+>  }
+> =20
+> -#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status,=
+ r_status, r_offset, req, idle, ack, g_mask, wakeup)	\
+> +#define DOMAIN_M_O_R_G(_name, p_offset, pwr, status, m_offset, m_status,=
+ r_status, r_offset, req, idle, ack, g_mask, delay, wakeup)	\
+
+DOMAIN_M_O_R_G describes the fields it sets (mask, offset,  regulator clk-u=
+ngate)
+
+So if you're adding the new wakeup delay that is specific to this one
+implementation-variant, please also add a _W the name DOMAIN_M_O_R_G_W
+
+
+Otherwise looks good.
+
+
+Heiko
+>  {							\
+>  	.name =3D _name,					\
+>  	.pwr_offset =3D p_offset,				\
+> @@ -200,6 +201,7 @@ struct rockchip_pmu {
+>  	.req_mask =3D (req),				\
+>  	.idle_mask =3D (idle),				\
+>  	.clk_ungate_mask =3D (g_mask),			\
+> +	.delay_us =3D (delay),				\
+>  	.ack_mask =3D (ack),				\
+>  	.active_wakeup =3D wakeup,			\
+>  }
+> @@ -244,8 +246,8 @@ struct rockchip_pmu {
+>  #define DOMAIN_RK3568(name, pwr, req, wakeup)		\
+>  	DOMAIN_M(name, pwr, pwr, req, req, req, wakeup)
+> =20
+> -#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, r=
+eq, idle, g_mask, wakeup)	\
+> -	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_of=
+fset, req, idle, idle, g_mask, wakeup)
+> +#define DOMAIN_RK3576(name, p_offset, pwr, status, r_status, r_offset, r=
+eq, idle, g_mask, delay, wakeup)	\
+> +	DOMAIN_M_O_R_G(name, p_offset, pwr, status, 0, r_status, r_status, r_of=
+fset, req, idle, idle, g_mask, delay, wakeup)
+> =20
+>  /*
+>   * Dynamic Memory Controller may need to coordinate with us -- see
+> @@ -612,7 +614,6 @@ static int rockchip_do_pmu_set_power_domain(struct ro=
+ckchip_pm_domain *pd,
+>  			return ret;
+>  	}
+> =20
+> -
+>  	ret =3D readx_poll_timeout_atomic(rockchip_pmu_domain_is_on, pd, is_on,
+>  					is_on =3D=3D on, 0, 10000);
+>  	if (ret) {
+> @@ -667,6 +668,9 @@ static int rockchip_pd_power(struct rockchip_pm_domai=
+n *pd, bool power_on)
+>  		if (ret < 0)
+>  			goto out;
+> =20
+> +		if (pd->info->delay_us)
+> +			udelay(pd->info->delay_us);
+> +
+>  		rockchip_pmu_restore_qos(pd);
+>  	}
+> =20
+> @@ -1286,25 +1290,26 @@ static const struct rockchip_domain_info rk3568_p=
+m_domains[] =3D {
+>  };
+> =20
+>  static const struct rockchip_domain_info rk3576_pm_domains[] =3D {
+> -	[RK3576_PD_NPU]		=3D DOMAIN_RK3576("npu",    0x0, BIT(0),  BIT(0), 0,  =
+     0x0, 0,       0,       0,       false),
+> -	[RK3576_PD_NVM]		=3D DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(=
+6),  0x4, BIT(2),  BIT(18), BIT(2),  false),
+> -	[RK3576_PD_SDGMAC]	=3D DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BI=
+T(7),  0x4, BIT(1),  BIT(17), 0x6,     false),
+> -	[RK3576_PD_AUDIO]	=3D DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT=
+(8),  0x4, BIT(0),  BIT(16), BIT(0),  false),
+> -	[RK3576_PD_PHP]		=3D DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(=
+9),  0x0, BIT(15), BIT(15), BIT(15), false),
+> -	[RK3576_PD_SUBPHP]	=3D DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BI=
+T(10), 0x0, 0,       0,       0,       false),
+> -	[RK3576_PD_VOP]		=3D DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(=
+11), 0x0, 0x6000,  0x6000,  0x6000,  false),
+> -	[RK3576_PD_VO1]		=3D DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(=
+14), 0x0, BIT(12), BIT(12), 0x7000,  false),
+> -	[RK3576_PD_VO0]		=3D DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(=
+15), 0x0, BIT(11), BIT(11), 0x6800,  false),
+> -	[RK3576_PD_USB]		=3D DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(=
+16), 0x0, BIT(10), BIT(10), 0x6400,  true),
+> -	[RK3576_PD_VI]		=3D DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(1=
+7), 0x0, BIT(9),  BIT(9),  BIT(9),  false),
+> -	[RK3576_PD_VEPU0]	=3D DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT=
+(18), 0x0, BIT(7),  BIT(7),  0x280,   false),
+> -	[RK3576_PD_VEPU1]	=3D DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT=
+(19), 0x0, BIT(8),  BIT(8),  BIT(8),  false),
+> -	[RK3576_PD_VDEC]	=3D DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(=
+20), 0x0, BIT(6),  BIT(6),  BIT(6),  false),
+> -	[RK3576_PD_VPU]		=3D DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(=
+21), 0x0, BIT(5),  BIT(5),  BIT(5),  false),
+> -	[RK3576_PD_NPUTOP]	=3D DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BI=
+T(22), 0x0, 0x18,    0x18,    0x18,    false),
+> -	[RK3576_PD_NPU0]	=3D DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(=
+23), 0x0, BIT(1),  BIT(1),  0x1a,    false),
+> -	[RK3576_PD_NPU1]	=3D DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(=
+24), 0x0, BIT(2),  BIT(2),  0x1c,    false),
+> -	[RK3576_PD_GPU]		=3D DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(=
+25), 0x0, BIT(0),  BIT(0),  BIT(0),  false),
+> +	/*                                               name    p_offset pwr  =
+    status  r_status r_offset req      idle     g_mask   delay wakeup */
+> +	[RK3576_PD_NPU]		=3D DOMAIN_RK3576("npu",    0x0, BIT(0),  BIT(0), 0,  =
+     0x0, 0,       0,       0,       0,    false),
+> +	[RK3576_PD_NVM]		=3D DOMAIN_RK3576("nvm",    0x0, BIT(6),  0,      BIT(=
+6),  0x4, BIT(2),  BIT(18), BIT(2),  0,    false),
+> +	[RK3576_PD_SDGMAC]	=3D DOMAIN_RK3576("sdgmac", 0x0, BIT(7),  0,      BI=
+T(7),  0x4, BIT(1),  BIT(17), 0x6,     0,    false),
+> +	[RK3576_PD_AUDIO]	=3D DOMAIN_RK3576("audio",  0x0, BIT(8),  0,      BIT=
+(8),  0x4, BIT(0),  BIT(16), BIT(0),  0,    false),
+> +	[RK3576_PD_PHP]		=3D DOMAIN_RK3576("php",    0x0, BIT(9),  0,      BIT(=
+9),  0x0, BIT(15), BIT(15), BIT(15), 0,    false),
+> +	[RK3576_PD_SUBPHP]	=3D DOMAIN_RK3576("subphp", 0x0, BIT(10), 0,      BI=
+T(10), 0x0, 0,       0,       0,       0,    false),
+> +	[RK3576_PD_VOP]		=3D DOMAIN_RK3576("vop",    0x0, BIT(11), 0,      BIT(=
+11), 0x0, 0x6000,  0x6000,  0x6000,  0,    false),
+> +	[RK3576_PD_VO1]		=3D DOMAIN_RK3576("vo1",    0x0, BIT(14), 0,      BIT(=
+14), 0x0, BIT(12), BIT(12), 0x7000,  0,    false),
+> +	[RK3576_PD_VO0]		=3D DOMAIN_RK3576("vo0",    0x0, BIT(15), 0,      BIT(=
+15), 0x0, BIT(11), BIT(11), 0x6800,  0,    false),
+> +	[RK3576_PD_USB]		=3D DOMAIN_RK3576("usb",    0x4, BIT(0),  0,      BIT(=
+16), 0x0, BIT(10), BIT(10), 0x6400,  0,    true),
+> +	[RK3576_PD_VI]		=3D DOMAIN_RK3576("vi",     0x4, BIT(1),  0,      BIT(1=
+7), 0x0, BIT(9),  BIT(9),  BIT(9),  0,    false),
+> +	[RK3576_PD_VEPU0]	=3D DOMAIN_RK3576("vepu0",  0x4, BIT(2),  0,      BIT=
+(18), 0x0, BIT(7),  BIT(7),  0x280,   0,    false),
+> +	[RK3576_PD_VEPU1]	=3D DOMAIN_RK3576("vepu1",  0x4, BIT(3),  0,      BIT=
+(19), 0x0, BIT(8),  BIT(8),  BIT(8),  0,    false),
+> +	[RK3576_PD_VDEC]	=3D DOMAIN_RK3576("vdec",   0x4, BIT(4),  0,      BIT(=
+20), 0x0, BIT(6),  BIT(6),  BIT(6),  0,    false),
+> +	[RK3576_PD_VPU]		=3D DOMAIN_RK3576("vpu",    0x4, BIT(5),  0,      BIT(=
+21), 0x0, BIT(5),  BIT(5),  BIT(5),  0,    false),
+> +	[RK3576_PD_NPUTOP]	=3D DOMAIN_RK3576("nputop", 0x4, BIT(6),  0,      BI=
+T(22), 0x0, 0x18,    0x18,    0x18,    15,   false),
+> +	[RK3576_PD_NPU0]	=3D DOMAIN_RK3576("npu0",   0x4, BIT(7),  0,      BIT(=
+23), 0x0, BIT(1),  BIT(1),  0x1a,    15,   false),
+> +	[RK3576_PD_NPU1]	=3D DOMAIN_RK3576("npu1",   0x4, BIT(8),  0,      BIT(=
+24), 0x0, BIT(2),  BIT(2),  0x1c,    15,   false),
+> +	[RK3576_PD_GPU]		=3D DOMAIN_RK3576("gpu",    0x4, BIT(9),  0,      BIT(=
+25), 0x0, BIT(0),  BIT(0),  BIT(0),  0,    false),
+>  };
+> =20
+>  static const struct rockchip_domain_info rk3588_pm_domains[] =3D {
+>=20
+
+
+
 
