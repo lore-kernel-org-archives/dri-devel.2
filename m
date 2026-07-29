@@ -4,43 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28541C53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:15:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A1ACC53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:16:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 853A310ECBB;
-	Wed, 29 Jul 2026 16:15:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B671310ECCA;
+	Wed, 29 Jul 2026 16:16:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LCck5IkD";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sYxaD8bf";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23C7710ECBB
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:15:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 52B516001D;
- Wed, 29 Jul 2026 16:15:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4DA31F00A3A;
- Wed, 29 Jul 2026 16:15:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785341706;
- bh=H0/aNtZEq38iyubsPkHfAxQ8gJ19sq3+u24qtjHea4w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LCck5IkDWI+lhR2aL/KeyQzBf2ZjbIpjzp6U6++Fr0i5Stv7Sx7iVUb426T0FQE7j
- Vfyu8AMQ/L2hSAj4GypKH4Y09x60GgqqfPB9ez2Ck56VHvtxMLBnFpmBynLGRTCXGE
- bX/KSP1eX8qUD22HUUVR1gD8RoWw852/JZakFCMoB4JLeBA15mi8SuWSiNXv6DqbNb
- jVWxtAhW9HZd3ahyTPBODP/UyOxzXjY8Rf7C30znjy5HzOIZPBvaXt22LPsMUMrZAZ
- INmK+hvU/PA2Z5+6GN/VgdBb1NDpwzOq4S4V9HS9QieRA+2OCgF3XZsrNSEYY/6VGd
- 2lE1J1nA7qEfw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 01/17] drm/msm: Fix barriers accessing ctx vm
-To: "Rob Clark" <robin.clark@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260729155609.20190-2-robin.clark@oss.qualcomm.com>
-References: <20260729155609.20190-1-robin.clark@oss.qualcomm.com>
- <20260729155609.20190-2-robin.clark@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 16:15:05 +0000
-Message-Id: <20260729161505.C4DA31F00A3A@smtp.kernel.org>
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01EA410ECE4
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:16:20 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-69f7130b47dso1660154a12.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 09:16:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785341779; x=1785946579; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=eMJlBiwtyHistA8GT4XhygeFXexQs5/OtNgJ+24npX4=;
+ b=sYxaD8bfGW6MVgjaddgvchrHWgkOmKFwOaN9fIfU4Qkk43MJJwWXAmDdmmwAfmHMu6
+ nES661hfXLeLLvE0403t6tuqKEhs1WOsCnGVQUQzXWd5JeB4odJEzCgekL9tc+YtcWjX
+ bic8lqW9WgUiBhlj1JY4RUVon5ryN59P5NHzwFGBcu5vN3jefWKDUvvNcN4+0QMikGPI
+ eBDEsd98It9wr7QujcHsuNyrIVrxESE6ZfBXqF/0mskr3Ox0qKcali3O8ipSeXfodiiD
+ VMKIKcHBCplIC9YpSPmExrh9r3oMTK1hDFomS0RdlY958BJ/BnPe7dXYYWW79YKRuqub
+ 59yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785341779; x=1785946579;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=eMJlBiwtyHistA8GT4XhygeFXexQs5/OtNgJ+24npX4=;
+ b=Ft0p+veSdzJ8BzokNjZa5NdbcrKysCl23v/F08Ww4i75Nka2aJIupHCv3xAFHaoAKw
+ y2nW+1z+InWAUoHZPpFJxK3n/C7//4Sacmq+TquAZ2FTS3PqJk6OiUQNxfjdAddHS/r8
+ 8jU43Bucdv6bWQ/9a7RO1Lfok+bwt+Prsr5IHfA86bk32kY31gAUH05c2mAFw0xA7ZWY
+ GlLBQ5MWS52tWHuQFOCbhK/Url5dryIrWZSlHvmqBxEbjDOWZ5zVY7fnElFxBlv0ahEr
+ yF+AuZI7GTUK1tNgy799S5NPeVEDlai03msh5RdkyX8onkD4IKn4sbBPpy2RIbVn49+V
+ 9zxA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrLlD8n39/y6uzku2x4rlHtOPZ1hv7gBFP8PLuqGVJHb4a5TriQ9Ub0o3m5G4W56Cw1JYLlotjNZgQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6CljQNq4gpEIKy1AmP6Dz88MAAAfxzm8iUUcYkJ05u+8NtoZj
+ xBmJ7TLqqRCM1l9NF47fIV7GqN/LdTk2O6sgd7960oZtDSDmITchHSEq
+X-Gm-Gg: AR+sD11rJAFuJlk7TZHzNkYu/FmdCA+Iftrd5jXro9rG3Or3gccqALVCisxHlL8S0v7
+ 2V9XkTtFuSFTUwSfWKhyg50D5L/QkpzzE6h1DznD8RSVdELMUpai0pX+8tgTixgaIuTdP9mUClR
+ nA/Gx6sS0lJObXS3lWsTTAVsFJnnlITqgVw8P3JuYkN56a5Ts0m1NF0KyEjucFVYigD9PZiaUuD
+ 4gp7Z2I8lQKbaxkArHrr/8MKOa77umRdYiaM+OEEDaE9+N96Pvxmb9lV5pzUzMkW6CCyb6jlBlF
+ J35JVV0rlLOvf7LUxNwjKjYr1s6PRnrPLD9GZSJkQeeOhJoMqXdkktd8QMCCyTa/zeik+kXXeAc
+ s6H9fKyctvFB7VVy6ZFRwSZ6zZdqJtZCGLKjidHUgL/w0B8rZjOFw9r3TLlMAu4TuT3Zs9g7Xo0
+ XpGO9O9BaNtby0mk16kqYvJrfiyVrv3XqStyPCAQ0kuBrkq8GmU4GK+TqtgaRVuVU7H5Z60d+LQ
+ x7qm+6zQeKJI1ZYjlZ5mXKeuwvr3cS1dFsQdZ55atfbNOQ=
+X-Received: by 2002:a05:6402:20db:b0:69f:c197:9e8e with SMTP id
+ 4fb4d7f45d1cf-6a034a345e5mr3985008a12.14.1785341779258; 
+ Wed, 29 Jul 2026 09:16:19 -0700 (PDT)
+Received: from JTOLLET-M-FKW7.cisco.com
+ ([2603:5004:2080:100c:3523:a231:e3ca:acc8])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6a050c60154sm1030511a12.24.2026.07.29.09.16.14
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 29 Jul 2026 09:16:16 -0700 (PDT)
+From: Jerome Tollet <jerome.tollet@gmail.com>
+To: jani.nikula@linux.intel.com
+Cc: ankit.k.nautiyal@intel.com, ville.syrjala@linux.intel.com,
+ arun.r.murthy@intel.com, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Jerome Tollet <jerome.tollet@gmail.com>
+Subject: Question about drm-intel-next vs drm-intel-next-fixes for HDMI
+ scrambling patch
+Date: Wed, 29 Jul 2026 18:16:06 +0200
+Message-ID: <20260729161606.81668-1-jerome.tollet@gmail.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,167 +87,28 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hi Jani,
 
-Pre-existing issues:
-- [Critical] Directly accessing `ctx->vm` in ioctl entry points before ensu=
-ring the VM is initialized via `msm_context_vm()` causes a NULL pointer der=
-eference on the first operation.
-- [Critical] `msm_context_vm()` unconditionally caches an `ERR_PTR` inside =
-`ctx->vm` upon allocation failure, permanently breaking the context and cau=
-sing crashes on subsequent accesses.
-- [Critical] Callers of `msm_context_vm()` fail to check if the returned va=
-lue is an error pointer, leading to a crash on VM creation failure.
-- [High] The patch misses concurrent readers like `msm_gem_close()` that st=
-ill perform plain reads of `ctx->vm`, leaving them vulnerable to data races=
- and partially initialized VM states.
---
+I would like to better understand the i915 patch flow, rather than question
+the decision itself.
 
---- Patch [1]: [PATCH v7 01/17] drm/msm: Fix barriers accessing ctx vm ---
-Commit SHA: 8c0550637c7f990d073da2dbc73f127555883df0
-Author: Rob Clark <robin.clark@oss.qualcomm.com>
-Subject: drm/msm: Fix barriers accessing ctx vm
+The commit b7d51d65e4f1 ("drm/i915/hdmi: Poll for 200 msec for
+TMDS_Scrambler_Status") was pushed to drm-intel-next on June 11. It was then
+included in the July 2 drm-intel-next pull, described as the first feature
+pull towards v7.3.
 
-This commit updates msm_context_vm() to use proper memory barriers
-(smp_load_acquire and smp_store_release) to prevent callers from observing
-a partially initialized VM.
+However, it was not included in the drm-intel-next-fixes pulls for v7.2,
+including the June 25 pull, and it is consequently not present in v7.2-rc5.
 
-> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
-> index ac86b427c0e53..29075aafc5cc5 100644
-> --- a/drivers/gpu/drm/msm/msm_drv.c
-> +++ b/drivers/gpu/drm/msm/msm_drv.c
-> @@ -224,18 +224,19 @@ struct drm_gpuvm *msm_context_vm(struct drm_device =
-*dev, struct msm_context *ctx
->  {
->  	static DEFINE_MUTEX(init_lock);
->  	struct msm_drm_private *priv =3D dev->dev_private;
-> +	struct drm_gpuvm *vm =3D smp_load_acquire(&ctx->vm);
-> =20
->  	/* Once ctx->vm is created it is valid for the lifetime of the context:=
- */
-> -	if (ctx->vm)
-> -		return ctx->vm;
-> +	if (vm)
-> +		return vm;
-> +
-> +	guard(mutex)(&init_lock);
-> =20
-> -	mutex_lock(&init_lock);
->  	if (!ctx->vm) {
-> -		ctx->vm =3D msm_gpu_create_private_vm(
-> +		vm =3D msm_gpu_create_private_vm(
->  			priv->gpu, current, !ctx->userspace_managed_vm);
-> -
-> +		smp_store_release(&ctx->vm, vm);
+Could you please explain how the decision is made to route a patch to
+drm-intel-next versus drm-intel-next-fixes? In this particular case, was
+there a technical or review reason why the patch was not considered for the
+v7.2 fixes pull, or was it mainly a timing/queueing decision?
 
-[Severity: Critical]
-This is a pre-existing issue, but I noticed that msm_gpu_create_private_vm()
-can return an ERR_PTR on failure (e.g., if page table allocation fails).=20
+I am asking to understand the process for future contributions.
 
-If we store that ERR_PTR into ctx->vm without an IS_ERR() check, will=20
-future fast-path readers see this truthy pointer and attempt to dereference=
-=20
-the error value as a valid VM?
-
->  	}
-> -	mutex_unlock(&init_lock);
-> =20
->  	return ctx->vm;
->  }
-
-[Severity: Critical]
-This is also a pre-existing issue, but does submit_create() need to check=20
-the return value of msm_context_vm() before assigning it to submit->vm?
-
-drivers/gpu/drm/msm/msm_gem_submit.c:submit_create() {
-	...
-	submit->dev =3D dev;
-	submit->vm =3D msm_context_vm(dev, queue->ctx);
-	submit->gpu =3D gpu;
-	...
-}
-
-If it returns an ERR_PTR, it will eventually cause a panic when submit->vm=
-=20
-is dereferenced.
-
-Similarly, in msm_submitqueue_create():
-
-drivers/gpu/drm/msm/msm_submitqueue.c:msm_submitqueue_create() {
-	...
-	if (flags & MSM_SUBMITQUEUE_VM_BIND) {
-		struct drm_gpu_scheduler *sched =3D
-			&to_msm_vm(msm_context_vm(drm, ctx))->sched;
-
-		queue->entity =3D &queue->_vm_bind_entity[0];
-	...
-}
-
-Does this code risk a crash by passing an unchecked pointer to to_msm_vm(),=
-=20
-which computes an offset from the error pointer and then accesses sched?
-
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but I noticed some paths directl=
-y=20
-access ctx->vm before it's guaranteed to be initialized. For example:
-
-drivers/gpu/drm/msm/msm_gem_submit.c:msm_ioctl_gem_submit() {
-	...
-	if (args->pad)
-		return -EINVAL;
-
-	if (to_msm_vm(ctx->vm)->unusable)
-		return UERR(EPIPE, dev, "context is unusable");
-	...
-}
-
-If an unprivileged user calls this ioctl as the very first operation on a
-new context, won't ctx->vm still be NULL here, leading to an invalid
-pointer dereference via the to_msm_vm() offset macro?
-
-I noticed a similar pattern in msm_gem_new_handle():
-
-drivers/gpu/drm/msm/msm_gem.c:msm_gem_new_handle() {
-	...
-	if (flags & MSM_BO_NO_SHARE) {
-		struct msm_context *ctx =3D file->driver_priv;
-		struct drm_gem_object *r_obj =3D drm_gpuvm_resv_obj(ctx->vm);
-
-		drm_gem_object_get(r_obj);
-	...
-}
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since the patch addresses=20
-concurrent access to ctx->vm, does msm_gem_close() also need to use=20
-smp_load_acquire() instead of a plain read?
-
-drivers/gpu/drm/msm/msm_gem.c:msm_gem_close() {
-	...
-	msm_gem_vma_put(obj);
-
-	/*
-	 * If VM isn't created yet, nothing to cleanup.  And in fact calling
-	 * put_iova_spaces() with vm=3DNULL would be bad, in that it will tear-
-	 * down the mappings of shared buffers in other contexts.
-	 */
-	if (!ctx->vm)
-		return;
-	...
-}
-
-Without a read barrier, could a concurrent ioctl that initializes the VM
-cause this function to observe a non-NULL pointer but read uninitialized
-memory from the VM structure?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729155609.2019=
-0-1-robin.clark@oss.qualcomm.com?part=3D1
+Thanks,
+Jerome
