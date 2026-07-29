@@ -4,62 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7A17C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 15:16:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB6BC54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 15:17:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 055B810EC9E;
-	Wed, 29 Jul 2026 15:16:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D01E10EC89;
+	Wed, 29 Jul 2026 15:17:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A9YEkYzJ";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VooQpCrP";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 84C8F10ECA5
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 15:16:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785338202; x=1816874202;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=ylNlrwd5I+ocZZ9hMiT1FUoQDTuD4qsR1sCf+aIRzN4=;
- b=A9YEkYzJMqbBv4c5j+Z4KIEf2SC0geSFzQMRT97VVICyrlmckFffMw0m
- sYwPUanaJZ7W0A9teVkcq+mHjIhK6Z1qJBTTl7hMumlN2EEshQ+VOAz/u
- N5n3t8cTEy4NsBAO4c6GdxZ7XYFtebvjTrBceGnwhkaG9gfyP+t2D8emA
- rRSzdOmIe8kXcSC9BlkKgO5pDlHV5ryoFKKL/tB0pzYb6u4o7S1llyZ02
- aBz73vq7xiR4AgWgY81JT3aetFQsgEXNpYKnGHPFre0yyURTT3wJH/Zba
- 6D6fi3PyESAe1k7tBfJ3/FlxNqpBJ0VvNbM7jEUpoKGCF21B5K2LZ9c6i Q==;
-X-CSE-ConnectionGUID: 8hSUbKnkRc+FpICtOWr/IA==
-X-CSE-MsgGUID: ndakj0OaQ9OzyQm60iM6Yg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85962506"
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="85962506"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 08:16:41 -0700
-X-CSE-ConnectionGUID: J+Qd/klSQyaD8SwYvHWYuA==
-X-CSE-MsgGUID: 724wJqkxT76KpKAiokNrXw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="256104711"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.212])
- by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 08:16:37 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Jocelyn Falempe <jfalempe@redhat.com>, oushixiong1025@163.com
-Cc: Javier Martinez Canillas <javierm@redhat.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-Subject: Re: [PATCH v2] drm/log: Fix division by zero when scale module
- parameter is 0
-In-Reply-To: <8012b9ea-a39d-437a-8539-9e4c3836d1bd@redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260729105840.865696-1-oushixiong1025@163.com>
- <8012b9ea-a39d-437a-8539-9e4c3836d1bd@redhat.com>
-Date: Wed, 29 Jul 2026 18:16:35 +0300
-Message-ID: <11999f4020869c7094a718f4762a0fc475a8a8d1@intel.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69C8910EC7B
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 15:17:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1785338224;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=bvjfqhSyqGanu+o7Vd023AUOeIFl1b0hrPEjWiCBsMY=;
+ b=VooQpCrPQioGor9gjkPPLXbIlO8YiO5wBU75Bc/d/Pl1EztMN6lh3jwtGT0qVpHfT6OYEt
+ qaRrE3U0vAoBsf0Cmnwxe8PkVx1ij0ssvtngaPQE06lSNskh4dPpq6GvYIPXlJtrQpcGQM
+ iyWpG0atI2t/tOQuJlBx8tI0urP0E94=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-190-DP3MSwaGMB2p70M35TchXQ-1; Wed, 29 Jul 2026 11:17:01 -0400
+X-MC-Unique: DP3MSwaGMB2p70M35TchXQ-1
+X-Mimecast-MFC-AGG-ID: DP3MSwaGMB2p70M35TchXQ_1785338221
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-4955843c6cdso12515385e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 08:17:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785338220; x=1785943020;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=bvjfqhSyqGanu+o7Vd023AUOeIFl1b0hrPEjWiCBsMY=;
+ b=VoR6A9J1BV8bCQMKyQ9lnVA6WnZ11X0SirmrUYyMDzglBpKRR/i8yOUW7uGdmRVTcl
+ ACdXM4c0gE7mjOea354fvJB/lJAB9dllqJ0oEa1CclqRr/ABC0/B7ag90rW459j4IKzB
+ E3osbpSAH+oHNfpi12PVkq/ibCVgiLLBu3Ft14OJzL45lQspvpLSTVxOmw8xtcE1gZuU
+ RVZTTv6aOgbotyHkD0JYs07/08ojTAm5MFf9hFzirFn6BGu5pqS6vziz8RDViRXoDCb2
+ vC8MhhKUtWfghoiEGApbcm+D2RXnvcBBa3HoeBQ0mQPoWit7E48liJaMDNKpAaiOKAx2
+ 6THQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro8zF80E17Bxroaxdfh7mu2fG7NS7gBpYutVIqWomE5itWYRCGrGkRMBl88muXKosBaJcMy8vgQEak=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxmA7wSOIl+M6V/E4oibUismQcm2WIFQCswWO+bh6uSOKYASIyn
+ kQpPWiEFjB1DPWa7xe7PzotH+YEvwwz3JuHvfKXYEs0PdVVKOW3i7+5vydNPXKF7ale/HaL+ni3
+ nVljQbrUMqEPFJ0FZcLpdL/zOLcwgEaQkJ/I+bX0tphPU5iUTQEouQQeIj4lxFC2Kxbk/Sg==
+X-Gm-Gg: AR+sD11CtylghArUDYMatPcMkLcQOaXMfypg6JGFfsBYb+I3MOhuw7bYOBGw+JXLFrh
+ gHXMu3r0teo/63t46W2G0K0OizgOq3GAWUjjzW+/cjCGkZamG8gpE3qtvIv81vmjYUCceJF+h8g
+ jWbh5imtm7KFmkUK74K/xS4ry3Q2J6+T/C2r4SL/cGpWgzSyPS73bvTS2P5/Q8Jip5owKOsCqEU
+ BtvMdQ3N0diY19jUuaCIMPojvh8H2aoKYsQfRADAjekaYE18cn76LZAqTfOOHMMkr1lk4M1Kpvc
+ K5lz2XvyHWJLUoSIg1Bl3fbjQmtteZgGSAoNEnGQ8tl0lSLzzQSr7kCwwmiJosPYxadH7T3zDKA
+ GoUNDMW8/HcPGD7Mv+KyqT/nlXCEfvSR7782s22ZGhG5DWA==
+X-Received: by 2002:a05:600c:8b6c:b0:493:ee2b:c876 with SMTP id
+ 5b1f17b1804b1-496c6591a94mr78297785e9.35.1785338220408; 
+ Wed, 29 Jul 2026 08:17:00 -0700 (PDT)
+X-Received: by 2002:a05:600c:8b6c:b0:493:ee2b:c876 with SMTP id
+ 5b1f17b1804b1-496c6591a94mr78296945e9.35.1785338219161; 
+ Wed, 29 Jul 2026 08:16:59 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:9b4:d000:c3c5:df83:3a33:2c51?
+ ([2a01:e0a:9b4:d000:c3c5:df83:3a33:2c51])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47fb6b0f2ddsm8683100f8f.20.2026.07.29.08.16.58
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jul 2026 08:16:58 -0700 (PDT)
+Message-ID: <b05568d9-476e-4903-a988-1ff72bcc33b1@redhat.com>
+Date: Wed, 29 Jul 2026 17:16:55 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] drm/log: Fix out-of-bounds read on empty message
+ length
+To: oushixiong1025@163.com
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Shixiong Ou <oushixiong@kylinos.cn>
+References: <20260729084520.688087-1-oushixiong1025@163.com>
+From: Jocelyn Falempe <jfalempe@redhat.com>
+In-Reply-To: <20260729084520.688087-1-oushixiong1025@163.com>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: llnshZKlDsSd2OjZ1XyCiZuu-v1-6ek3KO1eCHSmMyQ_1785338221
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, fr
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,26 +108,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 29 Jul 2026, Jocelyn Falempe <jfalempe@redhat.com> wrote:
-> On 29/07/2026 12:58, oushixiong1025@163.com wrote:
->> From: Shixiong Ou <oushixiong@kylinos.cn>
->> 
->> The scale module parameter can be set to 0 via kernel command line or
->> sysfs. When scale is 0, scaled_font_h and scaled_font_w become 0,
->> causing a division by zero in the rows/columns calculation.
->> 
->> Introduce a drm_log_scale() helper that returns scale ?: 1, and use it
->> at all read sites. This avoids a race that a setter-based clamp would
->> have between param_set_uint() and the subsequent check, where another
->> CPU could observe scale == 0.
->
-> The scale module parameter is read only (that's the meaning of 0444 in 
-> module_param()) so it can't be set by sysfs, or change at runtime.
->
-> So this check can be done only once in drm_log_register().
+On 29/07/2026 10:45, oushixiong1025@163.com wrote:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
+> 
+> drm_log_draw_kmsg_record() accesses s[len - 1] to strip the trailing
+> newline, but len is unsigned int. If len is 0, the subtraction wraps
+> to UINT_MAX, causing an out-of-bounds read.
+> 
+> Add an early return when len is 0.
 
-Oops, missed this in my review completely, thanks!
+Thanks, for your contribution
 
+Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
 
--- 
-Jani Nikula, Intel
+> 
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+> ---
+>   drivers/gpu/drm/clients/drm_log.c | 3 +++
+>   1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
+> index e3e02c84a4cf..294b3be1a6b3 100644
+> --- a/drivers/gpu/drm/clients/drm_log.c
+> +++ b/drivers/gpu/drm/clients/drm_log.c
+> @@ -162,6 +162,9 @@ static void drm_log_draw_kmsg_record(struct drm_log_scanout *scanout,
+>   {
+>   	u32 prefix_len = 0;
+>   
+> +	if (!len)
+> +		return;
+> +
+>   	if (len > TS_PREFIX_LEN && s[0] == '[' && s[6] == '.' && s[TS_PREFIX_LEN] == ']')
+>   		prefix_len = TS_PREFIX_LEN + 1;
+>   
+
