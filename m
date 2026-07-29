@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27CFFC53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:11:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AAECC53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:11:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 888EB10ECDF;
-	Wed, 29 Jul 2026 16:11:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0779F10ECE0;
+	Wed, 29 Jul 2026 16:11:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="a3+5S4kT";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VdBvM2AX";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6DAD410ECDF
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:11:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5043D10ECE0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:11:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D8AE46001D;
- Wed, 29 Jul 2026 16:11:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1331F00A3A;
- Wed, 29 Jul 2026 16:11:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C82686001D;
+ Wed, 29 Jul 2026 16:11:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 514881F00A3A;
+ Wed, 29 Jul 2026 16:11:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785341481;
- bh=e9nFRkkbo/Sn/w5jhobnVsjutbFJLfRgGc3PpCoGCc4=;
+ s=k20260515; t=1785341517;
+ bh=lzTu5E+J2OY8qGiIlDcajOjhHJZ2FwNaiUolPvs8I/c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=a3+5S4kT4/Ec1co809n3Zkqy5rQCVHbcb0F5xt0ZmbFpw/T9n5QJmjHDMUE7ftI4+
- H1FKq1NQHPnb2oAO+Ft4Y9oagdKK1hGju20jORgTsF76PsGLAIEnwGtr7n3Y5zR29O
- CpC3FmZxq96A++zcsdfZ2/yiETFRWIawtAvXjidmI2FDV1UIJQDuFwL5ztjbiXDO10
- iT/LH1+9DCaemQUbP2Edt/i61soeuR/Cbt4eP0dhoPduefHPndYeJfXbdYKhDdR7nZ
- XXiVuJtMNNDR8VHwIVxJJsYKmK0rSqAdFKHl2VqlZacO2T/8Qr7hI4CJySbvW6gB/F
- Y067YCes/cIIA==
+ b=VdBvM2AXk5SNjFbHir6lZNpMBCQKHZ+L2X1KxYFOR7DviAYstDKVfDAx3Uk3T3Da5
+ eTpdPmOXkvXwOTTTw9Z2IrsxwweYmgsG2RW/oi4gVkz7I3lwpsmZU/b1VWlq9gM9JB
+ n5s0zZYH/p146v09zgYhGffcop5nhhpvFkl0+hIBWt8nL3nv72LrCPMZPQDIGeJs/n
+ cVyr/JRsXrTC3CXE1/pMTkzmL46V/GqnlU+Ua+0+8Pw0dEHsUia2V6iP9SypBKkK3M
+ Kiwu7tHcAjDaOb6BK0pGVQwdf1jmyfaQdE2NF+PbK9hEQAiaHljoqIUvcRpghODzyV
+ Nkcl1UZa30NRg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 10/17] drm/msm/gem: Remove useless locking in GEM import
+Subject: Re: [PATCH v7 08/17] drm/msm: Add helper to check for per-process
+ pgtables VM
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260729155609.20190-11-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20260729155609.20190-9-robin.clark@oss.qualcomm.com>
 References: <20260729155609.20190-1-robin.clark@oss.qualcomm.com>
- <20260729155609.20190-11-robin.clark@oss.qualcomm.com>
+ <20260729155609.20190-9-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 16:11:21 +0000
-Message-Id: <20260729161121.6C1331F00A3A@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 16:11:56 +0000
+Message-Id: <20260729161157.514881F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,59 +62,96 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Concurrent access to imported GEM objects via debugfs causes a loc=
-k imbalance, leading to system crash or permanent resource lock.
+- [High] Direct access to `ctx->vm` in `adreno_set_param()` bypasses capabi=
+lity checks for per-process pgtables, allowing userspace to enable VM_BIND =
+on unsupported hardware and crash the kernel.
 --
 
---- Patch [10]: [PATCH v7 10/17] drm/msm/gem: Remove useless locking in GEM=
- import ---
-commit 1dfbce02f7920b37d011abac3bc5352c1cadab22
+--- Patch [8]: [PATCH v7 08/17] drm/msm: Add helper to check for per-proces=
+s pgtables VM ---
+commit c61563d7d541358abb7f78356a4f5b717a237572
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm/gem: Remove useless locking in GEM import
-   =20
-The locking has changed a few times over the years, and this extra
-locking was the mistake of evolution.  Harmless but useless.
+drm/msm: Add helper to check for per-process pgtables VM
 
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index 74c3728f45bd0..cc45392691e50 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-[ ... ]
-> @@ -1310,22 +1310,17 @@ struct drm_gem_object *msm_gem_import(struct drm_=
-device *dev,
-[ ... ]
->  	drm_gem_lru_move_tail(&priv->lru.pinned, obj);
+This patch adds a helper function to validate whether a GPU VM supports
+per-process pagetables. It then updates adreno_get_param() to use this
+new helper.
+
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index 0d54141ff089c..5738eac9aebd6 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -356,6 +356,12 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsign=
+ed long iova, int flags,
+>  	return 0;
+>  }
 > =20
->  	mutex_lock(&priv->obj_lock);
+> +static bool
+> +valid_per_process_vm(struct msm_gpu *gpu, struct drm_gpuvm *vm)
+> +{
+> +	return (vm !=3D gpu->vm);
+> +}
+> +
+>  int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+>  		     uint32_t param, uint64_t *value, uint32_t *len)
+>  {
+> @@ -414,12 +420,12 @@ int adreno_get_param(struct msm_gpu *gpu, struct ms=
+m_context *ctx,
+>  		*value =3D gpu->suspend_count;
+>  		return 0;
+>  	case MSM_PARAM_VA_START:
+> -		if (vm =3D=3D gpu->vm)
+> +		if (!valid_per_process_vm(gpu, vm))
+>  			return UERR(EINVAL, drm, "requires per-process pgtables");
+>  		*value =3D vm->mm_start;
+>  		return 0;
+>  	case MSM_PARAM_VA_SIZE:
+> -		if (vm =3D=3D gpu->vm)
+> +		if (!valid_per_process_vm(gpu, vm))
+>  			return UERR(EINVAL, drm, "requires per-process pgtables");
+>  		*value =3D vm->mm_range;
+>  		return 0;
 
 [Severity: High]
-This is a pre-existing issue, but can publishing the object to the global
-list here lead to a lock imbalance if debugfs is accessed concurrently?
+This isn't a bug introduced by this patch, but while you are updating the
+VM checks here, should the same logic be applied to adreno_set_param()?
 
-Once the object is added to the priv->objects list, it becomes visible to
-concurrent debugfs iteration before the import process has finished.
+Looking at adreno_set_param() for MSM_PARAM_EN_VM_BIND, it accesses ctx->vm
+directly:
 
-According to drm_prime.c, drm_gem_prime_import_dev() overwrites obj->resv
-after msm_gem_import() has already published it:
+drivers/gpu/drm/msm/adreno/adreno_gpu.c:adreno_set_param() {
+    ...
+	case MSM_PARAM_EN_VM_BIND: {
+		guard(rwsem_read)(&ctx->ctxlock);
 
-	obj->import_attach =3D attach;
-	obj->resv =3D dma_buf->resv;
+		/* We can only support VM_BIND with per-process pgtables: */
+		if (ctx->vm =3D=3D gpu->vm)
+			return UERR(EINVAL, drm, "requires per-process pgtables");
 
-If msm_gem_describe() in debugfs iterates the list concurrently during this
-window, it locks the original obj->resv via msm_gem_trylock(obj). If the
-resv pointer is then overwritten mid-flight, the subsequent
-msm_gem_unlock(obj) call will unlock a completely different lock:
+		/*
+		 * We can only swtich to VM_BIND mode if the VM has not yet
+		 * been created:
+		 */
+		if (ctx->vm)
+			return UERR(EBUSY, drm, "VM already created");
+    ...
+}
 
-	if (!msm_gem_trylock(obj))
-		return;
-	...
-	dma_resv_describe(robj, m);
-	msm_gem_unlock(obj);
+Because msm uses lazy initialization for virtual memory, isn't ctx->vm
+guaranteed to be NULL here prior to creation?=20
 
-Could this lead to a kernel oops due to a bad unlock balance, or leave the
-initial reservation object permanently locked?
+If ctx->vm is NULL, then ctx->vm =3D=3D gpu->vm evaluates to false, which b=
+ypasses
+the capability check intended to prevent VM_BIND on platforms lacking
+per-process pgtables.
+
+Could this allow userspace to enable VM_BIND on older hardware and subseque=
+ntly
+crash the kernel when it binds to an uninitialized scheduler on the global =
+VM?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729155609.2019=
-0-1-robin.clark@oss.qualcomm.com?part=3D10
+0-1-robin.clark@oss.qualcomm.com?part=3D8
