@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99465C53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAC62C53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:33:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE76D10ECF3;
-	Wed, 29 Jul 2026 16:29:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD6D810ECF1;
+	Wed, 29 Jul 2026 16:33:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="P67vprDU";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ccZL0I7o";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EFA3410ECEC;
- Wed, 29 Jul 2026 16:29:56 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A824710ECF1;
+ Wed, 29 Jul 2026 16:33:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 73175600AA;
- Wed, 29 Jul 2026 16:29:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A27D1F00A3A;
- Wed, 29 Jul 2026 16:29:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8916C600AA;
+ Wed, 29 Jul 2026 16:33:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B262C1F000E9;
+ Wed, 29 Jul 2026 16:33:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785342596;
- bh=6xDpTh9nZGUrkH3COKlFZD3vA2qIDSKZS/Cybajha3w=;
+ s=korg; t=1785342784;
+ bh=GYLFiDFsWgnuZLLVzeRXadaPHD177OU5vyLefNhw9pQ=;
  h=Subject:To:Cc:From:Date;
- b=P67vprDUGTakXdKO5USafp6k184VYitTEDGK5VLyEtl5SJ1CnrskMHoOMvgpJtJeJ
- jl8rVkFTYCbG36KhWr4XSBN2FFYjNnL4aGYaJgTVsvAhEhfWJs3GVT8vYKBiQZ8iTe
- 2Ytg9uyajmMsedMmIj9iB8aiEeBx7h4b7j9JITPM=
+ b=ccZL0I7oU7gJO8SbYYNgsHXpG7s1CiU3VhQ4YrjOPqT0s2Blek9DBLM28OYTavFRf
+ o5tF2aOSlpjxv5ArXwEI2LTZ0JLilF7ZfQ5aXFUf/nHb+J6ruM+c+Jtp3CnV2SXCjJ
+ zqXEm8JFxkwYTEfseS0neENFUl2bUFPLQ8bVAX6I=
 Subject: Patch "drm/dp_mst: Handle torn-down topology gracefully in
- drm_dp_mst_topology_queue_probe()" has been added to the 6.18-stable tree
+ drm_dp_mst_topology_queue_probe()" has been added to the 7.1-stable tree
 To: dev@lankhorst.se, dri-devel@lists.freedesktop.org,
  gregkh@linuxfoundation.org, imre.deak@intel.com,
  intel-gfx@lists.freedesktop.org, jonas.emilsson@gmail.com,
  luciano.coelho@intel.com, lyude@redhat.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 18:28:19 +0200
-Message-ID: <2026072919-grafted-shortwave-29d4@gregkh>
+Date: Wed, 29 Jul 2026 18:31:43 +0200
+Message-ID: <2026072943-lullaby-tapeless-796c@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -62,12 +62,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/dp_mst: Handle torn-down topology gracefully in drm_dp_mst_topology_queue_probe()
 
-to the 6.18-stable tree which can be found at:
+to the 7.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-dp_mst-handle-torn-down-topology-gracefully-in-drm_dp_mst_topology_queue_probe.patch
-and it can be found in the queue-6.18 subdirectory.
+and it can be found in the queue-7.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -134,4 +134,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from luciano.coelho@intel.com are
 
-queue-6.18/drm-dp_mst-handle-torn-down-topology-gracefully-in-drm_dp_mst_topology_queue_probe.patch
+queue-7.1/drm-dp_mst-handle-torn-down-topology-gracefully-in-drm_dp_mst_topology_queue_probe.patch
