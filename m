@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50AD6C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:42:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DDA2C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:47:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB20810EBAF;
-	Wed, 29 Jul 2026 10:42:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA40610E1BA;
+	Wed, 29 Jul 2026 10:47:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tksnIlCC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G6hNtxpR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F05910EBA7
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:42:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C59410E1BA
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:47:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 29C3A418CF;
- Wed, 29 Jul 2026 10:42:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 856A21F000E9;
- Wed, 29 Jul 2026 10:42:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785321729;
- bh=wT2iD0ur4zwg198XnpoFcYdpK685JgDvnwv0Tdn3hyg=;
- h=Subject:To:Cc:From:Date;
- b=tksnIlCCElLrnA/FS/DO4H0CwoDetPNxUMllceYhgNe21CCnkZh3tPshh53n9hF+z
- uRpwtvC/KAIoToKeZ9ODJxxf+1NmobQsRFyepx9K8FQQT7g4G6FLjGaoBYCBXwESzI
- KKR7dC9HI5qsaiqvg0hSVtyPf8mkI7QrHLpwtYzs=
-Subject: Patch "drm/tegra: fbdev: Remove offset into framebuffer memory" has
- been added to the 7.1-stable tree
-To: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- treding@nvidia.com, tzimmermann@suse.de
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 12:40:00 +0200
-Message-ID: <2026072959-plaything-evasive-0dd7@gregkh>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+ by tor.source.kernel.org (Postfix) with ESMTP id 31D5760A9C;
+ Wed, 29 Jul 2026 10:47:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16401F000E9;
+ Wed, 29 Jul 2026 10:47:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785322034;
+ bh=kko61iql7IxXDdNpritEPleTPQygBzQRIkrxome506E=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=G6hNtxpRy9ejYiNDhwz50WdDjEJK0fQYQJ2SCOPVOG/sQzNyDQ0VaUva/nFgbnjri
+ URGp6HrolJUkNQpRUh/v5DFPadimPla+A+K/Afz8BIfxfqiez49eqgv4iEOOIzGj9o
+ /uWoTsl7iWHwcxY97kDZSGPqMaGVrHIXMZfKR0j8SYUHrYLWQtfW5h3rHxdw/IW7K0
+ blPEljd30wTynKgsV8qGuRdUpwu6G6aInSp4a+WgO3s/4oeIDeUDQ3Dopy4gKSmSPZ
+ DUSIikphc/mPDpMP39TDXetN4N/iFd5LFQmrunZiTCPBhrlC+6+kmjOwBW9ISeuIGf
+ UqZIe5NqRQz3A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/radeon: restore hardware polling in
+ fence_is_signaled to fix performance regression
+To: 2564278112@qq.com
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <tencent_BB2A7CAE632BA0AC08D9296E78A15786200A@qq.com>
+References: <tencent_BB2A7CAE632BA0AC08D9296E78A15786200A@qq.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 10:47:14 +0000
+Message-Id: <20260729104714.B16401F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,86 +53,84 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Calling `radeon_fence_activity()` in `.signaled` callback consumes=
+ hardware state without waking up wait queues, leading to permanent hangs.
+- [Medium] Acquiring an `rw_semaphore` in the `dma_fence_ops.signaled` call=
+back violates wait-context rules and can crash PREEMPT_RT kernels.
+--
 
-This is a note to let you know that I've just added the patch titled
+--- Patch [1]: [PATCH] drm/radeon: restore hardware polling in fence_is_sig=
+naled to fix performance regression ---
+commit 23682e8220434ea07b863fe650003e08c35ce798
+Author: Wang Jiang <jiangwang@kylinos.cn>
 
-    drm/tegra: fbdev: Remove offset into framebuffer memory
+drm/radeon: restore hardware polling in fence_is_signaled to fix performanc=
+e regression
 
-to the 7.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+This commit restores hardware polling by calling radeon_fence_activity()
+wrapped in down_read_trylock() inside radeon_fence_is_signaled(). This is
+intended to fix performance regressions without re-introducing deadlocks.
 
-The filename of the patch is:
-     drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
-and it can be found in the queue-7.1 subdirectory.
+> diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/rade=
+on/radeon_fence.c
+> index 02a40e4750c7d..299865569252d 100644
+> --- a/drivers/gpu/drm/radeon/radeon_fence.c
+> +++ b/drivers/gpu/drm/radeon/radeon_fence.c
+> @@ -360,6 +360,13 @@ static bool radeon_fence_is_signaled(struct dma_fenc=
+e *f)
+>  	if (atomic64_read(&rdev->fence_drv[ring].last_seq) >=3D seq)
+>  		return true;
+> =20
+> +	if (down_read_trylock(&rdev->exclusive_lock)) {
+> +		radeon_fence_activity(rdev, ring);
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+[Severity: High]
+Does this consume the hardware state and drop the wake signal?
 
+When a thread calls dma_fence_is_signaled() via polling, it invokes
+radeon_fence_is_signaled(), which then calls radeon_fence_activity().=20
+The hardware sequence is read, last_seq is advanced, and it returns true.
 
-From a18b6e30ecd69096beda4a0c96d2570900c3879a Mon Sep 17 00:00:00 2001
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Date: Tue, 21 Apr 2026 09:29:06 +0200
-Subject: drm/tegra: fbdev: Remove offset into framebuffer memory
+However, radeon_fence_is_signaled() intentionally drops this return value a=
+nd
+skips wake_up_all(). Later, when the actual hardware interrupt fires,
+radeon_fence_process() calls radeon_fence_activity() again.
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+Because last_seq was already advanced, it sees no new activity
+(seq <=3D last_seq), returns false, and skips wake_up_all().
 
-commit a18b6e30ecd69096beda4a0c96d2570900c3879a upstream.
+Could this steal the wake event and cause tasks waiting on fences to hang
+indefinitely?
 
-The screen_buffer field in struct fb_info contains the kernel address
-of the first byte of framebuffer memory. Do not add the display offset.
-This offset only describes scrolling during scanout.
+> +		up_read(&rdev->exclusive_lock);
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-tegra@vger.kernel.org
-Cc: <stable@vger.kernel.org> # v3.10+
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/tegra/fbdev.c |    8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+[Severity: Medium]
+Is it safe to manipulate an rw_semaphore in the dma_fence_ops.signaled
+callback?
 
---- a/drivers/gpu/drm/tegra/fbdev.c
-+++ b/drivers/gpu/drm/tegra/fbdev.c
-@@ -76,7 +76,6 @@ int tegra_fbdev_driver_fbdev_probe(struc
- 	struct fb_info *info = helper->info;
- 	unsigned int bytes_per_pixel;
- 	struct drm_framebuffer *fb;
--	unsigned long offset;
- 	struct tegra_bo *bo;
- 	size_t size;
- 	int err;
-@@ -115,9 +114,6 @@ int tegra_fbdev_driver_fbdev_probe(struc
- 
- 	drm_fb_helper_fill_info(info, helper, sizes);
- 
--	offset = info->var.xoffset * bytes_per_pixel +
--		 info->var.yoffset * fb->pitches[0];
--
- 	if (bo->pages) {
- 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
- 				 pgprot_writecombine(PAGE_KERNEL));
-@@ -129,9 +125,9 @@ int tegra_fbdev_driver_fbdev_probe(struc
- 	}
- 
- 	info->flags |= FBINFO_VIRTFB;
--	info->screen_buffer = bo->vaddr + offset;
-+	info->screen_buffer = bo->vaddr;
- 	info->screen_size = size;
--	info->fix.smem_start = (unsigned long)(bo->iova + offset);
-+	info->fix.smem_start = (unsigned long)(bo->iova);
- 	info->fix.smem_len = size;
- 
- 	return 0;
+The dma_fence_ops.signaled callback can be called from atomic context or
+directly from a foreign device's hardirq handler due to cross-device
+dependencies.
 
+While down_read_trylock() avoids sleeping on acquire, up_read() still
+manipulates the underlying lock state. On PREEMPT_RT, this is an rt_mutex,
+and manipulating it from hardirq context violates RT constraints, potential=
+ly
+leading to a crash.
 
-Patches currently in stable-queue which might be from tzimmermann@suse.de are
+> +
+> +		if (atomic64_read(&rdev->fence_drv[ring].last_seq) >=3D seq)
+> +			return true;
+> +	}
+>  	return false;
+>  }
 
-queue-7.1/drm-tests-shmem-set-dma-mask-to-64-bit-in-drm_gem_sh.patch
-queue-7.1/drm-exynos-fbdev-remove-offset-into-screen_buffer.patch
-queue-7.1/drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_BB2A7CAE632=
+BA0AC08D9296E78A15786200A@qq.com?part=3D1
