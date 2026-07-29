@@ -4,62 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8D1DC53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 09:48:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8FA02C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 09:56:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1352810EB5F;
-	Wed, 29 Jul 2026 09:48:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F037710EB6C;
+	Wed, 29 Jul 2026 09:56:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eHy6722s";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wt6nWPLx";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3859310EB5F
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 09:48:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785318533; x=1816854533;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=y29Bx/MHebd8jws4ZYOHkDcArLrG/zbSpIS25YdoY2o=;
- b=eHy6722scp08RFCjm/CtMVOBVzQpl98ZA7GcNjmcDm20mj3ZNyak+QzJ
- m0hG/xc07PkaGxKeT+3xeT3n8vUnrBjUgj+W3xQ6cPpeSCfKXigRM4zmD
- yH2vma2WNAPHNNSrRWbtt8J1YihVLmWj+F9bIQZAhPVD3ekocQNM+sZiM
- HHhMp4VDwHQjUTEbmK5jB6Biwq27QMx7lRPp1cgmWKA5XzcxA/CxcMRjk
- nOovUPBvjMjqsdVJADzMGBlMN4+MJZOafqtpSQWznvD69SJ2VtBPQR+RP
- vF8U1u8WrDtSKR3xhrfJLNm9DZv4WJsZn7ZryTHmglTzi6SJCSTg2BfhK A==;
-X-CSE-ConnectionGUID: E+AstCcpQVuTppU7voRhrQ==
-X-CSE-MsgGUID: 90pUqshnQmmXDKqlpcSjiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="96579493"
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="96579493"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 02:48:53 -0700
-X-CSE-ConnectionGUID: 0tBppqU6TMyFA/pBLjMZew==
-X-CSE-MsgGUID: N2AxdOvDTuaeD54bz8ki3Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="256629828"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
- ([10.245.244.212])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 02:48:50 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: oushixiong1025@163.com, Jocelyn Falempe <jfalempe@redhat.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-Subject: Re: [PATCH 2/4] drm/log: Fix division by zero when scale module
- parameter is 0
-In-Reply-To: <20260729084520.688087-2-oushixiong1025@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260729084520.688087-1-oushixiong1025@163.com>
- <20260729084520.688087-2-oushixiong1025@163.com>
-Date: Wed, 29 Jul 2026 12:48:47 +0300
-Message-ID: <d4c83a8cdd4612525dd32c3036a2789ab8387d99@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D592110EB70
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 09:56:45 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E1156600B1;
+ Wed, 29 Jul 2026 09:56:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53CC91F000E9;
+ Wed, 29 Jul 2026 09:56:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785319004;
+ bh=1KGT6cTMTzmvzS7YsWYKykFEG86ah6U86GDtjt8cglY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Wt6nWPLxXxYmam8h7M4avTSxpaguMCUHckhmp5ZUajuTjsbeGT9FXN7K599Gsv+Dt
+ cVW7SnzQ4WMdwncTNTfPRhefWdJlv5GKqw4JgHqzEnLwqB3G8uvb5e3lfKsLFnJPNS
+ r1r0Ev1e8xfPaitbs8WQM7L6URBKs+gOiRaexSLgBkNOD84iyWdHHTGsC2eUQcEwOm
+ JAAnHwnREuXpHzG8SV2fBy3pXtUJMxKL7/FYzkmP1t5AgEpidO1jTGimsA0SgYjSX2
+ /UXoLctWo9esTkszxu/UyITG13SqLNOJDkgbLlfq/t511gElOnGkAx5VSmfjv97NGe
+ cExuw0rDFjhrg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/5] rust: types: implement ForeignOwnable for ARef<T>
+To: "Philipp Stanner" <phasta@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260729094542.302965-4-phasta@kernel.org>
+References: <20260729094542.302965-2-phasta@kernel.org>
+ <20260729094542.302965-4-phasta@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 09:56:43 +0000
+Message-Id: <20260729095644.53CC91F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,68 +53,88 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 29 Jul 2026, oushixiong1025@163.com wrote:
-> From: Shixiong Ou <oushixiong@kylinos.cn>
->
-> The scale module parameter can be set to 0 via kernel command line or
-> sysfs. When scale is 0, scaled_font_h and scaled_font_w become 0,
-> causing a division by zero in the rows/columns calculation.
->
-> Add a custom param_ops setter to clamp scale to a minimum of 1 at the
-> source, ensuring scale is always valid for all users.
->
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-> ---
->  drivers/gpu/drm/clients/drm_log.c | 22 +++++++++++++++++++++-
->  1 file changed, 21 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
-> index 294b3be1a6b3..a04f651e8265 100644
-> --- a/drivers/gpu/drm/clients/drm_log.c
-> +++ b/drivers/gpu/drm/clients/drm_log.c
-> @@ -26,7 +26,27 @@ MODULE_DESCRIPTION("DRM boot logger");
->  MODULE_LICENSE("GPL");
->  
->  static unsigned int scale = 1;
-> -module_param(scale, uint, 0444);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing `#[inline]` annotations on small functions in an abstractio=
+n. The `into_foreign`, `from_foreign`, `borrow`, and `borrow_mut` methods i=
+n the `ForeignOwnable` trait implementation for `ARef<T>` are small, forwar=
+ding-style wrappers but lack the required `#[inline]` attribute.
+--
+
+--- Patch [2]: [PATCH v7 2/5] rust: types: implement ForeignOwnable for ARe=
+f<T> ---
+commit 8f27d3e39cb5663e64788b9670c36ec543c46826
+Author: Danilo Krummrich <dakr@kernel.org>
+
+rust: types: implement ForeignOwnable for ARef<T>
+
+Implement ForeignOwnable for ARef<T>, making it possible for C code to
+own an ARef<T>. Since ARef represents shared ownership, BorrowedMut yields
+a shared reference.
+
+> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
+> index b721b2e00b986..5407666136595 100644
+> --- a/rust/kernel/sync/aref.rs
+> +++ b/rust/kernel/sync/aref.rs
+[ ... ]
+> +// SAFETY: `into_foreign` returns a pointer from `NonNull::as_ptr`, so i=
+t's non-null. The
+> +// `ARef` invariant guarantees that `ptr` points to a valid `T`, so it's=
+ aligned to `T`.
+> +unsafe impl<T: AlwaysRefCounted + 'static> ForeignOwnable for ARef<T> {
+> +    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<T>();
 > +
-> +static int drm_log_scale_set(const char *val, const struct kernel_param *kp)
-> +{
-> +	int ret;
+> +    type Borrowed<'a> =3D &'a T;
+> +    type BorrowedMut<'a> =3D &'a T;
 > +
-> +	ret = param_set_uint(val, kp);
-> +	if (ret)
-> +		return ret;
+> +    fn into_foreign(self) -> *mut c_void {
 
-Pedantically, scale may be 0 between param_set_uint() and the check
-below, i.e. the fix is racy.
+[Severity: Low]
+This isn't a bug, but should the small methods implemented here
+(into_foreign, from_foreign, borrow, and borrow_mut) include #[inline]
+annotations?
 
-An alternative is to use a function to get the scaling factor, and
-having it return scale ?: 1.
+The Rust subsystem guidelines note that small functions or forwarding metho=
+ds
+in abstractions need to be annotated with #[inline] to allow optimal inlini=
+ng
+across crate boundaries.
 
-BR,
-Jani.
-
-
+> +        ARef::into_raw(self).as_ptr().cast()
+> +    }
 > +
-> +	if (scale < 1)
-> +		scale = 1;
+> +    unsafe fn from_foreign(ptr: *mut c_void) -> Self {
+> +        // SAFETY: The safety requirements of this function ensure that =
+`ptr` comes from a previous
+> +        // call to `Self::into_foreign`.
+> +        let ptr =3D unsafe { NonNull::new_unchecked(ptr.cast()) };
 > +
-> +	return 0;
+> +        // SAFETY: `ptr` came from `into_foreign`, which consumed an `AR=
+ef` without decrementing
+> +        // the refcount, so we can transfer the ownership to the new `AR=
+ef`.
+> +        unsafe { ARef::from_raw(ptr) }
+> +    }
+> +
+> +    unsafe fn borrow<'a>(ptr: *mut c_void) -> &'a T {
+> +        // SAFETY: The safety requirements of this method ensure that th=
+e object remains alive and
+> +        // immutable for the duration of 'a.
+> +        unsafe { &*ptr.cast() }
+> +    }
+> +
+> +    unsafe fn borrow_mut<'a>(ptr: *mut c_void) -> &'a T {
+> +        // SAFETY: The safety requirements for `borrow_mut` are a supers=
+et of the safety
+> +        // requirements for `borrow`.
+> +        unsafe { <Self as ForeignOwnable>::borrow(ptr) }
+> +    }
 > +}
-> +
-> +static const struct kernel_param_ops drm_log_scale_ops = {
-> +	.set	= drm_log_scale_set,
-> +	.get	= param_get_uint,
-> +};
-> +
-> +module_param_cb(scale, &drm_log_scale_ops, &scale, 0444);
->  MODULE_PARM_DESC(scale, "Integer scaling factor for drm_log, default is 1");
->  
->  /**
 
--- 
-Jani Nikula, Intel
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729094542.3029=
+65-2-phasta@kernel.org?part=3D2
