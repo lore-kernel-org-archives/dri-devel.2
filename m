@@ -4,45 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1935C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 12:46:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E426EC53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 12:55:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16C6110EC02;
-	Wed, 29 Jul 2026 12:46:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03F6D10E040;
+	Wed, 29 Jul 2026 12:55:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RG5vQoAj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i3IX3eOa";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4AAD810EC02
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 12:46:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A6C7A600BB;
- Wed, 29 Jul 2026 12:46:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2D5D1F000E9;
- Wed, 29 Jul 2026 12:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785329207;
- bh=a2byaAF8ldc4WIwV9Vh4p9XJQr1c4U4rkAf7BtCyRuc=;
- h=Subject:To:Cc:From:Date;
- b=RG5vQoAjJardDvTxaj9sZcc6bMuOCIdiM+PNa421T+KlUL1iiPe9HT294XbviGX2u
- lleYLUtfsbj2tcF6k81cpZ+NftVTvPyCL8vDGqA/FdHRr6PLCQOg1IIYbx/ELDa2Y8
- tGo1Kk5cIMP5qfLjCOqiHWzFKmzR88FgpzFvwxsY=
-Subject: Patch "drm/ttm: Account for NULL and handle pages in ttm_pool_backup"
- has been added to the 7.1-stable tree
-To: airlied@gmail.com, christian.koenig@amd.com,
- dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
- maarten.lankhorst@linux.intel.com, matthew.auld@intel.com,
- matthew.brost@intel.com, mripard@kernel.org, ray.huang@amd.com,
- simona@ffwll.ch, thomas.hellstrom@linux.intel.com, tzimmermann@suse.de
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 14:45:35 +0200
-Message-ID: <2026072935-claim-pediatric-f8bf@gregkh>
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8634D10E040
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 12:55:24 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-47f71156e1aso521202f8f.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 05:55:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785329723; x=1785934523; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Z1wP4pta5UyofIbZoGK/pLyizl12pGGfGAIOeMl3uuI=;
+ b=i3IX3eOa10teroox66D1RkPcBGZgGiMu7WxHMeUXTqWNINWbqi+8v/QjM9JVN+kXrI
+ oa03fHZApHsLaL6PygG+624I/1byklm0ncmvcP4m8u+gxbxpRQW4HpgRMIOI+bgHeDMD
+ xUNN3BqyekXVVKj6d6w9aHPGBlDqGULxH+c3BnrYsPFFC2OuTzeaGVgrJm0h+vjd7jrv
+ S9U8KqT/KvVkLXunQ2ZdcA+7wllon0fyuE86DPy1csWTSLApNQkVOjUXcf6GWlgP4fif
+ 56ZODLPyB/rsd0TOzGqACuPOChBYY8K/GER6yrEt8+BRqwGNqglM5naAsrIXo1UJtcVj
+ QJbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785329723; x=1785934523;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Z1wP4pta5UyofIbZoGK/pLyizl12pGGfGAIOeMl3uuI=;
+ b=Zh3ALsr9blLN66fyooCCI4+0/NY1I+AvMu3lV/56MW6PrwMXRsVTbmVapbdRLFoiOh
+ KqNtqwfDE1R9sC5/CJxGK64qtqTkxZjUFADOnNhb33yQMCmhlOcogzSvjQNVazJTJj+1
+ 2ym+fN7YYRGaDAyX1NdxV/1/1E9c0px0dkRISEZANB32kgcYh2UFzH0ovcKetAaFU8OP
+ 6uyWJLZgQY1lG9d7FWAwy+NKSrQqcSn1qoLppfjcpw/MOJ7lmyKK+Vthk8qrJLVOybr/
+ +JK/YVKpvBgxicR1+CPHJqw/ZtYfek8hMRuhKoQ7xSjA7W/1z/18Ou+GcCkJ++29Pjlj
+ BEnA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoRE2xwveCdSkQ+wgah/oef6J0jVpZ5GuUjDHx64j+zejKSYvzX7o0uYQ8MQ4NyKnq0o7LILFf/Uaw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywr6ojqV756Qe7PPDbU2LVuE32p0dmbVoRM7jJ80RBMocXANBVY
+ GqJsJ8SxOpbh4/ozaF20OGn51k275SDMl9bFR6Yt9Rnfp4/7vXJNTTmm
+X-Gm-Gg: AR+sD11SB7RJH5t4Z1/bUET+nfaU79/DwiafN+kvrSi/3f4YmSpNsVFEf9uiiIc/hJb
+ kDZ1ej+p0TSE0NiEYr8GbAmEyDFS2mf8QyOlp73GQI6M6XDObqc6wPEGUcxFBaIHVk5rP354H48
+ P24Wby5Od3JKaHJ6IxLO2USkIKcGBsyPVMcRXpJdbEzU6keduyntJlPsaODNSjbZUotddUILeIR
+ tk676BjDHKJImaxTbqBbH7iB98ACZHFfJ2PKtw7dQrCZtSpTsKvreCKGOSBMnSYhY60uH9jToyl
+ q2ankouOcz1NT3DVq+tGI3AqrH94SvmdUXDgM6boV1SM8CNhp3sFWElN/v9C/EjIQ89g1IcDRyW
+ IBPSQIp0ADinXqSxv3fuKSupqIzQIWTJPrrvs9eqDIJ3TkY1mbgRb5SFugW67Qv8O1G6dwTFGzQ
+ PDIrZatdWkqVqnXeHnsCBdeHyUDZu7evC7jrG6zXAjXH3MbDAi5ZNyVxDj+e2C7KsdFnsrb/fll
+ 38f7Rw377wtFg==
+X-Received: by 2002:a5d:6f13:0:b0:47f:7fd1:9602 with SMTP id
+ ffacd0b85a97d-47fb1e87636mr7709094f8f.11.1785329722702; 
+ Wed, 29 Jul 2026 05:55:22 -0700 (PDT)
+Received: from localhost.localdomain
+ ([2a00:23c4:a702:d301:10b8:4461:ee04:15e2])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47fb6b189e5sm9264645f8f.27.2026.07.29.05.55.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Jul 2026 05:55:21 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v2 00/16] Add support for DU,
+ LVDS and DSI on the Renesas RZ/G3L SoC
+Date: Wed, 29 Jul 2026 13:54:52 +0100
+Message-ID: <20260729125516.230757-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,185 +107,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-This is a note to let you know that I've just added the patch titled
+Hi All,
 
-    drm/ttm: Account for NULL and handle pages in ttm_pool_backup
+This patch series aims to add DSI, LVDS and LCD support for the RZ/G3L
+SMARC EVK. The RZ/G3L LCDC is similar to the one found on RZ/G2L, but has
+LVDS support. It is simpler compared to RZ/G3E [1], hence sending
+this series to get review feedback. Based on the discussion on [1],
+will rebase this later.
 
-to the 7.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+This patch series has a dependency on [2].
 
-The filename of the patch is:
-     drm-ttm-account-for-null-and-handle-pages-in-ttm_pool_backup.patch
-and it can be found in the queue-7.1 subdirectory.
+Also, the LVDS series [3] is merged here to get an overall picture.
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+[1] https://lore.kernel.org/all/cover.1770996493.git.tommaso.merciai.xr@bp.renesas.com
+[2] https://lore.kernel.org/all/20260619164030.380098-1-biju.das.jz@bp.renesas.com/
+[3] https://lore.kernel.org/all/20260625172359.292631-1-biju.das.jz@bp.renesas.com/
 
+v1->v2:
+ * Dropped renesas,sysc-pwrrdy property as it is modelled as power
+   sequence.
+ * Switched to power sequence for handling pwrrdy signal.
+ * Dropped header file regmap.h and mfd/syscon.h
+ * Added header file pwrseq/consumer.h
+ * Replaced syscon_field->pwrrdy in struct rzg3l_mipi_dsi_info.
+ * Restored ports in DU bindings.
+ * Replaced endpoint with port in ports node.
+ * Dropped the macro RZG2L_DU_FEATURE_SMUX2_DSI_CLK and RZG2L_DU_MAX_LVDS.
+ * Dropped the variable rcdu from struct rzg2l_du_encoder.
+ * Dropped the variable lvds from struct rzg2l_du_device.
+ * Dropped renesas,sysc-pwrrdy from dsi node.
 
-From 5b7b3b6595ee77d01c7463757baed114786094dd Mon Sep 17 00:00:00 2001
-From: Matthew Brost <matthew.brost@intel.com>
-Date: Thu, 2 Jul 2026 14:48:15 -0700
-Subject: drm/ttm: Account for NULL and handle pages in ttm_pool_backup
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Biju Das (16):
+  dt-bindings: display: bridge: renesas,dsi: Document RZ/G3L
+  drm: renesas: rzg2l_mipi_dsi: Add dphyctrl0_init_val to hw_info
+  drm: renesas: rzg2l_mipi_dsi: Add activation_dly to hw_info
+  drm: renesas: rzg2l_mipi_dsi: Move global timings into hardware info
+    struct
+  drm: renesas: rzg2l_mipi_dsi: Add support for DSI PWRRDY
+  drm: renesas: rzg2l_mipi_dsi: Add RZ/G3L MIPI DSI support
+  dt-bindings: display: renesas,rzg2l-du: Document RZ/G3L SoC
+  drm: renesas: rz-du: Add RZ/G3L (R9A08G046) DU support
+  dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
+  drm: renesas: rz-du: Add support for RZ/G3L LVDS encoder
+  arm64: dts: renesas: r9a08g046: Add fcpvd node
+  arm64: dts: renesas: r9a08g046: Add vspd node
+  arm64: dts: renesas: r9a08g046: Add DU and DSI nodes
+  arm64: dts: renesas: r9a08g046: Add LVDS node
+  arm64: dts: renesas: Add DSI overlay for RZ/G3L SMARC EVK with ADV7535
+  arm64: dts: renesas: Add LVDS overlay for RZ/G3L SMARC EVK with
+    ITE6263
 
-From: Matthew Brost <matthew.brost@intel.com>
+ .../bindings/display/bridge/renesas,dsi.yaml  |   1 +
+ .../bridge/renesas,r9a08g046-lvds.yaml        | 120 +++++++
+ .../bindings/display/renesas,rzg2l-du.yaml    |  26 +-
+ arch/arm64/boot/dts/renesas/Makefile          |   6 +
+ arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 139 ++++++++
+ .../r9a08g046l48-smarc-dsi-adv7535.dtso       |  95 ++++++
+ .../r9a08g046l48-smarc-lvds-ite6263.dtso      | 104 ++++++
+ drivers/gpu/drm/renesas/rz-du/Kconfig         |  13 +
+ drivers/gpu/drm/renesas/rz-du/Makefile        |   1 +
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.c  |  22 +-
+ drivers/gpu/drm/renesas/rz-du/rzg2l_du_drv.h  |   1 +
+ .../gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c    | 182 ++++++++++-
+ drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c    | 299 ++++++++++++++++++
+ .../gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h   |  25 ++
+ 14 files changed, 1025 insertions(+), 9 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-lvds.yaml
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-dsi-adv7535.dtso
+ create mode 100644 arch/arm64/boot/dts/renesas/r9a08g046l48-smarc-lvds-ite6263.dtso
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds.c
+ create mode 100644 drivers/gpu/drm/renesas/rz-du/rzg3l_lvds_regs.h
 
-commit 5b7b3b6595ee77d01c7463757baed114786094dd upstream.
+-- 
+2.43.0
 
-Pages in ttm_pool_backup can be NULL or backup handles
-(ttm_backup_page_ptr_is_handle()), neither of which can be passed to
-set_pages_array_wb() or freed. Add a dedicated WB pass before the
-dma/purge loop that walks allocations using the same i += num_pages
-stride, skipping NULL and handle entries, and calls set_pages_array_wb()
-once per contiguous run of real pages. Apply the same NULL/handle guard
-to the dma/purge loop.
-
-Fixes the following oops:
-
-Oops: general protection fault, kernel NULL pointer dereference 0x0: 0000 [#1] SMP NOPTI
-RIP: 0010:__cpa_process_fault+0xf8/0x770
-RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
-RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
-RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
-RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
-R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
-R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
-FS:  0000000000000000(0000) GS:ffff8884ec840000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
-PKRU: 55555554
-Call Trace:
- <TASK>
- __change_page_attr_set_clr+0x989/0xe90
- ? __purge_vmap_area_lazy+0x6c/0x3a0
- ? _vm_unmap_aliases+0x250/0x2a0
- set_pages_array_wb+0x7f/0x120
- ttm_pool_backup+0x4c9/0x5b0 [ttm]
- ? dma_resv_wait_timeout+0x3b/0xf0
- ttm_tt_backup+0x32/0x60 [ttm]
- ttm_bo_shrink+0x66/0x110 [ttm]
- xe_bo_shrink_purge+0x12b/0x1b0 [xe]
- xe_bo_shrink+0xbb/0x270 [xe]
- __xe_shrinker_walk+0xf7/0x160 [xe]
- xe_shrinker_walk+0x9d/0xc0 [xe]
- xe_shrinker_scan+0x11f/0x210 [xe]
- do_shrink_slab+0x13b/0x270
- shrink_slab+0xf1/0x400
- shrink_node+0x352/0x8a0
- balance_pgdat+0x32c/0x700
- kswapd+0x205/0x2f0
- ? __pfx_autoremove_wake_function+0x10/0x10
- ? __pfx_kswapd+0x10/0x10
- kthread+0xd1/0x110
- ? __pfx_kthread+0x10/0x10
- ret_from_fork+0x1b1/0x200
- ? __pfx_kthread+0x10/0x10
- ret_from_fork_asm+0x1a/0x30
- </TASK>
-
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Cc: stable@vger.kernel.org
-Assisted-by: GitHub_Copilot:claude-opus-4.8
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260702214815.4009271-1-matthew.brost@intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ttm/ttm_pool.c |   34 ++++++++++++++++++++++++++++++----
- 1 file changed, 30 insertions(+), 4 deletions(-)
-
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -1051,9 +1051,31 @@ long ttm_pool_backup(struct ttm_pool *po
- 		return -EBUSY;
- 
- #ifdef CONFIG_X86
--	/* Anything returned to the system needs to be cached. */
--	if (tt->caching != ttm_cached)
--		set_pages_array_wb(tt->pages, tt->num_pages);
-+	/* Anything returned to the system needs to be cached. Walk allocations
-+	 * skipping NULL pages and issue set_pages_array_wb() per contiguous run.
-+	 */
-+	if (tt->caching != ttm_cached) {
-+		pgoff_t run_start = 0, run_count = 0;
-+
-+		for (i = 0; i < tt->num_pages; i += num_pages) {
-+			page = tt->pages[i];
-+			if (unlikely(!page || ttm_backup_page_ptr_is_handle(page))) {
-+				if (run_count) {
-+					set_pages_array_wb(&tt->pages[run_start],
-+							   run_count);
-+					run_count = 0;
-+				}
-+				num_pages = 1;
-+				continue;
-+			}
-+			num_pages = 1UL << ttm_pool_page_order(pool, page);
-+			if (!run_count)
-+				run_start = i;
-+			run_count += num_pages;
-+		}
-+		if (run_count)
-+			set_pages_array_wb(&tt->pages[run_start], run_count);
-+	}
- #endif
- 
- 	if (tt->dma_address || flags->purge) {
-@@ -1061,7 +1083,7 @@ long ttm_pool_backup(struct ttm_pool *po
- 			unsigned int order;
- 
- 			page = tt->pages[i];
--			if (unlikely(!page)) {
-+			if (unlikely(!page || ttm_backup_page_ptr_is_handle(page))) {
- 				num_pages = 1;
- 				continue;
- 			}
-@@ -1104,6 +1126,10 @@ long ttm_pool_backup(struct ttm_pool *po
- 		if (unlikely(!page))
- 			continue;
- 
-+		/* Already-handled entry from a previous attempt. */
-+		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
-+			continue;
-+
- 		ttm_pool_split_for_swap(pool, page);
- 
- 		shandle = ttm_backup_backup_page(backup, page, flags->writeback, i,
-
-
-Patches currently in stable-queue which might be from matthew.brost@intel.com are
-
-queue-7.1/drm-xe-guc-fix-buffer-overflow-in-steered-register-list-allocation.patch
-queue-7.1/drm-i915-gem-add-missing-nospec-on-parallel-submit-slot.patch
-queue-7.1/drm-xe-vf-add-drm_dev-guards-when-detaching-ccs-read.patch
-queue-7.1/drm-xe-vm-fix-bo-prefetch-with-consult_mem_advise_pref_loc.patch
-queue-7.1/drm-xe-display-skip-force_wc-and-vm_bound-check-for-external-dma-bufs.patch
-queue-7.1/drm-ttm-account-for-null-and-handle-pages-in-ttm_pool_backup.patch
-queue-7.1/drm-xe-pt-reset-current_op-in-xe_pt_update_ops_init.patch
-queue-7.1/drm-xe-return-error-on-non-migratable-faults-requiring-devmem.patch
-queue-7.1/drm-xe-vm-fix-svm-leak-on-resv-obj-alloc-failure-in-.patch
-queue-7.1/drm-xe-fix-pte-index-in-xe_vm_populate_pgtable-for-chunked-binds.patch
-queue-7.1/drm-xe-assign-queue-name-in-time-for-drm_sched_init.patch
-queue-7.1/drm-xe-madvise-skip-invalidation-for-purgeable-state-updates.patch
-queue-7.1/drm-xe-vf-fix-vf-ccs-attach-detach-race-with-in-flig.patch
-queue-7.1/drm-gpusvm-publish-dpagemap-early-to-avoid-device-mapping-leak-on-error.patch
-queue-7.1/drm-xe-guc-hold-device-ref-until-queue-teardown-comp.patch
-queue-7.1/drm-xe-guc-keep-scheduler-timeline-name-alive.patch
-queue-7.1/drm-i915-gt-fix-null-deref-on-sched_engine-alloc-failure.patch
-queue-7.1/drm-xe-add-compact-pt-and-addr-mask-handling-for-page-reclaim.patch
