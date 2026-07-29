@@ -4,43 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DDA2C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:47:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80632C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:49:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA40610E1BA;
-	Wed, 29 Jul 2026 10:47:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7ADE510E14B;
+	Wed, 29 Jul 2026 10:49:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G6hNtxpR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nsxgbQNK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C59410E1BA
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:47:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 31D5760A9C;
- Wed, 29 Jul 2026 10:47:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16401F000E9;
- Wed, 29 Jul 2026 10:47:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785322034;
- bh=kko61iql7IxXDdNpritEPleTPQygBzQRIkrxome506E=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=G6hNtxpRy9ejYiNDhwz50WdDjEJK0fQYQJ2SCOPVOG/sQzNyDQ0VaUva/nFgbnjri
- URGp6HrolJUkNQpRUh/v5DFPadimPla+A+K/Afz8BIfxfqiez49eqgv4iEOOIzGj9o
- /uWoTsl7iWHwcxY97kDZSGPqMaGVrHIXMZfKR0j8SYUHrYLWQtfW5h3rHxdw/IW7K0
- blPEljd30wTynKgsV8qGuRdUpwu6G6aInSp4a+WgO3s/4oeIDeUDQ3Dopy4gKSmSPZ
- DUSIikphc/mPDpMP39TDXetN4N/iFd5LFQmrunZiTCPBhrlC+6+kmjOwBW9ISeuIGf
- UqZIe5NqRQz3A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/radeon: restore hardware polling in
- fence_is_signaled to fix performance regression
-To: 2564278112@qq.com
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <tencent_BB2A7CAE632BA0AC08D9296E78A15786200A@qq.com>
-References: <tencent_BB2A7CAE632BA0AC08D9296E78A15786200A@qq.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 10:47:14 +0000
-Message-Id: <20260729104714.B16401F000E9@smtp.kernel.org>
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA91A10E14B
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:49:48 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-c1c50c1e29bso117731466b.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 03:49:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785322187; x=1785926987; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=3xVEH4RvIZup14rRYV4Zvxl83sd+HTGGj/jXhd9ySH0=;
+ b=nsxgbQNK3t5F7NtuqCNBjpLlzPfKLyp6X5e6hw644mq38k6RiQbjZdBpjgHIG+Usfm
+ LEOAD1C5dKCzpW+14vAE3AtGU8YqlJ6sJl8B+QvXYLyroDhjPnwHo98CnfvgorDKdhEX
+ yW2hd7eHXphwhqQXML1DvE0xQXQRpMH6ogHxHLnhhSPm7UcdZUhFa29GYpTp5lqIYe4b
+ smXy2K3vdfq+6K4XCubJ9Jynlf0VkUiydBoel/i5bwxhVFIRcDM08dvC6guRZCWJMJUm
+ sVxjZm7/GLUtcQT/DazL/2splx38PmqC7U350BrMf9AQldoz7vYb/ZMNDDnXMgqkkayy
+ b+Jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785322187; x=1785926987;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3xVEH4RvIZup14rRYV4Zvxl83sd+HTGGj/jXhd9ySH0=;
+ b=ep3RfJTH2vPru/ZglNGHrCp7YrEGoqdk5O+tj5z+9PuvVs20UORnfzKaAW+dO/BsE4
+ ISXYRnqnrkGKgn1Ms7eeUrVWYYJRhBmyljOTXmDfo/c6Ezdo7DadjDs4/uhBe5YvNVC8
+ tl4bXG/zK2wkj7H3PPLwV9VSwwciT5gwjI5Vs1UZcB/UmdfOoXmyxPLIig6jv363vYV0
+ sGUPbl5+06u86N/u3OweVKEg0VGFEbWQ1WfMkrDz1BrDkk45MrL5fSl+isqEd4IPRtSk
+ ZHCW6fYqyrIceFtFya51/FUOS8QRDRdXtHlYxPWIN/j24LnbApkW6ZShEf4vrICF4NjO
+ TM1w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoSs2SP714cvDA26UgBs1048Q9uSbMT6prKZuOe756U0t/BuMq5upXLd9kMxJ7c5SCbpwrgQ+5SsEg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy5WDqWYPipQ5QMxCReUMPDAuEeE0f1yiVZajYYfYdpSkyKEwy1
+ 0ZA2pjdf6v8OIOwiJ1w7YmhzudfywkMfZaFZqIw0jyZNll9k8gfy6KF7
+X-Gm-Gg: AR+sD10CYrojk9ehLHotSxpiw5zD1gM6yVEAaPaiCHTAiRO84rD00s6XMyq4FJdQ5Tp
+ t8JhxgTNc5sLE/J/gMieumULEejnRTZq6/YuyaDGg9bWG3+C66U2dUucondHJOaZ6mjBw/UBQrt
+ 2F8ewMk57RfZ8c9xOuN6bCiqfSGRjbK2vcCc5NvFsSgJAkB0Le0tUvNO1tVbjKXwdrM5yHuLWiH
+ 2k47wQwx/8U1E3RtkdVdFDNa/wMJrCN4gdtC+ROSJBA6acniWAcD0nrL4niT7NRB1EcceoaKJnl
+ XA6bKhl4qzFyNwo/nDkQokvDK1y/BrYB5aLWR2m0gcnZ9qQyX1lC4KEm9H7ntpLxc4ZL/vUur13
+ 7wijXm7LphKfkZ7aeC/StDxfzS6d9ZCXgV5lfrptsx5Iwj9sqE6VKvLB5/VjqMlCHDKW6Z/h0dE
+ uDCxbbQPSCvjI/T69QU45R5pqXwB3d4nQ2JPGvtbnIu8REgt7QSOEof+1OXzEIEk3G108mz46W2
+ Rp7+sALzm6O2PMpnl36xknP6iaYbpA+l8ZgWKeScpy9c5dVs8u+Csw7oiG+ESnE7TACLdMWn9Q1
+ 4WorcFbQATX8fxiFPPJzyn9OwK14+w==
+X-Received: by 2002:a17:906:fe47:b0:c15:bea2:d209 with SMTP id
+ a640c23a62f3a-c1f7215dee1mr299738366b.4.1785322187169; 
+ Wed, 29 Jul 2026 03:49:47 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
+ ([2620:10d:c092:600::1:640]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c1f83d27f47sm97965566b.26.2026.07.29.03.49.44
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jul 2026 03:49:46 -0700 (PDT)
+Message-ID: <c81be43c-2fe3-4403-b8a9-dd19855eeb58@gmail.com>
+Date: Wed, 29 Jul 2026 11:49:36 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 08/14] nvme-pci: implement dma_token backed requests
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <19e5c945ea8114320c10f7951d19197d48b59249.1785274111.git.asml.silence@gmail.com>
+ <20260729071048.GH9534@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260729071048.GH9534@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,84 +112,25 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Calling `radeon_fence_activity()` in `.signaled` callback consumes=
- hardware state without waking up wait queues, leading to permanent hangs.
-- [Medium] Acquiring an `rw_semaphore` in the `dma_fence_ops.signaled` call=
-back violates wait-context rules and can crash PREEMPT_RT kernels.
---
+On 7/29/26 08:10, Christoph Hellwig wrote:
+>> +static int nvme_init_dma_buf_io_ctx(struct block_device *bdev,
+>> +				    struct dma_buf_io_ctx *ctx)
+> 
+> Please stick to two-tab indents for function declaration continuation
+> for the nvme code to keep the code easy to maintain.
+> 
+>> +#if defined(CONFIG_DMA_SHARED_BUFFER)
+> 
+> This should be good old #ifdef.  Same in a few other places over
+> the series.
 
---- Patch [1]: [PATCH] drm/radeon: restore hardware polling in fence_is_sig=
-naled to fix performance regression ---
-commit 23682e8220434ea07b863fe650003e08c35ce798
-Author: Wang Jiang <jiangwang@kylinos.cn>
+Going to apply both for v5, thanks.
 
-drm/radeon: restore hardware polling in fence_is_signaled to fix performanc=
-e regression
+> Modulo these minor nits the patch looks good.
 
-This commit restores hardware polling by calling radeon_fence_activity()
-wrapped in down_read_trylock() inside radeon_fence_is_signaled(). This is
-intended to fix performance regressions without re-introducing deadlocks.
+-- 
+Pavel Begunkov
 
-> diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/rade=
-on/radeon_fence.c
-> index 02a40e4750c7d..299865569252d 100644
-> --- a/drivers/gpu/drm/radeon/radeon_fence.c
-> +++ b/drivers/gpu/drm/radeon/radeon_fence.c
-> @@ -360,6 +360,13 @@ static bool radeon_fence_is_signaled(struct dma_fenc=
-e *f)
->  	if (atomic64_read(&rdev->fence_drv[ring].last_seq) >=3D seq)
->  		return true;
-> =20
-> +	if (down_read_trylock(&rdev->exclusive_lock)) {
-> +		radeon_fence_activity(rdev, ring);
-
-[Severity: High]
-Does this consume the hardware state and drop the wake signal?
-
-When a thread calls dma_fence_is_signaled() via polling, it invokes
-radeon_fence_is_signaled(), which then calls radeon_fence_activity().=20
-The hardware sequence is read, last_seq is advanced, and it returns true.
-
-However, radeon_fence_is_signaled() intentionally drops this return value a=
-nd
-skips wake_up_all(). Later, when the actual hardware interrupt fires,
-radeon_fence_process() calls radeon_fence_activity() again.
-
-Because last_seq was already advanced, it sees no new activity
-(seq <=3D last_seq), returns false, and skips wake_up_all().
-
-Could this steal the wake event and cause tasks waiting on fences to hang
-indefinitely?
-
-> +		up_read(&rdev->exclusive_lock);
-
-[Severity: Medium]
-Is it safe to manipulate an rw_semaphore in the dma_fence_ops.signaled
-callback?
-
-The dma_fence_ops.signaled callback can be called from atomic context or
-directly from a foreign device's hardirq handler due to cross-device
-dependencies.
-
-While down_read_trylock() avoids sleeping on acquire, up_read() still
-manipulates the underlying lock state. On PREEMPT_RT, this is an rt_mutex,
-and manipulating it from hardirq context violates RT constraints, potential=
-ly
-leading to a crash.
-
-> +
-> +		if (atomic64_read(&rdev->fence_drv[ring].last_seq) >=3D seq)
-> +			return true;
-> +	}
->  	return false;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_BB2A7CAE632=
-BA0AC08D9296E78A15786200A@qq.com?part=3D1
