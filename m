@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02056C53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 03:08:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1D1CC53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 03:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4BEFA10E61F;
-	Wed, 29 Jul 2026 03:08:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1049710E626;
+	Wed, 29 Jul 2026 03:08:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GQNOqehw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VnWjKgMA";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FBA210E61F
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 03:08:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC60510E626
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 03:08:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 598A260A5E;
- Wed, 29 Jul 2026 03:08:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4E521F000E9;
- Wed, 29 Jul 2026 03:08:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 30A9A60A5E;
+ Wed, 29 Jul 2026 03:08:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCB4C1F000E9;
+ Wed, 29 Jul 2026 03:08:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785294495;
- bh=foXlVr31BPqKNCZ6KVN8PyGdmY6MiEqDP5tE3seohdg=;
+ s=k20260515; t=1785294510;
+ bh=6iV21Zho42YIIRVrplvMwJR6mgM1W34nDODZMRudoC4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=GQNOqehwxzgt43/93Qe3jIkF3NYzibX6BjwgFxiTMpgWuey4P0KVknfSFbmsZbkFv
- ZmIRRKzcrRZl+qr2S5wsKYJBxIexBlfvEsA6EuHFmIb2al3QNIuxCntbfQknPFFPeg
- F8wL5QIV7GQosyj0v0RYlu0PtZxqbLRKDHZR1gwGSXaHMGy+NnF6MKkBwMOBDEKHEg
- MMrHw9Xco0cGtgCmQzKvSLcQxjWL5Q8BL0jLJ00PzHFUnxEQgGrPcBnTFb/0kozVih
- ociSCMLDqscRJaOEpKgH2zNPll47ym9iVhofswFecIt1ETmuVxVw1myZemG15SXVGx
- +HcoDSOmhYS2w==
+ b=VnWjKgMAesvEtCoMK+bOe9nnmFIAkWp6rnAPgk5rBDhtc4jsvpFVczAi9AgRmD8fP
+ yF0I5BE2mWSUBWdckSPhkpeN36MJt11PGdky+z3NSE8vGYu+liWrnyWIBNBTzOem3Y
+ peV6loWV+bq2oPEuUxj1/v2YR6IIJ6iDa5Yk0Y4AXXmaTp29njBCsWnNulpuDdwrvJ
+ Gm2HyzOEalN6ySw+8R8krIE/wp4j6LINqV9DGKXrRIQrpNCSzqgvCAgfctBIJKxf5l
+ y7xlDntuYt3Xv8EM+gG/+tznu/pJ6arxaSEMuQZF8rSWgJTq/SQhC0n13nbFNDc/Tl
+ u8sMiSs6WN5Vw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 13/13] drm/panfrost: Bump driver minor to reflect new
- DUMP IOCTL req field
+Subject: Re: [PATCH v4 11/13] drm/panfrost: Introduce a reset lock
 To: =?utf-8?b?QWRyacOhbiBMYXJ1bWJl?= <adrian.larumbe@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260729-claude-fixes-v4-13-01968f2ec77a@collabora.com>
+In-Reply-To: <20260729-claude-fixes-v4-11-01968f2ec77a@collabora.com>
 References: <20260729-claude-fixes-v4-0-01968f2ec77a@collabora.com>
- <20260729-claude-fixes-v4-13-01968f2ec77a@collabora.com>
+ <20260729-claude-fixes-v4-11-01968f2ec77a@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 03:08:14 +0000
-Message-Id: <20260729030814.E4E521F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 03:08:30 +0000
+Message-Id: <20260729030830.BCB4C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,109 +57,55 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] The error path in `panfrost_perfcnt_enable_locked` incorrectly=
- sets `perfcnt->user =3D user` instead of `NULL`, leading to a corrupt stat=
-e and Use-After-Free.
-- [Medium] Hardware reset notification is permanently lost if the ioctl wai=
-t is interrupted by a signal.
+
+Pre-existing issues:
+- [High] Missing `reset.lock` protection for other hardware-accessing entry=
+ points, risking concurrent register access during a GPU reset.
 --
 
---- Patch [13]: [PATCH v4 13/13] drm/panfrost: Bump driver minor to reflect=
- new DUMP IOCTL req field ---
-commit 33e476c0f2af99299bbeb687048c33539616ce05
+--- Patch [11]: [PATCH v4 11/13] drm/panfrost: Introduce a reset lock ---
+commit 37b5ec54907b68f8dbe5d3c8dbd5b539b7f3a90e
 Author: Adri=C3=A1n Larumbe <adrian.larumbe@collabora.com>
 
-drm/panfrost: Fix races between perfcnt and reset sequence
+drm/panfrost: Introduce a reset lock
 
-This commit fixes races between the reset sequence and perfcnt session
-teardown. It uses a read/write semaphore to serialize access to the
-hardware during resets and updates the DRM uAPI to notify userspace of
-resets during a perfcnt DUMP operation.
+This commit introduces a read/write semaphore to prevent driver entry points
+from accessing hardware registers while a reset is ongoing. It wraps the
+timestamp query ioctl with this lock to avoid races during GPU soft resets.
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c b/drivers/gpu/dr=
-m/panfrost/panfrost_perfcnt.c
-> index ad1156678e91c..b92ad90618931 100644
-> --- a/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_perfcnt.c
-[ ... ]
-> @@ -55,38 +59,97 @@ void panfrost_perfcnt_sample_done(struct panfrost_dev=
-ice *pfdev)
->  	gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_CACHES);
->  }
-> =20
-> -static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev)
-> +static int panfrost_perfcnt_dump_locked(struct panfrost_device *pfdev,
-> +					u64 *reset_happened)
->  {
-> -	u64 gpuva;
-> +	struct panfrost_perfcnt *perfcnt =3D pfdev->perfcnt;
-> +	u64 gpuva =3D perfcnt->mapping->mmnode.start << PAGE_SHIFT;
-> +	u64 retries =3D PERFCNT_DUMP_MAX_RETRIES;
->  	int ret;
-> =20
-> -	reinit_completion(&pfdev->perfcnt->dump_comp);
-> -	gpuva =3D pfdev->perfcnt->mapping->mmnode.start << PAGE_SHIFT;
-> -	gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
-> -	gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
-> -	gpu_write(pfdev, GPU_INT_CLEAR,
-> -		  GPU_IRQ_CLEAN_CACHES_COMPLETED |
-> -		  GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> -	gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
-> +dump_retry:
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock) {
-> +		*reset_happened =3D perfcnt->reset_happened;
-> +		perfcnt->reset_happened =3D false;
+> drm/panfrost: Introduce a reset lock
+>
+> So as to avoid accessing HW register while a reset is ongoing, a read/wri=
+te
+> semaphore that envelopes the reset sequence will help driver entry points
+> avoid racing with it. For now, the only such racy entry point is the ioctl
+> that returns the current GPU timestmap.
 
-[Severity: Medium]
-Does this code permanently lose the hardware reset notification if the ioctl
-wait is interrupted by a signal?
+[Severity: High]
+This isn't a bug introduced by this patch, but are there other entry points
+that also race with GPU resets by writing to hardware registers?
 
-Since the internal state is cleared prior to the interruptible wait and not
-restored on the -ERESTARTSYS error path, could a restarted syscall overwrite
-req->hw_reset with the cleared value, causing userspace to accumulate
-counters that were actually reset?
+For instance, panfrost_ioctl_perfcnt_enable() calls
+panfrost_perfcnt_enable_locked() which writes directly to GPU_CMD:
 
-> +		reinit_completion(&pfdev->perfcnt->dump_comp);
-> +		gpu_write(pfdev, GPU_PERFCNT_BASE_LO, lower_32_bits(gpuva));
-> +		gpu_write(pfdev, GPU_PERFCNT_BASE_HI, upper_32_bits(gpuva));
-> +		gpu_write(pfdev, GPU_INT_CLEAR, GPU_IRQ_CLEAN_CACHES_COMPLETED |
-> +						GPU_IRQ_PERFCNT_SAMPLE_COMPLETED);
-> +		gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_SAMPLE);
-> +	}
-> +
->  	ret =3D wait_for_completion_interruptible_timeout(&pfdev->perfcnt->dump=
-_comp,
->  							msecs_to_jiffies(1000));
-[ ... ]
-> @@ -127,60 +192,46 @@ static int panfrost_perfcnt_enable_locked(struct pa=
-nfrost_device *pfdev,
-[ ... ]
->  	/* The BO ref is retained by the mapping. */
->  	drm_gem_object_put(&bo->base);
-> =20
-> -	perfcnt->user =3D user;
-> -
->  	return 0;
-> =20
->  err_vunmap:
-> +	scoped_guard(rwsem_read, &pfdev->reset.lock)
-> +		perfcnt->user =3D user;
+drivers/gpu/drm/panfrost/panfrost_perfcnt.c:panfrost_perfcnt_enable_locked(=
+) {
+    ...
+    gpu_write(pfdev, GPU_CMD, GPU_CMD_PERFCNT_CLEAR);
+    gpu_write(pfdev, GPU_CMD, GPU_CMD_CLEAN_INV_CACHES);
+    ...
+}
 
-[Severity: Critical]
-Is it possible this error path incorrectly reassigns perfcnt->user to user
-instead of setting it to NULL?
+panfrost_ioctl_perfcnt_dump() and mmu_hw_do_operation() also write to
+hardware registers (GPU_CMD and AS_COMMAND respectively) without acquiring
+reset.lock.
 
-If panfrost_perfcnt_hw_enable() fails (e.g. when panfrost_mmu_as_get fails
-because address spaces are exhausted), could this leave perfcnt->user set
-while the backing resources are freed, possibly leading to a use-after-free
-on subsequent ioctls?
-
->  	drm_gem_vunmap(&bo->base, &map);
->  err_put_mapping:
->  	panfrost_gem_mapping_put(perfcnt->mapping);
+Could these be invoked concurrently with a job timeout reset? If so,
+should they also acquire pfdev->reset.lock to prevent hardware state
+corruption?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729-claude-fix=
-es-v4-0-01968f2ec77a@collabora.com?part=3D13
+es-v4-0-01968f2ec77a@collabora.com?part=3D11
