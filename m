@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65331C53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:21:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93BC1C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:22:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5B2B10E025;
-	Wed, 29 Jul 2026 16:21:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E907210E027;
+	Wed, 29 Jul 2026 16:22:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MMre3tzh";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B9+N9wa0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F11310E025
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:21:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF20210ECE4
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:21:58 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E4A7E41715;
- Wed, 29 Jul 2026 16:21:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D5B11F000E9;
- Wed, 29 Jul 2026 16:21:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B75E94097F;
+ Wed, 29 Jul 2026 16:21:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ED271F00A3A;
+ Wed, 29 Jul 2026 16:21:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785342107;
- bh=mpKl1yrKpRwzs/OwwlkKbdLE1MxKzQ65vcUABt86wX8=;
+ s=k20260515; t=1785342118;
+ bh=6rtOLK4krP5iJSAx96VvPByMSxCnl7tfpe9qJhHsets=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=MMre3tzhVKgU6IKyFDsosG+Q1bWM3Bpqo80DNQ9XYrG2/UC450IJ3aGLyf+XI1qsb
- QMCKq7bt7ZjmoFbLhhlopUgRuIrc0r2jQ9MxQiCgbJVrln4fRTk0FH8LaEwagv1rNl
- kCbd5xAXFUWLtYgl8RR2zsZcrDrfCKpd69DoQhg2sbVUv2z2yPwcLxtOnlPczyr4Ui
- c/h3UNhHl851hJYpnGRn4Y87kxY9IFl0Z3iqygwhFkJQ7Ung9hN8gQXKj08+mSnKCa
- 607dlSNztdoIZ97CfyQ28wk61qV3UxxqJva4cuOMuVX6aawFmhuXxpzgTTNG/bTskF
- B9lVMm8FG+xYA==
+ b=B9+N9wa0KfDAxjSJGz9FrcerrY1V0wiU4NchrmGeFlOf1F8XPjVLb5Q6p93ErFJPy
+ Rh6Q88q5fmCIojDQM1KYX72GDpZmWJbJhsqiEYU2y7vRGRZYWYmoKuorTWO2rqbScw
+ T72tXGAGA4INr41o3goiRkjZZr32AcKhNC2jWlYtsOCAN92FIH80MD75QQBTXDrWfp
+ oNfUxd7uOfg8yKXw7I8ZnaJH5zp0q1QPtcOYupxtLpEXlnY9flbXgGT/3MUz8D1yfq
+ 24+xN6AUMi+oArIhD6KoDglpZiu0JSDoO7oge6xFU8Ma5jpcdnYj3Q1V14QwfoCG7c
+ s6e9VMBjb1h4g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 02/17] drm/msm: Rework queuelock
+Subject: Re: [PATCH v7 14/17] drm/msm: Allow lazy VM creation to fail
 To: "Rob Clark" <robin.clark@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260729155609.20190-3-robin.clark@oss.qualcomm.com>
+In-Reply-To: <20260729155609.20190-15-robin.clark@oss.qualcomm.com>
 References: <20260729155609.20190-1-robin.clark@oss.qualcomm.com>
- <20260729155609.20190-3-robin.clark@oss.qualcomm.com>
+ <20260729155609.20190-15-robin.clark@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 16:21:47 +0000
-Message-Id: <20260729162147.9D5B11F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 16:21:58 +0000
+Message-Id: <20260729162158.6ED271F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,67 +61,64 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the return value=
- of `drm_sched_entity_init()` is ignored when creating a VM_BIND submitqueu=
-e, which can lead to a kernel crash if the allocation fails.
+- [Critical] Bypass of per-process pgtable support check in adreno_set_para=
+m for MSM_PARAM_EN_VM_BIND
 --
 
---- Patch [2]: [PATCH v7 02/17] drm/msm: Rework queuelock ---
-commit 1fecfbcd368f21f80f7078762ebd5da9fae4c122
+--- Patch [14]: [PATCH v7 14/17] drm/msm: Allow lazy VM creation to fail ---
+commit 4152ad8d83f2b59969c7edf51ff58a105d0b46bf
 Author: Rob Clark <robin.clark@oss.qualcomm.com>
 
-drm/msm: Rework queuelock
+drm/msm: Allow lazy VM creation to fail
 
-This commit renames queuelock to ctxlock and transitions it to use cleanup
-guards. The change is intended to allow the lock to be reused for other
-per-context read/write serialization tasks such as VM creation.
+This commit updates the driver to handle failures during lazy VM creation,
+returning ENOMEM or EPIPE instead of silently proceeding without a VM.
+It modifies various entry points like gem_submit, vm_bind, and submitqueue
+creation to validate the VM pointer.
 
-> diff --git a/drivers/gpu/drm/msm/msm_submitqueue.c b/drivers/gpu/drm/msm/=
-msm_submitqueue.c
-> index 1a5a77b280163..8b5980d5a6a79 100644
-> --- a/drivers/gpu/drm/msm/msm_submitqueue.c
-> +++ b/drivers/gpu/drm/msm/msm_submitqueue.c
+> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
+m/adreno/adreno_gpu.c
+> index 5738eac9aebd6..84101e534ebef 100644
+> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+> @@ -359,7 +359,7 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigne=
+d long iova, int flags,
+>  static bool
+>  valid_per_process_vm(struct msm_gpu *gpu, struct drm_gpuvm *vm)
+>  {
+> -	return (vm !=3D gpu->vm);
+> +	return vm && (vm !=3D gpu->vm);
+>  }
+> =20
+>  int adreno_get_param(struct msm_gpu *gpu, struct msm_context *ctx,
+
+[Severity: Critical]
+This is a pre-existing issue, but while reviewing the VM validation changes
+in this file, I noticed a potential check bypass in adreno_set_param().
+
+If a platform lacks per-process pgtable support, lazy initialization means
+ctx->vm will be NULL when adreno_set_param() is called.
+
+Because ctx->vm is NULL, the following check:
+
+    if (ctx->vm =3D=3D gpu->vm)
+            return UERR(EINVAL, drm, "requires per-process pgtables");
+
+will evaluate to false. It will then pass the second check:
+
+    if (ctx->vm)
+            return UERR(EBUSY, drm, "VM already created");
+
+and successfully set ctx->userspace_managed_vm to the requested value.
+
+When the VM is later lazily created via msm_context_vm(), it falls back to
+the global gpu->vm, improperly setting up the global VM as a VM_BIND queue.
+
+Does this allow userspace to opt into VM_BIND functionality on a global,
+kernel-managed GPU VM?
 
 [ ... ]
 
-> @@ -237,7 +234,7 @@ int msm_submitqueue_create(struct drm_device *drm, st=
-ruct msm_context *ctx,
->  		return ret;
->  	}
-> =20
-> -	write_lock(&ctx->queuelock);
-> +	guard(rwsem_write)(&ctx->ctxlock);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential bug in
-the VM_BIND queue initialization just above this locking change in
-msm_submitqueue_create().
-
-Does this code fail to catch allocation errors from drm_sched_entity_init()?
-
-	if (flags & MSM_SUBMITQUEUE_VM_BIND) {
-		...
-		drm_sched_entity_init(queue->entity, DRM_SCHED_PRIORITY_KERNEL,
-				      &sched, 1, NULL);
-	} else {
-		...
-	}
-
-	if (IS_ERR(queue->entity)) {
-		ret =3D PTR_ERR(queue->entity);
-		...
-
-If drm_sched_entity_init() fails, it returns an error but the return value =
-is
-silently ignored. The subsequent check for IS_ERR(queue->entity) will evalu=
-ate
-to false because queue->entity points to a valid inline struct array element
-(&queue->_vm_bind_entity[0]).
-
-Could this result in a NULL pointer dereference later on if a job is submit=
-ted
-to this partially initialized scheduler entity?
-
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729155609.2019=
-0-1-robin.clark@oss.qualcomm.com?part=3D2
+0-1-robin.clark@oss.qualcomm.com?part=3D14
