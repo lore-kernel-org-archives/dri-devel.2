@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A07A4C53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 05:40:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B092C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 05:41:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0264910E729;
-	Wed, 29 Jul 2026 05:40:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A129810E9C5;
+	Wed, 29 Jul 2026 05:41:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lUBO2tU6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kl1tAJyR";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D829B10E729
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 05:40:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D18B10E9C5
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 05:41:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D437860A5E;
- Wed, 29 Jul 2026 05:40:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DC711F000E9;
- Wed, 29 Jul 2026 05:40:24 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 987EB60A5E;
+ Wed, 29 Jul 2026 05:41:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23C271F000E9;
+ Wed, 29 Jul 2026 05:41:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785303624;
- bh=5mikqCSqFByrvVQTw08oH9Smp10sCCwArTBx6u+syL0=;
+ s=k20260515; t=1785303706;
+ bh=+9feoyrHz6tl7F7DK9YjlyRKk10f+atcIu5+cdCEkKc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lUBO2tU6ApQA0aTBJc+AdTvMO1F6aLffaMt1h1ijT1d1MxASM9By9gbQnQYVfM5Ao
- ONCUh/n1SrQFw7zCVUzjQlgwtLaeZQr6SP2iYzGGdiIUzTEqR3XqO39kkv4w5xnXvz
- vqtr+xVHGZqq5WHdax7AmPI+Ah3JQTV/XsqAhpM2Srt+HWeBauCnhhV/4mAah/DO+J
- WBshaa6WPIX8ajdoOiQ2u2G+THxlC0I+YzLrgKbX5/H5CZq4ICtmekffrTh6Z3m2hW
- JKR1raQzL4LQGF2lCBP8fNMHQ4bdG+tpNuhtjk5ny7wmQljgzP9pxnN1HZ8/0PewNI
- cX9ZZWRVETvgw==
+ b=Kl1tAJyR2DGvwERP/xcXYfYGaDcxXwKwHCU1u7hR/x/wH3dg60EiP97eWYyzrk7S+
+ LFGWx4C8ZUEYPnXf0baF/13f3Vh/ZhaexGWYl4tFV6CS79xsqM4jh9HIZq46cXeU6A
+ qxZjJI3kg13NBx6REVGK+KKOEKloraPRwFlQtH5ASHiS7klV6ad1X8FrOSmB7RSSRC
+ wJTHXrlybRiqTXF8VSKAx3rnFRW1hRcm5SeboQUKiyWGHgZCMez5PnUzwjo+8KzgmG
+ SzX2H64jcLyCIO+vtN9PvQxsxotA6sIu2RJPsuWs8RYeumHiU2VymR7fCd+uRnQS2L
+ OUpanmU92XjrQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/ssd130x: Add per-family update backlight logic
+Subject: Re: [PATCH 1/2] drm/ssd130x: Scale ssd133x per-channel contrast by
+ brightness on init
 To: "Amit Barzilai" <amit.barzilai22@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260729053054.29374-3-amit.barzilai22@gmail.com>
+In-Reply-To: <20260729053054.29374-2-amit.barzilai22@gmail.com>
 References: <20260729053054.29374-1-amit.barzilai22@gmail.com>
- <20260729053054.29374-3-amit.barzilai22@gmail.com>
+ <20260729053054.29374-2-amit.barzilai22@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 29 Jul 2026 05:40:23 +0000
-Message-Id: <20260729054024.5DC711F000E9@smtp.kernel.org>
+Date: Wed, 29 Jul 2026 05:41:45 +0000
+Message-Id: <20260729054146.23C271F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,68 +62,62 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Multi-byte hardware command sequences can interleave during concur=
-rent display and backlight updates, corrupting the panel state.
+- [High] The generic backlight update function corrupts the white balance o=
+n ssd133x panels by only updating contrast channel A.
 --
 
---- Patch [2]: [PATCH 2/2] drm/ssd130x: Add per-family update backlight log=
-ic ---
-commit 3c6fc209e783670f32fed55dedcfe0a2a66ad662
+--- Patch [1]: [PATCH 1/2] drm/ssd130x: Scale ssd133x per-channel contrast =
+by brightness on init ---
+commit 2b92cd2c08daa2f9c52218a1668057ae50f9c448
 Author: Amit Barzilai <amit.barzilai22@gmail.com>
 
-drm/ssd130x: Add per-family update backlight logic
+drm/ssd130x: Scale ssd133x per-channel contrast by brightness on init
    =20
-This commit adds per-family backlight update logic to support SSD133x panel=
-s,
-which require a three-channel contrast update sequence instead of a single
-global contrast command.
+This patch extracts the SSD133X A/B/C channel contrast calibration into
+ssd133x_set_contrast() which scales each channel by the requested brightnes=
+s.
 
-> diff --git a/drivers/gpu/drm/solomon/ssd130x.c b/drivers/gpu/drm/solomon/=
-ssd130x.c
-> index f49e5245b2160..0b0fc6fe3df23 100644
-> --- a/drivers/gpu/drm/solomon/ssd130x.c
-> +++ b/drivers/gpu/drm/solomon/ssd130x.c
-> @@ -1711,8 +1711,25 @@ static int ssd130x_update_bl(struct backlight_devi=
-ce *bdev)
->  	return 0;
->  }
-> =20
-> -static const struct backlight_ops ssd130xfb_bl_ops =3D {
-> -	.update_status	=3D ssd130x_update_bl,
-> +static int ssd133x_update_bl(struct backlight_device *bdev)
-> +{
-> +	struct ssd130x_device *ssd130x =3D bl_get_data(bdev);
-> +
-> +	ssd130x->contrast =3D backlight_get_brightness(bdev);
-> +
-> +	return ssd133x_set_contrast(ssd130x, ssd130x->contrast);
-> +}
+> Extract them into ssd133x_set_contrast(), which scales each channel by a
+> requested brightness via ssd130x_scale_contrast(), instead of writing the
+> calibration unconditionally.  This makes the sequence readable, avoids
+> repetition, and is a prerequisite for wiring up an ssd133x backlight
+> controller that dims while preserving the white point.
 
 [Severity: High]
-This is a pre-existing issue, but does this newly added function exacerbate=
- a
-race condition with concurrent DRM atomic plane updates?
+This isn't a bug introduced by this patch, but does the generic backlight
+update function corrupt the white balance on ssd133x panels by only updating
+contrast channel A?
 
-When a backlight sysfs brightness update runs concurrently with a DRM atomic
-plane update, both paths invoke regmap_write() repeatedly to send multi-byte
-sequences. Since regmap_write() only locks internally for a single byte, th=
-ere
-appears to be no driver-level mutex to serialize the entire command sequenc=
-e.
+The commit message notes this is a prerequisite for a proper ssd133x backli=
+ght
+controller, but currently ssd130x_probe() unconditionally registers the
+generic backlight controller for all devices:
 
-The newly added ssd133x_update_bl() sends a 7-command multi-byte sequence v=
-ia
-ssd133x_set_contrast() and ssd130x_run_cmd_seq() without driver-level locks.
-Similarly, the existing ssd130x_update_bl() function splits a 2-byte command
-across two separate ssd130x_write_cmd() calls.
+drivers/gpu/drm/solomon/ssd130x.c:ssd130x_probe() {
+	...
+	bl =3D devm_backlight_device_register(dev, dev_name(dev), dev, ssd130x,
+					    &ssd130xfb_bl_ops, NULL);
+	...
+}
 
-Could these multi-byte hardware command sequences interleave during concurr=
-ent
-display and backlight updates, and potentially corrupt the panel's hardware
-state machine?
+When the backlight is enabled or updated via sysfs, ssd130x_update_bl()
+blindly writes the unscaled brightness to 0x81 (SSD13XX_CONTRAST). On ssd13=
+3x
+panels, this maps to SSD133X_CONTRAST_A (Red):
 
-[ ... ]
+drivers/gpu/drm/solomon/ssd130x.c:ssd130x_update_bl() {
+	...
+	ret =3D ssd130x_write_cmd(ssd130x, 1, SSD13XX_CONTRAST);
+	if (ret < 0)
+		return ret;
+
+	ret =3D ssd130x_write_cmd(ssd130x, 1, ssd130x->contrast);
+	...
+}
+
+This leaves channels B and C untouched at their initialization values,
+destroying the white balance.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260729053054.2937=
-4-1-amit.barzilai22@gmail.com?part=3D2
+4-1-amit.barzilai22@gmail.com?part=3D1
