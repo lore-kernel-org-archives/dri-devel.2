@@ -4,53 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71EFAC53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:40:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8721C54F52
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:45:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AAA110EBA9;
-	Wed, 29 Jul 2026 11:40:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 906B910EBAD;
+	Wed, 29 Jul 2026 11:45:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Mkd/jsAF";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="szQcOSDi";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 326C910EBA9
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:40:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785325221; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=YkCZ4YyuadrW1WX7YkA9OJV9m+4/hwNaqVNhr/Fmulcks7tuuD8otn5958FxQDDJ6OU15G2SbIA2pn93XriHssirTOjb1mASP5al5QmwtKePJkk/Be7VXycLlvx9kRiadv8opkEZtm0V1rgUxQ2zRg2jEqDuLCojMxute+c2gnc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785325221;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=wQd1NqZlCCX6VhDNozvBKi94epNsHltx20+2BwdzdnU=; 
- b=cOlogG1JuHgZDaVCPsCsMLJ35PWlRuFMdIc+ULGnQ7+XTOhxE19nFNYYowRoAbB7P/OVIAqhvJW0mxBaqOnwp6GVGXc7zAMc9I0yZe2GuHEk7hVupJ/ChsYYrTRiFnHjzGcaDON7lRnEYLw/GOqzrEabwnP4qn8udJlZeHAcFYI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785325221; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=wQd1NqZlCCX6VhDNozvBKi94epNsHltx20+2BwdzdnU=;
- b=Mkd/jsAFebJLFfx38K00wclEPlc2ny8CTt40AxUXGKreU4DC2KEmmy0gSUqqijtG
- GekCqVVakx+BNT3iJj3hNI6URG75BRwe+GJmJc0X+jaI9SsPpBB+d2677/837Gex4T5
- ZFqkQHlJI/sMnjprAyyQ8s5L9gvDwQO9qF/WLBqA=
-Received: by mx.zohomail.com with SMTPS id 1785325220791608.7855802563574;
- Wed, 29 Jul 2026 04:40:20 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 2/3] drm/panthor: Revisit reqs_lock handling in
- flush/reset paths
-Date: Wed, 29 Jul 2026 13:40:17 +0200
-Message-ID: <hYwWT5hnSGOYgXC5sTOMDg@collabora.com>
-In-Reply-To: <20260729063431.363B61F000E9@smtp.kernel.org>
-References: <20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com>
- <20260729-panthor-cache-flush-fix-v1-2-205921ed3c81@collabora.com>
- <20260729063431.363B61F000E9@smtp.kernel.org>
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FAA410E622;
+ Wed, 29 Jul 2026 11:44:58 +0000 (UTC)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66TBI9Rp4077212; Wed, 29 Jul 2026 11:44:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=V/Gc5b6Kanb7gJZ6LuCqbHgIfbcHiL
+ UID8lNDkmdkBk=; b=szQcOSDicNI1Fn0H7xW/dMFikndq57iS0AEADbTHurKpEJ
+ rd11kf+v/K4k3OaPX2DwPIScg0o+GL2hoyX8zqoHbYXdT0lSMDdG2vUgrwbDAvmS
+ GAkXnnb9JBVhPcfVoGJY1DSA/6xfq5K9WNKizak7KaKjt/Dc2/+JfX8nFAp5plmo
+ u0a4AxRt+xdBtl/2NsNsMcf1ZDG6Qjqw5xDVM5TyjGqcQsLSIksGXsQcQlaj/plp
+ JuFSfwIB5TVS6mlK0Oz0clytfcFfXgk9OoMJ2+E1DEvmvdCalj6j+Xxe5b2oQCY7
+ x4RvKe8ts/TDSPuLOoLmIyWAmZfVZWIqbDTv23XQ==
+Received: from ppma13.dal12v.mail.ibm.com
+ (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuwd1p2u-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Jul 2026 11:44:23 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66TBfHNq029357;
+ Wed, 29 Jul 2026 11:44:22 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+ by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fn9pgeadd-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 29 Jul 2026 11:44:22 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
+ [10.20.54.103])
+ by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 66TBiKQM31916432
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 29 Jul 2026 11:44:20 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 992952004B;
+ Wed, 29 Jul 2026 11:44:20 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 288E620043;
+ Wed, 29 Jul 2026 11:44:19 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.224.92.206])
+ by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Wed, 29 Jul 2026 11:44:19 +0000 (GMT)
+Date: Wed, 29 Jul 2026 13:44:17 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH RFC 00/11] mm: distinguish PTE table storage from PTE
+ values
+Message-ID: <e3b6dd13-2cea-4dc5-9038-a3abde71ec10-agordeev@linux.ibm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <2c19247e-bee6-45f4-a353-2fcc60db26e6@kernel.org>
+ <7813b5fe-e767-442c-a356-afc1a5c567ad-agordeev@linux.ibm.com>
+ <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: Dax4K8SnTqgr3j-xLBjPIG8yJ9gcxvKF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5MyBTYWx0ZWRfX/ftZ3NJRCmkt
+ ZT14DTCChPW4KALpaDbSLe6kNr0LuWq5PiRiSqf5YTIEutfQ2Tac4sdllF74vXnFZSICYrQE0fL
+ ZL/O65SEZjU3i6ZYCyIL5FE+JISdSFU=
+X-Authority-Analysis: v=2.4 cv=E/z9Y6dl c=1 sm=1 tr=0 ts=6a69e797 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=yGtF1kJb5LocEaEl6I8A:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5MyBTYWx0ZWRfX/jm6YIwwiR1F
+ lZXlePH3tA598H7Fb31vSIvPJoutJ+iSssAlIclxpQnCFqgsl/QXciOAhzwZ7FFazWWtvRVdlZ9
+ TvRnRR/LIbBRyOBs37OfIHHcuSChvKVhl07RqZv9bpaqy+fPsLibBtb0+CX8Q1amoqeREdzT7LS
+ 45c/SPprx12OPqL4uwkj2S+LtICeW20WUFSc3OlbdqoEpxGRA12dmOFjaryENCnKW/xK1Jay/U1
+ kC8ReZf28BJ12s4AmwDEQcWLd+44QFBJkS+P1wHLIwJa5nPrgSvB7j/BZoiN3neZKSKOtDNSj09
+ Q6tFnfgRJpTk6CRkd5peVrkT93tDejNz3zvCXWL/dWWwVW8rI18kBZ3iQaIoQ6o8M4YCglsfenJ
+ wdrKMTl/qwP8vRTkJCoONCRiVYcB8Qwu+P574F7wJpa5ktjFD5+6hw8BDY0mBPrkdR2pGPZzU/d
+ eAJCrvqHF5YRoCZPBfw==
+X-Proofpoint-GUID: Dax4K8SnTqgr3j-xLBjPIG8yJ9gcxvKF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0
+ lowpriorityscore=0 bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607290093
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,122 +153,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wednesday, 29 July 2026 08:34:30 Central European Summer Time sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+On Wed, Jul 29, 2026 at 01:05:35PM +0200, David Hildenbrand (Arm) wrote:
+> On 7/29/26 12:13, Alexander Gordeev wrote:
+> > On Tue, Jul 28, 2026 at 09:26:06PM +0200, David Hildenbrand (Arm) wrote:
+> >>> The generic definition aliases hw_pte_t to pte_t, so this series preserves
+> >>> the representation and behaviour of every architecture. ptep_get() keeps
+> >>> its existing READ_ONCE() semantics and converts the stored element through
+> >>> __pte_from_hw(). An architecture can later define a distinct hw_pte_t and
+> >>> convert its PTE interfaces to make the distinction compiler-enforced.
+> >>> Architecture PTE implementations and most architecture code are
+> >>> deliberately left for those later opt-in conversions.
+> > ...
+> >> Do you have a pointer at the arm64 part, so people can get a feeling for how an
+> >> actual hw_pte_t implementation can look like.
+> > 
+> > May be we need the generic hw_pte_t implementation as { pte_t pte; }
+> > right away?
 > 
-> Pre-existing issues:
-> - [High] The timeout fallback logic creates a TOCTOU race with the threaded IRQ handler, potentially causing subsequent requests to falsely succeed immediately.
-> - [High] If a soft reset actually times out in hardware, the pending flag is never cleared, permanently breaking all future soft reset attempts.
-> --
+> Indeed, that makes sense. We just need a way for the architecture to opt-in that
+> it did the conversion.
 > 
-> --- Patch [2]: [PATCH 2/3] drm/panthor: Revisit reqs_lock handling in flush/reset paths ---
-> commit 179344ff59dcf475c58ff1e22983a6fa7e1203f4
-> Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > 
+> > Also, can you envision a case when sizeof(pte_t) != sizeof(hw_pte_t)?
+> > If not, the compile-time check is worth adding.
 > 
-> drm/panthor: Revisit reqs_lock handling in flush/reset paths
-> 
-> This patch revisits the handling of the reqs_lock in the panthor driver's
-> flush and reset paths. It switches from using spin_lock_irqsave() around a
-> wait_event_timeout() block to using wait_event_lock_timeout() with standard
-> spinlocks. This ensures the pending_reqs register is read and updated under
-> the lock without unnecessarily disabling interrupts.
-> 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> > index c013d6bf9a599..f015bde80abf0 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> [ ... ]
-> > @@ -330,35 +330,34 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
-> >  			     u32 l2, u32 lsc, u32 other)
-> >  {
-> [ ... ]
-> > -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-> > +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
-> >  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
-> > -				msecs_to_jiffies(100))) {
-> > -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> > +				ptdev->gpu->reqs_lock, msecs_to_jiffies(100))) {
-> >  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
-> >  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
-> >  			ret = -ETIMEDOUT;
-> >  		else
-> >  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this timeout fallback 
-> logic create a race condition with the threaded IRQ handler?
-> 
-> If the timeout occurs because the threaded IRQ handler was delayed (e.g. by
-> high CPU load), the fallback path clears the pending_reqs flag based on 
-> INT_RAWSTAT, but it doesn't clear the physical interrupt via INT_CLEAR.
-> 
-> When the threaded IRQ handler eventually runs, won't it read the pending
-> interrupt and clear pending_reqs again? If a subsequent request was submitted
-> in the meantime, could its pending flag be spuriously cleared, causing its
-> wait to falsely succeed immediately?
+> That wouldn't work as is. We'd have to intercept ptep++ and instead have a
+> helper to advance the ptep pointer.
 
-Not that the special case logic isn't in need of some explanation which
-I do not have handy, but: no, there's no pre-existing TOCTOU here as
-far as I can tell. If the threaded handler didn't run, it wouldn't have
-woken up the waitqueue here.
+I think I am missing the point. That is my takeaway from your previous mail:
+https://lore.kernel.org/lkml/31d36023-d728-4eee-90f8-158c7066f565@kernel.org/
 
-The fallback likely shouldn't exist in the first place, since it'd only
-modify pending_reqs if the timeout and event wakeup coincided, but we
-acquired the spinlock and pending_reqs still hasn't updated, which is
-impossible, because the wakeup is fired by the threaded handler with
-the spinlock held after pending_reqs is updated.
+<quote>
+>    {
+>       page_table_check_ptes_set(mm, addr, ptep, pte, nr);
+>       for (;;) {
+>               set_pte(ptep, pte);
+>               if (--nr == 0)
+>                       break;
+>   -           ptep++;
+>   +           ptep = hw_pte_next(ptep);
 
-If `ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0` is
-false, the else branch is essentially a no-op.
+We should really just let ptep++ work as before.
 
-> > -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
-> >  	}
-> > +	spin_unlock(&ptdev->gpu->reqs_lock);
-> >  
-> >  	if (ret) {
-> >  		panthor_device_schedule_reset(ptdev);
-> [ ... ]
-> > @@ -378,27 +377,25 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
-> >  {
-> [ ... ]
-> > -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-> > +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
-> >  				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
-> > +				ptdev->gpu->reqs_lock,
-> >  				msecs_to_jiffies(100))) {
-> > -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> >  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
-> >  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
-> >  			timedout = true;
-> >  		else
-> >  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+>               pte = pte_next_pfn(pte);
+>       }
+>    }
+</quote>
+
+So are we going after hw_pte_next(ptep) or ptep++?
+
+> One idea for that would be to let the compiler catch that by marking hw_pte_t an
+> undefined struct (unknown size), such that the compiler would indicate any usage
+> of ptep++ properly.
+
+What is the purpose of that? I mean when pte_t vs hw_pte_t uses are sorted
+out what is the benefit of preventing hw_ptep++?
+
+> That can be done when it would actually required, so as a first step having a
+> generic hw_pte_t would just work.
 > 
-> [Severity: High]
-> This is the same pre-existing race condition as in panthor_gpu_flush_caches(),
-> where clearing the pending flag without clearing the hardware interrupt could
-> allow a subsequent soft reset to succeed spuriously.
+> -- 
+> Cheers,
 > 
-> > -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
-> >  	}
-> >  
-> >  	if (timedout) {
-> 
-> [Severity: High]
-> This is a pre-existing issue, but if a soft reset actually times out in
-> hardware and timedout is set to true, does this early return bypass
-> clearing GPU_IRQ_RESET_COMPLETED from pending_reqs?
-> 
-> Looking at the end of panthor_gpu_soft_reset(), there is a
-> ptdev->gpu->pending_reqs = 0; after the timeout check. If we return early
-> here via return -ETIMEDOUT, the pending flag is left set.
-> 
-> Would any subsequent calls to panthor_gpu_soft_reset() hit the drm_WARN_ON
-> check at the start of the function, skip issuing the hardware command, and
-> permanently fail with a timeout?
-> 
+> David
 
-The bigger problem is that none of the callers even care about whether
-it timed out.
-
-
-
+Thanks!
