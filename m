@@ -4,178 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 221ABC53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:35:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2B4C54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:36:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84AD310EBA2;
-	Wed, 29 Jul 2026 11:35:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 74BCB10EB9E;
+	Wed, 29 Jul 2026 11:36:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ksKtZWY2";
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ksKtZWY2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BbI+Bqd4";
 	dkim-atps=neutral
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013021.outbound.protection.outlook.com [40.107.159.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5001010EB9E;
- Wed, 29 Jul 2026 11:35:15 +0000 (UTC)
-ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
- b=A0HR24kZDbdXI4a/j+W5uOS1BNTVcKv7x8tvSi2YHu8yMad/MsqwZGb/NJi8uFOBMrlNYmmWl2Rm1nKxAwKIJrtqlG0aWLHOo6JrHn9bcf4K3utuO71Nl9+1W+ekFP5rGPxQBBpx5HrbmNFZadcP0x9jySqIOAyqj6LdmM9kUkWd0qyyU802LfbuUMQ4tnfybtQMdwsuh8O9YkkFd6612CLEKxnn/+AQ7d99YwOO2BRdond9yAORF2pEENKAgd+jbsLLdNHoWuxoV0zj5fiWlhUQr3pJZp770MynLqO6+nBdD4UKAAaxLJwrii+NKwtA12sJdOVFPbmZZHECix5GRg==
-ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
- b=BFsgFfOFx+g1LqdbnsNcP9Mta+fH8KgKvQh9mG1wSSCsa4lSKu3Z0Po77OiEWXhXoJqeQ/W1T5x3erVAQMx1V9WFI48OgQZXz5DMx4DGUMPApsVUL7kc0HvyOQA2v1p//bKfPQ7isPHd8RP6mAVuXj5oLZvT2Q9WK0BF9UsDzEZv6VnIz69O2P2kc1OclYyN8aptYjCkwC7OVa05NdXu4XLXTmaYOL/n02y/oOAPD2l3e9mXOd8SJ6cT700tlmK+0W3akPngcdld/vEBMETeGU3TnG46jgeOWauj8uIj1qEt8THqHPb66Hirtn5aL02L5PKtjRz/z2UnF6YZmzGjww==
-ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
- 4.158.2.129) smtp.rcpttodomain=kernel.org smtp.mailfrom=arm.com; dmarc=pass
- (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
- (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
- spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
- dmarc=[1,1,header.from=arm.com])
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
- b=ksKtZWY285/taAao6Zu94jYQ9CxkEq+fxreWsLvoSuuGlXnU8kVZuGWinZRmgHUqlXh2H8ehJfihGsewMVLpcP0p4NTP5TSWEBd1rlhEOE/htrE5Y72OIC3h18agAcY8Z7LmW4ODIa3lVlkSosdTORWVuiQa5ownc1NjI4R50Dw=
-Received: from AS9PR06CA0536.eurprd06.prod.outlook.com (2603:10a6:20b:49d::35)
- by AMBPR08MB11653.eurprd08.prod.outlook.com (2603:10a6:20b:737::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 11:35:07 +0000
-Received: from AM1PEPF000252DB.eurprd07.prod.outlook.com
- (2603:10a6:20b:49d:cafe::1a) by AS9PR06CA0536.outlook.office365.com
- (2603:10a6:20b:49d::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Wed,
- 29 Jul 2026 11:35:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
- smtp.mailfrom=arm.com; dkim=pass (signature was verified)
- header.d=arm.com;dmarc=pass action=none header.from=arm.com;
-Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
- 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
- client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
-Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
- AM1PEPF000252DB.mail.protection.outlook.com (10.167.16.53) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.5
- via Frontend Transport; Wed, 29 Jul 2026 11:35:07 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LSnYCeslggQxQSwqDV21tCiTCB6yv8A+BS3ksQcSqchYF8y/ZNsAtgL0N35LiyfAZzzgu6CFfPr+4Z/jtZITRHUsUumNcy5zzVQAnPqM3VRufn9reQPjHWPaK8Pj7EDfD37hxf743LYKws4P1U7yZLiZhTQTebxZdAfvX0pxn8qBK/O59CWXr/vIup/HsaO52swjgJ3vZIVe6gEa8AZJVLfmK3gMj3QRTDNYKxJdKZkQvGnCTqjLIUS7CMlceliqGPUFH8bRlOqeuLnsULe/0Tj0P/2E4g0W9AMwkNBpIFShHrEEk41mfUoVPibG4ot/fWkN1/fW69dPWS3InikcOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
- b=t0rDZriZ6OpjaJ3T+spCrkqxr0d5LZEkUqpA31+K0IeeP51GOkFxCAm2lAS5Q8F4u+dt4CDGHN+ySvjZ4FoheyMLxqAS+fzUEP5vxGEUC60TZkjJkpGBrEpiRHexoSmk49tdqfDRLFPFbhEaUy7T533Xf7eXs+VOcyrb3fPt/B9ApU1SwduBz3HHS2tK887X0YwWfuYfMY+/QuzU4kLdOyosqkubs/H7/w7YG+0PvbVto5HiaqcGCYxIHmgnJKvJwFzs/yQdDJzfyfMvIBGONVO9ZuXztwHAERguCkH3mp7H0xn/Vn9Usf3vRW8AcTTCAVVTyezLQTu4dQxTarwKcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
- header.d=arm.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tgo9GG3IRVIRLC+akaXKtPN8CAdRusLZrRKYCwTPvzE=;
- b=ksKtZWY285/taAao6Zu94jYQ9CxkEq+fxreWsLvoSuuGlXnU8kVZuGWinZRmgHUqlXh2H8ehJfihGsewMVLpcP0p4NTP5TSWEBd1rlhEOE/htrE5Y72OIC3h18agAcY8Z7LmW4ODIa3lVlkSosdTORWVuiQa5ownc1NjI4R50Dw=
-Authentication-Results-Original: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=arm.com;
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
- by GV2PR08MB7955.eurprd08.prod.outlook.com (2603:10a6:150:7f::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 11:34:00 +0000
-Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
- ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0270.009; Wed, 29 Jul 2026
- 11:34:00 +0000
-Message-ID: <46319967-0338-4532-b953-dbea77084fe3@arm.com>
-Date: Wed, 29 Jul 2026 12:33:57 +0100
-User-Agent: Mozilla Thunderbird
-Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
- <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
- Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
- Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
- Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
- Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
- linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
- xen-devel@lists.xenproject.org, linux-mm@kvack.org,
- linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
- kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
- bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH RFC 00/11] mm: distinguish PTE table storage from PTE
- values
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>
-References: <20260727164715.2866609-1-usama.anjum@arm.com>
- <2c19247e-bee6-45f4-a353-2fcc60db26e6@kernel.org>
- <7813b5fe-e767-442c-a356-afc1a5c567ad-agordeev@linux.ibm.com>
- <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
-From: Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Language: en-US
-In-Reply-To: <6db0a8c0-b500-4364-be3d-d3a537c61258@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: LO4P123CA0161.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:188::22) To VI1PR08MB3421.eurprd08.prod.outlook.com
- (2603:10a6:803:80::16)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A137210EB9E
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:36:40 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-490cf322ed0so5589735e9.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 04:36:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785324999; x=1785929799; darn=lists.freedesktop.org;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=A3HHsEhTl+dXCrOvrCFYw7cTGZo+aEqQqlvgUlbn4X4=;
+ b=BbI+Bqd40az5qODpNc/XvZcA/JrJglNYWk0UA/hjoTIvVpDrmATurinblgLELUS+Sl
+ u/KlMX4PyyCdD7wkDZ+wvCVuHRXClL1Im6FVHEHX9kI9cEqYowMoYU8F4yWM1mXQj1aL
+ dqY+e8GBcT0dQDrGB6IgLdWeB283mUyN29GZ19aiKRdh4IwfSW8tsbB25yUWO+rLsbAc
+ J8rML1yCmw9FLehSuZhxU4pGcFpH9yN/rJoeJV9tUfx28+UZP4SLfDmb9NZgG8tkDoJe
+ xiEhwWjynsXgjn267RA890aQafgmslQA/j2pQFXvkjCI+FyexuGo0mvSsOCIx37iBbIQ
+ 2EPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785324999; x=1785929799;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :content-type:mime-version:references:message-id:subject:cc:to:from
+ :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=A3HHsEhTl+dXCrOvrCFYw7cTGZo+aEqQqlvgUlbn4X4=;
+ b=cJe3OBei1SDCmz7zVaIrqu9g+jn3Z+PNiYRcPpX80Rwqcs8JZYYj06n7rq9xntvAMq
+ nOjkP4bzx1sFOZBrcUrCOyBF6qnErhBmAJXjOkgroXhefWJEIkBlMxP/+tn0PcUE8U3c
+ vOu1xt1QP0SOMKfZAKA0//O6gCwaVhDnZU+kk6C+j+42YEqO6yy2Fz3gmq5kurZC7ZR/
+ f9wJ8AuiJHMDZLhDx+ClM/GuIkyEj7/i0uLyKGhD5jvC35XSJBfS1eJ2QDcCV0v9/He5
+ UrHtOPe77zXkOgJmc1eNc8ngF9VPzTdTN4JCsEaQ0Q4S0TWg6TbGN+wxMUSD9kUieS3z
+ CJdg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq9wdAynZxhAx2rYGk6Oar4tvdysqMxvhng4OnbDJirHE0N04Khn0CEmy6u+4e2eGIy7Ii/5tMfcLE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw7b+Ubwn8MHCyxbFfxKolFs9HNcCl+uuvTPwowXiLHmNiFeLRj
+ LNDskIALKOB9f3Aa7ZkPV5pSmh2vvcjtgR5nuadK/zfr8JtXa0FPH629
+X-Gm-Gg: AR+sD12xVFztDJPGmpUKoLBgNh9gggclE7cSN5puSi90aj0iVFI/YlxEXfBgRPOZc4r
+ vwWJE+uyC4MUrwb0yM7U85gUnBK5Ph/wN1HdWbIA7Jd3/fNQ9sb+Q6KyoLnTHTGautjqmLhULSR
+ hG0g4qOsBNq10F0Ui67BFFmnNqvTs5Zus4oZj+Q0Wp1loiW3tXdEKu7CyZKdrSSF5G1BDz7OAmI
+ azpLaSD8pJVG04Orv8nQJKRqPXQycrfiQT18VM8+EavwtVU/e8D4YDZ50bcZuxnv5Hau/xxa53S
+ P5MPOKAoVNoU4JkPSHnOJRe2DVWpFsQOLRJvbx2zaCQJtKjJMd7mbjHKeS9pQUrxOu8a1r5Y+Gk
+ onfRqvucibF7w8JUEmNWLColb+gY/GGp1i0TXj9Ucy1onf0oo9WLjdg84vWwCchHa+qkj5H4UAI
+ Bp7a0v2NHzMnuDTKReh1db269GtCp9I5/JwL8BE4ISMMaTRsDc1+k9rPr+CJ3ChaHWXYiTvudx2
+ g/rEI6L8yJt+kgljDjp915WCDoiNORXNg==
+X-Received: by 2002:a05:600c:4e8c:b0:495:4730:15b2 with SMTP id
+ 5b1f17b1804b1-496c6571ea4mr64839705e9.31.1785324998773; 
+ Wed, 29 Jul 2026 04:36:38 -0700 (PDT)
+Received: from osama ([2a02:908:185:7e40:2975:f35a:5252:318b])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-496c44af19bsm145526535e9.3.2026.07.29.04.36.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Jul 2026 04:36:38 -0700 (PDT)
+Date: Wed, 29 Jul 2026 13:36:35 +0200
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/panthor: fix firmware control interface bounds checks
+Message-ID: <amnlw_HGWX0YHMWV@osama>
+References: <20260720134435.13377-1-osama.abdelkader@gmail.com>
+ <amjG9WVZrb6v92_h@e142607>
 MIME-Version: 1.0
-X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|GV2PR08MB7955:EE_|AM1PEPF000252DB:EE_|AMBPR08MB11653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1cfd4d6e-e159-4f74-d058-08deed6570e2
-x-checkrecipientrouted: true
-NoDisclaimer: true
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam-Untrusted: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|7416014|366016|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info-Original: xfbEy9xFy2KjtgbtZQwVRo/4rDSmq7tan+BAO+pWdsGQt606AZahYR8QjfxNwepbtpCMtOOt+8wN6/aZUrVxGXdve9SNgmI8m3i49FVH1QvKzgN5iWDAyc/qG37Ap0G5Y97odKPEnoyFqd5WWCZrVDk5WcqlYn1UwCiLpvduHOQ4yKJHDxymZa3ezH7yIgpM65fy1J5UWO78alRqVRYlrkDOFWL2EaCUXoJxhmlAjJf/9UOgfdXHsNXdCO/znX3umbrqmhM0sQPcJ5r2VzRsoQeAv+i6QegXoExunECasQNkLXlSXuF1rfAjl27hyVJfWLP1kh6Wm1wg//SMzutnVr0XBV1zVP+5KkRjixIEliIfiHgPajlHGFEg0DSfY+ITRVfPTuzgauKHtZXF4IJPVHsDbIGz7qKh3qavST24XYL4oY8gg7unjuuFv0XeSHMU+/FxCkxzesBUNQBZN/20qiLgprM6KvcPUSbXs7HPQiJI0p45cXsivdzB+efiv0xLdN4ZMqtdCHKXfaRp/J6a1owLvwowpLkBOkJkar4nFaDFO7GgG4qvbOjtHKBP5iQNtpNOHdII6lgDMrPlunWF1g3wYJI2ezCDEC9O7KZd6Sf89Vm+sXMSJ5YifvkjccdnRSEDGI26zF05DhcTtdnoNfWBagvIF7AW8rx0Rv6l+2k=
-X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
- SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
- PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(7416014)(366016)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-Exchange-RoutingPolicyChecked: bfpSLQDM89AGYUqYoFAxdTSUxQeWzvqrXWN01Q8nSdOHv09YbMqZwEkh4De+S90bWZhKDnix564/0iluBMAaDBLsP/eTzmgwj8zSC8MqbERlfS0mpGodCyOiNyPtSf7Pe+nzMgJoUgaYugPoxE6pM543p0DW/yTGW6oZ7bODJ5DM1V+j55iRlovzyeqTGf9Sb2QjeloUSNBQhR4N/qRtUg106VYsNxb8LiTmvTM4/T7wuyg3rWvD8R0cLWaftev4/sKlE31/5RJ3yOUwg/+bPmqGyASd1WLyfVazwE4VmC1+AShpm0prYuFDu0FzTmqdeirtBDGb4Y/uPepsm/ldrw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB7955
-X-EOPAttributedMessage: 0
-X-MS-Exchange-Transport-CrossTenantHeadersStripped: AM1PEPF000252DB.eurprd07.prod.outlook.com
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id-Prvs: 191f0cd4-83b2-41b7-9c2f-08deed6548c6
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|14060799003|1800799024|82310400026|35042699022|36860700016|376014|7416014|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: z16m1iP5gJN11a0jHm2h5qPOvpYoNr0dsqnEGISR6jYEFwxRynbmbpuiqBvgMacxSIEx5YgZ1PwjI/B9Sb9qPESFT+ZKOzcpvp5wGg5c8wFb5VifVw9YxWu3jtI1X8Y0UKz7eDfqmnn4zZCjk9sUGyf8kW5nyjz3XUG3wcikRyU77msznLp6gKihMrp7u+N5DfYb/ZDcfjTyI7Rlr79hpWV2IcgXmQNbclHFb6Rq6JKpIdfruwnLVHkKlTWBUzeNugtyI3rXG4GiTCpREqnQ1bwnzXH3ZnCHuRsWA1Olns91kFs21geX+8loQjA3qKxaOU5s+fbSJhCwxoUhOT8ccWvQ69YVooyCBgyvKfCZHpy31IRO4xc33DWQzHXuNhS8Fl3qzZSyIjpOgukT90izO06tZEBoOeC2N2dPYJapJN+F+L4pTMNfznbH2+UtMKogru9eNptrEb+M8/uJKDP0mf7A03ZcH7pWmbm/a2H5kgRcDgkK8hcF5kjrjKAbvKNxkvHQqA0GpT1YZ0rl651rwF1U/tgwvIkXpDYm1PKALpA+velo2OYakXWZdXf9KYpJITaddu7xFyAb8yeSZB7/l5loYr/hKxTr/1/ItLgUkYm2YR/d4z5RRKPprkSOic3eWuDYHegrbt3MuncmtPR/bd5+17L8W730bwCGNTOzAyDzLqbC1ZA4nkYvfNni0/DwtNnIs7/ljjvCCXn5zPInpQ==
-X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
- PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(14060799003)(1800799024)(82310400026)(35042699022)(36860700016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ENzrXljKBm6j88ocfFU+EglvTRz9gwEO2XclvPfJlM0SMYPml8qBN7VBr1UkWY8PlHkL84VSx17YuFpoNXHSN9TAEg+fpXudNoKAQuufrKipXBvCdefFXy/otThCc4mhQCcQIzvdSgFZ2/NXWMDasEHm6joFxEaxOzo0pcNvuM/aKekIYFDqxzwKJpVTyGnsVF72jogbVQ1JvzKGEjGbLVgAnhQkZkVN0pNBp+RVkEGrGe8Mf4yb60Ze8uXoz2VgXcZr3jpOAKd3Hk5uwBWM0yd1FD0l4DqE6NotxNQLr8TTkmipYeqe+WEdDNGs9SBaDTvggiqSszP5Ujwp8VFA7i5mZo1Dt63ktCIBR3GP7Di9PrmjkWf1b5iHgiGDuvKuGlAVCe9fHk8Kj9WPYVctHjkR3F3VoAIqJE/PdzZeunCxtniBF9CW0J/7gL7gFZC0
-X-OriginatorOrg: arm.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 11:35:07.3851 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1cfd4d6e-e159-4f74-d058-08deed6570e2
-X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
- Helo=[outbound-uk1.az.dlp.m.darktrace.com]
-X-MS-Exchange-CrossTenant-AuthSource: AM1PEPF000252DB.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR08MB11653
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <amjG9WVZrb6v92_h@e142607>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -191,45 +99,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/07/2026 12:05 pm, David Hildenbrand (Arm) wrote:
-> On 7/29/26 12:13, Alexander Gordeev wrote:
->> On Tue, Jul 28, 2026 at 09:26:06PM +0200, David Hildenbrand (Arm) wrote:
->>>> The generic definition aliases hw_pte_t to pte_t, so this series preserves
->>>> the representation and behaviour of every architecture. ptep_get() keeps
->>>> its existing READ_ONCE() semantics and converts the stored element through
->>>> __pte_from_hw(). An architecture can later define a distinct hw_pte_t and
->>>> convert its PTE interfaces to make the distinction compiler-enforced.
->>>> Architecture PTE implementations and most architecture code are
->>>> deliberately left for those later opt-in conversions.
->> ...
->>> Do you have a pointer at the arm64 part, so people can get a feeling for how an
->>> actual hw_pte_t implementation can look like.
->>
->> May be we need the generic hw_pte_t implementation as { pte_t pte; }
->> right away?
+On Tue, Jul 28, 2026 at 04:12:53PM +0100, Liviu Dudau wrote:
+> On Mon, Jul 20, 2026 at 03:44:35PM +0200, Osama Abdelkader wrote:
+> > panthor_init_cs_iface() and panthor_init_csg_iface() validate firmware
+> > control interface offsets with 32-bit arithmetic and the size of the host
+> > wrapper structures. The offsets are derived from firmware-provided strides,
+> > so the arithmetic can wrap before the bounds check, and the host wrapper
+> > size is not the size of the firmware control interface being mapped.
 > 
-> Indeed, that makes sense. We just need a way for the architecture to opt-in that
-> it did the conversion.
-Yeah and architecture cannot opt-in until its converted. So we should leave
-it to architecture to define hw_pte_t.
+> How can the offsets wrap with the firmware-provided strides? It's not like
+> the firmware provides arbitrarily large strides.
+>
 
-> 
->>
->> Also, can you envision a case when sizeof(pte_t) != sizeof(hw_pte_t)?
->> If not, the compile-time check is worth adding.
-> 
-> That wouldn't work as is. We'd have to intercept ptep++ and instead have a
-> helper to advance the ptep pointer.
-> 
-> One idea for that would be to let the compiler catch that by marking hw_pte_t an
-> undefined struct (unknown size), such that the compiler would indicate any usage
-> of ptep++ properly.
-> 
-> That can be done when it would actually required, so as a first step having a
-> generic hw_pte_t would just work.
-> 
+Thanks for the review. Yes, It's unlikely to happen but good to have,
+these patches actually address issues reported by sashiko while reviewing
+the first two patches regarding firmware sections with oversized data and
+truncated firmware.
 
--- 
-Thanks,
-Usama
+> > 
+> > Use 64-bit arithmetic for the computed offsets and validate against the
+> > actual firmware control interface structure sizes with subtraction-based
+> > bounds checks. Also validate that the shared section is large enough for
+> > the global control interface before using it.
+> > 
+> > Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> > ---
+> >  drivers/gpu/drm/panthor/panthor_fw.c | 18 +++++++++++++-----
+> >  1 file changed, 13 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> > index eee2bc7e8541..e2fcbd639c3c 100644
+> > --- a/drivers/gpu/drm/panthor/panthor_fw.c
+> > +++ b/drivers/gpu/drm/panthor/panthor_fw.c
+> > @@ -897,15 +897,16 @@ static int panthor_init_cs_iface(struct panthor_device *ptdev,
+> >  	struct panthor_fw_csg_iface *csg_iface = panthor_fw_get_csg_iface(ptdev, csg_idx);
+> >  	struct panthor_fw_cs_iface *cs_iface = &ptdev->fw->iface.streams[csg_idx][cs_idx];
+> >  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+> > -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET +
+> > -			   (csg_idx * glb_iface->control->group_stride) +
+> > +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
+> > +			   ((u64)csg_idx * glb_iface->control->group_stride) +
+> >  			   CSF_STREAM_CONTROL_OFFSET +
+> > -			   (cs_idx * csg_iface->control->stream_stride);
+> > +			   ((u64)cs_idx * csg_iface->control->stream_stride);
+> >  	struct panthor_fw_cs_iface *first_cs_iface =
+> >  		panthor_fw_get_cs_iface(ptdev, 0, 0);
+> >  
+> > -	if (iface_offset + sizeof(*cs_iface) >= shared_section_sz)
+> > +	if (iface_offset > shared_section_sz ||
+> > +	    sizeof(*cs_iface->control) > shared_section_sz - iface_offset)
+> >  		return -EINVAL;
+> >  
+> >  	spin_lock_init(&cs_iface->lock);
+> >  	cs_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
+> > @@ -955,11 +956,13 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+> >  	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
+> >  	struct panthor_fw_csg_iface *csg_iface = &ptdev->fw->iface.groups[csg_idx];
+> >  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+> > -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET + (csg_idx * glb_iface->control->group_stride);
+> > +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
+> > +			   ((u64)csg_idx * glb_iface->control->group_stride);
+> >  	unsigned int i;
+> >  
+> > -	if (iface_offset + sizeof(*csg_iface) >= shared_section_sz)
+> > +	if (iface_offset > shared_section_sz ||
+> > +	    sizeof(*csg_iface->control) > shared_section_sz - iface_offset)
+> >  		return -EINVAL;
+> >  
+> >  	spin_lock_init(&csg_iface->lock);
+> >  	csg_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
+> > @@ -1011,12 +1014,16 @@ static u32 panthor_get_instr_features(struct panthor_device *ptdev)
+> >  static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+> >  {
+> >  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
+> > +	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+> >  	unsigned int i;
+> >  
+> >  	if (!ptdev->fw->shared_section->mem->kmap)
+> >  		return -EINVAL;
+> >  
+> > +	if (sizeof(*glb_iface->control) > shared_section_sz)
+> > +		return -EINVAL;
+> > +
+> >  	spin_lock_init(&glb_iface->lock);
+> >  	glb_iface->control = ptdev->fw->shared_section->mem->kmap;
+> >  
+> >  	if (!glb_iface->control->version) {
+> > -- 
+> > 2.43.0
+> > 
+> 
+> I'm OK with the general content of the patch, so:
+> 
+> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+> 
+> Best regards,
+> Liviu
+> 
+> 
+> -- 
+> ====================
+> | I would like to |
+> | fix the world,  |
+> | but they're not |
+> | giving me the   |
+>  \ source code!  /
+>   ---------------
+>     ¯\_(ツ)_/¯
 
+Thank you.
+Best regards,
+Osama
