@@ -4,74 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0479DC53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 09:47:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8D1DC53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 09:48:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6497E10EB5C;
-	Wed, 29 Jul 2026 09:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1352810EB5F;
+	Wed, 29 Jul 2026 09:48:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="T6CCaFKO";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eHy6722s";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D327E10EB5C
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 09:47:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A16664512B;
- Wed, 29 Jul 2026 09:47:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80111F00AC4;
- Wed, 29 Jul 2026 09:47:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785318431;
- bh=4+kdpOSbYNuwg9iO0Aocs3O30U1qLI1bO+WgZ1kcKkQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=T6CCaFKOdJ7BFKO07zdCiUPDoPSoyBhuMHk7mNPZ54KidXR5/fwg5Ca4MN2NjP6Mx
- X/BecaRC0YcrfGlxjsck34GjZzGkrUBPyFujPx8LT/su//UkcxSUT9j3sY7itMS+7I
- l8WIQcUBAcdIBbCsevNIItHGTddxAFWXFpXSw2Ftr8WcOTPSxJs/M+n6N8UD/yM7aG
- Mz0lVI29MDTrVjagTx+EAMd0FOVZ9nPDUJBvILGTeuvTUGc8+THeChRt7+9Zqv53wJ
- Z0roSy11Km4v5mWhFaXLub7kVb1qrJ2qdAFBpq5296EpO+Nc9VwsN0CarGONhM2cy/
- n+C2KJZUHDcyw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>, Lyude Paul <lyude@redhat.com>,
- "Paul E. McKenney" <paulmck@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Eliot Courtney <ecourtney@nvidia.com>,
- Mirko Adzic <adzicmirko97@gmail.com>, Timur Tabi <ttabi@nvidia.com>,
- Daniel del Castillo <delcastillodelarosadaniel@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
-Subject: [PATCH v7 5/5] MAINTAINERS: Add entry for Rust dma-buf
-Date: Wed, 29 Jul 2026 11:45:42 +0200
-Message-ID: <20260729094542.302965-7-phasta@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260729094542.302965-2-phasta@kernel.org>
-References: <20260729094542.302965-2-phasta@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3859310EB5F
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 09:48:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785318533; x=1816854533;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=y29Bx/MHebd8jws4ZYOHkDcArLrG/zbSpIS25YdoY2o=;
+ b=eHy6722scp08RFCjm/CtMVOBVzQpl98ZA7GcNjmcDm20mj3ZNyak+QzJ
+ m0hG/xc07PkaGxKeT+3xeT3n8vUnrBjUgj+W3xQ6cPpeSCfKXigRM4zmD
+ yH2vma2WNAPHNNSrRWbtt8J1YihVLmWj+F9bIQZAhPVD3ekocQNM+sZiM
+ HHhMp4VDwHQjUTEbmK5jB6Biwq27QMx7lRPp1cgmWKA5XzcxA/CxcMRjk
+ nOovUPBvjMjqsdVJADzMGBlMN4+MJZOafqtpSQWznvD69SJ2VtBPQR+RP
+ vF8U1u8WrDtSKR3xhrfJLNm9DZv4WJsZn7ZryTHmglTzi6SJCSTg2BfhK A==;
+X-CSE-ConnectionGUID: E+AstCcpQVuTppU7voRhrQ==
+X-CSE-MsgGUID: 90pUqshnQmmXDKqlpcSjiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="96579493"
+X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="96579493"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jul 2026 02:48:53 -0700
+X-CSE-ConnectionGUID: 0tBppqU6TMyFA/pBLjMZew==
+X-CSE-MsgGUID: N2AxdOvDTuaeD54bz8ki3Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="256629828"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.212])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jul 2026 02:48:50 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: oushixiong1025@163.com, Jocelyn Falempe <jfalempe@redhat.com>
+Cc: Javier Martinez Canillas <javierm@redhat.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+Subject: Re: [PATCH 2/4] drm/log: Fix division by zero when scale module
+ parameter is 0
+In-Reply-To: <20260729084520.688087-2-oushixiong1025@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260729084520.688087-1-oushixiong1025@163.com>
+ <20260729084520.688087-2-oushixiong1025@163.com>
+Date: Wed, 29 Jul 2026 12:48:47 +0300
+Message-ID: <d4c83a8cdd4612525dd32c3036a2789ab8387d99@intel.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,52 +75,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Rust does now have abstractions for dma_fence. These abstractions are
-quite complicated and require expertise with both the C and the Rust
-side. Therefore, using the existing entry also for maintenance of the
-Rust code appears reasonable.
+On Wed, 29 Jul 2026, oushixiong1025@163.com wrote:
+> From: Shixiong Ou <oushixiong@kylinos.cn>
+>
+> The scale module parameter can be set to 0 via kernel command line or
+> sysfs. When scale is 0, scaled_font_h and scaled_font_w become 0,
+> causing a division by zero in the rows/columns calculation.
+>
+> Add a custom param_ops setter to clamp scale to a minimum of 1 at the
+> source, ensuring scale is always valid for all users.
+>
+> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
+> ---
+>  drivers/gpu/drm/clients/drm_log.c | 22 +++++++++++++++++++++-
+>  1 file changed, 21 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
+> index 294b3be1a6b3..a04f651e8265 100644
+> --- a/drivers/gpu/drm/clients/drm_log.c
+> +++ b/drivers/gpu/drm/clients/drm_log.c
+> @@ -26,7 +26,27 @@ MODULE_DESCRIPTION("DRM boot logger");
+>  MODULE_LICENSE("GPL");
+>  
+>  static unsigned int scale = 1;
+> -module_param(scale, uint, 0444);
+> +
+> +static int drm_log_scale_set(const char *val, const struct kernel_param *kp)
+> +{
+> +	int ret;
+> +
+> +	ret = param_set_uint(val, kp);
+> +	if (ret)
+> +		return ret;
 
-Philipp volunteers to help maintain the dma_fence abstractions. Add a
-corresponding MAINTAINERS entry.
+Pedantically, scale may be 0 between param_set_uint() and the check
+below, i.e. the fix is racy.
 
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
-Acked-by: Christian König <christian.koenig@amd.com>
-Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
----
- MAINTAINERS | 5 +++++
- 1 file changed, 5 insertions(+)
+An alternative is to use a function to get the scaling factor, and
+having it return scale ?: 1.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 15011f5752a9..5e5a23a21cd8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -7622,6 +7622,7 @@ F:	fs/dlm/
- DMA BUFFER SHARING FRAMEWORK
- M:	Sumit Semwal <sumit.semwal@linaro.org>
- M:	Christian König <christian.koenig@amd.com>
-+M:	Philipp Stanner <phasta@kernel.org>
- L:	linux-media@vger.kernel.org
- L:	dri-devel@lists.freedesktop.org
- L:	linaro-mm-sig@lists.linaro.org (moderated for non-subscribers)
-@@ -7635,6 +7636,8 @@ F:	include/linux/dma-buf.h
- F:	include/linux/dma-buf/
- F:	include/linux/dma-resv.h
- F:	rust/helpers/dma-resv.c
-+F:	rust/helpers/dma_fence.c
-+F:	rust/kernel/dma_buf/
- K:	\bdma_(?:buf|fence|resv)\b
- 
- DMA GENERIC OFFLOAD ENGINE SUBSYSTEM
-@@ -8621,7 +8624,9 @@ T:	git https://gitlab.freedesktop.org/drm/rust/kernel.git
- F:	drivers/gpu/drm/nova/
- F:	drivers/gpu/drm/tyr/
- F:	drivers/gpu/nova-core/
-+F:	rust/helpers/dma_fence.c
- F:	rust/helpers/gpu.c
-+F:	rust/kernel/dma_buf/
- F:	rust/kernel/drm/
- F:	rust/kernel/gpu.rs
- F:	rust/kernel/gpu/
+BR,
+Jani.
+
+
+> +
+> +	if (scale < 1)
+> +		scale = 1;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct kernel_param_ops drm_log_scale_ops = {
+> +	.set	= drm_log_scale_set,
+> +	.get	= param_get_uint,
+> +};
+> +
+> +module_param_cb(scale, &drm_log_scale_ops, &scale, 0444);
+>  MODULE_PARM_DESC(scale, "Integer scaling factor for drm_log, default is 1");
+>  
+>  /**
+
 -- 
-2.55.0
-
+Jani Nikula, Intel
