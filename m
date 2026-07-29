@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BB6BC54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 15:17:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21FD1C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 15:18:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D01E10EC89;
-	Wed, 29 Jul 2026 15:17:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 60C3910E564;
+	Wed, 29 Jul 2026 15:18:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VooQpCrP";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="UGjVWERa";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69C8910EC7B
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 15:17:05 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA14110E564
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 15:18:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785338224;
+ s=mimecast20190719; t=1785338328;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=bvjfqhSyqGanu+o7Vd023AUOeIFl1b0hrPEjWiCBsMY=;
- b=VooQpCrPQioGor9gjkPPLXbIlO8YiO5wBU75Bc/d/Pl1EztMN6lh3jwtGT0qVpHfT6OYEt
- qaRrE3U0vAoBsf0Cmnwxe8PkVx1ij0ssvtngaPQE06lSNskh4dPpq6GvYIPXlJtrQpcGQM
- iyWpG0atI2t/tOQuJlBx8tI0urP0E94=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=MWA02cKyEG3MnhMw4GWqcBnQsQ4t1ignU/WFOZgIXMc=;
+ b=UGjVWERaVTIIsZiFTBi7Gc7SCd+jTt27lvKCksNt+r+bhjUIwyrc+5cQnuHy9WKxvyj+8V
+ qlVKoGr/vFWFvurdIdQYO/22lV6YlNKKqXXXMvVA5Vhe6BErq7MBU9Zf+dsaP48agWogg1
+ 9gdIlpcr/2piv2C8jcTm/l0f7Z4pNiI=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-190-DP3MSwaGMB2p70M35TchXQ-1; Wed, 29 Jul 2026 11:17:01 -0400
-X-MC-Unique: DP3MSwaGMB2p70M35TchXQ-1
-X-Mimecast-MFC-AGG-ID: DP3MSwaGMB2p70M35TchXQ_1785338221
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-4955843c6cdso12515385e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 08:17:01 -0700 (PDT)
+ us-mta-211-7-A7RCW_OcejjA3weOnL_w-1; Wed, 29 Jul 2026 11:18:47 -0400
+X-MC-Unique: 7-A7RCW_OcejjA3weOnL_w-1
+X-Mimecast-MFC-AGG-ID: 7-A7RCW_OcejjA3weOnL_w_1785338326
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-47d81cf0c4cso742741f8f.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 08:18:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785338220; x=1785943020;
+ d=1e100.net; s=20251104; t=1785338326; x=1785943126;
  h=content-transfer-encoding:content-type:in-reply-to:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=bvjfqhSyqGanu+o7Vd023AUOeIFl1b0hrPEjWiCBsMY=;
- b=VoR6A9J1BV8bCQMKyQ9lnVA6WnZ11X0SirmrUYyMDzglBpKRR/i8yOUW7uGdmRVTcl
- ACdXM4c0gE7mjOea354fvJB/lJAB9dllqJ0oEa1CclqRr/ABC0/B7ag90rW459j4IKzB
- E3osbpSAH+oHNfpi12PVkq/ibCVgiLLBu3Ft14OJzL45lQspvpLSTVxOmw8xtcE1gZuU
- RVZTTv6aOgbotyHkD0JYs07/08ojTAm5MFf9hFzirFn6BGu5pqS6vziz8RDViRXoDCb2
- vC8MhhKUtWfghoiEGApbcm+D2RXnvcBBa3HoeBQ0mQPoWit7E48liJaMDNKpAaiOKAx2
- 6THQ==
+ bh=MWA02cKyEG3MnhMw4GWqcBnQsQ4t1ignU/WFOZgIXMc=;
+ b=BIgDS96Q/mOasncnllPPvH+jjAHMseGhJox8BwjFEWUImrqj+UG/f/37N2r+RferSs
+ mFus7AuBnqTFG3FGEV8YtH7wBv8hCTbG/PHbH8eIIA2W6MFWpODrg+cwfPgBNQkwzQfg
+ Furqz16IKorja5eTgHdjyREUDnOD/N5Ruptxx3LlIsh1V4+2nCMLvwM7Hy/qsLdMf/U4
+ iZIflkk1B7RXZRnIzCtpjq/1gwfeSHmN6Vz42grWAuZ3Fvw0+5LfLjlTYPHsqvn+H9ro
+ oTF32crKodFilGms1zMA/POm5ewkYoCw2ofo9BnhnZyQNozOLqF/sOfXU6/6WaeY6wgc
+ EQtA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro8zF80E17Bxroaxdfh7mu2fG7NS7gBpYutVIqWomE5itWYRCGrGkRMBl88muXKosBaJcMy8vgQEak=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxmA7wSOIl+M6V/E4oibUismQcm2WIFQCswWO+bh6uSOKYASIyn
- kQpPWiEFjB1DPWa7xe7PzotH+YEvwwz3JuHvfKXYEs0PdVVKOW3i7+5vydNPXKF7ale/HaL+ni3
- nVljQbrUMqEPFJ0FZcLpdL/zOLcwgEaQkJ/I+bX0tphPU5iUTQEouQQeIj4lxFC2Kxbk/Sg==
-X-Gm-Gg: AR+sD11CtylghArUDYMatPcMkLcQOaXMfypg6JGFfsBYb+I3MOhuw7bYOBGw+JXLFrh
- gHXMu3r0teo/63t46W2G0K0OizgOq3GAWUjjzW+/cjCGkZamG8gpE3qtvIv81vmjYUCceJF+h8g
- jWbh5imtm7KFmkUK74K/xS4ry3Q2J6+T/C2r4SL/cGpWgzSyPS73bvTS2P5/Q8Jip5owKOsCqEU
- BtvMdQ3N0diY19jUuaCIMPojvh8H2aoKYsQfRADAjekaYE18cn76LZAqTfOOHMMkr1lk4M1Kpvc
- K5lz2XvyHWJLUoSIg1Bl3fbjQmtteZgGSAoNEnGQ8tl0lSLzzQSr7kCwwmiJosPYxadH7T3zDKA
- GoUNDMW8/HcPGD7Mv+KyqT/nlXCEfvSR7782s22ZGhG5DWA==
-X-Received: by 2002:a05:600c:8b6c:b0:493:ee2b:c876 with SMTP id
- 5b1f17b1804b1-496c6591a94mr78297785e9.35.1785338220408; 
- Wed, 29 Jul 2026 08:17:00 -0700 (PDT)
-X-Received: by 2002:a05:600c:8b6c:b0:493:ee2b:c876 with SMTP id
- 5b1f17b1804b1-496c6591a94mr78296945e9.35.1785338219161; 
- Wed, 29 Jul 2026 08:16:59 -0700 (PDT)
+ AHgh+Rq4yEMLUzGeIw7G+UqGNZSk6xmRZ8iQusbTCvmkq0ulwDuv04JnqsPDO1gokyFG31BvQbYGuB66+jA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyhwmjpdkrrZXDH6Si0idfSQkhwasjrTwWvT0m8rKhSaYOBENWA
+ 8iQcpBq/utFxKosw+ilGrNbLQ6zMPl0vcSvzfyOANztkaPogj8V3la5hL6axjAFWtO7xiOAA1Ln
+ HBa0oucBMHqluzs50PNYomDfmrdIquSSwfR7BDv0tNLyb/0qfE/eQJKZq1IdC/pLJw9ZCWA==
+X-Gm-Gg: AR+sD12jvmfZ7ouwOMnAM/Jy/ye4eGibiXRQg8FCwyPT3D61KF6Sa89CfS8GFBVKhcM
+ 6Ji29e3mI07h10H3OuHLmQt0e0e60qxAixJwjzgVN7s+6BSTgjdgGlLIAMRw0NEhMWVPP8X8WvG
+ 8GjJEkiesYrGQV+olAi7sSutuKLHQIYJmRq9JX/qBBe5FZQ3O+LvBwSTcwH6DmtFaEY/qYv4neD
+ TDiUaX12Q7qt3mmQZIvzhwK7OaoFv8aglMsHNy655X5iD6qP47socg9ZevPMIS5lREX8F4aKvhB
+ /TuI7TLYeC+HbWnjV7R0G4aEeuvDOePEEpyWX3FKPbDEN8hD/lQXjWmsZbh7lTECmgANFb9OCSo
+ w1dWDyLs5ji/xEhfjVOdLW56bfIO3QzWJlNW15ZgXAOuQTw==
+X-Received: by 2002:a05:600c:3b10:b0:495:4d00:2fda with SMTP id
+ 5b1f17b1804b1-496c6410476mr77216185e9.2.1785338325971; 
+ Wed, 29 Jul 2026 08:18:45 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b10:b0:495:4d00:2fda with SMTP id
+ 5b1f17b1804b1-496c6410476mr77215675e9.2.1785338325364; 
+ Wed, 29 Jul 2026 08:18:45 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:9b4:d000:c3c5:df83:3a33:2c51?
  ([2a01:e0a:9b4:d000:c3c5:df83:3a33:2c51])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fb6b0f2ddsm8683100f8f.20.2026.07.29.08.16.58
+ 5b1f17b1804b1-49764d8e81asm64980995e9.7.2026.07.29.08.18.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2026 08:16:58 -0700 (PDT)
-Message-ID: <b05568d9-476e-4903-a988-1ff72bcc33b1@redhat.com>
-Date: Wed, 29 Jul 2026 17:16:55 +0200
+ Wed, 29 Jul 2026 08:18:44 -0700 (PDT)
+Message-ID: <acfd13bd-bc0b-404e-8a5e-bdbea823a708@redhat.com>
+Date: Wed, 29 Jul 2026 17:18:41 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/log: Fix out-of-bounds read on empty message
- length
+Subject: Re: [PATCH 3/4] drm/log: Fix infinite loop when scale is too large
+ for display
 To: oushixiong1025@163.com
 Cc: Javier Martinez Canillas <javierm@redhat.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
@@ -84,11 +84,11 @@ Cc: Javier Martinez Canillas <javierm@redhat.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Shixiong Ou <oushixiong@kylinos.cn>
-References: <20260729084520.688087-1-oushixiong1025@163.com>
+References: <20260729084815.692944-1-oushixiong1025@163.com>
 From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260729084520.688087-1-oushixiong1025@163.com>
+In-Reply-To: <20260729084815.692944-1-oushixiong1025@163.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: llnshZKlDsSd2OjZ1XyCiZuu-v1-6ek3KO1eCHSmMyQ_1785338221
+X-Mimecast-MFC-PROC-ID: V27Bs9vsu3ov6Crw8id8LyXe2Eeq4CBDZEKmnxfEahE_1785338326
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US, fr
 Content-Type: text/plain; charset=UTF-8; format=flowed
@@ -108,37 +108,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 29/07/2026 10:45, oushixiong1025@163.com wrote:
+On 29/07/2026 10:48, oushixiong1025@163.com wrote:
 > From: Shixiong Ou <oushixiong@kylinos.cn>
 > 
-> drm_log_draw_kmsg_record() accesses s[len - 1] to strip the trailing
-> newline, but len is unsigned int. If len is 0, the subtraction wraps
-> to UINT_MAX, causing an out-of-bounds read.
+> When scale is large enough that scaled_font exceeds the display
+> dimensions, rows or columns become 0. A columns value of 0 causes
+> an infinite loop in drm_log_draw_kmsg_record() because the loop
+> never decrements len.
 > 
-> Add an early return when len is 0.
+> Check for zero rows/columns in drm_log_setup_modeset() and return
+> an error, cleaning up the already allocated buffer to avoid a leak.
 
-Thanks, for your contribution
+Thanks, it looks good to me.
 
 Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
-
 > 
 > Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 > ---
->   drivers/gpu/drm/clients/drm_log.c | 3 +++
->   1 file changed, 3 insertions(+)
+>   drivers/gpu/drm/clients/drm_log.c | 6 ++++++
+>   1 file changed, 6 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
-> index e3e02c84a4cf..294b3be1a6b3 100644
+> index a04f651e8265..63577aeb705c 100644
 > --- a/drivers/gpu/drm/clients/drm_log.c
 > +++ b/drivers/gpu/drm/clients/drm_log.c
-> @@ -162,6 +162,9 @@ static void drm_log_draw_kmsg_record(struct drm_log_scanout *scanout,
->   {
->   	u32 prefix_len = 0;
->   
-> +	if (!len)
-> +		return;
-> +
->   	if (len > TS_PREFIX_LEN && s[0] == '[' && s[6] == '.' && s[TS_PREFIX_LEN] == ']')
->   		prefix_len = TS_PREFIX_LEN + 1;
->   
+> @@ -240,6 +240,12 @@ static int drm_log_setup_modeset(struct drm_client_dev *client,
+>   	scanout->scaled_font_w = scanout->font->width * scale;
+>   	scanout->rows = height / scanout->scaled_font_h;
+>   	scanout->columns = width / scanout->scaled_font_w;
+> +	if (!scanout->rows || !scanout->columns) {
+> +		drm_client_buffer_delete(scanout->buffer);
+> +		scanout->buffer = NULL;
+> +		mode_set->fb = NULL;
+> +		return -EINVAL;
+> +	}
+>   	scanout->front_color = drm_draw_color_from_xrgb8888(0xffffff, format);
+>   	scanout->prefix_color = drm_draw_color_from_xrgb8888(0x4e9a06, format);
+>   	return 0;
 
