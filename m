@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAC62C53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:33:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AF74C53219
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 16:37:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD6D810ECF1;
-	Wed, 29 Jul 2026 16:33:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6154D10E38B;
+	Wed, 29 Jul 2026 16:37:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ccZL0I7o";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YZ7EU6AT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A824710ECF1;
- Wed, 29 Jul 2026 16:33:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B401510E38B
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 16:37:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8916C600AA;
- Wed, 29 Jul 2026 16:33:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B262C1F000E9;
- Wed, 29 Jul 2026 16:33:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785342784;
- bh=GYLFiDFsWgnuZLLVzeRXadaPHD177OU5vyLefNhw9pQ=;
- h=Subject:To:Cc:From:Date;
- b=ccZL0I7oU7gJO8SbYYNgsHXpG7s1CiU3VhQ4YrjOPqT0s2Blek9DBLM28OYTavFRf
- o5tF2aOSlpjxv5ArXwEI2LTZ0JLilF7ZfQ5aXFUf/nHb+J6ruM+c+Jtp3CnV2SXCjJ
- zqXEm8JFxkwYTEfseS0neENFUl2bUFPLQ8bVAX6I=
-Subject: Patch "drm/dp_mst: Handle torn-down topology gracefully in
- drm_dp_mst_topology_queue_probe()" has been added to the 7.1-stable tree
-To: dev@lankhorst.se, dri-devel@lists.freedesktop.org,
- gregkh@linuxfoundation.org, imre.deak@intel.com,
- intel-gfx@lists.freedesktop.org, jonas.emilsson@gmail.com,
- luciano.coelho@intel.com, lyude@redhat.com
-Cc: <stable-commits@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 29 Jul 2026 18:31:43 +0200
-Message-ID: <2026072943-lullaby-tapeless-796c@gregkh>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
-X-stable: commit
-X-Patchwork-Hint: ignore 
+ by sea.source.kernel.org (Postfix) with ESMTP id 8FBBC43C1E;
+ Wed, 29 Jul 2026 16:37:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4759B1F000E9;
+ Wed, 29 Jul 2026 16:37:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785343040;
+ bh=x+qM/hIMgLxkF6mAMxl6seWBA0JVHXiwZXqAXUyQWKE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=YZ7EU6ATfy2BqbjxS6u5tOUeyloBXWO+8zd7HLR+yBYpIG7JAQoVfXkwybBwq+uMI
+ DSu3+L9MNqSVSY2x3yndqWAft4qG48pGKuSgNyKdCADZNYa92J2pHdweCz+v43DFAd
+ npRZ2uZvKN0lKY8CNsPjH/+eufWB0s+wmIDAd1Iupj88OfZ8MUmLYmM/C5dYPwho6c
+ QiA7zqGUuu4Ke5BxDNPulakbp0tarqzJFjGv+gkU3ELR/0RdKT++DanumGxuooQqrC
+ E1EUMrkW22OYkkOV0HFyYR7QyO9Cuzz3IOurcqjYHlZNf8n2S2+UCefMkr5tKbgW+5
+ BowLTBGiAj6qA==
+From: sashiko-bot@kernel.org
+Subject: Re: Patch "drm/dp_mst: Handle torn-down topology gracefully in
+ drm_dp_mst_topology_queue_probe()" has been added to the 6.12-stable tree
+To: gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <2026072907-framing-morphine-00a8@gregkh>
+References: <2026072907-framing-morphine-00a8@gregkh>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 29 Jul 2026 16:37:19 +0000
+Message-Id: <20260729163720.4759B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,84 +53,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-This is a note to let you know that I've just added the patch titled
+Pre-existing issues:
+- [High] Calling `mutex_lock()` from within an atomic encoder callback path.
+--
 
-    drm/dp_mst: Handle torn-down topology gracefully in drm_dp_mst_topology_queue_probe()
+--- Patch [1]: Patch "drm/dp_mst: Handle torn-down topology gracefully in d=
+rm_dp_mst_topology_queue_probe()" has been added to the 6.12-stable tree ---
+commit 746d73e2e2b5ca58eedb8e8371b10fa271386f44
+Author: gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>
 
-to the 7.1-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+drm/dp_mst: Handle torn-down topology gracefully in drm_dp_mst_topology_que=
+ue_probe()
 
-The filename of the patch is:
-     drm-dp_mst-handle-torn-down-topology-gracefully-in-drm_dp_mst_topology_queue_probe.patch
-and it can be found in the queue-7.1 subdirectory.
+This commit replaces a drm_WARN_ON with an early return in
+drm_dp_mst_topology_queue_probe() to handle torn-down topologies gracefully
+during concurrent hotplug or link-loss events. This eliminates spurious
+kernel warnings and compositor crashes.
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+Link: https://lore.kernel.org/all/20260503034533.1023686-1-jonas.emilsson@g=
+mail.com
+Link: https://patch.msgid.link/20260622140532.526722-1-luciano.coelho@intel=
+.com
 
+> diff --git a/drivers/gpu/drm/display/drm_dp_mst_topology.c b/drivers/gpu/=
+drm/display/drm_dp_mst_topology.c
+> index ac90118b9e7a8..97ddd10df0229 100644
+> --- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> +++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
+> @@ -3739,8 +3739,10 @@ void drm_dp_mst_topology_queue_probe(struct drm_dp=
+_mst_topology_mgr *mgr)
+>  {
+>  	mutex_lock(&mgr->lock);
 
-From 613059875958e7b217b250ed14c3b189f9488421 Mon Sep 17 00:00:00 2001
-From: Luca Coelho <luciano.coelho@intel.com>
-Date: Mon, 22 Jun 2026 17:03:58 +0300
-Subject: drm/dp_mst: Handle torn-down topology gracefully in drm_dp_mst_topology_queue_probe()
+[Severity: High]
+This is a pre-existing issue, but won't this mutex lock cause a sleeping
+in atomic context warning?
 
-From: Luca Coelho <luciano.coelho@intel.com>
+During non-blocking commits, the encoder atomic callback
+intel_mst_pre_enable_dp() runs in an atomic context where sleeping is
+forbidden. It calls intel_mst_reprobe_topology(), which then calls this
+function:
 
-commit 613059875958e7b217b250ed14c3b189f9488421 upstream.
+intel_mst_pre_enable_dp() ->
+    intel_mst_reprobe_topology() ->
+        drm_dp_mst_topology_queue_probe()
 
-A hotplug or link-loss event can tear down the MST topology
-(setting mgr->mst_state = false and mgr->mst_primary = NULL) concurrently
-with a caller invoking drm_dp_mst_topology_queue_probe(). Since the check
-is already performed under mgr->lock, the condition is not a programming
-error but a valid race -- the topology was valid when the caller decided
-to call this function, but was torn down before the lock was acquired.
+Since drm_dp_mst_topology_queue_probe() unconditionally acquires mgr->lock
+using mutex_lock(), won't this lead to scheduling while atomic splats or
+potential deadlocks during hotplug events and modesets involving MST links?
 
-Replace the drm_WARN_ON() with a graceful early return. This eliminates
-spurious kernel warnings and the resulting compositor crashes observed
-when connecting/disconnecting DP MST monitors, while keeping the correct
-behavior of doing nothing when MST is not active. A drm_dbg_mst() trace
-is added so the skipped probe remains observable under MST debug logging.
+> -	if (drm_WARN_ON(mgr->dev, !mgr->mst_state || !mgr->mst_primary))
+> +	if (!mgr->mst_state || !mgr->mst_primary) {
+> +		drm_dbg_kms(mgr->dev, "queue_probe skipped: topology torn down\n");
+>  		goto out_unlock;
+> +	}
+> =20
+>  	drm_dp_mst_topology_mgr_invalidate_mstb(mgr->mst_primary);
+>  	drm_dp_mst_queue_probe_work(mgr);
 
-The existing WARN_ON(mgr->mst_primary) in drm_dp_mst_topology_mgr_set_mst()
-already catches the case where the topology is initialized twice, so no
-diagnostic coverage is lost.
-
-Fixes: dbaeef363ea5 ("drm/dp_mst: Add a helper to queue a topology probe")
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: stable@vger.kernel.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Jonas Emilsson <jonas.emilsson@gmail.com>
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
-Link: https://lore.kernel.org/all/20260503034533.1023686-1-jonas.emilsson@gmail.com
-Acked-by: Imre Deak <imre.deak@intel.com>
-Link: https://patch.msgid.link/20260622140532.526722-1-luciano.coelho@intel.com
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/display/drm_dp_mst_topology.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3740,8 +3740,10 @@ void drm_dp_mst_topology_queue_probe(str
- {
- 	mutex_lock(&mgr->lock);
- 
--	if (drm_WARN_ON(mgr->dev, !mgr->mst_state || !mgr->mst_primary))
-+	if (!mgr->mst_state || !mgr->mst_primary) {
-+		drm_dbg_kms(mgr->dev, "queue_probe skipped: topology torn down\n");
- 		goto out_unlock;
-+	}
- 
- 	drm_dp_mst_topology_mgr_invalidate_mstb(mgr->mst_primary);
- 	drm_dp_mst_queue_probe_work(mgr);
-
-
-Patches currently in stable-queue which might be from luciano.coelho@intel.com are
-
-queue-7.1/drm-dp_mst-handle-torn-down-topology-gracefully-in-drm_dp_mst_topology_queue_probe.patch
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2026072907-framing-=
+morphine-00a8@gregkh?part=3D1
