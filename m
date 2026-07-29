@@ -4,75 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B55DCC53219
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 17:18:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99DD8C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 17:24:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 024A310E079;
-	Wed, 29 Jul 2026 17:18:42 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m/6ZIUL/";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2208E10E079
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 17:18:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BD7F141398;
- Wed, 29 Jul 2026 17:18:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95C0E1F000E9;
- Wed, 29 Jul 2026 17:18:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785345518;
- bh=V4fqphSqGLyY1OSa6m/tjYmdpF1YTGlh/6RPGHROYy4=;
- h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
- b=m/6ZIUL/eN8niD4PQkGkB/eF57W/SS8FJfNsbWh+uqFg0jzNTdx658Uf3rlqDMGE1
- oceZyiGSu2q9luzkAMpax5DHmnnrM9scd97SyAQ1FK/Sl3MEQnwlQS6cOfKAmM9SLY
- Y3HQarbZzD6Rm+9juCY0juSef+9crMHDuNi1aW8+OlkOha6Mip9XBb2YZwUVIUAIUM
- A9rse78v0SgTk2hXd2NtaKwa2A5cNplN917nHkoB2u+75hBJ45d1uinT5MuXWsbZkh
- OmwG0cWcQznlXI5u3QNyv+/HCxyj9Q8QWQDIaU+57oaX79OsrVVec/OfcFDgRhityn
- 359/LtegkSwTw==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id 5116CCE0B67; Wed, 29 Jul 2026 10:18:38 -0700 (PDT)
-Date: Wed, 29 Jul 2026 10:18:38 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Lyude Paul <lyude@redhat.com>, Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Eliot Courtney <ecourtney@nvidia.com>,
- Mirko Adzic <adzicmirko97@gmail.com>, Timur Tabi <ttabi@nvidia.com>,
- Daniel del Castillo <delcastillodelarosadaniel@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
-Subject: Re: [PATCH v7 3/5] rust: sync: Add abstraction for rcu_barrier()
-Message-ID: <296c71c4-4d2f-416d-bfbe-40fd911b44db@paulmck-laptop>
-References: <20260729094542.302965-2-phasta@kernel.org>
- <20260729094542.302965-5-phasta@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CF35110E052;
+	Wed, 29 Jul 2026 17:24:47 +0000 (UTC)
+X-Greylist: delayed 893 seconds by postgrey-1.36 at gabe;
+ Wed, 29 Jul 2026 17:24:46 UTC
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com
+ [216.40.44.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 101CB10E052
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 17:24:46 +0000 (UTC)
+Received: from omf16.hostedemail.com (lb01a-stub [10.200.18.249])
+ by unirelay09.hostedemail.com (Postfix) with ESMTP id 0783F80688;
+ Wed, 29 Jul 2026 17:09:49 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf16.hostedemail.com (Postfix) with ESMTPA id 4E7B520018; 
+ Wed, 29 Jul 2026 17:09:45 +0000 (UTC)
+Date: Wed, 29 Jul 2026 13:10:15 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, Valentin
+ Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Grant Likely
+ <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel@collabora.com
+Subject: Re: [PATCH 3/3] drm/panthor: Add tracepoints for cache flushing
+Message-ID: <20260729131015.394eaf4e@gandalf.local.home>
+In-Reply-To: <20260729-panthor-cache-flush-fix-v1-3-205921ed3c81@collabora.com>
+References: <20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com>
+ <20260729-panthor-cache-flush-fix-v1-3-205921ed3c81@collabora.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729094542.302965-5-phasta@kernel.org>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout05
+X-Rspamd-Queue-Id: 4E7B520018
+X-Stat-Signature: kfq6mfekxfipk1air44raypccozoopo4
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX1+UOHH5w2anfq4dLE6BbwdPdb9GugFnW2o=
+X-HE-Tag: 1785344985-944712
+X-HE-Meta: U2FsdGVkX19P2gfBapu1gESArfPkaYgMofX4xgmUWKuUkdqa9aE/5+UDdwTQ1je6X5AzSeB16yHb1FgL/HmGfGpyBx/W2aqzYeG2NkPqoFCBhjxa0nA5XpioZ0lV+X07IXKEeffGXoetgiTQK4ACxBFhbnPsVUzT3vHYEBZGGIzqBhyZrPajQAvjl0jw2jb+p1ba5L8+MFSo3w15p1IGOYCiZCTt+51elPf0JZDeMGl17R9cFka1SBnjfwfjLVxT20nisd54glMf/oLp5nS3kpM8q3Eq354sTGOX1AQcyyRjlr8qIs8tICN6RxQfgI78o2mp+mo5lq3KDrdKcbB4Wp1g9AMupbvEYsLw3B68UZLdjsEHNFq/6AMREXGqn0HR
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,63 +65,109 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: paulmck@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 11:45:40AM +0200, Philipp Stanner wrote:
-> rcu_barrier() is a frequently used C function which is always safe to be
-> called.
+On Wed, 29 Jul 2026 08:19:51 +0200
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
 
-Just checking...  Here "always safe" means only from task level, with BH,
-preemption, and interrupts all enabled, correct?
-
-In contrast, if you do this:
-
-	preempt_disable();
-	rcu_barrier();
-	preempt_enable();
-
-the results won't be safe.
-
-							Thanx, Paul
-
-> Add a safe abstraction for rcu_barrier().
-> 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
-> ---
->  rust/kernel/sync/rcu.rs | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
-> index a32bef6e490b..7031ca5d2473 100644
-> --- a/rust/kernel/sync/rcu.rs
-> +++ b/rust/kernel/sync/rcu.rs
-> @@ -50,3 +50,23 @@ fn drop(&mut self) {
->  pub fn read_lock() -> Guard {
->      Guard::new()
->  }
+> diff --git a/drivers/gpu/drm/panthor/panthor_trace.h b/drivers/gpu/drm/panthor/panthor_trace.h
+> index 6ffeb4fe6599..5e2a9b8d0481 100644
+> --- a/drivers/gpu/drm/panthor/panthor_trace.h
+> +++ b/drivers/gpu/drm/panthor/panthor_trace.h
+> @@ -76,6 +76,64 @@ TRACE_EVENT(gpu_job_irq,
+>  		  __entry->events, __entry->duration_ns)
+>  );
+>  
+> +/**
+> + * gpu_cache_flush_start - called after cache flush locks taken, before flush
+> + * @dev: pointer to the &struct device, for printing the device name
+> + * @l2: "l2" flush flags
+> + * @lsc: "lsc" flush flags
+> + * @other: "other" flush flags
+> + *
+> + * Fires after any initial lock contention around the locks needed for flushing
+> + * caches, but before the actual cache flush is requested.
+> + */
+> +TRACE_EVENT(gpu_cache_flush_start,
+> +	TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> +	TP_ARGS(dev, l2, lsc, other),
+> +	TP_STRUCT__entry(
+> +		__string(dev_name, dev_name(dev))
+> +		__field(u32, l2)
+> +		__field(u32, lsc)
+> +		__field(u32, other)
+> +	),
+> +	TP_fast_assign(
+> +		__assign_str(dev_name);
+> +		__entry->l2	= l2;
+> +		__entry->lsc	= lsc;
+> +		__entry->other	= other;
+> +	),
+> +	TP_printk("%s: l2=0x%x lsc=0x%x other=0x%x", __get_str(dev_name),
+> +		  __entry->l2, __entry->lsc, __entry->other)
+> +);
 > +
-> +/// Wait until all in-flight call_rcu() callbacks complete.
-> +///
-> +/// Note that this primitive does not necessarily wait for an RCU grace period
-> +/// to complete.  For example, if there are no RCU callbacks queued anywhere
-> +/// in the system, then rcu_barrier() is within its rights to return
-> +/// immediately, without waiting for anything, much less an RCU grace period.
-> +/// In fact, rcu_barrier() will normally not result in any RCU grace periods
-> +/// beyond those that were already destined to be executed.
-> +///
-> +/// In kernels built with CONFIG_RCU_LAZY=y, this function also hurries all
-> +/// pending lazy RCU callbacks.
-> +///
-> +/// Note that this is one of the RCU primitives which must not be called in
-> +/// atomic context.
-> +#[inline]
-> +pub fn rcu_barrier() {
-> +    // SAFETY: `rcu_barrier()` is always safe to be called. It just might wait for a grace period.
-> +    unsafe { bindings::rcu_barrier() };
-> +}
-> -- 
-> 2.55.0
-> 
+> +/**
+> + * gpu_cache_flush_end - called after cache flush
+> + * @dev: pointer to the &struct device, for printing the device name
+> + * @l2: "l2" flush flags
+> + * @lsc: "lsc" flush flags
+> + * @other: "other" flush flags
+> + *
+> + * Fires after either the cache flush is complete, or has failed. Can be used
+> + * together with gpu_cache_flush_start to get how long the flush has taken.
+> + */
+> +TRACE_EVENT(gpu_cache_flush_end,
+> +	TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> +	TP_ARGS(dev, l2, lsc, other),
+> +	TP_STRUCT__entry(
+> +		__string(dev_name, dev_name(dev))
+> +		__field(u32, l2)
+> +		__field(u32, lsc)
+> +		__field(u32, other)
+> +	),
+> +	TP_fast_assign(
+> +		__assign_str(dev_name);
+> +		__entry->l2	= l2;
+> +		__entry->lsc	= lsc;
+> +		__entry->other	= other;
+> +	),
+> +	TP_printk("%s: l2=0x%x lsc=0x%x other=0x%x", __get_str(dev_name),
+> +		  __entry->l2, __entry->lsc, __entry->other)
+> +);
+> +
+>  #endif /* __PANTHOR_TRACE_H__ */
+
+The above two are identical. You'll save memory by using a template instead:
+
+DECLARE_EVENT_CLASS(gpu_cache_flush_template,
+	TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+	TP_ARGS(dev, l2, lsc, other),
+	TP_STRUCT__entry(
+		__string(dev_name, dev_name(dev))
+		__field(u32, l2)
+		__field(u32, lsc)
+		__field(u32, other)
+	),
+	TP_fast_assign(
+		__assign_str(dev_name);
+		__entry->l2	= l2;
+		__entry->lsc	= lsc;
+		__entry->other	= other;
+	),
+	TP_printk("%s: l2=0x%x lsc=0x%x other=0x%x", __get_str(dev_name),
+		  __entry->l2, __entry->lsc, __entry->other)
+);
+
+DEFINE_EVENT(gpu_cache_flush_template, gpu_cache_flush_start,
+	TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+	TP_ARGS(dev, l2, lsc, other)
+);
+
+DEFINE_EVENT(gpu_cache_flush_template, gpu_cache_flush_end,
+	TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+	TP_ARGS(dev, l2, lsc, other)
+);
+
+-- Steve
