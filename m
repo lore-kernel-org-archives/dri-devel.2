@@ -4,86 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F2B4C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:36:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D035FC54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 11:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74BCB10EB9E;
-	Wed, 29 Jul 2026 11:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DFAF10EBA1;
+	Wed, 29 Jul 2026 11:37:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BbI+Bqd4";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="eIGCXOBa";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WEsdjh3h";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A137210EB9E
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:36:40 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so5589735e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 04:36:40 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AC0010EBA1
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:37:25 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66TBPYOe2093356
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:37:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=JuKTV+oT7PmTQiu/vwLbiWOH
+ 3Hnm+6HCgD4PAqwboi4=; b=eIGCXOBaDq/Zp7sSl4VKuXuBoKeURK9h1aUx1Qdf
+ WxYgF+TOi0SFUK3WUv0HFr8eROt7ET2YJE3RhAVVBI9c0Y4inDjpj2gtkXTmcAiO
+ DSaa7US8bmg2Txje04V9JdOnh4lYwbXrf7+veFWnJU2kX3LP8SINp1M7DiEuVwd+
+ TiNYsL1mDBf5Mnto78xbwxEQOUwv2LwQ6uLO+S9lwLeRq/1/hZkVXMW8hnI/HH7l
+ e77HEm1hY+J/GOItZeEKhTQaa38ieXVOPbc3WQGkK9y66Aebmr4pJ7z00pJSnF/q
+ hPyf+IvN4B9k3GU3xrV2t+ogec+uLgypwtw3d5kl7tgWQw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqgmtg1gp-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 11:37:24 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-38ecc48b3c2so1330194a91.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 04:37:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785324999; x=1785929799; darn=lists.freedesktop.org;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=A3HHsEhTl+dXCrOvrCFYw7cTGZo+aEqQqlvgUlbn4X4=;
- b=BbI+Bqd40az5qODpNc/XvZcA/JrJglNYWk0UA/hjoTIvVpDrmATurinblgLELUS+Sl
- u/KlMX4PyyCdD7wkDZ+wvCVuHRXClL1Im6FVHEHX9kI9cEqYowMoYU8F4yWM1mXQj1aL
- dqY+e8GBcT0dQDrGB6IgLdWeB283mUyN29GZ19aiKRdh4IwfSW8tsbB25yUWO+rLsbAc
- J8rML1yCmw9FLehSuZhxU4pGcFpH9yN/rJoeJV9tUfx28+UZP4SLfDmb9NZgG8tkDoJe
- xiEhwWjynsXgjn267RA890aQafgmslQA/j2pQFXvkjCI+FyexuGo0mvSsOCIx37iBbIQ
- 2EPw==
+ d=oss.qualcomm.com; s=google; t=1785325044; x=1785929844;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JuKTV+oT7PmTQiu/vwLbiWOH3Hnm+6HCgD4PAqwboi4=;
+ b=WEsdjh3h5sQXMwmktQM0G4RsC07Ui1WUSCYR86MGy//Q4fB/xVstd4ecQdzm8amwbb
+ 2rKRHEBm2OzPz+eozrRS8KvBbzJRsYwMfmXVkJ4qwbsFkgGKMIupyK2vcErirSGP+Bqg
+ TiiyY+k7DjUNkJtuojD9G7LkquUr/hqLY5v/42xjslx9wfTfr0ZieGiIAuWqReTk/MNJ
+ H0xRWOTGdpHCpsWPEe0ijNgrnckXI9CqDxFLGy8MbFB7z13VAAxEJ6AN7+e2/uiGXrqL
+ 65IKgKpdBkSCvcX7xCPL7FDRu+vMyJ/8SSfYXISN5n/hDE95A2L2K1F6QxcBpoCza/eL
+ DBDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785324999; x=1785929799;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :content-type:mime-version:references:message-id:subject:cc:to:from
- :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=A3HHsEhTl+dXCrOvrCFYw7cTGZo+aEqQqlvgUlbn4X4=;
- b=cJe3OBei1SDCmz7zVaIrqu9g+jn3Z+PNiYRcPpX80Rwqcs8JZYYj06n7rq9xntvAMq
- nOjkP4bzx1sFOZBrcUrCOyBF6qnErhBmAJXjOkgroXhefWJEIkBlMxP/+tn0PcUE8U3c
- vOu1xt1QP0SOMKfZAKA0//O6gCwaVhDnZU+kk6C+j+42YEqO6yy2Fz3gmq5kurZC7ZR/
- f9wJ8AuiJHMDZLhDx+ClM/GuIkyEj7/i0uLyKGhD5jvC35XSJBfS1eJ2QDcCV0v9/He5
- UrHtOPe77zXkOgJmc1eNc8ngF9VPzTdTN4JCsEaQ0Q4S0TWg6TbGN+wxMUSD9kUieS3z
- CJdg==
+ d=1e100.net; s=20251104; t=1785325044; x=1785929844;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=JuKTV+oT7PmTQiu/vwLbiWOH3Hnm+6HCgD4PAqwboi4=;
+ b=AXN773XRqEWidDKGUBZYlZoGLLelhpMPEJFOQAbjidSktdR72evukEUtSuwyLHJ0OM
+ hBzXX68Sy8oPeVL66zhE183cQsfADYs5BgT0a/4JyntfiDl0bEJ3dR+2rBv+s3MtMLYY
+ SQu17w/hYb8yfqHRX/Z6hrL5e0EK6t4Mg/nz8HqlQHhjXK8KGWCLcl9GhJe891vXr+CX
+ u85nHazM6/qxYoweUSyYuHzfZ3edagekNGCOk7mecpObN9CSUnnAsV48nl97BnW3e0Cj
+ vNBxS4nP0acdfQGr4xFDEPq5fqll5qYsxJBGNxs0BZ2BGLtaMk0d76SwtN47FKREegjv
+ v6Lw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq9wdAynZxhAx2rYGk6Oar4tvdysqMxvhng4OnbDJirHE0N04Khn0CEmy6u+4e2eGIy7Ii/5tMfcLE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw7b+Ubwn8MHCyxbFfxKolFs9HNcCl+uuvTPwowXiLHmNiFeLRj
- LNDskIALKOB9f3Aa7ZkPV5pSmh2vvcjtgR5nuadK/zfr8JtXa0FPH629
-X-Gm-Gg: AR+sD12xVFztDJPGmpUKoLBgNh9gggclE7cSN5puSi90aj0iVFI/YlxEXfBgRPOZc4r
- vwWJE+uyC4MUrwb0yM7U85gUnBK5Ph/wN1HdWbIA7Jd3/fNQ9sb+Q6KyoLnTHTGautjqmLhULSR
- hG0g4qOsBNq10F0Ui67BFFmnNqvTs5Zus4oZj+Q0Wp1loiW3tXdEKu7CyZKdrSSF5G1BDz7OAmI
- azpLaSD8pJVG04Orv8nQJKRqPXQycrfiQT18VM8+EavwtVU/e8D4YDZ50bcZuxnv5Hau/xxa53S
- P5MPOKAoVNoU4JkPSHnOJRe2DVWpFsQOLRJvbx2zaCQJtKjJMd7mbjHKeS9pQUrxOu8a1r5Y+Gk
- onfRqvucibF7w8JUEmNWLColb+gY/GGp1i0TXj9Ucy1onf0oo9WLjdg84vWwCchHa+qkj5H4UAI
- Bp7a0v2NHzMnuDTKReh1db269GtCp9I5/JwL8BE4ISMMaTRsDc1+k9rPr+CJ3ChaHWXYiTvudx2
- g/rEI6L8yJt+kgljDjp915WCDoiNORXNg==
-X-Received: by 2002:a05:600c:4e8c:b0:495:4730:15b2 with SMTP id
- 5b1f17b1804b1-496c6571ea4mr64839705e9.31.1785324998773; 
- Wed, 29 Jul 2026 04:36:38 -0700 (PDT)
-Received: from osama ([2a02:908:185:7e40:2975:f35a:5252:318b])
+ AHgh+RoNPJDj0MHLYp8t4m9wXWXegrNgyFGoo+pXS7VFBVINatB55l1o+M2NUSdfigX6BO8ruIcmsyvnipE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyGRCLT4lBQ2oDqC87pWdLubgC19exS6jcWTSj8H3PX7xwXyEC4
+ 1dsqD5orJr3f3BpbVHbEt5B5iY2la0sp8V5WoFSRghv+U0bsmPT4bIvwrp0oj3vTLxJv73qUyNF
+ J12xaHZsrb5GqxOlP3rRiMZoT9u/Nvklnb5L1VlCeLEJnnLLMp/7SyTwGha+8ALbdsuj8VLQ=
+X-Gm-Gg: AR+sD11HDfFS3HzMVMYkrl6kHIjwQUGz2SEo/iTwG6nCJ0+uwgproz3kK2Q/K8DIxiZ
+ D2UcObKZhHsvxg2CV0RvWcRsjbHJKXEMeumV6Zqz0eMxTroSrdM+Zv4Ow/5rr8wr5Eb0zm2EV7F
+ IfJbPBKfL4fzey4Rr6wP75LKtLfVvZhCo8MM0naMZJg3QzS/8fKWtK73RVdnZSYFMPxWKa876FJ
+ lwwNOU1fscZIONa/mezvA1JDg6qV5BJvILxDaBSA6yvVe9Amx3XRfdvoOggY2lmImco7a3gl/en
+ 9PQuG1yLGT/2lIezvW6ogc/7Wqgyk3N1Tc44Hi4SFKnu2N1j0JFzIxtGAhqLfDwdWcZuFaHM49E
+ xVKjys3mMnKKQnHk0mixuLZ38HA==
+X-Received: by 2002:a17:90b:2701:b0:36b:bec8:94c5 with SMTP id
+ 98e67ed59e1d1-38f6a4585e5mr6625880a91.10.1785325044118; 
+ Wed, 29 Jul 2026 04:37:24 -0700 (PDT)
+X-Received: by 2002:a17:90b:2701:b0:36b:bec8:94c5 with SMTP id
+ 98e67ed59e1d1-38f6a4585e5mr6625838a91.10.1785325043665; 
+ Wed, 29 Jul 2026 04:37:23 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-496c44af19bsm145526535e9.3.2026.07.29.04.36.37
+ 5a478bee46e88-31504db2c4csm9199730eec.28.2026.07.29.04.37.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2026 04:36:38 -0700 (PDT)
-Date: Wed, 29 Jul 2026 13:36:35 +0200
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Liviu Dudau <liviu.dudau@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
+ Wed, 29 Jul 2026 04:37:23 -0700 (PDT)
+Date: Wed, 29 Jul 2026 17:07:13 +0530
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/panthor: fix firmware control interface bounds checks
-Message-ID: <amnlw_HGWX0YHMWV@osama>
-References: <20260720134435.13377-1-osama.abdelkader@gmail.com>
- <amjG9WVZrb6v92_h@e142607>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
+ Jessica Zhang <jesszhan0024@gmail.com>, Mohit Dsor <mdsor@oss.qualcomm.com>
+Subject: Re: [PATCH v8 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
+ MIPI DSI to HDMI driver
+Message-ID: <amnl6SENeY3jjBm4@hu-mdsor-hyd.qualcomm.com>
+References: <20260728-lt9611c-v7-v8-0-bda216bfaf37@oss.qualcomm.com>
+ <20260728-lt9611c-v7-v8-1-bda216bfaf37@oss.qualcomm.com>
+ <114159dd-0271-4d15-b07d-20fc1e28ee6d@kernel.org>
+ <20260729-truthful-cinnamon-giraffe-f250d6@quoll>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <amjG9WVZrb6v92_h@e142607>
+In-Reply-To: <20260729-truthful-cinnamon-giraffe-f250d6@quoll>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5NiBTYWx0ZWRfXyClu6SN8cdrh
+ ecv+oCLbASTHW04v8Wo6oghez3g0jVgCdguErrDTmG33R7ayTTwCixQICv3+KZ1yCIQzuZ6xxJk
+ Lo0+Tq8nm+dQhT9JIyM8tQk02Kadgt0=
+X-Proofpoint-ORIG-GUID: tld-Cw1lz2D5PHZ33wWK1p9TFgTc7okH
+X-Proofpoint-GUID: tld-Cw1lz2D5PHZ33wWK1p9TFgTc7okH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5NiBTYWx0ZWRfX7taF4L2zE+IL
+ lLc12YEpvXcd0WJBQnTRhXn2Os6cLHviOYjN39UTNY7CUMeYw9AxS0LuUkunn9JpEy5jB+YhhP+
+ hC1xQkY363CK3KAVDHYe9xEq3qojUEnMQJIErELCEv926qQjb1EIM2VmvDqHpvO+t9XfSwT2k74
+ dus8vZ/jRSATf+KI13HQqktH7X2KBmrNzLszlYFU8oJokcEZQFRTEJLCMRQxQkyOowVxHqtfNKL
+ xrfiVeXi3+iL4GmXnaxsKQ695MaYPl3yCJxwQzaSi32bTnTxsdNVa7wUvyPOxQR5nltu8bPFFke
+ Grz11XZIKwgqf7UUQJVbyz5sM5lNUaIaOFz+VG2hMHCldiAACFcZAPpuocZAJmo7cupEJ82XI1W
+ lebrUjy9rbcg8JBdOs9u0SvwdUKOFrMQ48iCLcmtxNCJf1MMBCETiVn9oJaXXjxpzBb/g4FA8SV
+ 2W8o5SdvxCoTK9BWKkA==
+X-Authority-Analysis: v=2.4 cv=M7197Sws c=1 sm=1 tr=0 ts=6a69e5f4 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=Kz8-B0t5AAAA:8 a=9bdzyRqNf_OfPh25cPwA:9 a=CjuIK1q_8ugA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=RuZk68QooNbwfxovefhk:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_04,2026-07-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607290096
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,116 +157,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 28, 2026 at 04:12:53PM +0100, Liviu Dudau wrote:
-> On Mon, Jul 20, 2026 at 03:44:35PM +0200, Osama Abdelkader wrote:
-> > panthor_init_cs_iface() and panthor_init_csg_iface() validate firmware
-> > control interface offsets with 32-bit arithmetic and the size of the host
-> > wrapper structures. The offsets are derived from firmware-provided strides,
-> > so the arithmetic can wrap before the bounds check, and the host wrapper
-> > size is not the size of the firmware control interface being mapped.
+On Wed, Jul 29, 2026 at 08:37:42AM +0200, Krzysztof Kozlowski wrote:
+> On Wed, Jul 29, 2026 at 08:18:58AM +0200, Krzysztof Kozlowski wrote:
+> > On 28/07/2026 13:09, mohit.dsor@oss.qualcomm.com wrote:
+> > > From: Sunyun Yang <syyang@lontium.com>
+> > > 
+> > > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
+> > > mipi dsi and output hdmi, differences in hardware features:
+> > > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
+> > > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
+> > > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
+> > > 
+> > > Signed-off-by: Sunyun Yang <syyang@lontium.com>
+> > > Signed-off-by: Mohit Dsor <mdsor@oss.qualcomm.com>
+> > > ---
+> > 
+> > NAK. You received review. Sending the same is wasting our time.
 > 
-> How can the offsets wrap with the firmware-provided strides? It's not like
-> the firmware provides arbitrarily large strides.
->
+> Actually you ignored TWO independent reviews, so I will not waste time
+> on this patchset anymore.
+1.
+>> So you need "if:then:" block disallowing port@1.
+>Ok, need to add in driver code? Will add this in v8.
+ 
+Sorry, I missed adding this in the bindings. I assumed a driver-side check would be sufficient, so I added the following validation in the driver:
++       if (lt9611c->dsi1_node && lt9611c->chip_type == CHIP_LT9611C) {
++               of_node_put(lt9611c->dsi1_node);
++               of_node_put(lt9611c->dsi0_node);
++               return dev_err_probe(dev, -EINVAL,
++                                    "LT9611C does not support dual DSI\n");
++       }
+ 
+ 
+If I understand your suggestion correctly, it would be preferable to enforce this constraint in the DT bindings as well.
+let me know if this is correct approach for DT bindings:
+ 
+--- a/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt9611.yaml
+@@ -82,6 +82,16 @@ required:
+allOf:
+   - $ref: /schemas/sound/dai-common.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: lontium,lt9611c
++    then:
++      properties:
++        ports:
++          properties:
++            port@1: false
 
-Thanks for the review. Yes, It's unlikely to happen but good to have,
-these patches actually address issues reported by sashiko while reviewing
-the first two patches regarding firmware sections with oversized data and
-truncated firmware.
-
-> > 
-> > Use 64-bit arithmetic for the computed offsets and validate against the
-> > actual firmware control interface structure sizes with subtraction-based
-> > bounds checks. Also validate that the shared section is large enough for
-> > the global control interface before using it.
-> > 
-> > Fixes: 2718d91816ee ("drm/panthor: Add the FW logical block")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_fw.c | 18 +++++++++++++-----
-> >  1 file changed, 13 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-> > index eee2bc7e8541..e2fcbd639c3c 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_fw.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> > @@ -897,15 +897,16 @@ static int panthor_init_cs_iface(struct panthor_device *ptdev,
-> >  	struct panthor_fw_csg_iface *csg_iface = panthor_fw_get_csg_iface(ptdev, csg_idx);
-> >  	struct panthor_fw_cs_iface *cs_iface = &ptdev->fw->iface.streams[csg_idx][cs_idx];
-> >  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> > -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> > -			   (csg_idx * glb_iface->control->group_stride) +
-> > +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> > +			   ((u64)csg_idx * glb_iface->control->group_stride) +
-> >  			   CSF_STREAM_CONTROL_OFFSET +
-> > -			   (cs_idx * csg_iface->control->stream_stride);
-> > +			   ((u64)cs_idx * csg_iface->control->stream_stride);
-> >  	struct panthor_fw_cs_iface *first_cs_iface =
-> >  		panthor_fw_get_cs_iface(ptdev, 0, 0);
-> >  
-> > -	if (iface_offset + sizeof(*cs_iface) >= shared_section_sz)
-> > +	if (iface_offset > shared_section_sz ||
-> > +	    sizeof(*cs_iface->control) > shared_section_sz - iface_offset)
-> >  		return -EINVAL;
-> >  
-> >  	spin_lock_init(&cs_iface->lock);
-> >  	cs_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> > @@ -955,11 +956,13 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
-> >  	struct panthor_fw_global_iface *glb_iface = panthor_fw_get_glb_iface(ptdev);
-> >  	struct panthor_fw_csg_iface *csg_iface = &ptdev->fw->iface.groups[csg_idx];
-> >  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> > -	u32 iface_offset = CSF_GROUP_CONTROL_OFFSET + (csg_idx * glb_iface->control->group_stride);
-> > +	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
-> > +			   ((u64)csg_idx * glb_iface->control->group_stride);
-> >  	unsigned int i;
-> >  
-> > -	if (iface_offset + sizeof(*csg_iface) >= shared_section_sz)
-> > +	if (iface_offset > shared_section_sz ||
-> > +	    sizeof(*csg_iface->control) > shared_section_sz - iface_offset)
-> >  		return -EINVAL;
-> >  
-> >  	spin_lock_init(&csg_iface->lock);
-> >  	csg_iface->control = ptdev->fw->shared_section->mem->kmap + iface_offset;
-> > @@ -1011,12 +1014,16 @@ static u32 panthor_get_instr_features(struct panthor_device *ptdev)
-> >  static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
-> >  {
-> >  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
-> > +	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-> >  	unsigned int i;
-> >  
-> >  	if (!ptdev->fw->shared_section->mem->kmap)
-> >  		return -EINVAL;
-> >  
-> > +	if (sizeof(*glb_iface->control) > shared_section_sz)
-> > +		return -EINVAL;
-> > +
-> >  	spin_lock_init(&glb_iface->lock);
-> >  	glb_iface->control = ptdev->fw->shared_section->mem->kmap;
-> >  
-> >  	if (!glb_iface->control->version) {
-> > -- 
-> > 2.43.0
-> > 
-> 
-> I'm OK with the general content of the patch, so:
-> 
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+2. These are some odd characters here. I guess this was in earlier versions
+as well....
+I am sorry for this, I missed it. I will correct it in v9.
 > 
 > Best regards,
-> Liviu
+> Krzysztof
 > 
-> 
-> -- 
-> ====================
-> | I would like to |
-> | fix the world,  |
-> | but they're not |
-> | giving me the   |
->  \ source code!  /
->   ---------------
->     ¯\_(ツ)_/¯
-
-Thank you.
-Best regards,
-Osama
