@@ -4,102 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBA01C54F51
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29844C53200
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 10:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFA2710EB71;
-	Wed, 29 Jul 2026 10:41:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A74C10EB8A;
+	Wed, 29 Jul 2026 10:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dPAshUBs";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="U5FprOVU";
 	dkim-atps=neutral
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B959810EB71
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:40:59 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id
- 4fb4d7f45d1cf-69ffbd2a277so1212890a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 03:40:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785321658; x=1785926458; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=vFsiSXVzFdxW/ZniSNP4YKGbRVTSiHE8ZZ1h1zgY8AQ=;
- b=dPAshUBsUWDZ7hrdLHiTXFbphwv4w9C2LweDSC8sACkWCA/0t59qrNTAh2wGvUoHQV
- 4izCpupyW+3unYvTSbZe1OTUz987BWeehuT95hRRZGVe6FsyH/kL3sdmiMjEj4txVLlP
- Gj31q1FDpb9n6VBO2B2Q3JcTOX5xJJDUUYXaKSs1pSBYIwyIERH7KVgKB2R9LUum1yN8
- i0n6EGLRajhFp+dKgA2sbDns3ZDIjUIVkkqPRG+xnSxbIIdp4GlJRLAd30I31p0wWAaB
- 2YuLU/MMwwIvRPh94XQlICW2wQZsoermoh4IFFZinQl7+mrH9dSF93WxYgmflgrNxIRl
- 40DQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785321658; x=1785926458;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=vFsiSXVzFdxW/ZniSNP4YKGbRVTSiHE8ZZ1h1zgY8AQ=;
- b=fNx4QlP3Hlt7mX8phbHejQM/iTqk9DMOnXsxkCH1Re3akVLimcYskSbSdzOY68JpZ7
- 8NWNA5f4Y6iBJwy0agd+6SSH/nMyE5QF99FJRcTLDHkWMPfp8IKE8xJ9gCHEcBIZKVu0
- hlCQf6xx+IsnQCxRrd6l1dTVgKPsMMYPbYlmzrj18PNXbOuhY6i7NLZ3lUIpFzJHv3uZ
- yJAvfb3kMz/zIWeIy1XtLa3SGdTbayS5+LldFpBCsiv9M3n6uAoyW5pMEmjZ/hPu9MGQ
- Fl/BYAxwq6ct1n1q7pHCTsuP7HEA2nrqf/RTt02pYBoVFx/0m/1PSt1nEcqvg+onMnEJ
- XnCw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpwSwLlpAcAr1cDvhFEkmgCyZwZ8FcHhLCWikEqVy3fxQ72dF7d6B3MbOtcS0gV8ndUH8NsSYozxAY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywho35mU5rwX9740UXHQN0vAq9Ba2cyJnaWX6wTR7qO2j65ZV6e
- IPn1g6k3zAM2hjyjE4JOyrpguLNjGhP79Ju2xJpl72amDCoO+NdtSbC3
-X-Gm-Gg: AR+sD12N06GA6zwWi7lNAjc6QqJsPCPsitE5qVoXnMVRC6BFApUw7TAM3WAhMQrDSZn
- vibTmFDlY3FIJ1JfXc2VA8vh8tps0eyfYkqU4JjJS9hs2P+35BY1XaVa+vfk01jSMfGpSRWgibf
- bmU9xztQgwqQHo2gkJ2ka3s9rseoFC+0yWpTfWE5sD9ehK8P4rj+oAdhpr7/icao0gJsmG7mTT7
- DuOzY9bUEIj/67AYsG2z6h9T9xV8CrSfGIlP0oN69BdyWRESpy6oVNctDMIr+YVx0Wstn3plBsC
- 77OhCLEX0h+YkXufs6Yv/duoS/CC8n/FkwyyQ9e6BbfAryJzEj6Pnic5Fw+Ee1BHYePfl2thLYP
- lskmPPobEbTJ5u9rLvhO1lADfiT9VWt11/AqgmDJMbFFlod/oVWtQdHD0xc/eU/r2dRRnjSg0Hy
- VSskhTo1OTo9DREaUfVZhFXDv+9czISpKaH1hYDN7weFKcHQaaGhZk+mB1ObcX0PFj4c5LwOj2s
- Pby7YarS/cl4HFzf33qGuDX8BOJfmeYHY/+Fh3hreyMG9ukjtU7a3M54x0IsTWCOmMFBi6k2h27
- rPQl3/Vp/RwKCDjFtrc=
-X-Received: by 2002:a05:6402:548e:b0:69a:596f:ba0d with SMTP id
- 4fb4d7f45d1cf-6a034a7f6camr3086746a12.33.1785321658080; 
- Wed, 29 Jul 2026 03:40:58 -0700 (PDT)
-Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
- ([2620:10d:c092:600::1:640]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a050c5cf0bsm661299a12.23.2026.07.29.03.40.56
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2026 03:40:57 -0700 (PDT)
-Message-ID: <7217c204-786f-4fb1-9c09-fc1ac7c8a249@gmail.com>
-Date: Wed, 29 Jul 2026 11:40:48 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2626110EB8A
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 10:41:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 32E86600B1;
+ Wed, 29 Jul 2026 10:41:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EF991F000E9;
+ Wed, 29 Jul 2026 10:41:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1785321703;
+ bh=m/tVY747qQcUbCWoM+r9JhmavpQYiLXvZynECqzDeco=;
+ h=Subject:To:Cc:From:Date;
+ b=U5FprOVUlnP1TM3/fXxzl5Iu/4Vur+YDLVHuTSa9mUH3nWOER9fwzc/+3D41BQlXi
+ Kxy+JoVuyKKCeoHLbBBL6tV/Sj+PfkBoxJ4P7wQUB5i5f+xordCPExF1xkzRVoZCWA
+ 5Qf5sT5ONFUh+amp+4W2aw7ii1Rv56FSmUAoj5rc=
+Subject: Patch "drm/exynos: fbdev: Remove offset into screen_buffer" has been
+ added to the 7.1-stable tree
+To: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ inki.dae@samsung.com, linux-arm-kernel@lists.infradead.org,
+ m.szyprowski@samsung.com, tzimmermann@suse.de
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 29 Jul 2026 12:39:59 +0200
+Message-ID: <2026072959-cosmic-putt-d5cd@gregkh>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/14] iov_iter: add iterator type for dmabuf maps
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org
-References: <cover.1785274111.git.asml.silence@gmail.com>
- <132442812a40277a5904cb2a8ca1e02f4f6e82a2.1785274111.git.asml.silence@gmail.com>
- <20260729065953.GB9534@lst.de>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260729065953.GB9534@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,31 +56,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/29/26 07:59, Christoph Hellwig wrote:
-> On Tue, Jul 28, 2026 at 10:29:14PM +0100, Pavel Begunkov wrote:
->> Introduce a new iterator type for dmabuf maps. The map in an opaque
->> object with internals and format specific to the subsystem / driver, and
->> only it can use that subsystem / driver for issuing IO. The task of the
->> middle layers is to pass the map / iterator further down, maybe doing
->> basic splitting and length checking. The iterator can only be used by
->> operations of the file the associated map was created for.
->>
->> Suggested-by: Keith Busch <kbusch@kernel.org>
->> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
-> 
-> Looks good:
-> 
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-Thanks,
+This is a note to let you know that I've just added the patch titled
 
-> I'm also pretty sure I reviewed this and vairous other patches
-> before..
+    drm/exynos: fbdev: Remove offset into screen_buffer
 
-There was a lot of shuffling, so I dropped the tag after a 10th
-amendment to the patch as I didn't know whether you want to keep it.
-I'll keep it all for v5 unless anything conceptual changes.
+to the 7.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
--- 
-Pavel Begunkov
+The filename of the patch is:
+     drm-exynos-fbdev-remove-offset-into-screen_buffer.patch
+and it can be found in the queue-7.1 subdirectory.
 
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+From 760bbc58c2c833dec0ee38dd959f4f2f4084fc57 Mon Sep 17 00:00:00 2001
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Date: Mon, 11 May 2026 13:54:31 +0200
+Subject: drm/exynos: fbdev: Remove offset into screen_buffer
+
+From: Thomas Zimmermann <tzimmermann@suse.de>
+
+commit 760bbc58c2c833dec0ee38dd959f4f2f4084fc57 upstream.
+
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 19c8b8343d9c ("drm/exynos: fixed overlay data updating.")
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Inki Dae <inki.dae@samsung.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.2+
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c |    6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
+
+--- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+@@ -61,17 +61,13 @@ static int exynos_drm_fbdev_update(struc
+ 	struct fb_info *fbi = helper->info;
+ 	struct drm_framebuffer *fb = helper->fb;
+ 	unsigned int size = fb->width * fb->height * fb->format->cpp[0];
+-	unsigned long offset;
+ 
+ 	fbi->fbops = &exynos_drm_fb_ops;
+ 
+ 	drm_fb_helper_fill_info(fbi, helper, sizes);
+ 
+-	offset = fbi->var.xoffset * fb->format->cpp[0];
+-	offset += fbi->var.yoffset * fb->pitches[0];
+-
+ 	fbi->flags |= FBINFO_VIRTFB;
+-	fbi->screen_buffer = exynos_gem->kvaddr + offset;
++	fbi->screen_buffer = exynos_gem->kvaddr;
+ 	fbi->screen_size = size;
+ 	fbi->fix.smem_len = size;
+ 
+
+
+Patches currently in stable-queue which might be from tzimmermann@suse.de are
+
+queue-7.1/drm-tests-shmem-set-dma-mask-to-64-bit-in-drm_gem_sh.patch
+queue-7.1/drm-exynos-fbdev-remove-offset-into-screen_buffer.patch
+queue-7.1/drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
