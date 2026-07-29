@@ -4,78 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B300C53200
-	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 13:08:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDCA5C54F51
+	for <dri-devel@archiver.kernel.org>; Wed, 29 Jul 2026 13:09:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4E6210EC14;
-	Wed, 29 Jul 2026 13:08:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3291610EC19;
+	Wed, 29 Jul 2026 13:09:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KAZeFytB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Wk9ewKd9";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 941BB10EC14
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 13:08:03 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4954b3c5cbeso504925e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:08:03 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78ECB10EC16
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 13:09:08 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4955aa106b1so9240915e9.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 06:09:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785330482; x=1785935282; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Q/pbacYlJpkDaCE9RbWRQcg2zDk1XOgU/3Z2HS4A2NQ=;
- b=KAZeFytB+f/Hn8wx7CLHweV0z6IND4UBmYeiaZNKAhJI29hHYG3PIEYmSEGJcqud4W
- 4Zt61CUY+cNxpxGheNdsz36JcPLNLPdjrxTLW40EC/nFKxKfZbIaLMYbrRFOXr2uYTca
- icVRtuj5Fr/TEnJn3Zc51YIzE85VHqQnRLMc37d8wQB14sta9URRZf5RaPjyZg/2dpvf
- bSaWFpiDKuEKLPHyms7HgLl7QPQt/iNzdCalbg5a5kMeYv6bqgygznKlciWPughqOdG1
- q+nUXWiA+QRJE8ez6GVA9S25B1SiCqlG/XJYSjSwbL+8Xh9CgC+oD70g+ycWn0SCB7MQ
- 7g4A==
+ d=gmail.com; s=20251104; t=1785330547; x=1785935347; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=YUW97RbS/cuxZAvn9F7FgEb6B/w45ofSr5IJCTvWkgY=;
+ b=Wk9ewKd9UxxNmeQQDJDr1uMvMZAPc99E3Y0YKEyLYU432WiXsmjATGCyTrAeoZxw6p
+ I4saD9KHX6gjo6h3/w6waXFfqoJmGgjzdfpB+aVXszcDiiCphrrDM19tUAyF8XIyBo2c
+ jHmvPJp8m/uNLrEVCUWzt+J1xXjIlM9H7f3gJOrimwwVNTDNF5b30P7cG5TjW6UUQt9X
+ VK2aT3eVliB9M3mxRTEx8yy7puoFmkWwYdcbcV685LxoE6QppfdNMTykT5EbLhiwXg5l
+ InPUiKHbDHkoKiJhzNw00/jkZBCb8zNvRpH1A7yjrt8kYbuAB9xY7nevJR1ydSmJcD4i
+ ECGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785330482; x=1785935282;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1785330547; x=1785935347;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Q/pbacYlJpkDaCE9RbWRQcg2zDk1XOgU/3Z2HS4A2NQ=;
- b=AkCAjXSD2LpXW4gTIyNbzd6F4XRrMXHkKnRZiE7uR+kXyd1sJ+CFZKiY9lJEZxSA4/
- p//7tRpFlY3c++/U+w0u/irhZ4MRkgz51WhiIm+AceveMYevuehA8kk3ykLFa7X4IQan
- 8lYtuwr76cfserT+cxJIqGxMnnvRYABXuRmBZasBicryF/uAdXhVCSZLn1ACiwMFf4K3
- Y4NcjikjyomI0GVqkmzPlp3U1m60Fpa5LfiHCRGzQFK3tGl6zWwdFrZLLueT00kfRbr4
- 9pKGG8TW+Ae911mCCtzE8tXDhW/acc3cr3YVCNYe4dqLgGyz8IliG5dfAoEpSMT3BUkF
- ZYUQ==
+ bh=YUW97RbS/cuxZAvn9F7FgEb6B/w45ofSr5IJCTvWkgY=;
+ b=m/iMxnZowsugId05MyuGY+z4DnF2uP8v5Esti/8z+vijt/c8zo/IOcmX2iSvriceMk
+ XhR7Oe6luF+fe1fkkll8ykr0kQmj76wVbxMhquprWHW0Ajq4ATvG96oA1o9jvLuVBeV5
+ Umw6g2AUKQklAaahLXdxU/gvf4nTNC+tpbId6czYIpFKcd4dAu9lKHVw8fDsf19+PthM
+ UhmlSM7xN/z2uXdRbYK9P+fUYMh1142v+7wwZlmDdCG8S7Xj0iA9l+X3M4l8bRWQeXvf
+ juBNU7SGVfnmGVti4jdKm9aeLgscjm9F+HHSiCxD0+CR1oeWRBj9Tqc082C6y+H0xxQz
+ 2xeA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrxB+flK9EPqszlwhUZKZ4v6Ex15eQo7l4tC0AMI5jZwVfY0o1+owK19jEF/2feOBMal97CfSTwBT0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWBEkHRKepdvPlKKhJOrifO89Wt7pTtq4zQB+dWpBpM5py7cG7
- 3NllAwuTrIbUl0hUNO2NgjWz3LDGzQ8DliVBS7/I4+bWfbbdgZ0z4Qvc
-X-Gm-Gg: AR+sD10etNBKhAsm6kXgpmOZ8GMhnm1he2pt0zhRqOQMjlo0L9ssoL+qj/uwJJv2MVJ
- TkfIGVjJnrdKCUCvIcmRjl+0GDOwBZinwm3kcnTnj5tcNGD4llQgupovxa6eCPCeJuAbuUSCGZu
- wEXnvRFi7jJfWFO9UWK09K+dp54OoVvxfSipEitxfo4RRd8876Fg0d9UY+ADW6/IWzxgsP7KWUh
- qeuA8EekiKtcrBPMehWci4rrXPjOi8iudCIBkpDc4BXZVIIWwxs8fjpK1vz1QQjl6PRs5puWWAZ
- e8+DiOHG56ZANmLQe9cF6AKjsIEnFoinH8qJwEKli0VxwqNHkxGuuKem12nO7jETouqGNIpGvUb
- x+I3MPLOJF40i51yza/pW1xisN5kPKBTAJZgs2fdMjxiionewCdWM3ULqtC/et5ZbYvjIrmLAat
- 7k85nvOBkhcO12avTfGLGjGibBeLwUrYVwgvLWWh8MOSt/Qe9pIAtgnXCk0In8vr2KZHdGrB66Y
- Du6RtyNL0HVq+h0do33L+mwWpCnlePjzTSlRm7iiWMVXy3Hmghn+WHkdzHTSg4rK0nQDg==
-X-Received: by 2002:a05:600c:4583:b0:493:f42e:1b3f with SMTP id
- 5b1f17b1804b1-496c6571e01mr50134555e9.3.1785330481530; 
- Wed, 29 Jul 2026 06:08:01 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B886F0027B74C8463513DA4.dsl.pool.telekom.hu.
- [2001:4c4e:1b88:6f00:27b7:4c84:6351:3da4])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-497fecfccc7sm37571645e9.12.2026.07.29.06.08.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2026 06:08:01 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- Jiaxing Hu <gahing@gahingwoo.com>, Heiko Stuebner <heiko@sntech.de>,
- Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2] accel/rocket: request the core clocks by name
-Date: Wed, 29 Jul 2026 15:07:43 +0200
-Message-ID: <20260729130743.128876-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ AHgh+Ro78kfOSwZOPeYuVW/t++4F0rkdSWZa4oAf2zN/LFVmGnQoMC711fpo/mrvS5Sl0oIemehsMaIFYpY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8hmlhUdjXdG7iMqCGaBw9Mb1UYpG5n8trpYziwuOU7R/iVrQu
+ AVLrCouNfJqoiPClZvSwU846HU7s03W7DBWrN45ZDkY4Qm4H/9eY3EYS
+X-Gm-Gg: AR+sD12JmwNxQt0jLZdtDE2E3hyo7BRu1kmVCWp9rnD0VjIsQbYTHquXOCyxCFefXhm
+ BHiKFl19vOeXYL6OE60oH3PHJHlIkDtndY4B0nZYKNgNXaJlKxExsMxkyiLvjCL24PVryadOhmA
+ nngru2sWRAPoGudRJdMyuWHznqrYH1HVpulHpgxzjIb53sL8kTxbgQBqKqPxSOjTyR/7hai/fV5
+ HdDCQKVkBXTqFUQRSKWym7WvBjhf3jW77cxEQS9DBAzXjG4uBJNm2zW8wSsfDpV1uLwVPVmigpD
+ cqKg/qTpNU/WMv5nzMupVsH74iyUyM1txeBhiHecAsAQuzVlai4vBy2k+3oigkJJoDNTZU2B0gz
+ oSEnGqzpuFe7Ez8LFNNjS75ZTG8en8te2NBh/9RUTzGRRd207ReA5ZiLOw06dCt7AOJZ8kNi9oi
+ +7gdd2+ssgTwd36t3qWXe16WQW8KbOsfMLBHU918o8lUrM791P1rBzA/VTce9RBN4W+64SWIBIt
+ 1T1EcCBpUrYy547FY6HCtUFm6H+fCyG9lky4RdX1Lu1RF2HBZgAltmnbwT+97IMxEyuQbZvj3EX
+ CkN89l6w4Gb5+yVaRAY=
+X-Received: by 2002:a05:600c:348c:b0:495:4fd4:f7b6 with SMTP id
+ 5b1f17b1804b1-496c659f7e1mr79358045e9.37.1785330546620; 
+ Wed, 29 Jul 2026 06:09:06 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
+ ([2620:10d:c092:600::1:640]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49764d70014sm93438595e9.3.2026.07.29.06.08.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jul 2026 06:09:05 -0700 (PDT)
+Message-ID: <8160ce17-6f14-4946-9146-3d261e8398d3@gmail.com>
+Date: Wed, 29 Jul 2026 14:08:50 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/14] nvme-pci: add SGL support for the dmabuf path
+To: Christoph Hellwig <hch@lst.de>
+Cc: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>, Jens Axboe
+ <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org, cpgs@samsung.com
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <5c2e9c3bdd3e87c0c9a6e4395ea199002b83fd36.1785274111.git.asml.silence@gmail.com>
+ <CGME20260729072126epcas5p3ad4422a45f1274b71f15dec8bf487fcc@epcas5p3.samsung.com>
+ <20260729072117.GI9534@lst.de>
+ <81412691.21785320403945.JavaMail.epsvc@epcpadp1new>
+ <20260729113108.GA31120@lst.de>
+ <b03bba6f-0a8f-41fc-af59-2a69d271f28b@gmail.com>
+ <20260729115540.GA32573@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260729115540.GA32573@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,90 +121,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-setting the .id members. The rocket_core array is allocated with
-devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-.rdev, .dev and .index, so all four clk_bulk_data entries are requested
-with a NULL con_id (unlike core->resets, whose ids are set a few lines
-above).
+On 7/29/26 12:55, Christoph Hellwig wrote:
+> On Wed, Jul 29, 2026 at 12:45:47PM +0100, Pavel Begunkov wrote:
+>> It was exposed in early version as I was passing a [{dma,len}, ...]
+>> array, but we moved from that. Maybe I should put the minimum
+>> segment size in the map structure, and (possibly over) split using
+>> that for now? Keith had this chunk in his patches:
+>>
+>> +		int offset = offset_in_page(bio->bi_iter.bi_bvec_done);
+>> +
+>> +		nsegs = ALIGN(bio->bi_iter.bi_size + offset, PAGE_SIZE) >>
+>> +								PAGE_SHIFT;
+>> +		if (bio->bi_iter.bi_size > max_bytes) {
+>> +			bytes = max_bytes;
+>> +			nsegs = (bytes + offset) >> PAGE_SHIFT;
+>> +		} else if (nsegs > lim->max_segments) {
+>> +			nsegs = lim->max_segments;
+>> +			bytes = PAGE_SIZE * nsegs - offset;
+>> +		} else {
+>> +			*segs = nsegs;
+>> +			return NULL;
+>> +		}
+> 
+> This seems very pessimistic, especially for the case of the registration
+> only having a single segment, which I'd expect to be fairly common due
+> to P2P bar mappings, huge pages or IOMMU coalescing.  So at very least
 
-clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-of_parse_clkspec() only consults "clock-names" when a name was passed,
-so the index stays 0 for all four entries. Every entry therefore ends up
-holding a handle to the *first* clock of the DT "clocks" property, i.e.
-ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-four different clocks.
+Agree that PAGE_SIZE is too pessimistic, but I'd calculate it from
+the sg table on registration and use here. Not ideal but should cover
+most common cases like huge pages.
 
-The consequence is that rocket_device_runtime_resume() prepares and
-enables the AXI clock four times, while hclk, pclk and - most
-importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
-never prepared or enabled by this driver at all. The NPU still works
-only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
-its attach_dev() callback walks the device node with of_clk_get() and
-adds every clock to the pm_clk list, so genpd happens to keep the
-remaining clocks running. The bug is therefore latent today, but it
-means the driver holds no reference to the clock that actually feeds the
-NPU, which stands in the way of any future frequency scaling
-(OPP/devfreq) work.
+> we'd want to special case that, but in an idea world the caller would
+> be required to provide a useful nr_segments for the I/O.
 
-Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
-two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-"fdab0000.npu" consumer at all - their only consumers are the
-"npu@fdab0000" handles created by the power-domain driver via
-of_clk_get().
+Not sure we can do it in the straightforward way from the abstraction
+perspective, mapping are hidden from io_uring, and there could be
+multi-device files with differently shaped IOMMU mappings at some
+point. We'll surely need readv/writev support later, so maybe we can
+improve while doing that as it'd mean passing a {off,len} of some
+sort from io_uring.
 
-Set the ids explicitly, in the order mandated by the binding
-(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-aclk, hclk, npu, pclk. After the change the driver holds one handle per
-distinct clock and clk_bulk_prepare_enable() covers all four.
+-- 
+Pavel Begunkov
 
-Note that this is a user-visible tightening for out-of-tree DTs: the
-old NULL-id requests resolved by index and succeeded no matter what
-"clock-names" contained, while the named requests fail probe with
--ENOENT when one of the four names is missing. That is the right
-outcome for in-tree users - the binding requires exactly these four
-clock-names and rk3588-base.dtsi carries them on all three cores - but
-a DT that relied on the permissive lookup goes from silently running on
-the wrong clock handles to not probing at all, so record the change
-here where git log will find it.
-
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
----
-v2:
- - document that resolving by name is a behaviour change for DTs that
-   do not carry all four clock-names (Jiaxing Hu)
- - collect Jiaxing's Reviewed-by
-v1: https://lore.kernel.org/linux-rockchip/20260729092939.118779-1-royalnet026@gmail.com/
-
-The same four id assignments are board-tested on RK3576 (ROCK 4D) as
-part of Jiaxing's RK3576 enablement series (v2 6/8), so the change has
-been exercised on two SoCs between us.
-
-Verified on RK3588 (Orange Pi 5 Plus): after the change clk_summary
-shows one consumer handle per clock instead of four handles on aclk, the
-NPU still powers up and down cleanly through runtime PM, and a
-MobileNetV1 inference run via the Teflon TFLite delegate produces
-bit-identical output tensors to the unpatched driver.
-
- drivers/accel/rocket/rocket_core.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index b3b2fa9..5dd260b 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
-
-+	core->clks[0].id = "aclk";
-+	core->clks[1].id = "hclk";
-+	core->clks[2].id = "npu";
-+	core->clks[3].id = "pclk";
- 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
