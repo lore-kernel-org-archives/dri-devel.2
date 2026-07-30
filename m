@@ -4,53 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D229C5516D
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:47:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA23CC5516D
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:54:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0245E10F08D;
-	Thu, 30 Jul 2026 20:47:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1F87010F092;
+	Thu, 30 Jul 2026 20:54:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.b="zjXHXN6T";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bkLph6VO";
 	dkim-atps=neutral
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A32C310F08B
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:47:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=TY0IrMd0BC7glBD9LmPPRPksKcbqLLy1R8rWMvMhY3s=; b=zjXHXN6T9IIYrzafBdCljZ0rLr
- u84tNPG6iIDJur/mLvwyU0WBAYrfGIuWjrdfD77QcaWHRnh2usgGs17HwYpsHlZAzCmHWsmAvLcnx
- rQ1iu3TS6giWCcqDhuJxKkvw6V8PhGeCOJGEw/cfLaaiUbMF5bnVuZq+3t6iUEpVh/+0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1wpXeb-00F3qd-3F; Thu, 30 Jul 2026 22:46:57 +0200
-Date: Thu, 30 Jul 2026 22:46:57 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: mhklinux@outlook.com
-Cc: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
- decui@microsoft.com, longli@microsoft.com, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
- hpa@zytor.com, daniel.lezcano@kernel.org,
- ssengar@linux.microsoft.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- James.Bottomley@hansenpartnership.com, martin.petersen@oracle.com,
- sgarzare@redhat.com, horms@kernel.org, x86@kernel.org,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
- linux-scsi@vger.kernel.org, virtualization@lists.linux.dev
-Subject: Re: [RESEND PATCH net-next 2/6] hv_sock: Remove check for old
- Hyper-V hosts
-Message-ID: <04e5274c-b44c-4b59-998c-1af2f58883c1@lunn.ch>
-References: <20260730201123.1767-1-mhklinux@outlook.com>
- <20260730201123.1767-3-mhklinux@outlook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260730201123.1767-3-mhklinux@outlook.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FA2B88784
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:54:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0618D40BEB;
+ Thu, 30 Jul 2026 20:54:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B18681F000E9;
+ Thu, 30 Jul 2026 20:54:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785444857;
+ bh=oWB7mLhQs5qDRgc87F/Xb8jYRpPDWbWiKuDCJdjV45o=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=bkLph6VO8ZFO4LGgVtpICFe9bwO49EQ7L33/h+DnHTC/yrJHyN/Y4riFwNpCsyJVh
+ 3HFmGTVdkw3zF0+i697UDv1Y16Bw6uYIrOb64V4Xr0WXOQpAGnbFv849Vx0xUS0nAL
+ TkOdoWI3aaSvKqxv66mNiknBTlg48MCbIXsXzSVTuYZp8uECh5KR0JlmQlHpGFMmRf
+ WaCZSmsMK5+BnyCETIzTk0D0IEGFWPuSwTHkFSIa8jX/Hu5PKBSfnlYDn0hSHnRVqP
+ MLNSbLwPRrZROgJImNH8tU/VhzMZnGrbYUFnWAqYmCaB2qrmdSm81x1+1lj9TKHp1c
+ lSDmOTkfS0+wg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/5] drm/nouveau: Fix drm_driver
+ struct/nouveau.atomic parameter handling
+To: "Lyude Paul" <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260730203723.1649433-4-lyude@redhat.com>
+References: <20260730203723.1649433-1-lyude@redhat.com>
+ <20260730203723.1649433-4-lyude@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 20:54:17 +0000
+Message-Id: <20260730205417.B18681F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,22 +54,84 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 01:11:19PM -0700, Michael Kelley wrote:
-> With the overall removal of Linux support for running on Hyper-V
-> hosts earlier than WS2016 and Windows 10, the check for such versions
-> during hv_sock initialization is no longer necessary. Remove the
-> check.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Embedding `drm_driver` in `struct nouveau_drm` introduces an explo=
+itable Use-After-Free vulnerability when the device is unplugged or unbound=
+ while userspace holds open file descriptors.
+--
 
-https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+--- Patch [3]: [PATCH v4 3/5] drm/nouveau: Fix drm_driver struct/nouveau.at=
+omic parameter handling ---
+commit 6aa4a539bc58f0cd546203fa854c1edf2120c1be
+Author: Lyude Paul <lyude@redhat.com>
 
-Please don't send new versions of a patchset within 24 hours. You need
-to give reviewers time to review your patches. And if there is
-discussion, please wait for it to reach a conclusion.
+drm/nouveau: Fix drm_driver struct/nouveau.atomic parameter handling
 
-    Andrew
+This commit moves the drm_driver struct from a static global variable
+into the dynamically allocated nouveau_drm structure. It also handles
+conditionally enabling atomic modesetting per-device.
 
----
-pw-bot: cr
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouv=
+eau/nouveau_drv.h
+> --- a/drivers/gpu/drm/nouveau/nouveau_drv.h
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
+> @@ -216,6 +216,7 @@ struct nouveau_drm {
+> =20
+>  	struct nouveau_cli client;
+>  	struct drm_device *dev;
+> +	struct drm_driver drm_driver;
+> =20
+>  	struct list_head clients;
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
+eau/nouveau_drm.c
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+[ ... ]
+> @@ -744,12 +741,14 @@ nouveau_drm_device_new(const struct drm_driver *drm=
+_driver, struct device *paren
+>  	if (!drm)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+> +	drm->drm_driver =3D driver_stub;
+>  	drm->nvkm =3D device;
+> =20
+> -	drm->dev =3D drm_dev_alloc(drm_driver, parent);
+> +	drm->dev =3D drm_dev_alloc(&drm->drm_driver, parent);
+
+[Severity: High]
+Does embedding drm_driver inside nouveau_drm create a use-after-free
+risk if the device is unplugged or unbound while userspace holds an open
+file descriptor?
+
+If a user opens the DRM device node, the open file descriptor holds a
+reference to the drm_device. If the device is then hot-unplugged or
+unbound via sysfs, nouveau_drm_device_del() will unconditionally free
+the nouveau_drm struct:
+
+nouveau_drm_device_del()
+    ...
+    kfree(drm);
+
+However, the drm_device remains alive due to the file descriptor's
+reference. When the user later closes the file descriptor, the DRM core
+will dereference the dangling dev->driver pointer:
+
+drm_file_free()
+    ...
+    if (dev->driver->postclose)
+        dev->driver->postclose(dev, file);
+
+Could this lead to memory corruption since the drm_driver struct was
+already freed?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730203723.1649=
+433-1-lyude@redhat.com?part=3D3
