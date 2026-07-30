@@ -4,63 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0407C55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:18:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 926C2C54FD2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:23:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57C7E10EE49;
-	Thu, 30 Jul 2026 09:18:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 44CDD10E12F;
+	Thu, 30 Jul 2026 09:23:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FaMBTnU4";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BDVaQA4r";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD1BF10E0F4;
- Thu, 30 Jul 2026 09:18:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785403122; x=1816939122;
- h=message-id:date:mime-version:from:to:cc:subject:
- content-transfer-encoding;
- bh=8zJ2ODH7/MclepUEYWefXl8XJmxB4ORKAJ3BUMskGSY=;
- b=FaMBTnU4k1Ossd9sgKzcSlWYga6tYIdCa9n6bS7InYYVbirZNixbyFX0
- RBMC6rtN128JSE6dm/qtbg1rwySvQhgIPJc+ox6NYY7R1t4He7BF84OQp
- yZghN1JLivfsXNFCSCujV9N5CU69k8rQckx7BlewHq/GqEgxNG5a2tjKB
- O7DpcKP2ThGn48glx53rFVFComrnyLlXwqvJr3TfwnAuuhFWduefHMED8
- 38i49E+Y9g9Y9pmQHZEL1zTWCbIz2Hhzbrz2bJ965CsBwOsDj0P1jnQHP
- qJkw22GBezXRIpWikq67K23cvlLFUguLRJZr9f0B4YZEW6a0gTGBc3y8t Q==;
-X-CSE-ConnectionGUID: OnMv99/aTn+i/VzYn4FKtw==
-X-CSE-MsgGUID: yyi1vzhTSxCMGUHTGFHtyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="86095538"
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="86095538"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 02:18:41 -0700
-X-CSE-ConnectionGUID: u3Hd7uJ7SkuIEkxuVgfJJQ==
-X-CSE-MsgGUID: grGb5ZDTR/WpsFumaqhnfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="264523058"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93])
- ([10.245.245.93])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 02:18:38 -0700
-Message-ID: <178a513f-2d7f-4e3a-811b-cd0d9dc309eb@linux.intel.com>
-Date: Thu, 30 Jul 2026 11:19:24 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
-Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Oded Gabbay <ogabbay@kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CEB310EE61
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:23:07 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-49555a0e68bso9652805e9.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 02:23:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785403386; x=1786008186; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=QEVMeO2gE5AFjmkT1VS2N07BKr0N4iKu0FoXOV951KE=;
+ b=BDVaQA4r9tbzyiFb86SdMJBQaqx+V6hqqIpBg2i2uX4+f25k4loR9UuepKdLqgHOWh
+ ow8HrwgTaem/OtlWomcjLE5wKwfGObM22Jc0fHfKYnojYHmLh8t9XgpW2SUH9qKsYK5l
+ 4v8mAlJ/uZAQFUt3jFGQUDVOxkWaRG8wLdUI2oyoc20OSgylWSBkoxYFb6+2DY7ECbVO
+ Ykz+l0v/9RS2L803YdnaGt3v7wz1JqkLjqlKHFbJCOvh0fnXTJ/R08HHrgPBtdq2yzGN
+ NZ/e787Es8tQZYRPPEEpuY398EuLYTBYOAxk6Pd6Of1iOrmGUZGj7IKUyLN8Sy9sJunt
+ bWdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785403386; x=1786008186;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=QEVMeO2gE5AFjmkT1VS2N07BKr0N4iKu0FoXOV951KE=;
+ b=rWZu+5zb3n34jkQ8oIhqznJjYdwZqRGxEYs7NNW/mCBb83ChxAhTEzBDwjDOoWv1m1
+ n7Kdjic/LVFBArQE+gs3L70lKzrme6sRm9fa53YSN/JIhhbCGtdA8yw5KvD45/oTnuaQ
+ vnmKE+D+/uXziwQDv3WB2/usOiZD1GdiaONAJysp4FfVoGi9gWEh0Lx3mvsdeNnD6FFY
+ eFiTZrpVS8LMojBVRvQkvIa5RmpATQxSxVsEwjlXHSJ+wBhhWQ7S8WtGgV5G3Gv1oa/2
+ NJlcabbNgC/tLFYipoaPJzoZThaUDyF8oUGu3CknJ3ggF+aSp/FDNfJysWt86r3gluol
+ RqEQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpxLgPoA/FDwsezQ0Z4C4NNgfSeJ5c26u6E/rNhbL9QqnBu/oMAvkEoTKoQUZKa2oAvbKbNa62f53k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwsRJmG64IbygqxZ6Vg7zCbXilyLhT8i8H02hJPGJ0R5YQG+EPx
+ tjJf8HcRticlHCBgkXk186anG1PKimuQPiDhWe6eobe5hpeQF1y/saY2
+X-Gm-Gg: AR+sD13SBbJLdLXpi5R+kF/T5CMbP6Cn2tmeIbYVs7cbDal4Um2rm8M+g50BJsDqjB/
+ 6RnDZxmjz3PvXYfIIh+PLW1yT/+MVcFhGxaRURvIyQVJ/hfd5189Yj4iJdBMGp5UK3o8PRW5wSv
+ r9GbhYDP62Z+w7LJxq3+Mybo32LIUMIzBqxAe/qrIKl+p5RXbz4FhYAutWL4icIGHq+yJpuQbeK
+ BhHDt0wr9SY2kGgxtoi+k8YvhuR8USKoPoew4aRLjw5UksGrJ2TX08OW7uGzYmXlkxJsY2Zs9Pu
+ 5CMtLqYifhag1wYGVuyQ/3Uz9nF6QuLt6MWaFMSrOY9lrnbgUhfAO4sL1K+HYkZJk3gpuLK43OW
+ L+9x6ZewbpjO6gL+JXahcXanQ6xh41KnWc8xvLBn6LHKaY55524V8TREiuA1d8WJIulW9z3x0hG
+ cLw6eUsjIjiLiV/OLybjllz5Kft/0pXmS742Y8aBqWqkW97kQSKL2FkYHtJuoTQVm2owQoTRDRt
+ UD6pQnQTEQTGvfZCs/meMpl4m8Wg/J8SQ==
+X-Received: by 2002:a05:600c:548f:b0:495:4732:1eb9 with SMTP id
+ 5b1f17b1804b1-49800ea1e9cmr24176065e9.21.1785403385560; 
+ Thu, 30 Jul 2026 02:23:05 -0700 (PDT)
+Received: from fedora.tail6d6c39.ts.net ([82.77.79.56])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-47fc88e64d5sm4308425f8f.15.2026.07.30.02.23.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 02:23:05 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>,
+ David Airlie <airlied@gmail.com>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Eduard Bostina <egbostina@gmail.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-omap@vger.kernel.org,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Roger Quadros <rogerq@kernel.org>, Simona Vetter <simona@ffwll.ch>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Jani Nikula <jani.nikula@linux.intel.com>
-Subject: [PULL] drm-misc-fixes
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Tony Lindgren <tony@atomide.com>
+Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
+ m-chawdhry@ti.com
+Subject: [PATCH 0/2] dt-bindings: display: ti: Convert ti,
+ tpd12s015 to DT schema
+Date: Thu, 30 Jul 2026 12:22:43 +0300
+Message-ID: <20260730092245.52034-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,114 +100,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey Dave, Sima,
+This series converts the TI TPD12S015 HDMI level shifter and ESD
+protection chip binding to DT schema, and fixes two device trees
+that use it.
 
-drm-misc-fixes for the next -rc!
-As both Thomas and Maxime are out, I'll send -next as well.
+Patch 1 is the conversion.
+Patch 2 drops the unit addresses from the TPD12S015 encoder and endpoint
+nodes in am57xx-idk-common.dtsi and am5729-beagleboneai.dts.
 
-Kind regards,
-~Maarten Lankhorst
+Eduard Bostina (2):
+  dt-bindings: display: ti: Convert ti,tpd12s015 to DT schema
+  ARM: dts: ti: omap: Fix TPD12S015 node and endpoint names
 
-drm-misc-fixes-2026-07-30:
-drm-misc-fixes for v7.2-rc6:
-- vmwgfx:
-  - Improve various size checks and limit checks.
-  - Fix oops when submitting  invalid execbuf ioctl.
-  - Correctly lock in vmfwgx fence signaling path.
-  - More validation of execbuf ioctl.
-  - Fix oops in vmwgfx vkms init failure path.
-  - Overflow handling in shader path.
-- Improve firmware validation in panthor.
-- Fix small leak in bridge/display-connector
-- Improve imagination trace points.
-- Fix QAIC transaction length check.
-- Restrict some DP bandwidth calculations to HDMI DFP.
-The following changes since commit f5098b6bae761e346ebcd9da7f95622c04733cff:
+ .../bindings/display/ti/ti,tpd12s015.txt      | 44 -----------
+ .../bindings/display/ti/ti,tpd12s015.yaml     | 78 +++++++++++++++++++
+ .../boot/dts/ti/omap/am5729-beagleboneai.dts  |  6 +-
+ .../boot/dts/ti/omap/am57xx-idk-common.dtsi   |  6 +-
+ 4 files changed, 84 insertions(+), 50 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+ create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
 
-  Linux 7.2-rc5 (2026-07-26 14:45:48 -0700)
+-- 
+2.54.0
 
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-07-30
-
-for you to fetch changes up to d6c075f797a672a6e3bd2fd44aee713801698ec2:
-
-  accel/qaic: use sizeof(*trans_hdr) for transaction length check (2026-07-29 14:57:37 -0600)
-
-----------------------------------------------------------------
-drm-misc-fies for v7.2-rc6:
-- vmwgfx:
-  - Improve various size checks and limit checks.
-  - Fix oops when submitting  invalid execbuf ioctl.
-  - Correctly lock in vmfwgx fence signaling path.
-  - More validation of execbuf ioctl.
-  - Fix oops in vmwgfx vkms init failure path.
-  - Overflow handling in shader path.
-- Improve firmware validation in panthor.
-- Fix small leak in bridge/display-connector
-- Improve imagination trace points.
-- Fix QAIC transaction length check.
-- Restrict some DP bandwidth calculations to HDMI DFP.
-
-----------------------------------------------------------------
-Alessio Belle (1):
-      drm/imagination: Fix value of HWRT address in pvr_job_create tracepoint
-
-Alexander Kaplan (1):
-      drm/dp: Read the PCON max FRL bandwidth only for HDMI DFPs
-
-Brajesh Gupta (1):
-      drm/imagination: Update the trace point pvr_job_submit_fw()
-
-Jose Maria Casanova Crespo (1):
-      drm/vc4: Supply the overflow slot size in BPOS, not the whole bin BO size
-
-Laurent Pinchart (1):
-      drm/bridge: display-connector: Fix I2C adapter resource leak
-
-Maarten Lankhorst (1):
-      Merge remote-tracking branch 'drm/drm-fixes' into drm-misc-fixes
-
-Maíra Canal (1):
-      drm/vc4: Zero the tile state data array before each BIN job
-
-Muhammad Bilal (1):
-      accel/qaic: use sizeof(*trans_hdr) for transaction length check
-
-Osama Abdelkader (2):
-      drm/panthor: reject firmware sections with oversized data
-      drm/panthor: validate firmware interface structure sizes
-
-Zack Rusin (12):
-      drm/vmwgfx: fix guest_memory_dirty bitfield clobbered as size
-      drm/vmwgfx: reject DX_BIND_QUERY without a DX context
-      drm/vmwgfx: clamp dirty-page range with min, not max
-      drm/vmwgfx: take fman->lock around fence list mutation in fifo_down
-      drm/vmwgfx: drop dma_buf reference on foreign-fd prime import
-      drm/vmwgfx: validate DRAW_PRIMITIVES header size before division
-      drm/vmwgfx: bound DMA command body size against suffix pointer
-      drm/vmwgfx: avoid destroy_workqueue(NULL) on vkms init failure
-      drm/vmwgfx: enforce cursor size limits for MOB cursors
-      drm/vmwgfx: skip hash_del_rcu when validation context has no hash table
-      drm/vmwgfx: use check_add_overflow for shader size+offset bound
-      drm/vmwgfx: validate external BO copy bounds for both stride paths
-
- drivers/accel/qaic/qaic_control.c            |  2 +-
- drivers/gpu/drm/bridge/display-connector.c   | 11 +++++--
- drivers/gpu/drm/display/drm_dp_helper.c      | 12 +++++++
- drivers/gpu/drm/imagination/pvr_queue.c      |  7 ++--
- drivers/gpu/drm/imagination/pvr_trace.h      | 16 +++++++--
- drivers/gpu/drm/panthor/panthor_fw.c         | 47 ++++++++++++++++++--------
- drivers/gpu/drm/vc4/vc4_irq.c                |  2 +-
- drivers/gpu/drm/vc4/vc4_validate.c           | 29 ++++++++++++----
- drivers/gpu/drm/vmwgfx/ttm_object.c          |  7 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_blit.c         | 39 +++++++++++++++++-----
- drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 49 +++++++++++++++++++++++++---
- drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c      | 20 ++++++++++--
- drivers/gpu/drm/vmwgfx/vmwgfx_fence.c        | 13 +++++++-
- drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c   |  4 +--
- drivers/gpu/drm/vmwgfx/vmwgfx_resource.c     |  4 +--
- drivers/gpu/drm/vmwgfx/vmwgfx_shader.c       | 13 +++++---
- drivers/gpu/drm/vmwgfx/vmwgfx_validation.c   |  3 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c         | 17 +++++-----
- 18 files changed, 230 insertions(+), 65 deletions(-)
