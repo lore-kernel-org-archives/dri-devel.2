@@ -4,75 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3AE8C55160
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 12:38:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E050C55167
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 12:46:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 183DD10EEB4;
-	Thu, 30 Jul 2026 12:38:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6A4410EEB6;
+	Thu, 30 Jul 2026 12:46:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JqQZ1Wem";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="o+Srbpp6";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gn1y3JGf";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E98A10E160
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:38:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B956E600C8
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:38:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72AD11F00ACA
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:38:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785415115;
- bh=mggr7wvIfCEo+6dv/C0d5uPBSyxJCecBvJHz21a0w1o=;
- h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
- b=JqQZ1Wem/W/7xLxCQm3EG3EkTkaXKflALH8qNzS3RVDmEiOS79agVsGHyEALzou3D
- GYUDku/DoBb52HTNcggTMGeLICvvemsWQlakuOY5bB+UmwfmBii4k2CukXAU2S7iDe
- wt69oS65mxwwR6vWL7PAIPlW5IuJmMjfeHnF9z4vvfvIBcEsbzREvQqtwkr3XeMNpL
- TRmxlhGCCQJI3k66rbIGtzo4Cl8XHAdq12B+9lnseX6lD4COHJG/nX7nmconEkwVYh
- HIZ7sq/ba32yxHFBy5FnWY9ypes/+veFhho8/C0RtSckRR8O1hGMGhjy/2oehu4DZ7
- ZLdwvjWEcZX6w==
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-39f1ac13687so15348641fa.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 05:38:35 -0700 (PDT)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54DC110EEB6
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:46:45 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66UBWPcA1144791
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:46:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=BqbrmHoDLhgXhTFX5QmIyC
+ tjQJ8YVIbFwSlJNmOQKlk=; b=o+Srbpp6NQVjwn7F7wSHgxJCd1fHqMQ0Kpz3H5
+ W5T++fttx3gpwLCiaRFoQRS8BYHK0Z8MGodB9+OAWskvSMLFvQZ09MY4gt7DLPcl
+ UV4+HavGsw31ITktZNT1Jvkxbj23oJcQA3uZTkZQJVYWW+0igybwnQcNXY+UtYb/
+ fLAT8SzF1inBPk8WM3g2gsBjlNcJZcydolznKeLi/cWGv7SYS0N80XSjzER8PKGw
+ YjohthjT1FPIcmlH7dlBge+VZmu0RMYWYO0KRBDX6wYAZaSQ4fenXIxuxEYiUD8+
+ yyyjCRPK9qk9CHDIeMslWMXAievamMtKEkZEjB/Eo0QM7D0Q==
+Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
+ [209.85.215.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr5tvr8xb-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:46:44 +0000 (GMT)
+Received: by mail-pg1-f197.google.com with SMTP id
+ 41be03b00d2f7-cb11535e6a1so1723337a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 05:46:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1785415604; x=1786020404;
+ darn=lists.freedesktop.org; 
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=BqbrmHoDLhgXhTFX5QmIyCtjQJ8YVIbFwSlJNmOQKlk=;
+ b=Gn1y3JGfmGN9NFs2kVcBWXTl4e7uzT1B/uKYEfdbRHPuVLlMkd81mrr6w1mViyqiTW
+ 2odOtAHO2yWz4tjNJ2ex5TuriWI7rVrFUFKnjLli8Kefho10K55uMMF059q6s68muTN6
+ D0TByXtl8d1mw5ySeoYmaNW3NYLJOBPBJoGuQVa+ixhvDe1mkj6n3xPXJm3H8mS2eQIN
+ X7Z9Jx7OReaAUQ681eo6qAJtsBK+hcX/Ey2vuMHzDGpQnXM77rQnWOkBum+B8KS6WHih
+ AkZpIheS8zxVEtGMfiNGnDX3ttqkZmtvbsr7oFsDQTSoJ5be9qdqQVzrvGJs1hrwnha8
+ yGkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785415604; x=1786020404;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=BqbrmHoDLhgXhTFX5QmIyCtjQJ8YVIbFwSlJNmOQKlk=;
+ b=JtBuQfk0uF4cmqoie09fWz3cRSXGQaoEr/kmajSzvB8cs9xIy/MFw8uVvp/9JiRCir
+ oVrCJAI4SrViwZIUpvhn2U/dloBZnENl6QFifyztyoKNg/h8Z5b/CHqAf0i8rQokgttu
+ U+xRtD4IbmJ3uNVAYE82bbXY4lRJUIf0d70gTMOu6zNbTL2LfiKZe61Og+k/y4kBBZog
+ y8wBdJqbNJdXeIpWw2dPq+5wWNGRaf+vGZu/95BiR0jcyBdYuyC3PlqNCM5jbkwxVj0z
+ FJ+SCQeRVr32pqEupaNk3XOudxD/W8FdtrdJAQiWQ22lyyAmff7xN1SD/X+evkAoOwDR
+ kWPw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq/FBQ85xkoUPZxNZylveyoGRgHK5g5cRkLh3f1shRC9zgT/sr299FbTXu4+9deDxtMcUCmus+HGd8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzcdG5lHYrpA2d/sg5gtcswmhZQLCwm2CLEQMd/si1ME364OOM6
- uES0PsxJiJKMMwg0Huor/BnVhxPtZXZmTwEaAmKUDz3rMauAWsbtIHcxc9Yz78t1RVzF/Rz3DW1
- ZlJ4nMDV/qnLjiayqsth2WoctGCQT9EQ=
-X-Received: by 2002:a2e:a99b:0:b0:399:83a4:4f2c with SMTP id
- 38308e7fff4ca-39f6d112905mr4228721fa.18.1785415113867; Thu, 30 Jul 2026
- 05:38:33 -0700 (PDT)
+ AHgh+RqDbpZFnb406heJYw75N4wxCWwpbNAJT+u/Bb52baVPFkZbDY49tUjqv2hMqz9uIBIJT8z4vRB04/c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNX1QQhflxLRI8aqzgOXd2SlIxWPPQo7w0Q9on22dGKJiFfWpo
+ t9omOn6rPOIa6bKTn7y5cyf6DOouQt/0aicMlwZf6ouA1BcquvoPBBhGqxQbG7R+G62GQBBBZHC
+ 4X7LqRN1WwafL9r+CECAdhH90gL559HclS/NFKvzwgUQ1rK/sPbDJNLDy8XTtBpWoFG6QIpw=
+X-Gm-Gg: AR+sD13YE77x00IB/YTXfJYt6/xVCDeaefSC2ADAimXnstL6OsdEdJrMR54Lr21NBY3
+ rjRdk1QHs4qBEJIu2NbY9Mr/6pXcXpdW1OTa75i8J7FySzrrNYx+eZlGq+lwvLl6XCVrzGR4ssG
+ aF5XpJdxIw2ex01KiLBemMlaKjXQAeh1PpFXhG8TW6iBhEfASiPgurLoqgSt2L5t/XVFqZWGmmY
+ Gglx99oSi2qMmvcupcHz4sj9PcW0DhqsyZ5wDrWwDkLIzUWhbZfiKGATTAHkTWzVS33hEZm1W5s
+ 9r05zQTGSkbUEVgw7EaZ/JLnkti5aqfKxDmbN0Jl7GrILp+3HUG/N2EUWeqHO9lDWPCxuVsQsPb
+ 37BTjOs69sZVt76QWFW+a34Jc1hc=
+X-Received: by 2002:a05:6a21:3212:b0:3c3:8315:80b7 with SMTP id
+ adf61e73a8af0-3c90066cd34mr2432468637.9.1785415604058; 
+ Thu, 30 Jul 2026 05:46:44 -0700 (PDT)
+X-Received: by 2002:a05:6a21:3212:b0:3c3:8315:80b7 with SMTP id
+ adf61e73a8af0-3c90066cd34mr2432429637.9.1785415603465; 
+ Thu, 30 Jul 2026 05:46:43 -0700 (PDT)
+Received: from hu-mahap-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cbdb824d421sm2137336a12.10.2026.07.30.05.46.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 05:46:42 -0700 (PDT)
+From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 18:16:26 +0530
+Subject: [PATCH v2] drm/atomic-helper: tear down HPD/polling in
+ drm_atomic_helper_shutdown()
 MIME-Version: 1.0
-References: <20260728091804.382753-1-wenst@chromium.org>
- <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
- <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
- <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
- <36f2775a-d332-4913-8e9e-ca0429c3f713@collabora.com>
- <amswFn2qWkvypMH8@redhat.com>
-In-Reply-To: <amswFn2qWkvypMH8@redhat.com>
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Thu, 30 Jul 2026 20:38:20 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65yEtUH5LQ=kGL1io-urha12iOute=D2bbG872YXbK4fQ@mail.gmail.com>
-X-Gm-Features: AUfX_mwS6SDXJLNyyEHek9sC4FMHJj30AO-N34TA1MSNgmBhhcn22gBEYkF6-6I
-Message-ID: <CAGb2v65yEtUH5LQ=kGL1io-urha12iOute=D2bbG872YXbK4fQ@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: Brian Masney <bmasney@redhat.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chen-Yu Tsai <wenst@chromium.org>, Stephen Boyd <sboyd@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>,
- Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260730-dpshutdown-v2-1-441fc5543bed@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAKFHa2oC/22MywrDIBQFfyXcdQ0qRWlX/Y+SRXxVodHUm5iW4
+ L/XZt3NgTkwswPaHCzCtdsh2xIwpNiAnzrQfowPS4JpDJxyQSWTxMzo18WkLRJ6lhfGnXaCKmj
+ CnK0L7yN2Hxr7gEvKn6Nd2O/9mymMMKKo4Jo7aZxit4TYv9bxqdM09W1gqLV+AfXYiAKrAAAA
+X-Change-ID: 20260717-dpshutdown-047912fcf60b
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- YoungJoon Lee <getfeus@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Mahadevan P <mahadevan.p@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785415598; l=3268;
+ i=mahadevan.p@oss.qualcomm.com; s=20250923; h=from:subject:message-id;
+ bh=EFGTEjAar5YhWvy8+yn14BXjJJUj+nzWsgy1UuC08vU=;
+ b=Eny1S2NirVpYVYcbGMfZ4+XgUkdnQhmG/cIII5qgjK70slzsbxMRLPZkzT6DqbbzX/nCsSBt5
+ bRJTZ7HzH5ZDfzRraZnrlLkGiGyPT8FH7L7tWVfTYzb4gmVWCg2Yaoz
+X-Developer-Key: i=mahadevan.p@oss.qualcomm.com; a=ed25519;
+ pk=wed9wuAek0VbCYfkANx7ujIG4VY0XfCYrffFKPN2p0Y=
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA5NiBTYWx0ZWRfX38OPq4TGyxCZ
+ jeiFvhNdVnqS7mh5Hmh8dRzLe1LO2wTcSAgvB6UDNeIOn+latKWVQeMQTd2lfnsg+jXvY+60iAh
+ xKvqosJoPzMothbluL44vcHklkPVLp4=
+X-Proofpoint-ORIG-GUID: tlo3noJ2TSiDA_xBBBXh7DdBp1-Hyxfe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA5NiBTYWx0ZWRfXxt5S/l8SNPGs
+ BtTnMWIOjiCBsviOu/wKxJGqCwlD6+zCwLpxnygAVov27OOXiTcgB4nrzPlmD82TrRd+mPbXcI5
+ AqNWfjjUXU2p+MXXvlHv3u3wqopVhLuHiF4zQbN/5nZmPOdHNMwppM4DdQ7XP+1N3tfsurp75OD
+ 8+JKFdcqnTgD6lHMW8DbLws2Kw0QU/yTckbH6T3CT1YKVqpN6H3w2agm9YjtuEaXzx77e6gd/+j
+ aVulC9hdDGn24ziRYYsQgrZDcW7ibqfqBNLgqPpbBK4oQIJF3TrNnAK/Dz+kxGBLDrmDQSVTRnw
+ TQbFBR2ZKlx23TodIU531RAhY9WOYPu8Dxem0VLPt9SiTfHLDfDG3TDbIKRVuvW1SauFN+0mIdL
+ OBqIFm/hxDZwb624ahKPlP9AakiKmO8rHHwvHonTTFtLLaFDcn2jStRoiBwYPon7rLsH8iy6JbT
+ yCgKRJ1R7qBUU1BjX7w==
+X-Authority-Analysis: v=2.4 cv=ULPt2ify c=1 sm=1 tr=0 ts=6a6b47b4 cx=c_pps
+ a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=-dNxFGlIl_otlAVcVrYA:9 a=QEXdDO2ut3YA:10
+ a=bFCP_H2QrGi7Okbo017w:22
+X-Proofpoint-GUID: tlo3noJ2TSiDA_xBBBXh7DdBp1-Hyxfe
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 spamscore=0 phishscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300096
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,118 +155,87 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: wens@kernel.org
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 7:06=E2=80=AFPM Brian Masney <bmasney@redhat.com> w=
-rote:
->
-> Hi Angelo and Chen-Yu,
->
-> On Thu, Jul 30, 2026 at 10:23:14AM +0200, AngeloGioacchino Del Regno wrot=
-e:
-> > On 7/30/26 06:51, Chen-Yu Tsai wrote:
-> > > On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Regno
-> > > <angelogioacchino.delregno@collabora.com> wrote:
-> > > >
-> > > > On 7/28/26 15:13, Chen-Yu Tsai wrote:
-> > > > > On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@red=
-hat.com> wrote:
-> > > > > > On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
-> > > > > > > Hi everyone,
-> > > > > > >
-> > > > > > > This is v4 of my MT8173 PowerVR GPU support series.
-> > > > > > >
-> > > > > > > This time around Mesa was ready for basic testing, using both=
- vulkanmark
-> > > > > > > and glmark2-es2-drm (with Zink). Details below.
-> > > > > > >
-> > > > > > > Changes since v3 (all in the clk driver patch):
-> > > > > > > - Changed pm_runtime_put() to pm_runtime_put_sync()
-> > > > > > > - Added missing of_node_put() in remove function
-> > > > > > >
-> > > > > > > Changes since v2 (all in the clk driver patch):
-> > > > > > > - Made COMMON_CLK_MT8173_MFGTOP depend on PM
-> > > > > > >     - Needed since the driver implements PM domains using the=
- generic PM
-> > > > > > >       domain library, which also depends on PM
-> > > > > > >     - Fixes build breakage (kernel test robot)
-> > > > > > > - Fixed "RST_DELAY_CNT" name (Brian)
-> > > > > > > - Dropped unused mfg_desc (Brian)
-> > > > > > > - Added check of clk_prepare_enable()'s return value in
-> > > > > > >     clk_mt8173_mfgtop_power_on() (Brian)
-> > > > > > > - Saved error value for return in IS_ERR(data->clk_26m) branc=
-h
-> > > > > > >     (Dan Carpenter / kernel test robot w/ smatch)
-> > > > > > >
-> > > > > > > Changes since v1:
-> > > > > > > - Adapted to changed DT bindings
-> > > > > > > - Dropped driver change
-> > > > > > > - Use same power domain for "a" and "b" GPU power domains
-> > > > > > >
-> > > > > > >
-> > > > > > > This series enables the PowerVR GPU found in the MT8173 SoC, =
-found in
-> > > > > > > some Chromebooks.
-> > > > > >
-> > > > > > I'm making a pull for Stephen for the clk changes. Should patch=
-es 1,2,4
-> > > > > > go through the clk tree? Patches 3,5 go through the DRM tree?
-> > > > >
-> > > > > Only patches 1 and 2 should go through the clock tree.
-> > > > >
-> > > > > Patch 3, 4, 5 can all go through the soc tree if Angelo wants to =
-pick up
-> > > > > DT binding patches. Otherwise I can push patch 3 through drm-misc=
-.
-> > > > >
-> > > >
-> > > > Not sure if I can really take the DRM bindings patch through soc.
-> > > >
-> > > > I will take the devicetree ones exactly right now, even though it's=
- going to
-> > > > give warnings.
-> > >
-> > > Apologies for missing this, but the first DT patch depends on the clk=
- DT
-> > > bindings patch for the clk ID macros. This is causing build errors in
-> > > linux-next right now.
-> > >
-> > > Not sure how we can fix this right now.
-> > >
-> > > Brian, would it be possible for you to split out that patch into a
-> > > separate immutable branch for Angelo to merge?
->
-> Yes, I can split things out and make an immutable branch this morning.
-> But it sounds too late for that.
->
-> > >
-> > > Otherwise Angelo might need to drop the DT patches until the next cyc=
-le.
-> >
-> > Yeah, that's so bad.
-> > I'd be happy to be able to resolve this, but it's too late on my side.
-> >
-> > I should've checked the DT patches more carefully, my bad: I got a bit =
-too excited
-> > to finally see this PowerVR stuff working on MT8173 and going upstream.
-> >
-> > Sadly, I have to drop the devicetree patches :-(
->
-> Chen-Yu: Could Angelo add an Acked-by to the three patches, and then I se=
-nd
-> Stephen an additional pull with just those patches? Do you think he'd
-> pull that?
+drm_atomic_helper_shutdown() disables all CRTCs but leaves output
+polling and IRQ-driven hot-plug detection running. On reboot, a late
+DP hot-plug-detect (HPD) IRQ can fire after apps_smmu has already
+disabled translation for the display subsystem, causing the HPD
+thread to kick off a new modeset that drives DPU/DP hardware and DMA
+through a stale IOMMU mapping.
 
-(replying from my @kernel.org address again because I don't feel like
- pulling out my work laptop.)
+drm_atomic_helper_shutdown() disables all CRTCs first, but a pending
+HPD IRQ thread wakes up afterwards, reads the DPCD, and fires an
+unsolicited hotplug event that triggers a second atomic commit
+turning the display back on -- right as the IOMMU is disabling
+translation:
 
-I think the question is whether the soc & dt maintainers would be bothered
-by it or not.
+  systemd-shutdown[1]: Rebooting.
+  msm_dpu: drm_atomic_commit: committing (shutdown disabling CRTCs)
+  arm-smmu 3da0000.iommu: disabling translation
+  msm_dpu: drm_dp_read_dpcd_caps (late HPD IRQ thread wakes up)
+  msm_dpu: drm_sysfs_connector_hotplug_event: DP-1 hotplug event
+  msm_dpu: drm_client_modeset_probe: DP-1 found preferred mode
+  msm_dpu: drm_atomic_commit: committing (unsolicited, re-enables display)
+  dpu_crtc_commit_kickoff: crtc94 first commit
+  arm-smmu 15200000.iommu: disabling translation
 
-No need to sweat over it though. It's not like the GPU driver is production
-ready anyway. We can just merge the DT patches in the next cycle. :)
+drm_kms_helper_poll_fini() tears down this: it stops the output poll
+worker and calls each connector's &drm_connector_helper_funcs.disable_hpd,
+which for HPD-capable bridges masks the interrupt in hardware.
 
+Reported on Qualcomm platforms such as lemans-evk and monaco-evk
+during reboot stress testing.
 
-ChenYu
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+---
+Changes in v2:
+- Dropped the drm/msm/dp local .shutdown patch (disable_irq()/
+  synchronize_irq() in dp_display.c)., fixed this at the DRM core
+  level instead so every driver benefits, not just msm_dp.(Dmitry).
+- Link to v1: https://lore.kernel.org/r/20260717-dpshutdown-v1-1-b062c2f7dfb1@oss.qualcomm.com
+---
+ drivers/gpu/drm/drm_atomic_helper.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 285aac3554df..80c67623180a 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -43,6 +43,7 @@
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_panic.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
+ #include <drm/drm_self_refresh_helper.h>
+ #include <drm/drm_vblank.h>
+ #include <drm/drm_writeback.h>
+@@ -3676,6 +3677,8 @@ EXPORT_SYMBOL(drm_atomic_helper_reset_crtc);
+  *
+  * This is just a convenience wrapper around drm_atomic_helper_disable_all(),
+  * and it is the atomic version of drm_helper_force_disable_all().
++ *
++ * This also tears down output polling and HPD via drm_kms_helper_poll_fini().
+  */
+ void drm_atomic_helper_shutdown(struct drm_device *dev)
+ {
+@@ -3685,6 +3688,8 @@ void drm_atomic_helper_shutdown(struct drm_device *dev)
+ 	if (dev == NULL)
+ 		return;
+ 
++	drm_kms_helper_poll_fini(dev);
++
+ 	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
+ 
+ 	ret = drm_atomic_helper_disable_all(dev, &ctx);
+
+---
+base-commit: 1a1757b76427f6201bfe0bf1bea9f7574f332a93
+change-id: 20260717-dpshutdown-047912fcf60b
+
+Best regards,
+-- 
+Mahadevan P <mahadevan.p@oss.qualcomm.com>
+
