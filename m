@@ -4,51 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B54F4C5516D
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C61EC5516F
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:55:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D5C010F044;
-	Thu, 30 Jul 2026 18:50:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E49610E1CD;
+	Thu, 30 Jul 2026 18:55:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="EdR/nENw";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="HLl/j4xV";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 587FA10F044
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:50:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=lw261SftemxN1SqHSmMtQfPekZaiyKsME3L516pe5q4=; b=EdR/nENw/RKQjMwL7fuYGbAaDb
- DmWHpj6oHz/AD/uqXIBHEuNvGTFKc12WXNLx7cpqJeM5UaPHUgO4g1GCNK/gmeHOVsB47Zv05qGHM
- 5Wl99fd6H0oQZWbeEUt9Q7A+a72saSngMEMGF/43Ckj9nEo4pDrbFcuOMpF1I6QrVzMok6PutRWST
- LYsv7WzB1WX5QbDf1Vu3wAyY7U9vTO6EqLcsm796rV1y/AN3xTUAoe2xGKT+3GppRx1t4cGg6qCVT
- bWHPhZVjdIyhK/eZUgRJeJLq9puDihjHg/XuQVdgs/ZMTixgso0dQIZNC71LQUB6+UJAuf2+S6YBE
- 03Bkb8ZQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Yan <andy.yan@rock-chips.com>, Damon Ding <damon.ding@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Damon Ding <damon.ding@rock-chips.com>
-Subject: Re: [PATCH v1 0/7] Add HPD support for Rockchip Analogix DP
-Date: Thu, 30 Jul 2026 20:49:43 +0200
-Message-ID: <2014349.VZ3vTMCxA0@diego>
-In-Reply-To: <20260730032744.381566-1-damon.ding@rock-chips.com>
-References: <20260730032744.381566-1-damon.ding@rock-chips.com>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 171C810E1CD
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:55:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785437703; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=KF8xdYFkiAHfsZzZwCtc6DDFV1VVV320azulRXqWAZdzoZ33S883WCrUO364HDCNScjElUtMF7ZJquQgBuTJxG6xKtHppiCznOvPxnO+pB5p9pdq9J+eixLTSCdOzDwK5hdpZN2PpzD+i7sRB3rIM+BBTjJvabWFt5RJ9+u4ML0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785437703;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=9AIxGw1TLp+p2tcxS7/F14XLcUmuxOVmyqIJY65QchY=; 
+ b=O1iPcOOrPQXk5cdFiV1wKo706fUyhY9reIdeoA3lFkOgct2DURrlUp22cyarLF/a7Mjl0FbA3kOcDtXeQDAw6ezJDIVwdrzN411WJTDuadVAjkmoLo3gjfg9nl8pkdImb5Z6gIGbE6zl7io5dkWXyEo+WqoSL3Vk049XZBKUrGY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=leandro.ribeiro@collabora.com;
+ dmarc=pass header.from=<leandro.ribeiro@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785437703; 
+ s=zohomail; d=collabora.com; i=leandro.ribeiro@collabora.com; 
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=9AIxGw1TLp+p2tcxS7/F14XLcUmuxOVmyqIJY65QchY=;
+ b=HLl/j4xVw/vZVmiOdCOGpTkFDGK5kwMUuoUSEs3OkbE9kUth8Ys3F5JUqXUfkW+L
+ aXKHjwAAD9LBGIwvUYA4drvU0CNYkuWrZXZoZJYVbszJW03vBFQ/AQ2gUi/aDf1lsR1
+ Ny7IJuZzGEG3FMdLR1wRLL/y9aQt//O1U0EoQybA=
+Received: by mx.zohomail.com with SMTPS id 1785437700926956.5335535558954;
+ Thu, 30 Jul 2026 11:55:00 -0700 (PDT)
+Message-ID: <5d8ff369-8afa-4fcf-906b-ab685fa04e42@collabora.com>
+Date: Thu, 30 Jul 2026 15:54:55 -0300
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/1] drm: use drm_warn() in
+ validate_blend_mode_for_alpha_formats()
+To: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+ dri-devel@lists.freedesktop.org
+Cc: airlied@gmail.com, broonie@kernel.org, daniels@collabora.com,
+ jani.nikula@linux.intel.com, maarten.lankhorst@linux.intel.com,
+ miguel.ojeda.sandonis@gmail.com, mripard@kernel.org,
+ pekka.paalanen@collabora.com, simona@ffwll.ch, tytso@mit.edu,
+ tzimmermann@suse.de, ville.syrjala@linux.intel.com,
+ linux-kernel@vger.kernel.org
+References: <20260729214505.185776-1-leandro.ribeiro@collabora.com>
+ <20260729214505.185776-2-leandro.ribeiro@collabora.com>
+ <b197e416-8007-4aec-b546-62574fa16d27@I-love.SAKURA.ne.jp>
+Content-Language: en-US
+From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+In-Reply-To: <b197e416-8007-4aec-b546-62574fa16d27@I-love.SAKURA.ne.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,69 +75,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Damon,
-
-Am Donnerstag, 30. Juli 2026, 05:27:37 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb Damon Ding:
-> This series improves the HPD (Hotplug Detect) interrupt handling in
-> the Analogix DP driver to enable reliable native HPD pin detection on
-> Rockchip platforms, and introduces platform-specific HPD detection
-> schemes with fine-grained interrupt control.
-
-[...]
-
-> Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
->=20
-> Native HPD pin mode:
->=20
->   &edp {
->       status =3D "okay";
->       pinctrl-names =3D "default";
->       pinctrl-0 =3D <&edp_txm0_pins>;
->   };
->=20
-> GPIO HPD mode:
->=20
->   &edp {
->       status =3D "okay";
->       pinctrl-names =3D "default";
->       pinctrl-0 =3D <&edp0_hpd>;
->       hpd-gpios =3D <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
->   };
->=20
->   &pinctrl {
->       edp {
->           edp0_hpd: edp0-hpd {
->               rockchip,pins =3D <4 RK_PC1 0 &pcfg_pull_none>;
->           };
->       };
->   };
-
-Yay and thanks a lot for working on that.
-
-If I roll my display-port carrier board back to the analogix-dp being
-the endpoint, this works exactly as expected :-) .
-
-I can plug in the display at some point after the boot and have it
-detected and setup correctly. Same with unplugging it while
-the system is running. The connection status is correctly reported
-in sysfs.
 
 
-Though there is a caveat. When the eDP is not the last part, this does not
-work anymore. The detect function always returns "connected" if there is
-a next bridge available.
+On 7/29/26 7:13 PM, Tetsuo Handa wrote:
+> On 2026/07/30 6:45, Leandro Ribeiro wrote:
+>> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
+>> with alpha exposed") introduced a WARN() to let driver developers know
+>> that a previously valid behavior should now be changed.
+>>
+>> But WARN() should not be used for that, as it's a kernel warning report
+>> mechanism for conditions that are not expected to happen. It also
+>> produces a stack trace. Instead, a simple warning-level log message
+>> should have been used, as drivers were expected to trigger the
+>> condition.
+>>
+>> This is causing problems for fuzzers, as they may stop when encountering
+>> a "BUG:" or "WARNING:" in the logs.
+>>
+>> Replace WARN() with drm_warn() in this function, avoiding these issues.
+> 
+> Thank you. But could something like
+> 
+>   pr_warn("[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup. Please fix.", plane->base.id, plane->name);
+>   dump_stack();
+> 
+> be less prone to get oversighted (because of printing about 10+ lines)?
+> 
 
-My board [0] has a physical DP connector on it, so models it as
-dp-connector, but in that case the Analogix driver always reports being
-connected.
+I see the point about making the message harder to overlook, but
+honestly I feel like the stack trace would be overkill here.
 
+The error message is more important than the stack trace itself in this
+case, and I think the warning should be enough to draw attention to the
+issue.
 
-Heiko
-
-[0] https://lore.kernel.org/linux-rockchip/20251009225050.88192-3-heiko@snt=
-ech.de/
-=2E.. same effect with hpd-gpios in either the edp node or dp-connector nod=
-e
-
+-- 
+Leandro Ribeiro
 
