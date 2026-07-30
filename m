@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D6B6C55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:47:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFCB2C55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:48:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A02DA10E567;
-	Thu, 30 Jul 2026 01:47:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 35A6D10E0F2;
+	Thu, 30 Jul 2026 01:48:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JRj2t/7l";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bQhnw86V";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47C7D10E567
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:47:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C110610E0F2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:48:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 826DE600AA;
- Thu, 30 Jul 2026 01:47:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B111F00A3A;
- Thu, 30 Jul 2026 01:47:51 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 827F943D9F;
+ Thu, 30 Jul 2026 01:48:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30DBD1F000E9;
+ Thu, 30 Jul 2026 01:48:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785376072;
- bh=N7Yvn9+reA8QYVlCW6lFEthvljrGfTEQ0DYcSNmBmdY=;
+ s=k20260515; t=1785376103;
+ bh=ly437AdX5E5kKzXqL5w45v8tqhUMN3mpfh17s9iQu9Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JRj2t/7lbLGEMN2qc72nOJLLkyvhaeDUj0Gle+b4cL7lXImFPz86aapiJL5IwTJGN
- N2+ByMRbsb48nukkVady/1h2E1ffl8Z+S0z5Hs8BXDvAeKUqV1DivaK2Q5QOtF7LZH
- IKFYnGSWwZuMNFwbbscqOf2yr5b38isWPu41V6ZyOpHKVu1d4Ah78f2+FylzelRkuL
- aFPH3h0AhfddxwzLE0jhwQIXMIvt6Pp4wBfykAFT0Y2+h/qDnmicNT4UDNxqd8dSTy
- 0qifAfxDiyGI8+EMKHjSmty8bS8B11tVksR9h3LdNz8U1SRlF7tovzIhJntGafyRxV
- zK+UNCNkjz+vw==
+ b=bQhnw86VU4R7rQDmlPwPLAHe6Y9DXS3VM1EBkVHVXNSuF3d1xFJmCuTHOItKnshld
+ 64G6daGWsaWFKGrNgtxzc7d4T7TI9+XKJA1njGBxoXbvSvyT+QUzq0y1wpLFDUeQzQ
+ uB++iPsNvrVsO3I8eUjqT37+ebxBnB+WWDQSgWF4pflgLNEMyuUKGEtsmeRJL2G+17
+ 0U20GzNGVwV+xJZpP1z4YEG3s4UIecs3J8CnjB6YIuMEKnbWDUeNlE49m1TrXX/jxD
+ X4B+i5HOfdzrTZdmaKHFWigW8pJm9URSbPIHpnrzYFTuyizcMEDhDHw/E3R4ClzpvC
+ 3vB5Ltn9bFTWQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/6] phy: rockchip: phy-rockchip-typec: Add DRM AUX
- bridge
+Subject: Re: [PATCH v5 6/6] drm/rockchip: cdn-dp: Add multiple bridges to
+ support PHY port selection
 To: "Chaoyi Chen" <kernel@airkyi.com>
-Cc: linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260730013349.51-5-kernel@airkyi.com>
+Cc: linux-phy@lists.infradead.org, vkoul@kernel.org, neil.armstrong@linaro.org,
+ olteanv@gmail.com, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260730013349.51-7-kernel@airkyi.com>
 References: <20260730013349.51-1-kernel@airkyi.com>
- <20260730013349.51-5-kernel@airkyi.com>
+ <20260730013349.51-7-kernel@airkyi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 01:47:51 +0000
-Message-Id: <20260730014751.D5B111F00A3A@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 01:48:22 +0000
+Message-Id: <20260730014823.30DBD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,95 +59,256 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [High] Double-free of OF node reference resulting from borrowed node assi=
-gnment
-- [Medium] Improper Error Handling: Unconditional execution of bridge regis=
-tration shadows PHY creation errors
+
+New issues:
+- [High] Stale pointers in `dp->next_bridge_list` cause a double free / ref=
+count underflow on repeated or failed bind cycles.
+- [High] `cdn_dp_switch_port` unconditionally configures video, breaking ED=
+ID reads for newly connected monitors.
+- [High] Missing `atomic_check` allows simultaneous activation of multiple =
+conflicting encoders.
+- [High] `cdn_dp_connected_port` bypasses the physical lane check for extco=
+n configurations, breaking hotplug detection.
+- [High] Index mismatch between packed PHY ports and DT endpoints causes un=
+initialized memory reads and guaranteed NULL dereferences.
+- [Medium] Device tree endpoint iteration lacks a bounds check against `MAX=
+_PHY`, leading to a heap buffer overflow.
+
+Pre-existing issues:
+- [High] Extcon notifiers can schedule work after `cancel_work_sync()`, lea=
+ding to Use-After-Free.
 --
 
---- Patch [4]: [PATCH v5 4/6] phy: rockchip: phy-rockchip-typec: Add DRM AU=
-X bridge ---
-commit c26cb3c5d012dc638272484e672dcad955d4a455
+--- Patch [6]: [PATCH v5 6/6] drm/rockchip: cdn-dp: Add multiple bridges to=
+ support PHY port selection ---
+commit 8377956184d44f77846e2394e562e31ea5099865
 Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-phy: rockchip: phy-rockchip-typec: Add DRM AUX bridge
-   =20
-Using the DRM_AUX_BRIDGE helper to create the transparent DRM bridge
-device.
+drm/rockchip: cdn-dp: Add multiple bridges to support PHY port selection
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-typec.c b/drivers/phy/rock=
-chip/phy-rockchip-typec.c
-> index d9701b6106d55..48070b50416e5 100644
-> --- a/drivers/phy/rockchip/phy-rockchip-typec.c
-> +++ b/drivers/phy/rockchip/phy-rockchip-typec.c
+This commit adds support for multiple bridges in the Rockchip CDN-DP
+driver to enable PHY port selection via the DRM AUX HPD bridge framework.
+It parses device tree endpoints to register one or two bridges and handles
+switching the DP controller output between them based on plug states.
+
+> diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/roc=
+kchip/cdn-dp-core.c
+> index 74e1f5422a6e2..5e513f6930cb9 100644
+> --- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
+> +++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
 [ ... ]
-> @@ -1162,16 +1163,24 @@ static int rockchip_typec_phy_probe(struct platfo=
-rm_device *pdev)
+> @@ -192,14 +193,27 @@ static int cdn_dp_get_sink_count(struct cdn_dp_devi=
+ce *dp, u8 *sink_count)
+>  static struct cdn_dp_port *cdn_dp_connected_port(struct cdn_dp_device *d=
+p)
+>  {
+>  	struct cdn_dp_port *port;
+> -	int i, lanes;
+> +	int i, lanes[MAX_PHY];
 > =20
->  	for_each_available_child_of_node(np, child_np) {
->  		struct phy *phy;
-> +		ret =3D 0;
+>  	for (i =3D 0; i < dp->ports; i++) {
+>  		port =3D dp->port[i];
+> -		lanes =3D cdn_dp_get_port_lanes(port);
+> -		if (lanes)
+> +		lanes[i] =3D cdn_dp_get_port_lanes(port);
+> +		if (!dp->next_bridge_valid)
+>  			return port;
+
+[Severity: High]
+Does this break hotplug detection for legacy extcon-based devices?
+
+If dp->next_bridge_valid is false, this loop unconditionally returns
+dp->port[0] on the first iteration without verifying if the physical lanes
+are greater than zero. This causes the driver to perpetually report the
+display as connected.
+
+>  	}
+> +
+> +	if (dp->next_bridge_valid) {
+> +		/* If more than one port is available, pick the last active port */
+> +		if (dp->active_port >=3D 0 && lanes[dp->active_port])
+> +			return dp->port[dp->active_port];
+> +
+> +		/* If the last active port is not available, pick an available port in=
+ order */
+> +		for (i =3D 0; i < dp->bridge_count; i++) {
+> +			if (lanes[i])
+> +				return dp->port[i];
+
+[Severity: High]
+Can this loop read uninitialized stack memory?
+
+The lanes array is populated in the previous loop up to dp->ports, which
+tracks successfully probed PHYs. However, this loop iterates up to
+dp->bridge_count, which tracks DT endpoints. If a device tree specifies
+more endpoints than successfully probed PHYs, this will read out of bounds
+on the stack.
+
+> +		}
+> +	}
+> +
+>  	return NULL;
+>  }
+[ ... ]
+> @@ -254,12 +268,45 @@ static const struct drm_edid *
+>  cdn_dp_bridge_edid_read(struct drm_bridge *bridge, struct drm_connector =
+*connector)
+>  {
+>  	struct cdn_dp_device *dp =3D bridge_to_dp(bridge);
+> -	const struct drm_edid *drm_edid;
+> +	struct cdn_dp_bridge *dp_bridge =3D bridge_to_dp_bridge(bridge);
+> +	struct cdn_dp_port *port =3D dp->port[dp_bridge->id];
+> +	struct cdn_dp_port *prev_port =3D NULL;
+> +	const struct drm_edid *drm_edid =3D NULL;
+> +	int i, ret;
 > =20
-> -		if (of_node_name_eq(child_np, "dp-port"))
-> +		if (of_node_name_eq(child_np, "dp-port")) {
->  			phy =3D devm_phy_create(dev, child_np,
->  					      &rockchip_dp_phy_ops);
-> -		else if (of_node_name_eq(child_np, "usb3-port"))
-> +			ret =3D drm_aux_bridge_register_from_node(dev, child_np);
+>  	mutex_lock(&dp->lock);
+> +
+> +	/* More than one port is available */
+> +	if (dp->bridge_count > 1 && !port->phy_enabled) {
+
+[Severity: High]
+Is there a risk of a NULL pointer dereference here?
+
+If the device tree has more endpoints than successfully probed PHYs,
+dp_bridge->id could exceed the bounds of initialized dp->port pointers.
+In that scenario, port would be NULL, and evaluating !port->phy_enabled
+will crash.
+
+> +		for (i =3D 0; i < dp->bridge_count; i++) {
+> +			/* Another port already enable */
+> +			if (dp->bridge_list[i] !=3D dp_bridge && dp->bridge_list[i]->enabled)
+> +				goto get_cache;
+> +			/* Find already enabled port */
+> +			if (dp->port[i]->phy_enabled)
+> +				prev_port =3D dp->port[i];
+> +		}
+> +
+> +		/* Switch to current port */
+> +		if (prev_port) {
+> +			ret =3D cdn_dp_switch_port(dp, prev_port, port);
+
+[Severity: High]
+Will this sequence fail to read the EDID for a newly connected monitor?
+
+Switching the port here calls cdn_dp_switch_port(), which unconditionally
+executes cdn_dp_config_video(dp). During EDID probing, no DRM display mode
+has been committed yet, so dp->mode.clock is 0.=20
+
+This causes cdn_dp_config_video() to fail its bandwidth calculation loop
+and return -EINVAL, which aborts the port switch and forces the driver to
+fall back to a cached EDID.
+
+> +			if (ret)
+> +				goto get_cache;
+> +		}
+> +	}
+[ ... ]
+> @@ -838,6 +948,7 @@ static const struct drm_bridge_funcs cdn_dp_bridge_fu=
+ncs =3D {
+>  	.atomic_disable =3D cdn_dp_bridge_atomic_disable,
+>  	.mode_valid =3D cdn_dp_bridge_mode_valid,
+>  	.mode_set =3D cdn_dp_bridge_mode_set,
+> +	.hpd_notify =3D cdn_dp_bridge_hpd_notify,
+> =20
+>  	.dp_audio_prepare =3D cdn_dp_audio_prepare,
+
+[Severity: High]
+Because there is only a single DP hardware controller backing multiple
+potential bridges, is there a risk of hardware state corruption if
+userspace commits a state that maps CRTCs to both ports simultaneously?
+
+Without an .atomic_check callback in cdn_dp_bridge_funcs to enforce mutual
+exclusivity, cdn_dp_bridge_atomic_enable() could execute for the second
+port and overwrite the video configuration while the first is active.
+
+[ ... ]
+> @@ -1030,6 +1142,101 @@ static int cdn_dp_bind(struct device *dev, struct=
+ device *master, void *data)
+[ ... ]
+> +static int cdn_dp_parse_next_bridge_dt(struct cdn_dp_device *dp)
+> +{
+[ ... ]
+> +	/* One endpoint may correspond to one next bridge. */
+> +	for_each_of_graph_port_endpoint(port, dp_ep) {
+> +		struct device_node *next_bridge_node __free(device_node) =3D
+> +			of_graph_get_remote_port_parent(dp_ep);
+> +
+> +		bridge =3D of_drm_find_bridge(next_bridge_node);
+> +		if (!bridge) {
+> +			ret =3D -EPROBE_DEFER;
+> +			goto out;
+> +		}
+> +
+> +		dp->next_bridge_valid =3D true;
+> +		dp->next_bridge_list[count] =3D drm_bridge_get(bridge);
+> +		count++;
 
 [Severity: Medium]
-If devm_phy_create() fails and returns an error pointer, the code still
-unconditionally calls drm_aux_bridge_register_from_node().
+Is there a potential heap buffer overflow here?
 
-If the bridge registration fails, its error code will be stored in ret
-and returned below, which completely shadows the original error from
-devm_phy_create() (such as -EPROBE_DEFER).
+The count variable is incremented and used as an index for
+dp->next_bridge_list[count], but there is no bounds check against MAX_PHY.
+If a misconfigured device tree provides 3 or more endpoints, this will
+overwrite adjacent fields in the cdn_dp_device structure.
 
-Should devm_phy_create()'s return value be checked before attempting to
-register the bridge?
-
-
-[Severity: High]
-Does this cause a double-free of the child_np node reference?
-
-The for_each_available_child_of_node() loop automatically holds a reference
-to child_np. When child_np is passed to drm_aux_bridge_register_from_node(),
-the bridge takes ownership of the node reference without the caller acquiri=
-ng
-an additional reference via of_node_get().
-
-If registration succeeds, the bridge will eventually call of_node_put() in
-its drm_aux_bridge_release() handler. Meanwhile, the iterator loop also
-automatically calls of_node_put() when advancing to the next node, leading
-to a double-free on the success path.
-
-> +		} else if (of_node_name_eq(child_np, "usb3-port"))
->  			phy =3D devm_phy_create(dev, child_np,
->  					      &rockchip_usb3_phy_ops);
->  		else
->  			continue;
+> +	}
+[ ... ]
+> @@ -1052,15 +1259,29 @@ static int cdn_dp_bind(struct device *dev, struct=
+ device *master, void *data)
+>  	schedule_work(&dp->event_work);
 > =20
-> +		if (ret) {
-> +			pm_runtime_disable(dev);
-> +			of_node_put(child_np);
-> +			return ret;
-> +		}
+>  	return 0;
+> +
+> +out:
+> +	for (i =3D 0; i < MAX_PHY; i++)
+> +		drm_bridge_put(dp->next_bridge_list[i]);
 
 [Severity: High]
-If drm_aux_bridge_register_from_node() fails, it calls of_node_put()
-internally. Because this error path explicitly calls of_node_put(child_np)
-again, would this result in an immediate double-free?
+Can this result in a double free and refcount underflow?
 
-Would it be better to call of_node_get(child_np) before passing it to
-drm_aux_bridge_register_from_node() to ensure the bridge has its own
-reference?
+If cdn_dp_bind() fails and executes this error path, it calls
+drm_bridge_put() but leaves the pointers intact in dp->next_bridge_list.
+If the master bind is retried later and fails again, it will perform
+another drm_bridge_put() on the same stale pointers.=20
 
->  		if (IS_ERR(phy)) {
->  			dev_err(dev, "failed to create phy: %pOFn\n",
->  				child_np);
+The same pattern also appears below during unbind.
+
+> +
+> +	return ret;
+>  }
+> =20
+>  static void cdn_dp_unbind(struct device *dev, struct device *master, voi=
+d *data)
+>  {
+>  	struct cdn_dp_device *dp =3D dev_get_drvdata(dev);
+> -	struct drm_encoder *encoder =3D &dp->encoder.encoder;
+> +	struct drm_encoder *encoder;
+> +	int i;
+> =20
+>  	cancel_work_sync(&dp->event_work);
+
+[Severity: High]
+This is a pre-existing issue, but can this lead to a use-after-free
+during unbind?
+
+Extcon notifiers are registered using devm_extcon_register_notifier().
+While cancel_work_sync(&dp->event_work) cancels pending work here, the
+devm-managed notifier remains active until devres cleanup, which happens
+after unbind returns.=20
+
+A hotplug event in this window could reschedule dp->event_work, executing
+it after the structures are freed.
+
+> -	encoder->funcs->destroy(encoder);
+> +	for (i =3D 0; i < dp->bridge_count; i++) {
+> +		encoder =3D &dp->bridge_list[i]->encoder.encoder;
+> +		encoder->funcs->destroy(encoder);
+> +		drm_bridge_put(dp->next_bridge_list[i]);
+> +	}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730013349.51-1=
--kernel@airkyi.com?part=3D4
+-kernel@airkyi.com?part=3D6
