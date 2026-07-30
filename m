@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77BF8C54FD2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:14:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0407C55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:18:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D464D10E67B;
-	Thu, 30 Jul 2026 09:14:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57C7E10EE49;
+	Thu, 30 Jul 2026 09:18:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fy7DR/ui";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FaMBTnU4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 38AEE10E67B
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:14:40 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD1BF10E0F4;
+ Thu, 30 Jul 2026 09:18:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785402881; x=1816938881;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version;
- bh=lE6x1kYRC11Y8EI9rsrIsy/POw71Fh+oamWcplWGCwg=;
- b=fy7DR/uiukvfcssWQ5knlwVaYbF2s5DNBpd0hdTfUPxrWfygX0WhU8+x
- 5tBG4vbYE1RmW3knQr+PoEfFEmPpdmpzbnnRgChVQOyCSuERBGy11gjvL
- 2VFkIuRx5ODPaj3vcacy+u2htaQqEVLWcsz97es8GZEx6UZVfauy5A06y
- okL+gp3OTerwk0HGN/1l9vDlbaAqT13WveNOTSvzVra8K+T6dWdeC/DQu
- l+IIPMciY5VYxBDFANAWWNV/VduuRth9LaxJw9CH+4TwVhbiLUD2ZwoiW
- aE/ZLTmi2evR05yttWL7BJOCcEeSCLM0nOJhoq298qU3f2hxJkQkDa2WD Q==;
-X-CSE-ConnectionGUID: 1yyuQ0ikSDSucovJazJBXA==
-X-CSE-MsgGUID: ptISTnXuR+qO0fmBoi+k6A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="103422218"
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="103422218"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 02:14:40 -0700
-X-CSE-ConnectionGUID: s058yAiBSoyuFUikDnXtMw==
-X-CSE-MsgGUID: vnXY6O0kQAGztisBKUuTqA==
+ t=1785403122; x=1816939122;
+ h=message-id:date:mime-version:from:to:cc:subject:
+ content-transfer-encoding;
+ bh=8zJ2ODH7/MclepUEYWefXl8XJmxB4ORKAJ3BUMskGSY=;
+ b=FaMBTnU4k1Ossd9sgKzcSlWYga6tYIdCa9n6bS7InYYVbirZNixbyFX0
+ RBMC6rtN128JSE6dm/qtbg1rwySvQhgIPJc+ox6NYY7R1t4He7BF84OQp
+ yZghN1JLivfsXNFCSCujV9N5CU69k8rQckx7BlewHq/GqEgxNG5a2tjKB
+ O7DpcKP2ThGn48glx53rFVFComrnyLlXwqvJr3TfwnAuuhFWduefHMED8
+ 38i49E+Y9g9Y9pmQHZEL1zTWCbIz2Hhzbrz2bJ965CsBwOsDj0P1jnQHP
+ qJkw22GBezXRIpWikq67K23cvlLFUguLRJZr9f0B4YZEW6a0gTGBc3y8t Q==;
+X-CSE-ConnectionGUID: OnMv99/aTn+i/VzYn4FKtw==
+X-CSE-MsgGUID: yyi1vzhTSxCMGUHTGFHtyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="86095538"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="86095538"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 02:18:41 -0700
+X-CSE-ConnectionGUID: u3Hd7uJ7SkuIEkxuVgfJJQ==
+X-CSE-MsgGUID: grGb5ZDTR/WpsFumaqhnfA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="290203039"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
- ([10.245.245.160])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 02:14:34 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Leandro Ribeiro <leandro.ribeiro@collabora.com>,
- dri-devel@lists.freedesktop.org
-Cc: airlied@gmail.com, broonie@kernel.org, daniels@collabora.com,
- maarten.lankhorst@linux.intel.com, miguel.ojeda.sandonis@gmail.com,
- mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
- penguin-kernel@I-love.SAKURA.ne.jp, tytso@mit.edu, tzimmermann@suse.de,
- ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] drm: use drm_warn() in
- validate_blend_mode_for_alpha_formats()
-In-Reply-To: <20260729214505.185776-2-leandro.ribeiro@collabora.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260729214505.185776-1-leandro.ribeiro@collabora.com>
- <20260729214505.185776-2-leandro.ribeiro@collabora.com>
-Date: Thu, 30 Jul 2026 12:14:31 +0300
-Message-ID: <b2628133dfe020b9e3c74af27a3cfa2525f66223@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="264523058"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93])
+ ([10.245.245.93])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 02:18:38 -0700
+Message-ID: <178a513f-2d7f-4e3a-811b-cd0d9dc309eb@linux.intel.com>
+Date: Thu, 30 Jul 2026 11:19:24 +0200
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Oded Gabbay <ogabbay@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: [PULL] drm-misc-fixes
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,54 +77,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 29 Jul 2026, Leandro Ribeiro <leandro.ribeiro@collabora.com> wrote:
-> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
-> with alpha exposed") introduced a WARN() to let driver developers know
-> that a previously valid behavior should now be changed.
+Hey Dave, Sima,
 
-I should've chimed in way back when, but in retrospect it's a bit
-presumptuous to add a commit that puts the burden of the change on the
-driver developers, without so much as identifying which drivers or
-getting an ack from them.
+drm-misc-fixes for the next -rc!
+As both Thomas and Maxime are out, I'll send -next as well.
 
-This is really not unlike the __deprecated attribute, see commit
-771c035372a0 ("deprecate the '__deprecated' attribute warnings entirely
-and for good"), but this one's runtime not build.
+Kind regards,
+~Maarten Lankhorst
 
-> But WARN() should not be used for that, as it's a kernel warning report
-> mechanism for conditions that are not expected to happen. It also
-> produces a stack trace. Instead, a simple warning-level log message
-> should have been used, as drivers were expected to trigger the
-> condition.
->
-> This is causing problems for fuzzers, as they may stop when encountering
-> a "BUG:" or "WARNING:" in the logs.
->
-> Replace WARN() with drm_warn() in this function, avoiding these issues.
+drm-misc-fixes-2026-07-30:
+drm-misc-fixes for v7.2-rc6:
+- vmwgfx:
+  - Improve various size checks and limit checks.
+  - Fix oops when submitting  invalid execbuf ioctl.
+  - Correctly lock in vmfwgx fence signaling path.
+  - More validation of execbuf ioctl.
+  - Fix oops in vmwgfx vkms init failure path.
+  - Overflow handling in shader path.
+- Improve firmware validation in panthor.
+- Fix small leak in bridge/display-connector
+- Improve imagination trace points.
+- Fix QAIC transaction length check.
+- Restrict some DP bandwidth calculations to HDMI DFP.
+The following changes since commit f5098b6bae761e346ebcd9da7f95622c04733cff:
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+  Linux 7.2-rc5 (2026-07-26 14:45:48 -0700)
 
-> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-> ---
->  drivers/gpu/drm/drm_mode_config.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-> index 3bcc7bf0900c..3d9c554e08a8 100644
-> --- a/drivers/gpu/drm/drm_mode_config.c
-> +++ b/drivers/gpu/drm/drm_mode_config.c
-> @@ -869,8 +869,9 @@ static void validate_blend_mode_for_alpha_formats(struct drm_plane *plane)
->  	for (i = 0; i < plane->format_count; i++) {
->  		fmt = drm_format_info(plane->format_types[i]);
->  		if (fmt->has_alpha) {
-> -			WARN(1, "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup",
-> -			     plane->base.id, plane->name);
-> +			drm_warn(plane->dev,
-> +				 "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup",
-> +				 plane->base.id, plane->name);
->  			break;
->  		}
->  	}
+are available in the Git repository at:
 
--- 
-Jani Nikula, Intel
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-fixes-2026-07-30
+
+for you to fetch changes up to d6c075f797a672a6e3bd2fd44aee713801698ec2:
+
+  accel/qaic: use sizeof(*trans_hdr) for transaction length check (2026-07-29 14:57:37 -0600)
+
+----------------------------------------------------------------
+drm-misc-fies for v7.2-rc6:
+- vmwgfx:
+  - Improve various size checks and limit checks.
+  - Fix oops when submitting  invalid execbuf ioctl.
+  - Correctly lock in vmfwgx fence signaling path.
+  - More validation of execbuf ioctl.
+  - Fix oops in vmwgfx vkms init failure path.
+  - Overflow handling in shader path.
+- Improve firmware validation in panthor.
+- Fix small leak in bridge/display-connector
+- Improve imagination trace points.
+- Fix QAIC transaction length check.
+- Restrict some DP bandwidth calculations to HDMI DFP.
+
+----------------------------------------------------------------
+Alessio Belle (1):
+      drm/imagination: Fix value of HWRT address in pvr_job_create tracepoint
+
+Alexander Kaplan (1):
+      drm/dp: Read the PCON max FRL bandwidth only for HDMI DFPs
+
+Brajesh Gupta (1):
+      drm/imagination: Update the trace point pvr_job_submit_fw()
+
+Jose Maria Casanova Crespo (1):
+      drm/vc4: Supply the overflow slot size in BPOS, not the whole bin BO size
+
+Laurent Pinchart (1):
+      drm/bridge: display-connector: Fix I2C adapter resource leak
+
+Maarten Lankhorst (1):
+      Merge remote-tracking branch 'drm/drm-fixes' into drm-misc-fixes
+
+Maíra Canal (1):
+      drm/vc4: Zero the tile state data array before each BIN job
+
+Muhammad Bilal (1):
+      accel/qaic: use sizeof(*trans_hdr) for transaction length check
+
+Osama Abdelkader (2):
+      drm/panthor: reject firmware sections with oversized data
+      drm/panthor: validate firmware interface structure sizes
+
+Zack Rusin (12):
+      drm/vmwgfx: fix guest_memory_dirty bitfield clobbered as size
+      drm/vmwgfx: reject DX_BIND_QUERY without a DX context
+      drm/vmwgfx: clamp dirty-page range with min, not max
+      drm/vmwgfx: take fman->lock around fence list mutation in fifo_down
+      drm/vmwgfx: drop dma_buf reference on foreign-fd prime import
+      drm/vmwgfx: validate DRAW_PRIMITIVES header size before division
+      drm/vmwgfx: bound DMA command body size against suffix pointer
+      drm/vmwgfx: avoid destroy_workqueue(NULL) on vkms init failure
+      drm/vmwgfx: enforce cursor size limits for MOB cursors
+      drm/vmwgfx: skip hash_del_rcu when validation context has no hash table
+      drm/vmwgfx: use check_add_overflow for shader size+offset bound
+      drm/vmwgfx: validate external BO copy bounds for both stride paths
+
+ drivers/accel/qaic/qaic_control.c            |  2 +-
+ drivers/gpu/drm/bridge/display-connector.c   | 11 +++++--
+ drivers/gpu/drm/display/drm_dp_helper.c      | 12 +++++++
+ drivers/gpu/drm/imagination/pvr_queue.c      |  7 ++--
+ drivers/gpu/drm/imagination/pvr_trace.h      | 16 +++++++--
+ drivers/gpu/drm/panthor/panthor_fw.c         | 47 ++++++++++++++++++--------
+ drivers/gpu/drm/vc4/vc4_irq.c                |  2 +-
+ drivers/gpu/drm/vc4/vc4_validate.c           | 29 ++++++++++++----
+ drivers/gpu/drm/vmwgfx/ttm_object.c          |  7 ++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_blit.c         | 39 +++++++++++++++++-----
+ drivers/gpu/drm/vmwgfx/vmwgfx_cursor_plane.c | 49 +++++++++++++++++++++++++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c      | 20 ++++++++++--
+ drivers/gpu/drm/vmwgfx/vmwgfx_fence.c        | 13 +++++++-
+ drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c   |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_resource.c     |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_shader.c       | 13 +++++---
+ drivers/gpu/drm/vmwgfx/vmwgfx_validation.c   |  3 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_vkms.c         | 17 +++++-----
+ 18 files changed, 230 insertions(+), 65 deletions(-)
