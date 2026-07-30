@@ -4,62 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C61EC5516F
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:55:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21F17C5516D
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 19:37:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E49610E1CD;
-	Thu, 30 Jul 2026 18:55:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A48710E034;
+	Thu, 30 Jul 2026 19:37:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=leandro.ribeiro@collabora.com header.b="HLl/j4xV";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="qti21Mze";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 171C810E1CD
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:55:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785437703; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=KF8xdYFkiAHfsZzZwCtc6DDFV1VVV320azulRXqWAZdzoZ33S883WCrUO364HDCNScjElUtMF7ZJquQgBuTJxG6xKtHppiCznOvPxnO+pB5p9pdq9J+eixLTSCdOzDwK5hdpZN2PpzD+i7sRB3rIM+BBTjJvabWFt5RJ9+u4ML0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785437703;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=9AIxGw1TLp+p2tcxS7/F14XLcUmuxOVmyqIJY65QchY=; 
- b=O1iPcOOrPQXk5cdFiV1wKo706fUyhY9reIdeoA3lFkOgct2DURrlUp22cyarLF/a7Mjl0FbA3kOcDtXeQDAw6ezJDIVwdrzN411WJTDuadVAjkmoLo3gjfg9nl8pkdImb5Z6gIGbE6zl7io5dkWXyEo+WqoSL3Vk049XZBKUrGY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=leandro.ribeiro@collabora.com;
- dmarc=pass header.from=<leandro.ribeiro@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785437703; 
- s=zohomail; d=collabora.com; i=leandro.ribeiro@collabora.com; 
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=9AIxGw1TLp+p2tcxS7/F14XLcUmuxOVmyqIJY65QchY=;
- b=HLl/j4xVw/vZVmiOdCOGpTkFDGK5kwMUuoUSEs3OkbE9kUth8Ys3F5JUqXUfkW+L
- aXKHjwAAD9LBGIwvUYA4drvU0CNYkuWrZXZoZJYVbszJW03vBFQ/AQ2gUi/aDf1lsR1
- Ny7IJuZzGEG3FMdLR1wRLL/y9aQt//O1U0EoQybA=
-Received: by mx.zohomail.com with SMTPS id 1785437700926956.5335535558954;
- Thu, 30 Jul 2026 11:55:00 -0700 (PDT)
-Message-ID: <5d8ff369-8afa-4fcf-906b-ab685fa04e42@collabora.com>
-Date: Thu, 30 Jul 2026 15:54:55 -0300
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E5C110E034
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 19:37:26 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2cab97c86bdso2685ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:37:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1785440246; x=1786045046;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=WsNFudBG08sj5R9fNK8ZstEhl3SLgUPJa9Y8Tw68yBE=;
+ b=qti21MzeRf+h/V/JJCQ4lAHTNzaAkJpiFfxDl9mIcBVi74SrEU9peTGAcWAMDW5xfk
+ ufjKJVhEQ6d5FEV1lhCA9IsnjKeq8d6yzLVYhv7kyArXujSBRBiIjsSJB/GM/PQiHfF1
+ FvL+rbhvxYYxmWQJFWBKNr1+g8MZ4x3xXyXWM5R5I+Ai7bv70WDePjeAMuJut4XaAwGU
+ Gh6gqwEYS+cGGV2RiGR6TxbxNL+8L29jOjBL2R3vbRzMvUSLrpvtCohsQcgDkXpXqdkK
+ 5mG5UdEuBOq1r1N50bKesjghpraM3Qw3+DHAUdUpzk1WO3Pk/aWjSuP7yLdqT/JmmrmH
+ OexQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785440246; x=1786045046;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=WsNFudBG08sj5R9fNK8ZstEhl3SLgUPJa9Y8Tw68yBE=;
+ b=PZlMGwAPtriGhQuTC3oL9LuelwIm1I9y2oEdqokb72P9iVOUXBKdNgdG5vYXk6t9we
+ lvcA6nlcXx1C2L8yFcqWv8txa06Rv0c4pNE26PRhlY4H/H10v+YR4PLVTLmno0UOogX8
+ rc/Qc9pMBP/mauDHFbnIUU3RR2uOBbm/LbcslHru0Fb99z50BtE8SztTRvwC3bRqZ6Mv
+ sXVQmadBY93meTFbxu5CsJtaMk7H5AEn2ttvBzNQv5cN3wq22VY9QYyzB7HOvD2Lh+te
+ x7Ws2Zh9YJIu2UHm74z3tfwBR1MQIfSwrHSvn/I98lNaxE4oGgJkAIhHlB0DJt2Q+Foh
+ CCaA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqz78HPDZlOqR2kty443EUB/1xrLkIepFcOlD/2keC8dB3At1eMC2G0FzZMRjYQ+t4Vi80J/Jx8Ylg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwBxgt1ex0j7h2+Oz6CbsPk82feQTfaCaynudZJc4xYOlH16/tD
+ 7Ld+GZiUzEMkrYXqEYE3VqtKe28JLkTzQeoLXi9/0W4D6pKdQn+uiTDvVwFasZGJZQ==
+X-Gm-Gg: AR+sD12POKaGJlEv1PnAh6EGmJ9symlNqWwQvkrxwACIc7iEiZnagN1jYpyMxtfSeKG
+ F6ib1g0KSYsc91MC+Dnrtba3t9SFZWm25da6nj2e1VqXCJJ61Y/5HX0CEEvVlZ36DVkCk/A1LzX
+ rM6LbCLlIUtRxu1geOOrDewUEFwKjHqT0VpTqffo9pyHrna7SI7lMlBq4S4oFOPIK2Yv8ZZLrm6
+ Q3PljGSuqTqrYLd8DwqVnzFagIoLGFmKR0x7OhkHW2RVJnzhf8SRxoY8mvb0ZMGXIbgc5FF2exg
+ SEUIE5mAg52D/sU4vJNjMHEgWw6cN0a63B3a9LoetX92zuXiaPHCGLUTvoLYWSzrwVmHNYg+iOA
+ vKxHmDo81ZEw4dEbWM+2QQn41hGoHp/bxglF/HM3wLNMC5ijF4h3yjo0Y8liESwICSYGG4i9n63
+ ZMppfkaqYRlp77onEFCzGEXXPqK8jLNgxpD4mo6j/PO+ZHWnDx9YCz3h4hk/UdFw4mit1uyJ4jA
+ QiG4UXB2ZrTLKyXKOyrUH4=
+X-Received: by 2002:a17:902:c40d:b0:2c7:f688:f22f with SMTP id
+ d9443c01a7336-2d041586156mr1531825ad.13.1785440245065; 
+ Thu, 30 Jul 2026 12:37:25 -0700 (PDT)
+Received: from google.com (21.168.124.34.bc.googleusercontent.com.
+ [34.124.168.21]) by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-13e72745b1bsm22459117c88.14.2026.07.30.12.37.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 12:37:24 -0700 (PDT)
+Date: Thu, 30 Jul 2026 19:37:16 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v5 2/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+Message-ID: <amun7H3esu-1OA49@google.com>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-3-matt@ozlabs.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] drm: use drm_warn() in
- validate_blend_mode_for_alpha_formats()
-To: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
- dri-devel@lists.freedesktop.org
-Cc: airlied@gmail.com, broonie@kernel.org, daniels@collabora.com,
- jani.nikula@linux.intel.com, maarten.lankhorst@linux.intel.com,
- miguel.ojeda.sandonis@gmail.com, mripard@kernel.org,
- pekka.paalanen@collabora.com, simona@ffwll.ch, tytso@mit.edu,
- tzimmermann@suse.de, ville.syrjala@linux.intel.com,
- linux-kernel@vger.kernel.org
-References: <20260729214505.185776-1-leandro.ribeiro@collabora.com>
- <20260729214505.185776-2-leandro.ribeiro@collabora.com>
- <b197e416-8007-4aec-b546-62574fa16d27@I-love.SAKURA.ne.jp>
-Content-Language: en-US
-From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-In-Reply-To: <b197e416-8007-4aec-b546-62574fa16d27@I-love.SAKURA.ne.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715174737.15287-3-matt@ozlabs.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,40 +104,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-
-
-On 7/29/26 7:13 PM, Tetsuo Handa wrote:
-> On 2026/07/30 6:45, Leandro Ribeiro wrote:
->> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
->> with alpha exposed") introduced a WARN() to let driver developers know
->> that a previously valid behavior should now be changed.
->>
->> But WARN() should not be used for that, as it's a kernel warning report
->> mechanism for conditions that are not expected to happen. It also
->> produces a stack trace. Instead, a simple warning-level log message
->> should have been used, as drivers were expected to trigger the
->> condition.
->>
->> This is causing problems for fuzzers, as they may stop when encountering
->> a "BUG:" or "WARNING:" in the logs.
->>
->> Replace WARN() with drm_warn() in this function, avoiding these issues.
+On Wed, Jul 15, 2026 at 06:47:25PM +0100, Matt Evans wrote:
+> The P2PDMA code currently provides two features under the same
+> CONFIG_PCI_P2PDMA option:
 > 
-> Thank you. But could something like
+>  1.  Locate providers via pcim_p2pdma_provider()
+>  2.  Manage actual P2P DMA
 > 
->   pr_warn("[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup. Please fix.", plane->base.id, plane->name);
->   dump_stack();
+> Some drivers (such as vfio-pci) depend on (1), without having a hard
+> dependency on (2).
 > 
-> be less prone to get oversighted (because of printing about 10+ lines)?
+> A future vfio-pci commit will rely on pcim_p2pdma_provider() always
+> being present.  If that depended on CONFIG_PCI_P2PDMA, it would make
+> vfio-pci only available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit
+> systems), even when P2P is not needed.
 > 
+> To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
+> basic provider functionality into a new p2pdma_core.c file.  This is
+> available even if the CONFIG_PCI_P2PDMA feature is disabled (or
+> unavailable due to !CONFIG_ZONE_DEVICE), satisfying (1).
+> 
+> Then, when the original CONFIG_PCI_P2PDMA is set, drivers have access
+> to the additional P2P features of (2).  This still depends on
+> CONFIG_ZONE_DEVICE.
+> 
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
 
-I see the point about making the message harder to overlook, but
-honestly I feel like the stack trace would be overkill here.
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
 
-The error message is more important than the stack trace itself in this
-case, and I think the warning should be enough to draw attention to the
-issue.
-
--- 
-Leandro Ribeiro
-
+Thanks,
+Praan
