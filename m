@@ -4,32 +4,32 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C30C3C53200
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:34:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B595DC54FCD
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:34:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07A0B10E0CE;
-	Thu, 30 Jul 2026 01:34:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B31410E53E;
+	Thu, 30 Jul 2026 01:34:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="o83+M00J";
+	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="tWVlWFY6";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B431310E0CE
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:34:49 +0000 (UTC)
+Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB0D10E53E
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:34:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1785375257;
- bh=npvKufDrxCamAC0XxJBTsSoLK/Np4E9Y3fZVXvjDxtI=;
+ s=altu2504; t=1785375262;
+ bh=34S38J64YM+H+KpfDbN51lI/VLTj/+Nb2w4k8BEGW5Q=;
  h=From:To:Subject:Date:Message-Id;
- b=o83+M00J3uvQhdLB6dqcF/TPFjUtN5FlxqHWNVzw7vsUaIXnKPKJcuznXtMfGUCnh
- 4PH9VZts66qmM4nriHkPK3M+YK+JhZ81ZjRoHhTvquF8b+ov8b0aY0To3fiP8b/eLu
- OpLZfM9uVHthgxWZlUguPyV07j97u0r8TapNSyps=
-X-QQ-mid: esmtpgz16t1785375255t1b5f5b3e
-X-QQ-Originating-IP: pEB+rak0qFIvtoH5ex0k9x33XVmBeGbaXJ7neXht+5c=
+ b=tWVlWFY6s0ey5XkgvY4zMcsuNGstZc26AxEGX4/VEY2K65S1IMHb6UU0T2bFU8+ZD
+ IMaBCfzakqHhyKEZs9jveo8/YSOtM6wo7UM5yTDDZ5S/AhCh443eQ3IRxPFx6HI7PG
+ IAbsx3FkIAY5DALXbzR3gLbojzRgr2YJYCzUB2dE=
+X-QQ-mid: esmtpgz16t1785375260tc42de64d
+X-QQ-Originating-IP: h2Thze7d4q0oJMo7Urb9mZmDujzRNU31S/lY1AZVkmM=
 Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
  by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 30 Jul 2026 09:34:11 +0800 (CST)
+ id ; Thu, 30 Jul 2026 09:34:16 +0800 (CST)
 X-QQ-SSF: 0000000000000000000000000000000
 X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14627087560788875138
+X-BIZMAIL-ID: 6195067875191386015
 From: Chaoyi Chen <kernel@airkyi.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -49,32 +49,32 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-phy@lists.infradead.org
-Subject: [PATCH v5 2/6] drm/display: Add soft depend for
- aux-hpd-typec-dp-bridge module
-Date: Thu, 30 Jul 2026 09:33:45 +0800
-Message-Id: <20260730013349.51-3-kernel@airkyi.com>
+Subject: [PATCH v5 3/6] drm/bridge: aux: Add
+ drm_aux_bridge_register_from_node()
+Date: Thu, 30 Jul 2026 09:33:46 +0800
+Message-Id: <20260730013349.51-4-kernel@airkyi.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260730013349.51-1-kernel@airkyi.com>
 References: <20260730013349.51-1-kernel@airkyi.com>
 X-QQ-SENDSIZE: 520
 Feedback-ID: esmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MjA5tsjrlPcvo/9ZOREPP3pvjBCGzJCCX27w6ex4OyK4RDbEmCqTKIHl
- 6itxEmueeqMuJtckT03Hl6uwHKJ8ErZ1BTRX2NJcpPTBrZnVAx3ex/GH/R9l3hSgO+/z4oI
- D7ediTBLaPELIYlHFRWiuEArlVHPC4yQcAfVKznJb6N5ZwQNpaIqJygm9R4PubJswDBTYmg
- ag3wIVKsFRtPJrZE4wLq9fiu7Lh6eErm+m6ASq5cV0aRY/+rWgzaJbicwr4XYYboVByzTKn
- LZIBKNoUQawfwWDz7MpkQ53BU4ynUIzyQU+LzSSyYzZ4pdQyOrDsuh/vtjxm5zTJLFZhKe9
- gs5iuBEX3GVQyOzw6vb2Q7E0WYPI5DY93eiNaJTfW3qlZDMAOF0TvFyz0C57I7B0lAdTw86
- eQVTMy5dmasZ1NoVDsVGGdCgu/eIyj1nmawP5U7GQxekcPLP33Ld0HsyTdFPV5o5auHoFtl
- qDyYWoF7racwC63xPCpdkO80koQa4pUcbmaDT9JCyZLUTJse8hewPKJSKMchrqN5EdRZV0d
- sUPM0GJw/iwcuoSD0yD6TbDW3FBaQn93I4kT1SprfsOdzClnO8D3/g+iEcPPcdS0xQqnlEL
- vEiSUq5THYOzWBMylJiv/fYZqtaUIgb3l6eDPV/LYn8niYGTnUsjIEnTY/dwlEFshY5qBhJ
- PsE6wJWTmJOnFfcgyvE/89xqZ6IXBldyCvg1s02BuJxmmmVmN43qIA3kWc0j+rjkO9DgT+A
- 92EyTK7qmMK8ToVqpXocyOp2ssCxZ8kwHjR4P1fulu5UhIypp+2wkY+xgrBrnDLvWNVkVMt
- x/li6sL/Cmt9oJQW4CHiaVcsICWsyhVCDyxgR+dTT535oSedpg3MP/WccuB3d5vZ3fj3dBP
- 6vVNyyPPS8iqMzxQpo5oUdklFLgy9mH2XG08pDRU3Te9V16+BxdVpR7tlnIXIjLTudetLU6
- ycFzf9b0vUqbgBxSaNOMZpgK2m3fqvdlO/aTMGUE6Vj4e0t47XcZS9ODxy69p+udqzU+LhE
- 317egh0A==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-XMAILINFO: OZ6Go/7Bj7284kWu0sLCEcTHrj19c5IVbygt/k8x2dtTUP4S9Mkb8ES7
+ sXy7ddyTtEx+DD2eFShH2wQcjbfgrqysNTqltqycvNZpyLS3ojIv8ZdXygja8Wtv/LgmW7K
+ O7NFhvQLhWaYV7lM48sXnO8tWMzw6bw6JkxADnuYlMrb9/DXqFTqppTPdw/1UWzYoLaZBTz
+ MmTer2Y1S15gOqJ9a1HecltyqQPuBHRm+7NK9jxa46D1nfq2R31e3V/6A6zKLtRuEl4Gsf/
+ buZ5iecrNy2ZhW8xgVZxBi9W0HorwZKzeKEV/kZKA/Mx1N3HWCAgW3BL+W1tJ2z4oKU5tjo
+ 1Rsafi8CC6Pvng+QeYiOEiOEnDEm4Scz0WMu2BKY0JNSRG9JB7MbQP+7U9NqjC6vQi2q6Bs
+ ZB++r+fQ2/ofLcSn8KH8jTBNCbwwYQpSwgby3OPz0ro9HV7ahojwTZSRZ3rGXfmW8jZHf/2
+ Z4Gm1al/5W6/mNCW1jVPWnilCI5sPU+ijlRbo1d1lnueA6JYt0s5ypffd/EyX9Ewrj8a5f5
+ HxDsoONFGLwrIhKhLGdwhFgQjAj28uU0/0G5SDwqtvrTSTYZTEZJNoi5zhbullVKhrmf+e0
+ 13hA8gvaYb0NVZgK1WCOO/MEcjbx2iTcnM/TkfIXU2KnUES4e9SLRh+ygzavqcv0hcxCOEM
+ VhNgClFZ/K64UVaKlA0mDK5kYATRhf1MezZiDOK18dh36O2ub/si1T1RBa/l3EE8h05d9Au
+ I8aedEyRmhU28Ei1gFhifVjIz2IjXo0PNd4+Qvkfh6Qj24eqZK7ZWVqy5z6myMIWzU+eZay
+ ltv5RvYkoMvp9aCemxJkgdbdZ5HLV4pukmEfRn3oKK0TzaFHkjvXwGaQZMInVI801NNKBjS
+ 1f77xGUx8fe8mrCplhqNHcV35vU0vUPTck6fvl73hsdkCTFnfB7O+H6eU7gQkvsQ83jEs5d
+ qE8SeAT8fjv+bX1EfY81yaP+C4JE2MzAuCI8qfYFaEtohc03JrutUj/dG0RDTmji82B9gQg
+ hT9ntAPA==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
 X-QQ-RECHKSPAM: 0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,31 +93,108 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-The aux-hpd-typec-dp-bridge module serves as a generic TypeC
-DisplayPort HPD bridge and is not required by any other
-module. Therefore, it will not be auto-loaded.
+The drm_aux_bridge_register() uses the device->of_node as the
+bridge->of_node.
 
-Given that the drm_display_helper module houses DisplayPort-related
-helper code, add a MODULE_SOFTDEP() within it to suggest loading the
-aux-hpd-typec-dp-bridge module beforehand.
+This patch adds drm_aux_bridge_register_from_node() to allow
+specifying the of_node corresponding to the bridge.
 
-Suggeted-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/display/drm_display_helper_mod.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/display/drm_display_helper_mod.c b/drivers/gpu/drm/display/drm_display_helper_mod.c
-index d8a6e6228773..f0152d6b0b2d 100644
---- a/drivers/gpu/drm/display/drm_display_helper_mod.c
-+++ b/drivers/gpu/drm/display/drm_display_helper_mod.c
-@@ -18,5 +18,6 @@ static void __exit drm_display_helper_module_exit(void)
- 	drm_dp_aux_dev_exit();
+(no changes since v3)
+
+Changes in v2:
+- Fix incorrect function names in the documentation comments.
+---
+ drivers/gpu/drm/bridge/aux-bridge.c | 26 +++++++++++++++++++++++---
+ include/drm/bridge/aux-bridge.h     |  6 ++++++
+ 2 files changed, 29 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
+index 1ed21a8713bf..06a1466f49bd 100644
+--- a/drivers/gpu/drm/bridge/aux-bridge.c
++++ b/drivers/gpu/drm/bridge/aux-bridge.c
+@@ -33,8 +33,9 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
  }
  
-+MODULE_SOFTDEP("pre: aux-hpd-typec-dp-bridge");
- module_init(drm_display_helper_module_init);
- module_exit(drm_display_helper_module_exit);
+ /**
+- * drm_aux_bridge_register - Create a simple bridge device to link the chain
++ * drm_aux_bridge_register_from_node - Create a simple bridge device to link the chain
+  * @parent: device instance providing this bridge
++ * @np: device node pointer corresponding to this bridge instance
+  *
+  * Creates a simple DRM bridge that doesn't implement any drm_bridge
+  * operations. Such bridges merely fill a place in the bridge chain linking
+@@ -42,7 +43,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
+  *
+  * Return: zero on success, negative error code on failure
+  */
+-int drm_aux_bridge_register(struct device *parent)
++int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
+ {
+ 	struct auxiliary_device *adev;
+ 	int ret;
+@@ -62,7 +63,10 @@ int drm_aux_bridge_register(struct device *parent)
+ 	adev->dev.parent = parent;
+ 	adev->dev.release = drm_aux_bridge_release;
+ 
+-	device_set_of_node_from_dev(&adev->dev, parent);
++	if (np)
++		device_set_node(&adev->dev, of_fwnode_handle(np));
++	else
++		device_set_of_node_from_dev(&adev->dev, parent);
+ 
+ 	ret = auxiliary_device_init(adev);
+ 	if (ret) {
+@@ -80,6 +84,22 @@ int drm_aux_bridge_register(struct device *parent)
+ 
+ 	return devm_add_action_or_reset(parent, drm_aux_bridge_unregister_adev, adev);
+ }
++EXPORT_SYMBOL_GPL(drm_aux_bridge_register_from_node);
++
++/**
++ * drm_aux_bridge_register - Create a simple bridge device to link the chain
++ * @parent: device instance providing this bridge
++ *
++ * Creates a simple DRM bridge that doesn't implement any drm_bridge
++ * operations. Such bridges merely fill a place in the bridge chain linking
++ * surrounding DRM bridges.
++ *
++ * Return: zero on success, negative error code on failure
++ */
++int drm_aux_bridge_register(struct device *parent)
++{
++	return drm_aux_bridge_register_from_node(parent, NULL);
++}
+ EXPORT_SYMBOL_GPL(drm_aux_bridge_register);
+ 
+ struct drm_aux_bridge_data {
+diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bridge.h
+index c2f5a855512f..7dd1f17a1354 100644
+--- a/include/drm/bridge/aux-bridge.h
++++ b/include/drm/bridge/aux-bridge.h
+@@ -13,11 +13,17 @@ struct auxiliary_device;
+ 
+ #if IS_ENABLED(CONFIG_DRM_AUX_BRIDGE)
+ int drm_aux_bridge_register(struct device *parent);
++int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np);
+ #else
+ static inline int drm_aux_bridge_register(struct device *parent)
+ {
+ 	return 0;
+ }
++
++static inline int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
++{
++	return 0;
++}
+ #endif
+ 
+ #if IS_ENABLED(CONFIG_DRM_AUX_HPD_BRIDGE)
 -- 
 2.53.0
 
