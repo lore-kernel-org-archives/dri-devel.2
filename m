@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CEE5C5516E
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:41:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 831C4C5516E
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:41:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6863310F03B;
-	Thu, 30 Jul 2026 18:41:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEAAD10F041;
+	Thu, 30 Jul 2026 18:41:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dhRc3QE9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g7Gws1Iv";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CA5710F03B
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:41:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3336510F041
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:41:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 44170417DF;
- Thu, 30 Jul 2026 18:41:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0F331F000E9;
- Thu, 30 Jul 2026 18:41:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 169CF41819;
+ Thu, 30 Jul 2026 18:41:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C340E1F00A3A;
+ Thu, 30 Jul 2026 18:41:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785436877;
- bh=Dxf2m9s+WPfdOGNnFFrLrBmTL3JOJdzENC3Gn8RgjiU=;
+ s=k20260515; t=1785436913;
+ bh=sRBT9hvzJ14wFzzAsYZ0JpehxMLfTIKpD4YFf4xP8+4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dhRc3QE9aQPhMEeKMOAMNgsRnMKq4LYrADOryFx3GufOK1Y9FjMThYQb3Y/qsijCb
- blM4JsMsiUnNIueveNDxcMZavB/AuBZAI5QJ3F+XF1K5E0Oomt05Mdbq2bKyvTfh8K
- aazWo+7vVMwC/2EW2Ry5hssp0J57lV9Jrp7u0GJRydLxcn2FUBV3uigWuUDbTMeEP9
- e924syU99vLUrS9hn8HaNLo6/mkg8PX0nKuLQECTpAdJwFKGOD+ykpIUSucT+KyR/Y
- /RTE0FuiUvKy1PcRTY97wsVobiFXONjQV7jKl8yPdokhPeqJoL/miyQKL0oRu4WaCk
- CQFKolaAe6SwQ==
+ b=g7Gws1IvyD5Kbp8IyvkXj3iI8koH6eomWH//j9CYyfemDs4Ho8WbCiVouecXh49OA
+ /PE7WSRnNcJIpJ8g1GtJpIms/XWyV2EnW4VR1iS4XAZhVOf+jpwKyI6rmyFg0q+1EE
+ z7XzMLs7GNNLiFEQ2FYKlnbWxBm5OX44GSIgv4dzy5E3slqd52qltHhl4ZfxpIzR9R
+ YQwnJbixhepsznlSFN/DmozuLfA36tjuxNShr0hCBjaKCtzkkRfT8Xv8rtXtZbzTuy
+ bHdTWGG/w4J1HS+k6jts1zXq7hg1U+LifxK7BTxDZYW3ldTEq1A+rN5goPZWYlZRJX
+ 5IqtdCu9cTlHg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/5] fbdev: tdfxfb: Attempt to detect if the card wasn't
- booted
+Subject: Re: [PATCH 3/5] fbdev: tdfxfb: Manually boot unbooted cards
 To: "Daniel Palmer" <daniel@0x0f.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260730182640.2808572-3-daniel@0x0f.com>
+In-Reply-To: <20260730182640.2808572-4-daniel@0x0f.com>
 References: <20260730182640.2808572-1-daniel@0x0f.com>
- <20260730182640.2808572-3-daniel@0x0f.com>
+ <20260730182640.2808572-4-daniel@0x0f.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 18:41:16 +0000
-Message-Id: <20260730184116.F0F331F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 18:41:52 +0000
+Message-Id: <20260730184152.C340E1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,63 +57,95 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The driver unconditionally rejects perfectly working cards if the =
-video BIOS ROM is inaccessible or in an unsupported format.
+- [High] PCI MMIO writes are not flushed before udelay() or hardware depend=
+ent operations, and wmb() is misused to flush PCI writes.
+- [High] The miscinit0 field from the BIOS configuration table is ignored a=
+nd incorrectly hardcoded to 0.
 --
 
---- Patch [2]: [PATCH 2/5] fbdev: tdfxfb: Attempt to detect if the card was=
-n't booted ---
-commit e450df3d917986ae9c59e1033b55fdddafa9cf19
+--- Patch [3]: [PATCH 3/5] fbdev: tdfxfb: Manually boot unbooted cards ---
+commit 2a277f3197dc755d9c642a91cfd45c9bd1ee77f8
 Author: Daniel Palmer <daniel@0x0f.com>
-Subject: fbdev: tdfxfb: Attempt to detect if the card wasn't booted
 
-This commit adds hardware initialization checks to tdfxfb_probe() by
-attempting to read the configuration from the video BIOS. If the register
-values do not match the BIOS config, it rejects the card to avoid providing
-a blank display.
+fbdev: tdfxfb: Manually boot unbooted cards
+   =20
+If the card is detected as being unbooted it isn't too difficult
+to use the config table in its BIOS to fire it up so do it.
 
 > diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
+> index 1d8bffe1e9fdf..4c1d847c89c9d 100644
 > --- a/drivers/video/fbdev/tdfxfb.c
 > +++ b/drivers/video/fbdev/tdfxfb.c
 [ ... ]
-> +/*
-> + * Try to work out if the card was booted or not, just checks
-> + * if the register reported memory amount matches what the BIOS
-> + * reports for now.
-> + */
-> +static int tdfxfb_hw_init(struct fb_info *info, struct pci_dev *pdev)
-> +{
-> +	struct tdfx_par *par =3D info->par;
-> +	struct tdfx_bios_cfg cfg;
-> +
-> +	if (tdfxfb_get_bios_cfg(pdev, &cfg) &&
-> +	    tdfx_inl(par, DRAMINIT0) =3D=3D le32_to_cpu(cfg.draminit0))
-> +		return 0;
-> +
+> @@ -414,19 +415,62 @@ static bool tdfxfb_get_bios_cfg(struct pci_dev *pde=
+v,
+>   * Try to work out if the card was booted or not, just checks
+>   * if the register reported memory amount matches what the BIOS
+>   * reports for now.
+> + *
+> + * If we have a BIOS config table attempt to manually boot the
+> + * card if needed.
+>   */
+>  static int tdfxfb_hw_init(struct fb_info *info, struct pci_dev *pdev)
+>  {
+[ ... ]
+> +	/* memory clock, and the graphics clock if the card wants one */
+> +	tdfx_outl(par, PLLCTRL1, mempll);
+> +	if (gfxpll)
+> +		tdfx_outl(par, PLLCTRL2, gfxpll);
+> +	/* PLL lock */
+> +	udelay(100);
 
 [Severity: High]
-Will this unconditionally reject working cards if the video BIOS ROM is
-inaccessible or in an unsupported format?
+Does this delay reliably wait for the PLL lock?
 
-Looking at tdfxfb_get_bios_cfg(), it can naturally return false if
-pci_map_rom() fails. This is common on architectures without PCI ROM
-support, or if the ROM BAR is disabled. It will also return false if the
-BIOS ROM does not contain the specific 3dfx OEM configuration table.
+tdfx_outl uses writel which performs a posted write on PCI buses, so the de=
+lay
+might start before the PCI bridge actually delivers the write to the device.
 
-Because of the logical && short-circuit, if tdfxfb_get_bios_cfg() fails to
-read the config, the tdfx_inl() check is skipped and the function falls
-through to return -ENODEV.
+Would adding a dummy read to a device register (e.g. tdfx_inl) before the
+udelay ensure the posted writes are flushed?
 
-Could this cause a regression for hardware that was previously supported but
-lacks a readable BIOS ROM?
+> +
+> +	tdfx_outl(par, MISCINIT1, miscinit1);
+> +	tdfx_outl(par, DRAMINIT0, draminit0);
+> +	tdfx_outl(par, DRAMINIT1, draminit1);
+> +
+> +	/* Make sure the DRAM config is applied before continuing */
+> +	wmb();
 
-> +	dev_err(&pdev->dev,
-> +		"Card hasn't booted and is unusable\n");
-> +	return -ENODEV;
-> +}
+[Severity: High]
+Does wmb actually flush the PCI posted writes?
+
+A CPU memory barrier typically only flushes CPU store buffers, not PCI
+posted write buffers, so the DRAM configuration might still be pending
+when the subsequent wake-up commands are sent.
+
+> +
+> +	/* SDRAM/SGRAM wake up: load the mode register */
+> +	tdfx_outl(par, DRAMDATA, dram_mode);
+> +	tdfx_outl(par, DRAMCOMMAND, 0x10d);
+> +
+> +	tdfx_outl(par, LFBMEMORYCONFIG, 0x00001fff);
+> +	tdfx_outl(par, MISCINIT0, 0);
+
+[Severity: High]
+Is this hardcoded 0 intentional?
+
+The rest of the fields (like miscinit1) are populated from the BIOS
+configuration table. It appears le32_to_cpu(cfg.miscinit0) is completely
+ignored, which could overwrite essential hardware configurations managed
+by MISCINIT0 with 0.
+
+> +
+> +	/* Make sure the remaining config is applied */
+> +	wmb();
+> +
+> +	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730182640.2808=
-572-1-daniel@0x0f.com?part=3D2
+572-1-daniel@0x0f.com?part=3D3
