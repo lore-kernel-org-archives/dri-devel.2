@@ -4,78 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2887AC53200
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:35:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAFC4C54FCD
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:38:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67FAB10E9C6;
-	Thu, 30 Jul 2026 01:35:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C23510E086;
+	Thu, 30 Jul 2026 01:38:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="lz/aP9vs";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="kRCwUDGT";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2672010E9C6
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1785375281;
- bh=lKSvP+xMotYW05bEKx8Z16U7leN5oeUpgtpGTiKZ9Ns=;
- h=From:To:Subject:Date:Message-Id;
- b=lz/aP9vsdM91sfeJUTuT14SirMkSYb/AlosmEupURZKne3YNE6Jdl6zwRU/w9/8q9
- IVqsp/PSg0tx3YgCpH1Ugub2S1hvmKxXfamEq5mGIKwOFD0uWGqo/3ng0nk1LlgAYa
- guww78ifxDcI8V0A/Bv23ZkwzKH51BY+xZrMUSus=
-X-QQ-mid: esmtpgz16t1785375279t60b178d7
-X-QQ-Originating-IP: NyaW7+e9zfUokwEkoOjJ4qBtxTfvCayGD2XGInm+Q0U=
-Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 30 Jul 2026 09:34:35 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 14833706919756109049
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, Vinod Koul <vkoul@kernel.org>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-phy@lists.infradead.org
-Subject: [PATCH v5 6/6] drm/rockchip: cdn-dp: Add multiple bridges to support
- PHY port selection
-Date: Thu, 30 Jul 2026 09:33:49 +0800
-Message-Id: <20260730013349.51-7-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260730013349.51-1-kernel@airkyi.com>
-References: <20260730013349.51-1-kernel@airkyi.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: N+v2p8NjVRtQEf1YivtFDUg/RhiH62BpmpIYLR3fKBKebjVY9WPCxjlo
- wA9nHXFg1IpLCo4UkNWbOzk5huAxDFvI6HNIodSkd1xTeFuRwGl49DJfjoqv6uGWFtfP4Rj
- nhuFqa4PusQDVEh3m+i/KQ69uDLhpB4IpPKJSQZRttbtAANYDSh8kj6X6DBTYU83nm5kAUR
- VzK6G9lrZIJBnPMZwvu1wtLt8gLsiMyYKJHPHAZWp7rEvsBa06ls0+KKRT1u66828iJHP28
- 2+OolcMzyI5zoQdhcf00NrdwQtk5oSpYcl/7mCYfh2WrEB9pA2JBZ8k7qoBjSBzStnKxqkd
- jmXp4dPSnFfGcjDOsIK2jRxZCTgxfMleLH6FPUkNVqQ+Gwvj12wJcHjtoQrJxjJUVL2UfTn
- 86dl173L0SD4gSI2jANLHm3kP51AFHTwwOEuZtCcN0/v9VrdpcVV4cvi4EJd1Yd5nGt/Ybg
- USd4rq7bIxt5R2zbkEvYdQBgfc1TMnEKHsEf5X3gW1XhsKQcwwDUN97bmxzNXCXC5YwY+Am
- oleDKAyCr3ZV8vFRoaxVCzc2szno44+o59+DufZNsxMCJyLCCd9clkpsp550xvxH+mMXsTY
- hwbgbKz2AsiSJGT8zvTSn8t5gI3Dp/r1bhgrbUXbFrf6RCbJvL6WBey7mSgA8gOD8dgX2cz
- daDvIdVivVDYVdwgEP89MsDHXZo4hSaBCl4PEz0dN8tOZnlMCSshgJTjRLmTaGf0PkNR+Ai
- z/dPlPD+GL8C+0UHGPXcTun9BY5C2eL3ztWv6bZ0F/9aLZC9Ir/ToXirWrpUj7dtIVz61gu
- iJEfqUAOvoX/WRVf5zDnM09+Kj9ulxTjhE8682nxK6aAmNWKcw926B0P21e+SbbdZ+6Q9RQ
- fGygEkXqN8pa3mBQVzq2EuOrl9qeAczDEX4/lR7VAbj34DeT5hpvfzezuqmx6OtUM6gYCaq
- mLGDAxN1AlqquDhNzLXavzCTkYy34O63xrd1gmbulsZNykA3NwS6wiIwbICbzwQ7MuO52Ad
- 9V8CaobGLRTgVe7E+pD5VCsnhsl8iIHKvCJuAelg==
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 007D410E086
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:38:25 +0000 (UTC)
+Received: by mail-qt1-f178.google.com with SMTP id
+ d75a77b69052e-51c08df8513so9951151cf.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:38:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1785375505; x=1785980305;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=P0s5qkaQbJtwn9wO/pBIXbTJTF7WUgw+n+4dNiFb+hA=;
+ b=kRCwUDGT8Hhm+mrPjsSWBZyGjhTjD+ulBXSLbKXRP8HxaTGlY0nEEFk/EYMcL3eJje
+ HiUVhxf/3Yb/immKVnegQRBNzO62swkeWpyfbXsJ7gTmSoIKXVEoHLo4xQJdOlduIINZ
+ YT8sKhG7rPwpU1LZEnyw6cUQFqUbfNOSqo/4Y=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785375505; x=1785980305;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=P0s5qkaQbJtwn9wO/pBIXbTJTF7WUgw+n+4dNiFb+hA=;
+ b=qgsGQKSVkYyfmb91apeLynu3Iatyy8b/xtpUWQTpNfSq4pmhudU27O7/Tm5bcCLUew
+ Jz5fcZr9xtg+8mDBClJH7cEldMCAkBQOjQ4eYeKcePlFAVqCSMUW89KrzAy1pmR8vClL
+ JZGYcy0H+Lr2Gsyqg0A9jzHDBO9c2KwHPE4cK/2vDJODKZuH9cDUXFUu2w9PAy2yowoc
+ qZzY2awGCVrk7UluMDPA/5NNYFC+WECoonz3+IukPqEH6z86dz/+LcAZJd1H3Jzn4+Xg
+ tDeq7/yOwf/DfN7TuJ0WKgjtTs81IEy3MRRpWmOQIRkmXrWmbW5mldimFy5AFRLf1Rm5
+ 0/nw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr/YFzyuOG8x4xyI0VjHOIKkzuS7aGo+2Eazc22E3lNOwAHR8IXVVPrXmO/PsRKd835DuzewFtuF6Y=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxFiUD8LpPZCPaJoyogwqgT+Ut8e2+lntf0SKnmidaHbLRYW2Z3
+ T5oMX8B1Qcq1mA1jkvF/9r9PYlIXBBAgDGQTt8G9iuCQqNhN/nGAXwhWdOabdRTBcuc3V82LmL4
+ PdQw=
+X-Gm-Gg: AR+sD10Q2EmnilKfNqvFcovn0aexy7BslIqdEJPCm3wnJDsErXpfvay/CuHiVoS+VBZ
+ rB+//ZcDoznm5oOe4f6rXH2lfMGYFcTiPoWC/d9EqIRvN6+Eiv869c9vxCMU+91N81Vgf5QL5uB
+ bCpIlX+4e1WaRF33LP4CZkfgeEDfQXiG9w2P43uaL98YXO+CqlXpZIxI1adPx/GUqbfGe2YwL1w
+ nraz8D9Qu5u0itj5Q89GzgD697kzLaIq/oX2jxgiP2PZr53uvFbyM2xX7oWBnxG/qbOlJ3Jjp5p
+ bngb6Mn+0wV4qrZK0Uo6NKZlKElDkczRXYLTNEg683hzN4W3apqFbVvbUJyk8auLwt9mCdSEExc
+ c9ZtN6buyGJEu263ijcZw4FukpxEasfOmpidxSZ1lefZB8qZVerTRDWiteeE2feUJbefWvHy5PG
+ sPFmbYsRRln+D1/oC/Sezhn0tNcfpdfnTN3+eROFrR+8l5VDN/nsTPUGw5ShpyT5vl4foR+iKZt
+ 6iBq/sOUQtBGXfED+L0foGdo7I=
+X-Received: by 2002:a05:622a:40cb:b0:51c:f3e:7819 with SMTP id
+ d75a77b69052e-52b384c7f4emr9619711cf.39.1785375504823; 
+ Wed, 29 Jul 2026 18:38:24 -0700 (PDT)
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com.
+ [209.85.219.43]) by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-529e2b649b9sm31716641cf.11.2026.07.29.18.38.23
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 29 Jul 2026 18:38:23 -0700 (PDT)
+Received: by mail-qv1-f43.google.com with SMTP id
+ 6a1803df08f44-907ae240ac3so7998186d6.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:38:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro5chAzEkk00Z/nfMYJ1J9bH0janADk6U432Ud1q8yVGxxXH+S3G16vbLlIikQRCjhMsCfvCh8VWxo=@lists.freedesktop.org
+X-Received: by 2002:ad4:5dc1:0:b0:907:44ac:7d12 with SMTP id
+ 6a1803df08f44-908345e75bcmr6070656d6.0.1785375502283; Wed, 29 Jul 2026
+ 18:38:22 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260723203601.806697-1-michail.tatas@gmail.com>
+ <CAD=FV=X+0_oVB2oHg=R+JAyFZFd2EXWAVhHv5oX6QGjB0RCKUg@mail.gmail.com>
+In-Reply-To: <CAD=FV=X+0_oVB2oHg=R+JAyFZFd2EXWAVhHv5oX6QGjB0RCKUg@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 29 Jul 2026 18:38:11 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=V6i=HqufCucNnx9JYeveGfeGWTcZRgrFqd237g1xS7dQ@mail.gmail.com>
+X-Gm-Features: AUfX_mx_jy2X5-MAlFzfXkHLHAxLnPSqT7CngwkFYGhiHFvMtcXWebNKj0uT6qI
+Message-ID: <CAD=FV=V6i=HqufCucNnx9JYeveGfeGWTcZRgrFqd237g1xS7dQ@mail.gmail.com>
+Subject: Re: [PATCH v4 0/3] drm/panel: ilitek-ili9805: convert to *_multi API
+To: Michail Tatas <michail.tatas@gmail.com>
+Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org, 
+ jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,642 +104,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Hi,
 
-The RK3399 has two USB/DP combo PHY and one CDN-DP controller. And
-the CDN-DP can be switched to output to one of the PHYs. If both ports
-are plugged into DP, DP will select the first port for output.
+On Fri, Jul 24, 2026 at 7:15=E2=80=AFPM Doug Anderson <dianders@chromium.or=
+g> wrote:
+>
+> Hi,
+>
+> On Thu, Jul 23, 2026 at 1:36=E2=80=AFPM Michail Tatas <michail.tatas@gmai=
+l.com> wrote:
+> >
+> > This series converts panel-ilitek-ili9805 to the
+> > mipi_dsi_*_multi helpers and cleans up the resulting code.
+> >
+> > Patch 1: Convert the individual DSI calls to their
+> > *_multi variants
+> >
+> > Patch 2: Replace the ILI9805_INSTR table with per
+> > panel init functions using the *_multi API, dropping
+> > struct ili9805_instr
+> >
+> > Patch 3: makes ili9805_power_off() and ili9805_deactivate()
+> > return void, since no one checks their return values.
+> >
+> > Michail Tatas (3):
+> >   drm/panel: ilitek-ili9805: Use _multi variants
+> >   drm/panel: ilitek-ili9805: Use dsi_multi in init
+> >   drm/panel: ilitek-ili9805: make cleanup funcs void
+> >
+> >  drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 212 ++++++++-----------
+> >  1 file changed, 87 insertions(+), 125 deletions(-)
+>
+> Thanks for the extra small cleanups. Planning to apply v4 mid-next
+> week unless something comes up.
 
-This patch adds support for multiple bridges, enabling users to flexibly
-select the output port. For each PHY port, a separate encoder and bridge
-are registered.
+Pushed v4 to drm-misc-next:
 
-The change is based on the DRM AUX HPD bridge, rather than the
-extcon approach. This requires the DT to correctly describe the
-connections between the first bridge in bridge chain and DP
-controller. For example, the bridge chain may be like this:
-
-PHY aux birdge -> fsa4480 analog audio switch bridge ->
-onnn,nb7vpq904m USB reminder bridge -> USB-C controller AUX HPD bridge
-
-In this case, the connection relationships among the PHY aux bridge
-and the DP contorller need to be described in DT.
-
-In addition, the cdn_dp_parse_next_bridge_dt() will parses it and
-determines whether to register one or two bridges.
-
-Since there is only one DP controller, only one of the PHY ports can
-output at a time. The key is how to switch between different PHYs,
-which is handled by cdn_dp_switch_port() and cdn_dp_enable().
-
-There are two cases:
-
-1. Neither bridge is enabled. In this case, both bridges can
-independently read the EDID, and the PHY port may switch before
-reading the EDID.
-
-2. One bridge is already enabled. In this case, other bridges are not
-allowed to read the EDID. So we will try to return the cached EDID.
-
-Since the scenario of two ports plug in at the same time is rare,
-I don't have a board which support two TypeC connector to test this.
-Therefore, I tested forced switching on a single PHY port, as well as
-output using a fake PHY port alongside a real PHY port.
-
-Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
----
-
-(no changes since v4)
-
-Changes in v3:
-- Remove now-redundant call to drm_connector_attach_encoder()
-
-Changes in v2:
-- Fix the check logic for dp->active_port (0 is valid).
-- Fix the uninitialized prev_port.
-- Remove duplicate logic from cdn_dp_switch_port().
-- Fix the prototype of cdn_dp_bridge_hpd_notify().
-- Properly release connector->fwnode.
-- Properly release next_bridge.
----
- drivers/gpu/drm/rockchip/Kconfig       |   1 +
- drivers/gpu/drm/rockchip/cdn-dp-core.c | 333 ++++++++++++++++++++-----
- drivers/gpu/drm/rockchip/cdn-dp-core.h |  18 +-
- 3 files changed, 294 insertions(+), 58 deletions(-)
-
-diff --git a/drivers/gpu/drm/rockchip/Kconfig b/drivers/gpu/drm/rockchip/Kconfig
-index e7f49fe845ea..ce70f91c13e6 100644
---- a/drivers/gpu/drm/rockchip/Kconfig
-+++ b/drivers/gpu/drm/rockchip/Kconfig
-@@ -60,6 +60,7 @@ config ROCKCHIP_CDN_DP
- 	select DRM_DISPLAY_HELPER
- 	select DRM_BRIDGE_CONNECTOR
- 	select DRM_DISPLAY_DP_HELPER
-+	select DRM_AUX_HPD_BRIDGE
- 	help
- 	  This selects support for Rockchip SoC specific extensions
- 	  for the cdn DP driver. If you want to enable Dp on
-diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-index 74e1f5422a6e..5e513f6930cb 100644
---- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
-+++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
-@@ -28,16 +28,17 @@
- #include "cdn-dp-core.h"
- #include "cdn-dp-reg.h"
- 
--static inline struct cdn_dp_device *bridge_to_dp(struct drm_bridge *bridge)
-+static int cdn_dp_switch_port(struct cdn_dp_device *dp, struct cdn_dp_port *prev_port,
-+			      struct cdn_dp_port *port);
-+
-+static inline struct cdn_dp_bridge *bridge_to_dp_bridge(struct drm_bridge *bridge)
- {
--	return container_of(bridge, struct cdn_dp_device, bridge);
-+	return container_of(bridge, struct cdn_dp_bridge, bridge);
- }
- 
--static inline struct cdn_dp_device *encoder_to_dp(struct drm_encoder *encoder)
-+static inline struct cdn_dp_device *bridge_to_dp(struct drm_bridge *bridge)
- {
--	struct rockchip_encoder *rkencoder = to_rockchip_encoder(encoder);
--
--	return container_of(rkencoder, struct cdn_dp_device, encoder);
-+	return bridge_to_dp_bridge(bridge)->parent;
- }
- 
- #define GRF_SOC_CON9		0x6224
-@@ -192,14 +193,27 @@ static int cdn_dp_get_sink_count(struct cdn_dp_device *dp, u8 *sink_count)
- static struct cdn_dp_port *cdn_dp_connected_port(struct cdn_dp_device *dp)
- {
- 	struct cdn_dp_port *port;
--	int i, lanes;
-+	int i, lanes[MAX_PHY];
- 
- 	for (i = 0; i < dp->ports; i++) {
- 		port = dp->port[i];
--		lanes = cdn_dp_get_port_lanes(port);
--		if (lanes)
-+		lanes[i] = cdn_dp_get_port_lanes(port);
-+		if (!dp->next_bridge_valid)
- 			return port;
- 	}
-+
-+	if (dp->next_bridge_valid) {
-+		/* If more than one port is available, pick the last active port */
-+		if (dp->active_port >= 0 && lanes[dp->active_port])
-+			return dp->port[dp->active_port];
-+
-+		/* If the last active port is not available, pick an available port in order */
-+		for (i = 0; i < dp->bridge_count; i++) {
-+			if (lanes[i])
-+				return dp->port[i];
-+		}
-+	}
-+
- 	return NULL;
- }
- 
-@@ -254,12 +268,45 @@ static const struct drm_edid *
- cdn_dp_bridge_edid_read(struct drm_bridge *bridge, struct drm_connector *connector)
- {
- 	struct cdn_dp_device *dp = bridge_to_dp(bridge);
--	const struct drm_edid *drm_edid;
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
-+	struct cdn_dp_port *port = dp->port[dp_bridge->id];
-+	struct cdn_dp_port *prev_port = NULL;
-+	const struct drm_edid *drm_edid = NULL;
-+	int i, ret;
- 
- 	mutex_lock(&dp->lock);
-+
-+	/* More than one port is available */
-+	if (dp->bridge_count > 1 && !port->phy_enabled) {
-+		for (i = 0; i < dp->bridge_count; i++) {
-+			/* Another port already enable */
-+			if (dp->bridge_list[i] != dp_bridge && dp->bridge_list[i]->enabled)
-+				goto get_cache;
-+			/* Find already enabled port */
-+			if (dp->port[i]->phy_enabled)
-+				prev_port = dp->port[i];
-+		}
-+
-+		/* Switch to current port */
-+		if (prev_port) {
-+			ret = cdn_dp_switch_port(dp, prev_port, port);
-+			if (ret)
-+				goto get_cache;
-+		}
-+	}
-+
- 	drm_edid = drm_edid_read_custom(connector, cdn_dp_get_edid_block, dp);
-+	/* replace edid cache */
-+	if (dp->edid_cache[dp_bridge->id])
-+		drm_edid_free(dp->edid_cache[dp_bridge->id]);
-+	dp->edid_cache[dp_bridge->id] = drm_edid_dup(drm_edid);
-+
- 	mutex_unlock(&dp->lock);
-+	return drm_edid;
- 
-+get_cache:
-+	drm_edid = drm_edid_dup(dp->edid_cache[dp_bridge->id]);
-+	mutex_unlock(&dp->lock);
- 	return drm_edid;
- }
- 
-@@ -268,12 +315,13 @@ cdn_dp_bridge_mode_valid(struct drm_bridge *bridge,
- 			 const struct drm_display_info *display_info,
- 			 const struct drm_display_mode *mode)
- {
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
- 	struct cdn_dp_device *dp = bridge_to_dp(bridge);
- 	u32 requested, actual, rate, sink_max, source_max = 0;
- 	u8 lanes, bpc;
- 
- 	/* If DP is disconnected, every mode is invalid */
--	if (!dp->connected)
-+	if (!dp_bridge->connected || !dp->connected)
- 		return MODE_BAD;
- 
- 	switch (display_info->bpc) {
-@@ -551,6 +599,50 @@ static bool cdn_dp_check_link_status(struct cdn_dp_device *dp)
- 	return drm_dp_channel_eq_ok(link_status, min(port->lanes, sink_lanes));
- }
- 
-+static int cdn_dp_switch_port(struct cdn_dp_device *dp, struct cdn_dp_port *prev_port,
-+			      struct cdn_dp_port *port)
-+{
-+	int ret;
-+
-+	ret = cdn_dp_disable_phy(dp, prev_port);
-+	if (ret)
-+		goto out;
-+	ret = cdn_dp_enable_phy(dp, port);
-+	if (ret)
-+		goto out;
-+
-+	ret = cdn_dp_get_sink_capability(dp);
-+	if (ret) {
-+		cdn_dp_disable_phy(dp, port);
-+		goto out;
-+	}
-+
-+	dp->lanes = port->lanes;
-+
-+	if (!cdn_dp_check_link_status(dp)) {
-+		dev_info(dp->dev, "Connected with sink; re-train link\n");
-+
-+		ret = cdn_dp_train_link(dp);
-+		if (ret) {
-+			dev_err(dp->dev, "Training link failed: %d\n", ret);
-+			goto out;
-+		}
-+
-+		ret = cdn_dp_set_video_status(dp, CONTROL_VIDEO_IDLE);
-+		if (ret) {
-+			dev_err(dp->dev, "Failed to idle video %d\n", ret);
-+			goto out;
-+		}
-+
-+		ret = cdn_dp_config_video(dp);
-+		if (ret)
-+			dev_err(dp->dev, "Failed to configure video: %d\n", ret);
-+	}
-+
-+out:
-+	return ret;
-+}
-+
- static void cdn_dp_display_info_update(struct cdn_dp_device *dp,
- 				       struct drm_display_info *display_info)
- {
-@@ -572,6 +664,7 @@ static void cdn_dp_display_info_update(struct cdn_dp_device *dp,
- static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_atomic_commit *state)
- {
- 	struct cdn_dp_device *dp = bridge_to_dp(bridge);
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
- 	struct drm_connector *connector;
- 	int ret, val;
- 
-@@ -581,7 +674,7 @@ static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_at
- 
- 	cdn_dp_display_info_update(dp, &connector->display_info);
- 
--	ret = drm_of_encoder_active_endpoint_id(dp->dev->of_node, &dp->encoder.encoder);
-+	ret = drm_of_encoder_active_endpoint_id(dp->dev->of_node, &dp_bridge->encoder.encoder);
- 	if (ret < 0) {
- 		DRM_DEV_ERROR(dp->dev, "Could not get vop id, %d", ret);
- 		return;
-@@ -600,6 +693,9 @@ static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_at
- 
- 	mutex_lock(&dp->lock);
- 
-+	if (dp->next_bridge_valid)
-+		dp->active_port = dp_bridge->id;
-+
- 	ret = cdn_dp_enable(dp);
- 	if (ret) {
- 		DRM_DEV_ERROR(dp->dev, "Failed to enable bridge %d\n",
-@@ -632,6 +728,7 @@ static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_at
- 		goto out;
- 	}
- 
-+	dp_bridge->enabled = true;
- out:
- 	mutex_unlock(&dp->lock);
- }
-@@ -639,9 +736,11 @@ static void cdn_dp_bridge_atomic_enable(struct drm_bridge *bridge, struct drm_at
- static void cdn_dp_bridge_atomic_disable(struct drm_bridge *bridge, struct drm_atomic_commit *state)
- {
- 	struct cdn_dp_device *dp = bridge_to_dp(bridge);
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
- 	int ret;
- 
- 	mutex_lock(&dp->lock);
-+	dp_bridge->enabled = false;
- 
- 	if (dp->active) {
- 		ret = cdn_dp_disable(dp);
-@@ -828,6 +927,17 @@ static int cdn_dp_audio_mute_stream(struct drm_bridge *bridge,
- 	return ret;
- }
- 
-+static void cdn_dp_bridge_hpd_notify(struct drm_bridge *bridge,
-+				     struct drm_connector *connector,
-+				     enum drm_connector_status status)
-+{
-+	struct cdn_dp_bridge *dp_bridge = bridge_to_dp_bridge(bridge);
-+	struct cdn_dp_device *dp = bridge_to_dp(bridge);
-+
-+	dp->bridge_list[dp_bridge->id]->connected = status == connector_status_connected;
-+	schedule_work(&dp->event_work);
-+}
-+
- static const struct drm_bridge_funcs cdn_dp_bridge_funcs = {
- 	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-@@ -838,6 +948,7 @@ static const struct drm_bridge_funcs cdn_dp_bridge_funcs = {
- 	.atomic_disable = cdn_dp_bridge_atomic_disable,
- 	.mode_valid = cdn_dp_bridge_mode_valid,
- 	.mode_set = cdn_dp_bridge_mode_set,
-+	.hpd_notify = cdn_dp_bridge_hpd_notify,
- 
- 	.dp_audio_prepare = cdn_dp_audio_prepare,
- 	.dp_audio_mute_stream = cdn_dp_audio_mute_stream,
-@@ -886,7 +997,8 @@ static void cdn_dp_pd_event_work(struct work_struct *work)
- {
- 	struct cdn_dp_device *dp = container_of(work, struct cdn_dp_device,
- 						event_work);
--	int ret;
-+	bool connected;
-+	int i, ret;
- 
- 	mutex_lock(&dp->lock);
- 
-@@ -945,9 +1057,12 @@ static void cdn_dp_pd_event_work(struct work_struct *work)
- 
- out:
- 	mutex_unlock(&dp->lock);
--	drm_bridge_hpd_notify(&dp->bridge,
--			      dp->connected ? connector_status_connected
--					    : connector_status_disconnected);
-+	for (i = 0; i < dp->bridge_count; i++) {
-+		connected = dp->connected && dp->bridge_list[i]->connected;
-+		drm_bridge_hpd_notify(&dp->bridge_list[i]->bridge,
-+				      connected ? connector_status_connected
-+						: connector_status_disconnected);
-+	}
- }
- 
- static int cdn_dp_pd_event(struct notifier_block *nb,
-@@ -967,28 +1082,16 @@ static int cdn_dp_pd_event(struct notifier_block *nb,
- 	return NOTIFY_DONE;
- }
- 
--static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
-+static int cdn_bridge_add(struct device *dev,
-+			  struct drm_bridge *bridge,
-+			  struct drm_bridge *next_bridge,
-+			  struct drm_encoder *encoder)
- {
- 	struct cdn_dp_device *dp = dev_get_drvdata(dev);
--	struct drm_encoder *encoder;
-+	struct drm_device *drm_dev = dp->drm_dev;
-+	struct drm_bridge *last_bridge __free(drm_bridge_put) = NULL;
- 	struct drm_connector *connector;
--	struct cdn_dp_port *port;
--	struct drm_device *drm_dev = data;
--	int ret, i;
--
--	ret = cdn_dp_parse_dt(dp);
--	if (ret < 0)
--		return ret;
--
--	dp->drm_dev = drm_dev;
--	dp->connected = false;
--	dp->active = false;
--	dp->active_port = -1;
--	dp->fw_loaded = false;
--
--	INIT_WORK(&dp->event_work, cdn_dp_pd_event_work);
--
--	encoder = &dp->encoder.encoder;
-+	int ret;
- 
- 	encoder->possible_crtcs = drm_of_find_possible_crtcs(drm_dev,
- 							     dev->of_node);
-@@ -1003,26 +1106,35 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
- 
- 	drm_encoder_helper_add(encoder, &cdn_dp_encoder_helper_funcs);
- 
--	dp->bridge.ops =
--			DRM_BRIDGE_OP_DETECT |
--			DRM_BRIDGE_OP_EDID |
--			DRM_BRIDGE_OP_HPD |
--			DRM_BRIDGE_OP_DP_AUDIO;
--	dp->bridge.of_node = dp->dev->of_node;
--	dp->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
--	dp->bridge.hdmi_audio_dev = dp->dev;
--	dp->bridge.hdmi_audio_max_i2s_playback_channels = 8;
--	dp->bridge.hdmi_audio_spdif_playback = 1;
--	dp->bridge.hdmi_audio_dai_port = -1;
--
--	ret = devm_drm_bridge_add(dev, &dp->bridge);
-+	bridge->ops =
-+		DRM_BRIDGE_OP_DETECT |
-+		DRM_BRIDGE_OP_EDID |
-+		DRM_BRIDGE_OP_HPD |
-+		DRM_BRIDGE_OP_DP_AUDIO;
-+	bridge->of_node = dp->dev->of_node;
-+	bridge->type = DRM_MODE_CONNECTOR_DisplayPort;
-+	bridge->hdmi_audio_dev = dp->dev;
-+	bridge->hdmi_audio_max_i2s_playback_channels = 8;
-+	bridge->hdmi_audio_spdif_playback = 1;
-+	bridge->hdmi_audio_dai_port = -1;
-+
-+	ret = devm_drm_bridge_add(dev, bridge);
- 	if (ret)
- 		return ret;
- 
--	ret = drm_bridge_attach(encoder, &dp->bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
- 	if (ret)
- 		return ret;
- 
-+	if (next_bridge) {
-+		ret = drm_bridge_attach(encoder, next_bridge, bridge,
-+					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+		if (ret)
-+			return ret;
-+
-+		last_bridge = drm_bridge_chain_get_last_bridge(bridge->encoder);
-+	}
-+
- 	connector = drm_bridge_connector_init(drm_dev, encoder);
- 	if (IS_ERR(connector)) {
- 		ret = PTR_ERR(connector);
-@@ -1030,6 +1142,101 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
- 		return ret;
- 	}
- 
-+	if (last_bridge) {
-+		fwnode_handle_put(connector->fwnode);
-+		connector->fwnode = fwnode_handle_get(of_fwnode_handle(last_bridge->of_node));
-+	}
-+
-+	return 0;
-+}
-+
-+static int cdn_dp_parse_next_bridge_dt(struct cdn_dp_device *dp)
-+{
-+	struct device_node *np = dp->dev->of_node;
-+	struct device_node *port __free(device_node) = of_graph_get_port_by_id(np, 1);
-+	struct drm_bridge *bridge;
-+	int count = 0;
-+	int ret = 0;
-+	int i;
-+
-+	/* If device use extcon, do not use hpd bridge */
-+	for (i = 0; i < dp->ports; i++) {
-+		if (dp->port[i]->extcon) {
-+			dp->bridge_count = 1;
-+			return 0;
-+		}
-+	}
-+
-+	/* One endpoint may correspond to one next bridge. */
-+	for_each_of_graph_port_endpoint(port, dp_ep) {
-+		struct device_node *next_bridge_node __free(device_node) =
-+			of_graph_get_remote_port_parent(dp_ep);
-+
-+		bridge = of_drm_find_bridge(next_bridge_node);
-+		if (!bridge) {
-+			ret = -EPROBE_DEFER;
-+			goto out;
-+		}
-+
-+		dp->next_bridge_valid = true;
-+		dp->next_bridge_list[count] = drm_bridge_get(bridge);
-+		count++;
-+	}
-+
-+out:
-+	dp->bridge_count = count ? count : 1;
-+	return ret;
-+}
-+
-+static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
-+{
-+	struct cdn_dp_device *dp = dev_get_drvdata(dev);
-+	struct drm_bridge *bridge, *next_bridge;
-+	struct drm_encoder *encoder;
-+	struct cdn_dp_port *port;
-+	struct drm_device *drm_dev = data;
-+	struct cdn_dp_bridge *dp_bridge;
-+	int ret, i;
-+
-+	ret = cdn_dp_parse_dt(dp);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = cdn_dp_parse_next_bridge_dt(dp);
-+	if (ret)
-+		goto out;
-+
-+	dp->drm_dev = drm_dev;
-+	dp->connected = false;
-+	dp->active = false;
-+	dp->active_port = -1;
-+	dp->fw_loaded = false;
-+
-+	for (i = 0; i < dp->bridge_count; i++) {
-+		dp_bridge = devm_drm_bridge_alloc(dev, struct cdn_dp_bridge, bridge,
-+						    &cdn_dp_bridge_funcs);
-+		if (IS_ERR(dp_bridge)) {
-+			ret = PTR_ERR(dp_bridge);
-+			goto out;
-+		}
-+		dp_bridge->id = i;
-+		dp_bridge->parent = dp;
-+		if (!dp->next_bridge_valid)
-+			dp_bridge->connected = true;
-+		dp->bridge_list[i] = dp_bridge;
-+	}
-+
-+	for (i = 0; i < dp->bridge_count; i++) {
-+		encoder = &dp->bridge_list[i]->encoder.encoder;
-+		bridge = &dp->bridge_list[i]->bridge;
-+		next_bridge = dp->next_bridge_list[i];
-+		ret = cdn_bridge_add(dev, bridge, next_bridge, encoder);
-+		if (ret)
-+			goto out;
-+	}
-+
-+	INIT_WORK(&dp->event_work, cdn_dp_pd_event_work);
-+
- 	for (i = 0; i < dp->ports; i++) {
- 		port = dp->port[i];
- 
-@@ -1043,7 +1250,7 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
- 		if (ret) {
- 			DRM_DEV_ERROR(dev,
- 				      "register EXTCON_DISP_DP notifier err\n");
--			return ret;
-+			goto out;
- 		}
- 	}
- 
-@@ -1052,15 +1259,29 @@ static int cdn_dp_bind(struct device *dev, struct device *master, void *data)
- 	schedule_work(&dp->event_work);
- 
- 	return 0;
-+
-+out:
-+	for (i = 0; i < MAX_PHY; i++)
-+		drm_bridge_put(dp->next_bridge_list[i]);
-+
-+	return ret;
- }
- 
- static void cdn_dp_unbind(struct device *dev, struct device *master, void *data)
- {
- 	struct cdn_dp_device *dp = dev_get_drvdata(dev);
--	struct drm_encoder *encoder = &dp->encoder.encoder;
-+	struct drm_encoder *encoder;
-+	int i;
- 
- 	cancel_work_sync(&dp->event_work);
--	encoder->funcs->destroy(encoder);
-+	for (i = 0; i < dp->bridge_count; i++) {
-+		encoder = &dp->bridge_list[i]->encoder.encoder;
-+		encoder->funcs->destroy(encoder);
-+		drm_bridge_put(dp->next_bridge_list[i]);
-+	}
-+
-+	for (i = 0; i < MAX_PHY; i++)
-+		drm_edid_free(dp->edid_cache[i]);
- 
- 	pm_runtime_disable(dev);
- 	if (dp->fw_loaded)
-@@ -1111,10 +1332,10 @@ static int cdn_dp_probe(struct platform_device *pdev)
- 	int ret;
- 	int i;
- 
--	dp = devm_drm_bridge_alloc(dev, struct cdn_dp_device, bridge,
--				   &cdn_dp_bridge_funcs);
--	if (IS_ERR(dp))
--		return PTR_ERR(dp);
-+	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
-+	if (!dp)
-+		return -ENOMEM;
-+
- 	dp->dev = dev;
- 
- 	match = of_match_node(cdn_dp_dt_ids, pdev->dev.of_node);
-diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.h b/drivers/gpu/drm/rockchip/cdn-dp-core.h
-index e9c30b9fd543..c10e423bbf06 100644
---- a/drivers/gpu/drm/rockchip/cdn-dp-core.h
-+++ b/drivers/gpu/drm/rockchip/cdn-dp-core.h
-@@ -38,6 +38,8 @@ enum vic_pxl_encoding_format {
- 	Y_ONLY = 0x10,
- };
- 
-+struct cdn_dp_device;
-+
- struct video_info {
- 	bool h_sync_polarity;
- 	bool v_sync_polarity;
-@@ -63,16 +65,28 @@ struct cdn_dp_port {
- 	u8 id;
- };
- 
-+struct cdn_dp_bridge {
-+	struct cdn_dp_device *parent;
-+	struct drm_bridge bridge;
-+	struct rockchip_encoder encoder;
-+	bool connected;
-+	bool enabled;
-+	int id;
-+};
-+
- struct cdn_dp_device {
- 	struct device *dev;
- 	struct drm_device *drm_dev;
--	struct drm_bridge bridge;
--	struct rockchip_encoder encoder;
-+	int bridge_count;
-+	struct cdn_dp_bridge *bridge_list[MAX_PHY];
-+	struct drm_bridge *next_bridge_list[MAX_PHY];
-+	const struct drm_edid *edid_cache[MAX_PHY];
- 	struct drm_display_mode mode;
- 	struct platform_device *audio_pdev;
- 	struct work_struct event_work;
- 
- 	struct mutex lock;
-+	bool next_bridge_valid;
- 	bool connected;
- 	bool active;
- 	bool suspended;
--- 
-2.53.0
-
+[1/3] drm/panel: ilitek-ili9805: Use _multi variants
+      commit: fdde70f52306f74c7f2466706626f3f1ef973e61
+[2/3] drm/panel: ilitek-ili9805: Use dsi_multi in init
+      commit: 438caed529a6b6dd985afc85ee52a29bc20ab3f6
+[3/3] drm/panel: ilitek-ili9805: make cleanup funcs void
+      commit: eb7979f6014a18f7086ecbb70da3e442056b5673
