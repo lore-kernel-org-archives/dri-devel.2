@@ -4,68 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C108AC54FDF
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 10:19:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6999C54FD2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 10:19:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F31AF10EE73;
-	Thu, 30 Jul 2026 10:19:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25D3810EE80;
+	Thu, 30 Jul 2026 10:19:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ZLJLlXl/";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W2/l7E16";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2CA4510EE73
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 10:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785406744;
- bh=Tn7t5jxGrWrTDZ5FWs65zFahjQJ4IKGASBS+IKuom9w=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ZLJLlXl/SQ03XxUMbNbK5A+kU+fYVaJEO/4d8jO8gOgVEvevQgFGFKbNX0r1lpg63
- 6f4OKrTbtw9uKGiRSahSf1IImDoAETjAqNy5rjL1y9G7ewYTLDd1Jw3xYsDpEjqKf8
- IyrabVG1pARYE5we6LHYdSW3BA7sbSbLFLz5zbupwunSAHBvRVI+gFVozms1sAf5VE
- +ayh4GSATHzIc9apkAd5cxA/Etjfewu5mjKUqhOQlKlTRER+2FZ1+lByuKNe/ehIBG
- wubNcFagvOYXpPFI9QSK894hL+RDeVk4FPcEiGVtesVeRvJ80RlxXUfE64fIQk4LYK
- 0wzwK9RRYFsIA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9A82B17E0254;
- Thu, 30 Jul 2026 12:19:03 +0200 (CEST)
-Message-ID: <48c1b5d7-97fd-4ba0-896b-0485eda395f6@collabora.com>
-Date: Thu, 30 Jul 2026 13:19:03 +0300
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F66010EE80
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 10:19:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785406771; x=1816942771;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=turCSRabwgxkjigF3v4YHsiSYew7DpNG+k4K5L3edKw=;
+ b=W2/l7E164sfNY2nkZ/8ilfhyY2yKnt4bAdE76khi63caVxNzl4zuu6f0
+ V8yHh2NsPsWDXI+O3ji0qgxFhUXg3B1kBcy5tQAcC6HfVwNXjDfk5t2fu
+ +IrLhWtqrGaKH1OPpUED0nSSoJlOEEw6WFF36DTjyddxADyQgGQWRHYJT
+ GIy4FfE2yEimwEDDl4kH59ooAK8OOCOk+qUzIiNwbHAg2ofc2uBZi3C7N
+ R85nD1PcuIg6w/Ch7Yw/4axp+69RmE76QyCs4iGXqGxwpD14lPWUaJl2y
+ RB9wrbTuAQMUYi86B2+JaiYNU7qevnRjZSjyo11mgeL2szKdCxV+1GUQS g==;
+X-CSE-ConnectionGUID: q/yRwaXNQzK1bLT9OC8Qgw==
+X-CSE-MsgGUID: ZDDheJK4T3uBsRC9owZglA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="96683971"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="96683971"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 03:19:30 -0700
+X-CSE-ConnectionGUID: 67gsJ2mySCm4D3clMJg6VA==
+X-CSE-MsgGUID: 5fj/4jpiSD+zVPR835A2wg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="283612593"
+Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
+ by fmviesa002.fm.intel.com with ESMTP; 30 Jul 2026 03:19:27 -0700
+From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+To: dri-devel@lists.freedesktop.org,
+	rodrigo.vivi@intel.com
+Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona.vetter@ffwll.ch, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
+ Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Subject: [PATCH v4] drm/drv: Convert wedged event string building to seq_buf
+Date: Thu, 30 Jul 2026 15:49:23 +0530
+Message-ID: <20260730101922.917870-2-mallesh.koujalagi@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 00/61] Add HDMI 2.0 support to DW HDMI QP TX
-To: Diederik de Haas <diederik@cknow-tech.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Liu Ying <victor.liu@nxp.com>, Phong LE <ple@baylibre.com>
-Cc: kernel@collabora.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Maud Spierings <maud_spierings@hotmail.com>, Sashiko <sashiko-bot@kernel.org>
-References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
- <DKBTALC5PUJ3.2KU1C4MRVBQNT@cknow-tech.com>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <DKBTALC5PUJ3.2KU1C4MRVBQNT@cknow-tech.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,29 +70,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Diederik,
+event_string[] has a fixed size of WEDGE_STR_LEN (32) bytes.
+The original scnprintf()-based loop required a manual pre-flight
+bounds check.
 
-On 7/30/26 12:52 PM, Diederik de Haas wrote:
-> Hi Cristian,
-> 
-> On Thu Jul 23, 2026 at 3:34 AM CEST, Cristian Ciocaltea wrote:
->> Enable HDMI 2.0 display modes (e.g. 4K@60Hz) on the Synopsys DW HDMI QP
->> TX controller, as found in Rockchip RK3576 & RK3588 SoCs, by adding SCDC
->> management for high TMDS clock ratio and scrambling.  Since SCDC state
->> is lost on sink disconnects, the bridge driver needs to trigger a CRTC
->> reset during connector detection.
-> 
-> I tested the v1 series when it consisted of a 'bit' less patches, so I
-> figured I'd test it again with v9.
+Replace the manual bookkeeping with seq_buf, which tracks overflow
+internally. seq_buf_printf() writes each "method," token into the
+buffer.
 
-Sadly, this is still growing - I added a few more patches to address some of the
-Sashiko findings and will probably send v10 later today.
+On overflow, len retains the position of the last
+successful write, so the trailing comma is stripped cleanly without
+including any partial method name in the uevent payload.
 
-> So feel free to add/update to the Rockchip related patches
-> 
-> Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+Fixes: b7cf9f4ac1b8 ("drm: Introduce device wedged event")
+Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+---
+v2:
+- Add proper logic to handle recovery string. (Raag)
 
-Thanks for (re)testing!
+v3:
+- Convert manual bounds check to seq_buf. (Jani Nikula)
+- Use drm_WARN_ONCE() instead of drm_WARN_ON() for overflow. (Raag)
 
-Regards,
-Cristian
+v4:
+- Use DECLARE_SEQ_BUF. (Jani)
+- Warn overflow at end of loop.
+---
+ drivers/gpu/drm/drm_drv.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index e51ed959da89..e429f52ba230 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -36,6 +36,7 @@
+ #include <linux/mount.h>
+ #include <linux/pseudo_fs.h>
+ #include <linux/sched.h>
++#include <linux/seq_buf.h>
+ #include <linux/slab.h>
+ #include <linux/sprintf.h>
+ #include <linux/srcu.h>
+@@ -574,27 +575,32 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
+ int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
+ 			 struct drm_wedge_task_info *info)
+ {
+-	char event_string[WEDGE_STR_LEN], pid_string[PID_STR_LEN], comm_string[COMM_STR_LEN];
+-	char *envp[] = { event_string, NULL, NULL, NULL };
+-	const char *recovery = NULL;
+-	unsigned int len, opt;
++	DECLARE_SEQ_BUF(event_string, WEDGE_STR_LEN);
++	char pid_string[PID_STR_LEN], comm_string[COMM_STR_LEN];
++	char *envp[4] = { };
++	unsigned int len = 0, opt;
+ 
+-	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
++	seq_buf_puts(&event_string, "WEDGED=");
++	envp[0] = event_string.buffer;
+ 
+ 	for_each_set_bit(opt, &method, BITS_PER_TYPE(method)) {
+-		recovery = drm_get_wedge_recovery(opt);
++		const char *recovery = drm_get_wedge_recovery(opt);
+ 		if (drm_WARN_ONCE(dev, !recovery, "invalid recovery method %u\n", opt))
+ 			break;
+ 
+-		len += scnprintf(event_string + len, sizeof(event_string) - len, "%s,", recovery);
++		if (!seq_buf_printf(&event_string, "%s,", recovery))
++			len = seq_buf_used(&event_string);
+ 	}
+ 
+-	if (recovery)
+-		/* Get rid of trailing comma */
+-		event_string[len - 1] = '\0';
++	drm_WARN_ONCE(dev, seq_buf_has_overflowed(&event_string),
++		      "WEDGED event string truncated\n");
++
++	if (len)
++		/* Strip trailing comma; also discards any partial overflow entry */
++		event_string.buffer[len - 1] = '\0';
+ 	else
+-		/* Caller is unsure about recovery, do the best we can at this point. */
+-		snprintf(event_string, sizeof(event_string), "%s", "WEDGED=unknown");
++		/* No complete entry written, do the best we can at this point. */
++		snprintf(event_string.buffer, event_string.size, "%s", "WEDGED=unknown");
+ 
+ 	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
+ 		 "but no recovery needed" : "needs recovery");
+-- 
+2.48.1
+
