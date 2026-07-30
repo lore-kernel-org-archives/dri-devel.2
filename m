@@ -4,49 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8A91C55160
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 11:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B3C9C55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 11:01:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB07610E67D;
-	Thu, 30 Jul 2026 11:01:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C06F010EEA5;
+	Thu, 30 Jul 2026 11:01:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="ciDCy+/a";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="OKngHU2R";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFDEF10E67D
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 11:01:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Yj
- EsmvklDG29KLP0XQelUpMV/7ZZ2pHVTFvvqbPPvHg=; b=ciDCy+/aBsJA4Z24zI
- Ukn+zwwo0ZIUJhqZsdpG2Ozsmio3tfsWoPdjS+UxiNeDJnPUdzol+z8p0xTovDK/
- Z0b/L/zSM/QaJgOk2DYxUl05pQfd9Wx8tlMgvRTtjKkBe9aq0nkeaVKfZ47RKkfX
- 5yUgRyqJmBrKzLLkowJpxKrho=
-Received: from localhost.localdomain (unknown [])
- by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id
- _____wDnN+vbLmtqz6GNMw--.5323S2; 
- Thu, 30 Jul 2026 19:00:45 +0800 (CST)
-From: oushixiong1025@163.com
-To: Jocelyn Falempe <jfalempe@redhat.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jani Nikula <jani.nikula@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH v2] drm/log: Batch vmap/vunmap and flush for record drawing
-Date: Thu, 30 Jul 2026 18:59:50 +0800
-Message-Id: <20260730105950.670892-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
+Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com
+ [91.218.175.183])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B5E510EEA5
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 11:01:31 +0000 (UTC)
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp08U5Llhts/kGZYEn28aEBtKzBXYG8QDI2NCd+rsgvfMY16TC2kUQGOYN8URY2qmU4mVtG1UuWxB4=@lists.freedesktop.org
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1785409288;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=e/kRpQrpUg02tctY6yhu6jWBSJHpdY77PwAU3jL1bxM=;
+ b=OKngHU2RpMqtM78sN0V0Y9LqFmaQ3FsZkPZD1sCLpa4SILrRzp3Bo1uA59VXlkC6QHFCec
+ lNLRFlt9eJGLJQbiFrhUMPXnZjePejAKLdIVa2EGKqCbpURiBsa64vhM3o2D9gM7cArFnM
+ VKhr6WM7up+TJwDQ/YdkzdNMynfFG0w=
+X-Gm-Message-State: AOJu0Yy99wUDaqbl4GvDFCcHarVwE4q/whlKZmXYFL/oqSSF6obkoZv5
+ sUZ8loxKE4X2Y/PGydpLgq1tHrobHxKvCIWWjsDtW43s28daLFFtFdVegMTqDRFx7g3asnkQ4lf
+ w+UgUTY2cQGYZitb1ULhcOYd1PTDWksZ4PTDboVi/
+X-Received: by 2002:a05:622a:684e:20b0:517:5ac7:332e with SMTP id
+ d75a77b69052e-52b3933f844mr9328641cf.6.1785409276641; Thu, 30 Jul 2026
+ 04:01:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDnN+vbLmtqz6GNMw--.5323S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAw1DGr1kJw48AFWDJFy7ZFb_yoWrKF1kpr
- Zayr9akF4UtrWFk34qvrZ5ArnxXa1DW34jgr47CasxGF4DAF9ava45Aa9xAF4UJw1kCrnx
- Xr13KF48Gr1jka7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jn2-5UUUUU=
-X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4R04R2prLt3hywAA3b
+References: <20250529053513.1592088-1-yilun.xu@linux.intel.com>
+ <20250529053513.1592088-11-yilun.xu@linux.intel.com>
+ <20250602133009.GC233377@nvidia.com>
+ <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
+ <20260712221934.GF674038@nvidia.com>
+ <CAEvNRgEo2kLUmaGU-Vsgx2sTQvU_NNUJ4bRp5Z4Ygs_xvVLOYA@mail.gmail.com>
+ <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
+In-Reply-To: <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 30 Jul 2026 12:00:39 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTz82R_hJXHfPG2OLqkB9kVq1=exE_9Cn=2GXQYpbtaBkQ@mail.gmail.com>
+X-Gm-Features: AUfX_mze5Bz4sCJxR7dQfrTfBjLkX9Ma4V02Tb4h9t58N81ewiYYgPohtp6A6lI
+Message-ID: <CA+EHjTz82R_hJXHfPG2OLqkB9kVq1=exE_9Cn=2GXQYpbtaBkQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 10/30] vfio/pci: Export vfio dma-buf specific info for
+ importers
+To: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: Ackerley Tng <ackerleytng@google.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ kvm@vger.kernel.org, 
+ sumit.semwal@linaro.org, christian.koenig@amd.com, pbonzini@redhat.com, 
+ seanjc@google.com, alex.williamson@redhat.com, dan.j.williams@intel.com, 
+ aik@amd.com, linux-coco@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ vivek.kasireddy@intel.com, yilun.xu@intel.com, linux-kernel@vger.kernel.org, 
+ lukas@wunner.de, yan.y.zhao@intel.com, daniel.vetter@ffwll.ch, 
+ leon@kernel.org, baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, 
+ tao1.su@intel.com, linux-pci@vger.kernel.org, zhiw@nvidia.com, 
+ simona.vetter@ffwll.ch, shameerali.kolothum.thodi@huawei.com, 
+ aneesh.kumar@kernel.org, iommu@lists.linux.dev, kevin.tian@intel.com
+Content-Type: text/plain; charset="UTF-8"
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,130 +81,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+On Mon, 27 Jul 2026 at 10:03, Xu Yilun <yilun.xu@linux.intel.com> wrote:
+>
+> > > If VFIO can create one
+>
+> It is an interesting idea to let VFIO create a guest_memfd instance, if
+> DMABUF doesn't work. But to achieve this goal, I think we still need to
+> refactor guest_memfd to allow for different memory/MMIO resource
+> exporters/creators, and different resource importers/users like KVM MMU
+> & IOMMUFD.
 
-drm_log_draw_new_line() calls drm_log_clear_line() and drm_log_draw_line(),
-which independently call drm_client_buffer_vmap_local(),
-drm_client_buffer_vunmap_local(), and drm_client_buffer_flush(). For each
-call to drm_log_draw_new_line(), this results in 2 vmap/vunmap pairs and
-2 flush calls, even though vmap_local maps the entire framebuffer
-each time.
+I don't have a strong view on which side creates the fd, and the
+argument that MMIO lifecycle belongs to VFIO makes sense to me. But
+the refactor you describe is the part I'd like to make sure we get
+right for the non-MMIO case, because pKVM needs ordinary guest RAM to
+keep working through it.
 
-Refactor drm_log_clear_line() and drm_log_draw_line() to accept a
-pre-mapped iosys_map by value, removing the per-line vmap/vunmap/flush
-calls. Move the single vmap/vunmap pair and flush up to
-drm_log_draw_new_line(), which now maps once before clearing and
-drawing, then issues a single flush after unmapping.
+Two properties we depend on today, both of which are easy to lose if
+guest_memfd grows an exporter abstraction designed around MMIO:
 
-Also remove the now-unused drm_rect from both functions.
+Conversion has to stay page-granular on subsets of a region. A pKVM
+guest shares and unshares ranges with hypercalls and has no idea what
+is backing them, so we can't require whole-region transitions. This is
+fine for assigned MMIO, where the shared parts are static, but it
+isn't a property we can give up for memory.
 
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
----
-v1->v2:
-   Remove unused drm_rect from drm_log_clear_line() and
-   drm_log_draw_line().
+Shared pages have to stay mmapable by the VMM and GUP-able through
+those mappings. That's what the VMM does I/O on. It's the reason a
+CMA-heap dmabuf turned out not to work for us, since that mmap path is
+VM_PFNMAP.
 
-diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
-index ac10c978f917..52563e2a1c45 100644
---- a/drivers/gpu/drm/clients/drm_log.c
-+++ b/drivers/gpu/drm/clients/drm_log.c
-@@ -94,37 +94,28 @@ static void drm_log_blit(struct iosys_map *dst, unsigned int dst_pitch,
- 	}
- }
- 
--static void drm_log_clear_line(struct drm_log_scanout *scanout, u32 line)
-+static void drm_log_clear_line(struct drm_log_scanout *scanout, u32 line,
-+			       struct iosys_map map)
- {
- 	struct drm_framebuffer *fb = scanout->buffer->fb;
- 	unsigned long height = scanout->scaled_font_h;
--	struct iosys_map map;
--	struct drm_rect r = DRM_RECT_INIT(0, line * height, fb->width, height);
- 
--	if (drm_client_buffer_vmap_local(scanout->buffer, &map))
--		return;
--	iosys_map_memset(&map, r.y1 * fb->pitches[0], 0, height * fb->pitches[0]);
--	drm_client_buffer_vunmap_local(scanout->buffer);
--	drm_client_buffer_flush(scanout->buffer, &r);
-+	iosys_map_memset(&map, line * height * fb->pitches[0], 0, height * fb->pitches[0]);
- }
- 
- static void drm_log_draw_line(struct drm_log_scanout *scanout, const char *s,
--			      unsigned int len, unsigned int prefix_len)
-+			      unsigned int len, unsigned int prefix_len,
-+			      struct iosys_map map)
- {
- 	struct drm_framebuffer *fb = scanout->buffer->fb;
--	struct iosys_map map;
- 	const struct font_desc *font = scanout->font;
- 	size_t font_pitch = DIV_ROUND_UP(font->width, 8);
- 	const u8 *src;
- 	u32 px_width = fb->format->cpp[0];
--	struct drm_rect r = DRM_RECT_INIT(0, scanout->line * scanout->scaled_font_h,
--					  fb->width, (scanout->line + 1) * scanout->scaled_font_h);
- 	u32 i;
- 
--	if (drm_client_buffer_vmap_local(scanout->buffer, &map))
--		return;
-+	iosys_map_incr(&map, scanout->line * scanout->scaled_font_h * fb->pitches[0]);
- 
--	iosys_map_incr(&map, r.y1 * fb->pitches[0]);
- 	for (i = 0; i < len && i < scanout->columns; i++) {
- 		u32 color = (i < prefix_len) ? scanout->prefix_color : scanout->front_color;
- 		src = font_data_glyph_buf(font->data, font->width, font->height,
-@@ -139,21 +130,40 @@ static void drm_log_draw_line(struct drm_log_scanout *scanout, const char *s,
- 	scanout->line++;
- 	if (scanout->line >= scanout->rows)
- 		scanout->line = 0;
--	drm_client_buffer_vunmap_local(scanout->buffer);
--	drm_client_buffer_flush(scanout->buffer, &r);
- }
- 
- static void drm_log_draw_new_line(struct drm_log_scanout *scanout,
--				  const char *s, unsigned int len, unsigned int prefix_len)
-+				  const char *s, unsigned int len,
-+				  unsigned int prefix_len)
- {
-+	struct iosys_map map;
-+	struct drm_framebuffer *fb = scanout->buffer->fb;
-+	u32 height = scanout->scaled_font_h;
-+	u32 line = scanout->line;
-+	u32 y2;
-+	struct drm_rect dirty;
-+
-+	if (drm_client_buffer_vmap_local(scanout->buffer, &map))
-+		return;
-+
- 	if (scanout->line == 0) {
--		drm_log_clear_line(scanout, 0);
--		drm_log_clear_line(scanout, 1);
--		drm_log_clear_line(scanout, 2);
--	} else if (scanout->line + 2 < scanout->rows)
--		drm_log_clear_line(scanout, scanout->line + 2);
-+		drm_log_clear_line(scanout, 0, map);
-+		drm_log_clear_line(scanout, 1, map);
-+		drm_log_clear_line(scanout, 2, map);
-+		y2 = min(3, scanout->rows) * height;
-+	} else if (scanout->line + 2 < scanout->rows) {
-+		drm_log_clear_line(scanout, scanout->line + 2, map);
-+		y2 = (line + 3) * height;
-+	} else {
-+		y2 = (line + 1) * height;
-+	}
-+
-+	drm_log_draw_line(scanout, s, len, prefix_len, map);
-+
-+	drm_client_buffer_vunmap_local(scanout->buffer);
- 
--	drm_log_draw_line(scanout, s, len, prefix_len);
-+	dirty = DRM_RECT_INIT(0, line * height, fb->width, y2 - line * height);
-+	drm_client_buffer_flush(scanout->buffer, &dirty);
- }
- 
- /*
---
-2.25.1
+So my suggestion is narrow: if guest_memfd grows a notion of an
+external exporter, could the memory case keep going through the normal
+guest_memfd allocation and mapping paths, rather than being folded
+into whatever form the MMIO case needs? I'm not asking for anything
+new here, just that the refactor not quietly close the door.
 
-No virus found
-		Checked by Hillstone Network AntiVirus
+Cheers,
+/fuad
 
+
+
+> > At guest_memfd creation time, guest_memfd is always created for a
+> > KVM. This is the first place where it is bound to a kvm instance. This
+> > is one place where it helps Yilun with Confidential VMs, so KVM can be
+> > sure that the memory was meant for a specific CoCo kvm and not any VM.
+> >
+> > I think it might be weird to have VFIO take a kvm fd to create a
+> > guest_memfd?
+>
+> I think having VFIO create a guest_memfd is better than having KVM
+> create a guest_memfd on behalf of VFIO.
+>
+> The lifecycle of the MMIO resources should be managed by VFIO, cause
+> the availability of these MMIO resouces are impacted by device
+> operations, e.g., device reset, PCI Memory Space Enable (MSE) ...
+> You can't export MMIO resources to KVM MMU without VFIO's awareness.
+>
+> And VFIO doesn't have to take a kvm fd paramter to create a guest_memfd,
+> VFIO has got the kvm instance via KVM_DEV_VFIO_FILE_ADD.
+>
+> >
+> > I was thinking that the userspace VMM could do something like:
+> >
+> >   int vfio_fd = open("/dev/vfio/devices/vfio0");
+> >   int gmem_fd = ioctl(KVM_CREATE_GUEST_MEMFD, { .fd = vfio_fd });
+>
