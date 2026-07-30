@@ -4,60 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A0D3C55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 15:08:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CD30C55165
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 15:11:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A0F3A10E692;
-	Thu, 30 Jul 2026 15:08:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F01F810EF79;
+	Thu, 30 Jul 2026 15:11:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="SKi44bRE";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JaRYSLIT";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id F3F6F10E692
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 15:08:56 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 113A81688
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 08:08:52 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- E0AF83F7B4
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 08:08:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785424136; bh=fm4PjR752KJiisTfelUMEAqvjekxRc5KLt39VpvDn60=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SKi44bREAgY447utZpMCp2Ni3ljtv/TwB5tWxFJXdGBK40w5qPmFV3YfrxLq5E5/+
- 6QzqHpbIdRcAgPEF35Yi8W2BHacquFpdsuBjdG1ukyeuwGqOow4B5roAZrtw7VqP2t
- 1CHvnoOwDMbPE+LJM0GRvrouQD8i01oK1GRSnhNE=
-Date: Thu, 30 Jul 2026 16:08:29 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
- Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0C7A10EF79
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 15:11:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0157360A5A;
+ Thu, 30 Jul 2026 15:11:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DD671F00A3E;
+ Thu, 30 Jul 2026 15:11:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1785424264;
+ bh=7e43aBoShE4ndUgtGkm9x1dx5pyEwXiy4gQyVwoPCZ0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=JaRYSLIT1Hs07mv6Rcn2s0ScXoGgXa+TIGMDIr/br9FzrVo68msZNi+B/4vF4lmIG
+ +ozyNp9FiFyr/tyIiZjd0cP7YUPDg7RNnIAfRrkA3GfjvB0CubTNYGGw3+g5t9rr4c
+ 71L8hhF4yb3q9FGKdXbJICabUZNUKfsy3SdmuAQA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Grant Likely <grant.likely@linaro.org>,
- Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v2 1/3] wait: Introduce non-irq variants of
- wait_event_lock_timeout
-Message-ID: <amto7SDfCYaIIjXa@e142607>
-References: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
- <20260730-panthor-cache-flush-fix-v2-1-28790478bfff@collabora.com>
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH 6.18 333/675] drm/sysfb: Do not page-align visible size of the
+ framebuffer
+Date: Thu, 30 Jul 2026 16:11:03 +0200
+Message-ID: <20260730141452.206290222@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
+References: <20260730141445.110192266@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260730-panthor-cache-flush-fix-v2-1-28790478bfff@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,139 +60,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 01:45:14PM +0200, Nicolas Frattaroli wrote:
-> For locks that are never acquired in an interrupt context, the non-irq
-> variants for spin_lock()/spin_unlock() are more efficient. However, so
-> far, wait.h only provided wait_event_lock_irq_timeout and
-> wait_event_interruptible_lock_irq_timeout, both of which use
-> spin_lock_irq()/spin_unlock_irq().
-> 
-> Rectify this by adding new non-irq variants of these two macros.
-> 
-> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+------------------
 
-Best regards,
-Liviu
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-> ---
->  include/linux/wait.h | 84 ++++++++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 84 insertions(+)
-> 
-> diff --git a/include/linux/wait.h b/include/linux/wait.h
-> index dce055e6add3..cd9b989c120e 100644
-> --- a/include/linux/wait.h
-> +++ b/include/linux/wait.h
-> @@ -1174,6 +1174,13 @@ do {										\
->  		      __ret = schedule_timeout(__ret);				\
->  		      spin_lock_irq(&lock));
->  
-> +#define __wait_event_lock_timeout(wq_head, condition, lock, timeout, state)	\
-> +	___wait_event(wq_head, ___wait_cond_timeout(condition),			\
-> +		      state, 0, timeout,					\
-> +		      spin_unlock(&lock);					\
-> +		      __ret = schedule_timeout(__ret);				\
-> +		      spin_lock(&lock))
-> +
->  /**
->   * wait_event_interruptible_lock_irq_timeout - sleep until a condition gets
->   *		true or a timeout elapses. The condition is checked under
-> @@ -1219,6 +1226,83 @@ do {										\
->  	__ret;									\
->  })
->  
-> +/**
-> + * wait_event_interruptible_lock_timeout - sleep until a condition gets
-> + *		true or a timeout elapses. The condition is checked under
-> + *		the lock with IRQs enabled. This is expected to be called
-> + *		with the lock taken.
-> + * @wq_head: the waitqueue to wait on
-> + * @condition: a C expression for the event to wait for
-> + * @lock: a spinlock_t that has been locked with spin_lock(), which will be
-> + *	  released before schedule() and reacquired afterwards.
-> + * @timeout: timeout, in jiffies
-> + *
-> + * The process is put to sleep (TASK_INTERRUPTIBLE) until the
-> + * @condition evaluates to true or signal is received. The @condition is
-> + * checked each time the waitqueue @wq_head is woken up.
-> + *
-> + * wake_up() has to be called after changing any variable that could
-> + * change the result of the wait condition.
-> + *
-> + * This is supposed to be called while holding the lock. The lock is
-> + * dropped before going to sleep using spin_unlock() and is reacquired
-> + * using spin_lock() afterwards, but without globally disabling IRQs.
-> + * This is in contrast to wait_event_interruptible_lock_irq_timeout(),
-> + * which uses the spin_lock_irq() and spin_unlock_irq() functions instead.
-> + *
-> + * The function returns 0 if the @timeout elapsed, -ERESTARTSYS if it
-> + * was interrupted by a signal, and the remaining jiffies otherwise
-> + * if the condition evaluated to true before the timeout elapsed.
-> + */
-> +#define wait_event_interruptible_lock_timeout(wq_head, condition, lock,		\
-> +					      timeout)				\
-> +({										\
-> +	long __ret = timeout;							\
-> +	if (!___wait_cond_timeout(condition))					\
-> +		__ret = __wait_event_lock_timeout(				\
-> +					wq_head, condition, lock, timeout,	\
-> +					TASK_INTERRUPTIBLE);			\
-> +	__ret;									\
-> +})
-> +
-> +/**
-> + * wait_event_lock_timeout - sleep until a condition gets true or a timeout
-> + *		elapses. The condition is checked under the lock with IRQs
-> + *		enabled. This is expected to be called with the lock taken.
-> + * @wq_head: the waitqueue to wait on
-> + * @condition: a C expression for the event to wait for
-> + * @lock: a spinlock_t that has been locked with spin_lock(), which will be
-> + *	  released before schedule() and reacquired afterwards.
-> + * @timeout: timeout, in jiffies
-> + *
-> + * The process is put to sleep (TASK_UNINTERRUPTIBLE) until the
-> + * @condition evaluates to true or signal is received. The @condition is
-> + * checked each time the waitqueue @wq_head is woken up.
-> + *
-> + * wake_up() has to be called after changing any variable that could
-> + * change the result of the wait condition.
-> + *
-> + * This is supposed to be called while holding the lock. The lock is
-> + * dropped before going to sleep using spin_unlock() and is reacquired
-> + * using spin_lock() afterwards, but without globally disabling IRQs.
-> + * This is in contrast to wait_event_lock_irq_timeout(), which uses the
-> + * spin_lock_irq() and spin_unlock_irq() functions instead. Compared to
-> + * wait_event_interruptible_lock_timeout(), it uses the %TASK_UNINTERRUPTIBLE
-> + * instead of allowing the task to be interrupted.
-> + *
-> + * The function returns 0 if the @timeout elapsed, or the remaining jiffies
-> + * otherwise if the condition evaluated to true before the timeout elapsed.
-> + */
-> +#define wait_event_lock_timeout(wq_head, condition, lock, timeout)		\
-> +({										\
-> +	long __ret = timeout;							\
-> +	if (!___wait_cond_timeout(condition))					\
-> +		__ret = __wait_event_lock_timeout(				\
-> +					wq_head, condition, lock, timeout,	\
-> +					TASK_UNINTERRUPTIBLE);			\
-> +	__ret;									\
-> +})
-> +
->  /*
->   * Waitqueues which are removed from the waitqueue_head at wakeup time
->   */
-> 
-> -- 
-> 2.55.0
-> 
+commit 134844856c399bfa9462a159dcf860bfdb748055 upstream.
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Only return the actually visible size of the system framebuffer in
+drm_sysfb_get_visible_size_si(). Drivers use this size value for
+reserving access to framebuffer memory. Increasing the value can
+make later attempts to do so fail.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
+Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.16+
+Link: https://patch.msgid.link/20260618084327.46567-2-tzimmermann@suse.de
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
++++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
+@@ -67,7 +67,7 @@ EXPORT_SYMBOL(drm_sysfb_get_stride_si);
+ u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
+ 				  unsigned int height, unsigned int stride, u64 size)
+ {
+-	u64 vsize = PAGE_ALIGN(height * stride);
++	u64 vsize = height * stride;
+ 
+ 	return drm_sysfb_get_validated_size0(dev, "visible size", vsize, size);
+ }
+
+
