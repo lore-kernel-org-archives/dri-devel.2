@@ -4,82 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68B24C55165
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 07:20:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C9BBC531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 07:20:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CF8110EDDF;
-	Thu, 30 Jul 2026 07:19:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A8EA310EDE5;
+	Thu, 30 Jul 2026 07:20:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HQMC8QUs";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="F7RtElkV";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 569D810E0CB
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 00:50:27 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-84e0688b859so1017891b3a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 17:50:27 -0700 (PDT)
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD79410E101
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 05:28:40 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id
+ 46e09a7af769-7e9ecb1e13cso1848269a34.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 22:28:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785372627; x=1785977427; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=tTcejbfPpIi7RoF28k6VKpbyOUJ6ogQJG6qo6DRmZEc=;
- b=HQMC8QUs/6mU4XeKVW2mv4t7ENqQo1k11G+mXGxSd1SxwpYp3f4Jpk+RNJDL1jzYcX
- SEQcu+v7Mowv0hAvwjImRh80521eprQyNCwP4nEFulSxhk5A7FaSu+rgdV9YWl8f1cBr
- PXUu0TpEANqKjqzPT3rW0lZN5mit1ucVA7yiWEXbU4v6DHrEUF3p3roqFRmLYxoOy7hK
- UbCq9WQ7DqxCKF+qESoKaThNqPcpXp8zWbtGUqRH6nz6NnXCS6sm1GPepB8Bwa4q5iTb
- goYgVoSVnBSEYz9sB3KnBuO7vlDNK7K9uWYXlp7K5mQ4438HTM/RePiA1R/EGfGE9EDY
- 1FWw==
+ d=gmail.com; s=20251104; t=1785389320; x=1785994120; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=a04MbFqiZgBuv1mG9X7XMb82OXMMktPjmh4vGJJeJn4=;
+ b=F7RtElkVc2D1jw32yEuKGLm75IP+nDqKPDmIkbCLbNOTpysNB5YzW1Noo08/fO0yDN
+ 71ZoIiNJCNfqa3mcNBzzGTWlKU6q17kBd2Z30c5i7apm3ZJQ8Q6i6LWFHB9jAkVyjZst
+ yJ0Aq5wVbS65nbmhjD8abPcSrJ+MLZfg9u6JCccUKDcvk0TTgVjUKOCQZ5vIeQkXo+4P
+ Wusf8MTDuMfrW0WYXS634rjOB8rxaqEKWlrFpj3WanQ6w/gywQjjjN50dAXzsRPeW2M8
+ ImErTrmUoXv14Uw2FYEFruMFk0kfVyQJALV3/+z6wAhSksjhmtU6JRA+rhlTh7OSJAto
+ 9sow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785372627; x=1785977427;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=tTcejbfPpIi7RoF28k6VKpbyOUJ6ogQJG6qo6DRmZEc=;
- b=UgjYNvFbdR4WK5TZJEc0aklygNIOQyr++LpXwXPvJhHKiaybWBL+ogbp/fDZm0I+KZ
- oETK57ENk9sB0Yewnm93SeYYGOfff+V7ewWMtArFKy3rvbnJF2kcan0N7KaouRQE3R1S
- s/H+iSmN+49z0G4aNF5jxF9yDNMlN0E5WT0uU41jVCpSY/UjsH5ZhI6PJMF3+FboJaVK
- z4CJMgxytnfXAPaWu2GylIorT0/ym7Y+OM7Ia2p+I4uyig8AcRHK+4ZyvAZm/8bwqR6T
- y2/u1h0qFPLu1zYaJQ8rGtWgK0n3PngQhZO/DM86bg17zkvt8fGWsh3H4d46KTyqHro3
- 0mWQ==
+ d=1e100.net; s=20251104; t=1785389320; x=1785994120;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=a04MbFqiZgBuv1mG9X7XMb82OXMMktPjmh4vGJJeJn4=;
+ b=WKOphBsH7hA2m2mj02z11MwuW4AGSKE1r9Dv7zcZOCU/tHDcLLILSxccsCvxs2YCLR
+ eCNOzi31pU4wCkQ4U1fChpssihkoRayCRL/GituRQTsFZsIpzJ3M+KJNUOC/TLu9vJGJ
+ CgbKGsyz0BdU+LzljTfLK2k9Etm5uRb+sXwGMM+y8ysHrlvFTCHkM5zibDMdMudSGR1b
+ z9qbMyv4ModMGyD4JrTckgSJFNbFCWU3wzEvCPxHYqgj9naNazUvV1jX8NDk7mTyO09q
+ Lj1sZeYOhuWvWQ6iAvYGV9zfVmjwsCRjE/9BEqy8b2SAUWvhSzXK+2z9r4sljZ4+QkvH
+ 3aqg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Roz6EFyaA+72zlZXKQNSB1+nfCoGa8N6uFBVvngXvpcpl7q+SaKoSRt290sdyREADcscEiwbpbkxSE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyDfseZksiwfDeCD+tOmogjsCFft+jzDgMUrLtkDeKpvzp7uZ/q
- e01wUg29cJlYzsGPAOshlhDfmWh/DXToO4tj5a2zZcPtVv23+fgw/CyP
-X-Gm-Gg: AR+sD11JP1vhFixGca+CKvivOPT5Ql1mfwK4ba1ha8KXNur24ZdcUOCV3KMt3QSvHor
- UxKWHICrEwlq+KZUmlGLRU8qn1YY/WBV6v5n3xIzLJVvH+QdUDuAffO0dVUB8TE7x/EmMh+AWqs
- Nja4amLrLqJC8Pm++Uzll63Dk2nzD+2KIyG0Aa5RWQiag9V44RgG+ZAnPQiElL5aqA3BuoQeJOB
- ZnMjhrMASDiI+ghEoQlycXmM/gydqmr181vbiA3qyZYLY7pM8SeyBKOSMLlFwA9I0OQ4tmYQLui
- NkkBFGw/s32EuOHLmPvD7c01UfmbPAFUzU7L7fDtXZeV8aYfi6kf/M/FybsTly5isfvJlPdd7R+
- njREW3Yk2VL8K9Y3gIM5Xg2BXbNIjTAN93Chf+hrvovHzYbBLxWZ74YATViF/0a10AiV/n5oIqw
- 84GrOoIFYr5s+h22f6SEnX7ofjCkU4oXC8Ee+qc2rkpXSaqTu+RTuP+BK8aCiRIFCIwXrnJG8+Y
- d3nGvP1+4wTgLESX1tDAOWzf+lv95sSXjbiDyZakX+8R12qm6NSULRdLhGFMS1zRDz19+Ba6q6Q
- vU3vVpKG
-X-Received: by 2002:a05:6a00:2e1e:b0:846:a26:8e0b with SMTP id
- d2e1a72fcca58-84ebc20ff60mr599833b3a.18.1785372626776; 
- Wed, 29 Jul 2026 17:50:26 -0700 (PDT)
-Received: from alanhc-ROG-Strix-G16-G614PR-G614PR.tailb22ec2.ts.net
- (1-161-137-250.dynamic-ip.hinet.net. [1.161.137.250])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e9fe240acsm2088390b3a.7.2026.07.29.17.50.25
+ AHgh+Rp/PLm3xw5RdLrK94hMaX+Du2TyCxlUQsub4gb0h+JvWpCsuIKpRBQ1MNP2E9wCpKSke5LRDUxlweY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwlN5WPMU2+dCkawY2DmGYaX2oHNXdm2vY2RcSoVGnECL/UH+Q8
+ TfXBtX2C3h/yjibYLHpJiZaZZpoIvknhZkmRfTCeC5Q8ga2R4fMpEW3Z
+X-Gm-Gg: AR+sD11zOBCE1MTpFwquJBTJXSlTjyrnwgdW7XJemfyNnWYvL6T/FcfRzFLehpCVq6A
+ obetfhcstda7AQRabomsoC7okEsvn0CW2ZV6/gZCgp85qXNA5xcpErXTEGwmZ78W/W06lL+Zt7T
+ Beanyg4mPtiKWh6U3A67Gfg40p1YamVRZkcWUKiRcN481AEO9A6PhAvVnTVDQbcj4rYpnUpsev5
+ Fvcqq+tuKg24PjQhl+duq/MDYgDv2bV1145dK864JCxyHwwCQ6x679YauX0hQWYDq1HzUj+YZng
+ Q9bxJFwXduFwLl/Je1sdwNzM3+OevfbTnEDPr5niag+EqYiHzcByyW7MyVbCF+OZMVzUQKFPOfG
+ ACpwAeYgkpKO4F+7rnllW1L6jDdgfkoIQfTipmzuoKQg01B1dToXBKxcQIW9HcSRPmDLNLA3OIf
+ 2Kd1/B9bjs+pox+P3yuoXZKXk+mhNM4vuouMS+0b63YqlgTcbRMYaw9+6PySaCIse3RQ==
+X-Received: by 2002:a05:6830:2695:b0:7dc:c7aa:22bd with SMTP id
+ 46e09a7af769-7f02bedd9e5mr667636a34.6.1785389319804; 
+ Wed, 29 Jul 2026 22:28:39 -0700 (PDT)
+Received: from gmail.com ([108.243.219.47]) by smtp.gmail.com with ESMTPSA id
+ 46e09a7af769-7f00d591d97sm3984143a34.3.2026.07.29.22.28.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2026 17:50:26 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: sumit.semwal@linaro.org,
-	christian.koenig@amd.com
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-Subject: [PATCH v2] dma-buf: fix stale return value documentation for
- dma_buf_set_name()
-Date: Thu, 30 Jul 2026 08:50:21 +0800
-Message-ID: <20260730005021.4032907-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260730003153.4030818-1-alan.tseng.cs@gmail.com>
-References: <20260730003153.4030818-1-alan.tseng.cs@gmail.com>
+ Wed, 29 Jul 2026 22:28:39 -0700 (PDT)
+Date: Thu, 30 Jul 2026 00:28:37 -0500
+From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+To: Doug Anderson <dianders@chromium.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] drm/panel: tdo-tl070wsh30: Use mipi_dsi_*_multi()
+ functions
+Message-ID: <amrfZMfThEWbHIjh@gmail.com>
+References: <20260727-mipi-dsi-tl070wsh30-multi-v2-1-f47b937631d3@gmail.com>
+ <CAD=FV=VvM22hHY7aMT116WOHSje-iiX8ins=AERBDX6Wjmct9w@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAD=FV=VvM22hHY7aMT116WOHSje-iiX8ins=AERBDX6Wjmct9w@mail.gmail.com>
 X-Mailman-Approved-At: Thu, 30 Jul 2026 07:19:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,42 +96,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit e73c317efbf9 ("dma-buf: remove restriction of
-IOCTL:DMA_BUF_SET_NAME") removed the dma_resv_lock() and the check on
-dmabuf->attachments that returned -EBUSY. It updated the description above
-the function accordingly, but left the return value description untouched.
+On Wed, Jul 29, 2026 at 06:55:53PM -0700, Doug Anderson wrote:
+> Style nit: in general, there are way too many blank lines. You don't
+> need a blank line between every statement.
 
-dma_buf_set_name() now returns 0 on success, or the error from
-strndup_user(); there is no -EBUSY path left. Update the description to
-match the code.
+Will pack them in v3.
 
-kernel-doc does not validate prose, so scripts/kernel-doc does not report
-this.
+> However, I think the Sashiko bot had a point [2] when it noted that
+> the old code used to still sleep for ~10ms and try to enter sleep mode
+> even if the "display off" failed. That behavior is probably worth
+> preserving.
 
-Fixes: e73c317efbf9 ("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME")
-Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
----
-v2: Add a Fixes: tag identifying the commit that left the return value
-    description stale. No change to the diff.
-
- drivers/dma-buf/dma-buf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636d..324f4f0c8 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -413,8 +413,8 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
-  * @buf:    [in]     A piece of userspace memory that contains the name of
-  *                   the dma-buf.
-  *
-- * Returns 0 on success. If the dma-buf buffer is already attached to
-- * devices, return -EBUSY.
-+ * Returns 0 on success, or a negative error code from strndup_user() if the
-+ * name cannot be copied in.
-  *
-  */
- static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
+Understood. I will preserve the behaviour in v3.
 -- 
-2.43.0
-
+Thanks,
+Akash
