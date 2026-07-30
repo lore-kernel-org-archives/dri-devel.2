@@ -4,112 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92786C55167
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 22:45:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE1DAC55165
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 22:55:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D205B10F0D7;
-	Thu, 30 Jul 2026 22:45:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3850B10F0D9;
+	Thu, 30 Jul 2026 22:55:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="k5ocR2mV";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="OJIpgDfj";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 67E2510F0D7
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 22:45:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785451542; x=1816987542;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=D4AlkxJewADXDQkoFsN0ypjhgZWNzgGqiEz28LzWLgE=;
- b=k5ocR2mV5RV5zUyWovZQgNDLlT0TTw5M8PaEp6BdV50ztL7J5Qn9TDrx
- fdG0/DdvLO2KI+1MAU/DbXvepl9Fvx0Urmjj5unE0kAVS1C8VWwvhEgXH
- wx89mweB6iiyANSM1+lbQKmbQuTvf6vR0lulvj75TH9hR5Qv8dsqMXXjG
- BR/7BqQBN6BJ24g7WPabDHUKWfXQ2XqSoDAx0FS0o0GCW9WmhfLv8r964
- qiPPW9PPWdv4KPOBWjqwce3HTvTP8ndxrg25by0jd2RnZkYqqNXYTTS1O
- qrWPYST+2mmImtbKkxBuOUBlB3l8CZtUl4C51ZUivpKl+Q0ywLOjtTHeE A==;
-X-CSE-ConnectionGUID: 9kyqN40DSACnmUfqkQG0lA==
-X-CSE-MsgGUID: PRjhZ3RPTCS6zSwXYjV9cQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11860"; a="97595080"
-X-IronPort-AV: E=Sophos;i="6.25,195,1779174000"; d="scan'208";a="97595080"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 15:45:41 -0700
-X-CSE-ConnectionGUID: 6ZTjABJzSHq0KANKjrAkXA==
-X-CSE-MsgGUID: 86YRcKkZQKSSqCijGiWMPQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,195,1779174000"; d="scan'208";a="261034198"
-Received: from sghuge-mobl2.amr.corp.intel.com (HELO [10.125.111.236])
- ([10.125.111.236])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 15:45:39 -0700
-Message-ID: <a5c7150f-44bc-4ed9-80de-631ddb37794a@intel.com>
-Date: Thu, 30 Jul 2026 15:45:38 -0700
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 331C310F0D9
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 22:55:34 +0000 (UTC)
+Received: by mail-pl1-f178.google.com with SMTP id
+ d9443c01a7336-2cacef7d299so22905ad.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 15:55:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1785452133; x=1786056933;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JGa8csySGObADLk+2HBSpvepwrbFTkNknaylr539um4=;
+ b=OJIpgDfjzGQQN1lQ+6QvMHjU1l0MFbIzRetgjRcR2rEWDVG5LQ7dPueFB2Z4vZobyh
+ 1grMX3yGWrot6TBzxi4o1/9ibXoWNemYB1RCcIlX1kKrK1CyRLNA9ikj6Bnt6j5frA7I
+ A91RKvLTYTffi+6im/ZHcG9TAMvLSM+Y80v945cFHXAWzc/B6EUrfIz/zEokNByUdg1L
+ P30NcfLTgltGss2rJTDepBr+yuvVnWYqSQESS8M+OLE7QEPsnFZxpIFaWPJ0ohL214Fo
+ zLE6LWM8uNe1YRte/HBCYwE7oG05ho+0yfbm0huntajf0LSsDhefzBYW0W11hYXG1M4d
+ ntMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785452133; x=1786056933;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=JGa8csySGObADLk+2HBSpvepwrbFTkNknaylr539um4=;
+ b=BULm6aUdcxuTnM2Juo+H2+pbdO1HMiB4HTTJrIcj9ZfDOe4q2+XLWsBy//dNabILd3
+ j8ipg9bz1UaT+VaukICa/90JtkbiE6VpCqMZR0tGxEAw93B21kxX6XGwvp4R3utYZObz
+ pSZVN/4pdvtyZAbTch1CGsMq8CRtdKChGyvnUnISidTRrQHCN6RroveJQDJn+R2E4WYk
+ WvlZ34rwmRe1s+kZKGvxCWw/NGrddEXHrH+jq6VDEeF0M9/JjIMbqq9cWEb8tggaZKcx
+ /Ye8Ir7aQpQ8jyko5JF3+9kJC6r1QdiOVtHM+rkdcjJBMqiEaRGZOB0Acbma1oDD27l+
+ iNrw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpUJebFV3Q5Z14RteGmPT5wr4zv5XKI+cs41OScernE0Csz7MwQTzrPunkI++GjBNfKuTHq9SEYduI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzwWYY9MxXPLtrNeAb3fQl9lsIR15Dns3yY7Ds1A6xuLFT6BO8O
+ rLYVhBkK03YWuoJESu4QnqezOIe/afK6xs3FJkffZ47onW9VQyWxO4EBQEKRkx3vUg==
+X-Gm-Gg: AR+sD11dGMizWCw7XpeHfIt2DpZOMD91+cHPCBU7Ew7zIB1RFLS3lAq06aoUBcPM9Wb
+ wpVKURDg8whL/sUPJEfT3FnX0YTRZuSfXk7C/tXToXVliixoWN3AsmCuz4Y5AZ8PmJnPsjBlV6I
+ PL+MeCepfC35la98IDKFIAteS6O2A0BxSON0OGA0Sr7LxMIoORSEp5cTM7sY/AQi+HtNRQq/FES
+ lg9JlBhVrJOHTG8TPi98ZDFLCEOtUWIMaKAJmr1ElaNDz1b8U2Uu8cSoKp12M3LTQumcCnPolFM
+ 3r5Qp7axf98Ac7bmzrp9yjCMl8J0VngJIyL3RkTe1d7MAtFB/4fkHQvf3azC9yBF4NqqLtJRTBA
+ Rm8+LpKV5Pg5W6OEnt+2lMznyFxbVDXQXJt8zsT9Dg7O6EvSL9wqvwNvtL/fD+XBduPbdoxiUl/
+ xHstQ7J+B8IBUfy2UlnaLwwF4S8/wFcBa7hDqMHa9cCg054ceYrU3Rn74VTjmQqTIX40e1MlklS
+ HR9AUzW9gGFGxT2yjDODAzTa2/n5lIdAv8sh18bjiZ4Fw==
+X-Received: by 2002:a17:902:f541:b0:2b9:e831:5e5c with SMTP id
+ d9443c01a7336-2d04113beb1mr4399455ad.4.1785452132956; 
+ Thu, 30 Jul 2026 15:55:32 -0700 (PDT)
+Received: from google.com (21.168.124.34.bc.googleusercontent.com.
+ [34.124.168.21]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-31504d2ec2asm29148088eec.21.2026.07.30.15.55.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 15:55:32 -0700 (PDT)
+Date: Thu, 30 Jul 2026 22:55:24 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v5 3/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Message-ID: <amvWXNRtviKEuUoV@google.com>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-4-matt@ozlabs.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH 0/6] Remove support for Windows Server 2012/2012R2
- & Win8/Win8.1 versions of Hyper-V
-To: mhklinux@outlook.com, kys@microsoft.com, haiyangz@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, longli@microsoft.com,
- tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, daniel.lezcano@kernel.org,
- ssengar@linux.microsoft.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, James.Bottomley@HansenPartnership.com,
- martin.petersen@oracle.com, sgarzare@redhat.com, horms@kernel.org
-Cc: x86@kernel.org, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
- virtualization@lists.linux.dev
-References: <20260730201123.1767-1-mhklinux@outlook.com>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20260730201123.1767-1-mhklinux@outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715174737.15287-4-matt@ozlabs.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,16 +104,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/30/26 13:11, Michael Kelley wrote:
-> Linux code for running as a Hyper-V guest includes special cases for
-> running on Hyper-V in WS2012/2012R2 and Windows 8/8.1. These versions
-> were initially released 14 years ago, and official support ended in 2023
-> (unless a customer has contracted for extended security updates).
+On Wed, Jul 15, 2026 at 06:47:26PM +0100, Matt Evans wrote:
+> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+> find a PFN.
+> 
+> This supports multi-range DMABUFs, which typically would be used to
+> represent scattered spans but might even represent overlapping or
+> aliasing spans of PFNs.
+> 
+> Because this is intended to be used in vfio_pci_core.c, we also need
+> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+> 
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> ---
+>  drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
+>  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
+>  2 files changed, 160 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> index c16f460c01d6..7c047400dfd1 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -9,19 +9,6 @@
+>  
+>  MODULE_IMPORT_NS("DMA_BUF");
+>  
+> -struct vfio_pci_dma_buf {
+> -	struct dma_buf *dmabuf;
+> -	struct vfio_pci_core_device *vdev;
+> -	struct list_head dmabufs_elm;
+> -	size_t size;
+> -	struct phys_vec *phys_vec;
+> -	struct p2pdma_provider *provider;
+> -	u32 nr_ranges;
+> -	struct kref kref;
+> -	struct completion comp;
+> -	u8 revoked : 1;
+> -};
+> -
+>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>  				   struct dma_buf_attachment *attachment)
+>  {
+> @@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>  	.release = vfio_pci_dma_buf_release,
+>  };
+>  
+> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
+> +			      struct vm_area_struct *vma,
+> +			      unsigned long fault_addr,
+> +			      unsigned int order,
+> +			      unsigned long *out_pfn)
+> +{
+> +	/*
+> +	 * Given a VMA (start, end, pgoffs) and a fault address,
+> +	 * search the corresponding DMABUF's phys_vec[] to find the
+> +	 * range representing the address's offset into the VMA, and
+> +	 * its PFN.
+> +	 *
+> +	 * The phys_vec[] ranges represent contiguous spans of VAs
+> +	 * upwards from the buffer offset 0; the actual PFNs might be
+> +	 * in any order, overlap/alias, etc.  Calculate an offset of
+> +	 * the desired page given VMA start/pgoff and address, then
+> +	 * search upwards from 0 to find which span contains it.
+> +	 *
+> +	 * On success, a valid PFN for a page sized by 'order' is
+> +	 * returned into out_pfn.
+> +	 *
+> +	 * Failure occurs if:
+> +	 * - A hugepage would cross the edge of the VMA,
+> +	 * - A hugepage isn't entirely contained within a range
+> +	 *   (including where it straddles the boundary between
+> +	 *   ranges),
+> +	 * - We find a range, but the final PFN isn't aligned to the
+> +	 *   requested order.
+> +	 *
+> +	 * Upon failure, -EAGAIN is returned and the caller is
+> +	 * expected to try again with a smaller order, which will
+> +	 * eventually succeed (order=0 will always work).
+> +	 *
+> +	 * It's suboptimal if DMABUFs are created with neighbouring
+> +	 * ranges that are physically contiguous, since hugepages
+> +	 * can't straddle range boundaries.  (The construction of the
+> +	 * ranges should merge them in this case.)
+> +	 *
+> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
+> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
+> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
+> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
+> +	 * To avoid double-offsetting in this scenario, subtracting
+> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
+> +	 * the effective offset.
+> +	 */
+> +
+> +	const unsigned long pagesize = PAGE_SIZE << order;
+> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
+> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
 
-If we had a time machine, it would be nice to go back to 2023, stick
-some warnings in about this, and see if anyone screams. Could we add
-some warnings the next time a Hyper-V host ends support, please?
+Maybe I'm getting ahead of myself here.. but it seems like this
+restricts us to only mapping DMABUFs at offsets < 1TB due to the 
+VFIO_PCI_OFFSET_MASK (since we have HBMs on PCI devices now, hitting 1TB
+may not be a very distant future).
 
-Also, what will an end user actually see if they boot a kernel with this
-series applied on one of those hypervisors? Will it just not boot? Will
-it run slowly?
+While I understand this mask is needed to drop the BAR encoding in the
+high bits. 
+
+My worry is, if in the future a user were to export a massive
+contiguous DMABUF (e.g., >1TB of aggregated HBM) and tried to mmap deep
+into it (passing an offset >= 1TB), this bitwise AND would silently drop
+the high bits, leading to silent data corruption.
+
+I think we should explicitly reject such an mmap with -EINVAL like:
+
++const unsigned long pagesize = PAGE_SIZE << order;
++unsigned long vma_off = (vma->vm_pgoff - priv->vma_pgoff_adjust) << PAGE_SHIFT;
+
++/*
++ * Prevent silent wrap-around if the user mmaps a DMABUF at an
++ * offset greater than the VFIO index mask allows.
++ */
++if (unlikely(vma_off > VFIO_PCI_OFFSET_MASK))
++    return -EINVAL;
+
++vma_off &= VFIO_PCI_OFFSET_MASK;
+
+> +	unsigned long rounded_page_addr = ALIGN_DOWN(fault_addr, pagesize);
+> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
+> +	unsigned long fault_offset;
+> +	unsigned long fault_offset_end;
+> +	unsigned long range_start_offset = 0;
+> +	unsigned int i;
+> +	int ret;
+> +
+
+
+Thanks,
+Praan
