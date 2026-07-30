@@ -4,41 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55BF3C55164
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 15:12:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD49C55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 15:13:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A77B610EF81;
-	Thu, 30 Jul 2026 15:12:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD04A10EF8C;
+	Thu, 30 Jul 2026 15:13:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z1FENMsr";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0rCysXWn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ECC510EF81
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 15:12:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5740910EF8C
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 15:13:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 77E07600B1;
- Thu, 30 Jul 2026 15:12:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACD7B1F000E9;
- Thu, 30 Jul 2026 15:12:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CBCAE600B1;
+ Thu, 30 Jul 2026 15:13:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D2CC1F000E9;
+ Thu, 30 Jul 2026 15:13:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785424336;
- bh=NEM6vBjmZ/3CGc8rsMxxI7L5ujC7jCcHsm2keae/td0=;
+ s=korg; t=1785424381;
+ bh=RihudVo5cMe2Uf1hutkTduDNgC3DGVuP4aLoaWAT4fE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Z1FENMsr6joKEgRUhpaQeU/h2OTnjl1HUn4o0SzeHEG5qYKgtfXXRd8bA5Rca3ctb
- p93U5ndxks5ZqqEJriBM3dV9p5Uoq3Nild/acE5EX44u44VEEuwyy/MA4LNyIta6C2
- 8R1yVlI3tmjsRbCbFG6P6URABd0kI7xRjYCzULmI=
+ b=0rCysXWnMIeIEDi3CwWrWqUWiZT4WmUBtk5iO4K43Id3QUlHSyBtls412eI9p/htC
+ uA00AQUn5bs7GVA1tBEbgGScXxFOIUuvSF3gIayBlDiDezv7RK+OUfogg8rb4u6Ty8
+ UvCZahqqQKBxcnvrleexqwOn790PCzjNGCKY0Gj4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Zack Rusin <zackr@vmware.com>, dri-devel@lists.freedesktop.org,
- Harry Wentland <harry.wentland@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 6.18 356/675] drm/amd/display: Handle struct
- drm_plane_state.ignore_damage_clips
-Date: Thu, 30 Jul 2026 16:11:26 +0200
-Message-ID: <20260730141452.699769408@linuxfoundation.org>
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 6.18 375/675] drm/ttm: Account for NULL and handle pages in
+ ttm_pool_backup
+Date: Thu, 30 Jul 2026 16:11:45 +0200
+Message-ID: <20260730141453.105789167@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
 References: <20260730141445.110192266@linuxfoundation.org>
@@ -46,6 +50,7 @@ User-Agent: quilt/0.69
 X-stable: review
 X-Patchwork-Hint: ignore
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,64 +71,141 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 ------------------
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+From: Matthew Brost <matthew.brost@intel.com>
 
-commit ac11060c6d4959e2d4ceada037d2e1e1bfcf6645 upstream.
+commit 5b7b3b6595ee77d01c7463757baed114786094dd upstream.
 
-The mode-setting pipeline can disabled damage clippings for a commit
-by setting ignore_damage_clips in struct drm_plane_state. The commit
-will then do a full display update.
+Pages in ttm_pool_backup can be NULL or backup handles
+(ttm_backup_page_ptr_is_handle()), neither of which can be passed to
+set_pages_array_wb() or freed. Add a dedicated WB pass before the
+dma/purge loop that walks allocations using the same i += num_pages
+stride, skipping NULL and handle entries, and calls set_pages_array_wb()
+once per contiguous run of real pages. Apply the same NULL/handle guard
+to the dma/purge loop.
 
-Test the flag in DCN code and do a full update in DCN code if it has
-been set.
+Fixes the following oops:
 
-Commit 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers
-to ignore damage clips") introduced ignore_damage_clips to selectively
-ignore damage clipping in certain framebuffer changes. This driver does
-not do that, but DRM's damage iterator will soon rely on the flag.
-Therefore supporting it here as well make sense for consistency.
+Oops: general protection fault, kernel NULL pointer dereference 0x0: 0000 [#1] SMP NOPTI
+RIP: 0010:__cpa_process_fault+0xf8/0x770
+RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
+RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
+RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
+RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
+R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
+R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
+FS:  0000000000000000(0000) GS:ffff8884ec840000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
+PKRU: 55555554
+Call Trace:
+ <TASK>
+ __change_page_attr_set_clr+0x989/0xe90
+ ? __purge_vmap_area_lazy+0x6c/0x3a0
+ ? _vm_unmap_aliases+0x250/0x2a0
+ set_pages_array_wb+0x7f/0x120
+ ttm_pool_backup+0x4c9/0x5b0 [ttm]
+ ? dma_resv_wait_timeout+0x3b/0xf0
+ ttm_tt_backup+0x32/0x60 [ttm]
+ ttm_bo_shrink+0x66/0x110 [ttm]
+ xe_bo_shrink_purge+0x12b/0x1b0 [xe]
+ xe_bo_shrink+0xbb/0x270 [xe]
+ __xe_shrinker_walk+0xf7/0x160 [xe]
+ xe_shrinker_walk+0x9d/0xc0 [xe]
+ xe_shrinker_scan+0x11f/0x210 [xe]
+ do_shrink_slab+0x13b/0x270
+ shrink_slab+0xf1/0x400
+ shrink_node+0x352/0x8a0
+ balance_pgdat+0x32c/0x700
+ kswapd+0x205/0x2f0
+ ? __pfx_autoremove_wake_function+0x10/0x10
+ ? __pfx_kswapd+0x10/0x10
+ kthread+0xd1/0x110
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork+0x1b1/0x200
+ ? __pfx_kthread+0x10/0x10
+ ret_from_fork_asm+0x1a/0x30
+ </TASK>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 35ed38d58257 ("drm: Allow drivers to indicate the damage helpers to ignore damage clips")
-Cc: Javier Martinez Canillas <javierm@redhat.com>
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Zack Rusin <zackr@vmware.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Cc: dri-devel@lists.freedesktop.org
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit a24019f6480fad5c077b5956eed942c8960323d6)
-Cc: <stable@vger.kernel.org> # v6.8+
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+Cc: stable@vger.kernel.org
+Assisted-by: GitHub_Copilot:claude-opus-4.8
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Link: https://patch.msgid.link/20260702214815.4009271-1-matthew.brost@intel.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/ttm/ttm_pool.c |   34 ++++++++++++++++++++++++++++++----
+ 1 file changed, 30 insertions(+), 4 deletions(-)
 
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6240,8 +6240,8 @@ static void fill_dc_dirty_rects(struct d
- {
- 	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
- 	struct rect *dirty_rects = flip_addrs->dirty_rects;
--	u32 num_clips;
--	struct drm_mode_rect *clips;
-+	u32 num_clips = 0;
-+	struct drm_mode_rect *clips = NULL;
- 	bool bb_changed;
- 	bool fb_changed;
- 	u32 i = 0;
-@@ -6257,8 +6257,10 @@ static void fill_dc_dirty_rects(struct d
- 	if (new_plane_state->rotation != DRM_MODE_ROTATE_0)
- 		goto ffu;
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -981,9 +981,31 @@ long ttm_pool_backup(struct ttm_pool *po
+ 		return -EBUSY;
  
--	num_clips = drm_plane_get_damage_clips_count(new_plane_state);
--	clips = drm_plane_get_damage_clips(new_plane_state);
-+	if (!new_plane_state->ignore_damage_clips) {
-+		num_clips = drm_plane_get_damage_clips_count(new_plane_state);
-+		clips = drm_plane_get_damage_clips(new_plane_state);
+ #ifdef CONFIG_X86
+-	/* Anything returned to the system needs to be cached. */
+-	if (tt->caching != ttm_cached)
+-		set_pages_array_wb(tt->pages, tt->num_pages);
++	/* Anything returned to the system needs to be cached. Walk allocations
++	 * skipping NULL pages and issue set_pages_array_wb() per contiguous run.
++	 */
++	if (tt->caching != ttm_cached) {
++		pgoff_t run_start = 0, run_count = 0;
++
++		for (i = 0; i < tt->num_pages; i += num_pages) {
++			page = tt->pages[i];
++			if (unlikely(!page || ttm_backup_page_ptr_is_handle(page))) {
++				if (run_count) {
++					set_pages_array_wb(&tt->pages[run_start],
++							   run_count);
++					run_count = 0;
++				}
++				num_pages = 1;
++				continue;
++			}
++			num_pages = 1UL << ttm_pool_page_order(pool, page);
++			if (!run_count)
++				run_start = i;
++			run_count += num_pages;
++		}
++		if (run_count)
++			set_pages_array_wb(&tt->pages[run_start], run_count);
 +	}
+ #endif
  
- 	if (num_clips && (!amdgpu_damage_clips || (amdgpu_damage_clips < 0 &&
- 						   is_psr_su)))
+ 	if (tt->dma_address || flags->purge) {
+@@ -991,7 +1013,7 @@ long ttm_pool_backup(struct ttm_pool *po
+ 			unsigned int order;
+ 
+ 			page = tt->pages[i];
+-			if (unlikely(!page)) {
++			if (unlikely(!page || ttm_backup_page_ptr_is_handle(page))) {
+ 				num_pages = 1;
+ 				continue;
+ 			}
+@@ -1034,6 +1056,10 @@ long ttm_pool_backup(struct ttm_pool *po
+ 		if (unlikely(!page))
+ 			continue;
+ 
++		/* Already-handled entry from a previous attempt. */
++		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
++			continue;
++
+ 		ttm_pool_split_for_swap(pool, page);
+ 
+ 		shandle = ttm_backup_backup_page(backup, page, flags->writeback, i,
 
 
