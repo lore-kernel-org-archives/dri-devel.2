@@ -4,79 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30ABDC54FD2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 03:36:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A47DFC531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 03:38:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6072E10E07B;
-	Thu, 30 Jul 2026 03:36:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE30F10E104;
+	Thu, 30 Jul 2026 03:38:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m51CEsK5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JfzhnEly";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DD1010E0D6
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 03:36:23 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-498028b3d5eso520445e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 20:36:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785382581; x=1785987381; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=WMWUot9YIJH7LYlDmSCMcZunmhRWRmr2f2dBfnr4TTw=;
- b=m51CEsK5wkEW9pie3el7KWYg2fuXFOPOfqOYuv1nBHJBeA9ygt0LaHTk4H60YvRS7W
- py+0g7nzTpOMcN9XPLfdvVP+Ycv0h9wJAcKHmm925L1u73fII3r4qCo8/1xJpocfKfTu
- Ck7vSYxuPuAxTlNLcrdhZDw0WquIGP/hHkd9KmbAVgfjRfaEw+cqa8RBEvkFD2FQulqP
- AiWtz7ao/wBEnCIXmbcl9ZO+OFbjpF90stovxUleyjOIbzRtm7FOSLiF1d1LfMCS8hqi
- 2ShkYsePEGXj2GBhD7+eozIictjXqLz9QnuuOGaMJh3gK3Yel4lLAyNF9HjIUhFU8R45
- RVhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785382581; x=1785987381;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=WMWUot9YIJH7LYlDmSCMcZunmhRWRmr2f2dBfnr4TTw=;
- b=P1uhCK25ETb0VcFpyfPrswTS3Sz7dds2dutYUgU7yTLQvJiaSyW+PDAAJQffPAdQOc
- zS0wR4SRW3B73TmnHtWmZgJ0982XJW1A3ssG9+RWS9mEX6lOSlsuJ1Uxg9IG1F2qoKds
- rZW5j0T3WVcJ/e+2xfR2fbMnU6ZH0X92D7537y0eGiCkllJzqs5E6DrWydKWHEmPlT/Z
- oDacC59uBpx/43LfvVLcIbgMV0+AUC6Mlb3x7yXCTDfeEUAw3llpraCNNLayJa2ei5rj
- Ya4He2BUdNajeeTqAGYWiPe/YHU/E1DelGdhln6lnSSnpu+4yMS6s9qN8+4C++qMx4sg
- 5wPw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpp2I1Zko7XkG3ZWrYSC9w8QwSqMSRw8jIRPdV5fwwLikVCZR+Db/80V4JlsSeoPm3qvxvXMhfBB5A=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzrT73wxfRGPPpfxx8BYi/miGPcSKi4+RcR1a2CxI8z7u4f5tdc
- o01yaEAaI36BGCGjlMW7TbMqIcVelO7E4thQqh9YYcAef/adcMOrdmv3
-X-Gm-Gg: AR+sD11lX6XjuRwKDeBbf5fJNyJ4ZoemvvlNqRwc+oiYU+XD6f75/3NPFz6xs/NwXyw
- JhplB7ODMeXBKBkLiNxaUySvEW5JK/To0TKh8jU3LHbX/9h6lav1IhUAdOMzTSCsaTHkSTRgg4A
- 17iHP6pCOAHgTt7wiLv78OBpGNZsVVcy/Fzkp+0BdLG4Gg4tS7QjQ2Be4DIQfiu8Gr3KPL/DTaP
- RQ9CMHXz/glizAMxAuQiVp6ZMqTAcMg/iCwmbj4WMqFyDSA/c/qw/NeZlfj7Bak2dUuEs++iWVO
- 7AnDXviJVE95lWMixZ9ZbNj6YMB1pv5Qegjdu4kIB2KrbZ3zM+Eqhv4eVQSdxVpxdQzDVmVYhDU
- cNbJUcZ43KebJrcR0D6UvTvi5wRzM8OCoePrbhCD1eDJ32kw13g3v6fB7RmQ390TJ20z/krsA5H
- 8qnFEbKj0qLP3BODCXsnpNHveM/jWurhI9daXQFUVhecoOLeFBcuUmTB8xTVjjAxzxLNyGNL/ds
- X4DME7u1aYzvuLZXPjBPmFyXeyT0V6vMOLunkPDe+Cb4sB54b8/
-X-Received: by 2002:a05:600c:1d19:b0:493:df1d:7488 with SMTP id
- 5b1f17b1804b1-49800e81092mr9327545e9.16.1785382581458; 
- Wed, 29 Jul 2026 20:36:21 -0700 (PDT)
-Received: from JTOLLET-M-FKW7 (aerospot-mask5-183-3-inet.hub-one.net.
- [149.232.183.3]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-496e8e15a52sm67579895e9.0.2026.07.29.20.36.19
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 29 Jul 2026 20:36:20 -0700 (PDT)
-From: Jerome Tollet <jerome.tollet@gmail.com>
-To: jani.nikula@linux.intel.com
-Cc: ankit.k.nautiyal@intel.com, ville.syrjala@linux.intel.com,
- arun.r.murthy@intel.com, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Jerome Tollet <jerome.tollet@gmail.com>
-Subject: Re: Question about drm-intel-next vs drm-intel-next-fixes for HDMI
- scrambling patch
-Date: Thu, 30 Jul 2026 05:36:07 +0200
-Message-ID: <20260730033607.17136-1-jerome.tollet@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260729161606.81668-1-jerome.tollet@gmail.com>
-References: <20260729161606.81668-1-jerome.tollet@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3467D10E0D6
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 03:38:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1F56B600AA;
+ Thu, 30 Jul 2026 03:38:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D1DC1F000E9;
+ Thu, 30 Jul 2026 03:38:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785382734;
+ bh=YGs4mWmdEraeAL7XILm5j/zC6IKpWQd8Uhrmgav7Y1w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JfzhnElyul7+xm5zN65fCw1h+yjLs9aD7MR+eM3+Z6YI06zcv9vf4AZ/AVKpm1cM5
+ /bJl3lHHXCXjaMdHfOTkGGk6HBJYO4ud+OJ/TuAbR236KoHPgZHupUEOveIeJ1kAi7
+ NV8P1q6diEvmSgRouilo6pgeQGmnUH7b1wgy81vQP5vfGy/XJKx28tU72zJK00cnfm
+ YPb718HwqHD+/XiB8qxZYaBY6xP4By7jpjnY+r7GdU3OZBek/TDWg9IxtGyLKqnBj1
+ W7j3RpMCEsz241arJ8CY0xbasBhAGeIERHkkNxjBeXZcT0v1e6KPdKCJRpuA5J4rXo
+ Gz8j+cYCerJGg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 4/7] drm/bridge: analogix_dp: Extend
+ clear_hotplug_interrupts to accept IRQ bitmask
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260730032744.381566-5-damon.ding@rock-chips.com>
+References: <20260730032744.381566-1-damon.ding@rock-chips.com>
+ <20260730032744.381566-5-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 03:38:53 +0000
+Message-Id: <20260730033854.7D1DC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,22 +55,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jani,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Thanks, this clarifies the process.
+New issues:
+- [High] Data Race in Interrupt Mask Registers During RMW
 
-I understand that the patch was applied to drm-intel-next first, but since it
-had neither a Fixes: nor a Cc: stable@vger.kernel.org trailer, it was not
-selected for drm-intel-fixes.
+Pre-existing issues:
+- [High] Lost Hardware Hotplug Events Due to Late Status Clearing
+--
 
-Since the patch fixes 4K@60Hz failures on some HDMI 2.0 sinks, and has passed
-CI and review, would you consider it appropriate to cherry-pick it into
-drm-intel-fixes for Linux 7.2, or should it remain targeted at Linux 7.3?
+--- Patch [4]: [PATCH v1 4/7] drm/bridge: analogix_dp: Extend clear_hotplug=
+_interrupts to accept IRQ bitmask ---
+commit f4ba8e259db1706905ae7d04afdea18e9d5a28d6
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-I am happy to provide any additional testing or information if needed.
+drm/bridge: analogix_dp: Extend clear_hotplug_interrupts to accept IRQ bitm=
+ask
 
-Thanks,
-Jerome
+Update analogix_dp_clear_hotplug_interrupts() to take an irq_type
+bitmask argument. Instead of clearing all hotplug interrupt bits
+unconditionally, only clear the interrupt flags corresponding to the
+triggered events.
+
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -733,7 +733,7 @@ static irqreturn_t analogix_dp_irq_thread(int irq, vo=
+id *arg)
+>  	}
+> =20
+>  	if (irq_type) {
+> -		analogix_dp_clear_hotplug_interrupts(dp);
+> +		analogix_dp_clear_hotplug_interrupts(dp, irq_type);
+
+[Severity: High]
+This is a pre-existing issue, but can this late clearing cause hardware
+hotplug events to be silently lost?
+
+Because the hardware interrupt status is cleared at the end of the threaded
+handler, it executes after the time-consuming drm_helper_hpd_irq_event()
+completes:
+
+analogix_dp_irq_thread()
+    if (hpd_detected) {
+        ...
+        drm_helper_hpd_irq_event(dp->drm_dev);
+    }
+
+If a fast unplug/plug cable bounce occurs exactly while
+drm_helper_hpd_irq_event() is executing, the hardware sets the status bit
+again. Clearing the write-1-to-clear (W1C) register after this will clear
+the new event without triggering a new interrupt.
+
+Should the W1C status registers be cleared immediately after reading their
+state, before executing the event handling logic?
+
+>  		analogix_dp_unmute_hpd_interrupt(dp, irq_type);
+
+[Severity: High]
+Does this code need a spinlock to protect the interrupt mask registers?
+
+Since the IRQ is requested without IRQF_ONESHOT, the hardirq handler can
+preempt the threaded handler. If analogix_dp_unmute_hpd_interrupt() reads
+ANALOGIX_DP_COMMON_INT_MASK_4 and gets preempted by a new hardirq that
+masks a new event, the resuming threaded handler might overwrite the
+register with its stale read value.
+
+Could this cause a hotplug interrupt type to become permanently masked
+if the hardirq overwrites the threaded handler's unmute operation?
+
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730032744.3815=
+66-1-damon.ding@rock-chips.com?part=3D4
