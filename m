@@ -4,94 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28597C55167
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 21:39:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19286C55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 21:52:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8270D10F0A5;
-	Thu, 30 Jul 2026 21:39:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49E2C10E07C;
+	Thu, 30 Jul 2026 21:52:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rx3wfA/p";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="m9c7vw7Q";
 	dkim-atps=neutral
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB2FA10F0A5
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 21:39:40 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-8487214ad2bso531626b3a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:39:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785447580; x=1786052380; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=mlBdZN/Yu2XetCK2pd4kqserGOdzhIFqZOg4RXy2UAo=;
- b=Rx3wfA/p97g+LfggW2RpVkkh0VWpntgHmgcA6V7HF446U1CMHvu/4nEJnAD98LUz6C
- /9zUFVcs16AucZYG8WXt8087+H7QiNvYEon8j4E7aOIShTRQG4RdLgK3Gw52PvapGx+M
- UP9qzcP7b6rkK3HqXzYKuIdEaAfx/hOeUywMYD2Dy5K1+jRk9q26rNUjXnVMfKONyI9t
- //CqDjuzV52V/gZJFbOZcWoecmFhpvmPlc7ZSCmPVKPHMQpfsChyfIV+zn0o03vv1s02
- ANGR1/z6xxpv9gjhlIFqE69W3y65ifFqEOkS5kwpzJVdUS7GW5vQK0LpxF1fXN9krwtl
- +D6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785447580; x=1786052380;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=mlBdZN/Yu2XetCK2pd4kqserGOdzhIFqZOg4RXy2UAo=;
- b=T14J2ISZUXEnh5hWxhtrQaFvDsuiXKDffs6m+RUHbqu4zI+LwuMnje7BVvpJtFTVim
- uH9dsp/0kKt+b/26pMEiehEDlFgOLkDDEU6gcq9GGStrx7m1f97uAggaZYeu96A916Jt
- A/iS2FeGHBrBiQfwKJEwrfRJbbV5Lu5NWbyoT636xwLI5pcyyN5/FeL2Tt3sfzhH9juZ
- Jqeo2hV9BH2NgsAWZfjdEx8/W7B4JxfmfcVyFzojqT9x2itRtkRTR2Lgaz95gfIwVawn
- yVuqA77jrwE8XKwMgl70cdwht66o2j7HybtPJxj3pGAmnZ2V4GyeImRgcu+N1gkbBzog
- IU9Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr7eQGxPmJbXE3mE2Vn0oTsRlGA/TQE0JZlWbeiglBZj3rz8pV0+zfxXi0QZGORsRPv5e0gqjynyiE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzAUPnUL9IinTgQPP+Z+9u1bdnXtYSUaETFYKGRfykgdVZDazmT
- +niAU/3FpZ187q5h0ssbXzXuckeMEV3g+hu+WPSkCsYcJvJ7CT/Ubkl1
-X-Gm-Gg: AR+sD10LGjTLfo3TxwN5j/nyTtSQLvuEq8NCN9RL3ooo+9xk0ztkQ8+yRatIu74J24A
- uopV5l7eYdDTp6S58ndR4Ddl5Nv9GWh2COdqH+VwQiCCYcoDVuDaQLfz30VcCJiqsVxH3qiatj+
- XtwFnCE1dgHsUeWpLvnPU/aRtolV5WALZaEwR0fNrKCk9QH+v1n6l9ZM7LuxpmidyP1TlN5HCba
- hapUdVMUKPz1p/YzkigTAR6X5Opi3b97TpQB3IbiUOHwI47b6Bc+TFoiyLU7DNeVzN0znHCT3hZ
- 5oYwHu3rnpv3CiPKwg3ZW7aqdNG3YUbMZFztSIPVUa3RSSvbBallYtbRLS+jLBkHg26mLuXOChq
- fvjny9oOIMpyNUWHwspUyvxG37AJ8MAHUpIekhwYAUPvBXrE83LXjEl3TBiOyEZCvXWvkZtpbik
- DABndiSAglUODQdDKUkpbFEMkSnFdbw0RqzKY8v8ha3wptosE0RjZFE3xlF4P/sRBljLGJlTpGA
- rcFRc9JEg==
-X-Received: by 2002:a05:6a00:2a09:b0:845:44c7:5e28 with SMTP id
- d2e1a72fcca58-84ebc2685a6mr3911212b3a.31.1785447580388; 
- Thu, 30 Jul 2026 14:39:40 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:46::])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84e9fe1d07dsm3618306b3a.8.2026.07.30.14.39.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 14:39:39 -0700 (PDT)
-Date: Thu, 30 Jul 2026 14:39:37 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Donald Hunter <donald.hunter@gmail.com>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Gerd Hoffmann <kraxel@redhat.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kselftest@vger.kernel.org, sdf@fomichev.me,
- razor@blackwall.org, daniel@iogearbox.net, almasrymina@google.com,
- matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk,
- Joe Damato <joe@dama.to>, Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v6 3/3] selftests/net: devmem.py: add
- check_rx_large_niov
-Message-ID: <amvEJVio9XtCn+YT@devvm29614.prn0.facebook.com>
-References: <20260724-tcpdm-large-niovs-v6-0-7975f62cdfbb@meta.com>
- <20260724-tcpdm-large-niovs-v6-3-7975f62cdfbb@meta.com>
- <20260729191649.55ab7942@kernel.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F35A10F0B4
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 21:52:17 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 3B6F343EBC;
+ Thu, 30 Jul 2026 21:52:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0DCBFC2BCF7;
+ Thu, 30 Jul 2026 21:52:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1785448337;
+ bh=N364PIoVWuH6cDGXXPM9/j7iB6vbHjElNnY5IAQZcD4=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=m9c7vw7Q4Q512J7Q+jBGFt6kwIbQtXjnlt6xzaE5MP3RFkF0A/UlFh6XWEfVYCYjm
+ bk8qZXqDWCnQTALeaJ1ikuwLXTm+GqK7gk8/iXrXnq5oOBz6VRZKkW8cyW8QJ6Zuoc
+ aM3spqQT+BIKrxTSJ4eWUJw/Arfi4BwBQ1gq13hS2DKqwZrM1jR16LPj/6t61d7+v2
+ 68sICCxhxEzl6uXvZVacGZqm7kytkkuHV1tfi/p+VoyuUMKPRUt2+18H0wQhKWg82F
+ dq4iTfkz/37EE+gw1KWfb76L9jll5yHK0Wb6W+gQYUrUgeFn0hqOb6dDjtAOLTt14O
+ UM+S2SUMEWBGQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id EE74AC55162;
+ Thu, 30 Jul 2026 21:52:16 +0000 (UTC)
+From: =?utf-8?q?Dawid_Wr=C3=B3bel_via_B4_Relay?=
+ <devnull+me.dawidwrobel.com@kernel.org>
+Date: Thu, 30 Jul 2026 23:52:00 +0200
+Subject: [PATCH 1/4] dt-bindings: display: panel: novatek,nt36523: add the
+ Mi Pad 5 Pro 5G panel
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729191649.55ab7942@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260730-sm8250-xiaomi-enuma-v1-1-ed6d8fb99668@dawidwrobel.com>
+References: <20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com>
+In-Reply-To: <20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com>
+To: Jianhua Lu <lujianhua000@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1155; i=me@dawidwrobel.com;
+ h=from:subject:message-id;
+ bh=HLBHIFL7Bhy2H/xHi+CSj5nPkTSnPI1C32w3QZKtKr8=;
+ b=owGbwMvMwCV2qrTGfeXVd28ZT6slMWRlH++XM91l8LFvVpKjuqHynx+HStJ/Lny+Z8+7fU6nC
+ vL3X2ON6ChlYRDjYpAVU2TRSwvaYxX88vu7F7/DYeawMoEMYeDiFICJqGow/OGfLPUuN9Fijcmd
+ b1fNm3xv3vi+2bn7YKj31/yLUf90S94z/NMu43G/+q5zqffCggP3zH+UO1zh+8ARZxR26Pz5fHH
+ WgwwA
+X-Developer-Key: i=me@dawidwrobel.com; a=openpgp;
+ fpr=B64A778E0E64049A70C831C8B7B81FA12B282A92
+X-Endpoint-Received: by B4 Relay for me@dawidwrobel.com/default with
+ auth_id=901
+X-Original-From: =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,56 +82,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: me@dawidwrobel.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 07:16:49PM -0700, Jakub Kicinski wrote:
-> On Fri, 24 Jul 2026 14:21:17 -0700 Bobby Eshleman wrote:
-> > From: Bobby Eshleman <bobbyeshleman@meta.com>
-> > 
-> > Add a new devmem test case for binding the dmabuf with rx-page-size=16K.
-> > The test sweeps RX payload sizes straddling the niov boundary to cover
-> > the sub-niov, exact-niov, and multi-niov RX paths.
-> > 
-> > Silence pylint invalid-name (`with open() as f`) and too-many-arguments
-> > (ncdevmem_rx grew to 6 args) at file scope.
-> > 
-> > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
-> > Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-> 
-> Hm, odd. In NIPA we're getting:
-> 
-> TAP version 13
-> 1..1
-> # timeout set to 0
-> # selftests: drivers/net/hw: devmem.py
-> # TAP version 13
-> # 1..5
-> # ok 1 devmem.check_rx # SKIP marked as disruptive
-> # ok 2 devmem.check_tx # SKIP marked as disruptive
-> # ok 3 devmem.check_tx_chunks # SKIP marked as disruptive
-> # ok 4 devmem.check_rx_hds # SKIP Test requires devmem support
-> # ok 5 devmem.check_rx_large_niov # SKIP Test requires devmem support
-> # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:5 error:0
-> ok 1 selftests: drivers/net/hw: devmem.py
-> # Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
-> 
-> https://netdev.bots.linux.dev/logs/hwksft/BCM57508/results/755681/config
-> driver: bnxt
-> fw: 237.1.148.0
-> 
-> Any idea?
+From: Dawid Wróbel <me@dawidwrobel.com>
 
-Poking around, it looks like 231.1.167.0 and above should support
-everything, so fw should be okay AFAICT.
+The Xiaomi Mi Pad 5 Pro 5G (enuma) ships the same CSOT panel as the Mi
+Pad 5 Pro (elish), so it falls back to the elish compatible. Give it a
+device-specific one in front, so a later difference does not need a
+device tree change.
 
-Looks like the config is missing CONFIG_NET_DEVMEM and CONFIG_UDMABUF?
+Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
+---
+ Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Sorry, took me a while... was certain it was a bug in my code.
+diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
+index b9300a1f2646..2f3f34d08f29 100644
+--- a/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
++++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36523.yaml
+@@ -22,6 +22,10 @@ properties:
+               - xiaomi,elish-boe-nt36523
+               - xiaomi,elish-csot-nt36523
+           - const: novatek,nt36523
++      - items:
++          - const: xiaomi,enuma-csot-nt36523
++          - const: xiaomi,elish-csot-nt36523
++          - const: novatek,nt36523
+       - items:
+           - enum:
+               - lenovo,j606f-boe-nt36523w
 
-Not the failure here, but wondering if this was on ARM led to seeing
-that 16K hardcoded rx_page_size in run_rx_large_niov() may fail on ARM
-with 64K pages because it will fail the IS_ALIGN(16K, 64K) check...
+-- 
+2.55.0
 
-Best,
-Bobby
+
