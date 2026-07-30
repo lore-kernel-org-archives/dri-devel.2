@@ -4,51 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0143C55160
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 11:45:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C64FC55160
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 11:45:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0450010E142;
-	Thu, 30 Jul 2026 11:45:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 67A6C10EE95;
+	Thu, 30 Jul 2026 11:45:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="YAZ5/Jut";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="hBbJyl6X";
 	dkim-atps=neutral
 Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
  [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFBF510E142
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 11:45:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785411937; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE4BE10EE95
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 11:45:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785411943; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=JcyG1DSqOBDk1J81Cy7xw5WbPDok3/8zc2OkZAz/rYmsufwEbzN+j028PLysFqEvbNYkD76TL7T1HMPRot9cogk+uIydHd2iSWRbtHVUdoL+bKMMiMtxFF8sOD233YHlr1f+19QzWchPPsuCbO/BoiT7VH+4mU/TMoRwLJnDFvM=
+ b=WZJnWZVw2P8EZVw0NiWCAdqAmmrJUwyTjIU2dJ4N5zi3vmRvhXGf8OShBeBlmiAQfqPNc9UbwWi2cu3+BZi10kavfEMGOzKWjtbui2FVc383+qPAjCJozghPu1nAghWXnR+dOO3K7B5RVup7kEdikEObN///kdsMq3ERfIuyNgM=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785411937;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=rF90dIXuL4AXHKEg2OuLC8atnpVkkb9BGR+Ghiw5ktU=; 
- b=jZLz4gFRsU/KaF63LevJ7VPHkcgNZM4rhwfLRqB275QZ7cCYOvx7hkcXsQN1WXXJnhykCHiInnDnLUYz/11ylpeynw6AE87KB++j2rkJIRVTsXJgzcJX3/ryd0rWLomOYMH+M2c9yNxXJO2zfw9AWK4X7zMOMYpFimZUfIO4WOM=
+ s=zohoarc; t=1785411943;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=A/S77ywcJNEWNYibuHZlunu83Y1+7/T5c7HCPO1HImM=; 
+ b=Ow32821VLGpSHLE9w8mu4w0JAigIbpgax63Uup8tdH8SmFcihlS4W0VJ4Udc5jrdmf668hZvlDPZxcIoKPn6Nwg8/6z4a1Fe/RBPcyRUwLzGG1tiBIoUrAvvHac+Eg5XeOjYTPOtOkGAAu8RhtFLqNCzpx/JtQeiujba42cdk4g=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
  dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785411937; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785411943; 
  s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
- bh=rF90dIXuL4AXHKEg2OuLC8atnpVkkb9BGR+Ghiw5ktU=;
- b=YAZ5/Jutn2uDGbsUtfmrXYcpzn3/xRwO9NExChbfTDG8/LJCYCTmK26pRt+VtGRh
- iiVXbkaN3SjhuRLRm/1RlzrMhYuailIGo4DGFzs1DBhjzlG64BGduHGKwgFfl5a5AWa
- BnkEVq1hPqWEIcK6/QfCPLsYCqmJJDI0wnCETeFI=
-Received: by mx.zohomail.com with SMTPS id 1785411935727257.15462936737913;
- Thu, 30 Jul 2026 04:45:35 -0700 (PDT)
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:In-Reply-To:To:To:Cc:Cc:Reply-To;
+ bh=A/S77ywcJNEWNYibuHZlunu83Y1+7/T5c7HCPO1HImM=;
+ b=hBbJyl6XqfmES6HcabfPPgtRnsdbW/KZAOyGizjuvzSm91pomztQU8diG1VA91W/
+ J+4IXyZ9QUGb49Sf//u294oGXlF27Si0ASeh/FzbrRShy2Eyk/ApprwcvUFJnoCW5EE
+ xXwOcTBtsAHnh14PWyjUy8GsmBN30fLzN3fBMN/I=
+Received: by mx.zohomail.com with SMTPS id 1785411942090200.7625346804483;
+ Thu, 30 Jul 2026 04:45:42 -0700 (PDT)
 From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Subject: [PATCH v2 0/3] Rework panthor's cache flush and soft reset locking
-Date: Thu, 30 Jul 2026 13:45:13 +0200
-Message-Id: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
+Date: Thu, 30 Jul 2026 13:45:14 +0200
+Subject: [PATCH v2 1/3] wait: Introduce non-irq variants of
+ wait_event_lock_timeout
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOyw6CMBBFf4XM2lFa4gNW/odx0Q6DrQGKbSEaw
- 79bka2ryZ3cx3lDYG85QJW9wfNkg3V9EnKTARnV3xhtnTTIXB7yozzhoPponEdSZBibdgwGG/t
- EXRxIi31TSiogpQfP6b00X64/HUZ9Z4rfutXh+TGmyfizgVaBkVzX2Vhlte8w2mG3XviWGBui8
- 6+FdhJLZgUr/4JNAnOU+b6UguuCTuJMrm2Vdl5t0xZc53n+AHkKd54HAQAA
-X-Change-ID: 20260728-panthor-cache-flush-fix-b36cb15f92c3
+Message-Id: <20260730-panthor-cache-flush-fix-v2-1-28790478bfff@collabora.com>
+References: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
+In-Reply-To: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
 To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
  Juri Lelli <juri.lelli@redhat.com>, 
  Vincent Guittot <vincent.guittot@linaro.org>, 
@@ -80,46 +78,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-There are two problems in panthor's cache flushing/soft reset code
-related to locking.
+For locks that are never acquired in an interrupt context, the non-irq
+variants for spin_lock()/spin_unlock() are more efficient. However, so
+far, wait.h only provided wait_event_lock_irq_timeout and
+wait_event_interruptible_lock_irq_timeout, both of which use
+spin_lock_irq()/spin_unlock_irq().
 
-The first problem is that the spinlocks are taken with _irqsave, even
-though the contended lock is never acquired in a raw interrupt handler.
-Only a threaded handler locks it.
-
-The second problem is that the wait_event condition references
-pending_reqs without holding the required lock. This means there's a
-data race.
-
-While resolving the first problem is easy, the second problem requires
-adding some more macro variants to wait.h, which is done in the first
-patch.
-
-New tracepoints to debug cache flushing duration without initial locking
-waits is thrown in for good measure as well, to complement what's in
-lock_stat and what the function tracer can already do.
+Rectify this by adding new non-irq variants of these two macros.
 
 Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 ---
-Changes in v2:
-- Use trace event template for the two tracepoints (ty Steven Rostedt)
-- Link to v1: https://patch.msgid.link/20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com
+ include/linux/wait.h | 84 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 84 insertions(+)
 
----
-Nicolas Frattaroli (3):
-      wait: Introduce non-irq variants of wait_event_lock_timeout
-      drm/panthor: Revisit reqs_lock handling in flush/reset paths
-      drm/panthor: Add tracepoints for cache flushing
+diff --git a/include/linux/wait.h b/include/linux/wait.h
+index dce055e6add3..cd9b989c120e 100644
+--- a/include/linux/wait.h
++++ b/include/linux/wait.h
+@@ -1174,6 +1174,13 @@ do {										\
+ 		      __ret = schedule_timeout(__ret);				\
+ 		      spin_lock_irq(&lock));
+ 
++#define __wait_event_lock_timeout(wq_head, condition, lock, timeout, state)	\
++	___wait_event(wq_head, ___wait_cond_timeout(condition),			\
++		      state, 0, timeout,					\
++		      spin_unlock(&lock);					\
++		      __ret = schedule_timeout(__ret);				\
++		      spin_lock(&lock))
++
+ /**
+  * wait_event_interruptible_lock_irq_timeout - sleep until a condition gets
+  *		true or a timeout elapses. The condition is checked under
+@@ -1219,6 +1226,83 @@ do {										\
+ 	__ret;									\
+ })
+ 
++/**
++ * wait_event_interruptible_lock_timeout - sleep until a condition gets
++ *		true or a timeout elapses. The condition is checked under
++ *		the lock with IRQs enabled. This is expected to be called
++ *		with the lock taken.
++ * @wq_head: the waitqueue to wait on
++ * @condition: a C expression for the event to wait for
++ * @lock: a spinlock_t that has been locked with spin_lock(), which will be
++ *	  released before schedule() and reacquired afterwards.
++ * @timeout: timeout, in jiffies
++ *
++ * The process is put to sleep (TASK_INTERRUPTIBLE) until the
++ * @condition evaluates to true or signal is received. The @condition is
++ * checked each time the waitqueue @wq_head is woken up.
++ *
++ * wake_up() has to be called after changing any variable that could
++ * change the result of the wait condition.
++ *
++ * This is supposed to be called while holding the lock. The lock is
++ * dropped before going to sleep using spin_unlock() and is reacquired
++ * using spin_lock() afterwards, but without globally disabling IRQs.
++ * This is in contrast to wait_event_interruptible_lock_irq_timeout(),
++ * which uses the spin_lock_irq() and spin_unlock_irq() functions instead.
++ *
++ * The function returns 0 if the @timeout elapsed, -ERESTARTSYS if it
++ * was interrupted by a signal, and the remaining jiffies otherwise
++ * if the condition evaluated to true before the timeout elapsed.
++ */
++#define wait_event_interruptible_lock_timeout(wq_head, condition, lock,		\
++					      timeout)				\
++({										\
++	long __ret = timeout;							\
++	if (!___wait_cond_timeout(condition))					\
++		__ret = __wait_event_lock_timeout(				\
++					wq_head, condition, lock, timeout,	\
++					TASK_INTERRUPTIBLE);			\
++	__ret;									\
++})
++
++/**
++ * wait_event_lock_timeout - sleep until a condition gets true or a timeout
++ *		elapses. The condition is checked under the lock with IRQs
++ *		enabled. This is expected to be called with the lock taken.
++ * @wq_head: the waitqueue to wait on
++ * @condition: a C expression for the event to wait for
++ * @lock: a spinlock_t that has been locked with spin_lock(), which will be
++ *	  released before schedule() and reacquired afterwards.
++ * @timeout: timeout, in jiffies
++ *
++ * The process is put to sleep (TASK_UNINTERRUPTIBLE) until the
++ * @condition evaluates to true or signal is received. The @condition is
++ * checked each time the waitqueue @wq_head is woken up.
++ *
++ * wake_up() has to be called after changing any variable that could
++ * change the result of the wait condition.
++ *
++ * This is supposed to be called while holding the lock. The lock is
++ * dropped before going to sleep using spin_unlock() and is reacquired
++ * using spin_lock() afterwards, but without globally disabling IRQs.
++ * This is in contrast to wait_event_lock_irq_timeout(), which uses the
++ * spin_lock_irq() and spin_unlock_irq() functions instead. Compared to
++ * wait_event_interruptible_lock_timeout(), it uses the %TASK_UNINTERRUPTIBLE
++ * instead of allowing the task to be interrupted.
++ *
++ * The function returns 0 if the @timeout elapsed, or the remaining jiffies
++ * otherwise if the condition evaluated to true before the timeout elapsed.
++ */
++#define wait_event_lock_timeout(wq_head, condition, lock, timeout)		\
++({										\
++	long __ret = timeout;							\
++	if (!___wait_cond_timeout(condition))					\
++		__ret = __wait_event_lock_timeout(				\
++					wq_head, condition, lock, timeout,	\
++					TASK_UNINTERRUPTIBLE);			\
++	__ret;									\
++})
++
+ /*
+  * Waitqueues which are removed from the waitqueue_head at wakeup time
+  */
 
- drivers/gpu/drm/panthor/panthor_gpu.c   | 28 +++++------
- drivers/gpu/drm/panthor/panthor_trace.h | 49 +++++++++++++++++++
- include/linux/wait.h                    | 84 +++++++++++++++++++++++++++++++++
- 3 files changed, 147 insertions(+), 14 deletions(-)
----
-base-commit: 5e24f68d311764bf343f9def49b752b509dfd5fd
-change-id: 20260728-panthor-cache-flush-fix-b36cb15f92c3
-
-Best regards,
---  
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+-- 
+2.55.0
 
