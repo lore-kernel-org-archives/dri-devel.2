@@ -4,66 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ED02C5516E
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:11:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABFACC5516D
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:12:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56EBE10EFB7;
-	Thu, 30 Jul 2026 20:11:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16DD110F06C;
+	Thu, 30 Jul 2026 20:12:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mDsvyQT0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N+jsKtxz";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C04A10EFAA
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:11:48 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-84867f07d63so350519b3a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:11:48 -0700 (PDT)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DDA910EFAA
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:11:44 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-84e27035206so363869b3a.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:11:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785442308; x=1786047108; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785442303; x=1786047103; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:reply-to:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=f9pbgJaIBVQa9SMJLF2f8Rk9ickMvrG5SjhPB4DzBUE=;
- b=mDsvyQT0IVMXwqERy0fM+065FUpWI0ztqswJcCosQOHm4wJvs2l8yTo6/Ht3wPqX2N
- IUQwNVOJqdcuKcui2dV2BIscH6nvIPv/VuiYcgf8fYmbbM/DOPJqOw8ikQmLjeBQSTMP
- X/EHMhW/XT3DGM8imr2NYgM/Xf+KLdcmqFmRk/KVLZxb+F2SOUS/PC8n/AFFjbypKl5W
- CdOH2FbRqoPpJSdGBzxyYJM623HJ2SGVpUyL79QRhf+8wzK7sSpusdzrkj32fdGEdEES
- i7XeHXHf1s8tOhDUS/q1yxRCt1E73Hmj1FbVmo7FaeBlOEy2qaIO+2lwUY2193ZNLGS/
- L71g==
+ bh=QRL/mQO23aZLDOYAwAiZdksOJj7+W5EBU224dpv2hko=;
+ b=N+jsKtxzDaN1jGFRKwRoGoaslnUvg+BNHsN5z4+BJxme/E+b9a/1WnYc+hvPEoTQMG
+ WzwTD8xFAQUcn8aw/vgUnT7JD+EY8PrgYfyw7XTHG1hxH/eRBFZ1JxiITMZk6h0p3WVi
+ AqLYjhizV6jcJWFHjPfrnvzGkwEr3ci5hzNpwd3hxhrYR10MFi6j0Kl6vnG6vNmeeuD6
+ uclyguh5wVYRimJPiMQL/Krn1sNwAbNeG7f89JJxJV5RuB7ZCnPs99thtDi31M1poa7g
+ Fbx/yuFxIVTi6Sna7x2JU7FDfV7ZVz7m9WDVJlVtc7B8zfDLUP+u5jpwAvTfUFABOpxI
+ dTBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785442308; x=1786047108;
+ d=1e100.net; s=20251104; t=1785442303; x=1786047103;
  h=content-transfer-encoding:mime-version:reply-to:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=f9pbgJaIBVQa9SMJLF2f8Rk9ickMvrG5SjhPB4DzBUE=;
- b=Zz3WPqaQCRxg+9gy44SrJTpVTEp3iY2m7fVWP6mt20b+p5z06sQkST1Wr+g+b6kvAA
- Q8kJDje+2uPshIDCGKuwyC4BF7LW+tbS7Ffqz2G8eCnHHBOdgFrwbnShH7Jhg7kHE+Tm
- kJHkg6Q/Ht8z15nCQnR4YfUnfRGLnuuJx/DM9lahPd3mgcsk2ZIt06NPZwAH/2YAdO3L
- zO64B25o5Vb4HVerffF+lZUhfp4KIunagbkOTmMf3qXjJ6Z1HGHLCD+oeoxQefBsWf01
- 7C1Is0hraNS7o6OAKhCWF6WSU8NfqFUBOk3P3v+mpGSS99wVCWSQKcuGGqi8ozPXpA7i
- Aing==
+ bh=QRL/mQO23aZLDOYAwAiZdksOJj7+W5EBU224dpv2hko=;
+ b=WdIP6dhGJj+xwD+HJJBh0h9+QoJsu60PFpmHJPUUzNqRmopUvTYJkxl88jwwNI2sUJ
+ w3fIMsSva49qKwokgMAEDXcp4HhFMEeyHlbWYuYZ/sWSUqfT6sxg+VooDvdBp/pC4eGx
+ AXS10+kSpmJjU1k1KiJU76+HfKlAZgodN99HWbNiTVlphdfraH3iM99y/q13DZhrkrMJ
+ pIlRnGh7pxqDINi3UMoDANDvabSBxyyybOU/0usK0VcOXqsN5TGZweaKoKnTkaDBRm6+
+ ukkvMSU5yYq7z9w3TKq0dYz4FCXqL3Lix1GIXcQB39BpW5RF93oH9PlrRflURhGDMuiB
+ +twg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpqNpRSSfRxpuH6MJ0+zZhSRvydvfVLPHhLbZYWiy2CDEPI7oeSU8BwRsf6Vz3ETK9zWAnQus0IC04=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxLUk6UXuAvyB2/xXxst4xdzfIOuvfSV/VA6nTt3SWVOZKuzyrq
- hxvC2TSKGtB+6tLiLOcQRRmYOaRYo1FenPv44DWAc3hRdoOBhX3HNXIA
-X-Gm-Gg: AR+sD11odKw95RngNmVWmnZ/d6BWTUEZSVgVbTw6rlOG7xjSrTJMLfQ92f0p1MZD0k2
- /NVq6iguU6NSwwcLCyBoUwQ3oAJBMjSj/o67OxixwOJCxunJgsq4XOi5BGlNl/weCCe9BncsQUA
- wKub7aP4gJ2YA90ksQ5wH3UpX93BM01+oUipmXVgVL7C4t48m+KBIekeSZdg5DHh5bNKiWlN1ln
- S2XIPx0zxjsIQuJN6XOrdUfHtiYP+FIp1lqZ2lG7C16UZUglqTG4ja+pu29a50PoRz5JM/vJgTj
- ukf5DMRlBchlgQoOA1vVpzCQVrysBsjAZfi1HR/eUhSZaJZUkb0Z6E9c0SWSs2t4eVwDeTuPSZ4
- KFbQ8cpo6Gwx4wipF+y0cfMsW64RnWQB+oZgEAjLyURUJTwHrIRV8Xe+VMmGn1ac4e/styKPSxl
- vuc6RXkGSSQEUcsnJYgslWr/Xs9S6iCewB9G4ZxVkPCplO+1XCGr3AkqBijwBVorHW9sJNN5+/8
- LM9bkjKQ2+rOKXdZ4H5p8/LMKR1eXEt8gzbUHNsju96zKktwLOz3Mc=
-X-Received: by 2002:a05:6a00:92a0:b0:848:2f7a:2e5a with SMTP id
- d2e1a72fcca58-84ebc4572c2mr3351602b3a.73.1785442307771; 
- Thu, 30 Jul 2026 13:11:47 -0700 (PDT)
+ AHgh+RpKg+CFjkI1aVGFxgwCPUEAxiWGd3MIlO3EPCLJVSo1zwevA4elL5aPX3TjoStwf1f76chJmIP62RM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyCcxmn1hzKv0iNet38fjPg5d9ohOEK/pkNm9KhZml4mTNV+ZVY
+ /sqETmTMbl7QLdsp8A58DDY4yfYNvO7bj9GuyfieOkLKhiYcY836mCdA
+X-Gm-Gg: AR+sD1377zynOOYCISkllFgU/s4nqbhIe6GRmsLIJ2kMeWQLP4rmNr2h3vnc9u++wzz
+ TwYbTllN1P5LkVICRiktMKuhhLer3jxzsgE4VPcyFm6WXI+QKLdIqIuYJNzTAbSbU1Q5ZtQNvvX
+ 0WdX7f9uExn0rATT7pLJbSnW2cFtGiE7cbKDILQUF7+IA+MOCkbfNMlfEHICiVQ0OXspfdldXWN
+ fkydLhyqVp6SiAtHuOz3JV7awVbOpIJZZwWPYWDZduiAGAR/Wx1ZFacsYMU4Dop6nEn6W8NwSQF
+ lNezAyVM5i7svCyEOSrSK2Ze5keycvxQ/d8q9iVLe1wLoeGDchrO68BDoanLQWd+CMz0vqgI1kL
+ 3lJf36dM+q50QdyD1+aMSVEk22kk9Ys13b3y03Ou3uSK3bHaNeZmwmR0h6kShU37IXyi099Gt02
+ /HkPWJuzjTerCGFm5FOYDVfV5CAGgRABk46TyZDBah6AfwJUIdJu8kwAJ76QAcy9OP5NDr7xDoq
+ IVkSfut5pnKIPH6FmqbKiQPdT37YO6OBJjI3q5yoEQ=
+X-Received: by 2002:a05:6a00:c82:b0:845:3fea:96c with SMTP id
+ d2e1a72fcca58-84ebc22e874mr3531492b3a.21.1785442303585; 
+ Thu, 30 Jul 2026 13:11:43 -0700 (PDT)
 Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net.
  [174.165.208.10]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84ea0055325sm3689108b3a.15.2026.07.30.13.11.46
+ d2e1a72fcca58-84ea0055325sm3689108b3a.15.2026.07.30.13.11.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 13:11:47 -0700 (PDT)
+ Thu, 30 Jul 2026 13:11:42 -0700 (PDT)
 From: Michael Kelley <mhkelley58@gmail.com>
 X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
 To: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
@@ -78,10 +78,10 @@ To: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
 Cc: x86@kernel.org, linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
  linux-scsi@vger.kernel.org, virtualization@lists.linux.dev
-Subject: [RESEND PATCH 6/6] clocksource: hyper-v: Remove support for stimer
- interrupts in message mode
-Date: Thu, 30 Jul 2026 13:11:23 -0700
-Message-Id: <20260730201123.1767-7-mhklinux@outlook.com>
+Subject: [RESEND PATCH 4/6] drm_hyperv: Remove support for synth video
+ protocol of old Hyper-V hosts
+Date: Thu, 30 Jul 2026 13:11:21 -0700
+Message-Id: <20260730201123.1767-5-mhklinux@outlook.com>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260730201123.1767-1-mhklinux@outlook.com>
 References: <20260730201123.1767-1-mhklinux@outlook.com>
@@ -103,398 +103,73 @@ Reply-To: mhklinux@outlook.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In Hyper-V versions prior to WS2016/Win10, Hyper-V synthetic timers
-interrupt the guest by delivering a message that is initially handled
-by the Linux VMBus driver. Starting with WS2016/Win10, Hyper-V can
-deliver stimer interrupts directly to an assigned interrupt vector
-without involving the VMBus driver. This is called "Direct Mode".
-
 With the overall removal of Linux support for running on Hyper-V
 hosts earlier than WS2016 and Windows 10, it's no longer necessary
-to support the legacy message-based delivery. Remove that delivery
-mechanism and always use Direct Mode. If for some reason, the
-Hyper-V host does not enumerate Direct Mode, output an error
-message but continue to run using the LAPIC timer instead of an
-stimer.
-
-With these changes, the VMBus driver no longer calls the stimer
-interrupt service routine. This removal has a broader benefit in
-unblocking the disentangling of VMBus code and stimer code, as
-they should be independent of each other. The final disentangling
-will come as a follow-on patch set.
+to support older synthetic video protocols. Remove the support.
 
 Signed-off-by: Michael Kelley <mhklinux@outlook.com>
 ---
- arch/x86/hyperv/hv_init.c          |  17 ++--
- arch/x86/kernel/cpu/mshyperv.c     |   4 +-
- drivers/clocksource/hyperv_timer.c | 150 ++++-------------------------
- drivers/hv/hv.c                    |   4 -
- drivers/hv/vmbus_drv.c             |  10 +-
- include/clocksource/hyperv_timer.h |   6 --
- 6 files changed, 32 insertions(+), 159 deletions(-)
+ drivers/gpu/drm/hyperv/hyperv_drm_proto.c | 33 +++++++----------------
+ 1 file changed, 10 insertions(+), 23 deletions(-)
 
-diff --git a/arch/x86/hyperv/hv_init.c b/arch/x86/hyperv/hv_init.c
-index 55a8b6de2865..0b4a1c0b0b16 100644
---- a/arch/x86/hyperv/hv_init.c
-+++ b/arch/x86/hyperv/hv_init.c
-@@ -171,8 +171,7 @@ static int hv_cpu_init(unsigned int cpu)
+diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+index f0ef627b4898..cea1ea2595cd 100644
+--- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
++++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+@@ -17,7 +17,7 @@
+ #define SYNTHVID_VER_GET_MAJOR(ver) (ver & 0x0000ffff)
+ #define SYNTHVID_VER_GET_MINOR(ver) ((ver & 0xffff0000) >> 16)
+ 
+-/* Support for VERSION_WIN7 is removed. #define is retained for reference. */
++/* Support for WIN7 and WIN8 is removed. #define's retained for reference. */
+ #define SYNTHVID_VERSION_WIN7 SYNTHVID_VERSION(3, 0)
+ #define SYNTHVID_VERSION_WIN8 SYNTHVID_VERSION(3, 2)
+ #define SYNTHVID_VERSION_WIN10 SYNTHVID_VERSION(3, 5)
+@@ -557,23 +557,12 @@ int hv_drm_connect_vsp(struct hv_device *hdev)
+ 		return ret;
  	}
  
- 	/* Allow Hyper-V stimer vector to be injected from Hypervisor. */
--	if (ms_hyperv.misc_features & HV_STIMER_DIRECT_MODE_AVAILABLE)
--		apic_update_vector(cpu, HYPERV_STIMER0_VECTOR, true);
-+	apic_update_vector(cpu, HYPERV_STIMER0_VECTOR, true);
- 
- 	return hyperv_init_ghcb();
- }
-@@ -281,8 +280,7 @@ static int hv_cpu_die(unsigned int cpu)
- 		*ghcb_va = NULL;
- 	}
- 
--	if (ms_hyperv.misc_features & HV_STIMER_DIRECT_MODE_AVAILABLE)
--		apic_update_vector(cpu, HYPERV_STIMER0_VECTOR, false);
-+	apic_update_vector(cpu, HYPERV_STIMER0_VECTOR, false);
- 
- 	hv_common_cpu_die(cpu);
- 
-@@ -425,15 +423,18 @@ static void (* __initdata old_setup_percpu_clockev)(void);
- 
- static void __init hv_stimer_setup_percpu_clockev(void)
- {
-+	int ret;
-+
- 	/*
--	 * Ignore any errors in setting up stimer clockevents
-+	 * Continue afters errors in setting up stimer clockevents
- 	 * as we can run with the LAPIC timer as a fallback.
- 	 */
--	(void)hv_stimer_alloc(false);
-+	ret = hv_stimer_alloc(false);
-+	if (ret)
-+		pr_warn("stimer setup failed with error %d\n", ret);
- 
- 	/*
--	 * Still register the LAPIC timer, because the direct-mode STIMER is
--	 * not supported by old versions of Hyper-V. This also allows users
-+	 * Still register the LAPIC timer to allows users
- 	 * to switch to LAPIC timer via /sys, if they want to.
- 	 */
- 	if (old_setup_percpu_clockev)
-diff --git a/arch/x86/kernel/cpu/mshyperv.c b/arch/x86/kernel/cpu/mshyperv.c
-index 185d4f677ec0..f62319b73c20 100644
---- a/arch/x86/kernel/cpu/mshyperv.c
-+++ b/arch/x86/kernel/cpu/mshyperv.c
-@@ -716,9 +716,7 @@ static void __init ms_hyperv_init_platform(void)
- 	}
- 
- 	/* Install system interrupt handler for stimer0 */
--	if (ms_hyperv.misc_features & HV_STIMER_DIRECT_MODE_AVAILABLE) {
--		sysvec_install(HYPERV_STIMER0_VECTOR, sysvec_hyperv_stimer0);
+-	/* Negotiate the protocol version with host */
+-	switch (vmbus_proto_version) {
+-	case VERSION_WIN10:
+-	case VERSION_WIN10_V5:
+-		ret = hv_drm_negotiate_version(hdev, SYNTHVID_VERSION_WIN10);
+-		if (!ret)
+-			break;
+-		fallthrough;
+-	case VERSION_WIN8:
+-	case VERSION_WIN8_1:
+-		ret = hv_drm_negotiate_version(hdev, SYNTHVID_VERSION_WIN8);
+-		break;
+-	default:
+-		ret = hv_drm_negotiate_version(hdev, SYNTHVID_VERSION_WIN10);
+-		break;
 -	}
-+	sysvec_install(HYPERV_STIMER0_VECTOR, sysvec_hyperv_stimer0);
- 
- # ifdef CONFIG_SMP
- 	smp_ops.smp_prepare_boot_cpu = hv_smp_prepare_boot_cpu;
-diff --git a/drivers/clocksource/hyperv_timer.c b/drivers/clocksource/hyperv_timer.c
-index df567795d175..dddfff458ebf 100644
---- a/drivers/clocksource/hyperv_timer.c
-+++ b/drivers/clocksource/hyperv_timer.c
-@@ -31,44 +31,20 @@ static struct clock_event_device __percpu *hv_clock_event;
- /* Note: offset can hold negative values after hibernation. */
- static u64 hv_sched_clock_offset __read_mostly;
- 
--/*
-- * If false, we're using the old mechanism for stimer0 interrupts
-- * where it sends a VMbus message when it expires. The old
-- * mechanism is used when running on older versions of Hyper-V
-- * that don't support Direct Mode. While Hyper-V provides
-- * four stimer's per CPU, Linux uses only stimer0.
-- *
-- * Because Direct Mode does not require processing a VMbus
-- * message, stimer interrupts can be enabled earlier in the
-- * process of booting a CPU, and consistent with when timer
-- * interrupts are enabled for other clocksource drivers.
-- * However, for legacy versions of Hyper-V when Direct Mode
-- * is not enabled, setting up stimer interrupts must be
-- * delayed until VMbus is initialized and can process the
-- * interrupt message.
-- */
--static bool direct_mode_enabled;
 -
- static int stimer0_irq = -1;
--static int stimer0_message_sint;
- static __maybe_unused DEFINE_PER_CPU(long, stimer0_evt);
- 
--/*
-- * Common code for stimer0 interrupts coming via Direct Mode or
-- * as a VMbus message.
-- */
--void hv_stimer0_isr(void)
-+static void hv_stimer0_isr(void)
- {
- 	struct clock_event_device *ce;
- 
- 	ce = this_cpu_ptr(hv_clock_event);
- 	ce->event_handler(ce);
- }
--EXPORT_SYMBOL_GPL(hv_stimer0_isr);
- 
- /*
-  * stimer0 interrupt handler for architectures that support
-- * per-cpu interrupts, which also implies Direct Mode.
-+ * per-cpu interrupts
-  */
- static irqreturn_t __maybe_unused hv_stimer0_percpu_isr(int irq, void *dev_id)
- {
-@@ -91,7 +67,7 @@ static int hv_ce_shutdown(struct clock_event_device *evt)
- {
- 	hv_set_msr(HV_MSR_STIMER0_COUNT, 0);
- 	hv_set_msr(HV_MSR_STIMER0_CONFIG, 0);
--	if (direct_mode_enabled && stimer0_irq >= 0)
-+	if (stimer0_irq >= 0)
- 		disable_percpu_irq(stimer0_irq);
- 
- 	return 0;
-@@ -104,23 +80,16 @@ static int hv_ce_set_oneshot(struct clock_event_device *evt)
- 	timer_cfg.as_uint64 = 0;
- 	timer_cfg.enable = 1;
- 	timer_cfg.auto_enable = 1;
--	if (direct_mode_enabled) {
--		/*
--		 * When it expires, the timer will directly interrupt
--		 * on the specified hardware vector/IRQ.
--		 */
--		timer_cfg.direct_mode = 1;
--		timer_cfg.apic_vector = HYPERV_STIMER0_VECTOR;
--		if (stimer0_irq >= 0)
--			enable_percpu_irq(stimer0_irq, IRQ_TYPE_NONE);
--	} else {
--		/*
--		 * When it expires, the timer will generate a VMbus message,
--		 * to be handled by the normal VMbus interrupt handler.
--		 */
--		timer_cfg.direct_mode = 0;
--		timer_cfg.sintx = stimer0_message_sint;
--	}
-+
 +	/*
-+	 * When it expires, the timer will directly interrupt
-+	 * on the specified hardware vector/IRQ.
++	 * Negotiate the protocol version with host. Since support for hosts
++	 * older than WIN10 has been removed from Linux, only negotiate the
++	 * WIN10 version.
 +	 */
-+	timer_cfg.direct_mode = 1;
-+	timer_cfg.apic_vector = HYPERV_STIMER0_VECTOR;
-+	if (stimer0_irq >= 0)
-+		enable_percpu_irq(stimer0_irq, IRQ_TYPE_NONE);
-+
- 	hv_set_msr(HV_MSR_STIMER0_CONFIG, timer_cfg.as_uint64);
- 	return 0;
- }
-@@ -175,25 +144,8 @@ int hv_stimer_cleanup(unsigned int cpu)
- 	if (!hv_clock_event)
- 		return 0;
++	ret = hv_drm_negotiate_version(hdev, SYNTHVID_VERSION_WIN10);
+ 	if (ret) {
+ 		drm_err(dev, "Synthetic video device version not accepted %d\n", ret);
+ 		goto error;
+@@ -581,11 +570,9 @@ int hv_drm_connect_vsp(struct hv_device *hdev)
  
--	/*
--	 * In the legacy case where Direct Mode is not enabled
--	 * (which can only be on x86/64), stimer cleanup happens
--	 * relatively early in the CPU offlining process. We
--	 * must unbind the stimer-based clockevent device so
--	 * that the LAPIC timer can take over until clockevents
--	 * are no longer needed in the offlining process. Note
--	 * that clockevents_unbind_device() eventually calls
--	 * hv_ce_shutdown().
--	 *
--	 * The unbind should not be done when Direct Mode is
--	 * enabled because we may be on an architecture where
--	 * there are no other clockevent devices to fallback to.
--	 */
- 	ce = per_cpu_ptr(hv_clock_event, cpu);
--	if (direct_mode_enabled)
--		hv_ce_shutdown(ce);
--	else
--		clockevents_unbind_device(ce, cpu);
-+	hv_ce_shutdown(ce);
+ 	hv->screen_depth = SYNTHVID_DEPTH_WIN8;
  
- 	return 0;
- }
-@@ -268,23 +220,14 @@ int hv_stimer_alloc(bool have_percpu_irqs)
- 	 * Hyper-V on x86.  In that case, return as error as Linux will use a
- 	 * clockevent based on emulated LAPIC timer hardware.
- 	 */
--	if (!(ms_hyperv.features & HV_MSR_SYNTIMER_AVAILABLE))
-+	if (!(ms_hyperv.features & HV_MSR_SYNTIMER_AVAILABLE) ||
-+	    !(ms_hyperv.misc_features & HV_STIMER_DIRECT_MODE_AVAILABLE))
- 		return -EINVAL;
- 
- 	hv_clock_event = alloc_percpu(struct clock_event_device);
- 	if (!hv_clock_event)
- 		return -ENOMEM;
- 
--	direct_mode_enabled = ms_hyperv.misc_features &
--			HV_STIMER_DIRECT_MODE_AVAILABLE;
--
--	/*
--	 * If Direct Mode isn't enabled, the remainder of the initialization
--	 * is done later by hv_stimer_legacy_init()
--	 */
--	if (!direct_mode_enabled)
--		return 0;
--
- 	if (have_percpu_irqs) {
- 		ret = hv_setup_stimer0_irq();
- 		if (ret)
-@@ -293,11 +236,6 @@ int hv_stimer_alloc(bool have_percpu_irqs)
- 		hv_setup_stimer0_handler(hv_stimer0_isr);
- 	}
- 
--	/*
--	 * Since we are in Direct Mode, stimer initialization
--	 * can be done now with a CPUHP value in the same range
--	 * as other clockevent devices.
--	 */
- 	ret = cpuhp_setup_state(CPUHP_AP_HYPERV_TIMER_STARTING,
- 			"clockevents/hyperv/stimer:starting",
- 			hv_stimer_init, hv_stimer_cleanup);
-@@ -314,67 +252,19 @@ int hv_stimer_alloc(bool have_percpu_irqs)
- }
- EXPORT_SYMBOL_GPL(hv_stimer_alloc);
- 
--/*
-- * hv_stimer_legacy_init -- Called from the VMbus driver to handle
-- * the case when Direct Mode is not enabled, and the stimer
-- * must be initialized late in the CPU onlining process.
-- *
-- */
--void hv_stimer_legacy_init(unsigned int cpu, int sint)
--{
--	if (direct_mode_enabled)
--		return;
--
--	/*
--	 * This function gets called by each vCPU, so setting the
--	 * global stimer_message_sint value each time is conceptually
--	 * not ideal, but the value passed in is always the same and
--	 * it avoids introducing yet another interface into this
--	 * clocksource driver just to set the sint in the legacy case.
--	 */
--	stimer0_message_sint = sint;
--	(void)hv_stimer_init(cpu);
--}
--EXPORT_SYMBOL_GPL(hv_stimer_legacy_init);
--
--/*
-- * hv_stimer_legacy_cleanup -- Called from the VMbus driver to
-- * handle the case when Direct Mode is not enabled, and the
-- * stimer must be cleaned up early in the CPU offlining
-- * process.
-- */
--void hv_stimer_legacy_cleanup(unsigned int cpu)
--{
--	if (direct_mode_enabled)
--		return;
--	(void)hv_stimer_cleanup(cpu);
--}
--EXPORT_SYMBOL_GPL(hv_stimer_legacy_cleanup);
--
- /*
-  * Do a global cleanup of clockevents for the cases of kexec and
-  * vmbus exit
-  */
- void hv_stimer_global_cleanup(void)
- {
--	int	cpu;
--
--	/*
--	 * hv_stime_legacy_cleanup() will stop the stimer if Direct
--	 * Mode is not enabled, and fallback to the LAPIC timer.
--	 */
--	for_each_present_cpu(cpu) {
--		hv_stimer_legacy_cleanup(cpu);
+-	if (hv_drm_version_ge(hv->synthvid_version, SYNTHVID_VERSION_WIN10)) {
+-		ret = hv_drm_get_supported_resolution(hdev);
+-		if (ret)
+-			drm_err(dev, "Failed to get supported resolution from host, use default\n");
 -	}
--
- 	if (!hv_clock_event)
- 		return;
++	ret = hv_drm_get_supported_resolution(hdev);
++	if (ret)
++		drm_err(dev, "Failed to get supported resolution from host, use default\n");
  
--	if (direct_mode_enabled) {
--		cpuhp_remove_state(CPUHP_AP_HYPERV_TIMER_STARTING);
--		hv_remove_stimer0_irq();
--		stimer0_irq = -1;
--	}
-+	cpuhp_remove_state(CPUHP_AP_HYPERV_TIMER_STARTING);
-+	hv_remove_stimer0_irq();
-+	stimer0_irq = -1;
-+
- 	free_percpu(hv_clock_event);
- 	hv_clock_event = NULL;
- 
-diff --git a/drivers/hv/hv.c b/drivers/hv/hv.c
-index ef4b1b03395d..fe50090dcc01 100644
---- a/drivers/hv/hv.c
-+++ b/drivers/hv/hv.c
-@@ -399,8 +399,6 @@ int hv_synic_init(unsigned int cpu)
- 	else
- 		hv_hyp_synic_enable_interrupts();
- 
--	hv_stimer_legacy_init(cpu, VMBUS_MESSAGE_SINT);
--
- 	return 0;
- }
- 
-@@ -630,8 +628,6 @@ int hv_synic_cleanup(unsigned int cpu)
- 		return -EBUSY;
- 
- always_cleanup:
--	hv_stimer_legacy_cleanup(cpu);
--
- 	/*
- 	 * First, disable the event and message pages
- 	 * used for communicating with the host, and then
-diff --git a/drivers/hv/vmbus_drv.c b/drivers/hv/vmbus_drv.c
-index 6824bd7cb3c4..e19ec73b0187 100644
---- a/drivers/hv/vmbus_drv.c
-+++ b/drivers/hv/vmbus_drv.c
-@@ -1320,14 +1320,8 @@ static void vmbus_message_sched(struct hv_per_cpu_context *hv_cpu, void *message
- 	msg = (struct hv_message *)message_page_addr + VMBUS_MESSAGE_SINT;
- 
- 	/* Check if there are actual msgs to be processed */
--	if (msg->header.message_type != HVMSG_NONE) {
--		if (msg->header.message_type == HVMSG_TIMER_EXPIRED) {
--			hv_stimer0_isr();
--			vmbus_signal_eom(msg, HVMSG_TIMER_EXPIRED);
--		} else {
--			tasklet_schedule(&hv_cpu->msg_dpc);
--		}
--	}
-+	if (msg->header.message_type != HVMSG_NONE)
-+		tasklet_schedule(&hv_cpu->msg_dpc);
- }
- 
- static void __vmbus_isr(void)
-diff --git a/include/clocksource/hyperv_timer.h b/include/clocksource/hyperv_timer.h
-index d48dd4176fd3..8d3befb7e667 100644
---- a/include/clocksource/hyperv_timer.h
-+++ b/include/clocksource/hyperv_timer.h
-@@ -27,10 +27,7 @@
- /* Routines called by the VMbus driver */
- extern int hv_stimer_alloc(bool have_percpu_irqs);
- extern int hv_stimer_cleanup(unsigned int cpu);
--extern void hv_stimer_legacy_init(unsigned int cpu, int sint);
--extern void hv_stimer_legacy_cleanup(unsigned int cpu);
- extern void hv_stimer_global_cleanup(void);
--extern void hv_stimer0_isr(void);
- 
- extern void hv_init_clocksource(void);
- extern void hv_remap_tsc_clocksource(void);
-@@ -107,10 +104,7 @@ hv_read_tsc_page_tsc(const struct ms_hyperv_tsc_page *tsc_pg, u64 *cur_tsc, u64
- }
- 
- static inline int hv_stimer_cleanup(unsigned int cpu) { return 0; }
--static inline void hv_stimer_legacy_init(unsigned int cpu, int sint) {}
--static inline void hv_stimer_legacy_cleanup(unsigned int cpu) {}
- static inline void hv_stimer_global_cleanup(void) {}
--static inline void hv_stimer0_isr(void) {}
- 
- #endif /* CONFIG_HYPERV_TIMER */
- 
+ 	if (!hv->screen_width_max) {
+ 		hv->screen_width_max = SYNTHVID_WIDTH_WIN8;
 -- 
 2.25.1
 
