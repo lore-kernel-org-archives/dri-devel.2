@@ -4,99 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED4C1C55160
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 13:29:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B592AC55167
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 13:29:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1198010EF21;
-	Thu, 30 Jul 2026 13:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D5B210EF09;
+	Thu, 30 Jul 2026 13:29:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="I4XhQVO/";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zb4PXuxA";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="LYURgvp1";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eMlKMLzi";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF17210EF09
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:38 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 256A510EF24
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:44 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66UDDIax841996
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:38 GMT
+ 66UDD9TT715207
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- EyQnsFr+AkCF9FJZQJYLZH0Aizak4PdcRcM5bMpVZbc=; b=I4XhQVO/0yt5Fapx
- y6FEqK1dFBP3zbhxBiDkxGJ+C86CPlnylu5yZpbMk09f/jeabXeWZnzgB6oxSduH
- QIvOMw5QSaEsjyKRdn3wVA2y9EwGV8/kZ3gSaoSKcBGwsMsVB7iaOICypJisskg+
- 6bqFzp6RodZFV6mi5oB6yyZ7SYGZEaW252Lq+EgDITMdvY8fyDgBZot20bvwYimW
- HsFzkYEyqqgywiO3Wrw3JYm+NFAxUP5T3pdMTBe7ZoHXub2loyr1piOunOkfO1fA
- ynFnggbqS6rc6c7UF0HuUANmhUCqXMLdv4qrFUMv0j1tSWYV6W3kfpx4bWH5pR3K
- cNLtRw==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr6wmg6h0-1
+ 4GiyYr8BNvsq5rBrfJ99f2IOVz7T7wBUN5vtVYuv3w8=; b=LYURgvp1IOeS0d3m
+ HJGWxB91RSgH72Uo0Wdct4qEB0Z5w9mxpcC7DbYvvYgDuF1tehH0if988qoHbQYq
+ Le4FvAaQhwnLlpAhDjC+Uf2YdruL91L9z3E/sI6FTdT6/uBoD8ABT8NfEreerjze
+ TUut3vh+uCVTZltfqpNOLy4MeoIYwudZua9D0jXR8J4tbo3jB1qBLkpAkJ22i2zg
+ UudXYyrIDWVIK7zHsR4SQ62EX7OnbzzAQEWXvV1kRqS0fuY6ClwmX62gWdItC+ed
+ zMIWYBBCVSmlxo21fpgvXeVO9+NLYuIDXOtl9x+2YmLOxlS+lWoJlzX9vsL7aOqL
+ LzdfQQ==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com
+ [209.85.160.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr6ucr6x5-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:37 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-5174a236220so21514371cf.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:29:37 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:43 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id
+ d75a77b69052e-51c1c7f135bso38164391cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:29:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785418177; x=1786022977;
+ d=oss.qualcomm.com; s=google; t=1785418183; x=1786022983;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=EyQnsFr+AkCF9FJZQJYLZH0Aizak4PdcRcM5bMpVZbc=;
- b=Zb4PXuxAzaxbhEvUQlzVPmcUfxWFUEWISzltlmN+FJAD3upW6EtVX0FOvBh/9Vr363
- Si5a5wu1ngDNB+ja+H42xwYQCOGWsUQqF+nlP1yfvYEqj6vRGsS395AnhCW6UGsa7jTi
- OeLuWSav6iBl/RpXMMmSgw3c+b4uiKNjQLYSiepmwe59rnyyKJ1c34KGEEA7UVICiKIZ
- 0mh/SeagXdJuzzVsC9WqejVhWn4i/CmqJPbiHvyN50VzyMrhYvEgd7Tk1IcvbV+w3yng
- x4m60PQ+6S39CsLgaiD35fzC1gUwPJgP9jyozoy3YtbOf7lSA2zgMdrqyhabbSQKebIN
- 2TEw==
+ bh=4GiyYr8BNvsq5rBrfJ99f2IOVz7T7wBUN5vtVYuv3w8=;
+ b=eMlKMLzircPd1VDOcW9g0yk080WgGbD6Y6OkdXeudxq8GKuCJfzYRI+j+cB+bbwGOJ
+ zyZL87cmnb5uoQTPQwPIIc+obD0IguPhcJK+IPMR9wzWnUwAlMu5bbvYtqBhGhzNk9s/
+ jmbrNrwOhdMSsQJICANUsZhh/FzX4T+f7HjQNT1F8dqYXaOX+4z8e4QbeE3fdVU63Q4M
+ YXCBGc2w6DP5cxb6h94A/0VeE6xuCUiCL7ZU3pfwK2WZHY8KDTNrAJe6yn8dqLgruNe1
+ DQSVV49jlt5XoBsMscMXi4wom1NB+8hpv8p0FXErZP7FFsPhcyR3frjZiD6H1U8eLpy1
+ 4Aiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785418177; x=1786022977;
+ d=1e100.net; s=20251104; t=1785418183; x=1786022983;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=EyQnsFr+AkCF9FJZQJYLZH0Aizak4PdcRcM5bMpVZbc=;
- b=FyN2MYDna0y48kzvpFUf/vlHQaZ4L5VrW/0O2gEZG8fePqChDghlPXMeAvxqPzanzZ
- 2+PcC2jqiIcyu+dJr9PEdV3VichJFbrAoLcCdkxkruLdy8+cBlpQK2cP3VS6VB3K5eaa
- uU6e8X883AI8BQbH96K6lFCfN6u5oqWeAhkiOCRVEDw8mrSN1Fn1CFuFe+munovkSEx4
- y3N6icrbzMdSDj/4IB8BSGUgwgEjt9VcxM5Se6GKp9X0tdwT6l5RXPrdT6Rm2/XT9a1b
- MRklfoyfIxogmqKB2pKVEQoDDmKJ8lCSH53UVv3athwH9hIhZuIGkKiFBDhmEf4IvqQT
- kQag==
+ bh=4GiyYr8BNvsq5rBrfJ99f2IOVz7T7wBUN5vtVYuv3w8=;
+ b=OgJWxM2MUUCdnxV9dmP3Smz3alNQ637B6lNLt6y8qneHYrkiSHd8xxg6AjJRgDmy44
+ bFtGfnzl8SZK4mQ0+cbwI3MOJtA0Kj8nh+GGmCQiDCHBOQDrKF8fVdvLArV2X0FjqWVB
+ f4k4eA2TUyMwcpY9HjwjRAgeHpLjSwkBUD3qbR/QOpP0jc+AVmrR9ks4H6d3P1v61G3V
+ fqG37Zzyjye0qHg52v/Sfc/7vqhgYkphOxqjuieq2bPY7Wd2Nd/0BbgG7QOMki6Mh2d/
+ dc1DSS4L/1tTyQuLX38/8ZgdBg2skZ/JwAX1tcJ29vXvRcYQPKfX/JEdcufJgl12ETGX
+ B4mA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RobuC69xjcC8yULapgb/Q2nLzULpucZpWXnSl3MGga8aQUJri71SE5GXLa3Mw6+KQy6Jq+TtJ/aBVU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzmQMehTPrQAGMOFW4nmN/BhZmKsCDkvTHHiUNahGY8aDGDkLFD
- 9sIYwBXNHmmNfP8ipz6fHMKqZKwZLLUkq5yOB9GUrMPg3K2O9plyJX5OlEMwbutYio79P68OYp5
- yqzXDyOXbRS74xPw9rBD/EUgHsF43SMU7ugWV0GAU4CVslnzE38XDLw1tR/Cx5eniOjlKkqI=
-X-Gm-Gg: AR+sD125t1oZ0W1S4oQtxEa+lshW68eQ2ZVhS3wDO/h6NRItcwPS/QYYqW9oXU8S9vg
- EZ2RptFJ/Ue6h9UloWeGpboU0QrM47DF499NJmiuwCP6wX8jkTZuV0SdgWAIsbZOZy+pJ/pnMS9
- 1vkS72SeOEahqyYGhyIM3YRvtTI3WkvWQHMy6pQQ7motIGifarWjwnvDCIe0gzreQTAT4jRUlE7
- 87A8K1+Mvii3onLtDjLRhyVr8lGyzdFC3FWo7J7PHIKBEP/b8C0rx+/HVxAu9jNuNM06KYkr3m5
- pcC0EO2B/hyn6iVOTBFsVxAXjeyYbcv5oO7NnW+0ym2ktwwVTxdTVvmHM0JKLlJCgvXNgtFZP6n
- pqAEfa9yuHEm2UiLmoJYSS2dSCGJirf0RM3vynHLTCtL6duZcaM336zZm69vSCnuM+wdvkwyN9X
- A7WiVoEX/arTP6yw==
-X-Received: by 2002:ac8:598e:0:b0:528:3ae6:14a0 with SMTP id
- d75a77b69052e-52b42c461ccmr2050571cf.46.1785418176524; 
- Thu, 30 Jul 2026 06:29:36 -0700 (PDT)
-X-Received: by 2002:ac8:598e:0:b0:528:3ae6:14a0 with SMTP id
- d75a77b69052e-52b42c461ccmr2050201cf.46.1785418176070; 
- Thu, 30 Jul 2026 06:29:36 -0700 (PDT)
+ AHgh+RrgMFw+WDgqYn6SffjumXqb1ymBTAyKD84+Wt90kKL0L8nSr6sd0jWKvZzQK1lTbTvbQvMwCTkjfAc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzeEjCnnOQ5/L1GJ5HpH6cANjIOrS4dne8iqPvEP1xMtvh22A58
+ oA+k9hxIe06uYfbmvN09UlrkUyauw55lRZ9u4FJCYF+dP8t9Wk/4wyUqDP+H2rJ6kmzgkPx7TkI
+ yVV4/rlKw9kQ7sDbd3UEZPBRF4188tZGFNnlbd3Xr8Bsm4PBvIwE9Y9O/KxbXuL6NVGWsDkY=
+X-Gm-Gg: AR+sD12vnLgQEgDw7cflizV05dbiw2wYcxjTuoB2FMKby4vFGejNEC/u3YiOqX4hISj
+ Vt+DvpSd1DGIp7wqbVra+LUFS6MP51lppdniwzfhQlULFyDlvgTzb2+tEB1vUSEElhL/1KU8WDR
+ MrBTImKevVHFYpf4mVQkhXn8+IcXWnOec1efpXtZM+PJTMICHs020m517F7msd9FiyOeUzeTeCj
+ 4dk2lD8M6QlBlMr8yskSobqFJK2wi6YLFA8Y3FhQf+asF2DxPEyAw0DQrWmUme3bZBFXZNOlyQ8
+ hGBcey1Y0lhaCvCprpftZsQTXlQ8mND5WDfgC4rjUr0CL5I7awjUB2CdXS+7NSL5Lt1PBjCPK/P
+ Ql5RR6A+jLovU53JQKtjQ2Wm8B/ShS/zk2iA6cyNiZYQOfZnypmCD2w73Efv0uWVbrbTcequpmH
+ KdzRSctHW3qRJXHA==
+X-Received: by 2002:a05:622a:5ce:b0:51b:eb55:2916 with SMTP id
+ d75a77b69052e-52b384c4702mr28152601cf.34.1785418182389; 
+ Thu, 30 Jul 2026 06:29:42 -0700 (PDT)
+X-Received: by 2002:a05:622a:5ce:b0:51b:eb55:2916 with SMTP id
+ d75a77b69052e-52b384c4702mr28152121cf.34.1785418181713; 
+ Thu, 30 Jul 2026 06:29:41 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-39f6acaa009sm2976631fa.34.2026.07.30.06.29.34
+ 38308e7fff4ca-39f6acaa009sm2976631fa.34.2026.07.30.06.29.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 06:29:34 -0700 (PDT)
+ Thu, 30 Jul 2026 06:29:40 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 16:29:31 +0300
-Subject: [PATCH 1/3] iommu/msm: track a context master per device and IOMMU
+Date: Thu, 30 Jul 2026 16:29:33 +0300
+Subject: [PATCH 3/3] drm/msm: detach the ARM DMA mapping before attaching
+ our own domain
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-fix-qcom-smmu-v1-1-b12fa067804e@oss.qualcomm.com>
+Message-Id: <20260730-fix-qcom-smmu-v1-3-b12fa067804e@oss.qualcomm.com>
 References: <20260730-fix-qcom-smmu-v1-0-b12fa067804e@oss.qualcomm.com>
 In-Reply-To: <20260730-fix-qcom-smmu-v1-0-b12fa067804e@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -117,45 +118,44 @@ Cc: linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4681;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2725;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=HDvKxpINpBdyUinpnTD4Zel+FLNhUAi/UNzRGhoHMSU=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqa1G8k9/g5eNcbQTp950ENXclQTiusv0LgYSR2
- XAet/hi4xKJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCamtRvAAKCRCLPIo+Aiko
- 1VpfB/9FYILN4yvdF3Vwn4jVt5QhJoVPIwN0sjpqfAnTByi95EeWKKE5S87ktT0abAPbZ2UOVT/
- Z2k/Ru/yCM7HCPUm42G7XLGJIRiJ+TGSojMsfCIu4vAVXgWqO5jyv62CSaMCw8zNuuJz10C6wuK
- OVh7YrahohCLi3+ZsXvJELj0N092LIAY5idouHvL0w9oX3x279RmxMw2C2MB7OuOzowOu1ZGydf
- ZYTyz45hsbQf9YS8JQq8u8gpJJPEltmaIL+9mTTsqPdRhRw4uUqApovyaLGZxXxYnw4iKFVsZFl
- vjxJXlzNI9fWzWdu6RJh4IxnKnbjlisUbM4Iky6LJp3ctWbl
+ bh=0nxp1o2ipBKscUADiWjzkVftGYkzppsXEG9Cty/+pmo=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ1Z24J6b6wVbFP1Dv968/8bQ87nekTkSTCwmWXuZJ85pD
+ 0p7dd+ok9GYhYGRi0FWTJHFp6Blasym5LAPO6bWwwxiZQKZwsDFKQATYZZg/5/7tEvjz+Qk7vJX
+ k3zOtPEfveHQZOPl4cMrqnnMZovt2isnJ07bw6x5j8vBskrclyXQJOLU3mYN69k+OdufMkn28yd
+ oXdC4vNBQvF0jvuL/n/j/7K8ND0z8nx1RFSH2t/XxES9nFumAE3fvXWXY3DaTe9kqjnu9bZuNdo
+ dLV1y6baTwef+y11rGEiq3b7B7s71kDXk0Z+4zrVfqWba7mTbLbGKtv2mh8vb1iVWJ3zx2CRku9
+ i18yJBVJC0nkiZqmZ1xIevEvNvmuSaTanI/pWr3Ou90PDhR7LSPW+8h1VfV63zFRHgmWO5Su/0z
+ ZW7YKlWpl857L8hvdYlhjq6SKXyqyHe6lFEr5nTGR6P5AA==
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEwMiBTYWx0ZWRfX0UzbqedcTakf
- TyPAdN0CTvKBweqmRomuinmR+a8b2JYXh60uCMu/KXYaHfXxuPtmaKvEDnG6/EB1RidPVjUUHU7
- xQbNOmS6m4YqOoca02jdDtw/M+jLyh8=
-X-Proofpoint-GUID: sznTBzsQjpck84RyGDtck79QkBSmcqws
-X-Authority-Analysis: v=2.4 cv=OauoyBTY c=1 sm=1 tr=0 ts=6a6b51c1 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEwMiBTYWx0ZWRfX9r1b3kmy1Q1b
+ k6F5u3i0o4/c91zgpQEkdgi496hnwQYiMd6VcsUEknjsJz7jFTK/0Y4ywA+vt4jk6NObij44cEH
+ IthmK/1DLYuRocAbz+tKDJgTb9UeLgo=
+X-Proofpoint-GUID: FCf6_QFwFcheIQBrjcD0wY7zSM4ke4pz
+X-Proofpoint-ORIG-GUID: FCf6_QFwFcheIQBrjcD0wY7zSM4ke4pz
+X-Authority-Analysis: v=2.4 cv=W6QIkxWk c=1 sm=1 tr=0 ts=6a6b51c7 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=wn2kx61HezQC-XnySuMA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: sznTBzsQjpck84RyGDtck79QkBSmcqws
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEwMiBTYWx0ZWRfXwr3zYP0wvnqw
- yNh5zlAz8oRcBVMy/IKvxKw9YrMLjm1FiBjsoFwCtZsPOBnYQ3dLMY7vbOPLESlU3nnOoB+rHH2
- W1TxATr6C5xYxEpRjzOe53lbRQgsL5mLPpNFUqpsRE7xiHDV85AmkrL0TKfl7KM3p7qPyd5olnF
- P0AyHzp0QfjpMbU1HbZbRiNB8TM648/jFhTQpW4Zn/4SltFnbPzvYAFDpvsff5VIfit9d2PuQKh
- WAVRt9oRGoLdEiaBVO3fZPDZn2yXMOzjcuv4huccIfUYkwSPzfgx+ETY7bhXzXlE1rjHMRrKWl7
- TfuVZetCUmRGuazrrCjcEkqQPNkqw+5Tj8Hwij8oK5GM95zQu8wQjB6+3qdLnsu3Anq4p7EPnnI
- IXXsAKkpFqMs3W+X5x0D6UiRV9XzCTVyLuhQwbHrIuGwrn8YG9ul2BsUNV+OaMEzrZ2BDdviHVe
- deTBfF6lPJSCqFp6prg==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=epCurf6C53ZFYVxhAokA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEwMiBTYWx0ZWRfX1bQkJIwD2dSe
+ nWdpPda2j6LybAziLkaT3lmV1UPLPJ100bYwRGhSu1Zc7Yyd5U/r3+0rtz0ukzvZEJ+SeafkCEi
+ oOjb+l8MGZZwG49SAPWmPEsyJ3zLr/CCo/HXkbnCOafY/S0qRaonM+xMaR9KHb72+hxIN+0kHSC
+ ZpNe8B6zp6DKcr0ie74o1SLRM7jtozLV1tYPGrUoAz3Vk3rewNa1qIFg321b6WHtkJ5Ue6F8aPU
+ ETIWZ4ytxJoc7c3udH6Si2DattNJHANf48LWdee83rO21KeG0nhgowZaF/QM6Qed/lE0ykAhulc
+ F5lz/FeVCnU6XaIRHSguclDOrwqmoHgZYeNyxIBjFEYvwsojF+lMHD+A0+5ZV+nHZM4H0VilBLk
+ XfWL3rPKZhsAD+d27hlqdMdVoAPNcTrm+I8Ahu8qv0/dsTjK4iVlOOhS4jBYGtG97qY/XLwiCSp
+ t6rkRW+bnQsnW8nmTlA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-30_04,2026-07-29_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 clxscore=1015 priorityscore=1501
- lowpriorityscore=0 spamscore=0 impostorscore=0 bulkscore=0 suspectscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607300102
+ impostorscore=0 phishscore=0 suspectscore=0 clxscore=1015 bulkscore=0
+ adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300102
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -171,113 +171,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-insert_iommu_master() decided whether to allocate a struct
-msm_iommu_ctx_dev by testing whether the IOMMU's ctx_list was empty,
-caching the result in dev_iommu_priv, then unconditionally dereferenced
-the master:
+On ARM32 with CONFIG_ARM_DMA_USE_IOMMU, arch_setup_dma_ops() creates a
+dma_iommu_mapping for every IOMMU-backed device and attaches its domain
+to the device's IOMMU group. That domain is neither the group's default
+nor its blocking domain, so when msm_iommu_new() later attaches the
+domain the driver manages itself, __iommu_attach_group() refuses it:
 
-	master = dev_iommu_priv_get(dev);
-	if (list_empty(&(*iommu)->ctx_list)) {
-		master = kzalloc_obj(...);
-		...
-	}
-	for (sid = 0; sid < master->num_mids; sid++)
+	if (group->domain && group->domain != group->default_domain &&
+	    group->domain != group->blocking_domain)
+		return -EBUSY;
 
-Neither key is right. A master describes one device on one IOMMU
-instance: the attach and lookup paths find a device on an IOMMU by
-walking that IOMMU's ctx_list for a master whose of_node matches. The
-ctx_list emptiness test is per-IOMMU, and the dev_iommu_priv cache is
-per-device, so the two disagree as soon as one device spans several
-IOMMUs. On apq8064 the GPU uses &gfx3d and &gfx3d1 and the display
-controller uses &mdp_port0 and &mdp_port1, each instance carrying the
-same stream IDs.
+Both the GPU and the display controller are hit by this on apq8064
+(IFC6410), leaving the board with no GPU and no display:
 
-The per-device cache also turns into a NULL dereference. When the first
-of a device's IOMMUs registers, iommu_device_register() walks the bus and
-drives ->of_xlate(), which links a master onto that IOMMU's ctx_list. The
-device cannot finish probing because its second IOMMU is not registered
-yet (-EPROBE_DEFER); that tears down dev->iommu and drops the cached
-master, but the master stays linked on the first IOMMU's ctx_list. Once
-the second IOMMU registers, its bus walk replays of_iommu_configure() for
-all of the device's entries, so ->of_xlate() runs again for the first
-IOMMU: dev_iommu_priv is NULL while ctx_list is not empty, allocation is
-skipped and master->num_mids dereferences NULL:
+  adreno 4300000.gpu: failed to load adreno gpu
+  adreno 4300000.gpu: probe with driver adreno failed with error -16
+  mdp4 5100000.display-controller: [drm:msm_drm_kms_init] *ERROR* failed to load kms
+  mdp4 5100000.display-controller: adev bind failed: -16
 
-  qcom_iommu_of_xlate from of_iommu_xlate
-  of_iommu_xlate from of_iommu_configure
-  of_iommu_configure from platform_dma_configure
-  platform_dma_configure from __iommu_probe_device
-  __iommu_probe_device from probe_iommu_group
-  probe_iommu_group from bus_for_each_dev
-  bus_for_each_dev from iommu_device_register
-  iommu_device_register from msm_iommu_probe
+Other ARM32 DRM drivers that manage their own domains (tegra, rockchip,
+exynos) drop the arch mapping first. Do the same in msm_iommu_new(),
+which both the display and the GPU paths go through.
 
-The faulty guard has been there since the driver gained generic master
-bindings, but it stayed dormant for years because a device's ->of_xlate()
-only ran once all of its IOMMUs were present. It became reachable when
-iommu_fwspec_init() started deferring per instance on the ->ready flag,
-which is what lets a master be stranded on the first IOMMU and then have
-->of_xlate() replayed with dev_iommu_priv already reset. Hence the two
-Fixes below: the first introduced the guard, the second made it fatal.
+With this the GPU and the KMS device both initialise:
 
-Look the master up in the target IOMMU's ctx_list instead, allocating one
-only when that IOMMU has none for the device yet. Each instance now keeps
-its own master and gets programmed with the full set of stream IDs. A
-stream ID seen twice is an expected consequence of the replay described
-above and is already ignored, so demote that message to dev_dbg().
+  [drm] Initialized msm 1.13.0 for 4300000.gpu on minor 0
+  [drm] Initialized msm-kms 1.13.0 for 5100000.display-controller on minor 1
 
-Fixes: f78ebca8ff3d ("iommu/msm: Add support for generic master bindings")
-Fixes: da33e87bd2bf ("iommu: Handle yet another race around registration")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Assisted-by: Claude:claude-opus-5
 ---
- drivers/iommu/msm_iommu.c | 27 +++++++++++++++------------
- 1 file changed, 15 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/msm/msm_iommu.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-diff --git a/drivers/iommu/msm_iommu.c b/drivers/iommu/msm_iommu.c
-index 0ad5ff431d5b..3847f5f0059f 100644
---- a/drivers/iommu/msm_iommu.c
-+++ b/drivers/iommu/msm_iommu.c
-@@ -601,24 +601,27 @@ static int insert_iommu_master(struct device *dev,
- 				struct msm_iommu_dev **iommu,
- 				const struct of_phandle_args *spec)
- {
--	struct msm_iommu_ctx_dev *master = dev_iommu_priv_get(dev);
-+	struct msm_iommu_ctx_dev *master;
- 	int sid;
- 
--	if (list_empty(&(*iommu)->ctx_list)) {
--		master = kzalloc_obj(*master, GFP_ATOMIC);
--		if (!master) {
--			dev_err(dev, "Failed to allocate iommu_master\n");
--			return -ENOMEM;
--		}
--		master->of_node = dev->of_node;
--		list_add(&master->list, &(*iommu)->ctx_list);
--		dev_iommu_priv_set(dev, master);
-+	/* A master describes one device on one IOMMU instance. */
-+	list_for_each_entry(master, &(*iommu)->ctx_list, list)
-+		if (master->of_node == dev->of_node)
-+			goto add_sid;
+diff --git a/drivers/gpu/drm/msm/msm_iommu.c b/drivers/gpu/drm/msm/msm_iommu.c
+index 897e42c8d5c8..da6782fca6bd 100644
+--- a/drivers/gpu/drm/msm/msm_iommu.c
++++ b/drivers/gpu/drm/msm/msm_iommu.c
+@@ -7,6 +7,15 @@
+ #include <linux/adreno-smmu-priv.h>
+ #include <linux/io-pgtable.h>
+ #include <linux/kmemleak.h>
 +
-+	master = kzalloc_obj(*master, GFP_ATOMIC);
-+	if (!master) {
-+		dev_err(dev, "Failed to allocate iommu_master\n");
-+		return -ENOMEM;
- 	}
-+	master->of_node = dev->of_node;
-+	list_add(&master->list, &(*iommu)->ctx_list);
++#if defined(CONFIG_ARM_DMA_USE_IOMMU)
++#include <asm/dma-iommu.h>
++#else
++#define arm_iommu_detach_device(...)	({ })
++#define arm_iommu_release_mapping(...)	({ })
++#define to_dma_iommu_mapping(dev)	NULL
++#endif
++
+ #include "msm_drv.h"
+ #include "msm_gpu_trace.h"
+ #include "msm_mmu.h"
+@@ -749,6 +758,19 @@ struct msm_mmu *msm_iommu_new(struct device *dev, unsigned long quirks)
  
-+add_sid:
- 	for (sid = 0; sid < master->num_mids; sid++)
- 		if (master->mids[sid] == spec->args[0]) {
--			dev_warn(dev, "Stream ID 0x%x repeated; ignoring\n",
--				 sid);
-+			dev_dbg(dev, "Stream ID 0x%x repeated; ignoring\n",
-+				sid);
- 			return 0;
- 		}
+ 	mutex_init(&iommu->init_lock);
  
++	/*
++	 * ARM32 attaches a DMA mapping domain to every IOMMU-backed device,
++	 * which would make attaching our own domain fail with -EBUSY.
++	 */
++	if (IS_ENABLED(CONFIG_ARM_DMA_USE_IOMMU)) {
++		struct dma_iommu_mapping *mapping = to_dma_iommu_mapping(dev);
++
++		if (mapping) {
++			arm_iommu_detach_device(dev);
++			arm_iommu_release_mapping(mapping);
++		}
++	}
++
+ 	ret = iommu_attach_device(iommu->domain, dev);
+ 	if (ret) {
+ 		iommu_domain_free(domain);
 
 -- 
 2.47.3
