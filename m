@@ -4,87 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE60DC531D0
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:28:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10CBBC54FD2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:30:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 357D710E654;
-	Thu, 30 Jul 2026 06:28:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 082B510E656;
+	Thu, 30 Jul 2026 06:30:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a1r6CyCZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HGcHiF9w";
 	dkim-atps=neutral
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 768FB10E65E
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:27:50 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-8486672f03cso1935978b3a.0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 23:27:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785392870; x=1785997670; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Ax7tbNUValSVYnoO1zdiSGKC5h5YwguB1K37baEZiC0=;
- b=a1r6CyCZ9g8w4AmoJkNjKwJ+ou9cuRFl9x5SkPxB6GfI7mCwxeo6UmDWqMVz+OkxRG
- AgPEhba7YKUsOV5D02CxRz1MFloQr3/vfvJ6aru6Fv9r43DKBcOHqWXvtf8DJwdOCn5K
- 1PmI3Tw2KLXjJGAUPmmBTWq9Z6czzbRMmpk/IdyZPnynzcqWww+00qPm1X9U/KyY6ISb
- CrV4z0OVmXI8pvY010KQDWGJDS2DUXz1M2ahH1m/6ZsR1bHX/528GRYhCYOeTdomY+qm
- LwC3L4ywuRctoo6ONXyvif8gWzt2JkkS5jhIx1XOow0AKPn6Gah3dyo097jOq6n0/U0z
- EsHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785392870; x=1785997670;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Ax7tbNUValSVYnoO1zdiSGKC5h5YwguB1K37baEZiC0=;
- b=MVqUrNXOTeHtEs8aTbuLwQOG+fXkg4g05qea/jWLOku/G/XBRKoexTI5E8c6C7oZOC
- lxgVHKqn1UTVHwRWJ/kYqd30QoaSLn7tw/XxAEX0ntiG0cFJFQhuNmUJXDNgsMx6F0FX
- x4iRmgsti4RSr0ZjCjNuorjTVOZHCFDeDRqIn3UQkRXSfAoDxEJQF5Mg0BhxIariKOVt
- EgrmtOiqZLXai6aZ07eh+wy43tjdtaJspdhs6Bniyk0qd7S9uuyykrVlQWRiUor++WJc
- 1RZ2BLXJ24e4u7ejhtksUgcCRLG+WjA8isR5XiPSjM8V9fUaqawpbfaZpmDbN+Y5blQw
- nf2g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpaJAkizZSR5sNYhUcRUKcQLUQwGB2EoP39gDthwBx1uIsrkRhbR3pOtvpRUWYySx8lhwwBzKgrBeQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxADGA7BhfSGJ9qc8FOhSxt1BEKQqvr7E5eS4XezDeSrGlHJI/0
- iOaikVNpNj/CsNGTInUAOkjKl5EDfkteD/EOQ83YXg9jJSwmldfuqcjy
-X-Gm-Gg: AR+sD11JoJoGzSFouLqnbOe4q0MjTuNHhlvH5/JUZLDHb0wqaEF4YnZ8WlgK46XLJpS
- 7flGcwugNyscAheM1qsGooPVKUHnpEY6ZyA7M64nCiEBlmlK+pjygMscPd+xa8H8aOtdtzgf7yb
- Z6yUOL9BIsUl6kiM4GxuvIkjxvF7NgR7+PY2TPl2U083tilo6qopT0JzMPSKKlZF9cYPNY6VuJo
- U1rJK+tPz98GTWzKdMz7QCljwGZT8vm+KtRhHxVpVYb3u9Sh/OQ6TS4pAicWrbvmyM89CuldkTX
- DdOT+9asxmtvmCJ5JQtUFpgJJEAVCr2YHSdycODcIFnWTPuEtygjaznTEMh3aVnd79871GA/G9k
- SsQ9BytKPj27TDC9VACfmMapXSPt/5pa3JC9JOcRYHYhzCyAELQoU9kVNyhhLT2O23GEKOsXwZK
- 0wE91rNF3dmHDWo6GwTYydKQLPd2Z79o7kPwjt9rMv60fcx0SPisCDU4Flg5e1vktU
-X-Received: by 2002:a05:6a00:2d04:b0:848:2f7a:2e57 with SMTP id
- d2e1a72fcca58-84ebc4475aamr1325657b3a.70.1785392869924; 
- Wed, 29 Jul 2026 23:27:49 -0700 (PDT)
-Received: from baineng-pc.. ([117.133.183.252])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84ea00507b0sm2503229b3a.14.2026.07.29.23.27.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2026 23:27:49 -0700 (PDT)
-From: Baineng Shou <shoubaineng@gmail.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- "T . J . Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Sandeep Patil <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>,
- Srinivas Kandagatla <srini@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH v5 4/4] selftests: dmabuf-heaps: add fd-leak-on-EFAULT
- regression test
-Date: Thu, 30 Jul 2026 14:26:45 +0800
-Message-Id: <20260730062645.233148-5-shoubaineng@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260730062645.233148-1-shoubaineng@gmail.com>
-References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
- <20260730062645.233148-1-shoubaineng@gmail.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 955FB10E656
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:30:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 25818431C5;
+ Thu, 30 Jul 2026 06:30:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2AE1F000E9;
+ Thu, 30 Jul 2026 06:30:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785393010;
+ bh=eVNW4aqTV6n6CIBLKslFrMbN3c9jVoRpqKEmBmBAfzU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=HGcHiF9wQ3xgAXI8AIfVJ6/we5D66/qjQJDWp0jxCfyA+PDc6+/muyNkNbGc0Kc23
+ R6mcXgL8VHSTvhwq6IYassZgeCuJG8VoGWgjQc/ycl+icX2aneLS7eiaRdJcwm+YLJ
+ gOMJ6myBNG3J3DY5qMBQ9c5OFBVYtYM91GOWjvZ3SZSWSgIIuy05iQTqdfros6dlvR
+ ZlIthAY+wwAqd3EfFIKJ6efkYmgxACG19qOznQ1V0nDoSomgT9suboIQ2xICa2SOYR
+ sPcOeYkiTZrPe2iwBGJzUh4KZh81ffwpioUGdcDJv2/BvLPoDNe5pWHeFMrHx0+Gp0
+ lAwTd23aAiBmg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/pagemap: Remove unreachable code in
+ drm_pagemap_migrate_to_devmem()
+To: yaolu@kylinos.cn
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260730061635.132619-1-yaolu@kylinos.cn>
+References: <20260730061635.132619-1-yaolu@kylinos.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 06:30:09 +0000
+Message-Id: <20260730063009.CD2AE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,169 +53,158 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a test case that verifies no file descriptor is leaked when
-DMA_HEAP_IOCTL_ALLOC succeeds internally but copy_to_user() fails
-to deliver the fd number back to userspace.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-The failure is triggered by placing the ioctl argument in a private
-anonymous page and flipping it to PROT_READ (via mprotect) between
-the kernel's copy_from_user() and copy_to_user() calls.  With the
-buggy kernel the ioctl returns -EFAULT but leaves an extra open fd
-in the process's fd table; with the fixed kernel the fd count is
-unchanged.
+New issues:
+- [High] The patch removes a critical safeguard against unsupported same-pa=
+gemap migrations, erroneously assuming it is unreachable. However, a discre=
+pancy in loop iterations makes the safeguard highly reachable.
 
-This serves as a regression test for:
-  "dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
+Pre-existing issues:
+- [Critical] `drm_pagemap_migrate_to_devmem` unconditionally casts device p=
+rivate pages to `drm_pagemap_zdd` without verifying they belong to `drm_pag=
+emap`, leading to type confusion when migrating memory mapped from other dr=
+ivers.
+- [Critical] On error paths, `drm_pagemap_migrate_to_devmem` leaves raw dev=
+ice PFNs uncleared in `migrate.dst`, causing `migrate_vma_pages()` to deref=
+erence garbage pointers and panic.
+- [Critical] `drm_pagemap_migrate_to_devmem` assumes that `ops->populate_de=
+vmem_pfn` returns a contiguous 2MB block when the source page is a THP, lea=
+ding to severe memory corruption if the device allocator returns fragmented=
+ pages.
+- [High] Iterating over `migrate.src` using `folio_order(page_folio(src_pag=
+e))` incorrectly skips array elements for PTE-mapped THPs, ignoring partial=
+ migration failures and inflating counters.
+--
 
-Suggested-by: Sumit Semwal <sumit.semwal@linaro.org>
-Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
----
- .../selftests/dmabuf-heaps/dmabuf-heap.c      | 115 +++++++++++++++++-
- 1 file changed, 114 insertions(+), 1 deletion(-)
+--- Patch [1]: [PATCH] drm/pagemap: Remove unreachable code in drm_pagemap_=
+migrate_to_devmem() ---
+commit bc70ff651e63ccc5d92c40ccbcee5813a9cda5f6
+Author: Lu Yao <yaolu@kylinos.cn>
 
-diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-index fc9694fc4e89..bd58e5b06c8b 100644
---- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-+++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-@@ -390,6 +390,118 @@ static void test_alloc_errors(char *heap_name)
- 	close(heap_fd);
- }
- 
-+/*
-+ * test_alloc_no_fd_leak_on_efault - verify no fd is leaked when
-+ * copy_to_user() fails during DMA_HEAP_IOCTL_ALLOC.
-+ *
-+ * The bug: dma_buf_fd() called fd_install() before copy_to_user().
-+ * If copy_to_user() then failed (e.g. via mprotect), the fd was
-+ * silently installed in the fd table but never returned to userspace.
-+ *
-+ * The fix: reserve the fd with get_unused_fd_flags() first, attempt
-+ * copy_to_user(), and only call fd_install() on success.
-+ *
-+ * We trigger the failure by placing the ioctl argument in a page,
-+ * flipping it to PROT_READ between copy_from_user and copy_to_user,
-+ * and counting open file descriptors before and after.
-+ */
-+static void test_alloc_no_fd_leak_on_efault(char *heap_name)
-+{
-+	int heap_fd = -1;
-+	int fd_before, fd_after;
-+	int ret;
-+	long page_size;
-+	struct dma_heap_allocation_data *req;
-+
-+	ksft_print_msg("Testing no fd leak when copy_to_user() fails:\n");
-+
-+	heap_fd = dmabuf_heap_open(heap_name);
-+
-+	page_size = sysconf(_SC_PAGESIZE);
-+
-+	/*
-+	 * Place the ioctl argument in its own private anonymous page so
-+	 * we can flip its protection independently.
-+	 */
-+	req = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
-+		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+	if (req == MAP_FAILED) {
-+		ksft_test_result_fail("mmap failed: %s\n", strerror(errno));
-+		goto out;
-+	}
-+
-+	memset(req, 0, sizeof(*req));
-+	req->len      = page_size;
-+	req->fd_flags = O_RDWR | O_CLOEXEC;
-+
-+	/* Count open fds before the ioctl */
-+	fd_before = 0;
-+	{
-+		DIR *d = opendir("/proc/self/fd");
-+		struct dirent *de;
-+
-+		if (!d) {
-+			ksft_test_result_fail("opendir /proc/self/fd: %s\n",
-+					      strerror(errno));
-+			munmap(req, page_size);
-+			goto out;
-+		}
-+		while ((de = readdir(d)))
-+			if (de->d_name[0] != '.')
-+				fd_before++;
-+		closedir(d);
-+		/* subtract the fd opened by opendir itself */
-+	}
-+
-+	/*
-+	 * Make the page read-only: copy_from_user() in the kernel will
-+	 * still succeed (it already ran), but copy_to_user() that writes
-+	 * the fd number back will fault.
-+	 */
-+	mprotect(req, page_size, PROT_READ);
-+
-+	ret = ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, req);
-+
-+	/* Re-allow writes so munmap can clean up */
-+	mprotect(req, page_size, PROT_READ | PROT_WRITE);
-+	munmap(req, page_size);
-+
-+	if (ret != -1 || errno != EFAULT) {
-+		/*
-+		 * If the ioctl didn't fail with EFAULT, either the kernel
-+		 * handled it differently or mprotect raced.  Skip rather
-+		 * than giving a false pass/fail.
-+		 */
-+		ksft_test_result_skip(
-+			"ioctl did not return EFAULT (ret=%d errno=%d), skipping\n",
-+			ret, errno);
-+		goto out;
-+	}
-+
-+	/* Count open fds after the failed ioctl */
-+	fd_after = 0;
-+	{
-+		DIR *d = opendir("/proc/self/fd");
-+		struct dirent *de;
-+
-+		if (!d) {
-+			ksft_test_result_fail("opendir /proc/self/fd: %s\n",
-+					      strerror(errno));
-+			goto out;
-+		}
-+		while ((de = readdir(d)))
-+			if (de->d_name[0] != '.')
-+				fd_after++;
-+		closedir(d);
-+	}
-+
-+	ksft_test_result(fd_before == fd_after,
-+			 "no fd leak on EFAULT: before=%d after=%d\n",
-+			 fd_before, fd_after);
-+out:
-+	close(heap_fd);
-+}
-+
- static int numer_of_heaps(void)
- {
- 	DIR *d = opendir(DEVPATH);
-@@ -420,7 +532,7 @@ int main(void)
- 		return KSFT_SKIP;
- 	}
- 
--	ksft_set_plan(11 * numer_of_heaps());
-+	ksft_set_plan(12 * numer_of_heaps());
- 
- 	while ((dir = readdir(d))) {
- 		if (!strncmp(dir->d_name, ".", 2))
-@@ -435,6 +547,7 @@ int main(void)
- 		test_alloc_zeroed(dir->d_name, ONE_MEG);
- 		test_alloc_compat(dir->d_name);
- 		test_alloc_errors(dir->d_name);
-+		test_alloc_no_fd_leak_on_efault(dir->d_name);
- 	}
- 	closedir(d);
- 
--- 
-2.34.1
+drm/pagemap: Remove unreachable code in drm_pagemap_migrate_to_devmem()
 
+If it can satisfy the condition of "page_pgmap(src_page) =3D=3D pagemap
+&& ! mdetails->can_migrate_same_pagemap", it will be return -EBUSY in
+the precondition checks above the loop.
+
+> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+> index 15c78eca180b7..b2cade168cedc 100644
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+> @@ -744,12 +744,6 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap=
+_devmem *devmem_allocation,
+>  			struct drm_pagemap_zdd *src_zdd =3D
+>  				drm_pagemap_page_zone_device_data(src_page);
+
+[Severity: Critical]
+This is a pre-existing issue, but does drm_pagemap_migrate_to_devmem() blin=
+dly
+cast device private pages to drm_pagemap_zdd without verifying they belong =
+to
+the drm_pagemap subsystem?
+
+If a user maps device private memory from another driver (like Nouveau or
+AMDGPU) and attempts to migrate it to a drm_pagemap-backed device, the page
+will have a different pgmap->ops and its zone_device_data will point to a
+driver-specific structure. Could dereferencing src_zdd->dpagemap then cause=
+ a
+type confusion, leading to arbitrary memory reads and kernel panics?
+
+> =20
+> -			if (page_pgmap(src_page) =3D=3D pagemap &&
+> -			    !mdetails->can_migrate_same_pagemap) {
+> -				migrate.dst[i] =3D 0;
+> -				own_pages++;
+> -				goto next;
+> -			}
+
+[Severity: High]
+Is it safe to remove this safeguard?
+
+The commit message claims this condition is caught in the first loop and
+returns -EBUSY. However, the first loop calculates:
+
+nr_pages =3D NR_PAGES(folio_order(page_folio(src_page)))
+
+It then increments i by nr_pages, skipping entries in migrate.src for any
+page belonging to a large folio, even if it is PTE-mapped.
+
+This second loop increments i by HPAGE_PMD_ORDER only if
+MIGRATE_PFN_COMPOUND is set; otherwise it increments by 1. Because of this
+discrepancy, the second loop can iterate over pages that the first loop
+completely skipped.
+
+If a skipped page belongs to the same pagemap and
+!mdetails->can_migrate_same_pagemap is true, doesn't removing this block
+allow unsupported same-pagemap migrations to proceed, potentially causing
+hardware state corruption or deadlocks?
+
+[Severity: Critical]
+This is a pre-existing issue, but does this loop assume
+ops->populate_devmem_pfn returns a contiguous 2MB block when the source
+page is a THP?
+
+When MIGRATE_PFN_COMPOUND is set, the code sets order =3D HPAGE_PMD_ORDER
+and overwrites migrate.dst[i + 1] through migrate.dst[i + 511] with 0.
+It then calls drm_pagemap_get_devmem_page() which forcefully initializes
+the next 511 contiguous physical pages as a compound folio.
+
+If the device allocator returns a fragmented list of smaller pages (e.g.,
+non-contiguous 4KB blocks), does this blindly initialize subsequent physical
+pages, silently corrupting metadata of unrelated device memory and leaking
+the non-contiguous device PFNs that were overwritten with 0?
+
+>  			cur.dpagemap =3D src_zdd->dpagemap;
+>  			cur.ops =3D src_zdd->devmem_allocation->ops;
+>  			cur.device =3D cur.dpagemap->drm->dev;
+> @@ -786,7 +780,6 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_=
+devmem *devmem_allocation,
+>  			goto err_finalize;
+>  		}
+
+[Severity: Critical]
+This is a pre-existing issue, but does this error path leave raw device
+PFNs uncleared in migrate.dst?
+
+If drm_pagemap_migrate_range() fails at index i, the function truncates
+the local npages variable to i + 1 and jumps to err_finalize.
+drm_pagemap_migration_unlock_put_pages() clears only up to index i,
+leaving elements from i + 1 to the original npages - 1 in migrate.dst
+populated with raw device PFNs.
+
+When the code falls through to err_aborted_migration and calls
+migrate_vma_pages(&migrate), it iterates up to the original unmodified
+migrate.npages. Could migrate_vma_pages() then dereference these garbage
+pointers (if the raw PFN is odd), leading to a severe use-after-free and
+kernel panic?
+
+> =20
+> -next:
+>  		i +=3D NR_PAGES(order);
+
+[Severity: High]
+This is a pre-existing issue, but does iterating over migrate.src using
+folio_order(page_folio(src_page)) in the loops incorrectly skip array
+elements?
+
+For PTE-mapped THPs, this assumes the next 2^order elements in the array
+belong to the same folio, skipping up to 511 elements in the array and
+completely missing validation of subsequent pages.
+
+If migrate_vma_pages() fails to migrate one of the skipped pages, won't
+the third loop miss this failure and incorrectly tally migrated_pages,
+allowing the GPU to access un-migrated pages?
+
+>  	}
+> =20
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730061635.1326=
+19-1-yaolu@kylinos.cn?part=3D1
