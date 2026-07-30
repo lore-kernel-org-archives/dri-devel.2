@@ -4,78 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3256FC531D0
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E819AC54FDF
 	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 08:04:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8632510EE15;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F6C710EE0E;
 	Thu, 30 Jul 2026 08:04:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LkjkogxL";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iW9t9G2s";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D00B410EE0E
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 08:04:13 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-47f706438c3so129596f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:04:13 -0700 (PDT)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A37110EE0E
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 08:04:15 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-47df6a5655aso278112f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:04:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785398652; x=1786003452; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785398654; x=1786003454; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=VrwtyRX2qDPBxX3r7OeFon4kOmzwfovTWycGAbMSmog=;
- b=LkjkogxL4XPxeURW7vIH017U8tFR/udPm7Vy5mLtZaEkU51gyrezH9+cttad9zP76j
- Ld76TYUlb8zTuNtvZFBeGlECiI3fZUaWrbSRXFxLtwi14SoNXgLD5f32bMQqOkM7srMm
- 8kQUZ0Tn/+Dpbr0AgNDivF1RUrvvQMKKTgKQ37aozbT0wVEY6668Is3rssmE6rNnVSEF
- d4evmImlspbby+GSlvD6oJ3rGW1qOPqFhKCJEr/5mNeTLlT/Uv0hh8+JvKPgCgc6Dvet
- hYr0V76H2yMiCCU5yR7LDJEV9aXtVnTNxq6PRNH2rmPihs8DE2n0eF8SXxCbunsA0cmp
- 8L6Q==
+ bh=CIA2ESPy6hD2IsIBmPf7dAgmgpqiiLji99VHkKcY/l0=;
+ b=iW9t9G2s0nQ37A6+ffLfqiC6/HztE50B0ZMr6pSWjebD9XAxzLNyNnoIzUDWP5Ridq
+ 7GeTEKtGyF0kMcK7eMU7h4pvWzQ20t/D4afMyqm6EIWs8rCSEhQ4GIPO8CG2eUiDYfbp
+ 8Gy6UNBe59pvXZT3UEnHtxeEcOMjXIHiEs5J6w3YBbl4JqH36ZLtsxZf9OhDOZGNcaUB
+ 8xS+CcviVGsHouUCTf3NKdlyrNpu8PvLOyusDu+YYjg8B0NgXgbMzEe/koL0W4NFOdYB
+ 0RHAHTRTHttOuuvSh2tGJ08spAZRmF5PhehquqL9NkY8X1NvMIs8M4mbrr4mn2XM36QM
+ zHeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785398652; x=1786003452;
+ d=1e100.net; s=20251104; t=1785398654; x=1786003454;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=VrwtyRX2qDPBxX3r7OeFon4kOmzwfovTWycGAbMSmog=;
- b=JxZlX/QjS/R8tc9e9UlYOKmzTFbVuC7AbHI0N3i24MEyeIgFZGxvfs8+bicGmtcQ2s
- e5K9qVg8dpLVAwtHikdtsRsYAcfXe7K2tC8jXLIejKXeBX1W51jES10sp+m0xQKLdCq3
- tZJwZcaOr6RTGrBbY993soh2B4AJ/khWW1phsQwXTKzCLEIOymqhtRUVAYVwz3BRSuZx
- iey3Ee6YU//1DDqc5/VZZlKPM2Oa9R0T84zeceDncn0BAlR9pHXyb/EalEnK+liiZu+E
- VnCJyx9doBeUg5hD16ZeJYfAf49awIzK6Y2b/N2Zm888BX/GD2uuLuAz3+bdl0EUlrI/
- zaUA==
+ bh=CIA2ESPy6hD2IsIBmPf7dAgmgpqiiLji99VHkKcY/l0=;
+ b=pn1CPISMRW6lvlPJ6ZVsdoTVHYNpcbqQIhl/8PojK0p7hiDg96NxSwkxQPZkc4tvTy
+ sIGh5y4tJGqM/PzS9Tmb6HxyqMeKorTmkt1aiuaTXGp8v28HB4aHBUYddmP7xXQOtFO7
+ doLQRAaSSa6hVqF0GUWvskAdCS1kyYWQlqQdvup1c8BEr0PZy58OAq/Vvsnd7pSd6M44
+ pxAU2kPA9bnCdtFeTyIggioxa/GXL5mG+apChZYW8Uh2CJizABmojue4HHP680k5/AOj
+ /sjwY8mIy4FTRooVB53uyLgjVK59OZtYKX+gMki6Hy6vV/NkO3cB3TNg9mfNIcN8JQoI
+ GAIQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqfXL1cf6SPt1mVnblZlL2z1Co6o1fcDJvX0/wtsieNwo7hxtJjaPrrd22IpsHUaipbdzXo9eJZN+M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0jN3SVQjgk5dSnw6KcvjupL3nEusn0yIeN2N+4UpeAysraWh1
- Gp8A4vMRewp9U90k28pTPQ318HbMUXOiBg3GYVjtHzNgGXUX/g1dfeyS
-X-Gm-Gg: AR+sD11AVF73Lq+rS9m49hw4uwqedytsRTVINHpeBE3cOYVZIzc8nGhaqYURzjGwR0K
- MJLnWQjOL/TeEC3dUOx1PmbDLh8ydl4OkK7XAyWvsJnnyjv7T9QJejBL3dkk/0G75bJOW93CQVw
- NoZ21ch3MLv2FRSWeS53JEG/IxQ1+FUk04AZKobpgEJwS0Q+x7/FNPa3d3ZEqfrenLX/CubgUu6
- TjBPG+p7hzEEjM8A2SdhetZN9Nzcmcf7ldyVAW9H2S5D4Hu4xli8bbhcAlY9YC7/XwT5dmMR5Xv
- yYi5ST12avHDWY6nKOndy+ZZFMilcdyTUwREAIC5psxlhynbH9lBaZi25a/YZ4UC4afIYhROW6o
- Lxq0abxiWOolg6ptM2rPjsuKYMhrlfQTgHbGC8wLEE9jnWKKfhXsQajm+l9XQVwJfQGfUL7aa7N
- 032aoenL3OQ/J24sUP7m0IoxSODCEzwY1XXVPK22GNUn6YnygpJY14yDHi12v4qcvaG4TygtLLW
- xcDN2zFjSSKCDiwp+yDMvP/OdwibjmhBpIbbe1qyoXxpY8pu05ePrirQy1ynP4a/JyJ2hQGduAI
- c+4O
-X-Received: by 2002:a5d:5e82:0:b0:47f:6fbd:f23e with SMTP id
- ffacd0b85a97d-47fc8329a61mr1706891f8f.4.1785398651803; 
- Thu, 30 Jul 2026 01:04:11 -0700 (PDT)
+ AHgh+Ro6GZ0w2f/6zu2S5kg3UV0f/t+wFBcvXXPdXcRAuV0Ocko+XTJiPQtQSDoUS2vbf0UN4y/4sJXf4QU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzu9CN3rqzWJ5ZSdpgP0eo07qxyOtn8e++/kTjXSU53t0EO8+Hs
+ qFCcK8mLWN00hXW3y4nAatzfvHXF/WGdqZjWMc/OcFMPWa7BEW6YJWt+
+X-Gm-Gg: AR+sD10VIhSYaL+naNN+zRY5ap00VSXQAMLASTrPcC5YZ1RMSUp21ljum3Z4/JgoI5n
+ 1Pfon36wS0VunZZTUN5ICrW7Fk6oRvCEGiJulSl4MmMfUm53o6BignSgFfZxHYYQYXyf8atJwKF
+ snhewyHgNy/nihPduFhsjDZ816AM1dIrSj95LHWb4GvUsHRk7YnNPCxohCS4g3OzBls0v9hCJ/j
+ rOneZAAMpWZYLV2w8IqrTxnEwwXwrp8nDpmT+3pWePm73IuSIBosvOsi8ba2ao8JTlKFFkAyj9x
+ dlTuk6/B9jPT99IFB7hN0y9zuLHDHmX+Idor1lcI7PknzvgWgyjl7XDdD0BFyiap0PYlOkB2Go8
+ bpPO6U+k/5iEOGAGdQuBStZ4zsvNEUxcJkDR3BmSP+4unw5ivhXv8jRzHxaUaOUiVojz98/+Cc1
+ NfLYTN643hAU/6WYRR3L37lyZ/42NYnmP4GQv3nLYenpGTGt6wqRy2ia7UM/PDGQ/BPyKX0Kt5J
+ xebZ1IQfhe/hV6hO+YtMY/x4Y69PGUQ/1X3D/LxXrnpif7fi+vh1WyPON0CM4e0mjfwoXN/1rIJ
+ a3z2hQ==
+X-Received: by 2002:a05:6000:2401:b0:47f:96bc:e370 with SMTP id
+ ffacd0b85a97d-47fc832f362mr1869383f8f.4.1785398653062; 
+ Thu, 30 Jul 2026 01:04:13 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME
  (20014C4E1B8A5A00BF2D55A7591B4173.dsl.pool.telekom.hu.
  [2001:4c4e:1b8a:5a00:bf2d:55a7:591b:4173])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fc88e4055sm3347685f8f.13.2026.07.30.01.04.10
+ ffacd0b85a97d-47fc88e4055sm3347685f8f.13.2026.07.30.01.04.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 01:04:10 -0700 (PDT)
+ Thu, 30 Jul 2026 01:04:12 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 Cc: Oded Gabbay <ogabbay@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Guangshuo Li <lgs201920130244@gmail.com>,
  Jiaxing Hu <gahing@gahingwoo.com>, Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 1/2] accel/rocket: release the shared device's devres on
- teardown
-Date: Thu, 30 Jul 2026 10:03:53 +0200
-Message-ID: <20260730080355.177422-2-royalnet026@gmail.com>
+Subject: [PATCH 2/2] accel/rocket: keep core slots stable across unbind and
+ rebind
+Date: Thu, 30 Jul 2026 10:03:54 +0200
+Message-ID: <20260730080355.177422-3-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260730080355.177422-1-royalnet026@gmail.com>
 References: <20260730080355.177422-1-royalnet026@gmail.com>
@@ -96,93 +96,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-rocket_device_init() attaches its allocations to the shared "rknn"
-platform device via devres: devm_drm_dev_alloc(), devm_kcalloc() for
-the cores array and devm_mutex_init(). That device is registered at
-module init, never binds to a driver, and is only unregistered at
-module exit - so its devres list is not released for as long as the
-module is loaded.
+The shared rocket_device tracks bound cores with a single counter and
+uses it for three different jobs at once: find_core_for_dev() searches
+[0, num_cores), rocket_probe() inserts the new core at index num_cores,
+and rocket_remove() only decrements the counter without clearing the
+slot.
 
-rocket_device_fini() only calls drm_dev_unregister(): it does not run
-the drm_dev_put() devres action or free any of the other entries.
-Every fini/re-init cycle therefore leaks the previous rocket_device
-(with its embedded drm_device and all drmm state, including the accel
-minor number), the cores array and the mutex devres node. The cycle is
-easy to trigger: unbind the last bound core and bind one again, or
-fail the first core's probe (-EPROBE_DEFER retries included).
+This bookkeeping falls apart as soon as cores are unbound in any order
+other than strict reverse bind order:
 
-Observable symptom, RK3588 (Orange Pi 5 Plus): each unbind/rebind
-cycle of all three cores moves the accel node forward -
-/dev/accel/accel0 comes back as accel1, then accel2 - because every
-leaked drm_device keeps its minor pinned.
+ - unbinding core 0 shrinks the search range, so the still-bound core
+   at the highest index can no longer be found: its runtime PM
+   callbacks start failing with -ENODEV and a later unbind of it is
+   silently ignored, skipping rocket_core_fini() entirely;
 
-Wrap the initialization in a devres group and release exactly that
-group wherever the device is torn down: on the rocket_device_init()
-error path, when the first core's rocket_core_init() fails, and when
-the last core is removed. Each fini now frees what the matching init
-allocated, and the accel minor is reusable again.
+ - a subsequent bind then reuses the index of that still-live core and
+   overwrites its slot while its IRQ handler (dev_id points into
+   cores[]) and its DRM scheduler are still active;
+
+ - rocket_open() unconditionally uses cores[0].dev, which after an
+   unbind of core 0 is a stale pointer to an unbound device.
+
+Give the array a fixed capacity (max_cores, the DT core count already
+used to size the allocation) and make .dev the slot-liveness marker:
+probe takes the first free slot, remove clears .dev after
+rocket_core_fini() and warns if the core cannot be found, lookups
+iterate the full capacity, and rocket_open() and rocket_job_open() use
+only live slots. num_cores keeps counting bound cores for the
+last-core teardown check.
 
 Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 ---
-This applies on top of Guangshuo Li's pending fix, which it depends on:
-"accel/rocket: clear rdev on device init failure"
-https://lore.kernel.org/dri-devel/20260708062845.716487-1-lgs201920130244@gmail.com/
+Unbinding a core that still has jobs in flight has further
+pre-existing issues (scheduler and open-file lifetime) that are out of
+scope for this bookkeeping fix.
 
-Verified on RK3588 (Orange Pi 5 Plus): with the patch, repeated
-unbind/rebind cycles keep /dev/accel/accel0 stable (previously the
-minor incremented on every cycle); normal three-core probe, runtime PM
-and a MobileNetV1 inference run via the Teflon TFLite delegate are
-unaffected.
+Verified on RK3588 (Orange Pi 5 Plus): out-of-order unbind/rebind
+sequences (including the previously corrupting unbind of core 0 with
+cores 1 and 2 still bound, followed by rebind) now keep all three
+cores findable and functional, with a MobileNetV1 inference run via
+the Teflon TFLite delegate bit-identical to the stock driver
+afterwards.
 
- drivers/accel/rocket/rocket_drv.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/accel/rocket/rocket_device.c |  2 ++
+ drivers/accel/rocket/rocket_device.h |  3 +++
+ drivers/accel/rocket/rocket_drv.c    | 32 ++++++++++++++++++++++++++++----
+ drivers/accel/rocket/rocket_job.c    | 11 ++++++-----
+ 4 files changed, 39 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
+index 46e6ee1..8303f05 100644
+--- a/drivers/accel/rocket/rocket_device.c
++++ b/drivers/accel/rocket/rocket_device.c
+@@ -35,6 +35,8 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
+ 	if (!rdev->cores)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	rdev->max_cores = num_cores;
++
+ 	dma_set_max_seg_size(dev, UINT_MAX);
+ 
+ 	err = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(40));
+diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/rocket_device.h
+index ce662ab..7fb6a9d 100644
+--- a/drivers/accel/rocket/rocket_device.h
++++ b/drivers/accel/rocket/rocket_device.h
+@@ -18,6 +18,9 @@ struct rocket_device {
+ 	struct mutex sched_lock;
+ 
+ 	struct rocket_core *cores;
++	/* Slot capacity (DT core count); slots with a NULL .dev are free. */
++	unsigned int max_cores;
++	/* Number of currently bound cores. */
+ 	unsigned int num_cores;
+ };
+ 
 diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index 67e7f54..d29c5ee 100644
+index d29c5ee..04c1e47 100644
 --- a/drivers/accel/rocket/rocket_drv.c
 +++ b/drivers/accel/rocket/rocket_drv.c
-@@ -24,6 +24,7 @@
-  */
- static struct platform_device *drm_dev;
- static struct rocket_device *rdev;
-+static void *rdev_group;
- 
- static void
- rocket_iommu_domain_destroy(struct kref *kref)
-@@ -163,14 +164,19 @@ static int rocket_probe(struct platform_device *pdev)
- 
- 	if (rdev == NULL) {
- 		/* First core probing, initialize DRM device. */
-+		rdev_group = devres_open_group(&drm_dev->dev, NULL, GFP_KERNEL);
-+		if (!rdev_group)
-+			return -ENOMEM;
- 		rdev = rocket_device_init(drm_dev, &rocket_drm_driver);
- 		if (IS_ERR(rdev)) {
- 			int err = PTR_ERR(rdev);
- 
- 			dev_err(&pdev->dev, "failed to initialize rocket device\n");
- 			rdev = NULL;
-+			devres_release_group(&drm_dev->dev, rdev_group);
- 			return err;
- 		}
-+		devres_close_group(&drm_dev->dev, rdev_group);
- 	}
- 
- 	unsigned int core = rdev->num_cores;
-@@ -190,6 +196,7 @@ static int rocket_probe(struct platform_device *pdev)
- 		if (rdev->num_cores == 0) {
- 			rocket_device_fini(rdev);
- 			rdev = NULL;
-+			devres_release_group(&drm_dev->dev, rdev_group);
- 		}
- 	}
- 
-@@ -213,6 +220,7 @@ static void rocket_remove(struct platform_device *pdev)
- 		/* Last core removed, deinitialize DRM device. */
- 		rocket_device_fini(rdev);
- 		rdev = NULL;
-+		devres_release_group(&drm_dev->dev, rdev_group);
- 	}
+@@ -69,11 +69,21 @@ rocket_iommu_domain_put(struct rocket_iommu_domain *domain)
+ 	kref_put(&domain->kref, rocket_iommu_domain_destroy);
  }
+ 
++static struct rocket_core *rocket_first_live_core(struct rocket_device *rdev)
++{
++	for (unsigned int core = 0; core < rdev->max_cores; core++)
++		if (rdev->cores[core].dev)
++			return &rdev->cores[core];
++
++	return NULL;
++}
++
+ static int
+ rocket_open(struct drm_device *dev, struct drm_file *file)
+ {
+ 	struct rocket_device *rdev = to_rocket_device(dev);
+ 	struct rocket_file_priv *rocket_priv;
++	struct rocket_core *core;
+ 	u64 start, end;
+ 	int ret;
+ 
+@@ -86,8 +96,14 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
+ 		goto err_put_mod;
+ 	}
+ 
++	core = rocket_first_live_core(rdev);
++	if (!core) {
++		ret = -ENODEV;
++		goto err_free;
++	}
++
+ 	rocket_priv->rdev = rdev;
+-	rocket_priv->domain = rocket_iommu_domain_create(rdev->cores[0].dev);
++	rocket_priv->domain = rocket_iommu_domain_create(core->dev);
+ 	if (IS_ERR(rocket_priv->domain)) {
+ 		ret = PTR_ERR(rocket_priv->domain);
+ 		goto err_free;
+@@ -179,10 +195,17 @@ static int rocket_probe(struct platform_device *pdev)
+ 		devres_close_group(&drm_dev->dev, rdev_group);
+ 	}
+ 
+-	unsigned int core = rdev->num_cores;
++	unsigned int core;
+ 
+ 	dev_set_drvdata(&pdev->dev, rdev);
+ 
++	/* Take the first free slot: cores can unbind and rebind in any order. */
++	for (core = 0; core < rdev->max_cores; core++)
++		if (!rdev->cores[core].dev)
++			break;
++	if (WARN_ON(core == rdev->max_cores))
++		return -ENXIO;
++
+ 	rdev->cores[core].rdev = rdev;
+ 	rdev->cores[core].dev = &pdev->dev;
+ 	rdev->cores[core].index = core;
+@@ -210,10 +233,11 @@ static void rocket_remove(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	int core = find_core_for_dev(dev);
+ 
+-	if (core < 0)
++	if (WARN_ON(core < 0))
+ 		return;
+ 
+ 	rocket_core_fini(&rdev->cores[core]);
++	rdev->cores[core].dev = NULL;
+ 	rdev->num_cores--;
+ 
+ 	if (rdev->num_cores == 0) {
+@@ -234,7 +258,7 @@ static int find_core_for_dev(struct device *dev)
+ {
+ 	struct rocket_device *rdev = dev_get_drvdata(dev);
+ 
+-	for (unsigned int core = 0; core < rdev->num_cores; core++) {
++	for (unsigned int core = 0; core < rdev->max_cores; core++) {
+ 		if (dev == rdev->cores[core].dev)
+ 			return core;
+ 	}
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ac51bff..680f943 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -276,7 +276,7 @@ static struct rocket_core *sched_to_core(struct rocket_device *rdev,
+ {
+ 	unsigned int core;
+ 
+-	for (core = 0; core < rdev->num_cores; core++) {
++	for (core = 0; core < rdev->max_cores; core++) {
+ 		if (&rdev->cores[core].sched == sched)
+ 			return &rdev->cores[core];
+ 	}
+@@ -498,16 +498,17 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
+ 	struct rocket_device *rdev = rocket_priv->rdev;
+ 	struct drm_gpu_scheduler **scheds = kmalloc_objs(*scheds,
+ 							 rdev->num_cores);
+-	unsigned int core;
++	unsigned int core, n = 0;
+ 	int ret;
+ 
+-	for (core = 0; core < rdev->num_cores; core++)
+-		scheds[core] = &rdev->cores[core].sched;
++	for (core = 0; core < rdev->max_cores; core++)
++		if (rdev->cores[core].dev)
++			scheds[n++] = &rdev->cores[core].sched;
+ 
+ 	ret = drm_sched_entity_init(&rocket_priv->sched_entity,
+ 				    DRM_SCHED_PRIORITY_NORMAL,
+ 				    scheds,
+-				    rdev->num_cores, NULL);
++				    n, NULL);
+ 	if (WARN_ON(ret))
+ 		return ret;
  
