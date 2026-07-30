@@ -4,138 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9886CC531D0
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 04:52:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CB22C531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 04:56:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8C3010EDB2;
-	Thu, 30 Jul 2026 04:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D80410EDBA;
+	Thu, 30 Jul 2026 04:56:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="fir2qQNx";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iK0MiFtr";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="CqFC47h/";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D996D10EDB2
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 04:52:40 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66U4ZeQh3459197
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 04:52:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- kTnb0bbBTOh0ujs8xWkkOVPWXcBEgS7OoCRQ+dvQBes=; b=fir2qQNxhq8EnkM7
- DvTLumrNy8XRHoHnQEsATqTf0fbMZyUte1xt2nwo8+jSAV5pfVyMsxhXXptxFqD2
- XURBZg3KGec47VkFQjsEzJUWpvTOnQaq00AkH8cO8YavrB7cYzI1pnmZcXaDatPs
- 7VIJCzlHL6H3eGfTNCsh4b0x6WJbJ5LWADmMIXovkbOsysT9XnGaij5rNPMQ5iOO
- MagHalEgOEfyYhknPKBMkP5tyNwTOpKvvngGl7WwejYFQ1W3UWWfhr9fjIWgUNNe
- sPLZv5noskD2EB7fMc4gEcYa2cmbljuXCYq3LM9L3OenaXlgvU42Di6rTuBUNRCS
- 62u5MA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqyqn821t-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 04:52:40 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-cb11535e6a1so1408583a12.0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 21:52:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785387159; x=1785991959;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=kTnb0bbBTOh0ujs8xWkkOVPWXcBEgS7OoCRQ+dvQBes=;
- b=iK0MiFtr6Khks8VB6ZXwHTQrOsjVTQfncxoJAyeAcPBUqzmhw4rV+3lIW62tWnLP+S
- tXIpSTHEtxmZxW+pnOwulkp9+od085ESty3Dj6hoqG+vnKJ2NMk6Tuo3XGt2I1NqAxCf
- v92XYRusq8osOHitTNGxecQt22Jo1DamsStab1Z0gJJj97zvf94vLiwYSVcT2np6NORH
- 6ea7gFDYO9fs+LCNcEfjot8zgtOtd38wENfsYztwMSApejQnPSjNz6reDWwKXHf7w491
- E/gi1ZvluKe2QHnwJ/bij8To3l4sQEnTZSeiU6WXq85aDpJ88M8cB5S/RBSZxFG9GZNh
- vQfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785387159; x=1785991959;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=kTnb0bbBTOh0ujs8xWkkOVPWXcBEgS7OoCRQ+dvQBes=;
- b=dOIK2vgPi4uZ4axaMh9YHHeiUIPntEkNs/9j2DUJyQcA+Jupyrr3wF0Tt9vKygdIHj
- uPFtcL5u9HP7aBoLPAKubR9tb5SfF6/wpdQdkjJgFwMi1IJIMp54JTm4I0j4aoFimhl3
- kGyGMuz9sSLhqagIf1krAuRIiH1eS2EfORCpx65pJyQnBLb2BGulm3VfKvLNfKR0K/rN
- CQBYlnshtrqjZX17exrqnJYnj1KB/sLwenjT9po/NR9BJ4v89bLsQkJes9KUM+HPhcAs
- JGrLq2sdfTi1vWvUfkoZNssuYENp7PFZSYeCf57CgCCb3vyoT6k++ztRM4OEICscyio4
- zhEw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RohavQERb52Uq7uj9o+rG1ztLvTKqD7HtD8tOsMeP61/i9mYMNRLmX3oM6mCbGU8QgFC6y676rPS8I=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzwg49RVbihhU/S8jaZnXEfaKA0X94ViF145lzDnKHcPiyPdPp0
- 5dAUCrN5/KjLDOyMtaOi5m1U543MEXv8j5C/jOt2t/12Ln0aldn/U/c/P7zbw1GFDAu9/WprWZ7
- 88W/TXHE8GKdDjW8SvjvIvfkIoCMetBg+hShVGQ5J3xF2qjchOzQSWJC/2Wk2/8ezQQtEn6iLdp
- E1JCQ=
-X-Gm-Gg: AR+sD13Vwaby/3ZTRGrV8YgkZTXILw8k8RqvdQywdv6cFsyszfD3U7WphsDJDVymxcx
- 8fzw2D8+/9y7iGieoqcn7TUpN/Ti9ngW3wedwsPz+V3Ct//1ddqk4shCvI/xjmqtEhd0iUnCZpQ
- G9DWztk5IZGHtWrnvIkjYLGs5XJk1mqB1PEiHXAeW6jUatHPCAAQ9SgXiwCzwe6ZOsXg15so8w1
- ysDR108tP4MUcP29PexttQdWfk5+LX56/i7UKLXgNpKQwxqBgIRPmArKNjypzHIPg3j8rI9rjpp
- HVpKHLoad6KfPcgj0NOklNAe7BvilKHk1UPkPotcos84yK+xTPhlFoDgl4iRJwzFroIBmDjlBrh
- FYyGjl5EpX/DNlm3slaFOV0FjUdLd6A==
-X-Received: by 2002:a05:6a20:7f99:b0:3c4:42d9:58e3 with SMTP id
- adf61e73a8af0-3c90066b1c6mr1078121637.13.1785387159500; 
- Wed, 29 Jul 2026 21:52:39 -0700 (PDT)
-X-Received: by 2002:a05:6a20:7f99:b0:3c4:42d9:58e3 with SMTP id
- adf61e73a8af0-3c90066b1c6mr1078107637.13.1785387159035; 
- Wed, 29 Jul 2026 21:52:39 -0700 (PDT)
-Received: from [10.204.78.242] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cbdb78ae98asm1601217a12.1.2026.07.29.21.52.35
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2026 21:52:38 -0700 (PDT)
-Message-ID: <7942487a-1a1c-41bd-850b-25f1f4bb0773@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 10:22:33 +0530
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] misc: fastrpc: fix UAF and kernel panic during cleanup
- on process abort
-To: Jianping Li <jianping.li@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013011.outbound.protection.outlook.com
+ [40.93.201.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A18810EDB3
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 04:56:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gHY9iH+CowpHrz1wn08CNM7tJyjVQrj/jQTMTH32Ap3O3YOFWTE8kPUDh+kjAxSfHJqaOCu/b3EOwzkszv1bHsDroEeQ8j6xAazITRBHsQ1y0Qm0uO/DEZhwXh+t2qWvrjZXd0WB7qSRhgQ2nuEF5wNi1DiZoLDE6T46/ov462OmpGv88F+k80Lw2IZidPshIrQhH6GF0cWGhzj5I+Uri3zXcnSZD+ry4dsDC0jSStDMwkcjlGfMhXFTA1ggDBGlSRIv83oY2nDL7BHIEagH0e/2ELARhr7WGoF0KE5uMqeZSNVGLLETW5znKc60DREEvo2NdUq7Xv3+VO+3lorJrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=v0IQo01UpQDIXvvYeVOy5orQWxfHQQuutOScpAVyAuE=;
+ b=lq2LTSoR69Qce3zoBv2XDltiuIjcHw29Q5yD8/1arRJGVww4F9WKw7MOV9cjIKmOvZ6gXgnOEM4Oz7HPyODJvFk54BuBfw+cHRYUpmpD+agVj+DGz38ONRj2cfZzOktrI8VpQyk/RS+sI3h5MXqGaLcqYq+0+j35yxW3Z8oJe9mIPx4RVnuapZ0F+OcU61G9PKDqx72PPNrHoZCru0fu3jwXS25hFJEdYCcGQxSvofeXvd4ROGrW4kIrI24OMdUy+5ZD/coEMxTGjmZN1P38Te01B21Q0e3BoZFq3w5KVauNgbAeOayUJmCwDhigbLT1tWpjB+7xpHkVUivp8vLQ/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=v0IQo01UpQDIXvvYeVOy5orQWxfHQQuutOScpAVyAuE=;
+ b=CqFC47h/maddL2sxWgAaSTndPuQy8A15buHFBSgfPRpYIIDBMqC/xlG3u2Gzbv9NRsSYG3hL8GqX+OQ9Z0VdNOEfgn7Ox9Swien1MR3qknbF2mrn9s2RthXpioxRw4aFttN2wygu8elR6vAKsMga366TFNSfoG+IZX6BiRDWsv50L3QfHTYhheETegEDkcLxMSgk9VqzgDUGuoTwY6FcYIgpijrYpPxUTyZOyElhu8FrFoETAqFKflGYwUAwLanXVAQRrFmy0t/qh0PfEE+YIYlw4O3PxihoJ8CDiLtZ08z4a/Uc9NKt9rF+I005PlqzSEq/wX6KpXeAcPlXDDbHGQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
+ by CH0PR12MB8488.namprd12.prod.outlook.com (2603:10b6:610:18d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Thu, 30 Jul
+ 2026 04:56:20 +0000
+Received: from LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286]) by LV3PR12MB9356.namprd12.prod.outlook.com
+ ([fe80::1c36:31b4:c420:6286%5]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
+ 04:56:20 +0000
+Date: Thu, 30 Jul 2026 00:56:17 -0400
+From: Yury Norov <ynorov@nvidia.com>
+To: Eliot Courtney <ecourtney@nvidia.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Burak Emir <burak.emir@gmail.com>,
+ Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thierry Escande <thierry.escande@linaro.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, quic_chennak@quicinc.com, stable@kernel.org
-References: <20260630063409.475-1-jianping.li@oss.qualcomm.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260630063409.475-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDAzMCBTYWx0ZWRfXxuC3EwKxpVdZ
- LFBzT16dqHVibIZJqZGCnUmXUa9/vX0lIP2iQUcaNtfWBueYBreJOtaeUsOzsVPySScfg5RnjEX
- 1PpP8vOCGVmO/vnnw75geXZq7NTHvV0=
-X-Proofpoint-ORIG-GUID: tBI5maMA4lCpKaDrl0dPS7RsZgO4iha8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDAzMCBTYWx0ZWRfX9wDnIVPpk+Yw
- 3T1UXNKUfscAV59rYP/GK9OCYVbqjC/xyXM5i+apFpZm8BkuNzx/YenNBpEFbANwbhImcknFzp0
- H9SXHIkk/C8FJETuNxulPv5w4hm4sqoYcMnC6W6ldK3RTIg8AGwy5c8VQ44ehsgKTAvnwgKT4UE
- p5SEVaVkbVhSlrkKEKTAaNeXvBTKChHG0m18CVy94jatxLsLhnW7r840plGK70eiDX1BLzt6mMw
- bZr/kIK9mHWTX5HO00pH9nFXWtzWQkReTUc5JBs4z65gTM99tefeODstcXuLC8mVlyEUU5GfPTz
- nURo8smP8JnJto+peZ+dC4Cue7MLCTeZidb7S+r+zlQHs1ney3K+MrJC/XX2dPtSiZgLCQVheBi
- LBTtoYhjB7EAx+8PzE4YmJn50nlSu6oc3O3b01Mtkj/XEl84ihBBPfdBspkdz2cZamRVTIMpg3l
- OEs9cfNNcIm2sW0LQYw==
-X-Proofpoint-GUID: tBI5maMA4lCpKaDrl0dPS7RsZgO4iha8
-X-Authority-Analysis: v=2.4 cv=QdRWeMbv c=1 sm=1 tr=0 ts=6a6ad898 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=IFEFMmON-DzK0gGTnVEA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_01,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 malwarescore=0 spamscore=0 bulkscore=0
- clxscore=1015 lowpriorityscore=0 phishscore=0 suspectscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607300030
+ John Hubbard <jhubbard@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
+ Zhi Wang <zhiw@nvidia.com>, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v3 2/4] rust: bitmap: add contiguous area operations
+Message-ID: <amrZcX33BGJCTDMp@yury>
+References: <20260729-chid-v3-0-20cc08032bbc@nvidia.com>
+ <20260729-chid-v3-2-20cc08032bbc@nvidia.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260729-chid-v3-2-20cc08032bbc@nvidia.com>
+X-ClientProxiedBy: SJ0PR05CA0191.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::16) To LV3PR12MB9356.namprd12.prod.outlook.com
+ (2603:10b6:408:20c::21)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV3PR12MB9356:EE_|CH0PR12MB8488:EE_
+X-MS-Office365-Filtering-Correlation-Id: cdb841a9-0056-4ed0-a93f-08deedf6e599
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|376014|1800799024|366016|6133799003|22082099003|18002099003|3023799007|10067099003|56012099006|4143699003|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info: 5wynsMd3TmCJ8YYzvPU8N45U243NibwOE4cE4WH8uBqoDJGAUNYBij7045Ttm7J5IY8U3yYu6+BWcfojZAtFmPJJXqjITWmSA1RjjO7tXrNu00KArdcaRV/PAGvZcRctHByy7yVZv9CzkzEfglJg7kMsr4NB36TVryLAl8JJjW9+50AszuS7WvkJ4Ng0WRZAuzkZDg51GWUdZYXXII8e4xf2iJQQaFrd0PwqJwjoWHsLduc5LWjEM7oEkputEYp5tGjHt27Go8YRIVmyfjUo7Zobq3OOG+oSFt1xLgFuBd98StCnhQlmPT/u2asw3MYmR/H+Z0AGoP+smWSKcpXZiiqC/qHv53oIZZSGQh5+MMs0fFynGAXA5nAiAffqsi46ISbmx52hoNThrhJfKrRx/8n2NW6TTFyqubk9jHgqyCO+SOev7r9WRIaFIbJrXcB2ShB0zkBTTfd6JnTV/saP3uaBJ4MKnQ1nVszJwNzL1xjISyY1XiwpUWvcTyinlHweK45rg3NOyBwN0YZsqBX0saAknWimN2z7jEXzQrnPemmJZ4T1MLdc34J+fJ2jZLfjlG6TquoSHaySYo4i5mxj29FRkcSHTXD1JcgdmFA/bxLJPsv6pdiyGwPBf5FPXWZAgjJGwHq31kg02ZddXJd8T+OMIm5a82Z0szaha1Jnvl8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV3PR12MB9356.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(6133799003)(22082099003)(18002099003)(3023799007)(10067099003)(56012099006)(4143699003)(11063799006)(5023799004);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?V4kyJNkJqUKptsvATdL1CdsD2W3IYH/wPCFYgvOH29eVQebLNBiTe0QxQdo7?=
+ =?us-ascii?Q?oh0c4Atrp9ckGbE+lpBv8PTwiHSlpoqYNV724RrzRRKDPyw82p6H0YoVzIQj?=
+ =?us-ascii?Q?1syXw/CzIyGqSnlyiDj/8hJULW2p3Hs7mrrxKtMxdnBZuIhophxAIdT/IcZW?=
+ =?us-ascii?Q?y4hnCMzFSf9TgseiuasvFuYq2NTpMIC+2aHb0Q9WyG1ExAz8SKTJfC9aUySP?=
+ =?us-ascii?Q?aboT7pbXvLefOXEx2uHc+0W8ZQNEAP/0Jux3FGRh+PgVXB5SAO3f+enYsLVM?=
+ =?us-ascii?Q?pt0Z+x8sSKh44EhxpC8tZdWGKWSpiq8liT4fsomQCualDLVWQ6qnn+Tm9IT8?=
+ =?us-ascii?Q?K6RT6gxF7eBsDMdOeQkDXMuc5SWngA49NIyhd4p3vv5+bEdnhnaGCgG8jX+z?=
+ =?us-ascii?Q?hywuS5ofS0wvNNwpcvYbNUdo2l0nm/8p7qIcjdd1BlRTUsg7ENIP+oKR6935?=
+ =?us-ascii?Q?vB/iMoQJhoUuaEqi71s2+Fe0X/PuKhW76/adDCFcWu/iVsl4vnvk2f9MbJ/C?=
+ =?us-ascii?Q?6HJ8wWdpyM/R8lf7/WCc+OoMfmiE907yYFpzB7pOX4fLazROCVHkoIFsWS0W?=
+ =?us-ascii?Q?At7q5oRk5PFbpiVJTFvZuATp903gZ69FZfA1hhabsRVN6EODptsRVZ8s/+YF?=
+ =?us-ascii?Q?+NEScASAitfzoQjMQsGTMTblBayFoTKp/R3Aj/q5hSM5Os904BUHG0+qG7SG?=
+ =?us-ascii?Q?3UUxX6E0y9VRMn/nkLIQ49r9vGx1zz5dRHADEw4MkjTY0rqcsSnMd3+pjT0F?=
+ =?us-ascii?Q?0cshHFOzhKRDa3aIKGJHv4HqEOBRZC3VwGhvDw4HTLf15oRd/cNUP7Skufs4?=
+ =?us-ascii?Q?HTRmtWR73YCNo19Q6u7Mkqs6n+TYtO1jQFqdHUfp69qOxJpQKpgzKLN0V270?=
+ =?us-ascii?Q?jrhxh4Re3Wypin4prNBuHrxUlJ0zmBHRbqvv6Rzd1ZHjWnNMqGfWBWTd42rL?=
+ =?us-ascii?Q?lWGU8Aubc8d+c8wU/IOxX5Q8Lf6rSqIk2/38DXPW5aZL2Cj3A6x7v92WwwVj?=
+ =?us-ascii?Q?qSfzNhjK5xzrxSz5RXcIdMJG6aNTk+BcWBIf7GzUgqrOAYulHOp0HreS8BD9?=
+ =?us-ascii?Q?r5QUKTVRCEWGLS7FVdypCvnr4eKfjeJHf3xy8Th0DX9Rh5ZTzgWWffzq9H/y?=
+ =?us-ascii?Q?qYhunXZC95yJ6q4CaJCfA8FZAvytPe1LdgoNTissSgjgFNRYQLIDlcvOZlnF?=
+ =?us-ascii?Q?Kkws3QghOvyxuhjapzMKyHJokDETfZ4hfdW3rD52CzMm56u0oJxgwu1sSuf5?=
+ =?us-ascii?Q?v6HW+2Fm5a7D4CeXL7XbADTjSRSC/jGNBXvpGZxPs2PipxlujrVTvixIpUqz?=
+ =?us-ascii?Q?RU8WCJdP7OHjlGcL19AF8RTde6O2/SWCibQtTha+TsLy7eN9Ux4mgRiNerVU?=
+ =?us-ascii?Q?rB/kG7hvIs1dfXo+LUD7d82W4+hEJYtPs+vomKmERzZ696DESnhnSAAfTrcZ?=
+ =?us-ascii?Q?eQsRH/p9duAgg9r/9LHY1bChBBvGcfmeV+uEt7+NbZhsxW4h085GlYZ/6VNh?=
+ =?us-ascii?Q?IaPPuCsvwVXRD2k8crpd8xVnpHoc3w8aC3GhM12j5qmcMOjXcGFkiWWOhg/j?=
+ =?us-ascii?Q?pOM6e0qz0z/8oKhuMhhfq3awsOZa7vjPpIg3OOEvlyeUh6LTkXK0CT9faF7n?=
+ =?us-ascii?Q?2BB33mh91rdiZKqSqqx4MDWeR2dxsSGojPJ50VPA6GHEWKYzuCHmMOqqlNEE?=
+ =?us-ascii?Q?xb58hJ4AD3Glsnc7w9x2XHYlr9x8kv6hFFB4++QRKP8MlGiN1tjs6zHKr4Rf?=
+ =?us-ascii?Q?rtCL0LgLHQ=3D=3D?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cdb841a9-0056-4ed0-a93f-08deedf6e599
+X-MS-Exchange-CrossTenant-AuthSource: LV3PR12MB9356.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 04:56:20.4381 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YLmlabdYQipWMldA+5zHvLaeJf5ifDt6Lq0rbCClVk+GuByoDXxHhaMQ9nvGEgy8ol+yp69ntu4yTyjMeoxdpQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8488
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,198 +142,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 30-06-2026 12:04, Jianping Li wrote:
-> When a userspace FastRPC client is abruptly terminated, FastRPC
-> cleanup paths can race with device and session teardown.
+On Wed, Jul 29, 2026 at 03:54:13PM +0900, Eliot Courtney wrote:
+> Add bindings for area operations on bitmaps. Each one is
+> made safe by adding some extra checks compared to the underlying C code
+> (for example, checking bounds) and with additional checks to catch
+> likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
 > 
-> This results in kernel panics in different release paths:
-> - fastrpc_release() when using remote heap, originating from
->   fastrpc_buf_free()
-> - fastrpc_device_release() when using system heap, originating from
->   fastrpc_free_map()
+> The C code uses signed integers for some parameters, for example the
+> length for `__bitmap_set`, so bounds check against i32::MAX. We can't
+> rely on `BitmapVec::MAX_LEN` because `Bitmap` may not necessarily be
+> backed by `BitmapVec`.
 > 
-> In addition, fastrpc_map_put() may trigger refcount use-after-free
-> due to concurrent cleanup without proper synchronization.
+> Add tests demonstrating the edge cases.
 > 
-> The root cause is that buffer and map cleanup paths may access map
-> and buf resources after the associated device or session has
-> already been released.
-> 
-> Fix this by:
-> - Introducing mutex protection for map and buf lifetime
-> - Serializing buffer and map cleanup against device teardown
-> - Skipping buffer and map operations when the device is already gone
-> 
-> These changes ensure cleanup paths are safe against unexpected
-> process aborts and prevent use-after-free and kernel panic scenarios.
-> 
-> Fixes: c68cfb718c8f9 ("misc: fastrpc: Add support for context Invoke method")
-> Cc: stable@kernel.org
-> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
+> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
 > ---
->  drivers/misc/fastrpc.c | 57 ++++++++++++++++++++++++++++++++++++++----
->  1 file changed, 52 insertions(+), 5 deletions(-)
+>  rust/kernel/bitmap.rs | 194 ++++++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 194 insertions(+)
 > 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index a9b2ae44c06f..3521518f9fe5 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -255,6 +255,8 @@ struct fastrpc_session_ctx {
->  	int sid;
->  	bool used;
->  	bool valid;
-> +	bool allocated;
-> +	struct mutex mutex;
->  };
+> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
+> index a43bfe0ec3dc..f4b0b8ae39d8 100644
+> --- a/rust/kernel/bitmap.rs
+> +++ b/rust/kernel/bitmap.rs
+> @@ -10,6 +10,7 @@
+>  use crate::bindings;
+>  #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+>  use crate::pr_err;
+> +use crate::ptr::Alignment;
+>  use core::ptr::NonNull;
 >  
->  struct fastrpc_soc_data {
-> @@ -335,9 +337,14 @@ static inline u64 fastrpc_sid_offset(struct fastrpc_channel_ctx *cctx,
->  static void fastrpc_free_map(struct kref *ref)
->  {
->  	struct fastrpc_map *map;
-> +	struct fastrpc_user *fl;
->  
->  	map = container_of(ref, struct fastrpc_map, refcount);
->  
-> +	fl = map->fl;
-> +	if (!fl)
-> +		return;
+>  /// Represents a C bitmap. Wraps underlying C bitmap API.
+
+Some comments use indicative form in the file, but the imperative
+'represent' is a more standard way. Can you please use it instead?
+
+> @@ -497,6 +498,116 @@ pub fn next_zero_bit(&self, start: usize) -> Option<usize> {
+>              Some(index)
+>          }
+>      }
 > +
->  	if (map->table) {
->  		if (map->attr & FASTRPC_ATTR_SECUREMAP) {
->  			struct qcom_scm_vmperm perm;
-> @@ -356,10 +363,16 @@ static void fastrpc_free_map(struct kref *ref)
->  				return;
->  			}
->  		}
-> +		mutex_lock(&fl->sctx->mutex);
-> +		if (!fl->sctx->dev) {
-> +			mutex_unlock(&fl->sctx->mutex);
-in this case, should you still delete map from fl->maps list?
-should you still do dma_buf_put to remove dma_buf reference?
+> +    /// Finds a contiguous area of `nbits` zero bits at or after `start`, aligned to `align`.
+> +    ///
+> +    /// Returns the bit index of the start of the area, or [`None`] if no such area fitting in
+> +    /// the bitmap exists.
+> +    ///
+> +    /// The returned index is a multiple of `align`. Alignments where `self.len() + align - 1`
+> +    /// overflows a `usize` can hang the underlying C code.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and `start` is out of bounds.
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// use kernel::alloc::{AllocError, flags::GFP_KERNEL};
+> +    /// use kernel::bitmap::BitmapVec;
+> +    /// use kernel::ptr::Alignment;
+> +    ///
+> +    /// let mut b = BitmapVec::new(64, GFP_KERNEL)?;
+> +    /// let unaligned = Alignment::new::<1>();
+> +    ///
+> +    /// assert_eq!(Some(0), b.next_zero_area(0, 8, unaligned));
+> +    /// b.set(0, 5);
+> +    /// assert_eq!(Some(5), b.next_zero_area(0, 8, unaligned));
+> +    /// assert_eq!(Some(8), b.next_zero_area(0, 8, Alignment::new::<8>()));
+> +    /// assert_eq!(None, b.next_zero_area(0, 65, unaligned));
+> +    /// # Ok::<(), AllocError>(())
+> +    /// ```
+> +    #[inline]
+> +    pub fn next_zero_area(&self, start: usize, nbits: usize, align: Alignment) -> Option<usize> {
 
-Also, there was a recent change where fl refcounting was added[1]. Can
-you see if you can take use of that mechanism instead of adding checks
-at all these places?
+Please create the rust wrapper next_zero_area_off() around
+bitmap_find_next_zero_area_off(), then in rust create the
+next_zero_area(), if you need it.
 
-[1]
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/drivers/misc/fastrpc.c?id=e85eb5feca8e254905ffa6c57a3c99c89a674a0f>
-+			return;
-> +		}
->  		dma_buf_unmap_attachment_unlocked(map->attach, map->table,
->  						  DMA_BIDIRECTIONAL);
->  		dma_buf_detach(map->buf, map->attach);
->  		dma_buf_put(map->buf);
-> +		mutex_unlock(&fl->sctx->mutex);
->  	}
->  
->  	if (map->fl) {
-> @@ -422,9 +435,18 @@ static int fastrpc_map_lookup(struct fastrpc_user *fl, int fd,
->  
->  static void fastrpc_buf_free(struct fastrpc_buf *buf)
->  {
-> -	dma_free_coherent(buf->dev, buf->size, buf->virt,
-> -			  fastrpc_ipa_to_dma_addr(buf->fl->cctx, buf->dma_addr));
-> -	kfree(buf);
-> +	struct fastrpc_user *fl = buf->fl;
+> +        bitmap_assert!(
+> +            start < self.len(),
+> +            "`start` must be < {}, was {}",
+> +            self.len(),
+> +            start
+> +        );
 > +
-> +	if (!fl)
-> +		return;
-> +	mutex_lock(&fl->sctx->mutex);
-> +	if (fl->sctx->dev) {
-> +		dma_free_coherent(buf->dev, buf->size, buf->virt,
-> +				  fastrpc_ipa_to_dma_addr(buf->fl->cctx,
-> +							  buf->dma_addr));
-> +		kfree(buf);
-kfree should happen unconditionally here, it's a leak if you skip it.
+> +        let nr = u32::try_from(nbits).ok()?;
+> +
+> +        // SAFETY: `bitmap_find_next_zero_area_off` is safe to use with an out of bounds `start`
+> +        // value and never reads beyond `self.len()` bits.
+> +        let index = unsafe {
+> +            bindings::bitmap_find_next_zero_area_off(
+> +                self.as_ptr().cast_mut(),
+> +                self.len(),
+> +                start,
+> +                nr,
+> +                align.as_usize() - 1,
+> +                0,
+> +            )
+> +        };
+> +
+> +        // In case of overflow, we may get back a range outside of what we requested.
 
-//ekansh> +	}
-> +	mutex_unlock(&fl->sctx->mutex);
+No, we can't. We've got the test_bitmap_find_next_zero_area_off() for
+it (in next). If you think the test is incomplete, please extend it.
+
+If you believe that bitmap_find_next_zero_area_off() may return something
+like that, it means the function is buggy, and you shouldn't trust it at
+all.
+
+> +        let end = index.checked_add(nbits)?;
+> +        if index < start || index >= self.len() || end > self.len() {
+> +            None
+> +        } else {
+> +            Some(index)
+> +        }
+
+So, this should be a simple:
+
+        (i < len).then_some(i)
+
+> +    }
+> +
+> +    /// Sets a contiguous area of `nbits` bits starting at `start`.
+> +    ///
+> +    /// If CONFIG_RUST_BITMAP_HARDENED is not enabled and the area `start..start + nbits` is out of
+> +    /// bounds, does nothing.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and the area `start..start + nbits` is out
+> +    /// of bounds.
+> +    #[inline]
+> +    pub fn set(&mut self, start: usize, nbits: usize) {
+> +        bitmap_assert_return!(
+> +            start
+> +                .checked_add(nbits)
+> +                .is_some_and(|end| end <= self.len() && end <= i32::MAX as usize),
+> +            "Area `start..start + nbits` ({}..{}) must be within bounds {}",
+> +            start,
+> +            start.saturating_add(nbits),
+> +            self.len()
+> +        );
+> +        // SAFETY: The area `start..start + nbits` is within bounds.
+
+Not sure I understand. In the above assertion block you check for it,
+now you say it's always true...
+
+I think, your language should be similar to the
+find_next_zero_area_off() case: it's safe to call the function with
+the out-of-bounds start and nbits.
+
+> +        unsafe { bindings::__bitmap_set(self.as_mut_ptr(), start as u32, nbits as i32) };
+> +    }
+> +
+> +    /// Clears a contiguous area of `nbits` bits starting at `start`.
+> +    ///
+> +    /// If CONFIG_RUST_BITMAP_HARDENED is not enabled and the area `start..start + nbits` is out of
+> +    /// bounds, does nothing.
+> +    ///
+> +    /// # Panics
+> +    ///
+> +    /// Panics if CONFIG_RUST_BITMAP_HARDENED is enabled and the area `start..start + nbits` is out
+> +    /// of bounds.
+> +    #[inline]
+> +    pub fn clear(&mut self, start: usize, nbits: usize) {
+> +        bitmap_assert_return!(
+> +            start
+> +                .checked_add(nbits)
+> +                .is_some_and(|end| end <= self.len() && end <= i32::MAX as usize),
+> +            "Area `start..start + nbits` ({}..{}) must be within bounds {}",
+> +            start,
+> +            start.saturating_add(nbits),
+> +            self.len()
+> +        );
+> +        // SAFETY: The area `start..start + nbits` is within bounds.
+> +        unsafe { bindings::__bitmap_clear(self.as_mut_ptr(), start as u32, nbits as i32) };
+> +    }
 >  }
 >  
->  static int __fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
-> @@ -447,8 +469,11 @@ static int __fastrpc_buf_alloc(struct fastrpc_user *fl, struct device *dev,
->  	buf->dev = dev;
->  	buf->raddr = 0;
->  
-> -	buf->virt = dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
-> -				       GFP_KERNEL);
-> +	mutex_lock(&fl->sctx->mutex);
-> +	if (fl->sctx->dev)
-> +		buf->virt = dma_alloc_coherent(dev, buf->size, &buf->dma_addr,
-> +					       GFP_KERNEL);
-> +	mutex_unlock(&fl->sctx->mutex);
->  	if (!buf->virt) {
->  		mutex_destroy(&buf->lock);
->  		kfree(buf);
-> @@ -491,6 +516,10 @@ static void fastrpc_channel_ctx_free(struct kref *ref)
->  	struct fastrpc_channel_ctx *cctx;
->  
->  	cctx = container_of(ref, struct fastrpc_channel_ctx, refcount);
-> +	for (int i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
-> +		if (cctx->session[i].allocated)
-> +			mutex_destroy(&cctx->session[i].mutex);
-> +	}
->  
->  	kfree(cctx);
+>  #[cfg(CONFIG_RUST_BITMAP_KUNIT_TEST)]
+> @@ -614,4 +725,87 @@ fn bitmap_copy_and_extend() -> Result<(), AllocError> {
+>          assert_eq!(Some(17), long_bitmap.last_bit());
+>          Ok(())
+>      }
+> +
+> +    #[test]
+> +    fn bitmap_area_set_clear_find() -> Result<(), AllocError> {
+> +        let mut b = BitmapVec::new(128, GFP_KERNEL)?;
+> +        let unaligned = Alignment::new::<1>();
+> +
+> +        assert_eq!(Some(0), b.next_zero_area(0, 5, unaligned));
+> +        b.set(0, 5); // Now contains {[0, 5)}.
+> +
+> +        assert_eq!(Some(0), b.next_bit(0));
+> +        assert_eq!(Some(4), b.next_bit(4));
+> +        assert_eq!(Some(5), b.next_zero_bit(0));
+> +        assert_eq!(Some(5), b.next_zero_area(0, 5, unaligned));
+> +        assert_eq!(Some(8), b.next_zero_area(0, 5, Alignment::new::<8>()));
+> +
+> +        b.set(8, 8); // Now contains {[0, 5), [8, 16)}.
+> +        assert_eq!(Some(16), b.next_zero_area(0, 4, Alignment::new::<16>()));
+> +        assert_eq!(Some(16), b.next_zero_area(0, 4, unaligned));
+> +
+> +        b.clear(0, 5); // Now contains {[8, 16)}.
+> +        assert_eq!(Some(0), b.next_zero_area(0, 5, unaligned));
+> +        assert_eq!(Some(8), b.next_bit(0));
+> +        assert_eq!(Some(15), b.last_bit());
+> +
+> +        b.clear(16, 0); // Zero-length in-bounds clears are no-ops.
+> +        assert_eq!(Some(8), b.next_bit(0));
+> +        assert_eq!(Some(15), b.last_bit());
+> +
+> +        // A zero-length request returns the first aligned position at or
+> +        // after the next zero bit, even if that position's own bit is set.
+> +        assert_eq!(Some(1), b.next_zero_area(1, 0, unaligned));
+> +        assert_eq!(Some(8), b.next_zero_area(1, 0, Alignment::new::<8>()));
+> +
+> +        b.set(60, 10); // Now contains {[8, 16), [60, 70)}.
+> +        assert_eq!(Some(60), b.next_bit(16));
+> +        assert_eq!(Some(69), b.last_bit());
+> +        assert_eq!(Some(16), b.next_zero_area(9, 40, unaligned));
+> +        assert_eq!(Some(70), b.next_zero_area(0, 45, unaligned));
+> +
+> +        b.clear(62, 6); // Now contains {[8, 16), [60, 62), [68, 70)}.
+> +        assert_eq!(Some(62), b.next_zero_area(60, 6, unaligned));
+> +        assert_eq!(Some(61), b.next_bit(61));
+> +        assert_eq!(Some(69), b.last_bit());
+> +
+> +        b.set(64, 0); // Zero-length in-bounds sets are no-ops.
+> +        assert_eq!(Some(62), b.next_zero_bit(62));
+> +        Ok(())
+> +    }
+> +
+> +    #[test]
+> +    fn bitmap_area_exhaustion() -> Result<(), AllocError> {
+> +        let mut b = BitmapVec::new(64, GFP_KERNEL)?;
+> +        let unaligned = Alignment::new::<1>();
+> +
+> +        assert_eq!(None, b.next_zero_area(0, 65, unaligned));
+> +        assert_eq!(None, b.next_zero_area(0, usize::MAX, unaligned));
+> +        assert_eq!(None, b.next_zero_area(1, usize::MAX, unaligned));
+> +
+> +        b.set_bit(0); // Now contains {[0, 1)}.
+> +        assert_eq!(None, b.next_zero_area(0, usize::MAX, unaligned));
+> +
+> +        b.set(0, 61); // Now contains {[0, 61)}.
+> +        assert_eq!(None, b.next_zero_area(0, 4, unaligned));
+> +        assert_eq!(Some(61), b.next_zero_area(0, 3, unaligned));
+> +        assert_eq!(None, b.next_zero_area(0, 1, Alignment::new::<64>()));
+> +        Ok(())
+> +    }
+> +
+> +    #[test]
+> +    #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+> +    fn owned_bitmap_area_out_of_bounds() -> Result<(), AllocError> {
+> +        let mut b = BitmapVec::new(64, GFP_KERNEL)?;
+> +
+> +        // Should be ignored since out of bounds.
+> +        b.set(64, 4);
+> +        b.set(62, 8);
+> +        b.set(usize::MAX, 0);
+> +        b.clear(usize::MAX, 0);
+> +        b.clear(2048, 8);
+> +        assert_eq!(None, b.next_bit(0));
+> +        assert_eq!(None, b.next_zero_area(64, 1, Alignment::new::<1>()));
+> +        Ok(())
+> +    }
 >  }
-> @@ -855,19 +884,28 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
->  		goto get_err;
->  	}
->  
-> +	mutex_lock(&fl->sctx->mutex);
-> +	if (!fl->sctx->dev) {
-> +		err = -ENODEV;
-> +		mutex_unlock(&fl->sctx->mutex);
-> +		goto attach_err;
-> +	}
->  	map->attach = dma_buf_attach(map->buf, sess->dev);
->  	if (IS_ERR(map->attach)) {
->  		dev_err(sess->dev, "Failed to attach dmabuf\n");
->  		err = PTR_ERR(map->attach);
-> +		mutex_unlock(&fl->sctx->mutex);
->  		goto attach_err;
->  	}
->  
->  	table = dma_buf_map_attachment_unlocked(map->attach, DMA_BIDIRECTIONAL);
->  	if (IS_ERR(table)) {
->  		err = PTR_ERR(table);
-> +		mutex_unlock(&fl->sctx->mutex);
->  		goto map_err;
->  	}
->  	map->table = table;
-> +	mutex_unlock(&fl->sctx->mutex);
->  
->  	if (attr & FASTRPC_ATTR_SECUREMAP)
->  		map->dma_addr = sg_phys(map->table->sgl);
-> @@ -2246,6 +2284,8 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
->  	sess->used = false;
->  	sess->valid = true;
->  	sess->dev = dev;
-> +	mutex_init(&sess->mutex);
-> +	sess->allocated = true;
->  	dev_set_drvdata(dev, sess);
->  	sess->sid = sid;
->  
-> @@ -2260,6 +2300,8 @@ static int fastrpc_cb_probe(struct platform_device *pdev)
->  				break;
->  			dup_sess = &cctx->session[cctx->sesscount++];
->  			memcpy(dup_sess, sess, sizeof(*dup_sess));
-> +			mutex_init(&dup_sess->mutex);
-> +			dup_sess->allocated = true;
->  		}
->  	}
->  	spin_unlock_irqrestore(&cctx->lock, flags);
-> @@ -2282,6 +2324,11 @@ static void fastrpc_cb_remove(struct platform_device *pdev)
->  	spin_lock_irqsave(&cctx->lock, flags);
->  	for (i = 0; i < FASTRPC_MAX_SESSIONS; i++) {
->  		if (cctx->session[i].sid == sess->sid) {
-> +			spin_unlock_irqrestore(&cctx->lock, flags);
-> +			mutex_lock(&cctx->session[i].mutex);
-> +			cctx->session[i].dev = NULL;
-> +			mutex_unlock(&cctx->session[i].mutex);
-> +			spin_lock_irqsave(&cctx->lock, flags);
->  			cctx->session[i].valid = false;
->  			cctx->sesscount--;
->  		}
-
+> 
+> -- 
+> 2.55.0
