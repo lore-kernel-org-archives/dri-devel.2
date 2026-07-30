@@ -4,63 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9353C5516E
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:38:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B38BCC5516E
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:38:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3843A10E1B5;
-	Thu, 30 Jul 2026 17:38:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C96D10EFC5;
+	Thu, 30 Jul 2026 17:38:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RtPF0P5p";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hpdi+tKm";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A8F7610E1B5
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:38:29 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-495590dde14so467165e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 10:38:29 -0700 (PDT)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B04BE10E68C
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:38:32 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-49557167508so339165e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 10:38:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785433108; x=1786037908; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=7OoqYtdO+0fOmVWiZOoM5gwTne70jDLTok+A94SX0IU=;
- b=RtPF0P5pzY6q/uLFJn19JRzFmzY1AX9z2Z6WNDbQ6er14vc2goNQGBeph2F8oVfqyM
- NxLWu4ovO6dRfAYeAJlbaQ27OVZa4m1xDV7/Zd6hwN2ZyET8kn986H8Dd+40nRJHreap
- OfNCXWrtnXTd0iGyj5PxOLWbS1Aeb95JRrmv8DrnPNylwNZNH6lbdTzabRD0xRuto/a0
- tU3/BveIqHkdTddcaeSMYicwGnRbWrWAyU1k6PuzvPz0zlszhVJMiXhfxxASOjcQ1EF8
- 9t5AGqp2RhcdhR9uyJXlg+2ANgW0VVdEspYMCK2a3dBzmFr6r3UeeWt01KCBQ8N6nrmC
- IbKw==
+ d=gmail.com; s=20251104; t=1785433111; x=1786037911; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=PM3BRrh2FNXUCkcSKqT+U8kC/SFlU1y7/LSteg7Tts0=;
+ b=hpdi+tKmivosgPJGzc6sOAL9txOw3cHoo5Xzlp/zHmqmmcWp9lkxvJARm6lRBBlJ14
+ ZLd0/k0PuW/TyooWbyymeURuLq1M7oCXDCiom6i5MdF/HkEbOxuza9vack2CtjqUq44W
+ idOdS9YT18iJfYU5maHoB1e0zrLZVUSOW4pB8EQ6HHGo0+OKt5TXliHBKefzrE8Y9YcM
+ H82EH9HcTVI4DVYw2pz2BNUOvJdYhftw8B3URoJ/waqUom1umTWUj9HcbJ+7Ti6XrQ+D
+ Asj2s3AxEfVZ2f7FXcjrTmV3L82MPpMTyOMYk/TYcBjmfngiva23IUvzaZvYehk+4MW4
+ +ptg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785433108; x=1786037908;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=7OoqYtdO+0fOmVWiZOoM5gwTne70jDLTok+A94SX0IU=;
- b=ALE73IygyQBXDTLx02xtvuet7WCfMxVlxNYOfsws1C2Np46uhwaQolTw+Mt+ZDtSRk
- x+TcpVcmUdVwh4KLmynqMSKSFXxqU89sjJf4UKNUnpoNlIkQtSlCacO9z15pXWxHdDsT
- hlHjbNPCbB6vcntUuwPpAGpyQvOSHPMGfyyq1dlxGS6i/11GEmFnXQGApUglBPfd0Amk
- tFByUq+ZG9Er8BuIRC9wJuKAUwtuWmFcD4WuFh+arhQ18nuMeH51clgJw096Afi/gxvR
- AlBMvVg82fa1UMF8241JDvfHMa3f7mQEo3SthEuLnxjS/aVDtaEGlKvzEiZyyRLKzupU
- tBVA==
-X-Gm-Message-State: AOJu0YzvciYDabB+uuVXnYc1e0jBhg+X4BRAmcP+ckeKGtm/g6QJDWul
- BbOY+kIaP4wGZMZ0CsUN7ohLzhp1asIjRCQ1Ms2PCkiQ2mcQvvVrhoPZAk71OTWbWWQ=
-X-Gm-Gg: AR+sD11rY6Us1kPC6EZnDE97nyYXz4m1oMgZvA1q/pQWRENzoQaI43ZXAirbO9Agwqf
- BxhtQZpk1jgYqM9/qUC07fUz7aY/W9YQboYo3frUPuMTTzobPOwXyZxRN/nNSIgedDiABYIKpIa
- jy0zDqq5eTiGCNy65ePweAQIk8rBnDpgZtJGv7RkFr1We5tkzpmjW23WToaIPsioXnzPxkzDygl
- fa9riKIrn7ztG5sLFYpG138BnfgoHCrMldmxs2XeAKt/yeOtA25DIethnZCt21+MWJB4SoezFua
- A3OXH4KnMlXOFoOjrYKhtf/Avd6oNiu//+c3dqjfPWhrtV40Pxnjzu99oXAMT3yTKpfvg1hg+OR
- CcWcNVEA633TSV1EerHvP0NJ+/qVhMNu7WOmxkIK3W4u4jmXrdcpZh6psx3PlsGr/1L6Bd8Ppmy
- nkk/aaJF+SxAZ5pUd/r5l0fjSeIvmVqLt1olO2dLUx4gIgiMgf4FAqnJsCf6fz0K8CSFUFwwKwK
- n93AWCCeCrvIXu2us1WRMfGt29jiijCyJ1P1CHRYLyAEHhrzjwTrW8vFdVdVpEhuidWmf4pPnNX
- PXXZD826tA/i0EmV/5L71tFL7FNi0hAQaSsBWQ==
-X-Received: by 2002:a05:600c:8b43:b0:495:4a34:16e1 with SMTP id
- 5b1f17b1804b1-49804c531d2mr21225095e9.23.1785433107750; 
- Thu, 30 Jul 2026 10:38:27 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1785433111; x=1786037911;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=PM3BRrh2FNXUCkcSKqT+U8kC/SFlU1y7/LSteg7Tts0=;
+ b=cg+BC4+mBipUF9TZkT6LrAZxZULbaoflZB8zbbQEwxA2kBuPh5lIHDmitkpt5IGs+N
+ 5aY5G8CtWOZ6CiSvPWVRHxBMbyCwU5r0q9nrMp0F/+xH1ioyPYYVUiMotfv3RP2lTU1/
+ nhzbP+xcxiaCjC8snIYYgg9jWg4Q0UcaA15mPr4ev620S9FVurN+4bxiY7bOZ6cgatMo
+ rbe00T+e36197GOOgt6dfkjIIYCtEz/72Ye4l9971FPVjzgWDgXDc/+yVUwZksK26ELP
+ 4RVxCBL2Cc1ytFMkBmnuapsrNY95wnjoEjTjHcrN9Cnetq2YzEKWC/G44vRxf/tEE4qx
+ IcKA==
+X-Gm-Message-State: AOJu0YypyJC+UJvNcd1g5YC/6MBaZQ38j8Lp0yJEYiIULYWawctqnM4b
+ cR0aRPiz2OEQJh/JKtK1Vu0pe9C4QyMtaAM+JxBg/x30A3gRWZZ400owVyTnAmgvYcE=
+X-Gm-Gg: AR+sD11ZktUkJpqmUvT1IpBHolVSxL+4J46oi5YYaHCEuxwIRkBTw+g/2FlI3L7Ckk4
+ LAu7gS7mfFvLsSbuF+6zSQIbxIBSt+Hnad+lbtswZ97tawi1C/4qnoOGptI6JV8EwENlREcBKcZ
+ HuG7kG4NXVkdOSd4YoFOnFaiTrBjajPsCxzK8ur9ltsADEPOrzJo2JVHPj798tJyR6iq//b0Bv0
+ eboUNCiAdkxrMju15qlL3n9sce4IcjXdTCVEll9lZll3c8E8h06hmubZQqOfuIfrnKCcBz1PBYW
+ gFub76zRTqTCo7ApKDNVCYY/wxcycHH4FizDqL1tNtsDZ1bptYXRO4RR0QyqfED9In/YY/ph7GS
+ WbiXRwp2Z4nt1RMQazj800H+dA/slRKqSeaiIGQAFMi5hTxkJfDWdP4Oo/FWQkMsZn82D7LmX81
+ S5sKjRrMcaxeYH2pFn4Y0X9NTuXI5ZEVgFNz+SpebdANp2kDFuYlg0v8MlWkvLqFzgTW3avAYJ+
+ eAzTOwSc8DNkcV1Fns7uWvjsljPW8kIXE+nmMwv4wdhX0HL6Lt2rFWQecJVOozMyfNiWfCkICZD
+ mIcvUMCEJjXsuHw9KUEpiUtt6AM=
+X-Received: by 2002:a05:600c:e557:10b0:493:f140:c3fb with SMTP id
+ 5b1f17b1804b1-49800e898e4mr37361575e9.7.1785433110898; 
+ Thu, 30 Jul 2026 10:38:30 -0700 (PDT)
 Received: from stiangglanda-IdeaPad.. ([85.233.101.104])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49800f0ecd4sm71603455e9.1.2026.07.30.10.38.26
+ 5b1f17b1804b1-49800f0ecd4sm71603455e9.1.2026.07.30.10.38.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 10:38:27 -0700 (PDT)
+ Thu, 30 Jul 2026 10:38:30 -0700 (PDT)
 From: Leander Kieweg <kieweg.leander@gmail.com>
 To: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org
@@ -68,12 +69,13 @@ Cc: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
  mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, u.kleine-koenig@baylibre.com,
  Leander Kieweg <kieweg.leander@gmail.com>
-Subject: [PATCH v2 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP GPU)
-Date: Thu, 30 Jul 2026 19:36:40 +0200
-Message-ID: <20260730173643.256052-1-kieweg.leander@gmail.com>
+Subject: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
+Date: Thu, 30 Jul 2026 19:36:41 +0200
+Message-ID: <20260730173643.256052-2-kieweg.leander@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260730173643.256052-1-kieweg.leander@gmail.com>
+References: <20260730173643.256052-1-kieweg.leander@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,85 +92,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is v2 of the GlandaGPU DRM driver series [1], addressing review
-feedback from Thomas Zimmermann, Conor Dooley, Uwe Kleine-König, and
-the automated review bot on v1.
+Add Device Tree binding documentation for GlandaGPU, a custom
+FPGA-based 2D display controller.
 
-GlandaGPU is a small VHDL soft-IP 2D display controller, currently
-targeting a Terasic DE10-Standard (Cyclone V SoC). This series has
-been tested both against a QEMU digital twin and on real hardware.
+For hardware designs and RTL sources, see:
+https://github.com/stiangglanda/GlandaGPU
 
-Hardware/VHDL:    https://github.com/stiangglanda/GlandaGPU
-QEMU fork:        https://github.com/stiangglanda/qemu-glandagpu
-Userspace tests:  https://github.com/stiangglanda/GlandaGPU-userspace-tests
-
-Changes since v1:
-
-dt-bindings:
-- add a link to the GlandaGPU project in the binding description
-- add clocks to the required properties
-- fix the example to use interrupt-parent and the GIC_SPI/
-  IRQ_TYPE_LEVEL_HIGH macros instead of raw numbers
-- fix missing trailing newline
-
-driver core:
-- drop the struct device *dev field, use drm_device.dev instead
-- open-code drm_encoder_init() instead of drm_simple_encoder_init(),
-  which is being phased out
-- switch the plane update path from manual dma_resv_lock()/
-  drm_gem_shmem_vmap_locked() to DRM_GEM_SHADOW_PLANE_HELPER_FUNCS/
-  DRM_GEM_SHADOW_PLANE_FUNCS. This also fixes sleeping calls being
-  made from atomic-commit context and a raw map.vaddr dereference,
-  both flagged by automated review
-- use drm_gem_fb_create_with_dirty() instead of a custom fb_create
-  implementation
-- remove the redundant new_state == NULL check in the CRTC flush
-  helper
-- remove the ioctl-based UAPI (CLEAR/RECT/LINE) entirely. As Thomas
-  pointed out in v1, fixed-function 2D ioctls aren't a good fit for
-  mainline DRM, and userspace rendering into the shadow-plane
-  framebuffer covers the same functionality
-- fix a double drm_mode_config_cleanup() call in the probe and
-  remove error paths (devres already handles this)
-- call drm_atomic_helper_shutdown() on remove
-- fix a teardown race where in-flight work could touch already
-  unmapped MMIO, using drm_dev_unplug()/drm_dev_enter()/
-  drm_dev_exit()
-- move IRQ registration to after CRTC initialization, avoiding a
-  potential NULL pointer dereference from an early-firing shared IRQ
-- fix platform_get_irq() error handling. Negative error codes such
-  as -EPROBE_DEFER were previously misread as "no IRQ available"
-
-new in v2:
-- add PCI probe support alongside the existing platform_driver/
-  devicetree path, backed by a matching QEMU device model, so the
-  driver can be tested against a virtual device without needing
-  devicetree or real hardware. Real hardware continues to use the
-  platform_driver path unchanged. This replaces the old x86 test
-  device patch 3/3, reducing the series from 3 to 2 patches.
-
-Known open item: the QEMU test device currently uses a placeholder
-ID from the range QEMU reserves for experimental, unregistered use
-(1af4:10f0, see [2]). I've requested a permanent
-ID from Gerd Hoffmann and will post a follow-up once it's assigned.
-
-[1] https://lore.kernel.org/dri-devel/20260714101146.200416-1-kieweg.leander@gmail.com/T/#t
-[2] https://www.qemu.org/docs/master/specs/pci-ids.html
-
-Leander Kieweg (2):
-  dt-bindings: display: Add GlandaGPU binding
-  drm/glanda: Add initial DRM driver for GlandaGPU
-
- .../bindings/display/glanda,gpu.yaml          |  55 ++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   6 +
- drivers/gpu/drm/tiny/Kconfig                  |  11 +
- drivers/gpu/drm/tiny/Makefile                 |   1 +
- drivers/gpu/drm/tiny/glandagpu.c              | 579 ++++++++++++++++++
- 6 files changed, 654 insertions(+)
+Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
+---
+ .../bindings/display/glanda,gpu.yaml          | 55 +++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ 2 files changed, 57 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/glanda,gpu.yaml
- create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
 
+diff --git a/Documentation/devicetree/bindings/display/glanda,gpu.yaml b/Documentation/devicetree/bindings/display/glanda,gpu.yaml
+new file mode 100644
+index 000000000..988a30946
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/glanda,gpu.yaml
+@@ -0,0 +1,55 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/glanda,gpu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: GlandaGPU 2D Hardware Accelerated Display Controller
++
++maintainers:
++  - Leander Kieweg <kieweg.leander@gmail.com>
++
++description: |
++  GlandaGPU is a custom FPGA soft-IP core providing a simple
++  2D hardware-accelerated drawing engine with a VGA-compatible
++  display output. The register window covers a combined VRAM + MMIO
++  region, with MMIO registers at a fixed offset within it.
++
++  For hardware designs and RTL sources, see:
++  https://github.com/stiangglanda/GlandaGPU
++
++properties:
++  compatible:
++    const: glanda,gpu-1.0
++
++  reg:
++    maxItems: 1
++    description:
++      Combined VRAM + MMIO register window (VRAM at offset 0,
++      MMIO registers at offset 0x00200000 within this range).
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description: Bus and pixel clock provided to the FPGA IP.
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    gpu@c0000000 {
++        compatible = "glanda,gpu-1.0";
++        reg = <0xc0000000 0x1000000>;
++        interrupt-parent = <&intc>;
++        interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&osc1>;
++    };
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index b1af9deac..b8b7a5401 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -666,6 +666,8 @@ patternProperties:
+     description: Giantplus Technology Co., Ltd.
+   "^gira,.*":
+     description: Gira Giersiepen GmbH & Co. KG
++  "^glanda,.*":
++    description: GlandaGPU
+   "^glinet,.*":
+     description: GL Intelligence, Inc.
+   "^globalscale,.*":
 -- 
 2.43.0
 
