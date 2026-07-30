@@ -4,44 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CF58C54FD2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 05:56:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 340E1C54FD2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:16:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2250010E11A;
-	Thu, 30 Jul 2026 05:56:41 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2oOTcjeM";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3EB410E11A
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 05:56:38 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3D5CF43A1E;
- Thu, 30 Jul 2026 05:56:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9623B1F00A3A;
- Thu, 30 Jul 2026 05:56:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785390998;
- bh=UyKL5M0dMM5vyBKfscrfqtuVorlI43FZMaFIvbE4VSA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=2oOTcjeM5gAbd5cw5RB4cAdU12TbMA0h5ydtm1eZnjqLDZUlFKat2DjZ6zX9OTavn
- zLDxBoROoOxwu3xA8CTC09RUJTG6tRpLhNyRTa0tGKjCfDEABHScZCkBOhK6p8M+1L
- Uy92elQoaHnl4KEmj76ctA0QrItF+PguXrOk2p+Q=
-Date: Thu, 30 Jul 2026 07:56:24 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Cc: WenTao Liang <vulab@iscas.ac.cn>, dri-devel@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, carl.vanderlip@oss.qualcomm.com,
- ogabbay@kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] accel/qaic: fix GEM object refcount leak in
- qaic_attach_slice_bo_ioctl
-Message-ID: <2026073052-salary-art-af19@gregkh>
-References: <20260628115119.44215-1-vulab@iscas.ac.cn>
- <19305f3f-7567-48d3-a0b2-6597fdc3c314@oss.qualcomm.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2D6A10EDB9;
+	Thu, 30 Jul 2026 06:16:52 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BF9910EDB9
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:16:50 +0000 (UTC)
+X-UUID: 3b4723f28bde11f1aa26b74ffac11d73-20260730
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12, REQID:bf69a04d-1604-4d9a-99c6-5dce613aa77c, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:e7bac3a, CLOUDID:977fc7254810ece84cceaff0ae7418d7,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:102|123|850|865|898,TC:nil,Content:0|15|
+ 50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
+ ,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 3b4723f28bde11f1aa26b74ffac11d73-20260730
+X-User: yaolu@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yaolu@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 217884325; Thu, 30 Jul 2026 14:16:41 +0800
+From: yaolu@kylinos.cn
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, matthew.brost@intel.com,
+ thomas.hellstrom@linux.intel.com
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Lu Yao <yaolu@kylinos.cn>
+Subject: [PATCH] drm/pagemap: Remove unreachable code in
+ drm_pagemap_migrate_to_devmem()
+Date: Thu, 30 Jul 2026 14:16:35 +0800
+Message-Id: <20260730061635.132619-1-yaolu@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <19305f3f-7567-48d3-a0b2-6597fdc3c314@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,36 +61,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 03:19:38PM -0600, Jeff Hugo wrote:
-> On 6/28/2026 5:51 AM, WenTao Liang wrote:
-> > drm_gem_object_lookup() acquires a GEM object reference on success. All
-> > error paths correctly release it via put_bo, but the success path returns
-> > without calling drm_gem_object_put(obj). Since list_add_tail does not
-> > transfer ownership, the GEM object reference is permanently leaked on
-> > each successful call.
-> 
-> NACK.
-> 
-> put() is specifically not called in the success case as data structures
-> which depend on the BO are not released until detach_slice_bo(), which
-> happens to be where the corresponding put() is.  It is also not possible to
-> successfully call attach_slice() more than once without a corresponding
-> detach_slice_bo().
-> 
-> The get() and put() operations for the concerned paths are currently
-> balanced, but this patch will actually introduce an unbalanced state (extra
-> put() operations).
-> 
-> As far as the impact of not having this patch per the commit text (memory
-> leak) I'm aware of many memory stress tests, yet I recall no reports of
-> memory leaks from attach_slice().  You will need to provide proof, from
-> actual testing, that this is an issue.
-> 
-> > Suggested-by: Greg KH <gregkh@linuxfoundation.org>
-> 
-> This tag seems wrong, as there was nothing I can find on V1 in Lore which
-> indicates this tag is appropriate.
+From: Lu Yao <yaolu@kylinos.cn>
 
-Yes, I did not suggest any of these, and the author should have
-withdrawn all submissions as they were obviously not correct.
+If it can satisfy the condition of "page_pgmap(src_page) == pagemap
+&& ! mdetails->can_migrate_same_pagemap", it will be return -EBUSY in
+the precondition checks above the loop.
+
+Fixes: 75af93b3f5d0 ("drm/pagemap, drm/xe: Support destination migration over interconnect")
+Signed-off-by: Lu Yao <yaolu@kylinos.cn>
+---
+ drivers/gpu/drm/drm_pagemap.c | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+index 892b325fa99b..23d60a271f17 100644
+--- a/drivers/gpu/drm/drm_pagemap.c
++++ b/drivers/gpu/drm/drm_pagemap.c
+@@ -746,12 +746,6 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+ 			struct drm_pagemap_zdd *src_zdd =
+ 				drm_pagemap_page_zone_device_data(src_page);
+ 
+-			if (page_pgmap(src_page) == pagemap &&
+-			    !mdetails->can_migrate_same_pagemap) {
+-				migrate.dst[i] = 0;
+-				own_pages++;
+-				goto next;
+-			}
+ 			cur.dpagemap = src_zdd->dpagemap;
+ 			cur.ops = src_zdd->devmem_allocation->ops;
+ 			cur.device = cur.dpagemap->drm->dev;
+@@ -788,7 +782,6 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+ 			goto err_finalize;
+ 		}
+ 
+-next:
+ 		i += NR_PAGES(order);
+ 	}
+ 
+@@ -799,8 +792,6 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
+ 	if (err)
+ 		goto err_finalize;
+ 
+-	drm_WARN_ON(dpagemap->drm, !!own_pages);
+-
+ 	dma_fence_put(devmem_allocation->pre_migrate_fence);
+ 	devmem_allocation->pre_migrate_fence = NULL;
+ 
+-- 
+2.25.1
 
