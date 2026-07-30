@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E00CC5516E
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:33:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1E99C5516D
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:34:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A491410F034;
-	Thu, 30 Jul 2026 18:33:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03A7210F039;
+	Thu, 30 Jul 2026 18:34:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KrPlfU/6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aW6//+os";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E948310F043
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:33:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F06910F039
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:34:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9928741295;
- Thu, 30 Jul 2026 18:33:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4101F000E9;
- Thu, 30 Jul 2026 18:33:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6FAF260A66;
+ Thu, 30 Jul 2026 18:34:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0717B1F000E9;
+ Thu, 30 Jul 2026 18:34:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785436430;
- bh=7DlWEaaLu76NYm7jzCGQ84LRHsFSSxx2csrmVyg7XfE=;
+ s=k20260515; t=1785436451;
+ bh=8R8btklmtp0Jy4E7UWA7oDa1ASx8Q9ewFep9ghD//4k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KrPlfU/6BoSkdGSiiw2H73b4YB6ktkoaOws7kHWIKeH5K30Fmv1SeHtfdOz913dno
- /lTZ5wVzN881J/t/I2g6jd29YDbrRabzxKtx85CIk0QU46L0OQQlbfUx9XQfN43n50
- AhozriB7yPE9K70QSmQoVuPw/Z/IQp5TtvV4Jp/Zd+yXATRNm6gJCI+ZCqg74pnKoH
- nb5UMnWhv8jCkTxqDxV57vsh2dIxSiuNzIaVvRsrxEulnyOuWFisSiDi9XJHDlM5ya
- Jc/IDZTm3575EZ2gYQb1cOJhUp+v/gWrOgtus5ndspDvrImBiAC4Y7AT6W+m/myQx4
- Lh5Y0PlEjIHaA==
+ b=aW6//+os4mHIrdxVn/50qlO10EwaBF1Noy5yPt47EpxAnoP0p/QVR0tCdhdj1ekF9
+ jm5cdz7rxNHQKYKTRlokIs2/2ZADn2D9mRKFHBXyowFpoSaShvVNvoOWAoUvfQFJTH
+ rOkloJ8q3rXCNMyYCxiI0UHVO1Wjy4fc6TN9Li2wmohpKQwQMggkppiTmErXaJc6aU
+ BfHGhsRqD1ABmNerePwixoSvZYAM25vc0SD4UfCP5EZo86GrR+hU751aaxjeEwueb0
+ SYZVdhZMW7HebVvk6UT2QLoNa/eaoimkeyJZXfeSqqq/VszIcyQtG1ButcE9xO9HRp
+ 2iP2BS1VBq6rw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] fbdev: tdfxfb: Program the initial video mode
+Subject: Re: [PATCH 1/5] fbdev: tdfxfb: Add helper to read config table from
+ BIOS
 To: "Daniel Palmer" <daniel@0x0f.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260730182640.2808572-6-daniel@0x0f.com>
+In-Reply-To: <20260730182640.2808572-2-daniel@0x0f.com>
 References: <20260730182640.2808572-1-daniel@0x0f.com>
- <20260730182640.2808572-6-daniel@0x0f.com>
+ <20260730182640.2808572-2-daniel@0x0f.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 18:33:49 +0000
-Message-Id: <20260730183350.5B4101F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 18:34:10 +0000
+Message-Id: <20260730183411.0717B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,58 +60,62 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Hardware programming and framebuffer clearing occur after the devi=
-ce is registered, causing data races with user-space and destroying fbcon c=
-onsole output.
+- [Low] The patch introduces `tdfxfb_get_bios_cfg` and `tdfx_pll_to_khz` as=
+ `static` functions but does not use them anywhere in the file. This trigge=
+rs `-Wunused-function` compiler warnings, which break builds with `CONFIG_W=
+ERROR` enabled.
 --
 
---- Patch [5]: [PATCH 5/5] fbdev: tdfxfb: Program the initial video mode ---
-commit 90ecec6554588f0e84d39be7f57c41d5df7e26d5
+--- Patch [1]: [PATCH 1/5] fbdev: tdfxfb: Add helper to read config table f=
+rom BIOS ---
+commit d67a333d81585d56234b84350edd145b08f26be1
 Author: Daniel Palmer <daniel@0x0f.com>
 
-fbdev: tdfxfb: Program the initial video mode
+fbdev: tdfxfb: Add helper to read config table from BIOS
 
-If the card does not get bound to by fbcon, the initial video mode is
-not setup and the display detects no signal. This commit programs the
-video mode and clears the framebuffer memory so random garbage isn't
-displayed.
+This commit adds a helper to get the config table from the video BIOS in
+preparation for manually booting cards.
 
 > diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
 > --- a/drivers/video/fbdev/tdfxfb.c
 > +++ b/drivers/video/fbdev/tdfxfb.c
-> @@ -1692,6 +1692,13 @@ static int tdfxfb_probe(struct pci_dev *pdev, cons=
-t struct pci_device_id *id)
->  	 * Our driver data
->  	 */
->  	pci_set_drvdata(pdev, info);
+[ ... ]
+> +/*
+> + * Convert a pllctrl register value back to a frequency in kHz.
+> + * Formula from 3dfx documentation.
+> + */
+> +static u32 tdfx_pll_to_khz(u32 pll)
+> +{
+> +	return (14318 * (((pll >> 8) & 0xff) + 2) /
+> +		(((pll >> 2) & 0x3f) + 2)) >> (pll & 3);
+> +}
 > +
-> +	/* Program a video mode so the display detects a signal */
-> +	tdfxfb_set_par(info);
+> +/* Layout of the "OEM config" table in voodoo 3 BIOS */
+> +struct tdfx_bios_cfg {
+[ ... ]
+> +};
 > +
-> +	/* Don't scare the user with random garbage on their display */
-> +	memset_io(info->screen_base, 0, info->fix.smem_len);
-
-[Severity: High]
-Does calling tdfxfb_set_par() and memset_io() after register_framebuffer()
-cause issues with fbcon initialization?
-
-When register_framebuffer() is called just prior to this, it synchronously
-notifies the console subsystem. If fbcon binds to the new framebuffer, it
-configures the display and draws the console text and boot logo.
-
-By unconditionally clearing the VRAM and setting the parameters after
-register_framebuffer() returns, doesn't this wipe out the console output
-that fbcon just initialized?
-
-Additionally, since register_framebuffer() exposes the device to user-space
-via /dev/fb0, could this create a data race against concurrent user-space
-ioctls accessing hardware registers or VRAM without holding info->lock?
-
+> +#define TDFX_ROM_CFG_PTR	0x50
 > +
->  	return 0;
-> =20
->  out_err_iobase:
+> +static bool tdfxfb_get_bios_cfg(struct pci_dev *pdev,
+> +				struct tdfx_bios_cfg *cfg)
+> +{
+
+[Severity: Low]
+Does adding this static function and its helper tdfx_pll_to_khz without any
+callers trigger a -Wunused-function compiler warning that breaks builds with
+CONFIG_WERROR enabled?=20
+
+Could these functions be marked with __maybe_unused, or introduced in the
+same commit as their callers to ensure the tree compiles cleanly at every
+commit?
+
+> +	u16 romcfg, oemcfg;
+> +	void __iomem *rom;
+> +	size_t romsize;
+> +	u8 *image;
+> +	u32 khz;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730182640.2808=
-572-1-daniel@0x0f.com?part=3D5
+572-1-daniel@0x0f.com?part=3D1
