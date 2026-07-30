@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7750CC54FD2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:27:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22799C55164
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:27:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE19010E138;
-	Thu, 30 Jul 2026 06:27:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4BD3B10E682;
+	Thu, 30 Jul 2026 06:27:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="knl6CKFv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hQMy/Lbu";
 	dkim-atps=neutral
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B9F710E138
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:27:12 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-84eb992a881so325463b3a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 23:27:12 -0700 (PDT)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F65210E138
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:27:24 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-848479c9bd5so1518245b3a.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 23:27:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785392832; x=1785997632; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785392844; x=1785997644; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=8IRM8cZuTQT295+YDoKUSZ1109m/5RG3rOLisZSSj50=;
- b=knl6CKFv7VEBhunAx1zxtlmlgJixUly09e1W7uqf2J8Ja8+hC+vBFez+Ix9hoxFWv+
- ICcNUq0OCjK42Kt58+16LB4omFTlUoqto46Ic6uogrXYrfJwXG3ErV3PsK00nQxTKpDT
- OptiXDLWCfrJf1RVMozNmT8835VS9ep+S9sdlTRFgXDd3dqbkQ/BFBQ8L7HukZ0VCZM2
- mmYUM2pYNHTBJmlLUBW/d94xzdo8WoVGX12MyBaAhPXje8GJXyz1I3r6ynJCuJ9acLgC
- OdLO9rdj7IHef7HOZpsXCHGhVDhfHfTakVXinwvwv3bRJrkabmBM8kCO7KRJgSP2wx++
- zDvg==
+ bh=3EaYXPThWNdkG4MwcQhWQJEAKHoDeZpU3BU1Rq69yw8=;
+ b=hQMy/LbuS0eHS83kYzGhGwfVtywKKC0YR8jCO5KBq5BEREhgLKGSFOimjIPWcAiDdY
+ W+npBF6AMQpw4Aw1D8OcViJn7kLAJb5S0ZNc1h3DIwXsp/Lk0lU7fU7F965xz7zAfTP7
+ 81CYdVpuVDSnwE8qk+J9tisypN7M2skd0opYzKSskQ9lCa84/KIPWMNnfVTYzCC5/4fD
+ l7RYUFtFaUWopGf4CyytyVTj8mvNxGYthK7EBLPxOyIaWVVOe/lEW/hhXx2E9c5fr1pB
+ kLRmOV+nj0lxlMYBi0u8CpzzMsirQ5Kji4G/rKXJTkDTT31um7RCdT41KlWJPq2/7K5F
+ bv3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785392832; x=1785997632;
+ d=1e100.net; s=20251104; t=1785392844; x=1785997644;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=8IRM8cZuTQT295+YDoKUSZ1109m/5RG3rOLisZSSj50=;
- b=cr1F0BRup2lYC3xh6xZD4gRuhHD1qAHoBeGK8Q07sdubttizOeBymAkN0iWSTyg9fJ
- yIuGp9Y9TarzrVRtltw0mXL81eRYqYmvPCgUGpv7av1YnUomwpQwp8IhlxpsByM4eYzx
- umWJwulhQQRXGSq8d4/dKE39vioMRvpDLzVO3U1PhALPLasHLS6CRXTpR4dNCJ/lGT6R
- tkqgODRfBLCQkJYAP6/2Ud/LaZK92ZAjNyT4Difs7duDuaJfjrmvtBHN5Z1zlU0VH+3W
- SrCvdTsWLm50IeT2PtS1phRZ9MC3voTLFRPjvsej1hd7/+zNUa4FY2aGnigSY51IoCeL
- MGqQ==
+ bh=3EaYXPThWNdkG4MwcQhWQJEAKHoDeZpU3BU1Rq69yw8=;
+ b=HfFOpbHKwaa5Xbli56qEnMfJpr+stv3tl5BXuVohKta2lk2gMNqGGXGbc19aQMQalI
+ uRdqqu3haPrQQq/VsmSLXCBNwYcX4MuLgnA/jUkH0VN3aR7nNJO5N/lyMQHmgNn1HVYR
+ UX9lxJUT62DOdZo89Ey0y5mcAOo6nh+anIiYn4mW4ZIm+ura/zdvWyyVSy4rTxD/x/bk
+ H8S1fUGem8SVaZsVHwYkC2y8LMIXMis0o66bAIyyP4Psxx15MQVGXVCd/FXLFrXpYt2y
+ PYmoaZ+EtBRtN1Bwb5LYy2EKUdbKsPwY+GWi+tW9qkfJmchqvjiTjdrzTOgXuSvtoqK1
+ 2OGw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq5/BVHPjNR+eOr4rQazrwQR/Ckm3UJu2+Cy90tuO7HOy7asObd72iQSeMhru/HxRphKZ+LMSAgPUM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzVZQdnfht4OIbqr/9PPLd86w4NQhLtTEmr6s69pxFoTQ2SgZVi
- gd9DixYKU+/6Mc+Lz07/hcDhrXpOaCPA/Wj7bwJLVDv8PJpiXoJYYOIu
-X-Gm-Gg: AR+sD127VW6TsZMDxAWFxjJXKHpK1LeL0FFHkQMSggC0dvvgKHQfSLX1nIk5jSHP/rL
- esfmFym17+TZ1QGWnZKL/As53S/nIkNQjL7TEIuvPcPncEYAjs8TEQXBVBMUpY6MoiOxECJd3GE
- su828gkSR+DtQNf69OtJiPPp8DUv7fcuNSZ4xNCrqvH6dKbLaQV8h21yktS/MbuvyywG5R8bi3U
- 9ccLJBe8ywHZWwc6a0zQA2LwvRwkbNWZhfKF6uzEmC3Y7Xo6kytK0ademGKH4BZ1xR/6xVs9COe
- BPwmMM5C5caBDHtO+XM2VBg3wFGZuV7ilvyss1i/BHBQIxNVE3MTUhB3P6wx/OBzPa0E4BSdWu4
- wi1spvOvZUrUvlTDwU6rddk92VBn+T0AWeI/eCZwU7kyMEcEkznew/Z6LNQ25WjXtR1daxPBctA
- RQjtMVlcuOkuI5GeAzIMYc/QH38azUw8qZi2bPZd7toRo6a7p+NZ4oQcqBxpzVAHEj
-X-Received: by 2002:a05:6a00:1d27:b0:847:9c3a:b77f with SMTP id
- d2e1a72fcca58-84ebc3eb0b9mr1408626b3a.35.1785392832414; 
- Wed, 29 Jul 2026 23:27:12 -0700 (PDT)
+ AHgh+RpY5UXYLDSmtdZn1RLUIOpu31rYCE20UtlZ0nrPqyrOqGJhMv77x7HF5y/LC4mgmScWhjzbCtvZrho=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzLn5qZSz5vd6VXc1oFdFvCbj+BJRL4JD754XLdLlc0oNH4PX5y
+ mWcZOZhymxwuf8+qYk+HD9FfkE6vqp34jvVbxgK6x4n9xcaOBxd2FXM7
+X-Gm-Gg: AR+sD1012ZPqN3QOZjl8joZZsaALgmyY23QHkG8EO1qkrN1GhJOB6WP/KAZwvQfSGfi
+ JkU4AQ6o6oPr8g7/aVEIoY9mIAFa2hBXYAqRn7Pqyk3CaTxGvG7YbxtId7EfOZ4NgSQ7wKmuRdW
+ A3EwtMrQsT5f+P+oab9Oh2CUPA5PqFARqMC8vvCAqs3tONj8jCGiSVZy/S3hUxlN3Ag+UgvnNxz
+ 0JYLIig7jMbUDEqy3G6wR+4b85eIrrhWCXN33IuHNNweeigWPIdJp8yDRubhCA2KRt3nJQx6+Y1
+ 096y9WrQnVYotAVS0cjrFQeLr8a9oRe8WFrwKjm5UAEz2x+MVk2LGjtk3kBdzB+pshtjiTGLeVt
+ ELMX0JWv9doGCbMPBlMnbJavQKuHaKxht611FCC2K/0DBC6z/md1VsjIolFQf8zZs5qJy8YdACi
+ x9yDcywZlbu/JRdZGxpfWNzTBaTYGZapTiudOqmq8PG71yTbPZ0xF8G4IxOx5tUG/j
+X-Received: by 2002:a05:6a00:1150:b0:84a:2fff:cef9 with SMTP id
+ d2e1a72fcca58-84ebc1ed97fmr1520110b3a.13.1785392843988; 
+ Wed, 29 Jul 2026 23:27:23 -0700 (PDT)
 Received: from baineng-pc.. ([117.133.183.252])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84ea00507b0sm2503229b3a.14.2026.07.29.23.27.06
+ d2e1a72fcca58-84ea00507b0sm2503229b3a.14.2026.07.29.23.27.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2026 23:27:12 -0700 (PDT)
+ Wed, 29 Jul 2026 23:27:23 -0700 (PDT)
 From: Baineng Shou <shoubaineng@gmail.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -76,10 +76,10 @@ Cc: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH v5 1/4] dma-buf: dma-heap: don't publish fd before
- copy_to_user() succeeds
-Date: Thu, 30 Jul 2026 14:26:42 +0800
-Message-Id: <20260730062645.233148-2-shoubaineng@gmail.com>
+Subject: [PATCH v5 2/4] misc: fastrpc: don't publish fd before copy_to_user()
+ succeeds
+Date: Thu, 30 Jul 2026 14:26:43 +0800
+Message-Id: <20260730062645.233148-3-shoubaineng@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260730062645.233148-1-shoubaineng@gmail.com>
 References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
@@ -102,240 +102,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-DMA_HEAP_IOCTL_ALLOC allocates a dma-buf and installs an fd into the
-caller's fd table via dma_buf_fd() -> fd_install() before
-dma_heap_ioctl() copies the result back to userspace.  If the trailing
-copy_to_user() fails, userspace never learns the fd number, but the
-fd (and the underlying dma-buf reference) are already visible to
-other threads in the same process and are leaked for the lifetime of
-the process.
+fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
+into the caller's fd table before copy_to_user() copies the fd number
+back to userspace.  If copy_to_user() fails, the fd is already visible
+to other threads in the same process but the ioctl returns -EFAULT.
+The existing comment in the code even acknowledges the problem:
 
-The obvious "close it on the failure path" fix is unsafe: once
-fd_install() has run, another thread can already dup() the fd, send
-it via SCM_RIGHTS, or close() it and let its number be reused, so a
-subsequent close_fd() from the ioctl path can operate on an unrelated
-file.  This was pointed out by Christian König on v1 [1].
+  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
+   already called fd_install()..."
 
-Restructure the allocation path so that fd_install() is the last,
-unfailable step of a successful ioctl:
+Now that dma_buf_fd_install() is available (introduced to fix the same
+issue in dma-heap), apply the same pattern here: reserve the fd with
+get_unused_fd_flags(), attempt copy_to_user(), and only on success call
+dma_buf_fd_install() to publish it atomically with the tracepoint.  On
+copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
+unwind without any user-visible side effects.
 
-  1. heap->ops->allocate()      creates the dma_buf.
-  2. get_unused_fd_flags()      reserves an fd number in the caller's
-                                fd table without publishing it, so
-                                no other thread can observe it.
-  3. copy_to_user()             delivers the fd number to userspace;
-                                on failure the fd is returned with
-                                put_unused_fd() and the dma_buf
-                                reference is dropped with
-                                dma_buf_put(), leaving no user-
-                                visible state behind.
-  4. dma_buf_fd_install()       publishes the fd and emits the
-                                trace_dma_buf_fd tracepoint -- from
-                                here on the ioctl cannot fail.
-
-A new dma_buf_fd_install() helper is introduced in dma-buf.c to wrap
-fd_install() together with the DMA_BUF_TRACE() call, preserving the
-export tracing that dma_buf_fd() provides.  dma_heap_ioctl_allocate()
-is refactored to return the struct dma_buf * directly (returning
-ERR_PTR on failure) so the caller holds the dmabuf reference across
-steps 3 and 4.
-
-The failure at step 3 is easily reachable from userspace: pass a
-struct dma_heap_allocation_data that lives in a page whose protection
-is flipped to PROT_READ between copy_from_user() and copy_to_user()
-(e.g. via mprotect()).  Before this change each such ioctl leaks one
-dmabuf fd; after it, the fd table is unchanged on failure and only
-/dev/dma_heap/<name> remains open.
-
-No UAPI or heap-driver interface change.
-
-[1] https://lore.kernel.org/dri-devel/175e98de-f414-47d7-81c1-c0fe0a8f7f62@amd.com/
-
-Fixes: c02a81fba74f ("dma-buf: Add dma-buf heaps framework")
+Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
 Cc: stable@vger.kernel.org
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
 Acked-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 ---
- drivers/dma-buf/dma-buf.c  | 20 ++++++++++
- drivers/dma-buf/dma-heap.c | 80 +++++++++++++++++++-------------------
- include/linux/dma-buf.h    |  1 +
- 3 files changed, 61 insertions(+), 40 deletions(-)
+ drivers/misc/fastrpc.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc29..4c9add51f9ef 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -803,6 +803,26 @@ int dma_buf_fd(struct dma_buf *dmabuf, int flags)
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_fd, "DMA_BUF");
- 
-+/**
-+ * dma_buf_fd_install - install a reserved fd for a dma-buf
-+ * @dmabuf:	[in]	pointer to dma_buf
-+ * @fd:		[in]	fd reserved with get_unused_fd_flags()
-+ *
-+ * Publishes a previously reserved fd into the caller's fd table.
-+ * Must only be called after all fallible work (e.g. copy_to_user)
-+ * has succeeded, as it cannot be undone safely once called.
-+ *
-+ * The caller is responsible for having emitted the trace event
-+ * (via dma_buf_fd() or get_unused_fd_flags() + this function)
-+ * before calling this.
-+ */
-+void dma_buf_fd_install(struct dma_buf *dmabuf, int fd)
-+{
-+	DMA_BUF_TRACE(trace_dma_buf_fd, dmabuf, fd);
-+	fd_install(fd, dmabuf->file);
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_fd_install, "DMA_BUF");
-+
- /**
-  * dma_buf_get - returns the struct dma_buf related to an fd
-  * @fd:	[in]	fd associated with the struct dma_buf to be returned
-diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
-index a76bf3f8b071..43c32fb28313 100644
---- a/drivers/dma-buf/dma-heap.c
-+++ b/drivers/dma-buf/dma-heap.c
-@@ -55,33 +55,6 @@ MODULE_PARM_DESC(mem_accounting,
- 		 "Enable cgroup-based memory accounting for dma-buf heap allocations (default=false).");
- EXPORT_SYMBOL_NS_GPL(mem_accounting, "DMA_BUF_HEAP");
- 
--static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
--				 u32 fd_flags,
--				 u64 heap_flags)
--{
--	struct dma_buf *dmabuf;
--	int fd;
--
--	/*
--	 * Allocations from all heaps have to begin
--	 * and end on page boundaries.
--	 */
--	len = PAGE_ALIGN(len);
--	if (!len)
--		return -EINVAL;
--
--	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
--	if (IS_ERR(dmabuf))
--		return PTR_ERR(dmabuf);
--
--	fd = dma_buf_fd(dmabuf, fd_flags);
--	if (fd < 0) {
--		dma_buf_put(dmabuf);
--		/* just return, as put will call release and that will free */
--	}
--	return fd;
--}
--
- static int dma_heap_open(struct inode *inode, struct file *file)
- {
- 	struct dma_heap *heap;
-@@ -99,30 +72,42 @@ static int dma_heap_open(struct inode *inode, struct file *file)
- 	return 0;
- }
- 
--static long dma_heap_ioctl_allocate(struct file *file, void *data)
-+static struct dma_buf *dma_heap_ioctl_allocate(struct file *file, void *data)
- {
- 	struct dma_heap_allocation_data *heap_allocation = data;
- 	struct dma_heap *heap = file->private_data;
-+	struct dma_buf *dmabuf;
- 	int fd;
-+	size_t len;
- 
- 	if (heap_allocation->fd)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	if (heap_allocation->fd_flags & ~DMA_HEAP_VALID_FD_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
- 
- 	if (heap_allocation->heap_flags & ~DMA_HEAP_VALID_HEAP_FLAGS)
--		return -EINVAL;
-+		return ERR_PTR(-EINVAL);
-+
-+	len = PAGE_ALIGN(heap_allocation->len);
-+	if (!len)
-+		return ERR_PTR(-EINVAL);
-+
-+	dmabuf = heap->ops->allocate(heap, len, heap_allocation->fd_flags,
-+				     heap_allocation->heap_flags);
- 
--	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
--				   heap_allocation->fd_flags,
--				   heap_allocation->heap_flags);
--	if (fd < 0)
--		return fd;
-+	if (IS_ERR(dmabuf))
-+		return dmabuf;
-+
-+	fd = get_unused_fd_flags(heap_allocation->fd_flags);
-+	if (fd < 0) {
-+		dma_buf_put(dmabuf);
-+		return ERR_PTR(fd);
-+	}
- 
- 	heap_allocation->fd = fd;
- 
--	return 0;
-+	return dmabuf;
- }
- 
- static unsigned int dma_heap_ioctl_cmds[] = {
-@@ -138,6 +123,8 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 	unsigned int in_size, out_size, drv_size, ksize;
- 	int nr = _IOC_NR(ucmd);
- 	int ret = 0;
-+	int fd;
-+	struct dma_buf *dmabuf;
- 
- 	if (nr >= ARRAY_SIZE(dma_heap_ioctl_cmds))
- 		return -EINVAL;
-@@ -174,15 +161,28 @@ static long dma_heap_ioctl(struct file *file, unsigned int ucmd,
- 
- 	switch (kcmd) {
- 	case DMA_HEAP_IOCTL_ALLOC:
--		ret = dma_heap_ioctl_allocate(file, kdata);
-+		dmabuf = dma_heap_ioctl_allocate(file, kdata);
-+
-+		if (IS_ERR(dmabuf)) {
-+			ret = PTR_ERR(dmabuf);
-+			break;
-+		}
-+
-+		fd = ((struct dma_heap_allocation_data *)kdata)->fd;
-+		if (copy_to_user((void __user *)arg, kdata, out_size) != 0) {
-+			put_unused_fd(fd);
-+			dma_buf_put(dmabuf);
-+			ret = -EFAULT;
-+		} else {
-+			dma_buf_fd_install(dmabuf, fd);
-+		}
-+
- 		break;
- 	default:
- 		ret = -ENOTTY;
- 		goto err;
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index f3a49384586d..c5143cd25767 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -1709,24 +1709,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
+ 		return err;
  	}
  
--	if (copy_to_user((void __user *)arg, kdata, out_size) != 0)
--		ret = -EFAULT;
- err:
- 	if (kdata != stack_kdata)
- 		kfree(kdata);
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d1203da56fc5..d15b2b31d3c9 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -567,6 +567,7 @@ void dma_buf_unpin(struct dma_buf_attachment *attach);
- struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_info);
+-	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
++	bp.fd = get_unused_fd_flags(O_ACCMODE);
+ 	if (bp.fd < 0) {
+ 		dma_buf_put(buf->dmabuf);
+-		return -EINVAL;
++		return bp.fd;
+ 	}
  
- int dma_buf_fd(struct dma_buf *dmabuf, int flags);
-+void dma_buf_fd_install(struct dma_buf *dmabuf, int fd);
- struct dma_buf *dma_buf_get(int fd);
- void dma_buf_put(struct dma_buf *dmabuf);
+ 	if (copy_to_user(argp, &bp, sizeof(bp))) {
+-		/*
+-		 * The usercopy failed, but we can't do much about it, as
+-		 * dma_buf_fd() already called fd_install() and made the
+-		 * file descriptor accessible for the current process. It
+-		 * might already be closed and dmabuf no longer valid when
+-		 * we reach this point. Therefore "leak" the fd and rely on
+-		 * the process exit path to do any required cleanup.
+-		 */
++		put_unused_fd(bp.fd);
++		dma_buf_put(buf->dmabuf);
+ 		return -EFAULT;
+ 	}
+ 
++	dma_buf_fd_install(buf->dmabuf, bp.fd);
++
+ 	return 0;
+ }
  
 -- 
 2.34.1
