@@ -4,65 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BD89C53200
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:09:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7596C54FCD
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:18:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D52EA10EBEA;
-	Thu, 30 Jul 2026 01:09:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C08D10E078;
+	Thu, 30 Jul 2026 01:18:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="YnX3RJqR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UcbyIIT4";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B84FF10EAF7
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:08:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785373734;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=SkWNKPrbSggGlE5xxJvOBDKhVHqxI+6ofz9WoGQEXGM=;
- b=YnX3RJqRyGfOif7n91PJnmg/XBtbzQlmJ7OEQAvVcpmLTOg6plmiCNSDC3+zE2zeJK1aAC
- 4HfwdiJ5gAoly3SKCnSdUnTlkVBP4iw3/nhdHaF+FP+BZRtIIH07BCcGBUlM6FAJEZHckS
- ZanNxzWqq+PP2rYjvGwCT9wHVHGI61Q=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-644-ECZ0wZzkPP6lq68OyepV0Q-1; Wed,
- 29 Jul 2026 21:08:50 -0400
-X-MC-Unique: ECZ0wZzkPP6lq68OyepV0Q-1
-X-Mimecast-MFC-AGG-ID: ECZ0wZzkPP6lq68OyepV0Q_1785373729
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id BC53C195608B; Thu, 30 Jul 2026 01:08:48 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.88.35])
- by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 46DAD1800480; Thu, 30 Jul 2026 01:08:47 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Simona Vetter" <simona@ffwll.ch>, "David Airlie" <airlied@gmail.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH 2/4] drm/nouveau/kms: Check nouveau.atomic parameter after
- nvif_device_ctor()
-Date: Wed, 29 Jul 2026 20:56:08 -0400
-Message-ID: <20260730010828.1056397-3-lyude@redhat.com>
-In-Reply-To: <20260730010828.1056397-1-lyude@redhat.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3BC910E078
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:18:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 71C1A4022A;
+ Thu, 30 Jul 2026 01:18:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD971F000E9;
+ Thu, 30 Jul 2026 01:18:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785374333;
+ bh=GOErYHMJ/tW8Iw4/HmlyXfc/7pPoaxiz1AOHqqhp3M8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UcbyIIT4kPG3BkXZBgy4m0ar2esUluQR6/ANGALCywcKXkyy8xQdWJ9UdIo+lsD5W
+ wzt2PjpVSatD3T29P8zCPgT91aXsi+WtTGq3CwAAtKfn7r7nfYqVYK23hDBwt4DRnz
+ aJGNQEjgZyUN0tJVZSo2zLL4FfMtJG5qr/YIaU1sHtQEa1jSYtZWegpUesrc83BOZb
+ WKD/fVTvPkKlwVt8NMVMiTsnLo7DsClNiSkomB0AkvTiXHzcWIi8IeKniQ8gplqMcf
+ eF1cXiuwg91kJbIXK9qT7wrsAV2R4X8wycCffekahYuWtju/KUTNyPgmQNSUO2Z0Sa
+ aNXmCpN9/z4MA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/4] drm/nouveau/kms: Check nouveau.atomic parameter
+ after nvif_device_ctor()
+To: "Lyude Paul" <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260730010828.1056397-3-lyude@redhat.com>
 References: <20260730010828.1056397-1-lyude@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: TfTJQ0MERFl1RVsjRf8YBHsm2_Ctbr2u2vvJxqdIUE0_1785373729
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+ <20260730010828.1056397-3-lyude@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 01:18:52 +0000
+Message-Id: <20260730011853.2AD971F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,51 +54,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Waiting until the NVIF device is ready is preferable, as this will allow us
-to factor in the chipset generation into whether or not we enable atomic by
-default.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/nouveau/nouveau_drm.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+New issues:
+- [Medium] The shared initialization function nouveau_drm_device_new() inco=
+rrectly hardcodes modifications to the global driver_pci struct instead of =
+the provided drm_driver parameter.
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index ad693d2849bec..8899f009f825e 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -727,7 +727,7 @@ nouveau_drm_device_del(struct nouveau_drm *drm)
- }
- 
- static struct nouveau_drm *
--nouveau_drm_device_new(const struct drm_driver *drm_driver, struct device *parent,
-+nouveau_drm_device_new(struct drm_driver *drm_driver, struct device *parent,
- 		       struct nvkm_device *device)
- {
- 	static const struct nvif_mclass
-@@ -770,6 +770,9 @@ nouveau_drm_device_new(const struct drm_driver *drm_driver, struct device *paren
- 		goto done;
- 	}
- 
-+	if (nouveau_atomic)
-+		driver_pci.driver_features |= DRIVER_ATOMIC;
-+
- 	ret = nvif_device_map(&drm->device);
- 	if (ret) {
- 		NV_ERROR(drm, "Failed to map PRI: %d\n", ret);
-@@ -879,9 +882,6 @@ static int nouveau_drm_probe(struct pci_dev *pdev,
- 
- 	pci_set_master(pdev);
- 
--	if (nouveau_atomic)
--		driver_pci.driver_features |= DRIVER_ATOMIC;
--
- 	drm = nouveau_drm_device_new(&driver_pci, &pdev->dev, device);
- 	if (IS_ERR(drm)) {
- 		ret = PTR_ERR(drm);
--- 
-2.55.0
+Pre-existing issues:
+- [High] nouveau_drm_device_del() attempts to release an error pointer if d=
+rm_dev_alloc() fails, causing a kernel panic.
+--
 
+--- Patch [2]: [PATCH 2/4] drm/nouveau/kms: Check nouveau.atomic parameter =
+after nvif_device_ctor() ---
+commit c020f75bf537ed725d051dbe5e66bd9bd3dfb6b7
+Author: Lyude Paul <lyude@redhat.com>
+
+drm/nouveau/kms: Check nouveau.atomic parameter after nvif_device_ctor()
+
+This commit moves the check for the nouveau.atomic parameter into
+nouveau_drm_device_new() so it occurs after the NVIF device is ready.
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
+eau/nouveau_drm.c
+> index ad693d2849bec..8899f009f825e 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -727,7 +727,7 @@ nouveau_drm_device_del(struct nouveau_drm *drm)
+>  }
+> =20
+>  static struct nouveau_drm *
+> -nouveau_drm_device_new(const struct drm_driver *drm_driver, struct devic=
+e *parent,
+> +nouveau_drm_device_new(struct drm_driver *drm_driver, struct device *par=
+ent,
+>  		       struct nvkm_device *device)
+>  {
+
+[Severity: High]
+This is a pre-existing issue, but does the error path in
+nouveau_drm_device_new() cause a crash if drm_dev_alloc() fails?
+
+If drm_dev_alloc() fails, it returns an error pointer which is stored
+directly in drm->dev:
+
+drivers/gpu/drm/nouveau/nouveau_drm.c:nouveau_drm_device_new() {
+    ...
+    drm->dev =3D drm_dev_alloc(drm_driver, parent);
+    if (IS_ERR(drm->dev)) {
+        ret =3D PTR_ERR(drm->dev);
+        goto done;
+    }
+    ...
+done:
+    if (ret) {
+        nouveau_drm_device_del(drm);
+...
+}
+
+Then in nouveau_drm_device_del(), the truthiness check will succeed for
+the error pointer, leading to a panic when it is passed to drm_dev_put():
+
+drivers/gpu/drm/nouveau/nouveau_drm.c:nouveau_drm_device_del() {
+    if (drm->dev)
+        drm_dev_put(drm->dev);
+    ...
+}
+
+Could we clear drm->dev on allocation failure, or check for IS_ERR()
+in the cleanup function?
+
+[ ... ]
+
+> @@ -770,6 +770,9 @@ nouveau_drm_device_new(const struct drm_driver *drm_d=
+river, struct device *paren
+>  		goto done;
+>  	}
+> =20
+> +	if (nouveau_atomic)
+> +		driver_pci.driver_features |=3D DRIVER_ATOMIC;
+
+[Severity: Medium]
+Does this unintentionally modify the global driver_pci struct instead of the
+drm_driver parameter passed to nouveau_drm_device_new()?
+
+If nouveau_drm_device_new() is called for a platform device (such as Tegra),
+the platform driver template would miss the DRIVER_ATOMIC flag, and the
+PCI driver template would be unexpectedly mutated instead.
+
+Should this update drm_driver->driver_features rather than driver_pci?
+
+> +
+>  	ret =3D nvif_device_map(&drm->device);
+>  	if (ret) {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730010828.1056=
+397-1-lyude@redhat.com?part=3D2
