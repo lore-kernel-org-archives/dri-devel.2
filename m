@@ -4,44 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82F8EC55167
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:56:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BECE3C55167
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 21:00:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF26410F097;
-	Thu, 30 Jul 2026 20:56:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2D3510F08B;
+	Thu, 30 Jul 2026 21:00:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K0jGAoKP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XlIrnsvx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA87010F094
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:56:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0929210F08B
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 21:00:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 064DF6004E;
- Thu, 30 Jul 2026 20:56:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF051F000E9;
- Thu, 30 Jul 2026 20:56:33 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9948541720;
+ Thu, 30 Jul 2026 21:00:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722611F000E9;
+ Thu, 30 Jul 2026 21:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785444993;
- bh=I/V2GecalLETbHDEj3dhqL9+Ol1v29uWh1aTSvNLnp4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K0jGAoKPBSv6a2aY8hfKKB6/0F5o5g+Ev+NbzjQnt0xUM1idWCVc9k/HrOeM7fHLy
- aLU16jU5HHgq+K4p4mbUFUDhKObtLms0MW2eXaXew7P7cFzjzY61sT8Bd/zi8DT20L
- PpKlsn+8hflGhruHUNNDPHdb/iJSe8Dq8WlHMQd4LVzA5svUFuJ0pQvupwPICzNoC7
- qzMeTC8IuN7Gith4oW2fkGMvWpYr//dA14cWKC0d5bgj7jeBrfsiuunhFhqIL0u+KP
- k2uDDZKTfmYrKvqAMu1DRf5SENPXdc1xElX4AqqLdQmIDg928y+er7GyeDATM006XU
- xJbpWyYNWQ6Sg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/5] drm/nouveau: Fix drm_driver
- struct/nouveau.atomic parameter handling
-To: "Lyude Paul" <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260730204604.1729505-4-lyude@redhat.com>
-References: <20260730204604.1729505-1-lyude@redhat.com>
- <20260730204604.1729505-4-lyude@redhat.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1785445246;
+ bh=GU4+hYZmZbT8tEUgTys+3//O3qZ0GI86e9VhsvZnCak=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To;
+ b=XlIrnsvxN8Tws6u8wpf2xhSPdpQHht3nk99pv2UUZrTJ7CnNuNd1V6nCgKcOici7E
+ 1u4l/as7uDuGCMZcCATCX+vfNtTub5A/vSX6tZzdslKO+vYQrE/zLGe/ccTvDzzVBc
+ P+STc3ugdaY3KKCj0Toc6vC25GYbp1QZUQdFEsUdYjTcx6Yp8dIIBx+Oev7dr9AZPc
+ zu6XBHxm+7fy+kKyE1jJ507sJoBnw5H5eaggmkbYl/oMXml+8QgZ1InStH/bweo7Po
+ ZicWB64bO2erPMxgizFIxFBmnlOMbc4D36IhSRxFip3Lx9GTpQbbqtvD0u3kb2IKtN
+ 1WMlasksKTS8g==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 20:56:33 +0000
-Message-Id: <20260730205633.9AF051F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 30 Jul 2026 23:00:37 +0200
+Message-Id: <DKC7IILD54UO.1N47QGSHMKENI@kernel.org>
+To: "Gary Guo" <gary@garyguo.net>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v2 11/11] RFC: rust: driver: support map-like syntax for
+ ID table
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "FUJITA Tomonori" <fujita.tomonori@gmail.com>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Bjorn
+ Helgaas" <bhelgaas@google.com>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>,
+ "Robin Murphy" <robin.murphy@arm.com>, "Dave Ertman"
+ <david.m.ertman@intel.com>, "Ira Weiny" <iweiny@kernel.org>, "Leon
+ Romanovsky" <leon@kernel.org>, "Len Brown" <lenb@kernel.org>, "Igor
+ Korotin" <igor.korotin@linux.dev>, "Rob Herring" <robh@kernel.org>,
+ "Saravana Kannan" <saravanak@kernel.org>, "Viresh Kumar"
+ <viresh.kumar@linaro.org>, "Michal Wilczynski" <m.wilczynski@samsung.com>,
+ "Drew Fustini" <fustini@kernel.org>, "Guo Ren" <guoren@kernel.org>, "Fu
+ Wei" <wefu@redhat.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-pci@vger.kernel.org>,
+ <linux-acpi@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-pm@vger.kernel.org>, <linux-pwm@vger.kernel.org>,
+ <linux-usb@vger.kernel.org>
+References: <20260629-id_info-v2-0-56fccbe9c5ef@garyguo.net>
+ <20260629-id_info-v2-11-56fccbe9c5ef@garyguo.net>
+In-Reply-To: <20260629-id_info-v2-11-56fccbe9c5ef@garyguo.net>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,119 +81,52 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Mon Jun 29, 2026 at 2:39 PM CEST, Gary Guo wrote:
+> diff --git a/rust/kernel/device_id.rs b/rust/kernel/device_id.rs
+> index c81fca5b4986..5f4d191fce51 100644
+> --- a/rust/kernel/device_id.rs
+> +++ b/rust/kernel/device_id.rs
+> @@ -183,6 +183,17 @@ macro_rules! module_device_table {
+>          $table_type: literal, $device_id_ty: ty,
+>          $table_name: ident, $id_info_type: ty,
+>          [$(($id: expr, $info:expr $(,)?)),* $(,)?]
+> +    ) =3D> {
+> +        $crate::module_device_table!(
+> +            $table_type, $device_id_ty, $table_name, $id_info_type,
+> +            {$($id=3D>$info,)*}
+> +        );
+> +    };
+> +
+> +    (
+> +        $table_type: literal, $device_id_ty: ty,
+> +        $table_name: ident, $id_info_type: ty,
+> +        {$($id: expr =3D> $info:expr),* $(,)?}
+>      ) =3D> {
+>          #[export_name =3D
+>              concat!("__mod_device_table__", ::core::line!(),
+> diff --git a/samples/rust/rust_driver_pci.rs b/samples/rust/rust_driver_p=
+ci.rs
+> index 2282191e6292..652819dff082 100644
+> --- a/samples/rust/rust_driver_pci.rs
+> +++ b/samples/rust/rust_driver_pci.rs
+> @@ -75,10 +75,9 @@ struct SampleDriverData<'bound> {
+>  kernel::pci_device_table!(
+>      PCI_TABLE,
+>      <SampleDriver as pci::Driver>::IdInfo,
+> -    [(
+> -        pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5),
+> -        TestIndex::NO_EVENTFD
+> -    )]
+> +    {
+> +        pci::DeviceId::from_id(pci::Vendor::REDHAT, 0x5) =3D> TestIndex:=
+:NO_EVENTFD,
+> +    }
+>  );
 
-New issues:
-- [Critical] Embedding `drm_driver` inside `nouveau_drm` causes a Use-After=
--Free of `dev->driver` in the DRM core when the device is unbound or hot-un=
-plugged while userspace holds an open file descriptor.
+This LGTM, do you want to send a follow-up series?
 
-Pre-existing issues:
-- [Critical] The `NOUVEAU_NVIF` ioctl bypasses DRM core unplug checks, lead=
-ing to a Use-After-Free on `nouveau_cli` if executed after the device is re=
-moved.
---
-
---- Patch [3]: [PATCH v5 3/5] drm/nouveau: Fix drm_driver struct/nouveau.at=
-omic parameter handling ---
-commit 04d65df2ae87442da9882dee1a1a2dd86491acc9
-Author: Lyude Paul <lyude@redhat.com>
-
-drm/nouveau: Fix drm_driver struct/nouveau.atomic parameter handling
-
-This commit moves the global drm_driver structures for PCI and platform
-devices into the nouveau_drm struct. It initializes the embedded driver
-struct by copying a const stub and dynamically adds the atomic modesetting
-capability.
-
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_drm.c
-> index 451009adee0de..9cd12ebc7e449 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-[ ... ]
-> @@ -744,9 +741,10 @@ nouveau_drm_device_new(const struct drm_driver *drm_=
-driver, struct device *paren
->  	if (!drm)
->  		return ERR_PTR(-ENOMEM);
-> =20
-> +	drm->drm_driver =3D driver_stub;
->  	drm->nvkm =3D device;
-> =20
-> -	drm->dev =3D drm_dev_alloc(drm_driver, parent);
-> +	drm->dev =3D drm_dev_alloc(&drm->drm_driver, parent);
-
-[Severity: Critical]
-Does embedding the drm_driver inside the nouveau_drm struct cause a
-use-after-free of dev->driver during device unbind?
-
-When the device is unbound via sysfs or hot-unplugged, the driver's remove
-routine calls nouveau_drm_device_del(), which drops its reference to
-drm_device (via drm_dev_put()) and unconditionally frees the nouveau_drm
-structure, along with the embedded drm_driver.
-
-However, userspace might still hold an open file descriptor, keeping the
-drm_device alive. Later, when the file is closed, the DRM core's
-drm_file_free() dereferences dev->driver->postclose:
-
-drivers/gpu/drm/drm_file.c:drm_file_free() {
-    ...
-    if (dev->driver->postclose)
-        dev->driver->postclose(dev, file);
-    ...
-}
-
-Since dev->driver points to the freed embedded structure, does this result
-in a use-after-free?
-
-
-[Severity: Critical]
-This is a pre-existing issue, but does the NOUVEAU_NVIF ioctl bypass DRM
-core unplug checks and cause a use-after-free on nouveau_cli?
-
-In nouveau_drm_ioctl(), this specific command routes directly to the ABI16
-handler, bypassing drm_ioctl() and its drm_dev_is_unplugged() check:
-
-drivers/gpu/drm/nouveau/nouveau_drm.c:nouveau_drm_ioctl() {
-    ...
-    case DRM_NOUVEAU_NVIF:
-        ret =3D nouveau_abi16_ioctl(filp, (void __user *)arg, _IOC_SIZE(cmd=
-));
-        break;
-    ...
-}
-
-If the device is unbound or unplugged, nouveau_drm_device_fini() iterates
-over drm->clients and frees all cli structures:
-
-drivers/gpu/drm/nouveau/nouveau_drm.c:nouveau_drm_device_fini() {
-    ...
-    list_for_each_entry_safe(cli, temp_cli, &drm->clients, head) {
-        list_del(&cli->head);
-        ...
-        kfree(cli);
-    }
-    ...
-}
-
-If a userspace process then calls the DRM_NOUVEAU_NVIF ioctl,
-nouveau_abi16_ioctl() calls nouveau_abi16_get(), which retrieves the freed
-cli struct from file->driver_priv and attempts to lock its mutex:
-
-drivers/gpu/drm/nouveau/nouveau_abi16.c:nouveau_abi16_get() {
-    ...
-    struct nouveau_cli *cli =3D nouveau_cli(file_priv);
-    mutex_lock(&cli->mutex);
-    ...
-}
-
-Can this lead to memory corruption if executed after the device is removed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730204604.1729=
-505-1-lyude@redhat.com?part=3D3
+Thanks,
+Danilo
