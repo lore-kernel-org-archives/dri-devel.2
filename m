@@ -4,126 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35DE0C54FDF
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:33:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 960A3C54FDF
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:45:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82C1D10EE28;
-	Thu, 30 Jul 2026 09:33:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFEEE10E130;
+	Thu, 30 Jul 2026 09:45:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="INh4lKQ9";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="AgBLBgea";
 	dkim-atps=neutral
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11023107.outbound.protection.outlook.com [52.101.127.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCF6510EE28
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:33:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Uo/VpVjCRdWOXMsl9tnOX2x3IlI6b10WjdOAFgLl+vdhwn5nTdlF2LIdP/+wQZWOgFYyd2V8JQ8Iy5IM48liDnSzqr7AV/VIWrNXweKtQD0Zg7qg9mGgr6QwCTBi4i+2LqrJg+sFWr0gw4iAu/pgyPBDcy1gjgjZmrNjeRWYK2PoeiTSMRO3wSqSK4r98dd6sCgKBuavEXosHGwhQhISEWj/Fz6ih7wx3PYk6BzJE5gjWyHgX7Dr6dEWYDs5w/2sTjJCse80SJI/Ghn+gJYbxyQqQjceMBaVY19+dbDBr6Py6/iZnxxAaFyx05P03sa7t/Rul1nJlNiXur5WEX3ZcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ms6FJURN08NIDjxpADmFRwt7viw2+rwyAcVHsO9E5Dc=;
- b=Zzy7oA+ZPJTcfrsLsPX3iv7n3q1PDVGNHIH/EQi0NtPV+q/zWaUMJnt7noxtVM/X0XMKXm2/KlP3WUC9tu5zSCIKAW/3tOg0PSk+iM32ovTPhoChMWnPiOUlghtKqe9YYX6tHG6T/ABGLnb7DSB/PoffB+6a9P/gCWHy9uGQ/DPp+Tmx3linCz49UU7nzi1XF6cKz/IWbBC2/Mkz2LrqFK2uqX9W81O4ZTE7sLZb9FjqnbzhexeRkh0CTj7AONZQ5rT5ExDYe9FA9F5EfyTjTi8/FOvavzDSW6dYKFVdw48L1qWzH+6unLQcFv6Pq6SpFFLf+pctQUBULgcXNFh/TQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ms6FJURN08NIDjxpADmFRwt7viw2+rwyAcVHsO9E5Dc=;
- b=INh4lKQ99Anwc/6lzH0AJ42WHAFRfRNKkjO5BlMs7uYS63HcG68crSavonZxtcBG1kYgYU0jRh+klSHVjUdYcRM66SyuOo0sGmcOPqJOHHcuFiebaPK/yCv6+WVOA9lEKBuUZxlGwmq6ObCWkuvXvg4a0HJUO3pOvnwCOhxvBeeoNVf355UnzKsClIlj7r87HXGJAQB0bRRYPaMLo0VBXHj6oIZEZxR+JEUibwTuXf4rCaRa6jclbfTL4gcHz976vFUJAxRWPdQwCfYdt6IWFp6KhlwO6YOS2TqZqGOnpMvUmhqApAUA/L6bKf5Ee4xVUxPSk6uOJQSZtohBYVZ7JQ==
-Received: from TYZPR06MB6568.apcprd06.prod.outlook.com (2603:1096:400:45f::6)
- by TYZPR06MB6860.apcprd06.prod.outlook.com (2603:1096:405:1d::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.14; Thu, 30 Jul
- 2026 09:33:16 +0000
-Received: from TYZPR06MB6568.apcprd06.prod.outlook.com
- ([fe80::b803:eff4:ebd4:9393]) by TYZPR06MB6568.apcprd06.prod.outlook.com
- ([fe80::b803:eff4:ebd4:9393%3]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 09:33:16 +0000
-From: Jammy Huang <jammy_huang@aspeedtech.com>
-To: Jani Nikula <jani.nikula@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Dave Airlie <airlied@redhat.com>, Jocelyn Falempe
- <jfalempe@redhat.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, =?iso-8859-1?Q?Ville_Syrj=E4l=E4?=
- <ville.syrjala@linux.intel.com>
-CC: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2] drm/ast: DisplayPort edid supports 256 bytes
-Thread-Topic: [PATCH v2] drm/ast: DisplayPort edid supports 256 bytes
-Thread-Index: AQHctghLcM60vWSjB0q2hmYy6od4zrWz5cqAgB8T2UCAruV5AIAEv6Lw
-Date: Thu, 30 Jul 2026 09:33:16 +0000
-Message-ID: <TYZPR06MB65681FB22E654846896F81A4F1C92@TYZPR06MB6568.apcprd06.prod.outlook.com>
-References: <20260317-upstream_ast_dp_edid-v2-1-31166703c491@aspeedtech.com>
- <2efefedd-a36a-4b3c-a2cd-89db3499ebdb@suse.de>
- <TYZPR06MB6568D830FCFB93A9776333ECF1C22@TYZPR06MB6568.apcprd06.prod.outlook.com>
- <b601f8842b959f6d8a2bd22bf6743dabad6d980c@intel.com>
-In-Reply-To: <b601f8842b959f6d8a2bd22bf6743dabad6d980c@intel.com>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TYZPR06MB6568:EE_|TYZPR06MB6860:EE_
-x-ms-office365-filtering-correlation-id: 42407537-0367-4c89-c178-08deee1d95c0
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|7416014|366016|23010399003|1800799024|38070700021|56012099006|4143699003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info: Q4jjRkB/toj1vMJ+1WvmBVoPsYjMSHevUxM4b7sUiUg6MOxGQqlZvV3lzsGgVQhKVvVs+LhJRZwzVfbP5XfeUdevgqucaaKUAsQIfsJleyNABHwI1YIbUT55jhesqw1Mm6gBTvK4AVWz5PgipNiSrurl26puCjH0e8jqC3xepQ/kz6+IJCRKI9J6t8whcBPq6dMxtESR7Otn5+/s1/yBqaPIab2KGbf7oovO4ym0nctzu7giAVgh3BHmhOhzMQLY3OC25WgsWMqmVz3DoZQe0jz/fpgT9JByDAvSz1cJwKpdvFPL7Ck+OQqQZtH3ZUPKbqbusmG1oD6CyqB6BZfH7zZo1Mkl42HQD2EnyfmFxDPvO8hX4emA4CvSxfahFZMRdx+h8E7DMBXeHCAnYHM82sKGgFVQ04xxXi/0TbpoY+KOY19JsTWmGIfFgev3JxjmgpjYnpoVEEPKSDGkYZDh8K7vfJ3Mh98QDs1NcLcR67qp7VEAjqTv0hbwrRj355f3H6oqqOmgvgOZYGLbV8xhtGfiRa0O5ITKMyWiV3k8Joa7r5ejU2zW0ZAQ7mBt9Q45Llk+4uMzH5HQG3IeKh0BTjjM6cWYiS5TD5QJJS4y6QtRrXIJpQDZ5a+OSXPGt8YP9TXVCJdSZs6j/7mu0TrHh3ybdzYHJu+rMFOSb0vXd+aj6djTtfEBGypGF7oSRSjW8DB6YmO2vMlr+q1cVfWUSxuGJdee9lKvMKLuXP65C7M=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:zh-tw; SCL:1;
- SRV:; IPV:NLI; SFV:NSPM; H:TYZPR06MB6568.apcprd06.prod.outlook.com; PTR:;
- CAT:NONE;
- SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(38070700021)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?rTyt4OVcv/k3XZrMPfND0PEfSrZMXLFhsA4Lt8YwLcqmkbBySRERiofc7h?=
- =?iso-8859-1?Q?eF7wKCW02li0NlFGUc16MAHkuhcDwAF2Ue6nK/8z/re/Qt8eVY6yK9M5cr?=
- =?iso-8859-1?Q?t81WJOXGLmQkDouThgWCWbUhYwpo1VcHaglrQDODMRSVIMEsOzqBOFcya/?=
- =?iso-8859-1?Q?oaZZHJx9jfrTbIyD5JTspIqt7RbSn4CpoUcCDqHFMAHLZsj7D1wpjkv8E3?=
- =?iso-8859-1?Q?M9tv5epF6X9uXoq/n5qjQa2CUj++pyHX8n/QeBWi71mQ1zFsPKFjolPuyy?=
- =?iso-8859-1?Q?ysWlQgOCoX1/FxYXx+mJyncYX3XIWvi2v/Cuz6UVDGx9DcFmWf8HjnMxYk?=
- =?iso-8859-1?Q?RxIRDc0OxLSxJpiWckuf4JTry7ROJNrLbfN/3CWO6nHTRHCPgXF90aagLT?=
- =?iso-8859-1?Q?kyHx0MvBYoE3fMRC8EqjomkDHg1kgvycJLWAxs7q/QvnDTkmlv8aIuNX2R?=
- =?iso-8859-1?Q?RvTFyY82a8r7Ptj46xSXxSdxG2kuwWdYfxtWVPRPDFfCE659ShOXh96Bdx?=
- =?iso-8859-1?Q?+IUoqnhbVKZKZjnmWyH4hLtWijSewWGXRoldfU4uRO1i7EFEzn0vO9FCc6?=
- =?iso-8859-1?Q?ioHMuWYqng8algvuPNbNRLyis4lp/i8tyDO3Z8IeF7ERH6We6GbIJpY+4h?=
- =?iso-8859-1?Q?jiGHzywz3C3DdA8O6VPrjQsJBTqwEWysV+9RqLCv0NhqySmw7N2u4hKgkZ?=
- =?iso-8859-1?Q?BhF9U7K90g2b4y7Yl+h5rQcXOr46Bg+VhlgCTJq23XkXWgH7Udj5aq4wNg?=
- =?iso-8859-1?Q?zsn9s7Ft5SSFPoDDGX0czLONB2IQBinF+dcjUBCtJDCyEkpMj5sDeJ+mjP?=
- =?iso-8859-1?Q?gD8B75UFMTs3RhZWs4zdFHBWM82o7l9+KZtGjKUZGhleFTG4GpEckn/Ljo?=
- =?iso-8859-1?Q?PDizxoR+w6T250LteMm0um7OJJQUqaERwSac8N+rG5K5PwQXNOEby458ZT?=
- =?iso-8859-1?Q?0Q+XULFZq/GF2BtlengkBB2jiLLwNBABxlDU0YcxiO4nxcre+ZbawP/zIT?=
- =?iso-8859-1?Q?WoROtP8W4vIGDLASc6lfu6O4IsDOQB0cCHNwZJy/gDjRxRk1Y/U17Vlgmo?=
- =?iso-8859-1?Q?cDU72O+RKB+U9c9lvqhcFpnVe4TiBfaQyky/y0lsYD+H71AAeTOG/en4dy?=
- =?iso-8859-1?Q?0aCjMEQ/QLy2LBv2yMowOPoYbwHjOd3fcVJtOXToAF+QP83Tz43GERwsXh?=
- =?iso-8859-1?Q?SsI7g902qm9pIMLD67ZAQAudrUg9yK9F4yJlyZ1JPR6YG+DU6WMSXsfSUB?=
- =?iso-8859-1?Q?qucoM+KDGOb2lhB/3LxOct/+3aPDXJnYFBeEAavSOWfDO0QexGYGJo5Tap?=
- =?iso-8859-1?Q?YnH5xaC42YfWUu+i9lDezGTt/QJrQnYQzHkBRMGvdTV2COt0ECFb574AFD?=
- =?iso-8859-1?Q?zgX0YbM92cjQYJiW/IEo/Zl6DxfM3VEo7opaGRxDWsHrlg6mk9EVGf7etX?=
- =?iso-8859-1?Q?7pdRAddwIKupazTXo+o2O/w9OIhfD3jcE8imRDsJeI9cPhKIHzFJsdb3Qh?=
- =?iso-8859-1?Q?ARVmkw2uZNJNhHPh8HlcVB2dOrTcDaAQrVgkRN1aMY/KrF0gXMQA42erCR?=
- =?iso-8859-1?Q?Affir1VpJsBoBp4k05KI4luJ8XM+FHrCNkrwlCnKEW61YWgl2XtXYBxl1/?=
- =?iso-8859-1?Q?VH1EcF1JBe0TleMSbkGlg4ivVIRdsIt/n01OfdIxR56tIzkIYC+XtK0MZZ?=
- =?iso-8859-1?Q?IBQrPueo4CP59+Bd1RPjCfZYgNyd4ID7iFIVzFUP4nS7SfSLpC7Bo8fl6u?=
- =?iso-8859-1?Q?mRaqZAwOZDxWptvjMgKdtp9a/9/GIPULmy2QuwSpWCaAZrnYBVJsE10PIQ?=
- =?iso-8859-1?Q?aQh0IgQ7Zg=3D=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4395F10E130
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:45:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1785404736;
+ bh=cU30pKBIFPwKFVp+ZUCheTXWhKhVmJEBwgBrtWOhknY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=AgBLBgeayquUnuvO/gJyRJ5p8PXaTa4T5VwYdygqSWAQQ/FHsaFYCK+a9/sTOy3XW
+ +K5fiUgRW7W6+g3AQs/2CHazaZKqnZSosPe4Swl7Sw1cgyMBH1kIPWPD8Tmlj0XRQq
+ 4ifBLERri1NqfzH3Dy+f+OD+y3xTPfCG3nQgG0gX5uqphHMGy9/W/ItM4cbdOr/XEJ
+ E6bVh2+hydiBbdMTVaz1DOnSIFW5WGue28hkblWgd1G3JxgK3WUae7qnVJF99p58nd
+ 547ybIvK3bX/drIERdEZQ6QVCb/tyF+WrRR/Gsue6Z9wOXUsKaRjot9CL8vWm9nsWx
+ zwBACyxwKZpTQ==
+Received: from laura.lan (unknown [100.64.0.215])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: laura.nao)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E35AD17E0048;
+ Thu, 30 Jul 2026 11:45:35 +0200 (CEST)
+From: Laura Nao <laura.nao@collabora.com>
+To: work@onurozkan.dev
+Cc: a.hindborg@kernel.org, acourbot@nvidia.com, airlied@gmail.com,
+ aliceryhl@google.com, bjorn3_gh@protonmail.com, boqun@kernel.org,
+ dakr@kernel.org, daniel.almeida@collabora.com,
+ deborah.brouwer@collabora.com, dri-devel@lists.freedesktop.org,
+ gary@garyguo.net, kernel@collabora.com, laura.nao@collabora.com,
+ linux-kernel@vger.kernel.org, lossin@kernel.org, ojeda@kernel.org,
+ rust-for-linux@vger.kernel.org, simona@ffwll.ch, tamird@kernel.org,
+ tmgross@umich.edu
+Subject: Re: [PATCH v2] drm/tyr: add Job IRQ handling
+Date: Thu, 30 Jul 2026 11:45:25 +0200
+Message-Id: <20260730094525.245487-1-laura.nao@collabora.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260729165121.768013-1-work@onurozkan.dev>
+References: <20260729165121.768013-1-work@onurozkan.dev>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: hDPsSLYFeyggK7wu9Z8yZlViravj7vUbjoQ2gAEXsD3jwhK/vMPLuxLX8Cs2ymsBftPLqXdUR1A8vWZDyszukRJZPS9p16rZgWxO7oKMayYkwr8XSMZFa0lwc9yakkPGBf6O2GtsbExaY7ZRsAgIIIA3M/JRu30AtaTfZCG6xu6SgqRflxHryHbzLiuqhRF+6tLy/JZbHjhhaKweJbP3ev2U9kkkygJsul8bvuw+0d2YVEEM8q5/sUF4Akuj5C53RrjZ5RCVj9Xi3RHYBSGFXggt+YJ0CWnCB485WmcQyu2xvetjvdNbf3/O+2VEUEUGX8kL3GI0OeeDaMP5UuE/Bg==
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR06MB6568.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 42407537-0367-4c89-c178-08deee1d95c0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2026 09:33:16.6547 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: u1sQP5Hv88Sr5q1ipXSUpmXX/VYNGj7XSUbz233q1p7AA8Ywcainh6h3k1BYp3QbOUyV0vFC9oq+9t03iz3VN2IfCMSEhjq8mkYFD9WcuS0=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR06MB6860
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,46 +66,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jani,
+Hi Onur,
 
-Thanks for your input. So, your suggestion is go back to return -EIO for bl=
-ock > 1,
-and stop trying to modify the EDID.
-In this way, we can handle EDID whose blocks is less than 2.
+On 7/29/26 18:51, Onur Özkan wrote:
+> On Wed, 29 Jul 2026 11:58:29 +0200
+> Laura Nao <laura.nao@collabora.com> wrote:
+>
+>> +
+>> +    fn handle(&self, status: u32) {
+>> +        if JOB_IRQ_RAWSTAT::from_raw(status).glb() {
+>> +            self.fw_ready.store(true, Ordering::Release);
+>> +            self.job_irq_wait.wake_up_all();
+>> +        }
+>
+> You enable both GLB and CSG above but only handle GLB, is this intentional? This
+> means CSG will trigger the handler, do nothing and just get cleared, or am I
+> missing something?
+>
 
-BR,
-Jammy
+The series that will later add CSF interface support will likely only 
+include a firmware readiness check at first, with CSG bit handling 
+added at a later stage. That's why we're only handling the GLB bit for 
+now, but I agree unmasking the CSG bits here is premature then. I can 
+drop this in the next revision, keep only the GLB bit unmasking/handling 
+and add a TODO comment for the CSG bits.
 
-> > Hi Thomas,
-> >
-> > Good catch - returning 0 without writing to buf wasn't safe. But I
-> > also found that returning -EIO isn't right either: _drm_do_get_edid()
-> > treats EDID_BLOCK_READ_FAIL as fatal for any block index, not just
-> > block 0, so that would have discarded the whole EDID for any monitor
-> > reporting more than one extension.
-> >
-> > In v3, for block > 1 I now zero the buffer explicitly and return 0.
-> > That makes drm_edid's block checker classify it as EDID_BLOCK_ZERO
-> > instead, which is non-fatal - it gets trimmed via
-> > edid_filter_invalid_blocks() (extensions count reduced, checksum
-> > recomputed), and blocks 0 and 1 still come through fine. This also
-> > directly addresses your point about the buffer not being guaranteed
-> > zeroed, since we zero it ourselves now.
->=20
-> There's a long-term goal to *not* modify the EDID in kernel, but rather r=
-eturn
-> even the broken EDID extensions to userspace, if that's what the display =
-has.
->=20
-> There are probably a bunch of hurdles in making that happen, but intentio=
-nally
-> returning zeroed out EDID blocks is just adding another unnecessary hurdl=
-e.
->=20
->=20
-> BR,
-> Jani.
->=20
->=20
-> --
-> Jani Nikula, Intel
+Thanks!
+
+Laura
+
