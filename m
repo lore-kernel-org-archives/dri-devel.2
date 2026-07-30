@@ -4,137 +4,177 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14989C55160
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 12:59:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AADB1C55165
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 13:00:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 497F510E160;
-	Thu, 30 Jul 2026 12:59:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECDC210E15E;
+	Thu, 30 Jul 2026 13:00:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="ooPTrQJf";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F5Fcl2Jl";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ehFlbI73";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ehFlbI73";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C57010E160
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:59:44 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66UCfU5N643079
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:59:43 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- IZj8afYz4TH7NX2z9E4K544D8/dPECrObKm5nM3IWL4=; b=ooPTrQJfXw+167vw
- 22IRx3Y3y2D8kka5ClK3UOvP262VX0ljXcsGQKIyK1Tz8N4ZwwnMWjy6maaugb7V
- 9jCjS8AQVbJ/GD90Y7R7wKqVQU/lOW/nHiZ+hX9DoZVJtAZ8XUShu8J52Ek6Bqqw
- BM9O/h6ampQKEQNWK5T5PNpgQ4fiG1+YAarJL4q8s1vebOtq/elPu8EYOxmFCOgI
- 0IiAY0b0p+g6U0PiLaH16swX+C6xnnXLVz2kCMY46Q34r5YlLcR4zZBgzsBY2XP0
- oHyShAnX8wfDnKYQD3MlptnjQojURK9AenaIkznfeyyEz96wY3X4++awMc8tYgXm
- Y/XZ7g==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr6ucr2c2-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:59:43 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2cf6acd760cso25025345ad.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 05:59:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785416383; x=1786021183;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=IZj8afYz4TH7NX2z9E4K544D8/dPECrObKm5nM3IWL4=;
- b=F5Fcl2Jl8vPQtTPe4KzQzvlNkrc6PnvZ+xV893zg0DeYSVLfGDcqkCKNiRdmalxygB
- xWT7NVI2WIa8KdftsJ/ZTGUHZ9clnU5oalazbDheMqKpu51IAeyOkvsbIv7cFMijDhtq
- EL2i3DLIHFN3Sf2nfCXh/PSCrUCpgWpUvcBdAbWoxUiqcsyxdQngW2/2mrvdIifly+Pj
- 3857SH5DlHiXtdhBSKL0n0TZN19T4706VKpAH/nyJmpnuCuiwSelB2j/46FJVLjz8RgH
- /9nzkmYobbKELZmbItNEYRLm+FSJAOT1miFds06ML9BUXEO70Wmj6cl08KlL+uhSkVkY
- lgxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785416383; x=1786021183;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:from:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=IZj8afYz4TH7NX2z9E4K544D8/dPECrObKm5nM3IWL4=;
- b=YbADZ1PNxVz9kNV+6xcT1h3dETbcqeiqbHGA5skg+H5ISnmhb/ygCKv5kH86BI5ikZ
- L9T6PaW4+J5eD1WX10FzwzS5p4BU9FSaqFrKK8HcgmSuPIl5ozJxRqtY2wwKQ9Ju6qnx
- cmPy/50dOOlwSXrE7BVWL6T+vlWoVpMvRm5u3/ZUHWpH3rQScwEn2WX02B68giLIioCI
- tR7Bs6ksjdLqGYWljw6/G0Xf6nLrZqC1mD0uZr6YR17XynyNe2Rzj2+9zn6NzAClyk6K
- X1q5CwP1w/Yh0oT+cE0AEGxqQLXdfae3UpS6H8TozE4EF/6f1DPmPWEhFO0K8TcK986n
- UL6g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoKwKKlOwiJ6NqiH1Sse5+JPZHa5pMPxCfHR7MatwJZP8IIswhc4HKOXjt3IRXjlGZB4z6CiK2bq6c=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzx4LariFxm5LKuGL9+ZBiAHyH/jsLkG9BYcFxQxr3ilzNQvAL6
- RJzogufC4hZxcroY9zy0NZKV+WINm1wDU7Jlxl6+qFt7SsOqy1D0p4kNOI78KaSm2zwd55mVHHv
- tBJNEfX92sQTfBNXlw1i7YoN0vm1/rUPZWUiSykkOkMKKepkzuMTalibxKQdcy8BSfbUZyU0=
-X-Gm-Gg: AR+sD12d+FprT8VZAKDqUVTCUo6pMoLWQ7NSBqxhB4DgLe0lfDudjZnEaBgMqCimLJI
- hDwfX53e+oNkj7HZJuLPLxnPxij+vXMNiiaQSnujQR8is+7RUOk2a3nZYjKgVAC3SKCOE6Qqne3
- zC9KILZnOhAfGZz2IJYJ5tZd3el8vZdDlhNYZGXVaPK7BuPLaU1qCFK2RB6z7Eg0n4WAJoSZ2Fm
- jokRWWcTzwU4JosUCbB5OKYRyzq2a1WAwPpM62WNj6J0yP/HycEgKFkUpmskLEKVd3Y8Lioz0Mj
- SSVvBmJ7WALlplZnyCg/TbMhoj4jNMy/ifrR8OsgKdosZCY3lNfmSVdRiW4MGL0uq1BjkMCOJuo
- sa5m/7vNllWJE/VzwH/VrFFSeNBE=
-X-Received: by 2002:a17:903:2f84:b0:2c9:b48c:fdec with SMTP id
- d9443c01a7336-2d035c4edf1mr23886435ad.12.1785416382599; 
- Thu, 30 Jul 2026 05:59:42 -0700 (PDT)
-X-Received: by 2002:a17:903:2f84:b0:2c9:b48c:fdec with SMTP id
- d9443c01a7336-2d035c4edf1mr23886155ad.12.1785416382067; 
- Thu, 30 Jul 2026 05:59:42 -0700 (PDT)
-Received: from [10.204.78.62] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d022a1586esm26996045ad.12.2026.07.30.05.59.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jul 2026 05:59:41 -0700 (PDT)
-Message-ID: <cd76a3aa-f86d-49be-a94b-820f4549d4dd@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 18:29:36 +0530
-MIME-Version: 1.0
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013069.outbound.protection.outlook.com [52.101.72.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF8E810E15E;
+ Thu, 30 Jul 2026 13:00:37 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=brhowPZaixhmItoK63D6dRP2HdCj5SxXd89zLkHVw7pOcFVeXeRa6dsm8MDQH2QdjHHroEFd6Vy44UqOzVenBzRaPsvq2w0EKl4/IUBXwYzmU5FD5qK98zkuVHmMIddytylp7fEVQEld1svrp9/gpgB0caXUxONBqz1/LErICzn4gwYGnJsc2+Ui0OSVwjry+j4F6v4JP23HSx/RTzA3YyUr19kWue54mZA4bYjLI4JtNd6PCkBYE8kJv5fNgQkVHSUF7DU8DJg2hcoyi/4JyMN/cq8S6/kq5jWAIfuLSDbG0lV2pE89qdy98lEN93IhPQHsGpZjPMIkgE+4LHtuHQ==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TGN+4FAAC8jIvrpXYh0SLEvL/4I+/62MbZ2lH29z+TY=;
+ b=ld77FhXLKU8yRLcwuOJoBUXZowlHzw/KREmKaaKSNP4IboVn1/jT58no8kAbEK6CO7RiQ3p4rix/RkSc9V/9IDg45FUXT8q/DlphJbEYrV4PfD8jZXRgsWDWJMygGRuNeMbioQzSFFGYKFVVCl68TCsTTNZvnv2YGt/BxhdGB3WppribI5+hiH7pCMPEnErfjlebi7ZNwbSJ0KaFmFQ1Fgu0OiackJx4pHAYbXNXv22/TQ/kaXfhMZi/2H7eRZacVj8ZTjeEEZYZGVHsgt6HSgxqEJ5CwmKUZpLR4FO4z6UIGzXJ1PXVATOciDArVN7cGHl4zvT358xsO5m2ssZlpw==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=linux.ibm.com smtp.mailfrom=arm.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=arm.com;
+ dkim=pass (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TGN+4FAAC8jIvrpXYh0SLEvL/4I+/62MbZ2lH29z+TY=;
+ b=ehFlbI73LoxtbByzSNijQF7loKC3ZeZkxXqfibb33CjVmDNBoYQoepnyr1q1+I1wvvtby/Q9VRDpUKgcH09WljEJj8R5a76S1CKxrdWBk6bf1e/WMFtGccv8XgrF/uT+BZ9ZnJ9h1+A9xjW4ASKIJeakwn8760yq3o5hOm8kHDw=
+Received: from AM8P190CA0002.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:219::7)
+ by PR3PR08MB5609.eurprd08.prod.outlook.com (2603:10a6:102:81::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.14; Thu, 30 Jul
+ 2026 13:00:32 +0000
+Received: from AMS1EPF00000049.eurprd04.prod.outlook.com
+ (2603:10a6:20b:219:cafe::9d) by AM8P190CA0002.outlook.office365.com
+ (2603:10a6:20b:219::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.14 via Frontend Transport; Thu,
+ 30 Jul 2026 13:00:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ AMS1EPF00000049.mail.protection.outlook.com (10.167.16.133) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.8
+ via Frontend Transport; Thu, 30 Jul 2026 13:00:31 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Yyx+ToOaEnOvliHo5S5zNq7kYBNmgVSRSL0orMykREc9hqSqjsYxQs6C+lu7IYnDXiqlAhPCkdvWBpA4SH3qEK3mFGCnmqynn1L1wHgf/2D1/REgmU4jA1bZUfu4FJEoB4cUaInXCuzbVMHLc0/hyx9184MDrGAS4+YSQsaH2F8L4/e0zrFC6u2XZRkGkB+IRw+ipGNzOdlsNWrP94fZj8M5j1frcD0vHU01l0imGM/TFij8bUMMESJ4CqovmhZr4gEwzrh75Y7b9jhjgHkFozLm3Ik0uwrs9XixxlPemeJLSTjwELPeh+384IKVCn7ncub1OMEh+EfEplfh0oYX4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TGN+4FAAC8jIvrpXYh0SLEvL/4I+/62MbZ2lH29z+TY=;
+ b=OPOKjo3Rvy1I4POMIdhajtkJh+RtxKtxGV3xKvUK1yETsg6IzZIMYDDo2cAhLp1PGVZjKFQ6h+aM6JDuMdFWgOTq5x44s+3uUK1oEUbjJLJnVvcq8Ey7XHaO5Lp90rsOH65dFFx0AEyuzASd8q1VpHZVGCp1IHM+Njtzh7zFI5BkKadZCXEjFo2WWCmTIzp3QTVC7Wvb0frWM/amTwik2w880RYlT68zBtZ0gsz6n0kvCxcgn6eF0mUG3KquYfe6ExEhGkpWanzhMxR/C3/ueWLSOH7blAEAxexih86vrVpfwxsrr+Zx77zveIZpbP7Ato2fWzoLhPG2gG6HjGGhVA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TGN+4FAAC8jIvrpXYh0SLEvL/4I+/62MbZ2lH29z+TY=;
+ b=ehFlbI73LoxtbByzSNijQF7loKC3ZeZkxXqfibb33CjVmDNBoYQoepnyr1q1+I1wvvtby/Q9VRDpUKgcH09WljEJj8R5a76S1CKxrdWBk6bf1e/WMFtGccv8XgrF/uT+BZ9ZnJ9h1+A9xjW4ASKIJeakwn8760yq3o5hOm8kHDw=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com (2603:10a6:803:80::16)
+ by AM8PR08MB6499.eurprd08.prod.outlook.com (2603:10a6:20b:317::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Thu, 30 Jul
+ 2026 12:59:27 +0000
+Received: from VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4]) by VI1PR08MB3421.eurprd08.prod.outlook.com
+ ([fe80::e079:6bd:fbe0:89b4%3]) with mapi id 15.21.0270.009; Thu, 30 Jul 2026
+ 12:59:27 +0000
+Message-ID: <fe1b4098-6ab7-4cf1-ad6b-ffadabbd587a@arm.com>
+Date: Thu, 30 Jul 2026 13:59:24 +0100
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/msm: default separate_gpu_kms to auto selection
-From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <20260330-separate_gpu_kms-v3-1-a3e54b9c9417@oss.qualcomm.com>
- <7cb406ca-e631-4cd4-9782-d3efe30844e4@oss.qualcomm.com>
+Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, ryan.roberts@arm.com,
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-parisc@vger.kernel.org,
+ xen-devel@lists.xenproject.org, linux-mm@kvack.org,
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, linux-trace-kernel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH RFC 07/11] mm/mremap: use ptep_get() for the destination
+ PTE
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <20260727164715.2866609-8-usama.anjum@arm.com>
+ <50dd77c0-b6cc-43e2-abd5-6d44a29b5597-agordeev@linux.ibm.com>
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
 Content-Language: en-US
-In-Reply-To: <7cb406ca-e631-4cd4-9782-d3efe30844e4@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA5OCBTYWx0ZWRfX5VEcBASjBgRZ
- Cu8QzFZLhQAEeLir7faS7N0YmoAwu/Wst2BhI1F4Px5lmWGILcHL9xMgnyy6Q80SlS4YLLe7lIY
- 2wNqBpxJDXC9003ZGnNweJdJw5B8RQk=
-X-Proofpoint-GUID: H-zLnBnFG0J4vYtVbJ0szAdOUBUfIPb1
-X-Proofpoint-ORIG-GUID: H-zLnBnFG0J4vYtVbJ0szAdOUBUfIPb1
-X-Authority-Analysis: v=2.4 cv=W6QIkxWk c=1 sm=1 tr=0 ts=6a6b4abf cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=K928gvJhYKBOjmkGNO8A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA5OCBTYWx0ZWRfX4S5JllsToOqB
- ioUn8y8ih+mHg7685OulN/VbgbovsZk97FuqArm0+I99ZVd3OtYVzQxAqNib2kWUHU08UB65FTp
- d7Whq0fg2oCwh2IF9iGOShet61JnGzXVYiPk7YReyyE5jpnIdnwXNKHfCGPQC1Og21S5wj4Fw3w
- j+4lcP9Zayl+XqqpmBEOp3aA5LbRjypmZwSNoKok1iFA6yvaxSgCK2w1YQXkhHU/Tb61mbYNQFr
- wBBynbbhFqkfwRqJ5/nWYngGZjlKrwIVQgwnQeQgns+BSnZPlCdje917Wx9tZPBA7qw6EJitMCM
- Kr05wd28EpBshvR7cHBUmexaOqrCWw3vKv4wlFg4N42yvvdgaAsllXkhrV+7ea8/kLPg0l7tW0J
- b40FhoPKdbNnorShGtQSdRUMhq2IM5tSKVDqqVSbJILQbOYpFPpeFLb12xMGMeFRUtZIncxWVHK
- hFNapRvhEApXiQC6xYw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300098
+In-Reply-To: <50dd77c0-b6cc-43e2-abd5-6d44a29b5597-agordeev@linux.ibm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P265CA0022.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2ae::14) To VI1PR08MB3421.eurprd08.prod.outlook.com
+ (2603:10a6:803:80::16)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: VI1PR08MB3421:EE_|AM8PR08MB6499:EE_|AMS1EPF00000049:EE_|PR3PR08MB5609:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2422e5ee-63ab-47d4-de99-08deee3a8993
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|23010399003|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info-Original: FC2/f3uqOPNNy96aL5tW8wkHImrCfVxh6gQab1ZKH0Q8V9H1vUmueEs6OtDiI8UtXir4rhhqasBx4ap8cYLSYxigO/kvUNlrkbD2UFdd/IpSC7NMQ5r2AdxEt7Dil8zElmXunvRoE5Tlg5sGnVdcymp/0GRd7uQDnxPOWfgMmzW1CCGhDM3v+DfMPVFosD2QLovucjpI0mdWXiiv3LhVLTTiqh85ygjUz5tiRxrntpo8otSPv4PIgvvvuRnm2hI0to5Mdar/A16FWVJK++gzpBzWDlclVVy9ObW6E9YNTB5AcXTLB2BRmht6C+LJ73SIGkvhND+munjpvjnCNX4GM+dv+iNc2yrnOKf3hduUdhhmqBZMJfBiFIXH6AC6j8q89bevK/2qXILNDQRfolUrwjbzI9gX0tiwMteCnIQTjkYrfh1NWlAMJBqRmVgkez0L1229MzW0FFHciClGqnCrHNlhG9+3JkyI/D1HQnoUBzVW2hMioefk3Nl3IAFu1t0UCQ9ab0zh4eIjPXw+czTd5wh5/3SUeVS2L3txx6cDHO6mWTMfg1iPlJNryIjRZOG4tQgZcfzHN0355IoQ1BJo9CIYMiBMGUUM/pO+t0/1P/UVaidrsdU8W1nwX5nKncAJfTqvDhCcwLQvvX6sZpr1j3KIOss8CU0HxU3z0QangmQ=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:VI1PR08MB3421.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: PJVqIA2lDgDWhewu7hYynL9BtEIPBvddMwyA6Osilo+gjydcsIvk19XXBZt97+CSHOBCcSG1lF5ESd//62FEcnuW0Op041L9mUSopM9qIiRcFzs6jxJ5UjR3ygaJFlN1jkDri8tj2JilMkEJV/f+jXbciV8JLgAAjrVUK1FCu8cKe10e2R3XzHtcJB0d0wf+6uvadBsnplj1Vi9ZrgFvKbcSQ3nWsFAKAwekW3nE4LknTIXxlkyGUKh4agwsjc5N6hK6U9AG4+8fxKtOCwiJW0F14FybdRB0nEtZgFHfgnVXGE59pb5a47YhLFojq6ZdSXR/ked5yu0EJrH2ID3F1g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR08MB6499
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: AMS1EPF00000049.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 4668f8d0-8f81-4de8-943a-08deee3a6347
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|14060799003|7416014|376014|36860700016|35042699022|23010399003|22082099003|18002099003|4143699003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: O10KOqaXNNUMGR3ls13Np733WLe/+mOUvsHHZK/1xvrOwAaQ3gFyBxD+l4l/yBYETpIfea/UPYyKQXoQWiI0DSf1odiOCn6popV8LeIpeABO8yxkDTap5/ruOMVRfjZLI+0dyHD2AhwqvqDKwora12Uzpxg5urIAPa4gB4EupFRX2Hn9n44kVOaLGJvtbo8AwcybPdx/0cJa2AJXutypzyXOBgYu01V+1NdEtnTlnYyeIniUXiAnZO49zzm2SNvplb2ENgqH6kDZY6eds91aQiTx482FiXo7rQjGer9COEf14KfzsCpgPlo1fLcsJHpS0AhX+6OMTsFA8hsTeu15rGfNPkZrHHJ26Ckw3dA+BOJgVzXOj23My+cRSUZNShklge4arjFOhFMdufo1oPFS8qTpz2tmePAKyDSH7nPAGbR9xQbXnhP39MsUvAYKW9rqMxOtkcT0WsbMA10oUDQ75qNh/i9wl7+THUtbY6fK2MtIFC1s36xsX/Ic+6MccQazOuyXmxWpeY2nLID1Otx4XZpVckuFKv3PMeX4Jz/TThbno8qKIDdQQ82uFvW1ZyzaBwGQdGB3vQ/wX3zoRXr+FkEefBgM9O9xHiFWaZuexJKpGcJY0/ICp7lY2aJEmvGBR/wlK5Irpmo3gcy4rrPqBVgZzL8WivKrJwxuvXgYKM6AzbyC5XB5RWoaraT+RnB+bvHE26VpYqRqh7ejd3XkzA==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(14060799003)(7416014)(376014)(36860700016)(35042699022)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: O0tk75Jwa84mlQCh/jghGzah7Zx4wyBrsFKWBapww83B2Rc5zJP6DKPrz2Uug6JPaPNE+9z2QJlnOBHI5eVJvoivlaP5RB0CDEgLDuDWcRD+uFLUl7J24b6Fh42l/El51riqiL/qx8KLaCiZ3QEA+zMCBEPyTCyleaxfiFROcNsSg7Y0+OwvImkIDS3t6ybum1bYLPDeEvQ/niHon1ljqZi8pGpTndyPvy9tSEgttv7Cwu5YZ0FINdmLMPGMOdm4dq6a5pPvgR0KIEK4XtfwADa29iGw+N9A5AaE3kjZpOuY2T60KxAgD44ofaWhiDmg/gIpQeLlQgG0eGkeGaAhv8dZj8ZlgZmaMiccf1N7/RZyq3/dv3uUyldCsqo3IFF21Ksrf85EBWTicCY/fo8/58SOakbPyIkgIp44+9WMgCZzxrQeA0gufUQ9J4l3XfkD
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 13:00:31.6304 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2422e5ee-63ab-47d4-de99-08deee3a8993
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF00000049.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR08MB5609
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,322 +190,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dmitry, Rob,
-
-Gentle reminder on this one . Happy to rework anything that doesn't look
-right;
-
-On 4/13/2026 2:14 PM, Mahadevan P wrote:
-> Hi all,
+On 30/07/2026 12:29 pm, Alexander Gordeev wrote:
+> On Mon, Jul 27, 2026 at 05:46:58PM +0100, Muhammad Usama Anjum wrote:
+>> move_ptes() directly dereferences new_ptep when checking that the
+>> destination slot is empty. new_ptep now points to hw_pte_t table storage,
+>> while pte_none() consumes a logical pte_t value.
+>>
+>> Read the destination entry through the standard ptep_get() accessor before
+>> passing the logical value to pte_none().
+>>
+>> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>> ---
+>>  mm/mremap.c | 2 +-
+>>  1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/mm/mremap.c b/mm/mremap.c
+>> index d966ee8248b6b..ecb90ccee6fdd 100644
+>> --- a/mm/mremap.c
+>> +++ b/mm/mremap.c
+>> @@ -264,7 +264,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
+>>  
+>>  	for (; old_addr < old_end; old_ptep += nr_ptes, old_addr += nr_ptes * PAGE_SIZE,
+>>  		new_ptep += nr_ptes, new_addr += nr_ptes * PAGE_SIZE) {
+>> -		VM_WARN_ON_ONCE(!pte_none(*new_ptep));
+>> +		VM_WARN_ON_ONCE(!pte_none(ptep_get(new_ptep)));
 > 
-> Just a gentle ping on this patch below.
-> Any feedback would be very helpful.
-> 
-> On 3/30/2026 3:22 PM, Mahadevan P wrote:
->> On platforms with multiple display subsystems, such as SA8775P, the GPU
->> binds to the first display subsystem that probes. This implicit binding
->> prevents subsequent display subsystems from probing successfully,
->> breaking multi-display support.
->>
->> Use the tristate separate_gpu_kms module parameter with the default
->> value set to auto (-1). In auto mode, the driver selects the binding
->> behavior based on the number of GPUs and display subsystems. This allows
->> display subsystems to probe independently when required, while
->> preserving the existing single-card behavior on simpler systems.
->>
->> The separate_gpu_kms module parameter has the following semantics:
->>
->>    -1 (auto, default):
->>       Select the binding mode based on hardware topology. If exactly one
->>       GPU and one display subsystem are present, bind them together to
->>       form a single DRM device. Otherwise, expose the GPU and display
->>       subsystems as separate DRM devices.
->>
->>     0:
->>       Always bind the GPU and display together to form a single DRM
->>       device.
->>
->>     1:
->>       Always expose the GPU and display subsystems as separate DRM
->>       devices.
->>
->> Additionally, ensure that display subsystems are always exposed as
->> separate DRM devices when no recognized Adreno GPU is present,
->> regardless of the separate_gpu_kms setting.
->>
->> This ensures correct probing on multi-display platforms without
->> affecting single-display, single-GPU systems.
->>
->> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
->> ---
->> Depends on:
->>    https://lore.kernel.org/lkml/20260124-adreno-module-table- 
->> v1-1-9c2dbb2638b4@oss.qualcomm.com/
->>
->>    When separate_gpu_kms is enabled, the GPU and display drivers are
->>    probed independently. In this configuration, the Adreno GPU driver
->>    may no longer be loaded implicitly via the display subsystem.
->>
->>    The referenced patch adds a MODULE_DEVICE_TABLE() entry for the
->>    Adreno GPU device, ensuring proper module autoloading based on
->>    device tree matching. This is required to guarantee that the GPU
->>    driver is loaded correctly when GPU and display probing are
->>    decoupled.
->>
->> Changes in v3:
->> - Ensure display subsystems are always exposed as separate DRM devices 
->> when
->>    no recognized Adreno GPU is present (!adreno_has_gpu()), regardless of
->>    separate_gpu_kms setting. (Dmitry)
->> - Extend auto-selection logic to account for legacy display 
->> controllers (MDP4 and MDP5). (Dmitry)
->> - Rename msm_mdss_count_masters() to msm_mdss_count() to better 
->> reflect functionality. (Dmitry)
->> - Common helper to determine presence of a valid Adreno GPU node, 
->> avoiding repeated
->>    adreno_has_gpu() and availability checks.
->> - Update commit message to reflect the above behavior.
->> - Link to v2: https://lore.kernel.org/r/20260317-separate_gpu_kms- 
->> v2-1-b027ca97b9fe@oss.qualcomm.com
->>
->> Changes in v2:
->> - Drop dependency on Lemans dual-DPU device tree changes as this patch
->>    works independently (Dmitry)
->> - Switch separate_gpu_kms to tristate and default to auto mode (Rob)
->> - Rename msm_gpu_no_components() to msm_separate_gpu_kms_components() 
->> for clarity
->> - Link to v1: https://lore.kernel.org/r/20260223-seperate_gpu_kms- 
->> v1-1-e8231e7f1685@oss.qualcomm.com
->> ---
->>   drivers/gpu/drm/msm/adreno/adreno_device.c |  2 +-
->>   drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c   | 14 +++++++
->>   drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c   | 14 +++++++
->>   drivers/gpu/drm/msm/msm_drv.c              | 64 ++++++++++++++++++++ 
->> ++++++----
->>   drivers/gpu/drm/msm/msm_drv.h              |  8 +++-
->>   drivers/gpu/drm/msm/msm_mdss.c             | 15 +++++++
->>   6 files changed, 107 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/msm/adreno/adreno_device.c b/drivers/gpu/ 
->> drm/msm/adreno/adreno_device.c
->> index 4edfe80c5be7..e40648c05797 100644
->> --- a/drivers/gpu/drm/msm/adreno/adreno_device.c
->> +++ b/drivers/gpu/drm/msm/adreno/adreno_device.c
->> @@ -272,7 +272,7 @@ static const struct component_ops a3xx_ops = {
->>   static int adreno_probe(struct platform_device *pdev)
->>   {
->>       if (of_device_is_compatible(pdev->dev.of_node, "amd,imageon") ||
->> -        msm_gpu_no_components())
->> +        msm_separate_gpu_kms_components())
->>           return msm_gpu_probe(pdev, &a3xx_ops);
->>       return component_add(&pdev->dev, &a3xx_ops);
->> diff --git a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c b/drivers/gpu/ 
->> drm/msm/disp/mdp4/mdp4_kms.c
->> index 809ca191e9de..409000b739b6 100644
->> --- a/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c
->> @@ -15,6 +15,20 @@
->>   #include "msm_mmu.h"
->>   #include "mdp4_kms.h"
->> +static const struct of_device_id mdp4_dt_match[];
->> +int msm_count_mdp4(void)
->> +{
->> +    struct device_node *np;
->> +    int count = 0;
->> +
->> +    for_each_matching_node(np, mdp4_dt_match) {
->> +        if (of_device_is_available(np))
->> +            count++;
->> +    }
->> +
->> +    return count;
->> +}
->> +
->>   static int mdp4_hw_init(struct msm_kms *kms)
->>   {
->>       struct mdp4_kms *mdp4_kms = to_mdp4_kms(to_mdp_kms(kms));
->> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/ 
->> drm/msm/disp/mdp5/mdp5_kms.c
->> index 1e3dc9bf9494..086895c9f103 100644
->> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
->> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
->> @@ -19,6 +19,20 @@
->>   #include "msm_mmu.h"
->>   #include "mdp5_kms.h"
->> +static const struct of_device_id mdp5_dt_match[];
->> +int msm_count_mdp5(void)
->> +{
->> +    struct device_node *np;
->> +    int count = 0;
->> +
->> +    for_each_matching_node(np, mdp5_dt_match) {
->> +        if (of_device_is_available(np))
->> +            count++;
->> +    }
->> +
->> +    return count;
->> +}
->> +
->>   static int mdp5_hw_init(struct msm_kms *kms)
->>   {
->>       struct mdp5_kms *mdp5_kms = to_mdp5_kms(to_mdp_kms(kms));
->> diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/ 
->> msm_drv.c
->> index e5ab1e28851d..e2101c6632ac 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.c
->> +++ b/drivers/gpu/drm/msm/msm_drv.c
->> @@ -54,16 +54,64 @@ static bool modeset = true;
->>   MODULE_PARM_DESC(modeset, "Use kernel modesetting [KMS] (1=on 
->> (default), 0=disable)");
->>   module_param(modeset, bool, 0600);
->> -static bool separate_gpu_kms;
->> -MODULE_PARM_DESC(separate_gpu_drm, "Use separate DRM device for the 
->> GPU (0=single DRM device for both GPU and display (default), 1=two DRM 
->> devices)");
->> -module_param(separate_gpu_kms, bool, 0400);
->> +/*
->> + * separate_gpu_kms (tristate):
->> + *   -1 (default): decide automatically based on hardware topology. 
->> Split devices
->> + *                 if there is more than one GPU or more than one 
->> display master.
->> + *    0: force single DRM device (bind display + GPU)
->> + *    1: force separate DRM devices
->> + */
->> +static int separate_gpu_kms = -1;
->> +MODULE_PARM_DESC(separate_gpu_kms,
->> +         "Use separate DRM device for the GPU (-1=auto (default), 
->> 0=single DRM device, 1=separate DRM devices)");
->> +module_param(separate_gpu_kms, int, 0400);
->>   DECLARE_FAULT_ATTR(fail_gem_alloc);
->>   DECLARE_FAULT_ATTR(fail_gem_iova);
->> -bool msm_gpu_no_components(void)
->> +static const struct of_device_id msm_gpu_match[];
->> +static inline bool msm_gpu_node_present(struct device_node *np)
->> +{
->> +    return np && of_device_is_available(np) && adreno_has_gpu(np);
->> +}
->> +
->> +static int msm_count_gpus(void)
->> +{
->> +    struct device_node *np;
->> +    int count = 0;
->> +
->> +    for_each_matching_node(np, msm_gpu_match) {
->> +        if (msm_gpu_node_present(np))
->> +            count++;
->> +    }
->> +
->> +    return count;
->> +}
->> +
->> +static bool msm_separate_gpu_kms_auto(void)
->> +{
->> +    int gpus = msm_count_gpus();
->> +    int display_subsystems = msm_count_mdss() + msm_count_mdp4() + 
->> msm_count_mdp5();
->> +
->> +    if (gpus <= 0 || display_subsystems <= 0)
->> +        return false;
->> +
->> +    /* If exactly one GPU and one display subsystem single card */
->> +    return (gpus > 1) || (display_subsystems > 1);
->> +}
->> +
->> +bool msm_separate_gpu_kms_components(void)
->>   {
->> -    return separate_gpu_kms;
->> +    struct device_node *np;
->> +
->> +    np = of_find_matching_node(NULL, msm_gpu_match);
->> +    if (!msm_gpu_node_present(np))
->> +        return true;
->> +    if (separate_gpu_kms == 1)
->> +        return true;
->> +    if (separate_gpu_kms == 0)
->> +        return false;
->> +    return msm_separate_gpu_kms_auto();
->>   }
->>   static int msm_drm_uninit(struct device *dev, const struct 
->> component_ops *gpu_ops)
->> @@ -1019,7 +1067,7 @@ static int add_gpu_components(struct device *dev,
->>       if (!np)
->>           return 0;
->> -    if (of_device_is_available(np) && adreno_has_gpu(np))
->> +    if (msm_gpu_node_present(np))
->>           drm_of_component_match_add(dev, matchptr, 
->> component_compare_of, np);
->>       of_node_put(np);
->> @@ -1030,7 +1078,7 @@ static int add_gpu_components(struct device *dev,
->>   static int msm_drm_bind(struct device *dev)
->>   {
->>       return msm_drm_init(dev,
->> -                msm_gpu_no_components() ?
->> +                msm_separate_gpu_kms_components() ?
->>                       &msm_kms_driver :
->>                       &msm_driver,
->>                   NULL);
->> @@ -1069,7 +1117,7 @@ int msm_drv_probe(struct device *master_dev,
->>               return ret;
->>       }
->> -    if (!msm_gpu_no_components()) {
->> +    if (!msm_separate_gpu_kms_components()) {
->>           ret = add_gpu_components(master_dev, &match);
->>           if (ret)
->>               return ret;
->> diff --git a/drivers/gpu/drm/msm/msm_drv.h b/drivers/gpu/drm/msm/ 
->> msm_drv.h
->> index 6d847d593f1a..a977fe7b36b8 100644
->> --- a/drivers/gpu/drm/msm/msm_drv.h
->> +++ b/drivers/gpu/drm/msm/msm_drv.h
->> @@ -555,6 +555,12 @@ void msm_kms_shutdown(struct platform_device *pdev);
->>   bool msm_disp_drv_should_bind(struct device *dev, bool dpu_driver);
->> -bool msm_gpu_no_components(void);
->> +bool msm_separate_gpu_kms_components(void);
->> +
->> +int msm_count_mdss(void);
->> +
->> +int msm_count_mdp4(void);
->> +
->> +int msm_count_mdp5(void);
->>   #endif /* __MSM_DRV_H__ */
->> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/ 
->> msm_mdss.c
->> index 9047e8d9ee89..4c788f2647b0 100644
->> --- a/drivers/gpu/drm/msm/msm_mdss.c
->> +++ b/drivers/gpu/drm/msm/msm_mdss.c
->> @@ -73,6 +73,21 @@ static int msm_mdss_parse_data_bus_icc_path(struct 
->> device *dev,
->>       return 0;
->>   }
->> +static const struct of_device_id mdss_dt_match[];
->> +
->> +int msm_count_mdss(void)
->> +{
->> +    struct device_node *np;
->> +    int count = 0;
->> +
->> +    for_each_matching_node(np, mdss_dt_match) {
->> +        if (of_device_is_available(np))
->> +            count++;
->> +    }
->> +
->> +    return count;
->> +}
->> +
->>   static void msm_mdss_irq(struct irq_desc *desc)
->>   {
->>       struct msm_mdss *msm_mdss = irq_desc_get_handler_data(desc);
->>
->> ---
->> base-commit: b84a0ebe421ca56995ff78b66307667b62b3a900
->> change-id: 20260316-separate_gpu_kms-04d2cf4d91e2
->>
->> Best regards,
-> Thanks,
-> Mahadevan
+> Same as the previous patch, except that I did it already:
+> https://lore.kernel.org/linux-mm/20260720141633.501799-1-agordeev@linux.ibm.com/
+I'll drop this patch.
 
+> 
+>>  
+>>  		nr_ptes = 1;
+>>  		max_nr_ptes = (old_end - old_addr) >> PAGE_SHIFT;
+>> -- 
+>> 2.47.3
+>>
+
+-- 
 Thanks,
-Mahadevan
-
+Usama
 
