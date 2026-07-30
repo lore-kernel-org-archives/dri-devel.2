@@ -4,85 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A56A5C55174
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:54:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56198C5516D
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:54:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1537610F17E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 246AB10F180;
 	Fri, 31 Jul 2026 06:54:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="HBK50lY7";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AEDeqBdW";
+	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="R+M3fnWS";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ef4YK9SS";
 	dkim-atps=neutral
-Received: from flow-a8-smtp.messagingengine.com
- (flow-a8-smtp.messagingengine.com [103.168.172.143])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7F510E164
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 04:35:57 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailflow.phl.internal (Postfix) with ESMTP id 7BC8E138030A;
- Fri, 31 Jul 2026 00:35:56 -0400 (EDT)
+Received: from flow-a6-smtp.messagingengine.com
+ (flow-a6-smtp.messagingengine.com [103.168.172.141])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6DA710E681
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:03:50 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailflow.phl.internal (Postfix) with ESMTP id F12A813802F9;
+ Thu, 30 Jul 2026 16:03:49 -0400 (EDT)
 Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Fri, 31 Jul 2026 00:35:56 -0400
+ by phl-compute-06.internal (MEProxy); Thu, 30 Jul 2026 16:03:49 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
  h=cc:cc:content-transfer-encoding:content-type:date:date:from
  :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1785472556; x=
- 1785476156; bh=NNaQ6jyQsISQEUWTw0sK+in83QA39rZZQGzKh4nqVaE=; b=H
- BK50lY78p/BRkVHvrj/H3Sd8n8NtikmR8bjNb0kv91uoJxK4M4K/bjW8DsPu9iSw
- vQt+lhj1SY59y6Ih9PF6aT9gmcEYjfvxhr+UuHGB/x/ON3mdfQ7BxX8zAsH9ByxP
- 2uTAMRfIEzla/qOeCwbcmxN46KcikfZCnI/p8aru7LowX374cdqH4lTjBFusRSOL
- NaiTL4IjTs9e8uRvV0srejjh5dSSsAVVbi26j5+qP1xVUNCZpzW5iqU8ce4MrX0E
- ldoaSH/cBpSMYpMrLV95LXLompzsPnbXiz35yeGTj14Iseh/eIT+47cfPEwPJSoo
- ZKDvvV5Zh6Ec5FYVWh1rQ==
+ :reply-to:subject:subject:to:to; s=fm1; t=1785441829; x=
+ 1785445429; bh=wsRwtYPiWPwOihy5L2wDTh79fTBcr++dNWiRhirplQE=; b=R
+ +M3fnWS3HBCMdN8QuwqTw421+M6QHhxWAGgcQPtqnQjXlD8wooNpPQTLMoPxp4iP
+ 38Qhg0gGZhkjYoc0+uajJ0xHsADLHLF5SjBMf29lUMBr55g4Sqmk0qWTicmUpQjc
+ eFOadKJre3oFM3G0oe6xRDgdyTfpfqJ+U2HYnsm01RWaEyEJGbREhmj9z2uNZGJo
+ olK4B0QymF5HzQcTm6yfy6mwSYuFpZQ3XSmYm+V7MTKoaexZQsCkBG/uIWQPjXFr
+ p+FNwh4/bCKiqRo5RBRtYKk1opcOn+Qm9UNOzCPJA8yjgxqq86FpDsrCjWp4cUd1
+ cIwIcZ0C7XIFWoTG0eOug==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-transfer-encoding
  :content-type:date:date:feedback-id:feedback-id:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
  :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1785472556; x=1785476156; bh=N
- NaQ6jyQsISQEUWTw0sK+in83QA39rZZQGzKh4nqVaE=; b=AEDeqBdWeioiMkpi8
- lmlz4N7YO9EdrZFcmK1Wkfo+zcQsoYuPkNRXetvtqaKt512h8aNfl9XbStWU1g8W
- hsCbnG1AAEx/nfOcHMCwxi7CgOQqyY7tRG6PIYrJWOLHmO4baEwJBuZlnjwlXFf+
- PI8oeJESJUc+6qWtSLml5glFS4hpp/cuxiEG3zqWmwONpmjUXTYSyBsKLJhxKES+
- 702MChtEcRb2s9CaKAWbA/w6w/FHzMLdzXgqCr4u8UH8anPaBH4ODzAjo+GCXffI
- 4NUOQcV4cblWCienzctAl7WIeo/VlHx1knsC8m2NQyoL/bhu3A8SZr2LWShcXzzD
- jtjDA==
-X-ME-Sender: <xms:LCZsaiU4r77SJ4d97fruHRD8ZdlX54kjTQKnNxWmgltn7SB-fyZUZg>
- <xme:LCZsamjcHnnrpw8AE-yTbIz3HjsjNvuphEETfo895VaxwNgJsfpil1NpfNhPc1PO8
- W2BzgxSKs5c_ulndaUH2L0HrLQQ2HdTQlX6TLXrJpzaS3UHsBzjdA>
-X-ME-Received: <xmr:LCZsatlRr8GgJNrx2APNiSwHvjciiAzg7waPUOH8WDQ0kFeILYxb3KqAIQKc-ElfIOoH8yF-aQ>
-X-ME-Proxy-Cause: dmFkZTE25eMdGdpb7qYxCh3/n28jyVx2OtJLeAC15DbDMbLFv+BOhkY59Q+/xTCV0SQeJ3
- EKBWixYMhpIcjjWsr5BZ9koZvwL4Th1+An0NalzHT428pPOccATA4SxRizMwC/RB2aFEYK
- YLQl5iwrfjWzzSG+JxzTsRB5ZZjsrkxJT8KVNf7XUd66s6QYWcP0TjtLT7Ra5Of2dvXA9E
- N3lKtoojTG8OxFKCNOJAdsB0tR35MTIAKb4rU124lBz22DiG97J0LLMT4VFf2ewgx5FMdt
- N1wSbdLVoGCtkBO418k/jdA7d+F0yDQvaadK/JXNWhOLmvXl0wuceTVLmJauicvneJOLew
- +xeeCFBK6A0/DERWiJ/1Il6PYcmHxswJBb6CDTlgPi/41Ooe1LLTMM+3D7Z667vOluE3IF
- dfE0QzCeHIO23xBLnYyZlvY3bBdPRlc2KGMfBmFw1t0sCU203cxzCDpdM+z2BihFU0IqNz
- lLCrnzndZPLI7FemgktPFQehRaZ2dlQbvFAjdRa2Vqo3c1L06np0uQSzSsRN88W/nGmTX8
- +tm9OaInMw91BNjnF35C63Xghv/E4zIz/KPuFPDH5tHONWd7mGG1kUMIqum5E+STMwJEr8
- nYIZxmTyQXWDVsFKABi8TjekMv27SrwQux1ArZwlnsW+1lAajcIgvj30a0hA
-X-ME-Proxy: <xmx:LCZsavwsHrKx7Vojbt7smjEU9wywjD1sBKQ7UmazrwRrYbHmkQD7cg>
- <xmx:LCZsaovhgqWDR3iLGj0wjr89verWu_Vs2oFTgIXp9LHf90vVhUBynw>
- <xmx:LCZsaksiN6pbS8F0pf_tIiWl1cpshFSbE_I_Btqbqk_h7gZjNf9l7A>
- <xmx:LCZsamnwy8MXko6plKDo8tMbLV5FbOOIkq5C4_O7mAEAW76umzPMuw>
- <xmx:LCZsalYNiySSobgyTVvqsV4iie5XH1rYQNuwD9sZjWH6C6acZQPhTUi4>
+ :x-me-sender:x-sasl-enc; s=fm2; t=1785441829; x=1785445429; bh=w
+ sRwtYPiWPwOihy5L2wDTh79fTBcr++dNWiRhirplQE=; b=Ef4YK9SSi5/l4mXRs
+ YSFiF0fvsb8R4HOLTCFOxB88xB9aPaAscwd4rNgHGyTp2LDrz8T/VDuUl/K/5Wwf
+ +UPk/LVDa83pjYK5mzNG8bmbl359kWNMXHeNaY2z2ClTntQ6nHipOY12WyU1vTGe
+ C6AbLE1rsNK9lOWVDT2C8d2t66gc02AAEfabPHFpftzdJsEqEu00GEsELn9uzf+Z
+ rKg8YDeWv3HUpYP3OgUPgnPKf3dmEQOXTw1Bwaj4IHC2PT1Tn7oBrmalknTDdHR3
+ jfZremwzm9f5Qeb2l9YKnHHYO5ofrGGp/6na2uTj+vBjfyNH8SziZnyGwe41944i
+ Noi5A==
+X-ME-Sender: <xms:Ja5raj9CM_-da7wtwjnsX6gJh5TR_My6xVmHrAVezyjGjaZ81X5zpA>
+ <xme:Ja5ranUqRt4PxTc6VesygKz9M6oHwUiWXYG5-9gPQWJYlxCzmBPH7b1wyZABYM_Ad
+ fVhRTiVNL_MD49CsUydh7qmCtNtzR3OkoNhEWpuNuU_VeSfoLZLGFY>
+X-ME-Received: <xmr:Ja5rauosStbIbjI7iocLpZThCCJw3icrkvi6avnyq9f2nXSVtFjCHPA8QlNxc8mDhrDsKfqxyQ>
+X-ME-Proxy-Cause: dmFkZTFWVQWfMS+5tC6bI3m4/UgaypqXoVFSmfpla27ub6OGal4rQL05r3aISmbtOY5LyN
+ hiajqQxoHWQTLgBNL61ofo86pws/koO/Q4UQcgFGNTIrXw42p19/PXBiB/HqA+dkTSyuns
+ 3JuPew0Bn4iFp/kttfBEpawLiwTTjwkV9tlrgcCnZ22YOi6XPUN2lOOlEHvFuhsRSOeIhE
+ O5Kdhsj18Qm1sqcCxD2Yrk/hZudFD+E4F9khBNcOMkhQ/HJf+HUZx9MjDFCUCE/oahN7Bo
+ ziiAhU5tP/1kOztWIM+hjKF4XKdxL6/nyq6MEpXQNNq3YySBkdfjAX+HiiwLQaQq197qgs
+ 33KU4RlHtNQJgawU+QL/IroYANHsoN4DSFPGMtfO5TQExhN8DSXIDOF0/ejYZToNI18y76
+ xngYN//7n0QZV95kBFueKrCCVehJOoMPN1AAUIMLDhgFlSlBK9DO9D6MrqaZ2Cng1iOurw
+ yuZvNV+tiN5bqSgl1J2igE87/gxqkqH2oYrL7zxuC9YWbMbm4RY5s0GzM2MAsuTLJiT01D
+ RxZWtx/LfI9hejzxq1mHmtBQ0aCv4sE1kA/Luo+WgtckXSoiDJvTq0Eo6L+i2FFAycNxWy
+ CpoDddBfR0pwNYghnFaINctYmDIOEEsW6zmoR6vDB8s/k/LiAZ3bnRWOwQ+A
+X-ME-Proxy: <xmx:Ja5rapkZNMmYXD46aEy41Og_k_i0tdKPg12zqSuTdM0TQfCYdfN_hA>
+ <xmx:Ja5rau15Izb1qUDbr2Q8u1iZx7NPzeYgCq_gl6F9BSXFl0DB1NZDqA>
+ <xmx:Ja5ramRmYAECj6PrTicUP5nr1WVWTCn5ARMO8_YEq5rW25EoUmqFOw>
+ <xmx:Ja5ranxu8S5AkmXATI2O9b-DaCVQtFBUn3f-H4T30OwOa6PMdDhIFw>
+ <xmx:Ja5ranMxzsk0fhu6IWO2TsWCEZ241A8XVOUzqMfL5vwpUk1aWILRZXpE>
 Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 31 Jul 2026 00:35:51 -0400 (EDT)
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 30 Jul 2026 16:03:46 -0400 (EDT)
 From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, ulfh@kernel.org,
- p.zabel@pengutronix.de, ogabbay@kernel.org
-Cc: chaoyi.chen@rock-chips.com, alchark@flipper.net, royalnet026@gmail.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+To: royalnet026@gmail.com
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, linux-rockchip@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH v3 5/6] arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
-Date: Fri, 31 Jul 2026 16:35:06 +1200
-Message-ID: <20260731043507.1832277-6-gahing@gahingwoo.com>
+Subject: Re: [PATCH 2/2] accel/rocket: keep core slots stable across unbind
+ and rebind
+Date: Thu, 30 Jul 2026 23:32:56 +1200
+Message-ID: <20260730113256.1418091-1-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260731043507.1832277-1-gahing@gahingwoo.com>
-References: <20260731043507.1832277-1-gahing@gahingwoo.com>
+In-Reply-To: <20260730080355.177422-3-royalnet026@gmail.com>
+References: <20260730080355.177422-1-royalnet026@gmail.com>
+ <20260730080355.177422-3-royalnet026@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Jul 2026 06:54:16 +0000
@@ -101,117 +99,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add the two RKNN cores and their IOMMUs, plus the NPU power-domain
-resets the pmdomain driver now cycles on power-on. Both cores are
-disabled by default; boards enable what they wire up.
+Hi Igor,
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 78 +++++++++++++++++++++++-
- 1 file changed, 76 insertions(+), 2 deletions(-)
+I like this one. Making .dev the liveness marker is the right shape, and
+the analysis of the three jobs num_cores was doing is exactly right.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index b0c0d3c8b..a9d85e672 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -1070,14 +1070,22 @@ power-domain@RK3576_PD_NPUTOP {
- 						power-domain@RK3576_PD_NPU0 {
- 							reg = <RK3576_PD_NPU0>;
- 							clocks = <&cru HCLK_RKNN_ROOT>,
--								 <&cru ACLK_RKNN0>;
-+								 <&cru ACLK_RKNN0>,
-+								 <&cru CLK_RKNN_DSU0>,
-+								 <&cru ACLK_RKNN_CBUF>,
-+								 <&cru HCLK_RKNN_CBUF>;
-+							resets = <&cru SRST_A_RKNN0_BIU>;
- 							pm_qos = <&qos_npu_m0>;
- 							#power-domain-cells = <0>;
- 						};
- 						power-domain@RK3576_PD_NPU1 {
- 							reg = <RK3576_PD_NPU1>;
- 							clocks = <&cru HCLK_RKNN_ROOT>,
--								 <&cru ACLK_RKNN1>;
-+								 <&cru ACLK_RKNN1>,
-+								 <&cru CLK_RKNN_DSU0>,
-+								 <&cru ACLK_RKNN_CBUF>,
-+								 <&cru HCLK_RKNN_CBUF>;
-+							resets = <&cru SRST_A_RKNN1_BIU>;
- 							pm_qos = <&qos_npu_m1>;
- 							#power-domain-cells = <0>;
- 						};
-@@ -1832,6 +1840,72 @@ qos_npu_m1ro: qos@27f22100 {
- 			reg = <0x0 0x27f22100 0x0 0x20>;
- 		};
- 
-+		rknn_core_0: npu@27700000 {
-+			compatible = "rockchip,rk3576-rknn-core";
-+			reg = <0x0 0x27700000 0x0 0x1000>,
-+			      <0x0 0x27701000 0x0 0x1000>,
-+			      <0x0 0x27703000 0x0 0x1000>,
-+			      <0x0 0x27704000 0x0 0x1000>,
-+			      <0x0 0x27705000 0x0 0x1000>;
-+			reg-names = "pc", "cna", "core", "dpu", "dpu_rdma";
-+			interrupts = <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
-+				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
-+				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
-+			clock-names = "aclk", "hclk", "npu", "pclk",
-+				      "aclk_cbuf", "hclk_cbuf";
-+			resets = <&cru SRST_A_RKNN0>;
-+			reset-names = "srst_a";
-+			power-domains = <&power RK3576_PD_NPU0>;
-+			iommus = <&rknn_mmu_0>;
-+			status = "disabled";
-+		};
-+
-+		rknn_mmu_0: iommu@27702000 {
-+			compatible = "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
-+			reg = <0x0 0x27702000 0x0 0x100>,
-+			      <0x0 0x27702100 0x0 0x100>;
-+			interrupts = <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
-+				 <&cru CLK_RKNN_DSU0>, <&cru ACLK_RKNN_CBUF>,
-+				 <&cru HCLK_RKNN_CBUF>;
-+			#iommu-cells = <0>;
-+			power-domains = <&power RK3576_PD_NPU0>;
-+			status = "disabled";
-+		};
-+
-+		rknn_core_1: npu@27710000 {
-+			compatible = "rockchip,rk3576-rknn-core";
-+			reg = <0x0 0x27710000 0x0 0x1000>,
-+			      <0x0 0x27711000 0x0 0x1000>,
-+			      <0x0 0x27713000 0x0 0x1000>,
-+			      <0x0 0x27714000 0x0 0x1000>,
-+			      <0x0 0x27715000 0x0 0x1000>;
-+			reg-names = "pc", "cna", "core", "dpu", "dpu_rdma";
-+			interrupts = <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
-+				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>;
-+			clock-names = "aclk", "hclk", "npu", "pclk";
-+			resets = <&cru SRST_A_RKNN1>;
-+			reset-names = "srst_a";
-+			power-domains = <&power RK3576_PD_NPU1>;
-+			iommus = <&rknn_mmu_1>;
-+			status = "disabled";
-+		};
-+
-+		rknn_mmu_1: iommu@2770a000 {
-+			compatible = "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
-+			reg = <0x0 0x2770a000 0x0 0x100>,
-+			      <0x0 0x2770a100 0x0 0x100>;
-+			interrupts = <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
-+				 <&cru CLK_RKNN_DSU0>, <&cru ACLK_RKNN_CBUF>,
-+				 <&cru HCLK_RKNN_CBUF>;
-+			#iommu-cells = <0>;
-+			power-domains = <&power RK3576_PD_NPU1>;
-+			status = "disabled";
-+		};
-+
- 		gmac0: ethernet@2a220000 {
- 			compatible = "rockchip,rk3576-gmac", "snps,dwmac-4.20a";
- 			reg = <0x0 0x2a220000 0x0 0x10000>;
--- 
-2.43.0
+But making .dev load-bearing needs one more site than the patch touches:
+rocket_probe()'s failure path never clears it.
 
+  rdev->cores[core].dev = &pdev->dev;
+  ...
+  ret = rocket_core_init(&rdev->cores[core]);
+  if (ret) {
+          rdev->num_cores--;
+          if (rdev->num_cores == 0) {
+                  rocket_device_fini(rdev);
+                  rdev = NULL;
+                  devres_release_group(&drm_dev->dev, rdev_group);
+          }
+  }
+
+Before this patch that was harmless, because every lookup was bounded by
+num_cores and the slot fell outside it. After it, the slot stays marked
+live while its rocket_core is half-initialised.
+
+It only bites when the failing core is not the last one bound. If
+num_cores drops to zero the whole cores array is freed by the devres
+release from patch 1, and the stale .dev goes with it. So the case to
+test is core N failing to init while cores 0..N-1 are already up,
+easiest with a forced error return in rocket_core_init(), since a real
+-EPROBE_DEFER retries rather than failing.
+
+What that leaves behind:
+
+ - find_core_for_dev() finds the slot, so the runtime PM callbacks run
+   against a core whose clocks/resets/IRQ were never set up;
+ - rocket_first_live_core() can return it, and rocket_open() then builds
+   the IOMMU domain against that device;
+ - rocket_job_open() adds &cores[core].sched to the scheds array, and
+   that scheduler was never drm_sched_init()ed.
+
+That last one also overflows. scheds is sized rdev->num_cores, but the
+loop now counts live slots, and after a failed init there is one more
+live slot than num_cores, so the last scheds[n++] writes one element
+past the allocation.
+
+One line fixes all of it:
+
+  if (ret) {
+          rdev->cores[core].dev = NULL;
+          rdev->num_cores--;
+          ...
+
+Two smaller things, neither blocking:
+
+The slot scan in rocket_probe() is a scan-then-claim with nothing
+serialising it against another core's probe. Platform probing is
+synchronous today so it cannot bite, and the old code had the same
+property via num_cores, so it is no worse. Just worth knowing it is
+still there if rocket ever gains async probe.
+
+sched_to_core() scanning max_cores now walks slots whose .sched is not
+initialised. Comparing &cores[core].sched against a live scheduler
+pointer can never match on those, so it is correct as written; a .dev
+check would make it obviously correct to a reader.
+
+I have only RK3576 here, so this is a code review rather than a
+Tested-by. I cannot exercise the multi-core unbind matrix.
+
+Thanks,
+Jiaxing
