@@ -4,53 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 960A3C54FDF
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1F33C54FDF
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:49:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFEEE10E130;
-	Thu, 30 Jul 2026 09:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34AE710EE6B;
+	Thu, 30 Jul 2026 09:49:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="AgBLBgea";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="POgCTT1h";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4395F10E130
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:45:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785404736;
- bh=cU30pKBIFPwKFVp+ZUCheTXWhKhVmJEBwgBrtWOhknY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=AgBLBgeayquUnuvO/gJyRJ5p8PXaTa4T5VwYdygqSWAQQ/FHsaFYCK+a9/sTOy3XW
- +K5fiUgRW7W6+g3AQs/2CHazaZKqnZSosPe4Swl7Sw1cgyMBH1kIPWPD8Tmlj0XRQq
- 4ifBLERri1NqfzH3Dy+f+OD+y3xTPfCG3nQgG0gX5uqphHMGy9/W/ItM4cbdOr/XEJ
- E6bVh2+hydiBbdMTVaz1DOnSIFW5WGue28hkblWgd1G3JxgK3WUae7qnVJF99p58nd
- 547ybIvK3bX/drIERdEZQ6QVCb/tyF+WrRR/Gsue6Z9wOXUsKaRjot9CL8vWm9nsWx
- zwBACyxwKZpTQ==
-Received: from laura.lan (unknown [100.64.0.215])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: laura.nao)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E35AD17E0048;
- Thu, 30 Jul 2026 11:45:35 +0200 (CEST)
-From: Laura Nao <laura.nao@collabora.com>
-To: work@onurozkan.dev
-Cc: a.hindborg@kernel.org, acourbot@nvidia.com, airlied@gmail.com,
- aliceryhl@google.com, bjorn3_gh@protonmail.com, boqun@kernel.org,
- dakr@kernel.org, daniel.almeida@collabora.com,
- deborah.brouwer@collabora.com, dri-devel@lists.freedesktop.org,
- gary@garyguo.net, kernel@collabora.com, laura.nao@collabora.com,
- linux-kernel@vger.kernel.org, lossin@kernel.org, ojeda@kernel.org,
- rust-for-linux@vger.kernel.org, simona@ffwll.ch, tamird@kernel.org,
- tmgross@umich.edu
-Subject: Re: [PATCH v2] drm/tyr: add Job IRQ handling
-Date: Thu, 30 Jul 2026 11:45:25 +0200
-Message-Id: <20260730094525.245487-1-laura.nao@collabora.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260729165121.768013-1-work@onurozkan.dev>
-References: <20260729165121.768013-1-work@onurozkan.dev>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id E8AEF10E687
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:49:08 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3A38D2103
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 02:49:04 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 0CD503F763
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 02:49:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785404948; bh=POt9cz7iWFkW/sLtFrcfLUVqCdo4/aC00qedG+fKzDg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=POgCTT1hllyeoMjWwQs3us/fhOLqhRdStbFGMuuCOPh0B6546gEn5jIqdtO/solPF
+ YFqdoBAC57RQxN13/tjG8P8vD1FFkgs/nMPfOX/OYbrjCn7mmlopeV6SvURHwo9TXD
+ bSdmm71RgB6nvM3gG0xNM8pzPts/bh8M/arj4jSQ=
+Date: Thu, 30 Jul 2026 10:48:55 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Ketil Johnsen <ketil.johnsen@arm.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Alice Ryhl <aliceryhl@google.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Florent Tomasin <florent.tomasin@arm.com>
+Subject: Re: [PATCH v2 2/7] drm/panthor: Minor scheduler refactoring
+Message-ID: <amseBzdpRBJtaz54@e142607>
+References: <20260712135439.1546950-1-ketil.johnsen@arm.com>
+ <20260712135439.1546950-3-ketil.johnsen@arm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260712135439.1546950-3-ketil.johnsen@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,32 +64,207 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Onur,
+On Sun, Jul 12, 2026 at 03:54:34PM +0200, Ketil Johnsen wrote:
+> From: Florent Tomasin <florent.tomasin@arm.com>
+> 
+> Refactor parts of the group scheduling logic into new helper functions.
+> This will simplify addition of the protected mode feature.
+> 
+> Remove redundant assignments of csg_slot.
+> 
+> Signed-off-by: Florent Tomasin <florent.tomasin@arm.com>
+> Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> ---
+>  drivers/gpu/drm/panthor/panthor_sched.c | 126 ++++++++++++++----------
+>  1 file changed, 74 insertions(+), 52 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
+> index 5b34032deff81..465f1b86249f8 100644
+> --- a/drivers/gpu/drm/panthor/panthor_sched.c
+> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
+> @@ -2267,12 +2267,75 @@ tick_ctx_cleanup(struct panthor_scheduler *sched,
+>  	}
+>  }
+>  
+> +static void
+> +tick_ctx_evict_group(struct panthor_scheduler *sched,
+> +		     struct panthor_csg_slots_upd_ctx *upd_ctx,
+> +		     struct panthor_group *group)
+> +{
+> +	struct panthor_device *ptdev = sched->ptdev;
+> +
+> +	if (drm_WARN_ON(&ptdev->base, group->csg_id < 0))
+> +		return;
+> +
+> +	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, group->csg_id,
+> +				group_can_run(group) ?
+> +				CSG_STATE_SUSPEND : CSG_STATE_TERMINATE,
+> +				CSG_STATE_MASK);
+> +}
+> +
+> +static void
+> +tick_ctx_reschedule_group(struct panthor_scheduler *sched,
 
-On 7/29/26 18:51, Onur Özkan wrote:
-> On Wed, 29 Jul 2026 11:58:29 +0200
-> Laura Nao <laura.nao@collabora.com> wrote:
->
->> +
->> +    fn handle(&self, status: u32) {
->> +        if JOB_IRQ_RAWSTAT::from_raw(status).glb() {
->> +            self.fw_ready.store(true, Ordering::Release);
->> +            self.job_irq_wait.wake_up_all();
->> +        }
->
-> You enable both GLB and CSG above but only handle GLB, is this intentional? This
-> means CSG will trigger the handler, do nothing and just get cleared, or am I
-> missing something?
->
+I think the name of this function is misleading, as it doesn't reschedule anything,
+just updates the CSG's priority information. Maybe call it tick_ctx_update_group_prio ?
 
-The series that will later add CSF interface support will likely only 
-include a firmware readiness check at first, with CSG bit handling 
-added at a later stage. That's why we're only handling the GLB bit for 
-now, but I agree unmasking the CSG bits here is premature then. I can 
-drop this in the next revision, keep only the GLB bit unmasking/handling 
-and add a TODO comment for the CSG bits.
 
-Thanks!
+> +			  struct panthor_csg_slots_upd_ctx *upd_ctx,
+> +			  struct panthor_group *group,
+> +			  int new_csg_prio)
+> +{
+> +	struct panthor_device *ptdev = sched->ptdev;
+> +	struct panthor_fw_csg_iface *csg_iface;
+> +	struct panthor_csg_slot *csg_slot;
+> +
+> +	if (group->csg_id < 0)
+> +		return;
+> +
+> +	csg_iface = panthor_fw_get_csg_iface(ptdev, group->csg_id);
+> +	csg_slot = &sched->csg_slots[group->csg_id];
+> +
+> +	if (csg_slot->priority != new_csg_prio) {
+> +		panthor_fw_update_reqs(csg_iface, endpoint_req,
+> +				       CSG_EP_REQ_PRIORITY(new_csg_prio),
+> +				       CSG_EP_REQ_PRIORITY_MASK);
 
-Laura
+As Steven mentioned, this should use panthor_fw_csg_endpoint_req_update() instead.
 
+Best regards,
+Liviu
+
+> +		csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, group->csg_id,
+> +					csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
+> +					CSG_ENDPOINT_CONFIG);
+> +	}
+> +}
+> +
+> +static void
+> +tick_ctx_schedule_group(struct panthor_scheduler *sched,
+> +			struct panthor_csg_slots_upd_ctx *upd_ctx,
+> +			struct panthor_group *group,
+> +			int csg_id, int csg_prio)
+> +{
+> +	struct panthor_device *ptdev = sched->ptdev;
+> +	struct panthor_fw_csg_iface *csg_iface =
+> +		panthor_fw_get_csg_iface(ptdev, csg_id);
+> +
+> +	group_bind_locked(group, csg_id);
+> +	csg_slot_prog_locked(ptdev, csg_id, csg_prio);
+> +
+> +	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
+> +				group->state == PANTHOR_CS_GROUP_SUSPENDED ?
+> +				CSG_STATE_RESUME : CSG_STATE_START,
+> +				CSG_STATE_MASK);
+> +	csgs_upd_ctx_queue_reqs(ptdev, upd_ctx, csg_id,
+> +				csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
+> +				CSG_ENDPOINT_CONFIG);
+> +}
+> +
+>  static void
+>  tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *ctx)
+>  {
+>  	struct panthor_group *group, *tmp;
+>  	struct panthor_device *ptdev = sched->ptdev;
+> -	struct panthor_csg_slot *csg_slot;
+>  	int prio, new_csg_prio = MAX_CSG_PRIO, i;
+>  	u32 free_csg_slots = 0;
+>  	struct panthor_csg_slots_upd_ctx upd_ctx;
+> @@ -2282,44 +2345,13 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
+>  
+>  	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
+>  		/* Suspend or terminate evicted groups. */
+> -		list_for_each_entry(group, &ctx->old_groups[prio], run_node) {
+> -			bool term = !group_can_run(group);
+> -			int csg_id = group->csg_id;
+> -
+> -			if (drm_WARN_ON(&ptdev->base, csg_id < 0))
+> -				continue;
+> -
+> -			csg_slot = &sched->csg_slots[csg_id];
+> -			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+> -						term ? CSG_STATE_TERMINATE : CSG_STATE_SUSPEND,
+> -						CSG_STATE_MASK);
+> -		}
+> +		list_for_each_entry(group, &ctx->old_groups[prio], run_node)
+> +			tick_ctx_evict_group(sched, &upd_ctx, group);
+>  
+>  		/* Update priorities on already running groups. */
+> -		list_for_each_entry(group, &ctx->groups[prio], run_node) {
+> -			struct panthor_fw_csg_iface *csg_iface;
+> -			int csg_id = group->csg_id;
+> -
+> -			if (csg_id < 0) {
+> -				new_csg_prio--;
+> -				continue;
+> -			}
+> -
+> -			csg_slot = &sched->csg_slots[csg_id];
+> -			csg_iface = panthor_fw_get_csg_iface(ptdev, csg_id);
+> -			if (csg_slot->priority == new_csg_prio) {
+> -				new_csg_prio--;
+> -				continue;
+> -			}
+> -
+> -			panthor_fw_csg_endpoint_req_update(ptdev, csg_iface,
+> -							   CSG_EP_REQ_PRIORITY(new_csg_prio),
+> -							   CSG_EP_REQ_PRIORITY_MASK);
+> -			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+> -						csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
+> -						CSG_ENDPOINT_CONFIG);
+> -			new_csg_prio--;
+> -		}
+> +		list_for_each_entry(group, &ctx->groups[prio], run_node)
+> +			tick_ctx_reschedule_group(sched, &upd_ctx, group,
+> +						  new_csg_prio--);
+>  	}
+>  
+>  	ret = csgs_upd_ctx_apply_locked(ptdev, &upd_ctx);
+> @@ -2355,28 +2387,18 @@ tick_ctx_apply(struct panthor_scheduler *sched, struct panthor_sched_tick_ctx *c
+>  	for (prio = PANTHOR_CSG_PRIORITY_COUNT - 1; prio >= 0; prio--) {
+>  		list_for_each_entry(group, &ctx->groups[prio], run_node) {
+>  			int csg_id = group->csg_id;
+> -			struct panthor_fw_csg_iface *csg_iface;
+> +			int csg_prio = new_csg_prio--;
+>  
+> -			if (csg_id >= 0) {
+> -				new_csg_prio--;
+> +			if (csg_id >= 0)
+>  				continue;
+> -			}
+>  
+>  			csg_id = ffs(free_csg_slots) - 1;
+>  			if (drm_WARN_ON(&ptdev->base, csg_id < 0))
+>  				break;
+>  
+> -			csg_iface = panthor_fw_get_csg_iface(ptdev, csg_id);
+> -			csg_slot = &sched->csg_slots[csg_id];
+> -			group_bind_locked(group, csg_id);
+> -			csg_slot_prog_locked(ptdev, csg_id, new_csg_prio--);
+> -			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+> -						group->state == PANTHOR_CS_GROUP_SUSPENDED ?
+> -						CSG_STATE_RESUME : CSG_STATE_START,
+> -						CSG_STATE_MASK);
+> -			csgs_upd_ctx_queue_reqs(ptdev, &upd_ctx, csg_id,
+> -						csg_iface->output->ack ^ CSG_ENDPOINT_CONFIG,
+> -						CSG_ENDPOINT_CONFIG);
+> +			tick_ctx_schedule_group(sched, &upd_ctx, group, csg_id,
+> +						csg_prio);
+> +
+>  			free_csg_slots &= ~BIT(csg_id);
+>  		}
+>  	}
+> -- 
+> 2.43.0
+> 
+
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
