@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8D2AC55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:38:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71B64C55164
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:38:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B0EB10EF5E;
-	Thu, 30 Jul 2026 14:38:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D009D10EF5F;
+	Thu, 30 Jul 2026 14:38:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FphIM6kT";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O+eVplFK";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 602F710EF5E
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:38:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4B35D10EF5F
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:38:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 472B54140B;
- Thu, 30 Jul 2026 14:38:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EF091F000E9;
- Thu, 30 Jul 2026 14:38:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E9D1C43C15;
+ Thu, 30 Jul 2026 14:38:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 453AE1F000E9;
+ Thu, 30 Jul 2026 14:38:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785422293;
- bh=0E+QD8gxr4D/OdNrn5ht/mu3mgWqf0Kx55F+gk5K9+M=;
+ s=korg; t=1785422335;
+ bh=2gWyMz65/0u8et/Acgqdp9Pg0w7FC3E041Xv8BfNcag=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FphIM6kTfDgL6DYBsY9wSQFZFqztrkjj6IBh1PxMWbn6yYsqfA6HLEFiDydWEoDM2
- 3Rz/xV+5k2so+n9zMZw28hTaxvFaCs/jT92Pbxzl3/AVA7BWkEc4X/pnzCs3w1WzxF
- 493+K5Mgn0GlQL3jT0H3q0JL8vq6KeMlBSt1dXco=
+ b=O+eVplFKGom7sJy9vBsX4LI843OzFUmI80EosvQaJ6gpAPt60Ldr4W5V5VHCbNU4C
+ jRG6K04LbUhAJi8+cktqgeuRCezyAGRRFpMQLD9S0PAbilzTuXvTfpeFvAp4j9NiNg
+ n/MYbU68W1CkMz1rdKcaCjYEVPrOeAeVS7lIgNaM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH 7.1 389/744] drm/sysfb: Return errno code from
- drm_sysfb_get_visible_size()
-Date: Thu, 30 Jul 2026 16:11:02 +0200
-Message-ID: <20260730141452.556710663@linuxfoundation.org>
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Inki Dae <inki.dae@samsung.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org
+Subject: [PATCH 7.1 366/744] drm/exynos: fbdev: Remove offset into
+ screen_buffer
+Date: Thu, 30 Jul 2026 16:10:39 +0200
+Message-ID: <20260730141452.064947942@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
 References: <20260730141444.267951807@linuxfoundation.org>
@@ -66,103 +67,46 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Thomas Zimmermann <tzimmermann@suse.de>
 
-commit 7bab0f09d753f098977bbba3955d694c2e2c25da upstream.
+commit 760bbc58c2c833dec0ee38dd959f4f2f4084fc57 upstream.
 
-Change the return type of drm_sysfb_get_visible_size() to s64 so
-that it returns a possible errno code from _get_validated_size0().
-Fix callers to handle the errno code.
-
-The currently returned unsigned type converts an errno code to a
-very large size value, which drivers interpret as visible size of
-the system framebuffer. Later efforts to reserve the framebuffer
-resource fail.
-
-The bug has been present since efidrm and vesadrm got merged. It
-was then part of each driver.
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
-Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Javier Martinez Canillas <javierm@redhat.com>
+Fixes: 19c8b8343d9c ("drm/exynos: fixed overlay data updating.")
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Inki Dae <inki.dae@samsung.com>
 Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.16+
-Link: https://patch.msgid.link/20260618084327.46567-4-tzimmermann@suse.de
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-samsung-soc@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.2+
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/sysfb/drm_sysfb_helper.h      |    2 +-
- drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c |    2 +-
- drivers/gpu/drm/sysfb/efidrm.c                |    7 ++++---
- drivers/gpu/drm/sysfb/vesadrm.c               |    6 +++---
- 4 files changed, 9 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_fbdev.c |    6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
---- a/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
-+++ b/drivers/gpu/drm/sysfb/drm_sysfb_helper.h
-@@ -50,7 +50,7 @@ struct resource *drm_sysfb_get_memory_si
- int drm_sysfb_get_stride_si(struct drm_device *dev, const struct screen_info *si,
- 			    const struct drm_format_info *format,
- 			    unsigned int width, unsigned int height, u64 size);
--u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
-+s64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
- 				  unsigned int height, unsigned int stride, u64 size);
- #endif
+--- a/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_fbdev.c
+@@ -61,17 +61,13 @@ static int exynos_drm_fbdev_update(struc
+ 	struct fb_info *fbi = helper->info;
+ 	struct drm_framebuffer *fb = helper->fb;
+ 	unsigned int size = fb->width * fb->height * fb->format->cpp[0];
+-	unsigned long offset;
  
---- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
-+++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
-@@ -71,7 +71,7 @@ int drm_sysfb_get_stride_si(struct drm_d
- }
- EXPORT_SYMBOL(drm_sysfb_get_stride_si);
+ 	fbi->fbops = &exynos_drm_fb_ops;
  
--u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
-+s64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
- 				  unsigned int height, unsigned int stride, u64 size)
- {
- 	u64 vsize = mul_u32_u32(height, stride);
---- a/drivers/gpu/drm/sysfb/efidrm.c
-+++ b/drivers/gpu/drm/sysfb/efidrm.c
-@@ -150,7 +150,8 @@ static struct efidrm_device *efidrm_devi
- 	const struct screen_info *si;
- 	const struct drm_format_info *format;
- 	int width, height, stride;
--	u64 vsize, mem_flags;
-+	s64 vsize;
-+	u64 mem_flags;
- 	struct resource resbuf;
- 	struct resource *res;
- 	struct efidrm_device *efi;
-@@ -204,8 +205,8 @@ static struct efidrm_device *efidrm_devi
- 	if (stride < 0)
- 		return ERR_PTR(stride);
- 	vsize = drm_sysfb_get_visible_size_si(dev, si, height, stride, resource_size(res));
--	if (!vsize)
--		return ERR_PTR(-EINVAL);
-+	if (vsize < 0)
-+		return ERR_PTR(vsize);
+ 	drm_fb_helper_fill_info(fbi, helper, sizes);
  
- 	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, stride=%d bytes\n",
- 		&format->format, width, height, stride);
---- a/drivers/gpu/drm/sysfb/vesadrm.c
-+++ b/drivers/gpu/drm/sysfb/vesadrm.c
-@@ -400,7 +400,7 @@ static struct vesadrm_device *vesadrm_de
- 	const struct screen_info *si;
- 	const struct drm_format_info *format;
- 	int width, height, stride;
--	u64 vsize;
-+	s64 vsize;
- 	struct resource resbuf;
- 	struct resource *res;
- 	struct vesadrm_device *vesa;
-@@ -455,8 +455,8 @@ static struct vesadrm_device *vesadrm_de
- 	if (stride < 0)
- 		return ERR_PTR(stride);
- 	vsize = drm_sysfb_get_visible_size_si(dev, si, height, stride, resource_size(res));
--	if (!vsize)
--		return ERR_PTR(-EINVAL);
-+	if (vsize < 0)
-+		return ERR_PTR(vsize);
+-	offset = fbi->var.xoffset * fb->format->cpp[0];
+-	offset += fbi->var.yoffset * fb->pitches[0];
+-
+ 	fbi->flags |= FBINFO_VIRTFB;
+-	fbi->screen_buffer = exynos_gem->kvaddr + offset;
++	fbi->screen_buffer = exynos_gem->kvaddr;
+ 	fbi->screen_size = size;
+ 	fbi->fix.smem_len = size;
  
- 	drm_dbg(dev, "framebuffer format=%p4cc, size=%dx%d, stride=%d bytes\n",
- 		&format->format, width, height, stride);
 
 
