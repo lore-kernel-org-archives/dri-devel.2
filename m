@@ -4,140 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 004EEC55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 11:30:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B0143C55160
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 11:45:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24B5310EEC2;
-	Thu, 30 Jul 2026 11:30:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0450010E142;
+	Thu, 30 Jul 2026 11:45:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="LOlhvmIF";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="YAZ5/Jut";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDF9F10EEC2;
- Thu, 30 Jul 2026 11:30:00 +0000 (UTC)
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66UAHuns2709587; Thu, 30 Jul 2026 11:29:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=pp1; bh=iqt2s1hq4p/5rHwvwtT1k5VmvNMosI
- CBR3I5pd05C5g=; b=LOlhvmIFhW/EngAbWhcK7RbynBbOcMLn8k9M44UoY1doH4
- CQvK5x3I2gQ+I/eDxx00AjEnGtglp7EP68wc5irkslKwFXFeJyl0JpnizTObLrfc
- wnyqyVaeaaICVHqF2o3nzEsKAdgN/Yna9ginLJBQYB1NQh6VV3ax2kGWMpJVTv1w
- Whce7mFVUCRYyM740D1Il6BuX9SbUGAUDXA28opS6pOfQXzqxqb5sws7Ac3yDMnD
- KtYJdCmUTspQr6cTO/OMjZNmWB4NVe1S/2N8p4JSmv7CA0Tz7QReSsr7LIs1FL0h
- Sa1KUyP3rTtmf7GCyJSTJvX4W0zsccVa7vEHk3Xw==
-Received: from ppma11.dal12v.mail.ibm.com
- (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuw7qdv8-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jul 2026 11:29:29 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
- by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66UBQg3P005008;
- Thu, 30 Jul 2026 11:29:28 GMT
-Received: from smtprelay02.fra02v.mail.ibm.com ([9.218.2.226])
- by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fna5yat6k-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Thu, 30 Jul 2026 11:29:28 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
- [10.20.54.104])
- by smtprelay02.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 66UBTQAJ43581894
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 30 Jul 2026 11:29:26 GMT
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 2BC1C20043;
- Thu, 30 Jul 2026 11:29:26 +0000 (GMT)
-Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 39C4320040;
- Thu, 30 Jul 2026 11:29:25 +0000 (GMT)
-Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
- [9.224.92.206])
- by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Thu, 30 Jul 2026 11:29:25 +0000 (GMT)
-Date: Thu, 30 Jul 2026 13:29:24 +0200
-From: Alexander Gordeev <agordeev@linux.ibm.com>
-To: Muhammad Usama Anjum <usama.anjum@arm.com>
-Cc: Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
- Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Andrey Ryabinin <ryabinin.a.a@gmail.com>,
- David Hildenbrand <david@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
- Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- Alexei Starovoitov <ast@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>,
- Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
- Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
- Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
- ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
- linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
- linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
- linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: Re: [PATCH RFC 07/11] mm/mremap: use ptep_get() for the destination
- PTE
-Message-ID: <50dd77c0-b6cc-43e2-abd5-6d44a29b5597-agordeev@linux.ibm.com>
-References: <20260727164715.2866609-1-usama.anjum@arm.com>
- <20260727164715.2866609-8-usama.anjum@arm.com>
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AFBF510E142
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 11:45:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785411937; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=JcyG1DSqOBDk1J81Cy7xw5WbPDok3/8zc2OkZAz/rYmsufwEbzN+j028PLysFqEvbNYkD76TL7T1HMPRot9cogk+uIydHd2iSWRbtHVUdoL+bKMMiMtxFF8sOD233YHlr1f+19QzWchPPsuCbO/BoiT7VH+4mU/TMoRwLJnDFvM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785411937;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=rF90dIXuL4AXHKEg2OuLC8atnpVkkb9BGR+Ghiw5ktU=; 
+ b=jZLz4gFRsU/KaF63LevJ7VPHkcgNZM4rhwfLRqB275QZ7cCYOvx7hkcXsQN1WXXJnhykCHiInnDnLUYz/11ylpeynw6AE87KB++j2rkJIRVTsXJgzcJX3/ryd0rWLomOYMH+M2c9yNxXJO2zfw9AWK4X7zMOMYpFimZUfIO4WOM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785411937; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
+ bh=rF90dIXuL4AXHKEg2OuLC8atnpVkkb9BGR+Ghiw5ktU=;
+ b=YAZ5/Jutn2uDGbsUtfmrXYcpzn3/xRwO9NExChbfTDG8/LJCYCTmK26pRt+VtGRh
+ iiVXbkaN3SjhuRLRm/1RlzrMhYuailIGo4DGFzs1DBhjzlG64BGduHGKwgFfl5a5AWa
+ BnkEVq1hPqWEIcK6/QfCPLsYCqmJJDI0wnCETeFI=
+Received: by mx.zohomail.com with SMTPS id 1785411935727257.15462936737913;
+ Thu, 30 Jul 2026 04:45:35 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Subject: [PATCH v2 0/3] Rework panthor's cache flush and soft reset locking
+Date: Thu, 30 Jul 2026 13:45:13 +0200
+Message-Id: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260727164715.2866609-8-usama.anjum@arm.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: V4x9pQxNwD7ZNr5cxCV2-nvUuRwrRIk1
-X-Proofpoint-ORIG-GUID: V4x9pQxNwD7ZNr5cxCV2-nvUuRwrRIk1
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA4NCBTYWx0ZWRfX0CQsHlonvlnH
- AF8GXubMVqrPdR5q2n+7Pi5IhSvnRClhhnIlGsM45pj9nS5tbh9v0OQ7ZDryymjJZRFKeKVHtnB
- 2WWJA774SAFONtJMa1V+ZFbhY/GluaeNfrJWfajh0aeP9y3KCj2N7q61IT/ZcqjPD8Ux1nEITrp
- lqWGD3CVkHnuWYvD92qt1C/5PMxyLshMO14JBLRDs++WhJByj0BHkXcsWNivsbVrtdJT6sVZwbe
- dzeDGI8gWjRNMh7nT2wbxj0bb+I7NqjrGKSVMqorBDA3g5atHjQfxeyyy1zH1imIK+WiEUWLOj2
- QQUIajHJgwMTOVFObZZxwcDbjinR/ict/W/9rkboCapJlq+7peril/x1TLLHoImfIa1fT9/ascw
- AjAYP3c7Nyd6rCK2zbdbMkwiwAS4FHnHFqkFfsWMAkhtZLdazd3x2FNYbpmW9FLWL90LlaufF1X
- g6HAqpq5Re1qYW6+N8A==
-X-Authority-Analysis: v=2.4 cv=SKFykuvH c=1 sm=1 tr=0 ts=6a6b3599 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=7CQSdrXTAAAA:8 a=nEq6qJbkOf9lyMFAmGoA:9 a=CjuIK1q_8ugA:10
- a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA4NCBTYWx0ZWRfX+toP0yvqLwe3
- 5MpM2JLPKFYcitSFhNnjhmLQzv/6TWy3jhaIxgQDqHwpJrQHSWwSOVkfjDxzt8TAMHiE7g64vAw
- 8VzOqfzQntIJPAir8I8JMkTRPXuGciY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 adultscore=0
- lowpriorityscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607300084
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOyw6CMBBFf4XM2lFa4gNW/odx0Q6DrQGKbSEaw
+ 79bka2ryZ3cx3lDYG85QJW9wfNkg3V9EnKTARnV3xhtnTTIXB7yozzhoPponEdSZBibdgwGG/t
+ EXRxIi31TSiogpQfP6b00X64/HUZ9Z4rfutXh+TGmyfizgVaBkVzX2Vhlte8w2mG3XviWGBui8
+ 6+FdhJLZgUr/4JNAnOU+b6UguuCTuJMrm2Vdl5t0xZc53n+AHkKd54HAQAA
+X-Change-ID: 20260728-panthor-cache-flush-fix-b36cb15f92c3
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>, 
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Grant Likely <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,36 +80,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, Jul 27, 2026 at 05:46:58PM +0100, Muhammad Usama Anjum wrote:
-> move_ptes() directly dereferences new_ptep when checking that the
-> destination slot is empty. new_ptep now points to hw_pte_t table storage,
-> while pte_none() consumes a logical pte_t value.
-> 
-> Read the destination entry through the standard ptep_get() accessor before
-> passing the logical value to pte_none().
-> 
-> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> ---
->  mm/mremap.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/mm/mremap.c b/mm/mremap.c
-> index d966ee8248b6b..ecb90ccee6fdd 100644
-> --- a/mm/mremap.c
-> +++ b/mm/mremap.c
-> @@ -264,7 +264,7 @@ static int move_ptes(struct pagetable_move_control *pmc,
->  
->  	for (; old_addr < old_end; old_ptep += nr_ptes, old_addr += nr_ptes * PAGE_SIZE,
->  		new_ptep += nr_ptes, new_addr += nr_ptes * PAGE_SIZE) {
-> -		VM_WARN_ON_ONCE(!pte_none(*new_ptep));
-> +		VM_WARN_ON_ONCE(!pte_none(ptep_get(new_ptep)));
+There are two problems in panthor's cache flushing/soft reset code
+related to locking.
 
-Same as the previous patch, except that I did it already:
-https://lore.kernel.org/linux-mm/20260720141633.501799-1-agordeev@linux.ibm.com/
+The first problem is that the spinlocks are taken with _irqsave, even
+though the contended lock is never acquired in a raw interrupt handler.
+Only a threaded handler locks it.
 
->  
->  		nr_ptes = 1;
->  		max_nr_ptes = (old_end - old_addr) >> PAGE_SHIFT;
-> -- 
-> 2.47.3
-> 
+The second problem is that the wait_event condition references
+pending_reqs without holding the required lock. This means there's a
+data race.
+
+While resolving the first problem is easy, the second problem requires
+adding some more macro variants to wait.h, which is done in the first
+patch.
+
+New tracepoints to debug cache flushing duration without initial locking
+waits is thrown in for good measure as well, to complement what's in
+lock_stat and what the function tracer can already do.
+
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+Changes in v2:
+- Use trace event template for the two tracepoints (ty Steven Rostedt)
+- Link to v1: https://patch.msgid.link/20260729-panthor-cache-flush-fix-v1-0-205921ed3c81@collabora.com
+
+---
+Nicolas Frattaroli (3):
+      wait: Introduce non-irq variants of wait_event_lock_timeout
+      drm/panthor: Revisit reqs_lock handling in flush/reset paths
+      drm/panthor: Add tracepoints for cache flushing
+
+ drivers/gpu/drm/panthor/panthor_gpu.c   | 28 +++++------
+ drivers/gpu/drm/panthor/panthor_trace.h | 49 +++++++++++++++++++
+ include/linux/wait.h                    | 84 +++++++++++++++++++++++++++++++++
+ 3 files changed, 147 insertions(+), 14 deletions(-)
+---
+base-commit: 5e24f68d311764bf343f9def49b752b509dfd5fd
+change-id: 20260728-panthor-cache-flush-fix-b36cb15f92c3
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
