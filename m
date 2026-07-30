@@ -4,39 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CD30C55165
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 15:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7FB7C55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 15:11:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F01F810EF79;
-	Thu, 30 Jul 2026 15:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 193E210EF7B;
+	Thu, 30 Jul 2026 15:11:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JaRYSLIT";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="RV+szUFv";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0C7A10EF79
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 15:11:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF40A10EF7B
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 15:11:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0157360A5A;
- Thu, 30 Jul 2026 15:11:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DD671F00A3E;
- Thu, 30 Jul 2026 15:11:04 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id A2CF1415FA;
+ Thu, 30 Jul 2026 15:11:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04FC11F000E9;
+ Thu, 30 Jul 2026 15:11:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785424264;
- bh=7e43aBoShE4ndUgtGkm9x1dx5pyEwXiy4gQyVwoPCZ0=;
+ s=korg; t=1785424267;
+ bh=9hCoRFFr6ONgyGLppSGIhHoOh7RFE2PJ8UT1C+jb5F8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=JaRYSLIT1Hs07mv6Rcn2s0ScXoGgXa+TIGMDIr/br9FzrVo68msZNi+B/4vF4lmIG
- +ozyNp9FiFyr/tyIiZjd0cP7YUPDg7RNnIAfRrkA3GfjvB0CubTNYGGw3+g5t9rr4c
- 71L8hhF4yb3q9FGKdXbJICabUZNUKfsy3SdmuAQA=
+ b=RV+szUFvshwgHlPwecgHaFo/0MOVSyIa8BHi9vOk5N1kGV2XD4T+Ymg3RXGCy4FiM
+ 2OLCiOSCqZ7ShZW7FUOLlzCkVrz87cmpMR90HGrYdBNONtN8+vhm3RZaQdZprrkwof
+ Qf8pUpIb7g4ByJEc1BemrDqNYGkXT1KCkqRms4MI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Sashiko <sashiko-bot@kernel.org>,
  Javier Martinez Canillas <javierm@redhat.com>,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH 6.18 333/675] drm/sysfb: Do not page-align visible size of the
- framebuffer
-Date: Thu, 30 Jul 2026 16:11:03 +0200
-Message-ID: <20260730141452.206290222@linuxfoundation.org>
+Subject: [PATCH 6.18 334/675] drm/sysfb: Avoid truncating maximum stride
+Date: Thu, 30 Jul 2026 16:11:04 +0200
+Message-ID: <20260730141452.227299335@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
 References: <20260730141445.110192266@linuxfoundation.org>
@@ -66,37 +65,50 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Thomas Zimmermann <tzimmermann@suse.de>
 
-commit 134844856c399bfa9462a159dcf860bfdb748055 upstream.
+commit 9206b22fb959f4a9cf1921f34aed0df1dcb1ab04 upstream.
 
-Only return the actually visible size of the system framebuffer in
-drm_sysfb_get_visible_size_si(). Drivers use this size value for
-reserving access to framebuffer memory. Increasing the value can
-make later attempts to do so fail.
+Passing a maximum as 64-bit type to drm_sysfb_get_validated_int0()
+can truncate the value to 32 bits. Use drm_sysfb_get_validated_size0(),
+which uses 64-bit arithmetics. Then test the returned stride against
+the limits of int to avoid truncations in the returned value. A valid
+stride is in the range of [1, INT_MAX] inclusive.
 
 Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/dri-devel/20260617114016.5A5991F000E9@smtp.kernel.org/
 Fixes: 32ae90c66fb6 ("drm/sysfb: Add efidrm for EFI displays")
 Fixes: a84eb6abe2b6 ("drm/sysfb: Add vesadrm for VESA displays")
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 Cc: Thomas Zimmermann <tzimmermann@suse.de>
 Cc: Javier Martinez Canillas <javierm@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
 Cc: <stable@vger.kernel.org> # v6.16+
-Link: https://patch.msgid.link/20260618084327.46567-2-tzimmermann@suse.de
+Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+Link: https://patch.msgid.link/20260618084327.46567-5-tzimmermann@suse.de
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c |    8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
 --- a/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
 +++ b/drivers/gpu/drm/sysfb/drm_sysfb_screen_info.c
-@@ -67,7 +67,7 @@ EXPORT_SYMBOL(drm_sysfb_get_stride_si);
- u64 drm_sysfb_get_visible_size_si(struct drm_device *dev, const struct screen_info *si,
- 				  unsigned int height, unsigned int stride, u64 size)
+@@ -56,11 +56,17 @@ int drm_sysfb_get_stride_si(struct drm_d
+ 			    unsigned int width, unsigned int height, u64 size)
  {
--	u64 vsize = PAGE_ALIGN(height * stride);
-+	u64 vsize = height * stride;
+ 	u64 lfb_linelength = si->lfb_linelength;
++	s64 stride;
  
- 	return drm_sysfb_get_validated_size0(dev, "visible size", vsize, size);
+ 	if (!lfb_linelength)
+ 		lfb_linelength = drm_format_info_min_pitch(format, 0, width);
+ 
+-	return drm_sysfb_get_validated_int0(dev, "stride", lfb_linelength, div64_u64(size, height));
++	stride = drm_sysfb_get_validated_size0(dev, "stride", lfb_linelength,
++					       div64_u64(size, height));
++	if (stride < INT_MIN || stride > INT_MAX)
++		return -EINVAL;
++
++	return (int)stride; /* stride or negative errno code */
  }
+ EXPORT_SYMBOL(drm_sysfb_get_stride_si);
+ 
 
 
