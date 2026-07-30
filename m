@@ -4,53 +4,162 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27626C55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:42:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 768F2C55164
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:45:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84D9910EF69;
-	Thu, 30 Jul 2026 14:42:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9A1C10EF6B;
+	Thu, 30 Jul 2026 14:45:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bizOVf3s";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hAGXC6NU";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8AD310EF69
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:42:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8C16F436DE;
- Thu, 30 Jul 2026 14:42:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6B21F000E9;
- Thu, 30 Jul 2026 14:42:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785422525;
- bh=nwqsRjdzzKO0dihPx5/ndPIp4EIbSRxC8fAaI2gEx3s=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=bizOVf3sAVzbHfT2tLFfQb1kTxFrciCZrhUP/6ELfq4hYJDwcysMMtiTN07k7gvx5
- 2/GJ46Aoc4yNR9QD/RgY7pf4ssFHL+uPsuypxMfNYj4IqWGTX6Ybwe23QxW/CuHrpk
- gn7rXIXvD+dDbwNvyn9E2pvLqe+5dQmzgmy0wcDQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Matthew Brost <matthew.brost@intel.com>
-Subject: [PATCH 7.1 470/744] drm/ttm/pool: back up at native page order
-Date: Thu, 30 Jul 2026 16:12:23 +0200
-Message-ID: <20260730141454.287239302@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
-References: <20260730141444.267951807@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DC0310E17F;
+ Thu, 30 Jul 2026 14:45:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785422727; x=1816958727;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=mVk2fpBMlInhkzCO8W6IONX8Wd7B3/OWXUhD+Xt6SaM=;
+ b=hAGXC6NUvvBK3kNqm2fu6u6ib0Bq/1wnthJKEkHB7w4k55AkjLh/wnTo
+ 3LWYqMJNdQGjfNpk+87EqMmFwQkoKt8v5Q6RULULfB/FUN7CcaAO6MQae
+ CFagf625yIfzszfH76VFB+zF8Bxw6gZYVgBfqPky8wamD9PufDXpvsfib
+ y9I36HoXrfl+3UbObayOPic8/CLIY9FQAOZnS5yUnC/vrxjmizI0lvZXv
+ K7+7/hrgGob0tDi8Cq15oRV6O35CPCxuxKBGnDz5nxMvyv7CwqgV+6JMq
+ d6N4rUiKybUh/QVKvMD/ArJs07EikyHpBL7P3TfdD421K6zrjSvvr7y/b Q==;
+X-CSE-ConnectionGUID: nt9WfBeZTgeCfE9FM7nIyw==
+X-CSE-MsgGUID: 47ezuXz9RBCSz1QIeeQzcA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11860"; a="96401290"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="96401290"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 07:45:27 -0700
+X-CSE-ConnectionGUID: cWhw3+FGReuLiTqEcsE04Q==
+X-CSE-MsgGUID: 56ZzCgFcSS2pp3SDCDKgsQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="264112614"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa004.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 07:45:27 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 30 Jul 2026 07:45:26 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Thu, 30 Jul 2026 07:45:26 -0700
+Received: from CY7PR03CU001.outbound.protection.outlook.com (40.93.198.36) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 30 Jul 2026 07:45:25 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QjOJcF2VVX37B5BWE8G144udZ5LuKUTxXjO+UA9mWYnoPvzDJ0NcWFVNE7nwfGqwoiZMx07NcRnr92nVW1JU0ctkUD/SGPWQRQ2E8EiiAylpMFXr0+Agkq5XuJvBplxAFDCvgb8kEtj03iomxjIncC5a2j4jsjRq1vEQ8FgDNi/8GV2nW0anrT/sMsc54HaS2K73twjROcsyilp7Xg5QmqKvf0qLyzueGkgGKC6MDZCHnPWHv5R3QPh7/AReZ56oKLsoOoFg5eZgJXXp+XnhZb0Dp4t3CTIykh03qJLEp4hl6m92/KnlrdqaNSviLjWfUQSo/wmghreQAeu2KtTHhw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FdmMiR+o7/7xo9kjC+vo7/Fk3VDw46fWiynU8VpW1f0=;
+ b=i/eomDn7+38lBVoI1Vc6k15KSjYbOLH2ImYVEaU1kVXCigPILs2JySJbIi1M7meSV5/oLioDv0f48n078EZ7CROcCv2jGEgHwUnha5fXrM8GOHPSLblwaMajm3lM6wsghD14150aS9/hIXtjjCOLMMRR+TOeRvm7Z6t8IyBK+Teiy9ySPJ6XXShV/3CPF28J+8WmfRTprDnI7STtf489W0jDCzkHJyd9vXz0JBPJ9/V4riOzcpBHYvu4TyIyJhZJPRl82uIs1MP5z+HKYJlsXk/vagrGUpHEOtYMm3Hj/A8Vp8j4kqg0w4XNhm2Z0ucElJ2pL5QkLe2JP9pC2Qg/GQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH0PR11MB7636.namprd11.prod.outlook.com (2603:10b6:510:26f::13)
+ by IA0PR11MB7883.namprd11.prod.outlook.com (2603:10b6:208:3de::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Thu, 30 Jul
+ 2026 14:45:22 +0000
+Received: from PH0PR11MB7636.namprd11.prod.outlook.com
+ ([fe80::d611:6fa9:bc34:46b]) by PH0PR11MB7636.namprd11.prod.outlook.com
+ ([fe80::d611:6fa9:bc34:46b%5]) with mapi id 15.21.0270.009; Thu, 30 Jul 2026
+ 14:45:19 +0000
+Message-ID: <2147165e-9dc9-4bd5-892b-8b5019ad9c56@intel.com>
+Date: Thu, 30 Jul 2026 20:15:11 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/11] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+To: Pekka Paalanen <pekka.paalanen@collabora.com>
+CC: Robert Mader <robert.mader@collabora.com>, Harry Wentland
+ <harry.wentland@amd.com>, <dri-devel@lists.freedesktop.org>,
+ <amd-gfx@lists.freedesktop.org>, Melissa Wen <mwen@igalia.com>
+References: <20260722134607.136293-1-harry.wentland@amd.com>
+ <20260722134607.136293-2-harry.wentland@amd.com>
+ <64bdc6c8-41e7-4c7f-aa8e-ceb05128d987@collabora.com>
+ <8aaeb5b2-2706-415a-8662-40f863270dac@intel.com>
+ <20260730172758.0c65485f@fluorite>
+Content-Language: en-GB
+From: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260730172758.0c65485f@fluorite>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5P287CA0172.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1af::16) To PH0PR11MB7636.namprd11.prod.outlook.com
+ (2603:10b6:510:26f::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB7636:EE_|IA0PR11MB7883:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28e6b5d0-572d-401c-8e04-08deee492d58
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|376014|10067099003|4143699003|11063799006|6133799003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: DhvLhVptjKUvCoaSnGp4vGEkstkC5oWKjeaXL9RXcvi3RIvgD6/OemMICt2di6lQbYd4rwXct0waZw04N3ZGo30VyWXRbPJfKBN67C3EkfYZc36t/yHyLopxkpqs7JdWoBA3aXGLn88//ba2FiWYK7bc9dSnXImthYUJ+yy3P1SDqsetBWE75JaNwodJc2TxTKlKYcx/nVZbV+iF+MQ8kyZd5P8jySiq+2Jh+0UVeSyyH2E3a81fHqDsTjAG9NzHsU+2F2kj7kr4IxcU8m6u6FPV218azibC1A52MoB/KfZvu3kdiNB5SvFaV3XxKM4AhV1ba8+fR93mz+xwG6TDSqGNAltGE5je68TM5r9s8AeDWEdCLDx/pIvogb84eGvt7qlOB161T0/Fkk9G0zptW7AjQ+BIepOoIV3enHXkF/ALl3oW+MSrzQFMOxUwYGAIi9I6Hwl7/PZ8FpVOX4SZ8IXaRSkUt4Wd/hD39EF38t9atBYm/dmYZcTyL/148LqbfA66Drq5f6nTA38uWpliGPfKg7UnEm86+v9VZMvUi37ItKtrnBirNSnva77rxbk4QfCT3AjG2NsToXxcLRxCQ1tWZOxLiMvQA/oX8Hib997VM5J4E9sm+iu3Wy56htDiaOE+mVedKqb2M1/flyBXQcZlj4IoDqPY3BP6evniyTM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB7636.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(4143699003)(11063799006)(6133799003)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bFJsNGthN29DWVArQWV5Ly9TaldLaUhKdnFpRzQwaVAwWUcwOVlxNnNuZTNs?=
+ =?utf-8?B?QU5Ka3AwRGovYVErTWJ0VWpaNlExNGVmdmhQcDZhTWVHOVllTW9GVnRzQWpL?=
+ =?utf-8?B?dzIweDRoeGxDcU4yYVJ4SFFOTnM1MnpaRUZ4bFNsaUttY0pkZ2pacExTbUVH?=
+ =?utf-8?B?aGx2clBOOUVFbWdVVjM3TGZmKzg4WG1yVkI1dlJIVU93QnRrMEZZUXIrSHZC?=
+ =?utf-8?B?eHB3YVQ3a0RJR0cvVjNUb2FCTStTMmYwV0VWRGM5WGNNK0pkTlhzQmVNbmtQ?=
+ =?utf-8?B?S0t1aHlTSVdIM3YyZnMrd1VVeEdwbm91RTQ3THBkUWtwY2tOUnlWNkN4Wkll?=
+ =?utf-8?B?TGJXY2MxSktBbWVWaXNHTHFhZXl1cnhqZU5Gd29XSU9DdzlBaFJVTlB4dU5j?=
+ =?utf-8?B?UUh0K0tMOXNWUUNsaDQyZW5ZdWVtV0hQVHJVMkpnWDNYVVZOVXpQUUJaM2k0?=
+ =?utf-8?B?R2toZzBjeHFmRmR3SituRStsajNPMU1ORzNyM0o5K0t4SWdmOEorM0J6RVZQ?=
+ =?utf-8?B?YWlobklReE05TUlLcUlNNmJLVEtkRVhnUFhTbzgzS1pvSEkyUE53QUxDZGE0?=
+ =?utf-8?B?VUd6MS9oWEV5ZHNZTHp1RGRWZmk3RUpaZjNTUmNBR2lnSHVIbVpIQzhqR2dE?=
+ =?utf-8?B?K1NDMWJnditzVUp6bVJ2ZFNVOXpGM1l4aVRvWFRrdDVFK3F3dVNmQWx4dHJn?=
+ =?utf-8?B?VDMzb2lWY01NOVdUTDNXcndYajJwbDA2UWpQOWFpK3hMZ2JiMGYxMlV4ejN5?=
+ =?utf-8?B?V2hzaUpCNzdiS2p1ZnlocG9lOVo3NzlweDdqTlNtalZkVU1sS1VMMHZUTTlY?=
+ =?utf-8?B?bGhHbWlJcVh1dCtyajFHNmVwUTdmcHUwSVUvM20rUENqU1Q0cTFieXZMclhi?=
+ =?utf-8?B?SEZDWWVUa2lydExNdllqbkRVdWFQanBwaE9VREdZUjVaamIvaDZFdHpHRDNQ?=
+ =?utf-8?B?ajZHMGpER3dLZzFkTjUvcDVXeTJBRU54aUl6dVB1Z3dobHhtelBRMFhBV1Z1?=
+ =?utf-8?B?OEd4RGI4ZzB3Vk1IVnZZazNoSmlqWHZsUWd2Q2lzSW5yRUZnb2xlR1htNU5o?=
+ =?utf-8?B?WnZQUU83cW5yWVA0RHJDVVNlOW50clhGVmRodVlFTFhsVTJBT3d4MEVldlNQ?=
+ =?utf-8?B?VHkwZWo5TVdSNmZtaXhiZEdmRU4vbFpmV0JSTmo2SjJ0U3FzKytFcG9tMkNQ?=
+ =?utf-8?B?dXVMYzNPTk8rMDVUbTh1aDhNTGxXMjJuMnhPUWVnWHlqQjdiSWtodU5waUVU?=
+ =?utf-8?B?dWdZN29ieHlUWUV5U1o3M3ZKUktkSGR5U0N0RGFEU1lHalh6YTdCSmJPRzZJ?=
+ =?utf-8?B?M3h2WklZR2IrRU4vbHkzQzFuUzBLMDF6THJvTUVTQmZ1dW01WUZpSUUrOGpH?=
+ =?utf-8?B?ZVJkRHJGcUlMazZEbWhIeG5OTzVTU1VsN0VIRGQ0YkZtZUxBcUFxOW4wK2I3?=
+ =?utf-8?B?RlJUWk1VejRwcStVQXY1RDVaTWJQQkJBb243M0pTM0N4TEZHL09aSXhjeGZS?=
+ =?utf-8?B?alBxVVNLU2dhWkRXcHRRT2hESCtHaGRPZEtjdWFpbnBRbS91UDcvUDRLbmxr?=
+ =?utf-8?B?VFhQbE8xUk5UMWVCTHYxNWttYmlZcDhIdUhkdWhELzliMXg3UXR1NnY2azBP?=
+ =?utf-8?B?WnBsWTR0eFMwcDVZTzBsRG8zR1h2dVEwSS9vRUlEN3VpdDdsT2Jjc3RCTHJK?=
+ =?utf-8?B?ZVMyS2h5ZXBvRVl6cHRnNWhBbSs5Z0lFNjlmcFdlTUZyM3NJdXphdkhoTnRI?=
+ =?utf-8?B?STdwQlBQNTBXMTB3ZWlIUzVvbFdZREhsWVNWM1VUTGdhUkJtV1huVzFWZi8y?=
+ =?utf-8?B?UElrUDQvb3JzSlhwR09xTDZqaVZKVUo3enNueSt4bUVTeHREb25oeGdKcEhD?=
+ =?utf-8?B?ajFSQ1M3OExMdVhjLy9lTXZkU0VhTjZjUW5uZGVnbGU5T1U1WGhaMnFFWDBv?=
+ =?utf-8?B?VHZTYTVxVENKcm5IWWZDdE85SGNvRTZ3c3pjSWFhUFExbzAvVDdCMVNtL0Z2?=
+ =?utf-8?B?R3MrWU56dEsvRzlpc0VuTjNxaTB5Q1BmYk9Cd3RsUXhvQWpLeXdPWENOd2F3?=
+ =?utf-8?B?VDFRN3k5eXlUd1hJY2FER2xHRXprb0h0K3lkL2dqcVcwSUpjUjdtVEdzcXln?=
+ =?utf-8?B?b0t6RVBIcFFBOTY4clJxZTRuSWUyc2psSmhsTlNpTHIyaCthcTRlNzgxdzc1?=
+ =?utf-8?B?V3BsTk9nelRBRkJOSEo3L3J0RUFyU0N3Z3VVeVdPcGpjUytXOEoxUVJOR2Q0?=
+ =?utf-8?B?dTlSb3Z2SVBwMnlORWN2cWlJSXpMUEVPQnloY1FwbGRqVlRwejBoQXZ5TFRj?=
+ =?utf-8?B?NW5NYUg2L3YrTzlMUkUrdWJtVHNJbjBEZWlWRm9senBZZ0U0RkphR3BSZkln?=
+ =?utf-8?Q?CYNUt1PDXIHdyeOiQ3R1PY7mzaqvwo9/NMU1Q?=
+X-Exchange-RoutingPolicyChecked: mQtMS+a7RWQtSiP9BiV0IirH5hAvXU4NzYqzxcYWPPtuiHbN2BRGWNIfxu6ybhv7eLxkE0+4Gn4MYSEPiD5S0Wan8DSOh4eL1q6lNylox2R2wOu49eZTaNy17J3IGjXeKzHusRCgIh/rtS1j4jA3fHzfQeXzia2J70u0bNyY8Hm7eB09SI2uoaC/OaHHYlL7CUHh17RwJxuZH09KKlLkQTiiFagEc6WR8E0qm1sZ279UafnLp1YU4bplxf7OM7hxs31Q0eoCj08US4I9G+G049WoF6rIBms+dv++68qOjb9xisyOLVqQHxP9ed7E8DlePMri4hhaZ33WQvmDQ/clhQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28e6b5d0-572d-401c-8e04-08deee492d58
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB7636.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 14:45:19.8144 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nc1ZqcvbpEJHpzl6elngcg5R/M+LQhUffVkIWCwfgPxNwipca2KSJ3g4jzJbovM48Nbythc3xRzOd989r3XZg4SuqLzHArH5fPaDn6o7o0k=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7883
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,445 +175,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+Hi Pekka,
 
-------------------
+On 7/30/2026 7:57 PM, Pekka Paalanen wrote:
+> On Tue, 28 Jul 2026 21:30:14 +0530
+> "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
+> 
+>> Hello Rober,
+>>
+>> On 7/28/2026 8:32 PM, Robert Mader wrote:
+>>> Hi,
+>>>
+>>> On 22.07.26 15:45, Harry Wentland wrote:
+>>>> From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>>>>
+>>>> Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
+>>>> hardware that performs a fixed matrix operation.
+>>>>
+>>>> Unlike CTM-based colorops, this block does not expose programmable
+>>>> coefficients. Instead, userspace selects one of the predefined
+>>>> hardware modes via a new FIXED_MATRIX_TYPE enum property. Supported modes
+>>>> include common YCbCr->RGB and RGB709->RGB2020 conversions.
+>>>>
+>>>> v4:
+>>>>    - Add limited-range YCbCr-RGB conversion matrix enums (Robert)
+>>>>    - Document matrix values (Pekka)
+>>>>    - Clarify RGB709 to RGB2020 is a full-range matrix (Pekka)
+>>>>    - Fix confusing "CSC preset" doc (Pekka)
+>>>>
+>>>> v2:
+>>>>    - Naming changes (Pekka)
+>>>>
+>>>> v3:
+>>>>    - Fix NC matrix enum name and string (Melissa)
+>>>>    - Rebase
+>>>>
+>>>> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
+>>>> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+>>>> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+>>>> Reviewed-by: Melissa Wen <mwen@igalia.com>
+>>>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+>>>> Reviewed-by: Robert Mader <robert.mader@collabora.com>
+>>>> ---
+>>>>    drivers/gpu/drm/drm_atomic.c      |   4 +
+>>>>    drivers/gpu/drm/drm_atomic_uapi.c |   7 ++
+>>>>    drivers/gpu/drm/drm_colorop.c     | 109 ++++++++++++++++++++
+>>>>    include/drm/drm_colorop.h         | 159 ++++++++++++++++++++++++++++++
+>>>>    include/uapi/drm/drm_mode.h       |  12 +++
+>>>>    5 files changed, 291 insertions(+)
+>>>>
+> 
+>>>> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/
+>>>> drm_colorop.c
+>>>> index 682fcc651525..e7ccf7d053b8 100644
+>>>> --- a/drivers/gpu/drm/drm_colorop.c
+>>>> +++ b/drivers/gpu/drm/drm_colorop.c
+>>>> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list
+>>>> drm_colorop_type_enum_list[] = {
+>>>>        { DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
+>>>>        { DRM_COLOROP_MULTIPLIER, "Multiplier"},
+>>>>        { DRM_COLOROP_3D_LUT, "3D LUT"},
+>>>> +    { DRM_COLOROP_FIXED_MATRIX, "Fixed Matrix"},
+>>>>    };
+>>>>    static const char * const colorop_curve_1d_type_names[] = {
+>>>> @@ -90,6 +91,17 @@ static const struct drm_prop_enum_list
+>>>> drm_colorop_lut3d_interpolation_list[] =
+>>>>        { DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
+>>>>    };
+>>>> +static const char * const colorop_fixed_matrix_type_names[] = {
+>>>> +    [DRM_COLOROP_FM_YCBCR601_FULL_RGB] = "YCbCr 601 Full to RGB",
+>>>> +    [DRM_COLOROP_FM_YCBCR601_LIMITED_RGB] = "YCbCr 601 Limited to RGB",
+>>>> +    [DRM_COLOROP_FM_YCBCR709_FULL_RGB] = "YCbCr 709 Full to RGB",
+>>>> +    [DRM_COLOROP_FM_YCBCR709_LIMITED_RGB] = "YCbCr 709 Limited to RGB",
+>>>> +    [DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB] = "YCbCr 2020 NC Full to
+>>>> RGB",
+>>>> +    [DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB] = "YCbCr 2020 NC
+>>>> Limited to RGB",
+>>>> +    [DRM_COLOROP_FM_YCBCR_LIMITED_FULL] = "YCbCr limited to full",
+>>>> +    [DRM_COLOROP_FM_RGB709_RGB2020] = "RGB709 to RGB2020",
+>>>
+>>> I'm still a bit unsure how useful the later two values are,
+>>
+>> You can see them being used in [1] and tested by [2]. We split out the
+>> "YCbCr limited to full" block because some Intel planes have a 1DLUT
+>> between it and the "YCbCr XXX Full to RGB" block. This keeps the color
+>> pipeline consistent with the actual HW.
+> 
+> Hi Chaitanya,
+> 
+> it would be nice for VKMS to be able to have such a color
+> pipeline only. Then userspace authors can test it.
+> 
 
-From: Matthew Brost <matthew.brost@intel.com>
+Sure! I will float something soon.
 
-commit a3fdf74ffa5966e5b4a17f1e9c5687f73bb0d536 upstream.
+> That gives me the idea, that perhaps there should be a library of color
+> pipelines for VKMS that replicates actual hardware pipelines. Maybe it
+> would be in the kernel, or maybe it would be in some userspace project
+> if VKMS pipelines can be crafted through configfs or something else.
+> 
 
-ttm_pool_split_for_swap() unconditionally splits high-order pool pages
-into order-0 pages before backup, so every compound the shrinker
-touches is shattered even when the rest of the system would prefer it
-stay intact. Under sustained kswapd pressure this fragments memory
-enough to drive other parts of MM into recovery loops.
+Sounds like a good idea. Worth exploring.
 
-Back up each compound at its native order instead. In
-ttm_pool_backup(), hand the full compound to the new
-ttm_backup_backup_folio(), which backs up subpages to a contiguous
-range of shmem indices and returns the base handle plus the number of
-subpages actually backed up (@nr_backed). On full success, free the
-compound once at its native order -- no split_page(), no per-4K
-refcount juggling.
+I'll give it some thought, but no promises ;)
 
-A per-folio backup can't be made fully atomic under memory pressure:
-ttm_backup_backup_folio() must allocate shmem folios before source
-subpages can be released, so under true OOM any subpage may fail
-while the rest of the compound is still live. Two mechanisms handle
-this without regressing reclaim behaviour:
+>> Based on your experience implementing the colorop in weston, do you
+>> foresee any challenges in supporting limited-range framebuffers using
+>> the "YCbCr Limited-to-Full" fixed matrix block?
+> 
+> I cannot imagine a big problem, but it is yet another configuration
+> that userspace must be explicitly prepared for.
+> 
 
-  - alloc_gfp gets __GFP_NOMEMALLOC whenever order > 0 (cleared again
-    for order-0), so a high-order backup fails fast with -ENOMEM
-    instead of draining kernel reserves, leaving them for other
-    allocations under the same pressure.
+Thank you for clearing it up. We will check if we can extend Robert's 
+implementation to support this.
 
-  - If ttm_backup_backup_folio() still returns a short @nr_backed with
-    a valid handle for the successfully-backed prefix, split the
-    source compound with ttm_pool_split_for_swap(), free the prefix as
-    order-0 pages (already safely in shmem), and retry the remaining
-    subpages at order 0, where __GFP_NOMEMALLOC is cleared and
-    reserves may be used as a last resort.
+==
+Chaitanya
 
-This preserves the original split-on-OOM fallback while keeping the
-common case fragmentation-free, and preserves the "partial backup is
-allowed" contract (shrunken is incremented per subpage backed up).
-
-The restore-side leftover-page split in ttm_pool_restore_commit() is
-left as-is: it's unreachable in practice and not worth complicating
-the restore state machine to avoid.
-
-Testing: the existing backup_fault_inject point only truncated
-tt->num_pages, which never exercised the reactive split path above
-since it never left a compound partially backed up. Wire fault
-injection into ttm_backup_backup_folio() itself: past the first
-subpage of a compound, synthesize a -ENOMEM in place of
-shmem_read_folio_gfp() when should_fail() trips, producing the same
-short @nr_pages_backed a real failure would and forcing
-ttm_pool_backup() through the split-and-retry path. The fault_attr
-stays private to ttm_pool.c; ttm_backup.c reaches it through
-ttm_backup_fault_inject_folio(), declared in ttm_pool_internal.h.
-
-While converting the writeback branch to operate on the whole folio,
-the unlock condition after shmem_writeout() also changed from `if
-(ret)` to `if (ret == AOP_WRITEPAGE_ACTIVATE)`, matching the actual
-contract: shmem_writeout()/swap_writeout() only leave the folio locked
-when returning AOP_WRITEPAGE_ACTIVATE; any other return (including a
-hard error from arch_prepare_to_swap()) means the folio was already
-unlocked internally. The old `if (ret)` check would have double-
-unlocked in that hard-error case.
-
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Suggested-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Assisted-by: Claude:claude-opus-4.6
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260716201358.4086085-1-matthew.brost@intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ttm/ttm_backup.c        |  127 +++++++++++++++++++++-----------
- drivers/gpu/drm/ttm/ttm_pool.c          |   89 ++++++++++++++++++----
- drivers/gpu/drm/ttm/ttm_pool_internal.h |    8 ++
- include/drm/ttm/ttm_backup.h            |   12 +--
- 4 files changed, 172 insertions(+), 64 deletions(-)
-
---- a/drivers/gpu/drm/ttm/ttm_backup.c
-+++ b/drivers/gpu/drm/ttm/ttm_backup.c
-@@ -6,9 +6,10 @@
- #include <drm/ttm/ttm_backup.h>
- 
- #include <linux/export.h>
--#include <linux/page-flags.h>
- #include <linux/swap.h>
- 
-+#include "ttm_pool_internal.h"
-+
- /*
-  * Need to map shmem indices to handle since a handle value
-  * of 0 means error, following the swp_entry_t convention.
-@@ -68,17 +69,23 @@ int ttm_backup_copy_page(struct file *ba
- }
- 
- /**
-- * ttm_backup_backup_page() - Backup a page
-+ * ttm_backup_backup_folio() - Backup a folio
-  * @backup: The struct backup pointer to use.
-- * @page: The page to back up.
-- * @writeback: Whether to perform immediate writeback of the page.
-+ * @folio: The folio to back up.
-+ * @order: The allocation order of @folio.  Since TTM allocates higher-order
-+ *         pages without __GFP_COMP, folio_nr_pages(@folio) would always
-+ *         return 1; the caller must pass the true order explicitly.
-+ * @writeback: Whether to perform immediate writeback of the folio's pages.
-  * This may have performance implications.
-- * @idx: A unique integer for each page and each struct backup.
-+ * @idx: A unique integer for the first page of the folio and each struct backup.
-  * This allows the backup implementation to avoid managing
-  * its address space separately.
-- * @page_gfp: The gfp value used when the page was allocated.
-- * This is used for accounting purposes.
-+ * @folio_gfp: The gfp value used when the folio was allocated.
-+ * Currently unused.
-  * @alloc_gfp: The gfp to be used when allocating memory.
-+ * @nr_pages_backed: Output. On a successful return, set to the number of
-+ * pages actually backed up, which may be less than (1 << @order)
-+ * if an -ENOMEM was encountered mid-folio.
-  *
-  * Context: If called from reclaim context, the caller needs to
-  * assert that the shrinker gfp has __GFP_FS set, to avoid
-@@ -87,53 +94,87 @@ int ttm_backup_copy_page(struct file *ba
-  * that the shrinker gfp has __GFP_IO set, since without it,
-  * we're not allowed to start backup IO.
-  *
-- * Return: A handle on success. Negative error code on failure.
-- *
-- * Note: This function could be extended to back up a folio and
-- * implementations would then split the folio internally if needed.
-- * Drawback is that the caller would then have to keep track of
-- * the folio size- and usage.
-+ * Return: A handle for the first backed-up page on success (handles for
-+ * subsequent pages follow sequentially). -ENOMEM if no pages could be backed
-+ * up. Any other negative error code if a non-ENOMEM failure occurred; in that
-+ * case any pages backed up so far are truncated before returning.
-  */
- s64
--ttm_backup_backup_page(struct file *backup, struct page *page,
--		       bool writeback, pgoff_t idx, gfp_t page_gfp,
--		       gfp_t alloc_gfp)
-+ttm_backup_backup_folio(struct file *backup, struct folio *folio,
-+			unsigned int order, bool writeback, pgoff_t idx,
-+			gfp_t folio_gfp, gfp_t alloc_gfp,
-+			pgoff_t *nr_pages_backed)
- {
- 	struct address_space *mapping = backup->f_mapping;
--	unsigned long handle = 0;
-+	int nr_pages = 1 << order;
- 	struct folio *to_folio;
--	int ret;
-+	int ret, i;
-+
-+	*nr_pages_backed = 0;
-+
-+	for (i = 0; i < nr_pages; ) {
-+		int to_nr, j;
- 
--	to_folio = shmem_read_folio_gfp(mapping, idx, alloc_gfp);
--	if (IS_ERR(to_folio))
--		return PTR_ERR(to_folio);
--
--	folio_mark_accessed(to_folio);
--	folio_lock(to_folio);
--	folio_mark_dirty(to_folio);
--	copy_highpage(folio_file_page(to_folio, idx), page);
--	handle = ttm_backup_shmem_idx_to_handle(idx);
--
--	if (writeback && !folio_mapped(to_folio) &&
--	    folio_clear_dirty_for_io(to_folio)) {
--		folio_set_reclaim(to_folio);
--		ret = shmem_writeout(to_folio, NULL, NULL);
--		if (!folio_test_writeback(to_folio))
--			folio_clear_reclaim(to_folio);
- 		/*
--		 * If writeout succeeds, it unlocks the folio.	errors
--		 * are otherwise dropped, since writeout is only best
--		 * effort here.
-+		 * Only inject past the first subpage so *nr_pages_backed is
-+		 * always > 0 here, matching a genuine mid-compound -ENOMEM
-+		 * and driving the caller's reactive split fallback instead
-+		 * of an early, no-progress failure.
- 		 */
--		if (ret)
-+		if (IS_ENABLED(CONFIG_FAULT_INJECTION) && i &&
-+		    ttm_backup_fault_inject_folio())
-+			to_folio = ERR_PTR(-ENOMEM);
-+		else
-+			to_folio = shmem_read_folio_gfp(mapping, idx + i, alloc_gfp);
-+		if (IS_ERR(to_folio)) {
-+			int err = PTR_ERR(to_folio);
-+
-+			if (err == -ENOMEM && *nr_pages_backed)
-+				return ttm_backup_shmem_idx_to_handle(idx);
-+
-+			if (*nr_pages_backed) {
-+				shmem_truncate_range(file_inode(backup),
-+						     (loff_t)idx << PAGE_SHIFT,
-+						     ((loff_t)(idx + i) << PAGE_SHIFT) - 1);
-+				/*
-+				 * The pages just truncated are no longer
-+				 * backed up; don't let the caller mistake
-+				 * them for valid handles.
-+				 */
-+				*nr_pages_backed = 0;
-+			}
-+			return err;
-+		}
-+
-+		to_nr = min_t(int, nr_pages - i,
-+			      folio_next_index(to_folio) - (idx + i));
-+
-+		folio_mark_accessed(to_folio);
-+		folio_lock(to_folio);
-+		folio_mark_dirty(to_folio);
-+
-+		for (j = 0; j < to_nr; j++)
-+			copy_highpage(folio_file_page(to_folio, idx + i + j),
-+				      folio_page(folio, i + j));
-+
-+		if (writeback && !folio_mapped(to_folio) &&
-+		    folio_clear_dirty_for_io(to_folio)) {
-+			folio_set_reclaim(to_folio);
-+			ret = shmem_writeout(to_folio, NULL, NULL);
-+			if (!folio_test_writeback(to_folio))
-+				folio_clear_reclaim(to_folio);
-+			if (ret == AOP_WRITEPAGE_ACTIVATE)
-+				folio_unlock(to_folio);
-+		} else {
- 			folio_unlock(to_folio);
--	} else {
--		folio_unlock(to_folio);
--	}
-+		}
- 
--	folio_put(to_folio);
-+		folio_put(to_folio);
-+		i += to_nr;
-+		*nr_pages_backed = i;
-+	}
- 
--	return handle;
-+	return ttm_backup_shmem_idx_to_handle(idx);
- }
- 
- /**
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -53,8 +53,23 @@
- #ifdef CONFIG_FAULT_INJECTION
- #include <linux/fault-inject.h>
- static DECLARE_FAULT_ATTR(backup_fault_inject);
-+
-+/*
-+ * Exposed to ttm_backup.c so a mid-compound subpage can be made to fail
-+ * with -ENOMEM, exercising the reactive split-and-retry fallback in
-+ * ttm_pool_backup() for high-order backups.
-+ */
-+bool ttm_backup_fault_inject_folio(void)
-+{
-+	return should_fail(&backup_fault_inject, 1);
-+}
- #else
- #define should_fail(...) false
-+
-+bool ttm_backup_fault_inject_folio(void)
-+{
-+	return false;
-+}
- #endif
- 
- /**
-@@ -487,7 +502,7 @@ static void ttm_pool_split_for_swap(stru
- /**
-  * DOC: Partial backup and restoration of a struct ttm_tt.
-  *
-- * Swapout using ttm_backup_backup_page() and swapin using
-+ * Swapout using ttm_backup_backup_folio() and swapin using
-  * ttm_backup_copy_page() may fail.
-  * The former most likely due to lack of swap-space or memory, the latter due
-  * to lack of memory or because of signal interruption during waits.
-@@ -1036,12 +1051,12 @@ long ttm_pool_backup(struct ttm_pool *po
- {
- 	struct file *backup = tt->backup;
- 	struct page *page;
--	unsigned long handle;
- 	gfp_t alloc_gfp;
- 	gfp_t gfp;
- 	int ret = 0;
- 	pgoff_t shrunken = 0;
--	pgoff_t i, num_pages;
-+	pgoff_t i, j, num_pages, npages;
-+	pgoff_t nr_backed;
- 
- 	if (WARN_ON(ttm_tt_is_backed_up(tt)))
- 		return -EINVAL;
-@@ -1119,9 +1134,11 @@ long ttm_pool_backup(struct ttm_pool *po
- 	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && should_fail(&backup_fault_inject, 1))
- 		num_pages = DIV_ROUND_UP(num_pages, 2);
- 
--	for (i = 0; i < num_pages; ++i) {
--		s64 shandle;
-+	for (i = 0; i < num_pages; i += npages) {
-+		unsigned int order;
-+		s64 handle;
- 
-+		npages = 1;
- 		page = tt->pages[i];
- 		if (unlikely(!page))
- 			continue;
-@@ -1130,19 +1147,61 @@ long ttm_pool_backup(struct ttm_pool *po
- 		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
- 			continue;
- 
--		ttm_pool_split_for_swap(pool, page);
-+		order = ttm_pool_page_order(pool, page);
-+		npages = 1UL << order;
-+
-+		/*
-+		 * We don't allow dipping kernel reserves for high order backup
-+		 */
-+		if (order)
-+			alloc_gfp |= __GFP_NOMEMALLOC;
-+		else
-+			alloc_gfp &= ~__GFP_NOMEMALLOC;
-+
-+		/*
-+		 * Back up the compound atomically at its native order. If
-+		 * fault injection truncated num_pages mid-compound, skip
-+		 * the partial tail rather than splitting.
-+		 */
-+		if (unlikely(i + npages > num_pages))
-+			break;
- 
--		shandle = ttm_backup_backup_page(backup, page, flags->writeback, i,
--						 gfp, alloc_gfp);
--		if (shandle < 0) {
--			/* We allow partially shrunken tts */
--			ret = shandle;
-+		handle = ttm_backup_backup_folio(backup, page_folio(page),
-+						 order, flags->writeback, i,
-+						 gfp, alloc_gfp,
-+						 &nr_backed);
-+		/*
-+		 * Zero progress on this compound (whether order 0 or a
-+		 * high-order compound that failed before backing up even
-+		 * its first subpage) is unrecoverable: bail out rather than
-+		 * looping forever with npages == nr_backed == 0 below.
-+		 */
-+		if (unlikely(handle < 0 && !nr_backed)) {
-+			ret = handle;
- 			break;
- 		}
--		handle = shandle;
--		tt->pages[i] = ttm_backup_handle_to_page_ptr(handle);
--		__free_pages_gpu_account(page, 0, false);
--		shrunken++;
-+
-+		for (j = 0; j < nr_backed; j++)
-+			tt->pages[i + j] = ttm_backup_handle_to_page_ptr(handle + j);
-+
-+		shrunken += nr_backed;
-+
-+		if (unlikely(nr_backed < npages)) {
-+			/*
-+			 * Partial OOM backup: split the compound and free the
-+			 * subpages whose content is now in shmem. Continue the
-+			 * loop from the first un-backed order-0 page.
-+			 */
-+			ttm_pool_split_for_swap(pool, page);
-+			for (j = 0; j < nr_backed; j++)
-+				__free_pages_gpu_account(page + j, 0, false);
-+			npages = nr_backed;
-+			continue;
-+		}
-+
-+		/* Fully backed up: free at native order. */
-+		page->private = 0;
-+		__free_pages_gpu_account(page, order, false);
- 	}
- 
- 	return shrunken ? shrunken : ret;
---- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
-+++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
-@@ -22,4 +22,12 @@ static inline unsigned int ttm_pool_bene
- 	return pool->alloc_flags & 0xff;
- }
- 
-+/*
-+ * Implemented in ttm_pool.c, used by ttm_backup.c. Returns true if a fault
-+ * should be injected mid-compound to test the reactive split-and-retry
-+ * fallback in ttm_pool_backup(). Always returns false when
-+ * CONFIG_FAULT_INJECTION is disabled.
-+ */
-+bool ttm_backup_fault_inject_folio(void);
-+
- #endif
---- a/include/drm/ttm/ttm_backup.h
-+++ b/include/drm/ttm/ttm_backup.h
-@@ -13,9 +13,8 @@
-  * ttm_backup_handle_to_page_ptr() - Convert handle to struct page pointer
-  * @handle: The handle to convert.
-  *
-- * Converts an opaque handle received from the
-- * ttm_backup_backup_page() function to an (invalid)
-- * struct page pointer suitable for a struct page array.
-+ * Converts an opaque handle received from a ttm_backup_backup_*()
-+ * function to an (invalid) struct page pointer suitable for a struct page array.
-  *
-  * Return: An (invalid) struct page pointer.
-  */
-@@ -59,9 +58,10 @@ int ttm_backup_copy_page(struct file *ba
- 			 pgoff_t handle, bool intr, gfp_t additional_gfp);
- 
- s64
--ttm_backup_backup_page(struct file *backup, struct page *page,
--		       bool writeback, pgoff_t idx, gfp_t page_gfp,
--		       gfp_t alloc_gfp);
-+ttm_backup_backup_folio(struct file *backup, struct folio *folio,
-+			unsigned int order, bool writeback, pgoff_t idx,
-+			gfp_t folio_gfp, gfp_t alloc_gfp,
-+			pgoff_t *nr_pages_backed);
- 
- void ttm_backup_fini(struct file *backup);
- 
-
+> 
+> Thanks,
+> pq
+> 
+> 
+>> As for the "RGB709 to RGB2020" block, I can see it being useful for
+>> converting SDR Rec.709 content into the Rec.2020 color space before
+>> blending it with an HDR plane.
+>>
+>> ==
+>> Chaitanya
+>>
+>>
+>> [1]
+>> https://lore.kernel.org/dri-devel/20260720045131.971650-1-chaitanya.kumar.borah@intel.com/
+>> [2]
+>> https://lore.kernel.org/igt-dev/20260727185531.4046807-1-swati2.sharma@intel.com/
+>>
+>> especially
+>>> as they are not implemented in this series - IMO they should be left out
+>>> and be part of the corresponding Intel series.
+>>>
+>>> Anyway, still R-B
+>>>    
 
