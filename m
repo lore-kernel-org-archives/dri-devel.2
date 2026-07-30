@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F163C55167
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:42:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC30DC55167
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:45:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BD3210F059;
-	Thu, 30 Jul 2026 20:42:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD0A910F086;
+	Thu, 30 Jul 2026 20:45:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oWTQcSKB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SgkGK+co";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 343AE10F059
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:42:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C483410F086
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:45:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E22E041915;
- Thu, 30 Jul 2026 20:42:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 992361F000E9;
- Thu, 30 Jul 2026 20:42:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9437241220;
+ Thu, 30 Jul 2026 20:45:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 554B91F00A3A;
+ Thu, 30 Jul 2026 20:45:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785444143;
- bh=AzT4YysgnHW0gNKLyJNjn+mhh5/NYNaN0qxuBV7FYXc=;
+ s=k20260515; t=1785444346;
+ bh=Oh/pWjDRb47tOQGUbmCylSDTt8vE4RlF+Hk/1MrKKH4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=oWTQcSKBXkT55zODPfIj3VIXS3FjyuzSam3cAwdk8wD8gCy+45kbzv6odG+s0Nylb
- CXQwaKic53QviUTe05pwuQxYjCQbXanNWy7j4VuVIop7EjvzjpRw93OPwkdLPyW+rO
- R/WuNz15/ncOaGfk+b/tvXgX1npc9wG4ABBtTW3Dkw+SQEl0JNoPAgPGrzDpyywQI7
- dO6ULthufyJig/rbMRFI1PDWUKIibm0bHEOzNKtdU/B3z886Pa3+qiBt/yu3WE+ANa
- 5yr20hH2JNRcbASjPG9WnFYoAQFWDAakgYW6i6lGQPpzBJ23+bYm7AekENSlFsmK07
- rQL3SMCy63D8w==
+ b=SgkGK+coHGNtFHGS1Su5LCAOPXjrq9VLW8L7DYLHuhy8jHpJKAyI3zGzV19YjbVR6
+ poBRBwPG/FjWd+ZhwBRS9qa13jUNXqnIh+s6zP3yE3L/Jx1HNrzUmAU1q+Lus3asOg
+ 43gbj8H7km1njYp0qNnYHwxhuBk4ieaRUdM03oKTH54r0rV4J/KDxiT0g8Gj/ghm6Y
+ yLDFiC5kuieXYJb08zCgzfzgP6hyPo3tqyZaVIh1qy9JqDRZXG43kPGniAX8YvzReX
+ 2xh2QUPtdPwk10+Ke7kXUPoRKrxndHMQ1BAn5nxzs9d248ikLAe6Y7kDbGFx6ThOTs
+ R6pHWT4UagyhA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] drm/nouveau: Fix drm_driver
- struct/nouveau.atomic parameter handling
+Subject: Re: [PATCH v4 1/5] drm/nouveau: Fix cleanup bug in
+ nouveau_drm_device_new()
 To: "Lyude Paul" <lyude@redhat.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260730203015.1572240-4-lyude@redhat.com>
-References: <20260730203015.1572240-1-lyude@redhat.com>
- <20260730203015.1572240-4-lyude@redhat.com>
+In-Reply-To: <20260730203723.1649433-2-lyude@redhat.com>
+References: <20260730203723.1649433-1-lyude@redhat.com>
+ <20260730203723.1649433-2-lyude@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 20:42:23 +0000
-Message-Id: <20260730204223.992361F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 20:45:45 +0000
+Message-Id: <20260730204546.554B91F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,117 +58,75 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [High] Embedding the `drm_driver` struct inside the dynamically allocated=
- `nouveau_drm` struct causes a Use-After-Free when the device is unplugged =
-but userspace holds open DRM file descriptors.
-
-Pre-existing issues:
-- [Critical] nouveau_drm_device_new() incorrectly returns 0 (NULL) on succe=
-ss, causing an immediate kernel panic during device probe.
+- [High] NULL pointer dereference in nouveau_drm_device_init() due to nouve=
+au_drm_device_new() returning 0 (NULL) on success.
 --
 
---- Patch [3]: [PATCH v3 3/5] drm/nouveau: Fix drm_driver struct/nouveau.at=
-omic parameter handling ---
-commit d192ca1eced4bd2c1c15cea6e0c5ae59ed261add
+--- Patch [1]: [PATCH v4 1/5] drm/nouveau: Fix cleanup bug in nouveau_drm_d=
+evice_new() ---
+commit a5372851dc75d5b677c79a26019c14c8143d697d
 Author: Lyude Paul <lyude@redhat.com>
 
-drm/nouveau: Fix drm_driver struct/nouveau.atomic parameter handling
+drm/nouveau: Fix cleanup bug in nouveau_drm_device_new()
 
-The way we handled the nouveau.atomic module parameter before was fairly
-broken, and had a number of issues:
-
-[ ... ]
+This patch fixes the error handling path in nouveau_drm_device_new() so
+it doesn't attempt to free an error pointer if drm_dev_alloc fails. It
+replaces the single done label with specific error labels.
 
 > diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
 eau/nouveau_drm.c
-> index 6940e774ace07..95daf2643e1df 100644
 > --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
 > +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
 [ ... ]
-> @@ -727,8 +725,7 @@ nouveau_drm_device_del(struct nouveau_drm *drm)
->  }
-> =20
->  static struct nouveau_drm *
-> -nouveau_drm_device_new(const struct drm_driver *drm_driver, struct devic=
-e *parent,
-> -		       struct nvkm_device *device)
-> +nouveau_drm_device_new(struct device *parent, struct nvkm_device *device)
->  {
-
-[Severity: Critical]
-This is a pre-existing issue (introduced earlier in the series), but does
-nouveau_drm_device_new() incorrectly return 0 (NULL) on success?
-
-At the end of nouveau_drm_device_new(), it returns 0:
-
-	return 0;
-
-err_free_drm:
-
-This causes callers like nouveau_drm_probe() to incorrectly bypass the
-IS_ERR() check, as IS_ERR(NULL) is false:
-
-nouveau_drm_probe()
-	drm =3D nouveau_drm_device_new(&pdev->dev, device);
-	if (IS_ERR(drm)) {
-		ret =3D PTR_ERR(drm);
-		goto fail_nvkm;
-	}
-
-	ret =3D pci_enable_device(pdev);
-	if (ret)
-		goto fail_drm;
-
-	ret =3D nouveau_drm_device_init(drm);
-
-The NULL pointer is then passed to nouveau_drm_device_init(), which
-immediately dereferences it and causes a kernel panic during device probe.
-
+> @@ -762,39 +762,43 @@ nouveau_drm_device_new(const struct drm_driver *drm=
+_driver, struct device *paren
 [ ... ]
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drv.h b/drivers/gpu/drm/nouv=
-eau/nouveau_drv.h
-> index 5fc75dc750ed0..5cc0001134e74 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drv.h
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drv.h
-> @@ -216,6 +216,7 @@ struct nouveau_drm {
+>  	ret =3D nvif_mmu_ctor(&drm->device.object, "drmMmu", mmus[ret].oclass, =
+&drm->mmu);
+>  	if (ret) {
+>  		NV_ERROR(drm, "MMU allocation failed: %d\n", ret);
+> -		goto done;
+> +		goto err_device_del;
+>  	}
 > =20
->  	struct nouveau_cli client;
->  	struct drm_device *dev;
-> +	struct drm_driver drm_driver;
+> -done:
+> -	if (ret) {
+> -		nouveau_drm_device_del(drm);
+> -		drm =3D NULL;
+> -	}
+> +	return 0;
 
 [Severity: High]
-Can embedding the drm_driver struct inside the dynamically allocated
-nouveau_drm struct cause a use-after-free when the device is unplugged?
+Does this code cause a NULL pointer dereference during device probe?
 
-When the device is unbound, nouveau_drm_device_del() drops the driver's
-reference to the DRM device and then immediately frees the nouveau_drm stru=
-ct
-using kfree():
+The function nouveau_drm_device_new() returns a struct nouveau_drm pointer,
+but the success path was changed to return 0 (NULL).
 
-drivers/gpu/drm/nouveau/nouveau_drm.c:nouveau_drm_device_del() {
-	if (drm->dev)
-		drm_dev_put(drm->dev);
-	...
-	kfree(drm);
-}
+Since the caller checks for failure using IS_ERR(), it will consider NULL a
+success and pass the NULL pointer to nouveau_drm_device_init(), where it wi=
+ll
+be dereferenced:
 
-Because drm_driver is now embedded in nouveau_drm, the drm_driver struct is
-also freed here.
+nouveau_drm_device_init()
+    struct drm_device *dev =3D drm->dev;
 
-If userspace still has an open file descriptor, the drm_device remains aliv=
-e.
-When userspace later closes the file descriptor, DRM core functions (such as
-drm_release) will attempt to dereference dev->driver (e.g.,
-dev->driver->postclose), resulting in a use-after-free.
+Should this return the drm pointer instead?
 
+> +
+> +err_free_drm:
+> +	kfree(drm);
+> +
+> +	return ERR_PTR(ret);
+> +
+> +err_device_del:
+> +	nouveau_drm_device_del(drm);
 > =20
->  	struct list_head clients;
->
+> -	return ret ? ERR_PTR(ret) : drm;
+> +	return ERR_PTR(ret);
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730203015.1572=
-240-1-lyude@redhat.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730203723.1649=
+433-1-lyude@redhat.com?part=3D1
