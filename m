@@ -4,79 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A0BBC531D0
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 07:20:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3EADAC55165
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 07:20:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B06E810EDF2;
-	Thu, 30 Jul 2026 07:20:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2D9010EDED;
+	Thu, 30 Jul 2026 07:20:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="B8hZD1P9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BnbO6+Nk";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E180310E104
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 03:32:35 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-3856d6fbcb3so1301351a91.2
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 20:32:35 -0700 (PDT)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2CE010E08F
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 00:31:58 +0000 (UTC)
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-2cf41bab353so26769075ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 17:31:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785382355; x=1785987155; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=nPKPYDT6oqqCx028gjifMvkmNxES9gN8H4nUwaQApZo=;
- b=B8hZD1P94tYfIbiDwZmvqFLhxOp8LApeod5mxiaDITJbffV/oOpbUntvpk0+xoqjyY
- UbtACP2e5Q0rC17/Qw2OwDzVbD2/PMtuWAqETSWPCDIdWwxjRMUcz31kTIVaWwR1Toi/
- 52Iyjez8cCbLKzM008K7j4KIow4NwU4t8ydl0oSlmAitBbu0xzfATfGUgTUpTXGhGJLi
- G7NzMbbY+yIXizX8866wuObjjTVJ0VRcALd2biwpaOQDTuJXPdKbYnUzFx9VumB0DsDr
- B/3mNiLvh1+Q9voibQglXRHkyVBoMJgsjPlBbRGD58zzm+iySKdLvN75q0i7YO8RnWax
- 6Ymw==
+ d=gmail.com; s=20251104; t=1785371518; x=1785976318; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=fI6aSyOYXjF/tGTQD0BJTcmduvJ9bMsRenmuTJgMGVU=;
+ b=BnbO6+NkPwn2N+wG2s/xHEBkTsQu2tTEu8SpKsdd19v6u5e6R5GDnULuKAH0x/5HBo
+ ogmTU+HVRVS4siVyRO/rTLcb/isXHnlazIK/spZbEQ6fGdE1juFVv3VmAValOCEdSoPm
+ x5RCn0Da2QylkOqjwotT7y1rzlMjJqQaQUZXqw8L9fyysYOjineRLdyoMXgECnL3tjfB
+ 9NcOcwuvbIYtp3CExdX9Les1Qa9RrsnsG5h7aziLyBkHaXQvLPyxwNvJY8qumwIb0Z0j
+ db4GQRqswYGiKm4Teo32k3XX/5SAv7a3RGI2/e1O6Znidb4Ql8SmB2SG8x+zbxlju5qh
+ Ghdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785382355; x=1785987155;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=nPKPYDT6oqqCx028gjifMvkmNxES9gN8H4nUwaQApZo=;
- b=Kl+z6fH0jRQt6hfDP+vt/OgcUivcsz1PdqlSiXqYwKwvZAdccDbUAG0TU7LbGFO/Xl
- 1/hb97jzfD2VCUiwIppXluBjlRADkTjSxVey+ousuOWHUyZOpdQFNMqXBaEis1kwOulw
- o7lfSzB7pWO7jpiSglMh0RbWPQ/azO0XrMhBs8dXxV6PwaisvEGWWo9MlSX3DDG/QULt
- c2e+MbvArMebxcY0xCGqFoFXI4BzEyt0OVk+axOsoEbBZ4J4tBo674e8+nE93h1Wjutr
- j8+uiKcNk7V16g8qNwiALtBTC002eWac5Uytf/KHVvHbZoPx6vLlAXrQ5IKEiR+PusoV
- Lk4A==
+ d=1e100.net; s=20251104; t=1785371518; x=1785976318;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=fI6aSyOYXjF/tGTQD0BJTcmduvJ9bMsRenmuTJgMGVU=;
+ b=BTDghHWQlWKYIonERTSVEgJp8n0FmxUNDONSETVN2yuIs4FQokGpCFpKQ+b3DirlNK
+ aPG4WkMolupe1jP20T4RZPP57O6LB4GblIrFlWkvZxyFRcW4V8DDHiFn63VuXFBga6AK
+ Omno93lg9wL6sf3xY95kF7tvazlOwKu0TlOv+MMyqlCq7ogOxao2pFP2/Llcc+qnfJoZ
+ j79qhMjuTfTsW/QghYIzIjpQpP51WZ11Itm7Id2SouHSV3gFgDAA+HdDKA9J5pgT1euE
+ TFyfmnR1zcJiLr7UMVfx5HczosSNfOcf9evETWnU3jrdQxju1LssE2btETMXymougQLW
+ atCg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rriqz1DtXxPd0oMls0FZ7OPoIlOMu8ju4iUTqQOKvmnv/NC70bimnbjPR47LBrLBfKSnDUqvBc+JZ8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwTOglesJc1EzfsfbXmmbqHxTOzQXW7IeiRKQddqXzOsFpICLu2
- BeoJoJ5oScvDahfjTvxJLzjd1C9cuAJR/zAvbuv7E9lnjWMh24oVVO/9
-X-Gm-Gg: AR+sD10GPWeG5BfCknCvPifHEsm5WHfXflU9oODuYW7FWLr4BXB8mTtwxcP/eSXTI/i
- quxRF5rgt2WCj5dVB8VPrXoNO+j8GkpQgYs5btsQIcH2mvUVLi2AEUUzrvWhF+Le02pvdvYQY/m
- iTFqS5N6YgPZP9n3krxcQix2qiJnq9HAjHK4lXrCPxC1VoCHcjQyv3LvmfU+jtn6g7drry79xoG
- JA17xw5v0jZEQc+pDt3TtYggR3Ld31IQz2gN2e/Uu4wClh8wz6qY461GLBzvYkirDPxUuOIeT4O
- SJp88HOxEwd/snqsaIdG3u1ZaQxpjQPZP6mVls7n+rCwPretDC9rokdy5KbHqqxiw5lm/6mHzj/
- jl9hAw+01lmdpwYNMFGbUTMJFNqa9rKN7qlYiK5V7Ag3dSuFc4+3m59Spe/CfpCyZdK43RqeGFB
- 9RQpo1ZQuQJwHS8TTEu4/lKJ9iHu6WOxrYHVaklXAWLuRA99ux5nMZRF99gfj4rsMp1k/tam3GS
- /4IwjUnu5gDWulBXfXPUowrrhDv/C3mII0=
-X-Received: by 2002:a17:90b:2548:b0:36b:77b9:5c8c with SMTP id
- 98e67ed59e1d1-38f9bddb903mr856020a91.17.1785382355302; 
- Wed, 29 Jul 2026 20:32:35 -0700 (PDT)
-Received: from localhost ([64.176.39.245]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38f9b42d6c8sm273249a91.3.2026.07.29.20.32.31
+ AHgh+RqcNeb8Td0q6Q4QxCCa0Vx0i9lK4XeyfAyRvS/SwVsMkCy7LPPdNjM4ln/gEI9KcAiN6qAGQZrqDP4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yydy511Sm17sIs6w2kDvHqy+iw/N3jnczIyN/c96l+6l0tMdP+Y
+ Kx1bprYVSBqwvsy/c+PXo0JojGFpHJ4ZbkTkZFZsAjZVYGNGW4ACFE7f
+X-Gm-Gg: AR+sD10DvUB8RUdE4/Lrl6m/268MaHemB/MX8XbY/0u3PpoexefuqgBTd0oJm5bhgHV
+ VDHbnS72kwd6mMQGxoClkYoPxtmRXLWFbUxEVzWWIMaHUVC1Cwl6HM5DrwEROjwMQchI/paFznN
+ ORwIhdUuiIQNxZU90NeqsOhLMZhBb6wo86C+fZUuEnQhzRnAe21AgQf7c7LuFAk1L57eo0uCVji
+ HpEktl1qYwouaiYKEElyxXjZhXLQd/Okx4QtFygbFNEOR0Fj17o7DHm36vpsXhrzb68sqjN4QTz
+ FwPyPOoecjmI9+83ri6IJZrVCZ7yEFQjKMODlSltGrOGnqnGyWFpgIQaD2eCpEMIDAp01K42Nb9
+ RvOtsFRWTB3fwpaxwCEfOnkm74eVdii+Dq6jhsHuQbyKmv5fvNrfpDDtqQdVwqI3R0j78RWuyhA
+ jowLEc2cepOK0KQ5Ibe6zuvTesjAcDeO+RpMYG7yZ2G77+vwmPyl8kcJ+a4W+uKsJRBj5/yrWno
+ OoI/x8AFSxTRcW6Ma3Ha8Re4KxV78RqXCV00bZN71O6MfY9dy4bu4jnGWOphyT5eiJ9C/xhNxqO
+ qcv7q+kE
+X-Received: by 2002:a17:903:120e:b0:2c2:bd0d:3cf0 with SMTP id
+ d9443c01a7336-2d035ccd3cemr5576695ad.25.1785371518417; 
+ Wed, 29 Jul 2026 17:31:58 -0700 (PDT)
+Received: from alanhc-ROG-Strix-G16-G614PR-G614PR.tailb22ec2.ts.net
+ (1-161-137-250.dynamic-ip.hinet.net. [1.161.137.250])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d022bf4c0bsm17606485ad.59.2026.07.29.17.31.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2026 20:32:34 -0700 (PDT)
-From: David Weber <weber.aulendorf@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, ray.wu@amd.com, dri-devel@lists.freedesktop.org,
- David Weber <weber.aulendorf@gmail.com>
-Subject: [PATCH 1/1] drm/amd/display: allow self-refresh exit while entry is
- blocked
-Date: Thu, 30 Jul 2026 05:32:00 +0200
-Message-ID: <20260730033200.441730-2-weber.aulendorf@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260730033200.441730-1-weber.aulendorf@gmail.com>
-References: <20260730033200.441730-1-weber.aulendorf@gmail.com>
+ Wed, 29 Jul 2026 17:31:57 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+To: sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Subject: [PATCH] dma-buf: fix stale return value documentation for
+ dma_buf_set_name()
+Date: Thu, 30 Jul 2026 08:31:53 +0800
+Message-ID: <20260730003153.4030818-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 30 Jul 2026 07:19:56 +0000
+X-Mailman-Approved-At: Thu, 30 Jul 2026 07:19:55 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,55 +93,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-amdgpu_dm_crtc_set_static_screen_optimze() maps sso_enable to the
-Replay and PSR1 vsync events. allow_sr_entry is an entry gate, but the
-helper currently applies it to both directions.
+The kernel-doc for dma_buf_set_name() documents an -EBUSY return for the
+case where the dma-buf is already attached to devices. The function has no
+such path: it returns 0 on success, or the error from strndup_user().
 
-A non-fast update clears allow_sr_entry. During a modeset, a separate
-hardware-programming event keeps self-refresh blocked while the stream
-is reprogrammed. If vblank is enabled before the entry delay expires,
-the ISM calls the helper with sso_enable false. The early return drops
-the disable request, so the vsync events are not set.
+kernel-doc does not validate prose, so scripts/kernel-doc does not report
+this.
 
-After enough fast commits, allow_sr_entry becomes true and the
-hardware-programming event can be cleared. Since the vblank reference
-remains held, there is no further zero-to-one vblank transition to
-restore the missing vsync events. Replay or PSR1 can then become active
-while vblank is still enabled.
-
-Gate only requests that enable static-screen optimization. Always
-process disable requests so a vblank requestor keeps Replay and PSR1
-blocked.
-
-On a Phoenix system, repeated SDDM-to-VT handoffs produced stuck flips
-followed by flip_done and commit-wait timeouts. The timeout was not
-observed with this change applied.
-
-Fixes: 3c108046e1d6 ("drm/amd/display: Add power module on Linux")
-Assisted-by: Codex:gpt-5.6-sol
-Assisted-by: Claude:opus-5
-Signed-off-by: David Weber <weber.aulendorf@gmail.com>
+Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/dma-buf/dma-buf.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 95d3da3c4..06598273d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -119,7 +119,11 @@ void amdgpu_dm_crtc_set_static_screen_optimze(
- 	struct dc_link *link = stream->link;
- 	bool set_vsync_event = !sso_enable;
- 
--	if (!allow_sr_entry)
-+	/*
-+	 * allow_sr_entry gates only entry. A disable request must still set
-+	 * the vsync events to force Replay and PSR1 out and keep them blocked.
-+	 */
-+	if (sso_enable && !allow_sr_entry)
- 		return;
- 
- 	amdgpu_dm_replay_set_event(dm, stream,
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d504c636d..324f4f0c8 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -413,8 +413,8 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
+  * @buf:    [in]     A piece of userspace memory that contains the name of
+  *                   the dma-buf.
+  *
+- * Returns 0 on success. If the dma-buf buffer is already attached to
+- * devices, return -EBUSY.
++ * Returns 0 on success, or a negative error code from strndup_user() if the
++ * name cannot be copied in.
+  *
+  */
+ static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
 -- 
-2.54.0
+2.43.0
 
