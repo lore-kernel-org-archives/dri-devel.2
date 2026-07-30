@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD39AC5516E
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:05:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 266A0C55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:06:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C95CF10EFFA;
-	Thu, 30 Jul 2026 17:05:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C4BA10EFFD;
+	Thu, 30 Jul 2026 17:06:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="U0OgeggQ";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="yYmeCtbD";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9E9310EFF8
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:05:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E1F410EFFA
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:05:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 4105444E8C;
+ by sea.source.kernel.org (Postfix) with ESMTP id 7EA3F4502F;
  Thu, 30 Jul 2026 17:05:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 03FBEC2BCFC;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 50F43C2BCFD;
  Thu, 30 Jul 2026 17:05:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1785431151; bh=WZR8Y42ND9E/OAlX111HbpPcKsxTChsq0oOfQ3+9UZM=;
+ t=1785431151; bh=skA4KVHM8LMz73TA56MQb3n/Ixh2G2cs8JHXFUZaNIU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=U0OgeggQO9XAL00a0Lyi35OLQFTK+lgiPeKS4qmN72pWx387JkERQVbhaBtOVKxdJ
- sJd6YYGWsuOVxaSSQoYbyIEuRiRPoFytyPFKfSKxYw6JA5XO9HnFuJ6vYAEboU5uLI
- 7IX0+x5h0g9equU+dLAiCNGM5Adka3vWJXdsZZfU=
+ b=yYmeCtbDDCLxHrj4UeDlPOHGZybc9oRgoiMKd28LLLlNo1cSoFpL7QOtdAkz+YdeN
+ I6Fkd9CbjRViQsDDTNjpHa5h+2w9HXvwr6DmQDhGaZ/8lUscQJ7Itc9jTpUP3bLK3Q
+ XN2ki20ASAGy4KBwoqSuqpTfhmKkckBGVQF5+BjY=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id DCF18C55171;
- Thu, 30 Jul 2026 17:05:50 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 37A77C55171;
+ Thu, 30 Jul 2026 17:05:51 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Fri, 31 Jul 2026 01:05:42 +0800
-Subject: [PATCH v2 4/9] drm: move debugfs_init after dev->registered is set
+Date: Fri, 31 Jul 2026 01:05:47 +0800
+Subject: [PATCH v2 9/9] drm/debugfs: hold device reference for the lifetime
+ of open files
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-tyr-debugfs-v2-v2-4-aea19eccb996@linux.dev>
+Message-Id: <20260731-tyr-debugfs-v2-v2-9-aea19eccb996@linux.dev>
 References: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
 In-Reply-To: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -64,11 +65,11 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785431148; l=1502;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785431148; l=3132;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=WZR8Y42ND9E/OAlX111HbpPcKsxTChsq0oOfQ3+9UZM=;
- b=Nu6+7BcxiJjyRPpf2u+1b0iaiSQBOJe051oW2rzfFeF1mot84+/iQEuu/d+7bnherhoaUo22G
- PErAWGVIR6SCpdLLCp+QzHtk1b2X3Lol0rBTsYH8E7OtNJA4IEi52sW
+ bh=skA4KVHM8LMz73TA56MQb3n/Ixh2G2cs8JHXFUZaNIU=;
+ b=byirK3xd7xbmRD0KNzAAenKpeldvUER6QjL52yREv13nnnfpFq5CGiZ65r+lwQ7WTBzZbuVjH
+ 2PRTkN6XUtDB1MhPnoqzBmw/q8DJSTtfx8+g8cJQ91uO8Obgrcp4MCI
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -88,46 +89,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The debugfs_init callback was invoked by drm_debugfs_register before
-dev->registered is set to true. Moving it to drm_dev_register after
-dev->registered = true fixes the Ioctl type invariant violation.
+Hold a device reference (via drm_dev_get/put) across the lifetime of open
+debugfs files. Prevents use-after-free when a device is unregistered while
+a debugfs file remains open. Both drm_debugfs_open (legacy info_list)
+and drm_debugfs_entry_open (drm_debugfs_add_file) paths are covered.
+
+Fixes: 1c9cacbea8805 ("drm/debugfs: create device-centered debugfs functions")
+Fixes: 28a62277e06f9 ("drm: Convert proc files to seq_file and introduce debugfs")
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/gpu/drm/drm_debugfs.c | 3 ---
- drivers/gpu/drm/drm_drv.c     | 5 +++++
- 2 files changed, 5 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/drm_debugfs.c | 42 ++++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 38 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
-index ae1c6126c2c59..38cf6ce387cc8 100644
+index 38cf6ce387cc8..5262a708f1602 100644
 --- a/drivers/gpu/drm/drm_debugfs.c
 +++ b/drivers/gpu/drm/drm_debugfs.c
-@@ -442,9 +442,6 @@ int drm_debugfs_register(struct drm_minor *minor, int minor_id)
- 	/* TODO: Only for compatibility with drivers */
- 	minor->debugfs_root = dev->debugfs_root;
+@@ -159,11 +159,28 @@ static const struct drm_debugfs_info drm_debugfs_list[] = {
+ static int drm_debugfs_open(struct inode *inode, struct file *file)
+ {
+ 	struct drm_info_node *node = inode->i_private;
++	struct drm_device *dev = node->minor->dev;
++	int ret;
  
--	if (dev->driver->debugfs_init && dev->render != minor)
--		dev->driver->debugfs_init(minor);
--
- 	return 0;
+ 	if (!device_is_registered(node->minor->kdev))
+ 		return -ENODEV;
+ 
+-	return single_open(file, node->info_ent->show, node);
++	drm_dev_get(dev);
++
++	ret = single_open(file, node->info_ent->show, node);
++	if (ret)
++		drm_dev_put(dev);
++
++	return ret;
++}
++
++static int drm_debugfs_release(struct inode *inode, struct file *file)
++{
++	struct drm_info_node *node =
++		((struct seq_file *)file->private_data)->private;
++
++	drm_dev_put(node->minor->dev);
++	return single_release(inode, file);
  }
  
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index e890052061f30..15669764fe625 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -1101,6 +1101,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
- 	dev->registered = true;
- 	dev->unplugged = false;
+ static int drm_debugfs_entry_open(struct inode *inode, struct file *file)
+@@ -171,11 +188,28 @@ static int drm_debugfs_entry_open(struct inode *inode, struct file *file)
+ 	struct drm_debugfs_entry *entry = inode->i_private;
+ 	struct drm_debugfs_info *node = &entry->file;
+ 	struct drm_minor *minor = entry->dev->primary ?: entry->dev->accel;
++	struct drm_device *dev = entry->dev;
++	int ret;
  
-+	/* Call debugfs_init after the device is fully registered. */
-+	if (dev->driver->debugfs_init && dev->primary &&
-+	    dev->render != dev->primary)
-+		dev->driver->debugfs_init(dev->primary);
+ 	if (!device_is_registered(minor->kdev))
+ 		return -ENODEV;
+ 
+-	return single_open(file, node->show, entry);
++	drm_dev_get(dev);
 +
- 	if (driver->load) {
- 		ret = driver->load(dev, flags);
- 		if (ret)
++	ret = single_open(file, node->show, entry);
++	if (ret)
++		drm_dev_put(dev);
++
++	return ret;
++}
++
++static int drm_debugfs_entry_release(struct inode *inode, struct file *file)
++{
++	struct drm_debugfs_entry *entry =
++		((struct seq_file *)file->private_data)->private;
++
++	drm_dev_put(entry->dev);
++	return single_release(inode, file);
+ }
+ 
+ static const struct file_operations drm_debugfs_entry_fops = {
+@@ -183,7 +217,7 @@ static const struct file_operations drm_debugfs_entry_fops = {
+ 	.open = drm_debugfs_entry_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+-	.release = single_release,
++	.release = drm_debugfs_entry_release,
+ };
+ 
+ static const struct file_operations drm_debugfs_fops = {
+@@ -191,7 +225,7 @@ static const struct file_operations drm_debugfs_fops = {
+ 	.open = drm_debugfs_open,
+ 	.read = seq_read,
+ 	.llseek = seq_lseek,
+-	.release = single_release,
++	.release = drm_debugfs_release,
+ };
+ 
+ /**
 
 -- 
 2.43.0
