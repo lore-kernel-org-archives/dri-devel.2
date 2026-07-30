@@ -4,65 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A245C5516E
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 19:56:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 306EAC5516D
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:04:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8EFF10E697;
-	Thu, 30 Jul 2026 19:56:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7006C10EFB0;
+	Thu, 30 Jul 2026 20:04:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="SbM1Lgrd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IE+8m9wo";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6638F10EFB0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 19:55:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785441357;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=YRUBusnI52Yy/d+FqdDyU+0QRKIjKfAAyc63y8vLFBs=;
- b=SbM1LgrdoxHyzhVhM+s9hAeP7jwllpSLkNWhyVl/ehUaKgMa23N3s1S5ezKmXS3FhfSSmr
- fSUj9FI9Sk6O6TuZepW2VJKdFKs86tWRUy2g0yZ+8kM4lj10+SpmK2AIWhS12jYnpQuqFA
- BNLhbbhA/4JMp2JjXuhs5WhjctGBumY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-311-MgNURonSO1WJVxNRfs_fww-1; Thu,
- 30 Jul 2026 15:55:51 -0400
-X-MC-Unique: MgNURonSO1WJVxNRfs_fww-1
-X-Mimecast-MFC-AGG-ID: MgNURonSO1WJVxNRfs_fww_1785441349
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
- (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4888819560A2; Thu, 30 Jul 2026 19:55:49 +0000 (UTC)
-Received: from GoldenWind.lan (unknown [10.22.88.35])
- by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id 90F33414; Thu, 30 Jul 2026 19:55:47 +0000 (UTC)
-From: Lyude Paul <lyude@redhat.com>
-To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Simona Vetter" <simona@ffwll.ch>, "David Airlie" <airlied@gmail.com>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "Maxime Ripard" <mripard@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
- "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v2 2/5] drm/nouveau: Print the nouveau.atomic parameter in
- nouveau_display_options()
-Date: Thu, 30 Jul 2026 15:51:06 -0400
-Message-ID: <20260730195523.1467423-3-lyude@redhat.com>
-In-Reply-To: <20260730195523.1467423-1-lyude@redhat.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8247210F059
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:04:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0E6A942E86;
+ Thu, 30 Jul 2026 20:04:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D451F000E9;
+ Thu, 30 Jul 2026 20:04:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785441880;
+ bh=RQccPxPiaRud6OhHNySLeSJfRpEBPb/dEcJVkDdrOlk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=IE+8m9woMQfKA/gi0Vyrtia+0WCMT5wtMFrHbUtouGJZVy9S8neOIaP9WjSBl9E30
+ rroKnSUfZoatFm7mcDjy8o1aVekdoVeUSo3d9w+4Uw/CtucGHYjzU4rpO/w0ay0dnn
+ EOTSyhUzykoRfm/bBH1f8yQIE4he0ackl/PqqdYmJuZHnFxHBTihJ6RUIzxzU9c8xO
+ Y1FJLPclRavVHy7clnwe3y/GV8cFTNLhbDlRRX+CursveZtmW+Scs+HPN/bPjZEBj1
+ MUkpp1LSFB4RuGcWIXf7cFUpmEUpiEBo2KAgjGHq9wq9DrktDhvPSQ1lE9axgAmoN9
+ w4L4AUStcmIgw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/5] drm/nouveau: Fix drm_driver
+ struct/nouveau.atomic parameter handling
+To: "Lyude Paul" <lyude@redhat.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260730195523.1467423-4-lyude@redhat.com>
 References: <20260730195523.1467423-1-lyude@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
-X-Mimecast-MFC-PROC-ID: VKVGD0UHXGJTY90heYCuTDkpX7_1NROigG1hrbx09TA_1785441349
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+ <20260730195523.1467423-4-lyude@redhat.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 20:04:40 +0000
+Message-Id: <20260730200440.B9D451F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,30 +54,89 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Seems like we never remembered to start printing the value for this, so
-let's start to aid in troubleshooting in case we run into any issues with
-atomic.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Signed-off-by: Lyude Paul <lyude@redhat.com>
----
- drivers/gpu/drm/nouveau/nouveau_drm.c | 1 +
- 1 file changed, 1 insertion(+)
+New issues:
+- [High] Dynamically allocating `struct drm_driver` with `devm_kzalloc` int=
+roduces a Use-After-Free vulnerability when the physical device is unbound.
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index 9570850656126..5565cf2367aa9 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -1413,6 +1413,7 @@ static void nouveau_display_options(void)
- 	DRM_DEBUG_DRIVER("... debug        : %s\n", nouveau_debug);
- 	DRM_DEBUG_DRIVER("... noaccel      : %d\n", nouveau_noaccel);
- 	DRM_DEBUG_DRIVER("... modeset      : %d\n", nouveau_modeset);
-+	DRM_DEBUG_DRIVER("... atomic       : %d\n", nouveau_atomic);
- 	DRM_DEBUG_DRIVER("... runpm        : %d\n", nouveau_runtime_pm);
- 	DRM_DEBUG_DRIVER("... vram_pushbuf : %d\n", nouveau_vram_pushbuf);
- 	DRM_DEBUG_DRIVER("... hdmimhz      : %d\n", nouveau_hdmimhz);
--- 
-2.55.0
+Pre-existing issues:
+- [High] The core driver structure `struct nouveau_drm` is allocated with `=
+devm_kzalloc`, leading to a preexisting Use-After-Free when the device is u=
+nbound.
+--
 
+--- Patch [3]: [PATCH v2 3/5] drm/nouveau: Fix drm_driver struct/nouveau.at=
+omic parameter handling ---
+commit 9eb1e724469599d6b2baf3bcec061d6d7b31c8bc
+Author: Lyude Paul <lyude@redhat.com>
+
+drm/nouveau: Fix drm_driver struct/nouveau.atomic parameter handling
+
+This commit addresses issues with how the nouveau.atomic module parameter is
+handled. It replaces shared static drm_driver structures with dynamically
+allocated ones using devm_kzalloc to allow safely setting per-device driver
+flags.
+
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
+eau/nouveau_drm.c
+> index 5565cf2367aa9..ae489dc1b1943 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+[ ... ]
+> @@ -737,12 +734,18 @@ nouveau_drm_device_new(const struct drm_driver *drm=
+_driver, struct device *paren
+>  		{}
+>  	};
+>  	struct nouveau_drm *drm;
+> +	struct drm_driver *drm_driver;
+>  	int ret;
+> =20
+>  	drm =3D devm_kzalloc(parent, sizeof(*drm), GFP_KERNEL);
+
+[Severity: High]
+This is a pre-existing issue, but does allocating struct nouveau_drm with
+devm_kzalloc() cause a use-after-free on device unbind?
+
+If a userspace process holds a DRM file descriptor open while the physical
+device is unbound via sysfs or hot-unplug, devres will free this memory.
+Since the DRM device lifetime is reference-counted and extended by the open
+descriptor, subsequent ioctls or the final drm_release() might dereference
+the freed memory via dev->dev_private.
+
+>  	if (!drm)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+> +	drm_driver =3D devm_kzalloc(parent, sizeof(*drm_driver), GFP_KERNEL);
+
+[Severity: High]
+Does allocating drm_driver with devm_kzalloc() introduce a similar
+use-after-free vulnerability?
+
+If the device is unbound while a DRM file descriptor is open, devres will
+free the drm_driver struct. Since the DRM device outlives the physical
+device in this scenario, when userspace eventually closes the file
+descriptor, the DRM core cleans up by calling driver hooks (like postclose
+or release) through dev->driver, which would now point to freed memory.
+
+Could this be avoided by using the static const struct drm_driver and
+modifying the drm->dev->driver_features field instead of allocating a new
+driver struct for each device?
+
+> +	if (!drm_driver)
+> +		return ERR_PTR(-ENOMEM);
+> +	*drm_driver =3D driver_stub;
+> +
+>  	drm->nvkm =3D device;
+> =20
+>  	drm->dev =3D drm_dev_alloc(drm_driver, parent);
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730195523.1467=
+423-1-lyude@redhat.com?part=3D3
