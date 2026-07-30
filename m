@@ -4,60 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF0BAC55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:34:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9353C5516E
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AFC710E0B4;
-	Thu, 30 Jul 2026 17:34:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3843A10E1B5;
+	Thu, 30 Jul 2026 17:38:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="A+CtcZRX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RtPF0P5p";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E690F10E0B4
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:34:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1785432893;
- bh=QuojUk9v7bC1Xv2fnJFdC2FZ+oPAmVVikvQPXiMuyX0=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=A+CtcZRXj15w88sYYwj5P5aW9X4Jme11b6QIJq37Cwwi5WZLv8jEQTDyvzoa2a0gm
- rpgr9DGsGweYmGJHHOaTvDvKBW/UoNhufSQzed6ooAm/0kJpmzPSl9XEQ0KLtICj3A
- QNN06HoPhrlQLdgg3ePQQ0KQ1DZ9AK2n00fiLMy4CIcAVh4L25KhDzJ8jbV4tJVAg0
- V4Zi/xVDU0K+Yl/4e/vgCM9wGaWyLf8C1M9patNB12im2RC7hNbPsTp2yloOzuFNRb
- In++Bhp9oWojy+LBpSKxIxyaM/6y/B7p6WeSB8eQ4ZWMDDY4zYIOhdk+JuPaWRFVIb
- YYzQwAybK7UPA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4h9xCm4PBJz4wL9;
- Fri, 31 Jul 2026 03:34:44 +1000 (AEST)
-Message-ID: <623a6fca-7b88-4508-8088-3882d6e54330@ozlabs.org>
-Date: Thu, 30 Jul 2026 18:34:40 +0100
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8F7610E1B5
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:38:29 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-495590dde14so467165e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 10:38:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785433108; x=1786037908; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=7OoqYtdO+0fOmVWiZOoM5gwTne70jDLTok+A94SX0IU=;
+ b=RtPF0P5pzY6q/uLFJn19JRzFmzY1AX9z2Z6WNDbQ6er14vc2goNQGBeph2F8oVfqyM
+ NxLWu4ovO6dRfAYeAJlbaQ27OVZa4m1xDV7/Zd6hwN2ZyET8kn986H8Dd+40nRJHreap
+ OfNCXWrtnXTd0iGyj5PxOLWbS1Aeb95JRrmv8DrnPNylwNZNH6lbdTzabRD0xRuto/a0
+ tU3/BveIqHkdTddcaeSMYicwGnRbWrWAyU1k6PuzvPz0zlszhVJMiXhfxxASOjcQ1EF8
+ 9t5AGqp2RhcdhR9uyJXlg+2ANgW0VVdEspYMCK2a3dBzmFr6r3UeeWt01KCBQ8N6nrmC
+ IbKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785433108; x=1786037908;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=7OoqYtdO+0fOmVWiZOoM5gwTne70jDLTok+A94SX0IU=;
+ b=ALE73IygyQBXDTLx02xtvuet7WCfMxVlxNYOfsws1C2Np46uhwaQolTw+Mt+ZDtSRk
+ x+TcpVcmUdVwh4KLmynqMSKSFXxqU89sjJf4UKNUnpoNlIkQtSlCacO9z15pXWxHdDsT
+ hlHjbNPCbB6vcntUuwPpAGpyQvOSHPMGfyyq1dlxGS6i/11GEmFnXQGApUglBPfd0Amk
+ tFByUq+ZG9Er8BuIRC9wJuKAUwtuWmFcD4WuFh+arhQ18nuMeH51clgJw096Afi/gxvR
+ AlBMvVg82fa1UMF8241JDvfHMa3f7mQEo3SthEuLnxjS/aVDtaEGlKvzEiZyyRLKzupU
+ tBVA==
+X-Gm-Message-State: AOJu0YzvciYDabB+uuVXnYc1e0jBhg+X4BRAmcP+ckeKGtm/g6QJDWul
+ BbOY+kIaP4wGZMZ0CsUN7ohLzhp1asIjRCQ1Ms2PCkiQ2mcQvvVrhoPZAk71OTWbWWQ=
+X-Gm-Gg: AR+sD11rY6Us1kPC6EZnDE97nyYXz4m1oMgZvA1q/pQWRENzoQaI43ZXAirbO9Agwqf
+ BxhtQZpk1jgYqM9/qUC07fUz7aY/W9YQboYo3frUPuMTTzobPOwXyZxRN/nNSIgedDiABYIKpIa
+ jy0zDqq5eTiGCNy65ePweAQIk8rBnDpgZtJGv7RkFr1We5tkzpmjW23WToaIPsioXnzPxkzDygl
+ fa9riKIrn7ztG5sLFYpG138BnfgoHCrMldmxs2XeAKt/yeOtA25DIethnZCt21+MWJB4SoezFua
+ A3OXH4KnMlXOFoOjrYKhtf/Avd6oNiu//+c3dqjfPWhrtV40Pxnjzu99oXAMT3yTKpfvg1hg+OR
+ CcWcNVEA633TSV1EerHvP0NJ+/qVhMNu7WOmxkIK3W4u4jmXrdcpZh6psx3PlsGr/1L6Bd8Ppmy
+ nkk/aaJF+SxAZ5pUd/r5l0fjSeIvmVqLt1olO2dLUx4gIgiMgf4FAqnJsCf6fz0K8CSFUFwwKwK
+ n93AWCCeCrvIXu2us1WRMfGt29jiijCyJ1P1CHRYLyAEHhrzjwTrW8vFdVdVpEhuidWmf4pPnNX
+ PXXZD826tA/i0EmV/5L71tFL7FNi0hAQaSsBWQ==
+X-Received: by 2002:a05:600c:8b43:b0:495:4a34:16e1 with SMTP id
+ 5b1f17b1804b1-49804c531d2mr21225095e9.23.1785433107750; 
+ Thu, 30 Jul 2026 10:38:27 -0700 (PDT)
+Received: from stiangglanda-IdeaPad.. ([85.233.101.104])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49800f0ecd4sm71603455e9.1.2026.07.30.10.38.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 10:38:27 -0700 (PDT)
+From: Leander Kieweg <kieweg.leander@gmail.com>
+To: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org
+Cc: airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, u.kleine-koenig@baylibre.com,
+ Leander Kieweg <kieweg.leander@gmail.com>
+Subject: [PATCH v2 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP GPU)
+Date: Thu, 30 Jul 2026 19:36:40 +0200
+Message-ID: <20260730173643.256052-1-kieweg.leander@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-4-matt@ozlabs.org>
- <20260729115210.753ab8ce@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260729115210.753ab8ce@shazbot.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,288 +90,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alex,
+This is v2 of the GlandaGPU DRM driver series [1], addressing review
+feedback from Thomas Zimmermann, Conor Dooley, Uwe Kleine-König, and
+the automated review bot on v1.
 
-On 29/07/2026 18:52, Alex Williamson wrote:
-> On Wed, 15 Jul 2026 18:47:26 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
-> 
->> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
->> find a PFN.
->>
->> This supports multi-range DMABUFs, which typically would be used to
->> represent scattered spans but might even represent overlapping or
->> aliasing spans of PFNs.
->>
->> Because this is intended to be used in vfio_pci_core.c, we also need
->> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
-> 
-> Nit, it would be useful to mention the addition of vma_pgoff_adjust
-> here and justification for it added here as a static zero versus later
-> in the series where its value is updated.
+GlandaGPU is a small VHDL soft-IP 2D display controller, currently
+targeting a Terasic DE10-Standard (Cyclone V SoC). This series has
+been tested both against a QEMU digital twin and on real hardware.
 
-Sure, good point.
+Hardware/VHDL:    https://github.com/stiangglanda/GlandaGPU
+QEMU fork:        https://github.com/stiangglanda/qemu-glandagpu
+Userspace tests:  https://github.com/stiangglanda/GlandaGPU-userspace-tests
 
->>
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
->> ---
->>  drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
->>  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
->>  2 files changed, 160 insertions(+), 13 deletions(-)
->>
->> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> index c16f460c01d6..7c047400dfd1 100644
->> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
->> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> @@ -9,19 +9,6 @@
->>  
->>  MODULE_IMPORT_NS("DMA_BUF");
->>  
->> -struct vfio_pci_dma_buf {
->> -	struct dma_buf *dmabuf;
->> -	struct vfio_pci_core_device *vdev;
->> -	struct list_head dmabufs_elm;
->> -	size_t size;
->> -	struct phys_vec *phys_vec;
->> -	struct p2pdma_provider *provider;
->> -	u32 nr_ranges;
->> -	struct kref kref;
->> -	struct completion comp;
->> -	u8 revoked : 1;
->> -};
->> -
->>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
->>  				   struct dma_buf_attachment *attachment)
->>  {
->> @@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
->>  	.release = vfio_pci_dma_buf_release,
->>  };
->>  
->> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
->> +			      struct vm_area_struct *vma,
->> +			      unsigned long fault_addr,
->> +			      unsigned int order,
->> +			      unsigned long *out_pfn)
->> +{
->> +	/*
->> +	 * Given a VMA (start, end, pgoffs) and a fault address,
->> +	 * search the corresponding DMABUF's phys_vec[] to find the
->> +	 * range representing the address's offset into the VMA, and
->> +	 * its PFN.
->> +	 *
->> +	 * The phys_vec[] ranges represent contiguous spans of VAs
->> +	 * upwards from the buffer offset 0; the actual PFNs might be
->> +	 * in any order, overlap/alias, etc.  Calculate an offset of
->> +	 * the desired page given VMA start/pgoff and address, then
->> +	 * search upwards from 0 to find which span contains it.
->> +	 *
->> +	 * On success, a valid PFN for a page sized by 'order' is
->> +	 * returned into out_pfn.
->> +	 *
->> +	 * Failure occurs if:
->> +	 * - A hugepage would cross the edge of the VMA,
->> +	 * - A hugepage isn't entirely contained within a range
->> +	 *   (including where it straddles the boundary between
->> +	 *   ranges),
->> +	 * - We find a range, but the final PFN isn't aligned to the
->> +	 *   requested order.
->> +	 *
->> +	 * Upon failure, -EAGAIN is returned and the caller is
->> +	 * expected to try again with a smaller order, which will
->> +	 * eventually succeed (order=0 will always work).
-> 
-> We typically use -EAGAIN to indicate a transient error where the caller
-> should try again with the same args.  We're documenting here that
-> -EAGAIN means to try again with different args.  Why wouldn't we use
-> something like -ERANGE to indicate that?
+Changes since v1:
 
--EAGAIN didn't seem all that inappropriate, but you're correct that it
-isn't being used as a transient error here.  I'll change it to -ERANGE
-as suggested.
+dt-bindings:
+- add a link to the GlandaGPU project in the binding description
+- add clocks to the required properties
+- fix the example to use interrupt-parent and the GIC_SPI/
+  IRQ_TYPE_LEVEL_HIGH macros instead of raw numbers
+- fix missing trailing newline
 
->> +	 *
->> +	 * It's suboptimal if DMABUFs are created with neighbouring
->> +	 * ranges that are physically contiguous, since hugepages
->> +	 * can't straddle range boundaries.  (The construction of the
->> +	 * ranges should merge them in this case.)
->> +	 *
->> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
->> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
->> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
->> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
->> +	 * To avoid double-offsetting in this scenario, subtracting
->> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
->> +	 * the effective offset.
->> +	 */
->> +
->> +	const unsigned long pagesize = PAGE_SIZE << order;
->> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
->> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
->> +	unsigned long rounded_page_addr = ALIGN_DOWN(fault_addr, pagesize);
->> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
->> +	unsigned long fault_offset;
->> +	unsigned long fault_offset_end;
->> +	unsigned long range_start_offset = 0;
->> +	unsigned int i;
->> +	int ret;
->> +
-> 
-> AIUI, find_pfn should only act on a live dmabuf, but we're relying on
-> the caller to guarantee that it's live and not racing a revoke.  The
-> dmabuf is live if !revoked under memory_lock.  Should this annotate and
-> validate that requirement by adding a vdev arg so we can do:
-> 
-> 	lockdep_assert_held(&vdev->memory_lock);
-> 	if (priv->revoked) // later updated to status
-> 		return -ENODEV;
+driver core:
+- drop the struct device *dev field, use drm_device.dev instead
+- open-code drm_encoder_init() instead of drm_simple_encoder_init(),
+  which is being phased out
+- switch the plane update path from manual dma_resv_lock()/
+  drm_gem_shmem_vmap_locked() to DRM_GEM_SHADOW_PLANE_HELPER_FUNCS/
+  DRM_GEM_SHADOW_PLANE_FUNCS. This also fixes sleeping calls being
+  made from atomic-commit context and a raw map.vaddr dereference,
+  both flagged by automated review
+- use drm_gem_fb_create_with_dirty() instead of a custom fb_create
+  implementation
+- remove the redundant new_state == NULL check in the CRTC flush
+  helper
+- remove the ioctl-based UAPI (CLEAR/RECT/LINE) entirely. As Thomas
+  pointed out in v1, fixed-function 2D ioctls aren't a good fit for
+  mainline DRM, and userspace rendering into the shadow-plane
+  framebuffer covers the same functionality
+- fix a double drm_mode_config_cleanup() call in the probe and
+  remove error paths (devres already handles this)
+- call drm_atomic_helper_shutdown() on remove
+- fix a teardown race where in-flight work could touch already
+  unmapped MMIO, using drm_dev_unplug()/drm_dev_enter()/
+  drm_dev_exit()
+- move IRQ registration to after CRTC initialization, avoiding a
+  potential NULL pointer dereference from an early-firing shared IRQ
+- fix platform_get_irq() error handling. Negative error codes such
+  as -EPROBE_DEFER were previously misread as "no IRQ available"
 
-Yes, it makes no sense to call this when the buffer's revoked, and it's
-a good idea to both explicitly document/assert this.
+new in v2:
+- add PCI probe support alongside the existing platform_driver/
+  devicetree path, backed by a matching QEMU device model, so the
+  driver can be tested against a virtual device without needing
+  devicetree or real hardware. Real hardware continues to use the
+  platform_driver path unchanged. This replaces the old x86 test
+  device patch 3/3, reducing the series from 3 to 2 patches.
 
-I think your point regarding the extra vdev parameter -- as opposed to a
-local 'vdev = priv->vdev' dereference -- is that it should also assert
-that vdev is non-NULL, but one can't just read priv->vdev.  Dealing with
-the races having only priv takes some careful steps (see
-vfio_pci_mmap_huge_fault), so make it the caller's responsibility to
-provide a vdev.  This function can both check it's non-NULL, and verify
-it relates to priv, and then annotate vdev->memory_lock etc.
+Known open item: the QEMU test device currently uses a placeholder
+ID from the range QEMU reserves for experimental, unregistered use
+(1af4:10f0, see [2]). I've requested a permanent
+ID from Gerd Hoffmann and will post a follow-up once it's assigned.
 
-> This also removes one level of dereferencing in the below dev_warns,
-> which is otherwise a bit suspect without the validation.  I realize the
-> mmap path does the validation, but this is an exposed internal API, not
-> a static function there.  Thanks,
+[1] https://lore.kernel.org/dri-devel/20260714101146.200416-1-kieweg.leander@gmail.com/T/#t
+[2] https://www.qemu.org/docs/master/specs/pci-ids.html
 
-[s/mmap path/the fault path/]  Yep, checks here make sense, thanks for
-the suggestions.
+Leander Kieweg (2):
+  dt-bindings: display: Add GlandaGPU binding
+  drm/glanda: Add initial DRM driver for GlandaGPU
 
+ .../bindings/display/glanda,gpu.yaml          |  55 ++
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ MAINTAINERS                                   |   6 +
+ drivers/gpu/drm/tiny/Kconfig                  |  11 +
+ drivers/gpu/drm/tiny/Makefile                 |   1 +
+ drivers/gpu/drm/tiny/glandagpu.c              | 579 ++++++++++++++++++
+ 6 files changed, 654 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/glanda,gpu.yaml
+ create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
 
-Matt
-
-> 
-> Alex
-> 
->> +	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end) {
->> +		if (order > 0)
->> +			return -EAGAIN;
->> +
->> +		/* A fault address outside of the VMA is absurd. */
->> +		dev_warn_ratelimited(
->> +			&priv->vdev->pdev->dev,
->> +			"Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
->> +			fault_addr, vma->vm_start, vma->vm_end);
->> +		return -EFAULT;
->> +	}
->> +
->> +	/*
->> +	 * fault_offset[_end] is the span within the DMABUF
->> +	 * corresponding to the faulting page:
->> +	 */
->> +	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
->> +					vma_off, &fault_offset) ||
->> +		     check_add_overflow(fault_offset, pagesize,
->> +					&fault_offset_end)))
->> +		return -EFAULT;
->> +
->> +	/*
->> +	 * Iterate over ranges in the buffer, summing their lengths:
->> +	 * range_start_offset represents the current range's starting
->> +	 * offset in the buffer (from 0 upwards).
->> +	 *
->> +	 * A failure for order == 0 is unexpected, and triggers a
->> +	 * fault/warn.
->> +	 */
->> +	ret = (order == 0) ? -EFAULT : -EAGAIN;
->> +
->> +	for (i = 0; i < priv->nr_ranges; i++) {
->> +		size_t range_len = priv->phys_vec[i].len;
->> +
->> +		/* Early exit if range starts after the page end */
->> +		if (fault_offset_end <= range_start_offset)
->> +			break;
->> +
->> +		if (fault_offset >= range_start_offset &&
->> +		    fault_offset_end <= range_start_offset + range_len) {
->> +			/*
->> +			 * The faulting page is wholly contained
->> +			 * within the span represented by this range,
->> +			 * so validate PFN alignment for the order.
->> +			 * The if() condition ensures the pfn
->> +			 * arithmetic won't overflow.
->> +			 */
->> +			unsigned long pfn =
->> +				((fault_offset - range_start_offset) +
->> +				 priv->phys_vec[i].paddr) >> PAGE_SHIFT;
->> +
->> +			if (IS_ALIGNED(pfn, 1 << order)) {
->> +				*out_pfn = pfn;
->> +				ret = 0;
->> +			}
->> +			/*
->> +			 * Else order > 0; EAGAIN retries with smaller
->> +			 * order
->> +			 */
->> +			break;
->> +		}
->> +		range_start_offset += range_len;
->> +	}
->> +
->> +	if (order == 0 && ret != 0)
->> +		/*
->> +		 * The address fell outside of the span represented by
->> +		 * the (concatenated) ranges.  As setup of a mapping
->> +		 * ensures that the VMA is <= the total size of the
->> +		 * ranges this should never happen.  If it does, warn
->> +		 * and SIGBUS.
->> +		 */
->> +		dev_warn_ratelimited(
->> +			&priv->vdev->pdev->dev,
->> +			"No range for addr 0x%lx, order %d: VMA 0x%lx-0x%lx pgoff 0x%lx, %u ranges, size 0x%zx\n",
->> +			fault_addr, order, vma->vm_start, vma->vm_end,
->> +			vma->vm_pgoff, priv->nr_ranges, priv->size);
->> +
->> +	return ret;
->> +}
->> +
->>  /*
->>   * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
->>   * It allows the two co-operating drivers to exchange the physical address of
->> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
->> index fca9d0dfac90..c8f6f959056a 100644
->> --- a/drivers/vfio/pci/vfio_pci_priv.h
->> +++ b/drivers/vfio/pci/vfio_pci_priv.h
->> @@ -23,6 +23,20 @@ struct vfio_pci_ioeventfd {
->>  	bool			test_mem;
->>  };
->>  
->> +struct vfio_pci_dma_buf {
->> +	struct dma_buf *dmabuf;
->> +	struct vfio_pci_core_device *vdev;
->> +	struct list_head dmabufs_elm;
->> +	size_t size;
->> +	struct phys_vec *phys_vec;
->> +	struct p2pdma_provider *provider;
->> +	u32 nr_ranges;
->> +	struct kref kref;
->> +	struct completion comp;
->> +	unsigned long vma_pgoff_adjust;
->> +	u8 revoked : 1;
->> +};
->> +
->>  bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
->>  void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
->>  
->> @@ -114,6 +128,12 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
->>  	return (pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA;
->>  }
->>  
->> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
->> +			      struct vm_area_struct *vma,
->> +			      unsigned long address,
->> +			      unsigned int order,
->> +			      unsigned long *out_pfn);
->> +
->>  #ifdef CONFIG_VFIO_PCI_DMABUF
->>  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>  				  struct vfio_device_feature_dma_buf __user *arg,
-> 
+-- 
+2.43.0
 
