@@ -4,68 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2103AC5516E
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:27:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 046C7C5516E
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:27:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 985A510F02B;
-	Thu, 30 Jul 2026 18:27:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EC5E10F019;
+	Thu, 30 Jul 2026 18:27:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="qmuVeh34";
+	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="WDzY3gef";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2882910EFAB
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:27:04 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-848595b338cso290471b3a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 11:27:04 -0700 (PDT)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4445710F023
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:27:10 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-84864086bfeso252742b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 11:27:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=0x0f.com; s=google; t=1785436023; x=1786040823; darn=lists.freedesktop.org; 
+ d=0x0f.com; s=google; t=1785436030; x=1786040830; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=ah2rwf0hV1PovcGf/j0qIadVcdG1awQwiOMYTwXzGks=;
- b=qmuVeh34iJNKnfb1gjicGMCbc910T6raCmEjM8tVdYbub0l3IGmDtH5JCFNmo9H0Bo
- 2WsLkf5T6kK1nR2Dqg1qobpTAk6hXVbE48GdI0ngZ0Y36Rj74act1allTsOdFqowLY1u
- eg27hc9IZZ0MTfwbr2JpRol2p/dZxtkGOVjxg=
+ bh=JhElDLQZHukV2QsaThv4BOaHBxc1XzjF+Kx9MuUiQB0=;
+ b=WDzY3gef6uaHeXpdddxZ2kH0klDo4wjgWiZvyA6BxfrNa6QGuCQtesnUr6nAw81okf
+ Mxu0/0Fs+l+h/UM+X1gyHd04IXkDGBMyOpXOyfdV2xfohRoNa/kZi/aB0Q9Xqbj5rMHS
+ ppwnd53+LuS441ZDZ3Ouob6sbnO8X3xPbhmg4=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785436024; x=1786040824;
+ d=1e100.net; s=20251104; t=1785436030; x=1786040830;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ah2rwf0hV1PovcGf/j0qIadVcdG1awQwiOMYTwXzGks=;
- b=lguqJRfjEQ1Gs2udofY4ZM9lSWbJfyy6zXVmh6t9aM2jKRgB4QYjzk1VS7bqGDrUrO
- nJbuDRfO9qNdWotKHWvG/bw6jsLFhNg6CPKPESTYsN5SMet3gitElKBKnUUq2MOAhp+Y
- AXuLmXNCTOlJFUlYSOP0UlSxXxDW6eaoNrW42SLtO9PXMcCQeTc9CydcZN8Kj1nsxfBr
- 1rg++KpjIeqUw7ulBlIeCSrP5UbfDe0ikYNmRSmi4SmMjqniPb51hceb055fLN8HFFgz
- 9UcIsYFzBIc5oz/i4czInPTv2HXm4uxUDn7FxLYG+/9uJ9VcH52ARfGUXCosimO9G8Mk
- u0Jw==
+ bh=JhElDLQZHukV2QsaThv4BOaHBxc1XzjF+Kx9MuUiQB0=;
+ b=rDOs3lHs0xMzs/XkeJjGRqb0GSixuWCA9gWL8WFkW4W9YCU6lpYJU9SJhWKkneMNBW
+ KK3CuwII/BZO9GxCgNrKr4ZcgLzLWLng8nLG9ag/eb4QV6peliLaHD3oTXujufKTFBcx
+ JmuWmRL5XeH4mnBF7m6k8hq5HEfmCwVEgDkTBIqpEDcJetMWYCttE9L8flPk08epmQEC
+ CrYo009CL/RENkvUf/M8/BBBNHC5yfZOALLeAWpvodTYH76zR5sXvbChmjqY/psEDh5j
+ 1PUDyQ569vRRklQoB3MxN5eqh5C2EmLr6/2b/sUG/jHkrUDWimVSGb2BzmHzoeyYOXUn
+ dV8w==
 X-Forwarded-Encrypted: i=1;
- AHgh+RowTOtXdyj46xjoa4AkaUW4VCHntw4RpFwRtrdiDpb8UvmMS/zgpFKlK7eNoUYJysilQlu3zrkrtxA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxemzTx93CFUNOHr/PheKygin4tHiVeittDpTY3cqTKAYc9xIQN
- KGlc/vOaQCzpZ9b6FRP/x3e3fYnwfqQm/arxsb8ZCrccx4su8r0q235d/p6Bw0KYKyo=
-X-Gm-Gg: AR+sD12A3RayQrNd3zoSCoMT7TKsqwlqjn0+VbZuebgPdC8oZHKg1mvXQMhN0cfHw+c
- bOYiMd3DoFLAJVlmvvLYUkC+CmhxLUrJeRnXN9uATXIqR07Uy7fl9hc0xEjJ855XhXugpukrvd5
- 1GfGHL3D5W/aKgzr/5lPKx5Sxn/HoEJr+wzwBn0WTVXPZH8lonryZ4QrYQLefwOaUk14T+2DWFC
- qxndgLNm5MUIGPPzwiel8pNiuixNXCczmkWn1uX+nk4nxCGVq4718DC6VSbAyuvmxpqpcx95fi0
- pLlXVRTvpGHRy6ss/C7fcBEzrF7feMW6l+kr8fNxTkbo3H9lrloRXNLA6TZ0/o0cW/Fm6GxKIdW
- IRwgZfTFOoinZgH6+gqs3wkqW/yR+N3qLxkotKxNpjSyiILT+C4/XYPveqdRiAAx/ByJcw0hSuv
- TppVglz+RXVpFabTLQvyzN9qFBCN5HMCoJ53FchGhWUZW5N2U2pH0=
-X-Received: by 2002:a05:6a00:99b:b0:847:7f3c:b5f5 with SMTP id
- d2e1a72fcca58-84ebc1ee58dmr3508630b3a.11.1785436023495; 
- Thu, 30 Jul 2026 11:27:03 -0700 (PDT)
+ AHgh+RqX+iNz01T+FeztsqOUbY0pXXqxI5KG4D3pyKK4jZ+ObYoC/KtZA7TvHFTzSY8PR1LFWlrMdGbg6aM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHVnsl8SlZUlRD+tvwL3ezaq18pXOi0Lo9AnVtlPl1RipXoPPO
+ 8Y+AUtyjn/b8Y2CHnNzlUXuTFTJvaR7kU4XIIxdd1WGUh0S6EqAKAmD57X6xP/haEYs=
+X-Gm-Gg: AR+sD12jrZwYMprutgjbb30ldDnnYWEMtGCJfyoiKoV5RKrBRGzJIZmTf77nMXxyidk
+ GFmo9krQ88nEW/+4AAuQjxjb0AK8koULcIUetsCUO1Gl3LTdiFcnkIMTl2gENcWvM3iHjr9UnhL
+ 8A/gzN3DSAPLYOB0nOk/PxUKsevKB3L0QxHjusb/KmuXngC2B3yuseITl3jmFXw9EJ62l9024dg
+ GukHOQBd+6NTr0u21FWlgKUlJ/ct+sBq1wkpJn3GFPpnD5fRZjbJXGz+M9s/zzG4TllsBEYOUgk
+ FS3cKOVGdlrL5QSbwQl9cSc4UbBJYGik/RC2AwXiLCI6hgpvW0KvG9qj8EDOtlFZF16pPpg92ks
+ EuZPO/WOmAg3IyMwU4LiBvABe9AmDXbLNIBx8w8cwe2lN/5reYP1CDEenxX/FHDfU4coYbv381y
+ NL+jVWkHdJy7QgQNEbHCpPlTKiVRb9ItSj1q8rvx/SWKYgMwMYnlY=
+X-Received: by 2002:a05:6a00:a16:b0:847:968c:a0f1 with SMTP id
+ d2e1a72fcca58-84ebc3d0aa4mr3376460b3a.43.1785436029678; 
+ Thu, 30 Jul 2026 11:27:09 -0700 (PDT)
 Received: from shiro ([2400:4162:2428:2ffe:f84d:1f36:28ac:c15e])
  by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-84ea0378b18sm3428806b3a.48.2026.07.30.11.27.01
+ d2e1a72fcca58-84ea0378b18sm3428806b3a.48.2026.07.30.11.27.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 11:27:02 -0700 (PDT)
+ Thu, 30 Jul 2026 11:27:08 -0700 (PDT)
 From: Daniel Palmer <daniel@0x0f.com>
 To: deller@gmx.de
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Daniel Palmer <daniel@0x0f.com>
-Subject: [PATCH 2/5] fbdev: tdfxfb: Attempt to detect if the card wasn't booted
-Date: Fri, 31 Jul 2026 03:26:37 +0900
-Message-ID: <20260730182640.2808572-3-daniel@0x0f.com>
+Subject: [PATCH 4/5] fbdev: tdfxfb: Wake the VGA core before programming the
+ CRTC
+Date: Fri, 31 Jul 2026 03:26:39 +0900
+Message-ID: <20260730182640.2808572-5-daniel@0x0f.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260730182640.2808572-1-daniel@0x0f.com>
 References: <20260730182640.2808572-1-daniel@0x0f.com>
@@ -86,63 +87,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Until now a card had to have been booted by its video BIOS
-otherwise the driver would probe, create the fb etc but there
-would be no output on the display.
-
-There doesn't seem to be a documented way work out if the BIOS
-ran or not. Checking if the values in registers match what is
-in the config table in the BIOS seems to be the only option.
-
-On my 16MB Voodoo 3 3000 the registers show 4MB of memory when
-unbooted. Checking 4MB != 16MB is enough decide if to reject
-the card or not for my machine at least.
+If the card was unbooted the VGA core needs to be woken up before
+poking at it.
 
 Signed-off-by: Daniel Palmer <daniel@0x0f.com>
 ---
- drivers/video/fbdev/tdfxfb.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ drivers/video/fbdev/tdfxfb.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
-index fa554b09a0a6..1d8bffe1e9fd 100644
+index 4c1d847c89c9..9d55efd2c934 100644
 --- a/drivers/video/fbdev/tdfxfb.c
 +++ b/drivers/video/fbdev/tdfxfb.c
-@@ -410,6 +410,25 @@ static bool tdfxfb_get_bios_cfg(struct pci_dev *pdev,
- 	return false;
- }
+@@ -482,6 +482,10 @@ static void do_write_regs(struct fb_info *info, struct banshee_reg *reg)
  
-+/*
-+ * Try to work out if the card was booted or not, just checks
-+ * if the register reported memory amount matches what the BIOS
-+ * reports for now.
-+ */
-+static int tdfxfb_hw_init(struct fb_info *info, struct pci_dev *pdev)
-+{
-+	struct tdfx_par *par = info->par;
-+	struct tdfx_bios_cfg cfg;
-+
-+	if (tdfxfb_get_bios_cfg(pdev, &cfg) &&
-+	    tdfx_inl(par, DRAMINIT0) == le32_to_cpu(cfg.draminit0))
-+		return 0;
-+
-+	dev_err(&pdev->dev,
-+		"Card hasn't booted and is unusable\n");
-+	return -ENODEV;
-+}
-+
- static void do_write_regs(struct fb_info *info, struct banshee_reg *reg)
- {
- 	struct tdfx_par *par = info->par;
-@@ -1505,6 +1524,9 @@ static int tdfxfb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		goto out_err_regbase;
- 	}
+ 	tdfx_outl(par, MISCINIT1, tdfx_inl(par, MISCINIT1) | 0x01);
  
-+	if (tdfxfb_hw_init(info, pdev))
-+		goto out_err_regbase;
++	/* Wake the VGA core if it hasn't already been woken up */
++	tdfx_outl(par, VGAINIT0, reg->vgainit0);
++	vga_outb(par, 0x3c3, 0x01);
 +
- 	info->fix.smem_start = pci_resource_start(pdev, 1);
- 	info->fix.smem_len = do_lfb_size(default_par, pdev->device);
- 	if (!info->fix.smem_len) {
+ 	crt_outb(par, 0x11, crt_inb(par, 0x11) & 0x7f); /* CRT unprotect */
+ 
+ 	banshee_make_room(par, 3);
 -- 
 2.53.0
 
