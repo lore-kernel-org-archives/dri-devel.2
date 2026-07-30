@@ -4,49 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08E57C55165
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:53:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 405D7C55164
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:57:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4204D10EF70;
-	Thu, 30 Jul 2026 14:53:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B37810E19A;
+	Thu, 30 Jul 2026 14:57:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="T9bvCTJb";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="MWzihMav";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A58D110E19A;
- Thu, 30 Jul 2026 14:53:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 600FD600B1;
- Thu, 30 Jul 2026 14:53:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965CB1F000E9;
- Thu, 30 Jul 2026 14:53:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785423222;
- bh=2mM3eqLxKuc25YYALIM4LgVx2G3SlG8xlQEfvTfCj04=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=T9bvCTJbN2vuPVEZC3UOWEavjfX4x66jWh9p145Rd2TtPQu8Vw9+t+mdvyOwsv8Hz
- KMO8y5gcAwkZnQgr64cdUCJQd73W16ZWXxqvyqN6LiOYUq0+ZSedMOYSCd61y4yYFK
- +aJMxwSlrANOe1gst+QThFQmtgqqstq2dW0Otuqk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Imre Deak <imre.deak@intel.com>, Lyude Paul <lyude@redhat.com>,
- intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Jonas Emilsson <jonas.emilsson@gmail.com>,
- Luca Coelho <luciano.coelho@intel.com>,
- Maarten Lankhorst <dev@lankhorst.se>
-Subject: [PATCH 7.1 710/744] drm/dp_mst: Handle torn-down topology gracefully
- in drm_dp_mst_topology_queue_probe()
-Date: Thu, 30 Jul 2026 16:16:23 +0200
-Message-ID: <20260730141459.368002107@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
-References: <20260730141444.267951807@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 94B2C10E19A
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:57:12 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 10B2B204C
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 07:57:08 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ D31323F66F
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 07:57:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785423432; bh=wAvUOvbly6R0Fe4ixQqEmttg+coA+1m2obaRZ+esQdI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=MWzihMav24dWtR3YeYm6OZTkeSD4FWkxD9fUtqjEWx6EQ2MEBFPMXz7lLjPjd1llc
+ PXA//AgJlqTlkBLwKBWJaZt4b7FE6zP1e2VpgNcWngS4RpnFyZ+ZSFR75diI+r+tl1
+ RbbJvQUlPvXKFAECUaQiXWtqnojziTeTcWh+u/FA=
+Date: Thu, 30 Jul 2026 15:56:43 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+ Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Grant Likely <grant.likely@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v2 2/3] drm/panthor: Revisit reqs_lock handling in
+ flush/reset paths
+Message-ID: <amtmK_HbZzkhmwLA@e142607>
+References: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
+ <20260730-panthor-cache-flush-fix-v2-2-28790478bfff@collabora.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260730-panthor-cache-flush-fix-v2-2-28790478bfff@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,61 +73,118 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-7.1-stable review patch.  If anyone has any objections, please let me know.
+On Thu, Jul 30, 2026 at 01:45:15PM +0200, Nicolas Frattaroli wrote:
+> panthor_gpu_flush_caches() and panthor_gpu_soft_reset() would read (and
+> even reset) the contents of the pending_reqs register outside of holding
+> the reqs_lock. Additionally, when it did hold the lock, it did so with
+> the irqsave/irqrestore variants, even though the spinlock was never
+> acquired in an atomic context, just the threaded handler.
+> 
+> Use the new wait_event_lock_timeout() macro to check pending_reqs under
+> the lock, and only do so without disabling interrupts.
+> 
+> Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-------------------
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-From: Luca Coelho <luciano.coelho@intel.com>
+Best regards,
+Liviu
 
-commit 613059875958e7b217b250ed14c3b189f9488421 upstream.
+> ---
+>  drivers/gpu/drm/panthor/panthor_gpu.c | 25 +++++++++++--------------
+>  1 file changed, 11 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index c013d6bf9a59..f015bde80abf 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -330,35 +330,34 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  			     u32 l2, u32 lsc, u32 other)
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+> -	unsigned long flags;
+>  	int ret = 0;
+>  
+>  	/* Serialize cache flush operations. */
+>  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
+>  
+> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> +	spin_lock(&ptdev->gpu->reqs_lock);
+>  	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+>  		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+>  		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+>  	} else {
+>  		ret = -EIO;
+>  	}
+> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  
+> -	if (ret)
+> +	if (ret) {
+> +		spin_unlock(&ptdev->gpu->reqs_lock);
+>  		return ret;
+> +	}
+>  
+> -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+> +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
+> -				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> +				ptdev->gpu->reqs_lock, msecs_to_jiffies(100))) {
+>  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
+>  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
+>  			ret = -ETIMEDOUT;
+>  		else
+>  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  	}
+> +	spin_unlock(&ptdev->gpu->reqs_lock);
+>  
+>  	if (ret) {
+>  		panthor_device_schedule_reset(ptdev);
+> @@ -378,27 +377,25 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_gpu *gpu = ptdev->gpu;
+>  	bool timedout = false;
+> -	unsigned long flags;
+>  
+> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> +	guard(spinlock)(&ptdev->gpu->reqs_lock);
+> +
+>  	if (!drm_WARN_ON(&ptdev->base,
+>  			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
+>  		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
+>  		gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
+>  		gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
+>  	}
+> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  
+> -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+> +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
+>  				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
+> +				ptdev->gpu->reqs_lock,
+>  				msecs_to_jiffies(100))) {
+> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+>  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
+>  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
+>  			timedout = true;
+>  		else
+>  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
+> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+>  	}
+>  
+>  	if (timedout) {
+> 
+> -- 
+> 2.55.0
+> 
 
-A hotplug or link-loss event can tear down the MST topology
-(setting mgr->mst_state = false and mgr->mst_primary = NULL) concurrently
-with a caller invoking drm_dp_mst_topology_queue_probe(). Since the check
-is already performed under mgr->lock, the condition is not a programming
-error but a valid race -- the topology was valid when the caller decided
-to call this function, but was torn down before the lock was acquired.
-
-Replace the drm_WARN_ON() with a graceful early return. This eliminates
-spurious kernel warnings and the resulting compositor crashes observed
-when connecting/disconnecting DP MST monitors, while keeping the correct
-behavior of doing nothing when MST is not active. A drm_dbg_mst() trace
-is added so the skipped probe remains observable under MST debug logging.
-
-The existing WARN_ON(mgr->mst_primary) in drm_dp_mst_topology_mgr_set_mst()
-already catches the case where the topology is initialized twice, so no
-diagnostic coverage is lost.
-
-Fixes: dbaeef363ea5 ("drm/dp_mst: Add a helper to queue a topology probe")
-Cc: Imre Deak <imre.deak@intel.com>
-Cc: Lyude Paul <lyude@redhat.com>
-Cc: stable@vger.kernel.org
-Cc: intel-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-Signed-off-by: Jonas Emilsson <jonas.emilsson@gmail.com>
-Signed-off-by: Luca Coelho <luciano.coelho@intel.com>
-Link: https://lore.kernel.org/all/20260503034533.1023686-1-jonas.emilsson@gmail.com
-Acked-by: Imre Deak <imre.deak@intel.com>
-Link: https://patch.msgid.link/20260622140532.526722-1-luciano.coelho@intel.com
-Signed-off-by: Maarten Lankhorst <dev@lankhorst.se>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/display/drm_dp_mst_topology.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
---- a/drivers/gpu/drm/display/drm_dp_mst_topology.c
-+++ b/drivers/gpu/drm/display/drm_dp_mst_topology.c
-@@ -3740,8 +3740,10 @@ void drm_dp_mst_topology_queue_probe(str
- {
- 	mutex_lock(&mgr->lock);
- 
--	if (drm_WARN_ON(mgr->dev, !mgr->mst_state || !mgr->mst_primary))
-+	if (!mgr->mst_state || !mgr->mst_primary) {
-+		drm_dbg_kms(mgr->dev, "queue_probe skipped: topology torn down\n");
- 		goto out_unlock;
-+	}
- 
- 	drm_dp_mst_topology_mgr_invalidate_mstb(mgr->mst_primary);
- 	drm_dp_mst_queue_probe_work(mgr);
-
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
