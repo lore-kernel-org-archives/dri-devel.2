@@ -4,57 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6999C54FD2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 10:19:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 903BBC55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 10:25:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25D3810EE80;
-	Thu, 30 Jul 2026 10:19:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA8A110EE89;
+	Thu, 30 Jul 2026 10:25:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="W2/l7E16";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="cbuZuTGv";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F66010EE80
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 10:19:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785406771; x=1816942771;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=turCSRabwgxkjigF3v4YHsiSYew7DpNG+k4K5L3edKw=;
- b=W2/l7E164sfNY2nkZ/8ilfhyY2yKnt4bAdE76khi63caVxNzl4zuu6f0
- V8yHh2NsPsWDXI+O3ji0qgxFhUXg3B1kBcy5tQAcC6HfVwNXjDfk5t2fu
- +IrLhWtqrGaKH1OPpUED0nSSoJlOEEw6WFF36DTjyddxADyQgGQWRHYJT
- GIy4FfE2yEimwEDDl4kH59ooAK8OOCOk+qUzIiNwbHAg2ofc2uBZi3C7N
- R85nD1PcuIg6w/Ch7Yw/4axp+69RmE76QyCs4iGXqGxwpD14lPWUaJl2y
- RB9wrbTuAQMUYi86B2+JaiYNU7qevnRjZSjyo11mgeL2szKdCxV+1GUQS g==;
-X-CSE-ConnectionGUID: q/yRwaXNQzK1bLT9OC8Qgw==
-X-CSE-MsgGUID: ZDDheJK4T3uBsRC9owZglA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="96683971"
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="96683971"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 30 Jul 2026 03:19:30 -0700
-X-CSE-ConnectionGUID: 67gsJ2mySCm4D3clMJg6VA==
-X-CSE-MsgGUID: 5fj/4jpiSD+zVPR835A2wg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="283612593"
-Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by fmviesa002.fm.intel.com with ESMTP; 30 Jul 2026 03:19:27 -0700
-From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-To: dri-devel@lists.freedesktop.org,
-	rodrigo.vivi@intel.com
-Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
- anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
- karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
- Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v4] drm/drv: Convert wedged event string building to seq_buf
-Date: Thu, 30 Jul 2026 15:49:23 +0530
-Message-ID: <20260730101922.917870-2-mallesh.koujalagi@intel.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E0BD10E15D;
+ Thu, 30 Jul 2026 10:25:00 +0000 (UTC)
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66UAHfTr2636729; Thu, 30 Jul 2026 10:24:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=xw9bl0UjL8IGxj4aZhOi4y5k8I/VjG
+ wH4N8Nftf3ETs=; b=cbuZuTGvqINoexIK4WJN7w/SOfmPaw53VjLgWWtS0g1TV6
+ AApSlNPtfukyEGV6EI1+baii13lUpd2RVrnTO88JAS1uB01nwD67S3BhwpoT2ftm
+ pF1aM1FG6wpbsP/2T2h/31TWb6MAMdVqk0Y0U7xObox64yGys3hlQjDIfr8/OyTT
+ ZLk2ISyswnawz/KZ/3QxEn7Cz3+cgM9B0jXe3LlYa7dkclFQ8s+v8pXMLDuK64eU
+ xSEo265wzDTK23P4NZS7d3IgP6C+Az950pfBRGVg8zEGHpSLAluj7s56G0jmRmD0
+ INGHxNZjyqwgHLW/B1Qyfn+8b6UhtSsWVxw1bs8A==
+Received: from ppma23.wdc07v.mail.ibm.com
+ (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuyjeb2g-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Jul 2026 10:24:22 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma23.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66UACIwl016888;
+ Thu, 30 Jul 2026 10:24:21 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fn8yhjrst-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Jul 2026 10:24:21 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
+ [10.20.54.100])
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 66UAOJda30736806
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 30 Jul 2026 10:24:19 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4770120040;
+ Thu, 30 Jul 2026 10:24:19 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 832C320043;
+ Thu, 30 Jul 2026 10:24:18 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.224.92.206])
+ by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Thu, 30 Jul 2026 10:24:18 +0000 (GMT)
+Date: Thu, 30 Jul 2026 12:24:17 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH RFC 05/11] mm: convert PTE table entries in ptep_get()
+Message-ID: <9ac3f058-2a22-4801-8633-65635053c8ea-agordeev@linux.ibm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <20260727164715.2866609-6-usama.anjum@arm.com>
+ <34eed5fd-c569-49d8-bc4d-a3d4b1207fbd-agordeev@linux.ibm.com>
+ <fec9e0c7-07c3-442c-819b-f9f5316cb6a2@arm.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <fec9e0c7-07c3-442c-819b-f9f5316cb6a2@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA3NyBTYWx0ZWRfX4Ckb6VFvsR9K
+ iulXf5F6J1kbO3S70H2cESI4ld0w043xIGqpEZSAio/jR2ldVb59L2x/b1Cpx4Kz3J+55BAkaM9
+ AupsGP2HnWvt72AfxwuZCRHnnZzHlFA=
+X-Proofpoint-GUID: lqUngdZpiUvWS2H94qSv0rrypUIzUueB
+X-Proofpoint-ORIG-GUID: lqUngdZpiUvWS2H94qSv0rrypUIzUueB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA3NyBTYWx0ZWRfX06YvqUElSumU
+ CX2i3BnWz3n82hQOJuDP+Eanqg4avWjidLhYvcVNnamNO07ZloFlgeCgnjzpU+K/axVetiCls6t
+ fKTSRdUkAcS0rVX5DnmB5M3W+uSpPU1IR/K4E27Sif4nh0pOXRleMzORssdR6V6MA7b5OjvGCGl
+ tmvL0lRGkg/9y7/aNGQHm7zP9EpllmztMk0bjuCc6uOo5iaioj63uiUyglAwfqaYT/no/5x3iQn
+ vH4Y1m9mc+79iOqDEv4VRNaHyLb/P8hiMxjG+nu/SRMxZsyV5wIoBoehG5Qe599Oqn8bsFRSCM3
+ nyuj5Wj5auh3/+ccZhKHFFSfFIyH9mArzZF7DQ5gDzyTNL3gEudzEqBeGvpOI/h3/KDV8L04T7O
+ OCFoQvBOxFLH/rPHH9zdO6BPTMqXuYhm4NtAFZGuJ1Oen3ihETQeEK2CjltziDECdSbdSoTjDB5
+ 7szof3AH3iJlA7l4pXg==
+X-Authority-Analysis: v=2.4 cv=X5Vi7mTe c=1 sm=1 tr=0 ts=6a6b2656 cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=7CQSdrXTAAAA:8
+ a=7fzHlb7OYtr7bZKlnRAA:9 a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 lowpriorityscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607300077
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,92 +153,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-event_string[] has a fixed size of WEDGE_STR_LEN (32) bytes.
-The original scnprintf()-based loop required a manual pre-flight
-bounds check.
+On Thu, Jul 30, 2026 at 11:11:35AM +0100, Muhammad Usama Anjum wrote:
+> On 30/07/2026 11:08 am, Alexander Gordeev wrote:
+> > On Mon, Jul 27, 2026 at 05:46:56PM +0100, Muhammad Usama Anjum wrote:
+> >> ptep_get() now accepts a pointer to hw_pte_t storage but must continue to
+> >> return a logical pte_t value. Add __pte_from_hw() as the conversion hook
+> >> and apply it in the generic ptep_get() implementation.
+> >>
+> >> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> >> ---
+> >>  include/linux/pgtable.h       | 2 +-
+> >>  include/linux/pgtable_types.h | 1 +
+> >>  2 files changed, 2 insertions(+), 1 deletion(-)
+> >>
+> >> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+> >> index dad80d264aac2..3003ac9cd81fe 100644
+> >> --- a/include/linux/pgtable.h
+> >> +++ b/include/linux/pgtable.h
+> >> @@ -493,7 +493,7 @@ static inline int pudp_set_access_flags(struct vm_area_struct *vma,
+> >>  #ifndef ptep_get
+> >>  static inline pte_t ptep_get(hw_pte_t *ptep)
+> >>  {
+> >> -	return READ_ONCE(*ptep);
+> >> +	return READ_ONCE(__pte_from_hw(*ptep));
+> > 
+> > Should it be something like?
+> > 
+> > 	return __pte_from_hw(READ_ONCE(*ptep));
+> I'd thought about it. My thinking is that we should get the pte_t first before
+> before calling READ_ONCE(). Please correct me what makes more sense?
 
-Replace the manual bookkeeping with seq_buf, which tracks overflow
-internally. seq_buf_printf() writes each "method," token into the
-buffer.
+I have a problem with "get the pte_t first" part ;) I think what we want
+is atomically read the hw_pte_t from the HW table and then convert the
+result to pte_t.
 
-On overflow, len retains the position of the last
-successful write, so the trailing comma is stripped cleanly without
-including any partial method name in the uevent payload.
-
-Fixes: b7cf9f4ac1b8 ("drm: Introduce device wedged event")
-Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
----
-v2:
-- Add proper logic to handle recovery string. (Raag)
-
-v3:
-- Convert manual bounds check to seq_buf. (Jani Nikula)
-- Use drm_WARN_ONCE() instead of drm_WARN_ON() for overflow. (Raag)
-
-v4:
-- Use DECLARE_SEQ_BUF. (Jani)
-- Warn overflow at end of loop.
----
- drivers/gpu/drm/drm_drv.c | 30 ++++++++++++++++++------------
- 1 file changed, 18 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index e51ed959da89..e429f52ba230 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -36,6 +36,7 @@
- #include <linux/mount.h>
- #include <linux/pseudo_fs.h>
- #include <linux/sched.h>
-+#include <linux/seq_buf.h>
- #include <linux/slab.h>
- #include <linux/sprintf.h>
- #include <linux/srcu.h>
-@@ -574,27 +575,32 @@ static const char *drm_get_wedge_recovery(unsigned int opt)
- int drm_dev_wedged_event(struct drm_device *dev, unsigned long method,
- 			 struct drm_wedge_task_info *info)
- {
--	char event_string[WEDGE_STR_LEN], pid_string[PID_STR_LEN], comm_string[COMM_STR_LEN];
--	char *envp[] = { event_string, NULL, NULL, NULL };
--	const char *recovery = NULL;
--	unsigned int len, opt;
-+	DECLARE_SEQ_BUF(event_string, WEDGE_STR_LEN);
-+	char pid_string[PID_STR_LEN], comm_string[COMM_STR_LEN];
-+	char *envp[4] = { };
-+	unsigned int len = 0, opt;
- 
--	len = scnprintf(event_string, sizeof(event_string), "%s", "WEDGED=");
-+	seq_buf_puts(&event_string, "WEDGED=");
-+	envp[0] = event_string.buffer;
- 
- 	for_each_set_bit(opt, &method, BITS_PER_TYPE(method)) {
--		recovery = drm_get_wedge_recovery(opt);
-+		const char *recovery = drm_get_wedge_recovery(opt);
- 		if (drm_WARN_ONCE(dev, !recovery, "invalid recovery method %u\n", opt))
- 			break;
- 
--		len += scnprintf(event_string + len, sizeof(event_string) - len, "%s,", recovery);
-+		if (!seq_buf_printf(&event_string, "%s,", recovery))
-+			len = seq_buf_used(&event_string);
- 	}
- 
--	if (recovery)
--		/* Get rid of trailing comma */
--		event_string[len - 1] = '\0';
-+	drm_WARN_ONCE(dev, seq_buf_has_overflowed(&event_string),
-+		      "WEDGED event string truncated\n");
-+
-+	if (len)
-+		/* Strip trailing comma; also discards any partial overflow entry */
-+		event_string.buffer[len - 1] = '\0';
- 	else
--		/* Caller is unsure about recovery, do the best we can at this point. */
--		snprintf(event_string, sizeof(event_string), "%s", "WEDGED=unknown");
-+		/* No complete entry written, do the best we can at this point. */
-+		snprintf(event_string.buffer, event_string.size, "%s", "WEDGED=unknown");
- 
- 	drm_info(dev, "device wedged, %s\n", method == DRM_WEDGE_RECOVERY_NONE ?
- 		 "but no recovery needed" : "needs recovery");
--- 
-2.48.1
-
+> > 
+> >>  }
+> >>  #endif
+> >>  
+> >> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+> >> index ed5dba42a4f8c..61afe27307ec2 100644
+> >> --- a/include/linux/pgtable_types.h
+> >> +++ b/include/linux/pgtable_types.h
+> >> @@ -6,6 +6,7 @@
+> >>  
+> >>  #ifndef __HAVE_ARCH_HW_PTE_T
+> >>  #define hw_pte_t pte_t
+> >> +#define __pte_from_hw(pte)	(pte)
+> >>  #endif
+> >>  
+> >>  #endif /* _LINUX_PGTABLE_TYPES_H */
+> >> -- 
+> >> 2.47.3
+> >>
+> 
+> -- 
+> Thanks,
+> Usama
+> 
