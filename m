@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 926C2C54FD2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0E90C54FDF
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:23:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44CDD10E12F;
-	Thu, 30 Jul 2026 09:23:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D71D10EE60;
+	Thu, 30 Jul 2026 09:23:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BDVaQA4r";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZuQBlslF";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CEB310EE61
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:23:07 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-49555a0e68bso9652805e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 02:23:07 -0700 (PDT)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F38F510EE60
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:23:10 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-495590dde14so18501765e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 02:23:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785403386; x=1786008186; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=QEVMeO2gE5AFjmkT1VS2N07BKr0N4iKu0FoXOV951KE=;
- b=BDVaQA4r9tbzyiFb86SdMJBQaqx+V6hqqIpBg2i2uX4+f25k4loR9UuepKdLqgHOWh
- ow8HrwgTaem/OtlWomcjLE5wKwfGObM22Jc0fHfKYnojYHmLh8t9XgpW2SUH9qKsYK5l
- 4v8mAlJ/uZAQFUt3jFGQUDVOxkWaRG8wLdUI2oyoc20OSgylWSBkoxYFb6+2DY7ECbVO
- Ykz+l0v/9RS2L803YdnaGt3v7wz1JqkLjqlKHFbJCOvh0fnXTJ/R08HHrgPBtdq2yzGN
- NZ/e787Es8tQZYRPPEEpuY398EuLYTBYOAxk6Pd6Of1iOrmGUZGj7IKUyLN8Sy9sJunt
- bWdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785403386; x=1786008186;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1785403389; x=1786008189; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=QEVMeO2gE5AFjmkT1VS2N07BKr0N4iKu0FoXOV951KE=;
- b=rWZu+5zb3n34jkQ8oIhqznJjYdwZqRGxEYs7NNW/mCBb83ChxAhTEzBDwjDOoWv1m1
- n7Kdjic/LVFBArQE+gs3L70lKzrme6sRm9fa53YSN/JIhhbCGtdA8yw5KvD45/oTnuaQ
- vnmKE+D+/uXziwQDv3WB2/usOiZD1GdiaONAJysp4FfVoGi9gWEh0Lx3mvsdeNnD6FFY
- eFiTZrpVS8LMojBVRvQkvIa5RmpATQxSxVsEwjlXHSJ+wBhhWQ7S8WtGgV5G3Gv1oa/2
- NJlcabbNgC/tLFYipoaPJzoZThaUDyF8oUGu3CknJ3ggF+aSp/FDNfJysWt86r3gluol
- RqEQ==
+ bh=51WDwBX8UuHOu3YfsGA9ozMS4JtSAKzLcDeFZmmn9U8=;
+ b=ZuQBlslFySBztOQUg1lkiU6NT1705QsFAS6j486xWRMui4dRw5lTRsJk5gjbIAuf7a
+ EMbMFFZ5+tsKGZjlBC4eSQ3MNtGWNXgnKh6hpg3VgxQ2gn6rrdtfWimwct3Kaf8tiZvU
+ 2v9JrRh9TycL/SIOx0o5udHlBvbtyaGvImVN8J6XquPlobNmg/GacIcRdw4/COqYjB1p
+ vKz2luCKxy3yEKpG5PHhEsfVeJPYpfwT6HwtaDEifm49NtJJbuE/b39QRgO6omm0gS+j
+ begZIyqnCB29mv4hX2Q4k9slHnOyfcQ6wlaq4V1pI1vIFbIsXPo5+8L/eZ3LaE6z8MUB
+ +gjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785403389; x=1786008189;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=51WDwBX8UuHOu3YfsGA9ozMS4JtSAKzLcDeFZmmn9U8=;
+ b=KVuhTiYmK4fr5XTWMhJrtzV2O8e6C9SDL+GbzsW1ZW2t5XmFP2E2Ml9mx7eeed8Psq
+ EadMN/YkO6g8755xf6lq11nfWj1il2hO3qRkSwe3qQdbuyiCYiXHVfI9hbczgxC0y42Z
+ W8oAarzJu3sSJKbSYkVp1dXMD3Swli7m1UMCMqlPiNIiNgdvQBfIbLvkeha0eh9dzN7J
+ YJ6Wz+OSHJ1nwBxb4f3Fd3ETlGxz41p90zJlEno+Wcr8oJaLSNhRBSdDmqkT+KCCOurP
+ rQLBg934pmUpN4dCts8kJQDDb5BJ8UKKyPKOwaETNiAfWKo6/HdnG2HdtnTJJwHOxifk
+ 8NLQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpxLgPoA/FDwsezQ0Z4C4NNgfSeJ5c26u6E/rNhbL9QqnBu/oMAvkEoTKoQUZKa2oAvbKbNa62f53k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwsRJmG64IbygqxZ6Vg7zCbXilyLhT8i8H02hJPGJ0R5YQG+EPx
- tjJf8HcRticlHCBgkXk186anG1PKimuQPiDhWe6eobe5hpeQF1y/saY2
-X-Gm-Gg: AR+sD13SBbJLdLXpi5R+kF/T5CMbP6Cn2tmeIbYVs7cbDal4Um2rm8M+g50BJsDqjB/
- 6RnDZxmjz3PvXYfIIh+PLW1yT/+MVcFhGxaRURvIyQVJ/hfd5189Yj4iJdBMGp5UK3o8PRW5wSv
- r9GbhYDP62Z+w7LJxq3+Mybo32LIUMIzBqxAe/qrIKl+p5RXbz4FhYAutWL4icIGHq+yJpuQbeK
- BhHDt0wr9SY2kGgxtoi+k8YvhuR8USKoPoew4aRLjw5UksGrJ2TX08OW7uGzYmXlkxJsY2Zs9Pu
- 5CMtLqYifhag1wYGVuyQ/3Uz9nF6QuLt6MWaFMSrOY9lrnbgUhfAO4sL1K+HYkZJk3gpuLK43OW
- L+9x6ZewbpjO6gL+JXahcXanQ6xh41KnWc8xvLBn6LHKaY55524V8TREiuA1d8WJIulW9z3x0hG
- cLw6eUsjIjiLiV/OLybjllz5Kft/0pXmS742Y8aBqWqkW97kQSKL2FkYHtJuoTQVm2owQoTRDRt
- UD6pQnQTEQTGvfZCs/meMpl4m8Wg/J8SQ==
-X-Received: by 2002:a05:600c:548f:b0:495:4732:1eb9 with SMTP id
- 5b1f17b1804b1-49800ea1e9cmr24176065e9.21.1785403385560; 
- Thu, 30 Jul 2026 02:23:05 -0700 (PDT)
+ AHgh+Rp+M1goqBZ/uZCLpe+VY/P0gap19h8+EFKsr7YnMmKqq1jBKdDezHuHstzPXZ/lHAcxzvMm9SZI4DY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw2vteTano1yyl9k+rjNAAM5cxSS2tZBkvDNMVY/ijikRbmkuuc
+ yCPn7ipLC0whWW4vjDzF99G/AhgaT0swas3V5wUXxg70fXFTFQxsEPHs
+X-Gm-Gg: AR+sD12duT/vYbX0NHd+xOXUUciCrKjiBVrqtCkNE64qDU7scM4DeIKCLuBTfEkLyXs
+ +4rfmTcevqhOKn1nkXM6mmcGgkHKu5JZ9FRb4pNQdApjVXFj8uzjKbV1ipQfoadl5IYu0+5Nw+S
+ 6h6QiGd0ac4o9G6SLGzp4gGuDaPOFrMZMn76UT53AjPQT+56ta6a3nHrSmnQrZeJfBusGySU0xp
+ QvTU3hQT/HvVtH4gwvaeC4/yq4lSm/fvHgWqUemBCI+bECSQhovx74CXhFufKU8bFtOG8N2X8Zc
+ ZqQ3sse0OKvQC28PYWutdXVWuBX3SHwZP0H8uNTr0hZ2hZsKmZYFAxW25VqEyTb7BDRVy0M05Qi
+ 8DKVLGjS0CbeezjGEDv0zZJlLcVGOWvmihn9ZAoRlc/g0KuwdkY7jsYrJCvlqW8zEaFh8LtmKJO
+ I8euLcFHmckHquNXslVf/hf3DMfWGLlsiSAJ28jJ8TzV7tQnE5rSQiO/b1pvASZaLpDLw4CRfs9
+ Ccz67fdkky9M59jv2vs/WncM1dwzWUTYw==
+X-Received: by 2002:a05:600c:8b66:b0:495:7379:17b1 with SMTP id
+ 5b1f17b1804b1-49800ebb8a2mr21092445e9.30.1785403388303; 
+ Thu, 30 Jul 2026 02:23:08 -0700 (PDT)
 Received: from fedora.tail6d6c39.ts.net ([82.77.79.56])
  by smtp.googlemail.com with ESMTPSA id
- ffacd0b85a97d-47fc88e64d5sm4308425f8f.15.2026.07.30.02.23.03
+ ffacd0b85a97d-47fc88e64d5sm4308425f8f.15.2026.07.30.02.23.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 02:23:05 -0700 (PDT)
+ Thu, 30 Jul 2026 02:23:07 -0700 (PDT)
 From: Eduard Bostina <egbostina@gmail.com>
 To: Aaro Koskinen <aaro.koskinen@iki.fi>,
  Andreas Kemnade <andreas@kemnade.info>, Conor Dooley <conor+dt@kernel.org>,
@@ -78,11 +79,13 @@ To: Aaro Koskinen <aaro.koskinen@iki.fi>,
  Tony Lindgren <tony@atomide.com>
 Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
  m-chawdhry@ti.com
-Subject: [PATCH 0/2] dt-bindings: display: ti: Convert ti,
+Subject: [PATCH 1/2] dt-bindings: display: ti: Convert ti,
  tpd12s015 to DT schema
-Date: Thu, 30 Jul 2026 12:22:43 +0300
-Message-ID: <20260730092245.52034-1-egbostina@gmail.com>
+Date: Thu, 30 Jul 2026 12:22:44 +0300
+Message-ID: <20260730092245.52034-2-egbostina@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260730092245.52034-1-egbostina@gmail.com>
+References: <20260730092245.52034-1-egbostina@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -100,26 +103,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series converts the TI TPD12S015 HDMI level shifter and ESD
-protection chip binding to DT schema, and fixes two device trees
-that use it.
+Convert the Texas Instruments TPD12S015 HDMI level shifter and
+ESD protection chip bindings to DT schema.
 
-Patch 1 is the conversion.
-Patch 2 drops the unit addresses from the TPD12S015 encoder and endpoint
-nodes in am57xx-idk-common.dtsi and am5729-beagleboneai.dts.
+During the conversion, the following updates were made:
+- Added the 'ti,tpd12s016' compatible string, which is used in
+  am57xx device trees.
+- The 'gpios' property now allows up to 5 items, as the
+  omap5-igep0050 device tree routes additional control pins
+  beyond the standard 3 documented in the old text file.
 
-Eduard Bostina (2):
-  dt-bindings: display: ti: Convert ti,tpd12s015 to DT schema
-  ARM: dts: ti: omap: Fix TPD12S015 node and endpoint names
-
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+---
  .../bindings/display/ti/ti,tpd12s015.txt      | 44 -----------
  .../bindings/display/ti/ti,tpd12s015.yaml     | 78 +++++++++++++++++++
- .../boot/dts/ti/omap/am5729-beagleboneai.dts  |  6 +-
- .../boot/dts/ti/omap/am57xx-idk-common.dtsi   |  6 +-
- 4 files changed, 84 insertions(+), 50 deletions(-)
+ 2 files changed, 78 insertions(+), 44 deletions(-)
  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
 
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+deleted file mode 100644
+index 26e6d32e3..000000000
+--- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
++++ /dev/null
+@@ -1,44 +0,0 @@
+-TPD12S015 HDMI level shifter and ESD protection chip
+-====================================================
+-
+-Required properties:
+-- compatible: "ti,tpd12s015"
+-
+-Optional properties:
+-- gpios: CT CP HPD, LS OE and HPD gpios
+-
+-Required nodes:
+-- Video port 0 for HDMI input
+-- Video port 1 for HDMI output
+-
+-Example
+--------
+-
+-tpd12s015: encoder@1 {
+-	compatible = "ti,tpd12s015";
+-
+-	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
+-		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
+-		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@0 {
+-			reg = <0>;
+-
+-			tpd12s015_in: endpoint@0 {
+-				remote-endpoint = <&hdmi_out>;
+-			};
+-		};
+-
+-		port@1 {
+-			reg = <1>;
+-
+-			tpd12s015_out: endpoint@0 {
+-				remote-endpoint = <&hdmi_connector_in>;
+-			};
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+new file mode 100644
+index 000000000..bda4bbab7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+@@ -0,0 +1,78 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments TPD12S015 HDMI level shifter and ESD protection
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,tpd12s015
++      - items:
++          - const: ti,tpd12s016
++          - const: ti,tpd12s015
++
++  gpios:
++    minItems: 3
++    maxItems: 5
++    description: CT CP HPD, LS OE, HPD, and optional supplementary control gpios
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for HDMI input
++
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for HDMI output
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - ports
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    encoder {
++        compatible = "ti,tpd12s015";
++
++        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>, /* 60, CT CP HPD */
++                <&gpio2 9 GPIO_ACTIVE_HIGH>,  /* 41, LS OE */
++                <&gpio2 31 GPIO_ACTIVE_HIGH>; /* 63, HPD */
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                tpd12s015_in: endpoint {
++                    remote-endpoint = <&hdmi_out>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                tpd12s015_out: endpoint {
++                    remote-endpoint = <&hdmi_connector_in>;
++                };
++            };
++        };
++    };
 -- 
 2.54.0
 
