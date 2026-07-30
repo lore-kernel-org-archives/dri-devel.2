@@ -4,89 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAFC4C54FCD
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:38:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8984C55160
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:39:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C23510E086;
-	Thu, 30 Jul 2026 01:38:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 035B510E099;
+	Thu, 30 Jul 2026 01:39:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="kRCwUDGT";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="dCEAn+hR";
 	dkim-atps=neutral
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 007D410E086
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:38:25 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-51c08df8513so9951151cf.3
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:38:25 -0700 (PDT)
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C7A910E099
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:39:01 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-92e5c92c389so97093085a.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:39:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1785375505; x=1785980305;
+ d=chromium.org; s=google; t=1785375540; x=1785980340;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=P0s5qkaQbJtwn9wO/pBIXbTJTF7WUgw+n+4dNiFb+hA=;
- b=kRCwUDGT8Hhm+mrPjsSWBZyGjhTjD+ulBXSLbKXRP8HxaTGlY0nEEFk/EYMcL3eJje
- HiUVhxf/3Yb/immKVnegQRBNzO62swkeWpyfbXsJ7gTmSoIKXVEoHLo4xQJdOlduIINZ
- YT8sKhG7rPwpU1LZEnyw6cUQFqUbfNOSqo/4Y=
+ bh=cAIY8Yh5oMiGhOYeiua/PSFT1RRT4CI2Nf3XBfJofEk=;
+ b=dCEAn+hRBXP11+Uy/GJSiSrSZvDeuNOBMGO6tXSf+AfOI0xqLJfPXTJAh6NUQX70um
+ zWgqSvKfdrusJeocm0qDCmwHPYEQc0ucvyWbVel6NPTE/au6B4FhqvsO28NLztODt01W
+ b2pngpatWhboHpFPKLhnwypTM93AyBhPNx+n8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785375505; x=1785980305;
+ d=1e100.net; s=20251104; t=1785375540; x=1785980340;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=P0s5qkaQbJtwn9wO/pBIXbTJTF7WUgw+n+4dNiFb+hA=;
- b=qgsGQKSVkYyfmb91apeLynu3Iatyy8b/xtpUWQTpNfSq4pmhudU27O7/Tm5bcCLUew
- Jz5fcZr9xtg+8mDBClJH7cEldMCAkBQOjQ4eYeKcePlFAVqCSMUW89KrzAy1pmR8vClL
- JZGYcy0H+Lr2Gsyqg0A9jzHDBO9c2KwHPE4cK/2vDJODKZuH9cDUXFUu2w9PAy2yowoc
- qZzY2awGCVrk7UluMDPA/5NNYFC+WECoonz3+IukPqEH6z86dz/+LcAZJd1H3Jzn4+Xg
- tDeq7/yOwf/DfN7TuJ0WKgjtTs81IEy3MRRpWmOQIRkmXrWmbW5mldimFy5AFRLf1Rm5
- 0/nw==
+ bh=cAIY8Yh5oMiGhOYeiua/PSFT1RRT4CI2Nf3XBfJofEk=;
+ b=FjxRFxV3diWVWDDBB9mbnO/zqK9nahhN9KIrbq3n3ID+51Df2zilQQSBnVSK74yR0h
+ ie4E+hxSBY6cs10gbZHcYEpysVFpIXFPOR3pOe6YYXWSPurnwl90uROnWUn1GstKS0Eh
+ a/FtP2K/l5drygJCg7HongkHga12XFIXn67N7/1vTw0gzkku/pLG60Un5bTY7z4LRZH5
+ /3bhlw5gFKreeRr+VO5zKZsSnVMB08Taw+bntO4TCUx/DDP+YrK2Xmi0KBPEjkvXsCsT
+ hf2qgDNbuy0/6egu+vTIcBTpTLdC31giVRsFLx3sKwGif8ZUEajYxIh5/oqxjE7reT/S
+ mPSg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr/YFzyuOG8x4xyI0VjHOIKkzuS7aGo+2Eazc22E3lNOwAHR8IXVVPrXmO/PsRKd835DuzewFtuF6Y=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxFiUD8LpPZCPaJoyogwqgT+Ut8e2+lntf0SKnmidaHbLRYW2Z3
- T5oMX8B1Qcq1mA1jkvF/9r9PYlIXBBAgDGQTt8G9iuCQqNhN/nGAXwhWdOabdRTBcuc3V82LmL4
- PdQw=
-X-Gm-Gg: AR+sD10Q2EmnilKfNqvFcovn0aexy7BslIqdEJPCm3wnJDsErXpfvay/CuHiVoS+VBZ
- rB+//ZcDoznm5oOe4f6rXH2lfMGYFcTiPoWC/d9EqIRvN6+Eiv869c9vxCMU+91N81Vgf5QL5uB
- bCpIlX+4e1WaRF33LP4CZkfgeEDfQXiG9w2P43uaL98YXO+CqlXpZIxI1adPx/GUqbfGe2YwL1w
- nraz8D9Qu5u0itj5Q89GzgD697kzLaIq/oX2jxgiP2PZr53uvFbyM2xX7oWBnxG/qbOlJ3Jjp5p
- bngb6Mn+0wV4qrZK0Uo6NKZlKElDkczRXYLTNEg683hzN4W3apqFbVvbUJyk8auLwt9mCdSEExc
- c9ZtN6buyGJEu263ijcZw4FukpxEasfOmpidxSZ1lefZB8qZVerTRDWiteeE2feUJbefWvHy5PG
- sPFmbYsRRln+D1/oC/Sezhn0tNcfpdfnTN3+eROFrR+8l5VDN/nsTPUGw5ShpyT5vl4foR+iKZt
- 6iBq/sOUQtBGXfED+L0foGdo7I=
-X-Received: by 2002:a05:622a:40cb:b0:51c:f3e:7819 with SMTP id
- d75a77b69052e-52b384c7f4emr9619711cf.39.1785375504823; 
- Wed, 29 Jul 2026 18:38:24 -0700 (PDT)
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com.
- [209.85.219.43]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-529e2b649b9sm31716641cf.11.2026.07.29.18.38.23
+ AHgh+RrnuAYyGy69KV3MjjmxBwMlm6DUZS5JlNsuWIaNqDonDbBzjPPYvS2oLzLY7gUacgc8OK/bwwKu5nM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwtuI1y/zyiZYY/mlNuh1HmjBUKCcqiWB5WARjY6xeFO+xM8nwV
+ Vv0XdsW13lif/OucTOtxUJQUJgpWXWsPFnvsXmCPcRF8ZG9khRjnwsRIxXgaVcLiMEOvIO6OMUF
+ Lbxk=
+X-Gm-Gg: AR+sD125o6t05S0Upyl1dGcATbcrViQgIEg/QQcgGAE1TfaMTfLspe5G1mu1/O5D3q/
+ HslcaGR/LikQUm8n+a/ZnnFsZbpiPWa5b6OoWwvRBVNs5Jw2DBTqnjpwbK9T2350kMnIhaIwHwx
+ 101uLtWNmohpjY9gHyK+g/3k7ZCOZnCzzetir5Vyl/zm/fT5Wc457K2DS7cKtDpwazaWQ5WWSk/
+ /VlXY0Z+IYhERVGvDS8YNiKK+rIGzk43yO/znXbGYXHhSOGEFQBMk8zMydXfLhTt3JIyKijea+/
+ JfXtFkbmPIkh58LDFOru4pNHT+pwouCKsZmaIG6QMba7dFT2dDqTKwomcyQEuf/pcOF1kTgw/ti
+ VMy7g7Ot0BElr+JMyxK7sJYn8v0KwJh/1O/UZ746Rvyj6Gr83jHHwQf+dt8hmVkJhzDHMY4Y1Rh
+ YQ8AVmq00MRayGTFX4QRIyO22Es8dArGZ1kwJTyjRp0zsI4BXqdBaC5SlZ9n0bWNumE/8yF//zQ
+ p0oREvlN1Q2plxoUpmOWgw/d7k=
+X-Received: by 2002:a05:620a:6015:b0:923:7821:dc0d with SMTP id
+ af79cd13be357-93485fe7b4emr71601785a.33.1785375540094; 
+ Wed, 29 Jul 2026 18:39:00 -0700 (PDT)
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com.
+ [209.85.219.45]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-933e733e41bsm300712185a.39.2026.07.29.18.38.58
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2026 18:38:23 -0700 (PDT)
-Received: by mail-qv1-f43.google.com with SMTP id
- 6a1803df08f44-907ae240ac3so7998186d6.0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:38:23 -0700 (PDT)
+ Wed, 29 Jul 2026 18:38:59 -0700 (PDT)
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-8ff5d1b0f91so11281186d6.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:38:58 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro5chAzEkk00Z/nfMYJ1J9bH0janADk6U432Ud1q8yVGxxXH+S3G16vbLlIikQRCjhMsCfvCh8VWxo=@lists.freedesktop.org
-X-Received: by 2002:ad4:5dc1:0:b0:907:44ac:7d12 with SMTP id
- 6a1803df08f44-908345e75bcmr6070656d6.0.1785375502283; Wed, 29 Jul 2026
- 18:38:22 -0700 (PDT)
+ AHgh+Ro3LhNnek6nWoq7Y95kEF5MJPRbmIkj6E8Os92SCoV+OpRw8oCHD2TAyJmRXrH/srkOYndPnFhQOVE=@lists.freedesktop.org
+X-Received: by 2002:a05:6214:5012:b0:8dc:ad48:70a7 with SMTP id
+ 6a1803df08f44-9083470bd3dmr4918436d6.26.1785375536299; Wed, 29 Jul 2026
+ 18:38:56 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260723203601.806697-1-michail.tatas@gmail.com>
- <CAD=FV=X+0_oVB2oHg=R+JAyFZFd2EXWAVhHv5oX6QGjB0RCKUg@mail.gmail.com>
-In-Reply-To: <CAD=FV=X+0_oVB2oHg=R+JAyFZFd2EXWAVhHv5oX6QGjB0RCKUg@mail.gmail.com>
+References: <20260728035931.10342-1-terry_hsiao@compal.corp-partner.google.com>
+In-Reply-To: <20260728035931.10342-1-terry_hsiao@compal.corp-partner.google.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 29 Jul 2026 18:38:11 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V6i=HqufCucNnx9JYeveGfeGWTcZRgrFqd237g1xS7dQ@mail.gmail.com>
-X-Gm-Features: AUfX_mx_jy2X5-MAlFzfXkHLHAxLnPSqT7CngwkFYGhiHFvMtcXWebNKj0uT6qI
-Message-ID: <CAD=FV=V6i=HqufCucNnx9JYeveGfeGWTcZRgrFqd237g1xS7dQ@mail.gmail.com>
-Subject: Re: [PATCH v4 0/3] drm/panel: ilitek-ili9805: convert to *_multi API
-To: Michail Tatas <michail.tatas@gmail.com>
-Cc: michael@amarulasolutions.com, neil.armstrong@linaro.org, 
- jesszhan0024@gmail.com, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 29 Jul 2026 18:38:45 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X+nQ5GsbuahKiBK69ZTpZHNvckM0-H6sL0v1zfROBQCQ@mail.gmail.com>
+X-Gm-Features: AUfX_mxrUm9UyxJtuGWvqXIQq37cxVLvL-J1JNEtLZtuuEJ4CkZXhZ-NQE-9RN4
+Message-ID: <CAD=FV=X+nQ5GsbuahKiBK69ZTpZHNvckM0-H6sL0v1zfROBQCQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/panel-edp: Add CMN N116BCP-EA2 (HW: C3)
+To: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+Cc: linux-kernel@vger.kernel.org, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -106,43 +107,29 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Fri, Jul 24, 2026 at 7:15=E2=80=AFPM Doug Anderson <dianders@chromium.or=
-g> wrote:
+On Mon, Jul 27, 2026 at 8:59=E2=80=AFPM Terry Hsiao
+<terry_hsiao@compal.corp-partner.google.com> wrote:
 >
-> Hi,
+> The raw EDID:
+> 00 ff ff ff ff ff ff 00 0d ae 6c 11 00 00 00 00
+> 02 24 01 04 95 1a 0e 78 03 67 75 98 59 53 90 27
+> 1c 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+> 01 01 01 01 01 01 da 1d 56 e2 50 00 20 30 30 20
+> a6 00 00 90 10 00 00 1a e7 13 56 e2 50 00 20 30
+> 30 20 a6 00 00 90 10 00 00 1a 00 00 00 00 00 00
+> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 02
+> 00 0c 47 ff 08 3c 7d 0d 0a 15 7d 00 00 00 00 05
 >
-> On Thu, Jul 23, 2026 at 1:36=E2=80=AFPM Michail Tatas <michail.tatas@gmai=
-l.com> wrote:
-> >
-> > This series converts panel-ilitek-ili9805 to the
-> > mipi_dsi_*_multi helpers and cleans up the resulting code.
-> >
-> > Patch 1: Convert the individual DSI calls to their
-> > *_multi variants
-> >
-> > Patch 2: Replace the ILI9805_INSTR table with per
-> > panel init functions using the *_multi API, dropping
-> > struct ili9805_instr
-> >
-> > Patch 3: makes ili9805_power_off() and ili9805_deactivate()
-> > return void, since no one checks their return values.
-> >
-> > Michail Tatas (3):
-> >   drm/panel: ilitek-ili9805: Use _multi variants
-> >   drm/panel: ilitek-ili9805: Use dsi_multi in init
-> >   drm/panel: ilitek-ili9805: make cleanup funcs void
-> >
-> >  drivers/gpu/drm/panel/panel-ilitek-ili9805.c | 212 ++++++++-----------
-> >  1 file changed, 87 insertions(+), 125 deletions(-)
->
-> Thanks for the extra small cleanups. Planning to apply v4 mid-next
-> week unless something comes up.
+> Signed-off-by: Terry Hsiao <terry_hsiao@compal.corp-partner.google.com>
+> ---
+> Change from v1 to v2
+> * Modify the signed-off
+> * Correct the subject line
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-Pushed v4 to drm-misc-next:
+Pushed to drm-misc-next:
 
-[1/3] drm/panel: ilitek-ili9805: Use _multi variants
-      commit: fdde70f52306f74c7f2466706626f3f1ef973e61
-[2/3] drm/panel: ilitek-ili9805: Use dsi_multi in init
-      commit: 438caed529a6b6dd985afc85ee52a29bc20ab3f6
-[3/3] drm/panel: ilitek-ili9805: make cleanup funcs void
-      commit: eb7979f6014a18f7086ecbb70da3e442056b5673
+[1/1] drm/panel-edp: Add CMN N116BCP-EA2 (HW: C3)
+      commit: 35b6cf07851a2b430b0eefbcb7b5a856f9030264
