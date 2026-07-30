@@ -4,102 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 868CDC55165
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 13:29:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6532C55165
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 13:29:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED5C410E189;
-	Thu, 30 Jul 2026 13:29:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B91E10EF1E;
+	Thu, 30 Jul 2026 13:29:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="W1Ki/nu1";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IKk8m8cl";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="OGPuxWrR";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IEj31lJn";
 	dkim-atps=neutral
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
  [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DCB510E674
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:36 +0000 (UTC)
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3DB310EF1B
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:41 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66UDDiGC716734
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:36 GMT
+ 66UDDRrx427139
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=FrBxWxjqRXZNRvOm43VwxP
- FxRLqKBA6+pd4WCL/GOZE=; b=W1Ki/nu1aVDuyPmM9trr6PPb7poeN5QDAOHsEd
- jbhxiSE6nzIRlG6VNHVvOWDlxFMQViG076Bqb32lcOWyDA11SbzoNQuFcWndSZMR
- coFq/pFW78LlK7l6/SU8ZAfJEF1kqB6mhymB891IP2occB8EOuORh89+Z3umwfiu
- 3nJpXOCbyDIlG2AHNzAA9xVamUUf0z+LaE5AXSPC3N6D3F37fh7gnq2WekrmZEbv
- jU8oNIbAamDOLMHLdYipWTirAWXO/57+xL347zRIFM3qABSy3Qz8Ww0ucD33k8t1
- HnqTJiKpmwfYcme6ZpzR2LIkHopmHTUrYZ5P64P3tutXgW+g==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr6ucr6wc-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ oKomwFAwUezzDTIBZ3q145K36werjmHbPF4H/yZ/x6Q=; b=OGPuxWrRMmU2PzD/
+ mKwmrbMpkX6jKvRyejXSJfhrzmADzBmBvV5C2lfN93sWUAVbNLw5HonQDm8+kVU8
+ IdCnxNP9mvNbUxwyUyStUqoBIY48bISG2zPPa4AN5h7YZmmeRvrlq8r8TDTF8Ru7
+ Zmwb0opGC0dJ+N0lcbJPgOsuqfR5vE2TzyKeknewcTjfYj6YyYs6+X03D0qCtP7l
+ TaQ21vRB2MLrY/5iRQE3dDMGDxcEMwP28PkkdI6ezrUkYmZo2K5IMGRfRz4dSSR2
+ BIp9ni7Xg37VIyT+0IROuSJKa78ynVAKJo0PscQHHPWudnb7JKWGrp5xzc7VuRRK
+ nhVbqw==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3tyh1hr-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:35 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-51c1d137a68so41363291cf.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:29:35 -0700 (PDT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:29:41 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-51c26012cd0so20445061cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:29:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785418175; x=1786022975;
+ d=oss.qualcomm.com; s=google; t=1785418180; x=1786022980;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=FrBxWxjqRXZNRvOm43VwxPFxRLqKBA6+pd4WCL/GOZE=;
- b=IKk8m8clkg5cdN1VpNmXaVNvL2XqYUGwv10yDO+F4Y/ePIyetZg1Nj1xWQl6Hb4UNm
- iUsVVJwuOBgL5e4HqKVwgnB0UrE+lS+ogSFsZr7Lo4qYCbtBXYGQHE6rcnBQzIUsZwMT
- H31lw6Mi6XnUciaa6PeGVlO6dmGWRbP7xHtnUV1/OgbI8wiHU0hd1ZFdijD4OyjKxrLS
- I12EhhDD59nm8Zz+ZSgTUQA82nTXJ3B72iMlM7zJJ/G1KpvFVVUUKG9WWTRRz9C2gPbI
- 8BuCIWqOtfBeEi0vbuJ+ZrqH8zHE22qO2sKPJVaLumuvotYBn2+Pmkdhm01/LTCQe5Z4
- UpSA==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=oKomwFAwUezzDTIBZ3q145K36werjmHbPF4H/yZ/x6Q=;
+ b=IEj31lJnl63KKTsT3t0ST3jbxzCph9/NyYfOa8nPJeBORzyZ7iz7aPJxEXsQiSSgCR
+ Cja+s1wFk9n/paaXoXeZsMH1z8QQ/zDMSa8O+01VoiyD+FaljGkyJd2bdw6hkr+EYSdE
+ uOwVGc61kcnYGK4nzOD55rsbGrfo6qSgL6r6XOBdf0IN4DZ6dP7cxt9syohsOI5KFUHS
+ ioT4mOb0QOHj4WIXGZFBoVMmIV9IgCe9Od9Y6oaRAEvZInUv9YOfhBqS3HqCmUhTifh3
+ YL/dslUj3VJm9Webr7c8qHcpo1qvRVOIr5Y0aiTw5S3BDR8P3MVxMbZk188PbRQRbSlq
+ 1XPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785418175; x=1786022975;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=FrBxWxjqRXZNRvOm43VwxPFxRLqKBA6+pd4WCL/GOZE=;
- b=S+caQaHWaovt8jcFVqdsZr09zbQ0jxrHwVwjl/L2YrkU0Owz05+vELBUSUDvgsd/9/
- kbFtZ3vqb2qMsi8VdBUzpeQBXrYl8p7xEfyI6WVKfWs4maQimSqIZ09UzPwve9U6yhq+
- PJ43b55vtwjGMY4bH3TVqduRU5jCNY86LXeiHOnDuDHcWojK7thz4tL1nitgdLeMXCyX
- xpaB8m7Vz3NedaT/L+7bEnyKURA/E6Uh1pEwA2TUuxrVrPUG7qVSOcGV2fmOnfxQuh1q
- ZQIKcQrY2DHDv0jV5UGQzQAmwJW9/8OKxFV3iYUepVcI1s0eXllM4MvBbSzwY6cDQvsD
- ziqw==
+ d=1e100.net; s=20251104; t=1785418180; x=1786022980;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=oKomwFAwUezzDTIBZ3q145K36werjmHbPF4H/yZ/x6Q=;
+ b=F1/OsLIF3fWQYNV7jwYFYHrK+WrLhTZIUXkTNh7krUm3zh1zVHBrDx2W0Abl/XTV3L
+ 8xb8DU8LC4LmUpnwmTM79Ezydv2DxaegukZXNWlLze/YCGq65avz3ZO7uiW9yEQn9ru0
+ 0K2ztdO99uTWHcpmRvbEIBRNQ9kJVps3J6BZOc0qCLNW0xMCN1hTQc1pUXDe4W47AkU+
+ 24ediTuwR9PNJuzijpaeMU0dJqS/Gs7P6xqtbg7cKfY4JQXozoh/soP7EAjHCl2VA+43
+ GdBgRExTZaqFIr21n4MJmBlSPjONZ5xr91XWrB/Qt35Nh034h/FC1zPTr5CXdFpcLghB
+ EMlw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqgJjfSLz5TDo7DmXBaLh317QIOnZjFY4Z+NEQubJYvNw82qnTk2MgE/a4XfaQd7iIaTVQ+ZE5Or+w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyHhIqz3/MWTBuffpXxgxS6x8/XTcd8fw4mfLPm2qzmj4xZwMJl
- VhQ3kLtzADTyeiSAucsIoWZIOS1bXB5GaRctjw94NX6KDhBxB0ARHdfbbHEG/W72Oq2FJ2EE/Zd
- bEbSeHHpRNOlcdLtw9zV5lc96v1mUGNhTmbb5oNNbvvDjf4infq33/94ohYHi0qwChyZHcDY=
-X-Gm-Gg: AR+sD13/fDnph2fTovtG8xD1fiJuQXf9RA5vgrYPyo56WtzHjly4tfptgEB7pT2/1af
- MiK61WF//Kkjntd4V4nwuYrbnWCLYM0zgmKEZsZtFNSR3XWAP1ekKyULSVOMFibjgoXT72DKa4a
- rQi9+tww9/y2BfAkbtEyJo7hWvvpPDqsltDd5GwanFT0n0Z7oF65g731tq9C7N/Xz5KEazZMlND
- 53Hff+98WOA1vAvjdh1d6WBD/gezSlzaUt1jlACiWHS87mFsyiXTjqUziZtiMT9f4leJZeAQ0dz
- jMzYlnNUiv/ya/YORQGCD5ycGmquAqune2tgTu+roOiX3tDJPnTQQoXZAdhCTlxDVBNiXr3E34s
- a8FbYhtAchKT8dUI6CZj086+ZEIWS/TK+o09O51l77YZxxGqSMwFok+26xq+JVoonzB8zQb6GuL
- a6WNGfweizfG6BwQ==
-X-Received: by 2002:a05:622a:1aa0:b0:51c:61a:50fa with SMTP id
- d75a77b69052e-52b385eded3mr25658111cf.39.1785418174833; 
- Thu, 30 Jul 2026 06:29:34 -0700 (PDT)
-X-Received: by 2002:a05:622a:1aa0:b0:51c:61a:50fa with SMTP id
- d75a77b69052e-52b385eded3mr25657711cf.39.1785418174288; 
- Thu, 30 Jul 2026 06:29:34 -0700 (PDT)
+ AHgh+Rr7jwmFC/DgilfTyujPA10IzU3Xhlh9VS2OKKgzReGXf4WNG3fclHjeXvy8S95OmFbxBN8HMJQKigc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxKPNg+0oTxHthlQSu8giU0V4wYBQu+21OL/RNsY2QHLXUPVtwC
+ fN1D2eiD8gG9xHiRKulmyE+UWs4rxI+jxX+XCnkdFxg/4wb/BxB739y0W6059Ig/lzAOb8UqD41
+ 6BBX9A7vPSDAauSxbPLV88zjLyehcUgUgnR1sWhWKwFDKoNplqPAlXLMz3Dgu4IUtdnC6avk=
+X-Gm-Gg: AR+sD10SSvcyE0ydZb4Aid8rxtPk6Gyo+sYxHPHAWKS7tY/yKAqnU14zH/1TU0DIFcw
+ BocDpRt/SFSMwiLZ+RFoHbhrbRLXzUEa/WWCRyl2nfYLSoGHgI/td0sl/ex9XLtHRN/CveJeBFA
+ p7lVKMC8B4RHEDCbx59WKh5Lw+W2AHgONdkcPn0krIBGem6Ax5cVFbyBJgEj1HIeZ55VkRuylyQ
+ 1VHbsdY1n55W3SlK9QRs5Hn4ypAC+oQnxSGosSKZWpQqcyrOGVUAbFXQj53DaRFGNfk6qZJc9lg
+ b3X126uXLZ1ok89OOr4yDehcYrtDwtatbrORLOkgGyrM7Bgm1z01zxzj1es27feL+e1aW53n6tJ
+ CQU+cDTdzDO1uCMUJ7oLXk7SOGSt+/BI7Vg5WlB18UIl/SHBP6ZAGJ3FYNwvIJUDnUSWnZZTf1O
+ 83EB7jJQnDPFJ2TA==
+X-Received: by 2002:ac8:5801:0:b0:51c:7b12:5fff with SMTP id
+ d75a77b69052e-52b386ddf71mr27986771cf.75.1785418179819; 
+ Thu, 30 Jul 2026 06:29:39 -0700 (PDT)
+X-Received: by 2002:ac8:5801:0:b0:51c:7b12:5fff with SMTP id
+ d75a77b69052e-52b386ddf71mr27985881cf.75.1785418178960; 
+ Thu, 30 Jul 2026 06:29:38 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-39f6acaa009sm2976631fa.34.2026.07.30.06.29.32
+ 38308e7fff4ca-39f6acaa009sm2976631fa.34.2026.07.30.06.29.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 06:29:33 -0700 (PDT)
+ Thu, 30 Jul 2026 06:29:37 -0700 (PDT)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH 0/3] Fix GPU and display on ARM32 platforms using the MSM IOMMU
-Date: Thu, 30 Jul 2026 16:29:30 +0300
-Message-Id: <20260730-fix-qcom-smmu-v1-0-b12fa067804e@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 16:29:32 +0300
+Subject: [PATCH 2/3] ARM: dma-mapping: reset DMA ops before detaching from
+ the IOMMU
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALpRa2oC/0WOQQ6CMBBFr9J07UQoUqBXMSxKGaUmBekUQkK4u
- wWMLn/y5r1ZOaG3SFyxlXucLdmhjyO9MG463T8RbBs3F4mQSSEyeNgFRjM4IOcmaPKiKo3MW1l
- WPN68PUbg8N3rc9PUvNCEXfIlPI5TDIUT+3cU+1UcuaNkvKYOSpNmQiRtdZO5mtNd02hCiG84G
- xTrcQlXpymg5/W2fQAr4Tap1QAAAA==
-X-Change-ID: 20260723-fix-qcom-smmu-b5798c65d689
+Message-Id: <20260730-fix-qcom-smmu-v1-2-b12fa067804e@oss.qualcomm.com>
+References: <20260730-fix-qcom-smmu-v1-0-b12fa067804e@oss.qualcomm.com>
+In-Reply-To: <20260730-fix-qcom-smmu-v1-0-b12fa067804e@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
  Robin Murphy <robin.murphy@arm.com>,
@@ -118,42 +118,42 @@ Cc: linux-arm-msm@vger.kernel.org, iommu@lists.linux.dev,
  dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
  linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2815;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2474;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=QeuOZ/3E7srmsN4kZYdWvz+jVIa+pIBlQp4fMxk0c0c=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqa1G8vHFfUkazJpdtkfWB5qcSLTbcR9WeggcWK
- ZnHvv659nSJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCamtRvAAKCRCLPIo+Aiko
- 1Q4KB/45W5IuLGMfukDxWtAm4Kn8WpvsrZCG43DTGKSpOFCALq9XgwWFi8s9keLSIB4kYrYNe06
- XtyxqMCC0IkQ0FM1E//oevvm9bvqUqL/VeNT9pSZykkGfRuEFxlwC04OkBZMAY86IHws8iYgGeA
- TBNi1Xu3GnAMhqtBzcqeHzGdVUn87pGMjczIsbbM8CX2dT+xSCjA1ztwD6ZIPhEC4eeYw8XhlyA
- Oew1C0tmhzqsF/zcB37ma81WyXwpOiLc7RGR66XnWNPAIvKsmhyC6UUHLA9v7La6w5GRi890tNo
- uTB4CSpg9MoHUsrXHeKMbwt/nxWdl1Z0ZcaMEM7DxFp2bEvp
+ bh=zQmiJpPoZNGhjY+XUsKBhhVoMysorcpbs/s+cw3ZEFM=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqa1G8zRjknHYqUBI8o2MzKUGuZ4oF+rXCx4jn2
+ zhq+XjJrpuJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCamtRvAAKCRCLPIo+Aiko
+ 1fYcB/wO3cMw7FHxc1VUZwOfY2Tooa/OXl2aPOMopt0xCYxUwpZ5yVYjRHgrQrzKG+mUO93tFGw
+ H7pbYScFoKJ2AzsMoN+uN+v8t9Mh3yY1Ud49mcH5NE2zMD9zQK5bM/IksKMNuLWYdtNdkG42CTs
+ 9j/x4WTPKOrGL7zpcDM76Vfl8slVplqaRrhvGpQmLi8AL9I7jsQWL3Ryyn3uTFjVCXITZAkaSUi
+ wdo2aKOX5IdqnZGhap8RWpPU8rPCMTFsvAtExWsnqhoMBkUAwDyw52qu50f9mo0kDdv0RWMzrto
+ KRpI9flM9iK+ZUsRzNJxJiOFKou5u7H5EKzCnbAAVDlwcIEf
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEwMiBTYWx0ZWRfX6xQ1vRNMgIpe
- +S/iDb7iTQgazghxXIsUsLV2WHz9C8OoZxFACcmKTKjAUxXKc9W0piDof/+IvYLbXImbDj9QSR/
- Y7kS3RDNPgoUmT57VsL2QfZsqXeZY8k=
-X-Proofpoint-GUID: Z73TGNFRvZkiIStDaJLHs7NwFb98voZK
-X-Proofpoint-ORIG-GUID: Z73TGNFRvZkiIStDaJLHs7NwFb98voZK
-X-Authority-Analysis: v=2.4 cv=W6QIkxWk c=1 sm=1 tr=0 ts=6a6b51bf cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-GUID: u_CCwdzTLfWzvq8tPL6gAVGM2nYbsRsY
+X-Authority-Analysis: v=2.4 cv=JZOMa0KV c=1 sm=1 tr=0 ts=6a6b51c5 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=shkEvlnnkTupmQYayisA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEwMiBTYWx0ZWRfX1MYxKIvX38hM
- 1aMq3+9aefilocwefIiJ9wxgHIPwNFD0xkikHuhRZnm3zG2RIYB3b/mJx0V5cmkStd/qEd950sL
- 3WIula1Nv4GnKeni061RBaHegv52C2nGoZSwRfy4OV4OR9A1lgYQ2SSht3qXR7U59Js4AGakSQM
- ea5/1VVto6DNDPMAM3moHQ3Ix+HS1HuCbOUd2CZgoLdKtAJ4Cfdj0cdrv3ORqps9urjixb2K8v4
- CiDP55X4zSJjr7UK+mhSiuXQxQUBGaZZ6xPC34ZRaKTugoQnb26t+7anSN517+u64R9Tw24lnU6
- 8r1FdWhQBGCLCA9qfKM4QwU4Ex0OlTLGBR2YfRyEOmn3bOblNfE+/WxoIq6y3x3Ofn3i4/ZNhQN
- g0QMb1b62Te+0sUZG/FvXrqDyZeRuZhCXrODqkzxyR1QG5kOgBYGgkVWljgu8fLvM5g6XSLhXfM
- igRH0frmjbOf8iTu8MQ==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=Js9RLbieTBECFtt6-0oA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEwMiBTYWx0ZWRfX9uCqlXJ2VMrQ
+ 7LqdUMltsg352sWFD2GVt6oUwU3+TUUE+u5VV+cW4zfvAcWn6dOzZTb1vuBqyLVnbQkuA7OgJg9
+ 1rklWop3UVDE2KcTMFEp4TkQSBiPU+4aEkBHaxmdu6xvIHn5jhHUKNy1qNdUMcVwk6EoUB/8jcr
+ U6+UMzt+RrZd5e7/9XmZoqcAfNG+C+MtxNkuKC0pEzkBF5tXhCN8jbnJ2AHs3vTirO+zDxxh6+U
+ x+fOU4qWpRNsJkGURjLxZYcNpOmMi95qz7yftbrTdbEE9HWLpJeOFEw2iFBA/rL/JbCHGVww0cn
+ 7Q5PLn9yTDtVGF2pftcS1ms3mUWc5dYlFDMWSYIoEfJOOHBuqYW9Vtp1aoyKdKwZJJCBlrcQdP7
+ Y88Xfv+j59Uq9EdqmX9XLZ6gy57fcO9xcyImqWsyBVBCm4Wlew5Db2MGRGppcYyRlJNofGxZX9S
+ c2+J2j9gkIQOtW6JE7g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEwMiBTYWx0ZWRfX/YSVsdahofkN
+ 8SB8FjkyKEuKi95ZNx+lIX/R19N3MK5vaEc5s3Nh7y5mhR0MWwLzJvEk6cahtRip1kQDa4DShtj
+ 2BG94J36ZcuYKftcnsQaM50Y94OYus8=
+X-Proofpoint-ORIG-GUID: u_CCwdzTLfWzvq8tPL6gAVGM2nYbsRsY
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-30_04,2026-07-29_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 phishscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 impostorscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300102
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -171,60 +171,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On apq8064 (tested on the IFC6410 board) neither the GPU nor the display
-controller comes up in mainline: with CONFIG_ARM_DMA_USE_IOMMU enabled
-both devices either fail to probe with -EBUSY or take the kernel down
-during the ensuing unwind. Three independent problems stack up on that
-path, one in each of three subsystems, and only fixing all of them makes
-the board usable.
+arm_iommu_attach_device() installs the IOMMU-aware dma_map_ops only
+after iommu_attach_device() has run, so a driver that builds its page
+tables during attach (msm_iommu via io-pgtable) maps them while the
+device still has the direct DMA ops: the resulting dma_handle equals the
+physical address.
 
-First, the MSM IOMMU driver does not handle a device that is attached to
-several IOMMU instances, which is exactly how apq8064 describes both the
-GPU (&gfx3d and &gfx3d1) and the display controller (&mdp_port0 and
-&mdp_port1). It keyed the per-device bookkeeping off two mismatched
-things, a per-IOMMU list and a per-device pointer, so only one of the
-instances ever got programmed with the stream IDs. That had been merely
-wrong for years, but it turned into a NULL dereference once the IOMMU
-core started deferring probe per instance, so today the board does not
-even reach a shell with the display enabled.
+arm_iommu_detach_device() does the reverse in the wrong order. It calls
+iommu_detach_device() first and clears the DMA ops afterwards. When
+detaching frees those page tables (msm_iommu_identity_attach() ->
+free_io_pgtable_ops()), the freeing dma_unmap now goes through the still
+installed IOMMU ops, which treat the stored physical address as an IOVA.
+iommu_unmap() warns "region not mapped" and __free_iova() indexes an
+unallocated bitmap extension, dereferencing NULL:
 
-Second, on ARM32 the arch code gives every IOMMU-backed device a
-dma_iommu_mapping of its own and attaches it. drm/msm manages its address
-spaces itself and cannot take over a device whose group already has that
-foreign domain attached. The other ARM32 DRM drivers that are in the same
-position (tegra, rockchip, exynos) drop the arch mapping first; drm/msm
-has to do the same.
+  __bitmap_clear from arm_iommu_unmap_phys
+  arm_iommu_unmap_phys from dma_unmap_phys
+  dma_unmap_phys from __arm_v7s_free_table
+  __arm_v7s_free_table from arm_v7s_free_pgtable
+  arm_v7s_free_pgtable from msm_iommu_identity_attach
+  msm_iommu_identity_attach from __iommu_attach_device
+  __iommu_attach_device from iommu_detach_device
+  iommu_detach_device from arm_iommu_detach_device
+  arm_iommu_detach_device from arch_teardown_dma_ops
+  arch_teardown_dma_ops from device_unbind_cleanup
 
-Third, arm_iommu_detach_device() undoes things in the opposite order from
-the one arm_iommu_attach_device() set them up in. An IOMMU driver that
-allocates its page tables during attach therefore frees them with the
-IOMMU DMA ops installed rather than the direct ops that mapped them,
-which ends in a NULL pointer dereference. This is trivially reachable as
-soon as any of the probe failures above unwinds, and it is what turns the
-GPU probe failure into a crash rather than an error message.
+This is reached on apq8064 (ifc6410) when the adreno GPU probe fails and
+its DMA ops are torn down.
 
-The three patches are independent and are expected to be picked up by
-three different maintainers.
+Reset the DMA ops before iommu_detach_device() so page-table teardown
+runs with the same direct ops that mapped them at attach time.
 
+Fixes: 78fc30b4bb35 ("iommu/msm: Implement an IDENTITY domain")
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Assisted-by: Claude:claude-opus-5
 ---
-Dmitry Baryshkov (3):
-      iommu/msm: track a context master per device and IOMMU
-      ARM: dma-mapping: reset DMA ops before detaching from the IOMMU
-      drm/msm: detach the ARM DMA mapping before attaching our own domain
+ arch/arm/mm/dma-mapping.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
- arch/arm/mm/dma-mapping.c       |  5 ++++-
- drivers/gpu/drm/msm/msm_iommu.c | 22 ++++++++++++++++++++++
- drivers/iommu/msm_iommu.c       | 27 +++++++++++++++------------
- 3 files changed, 41 insertions(+), 13 deletions(-)
----
-base-commit: 3652b49adac266a3d27cb41cdfdb7d8790fc3633
-change-id: 20260723-fix-qcom-smmu-b5798c65d689
-prerequisite-change-id: 20260723-msm-fix-crash-8c13220d9465:v1
-prerequisite-patch-id: 3556d41e924ad64e8e9c06cc5bd1972c66957f42
+diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
+index f9bc53b60f99..a467e0d01a5b 100644
+--- a/arch/arm/mm/dma-mapping.c
++++ b/arch/arm/mm/dma-mapping.c
+@@ -1642,10 +1642,13 @@ void arm_iommu_detach_device(struct device *dev)
+ 		return;
+ 	}
+ 
++	/* Reset DMA ops before detach so page-table teardown uses the same
++	 * direct ops that mapped them at attach time.
++	 */
++	set_dma_ops(dev, NULL);
+ 	iommu_detach_device(mapping->domain, dev);
+ 	kref_put(&mapping->kref, release_iommu_mapping);
+ 	to_dma_iommu_mapping(dev) = NULL;
+-	set_dma_ops(dev, NULL);
+ 
+ 	pr_debug("Detached IOMMU controller from %s device.\n", dev_name(dev));
+ }
 
-Best regards,
---  
-With best wishes
-Dmitry
+-- 
+2.47.3
 
