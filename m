@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31D1BC55164
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:41:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27626C55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:42:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BDDB10EF68;
-	Thu, 30 Jul 2026 14:41:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84D9910EF69;
+	Thu, 30 Jul 2026 14:42:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kmAc9mAt";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bizOVf3s";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B11C10EF68
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:41:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785422465;
- bh=mdTc5rjthYe6OBOSeP3TClZU1ojn4OYqc64zIAcSwkE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=kmAc9mAtaVvr3cFAyqmzFONsWN6cgwzMkEqQxrA6QwKhQsNmmxH26l0ERRRpQ91f2
- mvV9MiJentZA3A4vHEsb6Jco1lms29x14sYDAG5MomX1bEyWv8zbkeyoFiXAVO4f+X
- ay+C9xtTzEkhWa/PNXEQFK6RyolSkt3ssXWPCFNaGq6TDAPe+BQVBVDVrWLY3fpCEy
- O9zLncmZ898Gp4ehym9jphIrZAwZ54zF8td4vDQaUX5UuocXO1+HsUY6K3Z875UeOv
- fAiPcTqLg3e2elXnKEhg+jmWvyvNNaUA7I0t8g+UlLwswLyhLwA5HTmkpeyaN7DgTy
- OD3FZrnn8peZg==
-Received: from fluorite (unknown [100.64.0.208])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested) (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2B42117E0213;
- Thu, 30 Jul 2026 16:41:05 +0200 (CEST)
-Date: Thu, 30 Jul 2026 17:41:00 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Robert Mader <robert.mader@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>,
- Daniel Stone <daniels@collabora.com>, Harry Wentland
- <harry.wentland@amd.com>, Jonas =?UTF-8?B?w4VkYWhs?= <jadahl@redhat.com>,
- Michel =?UTF-8?B?RMOkbnplcg==?= <mdaenzer@redhat.com>, Sebastian Wick
- <sebastian.wick@redhat.com>, Simon Ser <contact@emersion.fr>, Victoria
- Brekenfeld <victoria@system76.com>, Xaver Hugl <xaver.hugl@kde.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1] drm/atomic: Clear plane pipeline for legacy clients
-Message-ID: <20260730174100.017a1b5a@fluorite>
-In-Reply-To: <20260709115855.53725-1-robert.mader@collabora.com>
-References: <20260709115855.53725-1-robert.mader@collabora.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8AD310EF69
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:42:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8C16F436DE;
+ Thu, 30 Jul 2026 14:42:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE6B21F000E9;
+ Thu, 30 Jul 2026 14:42:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1785422525;
+ bh=nwqsRjdzzKO0dihPx5/ndPIp4EIbSRxC8fAaI2gEx3s=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=bizOVf3sAVzbHfT2tLFfQb1kTxFrciCZrhUP/6ELfq4hYJDwcysMMtiTN07k7gvx5
+ 2/GJ46Aoc4yNR9QD/RgY7pf4ssFHL+uPsuypxMfNYj4IqWGTX6Ybwe23QxW/CuHrpk
+ gn7rXIXvD+dDbwNvyn9E2pvLqe+5dQmzgmy0wcDQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>
+Subject: [PATCH 7.1 470/744] drm/ttm/pool: back up at native page order
+Date: Thu, 30 Jul 2026 16:12:23 +0200
+Message-ID: <20260730141454.287239302@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730141444.267951807@linuxfoundation.org>
+References: <20260730141444.267951807@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/OMHslgD.2KbRLIGyomXP+fZ";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,97 +66,445 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---Sig_/OMHslgD.2KbRLIGyomXP+fZ
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-On Thu,  9 Jul 2026 13:58:55 +0200
-Robert Mader <robert.mader@collabora.com> wrote:
+------------------
 
-> Clients that do not enable DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE and try to
-> apply a new plane state currently have no way to unset/reset an existing
-> non-bypass color pipeline, resulting in unexpected behavior.
->=20
-> As we can be sure that such clients do not expect plane pipelines to be
-> set, let's reset the later for them, ensuring clean bypass-only pipeline
-> states.
->=20
-> This is a less comprehensive but more backward compatible approach compar=
-ed
-> to a DRM_MODE_ATOMIC_RESET flag (link) that is currently being discussed.
-> Considering the simplicity and clearly defined behavior of this case,
-> this change could serve as an additional stop-gap solution to smoothen the
-> transition to the new APIs, resulting in less breakage on systems with
-> existing clients.
->=20
-> Link: https://lore.kernel.org/all/CAFZQkGzw2MZGivy=3DoyYgZE3_dmxu-z-NbDgz=
-h9uyqSsj=3DMG=3D2w@mail.gmail.com/
->=20
-> Signed-off-by: Robert Mader <robert.mader@collabora.com>
->=20
-> ---
->=20
-> If an approach like this was previously rejected or clearly goes against
-> API rules (or is unacceptable for other reason), please excuse me (and
-> just let me know).
->=20
-> The main motivation for the patch came up during testing the Weston
-> implementation (link) for the fixed-matrix color-ops. The test there chec=
-ks
-> both the color pipeline and legacy property ways of offloading YCbCr
-> buffers and the current reset-less situation results in the legacy one
-> failing once the color pipeline test ran before.
->=20
-> Link: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133
-> ---
->  drivers/gpu/drm/drm_atomic.c | 3 +++
->  1 file changed, 3 insertions(+)
+From: Matthew Brost <matthew.brost@intel.com>
 
-Hi Robert,
+commit a3fdf74ffa5966e5b4a17f1e9c5687f73bb0d536 upstream.
 
-this sounds reasonable indeed.
+ttm_pool_split_for_swap() unconditionally splits high-order pool pages
+into order-0 pages before backup, so every compound the shrinker
+touches is shattered even when the rest of the system would prefer it
+stay intact. Under sustained kswapd pressure this fragments memory
+enough to drive other parts of MM into recovery loops.
 
-Acked-by: Pekka Paalanen <pekka.paalanen@collabora.com>
+Back up each compound at its native order instead. In
+ttm_pool_backup(), hand the full compound to the new
+ttm_backup_backup_folio(), which backs up subpages to a contiguous
+range of shmem indices and returns the base handle plus the number of
+subpages actually backed up (@nr_backed). On full success, free the
+compound once at its native order -- no split_page(), no per-4K
+refcount juggling.
 
-Thanks,
-pq
+A per-folio backup can't be made fully atomic under memory pressure:
+ttm_backup_backup_folio() must allocate shmem folios before source
+subpages can be released, so under true OOM any subpage may fail
+while the rest of the compound is still live. Two mechanisms handle
+this without regressing reclaim behaviour:
 
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index 735ab7badc2e..581fde90dbd8 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -656,6 +656,9 @@ drm_atomic_get_plane_state(struct drm_atomic_commit *=
-state,
->  	state->planes[index].new_state =3D plane_state;
->  	plane_state->state =3D state;
-> =20
-> +	if (!state->plane_color_pipeline)
-> +		plane_state->color_pipeline =3D NULL;
-> +
->  	drm_dbg_atomic(plane->dev, "Added [PLANE:%d:%s] %p state to %p\n",
->  		       plane->base.id, plane->name, plane_state, state);
-> =20
+  - alloc_gfp gets __GFP_NOMEMALLOC whenever order > 0 (cleared again
+    for order-0), so a high-order backup fails fast with -ENOMEM
+    instead of draining kernel reserves, leaving them for other
+    allocations under the same pressure.
+
+  - If ttm_backup_backup_folio() still returns a short @nr_backed with
+    a valid handle for the successfully-backed prefix, split the
+    source compound with ttm_pool_split_for_swap(), free the prefix as
+    order-0 pages (already safely in shmem), and retry the remaining
+    subpages at order 0, where __GFP_NOMEMALLOC is cleared and
+    reserves may be used as a last resort.
+
+This preserves the original split-on-OOM fallback while keeping the
+common case fragmentation-free, and preserves the "partial backup is
+allowed" contract (shrunken is incremented per subpage backed up).
+
+The restore-side leftover-page split in ttm_pool_restore_commit() is
+left as-is: it's unreachable in practice and not worth complicating
+the restore state machine to avoid.
+
+Testing: the existing backup_fault_inject point only truncated
+tt->num_pages, which never exercised the reactive split path above
+since it never left a compound partially backed up. Wire fault
+injection into ttm_backup_backup_folio() itself: past the first
+subpage of a compound, synthesize a -ENOMEM in place of
+shmem_read_folio_gfp() when should_fail() trips, producing the same
+short @nr_pages_backed a real failure would and forcing
+ttm_pool_backup() through the split-and-retry path. The fault_attr
+stays private to ttm_pool.c; ttm_backup.c reaches it through
+ttm_backup_fault_inject_folio(), declared in ttm_pool_internal.h.
+
+While converting the writeback branch to operate on the whole folio,
+the unlock condition after shmem_writeout() also changed from `if
+(ret)` to `if (ret == AOP_WRITEPAGE_ACTIVATE)`, matching the actual
+contract: shmem_writeout()/swap_writeout() only leave the folio locked
+when returning AOP_WRITEPAGE_ACTIVATE; any other return (including a
+hard error from arch_prepare_to_swap()) means the folio was already
+unlocked internally. The old `if (ret)` check would have double-
+unlocked in that hard-error case.
+
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Huang Rui <ray.huang@amd.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
+Suggested-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Assisted-by: Claude:claude-opus-4.6
+Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Link: https://patch.msgid.link/20260716201358.4086085-1-matthew.brost@intel.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/ttm/ttm_backup.c        |  127 +++++++++++++++++++++-----------
+ drivers/gpu/drm/ttm/ttm_pool.c          |   89 ++++++++++++++++++----
+ drivers/gpu/drm/ttm/ttm_pool_internal.h |    8 ++
+ include/drm/ttm/ttm_backup.h            |   12 +--
+ 4 files changed, 172 insertions(+), 64 deletions(-)
+
+--- a/drivers/gpu/drm/ttm/ttm_backup.c
++++ b/drivers/gpu/drm/ttm/ttm_backup.c
+@@ -6,9 +6,10 @@
+ #include <drm/ttm/ttm_backup.h>
+ 
+ #include <linux/export.h>
+-#include <linux/page-flags.h>
+ #include <linux/swap.h>
+ 
++#include "ttm_pool_internal.h"
++
+ /*
+  * Need to map shmem indices to handle since a handle value
+  * of 0 means error, following the swp_entry_t convention.
+@@ -68,17 +69,23 @@ int ttm_backup_copy_page(struct file *ba
+ }
+ 
+ /**
+- * ttm_backup_backup_page() - Backup a page
++ * ttm_backup_backup_folio() - Backup a folio
+  * @backup: The struct backup pointer to use.
+- * @page: The page to back up.
+- * @writeback: Whether to perform immediate writeback of the page.
++ * @folio: The folio to back up.
++ * @order: The allocation order of @folio.  Since TTM allocates higher-order
++ *         pages without __GFP_COMP, folio_nr_pages(@folio) would always
++ *         return 1; the caller must pass the true order explicitly.
++ * @writeback: Whether to perform immediate writeback of the folio's pages.
+  * This may have performance implications.
+- * @idx: A unique integer for each page and each struct backup.
++ * @idx: A unique integer for the first page of the folio and each struct backup.
+  * This allows the backup implementation to avoid managing
+  * its address space separately.
+- * @page_gfp: The gfp value used when the page was allocated.
+- * This is used for accounting purposes.
++ * @folio_gfp: The gfp value used when the folio was allocated.
++ * Currently unused.
+  * @alloc_gfp: The gfp to be used when allocating memory.
++ * @nr_pages_backed: Output. On a successful return, set to the number of
++ * pages actually backed up, which may be less than (1 << @order)
++ * if an -ENOMEM was encountered mid-folio.
+  *
+  * Context: If called from reclaim context, the caller needs to
+  * assert that the shrinker gfp has __GFP_FS set, to avoid
+@@ -87,53 +94,87 @@ int ttm_backup_copy_page(struct file *ba
+  * that the shrinker gfp has __GFP_IO set, since without it,
+  * we're not allowed to start backup IO.
+  *
+- * Return: A handle on success. Negative error code on failure.
+- *
+- * Note: This function could be extended to back up a folio and
+- * implementations would then split the folio internally if needed.
+- * Drawback is that the caller would then have to keep track of
+- * the folio size- and usage.
++ * Return: A handle for the first backed-up page on success (handles for
++ * subsequent pages follow sequentially). -ENOMEM if no pages could be backed
++ * up. Any other negative error code if a non-ENOMEM failure occurred; in that
++ * case any pages backed up so far are truncated before returning.
+  */
+ s64
+-ttm_backup_backup_page(struct file *backup, struct page *page,
+-		       bool writeback, pgoff_t idx, gfp_t page_gfp,
+-		       gfp_t alloc_gfp)
++ttm_backup_backup_folio(struct file *backup, struct folio *folio,
++			unsigned int order, bool writeback, pgoff_t idx,
++			gfp_t folio_gfp, gfp_t alloc_gfp,
++			pgoff_t *nr_pages_backed)
+ {
+ 	struct address_space *mapping = backup->f_mapping;
+-	unsigned long handle = 0;
++	int nr_pages = 1 << order;
+ 	struct folio *to_folio;
+-	int ret;
++	int ret, i;
++
++	*nr_pages_backed = 0;
++
++	for (i = 0; i < nr_pages; ) {
++		int to_nr, j;
+ 
+-	to_folio = shmem_read_folio_gfp(mapping, idx, alloc_gfp);
+-	if (IS_ERR(to_folio))
+-		return PTR_ERR(to_folio);
+-
+-	folio_mark_accessed(to_folio);
+-	folio_lock(to_folio);
+-	folio_mark_dirty(to_folio);
+-	copy_highpage(folio_file_page(to_folio, idx), page);
+-	handle = ttm_backup_shmem_idx_to_handle(idx);
+-
+-	if (writeback && !folio_mapped(to_folio) &&
+-	    folio_clear_dirty_for_io(to_folio)) {
+-		folio_set_reclaim(to_folio);
+-		ret = shmem_writeout(to_folio, NULL, NULL);
+-		if (!folio_test_writeback(to_folio))
+-			folio_clear_reclaim(to_folio);
+ 		/*
+-		 * If writeout succeeds, it unlocks the folio.	errors
+-		 * are otherwise dropped, since writeout is only best
+-		 * effort here.
++		 * Only inject past the first subpage so *nr_pages_backed is
++		 * always > 0 here, matching a genuine mid-compound -ENOMEM
++		 * and driving the caller's reactive split fallback instead
++		 * of an early, no-progress failure.
+ 		 */
+-		if (ret)
++		if (IS_ENABLED(CONFIG_FAULT_INJECTION) && i &&
++		    ttm_backup_fault_inject_folio())
++			to_folio = ERR_PTR(-ENOMEM);
++		else
++			to_folio = shmem_read_folio_gfp(mapping, idx + i, alloc_gfp);
++		if (IS_ERR(to_folio)) {
++			int err = PTR_ERR(to_folio);
++
++			if (err == -ENOMEM && *nr_pages_backed)
++				return ttm_backup_shmem_idx_to_handle(idx);
++
++			if (*nr_pages_backed) {
++				shmem_truncate_range(file_inode(backup),
++						     (loff_t)idx << PAGE_SHIFT,
++						     ((loff_t)(idx + i) << PAGE_SHIFT) - 1);
++				/*
++				 * The pages just truncated are no longer
++				 * backed up; don't let the caller mistake
++				 * them for valid handles.
++				 */
++				*nr_pages_backed = 0;
++			}
++			return err;
++		}
++
++		to_nr = min_t(int, nr_pages - i,
++			      folio_next_index(to_folio) - (idx + i));
++
++		folio_mark_accessed(to_folio);
++		folio_lock(to_folio);
++		folio_mark_dirty(to_folio);
++
++		for (j = 0; j < to_nr; j++)
++			copy_highpage(folio_file_page(to_folio, idx + i + j),
++				      folio_page(folio, i + j));
++
++		if (writeback && !folio_mapped(to_folio) &&
++		    folio_clear_dirty_for_io(to_folio)) {
++			folio_set_reclaim(to_folio);
++			ret = shmem_writeout(to_folio, NULL, NULL);
++			if (!folio_test_writeback(to_folio))
++				folio_clear_reclaim(to_folio);
++			if (ret == AOP_WRITEPAGE_ACTIVATE)
++				folio_unlock(to_folio);
++		} else {
+ 			folio_unlock(to_folio);
+-	} else {
+-		folio_unlock(to_folio);
+-	}
++		}
+ 
+-	folio_put(to_folio);
++		folio_put(to_folio);
++		i += to_nr;
++		*nr_pages_backed = i;
++	}
+ 
+-	return handle;
++	return ttm_backup_shmem_idx_to_handle(idx);
+ }
+ 
+ /**
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -53,8 +53,23 @@
+ #ifdef CONFIG_FAULT_INJECTION
+ #include <linux/fault-inject.h>
+ static DECLARE_FAULT_ATTR(backup_fault_inject);
++
++/*
++ * Exposed to ttm_backup.c so a mid-compound subpage can be made to fail
++ * with -ENOMEM, exercising the reactive split-and-retry fallback in
++ * ttm_pool_backup() for high-order backups.
++ */
++bool ttm_backup_fault_inject_folio(void)
++{
++	return should_fail(&backup_fault_inject, 1);
++}
+ #else
+ #define should_fail(...) false
++
++bool ttm_backup_fault_inject_folio(void)
++{
++	return false;
++}
+ #endif
+ 
+ /**
+@@ -487,7 +502,7 @@ static void ttm_pool_split_for_swap(stru
+ /**
+  * DOC: Partial backup and restoration of a struct ttm_tt.
+  *
+- * Swapout using ttm_backup_backup_page() and swapin using
++ * Swapout using ttm_backup_backup_folio() and swapin using
+  * ttm_backup_copy_page() may fail.
+  * The former most likely due to lack of swap-space or memory, the latter due
+  * to lack of memory or because of signal interruption during waits.
+@@ -1036,12 +1051,12 @@ long ttm_pool_backup(struct ttm_pool *po
+ {
+ 	struct file *backup = tt->backup;
+ 	struct page *page;
+-	unsigned long handle;
+ 	gfp_t alloc_gfp;
+ 	gfp_t gfp;
+ 	int ret = 0;
+ 	pgoff_t shrunken = 0;
+-	pgoff_t i, num_pages;
++	pgoff_t i, j, num_pages, npages;
++	pgoff_t nr_backed;
+ 
+ 	if (WARN_ON(ttm_tt_is_backed_up(tt)))
+ 		return -EINVAL;
+@@ -1119,9 +1134,11 @@ long ttm_pool_backup(struct ttm_pool *po
+ 	if (IS_ENABLED(CONFIG_FAULT_INJECTION) && should_fail(&backup_fault_inject, 1))
+ 		num_pages = DIV_ROUND_UP(num_pages, 2);
+ 
+-	for (i = 0; i < num_pages; ++i) {
+-		s64 shandle;
++	for (i = 0; i < num_pages; i += npages) {
++		unsigned int order;
++		s64 handle;
+ 
++		npages = 1;
+ 		page = tt->pages[i];
+ 		if (unlikely(!page))
+ 			continue;
+@@ -1130,19 +1147,61 @@ long ttm_pool_backup(struct ttm_pool *po
+ 		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
+ 			continue;
+ 
+-		ttm_pool_split_for_swap(pool, page);
++		order = ttm_pool_page_order(pool, page);
++		npages = 1UL << order;
++
++		/*
++		 * We don't allow dipping kernel reserves for high order backup
++		 */
++		if (order)
++			alloc_gfp |= __GFP_NOMEMALLOC;
++		else
++			alloc_gfp &= ~__GFP_NOMEMALLOC;
++
++		/*
++		 * Back up the compound atomically at its native order. If
++		 * fault injection truncated num_pages mid-compound, skip
++		 * the partial tail rather than splitting.
++		 */
++		if (unlikely(i + npages > num_pages))
++			break;
+ 
+-		shandle = ttm_backup_backup_page(backup, page, flags->writeback, i,
+-						 gfp, alloc_gfp);
+-		if (shandle < 0) {
+-			/* We allow partially shrunken tts */
+-			ret = shandle;
++		handle = ttm_backup_backup_folio(backup, page_folio(page),
++						 order, flags->writeback, i,
++						 gfp, alloc_gfp,
++						 &nr_backed);
++		/*
++		 * Zero progress on this compound (whether order 0 or a
++		 * high-order compound that failed before backing up even
++		 * its first subpage) is unrecoverable: bail out rather than
++		 * looping forever with npages == nr_backed == 0 below.
++		 */
++		if (unlikely(handle < 0 && !nr_backed)) {
++			ret = handle;
+ 			break;
+ 		}
+-		handle = shandle;
+-		tt->pages[i] = ttm_backup_handle_to_page_ptr(handle);
+-		__free_pages_gpu_account(page, 0, false);
+-		shrunken++;
++
++		for (j = 0; j < nr_backed; j++)
++			tt->pages[i + j] = ttm_backup_handle_to_page_ptr(handle + j);
++
++		shrunken += nr_backed;
++
++		if (unlikely(nr_backed < npages)) {
++			/*
++			 * Partial OOM backup: split the compound and free the
++			 * subpages whose content is now in shmem. Continue the
++			 * loop from the first un-backed order-0 page.
++			 */
++			ttm_pool_split_for_swap(pool, page);
++			for (j = 0; j < nr_backed; j++)
++				__free_pages_gpu_account(page + j, 0, false);
++			npages = nr_backed;
++			continue;
++		}
++
++		/* Fully backed up: free at native order. */
++		page->private = 0;
++		__free_pages_gpu_account(page, order, false);
+ 	}
+ 
+ 	return shrunken ? shrunken : ret;
+--- a/drivers/gpu/drm/ttm/ttm_pool_internal.h
++++ b/drivers/gpu/drm/ttm/ttm_pool_internal.h
+@@ -22,4 +22,12 @@ static inline unsigned int ttm_pool_bene
+ 	return pool->alloc_flags & 0xff;
+ }
+ 
++/*
++ * Implemented in ttm_pool.c, used by ttm_backup.c. Returns true if a fault
++ * should be injected mid-compound to test the reactive split-and-retry
++ * fallback in ttm_pool_backup(). Always returns false when
++ * CONFIG_FAULT_INJECTION is disabled.
++ */
++bool ttm_backup_fault_inject_folio(void);
++
+ #endif
+--- a/include/drm/ttm/ttm_backup.h
++++ b/include/drm/ttm/ttm_backup.h
+@@ -13,9 +13,8 @@
+  * ttm_backup_handle_to_page_ptr() - Convert handle to struct page pointer
+  * @handle: The handle to convert.
+  *
+- * Converts an opaque handle received from the
+- * ttm_backup_backup_page() function to an (invalid)
+- * struct page pointer suitable for a struct page array.
++ * Converts an opaque handle received from a ttm_backup_backup_*()
++ * function to an (invalid) struct page pointer suitable for a struct page array.
+  *
+  * Return: An (invalid) struct page pointer.
+  */
+@@ -59,9 +58,10 @@ int ttm_backup_copy_page(struct file *ba
+ 			 pgoff_t handle, bool intr, gfp_t additional_gfp);
+ 
+ s64
+-ttm_backup_backup_page(struct file *backup, struct page *page,
+-		       bool writeback, pgoff_t idx, gfp_t page_gfp,
+-		       gfp_t alloc_gfp);
++ttm_backup_backup_folio(struct file *backup, struct folio *folio,
++			unsigned int order, bool writeback, pgoff_t idx,
++			gfp_t folio_gfp, gfp_t alloc_gfp,
++			pgoff_t *nr_pages_backed);
+ 
+ void ttm_backup_fini(struct file *backup);
+ 
 
 
---Sig_/OMHslgD.2KbRLIGyomXP+fZ
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmprYnwACgkQI1/ltBGq
-qqc9NBAAjd+8qJIov3iv9e/hSncWRbtA/6mrQ2FKhV2B15dRjfyj/X9Y4rJcXVKo
-yRghJ3oPNZO3zpJKKUVTHhAnXZ/qsPxUAQGUbC2tlVD95NEMowaSftNRXFbjTaI5
-b/TEgb4iau6lHYQzUWRrmB0kExnkVwZZCisWeMBC0etN+fdsr01bzFvMXuK0Hj3J
-ImFCfua5YxHm65to7VTKbBGWLqNQ6DYMZ+831gbkhZ91Ht5utBg/ntnndn39h6Bf
-Z3tCXKcBTLTDSeSKRRhfDQV9LjedHAVoTx8ZfCi1L7yhyspqWpaqAvAubqEIM1Ee
-Z9F/iyZLRR7drV7GyCfDXt0nbrPyWDoYkbGqwk1HcPq9ubul47dNPdnYl6FFLdFF
-gL7lK1UTBEuo5HBpJhjGdgFOEV0c190IRkETCoEN1fj7W2Rqp3LThpJRsCLfXbb2
-+6khGzvORJyUsoXSe0ktskAH7vjEsblzyEWuF4ID3EVJWuIYYycZI8Woyz8/N8N6
-YP45QG+TObIzOybDZsOiwxkToynd6GJOq4FrLdHRGqvdpG65/UZjvJ2X+RLqssml
-tZm+Hp1NjKicw5BrEm1BBpCjvUfRa7PLAIRWy0QRzRyZ2ON2mm15HYksBo86z9cd
-00xCf9rmJQiuI1bnC/cJCKDtC5yOLclAx1rqx+lWgxBg+HfN5dI=
-=zoKo
------END PGP SIGNATURE-----
-
---Sig_/OMHslgD.2KbRLIGyomXP+fZ--
