@@ -4,55 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89FB3C55160
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 11:24:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE73EC55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 11:26:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5B3710E13F;
-	Thu, 30 Jul 2026 11:24:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FDCA10EEBC;
+	Thu, 30 Jul 2026 11:26:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="VETCDlPw";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="sdfyMp4a";
 	dkim-atps=neutral
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B0E010E13F
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 11:24:54 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4B4FC1E4;
- Thu, 30 Jul 2026 13:23:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1785410627;
- bh=DzHnVwnTc6oGfkh+g4/rk5yYatTVNL0ZjN3aJU+T3g4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=VETCDlPwHNMJqXG2NeITlk/mu/auklkTMfYlkwHbuopiSRmhqT49daRCQFyr7Hyrw
- J4VrHiYoXsg/IitpJn2FSjpaPkPdIzvRigiNijNvy6JvwIV0Ksc8f8bgAKEH9gDh4x
- A6oEnIK4dQbcRj0bCjiT9x2OegsAw2tX1SsqPOqs=
-Message-ID: <eca9129f-75ab-4513-bff6-08d89ebe4b50@ideasonboard.com>
-Date: Thu, 30 Jul 2026 14:24:49 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/15] dt-bindings: display: ti,am65x-dss: Add
- ti,dpi-io-ctrl
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DA9010EEBC;
+ Thu, 30 Jul 2026 11:26:51 +0000 (UTC)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66UAITVb847877; Thu, 30 Jul 2026 11:26:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=rL8DGprZq6+UDaUDPLLoQG6SRBTZ0q
+ XJevfXG66EoPI=; b=sdfyMp4aCvxroURx10Xqk4j4EkRzqRZj/d8ZEbHlZbxnsv
+ RZqWLEeKsnBJxY69g9Rf/enfbEgMoW9zjk0DqTtqb4SdiKe5h4FUE02bCamE3eNw
+ mKXSoos8tPzO8X1IdyqwB4WqK1lJ405Tk6jCGPxj7zmKeqFvuP5hapmXPKq+fUfo
+ 8c0EfX/h24wizj+fNqRoZz8PEn83J9Xe0L+2oOSO33qjTAG88+cOpPBcZxQ2MryQ
+ 9C9mVFf4A9AmKDd7qse+ZJEv879U3qPaL/p4pQJCMTWhoECKTBGwKSFXpWa8LXuD
+ llCRCK3hTVvsG8xNe3CL6OnYTma2hyk1ExuGlNOQ==
+Received: from ppma11.dal12v.mail.ibm.com
+ (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fmuycqb5m-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Jul 2026 11:26:18 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 66UBQHmm004385;
+ Thu, 30 Jul 2026 11:26:17 GMT
+Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
+ by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fna5yashv-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 30 Jul 2026 11:26:16 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (smtpav01.fra02v.mail.ibm.com
+ [10.20.54.100])
+ by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 66UBQEwm32309740
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 30 Jul 2026 11:26:14 GMT
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 899DD20043;
+ Thu, 30 Jul 2026 11:26:14 +0000 (GMT)
+Received: from smtpav01.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id C9B7220040;
+ Thu, 30 Jul 2026 11:26:13 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.224.92.206])
+ by smtpav01.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Thu, 30 Jul 2026 11:26:13 +0000 (GMT)
+Date: Thu, 30 Jul 2026 13:26:12 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>,
- Devarsh Thakkar <devarsht@ti.com>, Louis Chauvet
- <louis.chauvet@bootlin.com>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
- <20260529-beagley-ai-display-v3-4-7fefdc5d1adf@ideasonboard.com>
- <20260530-slim-private-dachshund-e869cd@quoll>
-Content-Language: en-US
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-In-Reply-To: <20260530-slim-private-dachshund-e869cd@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH RFC 06/11] mm/kasan: use hw_pte_t for the early shadow
+ PTE table
+Message-ID: <e3bca247-0644-48ac-96c0-ea69b23cb11f-agordeev@linux.ibm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <20260727164715.2866609-7-usama.anjum@arm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260727164715.2866609-7-usama.anjum@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-ORIG-GUID: 1yShbzchCRrZFjJxcUOHA7XWBBHN_PSp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA4NCBTYWx0ZWRfX0SdyyNoCDIst
+ tiHB2CaM4QF1p8CCtTiYaSOOUgx4+BDwgoYVCM0LTdDbXgHT8/B9naW6e8rzhr56cn7hR9Fzc8c
+ nPSzjrwIAfuvIaxWPqmH1yuIdMBpPPVn7Mn8EFWyE6rfbbn+KvZsPAt18g3Nj8TiN9asBygXzqs
+ MOcTiWGHpo4+SRwQXAgcLc5Ck+v9IcLezDKsRLpXQF/J9FIBl914ZpgcpDnWSHfrF6KVdFhG4e9
+ BSjq1WFCWKAjaX66X5eNxr+WT0s1DTdNLA6Hzh85YA3Dnk5YTz7bRMivBjHJzA4JetfKwGfrowF
+ 1Y1bP2dyFTwDBK2ZMETXXXHgd/POo9dvPpDqYXuvTey+LmDZzsFpAInoRRAQYp6bwuUtGBPAzc4
+ IsGzjJX/oyASB3D1gl37Ts2dTvivrw8E1t1YVsgaA7enYVurHpIBKWJ79PpxWuTkCeUmhZS4op6
+ BD6hW/u22g3Iijfgkdg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA4NCBTYWx0ZWRfXyS66madxJqQ1
+ YcsQPbiIkHTtCPcppu01CqajpxI61cieuOzVbuUC/F/5np1ISiVjCoiBD39pyHxQ6W0rgkTduw/
+ oTeLAP0IBqNIKuWWs0UjDsrPcoo1qJE=
+X-Authority-Analysis: v=2.4 cv=AZeB2XXG c=1 sm=1 tr=0 ts=6a6b34da cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=8mY-gRJjsCn2C85XUSAA:9
+ a=CjuIK1q_8ugA:10
+X-Proofpoint-GUID: 1yShbzchCRrZFjJxcUOHA7XWBBHN_PSp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0
+ clxscore=1015 malwarescore=0 suspectscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300084
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,66 +151,19 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Mon, Jul 27, 2026 at 05:46:57PM +0100, Muhammad Usama Anjum wrote:
+> diff --git a/mm/ptdump.c b/mm/ptdump.c
+> index 376880071ca2a..8f19f20be3c44 100644
+> --- a/mm/ptdump.c
+> +++ b/mm/ptdump.c
+> @@ -19,7 +19,7 @@ static inline int note_kasan_page_table(struct mm_walk *walk,
+>  {
+>  	struct ptdump_state *st = walk->private;
+>  
+> -	st->note_page_pte(st, addr, kasan_early_shadow_pte[0]);
+> +	st->note_page_pte(st, addr, ptep_get(kasan_early_shadow_pte));
+>  
+>  	walk->action = ACTION_CONTINUE;
 
-On 30/05/2026 11:58, Krzysztof Kozlowski wrote:
-> On Fri, May 29, 2026 at 11:45:34AM +0300, Tomi Valkeinen wrote:
->> The DPI output pipeline in K3 SoCs contains the display subsystem (DSS)
->> which produces the in-SoC parallel video signal, and a DPI block which
->> adjusts the signal to the external MIPI DPI output.
->>
->> The DSS IP has registers to configure whether the data and sync signals
->> are driven on rising or falling clock edge, and on some SoCs these are
->> automatically conveyed to the DPI block which needs that configuration
->> to properly output the MIPI DPI signal.
->>
->> However, on some SoCs the DPI block configuration has to be done
->> manually, using an extra register outside the DSS, DPI0_CLK_CTRL in
->> MAIN_CTRL_MMR_CFG0 block, which controls the DPI block's behavior.
-> 
-> Why don't you constrain this properyy per SoC in such case? Why is it
-> applicable to each SoC, even though you said it is done via DSS IP
-> registers?
-
-Good point. I'll restrict per SoC.
-
->> Currently the DPI0_CLK_CTRL is never written, so it's always 0, meaning
->> the data and sync are always driven on a rising clock edge regardless of
->> the DSS configuration.
->>
->> Add 'ti,dpi-io-ctrl' property, which contains phandle to the
->> MAIN_CTRL_MMR_CFG0 block and the offset to the DPI0_CLK_CTRL register,
->> so that the DSS driver can configure the data and sync signals
->> correctly.
->>
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
->> ---
->>   .../devicetree/bindings/display/ti/ti,am65x-dss.yaml          | 11 +++++++++++
->>   1 file changed, 11 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
->> index 588d72d4ec0d..902ae2122d86 100644
->> --- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
->> +++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
->> @@ -113,6 +113,17 @@ properties:
->>         and OLDI_CLK_IO_CTRL registers. This property is needed for OLDI
->>         interface to work.
->>   
->> +  ti,dpi-io-ctrl:
->> +    $ref: /schemas/types.yaml#/definitions/phandle-array
->> +    description:
->> +      phandle to a syscon device node containing the DPI0_CLK_CTRL register,
->> +      with the offset to DPI0_CLK_CTRL as an argument.
->> +    maxItems: 1
-> 
-> Drop
-> 
->> +    items:
->> +      items:
-> 
-> missing '-'. See other examples of phandle-array, for example one of
-> the first search results: qcom,ssc-block-bus.yaml
-Thanks, I'll use that form.
-
-  Tomi
-
+I suppose this chunk could be posted as a follow-up to commit c33c794828f2
+("mm: ptep_get() conversion") independent of this series.
