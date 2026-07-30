@@ -4,132 +4,106 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDA36C54FD2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 04:46:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47341C531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 04:51:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E21810EDA9;
-	Thu, 30 Jul 2026 04:46:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A44810EDAE;
+	Thu, 30 Jul 2026 04:51:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="VubZqLHf";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="XEqSqEY6";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010013.outbound.protection.outlook.com [52.101.85.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A81010EDA5
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 04:46:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IgvXMTgHg0oXsZvkIOXu7eA5VTdYeFIzFGGn5uqhgpaUbOlnBSpF8njRHPgxO/4MLCR+V7rHEbMJAvQCvdJ4shgTCPZukRJxX4Yh816tcOjLw+hyd0gwqQsnRugL1a8NsDP3xMYqWBid/f32KYdYVeKJsg3NBrzxuL8LkF2ivU6F+a092MFbZMYXVxFXXdpUV1Tk5lwy8Fj4atMn//oZaJN/W1MbQPk26gUMbF3g/0lzXKKGfCYVYWzGa7QxJ4XyE9GeDcNu+xSpCkN6R9sGst+8tHbFuXSkBxebSdfQMriu2clUaj1Ausnzz7iF53BopHELgeiN2pioEnWbi1r4RA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jwg6Qp4BuB6JWzcWbnEPV1hmy7aDwGR6GUdCLr3F9G4=;
- b=YBk8wX+h+ma7iR49F7pFOat2JdZZkpW4pKD1bCQswNu2i12jlN1ratn5M4cXSUtyfDsoE2vEmKplP0WBKM2WmJak9Xudxa5LUnMJOJnNCqLfwRs1RbpkdC5eGyptlj+HC67NLDa6OWBuW8C9Z9CDU8tjDL0gIS04QOYDxmLC32wM/tD1Dq5ACLJxzPHe/SdI4nyiMSLse5au7onjirNrCB5xiIliuFo2Z/NJn3SvRG2DiGuccFmK/HAKOLPPsbg/ZIOnubw+R2R65K0u/VdCQW7Skmqj0x1MMbHXczLNPaZqZxPWUbeP75bsIPuWAIu47dg5sC1BavWFHixn69QuOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jwg6Qp4BuB6JWzcWbnEPV1hmy7aDwGR6GUdCLr3F9G4=;
- b=VubZqLHfxh+xvwjQjX61BLnWXq5SHuZimUiElpMwq26UpfBIM8VBVHxkIvz22o2VWKEkv92EpBigEaeYLTxDzBqMueVrlr4ONjHqRhrQzQeP167wnmamH+dl6gdAqeujjj9Rl1u2khiBl0wFKGiZHV6rUD2N8AE2Vn7zcm0sDhAcYNdYiu1t3677TwpS+hZo9GK0mNyoNl7xkUKG2TL5hGAdrRdJguO0Y+19/XRLDFIMBOmXLY9jeKjJ9w7HaHPxDuHFTjgmpoHAGxdNcLJTbxY675mebvV5yZ+syFK5x4OPtJcWXY+ZFYbcernd/B0xFXrHMApwAkxlVnhU+n1Qpg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Thu, 30 Jul
- 2026 04:46:13 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 04:46:12 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Thu, 30 Jul 2026 13:44:44 +0900
-Subject: [PATCH 4/6] drm/tegra: Remove unused includes from submit.c
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-b4-host1x-syncobj-wait-v1-4-afa730410392@nvidia.com>
-References: <20260730-b4-host1x-syncobj-wait-v1-0-afa730410392@nvidia.com>
-In-Reply-To: <20260730-b4-host1x-syncobj-wait-v1-0-afa730410392@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_?:buf|fence|resvb"
- <linux-media@vger.kernel.org>, 
- "moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_?:buf|fence|resvb"
- <linaro-mm-sig@lists.linaro.org>, Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TY4PR01CA0031.jpnprd01.prod.outlook.com
- (2603:1096:405:2bd::9) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
+ [209.85.128.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4213610EDAE
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 04:51:34 +0000 (UTC)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-81062fdeaf5so6517667b3.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 21:51:34 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785387093; cv=none;
+ d=google.com; s=arc-20260327;
+ b=gY5cBOn+UOHF0kdVEJ2dmqQS45xUzcr389CZzlSRbtXdGcXIw41hPTFQnUNE2YrrqQ
+ eXzvuwH+weU5ZL0nAuiW+k+3wWftLMAF8/p9DDn8eBCBnWZ9M+yyCRrymGUPYpndq4G1
+ pBHuLqj6afw5jVd8NnHZ7zo4pXyBKq1uiJKm+DR8Lqk9EJa581pX7xcBJh/Uz7/hKgET
+ +jeDkj5TM1AYNuwJS7zn8AZcHy0w9UV1+/0N73fbnfG6/ck9fbPg/JJdFTqXXQKmkHiJ
+ Xckxkwu+wvebpAABsiE/Qx74aCWn2kEyEgOm8zIwgmUt/B6f3yhpSx1SSPAOubNd+lG8
+ fCzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ayTdrhGTmTRlS5yubk7pA+8kF1TugqiIc+iTJFgG25U=;
+ fh=xhnT5KcyERGQAD9pGBZESWXUmk0zyAo487eqffyyqdA=;
+ b=kltSFtH1wpNzxFnHbcYUOGmqw3NaezsiGaPKixUIXkTvoQzeLko+9qVssOqAmj+x8+
+ 74SRhbwfzhH+GVY1NdOUowsYPRIXWIk9j7gaFO9BSiry3mPwSOz4ROaMUQleFoKg37cM
+ Q0SN/f6D8rh2nnafTi8P79fewAr4xzUz/aPsd+hgWmdKdPVCly6K1FIfzHsEnCBkjWJ0
+ /2VUrumeTQ+p86DknlNbLLmmWW3zS/6KUmaWz/fgADoZwUgFqiG37fFYYofvn0pCEtqc
+ +756oF2CO5v4cUYpQwPMiq6JP+WL+UiStaURMtvvCLpYsXeFkFN9yAKEW/NKldNEQyDB
+ K1sQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1785387093; x=1785991893;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ayTdrhGTmTRlS5yubk7pA+8kF1TugqiIc+iTJFgG25U=;
+ b=XEqSqEY6ivK6jdDjfy1dS5B3OF9U22R4dBFp0xY+vGjUqg8cLUX2h1eF1+UN8IAkvA
+ Nae/IqXksYEx6ByvoHg006Z+bOIBwdmlssquHTyRLjMTEXAAue77JoFkdxt9YTbp+Mtz
+ Kp3Xs4aGEIGRj+Mpg2dVlH2X1ra6IDyN8tJv4=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785387093; x=1785991893;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ayTdrhGTmTRlS5yubk7pA+8kF1TugqiIc+iTJFgG25U=;
+ b=cqnBBJ+p0i7TfJrJQasnyzvpKgJK7NAmTntKEOFZkmpAv0Y6e1DZ4+6oXHm8drJ9UA
+ FIPOSokncjA5LSJwAbxlvibcZuyrdJqyMydU+xgDwzKsdz51J2LCnxLSOggvCwOh4QkN
+ pBIgP2W28M4FSn+4Gjlb52PxcPixB6FZlAtzmD1ULCi3Y11e4e051G2VnOgzGW/H4hvq
+ ZlkCQBP08KgQ3TaODungQelDpavWu8p6KjTtxaBwMyxlebVzvXWK7YrI4MDhFKx+mQdf
+ 5tVg6FYrRN9LkbsCXdJFg7a5UAh0IidyHzdwb9fvbYMcu9IzXY9+UrQ9hYs3GlYiR0ZW
+ KBEw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrewodkjonHjRFvpSRndnm7BdNZEq6kmtKhIO9BKD2TezEtG+nMLmHV0V4QkT18WpZ62duLE20gfgE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyA3M1JKguvsJ59MegLO5oxgpEwjyYjXF9BXT7svAW4x6oyDlvF
+ s+ZPndQZjQEnit2ZNk9Ag6hPmZKmbF31TW5xA0I4XRUsWvQ1mFkyxQetrQdGn4+RefPMoaKmsNK
+ yfj3kricyU7gJxkkSqGC8Hq8Uw9dlEiTkzV8XsWj1
+X-Gm-Gg: AR+sD13nOaHvSd2hS9u1BUIhp8O2/1XFhI1/4sJwmas4oj5JsmVj6/LhfO9Tgdj6U4s
+ Uw7gb5+BO8BkRyvt5J5PAruYTsP3Wzawt28fJFGpeQUFOZxnjKw9uHlqJ/Wn7WG9VTWtlhChJa7
+ +OxkAudnufOiJi7LHLEwnGcIUF+jx62d+ftG4lyvUogYnUVUrtYsEngvuXQTZ+nw0xfZCv+byEE
+ EF3QKTcxIqwXc+jXjlgv377NdQia+KFvB2jc4vs8nJQxTqFxlyDL1St90LD28j6I8euzgZwbjVl
+ ecrd2kHs/xwbyGui574UCHkEid32QQvwxo5/DnCvwNCAf8aqs0PB18j7A7iN369fP+MDy02gOZ9
+ X8nurRoK8YA==
+X-Received: by 2002:a05:690c:288:b0:81e:ba92:b253 with SMTP id
+ 00721157ae682-81fb964be1amr5292937b3.4.1785387092765; Wed, 29 Jul 2026
+ 21:51:32 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|MN2PR12MB4406:EE_
-X-MS-Office365-Filtering-Correlation-Id: 89a7d321-5970-4535-8283-08deedf57b79
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|10070799003|1800799024|366016|23010399003|22082099003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: wxeD55SdApSCt7M86RlfpAMFHvbHjHmckNcXAhyPtMoG9NPspSSD3j78DE6frHvYKqOAl65bhBDOy/o+WEjOEdBmyc/cpksCokSODM+EUOq0VX5b4hucoS6xyP3EfzajV+/VbHuFNI4lGg+rRYoerw9ZGINu70gubm9Ot6Op4Ze1mrki3BdRi9GsoMlT02cFIYTZHB+agqc6K6JcvgcKPdPreyX59oJydhMtKK0NB32nKKkEo+P1RNBhLDLQPxsaxVtg6XenUvOU0wLinRUS7d7C82eVhLIo5zOPn3u71Ftj4PIlJFfdldGQKChScyDAOnFBe2PszUtOUs6OTWTtul6pdEnVmxlwmDfid22TSHumZnHJkv75XK+roDnfk3XG4wsWipLRN8al/29/AEN0kEnlxgbezgaV4yRhwuweDwXOOaUl3tHzOzFlgzjRlKpsBvaU4SWkmvv0INqDFhqSXPM+EGEu+Hhg/mYlM0sXUJXX1SqkQqyGzvYDK/z7dTuS5kFq66GPjKHV+CyJxulhHjDVGY3MQ57NtjUiDR6sROrnDu1ZuYSjc2y9kWBeqqaWgCLdbNFJvpLjk/zEF6bV2Zpjp/OYbBmJajTJJ9PvoL6JniyWdy+/053FDlwoofQLYPh6Y/Fy1HxepMMEkhQJi2wE8cYlf7M0kMvVS9md/b0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MU1DcURRaFFOdDJ5ZWVyNjA2bEx0NDd5UE43TjU1bXRiZDltdDJsWEVYc0Iz?=
- =?utf-8?B?SDlTakFLRHZwRnp3blhUbmh1dGlmNzAzb2F2azJmbThTRzhRZDRHNXdJZjk4?=
- =?utf-8?B?NTRvem45dElHVXU4NCtHT3dMcmE0cUhKbEVWTHdYTkZjVFVmZXdDQUptUHZj?=
- =?utf-8?B?VUNsOWhHM1BibVdSNmx3Q1ZmTmtmMWdYWTVwa3NjY29JKzVJSjFnWHZNMHJk?=
- =?utf-8?B?Y25zUGF5OVQyOUlJYTVFUmhOaVJVc0hhQnlLOHhENU13Z2hyajhWNXh5Wits?=
- =?utf-8?B?V0d5am43Zk04d21vVktDQ3A3Vk5lSVUxbWF6czdlN1BKeEVpd3RPUGUyblJK?=
- =?utf-8?B?WkYzcmVqcGVOQWxhQWh2N1hwSzgxYnJVS2tzNTZucXg1dE00ZU55UmVLZVc2?=
- =?utf-8?B?NHhQV3ptWDNLQnNTV3pKb09NSFRXQk1Ia01WeUVKYnA4VnBJTmk5dWcvc0Fq?=
- =?utf-8?B?c2N5enE2UHk1Rkg3K3pZSmxBOEI2M3MxTk1TbXlMQmFONEI4REtFM0g3TEJR?=
- =?utf-8?B?Vmp6eEJIbmJ3bStzbGtXazMyMDI1cXBiUmthYTQwUldRU3phZEpBZmkreGlR?=
- =?utf-8?B?Uys2QjM5QUFPaXZHSk9qcnFaRzdKV1A0TUNYYkRCMzY0bWhKbGRyTWt0anlD?=
- =?utf-8?B?MDJjbmJZREVEZHBTNlU0VkZyOHJpUTRzSWp5dnVISFdCWUtTOENGazRmS1Bw?=
- =?utf-8?B?dEVJYWIrVDdDQVBVaVpjUk53a3V1WHlwUGVrUndkU0k3bWhaWTdaMFdOYVNX?=
- =?utf-8?B?cXVyWjlPcW1PUFVaVGtVV1VFZy9tcXNHTkNjcGVmck90Q250R0FZUjV1YzNq?=
- =?utf-8?B?c2R2V2xqN1dscitRRzJsZDdCQzVGc2JaeXBnVXVmVndDRkNRSFZjNUcrdC9l?=
- =?utf-8?B?T3kzWnlQZ3hUc3N3NGVYM0ViVnJveGtzeE9iSzRWWHRpcWp2THl4QUFlUHBH?=
- =?utf-8?B?dEhXUVpvQXRpa1VKbW5pa1VIbGNZMXF5QnVVT01WWmVHdk9KWEovNG9LWnpF?=
- =?utf-8?B?T1BRaXdNdWJkSVBxbkRTblJ4MmhxYkFMSFhVWkw1Rk9wV1hTZFNwOHVKN3JH?=
- =?utf-8?B?WTlRQ3VLeTNPbzB0YU1LOXY0ZUxTVlR1WE5VdzM1cEFtTWVmRnQwNE1JcU1t?=
- =?utf-8?B?ZDhESWRtcDN1VE5QUnJTN2hmSXR4RnpZRmZRSHFBeHByTHo1VVdxWDRhc2xW?=
- =?utf-8?B?N1lPY3pObXBsY1V3VThoWjAyR0pNZ1dDVmZ1UDJzdG5rbnM1blRrMXR0bXRh?=
- =?utf-8?B?Z0Y5VnFtRWU0VWJrZkNralgrbUxXYUlad0ZtZUYxS1FVRFJ1SkMvRVFiVE5m?=
- =?utf-8?B?cE5SVkd2aUFRMjlmR25lazQvZEF3YjRvV2FleWwxblh1cURJR1BMYldOc1Jq?=
- =?utf-8?B?SkNlcTNBV3RvMFl5c1R5bTN2WWlmbzBkMWJ6cm12UW5aTnIrQzBrTVV4MC82?=
- =?utf-8?B?NmJMQXRMa0tMZVhEcDhSNUlkVkFSYUNTSEM4eWEwVmZ2VU1uNzI0UmdLY0xh?=
- =?utf-8?B?Z1A0dnV3WFUzYUdOVGp3TE5sRzRFbW53KzBReGRDUEJ1Ujd2aGF4N3hRM3pJ?=
- =?utf-8?B?aHU4bW4rb2IxZG0rQWFvME93SUxQVnVHTUlSZE93V2RSL0g4OWNTT1VEMDUx?=
- =?utf-8?B?NVM3dDNXNFRiM1NiNXV4Q3BNR0N0VHVuZ2xYc1pkalpJMEpxOEdZNkdBT2F5?=
- =?utf-8?B?b1JuaktXTDlIeVZwK0tycndIenFqeGpOTzJTUFBaYUwyNGtxTVpuNk92QW0v?=
- =?utf-8?B?RDlKUm96V2lGYXd5YmZMc1dnUjhpNXcrZjVBOEZIaytibHpMa29ESTgyb0s2?=
- =?utf-8?B?ejBoRkhBOEtHMUV1RHNFUzBwWW1SNkUydkQyanIvc3dnUC9ESkhuei96bmpW?=
- =?utf-8?B?SHFZY0o1SkJjbHlGNE1ndTVxUGpRck4zWDl2R0FRam5VaUJZaEZRR2JKSGZ2?=
- =?utf-8?B?QnpRZGJQbytjR2JuUlB3WkhOMW1MZkVHVTV3UVlJNm9UeVdSVWJkUEpJMUc4?=
- =?utf-8?B?bU5pbzNqekdQQVc5R3E0ay84UWYvZEJJa2UwM0VBY1R6c0EwQ1JNdWI2MVhW?=
- =?utf-8?B?NGorV2xlSzJKd0I1bnQxblo4cm5jMFo4R21kT21PV0E0b0NkNDA5cEhUOWQv?=
- =?utf-8?B?QTVNc3BsaU1lM2lIdHh3aHdIc05qKzBzZkQ0Q0ZYeFpPY01VaGt2VTlIbVpl?=
- =?utf-8?B?WGtpRE5Ha3VReDlHK2JaTnpSREJPeDJGcGtEOU4rdDV3MnZWMTIza0daelNG?=
- =?utf-8?B?b0tLZlpQYTlzb3hldHVCVWl2VER2SmpFMWZRZlNWNFI3T3NUZ2FwckVkSG9m?=
- =?utf-8?B?cXhOcGFGRnZaUFRsazRURFpTaWhGditlR2V2SDl0eXlQUnhNMjJFM2VrNkI5?=
- =?utf-8?Q?AmSNt2lUfmQLnk6/5XLzYK7kuT3JVjUxL2pEPfBOkMMj0?=
-X-MS-Exchange-AntiSpam-MessageData-1: xsWBzpIoPIc6Zg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 89a7d321-5970-4535-8283-08deedf57b79
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 04:46:12.9093 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zihPKvUhNPhNHr6zs5Zk+x2emcgHBtA54SH0QvMZKvZ6dpSi/V65dd7NUeYN1x2AhodzbxEvDdKmNTLLKqIVZg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
+References: <20260728091804.382753-1-wenst@chromium.org>
+ <amiqKRkFItYwD6oL@redhat.com>
+ <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
+ <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
+In-Reply-To: <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 30 Jul 2026 12:51:21 +0800
+X-Gm-Features: AUfX_mxnxexVKpsRakYQvwrmIlkydC8kB3j1QZQvD5J6WTjr-o8egQw_wYmWxF8
+Message-ID: <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
+Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Brian Masney <bmasney@redhat.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ Alessio Belle <alessio.belle@imgtec.com>,
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ YoungJoon Lee <getfeus@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,35 +119,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The dma-fence-array.h and sync_file.h headers are not used. Drop the
-includes.
+On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+>
+> On 7/28/26 15:13, Chen-Yu Tsai wrote:
+> > On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@redhat.co=
+m> wrote:
+> >>
+> >> Hi Chen-Yu,
+> >>
+> >> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
+> >>> Hi everyone,
+> >>>
+> >>> This is v4 of my MT8173 PowerVR GPU support series.
+> >>>
+> >>> This time around Mesa was ready for basic testing, using both vulkanm=
+ark
+> >>> and glmark2-es2-drm (with Zink). Details below.
+> >>>
+> >>> Changes since v3 (all in the clk driver patch):
+> >>> - Changed pm_runtime_put() to pm_runtime_put_sync()
+> >>> - Added missing of_node_put() in remove function
+> >>>
+> >>> Changes since v2 (all in the clk driver patch):
+> >>> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
+> >>>    - Needed since the driver implements PM domains using the generic =
+PM
+> >>>      domain library, which also depends on PM
+> >>>    - Fixes build breakage (kernel test robot)
+> >>> - Fixed "RST_DELAY_CNT" name (Brian)
+> >>> - Dropped unused mfg_desc (Brian)
+> >>> - Added check of clk_prepare_enable()'s return value in
+> >>>    clk_mt8173_mfgtop_power_on() (Brian)
+> >>> - Saved error value for return in IS_ERR(data->clk_26m) branch
+> >>>    (Dan Carpenter / kernel test robot w/ smatch)
+> >>>
+> >>> Changes since v1:
+> >>> - Adapted to changed DT bindings
+> >>> - Dropped driver change
+> >>> - Use same power domain for "a" and "b" GPU power domains
+> >>>
+> >>>
+> >>> This series enables the PowerVR GPU found in the MT8173 SoC, found in
+> >>> some Chromebooks.
+> >>
+> >> I'm making a pull for Stephen for the clk changes. Should patches 1,2,=
+4
+> >> go through the clk tree? Patches 3,5 go through the DRM tree?
+> >
+> > Only patches 1 and 2 should go through the clock tree.
+> >
+> > Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick u=
+p
+> > DT binding patches. Otherwise I can push patch 3 through drm-misc.
+> >
+>
+> Not sure if I can really take the DRM bindings patch through soc.
+>
+> I will take the devicetree ones exactly right now, even though it's going=
+ to
+> give warnings.
 
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- drivers/gpu/drm/tegra/submit.c | 2 --
- 1 file changed, 2 deletions(-)
+Apologies for missing this, but the first DT patch depends on the clk DT
+bindings patch for the clk ID macros. This is causing build errors in
+linux-next right now.
 
-diff --git a/drivers/gpu/drm/tegra/submit.c b/drivers/gpu/drm/tegra/submit.c
-index 658396f2e954..1e5332eb6e26 100644
---- a/drivers/gpu/drm/tegra/submit.c
-+++ b/drivers/gpu/drm/tegra/submit.c
-@@ -1,7 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /* Copyright (c) 2020 NVIDIA Corporation */
- 
--#include <linux/dma-fence-array.h>
- #include <linux/dma-mapping.h>
- #include <linux/file.h>
- #include <linux/host1x.h>
-@@ -12,7 +11,6 @@
- #include <linux/pm_runtime.h>
- #include <linux/scatterlist.h>
- #include <linux/slab.h>
--#include <linux/sync_file.h>
- 
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
+Not sure how we can fix this right now.
 
--- 
-2.53.0
+Brian, would it be possible for you to split out that patch into a
+separate immutable branch for Angelo to merge?
 
+Otherwise Angelo might need to drop the DT patches until the next cycle.
+
+
+Thanks
+ChenYu
