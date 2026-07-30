@@ -4,40 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C6B8C55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:05:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4DCDC55164
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:05:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27F8F10EFF8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27F5C10EFF7;
 	Thu, 30 Jul 2026 17:05:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="f/jt8kXY";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="O4Ao7arJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34FF210EFF5
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:05:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B8BD10EFF7
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:05:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 59C2E44FC2;
+ by sea.source.kernel.org (Postfix) with ESMTP id 1BD3A43936;
  Thu, 30 Jul 2026 17:05:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EB56FC2BCF7;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D1817C2BCB9;
  Thu, 30 Jul 2026 17:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1785431151; bh=FTFUONPZ59+GJBuoVyzqKeWjyXfvQxVwyjwhiLzc75o=;
+ t=1785431150; bh=s/xpgHrjMnr3Dw/gDnMO8NhtKWrQpFIoMn7udGnLIvs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=f/jt8kXY791tKpDq1ShjjhUrVh7rO1K5+VAFQpuWAnaycz+1jSsiDNo13LaWsGcNB
- CuOngTCHDvlzdLNt7Bn+CtxF5Si+fksTZSA7HZirq1iesPQU7BpWUwIa6ZhsarmvaH
- dIXKcEUtphzq6RnIYJIYC2tO/HhkK76hAWnAI4/U=
+ b=O4Ao7arJNeeVq9ckYXQ0tqcqhcbIBJTyp7blBbOf95UHmJjvfn+4maqpQBRCjdm3G
+ wS0oHJEEKXAlJk57dPeByPJjCCuCsHFeuOb/LzgTwoOWOK2ygNDonHUyNaCxnP45cT
+ KqnqF/FZohcfaHzBT5UoSUIXkESUksnY1XCV0xT0=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id CE79FC5516F;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id B02D9C55162;
  Thu, 30 Jul 2026 17:05:50 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Fri, 31 Jul 2026 01:05:41 +0800
-Subject: [PATCH v2 3/9] rust: debugfs: add Entry::from_raw and
- ScopedDir::from_dentry
+Date: Fri, 31 Jul 2026 01:05:39 +0800
+Subject: [PATCH v2 1/9] rust: seq_file: add as_raw() method
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-tyr-debugfs-v2-v2-3-aea19eccb996@linux.dev>
+Message-Id: <20260731-tyr-debugfs-v2-v2-1-aea19eccb996@linux.dev>
 References: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
 In-Reply-To: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -65,11 +64,11 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785431148; l=2419;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785431148; l=882;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=FTFUONPZ59+GJBuoVyzqKeWjyXfvQxVwyjwhiLzc75o=;
- b=oDB9AgTRksigyDa32LKWaz2haxDqxaPU9ZNoKyWk2lZQksK+lhTkT3ANydQK7o5sAwThohcZm
- tN6hxLfrA6bBsIAG2AFfPthvNKam079pN6pEZHxRiv9W9CHM1n3f42I
+ bh=s/xpgHrjMnr3Dw/gDnMO8NhtKWrQpFIoMn7udGnLIvs=;
+ b=RllQx43KbHuxgGco1sV76In+WKsRfcxUAilY4N3HdnKKwnLHutWJYha4dKAQ3SU4ikxcNuoVI
+ X7YXbjya30dAzwLGJRoE2TzSdEk4DTVXOA7frGQiq4WSXNZaWgkas6X
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -89,77 +88,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add methods to construct debugfs abstractions from raw C dentry
-pointers. Needed by DRM debugfs_init callback to create ScopedDir
-from the root dentry provided by C core.
+Add a method to obtain a raw pointer to the underlying struct
+seq_file, needed for FFI calls into C (e.g. drm_debugfs_gpuva_info).
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/kernel/debugfs.rs       | 19 +++++++++++++++++++
- rust/kernel/debugfs/entry.rs | 15 ++++++++++++++-
- 2 files changed, 33 insertions(+), 1 deletion(-)
+ rust/kernel/seq_file.rs | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/rust/kernel/debugfs.rs b/rust/kernel/debugfs.rs
-index dea0e2c953039..0f521762352ad 100644
---- a/rust/kernel/debugfs.rs
-+++ b/rust/kernel/debugfs.rs
-@@ -735,4 +735,23 @@ fn new(name: &CStr) -> ScopedDir<'data, 'static> {
-             _phantom: PhantomData,
-         }
+diff --git a/rust/kernel/seq_file.rs b/rust/kernel/seq_file.rs
+index 518265558d66f..fbc75e0e77634 100644
+--- a/rust/kernel/seq_file.rs
++++ b/rust/kernel/seq_file.rs
+@@ -29,6 +29,12 @@ pub unsafe fn from_raw<'a>(ptr: *mut bindings::seq_file) -> &'a SeqFile {
+         unsafe { &*ptr.cast() }
      }
-+
-+    /// Creates a [`ScopedDir`] wrapping an existing debugfs dentry.
-+    ///
-+    /// Files created under this directory are not automatically removed on drop;
-+    /// their lifetime is tied to the dentry owner.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure the dentry remains valid for the lifetime of the
-+    /// returned `ScopedDir`.
-+    pub unsafe fn from_dentry(dentry: *mut bindings::dentry) -> Self {
-+        let _ = dentry;
-+        ScopedDir {
-+            #[cfg(CONFIG_DEBUG_FS)]
-+            // SAFETY: The caller guarantees the dentry is valid and outlives this `ScopedDir`.
-+            entry: ManuallyDrop::new(unsafe { Entry::from_raw(dentry) }),
-+            _phantom: PhantomData,
-+        }
-+    }
- }
-diff --git a/rust/kernel/debugfs/entry.rs b/rust/kernel/debugfs/entry.rs
-index 46aad64896ecb..7643ff0fa6093 100644
---- a/rust/kernel/debugfs/entry.rs
-+++ b/rust/kernel/debugfs/entry.rs
-@@ -8,7 +8,7 @@
-         CStr,
-         CStrExt as _, //
-     },
--    sync::Arc,
-+    sync::Arc, //
- };
  
- use core::marker::PhantomData;
-@@ -87,6 +87,19 @@ pub(crate) unsafe fn dynamic_file<T>(
- }
- 
- impl<'a> Entry<'a> {
-+    /// Wraps a raw dentry pointer.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure the dentry is valid and outlives this `Entry`.
-+    pub(crate) unsafe fn from_raw(entry: *mut bindings::dentry) -> Self {
-+        Self {
-+            entry,
-+            _parent: None,
-+            _phantom: PhantomData,
-+        }
++    /// Returns a raw pointer to the underlying `struct seq_file`.
++    #[inline]
++    pub fn as_raw(&self) -> *mut bindings::seq_file {
++        self.inner.get()
 +    }
 +
-     pub(crate) fn dir(name: &CStr, parent: Option<&'a Entry<'_>>) -> Self {
-         let parent_ptr = match &parent {
-             Some(entry) => entry.as_ptr(),
+     /// Used by the [`seq_print`] macro.
+     #[inline]
+     pub fn call_printf(&self, args: fmt::Arguments<'_>) {
 
 -- 
 2.43.0
