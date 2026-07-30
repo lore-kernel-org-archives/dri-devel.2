@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AC0AC531D0
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:38:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89969C54FD2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:40:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0F5510EDC1;
-	Thu, 30 Jul 2026 06:38:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E52D310EDC2;
+	Thu, 30 Jul 2026 06:40:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LeZxcG1R";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SHMpg6L4";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 15B4210EDC1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:38:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D20510EDC2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:40:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 955A840214;
- Thu, 30 Jul 2026 06:38:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533641F000E9;
- Thu, 30 Jul 2026 06:38:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 16F33600B1;
+ Thu, 30 Jul 2026 06:40:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 479471F000E9;
+ Thu, 30 Jul 2026 06:40:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785393498;
- bh=vDFiwAdrjyYSfn1m5sLuFWpx/1DlXlOhpOyJ1fBQeMo=;
+ s=k20260515; t=1785393650;
+ bh=NiIb7RqRgtKwQXxE/o903wj3h+HKjxUFji0hdxVtzM0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LeZxcG1RTxhZm+Om62j0dgSqzorgCsajTNk7bRPg9Aa8qT9u9wH1418IPa8Hg1koP
- Wx5kXUN7qvSaKX1p32OVfEzsZ3RNYqZ3SnmL1mb0myD0zvGA6EBbr1oGe+bQKf8KXf
- eshM41KFsDIvuo9pM2Es4MxbjMPAxfGsKzM/Dv2Wvw5TgFtwBJkklHt6xutLA+iX3w
- rld5p3/wkzXbe1RQT5nvrIkjBQQ6UwaFmT7QEa0Gjf+3Kvu9YFMA45jev7eYFFWwe/
- PVdyvOP15QVDH4rpSEPEEc3P0ZDTLKcVWS3O70JkPTD5vYMtfoNMp2/wqx2N+2YYXv
- awoR8NjxvPZYw==
+ b=SHMpg6L4iQD/qLdANp6QMBKxcPeXe+4jwrd2V25X5t8nYyZgSwBlh2zGJ6EYCgHS1
+ Tc7K+vRN77Owjn/wNe3n9OxwfJaueQ0wCCWGpTN5l/EUSl9m8GKXrA072WasRe9rr8
+ KjuujY3zxJVaP2IZX0BbIwyMxo2jXdY+PPupk2WOlu2OakWrlPhaq56EdyxxayEPaD
+ ZECQ6UQeKOam55MsuGfFtHsYv248pIP4KbX2GOmH+9rOX7eDRJaULz6wsRRZvZ31OU
+ kJSafhwQ53ncb/N8i+Uxyq6EyEVzY+OdZ7Fh2drAlO8KQ1l6/sb1jkeQaVfR2zbA/P
+ wzxmMNdvm7f0Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/4] selftests: dmabuf-heaps: add fd-leak-on-EFAULT
- regression test
+Subject: Re: [PATCH v5 3/4] drm/prime: use dma_buf_fd_install() to preserve
+ export tracing
 To: "Baineng Shou" <shoubaineng@gmail.com>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260730062645.233148-5-shoubaineng@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
+In-Reply-To: <20260730062645.233148-4-shoubaineng@gmail.com>
 References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
  <20260730062645.233148-1-shoubaineng@gmail.com>
- <20260730062645.233148-5-shoubaineng@gmail.com>
+ <20260730062645.233148-4-shoubaineng@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 06:38:17 +0000
-Message-Id: <20260730063818.533641F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 06:40:49 +0000
+Message-Id: <20260730064050.479471F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,90 +59,85 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing `errno` preservation leads to potential clobbering befor=
-e evaluation.
-- [Medium] Unconditional unmapping of `req` causes a file descriptor leak i=
-f `ioctl` unexpectedly succeeds.
+
+Pre-existing issues:
+- [High] The file descriptor is published to userspace before the `copy_to_=
+user()` operation succeeds, leading to a leaked fd and `dma_buf` reference =
+if the copy fails.
 --
 
---- Patch [4]: [PATCH v5 4/4] selftests: dmabuf-heaps: add fd-leak-on-EFAUL=
-T regression test ---
-commit 43e605bb1fee2426e027813c0311f1910f7ea15e
+--- Patch [3]: [PATCH v5 3/4] drm/prime: use dma_buf_fd_install() to preser=
+ve export tracing ---
+commit 50a50a53aa7179af6880f9711b00fcaf6105ea33
 Author: Baineng Shou <shoubaineng@gmail.com>
 
-selftests: dmabuf-heaps: add fd-leak-on-EFAULT regression test
+drm/prime: use dma_buf_fd_install() to preserve export tracing
 
-Add a test case that verifies no file descriptor is leaked when
-DMA_HEAP_IOCTL_ALLOC succeeds internally but copy_to_user() fails
-to deliver the fd number back to userspace.
+This commit replaces the open-coded fd reservation and installation in
+drm_gem_prime_handle_to_fd with dma_buf_fd_install. This restores the
+trace_dma_buf_fd tracepoint coverage that was bypassed by using fd_install
+directly.
 
-> diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/t=
-esting/selftests/dmabuf-heaps/dmabuf-heap.c
-> index fc9694fc4e89e..bd58e5b06c8b6 100644
-> --- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-> +++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+Link: https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubainen=
+g@gmail.com/
 
-[ ... ]
+> Replace the bare fd_install() with dma_buf_fd_install(), which wraps
+> fd_install() together with DMA_BUF_TRACE(), restoring full tracepoint
+> coverage.  No functional change; the fd lifecycle (get_unused_fd_flags
+> =E2=86=92 work =E2=86=92 install) is already correct.
 
-> +static void test_alloc_no_fd_leak_on_efault(char *heap_name)
-> +{
+[Severity: High]
+This is a pre-existing issue, but is the statement about the fd lifecycle
+being already correct accurate?
 
-[ ... ]
+In drm_gem_prime_handle_to_fd(), the file descriptor is published to the
+process's fd table before the ioctl data is copied back to user space:
 
-> +	/*
-> +	 * Make the page read-only: copy_from_user() in the kernel will
-> +	 * still succeed (it already ran), but copy_to_user() that writes
-> +	 * the fd number back will fault.
-> +	 */
-> +	mprotect(req, page_size, PROT_READ);
-> +
-> +	ret =3D ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, req);
-> +
-> +	/* Re-allow writes so munmap can clean up */
-> +	mprotect(req, page_size, PROT_READ | PROT_WRITE);
-> +	munmap(req, page_size);
-> +
-> +	if (ret !=3D -1 || errno !=3D EFAULT) {
+drivers/gpu/drm/drm_prime.c:drm_gem_prime_handle_to_fd() {
+	...
+	dma_buf_fd_install(dmabuf, fd);
+	*prime_fd =3D fd;
+	return 0;
+}
 
-[Severity: Medium]
-Will this evaluate the correct errno from the ioctl call?
+The actual copy_to_user() happens later in the DRM ioctl wrapper:
 
-The errno variable is checked after executing mprotect and munmap. If eithe=
-r of
-these functions modify errno (for example, if they fail), the test will
-evaluate the wrong errno and incorrectly skip with a misleading message ins=
-tead
-of reporting a failure or success properly.
+drivers/gpu/drm/drm_ioctl.c:drm_ioctl() {
+	...
+	retcode =3D drm_ioctl_kernel(filp, func, kdata, ioctl->flags);
+	if (copy_to_user((void __user *)arg, kdata, out_size) !=3D 0)
+		retcode =3D -EFAULT;
+	...
+}
 
-[Severity: Medium]
-Also, could this leak the newly allocated file descriptor in the test proce=
-ss
-if the ioctl call unexpectedly succeeds?
+If a user application allocates a page, maps it as read-only, constructs
+a valid drm_prime_handle payload within it, and invokes
+DRM_IOCTL_PRIME_HANDLE_TO_FD, the core drm_ioctl() successfully reads the
+input. The handler executes, allocates the dmabuf, and publishes the file
+descriptor.
 
-If the ioctl call successfully allocates a file descriptor (for instance, if
-the initial mprotect fails to make the page read-only or due to a kernel bu=
-g),
-the new file descriptor is written to req->fd.
+When drm_ioctl() attempts to write the result back via copy_to_user(), it
+fails due to the read-only mapping, causing the ioctl to return -EFAULT.
+Since the fd is already published and the userspace application does not
+know the fd number to close it, does this result in a leak of the file
+descriptor and dmabuf references?
 
-Since the test unconditionally calls munmap(req) immediately after, it dest=
-roys
-the only reference to the allocated file descriptor. The test then detects
-unexpected success, skips, and leaks the file descriptor in the test proces=
-s.
-
-> +		/*
-> +		 * If the ioctl didn't fail with EFAULT, either the kernel
-> +		 * handled it differently or mprotect raced.  Skip rather
-> +		 * than giving a false pass/fail.
-> +		 */
-> +		ksft_test_result_skip(
-> +			"ioctl did not return EFAULT (ret=3D%d errno=3D%d), skipping\n",
-> +			ret, errno);
-> +		goto out;
-> +	}
+> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> index 9b44c78cd77fc..fe3436d1235db 100644
+> --- a/drivers/gpu/drm/drm_prime.c
+> +++ b/drivers/gpu/drm/drm_prime.c
+> @@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+>  		return PTR_ERR(dmabuf);
+>  	}
+> =20
+> -	fd_install(fd, dmabuf->file);
+> +	dma_buf_fd_install(dmabuf, fd);
+>  	*prime_fd =3D fd;
+>  	return 0;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730062645.2331=
-48-1-shoubaineng@gmail.com?part=3D4
+48-1-shoubaineng@gmail.com?part=3D3
