@@ -4,98 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6C09C54FD2
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:11:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77BF8C54FD2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 09:14:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 00B7010E65A;
-	Thu, 30 Jul 2026 09:11:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D464D10E67B;
+	Thu, 30 Jul 2026 09:14:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ktK+3ksr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fy7DR/ui";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB8C10E65A
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:11:49 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-c12614b81c9so338934966b.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 02:11:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785402708; cv=none;
- d=google.com; s=arc-20260327;
- b=eH0thu4AB9ReKTrxeLZF2vtzh4dYwh8i+ix8hIE9RZhqVbRhlnG6q11r4N1owB9505
- c9Y6DTt7D8Bzc4pmCMRXAKtzxOpBdRymBX3UFIwjDbE/r5efdt5zskoKOVnS1mM1A630
- Eu2DumwyQEpBFad+z9nEstmwHQw+UWJAU2jBUP6x1kSpi1ufElo/ZIvW2UtE4XWplqjv
- KJU91rVUDltyyHWycelFftA0DTDHMT//IgRtV+HIZX8VSkMl0fr9aW4rWecG1Erssu0k
- qGj5vR3aBLKJKDlrk+dFutHbBdNOqb4TMbNVdQ+zcz8IYZL76NQFG0lc3Oq0sYRBqA1v
- PNPQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=rNT8uuAYIOIz9by9aY3qoAX6TR1FHkQuOah2tZDQCkE=;
- fh=/A5RriDYcC3Mw1zmKfhBOoaWLjj1gWPJRVkGXffsCVE=;
- b=hrzDkZCtYXUYLrwu3/pu9EAm2ZW/rIzhbk+99mw9ukZMkqm+Gk2IMKCrXTj3Q1QRZP
- L0QPRmxT4kUMjVg4eFLldJmPji1mhd/4KMLkkvzTRXYma+1LVQAvGGQFIFZMcCNcgccO
- ZGCUkbnuw2ngdTLy47sCoUvAS+97gcy5gYSw748gqGbel6Zn5IdxSwUreEk7EXf8NeF/
- 6NgQT8R7ymYFfBvZEu4fOEU8u/AOSlPKPz8XyAyL85LHYsKWshxn0l91C34FRv0vXN8W
- tOiL7NZS8Lc9WNVxyQNPLR6XhKWVzXEIxELqMSeCsvBuKofPfm7jm4NKXECE0gQPM2qU
- xgDw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785402708; x=1786007508; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=rNT8uuAYIOIz9by9aY3qoAX6TR1FHkQuOah2tZDQCkE=;
- b=ktK+3ksrc+k3DaxD6JBspLu3Rce9xduYsucoktQrQ79mljytJvMRqMIfWgKWFJsPLR
- Yail5f1/Q51io+66A/Oym7OOLrXcyXmxMP9m9/PgOnryr293B+zk3OmbaX5Z8klDux1h
- B8VGutHvUmRW8pO7uW+f7LWcD1FRxqA1y5WlSLqsLbiOcXEWZJ1qscL8U4kXLvP4h87I
- vWFF9PufYwi9ZorxPF3L3ccw8xzIUBIKjOd7pavB4vuEEMBPN53Et5sGLV8BqUrnf5HJ
- vAaacfrCwGYliC5fCTSJkooXsO8C2MKtv67G5sjmKc5omD5nxO1y6vcjgIdMqMj9uNJi
- csag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785402708; x=1786007508;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=rNT8uuAYIOIz9by9aY3qoAX6TR1FHkQuOah2tZDQCkE=;
- b=lIDcN//EHyuIzBwufG1VH/TO0Oyo9H+/lG7CFjzXu/p1A55gxwJPEbn9hYG2AiTx+R
- YZOeIwWpSH10Zb2+TwMhUm5omVF1D8k7jGjkClmdfcM1CHegthKl1RIPgjBerB+DqtAv
- JWEpxADl6/JlxpRC3Z8O9XNdkzrutqn6RrY8JjNvDo65HhnwMa+wKtjHcxVOUqRb/s0s
- Eiu7kbrTQFfFiNvzVU+nj5Frz31ksw5jUK6/KA7IHpW8gDNZ3mfFV5a1MR1Y2uZuaR29
- nYG128ZoYaB3Qn0LJXfAl4D/8M3On5v5lYlYzig7t2zzCLVUPqYJ5zG9wFh8mVSthUUl
- O2pA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rr27Kvz2lIITF9/090VTInyfeiL5Ei/9xcCjKhqSA2F6DHq+TvLzi78iHqGuo77Z2v6oBBOxkIbbww=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyAAtSDklbo9s3OpaMGyI5JuYbQCU55UMYZJItkl7SL9L2oAooV
- xcZ7ZOcLgzRCaG2Q6zXjJSuQl/RiGTTnEvuCPt4GVGNg1LAXxTmV3fWrWWXMQSUOGlZH0vm9z6G
- N1S6j8SUiJ+kVB2LWaRZuywhxkflyo8Y=
-X-Gm-Gg: AR+sD11WlCldLqKZXevd3IHC2xISMDgEOu612R6G9EZ4BA3k9Md6CtkcpUp+h5+6V4A
- OoedKb7AEByaibIwHfMBnKmrLuK07X39+DwM6j/xMerk90txHKEVdMYY06/ISGSrZjnQNcZDtVd
- IgV4F8QRpSyXANo4BHNOQltmHna6ubOBjwl21trmxkG6IZMiGeAdT9tLWvVBUDPhUHVsCpM7dpR
- WQ0Yrpea345k1Xk+ighIH9PT/JnQObR/Gj2luPtbqPh8RP6/S2BVpixLYtL7DUXRQlkdb+xiwlO
- 3w3KxrZlO0f3kfppKxNFT4fzfp6p9lJXJkn4gweCxj1OjJ2IybUCAkro8RROYpFAaoOGbq1bwaZ
- CWwX14g0gaeIKsL0GxMc5qm1Hi8GZvGhH3uE9ptWnY+d8AqZPv+J4ipH9dhwEN7soJDKyiIC1ug
- hiCL/lnSXQogL4JRqA/w3sOAMRZYogAHUyk0KVmy5QZmYQkjKhSWi9eadUIRFvaNw=
-X-Received: by 2002:a17:907:3ea0:b0:c12:631c:67c6 with SMTP id
- a640c23a62f3a-c1fa554de59mr85960866b.1.1785402707552; Thu, 30 Jul 2026
- 02:11:47 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38AEE10E67B
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:14:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785402881; x=1816938881;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version;
+ bh=lE6x1kYRC11Y8EI9rsrIsy/POw71Fh+oamWcplWGCwg=;
+ b=fy7DR/uiukvfcssWQ5knlwVaYbF2s5DNBpd0hdTfUPxrWfygX0WhU8+x
+ 5tBG4vbYE1RmW3knQr+PoEfFEmPpdmpzbnnRgChVQOyCSuERBGy11gjvL
+ 2VFkIuRx5ODPaj3vcacy+u2htaQqEVLWcsz97es8GZEx6UZVfauy5A06y
+ okL+gp3OTerwk0HGN/1l9vDlbaAqT13WveNOTSvzVra8K+T6dWdeC/DQu
+ l+IIPMciY5VYxBDFANAWWNV/VduuRth9LaxJw9CH+4TwVhbiLUD2ZwoiW
+ aE/ZLTmi2evR05yttWL7BJOCcEeSCLM0nOJhoq298qU3f2hxJkQkDa2WD Q==;
+X-CSE-ConnectionGUID: 1yyuQ0ikSDSucovJazJBXA==
+X-CSE-MsgGUID: ptISTnXuR+qO0fmBoi+k6A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="103422218"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="103422218"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 02:14:40 -0700
+X-CSE-ConnectionGUID: s058yAiBSoyuFUikDnXtMw==
+X-CSE-MsgGUID: vnXY6O0kQAGztisBKUuTqA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="290203039"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.160])
+ by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 02:14:34 -0700
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Leandro Ribeiro <leandro.ribeiro@collabora.com>,
+ dri-devel@lists.freedesktop.org
+Cc: airlied@gmail.com, broonie@kernel.org, daniels@collabora.com,
+ maarten.lankhorst@linux.intel.com, miguel.ojeda.sandonis@gmail.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
+ penguin-kernel@I-love.SAKURA.ne.jp, tytso@mit.edu, tzimmermann@suse.de,
+ ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/1] drm: use drm_warn() in
+ validate_blend_mode_for_alpha_formats()
+In-Reply-To: <20260729214505.185776-2-leandro.ribeiro@collabora.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20260729214505.185776-1-leandro.ribeiro@collabora.com>
+ <20260729214505.185776-2-leandro.ribeiro@collabora.com>
+Date: Thu, 30 Jul 2026 12:14:31 +0300
+Message-ID: <b2628133dfe020b9e3c74af27a3cfa2525f66223@intel.com>
 MIME-Version: 1.0
-References: <20260729-upd161704-typo-v3-v1-1-69c962e35d59.ref@yahoo.pl>
- <20260729-upd161704-typo-v3-v1-1-69c962e35d59@yahoo.pl>
-In-Reply-To: <20260729-upd161704-typo-v3-v1-1-69c962e35d59@yahoo.pl>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 30 Jul 2026 12:11:11 +0300
-X-Gm-Features: AUfX_mzEOHyV3oJOY8-a69g92QJquL9A0mM8T77huwsnnp9py7IaA1ToOIFpAFg
-Message-ID: <CAHp75VeHW7bB+0fSqO3fX=Wkb-216cdLfmd2W8dYD7Q2_hx1eA@mail.gmail.com>
-Subject: Re: [PATCH] staging: fbtft: fix typo in fb_upd161704.c comment
-To: Tomasz Unger <tomasz.unger@yahoo.pl>
-Cc: Andy Shevchenko <andy@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,13 +76,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 1:49=E2=80=AFPM Tomasz Unger <tomasz.unger@yahoo.pl=
-> wrote:
+On Wed, 29 Jul 2026, Leandro Ribeiro <leandro.ribeiro@collabora.com> wrote:
+> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
+> with alpha exposed") introduced a WARN() to let driver developers know
+> that a previously valid behavior should now be changed.
+
+I should've chimed in way back when, but in retrospect it's a bit
+presumptuous to add a commit that puts the burden of the change on the
+driver developers, without so much as identifying which drivers or
+getting an ack from them.
+
+This is really not unlike the __deprecated attribute, see commit
+771c035372a0 ("deprecate the '__deprecated' attribute warnings entirely
+and for good"), but this one's runtime not build.
+
+> But WARN() should not be used for that, as it's a kernel warning report
+> mechanism for conditions that are not expected to happen. It also
+> produces a stack trace. Instead, a simple warning-level log message
+> should have been used, as drivers were expected to trigger the
+> condition.
 >
-> Fix 'cencter' typo to 'center' in a register setting comment.
+> This is causing problems for fuzzers, as they may stop when encountering
+> a "BUG:" or "WARNING:" in the logs.
+>
+> Replace WARN() with drm_warn() in this function, avoiding these issues.
 
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
 
---=20
-With Best Regards,
-Andy Shevchenko
+> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> ---
+>  drivers/gpu/drm/drm_mode_config.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+> index 3bcc7bf0900c..3d9c554e08a8 100644
+> --- a/drivers/gpu/drm/drm_mode_config.c
+> +++ b/drivers/gpu/drm/drm_mode_config.c
+> @@ -869,8 +869,9 @@ static void validate_blend_mode_for_alpha_formats(struct drm_plane *plane)
+>  	for (i = 0; i < plane->format_count; i++) {
+>  		fmt = drm_format_info(plane->format_types[i]);
+>  		if (fmt->has_alpha) {
+> -			WARN(1, "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup",
+> -			     plane->base.id, plane->name);
+> +			drm_warn(plane->dev,
+> +				 "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup",
+> +				 plane->base.id, plane->name);
+>  			break;
+>  		}
+>  	}
+
+-- 
+Jani Nikula, Intel
