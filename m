@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55857C55160
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 12:02:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 346A5C55160
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 12:34:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A03F10E148;
-	Thu, 30 Jul 2026 12:02:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63D6C10E144;
+	Thu, 30 Jul 2026 12:34:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CTIHyGXp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ao9yLGhr";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EDE410E148
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:02:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 187A610E144
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 12:34:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CD0AF43D4B;
- Thu, 30 Jul 2026 12:02:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC5F1F00A3E;
- Thu, 30 Jul 2026 12:02:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 22CF9600B0;
+ Thu, 30 Jul 2026 12:34:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58451F000E9;
+ Thu, 30 Jul 2026 12:34:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785412949;
- bh=niREjF1u/hSp4TP75lpF0JJ1AMPUXJEjC/Upxr9OQv0=;
+ s=k20260515; t=1785414849;
+ bh=RcVlh16Xb70ffb0A4zbhp389azlKrQ/xchXXFJbAMbA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CTIHyGXpARs7FpI5v0W9QYu2pBwy+Cjb22Fb+g5UfgqT2TPzkAfGI7C1I4Nw+d/lN
- +uT43dVdA3ymB6tqWKPWNf6racZ6i2Vd1xkqEPT9O7nTLyg2Ghh3G/sVkYVm/RvtCa
- J+CmzWdSXUWVtY64GeDAViU4GZdTtuPQQUouA16WC4yFglIcK9ouYTYf9+/t8pov8O
- qkYL6wiX205YvGJpUxmwlmA6bR8LzQVmWEkqlEAGFJZme29j0gtpiOkP3suLkhFEYg
- lH5QuELDz3NvnH/aGv90Ftp0TYPMkk8rw+/HhmGjSRJ6mLUnG2swvPPSDEDmHbmE66
- zNe2TzvcMpn3w==
+ b=ao9yLGhrXT4wG+uu68ataCtDhJc1VnvPVj7mDu8aYJuKu3yde46jh8hdKxAnirIk0
+ EtOTPU75wsHWHtlOqhoiTnaONHLs4npPkKeA4+CYrOkM27LXUNjdPfntdhxMlw+BBr
+ KNWeoYvujJz46+4skwMplvcrosj8qev8lvXl9bQdjH7bsO3VgaY2EeO5swMuEwHLJV
+ xSEtFS0emo2hLG9HIlxFI/p6pS3t5Xgp9YYEORMhg3b9QnI6XDPpQ641zEvDKga+Ns
+ FWKRGdMNfm7bmdigAD3MM9dvitOCGez4bFbmz2QU2/rf0NX99mvklfTCzfuKK06Z9O
+ K7U0rOZp3GmAA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] drm/panthor: Revisit reqs_lock handling in
- flush/reset paths
-To: "Nicolas Frattaroli" <nicolas.frattaroli@collabora.com>
+Subject: Re: [PATCH] drivers: drm: remove drm_simple_encoder_init then
+ inline with drm_encoder_init
+To: junsungpark774@gmail.com
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260730-panthor-cache-flush-fix-v2-2-28790478bfff@collabora.com>
-References: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
- <20260730-panthor-cache-flush-fix-v2-2-28790478bfff@collabora.com>
+In-Reply-To: <20260730084908.109270-1-junsungpark774@gmail.com>
+References: <20260730084908.109270-1-junsungpark774@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 12:02:29 +0000
-Message-Id: <20260730120229.9EC5F1F00A3E@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 12:34:09 +0000
+Message-Id: <20260730123409.A58451F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,99 +61,60 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Race condition between the threaded IRQ handler and the wait timeo=
-ut logic causes spurious GPU resets.
+- [High] The return value of drm_connector_init() is ignored, leading to po=
+tential use of a partially initialized connector object on failure.
 --
 
---- Patch [2]: [PATCH v2 2/3] drm/panthor: Revisit reqs_lock handling in fl=
-ush/reset paths ---
-commit ec14154f1ff35bca85396f0f6f71d7d7b1d6eb6d
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+--- Patch [1]: [PATCH] drivers: drm: remove drm_simple_encoder_init then in=
+line with drm_encoder_init ---
+commit fb41dbd1014b2770b1e9b17f944e26382c1aa83c
+Author: Park Junsung <junsungpark774@gmail.com>
 
-drm/panthor: Revisit reqs_lock handling in flush/reset paths
+drivers: drm: remove drm_simple_encoder_init then inline with drm_encoder_i=
+nit
 
-The patch updates the handling of reqs_lock in panthor_gpu_flush_caches() a=
-nd
-panthor_gpu_soft_reset(). It replaces wait_event_timeout() with
-wait_event_lock_timeout(), and uses spin_lock() instead of spin_lock_irqsav=
-e()
-since the lock is not acquired in an atomic context.
+This commit removes the unnecessary intermediate layer drm_simple_encoder_i=
+nit
+and inlines it directly into drm_encoder_init. It also introduces a static
+drm_encoder_funcs struct to handle encoder cleanup.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/pant=
-hor/panthor_gpu.c
-> index e52c5675981f5..cd591c17198be 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -329,35 +329,34 @@ int panthor_gpu_flush_caches(struct panthor_device =
-*ptdev,
-
+> diff --git a/drivers/gpu/drm/qxl/qxl_display.c b/drivers/gpu/drm/qxl/qxl_=
+display.c
+> index a026bd35ef485..52d9bb46ea959 100644
+> --- a/drivers/gpu/drm/qxl/qxl_display.c
+> +++ b/drivers/gpu/drm/qxl/qxl_display.c
 [ ... ]
-
-> -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-> +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
->  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
-> -				msecs_to_jiffies(100))) {
-> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> +				ptdev->gpu->reqs_lock, msecs_to_jiffies(100))) {
->  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) !=3D 0=
- &&
->  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COM=
-PLETED))
->  			ret =3D -ETIMEDOUT;
+> @@ -1169,10 +1173,11 @@ static int qdev_output_init(struct drm_device *de=
+v, int num_output)
+>  	drm_connector_init(dev, &qxl_output->base,
+>  			   &qxl_connector_funcs, DRM_MODE_CONNECTOR_VIRTUAL);
+> =20
 
 [Severity: High]
-This isn't a bug introduced by this patch, but is there a race condition he=
-re
-with the threaded IRQ handler?
+This is a pre-existing issue, but is it safe to ignore the return value of
+drm_connector_init() here in qdev_output_init()?=20
 
-If panthor_gpu_irq_handler() clears the hardware interrupt status via
-INT_CLEAR before acquiring reqs_lock, it can be preempted:
+If drm_connector_init() fails, for example due to an IDA allocation failure
+under memory pressure, and the subsequent call to drm_encoder_init() succee=
+ds,
+could this result in using a partially initialized connector object? It see=
+ms
+this might lead to undefined behavior or a kernel panic when the connector =
+is
+later accessed by the DRM core.
 
-    gpu_write(gpu->irq.iomem, INT_CLEAR, status);
-   =20
-    // ... preemptible window ...
-   =20
-    spin_lock(&ptdev->gpu->reqs_lock);
-    if (status & ptdev->gpu->pending_reqs) {
-
-If the 100ms timeout expires during this precise window, the fallback condi=
-tion
-above evaluates under reqs_lock.
-
-It finds that pending_reqs still indicates the request is pending, but
-checking INT_RAWSTAT shows the interrupt is not pending (because it was just
-cleared by the preempted thread).=20
-
-Could this cause the wait logic to falsely conclude the hardware timed out,
-return -ETIMEDOUT, and schedule a spurious full GPU reset?
-
-[ ... ]
-
-> @@ -377,27 +376,25 @@ int panthor_gpu_soft_reset(struct panthor_device *p=
-tdev)
-
-[ ... ]
-
-> -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-> +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
->  				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
-> +				ptdev->gpu->reqs_lock,
->  				msecs_to_jiffies(100))) {
-> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
->  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) !=3D 0 &&
->  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
->  			timedout =3D true;
-
-[Severity: High]
-This is a pre-existing issue, but does this suffer from the same race condi=
-tion
-with the threaded IRQ handler as the flush caches timeout logic above?
-
->  		else
->  			ptdev->gpu->pending_reqs &=3D ~GPU_IRQ_RESET_COMPLETED;
-> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> -	ret =3D drm_simple_encoder_init(dev, &qxl_output->enc,
+> -				      DRM_MODE_ENCODER_VIRTUAL);
+> +	ret =3D drm_encoder_init(dev, &qxl_output->enc,
+> +			       &drm_encoder_funcs_cleanup,
+> +			       DRM_MODE_ENCODER_VIRTUAL, NULL);
+>  	if (ret) {
+> -		drm_err(dev, "drm_simple_encoder_init() failed, error %d\n",
+> +		drm_err(dev, "drm_encoder_init() failed, error %d\n",
+>  			ret);
+>  		goto err_drm_connector_cleanup;
 >  	}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-panthor-ca=
-che-flush-fix-v2-0-28790478bfff@collabora.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730084908.1092=
+70-1-junsungpark774@gmail.com?part=3D1
