@@ -4,102 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 536C2C55167
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 21:26:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28597C55167
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 21:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 466E110F0A1;
-	Thu, 30 Jul 2026 21:26:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8270D10F0A5;
+	Thu, 30 Jul 2026 21:39:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="Fqm8GlX+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Rx3wfA/p";
 	dkim-atps=neutral
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com
- [209.85.221.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F81E10F0A1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 21:26:19 +0000 (UTC)
-Received: by mail-vk1-f175.google.com with SMTP id
- 71dfb90a1353d-5bf5370d38fso151621e0c.2
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:26:19 -0700 (PDT)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB2FA10F0A5
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 21:39:40 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-8487214ad2bso531626b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:39:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1785446778; x=1786051578;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1785447580; x=1786052380; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=nVUsZTb0HSqncNHOimlTe7rgZv4de8OPUhZ7toKOfVY=;
- b=Fqm8GlX+5e2FBwhWegNDyPgdREs1wOCvaqofA/BGQcDHr7spUGMCf8D0cbwdR7SEnz
- gUOqrMLuLhGfbFNeFksNWr3x04346OSLdBDilj/yAZwJlSA9xRW6qofr4IHIMUACf1W2
- x6TKHs/P+IIfHVTrbZ7mbJB8pph7Pm4KJg9gs=
+ bh=mlBdZN/Yu2XetCK2pd4kqserGOdzhIFqZOg4RXy2UAo=;
+ b=Rx3wfA/p97g+LfggW2RpVkkh0VWpntgHmgcA6V7HF446U1CMHvu/4nEJnAD98LUz6C
+ /9zUFVcs16AucZYG8WXt8087+H7QiNvYEon8j4E7aOIShTRQG4RdLgK3Gw52PvapGx+M
+ UP9qzcP7b6rkK3HqXzYKuIdEaAfx/hOeUywMYD2Dy5K1+jRk9q26rNUjXnVMfKONyI9t
+ //CqDjuzV52V/gZJFbOZcWoecmFhpvmPlc7ZSCmPVKPHMQpfsChyfIV+zn0o03vv1s02
+ ANGR1/z6xxpv9gjhlIFqE69W3y65ifFqEOkS5kwpzJVdUS7GW5vQK0LpxF1fXN9krwtl
+ +D6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785446778; x=1786051578;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
+ d=1e100.net; s=20251104; t=1785447580; x=1786052380;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=nVUsZTb0HSqncNHOimlTe7rgZv4de8OPUhZ7toKOfVY=;
- b=ZH3pkCGUWX1/1oF+lFDvVJ/Imt7JCz5dUSGoLW29nd67cgAla8VqX9NK/BsFb3lwFk
- aZ20agwYs+kN31Jqov0y9rX3QUS00oGXHYrsYxPp1yvwEvCYHTWRGZerS/FcwEZU+q5E
- K4s7atSJK4XChBi7YjNql447qAoxCD6lHHyv6KLlDUEkZwZo8A/FrjXX35An/jQrnbKS
- IvtsFfrtb2VEbN9COd0h+74WKkLvHHClqMeBU57IhVadV9CckXLubY2mUoZZDl9g2io2
- JVMgq5AZReijQt1KOJ0bqkqWVkDBFOrgurGJPROcyQDV4dC7GX2hpr/9E/1P9n9r0DHo
- dOxw==
+ bh=mlBdZN/Yu2XetCK2pd4kqserGOdzhIFqZOg4RXy2UAo=;
+ b=T14J2ISZUXEnh5hWxhtrQaFvDsuiXKDffs6m+RUHbqu4zI+LwuMnje7BVvpJtFTVim
+ uH9dsp/0kKt+b/26pMEiehEDlFgOLkDDEU6gcq9GGStrx7m1f97uAggaZYeu96A916Jt
+ A/iS2FeGHBrBiQfwKJEwrfRJbbV5Lu5NWbyoT636xwLI5pcyyN5/FeL2Tt3sfzhH9juZ
+ Jqeo2hV9BH2NgsAWZfjdEx8/W7B4JxfmfcVyFzojqT9x2itRtkRTR2Lgaz95gfIwVawn
+ yVuqA77jrwE8XKwMgl70cdwht66o2j7HybtPJxj3pGAmnZ2V4GyeImRgcu+N1gkbBzog
+ IU9Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro+ypn7hWMqsx60U+H6J86sXT4tAuO9y9UhZi7qV1ktqqNA5Z2AbZr+XKouCl6T1IdjSFwfkSbY97U=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzQjB0OB8CjES1sRzrQE3MQXbAK93OZgcqGE9Sltxi0n7TV5QRv
- LbTExOYX0h4BpitzA3G8PN/Ejo0B9FGYAe8G0P4I6ngEaFIxM4XH3ie0mrLufd4pnwnJrrTLDZY
- ulL8=
-X-Gm-Gg: AR+sD11kW0XvtfbePpnzrl5Da4Z1bNKgRiqbKVjZ5fDEOW6zSSTV8E9+ZyoBbHL7PiY
- U6IRMkBGLukJwE7LBOWC5x/Kq5C17zK3SMwWnWyIhe9P6OolELMEGnl+CLw4Jb9TKiMUm/UikLv
- EOmaoFz9eCpbjkQoakb89UXtZkIENfKTWp/piSs6WvhB5V/Il+nKEFShBLH5/+Mox0Zq3Oha3xZ
- rF7r2O07V9Aog3vD1RELuRgJqlEEafqyDSC+eDs0urwYKwKo7lTANEDXOu5AkzNiGeWqFbPv6Wa
- Mf1Ignluv7Ctw+y47yr5cGYiYtDNvd5H/EmKY40HRmcJ2xMufoEeVmfEBuzrh/RHhyH4+g0yhyL
- lc4r73tW1QCpjCAzOBwC6JaHSBaC9E8qEz0mE7Ty+wN2PT4QSgrbm3+lXq6g7hv7bUDrWXdhfq3
- STA5TBB5ayE4dCFB17BSFwscLf2J3OUdoqC8kra3J1UzghdHZ0MmwD3AtCN2Al/nWuIjFNgLgmx
- sLdBoaE/96yaHF4hOJCCRglvFE=
-X-Received: by 2002:a05:6122:d27:b0:5bc:42be:f758 with SMTP id
- 71dfb90a1353d-5c365fe14dfmr1339519e0c.3.1785446778369; 
- Thu, 30 Jul 2026 14:26:18 -0700 (PDT)
-Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com.
- [209.85.222.44]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c3664e2e99sm2607285e0c.2.2026.07.30.14.26.16
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jul 2026 14:26:16 -0700 (PDT)
-Received: by mail-ua1-f44.google.com with SMTP id
- a1e0cc1a2514c-966eabad303so48385241.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:26:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RpW1BU6++oGcPoqPexkSReUE/J321pbndJaSEv4TTxGf1UscDLtupUDFtnT2R+yN1WsH8FiWGg4Fbk=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:2c15:b0:726:f965:722b with SMTP id
- ada2fe7eead31-7574fa3b953mr1452748137.21.1785446774907; Thu, 30 Jul 2026
- 14:26:14 -0700 (PDT)
+ AHgh+Rr7eQGxPmJbXE3mE2Vn0oTsRlGA/TQE0JZlWbeiglBZj3rz8pV0+zfxXi0QZGORsRPv5e0gqjynyiE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzAUPnUL9IinTgQPP+Z+9u1bdnXtYSUaETFYKGRfykgdVZDazmT
+ +niAU/3FpZ187q5h0ssbXzXuckeMEV3g+hu+WPSkCsYcJvJ7CT/Ubkl1
+X-Gm-Gg: AR+sD10LGjTLfo3TxwN5j/nyTtSQLvuEq8NCN9RL3ooo+9xk0ztkQ8+yRatIu74J24A
+ uopV5l7eYdDTp6S58ndR4Ddl5Nv9GWh2COdqH+VwQiCCYcoDVuDaQLfz30VcCJiqsVxH3qiatj+
+ XtwFnCE1dgHsUeWpLvnPU/aRtolV5WALZaEwR0fNrKCk9QH+v1n6l9ZM7LuxpmidyP1TlN5HCba
+ hapUdVMUKPz1p/YzkigTAR6X5Opi3b97TpQB3IbiUOHwI47b6Bc+TFoiyLU7DNeVzN0znHCT3hZ
+ 5oYwHu3rnpv3CiPKwg3ZW7aqdNG3YUbMZFztSIPVUa3RSSvbBallYtbRLS+jLBkHg26mLuXOChq
+ fvjny9oOIMpyNUWHwspUyvxG37AJ8MAHUpIekhwYAUPvBXrE83LXjEl3TBiOyEZCvXWvkZtpbik
+ DABndiSAglUODQdDKUkpbFEMkSnFdbw0RqzKY8v8ha3wptosE0RjZFE3xlF4P/sRBljLGJlTpGA
+ rcFRc9JEg==
+X-Received: by 2002:a05:6a00:2a09:b0:845:44c7:5e28 with SMTP id
+ d2e1a72fcca58-84ebc2685a6mr3911212b3a.31.1785447580388; 
+ Thu, 30 Jul 2026 14:39:40 -0700 (PDT)
+Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:46::])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84e9fe1d07dsm3618306b3a.8.2026.07.30.14.39.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 14:39:39 -0700 (PDT)
+Date: Thu, 30 Jul 2026 14:39:37 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Donald Hunter <donald.hunter@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Gerd Hoffmann <kraxel@redhat.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kselftest@vger.kernel.org, sdf@fomichev.me,
+ razor@blackwall.org, daniel@iogearbox.net, almasrymina@google.com,
+ matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk,
+ Joe Damato <joe@dama.to>, Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next v6 3/3] selftests/net: devmem.py: add
+ check_rx_large_niov
+Message-ID: <amvEJVio9XtCn+YT@devvm29614.prn0.facebook.com>
+References: <20260724-tcpdm-large-niovs-v6-0-7975f62cdfbb@meta.com>
+ <20260724-tcpdm-large-niovs-v6-3-7975f62cdfbb@meta.com>
+ <20260729191649.55ab7942@kernel.org>
 MIME-Version: 1.0
-References: <20260723103509.2-ps8640-v2-pengpeng@iscas.ac.cn>
- <c1cfe79fabe97b3d1603a4fa064a18afb7d6810b@intel.com>
- <CAD=FV=Wo-ps+aStGn5vCvb08tKx-rKDeu-r0bRVABL8zgg4Lhw@mail.gmail.com>
- <b962d68e6640787a539690edf022b338a9b47bbe@intel.com>
-In-Reply-To: <b962d68e6640787a539690edf022b338a9b47bbe@intel.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 30 Jul 2026 14:26:03 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Vi7+-_7yhTsOs6y0XEPR3cRmFB6bwkFMOrtvfgsuCMuQ@mail.gmail.com>
-X-Gm-Features: AUfX_mwB63TjPPhCa73ENbo1uICmFxAPfkxA-tO9HUDpwl3ZzG3WOs1XdX1U_ds
-Message-ID: <CAD=FV=Vi7+-_7yhTsOs6y0XEPR3cRmFB6bwkFMOrtvfgsuCMuQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/bridge: ps8640: propagate AUX transfer register
- errors
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260729191649.55ab7942@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,82 +107,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed, Jul 29, 2026 at 07:16:49PM -0700, Jakub Kicinski wrote:
+> On Fri, 24 Jul 2026 14:21:17 -0700 Bobby Eshleman wrote:
+> > From: Bobby Eshleman <bobbyeshleman@meta.com>
+> > 
+> > Add a new devmem test case for binding the dmabuf with rx-page-size=16K.
+> > The test sweeps RX payload sizes straddling the niov boundary to cover
+> > the sub-niov, exact-niov, and multi-niov RX paths.
+> > 
+> > Silence pylint invalid-name (`with open() as f`) and too-many-arguments
+> > (ncdevmem_rx grew to 6 args) at file scope.
+> > 
+> > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
+> > Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+> 
+> Hm, odd. In NIPA we're getting:
+> 
+> TAP version 13
+> 1..1
+> # timeout set to 0
+> # selftests: drivers/net/hw: devmem.py
+> # TAP version 13
+> # 1..5
+> # ok 1 devmem.check_rx # SKIP marked as disruptive
+> # ok 2 devmem.check_tx # SKIP marked as disruptive
+> # ok 3 devmem.check_tx_chunks # SKIP marked as disruptive
+> # ok 4 devmem.check_rx_hds # SKIP Test requires devmem support
+> # ok 5 devmem.check_rx_large_niov # SKIP Test requires devmem support
+> # # Totals: pass:0 fail:0 xfail:0 xpass:0 skip:5 error:0
+> ok 1 selftests: drivers/net/hw: devmem.py
+> # Totals: pass:1 fail:0 xfail:0 xpass:0 skip:0 error:0
+> 
+> https://netdev.bots.linux.dev/logs/hwksft/BCM57508/results/755681/config
+> driver: bnxt
+> fw: 237.1.148.0
+> 
+> Any idea?
 
-On Thu, Jul 30, 2026 at 1:38=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
-l.com> wrote:
->
-> On Wed, 29 Jul 2026, Doug Anderson <dianders@chromium.org> wrote:
-> > Hi,
-> >
-> > On Mon, Jul 27, 2026 at 4:40=E2=80=AFAM Jani Nikula <jani.nikula@linux.=
-intel.com> wrote:
-> >>
-> >> On Thu, 23 Jul 2026, Pengpeng Hou <pengpeng@iscas.ac.cn> wrote:
-> >> > ps8640_aux_transfer_msg() programs the AUX address registers, starts=
- the
-> >> > AUX transfer, waits for SWAUX_SEND to clear, and reads the AUX statu=
-s
-> >> > register. Several of those regmap operations have return values, but=
- the
-> >> > function only checks a stale ret after the status read.
-> >> >
-> >> > Propagate failures from the address write, transfer start, completio=
-n
-> >> > poll, and status read. This avoids returning a transfer length when =
-the
-> >> > bridge register transaction or AUX completion wait failed.
-> >> >
-> >> > Fixes: 13afcdd7277e ("drm/bridge: parade-ps8640: Add support for AUX=
- channel")
-> >> > Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
-> >> > ---
-> >> > Changes since v1: https://lore.kernel.org/all/20260623060635.16064-1=
--pengpeng@iscas.ac.cn/
-> >> > - include the AUX address and length in the address-write diagnostic
-> >> > - describe poll failures without assuming that every error is a time=
-out
-> >> > - add the Fixes tag suggested by Doug
-> >> > - rebase onto the current drm-misc-next tree
-> >> >
-> >> >  drivers/gpu/drm/bridge/parade-ps8640.c | 27 +++++++++++++++++++++--=
-----
-> >> >  1 file changed, 21 insertions(+), 6 deletions(-)
-> >> >
-> >> > diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/dr=
-m/bridge/parade-ps8640.c
-> >> > index 96332721cb69..56b48f8feab6 100644
-> >> > --- a/drivers/gpu/drm/bridge/parade-ps8640.c
-> >> > +++ b/drivers/gpu/drm/bridge/parade-ps8640.c
-> >> > @@ -257,8 +257,14 @@ static ssize_t ps8640_aux_transfer_msg(struct d=
-rm_dp_aux *aux,
-> >> >       addr_len[PAGE0_SWAUX_LENGTH - base] =3D (len =3D=3D 0) ? SWAUX=
-_NO_PAYLOAD :
-> >> >                                             ((len - 1) & SWAUX_LENGT=
-H_MASK);
-> >> >
-> >> > -     regmap_bulk_write(map, PAGE0_SWAUX_ADDR_7_0, addr_len,
-> >> > -                       ARRAY_SIZE(addr_len));
-> >> > +     ret =3D regmap_bulk_write(map, PAGE0_SWAUX_ADDR_7_0, addr_len,
-> >> > +                             ARRAY_SIZE(addr_len));
-> >> > +     if (ret) {
-> >> > +             DRM_DEV_ERROR(dev,
-> >>
-> >> DRM_DEV_ERROR() is deprecated in favour of drm_err() or dev_err().
-> >
-> > Good point. I'm inclined to land this anyway, though, since this is
-> > nominally a bugfix and it matches the error printing in the rest of
-> > the function. Any objections? It would be a nice future cleanup to fix
-> > the error printing in this driver overall to use the non-deprecated
-> > functions...
->
-> Up to you.
+Poking around, it looks like 231.1.167.0 and above should support
+everything, so fw should be okay AFAICT.
 
-OK, pushed to drm-misc-fixes.
+Looks like the config is missing CONFIG_NET_DEVMEM and CONFIG_UDMABUF?
 
-[1/1] drm/bridge: ps8640: propagate AUX transfer register errors
-      commit: 20697ecb299cd77b4cf8b28f655e56606b0472d8
+Sorry, took me a while... was certain it was a bug in my code.
 
-It would be great if someone wanted to update the error prints. :-)
+Not the failure here, but wondering if this was on ARM led to seeing
+that 16K hardcoded rx_page_size in run_rx_large_niov() may fail on ARM
+with 64K pages because it will fail the IS_ALIGN(16K, 64K) check...
 
--Doug
+Best,
+Bobby
