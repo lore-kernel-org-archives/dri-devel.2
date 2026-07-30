@@ -4,81 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2D80C55160
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:39:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3CD2C55160
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 01:42:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 530F210EB85;
-	Thu, 30 Jul 2026 01:39:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAF1310EC88;
+	Thu, 30 Jul 2026 01:42:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="B2d5yfOY";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="m8stWmLR";
 	dkim-atps=neutral
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7B77910EB85
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:39:32 +0000 (UTC)
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-93108a3c326so19002285a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:39:32 -0700 (PDT)
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B1DF10EC88
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 01:42:13 +0000 (UTC)
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-8ff5d1b0f91so11290906d6.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:42:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1785375571; x=1785980371;
+ d=chromium.org; s=google; t=1785375732; x=1785980532;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=bOAT49hjvBzCOPWhaRfDWtDf31fYaWLBSB9ycAdDcwo=;
- b=B2d5yfOY6XmQLcChOg4wL2NFjTuSqjTVNlLcpkuCsGA1KBplR5QmEqjW36qG6vMq3n
- l2Z6mYK2Lhfz+2mDFSDIVWCZUSC0hucyqftckY93nIAfXIFwjiATGNkVziX/UO87yvva
- LMM8uuu6fr1MKD+Uq9lvc9TiZHpehbFy+HYF0=
+ bh=OsIxvN6RYD4nfvmijZC7KmHewLJtuir0RPF6x5FglYs=;
+ b=m8stWmLRXXPqQCTdAPLOPlPDhKWrnRWIpDhSk2KidlPKfEibr73O4nXt2qPuoS2AaG
+ +MzwE3daAw2JXgbZyZc/5BuIXv88lgCxyR59u33+raSUnnRETATD7Q7piUyF48Jo2Kcw
+ x7K4Ksu9Pwd6d60ITMMfJRu9mdgRzXCybC7+o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785375571; x=1785980371;
+ d=1e100.net; s=20251104; t=1785375732; x=1785980532;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=bOAT49hjvBzCOPWhaRfDWtDf31fYaWLBSB9ycAdDcwo=;
- b=bs3Pj6R53r1qU+LEHh32IM21jwZSUiejdNMKitipY7YdNm226MC3EvQuJadMQxQP88
- SmjxgbLIeYWKCVCqJQ/UaufHfFwQFdkw/IWyRextvmu2vmXy/ACeghfaOrHj58YBl4VA
- uXAgtEA7LGEandTFBECi3FLj2KTO8B+bPsiYFxQvQwTzibqVLqvqgEVXsGHtHE90B3Og
- VpK7O6Pu9pOw8cF8ewawhS5W0ZY5Nq6XLtJNrS3QXY4FVKW52dAcjQ8ysBit+Y8++0Pq
- ItrXFEU0xQK+gxGz3cYd3NozNCcHJg2VNsqj6N0/bZi3/a/meqJvjaIhDjMRuaZII9fu
- UZkA==
-X-Gm-Message-State: AOJu0YxU6LexRwrq3FNLV5MewYulItJcKsUd/831JhIsQK2uaj1rbJxu
- Tk/RA/TbKCnU6mpFeWuTT1pXzYhucOvy1AJawoYMgoVbooSsCC8oPwSP9zRT3KTNi0kTiPQJ+6m
- 9n/M=
-X-Gm-Gg: AR+sD10SkDZGawkKahS+snm5eA6kbxhgr2e+Had5KJCzUKNxXQ6EgGn5fDs4gr14PZw
- wIsXFxQVvgOrIB39kc2OLrTPfH4AWZRjwWzhXqOeK7+UEyOATUdJTZm8NaqF/Y1SOqLAZZih+JN
- nrY4v6P7hkZEAnjT/2hVFI3DfwdwRTmNvlQXN774Rv8sLMdeLixMwXSVUg79SFYhWIDjSKWMoFD
- jySLd5swks+Z0bblGa5z6JRK8RP3F2r52E21VWdfpZssY2ITTDsDUvZrf33DZh+79qrdcP95dcI
- x3Gwal0LlxuSCte9/79Stt/D/iqXN6t6+pFCTklM3jLNNocaWtQ3nmczZsEssNnv+DtUKjF1DIk
- FmPR5+q9mxY72uTMjCFvOhaGNucZgdQi3lCqlGjB4VR95LypoCXc6Grn3tJT8SBEoZTGp+lxagn
- FQJVDkDEd6SAZVbEjOlXTRPjaRHIgZgG32a1/5UH8fcvvVVa+x7SeijF3aXmpR8lv931tVQaVny
- 6joxw8uC7oOrlV92jIyW+8P578=
-X-Received: by 2002:a05:620a:4622:b0:930:d48:a3d2 with SMTP id
- af79cd13be357-93487d8ed3dmr28343885a.21.1785375571376; 
- Wed, 29 Jul 2026 18:39:31 -0700 (PDT)
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com.
- [209.85.219.47]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-933e73696a8sm309020585a.46.2026.07.29.18.39.30
+ bh=OsIxvN6RYD4nfvmijZC7KmHewLJtuir0RPF6x5FglYs=;
+ b=ImFjz4X8Mze18RiAs1fAAkJAXLqD8Ah9wSiI1EH8aGKRxyJpoRWNU9NDoEwczff1lV
+ t5aJqYKqpTxEdShuM9A9u0JPvw0ETOtMVejblGTK5WhL9tzVvCGejGGzePbFtaOWTulL
+ ZzpMipLtWvE4lO9hRm0m9YJWsgke1FrisG10lzrmV9BcKL0fycrIwc/CurWBULOGCTsC
+ k/ocCVoh7kYLa8Z8ErCg0fnmMS53Nk/qP4/0lRkt4TVkfyLFFEnJHB7fsfTn8sctaUcD
+ veKVKRpMBjxU/t62TU0sMrsj3o1zwP7ubTlLbeD2h8ZOy6fhGVV4IRGYHaiSFhBqqou/
+ yDFw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrpiBpxgTppv4jrChAfIwVNeEeQA4raWb7Ex7HWILkjAbzG5B5Jfcwi+sWPGbp8Pve2ojNeKDTJCfI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywcwf8bIAbmrdnZ8YY3MHpFN0nKQSmAYRStI/WkKHjMwH8gv9LM
+ mZBfTOfx3CrIdUvbvSbJ8wvfvtJHRUsOb2H8BnmAIQStor97eub9dO3JmHHULRPNV6DIiptIYnO
+ oRP0=
+X-Gm-Gg: AR+sD12Zo27HjaShoEGDtyLe+CdNT1gLytJEPHpW9h3fsK/KtmEtyfkOoOG+2K26EU5
+ jsmRzvOTQNxQMqVo/RTGiuBVohcRWbGaSGwkt67e+nbo5PzRVC3QfJ+9kSObkOh4k08PPMYu6p/
+ +vrfvf9Xdw/xoAI3lAVK28y4ujL8+3SBnFTPBh49oTHyc1PAEmUWm78SGmIIcaTnUFQgom+Nd2I
+ pnHF+x+ic2yg3CzN74hgwRHfmB5U97CELGvYOiMP3VvCOZ4N3zxtnYnFIwwDZdPSd2G7+kdPUSk
+ pyTlYIG1EvfI5/lBdIclWaXalTrThbvFNucN9oQdM2ETnlkTd4M4+sj4//u+R09qzHOJHTD4kD4
+ hzrb91SGdDsAoBLKLmbCKclo7ZneFXjHNsyP8FT9BeudwVoXIWO4r0LA+BhVpLz5HV0MiFofG+P
+ DffBkt8x0pGbxLze2v2WdYYC7eSy2MAiQ3Cz9q6Ee8rv8WzQMeZilxWVB5fLc9imBHDnpaBlxDp
+ yLFEY3WkYn34IZ898okUv+7zyv67FI=
+X-Received: by 2002:a05:6214:3a85:b0:8f2:fbb1:cec4 with SMTP id
+ 6a1803df08f44-908346f03b8mr5884496d6.19.1785375732070; 
+ Wed, 29 Jul 2026 18:42:12 -0700 (PDT)
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com.
+ [209.85.160.174]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-908324f332esm4885376d6.33.2026.07.29.18.42.09
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jul 2026 18:39:30 -0700 (PDT)
-Received: by mail-qv1-f47.google.com with SMTP id
- 6a1803df08f44-8ef1dc934d1so2081346d6.0
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:39:30 -0700 (PDT)
-X-Received: by 2002:a05:6214:1cc7:b0:8e5:8d7b:5188 with SMTP id
- 6a1803df08f44-90834fc5cb5mr3246786d6.9.1785375569291; Wed, 29 Jul 2026
- 18:39:29 -0700 (PDT)
+ Wed, 29 Jul 2026 18:42:10 -0700 (PDT)
+Received: by mail-qt1-f174.google.com with SMTP id
+ d75a77b69052e-51c167c58f2so10938491cf.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 18:42:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqvquNw4HVWKQIEzDHEKcWhEHg3tEHOLvVCu3oONJtmvhUlIsK7ar1Re/MmjE2/iz8C/1O0yYZFcdM=@lists.freedesktop.org
+X-Received: by 2002:a05:6214:2c13:b0:8f1:8349:59ee with SMTP id
+ 6a1803df08f44-90834796b21mr5518286d6.35.1785375728810; Wed, 29 Jul 2026
+ 18:42:08 -0700 (PDT)
 MIME-Version: 1.0
-References: <82fc6395-3425-4f71-ba58-813856cee61d@gmail.com>
-In-Reply-To: <82fc6395-3425-4f71-ba58-813856cee61d@gmail.com>
+References: <20260723103509.2-ps8640-v2-pengpeng@iscas.ac.cn>
+ <c1cfe79fabe97b3d1603a4fa064a18afb7d6810b@intel.com>
+In-Reply-To: <c1cfe79fabe97b3d1603a4fa064a18afb7d6810b@intel.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 29 Jul 2026 18:39:18 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Wh+Mf4jxQ2VdcTcr-D27QrJcQG3XP6MuCJZdRAmSZ1ow@mail.gmail.com>
-X-Gm-Features: AUfX_mw8HqmcrW2QIQJzG4kshwpLty9evb5-KkiUFHq93NSsM0u5D-yCo_zYPfw
-Message-ID: <CAD=FV=Wh+Mf4jxQ2VdcTcr-D27QrJcQG3XP6MuCJZdRAmSZ1ow@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/panel-edp: Add BOE NE140QDM-NX2
-To: Weiji Wang <nebclllo0444@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Wed, 29 Jul 2026 18:41:57 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Wo-ps+aStGn5vCvb08tKx-rKDeu-r0bRVABL8zgg4Lhw@mail.gmail.com>
+X-Gm-Features: AUfX_mwIfUVkQozFkM984R32bwex5z7xEp6Iay9mTMXKPubHDtNpAoYdfi6AbZ0
+Message-ID: <CAD=FV=Wo-ps+aStGn5vCvb08tKx-rKDeu-r0bRVABL8zgg4Lhw@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/bridge: ps8640: propagate AUX transfer register
+ errors
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -98,69 +115,61 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Mon, Jul 27, 2026 at 12:58=E2=80=AFPM Weiji Wang <nebclllo0444@gmail.com=
-> wrote:
+On Mon, Jul 27, 2026 at 4:40=E2=80=AFAM Jani Nikula <jani.nikula@linux.inte=
+l.com> wrote:
 >
-> Add timing from datasheet for BOE NE140QDM-NX2.
+> On Thu, 23 Jul 2026, Pengpeng Hou <pengpeng@iscas.ac.cn> wrote:
+> > ps8640_aux_transfer_msg() programs the AUX address registers, starts th=
+e
+> > AUX transfer, waits for SWAUX_SEND to clear, and reads the AUX status
+> > register. Several of those regmap operations have return values, but th=
+e
+> > function only checks a stale ret after the status read.
+> >
+> > Propagate failures from the address write, transfer start, completion
+> > poll, and status read. This avoids returning a transfer length when the
+> > bridge register transaction or AUX completion wait failed.
+> >
+> > Fixes: 13afcdd7277e ("drm/bridge: parade-ps8640: Add support for AUX ch=
+annel")
+> > Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> > ---
+> > Changes since v1: https://lore.kernel.org/all/20260623060635.16064-1-pe=
+ngpeng@iscas.ac.cn/
+> > - include the AUX address and length in the address-write diagnostic
+> > - describe poll failures without assuming that every error is a timeout
+> > - add the Fixes tag suggested by Doug
+> > - rebase onto the current drm-misc-next tree
+> >
+> >  drivers/gpu/drm/bridge/parade-ps8640.c | 27 +++++++++++++++++++++-----=
+-
+> >  1 file changed, 21 insertions(+), 6 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/bridge/parade-ps8640.c b/drivers/gpu/drm/b=
+ridge/parade-ps8640.c
+> > index 96332721cb69..56b48f8feab6 100644
+> > --- a/drivers/gpu/drm/bridge/parade-ps8640.c
+> > +++ b/drivers/gpu/drm/bridge/parade-ps8640.c
+> > @@ -257,8 +257,14 @@ static ssize_t ps8640_aux_transfer_msg(struct drm_=
+dp_aux *aux,
+> >       addr_len[PAGE0_SWAUX_LENGTH - base] =3D (len =3D=3D 0) ? SWAUX_NO=
+_PAYLOAD :
+> >                                             ((len - 1) & SWAUX_LENGTH_M=
+ASK);
+> >
+> > -     regmap_bulk_write(map, PAGE0_SWAUX_ADDR_7_0, addr_len,
+> > -                       ARRAY_SIZE(addr_len));
+> > +     ret =3D regmap_bulk_write(map, PAGE0_SWAUX_ADDR_7_0, addr_len,
+> > +                             ARRAY_SIZE(addr_len));
+> > +     if (ret) {
+> > +             DRM_DEV_ERROR(dev,
 >
-> edid-decode (hex):
->
-> 00 ff ff ff ff ff ff 00 09 e5 f2 0a 00 00 00 00
-> 20 1f 01 04 a5 1e 13 78 03 ee 96 a3 54 4c 99 26
-> 0f 4e 51 00 00 00 01 01 01 01 01 01 01 01 01 01
-> 01 01 01 01 01 01 60 d2 00 a0 a0 40 32 60 30 20
-> 35 00 2e bd 10 00 00 18 c8 9d 00 a0 a0 40 32 60
-> 30 20 35 00 2e bd 10 00 00 18 00 00 00 fd 00 30
-> 78 c6 c6 36 01 0a 20 20 20 20 20 20 00 00 00 fe
-> 00 4e 45 31 34 30 51 44 4d 2d 4e 58 32 20 01 f8
->
-> 70 13 79 00 00 03 01 14 30 69 00 05 ff 09 9f 00
-> 2f 00 1f 00 3f 06 31 00 02 00 04 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-> 00 00 00 00 00 00 00 00 00 00 00 00 00 00 4d 90
->
-> Signed-off-by: Weiji Wang <nebclllo0444@gmail.com>
-> ---
-> V1 -> V2: Changed entry sorting and shifted to 'delay_200_500_e50_p2e80'
->
-> v1:
-> https://lore.kernel.org/dri-devel/697e79c2-98a9-4bb3-b5fb-db327cbe1bce@gm=
-ail.com/
->
->   drivers/gpu/drm/panel/panel-edp.c | 1 +
->   1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/panel/panel-edp.c
-> b/drivers/gpu/drm/panel/panel-edp.c
-> index 14dd40afa899..c6cdcd12002e 100644
-> --- a/drivers/gpu/drm/panel/panel-edp.c
-> +++ b/drivers/gpu/drm/panel/panel-edp.c
-> @@ -2036,6 +2036,7 @@ static const struct edp_panel_entry edp_panels[] =
-=3D {
->       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0a84, &delay_200_500_e50,
-> "NV133WUM-T01"),
->       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ac5, &delay_200_500_e50,
-> "NV116WHM-N4C"),
->       EDP_PANEL_ENTRY('B', 'O', 'E', 0x0ae8, &delay_200_500_e50_p2e80,
-> "NV140WUM-N41"),
-> +    EDP_PANEL_ENTRY('B', 'O', 'E', 0x0af2, &delay_200_500_e50_p2e80,
-> "NE140QDM-NX2"),
+> DRM_DEV_ERROR() is deprecated in favour of drm_err() or dev_err().
 
-git is telling me that your patch is malformed. I guess somehow your
-mailing client word-wrapped it? ...and it seems to have converted your
-tabs to spaces. You probably need to adjust your setup.
+Good point. I'm inclined to land this anyway, though, since this is
+nominally a bugfix and it matches the error printing in the rest of
+the function. Any objections? It would be a nice future cleanup to fix
+the error printing in this driver overall to use the non-deprecated
+functions...
 
-Since it's a one-line patch, I managed to whip it into shape and I've
-applied it, but you'll definitely have to fix that up for any other
-patches you send out.
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-Pushed to drm-misc-next:
-
-[1/1] drm/panel-edp: Add BOE NE140QDM-NX2
-      commit: 354b9c43d36ce9b41e48b2d67c5d9b953a0e9d64
+-Doug
