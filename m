@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B088C5516D
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 19:55:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0A73C5516D
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 19:56:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E1CEA10E13E;
-	Thu, 30 Jul 2026 19:55:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 03E3510F064;
+	Thu, 30 Jul 2026 19:56:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="T3Itbe8O";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="K2bknje4";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1C64F10E13E
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 19:55:52 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C266F10EFB2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 19:55:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785441351;
+ s=mimecast20190719; t=1785441353;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=TJja0xVF5yEcxVJEJX5YHQm2Btsqc4GViriEO6krARA=;
- b=T3Itbe8OKUr+08XqgUVLO6fLl/J5NGtY5PUEBUSf35vGFhvBN09xd4wg0dkg5k1CbzJikY
- czvh4OIELhmvRvGbwvRgQ6WZaBfadR2MysgYfrm4MHx4vb+XUjuju9eY8V6z70fnxdRoOQ
- TYtIL+xkMTNNC60kWxvHzvGh+D05k3Q=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=/pz8u2PCNU3eOGp8lK0CAqX+n/JHdMOCrvaZNNO/A7E=;
+ b=K2bknje43FsaPGjCU7erXtaCl47uMvP49UqnIdW4DOKjZ47BFhLRFdFFv0MtZOV+QIlTZ5
+ wi1SnmIOqXfcFLvCduK1wTdYuW24TrsIB7XtDblRPwboIBPrEHRsUt3K8AsfwBtzSrrCjZ
+ x43fKasu3qnmDBjRsfhATyPEjI0E9wU=
 Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-676-sccg5_l8Oqqhm4osJCPcLQ-1; Thu,
- 30 Jul 2026 15:55:47 -0400
-X-MC-Unique: sccg5_l8Oqqhm4osJCPcLQ-1
-X-Mimecast-MFC-AGG-ID: sccg5_l8Oqqhm4osJCPcLQ_1785441345
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-35-zPNRc_WzMX2CG44a7SXSSQ-1; Thu,
+ 30 Jul 2026 15:55:49 -0400
+X-MC-Unique: zPNRc_WzMX2CG44a7SXSSQ-1
+X-Mimecast-MFC-AGG-ID: zPNRc_WzMX2CG44a7SXSSQ_1785441347
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
  by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 9420B19560A7; Thu, 30 Jul 2026 19:55:44 +0000 (UTC)
+ id CAA58195609F; Thu, 30 Jul 2026 19:55:46 +0000 (UTC)
 Received: from GoldenWind.lan (unknown [10.22.88.35])
  by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
- id D79F3414; Thu, 30 Jul 2026 19:55:42 +0000 (UTC)
+ id 59EA4423; Thu, 30 Jul 2026 19:55:45 +0000 (UTC)
 From: Lyude Paul <lyude@redhat.com>
 To: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
@@ -50,12 +51,15 @@ Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
  "Thomas Zimmermann" <tzimmermann@suse.de>,
  "Maxime Ripard" <mripard@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>,
  "Lyude Paul" <lyude@redhat.com>
-Subject: [PATCH v2 0/5] drm/nouveau: Enable atomic modesetting by default
-Date: Thu, 30 Jul 2026 15:51:04 -0400
-Message-ID: <20260730195523.1467423-1-lyude@redhat.com>
+Subject: [PATCH v2 1/5] drm/nouveau: Fix cleanup bug in
+ nouveau_drm_device_new()
+Date: Thu, 30 Jul 2026 15:51:05 -0400
+Message-ID: <20260730195523.1467423-2-lyude@redhat.com>
+In-Reply-To: <20260730195523.1467423-1-lyude@redhat.com>
+References: <20260730195523.1467423-1-lyude@redhat.com>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
-X-Mimecast-MFC-PROC-ID: 5exxEqiGa6HTUIVyPP_b2-iWrUapOEu3lyPbtbe4PzI_1785441345
+X-Mimecast-MFC-PROC-ID: S34mryEav7eMjC6NQyGVaGi88BCP37W378nlrbqJ9gE_1785441347
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -74,43 +78,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Nouveau is one of the very few modern hardware drivers in the kernel that
-doesn't have atomic modesetting enabled by default, in part because when it
-was originally written by Ben there wasn't much in the way of good atomic
-modesetting clients to actually test things out with.
+Sashiko caught this while reviewing the patches for enabling atomic by
+default. Trying to fix this properly would be a bit of a pain, and we're
+going to be adding another pre-DRM allocation here anyway. So, let's
+instead just convert the initial struct nouveau_drm allocation over to
+using devm so it is freed automatically.
 
-Nowadays however, atomic modesetting is very much the norm - and support in
-userspace for non-atomic drivers is starting to bitrot a bit - leading to
-its own set of issues. At the same time, many of those issues are fixed by
-just turning on atomic in nouveau. Plus, I've been running nouveau with
-atomic modesetting on by default for most of the machines I work on, and
-I've already fixed quite a number of issues to the point where things seem
-quite stable (excluding a single screen flashing bug on my desktop, which I
-am not particularly convinced has anything to do with atomic modesetting).
+Signed-off-by: Lyude Paul <lyude@redhat.com>
+---
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-This patch series enables atomic modesetting by default, at least for
-NV50 and newer. NV04 is left unchanged, as atomic modesetting was never
-implemented for it. This series also enforces leaving atomic modesetting
-disabled on <NV50, and adds the value of nouveau.atomic to our kernel
-debug output.
-
-Previous version of this patch series:
-
-	https://patchwork.freedesktop.org/series/171310/
-
-Lyude Paul (5):
-  drm/nouveau: Fix cleanup bug in nouveau_drm_device_new()
-  drm/nouveau: Print the nouveau.atomic parameter in
-    nouveau_display_options()
-  drm/nouveau: Fix drm_driver struct/nouveau.atomic parameter handling
-  drm/nouveau/kms: Only allow enabling atomic modesetting on nv50+
-  drm/nouveau/kms/nv50-: Enable atomic modesetting by default
-
- drivers/gpu/drm/nouveau/nouveau_drm.c | 49 ++++++++++++++-------------
- 1 file changed, 26 insertions(+), 23 deletions(-)
-
-
-base-commit: 35b6cf07851a2b430b0eefbcb7b5a856f9030264
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index 4d1ad718e09b7..9570850656126 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -723,7 +723,6 @@ nouveau_drm_device_del(struct nouveau_drm *drm)
+ 	nvif_parent_dtor(&drm->parent);
+ 
+ 	mutex_destroy(&drm->client_mutex);
+-	kfree(drm);
+ }
+ 
+ static struct nouveau_drm *
+@@ -740,17 +739,15 @@ nouveau_drm_device_new(const struct drm_driver *drm_driver, struct device *paren
+ 	struct nouveau_drm *drm;
+ 	int ret;
+ 
+-	drm = kzalloc_obj(*drm);
++	drm = devm_kzalloc(parent, sizeof(*drm), GFP_KERNEL);
+ 	if (!drm)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	drm->nvkm = device;
+ 
+ 	drm->dev = drm_dev_alloc(drm_driver, parent);
+-	if (IS_ERR(drm->dev)) {
+-		ret = PTR_ERR(drm->dev);
+-		goto done;
+-	}
++	if (IS_ERR(drm->dev))
++		return ERR_CAST(drm->dev);
+ 
+ 	drm->dev->dev_private = drm;
+ 	dev_set_drvdata(parent, drm);
 -- 
 2.55.0
 
