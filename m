@@ -4,44 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F85C5516D
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:10:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 655B1C5516D
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 20:11:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BD5910E681;
-	Thu, 30 Jul 2026 20:10:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF1F110EF8D;
+	Thu, 30 Jul 2026 20:11:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Ld1gY3od";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VqVPSKw2";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2D0B10E681
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:10:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 47DDF4209E;
- Thu, 30 Jul 2026 20:10:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0361F000E9;
- Thu, 30 Jul 2026 20:10:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785442219;
- bh=gVMnlXmHz6P1nKtQyPP+hcmBdwva0a1E1K3pScCvloc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Ld1gY3odsPnlnmhlUcPh7fVeiCwuKf9cWfC2lcPwDRa3laTWtzoWntx0MymPAEg5w
- BR+cPnWe1M1r9GZGWtyvCnMclBxhx7I/9WL6zD+23lic+eem5B+OKjG2bxpsu/GH8r
- q93JnMDNeSnMjKGHKiZkIOKBjKdF/8TMjn5JYACn/dbrfzPveDh9WCgvZKeyjT7cC3
- J/chgcBcmawsTaZprcEOSS/i3MOyMKzzuFtbFYIVBHibH3y3yNaTuU3FqQ0G4rhR1d
- AndK02d9kZJR+qgtE7y9n0hyRVp1x9nFtIsJxZslKoY2BJSt+01blKdJ30lcv3NCkN
- Wktob7PgUHpTQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/5] drm/nouveau/kms: Only allow enabling atomic
- modesetting on nv50+
-To: "Lyude Paul" <lyude@redhat.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260730195523.1467423-5-lyude@redhat.com>
-References: <20260730195523.1467423-1-lyude@redhat.com>
- <20260730195523.1467423-5-lyude@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 20:10:18 +0000
-Message-Id: <20260730201018.9B0361F000E9@smtp.kernel.org>
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDA9C10EF8D
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:11:33 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-84874b52eabso458511b3a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 13:11:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785442293; x=1786047093; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=yHhFvDLdT6/nmSmrERMl9Q942exbwnTVnKlPTxRQFfM=;
+ b=VqVPSKw2o3h/XsnSj6jsGXEyQmfLSg0A78Rft4QwE5ZbBGWOLOndOGuuAhe6gY9yew
+ H4kTKCedPL5ZIbXObm9qdzBNpKKEaQIvls08bnWiRh85FH4U3esmtksqOliAbbOq+KnV
+ sLazGBw7iwgx5FouZmntaXPh4C8dxDYWeSNd+QEmzWvxsOLk3e1PEr7uBHJKI5Kv20Im
+ xYa2O1uyX/96WYAMHHM919GsYsuSQrtm+YAO7R1dky+066XJBXByStmEZ0vZOeS0fte/
+ CH7wXNu7omsJkOeSvKVTdLJwMUTFCplZzh1jGJafIqXpzOfPoI5GvJQRU6EjnTT1Hji8
+ wxvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785442293; x=1786047093;
+ h=content-transfer-encoding:mime-version:reply-to:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=yHhFvDLdT6/nmSmrERMl9Q942exbwnTVnKlPTxRQFfM=;
+ b=RO9exeREU7szszFEw2AiI19aNOk3uz4V9BPLj0U8oq7LuRulpHUHAHgadnJBH/aXoy
+ Dg727BBpAbR76Ai7R3hdgvvL3jy1A0H30zBJ6qwQilZVB70XnP7x/4s7QCECD2Tgw5gz
+ 9ORXEFDInW9gL0pCs1L1WKWcICafd5leC2yF8Uj5m3v9Eqme521Wo47DycLRAHO31vhs
+ dtf6pvU5vPtj54JP7soXi2dWGKHhJW/w+NoiKLIAvXvR1597skHk+QB1fH6MbVsrX9kp
+ DahZl03qQSvbl1IvBSdgF6FqN4jL26y65tPtpdgx2J2UfbBLyK8fgJlBvOJsA5chUUAl
+ M87Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqw/OrhGL3cAE8uEkWXo+mLIYyJPo5UxXY9bf6fWBHcE448IMgKpBkks4+SFkUl4MwCh2YqHX86eL8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy8CZ5em+xXK9fA4QJfbWtas4zc2MGv1V/F187fWCPKFV504KqK
+ nTFZudeTJZcoRx/cyZxVxJNlD45E0ZNy4NnPX5eY8XDkcGl0qcQoAY3L
+X-Gm-Gg: AR+sD10R9eYqr1plJAyM4fRkML0iYnVf5ObCMO8fY0XWNgnhFhAlgLgu2djTcuIbXOE
+ DnBbRN1QpjUgjTf2HsyhGoEPewoLzv1grMw/5xdEP19kivgdKYuwnTqtXx0XXHd0hl4wJcVWReC
+ PE2OP+vEEF2vGR6F/wCfxJUEvAwb0/z07PnNWdknIfAHaDBHnYhWoD7tnbyaWkrI9mlUOCac6CN
+ gOi43uAc/tEjEf8WOfC4k6lDk2b3KWIkgzD3DTP3MOTVyNRxKeTVFn0yvWgVkoE1vHzRi7ohqXx
+ ePDnIZkg5unb8ZNIofmvbLoQ+Fomc5yQAGA5r68b0fZwMz6lvyyJ+IlJDyU6jT7mh5rRwKHUZR3
+ LFqcHGJTnXq2UhH7ml65GPzvgQcyTxXgMw8t6e4xOjvRw8uXwSAfguOpKq1UF+/wvQ6LruZQD/z
+ wkvIdRkBR69EemAy9VXzWhfE/VVtoGsED3kjGnI5T4hia/KK+uSzgt6HpWdy+IRVmGd6I72ByD3
+ d1JaY9WJ9Og26oJYBoIqijpi7nmWh1dUigG51fRw6I=
+X-Received: by 2002:a05:6a00:1150:b0:845:d284:9e0a with SMTP id
+ d2e1a72fcca58-84ebc425164mr3944086b3a.49.1785442293425; 
+ Thu, 30 Jul 2026 13:11:33 -0700 (PDT)
+Received: from localhost.localdomain (c-174-165-208-10.hsd1.wa.comcast.net.
+ [174.165.208.10]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84ea0055325sm3689108b3a.15.2026.07.30.13.11.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 13:11:32 -0700 (PDT)
+From: Michael Kelley <mhkelley58@gmail.com>
+X-Google-Original-From: Michael Kelley <mhklinux@outlook.com>
+To: kys@microsoft.com, haiyangz@microsoft.com, wei.liu@kernel.org,
+ decui@microsoft.com, longli@microsoft.com, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
+ daniel.lezcano@kernel.org, ssengar@linux.microsoft.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, James.Bottomley@HansenPartnership.com,
+ martin.petersen@oracle.com, sgarzare@redhat.com, horms@kernel.org
+Cc: x86@kernel.org, linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
+ linux-scsi@vger.kernel.org, virtualization@lists.linux.dev
+Subject: [RESEND PATCH 0/6] Remove support for Windows Server 2012/2012R2 &
+ Win8/Win8.1 versions of Hyper-V
+Date: Thu, 30 Jul 2026 13:11:17 -0700
+Message-Id: <20260730201123.1767-1-mhklinux@outlook.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,69 +95,85 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: mhklinux@outlook.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Dynamically allocating `struct drm_driver` with `devm_kzalloc` cre=
-ates a Use-After-Free on device unbind.
---
+Linux code for running as a Hyper-V guest includes special cases for
+running on Hyper-V in WS2012/2012R2 and Windows 8/8.1. These versions
+were initially released 14 years ago, and official support ended in 2023
+(unless a customer has contracted for extended security updates). Given
+the release of subsequent versions with improved functionality, there's
+no need to continue to support the latest Linux kernels on these versions
+of Hyper-V. If someone is running Linux on one of these older Hyper-V
+versions and doesn't want to upgrade, they can continue to do so as
+presumably they don't want upgrade the Linux version either.
 
---- Patch [4]: [PATCH v2 4/5] drm/nouveau/kms: Only allow enabling atomic m=
-odesetting on nv50+ ---
-commit 5c23d4459a380de49a6e089b9ca550a380ff5d97
-Author: Lyude Paul <lyude@redhat.com>
+Simplify Linux code by removing special cases for running on these
+old versions of Hyper-V. This includes removing the negotiation of the
+VMBus protocol versions for WS2012/Win8, and the special case code based
+on those VMBus protocol versions. Changes are in the core VMBus code and
+several drivers for synthetic VMBus devices.
 
-drm/nouveau/kms: Only allow enabling atomic modesetting on nv50+
+Some VMBus drivers have device-specific protocols with the Hyper-V host.
+Further simplify the code by removing the use of protocol versions that
+are specific to WS2012/Win8 and earlier.
 
-Atomic modesetting support was never added for pre-nv50 chipsets, so make
-sure we don't allow it to be forced on. Additionally, print a small warning
-when it's not supported.
+Finally, the WS2012/Win8 versions of Hyper-V were the last to use
+messages to deliver synthetic timer interrupts. Starting in WS2016/Win10,
+stimer interrupts are delivered to their own assigned interrupt vector
+(called "Direct Mode"). So remove the code for handling timer interrupts
+delivered as messages. This removal has a broader benefit in removing
+a key blocker to disentangling VMBus code (which handles the messages)
+and stimer code, as they should be independent of each other. The
+final disentangling will come as a follow-on patch set.
 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouv=
-eau/nouveau_drm.c
-> index ae489dc1b1943..33f60f5d4d9f3 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -770,8 +770,12 @@ nouveau_drm_device_new(struct device *parent, struct=
- nvkm_device *device)
->  		goto done;
->  	}
-> =20
-> -	if (nouveau_atomic)
-> -		drm_driver->driver_features |=3D DRIVER_ATOMIC;
-> +	if (nouveau_atomic) {
-> +		if (drm->device.info.family >=3D NV_DEVICE_INFO_V0_TESLA)
-> +			drm_driver->driver_features |=3D DRIVER_ATOMIC;
+Testing:
+* VM on local Hyper-V on up-to-date Windows 11
+* Added temp debug code to suppress Direct Mode enumeration. Fallback
+  to LAPIC timer worked as expected (x86/x64 only)
+* Azure VM DC16eds v6: TDX CoCo VM with HvLite paravisor
+* Azure VM DC16ads v6: SEV-SNP VM with an older paravisor
+* Azure VM D16alds_v7: normal AMD x86 VM with HvLite paravisor
+* Azure VM D16plds v6: normal ARM64 VM with MSFT Cobalt processor
+* Not tested running in VTL2
 
-[Severity: High]
-Earlier in nouveau_drm_device_new(), drm_driver is dynamically allocated
-with devm_kzalloc():
+There's no specific urgency to removing the special case code for
+WS2012/Win8, so if the broader Linux kernel community surfaces
+a reason why this clean-up should not be done now, we can wait.
+But I think we want to eventually stop carrying around this extra
+baggage, and based on discussions with the Hyper-V team within
+Microsoft, we're past the point that it has any value.
 
-	drm_driver =3D devm_kzalloc(parent, sizeof(*drm_driver), GFP_KERNEL);
-	if (!drm_driver)
-		return ERR_PTR(-ENOMEM);
+Michael Kelley (6):
+  Drivers: hv: Remove support for WS2012/2012R2 & Win8/8.1 version of
+    Hyper-V
+  hv_sock: Remove check for old Hyper-V hosts
+  hv_netvsc: Remove GPADL teardown special case for old Hyper-V hosts
+  drm_hyperv: Remove support for synth video protocol of old Hyper-V
+    hosts
+  scsi: storvsc: Remove support for storvsc protocol of old Hyper-V
+    hosts
+  clocksource: hyper-v: Remove support for stimer interrupts in message
+    mode
 
-Can this create a use-after-free on device unbind?
+ arch/x86/hyperv/hv_init.c                 |  17 +--
+ arch/x86/kernel/cpu/mshyperv.c            |   4 +-
+ drivers/clocksource/hyperv_timer.c        | 150 +++-------------------
+ drivers/gpu/drm/hyperv/hyperv_drm_proto.c |  33 ++---
+ drivers/hv/channel_mgmt.c                 |   4 -
+ drivers/hv/connection.c                   |   8 +-
+ drivers/hv/hv.c                           |   4 -
+ drivers/hv/hv_balloon.c                   |  36 +++---
+ drivers/hv/hv_snapshot.c                  |   5 -
+ drivers/hv/vmbus_drv.c                    |  10 +-
+ drivers/net/hyperv/netvsc.c               |  20 +--
+ drivers/scsi/storvsc_drv.c                |  53 ++------
+ include/clocksource/hyperv_timer.h        |   6 -
+ include/linux/hyperv.h                    |   5 +-
+ net/vmw_vsock/hyperv_transport.c          |   3 -
+ 15 files changed, 76 insertions(+), 282 deletions(-)
 
-If userspace opens the DRM device node, it takes a reference on the
-drm_device object. If the PCI device is hot-unplugged or manually unbound,
-devres cleanup frees the drm_driver (along with nouveau_drm).
+-- 
+2.25.1
 
-Later, when userspace closes the DRM file descriptor, drm_release() calls
-drm_dev_needs_global_mutex() which evaluates dev->driver->driver_features,
-and eventually executes dev->driver->postclose(), dereferencing the freed
-memory.
-
-> +		else
-> +			NV_WARN(drm, "Atomic modesetting not supported (needs nv50+)\n");
-> +	}
-> =20
->  	ret =3D nvif_device_map(&drm->device);
->  	if (ret) {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730195523.1467=
-423-1-lyude@redhat.com?part=3D4
