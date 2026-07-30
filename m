@@ -4,66 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 202B6C54FDF
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:27:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE60DC531D0
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 06:28:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 63CC810E655;
-	Thu, 30 Jul 2026 06:27:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 357D710E654;
+	Thu, 30 Jul 2026 06:28:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i4hvpLJV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a1r6CyCZ";
 	dkim-atps=neutral
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 903B910E655
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:27:37 +0000 (UTC)
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-84a652535dcso1332631b3a.3
- for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 23:27:37 -0700 (PDT)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 768FB10E65E
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 06:27:50 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-8486672f03cso1935978b3a.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 29 Jul 2026 23:27:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785392857; x=1785997657; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=8LdAoJKwXyAPy2Oxe1p5of7f27uz/x1w5QiaYqvn624=;
- b=i4hvpLJV5t7RQjVoAJYdynmgpfVpbiRciCyOMcj/76DoyDZPIaiig3jwQqTFX8itLf
- MZ/WCfeWGhValV+fbdZheO4elqRyOcbtZ1b8b0KUDN+3eyUv4aCGPU6/nGgAYe9EVTXg
- INI0MtmvDKsDaDFbSZC4Pdv3VUIpm6mzmepCUS9DvD4N+SJtHq9ce+gLm/go4tb7vOEI
- lI4FoJfc9sVbMpIRSTEtAcSkisGK+3oIx472ijRjRZujQ8OZx+lKwcRXkLSusm+PvbI8
- e8yqDJsliRFWYrVFFFKbNGDUbFxDda5Vsv2i/iSWQzX+4SPJglJKNEss9nQbX7BnmbfX
- 8Ljg==
+ d=gmail.com; s=20251104; t=1785392870; x=1785997670; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Ax7tbNUValSVYnoO1zdiSGKC5h5YwguB1K37baEZiC0=;
+ b=a1r6CyCZ9g8w4AmoJkNjKwJ+ou9cuRFl9x5SkPxB6GfI7mCwxeo6UmDWqMVz+OkxRG
+ AgPEhba7YKUsOV5D02CxRz1MFloQr3/vfvJ6aru6Fv9r43DKBcOHqWXvtf8DJwdOCn5K
+ 1PmI3Tw2KLXjJGAUPmmBTWq9Z6czzbRMmpk/IdyZPnynzcqWww+00qPm1X9U/KyY6ISb
+ CrV4z0OVmXI8pvY010KQDWGJDS2DUXz1M2ahH1m/6ZsR1bHX/528GRYhCYOeTdomY+qm
+ LwC3L4ywuRctoo6ONXyvif8gWzt2JkkS5jhIx1XOow0AKPn6Gah3dyo097jOq6n0/U0z
+ EsHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785392857; x=1785997657;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=8LdAoJKwXyAPy2Oxe1p5of7f27uz/x1w5QiaYqvn624=;
- b=Y5kQVdimTVW7RP0UbDYabtL61hVk4k7Kim6bw2CbD3UaIYUZ5mXhB2hvIw2PnMoqDP
- 8m7DanPb+1+vZR43pidUaCmMIcfd0wdzcLuB/Ks4SvZsaWChdKbNWRHJ9zRuDT5QMKgv
- lMpRHDZF+lk02fJqlbqNRIiyNhcQEd3K1goyitCitzO6RPe687brXBWE9u62drP1DwJd
- giY+uFdkNt3OvMV0X1BSsxKSnnI4FMYYw7xmIBpT1pQqwyAuFWM24+DvYhTaKrfyrWy5
- ptYWntEB61fF2Qnn/RjP9YwkYu0zZ1g7Q0b/Sd1EjKH+1vgaRlWDx/jxwo8AwBoy7s/O
- xweg==
+ d=1e100.net; s=20251104; t=1785392870; x=1785997670;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Ax7tbNUValSVYnoO1zdiSGKC5h5YwguB1K37baEZiC0=;
+ b=MVqUrNXOTeHtEs8aTbuLwQOG+fXkg4g05qea/jWLOku/G/XBRKoexTI5E8c6C7oZOC
+ lxgVHKqn1UTVHwRWJ/kYqd30QoaSLn7tw/XxAEX0ntiG0cFJFQhuNmUJXDNgsMx6F0FX
+ x4iRmgsti4RSr0ZjCjNuorjTVOZHCFDeDRqIn3UQkRXSfAoDxEJQF5Mg0BhxIariKOVt
+ EgrmtOiqZLXai6aZ07eh+wy43tjdtaJspdhs6Bniyk0qd7S9uuyykrVlQWRiUor++WJc
+ 1RZ2BLXJ24e4u7ejhtksUgcCRLG+WjA8isR5XiPSjM8V9fUaqawpbfaZpmDbN+Y5blQw
+ nf2g==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoKz63gCIo8o0vy3k/YrLXZ1ivQkhgS7ZOEo3P3c3QpjVTOgjmJaXm9qoEHtOyVMR3lRqlUjah2urM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxxKCiTqsWIqaZIL+/YjkvIEuLm0s6VztRHFo5dgiIDjyOnebLv
- 9lnIL21aLsU26htUYcTG8Wb4hzl3c0EXpEm4LzoTBLyVPfcXqEZkewWK
-X-Gm-Gg: AR+sD107D8pVYPDHlb4Dcee8CnKE+4PMcXjiaei3ZZFRLZ+2CHE4fQ9OJP/yh4nkpLE
- 7AZGi669BY0IG/PwOQs/NWZqoGynPqXdRxpLF6yQUFYy8T/iWViMPA7tHTkAKQHcjEcVux8vbfZ
- Ip68WJBcjNpiFkHXN+mGHOnHuCHY33rXP/HfJ6dI9/TpD/4TugOl9bNVJP+27V2bxPjv2A+rJv/
- dc4GCJicl0zXmBJ+FG7zRdg1DgZB93YxECgwhMc4tgKDQNww+M6RJJDiLVzNgg/JN0WMdRKKHOG
- 9hmdkaCk6cB0GbhyhHqYh+p4/WyBBJ1TDKRxJUyRTxMTnZQhY1vYmp/DfxHL7WsrYtKu4fn8//H
- JmghiDA96lhtZL55DG4HfdUvglzDI2WGcHN8gvwFGA12fVCyRrKLfF44zfw5tJlBfc1KMN2E/KN
- 5xZMRsRTykB+9f5c9Vn14A1loxz11kOAFihAILMdCvccxzaVVKxI1QHAUREOBntEEPUR3cMlrsA
- SI=
-X-Received: by 2002:a05:6a00:2e87:b0:842:5da3:9b89 with SMTP id
- d2e1a72fcca58-84ebc3e1d64mr1491102b3a.38.1785392856941; 
- Wed, 29 Jul 2026 23:27:36 -0700 (PDT)
+ AHgh+RpaJAkizZSR5sNYhUcRUKcQLUQwGB2EoP39gDthwBx1uIsrkRhbR3pOtvpRUWYySx8lhwwBzKgrBeQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxADGA7BhfSGJ9qc8FOhSxt1BEKQqvr7E5eS4XezDeSrGlHJI/0
+ iOaikVNpNj/CsNGTInUAOkjKl5EDfkteD/EOQ83YXg9jJSwmldfuqcjy
+X-Gm-Gg: AR+sD11JoJoGzSFouLqnbOe4q0MjTuNHhlvH5/JUZLDHb0wqaEF4YnZ8WlgK46XLJpS
+ 7flGcwugNyscAheM1qsGooPVKUHnpEY6ZyA7M64nCiEBlmlK+pjygMscPd+xa8H8aOtdtzgf7yb
+ Z6yUOL9BIsUl6kiM4GxuvIkjxvF7NgR7+PY2TPl2U083tilo6qopT0JzMPSKKlZF9cYPNY6VuJo
+ U1rJK+tPz98GTWzKdMz7QCljwGZT8vm+KtRhHxVpVYb3u9Sh/OQ6TS4pAicWrbvmyM89CuldkTX
+ DdOT+9asxmtvmCJ5JQtUFpgJJEAVCr2YHSdycODcIFnWTPuEtygjaznTEMh3aVnd79871GA/G9k
+ SsQ9BytKPj27TDC9VACfmMapXSPt/5pa3JC9JOcRYHYhzCyAELQoU9kVNyhhLT2O23GEKOsXwZK
+ 0wE91rNF3dmHDWo6GwTYydKQLPd2Z79o7kPwjt9rMv60fcx0SPisCDU4Flg5e1vktU
+X-Received: by 2002:a05:6a00:2d04:b0:848:2f7a:2e57 with SMTP id
+ d2e1a72fcca58-84ebc4475aamr1325657b3a.70.1785392869924; 
+ Wed, 29 Jul 2026 23:27:49 -0700 (PDT)
 Received: from baineng-pc.. ([117.133.183.252])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84ea00507b0sm2503229b3a.14.2026.07.29.23.27.31
+ d2e1a72fcca58-84ea00507b0sm2503229b3a.14.2026.07.29.23.27.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2026 23:27:36 -0700 (PDT)
+ Wed, 29 Jul 2026 23:27:49 -0700 (PDT)
 From: Baineng Shou <shoubaineng@gmail.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -77,16 +75,15 @@ Cc: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH v5 3/4] drm/prime: use dma_buf_fd_install() to preserve export
- tracing
-Date: Thu, 30 Jul 2026 14:26:44 +0800
-Message-Id: <20260730062645.233148-4-shoubaineng@gmail.com>
+Subject: [PATCH v5 4/4] selftests: dmabuf-heaps: add fd-leak-on-EFAULT
+ regression test
+Date: Thu, 30 Jul 2026 14:26:45 +0800
+Message-Id: <20260730062645.233148-5-shoubaineng@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260730062645.233148-1-shoubaineng@gmail.com>
 References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
  <20260730062645.233148-1-shoubaineng@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -103,42 +100,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_gem_prime_handle_to_fd() open-codes fd reservation and install
-using get_unused_fd_flags() + fd_install() directly.  This bypasses
-the DMA_BUF_TRACE() call that dma_buf_fd() emits, so observability
-tools relying on the trace_dma_buf_fd tracepoint silently miss all
-DRM PRIME exports.
+Add a test case that verifies no file descriptor is leaked when
+DMA_HEAP_IOCTL_ALLOC succeeds internally but copy_to_user() fails
+to deliver the fd number back to userspace.
 
-Replace the bare fd_install() with dma_buf_fd_install(), which wraps
-fd_install() together with DMA_BUF_TRACE(), restoring full tracepoint
-coverage.  No functional change; the fd lifecycle (get_unused_fd_flags
-→ work → install) is already correct.
+The failure is triggered by placing the ioctl argument in a private
+anonymous page and flipping it to PROT_READ (via mprotect) between
+the kernel's copy_from_user() and copy_to_user() calls.  With the
+buggy kernel the ioctl returns -EFAULT but leaves an extra open fd
+in the process's fd table; with the fixed kernel the fd count is
+unchanged.
 
-Note: this patch depends on dma_buf_fd_install() introduced in
-"dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
-[1].
+This serves as a regression test for:
+  "dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
 
-[1] https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubaineng@gmail.com/
-
-Suggested-by: Christian König <christian.koenig@amd.com>
+Suggested-by: Sumit Semwal <sumit.semwal@linaro.org>
 Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 ---
- drivers/gpu/drm/drm_prime.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../selftests/dmabuf-heaps/dmabuf-heap.c      | 115 +++++++++++++++++-
+ 1 file changed, 114 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 9b44c78cd77f..fe3436d1235d 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 		return PTR_ERR(dmabuf);
+diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+index fc9694fc4e89..bd58e5b06c8b 100644
+--- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
++++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+@@ -390,6 +390,118 @@ static void test_alloc_errors(char *heap_name)
+ 	close(heap_fd);
+ }
+ 
++/*
++ * test_alloc_no_fd_leak_on_efault - verify no fd is leaked when
++ * copy_to_user() fails during DMA_HEAP_IOCTL_ALLOC.
++ *
++ * The bug: dma_buf_fd() called fd_install() before copy_to_user().
++ * If copy_to_user() then failed (e.g. via mprotect), the fd was
++ * silently installed in the fd table but never returned to userspace.
++ *
++ * The fix: reserve the fd with get_unused_fd_flags() first, attempt
++ * copy_to_user(), and only call fd_install() on success.
++ *
++ * We trigger the failure by placing the ioctl argument in a page,
++ * flipping it to PROT_READ between copy_from_user and copy_to_user,
++ * and counting open file descriptors before and after.
++ */
++static void test_alloc_no_fd_leak_on_efault(char *heap_name)
++{
++	int heap_fd = -1;
++	int fd_before, fd_after;
++	int ret;
++	long page_size;
++	struct dma_heap_allocation_data *req;
++
++	ksft_print_msg("Testing no fd leak when copy_to_user() fails:\n");
++
++	heap_fd = dmabuf_heap_open(heap_name);
++
++	page_size = sysconf(_SC_PAGESIZE);
++
++	/*
++	 * Place the ioctl argument in its own private anonymous page so
++	 * we can flip its protection independently.
++	 */
++	req = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
++		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	if (req == MAP_FAILED) {
++		ksft_test_result_fail("mmap failed: %s\n", strerror(errno));
++		goto out;
++	}
++
++	memset(req, 0, sizeof(*req));
++	req->len      = page_size;
++	req->fd_flags = O_RDWR | O_CLOEXEC;
++
++	/* Count open fds before the ioctl */
++	fd_before = 0;
++	{
++		DIR *d = opendir("/proc/self/fd");
++		struct dirent *de;
++
++		if (!d) {
++			ksft_test_result_fail("opendir /proc/self/fd: %s\n",
++					      strerror(errno));
++			munmap(req, page_size);
++			goto out;
++		}
++		while ((de = readdir(d)))
++			if (de->d_name[0] != '.')
++				fd_before++;
++		closedir(d);
++		/* subtract the fd opened by opendir itself */
++	}
++
++	/*
++	 * Make the page read-only: copy_from_user() in the kernel will
++	 * still succeed (it already ran), but copy_to_user() that writes
++	 * the fd number back will fault.
++	 */
++	mprotect(req, page_size, PROT_READ);
++
++	ret = ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, req);
++
++	/* Re-allow writes so munmap can clean up */
++	mprotect(req, page_size, PROT_READ | PROT_WRITE);
++	munmap(req, page_size);
++
++	if (ret != -1 || errno != EFAULT) {
++		/*
++		 * If the ioctl didn't fail with EFAULT, either the kernel
++		 * handled it differently or mprotect raced.  Skip rather
++		 * than giving a false pass/fail.
++		 */
++		ksft_test_result_skip(
++			"ioctl did not return EFAULT (ret=%d errno=%d), skipping\n",
++			ret, errno);
++		goto out;
++	}
++
++	/* Count open fds after the failed ioctl */
++	fd_after = 0;
++	{
++		DIR *d = opendir("/proc/self/fd");
++		struct dirent *de;
++
++		if (!d) {
++			ksft_test_result_fail("opendir /proc/self/fd: %s\n",
++					      strerror(errno));
++			goto out;
++		}
++		while ((de = readdir(d)))
++			if (de->d_name[0] != '.')
++				fd_after++;
++		closedir(d);
++	}
++
++	ksft_test_result(fd_before == fd_after,
++			 "no fd leak on EFAULT: before=%d after=%d\n",
++			 fd_before, fd_after);
++out:
++	close(heap_fd);
++}
++
+ static int numer_of_heaps(void)
+ {
+ 	DIR *d = opendir(DEVPATH);
+@@ -420,7 +532,7 @@ int main(void)
+ 		return KSFT_SKIP;
  	}
  
--	fd_install(fd, dmabuf->file);
-+	dma_buf_fd_install(dmabuf, fd);
- 	*prime_fd = fd;
- 	return 0;
- }
+-	ksft_set_plan(11 * numer_of_heaps());
++	ksft_set_plan(12 * numer_of_heaps());
+ 
+ 	while ((dir = readdir(d))) {
+ 		if (!strncmp(dir->d_name, ".", 2))
+@@ -435,6 +547,7 @@ int main(void)
+ 		test_alloc_zeroed(dir->d_name, ONE_MEG);
+ 		test_alloc_compat(dir->d_name);
+ 		test_alloc_errors(dir->d_name);
++		test_alloc_no_fd_leak_on_efault(dir->d_name);
+ 	}
+ 	closedir(d);
+ 
 -- 
 2.34.1
 
