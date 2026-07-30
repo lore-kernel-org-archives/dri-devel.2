@@ -4,93 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1809C55160
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 16:46:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A74B6C55160
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 16:52:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 119CA10EFE4;
-	Thu, 30 Jul 2026 16:46:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 035FC10EFE7;
+	Thu, 30 Jul 2026 16:52:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="hrBttk5d";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YKSWU1b6";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64A2710EFE4
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 16:46:09 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2cab97c86bdso145715ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 09:46:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1785429969; x=1786034769;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=NX0JpvyzsEoK6j+vmZOEXvLrdaZX+FAFLPxJGdbTFoM=;
- b=hrBttk5dznZEy8JH5BroYGtY5D5EF/ZPhukKDFXvYpihBOUpsLRcNJ6evWHK5sHkwB
- 6PkMfUjZhE3dXJJ6PLcD+5TfEJQsgay07EkI97pZ2wYMRPMEIM+aYkizM+Sl/Dbzh1vD
- /ByULewnL8xu35P+v2A0WFTGJRSYAd/j1eXTiasnFZFo5mgexYSXhh/gXirxO1Rua1qO
- ZKXCr8SUMlJbHgH5UvxVXN54oyD4A6nyiYwLWcS7qUejUle2EsjlEElHfeZsKvtteSIz
- XKAIc9VSZK5jM8t3NPTNVq2Lk2NhSGyy7Q2pCIwCXfoExtFTsyxjaq6iB85LDrbsvHYV
- z40g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785429969; x=1786034769;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=NX0JpvyzsEoK6j+vmZOEXvLrdaZX+FAFLPxJGdbTFoM=;
- b=JW7gpYJkBfGX9hp2blcHatPxJ5m4xnkvS2zAojsiBpGf7UpHbsre+vkLCTSvvldXKZ
- uKyHjzZhPKihwcHyonLZ61dWdiYCcLVdnpwEAURJ+Ebrkb5YSfV91196yFs3UbxWXzNV
- RddgNmXjQy4hiJ+BHwXpXftjGnE7qC6abPjS5EpcB9T7P0jT6aW4aewmpfhdBNHE+osJ
- j23P5iPis2NcXJ/3xNgnM4njS6IfUAOb5vuKMVP79YdYVFvHOPTf+OeezVI9GZasiMU4
- JcrSHuHX4QFPRu05MIaigfpfzx0ZRHHeGlJReVcAPIqldfhOIhx2R4snguFx5W4CGyA2
- XYnA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrk4OsJ2Pbb49q9Hcgsdn2Ba8JdK0z8IsEYN7bE/J/bgFTp+ya0twCqbLhSXroMMSEWBhzbaLiMWZc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx4uUclk7xc29+0LpZW3Bofg79iT7Ag6qBKkgn3R4ju2H6FOzz4
- nfB9KDA8+NxazDebRqZ6474rtmXPSTUaaysnBmgkgv4eL1Eds8oVt089cf4jzpORjaYIu7acEXf
- YS3vHLw==
-X-Gm-Gg: AR+sD12nf9+uymQb910i5jx9vGDAn9hoDvNoeGHf65E8/PZmJRTi4cmoBYzznc/iv1v
- mbZbwT6YCnCnyvmj3CzO2pTvRw8DXcdC0xJcaySWAn2JqUonFBpBc68Xi5RlpYteL6Li5lBO4e4
- Rj+5QpCJbTl4ckWLdtJHdBxGZRMHoLCmQo+eAJLZWdh2Tldk/RX60NtpQWLgky2nvVvGHOn1X3h
- 8DzqVKvDC5ofBqwrwUTn9QDzQ41Yr5N+UOf0r/3A90nL3RqhE5NNYfZv3+sbAWQaoEI13mvojlb
- 5K5is1w1j+KBjefkU6FsFDjSqFNGGUit7i5qxiTtaS/7Rb9IgtUfHnFyzmQlgeqrVV6Yk4KHOrq
- KVAjEsMO1bZM/B06oMP6KxnOseCWmYJ18PZ42hckblVAyrhFA0y/GPlkv4vXhyIwrfp0EoOEyoI
- M03ZFQckiXCcu1IIi/dw/Z4mQ8pIFnArUv0sUsJdR/u+dsJ2uKuFhChBxVMBoTQGdIOe5dL64qU
- MvaWHSmMKcMzavm3RSVOoc=
-X-Received: by 2002:a17:902:ce90:b0:2cf:9ec1:ea6e with SMTP id
- d9443c01a7336-2d040c826f8mr102235ad.8.1785429968232; 
- Thu, 30 Jul 2026 09:46:08 -0700 (PDT)
-Received: from google.com (21.168.124.34.bc.googleusercontent.com.
- [34.124.168.21]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84ea02fa474sm3347122b3a.30.2026.07.30.09.46.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 09:46:07 -0700 (PDT)
-Date: Thu, 30 Jul 2026 16:45:59 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Longfang Liu <liulongfang@huawei.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v5 1/9] PCI/P2PDMA: Split pool-related cleanup out of
- pci_p2pdma_release()
-Message-ID: <amt_x6-9lplDLdHZ@google.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-2-matt@ozlabs.org>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2EFDF10EFFD;
+ Thu, 30 Jul 2026 16:52:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id DA4BD43A7C;
+ Thu, 30 Jul 2026 16:52:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E2A1F000E9;
+ Thu, 30 Jul 2026 16:52:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785430355;
+ bh=3/SF2rcIDob+OJsvgKUnxzlLtV7Cho5d4qWeW/aMqHU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=YKSWU1b6s5ok+6SD3NJllCvDrereMWADi2zXL775eUkM4l4iqZVhgt7EUS34JzsdD
+ 7GUhHLDzecXtvYv5fiRFVMVbpbm4Wi3NsFLefEipeiNfeq/QTTXxWHgr9r56XdvQFo
+ 1sxcRP1q66GI9TA56YnR0BCCan0og63dC6qWCcfguFtSIKHcyQ3YCii0aVufotm9h7
+ PYRyH/SJYDNhSeHO/irG2zpZByLN6yIlgGTc0hVrfp1sHoScMUO8mQW5Fi39V0WkLD
+ JAJQwHXfi2LSQVdPgzWRepnfo4Rihg3D7szeyW6kSVdAHXHn8phltt+p4L3OIKw9cK
+ HuxC2jKW1/2rw==
+Date: Thu, 30 Jul 2026 18:52:25 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Alessio Belle <alessio.belle@imgtec.com>, 
+ Luigi Santivetti <luigi.santivetti@imgtec.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jeff Johnson <jjohnson@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ linux-pm@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-wireless@vger.kernel.org, 
+ ath10k@lists.infradead.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH RFC] power: sequencing: rename pwrseq_power_on/off() to
+ pwrseq_vote_on/off()
+Message-ID: <aht3dm6gijcltk2kblilwd33ihrapdwbco2fd5wxrqmsuppqde@3s3242otfa5h>
+References: <20260727-pwrseq-vote-rename-v1-1-a2029aeeac65@oss.qualcomm.com>
+ <20260727161435.GA1219282@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260715174737.15287-2-matt@ozlabs.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260727161435.GA1219282@bhelgaas>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,19 +75,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 15, 2026 at 06:47:24PM +0100, Matt Evans wrote:
-> Preparing for a refactor in a subsequent patch, split the pool-related
-> release code into a new pci_p2pdma_release_pool() function.
+On Mon, Jul 27, 2026 at 11:14:35AM -0500, Bjorn Helgaas wrote:
+> On Mon, Jul 27, 2026 at 11:57:38AM +0200, Bartosz Golaszewski wrote:
+> > The way power sequencing works means that a call to pwrseq_power_on()
+> > does not necessarily result in the pwrseq target being powered-on at
+> > that time: it may have already been powered on before. Similarly: a call
+> > to pwrseq_power_off() does not have to result in an actual powering off
+> > of resources: there may still be other users that requested a power-on
+> > before.
+> > 
+> > We will also introduce the concept of "non-controllable" pwrseq targets
+> > soon which further increases the disconnect between the naming
+> > convention and the actual semantics.
+> > 
+> > What consumers of pwrseq descriptors actually do is: they *vote* for a
+> > powering on of a given target or retract that vote. These operations
+> > could be called get/put in line with runtime PM but this could become
+> > confusing since we already provide pwrseq_get/put() for a different
+> > purpose.
 > 
-> This allows future compile-time selection of a null implementation for
-> pci_p2pdma_release_pool(), when p2pdma.c is refactored into core- and
-> P2P-related files.
+> I see the possible confusion with get/put interfaces, but "vote"
+> doesn't seem exactly right because it really is refcounting, not a
+> majority vote thing.
 > 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+> Maybe enable/disable is a possibility, since regulator_enable() and
+> regulator_disable() have the same kind of refcount behavior?
+> 
 
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
++1
 
-Thanks,
-Praan
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
