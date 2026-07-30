@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93A53C531D0
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 03:41:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 126B1C54FD2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 03:41:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2AAC10E59A;
-	Thu, 30 Jul 2026 03:41:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6732A10E647;
+	Thu, 30 Jul 2026 03:41:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Sk4ltDFS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D9+Tcu2R";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F37C10E59A
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 03:41:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A41BB10E647
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 03:41:45 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id CBFFE40412;
- Thu, 30 Jul 2026 03:41:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77B791F000E9;
- Thu, 30 Jul 2026 03:41:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2833D600AB;
+ Thu, 30 Jul 2026 03:41:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 873BB1F00A3A;
+ Thu, 30 Jul 2026 03:41:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785382866;
- bh=gcQf7LfCfRL4b+LBF7AnlRQQkloeBoFjV5OUSn68EYY=;
+ s=k20260515; t=1785382904;
+ bh=FvDG4VhQ+UNwj9URYW40nqtyNfvDXfddZgL/DSFcnDQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Sk4ltDFS+gIakGg6h7nt1JhE/LuDHjL+YYLZO2MMPi1TvR9sprQhyrWTgaggI90Lg
- 7djSIfULEVp3h7usXDM+QqUTcmeQ+lAdeqRrGpt8Vmzdj8mbA0U8rF6JpSAmq1h1T3
- nnihlfEql14fwn37eXyfTTOJ2DoYXuBtfYXaiS+NQjyjeRsbY0KG7/MwCes1CfzD/G
- dXox7FQCDgHyerjRu19sJQfyJZxfFn8HKp3hnf15QVliyXHra3kZXv6Bogtlw/yxOj
- HcIJC7GmDS/+hSGgLeAhg9oLENgQIzhqSOB/1VPjNYGGa+YzDDYvxr3Hcik+1ARBSQ
- 1/T8BsKVY9h0g==
+ b=D9+Tcu2RBd//4ikKOXngrbcmhQXkov5X//m5nvSR4W0dVYtZsdhKKO5tilf9AHkQt
+ etQ5ADfsGSBqewlpsIC8u1TBu5SaNmrKH2OTSGvd04B748uY3CPkJGw9Fxzs9sMgrJ
+ qz3qu2pLCAV7s9T/Uck7c6Vyvtn9+q8/+5ik1LSuWp7pgcBn2P2OsKuzG+XcGyzZXF
+ EXfzKQCILSnV4dP2NzsPSF1ADWZo4UxJ+EVj40B+/TbX740T3Ww9x3givXoMwya2+Y
+ zTq79x64MK3By7uDd/NvpfruTWRHsQVWouJOhK/FjP8PBq9SS54bynV8bplPQYx6Qm
+ wGa/cyU4weodg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/7] drm/bridge: analogix_dp: Return bitmask from
- analogix_dp_get_irq_type()
+Subject: Re: [PATCH v1 6/7] drm/bridge: analogix_dp: Use platform-specific
+ HPD detection scheme
 To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260730032744.381566-3-damon.ding@rock-chips.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260730032744.381566-7-damon.ding@rock-chips.com>
 References: <20260730032744.381566-1-damon.ding@rock-chips.com>
- <20260730032744.381566-3-damon.ding@rock-chips.com>
+ <20260730032744.381566-7-damon.ding@rock-chips.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 03:41:06 +0000
-Message-Id: <20260730034106.77B791F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 03:41:44 +0000
+Message-Id: <20260730034144.873BB1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,72 +59,134 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Unconditional DP register access in hardirq/thread handlers causes=
- bus faults when using GPIO HPD with PM runtime suspended.
+- [High] DisplayPort short HPD pulses are completely filtered out by the 2m=
+s hardware deglitch filter, breaking link loss detection and PSR.
+- [High] Hotplug interrupt unmasking logic unintentionally re-enables PLUG =
+and HPD_LOST interrupts on Rockchip platforms, defeating the patch's purpos=
+e.
 --
 
---- Patch [2]: [PATCH v1 2/7] drm/bridge: analogix_dp: Return bitmask from =
-analogix_dp_get_irq_type() ---
-commit 23b7b1cae6716042fa037a50c31f18ad40263d93
+--- Patch [6]: [PATCH v1 6/7] drm/bridge: analogix_dp: Use platform-specifi=
+c HPD detection scheme ---
+commit af35433f355c1427bbfdea612a689613337f11ab
 Author: Damon Ding <damon.ding@rock-chips.com>
+Date:   Thu Jul 30 03:27:43 2026 +0000
 
-drm/bridge: analogix_dp: Return bitmask from analogix_dp_get_irq_type()
-
-This commit converts analogix_dp_get_irq_type() to return a bitmask of pend=
-ing
-interrupt flags instead of just the first matched flag. It also updates the
-handlers to check for a non-zero return value instead of DP_IRQ_TYPE_UNKNOW=
-N.
+    drm/bridge: analogix_dp: Use platform-specific HPD detection scheme
+   =20
+This commit configures the HPD deglitch filter to 2ms on Rockchip platforms=
+=20
+and updates the interrupt handling to rely exclusively on the HOTPLUG_CHG=20
+interrupt instead of the PLUG and HPD_LOST combination. The threaded IRQ=20
+handler is also adjusted to evaluate platform-specific interrupt flags.
 
 > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
 /gpu/drm/bridge/analogix/analogix_dp_core.c
-> index 1c98f92e001d8..ccb8a374b40b7 100644
+> index 9f6ecaa1aeb5e..b7aa10daae2f2 100644
 > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
 > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -708,10 +708,10 @@ static irqreturn_t analogix_dp_hardirq(int irq, voi=
-d *arg)
+> @@ -723,10 +723,15 @@ static irqreturn_t analogix_dp_irq_thread(int irq, =
+void *arg)
 >  {
-[ ... ]
+>  	struct analogix_dp_device *dp =3D arg;
+>  	u32 irq_type;
+> +	bool hpd_detected;
+> =20
 >  	irq_type =3D analogix_dp_get_irq_type(dp);
-> -	if (irq_type !=3D DP_IRQ_TYPE_UNKNOWN) {
-> +	if (irq_type) {
->  		analogix_dp_mute_hpd_interrupt(dp);
+> -	if (irq_type & DP_IRQ_TYPE_HP_CABLE_IN ||
+> -	    irq_type & DP_IRQ_TYPE_HP_CABLE_OUT) {
+> +	if (!dp->hpd_gpiod && analogix_dp_is_rockchip(dp->plat_data->dev_type))
+> +		hpd_detected =3D irq_type & DP_IRQ_TYPE_HP_CHANGE;
+> +	else
+> +		hpd_detected =3D (irq_type & DP_IRQ_TYPE_HP_CABLE_IN) ||
+> +			       (irq_type & DP_IRQ_TYPE_HP_CABLE_OUT);
+> +	if (hpd_detected) {
 
 [Severity: High]
-Could this unconditional call to analogix_dp_mute_hpd_interrupt() cause a
-regression (bus fault) when using GPIO HPD while the device is PM runtime
-suspended?
+Could this logic inadvertently re-enable the PLUG and HPD_LOST interrupts
+that were intentionally masked during initialization?
 
-Since an earlier patch in this series moved enable_irq() to
-analogix_dp_bind() without keeping the device PM resumed for GPIO HPD
-configurations, a GPIO interrupt can fire while the DP controller is suspen=
-ded.
+When analogix_dp_get_irq_type() is called, it reads the raw interrupt
+status register without checking against the active mask:
 
-If that happens, analogix_dp_mute_hpd_interrupt() will directly read/write
-MMIO registers (like ANALOGIX_DP_COMMON_INT_MASK_4) on an unclocked or
-powered-off hardware block.
+analogix_dp_get_irq_type() {
+    ...
+    reg =3D readl(dp->reg_base + ANALOGIX_DP_COMMON_INT_STA_4);
+    if (reg & PLUG)
+        irq_type |=3D DP_IRQ_TYPE_HP_CABLE_IN;
+    if (reg & HPD_LOST)
+        irq_type |=3D DP_IRQ_TYPE_HP_CABLE_OUT;
+    ...
+}
 
->  		ret =3D IRQ_WAKE_THREAD;
->  	}
+If the hardware continues to set the PLUG and HPD_LOST status bits on cable
+events even while they are masked, analogix_dp_get_irq_type() will still
+return them in irq_type.
+
+Later in analogix_dp_irq_thread(), this irq_type mask is passed to
+analogix_dp_unmute_hpd_interrupt():
+
+    if (!dp->hpd_gpiod && irq_type) {
+        analogix_dp_clear_hotplug_interrupts(dp, irq_type);
+        analogix_dp_unmute_hpd_interrupt(dp, irq_type);
+    }
+
+Would passing the unintentionally detected PLUG and HPD_LOST bits into
+analogix_dp_unmute_hpd_interrupt() permanently unmask those interrupts,
+defeating the platform-specific interrupt scheme on the very first event?
+
+Additionally, because DP_IRQ_TYPE_IRQ_HPD is no longer included in the
+hpd_detected calculation for Rockchip, will this prevent
+drm_helper_hpd_irq_event() from being called to process link retraining
+and Panel Self Refresh (PSR) events?
+
+>  		dev_dbg(dp->dev, "Detected cable status changed!\n");
+>  		if (dp->drm_dev)
+>  			drm_helper_hpd_irq_event(dp->drm_dev);
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/=
+gpu/drm/bridge/analogix/analogix_dp_reg.c
+> index 42463e18f392c..981ce3810e90d 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
 [ ... ]
-> @@ -722,7 +722,7 @@ static irqreturn_t analogix_dp_hardirq(int irq, void =
-*arg)
->  static irqreturn_t analogix_dp_irq_thread(int irq, void *arg)
->  {
-[ ... ]
-> -	if (irq_type !=3D DP_IRQ_TYPE_UNKNOWN) {
-> +	if (irq_type) {
->  		analogix_dp_clear_hotplug_interrupts(dp);
->  		analogix_dp_unmute_hpd_interrupt(dp);
+> @@ -177,7 +177,21 @@ void analogix_dp_config_interrupt(struct analogix_dp=
+_device *dp)
+>  	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+>  	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+> =20
+> -	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ);
+> +	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
+> +		/*
+> +		 * Either HOTPLUG_CHG interrupt or PLUG + HPD_LOST interrupt
+> +		 * pair can be used to implement hotplug detection.
+> +		 *
+> +		 * On Rockchip platforms, configuring HPD deglitch to 2ms and
+> +		 * using HOTPLUG_CHG interrupt for hotplug detection is proven
+> +		 * as a better solution via engineering verification.
+> +		 */
+> +		writel(0x80, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_L);
+> +		writel(0xbb, dp->reg_base + ANALOGIX_DP_HPD_DEGLITCH_H);
 
 [Severity: High]
-Similarly, could these function calls cause a regression for the same reason
-if called during a GPIO HPD event while PM runtime suspended?
+Does configuring the deglitch filter to 2ms risk filtering out valid=20
+DisplayPort short HPD pulses?
 
->  	}
+The DP specification defines short HPD pulses (which are used for sink
+events like PSR and link retraining) as a low pulse lasting between 0.5ms
+and 1.0ms.
+
+Because the new 2ms filter configuration exceeds the maximum short pulse
+duration of 1.0ms, will the hardware treat all valid DP short pulses as
+noise and silently drop them before they can trigger an interrupt?
+
+> +		analogix_dp_unmute_hpd_interrupt(dp, DP_IRQ_TYPE_HP_CHANGE);
+> +	} else {
+> +		analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ);
+> +	}
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730032744.3815=
-66-1-damon.ding@rock-chips.com?part=3D2
+66-1-damon.ding@rock-chips.com?part=3D6
