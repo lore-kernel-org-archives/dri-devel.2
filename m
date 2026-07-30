@@ -4,51 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E30EAC55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:28:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46C64C55165
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 14:28:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 450DF10EF53;
-	Thu, 30 Jul 2026 14:28:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9314010E126;
+	Thu, 30 Jul 2026 14:28:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="HJZBrnw8";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="C2YalGhS";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KFJmoRNo";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC75210EF53;
- Thu, 30 Jul 2026 14:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785421682;
- bh=xsw/5vhEUHWNG5MmbqgB+VcLkOm9XeUbDAuRvd8dRn4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=HJZBrnw8VvKM013HH3hgxuGk1O3xvHbgN79yepUQeY4iTsSeftNjv4xpdPqYLKGb1
- fINESOFum5izL6NWjkfZjFtoL4+EgjPwgmS90kDHstWzM32+wABZ23w5l94+LbMvnH
- 3X3ytfZHu6OSe3RPrXngO7H8SuC3lOPyd9gKHhNAt5j0mkwXixMKueA3lx3peH1EvH
- 3HxtC2opbms3EjR14sHnickXRa9TD+yRqwD3SQvhfjLW9+ekxS2fDtq8sBUw8BKTU2
- 7Aw2b4KyAMLzvIRFVQ0BITf/vNN0TFJ4h2jQc4bLg6idvql9QantGBSFSJge0eRFrw
- oLmrj1FhyJouw==
-Received: from fluorite (unknown [100.64.0.208])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested) (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1DD4C17E001F;
- Thu, 30 Jul 2026 16:28:02 +0200 (CEST)
-Date: Thu, 30 Jul 2026 17:27:58 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Cc: Robert Mader <robert.mader@collabora.com>, Harry Wentland
- <harry.wentland@amd.com>, <dri-devel@lists.freedesktop.org>,
- <amd-gfx@lists.freedesktop.org>, Melissa Wen <mwen@igalia.com>
-Subject: Re: [PATCH v4 01/11] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
-Message-ID: <20260730172758.0c65485f@fluorite>
-In-Reply-To: <8aaeb5b2-2706-415a-8662-40f863270dac@intel.com>
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-2-harry.wentland@amd.com>
- <64bdc6c8-41e7-4c7f-aa8e-ceb05128d987@collabora.com>
- <8aaeb5b2-2706-415a-8662-40f863270dac@intel.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF50D10E126
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:28:42 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66UDxKlb944563
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:28:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=TeJATUx7ljVkLhlZlRGhQEAK
+ TzXhPv+shwk0WDPgUfI=; b=C2YalGhSDICS4YRAXU2U+L8xwNORatJmUHoMwofp
+ qqN7zufjbU8P37qCC9v/oSfnJTFw335fRWqFZRwWTwZvPjssYqUAJH1YqlvTybdY
+ RaMXj8bmjYW1YnKlr2SmwhSDNWQAqe9hTkQ1ouKGjAlvZ1ILcJ6Oaw7hjjgJARMB
+ RNA3nYnnNLijiCCoufJFiKBoc9YGo/+ghAfKIv7Eb3T53vJGWPAhiLUHIdEH1D/V
+ fmyI8Sb4jwi5K2KRQlg1QS3hDE2hrTc7hC9bRyN5teYGXrmbUtmS6i/lRRXXP3vC
+ OqsELm+b+ksxIjy1qcgPuEKkXGtiVd2YIRTyzOiKKt4uGA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
+ [209.85.160.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr7yt84h1-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 14:28:42 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id
+ d75a77b69052e-51c0408254aso11732601cf.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 07:28:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1785421721; x=1786026521;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=TeJATUx7ljVkLhlZlRGhQEAKTzXhPv+shwk0WDPgUfI=;
+ b=KFJmoRNoySQjrfGCMskBI82DGdLnJdU9KtaBGiic5rcoTiA/hYFaiBIYgbZB3lgVoV
+ 5DJ0WMgkO0r5Yhz9+jmN5otD/Bv4VePJsiZRfN0hYOasJmuoR7qZxYtdiOOcxKY41OSr
+ wODi3hD+F+2Asda1zR1ml/4pCcXYYIu0goLC+qAw1dH4g+wJPradc3m+bDl2Is5LIv5a
+ MVBtFWBqbyAjHnRAvcx/xeI8uPGjrHC751BXCfwY6o7JGO4tRE/TdFKJEXpTejfoftx0
+ A5ryhrO2g4nU9wjvT3xm5/zYon5032MIX0wR+xiyJ7j9VWHiMhATHHTHfsbNPdM8cMiK
+ 2v2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785421721; x=1786026521;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=TeJATUx7ljVkLhlZlRGhQEAKTzXhPv+shwk0WDPgUfI=;
+ b=haWd8HzIprvIyT7vWjx0ftLS2x3l2vufy1dyYrWjarHNOXUdgjS8I/12l5DClIi4Zy
+ NVraw8RVeUygUmNXsY+WpogiVDbwzTqibgAx3t1RREBo6hJCF+EiC1wZf8L3wkUJCiwF
+ 8bhZ16HbUA52GJuvMrtOz078q7wb+o+tXyKMmevE2Vjac0+lsnxXnrIBVLLZ84P888ep
+ na/S+xFfBjH4/pAHd5fhsd1ZeP3o1/eJp/0KuzX2aTag+teKc8k13N8cLGdxKXsv3uK9
+ pj7u74XD1/im382Z+KEa86tdzxhl4nEIRgIAcZbwnCbShapkwSmnpVTLq+S9XzkUhWM3
+ 3uqw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RopM3RVl3VsfJZ9ozXXgv697QNZ9BpQoO5YE8p9NTZs32rBS9xhqAk9zSN7+L8RRsZBJxFKZDV7uX0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwemjY7/ceRwvUQJkkaWeZ0uAdS96llyKPzm0faCzYfnftCQMds
+ VG11uIFZrWUYwoOqpvxQoLMnIH7Aqo0rdKDFKx6sFpKDccnmKmW3cx9DHW1TkgIYIvYpxdSyYKI
+ pYY//QAFBQj3qqxYcr/tKZzh5aAlS29YxdwDCg2Z4pzCHsjFAAleRuw5Qa2aXKBrmSv8whoM=
+X-Gm-Gg: AR+sD13fQydHBlgQjuBx0Zk6dhXLlbwJnHR5kJC+EtDMRzhTPdrGUO84qrhYSY2Vnt2
+ e7RiXkN/+kZk00wxh6PtvR9E+kjel9fQtr5093bKCZKeXeyuHad+RRPcpfC3ujpV/tZTeHgFHzz
+ V1HHY3VuRT9KZ8Z4gOJ1mn/QsJu1tX+4iN9vivS6ILRfEi2fH50W16sPSmsgrDM0hdos3tLQp3k
+ KP2amo9i6gWsneaIUYzdK6WVuGx09g4gdtGsI5NkC9MTpxlWntEgNXaWZi73bbn4mQc02C4oG/y
+ i4JcHlJsW0ZX4pYrgZFxtzu4KfxcH9v/6FXsU/rTQoone4iWQXMe9kjLKxeupEG1W5qVoV+Vm2q
+ 60A9fGMhYNwO0n1Kad83aSJyCBuPUmCA9NKASRVoWm/4NYb5C6eaW4uxwvk7zNsPUZUsmROApIT
+ vVn0U45/OVnv3cqg==
+X-Received: by 2002:a05:622a:a10:b0:517:9407:5c38 with SMTP id
+ d75a77b69052e-52b425c7cfbmr6250251cf.24.1785421721187; 
+ Thu, 30 Jul 2026 07:28:41 -0700 (PDT)
+X-Received: by 2002:a05:622a:a10:b0:517:9407:5c38 with SMTP id
+ d75a77b69052e-52b425c7cfbmr6249781cf.24.1785421720708; 
+ Thu, 30 Jul 2026 07:28:40 -0700 (PDT)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b2db9c518bsm369768e87.59.2026.07.30.07.28.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 07:28:39 -0700 (PDT)
+Date: Thu, 30 Jul 2026 17:28:37 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>, Algea Cao <algea.cao@rock-chips.com>,
+ Daniel Stone <daniels@collabora.com>, Liu Ying <victor.liu@nxp.com>,
+ Phong LE <ple@baylibre.com>, kernel@collabora.com,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-rockchip@lists.infradead.org,
+ Maud Spierings <maud_spierings@hotmail.com>
+Subject: Re: [PATCH v9 06/61] drm/display: scdc-helper: Add macro for
+ connector-prefixed debug messages
+Message-ID: <y5776gxmfby42d25sp4zxpevhuj5s7zs5sd2i4d5xe2dodlbwh@ovrkyvgakd3i>
+References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
+ <20260723-dw-hdmi-qp-scramb-v9-6-4fb12ea22ac9@collabora.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/z.kzGJSYgaxjOCyU4zJSoM1";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260723-dw-hdmi-qp-scramb-v9-6-4fb12ea22ac9@collabora.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDExMCBTYWx0ZWRfX9Np0nmtObCEo
+ Tt9CzTjVBu87UDO5RVAtqXDcxXS6lJdaaguf7F7MecuT6rBJnpJ/ie/Y1MNsclZ7QjNe3CrSfln
+ wBQG0So4ByYAvPMu2GKxcmL6DEwU+Wk=
+X-Proofpoint-ORIG-GUID: 6cLrDkbD0oqnA-10Dz0TeoLxoj6P_Cm_
+X-Proofpoint-GUID: 6cLrDkbD0oqnA-10Dz0TeoLxoj6P_Cm_
+X-Authority-Analysis: v=2.4 cv=QNpYgALL c=1 sm=1 tr=0 ts=6a6b5f9a cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=69EAbJreAAAA:8 a=QX4gbG5DAAAA:8 a=EUspDBNiAAAA:8 a=1j1XXGRfLVQr3Hd9viAA:9
+ a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=AbAUZ8qAyYyZVLSsDulk:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDExMCBTYWx0ZWRfX7zp5PUZ5tyFM
+ hw35zMSmHWH71rrufek1FHZSWy+OV55vCWv9NoSh+z3r5gIJh1t7OfOsLzi2kkwfRfyugzHPQ85
+ y5y5n/7E5tnkeg+OdOd0sobhgs0kRhQILTr4NuM96QfHax+FoVIo2dKq6gi6V3cypMtWtF9vL/k
+ gsaRw7yxJSQ+JwW+iRaI4uNPzf5M0DIj6jnJnyTpSNvz9IY3OlKG3LG89XO54qM629uyTaaBmVJ
+ OHVrULWmo2jVmaxQLRMFkC010otOwUT5EhtW9A/hiwh/IVuojtxnaW/+ZmIiYrDSPqHMyNN9Mgc
+ 9qFPYwqyyK9lGcjWChc4tgyIJSRcwa3B78s34ICTR0HR+DIM5u2uo7iAbd4ytQpJimCEbZzQuql
+ kpUnGi3JCzQfRtqHVerW0X3nfdWB967oz8OAmI4gtKAZyZVYVMKibS2Sp2j6crzX81CmirA+d5K
+ 9NDLRGsP2JRcsnx9ZIA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_04,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 bulkscore=0 phishscore=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300110
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,171 +165,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---Sig_/z.kzGJSYgaxjOCyU4zJSoM1
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+On Thu, Jul 23, 2026 at 04:34:55AM +0300, Cristian Ciocaltea wrote:
+> Introduce the drm_scdc_dbg() wrapper over drm_dbg_kms() to help getting
+> rid of the boilerplate around prefixing the debug messages with the
+> connector information.
+> 
+> Acked-by: Maxime Ripard <mripard@kernel.org>
+> Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+> ---
+>  drivers/gpu/drm/display/drm_scdc_helper.c | 24 +++++++++---------------
+>  1 file changed, 9 insertions(+), 15 deletions(-)
+> 
 
-On Tue, 28 Jul 2026 21:30:14 +0530
-"Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com> wrote:
-
-> Hello Rober,
->=20
-> On 7/28/2026 8:32 PM, Robert Mader wrote:
-> > Hi,
-> >=20
-> > On 22.07.26 15:45, Harry Wentland wrote: =20
-> >> From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> >>
-> >> Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
-> >> hardware that performs a fixed matrix operation.
-> >>
-> >> Unlike CTM-based colorops, this block does not expose programmable
-> >> coefficients. Instead, userspace selects one of the predefined
-> >> hardware modes via a new FIXED_MATRIX_TYPE enum property. Supported mo=
-des
-> >> include common YCbCr->RGB and RGB709->RGB2020 conversions.
-> >>
-> >> v4:
-> >> =C2=A0 - Add limited-range YCbCr-RGB conversion matrix enums (Robert)
-> >> =C2=A0 - Document matrix values (Pekka)
-> >> =C2=A0 - Clarify RGB709 to RGB2020 is a full-range matrix (Pekka)
-> >> =C2=A0 - Fix confusing "CSC preset" doc (Pekka)
-> >>
-> >> v2:
-> >> =C2=A0 - Naming changes (Pekka)
-> >>
-> >> v3:
-> >> =C2=A0 - Fix NC matrix enum name and string (Melissa)
-> >> =C2=A0 - Rebase
-> >>
-> >> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
-> >> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> >> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> >> Reviewed-by: Melissa Wen <mwen@igalia.com>
-> >> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> >> Reviewed-by: Robert Mader <robert.mader@collabora.com>
-> >> ---
-> >> =C2=A0 drivers/gpu/drm/drm_atomic.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 4 +
-> >> =C2=A0 drivers/gpu/drm/drm_atomic_uapi.c |=C2=A0=C2=A0 7 ++
-> >> =C2=A0 drivers/gpu/drm/drm_colorop.c=C2=A0=C2=A0=C2=A0=C2=A0 | 109 +++=
-+++++++++++++++++
-> >> =C2=A0 include/drm/drm_colorop.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 | 159 ++++++++++++++++++++++++++++++
-> >> =C2=A0 include/uapi/drm/drm_mode.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
- |=C2=A0 12 +++
-> >> =C2=A0 5 files changed, 291 insertions(+)
-> >>
-
-> >> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/=20
-> >> drm_colorop.c
-> >> index 682fcc651525..e7ccf7d053b8 100644
-> >> --- a/drivers/gpu/drm/drm_colorop.c
-> >> +++ b/drivers/gpu/drm/drm_colorop.c
-> >> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list=20
-> >> drm_colorop_type_enum_list[] =3D {
-> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
-> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { DRM_COLOROP_MULTIPLIER, "Multiplier"},
-> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { DRM_COLOROP_3D_LUT, "3D LUT"},
-> >> +=C2=A0=C2=A0=C2=A0 { DRM_COLOROP_FIXED_MATRIX, "Fixed Matrix"},
-> >> =C2=A0 };
-> >> =C2=A0 static const char * const colorop_curve_1d_type_names[] =3D {
-> >> @@ -90,6 +91,17 @@ static const struct drm_prop_enum_list=20
-> >> drm_colorop_lut3d_interpolation_list[] =3D
-> >> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 { DRM_COLOROP_LUT3D_INTERPOLATION_TETRA=
-HEDRAL, "Tetrahedral" },
-> >> =C2=A0 };
-> >> +static const char * const colorop_fixed_matrix_type_names[] =3D {
-> >> +=C2=A0=C2=A0=C2=A0 [DRM_COLOROP_FM_YCBCR601_FULL_RGB] =3D "YCbCr 601 =
-Full to RGB",
-> >> +=C2=A0=C2=A0=C2=A0 [DRM_COLOROP_FM_YCBCR601_LIMITED_RGB] =3D "YCbCr 6=
-01 Limited to RGB",
-> >> +=C2=A0=C2=A0=C2=A0 [DRM_COLOROP_FM_YCBCR709_FULL_RGB] =3D "YCbCr 709 =
-Full to RGB",
-> >> +=C2=A0=C2=A0=C2=A0 [DRM_COLOROP_FM_YCBCR709_LIMITED_RGB] =3D "YCbCr 7=
-09 Limited to RGB",
-> >> +=C2=A0=C2=A0=C2=A0 [DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB] =3D "YCbCr =
-2020 NC Full to=20
-> >> RGB",
-> >> +=C2=A0=C2=A0=C2=A0 [DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB] =3D "YCb=
-Cr 2020 NC=20
-> >> Limited to RGB",
-> >> +=C2=A0=C2=A0=C2=A0 [DRM_COLOROP_FM_YCBCR_LIMITED_FULL] =3D "YCbCr lim=
-ited to full",
-> >> +=C2=A0=C2=A0=C2=A0 [DRM_COLOROP_FM_RGB709_RGB2020] =3D "RGB709 to RGB=
-2020", =20
-> >=20
-> > I'm still a bit unsure how useful the later two values are, =20
->=20
-> You can see them being used in [1] and tested by [2]. We split out the=20
-> "YCbCr limited to full" block because some Intel planes have a 1DLUT=20
-> between it and the "YCbCr XXX Full to RGB" block. This keeps the color=20
-> pipeline consistent with the actual HW.
-
-Hi Chaitanya,
-
-it would be nice for VKMS to be able to have such a color
-pipeline only. Then userspace authors can test it.
-
-That gives me the idea, that perhaps there should be a library of color
-pipelines for VKMS that replicates actual hardware pipelines. Maybe it
-would be in the kernel, or maybe it would be in some userspace project
-if VKMS pipelines can be crafted through configfs or something else.
-
-> Based on your experience implementing the colorop in weston, do you=20
-> foresee any challenges in supporting limited-range framebuffers using=20
-> the "YCbCr Limited-to-Full" fixed matrix block?
-
-I cannot imagine a big problem, but it is yet another configuration
-that userspace must be explicitly prepared for.
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
-Thanks,
-pq
-
-
-> As for the "RGB709 to RGB2020" block, I can see it being useful for=20
-> converting SDR Rec.709 content into the Rec.2020 color space before=20
-> blending it with an HDR plane.
->=20
-> =3D=3D
-> Chaitanya
->=20
->=20
-> [1]=20
-> https://lore.kernel.org/dri-devel/20260720045131.971650-1-chaitanya.kumar=
-.borah@intel.com/
-> [2]=20
-> https://lore.kernel.org/igt-dev/20260727185531.4046807-1-swati2.sharma@in=
-tel.com/
->=20
-> especially
-> > as they are not implemented in this series - IMO they should be left ou=
-t=20
-> > and be part of the corresponding Intel series.
-> >=20
-> > Anyway, still R-B
-> >  =20
-
---Sig_/z.kzGJSYgaxjOCyU4zJSoM1
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmprX24ACgkQI1/ltBGq
-qqe1eg/+PS2f5rbaPAz9iH8LsNOeH+fcDfasTCwiIYU186MsB9PpM7z+spvx/IjZ
-5tovEq/6vVpGdYx6RJIqcGX2268MaCsFXfCM41LLYNYLgkGzQxNhQJpbCkjmFVs1
-XlGQvDXF2Wa6SSXZ0+BGAzFUqD8oZsqqQP955JcX463y9mN7BoTsvfL3OiPPqxOx
-9ceOBtr3OvmtcfZeG7DiAM+BC2Bf84VnuzYi0yPjEJqqWwQcDGE8doCj3PiEh24S
-8FprC6xvKOza6YHyg0sLQOZQyHWwKc90VJEfOpXeYF1kuy7KoYYtu1x+B5wlMaEs
-jd7tFkr7W5CZ8OYMYqtEJTzJrT8t65iu1URU7zUrFBEqRGSr7UWm2AX8h2rsHLjf
-fvgPzcSBh2TafVZkXI/nicKrLv4SbVzokxls83YEdfgwXcTrdpsRroUgWJFFu2FT
-aRa2bpr+IFbmUkZJZlS1OzVRCQdEhLMTd11hCrvPyC2dOpDWh1cbTVUcsvOOfPPT
-5aLUIXBwXOBy2b8yIhs/awjr4MtFTK5brxfPf6qLs7PteYOV4m1YSriGOC0zJWdp
-as8DuxskIRGNpyla6jEdCV1e/IGXPpOobLCBFp+nQ47bFpcAfABUbYlUmKwd8Zum
-MGZJqFCMQZOJtJp1F5+aRQnVOaoqP5Tf4R+nfCKmQm1ePPfzcMA=
-=ZIxB
------END PGP SIGNATURE-----
-
---Sig_/z.kzGJSYgaxjOCyU4zJSoM1--
+-- 
+With best wishes
+Dmitry
