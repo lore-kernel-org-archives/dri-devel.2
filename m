@@ -4,73 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30E6EC5516D
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:27:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E00CC5516E
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:33:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 707A310F023;
-	Thu, 30 Jul 2026 18:27:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A491410F034;
+	Thu, 30 Jul 2026 18:33:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="f5sSIxL/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KrPlfU/6";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EA8F10F023
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:27:12 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-84a652535dcso148106b3a.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 11:27:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=0x0f.com; s=google; t=1785436032; x=1786040832; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=XFQ1vlo/U5kPhUKDIkSFcUBW9GP6124E7pQ5VM7OJ4I=;
- b=f5sSIxL/HTPHQmDJkIER6BdAmltAJmPZg4HbCVyw+H4+6KyljSVSQQLgfer+1P1GuF
- mGFgo/5rztqsneWVL+ZXrKhBtdkU0EYV+IcOfbWVm8g7G73ammoC5A9PFajFcuHP9u8K
- skUIY+z+4hZqnhs3v1yJcZKT0E/EzU+fPbQxs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785436032; x=1786040832;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=XFQ1vlo/U5kPhUKDIkSFcUBW9GP6124E7pQ5VM7OJ4I=;
- b=U6yU1BB4ioLl9fdQG0ZxZ43eMnT7HldhLkMz5tpQom9IO1HZw2ZRh0AyDBZ7bFuzQ3
- M04H3nAz/cZwHLw4zO9iomeIQORGP6aVaOJZ2U2QkIumd7m7dxXTmhItGTbViRHvMw7H
- y5Peo6Q4FFNmm9QVohs6YQR8Hbt/EmLQJaLMWHyzHZAkFQ1ur5TB8edPVLbgKoKLNYl6
- ddeOFhywpUgT5EgXvywUwEMk+CxAQokOPLBnW7nEgREdcysQHVkBtZmxniqA5E933cKY
- c+neOf2juuyObzbbqeWiJLvLM2x0sXlA5pEvzO1oXdo21HR4AUjqgfugGyoHYMW2yS3r
- Q7FQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqvNST3IzTmaPJVv5qQJHB9di93S0SOiNf93iQWWj/4PzudrppY8Gn9hfORosijMrszxhd7g7o9Oa0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxvWemb/yPsBEPn+hNAJ+SBJJWd+6Q11kDkbrAJ+BVupczw7EWX
- 1rQ2z208q162rZwxvJrSHKumxoVPg8pvYdTDPnlx9H1OtmiNbJVviVmwJKzL6oOSChA=
-X-Gm-Gg: AR+sD10vZ8CFMYvE1zARssHecIDQgyBolsbg7uSRlWBeONNGUI7FuQIla5vmUE77N0e
- c33GmbqD/qTVp6DcV4CQIm6OjSWHJQxjoz/rwn2hG8A0iMKg0eZ6g2y61NnM0jmrYcz5Kvv1vO2
- 6ruzK+WmbzBJp04ThyoEtIYDYUtnSuw7Gh6Hmmc/d5uBUjkFxe5qABpMpMFYLguL9IAJdxiosFK
- uJ659jxRs4+kBVv9uvGodTVNfN9qWEWl9rICDeFrZ4vQ95vqMppPJIsXHTWNtEf7Mo/Wx8lRRE6
- ztUO1vNoibRyWdV18HPEPOVk7iLOWyir5YhJipG92F1g+amM3pEZMtSgbRRq17at6nUeFPLf61G
- n9LySwYZluzIcNdo+AthWrlywqpuHbavojPpBmvbTpthOCoKj2QpnrOZtyd9UjZQPVr+/UTdFFc
- SUJ+S+5cB0lQSwaJqYMVpJUZoS8vD0emhpkle4gA+/tnQLtiHRAcU=
-X-Received: by 2002:a05:6a00:1391:b0:847:8b1d:230d with SMTP id
- d2e1a72fcca58-84ebc1f5bb4mr3620610b3a.3.1785436031780; 
- Thu, 30 Jul 2026 11:27:11 -0700 (PDT)
-Received: from shiro ([2400:4162:2428:2ffe:f84d:1f36:28ac:c15e])
- by smtp.googlemail.com with ESMTPSA id
- d2e1a72fcca58-84ea0378b18sm3428806b3a.48.2026.07.30.11.27.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 11:27:10 -0700 (PDT)
-From: Daniel Palmer <daniel@0x0f.com>
-To: deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Daniel Palmer <daniel@0x0f.com>
-Subject: [PATCH 5/5] fbdev: tdfxfb: Program the initial video mode
-Date: Fri, 31 Jul 2026 03:26:40 +0900
-Message-ID: <20260730182640.2808572-6-daniel@0x0f.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730182640.2808572-1-daniel@0x0f.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E948310F043
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:33:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9928741295;
+ Thu, 30 Jul 2026 18:33:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B4101F000E9;
+ Thu, 30 Jul 2026 18:33:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785436430;
+ bh=7DlWEaaLu76NYm7jzCGQ84LRHsFSSxx2csrmVyg7XfE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=KrPlfU/6BoSkdGSiiw2H73b4YB6ktkoaOws7kHWIKeH5K30Fmv1SeHtfdOz913dno
+ /lTZ5wVzN881J/t/I2g6jd29YDbrRabzxKtx85CIk0QU46L0OQQlbfUx9XQfN43n50
+ AhozriB7yPE9K70QSmQoVuPw/Z/IQp5TtvV4Jp/Zd+yXATRNm6gJCI+ZCqg74pnKoH
+ nb5UMnWhv8jCkTxqDxV57vsh2dIxSiuNzIaVvRsrxEulnyOuWFisSiDi9XJHDlM5ya
+ Jc/IDZTm3575EZ2gYQb1cOJhUp+v/gWrOgtus5ndspDvrImBiAC4Y7AT6W+m/myQx4
+ Lh5Y0PlEjIHaA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/5] fbdev: tdfxfb: Program the initial video mode
+To: "Daniel Palmer" <daniel@0x0f.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260730182640.2808572-6-daniel@0x0f.com>
 References: <20260730182640.2808572-1-daniel@0x0f.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260730182640.2808572-6-daniel@0x0f.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 30 Jul 2026 18:33:49 +0000
+Message-Id: <20260730183350.5B4101F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,39 +53,64 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If the card does not get bound to by fbcon set_par() never happens
-and the initial video mode is not setup and the display detects
-no signal.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Hardware programming and framebuffer clearing occur after the devi=
+ce is registered, causing data races with user-space and destroying fbcon c=
+onsole output.
+--
 
-Program the video mode and also clear the framebuffer memory so
-random garbage isn't displayed.
+--- Patch [5]: [PATCH 5/5] fbdev: tdfxfb: Program the initial video mode ---
+commit 90ecec6554588f0e84d39be7f57c41d5df7e26d5
+Author: Daniel Palmer <daniel@0x0f.com>
 
-Signed-off-by: Daniel Palmer <daniel@0x0f.com>
----
- drivers/video/fbdev/tdfxfb.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+fbdev: tdfxfb: Program the initial video mode
 
-diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
-index 9d55efd2c934..d03cb47b34a5 100644
---- a/drivers/video/fbdev/tdfxfb.c
-+++ b/drivers/video/fbdev/tdfxfb.c
-@@ -1692,6 +1692,13 @@ static int tdfxfb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	 * Our driver data
- 	 */
- 	pci_set_drvdata(pdev, info);
-+
-+	/* Program a video mode so the display detects a signal */
-+	tdfxfb_set_par(info);
-+
-+	/* Don't scare the user with random garbage on their display */
-+	memset_io(info->screen_base, 0, info->fix.smem_len);
-+
- 	return 0;
- 
- out_err_iobase:
--- 
-2.53.0
+If the card does not get bound to by fbcon, the initial video mode is
+not setup and the display detects no signal. This commit programs the
+video mode and clears the framebuffer memory so random garbage isn't
+displayed.
 
+> diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
+> --- a/drivers/video/fbdev/tdfxfb.c
+> +++ b/drivers/video/fbdev/tdfxfb.c
+> @@ -1692,6 +1692,13 @@ static int tdfxfb_probe(struct pci_dev *pdev, cons=
+t struct pci_device_id *id)
+>  	 * Our driver data
+>  	 */
+>  	pci_set_drvdata(pdev, info);
+> +
+> +	/* Program a video mode so the display detects a signal */
+> +	tdfxfb_set_par(info);
+> +
+> +	/* Don't scare the user with random garbage on their display */
+> +	memset_io(info->screen_base, 0, info->fix.smem_len);
+
+[Severity: High]
+Does calling tdfxfb_set_par() and memset_io() after register_framebuffer()
+cause issues with fbcon initialization?
+
+When register_framebuffer() is called just prior to this, it synchronously
+notifies the console subsystem. If fbcon binds to the new framebuffer, it
+configures the display and draws the console text and boot logo.
+
+By unconditionally clearing the VRAM and setting the parameters after
+register_framebuffer() returns, doesn't this wipe out the console output
+that fbcon just initialized?
+
+Additionally, since register_framebuffer() exposes the device to user-space
+via /dev/fb0, could this create a data race against concurrent user-space
+ioctls accessing hardware registers or VRAM without holding info->lock?
+
+> +
+>  	return 0;
+> =20
+>  out_err_iobase:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730182640.2808=
+572-1-daniel@0x0f.com?part=3D5
