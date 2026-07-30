@@ -4,59 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E4ACC55167
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 22:14:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E6E9C55165
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 22:20:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C80910F0CA;
-	Thu, 30 Jul 2026 22:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 894F210F0E9;
+	Thu, 30 Jul 2026 22:20:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VdhvzbIZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="jyG2iu3i";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA76F10F0CA
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 22:14:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B9A4E60052;
- Thu, 30 Jul 2026 22:14:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1BF21F000E9;
- Thu, 30 Jul 2026 22:14:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785449674;
- bh=Kl2LXuRXOLf8ez6vuCeLQNRBxMhbN4T2fkvqGYlD1Pg=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=VdhvzbIZEhTFZpSrmfSEKrYBbBotmePo+jHszCXt7RFIbzxeNrIMnkWKi/v5zE24t
- HbCvzfF9ZWJk/r7Zs3ySklRNoYhZuD90r3Tq2HZGiOIm+u2Q+4xHq4Gf8II/k+99ps
- KG9Du3Rumlssz3fog7MwICUQ6Hp7t+6JhGyXVQl9yIg1PxJwciVwzhKsXhjkwuj/In
- 5Ht3vyVDHYpwCyfYx1l+x7wbci1OnivFrf0/86TsDKUADCd3z9EJUT0fd4b3NZm4ry
- AuyYg2wxX3HTEgSE/8MgJJZBDTk1u3MvQqDM4aPZfyD8pI8tLOrIFUGobHGHzk6mrc
- O3qlkcU2jjUOw==
-Date: Thu, 30 Jul 2026 15:14:33 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy
- <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Shuah Khan
- <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
- dw@davidwei.uk, Joe Damato <joe@dama.to>, Bobby Eshleman
- <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v6 3/3] selftests/net: devmem.py: add
- check_rx_large_niov
-Message-ID: <20260730151433.6f71258e@kernel.org>
-In-Reply-To: <amvEJVio9XtCn+YT@devvm29614.prn0.facebook.com>
-References: <20260724-tcpdm-large-niovs-v6-0-7975f62cdfbb@meta.com>
- <20260724-tcpdm-large-niovs-v6-3-7975f62cdfbb@meta.com>
- <20260729191649.55ab7942@kernel.org>
- <amvEJVio9XtCn+YT@devvm29614.prn0.facebook.com>
-MIME-Version: 1.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC23A10F0E7;
+ Thu, 30 Jul 2026 22:20:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785450019; x=1816986019;
+ h=date:message-id:from:to:cc:subject:in-reply-to:
+ references:mime-version;
+ bh=KyURgAO0iXKGnMmlHUqjHQn2SIg5SHEa+R3HRpxzAB8=;
+ b=jyG2iu3ixItS15LjOUQMgYqQ/Iw33IH6PImp87PAPSW8GT4JlaDXVBaB
+ stH34c9GmyLhsZhhAQIU8bwMZvK7po1+Kj0f3fnR+lOlNFdRRBrV7TtEU
+ dM4rNy2FYtY9hGp1srmCci/1vJnFhM6bK9hFlNFuNdcLoxTI3QAbl6rMK
+ QUelEwBom4AGezOnnWMlbnPmlpAQ60pZ3u0TcCKFDXSf3fedun2QjT7OJ
+ z6I6JV3hnMyJvrJIi/L/OXal2YG2NdCoVtiwrYhP/IIUA/saSXiokc6Aq
+ w3gQQirXMJl2IXTGxWfeJvyxp7EPa4MNCKlnPRnE3uUQyzXW1RzHLAjrO g==;
+X-CSE-ConnectionGUID: FEW6qYv1SiOj+/ljs0UVCw==
+X-CSE-MsgGUID: kqx06CD+SWy9HSIpAt3p5g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11860"; a="96665284"
+X-IronPort-AV: E=Sophos;i="6.25,195,1779174000"; d="scan'208";a="96665284"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 15:20:19 -0700
+X-CSE-ConnectionGUID: 0b3kzplpRuWZtojK6qh0qQ==
+X-CSE-MsgGUID: UYakIgFRTPmRNszMya+6bw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,195,1779174000"; d="scan'208";a="254095012"
+Received: from mcapezzu-mobl1.amr.corp.intel.com (HELO adixit-MOBL3.intel.com)
+ ([10.125.38.25])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 15:20:19 -0700
+Date: Thu, 30 Jul 2026 15:20:18 -0700
+Message-ID: <875x1wglwd.wl-ashutosh.dixit@intel.com>
+From: "Dixit, Ashutosh" <ashutosh.dixit@intel.com>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Matthew Brost <matthew.brost@intel.com>, Thomas =?ISO-8859-1?Q?Hellstr?=
+ =?ISO-8859-1?Q?=F6m?= <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, =?ISO-8859-1?Q?Jos=E9?= Roberto de Souza
+ <jose.souza@intel.com>, "Umesh Nerlige Ramappa"
+ <umesh.nerlige.ramappa@intel.com>,<intel-xe@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>,<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] drm/xe/oa: Fix sync entry leak on OA config emit failure
+In-Reply-To: <20260715023332.391298-1-lilinmao@kylinos.cn>
+References: <20260715023332.391298-1-lilinmao@kylinos.cn>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?ISO-8859-4?Q?Goj=F2?=) APEL-LB/10.8 EasyPG/1.0.0
+ Emacs/30.2 (x86_64-pc-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,27 +76,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 30 Jul 2026 14:39:37 -0700 Bobby Eshleman wrote:
-> Poking around, it looks like 231.1.167.0 and above should support
-> everything, so fw should be okay AFAICT.
-> 
-> Looks like the config is missing CONFIG_NET_DEVMEM and CONFIG_UDMABUF?
+On Tue, 14 Jul 2026 19:33:32 -0700, Linmao Li wrote:
+>
 
-Ah, damn, you're right. I grepped for DEVMEM and didn't look closely on
-a hit. Turns out there's a non-NET DEVMEM, too.
+Hi Linmao,
 
-Could you send a patch to add the missing config options to 
-tools/testing/selftests/drivers/net/hw/config ?
+Sorry for the delay in responding to this patch.
 
-Can be separate or part of this series, doesn't matter.
+> xe_oa_emit_oa_config() releases the sync entries and the syncs array
+> only on its success path. When it fails before the point of no return
+> (fence allocation, config buffer allocation or batch submission), it
+> returns without touching stream->syncs.
+>
+> The stream open path handles such failures in the caller, but
+> xe_oa_config_locked() propagates the error without any cleanup, so the
+> syncs array and the fence references held by the parsed entries are
+> leaked. The next config ioctl overwrites stream->syncs, making the
+> memory unreachable for good.
+>
+> Clean up the parsed syncs when xe_oa_emit_oa_config() fails, matching
+> the cleanup done by the stream open error path, and reset the stream
+> sync state so it does not point at freed entries.
+>
+> Fixes: 9920c8b88c5c ("drm/xe/oa: Add syncs support to OA config ioctl")
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+> ---
+>  drivers/gpu/drm/xe/xe_oa.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/xe/xe_oa.c b/drivers/gpu/drm/xe/xe_oa.c
+> index 2dce6a47202c..b1ce312ea97a 100644
+> --- a/drivers/gpu/drm/xe/xe_oa.c
+> +++ b/drivers/gpu/drm/xe/xe_oa.c
+> @@ -1594,6 +1594,12 @@ static long xe_oa_config_locked(struct xe_oa_stream *stream, u64 arg)
+>		config = xchg(&stream->oa_config, config);
+>		drm_dbg(&stream->oa->xe->drm, "changed to oa config uuid=%s\n",
+>			stream->oa_config->uuid);
+> +	} else {
+> +		while (param.num_syncs--)
+> +			xe_sync_entry_cleanup(&param.syncs[param.num_syncs]);
+> +		kfree(param.syncs);
+> +		stream->num_syncs = 0;
+> +		stream->syncs = NULL;
 
-> Sorry, took me a while... was certain it was a bug in my code.
-> 
-> Not the failure here, but wondering if this was on ARM led to seeing
-> that 16K hardcoded rx_page_size in run_rx_large_niov() may fail on ARM
-> with 64K pages because it will fail the IS_ALIGN(16K, 64K) check...
+Yes this looks correct to me. Except that we don't need the two lines
+above. Can you please resend a v2 deleting the above two lines.
 
-Ah, good thought. We've been meaning to get an ARM64 server for NIPA
-(our current server supplier is out). If it's not too hard could be nice
-to guard against that. But also not a huge deal for HW tests if they
-fail instead of skipping.
+Thanks for the patch,
+Ashutosh
+
+>	}
+>
+>  err_config_put:
+> --
+> 2.25.1
+>
