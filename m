@@ -4,51 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F341C54FDF
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 10:47:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64F33C54FD2
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 10:49:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D916510EE94;
-	Thu, 30 Jul 2026 10:47:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B715710E683;
+	Thu, 30 Jul 2026 10:49:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="RyAIqM+S";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Xox6P0b1";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id CBC7C10EE94
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 10:47:47 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3C64F1688
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 03:47:43 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 10F5B3F86F
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 03:47:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785408467; bh=unSsqLjMlbRj1rOildUEgSOScIlD71euFOCQoiPmzqA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=RyAIqM+SfrvuQMy/k7nbz5Q+wWWuIgrNQZ9+Nnaf3lQwAdNmUuEuHyNOAzrIvBaqM
- F77xfIMdgHTJWipsZgNM1furDg1C9pDENzeSwkfso1vUQ2cR3ucRqN3mWwS2f3c2E7
- 4Vm8nn1F8GtPS30JxUH/9Xvfj0XrOFUb3RJDhQyw=
-Date: Thu, 30 Jul 2026 11:47:34 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Ketil Johnsen <ketil.johnsen@arm.com>
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 3/7] drm/panthor: Explicit expansion of locked VM region
-Message-ID: <amsrxqUXNYhFDPz-@e142607>
-References: <20260712135439.1546950-1-ketil.johnsen@arm.com>
- <20260712135439.1546950-4-ketil.johnsen@arm.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D02F10E67C;
+ Thu, 30 Jul 2026 10:49:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785408545; x=1816944545;
+ h=message-id:date:mime-version:from:to:cc:subject:
+ content-transfer-encoding;
+ bh=z5/81VdES55/zS6M29WYG6w4eX+A9xaisxalBnxTEYU=;
+ b=Xox6P0b1YZ6D3A97asnzUHVjcRz1lAUGMCf4BP248pSHvO5pj828sVxN
+ jYZKW9SXuQueRHHEOoSxnvGdDNU7RNZk8t4cfZagQ6Zoj7fLYLraxu9wL
+ 76L2wlfN6tHRLDun/QWQOTlrKMhuN7PWffTLT6Bd8xuYKHtn+hAxq1K/9
+ ntSRsyR2PUdf6dK+Jw7wQVze4LABC//Z9J9KlHFuVsCWrt/yZUvzbnCAk
+ Z4pRCu2xYsEvxk+4tkZ5tN0D3j6yleUIFI64nOuNOPc4K4O/KmpxSgEKK
+ FkWmlXzjrRhxfxN+CFj5ATIWCLs0xn85PpgdlUBbNldBmDVDR9ttVMa4E w==;
+X-CSE-ConnectionGUID: o5VqWMAbT3mIzT0jDCgoMQ==
+X-CSE-MsgGUID: 5kwgaGTZQ1a914XO7Wn7tA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="103429681"
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="103429681"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 03:49:05 -0700
+X-CSE-ConnectionGUID: hIJL7LaNTAacw/P1SmEDaQ==
+X-CSE-MsgGUID: aOtvmSyiRYqwb2/DTIjPgA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; d="scan'208";a="264539710"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93])
+ ([10.245.245.93])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 30 Jul 2026 03:49:01 -0700
+Message-ID: <a734faaf-4f77-48ce-a354-a1011524c949@linux.intel.com>
+Date: Thu, 30 Jul 2026 12:50:10 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Simona Vetter <simona.vetter@ffwll.ch>, Dave Airlie <airlied@gmail.com>
+Cc: dim-tools@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Oded Gabbay <ogabbay@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>
+Subject: [PULL] drm-misc-next
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260712135439.1546950-4-ketil.johnsen@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,166 +77,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sun, Jul 12, 2026 at 03:54:35PM +0200, Ketil Johnsen wrote:
-> Currently the panthor_vm_lock_region() function will implicitly expand
-> an already locked VM region. This can be problematic because the caller
-> do not reliably know if it needs to call panthor_vm_unlock_region()
-> or not.
-> 
-> Worth noting, there is currently no known issues with this as the code
-> is written today.
-> 
-> This change introduces panthor_vm_expand_region() which will only work
-> if there is already a locked VM region. This again means that the
-> original lock and unlock functions can work as a pair. This pairing is
-> needed for subsequent protected memory changes.
-> 
-> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+Hi Dave, Sima,
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+drm-misc-next for v7.3!
 
-Best regards,
-Liviu
+As mentioned in the -fixes pull, Maxime and Thomas are out.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_mmu.c | 87 +++++++++++++++++++--------
->  1 file changed, 62 insertions(+), 25 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index 1f6b9242279c2..b82b01013611c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -1774,20 +1774,49 @@ static const char *access_type_name(struct panthor_device *ptdev,
->  	}
->  }
->  
-> +static int panthor_vm_apply_as_lock(struct panthor_vm *vm, u64 region)
-> +{
-> +	struct panthor_device *ptdev = vm->ptdev;
-> +
-> +	lockdep_assert_held(&ptdev->mmu->as.slots_lock);
-> +
-> +	gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id), region);
-> +	return as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_LOCK);
-> +}
-> +
->  static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
->  {
->  	struct panthor_device *ptdev = vm->ptdev;
->  	int ret = 0;
->  
-> -	/* sm_step_remap() can call panthor_vm_lock_region() to account for
-> -	 * the wider unmap needed when doing a partial huge page unamp. We
-> -	 * need to ignore the lock if it's already part of the locked region.
-> -	 */
-> -	if (start >= vm->locked_region.start &&
-> -	    start + size <= vm->locked_region.start + vm->locked_region.size)
-> -		return 0;
-> +	if (drm_WARN_ON(&ptdev->base, vm->locked_region.size))
-> +		return -EINVAL;
-> +
-> +	mutex_lock(&ptdev->mmu->as.slots_lock);
-> +	if (vm->as.id >= 0 && size) {
-> +		u64 region = pack_region_range(ptdev, &start, &size);
-> +
-> +		ret = panthor_vm_apply_as_lock(vm, region);
-> +	}
->  
-> -	/* sm_step_remap() may need a locked region that isn't a strict superset
-> +	if (!ret) {
-> +		vm->locked_region.start = start;
-> +		vm->locked_region.size = size;
-> +	}
-> +	mutex_unlock(&ptdev->mmu->as.slots_lock);
-> +
-> +	return ret;
-> +}
-> +
-> +static int panthor_vm_expand_locked_region(struct panthor_vm *vm,
-> +					   u64 start, u64 size)
-> +{
-> +	struct panthor_device *ptdev = vm->ptdev;
-> +	u64 end;
-> +	int ret = 0;
-> +
-> +	/* This function is here to handle the following case:
-> +	 * sm_step_remap() may need a locked region that isn't a strict superset
->  	 * of the original one because of having to extend unmap boundaries beyond
->  	 * it to deal with partial unmaps of transparent huge pages. What we want
->  	 * in those cases is to lock the union of both regions. The new region must
-> @@ -1795,25 +1824,30 @@ static int panthor_vm_lock_region(struct panthor_vm *vm, u64 start, u64 size)
->  	 * boundaries in a remap operation can only shift up or down respectively,
->  	 * but never otherwise.
->  	 */
-> -	if (vm->locked_region.size) {
-> -		u64 end = max(vm->locked_region.start + vm->locked_region.size,
-> -			      start + size);
->  
-> -		drm_WARN_ON_ONCE(&vm->ptdev->base, (start + size <= vm->locked_region.start) ||
-> -				 (start >= vm->locked_region.start + vm->locked_region.size));
-> +	/* This function can only expand an already locked region */
-> +	if (drm_WARN_ON(&ptdev->base, !vm->locked_region.size))
-> +		return -EINVAL;
-> +
-> +	/* Early out if requested range is already locked */
-> +	if (start >= vm->locked_region.start &&
-> +	    start + size <= vm->locked_region.start + vm->locked_region.size)
-> +		return 0;
->  
-> -		start = min(start, vm->locked_region.start);
-> -		size = end - start;
-> -	}
-> +	end = max(vm->locked_region.start + vm->locked_region.size,
-> +		  start + size);
-> +
-> +	drm_WARN_ON_ONCE(&ptdev->base, (start + size <= vm->locked_region.start) ||
-> +			 (start >= vm->locked_region.start + vm->locked_region.size));
-> +
-> +	start = min(start, vm->locked_region.start);
-> +	size = end - start;
->  
->  	mutex_lock(&ptdev->mmu->as.slots_lock);
->  	if (vm->as.id >= 0 && size) {
-> -		/* Lock the region that needs to be updated */
-> -		gpu_write64(ptdev->mmu->iomem, AS_LOCKADDR(vm->as.id),
-> -			    pack_region_range(ptdev, &start, &size));
-> +		u64 region = pack_region_range(ptdev, &start, &size);
->  
-> -		/* If the lock succeeded, update the locked_region info. */
-> -		ret = as_send_cmd_and_wait(ptdev, vm->as.id, AS_COMMAND_LOCK);
-> +		ret = panthor_vm_apply_as_lock(vm, region);
->  	}
->  
->  	if (!ret) {
-> @@ -2367,11 +2401,14 @@ static int panthor_gpuva_sm_step_remap(struct drm_gpuva_op *op,
->  		 */
->  		unmap_hugepage_align(&op->remap, &unmap_start, &unmap_range);
->  
-> -		/* If the range changed, we might have to lock a wider region to guarantee
-> -		 * atomicity. panthor_vm_lock_region() bails out early if the new region
-> -		 * is already part of the locked region, so no need to do this check here.
-> +		/* If the range changed, we might have to lock a wider region to
-> +		 * guarantee atomicity.
->  		 */
-> -		panthor_vm_lock_region(vm, unmap_start, unmap_range);
-> +		ret = panthor_vm_expand_locked_region(vm, unmap_start,
-> +						      unmap_range);
-> +		if (ret)
-> +			return ret;
-> +
->  		panthor_vm_unmap_pages(vm, unmap_start, unmap_range);
->  	}
->  
-> -- 
-> 2.43.0
-> 
+Kind regards,
+~Maarten Lankhorst
 
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+drm-misc-next-2026-07-30:
+drm-misc-next for v7.3:
+
+UAPI Changes:
+- Allow allocating NVDEC channels via abi16 for H.264 decode.
+
+Cross-subsystem Changes:
+- Add Opto Logic S.A., DCL Technologies Inc. to dt vendor prefixes.
+
+Core Changes:
+- Fix kunit tests for the gpu buddy allocator.
+
+Driver Changes:
+- Improve i2c handling for panel-edp.
+- Assorted bugfixes and improvements in panthor, panel/jd93656da, panel/nt36536,
+  bridge/tc358762 bridge/lt8912b, bridge/hw-dmi, panthor, panel/ili9805.
+- Use named initialized for bridge's users of i2c_device_data.
+- Add DCLTek 300250 9.35", AYANEO Pocket DS Lower, Ampire
+  AM-800480N3TZQW-00H, BOE NE140QDM-NX2, CMN N116BCP-EA2 panels.
+- Unconditionally create blend_mode property for nv50+ planes.
+- Add i.MX93 parallel display format configuration support.
+The following changes since commit e55fead22ff9ee047ab9f1903860c4b43043514e:
+
+  drm/imagination: promote BXM-4-64 MC1 (36.52.104.182) to supported status (2026-07-24 08:37:01 +0100)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/misc/kernel.git tags/drm-misc-next-2026-07-30
+
+for you to fetch changes up to 35b6cf07851a2b430b0eefbcb7b5a856f9030264:
+
+  drm/panel-edp: Add CMN N116BCP-EA2 (HW: C3) (2026-07-29 18:28:19 -0700)
+
+----------------------------------------------------------------
+drm-misc-next for v7.3:
+
+UAPI Changes:
+- Allow allocating NVDEC channels via abi16 for H.264 decode.
+
+Cross-subsystem Changes:
+- Add Opto Logic S.A., DCL Technologies Inc. to dt vendor prefixes.
+
+Core Changes:
+- Fix kunit tests for the gpu buddy allocator.
+
+Driver Changes:
+- Improve i2c handling for panel-edp.
+- Assorted bugfixes and improvements in panthor, panel/jd93656da, panel/nt36536,
+  bridge/tc358762 bridge/lt8912b, bridge/hw-dmi, panthor, panel/ili9805.
+- Use named initialized for bridge's users of i2c_device_data.
+- Add DCLTek 300250 9.35", AYANEO Pocket DS Lower, Ampire
+  AM-800480N3TZQW-00H, BOE NE140QDM-NX2, CMN N116BCP-EA2 panels.
+- Unconditionally create blend_mode property for nv50+ planes.
+- Add i.MX93 parallel display format configuration support.
+
+----------------------------------------------------------------
+Adrián Larumbe (2):
+      drm/panthor: Add vm_bind region with kbo range overlap check
+      drm/panthor: Fix comment to reflect actual struct field name
+
+Alexandre Hamamdjian (2):
+      dt-bindings: display: Add AYANEO Pocket DS lower panel
+      drm/panel: st7703: Add AYANEO Pocket DS Lower Panel Support
+
+Colin Ian King (1):
+      drm/bridge: lontium-lt8912b: make read-only const array supply_names static
+
+Dave Airlie (1):
+      drm/nouveau: allow allocating NVDEC channels via abi16
+
+David Carlier (1):
+      drm/panel: novatek-nt36536: Fix panel double-remove on attach failure
+
+Johan Hovold (3):
+      drm/panel-edp: fix i2c adapter leak on probe failure
+      drm/panel-edp: take i2c adapter module reference
+      drm/bridge: dw-hdmi: fix i2c adapter leak on probe failure
+
+Krzysztof Niemiec (2):
+      gpu: Fix dependencies in CONFIG_GPU_BUDDY_KUNIT_TEST
+      gpu/tests: Add a dedicated .kunitconfig
+
+Laurent Pinchart (1):
+      drm/bridge: Replace outdated forward declaration
+
+Leonardo Costa (1):
+      dt-bindings: vendor-prefixes: Add Opto Logic
+
+Liu Ying (1):
+      drm/bridge: imx: Add i.MX93 parallel display format configuration support
+
+Lyude Paul (3):
+      drm/nouveau/kms/nv50-: Add .blend_modes to nv50_wndw_func
+      drm/nouveau/kms/nv50-: Introduce nv50_wndw_default_state()
+      drm/nouveau/kms/nv50-: Unconditionally create blend_mode prop for wndws
+
+Marc-Olivier Champagne (4):
+      drm: panel: jd9365da: Enable LPM mode
+      dt-bindings: vendor-prefixes: Add DCLTEK
+      dt-bindings: display: panel: add compatible for DCLTek 300250 9.35in panel
+      drm: panel: jd9365da: Add DCLTek 300250 9.35in display
+
+Michail Tatas (3):
+      drm/panel: ilitek-ili9805: Use _multi variants
+      drm/panel: ilitek-ili9805: Use dsi_multi in init
+      drm/panel: ilitek-ili9805: make cleanup funcs void
+
+Osama Abdelkader (4):
+      drm/panthor: return PTR_ERR() from devm_drm_dev_alloc()
+      drm/bridge: tc358762: use devm for bridge registration and DSI attach
+      drm/bridge: tc358764: use devm for bridge registration and DSI attach
+      drm/panthor: harden firmware build-info bounds checks
+
+Paul Louvel (2):
+      dt-bindings: display: simple: Add Ampire AM-800480N3TZQW-00H
+      drm/panel: simple: Add Ampire AM-800480N3TZQW-00H
+
+Terry Hsiao (1):
+      drm/panel-edp: Add CMN N116BCP-EA2 (HW: C3)
+
+Uwe Kleine-König (The Capable Hub) (1):
+      drm/bridge: Use named initializers for arrays of i2c_device_data
+
+Weiji Wang (1):
+      drm/panel-edp: Add BOE NE140QDM-NX2
+
+ .../bindings/display/panel/jadard,jd9365da-h3.yaml |   1 +
+ .../bindings/display/panel/panel-simple.yaml       |   2 +
+ .../display/panel/rocktech,jh057n00900.yaml        |   2 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   4 +
+ drivers/gpu/Kconfig                                |   3 +-
+ drivers/gpu/drm/bridge/adv7511/adv7511_drv.c       |  10 +-
+ drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |   2 +-
+ drivers/gpu/drm/bridge/analogix/anx7625.c          |   4 +-
+ drivers/gpu/drm/bridge/chipone-icn6211.c           |   4 +-
+ drivers/gpu/drm/bridge/chrontel-ch7033.c           |   2 +-
+ drivers/gpu/drm/bridge/imx/Kconfig                 |  11 +
+ drivers/gpu/drm/bridge/imx/Makefile                |   1 +
+ drivers/gpu/drm/bridge/imx/imx93-pdfc.c            | 222 ++++++++++++++++++
+ drivers/gpu/drm/bridge/ite-it6263.c                |   2 +-
+ drivers/gpu/drm/bridge/ite-it6505.c                |   2 +-
+ drivers/gpu/drm/bridge/lontium-lt8713sx.c          |   2 +-
+ drivers/gpu/drm/bridge/lontium-lt8912b.c           |   6 +-
+ drivers/gpu/drm/bridge/lontium-lt9211.c            |   4 +-
+ drivers/gpu/drm/bridge/lontium-lt9611.c            |   4 +-
+ drivers/gpu/drm/bridge/lontium-lt9611uxc.c         |   2 +-
+ .../drm/bridge/megachips-stdpxxxx-ge-b850v3-fw.c   |   8 +-
+ drivers/gpu/drm/bridge/nxp-ptn3460.c               |   4 +-
+ drivers/gpu/drm/bridge/parade-ps8622.c             |   8 +-
+ drivers/gpu/drm/bridge/sii902x.c                   |   2 +-
+ drivers/gpu/drm/bridge/sii9234.c                   |   2 +-
+ drivers/gpu/drm/bridge/sil-sii8620.c               |   2 +-
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi.c          |   3 +-
+ drivers/gpu/drm/bridge/tc358762.c                  |  19 +-
+ drivers/gpu/drm/bridge/tc358764.c                  |  19 +-
+ drivers/gpu/drm/bridge/tc358767.c                  |   2 +-
+ drivers/gpu/drm/bridge/tc358768.c                  |   4 +-
+ drivers/gpu/drm/bridge/tc358775.c                  |   4 +-
+ drivers/gpu/drm/bridge/tda998x_drv.c               |   2 +-
+ drivers/gpu/drm/bridge/ti-dlpc3433.c               |   2 +-
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c              |   6 +-
+ drivers/gpu/drm/bridge/ti-sn65dsi86.c              |   4 +-
+ drivers/gpu/drm/bridge/ti-tfp410.c                 |   2 +-
+ drivers/gpu/drm/nouveau/dispnv50/base.h            |   6 +
+ drivers/gpu/drm/nouveau/dispnv50/base507c.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/base827c.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/base907c.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/curs507a.c        |   3 +
+ drivers/gpu/drm/nouveau/dispnv50/disp.c            |   4 +
+ drivers/gpu/drm/nouveau/dispnv50/wndw.c            |  40 +++-
+ drivers/gpu/drm/nouveau/dispnv50/wndw.h            |  11 +
+ drivers/gpu/drm/nouveau/dispnv50/wndwc37e.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/wndwc57e.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/wndwc67e.c        |   1 +
+ drivers/gpu/drm/nouveau/dispnv50/wndwca7e.c        |   1 +
+ drivers/gpu/drm/nouveau/nouveau_abi16.c            |  14 +-
+ drivers/gpu/drm/nouveau/nouveau_drv.h              |   4 +-
+ drivers/gpu/drm/panel/panel-edp.c                  |  23 +-
+ drivers/gpu/drm/panel/panel-ilitek-ili9805.c       | 212 +++++++-----------
+ drivers/gpu/drm/panel/panel-jadard-jd9365da-h3.c   | 249 ++++++++++++++++++++-
+ drivers/gpu/drm/panel/panel-novatek-nt36536.c      |   4 +-
+ drivers/gpu/drm/panel/panel-simple.c               |  33 +++
+ drivers/gpu/drm/panel/panel-sitronix-st7703.c      |  96 ++++++++
+ drivers/gpu/drm/panthor/panthor_drv.c              |   2 +-
+ drivers/gpu/drm/panthor/panthor_fw.c               |   3 +-
+ drivers/gpu/drm/panthor/panthor_mmu.c              |  11 +-
+ drivers/gpu/tests/.kunitconfig                     |   2 +
+ include/drm/drm_bridge.h                           |   2 +-
+ include/uapi/drm/nouveau_drm.h                     |   1 +
+ 63 files changed, 880 insertions(+), 230 deletions(-)
+ create mode 100644 drivers/gpu/drm/bridge/imx/imx93-pdfc.c
+ create mode 100644 drivers/gpu/tests/.kunitconfig
