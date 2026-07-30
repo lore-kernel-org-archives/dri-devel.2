@@ -4,54 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DD49C55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 15:13:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53C57C55162
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 15:15:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD04A10EF8C;
-	Thu, 30 Jul 2026 15:13:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CECB10EF90;
+	Thu, 30 Jul 2026 15:15:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0rCysXWn";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="vyRuNIB5";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5740910EF8C
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 15:13:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CBCAE600B1;
- Thu, 30 Jul 2026 15:13:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D2CC1F000E9;
- Thu, 30 Jul 2026 15:13:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785424381;
- bh=RihudVo5cMe2Uf1hutkTduDNgC3DGVuP4aLoaWAT4fE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=0rCysXWnMIeIEDi3CwWrWqUWiZT4WmUBtk5iO4K43Id3QUlHSyBtls412eI9p/htC
- uA00AQUn5bs7GVA1tBEbgGScXxFOIUuvSF3gIayBlDiDezv7RK+OUfogg8rb4u6Ty8
- UvCZahqqQKBxcnvrleexqwOn790PCzjNGCKY0Gj4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2429E10EF8D
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 15:15:10 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6E1E41688
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 08:15:05 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 3F3673F7B4
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 08:15:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785424509; bh=gOvt8G2+rPCaxcD1u1qcDVg1kf8qNiOuCxWscpQNezE=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=vyRuNIB50hZet3JAv5hJytq/qVQo701wQhNH6paLa4kq6E4fjOtBH+WAG1YnAb5h4
+ YrZlWibU/8SOqzseIMgaUhyKDJe7XKi2B6PBtPJHx3+vrbBZJ8C7642e5Ge4pXgwgh
+ DHk87LQGd4MRG3c7qbnS2TB5mnISd/NtTskKUPg4=
+Date: Thu, 30 Jul 2026 16:14:42 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+ Valentin Schneider <vschneid@redhat.com>,
+ K Prateek Nayak <kprateek.nayak@amd.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 6.18 375/675] drm/ttm: Account for NULL and handle pages in
- ttm_pool_backup
-Date: Thu, 30 Jul 2026 16:11:45 +0200
-Message-ID: <20260730141453.105789167@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730141445.110192266@linuxfoundation.org>
-References: <20260730141445.110192266@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Grant Likely <grant.likely@linaro.org>,
+ Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kernel@collabora.com
+Subject: Re: [PATCH v2 3/3] drm/panthor: Add tracepoints for cache flushing
+Message-ID: <amtqYrNIwXGZ6xs1@e142607>
+References: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
+ <20260730-panthor-cache-flush-fix-v2-3-28790478bfff@collabora.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260730-panthor-cache-flush-fix-v2-3-28790478bfff@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,145 +72,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Thu, Jul 30, 2026 at 01:45:16PM +0200, Nicolas Frattaroli wrote:
+> Add two new event tracepoints: gpu_cache_flush_start to be emitted after
+> acquiring the flush mutex and reqs spinlock, and gpu_cache_flush_end to
+> be emitted when leaving the function.
+> 
+> This allows debugging the duration a flush takes irrespective of initial
+> function entry lock contention by subtracting the start tracepoint's
+> timestamp from the end tracepoint timestamp, and additionally contains
+> information such as which caches were flushed.
+> 
+> Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
-------------------
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-From: Matthew Brost <matthew.brost@intel.com>
+Best regards,
+Liviu
 
-commit 5b7b3b6595ee77d01c7463757baed114786094dd upstream.
+> ---
+>  drivers/gpu/drm/panthor/panthor_gpu.c   |  3 ++
+>  drivers/gpu/drm/panthor/panthor_trace.h | 49 +++++++++++++++++++++++++++++++++
+>  2 files changed, 52 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> index f015bde80abf..a25955ad668b 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> @@ -336,6 +336,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
+>  
+>  	spin_lock(&ptdev->gpu->reqs_lock);
+> +	trace_gpu_cache_flush_start(ptdev->base.dev, l2, lsc, other);
+>  	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+>  		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+>  		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> @@ -345,6 +346,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  
+>  	if (ret) {
+>  		spin_unlock(&ptdev->gpu->reqs_lock);
+> +		trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+>  		return ret;
+>  	}
+>  
+> @@ -358,6 +360,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+>  	}
+>  	spin_unlock(&ptdev->gpu->reqs_lock);
+> +	trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
+>  
+>  	if (ret) {
+>  		panthor_device_schedule_reset(ptdev);
+> diff --git a/drivers/gpu/drm/panthor/panthor_trace.h b/drivers/gpu/drm/panthor/panthor_trace.h
+> index 6ffeb4fe6599..6951b95b1de7 100644
+> --- a/drivers/gpu/drm/panthor/panthor_trace.h
+> +++ b/drivers/gpu/drm/panthor/panthor_trace.h
+> @@ -76,6 +76,55 @@ TRACE_EVENT(gpu_job_irq,
+>  		  __entry->events, __entry->duration_ns)
+>  );
+>  
+> +DECLARE_EVENT_CLASS(gpu_cache_flush_template,
+> +	TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> +	TP_ARGS(dev, l2, lsc, other),
+> +	TP_STRUCT__entry(
+> +		__string(dev_name, dev_name(dev))
+> +		__field(u32, l2)
+> +		__field(u32, lsc)
+> +		__field(u32, other)
+> +	),
+> +	TP_fast_assign(
+> +		__assign_str(dev_name);
+> +		__entry->l2     = l2;
+> +		__entry->lsc    = lsc;
+> +		__entry->other  = other;
+> +	),
+> +	TP_printk("%s: l2=0x%x lsc=0x%x other=0x%x", __get_str(dev_name),
+> +		  __entry->l2, __entry->lsc, __entry->other)
+> +);
+> +
+> +/**
+> + * gpu_cache_flush_start - called after cache flush locks taken, before flush
+> + * @dev: pointer to the &struct device, for printing the device name
+> + * @l2: "l2" flush flags
+> + * @lsc: "lsc" flush flags
+> + * @other: "other" flush flags
+> + *
+> + * Fires after any initial lock contention around the locks needed for flushing
+> + * caches, but before the actual cache flush is requested.
+> + */
+> +DEFINE_EVENT(gpu_cache_flush_template, gpu_cache_flush_start,
+> +	     TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> +	     TP_ARGS(dev, l2, lsc, other)
+> +);
+> +
+> +/**
+> + * gpu_cache_flush_end - called after cache flush
+> + * @dev: pointer to the &struct device, for printing the device name
+> + * @l2: "l2" flush flags
+> + * @lsc: "lsc" flush flags
+> + * @other: "other" flush flags
+> + *
+> + * Fires after either the cache flush is complete, or has failed. Can be used
+> + * together with gpu_cache_flush_start to get how long the flush has taken.
+> + */
+> +DEFINE_EVENT(gpu_cache_flush_template, gpu_cache_flush_end,
+> +	     TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> +	     TP_ARGS(dev, l2, lsc, other)
+> +);
+> +
+>  #endif /* __PANTHOR_TRACE_H__ */
+>  
+>  #undef TRACE_INCLUDE_PATH
+> 
+> -- 
+> 2.55.0
+> 
 
-Pages in ttm_pool_backup can be NULL or backup handles
-(ttm_backup_page_ptr_is_handle()), neither of which can be passed to
-set_pages_array_wb() or freed. Add a dedicated WB pass before the
-dma/purge loop that walks allocations using the same i += num_pages
-stride, skipping NULL and handle entries, and calls set_pages_array_wb()
-once per contiguous run of real pages. Apply the same NULL/handle guard
-to the dma/purge loop.
-
-Fixes the following oops:
-
-Oops: general protection fault, kernel NULL pointer dereference 0x0: 0000 [#1] SMP NOPTI
-RIP: 0010:__cpa_process_fault+0xf8/0x770
-RSP: 0018:ffffc90000a87718 EFLAGS: 00010287
-RAX: 0000000000000000 RBX: ffffc90000a87868 RCX: 0000000000000000
-RDX: 0000000000001000 RSI: 0005088000000000 RDI: ffffffff827c5f34
-RBP: 0005088000000000 R08: ffffc90000a877cb R09: ffffc90000a877d0
-R10: 0000000000000000 R11: 000000000000001b R12: 000ffffffffff000
-R13: ffffc90000a87868 R14: ffffc90000a87868 R15: ffff88815b882ae0
-FS:  0000000000000000(0000) GS:ffff8884ec840000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f930b844000 CR3: 000000000262e003 CR4: 0000000008f70ef0
-PKRU: 55555554
-Call Trace:
- <TASK>
- __change_page_attr_set_clr+0x989/0xe90
- ? __purge_vmap_area_lazy+0x6c/0x3a0
- ? _vm_unmap_aliases+0x250/0x2a0
- set_pages_array_wb+0x7f/0x120
- ttm_pool_backup+0x4c9/0x5b0 [ttm]
- ? dma_resv_wait_timeout+0x3b/0xf0
- ttm_tt_backup+0x32/0x60 [ttm]
- ttm_bo_shrink+0x66/0x110 [ttm]
- xe_bo_shrink_purge+0x12b/0x1b0 [xe]
- xe_bo_shrink+0xbb/0x270 [xe]
- __xe_shrinker_walk+0xf7/0x160 [xe]
- xe_shrinker_walk+0x9d/0xc0 [xe]
- xe_shrinker_scan+0x11f/0x210 [xe]
- do_shrink_slab+0x13b/0x270
- shrink_slab+0xf1/0x400
- shrink_node+0x352/0x8a0
- balance_pgdat+0x32c/0x700
- kswapd+0x205/0x2f0
- ? __pfx_autoremove_wake_function+0x10/0x10
- ? __pfx_kswapd+0x10/0x10
- kthread+0xd1/0x110
- ? __pfx_kthread+0x10/0x10
- ret_from_fork+0x1b1/0x200
- ? __pfx_kthread+0x10/0x10
- ret_from_fork_asm+0x1a/0x30
- </TASK>
-
-Cc: Christian Koenig <christian.koenig@amd.com>
-Cc: Huang Rui <ray.huang@amd.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Fixes: b63d715b8090 ("drm/ttm/pool, drm/ttm/tt: Provide a helper to shrink pages")
-Cc: stable@vger.kernel.org
-Assisted-by: GitHub_Copilot:claude-opus-4.8
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-Reviewed-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Link: https://patch.msgid.link/20260702214815.4009271-1-matthew.brost@intel.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/ttm/ttm_pool.c |   34 ++++++++++++++++++++++++++++++----
- 1 file changed, 30 insertions(+), 4 deletions(-)
-
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -981,9 +981,31 @@ long ttm_pool_backup(struct ttm_pool *po
- 		return -EBUSY;
- 
- #ifdef CONFIG_X86
--	/* Anything returned to the system needs to be cached. */
--	if (tt->caching != ttm_cached)
--		set_pages_array_wb(tt->pages, tt->num_pages);
-+	/* Anything returned to the system needs to be cached. Walk allocations
-+	 * skipping NULL pages and issue set_pages_array_wb() per contiguous run.
-+	 */
-+	if (tt->caching != ttm_cached) {
-+		pgoff_t run_start = 0, run_count = 0;
-+
-+		for (i = 0; i < tt->num_pages; i += num_pages) {
-+			page = tt->pages[i];
-+			if (unlikely(!page || ttm_backup_page_ptr_is_handle(page))) {
-+				if (run_count) {
-+					set_pages_array_wb(&tt->pages[run_start],
-+							   run_count);
-+					run_count = 0;
-+				}
-+				num_pages = 1;
-+				continue;
-+			}
-+			num_pages = 1UL << ttm_pool_page_order(pool, page);
-+			if (!run_count)
-+				run_start = i;
-+			run_count += num_pages;
-+		}
-+		if (run_count)
-+			set_pages_array_wb(&tt->pages[run_start], run_count);
-+	}
- #endif
- 
- 	if (tt->dma_address || flags->purge) {
-@@ -991,7 +1013,7 @@ long ttm_pool_backup(struct ttm_pool *po
- 			unsigned int order;
- 
- 			page = tt->pages[i];
--			if (unlikely(!page)) {
-+			if (unlikely(!page || ttm_backup_page_ptr_is_handle(page))) {
- 				num_pages = 1;
- 				continue;
- 			}
-@@ -1034,6 +1056,10 @@ long ttm_pool_backup(struct ttm_pool *po
- 		if (unlikely(!page))
- 			continue;
- 
-+		/* Already-handled entry from a previous attempt. */
-+		if (unlikely(ttm_backup_page_ptr_is_handle(page)))
-+			continue;
-+
- 		ttm_pool_split_for_swap(pool, page);
- 
- 		shandle = ttm_backup_backup_page(backup, page, flags->writeback, i,
-
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
