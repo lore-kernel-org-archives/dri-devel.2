@@ -4,44 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E126C55162
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:05:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD39AC5516E
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 17:05:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 48F4A10EFF5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C95CF10EFFA;
 	Thu, 30 Jul 2026 17:05:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="j9fHb9Rl";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="U0OgeggQ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6713C10EFF5
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E9E9310EFF8
  for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:05:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 08F8F429D6;
+ by sea.source.kernel.org (Postfix) with ESMTP id 4105444E8C;
  Thu, 30 Jul 2026 17:05:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C3EC9C19425;
- Thu, 30 Jul 2026 17:05:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 03FBEC2BCFC;
+ Thu, 30 Jul 2026 17:05:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1785431150; bh=WJNElWu592lk+DfJprCvpZbrcam1TYEaJCYoPn+lj7Q=;
- h=From:Subject:Date:To:Cc:From;
- b=j9fHb9Rl5d9NERcGB2Zo1Jolp6mP1QENUZAMC8PIPwk0DCdIDFrnzgEshkakI8dZf
- mm7PxC6os2+T3b4mjr/Y+Khr+eINlRLhEeSI6neGf8BTg3Tk9uqk3aN4azGnJbK45C
- 16SlkczNhDhPn6k5Dg7YouLBO2gkXkeO/m8p/u9o=
+ t=1785431151; bh=WZR8Y42ND9E/OAlX111HbpPcKsxTChsq0oOfQ3+9UZM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=U0OgeggQO9XAL00a0Lyi35OLQFTK+lgiPeKS4qmN72pWx387JkERQVbhaBtOVKxdJ
+ sJd6YYGWsuOVxaSSQoYbyIEuRiRPoFytyPFKfSKxYw6JA5XO9HnFuJ6vYAEboU5uLI
+ 7IX0+x5h0g9equU+dLAiCNGM5Adka3vWJXdsZZfU=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 9F323C55164;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id DCF18C55171;
  Thu, 30 Jul 2026 17:05:50 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Subject: [PATCH v2 0/9] drm/tyr: add debugfs support
-Date: Fri, 31 Jul 2026 01:05:38 +0800
-Message-Id: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
+Date: Fri, 31 Jul 2026 01:05:42 +0800
+Subject: [PATCH v2 4/9] drm: move debugfs_init after dev->registered is set
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAGKEa2oC/1XMQQqDMBCF4avIrDsliZLYrnqP4sKYiQ4ULYkGR
- bx7U7vq8n/wvh0iBaYI92KHQIkjT2MOdSmgG9qxJ2SXG5RQWphS4LwFdGSX3kdMCrWoO/LGOE0
- 3yKd3IM/rCT6b3APHeQrb6Sf5XX9UqTTa6l+TKFCYyrbOydpI/XjxuKxXRwma4zg+qlmAN6wAA
- AA=
-X-Change-ID: 20260730-tyr-debugfs-v2-608cef77d6e9
+Message-Id: <20260731-tyr-debugfs-v2-v2-4-aea19eccb996@linux.dev>
+References: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
+In-Reply-To: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
  Gary Guo <gary@garyguo.net>, 
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
@@ -67,11 +64,11 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785431148; l=2996;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785431148; l=1502;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=WJNElWu592lk+DfJprCvpZbrcam1TYEaJCYoPn+lj7Q=;
- b=5uoDnSU8u5kq7EhDMiaBRuQHiGpZrD11Ztv+I5OqhiaghHW9Wpa0JFufAsAC3Mz0phtpateqv
- 0WljLYcj1fAB/As9nX153I0hY4FuXbUXJcxYSbLv6+Np1EliuGd08Wz
+ bh=WZR8Y42ND9E/OAlX111HbpPcKsxTChsq0oOfQ3+9UZM=;
+ b=Nu6+7BcxiJjyRPpf2u+1b0iaiSQBOJe051oW2rzfFeF1mot84+/iQEuu/d+7bnherhoaUo22G
+ PErAWGVIR6SCpdLLCp+QzHtk1b2X3Lol0rBTsYH8E7OtNJA4IEi52sW
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -91,73 +88,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add debugfs support for the Tyr DRM driver.
+The debugfs_init callback was invoked by drm_debugfs_register before
+dev->registered is set to true. Moving it to drm_dev_register after
+dev->registered = true fixes the Ioctl type invariant violation.
 
-The series adds a SeqShow trait for seq_file-backed debugfs files with
-lifecycle hooks, a DrmSeqShow adapter with DRM device lifecycle
-management, and a gpuvas debugfs file in Tyr exposing GPU VA space
-information.
-
-Additionally, fix a use-after-free in the DRM debugfs open/release
-paths where a device could be unregistered while a debugfs file remains
-open.
-
-This is based on drm-rust-next and depends on:
-
-[PATCH v10 0/7] drm/tyr: firmware loading and MCU boot support
-  https://lore.kernel.org/r/20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com
-
-See the full dependency and commit history at [1].
-
-Link: https://gitlab.freedesktop.org/panfrost/linux/-/issues/11
-Link: https://gitlab.freedesktop.org/panfrost/linux/-/merge_requests/59 [1]
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
-Changes in v2:
-- Reworked the debugfs implementation per feedback from Danilo on v1:
-  dropped the hazptr/revocable-based approach in favor of the DRM
-  debugfs_init callback and generic seq_file abstractions.
-- Fixed a UAF in drm_debugfs where a device could be unregistered while
-  a debugfs file remains open (drm_dev_get/put across file lifetime).
-- Link to v1: https://lore.kernel.org/r/20260326-b4-tyr-debugfs-v1-0-074badd18716@linux.dev
+ drivers/gpu/drm/drm_debugfs.c | 3 ---
+ drivers/gpu/drm/drm_drv.c     | 5 +++++
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
----
-Alvin Sun (9):
-      rust: seq_file: add as_raw() method
-      rust: debugfs: add SeqShow trait and seq_file file operations
-      rust: debugfs: add Entry::from_raw and ScopedDir::from_dentry
-      drm: move debugfs_init after dev->registered is set
-      rust: drm: add debugfs_init callback to Driver trait
-      rust: drm: add DrmSeqShow seq_file adapter
-      rust: drm: gpuvm: add dump_gpuva_info to UniqueRefGpuVm
-      drm/tyr: add gpuvas debugfs file
-      drm/debugfs: hold device reference for the lifetime of open files
+diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+index ae1c6126c2c59..38cf6ce387cc8 100644
+--- a/drivers/gpu/drm/drm_debugfs.c
++++ b/drivers/gpu/drm/drm_debugfs.c
+@@ -442,9 +442,6 @@ int drm_debugfs_register(struct drm_minor *minor, int minor_id)
+ 	/* TODO: Only for compatibility with drivers */
+ 	minor->debugfs_root = dev->debugfs_root;
+ 
+-	if (dev->driver->debugfs_init && dev->render != minor)
+-		dev->driver->debugfs_init(minor);
+-
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index e890052061f30..15669764fe625 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -1101,6 +1101,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+ 	dev->registered = true;
+ 	dev->unplugged = false;
+ 
++	/* Call debugfs_init after the device is fully registered. */
++	if (dev->driver->debugfs_init && dev->primary &&
++	    dev->render != dev->primary)
++		dev->driver->debugfs_init(dev->primary);
++
+ 	if (driver->load) {
+ 		ret = driver->load(dev, flags);
+ 		if (ret)
 
- drivers/gpu/drm/drm_debugfs.c   | 45 ++++++++++++++++---
- drivers/gpu/drm/drm_drv.c       |  5 +++
- drivers/gpu/drm/tyr/debugfs.rs  | 65 +++++++++++++++++++++++++++
- drivers/gpu/drm/tyr/driver.rs   | 16 +++++++
- drivers/gpu/drm/tyr/fw.rs       |  8 ++++
- drivers/gpu/drm/tyr/tyr.rs      |  1 +
- drivers/gpu/drm/tyr/vm.rs       |  5 +++
- rust/bindings/bindings_helper.h |  1 +
- rust/kernel/debugfs.rs          | 35 ++++++++++++++-
- rust/kernel/debugfs/entry.rs    | 15 ++++++-
- rust/kernel/debugfs/file_ops.rs | 97 +++++++++++++++++++++++++++++++++++++++++
- rust/kernel/debugfs/traits.rs   | 30 ++++++++++++-
- rust/kernel/drm/debugfs.rs      | 49 +++++++++++++++++++++
- rust/kernel/drm/device.rs       | 36 ++++++++++++++-
- rust/kernel/drm/driver.rs       | 11 +++++
- rust/kernel/drm/gpuvm/mod.rs    |  8 ++++
- rust/kernel/drm/mod.rs          |  1 +
- rust/kernel/seq_file.rs         |  6 +++
- 18 files changed, 422 insertions(+), 12 deletions(-)
----
-base-commit: 0ffc014cb2abfc79d161662b125e085b3e7107e7
-change-id: 20260730-tyr-debugfs-v2-608cef77d6e9
-
-Best regards,
 -- 
-Alvin Sun <alvin.sun@linux.dev>
+2.43.0
 
 
