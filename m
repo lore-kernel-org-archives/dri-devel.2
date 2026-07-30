@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1E99C5516D
-	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:34:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2CEE5C5516E
+	for <dri-devel@archiver.kernel.org>; Thu, 30 Jul 2026 18:41:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03A7210F039;
-	Thu, 30 Jul 2026 18:34:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6863310F03B;
+	Thu, 30 Jul 2026 18:41:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aW6//+os";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dhRc3QE9";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F06910F039
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:34:12 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CA5710F03B
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 18:41:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6FAF260A66;
- Thu, 30 Jul 2026 18:34:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0717B1F000E9;
- Thu, 30 Jul 2026 18:34:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 44170417DF;
+ Thu, 30 Jul 2026 18:41:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0F331F000E9;
+ Thu, 30 Jul 2026 18:41:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785436451;
- bh=8R8btklmtp0Jy4E7UWA7oDa1ASx8Q9ewFep9ghD//4k=;
+ s=k20260515; t=1785436877;
+ bh=Dxf2m9s+WPfdOGNnFFrLrBmTL3JOJdzENC3Gn8RgjiU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aW6//+os4mHIrdxVn/50qlO10EwaBF1Noy5yPt47EpxAnoP0p/QVR0tCdhdj1ekF9
- jm5cdz7rxNHQKYKTRlokIs2/2ZADn2D9mRKFHBXyowFpoSaShvVNvoOWAoUvfQFJTH
- rOkloJ8q3rXCNMyYCxiI0UHVO1Wjy4fc6TN9Li2wmohpKQwQMggkppiTmErXaJc6aU
- BfHGhsRqD1ABmNerePwixoSvZYAM25vc0SD4UfCP5EZo86GrR+hU751aaxjeEwueb0
- SYZVdhZMW7HebVvk6UT2QLoNa/eaoimkeyJZXfeSqqq/VszIcyQtG1ButcE9xO9HRp
- 2iP2BS1VBq6rw==
+ b=dhRc3QE9aQPhMEeKMOAMNgsRnMKq4LYrADOryFx3GufOK1Y9FjMThYQb3Y/qsijCb
+ blM4JsMsiUnNIueveNDxcMZavB/AuBZAI5QJ3F+XF1K5E0Oomt05Mdbq2bKyvTfh8K
+ aazWo+7vVMwC/2EW2Ry5hssp0J57lV9Jrp7u0GJRydLxcn2FUBV3uigWuUDbTMeEP9
+ e924syU99vLUrS9hn8HaNLo6/mkg8PX0nKuLQECTpAdJwFKGOD+ykpIUSucT+KyR/Y
+ /RTE0FuiUvKy1PcRTY97wsVobiFXONjQV7jKl8yPdokhPeqJoL/miyQKL0oRu4WaCk
+ CQFKolaAe6SwQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/5] fbdev: tdfxfb: Add helper to read config table from
- BIOS
+Subject: Re: [PATCH 2/5] fbdev: tdfxfb: Attempt to detect if the card wasn't
+ booted
 To: "Daniel Palmer" <daniel@0x0f.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260730182640.2808572-2-daniel@0x0f.com>
+In-Reply-To: <20260730182640.2808572-3-daniel@0x0f.com>
 References: <20260730182640.2808572-1-daniel@0x0f.com>
- <20260730182640.2808572-2-daniel@0x0f.com>
+ <20260730182640.2808572-3-daniel@0x0f.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 30 Jul 2026 18:34:10 +0000
-Message-Id: <20260730183411.0717B1F000E9@smtp.kernel.org>
+Date: Thu, 30 Jul 2026 18:41:16 +0000
+Message-Id: <20260730184116.F0F331F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,62 +60,61 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The patch introduces `tdfxfb_get_bios_cfg` and `tdfx_pll_to_khz` as=
- `static` functions but does not use them anywhere in the file. This trigge=
-rs `-Wunused-function` compiler warnings, which break builds with `CONFIG_W=
-ERROR` enabled.
+- [High] The driver unconditionally rejects perfectly working cards if the =
+video BIOS ROM is inaccessible or in an unsupported format.
 --
 
---- Patch [1]: [PATCH 1/5] fbdev: tdfxfb: Add helper to read config table f=
-rom BIOS ---
-commit d67a333d81585d56234b84350edd145b08f26be1
+--- Patch [2]: [PATCH 2/5] fbdev: tdfxfb: Attempt to detect if the card was=
+n't booted ---
+commit e450df3d917986ae9c59e1033b55fdddafa9cf19
 Author: Daniel Palmer <daniel@0x0f.com>
+Subject: fbdev: tdfxfb: Attempt to detect if the card wasn't booted
 
-fbdev: tdfxfb: Add helper to read config table from BIOS
-
-This commit adds a helper to get the config table from the video BIOS in
-preparation for manually booting cards.
+This commit adds hardware initialization checks to tdfxfb_probe() by
+attempting to read the configuration from the video BIOS. If the register
+values do not match the BIOS config, it rejects the card to avoid providing
+a blank display.
 
 > diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
 > --- a/drivers/video/fbdev/tdfxfb.c
 > +++ b/drivers/video/fbdev/tdfxfb.c
 [ ... ]
 > +/*
-> + * Convert a pllctrl register value back to a frequency in kHz.
-> + * Formula from 3dfx documentation.
+> + * Try to work out if the card was booted or not, just checks
+> + * if the register reported memory amount matches what the BIOS
+> + * reports for now.
 > + */
-> +static u32 tdfx_pll_to_khz(u32 pll)
+> +static int tdfxfb_hw_init(struct fb_info *info, struct pci_dev *pdev)
 > +{
-> +	return (14318 * (((pll >> 8) & 0xff) + 2) /
-> +		(((pll >> 2) & 0x3f) + 2)) >> (pll & 3);
+> +	struct tdfx_par *par =3D info->par;
+> +	struct tdfx_bios_cfg cfg;
+> +
+> +	if (tdfxfb_get_bios_cfg(pdev, &cfg) &&
+> +	    tdfx_inl(par, DRAMINIT0) =3D=3D le32_to_cpu(cfg.draminit0))
+> +		return 0;
+> +
+
+[Severity: High]
+Will this unconditionally reject working cards if the video BIOS ROM is
+inaccessible or in an unsupported format?
+
+Looking at tdfxfb_get_bios_cfg(), it can naturally return false if
+pci_map_rom() fails. This is common on architectures without PCI ROM
+support, or if the ROM BAR is disabled. It will also return false if the
+BIOS ROM does not contain the specific 3dfx OEM configuration table.
+
+Because of the logical && short-circuit, if tdfxfb_get_bios_cfg() fails to
+read the config, the tdfx_inl() check is skipped and the function falls
+through to return -ENODEV.
+
+Could this cause a regression for hardware that was previously supported but
+lacks a readable BIOS ROM?
+
+> +	dev_err(&pdev->dev,
+> +		"Card hasn't booted and is unusable\n");
+> +	return -ENODEV;
 > +}
-> +
-> +/* Layout of the "OEM config" table in voodoo 3 BIOS */
-> +struct tdfx_bios_cfg {
-[ ... ]
-> +};
-> +
-> +#define TDFX_ROM_CFG_PTR	0x50
-> +
-> +static bool tdfxfb_get_bios_cfg(struct pci_dev *pdev,
-> +				struct tdfx_bios_cfg *cfg)
-> +{
-
-[Severity: Low]
-Does adding this static function and its helper tdfx_pll_to_khz without any
-callers trigger a -Wunused-function compiler warning that breaks builds with
-CONFIG_WERROR enabled?=20
-
-Could these functions be marked with __maybe_unused, or introduced in the
-same commit as their callers to ensure the tree compiles cleanly at every
-commit?
-
-> +	u16 romcfg, oemcfg;
-> +	void __iomem *rom;
-> +	size_t romsize;
-> +	u8 *image;
-> +	u32 khz;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730182640.2808=
-572-1-daniel@0x0f.com?part=3D1
+572-1-daniel@0x0f.com?part=3D2
