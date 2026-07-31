@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C11ECC5516F
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 23:15:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7BDCC55171
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 23:24:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0954810E23D;
-	Fri, 31 Jul 2026 23:15:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17D9410E1D3;
+	Fri, 31 Jul 2026 23:24:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X7NKCP8e";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R4Diy8O+";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46F5A10E23D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 23:15:45 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA94A10E1D3
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 23:24:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0A79143722;
- Fri, 31 Jul 2026 23:15:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EAE91F00AC4;
- Fri, 31 Jul 2026 23:15:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 069C6600DA;
+ Fri, 31 Jul 2026 23:24:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87F7E1F00AC4;
+ Fri, 31 Jul 2026 23:24:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785539744;
- bh=So6Ub7VcEdURIC9Cw1Po+tU+Mmci/s0GtxtldO16gnA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=X7NKCP8eGnSgR29+BXGYD2BtwXHJ/0jdqD+vQXsyaMkPow6unBAkKM/UiPhFBf1ty
- I8FlbywNJ+hbsORmA8bnJRnkyNQZ9SkSO02v6Sy0lYgt+8DT2AkJcqPe4C1sHD2OYS
- sLpi/u+vdPVRomEr+M8XJG8lNp/yKsCed1LfDIFlNcbLcoiHDc+MR9PvvBXOvIY7C0
- 6ntSW39bny4CgjaA1JFRHekq9zfDTj0wDeibcsr2dl/7Z0Kk87lQrGmEtmAAAYwmhZ
- mPXfD426+b+brRL+JN7wJDlYcQrX3LSz61xMGkFkGZ8uoiJA42oIzWUaahLOTDbkP6
- IPbM/iikIOelg==
-Date: Fri, 31 Jul 2026 16:15:43 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy
- <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Shuah Khan
- <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
- dw@davidwei.uk, Joe Damato <joe@dama.to>, Bobby Eshleman
- <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v6 3/3] selftests/net: devmem.py: add
- check_rx_large_niov
-Message-ID: <20260731161543.1021caed@kernel.org>
-In-Reply-To: <am0bHSeJqcgdm3vn@devvm29614.prn0.facebook.com>
-References: <20260724-tcpdm-large-niovs-v6-0-7975f62cdfbb@meta.com>
- <20260724-tcpdm-large-niovs-v6-3-7975f62cdfbb@meta.com>
- <20260729191649.55ab7942@kernel.org>
- <amvEJVio9XtCn+YT@devvm29614.prn0.facebook.com>
- <20260730151433.6f71258e@kernel.org>
- <am0bHSeJqcgdm3vn@devvm29614.prn0.facebook.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ s=k20260515; t=1785540277;
+ bh=XnovqiqSPO9qXkYFQ9a3Bzdd9DblbyJK4dwwFmE7ZvA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=R4Diy8O+nrqgkHECBciR/M9523P0WurIeqrt4nFt2YAPVubljXKjHgTPBpkl0QmcD
+ 0SJFKq2k2Hoqd/PDZ6YafUoeIfDdLv814bbeng6rYtTSLY0rYDgoG9blq/PgGdCJ9i
+ mKQsAXt2B/Hxq52tNcJECMR0mWOfrjaMXEzBOLCZQb/fIGUh3BmAAAEIvi2eUgp17b
+ x0fRECBi0rX/4te4y82zW9YxneQRWssdP4Yy3hcH7QpW+VLMMA2OTRoOuM8s1xNnZU
+ bQNrKj7HdDfBV7wXhrcMtiwXRNaBnQ5WpxMLWX+92rLw2Bvj+9L/V8qE974WqNQ6U6
+ VUo3WdrWemykA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 51/69] drm/bridge: ite-it6263: Advertise HDMI 1.3
+ capabilities
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-51-294364b2cf15@collabora.com>
+References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
+ <20260731-dw-hdmi-qp-scramb-v10-51-294364b2cf15@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 23:24:37 +0000
+Message-Id: <20260731232437.87F7E1F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,14 +54,66 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 31 Jul 2026 15:01:01 -0700 Bobby Eshleman wrote:
-> Meanwhile, do we want drivers/net/hw/config to workaround by carrying
-> something like SYNC_FILE or DMABUF_HEAPS, or wait and see about the
-> udmabuf kconfig change?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The macro MAX_HDMI_TMDS_CHAR_RATE_HZ is left unused after its only =
+caller was removed.
+--
 
-Let's enable SYNC_FILE for now and pursue the UDMABUF change in
-parallel. It will land in another tree if at all, so we'll have
-to wait a while before it propagates to us.
+--- Patch [51]: [PATCH v10 51/69] drm/bridge: ite-it6263: Advertise HDMI 1.=
+3 capabilities ---
+commit bc899868425793b3c769c7eaa96a7d6bb7256b3c
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+
+drm/bridge: ite-it6263: Advertise HDMI 1.3 capabilities
+
+This commit advertises HDMI 1.3 support for the IT6263 bridge and sets the
+max_tmds_char_rate limit. It also drops the hdmi_tmds_char_rate_valid() hoo=
+k=20
+since its checks are now handled earlier by the DRM core.
+
+> diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge=
+/ite-it6263.c
+> index 550999491086e..e8e0197171e10 100644
+> --- a/drivers/gpu/drm/bridge/ite-it6263.c
+> +++ b/drivers/gpu/drm/bridge/ite-it6263.c
+[ ... ]
+> @@ -738,20 +738,6 @@ it6263_bridge_atomic_get_input_bus_fmts(struct drm_b=
+ridge *bridge,
+>  	return input_fmts;
+>  }
+> =20
+> -static enum drm_mode_status
+> -it6263_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
+> -				 const struct drm_display_mode *mode,
+> -				 unsigned long long tmds_rate)
+> -{
+> -	if (mode->clock > MAX_PIXEL_CLOCK_KHZ)
+> -		return MODE_CLOCK_HIGH;
+> -
+> -	if (tmds_rate > MAX_HDMI_TMDS_CHAR_RATE_HZ)
+> -		return MODE_CLOCK_HIGH;
+
+[Severity: Low]
+Since this function is being removed, does this leave
+MAX_HDMI_TMDS_CHAR_RATE_HZ as dead code?
+
+Looking at drivers/gpu/drm/bridge/ite-it6263.c, the macro is defined near
+the top of the file:
+
+#define MAX_HDMI_TMDS_CHAR_RATE_HZ      225000000
+
+but it doesn't appear to be used anywhere else in the driver now. Could it
+be removed in this patch as well?
+
+> -
+> -	return MODE_OK;
+> -}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-dw-hdmi-qp=
+-scramb-v10-0-294364b2cf15@collabora.com?part=3D51
