@@ -4,59 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4BF9C5516F
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:13:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28DF4C5516F
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:16:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0E986892EA;
-	Fri, 31 Jul 2026 15:13:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7392C10F2C6;
+	Fri, 31 Jul 2026 15:16:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q4kfuWNC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K33G9FuQ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD7710F2CA
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:13:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 786A810F2C6
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:16:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 37E0D600AF;
- Fri, 31 Jul 2026 15:13:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67471F000E9;
- Fri, 31 Jul 2026 15:13:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 020BC4053D;
+ Fri, 31 Jul 2026 15:16:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F301F000E9;
+ Fri, 31 Jul 2026 15:16:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785510785;
- bh=/NVYBiS7+7h+ce6axPagWQx9EDiqcteYWEdh+1Ot/nQ=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Q4kfuWNCqH7NTjUflHvf1DQ/Q6aoj5/rYdk6HQnMSfE29Ns4+B/0m4OGZ5s5q0jun
- Vl85sK3jfsoc9BoXf3baQEnwvEUVwLd8mSGokuR386umwiJOKGdONrNQp+y86pE7p9
- vuJM57KCLqoJdIBizITBG4fABJUEQ+pZ6X7nNosjiN+HEAoDIuYoZDLPU8DqDZcsbx
- nd9T6O0ABjf+iqlM+RxqZHZURqLA19yhaylMfPcJKvdiKDx25lESvbBC5sEolNtVRJ
- PrJdNwkuwenYHaKyStVCY4zKsZm3aaWREpdjtiNeXesTwhgHC99CDkKeX6O5YJ9gFe
- 1VwvV2EOAHBBw==
-Received: from johan by xi.lan with local (Exim 4.99.4)
- (envelope-from <johan@kernel.org>) id 1wpov0-00000000YFf-49RS;
- Fri, 31 Jul 2026 17:13:02 +0200
-Date: Fri, 31 Jul 2026 17:13:02 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 08/14] mfd: lm3533: Convert to use OF bindings
-Message-ID: <amy7fpjsUwZ9qJmF@hovoldconsulting.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-9-clamor95@gmail.com>
- <akeXAOpb13hupUGM@hovoldconsulting.com>
- <CAPVz0n2trouADTziWXnpt=-hwKdsZWGQib+-nVCLaSLibTbATg@mail.gmail.com>
-MIME-Version: 1.0
+ s=k20260515; t=1785511015;
+ bh=mKwmZWaVlLAyg2w+cN3djUCsX40X0Lbtl9xxIx11Ebo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=K33G9FuQf6NktQX/r1G82IDkk+KyI4OnqfY75ZbDMFqFQoUjB5HpAVS2BGsSgY7cI
+ KNyEDbQOYW0GcZK04EmT1M36b5ybG/rQGHVfDeZKCPdD80wFQRcKNf5zrgxYaViQaR
+ xD/arAE4L4hZw+4Rh7KRIxkzYFG2EEFMaAV863k/OMyYzf2Z8yhbztgbJyNIURTLtc
+ isMy4RNi4vbzp/5t80Hp/kiQdiD/YqVpr7nzJVU+hXAUOygHiveeBxoLAmXq8GrCie
+ djUa7LfwCFs+UgFoKAdrc3NRNF99hrM5SRHeAXXHFZ/sc4ZgfHneZaZrn6R0FpfchD
+ bQkP3qR1jMUpQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect
+ resource lifetimes in bind callback
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-2-ac1e6a75782f@collabora.com>
+References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+ <20260731-synopsys-dw-dp-improvements-v8-2-ac1e6a75782f@collabora.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n2trouADTziWXnpt=-hwKdsZWGQib+-nVCLaSLibTbATg@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 15:16:55 +0000
+Message-Id: <20260731151655.95F301F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,364 +55,130 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 14, 2026 at 04:57:01PM +0300, Svyatoslav Ryhel wrote:
-> пт, 3 лип. 2026 р. о 14:03 Johan Hovold <johan@kernel.org> пише:
-> >
-> > On Wed, Jun 17, 2026 at 11:00:25AM +0300, Svyatoslav Ryhel wrote:
-> > > Since there are no users of this driver via platform data, remove the
-> > > platform data support and switch to using Device Tree bindings.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> #for backlight
-> > > ---
-> > >  drivers/iio/light/lm3533-als.c      |  67 +++++---
-> > >  drivers/leds/leds-lm3533.c          |  50 ++++--
-> > >  drivers/mfd/lm3533-core.c           | 236 ++++++++++++----------------
-> > >  drivers/mfd/lm3533-ctrlbank.c       |   5 -
-> > >  drivers/video/backlight/lm3533_bl.c |  55 +++++--
-> > >  include/linux/mfd/lm3533.h          |  52 +-----
-> > >  6 files changed, 220 insertions(+), 245 deletions(-)
-> >
-> > >  static int lm3533_als_probe(struct platform_device *pdev)
-> > >  {
-> > > -     const struct lm3533_als_platform_data *pdata;
-> > >       struct lm3533 *lm3533;
-> > >       struct lm3533_als *als;
-> > >       struct iio_dev *indio_dev;
-> > > @@ -803,12 +817,6 @@ static int lm3533_als_probe(struct platform_device *pdev)
-> > >       if (!lm3533)
-> > >               return -EINVAL;
-> > >
-> > > -     pdata = dev_get_platdata(&pdev->dev);
-> > > -     if (!pdata) {
-> > > -             dev_err(&pdev->dev, "no platform data\n");
-> > > -             return -EINVAL;
-> > > -     }
-> > > -
-> > >       indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*als));
-> > >       if (!indio_dev)
-> > >               return -ENOMEM;
-> > > @@ -817,25 +825,27 @@ static int lm3533_als_probe(struct platform_device *pdev)
-> > >       indio_dev->channels = lm3533_als_channels;
-> > >       indio_dev->num_channels = ARRAY_SIZE(lm3533_als_channels);
-> > >       indio_dev->name = dev_name(&pdev->dev);
-> > > -     iio_device_set_parent(indio_dev, pdev->dev.parent);
-> >
-> > Why are you reparenting the iio device here?
-> >
-> 
-> Because every cell has its own binding now and using phandle to parent
-> when device has its own node is not a good practice.
-> 
-> > That's an ABI break.
-> >
-> 
-> This driver does not have any active users in the kernel and no
-> activity for more then 2 years.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-We have never required board files to be upstream.
+New issues:
+- [High] Moving IRQ registration and hardware initialization to probe creat=
+es a window where an HPD interrupt causes a NULL pointer dereference on `dp=
+->bridge.dev`.
 
-And a working driver does not need to be changed every year.
+Pre-existing issues:
+- [Critical] Use-After-Free of the `dp` structure due to uncancelled `hpd_w=
+ork` on driver removal.
+--
 
-In any case, something like this at a minimum needs to be highlighted in
-the commit message.
+--- Patch [2]: [PATCH v8 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect =
+resource lifetimes in bind callback ---
+commit 9de3c09754cbe88e934e9c5f4adf581795df6d41
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-> > > +static const struct of_device_id lm3533_als_match_table[] = {
-> > > +     { .compatible = "ti,lm3533-als" },
-> > > +     { }
-> > > +};
-> > > +MODULE_DEVICE_TABLE(of, lm3533_als_match_table);
-> > > +
-> > >  static struct platform_driver lm3533_als_driver = {
-> > >       .driver = {
-> > >               .name   = "lm3533-als",
-> > > +             .of_match_table = lm3533_als_match_table,
-> > >       },
-> > >       .probe          = lm3533_als_probe,
-> > >       .remove         = lm3533_als_remove,
-> >
-> > You should also remove the platform module alias below.
-> >
-> 
-> Why?
+drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callb=
+ack
 
-Because your change makes it obsolete. The driver now only supports OF
-probing.
+Currently the Synopsys DesignWare DP controller driver's bind function
+requests lots of resources using device managed functions. These are
+free'd on driver removal instead of at unbind time. Fix this discrepancy
+by introducing a new probe helper function and moving over the whole
+bind function.
 
-> > > @@ -680,15 +684,22 @@ static int lm3533_led_probe(struct platform_device *pdev)
-> > >
-> > >       platform_set_drvdata(pdev, led);
-> > >
-> > > -     ret = led_classdev_register(pdev->dev.parent, &led->cdev);
-> > > +     ret = led_classdev_register(&pdev->dev, &led->cdev);
-> >
-> > Here too you appear to be reparenting the class devices.
-> >
-> > >       if (ret) {
-> > > -             dev_err(&pdev->dev, "failed to register LED %d\n", pdev->id);
-> > > +             dev_err(&pdev->dev, "failed to register LED %d\n", led->id);
-> >
-> > This does not seem to be necessary.
-> >
-> 
-> Agreed.
-> 
-> > >               return ret;
-> > >       }
-> > >
-> > >       led->cb.dev = led->cdev.dev;
-> > >
-> > > -     ret = lm3533_led_setup(led, pdata);
-> > > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
-> > > +                              &led->max_current);
-> > > +     led->max_current = clamp(led->max_current, LM3533_MAX_CURRENT_MIN,
-> > > +                              LM3533_MAX_CURRENT_MAX);
-> >
-> > Why clamp instead of having lm3533_led_setup() fail below?
-> >
-> 
-> According to OF schema default lower margin is set to
-> LM3533_MAX_CURRENT_MIN so clamping seems a good option here, even
-> though it will clamp max value.
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 112a499113095..7f82495141711 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
-Just let it fail to probe. The driver already have the necessary checks.
+[ ... ]
 
-> > > +
-> > > +     device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
-> > > +
-> > > +     ret = lm3533_led_setup(led);
-> > >       if (ret)
-> > >               goto err_deregister;
-> > >
-> > > @@ -725,9 +736,16 @@ static void lm3533_led_shutdown(struct platform_device *pdev)
-> > >       lm3533_led_set(&led->cdev, LED_OFF);            /* disable blink */
-> > >  }
-> > >
-> > > +static const struct of_device_id lm3533_led_match_table[] = {
-> > > +     { .compatible = "ti,lm3533-leds" },
-> > > +     { }
-> > > +};
-> > > +MODULE_DEVICE_TABLE(of, lm3533_led_match_table);
-> > > +
-> > >  static struct platform_driver lm3533_led_driver = {
-> > >       .driver = {
-> > >               .name = "lm3533-leds",
-> > > +             .of_match_table = lm3533_led_match_table,
-> > >       },
-> > >       .probe          = lm3533_led_probe,
-> > >       .remove         = lm3533_led_remove,
-> >
-> > Remove platform alias below as well.
-> >
-> 
-> Why?
+> @@ -2091,11 +2094,19 @@ struct dw_dp *dw_dp_bind(struct device *dev, stru=
+ct drm_encoder *encoder,
+>  	if (ret)
+>  		return ERR_PTR(ret);
+> =20
+> -	dp->irq =3D platform_get_irq(pdev, 0);
+> -	if (dp->irq < 0) {
+> -		ret =3D dp->irq;
+> +	bridge =3D &dp->bridge;
+> +	bridge->of_node =3D dev->of_node;
+> +	bridge->ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_=
+OP_HPD;
+> +	bridge->type =3D DRM_MODE_CONNECTOR_DisplayPort;
+> +	bridge->ycbcr_420_allowed =3D true;
+> +
+> +	ret =3D devm_drm_bridge_add(dev, bridge);
+> +	if (ret)
+>  		return ERR_PTR(ret);
+> -	}
+> +
+> +	dp->irq =3D platform_get_irq(pdev, 0);
+> +	if (dp->irq < 0)
+> +		return ERR_PTR(dp->irq);
+> =20
+>  	ret =3D devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
+>  					IRQF_ONESHOT, dev_name(dev), dp);
 
-Same reason as above.
+[Severity: High]
+Can this IRQ registration create a window for a NULL pointer dereference?
 
-> > >  static int lm3533_device_init(struct lm3533 *lm3533)
-> > >  {
-> > > -     struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
-> > > +     struct device *dev = lm3533->dev;
-> > > +     struct mfd_cell *lm3533_devices;
-> > > +     u32 count = 0, reg, nchilds;
-> >
-> > Don't mix multiple declarations with initialisation like this.
-> >
-> 
-> Checkpatch does not complain on style issue, hence this is not prohibited.
+If a monitor is connected, the HPD interrupt can fire immediately after
+devm_request_threaded_irq() completes in dw_dp_probe(). The interrupt handl=
+er
+schedules dw_dp_hpd_work(), which directly dereferences dp->bridge.dev:
 
-Checkpatch does not define good style.
+dw_dp_hpd_work()
+   drm_helper_hpd_irq_event(dp->bridge.dev);
 
-> > >       int ret;
-> > >
-> > > -     dev_dbg(lm3533->dev, "%s\n", __func__);
-> > > +     nchilds = device_get_child_node_count(dev);
-> > > +     if (!nchilds || nchilds > LM3533_CELLS_MAX)
-> > > +             return dev_err_probe(dev, -ENODEV,
-> > > +                                  "num of child nodes is not supported\n");
-> > >
-> > > -     if (!pdata) {
-> > > -             dev_err(lm3533->dev, "no platform data\n");
-> > > -             return -EINVAL;
-> > > -     }
-> > > +     lm3533_devices = devm_kcalloc(dev, nchilds, sizeof(*lm3533_devices),
-> > > +                                   GFP_KERNEL);
-> > > +     if (!lm3533_devices)
-> > > +             return -ENOMEM;
-> > >
-> > > -     lm3533->hwen = devm_gpiod_get(lm3533->dev, NULL, GPIOD_OUT_LOW);
-> > > -     if (IS_ERR(lm3533->hwen))
-> > > -             return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen), "failed to request HWEN GPIO\n");
-> > > -     gpiod_set_consumer_name(lm3533->hwen, "lm3533-hwen");
-> > > +     device_for_each_child_node_scoped(dev, child) {
-> > > +             if (count >= nchilds)
-> > > +                     break;
-> >
-> > How could count be larger than nchilds?
-> >
-> 
-> Only if the tree is malformed, hence this check was added.
+Since the component bind hasn't run yet, drm_bridge_attach() hasn't been
+called to assign dp->bridge.dev. Could this cause dw_dp_hpd_work() to
+dereference a NULL pointer if an interrupt fires before the bridge is
+attached?
 
-But you've just retrieved nchilds by parsing the tree and counting the
-child nodes. So how can count possibly be larger than nchilds here?
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index b23efb153c9e6..005938dc66c9f 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
 
-> > > +
-> > > +             if (fwnode_device_is_compatible(child, "ti,lm3533-als")) {
-> > > +                     lm3533_devices[count].name = "lm3533-als";
-> > > +                     lm3533_devices[count].of_compatible = "ti,lm3533-als";
-> > > +                     lm3533_devices[count].id = PLATFORM_DEVID_NONE;
-> > > +
-> > > +                     lm3533->have_als = true;
-> > > +                     count++;
-> > > +             } else if (fwnode_device_is_compatible(child, "ti,lm3533-backlight")) {
-> > > +                     ret = fwnode_property_read_u32(child, "reg", &reg);
-> > > +                     if (ret || reg >= LM3533_HVLED_ID_MAX) {
-> > > +                             dev_err(dev, "invalid backlight node %pfw\n", child);
-> > > +                             continue;
-> > > +                     }
-> > > +
-> > > +                     lm3533_devices[count].name = "lm3533-backlight";
-> > > +                     lm3533_devices[count].of_compatible = "ti,lm3533-backlight";
-> > > +                     lm3533_devices[count].id = reg;
-> > > +                     lm3533_devices[count].of_reg = reg;
-> > > +                     lm3533_devices[count].use_of_reg = true;
-> > > +
-> > > +                     lm3533->have_backlights = true;
-> > > +                     count++;
-> > > +             } else if (fwnode_device_is_compatible(child, "ti,lm3533-leds")) {
-> > > +                     ret = fwnode_property_read_u32(child, "reg", &reg);
-> > > +                     if (ret || reg < LM3533_HVLED_ID_MAX ||
-> > > +                         reg > LM3533_LVLED_ID_MAX) {
-> > > +                             dev_err(dev, "invalid LED node %pfw\n", child);
-> > > +                             continue;
-> > > +                     }
-> > > +
-> > > +                     lm3533_devices[count].name = "lm3533-leds";
-> > > +                     lm3533_devices[count].of_compatible = "ti,lm3533-leds";
-> > > +                     lm3533_devices[count].id = reg - LM3533_HVLED_ID_MAX;
-> > > +                     lm3533_devices[count].of_reg = reg;
-> > > +                     lm3533_devices[count].use_of_reg = true;
-> > > +
-> > > +                     lm3533->have_leds = true;
-> > > +                     count++;
-> > > +             }
-> > > +     }
-> >
-> > Why do you need the above at all? Shouldn't you be able to just use
-> > of_platform_populate().
-> >
-> 
-> of_platform_populate() is not a part of mfd framework.
+[ ... ]
 
-We have several MFD drivers using of_platform_populate().
+> @@ -128,12 +119,30 @@ static const struct component_ops dw_dp_rockchip_co=
+mponent_ops =3D {
+>  	.unbind =3D dw_dp_rockchip_unbind,
+>  };
+> =20
+> -static int dw_dp_probe(struct platform_device *pdev)
+> +static int dw_dp_rockchip_probe(struct platform_device *pdev)
+>  {
 
-> > >
-> > >       lm3533_enable(lm3533);
-> > >
-> > >       ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
-> > >                                LM3533_BOOST_FREQ_MASK,
-> > > -                              pdata->boost_freq << LM3533_BOOST_FREQ_SHIFT);
-> > > +                              lm3533->boost_freq << LM3533_BOOST_FREQ_SHIFT);
-> > >       if (ret) {
-> > > -             dev_err(lm3533->dev, "failed to set boost frequency\n");
-> > > +             dev_err(dev, "failed to set boost frequency\n");
-> > >               goto err_disable;
-> > >       }
-> > >
-> > >       ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
-> > >                                LM3533_BOOST_OVP_MASK,
-> > > -                              pdata->boost_ovp << LM3533_BOOST_OVP_SHIFT);
-> > > +                              lm3533->boost_ovp << LM3533_BOOST_OVP_SHIFT);
-> > >       if (ret) {
-> > > -             dev_err(lm3533->dev, "failed to set boost ovp\n");
-> > > +             dev_err(dev, "failed to set boost ovp\n");
-> > >               goto err_disable;
-> > >       }
-> > >
-> > > -     lm3533_device_als_init(lm3533);
-> > > -     lm3533_device_bl_init(lm3533);
-> > > -     lm3533_device_led_init(lm3533);
-> > > +     ret = mfd_add_devices(dev, 0, lm3533_devices, count, NULL, 0, NULL);
-> > > +     if (ret) {
-> > > +             dev_err(dev, "failed to add MFD devices: %d\n", ret);
-> > > +             goto err_disable;
-> > > +     }
-> > >
-> > >       return 0;
-> > >
-> > > @@ -504,7 +440,26 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
-> > >               return PTR_ERR(lm3533->regmap);
-> > >
-> > >       lm3533->dev = &i2c->dev;
-> > > -     lm3533->irq = i2c->irq;
-> > > +
-> > > +     lm3533->hwen = devm_gpiod_get_optional(lm3533->dev, "enable",
-> > > +                                            GPIOD_OUT_LOW);
-> > > +     if (IS_ERR(lm3533->hwen))
-> > > +             return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen),
-> > > +                                  "failed to get HWEN GPIO\n");
-> >
-> > Please use brackets around multline statements for readability
-> > throughout.
-> >
-> 
-> Checkpatch does not complain on style issue, hence this is not prohibited.
+[ ... ]
 
-Checkpatch is irrelevant.
+>  }
+> =20
+> -static void dw_dp_remove(struct platform_device *pdev)
+> +static void dw_dp_rockchip_remove(struct platform_device *pdev)
+>  {
+>  	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
+>  }
 
-> > > +
-> > > +     device_property_read_u32(lm3533->dev, "ti,boost-ovp-microvolt",
-> > > +                              &lm3533->boost_ovp);
-> > > +
-> > > +     lm3533->boost_ovp = clamp(lm3533->boost_ovp, LM3533_BOOST_OVP_MIN,
-> > > +                               LM3533_BOOST_OVP_MAX);
-> > > +     lm3533->boost_ovp = lm3533->boost_ovp / (8 * MICRO) - 2;
-> > > +
-> > > +     device_property_read_u32(lm3533->dev, "ti,boost-freq-hz",
-> > > +                              &lm3533->boost_freq);
-> > > +
-> > > +     lm3533->boost_freq = clamp(lm3533->boost_freq, LM3533_BOOST_FREQ_MIN,
-> > > +                                LM3533_BOOST_FREQ_MAX);
-> > > +     lm3533->boost_freq = lm3533->boost_freq / (500 * KILO) - 1;
-> >
-> > Again, why clamp instead of failing probe?
-> >
-> 
-> According to OF schema default lower margin is set to
-> LM3533_BOOST_FREQ_MIN so clamping seems a good option here, even
-> though it will clamp max value.
+[Severity: Critical]
+This is a pre-existing issue, but does this remove function leave a pending
+work item that can cause a use-after-free?
 
-Just let the driver fail to probe as the sanity checks are already
-there.
+Since there is no explicit cancel_work_sync(&dp->hpd_work) before the driver
+exits dw_dp_rockchip_remove(), if an HPD interrupt fires right before remov=
+al,
+the scheduled dw_dp_hpd_work() might remain on the system workqueue.
 
-> > >       return lm3533_device_init(lm3533);
-> > >  }
-> > > @@ -518,6 +473,12 @@ static void lm3533_i2c_remove(struct i2c_client *i2c)
-> > >       lm3533_device_exit(lm3533);
-> > >  }
-> > >
-> > > +static const struct of_device_id lm3533_match_table[] = {
-> > > +     { .compatible = "ti,lm3533" },
-> > > +     { }
-> > > +};
-> > > +MODULE_DEVICE_TABLE(of, lm3533_match_table);
-> > > +
-> > >  static const struct i2c_device_id lm3533_i2c_ids[] = {
-> > >       { "lm3533" },
-> > >       { }
+The devm cleanup runs after this function returns, freeing the IRQ and the =
+dp
+structure. If the work executes after dp is freed, it will access freed mem=
+ory
+when it runs container_of(work, struct dw_dp, hpd_work).
 
-Shouldn't you drop i2c probing now as well?
-
-> > > @@ -528,6 +489,7 @@ static struct i2c_driver lm3533_i2c_driver = {
-> > >       .driver = {
-> > >                  .name = "lm3533",
-> > >                  .dev_groups = lm3533_attribute_groups,
-> > > +                .of_match_table = lm3533_match_table,
-> > >       },
-> > >       .id_table       = lm3533_i2c_ids,
-> > >       .probe          = lm3533_i2c_probe,
-
-Johan
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
+w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D2
