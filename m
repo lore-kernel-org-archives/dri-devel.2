@@ -4,74 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBCD4C5516D
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 12:19:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 165A3C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 12:24:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1662610F242;
-	Fri, 31 Jul 2026 12:19:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4F55C10E1F2;
+	Fri, 31 Jul 2026 12:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="oJnoWik2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DbRnn08d";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4F010F247
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 12:19:34 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-38e347638adso1163503a91.0
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 05:19:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=0x0f.com; s=google; t=1785500374; x=1786105174; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=EcvBzuwsOWXd7sSY+ibZHDp7um7F6zB3s/KkWEJX80M=;
- b=oJnoWik2KIp2i9KLqnh0ClKdsanOt4XyXnSNRthKgVBeH1MZXORzOlIzknmmcS3Ozp
- OX9qbuiJm0Y2kqqthz+q/vaecc1qyMiJv3rWBiZA7ZJts9c37zIOt/suku03jVfsDSTL
- 7T4pwSCK7pyBaEt0+Vqniq0kJZGj/6gYHPhhY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785500374; x=1786105174;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=EcvBzuwsOWXd7sSY+ibZHDp7um7F6zB3s/KkWEJX80M=;
- b=TF1oo5s/sXblnapz/ltVBc3JRyfAHjS1vPfYv3ds3wRZIR+q+JtJZPSb2YZgtfQQ2w
- +ZWd+Bjlijqs5USw67BHtG0Ipx7VdU2GoYp+mbjWzJDKlCq6N7OmFJqb4RYDcGp1MVCG
- yMRGDvBxZqBabSlWWOhzB1yadDZujYruULemakrz2PCc+77H8+AxDhtwlfz1TDaM4h77
- O94dGqpMOdCBjXLJ3SJ/XMMEWcDuVPI8f7Gv7UDC7NFqKMNDDmCD4Xq7EKvTWfseP6jS
- TWs6ghOUQYEKILCMJV/ptBoXAs8A7jmwaG5Aj/Y6nZTs+RPx5gxPDayOjl8jqxvwy9oQ
- gKjA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqrjqUipN2QkFkpN+9WG7Hz3Zly1xHclYxZ+uj+jXNklRj8OnmA9uZwEteuvr0YqDY4Nma642PwqfM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzjn9yA2bhaYqr08QujWcG2+QR5prMscz4GtGDP9yZcNQ97MB6z
- Bc1XryZKjfkHr3owhm3Q37+ICiYtGcb46yHB7Cm5I8WaXYSp39qMTmKFxcGzGekQ85g5UsJIK4T
- 9N4v9
-X-Gm-Gg: AR+sD11V9NzNNvHfE5jT0hsHkls2bCAw2HaO9aVRJzYYOZYPmTP1vY5BcWekcKBFOzS
- Jo75PEOCDP0ZiN94b0vc/Nx/rmF3uEgzklNVIQolKz9WZbTnVh0CuxCrWe+2hZWUQZQuYVFA4iu
- vwk3dhzJ7YzzAvHik02s6Jjvbv69uDDgwXKM5Rrk8v82TE7Q1wN4vYJIc0Llr5JR4npUFyoT7rV
- Im3OO3zAbPMOIZAjg4WKuv0u7Qq3WfXMkx/Z4ZBzcRC67aXFWAJFqqUk3WNlHVKnaqP9piMHd+E
- W4Fn1JktWCuZPDxryJjzLt0nhwwYKICVn0+GejtSM7N5jey5RL4LNdAZJK8Ok/mGxUZfTSQ4H9G
- WPIwUbaxg1Ew3OTIDP0wlxyTXNpz5U5CO3F++/2TfP/UB1BR2pPrhe2oPNj4uoD6bgPBvwHJ87N
- udoSQJwH1cHCJHE3pfeBtJM3Adbr1qzg/DWE0CI6sTWsehQGPN6CoUMtlj32QXiw==
-X-Received: by 2002:a17:90b:3bc8:b0:382:5c31:1f8a with SMTP id
- 98e67ed59e1d1-38fb13bfd7bmr1819215a91.27.1785500373635; 
- Fri, 31 Jul 2026 05:19:33 -0700 (PDT)
-Received: from shiro ([2400:4162:2428:2ffe:77cc:841c:1fc1:22d4])
- by smtp.googlemail.com with ESMTPSA id
- 98e67ed59e1d1-38fb2b8c5c5sm321981a91.4.2026.07.31.05.19.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jul 2026 05:19:32 -0700 (PDT)
-From: Daniel Palmer <daniel@0x0f.com>
-To: deller@gmx.de
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Daniel Palmer <daniel@0x0f.com>
-Subject: [PATCH v2 5/5] fbdev: tdfxfb: Program the initial video mode
-Date: Fri, 31 Jul 2026 21:19:14 +0900
-Message-ID: <20260731121915.3362232-6-daniel@0x0f.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260731121915.3362232-1-daniel@0x0f.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C8A410E1F2
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 12:24:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D8D8B404AC;
+ Fri, 31 Jul 2026 12:24:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C3941F00A3A;
+ Fri, 31 Jul 2026 12:24:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785500688;
+ bh=L2vP8b7HJGpsXI7AuoIDK1bCKjqgQ00jawFq7KGMDt0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DbRnn08drexc/TDA/ysoBvWG9f4xDSnTT8fRAvTJI1rG/XagggWhFzAFXdQi568y6
+ Lp7pR6wBsp+e/qM5qYABhkbAzags1hZ3VpX2udpQI2AQTiTMhhlJLQSJOUQ+1Gh1Ea
+ n/eSyr7CXPJK56MtG/Wb1PBUnHKkhXeDP9GiONPflvYEjfkXdbhvzuPeqX0e56JB1M
+ gvrZipOYmWMgfvUCcd0oeMfoq8f7CIHa8ZlP8vGQ4OIVoc3YGNhUP2XnBVJnINNilF
+ jYEdTB2FkSVGA8rdlDKfX8jUFL2dER7LCQnh08ox3ysmk8ZBATJ/vHqlZoZMcMoJ5Z
+ sH8ZugyECXSLA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/5] fbdev: tdfxfb: Add helper to read config table
+ from BIOS
+To: "Daniel Palmer" <daniel@0x0f.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731121915.3362232-2-daniel@0x0f.com>
 References: <20260731121915.3362232-1-daniel@0x0f.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260731121915.3362232-2-daniel@0x0f.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 12:24:48 +0000
+Message-Id: <20260731122448.9C3941F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -84,40 +54,51 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If the card does not get bound to by fbcon set_par() never happens
-and the initial video mode is not setup and the display detects
-no signal.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch introduces a static function `tdfxfb_get_bios_cfg` withou=
+t calling it anywhere in the file, which will cause `-Wunused-function` com=
+piler warnings.
+--
 
-Program the video mode and also clear the framebuffer memory so
-random garbage isn't displayed.
+--- Patch [1]: [PATCH v2 1/5] fbdev: tdfxfb: Add helper to read config tabl=
+e from BIOS ---
+commit fa478291eec9e5fb1f0dff8fd28bbff72c80da86
+Author: Daniel Palmer <daniel@0x0f.com>
 
-Signed-off-by: Daniel Palmer <daniel@0x0f.com>
----
- drivers/video/fbdev/tdfxfb.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+fbdev: tdfxfb: Add helper to read config table from BIOS
 
-diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
-index f2b658a47135..cb1c2e9f37db 100644
---- a/drivers/video/fbdev/tdfxfb.c
-+++ b/drivers/video/fbdev/tdfxfb.c
-@@ -1686,6 +1686,14 @@ static int tdfxfb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		goto out_err_iobase;
- 	}
- 
-+	/*
-+	 * Program a video mode and clear the framebuffer now, this
-+	 * ensures the display comes up even if fbcon doesn't bind
-+	 * when the framebuffer is registered.
-+	 */
-+	tdfxfb_set_par(info);
-+	memset_io(info->screen_base, 0, info->fix.smem_len);
-+
- 	if (register_framebuffer(info) < 0) {
- 		printk(KERN_ERR "tdfxfb: can't register framebuffer\n");
- 		fb_dealloc_cmap(&info->cmap);
--- 
-2.53.0
+This commit adds a helper function to read the configuration table from the
+video BIOS for Voodoo 3 cards. This is in preparation for manually booting
+these cards in environments where the BIOS has not run.
 
+> diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
+> index cc6a074f3165b..e92658274411a 100644
+> --- a/drivers/video/fbdev/tdfxfb.c
+> +++ b/drivers/video/fbdev/tdfxfb.c
+[ ... ]
+> +static bool tdfxfb_get_bios_cfg(struct pci_dev *pdev,
+> +				struct tdfx_bios_cfg *cfg)
+> +{
+
+[Severity: Low]
+Does this new static function trigger a -Wunused-function compiler warning?
+
+It doesn't appear to be called anywhere in this patch. Introducing an
+unreferenced static function usually causes build failures on configurations
+where warnings are treated as errors (CONFIG_WERROR=3Dy).=20
+
+Should this helper be added in the same patch that starts using it, or
+perhaps marked with __maybe_unused to prevent the warning in the interim?
+
+> +	u16 romcfg, oemcfg;
+> +	void __iomem *rom;
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731121915.3362=
+232-1-daniel@0x0f.com?part=3D1
