@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F1E3AC55173
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 20:12:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 855FCC55173
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 20:19:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5601D10F3DA;
-	Fri, 31 Jul 2026 20:12:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA97C10F3E2;
+	Fri, 31 Jul 2026 20:19:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IP1cFUOC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ncRNFEto";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4ABFD10F3C7
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 20:12:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7390010F3DD
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 20:19:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 354DF60A6C;
- Fri, 31 Jul 2026 20:12:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A02A01F00AC4;
- Fri, 31 Jul 2026 20:12:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EFF3D410AF;
+ Fri, 31 Jul 2026 20:19:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8A571F00AC4;
+ Fri, 31 Jul 2026 20:19:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785528728;
- bh=2eQgVJkPT8NVfMQWvpqrdCU2+xR7t2iMDAP115Cfn1k=;
+ s=k20260515; t=1785529191;
+ bh=xOZn1i0jgKuJQOQlgCyw59slkR7aYhE0j14rGgjKk4k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IP1cFUOC80MU72nHW3cA/OPgkmBsZjsbfwq3xuHvgckagliihvJZDkPJ9V99j1Ddh
- IVAjKQ7UNB/C6E3pXJx6IuRf30N32LADV0OUl6CKC6iEz+32zWIdshYFdVFwosZxkS
- proK1rBNupCVSXb/y8MKBM5ww2ayOY0DxzOaOm4hYcDhjma8sfk1a+e1GRy21WrigJ
- 5Vbr8BQNPbHNKstHKQdu+78hWwIQqQMifPPmg5xHb4CfK8HmJRWl3XPKdzakJTGB3d
- d6Q99bPYUGZa9ppp9UgvobWC6jv+4kOn/+/SRIGnPcw4zg0xsq8z1iLoB5vY0wDedQ
- /Nwo3XmLaWecA==
+ b=ncRNFEtoiUHyFD8H78jIciAixolJyk/B2/+rq8M5gcEDaqSt7FlhGmMVxTue8udsl
+ VFZQMRxQdWe1a9LgugBmxbXgNONU6FsyvIkSDXKTs+E7X4XsEdOI4CH4I6V7aybLd7
+ kkNdDXrAJqcbx1AodJerQrk99LuZYlPQroGaOrMLjEHRbZ88//+O48rL+5TcSRiqJE
+ 39AalAYnQ9lZR1gfcABAFqT3LKntKc31pqUUO44IJIO7xuF+AXIr96JO0JnNfmwxtB
+ XiN7sKNyQfvmElQfHFY/ZthwyUKfpiAwdM8ZjL6FRml/gMLpYXcUyeDJIBW6WedrG4
+ LchQP+0ukd3dQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RESEND PATCH 4/6] drm_hyperv: Remove support for synth video
- protocol of old Hyper-V hosts
-To: "Michael Kelley" <mhkelley58@gmail.com>
-Cc: linux-hyperv@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-scsi@vger.kernel.org
-In-Reply-To: <20260730201123.1767-5-mhklinux@outlook.com>
-References: <20260730201123.1767-1-mhklinux@outlook.com>
- <20260730201123.1767-5-mhklinux@outlook.com>
+Subject: Re: [PATCH v10 29/69] drm/rockchip: dw_hdmi_qp: Fix invalid drvdata
+ access in PM ops
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-29-294364b2cf15@collabora.com>
+References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
+ <20260731-dw-hdmi-qp-scramb-v10-29-294364b2cf15@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 20:12:08 +0000
-Message-Id: <20260731201208.A02A01F00AC4@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 20:19:51 +0000
+Message-Id: <20260731201951.A8A571F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,78 +61,103 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [Low] The static inline function `hv_drm_version_ge()` and the `synthvid_=
-version` field in `struct hv_drm_device` are left behind as dead code.
-
 Pre-existing issues:
-- [High] Timeout of VMBus resolution request leaves the channel open, allow=
-ing delayed responses to corrupt memory and desynchronize wait completions.
+- [High] Use-After-Free of `hdmi` struct due to `devm_request_threaded_irq`=
+ being used in component bind, leaking the IRQ on unbind.
+- [High] The HPD hardirq handler checks the raw SOC status register instead=
+ of the interrupt pending status, breaking unplug detection and stealing sh=
+ared IRQs.
 --
 
---- Patch [4]: [RESEND PATCH 4/6] drm_hyperv: Remove support for synth vide=
-o protocol of old Hyper-V hosts ---
-commit 942daa19258c15938630a14160717e1dd6e0fbc1
-Author: Michael Kelley <mhkelley58@gmail.com>
+--- Patch [29]: [PATCH v10 29/69] drm/rockchip: dw_hdmi_qp: Fix invalid drv=
+data access in PM ops ---
+commit fc12a8c8d5e7177cf76cf4554fb62df0ebde5bbd
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-drm_hyperv: Remove support for synth video protocol of old Hyper-V hosts
+drm/rockchip: dw_hdmi_qp: Fix invalid drvdata access in PM ops
 
-This commit removes support for older synthetic video protocols, as running
-Linux on Hyper-V hosts earlier than WS2016 and Windows 10 is no longer
-supported. It simplifies the protocol version negotiation to only request
-the WIN10 version.
+The system-sleep PM callbacks fetch the driver state via dev_get_drvdata()
+and dereference it unconditionally. This patch ensures non-NULL drvdata
+always represents live state, allowing each PM callback to rely on a single
+NULL check.
 
-> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c b/drivers/gpu/drm/=
-hyperv/hyperv_drm_proto.c
-> index f0ef627b4898a..cea1ea2595cd6 100644
-> --- a/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
-> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_proto.c
+Closes: https://lore.kernel.org/all/20260702151550.8E14D1F000E9@smtp.kernel=
+.org/
+Closes: https://lore.kernel.org/all/20260723014811.1F9F01F000E9@smtp.kernel=
+.org/
+
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index 9c4cf68d79d50..646a4cb968309 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
 
 [ ... ]
 
-> @@ -581,11 +570,9 @@ int hv_drm_connect_vsp(struct hv_device *hdev)
+> @@ -704,6 +704,8 @@ static void dw_hdmi_qp_rockchip_unbind(struct device =
+*dev,
+>  {
+>  	struct rockchip_hdmi_qp *hdmi =3D dev_get_drvdata(dev);
 > =20
->  	hv->screen_depth =3D SYNTHVID_DEPTH_WIN8;
-> =20
-> -	if (hv_drm_version_ge(hv->synthvid_version, SYNTHVID_VERSION_WIN10)) {
-> -		ret =3D hv_drm_get_supported_resolution(hdev);
-> -		if (ret)
-> -			drm_err(dev, "Failed to get supported resolution from host, use defau=
-lt\n");
-> -	}
-> +	ret =3D hv_drm_get_supported_resolution(hdev);
-
-[Severity: Low]
-Since the only caller to hv_drm_version_ge() and the only reader of=20
-hv->synthvid_version are removed by this patch, should both the static=20
-inline function in hyperv_drm_proto.c and the struct field in=20
-hyperv_drm.h be removed as well to avoid leaving dead code behind?
-
-> +	if (ret)
-> +		drm_err(dev, "Failed to get supported resolution from host, use defaul=
-t\n");
+> +	dev_set_drvdata(dev, NULL);
+> +
+>  	cancel_delayed_work_sync(&hdmi->hpd_work);
 
 [Severity: High]
-This is a pre-existing issue, but I wanted to ask about the error
-handling here.
+This isn't a bug introduced by this patch, but is it safe to rely on
+devm_request_threaded_irq() for the HPD interrupt when lifecycle is managed
+via component bind and unbind?
 
-If hv_drm_get_supported_resolution() times out waiting for a response,
-the code logs an error but execution continues without closing the
-channel or returning an error.
+Looking at dw_hdmi_qp_rockchip_bind(), the IRQ is requested with devm on the
+component device:
 
-If the host sends a delayed response later, wouldn't it trigger
-hv_drm_receive_sub() and asynchronously overwrite hv->init_buf while
-subsequent requests are actively building a new request in that shared
-memory? It looks like this might also spuriously trigger complete(&hv->wait)
-and desynchronize the state.
+    ret =3D devm_request_threaded_irq(dev, hdmi->hpd_irq, ...);
 
-Could this timeout be handled by returning an error or resetting the
-channel to prevent data corruption?
+Because devm resources are tied to the device's probe and remove lifecycle,
+the IRQ is not freed when the component is unbound. When the aggregate DRM
+device is torn down, hdmi (allocated via drmm_kzalloc) is freed.
 
-> =20
->  	if (!hv->screen_width_max) {
->  		hv->screen_width_max =3D SYNTHVID_WIDTH_WIN8;
+If the HPD interrupt fires afterwards, the still-active IRQ handler will
+dereference the freed hdmi pointer.
+
+Also, calling cancel_delayed_work_sync() here doesn't prevent the active IRQ
+handler from immediately re-arming the workqueue.
+
+Should this use a non-devm request_threaded_irq() in dw_hdmi_qp_rockchip_bi=
+nd()
+and call free_irq() here in dw_hdmi_qp_rockchip_unbind()?
+
+[Severity: High]
+This is also a pre-existing issue, but does the hardirq handler properly ha=
+ndle
+interrupts on unplug events?
+
+Looking at dw_hdmi_qp_rk3588_hardirq() and dw_hdmi_qp_rk3576_hardirq(), they
+read the raw level register without masking:
+
+    regmap_read(hdmi->regmap, RK3588_GRF_SOC_STATUS1, &intr_stat);
+    if (intr_stat) {
+        ...
+
+When the HDMI cable is unplugged, the HPD level goes to 0, which triggers t=
+he
+interrupt. If no other unrelated bits in this 32-bit register are set,
+intr_stat evaluates to 0 and the handler returns IRQ_NONE without clearing =
+the
+interrupt.
+
+Could this cause the kernel to see an unhandled interrupt and disable it
+permanently?
+
+Conversely, if any unrelated bit is 1, it will always return IRQ_WAKE_THREA=
+D,
+falsely claiming interrupts for other devices on this shared IRQ line.
+
+Should this check the interrupt pending status instead of the raw SOC status
+register?
+
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730201123.1767=
--1-mhklinux@outlook.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-dw-hdmi-qp=
+-scramb-v10-0-294364b2cf15@collabora.com?part=3D29
