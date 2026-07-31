@@ -4,51 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 759B3C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:43:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C172CC54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:49:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC0BC10F2DE;
-	Fri, 31 Jul 2026 15:43:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2271C10F2E0;
+	Fri, 31 Jul 2026 15:49:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Z5wAXy8j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EDo2zc4H";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 20C1F10F2DE
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:43:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785512580;
- bh=fBNNrhizjHBzG7I04S5mXQ6sypEEL2Rvl/kkpOsp+Pg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z5wAXy8jWu7E5yXKb17Cgaj0/z+gPDP9iV/HUGc7ZZzZAmpMkNwQLK13E5Vp1Rddx
- 0PyYrV9RtnwS2zcsC7deeEG1k2yLUcP/AuHCJGsNhQLBFDXNfMjRnU2WxxEMWnv5b0
- dql4C0AhNK3qsqipuwrP52dhl/GM3nUOCZOcO5m19f4yrv0cfO3Oy/XP+uIFbaRQ8S
- EgoSTPEF6ibsQwUuL3MdUe12aaHVR2w3uNmgFDdw7ybou8OqQ2jACWgIEXwaKEWqfR
- 2IcUDGEsAsePXa1fexcZ0F6Dnk62LYkz05D/fi4gbNV453xW3mHKs/j0blHP+a0od+
- Zlv5UcstP4UlQ==
-Received: from archlinux (unknown [100.64.1.80])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: leandrohrb)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 5522517E0700;
- Fri, 31 Jul 2026 17:42:56 +0200 (CEST)
-From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-To: dri-devel@lists.freedesktop.org
-Cc: airlied@gmail.com, broonie@kernel.org, daniels@collabora.com,
- jani.nikula@linux.intel.com, maarten.lankhorst@linux.intel.com,
- miguel.ojeda.sandonis@gmail.com, mripard@kernel.org,
- pekka.paalanen@collabora.com, simona@ffwll.ch,
- penguin-kernel@I-love.SAKURA.ne.jp, tytso@mit.edu, tzimmermann@suse.de,
- ville.syrjala@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/1] drm: use drm_warn() in
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACF5B10F2E0
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:49:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5E04A407A2;
+ Fri, 31 Jul 2026 15:49:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 175DD1F000E9;
+ Fri, 31 Jul 2026 15:49:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785512981;
+ bh=hoGJaPvEENrM4dJNVffBB2N1uYxUhOKTy9iMhCUzZY4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=EDo2zc4H+vYFI1jZZ2HaF44M4TtKIWSEgX3GxJZpHYMTjaEa5HcGQX0CQPPVQfynk
+ WmSswxWnddE0awa8VducvcIV/uAnEJ8dWbV+WOEqbnifPUc/x6sARl1tqxOHmqiSXO
+ ARfdEy8uV64U7ccsDYp0hb0XtMEec/RvC8buwbFWwJzIYv3AW/RLFvo3fuPwLgj063
+ RZe4Spd/IvrgnVWTIhFLsjxSNP7eIGp9i3ylcPQKbm9SxtMbtCGWmBDkiV8Jp+x9Rv
+ aOJ7GpN2iEoJ7lkHUUBHiCB57brnheTBcbKq1W60pgmID+Z0TB2qXcu3MQhJtWf+I5
+ c0Fgk7kSbquzw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/1] drm: use drm_warn() in
  validate_blend_mode_for_alpha_formats()
-Date: Fri, 31 Jul 2026 12:42:32 -0300
-Message-ID: <20260731154232.37020-2-leandro.ribeiro@collabora.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260731154232.37020-1-leandro.ribeiro@collabora.com>
+To: "Leandro Ribeiro" <leandro.ribeiro@collabora.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731154232.37020-2-leandro.ribeiro@collabora.com>
 References: <20260731154232.37020-1-leandro.ribeiro@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ <20260731154232.37020-2-leandro.ribeiro@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 15:49:40 +0000
+Message-Id: <20260731154941.175DD1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,46 +54,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
-with alpha exposed") introduced a WARN() to let driver developers know
-that a previously valid behavior should now be changed.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-But WARN() should not be used for that, as it's a kernel warning report
-mechanism for conditions that are not expected to happen. It also
-produces a stack trace. Instead, a simple warning-level log message
-should have been used, as drivers were expected to trigger the
-condition.
+New issues:
+- [Low] Missing trailing newline in drm_warn() format string.
 
-This is causing problems for fuzzers, as they may stop when encountering
-a "BUG:" or "WARNING:" in the logs.
+Pre-existing issues:
+- [High] Missing NULL check on the return value of drm_format_info() before=
+ dereferencing it.
+--
 
-Replace WARN() with drm_warn() in this function, avoiding these issues.
+--- Patch [1]: [PATCH v2 1/1] drm: use drm_warn() in validate_blend_mode_fo=
+r_alpha_formats() ---
+commit e7f907e9d21d7af4bbeb8c955471b68c362de2e1
+Author: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
----
- drivers/gpu/drm/drm_mode_config.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+drm: use drm_warn() in validate_blend_mode_for_alpha_formats()
 
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index 3bcc7bf0900c..cff347c723ef 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -869,8 +869,9 @@ static void validate_blend_mode_for_alpha_formats(struct drm_plane *plane)
- 	for (i = 0; i < plane->format_count; i++) {
- 		fmt = drm_format_info(plane->format_types[i]);
- 		if (fmt->has_alpha) {
--			WARN(1, "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup",
--			     plane->base.id, plane->name);
-+			drm_warn(plane->dev,
-+				 "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not setup. Please fix.",
-+				 plane->base.id, plane->name);
- 			break;
- 		}
- 	}
--- 
-2.55.0
+This commit replaces a WARN() with drm_warn() in=20
+validate_blend_mode_for_alpha_formats() to prevent fuzzers from stopping wh=
+en
+drivers encounter a pixel format with alpha exposed but no blend mode setup.
 
+> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode=
+_config.c
+> index 3bcc7bf0900c4..cff347c723ef0 100644
+> --- a/drivers/gpu/drm/drm_mode_config.c
+> +++ b/drivers/gpu/drm/drm_mode_config.c
+> @@ -869,8 +869,9 @@ static void validate_blend_mode_for_alpha_formats(str=
+uct drm_plane *plane)
+>  	for (i =3D 0; i < plane->format_count; i++) {
+>  		fmt =3D drm_format_info(plane->format_types[i]);
+>  		if (fmt->has_alpha) {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible for
+drm_format_info() to return NULL here?
+
+If a driver exposes an unknown or unsupported format in the format_types
+array, drm_format_info() returns NULL, and this line will trigger a NULL
+pointer dereference during plane validation.
+
+> -			WARN(1, "[PLANE:%d:%s] pixel format with alpha exposed but blend mode=
+ not setup",
+> -			     plane->base.id, plane->name);
+> +			drm_warn(plane->dev,
+> +				 "[PLANE:%d:%s] pixel format with alpha exposed but blend mode not s=
+etup. Please fix.",
+
+[Severity: Low]
+Should this format string end with a newline character?
+
+Without a trailing \n, this warning message might remain buffered or get
+concatenated with subsequent unrelated kernel log messages.
+
+> +				 plane->base.id, plane->name);
+>  			break;
+>  		}
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731154232.3702=
+0-2-leandro.ribeiro@collabora.com?part=3D1
