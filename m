@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07BC7C55171
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:24:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7AEAAC55174
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:24:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC21910F34E;
-	Fri, 31 Jul 2026 16:24:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5860810F34B;
+	Fri, 31 Jul 2026 16:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="m8DFbOHE";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NaZLp4vV";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFD0F10F315
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:20:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 922DE10F2FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514801;
- bh=kOveINEPDFE/jpZ1VqhFveSV7JndBzIfgD4lhHc2Xo8=;
+ s=mail; t=1785514766;
+ bh=YSrshcvKlPJVkMkdkCHSWe2+F7O6yThKS89QqJLfJgU=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=m8DFbOHEzohSYO8ghsln1aKvFG4vYuqTVR9UJvs4pq9rrLSEuhF3YtvhRhSJB/IUa
- 6rmYffFPV5hwtmRhSY8B5BhaxLkPofyj132CkAZtT+/XpohuJGCyvEZPYPa9+Wrtnp
- 5Wx+urHWE93QSFQVCii4XutprFif2/Ig6GPocW3SoazXMpR0++VJ5cBSmHngN0vNPM
- aoBiB0tmrXqCNYYv08pTcwnE8Su02BW5ty7aes9n8am30ZB5ekG2pa2kqv7d1oU8HE
- 7Zamw8BrsGv3e2R7OAaA2Ee4gDbDlzpWnOknPkqUe7CLCnM/Q4RG2XKD2PZBBiePN5
- 8NRzH35MjWRNA==
+ b=NaZLp4vVwcpqBh2I//J0jNjl/gaTmNAKo7sXaQXj414VByKEmVIAhGtS2GPGy1krd
+ AJSavfMwpNoNYLrTYVEmsvLUOePL9x4pg4D3r6BMDZT80jRt6sulEtoB8YBRh3+qR1
+ w50ijZYK4VY88B3gCW0vfp4FZUxYiP+igRBXvl1ktH8ZyBFju5/x0JPTJj7B1asHCy
+ CA//5BAA1DIfVs8h3XOwB6BuTYIyGL0aDiK4bmWjGeCYsfCxcHXuiv6m9Y1yXA4C/B
+ ws1hJntQA9W/hD4xbyht7UejlFYDGVG7bY2nWGtpaSD3nW7nEmD1V8sCSOy7MsFTsE
+ kGy49S8XLqCgQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9230D17E0B18;
- Fri, 31 Jul 2026 18:20:01 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 464A817E0937;
+ Fri, 31 Jul 2026 18:19:26 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:20:13 +0300
-Subject: [PATCH v10 66/69] drm/connector: Remove drmm_connector_hdmi_ini2()
+Date: Fri, 31 Jul 2026 19:19:23 +0300
+Subject: [PATCH v10 16/69] drm/display: bridge_connector: Use cached
+ connector status in .get_modes()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-66-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-16-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,6 +63,8 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Maud Spierings <maud_spierings@hotmail.com>, 
  Diederik de Haas <diederik@cknow-tech.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -79,154 +82,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-All callers have been converted to the new drmm_connector_hdmi_init()
-signature.  Remove the transitional drmm_connector_hdmi_ini2() function,
-its declaration, its EXPORT_SYMBOL() and its kernel-doc.
+Replace the active drm_bridge_connector_detect() call in get_modes()
+with a read of the already-cached connector->status.
 
+The .get_modes() callback is only invoked from
+drm_helper_probe_single_connector_modes(), which has already retrieved
+the connector status.  Calling detect again is redundant and triggers a
+duplicate hotplug event.  This is also a prerequisite for switching to
+the .detect_ctx() hook, which requires a drm_modeset_acquire_ctx not
+available in the .get_modes() path.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/drm_connector.c | 106 ----------------------------------------
- include/drm/drm_connector.h     |   9 ----
- 2 files changed, 115 deletions(-)
+ drivers/gpu/drm/display/drm_bridge_connector.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index a18410faf040..b2e8d99c0e9a 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -696,112 +696,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- }
- EXPORT_SYMBOL(drmm_connector_hdmi_init);
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 9ad31e9df0ab..8a833c813101 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -325,12 +325,10 @@ static const struct drm_connector_funcs drm_bridge_connector_funcs = {
+ static int drm_bridge_connector_get_modes_edid(struct drm_connector *connector,
+ 					       struct drm_bridge *bridge)
+ {
+-	enum drm_connector_status status;
+ 	const struct drm_edid *drm_edid;
+ 	int n;
  
--/**
-- * drmm_connector_hdmi_ini2 - Init a preallocated HDMI connector
-- * @dev: DRM device
-- * @connector: A pointer to the HDMI connector to init
-- * @vendor: HDMI Controller Vendor name
-- * @product: HDMI Controller Product name
-- * @funcs: callbacks for this connector
-- * @hdmi_funcs: HDMI-related callbacks for this connector
-- * @connector_type: user visible type of the connector
-- * @ddc: optional pointer to the associated ddc adapter
-- * @supported_formats: Bitmask of @drm_output_color_format listing supported output formats
-- * @max_bpc: Maximum bits per char the HDMI connector supports
-- *
-- * Initialises a preallocated HDMI connector. Connectors can be
-- * subclassed as part of driver connector objects.
-- *
-- * Cleanup is automatically handled with a call to
-- * drm_connector_cleanup() in a DRM-managed action.
-- *
-- * The connector structure should be allocated with drmm_kzalloc().
-- *
-- * The @drm_connector_funcs.destroy hook must be NULL.
-- *
-- * Returns:
-- * Zero on success, error code on failure.
-- */
--int drmm_connector_hdmi_ini2(struct drm_device *dev,
--			     struct drm_connector *connector,
--			     const char *vendor, const char *product,
--			     const struct drm_connector_funcs *funcs,
--			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
--			     int connector_type,
--			     struct i2c_adapter *ddc,
--			     unsigned long supported_formats,
--			     unsigned int max_bpc)
--{
--	int ret;
--
--	if (!vendor || !product)
--		return -EINVAL;
--
--	if ((strlen(vendor) > DRM_CONNECTOR_HDMI_VENDOR_LEN) ||
--	    (strlen(product) > DRM_CONNECTOR_HDMI_PRODUCT_LEN))
--		return -EINVAL;
--
--	if (!(connector_type == DRM_MODE_CONNECTOR_HDMIA ||
--	      connector_type == DRM_MODE_CONNECTOR_HDMIB))
--		return -EINVAL;
--
--	if (!supported_formats || !(supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444)))
--		return -EINVAL;
--
--	if (connector->ycbcr_420_allowed != !!(supported_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR420)))
--		return -EINVAL;
--
--	if (!(max_bpc == 8 || max_bpc == 10 || max_bpc == 12))
--		return -EINVAL;
--
--	if (!hdmi_funcs->avi.clear_infoframe ||
--	    !hdmi_funcs->avi.write_infoframe ||
--	    !hdmi_funcs->hdmi.clear_infoframe ||
--	    !hdmi_funcs->hdmi.write_infoframe)
--		return -EINVAL;
--
--	ret = drmm_connector_init(dev, connector, funcs, connector_type, ddc);
--	if (ret)
--		return ret;
--
--	connector->hdmi.supported_formats = supported_formats;
--	strtomem_pad(connector->hdmi.vendor, vendor, 0);
--	strtomem_pad(connector->hdmi.product, product, 0);
--
--	/*
--	 * drm_connector_attach_max_bpc_property() requires the
--	 * connector to have a state.
--	 */
--	if (connector->funcs->atomic_create_state) {
--		struct drm_connector_state *state;
--
--		state = connector->funcs->atomic_create_state(connector);
--		if (IS_ERR(state))
--			return PTR_ERR(state);
--
--		connector->state = state;
--	} else if (connector->funcs->reset) {
--		connector->funcs->reset(connector);
--		if (!connector->state)
--			return -ENOMEM;
--	}
--
--	drm_connector_attach_max_bpc_property(connector, 8, max_bpc);
--	connector->max_bpc = max_bpc;
--
--	if (max_bpc > 8)
--		drm_connector_attach_hdr_output_metadata_property(connector);
--
--	ret = drm_connector_attach_color_format_property(connector, supported_formats);
--	if (ret)
--		return ret;
--
--	connector->hdmi.funcs = hdmi_funcs;
--
--	return 0;
--}
--EXPORT_SYMBOL(drmm_connector_hdmi_ini2);
--
- /**
-  * drm_connector_attach_edid_property - attach edid property.
-  * @connector: the connector
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 89a140d6f064..2ad8d1611e84 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -2676,15 +2676,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
- 			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
- 			     int connector_type,
- 			     struct i2c_adapter *ddc);
--int drmm_connector_hdmi_ini2(struct drm_device *dev,
--			     struct drm_connector *connector,
--			     const char *vendor, const char *product,
--			     const struct drm_connector_funcs *funcs,
--			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
--			     int connector_type,
--			     struct i2c_adapter *ddc,
--			     unsigned long supported_formats,
--			     unsigned int max_bpc);
- void drm_connector_attach_edid_property(struct drm_connector *connector);
- int drm_connector_register(struct drm_connector *connector);
- int drm_connector_dynamic_register(struct drm_connector *connector);
+-	status = drm_bridge_connector_detect(connector, false);
+-	if (status != connector_status_connected)
++	if (connector->status != connector_status_connected)
+ 		goto no_edid;
+ 
+ 	drm_edid = drm_bridge_edid_read(bridge, connector);
 
 -- 
 2.55.0
