@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E5BC5516D
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78733C54F54
 	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:42:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D96E10F2A8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96C4410F293;
 	Fri, 31 Jul 2026 14:42:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="N27ufUO9";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iWBZ9U48";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 010D410F2BA
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:42:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D581010F2CA
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:42:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785508930;
- bh=kcGvaktytxMdj3Fa+4RFfDfEbkxVhoP/sR/X/1jGUzU=;
+ s=mail; t=1785508929;
+ bh=xnajaehGeKqaSKIiYJaOEGQ01W5URX41oCYdG+inSws=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=N27ufUO98XhH1nMkUDS+wHMp6VNNcWoO0gdc5IrWwOPNaC+I+xaYfLk9Yhz4WWbfW
- AZR1V2ej94d1lEBp5tDP9jkb2LLaHSjxvkiSCcHz+y3njhKw5cLmN4WHrcCgnT+/Se
- GEIvAI9hd5VDLv/0RryeVxImZEpUDlJTTn3xh+kQPC3wenJUcBC9xsKtKnXCCU43Mi
- bERRSba4slIyO1VgboJYQf00e9Mei5baJmnJuUiLrebCd2lXi9yjd3dhFf7hWINkAf
- z2o4dv31zOIBgObgBcLXc0Y4LvLtC3lu4RQw+wY+PnE+JmgjEbNUtIyFc2M8ofnGZc
- 3lNQE/1E809kw==
+ b=iWBZ9U48IBmQ+EunYX6JEJrXwp/0+0vrsYnpy1J9I9dqHmVLEJWeVCLo+A8nrYHR9
+ 3qXYo7ImnGLb8Amiw+de0txge5GZiLuBqf3EPPd1sKKyFwZXRU8mV8Mu6nq56mmqzj
+ 9Pf564FY23HCqDemuRbP8xBzyOs5n+PrbIdmoBz96wfvk6SRruT29nMWStm255k8Ab
+ +Gia+SothP1qSQe0SrOo6xRbObSO9FquGkmHX4xBWh4VEXSdMiqikg1EIlgaefqyxY
+ /OBmY+4yAhgkl8/9geZHcetdawWsQngF4ajCxqU3qdTGmukZdQrHYU9vBRzWvmnKuL
+ doOS3wPQkIIZg==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id EA1F217E093D;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A6A5317E091F;
  Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 14739480061; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+ id 0995C48003D; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 31 Jul 2026 16:42:21 +0200
-Subject: [PATCH v8 16/21] drm/bridge: synopsys: dw-dp: Protect sdp_reg_bank
- from concurrent access
+Date: Fri, 31 Jul 2026 16:42:14 +0200
+Subject: [PATCH v8 09/21] drm/bridge: synopsys: dw-dp: Support
+ MEDIA_BUS_FMT_FIXED
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-synopsys-dw-dp-improvements-v8-16-ac1e6a75782f@collabora.com>
+Message-Id: <20260731-synopsys-dw-dp-improvements-v8-9-ac1e6a75782f@collabora.com>
 References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,21 +67,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2378;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3804;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=kcGvaktytxMdj3Fa+4RFfDfEbkxVhoP/sR/X/1jGUzU=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEC2qoQmjtDwD9we6yoS8xgMssFVPw7LU
- I9qXoDwMEnQn4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
- O/qacP4P/2YTglCuOW39W/Jjy2SvJa0kH1Eydj16rB+7HH3lDF0n3DTNQnXFHSPbKaEEx/+q+Np
- hvj/wbIRI1bleLTq41R2CSE++10iO6A06IF/hA4VEmtgrj6OwhUGWUYgomQsmB2thFZClE7UzT4
- q+1VUfisMAuzow8H/aGhBsDA88+ZLLoBWx/j0ul4uuIWg9E6Do4BflNbfaZli5f28fxT9c0xlEe
- dJNVsPX0DebyqY/UEsyIN1aYpeIZykfvE70aiPuyM1CjklXsfpxum1/N5zSArp/ieh4IANYEdS3
- vzHzGBILl6axp9wzAT/2vDBOLWFUA1utvq50QcpbbsD9nMFiY2AVdGd3woSeHp9f/733/ScL8wV
- ZvKrBsLq0VhtH5LkXQCjxiYIK4rbKPyshUcheWT06Ec5Vd4DAuR7sCL44fouN451VqyTJIF3PrY
- kCmdOUtIuiR2EeyHEFnhpRcKFWkkVFcLPiKHLNpAl1wUepH78QDyUc2reLLxBBppynGFK7xt5MM
- HKdzqtu2NbAhXokQ2aDoikgw9XUVxj6qiLwiIDXUCWt3SxPJ0uJw8oJR2FP9oRUyyNn4sFZ6tww
- 62UUFRaDugDi76uyJUNGawED5EADh8Y+zC/IhV7/FTkt/iu5a1byKuAI9I+JS+FHKv4cOu65lnf
- aw1j4ixIBCc+QUjoavYEigQ==
+ bh=xnajaehGeKqaSKIiYJaOEGQ01W5URX41oCYdG+inSws=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEDF/O6nFlXMYotmPi7Paj6gydxBGAsAO
+ cht73WLYlT1n4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
+ O/qaLFcP/1NC9hlZH+xFFCRuPhGo40b81NgQEFjg7VgSzHTOlAX7cm/aDlzbW+MOhEhSzmrRlh3
+ wkhlZVDKHv+rDvT1/7XM2Z1k+S3jL3W/DZRPhlNljW8H90QThXOG2UAgUJFRDiccO9+eq28lWNF
+ qF68qxLGuM3EXcqXASkqkyVnQhc59ji0eIYfR25tQIGSNjtQ0jRyujdQSwtYKClawWnyMQnkyCZ
+ djhNrcygXjBd3yosDHEfoqUkaPW7UmQzfi5f1d9fPN4HGTUuLhc0ziRqM5UTfEqFSAkyS+4Il7j
+ ujwXiN/l7ergMQfziHbmCzRmvUosCiRx0ukoVejCVteNC7jrcKGvvfXOrGtgiXS6vGnL7WBGXHu
+ U3wUQLkIhYzB28oyrIExfBLEbbsxXqpnQvIG/do6uBBod1VJ9DI5dkjocgrNVzQV8WA3plYPkP0
+ TfmM4Tsh/QogHJfEddh8KpI/vZw0rVGJqq9J8g5IWTZ2A19e7gy0SuaLiLPOTYtdcM/a9BYqLgo
+ t9bT98mk9+/MdyG0g8mqoAZ9Yf7XGtorN5jlOFFOC9uadvEf9wVMAMHaZTbsoBiQyCgYnCWJaue
+ /k0J00we/MKM2ZB5+PIw2+KbMTpqAq02NDDdmSb+j2vq7gq2JMBFjsf2Sch7ThJ06y4ZEXY9iup
+ JvuwrAqldq1BtzQf7FxwySQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,80 +99,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Right now sdp_reg_bank is only used during atomic enable/disable and
-thus there is no risk of two threads accidently claiming the same bit.
+Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
+DP chains as the last bridge in the chain (aux-hpd-bridge) does not
+implement atomic_get_output_bus_fmts(), which results in the generic
+drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
+instead. For decent support of this, two areas are changed:
 
-This changes once more SDP users (like audio support) are added, so
-introduce a mutex to protect concurrent access to the bitmap.
+1. In atomic_check, resolving MEDIA_BUS_FMT_FIXED output format by
+   using the negotiated input format.
+
+2. Implementing a custom .atomic_get_input_bus_fmts hook that, on
+   MEDIA_BUS_FMT_FIXED, advertises all bandwidth-validated formats
+   from dw_dp_bridge_atomic_get_output_bus_fmts(). This lets the
+   upstream encoder negotiate the best mutually supported format.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 34 +++++++++++++++++++++++++++++++--
+ 1 file changed, 32 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index c24a5436e8fe..4d4af6a388b1 100644
+index 7127928c2650..42927335f0fd 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -323,6 +323,8 @@ struct dw_dp {
- 	struct dw_dp_hotplug hotplug;
- 	/* Serialize hpd status access */
- 	struct mutex irq_lock;
-+	/* Serialize sdp_reg_bank access */
-+	struct mutex sdp_lock;
+@@ -1537,6 +1537,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 				     struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 	struct dw_dp_bridge_state *state;
+ 	const struct dw_dp_output_format *fmt;
+@@ -1547,7 +1548,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	state = to_dw_dp_bridge_state(bridge_state);
+ 	mode = &state->mode;
  
- 	struct drm_dp_aux aux;
- 
-@@ -1048,11 +1050,13 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
- 	u32 reg;
- 	int i, nr;
- 
--	nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
--	if (nr < SDP_REG_BANK_SIZE)
--		set_bit(nr, dp->sdp_reg_bank);
--	else
--		return -EBUSY;
-+	scoped_guard(mutex, &dp->sdp_lock) {
-+		nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+		if (nr < SDP_REG_BANK_SIZE)
-+			set_bit(nr, dp->sdp_reg_bank);
-+		else
-+			return -EBUSY;
-+	}
- 
- 	reg = DW_DP_SDP_REGISTER_BANK + nr * 9 * 4;
- 
-@@ -1693,7 +1697,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
- 	}
- 
--	set_bit(0, dp->sdp_reg_bank);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		set_bit(0, dp->sdp_reg_bank);
- 
- 	ret = dw_dp_link_enable(dp);
- 	if (ret < 0) {
-@@ -1737,7 +1742,8 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 
- 	dw_dp_video_disable(dp);
- 	dw_dp_link_disable(dp);
--	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
- 	dw_dp_reset(dp);
- 	pm_runtime_put_autosuspend(dp->dev);
- }
-@@ -2237,6 +2243,10 @@ int dw_dp_probe(struct dw_dp *dp)
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_mutex_init(dev, &dp->sdp_lock);
-+	if (ret)
-+		return ret;
+-	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
++	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
++		out_bus_format = bridge_state->input_bus_cfg.format;
 +
- 	res = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(res))
- 		return PTR_ERR(res);
++	fmt = dw_dp_get_output_format(out_bus_format);
+ 	if (!fmt)
+ 		return -EINVAL;
+ 
+@@ -1814,6 +1818,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+ 	return output_fmts;
+ }
+ 
++static u32 *
++dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
++				       struct drm_bridge_state *bridge_state,
++				       struct drm_crtc_state *crtc_state,
++				       struct drm_connector_state *conn_state,
++				       u32 output_fmt,
++				       unsigned int *num_input_fmts)
++{
++	/*
++	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
++	 * the bus format. In that case, advertise all formats supported by the
++	 * DP link so the upstream encoder can negotiate the best match.
++	 */
++	if (output_fmt == MEDIA_BUS_FMT_FIXED)
++		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
++							       bridge_state,
++							       crtc_state,
++							       conn_state,
++							       num_input_fmts);
++
++	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
++							 crtc_state, conn_state,
++							 output_fmt,
++							 num_input_fmts);
++}
++
+ static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
+ {
+ 	struct dw_dp_bridge_state *state;
+@@ -1860,7 +1890,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
+ 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+-	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
++	.atomic_get_input_bus_fmts = dw_dp_bridge_atomic_get_input_bus_fmts,
+ 	.atomic_get_output_bus_fmts = dw_dp_bridge_atomic_get_output_bus_fmts,
+ 	.atomic_check = dw_dp_bridge_atomic_check,
+ 	.mode_valid = dw_dp_bridge_mode_valid,
 
 -- 
 2.53.0
