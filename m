@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD38CC54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:24:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48300C55173
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:24:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C41A510F34C;
-	Fri, 31 Jul 2026 16:24:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47D5F10F34F;
+	Fri, 31 Jul 2026 16:24:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aV2PB+7F";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="VKoe5QEx";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E14F10F30D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F92410F313
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514780;
- bh=qWfQqJ5gFaQoXW8ldkI+fynaFa/cuemiR58bxMArXaY=;
+ s=mail; t=1785514775;
+ bh=qtNL65/c4PhNmZPiAInduzePTu8PpXnaj5N7uxfmkyI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=aV2PB+7FwzURa9BPtCWqVk/JlqfBIJPgjyvJw2Uee88zt4Dy15cB/dpqtiEhXIn49
- ZBrBFwPyLbc5ZTSOEbve9at5lBTN9uXZhJcURU3SCj78ZZkAh597WJl+Oh/PDXk2pu
- cw44djfBSBCihzq9FLrGFtgdfru7oCorOWTIJqmRe1Dou3KIgdN8SEAF2JbpwLP6bg
- 007ujj1XQUZR4cXSTFBNVd8m3u0Cf8G7gch+tp7CYuKWH0GmRnbXZUVTHKWr+pwEps
- 4b6y1Di9HdfRiGP46nUWbsH8Tr0ph90I1ITc+TYGvFXedtBLW/aF3cpCr6Gw4fgGmi
- GtlGRgzZUuMRw==
+ b=VKoe5QExB0CyfPg02pl59/CFBcolK/mHiHrCMoobNg46aWuiF5P8pJmUGZGZ60h2X
+ aw5rsqqpCTCxEOWL6168R8SG//5pQYy/JdF2QzejxRhEdBoGCMvU7Gey2B5kxegFqd
+ riFHIB29DLi/o3SneP4rJGV+3n48KLLaXgkVEHp6cZnmaENyDEdDE8F8DVpxMOXGeC
+ Z4DNL20a4hCUHO8eFIKFPrnIFA+nmsk4cD9BGIgeGchatQxgZqfsfaI6zaA4ULAA6h
+ 52Dt2dp7OOgQijVkdtwPB2ku68bKcBaUkN2RosylTmjODpDPiBVAlNCIGxhIz0/veG
+ mG3lbNXZqYkHw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E37AA17E0974;
- Fri, 31 Jul 2026 18:19:39 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DE67217E08D6;
+ Fri, 31 Jul 2026 18:19:34 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:42 +0300
-Subject: [PATCH v10 35/69] drm/rockchip: dw_hdmi_qp: Implement
- .{enable,disable}_hpd() PHY ops
+Date: Fri, 31 Jul 2026 19:19:35 +0300
+Subject: [PATCH v10 28/69] drm/bridge: dw-hdmi-qp: Provide
+ dw_hdmi_qp_hpd_notify() helper
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-35-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-28-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -81,205 +81,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement .enable_hpd() and .disable_hpd() phy ops for RK3576 and RK3588
-SoCs, used by the corresponding bridge callbacks for HPD activation
-control.
+Export dw_hdmi_qp_hpd_notify() for platform drivers to report hot-plug
+detection events.  Unlike drm_helper_hpd_irq_event() which polls all
+connectors, this helper targets only the affected connector and ensures
+.detect_ctx() is invoked on reconnection events to trigger SCDC state
+recovery.
 
-Consolidate the interrupt clear-and-unmask sequence into enable_hpd()
-and the mask-only operation into disable_hpd(), replacing the open-coded
-register writes in the interrupt handlers and io_init().
-
-The .setup_hpd() phy op, which was previously called from
-dw_hdmi_qp_init_hw(), is no longer needed and its users are removed.
+Note that this helper may sleep, so it must only be called from a
+threaded HPD interrupt handler or a work function.
 
 Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 78 +++++++++++++-------------
- 1 file changed, 38 insertions(+), 40 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 37 ++++++++++++++++++++++++++++
+ include/drm/bridge/dw_hdmi_qp.h              |  1 +
+ 2 files changed, 38 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 64e8e4c12cbd..1965641fbadf 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -277,7 +277,7 @@ dw_hdmi_qp_rk3588_read_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	return val ? connector_status_connected : connector_status_disconnected;
- }
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+index ee74266b7aa9..a2277531182c 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+@@ -28,6 +28,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_print.h>
++#include <drm/drm_probe_helper.h>
  
--static void dw_hdmi_qp_rk3588_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- {
- 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
- 	u32 val;
-@@ -292,11 +292,25 @@ static void dw_hdmi_qp_rk3588_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
- }
+ #include <media/cec.h>
  
-+static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+{
-+	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
-+	u32 val;
+@@ -163,6 +164,8 @@ struct dw_hdmi_qp {
+ 	struct regmap *regm;
+ 	int main_irq;
+ 
++	/* Written by the atomic enable/disable hooks, read locklessly by HPD */
++	struct drm_connector *curr_conn;
+ 	unsigned long tmds_char_rate;
+ 	bool no_hpd;
+ };
+@@ -785,6 +788,8 @@ static void dw_hdmi_qp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	dw_hdmi_qp_mod(hdmi, op_mode, OPMODE_DVI, LINK_CONFIG0);
+ 
+ 	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
 +
-+	if (hdmi->port_id)
-+		val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
++	WRITE_ONCE(hdmi->curr_conn, connector);
+ }
+ 
+ static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
+@@ -793,6 +798,7 @@ static void dw_hdmi_qp_bridge_atomic_disable(struct drm_bridge *bridge,
+ 	struct dw_hdmi_qp *hdmi = bridge->driver_private;
+ 	struct drm_connector *connector;
+ 
++	WRITE_ONCE(hdmi->curr_conn, NULL);
+ 	hdmi->tmds_char_rate = 0;
+ 
+ 	connector = drm_atomic_get_old_connector_for_encoder(state, bridge->encoder);
+@@ -1409,6 +1415,37 @@ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ }
+ EXPORT_SYMBOL_GPL(dw_hdmi_qp_bind);
+ 
++/**
++ * dw_hdmi_qp_hpd_notify() - Notify a hot-plug detection event
++ * @hdmi: pointer to the DW HDMI QP controller
++ *
++ * Platform drivers should call this from their threaded IRQ handler or work
++ * function to notify the bridge of a connection status change.
++ * The bridge's .read_hpd() phy_ops callback is used to read the current
++ * connection status.
++ */
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi)
++{
++	struct drm_connector *conn = READ_ONCE(hdmi->curr_conn);
++	enum drm_connector_status status;
++
++	status = hdmi->phy.ops->read_hpd(hdmi, hdmi->phy.data);
++	dev_dbg(hdmi->dev, "%s status=%d\n", __func__, status);
++
++	/*
++	 * When the display pipeline has been already active, switch to
++	 * drm_connector_helper_hpd_irq_event() to ensure .detect_ctx()
++	 * gets invoked, i.e. via drm_helper_probe_detect(), because
++	 * drm_bridge_hpd_notify() defers to a delayed hotplug path in
++	 * this case.
++	 */
++	if (conn && status == connector_status_connected)
++		drm_connector_helper_hpd_irq_event(conn);
 +	else
-+		val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 1);
-+
-+	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
++		drm_bridge_hpd_notify(&hdmi->bridge, status);
 +}
++EXPORT_SYMBOL_GPL(dw_hdmi_qp_hpd_notify);
 +
- static const struct dw_hdmi_qp_phy_ops rk3588_hdmi_phy_ops = {
- 	.init		= dw_hdmi_qp_rk3588_phy_init,
- 	.disable	= dw_hdmi_qp_rk3588_phy_disable,
- 	.read_hpd	= dw_hdmi_qp_rk3588_read_hpd,
--	.setup_hpd	= dw_hdmi_qp_rk3588_setup_hpd,
-+	.enable_hpd	= dw_hdmi_qp_rk3588_enable_hpd,
-+	.disable_hpd	= dw_hdmi_qp_rk3588_disable_hpd,
- };
- 
- static enum drm_connector_status
-@@ -311,7 +325,7 @@ dw_hdmi_qp_rk3576_read_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 		connector_status_connected : connector_status_disconnected;
- }
- 
--static void dw_hdmi_qp_rk3576_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+static void dw_hdmi_qp_rk3576_enable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi)
  {
- 	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
- 	u32 val;
-@@ -320,14 +334,22 @@ static void dw_hdmi_qp_rk3576_setup_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
- 	       FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0));
- 
- 	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
--	regmap_write(hdmi->regmap, 0xa404, 0xffff0102);
-+}
-+
-+static void dw_hdmi_qp_rk3576_disable_hpd(struct dw_hdmi_qp *dw_hdmi, void *data)
-+{
-+	struct rockchip_hdmi_qp *hdmi = (struct rockchip_hdmi_qp *)data;
-+
-+	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0,
-+		     FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1));
- }
- 
- static const struct dw_hdmi_qp_phy_ops rk3576_hdmi_phy_ops = {
- 	.init		= dw_hdmi_qp_rk3588_phy_init,
- 	.disable	= dw_hdmi_qp_rk3588_phy_disable,
- 	.read_hpd	= dw_hdmi_qp_rk3576_read_hpd,
--	.setup_hpd	= dw_hdmi_qp_rk3576_setup_hpd,
-+	.enable_hpd	= dw_hdmi_qp_rk3576_enable_hpd,
-+	.disable_hpd	= dw_hdmi_qp_rk3576_disable_hpd,
- };
- 
- static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
-@@ -348,13 +370,12 @@ static void dw_hdmi_qp_rk3588_hpd_work(struct work_struct *work)
- static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_id;
--	u32 intr_stat, val;
-+	u32 intr_stat;
- 
- 	regmap_read(hdmi->regmap, RK3576_IOC_HDMI_HPD_STATUS, &intr_stat);
--	if (intr_stat & RK3576_HDMI_OHPD_INT) {
--		val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
- 
--		regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
-+	if (intr_stat & RK3576_HDMI_OHPD_INT) {
-+		dw_hdmi_qp_rk3576_disable_hpd(NULL, hdmi);
- 		return IRQ_WAKE_THREAD;
- 	}
- 
-@@ -364,15 +385,11 @@ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int irq, void *dev_id)
- static irqreturn_t dw_hdmi_qp_rk3576_irq(int irq, void *dev_id)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_id;
--	u32 val;
- 
--	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_CLR, 1);
--	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
- 	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
- 			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
- 
--	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
--	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
-+	dw_hdmi_qp_rk3576_enable_hpd(NULL, hdmi);
- 
- 	return IRQ_HANDLED;
- }
-@@ -380,18 +397,14 @@ static irqreturn_t dw_hdmi_qp_rk3576_irq(int irq, void *dev_id)
- static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int irq, void *dev_id)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_id;
--	u32 intr_stat, val;
-+	u32 intr_stat;
- 
- 	regmap_read(hdmi->regmap, RK3588_GRF_SOC_STATUS1, &intr_stat);
- 
- 	intr_stat &= hdmi->port_id ? RK3588_HDMI1_OHPD_INT : RK3588_HDMI0_OHPD_INT;
- 
- 	if (intr_stat) {
--		if (hdmi->port_id)
--			val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
--		else
--			val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 1);
--		regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
-+		dw_hdmi_qp_rk3588_disable_hpd(NULL, hdmi);
- 		return IRQ_WAKE_THREAD;
- 	}
- 
-@@ -401,22 +414,11 @@ static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int irq, void *dev_id)
- static irqreturn_t dw_hdmi_qp_rk3588_irq(int irq, void *dev_id)
- {
- 	struct rockchip_hdmi_qp *hdmi = dev_id;
--	u32 val;
--
--	if (hdmi->port_id)
--		val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_CLR, 1);
--	else
--		val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_CLR, 1);
--	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
- 
- 	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
- 			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
- 
--	if (hdmi->port_id)
--		val |= FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 0);
--	else
--		val |= FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 0);
--	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
-+	dw_hdmi_qp_rk3588_enable_hpd(NULL, hdmi);
- 
- 	return IRQ_HANDLED;
- }
-@@ -429,11 +431,11 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip_hdmi_qp *hdmi)
- 	      FIELD_PREP_WM16(RK3576_SDAIN_MASK, 1) |
- 	      FIELD_PREP_WM16(RK3576_HDMI_GRANT_SEL, 1) |
- 	      FIELD_PREP_WM16(RK3576_I2S_SEL_MASK, 1);
--
- 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON14, val);
- 
--	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
--	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
-+	regmap_write(hdmi->regmap, 0xa404, 0xffff0102);
-+
-+	dw_hdmi_qp_rk3576_disable_hpd(NULL, hdmi);
- }
- 
- static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
-@@ -458,11 +460,7 @@ static void dw_hdmi_qp_rk3588_io_init(struct rockchip_hdmi_qp *hdmi)
- 		val = FIELD_PREP_WM16(RK3588_HDMI0_GRANT_SEL, 1);
- 	regmap_write(hdmi->vo_regmap, RK3588_GRF_VO1_CON9, val);
- 
--	if (hdmi->port_id)
--		val = FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 1);
--	else
--		val = FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 1);
--	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
-+	dw_hdmi_qp_rk3588_disable_hpd(NULL, hdmi);
- }
- 
- static void dw_hdmi_qp_rk3576_enc_init(struct rockchip_hdmi_qp *hdmi,
+ 	disable_irq(hdmi->main_irq);
+diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
+index b80fceffc315..b4fb1c578a5b 100644
+--- a/include/drm/bridge/dw_hdmi_qp.h
++++ b/include/drm/bridge/dw_hdmi_qp.h
+@@ -36,6 +36,7 @@ struct dw_hdmi_qp_plat_data {
+ struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
+ 				   struct drm_encoder *encoder,
+ 				   const struct dw_hdmi_qp_plat_data *plat_data);
++void dw_hdmi_qp_hpd_notify(struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_suspend(struct device *dev, struct dw_hdmi_qp *hdmi);
+ void dw_hdmi_qp_resume(struct device *dev, struct dw_hdmi_qp *hdmi);
+ #endif /* __DW_HDMI_QP__ */
 
 -- 
 2.55.0
