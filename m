@@ -4,64 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43F68C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:51:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84BB8C55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:52:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07A7E10F353;
-	Fri, 31 Jul 2026 16:51:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC59010F359;
+	Fri, 31 Jul 2026 16:52:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="rPDZqLwS";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="tw0fBVmA";
 	dkim-atps=neutral
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEA3510F353
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:51:46 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 39C941A136B;
- Fri, 31 Jul 2026 16:51:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 0BA1A6039A;
- Fri, 31 Jul 2026 16:51:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id D2CCD11C16B2B; 
- Fri, 31 Jul 2026 18:51:38 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1785516704; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=xedTpxStbFFiqkuVBdm3XQzkeGVbnwoL+h8tRRtpk8g=;
- b=rPDZqLwSpbk5aGRB9S80Y866TYgGB9qJAye5UNHsH0yENoqTuHx1I6pHw3IsX+cork1XLJ
- AZjpoJ9CAsOFKDWsXnu8YsOK1VlBf6yfhLV+BdWlGd5DEazGZnIDKtNIPvxblHoVmtnTEf
- xpdlR73OAGjtRCdzE+mM29X049TlW8ylgjAW1OZzU9ja8l3qXnPRwPcTdmXvg4+/Uf+09S
- 4/KJWrUXYGJoqELhbtXeOS9mmYwfSEoaVcg0/8fgQMTNtXcsSST1Hrn/2pVPUgXEUJXBea
- C7a5drl6vCFhJ2+pmCYRJcUhBQI6MXaQUIY/f3EsXuutvfBP2p1rKLzXf6YKFg==
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 31 Jul 2026 18:51:37 +0200
-Message-Id: <DKCWUF046FIK.LAHQYYO82SF5@bootlin.com>
-Subject: Re: [PATCH 10/10] drm/bridge: ti-sn65dsi86: Remove redundant
- dev_err_probe()
-Cc: "Pan Chuang" <panchuang@vivo.com>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "open list:DRM
- DRIVERS" <dri-devel@lists.freedesktop.org>, "open list"
- <linux-kernel@vger.kernel.org>
-To: "Doug Anderson" <dianders@chromium.org>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260723131649.134127-1-panchuang@vivo.com>
- <20260723131649.134127-11-panchuang@vivo.com>
- <CAD=FV=WPC92HLyRbo72KK5E9jTQ2TZN9F9gogZk7oNfpat4YRg@mail.gmail.com>
- <CAD=FV=Uud3YA_eQ12SM9MUSLQSmzDY1f_V0HnSCUUXOHSY1aDQ@mail.gmail.com>
- <DKCKLKB5PQRX.5J3QA5DIEMK@bootlin.com>
- <CAD=FV=VELor3eGb0FgtKS5isXw2ARKAb4vJckLcsC20EzA=AZg@mail.gmail.com>
-In-Reply-To: <CAD=FV=VELor3eGb0FgtKS5isXw2ARKAb4vJckLcsC20EzA=AZg@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com
+ [91.218.175.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B439110F359
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:52:45 +0000 (UTC)
+Message-ID: <d42d6ce2-7160-457f-be04-ff84551e9b9a@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1785516763;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=xWkD4jlIKLHWvPRjV0QmKvuYD4Xxyf9krdRe4eLcDvs=;
+ b=tw0fBVmAHcUXZ7EyOQ7pyMrimPCYLOkU5/RHBTtdmkcGGYTVYktilu6Dt4cd95LFOpxMyx
+ zi1m2M/5GXO4iE9fdtnAW4EffxYHAUkWE/2Z9itCgIUFo88sErfYnGryS8S87roMxd3eCw
+ ls1W3ST343itFRpTm7rbr+AyeKMo51k=
+Date: Sat, 1 Aug 2026 00:52:06 +0800
+MIME-Version: 1.0
+Subject: Re: [PATCH v2 2/9] rust: debugfs: add SeqShow trait and seq_file file
+ operations
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Melissa Wen <mwen@igalia.com>, Wambui Karuga <wambui.karugax@gmail.com>,
+ Eric Anholt <eric@anholt.net>, Ben Gamari <bgamari@gmail.com>,
+ rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+References: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
+ <20260731-tyr-debugfs-v2-v2-2-aea19eccb996@linux.dev>
+ <amyeMmmfEBpuVclw@google.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Alvin Sun <alvin.sun@linux.dev>
+In-Reply-To: <amyeMmmfEBpuVclw@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,112 +79,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Doug,
 
-On Fri Jul 31, 2026 at 4:43 PM CEST, Doug Anderson wrote:
-> Hi,
+On 7/31/26 21:08, Alice Ryhl wrote:
+> On Fri, Jul 31, 2026 at 01:05:40AM +0800, Alvin Sun wrote:
+>> +/// Show callback for `SeqShow` types.
+>> +///
+>> +/// # Safety
+>> +///
+>> +/// The seq_file core guarantees that `seq` points to a live `seq_file` and that
+>> +/// `seq->private` is a valid pointer to a `T` with no outstanding mutable
+>> +/// references.
+>> +unsafe extern "C" fn seq_file_show<S: SeqShow<T>, T: Sync>(
+>> +    seq: *mut bindings::seq_file,
+>> +    _: *mut crate::ffi::c_void,
+>> +) -> crate::ffi::c_int {
+>> +    // SAFETY: `seq->private` is a valid `T` pointer with no outstanding
+>> +    // mutable references.
+>> +    let data = unsafe { &*((*seq).private.cast::<T>()) };
+>> +    // SAFETY: `seq` points to a live `seq_file`.
+>> +    let m = unsafe { SeqFile::from_raw(seq) };
+>> +    from_result(|| S::show(data, m).map(|()| 0))
+>> +}
+>> +
+>> +/// Renders `data` into a seq_file.
+>> +///
+>> +/// `data` is the value stashed as the debugfs file's `i_private` at creation
+>> +/// time. `show` is invoked on each read to produce the file's contents.
+>> +///
+>> +/// `open` and `release` are optional lifecycle hooks called during file open
+>> +/// and release. They can be used to manage the lifetime of `data` (e.g.,
+>> +/// reference counting). Default implementations are no-ops.
+>> +pub trait SeqShow<T> {
+>> +    /// Writes debugfs output for the file.
+>> +    fn show(data: &T, m: &SeqFile) -> Result;
+>> +
+>> +    /// Called during file open, before `single_open`.
+>> +    fn open(_data: &T) -> Result {
+>> +        Ok(())
+>> +    }
+>> +
+>> +    /// Called during file release, before `single_release`.
+>> +    ///
+>> +    /// # Safety
+>> +    ///
+>> +    /// `data` must point to valid memory, kept alive by actions taken in
+>> +    /// [`Self::open`] (e.g., incrementing a reference count).
+>> +    unsafe fn release(_data: NonNull<T>) {}
+>> +}
+> Hmm. So in a later patch you implement SeqShow in the following manner:
 >
-> On Fri, Jul 31, 2026 at 12:16=E2=80=AFAM Luca Ceresoli
-> <luca.ceresoli@bootlin.com> wrote:
->>
->> Hi Doug,
->>
->> On Thu Jul 30, 2026 at 11:17 PM CEST, Doug Anderson wrote:
->> > Hi,
->> >
->> > On Fri, Jul 24, 2026 at 7:11=E2=80=AFPM Doug Anderson <dianders@chromi=
-um.org> wrote:
->> >>
->> >> Hi,
->> >>
->> >> On Thu, Jul 23, 2026 at 6:17=E2=80=AFAM Pan Chuang <panchuang@vivo.co=
-m> wrote:
->> >> >
->> >> > Since commit
->> >> > 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_=
-irq()"),
->> >> > devm_request_threaded_irq() automatically logs detailed error messa=
-ges on
->> >> > failure. Remove the now-redundant driver-specific dev_err_probe() c=
-all.
->> >> >
->> >> > Signed-off-by: Pan Chuang <panchuang@vivo.com>
->> >> > ---
->> >> >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 +-
->> >> >  1 file changed, 1 insertion(+), 1 deletion(-)
->> >>
->> >> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->> >>
->> >> I'll plan to apply this to drm-misc-next in ~1 week unless anything c=
-omes up.
->> >
->> > Pushed to drm-misc-next:
->> >
->> > [10/10] drm/bridge: ti-sn65dsi86: Remove redundant dev_err_probe()
->> >         commit: 9c950822f0fa923ccd344d7a143872d25efe89a3
->>
->> Out of curiosity, did you apply using b4?
->>
->> I see the commit does not have the R-by I gave to the cover letter a few
->> days ago, and assumed b4 would pick it up as it does when applying the f=
-ull
->> series. If my assumption was wrong, maybe it's an issue to report to the=
- b4
->> project?
+>      fn open(dev: &drm::Device<T, drm::Normal>) -> Result {
+>          // Hold a device reference so the device is not freed while the file is open.
+>          dev.inc_ref();
+>          Ok(())
+>      }
 >
-> Oops, sorry about that. I actually found your response to the cover
-> later as I continued to work through my inbox backlog, but I had
-> already pushed the patch. :( I was also surprised that b4 hadn't
-> picked it up...
-
-No big deal, I was just curions about the process.
-
-> I applied w/
+>      unsafe fn release(dev: NonNull<drm::Device<T, drm::Normal>>) {
+>          // Drop the reference taken in `open`.
+>          // SAFETY: `dev` is valid per this function's safety contract.
+>          unsafe { drm::Device::<T>::dec_ref(dev) };
+>      }
 >
-> b4 am -P_ 20260723131649.134127-11-panchuang@vivo.com
-
-I didn't know about '-P_', I normally use a range, such as '-P 1..3' or
-just '-P 10'. And, very interestingly, there is a difference:
-
-b4 shazam -P_  20260723131649.134127-11-panchuang@vivo.com -> does not take=
- the R-by from the cover
-b4 shazam -P10 20260723131649.134127-11-panchuang@vivo.com -> takes the R-b=
-y from the cover
-
-> Running it again still doesn't find your review:
+> I don't understand why this increment/decrement pair is necessary.
+> Just based on the code, it *looks* like you have them because otherwise
+> `show()` might get called with a dangling pointer to the drm device, but
+> the inc_ref() in open() ensures it stays alive.
 >
-> $ b4 am -P_ 20260723131649.134127-11-panchuang@vivo.com
-> Grabbing thread from
-> lore.kernel.org/all/20260723131649.134127-11-panchuang@vivo.com/t.mbox.gz
-> Analyzing 4 messages in the thread
-> Looking for additional code-review trailers on lore.kernel.org
-> Analyzing 16 code-review messages
-> Checking attestation on all messages, may take a moment...
-> ---
->   =E2=9C=93 [PATCH 10/10] drm/bridge: ti-sn65dsi86: Remove redundant dev_=
-err_probe()
->     =E2=9C=93 Signed: DKIM/vivo.com
->     + Reviewed-by: Douglas Anderson <dianders@chromium.org> (=E2=9C=93
-> DKIM/chromium.org)
->   ---
->   NOTE: install patatt for end-to-end signature verification
-> ---
-> Total patches: 1 (cherrypicked: <20260723131649.134127-11-panchuang@vivo.=
-com>)
-> ---
->  Link: https://lore.kernel.org/r/20260723131649.134127-11-panchuang@vivo.=
-com
+> However, earlier in this patch you said:
 >
+>> The seq_file core guarantees that `seq` points to a live `seq_file` and
+>> that `seq->private` is a valid pointer to a `T` with no outstanding
+>> mutable references.
+> So based on this, you are saying that open()/release() do not need to do
+> anything special for the value to stay alive.
 >
-> Ah, if I don't do the "-P_" then it finds your tags, but I don't know
-> of a way to pick up just one patch other than that... Even "b4 am -t
-> -P_" doesn't find your tags... I guess that's by design?
+> These seem contradictory. Could you clarify the situation?
 
-So, looks like '-P <num>' is the answer. :)
+You're right. The `SeqShow` trait documentation was inaccurate -- the
+framework does not manage the lifetime of `data`, so `inc_ref`/`dec_ref`
+in `DrmSeqShow` is necessary to prevent `show()` from accessing a freed
+device.
 
-Luca
+Will fix the doc in the next revision.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Best regards,
+Alvin
+
+>
+> Alice
