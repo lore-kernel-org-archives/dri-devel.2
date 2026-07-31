@@ -4,84 +4,146 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 294E4C55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:50:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC040C5516D
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:53:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5070910F16C;
-	Fri, 31 Jul 2026 06:50:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0309610E1EA;
+	Fri, 31 Jul 2026 06:53:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QORjj3b4";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="YpukVqQY";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CA6F10F16C
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:50:00 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-47f706438c3so35923f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 23:50:00 -0700 (PDT)
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
+ [209.85.208.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEAA010E1EA
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:53:49 +0000 (UTC)
+Received: by mail-ed1-f53.google.com with SMTP id
+ 4fb4d7f45d1cf-69ff40d9cbcso1053429a12.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 23:53:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785480599; x=1786085399; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=894kL84WjsJ4NuY8JNzhxDjW08BYyE5HOdttjtE66tc=;
- b=QORjj3b4uuajpqu86mSVGrT2TmHUb6ZbbmXjdwyJDtaAo0ofa0ceGirqDwXBuUYib/
- RBJDyGA78eSWyUm7NQjsD+dBaa5iyTswTVKGxpxGx7IYZr/8vdMdfCQHkFYu8ajZ5VpQ
- blRQy231YlJgb4am2HCq/jug8lR0TYFR6n1OQ1vvLZ7B2JrVwe1y5JAe1vGVEJEMfLTN
- jAGw1OECu3UwvXUHDHI0LGZYeDa5KIe0qDe+vrbB92oIjxgUvNKudN3zr9Jl4MUa8QVp
- Fer56uW5XCoQET2q8hRF8t1B7TWAm39TTQQeOJQ8s7UjdSna5OuswbSv6Fu3MKXks0xb
- NB4A==
+ d=suse.com; s=google; t=1785480828; x=1786085628; darn=lists.freedesktop.org; 
+ h=content-type:in-reply-to:autocrypt:from:content-language:references
+ :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=n4H77HhyFq+APQR29K1dkMr3hRDR1FB0yWjCqMMi42Q=;
+ b=YpukVqQYZNxip0l7aSTUFqKoXPj1BH9iceFvoDgrcn09W2dRoSw3Hnl4uW8ZqCueYf
+ Ln2dB8bsO8R1sbME1gvoYFBoIXmDK51bqiT0pzk3o4DSH58kDxS+8hKe/tcfOZuL6tCl
+ s8nqpYJqzCjMJmjOjZS4ZP3mLcd8+twOwRjBOknnYbRnPUkoCyMQtqVzUo3NBIybwLy7
+ 9zWka5AFB8uuBUfukj+ZtYiopmfwYrckqvPlHzu1XPcFihtPJV6MFuPECUCPm91xi3uu
+ a/Ojlu/EITNIvNFhJq0p58i5EJHySU1pBfD6QLAe8bQoRq2eHS72QRfOcZm+e8k7DGmK
+ vqAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785480599; x=1786085399;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=894kL84WjsJ4NuY8JNzhxDjW08BYyE5HOdttjtE66tc=;
- b=ZtNUamy/2kNCgbYRcOCxLYGoQlOkaLZOumGt5iYa6okd+IAqkWlQGF535XzbG8owJn
- ppfHHZqyMjYO8VkZD/t/pKCar2hZHyuqVO5l4UJbhAFpSd4KirLm8nYdnryoGepPSBXB
- dBcbflD9zbT/QKCwc4XiL2GqsPllX1SVku8unQlhtnYDSDlyMdHtWmVdn20FCkLsO74Y
- 2cl3lEXo+IkirRDyjOApj1sqEs93ne2BPicI2muDZdI8beZWlIWh5sJjd23cglrIIF86
- TosM8FvYKI+bcDjp2A7zUmxlcMhEzcwilVpdBsW3KWz9Q7o1yTJCiyyhhZhjhs7mcaAg
- OHBg==
+ d=1e100.net; s=20251104; t=1785480828; x=1786085628;
+ h=content-type:in-reply-to:autocrypt:from:content-language:references
+ :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=n4H77HhyFq+APQR29K1dkMr3hRDR1FB0yWjCqMMi42Q=;
+ b=o/I5UumhmOdxoDprx6U+g4MFwpLzhBveoyM1zHHgBnNiipva3xp69Bqj5PSdvfT/LS
+ cA953ISwLsAgbwL0hqriFDrPzJWvQfddZF61rp8Yq3U+n4ALzJCr0WW60JDEePvLUJA9
+ ZetDOnzBoQ2K2AGuIvCoChzCvblFUV6ubQK6Ro+mL39fW+rXMzJ+I8jlerudIVedQUdD
+ u8q0F1dxTfRuzs07yzl0ofSX9S/JPJnrSEF+ZSmHiIYVLD9SH4/q4KQQwfeEgkbr6yHi
+ 69BRS03edfeijhTgsIJRMABNu6NYsd7P4Af5aQGi2IEwnWJitVb7Fkl/OgJjgakteglR
+ pp5g==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq9cAXU0yP6yx7B31hZEL8DbpnggSGako/CZRkPhXkDgjvhgIcMLGuWU324rWXZobR3ks8xwBOK8DM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLZXjDtnMSESC9xwm1h3sj82PkDdp1LcxfOc3wokXAC4iwY60Z
- 0HkFh0UcErsljFh517mzZgYHYkzFGvEIi4bs2zUqFOJHwvHKuRTjIn7H
-X-Gm-Gg: AR+sD11Z0/m0w7ag6s6jQm0rOt68+d/6SSLRrtE9MJMWAvKMaRFhoakVs6Qf36hvnPd
- RxUWzAhGTvADxQbTmwWgAQDK7B2qsYzCTbzamK3dOy6Sh9NYq9jHkMlTxEl/b3lCUAFNQ2FkrOE
- ccogPuvQRQquWEvODRayp0meLsxX+ypttqr+yV0ItPfNcE5DrzPCKt90dhf7HOYO87gxPsNKXL6
- 3pNnLGm9aOyHQGSImr94ytOOLgwvFdY7NN1QdNSfBqA1KpSssQbGLkU7sqAiVrvRfMlo/mY1qMe
- cCTWvcobUNa9TjJgs5NytgoCRsT3EtWtLWceIGsb0f+hSHep040Un5O44u+fbnceweeN3DiDs9R
- uyzhTWV/T6DKRO1nYHuzgCyMkuG3M43VtmJVlFbqJX/1iMYq5AzbPeqvXXVwdyZSUw6n8yQbcHW
- GN/dRNSxR670Bxea2FWWbBkZYdnmSpDtQJrCWwi0O6VUo4wcZw1It/mgwU7yfCv8zeqcZIAGsnM
- BRZyRwPpHNqqKhdhwV4vRpfWqkCgdW/5/TVCmouDPR7OQbAgrKhpc7+2K66IfBAc9Fm2A2e4YBr
- JhFW
-X-Received: by 2002:a05:6000:41f8:b0:47f:946b:d3fc with SMTP id
- ffacd0b85a97d-47fd2b35e88mr2250807f8f.2.1785480598679; 
- Thu, 30 Jul 2026 23:49:58 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B8B8B0053881A2C61CA978D.dsl.pool.telekom.hu.
- [2001:4c4e:1b8b:8b00:5388:1a2c:61ca:978d])
+ AHgh+RpenDTT4c69lQTpZFo4ZglbDt9gVULy8Dd/kYyjpZyZPTHZONthIJdx/tRS5VOcBTSt+7+32MOzkcg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyR6SJ65wZhiKvCGKU4E8MHI9bxrEDW6634nglpQO6PX2PWqS5l
+ OwO7gX+Gltq+9FfOmjOKoZllAhELdi7z9K/jeHH0piAbHylng5ulqkKvlJ+jAK29yW8=
+X-Gm-Gg: AR+sD12QcYwSVhkl6lxcAuA0X2OPTUFKa/xQQEyzoveGM1tzVJ0S1i39Hp0/VOgVKuD
+ Y9iBJ/51CdX2g6cXvv99uIYgSYUD7hvHXHKXv+Pi1IYmSlcdWTz3a/dTWM00M9LANxAMrcRKhOv
+ oLfKB5f4qoRHHF4xJWMey4k/UxXrN55jGvJsK0H4ghkQKlx0m02GPpdzutJs36lgq6pcxuxh5Qg
+ q0m/2cvvQrr97jQiUYBZyLVJ0AsgJ/oHeyyl4Lthov4S5RVFvlX70TxEEZbsSEZPTwWfeFRoxia
+ kikIecbsatN4A9hO63/BiA6lA8nT7O2CW52mudOZ5KDrEaUQzTQLnVOmW7kjigjVupwOP4caP+p
+ qUsSjP7S8d1h7GXxoiAf0DYKzEQBwI067HyrD9r4nEfm5NMhkY4HORQI+joel4A8c/89roD8fx/
+ Askn3WgbSeJ76sDIhE7nGdFAO+OkrWlIwGAG3JCIycUr4Dwocx0bZXKD+gtI02aU2vaoDZlPA37
+ ylUkkKoS2aLrfQpGRzae00ve6mJ1ybucaaooNa/d5+wOc0GLjR545a1vj21IN79EB/98fjU2yjj
+ pNbnZsivg5n8/x8=
+X-Received: by 2002:a05:6402:1598:b0:6a0:4777:dd70 with SMTP id
+ 4fb4d7f45d1cf-6a098d1a47dmr407946a12.38.1785480828368; 
+ Thu, 30 Jul 2026 23:53:48 -0700 (PDT)
+Received: from ?IPV6:2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112?
+ (2a00-12d0-af5d-ad01-5d3f-14e6-9bcb-5112.ip.tng.de.
+ [2a00:12d0:af5d:ad01:5d3f:14e6:9bcb:5112])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd41e2abbsm1212753f8f.9.2026.07.30.23.49.57
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 23:49:58 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
-Cc: Oded Gabbay <ogabbay@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org,
- Guangshuo Li <lgs201920130244@gmail.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2 2/2] accel/rocket: keep core slots stable across unbind and
- rebind
-Date: Fri, 31 Jul 2026 08:49:33 +0200
-Message-ID: <20260731064933.12548-3-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260731064933.12548-1-royalnet026@gmail.com>
-References: <20260731064933.12548-1-royalnet026@gmail.com>
+ 4fb4d7f45d1cf-6a09c660f6fsm300735a12.25.2026.07.30.23.53.47
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 30 Jul 2026 23:53:48 -0700 (PDT)
+Message-ID: <41414c5b-e98a-4a55-ac87-ca982b248ca3@suse.com>
+Date: Fri, 31 Jul 2026 08:53:46 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table storage
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <20260727164715.2866609-2-usama.anjum@arm.com>
+ <6xah74eadjmo2bozyr62wcxo4hhpsiufx2mshh7tztyy2dzzps@63m327m7pl5u>
+Content-Language: en-US
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Autocrypt: addr=jgross@suse.com; keydata=
+ xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjrioyspZKOB
+ ycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2kaV2KL9650I1SJve
+ dYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i1TXkH09XSSI8mEQ/ouNcMvIJ
+ NwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/BBLUVbDa4+gmzDC9ezlZkTZG2t14zWPvx
+ XP3FAp2pkW0xqG7/377qptDmrk42GlSKN4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEB
+ AAHNH0p1ZXJnZW4gR3Jvc3MgPGpncm9zc0BzdXNlLmNvbT7CwHkEEwECACMFAlOMcK8CGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRCw3p3WKL8TL8eZB/9G0juS/kDY9LhEXseh
+ mE9U+iA1VsLhgDqVbsOtZ/S14LRFHczNd/Lqkn7souCSoyWsBs3/wO+OjPvxf7m+Ef+sMtr0
+ G5lCWEWa9wa0IXx5HRPW/ScL+e4AVUbL7rurYMfwCzco+7TfjhMEOkC+va5gzi1KrErgNRHH
+ kg3PhlnRY0Udyqx++UYkAsN4TQuEhNN32MvN0Np3WlBJOgKcuXpIElmMM5f1BBzJSKBkW0Jc
+ Wy3h2Wy912vHKpPV/Xv7ZwVJ27v7KcuZcErtptDevAljxJtE7aJG6WiBzm+v9EswyWxwMCIO
+ RoVBYuiocc51872tRGywc03xaQydB+9R7BHPzsBNBFOMcBYBCADLMfoA44MwGOB9YT1V4KCy
+ vAfd7E0BTfaAurbG+Olacciz3yd09QOmejFZC6AnoykydyvTFLAWYcSCdISMr88COmmCbJzn
+ sHAogjexXiif6ANUUlHpjxlHCCcELmZUzomNDnEOTxZFeWMTFF9Rf2k2F0Tl4E5kmsNGgtSa
+ aMO0rNZoOEiD/7UfPP3dfh8JCQ1VtUUsQtT1sxos8Eb/HmriJhnaTZ7Hp3jtgTVkV0ybpgFg
+ w6WMaRkrBh17mV0z2ajjmabB7SJxcouSkR0hcpNl4oM74d2/VqoW4BxxxOD1FcNCObCELfIS
+ auZx+XT6s+CE7Qi/c44ibBMR7hyjdzWbABEBAAHCwF8EGAECAAkFAlOMcBYCGwwACgkQsN6d
+ 1ii/Ey9D+Af/WFr3q+bg/8v5tCknCtn92d5lyYTBNt7xgWzDZX8G6/pngzKyWfedArllp0Pn
+ fgIXtMNV+3t8Li1Tg843EXkP7+2+CQ98MB8XvvPLYAfW8nNDV85TyVgWlldNcgdv7nn1Sq8g
+ HwB2BHdIAkYce3hEoDQXt/mKlgEGsLpzJcnLKimtPXQQy9TxUaLBe9PInPd+Ohix0XOlY+Uk
+ QFEx50Ki3rSDl2Zt2tnkNYKUCvTJq7jvOlaPd6d/W0tZqpyy7KVay+K4aMobDsodB3dvEAs6
+ ScCnh03dDAFgIq5nsB11j3KPKdVoPlfucX2c7kGNH+LUMbzqV6beIENfNexkOfxHfw==
+In-Reply-To: <6xah74eadjmo2bozyr62wcxo4hhpsiufx2mshh7tztyy2dzzps@63m327m7pl5u>
+Content-Type: multipart/signed; micalg=pgp-sha256;
+ protocol="application/pgp-signature";
+ boundary="------------BRsY7KwrAyVfl7uL5YKoDvH1"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,224 +159,158 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The shared rocket_device tracks bound cores with a single counter and
-uses it for three different jobs at once: find_core_for_dev() searches
-[0, num_cores), rocket_probe() inserts the new core at index num_cores,
-and rocket_remove() only decrements the counter without clearing the
-slot.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------BRsY7KwrAyVfl7uL5YKoDvH1
+Content-Type: multipart/mixed; boundary="------------f4U4I64f0aRScntXRDIXzWi4";
+ protected-headers="v1"
+From: =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Message-ID: <41414c5b-e98a-4a55-ac87-ca982b248ca3@suse.com>
+Subject: Re: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table storage
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <20260727164715.2866609-2-usama.anjum@arm.com>
+ <6xah74eadjmo2bozyr62wcxo4hhpsiufx2mshh7tztyy2dzzps@63m327m7pl5u>
+In-Reply-To: <6xah74eadjmo2bozyr62wcxo4hhpsiufx2mshh7tztyy2dzzps@63m327m7pl5u>
 
-This bookkeeping falls apart as soon as cores are unbound in any order
-other than strict reverse bind order:
+--------------f4U4I64f0aRScntXRDIXzWi4
+Content-Type: multipart/mixed; boundary="------------w4qlMsrvnQhbrwqQH7WX0LG8"
 
- - unbinding core 0 shrinks the search range, so the still-bound core
-   at the highest index can no longer be found: its runtime PM
-   callbacks start failing with -ENODEV and a later unbind of it is
-   silently ignored, skipping rocket_core_fini() entirely;
+--------------w4qlMsrvnQhbrwqQH7WX0LG8
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
 
- - a subsequent bind then reuses the index of that still-live core and
-   overwrites its slot while its IRQ handler (dev_id points into
-   cores[]) and its DRM scheduler are still active;
+T24gMzEuMDcuMjYgMDc6NDksIEFuc2h1bWFuIEtoYW5kdWFsIHdyb3RlOg0KPiBPbiBNb24s
+IEp1bCAyNywgMjAyNiBhdCAwNTo0Njo1MlBNICswMTAwLCBNdWhhbW1hZCBVc2FtYSBBbmp1
+bSB3cm90ZToNCj4+IHB0ZV90IGlzIHVzZWQgYm90aCBmb3IgbG9naWNhbCBQVEUgdmFsdWVz
+IGFuZCBmb3IgZW50cmllcyBzdG9yZWQgaW4gYSBQVEUNCj4+IHRhYmxlLCBzbyBwdGVfdCAq
+IGRvZXMgbm90IGRpc3Rpbmd1aXNoIGEgcG9pbnRlciB0byBhIGNvcGllZCB2YWx1ZSBmcm9t
+IGENCj4+IHBvaW50ZXIgdG8gdGFibGUgc3RvcmFnZS4NCj4gDQo+IFNob3VsZCB3ZSByYXRo
+ZXIgY2FsbCB0aGVtIGFzICJMaW51eCBQVEUiIGFuZCAiSFcgUFRFIiBpbnN0ZWFkID8NCg0K
+V2hhdCBhYm91dCAiU1cgUFRFIj8NCg0KDQpKdWVyZ2VuDQo=
+--------------w4qlMsrvnQhbrwqQH7WX0LG8
+Content-Type: application/pgp-keys; name="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Disposition: attachment; filename="OpenPGP_0xB0DE9DD628BF132F.asc"
+Content-Description: OpenPGP public key
+Content-Transfer-Encoding: quoted-printable
 
- - rocket_open() unconditionally uses cores[0].dev, which after an
-   unbind of core 0 is a stale pointer to an unbound device.
+-----BEGIN PGP PUBLIC KEY BLOCK-----
 
-Give the array a fixed capacity (max_cores, the DT core count already
-used to size the allocation) and make .dev the slot-liveness marker:
-probe takes the first free slot and clears it again if core init
-fails, remove clears .dev after rocket_core_fini() and warns if the
-core cannot be found, lookups iterate the full capacity, and
-rocket_open() and rocket_job_open() use only live slots. num_cores
-keeps counting bound cores for the last-core teardown check.
+xsBNBFOMcBYBCACgGjqjoGvbEouQZw/ToiBg9W98AlM2QHV+iNHsEs7kxWhKMjri
+oyspZKOBycWxw3ie3j9uvg9EOB3aN4xiTv4qbnGiTr3oJhkB1gsb6ToJQZ8uxGq2
+kaV2KL9650I1SJvedYm8Of8Zd621lSmoKOwlNClALZNew72NjJLEzTalU1OdT7/i
+1TXkH09XSSI8mEQ/ouNcMvIJNwQpd369y9bfIhWUiVXEK7MlRgUG6MvIj6Y3Am/B
+BLUVbDa4+gmzDC9ezlZkTZG2t14zWPvxXP3FAp2pkW0xqG7/377qptDmrk42GlSK
+N4z76ELnLxussxc7I2hx18NUcbP8+uty4bMxABEBAAHNHEp1ZXJnZW4gR3Jvc3Mg
+PGpnQHBmdXBmLm5ldD7CwHkEEwECACMFAlOMcBYCGwMHCwkIBwMCAQYVCAIJCgsE
+FgIDAQIeAQIXgAAKCRCw3p3WKL8TL0KdB/93FcIZ3GCNwFU0u3EjNbNjmXBKDY4F
+UGNQH2lvWAUy+dnyThpwdtF/jQ6j9RwE8VP0+NXcYpGJDWlNb9/JmYqLiX2Q3Tye
+vpB0CA3dbBQp0OW0fgCetToGIQrg0MbD1C/sEOv8Mr4NAfbauXjZlvTj30H2jO0u
++6WGM6nHwbh2l5O8ZiHkH32iaSTfN7Eu5RnNVUJbvoPHZ8SlM4KWm8rG+lIkGurq
+qu5gu8q8ZMKdsdGC4bBxdQKDKHEFExLJK/nRPFmAuGlId1E3fe10v5QL+qHI3EIP
+tyfE7i9Hz6rVwi7lWKgh7pe0ZvatAudZ+JNIlBKptb64FaiIOAWDCx1SzR9KdWVy
+Z2VuIEdyb3NzIDxqZ3Jvc3NAc3VzZS5jb20+wsB5BBMBAgAjBQJTjHCvAhsDBwsJ
+CAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/Ey/HmQf/RtI7kv5A2PS4
+RF7HoZhPVPogNVbC4YA6lW7DrWf0teC0RR3MzXfy6pJ+7KLgkqMlrAbN/8Dvjoz7
+8X+5vhH/rDLa9BuZQlhFmvcGtCF8eR0T1v0nC/nuAFVGy+67q2DH8As3KPu0344T
+BDpAvr2uYM4tSqxK4DURx5INz4ZZ0WNFHcqsfvlGJALDeE0LhITTd9jLzdDad1pQ
+SToCnLl6SBJZjDOX9QQcyUigZFtCXFst4dlsvddrxyqT1f17+2cFSdu7+ynLmXBK
+7abQ3rwJY8SbRO2iRulogc5vr/RLMMlscDAiDkaFQWLoqHHOdfO9rURssHNN8WkM
+nQfvUewRz80hSnVlcmdlbiBHcm9zcyA8amdyb3NzQG5vdmVsbC5jb20+wsB5BBMB
+AgAjBQJTjHDXAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgECF4AACgkQsN6d1ii/
+Ey8PUQf/ehmgCI9jB9hlgexLvgOtf7PJnFOXgMLdBQgBlVPO3/D9R8LtF9DBAFPN
+hlrsfIG/SqICoRCqUcJ96Pn3P7UUinFG/I0ECGF4EvTE1jnDkfJZr6jrbjgyoZHi
+w/4BNwSTL9rWASyLgqlA8u1mf+c2yUwcGhgkRAd1gOwungxcwzwqgljf0N51N5Jf
+VRHRtyfwq/ge+YEkDGcTU6Y0sPOuj4Dyfm8fJzdfHNQsWq3PnczLVELStJNdapwP
+OoE+lotufe3AM2vAEYJ9rTz3Cki4JFUsgLkHFqGZarrPGi1eyQcXeluldO3m91NK
+/1xMI3/+8jbO0tsn1tqSEUGIJi7ox80eSnVlcmdlbiBHcm9zcyA8amdyb3NzQHN1
+c2UuZGU+wsB5BBMBAgAjBQJTjHDrAhsDBwsJCAcDAgEGFQgCCQoLBBYCAwECHgEC
+F4AACgkQsN6d1ii/Ey+LhQf9GL45eU5vOowA2u5N3g3OZUEBmDHVVbqMtzwlmNC4
+k9Kx39r5s2vcFl4tXqW7g9/ViXYuiDXb0RfUpZiIUW89siKrkzmQ5dM7wRqzgJpJ
+wK8Bn2MIxAKArekWpiCKvBOB/Cc+3EXE78XdlxLyOi/NrmSGRIov0karw2RzMNOu
+5D+jLRZQd1Sv27AR+IP3I8U4aqnhLpwhK7MEy9oCILlgZ1QZe49kpcumcZKORmzB
+TNh30FVKK1EvmV2xAKDoaEOgQB4iFQLhJCdP1I5aSgM5IVFdn7v5YgEYuJYx37Io
+N1EblHI//x/e2AaIHpzK5h88NEawQsaNRpNSrcfbFmAg987ATQRTjHAWAQgAyzH6
+AOODMBjgfWE9VeCgsrwH3exNAU32gLq2xvjpWnHIs98ndPUDpnoxWQugJ6MpMncr
+0xSwFmHEgnSEjK/PAjppgmyc57BwKII3sV4on+gDVFJR6Y8ZRwgnBC5mVM6JjQ5x
+Dk8WRXljExRfUX9pNhdE5eBOZJrDRoLUmmjDtKzWaDhIg/+1Hzz93X4fCQkNVbVF
+LELU9bMaLPBG/x5q4iYZ2k2ex6d47YE1ZFdMm6YBYMOljGkZKwYde5ldM9mo45mm
+we0icXKLkpEdIXKTZeKDO+Hdv1aqFuAcccTg9RXDQjmwhC3yEmrmcfl0+rPghO0I
+v3OOImwTEe4co3c1mwARAQABwsBfBBgBAgAJBQJTjHAWAhsMAAoJELDendYovxMv
+Q/gH/1ha96vm4P/L+bQpJwrZ/dneZcmEwTbe8YFsw2V/Buv6Z4Mysln3nQK5ZadD
+534CF7TDVft7fC4tU4PONxF5D+/tvgkPfDAfF77zy2AH1vJzQ1fOU8lYFpZXTXIH
+b+559UqvIB8AdgR3SAJGHHt4RKA0F7f5ipYBBrC6cyXJyyoprT10EMvU8VGiwXvT
+yJz3fjoYsdFzpWPlJEBRMedCot60g5dmbdrZ5DWClAr0yau47zpWj3enf1tLWaqc
+suylWsviuGjKGw7KHQd3bxALOknAp4dN3QwBYCKuZ7AddY9yjynVaD5X7nF9nO5B
+jR/i1DG86lem3iBDXzXsZDn8R3/CwO0EGAEIACAWIQSFEmdy6PYElKXQl/ew3p3W
+KL8TLwUCWt3w0AIbAgCBCRCw3p3WKL8TL3YgBBkWCAAdFiEEUy2wekH2OPMeOLge
+gFxhu0/YY74FAlrd8NAACgkQgFxhu0/YY75NiwD/fQf/RXpyv9ZX4n8UJrKDq422
+bcwkujisT6jix2mOOwYBAKiip9+mAD6W5NPXdhk1XraECcIspcf2ff5kCAlG0DIN
+aTUH/RIwNWzXDG58yQoLdD/UPcFgi8GWtNUp0Fhc/GeBxGipXYnvuWxwS+Qs1Qay
+7/Nbal/v4/eZZaWs8wl2VtrHTS96/IF6q2o0qMey0dq2AxnZbQIULiEndgR625EF
+RFg+IbO4ldSkB3trsF2ypYLij4ZObm2casLIP7iB8NKmQ5PndL8Y07TtiQ+Sb/wn
+g4GgV+BJoKdDWLPCAlCMilwbZ88Ijb+HF/aipc9hsqvW/hnXC2GajJSAY3Qs9Mib
+4Hm91jzbAjmp7243pQ4bJMfYHemFFBRaoLC7ayqQjcsttN2ufINlqLFPZPR/i3IX
+kt+z4drzFUyEjLM1vVvIMjkUoJs=3D
+=3DeeAB
+-----END PGP PUBLIC KEY BLOCK-----
 
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
----
-v2:
- - also clear the slot's .dev when rocket_core_init() fails: with .dev
-   as the liveness marker a failed init left a half-initialised core
-   visible to every lookup, and rocket_job_open()'s live-slot walk
-   could write one entry past its num_cores-sized allocation
-   (Jiaxing Hu)
- - check .dev in sched_to_core() so skipping never-initialised slots
-   is explicit rather than implied by pointer inequality (Jiaxing Hu)
- - document the synchronous-probe assumption at the slot scan
-v1: https://lore.kernel.org/dri-devel/20260730080355.177422-3-royalnet026@gmail.com/
+--------------w4qlMsrvnQhbrwqQH7WX0LG8--
 
-Unbinding a core that still has jobs in flight has further
-pre-existing issues (scheduler and open-file lifetime) that are out of
-scope for this bookkeeping fix.
+--------------f4U4I64f0aRScntXRDIXzWi4--
 
-Verified on RK3588 (Orange Pi 5 Plus): out-of-order unbind/rebind
-sequences (including the previously corrupting unbind of core 0 with
-cores 1 and 2 still bound, followed by rebind) keep all three cores
-findable and functional, with MobileNetV1 inference via the Teflon
-TFLite delegate bit-identical to the stock driver. The new failure
-path was exercised by forcing rocket_core_init() to fail for core 2
-with cores 0 and 1 already bound: the slot is released, the device
-comes up with the two remaining cores and inference passes bit-exact.
+--------------BRsY7KwrAyVfl7uL5YKoDvH1
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature.asc"
 
- drivers/accel/rocket/rocket_device.c |  2 ++
- drivers/accel/rocket/rocket_device.h |  3 +++
- drivers/accel/rocket/rocket_drv.c    | 37 ++++++++++++++++++++++++++++++++----
- drivers/accel/rocket/rocket_job.c    | 13 +++++++------
- 4 files changed, 45 insertions(+), 10 deletions(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/rocket_device.c
-index 46e6ee1..8303f05 100644
---- a/drivers/accel/rocket/rocket_device.c
-+++ b/drivers/accel/rocket/rocket_device.c
-@@ -35,6 +35,8 @@ struct rocket_device *rocket_device_init(struct platform_device *pdev,
- 	if (!rdev->cores)
- 		return ERR_PTR(-ENOMEM);
- 
-+	rdev->max_cores = num_cores;
-+
- 	dma_set_max_seg_size(dev, UINT_MAX);
- 
- 	err = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(40));
-diff --git a/drivers/accel/rocket/rocket_device.h b/drivers/accel/rocket/rocket_device.h
-index ce662ab..7fb6a9d 100644
---- a/drivers/accel/rocket/rocket_device.h
-+++ b/drivers/accel/rocket/rocket_device.h
-@@ -18,6 +18,9 @@ struct rocket_device {
- 	struct mutex sched_lock;
- 
- 	struct rocket_core *cores;
-+	/* Slot capacity (DT core count); slots with a NULL .dev are free. */
-+	unsigned int max_cores;
-+	/* Number of currently bound cores. */
- 	unsigned int num_cores;
- };
- 
-diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
-index d29c5ee..7d71a01 100644
---- a/drivers/accel/rocket/rocket_drv.c
-+++ b/drivers/accel/rocket/rocket_drv.c
-@@ -69,11 +69,21 @@ rocket_iommu_domain_put(struct rocket_iommu_domain *domain)
- 	kref_put(&domain->kref, rocket_iommu_domain_destroy);
- }
- 
-+static struct rocket_core *rocket_first_live_core(struct rocket_device *rdev)
-+{
-+	for (unsigned int core = 0; core < rdev->max_cores; core++)
-+		if (rdev->cores[core].dev)
-+			return &rdev->cores[core];
-+
-+	return NULL;
-+}
-+
- static int
- rocket_open(struct drm_device *dev, struct drm_file *file)
- {
- 	struct rocket_device *rdev = to_rocket_device(dev);
- 	struct rocket_file_priv *rocket_priv;
-+	struct rocket_core *core;
- 	u64 start, end;
- 	int ret;
- 
-@@ -86,8 +96,14 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
- 		goto err_put_mod;
- 	}
- 
-+	core = rocket_first_live_core(rdev);
-+	if (!core) {
-+		ret = -ENODEV;
-+		goto err_free;
-+	}
-+
- 	rocket_priv->rdev = rdev;
--	rocket_priv->domain = rocket_iommu_domain_create(rdev->cores[0].dev);
-+	rocket_priv->domain = rocket_iommu_domain_create(core->dev);
- 	if (IS_ERR(rocket_priv->domain)) {
- 		ret = PTR_ERR(rocket_priv->domain);
- 		goto err_free;
-@@ -179,10 +195,21 @@ static int rocket_probe(struct platform_device *pdev)
- 		devres_close_group(&drm_dev->dev, rdev_group);
- 	}
- 
--	unsigned int core = rdev->num_cores;
-+	unsigned int core;
- 
- 	dev_set_drvdata(&pdev->dev, rdev);
- 
-+	/*
-+	 * Take the first free slot: cores can unbind and rebind in any
-+	 * order. The scan-then-claim relies on platform probes running
-+	 * sequentially; revisit if the driver ever enables async probe.
-+	 */
-+	for (core = 0; core < rdev->max_cores; core++)
-+		if (!rdev->cores[core].dev)
-+			break;
-+	if (WARN_ON(core == rdev->max_cores))
-+		return -ENXIO;
-+
- 	rdev->cores[core].rdev = rdev;
- 	rdev->cores[core].dev = &pdev->dev;
- 	rdev->cores[core].index = core;
-@@ -191,6 +218,7 @@ static int rocket_probe(struct platform_device *pdev)
- 
- 	ret = rocket_core_init(&rdev->cores[core]);
- 	if (ret) {
-+		rdev->cores[core].dev = NULL;
- 		rdev->num_cores--;
- 
- 		if (rdev->num_cores == 0) {
-@@ -210,10 +238,11 @@ static void rocket_remove(struct platform_device *pdev)
- 	struct device *dev = &pdev->dev;
- 	int core = find_core_for_dev(dev);
- 
--	if (core < 0)
-+	if (WARN_ON(core < 0))
- 		return;
- 
- 	rocket_core_fini(&rdev->cores[core]);
-+	rdev->cores[core].dev = NULL;
- 	rdev->num_cores--;
- 
- 	if (rdev->num_cores == 0) {
-@@ -234,7 +263,7 @@ static int find_core_for_dev(struct device *dev)
- {
- 	struct rocket_device *rdev = dev_get_drvdata(dev);
- 
--	for (unsigned int core = 0; core < rdev->num_cores; core++) {
-+	for (unsigned int core = 0; core < rdev->max_cores; core++) {
- 		if (dev == rdev->cores[core].dev)
- 			return core;
- 	}
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index ac51bff..0d8e69e 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -276,8 +276,8 @@ static struct rocket_core *sched_to_core(struct rocket_device *rdev,
- {
- 	unsigned int core;
- 
--	for (core = 0; core < rdev->num_cores; core++) {
--		if (&rdev->cores[core].sched == sched)
-+	for (core = 0; core < rdev->max_cores; core++) {
-+		if (rdev->cores[core].dev && &rdev->cores[core].sched == sched)
- 			return &rdev->cores[core];
- 	}
- 
-@@ -498,16 +498,17 @@ int rocket_job_open(struct rocket_file_priv *rocket_priv)
- 	struct rocket_device *rdev = rocket_priv->rdev;
- 	struct drm_gpu_scheduler **scheds = kmalloc_objs(*scheds,
- 							 rdev->num_cores);
--	unsigned int core;
-+	unsigned int core, n = 0;
- 	int ret;
- 
--	for (core = 0; core < rdev->num_cores; core++)
--		scheds[core] = &rdev->cores[core].sched;
-+	for (core = 0; core < rdev->max_cores; core++)
-+		if (rdev->cores[core].dev)
-+			scheds[n++] = &rdev->cores[core].sched;
- 
- 	ret = drm_sched_entity_init(&rocket_priv->sched_entity,
- 				    DRM_SCHED_PRIORITY_NORMAL,
- 				    scheds,
--				    rdev->num_cores, NULL);
-+				    n, NULL);
- 	if (WARN_ON(ret))
- 		return ret;
- 
+wsB5BAABCAAjFiEEhRJncuj2BJSl0Jf3sN6d1ii/Ey8FAmpsRnoFAwAAAAAACgkQsN6d1ii/Ey/0
++Af+LOETmiWDtYgZgC25DuWMp+4L5NyNITZaMb2C+ABgCkNfzqMcNtWSNk+JJzaB6hI7CZVtXOyx
+C1BoB0Fu/IHEX1h7Yg4K1ioAh2SLzQsdlMwc3ccJAAvp9Eo6epm1vOmVDINqjoi4xu61L0M12heD
+FLKsZAcd5yhOcg5mGmdZSniMILaMfmcRbzE3nQ1LJcS9mWFe4fFFZJ4OTaOduPMhwV6YQJgVN1Vx
+/xWzbtBOPQ9qzjkjyownpcHtHYqI9vaMrG1B2XnHR2zJObPXbM5NT3luR6vqCrMZEq7LIlex4FDe
+SDzOyTnt3oU2QGZCcz+k+jU+wOUa3QFM7tihNiQN4w==
+=4r2J
+-----END PGP SIGNATURE-----
+
+--------------BRsY7KwrAyVfl7uL5YKoDvH1--
