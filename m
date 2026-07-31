@@ -4,134 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED15EC54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:57:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B28DC54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:58:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45E4810F187;
-	Fri, 31 Jul 2026 06:57:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5FB410F188;
+	Fri, 31 Jul 2026 06:58:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ks8/RlLZ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MmN8KOwn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="az1P0/F8";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BBC010F187
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:57:39 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66V668HG2636759
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:57:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- yeoMnG3I9e/DLxw1trT1m1DMzEITRAh6vsr1I63XEME=; b=Ks8/RlLZStJh8O9T
- tSegNnRWHOzwPt/+CXHVQsf8PTbIJ99+WEqirjvxRAytKTf+hUEjrzAnG8jrVbzO
- ynnEu3jEijDFiqOFmDM+BdtVCYujicwyCoSC6clITur2RzgIW+lR4cSakGUYpBtN
- uFHbv37Q1OJtwkDusN5LvGNKzpuooEkW+a7ULGDPITKlsQ8PD6VYMw6BXIqihlIn
- pTiBQn0p2WWzkPN4OpCO1zaJVi4EJcPYBipI1z5+sCglrA4pvf8ldERqsAX62jrD
- 036LrJ3whTyrhEuofOWOhwctfCVGJ1UfkE+Tc3LICsmMlDcxxB6mwAwxcdIk5Yxz
- fWanPw==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frp4y05vw-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:57:39 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-cab048cdb3eso861918a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 23:57:39 -0700 (PDT)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8887A10F188
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:58:02 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-4706f016316so41189f8f.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 23:58:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785481058; x=1786085858;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=yeoMnG3I9e/DLxw1trT1m1DMzEITRAh6vsr1I63XEME=;
- b=MmN8KOwnraHYNuVvgHPCAztooJykdBbKAb7mAN2zY3+ozPGjiuTnC8cBBuxznlGlGY
- A0AxD67vKYlNkNQXf5DCIC9LaqEUh/JxkLGgJUgZKWDrlMlmDfHTa8uhdwA+0bVvN9lL
- Sfc6+oKmjKnDj6U97Gh5N6Knd7KNA4LvKiLUL3lF1solXyomWsy+vdOn86HLn3EyBDql
- U11qQTw+OgaYvvlrAaI6mYmz7w1YXqpi2FvWtI3Eij8JiZVO5w1QJ0CtWegAJ7IVgJP1
- d/iBeJBsr9cBBujimN5kTVAX6/Za5twaUuuuiDrzSPIFNZwofKBHQMbY+tEa0TRxClt8
- wpeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785481058; x=1786085858;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1785481081; x=1786085881; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=yeoMnG3I9e/DLxw1trT1m1DMzEITRAh6vsr1I63XEME=;
- b=basynOlNFcQNXbrrA64P4nNRCt3SPdeArpZml9dCXPLIqEoZF5REVuXeeypvs2VK7z
- sFyeW++CnLLmS0zj6R24NJtL33azKwDlppJVS1LH70BXgllSt/wyPGYZkaqiE4GGEE0Y
- hs4doC+zqVlr6H1jHa2tLpC95BX3UKz5kuUO7DFG+YIpGelshGC+R2gLDh0jCRS6AZBD
- s4Ylt00VqyrwQiwunOtoek3jeLWD0K1KYjiwqz8AxyMPzzYKdynqK9UjZdU1LldIxpqV
- /PDA3d6NTClN4ruMvqJVSaL5jbsUTiDhGznM6ZajarAjqdpzDIeDJG4P0qTJhPXQfAN3
- y6HQ==
+ bh=YeBqNG7bCPXWkEk3F3j6eSFPbLdWmf4Wl+oL4uzu69g=;
+ b=az1P0/F8RxCj3rL19hZCpDjMtZEQH6mziNENne1oBfsEESEPMhZOYOx8Fx5cabzNGS
+ EnU4BbpFb8cUEpspLk/uayBNErO5Qn3ss4J5WcQS94mGNIgOQ7qP4mZzvsSRa+eEnif0
+ NBMIM+nBug9Tm6tBPr8n5QkzDZ5Xr4XdubHbFDuZq0PyPtA1aK0/8BAilfXJdX7MFN5p
+ VZ2h//8XRkV8YFrpGiwFj1DYamxkkj8G9PHwZPiHOoUg+fq2GncLXUrk8RinB8QOrgJY
+ lY6gty9W5BPDTCEBMG1MZKiDHT7OPdziuEs9Alzpsfm8xp+ePv+wddFuXsFWPCFRUfDC
+ V1zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785481081; x=1786085881;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YeBqNG7bCPXWkEk3F3j6eSFPbLdWmf4Wl+oL4uzu69g=;
+ b=pI1S0lvOntD13MjkGBRlXmTP4VeGiChZ8OcHWCz//5T4dr1P5PzksX4Z4LO6XdStO2
+ 1KQdxhOzK0zMLIwLHJ3p2Jfoy8ZLSrxQ2PQd8m47mwWOh6gTejxujQVzDzgn4/cXcMY6
+ q/qlF9jaIG/Vm069YuKs6GzlayPld+b/+CkXfY/TvSPfVIbdKEbScehEL+dJPC3SqKX8
+ GLJybRWd/u8VbgTtjTUZJlhdScWF3ydXhdpxdys08M/F6KnYln0NuUAq4AhzXO6EBP91
+ dM17SIumOstig0sJ0Nhxsf2OKL/dsfLD91aKf1ECt+BWGnxxyLLa6y6UUWb+hGTZUENh
+ Yzzw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpompch6TIkeF90K5aWYn1WLTfDIee6GdTQ25YlfOOuBMhxCoR/eXLVAWtK9jZsQXlIfugLgsGl+xM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxgH2Nl7DBEi3jH82N1RoSS4ZOzz9UPIuB4VmKpoBQiwZNh9V/g
- ClPSZeLMkqYK0mWzIweYWb4patvMOh/u0Vf2RZduWnEsm3sIuqrf5KMyJ03CayhoBnPkanlvIdp
- 4CnDzGzvyYzhoxS7ggt6njM5Wfv1pvbGqawT45xzQswlmjx77Cq4z0AruLFrJypVdQo05GZU=
-X-Gm-Gg: AR+sD139GJO6UlkCS+RXksvqoFGI6nGe79h7ftycwpSvEY++YQVQ3/95ulgzbb+6SY5
- +X43iiKpjYx5X3T0de2Vok2f9uCQ0sj2Hl7feBn2IkN+eUi2fg5fpPRto2t4gxGiK0lVC3NGElR
- FOKsQrIho+8ZwyeK4dp1HlplkIBR3Sh/fq9T7ll8ijwBo0+H3BrmVpYECQBRDWVqYgvDMlst51w
- lG3hB5jh+8GVBNpJntqaNfimB2ZD1fswEiik0zswNuejMVtYqjaolA8ncqJDPZI4OYU4rO4+gnD
- FfFF1QDNegpB6KV3oI40x83WAOqDEnOH4IMQ7SN270PYIgREPmGk34PXTKpqqPxeO1xFHrJch1l
- hqjzGQNBjqyRkTI7P8gte/uTrj59qSA==
-X-Received: by 2002:a05:6a00:b8b:b0:848:57f3:8f8f with SMTP id
- d2e1a72fcca58-84ed71df47cmr706020b3a.51.1785481058359; 
- Thu, 30 Jul 2026 23:57:38 -0700 (PDT)
-X-Received: by 2002:a05:6a00:b8b:b0:848:57f3:8f8f with SMTP id
- d2e1a72fcca58-84ed71df47cmr706014b3a.51.1785481057758; 
- Thu, 30 Jul 2026 23:57:37 -0700 (PDT)
-Received: from [10.204.78.242] ([202.46.23.25])
+ AHgh+RrRbZ5FshEC7BgliKw5YTLHKVEJDow8Donw8cYriarD0/TY7wLow2g35kBi4cCZ2RoNZT4CrSdxIjM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyFDGq855RFnPy40qjy2tHdJ3Y7yztpq0xPmm/aTTp2EtleANH5
+ F5y4xRS+Cic+6MDSS+0YOgRkfKYgrq2H/8E5ZJWu8PS4rgBBaNv2iPyX
+X-Gm-Gg: AR+sD133KC6pc5a+0/Cp77DT7DTg+4Em3r+7KhZCGzqRKMbRzOlqs7BYe89tBQZgAMU
+ rqevtn35dlqH56kqFHKJM4z8lM4N+3tCDQe+H11Oteezb9pJeQNBca78WsbCmAPnbRLjyyPpNyP
+ hQkgHNenLfDK/t5YxQCm2o76FnRHZIeWnF4NobNpl4IWtPKQtrmb7Qt6LhyB4dSF1P8fxIf9T/3
+ ydfp+aYyKwcqTu3BdqMYIMl7vYSappQIX9xW/poWXswkTqMiU4+aLVAo6ts6IOOZ8DELfcqAvQ/
+ XKglPox8cyv0zkq3FXitIqs9/2iDGLRS22MdAV2GhvQkI94K+Nsln00X6I8M8wkRSuQEy4v8Wei
+ biSKeZgSjgCKQLLkJONV3r+0qtA/E6TmOyIWpjXbXH/fPx1n/h0O/76h+qTT9nbL0fVB9sHMwdd
+ R2WS6JpoZR0ZWtiTJ/1UWF3dL1Zl5l+F+IF8PD8Gg46WWZ469nFb6nmkAPGCz5WeeDRWrAT/Mi1
+ 9ANrtLID6piPWmkAEwkGk0Q+jgGxzQ8k6HdsKaPoVNmoEp0bt2BPmnMSMYoplQLqfveMw==
+X-Received: by 2002:a05:6000:2686:b0:47f:80e0:53bf with SMTP id
+ ffacd0b85a97d-47fd2b6cfcfmr2383206f8f.3.1785481080876; 
+ Thu, 30 Jul 2026 23:58:00 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B8B8B0053881A2C61CA978D.dsl.pool.telekom.hu.
+ [2001:4c4e:1b8b:8b00:5388:1a2c:61ca:978d])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84edbd35a76sm43031b3a.6.2026.07.30.23.57.34
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jul 2026 23:57:37 -0700 (PDT)
-Message-ID: <7150bcc5-c378-4b18-85df-cf9ae705f7e7@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 12:27:33 +0530
+ ffacd0b85a97d-47fd41d1756sm1416029f8f.4.2026.07.30.23.57.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 23:58:00 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, Igor Paunovic <royalnet026@gmail.com>
+Subject: Re: [PATCH 2/2] accel/rocket: keep core slots stable across unbind
+ and rebind
+Date: Fri, 31 Jul 2026 08:57:44 +0200
+Message-ID: <20260731065744.12961-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260730113256.1418091-1-gahing@gahingwoo.com>
+References: <20260730113256.1418091-1-gahing@gahingwoo.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misc: fastrpc: initialize invoke refcount before publish
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260624185427.1451-1-alhouseenyousef@gmail.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260624185427.1451-1-alhouseenyousef@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=K44S2SWI c=1 sm=1 tr=0 ts=6a6c4763 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=WQc7OmQVWAu9uTwc-zgA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-ORIG-GUID: GQLGbvTashtanlPiQFXtJ1562KWJgpWt
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA0NyBTYWx0ZWRfX5cw6LKyJMlTl
- gRY0r7l/hDxatJv1qJDiYzsjBLCueZ4uIVuYNZHV0jovX8kj0yLk2p/mCVg/U/Ya54VyPN2fEVW
- UUMg8SIRDeRkMVdfoDwHP1Fi2hkF0+Y=
-X-Proofpoint-GUID: GQLGbvTashtanlPiQFXtJ1562KWJgpWt
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA0NyBTYWx0ZWRfX8kTa3bRkoDxD
- sjz5aWEMTKeXwFKxOG9Z3ElumYLbwjNaq1Jbo0Ju+qdUNV2fC4Kkk35l1/Q6w3k86g2rzkJuCDX
- fW3Dy9Ma8Iaq3VD75rK5RrKL8rpuJPUrDz1xUEqend6O3YbdYtx9AZjj+C7nNtReAHkgaH7qltT
- ZSCU++Pk6RriBPMA+PFgxpZHZF5helRo5EDgTKuBejlk/R9DyN1IaDoGoE8nDVNnCLH02NXMnbR
- XMveVZICz6oIN0pCYgFXb3+RMlxLGABmOVL9DFbN4HJY1ZFTtS7WeUMKHI2RvNJ4sY0j948GL3w
- OGbxjjWSAPfKyK9ErEy7wydEQzh9D/pNfE+oUSvkOj4siBE4cgU1/e3OGCxf98tW1uqi5P57OyB
- 1F/A5c7+gbaHI3oCn7BwDLWFzQQRTTcBl2kfoQH4UOAyMlbxpgce6Yq/yTbB6+AHr75Q6JeoSc7
- a/obiHvGbghfSXuioOA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_02,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310047
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -147,42 +94,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 25-06-2026 00:24, Yousef Alhouseen wrote:
-> fastrpc_context_alloc() adds a new invoke context to the pending list
-> and the channel IDR before initializing its refcount.
-> 
-> A racing DSP response can find that context by ID and drop a reference
-> before kref_init() has run. Initialize the refcount before publishing the
-> context.
-> 
-Please add Fixes: tag to this.
+Hi Jiaxing,
 
-https://www.kernel.org/doc/html/latest/process/submitting-patches.html#using-reported-by-tested-by-reviewed-by-suggested-by-and-fixes
+Thanks - that is exactly the kind of hole a reviewer is for. You were
+right on all three counts: the failure path left the slot marked live,
+and the live-slot walk in rocket_job_open() could then write one entry
+past its allocation.
 
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-> ---
->  drivers/misc/fastrpc.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 6ced210ca..42fc128e1 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -703,6 +703,7 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
->  	ctx->cctx = cctx;
->  	init_completion(&ctx->work);
->  	INIT_WORK(&ctx->put_work, fastrpc_context_put_wq);
-> +	kref_init(&ctx->refcount);
->  
->  	spin_lock(&user->lock);
->  	list_add_tail(&ctx->node, &user->pending);
-> @@ -718,8 +719,6 @@ static struct fastrpc_invoke_ctx *fastrpc_context_alloc(
->  	ctx->ctxid = ret << 4;
->  	spin_unlock_irqrestore(&cctx->lock, flags);
->  
-> -	kref_init(&ctx->refcount);
-> -
->  	return ctx;
->  err_idr:
->  	spin_lock(&user->lock);
+v2 is out with all three addressed:
+https://lore.kernel.org/dri-devel/20260731064933.12548-1-royalnet026@gmail.com/
 
+I also exercised the path you described on RK3588 - a forced error
+return in rocket_core_init() for core 2 with cores 0 and 1 bound: the
+slot is released, the device comes up with the two remaining cores,
+and inference passes bit-exact with only the two live cores'
+interrupts firing.
+
+Thanks again for the careful review,
+Igor
