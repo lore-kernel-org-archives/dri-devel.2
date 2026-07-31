@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88746C5516F
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:25:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8E12C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:30:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E014510F345;
-	Fri, 31 Jul 2026 16:25:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3298D10F346;
+	Fri, 31 Jul 2026 16:30:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S8WZ2Mdl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TeFkwCrK";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E90410F345
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:25:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C821B10F346
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:30:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 86B03411B0;
- Fri, 31 Jul 2026 16:25:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C231F00AC4;
- Fri, 31 Jul 2026 16:25:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 621D043A0E;
+ Fri, 31 Jul 2026 16:30:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9FA81F00ACA;
+ Fri, 31 Jul 2026 16:30:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785515124;
- bh=qRhySz1J3Xbd5u37NW2FVEjEd3J3Cx5EVCKmCyPeBzw=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=S8WZ2MdlDsoxXCCMArFYBJqUKgtIg7/qT4vBPRWRv8o8610ApBOJP+o7i6aUGXBs9
- apI8fgymoGof+lF59FtAyzdQY8hMaq+OUq/YwxgiS206mMpLiDQdSNBaxbVp/8anVn
- 6yAIWnA+ZkLhBs1DbyqpxBKj7W2VgWSrU0ASz1WJPqvn2HWj3pVo+4Bb7FeKtRFux1
- sCP3cTg+Hzs6jo2zN/Cc1Byr2eK+2O4i0DbYs0UFJW0VbJYFHD3DimxWyLkKD6DE9b
- 326qkCs6CBWdRj/bqCN2qahqS+7ysswDkKAuBhmQDsi3+cz3ILsC1of70ydU8BVK1Z
- Ct1Ryv54Q5W7Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/tegra: fbdev: Remove offset into framebuffer memory
-Date: Fri, 31 Jul 2026 12:25:21 -0400
-Message-ID: <20260731162521.789037-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072952-subtext-celtic-af7b@gregkh>
-References: <2026072952-subtext-celtic-af7b@gregkh>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1785515408;
+ bh=wc3Lv+IkzPJ5w9srUtZfHSRdaMtbBfmRfgTfV0kDU6k=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TeFkwCrKcZk31zFULrqjUQ4hAURsxzrmqpeIRo6e7Oo5VSrEi7jFGS+na7TAzTD/u
+ 0I/toMyvlJhcjWYQIrUr9E0Mn2bh9xS5moGDEAE5qY81suzlfdkshkhZfBOAEw/Fdz
+ oimdaWYoOzlFyguSmJGabLEGogYC7jLHRgP7D4fsJhx9AC3CtoZJyrldoGi9JuR/tB
+ cmNt5Vo+seSA4g5/l5Ga+bm6f/lAKA9Uw3LaVGmdYSHjToRABKFbq9OmCA6pm66BVb
+ aG5V/zRvY9UZrzVzUun4PFIH3Fsxyu8XoNk5wseBGpNGlJcTW6weFY5iTTA2WmGbJk
+ 2+IEUt1P4TlhA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 08/21] drm/bridge: synopsys: dw-dp: Free output_fmts
+ when none are valid
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-8-ac1e6a75782f@collabora.com>
+References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+ <20260731-synopsys-dw-dp-improvements-v8-8-ac1e6a75782f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 16:30:07 +0000
+Message-Id: <20260731163007.E9FA81F00ACA@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,63 +55,94 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
+Pre-existing issues:
+- [High] Unbalanced phy_power_off() and regulator_disable() if phy_power_on=
+() fails in dw_dp_link_enable().
+- [High] NULL pointer dereference in dw_dp_hpd_work() and dw_dp_link_retrai=
+n() due to missing bridge.dev check.
+--
 
-The screen_buffer field in struct fb_info contains the kernel address
-of the first byte of framebuffer memory. Do not add the display offset.
-This offset only describes scrolling during scanout.
+--- Patch [8]: [PATCH v8 08/21] drm/bridge: synopsys: dw-dp: Free output_fm=
+ts when none are valid ---
+commit 749c8cb81f0227b8f3795cdf2bcba3b9e0038179
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-tegra@vger.kernel.org
-Cc: <stable@vger.kernel.org> # v3.10+
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/tegra/fb.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+drm/bridge: synopsys: dw-dp: Free output_fmts when none are valid
 
-diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
-index a688ecf08451..b054311f6869 100644
---- a/drivers/gpu/drm/tegra/fb.c
-+++ b/drivers/gpu/drm/tegra/fb.c
-@@ -222,7 +222,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 	struct drm_mode_fb_cmd2 cmd = { 0 };
- 	unsigned int bytes_per_pixel;
- 	struct drm_framebuffer *fb;
--	unsigned long offset;
- 	struct fb_info *info;
- 	struct tegra_bo *bo;
- 	size_t size;
-@@ -268,9 +267,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 
- 	drm_fb_helper_fill_info(info, helper, sizes);
- 
--	offset = info->var.xoffset * bytes_per_pixel +
--		 info->var.yoffset * fb->pitches[0];
--
- 	if (bo->pages) {
- 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
- 				 pgprot_writecombine(PAGE_KERNEL));
-@@ -282,9 +278,9 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 	}
- 
- 	drm->mode_config.fb_base = (resource_size_t)bo->iova;
--	info->screen_base = (void __iomem *)bo->vaddr + offset;
-+	info->screen_base = (void __iomem *)bo->vaddr;
- 	info->screen_size = size;
--	info->fix.smem_start = (unsigned long)(bo->iova + offset);
-+	info->fix.smem_start = (unsigned long)(bo->iova);
- 	info->fix.smem_len = size;
- 
- 	return 0;
--- 
-2.53.0
+If dw_dp_bandwidth_ok() returns false for all formats, *num_output_fmts
+might end up becoming 0. This commit frees output_fmts within the function
+in that case to avoid leaking memory.
 
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 760e1e0f8234b..7127928c26506 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1804,6 +1804,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmt=
+s(struct drm_bridge *bridge,
+>  		output_fmts[j++] =3D fmt->bus_format;
+>  	}
+> =20
+> +	if (j =3D=3D 0) {
+> +		kfree(output_fmts);
+> +		output_fmts =3D NULL;
+> +	}
+> +
+>  	*num_output_fmts =3D j;
+> =20
+>  	return output_fmts;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could there be an unbalanced
+phy_power_off() if phy_power_on() fails during dw_dp_link_enable()?
+
+In dw_dp_link_enable(), if phy_power_on() fails:
+
+    ret =3D phy_power_on(dp->phy);
+    if (ret)
+        return ret;
+
+It returns without incrementing the PHY's power_count. However, if the DRM
+core continues tracking the bridge as enabled, it will eventually call
+dw_dp_link_disable() when the bridge is disabled.
+
+dw_dp_link_disable() does:
+
+    phy_power_off(dp->phy);
+
+Because the power_count was not incremented earlier, does this cause
+phy_power_off() to decrement it to -1 and unconditionally call
+regulator_disable(), potentially dropping power for other shared devices?
+
+[Severity: High]
+This is also a pre-existing issue, but can dw_dp_hpd_work() or
+dw_dp_link_retrain() trigger a NULL pointer dereference if the bridge is
+detached?
+
+If the DRM encoder is unbound, drm_bridge_detach() explicitly sets
+bridge->dev =3D NULL. If a physical hotplug event occurs before the bridge
+device itself is unbound, the IRQ can fire and schedule dw_dp_hpd_work().
+
+In dw_dp_hpd_work():
+
+    drm_helper_hpd_irq_event(dp->bridge.dev);
+
+And in dw_dp_link_retrain():
+
+    struct drm_device *dev =3D dp->bridge.dev;
+    ...
+    ret =3D drm_modeset_lock(&dev->mode_config.connection_mutex, &ctx);
+
+Since neither function checks if dp->bridge.dev is NULL, could a hotplug
+event after encoder unbind cause a kernel panic here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
+w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D8
