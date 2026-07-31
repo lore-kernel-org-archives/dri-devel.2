@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B73EC55173
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ACB8C55180
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 99D1610F309;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 361CF10F303;
 	Fri, 31 Jul 2026 16:19:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CrkXIV4p";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oPHcO2kn";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 76AF510F2FC
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAF7510F2F9
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514764;
- bh=QfP7xZFECc7vFiekq/+2Q7b3eH9Ms2hU2uC26kblPso=;
+ s=mail; t=1785514770;
+ bh=t0n10iHhf/9/WODO+84lsoOn3fsfS146FQnPcalTtBc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=CrkXIV4pSbcS2j13yhmqRBSGHJg+x2dBkRF3JBOoE5pT/GVqog8GEe2lCoWfdoup0
- 71WFGnTTc/xb+Ht/5XfQBWs+2I2Ngpid9U+nbh8HFky+OeP6/e6y/eHt+6D9rl+mga
- Itjcjl9fTk+WmE8+ok3H3ut44M2ZqFQD2KRuFP5HPe3fpojoNrqNs2Le4ReLQXDXG1
- S3eS6Vzl8HfM81mumZWNCX2doC3mLmV+vgJGJLtvFPsdarjmZnPcpvyRHQxNe/gBB6
- mkmmmv3nFHUUMb36/0NufYnQg6lcNaNiw7sTOwrjX3DgUywFpwxHmXP5AoDzvvhk5G
- zBMBBfoL3iaEg==
+ b=oPHcO2knZfcrbYyL+Fyjs2Qx87cgYxiiKE6eaoviBJst4Fst+LYvUH9kJeDHkZAif
+ ntmEcCBKzOmQTFT7qRuERxlxK284mM6Nwb0ajFbO5vpskSBRFbu4p+TD03DoGJNKp2
+ XkqRKXOg2inVB3I4wq9MRCPDGrAfxQsbt97QdDAshF3LM3rS2Z19KqywLdXheF0uBd
+ 0WFL2hG1/NywKSKOL6IIvr4YxOoaohamBh3JqI9tLu7UWHducnnnvylVuJKQqj33lB
+ qokdKyX7mYZS2PWkOIPKq72INkfG3TqH7wPEtlZ1u9Fs6Fk7HTq/EQ05GoH+YiTtdn
+ Gthb2vgTnznQw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2A70117E092F;
- Fri, 31 Jul 2026 18:19:24 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9A03517E0946;
+ Fri, 31 Jul 2026 18:19:30 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:20 +0300
-Subject: [PATCH v10 13/69] drm/bridge: Fix unlocked list access in
- drm_bridge_attach()
+Date: Fri, 31 Jul 2026 19:19:29 +0300
+Subject: [PATCH v10 22/69] drm/display: hdmi-state-helper: Sync SCDC state
+ on hotplug
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-13-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-22-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,7 +62,9 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ Maud Spierings <maud_spierings@hotmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,41 +81,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_bridge_attach() inspects bridge->list to warn about bridges being
-attached without a previous drm_bridge_add() call, but it does so
-without holding bridge_lock.
+drm_atomic_helper_connector_hdmi_hotplug() does not currently
+synchronize SCDC status on hotplug events, leaving the scrambler state
+potentially inconsistent after (re)connect.
 
-The list head can be concurrently written by drm_bridge_add(),
-drm_bridge_remove() and __drm_bridge_free() while they operate on
-neighbouring entries of bridge_list or bridge_lingering_list, all of
-them under bridge_lock.  Hence the unlocked read is a data race, even
-though it is unlikely to change the outcome of list_empty() in practice.
+Hook drm_connector_hdmi_sync_scdc() into both the connect and disconnect
+paths, replacing the existing TODOs around missing scrambler handling.
 
-Perform the check with bridge_lock held.
-
-Fixes: 76f1a9711b83 ("drm/bridge: add warning for bridges attached without being added")
+Tested-by: Maud Spierings <maud_spierings@hotmail.com>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/drm_bridge.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 23 ++++++++++++++---------
+ 1 file changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 8b8f71c3ccff..9a658decad2a 100644
---- a/drivers/gpu/drm/drm_bridge.c
-+++ b/drivers/gpu/drm/drm_bridge.c
-@@ -600,8 +600,10 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
- 	if (!bridge->container)
- 		DRM_WARN("DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()\n");
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index 4a93c279c9a7..3377ea936120 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -1205,13 +1205,16 @@ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+ 					enum drm_connector_status status)
+ {
+ 	const struct drm_edid *drm_edid;
++	int ret = 0;
  
--	if (list_empty(&bridge->list))
--		DRM_WARN("Missing drm_bridge_add() before attach\n");
-+	scoped_guard(mutex, &bridge_lock) {
-+		if (list_empty(&bridge->list))
-+			DRM_WARN("Missing drm_bridge_add() before attach\n");
-+	}
+ 	if (status == connector_status_disconnected) {
+-		// TODO: also handle scramber, HDMI sink disconnected.
+-		drm_connector_hdmi_audio_plugged_notify(connector, false);
+-		drm_edid_connector_update(connector, NULL);
+-		drm_connector_cec_phys_addr_invalidate(connector);
+-		return 0;
++		ret = drm_connector_hdmi_sync_scdc(connector, false, ctx);
++		if (ret != -EDEADLK) {
++			drm_connector_hdmi_audio_plugged_notify(connector, false);
++			drm_edid_connector_update(connector, NULL);
++			drm_connector_cec_phys_addr_invalidate(connector);
++		}
++		return ret;
+ 	}
  
- 	drm_bridge_get(bridge);
+ 	if (connector->hdmi.funcs->read_edid)
+@@ -1224,12 +1227,14 @@ drm_atomic_helper_connector_hdmi_update(struct drm_connector *connector,
+ 	drm_edid_free(drm_edid);
  
+ 	if (status == connector_status_connected) {
+-		// TODO: also handle scramber, HDMI sink is now connected.
+-		drm_connector_hdmi_audio_plugged_notify(connector, true);
+-		drm_connector_cec_phys_addr_set(connector);
++		ret = drm_connector_hdmi_sync_scdc(connector, true, ctx);
++		if (ret != -EDEADLK) {
++			drm_connector_hdmi_audio_plugged_notify(connector, true);
++			drm_connector_cec_phys_addr_set(connector);
++		}
+ 	}
+ 
+-	return 0;
++	return ret;
+ }
+ 
+ /**
 
 -- 
 2.55.0
