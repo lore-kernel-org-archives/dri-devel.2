@@ -4,69 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B8D6C55175
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 07:58:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 100D4C55178
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 07:58:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 747B810E2D2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5A2D10E2E0;
 	Sat,  1 Aug 2026 07:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=ugreen.com header.i=@ugreen.com header.b="nKIIwh7y";
+	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="dpaW7WGX";
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="dpaW7WGX";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.209.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB1C10E274;
- Sat,  1 Aug 2026 05:40:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ugreen.com;
- s=pkvm2402; t=1785562787;
- bh=GLicTeSTnlgPx72PHJoremnhSlWP1v2AZfc67NAMfQU=;
- h=From:To:Subject:Date:Message-ID:MIME-Version;
- b=nKIIwh7ysLZK1/QLUvpUP99rsgEH6gZhuqlxEggmG867YGUh6oOQzOT96xxiugP96
- EdneONIbSmaR5G2F58d1Ktq0rLhKPfcpDpis4du28ZJpUXxZCTxs9wRHJCebYdDKrL
- A55O4/myk/6ztkGvkhpq8iobU1KJK1fDHuZsjGvA=
-X-QQ-mid: zesmtpsz4t1785562780t8b7bd816
-X-QQ-Originating-IP: rQ9sehHB0EeDgrUdjG+/clMazJDjD8g1MJzjQ8/vi8A=
-Received: from localhost.localdomain ( [113.90.157.158])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Sat, 01 Aug 2026 13:39:38 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 9502698905456026107
-From: Neil Zhong <neil.zhong@ugreen.com>
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, thomas.hellstrom@linux.intel.com,
- rodrigo.vivi@intel.com, airlied@gmail.com, simona@ffwll.ch,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 1/1] drm/xe: keep VM-bound WC BOs resident during
- reclaim
-Date: Sat,  1 Aug 2026 13:39:13 +0800
-Message-ID: <2177DDCA3446E482+20260801053934.26608-1-neil.zhong@ugreen.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <amwL8o5BcWmaC5Xs@gsse-cloud1.jf.intel.com>
-References: <20260728065512.59911-1-neil.zhong@ugreen.com>
- <FEC04D5B1E58A204+20260728065512.59911-2-neil.zhong@ugreen.com>
- <amv8Ll7+CJOcZ222@gsse-cloud1.jf.intel.com>
- <amwL8o5BcWmaC5Xs@gsse-cloud1.jf.intel.com>
+Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7C310E212
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:20:18 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=RXooLrgPteym4eqT+GWS7grT4yqXGxjvsdJATgOtNMM=;
+ b=dpaW7WGXfikih8MbQkrpwT5ctXP4U5mcQIJmVRD8frdBwDBgk2cOjOBOf0TPKW52lv2X9z10o
+ d5SVN1jJcdhBdnIwhlnBTIzMdDFO4NJC4J67cMPNfyUt+50bL3xXzX8NsjsZueCa8dgrW18qj8P
+ GgavTYuXIrKBDNlP9cRa+7w=
+Received: from canpmsgout04.his.huawei.com (unknown [172.19.92.133])
+ by szxga04-in.huawei.com (SkyGuard) with ESMTPS id 4hBKn33Hsnz126M4G
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 17:01:27 +0800 (CST)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=RXooLrgPteym4eqT+GWS7grT4yqXGxjvsdJATgOtNMM=;
+ b=dpaW7WGXfikih8MbQkrpwT5ctXP4U5mcQIJmVRD8frdBwDBgk2cOjOBOf0TPKW52lv2X9z10o
+ d5SVN1jJcdhBdnIwhlnBTIzMdDFO4NJC4J67cMPNfyUt+50bL3xXzX8NsjsZueCa8dgrW18qj8P
+ GgavTYuXIrKBDNlP9cRa+7w=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+ by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hBKbF54hQz1prKd;
+ Fri, 31 Jul 2026 16:52:57 +0800 (CST)
+Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
+ by mail.maildlp.com (Postfix) with ESMTPS id F38112025F;
+ Fri, 31 Jul 2026 17:02:27 +0800 (CST)
+Received: from localhost.localdomain (10.50.85.180) by
+ dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Fri, 31 Jul 2026 17:02:27 +0800
+From: Yao Kai <yaokai34@huawei.com>
+To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>, Gurchetan Singh
+ <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>
+CC: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
+ <liuyongqiang13@huawei.com>, <jifa@huawei.com>
+Subject: [PATCH 1/2] drm/virtio: release object array when device is unplugged
+Date: Fri, 31 Jul 2026 17:22:35 +0800
+Message-ID: <20260731092236.2262403-2-yaokai34@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260731092236.2262403-1-yaokai34@huawei.com>
+References: <20260731092236.2262403-1-yaokai34@huawei.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:ugreen.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NULd4DJcKZL/VkqnKQpx5oKZ1uT1aJiGnaXhom6z+qaWMA8mEiMw7isQ
- KCkZmS3PLNj7pwSMlTjfhAxjU6GNvL0ywUYY4mT0rWaFZNA0Cv+YaCB3KUehVSu8FLbbc6/
- nFVg8tO6ouYy8hx98vXfiTg0qD/CgRXkqVPUBkq3c+W3kSWgY0u+eLWuCpauB/UfqYCk6ZU
- 9pxqiiz2f1YVPwQDTkMTBFJzGAhkh7Me7eV+YJA9/OHPB4F5w+EUdd0D0+93+MqHW+JEaGH
- u1kzAycycpvqGTgbUZLxoNQi6EXKds2aun3ZknGgEJ++L9bGzi9dTE1nLuJNo0ufHSFq/Sn
- rWbISgxNvIdh0gwMmP6u2tdEteOQjpo3TK/CPrt1l626zykB6YvZ6H18dpP5qvncjmxn3zK
- 65gjqHOzqDv2/5HHqTJIeNkEGZ8cXtqTy5RjrwBfjKBXppRTwBiqvPgIKysfwmvGzA4wbe5
- WPM0UfZiSyhEfW63azR4MGzxy6izKOQm14i+wYHr9Ddf03dziaSw8SQhKo6VTrEP6YOFlDb
- lheAe4F9OD8Rr1X0Tym3eKCZimVqWhoyHZ0H0YR6QcaS7ZAnh0DMI6mC+8jHfTQqJPUIuBW
- L1Q7R//zjInLboPm36LGhfsOXHRZUxJWab8XXqZbS4l0e6/QlX5MaJ6USoAlC0H9hj3RAF8
- 8P9dLUOzya+ziZ30srUEk90dPaIRFmzqjoMzaBdBaJK+sFRPxMWGNWPiKnxuVgawlm+h9Tm
- BA9+pvDaekNxpaXHdmdMVZK3Di4fKzsw6SyjiWc80I8aW6DKR9QwZJvW1KW+LganTjPXtB7
- 9O8GHt0C4RFoIeWJkT1oMohhOO8fjf9HVh0rXYUd2JGnj24o+G429cu0ydAaQ2emY+yGs65
- N5vM5A8RSDpyol8aofzflj3A51JdsQPBvNJ4RVY0gcufgIPO18Ni3F+SoEu5td5VNwVW6Rq
- vnmwOjNn2OlBDmUoYzW0oWXvbgYCcEVoPFHDJxfHU4+N333puVc3JbLNhTi0oDsQta0TJ0Z
- LbcSOnpLSMJPi/up8ZJIPv8shG6IT/LSBdpfubMQ==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain
+X-Originating-IP: [10.50.85.180]
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ dggpemr500006.china.huawei.com (7.185.36.185)
 X-Mailman-Approved-At: Sat, 01 Aug 2026 07:57:53 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,221 +75,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 07:44:02PM -0700, Matthew Brost wrote:
-> So I posted another rev priority changes to account WB vs WB/UC:
->
-> [7] https://patchwork.freedesktop.org/series/170454/
-> gitlab branch: https://gitlab.freedesktop.org/mbrost/xe-kernel-driver-svn-perf-6-15-2025/-/commits/priority_fixes.v4
->
-> But after reading this a bit more carefully, I suspect the real issue is
-> that fragmentation is driving shrinker activity. Your changes more or
-> less prevent Xe from shrinking its working set, since nearly every
-> buffer is WC. In my opinion, that behavior is reasonable for
-> fragmentation-driven reclaim, but it is much less appropriate in genuine
-> low-memory situations.
->
-> This is also a known issue for us. We most recently attempted to address
-> it here [8], but the fix was blocked by the shrinker maintainer - the
-> same has happened to other proposed solutions as well. We have several
-> downstream customers carrying non-upstream fixes to work around this
-> problem too...
->
-> [8] https://patchwork.freedesktop.org/series/168651/
->
-> I guess if it isn't too much trouble could you test:
->
-> 1. Priority changes [7]
-> 2. Avoid shrinking working sets on fragmentation [8]
-> 3. Both [7], [8]
->
-> Matt
+Unbinding virtio-gpu while fbdev damage work is active can leave the VMA
+offset manager non-empty when the DRM device is released:
 
-Hi Matt,
+  Console: switching to colour VGA+ 80x25
+  ------------[ cut here ]------------
+  Memory manager not clean during takedown.
+  WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown+0x28/0xc0
+  Call Trace:
+   drm_managed_release+0x95/0x130
+   drm_dev_put+0x54/0x70
+   virtio_dev_remove+0x3c/0x90
+   device_release_driver_internal+0x19a/0x200
+   unbind_store+0x9c/0xb0
 
-Thanks again for the priority series. I have now done a longer test of
-[7], including a system-wide Xe/TTM trace that records the exact BO
-backup and restore traffic.
+The remaining node belongs to the fbdev GEM object:
 
-Test setup
-----------
+  [drm:drm_mm_takedown] *ERROR* node [00100000 + 00000300]:
+   drm_mm_insert_node_in_range+0x2bf/0x530
+   drm_vma_offset_add+0x58/0x60
+   __drm_gem_shmem_create+0x71/0x150
+   virtio_gpu_object_create+0x41/0x3a0
+   virtio_gpu_mode_dumb_create+0xdc/0x190
+   drm_client_buffer_create_dumb+0x75/0xf0
+   drm_fbdev_shmem_driver_fbdev_probe+0x8b/0x230
+   __drm_fb_helper_initial_config_and_unlock+0x359/0x600
+   drm_fbdev_client_hotplug+0x61/0xb0
+   drm_client_register+0x5c/0x90
+   drm_fbdev_client_setup+0xd6/0x1d0
+   drm_client_setup+0x81/0xb0
+   virtio_gpu_probe+0xd6/0x180
 
-The test machine has a Panther Lake iGPU and 8 GiB of system memory. It
-is running Linux 6.18.15 with the applicable parts of the current v6
-priority series backported.
+fbdev damage work can race with drm_dev_unplug(). It may build
+vbuf->objs and take GEM references after the device has been marked
+unplugged. drm_dev_enter() then fails, and the existing failure path
+unlocks fenced reservations and frees the vbuffer without releasing the
+object array. The unreachable array keeps the GEM object, and therefore
+its VMA offset node, alive through device release.
 
-Since 6.18 does not have the newer Xe purgeable madvise state machine, I
-backported patches 1-4 and 7-8. Patches 5-6 depend on the newer
-xe_bo_set_purgeable_state() infrastructure. The active VM-bound WC path
-in this reproducer does not use those purgeable states.
+Release the object array before freeing a control buffer rejected by
+drm_dev_enter().
 
-The workload is continuous 4K60 HDR playback. Decoded video frames are
-passed through a libplacebo/OpenGL rendering path, with every HDR frame
-going through GPU HDR rendering/tone mapping before display. glFlush()
-submits the rendering work for each frame. The working set is mostly
-DMA-BUF-backed video/render surfaces and other VM-bound WC BOs.
+Fixes: b1df3a2b24a9 ("drm/virtio: add drm_driver.release callback.")
+Cc: stable@vger.kernel.org
+Reported-by: Ji Fa <jifa@huawei.com>
+Signed-off-by: Yao Kai <yaokai34@huawei.com>
+---
+ drivers/gpu/drm/virtio/virtgpu_vq.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Results with [7]
-----------------
+diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
+index e5e1af8b8e8a..a470339b6747 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_vq.c
++++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+@@ -383,6 +383,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
+ 	if (!drm_dev_enter(vgdev->ddev, &idx)) {
+ 		if (fence && vbuf->objs)
+ 			virtio_gpu_array_unlock_resv(vbuf->objs);
++		virtio_gpu_array_put_free(vbuf->objs);
+ 		free_vbuf(vgdev, vbuf);
+ 		return -ENODEV;
+ 	}
+-- 
+2.43.0
 
-The priority changes alone did not fix the stalls. They appear to delay
-the first visible failure after playback starts, but once reclaim and
-fragmentation activity builds up, the same failure mechanism and
-hundreds-of-milliseconds Flush stalls return.
-
-In a 599.545-second trace, the player recorded:
-
-  Flush samples:                 16,462
-  Flush > 16.667 ms:               157
-  Flush > 100 ms:                   67
-  Maximum Flush:               494.434 ms
-
-Every one of the 157 Flush calls over the frame interval contained both
-ttm_tt_restore() and set_pages_array_wc(). The maximum Flush contained
-73 BO restores and 65 WC conversions.
-
-For the memory trace I used temporary entry/return probes to record the
-ttm_tt pointer, num_pages, and the actual page count returned by
-ttm_tt_backup(). This allowed a later restore to be matched to the exact
-same ttm_tt rather than only comparing aggregate counters.
-
-The ten-minute working-set traffic was:
-
-  successful ttm_tt_backup:          6,743  (11.247 objects/s)
-  pages actually backed up:      6,717,364  (26,239.703 MiB total)
-  ttm_tt_restore:                    6,693  (11.163 objects/s)
-  restore matched to same ttm_tt:    6,673 / 6,693
-  matched restore volume:       25,993.043 MiB
-
-This is at least 52,232.746 MiB of backup-plus-restore copy traffic in
-ten minutes, or 87.121 MiB/s on average. It is cumulative migration
-traffic, not resident memory growth.
-
-Of 639 unique ttm_tt objects that were backed up, 491 were backed up at
-least twice. One object went through 125 backup cycles during the
-capture. The delay from completion of a backup to restoration of the
-same ttm_tt was:
-
-  median:       47.932 ms
-  p95:         189.083 ms
-  p99:         360.138 ms
-  within 100 ms: 5,190 / 6,673 (77.8%)
-  within 1 s:    6,653 / 6,673 (99.7%)
-
-This looks like working-set thrashing rather than reclaim of cold BOs.
-The caller distribution makes the cycle particularly clear: kswapd0
-performed 6,460 of the 6,743 backups (95.8%), while the restores were
-mostly performed by the player's rendering and decode threads.
-
-The activity was bursty. Backup occurred in only 42 of the 600 trace
-seconds, grouped into 14 reclaim/restore storms, with up to 397 BO
-restores in one second. Backup and restore page volume had a same-second
-correlation of 0.997. Per-second maximum Flush had correlations of 0.904
-with backup pages and 0.917 with restore-request pages.
-
-The trigger also looks fragmentation driven:
-
-  kswapd wake order-10:             577 / 590 (97.8%)
-  wakeup_kswapd order-10:           560 / 576 (97.2%)
-  direct reclaim order-10:          512 / 518 (98.8%)
-  MemAvailable during the trace:    2.89 - 3.15 GiB
-  compact_stall/success/fail:       1,073 / 132 / 941
-
-Thus the system still had about 3 GiB available while nearly all of the
-reclaim wakeups were for order-10 allocations. This is consistent with
-high-order fragmentation repeatedly invoking shrinkers, rather than
-sustained order-0 memory shortage.
-
-There is also normal small-object allocation activity, but it is not the
-main problem. ttm_pool_alloc/free ran at about 41.6/41.5 calls per second,
-but 97.6% of allocations were only one or two pages and are normally
-reused through the TTM pool. In contrast, the same active working set was
-copied back and forth for more than 52 GiB during the test.
-
-For comparison, with my earlier workaround that skipped non-purge
-shrinking of VM-bound WC BOs, set_pages_array_wc() ran at 0.179/s,
-versus 9.859/s in this test. The current trace restored backed-up content
-at about 11,099 pages/s, while the earlier capture recorded
-ttm_backup_copy_page() at 26.74/s. The earlier 21-minute capture also had
-no Flush, XE_EXEC, VM_BIND, or DMA-BUF ioctl over 16.7 ms.
-
-The current trace is system-wide whereas that older function graph was
-player-TID filtered, so these are not fully identical A/B collection
-scopes. However, the difference in WC restore activity and the
-user-visible result is large and consistent.
-
-Interpretation of [7]
----------------------
-
-The priority changes seem to be doing what they are intended to do: they
-change which object is considered first. However, most of the active
-working set in this workload is VM-bound WC. Once the lower-priority and
-WB candidates are absent or insufficient, the shrinker still reaches the
-WC half of the bands and then the higher-priority WC BOs.
-
-Therefore [7] has no clear steady-state benefit for this reproducer. It
-mostly postpones the point at which the active WC working set becomes the
-remaining reclaim target. Once that point is reached, the backup/restore
-and CPA cost is essentially the original problem.
-
-Possible Xe-local alternative to [8]
-------------------------------------
-
-I agree that [8] may help this workload, and the order-10 trace data is
-consistent with the condition that [8] is trying to identify. I have not
-yet completed the [8]-only and [7]+[8] tests.
-
-I also understand the MM feedback that this is a wider compaction versus
-shrinker-working-set problem, not something unique to Xe. Nevertheless,
-for Xe there may be a narrower implementation that does not require a new
-hint to be propagated through MM.
-
-My idea is to make the Xe shrinker distinguish base-page shortage from
-fragmentation before entering its destructive, non-purge backup pass:
-
-  1. Always keep the purgeable-object pass available.
-
-  2. Check order-0 free pages against the relevant node/zone watermarks,
-     using sc->nid and the zones allowed by sc->gfp_mask. This should be a
-     watermark check, not a global MemAvailable threshold.
-
-  3. If the relevant order-0 supply is healthy, for example above the
-     high watermark, treat the shrink request as fragmentation-only for
-     Xe and skip backing up the active VM-bound working set. Reclaiming
-     arbitrary BO-sized objects is unlikely to produce the contiguous
-     order-10 extent and is very likely to destroy the GPU working set.
-
-  4. If the order-0 watermark is below low, treat it as genuine memory
-     pressure and retain the normal Xe shrinker behavior, including WC
-     reclaim if cheaper candidates are insufficient. Between low and high
-     the existing priority policy could remain the conservative fallback.
-
-In pseudocode, the special case would be placed between the purgeable pass
-and the non-purge backup pass in xe_shrinker_scan():
-
-  run_purgeable_pass();
-
-  if (order0_watermarks_healthy(sc))
-          skip_non_purge_working_set_backup;
-
-  run_normal_priority_based_backup_pass();
-
-This differs from my original workaround because it would not make
-VM-bound WC BOs unconditionally unreclaimable. They remain reclaimable
-under real base-page pressure, so the system can still recover memory in
-a genuine low-memory situation. It only avoids the expensive backup and
-immediate restore cycle while base-page watermarks say that the problem is
-fragmentation rather than capacity.
-
-This Xe-local policy would not solve the broader problem for inode, dentry,
-or other shrinker-managed working sets, so I do not see it as a replacement
-for a general MM solution. It may, however, be a small and testable Xe-side
-safeguard while the general compaction/shrinker policy is being worked out.
-
-Would this be a reasonable Xe-specific experiment, or do you think Xe
-should rely exclusively on an MM-provided indication such as [8]?
-
-I have retained the raw trace, the per-second timeline, and the probe
-script and can provide them if useful.
-
-Thanks,
-Neil
