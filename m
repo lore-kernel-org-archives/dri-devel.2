@@ -4,45 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AF51C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:56:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B535C5516F
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:03:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB17D10E216;
-	Fri, 31 Jul 2026 14:56:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB08010E22A;
+	Fri, 31 Jul 2026 15:03:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NKGxkniu";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="KvffgtfZ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D049710E216
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:56:53 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AD59541882;
- Fri, 31 Jul 2026 14:56:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 590471F000E9;
- Fri, 31 Jul 2026 14:56:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785509813;
- bh=RghDj4nEXNSV4HfmJ0mBMqLZLh2Q4I2x6tT4U9zSw5U=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=NKGxkniuxBBQu6w7aNQ5aT0AcclU2tenN2TI7TlmIlLjMQnIf67YRPNEdUZQ6SIex
- e1QsBU2VEUcul03uHT1nKkRGmEwkzmt625wMZy0ORhX9artsnu1iyVTSaHLPelgCTh
- Os1GmWF8CEV7q4VdAIGu8RFY33UeTm9aWU7lBw4rzape+xNvE/JGNS6+fo0T2JDXsQ
- 9MOwYH3B+LqIiQQuRYuotn9K30C/GnUeBrrVYjdV6JbpF4pDqvrZWzCMzLo+B6GPiU
- uCdJIeRVaHdAtTIUHNI24OFceki8WYQG+XFmhqSVJXtjpJayGAX2UbsFy3VL+W8m8E
- 1goh0cSCTYJdQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] dt-bindings: display: solomon,ssd1307fb: add
- SH1107 compatible
-To: "Jakub Turek" <jakub.turek@elsta.tech>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260731-feat-sh1107-v2-2-0d2893e44ebd@elsta.tech>
-References: <20260731-feat-sh1107-v2-0-0d2893e44ebd@elsta.tech>
- <20260731-feat-sh1107-v2-2-0d2893e44ebd@elsta.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 14:56:53 +0000
-Message-Id: <20260731145653.590471F000E9@smtp.kernel.org>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF4C010E22A
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:03:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1785510206;
+ bh=vBzFyziUWjliNDDBkuz8H0vizOlAd/t2Tq+tK2gR2BM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=KvffgtfZ7GSQynVjczrV++EGQQxtV4uoiDJGuk3AQ0LFI6XPb4K/6w+HwqRzfNlNa
+ lJEXFDmZodC6tyToTRWir+A15r0iWmdQEfwie79dYX4ZvExrZlj6D98xIBBVcEoNan
+ n3eAmFhpV8nNx12OnaA1DDw9o0+l/Jw8wFUCusnNQw5xw0SvMukqlWSKXnO54DK666
+ jfZ1dR5Gor1XSAG4Ug8nWL7MkUOVGXhY4PhgqfvKjvRy50sJwOU8u/kZUxZYjfuNmC
+ m6GhCMfscAqMGlVRsBYWbIK+KoRipoIs3zsV3Q+DgccaB5i9RWWCBVKivo98JpT91z
+ VBqWYYewwHWaA==
+Received: from [100.64.0.241] (unknown [100.64.0.241])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: cristicc)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 4C0B317E063E;
+ Fri, 31 Jul 2026 17:03:25 +0200 (CEST)
+Message-ID: <fa854383-a53a-410d-8b0e-554f70b918ac@collabora.com>
+Date: Fri, 31 Jul 2026 18:03:24 +0300
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 03/61] drm/connector: Add drmm_connector_hdmi_init()
+ with new signature
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
+ Liu Ying <victor.liu@nxp.com>, Phong LE <ple@baylibre.com>,
+ kernel@collabora.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
+References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
+ <20260723-dw-hdmi-qp-scramb-v9-3-4fb12ea22ac9@collabora.com>
+ <exkyukl6jnkwwoap62v4n5j4obyhoks5ysbo7iqjdhzhb2ltsu@nyp7csbmzott>
+Content-Language: en-US
+From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+In-Reply-To: <exkyukl6jnkwwoap62v4n5j4obyhoks5ysbo7iqjdhzhb2ltsu@nyp7csbmzott>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,80 +78,36 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Dmitry,
 
-Pre-existing issues:
-- [High] The fbdev driver ignores the device-specific default dimensions do=
-cumented in the device tree bindings, falling back to a hardcoded 96x16 for=
- all devices including the newly documented sinowealth,sh1107.
---
+On 7/30/26 5:19 PM, Dmitry Baryshkov wrote:
+> On Thu, Jul 23, 2026 at 04:34:52AM +0300, Cristian Ciocaltea wrote:
+>> In preparation for providing HDMI 2.x source capabilities, move the
+>> vendor, product, supported_formats and max_bpc parameters out of the
+>> init function into struct drm_connector_hdmi_funcs, and add new
+>> supported_hdmi_ver and supported_tmds_char_rate fields there as well.
+> 
+> I really don't like the idea of putting data into the functions. The
+> data might be mutable, it might depend on the particular platform, etc.
+> while funcs are typically static. Even for the drm_bridge case we have
+> two separate structures: static funcs and changeable drm_bridge
+> instance.
+> 
+> I'd suggest populating that data in the drm_connector before calling
+> drmm_connector_hdmi_init(). The only exception would be vendor / product
+> since they use strtomem_pad() to ensure them being properly initialized.
+> I'd suggest leaving those two as is.
 
---- Patch [2]: [PATCH v2 2/2] dt-bindings: display: solomon,ssd1307fb: add =
-SH1107 compatible ---
-commit 6de7ab88b3219b227a8443711b01ecabe4a747f9
-Author: Jakub Turek <jakub.turek@elsta.tech>
+I don't have a strong preference between the two approaches (functions vs.
+connector). Let's wait for Maxime to confirm that he agrees with your
+suggestion, so that we can hopefully reach consensus before the final round of
+API-related changes.
 
-dt-bindings: display: solomon,ssd1307fb: add SH1107 compatible
+Meanwhile, I plan to submit v10 addressing several findings reported by Sashiko
+and see whether anything else remains outstanding.
 
-This commit updates the device tree documentation to include the
-"sinowealth,sh1107" compatible string. It also configures default values for
-the display dimensions and clock settings when this compatible is used.
-
-> diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1307fb.=
-yaml b/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml
-> index 153ff86fb4059..6b17a701bbaa5 100644
-> --- a/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml
-> +++ b/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml
-[ ... ]
-> @@ -140,6 +141,22 @@ allOf:
->          solomon,dclk-frq:
->            default: 5
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: sinowealth,sh1107
-> +    then:
-> +      properties:
-> +        solomon,width:
-> +          default: 128
-> +        solomon,height:
-> +          default: 64
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the fbdev driver actual=
-ly
-respect these default dimensions?
-
-Looking at ssd1307fb_probe() in drivers/video/fbdev/ssd1307fb.c, the driver
-appears to hardcode the fallback values to 96x16:
-
-drivers/video/fbdev/ssd1307fb.c:ssd1307fb_probe() {
-    ...
-	if (device_property_read_u32(dev, "solomon,width", &par->width))
-		par->width =3D 96;
-
-	if (device_property_read_u32(dev, "solomon,height", &par->height))
-		par->height =3D 16;
-    ...
-}
-
-If a device tree node for sinowealth,sh1107 is created without the
-solomon,width and solomon,height properties, relying on the schema's
-defaults, will the driver initialize the display with the hardcoded 96x16
-resolution instead?
-
-> +        solomon,dclk-div:
-> +          default: 1
-> +        solomon,dclk-frq:
-> +          default: 8
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-feat-sh110=
-7-v2-0-0d2893e44ebd@elsta.tech?part=3D2
+Thanks,
+Cristian
