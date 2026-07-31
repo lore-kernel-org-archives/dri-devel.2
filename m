@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0AE0C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 03:50:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5E38C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 03:50:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 211D510F140;
-	Fri, 31 Jul 2026 03:50:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1BF0A10F141;
+	Fri, 31 Jul 2026 03:50:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lRxCDxKx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tBebLptQ";
 	dkim-atps=neutral
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC5910F13D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 03:50:24 +0000 (UTC)
-Received: by mail-pf1-f171.google.com with SMTP id
- d2e1a72fcca58-8487088510aso637755b3a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:50:24 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FC4310F141
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 03:50:27 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-84861fc51f5so407909b3a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:50:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785469824; x=1786074624; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785469827; x=1786074627; darn=lists.freedesktop.org;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=MPpw50A8aDDXaO5N2qxp/QSPaF2brStqQosmRuHsnMY=;
- b=lRxCDxKxUhnla5IIBVTR+x7ju05QBz27zzEqv1BBvPjN0Rpva2N9pryE4c7TSE42Sn
- r6eH3DL9JZVAVaT1wid/ZDObIlmLCl9QCN08nHws6Q8HVOjdziIqAMu8jvVTJeDT8Q+N
- vyCAo2Nv9g3C2CHjWf0why9Of6Graq/O0SHohTdPBlNL4b+6kLLuH3IehzbehoAOKOxk
- 3u4hVfUaX+IQ69HkweBOxE1O+yQHfU7DQijvzagkploT0Rz2JIDtyoaheF+2Fu8f88XE
- nHwp5YbSeXQul+VKBHIv/9XxPwfGmN7zzxCJp7CrrQMFXOGSERLOLkgvFAUKY8uOqgMR
- rIMA==
+ bh=J245gh4rq4b/rI+J3aFk9DcyIuY7iQE2e75oLHyF5B0=;
+ b=tBebLptQ4K8WQ9OpswzWL+PQhliP4AfFscNY1B8C/Z6b9r2gO68PAoUjNXcNbvn9ZC
+ D60DNYoS7I4KRExGpwt0/oTx7oP59O6mvA3YzxMGv1JnsSH9vGzX9RqMtlhPFFljBmwi
+ JKr6RQqO9WrBH4A6MKMUWegxeyUtPILR+QnMDqqZkzXE7QAR0gCedNsGf3RrF/zgP7hu
+ ydRl8jIwaFUO0x+ZKafv7lAoz1pVOYIFH3tWKUc6rjZYd2GPl/tR6qJWfAFOzrJbNKx0
+ N35RX+QeyxJ9OOOJbWoyIPvsd2o5wvixXgPPMEXR5k04sGKw+dpLLBXJUv5udoJo6wdG
+ PKog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785469824; x=1786074624;
+ d=1e100.net; s=20251104; t=1785469827; x=1786074627;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=MPpw50A8aDDXaO5N2qxp/QSPaF2brStqQosmRuHsnMY=;
- b=e4kh8SJFQ0YU6s1lK0te7kNh6l2fhQfldyBcQ+0J2OtC9ybCcGCg0rM7iGRtPhFP7a
- i6Vkq/zhhCbx7i6eNL6Nmx1NClM9bzGIEIZbr7WoidNX/5ftVzJrf/V02/JIrsuBkt9w
- iILIaKTaq+xl6JQM9Q5T/eOPuV2S7BWIRDKrBz9aGJdP5TBp7YnNy69BbjID34UNsSpg
- kBJkHKf8q2VF91WLcZPBMqJFvUWV0Vu1wWAMC8kEQWkYJIaB6FL26xANUgGwEhH7wiya
- 0sgTvo+GhVySCyw/1NR7pwsLVYsRy2DtOqDmy7z7bwKGPpoL9mo4nPewpiVxaZJtMDhE
- 2shQ==
-X-Gm-Message-State: AOJu0YxGaRUhLvY9lURNYChGhfFK4BWjGJL7lk4zup9XY5+BhAbC+5BN
- FhQvCOGDEchtFyET6EveIg1dLGgoSjEJ5SoDipirSlOd87jyuuCCk3W7
-X-Gm-Gg: AR+sD12Nq4F3TMqFrQ7rxJwK4gAvnrNINOXCArZ78UC8s6/aruz55KNGL8cnW4NmQ4T
- GxYEwAKcpS/mXyv0YOx9mQGqc+2sV+zO6Q1ZyqlX6gz8HZLvq7xHJ2xg1tPk+EU2dinVvwhrjTM
- 3ATr5qkhjs95j5DBEnMfTxIfeikraLhOXMXBNNRXxAuAno/lQgJh/MAsO7guWLwFpSJyipRZfmo
- GrHL+PaK49wQOHSXRkrSbPJDHLxnCZSnGW15fx2tjjRvsNPmYr0tE617QLUV4+u1hiQTMz7zEFV
- g88O/BwLx+tHUcRhoBdRCfotAek96Gyuffr+jRkS62Auuwu10x55wqqC34wfms+c6bhwvx3uhpO
- P0JR5UMUXfOF85i+90B68bZN4efvkQeLJQHIuAL9uN5TaXFvO41fUYUSpUPxoP/YofmD92dj4SC
- uH6zfGFA38ptMe7Lnq9EBAeJcgOFg1RC/H+m25VzWXD6SOb5rIXYTP7U14MXktaicDyPKa9T4Wo
- l0wlph+c6OP2SkOQNddLaV1X/c2hBwtRqMTUWNSbl9sBvjC
-X-Received: by 2002:a05:6a00:a1d:b0:848:2f73:8ffd with SMTP id
- d2e1a72fcca58-84ed7210be2mr299870b3a.70.1785469823804; 
- Thu, 30 Jul 2026 20:50:23 -0700 (PDT)
+ bh=J245gh4rq4b/rI+J3aFk9DcyIuY7iQE2e75oLHyF5B0=;
+ b=o1l2PF3TVmuR4pXo9sIuxUA2rSb9uA3MM1kYq/77mXKFCI5G8ufQMZQaENFcFTVU3q
+ KlJ9NeujGdPzI2bXOhdSwPlIsgLuVZSvrzL9RIGW1dyR+FS4WvUglgGfX4w+nzgO8Akh
+ fYpdhRwBu3o+FbEoTimQYZD0SDANYyYmX9/ymGxBrYN5mYKyzaqr7oF9x7TpjI2v0DmX
+ vsiqLDcUEm/ctDB6pt9DlAXNsMGEWLxF2HM/ih/CdIeTPRkh6f1O9KQzWFp+fRjOQV0n
+ HIIqNNMfH2z87MCwTfM+PVfrWnANiAKBMi61dXo3K16eJ5QQkhyrDj8wJ009hCqKx1Ep
+ K0mg==
+X-Gm-Message-State: AOJu0YzRlEcW3WQ2yEzhAc89oHiGFzFkrpjoEVfo0Frr0CbdVYBKCgBW
+ 4fYtckKyPG/YGakYoq7cc4SnHuZSu5kQyvel4psUxe0qDKiMedqejmCD
+X-Gm-Gg: AR+sD11y024Rfa6ggGwtyOCwbvrxWq7AQlMGoqvWM/Mz1L+3Sq2ngOZQaRr8h9fa4Cx
+ siYVBmg9L5zMqexCOOkWjN07kMWfMHGzuyX7xzgZhCKKvaXeM2+iDWskKUZKoVsApy8Wh3v5z2N
+ JGI4I9UT0XiJpgNKNYSr8RAkEBGKRO2ALo2Ta4xMEQ6GdqCXaB1FQZKvNoCwSrwidpQ3qq664Lu
+ Yz1CRgItW/hxTNSsPyh6mcUtEqXHo5M20VhqUOV5uSA3cVx2/vNRxiycWENW/CjiHATKFNki1Jl
+ Yxj17Wikof5oJDHmkxBj92lTrIRGLBHCfdnhIBTDQlDlyl2Tnhsqs2Yc89yXRM/C07pPvRQyF20
+ H2BO+2+SCwhoEVeaOtQsOGNx6/AhyX4B6BNt5xy0Jclywmr7jUDm22hn1CEN6RiB/am8d0vYJwy
+ BoVNfgu+pCVmdHBNsJLqHmZQ7Dnkd6PXk9oZAcwVS17Ek522/x14io8G/SWgjfGDZY+SeVh5Ji4
+ WmoLnQFTbPiF2GkZLzIPLiFaOZkrh9GdaXPIHCR+WU7D0iSYV2A5fMnB9s=
+X-Received: by 2002:a05:6a00:4518:b0:848:498b:e0d4 with SMTP id
+ d2e1a72fcca58-84ed714d8fdmr326002b3a.38.1785469826687; 
+ Thu, 30 Jul 2026 20:50:26 -0700 (PDT)
 Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84ed57cdc73sm175536b3a.17.2026.07.30.20.50.21
+ d2e1a72fcca58-84ed57cdc73sm175536b3a.17.2026.07.30.20.50.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 20:50:23 -0700 (PDT)
+ Thu, 30 Jul 2026 20:50:26 -0700 (PDT)
 From: LiangCheng Wang <zaq14760@gmail.com>
-Date: Fri, 31 Jul 2026 11:50:13 +0800
-Subject: [PATCH 2/3] drm/tiny: ssd16xx: support panels whose RAM X order is
- reversed
+Date: Fri, 31 Jul 2026 11:50:14 +0800
+Subject: [PATCH 3/3] drm/tiny: ssd16xx: reject rotation changes without a
+ matching mode
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-ssd16xx-pixpaper-rpi5-v1-2-18ffc0dbf59a@gmail.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260731-ssd16xx-pixpaper-rpi5-v1-3-18ffc0dbf59a@gmail.com>
 References: <20260731-ssd16xx-pixpaper-rpi5-v1-0-18ffc0dbf59a@gmail.com>
 In-Reply-To: <20260731-ssd16xx-pixpaper-rpi5-v1-0-18ffc0dbf59a@gmail.com>
 To: Devarsh Thakkar <devarsht@ti.com>, 
@@ -80,11 +80,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
  Wig Cheng <onlywig@gmail.com>, LiangCheng Wang <zaq14760@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785469814; l=4672;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785469814; l=2882;
  i=zaq14760@gmail.com; h=from:subject:message-id;
- bh=P8XfbTrAfbdlfN+bN8FRLlokz2szn+P1uihKxnKnl/Q=;
- b=SybVE/0RIpQdUyXa7NlxTtqa5DJXWiD7B2SDtUXcmYrnDe6BHvKL223ZTYTB1XiBW3oFjr2Ec
- 7UqqpTMltvUBoc53kqAe6ad6jZegW2pWJYTP9iaMv6tfg0tFB3ysb5O
+ bh=zRDUioZAVja4enGd4e+L5mlIFRB22prnDPYk8BYQg+o=;
+ b=GBjaWRSQ3clKFBWceXVg7u+IKiNQ2/+zZC+kPa/VP225wiITbwkC5K+wMXGSuSI90yktG/i48
+ Yup8u4SoZpSAC/do1TTHtkFOslpj3axRQVg4DHjF02gMdi9HUs4wm18
 X-Developer-Key: i=zaq14760@gmail.com; a=ed25519;
  pk=5IaLhzvMqasgGPT47dsa8HEpfb0/Dv2BZC0TzSLj6E0=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -102,106 +102,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some panels have their first column wired to the controller's last source
-output, so the controller scans RAM X in the opposite direction and the
-image comes out horizontally mirrored.  SSD1677 offers no source-direction
-control that I could find - command 0x01 only affects the gate side - so it
-has to be handled while packing the framebuffer.
+Portrait orientations are implemented by packing the framebuffer
+column-major into the same physical RAM layout, so they need the
+transposed mode that ssd16xx_connector_get_modes() reports, and a
+framebuffer to match.
 
-Add an x_mirror flag to struct ssd16xx_device_config and honour it in both
-branches of ssd16xx_convert_fb_to_1bpp(): the scanline order in the
-landscape path, and the inner loop in the portrait one, which is what maps
-to RAM X there.  The DRM_FORMAT_R1 memcpy fast path cannot mirror while
-copying, so it is skipped when the flag is set.  Enable it for the
-pixpaper-426m entry.
+Setting the rotation property to 90 or 270 on its own provides neither:
+the client keeps the mode and framebuffer it had while the driver switches
+to portrait packing, and the result is displayed as garbage.  Nothing
+reports an error, and data_size is identical either way so no size check
+catches it.
 
-Tested on a Mayqueen PIXPAPER 4.26m (SSD1677, 800x480): a pattern with
-four differently sized corner blocks renders correctly at rotation 0, and
-a DT rotation of 90 gives a clean clockwise portrait.  Doing only the
-landscape path leaves the portrait output transposed.
+Reject the combination in the CRTC atomic check, so userspace gets -EINVAL
+and can re-probe and do a full modeset instead.  Rotation set through the
+DT "rotation" property is unaffected, since probe() swaps the mode
+dimensions before the connector is registered.
+
+Tested on a Mayqueen PIXPAPER 4.26m (SSD1677, 800x480): rotation 90 at
+runtime now fails with -EINVAL instead of corrupting the display, 180 still
+applies, and DT rotation = <90> still comes up as 480x800.
 
 Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
 ---
- drivers/gpu/drm/tiny/ssd16xx.c | 22 ++++++++++++++++------
- 1 file changed, 16 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/tiny/ssd16xx.c | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
 
 diff --git a/drivers/gpu/drm/tiny/ssd16xx.c b/drivers/gpu/drm/tiny/ssd16xx.c
-index 02a28c0e07085e35d5210b6e20c214b163ede88f..d311720bbfbe0dd288dbd588be02c79b5eab3eab 100644
+index d311720bbfbe0dd288dbd588be02c79b5eab3eab..1224a3d4ce2cbe70406dfa6e550fc85a2ea62682 100644
 --- a/drivers/gpu/drm/tiny/ssd16xx.c
 +++ b/drivers/gpu/drm/tiny/ssd16xx.c
-@@ -380,6 +380,9 @@ struct ssd16xx_device_config {
- 	const u8 *booster_soft_start_data;
- 	u8        booster_soft_start_len;
- 
-+	/* Controller scans this panel's RAM X in the reverse direction. */
-+	bool x_mirror;
-+
- 	/* Panel-specific display mode (resolution and physical dimensions) */
- 	const struct drm_display_mode *mode;
- };
-@@ -584,6 +587,7 @@ static const struct ssd16xx_device_config ssd16xx_device_configs[] = {
- 		.default_refresh_mode_init = SSD16XX_REFRESH_FULL,
- 		.red_supported     = false,
- 		.default_color_mode = SSD16XX_COLOR_MODE_BW,
-+		.x_mirror          = true,
- 		.booster_soft_start_data = pixpaper426m_booster_soft_start,
- 		.booster_soft_start_len  = ARRAY_SIZE(pixpaper426m_booster_soft_start),
- 		.mode = &pixpaper426m_mode,
-@@ -1199,10 +1203,11 @@ static void ssd16xx_convert_fb_to_3color(u8 *bw_dst, u8 *red_dst,
- static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
- 				       struct drm_framebuffer *fb,
- 				       struct drm_rect *rect,
--				       unsigned int orientation)
-+				       unsigned int orientation,
-+				       bool x_mirror)
+@@ -1730,6 +1730,40 @@ static enum drm_mode_status ssd16xx_crtc_mode_valid(struct drm_crtc *crtc,
+ static int ssd16xx_crtc_atomic_check(struct drm_crtc *crtc,
+ 				     struct drm_atomic_commit *state)
  {
- 	u32 format = fb->format->format;
--	int x, y;
-+	int x, y, i;
- 	u8 byte = 0;
- 	unsigned int bit_pos = 0;
- 	unsigned int dst_idx = 0;
-@@ -1224,7 +1229,8 @@ static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
- 	 * if not, the generic pixel-by-pixel loop below handles non-aligned
- 	 * rects safely.
- 	 */
--	if (format == DRM_FORMAT_R1 && orientation == 0 && rect->x1 % 8 == 0) {
-+	if (format == DRM_FORMAT_R1 && orientation == 0 && rect->x1 % 8 == 0 &&
-+	    !x_mirror) {
- 		unsigned int src_pitch = fb->pitches[0];
- 		unsigned int width_bytes = drm_rect_width(rect) / 8;
++	struct ssd16xx_device *device = crtc_to_ssd16xx_device(crtc);
++	struct drm_crtc_state *new_crtc_state =
++		drm_atomic_get_new_crtc_state(state, crtc);
++	struct drm_connector_state *new_conn_state;
++	unsigned int orientation;
++	bool want_portrait, mode_is_portrait;
++
++	if (!new_crtc_state->enable)
++		return 0;
++
++	new_conn_state = drm_atomic_get_new_connector_state(state,
++							    &device->connector);
++	if (!new_conn_state)
++		return 0;
++
++	/*
++	 * Portrait packing needs the transposed mode that
++	 * ssd16xx_connector_get_modes() reports; without it the client keeps a
++	 * framebuffer that would be packed with the wrong geometry.
++	 */
++	orientation = to_ssd16xx_connector_state(new_conn_state)->orientation;
++	want_portrait = (orientation == 90 || orientation == 270);
++	mode_is_portrait = new_crtc_state->mode.hdisplay <
++			   new_crtc_state->mode.vdisplay;
++
++	if (want_portrait != mode_is_portrait) {
++		drm_dbg(&device->drm,
++			"atomic_check: %u° orientation needs a %s mode, but %ux%u is set\n",
++			orientation, want_portrait ? "portrait" : "landscape",
++			new_crtc_state->mode.hdisplay,
++			new_crtc_state->mode.vdisplay);
++		return -EINVAL;
++	}
++
+ 	return 0;
+ }
  
-@@ -1246,7 +1252,8 @@ static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
- 		 * The data entry mode and cursor position control scan direction.
- 		 */
- 		for (x = rect->x2 - 1; x >= (int)rect->x1; x--) {
--			for (y = rect->y1; y < rect->y2; y++) {
-+			for (i = 0; i < drm_rect_height(rect); i++) {
-+				y = x_mirror ? rect->y2 - 1 - i : rect->y1 + i;
- 				if (ssd16xx_pixel_is_white(src, fb, x, y))
- 					byte |= (1 << (7 - bit_pos));
- 				if (++bit_pos == 8) {
-@@ -1272,7 +1279,8 @@ static void ssd16xx_convert_fb_to_1bpp(u8 *dst, struct iosys_map *src,
- 		 * The data entry mode and cursor position control scan direction.
- 		 */
- 		for (y = rect->y1; y < rect->y2; y++) {
--			for (x = rect->x1; x < rect->x2; x++) {
-+			for (i = 0; i < drm_rect_width(rect); i++) {
-+				x = x_mirror ? rect->x2 - 1 - i : rect->x1 + i;
- 				if (ssd16xx_pixel_is_white(src, fb, x, y))
- 					byte |= (1 << (7 - bit_pos));
- 				if (++bit_pos == 8) {
-@@ -1345,7 +1353,9 @@ static int ssd16xx_fb_dirty(struct drm_framebuffer *fb, struct drm_rect *rect,
- 	if (red_buffer)
- 		ssd16xx_convert_fb_to_3color(mono_buffer, red_buffer, &map, fb, rect);
- 	else
--		ssd16xx_convert_fb_to_1bpp(mono_buffer, &map, fb, rect, device->orientation);
-+		ssd16xx_convert_fb_to_1bpp(mono_buffer, &map, fb, rect,
-+					   device->orientation,
-+					   device->device_cfg->x_mirror);
- 
- 	drm_dbg(&device->drm,
- 		"fb_dirty: mono[0..3]=0x%02x 0x%02x 0x%02x 0x%02x (data_size=%u)\n",
 
 -- 
 2.34.1
