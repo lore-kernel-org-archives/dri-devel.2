@@ -4,80 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E4EC5516D
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 13:28:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1EE7C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 13:28:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E73A210F254;
-	Fri, 31 Jul 2026 13:28:01 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fgm9xkTh";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FFA310F254
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 13:28:01 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EA67944006
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 13:28:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E701F01566
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 13:28:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785504480;
- bh=BdWRFs4osWaaJzMBzKIKTHPcsMgJqciu7jcoPmTxYec=;
- h=From:In-Reply-To:References:Date:Subject:To:Cc;
- b=fgm9xkThoqF1bQfPKO65FXat8RPLvTXA1XKtS4lux6x04EWgf5FH13BC8cyLHazPr
- dxzEQEnZ2Df/Tppmr2j3vLpLLS9qa9ha2qu+qXjQ6azhAt7sq6IF2eqHqW93C5RyoK
- TzXsDCJ6Ybn/MAaTz0O9nq2rCBocCM3nN5zK6lrw6dP/aHfYjN95ceIZnBoqnWhx1k
- WW3n99WPKLtRFqFe7BJZA5sk06HwbHzVF9HYWaljlWJJy+T9hsK7wQj88oCou57s59
- 0KAgsXS/e9JqHF1A8NTB/9+4ixHnqSaTU7hPdlftVqNQKKsGa186j1PFolfZL1F7g4
- cxNxbc1EdJa0g==
-Received: by mail-lj1-f170.google.com with SMTP id
- 38308e7fff4ca-39eb257e9fbso7135281fa.0
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:28:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp6wdgzcLlC3yZc3cWQieNQ4K44MTdxyDYEn59aX9BD2wciT86ARgJL6on4dvAE7Jb4ixtmL3kJ00o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwyZupSNdYDf2N6Ksw6do8rfZroSH9IbDZhxXyObdBSCozBmD9E
- BSVns14RLXA4qs6oFrOw27N7ig3MbvRpXDj5DBltCdzfyd2nLhtLOF4DGThirVLi0MIoB3NmmeE
- 7KG5VxLqIjrRxrOvrQYXgwh+VlM99AsaF7v+z6rcIIQ==
-X-Received: by 2002:a05:6512:3d9f:b0:5b2:a1f2:466e with SMTP id
- 2adb3069b0e04-5b2e1fc8295mr456344e87.10.1785504479286; Fri, 31 Jul 2026
- 06:27:59 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 31 Jul 2026 06:27:58 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 31 Jul 2026 06:27:58 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAMRc=McA3BqoazxvGDu1_WoT9x0ujXT_80jKPp+5Jb0Rda9zOA@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 214C210E21B;
+	Fri, 31 Jul 2026 13:28:18 +0000 (UTC)
+Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com
+ [216.40.44.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BB3010E21B
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 13:28:16 +0000 (UTC)
+Received: from omf12.hostedemail.com (lb01a-stub [10.200.18.249])
+ by unirelay05.hostedemail.com (Postfix) with ESMTP id EF5564042A;
+ Fri, 31 Jul 2026 13:28:09 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf12.hostedemail.com (Postfix) with ESMTPA id E384117; 
+ Fri, 31 Jul 2026 13:27:45 +0000 (UTC)
+Date: Fri, 31 Jul 2026 09:28:25 -0400
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Anshuman Khandual <anshuman.khandual@arm.com>, =?UTF-8?B?SsO8cmdlbiBH?=
+ =?UTF-8?B?cm/Dnw==?= <jgross@suse.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, "James E.J. Bottomley"
+ <James.Bottomley@hansenpartnership.com>, Helge Deller <deller@gmx.de>,
+ Stefano Stabellini <sstabellini@kernel.org>, Muchun Song
+ <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, Andrew Morton
+ <akpm@linux-foundation.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>, "Aneesh
+ Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Andrey Ryabinin
+ <ryabinin.a.a@gmail.com>, David Hildenbrand <david@kernel.org>, Pasha
+ Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>, Kairui
+ Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>, Masami
+ Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko
+ <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>, Kumar Kartikeya
+ Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>, Arnaldo
+ Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, SJ
+ Park <sj@kernel.org>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
+ Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky
+ <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou
+ <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter
+ <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>, Johannes Weiner
+ <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ agordeev@linux.ibm.com, ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table storage
+Message-ID: <20260731092825.36992dc9@gandalf.local.home>
+In-Reply-To: <9ac33752-b587-4901-b5f2-473e573d7ede@arm.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <20260727164715.2866609-2-usama.anjum@arm.com>
+ <6xah74eadjmo2bozyr62wcxo4hhpsiufx2mshh7tztyy2dzzps@63m327m7pl5u>
+ <9ac33752-b587-4901-b5f2-473e573d7ede@arm.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-References: <20260731-pwrseq-vote-rename-v2-1-480357946e00@oss.qualcomm.com>
- <CAFEp6-3X+PCXZdEy1p47XUDs7cT16JDjt0=928Jjkeik_haaQw@mail.gmail.com>
- <CAMRc=McA3BqoazxvGDu1_WoT9x0ujXT_80jKPp+5Jb0Rda9zOA@mail.gmail.com>
-Date: Fri, 31 Jul 2026 06:27:58 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdA6dTDvp=kQ+k2Jf=kyZBK7VTJCX=0Qvq2MOvQVOQDsQ@mail.gmail.com>
-X-Gm-Features: AUfX_my4-vcUkFt6J5bi893LfoyHoVCDYEQ_iJ8oHk7wCMSuijA_BdfQPo-2B_Q
-Message-ID: <CAMRc=MdA6dTDvp=kQ+k2Jf=kyZBK7VTJCX=0Qvq2MOvQVOQDsQ@mail.gmail.com>
-Subject: Re: [PATCH v2] power: sequencing: rename pwrseq_power_on/off() to
- pwrseq_enable/disable()
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Jeff Johnson <jjohnson@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Bjorn Helgaas <bhelgaas@google.com>, Chen-Yu Tsai <wens@kernel.org>,
- linux-pm@vger.kernel.org, 
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
- linux-pci@vger.kernel.org, Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Stat-Signature: bk4wphtnyr8oskxq6ok6poi7ogrp6zg4
+X-Rspamd-Server: rspamout04
+X-Rspamd-Queue-Id: E384117
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX188VTzKisaRifdK5JzAhtUj+tNTYkibFXo=
+X-HE-Tag: 1785504465-704596
+X-HE-Meta: U2FsdGVkX1+okbaURBZ2Qkn+l9IgiK40Gqe8ZThpseNdxUoxO6+yJtshZ3puroffdGsnNQX9lyVqqMfMDNqtsaiMVrZRSqd7CxcOf+tlTFcxBWBx10qhJ57MkLj8ndzBOYoA/OODEfAwWEkK0Ynym/vN8RHly0+jRGqqJSDy6cHg7VOGub/UmsJX6TfoBSOwr0+39CvO+c3eZRPTPuO9wuZjY0AitKZFKa26poYwhlLhVPb0FYC1FMbtcEIPwcv0BUAY4FqESIdzLvKNozpw1fVotcfhrX1NJojLWeahTii05xgjJv7utljWLfUJzJrqYVN7s4pCcDgRjK7TriyixEP+/JmhkJIq3qIe3n8mNyiV8HHld6EP1z7IlvkGJKR3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,17 +91,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 31 Jul 2026 15:04:30 +0200, Bartosz Golaszewski <brgl@kernel.org> said:
->>
->> Nit: s/pwrseq_disble/pwrseq_disable ?
->>
->
-> Ah dang it, how did I miss it, I test-built it. :/
->
-> Thanks for catching it.
->
+On Fri, 31 Jul 2026 11:19:32 +0100
+Muhammad Usama Anjum <usama.anjum@arm.com> wrote:
 
-Ah right, makes sense, it builds fine, it's just my sed script was wrong and
-renamed it like this everywhere.
+> On 31/07/2026 6:49 am, Anshuman Khandual wrote:
+> > On Mon, Jul 27, 2026 at 05:46:52PM +0100, Muhammad Usama Anjum wrote:  
+> >> pte_t is used both for logical PTE values and for entries stored in a PTE
+> >> table, so pte_t * does not distinguish a pointer to a copied value from a
+> >> pointer to table storage.  
+> > 
+> > Should we rather call them as "Linux PTE" and "HW PTE" instead ?
+> > 
+> > Some like "Logical PTE" does not really sound very clear on what it represents.  
+> Yeah, I should make distinction more visible in the cover letter.
 
-Bart
+Just as an outside observer, so take this with a grain of salt and feel
+free to totally ignore it, the term "Logical" and "Physical" to me would be
+that the Logical one is created by software and is not mapped to hardware,
+whereas the "Physical" one would be backed by hardware.
+
+Just using the terminology from LVM where there are Logical volumes and
+Physical volumes.
+
+But if that doesn't represent what you are trying to accomplish here, then
+it is indeed not the appropriate terminology.
+
+Again, feel free to ignore this comment, but I just wanted to give an
+outside perspective of the terminology that I see.
+
+Cheers,
+
+-- Steve
