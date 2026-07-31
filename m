@@ -4,113 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C76CC55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:04:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FFE7C55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:04:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A06810F151;
-	Fri, 31 Jul 2026 06:04:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7C67410F156;
+	Fri, 31 Jul 2026 06:04:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="XKV5N2l8";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="tMpAz463";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012023.outbound.protection.outlook.com [52.101.53.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9073210F151
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:04:51 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012052.outbound.protection.outlook.com
+ [40.107.200.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED18310F156
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:04:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LVq2y44a/ZPjARZ99WElG/z0mP9KW/wXRCfIpdR7qsOc175LT0/E3TZiADGQ3v9yNA1lQi42Ey1AMWk9fMKUGu/bG5MxfIjswsFm6L+d8gIG4f7JBVmYGb+hMZ6881amV96rn3hXp82s9RRQg35mHOyJ4oZXEBKItNIi+wsNzd4xo+6Z8LPZi+7/Usjx9mtTo3BBTuFm6vddcrxqxmRkKJzEvdhoKrNmtY4GoWAbxqvpx5TXs/eBZ1dGy+0jjRf408fgMUYMeNl2Jb3haiMsM0Ao65e0I3k9mLZYID1mu/4RMnkyD4Tj23eRr/W+fM4p8zt8HfdqijL+5vs1DRvB8A==
+ b=AJFQHyhWhQxaVmD3V5jFA6KnEDvzcJJ4Xwt4tPdyTMMy0gg6q4dYSZj0PIvQBvleyTc8KhVVPdCX2nxo5Fiy0MKGl1EN1nNvtDUyz5D2Wo1ghQTKKYjcCVLHONmRKrC5KJhATyBADimMXY3EsVP6N1BGUdQNS5xwv7ky99Nafh2smqDSeMbYnvnQp8sblRRTvTtZp0T9VpiYRLXv78dNjlyXx0j8thm134KL3PyW909fnmuPyalQfmC5q+McOgMnukjrpA7v5FgY+wPM+5XQJDVgIoNezqg9Ok0MSbvQqDJwnilhYs2N4rTyaHPrmoRhMihZ3TBPqsRLmYh8jTDb8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oota8pyk49vFmnUVxEJNDIdNOfbuvy8FAcPBPbKxU3E=;
- b=M1b/bRAPWOfaYa+C2NxW41tNontsozK2usnDIiqGXxUImyjR4lXtk9DSL8L8utS1DV5Y3ONQ29rnS5v70+0EuteKJeeR1YLeGALkuc/zVJ5BNoSSwRxb+z5IjNP7FD6QYZ2stl5dQs0kj+kEq7Y6mSDLKwUEOcW+dK68HAAiQ+kAwWysJ1GQ5sYdmExCHJ0UsGZF9Wk9ZWk1SmVb+wufxe2IvV7P2J0XnscPLa6thkHs13zQHbWtSe8VtPNKvunYV7HJ/5D9+KGaXf3bWyEvOp7vLXx273FzzLVrmm4/hzu4BqFnffeeLThgaHG/6YcHmlk+drukuy6WXEJ516q1Qw==
+ bh=EE0zxclNyJTphJwDnbc9WGqaMa2UnZj8OxhcYLMZ/AI=;
+ b=fnKjBnJoLibLW1mX8ST35xxqgn+JpU8Q30aw+GarEodAPaC4wr060zbJxsVNRukxjajuEoNMvaRrdGUYc/QHZ12hIUjs0I+m7PKl8dMiTnfhVc1IR2yCoxCDjXJfvV4qUURSSMVTTGm3J+y7xGvyh3UsNdXDNm23PGWtrFdLyMgektbp61L2kWuERkOw0YwIh1d1Qz0VaX5OMph6SBc7mAM2fVmnj+IIwV+EaT4pyboA+31r1VmWACwqHU7IbFRHG9xdFmF2jcGG4jG5BXPXk0isyeQENK92GoLztwzjejk3dT/ZAQ/kKNsGiaBdCZo4PowobI5ych3pbtzxxe3Rkg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oota8pyk49vFmnUVxEJNDIdNOfbuvy8FAcPBPbKxU3E=;
- b=XKV5N2l8Wp8vDs0+BHKfMQKlJXUDo+YcMmEqKLElaqDepS+YJejWvNsR1tVeMAwi2rBNnSKwRd9JM5WVfbtr8eeIMSVqZDoKpfTE1REp333iy4BHgA16ZuIGw9wziUmYCd1Le/FRYsmb0Z+turqOI3yW0PnHodl7oIBd6/LH4whZmLy0/Vh45RW25bH1HdVvttF2zMu3yabebtj6o+t3+ssnKv6MIIrQ0/ptmbN4RtcChO4QJGIXZtPFe/cdK8u1dfK4u/K9bTyMPOB3vOFmfbrh+ioUsaNbDRL3EYQYboIr6NZx4rTUBCBEVPzjwghsambsWKSLSK+ZY+NNJh61gQ==
+ bh=EE0zxclNyJTphJwDnbc9WGqaMa2UnZj8OxhcYLMZ/AI=;
+ b=tMpAz4632qCcKozJaY57QZamebZBIJ1uRw/QSw1S2rEexLNaLPi+1Nt5YXp5mXCXwC2TijGzxwmCtSCysiUaHXXFPmGk4wyxuo4blnE7YQd/JBgng3FUfZuM2bbxFaT+1x3sn8HvAtHdUHvj1oCYDPaHVedNlrbl1y32Qn9ZNft3Kw6np8dG8XApACrGmh7IhKYG0gDZrX4dim/Nqc9pRy4WR5KAymUpjcrXYnnZ09W9hMhPyK12INdhUcSoeSoSQRah9uCjWFd2BrzG01rn9dv7/ML2QJ7yedxm18wunEesQ0hD4XVlPEnqb0TKGvCCckPfP/fMYRdQeJIo+gUqVQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com (2603:10b6:8:130::6) by
  SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.15; Fri, 31 Jul 2026 06:04:47 +0000
+ 15.21.270.15; Fri, 31 Jul 2026 06:04:52 +0000
 Received: from DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0]) by DS0PR12MB7726.namprd12.prod.outlook.com
  ([fe80::5807:8e24:69b0:f6c0%4]) with mapi id 15.21.0270.012; Fri, 31 Jul 2026
- 06:04:47 +0000
+ 06:04:52 +0000
 From: Alistair Popple <apopple@nvidia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: nova-gpu@lists.linux.dev, jhubbard@nvidia.com,
  Alistair Popple <apopple@nvidia.com>
-Subject: [PATCH libdrm 1/2] xf86drm: Pass PCI path rather than maj/min when
- parsing sysfs files
-Date: Fri, 31 Jul 2026 16:04:14 +1000
-Message-ID: <20260731060416.1400253-2-apopple@nvidia.com>
+Subject: [PATCH libdrm 2/2] xf86drm: Expose auxiliary bus GPUs as
+ DRM_BUS_AUXILIARY
+Date: Fri, 31 Jul 2026 16:04:15 +1000
+Message-ID: <20260731060416.1400253-3-apopple@nvidia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260731060416.1400253-1-apopple@nvidia.com>
 References: <20260731060416.1400253-1-apopple@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: MR1P264CA0010.FRAP264.PROD.OUTLOOK.COM
- (2603:10a6:501:2e::15) To DS0PR12MB7726.namprd12.prod.outlook.com
+X-ClientProxiedBy: SY5P300CA0038.AUSP300.PROD.OUTLOOK.COM
+ (2603:10c6:10:1fd::11) To DS0PR12MB7726.namprd12.prod.outlook.com
  (2603:10b6:8:130::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB7726:EE_|SA1PR12MB5614:EE_
-X-MS-Office365-Filtering-Correlation-Id: dc5d6fab-4ec9-4bf5-86ac-08deeec99fdc
+X-MS-Office365-Filtering-Correlation-Id: 28772847-651b-485c-c416-08deeec9a2cc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|6133799003|11063799006|56012099006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: PPEefkGXPawjOkB26EDsDgtUB+Xw4ruwe/38SbmjQ1ylR4EZSH4ZDxWzAt85lGqbHj2DrSZvQTVn49vbkZk3205dMHGBRkdd/bmk1ajxXoGSAtawOVi+6yzizmbzZXw9BDNfIHX8zd04G+z6j8KLSgDQ4A80mzUJZjB2GBUp6exBa+4KaS0rhAkoCJ3IJ/8yrA8ngS77htCR6WSYf5zQWQDpZkPQNMiJzpde43mAuFrWqtygMQ/O/nc7PwoxnKGPlsfsbvOsuDtddlyIWG7eV2MRI8cr2bzGW2qfqVPCKI54OSpEk35L1sM/+RO5lLMDmMvlgqV26K/iSuVeq/V7/LR3G41ac0Gt7OUCBHS3CbIcpFOp5+hJ295+FtaultGK5htsIvqMUaRsu/6KilA/nsfo5nrZs5wgx+7xbxZoqdevuvH6wYqFPe5EXrp6KX5zI3YXOc2xDxeatW7QsYqKadhQdemf7dmZUFbHvzevJbXW6pJ+x1G9ytUuXCf2IS7Sbio3O+i0nk+x544P4cR3W2OWPkFjYrUKEHK72P3BwYETINq6NSGUpSfvVRDdq8LgiF/75AH79RObKca4ccb3Kw8seFTciDQSV1Meoy0gz0rtq6MjNe7wrJwBSl3jtvXk5bHqvJA/Etf7gztazODQ/N4VpurtEuotMSgHdoaTCW0=
+ ARA:13230040|1800799024|376014|366016|23010399003|6133799003|11063799006|3023799007|56012099006|22082099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: DGUu6GfAjHX+jsdhIfDdfouE6a0ua0F4DY/ztc6l7LZois42VJ3jeuQjT1G/xUVzeDLMppHXJZowJhWfOqqz1NV21zBG6hKe/uX38Srt4VHDUC2dKq7RMpv1EQ37AZ9fYtWLJPsMg5idk2/1RxXmCMZ/R+fABa4IYY+tlBfPM08cGFyNQo9nf0gT45iERL0kMbobatHgQnF75Gy+yJ9Cl8ODl54R3ftiBdPxQgh9JBlF0am58qadcp9JVDspPLFT/FDdoFrF7iNSKK0wkj59Ljw09f7VPF6qReU7xIc8jUkmwbNzeCYp4AmYTJwg7m+uYhMw1bDuuElswJzsgCJEh3BLbZjv1lPe7zIsQ18UzV+su/A5FQluh0hCRKLdLok2qnEvc2C88uwS8mkqIWxvBuaByYTJF10Ou6Njh/NyReXte2jUionK0tBZ4dzRo7SbDd6vpW97hlIyom7vG6qmWYrLxVOi2IFuzCJtGftmM3DjS6+lYBykIKiyjvNkED1WYc5eCv5kXwXGtZj3zLzgRpTneW6IgRZ701Cy8b/Wrn/iRDUx3pYFfREiYAoXyJQfYRHk5cKG7ynjmasIBtCj/dv++zghGMvn2zSKJ24gem9+jjL1wGyPbrY0vHnZDfgmdD3eMn17rpgUaSH45aqzlUbyxKmwmcLOQpMqW36TD4g=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS0PR12MB7726.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003);
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(6133799003)(11063799006)(3023799007)(56012099006)(22082099003)(18002099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?70Rv1UN/bGOJJCveLU6btCbX8QRCIMaOm2QM8RkoLI6tBc6vpzcEVFjVZWx2?=
- =?us-ascii?Q?DnXTGY0w1LVcEMFEOvyzWzC6jYSrSBXxWhNotuHQM8yO+Xevj9h02pA/Nx+a?=
- =?us-ascii?Q?WkwMlJvcsnm8awd+Zcgheyz70YiHPnYj6t6nYbCIHgiio6fwr120F9i9O1RH?=
- =?us-ascii?Q?VcX/ZN4UBxDPmrXgjo76nKkRRjOuY8+RcDqEJXfyTTjBUA+y9bORPpWnKQ1I?=
- =?us-ascii?Q?UoNZBctynbDfFjQELe5eQC6yGGlIOO+VjTzlwNnUGSVmMjvjhX6yuBqTzhbo?=
- =?us-ascii?Q?y5vP++QpCFvBrb5axmVovXtu74sxL/JuOkX9o/cJD1cX7b6LoJlIS23gmo2z?=
- =?us-ascii?Q?7JE6f5WEXGTNAEM3OUv2UgqZ16O0ucF7cOyWxFnfXxEBWJbisdjQxhgTtisL?=
- =?us-ascii?Q?fY078bDKwxAD7Bga7qQpb6IeBvRRSDs4kiu541FxH8795epNbaHiiKOnVpZu?=
- =?us-ascii?Q?qfoQD4PPwo1/hX2U0GdnicANEMwFZy8l2tuJ5tJQzfjjhyFfrwkMQgSNMmwF?=
- =?us-ascii?Q?wqU5A2KI93CVtcSRJYYbib/AyOGGqMlVqildjR3ANlHXEEmrcF5PBRj4GIP5?=
- =?us-ascii?Q?wn36wbeei1LPgLRlLahYtAlfzpNOz+p9QywPiwBPIrxYNrLoszWPCZ/3udNk?=
- =?us-ascii?Q?8l5u9+B6OLdbPxH/c6/zHHIM7ftqziaW0aG8LBbGy4DDBGTadHAV/yO1P1ON?=
- =?us-ascii?Q?LW0GcwekBr/f8rtHRqlhs4gxw7qazXqwCNspxb5LObM3Lt0WHS39tlZr52JQ?=
- =?us-ascii?Q?Bp9/w8BKvALFwatwA1WT0jxTq97aSLdVnQcyefcO5QCjhhD2pXatVDcSTmDK?=
- =?us-ascii?Q?tcklZIAP4MMAJwiq/h3RdxgAQtKyB1FEDuDvEGpnXZSsJnlE7GqPJ8YX0uRw?=
- =?us-ascii?Q?4c4FdECar02GDeKOykDlJB1up0Xm4Jb3DKjSOs4p7wWNmi2K8w/1eChh50JM?=
- =?us-ascii?Q?lQIwF3vyIDG3rvRGmKZupfR9VCkDGeEsO8aq8YC1ZhmTdVP7DiCRYJ76gw0V?=
- =?us-ascii?Q?qFaw0KAEYo/suyOFIqXrA8p/jm8aeZhvcM54Ddu/BkBJ4+208crO14j+Dx5r?=
- =?us-ascii?Q?SCF95gR6PzrYsA4bjjmQ2TjHts5EZiPGeWSKK/bGXJI9POFmPSm2bxNIMOka?=
- =?us-ascii?Q?cnjo0V703NH70kCUA8ZAgeSCbc89ege4OcwefCduDax+1+8XyeoXKpoIz8Tr?=
- =?us-ascii?Q?G5Tdhsmfv7cRp/54cnN/YC96zLCsIPyYcJL+sxtyeXxLpechzQyN1P0lTBxh?=
- =?us-ascii?Q?CbItz7VT0DCpjIdU/bDvZhqhnYbQlNGgmo0+3bJcWXSVyD1yDPFkQpLJA0Eg?=
- =?us-ascii?Q?jwW01qrFf2klrvpvbuRObcdI5Nsu0+F6w4Hphq26kxay75qYQ6relXAG8CI3?=
- =?us-ascii?Q?3wYHnJ13agBZGYrKA3HmM6hpqh0SteTUkrhDys93x3YWvEfHv2Y8SUoM5qfK?=
- =?us-ascii?Q?fZIzwneLBG9LoWOhmMbRlmhRoHjs7lZ8mxAPN8StVisUo3eLhuMJBZCqWWm9?=
- =?us-ascii?Q?13ioZhNYD7VshP1OIRik1acsNsgBedr5vle1YIDVZYc7GT+2tmM8OTHoWr0P?=
- =?us-ascii?Q?p5U9ZnClgDLevbzq0m5FWGJsVinLxTjbM1GQn9OXhSbuS5wtEV6xQup/yj9v?=
- =?us-ascii?Q?4lpt9kZvaKdrotDvg/OniN3lafPf3Kt7GNmXNi6BvZFN2BoKIYThQpmkh4Me?=
- =?us-ascii?Q?fnejWKDyVrqb/fI0zV4oSzmS4/ntfbvb37n2cKOwqU369cqc4ADUi2erOr6F?=
- =?us-ascii?Q?ub7u+ZHWgw=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vUk9BLUI5ctHt+4LKd6JkUMsIklBMlB0FTVr/6Rz2TFzv0Zx85vAPIob2s2z?=
+ =?us-ascii?Q?IbkAuY5jqA3cNLZPdlStH1XrgCASYEbDRjKeAjtSsUARsYsnjqhzn8w5f6g6?=
+ =?us-ascii?Q?tjghCWJcLB7Rq12S46IUbPCUFeUAxra/MtznNaP/YidJdK3l9wVwK1f6t1oR?=
+ =?us-ascii?Q?qkBBGJ7GDO878COldg7rpgNzlNCYklzGptSRBVDNJnLDgJ7u/bNM5aAoEIED?=
+ =?us-ascii?Q?nDu7gtXHgqkNegpT5yyl7X6ChBbMlwfD7sz2AQYhRz/T5yigLdhPS65FzpMY?=
+ =?us-ascii?Q?0vRRqVp2urarIvZjQqhOSVMd/J6xyiI8MfiUzvybmz3n+qPM5JNY0HRQL7Na?=
+ =?us-ascii?Q?JryYhKkiQg0DRARnCRnabWOIVuWxfKNyVgbg923wAELTuajz0WeV5FLJHzuo?=
+ =?us-ascii?Q?OHCDMx+BoQoeXCXlleAYw0udx6Q39iGMgaIxui3TiHTl6Ffo77XivmrjsDJD?=
+ =?us-ascii?Q?wfZJiEQ4Cw0UvxBums0KhJCs0oKUU+mdklikjAm90Q7yyXMr/3pi3UPesORj?=
+ =?us-ascii?Q?TN2+K0gqWQyffGjOLqzsgVEWmXCLybDfp47/keU3/pPUFtnHbsAEbBEHjH7G?=
+ =?us-ascii?Q?yUwt6PXVlybmOPRVbwd4URXKmHiJG01Nz4CWeyDZpZwOhZ+g8w5WNjR/Ypu5?=
+ =?us-ascii?Q?3kmut5aEuKz3B6tcCjoR6BZ4/FydbZbrVG1aQWAx3e/cYuSNZpIoYk5dorwT?=
+ =?us-ascii?Q?+Gf0azMm3WDKNejaUEMdN1teKmGH4eVgpVNq+UcCjv+rFIHqj9LsP+/L5RAx?=
+ =?us-ascii?Q?JOPNBddmv3Z/hEBUTyRGs7ZFth1gpYtbYqdVKmB7SD5wDDu0zkJM6V/3+VyH?=
+ =?us-ascii?Q?39jPz2OmecYEwnkZciIW03a1fDIByw6WihOCVvUPBqn31ti7mJg7fVtfPoQ2?=
+ =?us-ascii?Q?WmX+Fh+Dn9ljTb4aeE4iYi7tFwgFGk0iecBzwtmmMsjU1QaXUttLdgmqODS7?=
+ =?us-ascii?Q?jnhK6RoEWRgcgqYfC36mOdKSDgPWYnpfcKOy/btPmGd0w4UTriNgoF6LiPdm?=
+ =?us-ascii?Q?FRjNfKaBe4Vlc6G/HJyrmWtdh4LiLDGd8FZdfwSIeFO7A5FaCXlmvPD7Z8KO?=
+ =?us-ascii?Q?KI7g5hsAZtpy06UiulXVPgQMTSAcYfntBRgT3nGLnTRGNPDu9Kth/zDQ5nU6?=
+ =?us-ascii?Q?NdOd7olWtBhIVAMcJlTmmtyct1G//t8q5KDUUAEiGVRzMJs5LeG3fpjbidAC?=
+ =?us-ascii?Q?C3efIt2W+E0g4+uAazEF2tnRiD5sT91y60es0ojnSpGBDmAU0kl43s/MPL3Z?=
+ =?us-ascii?Q?3E1hdq0X1yUyP0SYX7qh/sEgh8d5v5DXOMg4X7FtjCYlg0X/8rt9tvxAw09L?=
+ =?us-ascii?Q?RE2rg36bcJJmPpcnApX5N+BEgBWNZHKwNQRtihGBpUoawvvoCBhJaL65SfsA?=
+ =?us-ascii?Q?SPmhysSA7/WXCyhijpmvuf8zjwmUtvJ6cCt5jmVG6f+OHhw1XZgKAWLFgC2Z?=
+ =?us-ascii?Q?eLtYr7Ze4Pa62odnOQk+0QOTLAJ7Yqs9xMd05FIUsUnJLZVhpUOSqGwpLP0G?=
+ =?us-ascii?Q?cJxM/z/Q+wt1xGWMYB31Wfe11Cv0WAZ9+h4E3TUTzabFY2dxR3GSROGgoRfZ?=
+ =?us-ascii?Q?9Ska2wIOCQnVi5urzVCrgiGMQSZNseiIJonR26aioLibyMzmvE4+dhmFiiyW?=
+ =?us-ascii?Q?7zvmPcAUFQMGEwiKubnO6COcAmQozzU7WxyO6N5sFOSuS1bzBaT+8Dmcc35h?=
+ =?us-ascii?Q?4xPKF/NNIUYGs3hD8oglOWsBCfpWl7pZ/kMD1dhxx3zfWU1bj3jzCfWR0ste?=
+ =?us-ascii?Q?7JqypT9dYQ=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dc5d6fab-4ec9-4bf5-86ac-08deeec99fdc
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28772847-651b-485c-c416-08deeec9a2cc
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7726.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 06:04:47.2805 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 06:04:52.3491 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bo2RbHQrSzxB484lwjRqc3j0lj4nTN/4MLmjZweR9lrqgLrA552j1Uzqe+pqpMmJ4ofwgZWmkmYb0o3BIImSXQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: DyNaEj5BDbihXx0Et9isVUxWxULU7naRAy86DxEEMF11mqA6/qQ87j9IqSRBuYCeopf2psCKYdpvIzjvuT7jaA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5614
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -127,86 +128,265 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Both parse_separate_sysfs_files() and parse_config_sysfs_file()
-take a maj/min device numbers and resolve the actual PCI path using
-get_pci_path(). This was to allow virtio to resolve the correct path.
+NVIDIA GPUs supported by the nova-drm driver appear on an auxiliary
+bus created by nova-core which binds to the physical PCIe GPU
+device. To allow these to be enumerated and supported by libdrm add a
+DRM_BUS_AUXILIARY bus type.
 
-However there is no reason to call get_pci_path() in these functions -
-in all cases the caller can call get_pci_path() prior to calling these
-functions. This results in a minor code simplification for a future
-change which allows callers to provide the PCI device path instead of
-using get_pci_path().
+As the auxbus may in future contain multiple sibling GPUs for a single
+parent we can't take the virtio approach of just reusing the PCI
+subsystem parsers and searching up the bus for the PCI device.
+
+Instead we add a proper auxbus parser and device. The bus info carries
+the backing PCI device plus the auxiliary device name which uniquely
+identifies each GPU even when siblings share a PCI parent.
+
+As the auxbus parser already knows the parent PCI device there is no
+need to scan up the bus like virtio does. Instead we modify the existing
+drmParsePci functions to allow the device path to be passed in directly.
+
+This relies on the auxiliary device being a direct child of the backing
+PCI device in sysfs. The auxbus parser resolves the DRM device's sysfs
+path, records the leaf as the auxiliary device name and strips it to
+obtain the backing PCI device path. If the parent is not a PCI device
+the PCI parsers fail and the device is skipped.
 
 Signed-off-by: Alistair Popple <apopple@nvidia.com>
 ---
- xf86drm.c | 22 +++++++++++-----------
- 1 file changed, 11 insertions(+), 11 deletions(-)
+ xf86drm.c | 117 ++++++++++++++++++++++++++++++++++++++++++++++++++----
+ xf86drm.h |  12 ++++++
+ 2 files changed, 121 insertions(+), 8 deletions(-)
 
 diff --git a/xf86drm.c b/xf86drm.c
-index a8b39a31..25f2a3ff 100644
+index 25f2a3ff..bb22fb11 100644
 --- a/xf86drm.c
 +++ b/xf86drm.c
-@@ -3833,7 +3833,7 @@ static int drmGetMaxNodeName(void)
- }
- 
- #ifdef __linux__
--static int parse_separate_sysfs_files(int maj, int min,
-+static int parse_separate_sysfs_files(const char *pci_path,
-                                       drmPciDeviceInfoPtr device,
-                                       bool ignore_revision)
- {
-@@ -3844,13 +3844,11 @@ static int parse_separate_sysfs_files(int maj, int min,
-       "subsystem_vendor",
-       "subsystem_device",
+@@ -3597,6 +3597,7 @@ static int get_subsystem_type(const char *device_path)
+         { "/host1x", DRM_BUS_HOST1X },
+         { "/virtio", DRM_BUS_VIRTIO },
+         { "/faux", DRM_BUS_FAUX },
++        { "/auxiliary", DRM_BUS_AUXILIARY },
      };
--    char path[PATH_MAX + 1], pci_path[PATH_MAX + 1];
-+    char path[PATH_MAX + 1];
-     unsigned int data[ARRAY_SIZE(attrs)];
-     FILE *fp;
-     int ret;
  
--    get_pci_path(maj, min, pci_path);
--
-     for (unsigned i = ignore_revision ? 1 : 0; i < ARRAY_SIZE(attrs); i++) {
-         if (snprintf(path, PATH_MAX, "%s/%s", pci_path, attrs[i]) < 0)
-             return -errno;
-@@ -3875,15 +3873,13 @@ static int parse_separate_sysfs_files(int maj, int min,
-     return 0;
+     strncpy(path, device_path, PATH_MAX);
+@@ -3722,14 +3723,23 @@ static int get_sysctl_pci_bus_info(int maj, int min, drmPciBusInfoPtr info)
  }
+ #endif
  
--static int parse_config_sysfs_file(int maj, int min,
-+static int parse_config_sysfs_file(const char *pci_path,
-                                    drmPciDeviceInfoPtr device)
+-static int drmParsePciBusInfo(int maj, int min, drmPciBusInfoPtr info)
++static int drmParsePciBusInfo(int maj, int min, const char *pci_path,
++                              drmPciBusInfoPtr info)
  {
--    char path[PATH_MAX + 1], pci_path[PATH_MAX + 1];
-+    char path[PATH_MAX + 1];
-     unsigned char config[64];
-     int fd, ret;
+ #ifdef __linux__
+     unsigned int domain, bus, dev, func;
+-    char pci_path[PATH_MAX + 1], *value;
++    char resolved_path[PATH_MAX + 1], *value;
+     int num;
  
 -    get_pci_path(maj, min, pci_path);
--
-     if (snprintf(path, PATH_MAX, "%s/config", pci_path) < 0)
-         return -errno;
++    /*
++     * Callers that know the backing PCI device (e.g. auxiliary bus devices)
++     * pass its sysfs path in directly. Otherwise resolve it here, possibly by
++     * searching up the bus hierarchy (e.g. in the case of virtio).
++     */
++    if (!pci_path) {
++        get_pci_path(maj, min, resolved_path);
++        pci_path = resolved_path;
++    }
  
-@@ -3911,11 +3907,15 @@ static int drmParsePciDeviceInfo(int maj, int min,
+     value = sysfs_uevent_get(pci_path, "PCI_SLOT_NAME");
+     if (!value)
+@@ -3803,6 +3813,9 @@ drm_public int drmDevicesEqual(drmDevicePtr a, drmDevicePtr b)
+     case DRM_BUS_FAUX:
+         return memcmp(a->businfo.faux, b->businfo.faux, sizeof(drmFauxBusInfo)) == 0;
+ 
++    case DRM_BUS_AUXILIARY:
++        return memcmp(a->businfo.aux, b->businfo.aux, sizeof(drmAuxBusInfo)) == 0;
++
+     default:
+         break;
+     }
+@@ -3902,14 +3915,21 @@ static int parse_config_sysfs_file(const char *pci_path,
+ }
+ #endif
+ 
+-static int drmParsePciDeviceInfo(int maj, int min,
++static int drmParsePciDeviceInfo(int maj, int min, const char *pci_path,
+                                  drmPciDeviceInfoPtr device,
                                   uint32_t flags)
  {
  #ifdef __linux__
-+    char pci_path[PATH_MAX + 1];
-+
-+    get_pci_path(maj, min, pci_path);
-+
+-    char pci_path[PATH_MAX + 1];
++    char resolved_path[PATH_MAX + 1];
+ 
+-    get_pci_path(maj, min, pci_path);
++    /*
++     * Callers that already know the backing PCI device (e.g. auxiliary bus
++     * devices) pass its sysfs path in directly; otherwise resolve it here.
++     */
++    if (!pci_path) {
++        get_pci_path(maj, min, resolved_path);
++        pci_path = resolved_path;
++    }
+ 
      if (!(flags & DRM_DEVICE_GET_PCI_REVISION))
--        return parse_separate_sysfs_files(maj, min, device, true);
-+        return parse_separate_sysfs_files(pci_path, device, true);
+         return parse_separate_sysfs_files(pci_path, device, true);
+@@ -4111,7 +4131,7 @@ static int drmProcessPciDevice(drmDevicePtr *device,
  
--    if (parse_separate_sysfs_files(maj, min, device, false))
--        return parse_config_sysfs_file(maj, min, device);
-+    if (parse_separate_sysfs_files(pci_path, device, false))
-+        return parse_config_sysfs_file(pci_path, device);
+     dev->businfo.pci = (drmPciBusInfoPtr)addr;
  
-     return 0;
- #elif defined(__OpenBSD__) || defined(__DragonFly__)
+-    ret = drmParsePciBusInfo(maj, min, dev->businfo.pci);
++    ret = drmParsePciBusInfo(maj, min, NULL, dev->businfo.pci);
+     if (ret)
+         goto free_device;
+ 
+@@ -4120,7 +4140,7 @@ static int drmProcessPciDevice(drmDevicePtr *device,
+         addr += sizeof(drmPciBusInfo);
+         dev->deviceinfo.pci = (drmPciDeviceInfoPtr)addr;
+ 
+-        ret = drmParsePciDeviceInfo(maj, min, dev->deviceinfo.pci, flags);
++        ret = drmParsePciDeviceInfo(maj, min, NULL, dev->deviceinfo.pci, flags);
+         if (ret)
+             goto free_device;
+     }
+@@ -4521,6 +4541,84 @@ free_device:
+     return ret;
+ }
+ 
++static int drmProcessAuxDevice(drmDevicePtr *device,
++                               const char *node, int node_type,
++                               int maj, int min, bool fetch_deviceinfo,
++                               uint32_t flags)
++{
++#ifdef __linux__
++    char path[PATH_MAX + 1] = "";
++    char real_path[PATH_MAX + 1] = "";
++    drmAuxBusInfoPtr aux;
++    drmDevicePtr dev;
++    char *ptr, *term;
++    int ret;
++
++    /*
++     * This assumes the auxiliary device is a direct child of the backing PCI
++     * device in sysfs, i.e. the DRM device's sysfs parent is the auxiliary
++     * device whose own parent is the PCI device, e.g.
++     *
++     *   /sys/devices/.../0000:01:00.0/nova-core.nova-drm.0
++     *
++     * Resolving the DRM device's sysfs path therefore yields the auxiliary
++     * device path; its leaf is the auxiliary device name and stripping the
++     * leaf leaves the sysfs path of the backing PCI device.
++     */
++    snprintf(path, sizeof(path), "/sys/dev/char/%d:%d/device", maj, min);
++    if (!realpath(path, real_path))
++        return -errno;
++
++    term = strrchr(real_path, '/');
++    if (!term)
++        return -EINVAL;
++
++    dev = drmDeviceAlloc(node_type, node, sizeof(drmAuxBusInfo),
++                         sizeof(drmPciDeviceInfo), &ptr);
++    if (!dev)
++        return -ENOMEM;
++
++    dev->bustype = DRM_BUS_AUXILIARY;
++    dev->businfo.aux = aux = (drmAuxBusInfoPtr)ptr;
++
++    strncpy(aux->name, term + 1, DRM_AUX_DEVICE_NAME_LEN - 1);
++    aux->name[DRM_AUX_DEVICE_NAME_LEN - 1] = '\0';
++
++    /*
++     * Strip the leaf to get the sysfs path of the physical PCI device to pass
++     * to the PCI parsers. If the parent is not a PCI device the parsers will
++     * fail and the device is skipped.
++     */
++    *term = '\0';
++
++    ret = drmParsePciBusInfo(maj, min, real_path, &aux->parent);
++    if (ret)
++        goto free_device;
++
++    /* Fetch the device info if the user has requested it */
++    if (fetch_deviceinfo) {
++        ptr += sizeof(drmAuxBusInfo);
++        dev->deviceinfo.aux = (drmPciDeviceInfoPtr)ptr;
++
++        ret = drmParsePciDeviceInfo(maj, min, real_path, dev->deviceinfo.aux,
++                                    flags);
++        if (ret)
++            goto free_device;
++    }
++
++    *device = dev;
++
++    return 0;
++
++free_device:
++    free(dev);
++    return ret;
++#else
++#warning "Missing implementation of drmProcessAuxDevice"
++    return -EINVAL;
++#endif
++}
++
+ static int
+ process_device(drmDevicePtr *device, const char *d_name,
+                int req_subsystem_type,
+@@ -4564,6 +4662,9 @@ process_device(drmDevicePtr *device, const char *d_name,
+     case DRM_BUS_VIRTIO:
+         return drmProcessPciDevice(device, node, node_type, maj, min,
+                                    fetch_deviceinfo, flags);
++    case DRM_BUS_AUXILIARY:
++        return drmProcessAuxDevice(device, node, node_type, maj, min,
++                                   fetch_deviceinfo, flags);
+     case DRM_BUS_USB:
+         return drmProcessUsbDevice(device, node, node_type, maj, min,
+                                    fetch_deviceinfo, flags);
+diff --git a/xf86drm.h b/xf86drm.h
+index b45337a4..654e4caf 100644
+--- a/xf86drm.h
++++ b/xf86drm.h
+@@ -844,6 +844,7 @@ extern char *drmGetRenderDeviceNameFromFd(int fd);
+ #define DRM_BUS_PLATFORM  2
+ #define DRM_BUS_HOST1X    3
+ #define DRM_BUS_FAUX      4
++#define DRM_BUS_AUXILIARY 5
+ 
+ typedef struct _drmPciBusInfo {
+     uint16_t domain;
+@@ -896,6 +897,15 @@ typedef struct _drmFauxBusInfo {
+     char name[DRM_FAUX_DEVICE_NAME_LEN];
+ } drmFauxBusInfo, *drmFauxBusInfoPtr;
+ 
++#define DRM_AUX_DEVICE_NAME_LEN 512
++
++typedef struct _drmAuxBusInfo {
++    drmPciBusInfo parent;               /* Underlying (physical) PCI device */
++    char name[DRM_AUX_DEVICE_NAME_LEN]; /* Uniquely identifies the device on the
++                                           auxiliary bus, e.g.
++                                           "nova-core.nova-drm.0" */
++} drmAuxBusInfo, *drmAuxBusInfoPtr;
++
+ typedef struct _drmDevice {
+     char **nodes; /* DRM_NODE_MAX sized array */
+     int available_nodes; /* DRM_NODE_* bitmask */
+@@ -906,12 +916,14 @@ typedef struct _drmDevice {
+         drmPlatformBusInfoPtr platform;
+         drmHost1xBusInfoPtr host1x;
+         drmFauxBusInfoPtr faux;
++        drmAuxBusInfoPtr aux;
+     } businfo;
+     union {
+         drmPciDeviceInfoPtr pci;
+         drmUsbDeviceInfoPtr usb;
+         drmPlatformDeviceInfoPtr platform;
+         drmHost1xDeviceInfoPtr host1x;
++        drmPciDeviceInfoPtr aux; /* Device info of the underlying PCI device */
+     } deviceinfo;
+ } drmDevice, *drmDevicePtr;
+ 
 -- 
 2.54.0
 
