@@ -4,45 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28DF4C5516F
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:16:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C85A8C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:17:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7392C10F2C6;
-	Fri, 31 Jul 2026 15:16:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3261C10E213;
+	Fri, 31 Jul 2026 15:17:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K33G9FuQ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TDIx4ZLb";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 786A810F2C6
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:16:56 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 020BC4053D;
- Fri, 31 Jul 2026 15:16:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F301F000E9;
- Fri, 31 Jul 2026 15:16:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785511015;
- bh=mKwmZWaVlLAyg2w+cN3djUCsX40X0Lbtl9xxIx11Ebo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K33G9FuQf6NktQX/r1G82IDkk+KyI4OnqfY75ZbDMFqFQoUjB5HpAVS2BGsSgY7cI
- KNyEDbQOYW0GcZK04EmT1M36b5ybG/rQGHVfDeZKCPdD80wFQRcKNf5zrgxYaViQaR
- xD/arAE4L4hZw+4Rh7KRIxkzYFG2EEFMaAV863k/OMyYzf2Z8yhbztgbJyNIURTLtc
- isMy4RNi4vbzp/5t80Hp/kiQdiD/YqVpr7nzJVU+hXAUOygHiveeBxoLAmXq8GrCie
- djUa7LfwCFs+UgFoKAdrc3NRNF99hrM5SRHeAXXHFZ/sc4ZgfHneZaZrn6R0FpfchD
- bQkP3qR1jMUpQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect
- resource lifetimes in bind callback
-To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-2-ac1e6a75782f@collabora.com>
-References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
- <20260731-synopsys-dw-dp-improvements-v8-2-ac1e6a75782f@collabora.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com
+ [209.85.217.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F46A10E213
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:17:46 +0000 (UTC)
+Received: by mail-vs1-f42.google.com with SMTP id
+ ada2fe7eead31-752a7f4d4b5so598835137.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 08:17:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785511065; cv=none;
+ d=google.com; s=arc-20260327;
+ b=UMsPDVDiEAHaYU0rswG9cF4JejGtHLtA09t/RxkaoNvfyJc/CmXRqruAHO5V2GBAzX
+ fNYV1A97NdRkjCm6UOibD3V1sGisiTGGhVRVzblmpOynoH5qw5utW/vS5yugvIKQMt29
+ We9UzxPPapQd38TZwbFu12LqvLb7J+xsSGCUxRCbAdiFI28dZA5JosQ/2e5HFFlN/Fzq
+ x6UH32BF8c40Vr5fdRW/VBNsChemO/5haSLa3M+aDCQDqS72iTD1LFN78bK5GtZw1MNU
+ 40+e3RAJcxeeJWUH2+eOQuzje3swiTxyeJ53fX1tkp3efyPQpfcofN6YzOd7YThZ9XTF
+ A3gA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=KGP6YYWa3E46HVm4iujdsDlLjDhR2AjMoL5m0l3+/TY=;
+ fh=VWWz0rL4Nlo6OksYgu2EJd9+XKxyCwU4v0eBB3QLJQo=;
+ b=JHoIoxZz+R8gc0gyXx42/52SB9MYSC/r0Ai/+ArFtSVCHVaZu0dHV+5yvfgxJz3wdA
+ 4fNSD7r/2gU0TjTyvu0oGyFRnT5fwpAvMDpCBXEX2AcwqvGOXauU7YZ1PCA4fAG+brWw
+ ciKKTaaeJxsXPp0+zfvp+dwovV0H+4ZGP1C0r9F/f0y3nur0oML2dn9N3T10uAP6C03u
+ vzXsd05sxuQ+KPYPtIqN4Mcntr3YVNEQOC2gLJ2IlftHq0cNGAz/f8+GFBnXU4tT5pZj
+ +bIslLHjg4dnhOoFksGUDwmmQWBtxF/yhVfSJN2EEwARo9yoNoQnmSq/jcJl7VGS4ZOm
+ GjWg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785511065; x=1786115865; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=KGP6YYWa3E46HVm4iujdsDlLjDhR2AjMoL5m0l3+/TY=;
+ b=TDIx4ZLbGNCywHxoTGRLxo2kGzeQ4/rwptye0Mbm4XCTWVZ85ItyDBljIWWy6W9aLr
+ 5uYRLL79No2ykTZjZOn7E1WyeU5/7d5X5wFksQdGjgscaZwYJKVzx1eIyNx6tJ1qv/Bs
+ HHCLvdShSQsQofZ1eLdNONV8q9GQQaz0t7j3ANHXVC9lN4usfZi6IC25bPQK/k7p2htx
+ Mn2b2YlG6t4XW5JTMmy/ksdBymUjDIJp4CR7PGquzeGTRBUQmjiL3KgyYHOn6QlS8WfU
+ lLVZ28iCXxDHjLiugB1Htcsy+276VOzMHaXsjs/7hJEFBGgiTRF0l7wJYA7IE0ShBXxN
+ BU0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785511065; x=1786115865;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=KGP6YYWa3E46HVm4iujdsDlLjDhR2AjMoL5m0l3+/TY=;
+ b=Kp14oDyuKm1+lxoGOjMfKgSQh8Qlgxub4JMnKY4cj/NvzrGVaY6wF2fRptpJLxysve
+ 15ABx6itQdcpMklV6UDI3aJg7OiTPEyTDYuCl7nAToWLYfSou+ksWjyZ+Mmks377QSd8
+ 1vg9DJIhRpTSx9UnLiiFiisSzXg4tY2lPU82S86TsamnTHZp1PTQzivEX5EPpXMYSlac
+ c03hYusmWD5AjikJPJFLjd99aVRfpsYq7Y/yOerCSr7GjxW2L4JkaY0YBdnyiADePTPG
+ PY+UofzkckiGZ/JrWiFszYVZDmxlmJHleDIUcpwdtGcJiQclZTncPTYzcEgckQBxbBUR
+ n5hw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro2UB6Hz3rM1773eRuS+OLI3bzEy+vUQ1ckKbMpd/bAlHr8Hfw1DtcVEOBzq1CoC4U9gYcVPnGEBLg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZSKhPS9xIkj9s6MYNeMrJacSXKyBkmfyHYfuFlVl/Jjgkri0x
+ f0a7VtT1ReRIkALY5dpXCsx3eQQQl9P+PA3+hZSX7O0RNS0mhCWZRXe1m1Vj9WviOBeClUnYMrf
+ UKvW5OSYAYAdns1OjBY1oiKNqHxQM39s=
+X-Gm-Gg: AR+sD13p8UvJCUmn6F4FFU2kOdCxEijeHNQnS+0C9f7bfG7L311G2+N3XcG7mxJwJm3
+ i9lyc8qBYjk7sY1gHmvIyxiBbY2r0nrqjdmDshaoAy4Fb+AMTrBMD42oqUHi8GSlKBbro33Yd1X
+ qLBXjTjzMqdjr0ITAscVYGZzC6vGjOeICF6Gs1lfdec6pO2/yogILOqVI5uFAx9h3vvm7q1bVO8
+ eQbvhZqg9B4ceb5SPvEN9NuQkkg1Syfw0ySGu2im1MUSiMqLsq8OCU2uYL/EcBWJfPm81T0ErfI
+ Bz0H4aDoMarKSZZCv+I+Gro8KRn85l59uU4hDXHHMh+MBPzjsxpzvhBzLKP7UVqU7Ym3wwS6B9s
+ =
+X-Received: by 2002:a05:6102:441a:b0:738:1ef6:51b9 with SMTP id
+ ada2fe7eead31-75b22260dffmr475318137.5.1785511064843; Fri, 31 Jul 2026
+ 08:17:44 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260705110221.153481-1-mdshahid03@gmail.com>
+ <20260724122254.121935-1-mdshahid03@gmail.com>
+In-Reply-To: <20260724122254.121935-1-mdshahid03@gmail.com>
+From: Inki Dae <daeinki@gmail.com>
+Date: Sat, 1 Aug 2026 00:17:04 +0900
+X-Gm-Features: AUfX_mxZnAVCtLemF1RKBEDkqKNByd4RYkTmPt_s3OtHb2BMMIen4YexrgB9y3Q
+Message-ID: <CAAQKjZPwb00MePpUTmKZbn67jXp=UWX7m81evttd29L+9UcVxw@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos: vidi: use memdup_user() instead of kmalloc()
+ and copy_from_user()
+To: mdshahid03@gmail.com
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 15:16:55 +0000
-Message-Id: <20260731151655.95F301F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,130 +111,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi,
 
-New issues:
-- [High] Moving IRQ registration and hardware initialization to probe creat=
-es a window where an HPD interrupt causes a NULL pointer dereference on `dp=
-->bridge.dev`.
+Thanks for your contribution. I will review it soon.
 
-Pre-existing issues:
-- [Critical] Use-After-Free of the `dp` structure due to uncancelled `hpd_w=
-ork` on driver removal.
---
+Thanks,
+Inki Dae
 
---- Patch [2]: [PATCH v8 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect =
-resource lifetimes in bind callback ---
-commit 9de3c09754cbe88e934e9c5f4adf581795df6d41
-Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callb=
-ack
-
-Currently the Synopsys DesignWare DP controller driver's bind function
-requests lots of resources using device managed functions. These are
-free'd on driver removal instead of at unbind time. Fix this discrepancy
-by introducing a new probe helper function and moving over the whole
-bind function.
-
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index 112a499113095..7f82495141711 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-
-[ ... ]
-
-> @@ -2091,11 +2094,19 @@ struct dw_dp *dw_dp_bind(struct device *dev, stru=
-ct drm_encoder *encoder,
->  	if (ret)
->  		return ERR_PTR(ret);
-> =20
-> -	dp->irq =3D platform_get_irq(pdev, 0);
-> -	if (dp->irq < 0) {
-> -		ret =3D dp->irq;
-> +	bridge =3D &dp->bridge;
-> +	bridge->of_node =3D dev->of_node;
-> +	bridge->ops =3D DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID | DRM_BRIDGE_=
-OP_HPD;
-> +	bridge->type =3D DRM_MODE_CONNECTOR_DisplayPort;
-> +	bridge->ycbcr_420_allowed =3D true;
-> +
-> +	ret =3D devm_drm_bridge_add(dev, bridge);
-> +	if (ret)
->  		return ERR_PTR(ret);
-> -	}
-> +
-> +	dp->irq =3D platform_get_irq(pdev, 0);
-> +	if (dp->irq < 0)
-> +		return ERR_PTR(dp->irq);
-> =20
->  	ret =3D devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
->  					IRQF_ONESHOT, dev_name(dev), dp);
-
-[Severity: High]
-Can this IRQ registration create a window for a NULL pointer dereference?
-
-If a monitor is connected, the HPD interrupt can fire immediately after
-devm_request_threaded_irq() completes in dw_dp_probe(). The interrupt handl=
-er
-schedules dw_dp_hpd_work(), which directly dereferences dp->bridge.dev:
-
-dw_dp_hpd_work()
-   drm_helper_hpd_irq_event(dp->bridge.dev);
-
-Since the component bind hasn't run yet, drm_bridge_attach() hasn't been
-called to assign dp->bridge.dev. Could this cause dw_dp_hpd_work() to
-dereference a NULL pointer if an interrupt fires before the bridge is
-attached?
-
-> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
-rockchip/dw_dp-rockchip.c
-> index b23efb153c9e6..005938dc66c9f 100644
-> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-
-[ ... ]
-
-> @@ -128,12 +119,30 @@ static const struct component_ops dw_dp_rockchip_co=
-mponent_ops =3D {
->  	.unbind =3D dw_dp_rockchip_unbind,
->  };
-> =20
-> -static int dw_dp_probe(struct platform_device *pdev)
-> +static int dw_dp_rockchip_probe(struct platform_device *pdev)
->  {
-
-[ ... ]
-
->  }
-> =20
-> -static void dw_dp_remove(struct platform_device *pdev)
-> +static void dw_dp_rockchip_remove(struct platform_device *pdev)
->  {
->  	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
->  }
-
-[Severity: Critical]
-This is a pre-existing issue, but does this remove function leave a pending
-work item that can cause a use-after-free?
-
-Since there is no explicit cancel_work_sync(&dp->hpd_work) before the driver
-exits dw_dp_rockchip_remove(), if an HPD interrupt fires right before remov=
-al,
-the scheduled dw_dp_hpd_work() might remain on the system workqueue.
-
-The devm cleanup runs after this function returns, freeing the IRQ and the =
-dp
-structure. If the work executes after dp is freed, it will access freed mem=
-ory
-when it runs container_of(work, struct dw_dp, hpd_work).
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
-w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D2
+2026=EB=85=84 7=EC=9B=94 24=EC=9D=BC (=EA=B8=88) =EC=98=A4=ED=9B=84 9:27, <=
+mdshahid03@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> Hi,
+>
+> Gentle ping on this patch.
+>
+> Could please take a look when time permits?
+>
+> Thanks!
+>
+> Mohammad Shahid
+>
+>
