@@ -4,135 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E08EC54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:44:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 289E2C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:46:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB14410F169;
-	Fri, 31 Jul 2026 06:44:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 882BA10F167;
+	Fri, 31 Jul 2026 06:45:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="U4n2VqiQ";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fd5oqkdf";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=markus.elfring@web.de header.b="YHb12XZc";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87F7310F167
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:44:47 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66V665m82636701
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:44:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- sKWmxBXJBHdVo9za8nnXMGzPjkbzHCu2a0+Of4kjIIw=; b=U4n2VqiQuX8wABmv
- f1gA+D4klb+g8U2EZnjMK1ZGevTrLmSNprtb0zqwh1/e8l+fXteGj89kT9jB75nk
- fQwva0twAeUQ5fd8drmijk2kiyOI2bo4sOuTMXJ9iLrr3NsbWJRoiXQpxz6mAXP7
- 5cod/r6X6xnj6RK0Xi5QTDoXIn6dHuQ2FOfitUgabjlcvWUYoZ9N5atU0hwlRJXp
- iMY5ibCyRRjL8xsJgGT+UOlM+szY9c1tdFmPx4fmMc4dijfyee0mEEJbQ9F9IKKw
- jD2R/7rBnFjQEBIZvSRv4DlJOjPmbqScPloMObIqJm8gIpOJHEiK1yRQ6zCrhrrZ
- lkou7A==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
- [209.85.210.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frp4y04et-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:44:46 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id
- d2e1a72fcca58-848568a6f62so1502711b3a.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 23:44:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1785480286; x=1786085086;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=sKWmxBXJBHdVo9za8nnXMGzPjkbzHCu2a0+Of4kjIIw=;
- b=fd5oqkdfjHdYyzl6725j7J2vAo+i6Bqcwbuv0JuW9HCUXGlC/pCgSg7+H9kFse+9A7
- 7sclNwjD//Bs+wWAEJDwn7Hic/xL/d8FpZht5s/lLVC+nSnV/kQDu3U7oWnd9WCxJbL+
- xJY5JoKoSceYjN2uFnTtNGGfeqR2fP64lUjAHBjaorqSk/fZT8oRtjhODrGA6/Y0/fub
- 28/YAnjB+18+XJnwGFUh3R58n9meMHSMvc6el5C00sZglwXp517pZ5V9mgNKzt6jm0XP
- Ee1Z/cUu6SeReL3CmGRMOSgFTHw2mM3bz4Imzq7nQVn7w20Zxco/VIz+OE0g35cwn2uo
- Iung==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785480286; x=1786085086;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sKWmxBXJBHdVo9za8nnXMGzPjkbzHCu2a0+Of4kjIIw=;
- b=IhGCZCE1CXjdaMUqFBXPrGtSrwh9TULbk+b7uoDSyLGg5lIuyEuFaIMtZzqUeWv79m
- L5gPcSnj2tIj7n4/MYFZhnrFFKCd/pbPPaAr97+YT5XujmAtTQBDRTsGylYntwS1aQ4a
- yK72reZqeRgFGQ4mKOoEZ3vZULt21adeMXOFMVOwdoyBDnK+VcSYXhMZasn3H7AG1kdr
- FdD7XcoL8yBKZVoBv5r6XUnWQ9CtKn36y9XHIth3n0WRC09dtRGq72knF5MsoTszEVYy
- OZbODCLsEqLwLdGTMJQNQ0ruNtVNIyqQeQRT9WneS/iXI8zwWs7xyVHqqbn/X5MsXWk8
- nEOw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RocOIF1ygvjVvUKZu84e03QOXf344GT+tXx4IJxFZUSiWPP5DbBkH4svpUb3Mn8TICpVkdumJXeLto=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxJsFs/T05wIAPdLCDxs1XNVyW0ObZYxgvffH9QalB7TVz/Qzpe
- pApwWQNxiTNgY5Z3lfSRqv2sZsynZrXHYCrglE+4aI1iykKm87mRANuYtppWScZIcmZVVcpg6xU
- FSc6LDn87ktG/wMMeXJtpO53dpjeN2d/+cDwpjswUvz5VfgI1pNlfHPCryyxDs+8qKE3rajIb54
- U1/cA=
-X-Gm-Gg: AR+sD10a9lNZwcDEOrV4TQXEFviTQS95uBgdw/y2kS0eXFu/RnXZfW5lH0Xok+fSCmJ
- F7TUU0a9XdjsUkealyjChqv3tSXS670N+RD0Y6cU+5n7o+oxQ4aXbYC2F3rTjyn72zvKKCbIBbq
- bngfo3v8UbSKFt860hWR0s198MubYkBYOuy3FqEjX2C8Bv6qRqLL3eqvFmSwLU+qjBaq0GMnb56
- 1psoEbk8qd7vMAulCMc3YnNZAhCqMC5v1Rp79JOPM6eCs8j+DOsDriMUnIiz9LF33+OhhYebi2g
- jq1hh8q4ojqQlaCGo2nwgbuFp0YXyUZygbDNBLgK5XZ7FACp7hkLrRjE0Tsm6JR9PzN1oOMHhs1
- FV5KCSKNpk6BqzDf1ETBejS7aEcSVDg==
-X-Received: by 2002:a05:6a00:2991:b0:847:9151:3409 with SMTP id
- d2e1a72fcca58-84ed6f4d301mr799857b3a.55.1785480286294; 
- Thu, 30 Jul 2026 23:44:46 -0700 (PDT)
-X-Received: by 2002:a05:6a00:2991:b0:847:9151:3409 with SMTP id
- d2e1a72fcca58-84ed6f4d301mr799838b3a.55.1785480285854; 
- Thu, 30 Jul 2026 23:44:45 -0700 (PDT)
-Received: from [10.204.78.242] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84edbd31590sm29318b3a.8.2026.07.30.23.44.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 30 Jul 2026 23:44:45 -0700 (PDT)
-Message-ID: <9a5808d9-9d95-4491-8d44-647b08a6d058@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 12:14:41 +0530
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 82D0810F167
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:45:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1785480356; x=1786085156; i=markus.elfring@web.de;
+ bh=ish1qHmO0vGYACH5MACVgDsbjBINzL58r8cMVT1xgZw=;
+ h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:References:
+ Subject:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+ cc:content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=YHb12XZc515VzxKwSQAcIDFGICY+Kyh8uyvTix2ijuIOKSdkyoLgHQ/DbLF7pw9f
+ gaWElPCSDBsc5XnmEUXgrr4zGUsBXDfB4v/ZEUwF0i3Qg6fg5p+mVvmqTihXNe/EA
+ AyfrUzCUpp0QpAkObX1TyJyhri7h4+DnZBsOTlkTtP+u2lQFLl4n+wEKEctqveO6n
+ qr8UGyyCio7+2qw7Hg8U4nypPKao/SaKaSb03f3sgrGiqrKVVgmk92R0ul26xtWxK
+ SRvHf5uux/Cw41PrGRwwUL4tUPFZKe0RUC4aTic6bK6MtzLH+RGy34sdgBGZmx02L
+ hUwniI1m+MALVGrP1Q==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N0Zs0-1xAflg3IF2-00vy1V; Fri, 31
+ Jul 2026 08:45:56 +0200
+Message-ID: <b237c962-36f4-46e6-99ba-64e81abce0ba@web.de>
+Date: Fri, 31 Jul 2026 08:45:54 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] misc: fastrpc: remove map before remote unmap
-To: Yousef Alhouseen <alhouseenyousef@gmail.com>,
- Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>
-Cc: Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260624174932.7419-1-alhouseenyousef@gmail.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <20260624174932.7419-1-alhouseenyousef@gmail.com>
+To: =?UTF-8?B?w5NzY2FyIE1lZ8OtYSBMw7NwZXo=?= <megia.oscar@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel-mentees@lists.linux.dev,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>
+Cc: kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>
+References: <20260727114155.69204-1-megia.oscar@gmail.com>
+Subject: Re: [PATCH v3] Memory leak error in qxl unbind
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <20260727114155.69204-1-megia.oscar@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=K44S2SWI c=1 sm=1 tr=0 ts=6a6c445e cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=pGLkceISAAAA:8 a=s0Wo0hrht0JdwzRqEpUA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-ORIG-GUID: Uv-cPUPJuhOty8ZV-4BDknddITs-Lltu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA0NSBTYWx0ZWRfXxeNJMv3LZtpe
- KV9yxtCSG53pyuGnX36KPT0G/vN5DL3ylQAdU1GABKjY5D+UU82k4lWbW4AfdbdSlSN9QVCfGke
- Ugff9R4YyJVkJ3oiNOKterk+Hken5PI=
-X-Proofpoint-GUID: Uv-cPUPJuhOty8ZV-4BDknddITs-Lltu
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA0NSBTYWx0ZWRfX3nXv8FeHDHb1
- 9arNrevTYTGXiwbU/MPAxRHHeIlszoC9kYi7msSaR2x5qX3Mona2mrPHubTR6sTPQyMTEd/kosw
- PHkumkLf1MAUhrwyYTSMS4aZmM9wv3CoUVyH7+e/9QtlbmbEqVOr1ueBFshzFh1LqO9WBifS2ye
- OMGq06Gxf1M+3OewmLx5Q6JSX6IMO0lb387VaORGKyI7yyvygM0jq4DpNJsIGV5/goT2SkQoEAJ
- eb+x7VxP4MkMwqsxG7S+GmpzOpQgPrqA5d3z2P3pVzSFzHAzadsUYSMzz1hA2FS3Tu/HOymwT56
- WD10gZ9xQ05rJidGHWdPS5V8R12JQI4S2v0OsBX35l24aiu3L1mS24LVWM+OB4krICtV3n0AcWI
- RUiQU5+Tww8RCQyv4PM/Q64WeAUTkt5/tbzle5rY1ksVGDIB8yKitNvvPi/+JdyJVfSRXp+yXXZ
- T3pkwqESvMZAqzdRZFg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_02,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 bulkscore=0 adultscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310045
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:/7C2dL6eWaw+qUOWvXcc9U32C1FLepm5JUAGHg/RAYdvRJcuaMB
+ m41VjpuE5I9JoxL63/qJiEu9oKhkPB8kJU2rQvOYYFoOXUdoYMGOeoGIJAavgJed6v98vvC
+ O8mF66ePwkOpAXD9zKgbDSdzyAMVvVKhHI9ieYoXhsmZqFrq99JYCt2YSr48UFEVji4gHtX
+ 27fXyVGZQRcAadmERcx2w==
+UI-OutboundReport: notjunk:1;M01:P0:Y7HzQDd8qPc=;p4CZ1g67pBLh4ABORtR3R2Atxqp
+ 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
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,61 +152,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 24-06-2026 23:19, Yousef Alhouseen wrote:
-> FASTRPC_IOCTL_MEM_UNMAP found a map under fl->lock, then dropped the lock.
-> 
-> It used that map until the DSP completed the unmap.
-> 
-> A second unmap can find the same map and race to fastrpc_map_put().
-> 
-> That can cause a use-after-free or double list deletion.
-> 
-> Remove the map from the lookup list before the remote unmap.
-> 
-> Reinsert it if the remote side reports an error.
-> 
-> Signed-off-by: Yousef Alhouseen <alhouseenyousef@gmail.com>
-> ---
->  drivers/misc/fastrpc.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index 6a5239b1c..6ced210ca 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> @@ -365,7 +365,8 @@ static void fastrpc_free_map(struct kref *ref)
->  
->  	if (map->fl) {
->  		spin_lock(&map->fl->lock);
-> -		list_del(&map->node);
-> +		if (!list_empty(&map->node))
-> +			list_del_init(&map->node);
->  		spin_unlock(&map->fl->lock);
->  		map->fl = NULL;
->  	}
-> @@ -2064,6 +2065,7 @@ static int fastrpc_req_mem_unmap_impl(struct fastrpc_user *fl, struct fastrpc_me
->  	list_for_each_entry_safe(iter, m, &fl->maps, node) {
->  		if ((req->fd < 0 || iter->fd == req->fd) && (iter->raddr == req->vaddr)) {
->  			map = iter;
-> +			list_del_init(&map->node);
-The map is not available after this point in the fl->maps list and there
-can be another thread making a MEM_MAP request for the same fd/dmabuf at
-the same time. Now as the entry is removed from the list,
-fastrpc_map_lookup() won't find the entry in the list, the MEM_MAP call
-will go ahead and create DSP mapping for the same fd again. This can
-leave the same buffer mapped twice on the DSP with two different raddrs,
-which might cause problems.
->  			break;
->  		}
->  	}
-> @@ -2088,6 +2090,9 @@ static int fastrpc_req_mem_unmap_impl(struct fastrpc_user *fl, struct fastrpc_me
->  				      &args[0]);
->  	if (err) {
->  		dev_err(dev, "unmmap\tpt fd = %d, 0x%09llx error\n",  map->fd, map->raddr);
-> +		spin_lock(&fl->lock);
-> +		list_add_tail(&map->node, &fl->maps);
-> +		spin_unlock(&fl->lock);
->  		return err;
->  	}
->  	fastrpc_map_put(map);
+=E2=80=A6
+> Fix: Check ret from ttm_pool_mgr_init; if non-zero, goto out cleans up
+>refcount + debugfs.
+=E2=80=A6
+> Fix: err_shrinker: label that finalizes + destroys all 64 pool types
+> before returning.
+>=20
+> You must apply the patch from the link "[PATCH v3] drm/qxl: fix
+> use-after-free in qxl_irq_handler on PCI" before testing.
+> If you don't apply this patch, you will get a UAF error when running
+> the script above.
+>=20
+> Fix: "Unchecked list_lru_init() return value in ttm_pool_type_init()
+> causes a deterministic NULL pointer dereference in the newly added
+> error path."
+> Now check list_lru_init return value in ttm_pool_type_take, check if
+> pt->pages.node is NULL in ttm_pool_type_fini and ttm_pool_type_init
+> return value in ttm_pool_mgr_init.
+>=20
+> Solved new issues:
+> - [High] The patch introduces a use-after-free race condition between `t=
+tm_pool_type_fini()` and the active memory shrinker `ttm_pool_shrink()` by=
+ calling `list_lru_destroy()` prematurely.
 
+How do you think about to add any tags (like =E2=80=9CFixes=E2=80=9D and =
+=E2=80=9CCc=E2=80=9D) accordingly?
+
+See also:
+* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
+Documentation/process/submitting-patches.rst?h=3Dv7.2-rc5#n145
+* https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/=
+Documentation/process/stable-kernel-rules.rst?h=3Dv7.2-rc5#n34
+
+
+> Solved pre-existing issues:
+> - [High] `ttm_pool_type_init()` ignores the return value of `list_lru_in=
+it()`, leading to a NULL pointer dereference if allocation fails.
+> - [High] `ttm_pool_shrink()` assumes `shrinker_list` is never empty, cau=
+sing memory corruption and crashes during module unload if triggered.
+
+Would another change description variant become better?
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv7.2-rc5#n81
+
+
+=E2=80=A6
+> Signed-off-by: =C3=93scar Meg=C3=ADa L=C3=B3pez <megia.oscar@gmail.com>
+> ---
+>  drivers/gpu/drm/drm_gem.c        |  1 +
+=E2=80=A6
+
+Some contributors would appreciate patch version descriptions.
+https://lore.kernel.org/all/?q=3D%22This+looks+like+a+new+version+of+a+pre=
+viously+submitted+patch%22
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Do=
+cumentation/process/submitting-patches.rst?h=3Dv7.2-rc5#n310
+
+Regards,
+Markus
