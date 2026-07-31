@@ -4,60 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9D9F9C5516D
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:39:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08162C5516D
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:42:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA29310E22C;
-	Fri, 31 Jul 2026 14:39:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 623D010F2A5;
+	Fri, 31 Jul 2026 14:42:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GnPU6xko";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hyc8x1Bb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4876A10E22C
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:39:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6A9B5600C3;
- Fri, 31 Jul 2026 14:39:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1F71F000E9;
- Fri, 31 Jul 2026 14:39:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785508782;
- bh=ryPqQ3wPmCBEPuGEr6/KTKvRORIV9Tt/Y/mcOa0Awic=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=GnPU6xkoCSSVpSd9iPfsPBPZCeAS+4H/65Muv9K6QtU0IZw0TWPIWncaa0SGtheuS
- fTBmVUq65ERZCUU4zP2C0rFB3Nrm4U/8NWZ3Liia20PL5BdBl2RJwaWYmvoFwp8aGu
- JWOY7oAtUj3zCBbS11A6El3u3UQxIIK+rn5KBbyvSLNNDIUNRC/8zB0k1UItgMT/as
- D+R4qB1UJKMOT9Y4NyLbdySxnHTNXEwt6ygWDnRdImiQYlqY5YIehRr0Dk6OXUyJbo
- aTbaMg/eBW56zuXqd0PyyGTgxmLyPtfgwbLFDD3YLxoSwnK0FMz3rc6G2JsEpvwNGJ
- 4dHJWkcIgNUtQ==
-Received: from johan by xi.lan with local (Exim 4.99.4)
- (envelope-from <johan@kernel.org>) id 1wpoOh-00000000XLr-3kZN;
- Fri, 31 Jul 2026 16:39:39 +0200
-Date: Fri, 31 Jul 2026 16:39:39 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v5 01/14] dt-bindings: leds: Document TI LM3533 LED
- controller
-Message-ID: <amyzq2XEhiOH28DD@hovoldconsulting.com>
-References: <20260617080031.99156-1-clamor95@gmail.com>
- <20260617080031.99156-2-clamor95@gmail.com>
- <akeFmMQ_S1Y18hlu@hovoldconsulting.com>
- <CAPVz0n23=F2Q2fSJJx1E_mST2zhomKcvhKtOy-Af3aoq-pZ-Zw@mail.gmail.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37B3810F2C6
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:42:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1785508929;
+ bh=6Zd4OqerlwYFnaNKsaEfTrdLQVTFpRQ12tFpK/5BhJY=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=hyc8x1Bb8PPLWTsAgZxGikygGIa0kC307sPMe8wTnCma5Duv0TCDIO25KLaAjMHik
+ sZbWMCeTJTFbNSpUH5LxSFFrlmySEZHGFhhQz6LP8DhzxBfhNkXdBjJ/fqDY9RBabF
+ Lma4xBt6CGDN4PvX48iL/fD1d3wSdVVa7whnF+b8b7uH9GfrhMy+pcO6YGfUdd0azz
+ DuGpWUCMmElWRPCdVcdxECcEshzsiOwxPCPrIDCq8+HrE3Aa4UwQz1A/fLTgM2TlXG
+ EPxK5a5a7qnvqVyo+bG8MSx2VO65p6Wbxj98yQHQj41FSB72apQYS+eelRMkGA3I7C
+ jBFHIDnTExg9A==
+Received: from jupiter.universe (unknown [100.64.1.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: sre)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 484F617E08E9;
+ Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+ id 0007E48002F; Fri, 31 Jul 2026 16:42:08 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Fri, 31 Jul 2026 16:42:08 +0200
+Subject: [PATCH v8 03/21] drm/bridge: synopsys: dw-dp: Cancel pending HPD work
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n23=F2Q2fSJJx1E_mST2zhomKcvhKtOy-Af3aoq-pZ-Zw@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260731-synopsys-dw-dp-improvements-v8-3-ac1e6a75782f@collabora.com>
+References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1740;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=6Zd4OqerlwYFnaNKsaEfTrdLQVTFpRQ12tFpK/5BhJY=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstECUSFS0UuATzDi49K5jfLrdgHALtoP6U
+ ERnDnCO7PzboIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
+ O/qa0EoP/iALzEtnGFHT7YRM+2ilE/+NXt37lixuptbvRSq2xnNObsWOq+yvBKlpiXGlI/Cucyt
+ Eqy/hTkj39yc9m6ugwoA8vUx+L2650+31UJlXnq58H+yVYh2LBp7hGUQoutnTzKEC92sxUCdiaK
+ HytSk8rRUBtrSnFewwsTqZ5c+/2zZM8LdaDBN2GInFBhAFgIi7pIMVcUrXGJeUfAUmJUfqYLpfY
+ mYIkhHerxofXidru1yeJnonO3Hgax2eNnNVB7bug1PfiOf3j5vwUHQNMrr5Fnj/BDbRlOGO32gM
+ gPb+ydDE98rrOZg8itEHeryM/fzUOHF5QMYOc5SaeOdd+cJ4iVqid7GJypZ5svc16gwa3mfRiMy
+ nat/2bXmU6HMEEVp1bTm0eVccY4pS7C30bpqkR9AFatSwsmBta+nlFPABo2N71Maf3lUgRDQS3s
+ 51McPGRdntPCTw7CKqeSgjX46M9H9psLgQODgdL8JB0+E2XYZNFErExr90pgSrntCGfXZVVREWI
+ g36VgIjedisNopholbLYN6qM9DxVqOkx1bHX6cJJGKvCevvCOjIPhaEe0+4a/Kulccla2dVbjBP
+ Pt7IErXG4zw72KzC9B2wr9kZ/NKzoH6keayUZ+kN7E1rVYrpIG4MEVKkMYls/Dm7D9SCNUXJoyW
+ Fzo/Rnc1yHnC5ugEmWfUz7w==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,17 +99,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Jul 14, 2026 at 04:27:08PM +0300, Svyatoslav Ryhel wrote:
-> пт, 3 лип. 2026 р. о 12:49 Johan Hovold <johan@kernel.org> пише:
+There is a race condition during device removal: If the HPD interrupt
+started an HPD worker exactly when the device is removed, the worker
+thread might access invalid resources. Avoid this by stopping any
+pending work immediately after disabling the interrupt.
 
-> > > +            light-sensor {
-> >
-> > Doesn't the binding (or dts) checker complain about this node not having
-> > an address?
-> >
-> 
-> No it does not
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Thanks for confirming.
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 7f8249514171..6289ed06e231 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -8,6 +8,7 @@
+  */
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
++#include <linux/devm-helpers.h>
+ #include <linux/iopoll.h>
+ #include <linux/irq.h>
+ #include <linux/media-bus-format.h>
+@@ -2027,7 +2028,6 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
+ 
+ 	mutex_init(&dp->irq_lock);
+-	INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
+ 	init_completion(&dp->complete);
+ 
+ 	res = devm_platform_ioremap_resource(pdev, 0);
+@@ -2108,6 +2108,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 	if (dp->irq < 0)
+ 		return ERR_PTR(dp->irq);
+ 
++	ret = devm_work_autocancel(dev, &dp->hpd_work, dw_dp_hpd_work);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	ret = devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
+ 					IRQF_ONESHOT, dev_name(dev), dp);
+ 	if (ret) {
 
-Johan
+-- 
+2.53.0
+
