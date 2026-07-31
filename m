@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F3B6C54F54
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74C12C5516F
 	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:23:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FA3C10E209;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 619C410E235;
 	Fri, 31 Jul 2026 16:23:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Nx3zp4QP";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="KpewS9PA";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78E0310F2F9
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBA9F10F30D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514769;
- bh=/yiHYpv6JDAP8TqmgFqNkriKXPlZVLMG1+AZdUe8aaI=;
+ s=mail; t=1785514793;
+ bh=Nxh58kkTCJhDJZ7LOkXxKPsnDbbAawY8MD7ZCqqJ5bs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Nx3zp4QP1XWq1RhdyKxkJGxDjKSAnScsdyLyY/Ejw8Maix9gxRsKZmnBh48DMaOk8
- Dc8B/0q2srvMM6Vb9cuztdMcU0TndG/ZwvQrn3f7BabQcibqis3G0Z5OFrTgGnHEDp
- 6g7rAhRyZNC7Hn3BSpy9O50UHugX5cNaCSHEMn3q8m2Ema5cSwb3z/M8aW47RKvGJD
- z926IbktF3gvsVSniXa5qoJLtyHVqYc73Bu0yP50EN4pPxa+4xvCnGm3KoBa0/iBxw
- FviX8yaiIpnynaWY+ncL+ofGGpKjGi0cC64I2V8wg7+9f8uVXAWGz9LSxL7NkVtCxE
- yEOaibzjaAsMg==
+ b=KpewS9PA1BDaDp0B//q/gO+9yphcABEgsq9KIxwt/mjHZ+3nObMDEbeyjCRp4k9pp
+ 7TNs6AhYJoyXwy9v1Wji1tb3FoTTJt8FqsrP8oo18um45n5gzB67F2DNUVc58MxGzM
+ ivtmVXnEwEHqebl2ge/J7XLYI64BuUPAi60OqpxbgS/rWt/6jEnntRQm1f3B7xsKo+
+ nTNJRG7WuDXCb38b5NL4caiHrVLYlj93yZc40CbFskxARjhuAljeyQTG5JBAUE2UqZ
+ YDMmtW8z8Ek0JvYYSezDCHqbBLviOXqchG+/RfpV6co1nZKqrdjY3UJ3P79evuGYdM
+ NDWy/xPTO4gNg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 2A77117E0943;
- Fri, 31 Jul 2026 18:19:29 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3431217E08F7;
+ Fri, 31 Jul 2026 18:19:53 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:27 +0300
-Subject: [PATCH v10 20/69] drm/display: hdmi-state-helper: Add source TMDS
- rate validation
+Date: Fri, 31 Jul 2026 19:20:01 +0300
+Subject: [PATCH v10 54/69] drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4
+ capabilities
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-20-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-54-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,9 +62,7 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- Maud Spierings <maud_spierings@hotmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,36 +79,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Validate the computed TMDS character rate against
-connector->hdmi.max_tmds_char_rate, when provided by the driver/source.
+Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
+supported HDMI version.  This is not yet enforced, but will become
+mandatory once the migration to the new caps-based HDMI connector
+initialization API is completed.
 
-This gives HDMI connectors common support for rejecting modes whose TMDS
-character rate exceeds the source supported limit, while still allowing
-drivers with custom validation requirements to implement their own
-tmds_char_rate_valid() callback.
+The RK3066 HDMI TX supports HDMI 1.4a, as described in commit
+f84d3d37b7fb ("drm: rockchip: introduce rk3066 hdmi").  However, the
+driver does not currently enforce a maximum TMDS character rate, it only
+filters non-CEA modes and excludes VIC 1 (640x480) via the .mode_valid
+callback.
 
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+Advertise HDMI 1.4 support for now so that modes exceeding the 340 MHz
+TMDS limit are rejected by the core.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/rockchip/rk3066_hdmi.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index ce17eeefc2da..92be6278ea44 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -560,6 +560,10 @@ hdmi_clock_valid(const struct drm_connector *connector,
- 	if (info->max_tmds_clock && clock > info->max_tmds_clock * 1000)
- 		return MODE_CLOCK_HIGH;
+diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+index f28d6a883e09..f748700b0ba6 100644
+--- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
++++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+@@ -14,6 +14,7 @@
+ #include <drm/drm_probe_helper.h>
  
-+	if (connector->hdmi.max_tmds_char_rate &&
-+	    clock > connector->hdmi.max_tmds_char_rate)
-+		return MODE_CLOCK_HIGH;
-+
- 	if (funcs && funcs->tmds_char_rate_valid) {
- 		enum drm_mode_status status;
+ #include <linux/clk.h>
++#include <linux/hdmi.h>
+ #include <linux/mfd/syscon.h>
+ #include <linux/platform_device.h>
+ #include <linux/regmap.h>
+@@ -712,6 +713,7 @@ rk3066_hdmi_register(struct drm_device *drm, struct rk3066_hdmi *hdmi)
+ 	hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
+ 	hdmi->bridge.vendor = "Rockchip";
+ 	hdmi->bridge.product = "RK3066 HDMI";
++	hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_1_4;
  
+ 	hdmi->bridge.ddc = rk3066_hdmi_i2c_adapter(hdmi);
+ 	if (IS_ERR(hdmi->bridge.ddc))
 
 -- 
 2.55.0
