@@ -4,58 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED98C5516F
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 07:58:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34130C54FCD
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 07:58:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71A6210E2AB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80F7A10E2B4;
 	Sat,  1 Aug 2026 07:58:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=elsta.tech header.i=@elsta.tech header.b="uFIKBSaB";
+	dkim=pass (2048-bit key; unprotected) header.d=elsta.tech header.i=@elsta.tech header.b="rULPH7zn";
 	dkim-atps=neutral
-X-Greylist: delayed 366 seconds by postgrey-1.36 at gabe;
- Fri, 31 Jul 2026 10:52:43 UTC
 Received: from mail.elsta.tech (mail.elsta.tech [194.150.96.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C468F10F213
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D523410F215
  for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 10:52:43 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
- by mail.elsta.tech (Postfix) with ESMTP id ACE5D8D53B3;
+ by mail.elsta.tech (Postfix) with ESMTP id 6ECE28D53AD;
  Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
 Authentication-Results: mail.elsta.tech (amavis); dkim=pass (2048-bit key)
  header.d=elsta.tech
 Received: from mail.elsta.tech ([127.0.0.1])
  by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10032) with ESMTP
- id iVg-pCXs99Nj; Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
+ id xeUqlHFTY-a3; Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
 Received: from localhost (localhost [127.0.0.1])
- by mail.elsta.tech (Postfix) with ESMTP id 769268D53B4;
+ by mail.elsta.tech (Postfix) with ESMTP id 361278D53B1;
  Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.elsta.tech 769268D53B4
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.elsta.tech 361278D53B1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=elsta.tech;
  s=0883730E-C77C-11E9-9DA4-0BE9876769AA; t=1785494793;
- bh=a9WFruF+jsbK+yzittr0qjwlm/b207TqVHPmsDedzSA=;
- h=From:Date:MIME-Version:Message-Id:To;
- b=uFIKBSaBP7PGdlR3G0JgPThh/DPXGqlmxk3c/VId7bQwoQ+WtAXzbl/PTo3tKjZjc
- fv1YYwQn60YR5wOobZN0GZhz2o2VbyMRwOd0iOvDNfHLXWLGmNaBGlP8Nz8cS2GmNX
- heFH/VMt/0WS5YKUjqkong5mzgJXp7VEtq1VINmDM11ltBWabfuDMRJbJUp72MThjm
- R5314p1iP0TG9AhBW8ieFUpRMYSYYB2Ch0GIR7/5wBDsgP1PPUOnwF3yTWr/mf21Yw
- Le1TWtkWrbk3c4Kp9x15F6a2ZMqSqp3Iefp5Gmn642oBCiwc5VmnpJhCumiaEB/hbX
- Xw+xmzzYLvLDA==
+ bh=ucDX/yN/bgjQ8eR0W+6x3z0eH/umeWeTO6jHUIXSMlg=;
+ h=From:Date:Message-Id:MIME-Version:To;
+ b=rULPH7znXxtYdUGCtyyXimK08iELqDDg2QzjwGCjf6sKnmGmTgmCETypxrzBSHudr
+ EcC7Y9VNZt5DRh1sl5bZ+SBA6SNHQTOUscOFrooxdKT7Y7CjOAClYD0VXSBZugwDtU
+ Yl5aiYGhFpLcyiWxdd8cfWTuYFbz/oA0tpTqN9ZzfT8A0dwtwy4f5GhCUyhShmacqI
+ xe8zVd6s2mxpF48b6Ex4YEu4Jtt4yL2jmfPdpCF3bKaZWhc5pdQzREids5pd0gIEzn
+ NP5tcN5rtejCxa+EzVoiBqf0rR+zOz7qvLb/nq1nupp4TT0FpyJsBI1HOAO06sFJ7d
+ OSRSAzXg2YgOw==
 X-Virus-Scanned: amavis at elsta.tech
 Received: from mail.elsta.tech ([127.0.0.1])
  by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10026) with ESMTP
- id PaCv2EAx1WZP; Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
+ id vZUgiRqc2BKT; Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
 Received: from [127.0.1.1] (unknown [172.31.0.125])
- by mail.elsta.tech (Postfix) with ESMTPSA id 3EA758D53B2;
- Fri, 31 Jul 2026 12:46:33 +0200 (CEST)
+ by mail.elsta.tech (Postfix) with ESMTPSA id EAD058D53AD;
+ Fri, 31 Jul 2026 12:46:32 +0200 (CEST)
 From: Jakub Turek <jakub.turek@elsta.tech>
-Date: Fri, 31 Jul 2026 12:46:17 +0200
-Subject: [PATCH 2/2] dt-bindings: display: solomon,ssd1307fb: add SH1107
- compatible
+Subject: [PATCH 0/2] fbdev: ssd1307fb: add SH1107 support
+Date: Fri, 31 Jul 2026 12:46:15 +0200
+Message-Id: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-feat-sh1107-v1-2-e10977f76e6b@elsta.tech>
-References: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
-In-Reply-To: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
+X-B4-Tracking: v=1; b=H4sIAPd8bGoC/yXMQQ5AMBBA0avIrDVpCcVVxIJ2ylggnRKJuLti+
+ Rb/X8DoCRma5AKPBzGtS4RKEzBTv4woyEZDJrNS6lwJh30QPCkltTC6dNpWts5tAbHYPDo6v1v
+ b/eZ9mNGEdwH3/QCePyXvbwAAAA==
+X-Change-ID: 20260731-feat-sh1107-c76f7d8d93d5
 To: Helge Deller <deller@gmx.de>, 
  Javier Martinez Canillas <javierm@redhat.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -83,50 +82,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Update the device tree documentation to include "sinowealth,sh1107" as a
-recognized compatible string.
+This series adds support for the Sino Wealth SH1107 OLED controller
+to the ssd1307fb driver.
 
-Signed-off-by: Jakub Turek  <jakub.turek@elsta.tech>
+Patch 1 implements SH1107 support in the ssd1307 driver.
+Patch 2 adds the device tree compatible string.
+
+Tested on:
+- imx7d-colibri
+
+Signed-off-by: Jakub Turek <jakub.turek@elsta.tech>
 ---
- .../devicetree/bindings/display/solomon,ssd1307fb.yaml  | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+Jakub Turek (2):
+      fbdev: ssd1307fb: add support for Sino Wealth SH1107 controller
+      dt-bindings: display: solomon,ssd1307fb: add SH1107 compatible
 
-diff --git a/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml b/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml
-index 153ff86fb405..6b17a701bbaa 100644
---- a/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml
-+++ b/Documentation/devicetree/bindings/display/solomon,ssd1307fb.yaml
-@@ -22,6 +22,7 @@ properties:
-         deprecated: true
-       - enum:
-           - sinowealth,sh1106
-+          - sinowealth,sh1107
-           - solomon,ssd1305
-           - solomon,ssd1306
-           - solomon,ssd1307
-@@ -140,6 +141,22 @@ allOf:
-         solomon,dclk-frq:
-           default: 5
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: sinowealth,sh1107
-+    then:
-+      properties:
-+        solomon,width:
-+          default: 128
-+        solomon,height:
-+          default: 64
-+        solomon,dclk-div:
-+          default: 1
-+        solomon,dclk-frq:
-+          default: 8
-+
-   - if:
-       properties:
-         compatible:
+ .../bindings/display/solomon,ssd1307fb.yaml        |  17 ++
+ drivers/video/fbdev/ssd1307fb.c                    | 234 ++++++++++++++-------
+ 2 files changed, 172 insertions(+), 79 deletions(-)
+---
+base-commit: 37e2f878a7a660a216cc7a60459995fefd150f25
+change-id: 20260731-feat-sh1107-c76f7d8d93d5
 
--- 
-2.34.1
+Best regards,
+--  
+Jakub Turek <jakub.turek@elsta.tech>
 
