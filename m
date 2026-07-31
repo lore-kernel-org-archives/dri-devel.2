@@ -4,43 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9845AC5516D
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 13:51:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FDCDC54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:01:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BBCF10F25C;
-	Fri, 31 Jul 2026 13:51:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0785A10F25B;
+	Fri, 31 Jul 2026 14:01:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B4U4gIrt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AhZdMp3H";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E29FF10F25C
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 13:51:00 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CDF710F25B
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:01:14 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D19B8600AD;
- Fri, 31 Jul 2026 13:50:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6129F1F000E9;
- Fri, 31 Jul 2026 13:50:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7706E600AF;
+ Fri, 31 Jul 2026 14:01:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CABC1F00A3A;
+ Fri, 31 Jul 2026 14:01:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785505859;
- bh=syydMGCf1B6SBDfFUejGoi2rBFQO77I4rafUGJUBJbY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=B4U4gIrtAPg1wN1vwAVwCKWUrfRNy+B0s00gossQHwXrajTHls6LixOO/NsoXpCuE
- 1ycmrbn/rosDtK+M4MNDYrqDLSw/yzUZWFdKPbJN30FHKh2GwGZ0VteBZt4EmubEvA
- V6obCwsYA6bbN3BcxGGoFjVGzAUUl50IyLKbBNfCcVVsMzyGSed8qHBU5zpHoI2rqJ
- 5U/q5MtFA2qsCaRL25VEKTeOaorLrsPY/aePv5c2CT8Va8jmbO/gL5dtBkdFJQ7MXA
- Brovj8VWC7jGCWfD4KM/DIEmSqdLWpVN+rPYWIfcq6HOD5j/zbqrHa+IXEX5TF0M6T
- PoOnirba8RhhQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] power: sequencing: rename pwrseq_power_on/off() to
- pwrseq_enable/disable()
-To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260731-pwrseq-vote-rename-v3-1-44e60b8be053@oss.qualcomm.com>
-References: <20260731-pwrseq-vote-rename-v3-1-44e60b8be053@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 13:50:59 +0000
-Message-Id: <20260731135059.6129F1F000E9@smtp.kernel.org>
+ s=k20260515; t=1785506473;
+ bh=rZSd5pV7B4MK/p367s/WQ9fhJrhOWkviG5zn8fJiikc=;
+ h=Date:From:To:Cc:Subject;
+ b=AhZdMp3HnNYXGU1lsaDa4Bt6OxwbbyujBAlbSd74Nj3ycD9hu8Mx5WjTRf3fC2RPW
+ l/BgvJuOmODf3dtVt9C6Lq6UmHl6E7uNw/gmy62Lb5kqBf2CBv9t+QuEXRvlSc/GX2
+ lSeKEWwGXtan3xAc+YCRcjtpZEjAFieBAge4FOGqOnUQc62rEXQ+NgUQQs53JmnQwV
+ x+paiE1hTYkVRBIgOJC4KAEcPbUa5u2LHOeFf9Ie15Z+GJrBfYCOLid4IBiwKVKQSh
+ v4N2y4SSOhACkrJsO+o0f2XT69QhQXBSQNQBvNCcdi/Um9V0EM+Z0SvSpmV42kdcx7
+ vs8A0PRU/clGQ==
+Date: Fri, 31 Jul 2026 15:01:09 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Shahyan Soltani <shahyan.soltani@amd.com>,
+ Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Subject: linux-next: manual merge of the drm tree with the origin tree
+Message-ID: <amyqpXv6_drYUPPt@sirena.org.uk>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="PZ3a0a1mEzO6pf0R"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,169 +56,231 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Missing error check after `pwrseq_unit_enable()` in `pwrseq_enable=
-()`.
-- [High] The return value of `pwrseq_enable()` is ignored in `slot_pwrctrl_=
-power_on()`.
-- [High] Missing cleanup of previously enabled regulators in `slot_pwrctrl_=
-power_on()` if clock enable fails.
-- [High] `pwrseq_put()` frees the descriptor without decrementing `enable_c=
-ount` if `pwrseq_disable()` fails.
---
+--PZ3a0a1mEzO6pf0R
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [1]: [PATCH v3] power: sequencing: rename pwrseq_power_on/off() t=
-o pwrseq_enable/disable() ---
-commit 72b956d7bab750ba1857c47c880220b1aa1f9e10
-Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Hi all,
 
-power: sequencing: rename pwrseq_power_on/off() to pwrseq_enable/disable()
+Today's linux-next merge of the drm tree got a conflict in:
 
-This commit renames the power sequencing functions pwrseq_power_on() and
-pwrseq_power_off() to pwrseq_enable() and pwrseq_disable() to better reflect
-their semantics. It updates consumers across various subsystems to use the =
-new
-names.
+  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
 
-Link: https://lore.kernel.org/all/CAMRc=3DMefxn81d0VUwmQgwFtffkL1=3DEr_1VQZ=
-CbC1Sa-Qph4t1w@mail.gmail.com/
-Link: https://patch.msgid.link/20260731-pwrseq-vote-rename-v2-1-480357946e0=
-0@oss.qualcomm.com
+between commit:
 
-> diff --git a/drivers/pci/pwrctrl/generic.c b/drivers/pci/pwrctrl/generic.c
-> index a7e599d841e62..d56171e0ee244 100644
-> --- a/drivers/pci/pwrctrl/generic.c
-> +++ b/drivers/pci/pwrctrl/generic.c
-> @@ -29,7 +29,7 @@ static int slot_pwrctrl_power_on(struct pci_pwrctrl *pw=
-rctrl)
->  	int ret;
-> =20
->  	if (slot->pwrseq) {
-> -		pwrseq_power_on(slot->pwrseq);
-> +		pwrseq_enable(slot->pwrseq);
->  		return 0;
->  	}
+  04cc4aa3617b0 ("drm/amdgpu: fix lifetime issue of amdgpu_vm_get_task_info=
+_pasid()")
 
-[Severity: High]
-This is a pre-existing issue, but the negative error code from pwrseq_enabl=
-e()
-is ignored here, and 0 is incorrectly returned on failure.
+=66rom the origin tree and commit:
 
-If pwrseq_enable() fails, the PCIe subsystem will proceed assuming the slot=
- is
-powered on. When it tries to probe or interact with the slot, it will access
-unpowered hardware, potentially leading to bus faults or system hangs.
+  b0ae60ea3f3f1 ("drm/amdgpu: Resolve VM through DRM PASID ownership")
 
-Should this code return the error code from pwrseq_enable() instead?
+=66rom the drm tree.
 
-[Severity: High]
-This is another pre-existing issue, but if slot->pwrseq is not present, this
-function continues with regulator_bulk_enable() and clk_prepare_enable():
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
 
-	ret =3D regulator_bulk_enable(slot->num_supplies, slot->supplies);
-	if (ret < 0) {
-		...
-		return ret;
-	}
+diff --combined drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index dc6a9d7dd0b28,aac8ace9d7a63..0000000000000
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@@ -2506,14 -2506,16 +2506,16 @@@ amdgpu_vm_get_task_info_vm(struct amdgp
+  struct amdgpu_task_info *
+  amdgpu_vm_get_task_info_pasid(struct amdgpu_device *adev, u32 pasid)
+  {
++ 	struct amdgpu_fpriv *fpriv;
+  	struct amdgpu_task_info *ti;
+  	struct amdgpu_vm *vm;
+  	unsigned long flags;
+ =20
+- 	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
+- 	vm =3D xa_load(&adev->vm_manager.pasids, pasid);
++ 	amdgpu_pasid_lock(&flags);
++ 	fpriv =3D amdgpu_pasid_get_fpriv_locked(pasid);
++ 	vm =3D fpriv ? &fpriv->vm : NULL;
+  	ti =3D amdgpu_vm_get_task_info_vm(vm);
+- 	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
++ 	amdgpu_pasid_unlock(flags);
+ =20
+  	return ti;
+  }
+@@@ -2554,7 -2556,6 +2556,6 @@@ void amdgpu_vm_set_task_info(struct amd
+   * @adev: amdgpu_device pointer
+   * @vm: requested vm
+   * @xcp_id: GPU partition selection id
+-  * @pasid: the pasid the VM is using on this GPU
+   *
+   * Init @vm fields.
+   *
+@@@ -2562,7 -2563,7 +2563,7 @@@
+   * 0 for success, error for failure.
+   */
+  int amdgpu_vm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+- 		   int32_t xcp_id, uint32_t pasid)
++ 		   int32_t xcp_id)
+  {
+  	struct amdgpu_bo *root_bo;
+  	struct amdgpu_bo_vm *root;
+@@@ -2637,26 -2638,12 +2638,12 @@@
+  	if (r)
+  		dev_dbg(adev->dev, "Failed to create task info for VM\n");
+ =20
+- 	/* Store new PASID in XArray (if non-zero) */
+- 	if (pasid !=3D 0) {
+- 		r =3D xa_err(xa_store_irq(&adev->vm_manager.pasids, pasid, vm, GFP_KERN=
+EL));
+- 		if (r < 0)
+- 			goto error_free_root;
+-=20
+- 		vm->pasid =3D pasid;
+- 	}
+-=20
+  	amdgpu_bo_unreserve(vm->root.bo);
+  	amdgpu_bo_unref(&root_bo);
+ =20
+  	return 0;
+ =20
+  error_free_root:
+- 	/* If PASID was partially set, erase it from XArray before failing */
+- 	if (vm->pasid !=3D 0) {
+- 		xa_erase_irq(&adev->vm_manager.pasids, vm->pasid);
+- 		vm->pasid =3D 0;
+- 	}
+  	amdgpu_vm_pt_free_root(adev, vm);
+  	amdgpu_bo_unreserve(vm->root.bo);
+  	amdgpu_bo_unref(&root_bo);
+@@@ -2763,11 -2750,6 +2750,6 @@@ void amdgpu_vm_fini(struct amdgpu_devic
+ =20
+  	root =3D amdgpu_bo_ref(vm->root.bo);
+  	amdgpu_bo_reserve(root, true);
+- 	/* Remove PASID mapping before destroying VM */
+- 	if (vm->pasid !=3D 0) {
+- 		xa_erase_irq(&adev->vm_manager.pasids, vm->pasid);
+- 		vm->pasid =3D 0;
+- 	}
+  	dma_fence_wait(vm->last_unlocked, false);
+  	dma_fence_put(vm->last_unlocked);
+  	dma_fence_wait(vm->last_tlb_flush, false);
+@@@ -2863,8 -2845,6 +2845,6 @@@ void amdgpu_vm_manager_init(struct amdg
+  #else
+  	adev->vm_manager.vm_update_mode =3D 0;
+  #endif
+-=20
+- 	xa_init_flags(&adev->vm_manager.pasids, XA_FLAGS_LOCK_IRQ);
+  }
+ =20
+  /**
+@@@ -2876,9 -2856,6 +2856,6 @@@
+   */
+  void amdgpu_vm_manager_fini(struct amdgpu_device *adev)
+  {
+- 	WARN_ON(!xa_empty(&adev->vm_manager.pasids));
+- 	xa_destroy(&adev->vm_manager.pasids);
+-=20
+  	amdgpu_vmid_mgr_fini(adev);
+  	amdgpu_pasid_mgr_cleanup();
+  }
+@@@ -2935,14 -2912,16 +2912,16 @@@ struct amdgpu_vm *amdgpu_vm_lock_by_pas
+  					  u32 pasid, struct drm_exec *exec)
+  {
+  	unsigned long irqflags;
++ 	struct amdgpu_fpriv *fpriv;
+  	struct amdgpu_bo *root;
+  	struct amdgpu_vm *vm;
+  	int r;
+ =20
+- 	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+- 	vm =3D xa_load(&adev->vm_manager.pasids, pasid);
+- 	root =3D vm ? amdgpu_bo_ref(vm->root.bo) : NULL;
+- 	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
++ 	amdgpu_pasid_lock(&irqflags);
++ 	fpriv =3D amdgpu_pasid_get_fpriv_locked(pasid);
++ 	vm =3D fpriv ? &fpriv->vm : NULL;
++ 	root =3D vm && vm->root.bo ? amdgpu_bo_ref(vm->root.bo) : NULL;
++ 	amdgpu_pasid_unlock(irqflags);
+ =20
+  	if (!root)
+  		return NULL;
+@@@ -2954,11 -2933,17 +2933,17 @@@
+  	}
+ =20
+  	/* Double check that the VM still exists */
+- 	xa_lock_irqsave(&adev->vm_manager.pasids, irqflags);
+- 	vm =3D xa_load(&adev->vm_manager.pasids, pasid);
+- 	if (vm && vm->root.bo !=3D root)
++ 	amdgpu_pasid_lock(&irqflags);
++ 	fpriv =3D amdgpu_pasid_get_fpriv_locked(pasid);
++ 	if (!fpriv) {
+  		vm =3D NULL;
+- 	xa_unlock_irqrestore(&adev->vm_manager.pasids, irqflags);
++ 	} else {
++ 		vm =3D &fpriv->vm;
++ 		if (vm->root.bo !=3D root)
++ 			vm =3D NULL;
++ 	}
++ 	amdgpu_pasid_unlock(irqflags);
++=20
+  	if (!vm) {
+  		drm_exec_unlock_obj(exec, &root->tbo.base);
+  		amdgpu_bo_unref(&root);
+@@@ -3010,8 -2995,6 +2995,8 @@@ bool amdgpu_vm_handle_fault(struct amdg
+  	is_compute_context =3D vm->is_compute_context;
+ =20
+  	if (is_compute_context) {
+ +		__label__ drm_exec_retry;
+ +
+  		/* Release the root PD lock since svm_range_restore_pages
+  		 * might try to take it.
+  		 * TODO: rework svm_range_restore_pages so that this isn't
+@@@ -3157,12 -3140,14 +3142,14 @@@ void amdgpu_vm_update_fault_cache(struc
+  				  uint32_t status,
+  				  unsigned int vmhub)
+  {
++ 	struct amdgpu_fpriv *fpriv;
+  	struct amdgpu_vm *vm;
+  	unsigned long flags;
+ =20
+- 	xa_lock_irqsave(&adev->vm_manager.pasids, flags);
++ 	amdgpu_pasid_lock(&flags);
+ =20
+- 	vm =3D xa_load(&adev->vm_manager.pasids, pasid);
++ 	fpriv =3D amdgpu_pasid_get_fpriv_locked(pasid);
++ 	vm =3D fpriv ? &fpriv->vm : NULL;
+  	/* Don't update the fault cache if status is 0.  In the multiple
+  	 * fault case, subsequent faults will return a 0 status which is
+  	 * useless for userspace and replaces the useful fault status, so
+@@@ -3195,7 -3180,7 +3182,7 @@@
+  			WARN_ONCE(1, "Invalid vmhub %u\n", vmhub);
+  		}
+  	}
+- 	xa_unlock_irqrestore(&adev->vm_manager.pasids, flags);
++ 	amdgpu_pasid_unlock(flags);
+  }
+ =20
+  void amdgpu_vm_print_task_info(struct amdgpu_device *adev,
 
-	return clk_prepare_enable(slot->clk);
+--PZ3a0a1mEzO6pf0R
+Content-Type: application/pgp-signature; name="signature.asc"
 
-If clk_prepare_enable() fails, the function returns an error without disabl=
-ing
-the regulators that were just enabled, resulting in a resource leak.
+-----BEGIN PGP SIGNATURE-----
 
-Should clk_prepare_enable() failure be checked, and regulator_bulk_disable()
-called if it fails?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpsqqQACgkQJNaLcl1U
+h9DRRAf/Y7niW8oRncQvgyPrV4lSpQ0aXIaTG8u7QvNVf2LGCtnPHVuIFfIZEwK5
+QiJj+UoEmaryQK2YD+QRXRpfK7l2s4FY7UqYPAMj4xDiHEYHBsx8QdynNNJ4EQah
+1RJLH4bpoiqKgUtxLPwis9k+R8EIPlIdtZnYSNPyYsa85lHLXnys1LvGQMmH3BPR
+wEIToagv/faLT+K7rUSymRxgph11u8JwIL78aookX8FGdC108LEPXBdzDzfLNEb6
+3qRfsIL2CyMfyJ4PZT+BfFBqm5caB2ibNU0r8gMfWVX31lOOwVMAYC54Zx3bsG1X
+u40IrPV9WZtaIBN9hiArE+MwcytLJw==
+=f2+1
+-----END PGP SIGNATURE-----
 
-[ ... ]
-
-> diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/c=
-ore.c
-> index 02f42da915985..721e888b658d1 100644
-> --- a/drivers/power/sequencing/core.c
-> +++ b/drivers/power/sequencing/core.c
-> @@ -708,7 +708,7 @@ void pwrseq_put(struct pwrseq_desc *desc)
->  	pwrseq =3D desc->pwrseq;
-> =20
->  	if (desc->powered_on)
-> -		pwrseq_power_off(desc);
-> +		pwrseq_disable(desc);
-> =20
->  	kfree(desc);
->  	module_put(pwrseq->owner);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but pwrseq_put() frees the descr=
-iptor
-without decrementing the enable_count if pwrseq_disable() fails.
-
-If the underlying hardware disable fails, pwrseq_unit_disable() returns an =
-error
-and does not decrement the enable_count. However, pwrseq_put() ignores this
-error and unconditionally calls kfree(desc), stranding the enable_count ins=
-ide
-the pwrseq_unit and causing a permanent logical leak.
-
-Is it intentional that the descriptor is freed even if disabling fails?
-
-[ ... ]
-
-> @@ -874,7 +874,7 @@ static int pwrseq_unit_disable(struct pwrseq_device *=
-pwrseq,
->  }
-> =20
->  /**
-> - * pwrseq_power_on() - Issue a power-on request on behalf of the consumer
-> + * pwrseq_enable() - Issue a power-on request on behalf of the consumer
->   *                     device.
->   * @desc: Descriptor referencing the power sequencer.
->   *
-> @@ -887,7 +887,7 @@ static int pwrseq_unit_disable(struct pwrseq_device *=
-pwrseq,
->   * Returns:
->   * 0 on success, negative error number on failure.
->   */
-> -int pwrseq_power_on(struct pwrseq_desc *desc)
-> +int pwrseq_enable(struct pwrseq_desc *desc)
->  {
->  	struct pwrseq_device *pwrseq;
->  	struct pwrseq_target *target;
-
-[Severity: High]
-This is a pre-existing issue, but there is a missing error check after
-pwrseq_unit_enable() in pwrseq_enable().
-
-Later in this function, we do:
-
-	scoped_guard(mutex, &pwrseq->state_lock) {
-		ret =3D pwrseq_unit_enable(pwrseq, unit);
-		if (!ret)
-			desc->powered_on =3D true;
-	}
-
-	if (target->post_enable) {
-		ret =3D target->post_enable(pwrseq);
-		...
-
-If pwrseq_unit_enable() fails, the code ignores the error and proceeds to c=
-all
-target->post_enable(). If post_enable() succeeds, it overwrites the error c=
-ode
-and returns 0 (success) to the caller, while desc->powered_on remains false
-and the hardware is unpowered.
-
-If post_enable() fails, it attempts to call pwrseq_unit_disable() on an
-unpowered unit, causing an unbalanced enable count and a kernel WARN.
-
-Should we return early if pwrseq_unit_enable() fails?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-pwrseq-vot=
-e-rename-v3-1-44e60b8be053@oss.qualcomm.com?part=3D1
+--PZ3a0a1mEzO6pf0R--
