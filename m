@@ -4,66 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84BB8C55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:52:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5CA2C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:57:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC59010F359;
-	Fri, 31 Jul 2026 16:52:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3465D10E16F;
+	Fri, 31 Jul 2026 16:57:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="tw0fBVmA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ojjr2Zb8";
 	dkim-atps=neutral
-Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com
- [91.218.175.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B439110F359
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:52:45 +0000 (UTC)
-Message-ID: <d42d6ce2-7160-457f-be04-ff84551e9b9a@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1785516763;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=xWkD4jlIKLHWvPRjV0QmKvuYD4Xxyf9krdRe4eLcDvs=;
- b=tw0fBVmAHcUXZ7EyOQ7pyMrimPCYLOkU5/RHBTtdmkcGGYTVYktilu6Dt4cd95LFOpxMyx
- zi1m2M/5GXO4iE9fdtnAW4EffxYHAUkWE/2Z9itCgIUFo88sErfYnGryS8S87roMxd3eCw
- ls1W3ST343itFRpTm7rbr+AyeKMo51k=
-Date: Sat, 1 Aug 2026 00:52:06 +0800
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C10AD10E16F
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:57:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AC12E600C8;
+ Fri, 31 Jul 2026 16:57:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D291F00AC4;
+ Fri, 31 Jul 2026 16:57:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785517025;
+ bh=JSTF/EhiF+zzML7dVZ1u233Db9xYX6dDelyLsh+FPKY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=ojjr2Zb8944aUVNtUkEB8cWTCyAvPlq4E3o1I1T+aR9xvR+FFoDREB4njyk+jIBtj
+ qaLDfz3AytRYElepxv4Ozkur9JkyXwt6foKd0u/LfGFHQz/NAC7jgW+WKABY2ri5HR
+ nY1OJ2M9d4r5xGlly1p0/WNp76AxZZGWNm51ZeQP7aGApdiuNO2haQFzYkJIF6rU1M
+ PVHY/Y+Ui/FM6SyKApIZmzCnLxzHGCNal2N+C4wHZQaV88Xbq49JMoqQDj3BYfVt+z
+ bSehDEK3iSwGEH9GaJjPhaUyinDMp1f3mARtU4zHSq4PvkV9CntV17I6kcUGJZcJT3
+ potAUUvW21WSw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] drm/tegra: fbdev: Remove offset into framebuffer memory
+Date: Fri, 31 Jul 2026 12:57:03 -0400
+Message-ID: <20260731165703.883481-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026072953-ramble-ravage-32ab@gregkh>
+References: <2026072953-ramble-ravage-32ab@gregkh>
 MIME-Version: 1.0
-Subject: Re: [PATCH v2 2/9] rust: debugfs: add SeqShow trait and seq_file file
- operations
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot
- <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Melissa Wen <mwen@igalia.com>, Wambui Karuga <wambui.karugax@gmail.com>,
- Eric Anholt <eric@anholt.net>, Ben Gamari <bgamari@gmail.com>,
- rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev,
- dri-devel@lists.freedesktop.org
-References: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
- <20260731-tyr-debugfs-v2-v2-2-aea19eccb996@linux.dev>
- <amyeMmmfEBpuVclw@google.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <amyeMmmfEBpuVclw@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,91 +58,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-On 7/31/26 21:08, Alice Ryhl wrote:
-> On Fri, Jul 31, 2026 at 01:05:40AM +0800, Alvin Sun wrote:
->> +/// Show callback for `SeqShow` types.
->> +///
->> +/// # Safety
->> +///
->> +/// The seq_file core guarantees that `seq` points to a live `seq_file` and that
->> +/// `seq->private` is a valid pointer to a `T` with no outstanding mutable
->> +/// references.
->> +unsafe extern "C" fn seq_file_show<S: SeqShow<T>, T: Sync>(
->> +    seq: *mut bindings::seq_file,
->> +    _: *mut crate::ffi::c_void,
->> +) -> crate::ffi::c_int {
->> +    // SAFETY: `seq->private` is a valid `T` pointer with no outstanding
->> +    // mutable references.
->> +    let data = unsafe { &*((*seq).private.cast::<T>()) };
->> +    // SAFETY: `seq` points to a live `seq_file`.
->> +    let m = unsafe { SeqFile::from_raw(seq) };
->> +    from_result(|| S::show(data, m).map(|()| 0))
->> +}
->> +
->> +/// Renders `data` into a seq_file.
->> +///
->> +/// `data` is the value stashed as the debugfs file's `i_private` at creation
->> +/// time. `show` is invoked on each read to produce the file's contents.
->> +///
->> +/// `open` and `release` are optional lifecycle hooks called during file open
->> +/// and release. They can be used to manage the lifetime of `data` (e.g.,
->> +/// reference counting). Default implementations are no-ops.
->> +pub trait SeqShow<T> {
->> +    /// Writes debugfs output for the file.
->> +    fn show(data: &T, m: &SeqFile) -> Result;
->> +
->> +    /// Called during file open, before `single_open`.
->> +    fn open(_data: &T) -> Result {
->> +        Ok(())
->> +    }
->> +
->> +    /// Called during file release, before `single_release`.
->> +    ///
->> +    /// # Safety
->> +    ///
->> +    /// `data` must point to valid memory, kept alive by actions taken in
->> +    /// [`Self::open`] (e.g., incrementing a reference count).
->> +    unsafe fn release(_data: NonNull<T>) {}
->> +}
-> Hmm. So in a later patch you implement SeqShow in the following manner:
->
->      fn open(dev: &drm::Device<T, drm::Normal>) -> Result {
->          // Hold a device reference so the device is not freed while the file is open.
->          dev.inc_ref();
->          Ok(())
->      }
->
->      unsafe fn release(dev: NonNull<drm::Device<T, drm::Normal>>) {
->          // Drop the reference taken in `open`.
->          // SAFETY: `dev` is valid per this function's safety contract.
->          unsafe { drm::Device::<T>::dec_ref(dev) };
->      }
->
-> I don't understand why this increment/decrement pair is necessary.
-> Just based on the code, it *looks* like you have them because otherwise
-> `show()` might get called with a dangling pointer to the drm device, but
-> the inc_ref() in open() ensures it stays alive.
->
-> However, earlier in this patch you said:
->
->> The seq_file core guarantees that `seq` points to a live `seq_file` and
->> that `seq->private` is a valid pointer to a `T` with no outstanding
->> mutable references.
-> So based on this, you are saying that open()/release() do not need to do
-> anything special for the value to stay alive.
->
-> These seem contradictory. Could you clarify the situation?
+[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
 
-You're right. The `SeqShow` trait documentation was inaccurate -- the
-framework does not manage the lifetime of `data`, so `inc_ref`/`dec_ref`
-in `DrmSeqShow` is necessary to prevent `show()` from accessing a freed
-device.
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
 
-Will fix the doc in the next revision.
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.10+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/tegra/fb.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-Best regards,
-Alvin
+diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
+index 2040dbfed7e2..ab88a53d07c5 100644
+--- a/drivers/gpu/drm/tegra/fb.c
++++ b/drivers/gpu/drm/tegra/fb.c
+@@ -211,7 +211,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 	struct drm_mode_fb_cmd2 cmd = { 0 };
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+-	unsigned long offset;
+ 	struct fb_info *info;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+@@ -257,9 +256,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 
+ 	drm_fb_helper_fill_info(info, helper, sizes);
+ 
+-	offset = info->var.xoffset * bytes_per_pixel +
+-		 info->var.yoffset * fb->pitches[0];
+-
+ 	if (bo->pages) {
+ 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
+ 				 pgprot_writecombine(PAGE_KERNEL));
+@@ -271,9 +267,9 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+ 	}
+ 
+ 	drm->mode_config.fb_base = (resource_size_t)bo->iova;
+-	info->screen_base = (void __iomem *)bo->vaddr + offset;
++	info->screen_base = (void __iomem *)bo->vaddr;
+ 	info->screen_size = size;
+-	info->fix.smem_start = (unsigned long)(bo->iova + offset);
++	info->fix.smem_start = (unsigned long)(bo->iova);
+ 	info->fix.smem_len = size;
+ 
+ 	return 0;
+-- 
+2.53.0
 
->
-> Alice
