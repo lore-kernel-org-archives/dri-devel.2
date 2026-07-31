@@ -4,49 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E4FCC54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 12:08:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77B6FC5516D
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 12:19:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C7A10F23C;
-	Fri, 31 Jul 2026 12:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E254E10F23D;
+	Fri, 31 Jul 2026 12:19:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="1t2Dccnq";
+	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="Y1Hb05Cl";
 	dkim-atps=neutral
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79CC510F23C
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 12:08:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=In-Reply-To:References:Subject:Cc:To:From:
- Reply-To:Content-ID:Content-Description;
- bh=NX7y02AytQR/eBKRBBahNpRVTejIjfYTyHXAd68tZJc=; t=1785499735; x=1786709335; 
- b=1t2DccnqK6cdVI6BfdImFschE+4CJIsJnWZxCPj1nolw6szmUdWvh3r3mRgSYFUygvamN4VZL6j
- QZl1oVf2KVcsob+TTNZvGM54UzYoaLZTwbpzgidS8aMAaWoYeDlPOBH5YNoAvEV0m28Vq0AaHQVDl
- hzgvKb2aTTn5ioPWP0IY7mMvXqV3Tpk6d2AEJu2Y79TTVtrRl6KEnXEuZvAm0copkbt/x39vUvN1v
- G4RXBn4MiHj1jZrZ8AZtGC1XexbkR5+jmApKGUTAaSAd7U3lJpkzJ6bwuAhTmFygwQ4u3Osaq/lHp
- /kGiOjT7cuw16bpW9yvVo5o29iCyCH2PItgA==;
-Date: Fri, 31 Jul 2026 13:42:56 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>,
- hns@goldelico.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tony Lindgren <tony@atomide.com>,
- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Subject: Re: [PATCH v5] drm/omap: dsi: avoid sending bta sync all the time in
- writes
-Message-ID: <amyKQNbemhTMKTk8@akepd>
-References: <20260725165909.508612-1-andreas@kemnade.info>
- <39434782-9909-4bb4-b3da-a507acfc5e3d@ideasonboard.com>
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 78AB210F23D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 12:19:24 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-38511175ad3so657981a91.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 05:19:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=0x0f.com; s=google; t=1785500364; x=1786105164; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=hRCEkgyL5maguOe88SdUQWVzbN/lQncmrY8r9dbt88k=;
+ b=Y1Hb05ClQShQq/y/U7EcvQTl0rR2VMwAwf+fhjlPJefWaqMGTftscEEBLV6KULsZFx
+ sIVgAYSUcIBpGfIc/M1lskQDeOizTFwYtOcEysUlaRMMzm21Xo3axTv5bnSteKl5braN
+ OWUqd08oJYvrpkd8HqBTEUD+rgmFp/2hoo6fU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785500364; x=1786105164;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=hRCEkgyL5maguOe88SdUQWVzbN/lQncmrY8r9dbt88k=;
+ b=ZvIEZ285ImDjwxqiUlZ1qtmu4jjHC4Es+uMS74Tb4h0KKMfjjM+Q/0ppdl70nxEiex
+ ty8LlG5aJFU35TcPw8pUOcTf/+dBsDFg97KDuVzaFQnowlLRdkyznNi0OY0SH4bwR6gz
+ 530MTda6/qNTjgXMWnZfTJAQ0ZmrDLjGfr5Aenr2TEEVzda2C/Nd5jz7/7BEc8KvHruY
+ FjEe/u9+7WiX6WkHgyI32++XDbA4EPlo9oTR4Bt1dJOMKci8cPYKYfpfbofFHXM0iAzZ
+ UYjgOGLFKXqgIpKK291uCdyprQP+bznZR4WW3DfjiTDAvf2z+osKMHdr4nDeA4zRwnai
+ t9tg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq2ADKiRF31AFMhTugc0/rAnR+lrgFa30KCeEVSE8ZzbN5xvOj59lmbb1O+52JrlFPW7FkOMkH6IVs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzLMSF61J8O3NrHfpddi0vHtwTU8f84FyOioNQ5WM1NCCQ4YWYw
+ Tsf8NjdPkZv3ysCJe78J60eDz7pkqltj4MC1qIi6JOypjDUCu3bLqsxP69DFNP6GoHE=
+X-Gm-Gg: AR+sD13ucLPvzw43bqeeKAzdzeEpk48LvU6Jk0+MBduEEsIYyTw0s/u9gpovTGi0ta/
+ qBsDQERavrrTRY9ekbTYkwcL33yTWWU2ZZ4Yh4GuLyH7fcs50CDX8410Hp3pUvVPk3VGAf2vo+F
+ R/HcD+udRRaOaL7IMjiS9eAWhk/pnN/5uDCRP09rglDTivER598garuCxZwhh1ezMMgm13UbgX6
+ ZJOKnWY0ADBKBAq+jsdTE3+ecJXNe+7ywF6IOhXdRMw0EoTUVZbYWu2ZOx0/JKNwXNe9NhkEDIC
+ SfTpih14R91ucAvYi2oLAshpfzQux2LWXJA9hXqv7tqVmm3pMy+KrxnR9M98ewikMytJemSUYd3
+ lIVSnvotS3GVwrNqXIZ3OSizcDwQ08Y9yX01LjFL7G5kAyprlje281AbR5ropC1lPxxHcsRo3pn
+ VO39MQ1w+ih3pJWwqDAUbESzt4sZTW5tNM9/y0HfaxKB5dKAKVRKA=
+X-Received: by 2002:a17:90b:5290:b0:38d:c0f9:30be with SMTP id
+ 98e67ed59e1d1-38fb1429190mr1671305a91.38.1785500363814; 
+ Fri, 31 Jul 2026 05:19:23 -0700 (PDT)
+Received: from shiro ([2400:4162:2428:2ffe:77cc:841c:1fc1:22d4])
+ by smtp.googlemail.com with ESMTPSA id
+ 98e67ed59e1d1-38fb2b8c5c5sm321981a91.4.2026.07.31.05.19.22
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Jul 2026 05:19:23 -0700 (PDT)
+From: Daniel Palmer <daniel@0x0f.com>
+To: deller@gmx.de
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Daniel Palmer <daniel@0x0f.com>
+Subject: [PATCH v2 0/5] fbdev: tdfxfb: Make "unbooted" cards work
+Date: Fri, 31 Jul 2026 21:19:09 +0900
+Message-ID: <20260731121915.3362232-1-daniel@0x0f.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <39434782-9909-4bb4-b3da-a507acfc5e3d@ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,40 +83,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 02:15:33PM +0300, Tomi Valkeinen wrote:
-> > -	/*
-> > -	 * TODO: we do not always have to do the BTA sync, for example
-> > -	 * we can improve performance by setting the update window
-> > -	 * information without sending BTA sync between the commands.
-> > -	 * In that case we can return early.
-> > -	 */
-> > +	/* TODO: find out if more needs to be done for MIPI_DSI_MSG_REQ_ACK */
-> > -	r = dsi_vc_send_bta_sync(dssdev, vc);
-> > -	if (r) {
-> > -		DSSERR("bta sync failed\n");
-> > -		return r;
-> > +	if (msg->flags & MIPI_DSI_MSG_REQ_ACK) {
-> > +		r = dsi_vc_send_bta_sync(dssdev, vc);
-> > +		if (r) {
-> > +			DSSERR("bta sync failed\n");
-> > +			return r;
-> > +		}
-> >   	}
-> 
-> The dsi_vc_send_bta_sync() function does dsi_get_errors(), which we now
-> don't always do here. I think that might cause any errors to be left there,
-> which would trigger error handling on next read or write-with-bta.
-> 
-> _omap_dsi_host_transfer forward declaration can now be remove.
+Currently voodoo cards that weren't booted by the video BIOS aren't
+usable because the hardware is never brought up.
 
-I will produce a v6, when I have the possibility to test again,
-probably on Monday.
-> 
-> I don't have HW to test this, but other than the above, it looks reasonable.
-> Although I have to say, based on my past experience, it's also very easy to
-> break a use case =).
-> 
-Probably these usecases should use MIPI_DSI_MSG_REQ_ACK.
+This means if you happen to have a proper - non-x86 - computer,
+another card is the primary or you have a new BIOS that cannot
+run the video BIOS tdfxfb would probe but you will be staring at
+"no signal detected".
 
-Regards,
-Andreas
+This series implements manually booting cards using the
+values from the video BIOS' own table. Currently this only works
+for the voodoo 3.
+
+Debugging was partially assisted by Claude Fable 5. I could not
+work out why this would not work for months so I told it to
+create a voodoo 3 emulation for QEMU to compare the BIOS against
+my code. That made it obvious my init sequence matched the BIOS
+but the VGA core wasn't running.
+
+This has been tested on a real voodoo 3 in an x86-64 board and
+an Amiga 4000 with a mediator PCI bridge.
+
+I have some patches to add an interface for doing 3D rendering
+that are not included in this series and 3D rendering is also
+working so as far as I can tell everything is good.
+
+v2:
+  - Fix up some poor 3am English mistakes in the cover letter.
+  - Limit this to the voodoo 3. The BIOS layout is different
+    for the 4/5 apparently.
+  - Fixed the valid sashiko complaints - mainly clearing the
+    framebuffer memory before fbcon might have bound, retaining
+    the current behaviour if we can't get the video BIOS to get
+    the config parameters.
+  - Tweaked the wording of some of the commit messages.
+
+Daniel Palmer (5):
+  fbdev: tdfxfb: Add helper to read config table from BIOS
+  fbdev: tdfxfb: Attempt to detect if the card wasn't booted
+  fbdev: tdfxfb: Manually boot unbooted cards
+  fbdev: tdfxfb: Wake the VGA core before programming the CRTC
+  fbdev: tdfxfb: Program the initial video mode
+
+ drivers/video/fbdev/tdfxfb.c | 155 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 155 insertions(+)
+
+-- 
+2.53.0
+
