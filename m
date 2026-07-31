@@ -4,53 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B35C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 09:24:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 838D6C55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 09:32:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB6D710E1C9;
-	Fri, 31 Jul 2026 09:24:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D96E10E1F3;
+	Fri, 31 Jul 2026 09:32:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="B/JJqca+";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="CMmx1NUm";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OYaxrVrg";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57DC110E1C9
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=oFHrJog3XUbgCM9lluuv2EFqo2uk4k0XFykLEC/aems=; b=B/JJqca+bPMKWjUiWl5Ddpdrou
- /GV08FXx0rPSiUWzPmjNIMqI0Yz+rT5qhA02yhHndBqmS2OD2DhNX0ahpXwavNj+e48+Tv0Gu0y71
- MEH4nbUPhcSxHaH8jdJWMPrtTNN2OFIsS9o1gN33KtBkmdPy/a+fJsy+yYUODYWD9AP0zO0/mHM0W
- pLY1m4cyT75b+EinDrycvjePS+9ujH0A4J8QhevV9UaGdtEdMVp8cWWDMIagU5ZIk32lZ0FmauK+P
- qLHJatO/RaIwRJoVgGawN2vA34bmRRp1/xn7+1xhIbaqtC60E0hRPMZwIpW+ACoiynPNImVx9KOAY
- Fv9/JhCA==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Yan <andy.yan@rock-chips.com>, Damon Ding <damon.ding@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v1 0/7] Add HPD support for Rockchip Analogix DP
-Date: Fri, 31 Jul 2026 11:23:43 +0200
-Message-ID: <24131962.ssLaC8jLEa@diego>
-In-Reply-To: <f0bec6c2-5bc9-4c06-abe0-cf6189382314@rock-chips.com>
-References: <20260730032744.381566-1-damon.ding@rock-chips.com>
- <2014349.VZ3vTMCxA0@diego>
- <f0bec6c2-5bc9-4c06-abe0-cf6189382314@rock-chips.com>
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83CBE10E1F3
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:32:20 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 66V8ZoxB3476235
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:32:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=wUbHtxRx1UaykzKn9/78x3dxb6CH/2YkVI6
+ E2YLTXV8=; b=CMmx1NUmKE6qtZuHyowodg4iRF/Hn5XtQkvpX00+wLiVNeg32iU
+ avNscTpkK+JrWKVzEHzshg9VqQwnsxbO1a4h9njJQuVrmA2iVJr6jZQs9dwAHji/
+ 3P5e3h9uCtlIs2SOZ0z2o3tUAfF/yecsKbAo1maMGkRN2b2F413WY7uE+SNDbQHz
+ i31GrOcGU5XVtM0lm7DntI6yNdodMCdmRSSKJwUOe/7qPcy/frFfdLSD/pvCUKfr
+ 0adlja/wIYtGR65Wbi/PrSmbukwQmtwjWFUqPdQbNa3ay8R/O/6/e0lS5QZGqckY
+ Eabp0Fngrol2ynUFhtVs6gDKrrbYtmWLjcA==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frrb907r1-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:32:19 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-848474825ffso830859b3a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 02:32:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1785490338; x=1786095138;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=wUbHtxRx1UaykzKn9/78x3dxb6CH/2YkVI6E2YLTXV8=;
+ b=OYaxrVrgIrXUwCfBcK6G+iMnnO/ek3FFDgormmgs5e9ixNVN/2JX+6fd3SZEAGMIw+
+ Zg0+t59bqL1P5lVFcvC0wn6HyIcTsyhVsjMAGSWOsk5l69s0Lz+m4ijWeZX9KzvxqJXo
+ wjyukx5dRx28FIPhMiZjnJN9L6lscv1kwXzUxkJA+QDcRdgco5ZjjLlgjbSwyhgUKoCi
+ 5jk2JtBoLnNAoHVYQxeA9LyCZ9s7xOTpMBIoITqZNhA/xDqhOvEX77hcDAIqHLFovVI9
+ BVJd1D9lrd9xeG4t9VlkpAQx+E5eIg3eM7JDU7S4r90ZVQNB1++Vr9G+YQ7tMSUwuHVp
+ mckA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785490338; x=1786095138;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=wUbHtxRx1UaykzKn9/78x3dxb6CH/2YkVI6E2YLTXV8=;
+ b=rzYfKX9A5ySHehVMP5I7jKyyJjDduDdybRHjKHnjAWAE60NE5amMTP8W//LIYoJygY
+ NRDD8fgmoeopv7H5Szk6cmk+Zx4loKAA2iJLIGFByVahOIcv9dAk7Pau2069/iZAOOqs
+ JwN9GeDV5ndVt1yAotmrajxHtlsMzkeQhHSQADbU2jdGVqyKf0CoBYpqbs+dUeWkfQo9
+ H9CoIvdUN9Q4uETHveQCQmeVMObwucBQFMmjO3InyxU567yny/gmXe+DLJb+uwXNm11e
+ ypnMzxYexW1XXscoxiwqdIYouKUf24jitxtxUlrsVY0VbU3Xr/A1q8GbbpOud74aAI+7
+ Vs9A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrkDDBHyVPy7ArXc935oY/lRpKCCXe8AZGv7eP2/rH36fwk2CFwx1BM9YpQtJMsZXrorLXZaOw7Fzk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYw5uYnoOfRKgfnJ9qK900fwpPcLiTsF0baWxQWyzIHWKcA9C+
+ 47kGz/Vj9453hJDai1lhUrU0haU0mjWoYVMlZxb4Nhu6X1QZmdMMTTla06cnUXu78EELegTFcr1
+ mQThsew2ZpZKhqv6ZTNUx7nA/BgR/Y2UhRfuniXkFtyKKCffzLabwhdAjOAnUinkgs0i7pes=
+X-Gm-Gg: AR+sD11OUZXonPYrlRvFGBt6BkJkkO7+fKDzTVeUYcEjeS021oETwH0T5LcVTlITvlJ
+ 502IA0pNIaD9fRm6jdebFZ8AgEnCLBFaZaodTfEP5sb4Cnd9TFA98arQFNDqSGg5+Y/itz36r3V
+ 9iWBoXGFtoMyp3lzItPehE7zvnFSDcZzBdlde3G3g2na24x9vAw4nek46AeSGKFmEOwj847rDWY
+ FBcN5rYEyLJOnsr5/qD4N9fc6deQzGzn7VpoJtcdSHyWwZ+B4ypqfGZs45NTXf8ZOjFUOuPsisN
+ LY9WfOrahu6GqwtnIkkI/DjeOncyXPD1fWynNY7tZDgdNrdPrJf9bGBLsFtPk5WH5F4bY9Xkvyu
+ Z/+4lLT1yFqKNrIsXCgFFL1nWyQNutIAljPv44nNdMEHFVk4/Sl9u8JZBjd7F6Lvm6aXaQCBi5A
+ ==
+X-Received: by 2002:a05:6a00:35cd:b0:82f:51e8:b38e with SMTP id
+ d2e1a72fcca58-84ed7483bc7mr1020530b3a.24.1785490338092; 
+ Fri, 31 Jul 2026 02:32:18 -0700 (PDT)
+X-Received: by 2002:a05:6a00:35cd:b0:82f:51e8:b38e with SMTP id
+ d2e1a72fcca58-84ed7483bc7mr1020497b3a.24.1785490337392; 
+ Fri, 31 Jul 2026 02:32:17 -0700 (PDT)
+Received: from QCOM-SocCW5bzXR.qualcomm.com
+ (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cbe3963ddc3sm340155a12.7.2026.07.31.02.32.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Jul 2026 02:32:16 -0700 (PDT)
+From: Jianping Li <jianping.li@oss.qualcomm.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Cc: Jianping Li <jianping.li@oss.qualcomm.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ quic_chennak@quicinc.com, stable@kernel.org
+Subject: [PATCH v11] misc: fastrpc: Allocate entire reserved memory for Audio
+ PD in probe
+Date: Fri, 31 Jul 2026 17:32:10 +0800
+Message-Id: <20260731093210.473-1-jianping.li@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA3MCBTYWx0ZWRfX3ko/e+XzFjNu
+ ZULfTgwlW8jqW3EtWt4m2vxSXquX/A7qxK59NDMCl4IiRKrbP98ZJ0BnLPHPzUmZ7bkgF4L74iK
+ KkTyBj1laQdEraFx6uvq0B6Dsdnt6W8=
+X-Proofpoint-ORIG-GUID: avpPN-zu3B8qBMNpKEJHFQofQbb6fI-9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA3MCBTYWx0ZWRfX9ipZZz9Pz//d
+ hH1B/gYKUoI25EylYzypm8wVI0nSoDuT1bUMoHxoaPtWIczBrbaEesSUAqgDndqkanTv0Mu399R
+ VHH3QbHYxugm5gQw4Z+06Yi3LdAB4Q85T0Kbs9QYWexXJfGQvOnKbr+0iYx/I1wRVYgRVNsvtMp
+ O38Q3yyD0cJrabge9ELvXfQYLD5rDEmLI3ytfO0n25CumMFxLSMRf3lvz+LNIPSOUYewZaUUl8v
+ RoaTXYBRFrR5KuoqFvf3IRDXc3ue09Wq3RE1dftXybtX04m6CKsox8H6EDsuLVfzUqL5I/LNrER
+ XosAkdyTo4L+uewrNpK32riPeAn6sjC9oZd5hduiboA3WimX1tX9XWjVVqataJBBUDE8tf3OqMF
+ DmR6iO8wkxv6WnbLp7L0KVwinczbXGTVdpolBvLwHx3y8o7ehbb9zlSU3prxIDgQIH2ggG8+HxX
+ BO2jdlJqBE6NuyHkvoA==
+X-Authority-Analysis: v=2.4 cv=c4ybhx9l c=1 sm=1 tr=0 ts=6a6c6ba3 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=yegpaEAI8PfkSgOXudcA:9 a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-GUID: avpPN-zu3B8qBMNpKEJHFQofQbb6fI-9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_03,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 priorityscore=1501 clxscore=1015 phishscore=0 suspectscore=0
+ spamscore=0 bulkscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310070
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,236 +142,305 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Damon,
+Allocating and freeing Audio PD memory from userspace is unsafe because
+the kernel cannot reliably determine when the DSP has finished using the
+memory. Userspace may free buffers while they are still in use by the DSP,
+and remote free requests cannot be safely trusted.
 
-Am Freitag, 31. Juli 2026, 05:08:45 Mitteleurop=C3=A4ische Sommerzeit schri=
-eb Damon Ding:
-> On 7/31/2026 2:49 AM, Heiko St=C3=BCbner wrote:
-> > Am Donnerstag, 30. Juli 2026, 05:27:37 Mitteleurop=C3=A4ische Sommerzei=
-t schrieb Damon Ding:
-> >> This series improves the HPD (Hotplug Detect) interrupt handling in
-> >> the Analogix DP driver to enable reliable native HPD pin detection on
-> >> Rockchip platforms, and introduces platform-specific HPD detection
-> >> schemes with fine-grained interrupt control.
-> >=20
-> > [...]
-> >=20
-> >> Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
-> >>
-> >> Native HPD pin mode:
-> >>
-> >>    &edp {
-> >>        status =3D "okay";
-> >>        pinctrl-names =3D "default";
-> >>        pinctrl-0 =3D <&edp_txm0_pins>;
-> >>    };
-> >>
-> >> GPIO HPD mode:
-> >>
-> >>    &edp {
-> >>        status =3D "okay";
-> >>        pinctrl-names =3D "default";
-> >>        pinctrl-0 =3D <&edp0_hpd>;
-> >>        hpd-gpios =3D <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
-> >>    };
-> >>
-> >>    &pinctrl {
-> >>        edp {
-> >>            edp0_hpd: edp0-hpd {
-> >>                rockchip,pins =3D <4 RK_PC1 0 &pcfg_pull_none>;
-> >>            };
-> >>        };
-> >>    };
-> >=20
-> > Yay and thanks a lot for working on that.
-> >=20
-> > If I roll my display-port carrier board back to the analogix-dp being
-> > the endpoint, this works exactly as expected :-) .
-> >=20
-> > I can plug in the display at some point after the boot and have it
-> > detected and setup correctly. Same with unplugging it while
-> > the system is running. The connection status is correctly reported
-> > in sysfs.
-> >=20
-> >=20
-> > Though there is a caveat. When the eDP is not the last part, this does =
-not
-> > work anymore. The detect function always returns "connected" if there is
-> > a next bridge available.
-> >=20
-> > My board [0] has a physical DP connector on it, so models it as
-> > dp-connector, but in that case the Analogix driver always reports being
-> > connected.
-> >=20
-> >=20
-> > [0] https://lore.kernel.org/linux-rockchip/20251009225050.88192-3-heiko=
-@sntech.de/
-> > ... same effect with hpd-gpios in either the edp node or dp-connector n=
-ode
-> >=20
-> >=20
->=20
-> My previous tests were carried out on the modified RK3576 IOTEST board=20
-> DTS based on RK3576 EVB1, which includes dp-connector by default. I also=
-=20
-> did extra verification without dp-connector, and HPD detection works=20
-> correctly in both cases.
->=20
-> I've taken a look at the Tiger board DT configuration. The pinctrl=20
-> settings for the eDP HPD GPIO may need adjustment:
->=20
-> &pinctrl {
-> 	edp0 {
-> 		edp0_hpd_l: edp0-hpd-l-pin {
-> 			rockchip,pins =3D <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
-> 		};
-> 	};
-> };
->=20
-> It is recommended to configure GPIO4B5 as pull-down or pll-none. Pull-up=
-=20
-> configuration may prevent GPIO interrupts from being triggered properly,=
-=20
-> resulting in a permanent "connected" status.
+Additionally, the current implementation allows userspace to repeatedly
+grow the Audio PD heap, but does not support shrinking it. This can lead
+to unbounded memory usage over time, effectively causing a memory leak.
 
-At least on that DP-carrier the pin direction is different.
-I.e. it is active-low, meaning 0 for plugged in.
+Fix this by allocating the entire Audio PD reserved-memory region during
+rpmsg probe and tying its lifetime to the rpmsg channel. This removes
+userspace-controlled alloc/free and ensures that memory is reclaimed only
+when the DSP process is torn down.
 
-In the schematics I do see a hw pull up too - so pull-none in the pinconfig
-would also be possible, but pull-down is definitly wrong on _this_ board.
+Validate the presence of the Audio PD reserved-memory region during
+rpmsg probe and fail early if it is missing, so that a misconfigured
+device tree is caught at probe time instead of at process creation.
 
-So we're talking about the same code, I put the dts up on [0] .
+Fixes: 0871561055e66 ("misc: fastrpc: Add support for audiopd")
+Cc: stable@kernel.org
+Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
 
-I'm currently running with a printk diff [1] to showcase the issue.
+Patch [v10]: https://lore.kernel.org/all/20260716095847.479-1-jianping.li@oss.qualcomm.com/
 
-So on boot, with the display unplugged I get:
-[   14.757911] ---> drm_bridge_connector_detect: detect
-[   14.757914] ---> analogix_dp_bridge_detect a
-[   14.757918] ---> drm_bridge_connector_detect: detect
-[   14.773779] ---> analogix_dp_bridge_detect a
-[   14.838658] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-[   14.838662] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- dp commit error, ret =3D -110
-[   14.838670] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
-[   14.884791] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-[   14.884793] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- dp commit error, ret =3D -110
-[   14.884796] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
-[   14.930925] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-[   14.930927] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- dp commit error, ret =3D -110
-[   14.930930] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
-[   14.977032] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-[   14.977034] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- dp commit error, ret =3D -110
-[   14.977037] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
-[   15.023150] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-[   15.023152] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- dp commit error, ret =3D -110
-[   15.023155] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
-[   15.023168] rockchip-dp fdec0000.edp: too many times retry set bridge, g=
-ive it up
-[   15.052485] Console: switching to colour frame buffer device 80x30
-[   15.210457] rockchip-drm display-subsystem: [drm] fb0: rockchipdrmfb fra=
-me buffer device
-[   15.223444] ---> drm_bridge_connector_detect: detect
-[   15.231974] ---> analogix_dp_bridge_detect a
-[   15.239587] ---> drm_bridge_connector_detect: detect
-[   15.245341] ---> analogix_dp_bridge_detect a
+Changes in v11:
+ - Replace the remote_heap fastrpc_buf pointer with dedicated
+   remote_heap_addr and remote_heap_size fields in
+   fastrpc_channel_ctx to avoid leaving a partially
+   initialized fastrpc_buf.
 
-So analogix_dp_bridge_detect() is called and always returns connected.
+ - Drop ADSP_MMAP_REMOTE_HEAP_ADDR support from
+   fastrpc_req_mmap() since the user process should no longer
+   grow or shrink the Audio PD remote heap.
 
-Plugging in the the display, I get:
-[  290.592096] ---> display_connector_detect gpio value is 1   {display-con=
-nector returning connected}
-[  290.598648] ---> drm_bridge_connector_detect: detect
-[  290.604637] ---> analogix_dp_bridge_detect a
-[  290.609826] ---> drm_bridge_connector_detect: detect
-[  290.615784] ---> analogix_dp_bridge_detect a
+Changes in v10:
+ - Move Audio PD remote heap validation into
+   fastrpc_rpmsg_probe().
 
-Unplugging the display, I get:
-[  302.081444] ---> display_connector_detect gpio value is 0   {display-con=
-nector returning disconnected}
-[  302.087996] ---> drm_bridge_connector_detect: detect
-[  302.093945] ---> analogix_dp_bridge_detect a
-[  302.099131] ---> drm_bridge_connector_detect: detect
-[  302.105090] ---> analogix_dp_bridge_detect a
-[  302.144834] ---> drm_bridge_connector_detect: detect
-[  302.150784] ---> analogix_dp_bridge_detect a
-[  302.155933] ---> drm_bridge_connector_detect: detect
-[  302.161859] ---> analogix_dp_bridge_detect a
+ - Treat Audio PD remote heap as a mandatory
+   resource and fail probe if the reserved
+   memory region is missing.
 
+Changes in v9:
+ - Make sure fastrpc_init_create_static_process()
+   only sets audio_init_mem to false when the sent
+   address is actually invalid.
+---
+ drivers/misc/fastrpc.c | 137 +++++++++++++++++++----------------------
+ 1 file changed, 63 insertions(+), 74 deletions(-)
 
-So it looks like on the gpio-side the detection is correct and/but
-analogix_dp_bridge_detect() is always returning a connected state
-("b" output is never reached).
-
-I'm still working on understanding how the whole detection logic works
-in drm ;-) .
-
-
-Heiko
-
-
-[0] https://github.com/mmind/linux-rockchip/blob/dev/v7.3/rk3588-tiger-dp-c=
-arrier-v5/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
-[1]
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/g=
-pu/drm/bridge/analogix/analogix_dp_core.c
-index 7a89548a7a885..0accdf62637ae 100644
-=2D-- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -915,8 +915,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, s=
-truct drm_connector *conne
-        struct analogix_dp_device *dp =3D to_dp(bridge);
-        enum drm_connector_status status =3D connector_status_disconnected;
-=20
-+printk("---> %s a\n", __func__);
-        if (dp->plat_data->next_bridge)
-                return connector_status_connected;
-+printk("---> %s b\n", __func__);
-=20
-        if (!analogix_dp_detect_hpd(dp))
-                status =3D connector_status_connected;
-diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/b=
-ridge/display-connector.c
-index 16c0631adeb18..b0c07694b82e3 100644
-=2D-- a/drivers/gpu/drm/bridge/display-connector.c
-+++ b/drivers/gpu/drm/bridge/display-connector.c
-@@ -45,6 +45,7 @@ static enum drm_connector_status display_connector_detect=
-(struct drm_bridge *bri
-        struct display_connector *conn =3D to_display_connector(bridge);
-=20
-        if (conn->hpd_gpio) {
-+printk("---> %s gpio value is %d\n", __func__, gpiod_get_value_cansleep(co=
-nn->hpd_gpio));
-                if (gpiod_get_value_cansleep(conn->hpd_gpio))
-                        return connector_status_connected;
-                else
-@@ -84,6 +85,7 @@ static enum drm_connector_status display_connector_detect=
-(struct drm_bridge *bri
- static enum drm_connector_status
- display_connector_bridge_detect(struct drm_bridge *bridge, struct drm_conn=
-ector *connector)
- {
-+printk("---> %s\n", __func__);
-        return display_connector_detect(bridge);
- }
-=20
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/d=
-rm/display/drm_bridge_connector.c
-index 649969fca1413..8816d837c9a77 100644
-=2D-- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -218,6 +218,7 @@ drm_bridge_connector_detect(struct drm_connector *conne=
-ctor, bool force)
-        enum drm_connector_status status;
-=20
-        if (detect) {
-+printk("---> %s: detect\n", __func__);
-                status =3D detect->funcs->detect(detect, connector);
-=20
-                if (hdmi)
-
-
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index dd51d475a74e..e054e80584a2 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -70,8 +70,6 @@
+ #define ADSP_MMAP_HEAP_ADDR  4
+ /* MAP static DMA buffer on DSP User PD */
+ #define ADSP_MMAP_DMA_BUFFER  6
+-/* Add memory to static PD pool protection thru hypervisor */
+-#define ADSP_MMAP_REMOTE_HEAP_ADDR  8
+ /* Add memory to userPD pool, for user heap */
+ #define ADSP_MMAP_ADD_PAGES 0x1000
+ /* Add memory to userPD pool, for LLC heap */
+@@ -314,10 +312,14 @@ struct fastrpc_channel_ctx {
+ 	struct kref refcount;
+ 	/* Flag if dsp attributes are cached */
+ 	bool valid_attributes;
++	/* Flag if audio PD init mem was allocated */
++	bool audio_init_mem;
++	/* Audio PD reserved remote heap region */
++	phys_addr_t remote_heap_addr;
++	u64 remote_heap_size;
+ 	u32 dsp_attributes[FASTRPC_MAX_DSP_ATTRIBUTES];
+ 	struct fastrpc_device *secure_fdevice;
+ 	struct fastrpc_device *fdevice;
+-	struct fastrpc_buf *remote_heap;
+ 	struct list_head invoke_interrupted_mmaps;
+ 	bool secure;
+ 	bool unsigned_support;
+@@ -1454,15 +1456,17 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	struct fastrpc_init_create_static init;
+ 	struct fastrpc_invoke_args *args;
+ 	struct fastrpc_phy_page pages[1];
++	struct fastrpc_channel_ctx *cctx = fl->cctx;
+ 	char *name;
+ 	int err;
+-	bool scm_done = false;
+ 	struct {
+ 		int client_id;
+ 		u32 namelen;
+ 		u32 pageslen;
+ 	} inbuf;
+ 	u32 sc;
++	unsigned long flags;
++	bool sent_heap = false;
+ 
+ 	args = kzalloc_objs(*args, FASTRPC_CREATE_STATIC_PROCESS_NARGS);
+ 	if (!args)
+@@ -1486,31 +1490,6 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	inbuf.client_id = fl->client_id;
+ 	inbuf.namelen = init.namelen;
+ 	inbuf.pageslen = 0;
+-	if (!fl->cctx->remote_heap) {
+-		err = fastrpc_remote_heap_alloc(fl, fl->sctx->dev, init.memlen,
+-						&fl->cctx->remote_heap);
+-		if (err)
+-			goto err_name;
+-
+-		/* Map if we have any heap VMIDs associated with this ADSP Static Process. */
+-		if (fl->cctx->vmcount) {
+-			u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+-
+-			err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+-							(u64)fl->cctx->remote_heap->size,
+-							&src_perms,
+-							fl->cctx->vmperms, fl->cctx->vmcount);
+-			if (err) {
+-				dev_err(fl->sctx->dev,
+-					"Failed to assign memory with dma_addr %pad size 0x%llx err %d\n",
+-					&fl->cctx->remote_heap->dma_addr,
+-					fl->cctx->remote_heap->size, err);
+-				goto err_map;
+-			}
+-			scm_done = true;
+-			inbuf.pageslen = 1;
+-		}
+-	}
+ 
+ 	fl->pd = USER_PD;
+ 
+@@ -1522,8 +1501,25 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 	args[1].length = inbuf.namelen;
+ 	args[1].fd = -1;
+ 
+-	pages[0].addr = fl->cctx->remote_heap->dma_addr;
+-	pages[0].size = fl->cctx->remote_heap->size;
++	/*
++	 * Audio PD is a static PD and retains the remote heap
++	 * information across daemon restarts. Therefore only
++	 * the first attach should provide heap information to
++	 * DSP. Subsequent attaches reuse the previously
++	 * initialized memory pool.
++	 */
++	spin_lock_irqsave(&cctx->lock, flags);
++	if (!cctx->audio_init_mem) {
++		pages[0].addr = cctx->remote_heap_addr;
++		pages[0].size = cctx->remote_heap_size;
++		cctx->audio_init_mem = true;
++		inbuf.pageslen = 1;
++		sent_heap = true;
++	} else {
++		pages[0].addr = 0;
++		pages[0].size = 0;
++	}
++	spin_unlock_irqrestore(&cctx->lock, flags);
+ 
+ 	args[2].ptr = (u64)(uintptr_t) pages;
+ 	args[2].length = sizeof(*pages);
+@@ -1541,27 +1537,11 @@ static int fastrpc_init_create_static_process(struct fastrpc_user *fl,
+ 
+ 	return 0;
+ err_invoke:
+-	if (fl->cctx->vmcount && scm_done) {
+-		u64 src_perms = 0;
+-		struct qcom_scm_vmperm dst_perms;
+-		u32 i;
+-
+-		for (i = 0; i < fl->cctx->vmcount; i++)
+-			src_perms |= BIT(fl->cctx->vmperms[i].vmid);
+-
+-		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
+-		dst_perms.perm = QCOM_SCM_PERM_RWX;
+-		err = qcom_scm_assign_mem(fl->cctx->remote_heap->dma_addr,
+-						(u64)fl->cctx->remote_heap->size,
+-						&src_perms, &dst_perms, 1);
+-		if (err)
+-			dev_err(fl->sctx->dev, "Failed to assign memory dma_addr %pad size 0x%llx err %d\n",
+-				&fl->cctx->remote_heap->dma_addr, fl->cctx->remote_heap->size, err);
++	if (sent_heap) {
++		spin_lock_irqsave(&cctx->lock, flags);
++		cctx->audio_init_mem = false;
++		spin_unlock_irqrestore(&cctx->lock, flags);
+ 	}
+-err_map:
+-	fastrpc_buf_free(fl->cctx->remote_heap);
+-	fl->cctx->remote_heap = NULL;
+-err_name:
+ 	kfree(name);
+ err:
+ 	kfree(args);
+@@ -2090,7 +2070,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 	if (copy_from_user(&req, argp, sizeof(req)))
+ 		return -EFAULT;
+ 
+-	if (req.flags != ADSP_MMAP_ADD_PAGES && req.flags != ADSP_MMAP_REMOTE_HEAP_ADDR) {
++	if (req.flags != ADSP_MMAP_ADD_PAGES) {
+ 		dev_err(dev, "flag not supported 0x%x\n", req.flags);
+ 
+ 		return -EINVAL;
+@@ -2101,10 +2081,7 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 		return -EINVAL;
+ 	}
+ 
+-	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR)
+-		err = fastrpc_remote_heap_alloc(fl, dev, req.size, &buf);
+-	else
+-		err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
++	err = fastrpc_buf_alloc(fl, dev, req.size, &buf);
+ 
+ 	if (err) {
+ 		dev_err(dev, "failed to allocate buffer\n");
+@@ -2143,20 +2120,6 @@ static int fastrpc_req_mmap(struct fastrpc_user *fl, char __user *argp)
+ 	/* let the client know the address to use */
+ 	req.vaddrout = rsp_msg.vaddr;
+ 
+-	/* Add memory to static PD pool, protection thru hypervisor */
+-	if (req.flags == ADSP_MMAP_REMOTE_HEAP_ADDR && fl->cctx->vmcount) {
+-		u64 src_perms = BIT(QCOM_SCM_VMID_HLOS);
+-
+-		err = qcom_scm_assign_mem(buf->dma_addr, (u64)buf->size,
+-			&src_perms, fl->cctx->vmperms, fl->cctx->vmcount);
+-		if (err) {
+-			dev_err(fl->sctx->dev,
+-				"Failed to assign memory dma_addr %pad size 0x%llx err %d",
+-				&buf->dma_addr, buf->size, err);
+-			goto err_assign;
+-		}
+-	}
+-
+ 	spin_lock(&fl->lock);
+ 	list_add_tail(&buf->node, &fl->mmaps);
+ 	spin_unlock(&fl->lock);
+@@ -2584,12 +2547,22 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 		}
+ 	}
+ 
+-	if (domain_id == SDSP_DOMAIN_ID) {
++	if (domain_id == SDSP_DOMAIN_ID || domain_id == ADSP_DOMAIN_ID) {
+ 		struct resource res;
+ 		u64 src_perms;
+ 
+ 		err = of_reserved_mem_region_to_resource(rdev->of_node, 0, &res);
++
++		if (err && domain_id == ADSP_DOMAIN_ID) {
++			dev_err(rdev, "missing mandatory remote heap memory-region\n");
++			goto err_free_data;
++		}
++
+ 		if (!err) {
++			if (domain_id == ADSP_DOMAIN_ID) {
++				data->remote_heap_addr = res.start;
++				data->remote_heap_size = resource_size(&res);
++			}
+ 			src_perms = BIT(QCOM_SCM_VMID_HLOS);
+ 
+ 			err = qcom_scm_assign_mem(res.start, resource_size(&res), &src_perms,
+@@ -2597,7 +2570,6 @@ static int fastrpc_rpmsg_probe(struct rpmsg_device *rpdev)
+ 			if (err)
+ 				goto err_free_data;
+ 		}
+-
+ 	}
+ 
+ 	secure_dsp = !(of_property_read_bool(rdev->of_node, "qcom,non-secure-domain"));
+@@ -2681,6 +2653,7 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	struct fastrpc_buf *buf, *b;
+ 	struct fastrpc_user *user;
+ 	unsigned long flags;
++	int err, i;
+ 
+ 	/* No invocations past this point */
+ 	spin_lock_irqsave(&cctx->lock, flags);
+@@ -2698,8 +2671,24 @@ static void fastrpc_rpmsg_remove(struct rpmsg_device *rpdev)
+ 	list_for_each_entry_safe(buf, b, &cctx->invoke_interrupted_mmaps, node)
+ 		list_del(&buf->node);
+ 
+-	if (cctx->remote_heap)
+-		fastrpc_buf_free(cctx->remote_heap);
++	if (cctx->remote_heap_size && cctx->vmcount) {
++		u64 src_perms = 0;
++		struct qcom_scm_vmperm dst_perms;
++
++		for (i = 0; i < cctx->vmcount; i++)
++			src_perms |= BIT(cctx->vmperms[i].vmid);
++
++		dst_perms.vmid = QCOM_SCM_VMID_HLOS;
++		dst_perms.perm = QCOM_SCM_PERM_RWX;
++
++		err = qcom_scm_assign_mem(cctx->remote_heap_addr,
++					  cctx->remote_heap_size, &src_perms,
++					  &dst_perms, 1);
++		if (err)
++			dev_err(&rpdev->dev,
++				"Failed to assign memory back to HLOS: addr %pa size %#llx err %d\n",
++				&cctx->remote_heap_addr, cctx->remote_heap_size, err);
++	}
+ 
+ 	of_platform_depopulate(&rpdev->dev);
+ 
+-- 
+2.43.0
 
