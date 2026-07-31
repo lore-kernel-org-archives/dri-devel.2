@@ -4,84 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B1DC55173
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 18:37:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0340CC55173
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 18:50:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD69110F3A7;
-	Fri, 31 Jul 2026 18:37:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 658C610F3A8;
+	Fri, 31 Jul 2026 18:50:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="gzoExSRN";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CRle3Rz5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qg/WrjoG";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5511910F3A7
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 18:37:53 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hBZZ64kDxzMlGX;
- Fri, 31 Jul 2026 20:37:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1785523070;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=QX8ngt/RJVbMf++KJL/LBPCKbYcnuLZIg6/5Rygib5s=;
- b=gzoExSRNvHZcdOCPoO55JXjok5xMfupZPyI/NBgzPnR63eLTEuB//AEwjHH0xiPHUdU6UX
- Je/NQrriZ+RAHLA6bLfodoQa70ANfsPdI0B9c1GVpg0o+C6MYvuzZtGCFMhRiqBtJM+rve
- 5zC8tVzK4v2wbmpfhBthQbe17HY6AWGMyP0NAbd1RP3T9GcGI7Z+KLCAnV/J8dDWSBYzNl
- w/J4tqvtxKkPAW2buNOFJ2krpAj42XHbKJ1pNTiy1FW1vyoiHwMRSuRPqmT9rOfcUIW8ZA
- 8ww8GZH4bxTTX31rCvQRqsatj34bREJAzIUqGm6b9za6eYjAIijraDua+rbaKw==
-From: Maurice Hieronymus <mhi@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1785523068;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=QX8ngt/RJVbMf++KJL/LBPCKbYcnuLZIg6/5Rygib5s=;
- b=CRle3Rz5W/Z6Iu/JZeK7rglhJKdRD8g1Qv6wYQ0gghE+uslGkZb85l2Cy/MCTCAz3ahKc7
- wMfxejBSJPhmN9ykA53tH7BtzuhLaCY5KLbQ/QmqamAxYjs7HBuJGchwqt/I1crtHTekvD
- CR/cz3jc5DfB41DJb+4GM3/7hZ9dJZd4fFPQSettPWa7ywhQt2Nb0Jeu8klf2nKLe/XbHp
- i/cd4x5t2E8BzG95QG9GVu5iPYboX98nvpuCSff0uhc4OHrSzd14nSJjM8ngH4/ec3eSrs
- I/VkWDh4O4WA0GTj6EwuGpJJlN9J1I4iuH8KkzBeCR/8Oc4bbKHf8Rq64xxAfw==
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: Maurice Hieronymus <mhi@mailbox.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Boqun Feng <boqun@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
- linux-pwm@vger.kernel.org, linux-clk@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v5 0/4] Clk improvements
-Date: Fri, 31 Jul 2026 20:37:33 +0200
-Message-ID: <20260731183735.15036-1-mhi@mailbox.org>
-In-Reply-To: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
-References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-META: xyozd5q8pkgd7wa6h1p6spxmwcpuquit
-X-MBO-RS-ID: 693f47d480cfe3c056c
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8511F10F3A8
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 18:50:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1B8CE4358F;
+ Fri, 31 Jul 2026 18:50:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6741F0155B;
+ Fri, 31 Jul 2026 18:50:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785523847;
+ bh=l4qxjJ4vguVqiVbxPKNbVuC3TCtuX8zcoi1SjPSZQGc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Qg/WrjoG0YM1nK4/h5SeOkiTytL/UThmEcLyEOyTAJaVfiDUDB7I1nIaP/CTLS8LN
+ lUhsk5gbMym0Q0Kj6BDNqvjTSCL7BdmZXqeonQJ5LeIzDn+nEIOhWsjRV17eloLH94
+ qoWRB64WVcogJsZVhRd+iD8oOOPxbRkpbezODn+4Ma4wVBI1mom4MnQXCPc35jFF8v
+ ncHpQrQAta8yAR7965zkKjCyQ0R22/931pcR0pW+zMccyk3/f9gh6J3H4VTwmn2OqY
+ 1+PJwYdnBr88wFrkHaenhhDx3xDZBVi4oO83GwqYe3HuUKU/Uu7n2Zu+3X9Q2OuiIb
+ Or1wQ6Rd43oYQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 21/21] drm/bridge: synopsys: dw-dp: Add audio support
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-21-ac1e6a75782f@collabora.com>
+References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+ <20260731-synopsys-dw-dp-improvements-v8-21-ac1e6a75782f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 18:50:46 +0000
+Message-Id: <20260731185046.9B6741F0155B@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,24 +54,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Daniel,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing lock in dw_dp_audio_mute_stream() creates a data race on=
+ dp->audio_muted and hardware registers, leading to state inconsistency.
+--
 
-at your suggestion [0] I rebased my `clk_rate_exclusive_get()` binding for
-pwm-th1520 on top of this series, so it is now waiting on it to land. As v5
-has not seen any comments in the last few weeks, I wanted to ask what the
-current status is.
+--- Patch [21]: [PATCH v8 21/21] drm/bridge: synopsys: dw-dp: Add audio sup=
+port ---
+commit 4c38ba6f108f1bab4d60be41675a0058796ffe6a
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-If there are no blockers left and you expect it to be merged soon, I am
-happy to keep waiting. Otherwise I would offer to send my series standalone
-against the current `Clk` API and let you rebase on top of mine - it is the
-much smaller of the two, touching only `Clk::rate_exclusive_get()` and
-pwm_th1520.rs.
+drm/bridge: synopsys: dw-dp: Add audio support
+   =20
+Implement audio support for the Synopsys DesignWare DisplayPort controller.
 
-[0]: https://lore.kernel.org/rust-for-linux/140FE1B3-73CA-45EA-B978-648A1A48B577@collabora.com/
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index a39007f13a052..a62fca20ac2fe 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
-Thanks a lot,
+[ ... ]
 
-Maurice
+> +static int __dw_dp_audio_enable(struct dw_dp *dp)
+> +{
+
+[ ... ]
+
+> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1,
+> +			   AUDIO_DATA_IN_EN | NUM_CHANNELS | AUDIO_DATA_WIDTH |
+> +			   AUDIO_INF_SELECT | HBR_MODE_ENABLE | AUDIO_MUTE,
+> +			   FIELD_PREP(AUDIO_DATA_IN_EN, audio_data_in_en) |
+> +			   FIELD_PREP(NUM_CHANNELS, dp->audio_channels - 1) |
+> +			   FIELD_PREP(AUDIO_DATA_WIDTH, dp->audio_sample_width) |
+> +			   FIELD_PREP(AUDIO_INF_SELECT, dp->audio_interface) |
+> +			   FIELD_PREP(HBR_MODE_ENABLE, 0) |
+> +			   FIELD_PREP(AUDIO_MUTE, dp->audio_muted));
+
+[ ... ]
+
+> +static int dw_dp_audio_mute_stream(struct drm_bridge *bridge,
+> +				   struct drm_connector *connector,
+> +				   bool enable, int direction)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +
+> +	dev_dbg(dp->dev, "audio %smute\n", enable ? "" : "un");
+> +
+> +	dp->audio_muted =3D enable;
+> +
+> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_MUTE,
+> +			   FIELD_PREP(AUDIO_MUTE, enable));
+> +
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Does this function need to hold dp->audio_lock when modifying dp->audio_mut=
+ed
+and the DW_DP_AUD_CONFIG1 register?
+
+If ALSA calls dw_dp_audio_mute_stream() concurrently with a modeset that is
+calling __dw_dp_audio_enable(), could it lead to a desync between the hardw=
+are
+state and dp->audio_muted?
+
+For example, if __dw_dp_audio_enable() reads dp->audio_muted as false, and
+before it writes to DW_DP_AUD_CONFIG1, dw_dp_audio_mute_stream() executes,
+updates dp->audio_muted to true, and successfully mutes the hardware.
+
+Would __dw_dp_audio_enable() then overwrite the hardware register with its
+stale false value, leaving the audio stream unexpectedly unmuted?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
+w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D21
