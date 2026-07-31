@@ -4,150 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A17A0C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:43:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1651EC54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:43:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A69010E21C;
-	Fri, 31 Jul 2026 16:43:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B06D10E224;
+	Fri, 31 Jul 2026 16:43:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="gJJXXIGY";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Q9nXScPb";
 	dkim-atps=neutral
-Received: from LO0P265CU003.outbound.protection.outlook.com
- (mail-uksouthazon11022091.outbound.protection.outlook.com [52.101.96.91])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B3EF310E21C
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:43:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mQLApDi+mQT1yFpvvMOjlH7BvqUXJLnUonZmZImqck2GG35wKg6NNfJYs6qJvX0PiXh9j1hGBJM0EncWnnA2Q6ne+HP5wDcTYuAV42eTc66wS94r4XEL0ljfH7lslTp79VVb725nK9XYe2kzhz9DvFtpfjR/j+nI8xRNdfT6krtXcFDpFujjYmpeuJ/lc07bL/G9jkVZZTLRoXX4cwLu6egkUJD1Fl2IdWquhmYCLM+sWEuC0sL3AaC+7qWG1j7jzpUdbWOs7UnMe9ZOfMpnzm/MLFU6MFhIRcA2up1UcBZ4d3O6wBonMIQA7XYFymzS6qI4IfydgP7yetvqBEm7+Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RTZVsFKDzX76Y+RxbbfwyEtOlXfpmsVAiYcbFD4D6H0=;
- b=PDvpNG+p//lmbprIlbeINrW+RKcjIHPkPcocj4eTWBJqd6GfYaPn6PaQqMrWnfCtDr5xsQzSSI80kwTyIcdkg5wJ/8Whgh9nGG+QzYFVDXE+Jvzcmwobk1AckWdSXr7MpGBb7OctnG98yUpxLsYZVqCZNEEH8HYAQWFQfni9GMBdK6+XmX/kWkW695GGFiJ9abdBbSTO3nN3u/MGR9KRtHLP6zdqJ32jDKGRerOUsCAu4lNZOFjLrEeOTSyK7uubl2qExg8OBXSCRW+U9yS9tNrhGsURTaH26OZsZqiyZNqiTmwmO2XCFHg4T2hM/hVgUyqqR8zOJrKQzZ8qToOtYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RTZVsFKDzX76Y+RxbbfwyEtOlXfpmsVAiYcbFD4D6H0=;
- b=gJJXXIGYtz1EcqXX2nkYPiMtww+EhAaN0f81jFiGZwENKR6Ey4Aq7tt11TVSAxIzUjEQOR7CSCVHcnKADaDCOspUgAMvTdyUQUFz1m6ZUIzxruu5Shy4sYJ3OzBLwekIZ3+1bG++HIrICRHIz1hSqlkkF8OY+qUClOnmGY9chgk=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
- by LO2P265MB3135.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:165::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
- 2026 16:43:28 +0000
-Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- ([fe80::1c3:ceba:21b4:9986%2]) with mapi id 15.21.0270.015; Fri, 31 Jul 2026
- 16:43:28 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 31 Jul 2026 17:43:27 +0100
-Message-Id: <DKCWO60T6JPR.1P3AAJAATMXBI@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alvin Sun" <alvin.sun@linux.dev>, "Miguel Ojeda"
- <miguel.ojeda.sandonis@gmail.com>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
- "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Daniel Almeida" <daniel.almeida@collabora.com>, "Arnd
- Bergmann" <arnd@arndb.de>, "Brendan Higgins" <brendan.higgins@linux.dev>,
- "David Gow" <david@davidgow.net>, "Rae Moar" <raemoar63@gmail.com>, "Breno
- Leitao" <leitao@debian.org>, "Jens Axboe" <axboe@kernel.dk>, "Dave Ertman"
- <david.m.ertman@intel.com>, "Leon Romanovsky" <leon@kernel.org>, "Igor
- Korotin" <igor.korotin@linux.dev>, "FUJITA Tomonori"
- <fujita.tomonori@gmail.com>, "Bjorn Helgaas" <bhelgaas@google.com>,
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?utf-8?q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>, "Todd Kjos"
- <tkjos@android.com>, "Christian Brauner" <brauner@kernel.org>, "Carlos
- Llamas" <cmllamas@google.com>, <rust-for-linux@vger.kernel.org>,
- <linux-modules@vger.kernel.org>, <driver-core@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>, <nova-gpu@lists.linux.dev>,
- <linux-kselftest@vger.kernel.org>, <kunit-dev@googlegroups.com>,
- <linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-pci@vger.kernel.org>, "Luis Chamberlain"
- <mcgrof@kernel.org>, "Petr Pavlu" <petr.pavlu@suse.com>, "Daniel Gomez"
- <da.gomez@kernel.org>, "Sami Tolvanen" <samitolvanen@google.com>, "Aaron
- Tomlin" <atomlin@atomlin.com>
-Subject: Re: [PATCH v9 00/10] Fix missing fops.owner in Rust DRM/misc
- abstractions
-X-Mailer: aerc 0.21.0
-References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
- <CANiq72m59O-ruHUvUcZC7yCvu0KV0w_m5vMO4e0rxyHdRmihJw@mail.gmail.com>
- <68c43a03-5fa0-42a8-b886-2c756e39515e@linux.dev>
-In-Reply-To: <68c43a03-5fa0-42a8-b886-2c756e39515e@linux.dev>
-X-ClientProxiedBy: LO4P123CA0649.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:296::9) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:488::16)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91BAE10E224
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:43:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1785516226;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=lSuYcaNlXmC2iii63pednXBAuDRAZROOC8ripxWX5Fw=;
+ b=Q9nXScPbp3FqklxVoPZAiKjvAtgqi8UBlgPDfDvtGFFyN7R2QVj2JZeOR8Cesm1FSi3mr8
+ /m0n+J+f3tW0F9h6l7IaTJuf4ZipxCgQtxRDoO5JMadbmO5SH14m7YZYYCCa1DXtzNFY/D
+ eCmnYfsPslwbc/gAYU3K1gNRjO4XRLY=
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
+ [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-407-szM2ev8XNpSNRDLZRpVCOA-1; Fri, 31 Jul 2026 12:43:45 -0400
+X-MC-Unique: szM2ev8XNpSNRDLZRpVCOA-1
+X-Mimecast-MFC-AGG-ID: szM2ev8XNpSNRDLZRpVCOA_1785516224
+Received: by mail-ej1-f70.google.com with SMTP id
+ a640c23a62f3a-c15e6109f9aso96485366b.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:43:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785516224; x=1786121024;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lSuYcaNlXmC2iii63pednXBAuDRAZROOC8ripxWX5Fw=;
+ b=ZuIABbB5xl6nARrUHT0sudcMDxgqD763zS3Hy+jToPfgdLiDFmraVab/2JB/qDGmkN
+ 0eaw0kCbkan01Ku1LYZsiueKPSogOJPYt+Kz0A7Bvta7bpgFopYf+V6qTOWEg/6LvbsJ
+ l2OgFblDHT+9HyPEtZ8oSh9kZfCNP/9YK76FlKDgn7ixs96LcMsQUBgaVpHfKo3JOdOl
+ 3CYA4jrCkvPoMN+bBo/QKdqkVex71fngI9dn9+EUycNnYZrUs4UtA1fOIJqi9L+vrvIO
+ zohSIc1sSX80rts8xg/mC1MbI2bGlZBKo333DmlmVWyjELIlfKzOaHCF036cmu30P04w
+ k1/A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr+zHFd4VIqGzjsRIPfdpKfmhTP3X4o8o5q7lvCuvR8giP27/nHXtLpkyXr3yn1/n55ipydln5SK8M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzRN3AdS/iFrDW3Ls4nzLoi2A0r4qWaqUwn8WD+HJX4GWj85vxF
+ I5Nf2386n3N+VRUfRFOJ7yMS5SPV7LbbaeeJXGLvS6XXh9/FyLQfGvl4V2lSSl4hAAQOoBwUZyS
+ sRJ3bKR0NK0eQzre11LWIYnqgFB/clPpf/o6SQ5jwoAv0kXKczFpU/nC0Q9uQnPF71bRv+w==
+X-Gm-Gg: AR+sD136m/7nHQbRHk4bUpZCpfziRUhudQBDCjAMl719h/potoZyesMPvaexlAzN1P+
+ UYMxh884+PoRiDRuAFPDCzzNqJawsyBA/jNc37Vfuxf7v67UbPJbNwSA59BOZFXyUypZUbd9w9i
+ OT5qDFNbqKse2BJ1rIQD29VBxFGVkTaakK6x4Vgj9ONOfT6ajt0bZI5j9EcW0vw6XX5U/TwHQDX
+ X6nrUQgnhUNwqjRuQJRSnRCGVHJnytMxKTEioQNHiczVfTDHEY/p+XvnlvXn2pgM4tfsrJO5+dG
+ XE8XRcnUZl0cF9rQKyvRL4CRH7P+eZls629UOHjlD7BBmpTY6VOY3bzhTF6YCtFKV6meo1wOD2U
+ aEsjJMH/tUQnEXb1iapa9ssds0YIjwkpYh+dAzP+kXNaYN/3AdFAdwF01ZwY52hzK4jgVhMBq2n
+ cG7YU=
+X-Received: by 2002:a17:907:e001:20b0:c1f:7c45:2dfa with SMTP id
+ a640c23a62f3a-c1fe7ea4b7cmr19853566b.7.1785516224105; 
+ Fri, 31 Jul 2026 09:43:44 -0700 (PDT)
+X-Received: by 2002:a17:907:e001:20b0:c1f:7c45:2dfa with SMTP id
+ a640c23a62f3a-c1fe7ea4b7cmr19852166b.7.1785516223725; 
+ Fri, 31 Jul 2026 09:43:43 -0700 (PDT)
+Received: from [192.168.10.48] ([151.95.34.92])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c1fd455ab7dsm206911266b.58.2026.07.31.09.43.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Jul 2026 09:43:43 -0700 (PDT)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@suse.com>,
+ Sergio Lopez <slp@redhat.com>, Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, bcm-kernel-feedback-list@broadcom.com,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+Subject: [PATCH RFT 0/3] mm,
+ drm: ensure .fault() does not have to be followed by .pfn_mkwrite()
+ for write faults
+Date: Fri, 31 Jul 2026 18:43:38 +0200
+Message-ID: <20260731164341.1109827-1-pbonzini@redhat.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO2P265MB3135:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5edb5aba-3891-4f9c-dc43-08deef22d90a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|376014|23010399003|18002099003|22082099003|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: VPgetq3G+0JvU6nUNTr/YIOS7zdRBbv3KaiQ7yJXyuFpW2xGHCuOn6oMUKE6ccFR1oAkHp9NrU0xprTRQiKgrgcfTF/MZtQfSxiu+PnqUVuPbJqyBYWwgN7WOHpKiUyzBeO1pF30eLjQIVxWgIL0/hjgzm0iqxO8n2Xa5/MQomOZhBd16rW54FBOjzEB/25yYLCy+lRl9U4m8v5tAF/U6YNeRae02+RcxDowXGQVEfwyoHVn8QQVpR+emmkV4AMFnLG4VpQ5Z5RJxNCsvufI32sQIvXq/hkWAJghfdp52R58at5E7vd+JZHhK1gznioskONop3O7lsIlmV9qW4sJGF1+LS7FB9gQK5PHJf0lT8r8LFsAFEy+Xomnu1nwKm8qAG8gxCFMF82Njv13a/AG4PLfNRf7lxc4exmGes6Wtvy6jNoSXTU9In2PDvLe+sqRCYm48SSyRYFhxkNHPo+uTIxJuQjKbRp7hHxHeOo2/5lKYoRfieuZ1Kh2naC/n1enWvhEuSSVTQk0gnFXfqftDr0098UsWgGNHRjU3abS7oKNpZhYixudZytUAP0knaHnSctScidQ3AqSAjI+YbD7XF3gRblY232T4wERRZ/0eCFcD68XOjbY+V5ME8wIFm9PjU0TAgqADLpX7SdKGyv1W+Z0RWS3sr3jmJFKlpl3giM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(18002099003)(22082099003)(4143699003)(10067099003)(56012099006);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZkppSHZiVUQ0RTYrRlJSa25UdzgyRXpnYUp4NzBibGVwNGRhOGtlSVg0U1g0?=
- =?utf-8?B?QzVqbE5MUnY2aXNkb2cvTXhFUk9iaFY0eER3L3l3OE9XRzRRWWI5bXFUWEE4?=
- =?utf-8?B?Ymg5ZVZRVkIyemJIN1ZuOFREZm5BZGdyQVlKS2NDbWdKQmdaUzRDbXMxL2dQ?=
- =?utf-8?B?SkhTa1dHRTE4OFBkZEdyL2tmamVlRUxqTzBtQTJzNjhTbGtkYVBKUzlacDZa?=
- =?utf-8?B?a242ZXczZ0RwYWFodkc5K2lOeGwxYmcvUWlHZjQ5bS9KUWpuVDQweDE3RWpq?=
- =?utf-8?B?RmdKdXQ3bHJ2OEFJYS9OVG5PNmdlYTZlT0ZOTlZGUHRHMkE2cEgxNzFUT3lk?=
- =?utf-8?B?Wm9xdTBZbEhpakQxSSs4MWxBTkRXOXVPRXNiYXJaaVVheWhlMEZyRmprNHRq?=
- =?utf-8?B?bEc1Mks5c1hYdlRzTWpPQUQ0N0toUGMxSHUybXQ0Tyswd1RTeHpMVTZTUWtx?=
- =?utf-8?B?ZHRSTU5ZaGxRMTBVWWRZN2c1eFlSWjV4VU5TQWMvVDB4UkI1U3NyeGR1QjVT?=
- =?utf-8?B?a1dBMGlFWldsMUVvMk95K1VFYW96WUZFaUFpZ2xxL20wY05iemRIdzdjcU5R?=
- =?utf-8?B?VHk5dCtEV1czSHpxdmpiL2pmbVBkVXF2NXV0WjI3MWU0SE9CelR1Wis5b1FY?=
- =?utf-8?B?VnNwYWdRdXFPcWxZSFg0ZGhzREVyMGRLNEtCQysrOGpjSnB5Y2daa2UyVE45?=
- =?utf-8?B?UmdUSis2S3A1ZkRyWUZIZGdFMUR2Q2JQdWI1aWtOZ1Vaa3hnbUxzN3Fsc0N4?=
- =?utf-8?B?a2hrSjl3QW9BYUk2VzlhdW16Y3QyWXdIZFAzeWl2aWRrQ2l1dUk0cjJxbGI2?=
- =?utf-8?B?UlF4S2ZQdmxabTNrbEJBOVV2OWpjVkdQaWF0S1Bha0xRb1dNWk81OEo0VFQv?=
- =?utf-8?B?NEtSRzhMK0FGdDhmakVDWGx0M1pKWlRzdUF4QkVzM3FIVUUzRXB4aVBiOURv?=
- =?utf-8?B?YnBzcllSWGZZVHc3cm1UN3plLzVuM0lXUG9FS0RRcHZpM2d5OWsybk8yelVP?=
- =?utf-8?B?M2tET1ovb0lhVllZWnNQREVhUnNCSEs5TXFFOTUzb3crZjdTN21OL1hRNE5N?=
- =?utf-8?B?dWpBYUxKblYxZVlxZnlvMnNOVis2UnhLWlgyZjBZb2tHTEtOaUEraS9MWnhw?=
- =?utf-8?B?elRNMUpBOUVUWk5rUWJqVitsMHVULy8rMVhzdHBpb3lhR1QrU3pZUytMZ3dR?=
- =?utf-8?B?TUhUTkJHKzVHUlFTSExOWVRPS1JnL2hHNGY3T0hTODJUOVZuMGFQSDRuQ3pS?=
- =?utf-8?B?SkljenlSTzMvUWJiR0VBYTE2RzlOVWM3M2x0Rk94Q3paSXArNlI0UVZyYjIz?=
- =?utf-8?B?R0ROdkZ0MG8yaGM5WjZ2dlZHY2EzZ0RDandXbG9UeU81bnJWYjlKNWJhcksw?=
- =?utf-8?B?enZTaWYxUjVMMHQwajJXbVNlS2swNE9FZ1dFbmtXdGZsU09IMll1NG8wN0VG?=
- =?utf-8?B?aDlMbENOd2hDVy9vbDJjM3NGT2JLSHYrSXllaEJrV3JLbUxGeEtpblVXM1Bl?=
- =?utf-8?B?Z2NwcFc0WHZBNmh2Q3Rra0xMbWQ2RzM4dGxyUDlsS3VPd21zS1pKNDlwaVhu?=
- =?utf-8?B?ZlIvWlNheUZCV1lPK1JEVFk2WUh5a1dCWkI4NFVPcDFFdXJUbFJWNmZ2ZW4v?=
- =?utf-8?B?ZllIY1hRajM0UzlyVVY5NkUyWHFqR2VWTmVHUjRzbmNVL0tpSUsxWVRPN0lW?=
- =?utf-8?B?QWZZOFYvZWtyK05yYXMwK3dhcUFvYmkwRWlTWkllaldyRjRlSSsxMlF4blAx?=
- =?utf-8?B?OW9PbXBoMHdpdkNXekJ0dDZUWHRDdHM5OEhxVlBaNUdwNWlMS05IRmdSQjhF?=
- =?utf-8?B?WGN5QWRMWTZGcnVZMDFGK1Vrd0x6bFB5dUtwTCtlY3FpTHhKWmZJaWY5aVdO?=
- =?utf-8?B?ZFcwV1c4cnhYWTVQTmR4ajhEVTAxeE5PbmxJWlh5NHV1WmhHTCtaRkE3dW5H?=
- =?utf-8?B?QzlKZ3pNK0RwU1JLZnJBYVd6d0poa1FiUTE0ZnBwaENrbHpWdHdpNFFyM0w3?=
- =?utf-8?B?cWZIZlZqaHJwZWtwUGRJZ1dKTHRURFRtTzllQXVOTEhLK2FvZGJLbHo5Z3ZY?=
- =?utf-8?B?L1pFeGlFS3pyd1RYTVAwRDFxUTJKUldjVWVtY3lzZFNMKzlQS2xJUlBoVHoy?=
- =?utf-8?B?THhLQTFxcTdIOHQ3V012cnZuZE05N3FBMjhwK0JicUZySHNnYmd6MDMyZ2lB?=
- =?utf-8?B?UDN3WlZxTFN3Y0JuTUh5ZlRWaWFKb3E4UGZxRE1icjhwRkNvbEZpdEhkUEdo?=
- =?utf-8?B?MnJMRFhpT1FVSGhWVGdITkRxYk1OTTNmME1MNGgyU2lZaWEweVZQNWdncjFj?=
- =?utf-8?Q?8Dvh6MKWHd2DBctxbs?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5edb5aba-3891-4f9c-dc43-08deef22d90a
-X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 16:43:28.3620 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zDEjAsJ1O814bAYxAl3j0kQGqmLys9mlTSk5n/moAvCGE5uZH7VYQ4ip0bVtRl9xnw0iO3jm55J7ow/o6zyb0A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB3135
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: LQgli3FSoMqTP7dxfc2dVJFlFPFQKRblMp1oQpQnehU_1785516224
+X-Mimecast-Originator: redhat.com
+Content-Transfer-Encoding: 8bit
+content-type: text/plain; charset="US-ASCII"; x-default=true
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,57 +105,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Jul 31, 2026 at 5:34 PM BST, Alvin Sun wrote:
-> Hi Miguel,
->
-> Thanks for taking a look!
->
-> On 7/31/26 14:46, Miguel Ojeda wrote:
->> On Thu, Jul 23, 2026 at 4:11=E2=80=AFAM Alvin Sun <alvin.sun@linux.dev> =
-wrote:
->>> base-commit: b7e5ac83cb16f7ffd11dc23736f84276602100ed
->> Was this old tag used for some reason?
->
-> That was an oversight on my part - I forgot to rebase onto the latest
-> tag before sending v9. The series is now based on v7.2-rc4.
->
->>
->>> prerequisite-change-id: 20260519-miscdev-use-format-9ab7e83b1c11:v3
->>> prerequisite-patch-id: 405b334ff0d48ad350014f05a2321bdbaa025400
->>> prerequisite-patch-id: 604b631c81d5423f4ebb2e12ba2d22e9ce371bfc
->>> prerequisite-patch-id: cb550d94cefe01920e0d3ced2b2bcbecd76f3907
->>> prerequisite-patch-id: 3bc830839742591460cb86d9472c04f4686dc600
->>> prerequisite-patch-id: 571058244bc8c7088638d2e3225713011246c7e9
->>> prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
->>> prerequisite-patch-id: 3e202d988b56b88446f7535e90d3f00cf5f15701
->> Are all these actually needed? Some seem unrelated (some were already
->> applied too).
->
-> The prerequisites were just some import formatting changes that the
-> series depended on at the time. After rebasing onto v7.2-rc4, I was
-> able to drop all of them - the rebase was clean with no conflicts.
->
-> I'll send v10 shortly.
+Warning - DRM parts (i.e. most of the patches) untested; I have Cc'd
+the reporter to help with testing these patches.
 
-If the patch applies cleanly then there's a no need to send a new version.
+Right now, users of .pfn_mkwrite() have no way to create a PTE
+that has gone through maybe_mkwrite().  Because vma_set_page_prot()
+will have cleared the writable PTE bit, users of fixup_user_fault()
+will see a read-only PTE and have no clue that the page needs
+a *second* fault to reach its final status.
 
-Best,
-Gary
+Handling this in fixup_user_fault() is problematic: the information
+about the presence of *_mkwrite is only recorded in vma->vm_page_prot,
+which is an opaque pgprot_t, therefore only follow_pfnmap_start()
+knows how to retrieve it.
 
->
-> Best regards,
-> Alvin
->
->> The only one that seems needed has Andreas' Acked-by, so
->> I guess it is fine.
->>
->> (By the way, I will use this second message to take this chance to
->> move the modules maintainers in the To: in case it helps, since I
->> didn't do it in my previous message)
->>
->> Thanks!
->>
->> Cheers,
->> Miguel
+There are actually some preexisting functions that suggest how
+this is supposed to be handled, namely vmf_insert_page_mkwrite() and
+vmf_insert_pfn_pmd().  So, this series adjusts mm/memory.c to export
+two new functions vmf_insert_pfn_mkwrite() and __vmf_insert_pfn_prot(),
+and then teaches drm's two users of .pfn_mkwrite() to call them.  Let
+me know if I should use another name like vmf_insert_pfn_prot_mkwrite(),
+instead of the "__"-prefixed one.
 
+The drm_gem_shmem_helper case was reported as a KVM regression, while
+the vmwgfx one was found by inspection of .pfn_mkwrite() implementors.
+
+Thanks,
+
+Paolo
+
+Paolo Bonzini (3):
+  mm: export variants of vmf_insert_pfn* for use with pfn_mkwrite()
+  drm/shmem_helper: use vmf_insert_pfn_mkwrite()
+  drm/ttm, drm/vmwgfx: directly create writable PTEs when mkwrite is
+    in use
+
+ drivers/gpu/drm/drm_gem_shmem_helper.c     | 38 +++++------
+ drivers/gpu/drm/ttm/ttm_bo_vm.c            |  3 +-
+ drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c | 44 +++++++------
+ include/linux/mm.h                         |  4 ++
+ mm/huge_memory.c                           |  2 +-
+ mm/memory.c                                | 75 ++++++++++++++++------
+ 6 files changed, 107 insertions(+), 59 deletions(-)
+
+-- 
+2.55.0
 
