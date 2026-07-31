@@ -4,47 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8420C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 11:10:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE0B7C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 11:12:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17C4210F213;
-	Fri, 31 Jul 2026 11:10:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21B2B10F218;
+	Fri, 31 Jul 2026 11:12:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L6L9YNwf";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Y7ua6z21";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 277C610F213
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 11:10:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0774F4126C;
- Fri, 31 Jul 2026 11:10:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 472491F00A3A;
- Fri, 31 Jul 2026 11:10:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785496255;
- bh=ytqivL4jFHX4nTrfGKiLg4ZD46ph+c7BxWubgoutGSs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=L6L9YNwf7IOE8Y7SKl9wy9kaMf4ZUQ/idSSKCL0Umzqx/JlQG5XJ7htEIpx8SoJEg
- Bt1oCeplePQFH4WZgcdvIeY+aneSr+zcseRLt5PUaqwjyh/yRuVFqXYkKDCeRK0A98
- G+SzUQXDISUECxdL8diV56hVIFXnTgX8YFiXpnUk2jpIQH8A5H0X18Cd9Ht2f+jh1w
- oo0GGJswWKi465nW847qOrGH/DxelRnU4BEQeKo6f+UTFTtvAmtXoLAtdYIQX6Le6N
- j8hdPSugqQ94n++zcl2WjcfY7Y0WOGtbUyfjywj9jPK/rtZl/ew314pt817qRNigfK
- Ee0sNJJBGI1lw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] drm/tegra: fbdev: Remove offset into framebuffer
- memory
-Date: Fri, 31 Jul 2026 07:10:52 -0400
-Message-ID: <20260731111052.3596094-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260731111052.3596094-1-sashal@kernel.org>
-References: <2026072951-goofiness-shank-618d@gregkh>
- <20260731111052.3596094-1-sashal@kernel.org>
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 524A210F218
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 11:12:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version:
+ Content-Type; bh=INQWhOLIhCHtGcOk61iUZgio4nHSvbrA+EjdpS+Q3u4=;
+ b=Y7ua6z21gHLh+UdDXB385Bz0ojkBPgHYOfDiMWy2WXeQanTvddMy6tXSpM3RLH
+ H+19vGfrgScZm/KDDUF5p3Oyk5Z3r8lSO8ER3HPV/jTMfJkF0qYUv/xOC+IUsWtd
+ djEYZ1hjKEGwyDNrgA3hGlqrFywF6ucIyswos/ZFs1xTk=
+Received: from localhost.localdomain (unknown [])
+ by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
+ _____wDnTwD8gmxqtQ_iMA--.5689S2; 
+ Fri, 31 Jul 2026 19:11:57 +0800 (CST)
+From: oushixiong1025@163.com
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
+Subject: [PATCH] drm/sysfb: Fix atomic_disable to use dst coordinates instead
+ of src
+Date: Fri, 31 Jul 2026 19:11:55 +0800
+Message-Id: <20260731111155.695390-1-oushixiong1025@163.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="Add_By_Label_Mail_Nextpart_001"
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wDnTwD8gmxqtQ_iMA--.5689S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7WFy8tF15tr47uw1rGr1kGrg_yoW8XFWrpF
+ ZrG34q9rsYyws0gFWDCay8try3Xa95Jw4xKryrCw4S9wnYyFy3GF1rGry7Cr4UJrZ5Kw43
+ ZwnIyrWDJ3WFka7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j8J5rUUUUU=
+X-Originating-IP: [116.128.244.169]
+X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC4h2VpGpsgv2LXQAA3h
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +63,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+--Add_By_Label_Mail_Nextpart_001
+Content-Type: text/plain;
+Content-Transfer-Encoding: 8bit
 
-[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
 
-The screen_buffer field in struct fb_info contains the kernel address
-of the first byte of framebuffer memory. Do not add the display offset.
-This offset only describes scrolling during scanout.
+From: Shixiong Ou <oushixiong@kylinos.cn>
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-tegra@vger.kernel.org
-Cc: <stable@vger.kernel.org> # v3.10+
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+drm_sysfb_plane_helper_atomic_disable() constructs the clear rectangle
+from plane_state->src_* coordinates. This is inconsistent with
+drm_sysfb_plane_helper_atomic_update() which uses plane_state->dst
+— the destination rectangle already computed by the DRM core with panel
+orientation applied.
+
+Use plane_state->dst directly, matching the approach in atomic_update.
+
+Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
 ---
- drivers/gpu/drm/tegra/fbdev.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/sysfb/drm_sysfb_modeset.c | 6 +-----
+ 1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/tegra/fbdev.c b/drivers/gpu/drm/tegra/fbdev.c
-index 43a504ad4f38..b7de5819029d 100644
---- a/drivers/gpu/drm/tegra/fbdev.c
-+++ b/drivers/gpu/drm/tegra/fbdev.c
-@@ -75,7 +75,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 	struct fb_info *info = helper->info;
- 	unsigned int bytes_per_pixel;
- 	struct drm_framebuffer *fb;
--	unsigned long offset;
- 	struct tegra_bo *bo;
- 	size_t size;
- 	int err;
-@@ -112,9 +111,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
+diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+index d2de29caf89e..18466de886aa 100644
+--- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
++++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+@@ -380,14 +380,10 @@ void drm_sysfb_plane_helper_atomic_disable(struct drm_plane *plane,
+ 	void __iomem *dst_vmap = dst.vaddr_iomem; /* TODO: Use mapping abstraction */
+ 	unsigned int dst_pitch = sysfb->fb_pitch;
+ 	const struct drm_format_info *dst_format = sysfb->fb_format;
+-	struct drm_rect dst_clip;
++	struct drm_rect dst_clip = plane_state->dst;
+ 	unsigned long lines, linepixels, i;
+ 	int idx;
  
- 	drm_fb_helper_fill_info(info, helper, sizes);
- 
--	offset = info->var.xoffset * bytes_per_pixel +
--		 info->var.yoffset * fb->pitches[0];
+-	drm_rect_init(&dst_clip,
+-		      plane_state->src_x >> 16, plane_state->src_y >> 16,
+-		      plane_state->src_w >> 16, plane_state->src_h >> 16);
 -
- 	if (bo->pages) {
- 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
- 				 pgprot_writecombine(PAGE_KERNEL));
-@@ -126,9 +122,9 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 	}
+ 	lines = drm_rect_height(&dst_clip);
+ 	linepixels = drm_rect_width(&dst_clip);
  
- 	info->flags |= FBINFO_VIRTFB;
--	info->screen_buffer = bo->vaddr + offset;
-+	info->screen_buffer = bo->vaddr;
- 	info->screen_size = size;
--	info->fix.smem_start = (unsigned long)(bo->iova + offset);
-+	info->fix.smem_start = (unsigned long)(bo->iova);
- 	info->fix.smem_len = size;
- 
- 	return 0;
 -- 
-2.53.0
+2.25.1
+
+
+--Add_By_Label_Mail_Nextpart_001
+
+Content-type: Text/plain
+
+No virus found
+		Checked by Hillstone Network AntiVirus
+
+--Add_By_Label_Mail_Nextpart_001--
 
