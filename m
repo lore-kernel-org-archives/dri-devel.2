@@ -4,81 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E147C55172
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 21:33:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBB5CC55172
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 21:33:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE59710F423;
-	Fri, 31 Jul 2026 21:33:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3CF9C10E26B;
+	Fri, 31 Jul 2026 21:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="a0HFdqWM";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="hv8bf7ml";
 	dkim-atps=neutral
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 104C210F423
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 21:33:06 +0000 (UTC)
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66VLWsDR2307560
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:33:05 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=
- pps82601-s2048-2026-q3; bh=vCoC9kPvd9L9eWd1I71UR2CsPLtClId9Denx+
- viO4H8=; b=a0HFdqWMro7MinE5ctNppEbCSV18apph+UkeVVXnOtQ6EhDXJcufW
- D1PqIdndYX0TI58jA/yD/vN0jDzd+KLye8UwCiPPWf3MbyUiKTdM50lddDV1yo4/
- MGJ5vPARTpgjoPD0Q+k/kngRgEpC5sk0g+Czfb9Y4xeKjtc18rIjRZ+jfw12DcUp
- D2DkHhLEUOK5vJvnNoOo7yFU7yVy47zhBcujx7ZbOzp+aKrVVNtPiD6tdHlvkN6Z
- cyE8qWchN7zL+BjRQm2NQ8genhJtQsQ50QeRZu+Z0eIfjaKz8tFVaP68h38VRq80
- zSiOMWqTtYtDURyis8FkIXR9cnZ4VcibQ==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4fqrkq002g-3
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:33:05 -0700 (PDT)
-Received: from twshared14178.03.snb1.facebook.com (2620:10d:c0a8:1b::30) by
- mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Fri, 31 Jul 2026 21:33:02 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id EBB1A43C24EE2; Fri, 31 Jul 2026 14:16:15 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Michael
- Guralnik <michaelgur@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>, Alex Williamson
- <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
-CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- Zhiping Zhang <zhipingz@meta.com>, Chengwen Feng <fengchengwen@huawei.com>
-Subject: [PATCH v13 3/5] dma-buf: add optional get_pci_tph() callback
-Date: Fri, 31 Jul 2026 14:15:50 -0700
-Message-ID: <20260731211601.3033906-4-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260731211601.3033906-1-zhipingz@meta.com>
-References: <20260731211601.3033906-1-zhipingz@meta.com>
-MIME-Version: 1.0
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50BC510E26B
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 21:33:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785533593; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=gHWANFQFZoJJaYEhuKmaZUxWUFD+rkzqPNoml4H2CAPw9Eir1vP5sTf8FH55AQFSTqXbJsRM4yw6PQGOM3+kOK3r7L8MauTZbozYas9fQW65jLiuw5EycL0OsVg5TO4UsvIAt6uzxShq3/IXxF0gXXTGZxTO6NkOGsqXv11V2UU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785533593;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=28SYLaxEswFYrX7pB/BBBjg3ucFfM5uxTXPR0tHPjcc=; 
+ b=i9xAT7I6wpEq5+55Y74aQJDsqPQN2QZYJAo6dyuwFyrXGYK6n0G4QS3yvwaIgiUukMsstV9j9UnOUru03iQu3tpTSKc8NBqBw12A1m0IaT/lICrjJ2XXiPUwRW0CKH/UhDz8g4VaX7/e2TkzPCXoFT47bwxxweCbYOXkFnNFTUM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785533593; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=28SYLaxEswFYrX7pB/BBBjg3ucFfM5uxTXPR0tHPjcc=;
+ b=hv8bf7mlLR3lRI+e3WrpA+6efQ42RwhE8qX5b9m1qEMxfc9CGh7FGc46xbl6ss+l
+ VAF4ZyymF+yxhahxdJCFv82nK+92hoPQyWArswJxbPIlUignAZgCeUgrBJk8aUD9AWe
+ bpwEq29KEJWbNIYk7JBR1AT6NZeaCco7hOSh9vog=
+Received: by mx.zohomail.com with SMTPS id 1785533591479424.44668881936855;
+ Fri, 31 Jul 2026 14:33:11 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v5 0/4] Clk improvements
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260731183735.15036-1-mhi@mailbox.org>
+Date: Fri, 31 Jul 2026 18:32:48 -0300
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
+ Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ Boqun Feng <boqun@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org,
+ linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org
 Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Authority-Analysis: v=2.4 cv=E639Y6dl c=1 sm=1 tr=0 ts=6a6d1491 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=tpM8CJlwf7uhpglF1g9U:22 a=VabnemYjAAAA:8 a=i0EeH86SAAAA:8
- a=mECi3VIRXVL5EC2FsE4A:9 a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: jYl7QgmSWAtypAGdYicXEPc2j_wfyQD7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDE2MyBTYWx0ZWRfX/ZjdJ1+JMz1M
- Gyk17NJfPzjLPg1DpsE2iaaPP71XFHip2m1lpyJZM/gKVMgctn8dHVjcibgg0bMZwGWu7lzH/aW
- cWUsWZIaV/I27wvVcbV8igJfgOAPh3g=
-X-Proofpoint-GUID: jYl7QgmSWAtypAGdYicXEPc2j_wfyQD7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDE2MyBTYWx0ZWRfX8pxMSvhs/zCM
- dJgnZUrhtvAN6GonxmJPEt+rTrKswCQImmNXV72/pXoUwuHRCRw+BhaxMctGWKLWrDhDnnS9sw+
- jujOpyQXow31mfT72wcIJgIt1uutLHy/kDKnkki2injwD3BLf2kmRb1ByPndGODGjJvXdGeKy0c
- WkFowZaF4QPW5IenpLFOtS4d0i0eYdiHS28kpmQsUB5lskuHW1ALwmSjSexe5Y1yeU6fjaSIRMM
- 8OAIS4CIuDgDRDLhTOTHYe0cfKgOqFlX2NBks2rIz6Q4k1s4Vpfd7tTvxpVJBLVj9ipXHBIW/oH
- SUpNWxq6D1NDRXnF/UgUJCS47MkOCWp3NfHq1ZBrFw5jf8YnMxer7PZCMDt+D0g+lni2+ZkazqA
- HNcygiwSYt6nS1iEsGAzc52Htg1Zf4DvL0U1H9rdz6xTK6xg7kWcjfe4vD4gyQ91MSvjjlQFXmI
- yXiySpoIm7z3r3izqAA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_06,2026-07-30_01,2025-10-01_01
+Message-Id: <E20E4FD3-F4DA-4029-99F7-DB4F93AA2994@collabora.com>
+References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
+ <20260731183735.15036-1-mhi@mailbox.org>
+To: Maurice Hieronymus <mhi@mailbox.org>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,139 +88,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add an optional dma_buf_ops.get_pci_tph callback and a
-DMA-buf importer wrapper, dma_buf_get_pci_tph().
+Hi Maurice,
 
-TPH is PCIe TLP Processing Hint. 8-bit ST and 16-bit Extended ST are
-distinct PCIe TPH namespaces, so the importer requests the namespace it
-can emit and the exporter returns the matching ST/PH tuple or
--EOPNOTSUPP.
+> On 31 Jul 2026, at 15:37, Maurice Hieronymus <mhi@mailbox.org> wrote:
+>=20
+> Hi Daniel,
+>=20
+> at your suggestion [0] I rebased my `clk_rate_exclusive_get()` binding =
+for
+> pwm-th1520 on top of this series, so it is now waiting on it to land. =
+As v5
+> has not seen any comments in the last few weeks, I wanted to ask what =
+the
+> current status is.
 
-dma_buf_get_pci_tph() is the importer entry point. It requires
-&dmabuf->resv to be held while the callback runs and returns
--EOPNOTSUPP when the exporter does not provide PCI TPH metadata.
+Nobody has replied so far. I don=E2=80=99t think there are any further =
+comments.
 
-The first user is VFIO_DEVICE_FEATURE_DMA_BUF_TPH in vfio-pci, with
-mlx5 as the first importer.
+>=20
+> If there are no blockers left and you expect it to be merged soon, I =
+am
+> happy to keep waiting. Otherwise I would offer to send my series =
+standalone
+> against the current `Clk` API and let you rebase on top of mine - it =
+is the
+> much smaller of the two, touching only `Clk::rate_exclusive_get()` and
+> pwm_th1520.rs.
+>=20
+> [0]: =
+https://lore.kernel.org/rust-for-linux/140FE1B3-73CA-45EA-B978-648A1A48B57=
+7@collabora.com/
+>=20
+> Thanks a lot,
+>=20
+> Maurice
 
-Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
-Acked-by: Chengwen Feng <fengchengwen@huawei.com>
----
- drivers/dma-buf/dma-buf.c | 32 ++++++++++++++++++++++++++++++++
- include/linux/dma-buf.h   | 25 +++++++++++++++++++++++++
- 2 files changed, 57 insertions(+)
+Your series might hit the same blocker as this one. Perhaps we can try =
+to get
+both merged at the same time?
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc29..71f335442ba7 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -939,6 +939,7 @@ dma_buf_pin_on_map(struct dma_buf_attachment *attach)
-  *     - dma_buf_unmap_attachment()
-  *     - dma_buf_vmap()
-  *     - dma_buf_vunmap()
-+ *     - dma_buf_get_pci_tph()
-  *
-  * 2. Importers must not hold the dma-buf reservation lock when calling =
-these
-  *    functions:
-@@ -979,6 +980,7 @@ dma_buf_pin_on_map(struct dma_buf_attachment *attach)
-  *     - &dma_buf_ops.unmap_dma_buf()
-  *     - &dma_buf_ops.vmap()
-  *     - &dma_buf_ops.vunmap()
-+ *     - &dma_buf_ops.get_pci_tph()
-  *
-  * 3. Exporters must hold the dma-buf reservation lock when calling thes=
-e
-  *    functions:
-@@ -1144,6 +1146,36 @@ void dma_buf_unpin(struct dma_buf_attachment *atta=
-ch)
- }
- EXPORT_SYMBOL_NS_GPL(dma_buf_unpin, "DMA_BUF");
-=20
-+/**
-+ * dma_buf_get_pci_tph - Retrieve PCIe TLP Processing Hint (TPH) metadat=
-a
-+ * @dmabuf: DMA buffer to query
-+ * @extended: false for 8-bit ST, true for 16-bit Extended ST
-+ * @steering_tag: returns the raw steering tag for the requested namespa=
-ce
-+ * @ph: returns the TPH processing hint
-+ *
-+ * Wrapper for the optional &dma_buf_ops.get_pci_tph callback.
-+ *
-+ * Must be called with &dma_buf.resv held. Returns -EOPNOTSUPP if the
-+ * exporter does not implement the callback or has no metadata for the
-+ * requested namespace.
-+ *
-+ * The returned steering tag and processing hint are only valid until th=
-e
-+ * exporter invalidates the current mapping (signalled to the importer v=
-ia
-+ * &dma_buf_attach_ops.invalidate_mappings). Importers must re-query aft=
-er a new
-+ * mapping is established following invalidation.
-+ */
-+int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
-+			u16 *steering_tag, u8 *ph)
-+{
-+	dma_resv_assert_held(dmabuf->resv);
-+
-+	if (!dmabuf->ops->get_pci_tph)
-+		return -EOPNOTSUPP;
-+
-+	return dmabuf->ops->get_pci_tph(dmabuf, extended, steering_tag, ph);
-+}
-+EXPORT_SYMBOL_NS_GPL(dma_buf_get_pci_tph, "DMA_BUF");
-+
- /**
-  * dma_buf_map_attachment - Returns the scatterlist table of the attachm=
-ent;
-  * mapped into _device_ address space. Is a wrapper for map_dma_buf() of=
- the
-diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index d1203da56fc5..14e8eb61a62c 100644
---- a/include/linux/dma-buf.h
-+++ b/include/linux/dma-buf.h
-@@ -113,6 +113,29 @@ struct dma_buf_ops {
- 	 */
- 	void (*unpin)(struct dma_buf_attachment *attach);
-=20
-+	/**
-+	 * @get_pci_tph:
-+	 *
-+	 * Retrieve PCIe TLP Processing Hint (TPH) steering metadata for
-+	 * this buffer so an importer can program a matching ST/PH hint on
-+	 * outbound TLPs targeting the exporter for peer-to-peer DMA.
-+	 *
-+	 * @dmabuf: DMA buffer for which to retrieve TPH metadata
-+	 * @extended: false for 8-bit ST, true for 16-bit Extended ST
-+	 * @steering_tag: Returns the raw TPH steering tag for the requested
-+	 *                namespace
-+	 * @ph: Returns the TPH processing hint (2-bit value)
-+	 *
-+	 * Optional callback for dma_buf_get_pci_tph(). Called with
-+	 * &dma_buf.resv held. Returns 0 on success or -EOPNOTSUPP when
-+	 * the exporter has no metadata for the requested namespace.
-+	 *
-+	 * Returned metadata follows the lifetime rules documented for
-+	 * dma_buf_get_pci_tph().
-+	 */
-+	int (*get_pci_tph)(struct dma_buf *dmabuf, bool extended,
-+			   u16 *steering_tag, u8 *ph);
-+
- 	/**
- 	 * @map_dma_buf:
- 	 *
-@@ -563,6 +586,8 @@ void dma_buf_detach(struct dma_buf *dmabuf,
- 		    struct dma_buf_attachment *attach);
- int dma_buf_pin(struct dma_buf_attachment *attach);
- void dma_buf_unpin(struct dma_buf_attachment *attach);
-+int dma_buf_get_pci_tph(struct dma_buf *dmabuf, bool extended,
-+			u16 *steering_tag, u8 *ph);
-=20
- struct dma_buf *dma_buf_export(const struct dma_buf_export_info *exp_inf=
-o);
-=20
---=20
-2.53.0-Meta
+@Stephen gentle ping here :)
+
+=E2=80=94 Daniel
 
