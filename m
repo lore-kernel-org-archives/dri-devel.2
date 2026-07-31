@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94F7BC55176
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:23:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 039F2C55177
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:23:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAECF10F33B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFE2110F33C;
 	Fri, 31 Jul 2026 16:23:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hOGi+lHR";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="eKzk6vye";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2B610F30D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:40 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FC1410F30D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514779;
- bh=cD0+/HfmX6kyKNERhJbIzwqeRqoG4S21IHzyef7ml5w=;
+ s=mail; t=1785514803;
+ bh=MQdOVA/KEPfHsOiZ2rC34pKBO1gpeVvQA+uY+o5VdNY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=hOGi+lHRBgySpQW2uguQ7wsos1kzzG8W3hTgHG4zsO3iZhFXFRTp7MwCwGwswst0k
- WvxJsEIy5w4NlG9nenga1sACsJ81ZwdOsrqTPIzSg1j2A2QYQ2KbEAksthrCAQlvYZ
- hkgy4tc5gKSdJ+D6hWGZjTy9GFoNvpowysgh5qNErQhh5AIwsVQJpjkRI7dfwxi1wh
- hGeIFE+JHvSpdx+Zy9xj3FUikWT5Tyfkv9hxJwQpc65e1EbyAaJom+UrKoK3fFzVln
- 0qt+5XW7EGq9VjfxDlrcup7lj4g1s1EoGq53tRT++BhOhsqyxfY7oPkGM3fRmBZSUP
- kj3ySNTVNhWHw==
+ b=eKzk6vyeyqD8l88eWaxN2HRRTCyXrbj+ObYgBuqzvXVheOg8SS6tgRx/a7bidt+7G
+ j1rdiyQayOMK4p1dyadG+dt301zdBl9rMQJMZgI5v1Ah0NrC+JGFSnHvBMjEAv6Qng
+ 0HQO/PGA6iMleLGiQuvXy4ljBs3ijZNYYnco/vwva0wBkqG9rW0Z8VCXFhHgoSjpaz
+ pw0QGgUiMkxAvc0ZCgYlCRpsroCrHmxWhLP1gmCvmgrc8s0oS0jVp5MbX9vOQkvYul
+ 0Pddcw/S3EZZaIWR1IrY5OjgdMLgyDEHEz3/r7JKYsgurMQnNAdIbbKJ6bvFN1VgeJ
+ 3yUDvFB8pRrig==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3C40717E0972;
- Fri, 31 Jul 2026 18:19:39 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 00AC617E0B82;
+ Fri, 31 Jul 2026 18:20:03 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:41 +0300
-Subject: [PATCH v10 34/69] drm/rockchip: dw_hdmi_qp: Mask RK3576 HPD IRQ in
- io_init
+Date: Fri, 31 Jul 2026 19:20:15 +0300
+Subject: [PATCH v10 68/69] drm/connector: Drop redundant hdmi
+ supported_formats field
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-34-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-68-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,7 +62,8 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ Diederik de Haas <diederik@cknow-tech.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -79,27 +80,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Start with HPD masked, matching RK3588, so the bridge framework controls
-when interrupts are armed via hpd_enable().
+Now that all users migrated to the new drmm_connector_hdmi_init()
+signature, supported_formats is provided through struct
+drm_connector_hdmi_funcs, a reference to which is already stored in
+drm_connector_hdmi.
 
+Drop the redundant field from drm_connector_hdmi and point its users to
+hdmi.funcs->supported_formats instead.
+
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 3 ++-
+ drivers/gpu/drm/drm_connector.c                 | 3 ---
+ include/drm/drm_connector.h                     | 6 ------
+ 3 files changed, 2 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index f5342c5f457b..64e8e4c12cbd 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -432,7 +432,7 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip_hdmi_qp *hdmi)
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index 83a8fcb41343..c5496641a2f3 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -426,7 +426,8 @@ sink_supports_format_bpc(const struct drm_connector *connector,
+ 		return false;
+ 	}
  
- 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON14, val);
+-	if (!(connector->hdmi.supported_formats & BIT(format))) {
++	if (!connector->hdmi.funcs ||
++	    !(connector->hdmi.funcs->supported_formats & BIT(format))) {
+ 		drm_dbg_kms(dev, "%s format unsupported by the connector.\n",
+ 			    drm_hdmi_connector_get_output_format_name(format));
+ 		return false;
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index f5f38dc4bfa6..293b2823475d 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -610,9 +610,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	if (ret)
+ 		return ret;
  
--	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
-+	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
- 	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
- }
- 
+-	/* TODO: remove after conversion to new drmm_connector_hdmi_init() */
+-	connector->hdmi.supported_formats = hdmi_funcs->supported_formats;
+-
+ 	/*
+ 	 * The supported HDMI version can be used to determinate the maximum
+ 	 * TMDS character rate allowed by the specification. Some controllers,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index f7627de624de..75bd9ac03571 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2125,12 +2125,6 @@ struct drm_connector_hdmi_audio {
+  * struct drm_connector_hdmi - DRM Connector HDMI-related structure
+  */
+ struct drm_connector_hdmi {
+-	/**
+-	 * @supported_formats: Bitmask of @drm_output_color_format
+-	 * supported by the controller.
+-	 */
+-	unsigned long supported_formats;
+-
+ 	/**
+ 	 * @max_tmds_char_rate: Maximum TMDS character rate, in Hz,
+ 	 * supported by the controller.
 
 -- 
 2.55.0
