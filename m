@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4B5FC54F54
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBCD4C5516D
 	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 12:19:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21B6610F247;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1662610F242;
 	Fri, 31 Jul 2026 12:19:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="jBSah/k2";
+	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="oJnoWik2";
 	dkim-atps=neutral
 Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
  [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2EA8B10F247
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 12:19:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4F010F247
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 12:19:34 +0000 (UTC)
 Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-382ef647e20so980379a91.1
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 05:19:32 -0700 (PDT)
+ 98e67ed59e1d1-38e347638adso1163503a91.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 05:19:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=0x0f.com; s=google; t=1785500372; x=1786105172; darn=lists.freedesktop.org; 
+ d=0x0f.com; s=google; t=1785500374; x=1786105174; darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=2f94xloHl4xvf0KqfbafdGgU1JTOpluCmeN1ZaakJsw=;
- b=jBSah/k2xXSQ0P2HmPeWRTY0HxT4U+7XfbXjwA8SMXJJL0um+NC5Q39MTfKdY6vFfD
- DTD0vChnJlqn5POG3MEPvuT8802fDqhKtTinqSFeBeLSt7I2TNq2pxmg6T+hXpvjr6UZ
- TkQqMh40GrTfvvhDuExcdgtjGtrC9GZ8HFlF8=
+ bh=EcvBzuwsOWXd7sSY+ibZHDp7um7F6zB3s/KkWEJX80M=;
+ b=oJnoWik2KIp2i9KLqnh0ClKdsanOt4XyXnSNRthKgVBeH1MZXORzOlIzknmmcS3Ozp
+ OX9qbuiJm0Y2kqqthz+q/vaecc1qyMiJv3rWBiZA7ZJts9c37zIOt/suku03jVfsDSTL
+ 7T4pwSCK7pyBaEt0+Vqniq0kJZGj/6gYHPhhY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785500372; x=1786105172;
+ d=1e100.net; s=20251104; t=1785500374; x=1786105174;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=2f94xloHl4xvf0KqfbafdGgU1JTOpluCmeN1ZaakJsw=;
- b=sEtScOC8unuK52yTZ7GEqi6ASjxmQNmA2TACmZWA+YHNe4PjHljXVbiCktDEguJbHG
- fgYN2S1v7yr+bVC+n/wJ54M6GSTBPl7660XRhjpF2x8BInsSfN/5p93uDvCp21zF7U8H
- elV2ErnDoZayLx3dACeUHvhN+IrFRXyENjUxpDmqDQu5Kj8tBLrVEXqoVGz/W2VpV7Wl
- UpRdrma2wSVwo67uE2L/xKsFTbu89VS6/pzKSlqafuPBXEsBZKVke9kygIt6pxHHgBGK
- JlKSKCxaaxWnwbo4IDZ5zsSW+gGVzqP1j+tGioH8JjvnvBrie2OISPkhwdtslkEZow/3
- +W7g==
+ bh=EcvBzuwsOWXd7sSY+ibZHDp7um7F6zB3s/KkWEJX80M=;
+ b=TF1oo5s/sXblnapz/ltVBc3JRyfAHjS1vPfYv3ds3wRZIR+q+JtJZPSb2YZgtfQQ2w
+ +ZWd+Bjlijqs5USw67BHtG0Ipx7VdU2GoYp+mbjWzJDKlCq6N7OmFJqb4RYDcGp1MVCG
+ yMRGDvBxZqBabSlWWOhzB1yadDZujYruULemakrz2PCc+77H8+AxDhtwlfz1TDaM4h77
+ O94dGqpMOdCBjXLJ3SJ/XMMEWcDuVPI8f7Gv7UDC7NFqKMNDDmCD4Xq7EKvTWfseP6jS
+ TWs6ghOUQYEKILCMJV/ptBoXAs8A7jmwaG5Aj/Y6nZTs+RPx5gxPDayOjl8jqxvwy9oQ
+ gKjA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro5v1hpovhU6+n61p+IyQCZ00wUyq/mvpgZn6Cce+YQWZu/O6A/rmklYWSf0tDQ0Q5Umq3ae3iVC8M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yzfd9E9/KqNdQ6ljm+jA238NGt5boHMpJ83Xi97rZ0zN3BNhsA/
- exay/DBcWDqy/BWsiru9UbuSQa182m6pTL2RWA5tzF/JvomwofXfgHp/MQiZyv0qV80=
-X-Gm-Gg: AR+sD12//AqjBZcNRG8fQxwDFqpo9FaPpE5u2V8YWGSPeX4rhzmgc93D5RhMi6TjwR/
- jpVWOS04Mj2lY1TBJYP6KWxyco2sjODpV1v2u3JBhOox7RAuDTNuYlE+QuF9uK5eLGUpOhTGm+E
- UO/ycIYH4OSiRUJ9TGWmDgQp4AHnJX4oGPWImlR64mA5++kiB0tNWMVKx7oHwE/jT554qMQi35v
- nrsjbOIruj4oBPHdMfssOrOD+/AIuFzHmyEzfu2lQhy62qJKd2084ednXtnI2tKmce0vZpm8gVm
- akP6gvc0YrOkcg16Eg5PXynH0u1gWNfGnp+0TmCjhELS6g8b7bT6QSY0dm/ncLZWQWjGCOyJw4J
- QKVCwiq4fb1P+w14QVOvBwRDP6tc2oMni8q+nTmtfOt2IRmRx2k1S0gcHrXrPn2hcxhc2Pw8e8x
- zvALscJIStn+29IbbQaOffqGtFUWu0ugFYvlakDpZWxRxjQyhYwYwil5U6sK1snic=
-X-Received: by 2002:a17:90b:57c7:b0:384:5dbc:cba5 with SMTP id
- 98e67ed59e1d1-38fb1378a80mr1615857a91.26.1785500371570; 
- Fri, 31 Jul 2026 05:19:31 -0700 (PDT)
+ AHgh+RqrjqUipN2QkFkpN+9WG7Hz3Zly1xHclYxZ+uj+jXNklRj8OnmA9uZwEteuvr0YqDY4Nma642PwqfM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzjn9yA2bhaYqr08QujWcG2+QR5prMscz4GtGDP9yZcNQ97MB6z
+ Bc1XryZKjfkHr3owhm3Q37+ICiYtGcb46yHB7Cm5I8WaXYSp39qMTmKFxcGzGekQ85g5UsJIK4T
+ 9N4v9
+X-Gm-Gg: AR+sD11V9NzNNvHfE5jT0hsHkls2bCAw2HaO9aVRJzYYOZYPmTP1vY5BcWekcKBFOzS
+ Jo75PEOCDP0ZiN94b0vc/Nx/rmF3uEgzklNVIQolKz9WZbTnVh0CuxCrWe+2hZWUQZQuYVFA4iu
+ vwk3dhzJ7YzzAvHik02s6Jjvbv69uDDgwXKM5Rrk8v82TE7Q1wN4vYJIc0Llr5JR4npUFyoT7rV
+ Im3OO3zAbPMOIZAjg4WKuv0u7Qq3WfXMkx/Z4ZBzcRC67aXFWAJFqqUk3WNlHVKnaqP9piMHd+E
+ W4Fn1JktWCuZPDxryJjzLt0nhwwYKICVn0+GejtSM7N5jey5RL4LNdAZJK8Ok/mGxUZfTSQ4H9G
+ WPIwUbaxg1Ew3OTIDP0wlxyTXNpz5U5CO3F++/2TfP/UB1BR2pPrhe2oPNj4uoD6bgPBvwHJ87N
+ udoSQJwH1cHCJHE3pfeBtJM3Adbr1qzg/DWE0CI6sTWsehQGPN6CoUMtlj32QXiw==
+X-Received: by 2002:a17:90b:3bc8:b0:382:5c31:1f8a with SMTP id
+ 98e67ed59e1d1-38fb13bfd7bmr1819215a91.27.1785500373635; 
+ Fri, 31 Jul 2026 05:19:33 -0700 (PDT)
 Received: from shiro ([2400:4162:2428:2ffe:77cc:841c:1fc1:22d4])
  by smtp.googlemail.com with ESMTPSA id
- 98e67ed59e1d1-38fb2b8c5c5sm321981a91.4.2026.07.31.05.19.29
+ 98e67ed59e1d1-38fb2b8c5c5sm321981a91.4.2026.07.31.05.19.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jul 2026 05:19:31 -0700 (PDT)
+ Fri, 31 Jul 2026 05:19:32 -0700 (PDT)
 From: Daniel Palmer <daniel@0x0f.com>
 To: deller@gmx.de
 Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, Daniel Palmer <daniel@0x0f.com>
-Subject: [PATCH v2 4/5] fbdev: tdfxfb: Wake the VGA core before programming
- the CRTC
-Date: Fri, 31 Jul 2026 21:19:13 +0900
-Message-ID: <20260731121915.3362232-5-daniel@0x0f.com>
+Subject: [PATCH v2 5/5] fbdev: tdfxfb: Program the initial video mode
+Date: Fri, 31 Jul 2026 21:19:14 +0900
+Message-ID: <20260731121915.3362232-6-daniel@0x0f.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260731121915.3362232-1-daniel@0x0f.com>
 References: <20260731121915.3362232-1-daniel@0x0f.com>
@@ -87,29 +87,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If the card was unbooted the VGA core needs to be woken up before
-poking at it.
+If the card does not get bound to by fbcon set_par() never happens
+and the initial video mode is not setup and the display detects
+no signal.
+
+Program the video mode and also clear the framebuffer memory so
+random garbage isn't displayed.
 
 Signed-off-by: Daniel Palmer <daniel@0x0f.com>
 ---
- drivers/video/fbdev/tdfxfb.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/video/fbdev/tdfxfb.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/drivers/video/fbdev/tdfxfb.c b/drivers/video/fbdev/tdfxfb.c
-index 4d92ab5b5430..f2b658a47135 100644
+index f2b658a47135..cb1c2e9f37db 100644
 --- a/drivers/video/fbdev/tdfxfb.c
 +++ b/drivers/video/fbdev/tdfxfb.c
-@@ -485,6 +485,10 @@ static void do_write_regs(struct fb_info *info, struct banshee_reg *reg)
+@@ -1686,6 +1686,14 @@ static int tdfxfb_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		goto out_err_iobase;
+ 	}
  
- 	tdfx_outl(par, MISCINIT1, tdfx_inl(par, MISCINIT1) | 0x01);
- 
-+	/* Wake the VGA core if it hasn't already been woken up */
-+	tdfx_outl(par, VGAINIT0, reg->vgainit0);
-+	vga_outb(par, 0x3c3, 0x01);
++	/*
++	 * Program a video mode and clear the framebuffer now, this
++	 * ensures the display comes up even if fbcon doesn't bind
++	 * when the framebuffer is registered.
++	 */
++	tdfxfb_set_par(info);
++	memset_io(info->screen_base, 0, info->fix.smem_len);
 +
- 	crt_outb(par, 0x11, crt_inb(par, 0x11) & 0x7f); /* CRT unprotect */
- 
- 	banshee_make_room(par, 3);
+ 	if (register_framebuffer(info) < 0) {
+ 		printk(KERN_ERR "tdfxfb: can't register framebuffer\n");
+ 		fb_dealloc_cmap(&info->cmap);
 -- 
 2.53.0
 
