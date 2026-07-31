@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FC37C55173
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E149C5516F
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B561D10F32E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F18CE10F330;
 	Fri, 31 Jul 2026 16:21:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="PDesiiMF";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JhKXXhqQ";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF71610F319
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB65410F30D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514776;
- bh=0pZoBcYKk9FCtfu5YMrWLdOS0g+RVxG5yRMx6m6fO08=;
+ s=mail; t=1785514787;
+ bh=SInzfAoNKwOGfiPcNGWTLjbBIPQWpxV2s3PHDL7O56s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=PDesiiMFzhrIC3SQmtU7Uv3nG5etQEfAH60Q+CqI1bZF3Evcf38/pASAMxL0d3GPK
- PzYTw0P48xWvKsFw5tbKs88fiJtaXjA0aJLGOWL6Os97F7/P7XGEKmGQbfr/aDwUL5
- iG1letnz+t4pL6a4YtH5ySwpmW1qTIxCiOmCfF21ha6Z3UrOWN/tc2fXDSRrMzzb8T
- RjWwWHjA9SzEwt4qwlgd7SkkA5216KitaYPoZtdSBd9JIZ6/DYwDu4DLKQiEXZYDEV
- gb44JlZ5FXsdVRDdZChUZfpUEJSR/rFrkIOrdWNTfUKBZadpKw7TKQDeJxSnZWsnl/
- C3IrFnqUevXtg==
+ b=JhKXXhqQjsFmHphEOmYM+UICGiZ3r8r3yU8Z1F1XG/UBLJk8L5Ku8gkUYvweQ3scp
+ zVH8Kd4CDBKRPj/uox68U9+2XRwV7lChdbgTQMTosTHGv6XqrSZ9aX13dQddpSiNS0
+ d2kj9Yv+TrX5Z3lUwfZKkfavzbR/prPmV0e7E9Jfr0ekGH8J6qPZMvL5p4zncwckZZ
+ xytULWN4Z9mRAwuR03C2CwJIYv8ze0sp7UH7KaALlGVD8USVkk98VPmdyo+dUFo4ao
+ UrLW9YW/CUCduYJtbD09eFDSgSER8bPV8IGUq7ZJLWju6Ij053HbK+U1oaTAxXF091
+ uU8WrQHyn+jrw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 606FE17E0700;
- Fri, 31 Jul 2026 18:19:36 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 8B6E717E0991;
+ Fri, 31 Jul 2026 18:19:47 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:37 +0300
-Subject: [PATCH v10 30/69] drm/rockchip: dw_hdmi_qp: Cancel pending HPD
- work on suspend
+Date: Fri, 31 Jul 2026 19:19:53 +0300
+Subject: [PATCH v10 46/69] drm/vc4: hdmi: Defer pixel clock validation to
+ HDMI helpers
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-30-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-46-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,8 +62,7 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- Sashiko <sashiko-bot@kernel.org>
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,51 +79,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HPD threaded handler debounces hotplug events by delaying
-hdmi->hpd_work for 150 ms.  Nothing discards that work when the system
-goes to sleep: drm_kms_helper_poll_disable() only disables the HPD IRQ
-line via the bridge .hpd_disable() op, and disable_irq() merely waits
-for the threaded handler, which has already returned after arming the
-timer.
+drm_atomic_helper_connector_hdmi_check() rejects modes whose computed
+TMDS character rate exceeds the connector limit before invoking the
+driver's .tmds_char_rate_valid() hook.
 
-If the debounce expires during suspend, its non-freezable work may probe
-the connector and read the EDID over DDC.  Since genpd powers off the
-HDMI controller's power domain in ->suspend_noirq(), this access may
-hit unpowered hardware and hang the system.
+BCM2835 is capped at 162 MHz, slightly below the 165 MHz limit of HDMI
+1.2.  Set supported_tmds_char_rate in vc4_hdmi_connector_funcs_hdmi10 so
+that the limit inferred from supported_hdmi_ver is overridden by the
+lower hardware constraint.  All other chip variants rely on the standard
+HDMI 1.4/2.0 limits, so the default validation suffices.
 
-Cancel the work in the suspend callback.  The DRM device is registered
-as a consumer of the HDMI device, so it always suspends first and the
-HPD IRQ is already disabled by that point, meaning nothing can re-arm
-the work behind our back.  No counterpart is needed on resume, as the
-work gets scheduled again on the next hotplug interrupt.
+This allows vc4_hdmi_connector_clock_valid() to be simplified by
+dropping the now-redundant max_pixel_clock field from struct
+vc4_hdmi_variant.
 
-Fixes: 128a9bf8ace2 ("drm/rockchip: Add basic RK3588 HDMI output support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260723015909.7F79A1F000E9@smtp.kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 10 +---------
+ drivers/gpu/drm/vc4/vc4_hdmi.h |  3 ---
+ 2 files changed, 1 insertion(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 646a4cb96830..e9fda67b8ca9 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -728,8 +728,12 @@ static int __maybe_unused dw_hdmi_qp_rockchip_suspend(struct device *dev)
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index ec0c1f4224d7..12d0adc3cb1f 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -1528,12 +1528,8 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
+ 			       const struct drm_display_mode *mode,
+ 			       unsigned long long clock)
  {
- 	struct rockchip_hdmi_qp *hdmi = dev_get_drvdata(dev);
+-	const struct vc4_hdmi *vc4_hdmi = connector_to_vc4_hdmi(connector);
+ 	struct vc4_dev *vc4 = to_vc4_dev(connector->dev);
  
--	if (hdmi)
--		dw_hdmi_qp_suspend(dev, hdmi->hdmi);
-+	if (!hdmi)
-+		return 0;
-+
-+	dw_hdmi_qp_suspend(dev, hdmi->hdmi);
-+
-+	cancel_delayed_work_sync(&hdmi->hpd_work);
+-	if (clock > vc4_hdmi->variant->max_pixel_clock)
+-		return MODE_CLOCK_HIGH;
+-
+ 	if (!vc4->hvs->vc5_hdmi_enable_hdmi_20 && clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ)
+ 		return MODE_CLOCK_HIGH;
  
- 	return 0;
- }
+@@ -1578,6 +1574,7 @@ static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi12 = {
+ 	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
+ 	.max_bpc		= 8,
+ 	.supported_hdmi_ver	= HDMI_VERSION_1_2,
++	.supported_tmds_char_rate = 162000000,
+ };
+ 
+ static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi14 = {
+@@ -3184,7 +3181,6 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
+ 	.debugfs_name		= "hdmi_regs",
+ 	.card_name		= "vc4-hdmi",
+-	.max_pixel_clock	= 162000000,
+ 	.registers		= vc4_hdmi_fields,
+ 	.num_registers		= ARRAY_SIZE(vc4_hdmi_fields),
+ 
+@@ -3204,7 +3200,6 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
+ 	.debugfs_name		= "hdmi0_regs",
+ 	.card_name		= "vc4-hdmi-0",
+-	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc5_hdmi_hdmi0_fields,
+ 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi0_fields),
+ 	.phy_lane_mapping	= {
+@@ -3233,7 +3228,6 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
+ 	.debugfs_name		= "hdmi1_regs",
+ 	.card_name		= "vc4-hdmi-1",
+-	.max_pixel_clock	= HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc5_hdmi_hdmi1_fields,
+ 	.num_registers		= ARRAY_SIZE(vc5_hdmi_hdmi1_fields),
+ 	.phy_lane_mapping	= {
+@@ -3262,7 +3256,6 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI0,
+ 	.debugfs_name		= "hdmi0_regs",
+ 	.card_name		= "vc4-hdmi-0",
+-	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc6_hdmi_hdmi0_fields,
+ 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi0_fields),
+ 	.phy_lane_mapping	= {
+@@ -3289,7 +3282,6 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+ 	.encoder_type		= VC4_ENCODER_TYPE_HDMI1,
+ 	.debugfs_name		= "hdmi1_regs",
+ 	.card_name		= "vc4-hdmi-1",
+-	.max_pixel_clock	= HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ,
+ 	.registers		= vc6_hdmi_hdmi1_fields,
+ 	.num_registers		= ARRAY_SIZE(vc6_hdmi_hdmi1_fields),
+ 	.phy_lane_mapping	= {
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
+index f6159c9e6144..61486e7b4ba2 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.h
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
+@@ -29,9 +29,6 @@ struct vc4_hdmi_variant {
+ 	/* Filename to expose the registers in debugfs */
+ 	const char *debugfs_name;
+ 
+-	/* Maximum pixel clock supported by the controller (in Hz) */
+-	unsigned long long max_pixel_clock;
+-
+ 	/* List of the registers available on that variant */
+ 	const struct vc4_hdmi_register *registers;
+ 
 
 -- 
 2.55.0
