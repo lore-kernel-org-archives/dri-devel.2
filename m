@@ -4,85 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56198C5516D
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A62BC55171
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 246AB10F180;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C43710F17F;
 	Fri, 31 Jul 2026 06:54:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="R+M3fnWS";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ef4YK9SS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eD0XHA8X";
 	dkim-atps=neutral
-Received: from flow-a6-smtp.messagingengine.com
- (flow-a6-smtp.messagingengine.com [103.168.172.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6DA710E681
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 20:03:50 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailflow.phl.internal (Postfix) with ESMTP id F12A813802F9;
- Thu, 30 Jul 2026 16:03:49 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-06.internal (MEProxy); Thu, 30 Jul 2026 16:03:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1785441829; x=
- 1785445429; bh=wsRwtYPiWPwOihy5L2wDTh79fTBcr++dNWiRhirplQE=; b=R
- +M3fnWS3HBCMdN8QuwqTw421+M6QHhxWAGgcQPtqnQjXlD8wooNpPQTLMoPxp4iP
- 38Qhg0gGZhkjYoc0+uajJ0xHsADLHLF5SjBMf29lUMBr55g4Sqmk0qWTicmUpQjc
- eFOadKJre3oFM3G0oe6xRDgdyTfpfqJ+U2HYnsm01RWaEyEJGbREhmj9z2uNZGJo
- olK4B0QymF5HzQcTm6yfy6mwSYuFpZQ3XSmYm+V7MTKoaexZQsCkBG/uIWQPjXFr
- p+FNwh4/bCKiqRo5RBRtYKk1opcOn+Qm9UNOzCPJA8yjgxqq86FpDsrCjWp4cUd1
- cIwIcZ0C7XIFWoTG0eOug==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm2; t=1785441829; x=1785445429; bh=w
- sRwtYPiWPwOihy5L2wDTh79fTBcr++dNWiRhirplQE=; b=Ef4YK9SSi5/l4mXRs
- YSFiF0fvsb8R4HOLTCFOxB88xB9aPaAscwd4rNgHGyTp2LDrz8T/VDuUl/K/5Wwf
- +UPk/LVDa83pjYK5mzNG8bmbl359kWNMXHeNaY2z2ClTntQ6nHipOY12WyU1vTGe
- C6AbLE1rsNK9lOWVDT2C8d2t66gc02AAEfabPHFpftzdJsEqEu00GEsELn9uzf+Z
- rKg8YDeWv3HUpYP3OgUPgnPKf3dmEQOXTw1Bwaj4IHC2PT1Tn7oBrmalknTDdHR3
- jfZremwzm9f5Qeb2l9YKnHHYO5ofrGGp/6na2uTj+vBjfyNH8SziZnyGwe41944i
- Noi5A==
-X-ME-Sender: <xms:Ja5raj9CM_-da7wtwjnsX6gJh5TR_My6xVmHrAVezyjGjaZ81X5zpA>
- <xme:Ja5ranUqRt4PxTc6VesygKz9M6oHwUiWXYG5-9gPQWJYlxCzmBPH7b1wyZABYM_Ad
- fVhRTiVNL_MD49CsUydh7qmCtNtzR3OkoNhEWpuNuU_VeSfoLZLGFY>
-X-ME-Received: <xmr:Ja5rauosStbIbjI7iocLpZThCCJw3icrkvi6avnyq9f2nXSVtFjCHPA8QlNxc8mDhrDsKfqxyQ>
-X-ME-Proxy-Cause: dmFkZTFWVQWfMS+5tC6bI3m4/UgaypqXoVFSmfpla27ub6OGal4rQL05r3aISmbtOY5LyN
- hiajqQxoHWQTLgBNL61ofo86pws/koO/Q4UQcgFGNTIrXw42p19/PXBiB/HqA+dkTSyuns
- 3JuPew0Bn4iFp/kttfBEpawLiwTTjwkV9tlrgcCnZ22YOi6XPUN2lOOlEHvFuhsRSOeIhE
- O5Kdhsj18Qm1sqcCxD2Yrk/hZudFD+E4F9khBNcOMkhQ/HJf+HUZx9MjDFCUCE/oahN7Bo
- ziiAhU5tP/1kOztWIM+hjKF4XKdxL6/nyq6MEpXQNNq3YySBkdfjAX+HiiwLQaQq197qgs
- 33KU4RlHtNQJgawU+QL/IroYANHsoN4DSFPGMtfO5TQExhN8DSXIDOF0/ejYZToNI18y76
- xngYN//7n0QZV95kBFueKrCCVehJOoMPN1AAUIMLDhgFlSlBK9DO9D6MrqaZ2Cng1iOurw
- yuZvNV+tiN5bqSgl1J2igE87/gxqkqH2oYrL7zxuC9YWbMbm4RY5s0GzM2MAsuTLJiT01D
- RxZWtx/LfI9hejzxq1mHmtBQ0aCv4sE1kA/Luo+WgtckXSoiDJvTq0Eo6L+i2FFAycNxWy
- CpoDddBfR0pwNYghnFaINctYmDIOEEsW6zmoR6vDB8s/k/LiAZ3bnRWOwQ+A
-X-ME-Proxy: <xmx:Ja5rapkZNMmYXD46aEy41Og_k_i0tdKPg12zqSuTdM0TQfCYdfN_hA>
- <xmx:Ja5rau15Izb1qUDbr2Q8u1iZx7NPzeYgCq_gl6F9BSXFl0DB1NZDqA>
- <xmx:Ja5ramRmYAECj6PrTicUP5nr1WVWTCn5ARMO8_YEq5rW25EoUmqFOw>
- <xmx:Ja5ranxu8S5AkmXATI2O9b-DaCVQtFBUn3f-H4T30OwOa6PMdDhIFw>
- <xmx:Ja5ranMxzsk0fhu6IWO2TsWCEZ241A8XVOUzqMfL5vwpUk1aWILRZXpE>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 30 Jul 2026 16:03:46 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: royalnet026@gmail.com
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject: Re: [PATCH 2/2] accel/rocket: keep core slots stable across unbind
- and rebind
-Date: Thu, 30 Jul 2026 23:32:56 +1200
-Message-ID: <20260730113256.1418091-1-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260730080355.177422-3-royalnet026@gmail.com>
-References: <20260730080355.177422-1-royalnet026@gmail.com>
- <20260730080355.177422-3-royalnet026@gmail.com>
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com
+ [209.85.128.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74C7110E139
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 00:11:40 +0000 (UTC)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-81e9f7491ffso6539347b3.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 17:11:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785456699; x=1786061499; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=0X7N1rP90nQg4clD2xUsUJGcghWiLSs6t/EHWysAEeA=;
+ b=eD0XHA8X8mZiD0KDlbIglxZn2DMsug3F+IxJDu3NA+n3XfWDgB635K+UFyCpKrKOe7
+ q3ZnfgNgG4kpD4s//054tXjjM9yosyXmW4VJ41bIehWP/U6tJyPqf0lpGnRF5PTfStiP
+ B/CYhEKs14mRrmQUpuJ+jOHdynarMIwBxtw+TYP1J9v/Jn9HzsKyeETeM0iJjYnYe/EE
+ z1cvi6Loy6ahGFYIokkQ4n2rCpwcNLumUULd2G4/NdbsVeAhpBFKsfDSAT7jFOW2S5GP
+ zjvONJOBT6V/n97Cc2jXGYCPvtt5P4x3tnWCU+fHAR+CHzhqzRoi8nnyulHoq/iU9u+a
+ NtmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785456699; x=1786061499;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=0X7N1rP90nQg4clD2xUsUJGcghWiLSs6t/EHWysAEeA=;
+ b=s16EvpOMg8kpD91IUkXnU+aWeYZwXPo2mBFkoPba8LbBANA4hxuve6261BuSx9nf87
+ Iuru4ZWEmtV+PTDrkpfmgkU0YOm5gwCfuZBsSGZuzp3fqi1ECIZkIVC5IhE2mIPhpC52
+ hhZ0QXLXxzhHaXbVjEjiPBaeDOtAemIEHUHpEl4usCumROYbcD54RlWs2IsqtCxU+aEn
+ TV+ESTog9TGajxJ60lD/i7gjTDDdBYcMFidCHmt5YUOP8h4YZKPLG0UMJx/E1QgOyLYb
+ r8Ig2N3PaXTbM+E5GnCTDVZgc0+4yjILUleyrrlPlTPDwlGKIQdh9YwznfHuy1HjGNuX
+ cVDw==
+X-Gm-Message-State: AOJu0Yx7s3XgBFGnhvMFCHPeXJ6wjBBhOgxAFgR2Xm5wtpY9zj7kE0gv
+ gG1CnneqO7+I+IUuHSEpxKbSjv0d0+nsehBOQe+iigzo+I+fKWVdbJnaicSSLDNI
+X-Gm-Gg: AR+sD11fDNlhxVzIxEPUhKzf779B7oGRcNA9iAUsewoXZGpXWCozw8OJnxDK/in/+2S
+ thMET57eug2vE1mqlIlYlzyUCknonOsT+iz40q132+UgUiBr7fXDxV5nDh4IA0Kpx3TEFyy//8/
+ NuZkfr1OXVFLp7kA9VjzTEEBQIuaDVweqdqqbDlDoAWehB+lIq3SA8qApysHqNWAiCGhlKKoC5i
+ HUwM0It4MWGFzv9k4sWpfdML7nDJwX5xiE8rqeFxs0svTjs2HiMos/OsmTSQd0QWo4uGu1LEEbI
+ rzAGngqUttINUcRdaMgIupHG7G70VOs7b9sQR74+2px3HuuE8oXUQoOLmu8ukVbztPOrHWM+j7H
+ YKcnZxLRE7cp+3di1ExgUMGrdhFVVlUEtErtYV7iYOISCsQSb0t6WSbMMdBbA1NVws7Pxbe7xmy
+ Q2lGymkQap32RnfeaEuDpaxCV07SN1uwylcciEpDueuXY+ieurxlF/4o3bz5LWUs81mYAB251Zm
+ FDy
+X-Received: by 2002:a05:690c:4d84:b0:81e:97c9:bcf7 with SMTP id
+ 00721157ae682-81fb8b06e85mr36813767b3.71.1785456699054; 
+ Thu, 30 Jul 2026 17:11:39 -0700 (PDT)
+Received: from [192.168.1.71] ([2600:1702:56e9:4b40:e3a9:78c5:641e:a58c])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-81fb88c4a92sm19292357b3.7.2026.07.30.17.11.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 17:11:38 -0700 (PDT)
+From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+Date: Thu, 30 Jul 2026 19:11:31 -0500
+Subject: [PATCH v3] drm/panel: tdo-tl070wsh30: Use mipi_dsi_*_multi(); fix
+ minor bugs
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260730-mipi-dsi-tl070wsh30-multi-v3-1-60592caef4f4@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6DIBCF4asY1qWBoYJ01Xs0XaigTiLVgKVtj
+ HcvmjRx5fJ/yXwzk2A92kCu2Uy8jRhweKYQp4zUXflsLUWTmgADyRQAdTgiNQHp1DPF3qETjLp
+ XPyEFpnPQ2uQVB5LuR28b/Gz2/ZG6wzAN/ru9inxd/2p+oEZOOZWaS1YVQhdgb60rsT/XgyOrG
+ mEvqSMJktRcVKWFkoIbsZeWZfkBR+EHmgwBAAA=
+X-Change-ID: 20260722-mipi-dsi-tl070wsh30-multi-2095299d5b12
+To: Doug Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Akash Sukhavasi <akash.sukhavasi@gmail.com>
+X-Mailer: b4 0.14.3
 X-Mailman-Approved-At: Fri, 31 Jul 2026 06:54:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,73 +99,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
+The mipi_dsi_dcs_*() functions used by this driver are deprecated in
+favor of their _multi() counterparts, as noted in
+Documentation/gpu/todo.rst. The _multi() variants record the first
+error in a context structure and skip every later call once an error
+is set, so the return value no longer has to be checked after each
+command. They also log their own failures, which makes the per-call
+dev_err() calls redundant.
 
-I like this one. Making .dev the liveness marker is the right shape, and
-the analysis of the three jobs num_cores was doing is exactly right.
+Convert prepare() and unprepare(). prepare() uses mipi_dsi_msleep()
+for the delays between DSI commands. unprepare() uses plain
+usleep_range() so the delays run unconditionally after the
+accumulated error is cleared. The delays in the GPIO reset sequence
+stay as plain msleep() and usleep_range(), since they run before any
+DSI transaction.
 
-But making .dev load-bearing needs one more site than the patch touches:
-rocket_probe()'s failure path never clears it.
+unprepare() now disables the regulator unconditionally and returns 0.
+Previously a failure of set_display_off() was logged and the sequence
+continued, while a failure of enter_sleep_mode() returned early,
+leaving the regulator enabled and the panel unable to be brought back
+up, since drm_panel_unprepare() skips panel->prepared = false on
+error. The accumulated error from set_display_off() is cleared so
+that the delay and enter_sleep_mode() are still attempted, preserving
+the original fall-through behavior. Both drm_panel_prepare() and
+drm_panel_unprepare() return void, so the error was never propagated
+to a caller in any case.
 
-  rdev->cores[core].dev = &pdev->dev;
-  ...
-  ret = rocket_core_init(&rdev->cores[core]);
-  if (ret) {
-          rdev->num_cores--;
-          if (rdev->num_cores == 0) {
-                  rocket_device_fini(rdev);
-                  rdev = NULL;
-                  devres_release_group(&drm_dev->dev, rdev_group);
-          }
-  }
+Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
+---
+Changes in v3:
+- Update subject line to reflect the minor bugfixes, per Doug's review.
+- Pack blank lines in both functions per Doug's review.
+- Preserve the original fall-through behavior in unprepare(): clear
+  accum_err after set_display_off() so the delay and enter_sleep_mode()
+  are still attempted even if display off fails.
+- Link to v2: https://lore.kernel.org/r/20260727-mipi-dsi-tl070wsh30-multi-v2-1-f47b937631d3@gmail.com
 
-Before this patch that was harmless, because every lookup was bounded by
-num_cores and the slot fell outside it. After it, the slot stays marked
-live while its rocket_core is half-initialised.
+Compile tested only, no hardware available. checkpatch and a W=1 build
+are clean.
 
-It only bites when the failing core is not the last one bound. If
-num_cores drops to zero the whole cores array is freed by the devres
-release from patch 1, and the stale .dev goes with it. So the case to
-test is core N failing to init while cores 0..N-1 are already up,
-easiest with a forced error return in rocket_core_init(), since a real
--EPROBE_DEFER retries rather than failing.
+Changes in v2:
+- unprepare() disables the regulator unconditionally and returns 0,
+  per Sashiko's review on v1. Returning an error left panel->prepared
+  set, so the panel could not be prepared again.
+- Link to v1: https://lore.kernel.org/r/20260725-mipi-dsi-tl070wsh30-multi-v1-1-69160b83982e@gmail.com
+---
+ drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c | 40 +++++++++-------------------
+ 1 file changed, 12 insertions(+), 28 deletions(-)
 
-What that leaves behind:
+diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+index 13cfe252a838..fa961abdd2d7 100644
+--- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
++++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
+@@ -35,6 +35,7 @@ struct tdo_tl070wsh30_panel *to_tdo_tl070wsh30_panel(struct drm_panel *panel)
+ static int tdo_tl070wsh30_panel_prepare(struct drm_panel *panel)
+ {
+ 	struct tdo_tl070wsh30_panel *tdo_tl070wsh30 = to_tdo_tl070wsh30_panel(panel);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = tdo_tl070wsh30->link };
+ 	int err;
+ 
+ 	err = regulator_enable(tdo_tl070wsh30->supply);
+@@ -51,44 +52,27 @@ static int tdo_tl070wsh30_panel_prepare(struct drm_panel *panel)
+ 
+ 	msleep(200);
+ 
+-	err = mipi_dsi_dcs_exit_sleep_mode(tdo_tl070wsh30->link);
+-	if (err < 0) {
+-		dev_err(panel->dev, "failed to exit sleep mode: %d\n", err);
+-		regulator_disable(tdo_tl070wsh30->supply);
+-		return err;
+-	}
+-
+-	msleep(200);
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 200);
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 20);
+ 
+-	err = mipi_dsi_dcs_set_display_on(tdo_tl070wsh30->link);
+-	if (err < 0) {
+-		dev_err(panel->dev, "failed to set display on: %d\n", err);
++	if (dsi_ctx.accum_err)
+ 		regulator_disable(tdo_tl070wsh30->supply);
+-		return err;
+-	}
+-
+-	msleep(20);
+ 
+-	return 0;
++	return dsi_ctx.accum_err;
+ }
+ 
+ static int tdo_tl070wsh30_panel_unprepare(struct drm_panel *panel)
+ {
+ 	struct tdo_tl070wsh30_panel *tdo_tl070wsh30 = to_tdo_tl070wsh30_panel(panel);
+-	int err;
+-
+-	err = mipi_dsi_dcs_set_display_off(tdo_tl070wsh30->link);
+-	if (err < 0)
+-		dev_err(panel->dev, "failed to set display off: %d\n", err);
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = tdo_tl070wsh30->link };
+ 
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	/* Reset error to continue power-down sequence even if display off failed */
++	dsi_ctx.accum_err = 0;
+ 	usleep_range(10000, 11000);
+-
+-	err = mipi_dsi_dcs_enter_sleep_mode(tdo_tl070wsh30->link);
+-	if (err < 0) {
+-		dev_err(panel->dev, "failed to enter sleep mode: %d\n", err);
+-		return err;
+-	}
+-
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+ 	usleep_range(10000, 11000);
+ 
+ 	regulator_disable(tdo_tl070wsh30->supply);
 
- - find_core_for_dev() finds the slot, so the runtime PM callbacks run
-   against a core whose clocks/resets/IRQ were never set up;
- - rocket_first_live_core() can return it, and rocket_open() then builds
-   the IOMMU domain against that device;
- - rocket_job_open() adds &cores[core].sched to the scheds array, and
-   that scheduler was never drm_sched_init()ed.
+---
+base-commit: e05b559f9cda350d0ab33c44a8c1151ca62d2875
+change-id: 20260722-mipi-dsi-tl070wsh30-multi-2095299d5b12
 
-That last one also overflows. scheds is sized rdev->num_cores, but the
-loop now counts live slots, and after a failed init there is one more
-live slot than num_cores, so the last scheds[n++] writes one element
-past the allocation.
+Best regards,
+-- 
+Akash Sukhavasi <akash.sukhavasi@gmail.com>
 
-One line fixes all of it:
-
-  if (ret) {
-          rdev->cores[core].dev = NULL;
-          rdev->num_cores--;
-          ...
-
-Two smaller things, neither blocking:
-
-The slot scan in rocket_probe() is a scan-then-claim with nothing
-serialising it against another core's probe. Platform probing is
-synchronous today so it cannot bite, and the old code had the same
-property via num_cores, so it is no worse. Just worth knowing it is
-still there if rocket ever gains async probe.
-
-sched_to_core() scanning max_cores now walks slots whose .sched is not
-initialised. Comparing &cores[core].sched against a live scheduler
-pointer can never match on those, so it is correct as written; a .dev
-check would make it obviously correct to a reader.
-
-I have only RK3576 here, so this is a code review rather than a
-Tested-by. I cannot exercise the multi-core unbind matrix.
-
-Thanks,
-Jiaxing
