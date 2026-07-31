@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0770DC5516F
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:23:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74BE8C55174
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:23:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFDD110F322;
-	Fri, 31 Jul 2026 16:23:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D14CF10F328;
+	Fri, 31 Jul 2026 16:23:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QokOt9JT";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="qzzSuHhH";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B58610F30D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1645D10F30D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:20:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514789;
- bh=0cXQh/wi9mNTTITbxgaDB3yHqtiGn5+Qa+cNMfRk9UA=;
+ s=mail; t=1785514803;
+ bh=anZYZ7yEJJr+RFy3nqLwYzOV6L9Uj+UtOgmMLRpsr3o=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=QokOt9JTCghHQqgaFmv7YW2OfQO804zPDPvd0V9NEdkZNb0xGkFT++WwjQBLlrLlN
- I+faxIFULRQi6QJbBp22hUwuvNbcJJJ3kDNIA5bo4Qpk1Zr9VHCMczhHQ9L2o27ox/
- 9u1MC0KH+4f9esQu4xVGTkAWlG3LuyFk/MfgQDpNrr/3wZ5EvT2CcLN8bWHOs5Pjsl
- I1Zdo8+C1n8ootnUPk3AFXvqAlRxFZXybo3KdaBNjRywMd2aeTTVA/j8mIs6Cw0j07
- /QlMfkCxRzkRLtelo0r4eOo1sXGP7EaA7CLXKnKm3+8uo1NPiwv8F0E3XI8WlC2Ahh
- ZSzW/ZsO9/rDw==
+ b=qzzSuHhHTqHAYGCtiCISlU2GIZoJ6K8YPdWC668t77q5yGwOqy2LPXCULADOvM2LT
+ 1EcbZpdSklzdzf88BLSp9Hy/3bYP4T7dEwUVMNTsAJ/WfofHkz1tAj7AxTnx2iO4tz
+ aJBuWxmPH1O+QzUQEraPCMmsKnKUX2GE8arrFuXHHnoMKu6VPcIhkXM9m4pofdBGMl
+ 1lQCXcMgWbd/EZ63mcr0qcfxzF1fUStLfwiOKl87ZGuZXwjtYe8x8W81hs5QkIhw/B
+ Ee6Suurozk8QakEpf6Ba2AyC5qJ4PTki3E/LLTPPmeTk8fAj1kRHe5UW7sCqy5anOW
+ AJ2QvC9Od/waw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id EA51D17E092F;
- Fri, 31 Jul 2026 18:19:48 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A72A117E0B89;
+ Fri, 31 Jul 2026 18:20:03 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:55 +0300
-Subject: [PATCH v10 48/69] drm/bridge: adv7511: Advertise HDMI 1.2 capabilities
+Date: Fri, 31 Jul 2026 19:20:16 +0300
+Subject: [PATCH v10 69/69] drm/connector: Drop redundant max_bpc field
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-48-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-69-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -61,7 +61,8 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
+ Diederik de Haas <diederik@cknow-tech.com>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -78,89 +79,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
-supported HDMI version.  This is not yet enforced, but will become
-mandatory once the migration to the new caps-based HDMI connector
-initialization API is completed.
+Now that all users migrated to the new drmm_connector_hdmi_init()
+signature, max_bpc is provided through struct drm_connector_hdmi_funcs,
+a reference to which is already stored in drm_connector_hdmi.
 
-Since max_mode_clock_khz does not exceed 165 MHz for any of the chip
-variants handled by the driver, advertise HDMI 1.2 as the supported
-version and set the bridge's max_tmds_char_rate so the connector limit
-inferred from supported_hdmi_ver is overridden by the chip-specific
-hardware constraints.
+Drop the redundant connector->max_bpc field and point its users to
+hdmi.funcs->max_bpc instead.
 
-drm_bridge_connector_atomic_check() runs
-drm_atomic_helper_connector_hdmi_check(), which rejects modes whose
-computed TMDS character rate exceeds the connector limit before invoking
-the driver's .tmds_char_rate_valid() hook, making
-adv7511_bridge_hdmi_tmds_char_rate_valid() redundant. Drop it.
-
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/adv7511/adv7511_drv.c | 22 +++-------------------
- 1 file changed, 3 insertions(+), 19 deletions(-)
+ drivers/gpu/drm/display/drm_hdmi_state_helper.c | 6 +++---
+ drivers/gpu/drm/drm_connector.c                 | 2 --
+ include/drm/drm_connector.h                     | 5 -----
+ 3 files changed, 3 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-index 038b852405b5..c3ef44074477 100644
---- a/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-+++ b/drivers/gpu/drm/bridge/adv7511/adv7511_drv.c
-@@ -8,6 +8,7 @@
- #include <linux/clk.h>
- #include <linux/device.h>
- #include <linux/gpio/consumer.h>
-+#include <linux/hdmi.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/slab.h>
-@@ -775,11 +776,6 @@ static int adv7511_connector_init(struct adv7511 *adv)
-  * DRM Bridge Operations
-  */
- 
--static const struct adv7511 *bridge_to_adv7511_const(const struct drm_bridge *bridge)
--{
--	return container_of(bridge, struct adv7511, bridge);
--}
--
- static void adv7511_bridge_atomic_enable(struct drm_bridge *bridge,
- 					 struct drm_atomic_commit *state)
+diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+index c5496641a2f3..53057ef80e45 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
+@@ -319,7 +319,7 @@
+ void __drm_atomic_helper_connector_hdmi_state_init(struct drm_connector *connector,
+ 						   struct drm_connector_state *new_conn_state)
  {
-@@ -817,19 +813,6 @@ static void adv7511_bridge_atomic_disable(struct drm_bridge *bridge,
- 	adv7511_power_off(adv);
- }
+-	unsigned int max_bpc = connector->max_bpc;
++	unsigned int max_bpc = connector->hdmi.funcs ? connector->hdmi.funcs->max_bpc : 0;
  
--static enum drm_mode_status
--adv7511_bridge_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
--					 const struct drm_display_mode *mode,
--					 unsigned long long tmds_rate)
--{
--	const struct adv7511 *adv = bridge_to_adv7511_const(bridge);
+ 	new_conn_state->max_bpc = max_bpc;
+ 	new_conn_state->max_requested_bpc = max_bpc;
+@@ -678,7 +678,7 @@ hdmi_compute_config(const struct drm_connector *connector,
+ {
+ 	unsigned int max_bpc = clamp_t(unsigned int,
+ 				       conn_state->max_bpc,
+-				       8, connector->max_bpc);
++				       8, connector->hdmi.funcs->max_bpc);
+ 	enum drm_output_color_format fmt;
+ 	int ret;
+ 
+@@ -811,7 +811,7 @@ static int hdmi_generate_hdr_infoframe(const struct drm_connector *connector,
+ 	if (!connector->hdmi.funcs->hdr_drm.write_infoframe)
+ 		return 0;
+ 
+-	if (connector->max_bpc < 10)
++	if (connector->hdmi.funcs->max_bpc < 10)
+ 		return 0;
+ 
+ 	if (!conn_state->hdr_output_metadata)
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 293b2823475d..38d9f977338c 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -672,8 +672,6 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	}
+ 
+ 	drm_connector_attach_max_bpc_property(connector, 8, hdmi_funcs->max_bpc);
+-	/* TODO: remove after conversion to new drmm_connector_hdmi_init() */
+-	connector->max_bpc = hdmi_funcs->max_bpc;
+ 
+ 	if (hdmi_funcs->max_bpc > 8)
+ 		drm_connector_attach_hdr_output_metadata_property(connector);
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 75bd9ac03571..5e0d65adb244 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -2391,11 +2391,6 @@ struct drm_connector {
+ 	 */
+ 	struct drm_property_blob *path_blob_ptr;
+ 
+-	/**
+-	 * @max_bpc: Maximum bits per color channel the connector supports.
+-	 */
+-	unsigned int max_bpc;
 -
--	if (tmds_rate > 1000ULL * adv->info->max_mode_clock_khz)
--		return MODE_CLOCK_HIGH;
--
--	return MODE_OK;
--}
--
- static enum drm_mode_status adv7511_bridge_mode_valid(struct drm_bridge *bridge,
- 						      const struct drm_display_info *info,
- 		const struct drm_display_mode *mode)
-@@ -1006,7 +989,6 @@ static const struct drm_bridge_funcs adv7511_bridge_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
- 
--	.hdmi_tmds_char_rate_valid = adv7511_bridge_hdmi_tmds_char_rate_valid,
- 	.hdmi_clear_audio_infoframe = adv7511_bridge_hdmi_clear_audio_infoframe,
- 	.hdmi_write_audio_infoframe = adv7511_bridge_hdmi_write_audio_infoframe,
- 	.hdmi_clear_avi_infoframe = adv7511_bridge_hdmi_clear_avi_infoframe,
-@@ -1359,6 +1341,8 @@ static int adv7511_probe(struct i2c_client *i2c)
- 
- 	adv7511->bridge.vendor = "Analog";
- 	adv7511->bridge.product = adv7511->info->name;
-+	adv7511->bridge.supported_hdmi_ver = HDMI_VERSION_1_2;
-+	adv7511->bridge.max_tmds_char_rate = 1000ULL * adv7511->info->max_mode_clock_khz;
- 
- #ifdef CONFIG_DRM_I2C_ADV7511_AUDIO
- 	adv7511->bridge.ops |= DRM_BRIDGE_OP_HDMI_AUDIO;
+ 	/**
+ 	 * @max_bpc_property: Default connector property for the max bpc to be
+ 	 * driven out of the connector.
 
 -- 
 2.55.0
