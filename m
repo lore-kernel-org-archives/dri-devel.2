@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F77C55175
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 806F3C55179
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0193910F301;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2551910F2FC;
 	Fri, 31 Jul 2026 16:19:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="jho5VgqU";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="n2HWz8SG";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40EB210F2FB
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 20CE910F2FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514762;
- bh=U0nGSTDpiJlBTzlVgbJKVpHuwnOwyKA2kX5lgsqDcns=;
+ s=mail; t=1785514759;
+ bh=J1vxmseoLPQQnv2CmyOezLJSX3z1Sy0R9f4GOVZ1xq4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=jho5VgqUW2regXG0YCaK+cHWbvWZTji+D5PxI8yKjRoHQYgPv7IhsTwhdS35KQZNe
- ICMJM4Cap7oVa5Sc7mPwwx/GCpZ4iSfEz8hnLtAq7iYDWl1FWpLwxOss9f4iYbQEnC
- epCEE84uIYof9+VvfWAxEcEjfgsa01QUW3u5YIAfMVU8dfDGT7etvwhiUNOsUlToZv
- IjHPJvT753l9ORmrTX94M60iLPQnPl+dq3rEs6aVB9xXIa0C3LZ7YTjJltKRc3C6bZ
- Dd60C5WwqRV+H9EF5YiIZp+7E43+J6XMyBrv0RmbU2ZIjQDxFHJlDAZ6noSEtqO+Dc
- f99mGQ7KqFYPg==
+ b=n2HWz8SG6RstpcZ9zFQnUXMQH9z1/0e7VaWgppUHpn4sJQk3gXGV+Dw4pWZlu/4ns
+ Ce3Xed+/KWrQycb1w+i4KJZbj3pgdSOvHvTIevkqPKsF9ySjaiZMtEOA+1DJK2xCjh
+ xKxt5PmqsOPbGVSbj1YB3kqzMHM+UyofBhfpjSSNSdbnihZV7fA4T9q7Snuiya98VE
+ EO06t4ZptZELQB7msWLgicEXbMcqasWI14b+0kwtkr6m/rAsa4IKnDhMHXi1ook0tG
+ xx2rY0xS1HmQbsbQJONAB/vEPlQ2Q+KT1C3Zq4QfuTIVA4IMqzY/ScE4gRquQa0S3E
+ cMFPHF1936ymw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id E6E8D17E0916;
- Fri, 31 Jul 2026 18:19:21 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C7AA817E08F7;
+ Fri, 31 Jul 2026 18:19:19 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:17 +0300
-Subject: [PATCH v10 10/69] drm/display: hdmi: Add HDMI 2.0 scrambling
- management helpers
+Date: Fri, 31 Jul 2026 19:19:14 +0300
+Subject: [PATCH v10 07/69] drm/connector: Add HDMI 2.0 scrambler infrastructure
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-10-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-7-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -81,382 +80,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add helpers to manage the full lifecycle of HDMI 2.0 SCDC scrambling on
-both source and sink sides:
+Add the connector-level infrastructure to support HDMI 2.0 scrambling:
 
-- drm_hdmi_mode_needs_scrambling(): checks whether a mode, bits per
-  component and output format combination requires scrambling, which is
-  needed when the resulting TMDS character rate exceeds the HDMI 1.3
-  maximum of 340 MHz
+- A drm_connector_hdmi_scrambler_supported() helper to report whether
+  the source supports the scrambling capability, based on the presence
+  of the newly introduced .scrambler_{enable|disable}() callbacks in
+  drm_connector_hdmi_funcs are mandatory
+- A scrambler_needed flag to be managed by the hdmi state helpers based
+  on the negotiated TMDS character rate and the source/sink scrambling
+  capabilities
+- A scrambler_enabled flag to track whether scrambling is currently
+  active
+- A delayed work item (scdc_work) to monitor sink-side scrambling status
+  and retry the setup if the sink resets it
+- A scdc_work_initialized flag to support lazy initialization of the
+  work item on the first scrambling enable and guard the teardown paths
 
-- drm_connector_hdmi_enable_scrambling(): configures SCDC scrambling and
-  high TMDS clock ratio and starts a periodic work item that monitors
-  the sink's SCDC scrambling status, retrying setup when the sink loses
-  state
-
-- drm_connector_hdmi_disable_scrambling(): tears down scrambling on both
-  sides and cancels the monitoring work
-
-- drm_connector_hdmi_sync_scdc(): triggers a CRTC reset on reconnection
-  to restore SCDC state lost during sink disconnects within an active
-  display pipeline
+These are intended to be used by SCDC scrambling helpers to coordinate
+scrambling setup and teardown between the source driver and the DRM
+core.
 
 Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_helper.c | 296 ++++++++++++++++++++++++++++++
- include/drm/display/drm_hdmi_helper.h     |  15 ++
- 2 files changed, 311 insertions(+)
+ drivers/gpu/drm/drm_connector.c | 31 ++++++++++++---
+ include/drm/drm_connector.h     | 83 +++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 109 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
-index 5cb0b033b171..cfecfef639ad 100644
---- a/drivers/gpu/drm/display/drm_hdmi_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
-@@ -4,12 +4,20 @@
- #include <linux/module.h>
- 
- #include <drm/display/drm_hdmi_helper.h>
-+#include <drm/display/drm_scdc_helper.h>
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index 4721cdeafc84..a18410faf040 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -622,12 +622,29 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	 * default with the actual controller capability. A value of zero keeps
+ 	 * the limit inferred from supported_hdmi_ver.
+ 	 */
+-	if (hdmi_funcs->supported_hdmi_ver >= HDMI_VERSION_2_0)
++	if (hdmi_funcs->supported_hdmi_ver >= HDMI_VERSION_2_0) {
++		if (!hdmi_funcs->scrambler_enable || !hdmi_funcs->scrambler_disable) {
++			drm_err(dev, "Scrambler callbacks missing for HDMI 2.x\n");
++			return -EINVAL;
++		}
 +
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
- #include <drm/drm_connector.h>
-+#include <drm/drm_crtc.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_modes.h>
-+#include <drm/drm_modeset_lock.h>
- #include <drm/drm_print.h>
+ 		connector->hdmi.max_tmds_char_rate = HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ;
+-	else if (hdmi_funcs->supported_hdmi_ver >= HDMI_VERSION_1_3)
+-		connector->hdmi.max_tmds_char_rate = HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+-	else if (hdmi_funcs->supported_hdmi_ver >= HDMI_VERSION_1_0)
+-		connector->hdmi.max_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++	} else {
++		/*
++		 * Scrambler callbacks are only valid for connectors advertising
++		 * HDMI 2.0 capability. drm_connector_hdmi_scrambler_supported()
++		 * relies on their presence to report scrambling support.
++		 */
++		if (hdmi_funcs->scrambler_enable || hdmi_funcs->scrambler_disable) {
++			drm_err(dev, "Scrambler callbacks unexpected for HDMI 1.x\n");
++			return -EINVAL;
++		}
++
++		if (hdmi_funcs->supported_hdmi_ver >= HDMI_VERSION_1_3)
++			connector->hdmi.max_tmds_char_rate = HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
++		else if (hdmi_funcs->supported_hdmi_ver >= HDMI_VERSION_1_0)
++			connector->hdmi.max_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++	}
+ 
+ 	if (hdmi_funcs->supported_tmds_char_rate) {
+ 		if (hdmi_funcs->supported_tmds_char_rate > connector->hdmi.max_tmds_char_rate) {
+@@ -635,6 +652,7 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 				connector->hdmi.max_tmds_char_rate);
+ 			return -EINVAL;
+ 		}
++
+ 		connector->hdmi.max_tmds_char_rate = hdmi_funcs->supported_tmds_char_rate;
+ 	}
+ 
+@@ -918,6 +936,9 @@ void drm_connector_cleanup(struct drm_connector *connector)
+ 		    DRM_CONNECTOR_REGISTERED))
+ 		drm_connector_unregister(connector);
+ 
++	if (connector->hdmi.scdc_work_initialized)
++		cancel_delayed_work_sync(&connector->hdmi.scdc_work);
++
+ 	platform_device_unregister(connector->hdmi_audio.codec_pdev);
+ 
+ 	if (connector->privacy_screen) {
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index a6de3e63b462..89a140d6f064 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -28,6 +28,7 @@
+ #include <linux/ctype.h>
+ #include <linux/hdmi.h>
+ #include <linux/notifier.h>
++#include <linux/workqueue.h>
+ #include <drm/drm_mode_object.h>
+ #include <drm/drm_util.h>
  #include <drm/drm_property.h>
- 
-+#define DRM_HDMI_SCDC_POLL_DELAY_MS	1000
+@@ -1131,6 +1132,17 @@ struct drm_connector_hdmi_state {
+ 	 * @tmds_char_rate: TMDS Character Rate, in Hz.
+ 	 */
+ 	unsigned long long tmds_char_rate;
 +
- static inline bool is_eotf_supported(u8 output_eotf, u8 sink_eotf)
- {
- 	return sink_eotf & BIT(output_eotf);
-@@ -426,3 +434,291 @@ drm_hdmi_acr_get_n_cts(unsigned long long tmds_char_rate,
- 	*out_cts = cts;
- }
- EXPORT_SYMBOL(drm_hdmi_acr_get_n_cts);
-+
-+/**
-+ * drm_hdmi_mode_needs_scrambling() - Check if an HDMI mode requires scrambling
-+ * @mode: Display mode to check
-+ * @bpc: Bits per color component
-+ * @fmt: Output pixel format
-+ *
-+ * Computes the TMDS character rate for the given mode, bits per component and
-+ * output format, and checks whether it exceeds the HDMI 1.3 maximum TMDS
-+ * character rate of 340 MHz.
-+ *
-+ * Returns:
-+ * true if the mode requires scrambling, false otherwise.
-+ */
-+bool drm_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
-+				    unsigned int bpc,
-+				    enum drm_output_color_format fmt)
-+{
-+	unsigned long long tmds_char_rate;
-+
-+	tmds_char_rate = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
-+
-+	return tmds_char_rate > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
-+}
-+EXPORT_SYMBOL(drm_hdmi_mode_needs_scrambling);
-+
-+static bool drm_scdc_sink_supports_scrambling(struct drm_connector *connector)
-+{
-+	const struct drm_display_info *info = &connector->display_info;
-+
-+	return info->is_hdmi &&
-+	       info->hdmi.scdc.supported &&
-+	       info->hdmi.scdc.scrambling.supported;
-+}
-+
-+static int drm_connector_hdmi_try_scrambling_setup(struct drm_connector *connector)
-+{
-+	bool done;
-+
-+	done = drm_scdc_set_high_tmds_clock_ratio(connector, true);
-+	if (!done)
-+		return -EIO;
-+
-+	done = drm_scdc_set_scrambling(connector, true);
-+	if (!done)
-+		return -EIO;
-+
-+	if (READ_ONCE(connector->hdmi.scrambler_enabled))
-+		schedule_delayed_work(&connector->hdmi.scdc_work,
-+				      msecs_to_jiffies(DRM_HDMI_SCDC_POLL_DELAY_MS));
-+
-+	return 0;
-+}
-+
-+static void drm_connector_hdmi_scdc_work(struct work_struct *work)
-+{
-+	struct drm_connector *connector;
-+	struct drm_connector_hdmi *hdmi;
-+
-+	hdmi = container_of(to_delayed_work(work), struct drm_connector_hdmi,
-+			    scdc_work);
-+	connector = container_of(hdmi, struct drm_connector, hdmi);
-+
-+	/*
-+	 * The connector, and hence this work item, may outlive the source
-+	 * driver, e.g. when userspace keeps a DRM file descriptor open past
-+	 * unbind. Never poke the DDC bus after the connector got unregistered,
-+	 * as the underlying I2C adapter may already be gone.
-+	 */
-+	if (drm_connector_is_unregistered(connector))
-+		return;
-+
-+	if (READ_ONCE(connector->hdmi.scrambler_enabled) &&
-+	    !drm_scdc_get_scrambling_status(connector))
-+		drm_connector_hdmi_try_scrambling_setup(connector);
-+}
-+
-+/**
-+ * drm_connector_hdmi_enable_scrambling() - enable scrambling and monitor SCDC status
-+ * @connector: connector
-+ * @conn_state: connector state
-+ *
-+ * Enables scrambling and high TMDS clock ratio on both source and sink sides.
-+ * Additionally, use a delayed work item to monitor the scrambling status on
-+ * the sink side and retry the operation, as some displays refuse to set the
-+ * scrambling bit right away.
-+ *
-+ * The work item is cancelled by drm_connector_hdmi_disable_scrambling(), hence
-+ * source drivers must ensure the display pipeline is shut down on unbind, e.g.
-+ * via drm_atomic_helper_shutdown(). Otherwise the work may outlive the driver's
-+ * devres-managed resources, since the connector itself is only cleaned up when
-+ * the last reference to the DRM device is dropped.
-+ *
-+ * Returns:
-+ * Zero if scrambling is set successfully, an error code otherwise.
-+ */
-+int drm_connector_hdmi_enable_scrambling(struct drm_connector *connector,
-+					 const struct drm_connector_state *conn_state)
-+{
-+	struct drm_connector_hdmi *hdmi = &connector->hdmi;
-+	struct drm_device *dev = connector->dev;
-+	int ret;
-+
-+	if (!conn_state)
-+		return -EINVAL;
-+
-+	if (!conn_state->hdmi.scrambler_needed)
-+		return 0;
-+
-+	if (!drm_connector_hdmi_scrambler_supported(connector)) {
-+		drm_dbg_kms(dev, "Source doesn't support scrambling.\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!drm_scdc_sink_supports_scrambling(connector)) {
-+		drm_dbg_kms(dev, "Sink doesn't support scrambling.\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!connector->ddc)
-+		return -EINVAL;
-+
-+	drm_dbg_kms(dev, "Enabling scrambling\n");
-+
-+	if (!hdmi->scdc_work_initialized) {
-+		INIT_DELAYED_WORK(&hdmi->scdc_work,
-+				  drm_connector_hdmi_scdc_work);
-+		hdmi->scdc_work_initialized = true;
-+	}
-+
-+	WRITE_ONCE(hdmi->scrambler_enabled, true);
-+
-+	ret = drm_connector_hdmi_try_scrambling_setup(connector);
-+	if (!ret)
-+		ret = hdmi->funcs->scrambler_enable(connector);
-+
-+	if (ret) {
-+		WRITE_ONCE(hdmi->scrambler_enabled, false);
-+		cancel_delayed_work_sync(&hdmi->scdc_work);
-+
-+		drm_scdc_set_scrambling(connector, false);
-+		drm_scdc_set_high_tmds_clock_ratio(connector, false);
-+	}
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_connector_hdmi_enable_scrambling);
-+
-+/**
-+ * drm_connector_hdmi_disable_scrambling() - disable scrambling and SCDC monitoring
-+ * @connector: connector
-+ *
-+ * Disables scrambling and high TMDS clock ratio on both source and sink sides.
-+ * Also cancels the SCDC status monitoring work item, if it is still pending.
-+ *
-+ * Returns:
-+ * Zero if scrambling is reset successfully, an error code otherwise.
-+ */
-+int drm_connector_hdmi_disable_scrambling(struct drm_connector *connector)
-+{
-+	struct drm_connector_hdmi *hdmi = &connector->hdmi;
-+	struct drm_device *dev = connector->dev;
-+
-+	if (!READ_ONCE(hdmi->scrambler_enabled))
-+		return 0;
-+
-+	drm_dbg_kms(dev, "Disabling scrambling\n");
-+
-+	WRITE_ONCE(hdmi->scrambler_enabled, false);
-+
-+	/*
-+	 * A driver may force scrambler_enabled at init to trigger a disable
-+	 * at boot (e.g. vc4), bypassing the enable path that sets up the work
-+	 * item. Only cancel it once it has actually been initialized.
-+	 */
-+	if (hdmi->scdc_work_initialized)
-+		cancel_delayed_work_sync(&hdmi->scdc_work);
-+
-+	if (connector->status == connector_status_connected &&
-+	    drm_scdc_sink_supports_scrambling(connector)) {
-+		drm_scdc_set_scrambling(connector, false);
-+		drm_scdc_set_high_tmds_clock_ratio(connector, false);
-+	}
-+
-+	return hdmi->funcs->scrambler_disable(connector);
-+}
-+EXPORT_SYMBOL(drm_connector_hdmi_disable_scrambling);
-+
-+/**
-+ * drm_connector_hdmi_sync_scdc() - resync the sink-side SCDC upon reconnect
-+ * @connector: connector
-+ * @plugged: connector plugged status event
-+ * @ctx: initialized lock acquisition context
-+ *
-+ * When receiving hotplug disconnect/reconnect event, while the display is
-+ * still active (CRTC enabled), the SCDC status on the sink side is reset
-+ * and must be explicitly restored.
-+ *
-+ * The typical solution for this is to trigger an empty modeset in
-+ * drm_connector_helper_funcs.detect_ctx(), which is what this helper does
-+ * by triggering a CRTC reset on reconnection.
-+ *
-+ * When making use of the HDMI connector framework, this is automatically
-+ * triggered via drm_atomic_helper_connector_hdmi_hotplug().
-+ *
-+ * Returns:
-+ * Zero on success, an error code otherwise, including -EDEADLK.
-+ */
-+int drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
-+				 struct drm_modeset_acquire_ctx *ctx)
-+{
-+	struct drm_connector_hdmi *hdmi = &connector->hdmi;
-+	struct drm_device *dev = connector->dev;
-+	struct drm_connector_state *conn_state;
-+	struct drm_crtc *crtc;
-+	u8 config;
-+	int ret;
-+
-+	if (!connector || !plugged || !ctx)
-+		return 0;
-+
-+	/*
-+	 * This is normally part of .detect_ctx() call path, which already holds
-+	 * connection_mutex through @ctx.  However, re-acquiring it with the
-+	 * same context is a no-op and makes the helper safe under any caller.
-+	 */
-+	ret = drm_modeset_lock(&connector->dev->mode_config.connection_mutex, ctx);
-+	if (ret)
-+		return ret;
-+
-+	/* TODO: Also handle HDMI 2.1 FRL link training */
-+
-+	if (!drm_connector_hdmi_scrambler_supported(connector) ||
-+	    !READ_ONCE(hdmi->scrambler_enabled))
-+		return 0;
-+
-+	conn_state = connector->state;
-+	if (!conn_state)
-+		return 0;
-+
-+	crtc = conn_state->crtc;
-+	if (!crtc)
-+		return 0;
-+
-+	ret = drm_modeset_lock(&crtc->mutex, ctx);
-+	if (ret)
-+		return ret;
-+
-+	if (!crtc->state || !crtc->state->active)
-+		return 0;
-+
-+	if (!connector->ddc || !drm_scdc_sink_supports_scrambling(connector))
-+		return 0;
-+
-+	if (conn_state->commit &&
-+	    !try_wait_for_completion(&conn_state->commit->hw_done))
-+		return 0;
-+
-+	ret = drm_scdc_readb(connector->ddc, SCDC_TMDS_CONFIG, &config);
-+	if (ret) {
-+		drm_dbg_kms(dev, "Failed to read TMDS config: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (config & SCDC_SCRAMBLING_ENABLE)
-+		return 0;
-+
-+	/*
-+	 * HDMI 2.0 requires that one should not send scrambled data prior
-+	 * to configuring the sink scrambling, and that TMDS clock/data
-+	 * transmission should be suspended when changing the TMDS clock rate
-+	 * in the sink.  So let's just do a full modeset here, even though some
-+	 * sinks would be perfectly happy if were to just reconfigure the SCDC
-+	 * settings on the fly.
++	/**
++	 * @scrambler_needed: Whether HDMI 2.0 SCDC scrambling is required
++	 * for the negotiated mode/bpc/format.
 +	 *
-+	 * The disable/re-enable cycle triggered by the reset should call
-+	 * drm_connector_hdmi_enable_scrambling() during re-enable, thus
-+	 * properly configuring the sink before data transmission resumes.
++	 * Computed by drm_atomic_helper_connector_hdmi_check() according to
++	 * the HDMI 2.0 specification: scrambling is mandatory above a 340 MHz
++	 * TMDS character rate. Optional scrambling at lower rates is
++	 * deliberately not requested by the helper.
 +	 */
-+	drm_dbg_kms(dev, "Resetting CRTC to restore SCDC status\n");
++	bool scrambler_needed;
+ };
+ 
+ /**
+@@ -1481,6 +1493,36 @@ struct drm_connector_hdmi_funcs {
+ 	 */
+ 	const struct drm_edid *(*read_edid)(struct drm_connector *connector);
+ 
++	/**
++	 * @scrambler_enable:
++	 *
++	 * The callback is invoked via @drm_connector_hdmi_enable_scrambling
++	 * during commit to setup SCDC scrambling and high TMDS clock ratio on
++	 * the source side.
++	 *
++	 * The @scrambler_enable callback is mandatory if HDMI 2.0 is to be
++	 * supported.
++	 *
++	 * Returns:
++	 * 0 on success, a negative error code otherwise
++	 */
++	int (*scrambler_enable)(struct drm_connector *connector);
 +
-+	ret = drm_atomic_helper_reset_crtc(crtc, ctx);
-+	if (ret && ret != -EDEADLK)
-+		drm_dbg_kms(dev, "Failed to reset CRTC: %d\n", ret);
++	/**
++	 * @scrambler_disable:
++	 *
++	 * The callback is invoked via @drm_connector_hdmi_disable_scrambling
++	 * during commit to tear down SCDC scrambling and high TMDS clock ratio
++	 * on the source side.
++	 *
++	 * The @scrambler_disable callback is mandatory if HDMI 2.0 is to be
++	 * supported.
++	 *
++	 * Returns:
++	 * 0 on success, a negative error code otherwise
++	 */
++	int (*scrambler_disable)(struct drm_connector *connector);
 +
-+	return ret;
+ 	/**
+ 	 * @avi:
+ 	 *
+@@ -2111,6 +2153,25 @@ struct drm_connector_hdmi {
+ 	 */
+ 	unsigned long long max_tmds_char_rate;
+ 
++	/**
++	 * @scrambler_enabled: Tracks whether HDMI 2.0 scrambler is currently enabled.
++	 */
++	bool scrambler_enabled;
++
++	/**
++	 * @scdc_work: Work item currently used to monitor sink-side scrambling
++	 * status and retry setup if the sink resets it.
++	 */
++	struct delayed_work scdc_work;
++
++	/**
++	 * @scdc_work_initialized: Tracks whether @scdc_work has been set up via
++	 * INIT_DELAYED_WORK(). The work item is initialized lazily on the first
++	 * scrambling enable, so this guards the teardown paths against touching
++	 * an uninitialized work item.
++	 */
++	bool scdc_work_initialized;
++
+ 	/**
+ 	 * @funcs: HDMI connector Control Functions and controller capabilities
+ 	 */
+@@ -2702,6 +2763,28 @@ drm_connector_is_unregistered(struct drm_connector *connector)
+ 		DRM_CONNECTOR_UNREGISTERED;
+ }
+ 
++/**
++ * drm_connector_hdmi_scrambler_supported - does connector support HDMI
++ * scrambling?
++ * @connector: DRM connector
++ *
++ * Checks whether or not @connector driver supports HDMI scrambling. When
++ * controller advertises HDMI_VERSION_2_0 support, the
++ * @drm_connector_hdmi_funcs.scrambler_enable and
++ * @drm_connector_hdmi_funcs.scrambler_disable callbacks are mandatory and
++ * enforced during drmm_connector_hdmi_init().
++ *
++ * Returns:
++ * True if the connector supports scrambling, false otherwise.
++ */
++static inline bool
++drm_connector_hdmi_scrambler_supported(struct drm_connector *connector)
++{
++	return connector->hdmi.funcs &&
++		connector->hdmi.funcs->scrambler_enable &&
++		connector->hdmi.funcs->scrambler_disable;
 +}
-+EXPORT_SYMBOL(drm_connector_hdmi_sync_scdc);
-diff --git a/include/drm/display/drm_hdmi_helper.h b/include/drm/display/drm_hdmi_helper.h
-index 9c31ed90516b..2cdd6e3bc090 100644
---- a/include/drm/display/drm_hdmi_helper.h
-+++ b/include/drm/display/drm_hdmi_helper.h
-@@ -8,6 +8,7 @@
- struct drm_connector;
- struct drm_connector_state;
- struct drm_display_mode;
-+struct drm_modeset_acquire_ctx;
- enum drm_output_color_format;
- 
- void
-@@ -35,4 +36,18 @@ drm_hdmi_acr_get_n_cts(unsigned long long tmds_char_rate,
- 		       unsigned int *out_n,
- 		       unsigned int *out_cts);
- 
-+bool
-+drm_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
-+			       unsigned int bpc, enum drm_output_color_format fmt);
 +
-+int
-+drm_connector_hdmi_enable_scrambling(struct drm_connector *connector,
-+				     const struct drm_connector_state *conn_state);
-+int
-+drm_connector_hdmi_disable_scrambling(struct drm_connector *connector);
-+
-+int
-+drm_connector_hdmi_sync_scdc(struct drm_connector *connector, bool plugged,
-+			     struct drm_modeset_acquire_ctx *ctx);
-+
- #endif
+ void drm_connector_oob_hotplug_event(struct fwnode_handle *connector_fwnode,
+ 				     enum drm_connector_status status);
+ enum drm_connector_color_format
 
 -- 
 2.55.0
