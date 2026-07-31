@@ -4,35 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C7AFC55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 08:01:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1175C55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 08:03:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6FE8510E0DE;
-	Fri, 31 Jul 2026 08:01:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1201310F1B0;
+	Fri, 31 Jul 2026 08:03:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="k2cCQb/5";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ag/GvXDV";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 3E06E10E0DE
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 08:01:25 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id DCF2210F1B0
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 08:03:57 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A132620E3;
- Fri, 31 Jul 2026 01:01:20 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 58E3C22C7;
+ Fri, 31 Jul 2026 01:03:53 -0700 (PDT)
 Received: from [10.57.87.104] (unknown [10.57.87.104])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3A5903F7B4;
- Fri, 31 Jul 2026 01:01:17 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9FA443F86F;
+ Fri, 31 Jul 2026 01:03:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785484884; bh=FGxwfJAUBwhCq/7ROi+0BbOdS2wTWRDrlbk9/c+bwXA=;
+ t=1785485037; bh=9LdX6Nm67lXUyl4q3SLgatLosZbxqQtQKhJxaZEsWLk=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=k2cCQb/5SSlhgpJ+YCZWOaemONKjq80m/XCHHNPLPg62Xt3Ybro08g4GBjQDLTki6
- 8mZs1OWFWbmXCq/26RFpwSBHCjySUcI7mkwk/yBiHUOesbQHX3cjzFuFAQ+PggH8Db
- CWx/FP7qhdpsau0lTMhEtyIgWbTZGg71XQVkDaLA=
-Message-ID: <80bb0e4c-630b-49d2-af7d-4fbf6927d513@arm.com>
-Date: Fri, 31 Jul 2026 09:01:15 +0100
+ b=ag/GvXDVyHye6G78FxGeZSttVsUGbfJdVkLB7m+aemJ5gXei9MSJ61Nt8DVtrCKFD
+ 4vCo24/2nE30/+nGDiyA56OKTcwg9ArSgHC9hjOHKu18/DohIGYO0vb7A07BFrs5r2
+ XQ5Th65wWKrISij0RmW5t60Qzp53gUO4+xaFIKmI=
+Message-ID: <af9cca4f-cdf9-452c-b8ca-b29087400d51@arm.com>
+Date: Fri, 31 Jul 2026 09:03:50 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] drm/panthor: Revisit reqs_lock handling in
- flush/reset paths
+Subject: Re: [PATCH v2 3/3] drm/panthor: Add tracepoints for cache flushing
 To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
  Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
  Juri Lelli <juri.lelli@redhat.com>,
@@ -50,10 +49,10 @@ To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
 Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  kernel@collabora.com
 References: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
- <20260730-panthor-cache-flush-fix-v2-2-28790478bfff@collabora.com>
+ <20260730-panthor-cache-flush-fix-v2-3-28790478bfff@collabora.com>
 From: Steven Price <steven.price@arm.com>
 Content-Language: en-GB
-In-Reply-To: <20260730-panthor-cache-flush-fix-v2-2-28790478bfff@collabora.com>
+In-Reply-To: <20260730-panthor-cache-flush-fix-v2-3-28790478bfff@collabora.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -72,102 +71,114 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On 30/07/2026 12:45, Nicolas Frattaroli wrote:
-> panthor_gpu_flush_caches() and panthor_gpu_soft_reset() would read (and
-> even reset) the contents of the pending_reqs register outside of holding
-> the reqs_lock. Additionally, when it did hold the lock, it did so with
-> the irqsave/irqrestore variants, even though the spinlock was never
-> acquired in an atomic context, just the threaded handler.
+> Add two new event tracepoints: gpu_cache_flush_start to be emitted after
+> acquiring the flush mutex and reqs spinlock, and gpu_cache_flush_end to
+> be emitted when leaving the function.
 > 
-> Use the new wait_event_lock_timeout() macro to check pending_reqs under
-> the lock, and only do so without disabling interrupts.
+> This allows debugging the duration a flush takes irrespective of initial
+> function entry lock contention by subtracting the start tracepoint's
+> timestamp from the end tracepoint timestamp, and additionally contains
+> information such as which caches were flushed.
 > 
-> Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
 > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
 
 Reviewed-by: Steven Price <steven.price@arm.com>
 
+Thanks,
+Steve
+
 > ---
->  drivers/gpu/drm/panthor/panthor_gpu.c | 25 +++++++++++--------------
->  1 file changed, 11 insertions(+), 14 deletions(-)
+>  drivers/gpu/drm/panthor/panthor_gpu.c   |  3 ++
+>  drivers/gpu/drm/panthor/panthor_trace.h | 49 +++++++++++++++++++++++++++++++++
+>  2 files changed, 52 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> index c013d6bf9a59..f015bde80abf 100644
+> index f015bde80abf..a25955ad668b 100644
 > --- a/drivers/gpu/drm/panthor/panthor_gpu.c
 > +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> @@ -330,35 +330,34 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
->  			     u32 l2, u32 lsc, u32 other)
->  {
->  	struct panthor_gpu *gpu = ptdev->gpu;
-> -	unsigned long flags;
->  	int ret = 0;
->  
->  	/* Serialize cache flush operations. */
+> @@ -336,6 +336,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
 >  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
 >  
-> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> +	spin_lock(&ptdev->gpu->reqs_lock);
+>  	spin_lock(&ptdev->gpu->reqs_lock);
+> +	trace_gpu_cache_flush_start(ptdev->base.dev, l2, lsc, other);
 >  	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
 >  		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
 >  		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
->  	} else {
->  		ret = -EIO;
->  	}
-> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> @@ -345,6 +346,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
 >  
-> -	if (ret)
-> +	if (ret) {
-> +		spin_unlock(&ptdev->gpu->reqs_lock);
+>  	if (ret) {
+>  		spin_unlock(&ptdev->gpu->reqs_lock);
+> +		trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
 >  		return ret;
-> +	}
->  
-> -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-> +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
->  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),
-> -				msecs_to_jiffies(100))) {
-> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> +				ptdev->gpu->reqs_lock, msecs_to_jiffies(100))) {
->  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED) != 0 &&
->  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_CLEAN_CACHES_COMPLETED))
->  			ret = -ETIMEDOUT;
->  		else
->  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
-> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
 >  	}
-> +	spin_unlock(&ptdev->gpu->reqs_lock);
+>  
+> @@ -358,6 +360,7 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+>  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_CLEAN_CACHES_COMPLETED;
+>  	}
+>  	spin_unlock(&ptdev->gpu->reqs_lock);
+> +	trace_gpu_cache_flush_end(ptdev->base.dev, l2, lsc, other);
 >  
 >  	if (ret) {
 >  		panthor_device_schedule_reset(ptdev);
-> @@ -378,27 +377,25 @@ int panthor_gpu_soft_reset(struct panthor_device *ptdev)
->  {
->  	struct panthor_gpu *gpu = ptdev->gpu;
->  	bool timedout = false;
-> -	unsigned long flags;
+> diff --git a/drivers/gpu/drm/panthor/panthor_trace.h b/drivers/gpu/drm/panthor/panthor_trace.h
+> index 6ffeb4fe6599..6951b95b1de7 100644
+> --- a/drivers/gpu/drm/panthor/panthor_trace.h
+> +++ b/drivers/gpu/drm/panthor/panthor_trace.h
+> @@ -76,6 +76,55 @@ TRACE_EVENT(gpu_job_irq,
+>  		  __entry->events, __entry->duration_ns)
+>  );
 >  
-> -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> +	guard(spinlock)(&ptdev->gpu->reqs_lock);
+> +DECLARE_EVENT_CLASS(gpu_cache_flush_template,
+> +	TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> +	TP_ARGS(dev, l2, lsc, other),
+> +	TP_STRUCT__entry(
+> +		__string(dev_name, dev_name(dev))
+> +		__field(u32, l2)
+> +		__field(u32, lsc)
+> +		__field(u32, other)
+> +	),
+> +	TP_fast_assign(
+> +		__assign_str(dev_name);
+> +		__entry->l2     = l2;
+> +		__entry->lsc    = lsc;
+> +		__entry->other  = other;
+> +	),
+> +	TP_printk("%s: l2=0x%x lsc=0x%x other=0x%x", __get_str(dev_name),
+> +		  __entry->l2, __entry->lsc, __entry->other)
+> +);
 > +
->  	if (!drm_WARN_ON(&ptdev->base,
->  			 ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED)) {
->  		ptdev->gpu->pending_reqs |= GPU_IRQ_RESET_COMPLETED;
->  		gpu_write(gpu->irq.iomem, INT_CLEAR, GPU_IRQ_RESET_COMPLETED);
->  		gpu_write(gpu->iomem, GPU_CMD, GPU_SOFT_RESET);
->  	}
-> -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> +/**
+> + * gpu_cache_flush_start - called after cache flush locks taken, before flush
+> + * @dev: pointer to the &struct device, for printing the device name
+> + * @l2: "l2" flush flags
+> + * @lsc: "lsc" flush flags
+> + * @other: "other" flush flags
+> + *
+> + * Fires after any initial lock contention around the locks needed for flushing
+> + * caches, but before the actual cache flush is requested.
+> + */
+> +DEFINE_EVENT(gpu_cache_flush_template, gpu_cache_flush_start,
+> +	     TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> +	     TP_ARGS(dev, l2, lsc, other)
+> +);
+> +
+> +/**
+> + * gpu_cache_flush_end - called after cache flush
+> + * @dev: pointer to the &struct device, for printing the device name
+> + * @l2: "l2" flush flags
+> + * @lsc: "lsc" flush flags
+> + * @other: "other" flush flags
+> + *
+> + * Fires after either the cache flush is complete, or has failed. Can be used
+> + * together with gpu_cache_flush_start to get how long the flush has taken.
+> + */
+> +DEFINE_EVENT(gpu_cache_flush_template, gpu_cache_flush_end,
+> +	     TP_PROTO(const struct device *dev, u32 l2, u32 lsc, u32 other),
+> +	     TP_ARGS(dev, l2, lsc, other)
+> +);
+> +
+>  #endif /* __PANTHOR_TRACE_H__ */
 >  
-> -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-> +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
->  				!(ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED),
-> +				ptdev->gpu->reqs_lock,
->  				msecs_to_jiffies(100))) {
-> -		spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
->  		if ((ptdev->gpu->pending_reqs & GPU_IRQ_RESET_COMPLETED) != 0 &&
->  		    !(gpu_read(gpu->irq.iomem, INT_RAWSTAT) & GPU_IRQ_RESET_COMPLETED))
->  			timedout = true;
->  		else
->  			ptdev->gpu->pending_reqs &= ~GPU_IRQ_RESET_COMPLETED;
-> -		spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
->  	}
->  
->  	if (timedout) {
+>  #undef TRACE_INCLUDE_PATH
 > 
 
