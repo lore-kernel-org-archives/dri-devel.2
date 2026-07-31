@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7BDCC55171
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 23:24:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDF41C55171
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 23:41:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17D9410E1D3;
-	Fri, 31 Jul 2026 23:24:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7BF10E26D;
+	Fri, 31 Jul 2026 23:41:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R4Diy8O+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aFGSZicr";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA94A10E1D3
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 23:24:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE27010E26D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 23:41:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 069C6600DA;
- Fri, 31 Jul 2026 23:24:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87F7E1F00AC4;
- Fri, 31 Jul 2026 23:24:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AB2FE600B0;
+ Fri, 31 Jul 2026 23:41:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DE751F00AC4;
+ Fri, 31 Jul 2026 23:41:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785540277;
- bh=XnovqiqSPO9qXkYFQ9a3Bzdd9DblbyJK4dwwFmE7ZvA=;
+ s=k20260515; t=1785541306;
+ bh=9Kz2Jdd4EUfbP7yiPBIp3LG0+L2DP1L8Au1EyeOylRE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=R4Diy8O+nrqgkHECBciR/M9523P0WurIeqrt4nFt2YAPVubljXKjHgTPBpkl0QmcD
- 0SJFKq2k2Hoqd/PDZ6YafUoeIfDdLv814bbeng6rYtTSLY0rYDgoG9blq/PgGdCJ9i
- mKQsAXt2B/Hxq52tNcJECMR0mWOfrjaMXEzBOLCZQb/fIGUh3BmAAAEIvi2eUgp17b
- x0fRECBi0rX/4te4y82zW9YxneQRWssdP4Yy3hcH7QpW+VLMMA2OTRoOuM8s1xNnZU
- bQNrKj7HdDfBV7wXhrcMtiwXRNaBnQ5WpxMLWX+92rLw2Bvj+9L/V8qE974WqNQ6U6
- VUo3WdrWemykA==
+ b=aFGSZicrgrQzeoTn+IG7WhZjGh/f10nNAmkGHQ2Zqk2zdvJ4g0X+sro7aHES69jcG
+ dUM/1WmuY1pS/VzeqNClEDRomffeRHqeNvZFbyUPtDgLJ5vWeYIVfAwhLN41cGLPb5
+ GKmM5fTv6CsONmzoVMzp2l+7x9PjY5W6vZwyKMl3gskZpVyBgT5uAeHMoJojL0KiKM
+ eljMdItV13dc/oitMwr1UgHqJaXaiHNCAzWbDOiJBztCwg9CjZ0UyHEi/XcakqredI
+ 4RI2iDX6dAi4HaKVZnVcgGfmRiZTXaZVY1KoslvpWMk1TzF6/pYqmb9NkSXPW9Siw3
+ DQgxBmgKOgD8g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 51/69] drm/bridge: ite-it6263: Advertise HDMI 1.3
+Subject: Re: [PATCH v10 54/69] drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4
  capabilities
 To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-51-294364b2cf15@collabora.com>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-54-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
- <20260731-dw-hdmi-qp-scramb-v10-51-294364b2cf15@collabora.com>
+ <20260731-dw-hdmi-qp-scramb-v10-54-294364b2cf15@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 23:24:37 +0000
-Message-Id: <20260731232437.87F7E1F00AC4@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 23:41:45 +0000
+Message-Id: <20260731234146.3DE751F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,60 +60,64 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The macro MAX_HDMI_TMDS_CHAR_RATE_HZ is left unused after its only =
-caller was removed.
+
+Pre-existing issues:
+- [High] Using devm_ functions inside a component bind callback causes reso=
+urce leaks and permanent re-bind failures.
 --
 
---- Patch [51]: [PATCH v10 51/69] drm/bridge: ite-it6263: Advertise HDMI 1.=
-3 capabilities ---
-commit bc899868425793b3c769c7eaa96a7d6bb7256b3c
+--- Patch [54]: [PATCH v10 54/69] drm/rockchip: rk3066_hdmi: Advertise HDMI=
+ 1.4 capabilities ---
+commit ec81435b2b3f978e3738f994975d9efc7aae982d
 Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+drm/rockchip: rk3066_hdmi: Advertise HDMI 1.4 capabilities
 
-drm/bridge: ite-it6263: Advertise HDMI 1.3 capabilities
+This patch configures the RK3066 HDMI TX bridge to advertise HDMI 1.4
+capabilities. This enables the DRM core to properly filter out modes
+that exceed the 340 MHz TMDS limit.
 
-This commit advertises HDMI 1.3 support for the IT6263 bridge and sets the
-max_tmds_char_rate limit. It also drops the hdmi_tmds_char_rate_valid() hoo=
-k=20
-since its checks are now handled earlier by the DRM core.
+> diff --git a/drivers/gpu/drm/rockchip/rk3066_hdmi.c b/drivers/gpu/drm/roc=
+kchip/rk3066_hdmi.c
+> index f28d6a883e099..f748700b0ba6c 100644
+> --- a/drivers/gpu/drm/rockchip/rk3066_hdmi.c
+> +++ b/drivers/gpu/drm/rockchip/rk3066_hdmi.c
 
-> diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge=
-/ite-it6263.c
-> index 550999491086e..e8e0197171e10 100644
-> --- a/drivers/gpu/drm/bridge/ite-it6263.c
-> +++ b/drivers/gpu/drm/bridge/ite-it6263.c
 [ ... ]
-> @@ -738,20 +738,6 @@ it6263_bridge_atomic_get_input_bus_fmts(struct drm_b=
-ridge *bridge,
->  	return input_fmts;
->  }
+
+> @@ -712,6 +713,7 @@ rk3066_hdmi_register(struct drm_device *drm, struct r=
+k3066_hdmi *hdmi)
+>  	hdmi->bridge.type =3D DRM_MODE_CONNECTOR_HDMIA;
+>  	hdmi->bridge.vendor =3D "Rockchip";
+>  	hdmi->bridge.product =3D "RK3066 HDMI";
+> +	hdmi->bridge.supported_hdmi_ver =3D HDMI_VERSION_1_4;
+
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential problem in how
+resources are managed in this file during component initialization.
+
+Does the use of devm_ functions inside the component bind callback
+rk3066_hdmi_bind() cause resource leaks and permanent re-bind failures?
+
+If rk3066_hdmi_bind() or a subsequent component's bind() returns an error
+(such as -EPROBE_DEFER from devm_clk_get() or rk3066_hdmi_register()), the
+DRM master driver's probe will fail. However, the resources allocated via
+devm_kzalloc() and devm_platform_ioremap_resource() in rk3066_hdmi_bind()
+are tied to the subcomponent's platform device, which isn't unbound during
+this failure.
+
+This means the resources are not freed. On the next probe attempt,
+rk3066_hdmi_bind() will execute again and devm_platform_ioremap_resource()
+will fail with -EBUSY because the memory region is already exclusively held
+by the previous un-freed allocation. This appears to permanently break the
+display driver until a system reboot or manual unbind.
+
+Should these allocations be moved to the platform probe callback instead,
+or explicitly managed so they can be properly freed in rk3066_hdmi_unbind()?
+
 > =20
-> -static enum drm_mode_status
-> -it6263_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
-> -				 const struct drm_display_mode *mode,
-> -				 unsigned long long tmds_rate)
-> -{
-> -	if (mode->clock > MAX_PIXEL_CLOCK_KHZ)
-> -		return MODE_CLOCK_HIGH;
-> -
-> -	if (tmds_rate > MAX_HDMI_TMDS_CHAR_RATE_HZ)
-> -		return MODE_CLOCK_HIGH;
-
-[Severity: Low]
-Since this function is being removed, does this leave
-MAX_HDMI_TMDS_CHAR_RATE_HZ as dead code?
-
-Looking at drivers/gpu/drm/bridge/ite-it6263.c, the macro is defined near
-the top of the file:
-
-#define MAX_HDMI_TMDS_CHAR_RATE_HZ      225000000
-
-but it doesn't appear to be used anywhere else in the driver now. Could it
-be removed in this patch as well?
-
-> -
-> -	return MODE_OK;
-> -}
+>  	hdmi->bridge.ddc =3D rk3066_hdmi_i2c_adapter(hdmi);
+>  	if (IS_ERR(hdmi->bridge.ddc))
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-dw-hdmi-qp=
--scramb-v10-0-294364b2cf15@collabora.com?part=3D51
+-scramb-v10-0-294364b2cf15@collabora.com?part=3D54
