@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E99EC5516F
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:43:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6D392C5516D
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:43:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9AC5110F2B3;
-	Fri, 31 Jul 2026 14:43:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 945EA10F2BA;
+	Fri, 31 Jul 2026 14:43:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mPnBPsuu";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="lHv9n2hw";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F1B910F288
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F34CC10F2B7
  for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:42:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785508929;
- bh=s0iHqJtCl7lHUc951fQ4n1fmrQDHo0lvrZa1beqvgZE=;
+ s=mail; t=1785508930;
+ bh=n3IX51tkpkD21CL9ldfkAQVrSezJGEvz0u6xDi+nsPQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mPnBPsuuXKu1STq0MIALYNjxznzPeBM28tUsAmkIxszH1CrShUJg6gSb15HkrkuXw
- uivp4ofMflCoirCyU8flHifQMjy8RDVW0fhoD1t7mtVX/bwQf77m+bEEDqX8h8EvrP
- PkfUNpStH4Ax4orNHq507voXO2bKOXdTaKnwUXK/LyVGjOLNFWlSqT7ffSFXWk0TwM
- 8IYykMzw/5UkIq1EEKTa2m05SpZP/X+UwVXLJ0UAsYZhgLBS3VRiJytV0wo+bsczFa
- l3CfuLMAT38VZXsQpFlNPeahVZJj5kcLsMV+5o25vcAa5Bf2bSVpAdqR4rhK47GoFZ
- qHhgZxbz327Dg==
+ b=lHv9n2hwdRdQoN0Bo/tqsTZlMVvMTTSuOQvSSm5wBb03pfBNBnoaKMO09HQs5A8dJ
+ MZ4Les7Rkbre+soRFK+bg1AWo+rszQJLoHS6iNeCAvvXDANITqmv31sB9tbnr7rkwE
+ 7MEsarqOOpwsCa5VSDZs1CPGjYzlkpc3Ft2Zsw4G46LShhbpecaywE1MT8RCQwvLkz
+ Iox7f4iK+vAtiFXcBwVJDi2LXuJ+cOo+/BqbJtskeTWYGnVgIRIakUpkY5fceNYvoF
+ m9iGt2iO3An1yHRf+w/zNA596XpotkCV72+NvCq4aPKq0ze5mMEpLoiYnLtQinfHux
+ 1xZm7GbWZF1nA==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B62FB17E0934;
- Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 0749117E093E;
+ Fri, 31 Jul 2026 16:42:10 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 0E40B48004C; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+ id 18F9F480065; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 31 Jul 2026 16:42:17 +0200
-Subject: [PATCH v8 12/21] drm/bridge: synopsys: dw-dp: Support software
- triggered OOB HPD
+Date: Fri, 31 Jul 2026 16:42:24 +0200
+Subject: [PATCH v8 19/21] drm/bridge: synopsys: dw-dp: Use regmap_set_bits
+ in dw_dp_send_sdp
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-synopsys-dw-dp-improvements-v8-12-ac1e6a75782f@collabora.com>
+Message-Id: <20260731-synopsys-dw-dp-improvements-v8-19-ac1e6a75782f@collabora.com>
 References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,21 +67,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3664;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1255;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=s0iHqJtCl7lHUc951fQ4n1fmrQDHo0lvrZa1beqvgZE=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEA0rFKIsgnd0TVUKFCZj1dJzQnqTW3Pd
- NHuVGV58AUu7okCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
- O/qarwAP/3BUyiZTCwFR6gYSiArPzmybwlAhXjvRURMhVCj8/sLe72jsaj2AAc22qrhjQY6SzYO
- 0p9t2mB5OaxGQ3NnU4auDp8Fx0RxzkGyu+ZfxIjoeMP0QGoBj5A/BD7aMPYeLYsPzJ2NS81Lipu
- 7Vxnww48Sh9jeJqpdYwKVkYoBufoLQgjTQVck69n3cPzGwRzsAFf2QRye6kF5bja8L5hAyYFOms
- dipiAzH3iKX7p5MeWDpB2lcqrKrn5xCFnnrfNJcNUbYB9/jbJhkt+o+igCgY3BBl9e7kKSJ+f2B
- 0Vv57RYwe7ulkK0ovbd2QiTERoCeYL4UAQlV3UnoGLF2vyXPR+l1MeqnHv9K/9RH0S66KTayW8e
- YciLZE7fv4zBMPpWpmvR3MXdkRKMp6cTZXh3oKI/nuexpHOj3GzlUFq2g7bGPT/I1VrQUDU90Bn
- ao5j+iuyH7VWhtBZmoZAZ818Vu2nMVtxWzMR8RfwHJHHKp6eL2rTRQIFcNFd3WfvRm06ovDy/ii
- /Kh+wtkfuryo3JOQYDDnrjrEL064c9uh6F/JSrQ9qtGI7Bx3v/VxlJgU0lvmXcZon6JMJmNHB86
- /4aA+Rolk5D2iHs+DYAdz8a8/5mGUc1sXhTUUnf7k2yobpZeeyPB+qmC8k8VYOnNiZ6DQxF1aVD
- tbRIyCze8Y2h4Oa6GfRgzFA==
+ bh=n3IX51tkpkD21CL9ldfkAQVrSezJGEvz0u6xDi+nsPQ=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEAmiM7hQO4fCiWUrvhcE6MZZ8yW06xhO
+ 5kR02XdGvBSKYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
+ O/qaWB0P+wVbj2Bigh3YaBXj9ndVlegoqd65W527nQuLfIfUk77oZ3boc5IEACZUUyZP6+L2nO2
+ 24GjPuchJylG4ZD9q14QppCilHy/MmceXAHZlBLMpZpb+wCqXBcdwmHx1VaN9hi2VoYnByLfjmp
+ RCz23aH+jH40O6/rTstUUDQupp01043mtnGRm1lezIIiNxfiFtwU6fXjPnAzjxzNzBQJE21xmHO
+ ygHpqzahSg4N6Ns2VTp14X0pIOtaGlgHFRnv3ArHJQ1zy0TNjDLkn9x7Ei46FTr9Zamu1wBddUS
+ QBg6juVu1iJg8PJ/KNRdwWDBeWNEjVcwWAfW3QfsYqz6mVFR9QoMd3KJ6nNB6p5qGeX4mFDbSKR
+ QZnNrV395ncr9sHCO9XTZeXAe0Em+wfro+cmvR+bS5BN6yd+Y8WWSQGEArBvkU5B/jGoe57teAL
+ e3x/uyiWxhg735dnSIgjAmK8Mt7HwcMmkynMbNuAU150UOkRC9AMPsMXy/FyXQz5FYnUFqErsK8
+ +CI2t4b2zyPdV3VjbBpLDJz2b+xgrBm6prpNhE3Pe+0s095DjHxxKzO9tPeEw1MKE6CIB9981hn
+ yJ+z5BHtSHsugxNOnGDmWV3ULZnCLyWJSv4EY3EUN2fyz1qSh+YExoCRTrDzj3nLmEf7sJjesSY
+ gayIny0WuzwW26dS+jKE2eA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,109 +99,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for USB-C DP AltMode out-of-band hotplug handling. The
-handling itself is implemented in the platform specific driver as the
-registers to force HPD state are not part of the Designware DisplayPort
-IP itself. Instead the platform integration might provide the necessary
-functionality to mux the HPD signal.
+Simplify dw_dp_send_sdp() a little bit by making use of
+regmap_set_bits.
+
+No functional change intended.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 38 +++++++++++++++++++++++++++++++++
- include/drm/bridge/dw_dp.h              |  3 +++
- 2 files changed, 41 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 7d42067df2cf..b21c2016dbd2 100644
+index 9b9c6d7c8cd2..a39007f13a05 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1886,6 +1886,19 @@ static void dw_dp_bridge_detach(struct drm_bridge *bridge)
- 	drm_dp_aux_unregister(&dp->aux);
+@@ -1070,14 +1070,12 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
+ 			     FIELD_PREP(SDP_REGS, get_unaligned_le32(payload)));
+ 
+ 	if (sdp->flags & DW_DP_SDP_VERTICAL_INTERVAL)
+-		regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
+-				   EN_VERTICAL_SDP << nr,
+-				   EN_VERTICAL_SDP << nr);
++		regmap_set_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
++				EN_VERTICAL_SDP << nr);
+ 
+ 	if (sdp->flags & DW_DP_SDP_HORIZONTAL_INTERVAL)
+-		regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
+-				   EN_HORIZONTAL_SDP << nr,
+-				   EN_HORIZONTAL_SDP << nr);
++		regmap_set_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
++				EN_HORIZONTAL_SDP << nr);
+ 
+ 	return nr;
  }
- 
-+static void dw_dp_bridge_oob_notify(struct drm_bridge *bridge,
-+				    struct drm_connector *connector,
-+				    enum drm_connector_status status)
-+{
-+	bool hpd_high = status != connector_status_disconnected;
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+
-+	if (dp->plat_data.hpd_sw_cfg)
-+		dp->plat_data.hpd_sw_cfg(dp->plat_data.data, hpd_high);
-+	else
-+		dev_err_once(dp->dev, "Missing platform handler for OOB HPD handling\n");
-+}
-+
- static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.attach = dw_dp_bridge_attach,
- 	.detach = dw_dp_bridge_detach,
-@@ -1900,6 +1913,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.atomic_disable = dw_dp_bridge_atomic_disable,
- 	.detect = dw_dp_bridge_detect,
- 	.edid_read = dw_dp_bridge_edid_read,
-+	.oob_notify = dw_dp_bridge_oob_notify,
- };
- 
- static int dw_dp_link_retrain(struct dw_dp *dp)
-@@ -2029,6 +2043,19 @@ static const struct regmap_config dw_dp_regmap_config = {
- 	.rd_table = &dw_dp_readable_table,
- };
- 
-+static bool dw_dp_is_routed_to_usb_c(struct drm_encoder *encoder)
-+{
-+	struct drm_bridge *last_bridge __free(drm_bridge_put) = NULL;
-+	struct fwnode_handle *fwnode;
-+
-+	last_bridge = drm_bridge_chain_get_last_bridge(encoder);
-+	if (!last_bridge)
-+		return false;
-+
-+	fwnode = of_fwnode_handle(last_bridge->of_node);
-+	return fwnode_device_is_compatible(fwnode, "usb-c-connector");
-+}
-+
- int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
- {
- 	struct drm_bridge *bridge = &dp->bridge;
-@@ -2052,6 +2079,13 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
- 		goto put_next_bridge;
- 	}
- 
-+	if (dw_dp_is_routed_to_usb_c(encoder)) {
-+		dev_dbg(dev, "USB-C mode\n");
-+
-+		if (dp->plat_data.hpd_sw_sel)
-+			dp->plat_data.hpd_sw_sel(dp->plat_data.data, 1);
-+	}
-+
- 	return 0;
- 
- put_next_bridge:
-@@ -2088,6 +2122,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
- 
- 	dp->dev = dev;
- 	dp->pixel_mode = plat_data->pixel_mode;
-+
-+	dp->plat_data.hpd_sw_sel = plat_data->hpd_sw_sel;
-+	dp->plat_data.hpd_sw_cfg = plat_data->hpd_sw_cfg;
-+	dp->plat_data.data = plat_data->data;
- 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
- 
- 	init_completion(&dp->complete);
-diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
-index a82412a9e769..79b2cdf0df99 100644
---- a/include/drm/bridge/dw_dp.h
-+++ b/include/drm/bridge/dw_dp.h
-@@ -20,6 +20,9 @@ enum {
- struct dw_dp_plat_data {
- 	u32 max_link_rate;
- 	u8 pixel_mode;
-+	void *data;
-+	void (*hpd_sw_sel)(void *data, bool hpd);
-+	void (*hpd_sw_cfg)(void *data, bool hpd);
- };
- 
- int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder);
 
 -- 
 2.53.0
