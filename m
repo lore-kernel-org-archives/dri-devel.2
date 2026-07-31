@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7D15C55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 17:06:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E559C55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 17:06:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1767910F35D;
-	Fri, 31 Jul 2026 17:06:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8175510F360;
+	Fri, 31 Jul 2026 17:06:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F1xF+GeK";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j0wpJypn";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 317FB10F35D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 17:06:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0198710F360
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 17:06:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 78B12600BB;
- Fri, 31 Jul 2026 17:06:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14E511F00ADF;
- Fri, 31 Jul 2026 17:06:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 79E1760A6E;
+ Fri, 31 Jul 2026 17:06:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF6F91F0155B;
+ Fri, 31 Jul 2026 17:06:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785517598;
- bh=J7Y/3xcmT2pyRuvQ5CjvYHc9JmZ+GoAN9v9ysZxVW3o=;
+ s=k20260515; t=1785517611;
+ bh=Jkm7qTOwVu0f1PJw17vuWKPRppXrIVe/VWIbuaoVqGM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=F1xF+GeK+APD6CKi+JTixRwPPHl7BuKrfCm6W/efQdBlbDp0UO30SQqGcYecaaadx
- 3BXJ+9JuQXUV66RubywZWHjtKqCxugA8iF6+A5baU9LVior8+Qb5cwVPoPhnx3JaGn
- 4VNbRb06g0ANrMh8KDS7NWYO2iS6wjb1jBkHsZMRulUG0snKr3l+UuSrZ+MRoc6obO
- LYzkRBI8nhObCquPHpHi7yRYocsZqluQgjOBy2y/X1YZYmQrCGXJPEwItC+wjrEm31
- bAaAxvsrfFn7ZChfk+Zmb8H14Wa5JbyroaCkkva+Y0nStTT1WObA7zpROvSONx6S+p
- L5O5pstaFwwpw==
+ b=j0wpJypnz/sVwU5Q5nTZwu3zR1REfib00/8OqkxYClAvlD4rjQ4rF46OxXF30Bv0B
+ Kw9F6e9anD9lJ1JVhSfqA5P/Ma4S8hWLT2IhvxxMrEz8UwWMuliYpyvaLJWGpuGf0P
+ Q7JIBEi1C+khYwM6Q+7kPSuyF+2y6giB2hFwYESuVpYtvi/BUVUomoKbDb43dy78X3
+ lAA9btFUcVCslQUvQLhaSQDr1ZUYB/paPRVt9xB9NiloEzbpIDGnDuq4MqqMdtmCY1
+ cOCik6Ox5Dmkb/aMTrhBBQcUDCKtiJ/MMBFYusrbVKiNXJ2hsrHq6UxIJvX0TP7bRe
+ NFXyQ3cl0HcpA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 06/69] drm/probe-helper: Introduce .force_ctx()
- connector callback
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-6-294364b2cf15@collabora.com>
-References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
- <20260731-dw-hdmi-qp-scramb-v10-6-294364b2cf15@collabora.com>
+Subject: Re: [PATCH RFT 2/3] drm/shmem_helper: use vmf_insert_pfn_mkwrite()
+To: "Paolo Bonzini" <pbonzini@redhat.com>
+Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731164341.1109827-3-pbonzini@redhat.com>
+References: <20260731164341.1109827-1-pbonzini@redhat.com>
+ <20260731164341.1109827-3-pbonzini@redhat.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 17:06:37 +0000
-Message-Id: <20260731170638.14E511F00ADF@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 17:06:50 +0000
+Message-Id: <20260731170650.EF6F91F0155B@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,63 +59,61 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Modifying `connector->status` before `force_ctx()` can return `-=
-EDEADLK` causes subsequent retries to incorrectly evaluate `old_status =3D=
-=3D connector->status`, silently skipping the hotplug event.
+
+Pre-existing issues:
+- [High] Incorrect page offset calculation causes wrong pages to be mapped =
+after VMA split (munmap/mremap)
 --
 
---- Patch [6]: [PATCH v10 06/69] drm/probe-helper: Introduce .force_ctx() c=
-onnector callback ---
-commit b08054d3073ea6707b0fe9e517dde416f7e5c8b6
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+--- Patch [2]: [PATCH RFT 2/3] drm/shmem_helper: use vmf_insert_pfn_mkwrite=
+() ---
+commit e238b92cc06e6221554d7e59a6c25c7b8c19b7ac
+Author: Paolo Bonzini <pbonzini@redhat.com>
 
-drm/probe-helper: Introduce .force_ctx() connector callback
+drm/shmem_helper: use vmf_insert_pfn_mkwrite()
 
-This commit introduces a force_ctx() variant to the connector helper
-functions, taking a modeset acquire context and returning an error code
-so that -EDEADLK can propagate. It takes precedence over the existing
-force() callback when both are implemented.
+This commit changes the shmem helper to use vmf_insert_pfn_mkwrite() to
+ensure KVM or VFIO correctly see a writable PTE when requested. It also
+updates the PMD mapping case to pass the write flag instead of recording
+the write fault early.
 
-> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_pro=
-be_helper.c
-> index e26ead5b5e589..918255bcfa096 100644
-> --- a/drivers/gpu/drm/drm_probe_helper.c
-> +++ b/drivers/gpu/drm/drm_probe_helper.c
+Link: https://lore.kernel.org/kvm/20260729072044.25796-1-slp@redhat.com/
+
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm=
+_gem_shmem_helper.c
+> index c989459eb2159..c81be3e973173 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -589,11 +589,25 @@ static void drm_gem_shmem_record_mkwrite(struct vm_=
+fault *vmf)
+>  	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but does this result in the wrong page being
+marked dirty or mapped after a VMA split?
+
+Looking at drm_gem_shmem_record_mkwrite() (line 583) and
+drm_gem_shmem_any_fault() (line 638) in drivers/gpu/drm/drm_gem_shmem_helpe=
+r.c,
+page_offset is calculated as:
+
+    pgoff_t page_offset =3D vmf->pgoff - vma->vm_pgoff;
+
+If userspace maps a GEM object and then splits the VMA (e.g., via a partial
+munmap() at the beginning of the VMA), the kernel advances vma->vm_pgoff to
+account for the split. When a page fault subsequently occurs in the new VMA,
+vmf->pgoff evaluates to the fake offset plus the split offset plus the fault
+offset.
+
+This makes the calculation mathematically equivalent to
+(address - vma->vm_start) >> PAGE_SHIFT. This completely discards the split
+offset, meaning the remaining VMA will erroneously map the GEM object start=
+ing
+from page 0 again, rather than the correct sub-page.
 
 [ ... ]
 
-> @@ -592,8 +593,19 @@ int drm_helper_probe_single_connector_modes(struct d=
-rm_connector *connector,
->  			connector->status =3D connector_status_connected;
->  		else
->  			connector->status =3D connector_status_disconnected;
-> -		if (connector->funcs->force)
-> +
-> +		if (funcs && funcs->force_ctx) {
-> +			ret =3D funcs->force_ctx(connector, &ctx);
-> +			if (ret =3D=3D -EDEADLK) {
-> +				drm_modeset_backoff(&ctx);
-> +				goto retry;
-
-[Severity: Medium]
-Does modifying connector->status before force_ctx() cause hotplug events
-to be dropped on lock contention?
-
-If funcs->force_ctx() returns -EDEADLK, the code branches to the retry
-label. During the retry loop, old_status is assigned the current
-connector->status:
-
-drm_helper_probe_single_connector_modes() {
-retry:
-        ...
-        old_status =3D connector->status;
-
-Since connector->status was already updated prior to the failed attempt,
-old_status will equal the new status. When the lock is finally acquired
-after the retry, the old_status !=3D connector->status check later in the
-function evaluates to false, causing the hotplug event detection logic
-to be silently skipped.
-
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-dw-hdmi-qp=
--scramb-v10-0-294364b2cf15@collabora.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731164341.1109=
+827-1-pbonzini@redhat.com?part=3D2
