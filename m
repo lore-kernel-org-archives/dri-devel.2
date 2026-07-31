@@ -4,107 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B55C7C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 17:14:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BA33C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 17:23:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2224410E220;
-	Fri, 31 Jul 2026 17:14:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81CED10E03D;
+	Fri, 31 Jul 2026 17:23:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="V8uG63CC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fxS+il1m";
 	dkim-atps=neutral
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com
- [209.85.208.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D0010E220
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 17:14:32 +0000 (UTC)
-Received: by mail-ed1-f53.google.com with SMTP id
- 4fb4d7f45d1cf-69fec8b4638so916a12.0
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 10:14:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785518071; cv=none;
- d=google.com; s=arc-20260327;
- b=Kd2y+V4u0AQyGEOQozHp0gmOD1NSGfOVHdjO1G4mPhp1Ukp40PD4nlxEaVCfIn2cYx
- B0gHUf0M9PQuhF9yXzaz1zvyMxCusculgA0zuxdOZ2ry7ABlTELHD7sPJBPy91mNTFZD
- jczY19x/mud+L0XJDx6XQbcnAsk133Sz1uwklDeW4HVntJY1BP/HFqs1XynOqpmWuQ7E
- TxGCAxngK1qI1mHxpZonW82fyQ1DJQHSXfscNzuadBQ//z5ZkuJ7EdLCbwDJiYwcOKAL
- FYPazP5r5l6/nJsfrfbVS6NCC6v7d548Ky7yH6X1gaOWH4unhd3NJaMi7hk8vYX1xrcK
- ZNfg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=1IEjvxIxcf25OzZ9XlYmxW3nZw+p1akOleAKSM54hBk=;
- fh=lB8MoCxeuxj9+WBpgpnaE9kQhBMJEjA8F7mOKgcVVRc=;
- b=NDMMgdFJduUj8AUIDeqMgJFLoLZB6mFgDIhO9CvApqEyCzE62U22a6xtKS8yIoARms
- uwtbaKHQ9OA/z8NA7xMe+C5/q8QGfDDEJCcT9I8UkVe02GInNT6MTqtW+KxEe2iO/rwK
- PE9EMgDKJuV7Szjutpwr1/M6Bjed7zZFuwuFjkM6OfmL96Ug7IyNJuH+Ff8o8A5omyQG
- qGxXGatlM6jxhyFtUErGmsdtUGJEJ6XOmyYopd7pYHNSHRRXAgcOSoUNqRupezuafiiu
- BWO47w4xPQl6zfTdRkgRGHHMpo6l2IDa+TTtnxBfpqwbLSf6TKDBLm93vX/0qcQADNZv
- snUw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1785518071; x=1786122871;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=1IEjvxIxcf25OzZ9XlYmxW3nZw+p1akOleAKSM54hBk=;
- b=V8uG63CClNdy9vxJCl/MllgMFZ2dIwhc6ZdYBJVKfQU3UfPs6p3QjVrWWD4Pvep4rb
- vPCK5sOtzIccZT6vE5F1YB0RTXwQecsFF/+sN7qpAxMQKllfURxk0o8UnHQQbYsx5yEP
- psyAde9u6w+fc9duDV8lqtGkycGJscji+YtVO2Z15KttoEHPFJ0Ay4Ki1G7u+yNLfuxs
- yycG8mFur5R8Yhsnl4M6qBPRU5hQe7Ep72Sfdub5+O58+wDti1IPbFDjmzHEjSz+WpV4
- ptQ8Ne0ruhi+QMnV2c2buwYddsZoGcjbXP0gORj32ogtqZ/nSzUeBmJAACTan5LcXano
- 3wSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785518071; x=1786122871;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=1IEjvxIxcf25OzZ9XlYmxW3nZw+p1akOleAKSM54hBk=;
- b=F4RAfe6vfEyzGiwuEWRB13H+Wl44SINNCXZRnh083UWeOK1Y/FnJWL6zUuOqhWsaoB
- C8Kc0bRTvNcaLrFZW9wdlptC3V3caVlDR6Bv6DeUAYW2fRQwhzEET47xjUrMy5onPz7R
- UeEhw99s94c3ZR27kROlu1QDz3qvgpdiu5o2WDn7LcJaTLb23xJoB6fYpwcvk0eXAtcG
- TnDwPDr2obZmXn9rIYwnQXpFVPz1o3TwQe3w3pfskKDdTJ3ehoAYFdTkIk62In26geXg
- cfO0FJ0tk9M3CRhLfhGIL9eiYkvOkWHdxEkqCjqjGM0/x4P5CmyhJc0D5fkOJfqqeOzf
- wYXA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RofOPPKXgnF6JltVJMg3QjkJZnmD83MKOAm9HM/oonoTGKrgqj9nRQRc72Y7Bui9iaYz9ubKuXEeN8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzCxzga5rt/lIX+eRlmOzqJs26/54+3kjZviQT8oyIjzsPff070
- QWVZ5P2YnpyK/gFWc5dZLpW6uwQjir212IYASut+28wQFtgYnHi9DV4v5ZdifQBJW9wIvZp8I0h
- Vwxk7CF0ovgNnGr9zyUzqF36PMS1svk9Pgfm6vCGm
-X-Gm-Gg: AR+sD12k4Rw26Jy9aS/1jfTpBzMgYDESDB1aAka64yT3div+T9uq48lyswdKmCAz7QW
- GwBVhFbEkVNtZW6njbD/yNg1Qdz6epWXm3vZk7+wiyccJuEObYkp3CBsPIzjowrdq6Cg1pWjwiR
- MIIPOLzEnerVFNb9EOf/4z1AraGuMsebFyI91A+PjyRqGTwxYg0rI0Ef260Wm/DD+ysoCwaC+rz
- etNlIUJ5TtDOKr2MmydwasXlac9HSXWpFFpmTM4E2u34+KPCdYMFblaxHywTC7euPogPJHdaXU3
- OgLqzjN1pp0ooeM8yymc694DvvFVBzearqrF4+T4FxYxm+DIEtOjn7EGq06ror3xjEHFHbxhpXg
- =
-X-Received: by 2002:a05:6402:29a:b0:69f:d9cd:ec41 with SMTP id
- 4fb4d7f45d1cf-6a0a84fb211mr2629a12.6.1785518070065; Fri, 31 Jul 2026 10:14:30
- -0700 (PDT)
-MIME-Version: 1.0
-References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
- <20260730062645.233148-1-shoubaineng@gmail.com>
- <20260730062645.233148-4-shoubaineng@gmail.com>
-In-Reply-To: <20260730062645.233148-4-shoubaineng@gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Fri, 31 Jul 2026 10:14:17 -0700
-X-Gm-Features: AUfX_mzp9OFlht_i5txZ0xvAxi8mLSvD5KWIdtBZewXay8clz2l69cTX7T1s68U
-Message-ID: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
-Subject: Re: [PATCH v5 3/4] drm/prime: use dma_buf_fd_install() to preserve
- export tracing
-To: Baineng Shou <shoubaineng@gmail.com>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, Sandeep Patil <sspatil@android.com>, 
- "Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla <srini@kernel.org>,
- David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, stable@vger.kernel.org,
- dri-devel@lists.freedesktop.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE45A10E03D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 17:23:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CBE456004E;
+ Fri, 31 Jul 2026 17:23:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 523B01F00AC4;
+ Fri, 31 Jul 2026 17:23:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785518589;
+ bh=3QUPjHQoA2jPBqgJA9n6F3HRhE+YyFCYjdLaWBs9pWU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fxS+il1mKsR4ZNObNC4xXfXFGB5UN3R3UWe9OgU+1BvMQ5mI7aQPDE8ynITYzYWcu
+ Wev8o7fxGqWGOBP4Ntzm9g6WUomgLSQ7jpt9gFhnVCajH/LbFP9X+/Laju/xE240z8
+ iuWPMtqAxNJ5IjON9FFGb40DO+Cqykzd3zujaeUCPvKrtXv26n/jGy8CIhTzXbAfwx
+ kOhb3bVuHFply/wXUkA8rLiKXPWdyut7YnXcoXU8rUGNHeN9X5o2aE6tqudBcx0v0Q
+ BwPMYv0XjComcL9qcC4FEzUA1jC6kF0p5dtyUvZ7LZmJzybfv1HIOkApjFOILYF9We
+ 5SluLmdKEt72A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 14/21] drm/bridge: synopsys: dw-dp: Add Runtime PM
+ support
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-14-ac1e6a75782f@collabora.com>
+References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+ <20260731-synopsys-dw-dp-improvements-v8-14-ac1e6a75782f@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 17:23:08 +0000
+Message-Id: <20260731172309.523B01F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,53 +55,120 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 11:27=E2=80=AFPM Baineng Shou <shoubaineng@gmail.co=
-m> wrote:
->
-> drm_gem_prime_handle_to_fd() open-codes fd reservation and install
-> using get_unused_fd_flags() + fd_install() directly.  This bypasses
-> the DMA_BUF_TRACE() call that dma_buf_fd() emits, so observability
-> tools relying on the trace_dma_buf_fd tracepoint silently miss all
-> DRM PRIME exports.
->
-> Replace the bare fd_install() with dma_buf_fd_install(), which wraps
-> fd_install() together with DMA_BUF_TRACE(), restoring full tracepoint
-> coverage.  No functional change; the fd lifecycle (get_unused_fd_flags
-> =E2=86=92 work =E2=86=92 install) is already correct.
->
-> Note: this patch depends on dma_buf_fd_install() introduced in
-> "dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
-> [1].
->
-> [1] https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubainen=
-g@gmail.com/
->
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Asynchronous pm_runtime_put_autosuspend() during driver teardown a=
+nd error paths is cancelled by pm_runtime_disable(), leaving the device per=
+manently active and leaking clock resources.
+- [High] phy_init() is called while the device is in its initial RPM_SUSPEN=
+DED state with APB and AUX clocks disabled, risking a bus hang.
+--
 
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
+--- Patch [14]: [PATCH v8 14/21] drm/bridge: synopsys: dw-dp: Add Runtime P=
+M support ---
+commit e3dd87d799174b12a4a2ad492ab236cf0e86bc18
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: drm/bridge: synopsys: dw-dp: Add Runtime PM support
 
-> ---
->  drivers/gpu/drm/drm_prime.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 9b44c78cd77f..fe3436d1235d 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev=
-,
->                 return PTR_ERR(dmabuf);
->         }
->
-> -       fd_install(fd, dmabuf->file);
-> +       dma_buf_fd_install(dmabuf, fd);
->         *prime_fd =3D fd;
->         return 0;
+This commit adds runtime PM stubs to the Synopsys DesignWare DisplayPort
+bridge driver. It splits the early parts of dw_dp_probe into dw_dp_alloc
+to allow platform drivers to assign it before probing.
+
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index b21c2016dbd29..c24a5436e8fe8 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+[ ... ]
+> @@ -2108,76 +2162,125 @@ static void dw_dp_phy_exit(void *data)
+>  	phy_exit(dp->phy);
 >  }
-> --
-> 2.34.1
->
+> =20
+> -struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_=
+dp_plat_data *plat_data)
+> +static void dw_dp_manual_suspend(void *data)
+> +{
+> +	struct dw_dp *dp =3D data;
+> +
+> +	dw_dp_runtime_suspend(dp);
+> +}
+> +
+> +static void dw_dp_irq_free(void *data)
+> +{
+> +	struct dw_dp *dp =3D data;
+> +
+> +	/* ignore error as the interrupt needs to be free'd in any case */
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dp->dev, pm);
+> +
+> +	free_irq(dp->irq, dp);
+> +	dp->irq =3D -1;
+> +}
+
+[Severity: High]
+Will this asynchronous autosuspend be cancelled by pm_runtime_disable() dur=
+ing
+device removal?
+
+When this devm teardown action runs, it releases the PM runtime reference
+asynchronously via the PM_RUNTIME_ACQUIRE_AUTOSUSPEND scope guard. Immediat=
+ely
+afterward, the devm_pm_runtime_enable cleanup callback executes
+pm_runtime_disable().
+
+As documented in the PM subsystem rules, pm_runtime_disable() cancels pendi=
+ng
+autosuspend work, meaning dw_dp_runtime_suspend() will never be called. Wou=
+ld
+it be safer to use a synchronous suspend operation like pm_runtime_put_sync=
+()
+here to ensure the clocks do not remain permanently enabled?
+
+[ ... ]
+> +	if (dp->plat_data.autosuspend_delay > 0) {
+> +		pm_runtime_use_autosuspend(dev);
+> +		pm_runtime_set_autosuspend_delay(dev, dp->plat_data.autosuspend_delay);
+> +		ret =3D devm_pm_runtime_enable(dev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (!pm_runtime_enabled(dev)) {
+> +		dw_dp_runtime_resume(dp);
+> +
+> +		ret =3D devm_add_action_or_reset(dev, dw_dp_manual_suspend, dp);
+> +		if (ret)
+> +			return ret;
+> +	}
+> =20
+>  	ret =3D phy_init(dp->phy);
+>  	if (ret) {
+>  		dev_err_probe(dev, ret, "phy init failed\n");
+> -		return ERR_PTR(ret);
+> +		return ret;
+>  	}
+
+[Severity: High]
+Could this phy_init() call trigger a bus hang if the device is still suspen=
+ded?
+
+Prior to this patch, the APB and AUX clocks were explicitly enabled before
+phy_init() was called. Now, clock enablement is delegated to
+dw_dp_runtime_resume().
+
+If autosuspend_delay > 0, devm_pm_runtime_enable() is called but the device=
+ is
+left in its default RPM_SUSPENDED state. Since phy_init() is called without
+first waking the device via pm_runtime_get_sync(), the DP controller's APB
+and AUX clocks are still disabled.
+
+If the external PHY shares the APB bus or relies on the controller being
+clocked to access its registers, will this unclocked access cause a
+synchronous external abort?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
+w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D14
