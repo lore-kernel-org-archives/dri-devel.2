@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF321C55176
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2E29C55174
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2775E10F31A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3FECF10F31B;
 	Fri, 31 Jul 2026 16:19:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="c5rFA9KS";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NlFzFtAM";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A981E10F2F9
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0079910F2FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514771;
- bh=y/oPi/fnmwrFajh0Q2Bmgy/nAjgH57+rFmteNZPqQ30=;
+ s=mail; t=1785514762;
+ bh=xADD6VVVgtOmKPZTcdjzwmKjLCfsgRP8n3AoLi1tKmE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=c5rFA9KSpWytkG1gOfR/SX/kk6TaMt5iTq+mOUZ1i0/fvUP7esFrVUsCTs3Fm3p2b
- CefzERDAfHUD7Fb3A7DUOrSyN4Tf7bgedHthno16Apkjmdojp/gSnFeI/q2dHIWzqB
- TV54XjGeH4qrSmKRgY+9LC4j+iPpOAjWGzAkCpbA11yMT3/o/TuvQaEYjZGpxmaWTI
- yUCMHzAxEj9IRj+TX+phIGg3xplsvkCNnlWCr4pS8yxE3WnA38VtP8klA/MVvGR1cS
- soZ2NQhgaY+GMdd4Bzeadkw3LXnAw5jbNTd6UY3vtbwwD91caaGAAzBa0XxNtKV2Xo
- dZKFyVO3vSWUA==
+ b=NlFzFtAMJTgoQJcSMgS8jlN99nELF/yDotOoL41GfoqWI0rTlmH9HBU8LTY7YlCk2
+ bXRiB57Eu5nQLlILc95fm11YfS4zFRkU5rGyq+3AwTvRKjTFihfZGycYsqxTwAefDp
+ 2o+7lC84JLu78GRD5GBejKPN/CYC4vH5D+sSryAUEgbmxSPesuLXoVtzrcqNjgLwWZ
+ MRuIGXBPbw4wlwoVX+6umBp0rofztyZybALeH6ysT778QCJcWtF5APiOF6FxbqOFRt
+ BucdqwhLR3LqZ5lEgddCHRZXi/mQ1/ELsB64IhLvVqbf6c8iRFrRPaED/oHn9OrRGt
+ 1CXvGhIJ+ayJw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 52C5D17E0582;
- Fri, 31 Jul 2026 18:19:31 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 9CBBF17E091F;
+ Fri, 31 Jul 2026 18:19:22 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:30 +0300
-Subject: [PATCH v10 23/69] drm/display: hdmi-state-helper: Set HDMI
- scrambling requirement
+Date: Fri, 31 Jul 2026 19:19:18 +0300
+Subject: [PATCH v10 11/69] drm/display: hdmi: Advertise SCDC source version
+ when scrambling
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-23-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-11-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -81,35 +81,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Set drm_connector_hdmi_state.scrambler_needed when the computed TMDS
-character rate exceeds the HDMI 1.3 maximum TMDS character rate.
+The HDMI 2.0 spec advises that compliant Source devices report their
+SCDC version in the Source Version register.  Do so when enabling
+scrambling by calling drm_scdc_set_source_version().
 
-HDMI 2.0 requires scrambling above 340 MHz.  Centralize that clock-based
-requirement in the HDMI state helper so drivers do not need to open-code
-the threshold check.
+Failures are non-fatal: SCDC version negotiation is purely informational
+and does not gate scrambling or any high-bitrate functionality, so a
+flaky DDC bus should not block scrambling setup.
 
 Acked-by: Maxime Ripard <mripard@kernel.org>
 Tested-by: Maud Spierings <maud_spierings@hotmail.com>
 Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_hdmi_state_helper.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/display/drm_hdmi_helper.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_state_helper.c b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-index 3377ea936120..9544eb8659aa 100644
---- a/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_state_helper.c
-@@ -594,6 +594,9 @@ hdmi_compute_clock(const struct drm_connector *connector,
+diff --git a/drivers/gpu/drm/display/drm_hdmi_helper.c b/drivers/gpu/drm/display/drm_hdmi_helper.c
+index cfecfef639ad..493f2728ab86 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_helper.c
+@@ -16,6 +16,7 @@
+ #include <drm/drm_print.h>
+ #include <drm/drm_property.h>
  
- 	conn_state->hdmi.tmds_char_rate = clock;
++#define DRM_HDMI_SCDC_SOURCE_VERSION	1
+ #define DRM_HDMI_SCDC_POLL_DELAY_MS	1000
  
-+	/* TODO: also check drm_display_info.hdmi.scdc.scrambling.low_rates */
-+	conn_state->hdmi.scrambler_needed = (clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ);
+ static inline bool is_eotf_supported(u8 output_eotf, u8 sink_eotf)
+@@ -556,6 +557,12 @@ int drm_connector_hdmi_enable_scrambling(struct drm_connector *connector,
+ 	if (!connector->ddc)
+ 		return -EINVAL;
+ 
++	/*
++	 * Advertise our SCDC source version. This is purely informational and
++	 * does not gate scrambling, so failures are non-fatal.
++	 */
++	drm_scdc_set_source_version(connector, DRM_HDMI_SCDC_SOURCE_VERSION);
 +
- 	return 0;
- }
+ 	drm_dbg_kms(dev, "Enabling scrambling\n");
  
+ 	if (!hdmi->scdc_work_initialized) {
 
 -- 
 2.55.0
