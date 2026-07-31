@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AAE4C55171
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC226C54F54
 	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F03110F32C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B43A910F32D;
 	Fri, 31 Jul 2026 16:21:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="LP7UoA9X";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Hyrr0XvA";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D69CC10F30D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF9910F30D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514784;
- bh=T57B2HIpxjOg2246T5ktjF/JgTCd4d9jWzrI7OnBqP0=;
+ s=mail; t=1785514790;
+ bh=FjNG/FbAfUxNWdfXcasZdzMERNWbRLC78jj086GTy6I=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=LP7UoA9Xj4+0SCmFFy4slUzG9qksnmPdmhrc+bzX4b1fl+siK8bEPBcvSxVMlzahA
- xy/mcQ5TIqSvGUIVbnxnsbCAduq94oxpZPqv5LYQH9iVljwwGyA0Ig55Qi6uc0wj+P
- Pm9cD5dtEQJfQgG7nS82WFbX5VkqI+4ds+3xbr4OUMo9Eb7ZSgW1X6sojH7zog1xpa
- VNH/aktvWtNwhpP4JtWxa5AXyWFkbhOqjrbIe5hAXks/fjyRyn8+i445yrZwL5ZIxm
- 7OvWCfQleS8eMUN1wPKcvlyjuUqe+zci5NN7iq/tt5upQJzj585ESM3B80lEgHYQq6
- 7gLHueC2ZBlmQ==
+ b=Hyrr0XvAvuzJDNa4V3fiG10eP9Etlr1hu5kpnKfXp3XP900r4GhIrAS8DlBN0bjqK
+ SNAd5iaIPQ97UyS6C8qMrkvdZtYOjJvjNqmnY3uKU7NDWa+/NlAjk2h3hIVRqgKATX
+ jztlOrxBM8CfmbKFxaZlP9824yanMlGxW911NyDjsuEosqtU8besE0lw9Bf7MkZhF+
+ 0A/1gmYzATtn7uNC+8uquq9pCKWh5CtTad+QxWE8vIYPxruer/e/bnebHK6Kk2G13A
+ zxgVz8G2mpFHm99QAReBetdo9n4IkSh4RpOlEqK99sla344hDoIbYxzhUft3tegrOg
+ LXd3FTojNwsHA==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1B4A017E0936;
- Fri, 31 Jul 2026 18:19:44 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6709017E093D;
+ Fri, 31 Jul 2026 18:19:50 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:48 +0300
-Subject: [PATCH v10 41/69] drm/vc4: hdmi: Switch to
- drm_hdmi_mode_needs_scrambling()
+Date: Fri, 31 Jul 2026 19:19:57 +0300
+Subject: [PATCH v10 50/69] drm/bridge: ite-it6263: Drop redundant
+ .mode_valid hook
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-41-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-50-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -79,66 +79,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The VC4 HDMI driver has a local helper to check whether a mode requires
-scrambling.  It is equivalent to drm_hdmi_mode_needs_scrambling(), so
-use the common helper instead.
+Bridges using DRM_BRIDGE_OP_HDMI expect connectors to be created through
+drm_bridge_connector_init(), thereby relying on the bridge connector's
+.mode_valid hook to invoke drm_hdmi_connector_mode_valid().
 
-No functional change intended.
+The generic helper computes the mode's TMDS character rate and forwards
+it to the bridge's .hdmi_tmds_char_rate_valid callback through the
+connector HDMI funcs.  This covers exactly what
+it6263_bridge_mode_valid() does for 8 bpc RGB444, but due to being
+output-format aware, it also handles the validation more thoroughly.
 
-Acked-by: Maxime Ripard <mripard@kernel.org>
+Both the connector and bridge .mode_valid hooks are invoked during
+mode validation through drm_mode_validate_pipeline(), so the custom
+bridge hook is redundant.  Drop it.
+
+While at it, remove the now-unused drm_hdmi_helper.h include.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++------------
- 1 file changed, 4 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/bridge/ite-it6263.c | 16 ----------------
+ 1 file changed, 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 9ce56eca775c..4f7fc6689869 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -130,15 +130,6 @@ static bool vc4_hdmi_supports_scrambling(struct vc4_hdmi *vc4_hdmi)
- 	return true;
+diff --git a/drivers/gpu/drm/bridge/ite-it6263.c b/drivers/gpu/drm/bridge/ite-it6263.c
+index 21ac8e58b9d2..550999491086 100644
+--- a/drivers/gpu/drm/bridge/ite-it6263.c
++++ b/drivers/gpu/drm/bridge/ite-it6263.c
+@@ -15,7 +15,6 @@
+ #include <linux/regmap.h>
+ #include <linux/regulator/consumer.h>
+ 
+-#include <drm/display/drm_hdmi_helper.h>
+ #include <drm/display/drm_hdmi_state_helper.h>
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+@@ -669,20 +668,6 @@ static void it6263_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	regmap_write(regmap, HDMI_REG_PKT_GENERAL_CTRL, ENABLE_PKT | REPEAT_PKT);
  }
  
--static bool vc4_hdmi_mode_needs_scrambling(const struct drm_display_mode *mode,
--					   unsigned int bpc,
--					   enum drm_output_color_format fmt)
+-static enum drm_mode_status
+-it6263_bridge_mode_valid(struct drm_bridge *bridge,
+-			 const struct drm_display_info *info,
+-			 const struct drm_display_mode *mode)
 -{
--	unsigned long long clock = drm_hdmi_compute_mode_clock(mode, bpc, fmt);
+-	unsigned long long rate;
 -
--	return clock > HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
+-	rate = drm_hdmi_compute_mode_clock(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444);
+-	if (rate == 0)
+-		return MODE_NOCLOCK;
+-
+-	return bridge->funcs->hdmi_tmds_char_rate_valid(bridge, mode, rate);
 -}
 -
- static int vc4_hdmi_debugfs_regs(struct seq_file *m, void *unused)
- {
- 	struct drm_debugfs_entry *entry = m->private;
-@@ -313,7 +304,7 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
- 		return 0;
- 	}
- 
--	scrambling_needed = vc4_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
-+	scrambling_needed = drm_hdmi_mode_needs_scrambling(&vc4_hdmi->saved_adjusted_mode,
- 							   vc4_hdmi->output_bpc,
- 							   vc4_hdmi->output_format);
- 	if (!scrambling_needed) {
-@@ -443,7 +434,8 @@ static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
- 		const struct drm_display_mode *mode;
- 
- 		list_for_each_entry(mode, &connector->probed_modes, head) {
--			if (vc4_hdmi_mode_needs_scrambling(mode, 8, DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
-+			if (drm_hdmi_mode_needs_scrambling(mode, 8,
-+							   DRM_OUTPUT_COLOR_FORMAT_RGB444)) {
- 				drm_warn_once(drm, "The core clock cannot reach frequencies high enough to support 4k @ 60Hz.");
- 				drm_warn_once(drm, "Please change your config.txt file to add hdmi_enable_4kp60.");
- 			}
-@@ -802,7 +794,7 @@ static void vc4_hdmi_enable_scrambling(struct drm_encoder *encoder)
- 	if (!vc4_hdmi_supports_scrambling(vc4_hdmi))
- 		return;
- 
--	if (!vc4_hdmi_mode_needs_scrambling(mode,
-+	if (!drm_hdmi_mode_needs_scrambling(mode,
- 					    vc4_hdmi->output_bpc,
- 					    vc4_hdmi->output_format))
- 		return;
+ static int it6263_bridge_attach(struct drm_bridge *bridge,
+ 				struct drm_encoder *encoder,
+ 				enum drm_bridge_attach_flags flags)
+@@ -831,7 +816,6 @@ static const struct drm_bridge_funcs it6263_bridge_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+ 	.attach = it6263_bridge_attach,
+-	.mode_valid = it6263_bridge_mode_valid,
+ 	.atomic_disable = it6263_bridge_atomic_disable,
+ 	.atomic_enable = it6263_bridge_atomic_enable,
+ 	.detect = it6263_bridge_detect,
 
 -- 
 2.55.0
