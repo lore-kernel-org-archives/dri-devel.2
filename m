@@ -4,68 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BF29C5516F
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 13:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0E4EC5516D
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 13:28:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1678F10F252;
-	Fri, 31 Jul 2026 13:10:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E73A210F254;
+	Fri, 31 Jul 2026 13:28:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=deborah.brouwer@collabora.com header.b="bFXbcDgd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fgm9xkTh";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2538910F24F
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 13:10:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785503398; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Cq+zrzQoz00J2wlNPrXBe4dHSshzxf7DJsXSzdyM1dhrzXiOXivQ9GnF95OQuUyb6VSxXRzJ2QFWADOA3wb5XMjSjD6kZOx7xaK9lj/Yfgdw50yq1bLoZ+oPcRkpD+VfwRp+bQi35nM3q0NfeYJpm+ob2JqZWUUO8mCEGE87MUw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785503398;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=gGSgysdGBniHJR9h7AGR/IccbsptGQN5ulgBb8yos5g=; 
- b=fVK/MdqbhBPuyKWj797w54MesVOIEs/S3U1uK5zwJCWBA89OZVsUkvE3WoVHfMbBWc3cyM//vQApFuo66puuxwHx7ufaNAqycTlo2VSYaFepASKn7+tFIX6L3NXA8yWTXxNvEbB56mNNn/sfyVygEFqPNkwl1zchdCQY2Dofmag=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785503397; 
- s=zohomail; d=collabora.com; i=deborah.brouwer@collabora.com; 
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:In-Reply-To:Message-Id:Reply-To;
- bh=gGSgysdGBniHJR9h7AGR/IccbsptGQN5ulgBb8yos5g=;
- b=bFXbcDgdz+ZI1krxPJZfO4Rt2IgTzmjuIGQwkE7gE3R8u//X5q5H/Oap3o+hx8J+
- zgs5pXBl99TvR/Mx+Qs0Rgo1wM4yDBHEMXydCkxC/jpejI2yGP2kTCsTWIZ9c/Lmz5X
- CMWCAGghBmzri88XJ1WytKJkkBcO6gODE1w0OIaY=
-Received: by mx.zohomail.com with SMTPS id 1785503396790153.8585271194745;
- Fri, 31 Jul 2026 06:09:56 -0700 (PDT)
-Date: Fri, 31 Jul 2026 06:09:55 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Benno Lossin <lossin@kernel.org>, Gary Guo <gary@garyguo.net>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, laura.nao@collabora.com,
- samitolvanen@google.com, lyude@redhat.com, beata.michalska@arm.com,
- boris.brezillon@collabora.com, steven.price@arm.com, alvin.sun@linux.dev
-Subject: Re: [PATCH v10 4/7] drm/tyr: add GPU virtual memory (VM) support
-Message-ID: <amyeozYr_SZC5FbY@um790>
-References: <20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com>
- <20260728-fw-boot-b4-v10-4-9187aefa3f2f@collabora.com>
- <CAH5fLgjDoWT09Kdp0Jtg=XtmWVdnUM71yT_TsQG+TX1RJ6GqaQ@mail.gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FFA310F254
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 13:28:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id EA67944006
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 13:28:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7E701F01566
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 13:28:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785504480;
+ bh=BdWRFs4osWaaJzMBzKIKTHPcsMgJqciu7jcoPmTxYec=;
+ h=From:In-Reply-To:References:Date:Subject:To:Cc;
+ b=fgm9xkThoqF1bQfPKO65FXat8RPLvTXA1XKtS4lux6x04EWgf5FH13BC8cyLHazPr
+ dxzEQEnZ2Df/Tppmr2j3vLpLLS9qa9ha2qu+qXjQ6azhAt7sq6IF2eqHqW93C5RyoK
+ TzXsDCJ6Ybn/MAaTz0O9nq2rCBocCM3nN5zK6lrw6dP/aHfYjN95ceIZnBoqnWhx1k
+ WW3n99WPKLtRFqFe7BJZA5sk06HwbHzVF9HYWaljlWJJy+T9hsK7wQj88oCou57s59
+ 0KAgsXS/e9JqHF1A8NTB/9+4ixHnqSaTU7hPdlftVqNQKKsGa186j1PFolfZL1F7g4
+ cxNxbc1EdJa0g==
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-39eb257e9fbso7135281fa.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:28:00 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp6wdgzcLlC3yZc3cWQieNQ4K44MTdxyDYEn59aX9BD2wciT86ARgJL6on4dvAE7Jb4ixtmL3kJ00o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwyZupSNdYDf2N6Ksw6do8rfZroSH9IbDZhxXyObdBSCozBmD9E
+ BSVns14RLXA4qs6oFrOw27N7ig3MbvRpXDj5DBltCdzfyd2nLhtLOF4DGThirVLi0MIoB3NmmeE
+ 7KG5VxLqIjrRxrOvrQYXgwh+VlM99AsaF7v+z6rcIIQ==
+X-Received: by 2002:a05:6512:3d9f:b0:5b2:a1f2:466e with SMTP id
+ 2adb3069b0e04-5b2e1fc8295mr456344e87.10.1785504479286; Fri, 31 Jul 2026
+ 06:27:59 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 31 Jul 2026 06:27:58 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 31 Jul 2026 06:27:58 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAMRc=McA3BqoazxvGDu1_WoT9x0ujXT_80jKPp+5Jb0Rda9zOA@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAH5fLgjDoWT09Kdp0Jtg=XtmWVdnUM71yT_TsQG+TX1RJ6GqaQ@mail.gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/285.486.37
+References: <20260731-pwrseq-vote-rename-v2-1-480357946e00@oss.qualcomm.com>
+ <CAFEp6-3X+PCXZdEy1p47XUDs7cT16JDjt0=928Jjkeik_haaQw@mail.gmail.com>
+ <CAMRc=McA3BqoazxvGDu1_WoT9x0ujXT_80jKPp+5Jb0Rda9zOA@mail.gmail.com>
+Date: Fri, 31 Jul 2026 06:27:58 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MdA6dTDvp=kQ+k2Jf=kyZBK7VTJCX=0Qvq2MOvQVOQDsQ@mail.gmail.com>
+X-Gm-Features: AUfX_my4-vcUkFt6J5bi893LfoyHoVCDYEQ_iJ8oHk7wCMSuijA_BdfQPo-2B_Q
+Message-ID: <CAMRc=MdA6dTDvp=kQ+k2Jf=kyZBK7VTJCX=0Qvq2MOvQVOQDsQ@mail.gmail.com>
+Subject: Re: [PATCH v2] power: sequencing: rename pwrseq_power_on/off() to
+ pwrseq_enable/disable()
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+ Alessio Belle <alessio.belle@imgtec.com>,
+ Luigi Santivetti <luigi.santivetti@imgtec.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Jeff Johnson <jjohnson@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-pm@vger.kernel.org, 
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+ imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-wireless@vger.kernel.org, ath10k@lists.infradead.org, 
+ linux-pci@vger.kernel.org, Jeff Johnson <jeff.johnson@oss.qualcomm.com>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,54 +93,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 04:40:36PM +0200, Alice Ryhl wrote:
-> On Tue, Jul 28, 2026 at 8:39 PM Deborah Brouwer
-> <deborah.brouwer@collabora.com> wrote:
-> >
-> > From: Boris Brezillon <boris.brezillon@collabora.com>
-> >
-> > Add GPU virtual address space management using the DRM GPUVM framework.
-> > Each virtual memory (VM) space is backed by ARM64 LPAE Stage 1 page tables
-> > and can be mapped into hardware address space (AS) slots for GPU execution.
-> >
-> > The implementation provides memory isolation and virtual address
-> > allocation. VMs support mapping GEM buffer objects with configurable
-> > protection flags (readonly, noexec, uncached) and handle both 4KB and 2MB
-> > page sizes. A new_dummy_object() helper is provided to create a dummy GEM
-> > object for use as a GPUVM root.
-> >
-> > The vm module integrates with the MMU for address space activation and
-> > provides map/unmap/remap operations with page table synchronization.
-> >
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
-> > Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> > Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> > Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
-> 
-> There's a 32-bit build failure :(
-> 
-> error[E0308]: mismatched types
->    --> /home/runner/work/linux/linux/linux/drivers/gpu/drm/tyr/vm.rs:873:17
->     |
-> 871 |             pt.map_pages(
->     |                --------- arguments to this method are incorrect
-> 872 |                 curr_iova,
-> 873 |                 curr_paddr,
->     |                 ^^^^^^^^^^ expected `u32`, found `u64`
->     |
-> note: method defined here
->    --> /home/runner/work/linux/linux/linux/rust/kernel/iommu/pgtable.rs:152:19
->     |
-> 152 |     pub unsafe fn map_pages(
->     |                   ^^^^^^^^^
-> help: you can convert a `u64` to a `u32` and panic if the converted
-> value doesn't fit
->     |
-> 873 |                 curr_paddr.try_into().unwrap(),
->     |                           ++++++++++++++++++++
+On Fri, 31 Jul 2026 15:04:30 +0200, Bartosz Golaszewski <brgl@kernel.org> said:
+>>
+>> Nit: s/pwrseq_disble/pwrseq_disable ?
+>>
+>
+> Ah dang it, how did I miss it, I test-built it. :/
+>
+> Thanks for catching it.
+>
 
-Alice, I see you fixed it in drm-rust-next by casting curr_paddr to
-PhysAddr, thank you. I must have added this 32 bit regression trying to
-double check all of the sizes.
+Ah right, makes sense, it builds fine, it's just my sed script was wrong and
+renamed it like this everywhere.
 
+Bart
