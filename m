@@ -4,71 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD113C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:35:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1925FC55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:37:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4443310F348;
-	Fri, 31 Jul 2026 16:35:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 606A310F349;
+	Fri, 31 Jul 2026 16:37:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="VVKXMVok";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Rw49zLmn";
 	dkim-atps=neutral
-Received: from out-186.mta0.migadu.com (out-186.mta0.migadu.com
- [91.218.175.186])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3FB110F348
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:35:05 +0000 (UTC)
-Message-ID: <68c43a03-5fa0-42a8-b886-2c756e39515e@linux.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1785515702;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=k5sZ8yh5BOVOkm6m+aB4IJxsBCN5qaz3UCrWsKZ1grE=;
- b=VVKXMVokpVB1vKabKOGmEKxPAc35f9q1vfORSbyiK3AUWl5pwb7Bi7uJ+FuiDTP3FParih
- CR9Ua6shXcMiVUoWCizph87o9FPuwe+lZ/dX8SgKzz1HMqNnPVJs77zhU68C2yTrUHpKAS
- VnYrIAV5xdaxxnMusa991Hx/mj8YpYI=
-Date: Sat, 1 Aug 2026 00:34:17 +0800
-MIME-Version: 1.0
-Subject: Re: [PATCH v9 00/10] Fix missing fops.owner in Rust DRM/misc
- abstractions
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
- Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
- <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
- David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
- Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
- Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org,
- linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, linux-pci@vger.kernel.org,
- Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>
-References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
- <CANiq72m59O-ruHUvUcZC7yCvu0KV0w_m5vMO4e0rxyHdRmihJw@mail.gmail.com>
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Alvin Sun <alvin.sun@linux.dev>
-In-Reply-To: <CANiq72m59O-ruHUvUcZC7yCvu0KV0w_m5vMO4e0rxyHdRmihJw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 980C610F349
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:37:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5EEFA40286;
+ Fri, 31 Jul 2026 16:37:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E0C21F00AC4;
+ Fri, 31 Jul 2026 16:37:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785515825;
+ bh=AKCGoTcOfnlQ/QrJRsQtTzw1ANMSu62FTKRtBbqj+EA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Rw49zLmnOsMkFaupLSClaYmYxpaAoNh2CCG81nrP2rDPh0VCA23GY90IaPqvkChI8
+ 1UNY8xzlDq6Ht1KCFJES3lvkquTYANIcinBZlQqTXYK7JAWOV6QkQR+NNzzh+AeBpD
+ sncOxxKXzGHjH1T05NQCym3Hieeam+m8pbz5k+4upMNcLItzNAC2QkY0rSt7Ri3S54
+ jLBz3slgYD7/bX4xL3guTfivVv1WTaxxyZbcI5PlK2Js7G/kyXTM6rjbG345Q+hOa8
+ wfOY/V7d7dP1LvJFVeSLevp0jluLEe/1psTQKhDMJp9O7lbBq1VoD9F7gvFJHbbIwT
+ oDvWkAuREAMFw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 02/69] drm/connector: hdmi: Handle reset() state
+ allocation failure
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: linux-sunxi@lists.linux.dev, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-2-294364b2cf15@collabora.com>
+References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
+ <20260731-dw-hdmi-qp-scramb-v10-2-294364b2cf15@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 16:37:04 +0000
+Message-Id: <20260731163705.0E0C21F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,50 +54,78 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Miguel,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Thanks for taking a look!
+Pre-existing issues:
+- [High] Custom connector reset callbacks and helpers crash on allocation f=
+ailure before the newly added NULL check can execute.
+--
 
-On 7/31/26 14:46, Miguel Ojeda wrote:
-> On Thu, Jul 23, 2026 at 4:11 AM Alvin Sun <alvin.sun@linux.dev> wrote:
->> base-commit: b7e5ac83cb16f7ffd11dc23736f84276602100ed
-> Was this old tag used for some reason?
+--- Patch [2]: [PATCH v10 02/69] drm/connector: hdmi: Handle reset() state =
+allocation failure ---
+commit 4612d8e6373873b0631394a087aa684911dafc2f
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-That was an oversight on my part - I forgot to rebase onto the latest
-tag before sending v9. The series is now based on v7.2-rc4.
+drm/connector: hdmi: Handle reset() state allocation failure
 
->
->> prerequisite-change-id: 20260519-miscdev-use-format-9ab7e83b1c11:v3
->> prerequisite-patch-id: 405b334ff0d48ad350014f05a2321bdbaa025400
->> prerequisite-patch-id: 604b631c81d5423f4ebb2e12ba2d22e9ce371bfc
->> prerequisite-patch-id: cb550d94cefe01920e0d3ced2b2bcbecd76f3907
->> prerequisite-patch-id: 3bc830839742591460cb86d9472c04f4686dc600
->> prerequisite-patch-id: 571058244bc8c7088638d2e3225713011246c7e9
->> prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
->> prerequisite-patch-id: 3e202d988b56b88446f7535e90d3f00cf5f15701
-> Are all these actually needed? Some seem unrelated (some were already
-> applied too).
+This commit adds a check for memory allocation failure during the connector
+reset callback in drmm_connector_hdmi_init(). If connector->state remains
+NULL after reset(), it bails out with -ENOMEM to avoid a subsequent NULL
+pointer dereference.
 
-The prerequisites were just some import formatting changes that the
-series depended on at the time. After rebasing onto v7.2-rc4, I was
-able to drop all of them - the rebase was clean with no conflicts.
+Link: https://lore.kernel.org/all/20260723015306.C94241F000E9@smtp.kernel.o=
+rg/
 
-I'll send v10 shortly.
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index 8b4baed060f3a..0e39431e85b20 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -628,6 +628,8 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+>  		connector->state =3D state;
+>  	} else if (connector->funcs->reset) {
+>  		connector->funcs->reset(connector);
 
-Best regards,
-Alvin
+[Severity: High]
+This is a pre-existing issue, but does this patch fully prevent the NULL
+pointer dereference?
 
-> The only one that seems needed has Andreas' Acked-by, so
-> I guess it is fine.
->
-> (By the way, I will use this second message to take this chance to
-> move the modules maintainers in the To: in case it helps, since I
-> didn't do it in my previous message)
->
-> Thanks!
->
-> Cheers,
-> Miguel
+If memory allocation fails inside the reset callback, connector->state
+becomes NULL. However, custom reset callbacks like vc4_hdmi_connector_reset=
+()
+and sun4i_hdmi_connector_reset() pass this state directly to
+__drm_atomic_helper_connector_hdmi_state_init():
+
+drivers/gpu/drm/vc4/vc4_hdmi.c:vc4_hdmi_connector_reset() {
+    ...
+    __drm_atomic_helper_connector_hdmi_state_init(connector, connector->sta=
+te);
+    ...
+}
+
+That helper unconditionally dereferences new_conn_state:
+
+drivers/gpu/drm/display/drm_hdmi_state_helper.c:__drm_atomic_helper_connect=
+or_hdmi_state_init() {
+    ...
+    new_conn_state->max_bpc =3D max_bpc;
+    ...
+}
+
+Could this trigger a kernel panic inside the custom reset callback before
+it even returns here to be caught by the new check?
+
+> +		if (!connector->state)
+> +			return -ENOMEM;
+>  	}
+> =20
+>  	drm_connector_attach_max_bpc_property(connector, 8, max_bpc);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-dw-hdmi-qp=
+-scramb-v10-0-294364b2cf15@collabora.com?part=3D2
