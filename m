@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3656DC5516F
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09008C55174
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A8D510F323;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81CD310F326;
 	Fri, 31 Jul 2026 16:21:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NtmcqgNS";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bShXLtHK";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72F5510F30D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E196310F30D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514785;
- bh=KwjregJEK1zHltpBaTSfhes6ErUtOgc/LRhZ6h3oFOI=;
+ s=mail; t=1785514794;
+ bh=plxawnmT20w7v+1sTZz825WPXTqg1jAro3a9cOhXJdQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=NtmcqgNSXRllEqlJW21sZx46nixZ5YWJzFqDA0DLvVWk07hwsd9sms+ahhduBVtGz
- QWOadKsy596BtM/7jAO9ZFaIwS94m8HitODlKf8zG0MtYyHt09pvaLfgVGspcBojma
- qu1u0hi3IpVyBxCS9MlyhhdsoEoR7ZJ0B7FHgBe/5nyHeI/xkUus4mzmAoaHV2GGWD
- FCzk7tbZXpad4UEyACbzX6bSVBqggvYnKtufy/ePUWMtjPqmuUMtsI4Cit2vucjM9O
- c4BTVRyyfOMjdE1Pg1LRBc6v7lz9IcCa0SPrbVA/ls5xqIma+YSWxOIvJ51Ex0O8o7
- YM9rVA/DRRMIw==
+ b=bShXLtHKT160n7wYmyOV6tj7a+kfV3Rcc0M0QRyMZ3WJAEcB8y0U7fB15YeS9PzUS
+ KVQh6eZCYGfL3ZPbGhYhJ9HyyihWzoRa/C3jA98CXtb2GS+y+ZCaNbjaq6EZRoo2iY
+ pvuJq50RzX4aVYRZH+vS1UVhnIt44j5oHtQA2qBDZur1V2bvnuNY+sgsSzmbbrIEAJ
+ 0H/nvlaG0E5rpc4xgCpNqQzDKjoI6BJbzillghFxcRL1tYYwMAPHQgjRIcjybKD/TM
+ UZs+kEVCgjtqpZBsxdVdROr/VPyLRHBIFVcAojrFeDR3QRyWitIPPz2WSPmt1NjUHF
+ wZgRMS1wRJeiw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B05517E092C;
- Fri, 31 Jul 2026 18:19:45 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id DD21C17E0906;
+ Fri, 31 Jul 2026 18:19:53 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:50 +0300
-Subject: [PATCH v10 43/69] drm/vc4: hdmi: Propagate -EDEADLK to the top level
+Date: Fri, 31 Jul 2026 19:20:02 +0300
+Subject: [PATCH v10 55/69] drm/sun4i: hdmi: Convert to
+ drmm_connector_hdmi_init()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-43-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-55-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -78,75 +79,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_connector_helper_funcs.detect_ctx() is expected to propagate
--EDEADLK so that context owners, e.g. drm_helper_probe_detect_ctx(), can
-perform the required backoff and retry.
+Switch driver over to the new drmm_connector_hdmi_init() signature and
+advertise HDMI 1.2 support.  The vendor, product, supported_formats and
+max_bpc values previously passed as arguments are now provided through
+struct drm_connector_hdmi_funcs, together with the new
+supported_hdmi_ver field.
 
-vc4_hdmi_handle_hotplug() instead runs its own retry loop and calls
-drm_modeset_backoff() on an acquire context it does not own.  This drops
-all locks in the context, including connection_mutex held by the core.
+The HDMI connector helpers infer the 165 MHz TMDS character rate ceiling
+from supported_hdmi_ver and reject modes exceeding it before invoking
+the driver's .tmds_char_rate_valid() hook.  This makes the explicit mode
+clock check in sun4i_hdmi_connector_clock_valid() redundant, so drop it.
 
-Drop the local retry logic and propagate -EDEADLK to the caller instead.
-This aligns VC4 with the expected detect_ctx() semantics.
+No functional change intended.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 23 +++++++----------------
- 1 file changed, 7 insertions(+), 16 deletions(-)
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index ba16e7944cf3..72042fad04c5 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -344,12 +344,11 @@ static int vc4_hdmi_reset_link(struct drm_connector *connector,
- 	return drm_atomic_helper_reset_crtc(crtc, ctx);
- }
+diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+index 96b2b597caa6..850a8fecf0b5 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
++++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+@@ -192,10 +192,6 @@ sun4i_hdmi_connector_clock_valid(const struct drm_connector *connector,
+ 	if (mode->flags & DRM_MODE_FLAG_DBLCLK)
+ 		return MODE_BAD;
  
--static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
--				    struct drm_modeset_acquire_ctx *ctx,
--				    enum drm_connector_status status)
-+static int vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
-+				   struct drm_modeset_acquire_ctx *ctx,
-+				   enum drm_connector_status status)
- {
- 	struct drm_connector *connector = &vc4_hdmi->connector;
--	int ret;
- 
- 	/*
- 	 * NOTE: This function should really be called with vc4_hdmi->mutex
-@@ -368,17 +367,9 @@ static void vc4_hdmi_handle_hotplug(struct vc4_hdmi *vc4_hdmi,
- 	drm_atomic_helper_connector_hdmi_hotplug(connector, ctx, status);
- 
- 	if (status != connector_status_connected)
--		return;
-+		return 0;
- 
--	for (;;) {
--		ret = vc4_hdmi_reset_link(connector, ctx);
--		if (ret == -EDEADLK) {
--			drm_modeset_backoff(ctx);
--			continue;
--		}
+-	/* HDMI 1.0 max TMDS character rate */
+-	if (clock > HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ)
+-		return MODE_CLOCK_HIGH;
 -
--		break;
--	}
-+	return vc4_hdmi_reset_link(connector, ctx);
+ 	rounded_rate = clk_round_rate(hdmi->tmds_clk, clock);
+ 	if (rounded_rate > 0 &&
+ 	    max_t(unsigned long, rounded_rate, clock) -
+@@ -253,6 +249,11 @@ static struct i2c_adapter *sun4i_hdmi_get_ddc(struct device *dev)
  }
  
- static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
-@@ -416,10 +407,10 @@ static int vc4_hdmi_connector_detect_ctx(struct drm_connector *connector,
- 			status = connector_status_connected;
- 	}
+ static const struct drm_connector_hdmi_funcs sun4i_hdmi_hdmi_connector_funcs = {
++	.vendor = "AW",
++	.product = "HDMI",
++	.supported_hdmi_ver = HDMI_VERSION_1_2,
++	.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++	.max_bpc = 8,
+ 	.tmds_char_rate_valid	= sun4i_hdmi_connector_clock_valid,
+ 	.avi = {
+ 		.clear_infoframe	= sun4i_hdmi_clear_avi_infoframe,
+@@ -653,19 +654,16 @@ static int sun4i_hdmi_bind(struct device *dev, struct device *master,
  
--	vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
-+	ret = vc4_hdmi_handle_hotplug(vc4_hdmi, ctx, status);
- 	pm_runtime_put(&vc4_hdmi->pdev->dev);
- 
--	return status;
-+	return ret == -EDEADLK ? ret : status;
- }
- 
- static int vc4_hdmi_connector_get_modes(struct drm_connector *connector)
+ 	drm_connector_helper_add(&hdmi->connector,
+ 				 &sun4i_hdmi_connector_helper_funcs);
+-	ret = drmm_connector_hdmi_ini2(drm, &hdmi->connector,
++	ret = drmm_connector_hdmi_init(drm, &hdmi->connector,
+ 				       /*
+ 					* NOTE: Those are likely to be
+ 					* wrong, but I couldn't find the
+ 					* actual ones in the BSP.
+ 					*/
+-				       "AW", "HDMI",
+ 				       &sun4i_hdmi_connector_funcs,
+ 				       &sun4i_hdmi_hdmi_connector_funcs,
+ 				       DRM_MODE_CONNECTOR_HDMIA,
+-				       hdmi->ddc_i2c,
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
+-				       8);
++				       hdmi->ddc_i2c);
+ 	if (ret) {
+ 		dev_err(dev,
+ 			"Couldn't initialise the HDMI connector\n");
 
 -- 
 2.55.0
