@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78733C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:42:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09604C5516F
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:42:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96C4410F293;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A14E10F2A3;
 	Fri, 31 Jul 2026 14:42:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iWBZ9U48";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="RpW6soXF";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D581010F2CA
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:42:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F324210F2B5
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:42:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785508929;
- bh=xnajaehGeKqaSKIiYJaOEGQ01W5URX41oCYdG+inSws=;
+ s=mail; t=1785508930;
+ bh=8QSlSuWPiGUI9AoT3cgCttdenutXBFd4174AAf6FMNQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=iWBZ9U48IBmQ+EunYX6JEJrXwp/0+0vrsYnpy1J9I9dqHmVLEJWeVCLo+A8nrYHR9
- 3qXYo7ImnGLb8Amiw+de0txge5GZiLuBqf3EPPd1sKKyFwZXRU8mV8Mu6nq56mmqzj
- 9Pf564FY23HCqDemuRbP8xBzyOs5n+PrbIdmoBz96wfvk6SRruT29nMWStm255k8Ab
- +Gia+SothP1qSQe0SrOo6xRbObSO9FquGkmHX4xBWh4VEXSdMiqikg1EIlgaefqyxY
- /OBmY+4yAhgkl8/9geZHcetdawWsQngF4ajCxqU3qdTGmukZdQrHYU9vBRzWvmnKuL
- doOS3wPQkIIZg==
+ b=RpW6soXFZ0C9d03s4tSeUnq6+zSO5T4qevnJFNf5yd2UOeCXf2+/jserYjLYkpOop
+ Fep0wM3IneQ/36dT0LWWzAE0/6v74igOcF2atNqXQhCMljcAr4qhiTMfidl31fHtLx
+ KpWZwm2W2jNOzPQA3Kg+nkUCdUOfD9Z4bTvaRj/qan3bPVHAkgj1nlDsHm9QrAsiIH
+ 97Ru5eCrLL97dCSjjesddQ4B82MoCBPqfuFJEeDeAYUZDgJR48MCP0UVwXiBv0RQye
+ 85RTCwLudJQops3qc/OAky1m9mxFb8snff4rIvPQJH0n3uMH3qLnr22GlExwLY3QF+
+ OenY+Vvq6ySUw==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A6A5317E091F;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E3FD717E093B;
  Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 0995C48003D; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+ id 1301E480055; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 31 Jul 2026 16:42:14 +0200
-Subject: [PATCH v8 09/21] drm/bridge: synopsys: dw-dp: Support
- MEDIA_BUS_FMT_FIXED
+Date: Fri, 31 Jul 2026 16:42:20 +0200
+Subject: [PATCH v8 15/21] drm/rockchip: dw_dp: Add runtime PM support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-synopsys-dw-dp-improvements-v8-9-ac1e6a75782f@collabora.com>
+Message-Id: <20260731-synopsys-dw-dp-improvements-v8-15-ac1e6a75782f@collabora.com>
 References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3804;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2728;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=xnajaehGeKqaSKIiYJaOEGQ01W5URX41oCYdG+inSws=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEDF/O6nFlXMYotmPi7Paj6gydxBGAsAO
- cht73WLYlT1n4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
- O/qaLFcP/1NC9hlZH+xFFCRuPhGo40b81NgQEFjg7VgSzHTOlAX7cm/aDlzbW+MOhEhSzmrRlh3
- wkhlZVDKHv+rDvT1/7XM2Z1k+S3jL3W/DZRPhlNljW8H90QThXOG2UAgUJFRDiccO9+eq28lWNF
- qF68qxLGuM3EXcqXASkqkyVnQhc59ji0eIYfR25tQIGSNjtQ0jRyujdQSwtYKClawWnyMQnkyCZ
- djhNrcygXjBd3yosDHEfoqUkaPW7UmQzfi5f1d9fPN4HGTUuLhc0ziRqM5UTfEqFSAkyS+4Il7j
- ujwXiN/l7ergMQfziHbmCzRmvUosCiRx0ukoVejCVteNC7jrcKGvvfXOrGtgiXS6vGnL7WBGXHu
- U3wUQLkIhYzB28oyrIExfBLEbbsxXqpnQvIG/do6uBBod1VJ9DI5dkjocgrNVzQV8WA3plYPkP0
- TfmM4Tsh/QogHJfEddh8KpI/vZw0rVGJqq9J8g5IWTZ2A19e7gy0SuaLiLPOTYtdcM/a9BYqLgo
- t9bT98mk9+/MdyG0g8mqoAZ9Yf7XGtorN5jlOFFOC9uadvEf9wVMAMHaZTbsoBiQyCgYnCWJaue
- /k0J00we/MKM2ZB5+PIw2+KbMTpqAq02NDDdmSb+j2vq7gq2JMBFjsf2Sch7ThJ06y4ZEXY9iup
- JvuwrAqldq1BtzQf7FxwySQ==
+ bh=8QSlSuWPiGUI9AoT3cgCttdenutXBFd4174AAf6FMNQ=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEBAgFnkmOejF0+fy0EQb6cQC2uag2yRm
+ tTPH3UlrUBdEYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
+ O/qaEhcP/09V+tpEFBCZRdA1zOBOVXyqkKpazKAPKX7rxFtNP2+2FOuyDSRYXvhsa0kfnLpuShz
+ xpGMp4IRTkPTK0ySK4/ScsvcxODAWPMw+xHtc9Pbd6dKiU3dPfwKR1RjxpcYZlkVAhIqTjeyQd+
+ TbCr1XmQN0goqFuJZA4wtvmLwiJl12dMvWJv+WW1GuU1d8IeZdMV8lvqByOWcCi6yPmeM0hRHhT
+ mHUIrQw6bTdqm/jT0Ij0JfRDAERKnyjfbcMGvfRgUgEQFyfiT1FM4ogd8VDqAsclkyg1GZkejh/
+ /EVYfTIWouW0agFqikTur4f+jWwpSU428fpsVZiZygDdrTsLBli3Q7PYeec+2QCC6BLapX4wbM/
+ I9ewKooiNBJ+2M61AdZiChz3i0PoVS4Qaul3jc5JKv2bCwuQ4bhZo+uQaVXUwJYsDm35zo6wjmW
+ hgg59Nj2IwDl3/xsm5llAXVhzSuoeTpI/+mYbP3ZP0i+CemUpvyNc6bSDvaX7hlkMOKntVbPV5O
+ K1k4ytSNTlyVsskLp0h1D9cIa2pMqa/zNj2Yl5lo590bZsxr6EGcN99mCb0qHKT5E6XxdhjnwsN
+ YoVgoNTdaydQ4snFZ9ON6NGUswWOuTD+hf/h9tL8kj6YEm7+9hlq2EOGRJmo6ts53kmK6a1NNtl
+ OEbkWc1GYDSooSS1F6xItkA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,91 +98,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
-DP chains as the last bridge in the chain (aux-hpd-bridge) does not
-implement atomic_get_output_bus_fmts(), which results in the generic
-drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
-instead. For decent support of this, two areas are changed:
-
-1. In atomic_check, resolving MEDIA_BUS_FMT_FIXED output format by
-   using the negotiated input format.
-
-2. Implementing a custom .atomic_get_input_bus_fmts hook that, on
-   MEDIA_BUS_FMT_FIXED, advertises all bandwidth-validated formats
-   from dw_dp_bridge_atomic_get_output_bus_fmts(). This lets the
-   upstream encoder negotiate the best mutually supported format.
+Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
+DesignWare DisplayPort driver.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 34 +++++++++++++++++++++++++++++++--
- 1 file changed, 32 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 29 +++++++++++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 7127928c2650..42927335f0fd 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1537,6 +1537,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 				     struct drm_connector_state *conn_state)
- {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
- 	struct dw_dp *dp = bridge_to_dp(bridge);
- 	struct dw_dp_bridge_state *state;
- 	const struct dw_dp_output_format *fmt;
-@@ -1547,7 +1548,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 	state = to_dw_dp_bridge_state(bridge_state);
- 	mode = &state->mode;
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index d516b3910b51..dde3881efad8 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -12,6 +12,7 @@
+ #include <linux/mfd/syscon.h>
+ #include <linux/of_device.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/videodev2.h>
  
--	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
-+	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
-+		out_bus_format = bridge_state->input_bus_cfg.format;
+@@ -194,7 +195,7 @@ static int dw_dp_rockchip_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	struct rockchip_dw_dp *dp;
+ 	struct resource *res;
+-	int id;
++	int id, ret;
+ 
+ 	plat_data_const = device_get_match_data(dev);
+ 	if (!plat_data_const)
+@@ -231,16 +232,21 @@ static int dw_dp_rockchip_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dp->vo_grf))
+ 		return PTR_ERR(dp->vo_grf);
+ 
++	plat_data->autosuspend_delay = 500;
+ 	plat_data->max_link_rate = plat_data_const->max_link_rate;
+ 	plat_data->pixel_mode = plat_data_const->pixel_mode;
+ 	plat_data->hpd_sw_sel = dw_dp_rockchip_hpd_sw_sel;
+ 	plat_data->hpd_sw_cfg = dw_dp_rockchip_hpd_sw_cfg;
+ 	plat_data->data = dp;
+ 
+-	dp->base = dw_dp_probe(pdev, plat_data);
++	dp->base = dw_dp_alloc(pdev, plat_data);
+ 	if (IS_ERR(dp->base))
+ 		return PTR_ERR(dp->base);
+ 
++	ret = dw_dp_probe(dp->base);
++	if (ret)
++		return ret;
 +
-+	fmt = dw_dp_get_output_format(out_bus_format);
- 	if (!fmt)
- 		return -EINVAL;
- 
-@@ -1814,6 +1818,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
- 	return output_fmts;
+ 	return component_add(&pdev->dev, &dw_dp_rockchip_component_ops);
  }
  
-+static u32 *
-+dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
-+				       struct drm_bridge_state *bridge_state,
-+				       struct drm_crtc_state *crtc_state,
-+				       struct drm_connector_state *conn_state,
-+				       u32 output_fmt,
-+				       unsigned int *num_input_fmts)
+@@ -249,6 +255,24 @@ static void dw_dp_rockchip_remove(struct platform_device *pdev)
+ 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
+ }
+ 
++static int dw_dp_rockchip_runtime_suspend(struct device *dev)
 +{
-+	/*
-+	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
-+	 * the bus format. In that case, advertise all formats supported by the
-+	 * DP link so the upstream encoder can negotiate the best match.
-+	 */
-+	if (output_fmt == MEDIA_BUS_FMT_FIXED)
-+		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
-+							       bridge_state,
-+							       crtc_state,
-+							       conn_state,
-+							       num_input_fmts);
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
 +
-+	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
-+							 crtc_state, conn_state,
-+							 output_fmt,
-+							 num_input_fmts);
++	return dw_dp_runtime_suspend(dp->base);
 +}
 +
- static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
- {
- 	struct dw_dp_bridge_state *state;
-@@ -1860,7 +1890,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
--	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
-+	.atomic_get_input_bus_fmts = dw_dp_bridge_atomic_get_input_bus_fmts,
- 	.atomic_get_output_bus_fmts = dw_dp_bridge_atomic_get_output_bus_fmts,
- 	.atomic_check = dw_dp_bridge_atomic_check,
- 	.mode_valid = dw_dp_bridge_mode_valid,
++static int dw_dp_rockchip_runtime_resume(struct device *dev)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
++
++	return dw_dp_runtime_resume(dp->base);
++}
++
++static const struct dev_pm_ops dw_dp_pm_ops = {
++	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_resume, NULL)
++};
++
+ static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
+ 	.num_ctrls = 2,
+ 	.ctrl_ids = {0xfde50000, 0xfde60000},
+@@ -283,5 +307,6 @@ struct platform_driver dw_dp_driver = {
+ 	.driver = {
+ 		.name = "dw-dp",
+ 		.of_match_table = dw_dp_of_match,
++		.pm = pm_ptr(&dw_dp_pm_ops),
+ 	},
+ };
 
 -- 
 2.53.0
