@@ -4,91 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B1B8C55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 09:23:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79B35C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 09:24:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADF8610E1FC;
-	Fri, 31 Jul 2026 09:22:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB6D710E1C9;
+	Fri, 31 Jul 2026 09:24:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=0x0f.com header.i=@0x0f.com header.b="CIrj/aOI";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="B/JJqca+";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E467310E1FC
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:22:57 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-38ec1402b05so592466a91.2
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 02:22:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785489777; cv=none;
- d=google.com; s=arc-20260327;
- b=R1LgvZ8fx/FN8+B2ARlQOmAy3MDSJnZPjVx7f03fFehUp3n5NQKdL+ZOBeukiNtGyx
- ZjExdAg8O3IyGMxVLPOnPGHVZGE5ekx6doQcGVI7rhLEIO8QA+zcVTNVWggSGr2hX0Hm
- nc/7VEDQqWG9vItszQIcwAqY9v5jN6U0+AEW61muHW+sp/TfaFpaP0/9DSYjxFSrfTMQ
- 6Ij7H8edr4L/vNMNVmOy8k9YlxZAffeIMCQocrI3GRE/dC0zSFFrW4ukoCATpy2C3R3z
- HHBSRRW+rAnnKOTnqPIaooZfpMssZ4lpuAtVDnhjzuvI3CuqM+sToP/vJd7GtaK8o99H
- k1lg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=BPBPlELSCeE22IoU3+/4TogNXuJ7tB9ieEeJ9Oi94U0=;
- fh=u/QHWRX+2ZgMdTrSDy8FR8P+kPY4/1OATYnTYkWqN+s=;
- b=MIp416GEbTTYEVU8YKP8XcrekdRG3COsNYrsT5f7UlU0ASesmdCYE3rUOByjXsF85U
- IdsdHU8GfHF/NuSvil06cymlAoXM1SMSiSSsS8DeWDO41ljnJJ2OZJbbr14Czw+/0quw
- PDz7kft+S4VaTy3+ZRVRZC4HGogWTXUmgQ1OluWcLxkia7POXRdK6/bo0VsFJAdxhGVS
- ytKYt/QXp5+NJDHs5+PwuOuDpOGv+hiTOIzs619zhJNfuN+6w2Os/yTRKLVI1rdduEwB
- RWP4kKCFmuY0AoP2YBWCsKM6mDazgZaFHSzMdB5e0Wy83g9/1VmppNCX+NwMMHPNLjfp
- pmfQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=0x0f.com; s=google; t=1785489777; x=1786094577; darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=BPBPlELSCeE22IoU3+/4TogNXuJ7tB9ieEeJ9Oi94U0=;
- b=CIrj/aOI6pFO+e+3H31xxtTluLk6mDsxPCKozPSDNYB15t1+rDILgxtFlACGE71KAX
- SV1bCfJgZg7v6zuTNywhMYL3DmhqtKSbxHSyo6DnOW/QpfiQFId1JmotxHQuvfZHVmrW
- VC9jQDqFV5Wk/nwsvsYsc1YamA+IRg2KK08J8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785489777; x=1786094577;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=BPBPlELSCeE22IoU3+/4TogNXuJ7tB9ieEeJ9Oi94U0=;
- b=MAf5pkLR+fx6UqopU+mMtYe2RdykUiYwfYr0JEzX0A7sEqME50EFhz4e07rw6d5q8s
- KVzmNKmGTDLspRUezqyXN8t8bl2cZs2zKd2iNlfSgDmzAjy6PTdIUBMRLlEbAO8ksGNT
- VT5ElZJ59KMp7xKQpKHQqyXZWigbHqOeUgjVzSsYOfbV8uynUewZzwq0ARIAWM2q3Asq
- mMtrnhmfZihor7lEjgFJZj5Hn9b2AjEY7HJv44fGSOQO3I7sliEXZxBidtqAjE/l/3IS
- eqkRnc0lY/r+bSzjWdBpL3BzKncLvt0WnrhzrBLuMRDBAgUnSivsBywM4Sz4JW1BAzTd
- r7Kw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrJ31aHhiW3dr5M1/97iOXxuJ7p79uXb9OIz1NCuFxoHWXs2VuGT4yr1C5FItsjmUA7hCpavjdvkzQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwmmClwcLzTVxO31s8jEKBnJBLOE+wj9FDbUGIJx8gm85PIwYtk
- vX2NrCVTdkz+1KaYm6VZeXtXZMe8wlJbojJnnlt27Qy6V1pHVJA9rzRVeg6ZvuWWRwjhV7Lfr2v
- UU4pmXrKinAR2oyGYFUGjEPdu9+64a98P7/FFIJqILw==
-X-Gm-Gg: AR+sD13xLGqZDG1d4SM6W4mNjouM7m3slhp7cSfNMM6gkhEHdjCpRU3wRfV9m7EXXzg
- j2voI63VnLdFq92aWoh7bZr7hNSSsusU2aqYN9znVmfesLvszV7mAOB4fjkIyL5eAB8MJjwTKdt
- ye5uHRpdlGMXbTfIUfp0nqZNIB0QKDiRMjrFkSvBgmCuamibAWEGkzSBNTSrwnpIn2I9rFcKuwS
- rkYtC4wcUeW/LdYHF2AUcuyQDtDXaWhkze8HOz2T/N9QfsYHnVQg0PNBLznizp7ixyKsiQGhAM6
- DpVgoajOyXF4IKTArrkcoOLg1CuGrQ3oHM9VIi6+d839ILh1ffWKa5OaqyuJKJ/pvmDd51eV8Lf
- ZmGg=
-X-Received: by 2002:a17:90b:5290:b0:381:5a08:6291 with SMTP id
- 98e67ed59e1d1-38fb140cf5fmr1166898a91.20.1785489777410; Fri, 31 Jul 2026
- 02:22:57 -0700 (PDT)
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57DC110E1C9
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:24:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=oFHrJog3XUbgCM9lluuv2EFqo2uk4k0XFykLEC/aems=; b=B/JJqca+bPMKWjUiWl5Ddpdrou
+ /GV08FXx0rPSiUWzPmjNIMqI0Yz+rT5qhA02yhHndBqmS2OD2DhNX0ahpXwavNj+e48+Tv0Gu0y71
+ MEH4nbUPhcSxHaH8jdJWMPrtTNN2OFIsS9o1gN33KtBkmdPy/a+fJsy+yYUODYWD9AP0zO0/mHM0W
+ pLY1m4cyT75b+EinDrycvjePS+9ujH0A4J8QhevV9UaGdtEdMVp8cWWDMIagU5ZIk32lZ0FmauK+P
+ qLHJatO/RaIwRJoVgGawN2vA34bmRRp1/xn7+1xhIbaqtC60E0hRPMZwIpW+ACoiynPNImVx9KOAY
+ Fv9/JhCA==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andy Yan <andy.yan@rock-chips.com>, Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v1 0/7] Add HPD support for Rockchip Analogix DP
+Date: Fri, 31 Jul 2026 11:23:43 +0200
+Message-ID: <24131962.ssLaC8jLEa@diego>
+In-Reply-To: <f0bec6c2-5bc9-4c06-abe0-cf6189382314@rock-chips.com>
+References: <20260730032744.381566-1-damon.ding@rock-chips.com>
+ <2014349.VZ3vTMCxA0@diego>
+ <f0bec6c2-5bc9-4c06-abe0-cf6189382314@rock-chips.com>
 MIME-Version: 1.0
-References: <20260730182640.2808572-1-daniel@0x0f.com>
- <6bbf7e18-92b9-4d18-beb0-0c9812fc7ba8@gmx.de>
- <CAFr9PX=JX_s+J+5twareTYC_U6SRGazXo0XDP6e4r2R4f+q3CA@mail.gmail.com>
- <e21366e9-6ca6-4607-a54b-cf30ce6e5d1f@gmx.de>
-In-Reply-To: <e21366e9-6ca6-4607-a54b-cf30ce6e5d1f@gmx.de>
-From: Daniel Palmer <daniel@0x0f.com>
-Date: Fri, 31 Jul 2026 18:22:45 +0900
-X-Gm-Features: AUfX_mwpdylyx5h0RWS5nOxouYDwdQMa7NA-FmPXoBBXrXXK5SNnFDK_OPxCpLs
-Message-ID: <CAFr9PXkDwHZA-0X+FQQ9_fqceMH1M4Nneky9Hr7bj5Lm0Oyzyw@mail.gmail.com>
-Subject: Re: [PATCH 0/5] fbdev: tdfxfb: Make "unbooted" cards work
-To: Helge Deller <deller@gmx.de>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,15 +66,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Helge,
+Hi Damon,
 
-On Fri, 31 Jul 2026 at 18:12, Helge Deller <deller@gmx.de> wrote:
-> > Sashiko flagged up some things that are valid. Should I send a v2 or send fixes?
-> I prefer a clean-up v2 version.
-> Dropping and replacing patches is easy for me as long as they are in the for-next branch.
+Am Freitag, 31. Juli 2026, 05:08:45 Mitteleurop=C3=A4ische Sommerzeit schri=
+eb Damon Ding:
+> On 7/31/2026 2:49 AM, Heiko St=C3=BCbner wrote:
+> > Am Donnerstag, 30. Juli 2026, 05:27:37 Mitteleurop=C3=A4ische Sommerzei=
+t schrieb Damon Ding:
+> >> This series improves the HPD (Hotplug Detect) interrupt handling in
+> >> the Analogix DP driver to enable reliable native HPD pin detection on
+> >> Rockchip platforms, and introduces platform-specific HPD detection
+> >> schemes with fine-grained interrupt control.
+> >=20
+> > [...]
+> >=20
+> >> Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
+> >>
+> >> Native HPD pin mode:
+> >>
+> >>    &edp {
+> >>        status =3D "okay";
+> >>        pinctrl-names =3D "default";
+> >>        pinctrl-0 =3D <&edp_txm0_pins>;
+> >>    };
+> >>
+> >> GPIO HPD mode:
+> >>
+> >>    &edp {
+> >>        status =3D "okay";
+> >>        pinctrl-names =3D "default";
+> >>        pinctrl-0 =3D <&edp0_hpd>;
+> >>        hpd-gpios =3D <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+> >>    };
+> >>
+> >>    &pinctrl {
+> >>        edp {
+> >>            edp0_hpd: edp0-hpd {
+> >>                rockchip,pins =3D <4 RK_PC1 0 &pcfg_pull_none>;
+> >>            };
+> >>        };
+> >>    };
+> >=20
+> > Yay and thanks a lot for working on that.
+> >=20
+> > If I roll my display-port carrier board back to the analogix-dp being
+> > the endpoint, this works exactly as expected :-) .
+> >=20
+> > I can plug in the display at some point after the boot and have it
+> > detected and setup correctly. Same with unplugging it while
+> > the system is running. The connection status is correctly reported
+> > in sysfs.
+> >=20
+> >=20
+> > Though there is a caveat. When the eDP is not the last part, this does =
+not
+> > work anymore. The detect function always returns "connected" if there is
+> > a next bridge available.
+> >=20
+> > My board [0] has a physical DP connector on it, so models it as
+> > dp-connector, but in that case the Analogix driver always reports being
+> > connected.
+> >=20
+> >=20
+> > [0] https://lore.kernel.org/linux-rockchip/20251009225050.88192-3-heiko=
+@sntech.de/
+> > ... same effect with hpd-gpios in either the edp node or dp-connector n=
+ode
+> >=20
+> >=20
+>=20
+> My previous tests were carried out on the modified RK3576 IOTEST board=20
+> DTS based on RK3576 EVB1, which includes dp-connector by default. I also=
+=20
+> did extra verification without dp-connector, and HPD detection works=20
+> correctly in both cases.
+>=20
+> I've taken a look at the Tiger board DT configuration. The pinctrl=20
+> settings for the eDP HPD GPIO may need adjustment:
+>=20
+> &pinctrl {
+> 	edp0 {
+> 		edp0_hpd_l: edp0-hpd-l-pin {
+> 			rockchip,pins =3D <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
+> 		};
+> 	};
+> };
+>=20
+> It is recommended to configure GPIO4B5 as pull-down or pll-none. Pull-up=
+=20
+> configuration may prevent GPIO interrupts from being triggered properly,=
+=20
+> resulting in a permanent "connected" status.
 
-Ok. I'll send a v2 in a few hours.
+At least on that DP-carrier the pin direction is different.
+I.e. it is active-low, meaning 0 for plugged in.
 
-Thanks,
+In the schematics I do see a hw pull up too - so pull-none in the pinconfig
+would also be possible, but pull-down is definitly wrong on _this_ board.
 
-Daniel
+So we're talking about the same code, I put the dts up on [0] .
+
+I'm currently running with a printk diff [1] to showcase the issue.
+
+So on boot, with the display unplugged I get:
+[   14.757911] ---> drm_bridge_connector_detect: detect
+[   14.757914] ---> analogix_dp_bridge_detect a
+[   14.757918] ---> drm_bridge_connector_detect: detect
+[   14.773779] ---> analogix_dp_bridge_detect a
+[   14.838658] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+[   14.838662] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
+ dp commit error, ret =3D -110
+[   14.838670] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
+[   14.884791] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+[   14.884793] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
+ dp commit error, ret =3D -110
+[   14.884796] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
+[   14.930925] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+[   14.930927] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
+ dp commit error, ret =3D -110
+[   14.930930] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
+[   14.977032] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+[   14.977034] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
+ dp commit error, ret =3D -110
+[   14.977037] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
+[   15.023150] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+[   15.023152] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
+ dp commit error, ret =3D -110
+[   15.023155] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
+[   15.023168] rockchip-dp fdec0000.edp: too many times retry set bridge, g=
+ive it up
+[   15.052485] Console: switching to colour frame buffer device 80x30
+[   15.210457] rockchip-drm display-subsystem: [drm] fb0: rockchipdrmfb fra=
+me buffer device
+[   15.223444] ---> drm_bridge_connector_detect: detect
+[   15.231974] ---> analogix_dp_bridge_detect a
+[   15.239587] ---> drm_bridge_connector_detect: detect
+[   15.245341] ---> analogix_dp_bridge_detect a
+
+So analogix_dp_bridge_detect() is called and always returns connected.
+
+Plugging in the the display, I get:
+[  290.592096] ---> display_connector_detect gpio value is 1   {display-con=
+nector returning connected}
+[  290.598648] ---> drm_bridge_connector_detect: detect
+[  290.604637] ---> analogix_dp_bridge_detect a
+[  290.609826] ---> drm_bridge_connector_detect: detect
+[  290.615784] ---> analogix_dp_bridge_detect a
+
+Unplugging the display, I get:
+[  302.081444] ---> display_connector_detect gpio value is 0   {display-con=
+nector returning disconnected}
+[  302.087996] ---> drm_bridge_connector_detect: detect
+[  302.093945] ---> analogix_dp_bridge_detect a
+[  302.099131] ---> drm_bridge_connector_detect: detect
+[  302.105090] ---> analogix_dp_bridge_detect a
+[  302.144834] ---> drm_bridge_connector_detect: detect
+[  302.150784] ---> analogix_dp_bridge_detect a
+[  302.155933] ---> drm_bridge_connector_detect: detect
+[  302.161859] ---> analogix_dp_bridge_detect a
+
+
+So it looks like on the gpio-side the detection is correct and/but
+analogix_dp_bridge_detect() is always returning a connected state
+("b" output is never reached).
+
+I'm still working on understanding how the whole detection logic works
+in drm ;-) .
+
+
+Heiko
+
+
+[0] https://github.com/mmind/linux-rockchip/blob/dev/v7.3/rk3588-tiger-dp-c=
+arrier-v5/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
+[1]
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/g=
+pu/drm/bridge/analogix/analogix_dp_core.c
+index 7a89548a7a885..0accdf62637ae 100644
+=2D-- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -915,8 +915,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, s=
+truct drm_connector *conne
+        struct analogix_dp_device *dp =3D to_dp(bridge);
+        enum drm_connector_status status =3D connector_status_disconnected;
+=20
++printk("---> %s a\n", __func__);
+        if (dp->plat_data->next_bridge)
+                return connector_status_connected;
++printk("---> %s b\n", __func__);
+=20
+        if (!analogix_dp_detect_hpd(dp))
+                status =3D connector_status_connected;
+diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/b=
+ridge/display-connector.c
+index 16c0631adeb18..b0c07694b82e3 100644
+=2D-- a/drivers/gpu/drm/bridge/display-connector.c
++++ b/drivers/gpu/drm/bridge/display-connector.c
+@@ -45,6 +45,7 @@ static enum drm_connector_status display_connector_detect=
+(struct drm_bridge *bri
+        struct display_connector *conn =3D to_display_connector(bridge);
+=20
+        if (conn->hpd_gpio) {
++printk("---> %s gpio value is %d\n", __func__, gpiod_get_value_cansleep(co=
+nn->hpd_gpio));
+                if (gpiod_get_value_cansleep(conn->hpd_gpio))
+                        return connector_status_connected;
+                else
+@@ -84,6 +85,7 @@ static enum drm_connector_status display_connector_detect=
+(struct drm_bridge *bri
+ static enum drm_connector_status
+ display_connector_bridge_detect(struct drm_bridge *bridge, struct drm_conn=
+ector *connector)
+ {
++printk("---> %s\n", __func__);
+        return display_connector_detect(bridge);
+ }
+=20
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/d=
+rm/display/drm_bridge_connector.c
+index 649969fca1413..8816d837c9a77 100644
+=2D-- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -218,6 +218,7 @@ drm_bridge_connector_detect(struct drm_connector *conne=
+ctor, bool force)
+        enum drm_connector_status status;
+=20
+        if (detect) {
++printk("---> %s: detect\n", __func__);
+                status =3D detect->funcs->detect(detect, connector);
+=20
+                if (hdmi)
+
+
+
