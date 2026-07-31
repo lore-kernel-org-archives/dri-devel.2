@@ -4,45 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5CA2C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:57:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EABEAC55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:58:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3465D10E16F;
-	Fri, 31 Jul 2026 16:57:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 549ED10F35A;
+	Fri, 31 Jul 2026 16:58:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ojjr2Zb8";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="QDupzw9e";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C10AD10E16F
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:57:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AC12E600C8;
- Fri, 31 Jul 2026 16:57:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9D291F00AC4;
- Fri, 31 Jul 2026 16:57:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785517025;
- bh=JSTF/EhiF+zzML7dVZ1u233Db9xYX6dDelyLsh+FPKY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ojjr2Zb8944aUVNtUkEB8cWTCyAvPlq4E3o1I1T+aR9xvR+FFoDREB4njyk+jIBtj
- qaLDfz3AytRYElepxv4Ozkur9JkyXwt6foKd0u/LfGFHQz/NAC7jgW+WKABY2ri5HR
- nY1OJ2M9d4r5xGlly1p0/WNp76AxZZGWNm51ZeQP7aGApdiuNO2haQFzYkJIF6rU1M
- PVHY/Y+Ui/FM6SyKApIZmzCnLxzHGCNal2N+C4wHZQaV88Xbq49JMoqQDj3BYfVt+z
- bSehDEK3iSwGEH9GaJjPhaUyinDMp1f3mARtU4zHSq4PvkV9CntV17I6kcUGJZcJT3
- potAUUvW21WSw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] drm/tegra: fbdev: Remove offset into framebuffer memory
-Date: Fri, 31 Jul 2026 12:57:03 -0400
-Message-ID: <20260731165703.883481-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026072953-ramble-ravage-32ab@gregkh>
-References: <2026072953-ramble-ravage-32ab@gregkh>
+Received: from out-178.mta1.migadu.com (out-178.mta1.migadu.com
+ [95.215.58.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 97A1710E246
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:58:13 +0000 (UTC)
+Message-ID: <191efe80-24d1-4aab-8746-21afb4c379bc@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1785517090;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=7Wkc5vnPJfK8+T6cj+GxOwF6aP8t3LLmOUCwYz0pevc=;
+ b=QDupzw9eNh0JVgtVkhnk9fpyAzqrfoSZcykUG5rIYn9PyeUrXBswOnBQUHvPKBV/p2MNUf
+ mfRJ1cQlIl9txEmp6iCYbDFObuLFKeBZy0GRG3CtTIljNnrDbkEdkJiywNamh8zB4FrxIM
+ 8PggOuJ4D54cvOEyYOsxvLigg1zLIWo=
+Date: Sat, 1 Aug 2026 00:57:22 +0800
 MIME-Version: 1.0
+Subject: Re: [PATCH v9 00/10] Fix missing fops.owner in Rust DRM/misc
+ abstractions
+To: Gary Guo <gary@garyguo.net>, Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
+ <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Igor Korotin <igor.korotin@linux.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
+ Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org,
+ linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org,
+ Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>
+References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
+ <CANiq72m59O-ruHUvUcZC7yCvu0KV0w_m5vMO4e0rxyHdRmihJw@mail.gmail.com>
+ <68c43a03-5fa0-42a8-b886-2c756e39515e@linux.dev>
+ <DKCWO60T6JPR.1P3AAJAATMXBI@garyguo.net>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Alvin Sun <alvin.sun@linux.dev>
+In-Reply-To: <DKCWO60T6JPR.1P3AAJAATMXBI@garyguo.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,60 +86,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
 
-[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
+On 8/1/26 00:43, Gary Guo wrote:
+> On Fri Jul 31, 2026 at 5:34 PM BST, Alvin Sun wrote:
+>> Hi Miguel,
+>>
+>> Thanks for taking a look!
+>>
+>> On 7/31/26 14:46, Miguel Ojeda wrote:
+>>> On Thu, Jul 23, 2026 at 4:11 AM Alvin Sun <alvin.sun@linux.dev> wrote:
+>>>> base-commit: b7e5ac83cb16f7ffd11dc23736f84276602100ed
+>>> Was this old tag used for some reason?
+>> That was an oversight on my part - I forgot to rebase onto the latest
+>> tag before sending v9. The series is now based on v7.2-rc4.
+>>
+>>>> prerequisite-change-id: 20260519-miscdev-use-format-9ab7e83b1c11:v3
+>>>> prerequisite-patch-id: 405b334ff0d48ad350014f05a2321bdbaa025400
+>>>> prerequisite-patch-id: 604b631c81d5423f4ebb2e12ba2d22e9ce371bfc
+>>>> prerequisite-patch-id: cb550d94cefe01920e0d3ced2b2bcbecd76f3907
+>>>> prerequisite-patch-id: 3bc830839742591460cb86d9472c04f4686dc600
+>>>> prerequisite-patch-id: 571058244bc8c7088638d2e3225713011246c7e9
+>>>> prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
+>>>> prerequisite-patch-id: 3e202d988b56b88446f7535e90d3f00cf5f15701
+>>> Are all these actually needed? Some seem unrelated (some were already
+>>> applied too).
+>> The prerequisites were just some import formatting changes that the
+>> series depended on at the time. After rebasing onto v7.2-rc4, I was
+>> able to drop all of them - the rebase was clean with no conflicts.
+>>
+>> I'll send v10 shortly.
+> If the patch applies cleanly then there's a no need to send a new version.
 
-The screen_buffer field in struct fb_info contains the kernel address
-of the first byte of framebuffer memory. Do not add the display offset.
-This offset only describes scrolling during scanout.
+Sounds good. I'll hold off on v10 then. Thanks!
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-tegra@vger.kernel.org
-Cc: <stable@vger.kernel.org> # v3.10+
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/tegra/fb.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Best regards,
+Alvin
 
-diff --git a/drivers/gpu/drm/tegra/fb.c b/drivers/gpu/drm/tegra/fb.c
-index 2040dbfed7e2..ab88a53d07c5 100644
---- a/drivers/gpu/drm/tegra/fb.c
-+++ b/drivers/gpu/drm/tegra/fb.c
-@@ -211,7 +211,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 	struct drm_mode_fb_cmd2 cmd = { 0 };
- 	unsigned int bytes_per_pixel;
- 	struct drm_framebuffer *fb;
--	unsigned long offset;
- 	struct fb_info *info;
- 	struct tegra_bo *bo;
- 	size_t size;
-@@ -257,9 +256,6 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 
- 	drm_fb_helper_fill_info(info, helper, sizes);
- 
--	offset = info->var.xoffset * bytes_per_pixel +
--		 info->var.yoffset * fb->pitches[0];
--
- 	if (bo->pages) {
- 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
- 				 pgprot_writecombine(PAGE_KERNEL));
-@@ -271,9 +267,9 @@ static int tegra_fbdev_probe(struct drm_fb_helper *helper,
- 	}
- 
- 	drm->mode_config.fb_base = (resource_size_t)bo->iova;
--	info->screen_base = (void __iomem *)bo->vaddr + offset;
-+	info->screen_base = (void __iomem *)bo->vaddr;
- 	info->screen_size = size;
--	info->fix.smem_start = (unsigned long)(bo->iova + offset);
-+	info->fix.smem_start = (unsigned long)(bo->iova);
- 	info->fix.smem_len = size;
- 
- 	return 0;
--- 
-2.53.0
-
+>
+> Best,
+> Gary
+>
+>> Best regards,
+>> Alvin
+>>
+>>> The only one that seems needed has Andreas' Acked-by, so
+>>> I guess it is fine.
+>>>
+>>> (By the way, I will use this second message to take this chance to
+>>> move the modules maintainers in the To: in case it helps, since I
+>>> didn't do it in my previous message)
+>>>
+>>> Thanks!
+>>>
+>>> Cheers,
+>>> Miguel
+>
