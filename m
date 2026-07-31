@@ -4,78 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19538C5516D
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 08:31:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D59EFC55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 08:37:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56B2E10E1D5;
-	Fri, 31 Jul 2026 08:31:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B97710F1DB;
+	Fri, 31 Jul 2026 08:37:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="vFA3Dr9j";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AgA3w0cm";
 	dkim-atps=neutral
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5D5510E1D5;
- Fri, 31 Jul 2026 08:31:19 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66V7ucSc1309197; Fri, 31 Jul 2026 09:31:12 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=E
- 76smia0eoDVyfRD/IwhMVtksPjmoREi/+oIwBxRp3c=; b=vFA3Dr9jURkFq5Zm5
- Mpi9WsHWRmGGTtclZoSDB4xRV9iSLEjy4VV3YhvfWdT+EZ66zPQfSwwzmDx8aWSr
- oOoeIUAt0+nPKsqNnECHw1HEdw9GiQEN9yV8etq6UfbWfF7zNh18k70RjNBo1XIQ
- 2S7/nGrk5bMFNTihZehtD2SwfAw6hZhzSxVuBT7GQZO7eyh2c9xzXiI06AIQvptJ
- 7zN1DKQC9QCZJOuwtsYfjdA9x3OrNi8B2bKhzk7DOnrzMJ8O9WGmcXPA5JAJeZxO
- 5ekVuM0qU29WwzPE1hpzpLscM/VyCsGnDiPsJAwgMWaqYXgoq0VEWaIPO0rk5X3q
- CEYsw==
-Received: from hhmail02.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4fq8kr2dh5-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Fri, 31 Jul 2026 09:31:12 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.151) by
- HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Fri, 31 Jul 2026 09:31:11 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Alexandru Dadu <alexandru.dadu@imgtec.com>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>
-In-Reply-To: <20260729-b4-pvr-device-features-members-reorder-v1-1-d2e18ed8cd5f@imgtec.com>
-References: <20260729-b4-pvr-device-features-members-reorder-v1-1-d2e18ed8cd5f@imgtec.com>
-Subject: Re: [PATCH] drm/imagination: Reorder some fields in struct
- pvr_device_features
-Message-ID: <178548667132.48426.12752129232614984912.b4-ty@imgtec.com>
-Date: Fri, 31 Jul 2026 09:31:11 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Originating-IP: [172.25.4.151]
-X-Proofpoint-GUID: u4ZKzjm96FgAZW6j_H5CvqRH0HBh9HTD
-X-Authority-Analysis: v=2.4 cv=It4utr/g c=1 sm=1 tr=0 ts=6a6c5d50 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=XqWWZq4ChBYA:10 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=k4jkiuy8PZY5HXJIuwIA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA2MSBTYWx0ZWRfX/8qUms7mMQF1
- qggD2kOWne5QhZEMFV0R0Yf8c1AeIItx5JrG2yKXFQVfaz8H6sbH8qB6vOMnMySUgpRK78m0A+Z
- ZLzD3UpkL0SX/Ccpo8hMd2myo/B/b9YwFXPLxNmpZpljP58mbscMDgX2LLCHaT8AJSceOR+49eU
- on4c4GtfAHa1uVPVqD/QW9THTbqOCiPyViujMQLjUvsQsnjZLmeBnC/D+SUDSJBJQSvCDXcW9z2
- NHrrAxogUb9fG78rQnQ95nfIHM8uDjb/gRcJjYzh+Z9/jw4RGNPYvCCFOVd04ftD+yoBbOq5itC
- Ln7U/qK6JasGh7KjGRlrjbwYiMZ4s3kkqdh18tYuXuxFBwAy53GEh6oQYFrS4dtsLay+oIrb2d2
- EuQMlLRQf3AGsrF7SSe6GSgIM09pMYmeylpryW7tZGTxiuje6CRsN8FwRKN2GPPxpZHjQa0RP7a
- IBqb88TiTIIRuQatnkw==
-X-Proofpoint-ORIG-GUID: u4ZKzjm96FgAZW6j_H5CvqRH0HBh9HTD
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA2MSBTYWx0ZWRfX2/wDPifCmajZ
- xRU7uMWnhkF6FhuU2EGT2CCdUVNhmVJG3di/MFKw59M3f3jY+DquVCmI8C2l7WUz//iWpP6ZwD6
- sjbKrvZZUWPGjgJMgykrLGKckpZ/i1M=
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54C3B10F1DB
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 08:37:06 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0C57143577;
+ Fri, 31 Jul 2026 08:37:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE53D1F000E9;
+ Fri, 31 Jul 2026 08:37:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785487025;
+ bh=CpesTmYpSKIoM1B1QrRNaidoPDjYfR2VXC4UNfQijYs=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=AgA3w0cmdtI2/aP3kDEi+L1urR3mvlpmTa8/lClJVSM+94ue5i4rfQZB8Zbtalay+
+ vB4kZJtWOog29TzEHgf5Zcmwuy6vk8wZtYzXsB5qIADpWZT5MrkppxmbO0GDTlX7uC
+ mEcF4Wl7g2hBI3hDAFGH6mTsZeqbfa6Awt6ar648SFKO1pdo0vVVTb85aiY0hswEID
+ V4NzHHGG59pnRoxeSxAgwmwsPWnZ022Fke/GDNYW2DuutmxOjIGmsAWTtE1RBHi9Zk
+ KCQRRpF46kqYiQCdafICtBvB33Hy/qu/oMXST6MAurGEYB/fvbKTeQIE6rVrPX9u/t
+ qnbhCapVmpGUw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] power: sequencing: rename pwrseq_power_on/off() to
+ pwrseq_enable/disable()
+To: "Bartosz Golaszewski" <bartosz.golaszewski@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260731-pwrseq-vote-rename-v2-1-480357946e00@oss.qualcomm.com>
+References: <20260731-pwrseq-vote-rename-v2-1-480357946e00@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 08:37:05 +0000
+Message-Id: <20260731083705.AE53D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,21 +53,163 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 29 Jul 2026 15:40:25 +0300, Alexandru Dadu wrote:
-> Reorder the fields of struct pvr_device_features so they match the order
-> in device info enum found in pvr_rogue_fwif_dev_info.h.
-> 
-> 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Applied to drm-misc-next, thanks!
+New issues:
+- [Low] The function `pwrseq_power_off()` was incorrectly renamed to `pwrse=
+q_disble()` instead of `pwrseq_disable()`.
 
-[1/1] drm/imagination: Reorder some fields in struct pvr_device_features
-      commit: bc47d5937f21c5fc94504f03e18f1adb56d97634
+Pre-existing issues:
+- [High] Unchecked failure in the rollback path of `pwrseq_enable()` leads =
+to a leaked power sequence enable count and an inconsistent descriptor stat=
+e.
+- [High] TOCTOU race on `desc->powered_on` in `pwrseq_enable()` and `pwrseq=
+_disble()` leads to leaked power sequencer votes or unbalanced enable count=
+s.
+--
 
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
+--- Patch [1]: [PATCH v2] power: sequencing: rename pwrseq_power_on/off() t=
+o pwrseq_enable/disable() ---
+commit adf6e02fc844795e2717b0bb913d426b91714a03
+Author: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: power: sequencing: rename pwrseq_power_on/off() to pwrseq_enable/d=
+isable()
 
+This commit renames pwrseq_power_on() and pwrseq_power_off() to=20
+pwrseq_enable() and pwrseq_disable(). The new names better reflect the
+semantics of voting for power states rather than direct power control.
+
+Link: https://lore.kernel.org/all/CAMRc=3DMefxn81d0VUwmQgwFtffkL1=3DEr_1VQZ=
+CbC1Sa-Qph4t1w@mail.gmail.com/
+Link: https://patch.msgid.link/20260727-pwrseq-vote-rename-v1-1-a2029aeeac6=
+5@oss.qualcomm.com
+
+> diff --git a/Documentation/driver-api/pwrseq.rst b/Documentation/driver-a=
+pi/pwrseq.rst
+> index ad18b2326b689..0c315ab1138b0 100644
+> --- a/Documentation/driver-api/pwrseq.rst
+> +++ b/Documentation/driver-api/pwrseq.rst
+> @@ -50,9 +50,9 @@ Consumer interface
+>  The consumer API is aimed to be as simple as possible. The driver intere=
+sted in
+>  getting a descriptor from the power sequencer should call pwrseq_get() a=
+nd
+>  specify the name of the target it wants to reach in the sequence after c=
+alling
+> -pwrseq_power_up(). The descriptor can be released by calling pwrseq_put(=
+) and
+> +pwrseq_enable(). The descriptor can be released by calling pwrseq_put() =
+and
+>  the consumer can request the powering down of its target with
+> -pwrseq_power_off(). Note that there is no guarantee that pwrseq_power_of=
+f()
+> +pwrseq_disble(). Note that there is no guarantee that pwrseq_disble()
+
+[Severity: Low]
+Is this function name a typo? Should it be pwrseq_disable() instead of
+pwrseq_disble()?
+
+[ ... ]
+> diff --git a/drivers/power/sequencing/core.c b/drivers/power/sequencing/c=
+ore.c
+> index 02f42da915985..34d5c0af6f37b 100644
+> --- a/drivers/power/sequencing/core.c
+> +++ b/drivers/power/sequencing/core.c
+[ ... ]
+> @@ -887,7 +887,7 @@ static int pwrseq_unit_disable(struct pwrseq_device *=
+pwrseq,
+>   * Returns:
+>   * 0 on success, negative error number on failure.
+>   */
+> -int pwrseq_power_on(struct pwrseq_desc *desc)
+> +int pwrseq_enable(struct pwrseq_desc *desc)
+>  {
+
+[Severity: High]
+This is a pre-existing issue, but does this function leak the power sequenc=
+er
+enable count if the rollback fails?
+
+Looking at pwrseq_enable(), if target->post_enable() fails, it attempts to
+roll back by calling pwrseq_unit_disable():
+
+	if (target->post_enable) {
+		ret =3D target->post_enable(pwrseq);
+		if (ret) {
+			scoped_guard(mutex, &pwrseq->state_lock) {
+				pwrseq_unit_disable(pwrseq, unit);
+				desc->powered_on =3D false;
+			}
+		}
+	}
+
+If pwrseq_unit_disable() returns an error (for example, due to a hardware
+failure), the unit's enable_count won't be decremented, but desc->powered_on
+is unconditionally set to false.
+
+Later, when the consumer calls pwrseq_put() or pwrseq_disable(), it will sk=
+ip
+calling pwrseq_unit_disable() because desc->powered_on is false, permanently
+leaving the hardware enabled. Should the code check the return value of
+pwrseq_unit_disable() before clearing desc->powered_on?
+
+[Severity: High]
+This is a pre-existing issue, but is there a TOCTOU race condition when
+checking desc->powered_on?
+
+In pwrseq_enable(), the desc->powered_on flag is checked outside the state
+lock, but modified inside it:
+
+	if (!desc || desc->powered_on)
+		return 0;
+    ...
+	scoped_guard(mutex, &pwrseq->state_lock) {
+		ret =3D pwrseq_unit_enable(pwrseq, unit);
+		if (!ret)
+			desc->powered_on =3D true;
+	}
+
+If multiple threads call pwrseq_enable() concurrently on the same descripto=
+r,
+both could see desc->powered_on as false. They would then serialize on the
+state_lock and both increment the unit's enable_count. A subsequent call to
+pwrseq_disable() would only decrement it once, leaking the second vote.
+
+>  	struct pwrseq_device *pwrseq;
+>  	struct pwrseq_target *target;
+[ ... ]
+> @@ -940,7 +940,7 @@ EXPORT_SYMBOL_GPL(pwrseq_power_on);
+>   * Returns:
+>   * 0 on success, negative error number on failure.
+>   */
+> -int pwrseq_power_off(struct pwrseq_desc *desc)
+> +int pwrseq_disble(struct pwrseq_desc *desc)
+>  {
+
+[Severity: High]
+This is a pre-existing issue, but does pwrseq_disble() have the same TOCTOU
+race on desc->powered_on as pwrseq_enable()?
+
+	if (!desc || !desc->powered_on)
+		return 0;
+    ...
+	guard(mutex)(&pwrseq->state_lock);
+
+	ret =3D pwrseq_unit_disable(pwrseq, unit);
+	if (!ret)
+		desc->powered_on =3D false;
+
+Concurrent calls could result in both seeing desc->powered_on as true,
+leading to unbalanced decrements of the enable_count.
+
+>  	struct pwrseq_device *pwrseq;
+>  	struct pwrseq_unit *unit;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-pwrseq-vot=
+e-rename-v2-1-480357946e00@oss.qualcomm.com?part=3D1
