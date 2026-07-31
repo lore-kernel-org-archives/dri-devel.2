@@ -4,83 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A2E0C55173
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 21:22:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63365C55172
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 21:27:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A058810F41B;
-	Fri, 31 Jul 2026 21:22:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2AD410F411;
+	Fri, 31 Jul 2026 21:27:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=meta.com header.i=@meta.com header.b="YSQAUqmk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fRnaWzSU";
 	dkim-atps=neutral
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
- [67.231.153.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCCD010F411
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 21:22:18 +0000 (UTC)
-Received: from pps.filterd (m0528004.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66VKXC4a2186232
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:22:18 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=
- pps82601-s2048-2026-q3; bh=/mea8E1LVT71WAY4vawj4IKcaNhWZZAycW/4q
- tPpae8=; b=YSQAUqmkrD47nMMcPWTNkeByk0N1IqkBb7gdwi/Vjlwvx25oCUQpT
- dLyxB1LxGxg4q2sdOe6rcG2W+41qEcIVpcMtHnY/P/0zVr1Jng92TZsbOJia+TvG
- BCOJ7K3kn/fvye4w3RHZ+pvFJ41kH/80hQ5ThniYQ1mmAg3oDRBGt8DYtQH62RMQ
- X28XEjU1fhAc/veyEjeDQISBSDuPu3dN6mg7czqVUzgucLrSctbSlsS2JOA8sqGw
- swBNGR0IBR78v+QaE5j0azmI8sAg1zKayCArs8f5doJkBLokhMzNbrWzrGua/Vud
- g0cvqQgImKLSoT5HSeFL9RkAfxojdCikA==
-Received: from maileast.thefacebook.com ([163.114.135.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4fs0dsh67u-13
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:22:17 -0700 (PDT)
-Received: from twshared22813.02.snb2.facebook.com (2620:10d:c0a8:1b::8e35) by
- mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Fri, 31 Jul 2026 21:22:10 +0000
-Received: by devbig259.ftw1.facebook.com (Postfix, from userid 664516)
- id 0DE8143C24F09; Fri, 31 Jul 2026 14:16:17 -0700 (PDT)
-From: Zhiping Zhang <zhipingz@meta.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>, Michael
- Guralnik <michaelgur@nvidia.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian Konig <christian.koenig@amd.com>, Alex Williamson
- <alex@shazbot.org>, Bjorn Helgaas <bhelgaas@google.com>
-CC: <kvm@vger.kernel.org>, <linux-rdma@vger.kernel.org>,
- <linux-pci@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- Zhiping Zhang <zhipingz@meta.com>
-Subject: [PATCH v13 5/5] RDMA/mlx5: get tph for p2p access when registering
- dma-buf mr
-Date: Fri, 31 Jul 2026 14:15:52 -0700
-Message-ID: <20260731211601.3033906-6-zhipingz@meta.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260731211601.3033906-1-zhipingz@meta.com>
-References: <20260731211601.3033906-1-zhipingz@meta.com>
-MIME-Version: 1.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C147F10F411
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 21:27:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 75D9C43BBE;
+ Fri, 31 Jul 2026 21:27:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C12F1F00AC4;
+ Fri, 31 Jul 2026 21:27:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785533236;
+ bh=Ergl1Hui+9gYGNiR0GgUuTgnMaWsogDKknGojG74nww=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fRnaWzSUoRHcSFuIhU/uoe8g6IWFutzVEydc5MSmru3f2IfF5YRplKCvzQZkAbxhW
+ Mdl75S/e0V91IKKADtZ6AOefGEtksfKbglMGO1toGFLC8Sbx+PCNfZs68WQuVKRP1X
+ mcEMh3m7FcWmcxL3qAIo5ManqQZn40tQnQTBpiveKXvwKO3GrTRNOH+5yjbfCr9RMg
+ OcaHdGlqjE7M0+Bs73Naf30NrU318qL5dI+CCKlsM2P6biOihqD5snWvtMKFJuYWzA
+ EFSzi6rc0WDJVhEOi5Anf5z+ABWSBbNh63Q4Xba19ISXDabdUkW+gxMwtskx8Z3Gox
+ et+q3qqly4u+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 35/69] drm/rockchip: dw_hdmi_qp: Implement
+ .{enable,disable}_hpd() PHY ops
+To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-35-294364b2cf15@collabora.com>
+References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
+ <20260731-dw-hdmi-qp-scramb-v10-35-294364b2cf15@collabora.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDE2MiBTYWx0ZWRfX9K8Udux9zBfu
- 1aXaVdgeyGLAPzzDX1zFTYeifzjP5MQyy09SzHG7S97WoIigEjExhjQ75JVk4KyS7Xi7ZwAJuCC
- JKUca/XjJwIlNwfpZo+eMXkWYff7lCeNJP+nggE1vSrnptOscMsLa3666/5XzserWQGn7OS6UVH
- 4oHPxb6nGur3g/cJS8LVXfRVL4Fogk3zrHQan5qI7sF/fXgZrp5jepXxnpPNMrum1xy3ZrXLjpK
- cavN/weJHrdAEUFPbLq55nH53pJ0NJ5Q6Fksi0wNQXpRlStui5d5KYRrSDxYPkhjKXNMNQ6doAs
- XgqZoDcdgtXTZKIx109NSAfwMPCrRd/cxSueTXSMoU9xvoulRCr6sgS6Fmrhnz3TsuM3X7uXEHs
- e8fb7MhKXoKVPqqVUO94shTzKdipvFseQQHz2j78ZmUjBezGYzfcXNlEj04waqQpUXuuWbdGYVB
- LhBYq5mfqQwMeWc1MTQ==
-X-Authority-Analysis: v=2.4 cv=Du9mPm/+ c=1 sm=1 tr=0 ts=6a6d1209 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=RAioF0-LDSMA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=GbPsI2Ihf5RTnMjR_gZv:22 a=VabnemYjAAAA:8 a=CbDCq_QkAAAA:8
- a=1stQPSrnH06VPgbTlAkA:9 a=gKebqoRLp9LExxC7YDUY:22 a=1qrBK16LubpBFNPVNq2M:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDE2MiBTYWx0ZWRfX+CEE99majBvm
- A4VhfgR7NZNSoaU6V+YDd+HvZduba2KyfktuXOLU8gOinCI7OYT4NVSaTWvE7Yoa7XAzFxnroz6
- Pt+o5h3jpXCELJBXMlwlP+8H4yuXeaw=
-X-Proofpoint-ORIG-GUID: frItErwg9w2wvdlmhhwYYzUXTCimQTil
-X-Proofpoint-GUID: frItErwg9w2wvdlmhhwYYzUXTCimQTil
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_06,2026-07-30_01,2025-10-01_01
+Date: Fri, 31 Jul 2026 21:27:15 +0000
+Message-Id: <20260731212716.2C12F1F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,546 +54,128 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Peer-to-peer DMA between a mlx5 NIC and a foreign PCIe endpoint
-(typically a GPU or a vfio-pci passthrough device) traverses the host
-PCIe fabric. The endpoint exporting the dma-buf knows which PCIe TLP
-Processing Hint (TPH) Steering Tag yields the best placement for the
-traffic it will sink: per-endpoint hint selection lets the root complex
-or switch direct DMA to a specific cache slice / NUMA node, cutting
-cross-socket snoop traffic and DRAM pressure under sustained p2p
-workloads.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Until now the mlx5 importer had no way to learn the exporter's chosen
-ST tag, so dma-buf MRs were registered without TPH and ran with the
-default (no-hint) routing. With dma_buf_get_pci_tph() in place this
-patch wires up mlx5_ib to query that metadata at MR registration time
-for p2p access and use it to program requester-side TPH on the outbound
-mkey. If the exporter has no metadata, fall back to the existing
-no-TPH path so behavior for non-TPH-aware exporters is unchanged.
+New issues:
+- [High] The threaded IRQ handlers unconditionally call `.enable_hpd()` to =
+unmask the HPD interrupt, which overrides the DRM core's explicit request t=
+o disable HPD via `.disable_hpd()`.
 
-Use mlx5_st_alloc_index_by_tag() to translate exporter-provided
-steering tags into local ST entries when table mode is active, and add
-mlx5_st_get_index() for DMAH-backed flows that already carry an ST
-index.
+Pre-existing issues:
+- [High] Vulnerability to Use-After-Free during unbind/teardown because the=
+ delayed work can be re-queued by an active IRQ after it has been canceled.
+--
 
-Splitting mlx5_st_alloc_index() moves the !dev->st check into the new
-by-tag helper, so keep an equivalent early-out in mlx5_st_alloc_index()
-itself, ahead of the pcie_tph_get_cpu_st() call. A device without ST
-support therefore still returns -EOPNOTSUPP without an ACPI _DSM
-invocation, exactly as it did before the split. The check is repeated in
-mlx5_st_alloc_index_by_tag() because that is now an exported entry point
-in its own right.
+--- Patch [35]: [PATCH v10 35/69] drm/rockchip: dw_hdmi_qp: Implement .{ena=
+ble,disable}_hpd() PHY ops ---
+commit f5a2c115ab2bc65d86865686a80a9dc03bbb514c
+Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 
-For TPH-backed FRMRs, keep the extra ST-table reference tied to MR
-lifetime rather than pooled mkey lifetime. Acquire the ref before MR
-creation and release it again when the MR is returned to the pool or
-the backing mkey is destroyed, while leaving the generic FRMR pool
-core unchanged.
+drm/rockchip: dw_hdmi_qp: Implement .{enable,disable}_hpd() PHY ops
 
-The exporter's steering tag is only valid for the mapping it was queried
-against (see dma_buf_get_pci_tph()). The mkey's TPH fields cannot be
-reprogrammed in place: they are create-time fields with no UMR update
-mask, and rebuilding the mkey would change the rkey/lkey, which must stay
-stable across invalidate/refault.
+This commit implements .enable_hpd() and .disable_hpd() phy ops for RK3576
+and RK3588 SoCs. It consolidates the interrupt clear-and-unmask sequence
+into enable_hpd() and the mask-only operation into disable_hpd(), replacing
+open-coded register writes.
 
-Keep the registration-time TPH tuple in the MR and re-query the exporter
-after each dma-buf mapping is established under dmabuf->resv. If the
-tuple is unchanged, continue using the existing mkey. If the tuple change=
-d
-or disappeared, unmap the pages and return -EFAULT rather than continue
-with a stale mkey hint; userspace must create a new MR to get a mkey
-programmed with the new tuple. For vfio-pci BAR dma-bufs this validation
-is expected to be a no-op because invalidation is revoke/quiesce of BAR
-access, not movement to a different backing placement, and the
-userspace-provided TPH tuple is not changed by the revoke/un-revoke path.
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index 64e8e4c12cbd2..1965641fbadf1 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+[ ... ]
+> @@ -364,15 +385,11 @@ static irqreturn_t dw_hdmi_qp_rk3576_hardirq(int ir=
+q, void *dev_id)
+>  static irqreturn_t dw_hdmi_qp_rk3576_irq(int irq, void *dev_id)
+>  {
+>  	struct rockchip_hdmi_qp *hdmi =3D dev_id;
+> -	u32 val;
+> =20
+> -	val =3D FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_CLR, 1);
+> -	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
+>  	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+>  			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
+> =20
+> -	val =3D FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
+> -	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
+> +	dw_hdmi_qp_rk3576_enable_hpd(NULL, hdmi);
 
-Import the DMA_BUF namespace for the new dma_buf_get_pci_tph() call so
-modular mlx5_ib builds link cleanly.
+[Severity: High]
+Does this unconditionally unmask the HPD interrupt, potentially overriding
+the DRM core's desired HPD state?
 
-Signed-off-by: Zhiping Zhang <zhipingz@meta.com>
----
- drivers/infiniband/hw/mlx5/main.c             |   1 +
- drivers/infiniband/hw/mlx5/mlx5_ib.h          |  11 ++
- drivers/infiniband/hw/mlx5/mr.c               | 151 +++++++++++++++++-
- drivers/infiniband/hw/mlx5/odp.c              |   7 +
- .../net/ethernet/mellanox/mlx5/core/lib/st.c  |  52 +++++-
- include/linux/mlx5/driver.h                   |  15 ++
- 6 files changed, 223 insertions(+), 14 deletions(-)
+If an HPD interrupt is triggered right before the DRM core calls
+dw_hdmi_qp_rk3576_disable_hpd() (e.g., during display teardown or suspend),
+the hardirq handler will mask the interrupt and schedule this threaded
+handler. If the DRM core then disables HPD, keeping it masked, will this
+unconditional call to dw_hdmi_qp_rk3576_enable_hpd() in the threaded handler
+override the DRM core's request and unmask the interrupt again?
 
-diff --git a/drivers/infiniband/hw/mlx5/main.c b/drivers/infiniband/hw/ml=
-x5/main.c
-index 02809114fc79..a2b497f6b16b 100644
---- a/drivers/infiniband/hw/mlx5/main.c
-+++ b/drivers/infiniband/hw/mlx5/main.c
-@@ -60,6 +60,7 @@
- MODULE_AUTHOR("Eli Cohen <eli@mellanox.com>");
- MODULE_DESCRIPTION("Mellanox 5th generation network adapters (ConnectX s=
-eries) IB driver");
- MODULE_LICENSE("Dual BSD/GPL");
-+MODULE_IMPORT_NS("DMA_BUF");
-=20
- struct mlx5_ib_event_work {
- 	struct work_struct	work;
-diff --git a/drivers/infiniband/hw/mlx5/mlx5_ib.h b/drivers/infiniband/hw=
-/mlx5/mlx5_ib.h
-index 522984d958bb..c6a956b2ee87 100644
---- a/drivers/infiniband/hw/mlx5/mlx5_ib.h
-+++ b/drivers/infiniband/hw/mlx5/mlx5_ib.h
-@@ -646,6 +646,15 @@ enum mlx5_mkey_type {
- /* Used for non-existent ph value */
- #define MLX5_IB_NO_PH 0xff
-=20
-+struct dma_buf;
-+
-+struct mlx5_ib_dmabuf_tph {
-+	u16 steering_tag;
-+	u8 ph;
-+	bool extended;
-+	bool valid;
-+};
-+
- struct mlx5_ib_mkey {
- 	u32 key;
- 	enum mlx5_mkey_type type;
-@@ -726,6 +735,7 @@ struct mlx5_ib_mr {
- 			u8 revoked :1;
- 			/* Indicates previous dmabuf page fault occurred */
- 			u8 dmabuf_faulted:1;
-+			struct mlx5_ib_dmabuf_tph dmabuf_tph;
- 			struct mlx5_ib_mkey null_mmkey;
- 		};
- 	};
-@@ -1341,6 +1351,7 @@ struct ib_mr *mlx5_ib_rereg_user_mr(struct ib_mr *i=
-b_mr, int flags, u64 start,
- 				    u64 length, u64 virt_addr, int access_flags,
- 				    struct ib_pd *pd, struct ib_udata *udata);
- int mlx5_ib_dereg_mr(struct ib_mr *ibmr, struct ib_udata *udata);
-+int mlx5_ib_validate_dmabuf_tph(struct mlx5_ib_mr *mr, struct dma_buf *d=
-mabuf);
- struct ib_mr *mlx5_ib_alloc_mr(struct ib_pd *pd, enum ib_mr_type mr_type=
-,
- 			       u32 max_num_sg);
- struct ib_mr *mlx5_ib_alloc_mr_integrity(struct ib_pd *pd,
-diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
-/mr.c
-index e6b74955d95d..404c5d081b8a 100644
---- a/drivers/infiniband/hw/mlx5/mr.c
-+++ b/drivers/infiniband/hw/mlx5/mr.c
-@@ -39,6 +39,7 @@
- #include <linux/delay.h>
- #include <linux/dma-buf.h>
- #include <linux/dma-resv.h>
-+#include <linux/pci-tph.h>
- #include <rdma/frmr_pools.h>
- #include <rdma/ib_umem_odp.h>
- #include "dm.h"
-@@ -167,6 +168,61 @@ static int get_unchangeable_access_flags(struct mlx5=
-_ib_dev *dev,
- #define MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK GENMASK_ULL(23, 16)
- #define MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK GENMASK_ULL(15, 0)
-=20
-+static u8 mlx5_ib_tph_key_ph(u8 ph)
-+{
-+	if (ph =3D=3D MLX5_IB_NO_PH || ph =3D=3D 0)
-+		ph ^=3D MLX5_IB_NO_PH;
-+
-+	return ph;
-+}
-+
-+static int mlx5_ib_get_st_handle_ref(struct mlx5_ib_dev *dev, u16 st_ind=
-ex)
-+{
-+	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
-+		return 0;
-+
-+	return mlx5_st_get_index(dev->mdev, st_index);
-+}
-+
-+static void mlx5_ib_put_st_index_ref(struct mlx5_ib_dev *dev, u16 st_ind=
-ex)
-+{
-+	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
-+		return;
-+
-+	mlx5_st_dealloc_index(dev->mdev, st_index);
-+}
-+
-+static void mlx5_ib_put_st_handle_ref(struct mlx5_ib_dev *dev,
-+				      u64 kernel_vendor_key)
-+{
-+	u16 st_index =3D FIELD_GET(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK,
-+				 kernel_vendor_key);
-+
-+	mlx5_ib_put_st_index_ref(dev, st_index);
-+}
-+
-+int mlx5_ib_validate_dmabuf_tph(struct mlx5_ib_mr *mr, struct dma_buf *d=
-mabuf)
-+{
-+	struct mlx5_ib_dmabuf_tph *tph =3D &mr->dmabuf_tph;
-+	u16 steering_tag;
-+	u8 ph;
-+	int ret;
-+
-+	if (!tph->valid)
-+		return 0;
-+
-+	dma_resv_assert_held(dmabuf->resv);
-+
-+	ret =3D dma_buf_get_pci_tph(dmabuf, tph->extended, &steering_tag, &ph);
-+	if (ret)
-+		return -EFAULT;
-+
-+	if (steering_tag !=3D tph->steering_tag || ph !=3D tph->ph)
-+		return -EFAULT;
-+
-+	return 0;
-+}
-+
- static struct mlx5_ib_mr *
- _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, struct ib_umem *umem,
- 		      int access_flags, int access_mode,
-@@ -189,13 +245,10 @@ _mlx5_frmr_pool_alloc(struct mlx5_ib_dev *dev, stru=
-ct ib_umem *umem,
- 			MLX5_FRMR_POOLS_KEY_ACCESS_MODE_KSM_MASK :
- 			0;
-=20
--	/* Normalize ph: swap 0 and MLX5_IB_NO_PH */
--	if (ph =3D=3D MLX5_IB_NO_PH || ph =3D=3D 0)
--		ph ^=3D MLX5_IB_NO_PH;
--
- 	mr->ibmr.frmr.key.kernel_vendor_key =3D
- 		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK, st_index) |
--		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK, ph);
-+		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK,
-+			   mlx5_ib_tph_key_ph(ph));
- 	err =3D ib_frmr_pool_pop(&dev->ib_dev, &mr->ibmr);
- 	if (err) {
- 		kfree(mr);
-@@ -218,7 +271,9 @@ struct mlx5_ib_mr *mlx5_mr_cache_alloc(struct mlx5_ib=
-_dev *dev,
- 				      0 :
- 				      MLX5_FRMR_POOLS_KEY_ACCESS_MODE_KSM_MASK,
- 		.num_dma_blocks =3D ndescs,
--		.kernel_vendor_key =3D 0, /* no PH and no ST index */
-+		.kernel_vendor_key =3D
-+			FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK,
-+				   MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX),
- 	};
- 	struct mlx5_ib_mr *mr;
- 	int ret;
-@@ -557,6 +612,10 @@ static struct mlx5_ib_mr *reg_create(struct ib_pd *p=
-d, struct ib_umem *umem,
- 	mr->ibmr.pd =3D pd;
- 	mr->access_flags =3D access_flags;
- 	mr->page_shift =3D order_base_2(page_size);
-+	mr->ibmr.frmr.key.kernel_vendor_key =3D
-+		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK, st_index) |
-+		FIELD_PREP(MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK,
-+			   mlx5_ib_tph_key_ph(ph));
-=20
- 	inlen =3D MLX5_ST_SZ_BYTES(create_mkey_in);
- 	if (populate)
-@@ -753,6 +812,12 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd=
-, struct ib_umem *umem,
- 			st_index =3D mdmah->st_index;
- 	}
-=20
-+	err =3D mlx5_ib_get_st_handle_ref(dev, st_index);
-+	if (err) {
-+		ib_umem_release(umem);
-+		return ERR_PTR(err);
-+	}
-+
- 	xlt_with_umr =3D mlx5r_umr_can_load_pas(dev, umem->length);
- 	if (xlt_with_umr) {
- 		mr =3D alloc_cacheable_mr(pd, umem, iova, access_flags,
-@@ -769,6 +834,7 @@ static struct ib_mr *create_real_mr(struct ib_pd *pd,=
- struct ib_umem *umem,
- 		mutex_unlock(&dev->slow_path_mutex);
- 	}
- 	if (IS_ERR(mr)) {
-+		mlx5_ib_put_st_index_ref(dev, st_index);
- 		ib_umem_release(umem);
- 		return ERR_CAST(mr);
- 	}
-@@ -903,6 +969,63 @@ static struct dma_buf_attach_ops mlx5_ib_dmabuf_atta=
-ch_ops =3D {
- 	.invalidate_mappings =3D mlx5_ib_dmabuf_invalidate_cb,
- };
-=20
-+static void get_pci_tph_mr_dmabuf(struct mlx5_ib_dev *dev, struct dma_bu=
-f *dmabuf,
-+				  struct mlx5_ib_dmabuf_tph *tph,
-+				  u16 *st_index, u8 *ph)
-+{
-+	u16 local_st_index;
-+	u16 steering_tag;
-+	u8 local_ph;
-+	bool extended;
-+	int ret;
-+
-+	switch (pcie_tph_enabled_req_type(dev->mdev->pdev)) {
-+	case PCI_TPH_REQ_TPH_ONLY:
-+		extended =3D false;
-+		break;
-+	case PCI_TPH_REQ_EXT_TPH:
-+		extended =3D true;
-+		break;
-+	default:
-+		return;
-+	}
-+
-+	/*
-+	 * dma_buf_get_pci_tph() must run under dmabuf->resv, but drop the lock
-+	 * before mlx5_st_alloc_index_by_tag(): that allocates with GFP_KERNEL,
-+	 * which must not run under dmabuf->resv since reclaim can re-enter the
-+	 * same reservation object through a dynamic exporter's move_notify pat=
-h.
-+	 */
-+	dma_resv_lock(dmabuf->resv, NULL);
-+	ret =3D dma_buf_get_pci_tph(dmabuf, extended, &steering_tag, &local_ph)=
-;
-+	dma_resv_unlock(dmabuf->resv);
-+	if (ret) {
-+		if (ret !=3D -EOPNOTSUPP)
-+			mlx5_ib_dbg(dev, "get_pci_tph failed (%d)\n", ret);
-+		return;
-+	}
-+
-+	ret =3D mlx5_st_alloc_index_by_tag(dev->mdev, steering_tag,
-+					 &local_st_index);
-+	if (ret) {
-+		mlx5_ib_dbg(dev, "st_alloc_index_by_tag failed (%d)\n", ret);
-+		return;
-+	}
-+
-+	*st_index =3D local_st_index;
-+	*ph =3D local_ph;
-+	tph->steering_tag =3D steering_tag;
-+	tph->ph =3D local_ph;
-+	tph->extended =3D extended;
-+	tph->valid =3D true;
-+}
-+
-+static void mlx5_ib_mr_put_st_handle_ref(struct mlx5_ib_mr *mr)
-+{
-+	mlx5_ib_put_st_handle_ref(mr_to_mdev(mr),
-+				  mr->ibmr.frmr.key.kernel_vendor_key);
-+}
-+
- static struct ib_mr *
- reg_user_mr_dmabuf(struct ib_pd *pd, struct device *dma_device,
- 		   u64 offset, u64 length, u64 virt_addr,
-@@ -913,6 +1036,7 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device *=
-dma_device,
- 	struct mlx5_ib_dev *dev =3D to_mdev(pd->device);
- 	struct mlx5_ib_mr *mr =3D NULL;
- 	struct ib_umem_dmabuf *umem_dmabuf;
-+	struct mlx5_ib_dmabuf_tph tph =3D {};
- 	u16 st_index =3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX;
- 	u8 ph =3D MLX5_IB_NO_PH;
- 	int err;
-@@ -945,18 +1069,29 @@ reg_user_mr_dmabuf(struct ib_pd *pd, struct device=
- *dma_device,
- 		ph =3D dmah->ph;
- 		if (dmah->valid_fields & BIT(IB_DMAH_CPU_ID_EXISTS))
- 			st_index =3D mdmah->st_index;
-+
-+		err =3D mlx5_ib_get_st_handle_ref(dev, st_index);
-+		if (err) {
-+			ib_umem_release(&umem_dmabuf->umem);
-+			return ERR_PTR(err);
-+		}
-+	} else {
-+		get_pci_tph_mr_dmabuf(dev, umem_dmabuf->attach->dmabuf,
-+				      &tph, &st_index, &ph);
- 	}
-=20
- 	mr =3D alloc_cacheable_mr(pd, &umem_dmabuf->umem, virt_addr,
- 				access_flags, access_mode,
- 				st_index, ph);
- 	if (IS_ERR(mr)) {
-+		mlx5_ib_put_st_index_ref(dev, st_index);
- 		ib_umem_release(&umem_dmabuf->umem);
- 		return ERR_CAST(mr);
- 	}
-=20
- 	mlx5_ib_dbg(dev, "mkey 0x%x\n", mr->mmkey.key);
-=20
-+	mr->dmabuf_tph =3D tph;
- 	atomic_add(ib_umem_num_pages(mr->umem), &dev->mdev->priv.reg_pages);
- 	umem_dmabuf->private =3D mr;
- 	if (!pinned_mode) {
-@@ -1405,6 +1540,7 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib=
-_mr *mr)
- 	if (mr->ibmr.frmr.pool) {
- 		if (!mlx5_umr_revoke_mr_with_lock(mr)) {
- 			ib_frmr_pool_push(mr->ibmr.device, &mr->ibmr);
-+			mlx5_ib_mr_put_st_handle_ref(mr);
- 			return 0;
- 		}
- 	}
-@@ -1432,6 +1568,9 @@ static int mlx5r_handle_mkey_cleanup(struct mlx5_ib=
-_mr *mr)
- 	if (mr->ibmr.frmr.pool && !ret)
- 		ib_frmr_pool_drop(&mr->ibmr);
-=20
-+	if (!ret)
-+		mlx5_ib_mr_put_st_handle_ref(mr);
-+
- 	return ret;
- }
-=20
-diff --git a/drivers/infiniband/hw/mlx5/odp.c b/drivers/infiniband/hw/mlx=
-5/odp.c
-index 1badec9bf527..7c1731aa3dd9 100644
---- a/drivers/infiniband/hw/mlx5/odp.c
-+++ b/drivers/infiniband/hw/mlx5/odp.c
-@@ -857,6 +857,13 @@ static int pagefault_dmabuf_mr(struct mlx5_ib_mr *mr=
-, size_t bcnt,
- 		return err;
- 	}
-=20
-+	err =3D mlx5_ib_validate_dmabuf_tph(mr, umem_dmabuf->attach->dmabuf);
-+	if (err) {
-+		ib_umem_dmabuf_unmap_pages(umem_dmabuf);
-+		dma_resv_unlock(umem_dmabuf->attach->dmabuf->resv);
-+		return err;
-+	}
-+
- 	page_size =3D mlx5_umem_dmabuf_find_best_pgsz(umem_dmabuf, access_mode)=
-;
- 	if (!page_size) {
- 		ib_umem_dmabuf_unmap_pages(umem_dmabuf);
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c b/drivers/n=
-et/ethernet/mellanox/mlx5/core/lib/st.c
-index 7cedc348790d..c62bcae7c542 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/lib/st.c
-@@ -92,23 +92,18 @@ void mlx5_st_destroy(struct mlx5_core_dev *dev)
- 	kfree(st);
- }
-=20
--int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
--			unsigned int cpu_uid, u16 *st_index)
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index)
- {
- 	struct mlx5_st_idx_data *idx_data;
- 	struct mlx5_st *st =3D dev->st;
- 	unsigned long index;
- 	u32 xa_id;
--	u16 tag;
--	int ret;
-+	int ret =3D 0;
-=20
- 	if (!st)
- 		return -EOPNOTSUPP;
-=20
--	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
--	if (ret)
--		return ret;
--
- 	if (st->direct_mode) {
- 		*st_index =3D tag;
- 		return 0;
-@@ -152,8 +147,49 @@ int mlx5_st_alloc_index(struct mlx5_core_dev *dev, e=
-num tph_mem_type mem_type,
- 	mutex_unlock(&st->lock);
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(mlx5_st_alloc_index_by_tag);
-+
-+int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
-+			unsigned int cpu_uid, u16 *st_index)
-+{
-+	u16 tag;
-+	int ret;
-+
-+	if (!dev->st)
-+		return -EOPNOTSUPP;
-+
-+	ret =3D pcie_tph_get_cpu_st(dev->pdev, mem_type, cpu_uid, &tag);
-+	if (ret)
-+		return ret;
-+
-+	return mlx5_st_alloc_index_by_tag(dev, tag, st_index);
-+}
- EXPORT_SYMBOL_GPL(mlx5_st_alloc_index);
-=20
-+int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index)
-+{
-+	struct mlx5_st_idx_data *idx_data;
-+	struct mlx5_st *st =3D dev->st;
-+	int ret =3D 0;
-+
-+	if (!st)
-+		return -EOPNOTSUPP;
-+
-+	if (st->direct_mode)
-+		return 0;
-+
-+	mutex_lock(&st->lock);
-+	idx_data =3D xa_load(&st->idx_xa, st_index);
-+	if (WARN_ON_ONCE(!idx_data))
-+		ret =3D -EINVAL;
-+	else
-+		refcount_inc(&idx_data->usecount);
-+	mutex_unlock(&st->lock);
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(mlx5_st_get_index);
-+
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index)
- {
- 	struct mlx5_st_idx_data *idx_data;
-diff --git a/include/linux/mlx5/driver.h b/include/linux/mlx5/driver.h
-index b1871c0821d0..d26e5744c843 100644
---- a/include/linux/mlx5/driver.h
-+++ b/include/linux/mlx5/driver.h
-@@ -1182,16 +1182,31 @@ int mlx5_dm_sw_icm_dealloc(struct mlx5_core_dev *=
-dev, enum mlx5_sw_icm_type type
- 			   u64 length, u16 uid, phys_addr_t addr, u32 obj_id);
-=20
- #ifdef CONFIG_PCIE_TPH
-+int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev, u16 tag,
-+			       u16 *st_index);
-+int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_index);
- int mlx5_st_alloc_index(struct mlx5_core_dev *dev, enum tph_mem_type mem=
-_type,
- 			unsigned int cpu_uid, u16 *st_index);
- int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 st_index);
- #else
-+static inline int mlx5_st_alloc_index_by_tag(struct mlx5_core_dev *dev,
-+					     u16 tag, u16 *st_index)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
-+static inline int mlx5_st_get_index(struct mlx5_core_dev *dev, u16 st_in=
-dex)
-+{
-+	return -EOPNOTSUPP;
-+}
-+
- static inline int mlx5_st_alloc_index(struct mlx5_core_dev *dev,
- 				      enum tph_mem_type mem_type,
- 				      unsigned int cpu_uid, u16 *st_index)
- {
- 	return -EOPNOTSUPP;
- }
-+
- static inline int mlx5_st_dealloc_index(struct mlx5_core_dev *dev, u16 s=
-t_index)
- {
- 	return -EOPNOTSUPP;
+Also, this isn't a bug introduced by this patch, but does calling
+mod_delayed_work() here leave a use-after-free window during teardown?
+
+During dw_hdmi_qp_rockchip_unbind(), cancel_delayed_work_sync(&hdmi->hpd_wo=
+rk)
+is called. However, since the HPD IRQ is managed by devm_request_threaded_i=
+rq()
+on the platform device, the IRQ remains active during unbind. If a hardware
+HPD interrupt fires immediately after cancel_delayed_work_sync() completes,
+could this threaded handler run and re-queue the work right before the hdmi
+structure is freed?
+
+> =20
+>  	return IRQ_HANDLED;
+>  }
+[ ... ]
+> @@ -401,22 +414,11 @@ static irqreturn_t dw_hdmi_qp_rk3588_hardirq(int ir=
+q, void *dev_id)
+>  static irqreturn_t dw_hdmi_qp_rk3588_irq(int irq, void *dev_id)
+>  {
+>  	struct rockchip_hdmi_qp *hdmi =3D dev_id;
+> -	u32 val;
+> -
+> -	if (hdmi->port_id)
+> -		val =3D FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_CLR, 1);
+> -	else
+> -		val =3D FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_CLR, 1);
+> -	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
+> =20
+>  	mod_delayed_work(system_percpu_wq, &hdmi->hpd_work,
+>  			 msecs_to_jiffies(HOTPLUG_DEBOUNCE_MS));
+> =20
+> -	if (hdmi->port_id)
+> -		val |=3D FIELD_PREP_WM16(RK3588_HDMI1_HPD_INT_MSK, 0);
+> -	else
+> -		val |=3D FIELD_PREP_WM16(RK3588_HDMI0_HPD_INT_MSK, 0);
+> -	regmap_write(hdmi->regmap, RK3588_GRF_SOC_CON2, val);
+> +	dw_hdmi_qp_rk3588_enable_hpd(NULL, hdmi);
+
+[Severity: High]
+Could the unconditional call to dw_hdmi_qp_rk3588_enable_hpd() here
+unintentionally re-enable the HPD interrupt when the DRM core expected it
+to remain disabled?
+
+As with the RK3576 path, if a hardware event triggers just before teardown,
+this threaded handler might run after the DRM core has already requested
+the interrupt be disabled, breaking the intended HPD state machine.
+
+Also, this is a pre-existing issue, but is there a use-after-free risk
+during driver unbind?
+
+If a hardware interrupt fires after cancel_delayed_work_sync() has run in
+dw_hdmi_qp_rockchip_unbind(), the still-active IRQ handler will call
+mod_delayed_work() and re-queue the work right before the hdmi structure
+gets freed.
+
+> =20
+>  	return IRQ_HANDLED;
+>  }
+
 --=20
-2.53.0-Meta
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-dw-hdmi-qp=
+-scramb-v10-0-294364b2cf15@collabora.com?part=3D35
