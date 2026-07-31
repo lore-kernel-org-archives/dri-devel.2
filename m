@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1651EC54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:43:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B7FAC55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:43:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B06D10E224;
-	Fri, 31 Jul 2026 16:43:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81BA210F34A;
+	Fri, 31 Jul 2026 16:43:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Q9nXScPb";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="gFydYpc3";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 91BAE10E224
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:43:47 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 91EA610F34A
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:43:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785516226;
+ s=mimecast20190719; t=1785516233;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=lSuYcaNlXmC2iii63pednXBAuDRAZROOC8ripxWX5Fw=;
- b=Q9nXScPbp3FqklxVoPZAiKjvAtgqi8UBlgPDfDvtGFFyN7R2QVj2JZeOR8Cesm1FSi3mr8
- /m0n+J+f3tW0F9h6l7IaTJuf4ZipxCgQtxRDoO5JMadbmO5SH14m7YZYYCCa1DXtzNFY/D
- eCmnYfsPslwbc/gAYU3K1gNRjO4XRLY=
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+ltyqZW5ZfqrwkkeZqLpjTnozgkU+0DHxMfwj6ZzMkA=;
+ b=gFydYpc33KMeyUtlZ+wdcpd9Zrkj6hRQc2DMyip7OeGEAgTP1wPYbdtO2cC171wrOE+Q1c
+ Y6tGGnA2G5Lrf5fxxeHOzusu3c/wqMOlrWIrrtUewfiTLruV/oNjIrYhwexWMal0m9KJLU
+ 7H7YR+YgC2JOU3mJpdlRg2ClAPE8xnA=
 Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com
  [209.85.218.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-407-szM2ev8XNpSNRDLZRpVCOA-1; Fri, 31 Jul 2026 12:43:45 -0400
-X-MC-Unique: szM2ev8XNpSNRDLZRpVCOA-1
-X-Mimecast-MFC-AGG-ID: szM2ev8XNpSNRDLZRpVCOA_1785516224
+ us-mta-321-xM4ioFRUN_GWOYcJJ0Cmzw-1; Fri, 31 Jul 2026 12:43:52 -0400
+X-MC-Unique: xM4ioFRUN_GWOYcJJ0Cmzw-1
+X-Mimecast-MFC-AGG-ID: xM4ioFRUN_GWOYcJJ0Cmzw_1785516230
 Received: by mail-ej1-f70.google.com with SMTP id
- a640c23a62f3a-c15e6109f9aso96485366b.2
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:43:45 -0700 (PDT)
+ a640c23a62f3a-c15d4224f9dso96562066b.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:43:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785516224; x=1786121024;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=lSuYcaNlXmC2iii63pednXBAuDRAZROOC8ripxWX5Fw=;
- b=ZuIABbB5xl6nARrUHT0sudcMDxgqD763zS3Hy+jToPfgdLiDFmraVab/2JB/qDGmkN
- 0eaw0kCbkan01Ku1LYZsiueKPSogOJPYt+Kz0A7Bvta7bpgFopYf+V6qTOWEg/6LvbsJ
- l2OgFblDHT+9HyPEtZ8oSh9kZfCNP/9YK76FlKDgn7ixs96LcMsQUBgaVpHfKo3JOdOl
- 3CYA4jrCkvPoMN+bBo/QKdqkVex71fngI9dn9+EUycNnYZrUs4UtA1fOIJqi9L+vrvIO
- zohSIc1sSX80rts8xg/mC1MbI2bGlZBKo333DmlmVWyjELIlfKzOaHCF036cmu30P04w
- k1/A==
+ d=1e100.net; s=20251104; t=1785516230; x=1786121030;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+ltyqZW5ZfqrwkkeZqLpjTnozgkU+0DHxMfwj6ZzMkA=;
+ b=YtrAtaaqIRyJKY3/2LdhzIs3eTPmvGa/jxnziww5sS71xtE8w9DipZY7gIxnwRWfmD
+ fQyDURY4S7/u618ZZ/3tFAfg9FtN1aRo9/EoIi1fN6T4drp/MkvMyjlJLkPGjzUbdmkH
+ G2Mh91rJCEurYd6oWz+YKMIK5SiE8DjPDkvqemhkZAvW9lJqCuf4s1loQpgERXdrUcHP
+ a8xQY6Hca4zE6ZWIWieoPHbdVKh6Ijfd76xdLoDIscJ2SEhmLdzBp/iFYVN4Scnnjjj6
+ 2CUH8aQwCtlsfue7ZgjKcKWaH4dR3KOX9DAbArGgm41AbJBE6gIbtD7WSanOcRTadGtS
+ hwyA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr+zHFd4VIqGzjsRIPfdpKfmhTP3X4o8o5q7lvCuvR8giP27/nHXtLpkyXr3yn1/n55ipydln5SK8M=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzRN3AdS/iFrDW3Ls4nzLoi2A0r4qWaqUwn8WD+HJX4GWj85vxF
- I5Nf2386n3N+VRUfRFOJ7yMS5SPV7LbbaeeJXGLvS6XXh9/FyLQfGvl4V2lSSl4hAAQOoBwUZyS
- sRJ3bKR0NK0eQzre11LWIYnqgFB/clPpf/o6SQ5jwoAv0kXKczFpU/nC0Q9uQnPF71bRv+w==
-X-Gm-Gg: AR+sD136m/7nHQbRHk4bUpZCpfziRUhudQBDCjAMl719h/potoZyesMPvaexlAzN1P+
- UYMxh884+PoRiDRuAFPDCzzNqJawsyBA/jNc37Vfuxf7v67UbPJbNwSA59BOZFXyUypZUbd9w9i
- OT5qDFNbqKse2BJ1rIQD29VBxFGVkTaakK6x4Vgj9ONOfT6ajt0bZI5j9EcW0vw6XX5U/TwHQDX
- X6nrUQgnhUNwqjRuQJRSnRCGVHJnytMxKTEioQNHiczVfTDHEY/p+XvnlvXn2pgM4tfsrJO5+dG
- XE8XRcnUZl0cF9rQKyvRL4CRH7P+eZls629UOHjlD7BBmpTY6VOY3bzhTF6YCtFKV6meo1wOD2U
- aEsjJMH/tUQnEXb1iapa9ssds0YIjwkpYh+dAzP+kXNaYN/3AdFAdwF01ZwY52hzK4jgVhMBq2n
- cG7YU=
-X-Received: by 2002:a17:907:e001:20b0:c1f:7c45:2dfa with SMTP id
- a640c23a62f3a-c1fe7ea4b7cmr19853566b.7.1785516224105; 
- Fri, 31 Jul 2026 09:43:44 -0700 (PDT)
-X-Received: by 2002:a17:907:e001:20b0:c1f:7c45:2dfa with SMTP id
- a640c23a62f3a-c1fe7ea4b7cmr19852166b.7.1785516223725; 
- Fri, 31 Jul 2026 09:43:43 -0700 (PDT)
+ AHgh+RoOrkxFJ+n65gn0zMoQcZhybTibXnS1OE4bV58xZGZzfXNLgkelslb1k8gnmK7DRycJUXJ6KBWo8N0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwMvz26Kgg5rnSUnxoy7zgn4KYP+05bcdGRjumX1xeYY5H/K+5Q
+ C5ni54wfz/0W1tlbfuJ+MAgmcJhUh2Oc9Hnab7kRwu1C9Gs5+sS8NSlqUXP18JbFNO3mIrHK5u/
+ oRWZYrpQ3TCH695sZweTAHdzOG9Az0YnriP8Dm6VENtXx+K3z8hqEHDgaj17f1L3oTnDCYA==
+X-Gm-Gg: AR+sD11Zar58XYjGI91N6g30PSOH+gP7r5iFfxhc3jndSxzojPRRG/AE03rqrUGiy09
+ N7EuSSIG9UfTzU1f74cQObSsTn+wIUP33x8q9EfLZ80NykD0ShQNXn/XGxZcGnRzsCrT9xFlD2L
+ ZWLdWQp3Er2S95m0r3/hLB6BjAuDUnerfXFgghLOKSMH3s0SQTweHQZh4P5RjLqlnH3bK/Sbr5I
+ Ajbvk+BjsrI28y2k4Iv/5h1pGImPzw4BP0rDMxwRHCseiWtSvqzfNf32W8Fq5SAb0swp+zzsuoA
+ tUdMDEuWxMizl3HJsED5R581V5B/7n8dq+V/dE49205WhV9VIgBKoTjmLm20uAVEWTw83k0QTFM
+ Q6/2m5EsgTy4XjHSuFhPGxe5XilscE9C4Jj2Rv92qiBXHtC2o1OUNAGwMB98Xmk3VsWm2kllLff
+ gNg50=
+X-Received: by 2002:a17:907:d1f:b0:c1f:17f6:2a74 with SMTP id
+ a640c23a62f3a-c1fe7fc540fmr36349066b.9.1785516229935; 
+ Fri, 31 Jul 2026 09:43:49 -0700 (PDT)
+X-Received: by 2002:a17:907:d1f:b0:c1f:17f6:2a74 with SMTP id
+ a640c23a62f3a-c1fe7fc540fmr36346066b.9.1785516229473; 
+ Fri, 31 Jul 2026 09:43:49 -0700 (PDT)
 Received: from [192.168.10.48] ([151.95.34.92])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1fd455ab7dsm206911266b.58.2026.07.31.09.43.42
+ a640c23a62f3a-c1fd4537761sm215223766b.52.2026.07.31.09.43.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jul 2026 09:43:43 -0700 (PDT)
+ Fri, 31 Jul 2026 09:43:48 -0700 (PDT)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
@@ -78,15 +79,15 @@ Cc: Boris Brezillon <boris.brezillon@collabora.com>,
  Sergio Lopez <slp@redhat.com>, Christian Koenig <christian.koenig@amd.com>,
  Huang Rui <ray.huang@amd.com>, bcm-kernel-feedback-list@broadcom.com,
  dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-Subject: [PATCH RFT 0/3] mm,
- drm: ensure .fault() does not have to be followed by .pfn_mkwrite()
- for write faults
-Date: Fri, 31 Jul 2026 18:43:38 +0200
-Message-ID: <20260731164341.1109827-1-pbonzini@redhat.com>
+Subject: [PATCH RFT 2/3] drm/shmem_helper: use vmf_insert_pfn_mkwrite()
+Date: Fri, 31 Jul 2026 18:43:40 +0200
+Message-ID: <20260731164341.1109827-3-pbonzini@redhat.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260731164341.1109827-1-pbonzini@redhat.com>
+References: <20260731164341.1109827-1-pbonzini@redhat.com>
 MIME-Version: 1.0
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: LQgli3FSoMqTP7dxfc2dVJFlFPFQKRblMp1oQpQnehU_1785516224
+X-Mimecast-MFC-PROC-ID: KBwYWLV9cZeYV3_WGscgyihCMe_Jnb5n1wop8u30G70_1785516230
 X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 8bit
 content-type: text/plain; charset="US-ASCII"; x-default=true
@@ -105,49 +106,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Warning - DRM parts (i.e. most of the patches) untested; I have Cc'd
-the reporter to help with testing these patches.
+This ensures that KVM or VFIO correctly see a writable PTE when
+they request one.  Otherwise, a guest write to an unpopulated
+PTE from a mapping backed by a DRM GEM BO triggers a VM exit
+with EFAULT.
 
-Right now, users of .pfn_mkwrite() have no way to create a PTE
-that has gone through maybe_mkwrite().  Because vma_set_page_prot()
-will have cleared the writable PTE bit, users of fixup_user_fault()
-will see a read-only PTE and have no clue that the page needs
-a *second* fault to reach its final status.
+The code actually is simpler, because the same logic already
+applied to the hugepage mapping case using vmf_insert_pfn_pmd().
 
-Handling this in fixup_user_fault() is problematic: the information
-about the presence of *_mkwrite is only recorded in vma->vm_page_prot,
-which is an opaque pgprot_t, therefore only follow_pfnmap_start()
-knows how to retrieve it.
+Reported-by: Sergio Lopez <slp@redhat.com>
+Link: https://lore.kernel.org/kvm/20260729072044.25796-1-slp@redhat.com/
+Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 38 ++++++++++++++------------
+ 1 file changed, 20 insertions(+), 18 deletions(-)
 
-There are actually some preexisting functions that suggest how
-this is supposed to be handled, namely vmf_insert_page_mkwrite() and
-vmf_insert_pfn_pmd().  So, this series adjusts mm/memory.c to export
-two new functions vmf_insert_pfn_mkwrite() and __vmf_insert_pfn_prot(),
-and then teaches drm's two users of .pfn_mkwrite() to call them.  Let
-me know if I should use another name like vmf_insert_pfn_prot_mkwrite(),
-instead of the "__"-prefixed one.
-
-The drm_gem_shmem_helper case was reported as a KVM regression, while
-the vmwgfx one was found by inspection of .pfn_mkwrite() implementors.
-
-Thanks,
-
-Paolo
-
-Paolo Bonzini (3):
-  mm: export variants of vmf_insert_pfn* for use with pfn_mkwrite()
-  drm/shmem_helper: use vmf_insert_pfn_mkwrite()
-  drm/ttm, drm/vmwgfx: directly create writable PTEs when mkwrite is
-    in use
-
- drivers/gpu/drm/drm_gem_shmem_helper.c     | 38 +++++------
- drivers/gpu/drm/ttm/ttm_bo_vm.c            |  3 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c | 44 +++++++------
- include/linux/mm.h                         |  4 ++
- mm/huge_memory.c                           |  2 +-
- mm/memory.c                                | 75 ++++++++++++++++------
- 6 files changed, 107 insertions(+), 59 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index c989459eb215..33a14f558276 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -589,11 +589,25 @@ static void drm_gem_shmem_record_mkwrite(struct vm_fault *vmf)
+ 	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+ }
+ 
++/*
++ * Because the vm_ops have a .pfn_mkwrite() callback, vma_set_page_prot()
++ * has cleared the write bit from vma->vm_page_prot.  vmf_insert_pfn()
++ * would install a read-only entry even for a write fault, relying on a
++ * second fault to reach .pfn_mkwrite() and upgrade it, but that second
++ * fault never happens for fixup_user_fault() callers that directly
++ * walk the page tables with follow_pfnmap_start().  To ensure that
++ * they don't see the read-only entry, pass FAULT_FLAG_WRITE info down
++ * to install a writable entry right away.  Because .pfn_mkwrite() is
++ * not invoked, record the write afterwards.
++ */
+ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+ 				 unsigned long pfn)
+ {
++	bool write = vmf->flags & FAULT_FLAG_WRITE;
++	vm_fault_t ret = VM_FAULT_FALLBACK;
++
+ 	if (!order) {
+-		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
++		ret = vmf_insert_pfn_mkwrite(vmf->vma, vmf->address, pfn, write);
+ #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+ 	} else if (order == PMD_ORDER) {
+ 		unsigned long paddr = pfn << PAGE_SHIFT;
+@@ -601,27 +615,15 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+ 
+ 		if (aligned &&
+ 		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+-			vm_fault_t ret;
+-
+ 			pfn &= PMD_MASK >> PAGE_SHIFT;
+-
+-			/* Unlike PTEs which are automatically upgraded to
+-			 * writeable entries, the PMD upgrades go through
+-			 * .huge_fault(). Make sure we pass the "write" info
+-			 * along in that case.
+-			 * This also means we have to record the write fault
+-			 * here, instead of in .pfn_mkwrite().
+-			 */
+-			ret = vmf_insert_pfn_pmd(vmf, pfn,
+-						 vmf->flags & FAULT_FLAG_WRITE);
+-			if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+-				drm_gem_shmem_record_mkwrite(vmf);
+-
+-			return ret;
++			ret = vmf_insert_pfn_pmd(vmf, pfn, write);
+ 		}
+ #endif
+ 	}
+-	return VM_FAULT_FALLBACK;
++
++	if (ret == VM_FAULT_NOPAGE && write)
++		drm_gem_shmem_record_mkwrite(vmf);
++	return ret;
+ }
+ 
+ static vm_fault_t drm_gem_shmem_any_fault(struct vm_fault *vmf, unsigned int order)
 -- 
 2.55.0
 
