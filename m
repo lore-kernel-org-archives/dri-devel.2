@@ -4,45 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 036DCC54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:10:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4BF9C5516F
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:13:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 283B610F2C9;
-	Fri, 31 Jul 2026 15:10:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E986892EA;
+	Fri, 31 Jul 2026 15:13:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G/sBSEPM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q4kfuWNC";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F2DA10F2C9
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:10:17 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BD7710F2CA
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:13:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 07D6340B07;
- Fri, 31 Jul 2026 15:10:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C93D1F000E9;
- Fri, 31 Jul 2026 15:10:16 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 37E0D600AF;
+ Fri, 31 Jul 2026 15:13:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B67471F000E9;
+ Fri, 31 Jul 2026 15:13:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785510616;
- bh=+w4I+WoqJUTNm24RCJPYkDl+sF9iwDu1k03g0UZhf9w=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=G/sBSEPMDPt+8/rM2rIWQYjjMggrqJXIew1f9VKTdHUVkPMHdZG24UEnxaYj+zw7R
- RM9Nu+Siv1tLIgWBpCPBBctfz8UFl3vxdFJ81CnJLovMgmUjYNoRa5gGIj6gCKnKuV
- GyAFjYt7C7mujPzN3gLqpJhfsu4ktJ7PbKij241a/WBJn9+lTP3rIOiQsrDjef/buQ
- IEJUZPibm3mv6Ao4mJn7VBIfDXFSPVWAzN72ngg14hgxiZs663eHMitbknLN9zmKE5
- OnEvnDmMMTZzloos8ZM9+m3USbHSYyZA9i2uZ1z9TTRvnODxiIw4KUB/X+HdIZ6KW+
- GtdSGR7FMa/xg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] fbdev: ssd1307fb: add support for Sino Wealth
- SH1107 controller
-To: "Jakub Turek" <jakub.turek@elsta.tech>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260731-feat-sh1107-v2-1-0d2893e44ebd@elsta.tech>
-References: <20260731-feat-sh1107-v2-0-0d2893e44ebd@elsta.tech>
- <20260731-feat-sh1107-v2-1-0d2893e44ebd@elsta.tech>
+ s=k20260515; t=1785510785;
+ bh=/NVYBiS7+7h+ce6axPagWQx9EDiqcteYWEdh+1Ot/nQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Q4kfuWNCqH7NTjUflHvf1DQ/Q6aoj5/rYdk6HQnMSfE29Ns4+B/0m4OGZ5s5q0jun
+ Vl85sK3jfsoc9BoXf3baQEnwvEUVwLd8mSGokuR386umwiJOKGdONrNQp+y86pE7p9
+ vuJM57KCLqoJdIBizITBG4fABJUEQ+pZ6X7nNosjiN+HEAoDIuYoZDLPU8DqDZcsbx
+ nd9T6O0ABjf+iqlM+RxqZHZURqLA19yhaylMfPcJKvdiKDx25lESvbBC5sEolNtVRJ
+ PrJdNwkuwenYHaKyStVCY4zKsZm3aaWREpdjtiNeXesTwhgHC99CDkKeX6O5YJ9gFe
+ 1VwvV2EOAHBBw==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+ (envelope-from <johan@kernel.org>) id 1wpov0-00000000YFf-49RS;
+ Fri, 31 Jul 2026 17:13:02 +0200
+Date: Fri, 31 Jul 2026 17:13:02 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>,
+ Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v5 08/14] mfd: lm3533: Convert to use OF bindings
+Message-ID: <amy7fpjsUwZ9qJmF@hovoldconsulting.com>
+References: <20260617080031.99156-1-clamor95@gmail.com>
+ <20260617080031.99156-9-clamor95@gmail.com>
+ <akeXAOpb13hupUGM@hovoldconsulting.com>
+ <CAPVz0n2trouADTziWXnpt=-hwKdsZWGQib+-nVCLaSLibTbATg@mail.gmail.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 15:10:16 +0000
-Message-Id: <20260731151016.9C93D1F000E9@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n2trouADTziWXnpt=-hwKdsZWGQib+-nVCLaSLibTbATg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,141 +69,364 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Tue, Jul 14, 2026 at 04:57:01PM +0300, Svyatoslav Ryhel wrote:
+> пт, 3 лип. 2026 р. о 14:03 Johan Hovold <johan@kernel.org> пише:
+> >
+> > On Wed, Jun 17, 2026 at 11:00:25AM +0300, Svyatoslav Ryhel wrote:
+> > > Since there are no users of this driver via platform data, remove the
+> > > platform data support and switch to using Device Tree bindings.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org> #for backlight
+> > > ---
+> > >  drivers/iio/light/lm3533-als.c      |  67 +++++---
+> > >  drivers/leds/leds-lm3533.c          |  50 ++++--
+> > >  drivers/mfd/lm3533-core.c           | 236 ++++++++++++----------------
+> > >  drivers/mfd/lm3533-ctrlbank.c       |   5 -
+> > >  drivers/video/backlight/lm3533_bl.c |  55 +++++--
+> > >  include/linux/mfd/lm3533.h          |  52 +-----
+> > >  6 files changed, 220 insertions(+), 245 deletions(-)
+> >
+> > >  static int lm3533_als_probe(struct platform_device *pdev)
+> > >  {
+> > > -     const struct lm3533_als_platform_data *pdata;
+> > >       struct lm3533 *lm3533;
+> > >       struct lm3533_als *als;
+> > >       struct iio_dev *indio_dev;
+> > > @@ -803,12 +817,6 @@ static int lm3533_als_probe(struct platform_device *pdev)
+> > >       if (!lm3533)
+> > >               return -EINVAL;
+> > >
+> > > -     pdata = dev_get_platdata(&pdev->dev);
+> > > -     if (!pdata) {
+> > > -             dev_err(&pdev->dev, "no platform data\n");
+> > > -             return -EINVAL;
+> > > -     }
+> > > -
+> > >       indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*als));
+> > >       if (!indio_dev)
+> > >               return -ENOMEM;
+> > > @@ -817,25 +825,27 @@ static int lm3533_als_probe(struct platform_device *pdev)
+> > >       indio_dev->channels = lm3533_als_channels;
+> > >       indio_dev->num_channels = ARRAY_SIZE(lm3533_als_channels);
+> > >       indio_dev->name = dev_name(&pdev->dev);
+> > > -     iio_device_set_parent(indio_dev, pdev->dev.parent);
+> >
+> > Why are you reparenting the iio device here?
+> >
+> 
+> Because every cell has its own binding now and using phandle to parent
+> when device has its own node is not a good practice.
+> 
+> > That's an ABI break.
+> >
+> 
+> This driver does not have any active users in the kernel and no
+> activity for more then 2 years.
 
-New issues:
-- [Medium] Uninitialized variable `ret` returned when `pages =3D=3D 0` and =
-`page_address_mode` is enabled.
+We have never required board files to be upstream.
 
-Pre-existing issues:
-- [High] Passing a virtual address to `__free_pages()` instead of a `struct=
- page *`.
-- [High] Use-After-Free of physical framebuffer memory due to unrevoked mma=
-p mappings on device removal.
---
+And a working driver does not need to be changed every year.
 
---- Patch [1]: [PATCH v2 1/2] fbdev: ssd1307fb: add support for Sino Wealth=
- SH1107 controller ---
-commit e1d9663a6aba54b57c6911f220e7fb969872972f
-Author: Jakub Turek <jakub.turek@elsta.tech>
+In any case, something like this at a minimum needs to be highlighted in
+the commit message.
 
-fbdev: ssd1307fb: add support for Sino Wealth SH1107 controller
+> > > +static const struct of_device_id lm3533_als_match_table[] = {
+> > > +     { .compatible = "ti,lm3533-als" },
+> > > +     { }
+> > > +};
+> > > +MODULE_DEVICE_TABLE(of, lm3533_als_match_table);
+> > > +
+> > >  static struct platform_driver lm3533_als_driver = {
+> > >       .driver = {
+> > >               .name   = "lm3533-als",
+> > > +             .of_match_table = lm3533_als_match_table,
+> > >       },
+> > >       .probe          = lm3533_als_probe,
+> > >       .remove         = lm3533_als_remove,
+> >
+> > You should also remove the platform module alias below.
+> >
+> 
+> Why?
 
-The SH1107 display controller is very similar to SSD1307 but the main
-difference is that SH1107 has different memory layout and uses page mode
-adressation only.
+Because your change makes it obsolete. The driver now only supports OF
+probing.
 
-> diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd130=
-7fb.c
-> index 644b8d97b3811..19dc7671fa7ac 100644
-> --- a/drivers/video/fbdev/ssd1307fb.c
-> +++ b/drivers/video/fbdev/ssd1307fb.c
+> > > @@ -680,15 +684,22 @@ static int lm3533_led_probe(struct platform_device *pdev)
+> > >
+> > >       platform_set_drvdata(pdev, led);
+> > >
+> > > -     ret = led_classdev_register(pdev->dev.parent, &led->cdev);
+> > > +     ret = led_classdev_register(&pdev->dev, &led->cdev);
+> >
+> > Here too you appear to be reparenting the class devices.
+> >
+> > >       if (ret) {
+> > > -             dev_err(&pdev->dev, "failed to register LED %d\n", pdev->id);
+> > > +             dev_err(&pdev->dev, "failed to register LED %d\n", led->id);
+> >
+> > This does not seem to be necessary.
+> >
+> 
+> Agreed.
+> 
+> > >               return ret;
+> > >       }
+> > >
+> > >       led->cb.dev = led->cdev.dev;
+> > >
+> > > -     ret = lm3533_led_setup(led, pdata);
+> > > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
+> > > +                              &led->max_current);
+> > > +     led->max_current = clamp(led->max_current, LM3533_MAX_CURRENT_MIN,
+> > > +                              LM3533_MAX_CURRENT_MAX);
+> >
+> > Why clamp instead of having lm3533_led_setup() fail below?
+> >
+> 
+> According to OF schema default lower margin is set to
+> LM3533_MAX_CURRENT_MIN so clamping seems a good option here, even
+> though it will clamp max value.
 
-[ ... ]
+Just let it fail to probe. The driver already have the necessary checks.
 
-> @@ -274,13 +308,28 @@ static int ssd1307fb_update_rect(struct ssd1307fb_p=
-ar *par, unsigned int x,
->  				u8 byte =3D vmem[(8 * i + k) * line_length +
->  					       j / 8];
->  				u8 bit =3D (byte >> (j % 8)) & 1;
-> +
->  				data |=3D bit << k;
->  			}
->  			array->data[array_idx++] =3D data;
->  		}
-> +
-> +		if (par->page_address_mode) {
-> +			ret =3D ssd1307fb_set_page_pos(par, par->page_offset + i,
-> +						     par->col_offset + x);
-> +			if (ret < 0)
-> +				goto out_free;
-> +
-> +			ret =3D ssd1307fb_write_array(par->client, array, width);
-> +			if (ret < 0)
-> +				goto out_free;
-> +
-> +			array_idx =3D 0;
-> +		}
->  	}
-> =20
-> -	ret =3D ssd1307fb_write_array(par->client, array, width * pages);
-> +	if (!par->page_address_mode)
-> +		ret =3D ssd1307fb_write_array(par->client, array, width * pages);
-> =20
->  out_free:
->  	kfree(array);
->  	return ret;
+> > > +
+> > > +     device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
+> > > +
+> > > +     ret = lm3533_led_setup(led);
+> > >       if (ret)
+> > >               goto err_deregister;
+> > >
+> > > @@ -725,9 +736,16 @@ static void lm3533_led_shutdown(struct platform_device *pdev)
+> > >       lm3533_led_set(&led->cdev, LED_OFF);            /* disable blink */
+> > >  }
+> > >
+> > > +static const struct of_device_id lm3533_led_match_table[] = {
+> > > +     { .compatible = "ti,lm3533-leds" },
+> > > +     { }
+> > > +};
+> > > +MODULE_DEVICE_TABLE(of, lm3533_led_match_table);
+> > > +
+> > >  static struct platform_driver lm3533_led_driver = {
+> > >       .driver = {
+> > >               .name = "lm3533-leds",
+> > > +             .of_match_table = lm3533_led_match_table,
+> > >       },
+> > >       .probe          = lm3533_led_probe,
+> > >       .remove         = lm3533_led_remove,
+> >
+> > Remove platform alias below as well.
+> >
+> 
+> Why?
 
-[Severity: Medium]
-Can this return an uninitialized variable from ssd1307fb_update_rect() in
-drivers/video/fbdev/ssd1307fb.c?
+Same reason as above.
 
-When the rectangle has a height of 0 and y % 8 is 0, the calculated pages
-evaluates to 0. If par->page_address_mode is true, both of the
-if (!par->page_address_mode) blocks and the for loop are skipped entirely.
+> > >  static int lm3533_device_init(struct lm3533 *lm3533)
+> > >  {
+> > > -     struct lm3533_platform_data *pdata = dev_get_platdata(lm3533->dev);
+> > > +     struct device *dev = lm3533->dev;
+> > > +     struct mfd_cell *lm3533_devices;
+> > > +     u32 count = 0, reg, nchilds;
+> >
+> > Don't mix multiple declarations with initialisation like this.
+> >
+> 
+> Checkpatch does not complain on style issue, hence this is not prohibited.
 
-This leaves ret completely uninitialized. Is it possible for
-ssd1307fb_defio_fillrect to call the __damage_area callback even if
-sys_fillrect aborted on a 0-height rectangle, returning uninitialized memor=
-y?
+Checkpatch does not define good style.
 
-[ ... ]
+> > >       int ret;
+> > >
+> > > -     dev_dbg(lm3533->dev, "%s\n", __func__);
+> > > +     nchilds = device_get_child_node_count(dev);
+> > > +     if (!nchilds || nchilds > LM3533_CELLS_MAX)
+> > > +             return dev_err_probe(dev, -ENODEV,
+> > > +                                  "num of child nodes is not supported\n");
+> > >
+> > > -     if (!pdata) {
+> > > -             dev_err(lm3533->dev, "no platform data\n");
+> > > -             return -EINVAL;
+> > > -     }
+> > > +     lm3533_devices = devm_kcalloc(dev, nchilds, sizeof(*lm3533_devices),
+> > > +                                   GFP_KERNEL);
+> > > +     if (!lm3533_devices)
+> > > +             return -ENOMEM;
+> > >
+> > > -     lm3533->hwen = devm_gpiod_get(lm3533->dev, NULL, GPIOD_OUT_LOW);
+> > > -     if (IS_ERR(lm3533->hwen))
+> > > -             return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen), "failed to request HWEN GPIO\n");
+> > > -     gpiod_set_consumer_name(lm3533->hwen, "lm3533-hwen");
+> > > +     device_for_each_child_node_scoped(dev, child) {
+> > > +             if (count >= nchilds)
+> > > +                     break;
+> >
+> > How could count be larger than nchilds?
+> >
+> 
+> Only if the tree is malformed, hence this check was added.
 
-> @@ -658,6 +722,7 @@ static int ssd1307fb_probe(struct i2c_client *client)
-> =20
->  	par->contrast =3D 127;
->  	par->vcomh =3D par->device_info->default_vcomh;
-> +	par->page_address_mode =3D par->device_info->page_mode_only;
-> =20
->  	/* Setup display timing */
->  	if (device_property_read_u32(dev, "solomon,dclk-div", &par->dclk_div))
+But you've just retrieved nchilds by parsing the tree and counting the
+child nodes. So how can count possibly be larger than nchilds here?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the probe error path in
-drivers/video/fbdev/ssd1307fb.c pass a virtual address to a function expect=
-ing
-a struct page pointer?
+> > > +
+> > > +             if (fwnode_device_is_compatible(child, "ti,lm3533-als")) {
+> > > +                     lm3533_devices[count].name = "lm3533-als";
+> > > +                     lm3533_devices[count].of_compatible = "ti,lm3533-als";
+> > > +                     lm3533_devices[count].id = PLATFORM_DEVID_NONE;
+> > > +
+> > > +                     lm3533->have_als = true;
+> > > +                     count++;
+> > > +             } else if (fwnode_device_is_compatible(child, "ti,lm3533-backlight")) {
+> > > +                     ret = fwnode_property_read_u32(child, "reg", &reg);
+> > > +                     if (ret || reg >= LM3533_HVLED_ID_MAX) {
+> > > +                             dev_err(dev, "invalid backlight node %pfw\n", child);
+> > > +                             continue;
+> > > +                     }
+> > > +
+> > > +                     lm3533_devices[count].name = "lm3533-backlight";
+> > > +                     lm3533_devices[count].of_compatible = "ti,lm3533-backlight";
+> > > +                     lm3533_devices[count].id = reg;
+> > > +                     lm3533_devices[count].of_reg = reg;
+> > > +                     lm3533_devices[count].use_of_reg = true;
+> > > +
+> > > +                     lm3533->have_backlights = true;
+> > > +                     count++;
+> > > +             } else if (fwnode_device_is_compatible(child, "ti,lm3533-leds")) {
+> > > +                     ret = fwnode_property_read_u32(child, "reg", &reg);
+> > > +                     if (ret || reg < LM3533_HVLED_ID_MAX ||
+> > > +                         reg > LM3533_LVLED_ID_MAX) {
+> > > +                             dev_err(dev, "invalid LED node %pfw\n", child);
+> > > +                             continue;
+> > > +                     }
+> > > +
+> > > +                     lm3533_devices[count].name = "lm3533-leds";
+> > > +                     lm3533_devices[count].of_compatible = "ti,lm3533-leds";
+> > > +                     lm3533_devices[count].id = reg - LM3533_HVLED_ID_MAX;
+> > > +                     lm3533_devices[count].of_reg = reg;
+> > > +                     lm3533_devices[count].use_of_reg = true;
+> > > +
+> > > +                     lm3533->have_leds = true;
+> > > +                     count++;
+> > > +             }
+> > > +     }
+> >
+> > Why do you need the above at all? Shouldn't you be able to just use
+> > of_platform_populate().
+> >
+> 
+> of_platform_populate() is not a part of mfd framework.
 
-In ssd1307fb_probe():
+We have several MFD drivers using of_platform_populate().
 
-        vmem =3D (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO,
-                                        get_order(vmem_size));
-...
-fb_defio_error:
-        __free_pages(vmem, get_order(vmem_size));
+> > >
+> > >       lm3533_enable(lm3533);
+> > >
+> > >       ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
+> > >                                LM3533_BOOST_FREQ_MASK,
+> > > -                              pdata->boost_freq << LM3533_BOOST_FREQ_SHIFT);
+> > > +                              lm3533->boost_freq << LM3533_BOOST_FREQ_SHIFT);
+> > >       if (ret) {
+> > > -             dev_err(lm3533->dev, "failed to set boost frequency\n");
+> > > +             dev_err(dev, "failed to set boost frequency\n");
+> > >               goto err_disable;
+> > >       }
+> > >
+> > >       ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
+> > >                                LM3533_BOOST_OVP_MASK,
+> > > -                              pdata->boost_ovp << LM3533_BOOST_OVP_SHIFT);
+> > > +                              lm3533->boost_ovp << LM3533_BOOST_OVP_SHIFT);
+> > >       if (ret) {
+> > > -             dev_err(lm3533->dev, "failed to set boost ovp\n");
+> > > +             dev_err(dev, "failed to set boost ovp\n");
+> > >               goto err_disable;
+> > >       }
+> > >
+> > > -     lm3533_device_als_init(lm3533);
+> > > -     lm3533_device_bl_init(lm3533);
+> > > -     lm3533_device_led_init(lm3533);
+> > > +     ret = mfd_add_devices(dev, 0, lm3533_devices, count, NULL, 0, NULL);
+> > > +     if (ret) {
+> > > +             dev_err(dev, "failed to add MFD devices: %d\n", ret);
+> > > +             goto err_disable;
+> > > +     }
+> > >
+> > >       return 0;
+> > >
+> > > @@ -504,7 +440,26 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
+> > >               return PTR_ERR(lm3533->regmap);
+> > >
+> > >       lm3533->dev = &i2c->dev;
+> > > -     lm3533->irq = i2c->irq;
+> > > +
+> > > +     lm3533->hwen = devm_gpiod_get_optional(lm3533->dev, "enable",
+> > > +                                            GPIOD_OUT_LOW);
+> > > +     if (IS_ERR(lm3533->hwen))
+> > > +             return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen),
+> > > +                                  "failed to get HWEN GPIO\n");
+> >
+> > Please use brackets around multline statements for readability
+> > throughout.
+> >
+> 
+> Checkpatch does not complain on style issue, hence this is not prohibited.
 
-Since __get_free_pages() returns a virtual address, passing it to
-__free_pages() (which expects a struct page pointer) will misinterpret the
-virtual address as a page descriptor. Could this cause memory corruption or=
- a
-kernel panic when manipulating buddy allocator lists?
+Checkpatch is irrelevant.
 
-A similar pattern appears in ssd1307fb_remove():
+> > > +
+> > > +     device_property_read_u32(lm3533->dev, "ti,boost-ovp-microvolt",
+> > > +                              &lm3533->boost_ovp);
+> > > +
+> > > +     lm3533->boost_ovp = clamp(lm3533->boost_ovp, LM3533_BOOST_OVP_MIN,
+> > > +                               LM3533_BOOST_OVP_MAX);
+> > > +     lm3533->boost_ovp = lm3533->boost_ovp / (8 * MICRO) - 2;
+> > > +
+> > > +     device_property_read_u32(lm3533->dev, "ti,boost-freq-hz",
+> > > +                              &lm3533->boost_freq);
+> > > +
+> > > +     lm3533->boost_freq = clamp(lm3533->boost_freq, LM3533_BOOST_FREQ_MIN,
+> > > +                                LM3533_BOOST_FREQ_MAX);
+> > > +     lm3533->boost_freq = lm3533->boost_freq / (500 * KILO) - 1;
+> >
+> > Again, why clamp instead of failing probe?
+> >
+> 
+> According to OF schema default lower margin is set to
+> LM3533_BOOST_FREQ_MIN so clamping seems a good option here, even
+> though it will clamp max value.
 
-        __free_pages(__va(info->fix.smem_start), get_order(info->fix.smem_l=
-en));
+Just let the driver fail to probe as the sanity checks are already
+there.
 
-[Severity: High]
-This is a pre-existing issue, but does removing the device cause a physical
-memory use-after-free if userspace has an active mmap?
+> > >       return lm3533_device_init(lm3533);
+> > >  }
+> > > @@ -518,6 +473,12 @@ static void lm3533_i2c_remove(struct i2c_client *i2c)
+> > >       lm3533_device_exit(lm3533);
+> > >  }
+> > >
+> > > +static const struct of_device_id lm3533_match_table[] = {
+> > > +     { .compatible = "ti,lm3533" },
+> > > +     { }
+> > > +};
+> > > +MODULE_DEVICE_TABLE(of, lm3533_match_table);
+> > > +
+> > >  static const struct i2c_device_id lm3533_i2c_ids[] = {
+> > >       { "lm3533" },
+> > >       { }
 
-During device unbinding in ssd1307fb_remove() in
-drivers/video/fbdev/ssd1307fb.c, the driver frees the physical framebuffer
-memory:
+Shouldn't you drop i2c probing now as well?
 
-        __free_pages(__va(info->fix.smem_start), get_order(info->fix.smem_l=
-en));
+> > > @@ -528,6 +489,7 @@ static struct i2c_driver lm3533_i2c_driver = {
+> > >       .driver = {
+> > >                  .name = "lm3533",
+> > >                  .dev_groups = lm3533_attribute_groups,
+> > > +                .of_match_table = lm3533_match_table,
+> > >       },
+> > >       .id_table       = lm3533_i2c_ids,
+> > >       .probe          = lm3533_i2c_probe,
 
-If an unprivileged userspace process mapped the device memory via mmap, the
-page table entries are never shot down using unmap_mapping_range(). Does
-this allow userspace to retain read/write access to physical pages that have
-been returned to the kernel allocator?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-feat-sh110=
-7-v2-0-0d2893e44ebd@elsta.tech?part=3D1
+Johan
