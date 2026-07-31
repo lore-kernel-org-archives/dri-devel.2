@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3444CC54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 04:50:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4983C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 04:51:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C61E10E16E;
-	Fri, 31 Jul 2026 04:50:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2771410E1A9;
+	Fri, 31 Jul 2026 04:51:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P7eBy3QL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GRc4UrPG";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB0C10E16E
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 04:50:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDF9A10E1A5
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 04:51:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 37942600C8;
- Fri, 31 Jul 2026 04:50:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F69B1F000E9;
- Fri, 31 Jul 2026 04:50:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 11FF1600C8;
+ Fri, 31 Jul 2026 04:51:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B6741F000E9;
+ Fri, 31 Jul 2026 04:51:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785473441;
- bh=h9Iqb8ZaO73Qw5N8l705CQy7jr11HI8Y98F6XzwZDQQ=;
+ s=k20260515; t=1785473502;
+ bh=FANfdQFw84SOwOh29+4bZB9/QnD5u3j6T4iy89+w/vY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=P7eBy3QLZUN72+YEjw//NZtQPeDn8yMWKe1r51+WXAuaH3zRFXInl16ND0WZn5NjB
- 9io0yPCqEuS0LCkTrLl2rhdmdfATb0YCmICrLSQtcXg+OcSAjJGTVbNDsr22CGtgLi
- DtHXDksEIUCW9U6ExQ5nM1p6Xo1m/Z66M8tUDcjWtiOxvpRK/etvXT3QWaqGYbgmHC
- c4Y1l8bdulOdhX2sGpMk5NIaXPIPpngfsdPrtWKED1SJqkUTF/FvdQJy2CTJtfH62N
- 8X12bSkRFPiyFnAm31NmkbTOt4hB5wSfzZ6MR42SSuhy5GBvdJ3NcBfGjERRpBHLK7
- SnlqUJQXhfWlA==
+ b=GRc4UrPGTNu5b5F5Fuijd8PvckLq06NgxtObkGpLlh6ZkRrDHFdYbMRGCg0YAkAP/
+ rfe2cwu3+TsoBYZWVCJISC17ZkbRtTd1Q2n2plEIhG7O7JCos1K1G+IZC6GUNDDLiv
+ b2ImV9/KfdjTfpAEpLZbWOlJHX0EVx4T7B5XAHQKWuUSHqS4ihmOVwm7XA2n75Idye
+ 9o7WAM7WH8mOpngwkRKW8wJYMdK/OZzNDQFmJVkEqblyrrYfNpFg+LiA4hiedBVgY5
+ 3KwvJ/MjxvV+wvV8CzQA5Pdgac3us2jjuAAMWw7d1YMKe+glH4tCUaBJnha3Q8NE0E
+ ebzYCxXKddnmQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v3 3/6] pmdomain/rockchip: cycle optional
- power-domain resets on power-on
+Subject: Re: [RFC PATCH v3 6/6] arm64: dts: rockchip: rk3576-rock-4d: enable
+ NPU
 To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260731043507.1832277-4-gahing@gahingwoo.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260731043507.1832277-7-gahing@gahingwoo.com>
 References: <20260731043507.1832277-1-gahing@gahingwoo.com>
- <20260731043507.1832277-4-gahing@gahingwoo.com>
+ <20260731043507.1832277-7-gahing@gahingwoo.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 04:50:41 +0000
-Message-Id: <20260731045041.9F69B1F000E9@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 04:51:42 +0000
+Message-Id: <20260731045142.7B6741F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,137 +61,99 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] Using `dev_err()` to log a failure to acquire resets causes log spa=
-m when the error is `-EPROBE_DEFER`.
-
-Pre-existing issues:
-- [Critical] Critical use-after-free and state corruption due to `pm_genpd_=
-remove()` failure during probe error handling.
-- [High] Missing cleanup of previously acquired clocks if `of_clk_get()` fa=
-ils during initialization.
-- [High] Use-after-free on the PM domain's device tree node reference (`pd-=
->node`).
+- [High] Missing cleanup of `poll_timer` and `poll_work` in `rocket_job_fin=
+i()` leads to Use-After-Free on unload.
+- [High] The driver statically requires 6 clocks for RK3576, causing inevit=
+able probe failure for `rknn_core_1`.
+- [Medium] Using `regulator-always-on` for the dedicated NPU regulator prev=
+ents runtime power savings and bypasses genpd management.
+- [Low] Board-level DeviceTree overrides SoC-internal NPU power domain topo=
+logy, violating DT schema bindings.
 --
 
---- Patch [3]: [RFC PATCH v3 3/6] pmdomain/rockchip: cycle optional power-d=
-omain resets on power-on ---
-commit 7b67005dcd951b64c273c1af0e37dfcc0b7586dd
+--- Patch [6]: [RFC PATCH v3 6/6] arm64: dts: rockchip: rk3576-rock-4d: ena=
+ble NPU ---
+commit 317571d0650068ec684ea45a47d155fe5e0ea20c
 Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-pmdomain/rockchip: cycle optional power-domain resets on power-on
+arm64: dts: rockchip: rk3576-rock-4d: enable NPU
 
-Some Rockchip domains come out of power-on with their bus interface in
-an undefined state. On the RK3576 NPU this shows up as a hang on the
-first access after a cold power-on; the vendor kernel cycles the
-domain's resets at this point and that clears it.
+This commit enables rknn_core_0 and its IOMMU on the Radxa ROCK 4D. It
+supplies the core from vdd_npu_s0 and assigns multiple NPU power domains
+to the single NPU node.
 
-Take the domain node's resets if it has any, and pulse them between
-releasing idle and restoring QoS. The resets are optional, so domains
-that do not declare any behave exactly as before.
-
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> index e1857f8786864..82051f60090f3 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64=
+/boot/dts/rockchip/rk3576-rock-4d.dts
+> --- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
 [ ... ]
-
-> @@ -857,6 +866,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
-p_pmu *pmu,
->  	if (error)
->  		goto err_put_clocks;
-
-[Severity: High]
-This is a pre-existing issue, but does this function leak clock handles if
-of_clk_get() fails?
-
-Looking at the loop just before this context:
-
-rockchip_pm_add_one_domain() {
-    for (i =3D 0; i < pd->num_clks; i++) {
-        pd->clks[i].clk =3D of_clk_get(node, i);
-        if (IS_ERR(pd->clks[i].clk)) {
-            ...
-            return error;
-        }
-    }
-}
-
-If of_clk_get() returns -EPROBE_DEFER for an index > 0, it returns
-immediately without calling clk_put() for the clocks successfully acquired =
-in
-earlier iterations. Should this jump to a cleanup path instead?
-
-[Severity: High]
-This is another pre-existing issue in this function, but is it safe to store
-pd->node without incrementing its reference count?
-
-In rockchip_pm_domain_probe(), domains are initialized within a loop that
-automatically drops the node reference. Later, rockchip_pd_power() uses this
-potentially freed node:
-
-rockchip_pm_add_one_domain()
-    pd->node =3D node;
-
-rockchip_pd_power()
-    devm_of_regulator_get(..., pd->node, ...);
-
-Could this lead to a use-after-free if the node is dynamically removed?
-
+> @@ -442,6 +442,7 @@ regulator-state-mem {
+>  			};
 > =20
-> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
-> +	if (IS_ERR(pd->resets)) {
-> +		error =3D PTR_ERR(pd->resets);
-> +		dev_err(pmu->dev, "%pOFn: failed to get resets: %d\n", node, error);
+>  			vdd_npu_s0: dcdc-reg2 {
+> +				regulator-always-on;
+
+[Severity: Medium]
+Does setting regulator-always-on for the dedicated NPU regulator bypass=20
+the generic power domain management? It appears this will prevent the=20
+regulator from being powered down during runtime suspend, potentially=20
+wasting power when the accelerator is idle.
+
+>  				regulator-boot-on;
+>  				regulator-enable-ramp-delay =3D <400>;
+[ ... ]
+> +&rknn_core_0 {
+> +	npu-supply =3D <&vdd_npu_s0>;
+> +	/*
+> +	 * Power BOTH NPU domains (NPU0 + NPU1) like the vendor's single NPU no=
+de,
+> +	 * even though rocket computes only on core 0: the CBUF->CMAC read path=
+ is
+> +	 * only fully powered with NPU1 up. rocket attaches the multi-PD list.
+> +	 */
+> +	power-domains =3D <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
 
 [Severity: Low]
-Could this dev_err() cause log spam during normal boot?
+Will this board-level override cause a device tree schema validation=20
+failure? The rockchip,rk3588-rknn-core.yaml binding strictly enforces a=20
+maximum of 1 power domain:
 
-If of_reset_control_array_get_optional_exclusive() returns -EPROBE_DEFER
-because the reset controller hasn't probed yet, this will print an error.
-Would dev_err_probe() be better here to suppress the spam and cleanly track
-the deferral?
-
-> +		pd->resets =3D NULL;
-> +		goto err_unprepare_clocks;
-> +	}
+Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml:
+  power-domains:
+    maxItems: 1
 
 [ ... ]
 
-> @@ -945,6 +963,7 @@ static void rockchip_pm_remove_one_domain(struct rock=
-chip_pm_domain *pd)
-> =20
->  	clk_bulk_unprepare(pd->num_clks, pd->clks);
->  	clk_bulk_put(pd->num_clks, pd->clks);
-> +	reset_control_put(pd->resets);
-> =20
->  	/* protect the zeroing of pm->num_clks */
->  	mutex_lock(&pd->pmu->mutex);
+[Severity: High]
+Does rocket_job_fini() in drivers/accel/rocket/rocket_job.c leave=20
+background polling active when the memory is freed?
 
-[Severity: Critical]
-This isn't a bug introduced by this patch, but could ignoring the return va=
-lue
-of pm_genpd_remove() lead to a use-after-free and state corruption?
+drivers/accel/rocket/rocket_job.c:
+void rocket_job_fini(struct rocket_core *core)
 
-During probe error paths, rockchip_pm_domain_cleanup() tries to remove
-domains. If child links aren't removed first, pm_genpd_remove() fails with
--EBUSY. Since this failure is ignored:
+If the module is unloaded while a job is actively polling, the lack of=20
+hrtimer_cancel() and cancel_work_sync() calls could allow the timer or=20
+workqueue to execute against freed struct rocket_core memory, causing a=20
+use-after-free.
 
-rockchip_pm_remove_one_domain()
-    ret =3D pm_genpd_remove(&pd->genpd);
-    // ret is -EBUSY, but we continue tearing down
+[Severity: High]
+Will rknn_core_1 fail to probe on the RK3576 SoC due to a strict clock=20
+requirement?
 
-    clk_bulk_unprepare(...);
-    reset_control_put(pd->resets);
+drivers/accel/rocket/rocket_drv.c:rk3576_soc_data()
+	.num_clks =3D 6,
 
-The domain remains active in the global gpd_list, but its internal resources
-are freed, and devm eventually frees the rockchip_pm_domain struct. When the
-subsystem later iterates over domains, won't it dereference the freed memory
-or the newly dangling pd->resets pointer?
+drivers/accel/rocket/rocket_core.c:rocket_core_init()
+	err =3D devm_clk_bulk_get(dev, core->soc->num_clks, core->clks);
+	if (err)
+		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core=
+->index);
+
+Because num_clks is statically defined as 6 for the entire SoC, and=20
+rknn_core_1 does not possess the aclk_cbuf and hclk_cbuf clocks, this bulk=
+=20
+request will fail with -ENOENT when rknn_core_1 is enabled.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731043507.1832=
-277-1-gahing@gahingwoo.com?part=3D3
+277-1-gahing@gahingwoo.com?part=3D6
