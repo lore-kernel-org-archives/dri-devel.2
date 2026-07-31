@@ -4,85 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6975DC5516D
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 11:37:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E4FCC54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 12:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB90E10F236;
-	Fri, 31 Jul 2026 11:37:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71C7A10F23C;
+	Fri, 31 Jul 2026 12:08:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qEWMhcY2";
+	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="1t2Dccnq";
 	dkim-atps=neutral
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3C5B10F224
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 11:37:15 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-4720f3bf164so1212154f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 04:37:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785497834; x=1786102634; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=zjX+fB5UFRlHcf7n2PcBZQATegbj+CND3nwA4wOUKpg=;
- b=qEWMhcY2kwLttTXM6qvd6qrw90P2gb6n01bAquuE1CPdiyzVYQOm0JCLbpgQKZ0l1+
- EyoYZbJsjIgWdN6VRwJUwArfoLJOVEZCssBYQOYiO6OFi/tNS7dsngbAWOVhKLdubgYX
- 4PWKEyUOxN4nPx8652OV1Vrl26A/wPAL2Vlu7rd+JDvatPa9y5VhrJGyfYz371n660ii
- hd/Uw5bg9A5vkjHylKFM0CpVpp8lYLK44OJRmbOgHnDSVxeH2GBWDL3l8KWgHfxlAjo5
- SQe8NheRpAo7O1p2rtg5JoOndrvj8y/OxcmMp3xd3ckeT0wMZjb92796VmJKvIttowqp
- rXnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785497834; x=1786102634;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=zjX+fB5UFRlHcf7n2PcBZQATegbj+CND3nwA4wOUKpg=;
- b=ek1TSA6pGvP0B7Ij2lDnJF1BhW+67JRZ7/0cFbJnoY50KN4h8GA2Veq0nfoETkgf16
- 3VdxAU8lC6xULXi5FvpMt0n7tAsfVrv1srn7512tb7XRt+qPWCS+ogZXgNk+dUt2xcwz
- Iqjs7PwmbttrRJVa/d642TZKhBLuHe25A+mbKzWJ42W/Ow9TVk0Yc3qhOoF2JUEKCQ6N
- wUnBa/jXWQzLXAwMzUWLcHUtKrIqf9ddOY0ECpzgrC8BRGR/F54E6fFZg5cWnQJQ2Fyj
- OqkGdu3z5r2GEctMFRcUiyQWAnh6xwa3ea8cmADJHAdx0BOwzjdYfugPyp4SxiExVdlr
- +ZYQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp+C2jVEauRc5OWuyL43xuYSLvdvwNGtCB7cMvp2Ukdc9W7nNKwfivYo75J0AX83DPk52KaSXmRIog=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGAD0NA2bapJ109Z2TUnj6Lvtp4Iaimh4IGxYvezqc0nm6tlGD
- WZ7d8K0eFeWcA199A4uiv+zyLKHY73erezzuWO2T2aXdRcnTk+4cI1Jl
-X-Gm-Gg: AR+sD11ya5uvTTjAWqUoiD5kOSES5S/MN5US7jTDCz5/0YsJRAfhPu6rr9bTtC5uTe1
- odEt01GX5nYhPuVZ+T4YA8LG8pidXXg6J4ZF71cb//AjOhN+c96AbWs6ZcbiZgn80uaWP4Lsm5O
- SZ0mpTuCor40fBJHRvYozEqNKv5kdvLZzPFkEdpaIzInLQUT8VJ3f2cZRcACqERdTUKxwAE4x8j
- /CcAoabLnfPJ8VJPexXzF6H+hQjTu3ErNVgVcEkDrn7tYvBl3eNMakVYFJGLwKyxNgDqJcz4fuN
- 5PwgMIHXn/VvKKvGOgyMQt9tqbjKk28DK8JjFWdkWyOxA7hlY+efPas/k0RBplQ0a/YjMAgHk8w
- PEy3nATWbGU7UAxUli15xec+0khzz7iEoirBrjShNKfxRhJL3Fhxpg7m6FLy0ZN8yCbOVwjxEiD
- nef+T/bpPwLu4cZkIsbjBBvXuEm5xgaV9NsUfx08qDruGN7wKpJSjOcklUejx778Jd4oDqG5Nk+
- YI3zuwaDQ==
-X-Received: by 2002:a5d:5f85:0:b0:47f:70b2:7321 with SMTP id
- ffacd0b85a97d-47fd32fcb20mr3516082f8f.27.1785497834285; 
- Fri, 31 Jul 2026 04:37:14 -0700 (PDT)
-Received: from xeon ([188.163.112.51]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd45a0c8bsm3670646f8f.34.2026.07.31.04.37.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jul 2026 04:37:13 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- David Lechner <dlechner@baylibre.com>,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
- Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
- mfd@lists.linux.dev, linux-fbdev@vger.kernel.org
-Subject: [PATCH v6 10/14] mfd: lm3533: Set DMA mask
-Date: Fri, 31 Jul 2026 14:36:28 +0300
-Message-ID: <20260731113632.158440-11-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260731113632.158440-1-clamor95@gmail.com>
-References: <20260731113632.158440-1-clamor95@gmail.com>
+Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79CC510F23C
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 12:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=kemnade.info; s=20220719; h=In-Reply-To:References:Subject:Cc:To:From:
+ Reply-To:Content-ID:Content-Description;
+ bh=NX7y02AytQR/eBKRBBahNpRVTejIjfYTyHXAd68tZJc=; t=1785499735; x=1786709335; 
+ b=1t2DccnqK6cdVI6BfdImFschE+4CJIsJnWZxCPj1nolw6szmUdWvh3r3mRgSYFUygvamN4VZL6j
+ QZl1oVf2KVcsob+TTNZvGM54UzYoaLZTwbpzgidS8aMAaWoYeDlPOBH5YNoAvEV0m28Vq0AaHQVDl
+ hzgvKb2aTTn5ioPWP0IY7mMvXqV3Tpk6d2AEJu2Y79TTVtrRl6KEnXEuZvAm0copkbt/x39vUvN1v
+ G4RXBn4MiHj1jZrZ8AZtGC1XexbkR5+jmApKGUTAaSAd7U3lJpkzJ6bwuAhTmFygwQ4u3Osaq/lHp
+ /kGiOjT7cuw16bpW9yvVo5o29iCyCH2PItgA==;
+Date: Fri, 31 Jul 2026 13:42:56 +0200
+From: Andreas Kemnade <andreas@kemnade.info>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>,
+ hns@goldelico.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tony Lindgren <tony@atomide.com>,
+ Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Subject: Re: [PATCH v5] drm/omap: dsi: avoid sending bta sync all the time in
+ writes
+Message-ID: <amyKQNbemhTMKTk8@akepd>
+References: <20260725165909.508612-1-andreas@kemnade.info>
+ <39434782-9909-4bb4-b3da-a507acfc5e3d@ideasonboard.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <39434782-9909-4bb4-b3da-a507acfc5e3d@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,35 +62,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Missing coherent_dma_mask assigning triggers the following warning in
-dmesg:
+On Wed, Jul 29, 2026 at 02:15:33PM +0300, Tomi Valkeinen wrote:
+> > -	/*
+> > -	 * TODO: we do not always have to do the BTA sync, for example
+> > -	 * we can improve performance by setting the update window
+> > -	 * information without sending BTA sync between the commands.
+> > -	 * In that case we can return early.
+> > -	 */
+> > +	/* TODO: find out if more needs to be done for MIPI_DSI_MSG_REQ_ACK */
+> > -	r = dsi_vc_send_bta_sync(dssdev, vc);
+> > -	if (r) {
+> > -		DSSERR("bta sync failed\n");
+> > -		return r;
+> > +	if (msg->flags & MIPI_DSI_MSG_REQ_ACK) {
+> > +		r = dsi_vc_send_bta_sync(dssdev, vc);
+> > +		if (r) {
+> > +			DSSERR("bta sync failed\n");
+> > +			return r;
+> > +		}
+> >   	}
+> 
+> The dsi_vc_send_bta_sync() function does dsi_get_errors(), which we now
+> don't always do here. I think that might cause any errors to be left there,
+> which would trigger error handling on next read or write-with-bta.
+> 
+> _omap_dsi_host_transfer forward declaration can now be remove.
 
-[    3.287872] platform lm3533-backlight.0: DMA mask not set
+I will produce a v6, when I have the possibility to test again,
+probably on Monday.
+> 
+> I don't have HW to test this, but other than the above, it looks reasonable.
+> Although I have to say, based on my past experience, it's also very easy to
+> break a use case =).
+> 
+Probably these usecases should use MIPI_DSI_MSG_REQ_ACK.
 
-Since this warning might be elevated to an error in the future, set
-coherent_dma_mask to zero because both the core and cells do not utilize
-DMA.
-
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/mfd/lm3533-core.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
-index 2a63df034171e..9233da7ce0996 100644
---- a/drivers/mfd/lm3533-core.c
-+++ b/drivers/mfd/lm3533-core.c
-@@ -479,6 +479,10 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
- 				   LM3533_BOOST_FREQ_MAX);
- 	lm3533->boost_freq = lm3533->boost_freq / (500 * KILO) - 1;
- 
-+	/* LM3533 and child devices do not use DMA */
-+	i2c->dev.coherent_dma_mask = 0;
-+	i2c->dev.dma_mask = &i2c->dev.coherent_dma_mask;
-+
- 	return lm3533_device_init(lm3533);
- }
- 
--- 
-2.53.0
-
+Regards,
+Andreas
