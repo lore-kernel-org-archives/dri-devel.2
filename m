@@ -4,121 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56941C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:46:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98BB1C55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:49:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B451310F168;
-	Fri, 31 Jul 2026 06:46:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E76710F166;
+	Fri, 31 Jul 2026 06:49:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cVt1echW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CA5NQL8X";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 187BD10F168
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:46:21 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-84e2061eed9so94269b3a.2
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 23:46:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785480380; cv=none;
- d=google.com; s=arc-20260327;
- b=bRYiYuwf/HHqGfPvLhAFeyzD9S4BppHeoR1taVm6flYuVItaGVVZc9D3/s5xGbSMqp
- kboTlzhgOsLmTUuw3IUWWYMsZK8njaqLD4y2PH2o/0MiobR6Vmi2/z1qAeHiPVgR/C8T
- DcQFnwG5rCHBC7wu0mzHUZLVadofp7sACbvYaiw1vRqRoX8raibn1BM0N6QX0ifTEFJS
- 6qa+fko4kwja236BREEmw1Kp4sjz01+LXLdBhM0O1pc/jWUy95oiwQhSvGyEScsM8x5I
- HL+ogs6pGa+yAtMihecpBO9jgRr6Qn1Of+CNYrKqIE5RRaMSVIXchB8TqU0VKuoiynUq
- qAuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=qSWRSbOj71BNGeOr+HBxtLFfbntXDiooltzuw+HXglM=;
- fh=RoSD1yFfPhZxl54UYpFyaXXSRrKy1+Wzet3im/t9PuA=;
- b=Gl7oqIapR0r8rpRJJ3tIea/B2v7jhrZM5GoEB7VD3JEPGqiE1lFbC1TmmJ5rhufs4i
- k8+05uu4dIoK1eSgBnjzzBopYituCocQmoM8DWWDy8ayzTWGpxItoN4wb9e2g1qulyOP
- Ix9rjn75XHR+GLCsxCHwzUlRHNX4K4O64W8ztZuL1bRlLGojBItIp4vRWy4mRmV7RjCI
- MVFaJHH5lEn0B55mYv6KnXAqY/AQBXF16ufPzAm/rdx6gVUk3J0nIblTKqOCuqaBpffH
- lmtbpiRNnSlWg5D5DHBAUYrnSepHBrvN9HFAf/JUVT3HwkRURVC3nhKoEBu3J6kjeA1n
- XWag==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3F8F810F166
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:49:58 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-47f25e3fe44so57415f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 23:49:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785480380; x=1786085180; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=qSWRSbOj71BNGeOr+HBxtLFfbntXDiooltzuw+HXglM=;
- b=cVt1echW1i4uEXkroxFWZM1hWktMXIc7ODCf4hvc8k0uWHgGRg0Ue+SQ5F2pgiU4LY
- tJefcSqSHVmWhaGBnKIKi4NqXUTqjGy0POR3NMz7MhZYsAmeUqU6Olfc6DNC6eTfPOKk
- BaYW+JP2tdaClBwgA9TbEvJtP/cqc4wJXr9vlpdLiA5RHibkayDf6AMhV+wfrJk+gHc1
- KKFuUSIDzA9uZUYtdeCbfkSRI4eE1+SJwUH3B9f+mtojdkdPLRtXAj/seC610wghaWf3
- hqLPnv/ypcB/8FeTgCrqBhkNPUXOUxGzHUX/8Ac03xN8g6cLS0nE3PuxfzRDNz/xaqpq
- BLCg==
+ d=gmail.com; s=20251104; t=1785480596; x=1786085396; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=vsR6hWzy4D9+PPoxqFEdaQVVVEVdpxP3yoc1mBPPEeI=;
+ b=CA5NQL8XAzfh235tnCR6URM/yrr94rJZPOwA7FfuvfdbXJf5SJ3zTC7x+1hpeRc+X/
+ rLN7MU+oynu+HBG2/PlZ3/EgI+LS2uve/sBwoXay0dLtp6yLPXnGZl44oJBdJ5yD9+qI
+ k4npClHNLEyjGIWjoHBkngey5663D2HIUJvX2tZl0JJywSaoVWgoUYyjPVWHEcEhxp4m
+ QISIEo0ZhSQdv+JNMGBiftI29TCn1TzP19CzNrojypnBllDa+bXO2C6oW/GIWrpTF8ij
+ yOaWpKhiiCHKCTwlvnkn1LplRKFBXgjl/B6VUNbC2KPghTQXDq6Pue60olsC0W/Hs7tU
+ G2QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785480380; x=1786085180;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=qSWRSbOj71BNGeOr+HBxtLFfbntXDiooltzuw+HXglM=;
- b=Ndi5YhxhE9yQjeEURCIs2Oj/HOs0+qbZdQ6Hdz7uvw5uASyAnq4kqGHZmkUD9wQBdc
- nZOZincUmA9l8RjGk7Jn2IGEaAP/66rYnpJ2ukT2Ixp2d6aE8ak34mFHCQ67cU5mhEQu
- PhNXQRRIplYt+81PUD6z9DWRIm8Nbdj4dK1sR9efcCzb2I9VQFK7onygLIk37l8KoexB
- jXCbFGTTDElXV2dFwvjvA88tErKApvayDxEFT7DbKuwkIRvkTS+bmCZtm3EDx1A60nxS
- oI+rXHARVY1/+HfXf95EbPqtb7BY9YVVfhXdJPdN8REM21Z20KTHTNm7AlEGPSRpUhSy
- EVuA==
+ d=1e100.net; s=20251104; t=1785480596; x=1786085396;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=vsR6hWzy4D9+PPoxqFEdaQVVVEVdpxP3yoc1mBPPEeI=;
+ b=hGOjdO676zlu6o0ttkLxdgG9wkk3RvlDKzesSq3zLmDuhuLm2Zt+H+75IQDaTEr2dY
+ STpUetPbFI+6+WLyaSXtdk6qrOqUp4UqTtUFyOHf8aL071W3iTSS6scsQ9Mul7rdL6dg
+ A4dpKwgl2BgbcImpUu22BrupR4m43+Ew92d/7AmRGd08SmTX5cP1tsiqCc1BHGM+mVaD
+ RpJS08W7Cir2msVXUsj2Jqsi+QzderpYZ+iA1zyVkinSp5Eu4CGTW0LzMRmU2jYzxqCu
+ 5dDEZKFID+/xFNvCiiC3kgrm9bZW1b1/37jE06DrieLWS3o/VXWVMslDOVC7qDECe184
+ kgjg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpsp9DuqaDLG1JP6zwtRA0ZFvQ+RQ9fvl6703jnizRjecraYMY4BwQB09YmEeE5Q4RCj/3c9d6SDPw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzfqzkQ166y8Xqw8yNaDGNBwwbJGs/aVpUdtZXRBKne2tDwI5p0
- CVqUg8x3gULUCo6qaV7x9Iud8OoPjN3tn2cE/sAv+zrsiwEZrKGWctep7rHZt118ZMbMkDKMkTn
- zhP8J72kLyvu/WHKmogpbWWK0NkTa4Lk=
-X-Gm-Gg: AR+sD11ebnBvRw1rKAYMVCCQDtxs577iPR0FVGnzdyI1fwMzig3noTCZEs2pDunwTZU
- jf+hFMsIneg/3BoLsAn6UCyoMlgEoSIkTdUck68Caheu38ksygHGCut+zhl40rxecUPDd3r1gUZ
- m142SX4AzFLgZkxdpWSy+cg5kGi8TpHaVLvfxuSbzmbdL8SURu6Scmaa4M5QPYDzNF8RQeGDFfS
- Wd0mMHn3nlUfLKwGwM8Q/1UDIEXAD76PYcBJR7hsP+yuvR3vOvBPoE/Bf/qXLT7Iay70CfVaeeV
- nZf+TTHSMbG80twfb4tvHYA3HWggUXAjp3SSB6BCKdVc18JPunRKQ6I6mNUQP6XYnxdoGD7Lb8f
- 1u+Md+PyWZEEcDBepE4Pj6hChdMw/mZ5KzUKzIa+0Shej/oWjYCjtqcMajWUA
-X-Received: by 2002:a17:902:ce08:b0:2c9:b96a:2855 with SMTP id
- d9443c01a7336-2d046b459b3mr15748155ad.0.1785480380480; Thu, 30 Jul 2026
- 23:46:20 -0700 (PDT)
+ AHgh+RqidHVfl3fG1lRJYRHNceF030yJM1pHW8tM5P6LcmIaLHSD6H41ajLbZpf0c4+cNA8HsMxxTaiXE2k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy3wNNrueK+FQB2/KRZ8gjPhAQprDgZcS/a8Ak1DEAQlrPT9WCa
+ CGwjkp3r1/PxG/BPVJ30Gpy0b0V002Nu2eSBOiG/oLFfXTDHBHUAc9zP
+X-Gm-Gg: AR+sD11jLP9eCsz38BjVuUkOV13CisVzEPeCPV65ejpxPffn5rCvs/pILmsZd8Zu/EI
+ pB+m5SlTqGQ80GK9i9MRQj/2UE5CPNPa9MG1D2hIP1KaMYNc5bfqSa0btxr3Pn2fwR1v2cZ0Qtg
+ /qyBghHKKveXi0JTm1ljCdeRH/jvjRdvLf5LJTh3fTi12ZlSVnzXwx4qkMZ19o4+BHzIB5orQam
+ LVhYBP/I5lZ4OOjNaUqM5BhUdGgSc83y4ucgQvRvCZPThqgKz08/oma15jbtpQYWB1KgdLcnX1D
+ xztBqKugzVMMaqtpN0Bb56wOhLk32a9/ub7LYUFSEASf7KrRCqfSH3qhX9vxjLfTKoZf9Ov2hlz
+ Lp6R5K5VzuZ8gQW8XqMXmi3nVa3ZGha28mSgxzwarXgxbbefCRgg+Fai2Ks9qainMB59QkPAVHw
+ Mt2ZS/tBuVfX26GMu2a8Fbt2EyWtNPXkZI4EqEGnlFgYx+gF8qVm0ybDcAj+IWNl/kyRik7pbB9
+ TfVPml+L6nzugFQ81b+JVlhFbplQgtCySmrnnaBXSbO1S2wGacaeDiyn0RuWTR6fOr9bw==
+X-Received: by 2002:a5d:64ed:0:b0:47f:7e91:3d55 with SMTP id
+ ffacd0b85a97d-47fd2b3e820mr2256719f8f.2.1785480596373; 
+ Thu, 30 Jul 2026 23:49:56 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B8B8B0053881A2C61CA978D.dsl.pool.telekom.hu.
+ [2001:4c4e:1b8b:8b00:5388:1a2c:61ca:978d])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47fd41e2abbsm1212753f8f.9.2026.07.30.23.49.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 23:49:55 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org,
+ Guangshuo Li <lgs201920130244@gmail.com>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH v2 0/2] accel/rocket: fix shared-device lifecycle on probe
+ failure and unbind
+Date: Fri, 31 Jul 2026 08:49:31 +0200
+Message-ID: <20260731064933.12548-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
-In-Reply-To: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Fri, 31 Jul 2026 08:46:07 +0200
-X-Gm-Features: AUfX_my5gmBTyBxP6uEcBbaVDtTCrtAGlQbEryzjfR6FoeX2UBUc_vHFPgNtGlo
-Message-ID: <CANiq72m59O-ruHUvUcZC7yCvu0KV0w_m5vMO4e0rxyHdRmihJw@mail.gmail.com>
-Subject: Re: [PATCH v9 00/10] Fix missing fops.owner in Rust DRM/misc
- abstractions
-To: Alvin Sun <alvin.sun@linux.dev>, Luis Chamberlain <mcgrof@kernel.org>, 
- Petr Pavlu <petr.pavlu@suse.com>, Daniel Gomez <da.gomez@kernel.org>, 
- Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann <arnd@arndb.de>, 
- Brendan Higgins <brendan.higgins@linux.dev>, David Gow <david@davidgow.net>, 
- Rae Moar <raemoar63@gmail.com>, Breno Leitao <leitao@debian.org>,
- Jens Axboe <axboe@kernel.dk>, 
- Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>, 
- Igor Korotin <igor.korotin@linux.dev>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>, 
- Bjorn Helgaas <bhelgaas@google.com>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
- Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, 
- Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org, 
- linux-modules@vger.kernel.org, driver-core@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev, 
- linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, linux-pci@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,31 +93,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 23, 2026 at 4:11=E2=80=AFAM Alvin Sun <alvin.sun@linux.dev> wro=
-te:
->
-> base-commit: b7e5ac83cb16f7ffd11dc23736f84276602100ed
+The rocket driver keeps a single shared DRM device on a driverless
+"rknn" platform device: the first core to probe initializes it, the
+last one to go away tears it down. This series fixes two independent
+bugs in that lifecycle. Both were flagged by the Sashiko AI review on
+my clks patch; I verified each by hand against the code and then on
+hardware before writing the fixes.
 
-Was this old tag used for some reason?
+Patch 1 releases the devres of the shared device on teardown. Today
+every fini/re-init cycle leaks the previous rocket_device and pins its
+accel minor - observable as /dev/accel/accel0 coming back as accel1,
+then accel2, on unbind/rebind cycles of all cores.
 
-> prerequisite-change-id: 20260519-miscdev-use-format-9ab7e83b1c11:v3
-> prerequisite-patch-id: 405b334ff0d48ad350014f05a2321bdbaa025400
-> prerequisite-patch-id: 604b631c81d5423f4ebb2e12ba2d22e9ce371bfc
-> prerequisite-patch-id: cb550d94cefe01920e0d3ced2b2bcbecd76f3907
-> prerequisite-patch-id: 3bc830839742591460cb86d9472c04f4686dc600
-> prerequisite-patch-id: 571058244bc8c7088638d2e3225713011246c7e9
-> prerequisite-patch-id: 347c5a3c6dbef9832bfce8419fc23e6e08ba477f
-> prerequisite-patch-id: 3e202d988b56b88446f7535e90d3f00cf5f15701
+Patch 2 makes the per-core slot bookkeeping stable across unbind and
+rebind in any order. Today unbinding a lower-numbered core makes
+higher-numbered ones unfindable (their runtime PM callbacks start
+returning -ENODEV), a later unbind of such a core is silently skipped,
+and a subsequent bind overwrites a slot whose IRQ handler and DRM
+scheduler are still live.
 
-Are all these actually needed? Some seem unrelated (some were already
-applied too). The only one that seems needed has Andreas' Acked-by, so
-I guess it is fine.
+Verified on RK3588 (Orange Pi 5 Plus, all three cores): the
+unbind/rebind matrix keeps /dev/accel/accel0 stable and every core
+findable; single-core operation works from the highest slot alone
+(confirmed via the per-core IRQ counters moving to that core); the
+forced-init-failure path releases its slot cleanly; and MobileNetV1
+inference via the Teflon TFLite delegate stays bit-identical to the
+stock driver throughout.
 
-(By the way, I will use this second message to take this chance to
-move the modules maintainers in the To: in case it helps, since I
-didn't do it in my previous message)
+The series applies on top of Guangshuo Li's pending fix, on which
+patch 1 depends textually (reviewed on-list):
+https://lore.kernel.org/dri-devel/20260708062845.716487-1-lgs201920130244@gmail.com/
 
-Thanks!
+v2:
+ - patch 2: clear the slot's .dev when rocket_core_init() fails -
+   with .dev as the liveness marker a failed init left a
+   half-initialised core visible to lookups and made
+   rocket_job_open()'s live-slot walk overflow its allocation by one
+   entry (Jiaxing Hu); make the never-initialised slot skip in
+   sched_to_core() explicit; document the synchronous-probe assumption
+ - patch 1: unchanged
+v1: https://lore.kernel.org/dri-devel/20260730080355.177422-1-royalnet026@gmail.com/
 
-Cheers,
-Miguel
+Igor Paunovic (2):
+  accel/rocket: release the shared device's devres on teardown
+  accel/rocket: keep core slots stable across unbind and rebind
+
+ drivers/accel/rocket/rocket_device.c |  2 ++
+ drivers/accel/rocket/rocket_device.h |  3 +++
+ drivers/accel/rocket/rocket_drv.c    | 41 ++++++++++++++++++++++++++++++++----
+ drivers/accel/rocket/rocket_job.c    | 13 +++++++------
+ 4 files changed, 53 insertions(+), 10 deletions(-)
+
+--
+2.53.0
