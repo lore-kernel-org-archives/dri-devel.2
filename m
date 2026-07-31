@@ -4,77 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C95FC55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:54:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A56A5C55174
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:54:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 89E1910F17A;
-	Fri, 31 Jul 2026 06:54:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1537610F17E;
+	Fri, 31 Jul 2026 06:54:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tHgHg1Ma";
+	dkim=permerror (0-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="HBK50lY7";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="AEDeqBdW";
 	dkim-atps=neutral
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com
- [209.85.221.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A429610E168
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 05:31:09 +0000 (UTC)
-Received: by mail-wr1-f54.google.com with SMTP id
- ffacd0b85a97d-47f96c5b722so299890f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 22:31:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785475868; x=1786080668; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=WUyp9U7dXdiG+QsLynyvNf4in1b+6GPKTpacp6ZUx0c=;
- b=tHgHg1MaFwtimnsgkpbXNTW6T3aGht9EjVy6u4bHxVcIEp6AXsodwCCj/wPA2itrWN
- NDn4jVXAjagA8gH4A51PRk6bkbTmsCGtR5eS/C/Lxa3aUmD0SNdc5rNQhepARdTcx6IK
- oJPRql+3Rj5Emr39sMnKYgpnLe0KoBdLrPfoh1G7XomYxouSE0nwgm7VBUKdMa/w4/ob
- GSEDaNaHTKKv3Mpz7rfF+pLks451DHa8hGsLLthaZVd3BJ79LIWQFH7bCtSl6/wpJZVq
- /Xw3NSCi3P9L3B5fstQbg6YJDzFbUDAXg4yYuEvCPIFALZq3Fmb1xuW9O0d8uKX048Ve
- +1Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785475868; x=1786080668;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=WUyp9U7dXdiG+QsLynyvNf4in1b+6GPKTpacp6ZUx0c=;
- b=GcO5CR/dGSXjsCVR3IAQI6sEDR13frb52PViRGzlib0kaV2rtvC4ltsrfKVnPpQ9tM
- QPHHT8ww2YT4nA6p+ShskJ2yZfk6hLYaEgt09yYbCafqo89YgDEqzE5lqion4Aebj707
- gfhvKbL0CQXAh9hfbjwWEmIuVz4upiYzH3MG6jjXjhbNL7vtg3a2RhkhqGAaNd+ldywg
- Nwr/sQK6pB13QpyY38p8Lj1IbGhUanisYuRYfCYYjBV5nBQ2ezdTS5eOouwCPJkdnZDQ
- T18zNDBWUCNPLT9/S+iUWwzernOjvGQkVl3sMt9CPJp5e2kWwAPJdEhXqLsuzQs38dhL
- 0HBw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RofVBDoQTQ3z8cAi3a8jm3kGHbV2LyLBWMrI4IgSVOQMQjaKt4aUOPb5ql8pputLhSv2qzzsBv4on0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxYdi11LOMcRWHTLvuPESLGxmQkBfMpRyTg5m53NCXBX9hUvulD
- 3Z3wH5n4VpJYxT9/23KhV275uG8iByq+ymNs6gS4kzWq9YaG3ZbA0OHU
-X-Gm-Gg: AR+sD11vhS3YqeJ/zNoSyMo90dRXT/jpJlOzI05pmfFiRiApAmMttBsvRFzNe8SmRZW
- zEGrVdVFFNDX1GsgJzFHzKoRCMDNSxcUL4P2PXAb1ejbzJJ9oAxj7CWvR63zalx3rsPXncC1puR
- rCj/L6kRTuTHF59HXdBpxHybvZuXtpUMshFgUucjAu28tM3l8qCoqp1/efLyc5Fnds+24L3N5XO
- x3Pph7Az79laAacIbPocCurf67YHjdGPzEIPCvoyIEUty3BvS4ttASVWjZrWJjt9GoZtd3R7j6G
- PKjukDrwKvlSw4mrDAZRUp/PGX46wPpAiSFNgZ6UXzgtXo/3Iu5bWZlIG8PDJT3+7or3Gcf0LH2
- s4DKTM0+IebPBq1lK8kTtdHgX09MzxIulhk5BNcxLkAsUvBYl/nrXh2fw6M1EzY/LG4I4kdWgU9
- 4yrqHQLV5Xuk4Xz8k0y0OB4/eemFSqry7jWRVs+AmCVtaZGDgYR8KeJSAq/2IrJiRA9lSv9HgIz
- SbNrayRqdbjqFYpo9qA2sSabkn+JBxeEmoFCahQ4oZKzOBFSY9LWKaTIdO1yXA=
-X-Received: by 2002:a05:6000:40dc:b0:47f:9d0e:f8f with SMTP id
- ffacd0b85a97d-47fd2aea087mr1700034f8f.26.1785475867744; 
- Thu, 30 Jul 2026 22:31:07 -0700 (PDT)
-Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2
- (212.pool95-21-2.static.orange.es. [95.21.2.212])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd456a5a4sm345470f8f.20.2026.07.30.22.31.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 22:31:07 -0700 (PDT)
-From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
-To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>
-Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>, 
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev
-Subject: [PATCH] ttm: Add error handling for ttm_pool_mgr_init()
-Date: Fri, 31 Jul 2026 07:30:36 +0200
-Message-ID: <20260731053047.24503-1-megia.oscar@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from flow-a8-smtp.messagingengine.com
+ (flow-a8-smtp.messagingengine.com [103.168.172.143])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F7F510E164
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 04:35:57 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailflow.phl.internal (Postfix) with ESMTP id 7BC8E138030A;
+ Fri, 31 Jul 2026 00:35:56 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Fri, 31 Jul 2026 00:35:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to; s=fm1; t=1785472556; x=
+ 1785476156; bh=NNaQ6jyQsISQEUWTw0sK+in83QA39rZZQGzKh4nqVaE=; b=H
+ BK50lY78p/BRkVHvrj/H3Sd8n8NtikmR8bjNb0kv91uoJxK4M4K/bjW8DsPu9iSw
+ vQt+lhj1SY59y6Ih9PF6aT9gmcEYjfvxhr+UuHGB/x/ON3mdfQ7BxX8zAsH9ByxP
+ 2uTAMRfIEzla/qOeCwbcmxN46KcikfZCnI/p8aru7LowX374cdqH4lTjBFusRSOL
+ NaiTL4IjTs9e8uRvV0srejjh5dSSsAVVbi26j5+qP1xVUNCZpzW5iqU8ce4MrX0E
+ ldoaSH/cBpSMYpMrLV95LXLompzsPnbXiz35yeGTj14Iseh/eIT+47cfPEwPJSoo
+ ZKDvvV5Zh6Ec5FYVWh1rQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+ :x-me-sender:x-sasl-enc; s=fm2; t=1785472556; x=1785476156; bh=N
+ NaQ6jyQsISQEUWTw0sK+in83QA39rZZQGzKh4nqVaE=; b=AEDeqBdWeioiMkpi8
+ lmlz4N7YO9EdrZFcmK1Wkfo+zcQsoYuPkNRXetvtqaKt512h8aNfl9XbStWU1g8W
+ hsCbnG1AAEx/nfOcHMCwxi7CgOQqyY7tRG6PIYrJWOLHmO4baEwJBuZlnjwlXFf+
+ PI8oeJESJUc+6qWtSLml5glFS4hpp/cuxiEG3zqWmwONpmjUXTYSyBsKLJhxKES+
+ 702MChtEcRb2s9CaKAWbA/w6w/FHzMLdzXgqCr4u8UH8anPaBH4ODzAjo+GCXffI
+ 4NUOQcV4cblWCienzctAl7WIeo/VlHx1knsC8m2NQyoL/bhu3A8SZr2LWShcXzzD
+ jtjDA==
+X-ME-Sender: <xms:LCZsaiU4r77SJ4d97fruHRD8ZdlX54kjTQKnNxWmgltn7SB-fyZUZg>
+ <xme:LCZsamjcHnnrpw8AE-yTbIz3HjsjNvuphEETfo895VaxwNgJsfpil1NpfNhPc1PO8
+ W2BzgxSKs5c_ulndaUH2L0HrLQQ2HdTQlX6TLXrJpzaS3UHsBzjdA>
+X-ME-Received: <xmr:LCZsatlRr8GgJNrx2APNiSwHvjciiAzg7waPUOH8WDQ0kFeILYxb3KqAIQKc-ElfIOoH8yF-aQ>
+X-ME-Proxy-Cause: dmFkZTE25eMdGdpb7qYxCh3/n28jyVx2OtJLeAC15DbDMbLFv+BOhkY59Q+/xTCV0SQeJ3
+ EKBWixYMhpIcjjWsr5BZ9koZvwL4Th1+An0NalzHT428pPOccATA4SxRizMwC/RB2aFEYK
+ YLQl5iwrfjWzzSG+JxzTsRB5ZZjsrkxJT8KVNf7XUd66s6QYWcP0TjtLT7Ra5Of2dvXA9E
+ N3lKtoojTG8OxFKCNOJAdsB0tR35MTIAKb4rU124lBz22DiG97J0LLMT4VFf2ewgx5FMdt
+ N1wSbdLVoGCtkBO418k/jdA7d+F0yDQvaadK/JXNWhOLmvXl0wuceTVLmJauicvneJOLew
+ +xeeCFBK6A0/DERWiJ/1Il6PYcmHxswJBb6CDTlgPi/41Ooe1LLTMM+3D7Z667vOluE3IF
+ dfE0QzCeHIO23xBLnYyZlvY3bBdPRlc2KGMfBmFw1t0sCU203cxzCDpdM+z2BihFU0IqNz
+ lLCrnzndZPLI7FemgktPFQehRaZ2dlQbvFAjdRa2Vqo3c1L06np0uQSzSsRN88W/nGmTX8
+ +tm9OaInMw91BNjnF35C63Xghv/E4zIz/KPuFPDH5tHONWd7mGG1kUMIqum5E+STMwJEr8
+ nYIZxmTyQXWDVsFKABi8TjekMv27SrwQux1ArZwlnsW+1lAajcIgvj30a0hA
+X-ME-Proxy: <xmx:LCZsavwsHrKx7Vojbt7smjEU9wywjD1sBKQ7UmazrwRrYbHmkQD7cg>
+ <xmx:LCZsaovhgqWDR3iLGj0wjr89verWu_Vs2oFTgIXp9LHf90vVhUBynw>
+ <xmx:LCZsaksiN6pbS8F0pf_tIiWl1cpshFSbE_I_Btqbqk_h7gZjNf9l7A>
+ <xmx:LCZsamnwy8MXko6plKDo8tMbLV5FbOOIkq5C4_O7mAEAW76umzPMuw>
+ <xmx:LCZsalYNiySSobgyTVvqsV4iie5XH1rYQNuwD9sZjWH6C6acZQPhTUi4>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 31 Jul 2026 00:35:51 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, ulfh@kernel.org,
+ p.zabel@pengutronix.de, ogabbay@kernel.org
+Cc: chaoyi.chen@rock-chips.com, alchark@flipper.net, royalnet026@gmail.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [RFC PATCH v3 5/6] arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+Date: Fri, 31 Jul 2026 16:35:06 +1200
+Message-ID: <20260731043507.1832277-6-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260731043507.1832277-1-gahing@gahingwoo.com>
+References: <20260731043507.1832277-1-gahing@gahingwoo.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Jul 2026 06:54:16 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -92,35 +101,117 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The ttm_pool_mgr_init() function can fail, but its return value was
-previously ignored in ttm_global_init(). This could leave the pool
-manager in an invalid state while the system continues initialization.
+Add the two RKNN cores and their IOMMUs, plus the NPU power-domain
+resets the pmdomain driver now cycles on power-on. Both cores are
+disabled by default; boards enable what they wire up.
 
-Fix this by checking the return code and jumping to the error path
-on failure.
-
-Assisted-by: OpenCode:1.17.8-Big Pickle
-Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
 ---
- drivers/gpu/drm/ttm/ttm_device.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 78 +++++++++++++++++++++++-
+ 1 file changed, 76 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_device.c b/drivers/gpu/drm/ttm/ttm_device.c
-index d3bfb9a696a7..c880a0430363 100644
---- a/drivers/gpu/drm/ttm/ttm_device.c
-+++ b/drivers/gpu/drm/ttm/ttm_device.c
-@@ -96,7 +96,10 @@ static int ttm_global_init(void)
- 		>> PAGE_SHIFT;
- 	num_dma32 = min(num_dma32, 2UL << (30 - PAGE_SHIFT));
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index b0c0d3c8b..a9d85e672 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -1070,14 +1070,22 @@ power-domain@RK3576_PD_NPUTOP {
+ 						power-domain@RK3576_PD_NPU0 {
+ 							reg = <RK3576_PD_NPU0>;
+ 							clocks = <&cru HCLK_RKNN_ROOT>,
+-								 <&cru ACLK_RKNN0>;
++								 <&cru ACLK_RKNN0>,
++								 <&cru CLK_RKNN_DSU0>,
++								 <&cru ACLK_RKNN_CBUF>,
++								 <&cru HCLK_RKNN_CBUF>;
++							resets = <&cru SRST_A_RKNN0_BIU>;
+ 							pm_qos = <&qos_npu_m0>;
+ 							#power-domain-cells = <0>;
+ 						};
+ 						power-domain@RK3576_PD_NPU1 {
+ 							reg = <RK3576_PD_NPU1>;
+ 							clocks = <&cru HCLK_RKNN_ROOT>,
+-								 <&cru ACLK_RKNN1>;
++								 <&cru ACLK_RKNN1>,
++								 <&cru CLK_RKNN_DSU0>,
++								 <&cru ACLK_RKNN_CBUF>,
++								 <&cru HCLK_RKNN_CBUF>;
++							resets = <&cru SRST_A_RKNN1_BIU>;
+ 							pm_qos = <&qos_npu_m1>;
+ 							#power-domain-cells = <0>;
+ 						};
+@@ -1832,6 +1840,72 @@ qos_npu_m1ro: qos@27f22100 {
+ 			reg = <0x0 0x27f22100 0x0 0x20>;
+ 		};
  
--	ttm_pool_mgr_init(num_pages);
-+	ret = ttm_pool_mgr_init(num_pages);
-+	if (ret)
-+		goto out;
++		rknn_core_0: npu@27700000 {
++			compatible = "rockchip,rk3576-rknn-core";
++			reg = <0x0 0x27700000 0x0 0x1000>,
++			      <0x0 0x27701000 0x0 0x1000>,
++			      <0x0 0x27703000 0x0 0x1000>,
++			      <0x0 0x27704000 0x0 0x1000>,
++			      <0x0 0x27705000 0x0 0x1000>;
++			reg-names = "pc", "cna", "core", "dpu", "dpu_rdma";
++			interrupts = <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>,
++				 <&cru ACLK_RKNN_CBUF>, <&cru HCLK_RKNN_CBUF>;
++			clock-names = "aclk", "hclk", "npu", "pclk",
++				      "aclk_cbuf", "hclk_cbuf";
++			resets = <&cru SRST_A_RKNN0>;
++			reset-names = "srst_a";
++			power-domains = <&power RK3576_PD_NPU0>;
++			iommus = <&rknn_mmu_0>;
++			status = "disabled";
++		};
 +
- 	ttm_tt_mgr_init(num_pages, num_dma32);
- 
- 	glob->dummy_read_page = alloc_page(__GFP_ZERO | GFP_DMA32 |
++		rknn_mmu_0: iommu@27702000 {
++			compatible = "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
++			reg = <0x0 0x27702000 0x0 0x100>,
++			      <0x0 0x27702100 0x0 0x100>;
++			interrupts = <GIC_SPI 247 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN0>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru ACLK_RKNN_CBUF>,
++				 <&cru HCLK_RKNN_CBUF>;
++			#iommu-cells = <0>;
++			power-domains = <&power RK3576_PD_NPU0>;
++			status = "disabled";
++		};
++
++		rknn_core_1: npu@27710000 {
++			compatible = "rockchip,rk3576-rknn-core";
++			reg = <0x0 0x27710000 0x0 0x1000>,
++			      <0x0 0x27711000 0x0 0x1000>,
++			      <0x0 0x27713000 0x0 0x1000>,
++			      <0x0 0x27714000 0x0 0x1000>,
++			      <0x0 0x27715000 0x0 0x1000>;
++			reg-names = "pc", "cna", "core", "dpu", "dpu_rdma";
++			interrupts = <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru PCLK_NPUTOP_ROOT>;
++			clock-names = "aclk", "hclk", "npu", "pclk";
++			resets = <&cru SRST_A_RKNN1>;
++			reset-names = "srst_a";
++			power-domains = <&power RK3576_PD_NPU1>;
++			iommus = <&rknn_mmu_1>;
++			status = "disabled";
++		};
++
++		rknn_mmu_1: iommu@2770a000 {
++			compatible = "rockchip,rk3576-iommu", "rockchip,rk3568-iommu";
++			reg = <0x0 0x2770a000 0x0 0x100>,
++			      <0x0 0x2770a100 0x0 0x100>;
++			interrupts = <GIC_SPI 248 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&cru ACLK_RKNN1>, <&cru HCLK_RKNN_ROOT>,
++				 <&cru CLK_RKNN_DSU0>, <&cru ACLK_RKNN_CBUF>,
++				 <&cru HCLK_RKNN_CBUF>;
++			#iommu-cells = <0>;
++			power-domains = <&power RK3576_PD_NPU1>;
++			status = "disabled";
++		};
++
+ 		gmac0: ethernet@2a220000 {
+ 			compatible = "rockchip,rk3576-gmac", "snps,dwmac-4.20a";
+ 			reg = <0x0 0x2a220000 0x0 0x10000>;
 -- 
-2.55.0
+2.43.0
 
