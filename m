@@ -4,43 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFDF5C55176
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80C31C55173
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D77010F324;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDF2B10F32A;
 	Fri, 31 Jul 2026 16:21:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="fKlWS2BQ";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="dTUa6HGm";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA3C510F30D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 342CD10F30D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514791;
- bh=sA9hvcyp15eD/qblsyZ0XpFBugSaj6mhi+/AmnkxIDY=;
+ s=mail; t=1785514786;
+ bh=VhJ+GnFaAbBhWAyFrqoTC2CFyDpjFZZYBelBK4ZT1vg=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=fKlWS2BQ9dRVs3IfHTGb4xDa37lKfuv0PoV87f0mci1XAKivqLCk6jMeqK+7QchEB
- 1koxi0GGIJzc4DBIicvY4q4aX1J9yh3u9EsM6IxMU/tixuEEXPf8kpDCAuatd7iCvx
- +7wzVBmaqlBE5BEHHETSdyS61T07FJXDkjYSt5cuKaruplmuEQQwsUo6uX65fUFYF4
- ph0zDDOb81Tk15Mqr4IGZHYQHejWfOe1TaibzgRAVF3Deyx99D+pXtTj24FdVIihZb
- QMLS88og1I7mrjuPVYo1o2X29NF+RNTqqzFk5D56+xVmJKphB5SEo23KVzkNFEU/AF
- naXgccTTPV3Nw==
+ b=dTUa6HGmGPwDKtPqgWFH2CJlKGpwTv76m3LZwlcTEWDie0/lDVr6+gsMkYpcQEJTV
+ VASXgpw6Knd0iCZbCXW63SL5CuNK6kXtE+y8z/zXd0y+h+/rHOMtk5ZxDO8c9X0f3D
+ 39fp45HgoHsS75Ef08iZRz80B7Dw5cGEpzWO9nEI3190J4L6ceapdk1S+RA6JVDYun
+ Hyr73GZe6vQgtUhb+D3+8/sDpeIPdZBpHwWAryH+6tnWkwcVBG2Kfwf53wVa7POGhx
+ 0Bk2sh0rCnLdcD/iF9vgF2oW+wbknWw3r55Ee2Vvq3KUxr53sRSydPaM1GG/TR6iYR
+ XVUWAjC4AXRXQ==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C99E217E08E9;
- Fri, 31 Jul 2026 18:19:51 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 31D2A17E098E;
+ Fri, 31 Jul 2026 18:19:46 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:59 +0300
-Subject: [PATCH v10 52/69] drm/bridge: ite-it66121: Advertise HDMI 1.2
- capabilities
+Date: Fri, 31 Jul 2026 19:19:51 +0300
+Subject: [PATCH v10 44/69] drm/vc4: hdmi: Convert to drmm_connector_hdmi_init()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-52-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-44-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -79,66 +78,221 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
-supported HDMI version.  This is not yet enforced, but will become
-mandatory once the migration to the new caps-based HDMI connector
-initialization API is completed.
+Switch driver over to the new drmm_connector_hdmi_init() signature. The
+vendor, product, supported_formats and max_bpc values previously passed
+as arguments are now provided through struct drm_connector_hdmi_funcs,
+together with the new supported_hdmi_ver field.
 
-Since none of the chip variants handled by the driver can drive a TMDS
-character rate exceeding 148.5 MHz, advertise HDMI 1.2 as the supported
-version.  HDMI 1.2 allows up to 165 MHz, so set the bridge's
-max_tmds_char_rate to ensure the connector limit derived from
-supported_hdmi_ver remains within the hardware capabilities.
+VC4 needs three distinct capability sets, based on the maximum TMDS
+character rate and color depth supported by each controller variant:
 
-drm_bridge_connector_atomic_check() runs
-drm_atomic_helper_connector_hdmi_check(), which rejects modes whose
-computed TMDS character rate exceeds the connector limit before invoking
-the driver's .tmds_char_rate_valid() hook, making the max_rate check in
-it66121_bridge_hdmi_tmds_char_rate_valid() redundant.  Drop it.
+  RPi 0-3:              162 MHz (HDMI 1.2),  8-bit
+  RPi 4 (HDMI1):        340 MHz (HDMI 1.4), 12-bit
+  RPi 4 (HDMI0), RPi 5: 600 MHz (HDMI 2.0), 12-bit
+
+Introduce three drm_connector_hdmi_funcs instances for these tiers and
+assign them to the corresponding vc4_hdmi_variant entries. Additionally,
+drop the now redundant .supports_hdr field of struct vc4_hdmi_variant.
+
+As the callback members are identical across all three, factor the
+shared initializers into a VC4_HDMI_CONNECTOR_FUNCS_COMMON macro to
+avoid duplication, with each variant adding only its distinguishing
+max_bpc/supported_hdmi_ver fields.
+
+Note that HDMI 2.0 cannot be advertised at this point, since it requires
+converting the driver to common scrambling infrastructure. This will be
+handled separately, hence temporarily use HDMI_VERSION_UNKNOWN for the
+related hdmi_funcs instance to skip generic scrambler and TMDS rate
+validation, and continue to rely on current driver-local implementation.
+
+No functional change intended.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/ite-it66121.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 93 ++++++++++++++++++++++++------------------
+ drivers/gpu/drm/vc4/vc4_hdmi.h |  6 +--
+ 2 files changed, 56 insertions(+), 43 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-index 51fc68ffdf8f..c8d0a26e8e90 100644
---- a/drivers/gpu/drm/bridge/ite-it66121.c
-+++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -10,6 +10,7 @@
- #include <linux/media-bus-format.h>
- #include <linux/module.h>
- #include <linux/device.h>
-+#include <linux/hdmi.h>
- #include <linux/interrupt.h>
- #include <linux/i2c.h>
- #include <linux/bitfield.h>
-@@ -867,15 +868,6 @@ it66121_bridge_hdmi_tmds_char_rate_valid(const struct drm_bridge *bridge,
- 					 const struct drm_display_mode *mode,
- 					 unsigned long long tmds_rate)
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 72042fad04c5..d599957fee3a 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -509,7 +509,6 @@ static const struct drm_connector_helper_funcs vc4_hdmi_connector_helper_funcs =
+ 	.mode_valid = drm_hdmi_connector_mode_valid,
+ };
+ 
+-static const struct drm_connector_hdmi_funcs vc4_hdmi_hdmi_connector_funcs;
+ static const struct drm_connector_hdmi_audio_funcs vc4_hdmi_audio_funcs;
+ 
+ static int vc4_hdmi_connector_init(struct drm_device *dev,
+@@ -517,22 +516,13 @@ static int vc4_hdmi_connector_init(struct drm_device *dev,
  {
--	const struct it66121_ctx *ctx =
--		container_of(bridge, const struct it66121_ctx, bridge);
--	unsigned long long max_rate;
--
--	max_rate = (ctx->bus_width == 12) ? 74250000ULL : 148500000ULL;
--
--	if (tmds_rate > max_rate)
--		return MODE_CLOCK_HIGH;
--
- 	if (tmds_rate < HDMI_TMDS_CHAR_RATE_MIN_HZ)
- 		return MODE_CLOCK_LOW;
+ 	struct drm_connector *connector = &vc4_hdmi->connector;
+ 	struct drm_encoder *encoder = &vc4_hdmi->encoder.base;
+-	unsigned int max_bpc = 8;
+ 	int ret;
  
-@@ -1670,6 +1662,9 @@ static int it66121_probe(struct i2c_client *client)
- 			  DRM_BRIDGE_OP_HDMI;
- 	ctx->bridge.vendor = "ITE";
- 	ctx->bridge.product = "IT66121";
-+	ctx->bridge.supported_hdmi_ver = HDMI_VERSION_1_2;
-+	ctx->bridge.max_tmds_char_rate = ctx->bus_width == 12 ? 74250000ULL : 148500000ULL;
+-	if (vc4_hdmi->variant->supports_hdr)
+-		max_bpc = 12;
+-
+-	ret = drmm_connector_hdmi_ini2(dev, connector,
+-				       "Broadcom", "Videocore",
++	ret = drmm_connector_hdmi_init(dev, connector,
+ 				       &vc4_hdmi_connector_funcs,
+-				       &vc4_hdmi_hdmi_connector_funcs,
++				       vc4_hdmi->variant->hdmi_funcs,
+ 				       DRM_MODE_CONNECTOR_HDMIA,
+-				       vc4_hdmi->ddc,
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |
+-				       BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),
+-				       max_bpc);
++				       vc4_hdmi->ddc);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -1721,28 +1711,51 @@ vc4_hdmi_connector_clock_valid(const struct drm_connector *connector,
+ 	return MODE_OK;
+ }
+ 
+-static const struct drm_connector_hdmi_funcs vc4_hdmi_hdmi_connector_funcs = {
+-	.tmds_char_rate_valid	= vc4_hdmi_connector_clock_valid,
+-	.avi = {
+-		.clear_infoframe = vc4_hdmi_clear_avi_infoframe,
+-		.write_infoframe = vc4_hdmi_write_avi_infoframe,
+-	},
+-	.hdmi = {
+-		.clear_infoframe = vc4_hdmi_clear_hdmi_infoframe,
+-		.write_infoframe = vc4_hdmi_write_hdmi_infoframe,
+-	},
+-	.audio = {
+-		.clear_infoframe = vc4_hdmi_clear_audio_infoframe,
+-		.write_infoframe = vc4_hdmi_write_audio_infoframe,
+-	},
+-	.hdr_drm = {
+-		.clear_infoframe = vc4_hdmi_clear_hdr_drm_infoframe,
+-		.write_infoframe = vc4_hdmi_write_hdr_drm_infoframe,
+-	},
+-	.spd = {
+-		.clear_infoframe = vc4_hdmi_clear_spd_infoframe,
+-		.write_infoframe = vc4_hdmi_write_spd_infoframe,
+-	},
++#define VC4_HDMI_CONNECTOR_FUNCS_COMMON						\
++	.vendor			 = "Broadcom",					\
++	.product		 = "Videocore",					\
++	.supported_formats	 = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444) |	\
++				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422) |	\
++				   BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444),	\
++	.tmds_char_rate_valid	 = vc4_hdmi_connector_clock_valid,		\
++	.avi = {								\
++		.clear_infoframe = vc4_hdmi_clear_avi_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_avi_infoframe,		\
++	},									\
++	.hdmi = {								\
++		.clear_infoframe = vc4_hdmi_clear_hdmi_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_hdmi_infoframe,		\
++	},									\
++	.audio = {								\
++		.clear_infoframe = vc4_hdmi_clear_audio_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_audio_infoframe,		\
++	},									\
++	.hdr_drm = {								\
++		.clear_infoframe = vc4_hdmi_clear_hdr_drm_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_hdr_drm_infoframe,		\
++	},									\
++	.spd = {								\
++		.clear_infoframe = vc4_hdmi_clear_spd_infoframe,		\
++		.write_infoframe = vc4_hdmi_write_spd_infoframe,		\
++	}
 +
- 	if (client->irq > 0) {
- 		ctx->bridge.ops |= DRM_BRIDGE_OP_HPD;
++static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi12 = {
++	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
++	.max_bpc		= 8,
++	.supported_hdmi_ver	= HDMI_VERSION_1_2,
++};
++
++static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi14 = {
++	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
++	.max_bpc		= 12,
++	.supported_hdmi_ver	= HDMI_VERSION_1_4,
++};
++
++static const struct drm_connector_hdmi_funcs vc4_hdmi_connector_funcs_hdmi20 = {
++	VC4_HDMI_CONNECTOR_FUNCS_COMMON,
++	.max_bpc		= 12,
++	/* TODO: set HDMI_VERSION_2_0 and convert to common scrambler infra */
++	.supported_hdmi_ver	= HDMI_VERSION_UNKNOWN,
+ };
  
+ #define WIFI_2_4GHz_CH1_MIN_FREQ	2400000000ULL
+@@ -3358,7 +3371,7 @@ static const struct vc4_hdmi_variant bcm2835_variant = {
+ 	.phy_rng_enable		= vc4_hdmi_phy_rng_enable,
+ 	.phy_rng_disable	= vc4_hdmi_phy_rng_disable,
+ 	.channel_map		= vc4_hdmi_channel_map,
+-	.supports_hdr		= false,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi12,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+@@ -3386,8 +3399,8 @@ static const struct vc4_hdmi_variant bcm2711_hdmi0_variant = {
+ 	.phy_rng_enable		= vc5_hdmi_phy_rng_enable,
+ 	.phy_rng_disable	= vc5_hdmi_phy_rng_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi20,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+@@ -3415,8 +3428,8 @@ static const struct vc4_hdmi_variant bcm2711_hdmi1_variant = {
+ 	.phy_rng_enable		= vc5_hdmi_phy_rng_enable,
+ 	.phy_rng_disable	= vc5_hdmi_phy_rng_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi14,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+@@ -3442,8 +3455,8 @@ static const struct vc4_hdmi_variant bcm2712_hdmi0_variant = {
+ 	.phy_init		= vc6_hdmi_phy_init,
+ 	.phy_disable		= vc6_hdmi_phy_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi20,
+ };
+ 
+ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+@@ -3469,8 +3482,8 @@ static const struct vc4_hdmi_variant bcm2712_hdmi1_variant = {
+ 	.phy_init		= vc6_hdmi_phy_init,
+ 	.phy_disable		= vc6_hdmi_phy_disable,
+ 	.channel_map		= vc5_hdmi_channel_map,
+-	.supports_hdr		= true,
+ 	.hp_detect		= vc5_hdmi_hp_detect,
++	.hdmi_funcs		= &vc4_hdmi_connector_funcs_hdmi20,
+ };
+ 
+ static const struct of_device_id vc4_hdmi_dt_match[] = {
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.h b/drivers/gpu/drm/vc4/vc4_hdmi.h
+index 29d461d4ee49..d5ffcc17de32 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.h
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.h
+@@ -90,11 +90,11 @@ struct vc4_hdmi_variant {
+ 	/* Callback to get channel map */
+ 	u32 (*channel_map)(struct vc4_hdmi *vc4_hdmi, u32 channel_mask);
+ 
+-	/* Enables HDR metadata */
+-	bool supports_hdr;
+-
+ 	/* Callback for hardware specific hotplug detect */
+ 	bool (*hp_detect)(struct vc4_hdmi *vc4_hdmi);
++
++	/* HDMI-related connector callbacks and controller capabilities */
++	const struct drm_connector_hdmi_funcs *hdmi_funcs;
+ };
+ 
+ /* HDMI audio information */
 
 -- 
 2.55.0
