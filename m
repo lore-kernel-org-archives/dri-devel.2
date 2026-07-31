@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C07C0C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B73EC55173
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FCAA10F302;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99D1610F309;
 	Fri, 31 Jul 2026 16:19:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Cmp1zkJe";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CrkXIV4p";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B17C10F2FB
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76AF510F2FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514761;
- bh=7R9BhZhCyLUbve7Hk5/UX4wcbViLo6DsTEiegFJ7c0M=;
+ s=mail; t=1785514764;
+ bh=QfP7xZFECc7vFiekq/+2Q7b3eH9Ms2hU2uC26kblPso=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Cmp1zkJeb75hdD0GB2WOsrT3TzHWyFI65GOyYes9D0MDgCSGmnXg491UhlnZuXe8P
- X1limW0xZudgcxX0gCcfi0iRkDl9yA4RiaVBYrrK2ZHYgPRHsZ85NaeDioQ9T6PC1H
- GmtkrNOXVV2HY24VnRtMQAo8seUvBTqYV+0pBx66zKuFFq4med9bK8njFCMpFItMJz
- AzcnuAshyvrgSgEsbIJWeCuVeQmMzu6ibF8i0WWp9Uw5VLU+z4ywF6NfX9kKAUIXH8
- SIVPO9//8AkJSWTz6OUvddWZXDSEKLpxm06R5Ir55hnxAZ9Ausq6TXyV9j3l14LT+o
- h9fVekEGF8r3Q==
+ b=CrkXIV4pSbcS2j13yhmqRBSGHJg+x2dBkRF3JBOoE5pT/GVqog8GEe2lCoWfdoup0
+ 71WFGnTTc/xb+Ht/5XfQBWs+2I2Ngpid9U+nbh8HFky+OeP6/e6y/eHt+6D9rl+mga
+ Itjcjl9fTk+WmE8+ok3H3ut44M2ZqFQD2KRuFP5HPe3fpojoNrqNs2Le4ReLQXDXG1
+ S3eS6Vzl8HfM81mumZWNCX2doC3mLmV+vgJGJLtvFPsdarjmZnPcpvyRHQxNe/gBB6
+ mkmmmv3nFHUUMb36/0NufYnQg6lcNaNiw7sTOwrjX3DgUywFpwxHmXP5AoDzvvhk5G
+ zBMBBfoL3iaEg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 3440717E090B;
- Fri, 31 Jul 2026 18:19:21 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 2A70117E092F;
+ Fri, 31 Jul 2026 18:19:24 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:16 +0300
-Subject: [PATCH v10 09/69] drm/display: scdc-helper: Add helper to set SCDC
- version information
+Date: Fri, 31 Jul 2026 19:19:20 +0300
+Subject: [PATCH v10 13/69] drm/bridge: Fix unlocked list access in
+ drm_bridge_attach()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-9-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-13-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,10 +62,7 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Maud Spierings <maud_spierings@hotmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -82,112 +79,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The HDMI 2.x specs mandate that compliant Sink devices report their SCDC
-version in the Sink Version register, which reads as 1 on any
-SCDC-capable sink.
+drm_bridge_attach() inspects bridge->list to warn about bridges being
+attached without a previous drm_bridge_add() call, but it does so
+without holding bridge_lock.
 
-There is also a dedicated Source Version register.  Writing it is not
-compulsory, but the spec advises that compliant Source devices do so, in
-which case the value must be 1.
+The list head can be concurrently written by drm_bridge_add(),
+drm_bridge_remove() and __drm_bridge_free() while they operate on
+neighbouring entries of bridge_list or bridge_lingering_list, all of
+them under bridge_lock.  Hence the unlocked read is a data race, even
+though it is unlikely to change the outcome of list_empty() in practice.
 
-Add drm_scdc_set_source_version() to follow this recommendation.  The
-Sink Version register is read first, both to log the advertised SCDC
-version and to guard against non-conformant devices: a sink reporting
-version 0 is either not SCDC-version-aware or broken, so writing the
-source version gains nothing and risks upsetting such hardware.  In that
-case the write is skipped.
+Perform the check with bridge_lock held.
 
-The source version is passed as a parameter rather than hardcoded, as
-future spec revisions may define additional rules for the allowable
-version values.  The written value is additionally clamped to the sink's
-reported version so the source never advertises a version the sink does
-not understand.
-
-Acked-by: Maxime Ripard <mripard@kernel.org>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+Fixes: 76f1a9711b83 ("drm/bridge: add warning for bridges attached without being added")
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_scdc_helper.c | 46 ++++++++++++++++++++++++++++++-
- include/drm/display/drm_scdc_helper.h     |  2 ++
- 2 files changed, 47 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_bridge.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_scdc_helper.c b/drivers/gpu/drm/display/drm_scdc_helper.c
-index cb6632346aad..6d804ee19420 100644
---- a/drivers/gpu/drm/display/drm_scdc_helper.c
-+++ b/drivers/gpu/drm/display/drm_scdc_helper.c
-@@ -21,10 +21,11 @@
-  * DEALINGS IN THE SOFTWARE.
-  */
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 8b8f71c3ccff..9a658decad2a 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -600,8 +600,10 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
+ 	if (!bridge->container)
+ 		DRM_WARN("DRM bridge corrupted or not allocated by devm_drm_bridge_alloc()\n");
  
-+#include <linux/delay.h>
- #include <linux/export.h>
- #include <linux/i2c.h>
-+#include <linux/minmax.h>
- #include <linux/slab.h>
--#include <linux/delay.h>
- 
- #include <drm/display/drm_scdc_helper.h>
- #include <drm/drm_connector.h>
-@@ -270,3 +271,46 @@ bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector,
- 	return true;
- }
- EXPORT_SYMBOL(drm_scdc_set_high_tmds_clock_ratio);
-+
-+/**
-+ * drm_scdc_set_source_version - set SCDC source version on the sink
-+ * @connector: connector
-+ * @ver: source version to advertise (per spec, 1)
-+ *
-+ * Reads the sink version for diagnostics and as a guard, then writes
-+ * the source version unless the sink reports version 0.
-+ *
-+ * Returns:
-+ * 0 on success or when skipped; a negative error code when either
-+ * the read or the write failed.
-+ */
-+int drm_scdc_set_source_version(struct drm_connector *connector, u8 ver)
-+{
-+	u8 sink_ver;
-+	int ret;
-+
-+	ret = drm_scdc_readb(connector->ddc, SCDC_SINK_VERSION, &sink_ver);
-+	if (ret) {
-+		drm_scdc_dbg(connector, "Failed to read SCDC_SINK_VERSION: %d\n", ret);
-+		return ret;
+-	if (list_empty(&bridge->list))
+-		DRM_WARN("Missing drm_bridge_add() before attach\n");
++	scoped_guard(mutex, &bridge_lock) {
++		if (list_empty(&bridge->list))
++			DRM_WARN("Missing drm_bridge_add() before attach\n");
 +	}
-+
-+	drm_scdc_dbg(connector, "Sink reported SCDC ver. %u\n", sink_ver);
-+
-+	/*
-+	 * Only advertise our source version to sinks that report a
-+	 * non-zero sink version.  A sink reporting version 0 is either
-+	 * not SCDC-version-aware or non-conformant; writing the source
-+	 * version gains nothing and may upset broken hardware.
-+	 */
-+	if (sink_ver) {
-+		ret = drm_scdc_writeb(connector->ddc, SCDC_SOURCE_VERSION,
-+				      min_t(u8, sink_ver, ver));
-+		if (ret)
-+			drm_scdc_dbg(connector,
-+				     "Failed to write SCDC_SOURCE_VERSION: %d\n", ret);
-+	}
-+
-+	return ret;
-+}
-+EXPORT_SYMBOL(drm_scdc_set_source_version);
-diff --git a/include/drm/display/drm_scdc_helper.h b/include/drm/display/drm_scdc_helper.h
-index 34600476a1b9..90b0828364c2 100644
---- a/include/drm/display/drm_scdc_helper.h
-+++ b/include/drm/display/drm_scdc_helper.h
-@@ -77,4 +77,6 @@ bool drm_scdc_get_scrambling_status(struct drm_connector *connector);
- bool drm_scdc_set_scrambling(struct drm_connector *connector, bool enable);
- bool drm_scdc_set_high_tmds_clock_ratio(struct drm_connector *connector, bool set);
  
-+int drm_scdc_set_source_version(struct drm_connector *connector, u8 ver);
-+
- #endif
+ 	drm_bridge_get(bridge);
+ 
 
 -- 
 2.55.0
