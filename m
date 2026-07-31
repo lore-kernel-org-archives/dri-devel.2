@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 803CAC55173
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2386BC55175
 	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2987010F31E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D89C10F31D;
 	Fri, 31 Jul 2026 16:21:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="W/aXjGBk";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="N7Myzy1d";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D34F10F30D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C24BC10F315
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:20:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514777;
- bh=JbW8f4el2mFe4+XGbTbJU5Xyehv5uYd4tsQ5QlXCZF4=;
+ s=mail; t=1785514798;
+ bh=wy7odb4Bzb//d8gJuSExcEjuuO+HCRVariqZb2J3yPk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=W/aXjGBknObSn9h4jm72atc4N7ja2E0nqizFMJLXIpHrC8bkHFXs8JZBDs6wpMZLl
- cVx2t1thPLA65yEFRFp1d8od9ZWx0ZiXHMlfTi8/Z4NMDQeOOW8U4rCSe4Zf/yPw6b
- dlGs3nYN1Fruoq6J4DWuOUouh2kgZsov9EhyBLb/SRHKEwo5NeHNx2E6UpfvGcHlYx
- jNEFNNbQuZAWaCo+xI3X697xeDDITe/7fuSYwMeHF1GfeUKqH5jFpH1XR9ymCEAVRm
- vZhaz/nMfTzg9nvjNG0rmZ5F4wOWYB9JumYQ50s7P+bzhPG0BjZVctIpZfnA0HODEW
- SCKkSz44rc5oQ==
+ b=N7Myzy1dn3sfcKWX03ftfv9R2xoj2i41t4q4D2YUWZfAn8rVWX4Z2J6RMPbnYDIAY
+ 2P+B4tSNehhtTHV1QLBJKQ1n3uzjoQY7Au73hDY8wsNojXZ0nmrwfoUT7lAWIsmGha
+ 82BOtbj2ncxRsEkNCRpS8RyI7Se7Vs/HciHAMnb1j83NP9RbQg1G/sipOTzu8W6A6u
+ XhTrcZlkf89eoNkFrnDFCMzb0lEtxPvqmuragAgOmdsu6NHX+Z2Tx3jWMhJY0Y9wl2
+ 7a9s2r4kc3zQJl+ryyTvWQElsikzEKXM3ukzZJYV6tvgNhpjtcK5/kxOyhPu1TweYR
+ BgMDMdxERHPsw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id C21C217E0213;
- Fri, 31 Jul 2026 18:19:37 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 14FDD17E0972;
+ Fri, 31 Jul 2026 18:19:58 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:39 +0300
-Subject: [PATCH v10 32/69] drm/rockchip: dw_hdmi_qp: Use local dev variable
- consistently in bind()
+Date: Fri, 31 Jul 2026 19:20:08 +0300
+Subject: [PATCH v10 61/69] drm/tests: connector: Add HDMI
+ max_tmds_char_rate init coverage
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-32-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-61-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,9 +62,7 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- Maud Spierings <maud_spierings@hotmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,125 +79,225 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace indirect struct device accesses via hdmi->dev and pdev->dev with
-the local dev parameter already available in dw_hdmi_qp_rockchip_bind(),
-for consistency and readability.
+Add KUnit tests for the new drmm_connector_hdmi_init() extension, which
+infers the connector's max_tmds_char_rate from the HDMI specification
+version advertised by the driver.  Also validate a driver-capped
+max_tmds_char_rate against the version-inferred limit: override below,
+accept at, reject above, reject when no version is advertised.
 
-Reviewed-by: Heiko Stuebner <heiko@sntech.de>
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+Since HDMI_VERSION_2_0 requires scrambler callbacks to be provided, add
+a dummy_hdmi_funcs_scrambler instance for tests that initialize HDMI 2.0
+connectors.
+
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 33 +++++++++++++-------------
- 1 file changed, 16 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/tests/drm_connector_test.c | 179 +++++++++++++++++++++++++++++
+ 1 file changed, 179 insertions(+)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 8b48558deb3e..36043bf82273 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -563,7 +563,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	struct clk *ref_clk;
- 	int ret, irq, i;
+diff --git a/drivers/gpu/drm/tests/drm_connector_test.c b/drivers/gpu/drm/tests/drm_connector_test.c
+index c53ccce21a42..17242d1c1b16 100644
+--- a/drivers/gpu/drm/tests/drm_connector_test.c
++++ b/drivers/gpu/drm/tests/drm_connector_test.c
+@@ -54,6 +54,34 @@ static const struct drm_connector_hdmi_funcs dummy_hdmi_funcs = {
+ 	},
+ };
  
--	if (!pdev->dev.of_node)
-+	if (!dev->of_node)
- 		return -ENODEV;
++static int accept_scrambler_enable(struct drm_connector *connector)
++{
++	return 0;
++}
++
++static int accept_scrambler_disable(struct drm_connector *connector)
++{
++	return 0;
++}
++
++static const struct drm_connector_hdmi_funcs dummy_hdmi_funcs_scrambler = {
++	.vendor = "Vendor",
++	.product = "Product",
++	.supported_hdmi_ver = HDMI_VERSION_2_0,
++	.supported_formats = BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444),
++	.max_bpc = 8,
++	.scrambler_enable = accept_scrambler_enable,
++	.scrambler_disable = accept_scrambler_disable,
++	.avi = {
++		.clear_infoframe = accept_infoframe_clear_infoframe,
++		.write_infoframe = accept_infoframe_write_infoframe,
++	},
++	.hdmi = {
++		.clear_infoframe = accept_infoframe_clear_infoframe,
++		.write_infoframe = accept_infoframe_write_infoframe,
++	},
++};
++
+ static const struct drm_connector_funcs dummy_funcs = {
+ 	.atomic_destroy_state	= drm_atomic_helper_connector_destroy_state,
+ 	.atomic_duplicate_state	= drm_atomic_helper_connector_duplicate_state,
+@@ -1244,6 +1272,151 @@ KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_type_invalid,
+ 		  drm_connector_hdmi_init_type_invalid_tests,
+ 		  drm_connector_hdmi_init_type_desc);
  
- 	hdmi = drmm_kzalloc(drm, sizeof(*hdmi), GFP_KERNEL);
-@@ -583,7 +583,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		return dev_err_probe(dev, -ENODEV, "Missing platform ctrl ops\n");
++/*
++ * Test that the registration of an HDMI connector without an explicit max TMDS
++ * character rate being provided succeeds, and the connector limit is inferred
++ * from the advertised HDMI specification version.
++ */
++struct drm_connector_hdmi_init_max_tmds_rate_inferred_case {
++	const char *desc;
++	enum hdmi_version ver;
++	unsigned long long expected;
++};
++
++static void drm_test_connector_hdmi_init_max_tmds_rate_inferred(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *params =
++		test->param_value;
++	int ret;
++
++	priv->hdmi_funcs = params->ver < HDMI_VERSION_2_0 ?
++				dummy_hdmi_funcs : dummy_hdmi_funcs_scrambler;
++	priv->hdmi_funcs.supported_hdmi_ver = params->ver;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			params->expected);
++}
++
++static const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case
++drm_connector_hdmi_init_max_tmds_rate_inferred_tests[] = {
++	{ "unknown",	HDMI_VERSION_UNKNOWN,	0 },
++	{ "1.0",	HDMI_VERSION_1_0,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.2",	HDMI_VERSION_1_2,	HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.3",	HDMI_VERSION_1_3,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
++	{ "1.4",	HDMI_VERSION_1_4,	HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ },
++	{ "2.0",	HDMI_VERSION_2_0,	HDMI_2_0_TMDS_CHAR_RATE_MAX_HZ },
++};
++
++static void drm_connector_hdmi_init_max_tmds_rate_inferred_desc(
++	const struct drm_connector_hdmi_init_max_tmds_rate_inferred_case *t,
++	char *desc)
++{
++	strscpy(desc, t->desc, KUNIT_PARAM_DESC_SIZE);
++}
++
++KUNIT_ARRAY_PARAM(drm_connector_hdmi_init_max_tmds_rate_inferred,
++		  drm_connector_hdmi_init_max_tmds_rate_inferred_tests,
++		  drm_connector_hdmi_init_max_tmds_rate_inferred_desc);
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate strictly below the version-inferred limit succeeds, and
++ * the connector limit is overridden.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_override(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_4;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate equal to the version-inferred limit succeeds.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_at_limit(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_2;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_EQ(test, priv->connector.hdmi.max_tmds_char_rate,
++			HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a max TMDS
++ * character rate that exceeds the limit inferred from the advertised HDMI
++ * specification version fails.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_off_limit(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_1_2;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_3_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_LT(test, ret, 0);
++}
++
++/*
++ * Test that the registration of an HDMI connector providing a non-zero max
++ * TMDS character rate without an HDMI specification version fails, as the
++ * version-inferred limit defaults to zero and any positive override would
++ * exceed it.
++ */
++static void drm_test_connector_hdmi_init_max_tmds_rate_no_version(struct kunit *test)
++{
++	struct drm_connector_init_priv *priv = test->priv;
++	int ret;
++
++	priv->hdmi_funcs = dummy_hdmi_funcs;
++	priv->hdmi_funcs.supported_hdmi_ver = HDMI_VERSION_UNKNOWN;
++	priv->hdmi_funcs.supported_tmds_char_rate = HDMI_1_0_TMDS_CHAR_RATE_MAX_HZ;
++
++	ret = drmm_connector_hdmi_init(&priv->drm, &priv->connector,
++				       &dummy_funcs,
++				       &priv->hdmi_funcs,
++				       DRM_MODE_CONNECTOR_HDMIA,
++				       &priv->ddc);
++	KUNIT_EXPECT_LT(test, ret, 0);
++}
++
+ static struct kunit_case drmm_connector_hdmi_init_tests[] = {
+ 	KUNIT_CASE(drm_test_connector_hdmi_init_valid),
+ 	KUNIT_CASE(drm_test_connector_hdmi_init_bpc_8),
+@@ -1268,6 +1441,12 @@ static struct kunit_case drmm_connector_hdmi_init_tests[] = {
+ 			 drm_connector_hdmi_init_type_valid_gen_params),
+ 	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_type_invalid,
+ 			 drm_connector_hdmi_init_type_invalid_gen_params),
++	KUNIT_CASE_PARAM(drm_test_connector_hdmi_init_max_tmds_rate_inferred,
++			 drm_connector_hdmi_init_max_tmds_rate_inferred_gen_params),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_override),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_at_limit),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_off_limit),
++	KUNIT_CASE(drm_test_connector_hdmi_init_max_tmds_rate_no_version),
+ 	{ }
+ };
  
- 	hdmi->ctrl_ops = cfg->ctrl_ops;
--	hdmi->dev = &pdev->dev;
-+	hdmi->dev = dev;
- 	hdmi->port_id = -ENODEV;
- 
- 	/* Identify port ID by matching base IO address */
-@@ -594,7 +594,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		}
- 	}
- 	if (hdmi->port_id < 0)
--		return dev_err_probe(hdmi->dev, hdmi->port_id,
-+		return dev_err_probe(dev, hdmi->port_id,
- 				     "Failed to match HDMI port ID\n");
- 
- 	plat_data.phy_ops = cfg->phy_ops;
-@@ -622,37 +622,36 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	hdmi->regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
- 						       "rockchip,grf");
- 	if (IS_ERR(hdmi->regmap))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->regmap),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->regmap),
- 				     "Unable to get rockchip,grf\n");
- 
- 	hdmi->vo_regmap = syscon_regmap_lookup_by_phandle(dev->of_node,
- 							  "rockchip,vo-grf");
- 	if (IS_ERR(hdmi->vo_regmap))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->vo_regmap),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->vo_regmap),
- 				     "Unable to get rockchip,vo-grf\n");
- 
--	ret = devm_clk_bulk_get_all_enabled(hdmi->dev, &clks);
-+	ret = devm_clk_bulk_get_all_enabled(dev, &clks);
- 	if (ret < 0)
--		return dev_err_probe(hdmi->dev, ret, "Failed to get clocks\n");
-+		return dev_err_probe(dev, ret, "Failed to get clocks\n");
- 
--	ref_clk = clk_get(hdmi->dev, "ref");
-+	ref_clk = clk_get(dev, "ref");
- 	if (IS_ERR(ref_clk))
--		return dev_err_probe(hdmi->dev, PTR_ERR(ref_clk),
-+		return dev_err_probe(dev, PTR_ERR(ref_clk),
- 				     "Failed to get ref clock\n");
- 
- 	plat_data.ref_clk_rate = clk_get_rate(ref_clk);
- 	clk_put(ref_clk);
- 
--	hdmi->frl_enable_gpio = devm_gpiod_get_optional(hdmi->dev, "frl-enable",
-+	hdmi->frl_enable_gpio = devm_gpiod_get_optional(dev, "frl-enable",
- 							GPIOD_OUT_LOW);
- 	if (IS_ERR(hdmi->frl_enable_gpio))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->frl_enable_gpio),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->frl_enable_gpio),
- 				     "Failed to request FRL enable GPIO\n");
- 
- 	hdmi->phy = devm_of_phy_get_by_index(dev, dev->of_node, 0);
- 	if (IS_ERR(hdmi->phy))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->phy),
--				     "Failed to get phy\n");
-+		return dev_err_probe(dev, PTR_ERR(hdmi->phy), "Failed to get phy\n");
- 
- 	cfg->ctrl_ops->io_init(hdmi);
- 
-@@ -670,7 +669,7 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	if (irq < 0)
- 		return irq;
- 
--	ret = devm_request_threaded_irq(hdmi->dev, irq,
-+	ret = devm_request_threaded_irq(dev, irq,
- 					cfg->ctrl_ops->hardirq_callback,
- 					cfg->ctrl_ops->irq_callback,
- 					IRQF_SHARED, "dw-hdmi-qp-hpd",
-@@ -681,16 +680,16 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 	drm_encoder_helper_add(encoder, &dw_hdmi_qp_rockchip_encoder_helper_funcs);
- 	ret = drmm_encoder_init(drm, encoder, NULL, DRM_MODE_ENCODER_TMDS, NULL);
- 	if (ret)
--		return dev_err_probe(hdmi->dev, ret, "Failed to init encoder\n");
-+		return dev_err_probe(dev, ret, "Failed to init encoder\n");
- 
- 	hdmi->hdmi = dw_hdmi_qp_bind(pdev, encoder, &plat_data);
- 	if (IS_ERR(hdmi->hdmi))
--		return dev_err_probe(hdmi->dev, PTR_ERR(hdmi->hdmi),
-+		return dev_err_probe(dev, PTR_ERR(hdmi->hdmi),
- 				     "Failed to bind dw-hdmi-qp\n");
- 
- 	connector = drm_bridge_connector_init(drm, encoder);
- 	if (IS_ERR(connector))
--		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
-+		return dev_err_probe(dev, PTR_ERR(connector),
- 				     "Failed to init bridge connector\n");
- 
- 	platform_set_drvdata(pdev, hdmi);
 
 -- 
 2.55.0
