@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 252BEC55172
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 21:47:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5E6A0C55173
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 21:48:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 661A110E27B;
-	Fri, 31 Jul 2026 21:47:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4FA010E267;
+	Fri, 31 Jul 2026 21:48:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W4cTVDt7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ote8amyE";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9538810E27B
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 21:47:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86E7810E267
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 21:48:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CE187600C3;
- Fri, 31 Jul 2026 21:47:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31DFE1F00AC4;
- Fri, 31 Jul 2026 21:47:50 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0B52C600C3;
+ Fri, 31 Jul 2026 21:48:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9AA1F00AC4;
+ Fri, 31 Jul 2026 21:48:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785534470;
- bh=l3hLVNuk7LoxvtAB2RHZljNG1db/eKUs5NKArSzTy7o=;
+ s=k20260515; t=1785534501;
+ bh=Ohai3lT/v4Dkr4FfRr2MhoK5iDfHPwKo7V8NpbjUEzc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=W4cTVDt7TaX3y1DsaW+oBIFfNAjhgH/JP3+wEGj/9ukrCEChZtcnKEyQJVYUMYwog
- 07gx0tLmETDvexGe8AMOkidV3R7R68x+eT+VC4LekoS01A1CM4i1LLgucLsAuRqhXn
- YFv8sOZg3PRPcFZ/wpNIoca/TUXVrLGWcKJ0BJXMM8yCkzxdTmWNOxQpDjBkqXFPLn
- yCy6VS+wJ2AhwjPdTyPdLobnQpSGGxWKX2zbdcKj5UJCFt5amrS35P3KZJUF5qZ18M
- 6dYlXPa95vLb2P8JuySW9CzIMisHzvn460NkJ5a0nZeIT1LASgtAizQCFfCa9/ShpH
- +svtjIBz1HUnA==
+ b=ote8amyEjyBOij/3z6FwasSVDdvFOGIoSZjkfWGPINYpVJ3I6QFyCu/n/foiRRwt3
+ xle8IeoISAvtWCDyCIUMDmxBgtc0RYsvHkwwnSS/ep5bsfBshFz/kmrCTv2ntbKver
+ jclGs8VYIoGQpgtEGheSaJTmemnhCTKRLAnzpYfiCMXft3WsypvbZ7WjXJVZJWrXlI
+ nwyvkoYbLa30yfp+6YsLOPw3OqgJd4SO/251XWOpvFx/2I94KeqrgRvGhZLaycxddE
+ VoczJjle02DL/4Rx3DVn+eWaJrAViSFocv6VGzr8yJcTwvefZMhLmntaXnPAMMuTti
+ HWRuKBaq3ZqCw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 37/69] drm/rockchip: dw_hdmi_qp: Control the HPD IRQ
- line via the bridge HPD ops
-To: "Cristian Ciocaltea" <cristian.ciocaltea@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, linux-sunxi@lists.linux.dev
-In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-37-294364b2cf15@collabora.com>
-References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
- <20260731-dw-hdmi-qp-scramb-v10-37-294364b2cf15@collabora.com>
+Subject: Re: [PATCH v13 5/5] RDMA/mlx5: get tph for p2p access when
+ registering dma-buf mr
+To: "Zhiping Zhang" <zhipingz@meta.com>
+Cc: linux-pci@vger.kernel.org, kvm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731211601.3033906-6-zhipingz@meta.com>
+References: <20260731211601.3033906-1-zhipingz@meta.com>
+ <20260731211601.3033906-6-zhipingz@meta.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 31 Jul 2026 21:47:49 +0000
-Message-Id: <20260731214750.31DFE1F00AC4@smtp.kernel.org>
+Date: Fri, 31 Jul 2026 21:48:20 +0000
+Message-Id: <20260731214821.2A9AA1F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,105 +59,93 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Hardware is suspended before canceling asynchronous HPD work, crea=
-ting a race condition that leads to I2C timeouts during system suspend.
-- [Medium] The disable_hpd callbacks do not cancel the pending delayed HPD =
-work, allowing spurious HPD events.
+
+Pre-existing issues:
+- [High] mlx5_st_dealloc_index leaks the idx_data struct when erasing it fr=
+om the xarray.
 --
 
---- Patch [37]: [PATCH v10 37/69] drm/rockchip: dw_hdmi_qp: Control the HPD=
- IRQ line via the bridge HPD ops ---
-commit ad6fbe00662ae75dcead6bf784de9de47ed9dd6c
-Author: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+--- Patch [5]: [PATCH v13 5/5] RDMA/mlx5: get tph for p2p access when regis=
+tering dma-buf mr ---
+commit cb1e1bfb29faeb4a7f3d550176e3590d73486a3e
+Author: Zhiping Zhang <zhipingz@meta.com>
 
-drm/rockchip: dw_hdmi_qp: Control the HPD IRQ line via the bridge HPD ops
+RDMA/mlx5: get tph for p2p access when registering dma-buf mr
 
-The HPD interrupt must not be delivered before the DRM connector is fully
-set up, and it should be quiesced while the display pipeline is suspended.
-On top of that, the threaded handler re-arms HPD unconditionally after the
-hotplug debounce, which must not override an explicit disable requested by
-the DRM core.
+This commit wires up mlx5_ib to query the exporter's chosen PCIe TLP
+Processing Hint (TPH) Steering Tag at MR registration time for peer-to-peer
+DMA access. It translates the exporter-provided steering tags into local ST
+entries or uses default routing if no hint is available.
 
-> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
-/drm/rockchip/dw_hdmi_qp-rockchip.c
-> index 46a61112c14f4..253da2162ce6f 100644
-> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-[ ... ]
-> @@ -308,12 +309,14 @@ static void dw_hdmi_qp_rk3588_enable_hpd(struct dw_=
-hdmi_qp *dw_hdmi, void *data)
->  	struct rockchip_hdmi_qp *hdmi =3D (struct rockchip_hdmi_qp *)data;
+> diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5=
+/mr.c
+> index 00e13028762ae..fdd7d94bd4aa4 100644
+> --- a/drivers/infiniband/hw/mlx5/mr.c
+> +++ b/drivers/infiniband/hw/mlx5/mr.c
+> @@ -167,6 +168,61 @@ static int get_unchangeable_access_flags(struct mlx5=
+_ib_dev *dev,
+>  #define MLX5_FRMR_POOLS_KERNEL_KEY_PH_MASK GENMASK_ULL(23, 16)
+>  #define MLX5_FRMR_POOLS_KERNEL_KEY_ST_INDEX_MASK GENMASK_ULL(15, 0)
 > =20
->  	dw_hdmi_qp_rk3588_unmask_hpd(hdmi);
-> +	enable_irq(hdmi->hpd_irq);
->  }
-> =20
->  static void dw_hdmi_qp_rk3588_disable_hpd(struct dw_hdmi_qp *dw_hdmi, vo=
-id *data)
->  {
->  	struct rockchip_hdmi_qp *hdmi =3D (struct rockchip_hdmi_qp *)data;
-> =20
-> +	disable_irq(hdmi->hpd_irq);
->  	dw_hdmi_qp_rk3588_mask_hpd(hdmi);
->  }
-
-[Severity: Medium]
-The DRM core disables HPD (e.g., during driver unbind or DRM pipeline disab=
-le),
-which invokes dw_hdmi_qp_rk3588_disable_hpd() and dw_hdmi_qp_rk3576_disable=
-_hpd().
-This disables the HPD IRQ but does not cancel the already queued hdmi->hpd_=
-work.
-
-Could this delayed work execute up to 150ms later, probing the connector and
-running EDID reads when the driver expects HPD to be fully quiesced, result=
-ing
-in spurious HPD events?
-
-[ ... ]
-> @@ -688,14 +693,14 @@ static int dw_hdmi_qp_rockchip_bind(struct device *=
-dev, struct device *master,
->  	if (plat_data.cec_irq < 0)
->  		return plat_data.cec_irq;
-> =20
-> -	irq =3D platform_get_irq_byname(pdev, "hpd");
-> -	if (irq < 0)
-> -		return irq;
-> +	hdmi->hpd_irq =3D platform_get_irq_byname(pdev, "hpd");
-> +	if (hdmi->hpd_irq < 0)
-> +		return hdmi->hpd_irq;
-> =20
-> -	ret =3D devm_request_threaded_irq(dev, irq,
-> +	ret =3D devm_request_threaded_irq(dev, hdmi->hpd_irq,
->  					cfg->ctrl_ops->hardirq_callback,
->  					cfg->ctrl_ops->irq_callback,
-> -					IRQF_SHARED, "dw-hdmi-qp-hpd",
-> +					IRQF_NO_AUTOEN, "dw-hdmi-qp-hpd",
->  					hdmi);
->  	if (ret)
->  		return ret;
+> +static u8 mlx5_ib_tph_key_ph(u8 ph)
+> +{
+> +	if (ph =3D=3D MLX5_IB_NO_PH || ph =3D=3D 0)
+> +		ph ^=3D MLX5_IB_NO_PH;
+> +
+> +	return ph;
+> +}
+> +
+> +static int mlx5_ib_get_st_handle_ref(struct mlx5_ib_dev *dev, u16 st_ind=
+ex)
+> +{
+> +	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
+> +		return 0;
+> +
+> +	return mlx5_st_get_index(dev->mdev, st_index);
+> +}
+> +
+> +static void mlx5_ib_put_st_index_ref(struct mlx5_ib_dev *dev, u16 st_ind=
+ex)
+> +{
+> +	if (st_index =3D=3D MLX5_MKC_PCIE_TPH_NO_STEERING_TAG_INDEX)
+> +		return;
+> +
+> +	mlx5_st_dealloc_index(dev->mdev, st_index);
 
 [Severity: High]
-When the system suspends, dw_hdmi_qp_rockchip_suspend() is called. It first
-calls dw_hdmi_qp_suspend(), which disables the main_irq used for I2C
-completions. It then calls cancel_delayed_work_sync(&hdmi->hpd_work):
+This is a pre-existing issue, but this patch introduces a new, heavily-exer=
+cised
+reachable path for it.
 
-dw_hdmi_qp_rockchip_suspend() {
+Does mlx5_st_dealloc_index() leak the mlx5_st_idx_data struct when erasing =
+it
+from the xarray?
+
+When a steering tag's reference count drops to zero, the entry is removed v=
+ia
+xa_erase():
+
+drivers/net/ethernet/mellanox/mlx5/core/lib/st.c:mlx5_st_dealloc_index() {
     ...
-    dw_hdmi_qp_suspend(dev, hdmi->hdmi);
-    cancel_delayed_work_sync(&hdmi->hpd_work);
+	if (refcount_dec_and_test(&idx_data->usecount)) {
+		xa_erase(&st->idx_xa, st_index);
+		/* We leave PCI config space as was before, no mkey will refer to it */
+	}
     ...
 }
 
-If the HPD work is executing concurrently, it will attempt to read the EDID=
- via
-I2C, but since main_irq is disabled, the I2C read will time out.
+However, the underlying idx_data pointer is not freed with kfree(idx_data).
 
-Can this race condition lead to I2C timeouts and bus hangs during system
-suspend?
+Because the next time the same tag is requested, a new struct is allocated =
+via
+kzalloc_obj() in mlx5_st_alloc_index_by_tag(), won't repeated allocations a=
+nd
+deallocations lead to an unbounded kernel memory leak?
+
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-dw-hdmi-qp=
--scramb-v10-0-294364b2cf15@collabora.com?part=3D37
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731211601.3033=
+906-1-zhipingz@meta.com?part=3D5
