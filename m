@@ -4,68 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B535C5516F
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:03:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71FBCC55171
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:03:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB08010E22A;
-	Fri, 31 Jul 2026 15:03:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CEC5410E232;
+	Fri, 31 Jul 2026 15:03:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="KvffgtfZ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="h+NWym1e";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF4C010E22A
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:03:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785510206;
- bh=vBzFyziUWjliNDDBkuz8H0vizOlAd/t2Tq+tK2gR2BM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=KvffgtfZ7GSQynVjczrV++EGQQxtV4uoiDJGuk3AQ0LFI6XPb4K/6w+HwqRzfNlNa
- lJEXFDmZodC6tyToTRWir+A15r0iWmdQEfwie79dYX4ZvExrZlj6D98xIBBVcEoNan
- n3eAmFhpV8nNx12OnaA1DDw9o0+l/Jw8wFUCusnNQw5xw0SvMukqlWSKXnO54DK666
- jfZ1dR5Gor1XSAG4Ug8nWL7MkUOVGXhY4PhgqfvKjvRy50sJwOU8u/kZUxZYjfuNmC
- m6GhCMfscAqMGlVRsBYWbIK+KoRipoIs3zsV3Q+DgccaB5i9RWWCBVKivo98JpT91z
- VBqWYYewwHWaA==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4C0B317E063E;
- Fri, 31 Jul 2026 17:03:25 +0200 (CEST)
-Message-ID: <fa854383-a53a-410d-8b0e-554f70b918ac@collabora.com>
-Date: Fri, 31 Jul 2026 18:03:24 +0300
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 03/61] drm/connector: Add drmm_connector_hdmi_init()
- with new signature
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Algea Cao <algea.cao@rock-chips.com>, Daniel Stone <daniels@collabora.com>,
- Liu Ying <victor.liu@nxp.com>, Phong LE <ple@baylibre.com>,
- kernel@collabora.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
-References: <20260723-dw-hdmi-qp-scramb-v9-0-4fb12ea22ac9@collabora.com>
- <20260723-dw-hdmi-qp-scramb-v9-3-4fb12ea22ac9@collabora.com>
- <exkyukl6jnkwwoap62v4n5j4obyhoks5ysbo7iqjdhzhb2ltsu@nyp7csbmzott>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <exkyukl6jnkwwoap62v4n5j4obyhoks5ysbo7iqjdhzhb2ltsu@nyp7csbmzott>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8EE710E232
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:03:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 7BAF84402B;
+ Fri, 31 Jul 2026 15:03:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B6651F000E9;
+ Fri, 31 Jul 2026 15:03:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785510214;
+ bh=0C4zxZnDLWhYd9A1bVehato/vJ05L8AhfglFm/ZN/1w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=h+NWym1egfVnf+U+SiGwhgZ8c/vtbqH0liY7F33Uv7oUvQfDkQXDPPwdoBq4QW44b
+ Z8xChBbLGsKVg83J7co0oeX7uFuPuqUbtsmlFiWJRqSX+Kd4ZyL8yvLhAr4PJ9v+CZ
+ fC+S27Rlhd3sFcdR8rKWgZNyLaZxhII2yoA0CmQKqKSdxmC55FmqQh33u2/qba9lQx
+ 78cGFZUDB53QTrGVeTxpNWH73GyfPfMse1ECR99t3NwM6V1GgJ4Lo4wNSTkNBuj4fa
+ yfQXGYScsy7ORv3QZdw5abKJoRUjTds3lFb5Ie0EOUFPx8LzlpSkdmOh8EK/oz/aSr
+ USIJdQgpE2Esg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 01/21] drm/bridge: synopsys: dw-dp: Register DP AUX
+ on bridge attach
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-1-ac1e6a75782f@collabora.com>
+References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+ <20260731-synopsys-dw-dp-improvements-v8-1-ac1e6a75782f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 15:03:33 +0000
+Message-Id: <20260731150334.1B6651F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,36 +55,131 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dmitry,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On 7/30/26 5:19 PM, Dmitry Baryshkov wrote:
-> On Thu, Jul 23, 2026 at 04:34:52AM +0300, Cristian Ciocaltea wrote:
->> In preparation for providing HDMI 2.x source capabilities, move the
->> vendor, product, supported_formats and max_bpc parameters out of the
->> init function into struct drm_connector_hdmi_funcs, and add new
->> supported_hdmi_ver and supported_tmds_char_rate fields there as well.
-> 
-> I really don't like the idea of putting data into the functions. The
-> data might be mutable, it might depend on the particular platform, etc.
-> while funcs are typically static. Even for the drm_bridge case we have
-> two separate structures: static funcs and changeable drm_bridge
-> instance.
-> 
-> I'd suggest populating that data in the drm_connector before calling
-> drmm_connector_hdmi_init(). The only exception would be vendor / product
-> since they use strtomem_pad() to ensure them being properly initialized.
-> I'd suggest leaving those two as is.
+New issues:
+- [High] Moving `drm_dp_aux_unregister()` to `dw_dp_bridge_detach()` decoup=
+les the AUX device lifecycle from the component device's `devm_` resources,=
+ causing a Use-After-Free vulnerability on unbind or error paths.
 
-I don't have a strong preference between the two approaches (functions vs.
-connector). Let's wait for Maxime to confirm that he agrees with your
-suggestion, so that we can hopefully reach consensus before the final round of
-API-related changes.
+Pre-existing issues:
+- [High] The AUX transfer function does not reinitialize the completion obj=
+ect before waiting, leading to state corruption on timeout.
+--
 
-Meanwhile, I plan to submit v10 addressing several findings reported by Sashiko
-and see whether anything else remains outstanding.
+--- Patch [1]: [PATCH v8 01/21] drm/bridge: synopsys: dw-dp: Register DP AU=
+X on bridge attach ---
+commit 356b23a8a66946521d5979525583ffc3eb67acf6
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-Thanks,
-Cristian
+drm/bridge: synopsys: dw-dp: Register DP AUX on bridge attach
+
+This commit moves the DP AUX device registration from the bind/unbind
+callbacks into the bridge attach/detach callbacks. This is intended to
+ensure the AUX device is only accessible when the DRM device is ready
+and the bridge is powered.
+
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 3445c82e6f50e..112a499113095 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1813,7 +1813,36 @@ static struct drm_bridge_state *dw_dp_bridge_atomi=
+c_duplicate_state(struct drm_b
+>  	return &state->base;
+>  }
+> =20
+> +static int dw_dp_bridge_attach(struct drm_bridge *bridge,
+> +			       struct drm_encoder *encoder,
+> +			       enum drm_bridge_attach_flags flags)
+> +{
+
+[ ... ]
+
+> +static void dw_dp_bridge_detach(struct drm_bridge *bridge)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +
+> +	drm_dp_aux_unregister(&dp->aux);
+> +}
+
+[Severity: High]
+Does moving the unregistration here decouple the AUX device lifecycle
+from the component device's devres resources?
+
+If a user unbinds the component device via sysfs while the DRM master
+device is held open by userspace, the component unbinds and its devres
+group frees dp and dp->regmap.
+
+However, the DRM bridge remains attached until the DRM device is fully
+closed, delaying dw_dp_bridge_detach(). The AUX char device
+/dev/drm_dp_auxN would remain registered and accessible, backed by freed
+memory.=20
+
+A subsequent AUX transfer could dereference the freed dp->regmap, and
+when the DRM device is finally closed, drm_encoder_cleanup() would call
+dw_dp_bridge_detach(), which calls drm_dp_aux_unregister() on the freed
+dp memory.
+
+[ ... ]
+
+> @@ -2065,37 +2084,33 @@ struct dw_dp *dw_dp_bind(struct device *dev, stru=
+ct drm_encoder *encoder,
+>  	ret =3D phy_init(dp->phy);
+>  	if (ret) {
+>  		dev_err_probe(dev, ret, "phy init failed\n");
+> -		goto unregister_aux;
+> +		return ERR_PTR(ret);
+>  	}
+
+[Severity: High]
+Can returning directly on these error paths without unregistering the AUX
+device or detaching the bridge cause a use-after-free regression?
+
+The dw_dp_bind() function allocates dp and dp->regmap using devm_ APIs.
+Since the synchronous drm_dp_aux_unregister() was removed from the error
+paths, the AUX device remains registered. When bind fails, the devres
+group will free dp, leaving a dangling pointer.
+
+[ ... ]
+
+>  void dw_dp_unbind(struct dw_dp *dp)
+>  {
+> -	drm_dp_aux_unregister(&dp->aux);
+> +	/* nothing to do */
+>  }
+
+[Severity: High]
+By removing the synchronous AUX unregistration here, could the char device
+outlive the component and lead to the use-after-free described above?
+
+[Severity: High]
+This is a pre-existing issue, but does dw_dp_aux_transfer() fail to
+reinitialize the completion object before waiting?
+
+Looking at dw_dp_aux_transfer() in drivers/gpu/drm/bridge/synopsys/dw-dp.c:
+
+	regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
+
+	status =3D wait_for_completion_timeout(&dp->complete, timeout);
+
+If a transfer times out, it returns without decrementing the completion's
+internal counter. When the hardware eventually completes the delayed
+transfer, the IRQ handler calls complete(&dp->complete).
+
+On the next AUX transfer, wait_for_completion_timeout() will immediately
+return success by consuming the stray completion instead of waiting for
+the new transfer. The driver would then read DW_DP_AUX_STATUS containing
+in-progress or stale data.
+
+Should reinit_completion(&dp->complete) be called before initiating the
+hardware transfer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
+w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D1
