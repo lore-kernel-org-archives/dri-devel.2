@@ -4,58 +4,179 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 794E4C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 10:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B168EC55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 10:20:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A309610F209;
-	Fri, 31 Jul 2026 10:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AA0010F20B;
+	Fri, 31 Jul 2026 10:20:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="VS+EQSCi";
+	dkim=pass (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="cB5r1Whn";
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cB5r1Whn";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 937E610E206;
- Fri, 31 Jul 2026 10:01:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785492108; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=YtK4SnNW+GkQaFMYDwo4eraCdHpXcdfYAcaQLaQjVYsgjVGQvNTkHOmtEpZU1ByXbt+2s39JZoxADaBpJfiSxa+YtYtAG65IIL99sS+JhZNPb/2LtpnfHk4oqKqXBRQlsOBBRShR7wFsuMUOUF8nLNb/b6BrZccpQ0bOPT9dBiU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785492108;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=aX3ioftb5URgdC+2oX+YAzmF6ueujo93Y7omJwgvTQ4=; 
- b=ap6LJjsGF50/C96Fd4bYjwzPPXF1XVC2oTUbDeUTI9EeE/+8Nq69PqnjMVcPXc/ZiKuAGi596S0OyG8WjtwMNjzwLYhnuKMhK+RRipvHwMRjdwwsYMAmI3ad/bUBFCGMpmmX+wdL2kHBvZVXrT3jgIOLcjZwoZP3eD28OJKfLBw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785492108; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Content-Type:Message-ID:Date:Date:MIME-Version:From:From:Subject:Subject:To:To:Cc:Cc:In-Reply-To:Message-Id:Reply-To;
- bh=aX3ioftb5URgdC+2oX+YAzmF6ueujo93Y7omJwgvTQ4=;
- b=VS+EQSCivT+vXm/k9AD1yq6RyDyt4yG4dZUto0uqtjgX7gx7+kh8ICvJLued2a+6
- mOqW6mooi1iu8WAzrjxOKm9/OoqS6JDWvuuhbRjuDZBNcr+aKaRUJxw0VXxOy3n93XR
- VI9TIzY3J7eu1oBhrSyIXwZZDBdmcdgvHNIcWEuQ=
-Received: by mx.zohomail.com with SMTPS id 1785492106641402.244287356614;
- Fri, 31 Jul 2026 03:01:46 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------v5HAvdRonGnF2LpgNUlV3vv1"
-Message-ID: <70f4aff6-3f2d-43a4-b80a-26d7d2aed669@collabora.com>
-Date: Fri, 31 Jul 2026 12:01:42 +0200
-MIME-Version: 1.0
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013051.outbound.protection.outlook.com
+ [40.107.162.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6984110F20B;
+ Fri, 31 Jul 2026 10:20:48 +0000 (UTC)
+ARC-Seal: i=2; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=tfvxCysufYP2/Aj3rVfYlV7QM0IRfSDedX6Nae2AXjuVqubo/fX49ecMAZMlOqYh6nAqbPlpyWFYfJ6Xe/wr2IQBQ4t18+oiY2ak5dVmQCr7CGcHYr7gpW8pMpps5C1itk+U84qnS3ZVx3dBnkkTHTPi6PzVxv8fwY4n51ZFZm1SzGNmUChbia3+AbT6aZwe8o/3fHUVFk47H/40wPo8BopKtw807TAEp2z2wKVP2JKL3Yy18UBT4oh2HbB59Ak7qufDzfCAS0QEwbh8KLm1cNh3yBrXoQaQuxocVrTmacM7RayClBb2TLPBqt39M4dGRsu6HPkIiDQEXsObcrjsWw==
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/9bGte8eqdxuMMzc6Sl3gDguhLqQI6GBUeVCbvVeu8A=;
+ b=mNVZB9SyaxZ6Xj3wn+Uvbe34FtEqty4UzniTgmvDHVr9e45fZgqPwaAFPghqIw14E3asWrQiCwDRS+BBwXiGVYYh0qmh2cuXkIUy3oFKPbeQ6+OIpVJbUdGj6kOth9oftC+QcdGgOD4Br4SwQCoAReXhRmyhDqHHszC2ySV7Wv7GMwtkwVbzAbLX/p5hHn0Gsg0/7Qctu2XiVyKYXf8X65hTZ4+k+cWUFnN3H+W2aB+PWkI5YxQaUw007litHRpBC9qT+02G9Up2v0Kryz5Rir3ei0bym9uVKBkM4XQHkJGPdaLBw6YAro1ya6MC+FhBsWw28QTKhKcwzKPmV373+w==
+ARC-Authentication-Results: i=2; mx.microsoft.com 1; spf=pass (sender ip is
+ 4.158.2.129) smtp.rcpttodomain=suse.com smtp.mailfrom=arm.com; dmarc=pass
+ (p=none sp=none pct=100) action=none header.from=arm.com; dkim=pass
+ (signature was verified) header.d=arm.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=arm.com] dkim=[1,1,header.d=arm.com]
+ dmarc=[1,1,header.from=arm.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/9bGte8eqdxuMMzc6Sl3gDguhLqQI6GBUeVCbvVeu8A=;
+ b=cB5r1Whn7zm4IjrU8ljCV0Q7/8waXW+Snz5qDVSFDT6iJQDf0Zs6ZV0KTsHR/rkcn4OBTHXCurcfBr79XtPVWA0L5Wdq7yzDThpWX+1uv0kvDXKB+/ZRMO+e2OcLAUCpFyIKwzCRYSTg/RxY/sHXEpuGqUrl+r5LTCe6RAf2ans=
+Received: from DU2PR04CA0220.eurprd04.prod.outlook.com (2603:10a6:10:2b1::15)
+ by DU4PR08MB11717.eurprd08.prod.outlook.com (2603:10a6:10:643::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 10:20:42 +0000
+Received: from DU2PEPF00028D04.eurprd03.prod.outlook.com
+ (2603:10a6:10:2b1:cafe::62) by DU2PR04CA0220.outlook.office365.com
+ (2603:10a6:10:2b1::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.15 via Frontend Transport; Fri,
+ 31 Jul 2026 10:20:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 4.158.2.129)
+ smtp.mailfrom=arm.com; dkim=pass (signature was verified)
+ header.d=arm.com;dmarc=pass action=none header.from=arm.com;
+Received-SPF: Pass (protection.outlook.com: domain of arm.com designates
+ 4.158.2.129 as permitted sender) receiver=protection.outlook.com;
+ client-ip=4.158.2.129; helo=outbound-uk1.az.dlp.m.darktrace.com; pr=C
+Received: from outbound-uk1.az.dlp.m.darktrace.com (4.158.2.129) by
+ DU2PEPF00028D04.mail.protection.outlook.com (10.167.242.164) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.5
+ via Frontend Transport; Fri, 31 Jul 2026 10:20:41 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=RA36WTR3u3SMRbdo4Q+GY9qftlofBtyl26SpHhVA1QL3wPiNHvi7neI8BbiGFjcNhz1+h1QDKcE0ZH29no90uYmqtrLrQnwRJD280YKRU7/gqA0+0tIUTJFKURvMSdpBS7eVPTouH84B16YiKeL88sietYvZ7XOa71dlK+ScH4hQhGonkDNwW4F/HaN4Nyh4duISMR/oBfVW6+GEH+aluV/FbgSsThnzenNYe2xxWAHtZIGyfkN7TPij1BBo+UJtNXsts1wyxh1TmDRLjnx5oc+i/7JjfOgPTZwDIaMTQt6vUTHSC5NoadpfnbkxWOFTla/gP6QR0jbh50pkYvcHGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/9bGte8eqdxuMMzc6Sl3gDguhLqQI6GBUeVCbvVeu8A=;
+ b=g05P1/GLRVOKiLbD7Hb/VMYlyYCDfmaEF5OIYvGINkGPWcIpqHcFwbqMc0/AWM6+ODDDSdiJpDyVHnpd0FgL5QoOLa4CXqhA66pWz1YIkKejm8m0xccvKH5Uf2JK2DOaHrqRyEuyXM/tSe6/2ajwLwYxrWeEAzDI60Z1jX6CtU0kSJzN1NDxpWBMqJfRS4KJG6uG36/NayfVcXgpDfQZ0uiyJynnKgLdvaqB8OMJbDhMLUfxgeKSCY1pf/MDs5FtIpO0SH5u3N668OxAR5xp4xyyRMpEpZ+kXYeUJ1kqePf0+jMbrTuI7OlNQsxC6CaqVaoszEtJ6wUT2nO3X0+cmg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=arm.com; dmarc=pass action=none header.from=arm.com; dkim=pass
+ header.d=arm.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arm.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/9bGte8eqdxuMMzc6Sl3gDguhLqQI6GBUeVCbvVeu8A=;
+ b=cB5r1Whn7zm4IjrU8ljCV0Q7/8waXW+Snz5qDVSFDT6iJQDf0Zs6ZV0KTsHR/rkcn4OBTHXCurcfBr79XtPVWA0L5Wdq7yzDThpWX+1uv0kvDXKB+/ZRMO+e2OcLAUCpFyIKwzCRYSTg/RxY/sHXEpuGqUrl+r5LTCe6RAf2ans=
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=arm.com;
+Received: from AM0PR08MB3410.eurprd08.prod.outlook.com (2603:10a6:208:df::33)
+ by GV2PR08MB11278.eurprd08.prod.outlook.com (2603:10a6:150:2f9::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 10:19:34 +0000
+Received: from AM0PR08MB3410.eurprd08.prod.outlook.com
+ ([fe80::b6cc:973e:a807:c3d3]) by AM0PR08MB3410.eurprd08.prod.outlook.com
+ ([fe80::b6cc:973e:a807:c3d3%6]) with mapi id 15.21.0270.009; Fri, 31 Jul 2026
+ 10:19:33 +0000
+Message-ID: <9ac33752-b587-4901-b5f2-473e573d7ede@arm.com>
+Date: Fri, 31 Jul 2026 11:19:32 +0100
 User-Agent: Mozilla Thunderbird
-From: Robert Mader <robert.mader@collabora.com>
-Subject: Re: [PATCH v4 01/11] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
-To: Pekka Paalanen <pekka.paalanen@collabora.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-2-harry.wentland@amd.com>
- <64bdc6c8-41e7-4c7f-aa8e-ceb05128d987@collabora.com>
- <8aaeb5b2-2706-415a-8662-40f863270dac@intel.com>
- <20260730172758.0c65485f@fluorite>
-Content-Language: en-US, de-DE
-In-Reply-To: <20260730172758.0c65485f@fluorite>
+Cc: usama.anjum@arm.com, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dimitri Sivanich
+ <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
+ Miaohe Lin <linmiaohe@huawei.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, pfalcato@suse.de, agordeev@linux.ibm.com,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table storage
+To: Anshuman Khandual <anshuman.khandual@arm.com>,
+ =?UTF-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <20260727164715.2866609-2-usama.anjum@arm.com>
+ <6xah74eadjmo2bozyr62wcxo4hhpsiufx2mshh7tztyy2dzzps@63m327m7pl5u>
+From: Muhammad Usama Anjum <usama.anjum@arm.com>
+Content-Language: en-US
+In-Reply-To: <6xah74eadjmo2bozyr62wcxo4hhpsiufx2mshh7tztyy2dzzps@63m327m7pl5u>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P265CA0321.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:390::12) To AM0PR08MB3410.eurprd08.prod.outlook.com
+ (2603:10a6:208:df::33)
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: AM0PR08MB3410:EE_|GV2PR08MB11278:EE_|DU2PEPF00028D04:EE_|DU4PR08MB11717:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9a6f79d-2568-4a69-150e-08deeeed5fa6
+x-checkrecipientrouted: true
+NoDisclaimer: true
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|7416014|376014|18002099003|22082099003|4143699003|11063799006|10067099003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info-Original: N2wlK7+ZRozJGmK0N2Kg0R4yJ5wOgZ0BD8bcmN9ckzK3UKJ2F4czXbrv7jZaWgvVUj2tZLGIy6TXZHVj8n7cCBGjmutqs1o22knL3OyEpVQm205U7W840n0BzB93Ls3ya0MZ3n6q0MiN1ZCHJEdhHH4FmcCqbn8amDqXdOS2JFy534KAR6w8Hode3mZKdiNOi4XHA4EMm4R4NmgNqv8BTHU1o1mrdwRGbDcLLTL/Uhcr5Zj2H23tyNGUWdzcb9/6Z+9bMpCyFaPdcHduC8sbRRNlTmKgEgaDWxAsRtFcZniZDxYHOO0wMLuvu/FIbZEpfc9mggB79qJPf78hwUaK6sCBMcFbFO1lIgj/xFLfWAMPLe5iSzSFLg+eGHiNLL7zlhllC5XRJ7sba3tAP1A5lpnMKQQ5InaimxmgfYr2EcWK5+6aNVUYhSXkZdPq7CHlTQ18QsDrrhmDdOi8MKesiDc4vc9VxGb/uuv4aw5rgyKAM7jO0sO/zN+AdxTpB9Vtc10PElC4ddyBnsaMt+zoJSiIhtu0ZzbyjOzgxOvSTZh9hr8fCJVH9BN7z4kFR0HmSW0uqGKEUsWoW1c6OA7FbV3EauzK0vM4jQZyqMS9znmYSKnSFtSl9lnT1Aih3rkG/pMOiNT7X9Xk05Vfb8Gxfo07Avde+ZzbUlyDqgQmWys=
+X-Forefront-Antispam-Report-Untrusted: CIP:255.255.255.255; CTRY:; LANG:en;
+ SCL:1; SRV:; IPV:NLI; SFV:NSPM; H:AM0PR08MB3410.eurprd08.prod.outlook.com;
+ PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(18002099003)(22082099003)(4143699003)(11063799006)(10067099003)(56012099006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-Exchange-RoutingPolicyChecked: jppYn+MrAjPlJcJEzGfQ1jvETR90CuL564Cvd3s5pQpSXb3FjdEezsTcu1l7Aw7vpXIhIhpPA4Fvjw06egzld5SxxNDODfBO3WGFQpssEDJnL8PWJRIWECUYo7TnCKu253Ngg+5ToeXKLgfCk4brktdsgrj7zk4W1crtnbpBsYC4BT30W2CElHRbMGQdk/8tVzUPeMqdRQtqQ59xKrgLxPMc3xsyjg/9StkRA3HpzyMoGJG+NEI4gVuZt6ij1C/0H9fj2NUUWGDqXiOrjsESkwvO2Ls29lOKFjcW8bSAMO3Y/NNJVoKjg8ty9x9AJ/wLhzWBu8NL0DMS7x6LKw8FeQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR08MB11278
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped: DU2PEPF00028D04.eurprd03.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs: 8eb83e79-85e5-447e-8f2c-08deeeed372f
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|36860700016|35042699022|376014|23010399003|14060799003|82310400026|1800799024|13003099007|6133799003|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: +cxUqkDAVXwJfo0/J+Unmn/UU7Qxuv/kG8jo/E6OUUholiIyLeeBG1dyUMGC+JTI9/jnKsgcOlSVUIBuMMp3/3ikCCv2hJ/V2g5yI1OLgpVuMK+GMlXGoJtSKO1RMevMxcrfaMZou7AdqgeW2JMX0/XGmyl0uMrkiB9oKgwkc3A63dlnJXUhvlQVXVNxDZt6eywKtDPuF8dUfhX0VF+bXa6O9rbSBVEymm+otUnW1knYJyYfyibDgoQMKcfmIdMEqSoJLQ11wplggq5TvNEDSxz7teq6AUCxWxMBBZVFyaP8PVD/04Yh2ME91ljkkyWMpDlxBIUY8opxOs0RLDbXZ/Ja2cbme9xQ6tbxbWQTrGqorky5G2ImsDl1F6GCBMknxiouThBH4HDrLiPURJtdyNY6JOepeeZyOQHOBLfmJQRMsh1O5L+y5ZUFHC50EF1Z54PU4auvrz9v3uu+cShBKToUDud39c30jHhrAI6XYaXolrZLzMmJtESd9+1DR1bQfg+V5fekbrMwodajnxapLGRksztZgQPm2BJ76/syx7w3iVWoZLJ8ARJhmzWnsmgyCPKnMtkFO67yBs+G2E2F5gRyAouK63Bt/OYPIAx8k+XFNslT0pGZeinwIQ0zoPsizMRGODBD4XgLp8hD2elCKAETHGbAIZ/Zq8dWJhpohwnTgqc8vFEGqKUnXtJIV7qEN5eKWDEvXQBX6SXujBOsug==
+X-Forefront-Antispam-Report: CIP:4.158.2.129; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:outbound-uk1.az.dlp.m.darktrace.com;
+ PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(36860700016)(35042699022)(376014)(23010399003)(14060799003)(82310400026)(1800799024)(13003099007)(6133799003)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: RBLROo5LiXS9uRgF34qTjim0wy19yK/eljpxXW0xvMggAoapFBz7lMXDw5Mwvqv2Fs3OGn1gD5anpvnhGf58NYa1Tk+IDYCnJ5kwjQkQ/koCnaFQp4JHJ9KgOIXnbj5bHJd+BEzgzzkuKX7a/5n9xPS7GbQDLZN62PaLbQxFVXUgYRkJR9ggJeHL3xiLcIJ5MzT62aKAKva3MI16Rc6y9uurr7Hsm9UGFdmC+GR9lCISR21RBLN+na/snbZrYb57C6grujG9yUHTbBopj+KIB10zX8OWI0IunkHd2NFpteTKd8WUZ0arTedwGYlI5/dETTMvtV+hj+hCWxB8C2Xb4PMbgL5u7ZD4CkT12KrJecNDeC0MEdggInAVlZv2peDghr0BwJQEFld88znFQL2v8a1OF8pRuyTqfhrvVZTPQUIL4KlUpwX8uk7u5PiNHSSD
+X-OriginatorOrg: arm.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 10:20:41.1870 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9a6f79d-2568-4a69-150e-08deeeed5fa6
+X-MS-Exchange-CrossTenant-Id: f34e5979-57d9-4aaa-ad4d-b122a662184d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=f34e5979-57d9-4aaa-ad4d-b122a662184d; Ip=[4.158.2.129];
+ Helo=[outbound-uk1.az.dlp.m.darktrace.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D04.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR08MB11717
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,371 +192,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------v5HAvdRonGnF2LpgNUlV3vv1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+On 31/07/2026 6:49 am, Anshuman Khandual wrote:
+> On Mon, Jul 27, 2026 at 05:46:52PM +0100, Muhammad Usama Anjum wrote:
+>> pte_t is used both for logical PTE values and for entries stored in a PTE
+>> table, so pte_t * does not distinguish a pointer to a copied value from a
+>> pointer to table storage.
+> 
+> Should we rather call them as "Linux PTE" and "HW PTE" instead ?
+> 
+> Some like "Logical PTE" does not really sound very clear on what it represents.
+Yeah, I should make distinction more visible in the cover letter.
 
-Hi Chaitanya, thanks for the explanation and sorry for the delayed 
-answer! I needed to think about it for a bit and would like to propose 
-an idea now, see below.
+> 
+>>
+>> Introduce hw_pte_t as the generic name for a PTE table element. Define it
+>> as an alias of pte_t by default so architectures retain their existing
+>> representation and behavior until they opt in to a distinct storage type.
+> 
+> Makes sense.
+> 
+>>
+>> Include asm/page.h so pte_t is defined before the generic alias.
+>>
+>> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+>> ---
+>>  MAINTAINERS                   |  1 +
+>>  include/linux/pgtable_types.h | 11 +++++++++++
+>>  2 files changed, 12 insertions(+)
+>>  create mode 100644 include/linux/pgtable_types.h
+>>
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 15dd00c7ffec5..78aac05949829 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -16981,6 +16981,7 @@ F:	include/linux/mmu_notifier.h
+>>  F:	include/linux/pagewalk.h
+>>  F:	include/linux/pgalloc.h
+>>  F:	include/linux/pgtable.h
+>> +F:	include/linux/pgtable_types.h
+> 
+> s/pgtable_types.h/pgtable_hw_types.h ?
+I prefer shorter file names.
 
-On 30.07.26 16:27, Pekka Paalanen wrote:
->>>> ...
->>>> Limited to RGB",
->>>> +    [DRM_COLOROP_FM_YCBCR_LIMITED_FULL] = "YCbCr limited to full",
->>>> +    [DRM_COLOROP_FM_RGB709_RGB2020] = "RGB709 to RGB2020",
->>> I'm still a bit unsure how useful the later two values are,
->> You can see them being used in [1] and tested by [2]. We split out the
->> "YCbCr limited to full" block because some Intel planes have a 1DLUT
->> between it and the "YCbCr XXX Full to RGB" block. This keeps the color
->> pipeline consistent with the actual HW.
-> Hi Chaitanya,
->
-> it would be nice for VKMS to be able to have such a color
-> pipeline only. Then userspace authors can test it.
->
-> That gives me the idea, that perhaps there should be a library of color
-> pipelines for VKMS that replicates actual hardware pipelines. Maybe it
-> would be in the kernel, or maybe it would be in some userspace project
-> if VKMS pipelines can be crafted through configfs or something else.
->
->> Based on your experience implementing the colorop in weston, do you
->> foresee any challenges in supporting limited-range framebuffers using
->> the "YCbCr Limited-to-Full" fixed matrix block?
-> I cannot imagine a big problem, but it is yet another configuration
-> that userspace must be explicitly prepared for.
+> 
+>>  F:	include/linux/ptdump.h
+>>  F:	include/linux/vmpressure.h
+>>  F:	include/linux/vmstat.h
+>> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+>> new file mode 100644
+>> index 0000000000000..ed5dba42a4f8c
+>> --- /dev/null
+>> +++ b/include/linux/pgtable_types.h
+>> @@ -0,0 +1,11 @@
+>> +/* SPDX-License-Identifier: GPL-2.0 */
+>> +#ifndef _LINUX_PGTABLE_TYPES_H
+>> +#define _LINUX_PGTABLE_TYPES_H
+>> +
+>> +#include <asm/page.h>
+>> +
+>> +#ifndef __HAVE_ARCH_HW_PTE_T
+> 
+> __HAVE_ARCH_HW_PTE_T macro is a better approach here or a config ARCH_HAS_HW_PTE_T
+> based selective platform subscription should be introduced instead ?
+Moving to CONFIG_ARCH_HAS_PTE_T from the next version as suggested here [1].
 
-I agree with Pekka - it shouldn't be hard to implement, especially if it 
-can be tested on VKMS, but I'm worried that:
-
-1. It could end up resulting in some "Intel-only" code that most Wayland 
-compositors would need to carry around.
-
-2. While having an additional 1D curve is great, IIUC it wouldn't be 
-needed/used by Weston and similar compositors for now.
-
-3. It would complicate the use of a cross-vendor helper for the legacy 
-properties (for clients not setting 
-DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE) as discussed in 
-https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/
-
-
-IIUC there should be a simple solution for that, though, and I'd like to 
-ask if you think it would work for you: the Intel driver could just 
-expose two pipelines: a "complex" one with "YCbCr Limited-to-Full" in 
-the first fixed-matrix color-op and the additional 1D lut - and a 
-"simple" one with a single fixed-matrix also support the "Limited to 
-RGB" values. The later would waste the 1D lut in favor of compatibility 
-with clients not supporting "YCbCr Limited-to-Full".
-
-To be fully clear what I mean: IIUC right now the drm_info output of you 
-pipeline looks *roughly* like this:
-
-            └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 1} = Bypass
-                 ├───Bypass
-                 └───Color Pipeline 1
-                     ├───Color Operation 1
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 2
-                     │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                     ├───Color Operation 2
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 3
-                     │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                     ├───Color Operation 3
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 4
-                     │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                     ├───Color Operation 4
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 5
-                     │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                    ...
-
-While I think it should look like this:
-
-            └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 1, Color Pipeline 2} = Bypass
-                 ├───Bypass
-                 ├───Color Pipeline 1
-                 │   ├───Color Operation 11
-                 │   │   └───Properties
-                 │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                 │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                 │   │       ├───"NEXT" (atomic, immutable): object colorop = 12
-                 │   │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                 │   ├───Color Operation 12
-                 │   │   └───Properties
-                 │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                 │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                 │   │       ├───"NEXT" (atomic, immutable): object colorop = 13
-                 │   │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                 │   ├───Color Operation 13
-                 │   │   └───Properties
-                 │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                 │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                 │   │       ├───"NEXT" (atomic, immutable): object colorop = 14
-                 │   │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                 │   ├───Color Operation 14
-                 │   │   └───Properties
-                 │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                 │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                 │   │       ├───"NEXT" (atomic, immutable): object colorop = 15
-                 │   │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                    ...
-                 └───Color Pipeline 2
-                     ├───Color Operation 21
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 22
-                     │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 601 Limited to RGB, YCbCr 709 Full to RGB, YCbCr 709 Limited to RGB, YCbCr 2020 NC Full to RGB, YCbCr 2020 NC Limited to RGB} = YCbCr 601 Full to RGB
-                     ├───Color Operation 22
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 23
-                     │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                    ...
-
-This should allow us to have the best from both worlds - maximum 
-flexibility for users wanting the additional 1D lut, as well as simple 
-clients just needed a drop-in replacement for the legacy properties.
-
-Please let me know if that make sense and you think that would be 
-possible (especially if I made wrong assumptions here).
-
-> Thanks,
-> pq
->
->
->> As for the "RGB709 to RGB2020" block, I can see it being useful for
->> converting SDR Rec.709 content into the Rec.2020 color space before
->> blending it with an HDR plane.
-
-I see, thanks. At least for Weston I think it's unlikely that we will 
-use that for now - the current plan is to blend in linear space and then 
-use the post-blending / CRTC pipeline convert to the output color space. 
-But AFAIK that's not in any way implied by Wayland, so other compositors 
-may well take different approaches and use this matrix.
-
-My request to drop it from the series was purely about landing it 
-together with the corresponding implementation - like Harry just 
-announced for v5 in 
-https://lore.kernel.org/dri-devel/fea5b938-24ec-4e62-9c7b-e0afbca83c0e@amd.com/ 
-- i.e. I don't have any reservations against the matrix/enum.
-
-Best regards,
-
-Robert
+[1] https://lore.kernel.org/all/78a0402d-5436-4aab-a704-90fab56eec50@kernel.org 
 
 -- 
-Robert Mader
-Consultant Software Developer
+Thanks,
+Usama
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
-
---------------v5HAvdRonGnF2LpgNUlV3vv1
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Hi Chaitanya, thanks for the explanation and sorry for the
-      delayed answer! I needed to think about it for a bit and would
-      like to propose an idea now, see below.</p>
-    <div class="moz-cite-prefix">On 30.07.26 16:27, Pekka Paalanen
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260730172758.0c65485f@fluorite">
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">...
-Limited to RGB",
-+    [DRM_COLOROP_FM_YCBCR_LIMITED_FULL] = "YCbCr limited to full",
-+    [DRM_COLOROP_FM_RGB709_RGB2020] = "RGB709 to RGB2020",  
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">I'm still a bit unsure how useful the later two values are,  
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">You can see them being used in [1] and tested by [2]. We split out the 
-"YCbCr limited to full" block because some Intel planes have a 1DLUT 
-between it and the "YCbCr XXX Full to RGB" block. This keeps the color 
-pipeline consistent with the actual HW.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">Hi Chaitanya,
-
-it would be nice for VKMS to be able to have such a color
-pipeline only. Then userspace authors can test it.
-
-That gives me the idea, that perhaps there should be a library of color
-pipelines for VKMS that replicates actual hardware pipelines. Maybe it
-would be in the kernel, or maybe it would be in some userspace project
-if VKMS pipelines can be crafted through configfs or something else.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Based on your experience implementing the colorop in weston, do you 
-foresee any challenges in supporting limited-range framebuffers using 
-the "YCbCr Limited-to-Full" fixed matrix block?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">I cannot imagine a big problem, but it is yet another configuration
-that userspace must be explicitly prepared for.</pre>
-    </blockquote>
-    <p> I agree with Pekka - it shouldn't be hard to implement,
-      especially if it can be tested on VKMS, but I'm worried that:</p>
-    <p>1. It could end up resulting in some "Intel-only" code that most
-      Wayland compositors would need to carry around.</p>
-    <p>2. While having an additional 1D curve is great, IIUC it wouldn't
-      be needed/used by Weston and similar compositors for now.</p>
-    <p>3. It would complicate the use of a cross-vendor helper for the
-      legacy properties (for clients not setting 
-      DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE) as discussed in
-<a class="moz-txt-link-freetext" href="https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/">https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/</a></p>
-    <p><br>
-    </p>
-    <p>IIUC there should be a simple solution for that, though, and I'd
-      like to ask if you think it would work for you: the Intel driver
-      could just expose two pipelines: a "complex" one with "YCbCr
-      Limited-to-Full" in the first fixed-matrix color-op and the
-      additional 1D lut - and a "simple" one with a single fixed-matrix
-      also support the "Limited to RGB" values. The later would waste
-      the 1D lut in favor of compatibility with clients not supporting
-      "YCbCr Limited-to-Full".</p>
-    <p>To be fully clear what I mean: IIUC right now the drm_info output
-      of you pipeline looks *roughly* like this:</p>
-    <pre>           └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 1} = Bypass
-                ├───Bypass
-                └───Color Pipeline 1
-                    ├───Color Operation 1
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 2
-                    │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                    ├───Color Operation 2
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 3
-                    │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                    ├───Color Operation 3
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 4
-                    │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                    ├───Color Operation 4
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 5
-                    │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                   ...
-</pre>
-    <p>While I think it should look like this:</p>
-    <pre>           └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 1, Color Pipeline 2} = Bypass
-                ├───Bypass
-                ├───Color Pipeline 1
-                │   ├───Color Operation 11
-                │   │   └───Properties
-                │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                │   │       ├───"NEXT" (atomic, immutable): object colorop = 12
-                │   │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                │   ├───Color Operation 12
-                │   │   └───Properties
-                │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                │   │       ├───"NEXT" (atomic, immutable): object colorop = 13
-                │   │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                │   ├───Color Operation 13
-                │   │   └───Properties
-                │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                │   │       ├───"NEXT" (atomic, immutable): object colorop = 14
-                │   │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                │   ├───Color Operation 14
-                │   │   └───Properties
-                │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                │   │       ├───"NEXT" (atomic, immutable): object colorop = 15
-                │   │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                   ...
-                └───Color Pipeline 2
-                    ├───Color Operation 21
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 22
-                    │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 601 Limited to RGB, YCbCr 709 Full to RGB, YCbCr 709 Limited to RGB, YCbCr 2020 NC Full to RGB, YCbCr 2020 NC Limited to RGB} = YCbCr 601 Full to RGB
-                    ├───Color Operation 22
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 23
-                    │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                   ...
-
-</pre>
-    <p>This should allow us to have the best from both worlds - maximum
-      flexibility for users wanting the additional 1D lut, as well as
-      simple clients just needed a drop-in replacement for the legacy
-      properties.</p>
-    <p>Please let me know if that make sense and you think that would be
-      possible (especially if I made wrong assumptions here).</p>
-    <blockquote type="cite" cite="mid:20260730172758.0c65485f@fluorite">
-      <pre wrap="" class="moz-quote-pre">Thanks,
-pq
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">As for the "RGB709 to RGB2020" block, I can see it being useful for 
-converting SDR Rec.709 content into the Rec.2020 color space before 
-blending it with an HDR plane.</pre>
-      </blockquote>
-    </blockquote>
-    <p>I see, thanks. At least for Weston I think it's unlikely that we
-      will use that for now - the current plan is to blend in linear
-      space and then use the post-blending / CRTC pipeline convert to
-      the output color space. But AFAIK that's not in any way implied by
-      Wayland, so other compositors may well take different approaches
-      and use this matrix.</p>
-    <p>My request to drop it from the series was purely about landing it
-      together with the corresponding implementation - like Harry just
-      announced for v5 in
-      <a class="moz-txt-link-freetext"
-href="https://lore.kernel.org/dri-devel/fea5b938-24ec-4e62-9c7b-e0afbca83c0e@amd.com/">https://lore.kernel.org/dri-devel/fea5b938-24ec-4e62-9c7b-e0afbca83c0e@amd.com/</a>
-      - i.e. I don't have any reservations against the matrix/enum.</p>
-    <p>Best regards,</p>
-    <p>Robert</p>
-    <pre class="moz-signature" cols="72">-- 
-Robert Mader
-Consultant Software Developer 
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England &amp; Wales, no. 5513718</pre>
-  </body>
-</html>
-
---------------v5HAvdRonGnF2LpgNUlV3vv1--
