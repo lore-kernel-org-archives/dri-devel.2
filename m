@@ -4,81 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B28DC54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:58:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45B6CC55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 06:59:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5FB410F188;
-	Fri, 31 Jul 2026 06:58:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ABF2A89CCE;
+	Fri, 31 Jul 2026 06:59:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="az1P0/F8";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="QC02GEhf";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8887A10F188
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 06:58:02 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-4706f016316so41189f8f.3
- for <dri-devel@lists.freedesktop.org>; Thu, 30 Jul 2026 23:58:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785481081; x=1786085881; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=YeBqNG7bCPXWkEk3F3j6eSFPbLdWmf4Wl+oL4uzu69g=;
- b=az1P0/F8RxCj3rL19hZCpDjMtZEQH6mziNENne1oBfsEESEPMhZOYOx8Fx5cabzNGS
- EnU4BbpFb8cUEpspLk/uayBNErO5Qn3ss4J5WcQS94mGNIgOQ7qP4mZzvsSRa+eEnif0
- NBMIM+nBug9Tm6tBPr8n5QkzDZ5Xr4XdubHbFDuZq0PyPtA1aK0/8BAilfXJdX7MFN5p
- VZ2h//8XRkV8YFrpGiwFj1DYamxkkj8G9PHwZPiHOoUg+fq2GncLXUrk8RinB8QOrgJY
- lY6gty9W5BPDTCEBMG1MZKiDHT7OPdziuEs9Alzpsfm8xp+ePv+wddFuXsFWPCFRUfDC
- V1zQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785481081; x=1786085881;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=YeBqNG7bCPXWkEk3F3j6eSFPbLdWmf4Wl+oL4uzu69g=;
- b=pI1S0lvOntD13MjkGBRlXmTP4VeGiChZ8OcHWCz//5T4dr1P5PzksX4Z4LO6XdStO2
- 1KQdxhOzK0zMLIwLHJ3p2Jfoy8ZLSrxQ2PQd8m47mwWOh6gTejxujQVzDzgn4/cXcMY6
- q/qlF9jaIG/Vm069YuKs6GzlayPld+b/+CkXfY/TvSPfVIbdKEbScehEL+dJPC3SqKX8
- GLJybRWd/u8VbgTtjTUZJlhdScWF3ydXhdpxdys08M/F6KnYln0NuUAq4AhzXO6EBP91
- dM17SIumOstig0sJ0Nhxsf2OKL/dsfLD91aKf1ECt+BWGnxxyLLa6y6UUWb+hGTZUENh
- Yzzw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrRbZ5FshEC7BgliKw5YTLHKVEJDow8Donw8cYriarD0/TY7wLow2g35kBi4cCZ2RoNZT4CrSdxIjM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyFDGq855RFnPy40qjy2tHdJ3Y7yztpq0xPmm/aTTp2EtleANH5
- F5y4xRS+Cic+6MDSS+0YOgRkfKYgrq2H/8E5ZJWu8PS4rgBBaNv2iPyX
-X-Gm-Gg: AR+sD133KC6pc5a+0/Cp77DT7DTg+4Em3r+7KhZCGzqRKMbRzOlqs7BYe89tBQZgAMU
- rqevtn35dlqH56kqFHKJM4z8lM4N+3tCDQe+H11Oteezb9pJeQNBca78WsbCmAPnbRLjyyPpNyP
- hQkgHNenLfDK/t5YxQCm2o76FnRHZIeWnF4NobNpl4IWtPKQtrmb7Qt6LhyB4dSF1P8fxIf9T/3
- ydfp+aYyKwcqTu3BdqMYIMl7vYSappQIX9xW/poWXswkTqMiU4+aLVAo6ts6IOOZ8DELfcqAvQ/
- XKglPox8cyv0zkq3FXitIqs9/2iDGLRS22MdAV2GhvQkI94K+Nsln00X6I8M8wkRSuQEy4v8Wei
- biSKeZgSjgCKQLLkJONV3r+0qtA/E6TmOyIWpjXbXH/fPx1n/h0O/76h+qTT9nbL0fVB9sHMwdd
- R2WS6JpoZR0ZWtiTJ/1UWF3dL1Zl5l+F+IF8PD8Gg46WWZ469nFb6nmkAPGCz5WeeDRWrAT/Mi1
- 9ANrtLID6piPWmkAEwkGk0Q+jgGxzQ8k6HdsKaPoVNmoEp0bt2BPmnMSMYoplQLqfveMw==
-X-Received: by 2002:a05:6000:2686:b0:47f:80e0:53bf with SMTP id
- ffacd0b85a97d-47fd2b6cfcfmr2383206f8f.3.1785481080876; 
- Thu, 30 Jul 2026 23:58:00 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B8B8B0053881A2C61CA978D.dsl.pool.telekom.hu.
- [2001:4c4e:1b8b:8b00:5388:1a2c:61ca:978d])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd41d1756sm1416029f8f.4.2026.07.30.23.57.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 30 Jul 2026 23:58:00 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Heiko Stuebner <heiko@sntech.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, Igor Paunovic <royalnet026@gmail.com>
-Subject: Re: [PATCH 2/2] accel/rocket: keep core slots stable across unbind
- and rebind
-Date: Fri, 31 Jul 2026 08:57:44 +0200
-Message-ID: <20260731065744.12961-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730113256.1418091-1-gahing@gahingwoo.com>
-References: <20260730113256.1418091-1-gahing@gahingwoo.com>
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id D76F289CCE;
+ Fri, 31 Jul 2026 06:59:44 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1361D204C;
+ Thu, 30 Jul 2026 23:59:40 -0700 (PDT)
+Received: from localhost (a085714.arm.com [10.164.19.28])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6F1523F86F;
+ Thu, 30 Jul 2026 23:59:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785481184; bh=OAzUPG308bSFiJus+9fUvVqFx60KXPL0dOljxnhzkyQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QC02GEhfCiI0em67YgTLHRPfaCb/dfs+G3WtGfvhepMbRXWH055GKUXJXt6pMlijz
+ hT9rJRKzYW9aKfsLaUp7wjeWgB7ykVkZ7QlwPmt8SYdkcC4HSzMtMhiD9uqxfhjbvP
+ vXMSQz6l2emXPCT4oaiM9BcgLtdshUgS/uOEQARE=
+Date: Fri, 31 Jul 2026 12:29:40 +0530
+From: Anshuman Khandual <anshuman.khandual@arm.com>
+To: =?utf-8?B?SsO8cmdlbiBHcm/Dnw==?= <jgross@suse.com>
+Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+ Helge Deller <deller@gmx.de>, Stefano Stabellini <sstabellini@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin <npiggin@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>, 
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>, 
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>, 
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, 
+ Mike Rapoport <rppt@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ ziy@nvidia.com, 
+ pfalcato@suse.de, agordeev@linux.ibm.com, ryan.roberts@arm.com, 
+ linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, 
+ linux-fsdevel@vger.kernel.org, linux-arch@vger.kernel.org,
+ kasan-dev@googlegroups.com, 
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH RFC 01/11] mm: introduce hw_pte_t for PTE table storage
+Message-ID: <dzpt4ays25vvoyt56oy4iatfbqwp7z4gdsxumirv3v2nbvhoy4@73upph7f2hbk>
+References: <20260727164715.2866609-1-usama.anjum@arm.com>
+ <20260727164715.2866609-2-usama.anjum@arm.com>
+ <6xah74eadjmo2bozyr62wcxo4hhpsiufx2mshh7tztyy2dzzps@63m327m7pl5u>
+ <41414c5b-e98a-4a55-ac87-ca982b248ca3@suse.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <41414c5b-e98a-4a55-ac87-ca982b248ca3@suse.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,21 +97,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jiaxing,
+On Fri, Jul 31, 2026 at 08:53:46AM +0200, Jürgen Groß wrote:
+> On 31.07.26 07:49, Anshuman Khandual wrote:
+> > On Mon, Jul 27, 2026 at 05:46:52PM +0100, Muhammad Usama Anjum wrote:
+> > > pte_t is used both for logical PTE values and for entries stored in a PTE
+> > > table, so pte_t * does not distinguish a pointer to a copied value from a
+> > > pointer to table storage.
+> > 
+> > Should we rather call them as "Linux PTE" and "HW PTE" instead ?
+> 
+> What about "SW PTE"?
 
-Thanks - that is exactly the kind of hole a reviewer is for. You were
-right on all three counts: the failure path left the slot marked live,
-and the live-slot walk in rocket_job_open() could then write one entry
-past its allocation.
+Both Linux PTE or SW PTE would be better than current Logical PTE description.
 
-v2 is out with all three addressed:
-https://lore.kernel.org/dri-devel/20260731064933.12548-1-royalnet026@gmail.com/
 
-I also exercised the path you described on RK3588 - a forced error
-return in rocket_core_init() for core 2 with cores 0 and 1 bound: the
-slot is released, the device comes up with the two remaining cores,
-and inference passes bit-exact with only the two live cores'
-interrupts firing.
-
-Thanks again for the careful review,
-Igor
