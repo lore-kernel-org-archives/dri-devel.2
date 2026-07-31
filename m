@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27128C55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 09:48:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35BEFC55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 09:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84BFC10F1F8;
-	Fri, 31 Jul 2026 09:48:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6AD10F1FE;
+	Fri, 31 Jul 2026 09:48:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="q5WPjJql";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ZwWfo4mW";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 5286010F1F8
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:48:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1F7BB10F1FE
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:48:58 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D837F22C8
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 02:48:11 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 942F920E3
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 02:48:53 -0700 (PDT)
 Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
  by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- A85053FA7A
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 02:48:15 -0700 (PDT)
+ 6B1DC3F7B4
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 02:48:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785491295; bh=Tbe0epZ1YCtadddKjDPRvFa7Hf5UutQlaU8egi2kCe0=;
+ t=1785491337; bh=ijs1FmIDgZdYo7igatk/7KaDxCignMgj0NF/zPCk3Zs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=q5WPjJqlMVq9zdNZRQQNXHza+8TOv6Kk874cyqjfRCiy/MH35BQlEjNdEF3E/wkN8
- gLOPRBVmF8PzMDNoY9Pvu9l/G0pg/6ZdeLT03dpPIBrD+PDHMYEDO1z49K1Xm61t+D
- v58cjGfPyE426iCb7sEe09JdByzWr509mTG7BWJI=
-Date: Fri, 31 Jul 2026 10:48:08 +0100
+ b=ZwWfo4mWrZEXz3T6vB5Zd3z/m7P4uuHE6dVG6qeoH2mXHXS6Cs/46pxI53wcj22KW
+ rvqfjgoFnmShafshwknHp70K1FK9x3tYcH7I9UOw16+K63OQbfvm+WczhFCFBbisG5
+ a+8/loUY26G4IaPkKHRwg7476FD9O9e9XYrSd6Io=
+Date: Fri, 31 Jul 2026 10:48:50 +0100
 From: Liviu Dudau <liviu.dudau@arm.com>
 To: Maxime Ripard <mripard@kernel.org>
 Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 40/60] drm/komeda: Convert to atomic_create_state
-Message-ID: <amxvWLgYR7vVobkz@e142607>
+Subject: Re: [PATCH 41/60] drm/malidp: Convert to atomic_create_state
+Message-ID: <amxvglQb0CLc8UTV@e142607>
 References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
- <20260709-drm-no-more-plane-reset-v1-40-302d986fe5f0@kernel.org>
+ <20260709-drm-no-more-plane-reset-v1-41-302d986fe5f0@kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-40-302d986fe5f0@kernel.org>
+In-Reply-To: <20260709-drm-no-more-plane-reset-v1-41-302d986fe5f0@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,7 +59,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 09, 2026 at 01:51:06PM +0200, Maxime Ripard wrote:
+On Thu, Jul 09, 2026 at 01:51:07PM +0200, Maxime Ripard wrote:
 > The plane reset implementation creates a custom state
 > subclass, but only initializes a pristine state without resetting any
 > hardware. This is equivalent to what atomic_create_state expects.
@@ -335,30 +335,28 @@ Best regards,
 Liviu
 
 > ---
->  drivers/gpu/drm/arm/display/komeda/komeda_plane.c | 18 ++++++++----------
->  1 file changed, 8 insertions(+), 10 deletions(-)
+>  drivers/gpu/drm/arm/malidp_planes.c | 12 ++++++++----
+>  1 file changed, 8 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
-> index 57a4a0c7d404..955dbef5d34d 100644
-> --- a/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
-> +++ b/drivers/gpu/drm/arm/display/komeda/komeda_plane.c
-> @@ -130,23 +130,21 @@ static void komeda_plane_destroy(struct drm_plane *plane)
->  	drm_plane_cleanup(plane);
->  
->  	kfree(to_kplane(plane));
->  }
->  
-> -static void komeda_plane_reset(struct drm_plane *plane)
-> +static struct drm_plane_state *komeda_plane_create_state(struct drm_plane *plane)
+> diff --git a/drivers/gpu/drm/arm/malidp_planes.c b/drivers/gpu/drm/arm/malidp_planes.c
+> index 60b3f2bb153b..82a75591a459 100644
+> --- a/drivers/gpu/drm/arm/malidp_planes.c
+> +++ b/drivers/gpu/drm/arm/malidp_planes.c
+> @@ -71,21 +71,25 @@
+>  /*
+>   * Replicate what the default ->reset hook does: free the state pointer and
+>   * allocate a new empty object. We just need enough space to store
+>   * a malidp_plane_state instead of a drm_plane_state.
+>   */
+> -static void malidp_plane_reset(struct drm_plane *plane)
+> +static struct drm_plane_state *malidp_plane_create_state(struct drm_plane *plane)
 >  {
->  	struct komeda_plane_state *state;
+>  	struct malidp_plane_state *state = to_malidp_plane_state(plane->state);
 >  
-> -	if (plane->state)
-> -		__drm_atomic_helper_plane_destroy_state(plane->state);
-> -
-> -	kfree(plane->state);
-> -	plane->state = NULL;
-> -
+>  	if (state)
+>  		__drm_atomic_helper_plane_destroy_state(&state->base);
+>  	kfree(state);
+>  	plane->state = NULL;
 >  	state = kzalloc_obj(*state);
 > -	if (state)
 > -		__drm_atomic_helper_plane_reset(plane, &state->base);
@@ -370,22 +368,22 @@ Liviu
 > +	return &state->base;
 >  }
 >  
->  static struct drm_plane_state *
->  komeda_plane_atomic_duplicate_state(struct drm_plane *plane)
+>  static struct
+>  drm_plane_state *malidp_duplicate_plane_state(struct drm_plane *plane)
 >  {
-> @@ -186,11 +184,11 @@ komeda_plane_format_mod_supported(struct drm_plane *plane,
+> @@ -250,11 +254,11 @@ static bool malidp_format_mod_supported_per_plane(struct drm_plane *plane,
+>  }
 >  
->  static const struct drm_plane_funcs komeda_plane_funcs = {
->  	.update_plane		= drm_atomic_helper_update_plane,
->  	.disable_plane		= drm_atomic_helper_disable_plane,
->  	.destroy		= komeda_plane_destroy,
-> -	.reset			= komeda_plane_reset,
-> +	.atomic_create_state = komeda_plane_create_state,
->  	.atomic_duplicate_state	= komeda_plane_atomic_duplicate_state,
->  	.atomic_destroy_state	= komeda_plane_atomic_destroy_state,
->  	.format_mod_supported	= komeda_plane_format_mod_supported,
+>  static const struct drm_plane_funcs malidp_de_plane_funcs = {
+>  	.update_plane = drm_atomic_helper_update_plane,
+>  	.disable_plane = drm_atomic_helper_disable_plane,
+> -	.reset = malidp_plane_reset,
+> +	.atomic_create_state = malidp_plane_create_state,
+>  	.atomic_duplicate_state = malidp_duplicate_plane_state,
+>  	.atomic_destroy_state = malidp_destroy_plane_state,
+>  	.atomic_print_state = malidp_plane_atomic_print_state,
+>  	.format_mod_supported = malidp_format_mod_supported_per_plane,
 >  };
->  
 > 
 > -- 
 > 2.54.0
