@@ -4,53 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03923C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 10:30:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63316C5516D
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 11:09:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4499110E1DE;
-	Fri, 31 Jul 2026 10:30:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 666A610F1EC;
+	Fri, 31 Jul 2026 11:09:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="tcimYze/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j0XzqYNv";
 	dkim-atps=neutral
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BBDFD10E1DE
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 10:30:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=PO5HApjpuCTFoG6dK7eT7+HEMHe6ytFiN3RSifQM+mc=; b=tcimYze/jo5hh4bufcOgKeQjX0
- wyD85SoNiH2b0XUX9aEL+MXU+3z+SdA36ny2eU1ECanI6IXsLOe0NBSp/aX8ISgIwU5qYagsXzEbw
- fEfYU99LsS4ckdkphfm6y2XOZ3Gklbu7qCKM/g5cdMl8vNJZRwydqGO7kcwjYa8XYmwA+2/zppYtO
- 4gJJzMXF4qEXt7gGAE1/Ia30GUClhfTMQR3f6+qJw/WdNOr9wAvic+YvSC9hPRtJQJkxrQTD7XNGd
- bRwsooAb0jqRs5cY7R+GK74PY92b4sQrg+naxB7RATVk7BLqA1n+CYGOnRUMSqzUEWpx9UksLSA3g
- WIWEA4rQ==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andy Yan <andy.yan@rock-chips.com>, Damon Ding <damon.ding@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v1 0/7] Add HPD support for Rockchip Analogix DP
-Date: Fri, 31 Jul 2026 12:30:03 +0200
-Message-ID: <5209243.oAaWjsssbx@diego>
-In-Reply-To: <44ff5316-43cc-46be-b947-ea6e1f5da1bb@rock-chips.com>
-References: <20260730032744.381566-1-damon.ding@rock-chips.com>
- <24131962.ssLaC8jLEa@diego>
- <44ff5316-43cc-46be-b947-ea6e1f5da1bb@rock-chips.com>
-MIME-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5ED7910F1EC
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 11:09:56 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 513396004E;
+ Fri, 31 Jul 2026 11:09:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACE6B1F000E9;
+ Fri, 31 Jul 2026 11:09:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785496195;
+ bh=s9Dp3ScBGBt3a0eMRr8MOXfaIz7TYF1wma8ob1rZDqI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=j0XzqYNvpHXf70w80HN6fEeZUXZU/LTNIxu0s7qCHE3MJM17Xk3pNAIG1nDXBZRrM
+ lsNh5hiFcVICdOLLzD6cH16lRBmEblSmmnOihaLO/9JFp3VYIJNuMVv06EvrJ7nC3m
+ 4dRCBvc7ZQcyk/HW/Qq2ooT5KMUG0TOX0ns5F+t+LcIWyQiAbam9QVPMGBkGkL9zmD
+ Qn+/BJj0qzw6seGdYhJRxaBRdDqjk4Is7L/OVmhTdTlAs5UBnxED2dcbreZXmqU4nM
+ BtMhWd1AzGdXFMNisl1lE4kYGSPSooDRKfy8GF12ht0YbXYwT+UFHn/qwgUZ+8GW2D
+ 1qd6xgpQhTPww==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] fbdev: ssd1307fb: add support for Sino Wealth
+ SH1107 controller
+To: "Jakub Turek" <jakub.turek@elsta.tech>
+Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
+References: <20260731-feat-sh1107-v1-0-e10977f76e6b@elsta.tech>
+ <20260731-feat-sh1107-v1-1-e10977f76e6b@elsta.tech>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Date: Fri, 31 Jul 2026 11:09:54 +0000
+Message-Id: <20260731110954.ACE6B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,307 +55,128 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Damon,
+Thank you for your contribution! Sashiko AI review found 11 potential issue=
+(s) to consider:
 
-Am Freitag, 31. Juli 2026, 11:55:42 Mitteleurop=C3=A4ische Sommerzeit schri=
-eb Damon Ding:
-> On 7/31/2026 5:23 PM, Heiko St=C3=BCbner wrote:
-> > Am Freitag, 31. Juli 2026, 05:08:45 Mitteleurop=C3=A4ische Sommerzeit s=
-chrieb Damon Ding:
-> >> On 7/31/2026 2:49 AM, Heiko St=C3=BCbner wrote:
-> >>> Am Donnerstag, 30. Juli 2026, 05:27:37 Mitteleurop=C3=A4ische Sommerz=
-eit schrieb Damon Ding:
-> >>>> This series improves the HPD (Hotplug Detect) interrupt handling in
-> >>>> the Analogix DP driver to enable reliable native HPD pin detection on
-> >>>> Rockchip platforms, and introduces platform-specific HPD detection
-> >>>> schemes with fine-grained interrupt control.
-> >>>
-> >>> [...]
-> >>>
-> >>>> Tested on RK3576 with both native HPD pin and GPIO HPD configuration=
+New issues:
+- [High] Invalid initialization command sequence sent to SH1107 displays.
+- [Medium] The local variable `ret` can be returned uninitialized in `ssd13=
+07fb_update_rect` when `par->page_address_mode` is true and `pages` evaluat=
+es to 0.
+- [Low] Suboptimal and wasteful memory allocation for `array` when `page_ad=
+dress_mode` is enabled.
+
+Pre-existing issues:
+- [Critical] The driver frees `fb_info` and graphical memory immediately du=
+ring device removal, leading to a Use-After-Free if userspace holds open fi=
+le descriptors.
+- [High] Kernel crash during probe if the device is matched via the legacy =
+I2C ID table.
+- [High] Short I2C writes are silently treated as successes, potentially co=
+rrupting the display.
+- [High] Missing lock around display update sequence allows concurrent I2C =
+transactions to interleave and corrupts the hardware state cache.
+- [High] The driver may sleep in atomic context when fbcon attempts to upda=
+te the display during a kernel panic or oops.
+- [High] Unvalidated `solomon,width` and `solomon,height` device tree prope=
+rties can cause integer overflows when allocating memory, leading to heap b=
+uffer overflows.
+- [High] The `refreshrate` module parameter can be set to 0, which causes a=
+ division by zero when configuring the deferred I/O delay.
+- [Low] The `i2c_device_id` array terminator does not use named initializer=
 s.
-> >>>>
-> >>>> Native HPD pin mode:
-> >>>>
-> >>>>     &edp {
-> >>>>         status =3D "okay";
-> >>>>         pinctrl-names =3D "default";
-> >>>>         pinctrl-0 =3D <&edp_txm0_pins>;
-> >>>>     };
-> >>>>
-> >>>> GPIO HPD mode:
-> >>>>
-> >>>>     &edp {
-> >>>>         status =3D "okay";
-> >>>>         pinctrl-names =3D "default";
-> >>>>         pinctrl-0 =3D <&edp0_hpd>;
-> >>>>         hpd-gpios =3D <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
-> >>>>     };
-> >>>>
-> >>>>     &pinctrl {
-> >>>>         edp {
-> >>>>             edp0_hpd: edp0-hpd {
-> >>>>                 rockchip,pins =3D <4 RK_PC1 0 &pcfg_pull_none>;
-> >>>>             };
-> >>>>         };
-> >>>>     };
-> >>>
-> >>> Yay and thanks a lot for working on that.
-> >>>
-> >>> If I roll my display-port carrier board back to the analogix-dp being
-> >>> the endpoint, this works exactly as expected :-) .
-> >>>
-> >>> I can plug in the display at some point after the boot and have it
-> >>> detected and setup correctly. Same with unplugging it while
-> >>> the system is running. The connection status is correctly reported
-> >>> in sysfs.
-> >>>
-> >>>
-> >>> Though there is a caveat. When the eDP is not the last part, this doe=
-s not
-> >>> work anymore. The detect function always returns "connected" if there=
- is
-> >>> a next bridge available.
-> >>>
-> >>> My board [0] has a physical DP connector on it, so models it as
-> >>> dp-connector, but in that case the Analogix driver always reports bei=
-ng
-> >>> connected.
-> >>>
-> >>>
-> >>> [0] https://lore.kernel.org/linux-rockchip/20251009225050.88192-3-hei=
-ko@sntech.de/
-> >>> ... same effect with hpd-gpios in either the edp node or dp-connector=
- node
-> >>>
-> >>>
-> >>
-> >> My previous tests were carried out on the modified RK3576 IOTEST board
-> >> DTS based on RK3576 EVB1, which includes dp-connector by default. I al=
-so
-> >> did extra verification without dp-connector, and HPD detection works
-> >> correctly in both cases.
-> >>
-> >> I've taken a look at the Tiger board DT configuration. The pinctrl
-> >> settings for the eDP HPD GPIO may need adjustment:
-> >>
-> >> &pinctrl {
-> >> 	edp0 {
-> >> 		edp0_hpd_l: edp0-hpd-l-pin {
-> >> 			rockchip,pins =3D <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
-> >> 		};
-> >> 	};
-> >> };
-> >>
-> >> It is recommended to configure GPIO4B5 as pull-down or pll-none. Pull-=
-up
-> >> configuration may prevent GPIO interrupts from being triggered properl=
-y,
-> >> resulting in a permanent "connected" status.
-> >=20
-> > At least on that DP-carrier the pin direction is different.
-> > I.e. it is active-low, meaning 0 for plugged in.
-> >=20
-> > In the schematics I do see a hw pull up too - so pull-none in the pinco=
-nfig
-> > would also be possible, but pull-down is definitly wrong on _this_ boar=
-d.
-> >=20
-> > So we're talking about the same code, I put the dts up on [0] .
-> >=20
-> > I'm currently running with a printk diff [1] to showcase the issue.
-> >=20
-> > So on boot, with the display unplugged I get:
-> > [   14.757911] ---> drm_bridge_connector_detect: detect
-> > [   14.757914] ---> analogix_dp_bridge_detect a
-> > [   14.757918] ---> drm_bridge_connector_detect: detect
-> > [   14.773779] ---> analogix_dp_bridge_detect a
-> > [   14.838658] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   14.838662] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   14.838670] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
-> > [   14.884791] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   14.884793] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   14.884796] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
-> > [   14.930925] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   14.930927] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   14.930930] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
-> > [   14.977032] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   14.977034] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   14.977037] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
-> > [   15.023150] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
-> > [   15.023152] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ER=
-ROR* dp commit error, ret =3D -110
-> > [   15.023155] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
-> > [   15.023168] rockchip-dp fdec0000.edp: too many times retry set bridg=
-e, give it up
-> > [   15.052485] Console: switching to colour frame buffer device 80x30
-> > [   15.210457] rockchip-drm display-subsystem: [drm] fb0: rockchipdrmfb=
- frame buffer device
-> > [   15.223444] ---> drm_bridge_connector_detect: detect
-> > [   15.231974] ---> analogix_dp_bridge_detect a
-> > [   15.239587] ---> drm_bridge_connector_detect: detect
-> > [   15.245341] ---> analogix_dp_bridge_detect a
-> >=20
-> > So analogix_dp_bridge_detect() is called and always returns connected.
-> >=20
-> > Plugging in the the display, I get:
-> > [  290.592096] ---> display_connector_detect gpio value is 1   {display=
-=2Dconnector returning connected}
-> > [  290.598648] ---> drm_bridge_connector_detect: detect
-> > [  290.604637] ---> analogix_dp_bridge_detect a
-> > [  290.609826] ---> drm_bridge_connector_detect: detect
-> > [  290.615784] ---> analogix_dp_bridge_detect a
-> >=20
-> > Unplugging the display, I get:
-> > [  302.081444] ---> display_connector_detect gpio value is 0   {display=
-=2Dconnector returning disconnected}
-> > [  302.087996] ---> drm_bridge_connector_detect: detect
-> > [  302.093945] ---> analogix_dp_bridge_detect a
-> > [  302.099131] ---> drm_bridge_connector_detect: detect
-> > [  302.105090] ---> analogix_dp_bridge_detect a
-> > [  302.144834] ---> drm_bridge_connector_detect: detect
-> > [  302.150784] ---> analogix_dp_bridge_detect a
-> > [  302.155933] ---> drm_bridge_connector_detect: detect
-> > [  302.161859] ---> analogix_dp_bridge_detect a
-> >=20
-> >=20
-> > So it looks like on the gpio-side the detection is correct and/but
-> > analogix_dp_bridge_detect() is always returning a connected state
-> > ("b" output is never reached).
-> >=20
-> > I'm still working on understanding how the whole detection logic works
-> > in drm ;-) .
-> >=20
-> >=20
->=20
-> I think I've spotted the environmental difference between our setups.
-> Your DTS places the hpd-gpios property under the dp-connector node,
-> which is a scenario I haven't covered yet. I will reproduce and test=20
-> this case locally.
->=20
-> As a quick experiment, could you try removing hpd-gpios from=20
-> dp-connector and move it under the edp node instead? As expected, GPIO=20
-> HPD should work properly with that configuration.
+--
 
-I've updated the branch in [0] with that hpd move to the edp node, but
-the result is similar:
+--- Patch [1]: [PATCH 1/2] fbdev: ssd1307fb: add support for Sino Wealth SH=
+1107 controller ---
+Note: The format of this review has been altered to a free-form summary due
+to recitation restrictions. Original patch code is not quoted.
 
-With the panel _disconnected_ on boot I see
-[   12.887555] ---> drm_bridge_connector_detect: detect
-[   12.893104] ---> analogix_dp_bridge_detect a
-[   12.897881] ---> drm_bridge_connector_detect: detect
-[   12.903424] ---> analogix_dp_bridge_detect a
-[   14.124848] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.124891] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
-[   14.236031] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.236074] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
-[   14.346940] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.346990] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
-[   14.458590] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.458638] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
-[   14.570262] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR*=
- failed to get hpd single ret =3D -110
-[   14.570312] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
-[   14.570328] rockchip-dp fdec0000.edp: too many times retry set bridge, g=
-ive it up
-[   14.751371] ---> drm_bridge_connector_detect: detect
-[   14.757207] ---> analogix_dp_bridge_detect a
+Commit: 1ab3e53993e2ff1e1a60665597dfc8bf1a7a4cd1
+Author: Jakub Turek <jakub.turek@elsta.tech>
+Subject: fbdev: ssd1307fb: add support for Sino Wealth SH1107 controller
 
-So with the diff from earlier, analogix_dp_bridge_detect() still runs,
-finds its next bridge and returns "connected".
+This commit adds support for the SH1107 display controller to the ssd1307fb
+driver. It introduces a page_address_mode flag to handle the vertical page
+addressing mode utilized by the SH1107.
 
-I.e. the
-> >          if (dp->plat_data->next_bridge)
-> >                  return connector_status_connected;
+[Severity: Medium]
+In ssd1307fb_update_rect(), if par->page_address_mode is true and the
+calculated pages evaluates to 0 (for example, if invoked with a damage
+rectangle where height is 0), both initialization blocks for ret are
+bypassed. Could this result in returning an uninitialized stack variable?
 
-part.
+[Severity: Low]
+In ssd1307fb_update_rect(), when page_address_mode is enabled, the code
+allocates width * pages bytes for the array. However, it only populates
+and writes width bytes per loop iteration, resetting the index each time.
+Is this allocation larger than necessary?
 
+[Severity: High]
+In ssd1307fb_init(), the SSD1307FB_SET_ADDRESS_MODE (0x20) command is
+sent unconditionally. On the SH1107 controller, 0x20 is a 1-byte DC-DC
+voltage setting command rather than a 2-byte addressing mode command. Will
+the hardware incorrectly interpret the subsequent byte 0x02 as a standalone
+command instead of an addressing mode parameter?
 
-Heiko
+[Severity: High]
+This is a pre-existing issue, but in ssd1307fb_probe(), device_info is
+fetched using device_get_match_data(). If the driver is bound via the
+legacy I2C sysfs interface, this returns NULL because the entries in the
+ssd1307fb_i2c_id array lack a .driver_data field. Could this cause a kernel
+panic when par->device_info->default_vcomh is dereferenced?
 
+[Severity: High]
+This isn't a bug introduced by this patch, but in ssd1307fb_write_array(),
+if i2c_master_send() returns a short write (a positive value less than len),
+this positive value is returned instead of a negative error. Since call
+sites like ssd1307fb_update_rect() only test for ret < 0, do short writes
+get incorrectly treated as successes, potentially misaligning subsequent
+hardware commands?
 
+[Severity: High]
+This is a pre-existing issue, but ssd1307fb_update_rect() performs multiple
+I2C writes and updates caching variables without holding any driver-level
+lock. Could concurrent access from fbcon, delayed work queues, and userspace
+writes to /dev/fb0 interleave I2C messages and corrupt the hardware state?
 
-> > [0] https://github.com/mmind/linux-rockchip/blob/dev/v7.3/rk3588-tiger-=
-dp-carrier-v5/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier=
-=2Edts
-> > [1]
-> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drive=
-rs/gpu/drm/bridge/analogix/analogix_dp_core.c
-> > index 7a89548a7a885..0accdf62637ae 100644
-> > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> > @@ -915,8 +915,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridg=
-e, struct drm_connector *conne
-> >          struct analogix_dp_device *dp =3D to_dp(bridge);
-> >          enum drm_connector_status status =3D connector_status_disconne=
-cted;
-> >  =20
-> > +printk("---> %s a\n", __func__);
-> >          if (dp->plat_data->next_bridge)
-> >                  return connector_status_connected;
-> > +printk("---> %s b\n", __func__);
-> >  =20
-> >          if (!analogix_dp_detect_hpd(dp))
-> >                  status =3D connector_status_connected;
-> > diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/d=
-rm/bridge/display-connector.c
-> > index 16c0631adeb18..b0c07694b82e3 100644
-> > --- a/drivers/gpu/drm/bridge/display-connector.c
-> > +++ b/drivers/gpu/drm/bridge/display-connector.c
-> > @@ -45,6 +45,7 @@ static enum drm_connector_status display_connector_de=
-tect(struct drm_bridge *bri
-> >          struct display_connector *conn =3D to_display_connector(bridge=
-);
-> >  =20
-> >          if (conn->hpd_gpio) {
-> > +printk("---> %s gpio value is %d\n", __func__, gpiod_get_value_canslee=
-p(conn->hpd_gpio));
-> >                  if (gpiod_get_value_cansleep(conn->hpd_gpio))
-> >                          return connector_status_connected;
-> >                  else
-> > @@ -84,6 +85,7 @@ static enum drm_connector_status display_connector_de=
-tect(struct drm_bridge *bri
-> >   static enum drm_connector_status
-> >   display_connector_bridge_detect(struct drm_bridge *bridge, struct drm=
-_connector *connector)
-> >   {
-> > +printk("---> %s\n", __func__);
-> >          return display_connector_detect(bridge);
-> >   }
-> >  =20
-> > diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/g=
-pu/drm/display/drm_bridge_connector.c
-> > index 649969fca1413..8816d837c9a77 100644
-> > --- a/drivers/gpu/drm/display/drm_bridge_connector.c
-> > +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-> > @@ -218,6 +218,7 @@ drm_bridge_connector_detect(struct drm_connector *c=
-onnector, bool force)
-> >          enum drm_connector_status status;
-> >  =20
-> >          if (detect) {
-> > +printk("---> %s: detect\n", __func__);
-> >                  status =3D detect->funcs->detect(detect, connector);
-> >  =20
-> >                  if (hdmi)
-> >=20
-> >=20
-> >=20
-> >=20
-> >=20
->=20
->=20
+[Severity: High]
+This isn't a bug introduced by this patch, but during a system crash, fbcon
+flushes output in atomic context and invokes .fb_imageblit, which eventually
+calls ssd1307fb_update_rect(). This function calls kzalloc() with GFP_KERNEL
+and the sleepable i2c_master_send(). Does this cause a deadlock or nested
+panic preventing oops messages from printing?
 
+[Severity: Critical]
+This is a pre-existing issue, but ssd1307fb_remove() unconditionally calls
+__free_pages() and framebuffer_release() directly inline. If a userspace
+process holds an open file descriptor to /dev/fb0 during device unbind, will
+subsequent operations access freed memory since the driver doesn't wait for
+fbdev core reference counting to reach zero?
 
+[Severity: High]
+This isn't a bug introduced by this patch, but in ssd1307fb_probe(),
+unvalidated solomon,width and solomon,height properties from the device tree
+are multiplied to calculate vmem_size. Could maliciously crafted large
+values cause an integer overflow leading to a small memory allocation and
+subsequent heap buffer overflows in ssd1307fb_update_rect()?
 
+[Severity: High]
+This is a pre-existing issue, but the refreshrate module parameter can be
+set to 0. When configuring the deferred I/O delay in ssd1307fb_probe(), does
+the expression HZ / refreshrate evaluate to a division by zero and crash the
+kernel?
 
+[Severity: Low]
+This isn't a bug introduced by this patch, but the ssd1307fb_i2c_id array
+concludes with an empty terminator instead of using a named initializer.
+Does this violate the I2C subsystem API guidelines for struct i2c_device_id
+arrays?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-feat-sh110=
+7-v1-0-e10977f76e6b@elsta.tech?part=3D1
