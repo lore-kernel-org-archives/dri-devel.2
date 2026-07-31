@@ -4,61 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 100D4C55178
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 07:58:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07F45C55174
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 07:58:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D5A2D10E2E0;
-	Sat,  1 Aug 2026 07:58:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08F4710E2E2;
+	Sat,  1 Aug 2026 07:58:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=huawei.com header.i=@huawei.com header.b="dpaW7WGX";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="dpaW7WGX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CfbxUh8i";
 	dkim-atps=neutral
-Received: from szxga04-in.huawei.com (szxga04-in.huawei.com [45.249.212.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F7C310E212
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:20:18 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=RXooLrgPteym4eqT+GWS7grT4yqXGxjvsdJATgOtNMM=;
- b=dpaW7WGXfikih8MbQkrpwT5ctXP4U5mcQIJmVRD8frdBwDBgk2cOjOBOf0TPKW52lv2X9z10o
- d5SVN1jJcdhBdnIwhlnBTIzMdDFO4NJC4J67cMPNfyUt+50bL3xXzX8NsjsZueCa8dgrW18qj8P
- GgavTYuXIrKBDNlP9cRa+7w=
-Received: from canpmsgout04.his.huawei.com (unknown [172.19.92.133])
- by szxga04-in.huawei.com (SkyGuard) with ESMTPS id 4hBKn33Hsnz126M4G
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 17:01:27 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=RXooLrgPteym4eqT+GWS7grT4yqXGxjvsdJATgOtNMM=;
- b=dpaW7WGXfikih8MbQkrpwT5ctXP4U5mcQIJmVRD8frdBwDBgk2cOjOBOf0TPKW52lv2X9z10o
- d5SVN1jJcdhBdnIwhlnBTIzMdDFO4NJC4J67cMPNfyUt+50bL3xXzX8NsjsZueCa8dgrW18qj8P
- GgavTYuXIrKBDNlP9cRa+7w=
-Received: from mail.maildlp.com (unknown [172.19.162.140])
- by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4hBKbF54hQz1prKd;
- Fri, 31 Jul 2026 16:52:57 +0800 (CST)
-Received: from dggpemr500006.china.huawei.com (unknown [7.185.36.185])
- by mail.maildlp.com (Postfix) with ESMTPS id F38112025F;
- Fri, 31 Jul 2026 17:02:27 +0800 (CST)
-Received: from localhost.localdomain (10.50.85.180) by
- dggpemr500006.china.huawei.com (7.185.36.185) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Fri, 31 Jul 2026 17:02:27 +0800
-From: Yao Kai <yaokai34@huawei.com>
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, Gurchetan Singh
- <gurchetansingh@chromium.org>, Chia-I Wu <olvaffe@gmail.com>
-CC: <dri-devel@lists.freedesktop.org>, <virtualization@lists.linux.dev>,
- <liuyongqiang13@huawei.com>, <jifa@huawei.com>
-Subject: [PATCH 1/2] drm/virtio: release object array when device is unplugged
-Date: Fri, 31 Jul 2026 17:22:35 +0800
-Message-ID: <20260731092236.2262403-2-yaokai34@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260731092236.2262403-1-yaokai34@huawei.com>
-References: <20260731092236.2262403-1-yaokai34@huawei.com>
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB02610F431
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 21:50:49 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-47df43bfb07so753353f8f.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:50:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785534648; x=1786139448; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=xecpazbmAHToNRI7HHvo3rBeU785pIEnzPP95T0hHMQ=;
+ b=CfbxUh8ig5cy1a+GGksN+8kBXld50oz1fnVPUk1tP8G64FDwYOwsl1lwMIFTwQNkjz
+ 6tCt0UpC8RKJ8FH8+8NNwVh+6+w2UxyE0mWRe2c+Sc6UrSaUm3e91CfYRxrHs2d7NFsQ
+ jhPD+8xNTdIEPNTMtaAskwhiV/iPwty4cGmBu3uUha81ABokALLjPoV3aJv5vJPgz2/k
+ TmcxI2cCNuvi9+tWAKPX77l69AkDiX/AM6Cwfd/lMdlQywbFUhoUr9DMWeuLmSwZWvU9
+ UhZN4LWw2rSHLla/ggZb+TU/vCpCbW5s+CtUjx4BbNT70QlHWDrViI7ByZ0ulCPtV6JJ
+ LVrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785534648; x=1786139448;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=xecpazbmAHToNRI7HHvo3rBeU785pIEnzPP95T0hHMQ=;
+ b=RQmb6rVBDhE7IwWZ3vYv0fTPEdzNS1lDORt42F5gENz2PUupayDeB9fvpJR3mju235
+ ca0Sc/AfnlHaoU48CyScCFdf+bTAYT+nc/mm0+Gb2sPlT9edUT2VyTCrT4/0iqXN5cXp
+ c3YBd/44mVoygG6D9vyHCRyHiS9/EczLYTWfhfSO+yqHaOlTSFNdM17pPhtICkLhzGan
+ KgFy7U5Liug8zMZAQGso6sSsiX1DgLdmqyx/Jjdj+DX5MzZGRntDo1caHjOYGn41sKqg
+ vbk4QKY5PmM+JHXkTC36Sck3M4ipwgPZDy8vZQBbE9K78x2eMWuAdJrlhjfLAaiRCd6a
+ KAxA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrApAnnL37mUWu5Xo+Imlc2SE6WsQY+Z1XEchPJtN8gSiVtayGUJQOAk4N4bDK9VvQzmnAUKMFj/Tc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy9QMCJWQAftKkhSzeu0f0n1tnAxDsDYTGqmZkvWOyL+PpMYU4d
+ A0lFoHpLzx60jUFfi2tH5VOQ3pYhHx+gKtbGGAey7Ot9sTxB2l/d1S+S
+X-Gm-Gg: AR+sD12SPshdg29nBpJiTcAchU9IWEzIrMyike+CbvvRtAsdFqjrRg6MBykDyuGeAaL
+ m+FiSozx/w7Pq8O1I00mvXLfflD7vDvByt7Y5rwDEsoBPiP7mMhfAV1D816WKb+xvETMkxNMCzF
+ 0F45k65xLCAftzDIHy9vSpcNO5mXtEs6k2f4AqHz7R19tK+BYfMES8zmEYWs8HkhgvXvWNjsZOW
+ xoudxpQ0YVb080SP9C2+B2VbaoZ2UmgNREAEkA6sKAX9lpy25JPaNbEjF42OlqU9Y/fuO0GykMV
+ NExq3jGaWmIZepZBbQZOGNTMVshtZQLvDSMvMh2z7Zd+D9ORYTGLkMOulM7IqAn608ms4ijzDXf
+ pHXqJOWct0sc337XNSxxIoeZdlNcuxH9HuaZ19xzeOVEAuc2gFIQq8eCRsKAGuENs6t/uYOCzeA
+ /6h4MolOl0Jmk26motskarHuRsu+Dr9eFNquNyjLjtCGpbz0sJTjZxalp9ILgFohlLqRvOhgVTY
+ uY6LZ0DsQAtxHOXTeP11CaB
+X-Received: by 2002:a5d:64ed:0:b0:47f:77dc:b072 with SMTP id
+ ffacd0b85a97d-47fd72c65f5mr2415622f8f.18.1785534648239; 
+ Fri, 31 Jul 2026 14:50:48 -0700 (PDT)
+Received: from ingenieria31.oficinasStQ.local ([79.116.62.64])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47fd41e2484sm10186342f8f.11.2026.07.31.14.50.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Jul 2026 14:50:47 -0700 (PDT)
+From: Max Pedraza <maximpedraza@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Maxime Ripard <mripard@kernel.org>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Max Pedraza <maximpedraza@gmail.com>
+Subject: [RFC PATCH 2/6] video: logo: allow the boot logo to come from the
+ device tree
+Date: Fri, 31 Jul 2026 23:50:39 +0200
+Message-Id: <20260731215043.30392-3-maximpedraza@gmail.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260731215043.30392-1-maximpedraza@gmail.com>
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.50.85.180]
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- dggpemr500006.china.huawei.com (7.185.36.185)
 X-Mailman-Approved-At: Sat, 01 Aug 2026 07:57:53 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,67 +96,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Unbinding virtio-gpu while fbdev damage work is active can leave the VMA
-offset manager non-empty when the DRM device is released:
+With CONFIG_LOGO_DT_CLUT224 enabled, look for a node compatible with
+"linux,boot-logo-clut224" and, when one is present and enabled, use the
+image it carries in preference to the logos built into the kernel image.
 
-  Console: switching to colour VGA+ 80x25
-  ------------[ cut here ]------------
-  Memory manager not clean during takedown.
-  WARNING: drivers/gpu/drm/drm_mm.c:965 at drm_mm_takedown+0x28/0xc0
-  Call Trace:
-   drm_managed_release+0x95/0x130
-   drm_dev_put+0x54/0x70
-   virtio_dev_remove+0x3c/0x90
-   device_release_driver_internal+0x19a/0x200
-   unbind_store+0x9c/0xb0
+This lets a single kernel image serve several products, or several
+revisions of one product, that differ only in branding, at the cost of a
+larger device tree blob.
 
-The remaining node belongs to the fbdev GEM object:
+The image is validated while it is parsed: the palette must be at most 224
+entries, the pixel data length must match the declared geometry, and every
+pixel must reference an existing palette entry. A malformed node is
+reported and ignored, falling back to the built-in logo.
 
-  [drm:drm_mm_takedown] *ERROR* node [00100000 + 00000300]:
-   drm_mm_insert_node_in_range+0x2bf/0x530
-   drm_vma_offset_add+0x58/0x60
-   __drm_gem_shmem_create+0x71/0x150
-   virtio_gpu_object_create+0x41/0x3a0
-   virtio_gpu_mode_dumb_create+0xdc/0x190
-   drm_client_buffer_create_dumb+0x75/0xf0
-   drm_fbdev_shmem_driver_fbdev_probe+0x8b/0x230
-   __drm_fb_helper_initial_config_and_unlock+0x359/0x600
-   drm_fbdev_client_hotplug+0x61/0xb0
-   drm_client_register+0x5c/0x90
-   drm_fbdev_client_setup+0xd6/0x1d0
-   drm_client_setup+0x81/0xb0
-   virtio_gpu_probe+0xd6/0x180
+The two allocations live for as long as the built-in logos do; they are
+released from fb_logo_late_init(), next to where the __initdata logos are
+marked as freed.
 
-fbdev damage work can race with drm_dev_unplug(). It may build
-vbuf->objs and take GEM references after the device has been marked
-unplugged. drm_dev_enter() then fails, and the existing failure path
-unlocks fenced reservations and frees the vbuffer without releasing the
-object array. The unreachable array keeps the GEM object, and therefore
-its VMA offset node, alive through device release.
+If the node is absent or disabled, behaviour is unchanged.
 
-Release the object array before freeing a control buffer rejected by
-drm_dev_enter().
-
-Fixes: b1df3a2b24a9 ("drm/virtio: add drm_driver.release callback.")
-Cc: stable@vger.kernel.org
-Reported-by: Ji Fa <jifa@huawei.com>
-Signed-off-by: Yao Kai <yaokai34@huawei.com>
+Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
 ---
- drivers/gpu/drm/virtio/virtgpu_vq.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/video/logo/Kconfig |  13 +++
+ drivers/video/logo/logo.c  | 157 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 170 insertions(+)
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index e5e1af8b8e8a..a470339b6747 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -383,6 +383,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gpu_device *vgdev,
- 	if (!drm_dev_enter(vgdev->ddev, &idx)) {
- 		if (fence && vbuf->objs)
- 			virtio_gpu_array_unlock_resv(vbuf->objs);
-+		virtio_gpu_array_put_free(vbuf->objs);
- 		free_vbuf(vgdev, vbuf);
- 		return -ENODEV;
+diff --git a/drivers/video/logo/Kconfig b/drivers/video/logo/Kconfig
+index ce6bb7535..4af349b20 100644
+--- a/drivers/video/logo/Kconfig
++++ b/drivers/video/logo/Kconfig
+@@ -70,4 +70,17 @@ config LOGO_SUPERH_CLUT224
+ 	depends on SUPERH
+ 	default y
+ 
++config LOGO_DT_CLUT224
++	bool "224-color logo supplied by the device tree"
++	depends on OF
++	help
++	  Look for a boot logo in the device tree, in a node compatible with
++	  "linux,boot-logo-clut224", instead of using one of the logos built
++	  into the kernel image. This allows a single kernel image to be used
++	  by several products that only differ in branding, at the cost of
++	  making the device tree blob larger.
++
++	  If no such node is present, or it is disabled, the built-in logo
++	  selected above is used, so saying Y here is safe. If unsure, say N.
++
+ endif # LOGO
+diff --git a/drivers/video/logo/logo.c b/drivers/video/logo/logo.c
+index 141f15a9a..b4f533df0 100644
+--- a/drivers/video/logo/logo.c
++++ b/drivers/video/logo/logo.c
+@@ -11,6 +11,9 @@
+  */
+ 
+ #include <linux/linux_logo.h>
++#include <linux/of.h>
++#include <linux/sizes.h>
++#include <linux/slab.h>
+ #include <linux/stddef.h>
+ #include <linux/module.h>
+ 
+@@ -22,6 +25,155 @@ static bool nologo;
+ module_param(nologo, bool, 0);
+ MODULE_PARM_DESC(nologo, "Disables startup logo");
+ 
++#ifdef CONFIG_LOGO_DT_CLUT224
++
++#define LOGO_DT_COMPATIBLE	"linux,boot-logo-clut224"
++#define LOGO_DT_MAX_CLUT	224
++/*
++ * The first 32 palette entries are reserved for the console, so the logo
++ * colours start at index 32. That is an implementation detail of the frame
++ * buffer layer rather than a property of the image, so the device tree stores
++ * plain indices and the offset is applied here.
++ */
++#define LOGO_DT_CLUT_OFFSET	32
++/* Sanity limit on the image size, a device tree is not a good place for more */
++#define LOGO_DT_MAX_PIXELS	SZ_32M
++
++static struct linux_logo logo_dt_clut224 = {
++	.type		= LINUX_LOGO_CLUT224,
++};
++
++static unsigned char *logo_dt_clut;
++static unsigned char *logo_dt_data;
++
++static int logo_dt_parse(struct device_node *np)
++{
++	unsigned int clutsize, npixels, i;
++	unsigned char *clut, *data;
++	u32 width, height;
++	int len, ret;
++
++	ret = of_property_read_u32(np, "width", &width);
++	if (ret)
++		return ret;
++
++	ret = of_property_read_u32(np, "height", &height);
++	if (ret)
++		return ret;
++
++	if (!width || !height || (u64)width * height > LOGO_DT_MAX_PIXELS)
++		return -EINVAL;
++
++	npixels = width * height;
++
++	len = of_property_count_u8_elems(np, "clut");
++	if (len < 3 || len % 3)
++		return -EINVAL;
++
++	clutsize = len / 3;
++	if (clutsize > LOGO_DT_MAX_CLUT)
++		return -EINVAL;
++
++	ret = of_property_count_u8_elems(np, "data");
++	if (ret < 0)
++		return ret;
++	if ((unsigned int)ret != npixels)
++		return -EINVAL;
++
++	clut = kmalloc(len, GFP_KERNEL);
++	if (!clut)
++		return -ENOMEM;
++
++	data = kmalloc(npixels, GFP_KERNEL);
++	if (!data) {
++		ret = -ENOMEM;
++		goto err_free_clut;
++	}
++
++	ret = of_property_read_u8_array(np, "clut", clut, len);
++	if (ret)
++		goto err_free_data;
++
++	ret = of_property_read_u8_array(np, "data", data, npixels);
++	if (ret)
++		goto err_free_data;
++
++	for (i = 0; i < npixels; i++) {
++		if (data[i] >= clutsize) {
++			ret = -ERANGE;
++			goto err_free_data;
++		}
++		data[i] += LOGO_DT_CLUT_OFFSET;
++	}
++
++	logo_dt_clut = clut;
++	logo_dt_data = data;
++
++	logo_dt_clut224.width = width;
++	logo_dt_clut224.height = height;
++	logo_dt_clut224.clutsize = clutsize;
++	logo_dt_clut224.clut = clut;
++	logo_dt_clut224.data = data;
++
++	return 0;
++
++err_free_data:
++	kfree(data);
++err_free_clut:
++	kfree(clut);
++	return ret;
++}
++
++static const struct linux_logo *logo_dt_find(void)
++{
++	static bool probed;
++	struct device_node *np;
++	int ret;
++
++	if (probed)
++		return logo_dt_data ? &logo_dt_clut224 : NULL;
++
++	probed = true;
++
++	np = of_find_compatible_node(NULL, NULL, LOGO_DT_COMPATIBLE);
++	if (!np)
++		return NULL;
++
++	if (of_device_is_available(np)) {
++		ret = logo_dt_parse(np);
++		if (ret)
++			pr_warn("logo: ignoring malformed %pOF node (%d)\n",
++				np, ret);
++	}
++
++	of_node_put(np);
++
++	return logo_dt_data ? &logo_dt_clut224 : NULL;
++}
++
++static void logo_dt_free(void)
++{
++	logo_dt_clut224.clut = NULL;
++	logo_dt_clut224.data = NULL;
++
++	kfree(logo_dt_clut);
++	logo_dt_clut = NULL;
++
++	kfree(logo_dt_data);
++	logo_dt_data = NULL;
++}
++
++#else /* !CONFIG_LOGO_DT_CLUT224 */
++
++static inline const struct linux_logo *logo_dt_find(void)
++{
++	return NULL;
++}
++
++static inline void logo_dt_free(void) { }
++
++#endif /* CONFIG_LOGO_DT_CLUT224 */
++
+ /*
+  * Logos are located in the initdata, and will be freed in kernel_init.
+  * Use late_init to mark the logos as freed to prevent any further use.
+@@ -32,6 +184,7 @@ static bool logos_freed;
+ static int __init fb_logo_late_init(void)
+ {
+ 	logos_freed = true;
++	logo_dt_free();
+ 	return 0;
+ }
+ 
+@@ -71,6 +224,10 @@ const struct linux_logo * __ref fb_find_logo(int depth)
  	}
+ 	
+ 	if (depth >= 8) {
++		/* A logo supplied by the device tree wins over the built-in ones */
++		logo = logo_dt_find();
++		if (logo)
++			return logo;
+ #ifdef CONFIG_LOGO_LINUX_CLUT224
+ 		/* Generic Linux logo */
+ 		logo = &logo_linux_clut224;
 -- 
-2.43.0
+2.39.5
 
