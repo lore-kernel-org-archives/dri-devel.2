@@ -4,95 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 496BEC55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:44:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A14F9C55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:45:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA2ED10F352;
-	Fri, 31 Jul 2026 16:44:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E9D8C10F351;
+	Fri, 31 Jul 2026 16:45:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="foMy23FL";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="bkycZpoF";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A59610F351
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:43:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785516235;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=rKIuXVAQxBinLsqe2l2r/I0mxnjKp1xskcVhmjIrGQo=;
- b=foMy23FLN3S3WNljfDweWwCDlQpq63XwsEWlWvM/MF8TeXFj2lbxATv9+in/TVHWPeX6N3
- WTJKpgvPlBIsvj+nanUlYvpMTDJRwolGTWK2PLWRPzfQjScaOzoZYzFWpDU3fFQUzAINT4
- 9bhUBrkYowjywVrN5W/Tsehoq3qiYPc=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-70-DYNI0ukePXqleTUjaHVc-w-1; Fri, 31 Jul 2026 12:43:53 -0400
-X-MC-Unique: DYNI0ukePXqleTUjaHVc-w-1
-X-Mimecast-MFC-AGG-ID: DYNI0ukePXqleTUjaHVc-w_1785516232
-Received: by mail-ed1-f70.google.com with SMTP id
- 4fb4d7f45d1cf-698a99b6140so1372180a12.1
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:43:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785516232; x=1786121032;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=rKIuXVAQxBinLsqe2l2r/I0mxnjKp1xskcVhmjIrGQo=;
- b=JrXuZ3HlRQi3WsTj11W8aEdl/xo7qmfHfvcDI1lxEbs+uSA0cKt/bV7380tq787Oee
- sqDetnv7txG3+Zdm2G79YEspB3C0P3nknxw0gt9wv9qF4tZMG9kguHLJ3gimt7TmKHqf
- 2Lhbpv3tZfY7UmTG1iYLlBY+PzYVvpDz+6r7+RociKzoltg4PIiuM5Do9vN8c3Pd8lEI
- sran6JfLOkWz7UxJjPaJ3u1LvYYEPbdC31l4/V5Zhy7VvFC6J+RcNq0bdXOvorAIpO8c
- WOUrfcJ22wKLEO/3juM9LGZ/nBaIFikA+WYkGAwpr25fra7hnzXx2ufFfhrQU+pZU7uv
- fITQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpqZDF6Z5ZgjHICnPmUYgdhJoyC08rVhKsQSWP+hOE/t0Ae/tbtX38UFfojgVXhUcZF1x4N63eN9Rw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0OIkkQlzAnqU0POnwzT37+HbvgM15fgNzZ15g2i8cROIQ+cg2
- f/tHOnycQYkh2uI5h/Ll996jFJnAMr0Sl0B26LA1Gp31+qgUcdaY++Qa9OgSqLQmVj+DYt3LQod
- mXXSEyvWJL6uJscLdUpofurDpj71X1sz4m8xrBSreDHPIVL/naqCNZ+WyQOiz9D2i+1H91JXjma
- bqgw==
-X-Gm-Gg: AR+sD10ORthJaHIjQKx8kVPrNvkGbUFuLEqJkpvFKwQ7SlJN7PKEfBsJSIP3wFzyOG0
- Ee7ACQTxmJQjeSfrqwVtdfBg2M6TBviZSRd/+tu1h2ANO5Muq1rzIfiZY93EUpqHoQq8hIw8m40
- cirqE3eOYas6MgInqaMTZtqxsURu0oTTCiDAZLBPl/CMWdtxXV4YWZEIsFy9I6HR+cA8JxaA4s3
- YRUwuodeH4t9ukxv8CrjzSqbq688EvjnlLi5hrbvZT11twfXMTqbjkO9A2/hb9fP27+ihyNJqIe
- bhYucjFLZ5EJUqPXaXFsYa8INmtnrbyjyu4J5C4admsj7Xj8F9Kkp1fRFgTk5uHAF2meVmToOgJ
- AG1kdgZyvRtoBgPcpXyh5pPTUKR0KK0y2aA8pgYJGyZTDSB18q/JqnXBvF/KXPwpdX+LcwxOExI
- CQXUc=
-X-Received: by 2002:a05:6402:548a:b0:6a0:923a:cfe7 with SMTP id
- 4fb4d7f45d1cf-6a0a7cf5cf6mr192234a12.37.1785516232526; 
- Fri, 31 Jul 2026 09:43:52 -0700 (PDT)
-X-Received: by 2002:a05:6402:548a:b0:6a0:923a:cfe7 with SMTP id
- 4fb4d7f45d1cf-6a0a7cf5cf6mr192219a12.37.1785516232159; 
- Fri, 31 Jul 2026 09:43:52 -0700 (PDT)
-Received: from [192.168.10.48] ([151.95.34.92])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a09c5a0556sm2582577a12.5.2026.07.31.09.43.50
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jul 2026 09:43:51 -0700 (PDT)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@suse.com>,
- Sergio Lopez <slp@redhat.com>, Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, bcm-kernel-feedback-list@broadcom.com,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-Subject: [PATCH RFT 3/3] drm/ttm,
- drm/vmwgfx: directly create writable PTEs when mkwrite is in use
-Date: Fri, 31 Jul 2026 18:43:41 +0200
-Message-ID: <20260731164341.1109827-4-pbonzini@redhat.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260731164341.1109827-1-pbonzini@redhat.com>
-References: <20260731164341.1109827-1-pbonzini@redhat.com>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: BCmadSbh0D8EPwsigSZZxDyBP3BS3_miWBD3nXYOLeQ_1785516232
-X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: 8bit
-content-type: text/plain; charset="US-ASCII"; x-default=true
+X-Greylist: delayed 904 seconds by postgrey-1.36 at gabe;
+ Fri, 31 Jul 2026 16:44:59 UTC
+Received: from sender4.zoho.com (sender4.zoho.com [136.143.188.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9B1FA10F351
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:44:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785515391; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=BnAvaKmRq2RyR2IItLBnECqoMu/K+JFBJoIMtHsxph/ZHlu84d8LKCnuu9J3H17xE63CVFeCYJ+w3dTFFvC+MA66Di9ASwLZoQn2Zq7sxA+LY4E6f6Uv8pFYRv5TozSZhh+AS/R39wWeZFEiprty9++p+pUCGJ+b/IUaEl7lZwE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785515391;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Ty2Us3CSr4duHioWtKFDmBPTA9uycF2Ft1Lo5esOmzw=; 
+ b=VqbdE8lO28seeCfnH0WndahOcXPxieysULj90ttG3TEuCGXNiC/8dUFAdegJTbVYby/Uo1PlNjIeH6wicEFVtDpaDJe7uAhjoQF3T1p067/7q+k/Ed93pc0gMPIB0xRqOxYm4qIvZARYYcdQBtxsNWSm+kAtGKVSFFVvOag0IRs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785515391; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=Ty2Us3CSr4duHioWtKFDmBPTA9uycF2Ft1Lo5esOmzw=;
+ b=bkycZpoFSwuPEfFj9mE0BFLRmuFrOkp79oDiImZR4lMPd+SMQaLExXHTqE7teuaR
+ pdY5k6GPIELKrWFIOvoubtqbmtTO0iAD676+1vkxHqlw8U9MuiA2cv5R29AbCAy7aXk
+ JU+piG8sndXbI7rAIDrVh8WnWiHRk8PbM+PiOpqE=
+Received: by mx.zohomail.com with SMTPS id 1785515389919883.983345609444;
+ Fri, 31 Jul 2026 09:29:49 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v2 8/9] drm/tyr: add gpuvas debugfs file
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <amycPnwWUS1qwGs9@google.com>
+Date: Fri, 31 Jul 2026 13:29:28 -0300
+Cc: Alvin Sun <alvin.sun@linux.dev>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?utf-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?utf-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Melissa Wen <mwen@igalia.com>, Wambui Karuga <wambui.karugax@gmail.com>,
+ Eric Anholt <eric@anholt.net>, Ben Gamari <bgamari@gmail.com>,
+ rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <065E32DC-303F-46A5-838B-203A38502F8D@collabora.com>
+References: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
+ <20260731-tyr-debugfs-v2-v2-8-aea19eccb996@linux.dev>
+ <amycPnwWUS1qwGs9@google.com>
+To: Alice Ryhl <aliceryhl@google.com>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,109 +90,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This ensures that fixup_user_fault() users see a writable PTE when
-they request one.  The flip side is that vmw_bo_vm_fault() now has
-to record by hand the write fault, because .pfn_mkwrite() is
-not invoked.
 
-Prefaulting works as before because only the first entry comes
-out writable, while the following ones still end up executing
-the .pfn_mkwrite() callback.
 
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- drivers/gpu/drm/ttm/ttm_bo_vm.c            |  3 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c | 42 ++++++++++++----------
- 2 files changed, 26 insertions(+), 19 deletions(-)
+> On 31 Jul 2026, at 09:59, Alice Ryhl <aliceryhl@google.com> wrote:
+>=20
+> On Fri, Jul 31, 2026 at 01:05:46AM +0800, Alvin Sun wrote:
+>> Add a gpuvas debugfs file listing all GPU VAs for the Tyr DRM driver.
+>> Collects VMs into a shared list during firmware init and renders them
+>> via dump_gpuva_info on read.
+>>=20
+>> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+>> ---
+>> drivers/gpu/drm/tyr/debugfs.rs | 65 =
+++++++++++++++++++++++++++++++++++++++++++
+>> drivers/gpu/drm/tyr/driver.rs  | 16 +++++++++++
+>> drivers/gpu/drm/tyr/fw.rs      |  8 ++++++
+>> drivers/gpu/drm/tyr/tyr.rs     |  1 +
+>> drivers/gpu/drm/tyr/vm.rs      |  5 ++++
+>> 5 files changed, 95 insertions(+)
+>>=20
+>> diff --git a/drivers/gpu/drm/tyr/debugfs.rs =
+b/drivers/gpu/drm/tyr/debugfs.rs
+>> new file mode 100644
+>> index 0000000000000..d381b1901bd08
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/tyr/debugfs.rs
+>> @@ -0,0 +1,65 @@
+>> +// SPDX-License-Identifier: GPL-2.0 or MIT
+>> +
+>> +//! Debugfs support for the Tyr DRM driver.
+>> +
+>> +use kernel::{
+>> +    alloc::KVec,
+>> +    drm,
+>> +    new_mutex,
+>> +    prelude::*,
+>> +    seq_file,
+>> +    sync::{
+>> +        Arc,
+>> +        Mutex, //
+>> +    }, //
+>> +};
+>> +
+>> +use crate::{
+>> +    driver::TyrDrmDriver,
+>> +    vm::Vm, //
+>> +};
+>> +
+>> +/// Registry of VMs for debugfs access.
+>> +#[pin_data]
+>> +pub(crate) struct VmRegistry<'drm> {
+>> +    #[pin]
+>> +    vms: Mutex<KVec<Arc<Vm<'drm>>>>,
+>> +}
+>> +
+>> +impl<'drm> VmRegistry<'drm> {
+>> +    pub(crate) fn new() -> impl PinInit<Self> {
+>> +        pin_init!(Self { vms <- new_mutex!(KVec::new()) })
+>> +    }
+>> +
+>> +    pub(crate) fn register(&self, vm: Arc<Vm<'drm>>) -> Result {
+>> +        Ok(self.vms.lock().push(vm, GFP_KERNEL)?)
+>> +    }
+>> +
+>> +    fn for_each(&self, mut f: impl FnMut(&Vm<'drm>) -> Result) -> =
+Result {
+>> +        for vm in self.vms.lock().iter() {
+>> +            f(vm)?;
+>> +        }
+>> +        Ok(())
+>> +    }
+>> +}
+>=20
+> This code maintains a separate list of all of the vms for access from
+> debugfs, but I would have expected that this is not necessary. If we
+> already store the vms inside the driver's private data, then can't we
+> just access them from the normal storage location?
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index a80510489c45..ef27a2d7afc0 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -263,7 +263,8 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
- 		 * at arbitrary times while the data is mmap'ed.
- 		 * See vmf_insert_pfn_prot() for a discussion.
- 		 */
--		ret = vmf_insert_pfn_prot(vma, address, pfn, prot);
-+		ret = __vmf_insert_pfn_prot(vma, address, pfn, prot,
-+					    i == 0 && !!(vmf->flags & FAULT_FLAG_WRITE));
- 
- 		/* Never error on prefaulted PTEs */
- 		if (unlikely((ret & VM_FAULT_ERROR))) {
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
-index 45561bc1c9ef..2cc490e7d758 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_page_dirty.c
-@@ -398,15 +398,33 @@ void vmw_bo_dirty_clear_res(struct vmw_resource *res)
- 		dirty->end = res_start;
- }
- 
-+static vm_fault_t vmw_bo_dirty_mkwrite(struct vm_fault *vmf, struct ttm_buffer_object *bo)
-+{
-+	unsigned long page_offset;
-+	struct vmw_bo *vbo = to_vmw_bo(&bo->base);
-+
-+	page_offset = vmf->pgoff - drm_vma_node_start(&bo->base.vma_node);
-+	if (unlikely(page_offset >= PFN_UP(bo->resource->size)))
-+		return VM_FAULT_SIGBUS;
-+
-+	if (vbo->dirty && vbo->dirty->method == VMW_BO_DIRTY_MKWRITE &&
-+	    !test_bit(page_offset, &vbo->dirty->bitmap[0])) {
-+		struct vmw_bo_dirty *dirty = vbo->dirty;
-+
-+		__set_bit(page_offset, &dirty->bitmap[0]);
-+		dirty->start = min(dirty->start, page_offset);
-+		dirty->end = max(dirty->end, page_offset + 1);
-+	}
-+	return 0;
-+}
-+
- vm_fault_t vmw_bo_vm_mkwrite(struct vm_fault *vmf)
- {
- 	struct vm_area_struct *vma = vmf->vma;
- 	struct ttm_buffer_object *bo = (struct ttm_buffer_object *)
- 	    vma->vm_private_data;
- 	vm_fault_t ret;
--	unsigned long page_offset;
- 	unsigned int save_flags;
--	struct vmw_bo *vbo = to_vmw_bo(&bo->base);
- 
- 	/*
- 	 * mkwrite() doesn't handle the VM_FAULT_RETRY return value correctly.
-@@ -419,22 +437,7 @@ vm_fault_t vmw_bo_vm_mkwrite(struct vm_fault *vmf)
- 	if (ret)
- 		return ret;
- 
--	page_offset = vmf->pgoff - drm_vma_node_start(&bo->base.vma_node);
--	if (unlikely(page_offset >= PFN_UP(bo->resource->size))) {
--		ret = VM_FAULT_SIGBUS;
--		goto out_unlock;
--	}
--
--	if (vbo->dirty && vbo->dirty->method == VMW_BO_DIRTY_MKWRITE &&
--	    !test_bit(page_offset, &vbo->dirty->bitmap[0])) {
--		struct vmw_bo_dirty *dirty = vbo->dirty;
--
--		__set_bit(page_offset, &dirty->bitmap[0]);
--		dirty->start = min(dirty->start, page_offset);
--		dirty->end = max(dirty->end, page_offset + 1);
--	}
--
--out_unlock:
-+	ret = vmw_bo_dirty_mkwrite(vmf, bo);
- 	dma_resv_unlock(bo->base.resv);
- 	return ret;
- }
-@@ -484,6 +487,9 @@ vm_fault_t vmw_bo_vm_fault(struct vm_fault *vmf)
- 		prot = vm_get_page_prot(vma->vm_flags);
- 
- 	ret = ttm_bo_vm_fault_reserved(vmf, prot, num_prefault);
-+	if (ret == VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
-+		WARN_ON_ONCE(vmw_bo_dirty_mkwrite(vmf, bo));
-+
- 	if (ret == VM_FAULT_RETRY && !(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
- 		return ret;
- 
--- 
-2.55.0
+Panthor also has a similar concept. I agree that we can reach the VMs
+from other places, but they=E2=80=99re scattered, and this type buys the =
+convenience
+to do so, which we will need for other, non-debugfs-related features.
+
+I wonder if we should move the registry to the top level in the private =
+data,
+though:
+
+i.e.: {
+  fw: ..=20
+  mmu: =E2=80=A6
+  registry: VmRegistry
+}
+
+
+>=20
+> By having multiple copies of the same information, you risk that they
+> get out of sync. In this case, you never remove vms from the list even
+> if the vm stops being used, which seems wrong.
+>=20
+> Alice
+
+I think this can be solved by having vm::new() take a &VmRegistry =
+argument,
+same for vm::destroy(). This forces callers to provide the list so it =
+can be kept
+in sync.
+
+This is just one approach though, perhaps someone has a better idea?
+
+=E2=80=94 Daniel
 
