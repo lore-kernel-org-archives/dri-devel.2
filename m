@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1745C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 665D1C55175
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:21:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5EF9810F338;
-	Fri, 31 Jul 2026 16:21:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8555E10F33A;
+	Fri, 31 Jul 2026 16:21:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Z3rE6q9C";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="IiFq5wAR";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C8B1010F30D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:46 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2BF1A10F30D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514784;
- bh=hEKxNu2C8ewO/+aCheyfTQqRKZ28rWyZ2tMcGpLe148=;
+ s=mail; t=1785514789;
+ bh=hse6ZoBRDdkgueZEFZSp6DqlC7adzsHmGMK2OKfFL4E=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Z3rE6q9Cp7WrUcC9hRs9EHgLzZR/YIutuDawEQhKJgH/dBBSsPWw1waoIfSWvBAzD
- Bhuip3VcxJC4YKp2duFTkO9Hn6e9Fqtu5MylYhGA/YuQkEqbx/8GxH2QEQiA6l6F6W
- fjZPjEjl4L/neFWhl5cpt7ZUFhqrwbV9H8x1m6ba0KkDlLk2O0UwqA7Q1W4LrOG66q
- a+GLnh52m+g66/Bxdrprj4LRDyi5uT+QoOZG+Z0y39YONHtPs9mzL9plmksi30sjZ6
- yps35to6E65uZtzUOZhXDYCofov0YSubrCC9SvHsQzh9ez3j992zJKHDCY9JSWo501
- uuMkuOyRaJxig==
+ b=IiFq5wARocQVqFD0cNI83kNg5TUsSbclt8ZwoJEBxXDvmO1oxshnL1PymkbQk4abG
+ J4jCdnMtGv61ajDAZNcicCL+1MZRS8yKjMczkmIByIPRKQQGJwkA+l29u0HhLt8a7q
+ ENZekvJp2QuJwBKVaIB26gmr9+Zgn/ZB6W89sDgmRlSEH+ivzhiNKK5QGb79wJ3rdh
+ 8wZzraSEvRWQAEMsfiPx6QpJVIhpiVaJVyI35n+zTwYqsg9lHvn5Xr8e1EPXTw0x0/
+ CW1XJSlNMsLT2rcEa45in5sqzDfpyos2E9g+gjVghMZCZ/BGNZbiCTp628ptZgLZGV
+ /2rbb4pP7MJ4g==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BE6E317E0937;
- Fri, 31 Jul 2026 18:19:44 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A01BA17E090B;
+ Fri, 31 Jul 2026 18:19:49 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:49 +0300
-Subject: [PATCH v10 42/69] drm/vc4: hdmi: Switch to .force_ctx() connector
- helper
+Date: Fri, 31 Jul 2026 19:19:56 +0300
+Subject: [PATCH v10 49/69] drm/bridge: inno-hdmi: Advertise HDMI 1.2
+ capabilities
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-42-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-49-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -79,42 +79,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use drm_atomic_helper_connector_hdmi_force_ctx() as the .force_ctx()
-implementation, so that the acquire context created by the probe helper
-reaches the HDMI connector framework.
+Bridges using DRM_BRIDGE_OP_HDMI are now expected to also provide a
+supported HDMI version.  This is not yet enforced, but will become
+mandatory once the migration to the new caps-based HDMI connector
+initialization API is completed.
 
-This is a prerequisite for converting the driver to the common HDMI 2.0
-scrambling infrastructure, which implicitly handles SCDC state recovery
-through a CRTC reset when the sink reconnects while the display pipeline
-is active.  Note that this does not interfere with the local SCDC
-state-management implementation, since the driver's scrambler capability
-has not yet been exposed through the common helpers.
+Since inno_hdmi_phy_config.pixelclock does not exceed 165 MHz for any of
+the chip variants handled by the driver, advertise HDMI 1.2 as the
+supported version.
 
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/vc4/vc4_hdmi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/inno-hdmi.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
-index 4f7fc6689869..ba16e7944cf3 100644
---- a/drivers/gpu/drm/vc4/vc4_hdmi.c
-+++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
-@@ -504,7 +504,6 @@ static void vc4_hdmi_connector_reset(struct drm_connector *connector)
- }
+diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
+index dd35f5a875d3..ea3447d4f285 100644
+--- a/drivers/gpu/drm/bridge/inno-hdmi.c
++++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+@@ -1119,6 +1119,7 @@ struct inno_hdmi *inno_hdmi_bind(struct device *dev,
+ 	hdmi->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
+ 	hdmi->bridge.vendor = "Inno";
+ 	hdmi->bridge.product = "Inno HDMI";
++	hdmi->bridge.supported_hdmi_ver = HDMI_VERSION_1_2;
  
- static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
--	.force = drm_atomic_helper_connector_hdmi_force,
- 	.fill_modes = drm_helper_probe_single_connector_modes,
- 	.reset = vc4_hdmi_connector_reset,
- 	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-@@ -513,6 +512,7 @@ static const struct drm_connector_funcs vc4_hdmi_connector_funcs = {
- 
- static const struct drm_connector_helper_funcs vc4_hdmi_connector_helper_funcs = {
- 	.detect_ctx = vc4_hdmi_connector_detect_ctx,
-+	.force_ctx = drm_atomic_helper_connector_hdmi_force_ctx,
- 	.get_modes = vc4_hdmi_connector_get_modes,
- 	.atomic_check = vc4_hdmi_connector_atomic_check,
- 	.mode_valid = drm_hdmi_connector_mode_valid,
+ 	hdmi->bridge.ddc = inno_hdmi_i2c_adapter(hdmi);
+ 	if (IS_ERR(hdmi->bridge.ddc))
 
 -- 
 2.55.0
