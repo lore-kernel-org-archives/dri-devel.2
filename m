@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D86AC5516D
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 11:37:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6975DC5516D
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 11:37:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A628310F237;
-	Fri, 31 Jul 2026 11:37:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB90E10F236;
+	Fri, 31 Jul 2026 11:37:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RvdgTJc2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qEWMhcY2";
 	dkim-atps=neutral
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BB1610F22E
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 11:37:21 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-472326ca506so612294f8f.2
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 04:37:21 -0700 (PDT)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3C5B10F224
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 11:37:15 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-4720f3bf164so1212154f8f.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 04:37:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785497840; x=1786102640; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785497834; x=1786102634; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=h0eE6D17SL5fIygwG8Kw0xWT8mg9cqKbwl7rsTtSWgs=;
- b=RvdgTJc2AO6EqN4buWpxLwbNVoUvMhFhTixnPK8t6Ow4StjKLpA++m2TmVetgUDd3h
- lTJJAXWrsw/6MIgdHrvd5FZ09dG2I6PwcJZgZJpniKy87O4J/neq+PMnK3+CmRwCKKww
- 7oTWFlitvm5waRX/Aj9t8GM3f5nkcGiIVSG3y1iTStQ+iHTFQOqGzsAENqz6j9NzjPDJ
- cRu1cZ8KhpnZzva9/FTUf5OcISB2zMuLhWMwZwIzTqB3XpQN5q1DM6Io4NRq6oxzAXFh
- WAb7vEoGDwAvyM7q49QMvienchrCACX9UR0xrStzJcmAyqDwd4tCqhI3MoLHpD46EGUG
- M+EA==
+ bh=zjX+fB5UFRlHcf7n2PcBZQATegbj+CND3nwA4wOUKpg=;
+ b=qEWMhcY2kwLttTXM6qvd6qrw90P2gb6n01bAquuE1CPdiyzVYQOm0JCLbpgQKZ0l1+
+ EyoYZbJsjIgWdN6VRwJUwArfoLJOVEZCssBYQOYiO6OFi/tNS7dsngbAWOVhKLdubgYX
+ 4PWKEyUOxN4nPx8652OV1Vrl26A/wPAL2Vlu7rd+JDvatPa9y5VhrJGyfYz371n660ii
+ hd/Uw5bg9A5vkjHylKFM0CpVpp8lYLK44OJRmbOgHnDSVxeH2GBWDL3l8KWgHfxlAjo5
+ SQe8NheRpAo7O1p2rtg5JoOndrvj8y/OxcmMp3xd3ckeT0wMZjb92796VmJKvIttowqp
+ rXnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785497840; x=1786102640;
+ d=1e100.net; s=20251104; t=1785497834; x=1786102634;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=h0eE6D17SL5fIygwG8Kw0xWT8mg9cqKbwl7rsTtSWgs=;
- b=D+bCGltuG9tKVfqVNTJpH51mN/thG8JgXsogX+hjtVSX93fIHLWgoJjiPoQwXsoO6V
- PUM+W2IyohTPskG/C3BnxGIsbLsBrtvmDb8jB2Fa6R4yMDQl+UiiobkSrvKmcDFQF/aL
- +/mJG4Hnj3JEocif1WPFSQUvwjHCpIwWfBK2OIP/no7DdlNEzCzvSafgmBUZbM4vrqvp
- A6LuSZaKr9JFziovpnnbkDb7pDfBePuUKUnbP9U6jLtFeJCGqHxC+ahdiqlD/sU+2OOG
- P2YnqK+nkcTyMKcqpO+fcppxo6XlhT4mxFBU2BA4TEBMxCzSeLkv32fF1s9zHMsEsqb0
- 6VWA==
+ bh=zjX+fB5UFRlHcf7n2PcBZQATegbj+CND3nwA4wOUKpg=;
+ b=ek1TSA6pGvP0B7Ij2lDnJF1BhW+67JRZ7/0cFbJnoY50KN4h8GA2Veq0nfoETkgf16
+ 3VdxAU8lC6xULXi5FvpMt0n7tAsfVrv1srn7512tb7XRt+qPWCS+ogZXgNk+dUt2xcwz
+ Iqjs7PwmbttrRJVa/d642TZKhBLuHe25A+mbKzWJ42W/Ow9TVk0Yc3qhOoF2JUEKCQ6N
+ wUnBa/jXWQzLXAwMzUWLcHUtKrIqf9ddOY0ECpzgrC8BRGR/F54E6fFZg5cWnQJQ2Fyj
+ OqkGdu3z5r2GEctMFRcUiyQWAnh6xwa3ea8cmADJHAdx0BOwzjdYfugPyp4SxiExVdlr
+ +ZYQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqkKZ5FoiwWOyaE/fUD5+3iD6woFF5KYuZ/PKiwFz85GA/fQgSyJCbSYD5nlIAlpUAhbnFZyGc6HVA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy0ktffZBYjalVxXgK8KGcvpUjEXNCBuOJWrWO/ZGiTktX67lz7
- jLC0MGx0UlItndtqppBiYb2vm57EleTp5/ZlgtW7Sgu9i5UQRtNKc23Z
-X-Gm-Gg: AR+sD13MGA8MVkomDpcdHGyG/fjpIeyCIYyBtvE/JsjKDsk0cPrfZYQ+C9+wzgBRGLy
- anRDIa/NXGlOiB4BFxlrif6Y9Ub/qhC0NEOTs+0xX8xm/BgA7ogyoJAKt+tkWKHUdJLZLu7JsoF
- 6rnt0Fh7npVV0eGtnW/FSIftMvjbPoBurW7Ru7lahw4TJo1BqLGGC+Ao/zjtJF9mwtkiQ8KtD0E
- cwXkqb7d5UbxhKMWj6p8NALGZW1cES00qJhaHGZWJOfsoIbm7LGRPAwfyt4tXENrtje/qoRvWUw
- h6MX8v8ygtpA5pnNelBFnnG9xsRy62tWPA2MJu1CACcZcaR8J6gr2GubNSIgr8rBNvFYu4mRzX2
- fb4CTgarohTK3ltzGmjdsV9SF+u4wIrez3Zdir0ZOLkcrF31S762vp+GfBHgfL566jCILZ0rmfF
- vPUbtyGRkYpEfG0wAAxVM9Njwx1e6w9/2Jl6GAUYhjuItviiJt2afwH57CoxPF1ht6wyzZncQEX
- rb3GFGJrQ==
-X-Received: by 2002:a05:6000:184f:b0:47f:9760:4d25 with SMTP id
- ffacd0b85a97d-47fd2ac97a4mr4103846f8f.14.1785497839657; 
- Fri, 31 Jul 2026 04:37:19 -0700 (PDT)
+ AHgh+Rp+C2jVEauRc5OWuyL43xuYSLvdvwNGtCB7cMvp2Ukdc9W7nNKwfivYo75J0AX83DPk52KaSXmRIog=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwGAD0NA2bapJ109Z2TUnj6Lvtp4Iaimh4IGxYvezqc0nm6tlGD
+ WZ7d8K0eFeWcA199A4uiv+zyLKHY73erezzuWO2T2aXdRcnTk+4cI1Jl
+X-Gm-Gg: AR+sD11ya5uvTTjAWqUoiD5kOSES5S/MN5US7jTDCz5/0YsJRAfhPu6rr9bTtC5uTe1
+ odEt01GX5nYhPuVZ+T4YA8LG8pidXXg6J4ZF71cb//AjOhN+c96AbWs6ZcbiZgn80uaWP4Lsm5O
+ SZ0mpTuCor40fBJHRvYozEqNKv5kdvLZzPFkEdpaIzInLQUT8VJ3f2cZRcACqERdTUKxwAE4x8j
+ /CcAoabLnfPJ8VJPexXzF6H+hQjTu3ErNVgVcEkDrn7tYvBl3eNMakVYFJGLwKyxNgDqJcz4fuN
+ 5PwgMIHXn/VvKKvGOgyMQt9tqbjKk28DK8JjFWdkWyOxA7hlY+efPas/k0RBplQ0a/YjMAgHk8w
+ PEy3nATWbGU7UAxUli15xec+0khzz7iEoirBrjShNKfxRhJL3Fhxpg7m6FLy0ZN8yCbOVwjxEiD
+ nef+T/bpPwLu4cZkIsbjBBvXuEm5xgaV9NsUfx08qDruGN7wKpJSjOcklUejx778Jd4oDqG5Nk+
+ YI3zuwaDQ==
+X-Received: by 2002:a5d:5f85:0:b0:47f:70b2:7321 with SMTP id
+ ffacd0b85a97d-47fd32fcb20mr3516082f8f.27.1785497834285; 
+ Fri, 31 Jul 2026 04:37:14 -0700 (PDT)
 Received: from xeon ([188.163.112.51]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd45a0c8bsm3670646f8f.34.2026.07.31.04.37.17
+ ffacd0b85a97d-47fd45a0c8bsm3670646f8f.34.2026.07.31.04.37.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 31 Jul 2026 04:37:18 -0700 (PDT)
+ Fri, 31 Jul 2026 04:37:13 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
  Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
@@ -75,10 +75,9 @@ Cc: Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
  linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
  mfd@lists.linux.dev, linux-fbdev@vger.kernel.org
-Subject: [PATCH v6 12/14] video: backlight: lm3533_bl: Set initial mapping
- mode from DT
-Date: Fri, 31 Jul 2026 14:36:30 +0300
-Message-ID: <20260731113632.158440-13-clamor95@gmail.com>
+Subject: [PATCH v6 10/14] mfd: lm3533: Set DMA mask
+Date: Fri, 31 Jul 2026 14:36:28 +0300
+Message-ID: <20260731113632.158440-11-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260731113632.158440-1-clamor95@gmail.com>
 References: <20260731113632.158440-1-clamor95@gmail.com>
@@ -99,52 +98,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support to obtain the initial mapping mode from DT instead of leaving
-it unconfigured.
+Missing coherent_dma_mask assigning triggers the following warning in
+dmesg:
+
+[    3.287872] platform lm3533-backlight.0: DMA mask not set
+
+Since this warning might be elevated to an error in the future, set
+coherent_dma_mask to zero because both the core and cells do not utilize
+DMA.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 ---
- drivers/video/backlight/lm3533_bl.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/mfd/lm3533-core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-index 2e31a79628d6b..666213cab667a 100644
---- a/drivers/video/backlight/lm3533_bl.c
-+++ b/drivers/video/backlight/lm3533_bl.c
-@@ -36,6 +36,7 @@ struct lm3533_bl {
- 	u32 pwm;
+diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
+index 2a63df034171e..9233da7ce0996 100644
+--- a/drivers/mfd/lm3533-core.c
++++ b/drivers/mfd/lm3533-core.c
+@@ -479,6 +479,10 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
+ 				   LM3533_BOOST_FREQ_MAX);
+ 	lm3533->boost_freq = lm3533->boost_freq / (500 * KILO) - 1;
  
- 	bool have_als;
-+	bool linear;
- };
- 
- 
-@@ -230,8 +231,14 @@ static const struct attribute_group *lm3533_bl_attribute_groups[] = {
- 
- static int lm3533_bl_setup(struct lm3533_bl *bl)
- {
-+	int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
- 	int ret;
- 
-+	ret = regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
-+				 CTRLBANK_AB_BCONF_MODE(ctrlbank), bl->linear);
-+	if (ret)
-+		return ret;
++	/* LM3533 and child devices do not use DMA */
++	i2c->dev.coherent_dma_mask = 0;
++	i2c->dev.dma_mask = &i2c->dev.coherent_dma_mask;
 +
- 	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
- 	if (ret)
- 		return ret;
-@@ -285,6 +292,9 @@ static int lm3533_bl_probe(struct platform_device *pdev)
- 	props.max_brightness = LM3533_BL_MAX_BRIGHTNESS;
- 	props.brightness = default_brightness;
+ 	return lm3533_device_init(lm3533);
+ }
  
-+	bl->linear = device_property_read_bool(&pdev->dev,
-+					       "ti,linear-mapping-mode");
-+
- 	bd = devm_backlight_device_register(&pdev->dev, name, &pdev->dev,
- 					    bl, &lm3533_bl_ops, &props);
- 	if (IS_ERR(bd)) {
 -- 
 2.53.0
 
