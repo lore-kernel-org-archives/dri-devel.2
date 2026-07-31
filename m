@@ -4,46 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35BEFC55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 09:49:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F7D3C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 09:53:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D6AD10F1FE;
-	Fri, 31 Jul 2026 09:48:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2CD010F204;
+	Fri, 31 Jul 2026 09:53:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="ZwWfo4mW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J+FI3UbY";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1F7BB10F1FE
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:48:58 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 942F920E3
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 02:48:53 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 6B1DC3F7B4
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 02:48:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785491337; bh=ijs1FmIDgZdYo7igatk/7KaDxCignMgj0NF/zPCk3Zs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZwWfo4mWrZEXz3T6vB5Zd3z/m7P4uuHE6dVG6qeoH2mXHXS6Cs/46pxI53wcj22KW
- rvqfjgoFnmShafshwknHp70K1FK9x3tYcH7I9UOw16+K63OQbfvm+WczhFCFBbisG5
- a+8/loUY26G4IaPkKHRwg7476FD9O9e9XYrSd6Io=
-Date: Fri, 31 Jul 2026 10:48:50 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Maxime Ripard <mripard@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 41/60] drm/malidp: Convert to atomic_create_state
-Message-ID: <amxvglQb0CLc8UTV@e142607>
-References: <20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org>
- <20260709-drm-no-more-plane-reset-v1-41-302d986fe5f0@kernel.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95D6B10F204
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 09:53:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C502F600AF;
+ Fri, 31 Jul 2026 09:53:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C71B1F000E9;
+ Fri, 31 Jul 2026 09:53:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785491586;
+ bh=b1HzVAbJoeGZlBlvW7h/X2/UPrYq5XsuQruZrSL0lMA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=J+FI3UbYJ9qsSezKemJ/EmZ5jdP1F9hy5XPmx/ym4nOEfOcRscg6p4T3ch8bIk21+
+ 0t7XLv5+sWchomWh3uw5iDDkEjCbvunU8r74bpnFyh+4Pt5ppF6vvH8yq9yzu2u+Ex
+ O5D3UWbNJKpY6GAUodbTvcF9PSDXiqpCRDlX/v03GS4h/q1u/It36ySAa2QvGUWLFv
+ 1Zx0mBsaIJwhHjRQnDKs+sN8VVOIuLC3kl7D9Q4T+r7nINhBp8wLa9BWksg90Km+ka
+ mgFNxDWLs+QjLZcVEHd/yikfttdldCfnvmcluXOhpqTG6m4jM6KNywf6cSSx9PqXjo
+ bkUfthOdcIBpg==
+Date: Fri, 31 Jul 2026 11:53:02 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Leander Kieweg <kieweg.leander@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, u.kleine-koenig@baylibre.com
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
+Message-ID: <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
+References: <20260730173643.256052-1-kieweg.leander@gmail.com>
+ <20260730173643.256052-2-kieweg.leander@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260709-drm-no-more-plane-reset-v1-41-302d986fe5f0@kernel.org>
+In-Reply-To: <20260730173643.256052-2-kieweg.leander@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,342 +60,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 09, 2026 at 01:51:07PM +0200, Maxime Ripard wrote:
-> The plane reset implementation creates a custom state
-> subclass, but only initializes a pristine state without resetting any
-> hardware. This is equivalent to what atomic_create_state expects.
-> Convert to it.
+On Thu, Jul 30, 2026 at 07:36:41PM +0200, Leander Kieweg wrote:
+> Add Device Tree binding documentation for GlandaGPU, a custom
+> FPGA-based 2D display controller.
 > 
-> The conversion was done using the following Coccinelle semantic patch:
+> For hardware designs and RTL sources, see:
+> https://github.com/stiangglanda/GlandaGPU
 > 
-> @@
-> identifier funcs;
-> symbol drm_atomic_helper_plane_reset;
-> symbol drm_atomic_helper_plane_create_state;
-> @@
-> 
-> struct drm_plane_funcs funcs = {
->   ...,
-> - .reset = drm_atomic_helper_plane_reset,
-> + .atomic_create_state = drm_atomic_helper_plane_create_state,
->   ...,
-> };
-> 
-> @match_struct_reset@
-> identifier funcs, reset_func;
-> @@
-> struct drm_plane_funcs funcs = {
->     ...,
->     .reset = reset_func,
->     ...,
-> };
-> 
-> @reset_uses_helpers depends on match_struct_reset@
-> identifier match_struct_reset.reset_func;
-> @@
-> 
->  void reset_func(...)
->  {
->  	<+...
-> (
->  	__drm_atomic_helper_plane_reset(...);
-> |
-> 	__drm_gem_reset_shadow_plane(...);
-> )
->  	...+>
->  }
-> 
-> @match_struct_destroy@
-> identifier funcs, destroy_func;
-> @@
-> struct drm_plane_funcs funcs = {
->     ...,
->     .atomic_destroy_state = destroy_func,
->     ...,
-> };
-> 
-> @script:python renamed_func@
-> old_name << match_struct_reset.reset_func;
-> new_name;
-> @@
-> if old_name.endswith("_reset"):
->     coccinelle.new_name = old_name.replace("_reset", "_create_state")
-> else:
->     coccinelle.new_name = old_name
-> 
-> @update_struct depends on match_struct_reset && reset_uses_helpers@
-> identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> @@
-> struct drm_plane_funcs funcs = {
->     ...,
-> -   .reset = reset_func,
-> +   .atomic_create_state = new_name,
->     ...,
-> };
-> 
-> @drop_destroy depends on update_struct && match_struct_destroy@
-> identifier match_struct_reset.reset_func;
-> identifier match_struct_destroy.destroy_func;
-> identifier container_func;
-> identifier P;
-> symbol drm_atomic_helper_plane_destroy_state;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> @@
-> 
->  void reset_func(struct drm_plane *P)
->  {
->  	...
-> (
-> -	if (P->state) {
-> - 		<+...
-> (
-> -		drm_atomic_helper_plane_destroy_state(P, P->state);
-> |
-> -		__drm_atomic_helper_plane_destroy_state(P->state);
-> |
-> -		P->funcs->atomic_destroy_state(P, P->state);
-> |
-> -		destroy_func(P, P->state);
-> )
-> - 		...+>
-> - 	}
-> |
-> -	drm_WARN_ON_ONCE(P->dev, P->state);
-> |
-> -	WARN_ON(P->state);
-> )
->  	...
-> (
-> -	kfree(P->state);
-> |
-> -	kfree(container_func(P->state));
-> |
->  	// kfree is optional
-> )
-> (
-> -	P->state = NULL;
-> |
->  	// plane->state clearing is optional
-> )
->  	...
->  }
-> 
-> @drop_destroy_mtk depends on update_struct@
-> identifier P;
-> symbol __drm_atomic_helper_plane_destroy_state;
-> symbol to_mtk_plane_state;
-> @@
-> 
->  void mtk_plane_reset(struct drm_plane *P)
->  {
->  	...
-> -	if (P->state) {
-> -		__drm_atomic_helper_plane_destroy_state(P->state);
-> -		...
-> -	} else {
->  		...
-> -	}
->  	...
->  }
-> 
-> @transform_nv50_wndw depends on update_struct@
-> identifier S;
-> @@
-> 
->  void nv50_wndw_reset(...)
->  {
->  	...
-> -	if (WARN_ON(!(S = kzalloc_obj(*S))))
-> +	S = kzalloc_obj(*S);
-> +	if (WARN_ON(!S))
->  		return;
->  	...
->  }
-> 
-> @transform_kzalloc depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier P, S;
-> statement ST;
-> statement list STL;
-> @@
-> 
->  void reset_func(struct drm_plane *P)
->  {
->  	<...
->  	S = kzalloc_obj(*S);
-> (
-> -	if (S)
-> -	{
-> -		STL
-> -	}
-> +	if (!S) return;
-> +
-> +	STL
-> |
-> -	if (S) ST
-> +	if (!S) return;
-> +
-> +	ST
-> )
-> 	...>
->  }
-> 
-> @transform_body depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier S, P;
-> expression PS;
-> @@
-> - void reset_func(struct drm_plane *P)
-> + struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	S = kzalloc_obj(*S);
-> 	...
-> (
->  	if (!S) {
-> 		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> |
->  	if (WARN_ON(!S)) {
-> 		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> |
->  	if (S == NULL) {
->  		...
-> -		return;
-> +		return ERR_PTR(-ENOMEM);
->  	}
-> )
-> 	...
-> (
-> -	__drm_atomic_helper_plane_reset(P, PS);
-> +	__drm_atomic_helper_plane_state_init(PS, P);
-> |
-> -	__drm_gem_reset_shadow_plane(P, PS);
-> +	__drm_gem_shadow_plane_state_init(P, PS);
-> )
-> 	...
-> }
-> 
-> @update_early_return depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	<+...
-> -	return;
-> +	return ERR_PTR(-EINVAL);
-> 	...+>
-> }
-> 
-> @update_return_plane depends on update_struct@
-> identifier match_struct_reset.reset_func;
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	__drm_atomic_helper_plane_state_init(PS, P);
-> 	...
-> +
-> +	return PS;
-> }
-> 
-> @update_return_shadow depends on update_struct@
-> identifier renamed_func.new_name;
-> identifier P;
-> expression PS;
-> @@
->  struct drm_plane_state *new_name(struct drm_plane *P)
-> {
-> 	...
->  	__drm_gem_shadow_plane_state_init(P, PS);
-> 	...
-> +
-> +	return &PS->base;
-> }
-> 
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
 > ---
-> Cc: liviu.dudau@arm.com
+>  .../bindings/display/glanda,gpu.yaml          | 55 +++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+>  2 files changed, 57 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/glanda,gpu.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/glanda,gpu.yaml b/Documentation/devicetree/bindings/display/glanda,gpu.yaml
+> new file mode 100644
+> index 000000000..988a30946
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/glanda,gpu.yaml
+> @@ -0,0 +1,55 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/glanda,gpu.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: GlandaGPU 2D Hardware Accelerated Display Controller
+> +
+> +maintainers:
+> +  - Leander Kieweg <kieweg.leander@gmail.com>
+> +
+> +description: |
+> +  GlandaGPU is a custom FPGA soft-IP core providing a simple
+> +  2D hardware-accelerated drawing engine with a VGA-compatible
+> +  display output. The register window covers a combined VRAM + MMIO
+> +  region, with MMIO registers at a fixed offset within it.
+> +
+> +  For hardware designs and RTL sources, see:
+> +  https://github.com/stiangglanda/GlandaGPU
+> +
+> +properties:
+> +  compatible:
+> +    const: glanda,gpu-1.0
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+What does this 1.0 correspond to? There is no such tag on linked Github.
+
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      Combined VRAM + MMIO register window (VRAM at offset 0,
+> +      MMIO registers at offset 0x00200000 within this range).
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: Bus and pixel clock provided to the FPGA IP.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+> +    gpu@c0000000 {
+> +        compatible = "glanda,gpu-1.0";
+> +        reg = <0xc0000000 0x1000000>;
+> +        interrupt-parent = <&intc>;
+> +        interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
+> +        clocks = <&osc1>;
+> +    };
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> index b1af9deac..b8b7a5401 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -666,6 +666,8 @@ patternProperties:
+>      description: Giantplus Technology Co., Ltd.
+>    "^gira,.*":
+>      description: Gira Giersiepen GmbH & Co. KG
+> +  "^glanda,.*":
+> +    description: GlandaGPU
+
+Vendor prefixes are per actual vendor, not product.
+
+I have doubts this is needed in the first place. As a pure FPGA design,
+this cannot work alone and you cannot get it alone (at least yet,
+happily to see resources proving me wrong). Thus it will be always
+customized per final board design, thus that final compatible is what
+matters.
 
 Best regards,
-Liviu
+Krzysztof
 
-> ---
->  drivers/gpu/drm/arm/malidp_planes.c | 12 ++++++++----
->  1 file changed, 8 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/arm/malidp_planes.c b/drivers/gpu/drm/arm/malidp_planes.c
-> index 60b3f2bb153b..82a75591a459 100644
-> --- a/drivers/gpu/drm/arm/malidp_planes.c
-> +++ b/drivers/gpu/drm/arm/malidp_planes.c
-> @@ -71,21 +71,25 @@
->  /*
->   * Replicate what the default ->reset hook does: free the state pointer and
->   * allocate a new empty object. We just need enough space to store
->   * a malidp_plane_state instead of a drm_plane_state.
->   */
-> -static void malidp_plane_reset(struct drm_plane *plane)
-> +static struct drm_plane_state *malidp_plane_create_state(struct drm_plane *plane)
->  {
->  	struct malidp_plane_state *state = to_malidp_plane_state(plane->state);
->  
->  	if (state)
->  		__drm_atomic_helper_plane_destroy_state(&state->base);
->  	kfree(state);
->  	plane->state = NULL;
->  	state = kzalloc_obj(*state);
-> -	if (state)
-> -		__drm_atomic_helper_plane_reset(plane, &state->base);
-> +	if (!state)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	__drm_atomic_helper_plane_state_init(&state->base, plane);
-> +
-> +	return &state->base;
->  }
->  
->  static struct
->  drm_plane_state *malidp_duplicate_plane_state(struct drm_plane *plane)
->  {
-> @@ -250,11 +254,11 @@ static bool malidp_format_mod_supported_per_plane(struct drm_plane *plane,
->  }
->  
->  static const struct drm_plane_funcs malidp_de_plane_funcs = {
->  	.update_plane = drm_atomic_helper_update_plane,
->  	.disable_plane = drm_atomic_helper_disable_plane,
-> -	.reset = malidp_plane_reset,
-> +	.atomic_create_state = malidp_plane_create_state,
->  	.atomic_duplicate_state = malidp_duplicate_plane_state,
->  	.atomic_destroy_state = malidp_destroy_plane_state,
->  	.atomic_print_state = malidp_plane_atomic_print_state,
->  	.format_mod_supported = malidp_format_mod_supported_per_plane,
->  };
-> 
-> -- 
-> 2.54.0
-> 
-
--- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
