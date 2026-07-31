@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E86DC55180
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38E0EC55181
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:19:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3431310F317;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 32C2210F316;
 	Fri, 31 Jul 2026 16:19:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="REUAeMTh";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="IPvyMHq2";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C006710F2F9
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBDAA10F2FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514768;
- bh=8K2UYBSnPY80dXtzmdVQyx34GOgVTImDqKMUj0/HGi8=;
+ s=mail; t=1785514763;
+ bh=CUcoRbmERGYIeO3Z961lPfNQR8EGzDg1msKbqGRYj2s=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=REUAeMThoT68dG+Q98yoiSGipFezFqECWE8iq7EJU3ol2V9enQrOT9LJZY3iLtqjs
- P0lr1v8P1r9WPY0z9wQkIj+PuDp524Fj6y+P+ETd2eVMvbcTHwMRFcKKuHGt3lw9Nm
- 71TRVZS8ca6tZiX/r9QeAST+XKrTMhJauD1yWbZXQeSBu+EsCNnzA5Yl9ebcz2tZ50
- AqeXzk6NMK98y77DUAoW8HJeGA6iXtUZODt4SuYpCoAKQvfhGIjWm79R2F4bWhIbzd
- 7WQqPi/WqyDenf3TkKOHusCB7nSPvF1CT+oy6wawlsejO9DiYdd2gYIWJWseMh2bMU
- m0r1QmfRVkjBw==
+ b=IPvyMHq2SUa2dC6Oc6b/P3NBBztmzXSQ/OxKtkYdzszJfrag3HPOu8EVb6tjH0vOB
+ 3+mrjfxjtxuBjKPFxwnHfsc6W3AJAlesJWrRlgDj7vyU+d+hGKmQBBEq9IUoBRRzIB
+ lq5QJtf0jlyChJHs9J+G9dGHyva8/clwp7iRc7lGCXCBFxozyLGtJ9y97jnrxt7jVX
+ a+I1GzGSTeraQm7E1YbznmlMPIU+DKbop/0EvHj+xu+yTs7ZNGq6vt1DHK1qgni31Y
+ SdqA4+FxVAjVSs1aIqLgKkrUyqkMlHKUuQdLm3gZGp/xbloeFQg+kjiySmMF8PRKp9
+ 1uLCTDJ7wAWRg==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 6801517E093E;
- Fri, 31 Jul 2026 18:19:28 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 6322517E092C;
+ Fri, 31 Jul 2026 18:19:23 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:26 +0300
-Subject: [PATCH v10 19/69] drm/display: bridge_connector: Wire up HDMI 2.0
- scrambler callbacks
+Date: Fri, 31 Jul 2026 19:19:19 +0300
+Subject: [PATCH v10 12/69] drm/bridge: Fix unlocked list_del in
+ drm_bridge_add()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-19-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-12-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -63,8 +63,7 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- Maud Spierings <maud_spierings@hotmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,93 +80,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Connect the bridge connector's .scrambler_{enable|disable} callbacks to
-the underlying bridge's .hdmi_scrambler_{enable|disable} funcs when
-HDMI 2.0 conformance is advertised.
+When re-adding a bridge that was previously removed, drm_bridge_add()
+drops it from bridge_lingering_list without holding bridge_lock.
 
-This completes the bridge connector plumbing so that the SCDC
-scrambling helpers can control source-side scrambling through the
-bridge chain.
+Both bridge_list and bridge_lingering_list are protected by bridge_lock,
+as they are concurrently modified by drm_bridge_remove() and
+__drm_bridge_free(), and walked by the debugfs 'bridges' file.  Running
+the list_empty() test and the list_del_init() outside of the lock may
+therefore corrupt either list.
 
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
+Perform both under bridge_lock.
+
+Fixes: 17805a15d175 ("drm/bridge: add list of removed refcounted bridges")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260723015004.1F5711F000E9@smtp.kernel.org/
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/display/drm_bridge_connector.c | 40 +++++++++++++++++++++++++-
- 1 file changed, 39 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/drm_bridge.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
-index 86353a0b9758..80b33d4f6b38 100644
---- a/drivers/gpu/drm/display/drm_bridge_connector.c
-+++ b/drivers/gpu/drm/display/drm_bridge_connector.c
-@@ -577,6 +577,32 @@ static int drm_bridge_connector_write_spd_infoframe(struct drm_connector *connec
- 	return bridge->funcs->hdmi_write_spd_infoframe(bridge, buffer, len);
- }
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index afaae272347c..8b8f71c3ccff 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -21,6 +21,7 @@
+  * DEALINGS IN THE SOFTWARE.
+  */
  
-+static int drm_bridge_connector_scrambler_enable(struct drm_connector *connector)
-+{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *bridge;
-+
-+	bridge = bridge_connector->bridge_hdmi;
-+	if (!bridge)
-+		return -EINVAL;
-+
-+	return bridge->funcs->hdmi_scrambler_enable(bridge);
-+}
-+
-+static int drm_bridge_connector_scrambler_disable(struct drm_connector *connector)
-+{
-+	struct drm_bridge_connector *bridge_connector =
-+		to_drm_bridge_connector(connector);
-+	struct drm_bridge *bridge;
-+
-+	bridge = bridge_connector->bridge_hdmi;
-+	if (!bridge)
-+		return -EINVAL;
-+
-+	return bridge->funcs->hdmi_scrambler_disable(bridge);
-+}
-+
- static const struct drm_edid *
- drm_bridge_connector_read_edid(struct drm_connector *connector)
- {
-@@ -604,7 +630,7 @@ static const struct drm_connector_hdmi_funcs drm_bridge_connector_hdmi_funcs = {
- 		.clear_infoframe = drm_bridge_connector_clear_hdmi_infoframe,
- 		.write_infoframe = drm_bridge_connector_write_hdmi_infoframe,
- 	},
--	/* audio, hdr_drm and spd are set dynamically during init */
-+	/* scrambler, audio, hdr_drm and spd are set dynamically during init */
- };
++#include <linux/cleanup.h>
+ #include <linux/debugfs.h>
+ #include <linux/err.h>
+ #include <linux/export.h>
+@@ -454,8 +455,10 @@ void drm_bridge_add(struct drm_bridge *bridge)
+ 	 * in bridge_lingering_list. Remove it or bridge_lingering_list will be
+ 	 * corrupted when adding this bridge to bridge_list below.
+ 	 */
+-	if (!list_empty(&bridge->list))
+-		list_del_init(&bridge->list);
++	scoped_guard(mutex, &bridge_lock) {
++		if (!list_empty(&bridge->list))
++			list_del_init(&bridge->list);
++	}
  
- static const struct drm_connector_infoframe_funcs drm_bridge_connector_hdmi_audio_infoframe = {
-@@ -908,6 +934,11 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			     !bridge->funcs->hdmi_clear_spd_infoframe))
- 				return ERR_PTR(-EINVAL);
- 
-+			if (bridge->supported_hdmi_ver >= HDMI_VERSION_2_0 &&
-+			    (!bridge->funcs->hdmi_scrambler_enable ||
-+			     !bridge->funcs->hdmi_scrambler_disable))
-+				return ERR_PTR(-EINVAL);
-+
- 			bridge_connector->bridge_hdmi = drm_bridge_get(bridge);
- 		}
- 
-@@ -1027,6 +1058,13 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
- 			bridge_connector->hdmi_funcs.spd =
- 				drm_bridge_connector_hdmi_spd_infoframe;
- 
-+		if (bridge_connector->bridge_hdmi->supported_hdmi_ver >= HDMI_VERSION_2_0) {
-+			bridge_connector->hdmi_funcs.scrambler_enable =
-+				drm_bridge_connector_scrambler_enable;
-+			bridge_connector->hdmi_funcs.scrambler_disable =
-+				drm_bridge_connector_scrambler_disable;
-+		}
-+
- 		ret = drmm_connector_hdmi_init(drm, connector,
- 					       &drm_bridge_connector_funcs,
- 					       &bridge_connector->hdmi_funcs,
+ 	mutex_init(&bridge->hpd_state_mutex);
+ 	mutex_init(&bridge->hpd_mutex);
 
 -- 
 2.55.0
