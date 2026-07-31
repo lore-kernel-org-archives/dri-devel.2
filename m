@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86186C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 11:18:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C2FC54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 11:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAC3710E200;
-	Fri, 31 Jul 2026 11:18:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C9AC910E1EB;
+	Fri, 31 Jul 2026 11:24:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Ipc6bAWB";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fJ5M0Lw5";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 654B410E200
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 11:18:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Mj
- rd8bbwxSZ0QnBilVvAQFYg71SC/QaMqNrvLQDFIKk=; b=Ipc6bAWBpVPThOVMvc
- zuQTU/qc0A40dwNZv0WhstzbaInHCaRn0KPJ4f+DKaPqApgrFqn8TuwXcvfMKbK7
- MVBVYygwSb0gqbaT+P3FupoFQFOMLa6hMYJHknKADw18ramN/llPKCueN22BhiYK
- fU4PETst5arw6VYuZ/Bu43maQ=
-Received: from localhost.localdomain (unknown [])
- by gzsmtp2 (Coremail) with SMTP id PSgvCgB39ZZLhGxqEmm3JA--.39364S2;
- Fri, 31 Jul 2026 19:17:31 +0800 (CST)
-From: oushixiong1025@163.com
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-Subject: [PATCH v2] drm/sysfb: ofdrm: Fix is_avivo() constant comparison bug
-Date: Fri, 31 Jul 2026 19:17:29 +0800
-Message-Id: <20260731111729.703116-1-oushixiong1025@163.com>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: PSgvCgB39ZZLhGxqEmm3JA--.39364S2
-X-Coremail-Antispam: 1Uf129KBjvdXoWrZFW3Ary8Gw4UtFy5GFWfXwb_yoWDCwc_WF
- y0qrsrGrykJF1kuw13uFWa9ryakayY9FZ7G3Wqg393t39rX343Z347ur9Fvry2g3WxZF90
- v348KF4YyFn7GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUbxu45UUUUU==
-X-Originating-IP: [116.128.244.169]
-X-CM-SenderInfo: xrxvxxx0lr0wirqskqqrwthudrp/xtbC-Qvo92pshEu-VgAA3J
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48DE710E1EB
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 11:24:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 52404600BB;
+ Fri, 31 Jul 2026 11:24:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1D4C1F000E9;
+ Fri, 31 Jul 2026 11:24:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785497068;
+ bh=FmXv3490GjjQ+J/rmIRLmkwzO5cTFUg847cyr6EriaA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fJ5M0Lw5CYlNZXpoU/5lWCnotqUXNfuZczsBojxJBCXJfC2gJW/uaVJ6fXIKzwKvb
+ 07koizUq1AjHs1ZssnFv7HfyVx/L4CvS14xsZSGsqlD359Vqod1t+REqtsPJ3OOksw
+ 1JhwM8r37AtDJp3jLM7uk/nBbk83FEp7K3x6SyFmqEZW7YDHf3NUE58OKFj94s+cFN
+ lHKm/nzKqbGzOfTmeyIE1L4PD5saRZFPX8RR7n9AGUGZgMaCL5DcceFw2Yv5gSWZU2
+ x0uoegf7PiLNtpEVn8DBzpoP73WY2hpDAk/cnnsKM/6b2qy+EJ/fsM82UHCllC1+QE
+ z3EfREpiDKoxw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/sysfb: Fix atomic_disable to use dst coordinates
+ instead of src
+To: oushixiong1025@163.com
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731111155.695390-1-oushixiong1025@163.com>
+References: <20260731111155.695390-1-oushixiong1025@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 11:24:27 +0000
+Message-Id: <20260731112427.D1D4C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,38 +53,77 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Shixiong Ou <oushixiong@kylinos.cn>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-The is_avivo() function has a logic error where it compares a constant
-to another constant instead of checking the device parameter:
+Pre-existing issues:
+- [Critical] In `drm_sysfb_plane_helper_atomic_disable()`, using the new pl=
+ane state's `dst` rectangle allows an attacker to supply arbitrary, unclipp=
+ed coordinates, leading to out-of-bounds writes of zeroes in kernel or I/O =
+memory.
+--
 
-  (PCI_VENDOR_ID_ATI_R600 >= 0x9400)
+--- Patch [1]: [PATCH] drm/sysfb: Fix atomic_disable to use dst coordinates=
+ instead of src ---
+commit b1c860517627fd82ea2b305a0494871f248ccba6
+Author: oushixiong1025@163.com <oushixiong1025@163.com>
 
-Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
----
- drivers/gpu/drm/sysfb/ofdrm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+drm/sysfb: Fix atomic_disable to use dst coordinates instead of src
 
-diff --git a/drivers/gpu/drm/sysfb/ofdrm.c b/drivers/gpu/drm/sysfb/ofdrm.c
-index 819aed466727..1d95df522ad5 100644
---- a/drivers/gpu/drm/sysfb/ofdrm.c
-+++ b/drivers/gpu/drm/sysfb/ofdrm.c
-@@ -238,7 +238,7 @@ static bool is_avivo(u32 vendor, u32 device)
- 	/* This will match most R5xx */
- 	return (vendor == PCI_VENDOR_ID_ATI) &&
- 	       ((device >= PCI_VENDOR_ID_ATI_R520 && device < 0x7800) ||
--		(PCI_VENDOR_ID_ATI_R600 >= 0x9400));
-+		(device >= PCI_VENDOR_ID_ATI_R600));
- }
- 
- static enum ofdrm_model display_get_model_of(struct drm_device *dev, struct device_node *of_node)
--- 
-2.25.1
+This patch updates drm_sysfb_plane_helper_atomic_disable() to use the=20
+plane_state->dst coordinates for constructing the clear rectangle. This=20
+makes the behavior consistent with drm_sysfb_plane_helper_atomic_update()=20
+which already uses the destination rectangle computed by the DRM core.
 
+> diff --git a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c b/drivers/gpu/drm/=
+sysfb/drm_sysfb_modeset.c
+> index d2de29caf89eb..18466de886aaa 100644
+> --- a/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+> +++ b/drivers/gpu/drm/sysfb/drm_sysfb_modeset.c
+> @@ -380,14 +380,10 @@ void drm_sysfb_plane_helper_atomic_disable(struct d=
+rm_plane *plane,
+>  	void __iomem *dst_vmap =3D dst.vaddr_iomem; /* TODO: Use mapping abstra=
+ction */
+>  	unsigned int dst_pitch =3D sysfb->fb_pitch;
+>  	const struct drm_format_info *dst_format =3D sysfb->fb_format;
+> -	struct drm_rect dst_clip;
+> +	struct drm_rect dst_clip =3D plane_state->dst;
 
-No virus found
-		Checked by Hillstone Network AntiVirus
+[Severity: Critical]
+This is a pre-existing issue, but does using the new plane state's dst
+rectangle allow userspace to supply arbitrary, unclipped coordinates?
 
+If userspace with DRM_MASTER privilege issues an atomic modeset with FB_ID =
+=3D 0
+(disabling the plane) while supplying arbitrary CRTC_X and CRTC_Y propertie=
+s,
+drm_atomic_helper_check_plane_state() detects !fb and returns early. This
+bypasses coordinate bounds checking and clipping, leaving plane_state->dst
+set to the unclipped, userspace-controlled values.
+
+Then, drm_sysfb_plane_helper_atomic_disable() calculates a memory offset us=
+ing
+drm_fb_clip_offset(dst_pitch, dst_format, &dst_clip), which translates dire=
+ctly
+to the userspace-supplied coordinates. This offset is used in a loop calling
+memset_io(), which could lead to out-of-bounds physical or I/O memory writes
+of zeroes.
+
+>  	unsigned long lines, linepixels, i;
+>  	int idx;
+> =20
+> -	drm_rect_init(&dst_clip,
+> -		      plane_state->src_x >> 16, plane_state->src_y >> 16,
+> -		      plane_state->src_w >> 16, plane_state->src_h >> 16);
+> -
+>  	lines =3D drm_rect_height(&dst_clip);
+>  	linepixels =3D drm_rect_width(&dst_clip);
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731111155.6953=
+90-1-oushixiong1025@163.com?part=3D1
