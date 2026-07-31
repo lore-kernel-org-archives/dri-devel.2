@@ -4,61 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 78041C55167
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 07:16:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 908E2C55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 07:19:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D242A10E18F;
-	Fri, 31 Jul 2026 07:16:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3A6110F19E;
+	Fri, 31 Jul 2026 07:19:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RnWhquYW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gfZseyD+";
 	dkim-atps=neutral
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA52910E18F
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 07:16:00 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 847764E41045;
- Fri, 31 Jul 2026 07:15:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 517776039A;
- Fri, 31 Jul 2026 07:15:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0D19611C16493; 
- Fri, 31 Jul 2026 09:15:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1785482154; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=q6rVTdFce9zLYwdpKcETTUyPMfQzcWo+Xq/orZPdh6E=;
- b=RnWhquYWA16Db3QD57oc6NHqlch0Nctf5QPVHrBkOTHB7oSLf1Je0+OYob2eewt4LydHXZ
- +u4u9hni6y67UWHKpYoRD71XV+w4S1kHWCciA+fh4EeJ/K6o97boHFzR44CZ1mDql6HUoj
- rmnCD+O8tWA7b0fCVEytagWF6XLDMHaW9YqqWFPHTXvdCwHckbX2TnQz8Z00Epq/r8e432
- o4cog/dtudx27XH5+5EUwq/kNi9RINEK2tVtWkEwBRtHB8rK/M6ZKceWBG8oecuC9P0/QQ
- FCVXowwMMF0S1zIyZ3cgNfm0f7tlx5s57jq6eJsYcFx+l5LJUmlJjMqVahFs2Q==
-Mime-Version: 1.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 84EC210F19E
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 07:19:22 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7AFE7600AD;
+ Fri, 31 Jul 2026 07:19:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4ED71F000E9;
+ Fri, 31 Jul 2026 07:19:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785482361;
+ bh=S6xEUtz3vJS4DSdcg36xCH/vM+3eRLfOe6c6IX+oxwQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=gfZseyD+DgGBZd6Q3TgSYb9p4kAaJR7TCqD/l0/u/jOJztKja6VWB8Eb4hbOaKaIO
+ D++OLANGQeqoa9rAfixjwBb7eiJ7kMyRUJsdOq7NQ1oTNIDSoPtXAEbpdrGPRqPS4h
+ EWh+uKQNGyGTPPcHxuTxDTeyxGuz5cQVOCURYfD3zOh6RiT05tl8IohHB+kXYe9ptP
+ ukkIRyJzmtfhvRM+6K1FA6YKAbp8EZ6bxmgPnAbz95ogBf8M5rREmvFXyUI8xYnkIn
+ FiZjleSfRj0UVjP0Z35oYjZtGFlzkbardYycDTDnao2jXYNvU/sZbteuN6RwXTAi3a
+ n8fujuALPPrhQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] gpu/tests/buddy: add dirty tracker performance
+ KUnit test
+To: "Arunpravin Paneer Selvam" <Arunpravin.PaneerSelvam@amd.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731070741.2654251-2-Arunpravin.PaneerSelvam@amd.com>
+References: <20260731070741.2654251-1-Arunpravin.PaneerSelvam@amd.com>
+ <20260731070741.2654251-2-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 31 Jul 2026 09:15:50 +0200
-Message-Id: <DKCKLKB5PQRX.5J3QA5DIEMK@bootlin.com>
-Subject: Re: [PATCH 10/10] drm/bridge: ti-sn65dsi86: Remove redundant
- dev_err_probe()
-Cc: "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
- <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
- Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca
- Ceresoli" <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "open list:DRM
- DRIVERS" <dri-devel@lists.freedesktop.org>, "open list"
- <linux-kernel@vger.kernel.org>
-To: "Doug Anderson" <dianders@chromium.org>, "Pan Chuang" <panchuang@vivo.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260723131649.134127-1-panchuang@vivo.com>
- <20260723131649.134127-11-panchuang@vivo.com>
- <CAD=FV=WPC92HLyRbo72KK5E9jTQ2TZN9F9gogZk7oNfpat4YRg@mail.gmail.com>
- <CAD=FV=Uud3YA_eQ12SM9MUSLQSmzDY1f_V0HnSCUUXOHSY1aDQ@mail.gmail.com>
-In-Reply-To: <CAD=FV=Uud3YA_eQ12SM9MUSLQSmzDY1f_V0HnSCUUXOHSY1aDQ@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Date: Fri, 31 Jul 2026 07:19:20 +0000
+Message-Id: <20260731071920.D4ED71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,55 +54,119 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Doug,
-
-On Thu Jul 30, 2026 at 11:17 PM CEST, Doug Anderson wrote:
-> Hi,
->
-> On Fri, Jul 24, 2026 at 7:11=E2=80=AFPM Doug Anderson <dianders@chromium.=
-org> wrote:
->>
->> Hi,
->>
->> On Thu, Jul 23, 2026 at 6:17=E2=80=AFAM Pan Chuang <panchuang@vivo.com> =
-wrote:
->> >
->> > Since commit
->> > 55b48e23f5c4 ("genirq/devres: Add error handling in devm_request_*_irq=
-()"),
->> > devm_request_threaded_irq() automatically logs detailed error messages=
- on
->> > failure. Remove the now-redundant driver-specific dev_err_probe() call=
-.
->> >
->> > Signed-off-by: Pan Chuang <panchuang@vivo.com>
->> > ---
->> >  drivers/gpu/drm/bridge/ti-sn65dsi86.c | 2 +-
->> >  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> Reviewed-by: Douglas Anderson <dianders@chromium.org>
->>
->> I'll plan to apply this to drm-misc-next in ~1 week unless anything come=
-s up.
->
-> Pushed to drm-misc-next:
->
-> [10/10] drm/bridge: ti-sn65dsi86: Remove redundant dev_err_probe()
->         commit: 9c950822f0fa923ccd344d7a143872d25efe89a3
-
-Out of curiosity, did you apply using b4?
-
-I see the commit does not have the R-by I gave to the cover letter a few
-days ago, and assumed b4 would pick it up as it does when applying the full
-series. If my assumption was wrong, maybe it's an issue to report to the b4
-project?
-
-Luca
-
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Massive memory footprint in KUnit test triggers OOM in constrain=
+ed environments
+- [Medium] Benchmark logic bypasses the measured path in the baseline alloc=
+ator
 --
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+--- Patch [2]: [PATCH v7 2/2] gpu/tests/buddy: add dirty tracker performanc=
+e KUnit test ---
+commit 7af49c21f49c14e81ea1bc47365402c2ec976aec
+Author: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+
+gpu/tests/buddy: add dirty tracker performance KUnit test
+
+This commit adds a KUnit test `gpu_test_buddy_dirty_tracker_performance`
+to demonstrate the performance benefits of the decoupled dirty-tracker
+design compared to the dual-tree approach. It measures contiguous
+allocation latency and repeated allocation throughput after fragmentation.
+
+> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_b=
+uddy_test.c
+> index f8e56da5058e6..3fc2bfa66ee15 100644
+> --- a/drivers/gpu/tests/gpu_buddy_test.c
+> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+
+[ ... ]
+
+> +static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
+> +{
+> +	struct gpu_buddy_block *block, *tmp;
+> +	unsigned long elapsed_ms;
+
+[ ... ]
+
+> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
+> +			       "buddy_init failed\n");
+> +
+> +	for (i =3D 0; i < SZ_4G / SZ_4K; i++)
+> +		KUNIT_ASSERT_FALSE_MSG(test,
+> +				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
+> +							      &allocated, 0),
+> +				       "buddy_alloc hit an error size=3D%u\n", SZ_4K);
+
+[Severity: Medium]
+Will this massive memory footprint trigger an Out-Of-Memory panic in
+constrained environments?
+
+Allocating a 4 GiB pool using 4 KiB block granularity requires creating over
+1 million struct gpu_buddy_block nodes dynamically from the slab. This will
+consume well over 100 MiB of kernel memory.
+
+Default UML environments for KUnit often have a memory limit of 256 MiB or=
+=20
+less, and this exhaustive allocation is likely to crash the test suite.
+
+[ ... ]
+
+> +	/*
+> +	 * Repeated alloc throughput from a maximally fragmented pool
+> +	 *
+> +	 * Fill a 4 GiB pool with 4 KiB allocations, free even-indexed blocks
+> +	 * as cleared and odd-indexed blocks as dirty.  The alternating pattern
+> +	 * ensures every adjacent buddy pair has one cleared half and one dirty
+> +	 * half, so each pair lands on opposite sides of the old merge barrier.
+> +	 * Each of the 16 384 x 256 KiB allocations in the timed loop has to
+> +	 * pay the __force_merge() cost on the alloc path under the old design.
+> +	 * With the dirty-tracker design the pool collapses to one max_order
+> +	 * block during free(), so each alloc is a simple O(log N) split.
+> +	 */
+
+[ ... ]
+
+> +	start =3D ktime_get();
+> +	for (i =3D 0; i < SZ_4G / SZ_256K; i++)
+> +		KUNIT_ASSERT_FALSE_MSG(test,
+> +				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_256K, SZ_4K,
+> +							      &results, 0),
+> +				       "buddy_alloc hit an error size=3D%u\n", SZ_256K);
+
+[Severity: Medium]
+Does this benchmark logic bypass the measured path in the baseline allocato=
+r?
+
+The commit message states this measures the __force_merge() cost on the
+alloc path under the old design. However, the flags parameter is passed as 0
+here, which omits GPU_BUDDY_CONTIGUOUS_ALLOCATION.
+
+Without the contiguous flag, the baseline allocator does not enforce that
+the 256 KiB allocation must be a single block. Instead, it will fall back to
+satisfying the 256 KiB request with 64 independent 4 KiB blocks.
+
+Because 4 KiB blocks are readily available in the fragmented pool, the
+allocation succeeds without ever invoking the __force_merge() fallback.
+
+Are we actually comparing the cost of 64 tree lookups against 1 tree lookup,
+rather than measuring the __force_merge() overhead?
+
+> +	end =3D ktime_get();
+> +	elapsed_ms =3D ktime_to_ms(ktime_sub(end, start));
+> +
+> +	kunit_info(test, "Repeated 256 KiB allocs from fragmented pool: %lu ms\=
+n",
+> +		   elapsed_ms);
+> +
+> +	gpu_buddy_free_list(&mm, &results, 0);
+> +	gpu_buddy_fini(&mm);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731070741.2654=
+251-1-Arunpravin.PaneerSelvam@amd.com?part=3D2
