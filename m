@@ -4,56 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0953C54FCD
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 07:57:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECF25C55174
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 07:57:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58D2410E2A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 521C610E293;
 	Sat,  1 Aug 2026 07:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=choiharam.com header.i=@choiharam.com header.b="m9YrIdPq";
-	dkim=pass (1024-bit key; unprotected) header.d=amazonses.com header.i=@amazonses.com header.b="SQKPdkbO";
+	dkim=pass (2048-bit key; unprotected) header.d=elsta.tech header.i=@elsta.tech header.b="bg7wJb2i";
 	dkim-atps=neutral
-X-Greylist: delayed 536 seconds by postgrey-1.36 at gabe;
- Fri, 31 Jul 2026 23:06:21 UTC
-Received: from a6-247.smtp-out.eu-west-1.amazonses.com
- (a6-247.smtp-out.eu-west-1.amazonses.com [54.240.6.247])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAE0110E23F
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 23:06:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
- d=choiharam.com; t=1785538644;
- h=From:To:Subject:Message-ID:Date:MIME-Version:Content-Type;
- bh=Lc3rIjAAFzIvGt9WsHawxcDTOpbs6Y5hCWwvYz32lnE=;
- b=m9YrIdPqL4EikU8yFmPLPFUDwloarmIsV75f+CdRQFMMUDEi3pPLVS8xyz68ia45
- +FNBwc6SYWy24HusJkJ+CB7XLJvunwiRY9iivJZZNgAzUrIwi6JnVBBQ+mErSDcaKYC
- Z7U52tKYboVUKVNXbk8MhI/+n+2OdmfvbO8sSd3g=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=shh3fegwg5fppqsuzphvschd53n6ihuv; d=amazonses.com; t=1785538644;
- h=From:To:Subject:Message-ID:Date:MIME-Version:Content-Type:Feedback-ID;
- bh=Lc3rIjAAFzIvGt9WsHawxcDTOpbs6Y5hCWwvYz32lnE=;
- b=SQKPdkbO2xsYxXgilLhXKLOrJBcMMXSEwJ9klkoFbR4N1/eeuwIx7hQ/xUpXzs/f
- CCIJqqcXWYyhL5lhla+HRFaz5uY3WzcjH9IjoHQZox+/aRuTHdTKjy020EntCpv6kNb
- bwJ7D+8vIIA8Z399D9QzfE0tthud0fGg5Kl86zao=
-X-Forwarded-Encrypted: i=1;
- AHgh+RrO1KZgjOgZtStE4XgJ6s35vyp0eHjsloQKoBLzOiZKOlhlNvaomzVDxDsbkdn5YmRY9S8XKRgb7yI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRCG8IqEaNXwunY8gTVv8T0OQ3iMIiNtlZMe/grwz7BWW4tVRZ
- C562ix1vMMikmx6NkYjp1flIFaxu1tKFlaN/KSQ/MtexohEdEbKdHpR5JO8rdbZL0jFZ/H15qMO
- Q5Gadm0LuA4/tQZSKYzSLx03PQrR6sVs=
-X-Received: by 2002:a5d:5917:0:b0:47f:6fbd:89eb with SMTP id
- ffacd0b85a97d-47fd73157camr1920700f8f.57.1785538642220; Fri, 31 Jul 2026
- 15:57:22 -0700 (PDT)
-X-Gmail-Original-Message-ID: <CAAKWd2_J=V2U-2m1Nuie8MbT7eu1HSLjkWr4Ljh4LksvoB46qQ@mail.gmail.com>
-X-Gm-Features: AUfX_mwG4SQqZGV7ftVTbzZA8LqMmDTmhOrQewKnDznaL_jWeAowMP4uJ_wmy3c
-From: Haram Choi <haram@choiharam.com>
-To: dri-devel@lists.freedesktop.org
-Subject: [REGRESSION] 7.1: apple-gmux backlight dead on MacBookPro13,3 -
- PCI bridge left with VGA enable set and VGA 16-bit decode cleared,
- aliasing legacy VGA I/O over the gmux ports
-Message-ID: <0102019fba65882f-45046e0b-9860-445f-a179-c6a1d2acfd1c-000000@eu-west-1.amazonses.com>
-Date: Fri, 31 Jul 2026 22:57:24 +0000
+Received: from mail.elsta.tech (mail.elsta.tech [194.150.96.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3368110F2C3
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:45:24 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.elsta.tech (Postfix) with ESMTP id 74E7D8D54A2;
+ Fri, 31 Jul 2026 16:45:22 +0200 (CEST)
+Authentication-Results: mail.elsta.tech (amavis); dkim=pass (2048-bit key)
+ header.d=elsta.tech
+Received: from mail.elsta.tech ([127.0.0.1])
+ by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10032) with ESMTP
+ id w7PEtwJZ-xWm; Fri, 31 Jul 2026 16:45:22 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by mail.elsta.tech (Postfix) with ESMTP id 2D7928D54A3;
+ Fri, 31 Jul 2026 16:45:22 +0200 (CEST)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.elsta.tech 2D7928D54A3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=elsta.tech;
+ s=0883730E-C77C-11E9-9DA4-0BE9876769AA; t=1785509122;
+ bh=VWGYu8llEVF6O3kCw77dF5+/EUISSbsKbqNRvIEkUas=;
+ h=From:Date:MIME-Version:Message-Id:To;
+ b=bg7wJb2ixNjp0FegeVh4/kBX+FQkTG440ie18LIqcUMsNW7sSl2DXtFqikEC5BbEN
+ 6Gp/QfL4lzmg+p6F95qxBvx8POdiVnbca7pzyoIC+UV6mVq12gJH0I5RcAO4CjFH4B
+ pH829CiHy7AOIluFubLoIMSVmiH2B76u3d/9nXd3GTk78IrDy41Yl8HWIUFMUYIaXp
+ YChFHVWOqoOxRBKleFFWLZtcDqHJ6WqOKfunHkR4s+YxFbKXQAyD4EckOOFX4MV+R7
+ DkxD1fcWYaYxkJr4yzWzsSS20ANdzbsVWUU16AAdU403qM83vd0xwPgG9lCqIdRs/I
+ OMG+H+txJz5fQ==
+X-Virus-Scanned: amavis at elsta.tech
+Received: from mail.elsta.tech ([127.0.0.1])
+ by localhost (mail.elsta.tech [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id MneSgpB53jwY; Fri, 31 Jul 2026 16:45:22 +0200 (CEST)
+Received: from [127.0.1.1] (unknown [172.31.0.125])
+ by mail.elsta.tech (Postfix) with ESMTPSA id D98F98D54A0;
+ Fri, 31 Jul 2026 16:45:21 +0200 (CEST)
+From: Jakub Turek <jakub.turek@elsta.tech>
+Date: Fri, 31 Jul 2026 16:45:13 +0200
+Subject: [PATCH v2 1/2] fbdev: ssd1307fb: add support for Sino Wealth
+ SH1107 controller
 MIME-Version: 1.0
-Content-Type: multipart/alternative; boundary="--_NmP-27909390cd5e0791-Part_1"
-Feedback-ID: :1.eu-west-1.EpC9yjino5Os4TD+7+raLa11nzZLZvHiwV019QcZvg/F5tRE61/OoDvSLCzTswf7FgUYGClMifYLSHlPtef6pX2oIiUiWIw7D3iBfeLsACYDdVP2XYMjQqpq9pquO8y/Ll8CCsU3paAfc5BSRIugOpXQgvi1qP9naMr/nZxXEn4=:1.eu-west-1.mn4CV6NdxyxonKM+/Hjvd874GJxbRQyaS3Zo0NapPlc=:AmazonSES
-X-SES-Outgoing: 2026.07.31-54.240.6.247
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260731-feat-sh1107-v2-1-0d2893e44ebd@elsta.tech>
+References: <20260731-feat-sh1107-v2-0-0d2893e44ebd@elsta.tech>
+In-Reply-To: <20260731-feat-sh1107-v2-0-0d2893e44ebd@elsta.tech>
+To: Helge Deller <deller@gmx.de>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Jakub Turek <jakub.turek@elsta.tech>
+X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Sat, 01 Aug 2026 07:57:53 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -70,320 +81,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-----_NmP-27909390cd5e0791-Part_1
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 7bit
+The SH1107 display controller is very similar to SSD1307 but the main
+difference is that SH1107 has different memory layout and uses page mode
+adressation only.
 
-# [REGRESSION] 7.1: apple-gmux backlight dead on MacBookPro13,3 - PCI
-bridge left with VGA enable set and VGA 16-bit decode cleared, aliasing
-legacy VGA I/O over the gmux ports
+The SH1107 relies primarily on vertical page addressing mode where the
+internal 128x128 GDDRAM is split into 16 vertical pages, rather than
+the horizontal/tile addressing modes natively utilized by the
+SSD1306/SSD1307.
 
-## Summary
+Signed-off-by: Jakub Turek <jakub.turek@elsta.tech>
+---
+ drivers/video/fbdev/ssd1307fb.c | 87 +++++++++++++++++++++++++++++++++++------
+ 1 file changed, 76 insertions(+), 11 deletions(-)
 
-Since Linux 7.1 the backlight on a MacBookPro13,3 (15" 2016, Touch Bar)
-cannot be controlled at all. `apple_gmux` still probes successfully during
-boot, but a few hundred milliseconds later the VGA arbiter reprograms
-`PCI_BRIDGE_CONTROL` of the root port `00:01.0` into a state where the
-bridge decodes legacy VGA I/O with only 10 address bits. `0x3c0-0x3df` then
-aliases onto `0x7c0-0x7df`, which is exactly where the gmux "indexed"
-protocol registers live, so the bridge claims those cycles and forwards
-them to the dGPU. Every gmux read returns `0xff` and every gmux write is
-swallowed.
+diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
+index 644b8d97b381..19dc7671fa7a 100644
+--- a/drivers/video/fbdev/ssd1307fb.c
++++ b/drivers/video/fbdev/ssd1307fb.c
+@@ -20,6 +20,8 @@
+ #define SSD1307FB_DATA			0x40
+ #define SSD1307FB_COMMAND		0x80
+ 
++#define SSD1307FB_PAGE_COL_START_LOW	0x00
++#define SSD1307FB_PAGE_COL_START_HIGH	0x10
+ #define SSD1307FB_SET_ADDRESS_MODE	0x20
+ #define SSD1307FB_SET_ADDRESS_MODE_HORIZONTAL	(0x00)
+ #define SSD1307FB_SET_ADDRESS_MODE_VERTICAL	(0x01)
+@@ -54,9 +56,11 @@ struct ssd1307fb_deviceinfo {
+ 	u32 default_dclk_frq;
+ 	bool need_pwm;
+ 	bool need_chargepump;
++	bool page_mode_only;
+ };
+ 
+ struct ssd1307fb_par {
++	unsigned page_address_mode : 1;
+ 	unsigned area_color_enable : 1;
+ 	unsigned com_invdir : 1;
+ 	unsigned com_lrremap : 1;
+@@ -209,6 +213,34 @@ static int ssd1307fb_set_page_range(struct ssd1307fb_par *par, u8 page_start,
+ 	return 0;
+ }
+ 
++static int ssd1307fb_set_page_pos(struct ssd1307fb_par *par, u8 page_start,
++				  u8 col_start)
++{
++	int ret;
++	u8 page;
++	u8 col_low;
++	u8 col_high;
++
++	page = SSD1307FB_START_PAGE_ADDRESS | (page_start & 0x0f);
++	col_low = SSD1307FB_PAGE_COL_START_LOW | (col_start & 0x0f);
++	col_high = SSD1307FB_PAGE_COL_START_HIGH |
++		((col_start >> 4) & 0x0f);
++
++	ret = ssd1307fb_write_cmd(par->client, page);
++	if (ret < 0)
++		return ret;
++
++	ret = ssd1307fb_write_cmd(par->client, col_low);
++	if (ret < 0)
++		return ret;
++
++	ret = ssd1307fb_write_cmd(par->client, col_high);
++	if (ret < 0)
++		return ret;
++
++	return 0;
++}
++
+ static int ssd1307fb_update_rect(struct ssd1307fb_par *par, unsigned int x,
+ 				 unsigned int y, unsigned int width,
+ 				 unsigned int height)
+@@ -253,13 +285,15 @@ static int ssd1307fb_update_rect(struct ssd1307fb_par *par, unsigned int x,
+ 	 *  (5) A4 B4 C4 D4 E4 F4 G4 H4
+ 	 */
+ 
+-	ret = ssd1307fb_set_col_range(par, par->col_offset + x, width);
+-	if (ret < 0)
+-		goto out_free;
++	if (!par->page_address_mode) {
++		ret = ssd1307fb_set_col_range(par, par->col_offset + x, width);
++		if (ret < 0)
++			goto out_free;
+ 
+-	ret = ssd1307fb_set_page_range(par, par->page_offset + y / 8, pages);
+-	if (ret < 0)
+-		goto out_free;
++		ret = ssd1307fb_set_page_range(par, par->page_offset + y / 8, pages);
++		if (ret < 0)
++			goto out_free;
++	}
+ 
+ 	for (i = y / 8; i < y / 8 + pages; i++) {
+ 		int m = 8;
+@@ -274,13 +308,28 @@ static int ssd1307fb_update_rect(struct ssd1307fb_par *par, unsigned int x,
+ 				u8 byte = vmem[(8 * i + k) * line_length +
+ 					       j / 8];
+ 				u8 bit = (byte >> (j % 8)) & 1;
++
+ 				data |= bit << k;
+ 			}
+ 			array->data[array_idx++] = data;
+ 		}
++
++		if (par->page_address_mode) {
++			ret = ssd1307fb_set_page_pos(par, par->page_offset + i,
++						     par->col_offset + x);
++			if (ret < 0)
++				goto out_free;
++
++			ret = ssd1307fb_write_array(par->client, array, width);
++			if (ret < 0)
++				goto out_free;
++
++			array_idx = 0;
++		}
+ 	}
+ 
+-	ret = ssd1307fb_write_array(par->client, array, width * pages);
++	if (!par->page_address_mode)
++		ret = ssd1307fb_write_array(par->client, array, width * pages);
+ 
+ out_free:
+ 	kfree(array);
+@@ -483,13 +532,17 @@ static int ssd1307fb_init(struct ssd1307fb_par *par)
+ 		}
+ 	}
+ 
+-	/* Switch to horizontal addressing mode */
++	/* Switch to addressing mode */
+ 	ret = ssd1307fb_write_cmd(par->client, SSD1307FB_SET_ADDRESS_MODE);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	ret = ssd1307fb_write_cmd(par->client,
+-				  SSD1307FB_SET_ADDRESS_MODE_HORIZONTAL);
++	if (par->page_address_mode)
++		ret = ssd1307fb_write_cmd(par->client,
++					  SSD1307FB_SET_ADDRESS_MODE_PAGE);
++	else
++		ret = ssd1307fb_write_cmd(par->client,
++					  SSD1307FB_SET_ADDRESS_MODE_HORIZONTAL);
+ 	if (ret < 0)
+ 		return ret;
+ 
+@@ -562,6 +615,13 @@ static struct ssd1307fb_deviceinfo ssd1307fb_ssd1309_deviceinfo = {
+ 	.default_dclk_frq = 10,
+ };
+ 
++static struct ssd1307fb_deviceinfo ssd1307fb_sh1107_deviceinfo = {
++	.default_vcomh = 0x35,
++	.default_dclk_div = 1,
++	.default_dclk_frq = 8,
++	.page_mode_only = 1,
++};
++
+ static const struct of_device_id ssd1307fb_of_match[] = {
+ 	{
+ 		.compatible = "solomon,ssd1305fb-i2c",
+@@ -579,6 +639,10 @@ static const struct of_device_id ssd1307fb_of_match[] = {
+ 		.compatible = "solomon,ssd1309fb-i2c",
+ 		.data = (void *)&ssd1307fb_ssd1309_deviceinfo,
+ 	},
++	{
++		.compatible = "sinowealth,sh1107",
++		.data = (void *)&ssd1307fb_sh1107_deviceinfo,
++	},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, ssd1307fb_of_match);
+@@ -658,6 +722,7 @@ static int ssd1307fb_probe(struct i2c_client *client)
+ 
+ 	par->contrast = 127;
+ 	par->vcomh = par->device_info->default_vcomh;
++	par->page_address_mode = par->device_info->page_mode_only;
+ 
+ 	/* Setup display timing */
+ 	if (device_property_read_u32(dev, "solomon,dclk-div", &par->dclk_div))
+@@ -678,7 +743,6 @@ static int ssd1307fb_probe(struct i2c_client *client)
+ 	ssd1307fb_defio = devm_kzalloc(dev, sizeof(*ssd1307fb_defio),
+ 				       GFP_KERNEL);
+ 	if (!ssd1307fb_defio) {
+-		dev_err(dev, "Couldn't allocate deferred io.\n");
+ 		ret = -ENOMEM;
+ 		goto fb_defio_error;
+ 	}
+@@ -788,6 +852,7 @@ static const struct i2c_device_id ssd1307fb_i2c_id[] = {
+ 	{ .name = "ssd1306fb" },
+ 	{ .name = "ssd1307fb" },
+ 	{ .name = "ssd1309fb" },
++	{ .name = "sh1107fb" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(i2c, ssd1307fb_i2c_id);
 
-- Last known good: 6.16.10 (Arch `linux` 6.16.10.arch1-1)
-- Also good: 6.12.51 (Arch `linux-lts` 6.12.51-1)
-- Bad: 7.1.5 (Arch `linux` 7.1.5.arch1-2)
+-- 
+2.34.1
 
-## Hardware
-
-```
-DMI: Apple Inc. MacBookPro13,3/Mac-A5C67F76ED83108C, BIOS 529.120.1.0.0
-03/14/2024
-
-00:01.0 PCI bridge [0604]: Intel 6th-10th Gen Core Processor PCIe
-Controller (x16) [8086:1901] (rev 07)
-00:02.0 VGA compatible controller [0300]: Intel Skylake-H GT2 [HD Graphics
-530] [8086:191b] (rev 06)   -> i915
-01:00.0 VGA compatible controller [0300]: AMD Baffin [Radeon Pro 455]
-[1002:67ef] (rev c7)             -> amdgpu
-
-gmux: PNP HID APP000B, "Found gmux version 4.0.29 [indexed]"
-```
-
-## Symptom
-
-```
-$ cat /sys/class/backlight/gmux_backlight/actual_brightness
-16777215
-```
-
-16777215 is `0x00ffffff`, which is `GMUX_BRIGHTNESS_MASK` applied to an
-all-ones I/O read. Writes to `brightness` have no effect. `brightnessctl`,
-the Touch Bar brightness keys and the desktop brightness slider all fail,
-because all three go through this single backlight device.
-
-## Root cause
-
-`PCI_BRIDGE_CONTROL` (offset 0x3e) of `00:01.0`, read after boot has
-settled:
-
-```
-6.12.51-lts   : 0x0012   bit1 SERR, bit4 VGA_16BIT set, bit3 VGA enable
-clear   -> works
-6.16.10-arch1 : (not read at register level, but backlight works)
-7.1.5-arch1-2 : 0x000a   bit1 SERR, bit3 VGA enable set, bit4 VGA_16BIT
-clear   -> broken
-```
-
-With `PCI_BRIDGE_CTL_VGA` set and `PCI_BRIDGE_CTL_VGA_16BIT` clear, the
-bridge ignores address bits [15:10] for legacy VGA I/O, so the ranges alias:
-
-```
-0x3b0-0x3bb  ->  0x7b0-0x7bb
-0x3c0-0x3df  ->  0x7c0-0x7df
-```
-
-apple-gmux uses the following ports on this machine (PNP resource
-`0x700-0x7fe`):
-
-```
-GMUX_PORT_READ         0x7d0
-GMUX_PORT_WRITE        0x7d4
-index magic sequence   0x7cc / 0x7cd / 0x7ce
-```
-
-All of them fall inside the aliased window, so the bridge steals them.
-
-## Direct verification via /dev/port on 7.1.5
-
-Before:
-
-```
-inb(0x7cc) = ff   inb(0x7cd) = ff   inb(0x7ce) = ff
-inb(0x7d0) = ff   inb(0x7d4) = ff
-```
-
-Set only the 16-bit decode bit, nothing else:
-
-```
-# setpci -s 00:01.0 BRIDGE_CONTROL=0010:0010
-```
-
-After (gmux_is_indexed() magic sequence, write 0xaa/0x55/0x00 then read
-back):
-
-```
-outb(0x7cc, 0xaa); outb(0x7cd, 0x55); outb(0x7ce, 0x00)
-inb(0x7cc) = aa   inb(0x7cd) = 55        -> gmux responds
-```
-
-Then:
-
-```
-# modprobe -r apple_gmux && modprobe apple_gmux
-apple_gmux: Found gmux version 4.0.29 [indexed]
-
-# cat /sys/class/backlight/gmux_backlight/actual_brightness
-118
-```
-
-118 is the value the panel had actually been stuck at the whole time, which
-confirms that no write had ever reached the hardware. Writing 100 / 400 /
-700 / 1023 afterwards changes the panel brightness, visually confirmed.
-
-## Boot timeline
-
-7.1.5-arch1-2 (broken):
-
-```
-[  7.947] pci 0000:00:02.0: vgaarb: setting as boot VGA device
-[  7.947] pci 0000:00:02.0: vgaarb: VGA device added:
-decodes=io+mem,owns=io+mem,locks=none
-[  7.947] pci 0000:01:00.0: vgaarb: setting as boot VGA device (overriding
-previous)
-[  7.948] pci 0000:01:00.0: vgaarb: VGA device added:
-decodes=io+mem,owns=none,locks=none
-[  8.005] amdgpu 0000:01:00.0: vgaarb: deactivate vga console
-[  9.494] apple_gmux: Found gmux version 4.0.29 [indexed]          <--
-probe still OK
-[ 10.059] i915 0000:00:02.0: vgaarb: VGA decodes changed:
-olddecodes=io+mem,decodes=io:owns=io+mem
-[ 11.150] i915 0000:00:02.0: vgaarb: VGA decodes changed:
-olddecodes=io,decodes=none:owns=io+mem
-[ 11.150] amdgpu 0000:01:00.0: vgaarb: VGA decodes changed:
-olddecodes=io+mem,decodes=none:owns=none
-```
-
-6.16.10-arch1-1 (good):
-
-```
-[  6.785] pci 0000:00:02.0: vgaarb: VGA device added:
-decodes=io+mem,owns=io+mem,locks=none
-[  6.785] pci 0000:01:00.0: vgaarb: setting as boot VGA device (overriding
-previous)
-[  6.785] pci 0000:01:00.0: vgaarb: VGA device added:
-decodes=io+mem,owns=none,locks=none
-[  6.839] amdgpu 0000:01:00.0: vgaarb: deactivate vga console
-[  8.339] apple_gmux: Found gmux version 4.0.29 [indexed]
-[  8.348] i915 0000:00:02.0: vgaarb: VGA decodes changed:
-olddecodes=io+mem,decodes=none:owns=io+mem
-[  8.349] amdgpu 0000:01:00.0: vgaarb: VGA decodes changed:
-olddecodes=io+mem,decodes=none:owns=none
-```
-
-6.12.51-lts (good):
-
-```
-[  8.480] apple_gmux: Found gmux version 4.0.29 [indexed]
-[  8.487] i915 0000:00:02.0: vgaarb: VGA decodes changed:
-olddecodes=io+mem,decodes=none:owns=io+mem
-[  8.489] amdgpu 0000:01:00.0: vgaarb: VGA decodes changed:
-olddecodes=io+mem,decodes=none:owns=none
-```
-
-The relevant difference: on 6.12 and 6.16 the i915 legacy decode goes
-`io+mem -> none` in a single step. On 7.1.5 it goes `io+mem -> io` and
-then, about 1.1 seconds later, `io -> none`. The final arbiter state is
-`decodes=none` for both devices on all three kernels, yet only on 7.1.5
-does the bridge end up with `PCI_BRIDGE_CTL_VGA` set and
-`PCI_BRIDGE_CTL_VGA_16BIT` cleared. The intermediate `decodes=io` state
-appears to leave the bridge in the 10-bit aliasing configuration and the
-subsequent transition to `none` does not undo it.
-
-`drivers/platform/x86/apple-gmux.c` only received cosmetic changes during
-the 7.1 cycle, so this looks like a PCI / vgaarb side change rather than a
-driver bug.
-
-## Workaround
-
-```
-# setpci -s 00:01.0 BRIDGE_CONTROL=0010:0010
-# modprobe -r apple_gmux && modprobe apple_gmux
-```
-
-Setting the 16-bit decode bit is enough. This machine is KMS only and
-`amdgpu: vgaarb: deactivate vga console` has already happened, so nothing
-depends on 10-bit legacy VGA I/O aliasing here.
-
-## Notes
-
-- The breakage happens after `apple_gmux` has already probed, so the driver
-reports no error. The failure is silent.
-- A machine with a discrete GPU behind `00:01.0` and gmux at `0x700-0x7fe`
-is the affected shape. MacBookPro13,1 and 13,2 have no dGPU and no bridge
-in the path, so they are presumably unaffected.
-
-#regzbot introduced: v6.16..v7.1
-
-----_NmP-27909390cd5e0791-Part_1
-Content-Type: text/html; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"># [REGRESSION] 7.1: apple-gmux backlight dead on =
-MacBookPro13,3 - PCI bridge left with VGA enable set and VGA 16-bit decode =
-cleared, aliasing legacy VGA I/O over the gmux ports<br><br>## =
-Summary<br><br>Since Linux 7.1 the backlight on a MacBookPro13,3 (15&quot; =
-2016, Touch Bar) cannot be controlled at all. `apple_gmux` still probes =
-successfully during boot, but a few hundred milliseconds later the VGA =
-arbiter reprograms `PCI_BRIDGE_CONTROL` of the root port `00:01.0` into a =
-state where the bridge decodes legacy VGA I/O with only 10 address bits. =
-`0x3c0-0x3df` then aliases onto `0x7c0-0x7df`, which is exactly where the =
-gmux &quot;indexed&quot; protocol registers live, so the bridge claims =
-those cycles and forwards them to the dGPU. Every gmux read returns `0xff` =
-and every gmux write is swallowed.<br><br>- Last known good: 6.16.10 (Arch =
-`linux` 6.16.10.arch1-1)<br>- Also good: 6.12.51 (Arch `linux-lts` 6.12.=
-51-1)<br>- Bad: 7.1.5 (Arch `linux` 7.1.5.arch1-2)<br><br>## =
-Hardware<br><br>```<br>DMI: Apple Inc. MacBookPro13,3/Mac-A5C67F76ED83108C,=
- BIOS 529.120.1.0.0 03/14/2024<br><br>00:01.0 PCI bridge [0604]: Intel =
-6th-10th Gen Core Processor PCIe Controller (x16) [8086:1901] (rev =
-07)<br>00:02.0 VGA compatible controller [0300]: Intel Skylake-H GT2 [HD =
-Graphics 530] [8086:191b] (rev 06) =C2=A0 -&gt; i915<br>01:00.0 VGA =
-compatible controller [0300]: AMD Baffin [Radeon Pro 455] [1002:67ef] (rev =
-c7) =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 -&gt; amdgpu<br><br>gmux: PNP=
- HID APP000B, &quot;Found gmux version 4.0.29 [indexed]&quot;<br>```<br><br=
->## Symptom<br><br>```<br>$ cat /sys/class/backlight/gmux_backlight/actual_=
-brightness<br>16777215<br>```<br><br>16777215 is `0x00ffffff`, which is =
-`GMUX_BRIGHTNESS_MASK` applied to an all-ones I/O read. Writes to =
-`brightness` have no effect. `brightnessctl`, the Touch Bar brightness keys=
- and the desktop brightness slider all fail, because all three go through =
-this single backlight device.<br><br>## Root cause<br><br>`PCI_BRIDGE_CONTR=
-OL` (offset 0x3e) of `00:01.0`, read after boot has =
-settled:<br><br>```<br>6.12.51-lts =C2=A0 : 0x0012 =C2=A0 bit1 SERR, bit4 =
-VGA_16BIT set, bit3 VGA enable clear =C2=A0 -&gt; works<br>6.16.10-arch1 : =
-(not read at register level, but backlight works)<br>7.1.5-arch1-2 : 0x000a=
- =C2=A0 bit1 SERR, bit3 VGA enable set, bit4 VGA_16BIT clear =C2=A0 -&gt; =
-broken<br>```<br><br>With `PCI_BRIDGE_CTL_VGA` set and =
-`PCI_BRIDGE_CTL_VGA_16BIT` clear, the bridge ignores address bits [15:10] =
-for legacy VGA I/O, so the ranges alias:<br><br>```<br>0x3b0-0x3bb =
-=C2=A0-&gt; =C2=A00x7b0-0x7bb<br>0x3c0-0x3df =C2=A0-&gt; =
-=C2=A00x7c0-0x7df<br>```<br><br>apple-gmux uses the following ports on this=
- machine (PNP resource `0x700-0x7fe`):<br><br>```<br>GMUX_PORT_READ =C2=A0 =
-=C2=A0 =C2=A0 =C2=A0 0x7d0<br>GMUX_PORT_WRITE =C2=A0 =C2=A0 =C2=A0 =
-=C2=A00x7d4<br>index magic sequence =C2=A0 0x7cc / 0x7cd / =
-0x7ce<br>```<br><br>All of them fall inside the aliased window, so the =
-bridge steals them.<br><br>## Direct verification via /dev/port on 7.1.=
-5<br><br>Before:<br><br>```<br>inb(0x7cc) =3D ff =C2=A0 inb(0x7cd) =3D ff =
-=C2=A0 inb(0x7ce) =3D ff<br>inb(0x7d0) =3D ff =C2=A0 inb(0x7d4) =3D =
-ff<br>```<br><br>Set only the 16-bit decode bit, nothing =
-else:<br><br>```<br># setpci -s 00:01.0 BRIDGE_CONTROL=3D0010:0010<br>```<b=
-r><br>After (gmux_is_indexed() magic sequence, write 0xaa/0x55/0x00 then =
-read back):<br><br>```<br>outb(0x7cc, 0xaa); outb(0x7cd, 0x55); outb(0x7ce,=
- 0x00)<br>inb(0x7cc) =3D aa =C2=A0 inb(0x7cd) =3D 55 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0-&gt; gmux responds<br>```<br><br>Then:<br><br>```<br># modprobe -r =
-apple_gmux &amp;&amp; modprobe apple_gmux<br>apple_gmux: Found gmux version=
- 4.0.29 [indexed]<br><br># cat /sys/class/backlight/gmux_backlight/actual_b=
-rightness<br>118<br>```<br><br>118 is the value the panel had actually been=
- stuck at the whole time, which confirms that no write had ever reached the=
- hardware. Writing 100 / 400 / 700 / 1023 afterwards changes the panel =
-brightness, visually confirmed.<br><br>## Boot timeline<br><br>7.1.=
-5-arch1-2 (broken):<br><br>```<br>[ =C2=A07.947] pci 0000:00:02.0: vgaarb: =
-setting as boot VGA device<br>[ =C2=A07.947] pci 0000:00:02.0: vgaarb: VGA =
-device added: decodes=3Dio+mem,owns=3Dio+mem,locks=3Dnone<br>[ =C2=A07.947]=
- pci 0000:01:00.0: vgaarb: setting as boot VGA device (overriding =
-previous)<br>[ =C2=A07.948] pci 0000:01:00.0: vgaarb: VGA device added: =
-decodes=3Dio+mem,owns=3Dnone,locks=3Dnone<br>[ =C2=A08.005] amdgpu =
-0000:01:00.0: vgaarb: deactivate vga console<br>[ =C2=A09.494] apple_gmux: =
-Found gmux version 4.0.29 [indexed] =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
-=C2=A0&lt;-- probe still OK<br>[ 10.059] i915 0000:00:02.0: vgaarb: VGA =
-decodes changed: olddecodes=3Dio+mem,decodes=3Dio:owns=3Dio+mem<br>[ 11.=
-150] i915 0000:00:02.0: vgaarb: VGA decodes changed: olddecodes=3Dio,=
-decodes=3Dnone:owns=3Dio+mem<br>[ 11.150] amdgpu 0000:01:00.0: vgaarb: VGA =
-decodes changed: olddecodes=3Dio+mem,decodes=3Dnone:owns=3Dnone<br>```<br><=
-br>6.16.10-arch1-1 (good):<br><br>```<br>[ =C2=A06.785] pci 0000:00:02.0: =
-vgaarb: VGA device added: decodes=3Dio+mem,owns=3Dio+mem,locks=3Dnone<br>[ =
-=C2=A06.785] pci 0000:01:00.0: vgaarb: setting as boot VGA device =
-(overriding previous)<br>[ =C2=A06.785] pci 0000:01:00.0: vgaarb: VGA =
-device added: decodes=3Dio+mem,owns=3Dnone,locks=3Dnone<br>[ =C2=A06.839] =
-amdgpu 0000:01:00.0: vgaarb: deactivate vga console<br>[ =C2=A08.339] =
-apple_gmux: Found gmux version 4.0.29 [indexed]<br>[ =C2=A08.348] i915 =
-0000:00:02.0: vgaarb: VGA decodes changed: olddecodes=3Dio+mem,=
-decodes=3Dnone:owns=3Dio+mem<br>[ =C2=A08.349] amdgpu 0000:01:00.0: vgaarb:=
- VGA decodes changed: olddecodes=3Dio+mem,decodes=3Dnone:owns=3Dnone<br>```=
-<br><br>6.12.51-lts (good):<br><br>```<br>[ =C2=A08.480] apple_gmux: Found =
-gmux version 4.0.29 [indexed]<br>[ =C2=A08.487] i915 0000:00:02.0: vgaarb: =
-VGA decodes changed: olddecodes=3Dio+mem,decodes=3Dnone:owns=3Dio+mem<br>[ =
-=C2=A08.489] amdgpu 0000:01:00.0: vgaarb: VGA decodes changed: =
-olddecodes=3Dio+mem,decodes=3Dnone:owns=3Dnone<br>```<br><br>The relevant =
-difference: on 6.12 and 6.16 the i915 legacy decode goes<br>`io+mem -&gt; =
-none` in a single step. On 7.1.5 it goes `io+mem -&gt; io` and then, about =
-1.1 seconds later, `io -&gt; none`. The final arbiter state is =
-`decodes=3Dnone` for both devices on all three kernels, yet only on 7.1.5 =
-does the bridge end up with `PCI_BRIDGE_CTL_VGA` set and =
-`PCI_BRIDGE_CTL_VGA_16BIT` cleared. The intermediate `decodes=3Dio` state =
-appears to leave the bridge in the 10-bit aliasing configuration and the =
-subsequent transition to `none` does not undo it.<br><br>`drivers/platform/=
-x86/apple-gmux.c` only received cosmetic changes during the 7.1 cycle, so =
-this looks like a PCI / vgaarb side change rather than a driver bug.=
-<br><br>## Workaround<br><br>```<br># setpci -s 00:01.0 =
-BRIDGE_CONTROL=3D0010:0010<br># modprobe -r apple_gmux &amp;&amp; modprobe =
-apple_gmux<br>```<br><br>Setting the 16-bit decode bit is enough. This =
-machine is KMS only and<br>`amdgpu: vgaarb: deactivate vga console` has =
-already happened, so nothing depends on 10-bit legacy VGA I/O aliasing here=
-.<br><br>## Notes<br><br>- The breakage happens after `apple_gmux` has =
-already probed, so the driver reports no error. The failure is silent.<br>-=
- A machine with a discrete GPU behind `00:01.0` and gmux at `0x700-0x7fe` =
-is the affected shape. MacBookPro13,1 and 13,2 have no dGPU and no bridge =
-in the path, so they are presumably unaffected.<div><br></div><div>#regzbot=
- introduced: v6.16..v7.1</div><br></div>
-
-----_NmP-27909390cd5e0791-Part_1--
