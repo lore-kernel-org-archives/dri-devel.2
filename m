@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 863D5C55176
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:42:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD92AC55175
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:42:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3735810F2AE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24F4810F2AA;
 	Fri, 31 Jul 2026 14:42:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="XIbnfTov";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Hl2lEDCV";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1596510F2BD
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 093A910F2B5
  for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:42:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1785508930;
- bh=K2BbWak3F9Q2jTvsGbkaNezEQtxpB/CTjje1XqI8cJs=;
+ bh=Xrr78L9inY1ao+TGuIfSIsLe06DKCT3tq2pIYXzKzXw=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=XIbnfTov8CI+zFJE3Wez1sHO3FnU9QAdCZrQYxhWe871ioseaolSozp/xJT5qdu4+
- HKDiI442lAa8OJkkzq8xG8Bl20oeQg/ml5qjUD2uX9DkEBOZVlXSUEMyPFDPsfeAVB
- LMexNAGAFvHkKw9r5UG04hDTMH3ifv2SVc5xejvHFE8Rcu58ZYRJI3mx/dwbuYTelm
- UesTKr64sip90qR93s75PBWki5F4SvKy3o+3mhwhIEx+/uWm1KrHGHLQpJArckU36N
- uhnq45XuBIF7t91iogNSMB3SAbrE9/TPl4cIX2QbAdXpdyR8w7d2pki6rh4rQBAWkd
- tXVpGO1p5IAjQ==
+ b=Hl2lEDCVQ9snBBUTnZdhZ87Tb8cmxDOm/fwmdWRpm0YXiZSXGdgrqzTW05K+qKEOp
+ TbY1RLgRmqmjENKalGyrWXjITc1vWMvaRy/nq4mBZIS69PsEM41Y5n+zcwpJKoAC1D
+ cb6wgg5PePxUMoWfo4rUAY3e3EfSgY/t2/BpnXpL1zlvbkxcmyOnLIhFDXJPmjhqFR
+ fUsuSyZ3MBymovgBJXdrD0Gbs1zLuESQcqBquhxzIPhYSAuvDjrciSCNjDTRlLaud9
+ fZ4Cm5WxJB3q9F5kSd9eH5XLo7Sdq2qhSx7vsGLH7rtZbiff9K4dG56aAvvJoHGK8w
+ WMhTzWW12LNcA==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id BCF5B17E0936;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id C31D917E0937;
  Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 0FEDF48004E; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+ id 1178D480052; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 31 Jul 2026 16:42:18 +0200
-Subject: [PATCH v8 13/21] drm/rockchip: dw_dp: Implement out-of-band HPD
- handling
+Date: Fri, 31 Jul 2026 16:42:19 +0200
+Subject: [PATCH v8 14/21] drm/bridge: synopsys: dw-dp: Add Runtime PM support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-synopsys-dw-dp-improvements-v8-13-ac1e6a75782f@collabora.com>
+Message-Id: <20260731-synopsys-dw-dp-improvements-v8-14-ac1e6a75782f@collabora.com>
 References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6400;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13502;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=K2BbWak3F9Q2jTvsGbkaNezEQtxpB/CTjje1XqI8cJs=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEDljVLC02Lqn2tjeIrZLlrea05+8fIh6
- 1zOAqXphftG5YkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
- O/qamFsQAJeteMyuKwBjytLtNtYJsgKiMPyHh2dC+gvDgkWkh3hSmzmnYRSnN0wt8I6wGjAnUxz
- fQDU30n5XOdHrkOuwoAfXEbyXhuJBNVMYlWhYg/shcWvUltlZQ3p+zgs6mqy64BIRh089DZA+AK
- Wb7JSJc2d1LUvP2BUM5naGp7LqiIiNvb8hyW/uoEsVl101kGh2u2+GDdSQyTMq473oixbcIvML5
- tOrAZNkGnCNj2uw8YT5kayqmIzq4/pPoIXWSH3TzLP4QBh//LhNYf7xNXtzoe0dLZxDjQOLFaaG
- fEaUt8bpR0jVcf70HWpz+bEFixMWbwGGTrkVLZtYiJb9bMLs2JF1X7kTqTxvr01xsy1V+DOQYbO
- trWSGu1g2zXj7vKhCGqR5dDN/fTLQ1+CnhkfMZzMg3LM9fvNfzL/8AG0NI6512ztmNt7xV9J3Fa
- i7ZdoNeenjZ6NT8n2EZSOq3E5rhWX383axejUIAssTeBaglKXuwKgn0XgM8eAlQC0J7qOLjfhEG
- m6nunzmflC/bmNYWyW+zTcrsNzECOgeb/Ij7ZTOSIHTcSbhm8oGuOF9T+If2sNovQLiDFnhZ/K+
- ojmVCNo2oMM610GN0rieinTLg2UAYSUlDG8065L511KKDKbYhKKNDNnACPbL0tx8Tvc9j8pygAQ
- amRtfAqhz0afwtHBH/cg3Ug==
+ bh=Xrr78L9inY1ao+TGuIfSIsLe06DKCT3tq2pIYXzKzXw=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstECBy/wZbx5hVJCBED9H97aYuiPHWfM4p
+ kC827wzX/QhuIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
+ O/qasQEP+wbQfOuxm49YDaTYqx720xQKVFFMol+5tfKsP1W6UyMd6BkOpcNwHKm+GGlqDjEuzxm
+ IhrCVE6U9yHjb4dFvGjCCvZrGyUAzVQVvDrUFhaqzYNbVJeeKwwVJEhpSpHRtPX523Fd1tUUvhR
+ lCsSqmUtqJixTl6eITfl0WtcmVBM2Ugwk4EYPbOm3YLgKYMOda/yyez59XX7qqcSpae7CDppTCe
+ iz6ffjrtwQpTxSOvEB2UATPahFNcB8quqUADfWdkIb1nhtD4WOoQPRfuYRDNGna/jX9kk4hDw72
+ EPPVHEs8IWgExanw8eL+soFvj9/WPnfDgoifE49AnVJ4GSDvO0guRQLvezdi8rOsudvuBJOKr01
+ jCGr+msHdoIZ/XwgzHNMZb5uLW8FXWWtDIEfJ/AgRoHdcOYwAJPM/rZ/lXg9EnLwuWBoBExd+R4
+ s5/TAt9OHy4p71nsY0Oj4m2q8SH2A7mAlrc0FJCJzIR2pbZ3e8KSlop03OG5x1Mj1H072A4jq8m
+ xf1Rocgm6skqgjyur07V1cxI0bVqFdFZJ5WUgugeBrWEkMDE4ygEEqGXcuInRMw6oAm8kcdV8G5
+ 5n35hz9JnN4bGgkxI+p1Qrauc+dFir/VD7O6zRuGsyhYoQXZuPFZfc0kPy2LI0JZf0DZRBNepfO
+ 0Nd9J5y9SHzWCjNusXL0dYQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,206 +98,464 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Implement out-of-band hotplug handling, which will be used to receive
-external hotplug information from the USB-C state machine. This is
-currently handled by the USBDP PHY, which brings quite some trouble
-as the register being accessed requires the power-domain from the DP
-controller. Thus this patch prevents massive SError problems once
-runtime PM is enabled. Apart from that it avoids custom TypeC HPD
-info parsing in the USBDP PHY driver.
+Add runtime PM stubs to the Synopsys DesignWare DisplayPort bridge
+driver. Support is not enabled automatically and must be hooked up
+in the platform specific glue code.
 
-In contrast to the USBDP PHY this does not just enable the hotplug
-signal when a DP AltMode capable adapter is plugged in, but instead
-properly detects if a cable is plugged in for things like USB-C to
-HDMI adapters.
+The early bits of the dw_dp_probe function are split into a new
+function called dw_dp_alloc, so that the platform driver can assign
+it before running dw_dp_probe. This is necessary because the runtime
+PM resume/suspend events land at the platform driver and must be
+forwarded to the helper once runtime PM is enabled in the middle
+of the probe function.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 118 ++++++++++++++++++++++++++++--
- 1 file changed, 113 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 233 ++++++++++++++++++++++++++------
+ include/drm/bridge/dw_dp.h              |   7 +-
+ 2 files changed, 201 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index 005938dc66c9..d516b3910b51 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -7,9 +7,12 @@
-  */
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index b21c2016dbd2..c24a5436e8fe 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -329,6 +329,9 @@ struct dw_dp {
+ 	struct dw_dp_link link;
+ 	struct dw_dp_plat_data plat_data;
+ 	u8 pixel_mode;
++	bool usbc_mode;
++	bool usbc_hpd;
++	bool pm_active;
  
- #include <linux/component.h>
-+#include <linux/hw_bitfield.h>
- #include <linux/media-bus-format.h>
-+#include <linux/mfd/syscon.h>
- #include <linux/of_device.h>
- #include <linux/platform_device.h>
-+#include <linux/regmap.h>
- #include <linux/videodev2.h>
+ 	struct drm_bridge *next_bridge;
  
- #include <drm/bridge/dw_dp.h>
-@@ -23,12 +26,48 @@
+@@ -1468,6 +1471,11 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
+ 	if (WARN_ON(msg->size > 16))
+ 		return -E2BIG;
  
- #include "rockchip_drm_drv.h"
- 
-+#define ROCKCHIP_MAX_CTRLS 2
-+
-+#define ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL BIT(10)
-+#define ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG BIT(11)
-+
-+struct rockchip_dw_dp_plat_data {
-+	u8 num_ctrls;
-+	u32 ctrl_ids[ROCKCHIP_MAX_CTRLS];
-+	u32 max_link_rate;
-+	u8 pixel_mode;
-+	u32 hpd_reg[ROCKCHIP_MAX_CTRLS];
-+};
-+
- struct rockchip_dw_dp {
- 	struct dw_dp *base;
- 	struct device *dev;
-+	const struct rockchip_dw_dp_plat_data *pdata;
-+	struct regmap *vo_grf;
- 	struct rockchip_encoder *encoder;
-+	int id;
- };
- 
-+static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
-+{
-+	struct rockchip_dw_dp *dp = data;
-+	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
-+
-+	regmap_write(dp->vo_grf, hpd_reg,
-+		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, force_hpd_from_sw));
-+}
-+
-+static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
-+{
-+	struct rockchip_dw_dp *dp = data;
-+	u32 hpd_reg = dp->pdata->hpd_reg[dp->id];
-+
-+	dev_dbg(dp->dev, "Force HPD connected=%s\n", str_yes_no(hpd));
-+
-+	regmap_write(dp->vo_grf, hpd_reg,
-+		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, hpd));
-+}
-+
- static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
- 				      struct drm_crtc_state *crtc_state,
- 				      struct drm_connector_state *conn_state)
-@@ -71,6 +110,35 @@ static const struct drm_encoder_helper_funcs dw_dp_encoder_helper_funcs = {
- 	.atomic_check		= dw_dp_encoder_atomic_check,
- };
- 
-+static struct regmap *dw_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *dp)
-+{
-+	struct device_node *np = dev_of_node(dp->dev);
-+	struct of_phandle_args args;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dp->dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
 +	if (ret)
-+		return ERR_PTR(-ENODEV);
++		return ret;
 +
-+	/*
-+	 * Limit this workaround to RK3576 and RK3588, potential future platforms
-+	 * reusing the driver should just add a VO GRF phandle in the DisplayPort
-+	 * controller DT node.
-+	 */
-+	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
-+	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
-+		regmap = ERR_PTR(-ENODEV);
-+		goto out_put_node;
+ 	reinit_completion(&dp->complete);
+ 
+ 	switch (msg->request & ~DP_AUX_I2C_MOT) {
+@@ -1666,6 +1674,13 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 	struct drm_connector_state *conn_state;
+ 	int ret;
+ 
++	ret = pm_runtime_get_active(dp->dev, RPM_TRANSPARENT);
++	if (ret) {
++		dev_err(dp->dev, "runtime PM failure\n");
++		return;
 +	}
++	dp->pm_active = true;
 +
-+	regmap = syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
-+
-+out_put_node:
-+	of_node_put(args.np);
-+	return regmap;
-+}
-+
- static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *data)
+ 	connector = drm_atomic_get_new_connector_for_encoder(state, bridge->encoder);
+ 	if (!connector) {
+ 		dev_err(dp->dev, "failed to get connector\n");
+@@ -1716,10 +1731,15 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
  {
- 	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
-@@ -121,19 +189,53 @@ static const struct component_ops dw_dp_rockchip_component_ops = {
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
  
- static int dw_dp_rockchip_probe(struct platform_device *pdev)
- {
--	const struct dw_dp_plat_data *plat_data;
-+	const struct rockchip_dw_dp_plat_data *plat_data_const;
-+	struct dw_dp_plat_data *plat_data;
- 	struct device *dev = &pdev->dev;
- 	struct rockchip_dw_dp *dp;
-+	struct resource *res;
-+	int id;
- 
--	plat_data = of_device_get_match_data(dev);
--	if (!plat_data)
-+	plat_data_const = device_get_match_data(dev);
-+	if (!plat_data_const)
- 		return -ENODEV;
- 
-+	plat_data = devm_kzalloc(dev, sizeof(*plat_data), GFP_KERNEL);
-+	if (!plat_data)
-+		return -ENOMEM;
++	if (!dp->pm_active)
++		return;
++	dp->pm_active = false;
 +
- 	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
- 	if (!dp)
- 		return -ENOMEM;
- 	platform_set_drvdata(pdev, dp);
- 	dp->dev = dev;
-+	dp->pdata = plat_data_const;
-+
-+	res = platform_get_mem_or_io(pdev, 0);
-+	if (!res)
-+		return -ENODEV;
-+
-+	/* find the DisplayPort ID from the io address */
-+	dp->id = -ENODEV;
-+	for (id = 0; id < plat_data_const->num_ctrls; id++) {
-+		if (res->start == plat_data_const->ctrl_ids[id]) {
-+			dp->id = id;
-+			break;
-+		}
-+	}
-+
-+	if (dp->id < 0)
-+		return dp->id;
-+
-+	dp->vo_grf = dw_dp_rockchip_get_vo_grf(dp);
-+	if (IS_ERR(dp->vo_grf))
-+		return PTR_ERR(dp->vo_grf);
-+
-+	plat_data->max_link_rate = plat_data_const->max_link_rate;
-+	plat_data->pixel_mode = plat_data_const->pixel_mode;
-+	plat_data->hpd_sw_sel = dw_dp_rockchip_hpd_sw_sel;
-+	plat_data->hpd_sw_cfg = dw_dp_rockchip_hpd_sw_cfg;
-+	plat_data->data = dp;
- 
- 	dp->base = dw_dp_probe(pdev, plat_data);
- 	if (IS_ERR(dp->base))
-@@ -147,14 +249,20 @@ static void dw_dp_rockchip_remove(struct platform_device *pdev)
- 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
+ 	dw_dp_video_disable(dp);
+ 	dw_dp_link_disable(dp);
+ 	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+ 	dw_dp_reset(dp);
++	pm_runtime_put_autosuspend(dp->dev);
  }
  
--static const struct dw_dp_plat_data rk3588_dp_plat_data = {
-+static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
-+	.num_ctrls = 2,
-+	.ctrl_ids = {0xfde50000, 0xfde60000},
- 	.max_link_rate = 810000,
- 	.pixel_mode = DW_DP_MP_QUAD_PIXEL,
-+	.hpd_reg = {0x0000, 0x0008},
+ static bool dw_dp_hpd_detect_link(struct dw_dp *dp, struct drm_connector *connector)
+@@ -1740,6 +1760,10 @@ static enum drm_connector_status dw_dp_bridge_detect(struct drm_bridge *bridge,
+ {
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
+ 
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dp->dev, pm);
++	if (PM_RUNTIME_ACQUIRE_ERR(&pm))
++		return connector_status_disconnected;
++
+ 	if (!dw_dp_hpd_detect(dp))
+ 		return connector_status_disconnected;
+ 
+@@ -1892,6 +1916,14 @@ static void dw_dp_bridge_oob_notify(struct drm_bridge *bridge,
+ {
+ 	bool hpd_high = status != connector_status_disconnected;
+ 	struct dw_dp *dp = bridge_to_dp(bridge);
++	int ret;
++
++	dp->usbc_hpd = hpd_high;
++
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dp->dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return;
+ 
+ 	if (dp->plat_data.hpd_sw_cfg)
+ 		dp->plat_data.hpd_sw_cfg(dp->plat_data.data, hpd_high);
+@@ -1951,6 +1983,11 @@ static void dw_dp_hpd_work(struct work_struct *work)
+ 	bool long_hpd;
+ 	int ret;
+ 
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dp->dev, pm);
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return;
++
+ 	mutex_lock(&dp->irq_lock);
+ 	long_hpd = dp->hotplug.long_hpd;
+ 	mutex_unlock(&dp->irq_lock);
+@@ -2062,14 +2099,21 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+ 	struct device *dev = dp->dev;
+ 	int ret;
+ 
+-	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	ret = pm_runtime_get_active(dp->dev, RPM_TRANSPARENT);
+ 	if (ret)
+-		return dev_err_probe(dev, ret, "Failed to attach bridge\n");
++		return ret;
++
++	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
++	if (ret) {
++		dev_err_probe(dev, ret, "Failed to attach bridge\n");
++		goto put_runtime_pm;
++	}
+ 
+ 	dp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
+ 	if (IS_ERR(dp->next_bridge)) {
+ 		ret = PTR_ERR(dp->next_bridge);
+-		return dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
++		dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
++		goto put_runtime_pm;
+ 	}
+ 
+ 	ret = drm_bridge_attach(encoder, dp->next_bridge, bridge,
+@@ -2079,11 +2123,15 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+ 		goto put_next_bridge;
+ 	}
+ 
+-	if (dw_dp_is_routed_to_usb_c(encoder)) {
+-		dev_dbg(dev, "USB-C mode\n");
++	dp->usbc_mode = dw_dp_is_routed_to_usb_c(encoder);
++
++	if (dp->plat_data.hpd_sw_sel)
++		dp->plat_data.hpd_sw_sel(dp->plat_data.data, dp->usbc_mode);
+ 
+-		if (dp->plat_data.hpd_sw_sel)
+-			dp->plat_data.hpd_sw_sel(dp->plat_data.data, 1);
++	/* USB-C has out-of-band hotplug detection, so device may runtime suspend */
++	if (dp->usbc_mode) {
++		dev_dbg(dev, "USB-C mode\n");
++		pm_runtime_put_autosuspend(dp->dev);
+ 	}
+ 
+ 	return 0;
+@@ -2091,6 +2139,9 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+ put_next_bridge:
+ 	drm_bridge_put(dp->next_bridge);
+ 
++put_runtime_pm:
++	pm_runtime_put_autosuspend(dp->dev);
++
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(dw_dp_bind);
+@@ -2098,6 +2149,9 @@ EXPORT_SYMBOL_GPL(dw_dp_bind);
+ void dw_dp_unbind(struct dw_dp *dp)
+ {
+ 	drm_bridge_put(dp->next_bridge);
++
++	if (!dp->usbc_mode)
++		pm_runtime_put_autosuspend(dp->dev);
+ }
+ EXPORT_SYMBOL_GPL(dw_dp_unbind);
+ 
+@@ -2108,76 +2162,125 @@ static void dw_dp_phy_exit(void *data)
+ 	phy_exit(dp->phy);
+ }
+ 
+-struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data)
++static void dw_dp_manual_suspend(void *data)
++{
++	struct dw_dp *dp = data;
++
++	dw_dp_runtime_suspend(dp);
++}
++
++static void dw_dp_irq_free(void *data)
++{
++	struct dw_dp *dp = data;
++
++	/* ignore error as the interrupt needs to be free'd in any case */
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dp->dev, pm);
++
++	free_irq(dp->irq, dp);
++	dp->irq = -1;
++}
++
++static int dw_dp_irq_request(struct dw_dp *dp, int irq)
++{
++	int ret;
++
++	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dp->dev, pm);
++
++	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
++	if (ret)
++		return ret;
++
++	ret = request_threaded_irq(irq, NULL, dw_dp_irq,
++				   IRQF_ONESHOT, dev_name(dp->dev), dp);
++	if (ret)
++		return dev_err_probe(dp->dev, ret, "failed to request irq\n");
++
++	dp->irq = irq;
++
++	return devm_add_action_or_reset(dp->dev, dw_dp_irq_free, dp);
++}
++
++struct dw_dp *dw_dp_alloc(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data)
+ {
+ 	struct device *dev = &pdev->dev;
+-	struct drm_bridge *bridge;
+-	void __iomem *res;
+ 	struct dw_dp *dp;
+-	int ret;
+ 
+ 	dp = devm_drm_bridge_alloc(dev, struct dw_dp, bridge, &dw_dp_bridge_funcs);
+ 	if (IS_ERR(dp))
+ 		return ERR_CAST(dp);
+ 
+ 	dp->dev = dev;
++	dp->irq = -1;
+ 	dp->pixel_mode = plat_data->pixel_mode;
+ 
+ 	dp->plat_data.hpd_sw_sel = plat_data->hpd_sw_sel;
+ 	dp->plat_data.hpd_sw_cfg = plat_data->hpd_sw_cfg;
+ 	dp->plat_data.data = plat_data->data;
+ 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
++	dp->plat_data.autosuspend_delay = plat_data->autosuspend_delay;
+ 
+ 	init_completion(&dp->complete);
+ 
++	return dp;
++}
++EXPORT_SYMBOL_GPL(dw_dp_alloc);
++
++int dw_dp_probe(struct dw_dp *dp)
++{
++	struct device *dev = dp->dev;
++	struct platform_device *pdev = to_platform_device(dev);
++	struct drm_bridge *bridge;
++	void __iomem *res;
++	int irq, ret;
++
+ 	ret = devm_mutex_init(dev, &dp->irq_lock);
+ 	if (ret)
+-		return ERR_PTR(ret);
++		return ret;
+ 
+ 	res = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(res))
+-		return ERR_CAST(res);
++		return PTR_ERR(res);
+ 
+ 	dp->regmap = devm_regmap_init_mmio(dev, res, &dw_dp_regmap_config);
+ 	if (IS_ERR(dp->regmap)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->regmap), "failed to create regmap\n");
+-		return ERR_CAST(dp->regmap);
++		return PTR_ERR(dp->regmap);
+ 	}
+ 
+ 	dp->phy = devm_of_phy_get(dev, dev->of_node, NULL);
+ 	if (IS_ERR(dp->phy)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->phy), "failed to get phy\n");
+-		return ERR_CAST(dp->phy);
++		return PTR_ERR(dp->phy);
+ 	}
+ 
+-	dp->apb_clk = devm_clk_get_enabled(dev, "apb");
++	dp->apb_clk = devm_clk_get(dev, "apb");
+ 	if (IS_ERR(dp->apb_clk)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->apb_clk), "failed to get apb clock\n");
+-		return ERR_CAST(dp->apb_clk);
++		return PTR_ERR(dp->apb_clk);
+ 	}
+ 
+-	dp->aux_clk = devm_clk_get_enabled(dev, "aux");
++	dp->aux_clk = devm_clk_get(dev, "aux");
+ 	if (IS_ERR(dp->aux_clk)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->aux_clk), "failed to get aux clock\n");
+-		return ERR_CAST(dp->aux_clk);
++		return PTR_ERR(dp->aux_clk);
+ 	}
+ 
+ 	dp->i2s_clk = devm_clk_get_optional(dev, "i2s");
+ 	if (IS_ERR(dp->i2s_clk)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->i2s_clk), "failed to get i2s clock\n");
+-		return ERR_CAST(dp->i2s_clk);
++		return PTR_ERR(dp->i2s_clk);
+ 	}
+ 
+ 	dp->spdif_clk = devm_clk_get_optional(dev, "spdif");
+ 	if (IS_ERR(dp->spdif_clk)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->spdif_clk), "failed to get spdif clock\n");
+-		return ERR_CAST(dp->spdif_clk);
++		return PTR_ERR(dp->spdif_clk);
+ 	}
+ 
+ 	dp->hdcp_clk = devm_clk_get(dev, "hdcp");
+ 	if (IS_ERR(dp->hdcp_clk)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->hdcp_clk), "failed to get hdcp clock\n");
+-		return ERR_CAST(dp->hdcp_clk);
++		return PTR_ERR(dp->hdcp_clk);
+ 	}
+ 
+ 	/*
+@@ -2187,20 +2290,34 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 	dp->rstc = devm_reset_control_get(dev, NULL);
+ 	if (IS_ERR(dp->rstc)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->rstc), "failed to get reset control\n");
+-		return ERR_CAST(dp->rstc);
++		return PTR_ERR(dp->rstc);
+ 	}
+ 
+-	dw_dp_init_hw(dp);
++	if (dp->plat_data.autosuspend_delay > 0) {
++		pm_runtime_use_autosuspend(dev);
++		pm_runtime_set_autosuspend_delay(dev, dp->plat_data.autosuspend_delay);
++		ret = devm_pm_runtime_enable(dev);
++		if (ret)
++			return ret;
++	}
++
++	if (!pm_runtime_enabled(dev)) {
++		dw_dp_runtime_resume(dp);
++
++		ret = devm_add_action_or_reset(dev, dw_dp_manual_suspend, dp);
++		if (ret)
++			return ret;
++	}
+ 
+ 	ret = phy_init(dp->phy);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "phy init failed\n");
+-		return ERR_PTR(ret);
++		return ret;
+ 	}
+ 
+ 	ret = devm_add_action_or_reset(dev, dw_dp_phy_exit, dp);
+ 	if (ret)
+-		return ERR_PTR(ret);
++		return ret;
+ 
+ 	bridge = &dp->bridge;
+ 	bridge->of_node = dev->of_node;
+@@ -2210,26 +2327,66 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 
+ 	ret = devm_drm_bridge_add(dev, bridge);
+ 	if (ret)
+-		return ERR_PTR(ret);
+-
+-	dp->irq = platform_get_irq(pdev, 0);
+-	if (dp->irq < 0)
+-		return ERR_PTR(dp->irq);
++		return ret;
+ 
+ 	ret = devm_work_autocancel(dev, &dp->hpd_work, dw_dp_hpd_work);
+ 	if (ret)
+-		return ERR_PTR(ret);
++		return ret;
++
++	irq = platform_get_irq(pdev, 0);
++	if (irq < 0)
++		return irq;
++
++	return dw_dp_irq_request(dp, irq);
++}
++EXPORT_SYMBOL_GPL(dw_dp_probe);
++
++int dw_dp_runtime_suspend(struct dw_dp *dp)
++{
++	if (dp->irq >= 0)
++		disable_irq(dp->irq);
++
++	clk_disable_unprepare(dp->aux_clk);
++	clk_disable_unprepare(dp->apb_clk);
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(dw_dp_runtime_suspend);
++
++int dw_dp_runtime_resume(struct dw_dp *dp)
++{
++	int ret;
++
++	ret = clk_prepare_enable(dp->apb_clk);
++	if (ret)
++		return ret;
+ 
+-	ret = devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
+-					IRQF_ONESHOT, dev_name(dev), dp);
++	ret = clk_prepare_enable(dp->aux_clk);
+ 	if (ret) {
+-		dev_err_probe(dev, ret, "failed to request irq\n");
+-		return ERR_PTR(ret);
++		clk_disable_unprepare(dp->apb_clk);
++		return ret;
+ 	}
+ 
+-	return dp;
++	if (dp->plat_data.hpd_sw_sel)
++		dp->plat_data.hpd_sw_sel(dp->plat_data.data, dp->usbc_mode);
++	if (dp->plat_data.hpd_sw_cfg)
++		dp->plat_data.hpd_sw_cfg(dp->plat_data.data, dp->usbc_hpd);
++
++	dw_dp_init_hw(dp);
++
++	if (dp->irq >= 0) {
++		/*
++		 * HPD_HOT_PLUG bit is asserted only after the sink holds HPD
++		 * high for at least 100ms.
++		 */
++		msleep(110);
++
++		enable_irq(dp->irq);
++	}
++
++	return 0;
+ }
+-EXPORT_SYMBOL_GPL(dw_dp_probe);
++EXPORT_SYMBOL_GPL(dw_dp_runtime_resume);
+ 
+ MODULE_AUTHOR("Andy Yan <andyshrk@163.com>");
+ MODULE_DESCRIPTION("DW DP Core Library");
+diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
+index 79b2cdf0df99..1e23180b565e 100644
+--- a/include/drm/bridge/dw_dp.h
++++ b/include/drm/bridge/dw_dp.h
+@@ -18,6 +18,7 @@ enum {
  };
  
--static const struct dw_dp_plat_data rk3576_dp_plat_data = {
-+static const struct rockchip_dw_dp_plat_data rk3576_dp_plat_data = {
-+	.num_ctrls = 1,
-+	.ctrl_ids = {0x27e40000},
- 	.max_link_rate = 810000,
- 	.pixel_mode = DW_DP_MP_DUAL_PIXEL,
-+	.hpd_reg = {0x0000},
- };
+ struct dw_dp_plat_data {
++	int autosuspend_delay;
+ 	u32 max_link_rate;
+ 	u8 pixel_mode;
+ 	void *data;
+@@ -28,5 +29,9 @@ struct dw_dp_plat_data {
+ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder);
+ void dw_dp_unbind(struct dw_dp *dp);
  
- static const struct of_device_id dw_dp_of_match[] = {
+-struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data);
++struct dw_dp *dw_dp_alloc(struct platform_device *pdev, const struct dw_dp_plat_data *plat_data);
++int dw_dp_probe(struct dw_dp *dp);
++
++int dw_dp_runtime_suspend(struct dw_dp *dp);
++int dw_dp_runtime_resume(struct dw_dp *dp);
+ #endif /* __DW_DP__ */
 
 -- 
 2.53.0
