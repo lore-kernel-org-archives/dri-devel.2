@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0BACC55171
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:23:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94F7BC55176
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 16:23:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE5A10F335;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AAECF10F33B;
 	Fri, 31 Jul 2026 16:23:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Y31T1Cbx";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="hOGi+lHR";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2884C10F30D
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E2B610F30D
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 16:19:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785514782;
- bh=hMfmPjxTX291Q5EGzy4LRXRcR3XKvgItQhsbL5BpXSo=;
+ s=mail; t=1785514779;
+ bh=cD0+/HfmX6kyKNERhJbIzwqeRqoG4S21IHzyef7ml5w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Y31T1CbxRMTEv0VHq3rKBFvjGN7T4PHqWzcFv3WBxy+p5EENVAZIrKHCt1X9dcl/t
- je//Wvnhilp0J2oKlBjnLkancuuayTRy0xPL6VDqPISVo1mhUWb5N21KlebznHeZv7
- Wb7uPlfZKYNFC0/WB0fzG2AA/rKVV6Soy8IsoRHUGiT+RBW+Aezi0dgHr+5LRsgEtb
- aXS8WOcs0kZiSNR1pdoaEt7WWnMwgmCsVkGYKhkTJAVVgS1YK09BQdP+Tt6apRJldp
- DttKHxr9wdZyTOcIaLeNxwgkPL7xVKhImzHm+DpDJ9kX3h+GdVbGSUB4yxXJIs3xCT
- 5QYACaAi+DLkQ==
+ b=hOGi+lHRBgySpQW2uguQ7wsos1kzzG8W3hTgHG4zsO3iZhFXFRTp7MwCwGwswst0k
+ WvxJsEIy5w4NlG9nenga1sACsJ81ZwdOsrqTPIzSg1j2A2QYQ2KbEAksthrCAQlvYZ
+ hkgy4tc5gKSdJ+D6hWGZjTy9GFoNvpowysgh5qNErQhh5AIwsVQJpjkRI7dfwxi1wh
+ hGeIFE+JHvSpdx+Zy9xj3FUikWT5Tyfkv9hxJwQpc65e1EbyAaJom+UrKoK3fFzVln
+ 0qt+5XW7EGq9VjfxDlrcup7lj4g1s1EoGq53tRT++BhOhsqyxfY7oPkGM3fRmBZSUP
+ kj3ySNTVNhWHw==
 Received: from localhost (unknown [100.64.0.241])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
  SHA256) (No client certificate requested)
  (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B0C5417E0988;
- Fri, 31 Jul 2026 18:19:42 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3C40717E0972;
+ Fri, 31 Jul 2026 18:19:39 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Fri, 31 Jul 2026 19:19:46 +0300
-Subject: [PATCH v10 39/69] drm/bridge: dw-hdmi-qp: Drop unused .setup_hpd()
- phy op
+Date: Fri, 31 Jul 2026 19:19:41 +0300
+Subject: [PATCH v10 34/69] drm/rockchip: dw_hdmi_qp: Mask RK3576 HPD IRQ in
+ io_init
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-dw-hdmi-qp-scramb-v10-39-294364b2cf15@collabora.com>
+Message-Id: <20260731-dw-hdmi-qp-scramb-v10-34-294364b2cf15@collabora.com>
 References: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 In-Reply-To: <20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -62,9 +62,7 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Phong LE <ple@baylibre.com>
 Cc: kernel@collabora.com, linux-kernel@vger.kernel.org, 
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org, 
- Maud Spierings <maud_spierings@hotmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>
+ linux-sunxi@lists.linux.dev, linux-rockchip@lists.infradead.org
 X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -81,44 +79,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-With the transition to .{enable|disable}_hpd() phy ops complete in both
-the bridge and platform drivers, .setup_hpd() has no remaining callers.
-Drop it.
+Start with HPD masked, matching RK3588, so the bridge framework controls
+when interrupts are armed via hpd_enable().
 
-Tested-by: Maud Spierings <maud_spierings@hotmail.com>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Rock 5B
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 3 ---
- include/drm/bridge/dw_hdmi_qp.h              | 1 -
- 2 files changed, 4 deletions(-)
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-index a2277531182c..fcbc518cd90a 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
-@@ -1295,9 +1295,6 @@ static void dw_hdmi_qp_init_hw(struct dw_hdmi_qp *hdmi)
- 	/* Clear DONE and ERROR interrupts */
- 	dw_hdmi_qp_write(hdmi, I2CM_OP_DONE_CLEAR | I2CM_NACK_RCVD_CLEAR,
- 			 MAINUNIT_1_INT_CLEAR);
--
--	if (hdmi->phy.ops->setup_hpd)
--		hdmi->phy.ops->setup_hpd(hdmi, hdmi->phy.data);
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index f5342c5f457b..64e8e4c12cbd 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -432,7 +432,7 @@ static void dw_hdmi_qp_rk3576_io_init(struct rockchip_hdmi_qp *hdmi)
+ 
+ 	regmap_write(hdmi->vo_regmap, RK3576_VO0_GRF_SOC_CON14, val);
+ 
+-	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 0);
++	val = FIELD_PREP_WM16(RK3576_HDMI_HPD_INT_MSK, 1);
+ 	regmap_write(hdmi->regmap, RK3576_IOC_MISC_CON0, val);
  }
  
- struct dw_hdmi_qp *dw_hdmi_qp_bind(struct platform_device *pdev,
-diff --git a/include/drm/bridge/dw_hdmi_qp.h b/include/drm/bridge/dw_hdmi_qp.h
-index b4fb1c578a5b..ad33f9cafdeb 100644
---- a/include/drm/bridge/dw_hdmi_qp.h
-+++ b/include/drm/bridge/dw_hdmi_qp.h
-@@ -16,7 +16,6 @@ struct dw_hdmi_qp_phy_ops {
- 	int (*init)(struct dw_hdmi_qp *hdmi, void *data);
- 	void (*disable)(struct dw_hdmi_qp *hdmi, void *data);
- 	enum drm_connector_status (*read_hpd)(struct dw_hdmi_qp *hdmi, void *data);
--	void (*setup_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- 	void (*enable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- 	void (*disable_hpd)(struct dw_hdmi_qp *hdmi, void *data);
- };
 
 -- 
 2.55.0
