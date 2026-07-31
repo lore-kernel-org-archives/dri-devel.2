@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4CABC54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:43:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB963C54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 14:43:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 01FD410F2BF;
-	Fri, 31 Jul 2026 14:43:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A99510F2B8;
+	Fri, 31 Jul 2026 14:43:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="MtNpxYUi";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="oODs5DBh";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E601510F2B1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C9F110F2C5
  for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 14:42:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1785508929;
- bh=rrt5YOOAgulVloGhA8XYLb7XVQPmqKwIeo2+VJPjwtM=;
+ bh=jYYG820tXshJx3PU/SOR9UtrbIPIC5j6ESqL4oAQw7w=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=MtNpxYUi9XbAo1fed4Wm2aqPkXCznUo6OhXX301G+SJSaRxPb0e3l9XeKWoH652dy
- Gpx7Fan3FW1D61d5RrMh/dWO7wK5e5b+3HtdtrjpsK+yTxOtkCeRZe/zzk/hLCI/Qi
- Byox237ZWOF+p1Frn/AAvUbWe0ItliE4h2qjGB+yuLcpHzwQRFSp9IJ3tVUM6Hl3ax
- z0fa8bnJZZjCnqg5K/bio+7PUdOD3EVWM06U3nCA2hJNUMn20g8z2YdJNjx7JHNVAF
- VCspQwGXQDVMvhMhdI9epD26zPBhvYMW+co6O4uBSk32fEm4MPeTcDZmFkdIlw2gsR
- xba/81lqTiUKQ==
+ b=oODs5DBhfuTo8yal0/bXsNktyEo+arQ5MyiNiwH6Sf3r2NEVJYL5GVKz/HD7mbQIR
+ 0df2h4uPY1dZNu7dSkMZAh/xYcbPum8j3uP0QlNYmez/YIJWfotmuqLsEKIieggEc/
+ 0SZQPGZa+kKUumZFe8Uqxr5tLF7VEngyOARCzsrt1rQ2a3vlnSaVtdf1YdfhPpxyT4
+ VXOhRUIyUNahyva3Y7BdB6GwBcruCPu8CImcGHloTH1OG1bjUCakSO3XGAX9UQwXBe
+ nkopTGajh+GptE/Da7ZgD+fJbgFdayJfifENeywnDogP+K2NhlQAyYTVSjeaYlchTw
+ woXfbRiGRnrMA==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id AB91817E092C;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A081D17E090B;
  Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 0B18A480047; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
+ id 0807348003A; Fri, 31 Jul 2026 16:42:09 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Fri, 31 Jul 2026 16:42:15 +0200
-Subject: [PATCH v8 10/21] drm/bridge: synopsys: dw-dp: Add follow-up bridge
- support
+Date: Fri, 31 Jul 2026 16:42:13 +0200
+Subject: [PATCH v8 08/21] drm/bridge: synopsys: dw-dp: Free output_fmts
+ when none are valid
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-synopsys-dw-dp-improvements-v8-10-ac1e6a75782f@collabora.com>
+Message-Id: <20260731-synopsys-dw-dp-improvements-v8-8-ac1e6a75782f@collabora.com>
 References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -65,23 +65,24 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2515;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1057;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=rrt5YOOAgulVloGhA8XYLb7XVQPmqKwIeo2+VJPjwtM=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstECb1PZQPHkTUx0coHpDEhRO5v68sVK7Y
- xlXtNAk2100hokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
- O/qa47gP/2cAZf9HKtm/2zrGPQmMiKs1452MaG+YQ7iDQ/J0w3uIbSckJDW0bVkFtGEmOw3CSYc
- 9jDj0jFAljkb3viMlQnTvYaoCRXC94fPk88n19MfqILfD1+0LlhZnEsi0ulzTp67gSWNtPrRder
- nYDOu5P+fAJtjTTbtiep0yV6gz58BL9HRPzDDz1KgsD6EIu0wMqFk2MFxW61NUvo2jquZo6WyLJ
- Ybm6nlwM8c4JCoc9paTDOq/fZsP0sMe9uxnT6SPiW+2wNYpALLFkIwB3EdZoJwL8XLJQPwoJSqD
- h2B1AhQ+gEs1fQrgDy4tBBt9RhW7KYmXHDCfqm6BDt75pEK1jbZbKOKB/raIkr5anZgLXgc6ip8
- REx8MGSff0EPL8zxhtecJUkpcF62o6axLsZnE2kveIzJ8duJZbYqydrt9PlmRiSzgdGX6wV4Plv
- yoveYAlhUVk2R6iq3oemJEmYveTY7xxKjK5KRCxFItT7pijzjl+gnZzxZFuDtxrwY2Nipk9wATS
- 9ebnEs9RR84UnAEfrQFSMzO1r3A6xbEk5wORNpg8KmFKfzr9cobeKTBnZ4bsVHYAn1t2x8qeTrn
- r4zlZh9KgiYwItaWjdQLjsjMJ2hcp+Rv1+YwC/dxtgu6f9kfLKbjGr2oON7KdvT32M/Tpz5uOJS
- tUgET7ma0mfDVukWFNvUuig==
+ bh=jYYG820tXshJx3PU/SOR9UtrbIPIC5j6ESqL4oAQw7w=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpstEBUYn0qI1l1hWaSDOKwxLop5NMwGr6PE
+ JvmW35WJcUQYYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqbLRAAAoJENju1/PI
+ O/qav8MP/RPO40ojodunQiZWBRnnkJ0/Ozwbu3sYPnpj0AvBVBHWVlDNo1AQB662oMAW15qc/89
+ fb5uamVVzKo41QZVuzEmDswVcdd6Hy6I5Xy5Zn67VsPB1CU1EyWDQ3oZdq7oN/GSe2tWigzfp82
+ ZJC4XdlcuRlJ78Zn5gB3Pul/fUwk1UgD3EchgjGTpOJiG+rHbwYo4sOb8k87g6FpiRpN+TbWRU0
+ x2onZk38LyzNdHj8rEid2I/uNdxs3WsZ8m1JP2EFG/+KYliy+enXUqhaL3to5XNuag+SXIyK1tK
+ 2r6EIukRyOUunAc8jx2fN/PCIdofxV5V6Q/bQdNrLwcZHO3kCFCkCOmG4w6CyCofOzoiMN95OgA
+ BFBARWLwFpcnxPYlMWbzx79vT9LiE/nZ9bJ9Q8Xy+l5+E1PORpjwyLUxxMQ++dvIVz246bE3K6J
+ Zsz0VbcrVk3I5stANjFUyQNndgHC4fzEY7ZnGAMNTMXriv6dXchPC0F0nsxk1k/xkQ+9Zxb+nRq
+ rL33qrKu4MtkDnynXAf26egv0EwURTG7LJ3Wjm/s+1q0Bwglwq8oGA4SHWYI+4f97s5b/cpondy
+ cmJyxxZ0m/ns7P88G57obiFqx2M9fiSMExnmidWyFX5QVJiW1KCaq5Nfh5OnRyvECNnAHuP8aw7
+ zQXy4Q13pfjBXcjIYEZQwMA==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,84 +100,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support to use USB-C connectors with the DP altmode helper code on
-devicetree based platforms. To get this working there must be a DRM
-bridge chain from the DisplayPort controller to the USB-C connector.
-E.g. on Rockchip RK3576:
+If dw_dp_bandwidth_ok() returns false for all formats, *num_output_fmts
+might end up becoming 0. In this case functions calling it assume that
+nothing needs to be free'd, so free output_fmts within the function to
+avoid leaking memory.
 
-root@rk3576 # cat /sys/kernel/debug/dri/0/encoder-0/bridges
-bridge[0]: dw_dp_bridge_funcs
-        refcount: 7
-        type: [10] DP
-        OF: /soc/dp@27e40000:rockchip,rk3576-dp
-        ops: [0x47] detect edid hpd
-bridge[1]: drm_aux_bridge_funcs
-        refcount: 4
-        type: [0] Unknown
-        OF: /soc/phy@2b010000:rockchip,rk3576-usbdp-phy
-        ops: [0x0]
-bridge[2]: drm_aux_hpd_bridge_funcs
-        refcount: 5
-        type: [10] DP
-        OF: /soc/i2c@2ac50000/typec-portc@22/connector:usb-c-connector
-        ops: [0x4] hpd
-
-It's fine to fatally error out when there is no follow-up bridge
-as the Rockchip Designware Displayport controller is the only
-user of the bridge helper and has the port marked as required
-in its binding.
-
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 42927335f0fd..7d42067df2cf 100644
+index 760e1e0f8234..7127928c2650 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -330,6 +330,8 @@ struct dw_dp {
- 	struct dw_dp_plat_data plat_data;
- 	u8 pixel_mode;
+@@ -1804,6 +1804,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
+ 		output_fmts[j++] = fmt->bus_format;
+ 	}
  
-+	struct drm_bridge *next_bridge;
-+
- 	DECLARE_BITMAP(sdp_reg_bank, SDP_REG_BANK_SIZE);
- };
- 
-@@ -2037,13 +2039,31 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to attach bridge\n");
- 
-+	dp->next_bridge = of_drm_get_bridge_by_endpoint(dev->of_node, 1, 0);
-+	if (IS_ERR(dp->next_bridge)) {
-+		ret = PTR_ERR(dp->next_bridge);
-+		return dev_err_probe(dev, ret, "failed to get follow-up bridge.\n");
++	if (j == 0) {
++		kfree(output_fmts);
++		output_fmts = NULL;
 +	}
 +
-+	ret = drm_bridge_attach(encoder, dp->next_bridge, bridge,
-+				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to attach next bridge\n");
-+		goto put_next_bridge;
-+	}
-+
- 	return 0;
-+
-+put_next_bridge:
-+	drm_bridge_put(dp->next_bridge);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(dw_dp_bind);
+ 	*num_output_fmts = j;
  
- void dw_dp_unbind(struct dw_dp *dp)
- {
--	/* nothing to do */
-+	drm_bridge_put(dp->next_bridge);
- }
- EXPORT_SYMBOL_GPL(dw_dp_unbind);
- 
+ 	return output_fmts;
 
 -- 
 2.53.0
