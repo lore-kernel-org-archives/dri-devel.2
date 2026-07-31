@@ -4,95 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4CC4C54F54
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 07:19:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30249C55167
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 07:20:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 39D3610F198;
-	Fri, 31 Jul 2026 07:19:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69D9610F1A0;
+	Fri, 31 Jul 2026 07:20:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="GuXFYXGz";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="NoPi5OCn";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D28AE10F198
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 07:19:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C922210F1A0
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 07:20:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785482379;
+ s=mimecast20190719; t=1785482414;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=CHdEKoHtgVBqNRMda5c2tqE6/+0bl8VSMMMLDCwYELw=;
- b=GuXFYXGzk94Jv+v4/TIqFqbRBp+cLNa4jVA2bdEBo33baUZJnLPmjI0WlFTvNQXe69Ka0t
- zviNHDwd7Q6k29HhnQPxKpbrpPouN/LKGFJbQqcrWmCagnutc2Mo2Mz/uPUcpeKO98so0p
- vMYk8s7ZAdxxBQYn0iuPx18tUWXTeH0=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=dj8rz8VUz5drdM9tkyErMU4LmSj7E0FEy06SzAi9zFE=;
+ b=NoPi5OCn0h3WDX3JFCmdG3hPD59OFTRKVlsJ7SGMaYIANEJpfBWXGVg0i2oGeaSPYd8YUk
+ 0O3u73Lw3jfOFcE+9EsLFuoQACuDOvHfVctBGHalTSdiCD+7EtOgUpmeSWliVE6k1Vk4HY
+ XKtMJ2YOoUFXdFm3IlL7exgn2dUA7jA=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-607-fgb1_m1wM3ORBDOQJ8j3iQ-1; Fri, 31 Jul 2026 03:19:32 -0400
-X-MC-Unique: fgb1_m1wM3ORBDOQJ8j3iQ-1
-X-Mimecast-MFC-AGG-ID: fgb1_m1wM3ORBDOQJ8j3iQ_1785482371
-Received: by mail-ed1-f70.google.com with SMTP id
- 4fb4d7f45d1cf-69cd6606b19so607853a12.1
- for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 00:19:32 -0700 (PDT)
+ us-mta-197-ALHEUEaIOZSP0Q9CqFQ7-Q-1; Fri, 31 Jul 2026 03:20:12 -0400
+X-MC-Unique: ALHEUEaIOZSP0Q9CqFQ7-Q-1
+X-Mimecast-MFC-AGG-ID: ALHEUEaIOZSP0Q9CqFQ7-Q_1785482411
+Received: by mail-wr1-f70.google.com with SMTP id
+ ffacd0b85a97d-473ac08a6a4so523850f8f.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 00:20:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785482371; x=1786087171;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=CHdEKoHtgVBqNRMda5c2tqE6/+0bl8VSMMMLDCwYELw=;
- b=Ng8KM9AhhLEFC7hVGYcEjY9lwaIm2c4TIyvSPCk1p7RFS/KUHq4qGmp2QHmGakO9ru
- UM6+bM9UThhHGF/xNsJK0WaKTq7uc38LcTbrtxSkDY1yWuIUpwqAT0AZnyRzE6ovcnR2
- FyISyJria1I7MFbjYyJIEUR4+SDFsIMza1fO3oWBGglyAhKhX5GPhlpO4ZS4XuCxiwJq
- +hhqZE7H2/U69MqhyIGIv+/2Y7iLF7Xk1IToAqBZ1gu0D+CLcRzgsgOPsXNpmGh3E3xG
- QAOg/wapSBrfyTH7+zmzniWaXzokxnZrbko2ie205M4uSX3F+2kMoiczuSGo6tpVX/q3
- pCOg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqgEc5p01CWqrPzAKYqofkCVbYC8EXJyMUmoffIugmFt7pZrCi1yirygt0r9TYeWurTr83Q2DqpTZs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwvyFbMVcm0+QqOtfpsi50dnBBWkJGagAj274kXp+CYUbAzwrnp
- p4h3W/rnsC2TKEHxDqZwZ7fTIl7Mq/1AUqJNWk505VPe4IR0xdEfcawdLU/Epvkt5FsJutvH32y
- 4SU1/JOk0kOLdqYlRf7iACoXiPKHafyp++XJCN0yF86OUCaQ9j3wE0/bCTMfByIM1AHDjTA==
-X-Gm-Gg: AR+sD11ZlmjJ+F5eqRdBf0gI8Smh70FZW+fsR4/vIIQdMOQKl9G4YWt8VlDrCwEqU5t
- uZo45in2kLb3CNLsP9GMg/i8whzo/t3o7VeXx9vyCJvOxVq7w9YrYDlN52+DWROaogyfjcCctyH
- wkH6SCpBx6H34LhyBPWo33NjcoC/mrw4Um6jaR65rDmXDVfXo4Qeuzus3w3VuB0J4srIE6tOUv8
- 6mguoL5vvFzz6m5XgxixdNQDV5zH+PQLRUdO3lSsP0Lpf756rpAIdEh2rrmbeeCZP4gtt1xBtEx
- YYMho4qmpS/sIli8Mejo1DIAOxWIG5p7x5ufX0Ka6bm27U345viPCogdMg3Yal7rjmdJLspQJXp
- FW5b9bbO+5BHUx2YZNXvNgmcAasTWbTNyP0btrP2ekZ6wjQ==
-X-Received: by 2002:a05:6402:26cb:b0:6a0:8877:fa54 with SMTP id
- 4fb4d7f45d1cf-6a0984eef9cmr425758a12.17.1785482371276; 
- Fri, 31 Jul 2026 00:19:31 -0700 (PDT)
-X-Received: by 2002:a05:6402:26cb:b0:6a0:8877:fa54 with SMTP id
- 4fb4d7f45d1cf-6a0984eef9cmr425741a12.17.1785482370925; 
- Fri, 31 Jul 2026 00:19:30 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:9b4:d000:c3c5:df83:3a33:2c51?
- ([2a01:e0a:9b4:d000:c3c5:df83:3a33:2c51])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a09c6551cbsm373196a12.20.2026.07.31.00.19.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 31 Jul 2026 00:19:30 -0700 (PDT)
-Message-ID: <e50cb7f0-a98c-4bdc-99ff-09ad9c653334@redhat.com>
-Date: Fri, 31 Jul 2026 09:19:26 +0200
+ d=1e100.net; s=20251104; t=1785482411; x=1786087211;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=dj8rz8VUz5drdM9tkyErMU4LmSj7E0FEy06SzAi9zFE=;
+ b=Gee1vXpeYvVr80hZ0S8RkeZlnYBRnaZa92bKeZ1cc9Kt1YkdUn4DefQd2CI9b43VoJ
+ LwxLgUKE4quBesf/PhCvuBVCjQHehFlxByEMwsqzv6uekMea7iYP60QSUTjniKjHTWiB
+ s6VTAmix/cEtaKhCkT5afniQBy3oq1tR6eXsrpw0muLKJKKQNOK1tn55hpoy48WHNrtQ
+ RwK4g9WbFN7u88x0fsVj92XXbljDS7QnNvSblPpt6xWJ8JtbCtvHwAuxo1/CF8SvxoGj
+ v4piL2uI3BtrbTYgZm0OSO88y0JFso3gWnc+5uov21g7bUo2s3+C148oPB1WKEDyvFd3
+ at1Q==
+X-Gm-Message-State: AOJu0YwNIV4BarkXL3vYEY6d/40f3Ij/97j5bNEDBMsKsm9iw2p+LO9X
+ IGA8180Z1r5AIWyB2WVKhhLbyRmFCN4ADi+wSMyQQS1akz0cI4YsuV2bNU6weJdmw0NKH2Bh/uz
+ coRhFYQlzJQ8WoqHCndN6RuiZ5/LUHfZpijoKTq0VpUZUISfIqtdIKRt+dozAbcvLLQJfZQ==
+X-Gm-Gg: AR+sD13/jg2bemXlhHhJLWStDQeVyCquUk3vc0tO8MyGTJxgMHDX95EijHhBzwji+hF
+ G5jq6+VW4MOCfCfiAj/0Gu+DBojDQXOd6LMGIFNJ04oS+ImssMcDFQIUx27ZspSNlEVxF/mgY9K
+ dKbzsKy//e5VThLkw9/4kIwalCA11YQgy6CM7TbPMAPdMb6pqVyBkxjxi3oUTq6rR1huDQYJB1F
+ KMm4r9ADek8xofqbn5BRFjl7GCQdHy3ReCB/poMSxZDfUKA/6tRVj6/VVTpwEtEriw4q6qm5bjK
+ h9LmumvyVVgJ3MWG82W3TjWhMGhWAiqE8bN/kBzUUnjIXZ190Y1UV0K9avpIgaWGsBMIRP7NG//
+ MDQFr2xg0ANjxT+lc33crPdyxI+nh
+X-Received: by 2002:a05:6000:4a10:b0:474:b860:b7b1 with SMTP id
+ ffacd0b85a97d-47fd2ab9f6cmr2051934f8f.9.1785482411151; 
+ Fri, 31 Jul 2026 00:20:11 -0700 (PDT)
+X-Received: by 2002:a05:6000:4a10:b0:474:b860:b7b1 with SMTP id
+ ffacd0b85a97d-47fd2ab9f6cmr2051861f8f.9.1785482410614; 
+ Fri, 31 Jul 2026 00:20:10 -0700 (PDT)
+Received: from localhost ([84.78.248.203]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47fd456a5a4sm1592645f8f.20.2026.07.31.00.20.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 31 Jul 2026 00:20:09 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Amit Barzilai <amit.barzilai22@gmail.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Amit
+ Barzilai <amit.barzilai22@gmail.com>
+Subject: Re: [PATCH 0/2] drm/ssd130x: Wire up ssd133x backlight/dimming
+In-Reply-To: <20260729053054.29374-1-amit.barzilai22@gmail.com>
+References: <20260729053054.29374-1-amit.barzilai22@gmail.com>
+Date: Fri, 31 Jul 2026 09:20:07 +0200
+Message-ID: <874ihfeic8.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/log: Fix division by zero when scale module
- parameter is 0
-To: oushixiong1025@163.com
-Cc: Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jani Nikula <jani.nikula@linux.intel.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Shixiong Ou <oushixiong@kylinos.cn>
-References: <20260730014440.66323-1-oushixiong1025@163.com>
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260730014440.66323-1-oushixiong1025@163.com>
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: dyVU38d-zrLkjsQWMe3EoOgl85XK1iwpwJm4B8Svbas_1785482371
+X-Mimecast-MFC-PROC-ID: 5Dh8omyufHfwqRaxnFowwbmNVs0KZhvBNLMrTrDVDNU_1785482411
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,49 +97,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 30/07/2026 03:44, oushixiong1025@163.com wrote:
-> From: Shixiong Ou <oushixiong@kylinos.cn>
-> 
-> The scale module parameter can be set to 0 via kernel command line.
-> When scale is 0, scaled_font_h and scaled_font_w become 0, causing
-> a division by zero in the rows/columns calculation.
-> 
-> Since the scale module parameter is read-only (0444 permissions), it
-> cannot be changed at runtime via sysfs. Clamp it to 1 once in
-> drm_log_register().
+Amit Barzilai <amit.barzilai22@gmail.com> writes:
 
-Thanks, it looks good to me
+Hello Amit,
 
-Reviewed-by: Jocelyn Falempe <jfalempe@redhat.com>
+> The ssd130x backlight controller adjusts brightness by writing the panel's
+> contrast, but ssd130x_update_bl() writes the single global SSD13XX_CONTRAST
+> (0x81) command that only the SSD130x and SSD132x families expose.  SSD133x
+> has no such command: brightness is controlled through three per-channel
+> contrast registers (CONTRAST_A/B/C) that form a white-balance calibration
+> and must be scaled together.  As a result the backlight device registered
+> for an ssd133x panel had no effect.
+>
+> This series adds ssd133x dimming:
+>
+>   - Patch 1 extracts the ssd133x_init() contrast magic values into
+>     ssd133x_set_contrast(), which scales the per-channel calibration by a
+>     requested brightness so the white point is preserved while dimming.
+>
+>   - Patch 2 makes backlight_ops.update_status a per-family choice, so
+>     ssd133x uses a handler that drives the three channels while SSD130x and
+>     SSD132x keep the existing single-register path.
+>
+> Note patch 1 changes the ssd133x power-on brightness: it previously booted
+> at the unscaled (full) calibration and ignored the contrast field, and now
+> honours the shared default contrast of 127, i.e. half of MAX_CONTRAST.
+> This is intentional and matches ssd130x, whose contrast register also
+> defaults to mid-scale, so all families now power on at ~50%.
+>
+> WARNING - NOT TESTED ON HARDWARE: this series is compile-tested only.  I do
+> not have an ssd133x panel, so the runtime behaviour -- in particular the
+> ssd133x contrast scaling and the new per-family backlight update -- is
+> unverified.  It is posted now so that dependent work (ssd1351 support) can
+> be based on it.  Review and testing by anyone with the hardware is welcome.
+>
 
-> 
-> Signed-off-by: Shixiong Ou <oushixiong@kylinos.cn>
-> ---
-> v2->v3:
->     Clamp scale once in drm_log_register() instead of introducing a
->     drm_log_scale() helper, since scale is read-only at runtime.
-> 
-> v1->v2:
->     Introduce a drm_log_scale() helper.
-> 
-> diff --git a/drivers/gpu/drm/clients/drm_log.c b/drivers/gpu/drm/clients/drm_log.c
-> index 294b3be1a6b3..46004abd4e61 100644
-> --- a/drivers/gpu/drm/clients/drm_log.c
-> +++ b/drivers/gpu/drm/clients/drm_log.c
-> @@ -424,6 +424,9 @@ void drm_log_register(struct drm_device *dev)
->   {
->   	struct drm_log *new;
->   
-> +	if (!scale)
-> +		scale = 1;
-> +
->   	new = kzalloc_obj(*new);
->   	if (!new)
->   		goto err_warn;
-> --
-> 2.25.1
-> 
-> No virus found
-> 		Checked by Hillstone Network AntiVirus
-> 
+I've reviewed the patches and are quite straightforward so I think is safe
+to merge them. I'll wait a few days in case someone else have comments but
+feel free to post your ssd1351 patches if you have them already, just note
+in the cover letter that depend on this patch-set.
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
