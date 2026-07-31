@@ -4,97 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36B40C55171
-	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:33:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 939ABC54F54
+	for <dri-devel@archiver.kernel.org>; Fri, 31 Jul 2026 15:39:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E7AA10F2DD;
-	Fri, 31 Jul 2026 15:33:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E517010E234;
+	Fri, 31 Jul 2026 15:39:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qpkAk9x/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="E8zDNAsI";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013014.outbound.protection.outlook.com
- [40.93.201.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C64F410F2E4;
- Fri, 31 Jul 2026 15:33:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gsJk/BIqss8QXJz96Uj/nnBKEC2smRYm/ksF2Xst7OVuoBu9rDzHOs1ndJOv5eR07E3GTCys5MztwTfyTAE/YT+Tm2t+ugqCJiOVptDNFW/iYyD+5t9OZ/VU9GEiWOhevpJ1GKJCNvPPvs3X+BmwTFVLekNHIFtaIzPXyMESNSsybGEqr8WU6Owo0KDM80aBbmoMt6OE613ZFaG0krkDjJLrJHVpEUSf4y5EWhKPuLysPPqbR/sgAScDVBOfI0u1UZ87YryebXcEt7gvpiVzeBAdzGskz4OG3FejFZ4t/BppohCPFl70Bbu7SwieBwSFkov13b19X1zBAURchhnT7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zn0SSeHjjjiZ0GmDYqLc7cooK9W2DPzbHlOiRCNrpKQ=;
- b=pUN55HcaxnfJuApHcyc1wftD7W2aQoL+t3W/Z78tSlCoZVY9JosVJ2GQLepYRVy63/zuRcgPZ2AI2vn3FkELT5RhAnfWTNt9VkVVLhl5xeUNXCLWoFmeVUAvRXUj0kPNbulUxw9wnd03Kr2ZDGsn3Wcbi/YU39QVLKemK7XFBR6x+/HpMJ/q5gZGn7IsnURfND83O18U5PsACtOPxmH/lo8DKZCvkYb14zVhnO2esJGedugo92qbNSKzC3DOpW5mOOXkzjsgT0QBMGTBxUBUAVU4gniDcrS+Mi9nb9jp2su104Ri6uh2t62jQKpxSL6ll4TicgDpwt8eHKPlMHQE1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zn0SSeHjjjiZ0GmDYqLc7cooK9W2DPzbHlOiRCNrpKQ=;
- b=qpkAk9x/FM5FjnEuv8qdI5YFJ4QsZtBBLTZHQvmPrZ9gxFKiugwoTg3/T4rmGfoqKNx6OqjkZoaDO6POjK6OGnMsEQ+/MTJzQbPtNefeuI1eTK7d+AyA/RK2TfDJVqhGcMw3UaOqmNfs5qpMydCoqSDJiCtpmi+5DlGrPBFINhE=
-Received: from CY5P220CA0005.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:ed::13)
- by SAWPR12MB999316.namprd12.prod.outlook.com (2603:10b6:806:55f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
- 2026 15:33:02 +0000
-Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
- (2603:10b6:930:ed:cafe::44) by CY5P220CA0005.outlook.office365.com
- (2603:10b6:930:ed::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
- 31 Jul 2026 15:33:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 15:33:01 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 10:33:00 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 10:33:00 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-next-7.3
-Date: Fri, 31 Jul 2026 11:32:53 -0400
-Message-ID: <20260731153253.1393962-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|SAWPR12MB999316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 832aece5-1914-4cc3-e699-08deef1901da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|13003099007|56012099006|11063799006|6133799003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: dqbPANmZdUrnGvYrDM9PrfvWe6kpDMNLsqU8+UHa/qbxXNchtKvnm/tEcbISwmOX6WwZCQxtcd/GdsQNERL1OjraZrAfitJpb4S8QpFylLYD4C21pJ7nLxuKMrBmn32mFUv+7aqAw/fKWVk3BBC7RlY0D7SQTWsSc+ULCkgB36MeJsz2BwSLlQ4b0nnIuYXGtPKaHDJXMXI31vTMcjyEsaslsLSxDYbFcBfTTHdu8CIcIBeMvpm0K+iaSWrc0g7SWD2i7Wd1frEIqWCleiz8UnyOkPaTauki7Vy5NDa+lakmNb6zre9jA35/udGbdoQpm4KcAeihYK9nmS24sXlTaoYnAyg6YmzpqbXQHcIeV0pzYKVLpEvIv37EAK6RVNBAPXBDHC/PHf/7fLDN8Qea5TwMzFA7YdEhANV3lJ1plF9JrcNjbcaeZG3ek9YNVgos7Q6UG2j5at5pf3orFXpSniJurtf0DPLwgVROFMGdsByUDDtN2T8F0Toy4scOfilgWKVGXu1IkvEivqryArEHWc2w15uRtgJm/XvzXNDR+3HF9p8NNmNH6ZH2Gy7V0vAEliyL1qVQhAnTzXwy7sx2OqwKln9rwiT9DoMNadIn7zyeuaVsfSbxOo8EfImvzlQ3T4Et4TSie6gZkEwrEQ/zHQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(13003099007)(56012099006)(11063799006)(6133799003)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Pyn+W3gEHR4q3v8ClVkPhwwxmJXw1C031AbKpCnppIChvrweZXGiS4e8oYT43G6lQHX+0OJP2gywl7pY3mjYXyAyDYgtMSt+Ip6dA3MCdz+XX26c6bFiGKiqdRGy84r2C1R6uNFHConvUToAR77hC8WXUbQoo10wbLO7BHTqiVZj6OiGaEr7F5dWlshTF9iLPFBTP/+IsmF7n5DIDSxHjxTQuAbyQUOXd0ztR/4AtG0vigcUotJUSJi6B+alDQverpI8XRP3rvyt9+2Rp+C9KueR2B7hjq8zuxTIYmg461WWzSPvMf3HxQ+TiEH/yGDgCP6yjpr4YBdBnGyz0rQcdr+xXny5UTFvofc4XDkkHpm77UeWnSfHJm2S0BxpKLAgKW8gMwhApUc3ECYHi82Dudk4dpawo0WzwfqE43J+iAqwDBqoukjIDjOBjv8fEkFs
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 15:33:01.6651 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 832aece5-1914-4cc3-e699-08deef1901da
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999316
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 831D410E234
+ for <dri-devel@lists.freedesktop.org>; Fri, 31 Jul 2026 15:38:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 13A4F415C5;
+ Fri, 31 Jul 2026 15:38:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6EDE1F000E9;
+ Fri, 31 Jul 2026 15:38:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785512339;
+ bh=XBFcqaRSdrmN1bTDIsg17jrvm7k/gI6rGWVc+HnWbDY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=E8zDNAsIZ1UF2YrUscbiTixhsUmzihdZDIfc5U40TH1PRl42xQDzy0pQBwmOjYjYr
+ C6LygrkgBmFq6F5RqKFDSL5NJ1OMduoKSyIR/Aw0QEv8Nf01ODBkQUrS84goAfkXss
+ QUGPM+j76GKYsniqM2KbrFUxIFPHcjNSWTdtHFZdIxCnoOTx3jsojMjzVGCY5mCg6e
+ 9MPfiVynPYMysHbSbMfp/Xytf6Yv4rRwisozkNuDyRjenMKWRTUJ0xQtohJxU1oMDb
+ STPHiy3gDgYFsHFhOBURjfGSrvBOpvsqeCaTBWCfawTSJRBOwHkBqWftSuD+CoSrjs
+ aQbn9A6hJNQpA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 04/21] drm/bridge: synopsys: dw-dp: Document missing
+ reset line deassert
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260731-synopsys-dw-dp-improvements-v8-4-ac1e6a75782f@collabora.com>
+References: <20260731-synopsys-dw-dp-improvements-v8-0-ac1e6a75782f@collabora.com>
+ <20260731-synopsys-dw-dp-improvements-v8-4-ac1e6a75782f@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 31 Jul 2026 15:38:58 +0000
+Message-Id: <20260731153858.A6EDE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,77 +55,99 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-While I was doing the follow up fixes for 7.2, I thought I'd do a last
-few updates for 7.3.
+Pre-existing issues:
+- [High] The bridge subclasses the atomic state (`struct dw_dp_bridge_state=
+`) but fails to implement `.atomic_create_state` correctly and does not ful=
+ly copy subclass fields during `.atomic_duplicate_state`.
+--
 
-The following changes since commit 6f16fcbb0c46a87e3d9685407e906573d60104b0:
+--- Patch [4]: [PATCH v8 04/21] drm/bridge: synopsys: dw-dp: Document missi=
+ng reset line deassert ---
+commit eae7b13a259bfd47bfead9cca99a86275cf00d9a
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-  drm/amd/display: use proper context for logging (2026-07-28 19:17:34 -0400)
+    drm/bridge: synopsys: dw-dp: Document missing reset line deassert
+   =20
+    If the driver uses devm_reset_control_get_exclusive_deasserted() instead
+    of devm_reset_control_get() and thus automatically deasserts during
+    probe, the SoC will hang when the device is unbound.
 
-are available in the Git repository at:
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 6289ed06e2317..a8ae13cf91d60 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -2076,6 +2076,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *=
+pdev, const struct dw_dp_plat_
+>  		return ERR_CAST(dp->hdcp_clk);
+>  	}
+> =20
+> +	/*
+> +	 * This reset line is deasserted by default; asserting it hangs the SoC=
+ if the
+> +	 * related power-domain is still active.
+> +	 */
+>  	dp->rstc =3D devm_reset_control_get(dev, NULL);
+>  	if (IS_ERR(dp->rstc)) {
+>  		dev_err_probe(dev, PTR_ERR(dp->rstc), "failed to get reset control\n");
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.3-2026-07-31
+While reviewing this, I noticed a pre-existing issue in the same file:
 
-for you to fetch changes up to 9243cf4777fc780157602603caa52c285908f26a:
+drivers/gpu/drm/bridge/synopsys/dw-dp.c:
+> static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struc=
+t drm_bridge *bridge)
+> {
+> 	struct dw_dp_bridge_state *state;
+>=20
+> 	state =3D kzalloc_obj(*state);
+> 	if (!state)
+> 		return NULL;
+>=20
+> 	__drm_atomic_helper_bridge_duplicate_state(bridge, &state->base);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  drm/amd/amdgpu: remove duplicated code in gfx_v11 and gfx_v12 (2026-07-29 17:56:28 -0400)
+[Severity: High]
+This isn't a bug introduced by this patch, but does this correctly copy
+subclass fields?
 
-----------------------------------------------------------------
-amd-drm-next-7.3-2026-07-31:
+The generic helper __drm_atomic_helper_bridge_duplicate_state() only copies
+the base struct size, failing to carry over the subclass-specific fields
+to the newly allocated state.
 
-amdgpu:
-- PM sysfs fix for APUs
-- DC pageflip timeout fixes
-- New GFX7 soft reset implementation
-- Misc code cleanup
+[ ... ]
 
-amdkfd:
-- Remove svm_bo eviction fence
+> static const struct drm_bridge_funcs dw_dp_bridge_funcs =3D {
+> 	.attach =3D dw_dp_bridge_attach,
+> 	.detach =3D dw_dp_bridge_detach,
+> 	.atomic_duplicate_state =3D dw_dp_bridge_atomic_duplicate_state,
+> 	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
+> 	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-----------------------------------------------------------------
-Leo Li (1):
-      drm/amd/display: Exit idle optimizations before programming
+[Severity: High]
+This is also a pre-existing issue, but is the initial state allocation large
+enough for the subclass?
 
-Philip Yang (1):
-      drm/amdkfd: Remove svm_bo eviction fence
+When drm_mode_config_reset() creates the initial atomic state using the
+generic helper, the allocated object is only sizeof(struct drm_bridge_state=
+).
 
-Timur Kristóf (9):
-      drm/amdgpu/gfx7: Make amdgpu_gfx_mqd_sw_init() usable on GFX7
-      drm/amdgpu/gfx7: Refactor MQD initialization and finalization
-      drm/amdgpu/gfx7: Return error code when compute ring tests fail
-      drm/amdgpu/gfx7: Return error code when failing to start GFX ring
-      drm/amdgpu/gfx7: Fixup emitting SWITCH_BUFFER packets
-      drm/amdgpu/gfx7: Clean up gfx ring during reset
-      drm/amdgpu/gfx7: Use COND_EXEC
-      drm/amdgpu/gfx7: Fixup IP block soft reset
-      drm/amdgpu/gfx7: Enable IP block soft reset as a GPU recovery method
+If a hotplug event occurs before the first modeset, dw_dp_hpd_work() calls
+dw_dp_link_retrain() -> dw_dp_link_downgrade(), which fetches the initial
+state via dw_dp_get_bridge_state() and reads subclass fields like state->mo=
+de
+and state->bpp.
 
-Ulisses Paixao (1):
-      drm/amd/amdgpu: remove duplicated code in gfx_v11 and gfx_v12
+Could this result in a heap out-of-bounds read because the custom subclass
+state wasn't fully allocated?
 
-Yang Wang (1):
-      drm/amd/pm: hide pp_table sysfs on APUs
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c        |  21 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h        |   3 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  15 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c           |  58 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h           |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c        |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c           |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |   7 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c            |  48 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c            |  49 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c             | 331 ++++++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c          |   4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c              | 109 +++----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h              |  13 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  78 ++---
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c               |  13 +-
- 17 files changed, 374 insertions(+), 392 deletions(-)
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731-synopsys-d=
+w-dp-improvements-v8-0-ac1e6a75782f@collabora.com?part=3D4
