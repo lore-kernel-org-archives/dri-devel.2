@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4285C5516F
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 00:33:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24566C55171
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 00:33:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 044A710E167;
-	Sat,  1 Aug 2026 00:33:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9372B10E265;
+	Sat,  1 Aug 2026 00:33:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S6ONTH0F";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="S9xycIdY";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F056E10E167
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 789FC10E167
  for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 00:33:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D782540DB4;
+ by sea.source.kernel.org (Postfix) with ESMTP id 249714179A;
  Sat,  1 Aug 2026 00:33:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B841F00AC4;
- Sat,  1 Aug 2026 00:33:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D59B51F00AC4;
+ Sat,  1 Aug 2026 00:33:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
  s=k20260515; t=1785544385;
- bh=8vx+LdQaZUSQH9Y1ncNlbKME+Sk1HJqKl5lcpgonB4g=;
+ bh=oF8XFmOCU4DXenTnLB+n5cPbz0TkoqsyBGzfFFfbZt4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=S6ONTH0F7qNme32f9jMC8h8ECCKWTUcZcK/9VMWJUDJ/VGfscC6NnCoCXoV5806IL
- r5HXeD7VDly3i9YFg9Uot/sSDnGQiRMqP68fqcQeXVA930J3hy1exbqZ+aTLMv7zhb
- iKX4pKYogT9pYpDXh2mcoQAr8J2KiuCH3U5pnJIKEQ6bq0wHt9t0oe28oVCc7AODBe
- YUA5rDGiCUH+3yvEJkdW30FfjXe6aXNErY/OnqZW6c5atzGKFmLpDyXXHPlfckW4QQ
- VnzuZpI0nj+oOvg+yuvS1r2ZDWXE+W3PfXOXx2r/Zi7AUcHK3AVRYFm3rSVts3gPfc
- oOGyK2TlxBJHA==
+ b=S9xycIdY38z77gMHHCZx6dlUCE2fdw6dxm25bFIcKQMhwvzYc+NvPzFfrb5f34MXu
+ v8OSpuwBj8eJ6HAHkLHJGR5d6aNs0oDjcx8v836UOHL5Aay98M8CPRYZEDKkjBF4ZG
+ Ll56nrwOnjNMUJgdbSyGe6x4EjsYzbR8Tu+PvFUk4/rjX9NKsp2nbQ76IvyqU5yqNL
+ aIB/OK5eYQFqHnpIHmql9OradNYwx6d5hYh6LvZz/wtvDHLJ/BuK8QjpYOXDF0iaAl
+ jylvILdlydYoqRfJds2SNGxF5PGsnd6pUb5TloMJpSx3HMsHSYpTSaonnU7TFIplns
+ Htt1z3MGGBx5w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 1/3] net: devmem: allow rx-page-size >
- PAGE_SIZE per dmabuf binding
+Subject: Re: [PATCH net-next v7 3/3] selftests/net: devmem.py: add
+ check_rx_large_niov
 To: "Bobby Eshleman" <bobbyeshleman@gmail.com>
 Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260730-tcpdm-large-niovs-v7-1-033d580a619d@meta.com>
+In-Reply-To: <20260730-tcpdm-large-niovs-v7-3-033d580a619d@meta.com>
 References: <20260730-tcpdm-large-niovs-v7-0-033d580a619d@meta.com>
- <20260730-tcpdm-large-niovs-v7-1-033d580a619d@meta.com>
+ <20260730-tcpdm-large-niovs-v7-3-033d580a619d@meta.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 01 Aug 2026 00:33:05 +0000
-Message-Id: <20260801003305.84B841F00AC4@smtp.kernel.org>
+Date: Sat, 01 Aug 2026 00:33:04 +0000
+Message-Id: <20260801003304.D59B51F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,159 +58,71 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Critical] Mismatch between `dmabuf->size` alignment check and `niov_shif=
-t` allocation causes zero-sized allocations and heap out-of-bounds writes.
-- [High] Arithmetic right shift of a negative `ssize_t` causes out-of-bound=
-s array access for dmabuf chunks larger than 2GB.
-
-Pre-existing issues:
-- [High] Truncation of 64-bit `dma_addr_t` to 32-bit `unsigned long` corrup=
-ts chunk address tracking, causing memory leaks.
+- [Medium] The newly added rx_page_size probe in require_devmem() fails to =
+execute within the correct network namespace, causing the test to incorrect=
+ly skip in containerized environments (like nk_devmem.py).
 --
 
---- Patch [1]: [PATCH net-next v7 1/3] net: devmem: allow rx-page-size > PA=
-GE_SIZE per dmabuf binding ---
-commit 721bc7584b49aea3874dba5c8bcb4896d26b75ed
+--- Patch [3]: [PATCH net-next v7 3/3] selftests/net: devmem.py: add check_=
+rx_large_niov ---
+commit 53558ad37aa9b0e02e2eb8a09081a53ab1fd981c
 Author: Bobby Eshleman <bobbyeshleman@meta.com>
 
-net: devmem: allow rx-page-size > PAGE_SIZE per dmabuf binding
+selftests/net: devmem.py: add check_rx_large_niov
 
-Every devmem dmabuf binding today hands the page_pool PAGE_SIZE niovs.
-This caps a single RX descriptor at PAGE_SIZE, burning CPU on buffer
-churn for large flows.
+Add a new devmem test case for binding the dmabuf with rx-page-size=3D16K.
+The test sweeps RX payload sizes straddling the niov boundary to cover
+the sub-niov, exact-niov, and multi-niov RX paths.
 
-Add a bind-time netlink attribute, NETDEV_A_DMABUF_RX_PAGE_SIZE, that
-lets userspace request a larger niov size. The value must be a power of
-two >=3D PAGE_SIZE.
-
-> diff --git a/net/core/devmem.c b/net/core/devmem.c
-> --- a/net/core/devmem.c
-> +++ b/net/core/devmem.c
+> diff --git a/tools/testing/selftests/drivers/net/hw/devmem_lib.py b/tools=
+/testing/selftests/drivers/net/hw/devmem_lib.py
+> index 0921ff03eb81c..cbe3a8e498239 100644
+> --- a/tools/testing/selftests/drivers/net/hw/devmem_lib.py
+> +++ b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
 
 [ ... ]
 
-> @@ -93,13 +93,14 @@ net_devmem_alloc_dmabuf(struct net_devmem_dmabuf_bind=
-ing *binding)
->  	ssize_t offset;
->  	ssize_t index;
+> @@ -18,6 +28,25 @@ def require_devmem(cfg):
+>      if not cfg.devmem_supported:
+>          raise KsftSkipEx("Test requires devmem support")
 > =20
-> -	dma_addr =3D gen_pool_alloc_owner(binding->chunk_pool, PAGE_SIZE,
-> +	dma_addr =3D gen_pool_alloc_owner(binding->chunk_pool,
-> +					1UL << binding->niov_shift,
->  					(void **)&owner);
->  	if (!dma_addr)
->  		return NULL;
-> =20
->  	offset =3D dma_addr - owner->base_dma_addr;
-> -	index =3D offset / PAGE_SIZE;
-> +	index =3D offset >> binding->niov_shift;
+> +    if rx_page_size > 0:
+> +        page_size =3D os.sysconf("SC_PAGE_SIZE")
+> +        if not _is_aligned(rx_page_size, page_size):
+> +            raise KsftSkipEx(
+> +                f"rx-page-size=3D{rx_page_size} is invalid for this plat=
+form "
+> +                f"(must be a multiple of PAGE_SIZE=3D{page_size})")
+> +
+> +        if not hasattr(cfg, "devmem_rx_page_size_probed"):
+> +            cfg.devmem_rx_page_size_probed =3D {}
+> +
+> +        if rx_page_size not in cfg.devmem_rx_page_size_probed:
+> +            probe_command =3D f"{cfg.bin_local} -f {cfg.ifname} -b {rx_p=
+age_size}"
+> +            cfg.devmem_rx_page_size_probed[rx_page_size] =3D \
+> +                cmd(probe_command, fail=3DFalse, shell=3DTrue).ret =3D=
+=3D 0
 
-[Severity: High]
-Will this right shift perform an arithmetic shift when offset is negative?
+[Severity: Medium]
+Is it intentional that this probe command executes in the default namespace
+rather than the containerized network namespace?
 
-In net_devmem_alloc_dmabuf(), offset is declared as ssize_t (a 32-bit signed
-integer on 32-bit architectures). For a DMA chunk larger than 2GB, the
-difference between dma_addr and owner->base_dma_addr will overflow into a
-negative value.
+Since cmd() is called without the ns=3Dgetattr(cfg, "netns", None) argument,
+it appears this probe runs outside of the proper network context. Could this
+cause tests in container environments (like nk_devmem.py) to incorrectly sk=
+ip
+because the rx_page_size capability probe fails?
 
-Previously, offset / PAGE_SIZE would implicitly promote offset to unsigned
-long because PAGE_SIZE is unsigned, yielding the correct positive index. By
-changing this to a right shift by binding->niov_shift, the result of the
-shift retains the signed type of the left operand (ssize_t). Right-shifting
-a negative signed value performs sign extension, resulting in a negative
-index.
-
-Could this lead to an out-of-bounds access on owner->area.niovs[index]?
-
->  	niov =3D &owner->area.niovs[index];
-> =20
->  	niov->desc.pp_magic =3D 0;
-
-[ ... ]
-
-> @@ -113,12 +114,13 @@ void net_devmem_free_dmabuf(struct net_iov *niov)
->  {
->  	struct net_devmem_dmabuf_binding *binding =3D net_devmem_iov_binding(ni=
-ov);
->  	unsigned long dma_addr =3D net_devmem_get_dma_addr(niov);
-> +	size_t niov_size =3D 1UL << binding->niov_shift;
-> =20
->  	if (WARN_ON(!gen_pool_has_addr(binding->chunk_pool, dma_addr,
-> -				       PAGE_SIZE)))
-> +				       niov_size)))
-
-[Severity: High]
-This is a pre-existing issue, but can the 64-bit dma_addr be truncated here
-on 32-bit systems?
-
-In net_devmem_free_dmabuf(), the 64-bit return value from
-net_devmem_get_dma_addr() is assigned to an unsigned long dma_addr and pass=
-ed
-to gen_pool_has_addr().
-
-A similar truncation occurs in net_devmem_bind_dmabuf() where
-sg_dma_address(sg) is passed to the unsigned long virt parameter of
-gen_pool_add_owner().
-
-On 32-bit systems with PAE/LPAE, dma_addr_t is 64-bit. If the original 64-b=
-it
-address plus the chunk size crosses a 4GB boundary, the truncated 32-bit
-end_addr in gen_pool wraps around, breaking the bounds check in
-gen_pool_has_addr(). This causes the teardown path to trigger the WARN_ON
-and abort without freeing the chunk.
-
-Does this cause a permanent memory leak?
-
->  		return;
-> =20
-> -	gen_pool_free(binding->chunk_pool, dma_addr, PAGE_SIZE);
-> +	gen_pool_free(binding->chunk_pool, dma_addr, niov_size);
->  }
-
-[ ... ]
-
-> @@ -248,18 +256,14 @@ net_devmem_bind_dmabuf(struct net_device *dev, void=
- *vdev,
->  			goto err_unmap;
->  		}
->  		binding->tx_vec =3D kvmalloc_objs(struct net_iov *,
-> -						dmabuf->size / PAGE_SIZE);
-> +						dmabuf->size >> niov_shift);
-
-[Severity: Critical]
-Can tx_vec be allocated as a zero-sized array here?
-
-In net_devmem_bind_dmabuf(), the alignment check prior to this allocation
-still verifies that dmabuf->size is a multiple of PAGE_SIZE rather than
-niov_size:
-
-	if (!IS_ALIGNED(dmabuf->size, PAGE_SIZE)) {
-		err =3D -EINVAL;
-		NL_SET_ERR_MSG(extack, "TX dma-buf size must be a multiple of PAGE_SIZE");
-		goto err_unmap;
-	}
-
-If userspace binds a dmabuf where PAGE_SIZE <=3D dmabuf->size < niov_size (=
-for
-example, 4K size with 64K niov_size), this check will pass, but the tx_vec
-allocation (dmabuf->size >> niov_shift) will allocate 0 elements.
-
-Later, if the exporter padded the scatterlist segment to niov_size, the
-scatterlist parsing loop computes owner->area.num_niovs =3D 1 and writes to
-tx_vec[0].
-
-Could this result in a heap out-of-bounds write?
-
->  		if (!binding->tx_vec) {
->  			err =3D -ENOMEM;
->  			goto err_unmap;
->  		}
->  	}
+> +
+> +        if not cfg.devmem_rx_page_size_probed[rx_page_size]:
+> +            raise KsftSkipEx(
+> +                f"Test requires devmem rx-page-size=3D{rx_page_size} sup=
+port")
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260730-tcpdm-larg=
-e-niovs-v7-0-033d580a619d@meta.com?part=3D1
+e-niovs-v7-0-033d580a619d@meta.com?part=3D3
