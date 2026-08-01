@@ -4,47 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD655C55174
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 21:53:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1651EC55162
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 22:41:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0636010E0FA;
-	Sun,  2 Aug 2026 21:53:50 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="iKyTbVSE";
-	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6AAF310E0FA
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 21:53:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=5tW3gzMRi2JQESc12ri/SYeAcCCTrJ4+Im41jFFRNfU=; b=iKyTbVSEZAT2OwiJV8E1908GeX
- fRQJB2KtAlkp/+wiDW96FgrTOoHseADUdgCTBfvfNqkFO8WokA4mYn3OGogaNB0n5kZkFp0A1GhOR
- ZL4mnHmgSowBOulzEI+UmwGjFmtR5YntD8/upF2m9RzkOp0gBB1Z0DhtMKV/G16anzC4hmBLX5598
- 6opc0pjT0ib6uSo/+DL+JzY5dsn+7D09UpRr8S/NJ79F44mgDoCEK6wV0xLcXwyT17+/3HNdmtW34
- k0AmXuXI8kJHRxzBK/dlVLcR5MT1welSKk4EveYKZIk379Zu+dj6sqqXUXHRgt9yEFjTQNiMFArWU
- Q5cdToug==;
-Received: from [187.36.208.132] (helo=prince)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wqe7o-00CiK4-Ji; Sun, 02 Aug 2026 23:53:41 +0200
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH 0/2] drm/v3d: Fix system freezes by serializing the GPU
- reset
-Date: Sun,  2 Aug 2026 18:50:19 -0300
-Message-ID: <178570741174.1182025.9933861973750671100.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
-References: <20260728-v3d-order-global-reset-v1-0-e47be838158d@igalia.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id E354410E3E1;
+	Sun,  2 Aug 2026 22:41:01 +0000 (UTC)
+Received: from mail-gw-fk003.vdone.jp (mail-gw-fk003.vdone.jp
+ [160.251.152.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 100EF10E185
+ for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 22:35:27 +0000 (UTC)
+Received: from mail-gw-fk003.vdone.jp (localhost.localdomain [127.0.0.1])
+ by mail-gw-fk003.vdone.jp (Proxmox) with ESMTP id 2B92F40177F92
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 07:35:26 +0900 (JST)
+Received: from e3.valueserver.jp (e3.valueserver.jp [157.7.184.13])
+ by mail-gw-fk003.vdone.jp (Proxmox) with ESMTPS id 245CF401827E4
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 07:35:25 +0900 (JST)
+Received: (qmail 849831 invoked by uid 89); 2 Aug 2026 07:35:24 +0900
+Received: from p1706034-ipxg06601niigatani.niigata.ocn.ne.jp (HELO
+ localhost.localdomain) (jack@supremeoverlordjabs.co)
+ by e3.valueserver.jp with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 2 Aug 2026 07:35:24 +0900
+From: Tomonori Nakagawa <jack@supremeoverlordjabs.co>
+To: Chaoyi Chen <chaoyi.chen@rock-chips.com>, Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Tomonori Nakagawa <jack@supremeoverlordjabs.co>
+Subject: [PATCH v2] drm/rockchip: vop2: give rk3576 VP2 a primary plane
+Date: Sun,  2 Aug 2026 07:35:20 +0900
+Message-ID: <20260801223520.8661-1-jack@supremeoverlordjabs.co>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260729232450.13797-1-jack@supremeoverlordjabs.co>
+References: <20260729232450.13797-1-jack@supremeoverlordjabs.co>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Sun, 02 Aug 2026 22:41:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,29 +59,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On rk3576 the two Cluster windows are the only windows typed
+DRM_PLANE_TYPE_PRIMARY, and both have possible_vp_mask = BIT(0) | BIT(1),
+so they can only be attached to VP0 or VP1. VP2's only attachable
+windows are the Esmart windows, which are all DRM_PLANE_TYPE_OVERLAY.
 
-On Tue, 28 Jul 2026 23:09:21 -0300, Maíra Canal wrote:
-> V3D exposes several independent hardware queues, but it only has a single,
-> global reset. Therefore, when a job times out in one queue, the timeout
-> handler has to stop, reset and restart the schedulers of every other queue
-> as well. As each scheduler queues its timeout work on the system workqueue,
-> those handlers run concurrently and can interfere with each other.
-> 
-> This can be reproduced on a Raspberry Pi 4 or 5 by running glmark2-wayland,
-> which keeps the CL queues busy, while a second application triggers a GPU
-> reset in the CSD queue every 0.5 seconds. The failure is non-deterministic,
-> but it usually shows up after a dozen resets: the DRM scheduler warns about
-> a credit imbalance in one of the CL queues,
-> 
-> [...]
+vop2_create_crtcs() requires every video port a board wires up (an output
+endpoint on video_portN) to own a DRM_PLANE_TYPE_PRIMARY plane. On a
+board whose DT routes any interface to VP2, no attachable primary plane
+is found and probe fails with -ENOENT ("no primary plane for vp 2"),
+tearing down the whole VOP2.
 
-Applied, thanks!
+Promote Esmart0 to DRM_PLANE_TYPE_PRIMARY. Its possible_vp_mask is
+BIT(0) | BIT(2); since vop2_create_crtcs() assigns primaries in window
+array order and Cluster0/Cluster1 precede Esmart0, VP0 and VP1 still take
+Cluster0/Cluster1, and only VP2 gains Esmart0 as its primary:
 
-[1/2] drm/v3d: Serialize the scheduler timeout handlers
-      commit: 4da94744707b27a3ae1197bdd7127da4505dc5b1
+  VP0: primary Cluster0
+  VP1: primary Cluster1
+  VP2: primary Esmart0
 
-I'll apply "drm/v3d: Remove the now-redundant reset lock" to drm-misc-next when
-the former commit is merged to it.
+Tested on Anbernic RG Vita Pro (rk3576), which routes its DP output to
+VP2.
 
-Best regards,
-- Maíra
+Signed-off-by: Tomonori Nakagawa <jack@supremeoverlordjabs.co>
+---
+v2: reword the commit message per Chaoyi Chen's review - VP2 is not
+    DP-specific; describe the plane topology instead (the two
+    PRIMARY-typed Cluster windows are limited to VP0/VP1 by
+    possible_vp_mask, so VP2 has no attachable primary). No functional
+    change.
+
+ drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+index 17eda592b..e7d013dc3 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
++++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
+@@ -894,7 +894,7 @@ static const struct vop2_win_data rk3576_vop_win_data[] = {
+ 		.format_modifiers = format_modifiers,
+ 		.layer_sel_id = { 2, 0xf, 0, 0xf },
+ 		.supported_rotations = DRM_MODE_REFLECT_Y,
+-		.type = DRM_PLANE_TYPE_OVERLAY,
++		.type = DRM_PLANE_TYPE_PRIMARY,
+ 		.axi_bus_id = 0,
+ 		.axi_yrgb_r_id = 0x10,
+ 		.axi_uv_r_id = 0x11,
+-- 
+2.54.0
+
+
