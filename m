@@ -4,64 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24DD3C55172
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 17:44:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E18C55172
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 18:12:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 46FE110E0EA;
-	Sat,  1 Aug 2026 17:44:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F88510E375;
+	Sat,  1 Aug 2026 18:12:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="J0Xo2fx5";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="VsJ1Mlt4";
 	dkim-atps=neutral
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch
- [79.135.106.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9EED810E0EA
- for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 17:44:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1785606275; x=1785865475;
- bh=GEnf/aEUeF5h5noLn7GPe6Z4ZE8ClVmcGqH+KCbBXJU=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=J0Xo2fx5hC6OiriflfmKS/PP8suzBKCpm0cqcbRCFfQhn8RF7TDrqDJhPpLr2liYb
- /aeDXqSSr/sNF+/UwhjmCfpTm40X4B0fxWLHez1Tow1p1eSEdc1ZNfwznOnzaNc/uH
- PiVpB+uewXSrDqA9eglw8Jx7TVajRxvCBQMp0OX0s/yCJZcB4iJc5A0uNofWToRFty
- nWE/xV9JVDfgYrZxaq0fonCTDwmPojO3sIXJGvfjeEoCVzkTd7gAe47owTgZbmtPK3
- UgZaRIWDoxCmrJWTjCazKL+a6jsku2/Nay2sSmF1YS/G/w5QBGW7Xjc0t8TkCj3YyI
- VD8oEKEnzMlnw==
-X-Pm-Submission-Id: 4hC9L32F1Tz1DDrb
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Boqun Feng <boqun@kernel.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org,
- linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Boris Brezillon <boris.brezillon@collabora.com>, Maurice <mhi@mailbox.org>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-Subject: Re: [PATCH v5 4/4] rust: clk: use 'kernel vertical style' for imports
-Date: Sat,  1 Aug 2026 20:44:24 +0300
-Message-ID: <20260801174426.926785-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260706-clk-type-state-v5-4-67c5f326a16c@collabora.com>
-References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
- <20260706-clk-type-state-v5-4-67c5f326a16c@collabora.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 32E7410E375
+ for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 18:12:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1785607923;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=QuTNiFWTTsXb3gAvFi53MKk8btbhasMaATEQzE79DwE=;
+ b=VsJ1Mlt45tmQM6mNKZAcHo/isWyA56noSToIFFAiEhX7/3knzuMXgfDhAbr3VPqzppvp/c
+ /zZSF9Y/HB768a4BcH9+ERJBZpUCuvWagHC856JY6oFfcTTY37oNrcxKvU9VdoV6rlITBt
+ ldYKhAWnGlr1KnLrsEDLGhVYAlJLsPg=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-551-FNF9DRLsOsi_E-l2hWoNmw-1; Sat, 01 Aug 2026 14:12:01 -0400
+X-MC-Unique: FNF9DRLsOsi_E-l2hWoNmw-1
+X-Mimecast-MFC-AGG-ID: FNF9DRLsOsi_E-l2hWoNmw_1785607921
+Received: by mail-wm1-f72.google.com with SMTP id
+ 5b1f17b1804b1-496b6f97676so9150025e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 11:12:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785607920; x=1786212720;
+ h=content-type:mime-version:message-id:date:references:in-reply-to
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=QuTNiFWTTsXb3gAvFi53MKk8btbhasMaATEQzE79DwE=;
+ b=Il1BjCk35cM6q5l9+0kKJhNOELyK635OTzCmb3l5beNFm1r6qlzr9Q7QiA+dtFT4jF
+ 5AcCQozIIl8IWDKozPjKurSQLc/S4k6fq3FjDi411s9MSX5bdMz8DVLRM6Cc+zpfD4+r
+ 7AyO6IKw9XHrPlqk9AtEeXoo9U03v+/R91hSJUOApSndzC8cA4LEP4JPMowx6tT81IXY
+ MYYfX8Eoy576/LYfA60BkhMcJ9j2w+w8+715/aRQ2e8wFDUpOjhnkwzELMvyTjYmdfQA
+ qnyILo5y+vRBOipZq1q5oqtjX01Dk6AUKw3DcPMxRxoqGgDd506z27xR29fj3a+cPK0+
+ Eg9w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoURQyEuTFSJEQeogVhLv3CRuF91UuhLDNXfgSDd12HiXtP5hnUbm+8uWI4G39OASQdzMLNloiVR0o=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhW6rAuBg/1C7w8mseKvm6SSOBOsuOc6O0NET99Na1W/XVcupu
+ mbHxgb1XMWi4/Qatqo7t19vBJMBf57pzloGijDwrhaNyi9zvH0gIzMFrRVZyfeRCxyjliRcteW0
+ Eh4/V90fNDqGXp9fVmqAFWk0xAYaK74FyHPz4YNz4s7Bevw1ILJ518c3+5EMVpCHNqPP0tA==
+X-Gm-Gg: AR+sD138Q7sR34WRy5CIT0xruOI62dQ2hD11PkYt+/50HMBeF0GZfAmsS+t4fYcC+iq
+ 1S+MZSZAnltcIeE4ewLGwisIx/ZHbBs+B391Vj3bbm9p2klEmoRzYKKObXHFL9PQyV1L8rgy84n
+ aLDBpEpeXMwYDLqekytD/EEV5EXHvclTFxJP4vRFGX7XJxxjRthCk28VzMVd4pDRMVRy6/Fc6PD
+ +Zh/gDG6gbILskaJ7Eqv823rLSaCQjI2nogCHDBSDkkHvkp+l7DIdN26n/2J+j2RWhfm4b1lBQ7
+ wu1YZtZWN11CHZGC6VI0KNtD0L75olyx+ytkf6LsY0AXtidLB+KMIKcEJCFsYvAPsGRCmnSrtL7
+ uKGGEWZWovrlHTAtsT87KypHah4zDVo2215N96z+w2pyMwVp2qKm98ZkfeoM=
+X-Received: by 2002:a05:600c:840f:b0:493:c42e:5be0 with SMTP id
+ 5b1f17b1804b1-4980c60705amr64842225e9.0.1785607920457; 
+ Sat, 01 Aug 2026 11:12:00 -0700 (PDT)
+X-Received: by 2002:a05:600c:840f:b0:493:c42e:5be0 with SMTP id
+ 5b1f17b1804b1-4980c60705amr64841705e9.0.1785607919932; 
+ Sat, 01 Aug 2026 11:11:59 -0700 (PDT)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4980878dcb4sm117791635e9.13.2026.08.01.11.11.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 01 Aug 2026 11:11:58 -0700 (PDT)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Helge Deller <deller@gmx.de>, Jakub Turek <jakub.turek@elsta.tech>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>
+Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] fbdev: ssd1307fb: add support for Sino Wealth
+ SH1107 controller
+In-Reply-To: <a90747ae-e2c0-4add-9fff-1ff473d1b410@gmx.de>
+References: <20260731-feat-sh1107-v2-0-0d2893e44ebd@elsta.tech>
+ <20260731-feat-sh1107-v2-1-0d2893e44ebd@elsta.tech>
+ <a90747ae-e2c0-4add-9fff-1ff473d1b410@gmx.de>
+Date: Sat, 01 Aug 2026 20:11:57 +0200
+Message-ID: <87y0epd82a.fsf@ocarina.mail-host-address-is-not-set>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: J_HjU3TDpk4sLUZcbR-3LtlRXuCpbafjgSY2x_vYs5A_1785607921
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,148 +105,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 06 Jul 2026 11:37:15 -0300=0D
-Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
-=0D
-> Convert all imports to use the new import style. This will make it easier=
-=0D
-> to land new changes in the future.=0D
-> =0D
-> No change of functionality implied.=0D
-> =0D
-> Link: https://docs.kernel.org/rust/coding-guidelines.html#imports=0D
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>=0D
-=0D
-Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
-=0D
-> ---=0D
->  rust/kernel/clk.rs | 66 +++++++++++++++++++++++++++++++++++++++++-------=
-------=0D
->  1 file changed, 50 insertions(+), 16 deletions(-)=0D
-> =0D
-> diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs=0D
-> index b9a44f83843a..e677156ffd21 100644=0D
-> --- a/rust/kernel/clk.rs=0D
-> +++ b/rust/kernel/clk.rs=0D
-> @@ -80,13 +80,23 @@ fn from(freq: Hertz) -> Self {=0D
->  mod common_clk {=0D
->      use super::Hertz;=0D
->      use crate::{=0D
-> -        device::{Bound, Device},=0D
-> -        error::{from_err_ptr, to_result, Result},=0D
-> +        device::{=0D
-> +            Bound,=0D
-> +            Device, //=0D
-> +        },=0D
-> +        error::{=0D
-> +            from_err_ptr,=0D
-> +            to_result, //=0D
-> +        },=0D
->          prelude::*,=0D
-> -        sync::Arc,=0D
-> +        sync::Arc, //=0D
->      };=0D
->  =0D
-> -    use core::{marker::PhantomData, mem::ManuallyDrop, ptr};=0D
-> +    use core::{=0D
-> +        marker::PhantomData,=0D
-> +        mem::ManuallyDrop,=0D
-> +        ptr, //=0D
-> +    };=0D
->  =0D
->      mod private {=0D
->          pub trait Sealed {}=0D
-> @@ -193,9 +203,15 @@ impl<State: ClkState> From<Error<State>> for kernel:=
-:error::Error {=0D
->          /// original [`Clk`], e.g.:=0D
->          ///=0D
->          /// ```=0D
-> -        /// use kernel::clk::{Clk, Enabled, Unprepared};=0D
-> -        /// use kernel::device::{Bound, Device};=0D
-> -        /// use kernel::error::Result;=0D
-> +        /// use kernel::clk::{=0D
-> +        ///     Clk,=0D
-> +        ///     Enabled,=0D
-> +        ///     Unprepared, //=0D
-> +        /// };=0D
-> +        /// use kernel::device::{=0D
-> +        ///     Bound,=0D
-> +        ///     Device, //=0D
-> +        /// };=0D
->          ///=0D
->          /// fn get_enabled(dev: &Device<Bound>) -> Result<Clk<Enabled>> =
-{=0D
->          ///     let clk =3D Clk::<Unprepared>::get(dev, Some(c"apb_clk")=
-)?=0D
-> @@ -245,9 +261,17 @@ fn from(err: Error<State>) -> Self {=0D
->      /// The following example demonstrates how to obtain and configure a=
- clock for a device.=0D
->      ///=0D
->      /// ```=0D
-> -    /// use kernel::clk::{Clk, Enabled, Hertz, Unprepared, Prepared};=0D
-> -    /// use kernel::device::{Bound, Device};=0D
-> -    /// use kernel::error::Result;=0D
-> +    /// use kernel::clk::{=0D
-> +    ///     Clk,=0D
-> +    ///     Enabled,=0D
-> +    ///     Hertz,=0D
-> +    ///     Prepared,=0D
-> +    ///     Unprepared, //=0D
-> +    /// };=0D
-> +    /// use kernel::device::{=0D
-> +    ///     Bound,=0D
-> +    ///     Device, //=0D
-> +    /// };=0D
->      ///=0D
->      /// fn configure_clk(dev: &Device<Bound>) -> Result {=0D
->      ///     // The fastest way is to use a version of `Clk::get` for the=
- desired=0D
-> @@ -292,8 +316,11 @@ fn from(err: Error<State>) -> Self {=0D
->      /// and move between the variants:=0D
->      ///=0D
->      /// ```=0D
-> -    /// use kernel::clk::{Clk, Enabled, Prepared};=0D
-> -    /// use kernel::error::Result;=0D
-> +    /// use kernel::clk::{=0D
-> +    ///     Clk,=0D
-> +    ///     Enabled,=0D
-> +    ///     Prepared, //=0D
-> +    /// };=0D
->      ///=0D
->      /// enum DeviceClk {=0D
->      ///     Suspended(Clk<Prepared>),=0D
-> @@ -323,8 +350,11 @@ fn from(err: Error<State>) -> Self {=0D
->      /// enable a clone of it:=0D
->      ///=0D
->      /// ```=0D
-> -    /// use kernel::clk::{Clk, Enabled, Prepared};=0D
-> -    /// use kernel::error::Result;=0D
-> +    /// use kernel::clk::{=0D
-> +    ///     Clk,=0D
-> +    ///     Enabled,=0D
-> +    ///     Prepared, //=0D
-> +    /// };=0D
->      ///=0D
->      /// fn use_clk(prepared_clk: &Clk<Prepared>) -> Result {=0D
->      ///     let enabled_clk: Clk<Enabled> =3D prepared_clk.clone().enabl=
-e()?;=0D
-> @@ -556,8 +586,12 @@ pub fn enable(self) -> Result<Clk<Enabled>, Error<Pr=
-epared>> {=0D
->          /// clock or threading it through an intermediate state, e.g.:=0D
->          ///=0D
->          /// ```=0D
-> -        /// use kernel::clk::{Clk, Enabled, Hertz, Prepared};=0D
-> -        /// use kernel::error::Result;=0D
-> +        /// use kernel::clk::{=0D
-> +        ///     Clk,=0D
-> +        ///     Enabled,=0D
-> +        ///     Hertz,=0D
-> +        ///     Prepared, //=0D
-> +        /// };=0D
->          ///=0D
->          /// fn read_rate(clk: &Clk<Prepared>) -> Result<Hertz> {=0D
->          ///     clk.with_enabled(|clk: &Clk<Enabled>| clk.rate())=0D
-> =0D
-> -- =0D
-> 2.54.0=0D
-> =0D
+Helge Deller <deller@gmx.de> writes:
+
+Hello Helge,
+
+> On 7/31/26 16:45, Jakub Turek wrote:
+>> The SH1107 display controller is very similar to SSD1307 but the main
+>> difference is that SH1107 has different memory layout and uses page mode
+>> adressation only.
+>> 
+>> The SH1107 relies primarily on vertical page addressing mode where the
+>> internal 128x128 GDDRAM is split into 16 vertical pages, rather than
+>> the horizontal/tile addressing modes natively utilized by the
+>> SSD1306/SSD1307.
+>> 
+>> Signed-off-by: Jakub Turek <jakub.turek@elsta.tech>
+>> ---
+>>   drivers/video/fbdev/ssd1307fb.c | 87 +++++++++++++++++++++++++++++++++++------
+>>   1 file changed, 76 insertions(+), 11 deletions(-)
+> series applied.
+>
+
+Why did you apply the series? I mentioned in v1 that Jakub instead should
+use the KMS ssd130x driver that already support variants that use page
+addressing, such as the SH1106 (adding SSH1107 should be trivial).
+
+Also, Sashiko correctly pointed out that the fbdev driver doesn't support
+most of the properties mentioned in the DT binding schema.
+
+Now is the opposite given that you merged the DT binding patch. The ssd130x
+driver doesn't have support for the "sinowealth,sh1107" compatible string
+that is being added by patch 2/2.
+
+I guess that should post a patch to delete the ssd1307fb, to make clear that
+shouldn't be used anymore since we have a KMS driver that has better support.
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
+
