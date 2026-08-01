@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2798C55172
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 15:48:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E62AAC55172
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 15:49:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0330810E33C;
-	Sat,  1 Aug 2026 15:48:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43C6310E33F;
+	Sat,  1 Aug 2026 15:49:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RBrKgqX0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="SiSt0jC5";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A108B10E33C
- for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 15:48:38 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2cc61541f8cso32038965ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 08:48:38 -0700 (PDT)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9614D10E33F
+ for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 15:48:59 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2cab973140bso24785105ad.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 08:48:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785599318; x=1786204118; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785599339; x=1786204139; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=fyuZF+rseQvIVevAALiITcY143h/8lAr4kofVhDXVW8=;
- b=RBrKgqX0vhMnowGaTqbl5ka34DtRHWR2mNz81V02gMsMDoLI4IPztGmWUBGmh6CGNh
- x9GYk61/ZlUqzMluMKD6tnZhmxc0qvWDEPIPdbaRDU54Y63epaAIWLqOcSzBKkhrozC0
- oex7uHCjkIB9g7mIzjavJoLEmoLh5N1NPVsj5hF8WaAJ2B+qqQ91UzK3Tww9DfG7bwSo
- 0MHXVHgObFf8ByDFTFivQNgek95+6/AV0d1kq1/KfsvHSTDCarGEnVtOVgZcBICS3Le3
- WM6F9WkSJAFJHJXeKFAHWyeNoib9RM/uEF+BhiW5+eWBKDBLBt5euBduxY5kEWwa0Nzd
- QCZA==
+ bh=7ojEbSoOEAjcpRPJZN1aYCrlxFzJ3/XljVJRrzaFsbs=;
+ b=SiSt0jC5VPzWni7BLeJHaUPR/yFG856tbRs8X1eeaGoFeIwmKOR9D9kwDSKxHrYEM9
+ 6Ew5B4vwLdY47AF0U867OaDh9Zav/50IJwYdXQVm/NTuLoMnceVXJQ3g9kaIu1q0wPp/
+ rpSk1nLJRZgWiPmYxgeN5tTfsabmpWtbb+7n3xEly7JpbgzwWPFGbEiQUgI1O+DY26LX
+ ubHlYQxp0cVK07KaHlZboZfFRUfYEzvKu9HPh3Uj+Dmj2x4IAapJrddGWzVZslObzndx
+ vhSIPM+kRG906IuxAaE/Cgc7F2SyO6Wbe58hKUDioAsQy50c7TSpXOtHaImwnPijl8/N
+ kGeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785599318; x=1786204118;
+ d=1e100.net; s=20251104; t=1785599339; x=1786204139;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=fyuZF+rseQvIVevAALiITcY143h/8lAr4kofVhDXVW8=;
- b=K/eASF3/UV2CV+kenid0jsNXsmsIHzrp8xkam9f/rY791n3iYC2DG2qQTd98jPSJOq
- CYrO6pYelq02rpJuSkVXAQMtbgXUhve2K+1dd8QpEUrwZQfqC39QAxuXnwIaOvWxOQO8
- ImdyyU1TCZ8+5IKk/UDM02tu1NayVVhhc+/nzI8Ussr11cop9K4c4ClqpSh2HI/q9lWx
- r7EYRznxKYa/6ePZNBItZ0Az6JPPQx6mL/Spyf+hqofLg0B+67+W5iExex3i4RQYF+/z
- yCCa8zmFq3xT+2vaei6EKOzo+kXKqyRDJ3H7rsBWOiWUdQesuli5niWxPgP/P61pzO6z
- O91Q==
+ bh=7ojEbSoOEAjcpRPJZN1aYCrlxFzJ3/XljVJRrzaFsbs=;
+ b=dmQLvqNZsW4L3wTMAvdYNpo5Mg5BEldNFMb2mC8+UwWvWIyzYBIk7WHJmldNsjOhfc
+ kwPyBxq2GjQ5Y+FchRVXPCo3WJg8bdFcMFUhEl1qOEaaNmZoBhqWEq2qZO0EDCmeizDT
+ QFqUbJmkvIJGCP3WrZbsUoDcp1f2raz9cmiYiqB3xXkbpv6857xXc4YVMYCuDuD4Xugd
+ rVGjlqOTsr1gqf4rjcvV/7MUakMcznA8zahoOxUnwDK0LntRjnm56hTGkR9CCTPJar2g
+ f8OCsQQDv0VgvRYAxHzySg3xlUPTefU5V3GI44KubmvfiPJ5apJaMWuru673DlOt4iyr
+ 2zSQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RozHkTfpK85o9c7ER2x23XMlvtcb0uY4j2ZFF6PK/bTbXq+zsbLiAOdq1qc9tZ/7ynArUGvJvE15EY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwYwDHnlwwaNd7HDwHIkt8xKjMN9CbcyLnCplFOdYJbVEBdMZ1T
- hDSbfw/2M4A6vV+ifxQZpRN11zpXL96ogtx0MTDf2H5zdQxqG7jUX6MJ
-X-Gm-Gg: AR+sD11JdElXMirBf5i91dlBdKm1hDEveHpNJvVbHFg4WbogMPzMCIfGOvJJXgRWsER
- NkpTLCZSt2Va73RODmvgi8dEHSUlVsPt5rm0yu86Q7zQkY+sU3gv3GTjRA2xl4lx41+ryC+M+Yh
- sNgulwVJueYQpQDRL5+I1N3OdBnbmmlPGqmr6y++6ZmlCQ0yc96NkLeg3JP1r3TEIVWzkj0UVMj
- EEwGws8l1LaUfuAK4ua8NWwOL0EYLZX8t/3R3rVN+GC+/JRewtKKRIrgFhAkohjTjVQw/fpUljq
- kV6T0z12dX+Y8pLtAy5UaJKUVRDBh0y0YlGd9d3JUXRziWTnBaA/6WbegeKDJqlprMxr0lghMLi
- /Ywdf2ApI0hd6F65Tx3lqU/rr2kGGN2YQ4jrDabwg5cYWJcEKj8ZFF9brgFeRq555o/ZbLlXWhC
- e/moW/diNmKs9iIrfKQat9TJNlgEIIj0+IouuBBj9rhO8uiINgDZZffaDYLp6BDGiKfgmTHCPf2
- Kj+sBxOENCDk7pB+lPuT531wqEnHgQoP3ySaa939XxLvmI=
-X-Received: by 2002:a17:903:2c0d:b0:2c7:f5c6:c4a6 with SMTP id
- d9443c01a7336-2d0535b3b1amr33657505ad.7.1785599318082; 
- Sat, 01 Aug 2026 08:48:38 -0700 (PDT)
+ AHgh+Ro3KMwO0B296CEPbV5oCGO2945F+QZmCF6l+eoZLrqsj81/sz1tFN7aZD+y98YzOEuyxx26NHC3scM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzq6j+wCd+m8cJ27DNSbKkx5sSKFhRSq9ffQZqQjjHkVi6jELqU
+ B4g/FB/rgQafSYJ3OiUtcH5tAotOPGfbeyJMd/y2LRbpK3kO12ui1zoz
+X-Gm-Gg: AR+sD10DjimrwTdPYTw1lIGv7X8v8btn0yJitxVRmFyvQpaRR13Z4htFyfDTN7cIHZm
+ v6rdSuQY8c9Vmz2DmKzt6pQKv+9QRJ7+4fkv/GfQg/lYVlUNd8JX7eDYQWlMtNyt1KhKgXkxosd
+ bCG8zvfIyVrodKfV0Uwl9PvzMuYedjU8qqXLe7BJp5KUS2xAptuUNG1lSYcZ/QpMO61FJIwl7Xw
+ HVd6TKcDOFJcjZVKrzaWTS8vAdqOPmz3Vb/QzWursnPJCUIkTu1nxeLtIY3+6yfVFvlHUtz1VXw
+ LF/TF8UU5+O1HO03m6w9aXJRxcwZtDut7yx3BxXDOIA9n7NER6zpzNN5pZBdMxDCwg6GRWrudkd
+ R93u+zm99ggFWSvxLvyjo4VVogysj99C3ckILMYUHH7urcO77IbniiAYXjIkZPgzOdGW1DMkssS
+ KB6zUoMDuf57795DMXxq8Ma2VaTA4/2+A9zPC7jmgTva6b648/yJPB6Mic6KxZVwy4frT5XuW3l
+ jcRtex72nyff9IpLyl0zyuU5QRpfojug+5ywf2qbGtCjqU=
+X-Received: by 2002:a17:903:19c7:b0:2d0:4021:bb6b with SMTP id
+ d9443c01a7336-2d0520362cdmr40118035ad.0.1785599339056; 
+ Sat, 01 Aug 2026 08:48:59 -0700 (PDT)
 Received: from 127.net ([2620:10d:c092:600::1:61d0])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d04b12202bsm18287605ad.66.2026.08.01.08.48.17
+ d9443c01a7336-2d04b12202bsm18287605ad.66.2026.08.01.08.48.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 01 Aug 2026 08:48:37 -0700 (PDT)
+ Sat, 01 Aug 2026 08:48:58 -0700 (PDT)
 From: Pavel Begunkov <asml.silence@gmail.com>
 To: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
  Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
@@ -86,9 +86,9 @@ Cc: asml.silence@gmail.com, Alexander Viro <viro@zeniv.linux.org.uk>,
  Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
  nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
  ceph-devel@vger.kernel.org
-Subject: [PATCH v5 05/16] block: move bvec init into __bio_clone
-Date: Sat,  1 Aug 2026 16:46:17 +0100
-Message-ID: <6ecfe8f9b1c6bfb8665fba7daf55d9ad7a8a3243.1785596451.git.asml.silence@gmail.com>
+Subject: [PATCH v5 06/16] block: introduce bio_iov_iter_set()
+Date: Sat,  1 Aug 2026 16:46:18 +0100
+Message-ID: <4686a0e47fc14f3f888967a80d45a6f66044f1e0.1785596451.git.asml.silence@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1785596451.git.asml.silence@gmail.com>
 References: <cover.1785596451.git.asml.silence@gmail.com>
@@ -109,46 +109,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Consolidate bi_io_vec assignment for cloning in __bio_clone to keep any
-further changes in one place.
+In preparation to supporting dma-buf backed iterators and bios,
+introduce bio_iov_iter_set() which attempts to set up the bio directly
+from the given iterator. For now, it only supports bvec and expects
+users to check the result and fall back to other means if fails, but
+later we'll add more types.
 
 Suggested-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 ---
- block/bio.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ block/bio.c         | 13 ++++++++-----
+ block/blk-map.c     |  2 +-
+ block/fops.c        | 16 +++++++---------
+ include/linux/bio.h |  2 +-
+ 4 files changed, 17 insertions(+), 16 deletions(-)
 
 diff --git a/block/bio.c b/block/bio.c
-index 4074a0496b93..00f99d03ac91 100644
+index 00f99d03ac91..898b2f5ef8c8 100644
 --- a/block/bio.c
 +++ b/block/bio.c
-@@ -860,6 +860,7 @@ static int __bio_clone(struct bio *bio, struct bio *bio_src, gfp_t gfp)
- 	bio->bi_write_hint = bio_src->bi_write_hint;
- 	bio->bi_write_stream = bio_src->bi_write_stream;
- 	bio->bi_iter = bio_src->bi_iter;
-+	bio->bi_io_vec = bio_src->bi_io_vec;
- 
- 	if (bio->bi_bdev) {
- 		if (bio->bi_bdev == bio_src->bi_bdev &&
-@@ -902,8 +903,6 @@ struct bio *bio_alloc_clone(struct block_device *bdev, struct bio *bio_src,
- 		bio_put(bio);
- 		return NULL;
- 	}
--	bio->bi_io_vec = bio_src->bi_io_vec;
--
- 	return bio;
+@@ -1181,8 +1181,11 @@ void __bio_release_pages(struct bio *bio, bool mark_dirty)
  }
- EXPORT_SYMBOL(bio_alloc_clone);
-@@ -923,7 +922,7 @@ int bio_init_clone(struct block_device *bdev, struct bio *bio,
- {
- 	int ret;
+ EXPORT_SYMBOL_GPL(__bio_release_pages);
  
--	bio_init(bio, bdev, bio_src->bi_io_vec, 0, bio_src->bi_opf);
-+	bio_init(bio, bdev, NULL, 0, bio_src->bi_opf);
- 	ret = __bio_clone(bio, bio_src, gfp);
+-void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter)
++bool bio_iov_iter_set(struct bio *bio, const struct iov_iter *iter)
+ {
++	if (!iov_iter_is_bvec(iter))
++		return false;
++
+ 	WARN_ON_ONCE(bio->bi_max_vecs);
+ 
+ 	bio->bi_io_vec = (struct bio_vec *)iter->bvec;
+@@ -1190,6 +1193,7 @@ void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter)
+ 	bio->bi_iter.bi_offset = iter->iov_offset;
+ 	bio->bi_iter.bi_size = iov_iter_count(iter);
+ 	bio_set_flag(bio, BIO_CLONED);
++	return true;
+ }
+ 
+ /*
+@@ -1284,10 +1288,9 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
+ 		return -EIO;
+ 
+-	if (iov_iter_is_bvec(iter)) {
+-		bio_iov_bvec_set(bio, iter);
+-
+-		if (!bio_iov_bvec_aligned(bio, mem_align_mask))
++	if (bio_iov_iter_set(bio, iter)) {
++		if (iov_iter_is_bvec(iter) &&
++		    !bio_iov_bvec_aligned(bio, mem_align_mask))
+ 			return -EINVAL;
+ 
+ 		iov_iter_advance(iter, bio->bi_iter.bi_size);
+diff --git a/block/blk-map.c b/block/blk-map.c
+index 615d29bb840e..9cb9605d1f62 100644
+--- a/block/blk-map.c
++++ b/block/blk-map.c
+@@ -473,7 +473,7 @@ static int blk_rq_map_user_bvec(struct request *rq, const struct iov_iter *iter)
+ 	bio = blk_rq_map_bio_alloc(rq, 0, GFP_KERNEL);
+ 	if (!bio)
+ 		return -ENOMEM;
+-	bio_iov_bvec_set(bio, iter);
++	bio_iov_iter_set(bio, iter);
+ 
+ 	ret = blk_rq_append_bio(rq, bio);
  	if (ret)
- 		bio_uninit(bio);
+diff --git a/block/fops.c b/block/fops.c
+index 3c2099dfef1d..d11923053afe 100644
+--- a/block/fops.c
++++ b/block/fops.c
+@@ -342,15 +342,13 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
+ 	bio->bi_end_io = blkdev_bio_end_io_async;
+ 	bio->bi_ioprio = iocb->ki_ioprio;
+ 
+-	if (iov_iter_is_bvec(iter)) {
+-		/*
+-		 * Users don't rely on the iterator being in any particular
+-		 * state for async I/O returning -EIOCBQUEUED, hence we can
+-		 * avoid expensive iov_iter_advance(). Bypass
+-		 * bio_iov_iter_get_pages() and set the bvec directly.
+-		 */
+-		bio_iov_bvec_set(bio, iter);
+-	} else {
++	/*
++	 * Users don't rely on the iterator being in any particular
++	 * state for async I/O returning -EIOCBQUEUED, hence we can
++	 * avoid expensive iov_iter_advance(). Bypass
++	 * bio_iov_iter_get_pages() and set the bvec directly.
++	 */
++	if (!bio_iov_iter_set(bio, iter)) {
+ 		ret = blkdev_iov_iter_get_pages(bio, iter, bdev);
+ 		if (unlikely(ret))
+ 			goto out_bio_put;
+diff --git a/include/linux/bio.h b/include/linux/bio.h
+index f9b8903c6a87..0d27e0c72905 100644
+--- a/include/linux/bio.h
++++ b/include/linux/bio.h
+@@ -522,7 +522,7 @@ int bdev_rw_virt(struct block_device *bdev, sector_t sector, void *data,
+ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+ 		unsigned mem_align_mask, unsigned len_align_mask);
+ 
+-void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter);
++bool bio_iov_iter_set(struct bio *bio, const struct iov_iter *iter);
+ void __bio_release_pages(struct bio *bio, bool mark_dirty);
+ extern void bio_set_pages_dirty(struct bio *bio);
+ extern void bio_check_pages_dirty(struct bio *bio);
 -- 
 2.54.0
 
