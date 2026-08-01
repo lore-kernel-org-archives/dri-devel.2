@@ -4,49 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F87CC55172
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 16:29:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24DD3C55172
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 17:44:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F031710E0B7;
-	Sat,  1 Aug 2026 16:29:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46FE110E0EA;
+	Sat,  1 Aug 2026 17:44:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="OW1WNFrk";
+	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="J0Xo2fx5";
 	dkim-atps=neutral
-Received: from out-178.mta0.migadu.com (out-178.mta0.migadu.com
- [91.218.175.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E90D10E0B7
- for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 16:29:12 +0000 (UTC)
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
- s=key1; t=1785601750;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=y0OSr4PVxwlUzl29UswP2Ld/5ySXUrAk1c81FO8Jolo=;
- b=OW1WNFrkmP6loHKo7sJMqbrXaEig8yZmuh5ybE5188gYLkXVSJTXRRtI3uEBIrOahCqSzL
- eG9PQEkfPZdpqPo2KEG/FpcgZrkFDnvGFILUkkmIldT/BpE61VLPfUtoDBu8nCVeYWv50t
- r68PCxXxs+eza3LqF38f+zlGqwUHmraELWVDrFtipvcSr5Ft+8+6AZcNHUnFQ+RS5XKZZn
- piS2nn94sGCMCSbztvsI/kl/BbDZ0pmcv96INVPwT7FG9rWO44IEREaJdUJXaBjZYJd5mj
- vbd81zKOnJDFVeZHTUJwZ6SrNgZe22oImoPYpEuOh4UsxiTIhzV8LRbnlYT98w==
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch
+ [79.135.106.113])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9EED810E0EA
+ for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 17:44:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
+ s=protonmail; t=1785606275; x=1785865475;
+ bh=GEnf/aEUeF5h5noLn7GPe6Z4ZE8ClVmcGqH+KCbBXJU=;
+ h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=J0Xo2fx5hC6OiriflfmKS/PP8suzBKCpm0cqcbRCFfQhn8RF7TDrqDJhPpLr2liYb
+ /aeDXqSSr/sNF+/UwhjmCfpTm40X4B0fxWLHez1Tow1p1eSEdc1ZNfwznOnzaNc/uH
+ PiVpB+uewXSrDqA9eglw8Jx7TVajRxvCBQMp0OX0s/yCJZcB4iJc5A0uNofWToRFty
+ nWE/xV9JVDfgYrZxaq0fonCTDwmPojO3sIXJGvfjeEoCVzkTd7gAe47owTgZbmtPK3
+ UgZaRIWDoxCmrJWTjCazKL+a6jsku2/Nay2sSmF1YS/G/w5QBGW7Xjc0t8TkCj3YyI
+ VD8oEKEnzMlnw==
+X-Pm-Submission-Id: 4hC9L32F1Tz1DDrb
+From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
+ Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ Boqun Feng <boqun@kernel.org>, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org,
+ linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ Boris Brezillon <boris.brezillon@collabora.com>, Maurice <mhi@mailbox.org>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Subject: Re: [PATCH v5 4/4] rust: clk: use 'kernel vertical style' for imports
+Date: Sat,  1 Aug 2026 20:44:24 +0300
+Message-ID: <20260801174426.926785-1-work@onurozkan.dev>
+X-Mailer: git-send-email 2.51.2
+In-Reply-To: <20260706-clk-type-state-v5-4-67c5f326a16c@collabora.com>
+References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
+ <20260706-clk-type-state-v5-4-67c5f326a16c@collabora.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Date: Sat, 01 Aug 2026 18:29:04 +0200
-Message-Id: <DKDQZP8UB0XY.U2JKKNUEA4CV@cknow-tech.com>
-Cc: "Tomeu Vizoso" <tomeu@tomeuvizoso.net>, "Heiko Stuebner"
- <heiko@sntech.de>, "Jiaxing Hu" <gahing@gahingwoo.com>, "Oded Gabbay"
- <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-rockchip@lists.infradead.org>
-Subject: Re: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint, and
- some numbers
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Igor Paunovic" <royalnet026@gmail.com>
-References: <DKDOBW9CJ2Y3.10EEIZDTXPYJZ@cknow-tech.com>
- <20260801144021.7583-1-royalnet026@gmail.com>
-In-Reply-To: <20260801144021.7583-1-royalnet026@gmail.com>
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,64 +77,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat Aug 1, 2026 at 4:40 PM CEST, Igor Paunovic wrote:
-> Hi Diederik,
->
-> (re-adding the lists, your reply came to me only)
->
-> Thanks - that pointer was useful, and it changes what I thought I was
-> looking at.  Two things came out of following it.
-
-Then I guess it's useful I add the main part of that pointer to the ML:
-
-  This is all 'above my paygrade', but the 'failed to get ack on domain' is
-  a type of error which seems to surface on a regular basis:
-  https://lore.kernel.org/linux-rockchip/?q=3D%22failed+to+get+ack+on+domai=
-n%22
-
-(My hope was that it may have given Igor pointers wrt the problem)
-
-> First, a data point that may narrow your search rather than widen it:
-> this board is not running upstream TF-A.  Its SCMI implementation
-> identifies itself as Rockchip's own:
->
->   arm-scmi arm-scmi.0.auto: SCMI Protocol v2.0 'rockchip:' Firmware versi=
-on 0x0
->
-> and it still fails, so whatever this is, it is not exclusive to upstream
-> TF-A BL31.  If rkbin BL31 makes your PineTab2 suspend/resume work, the
-> difference there may be something more specific than the ack handshake
-> itself.
->
-> Second, going through the archive for that error string, the history is
-> longer than I realised - Peter Geis' and Sebastian Reichel's pmdomain
-> work on RK3588, and further back "arm64: dts: rockchip: add hevc power
-> domain clock to rk3328".  That last one is interesting because the fix
-> was to add a missing clock to the power domain, i.e. the handshake
-> needs its clocks.
->
-> What I have looks like a neighbouring case rather than the same one.
-> Here the clocks are not missing - all three NPU domains already list the
-> NPU clock (rk3588-base.dtsi lines 864, 877 and 885).  It is the rate
-> that matters: the ack never arrives if the domain is moved while that
-> clock is above its DT assigned-clock-rate, and the same domain moves
-> cleanly once the rate is back down.  I have not seen that variant
-> described anywhere, which is why I wrote it up.
->
-> That suggests something you could try, though it is a guess and you know
-> your board far better than I do: if any clock listed in a domain you are
-> suspending happens to be at a non-boot rate at that moment - left there
-> by devfreq, by an assigned-clock-rate, or by whatever ran last - then it
-> would be the same shape as what I am seeing.  Pinning those clocks to
-> their boot rates before the transition would be a cheap thing to rule
-> out.  If it does nothing, at least it is eliminated.
->
-> Thanks again for taking the time, and good luck with the PineTab2.
->
-> Igor
->
-> _______________________________________________
-> Linux-rockchip mailing list
-> Linux-rockchip@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-rockchip
-
+On Mon, 06 Jul 2026 11:37:15 -0300=0D
+Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
+=0D
+> Convert all imports to use the new import style. This will make it easier=
+=0D
+> to land new changes in the future.=0D
+> =0D
+> No change of functionality implied.=0D
+> =0D
+> Link: https://docs.kernel.org/rust/coding-guidelines.html#imports=0D
+> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>=0D
+=0D
+Reviewed-by: Onur =C3=96zkan <work@onurozkan.dev>=0D
+=0D
+> ---=0D
+>  rust/kernel/clk.rs | 66 +++++++++++++++++++++++++++++++++++++++++-------=
+------=0D
+>  1 file changed, 50 insertions(+), 16 deletions(-)=0D
+> =0D
+> diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs=0D
+> index b9a44f83843a..e677156ffd21 100644=0D
+> --- a/rust/kernel/clk.rs=0D
+> +++ b/rust/kernel/clk.rs=0D
+> @@ -80,13 +80,23 @@ fn from(freq: Hertz) -> Self {=0D
+>  mod common_clk {=0D
+>      use super::Hertz;=0D
+>      use crate::{=0D
+> -        device::{Bound, Device},=0D
+> -        error::{from_err_ptr, to_result, Result},=0D
+> +        device::{=0D
+> +            Bound,=0D
+> +            Device, //=0D
+> +        },=0D
+> +        error::{=0D
+> +            from_err_ptr,=0D
+> +            to_result, //=0D
+> +        },=0D
+>          prelude::*,=0D
+> -        sync::Arc,=0D
+> +        sync::Arc, //=0D
+>      };=0D
+>  =0D
+> -    use core::{marker::PhantomData, mem::ManuallyDrop, ptr};=0D
+> +    use core::{=0D
+> +        marker::PhantomData,=0D
+> +        mem::ManuallyDrop,=0D
+> +        ptr, //=0D
+> +    };=0D
+>  =0D
+>      mod private {=0D
+>          pub trait Sealed {}=0D
+> @@ -193,9 +203,15 @@ impl<State: ClkState> From<Error<State>> for kernel:=
+:error::Error {=0D
+>          /// original [`Clk`], e.g.:=0D
+>          ///=0D
+>          /// ```=0D
+> -        /// use kernel::clk::{Clk, Enabled, Unprepared};=0D
+> -        /// use kernel::device::{Bound, Device};=0D
+> -        /// use kernel::error::Result;=0D
+> +        /// use kernel::clk::{=0D
+> +        ///     Clk,=0D
+> +        ///     Enabled,=0D
+> +        ///     Unprepared, //=0D
+> +        /// };=0D
+> +        /// use kernel::device::{=0D
+> +        ///     Bound,=0D
+> +        ///     Device, //=0D
+> +        /// };=0D
+>          ///=0D
+>          /// fn get_enabled(dev: &Device<Bound>) -> Result<Clk<Enabled>> =
+{=0D
+>          ///     let clk =3D Clk::<Unprepared>::get(dev, Some(c"apb_clk")=
+)?=0D
+> @@ -245,9 +261,17 @@ fn from(err: Error<State>) -> Self {=0D
+>      /// The following example demonstrates how to obtain and configure a=
+ clock for a device.=0D
+>      ///=0D
+>      /// ```=0D
+> -    /// use kernel::clk::{Clk, Enabled, Hertz, Unprepared, Prepared};=0D
+> -    /// use kernel::device::{Bound, Device};=0D
+> -    /// use kernel::error::Result;=0D
+> +    /// use kernel::clk::{=0D
+> +    ///     Clk,=0D
+> +    ///     Enabled,=0D
+> +    ///     Hertz,=0D
+> +    ///     Prepared,=0D
+> +    ///     Unprepared, //=0D
+> +    /// };=0D
+> +    /// use kernel::device::{=0D
+> +    ///     Bound,=0D
+> +    ///     Device, //=0D
+> +    /// };=0D
+>      ///=0D
+>      /// fn configure_clk(dev: &Device<Bound>) -> Result {=0D
+>      ///     // The fastest way is to use a version of `Clk::get` for the=
+ desired=0D
+> @@ -292,8 +316,11 @@ fn from(err: Error<State>) -> Self {=0D
+>      /// and move between the variants:=0D
+>      ///=0D
+>      /// ```=0D
+> -    /// use kernel::clk::{Clk, Enabled, Prepared};=0D
+> -    /// use kernel::error::Result;=0D
+> +    /// use kernel::clk::{=0D
+> +    ///     Clk,=0D
+> +    ///     Enabled,=0D
+> +    ///     Prepared, //=0D
+> +    /// };=0D
+>      ///=0D
+>      /// enum DeviceClk {=0D
+>      ///     Suspended(Clk<Prepared>),=0D
+> @@ -323,8 +350,11 @@ fn from(err: Error<State>) -> Self {=0D
+>      /// enable a clone of it:=0D
+>      ///=0D
+>      /// ```=0D
+> -    /// use kernel::clk::{Clk, Enabled, Prepared};=0D
+> -    /// use kernel::error::Result;=0D
+> +    /// use kernel::clk::{=0D
+> +    ///     Clk,=0D
+> +    ///     Enabled,=0D
+> +    ///     Prepared, //=0D
+> +    /// };=0D
+>      ///=0D
+>      /// fn use_clk(prepared_clk: &Clk<Prepared>) -> Result {=0D
+>      ///     let enabled_clk: Clk<Enabled> =3D prepared_clk.clone().enabl=
+e()?;=0D
+> @@ -556,8 +586,12 @@ pub fn enable(self) -> Result<Clk<Enabled>, Error<Pr=
+epared>> {=0D
+>          /// clock or threading it through an intermediate state, e.g.:=0D
+>          ///=0D
+>          /// ```=0D
+> -        /// use kernel::clk::{Clk, Enabled, Hertz, Prepared};=0D
+> -        /// use kernel::error::Result;=0D
+> +        /// use kernel::clk::{=0D
+> +        ///     Clk,=0D
+> +        ///     Enabled,=0D
+> +        ///     Hertz,=0D
+> +        ///     Prepared, //=0D
+> +        /// };=0D
+>          ///=0D
+>          /// fn read_rate(clk: &Clk<Prepared>) -> Result<Hertz> {=0D
+>          ///     clk.with_enabled(|clk: &Clk<Enabled>| clk.rate())=0D
+> =0D
+> -- =0D
+> 2.54.0=0D
+> =0D
