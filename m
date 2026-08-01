@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EF4CC54FCD
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 08:14:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EB77C5516F
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 08:18:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E301210E2AC;
-	Sat,  1 Aug 2026 08:14:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7DE7710E2D8;
+	Sat,  1 Aug 2026 08:18:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wzt0wIRk";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dniOXrcG";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D33BA10E2AC
- for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 08:14:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD3F910E2C8
+ for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 08:18:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 934CC40AE5;
- Sat,  1 Aug 2026 08:14:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591191F00AC4;
- Sat,  1 Aug 2026 08:14:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 13135600D8;
+ Sat,  1 Aug 2026 08:18:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1D71F00ACF;
+ Sat,  1 Aug 2026 08:18:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785572084;
- bh=LhTwou3j4r+mnN6DafBKkTCizm//YFUTcr2PaCK2Yfw=;
+ s=k20260515; t=1785572332;
+ bh=XZqiP6mF3J2DOO08guXQLZ6Un42eebnCQaEe/TN5cAE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Wzt0wIRkBsh5gxf+nURRBXp4+VqGK/bVilJYrZgUe5FJ+rLSIKckNQ/X6Iqhdr/BK
- 8DcXRH8UqttMtmwJoIARbdGdSi3Ro5MDP/CwR5zT5Bg1JeL8qKKgHCD8MEDIez7TG9
- UI6upE7SUHpaEe5byjsgwRGUwD8hqJe56Cps0DGjpnZtZFhjZwvBW1culJv0zUag6w
- z8M/Cu1G8gHJf1q0Dgi1WWQIRj4N5iZ63bZnbc2Gr3ui9W3J6tXhEMEIrfes6qPkcc
- RqCRLavvxZOow3MR2dvvRwrrAnVT1LpFnpzKnSS4CjMTTcrdQBV2rpElVLQydue5h9
- 6Hoe4qS5u7oeQ==
+ b=dniOXrcG4UiKKFTJzaq0/S8MvODbPBx01vIzi3sIemU6ZSwNccKKoiAnjTLs4gFpm
+ CSPquEgyTs3ARGw2V4u69Gcu3hig7sH1kDL8nmo5cLSs3S5spOw+g0E/bdjagTHBeM
+ d94Z9ntJTUIpa50S2tZ3YWPfhqzGW/BT8clAkBDPiRQcAT20j8n26tDAdDjN1dt66b
+ nzROWK07Zx8l+NWr2ASJV4laaLFLFWeQRkjmvjulydBpQKT8Gch/NfuF43BntKBKct
+ mSMXxbtBgk7DTl0+mKmranIUnphS7/tQjccM0RFkEOHpHzpZqSN/jx545Eegy7UH6d
+ V7PLQdpZalOIA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/virtio: release object array when device is
- unplugged
+Subject: Re: [PATCH 2/2] drm/virtio: free control buffer when scatterlist
+ allocation fails
 To: "Yao Kai" <yaokai34@huawei.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260731092236.2262403-2-yaokai34@huawei.com>
+In-Reply-To: <20260731092236.2262403-3-yaokai34@huawei.com>
 References: <20260731092236.2262403-1-yaokai34@huawei.com>
- <20260731092236.2262403-2-yaokai34@huawei.com>
+ <20260731092236.2262403-3-yaokai34@huawei.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 01 Aug 2026 08:14:44 +0000
-Message-Id: <20260801081444.591191F00AC4@smtp.kernel.org>
+Date: Sat, 01 Aug 2026 08:18:52 +0000
+Message-Id: <20260801081852.9F1D71F00ACF@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,149 +58,113 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] When `vmalloc_to_sgt()` fails in `virtio_gpu_queue_fenced_ctrl_buf=
-fer()`, it returns `-ENOMEM` but leaks `vbuf`, `vbuf->data_buf`, `vbuf->obj=
-s`, and leaves the `fence` unsignaled.
-- [High] If `virtqueue_add_sgs()` fails in `virtio_gpu_queue_ctrl_sgs()`, t=
-he error is ignored, leaving the driver in an inconsistent state and perman=
-ently leaking resources.
-- [High] Missing NULL check for `virtio_gpu_fence_alloc()` in `virtio_gpu_i=
-nit_submit()` leads to NULL pointer dereference or permanent GEM object loc=
-king.
-- [High] Unsignaled `dma_fence` on the `drm_dev_enter` error path causes us=
-erspace deadlock.
+- [High] Command submission functions swallow the return value of queueing =
+functions, causing silent failures that lead to infinite hangs or WARN_ON t=
+riggers.
+- [High] Failure to check the return value of `virtio_gpu_fence_alloc()` le=
+ads to a NULL pointer dereference or permanently leaked `dma_resv` locks on=
+ GEM objects.
 --
 
---- Patch [1]: [PATCH 1/2] drm/virtio: release object array when device is =
-unplugged ---
-commit 4de920e41f6ad59b54950dfcf4081b64911d0f82
+--- Patch [2]: [PATCH 2/2] drm/virtio: free control buffer when scatterlist=
+ allocation fails ---
+commit 3738e83e4c6bee348b73dcd2ccca201708bd9797
 Author: Yao Kai <yaokai34@huawei.com>
 
-drm/virtio: release object array when device is unplugged
+drm/virtio: free control buffer when scatterlist allocation fails
 
-This commit addresses a memory manager warning that occurs when unbinding
-virtio-gpu while fbdev damage work is active. It ensures the object array
-is released before freeing a control buffer rejected by drm_dev_enter(),
-preventing the GEM object from remaining alive during device release.
+This commit addresses a memory leak that occurs when vmalloc_to_sgt() fails
+in virtio_gpu_queue_fenced_ctrl_buffer(). It correctly drops object array
+references and frees the vbuffer on the error path before returning -ENOMEM.
 
 > diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio=
 /virtgpu_vq.c
-> index e5e1af8b8e8a0..a470339b67474 100644
+> index a470339b67474..7ccc487e33322 100644
 > --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
 > +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-> @@ -383,6 +383,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gp=
-u_device *vgdev,
->  	if (!drm_dev_enter(vgdev->ddev, &idx)) {
->  		if (fence && vbuf->objs)
->  			virtio_gpu_array_unlock_resv(vbuf->objs);
-> +		virtio_gpu_array_put_free(vbuf->objs);
->  		free_vbuf(vgdev, vbuf);
->  		return -ENODEV;
->  	}
+> @@ -477,6 +477,8 @@ static int virtio_gpu_queue_fenced_ctrl_buffer(struct=
+ virtio_gpu_device *vgdev,
+>  			if (!sgt) {
+>  				if (fence && vbuf->objs)
+>  					virtio_gpu_array_unlock_resv(vbuf->objs);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but returning -ENODEV here
-without signaling the fence causes issues. Since callers like
-virtio_gpu_cmd_submit() return void and ignore this error, the ioctl
-completes successfully and returns a sync_file fd to userspace.
+This is a pre-existing issue, but does checking the fence before unlocking
+leave the GEM objects permanently locked if the fence is NULL?
 
-Because the fence is never added to the driver's list or signaled, does
-this cause userspace to hang forever waiting on it? Should we signal the
-fence with an error before returning?
+If virtio_gpu_init_submit() fails to allocate a fence via
+virtio_gpu_fence_alloc(), it could still lock the GEM objects and pass
+fence =3D NULL into the queuing functions, which means we skip unlocking th=
+em
+here.
 
-This is a pre-existing issue, but further down in virtio_gpu_queue_ctrl_sgs=
-()
-there is an unchecked error:
-
-drivers/gpu/drm/virtio/virtgpu_vq.c:virtio_gpu_queue_ctrl_sgs() {
-[ ... ]
-	ret =3D virtqueue_add_sgs(vq, sgs, outcnt, incnt, vbuf, GFP_ATOMIC);
-	WARN_ON(ret);
-
-	vbuf->seqno =3D ++vgdev->ctrlq.seqno;
-[ ... ]
-}
-
-[Severity: High]
-If virtqueue_add_sgs() fails (for example, due to -ENOMEM during GFP_ATOMIC
-allocation), the error is warned upon but otherwise ignored. The function
-proceeds to increment the sequence number and pending_commands.
-
-Since the command is never placed in the virtqueue, does this leave the
-driver in an inconsistent state and permanently leak the vbuf and GEM object
-references?
-
-This is also a pre-existing issue, but I noticed a similar problem in
-virtio_gpu_queue_fenced_ctrl_buffer():
-
-drivers/gpu/drm/virtio/virtgpu_vq.c:virtio_gpu_queue_fenced_ctrl_buffer() {
-[ ... ]
-			sgt =3D vmalloc_to_sgt(vbuf->data_buf, vbuf->data_size,
-					     &sg_ents);
-			if (!sgt) {
-				if (fence && vbuf->objs)
-					virtio_gpu_array_unlock_resv(vbuf->objs);
-				return -ENOMEM;
-			}
-[ ... ]
-}
-
-[Severity: High]
-When vmalloc_to_sgt() fails, it returns -ENOMEM. Does this leak vbuf,
-vbuf->data_buf, and vbuf->objs since free_vbuf() and
-virtio_gpu_array_put_free() are not called?
-
-Additionally, since the caller virtio_gpu_cmd_submit() ignores the return
-value, the fence remains unsignaled. Can this cause userspace processes
-waiting on the fence to deadlock?
-
-Lastly, this is a pre-existing issue, but looking at virtio_gpu_init_submit=
-():
+Additionally, missing the NULL check on the fence returned by
+virtio_gpu_fence_alloc() can lead to a NULL pointer dereference in
+virtio_gpu_fence_event_create():
 
 drivers/gpu/drm/virtio/virtgpu_submit.c:virtio_gpu_init_submit() {
-[ ... ]
-	if ((exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) ||
-	    exbuf->num_out_syncobjs ||
-	    exbuf->num_bo_handles ||
-	    drm_fence_event)
+	...
+	if (out_fence_fd)
 		out_fence =3D virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
-	else
-		out_fence =3D NULL;
-
+	...
 	if (drm_fence_event) {
 		err =3D virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
-[ ... ]
+	...
 }
+
+drivers/gpu/drm/virtio/virtgpu_fence.c:virtio_gpu_fence_event_create() {
+	...
+	fence->e =3D e;
+	...
+}
+
+Would it be better to decouple the unlocking of vbuf->objs from the presence
+of a fence?
+
+> +				virtio_gpu_array_put_free(vbuf->objs);
+> +				free_vbuf(vgdev, vbuf);
+>  				return -ENOMEM;
 
 [Severity: High]
-virtio_gpu_fence_alloc() can return NULL under memory pressure. If
-drm_fence_event is true, out_fence is passed to
-virtio_gpu_fence_event_create() which unconditionally dereferences it:
+This isn't a bug introduced by this patch, but because this function returns
+an error here, are there callers that swallow this error?
 
-drivers/gpu/drm/virtio/virtgpu_submit.c:virtio_gpu_fence_event_create() {
-[ ... ]
-	ret =3D drm_event_reserve_init(dev, file, &e->base, &e->event);
-	if (ret) {
-		kfree(e);
-		return ret;
-	}
+For example, virtio_gpu_cmd_submit() ignores the return value:
 
-	fence->e =3D e;
-[ ... ]
+drivers/gpu/drm/virtio/virtgpu_vq.c:virtio_gpu_cmd_submit() {
+	...
+	virtio_gpu_queue_fenced_ctrl_buffer(vgdev, vbuf, fence);
 }
 
-Does this cause a NULL pointer dereference?
+Similarly, virtio_gpu_cmd_map() ignores the return value of
+virtio_gpu_queue_ctrl_buffer():
 
-Alternatively, if drm_fence_event is false but num_bo_handles > 0, the code
-proceeds with a NULL out_fence. When submitted, virtio_gpu_queue_ctrl_sgs()
-skips unlocking vbuf->objs because fence is NULL, which appears to leave the
-GEM objects locked indefinitely. Should virtio_gpu_init_submit() check for
-allocation failure here?
+drivers/gpu/drm/virtio/virtgpu_vq.c:virtio_gpu_cmd_map() {
+	...
+	virtio_gpu_queue_ctrl_buffer(vgdev, vbuf);
+	return 0;
+}
+
+If the queueing functions fail and return -ENOMEM, the callers return void
+or 0, causing higher-level ioctls to proceed as if successful.
+
+Can this cause infinite hangs? If the command is dropped,
+virtio_gpu_vram_mmap() might hang indefinitely waiting for a response:
+
+drivers/gpu/drm/virtio/virtgpu_vram.c:virtio_gpu_vram_mmap() {
+	...
+	wait_event(vgdev->resp_wq, vram->map_state !=3D STATE_INITIALIZING);
+}
+
+Also, VIRTGPU_EXECBUFFER might return a sync_file with an unsignaled fence,
+which could cause a userspace poll to hang indefinitely.
+
+>  			}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731092236.2262=
-403-1-yaokai34@huawei.com?part=3D1
+403-1-yaokai34@huawei.com?part=3D2
