@@ -4,83 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E5DC54FCD
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 08:08:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8EF4CC54FCD
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 08:14:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B969910E2E8;
-	Sat,  1 Aug 2026 08:08:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E301210E2AC;
+	Sat,  1 Aug 2026 08:14:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="p4AJxg2z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wzt0wIRk";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE9BB10E2E8
- for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 08:08:04 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-496b7622a83so3031335e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 01:08:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1785571683; x=1786176483;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=BhbXt57FHs7QvkLjuDbwFmPJXue3peGLZ2pH9/2qYXs=;
- b=p4AJxg2zpmX/WQAoEEHA6cc8Dfk/mzmdeYmURixJGUaPjx9HC4E3Ck7plzKHzAommA
- 5OGRZeB8lWpFMqpjatgquBuSb1gOGN1WdxO28ES84ikCCdh74R5VXTpQGoKXk7G82d2P
- xwlwvWZfw0XWXMWaQtk3vf+SLY82XOPysJgpvAx72VniC3nH4uyAWFOlhrFXR9hQpc4Z
- owlA26l5deAdsqXJABwt0fn8jI2iGbt0QyQf6R0ylXO2yzSHYdZjvKQfUY9kbWyUcGHd
- gVrqSC70sXxK97ukYYqObLzCu9tuQSS5KEPimtHch2oyCory2sDcmfrYTlxw3Rz6GSOw
- VosA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785571683; x=1786176483;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=BhbXt57FHs7QvkLjuDbwFmPJXue3peGLZ2pH9/2qYXs=;
- b=EOdpo/SPYs3hf7qwaaUHDojQqPjJNgDw7JN7D5g/xCFNbPTAl0tQJ4ik5TwaxdZ1gX
- ZOl+1YD1mbPmZ9tn7Y7z4nMQPB1Hn5F6Gnw9skA4HVRSU4TLA7KO1KqvFb3W6l/F6oAQ
- 0w7Ge94ZEEiP2A5pB4qJUGyPXjli9bWUZMxXMI9a0GTMYJoy61BwxjVjbpVNIT3IJxrE
- wt4N9lvC3EYe54b9xTJKCJ2DPXcMY6M+9jL1wMUut8ZaVvu4gMVIJOU3ByGYuOV+qlB5
- AZZEKwg2FvU1HXzLHqrMgA6K9NPI+FLsRAg6rtQSNTOxjdM6UrW1gBKr5NqH8BtTKKkg
- 7xmg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoCrUA94iqACxypFOIK9Bv5teF4ncghpioy6UAslppYyAJIuNUn6r1npL3LxTOYGLoosLV0mkTLTc4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw9PehzWn4aJ15Vt9rwjESDDoOljjSO4xp52Xx3a8jril3d0VIB
- ryMcZbMEZiA5R7MfU0DoL4xvlv4Ih73HyG9J5kaitdkcK28ECCAUSA3D+fTamKNqjao=
-X-Gm-Gg: AR+sD126iQM7tEA+Ws5uhas7KIosxv1qG6o9J9iFRIspOErQuqLPKiIjJrGwbn+qYHF
- kFur15lsXVqPcj/UI5nL0vxZWpB0e/N0EJa0lAM8EKJHQyVhqk8LjlapGPMf1AA1xCvMdfpceTN
- mDTrm9NsaZTb4sw9Su+vddCFP4M8ErAnxI26w1lPKnrj4GDy7B4c+Uw3scTwnoHKdBKmzFyW9Ow
- ITNOyGuP5Gbpp4SiYja1h5+uD4Mt9dHv1YEu2oV7TeYxNr1csmtc7tyFdkb22h01WeX+AIlD8uW
- +CoBbR8/E029g63/IA8nXeKOV9Jt6LQkGy7tyqAtN5NeCXbthWrkCoMjQEjGK8+OOZPe36jNMZ8
- LAwDPW0e78QhPCIOKDdtJaVGIv/stLK0RVuXEbwvPISjYwlwq3cA2JRrwY8hp8+b0JSQpl5XilA
- x8eLWJzzK6/OwUpJT6DKpYyFmbSE6yIpQBlgQEPQYq9fONkjiDffrkWqgY2wjl/cJg8g==
-X-Received: by 2002:a05:600c:e48a:b0:493:bacb:1341 with SMTP id
- 5b1f17b1804b1-4980c66b53bmr17150785e9.4.1785571682507; 
- Sat, 01 Aug 2026 01:08:02 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-49808191ef9sm37069725e9.1.2026.08.01.01.08.01
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 01 Aug 2026 01:08:01 -0700 (PDT)
-Date: Sat, 1 Aug 2026 10:08:00 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Max Pedraza <maximpedraza@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
- linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-Message-ID: <am2mvECnCcO9IxuI@monoceros>
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="y7euzt5xlmsr2onq"
-Content-Disposition: inline
-In-Reply-To: <20260731215043.30392-1-maximpedraza@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D33BA10E2AC
+ for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 08:14:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 934CC40AE5;
+ Sat,  1 Aug 2026 08:14:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591191F00AC4;
+ Sat,  1 Aug 2026 08:14:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785572084;
+ bh=LhTwou3j4r+mnN6DafBKkTCizm//YFUTcr2PaCK2Yfw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Wzt0wIRkBsh5gxf+nURRBXp4+VqGK/bVilJYrZgUe5FJ+rLSIKckNQ/X6Iqhdr/BK
+ 8DcXRH8UqttMtmwJoIARbdGdSi3Ro5MDP/CwR5zT5Bg1JeL8qKKgHCD8MEDIez7TG9
+ UI6upE7SUHpaEe5byjsgwRGUwD8hqJe56Cps0DGjpnZtZFhjZwvBW1culJv0zUag6w
+ z8M/Cu1G8gHJf1q0Dgi1WWQIRj4N5iZ63bZnbc2Gr3ui9W3J6tXhEMEIrfes6qPkcc
+ RqCRLavvxZOow3MR2dvvRwrrAnVT1LpFnpzKnSS4CjMTTcrdQBV2rpElVLQydue5h9
+ 6Hoe4qS5u7oeQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] drm/virtio: release object array when device is
+ unplugged
+To: "Yao Kai" <yaokai34@huawei.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260731092236.2262403-2-yaokai34@huawei.com>
+References: <20260731092236.2262403-1-yaokai34@huawei.com>
+ <20260731092236.2262403-2-yaokai34@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 01 Aug 2026 08:14:44 +0000
+Message-Id: <20260801081444.591191F00AC4@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,97 +54,153 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
---y7euzt5xlmsr2onq
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-MIME-Version: 1.0
+Pre-existing issues:
+- [High] When `vmalloc_to_sgt()` fails in `virtio_gpu_queue_fenced_ctrl_buf=
+fer()`, it returns `-ENOMEM` but leaks `vbuf`, `vbuf->data_buf`, `vbuf->obj=
+s`, and leaves the `fence` unsignaled.
+- [High] If `virtqueue_add_sgs()` fails in `virtio_gpu_queue_ctrl_sgs()`, t=
+he error is ignored, leaving the driver in an inconsistent state and perman=
+ently leaking resources.
+- [High] Missing NULL check for `virtio_gpu_fence_alloc()` in `virtio_gpu_i=
+nit_submit()` leads to NULL pointer dereference or permanent GEM object loc=
+king.
+- [High] Unsignaled `dma_fence` on the `drm_dev_enter` error path causes us=
+erspace deadlock.
+--
 
-Hello Max,
+--- Patch [1]: [PATCH 1/2] drm/virtio: release object array when device is =
+unplugged ---
+commit 4de920e41f6ad59b54950dfcf4081b64911d0f82
+Author: Yao Kai <yaokai34@huawei.com>
 
-On Fri, Jul 31, 2026 at 11:50:37PM +0200, Max Pedraza wrote:
-> Embedded products routinely need their own boot logo. Today the only way =
-to
-> get one is to replace one of the logo_*_clut224.ppm files in the kernel
-> source tree, which bakes the image into the kernel image. Two products th=
-at
-> share a board support package but differ in branding therefore need two
-> kernel builds, and rebranding an existing product means rebuilding and
-> requalifying a kernel for what is purely a cosmetic change.
->=20
-> This series lets the logo be described by the device tree instead: a node
-> compatible with "linux,boot-logo-clut224" supplies the image in the same
-> paletted format the built-in CLUT224 logos already use, and the kernel
-> prefers it over the built-in ones when it is present and enabled. If the
-> node is absent or disabled, nothing changes.
->=20
-> The image can come from the node itself (patches 1-2) or from a reserved
-> memory region the bootloader filled in (patches 4-5), because the image a=
-nd
-> its placement are independent axes of variation. One board sold to several
-> customers wants several device trees differing in the logo. One customer
-> with several products built on that board, with different panels, wants t=
-he
-> same logo placed differently on each: there the image belongs in a shared
-> binary and only the placement belongs in the device tree. Patch 3 adds th=
-at
-> placement.
->=20
-> We have been carrying a cruder version of this downstream on an AM335x
-> product since 2020, across a handful of board revisions, and it has remov=
-ed
-> a real maintenance burden for us. This is an attempt to find out whether
-> something along these lines is wanted upstream, and if so in what shape --
-> hence RFC.
->=20
-> I am aware of the contentious part: a bitmap is not hardware, and the dev=
-ice
-> tree is not an obvious place to put one. The argument for it is that the
-> logo identifies the board in the same way the model property does, it is
-> available before any filesystem is mounted, and it is per board rather th=
-an
-> per kernel. The argument against is presumably that this is policy and
-> belongs in userspace or in the bootloader. I would rather hear that
-> explicitly than keep the patch downstream on a guess, and if the concept =
-is
-> rejected I would still like to know whether a smaller subset -- say the
-> placement properties driven from the fbcon command line, without any image
-> in the device tree -- would be worth submitting separately.
+drm/virtio: release object array when device is unplugged
 
-My 0.02=E2=82=AC: Usually you want to use the display using drm and not fb =
-once
-the machine is fully booted. If you're using fb during boot to display a
-logo, it's hardly possible to switch to drm later in the boot process
-without flicker.
+This commit addresses a memory manager warning that occurs when unbinding
+virtio-gpu while fbdev damage work is active. It ensures the object array
+is released before freeing a control buffer rejected by drm_dev_enter(),
+preventing the GEM object from remaining alive during device release.
 
-So my recommendation for your usecase is to not use the kernel boot logo
-stuff, but something like https://github.com/pengutronix/platsch.  Then
-all the configuration is in userspace and modifyable using kernel
-parameters. Or you create your own application using libplatsch that
-selects the image based on the actual product derived from the dt
-compatible or some EEPROM's content.
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio=
+/virtgpu_vq.c
+> index e5e1af8b8e8a0..a470339b67474 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+> @@ -383,6 +383,7 @@ static int virtio_gpu_queue_ctrl_sgs(struct virtio_gp=
+u_device *vgdev,
+>  	if (!drm_dev_enter(vgdev->ddev, &idx)) {
+>  		if (fence && vbuf->objs)
+>  			virtio_gpu_array_unlock_resv(vbuf->objs);
+> +		virtio_gpu_array_put_free(vbuf->objs);
+>  		free_vbuf(vgdev, vbuf);
+>  		return -ENODEV;
+>  	}
 
-Best regards
-Uwe
+[Severity: High]
+This isn't a bug introduced by this patch, but returning -ENODEV here
+without signaling the fence causes issues. Since callers like
+virtio_gpu_cmd_submit() return void and ignore this error, the ioctl
+completes successfully and returns a sync_file fd to userspace.
 
---y7euzt5xlmsr2onq
-Content-Type: application/pgp-signature; name="signature.asc"
+Because the fence is never added to the driver's list or signaled, does
+this cause userspace to hang forever waiting on it? Should we signal the
+fence with an error before returning?
 
------BEGIN PGP SIGNATURE-----
+This is a pre-existing issue, but further down in virtio_gpu_queue_ctrl_sgs=
+()
+there is an unchecked error:
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmptqV0ACgkQj4D7WH0S
-/k6bUwf/b3R5nKZ+dHyzlIKZ+XN6rpMjgW3Dl0H1qu406Hg4yhjBwvx8FmRpc3W2
-O6jYub6BAi5oZj+FpvzdR63pWRetwzGpigOqsGlUeGjjIrHbCJWONwOCAu3Q8ynB
-CfnK2Hg/gWfPSbnzglGMcvjMnOkkBEV9c07rG72C7qPJClOD5n4qPQhh2TwlVHuV
-w2uooARlVezImhDjrexVlRSF8RfZ6tfpHG7Tvingt92i/AnRVb233p6a+8cb4nbY
-VTJeBWgsBPTUYC3OQYjgqtHPA1ZE+G6ZZCukwZii7myk+Y7Xdf4EaYVnnI69vrGM
-4yeJ1GaCsfsBHz5Himv00/m5LkZR0Q==
-=xd2+
------END PGP SIGNATURE-----
+drivers/gpu/drm/virtio/virtgpu_vq.c:virtio_gpu_queue_ctrl_sgs() {
+[ ... ]
+	ret =3D virtqueue_add_sgs(vq, sgs, outcnt, incnt, vbuf, GFP_ATOMIC);
+	WARN_ON(ret);
 
---y7euzt5xlmsr2onq--
+	vbuf->seqno =3D ++vgdev->ctrlq.seqno;
+[ ... ]
+}
+
+[Severity: High]
+If virtqueue_add_sgs() fails (for example, due to -ENOMEM during GFP_ATOMIC
+allocation), the error is warned upon but otherwise ignored. The function
+proceeds to increment the sequence number and pending_commands.
+
+Since the command is never placed in the virtqueue, does this leave the
+driver in an inconsistent state and permanently leak the vbuf and GEM object
+references?
+
+This is also a pre-existing issue, but I noticed a similar problem in
+virtio_gpu_queue_fenced_ctrl_buffer():
+
+drivers/gpu/drm/virtio/virtgpu_vq.c:virtio_gpu_queue_fenced_ctrl_buffer() {
+[ ... ]
+			sgt =3D vmalloc_to_sgt(vbuf->data_buf, vbuf->data_size,
+					     &sg_ents);
+			if (!sgt) {
+				if (fence && vbuf->objs)
+					virtio_gpu_array_unlock_resv(vbuf->objs);
+				return -ENOMEM;
+			}
+[ ... ]
+}
+
+[Severity: High]
+When vmalloc_to_sgt() fails, it returns -ENOMEM. Does this leak vbuf,
+vbuf->data_buf, and vbuf->objs since free_vbuf() and
+virtio_gpu_array_put_free() are not called?
+
+Additionally, since the caller virtio_gpu_cmd_submit() ignores the return
+value, the fence remains unsignaled. Can this cause userspace processes
+waiting on the fence to deadlock?
+
+Lastly, this is a pre-existing issue, but looking at virtio_gpu_init_submit=
+():
+
+drivers/gpu/drm/virtio/virtgpu_submit.c:virtio_gpu_init_submit() {
+[ ... ]
+	if ((exbuf->flags & VIRTGPU_EXECBUF_FENCE_FD_OUT) ||
+	    exbuf->num_out_syncobjs ||
+	    exbuf->num_bo_handles ||
+	    drm_fence_event)
+		out_fence =3D virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
+	else
+		out_fence =3D NULL;
+
+	if (drm_fence_event) {
+		err =3D virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
+[ ... ]
+}
+
+[Severity: High]
+virtio_gpu_fence_alloc() can return NULL under memory pressure. If
+drm_fence_event is true, out_fence is passed to
+virtio_gpu_fence_event_create() which unconditionally dereferences it:
+
+drivers/gpu/drm/virtio/virtgpu_submit.c:virtio_gpu_fence_event_create() {
+[ ... ]
+	ret =3D drm_event_reserve_init(dev, file, &e->base, &e->event);
+	if (ret) {
+		kfree(e);
+		return ret;
+	}
+
+	fence->e =3D e;
+[ ... ]
+}
+
+Does this cause a NULL pointer dereference?
+
+Alternatively, if drm_fence_event is false but num_bo_handles > 0, the code
+proceeds with a NULL out_fence. When submitted, virtio_gpu_queue_ctrl_sgs()
+skips unlocking vbuf->objs because fence is NULL, which appears to leave the
+GEM objects locked indefinitely. Should virtio_gpu_init_submit() check for
+allocation failure here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260731092236.2262=
+403-1-yaokai34@huawei.com?part=3D1
