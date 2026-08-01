@@ -4,63 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A744C55172
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 11:23:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E72BC55172
+	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 13:17:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19EED10E08A;
-	Sat,  1 Aug 2026 11:23:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 318BD10E08E;
+	Sat,  1 Aug 2026 13:17:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=onurozkan.dev header.i=@onurozkan.dev header.b="GBjamspr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="biJ+LPQX";
 	dkim-atps=neutral
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch
- [109.224.244.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E654610E08A
- for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 11:23:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onurozkan.dev;
- s=protonmail; t=1785583379; x=1785842579;
- bh=gNRt5vhm5rzA0r9SYRg4vpPJmSNy2rVVGJFfnD3HI1c=;
- h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=GBjamsprGcj4PJ+2tZTITaCwpA1KPghVP4Ho1RdnnRiTjaoLl+mtI4hCDjYBkjLBD
- 82KdhJDeKUC6ujY02rLVX+E1evUhCj5oKPoxhK4rx6b+vSEy0MkLDc9QfVLW9CXQ/O
- nTTnvcOMLqAxn1jP/gglcT78OMLop3pPKEj+mMgoNmbaTm2cEvHVaKNZeSSGIuDyj3
- BacKGT25+a5IfltXpp5K+ufOdTr/zIaInIjO7KuOvmqeR0D0ueaHmsdtU7+kq6lQwk
- kMgPlUQaPo3e10IA8o1AO0u5WjhU+Fuu5lzfIXz/MfaglekZclzpTiRTakMZdZzFC+
- KKEqnuS5GK7CA==
-X-Pm-Submission-Id: 4hC0sq5XCMz2Sd4d
-From: =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
-To: Daniel Almeida <daniel.almeida@collabora.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Boqun Feng <boqun@kernel.org>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org,
- linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org,
- Boris Brezillon <boris.brezillon@collabora.com>, Maurice <mhi@mailbox.org>
-Subject: Re: [PATCH v5 3/4] rust: clk: add devres-managed clks
-Date: Sat,  1 Aug 2026 14:22:52 +0300
-Message-ID: <20260801112254.313381-1-work@onurozkan.dev>
-X-Mailer: git-send-email 2.51.2
-In-Reply-To: <20260706-clk-type-state-v5-3-67c5f326a16c@collabora.com>
-References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
- <20260706-clk-type-state-v5-3-67c5f326a16c@collabora.com>
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66CFD10E08E
+ for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 13:17:21 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-4706f016316so158232f8f.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 06:17:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785590240; x=1786195040; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=1s2LQ7bIi+O1AtHBDgwoi4wpOF24m44GqVYWMvJpv0E=;
+ b=biJ+LPQX/MHSnglEo7hzuDXSheStHEFS1gvu3CbKwrWvUdKUEKxCzr6knAURj/ObeA
+ VBTPcMfB2+2CijGDkLF+V7fBWfEOc7HEjloSiHiCwqhLk5Kobl5Z1jp0PWZAvPMaWkVz
+ wDRBHMhnUl/lLMN38liMr//xrtQDJ1xZpbKrVdZGeB6D1GQlFuvaM60sUKuk9l7K9aUX
+ cIq5w8KB6GlTj3AFOf0/4VYCbNsaURo3Wp7CvQdJYlcElvSVDa7EeDT/jnNhh41iDxL1
+ RHRreB+E+6jUDNkOGUEOcHtS1pgrhhp/wP5Qpi0Ihnk5RX+fsWXFwewPm2Wc+npeff4P
+ +WLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785590240; x=1786195040;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=1s2LQ7bIi+O1AtHBDgwoi4wpOF24m44GqVYWMvJpv0E=;
+ b=nPJVB5Ce/zFsaHx/9+i5tc4UK8n0uZPL+vzlGwFiBPwD02dzhxNAZ1MzPSkJM0WBWg
+ sCysGPc6DAqf2peG05Xc/l3m38MwtOB4ZAdtCMVlQU61378pOcBfpq5vs7jjPIn4qJqS
+ 1AE5DZGCcnZJc4ardrsA4/jXx/KAmlDh/CNX2VoZ4sRLcreeUf1rWGupYUbZw8Nfv1/k
+ awK97l7FxINuFH0kbkaDDTuIslM6MaXw3aM8jSNEqzzM/a4K9HExnJ7RV4x4U6w6Tuko
+ u0l3OOvXSo5e6alPPYm9V825dWaDTOHp2jTrMzS6jEXF4NolE5M+B1gIQK5xO2PI1bfh
+ QmPA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RquLvt+9DkLUjIWuE+PNqFFuiKEmvpHxqY32OQhXMcj+Og/NNI532sxaMC7cYtiZ1zJR+c65FvFR1c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzadfMxE8A9s0akhgUz/adVkcLSWZv94lhJX1UQlHoYnA/monMF
+ R5I5lHiR1cgwelzaaNzj8PaIaeKY044XUlgS13apj1rrTZvOEgidpGzT
+X-Gm-Gg: AR+sD13wSjOTxc1q8Co8iKqvb0T6mUEDu66jZUDb9X8ag3mIiD1pRkRh8eXVTtpj+I7
+ 1TSK0a2gxw3vE9hGil6ml5naJN/F21BVWP2A6l4V/FBqVDQmi0rm4TMi8qkltKEzUBSu5Jzq9fZ
+ PSrjAXzYutRGqm2WiwntVCJ4QeIn/9A9nyQx+tLjjw7DzQsy0rd1obt7OWsbB7RWmG4+0gHcMa9
+ szCGpTTBY/1RV63XMT91ynsXzzAQE2GeGrwj/CLl27a0nVXzYoltgoGHWCwunu8Rt1P1+wgWQdt
+ mJkOBhpz7Zm89MbIfI3N8ByX++coosgBbJiLf9iGU4b6YxKDCZk+PmOS/7AIPoAr57pXhydI+7x
+ ixUxnWnHZfyPGv/RDBwyEHa/KsZxfLcD7BfilHX+n2BEsJLmbW72Q87niBfOjg2hTgau+0ENhg2
+ HmfTgonP3664IEZyo5svuyC6fVhdvBH0lIXwWscDFeVsY2VTQppuWhmYGbxT8UJo4ObKL1ubOpB
+ 64VpIbZXeEfzWF0KSfjZKXeEyV0LjAkj61REsrxfZMOn/XEdiA1GP7YlE76sv1277yb
+X-Received: by 2002:a05:600c:4686:b0:493:ec89:db4a with SMTP id
+ 5b1f17b1804b1-4980c6066b5mr28150325e9.0.1785590239488; 
+ Sat, 01 Aug 2026 06:17:19 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B870700E64B9F218DE76E46.dsl.pool.telekom.hu.
+ [2001:4c4e:1b87:700:e64b:9f21:8de7:6e46])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49807b2a61asm40341835e9.0.2026.08.01.06.17.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 01 Aug 2026 06:17:18 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Cc: Igor Paunovic <royalnet026@gmail.com>, Heiko Stuebner <heiko@sntech.de>,
+ Jiaxing Hu <gahing@gahingwoo.com>, Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org
+Subject: [RFC] accel/rocket: DVFS on RK3588 - a hardware constraint,
+ and some numbers
+Date: Sat,  1 Aug 2026 15:16:56 +0200
+Message-ID: <20260801131656.58450-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,107 +91,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 06 Jul 2026 11:37:14 -0300=0D
-Daniel Almeida <daniel.almeida@collabora.com> wrote:=0D
-=0D
-> The clk API allows fine-grained control, but some drivers might be=0D
-> more interested in a "set and forget" API.=0D
-> =0D
-> Expand the current API to support this. The clock will automatically be=0D
-> disabled, unprepared and freed when the device is unbound from the bus=0D
-> without further intervention by the driver.=0D
-> =0D
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>=0D
-> ---=0D
->  rust/kernel/clk.rs | 46 ++++++++++++++++++++++++++++++++++++++++++++++=0D
->  1 file changed, 46 insertions(+)=0D
-> =0D
-> diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs=0D
-> index dd5fd656271e..b9a44f83843a 100644=0D
-> --- a/rust/kernel/clk.rs=0D
-> +++ b/rust/kernel/clk.rs=0D
-> @@ -96,6 +96,52 @@ impl Sealed for super::Prepared {}=0D
->          impl Sealed for super::Enabled {}=0D
->      }=0D
->  =0D
-> +    /// Obtains and enables a [`devres`]-managed [`Clk`] for a bound dev=
-ice.=0D
-> +    ///=0D
-> +    /// [`devres`]: crate::devres::Devres=0D
-> +    #[inline]=0D
-> +    pub fn devm_enable(dev: &Device<Bound>, name: Option<&CStr>) -> Resu=
-lt {=0D
-> +        let name =3D name.map_or(ptr::null(), |n| n.as_char_ptr());=0D
-> +=0D
-> +        // SAFETY: It is safe to call [`devm_clk_get_enabled`] with a va=
-lid=0D
-=0D
-Intra-doc links won't work in regular comments.=0D
-=0D
-> +        // device pointer.=0D
-> +        from_err_ptr(unsafe { bindings::devm_clk_get_enabled(dev.as_raw(=
-), name) })?;=0D
-> +        Ok(())=0D
-> +    }=0D
-> +=0D
-> +    /// Obtains and enables a [`devres`]-managed [`Clk`] for a bound dev=
-ice.=0D
-> +    ///=0D
-> +    /// This does not print any error messages if the clock is not found=
-.=0D
-> +    ///=0D
-> +    /// [`devres`]: crate::devres::Devres=0D
-> +    #[inline]=0D
-> +    pub fn devm_enable_optional(dev: &Device<Bound>, name: Option<&CStr>=
-) -> Result {=0D
-> +        let name =3D name.map_or(ptr::null(), |n| n.as_char_ptr());=0D
-> +=0D
-> +        // SAFETY: It is safe to call [`devm_clk_get_optional_enabled`] =
-with a=0D
-> +        // valid device pointer.=0D
-> +        from_err_ptr(unsafe { bindings::devm_clk_get_optional_enabled(de=
-v.as_raw(), name) })?;=0D
-> +        Ok(())=0D
-> +    }=0D
-> +=0D
-> +    /// Same as [`devm_enable_optional`], but also sets the rate.=0D
-> +    #[inline]=0D
-> +    pub fn devm_enable_optional_with_rate(=0D
-> +        dev: &Device<Bound>,=0D
-> +        name: Option<&CStr>,=0D
-> +        rate: Hertz,=0D
-> +    ) -> Result {=0D
-> +        let name =3D name.map_or(ptr::null(), |n| n.as_char_ptr());=0D
-> +=0D
-> +        // SAFETY: It is safe to call=0D
-> +        // [`devm_clk_get_optional_enabled_with_rate`] with a valid devi=
-ce=0D
-> +        // pointer.=0D
-> +        from_err_ptr(unsafe {=0D
-> +            bindings::devm_clk_get_optional_enabled_with_rate(dev.as_raw=
-(), name, rate.as_hz())=0D
-> +        })?;=0D
-=0D
-Just fyi, there's currently a bug in the C implementation of=0D
-devm_clk_get_optional_enabled_with_rate() which I caught while reviewing yo=
-ur=0D
-series. The fix patch is already on the list [1]. Other than that, this LGT=
-M.=0D
-=0D
-[1]: https://lore.kernel.org/all/20260801111637.304590-1-work@onurozkan.dev=
-=0D
-=0D
-Regards,=0D
-Onur=0D
-=0D
-> +        Ok(())=0D
-> +    }=0D
-> +=0D
->      /// A trait representing the different states that a [`Clk`] can be =
-in.=0D
->      pub trait ClkState: private::Sealed {=0D
->          /// Whether the clock is enabled in this state.=0D
-> =0D
-> -- =0D
-> 2.54.0=0D
-> =0D
+Hi Tomeu,
+
+Since you asked for fixes to be sent upfront I have kept poking at the
+RK3588 NPU, and I ended up implementing devfreq for rocket locally.  It
+works, but on the way there I hit a crash class that I could not find
+documented anywhere, and I also measured something about the vendor OPP
+table that I did not expect.  Both seem worth sharing before I clean any
+of it up for posting, so I would rather ask first than send a series you
+may not want in this shape.
+
+Cc'ing Jiaxing since he is working on the clocks and on RK3576.
+
+
+1. The hardware constraint
+==========================
+
+An NPU power domain cannot be switched on or off while the NPU compute
+clock is above its DT assigned-clock-rate of 200 MHz.
+
+Changing the rate while a domain is already on is fine - I have taken it
+to 1 GHz and back many times without a single error.  It is the domain
+transition that breaks.
+
+What happens when a domain is moved at a high rate:
+
+  rockchip-pm-domain ...: failed to get ack on domain 'nputop', val=0xa9ffe
+  rocket fdab0000.npu: devfreq: cannot power up for rate change: -110
+
+The domain is then wedged: genpd still believes it is on, but the first
+MMIO into it raises an asynchronous SError and the box panics.  Captured
+over the serial console:
+
+  Kernel panic - not syncing: Asynchronous SError Interrupt
+  Comm: rmmod
+   _regmap_read
+   regmap_read
+   rockchip_pd_power
+   rockchip_pd_power_off
+   _genpd_power_off        <- rollback
+   genpd_power_off
+   genpd_power_on          <- failed
+   genpd_runtime_resume
+   device_release_driver
+
+This is not specific to nputop.  I have the same message for 'npu2'
+(val=0xa9fff), which matches the DT: all three NPU domains list the NPU
+clock among their handshake clocks - rk3588-base.dtsi lines 864, 877 and
+885, for RK3588_PD_NPUTOP, RK3588_PD_NPU1 and RK3588_PD_NPU2.
+
+So the clock the domains need for their idle/ack handshake is the same
+clock we would be scaling.  My best explanation is that the PLL that
+produces it lives inside the domain, so once the domain drops, the clock
+state goes with it and the handshake can never complete.  I cannot
+confirm that part - reading the PVTPLL registers is documented as
+hanging the machine, so I have not tried.  The behaviour itself is
+reproducible and cost me four hard hangs before I understood it.
+
+I mention it because it is a trap for anyone adding DVFS here, including
+the RK3576 work, and because it is invisible until the first time you
+let the NPU idle at a raised clock.
+
+
+2. What ended up working
+========================
+
+Runtime PM callbacks are not enough.  The domains are powered on by the
+driver core before probe, powered off from a workqueue after detach, and
+system sleep bypasses runtime PM references entirely - so the driver
+never sees all the transitions.
+
+What does work is hooking the transitions themselves:
+dev_pm_genpd_add_notifier() on all three cores, and on GENPD_NOTIFY_PRE_ON
+and GENPD_NOTIFY_PRE_OFF force the clock back to the DT rate, vetoing the
+transition with notifier_from_errno() if that fails.  Every path -
+runtime PM, system sleep, attach at probe, detach after unbind - goes
+through _genpd_power_on()/_genpd_power_off(), so nothing can slip past.
+If a transition does happen, the boost cancels itself and says so,
+rather than leaving the driver claiming a rate the hardware is not
+running.
+
+This has now survived everything that used to kill the box, including
+repeated sleep/wake cycles at a raised clock and rmmod while boosted.
+
+
+3. The numbers, which are the surprising part
+=============================================
+
+Measured with MobileNetV1 through Teflon, one inference thread pinned to
+one A76, and a bit-exact oracle: sha256 over intermediate tensors on
+every iteration, zero tolerance.  The 600, 900 and 1000 MHz rows are
+30-minute runs of 275k-280k inferences each and the oracle passed
+bit-exact in all three, so none of this is instability; the 200 MHz row
+is a shorter control from the same session.
+
+  nominal    supply    throughput
+  200 MHz    800 mV     68.5 inf/s      (the current fixed rate)
+  600 MHz    800 mV    155.4 inf/s
+  900 MHz    850 mV    152.4 inf/s
+  1000 MHz   850 mV    152.9 inf/s
+
+600 MHz is the optimum.  900 and 1000 are indistinguishable from each
+other and both land about 4% below 600, on a quieter and cooler machine.
+The vendor OPP table decoded from the downstream DTB asks for 700 mV up
+to 700 MHz, 750 mV at 800, 800 mV at 900 and 850 mV at 1000, and I ran
+the top of that range at the voltage it asks for - it does not help.
+
+Backing out an effective clock from the per-chunk time, nominal 600
+appears to deliver more than nominal 900 or 1000 do.  I would not lean
+on that decode, but the throughput ordering does not depend on it.
+
+Thermals were never a factor: the highest I saw all day was 50.8 degC,
+against a critical trip at 115.  This is one board and one model, and
+MobileNetV1 is memory-heavy, so a compute-dense network may well behave
+differently - but for this workload the top half of the vendor table
+buys nothing.
+
+If that holds up elsewhere, an OPP table for rocket probably should not
+simply mirror the vendor one.
+
+
+4. Thermal, separately
+======================
+
+While looking at this I noticed npu-thermal has only a critical trip at
+115 degC - no passive trip, no cooling map, polling-delay-passive is 0 -
+while gpu-thermal, a few lines above in the same file and on the same
+tsadc, has both.  That was harmless while the NPU was pinned at 200 MHz
+because it could not be slowed down anyway; with DVFS it stops being
+harmless.
+
+I have two small patches for that (a #cooling-cells binding update and
+the thermal zone itself), but they only make sense once something
+registers a cooling device, so they would belong with the driver work
+rather than on their own.
+
+
+5. What I am asking
+===================
+
+- Is DVFS for rocket something you want upstream at all, or is it better
+  left alone for now?
+
+- Does the genpd-notifier approach look right to you, or is there a
+  cleaner hook I have missed?
+
+- Given the measurements, would you want the OPP table to stop at
+  600 MHz rather than follow the vendor range?
+
+- If you do want a series, I will need to clean the code up first - it
+  still keeps its state file-static rather than in rocket_device, and it
+  bypasses the OPP layer for the rate change because our own direct
+  writes leave the OPP cache stale.  Both are fixable; I would rather
+  know the shape you want before rewriting.
+
+Happy to send the current code as-is off-list if that is easier to
+comment on than prose.
+
+Thanks,
+Igor
