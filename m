@@ -4,42 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E65C1C55162
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 15:56:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09B9DC55171
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 16:17:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51BFC10E110;
-	Sun,  2 Aug 2026 15:56:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 022B210E218;
+	Sun,  2 Aug 2026 16:17:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JUipDZ6N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NEifo3Bk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 390B910E110
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 15:56:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EB85840B42;
- Sun,  2 Aug 2026 15:56:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADF7B1F000E9;
- Sun,  2 Aug 2026 15:56:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785686184;
- bh=PD/W91IpcvCDrLDTD5fmEnCm8uy1LEEE1V1o0m607G0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JUipDZ6N66uAG4Zk1HgZoWPE4oNKcjx+2Ae8NVUp5URvCzDWBXoDikuxWal2+HrG8
- zp9KKFUnJihYzeAnbodt9GOaQ7PqzbZOW1FHVI5nyj25BEHzqD+8g/qrLe7vRbuTtW
- +JQKaHHpF0w3hEpObAnqzq11KVzOSDfAhJ+TdqhKT+vO8oTqUtWWgPuoyUT58OlrT+
- NeaZKa6tZC78Wr/RtAHemAJhvdkwGVr42MQwNw0IANgZXHYzHTsg+HwLFr2KubEHmc
- ADBhwTKMs+DG3+4hLGRB6ya7yrSfYRaPcqKOCm0X8VM3XIb51dF5eRc2hsTTl/2pZD
- jilcoYZkzRY7A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/virtio: reclaim pending vbufs before tearing down vqs
-To: "Anuj Bolewar" <bolewara@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260802-virtio-gpu-reclaim-vbufs-v1-1-9947f18b20e2@gmail.com>
-References: <20260802-virtio-gpu-reclaim-vbufs-v1-1-9947f18b20e2@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 15:56:23 +0000
-Message-Id: <20260802155624.ADF7B1F000E9@smtp.kernel.org>
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 01BA610E218
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 16:17:12 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5b28c91fba5so2963535e87.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 09:17:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785687431; cv=none;
+ d=google.com; s=arc-20260327;
+ b=AbYCfdODbxG7nWbPra+9WIFhRLj+D5BCO3Wc5dblpzV8TI/BqumLShf8djpF/lwO+c
+ mfqNUXMgb+V8yi0O1zOxUXJ8ksYpIsjYlcHCg+WlAn7xGpxj/eYChU+7SBXAtKy9W0rS
+ UGzfPy1ZgJ44byq4DRirFmYYo19dK5cAypmzvNuTyN2thWZ1bOivqqmIXsu2Pse/Ab5q
+ fIX1eMIHhrIHnPwfrI7T1j0gOpisCh3TcftwUy7hW0lgk3J55Plx3VXqxU6wzSZERhRz
+ q1oNjofCJGvMrFN4Bk+sAOoVBMWqhghLYRhlPXSgT400vL1mqoR7wRhPbdKUSjP6FuP9
+ S2Ow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=F+zW3rLtrKxs03zqEcqhbiHh6u7f93DhbA0J7vHyhig=;
+ fh=aE+wBCudF/gOybGiYNdGNsCMc8GX1x+3JHzzIbThrC8=;
+ b=PIntKn2sOWbl0oGI7ewynQTAGNdTwRBc4w1+E38cHMOAmaba/dw1Uy77QqkZ3z2owB
+ NTbZ/KUzaQO3IR047dXVga5do/bM1lzZQwPyq0FfoywvevVVRU2E6r6O2GagVfjUsrPx
+ RxOPXPCro+gRe5XH2wzeVAdaAIyD2Q+YrIex1NOLTPcmyQvbGDforgdjNVjZvFnYzFtg
+ 1cAnxJbr4L4Ye8418IGpm5RxengTx/D2Nj4GqAJvL7AB9C/ZiHb7NmZy2eIghNCqQ/c0
+ 99kfoof7ccnLnzYp9nYhJgGJJFBY0xAHbDrTLvvnYMufDFt9KHwR8e7GTsN4NFsd87O0
+ DJog==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785687431; x=1786292231; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=F+zW3rLtrKxs03zqEcqhbiHh6u7f93DhbA0J7vHyhig=;
+ b=NEifo3BkbGtoaMhA9/H3xBThkHoawJaB7uEOlzBCLkcXdY8yamykAJcNSKa2ISy6Ds
+ RaJmfcOA5A80ZgnPdVE/8zrr7LsHE3PbXT9ceyMHS422t/70Yqqg/p9IdJ1gPTrYZqb9
+ YfYjx7Jswq8w1g764KZESyWqpXSvvoI/jpqdyh/IibPpnGvwMdr6HGaxwO8J9+V5yET2
+ rbLU9EfY+l1FGb6Ru4QPYm5fQFGkUNhR0O+bPu0opOHaJ5gS+SaUNx80Yazv5PgmTPgY
+ uzafeQJWpzO3HJKLfWuTj4zbXrQ6m5EQgwDIBTordFddGwzzXbwq+sEAxAECP03QQ8l1
+ I5xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785687431; x=1786292231;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=F+zW3rLtrKxs03zqEcqhbiHh6u7f93DhbA0J7vHyhig=;
+ b=DNWoJ9ukHH6oCyiPCYpiUJiO0dX4RYofuu19gz4EkyBHHaSb0LSOVf4N7hxhIM5TgY
+ e3ddH6d2zyunJf7S80wP6UyLtBkpKC7LA8Zt+/vsXpwY04lurGuEyOL9UOpDMSZWtXWw
+ 6Lni4hLT/oqfQydvwXUajY1Nt98E3E2tvK0ayVugty6tV0tWejTTn418vVG+kJTBB+85
+ XDLv4F2TNDxCc+x65U+H7gBZmeXcyc5i3V+bP4VW+OooZLXrwK4uXruTQNlajpE+CfBf
+ x9iQ2u6ST2p2ftQEYvqLhmlk8k0o+MKbj4jaq365gew0Ov/ULyiFgoKzp1kGHDQj6hcc
+ glSQ==
+X-Gm-Message-State: AOJu0Yz0XDU9C9cpwOgUPYFaEwsSDnpLc8rQ4ui7qO6sXaD1TRVsYkEO
+ aTxQNYiAw+1ysVU9M3swItZLPm25KrCTAlpEPjoeQVMYcYmP4532/WFDTsHCj2maD8yEpztK8xf
+ ckbTr8EZU7PZj4nSw3+Uyzf8GKFtR2nM=
+X-Gm-Gg: AR+sD137etJH8tyOFEHNV5TSCH8S2q077yXRi46jiHx6/JFZNwa10fE11hIKVkRWLDP
+ 3yIHRgVkVoGXrEX3qwlC5yJpv7tkItiAvYTQYirfQnGRUakEEe5YTRC/gxJ7fCUS+aST0wX7Mpu
+ ePglEH7GLYwGeqEzqksxmIp/kn8bP1gm0GBlTmwU58IYBnQ8K7Mp2ajsOnNA+bBaZb8TgpWSTKN
+ YFwRot2dsnQARuq8g21z/zUUYSvlnpOVRv7mNVMT3ZlOoeG3qqV0zaNx5hEuVP9HInkukLj5H4g
+ CyrPIvzVI+F55tJiDPQWELkGZ3oA3dA4OXi6nHZh2V0DsIJLusLfR1Cs7FFEF4ld5V+4g+K+3v0
+ nW8bmC1ZG3nokJu/KKOzbXhyXAOwkCFLYmUP8EQDrJsFKvwTiLhdxPg7tQ83SGWcW
+X-Received: by 2002:ac2:4644:0:b0:5b2:a353:e4bd with SMTP id
+ 2adb3069b0e04-5b2e4f74c67mr759807e87.30.1785687430791; Sun, 02 Aug 2026
+ 09:17:10 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260730173643.256052-1-kieweg.leander@gmail.com>
+ <20260730173643.256052-2-kieweg.leander@gmail.com>
+ <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
+In-Reply-To: <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
+From: Leander Kieweg <kieweg.leander@gmail.com>
+Date: Sun, 2 Aug 2026 18:16:59 +0200
+X-Gm-Features: AUfX_mz5HEe49CyDGpRdEdFN7gD16niSwzfJt3LuNERXKkSNUjs1qx6t2yWAiTU
+Message-ID: <CAMwcS0hupV50NEOX1Fsi_tzRYXBecaummjAm=CFHO7xOT1uUXw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, u.kleine-koenig@baylibre.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,119 +103,45 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Thanks for the review.
 
-New issues:
-- [High] Data race and potential Use-After-Free between `dequeue_work` and =
-`virtio_gpu_reclaim_vbufs` / `del_vqs`.
+> > +properties:
+> > +  compatible:
+> > +    const: glanda,gpu-1.0
+>
+> What does this 1.0 correspond to? There is no such tag on linked Github.
 
-Pre-existing issues:
-- [High] Memory leak of GEM objects (bo) due to missing cleanup of `vbuf->r=
-esp_cb_data` in `virtio_gpu_reclaim_vbufs`.
-- [High] Permanent leak of `dma_fence` objects and potential infinite wait =
-for stranded commands.
---
+I've pushed a v1.0 tag to the GlandaGPU repo now, matching the
+register interface described in this binding:
+https://github.com/stiangglanda/GlandaGPU/releases/tag/v1.0
 
---- Patch [1]: [PATCH] drm/virtio: reclaim pending vbufs before tearing dow=
-n vqs ---
-commit 9dfeaad280a2a9a1d77041d3cd3a7b47ba0d4e3a
-Author: Anuj Bolewar <bolewara@gmail.com>
+> > +  "^glanda,.*":
+> > +    description: GlandaGPU
+>
+> Vendor prefixes are per actual vendor, not product.
+>
+> I have doubts this is needed in the first place. As a pure FPGA design,
+> this cannot work alone and you cannot get it alone (at least yet,
+> happily to see resources proving me wrong). Thus it will be always
+> customized per final board design, thus that final compatible is what
+> matters.
 
-drm/virtio: reclaim pending vbufs before tearing down vqs
+"opencores" and "openrisc" are both accepted vendor prefixes for
+open-source hardware projects rather than commercial vendors, so a
+project name seems reasonable to me here too.
 
-This commit attempts to drain any buffers still sitting in the control and
-cursor virtqueues in virtio_gpu_deinit() after the device has been reset
-and before the virtqueues are deleted to prevent a cache shutdown warning.
+That said, I take your point about board customization. I'm happy to
+add a board-specific compatible as the primary match, with
+"glanda,gpu-1.0" as the fallback, e.g.:
 
-Link: https://syzkaller.appspot.com/bug?extid=3D06f9b2a53ba4a5a47644
+compatible = "terasic,de10-standard-glandagpu", "glanda,gpu-1.0";
 
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virti=
-o/virtgpu_kms.c
-> index b4329f28e9766..e5a6ae679f363 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-> @@ -298,6 +298,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
->  	flush_work(&vgdev->cursorq.dequeue_work);
->  	flush_work(&vgdev->config_changed_work);
->  	virtio_reset_device(vgdev->vdev);
-> +	virtio_gpu_reclaim_vbufs(vgdev);
+The driver would keep matching on "glanda,gpu-1.0". Let me know
+if you'd like this for v3, or if the generic compatible is enough for now,
+since there's currently only one board using this core.
 
-[Severity: High]
-Could a late interrupt re-queue the work after it has been flushed?
-
-Since flush_work() is called before virtio_reset_device(), if an interrupt
-arrives just after flush_work() completes but before virtio_reset_device()
-is called, the worker could be re-queued.
-
-Because virtio_reset_device() stops new interrupts but doesn't cancel
-pending asynchronous work, could the rescheduled worker execute concurrently
-with the newly added virtio_gpu_reclaim_vbufs() and access the virtqueue?
-
->  	vgdev->vdev->config->del_vqs(vgdev->vdev);
->  }
-> =20
-> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio=
-/virtgpu_vq.c
-> index e5e1af8b8e8a0..95d7a9ef0d99d 100644
-> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-
-[ ... ]
-
-> @@ -208,6 +208,19 @@ static void free_vbuf(struct virtio_gpu_device *vgde=
-v,
->  	kmem_cache_free(vgdev->vbufs, vbuf);
->  }
-> =20
-> +void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
-> +{
-> +	struct virtio_gpu_vbuffer *vbuf;
-> +
-> +	while ((vbuf =3D virtqueue_detach_unused_buf(vgdev->ctrlq.vq))) {
-
-[Severity: High]
-If the dequeue_work worker is still running as mentioned above, could it
-race with this lockless manipulation of the virtqueue?
-
-The worker uses virtqueue_get_buf() under vgdev->ctrlq.qlock, but
-virtqueue_detach_unused_buf() is called here without acquiring the lock.
-This might lead to concurrent modification of the virtqueue internal state
-or a use-after-free if the worker accesses it after the queues are deleted.
-
-> +		if (vbuf->objs)
-> +			virtio_gpu_array_put_free(vbuf->objs);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this loop overlook
-vbuf->resp_cb_data?
-
-When the device is reset, pending VIRTIO_GPU_CMD_RESOURCE_UNREF commands are
-left in the virtqueue. If they are detached and freed here without executing
-their resp_cb callbacks (like virtio_gpu_cmd_unref_cb) or manually cleaning
-up vbuf->resp_cb_data, does it permanently leak the underlying GEM objects
-and their associated IDAs?
-
-[Severity: High]
-This is a pre-existing issue, but does this loop also silently discard
-command buffers without signaling their associated fences?
-
-When commands are queued with a fence via
-virtio_gpu_queue_fenced_ctrl_buffer(), a reference to the dma_fence is added
-to the vgdev->fence_drv.fences list. If virtio_gpu_reclaim_vbufs() detaches
-and frees the vbufs without extracting or signaling these fences, could any
-waiters hang indefinitely?
-
-> +		free_vbuf(vgdev, vbuf);
-> +	}
-> +	while ((vbuf =3D virtqueue_detach_unused_buf(vgdev->cursorq.vq)))
-> +		free_vbuf(vgdev, vbuf);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802-virtio-gpu=
--reclaim-vbufs-v1-1-9947f18b20e2@gmail.com?part=3D1
+Best regards,
+Leander
