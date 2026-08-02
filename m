@@ -4,52 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5FD4C55162
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 07:26:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A2FEC55171
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 08:43:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7CB710E3E5;
-	Sun,  2 Aug 2026 07:26:30 +0000 (UTC)
-Received: from mail-oi1-f205.google.com (mail-oi1-f205.google.com
- [209.85.167.205])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8B2310E3E5
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 07:26:29 +0000 (UTC)
-Received: by mail-oi1-f205.google.com with SMTP id
- 5614622812f47-4a36606e230so3422558b6e.2
- for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 00:26:29 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 504D310E3F1;
+	Sun,  2 Aug 2026 08:43:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k9a+ntZY";
+	dkim-atps=neutral
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6AFA310E32D
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 08:43:13 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-c9b3f380006so293933a12.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 01:43:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785660193; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ejuC+4fDzqcEVrV0ahtqsT1VaxjxoJRKa/cbtMiUYA58wixFH9BM3XNUYSEZWzcZJg
+ rGJG2G3/+4xks7GtXP8ikInwQ0wODRijFViZajPHWHnr0QkLNovOeRW1kGR64TWC+mDz
+ sIP66jBJkaeG+bwxOIoBEKBhi5LZYdEf2SIaRh0YDxRZOexUc94I6hNgfDwc38Rkqw5F
+ 4O3D5A6BerRXrknJRBZ1x8iiblpDmQdlDVOJqzzBW8FYiyj70f2nxkrvaoAp0nfcC9KV
+ pRHoo3Z9cn5pDCDXgedO3LHnM5gsIQi4xB+bQugSl+gosFv0A8LcaucWT9VE3+X5z2h0
+ dLwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Tm0k65FNbDrdx1vgSHrRVtMQQzAt2fySrdQkOW+gZyU=;
+ fh=IxZDlefd8TvIdZL87sq9DP+q1RPMnvUE4l4B2knIROc=;
+ b=CAaMNZQRjKlBuF0UmsIAaDByLmEd4JUF3E6ucW3PElVkfkQX1i71gim3h9lJtwiIEp
+ PkldMm/sPeaJOrmvCYLS6Wm5q9vwKt6t2xan453qRbn3GQGm0+qWU0iPd8VnW0QYp1V7
+ /EwF5GKpopc5E81Fj9tAGQ/O/FPCwl8pYCXEVF/HsdlOSFM95n9amCpSoMlII/U9b9K2
+ FrfR9M25Bmzc1yHGhxG4hZTRddmhNJiwIPCyLx4ID6BQDW0jDanopoc68Gus70F2QkWw
+ 3SzES4ktc9yEFUDrPiO257eM+DKbYFVlg0RPRlfjlMDy8zdrQmfucP23o/TbwV2Dm9Im
+ clmQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785660193; x=1786264993; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Tm0k65FNbDrdx1vgSHrRVtMQQzAt2fySrdQkOW+gZyU=;
+ b=k9a+ntZY79gtbOf8XZaZnlBd4ZYfDl0PYwbqfZKO1pnpbU0MfWyDM8hNDXlLQn8hXq
+ WBzG42ayxWojFgj6qslPH1zx5vk4JGXNZBmHaVLMUhww2MkM65C9RnQNBT/LxhE5Mbp3
+ 5c+QNmP41YI1qV1oSQCNR27HmNCKAej9+DwvhiOdWfzENSVzCBLzi090C2F8W6zjKhoc
+ ZE4kqVINvfxgHOeX5MZySBLl6DZCOXc/JilCR1AgmCOYpFJUH00yct8SeNG0Gv1TzjUw
+ oU8jujfZOJEuIF8pwGn7PNrlfu/A7Z5QxUkg5uHtoaEgf6zi6lWyrESB5H/UJrfsO2YX
+ dhkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785655589; x=1786260389;
- h=content-type:to:from:subject:message-id:date:mime-version
+ d=1e100.net; s=20251104; t=1785660193; x=1786264993;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=rFAZOHpoOzdEC72mhCLaIi2Ir9J0fgzUfWqu96TAK+A=;
- b=Ik4CTawN4BphJOTQgcDi35v98RLo4VtJGBUbm19DQQw6g8A484j3e8t+3HzmC436e8
- LC5/V6OdNT1N+AsXRknKhJyeMyUHRUIEPsHv/o/OAJmqyuhvF1U8bPvsolxclA7mLXNS
- 8cKwUUiGPedaB3jwPcVWnHgzAGJ2h549nDpjekdbdcs8xB7j0+W41aAO31xDjpBMQ/46
- aKhdKz9QIulxayfxrYdmPPqdxqJEXz16kJgaZ+brNZBebnMLwQJQ34vVTmIsq4XtAI56
- lW716z1en05nBSJGFCcBVvbxiuJ5MGcFhPPTMIeTgRFDc6d0dIPO0g9DMvuG30yTxcc1
- uGHQ==
+ bh=Tm0k65FNbDrdx1vgSHrRVtMQQzAt2fySrdQkOW+gZyU=;
+ b=ZHphHUDUviahjH6OQuTTLcEAvaMm/8HbrSUU7ISrCvBD0yA9N66DYsdK8qYq+ARzbL
+ 1iPVftTZTgd7OCASfgjW4eYvw2Gsgnz3NaxDbBV4S6UqhNlnkNTW0SFFPjsihRm6rahh
+ +oBEyX8jgOafhbgh0M/svm1nE9KpNimEqmWxsAPYut5uyxhaAXp+n/kEpyKxDqgZovIA
+ ZMvn0jHPQKCjaK7NitKff32xEok0nYxx0eAoDBg0Y9Xz/IsPLhCFEtU/t1UVz7izamWq
+ iW5UD6uDw/bz2i/paKAqlsPeGFVYYPhMF7Z1ibuct6l32cmRl+jv9rBHFcv3o3P8JRNj
+ EAWg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqlHNnA8bIhI4CXEhzpwfu6uSxRSmog3+8YlI3J7DFZL3NUjX8SH9Dn7ojjvGnpEKInyWlYj7sKLZE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyYmxwDu9bm+F1IgMAB4JIuYso8riuxSXh+BQM6OcFuOj6kBmO4
- Vf8BrGWXS1HExd/vdCWWLN54U3oS8HrxdFTQJWGZXWnS/Dg2N4Pll1PvQN7XoqDGnVVkQEH9uY/
- DSASpZom8jRzuzC7mWiMhYcP8C99Ea3zB4YBIPboTMYEaa60z3Gm1BvbErVg=
+ AHgh+Rp2YQ3iz4Ofyyr2fFaIXN4ZB9UTAwMXbMZGD8uVcAPyh/w9FyDqdFfu9/wmX/ygUFImuyLSYOM/iQE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzW3otcbFjicLW37GG45kVpJ9y2r3LQ43KMzJwM8XiwkZda4fTl
+ kt3DF2xC7MyvIBYB1Bw6ZqRS3ZGjvgADVzWcIa6cCO3gvd12u9yGn1o5Tb1iOQTOF7Gyoltu/9P
+ iNQQ430TsVqXIHThavXHywYAwBwNTgag=
+X-Gm-Gg: AR+sD11TeP3uOSW1p9peXjY/UW+vE8Hn/uy+5LKNC4sfsl8hQY+jdemYgEFOjgWnZ9w
+ i/PWcGac7HEjZziNY/YXoYJO3up+e9PqAj9lEHLnXsCDPeYdLiYjqh3w+asBNf1kv+4qIe/Slqh
+ ITfrgk/0XZBPwQmV3EqYG9hujXaWjedJjstuXWLaAS+LGlZU7ibKIsueDPL0ENynwpWyUxDtro8
+ QlXJC1t2GW05wvec4Fx+I7M+kw5arcq03sBXIYA8jB1SG31RqYP2DOW9fBYhrnnEk+uYiuJAgoO
+ wlzuXrs1aAVJUeAtX9vOQ5BWfWdSghMHqchqAskn/Y8EImYGBe6NyF/k4fm3ziPS4Y+DAyYDEqa
+ ZhBax/t/YdiO2s58Zv0TWjzm/5zR+K3/BISsjJ9TgIBFuQoH429qIdZn18pk+
+X-Received: by 2002:a17:903:1450:b0:2c9:d298:6c0a with SMTP id
+ d9443c01a7336-2d05246fbb8mr88691875ad.2.1785660192824; Sun, 02 Aug 2026
+ 01:43:12 -0700 (PDT)
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:3986:b0:4a0:d9a1:1a95 with SMTP id
- 5614622812f47-4af5e39474emr9225337b6e.14.1785655588794; Sun, 02 Aug 2026
- 00:26:28 -0700 (PDT)
-Date: Sun, 02 Aug 2026 00:26:28 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a6ef124.d606a800.1705cf.000a.GAE@google.com>
-Subject: [syzbot] [virt?] [dri?] WARNING in virtio_gpu_free_vbufs
-From: syzbot <syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com>
-To: airlied@redhat.com, dmitry.osipenko@collabora.com, 
- dri-devel@lists.freedesktop.org, gurchetansingh@chromium.org, 
- kraxel@redhat.com, linux-kernel@vger.kernel.org, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, olvaffe@gmail.com, 
- simona@ffwll.ch, syzkaller-bugs@googlegroups.com, tzimmermann@suse.de, 
- virtualization@lists.linux.dev
+References: <20260730181717.95457-1-ojeda@kernel.org>
+ <20260801154223.stable-0006@kernel.org>
+In-Reply-To: <20260801154223.stable-0006@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Sun, 2 Aug 2026 10:42:59 +0200
+X-Gm-Features: AUfX_mwSyBPjd02vvZ_CgqaO3HBOLCgHpt8D6b_pNGvF6OI_s99b49Kz6LgVuPc
+Message-ID: <CANiq72kS0Ym1r5oEYcbhUDXcZ910YERpV8m3o06ebtXay52iWQ@mail.gmail.com>
+Subject: Re: [PATCH 6.18 000/675] 6.18.42-rc1 review
+To: Sasha Levin <sashal@kernel.org>
+Cc: gregkh@linuxfoundation.org, achill@achill.org, akpm@linux-foundation.org, 
+ broonie@kernel.org, conor@kernel.org, f.fainelli@gmail.com, 
+ hargar@microsoft.com, jonathanh@nvidia.com, linux-kernel@vger.kernel.org, 
+ linux@roeck-us.net, lkft-triage@lists.linaro.org, patches@kernelci.org, 
+ patches@lists.linux.dev, pavel@nabladev.com, rwarsow@gmx.de, shuah@kernel.org, 
+ sr@sladewatkins.com, stable@vger.kernel.org, sudipm.mukherjee@gmail.com, 
+ torvalds@linux-foundation.org, Miguel Ojeda <ojeda@kernel.org>, 
+ Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,117 +115,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+On Sun, Aug 2, 2026 at 12:13=E2=80=AFAM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> No, that was not intentional - part one got squashed into the part two
+> backport by mistake on my end, which is also why the `lib` removal has
+> no commit of its own to point at.
+>
+> I can revert and re-do if there's interest in that?
 
-syzbot found the following issue on:
+I guess it depends if there is some advantage/clarity by doing so for
+the future for you, or maintainers, or people using the stable patches
+etc. -- for me it is fine either way :)
 
-HEAD commit:    02dc699f83d0 Merge tag 'kbuild-fixes-7.2-1' of git://git.k..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=17ee74c6580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=145fa60d73086782
-dashboard link: https://syzkaller.appspot.com/bug?extid=06f9b2a53ba4a5a47644
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+i.e. I mostly mentioned it because it seemed odd and other issues
+could be hiding, e.g. maybe a backporting script somewhere had a bug.
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-02dc699f.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/faf03a1fb300/vmlinux-02dc699f.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/a48e50ceca1d/bzImage-02dc699f.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com
-
-Slab 0xffffea0000db2e80 objects=29 used=2 fp=0xffff888036cba000 flags=0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-Disabling lock debugging due to kernel taint
-------------[ cut here ]------------
-1
-WARNING: mm/slub.c:1244 at __slab_err+0x15/0x20 mm/slub.c:1244, CPU#1: syz.5.2129/14034
-Modules linked in:
-CPU: 1 UID: 0 PID: 14034 Comm: syz.5.2129 Tainted: G    B        L      syzkaller #0 PREEMPT(full) 
-Tainted: [B]=BAD_PAGE, [L]=SOFTLOCKUP
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__slab_err+0x15/0x20 mm/slub.c:1244
-Code: 00 00 00 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 e8 5b fd ff ff be 01 00 00 00 bf 05 00 00 00 e8 dc ba a2 00 90 <0f> 0b 90 c3 cc cc cc cc 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90
-RSP: 0018:ffffc9000636f738 EFLAGS: 00010083
-RAX: 00000000000205dc RBX: ffffc9000636f788 RCX: ffffc9000c781000
-RDX: 0000000000080000 RSI: ffffffff81c709bd RDI: ffff88802996ca80
-RBP: ffff888027f80558 R08: 0000000000000007 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000001ea0
-R13: ffff888036cbbfb8 R14: ffff888027f80540 R15: ffffea0000db2e80
-FS:  00007f9b5db516c0(0000) GS:ffff8880d5ed8000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000000110c30fb1e CR3: 000000005bdcb000 CR4: 0000000000352ef0
-DR0: ffffffffffffffff DR1: 00000000000001f8 DR2: 0000000000000002
-DR3: ffffffffefffff15 DR6: 00000000ffff0ff0 DR7: 0000000000000400
-Call Trace:
- <TASK>
- list_slab_objects mm/slub.c:7994 [inline]
- free_partial mm/slub.c:8015 [inline]
- __kmem_cache_shutdown.cold+0x16e/0x177 mm/slub.c:8058
- kmem_cache_destroy mm/slab_common.c:569 [inline]
- kmem_cache_destroy+0x73/0x190 mm/slab_common.c:527
- virtio_gpu_free_vbufs+0x38/0x80 drivers/gpu/drm/virtio/virtgpu_vq.c:86
- virtio_gpu_release+0x5c/0x1c0 drivers/gpu/drm/virtio/virtgpu_kms.c:312
- drm_dev_release drivers/gpu/drm/drm_drv.c:912 [inline]
- kref_put include/linux/kref.h:65 [inline]
- drm_dev_put.part.0+0xbd/0x140 drivers/gpu/drm/drm_drv.c:948
- drm_dev_put+0x1f/0x30 drivers/gpu/drm/drm_drv.c:947
- virtio_dev_remove+0xb8/0x170 drivers/virtio/virtio.c:375
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
- device_del+0x376/0x9b0 drivers/base/core.c:3961
- device_unregister+0x1d/0xe0 drivers/base/core.c:4002
- unregister_virtio_device+0x39/0x60 drivers/virtio/virtio.c:594
- virtio_pci_remove+0x7c/0x110 drivers/virtio/virtio_pci_common.c:758
- pci_device_remove+0xb2/0x1d0 drivers/pci/pci-driver.c:512
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- pci_stop_dev drivers/pci/remove.c:27 [inline]
- pci_stop_bus_device+0x120/0x160 drivers/pci/remove.c:93
- pci_stop_and_remove_bus_device+0x58/0xa0 drivers/pci/remove.c:128
- pci_stop_and_remove_bus_device_locked+0x1a/0x20 drivers/pci/remove.c:136
- remove_store+0x123/0x140 drivers/pci/pci-sysfs.c:523
- dev_attr_store+0x58/0x80 drivers/base/core.c:2505
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6ac/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f9b5cb9e019
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f9b5db51028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f9b5ce25fa0 RCX: 00007f9b5cb9e019
-RDX: 0000000000000001 RSI: 0000200000000800 RDI: 0000000000000006
-RBP: 00007f9b5cc3500c R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f9b5ce26038 R14: 00007f9b5ce25fa0 R15: 00007ffeee83f378
- </TASK>
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Cheers,
+Miguel
