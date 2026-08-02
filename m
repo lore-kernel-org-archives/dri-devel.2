@@ -4,54 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA59DC55177
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 17:07:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82BC9C55162
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 17:08:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F31CA10E431;
-	Sun,  2 Aug 2026 17:07:03 +0000 (UTC)
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
- [209.85.210.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16FDC10E435
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 17:07:03 +0000 (UTC)
-Received: by mail-ot1-f70.google.com with SMTP id
- 46e09a7af769-7ee50225cc7so3716795a34.1
- for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 10:07:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785690422; x=1786295222;
- h=content-type:to:from:subject:message-id:in-reply-to:date
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=zxFXnSoB4KgiBC0T5VAyA9bBTcGnRnLoGoYzvYWvSBw=;
- b=dsZ3pDQ63rVEy55/1rxDF15gj0FO1tBdGl8eJ0qRL3gdXs+cDx/4xTNcTEDVDudpZn
- HUNeF7IGI861Q1eS7pOoz08DMmznEopcmoagQs/Z1uHJn9FoQAhPJMxJgJaPRV+PA0wY
- EchF9IpE2iMUcFw+lMhqN+jPSPupuXgRWJn7uHccfTf2yRht3G5IK/6aaamNRrdn9sL8
- ZqaJcPK3G7x+Yct10446Q92PB1uNazpsUkew6A7mobc5l+EyTyasx7OLISl6VxNBeRb+
- W/0Pu8k0M5orxVSUvXLThd1VhGTS6md2qMJHy+vnCW2ZCpA3RQt8wKA7Gs4iOg0ndeLL
- h4TA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrK7F4FmI2qFnEfcvTOmMOqbBjjThO0lXUz78LNqE/xMIVZuTbsfdWnksI7xABHCsJvPqDKd3q5e1k=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwRHR66C3JZPEWqnogZY1atOj+6h/aQxj6JVKl1hHV2rH3R4VbP
- qypclBLLk6NffNQaWWJIwr8gY+kG31iOb9qy4Hl1EiCcADYMjUXwehuAR24H7DAKcJVK2ElMEUi
- 6jA/OYqqa3Y17pIiqKPYlXVQVTpBRz9jpp6O65DypSn4X/+qoUt4SElAiD3I=
-MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2228:b0:48b:5dcb:85ab with SMTP id
- 5614622812f47-4af5e07d704mr12408667b6e.8.1785690422033; Sun, 02 Aug 2026
- 10:07:02 -0700 (PDT)
-Date: Sun, 02 Aug 2026 10:07:02 -0700
-In-Reply-To: <68dc3ade.a70a0220.10c4b.015b.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a6f7936.13bfb6d0.1ecdd5.0272.GAE@google.com>
-Subject: Re: [syzbot] [fs?] [mm?] WARNING in path_noexec (2)
-From: syzbot <syzbot+a9391462075ffb9f77c6@syzkaller.appspotmail.com>
-To: brauner@kernel.org, christian.koenig@amd.com, 
- dri-devel@lists.freedesktop.org, hch@infradead.org, jack@suse.cz, 
- jhubbard@nvidia.com, kees@kernel.org, linaro-mm-sig@lists.linaro.org, 
- linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kvack.org, 
- sumit.semwal@linaro.org, syzkaller-bugs@googlegroups.com, 
- viro@zeniv.linux.org.uk
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFB8310E0AC;
+	Sun,  2 Aug 2026 17:08:41 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fqqsqdS8";
+	dkim-atps=neutral
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37D1710E0AC
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 17:08:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 02AE5407D9;
+ Sun,  2 Aug 2026 17:08:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFEEA1F000E9;
+ Sun,  2 Aug 2026 17:08:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785690520;
+ bh=2HSn8jOuqhJ/2UQ49YdSmDw0Kcz0ojAzIGa6qLfgCQQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fqqsqdS8gI5VSYlHQHcHRS8pvqb4GzqtPyVDEOYuvwDSB56FJM12NLD7TFWnlJdX4
+ A6JOBc9D1gM2tn8RjA0Qn38j7eBQCbWjI1gXz5Xvq0AKXX+rLVNenttWEWysouPfKM
+ 87QX8MdpqLuZ8oQW2tT5+uF8WlPTROjJc8mL+Zb2pT0TDky2wPccEi2cRiYQFTVUQ/
+ 1XEh59xvOATBjNJ8WRp81jZp0FU0mUz42p6EfRjgY7yvxTpjJe5RbsOTCht/pne/2k
+ MWsAK3rNRPkpYFi/hFm9bZhOufkHyKEHPWtwWvwYu17TM3czggHK3FdPhB7+TPt9Bl
+ q0R+Td8LcGYfw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/virtio: reclaim pending vbufs before tearing
+ down vqs
+To: "Anuj Bolewar" <bolewara@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260802-virtio-gpu-reclaim-vbufs-v2-1-5767fb860691@gmail.com>
+References: <20260802-virtio-gpu-reclaim-vbufs-v2-1-5767fb860691@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 02 Aug 2026 17:08:40 +0000
+Message-Id: <20260802170840.AFEEA1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,27 +53,164 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-syzbot suspects this issue was fixed by commit:
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-commit 6de2aeffabaafaeda819e60ec8d04f199711e11a
-Author: John Hubbard <jhubbard@nvidia.com>
-Date:   Thu Jun 4 02:53:14 2026 +0000
+New issues:
+- [High] Concurrent execution of workqueue and virtio_gpu_reclaim_vbufs cau=
+ses data races and potential use-after-free.
 
-    libfs: set SB_I_NOEXEC and SB_I_NODEV by default in init_pseudo()
+Pre-existing issues:
+- [High] Tasks waiting on vgdev->resp_wq hang forever because stranded vbuf=
+s are not responded to.
+- [High] Incorrect flush order in virtio_gpu_deinit() can cause vgdev->obj_=
+free_work to execute after driver unload.
+- [High] Fences associated with pending commands are never signaled or remo=
+ved from the fence_drv.fences list on teardown.
+- [High] OOM during fence allocation or SG table mapping leaves BOs locked =
+indefinitely and leaks command buffers.
+--
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=11c53db9580000
-start commit:   ba3e43a9e601 Merge tag 'soc-fixes-7.1-2' of git://git.kern..
-git tree:       upstream
-kernel config:  https://syzkaller.appspot.com/x/.config?x=65472e27d1590a04
-dashboard link: https://syzkaller.appspot.com/bug?extid=a9391462075ffb9f77c6
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12a08f2e580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1697af2e580000
+--- Patch [1]: [PATCH v2] drm/virtio: reclaim pending vbufs before tearing =
+down vqs ---
+commit deb7b9f45646f92497e6f83adda8ac1c7224985d
+Author: Anuj Bolewar <bolewara@gmail.com>
 
-If the result looks correct, please mark the issue as fixed by replying with:
+drm/virtio: reclaim pending vbufs before tearing down vqs
 
-#syz fix: libfs: set SB_I_NOEXEC and SB_I_NODEV by default in init_pseudo()
+virtio_gpu_free_vbufs() destroys the vbufs kmem_cache after the virtqueues
+have already been released. Commands that were queued but never completed
+by the device leave their vbuffers stranded in the virtqueue, so the cache
+still holds live objects when virtio_gpu_deinit() tears everything down.
 
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
+Link: https://syzkaller.appspot.com/bug?extid=3D06f9b2a53ba4a5a47644
+
+> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+> @@ -292,10 +292,11 @@ void virtio_gpu_deinit(struct drm_device *dev)
+>  {
+>  	struct virtio_gpu_device *vgdev =3D dev->dev_private;
+> =20
+>  	flush_work(&vgdev->obj_free_work);
+>  	flush_work(&vgdev->ctrlq.dequeue_work);
+
+[Severity: High]
+This is a pre-existing issue, but does this flush order allow
+obj_free_work to execute after driver unload?
+
+If dequeue_work runs and processes command completions, it calls
+virtio_gpu_array_put_free_delayed() which can schedule new obj_free_work.
+
+Since obj_free_work is flushed first, any new work queued during the
+dequeue_work flush will never be waited upon. This delayed work can then
+execute after the device is freed, potentially causing a use-after-free on
+vgdev->obj_free_lock.
+
+>  	flush_work(&vgdev->cursorq.dequeue_work);
+>  	flush_work(&vgdev->config_changed_work);
+>  	virtio_reset_device(vgdev->vdev);
+> +	virtio_gpu_reclaim_vbufs(vgdev);
+
+[Severity: High]
+Could this lead to concurrent execution of dequeue_work and
+virtio_gpu_reclaim_vbufs()?
+
+Because flush_work() is called before virtio_reset_device(), if a device
+interrupt fires in the window after the flush but before the reset,
+dequeue_work could be rescheduled.=20
+
+virtio_gpu_reclaim_vbufs() then executes and locklessly calls
+virtqueue_detach_unused_buf(). If dequeue_work executes concurrently, it
+takes vgdev->ctrlq.qlock and operates on the same virtqueue. This might
+cause a data race corrupting the virtqueue or a use-after-free if it
+accesses it after del_vqs().
+
+>  	vgdev->vdev->config->del_vqs(vgdev->vdev);
+>  }
+
+> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
+[ ... ]
+> +void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
+> +{
+> +	struct virtio_gpu_vbuffer *vbuf;
+> +
+> +	while ((vbuf =3D virtqueue_detach_unused_buf(vgdev->ctrlq.vq))) {
+> +		if (vbuf->objs)
+> +			virtio_gpu_array_put_free(vbuf->objs);
+> +		if (vbuf->resp_cb_data)
+> +			virtio_gpu_cleanup_object(vbuf->resp_cb_data);
+> +		free_vbuf(vgdev, vbuf);
+> +	}
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could tasks waiting on
+vgdev->resp_wq hang forever because stranded vbufs are not responded to?
+
+The loop manually cleans up objs and resp_cb_data but does not invoke
+vbuf->resp_cb or wake up vgdev->resp_wq.
+
+For example, in virtgpu_virtio_get_uuid():
+
+    wait_event(vgdev->resp_wq, bo->uuid_state !=3D STATE_INITIALIZING);
+
+A task waiting here will never be woken up if the device is removed and
+the stranded UUID command is reclaimed without calling the response callbac=
+k.
+
+[Severity: High]
+This is also a pre-existing issue, but are fences associated with pending
+commands left unsignaled and leaked on teardown?
+
+When commands are queued, virtio_gpu_fence_emit() adds the fence:
+
+    list_add_tail(&fence->node, &drv->fences);
+
+This reclaim loop frees the command buffers but completely ignores the fenc=
+es.
+Does this leave the fences permanently in the driver's list, causing
+memory leaks and indefinite hangs for any userspace tasks waiting on them?
+
+> +	while ((vbuf =3D virtqueue_detach_unused_buf(vgdev->cursorq.vq)))
+> +		free_vbuf(vgdev, vbuf);
+> +}
+
+> --- a/drivers/gpu/drm/virtio/virtgpu_submit.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_submit.c
+[ ... ]
+>  		out_fence =3D virtio_gpu_fence_alloc(vgdev, fence_ctx, ring_idx);
+>  	else
+>  		out_fence =3D NULL;
+> =20
+>  	if (drm_fence_event) {
+>  		err =3D virtio_gpu_fence_event_create(dev, file, out_fence, ring_idx);
+
+[Severity: High]
+This is a pre-existing issue, but can an OOM during fence allocation leave
+buffer objects locked indefinitely?
+
+If virtio_gpu_fence_alloc() fails and returns NULL, it proceeds without
+checking the error. If drm_fence_event is true, it passes the NULL out_fence
+to virtio_gpu_fence_event_create(), causing a NULL pointer dereference.
+
+Otherwise, it locks BOs but later in virtio_gpu_queue_ctrl_sgs():
+
+    if (fence) {
+        virtio_gpu_fence_emit(vgdev, virtio_gpu_vbuf_ctrl_hdr(vbuf),
+                              fence);
+        if (vbuf->objs) {
+            virtio_gpu_array_add_fence(vbuf->objs, &fence->f);
+            virtio_gpu_array_unlock_resv(vbuf->objs);
+        }
+    }
+
+Because the fence allocation failed and fence is NULL, the BOs are never
+unlocked, causing a permanent deadlock on the next access.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802-virtio-gpu=
+-reclaim-vbufs-v2-1-5767fb860691@gmail.com?part=3D1
