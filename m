@@ -4,97 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789ACC55171
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 05:55:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2E3DC55162
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 06:10:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 907E210E0D5;
-	Sun,  2 Aug 2026 05:55:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52BF210E05D;
+	Sun,  2 Aug 2026 06:10:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rmnps2B6";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E5V325uT";
 	dkim-atps=neutral
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com
- [209.85.217.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD87A10E0D5
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 05:55:18 +0000 (UTC)
-Received: by mail-vs1-f48.google.com with SMTP id
- ada2fe7eead31-7564b7a9490so2386893137.1
- for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 22:55:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785650117; cv=none;
- d=google.com; s=arc-20260327;
- b=MyX0p5SyFtZfGUn8JZDpNP7GX7f8LUCw0TW+nwF0qup0VYuFPHYHNc5HiULJgHDTp1
- OseUiSz0DMavOIWo5b2Lkq4sbSADITBV9kbvfPuM/JhkA8WAMQ/+XftOzS1PM1WqMRyi
- 9K+E5V3OXXDqKEnQdvEZk5wSXXrw0u5QsVO7qkfLOzRjYLROIbmnqPDGhoinGMtULcNd
- inCDGhWAdir2EtNQ+iqPmjw9/GLCSxbWC7acKU/RtdT5OKbgVtQzg3HAsMc0/+mx9AcM
- fZsAceIIpnqS6VSdU+wQyliFcb+qRehBohugLPbk/ddT5SQzIp2QwMJiSke2sGSVY7IN
- G7eA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=3Vs1SQCwA2eulFFZ+BXHMpPyX24h7ndFKDeTGaZkolU=;
- fh=qHQAfLoGrqOT0v/qUmfC/ZYURYIuM8orJCvC8kUFABQ=;
- b=VUr8yeYmWfEWwQgIirOnwV5tHEkKJ2lCpMDZYQgKRohtSLKF1iSGBPrDZxFErp7DqI
- 9i1RLq5c53adBKjF4Iq85H7R9U4s10fOkSjo/suv+6W4thsey1BEFj7P29oWu70C+rUs
- ZsX0jveI42QDofRcmq/GAb9B0n2I/WMmmxHbBoEX+p6Yi+tovT2r2nJso+VUTY75NJHn
- k0WqVlyvT7BXEiPyQ6uStphNl89gtcFL9TYAeIbK1XYNjV5JOMSzqQOwWjsrxxdIx2l/
- Ap5soeZVYN8b3aLr87myROuhBEx6gjyEtD5lm66pu7UO2k+EkDmPZrzcDrzVUWJX9ulh
- ml+w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FC2910E05D
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 06:10:44 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-38e7109321dso1313433a91.3
+ for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 23:10:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785650117; x=1786254917; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=3Vs1SQCwA2eulFFZ+BXHMpPyX24h7ndFKDeTGaZkolU=;
- b=rmnps2B6mi9aXYXaC2Tl2zbX0flz5UtVD7cMTvbYv8uJSnHgqgd3dKVSRV1Oqjs693
- cn8tnS1hmc1zK5IIcU7z0C15knilJS5io/8s9QbzfqQwqOQC1Ul19xDOgc1ln65+OmAN
- pEF9SkU0K2Bi2NxJVlbJ/DENc2P7V4Z9VrwEgNzA2DLLWJdQ4PoACuPTF2zV0D49LNi/
- jV/q8BibvgI5nw+2nOAVhunIVkBhnzHBhCKXVy7bfcy9uSAa88SbGfHrxlTsYFgyroQN
- UvBV/Qf94zX4v0a+YxWFOQalSxVb4v4Vwp2CBSKx7DD/3nNn/P9+sj3BFzJrcg8R+qK+
- k6fg==
+ d=gmail.com; s=20251104; t=1785651044; x=1786255844; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=vji7wKx6xE1l/WWcvsYGR+bhlFDcfVWGe0tEz1c5YfY=;
+ b=E5V325uTryCqQ/+GobCUif1xyvmVxgaIpWy5V6BNBXt98VuLzOFc5PHBj0zH3qhhMG
+ 1yPjuO2n7luBu7HUeLaU/XJslGroiT72+g1u1kV6yH+OSEotQHJHCdep1RnUxfMAGY2U
+ DbHTIGeNm5wZbQ+HGoC+66FV6FEr1vWaHL+qxnZMSeJ0fR3XUgUFq2g5y2bfgobjxLCh
+ or4lXKK4qmuiUKeBlqNr47iqd6u3hQkj13Dt8tDYOpFOdtdWvRQXabgyFy4pBd2qKYrV
+ YqrEu5eglYkWZtfb4Wzxu4YOnLNHvZNZXGdXlceYY3vWNO6jl6uTFU9/xJ7bD44WysVf
+ Mkzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785650117; x=1786254917;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=3Vs1SQCwA2eulFFZ+BXHMpPyX24h7ndFKDeTGaZkolU=;
- b=a7wiYcgisgnPkTHDAf7JvEra0iDguC1vFLr9a2X+PhYsXJvem3qziM/Y6ooHUWfwGY
- +9NEfrFftdvDcQ0Bxiiz9p9Ui8dGhmoqkVL9NYKK3+0OQjWnv0eKl5UVc7vnelJRg+EZ
- l2gS5YqzjAwQSdBsIz+JpC23Kk0RAA0HcOYfzSTQJw/aj00gTMm+8h+CybVBCuwC06e1
- yrNImXuSS4N3heB8Xn/+E3xzXHxqmnGw9X+4eLl9tvndLOUf5sz24pcK34YFB4FWksol
- rK4Eq2La75DxJhm3U35VvlV5HcTCoiFXAuwarGua+mX2RZiHdE1KvRQsLM91I6lWqUC6
- rfyA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrNFtBUQxwIivAqOYSPQxLr+IkkjhWjGlPLMwFSFbNL9+xgqni2YxEa7XopuebLbzh1a6s77iabxGY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyEfDmaGeqgX5jYtjEC3LO0PLIangphBbgmX8RUovYKzT1lW3SX
- w/vUXhIgPLTqY7+sMKAcleCwPFqh7e+G4lMwE/GdrDTYLxQzgl6F9T+/2Z3TfTzsotleD/aZUKT
- oTe79EtbI3DJNVPS+ndYKuAI+jd0KKybdoU0v
-X-Gm-Gg: AR+sD10IXzok8IWEmZ4kQc1u8IxFciq2ZkoeBXHT80xKzpI96BwwZ7zU3Oe9eVyuhOz
- 456X8t0slakroe6dEK98TGNb8svdkJaRDqAJTZb3GbzPW8wX+UpV+EElxCRGs1dpMCILrpySSZv
- rcqgTlJFHTJHIA10KFWKCGlj1VpPTA8CD8yFcb+nkQ5sXWioIOsVPMyYpiIQsflHe5aofr86iFS
- JEbIEfjI+c9vZjOpcIh5FmBUnyWLG7uLEz3P4cHO2iWGKpfMeHJIf8deYukri7fulxluz3Bpc83
- B0RmWzB+3/o26+oluti+/3dOFuJ5tqU+1rA5fAEH5bNusnnDnCBxw08/7eOF17zWwBgDyqzewI0
- =
-X-Received: by 2002:a05:6102:7ad:b0:738:f27:43fc with SMTP id
- ada2fe7eead31-758f8869b41mr1922174137.2.1785650117459; Sat, 01 Aug 2026
- 22:55:17 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1785651044; x=1786255844;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=vji7wKx6xE1l/WWcvsYGR+bhlFDcfVWGe0tEz1c5YfY=;
+ b=Au78iBTJlvZaDnq0d//puzCTOEXNkBzTurrkbSrhp2/vv4pUtDJuSiLBchp5zmn9Ox
+ aDmy00Oo7ty3cCWGAX4rl3jbFIjT8tVA37AdjIwfXJ+/CxqSFDZfaQGD0NrPJC7CSHpE
+ ih+3C1nroUKVhar9FGMN1/advO9iB42sJXgnl81iKju07o5SHYw2X0Qxtasjoibbjs6l
+ Oz8/X5ltJKmEmzF67vxoDhXyLv/4cbMs/4MX4qEh7hygfzn3FAzq9w4SsPIwFrL5cfC1
+ pelvCQPD8VuogJGycDqM0uFb0Ukc/nKGgYX1+K72EjlQpUSVKTF4vAXsLXhOYKrn9++E
+ g+Lw==
+X-Gm-Message-State: AOJu0YxWht3El+9/C//G0z5i3L1xYDx5dG5eYZMIMTp/ae95vdBZr0kF
+ MBLfGr/NkLwgjUQY/qEpJq8asnbsMARsDACZOkmI6z/nZVHUEEPkg9g/
+X-Gm-Gg: AR+sD12/L39omAofJTwNfB2LpcE6CO89uPD8gq8iiV9I2e/Q/LE0617nkv9pkze8HuL
+ zBEIOzfsta6XZfI3eopEm7jR9vt5Sy/dhO2DlJ7hEnU+HN24RHWEa3n9bzVkBBCylYxMxKIW3RK
+ bmtPN588FzY3sYVaZzPq8EOtVjJekK74PzHY2vmoJzAiX92wQfvnmnmYJ74v8mp0ygHnr/NF8X8
+ GhLVrx1uh6q4SAa/8t0ATZmnnVQtw3vdsgFGFFobiBmRMJbh8jocVgdtV8IexPcbPUoyAKX7LrR
+ 7zhq9Pggf2tNn3dQWqy6CQd3PB+4eIQ+wwa4EaTsa622DWaJgYpI2pODjJ4UI+M+wyRz5GEIM8G
+ v8BNB+2aQw7XUsvVyJURUocRG+vshmRYz9tY0uSWIWHZiIbxcYvYrHnFUwVOvdXR2884lG0AOq+
+ riaKTp15U0cW91CAEkLkNqNsy60Ln268+kokE8Z/J9URA16hroe9bY/srhiTvqlcjadi7Miqr6D
+ d0TL3iEqP4utsS9gi0DGF2DjJM2MCdnzma82OV6GhzcjrGINCCAVxp8u5GJA/iw
+X-Received: by 2002:a17:90a:e7c4:b0:38e:9279:468c with SMTP id
+ 98e67ed59e1d1-38fbc4d976dmr5437191a91.25.1785651043549; 
+ Sat, 01 Aug 2026 23:10:43 -0700 (PDT)
+Received: from daeinki-virtual-machine.localdomain ([58.124.60.88])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38fb2f65459sm2564706a91.6.2026.08.01.23.10.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 01 Aug 2026 23:10:43 -0700 (PDT)
+From: Inki Dae <inki.dae@samsung.com>
+To: airlied@linux.ie,
+	daniel@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org,
+	linux-samsung-soc@vger.kernel.org
+Subject: [GIT PULL] exynos-drm-next
+Date: Sun,  2 Aug 2026 15:10:39 +0900
+Message-Id: <20260802061039.73544-1-inki.dae@samsung.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260716131802.1564776-1-johan@kernel.org>
-In-Reply-To: <20260716131802.1564776-1-johan@kernel.org>
-From: Inki Dae <daeinki@gmail.com>
-Date: Sun, 2 Aug 2026 14:54:41 +0900
-X-Gm-Features: AUfX_mxYVom-AX8ugZp9yvdrgZXKEh5DEfjSaw3ZzVclgiqSMtSKQ8CYJUJRy5U
-Message-ID: <CAAQKjZPW+mHcXQJKQc7wJL=MGssBf10H_FO0S8D7uCjX48qrKg@mail.gmail.com>
-Subject: Re: [PATCH] drm/exynos: hdmi: take i2c adapter module reference
-To: Johan Hovold <johan@kernel.org>
-Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,61 +86,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Dave and Daniel,
 
-Merged. Thanks,
+  This PR brings an encoder cleanup series for Exynos DRM along with a
+  refcounting fix for the HDMI DDC adapter.
+
+  Major changes are:
+      - drop the deprecated DRM simple KMS helper dependency and initialize
+        the encoders directly,
+      - handle the drm_encoder_init() return code so that a failure no longer
+        goes unnoticed or leads to cleanup of an uninitialized encoder,
+      - take a module reference to the DDC i2c adapter so that unloading the
+        adapter driver while in use fails gracefully instead of blocking
+        uninterruptibly.
+
+Please kindly let me know if there is any problem.
+
+Thanks,
 Inki Dae
 
-2026=EB=85=84 7=EC=9B=94 16=EC=9D=BC (=EB=AA=A9) =EC=98=A4=ED=9B=84 10:18, =
-Johan Hovold <johan@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> The i2c subsystem currently blocks during adapter deregistration
-> whenever there are consumers holding a reference.
->
-> Switch to using of_get_i2c_adapter_by_node() which also takes a
-> reference to the adapter module so that an attempt to unload the module
-> while in use fails gracefully instead of blocking uninterruptibly.
->
-> Signed-off-by: Johan Hovold <johan@kernel.org>
-> ---
->  drivers/gpu/drm/exynos/exynos_hdmi.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exyno=
-s/exynos_hdmi.c
-> index 09b2cabb236f..b971b7098a4d 100644
-> --- a/drivers/gpu/drm/exynos/exynos_hdmi.c
-> +++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
-> @@ -1913,7 +1913,7 @@ static int hdmi_get_ddc_adapter(struct hdmi_context=
- *hdata)
->                 return -ENODEV;
->         }
->
-> -       adpt =3D of_find_i2c_adapter_by_node(np);
-> +       adpt =3D of_get_i2c_adapter_by_node(np);
->         of_node_put(np);
->
->         if (!adpt) {
-> @@ -2069,7 +2069,7 @@ static int hdmi_probe(struct platform_device *pdev)
->         if (hdata->regs_hdmiphy)
->                 iounmap(hdata->regs_hdmiphy);
->  err_ddc:
-> -       put_device(&hdata->ddc_adpt->dev);
-> +       i2c_put_adapter(hdata->ddc_adpt);
->
->         return ret;
->  }
-> @@ -2094,7 +2094,7 @@ static void hdmi_remove(struct platform_device *pde=
-v)
->         if (hdata->regs_hdmiphy)
->                 iounmap(hdata->regs_hdmiphy);
->
-> -       put_device(&hdata->ddc_adpt->dev);
-> +       i2c_put_adapter(hdata->ddc_adpt);
->
->         drm_bridge_put(hdata->bridge);
->
-> --
-> 2.54.0
->
->
+The following changes since commit 82cb10c8bc506a4d2093e0e59672fd307f549d38:
+
+  Merge tag 'drm-xe-next-2026-07-30' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-next (2026-08-01 07:06:36 +1000)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos tags/exynos-drm-next-for-v7.3
+
+for you to fetch changes up to 99b1947ba2f82b30c0a4ef3e457eacc31d1b0220:
+
+  drm/exynos: hdmi: take i2c adapter module reference (2026-08-02 14:54:06 +0900)
+
+----------------------------------------------------------------
+  Cleanup and modernization for Exynos encoders
+  - Remove dependency on deprecated DRM simple KMS helpers
+    . Replaces drm_simple_encoder_init() with drm_encoder_init() across dp,
+      dpi, dsi, vidi and hdmi.
+    . Adds per-driver drm_encoder_funcs with .destroy = drm_encoder_cleanup,
+      removing the intermediate layer between the drivers and atomic modesetting.
+  - Add error handling to drm_encoder_init()
+    . Checks the return code at every call site instead of ignoring it.
+    . Prevents silent encoder creation failures and drm_encoder_cleanup() on an
+      uninitialized encoder.
+
+  Bug fix for Exynos HDMI DDC adapter refcounting
+  - Take an i2c adapter module reference
+    . Switches to of_get_i2c_adapter_by_node() / i2c_put_adapter() so the
+      adapter module reference is held while the DDC bus is in use.
+    . Makes an unload attempt fail gracefully with -EBUSY instead of blocking
+      uninterruptibly in i2c_del_adapter().
+
+----------------------------------------------------------------
+Diogo Silva (2):
+      drm/exynos: Remove dependency on DRM simple helpers
+      drm/exynos: Add error handling to drm_encoder_init()
+
+Johan Hovold (1):
+      drm/exynos: hdmi: take i2c adapter module reference
+
+ drivers/gpu/drm/exynos/exynos_dp.c       | 13 +++++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_dpi.c  | 14 ++++++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_dsi.c  | 11 +++++++++--
+ drivers/gpu/drm/exynos/exynos_drm_vidi.c | 14 ++++++++++++--
+ drivers/gpu/drm/exynos/exynos_hdmi.c     | 20 +++++++++++++++-----
+ 5 files changed, 59 insertions(+), 13 deletions(-)
