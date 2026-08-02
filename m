@@ -4,81 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CFB4C55162
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 12:29:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A6FEC55162
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 13:35:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 18C5310E16A;
-	Sun,  2 Aug 2026 12:29:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 610F210E108;
+	Sun,  2 Aug 2026 13:35:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="H2OmZJER";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="PEFguoo5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54B5B10E16A
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 12:29:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with UTF8SMTP id BFFF043B77;
- Sun,  2 Aug 2026 12:29:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C46541F000E9;
- Sun,  2 Aug 2026 12:29:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785673758;
- bh=SHSGsM0vu6t3zdEJHGFOqvnDDQ/hs9cDuA8s50LeKfA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=H2OmZJERCYxtrOOph6nrStzZdf9Px2+Qu52EKRUMyRnmj4QfSbClOGXvOwLQl/4aA
- QXrUGppcGBhRWhY9tW992RTQ83AkGGQJozNyGViEgllW7DJ8ayJ1pfg/mDZfKLYM+O
- iaCJu9ozHHoC9OJbqbp8GE2FXVc48vGCq9wTtZKsOYsPdu40/jveDStEa4FnAS8dvh
- eBwmazAysE+S1N5/1Od2as8vkHZiBiRzJzW/3NReG/Vr6BQSlyRO9SCgOFK91LoO0Z
- 4Wat2UmYU94tkzX5l86TF3Srukt7Yi+4nQ/P5F5pqFRu3Ol3LaLh9TJ1K2EelnS/lt
- PpuVHx/cRwcTg==
-Date: Sun, 2 Aug 2026 14:29:15 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC10D10E108
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 13:35:44 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4980fe6b3beso4196645e9.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 06:35:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1785677742; x=1786282542;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=UlAe688FL5SqYvNdYPiubZv5Vup2lbXf0/HgRirxAQY=;
+ b=PEFguoo5v+u6AhFcoWEDNnosgkR3KB/BThpN/fq1B3vc7ldW886prR3g80aWzBI/eM
+ YhseyyNzDmMnoIQQuFGjAw3qYlXnZnIRG+aPYNRTfeMHJjioIC2esXel2n5vtdURgxy+
+ eEyDxLioZPFD5kJGscuUyYD/vOXPdHwwT9ZpRu5fWOaVglIqsFKZsVMSFEw45EM0MIH1
+ IVSxX3P9HPSdF3cj/PfNeHWvTAVsgOyTGLkmMuB0Jgz2N5kXlCM9I2+ZWWAeGDae0w2j
+ VFQ27vVe5rj4ucwZCxb8YPeVQ/QOubzFZomAzSh8t4s5baP8fR6Dw/TcViWySzblMk//
+ Adag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785677742; x=1786282542;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=UlAe688FL5SqYvNdYPiubZv5Vup2lbXf0/HgRirxAQY=;
+ b=gNd1VOlaGOtKtiG8hH2NhK+ZltW6MuT8g4ijRtpjNC49J0VEnLUJXhn+uGd0sVOpxJ
+ GjRfOnGvDep8AdHYjCkwqDk6xyDEz/y9HJC9GqQ8MN/02V/clT8DENDZC+V2Uq8I9XiU
+ IR8iejsx1xJzJuHWCGQk0wJT+JeqkPrhwxL5/PclFBdQlF/NEQfpNbmfPyN+pwFcZM3K
+ xZHNaeTh6oeUCCCJ2A9WG/Y7GIPNMpxt5yq34yvj/1DZhyIQHMhpF9GwxbzDL9T9GRLP
+ GZpQolpvmQ4Xc11jtLI2aQj1m0JHt+bu9AFRJHh6ik7L4+LJVfYyBUfabpuZJ4Z5zae7
+ s4DA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrqnqAh83gqm6UYig+/xQ0/1bL5DEhtqQ+VmQms/FrKF7EK8Ai2ep3nEdZfZ+W5H2mQFWCDJbx3lEM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy6AViKfVrlb7lAF5pRwK176pGGEKh6eZYTwaE0TQ4H4LbUPazX
+ yz2k6yPbpcnAdIWFjapH3wtK6gztGEFN+ILfOs4kbbdTUmDhbbVUO8taDfex1lFrpm0=
+X-Gm-Gg: AR+sD10gIYdV6eKX1Q+rDGPpLjLv3Nw0UTu73kA+EXP/o/EoS2AWIHuqaf8GxCQWFw/
+ G4XQZk84V5+VTkJrXpbn+2I9bNElKFphBA2KHPz4GHE/vOpoK0VE1a1890/D0NfmsOWOEeS3mlh
+ sbb48QAIU5A2qcVFw17KNNehRnRvg10Luyc0bIzZ3TgxyZB8FDw7BLspv0dwsDrf60IC/ypm5rN
+ K0wr/kZZmK8xm5mCVpv2VWL44GfeIQjw1XK0zmgIbL1A37MnlgltFlU91/09woKBX3FOQtHCtqx
+ 3f0DwhMtFunp1XJmxePX0ffoqIEHMCkm/UdwYC+pqWgWcy2h/hDsTaYlvXcV31NnN5VihhL73Lf
+ 2qBWEVsBlbMLv+LveIXVHLxsx6sD8ArbPih+CFq9u4zE/KFMghqAG1aGszDJDSHZY36WaplaP+U
+ RzzA/Q5mc1HPCKEvB8q2L3egfTB+3rSOslLAj+RUTwG+HH7302fDyDroEu3fOj1KZleQ==
+X-Received: by 2002:a05:600c:3150:b0:495:3c6f:7c18 with SMTP id
+ 5b1f17b1804b1-4980eb8c4c9mr97559055e9.3.1785677742549; 
+ Sun, 02 Aug 2026 06:35:42 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4980819a030sm144499215e9.6.2026.08.02.06.35.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 02 Aug 2026 06:35:41 -0700 (PDT)
+Date: Sun, 2 Aug 2026 15:35:40 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
+Cc: Helge Deller <deller@gmx.de>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>, 
- James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
- Damien Le Moal <dlemoal@kernel.org>, 
- Niklas Cassel <cassel@kernel.org>, Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Patrice Chotard <patrice.chotard@foss.st.com>, 
- Andi Shyti <andi.shyti@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>, 
- Lee Jones <lee@kernel.org>, Johannes Berg <johannes@sipsolutions.net>, 
- Jeff Johnson <jjohnson@kernel.org>, Viresh Kumar <vireshk@kernel.org>,
- Nishanth Menon <nm@ti.com>, 
- Stephen Boyd <sboyd@kernel.org>, Yangbo Lu <yangbo.lu@nxp.com>,
- Paul Walmsley <pjw@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Richard Cochran <richardcochran@gmail.com>, Jens Wiklander <jenswi@kernel.org>,
- Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
- YC Hung <yc.hung@mediatek.com>, 
- Svyatoslav Ryhel <clamor95@gmail.com>, Sean Wang <sean.wang@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, 
- Peter Ujfalusi <peter.ujfalusi@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
- linux-arm-msm@vger.kernel.org, 
- linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-i2c@vger.kernel.org, 
- mfd@lists.linux.dev, linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
- linux-pm@vger.kernel.org, netdev@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Correct white-space style
-Message-ID: <am83ac93gyowUgSQ@monoceros>
-References: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
+ linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel@pengutronix.de
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+Message-ID: <am9DGQFk6JfR6bXl@monoceros>
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
+ <am2mvECnCcO9IxuI@monoceros>
+ <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
+ <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="ynduf7ixmtnk7fvw"
+ protocol="application/pgp-signature"; boundary="6rrxlhjbsv2gpeab"
 Content-Disposition: inline
-In-Reply-To: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,58 +100,67 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---ynduf7ixmtnk7fvw
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+--6rrxlhjbsv2gpeab
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dt-bindings: Correct white-space style
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
 MIME-Version: 1.0
 
-On Sat, Aug 01, 2026 at 09:56:14PM +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues, like double space after '=3D' or before
-> bracket '{' characters, which will be flagged by dt-check-style.  No
-> functional changes.
+Hello M=C3=A0xim,
+
+On Sun, Aug 02, 2026 at 12:01:58AM +0200, M=C3=A0xim Pedraza Padilla wrote:
+> Uwe Kleine-K=C3=B6nig wrote:
+> > My 0.02=E2=82=AC: Usually you want to use the display using drm and not=
+ fb once
+> > the machine is fully booted. If you're using fb during boot to display a
+> > logo, it's hardly possible to switch to drm later in the boot process
+> > without flicker.
+> >
+> > So my recommendation for your usecase is to not use the kernel boot logo
+> > stuff, but something like https://github.com/pengutronix/platsch.
 >=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> [...]
-> diff --git a/Documentation/devicetree/bindings/pwm/pwm-sifive.yaml b/Docu=
-mentation/devicetree/bindings/pwm/pwm-sifive.yaml
-> index bae993128981..40397bdf2d69 100644
-> --- a/Documentation/devicetree/bindings/pwm/pwm-sifive.yaml
-> +++ b/Documentation/devicetree/bindings/pwm/pwm-sifive.yaml
-> @@ -62,7 +62,7 @@ additionalProperties: false
-> =20
->  examples:
->    - |
-> -    pwm:  pwm@10020000 {
-> +    pwm@10020000 {
->        compatible =3D "sifive,fu540-c000-pwm", "sifive,pwm0";
->        reg =3D <0x10020000 0x1000>;
->        clocks =3D <&tlclk>;
+> Thanks for the pointer, I did not know platsch and it looks like a good
+> fit for the problem it solves. It does not solve mine, though, and I
+> think the reason is worth spelling out, because it is not about how the
+> image gets drawn but about when.
+>=20
+> These are industrial units, and the requirement is time to first pixel
+> after power is applied. If the panel stays dark for more than a moment
+> the unit reads as dead, and that is a support call. Anything running in
+> userspace is by construction later than the kernel: it needs the kernel
+> booted, the rootfs mounted and init far enough along to exec it. I can
+> measure the exact difference on our hardware if that is useful for the
+> discussion.
 
-I'm ok with this change (as &pwm is unused in the example), I also don't
-care much about this not being a whitespace only change and thus not
-really matching the commit log.
+No need to wait for init, the idea is to use init=3D/usr/sbin/platsch so
+it starts before init (and once the display is setup execve()s
+/sbin/init). Also you can put it in an initramfs which gets rid of the
+dependency on "rootfs mounted". And if your kernel is modular apart from
+what is needed for the display the time difference between kernel boot
+image and platsch might be negligible compared to the simplification of
+the software architecture.
 
-Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org> # for Documentation/devi=
-cetree/bindings/pwm
+Having said that, I'm against putting boot splash info in the device
+tree as the pointed out alternative is IMHO good enough. But my opinion
+probably isn't the one that eventually counts.
 
 Best regards
 Uwe
 
---ynduf7ixmtnk7fvw
+--6rrxlhjbsv2gpeab
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpvOBgACgkQj4D7WH0S
-/k5+WQf8CivH89faKCp48CBlupnrahHpA3qdaBm48BnUdJduo4BaximYlTqDGSxO
-NXL529LwysgvuiHkOxrg9bUdk/Lx68V5xZboTmO5BFwMGnqiXaazc9iWfyHrau7M
-YVderOTLj5yWcB/0FkMdHb59nmaH6H3DTA7lTyzhEH2rK1e56Xe0bWxXn5wPx//K
-Fg6BzFpjoO28RLKp88OCsgzFiu3Y6yaJNenCx2MeV0T15/L721ZmHJDKsQqu5iDJ
-iXzPSntzwtR7HAs/3NUW1jSaAV2Jq41LUqlqjX4CeZDwSDaX6iquowVSJDhJvYuK
-ZtKTkgqchOdbv2qhQEqje3UkwK9pWQ==
-=9CRH
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpvR6YACgkQj4D7WH0S
+/k55+wf+LNETFlaOPhwExqKupPUo/OH39ybKdaQJ9uAkqBo70lHb+Xm37TY6D1sa
+P6+sFxOwFR6mGxWni4QEila6hAYHRNzqqp1o4Rl8mpnPTbG6vkJrRaT4vFCnOie+
+6Y+yocUerh6JqqjAim+X+SGrIjaJ/54KtfaQ6dGBUxGFHr0q/pThdXedHep4ZcB6
+viwOGBykkKZpx1gNKR09GiA8PlxG00jkAvA9ay3cvlzMg7zwU0nRjjIDp1d+lo7K
+ef908NB2SG1R1TNMBEYy9T103E2VidGZ7bA9NsIqYLiCEGo3z1smJcAVdaXl1iTy
+hyLG+z6x2P06fk2+cllcwxaOEU/dXQ==
+=CFkM
 -----END PGP SIGNATURE-----
 
---ynduf7ixmtnk7fvw--
+--6rrxlhjbsv2gpeab--
