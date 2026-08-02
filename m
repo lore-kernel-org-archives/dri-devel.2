@@ -4,44 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E72E7C55171
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 15:55:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E65C1C55162
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 15:56:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EE2DA10E1F5;
-	Sun,  2 Aug 2026 15:55:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51BFC10E110;
+	Sun,  2 Aug 2026 15:56:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jRZ2u5d7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JUipDZ6N";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4B69A10E110
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 15:55:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 390B910E110
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 15:56:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0332141FB8;
- Sun,  2 Aug 2026 15:55:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561381F000E9;
- Sun,  2 Aug 2026 15:55:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EB85840B42;
+ Sun,  2 Aug 2026 15:56:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADF7B1F000E9;
+ Sun,  2 Aug 2026 15:56:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785686136;
- bh=vRE7BqVz2iEojLrscidbyM2uoiEMjtUhNhmwCfvBL1Q=;
+ s=k20260515; t=1785686184;
+ bh=PD/W91IpcvCDrLDTD5fmEnCm8uy1LEEE1V1o0m607G0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jRZ2u5d7puM8vhe2eaWsf1tyIKqLBF0lBCn43jc9a7z6stFfq9HfGIQa75cY8aKuM
- sl2B2RGZQ7kXks/ASNGsFPr+aQ1vLdAsHBlOf+lXDgTHVnwUx7iyqBcivVM3FgAzrU
- 1XoaxKKAZHCO7NjwWmWK34dnFf/PVX1z5coW9tQPpFiYcKfhggKNWZOMJ9iqUIXF/u
- KItI0yB2bZtNALEpGnMVvLGKSR+LF8CYo8+8et/gomu3lxJFngs2ES3DN2pnkK9ywa
- 5LuBPAwHV/iC3wDL0gti+YGAKwuvfrC4J23tzG1ngAgmEZ1Gx4Q2OkkVXHoTNwFOXd
- czAsfrTDg4eMw==
+ b=JUipDZ6N66uAG4Zk1HgZoWPE4oNKcjx+2Ae8NVUp5URvCzDWBXoDikuxWal2+HrG8
+ zp9KKFUnJihYzeAnbodt9GOaQ7PqzbZOW1FHVI5nyj25BEHzqD+8g/qrLe7vRbuTtW
+ +JQKaHHpF0w3hEpObAnqzq11KVzOSDfAhJ+TdqhKT+vO8oTqUtWWgPuoyUT58OlrT+
+ NeaZKa6tZC78Wr/RtAHemAJhvdkwGVr42MQwNw0IANgZXHYzHTsg+HwLFr2KubEHmc
+ ADBhwTKMs+DG3+4hLGRB6ya7yrSfYRaPcqKOCm0X8VM3XIb51dF5eRc2hsTTl/2pZD
+ jilcoYZkzRY7A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd property
-To: "Yashas D" <y-d@ti.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260802153825.1570435-3-y-d@ti.com>
-References: <20260802153825.1570435-1-y-d@ti.com>
- <20260802153825.1570435-3-y-d@ti.com>
+Subject: Re: [PATCH] drm/virtio: reclaim pending vbufs before tearing down vqs
+To: "Anuj Bolewar" <bolewara@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260802-virtio-gpu-reclaim-vbufs-v1-1-9947f18b20e2@gmail.com>
+References: <20260802-virtio-gpu-reclaim-vbufs-v1-1-9947f18b20e2@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 02 Aug 2026 15:55:35 +0000
-Message-Id: <20260802155536.561381F000E9@smtp.kernel.org>
+Date: Sun, 02 Aug 2026 15:56:23 +0000
+Message-Id: <20260802155624.ADF7B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,116 +60,111 @@ Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Polling `.detect()` breaks DPMS and wastes power by continuously r=
-etraining the link after the display is disabled.
-- [High] Skipping `cdns_mhdp_bridge_hpd_enable()` in no-hpd mode permanentl=
-y masks SW event interrupts, breaking HDCP.
+- [High] Data race and potential Use-After-Free between `dequeue_work` and =
+`virtio_gpu_reclaim_vbufs` / `del_vqs`.
 
 Pre-existing issues:
-- [Critical] Accessing `bridge.base.state` outside of atomic commit context=
- without modeset locks leads to a Use-After-Free.
+- [High] Memory leak of GEM objects (bo) due to missing cleanup of `vbuf->r=
+esp_cb_data` in `virtio_gpu_reclaim_vbufs`.
+- [High] Permanent leak of `dma_fence` objects and potential infinite wait =
+for stranded commands.
 --
 
---- Patch [2]: [PATCH v6 2/2] drm: bridge: cdns-mhdp8546: Add no-hpd proper=
-ty ---
-commit 33969e025e143110f913b15c51739edb9cc917f9
-Author: Rahul T R <r-ravikumar@ti.com>
-Subject: drm: bridge: cdns-mhdp8546: Add no-hpd property
+--- Patch [1]: [PATCH] drm/virtio: reclaim pending vbufs before tearing dow=
+n vqs ---
+commit 9dfeaad280a2a9a1d77041d3cd3a7b47ba0d4e3a
+Author: Anuj Bolewar <bolewara@gmail.com>
 
-Add a 'no-hpd' boolean property to support boards where the HPD line
-cannot be used for hotplug detection due to hardware limitations.
+drm/virtio: reclaim pending vbufs before tearing down vqs
 
-> diff --git a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c b/driver=
-s/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> index 36c07b71fe04b..c81c742e56ac8 100644
-> --- a/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
-> +++ b/drivers/gpu/drm/bridge/cadence/cdns-mhdp8546-core.c
+This commit attempts to drain any buffers still sitting in the control and
+cursor virtqueues in virtio_gpu_deinit() after the device has been reset
+and before the virtqueues are deleted to prevent a cache shutdown warning.
 
-[ ... ]
+Link: https://syzkaller.appspot.com/bug?extid=3D06f9b2a53ba4a5a47644
 
-> @@ -698,7 +700,9 @@ static int cdns_mhdp_fw_activate(const struct firmwar=
-e *fw,
->  	 * MHDP_HW_STOPPED happens only due to driver removal when
->  	 * bridge should already be detached.
->  	 */
-> -	cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
-> +
-> +	if (!mhdp->no_hpd)
-> +		cdns_mhdp_bridge_hpd_enable(&mhdp->bridge);
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virti=
+o/virtgpu_kms.c
+> index b4329f28e9766..e5a6ae679f363 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_kms.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
+> @@ -298,6 +298,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
+>  	flush_work(&vgdev->cursorq.dequeue_work);
+>  	flush_work(&vgdev->config_changed_work);
+>  	virtio_reset_device(vgdev->vdev);
+> +	virtio_gpu_reclaim_vbufs(vgdev);
 
 [Severity: High]
-Does skipping cdns_mhdp_bridge_hpd_enable() here and in cdns_mhdp_attach()
-permanently mask software event interrupts?
+Could a late interrupt re-queue the work after it has been flushed?
 
-The CDNS_APB_INT_MASK_SW_EVENT_INT interrupt is multiplexed for multiple
-events, including HDCP status (CDNS_HDCP_TX_STATUS).
+Since flush_work() is called before virtio_reset_device(), if an interrupt
+arrives just after flush_work() completes but before virtio_reset_device()
+is called, the worker could be re-queued.
 
-If it is never unmasked in no-hpd mode, it looks like HDCP initialization
-and communication will timeout and fail completely.
+Because virtio_reset_device() stops new interrupts but doesn't cancel
+pending asynchronous work, could the rescheduled worker execute concurrently
+with the newly added virtio_gpu_reclaim_vbufs() and access the virtqueue?
+
+>  	vgdev->vdev->config->del_vqs(vgdev->vdev);
+>  }
+> =20
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio=
+/virtgpu_vq.c
+> index e5e1af8b8e8a0..95d7a9ef0d99d 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
 
 [ ... ]
 
-> @@ -2012,6 +2040,16 @@ static enum drm_connector_status
->  cdns_mhdp_bridge_detect(struct drm_bridge *bridge, struct drm_connector =
-*connector)
->  {
->  	struct cdns_mhdp_device *mhdp =3D bridge_to_mhdp(bridge);
-> +	bool hw_ready;
+> @@ -208,6 +208,19 @@ static void free_vbuf(struct virtio_gpu_device *vgde=
+v,
+>  	kmem_cache_free(vgdev->vbufs, vbuf);
+>  }
+> =20
+> +void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
+> +{
+> +	struct virtio_gpu_vbuffer *vbuf;
 > +
-> +	if (mhdp->no_hpd) {
-> +		spin_lock(&mhdp->start_lock);
-> +		hw_ready =3D mhdp->hw_state =3D=3D MHDP_HW_READY;
-> +		spin_unlock(&mhdp->start_lock);
-> +
-> +		if (hw_ready)
-> +			cdns_mhdp_update_link_status(mhdp);
+> +	while ((vbuf =3D virtqueue_detach_unused_buf(vgdev->ctrlq.vq))) {
+
+[Severity: High]
+If the dequeue_work worker is still running as mentioned above, could it
+race with this lockless manipulation of the virtqueue?
+
+The worker uses virtqueue_get_buf() under vgdev->ctrlq.qlock, but
+virtqueue_detach_unused_buf() is called here without acquiring the lock.
+This might lead to concurrent modification of the virtqueue internal state
+or a use-after-free if the worker accesses it after the queues are deleted.
+
+> +		if (vbuf->objs)
+> +			virtio_gpu_array_put_free(vbuf->objs);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this loop overlook
+vbuf->resp_cb_data?
+
+When the device is reset, pending VIRTIO_GPU_CMD_RESOURCE_UNREF commands are
+left in the virtqueue. If they are detached and freed here without executing
+their resp_cb callbacks (like virtio_gpu_cmd_unref_cb) or manually cleaning
+up vbuf->resp_cb_data, does it permanently leak the underlying GEM objects
+and their associated IDAs?
+
+[Severity: High]
+This is a pre-existing issue, but does this loop also silently discard
+command buffers without signaling their associated fences?
+
+When commands are queued with a fence via
+virtio_gpu_queue_fenced_ctrl_buffer(), a reference to the dma_fence is added
+to the vgdev->fence_drv.fences list. If virtio_gpu_reclaim_vbufs() detaches
+and frees the vbufs without extracting or signaling these fences, could any
+waiters hang indefinitely?
+
+> +		free_vbuf(vgdev, vbuf);
 > +	}
-
-[Severity: High]
-Will this polling cause the link to be continuously retrained even when the
-display is intentionally disabled?
-
-When the display is disabled for power management (DPMS blanking),
-cdns_mhdp_update_link_status() will see the link is down and execute
-cdns_mhdp_link_up():
-
-cdns_mhdp_update_link_status() {
-    ...
-    if (!mhdp->link_up) {
-        ret =3D cdns_mhdp_link_up(mhdp);
-        if (ret < 0)
-            goto out;
-    }
-}
-
-Since the .detect() callback is periodically invoked by the DRM core (every
-10 seconds), does this unconditionally wake the monitor up from sleep and w=
-aste
-power by ignoring the mhdp->bridge_enabled state?
-
-[Severity: Critical]
-This is a pre-existing issue, but does exposing cdns_mhdp_update_link_statu=
-s()
-to periodic polling significantly expand a use-after-free race window?
-
-Later in cdns_mhdp_update_link_status(), the code accesses the atomic state
-holding only the link_mutex:
-
-cdns_mhdp_update_link_status() {
-    ...
-    state =3D drm_priv_to_bridge_state(mhdp->bridge.base.state);
-    ...
-    cdns_bridge_state =3D to_cdns_mhdp_bridge_state(state);
-    ...
-    current_mode =3D cdns_bridge_state->current_mode;
-}
-
-Since drm_private_obj.state is managed by the DRM atomic framework, if a
-concurrent non-blocking atomic commit completes during this poll, the old
-state can be swapped and freed asynchronously by
-drm_atomic_state_default_clear(), leaving this thread dereferencing freed
-memory.
+> +	while ((vbuf =3D virtqueue_detach_unused_buf(vgdev->cursorq.vq)))
+> +		free_vbuf(vgdev, vbuf);
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802153825.1570=
-435-1-y-d@ti.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260802-virtio-gpu=
+-reclaim-vbufs-v1-1-9947f18b20e2@gmail.com?part=3D1
