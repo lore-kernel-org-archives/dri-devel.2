@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 542C2C55162
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 22:41:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32A73C55174
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 22:41:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D00B410E475;
-	Sun,  2 Aug 2026 22:41:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1464F10E47B;
+	Sun,  2 Aug 2026 22:41:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.srl header.i=@kernel.srl header.b="ViMEmTBl";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.srl header.i=@kernel.srl header.b="MZDZr3iP";
 	dkim-atps=neutral
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BABD10E435
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 17:06:59 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-496b7622a83so8052135e9.2
- for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 10:06:59 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A99D610E438
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 17:07:02 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-4954a32cf1eso5537555e9.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 10:07:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=kernel.srl; s=google; t=1785690418; x=1786295218; darn=lists.freedesktop.org;
+ d=kernel.srl; s=google; t=1785690421; x=1786295221; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=/VNyRxg25eQX1o5yblY5pzpZRITiV9Czj9RlgyEyn0w=;
- b=ViMEmTBl5iBNTy/NLY6vN3RTrODU1eM54zj7shf4yIqvNdGV7E+9HTtQSyE+Hs+YPO
- uRtoll1jrVpdVAw9uQfi1EU+I49HOeQxK85a8pyU14Ce4cXOIM0TMV7AnkuD+7t88y9l
- tvbUIWVGbHMTfSSM7JYuIoMH43/Bi+q1x8MeNvbhkb4ilDbFCiV81gxDRwXdYU2MyHL7
- GjgEm9zaKUrEdRYeWQio1VPeppG4ghsmsgShzU0aI08Q/kOb9/b67vubnSWDbjOgreyA
- 4p5zbi6DtByMVmsJfR2ZSK2tKkKUZaVF5bPAWzfEZokOGGsCippj9FhSh3LVPZNjN+7/
- +mAA==
+ bh=BRAy2nVyQPy4R9FHWUMzTGUQy8Oyu41Og5cXR0XYVss=;
+ b=MZDZr3iPGjvriRzFaq1J42OFHTpqPDE699owHosylqzoEEfExish/+umtooucTo0hm
+ neuvVZM/cwNeqJ/MkBynNEK/460ylRUN4jvENrVNj0b9hmtJmgDDjdx3QYCnrqg/5xzM
+ HDZZVyffG3y4bKdl47Lvbgv4s3reLFwEJelWDJui2N+SvlJnLV121/gAWiI/6YHun4HA
+ qMs2WnVkpTfu9XtkKPyMMLuNrT7LGXixhSrTdOt0qGQt66Ng+56pI5EfBu5TQMpJCD1q
+ uiAXEETTFKHm2rMszUXZR+ETaGhwFl5b41oXD4xcz/7JcdpDZ+VjtRn5dL5f+RbkhSNj
+ huHw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785690418; x=1786295218;
+ d=1e100.net; s=20251104; t=1785690421; x=1786295221;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=/VNyRxg25eQX1o5yblY5pzpZRITiV9Czj9RlgyEyn0w=;
- b=gzNjhs3XvcL8XEnYdRGjsPnJreq7tm3ikkICYEzHqEutfRFkiq0+btCiOKoM9wcHsM
- UYq0QLNsiOkz7Kj0D2XUxJBUUiDREhKUpfFtV6cpqFbSLZ8mMiLfjqgw2ufE7RUYwGPA
- KMYm8jJAqNLmWT9jTb2+FqOIYR0uKf3GrIx7VAhm8BQ0uQA2l3lZZFg9clMofiqdaVjI
- BCWXTXjFhZSisS7l3cEWTyRtXst8Gsy9wHSvLv3RmuJEW0H+kEohAkTHNEucKlzleyJ5
- jY3txEW6XS0V2UBuRgl8HAQuYXwtF3Y/PyHmJKBvEpXLdrV6sFGJEkAm6TsuobsJf4+u
- m30w==
-X-Gm-Message-State: AOJu0YyqlHJxy2L//Nqm48WJ6rmnoDYR+lI7UIwnOYqK5Eosp++syNLq
- U5hyULSBKZlGgT/J/+TOU0QeriA17fe7cJ69vCKLYR6YXsG+Isz0TPwt6TZpVccODAg=
-X-Gm-Gg: AR+sD13bVNbc8lShc7qhzxo8kmey+qOddZxPPPlkaXrLP2kQtwDQosJhN/XwB8407zm
- lJH9HrhQ4O01aJyXplDr/fOwmTehGHQ6eOClpKaX7I3AxkTBf/c2GlsWeTLj4+YJtEISiGXW9lH
- P84Hq+Mi7nFORSXIqXBmOAK6H2ihF688xfu448xZyqWnc16Vipt81B0K9MQIIgBVOYPRqY1vzjT
- ZlFWcnT2jZpRQl6heh3xPuzEElpv49fT3zjCH6vW8ujRpK2WH09o32Zzw1mCCDqs0DgKn96CwbL
- a2n2eeJ/67Ezxat9YTXs1+13FFnETDew3bOPqRm0WAilfVziuLWu0ip+Ns8ZzF4b7qnUJ6erAOQ
- jYnPck0WdGSQUDV3Kksffekf4BgcY2Rscob8nKD04h3RV6BKYnkDzmAb0+tSiUmcZDX//lxwHLK
- ryBls5fuaHtJ4FwHd1vB8tnQjPfZ05tuaBS91/UyFuJYg/Sbr7GEhOGI0x0qUFA0k7goKQ8i0sE
- MUJT+ssNHlynGZrP6KdYcuT1WUAelfuuCkQPnyIHLSfUQdxu8+xZSgeBA6eOrpXnRtXeiijqsYu
- ioh9wI8CWPpJHpz0ts6xCzBfvTmBoyCfIr6XPyyOzOuVlBVC65+RFhtxeFoUzmLsHdHetyeOJPQ
- 8/88TmhJu/rkl/AmmP0g6w+DVOBT43zvkYE1JX2UG+yE5k4E4Pg==
-X-Received: by 2002:a05:600c:4fc5:b0:494:6baa:ccef with SMTP id
- 5b1f17b1804b1-4980f23257cmr144313965e9.11.1785690417802; 
- Sun, 02 Aug 2026 10:06:57 -0700 (PDT)
+ bh=BRAy2nVyQPy4R9FHWUMzTGUQy8Oyu41Og5cXR0XYVss=;
+ b=SLzXu/AgKf2tvmDY2UmUO8q7DQVZ2kG8SlLi1XGV7blaL2KlYUT4zwJrQeSLP1DfND
+ y0kYJdbhXsIJkEbZX2+w1GdPpxLj5UoXZGp4ibZRmoJtZRmhN1AfHbZASew8U2VekBJf
+ MqB4ezCKm3NQi7GYtCQA6ZbojYvGyyFuYFPqVf6ihF75S/7Y0j+Ie2/13xqodqLQXPhN
+ RkXglDG9vYHyEzrQjAZwBUSgiPzgK6RQ3Q6a3r8+c+nUkrJXpcytxycxlYsC4tK762L/
+ nvFU5IuJvpEv01sYjkbqhALWL+zn4erkNk2gya3g/CUonWNtBPefuXVMBUsHyn2jPRSC
+ bPuQ==
+X-Gm-Message-State: AOJu0Yx9vFM1oF2pD7KGFG+X6USUjo8SYkdl2DTMbGeKpkhEoGiJNGY5
+ HFUAxPEn6PBC9ggAmkbhw2hwTMtjis8HRs44CSTQf7Xcaqy1NLm3bS431h8boTztDLxcI5nm4FO
+ J959Gxi2NEA==
+X-Gm-Gg: AR+sD139tDWo3uup8aENiBTBp3xfWHh6JBO+59lwSNjnb6bBuXMORCL6VmcBRAEmqDG
+ 9gfPzJrv72Gspby8d/+3OYyoctQ3zP/rTLY/7/TiZcPrfMYQ6orumB/2W3WFUwNR94VrMaqN0ob
+ ulbcbBoetL43ENRZxhMptZoPXqh9uOursgeU3Fhi56zmzPw/04FvE0Ecl/d3sFK82TciAmPg17q
+ Vg7ujx/fLRYVl/2i7/NXDrL2thk+7xdVAyiQnSRYbXI+328VOkyDC/WjFXQTNGOe86dTKU83M4w
+ Np1VKGDfYbkpBSvA98IP230zXqDHIxaVygRaCccbAWkkzGDo5icWOeBYVeNfE6+LrJsott0n7kO
+ Wd5O0H/FrmUJVNQlSV6Ms+XS7yAUhI0sJpjuVBs2CXNLOmZJyZoOBbG3E4ZZWVPg4T8nYUyISsJ
+ jUUFFvvz6R1ItpVK/yaf8G9hsNcHvyK96fyCHUnKBj/4mLElGwr5LS7jVCmz2GOnUNdyjurqx0s
+ IpoQKgs75/wfrz3ojE9XhCPrioltGYnX4qER5lv+Dnkg0KP/ReD/drvTpUp7ZBI/OVMzc6ExqQR
+ Nt64+VoOiU3VmMrAbjBNxZCk+nei7clVbMZaAU5rQC5GPwm7VzWYO/9bI2GDQA0gHlx0BsXS6/a
+ pK9GZb0luk1qEo+LaURJK7iZXurSGeguP1DgXEkKwtUmF+xiD7Q==
+X-Received: by 2002:a05:600c:8715:b0:498:273:327a with SMTP id
+ 5b1f17b1804b1-4980c66b5d5mr160221615e9.7.1785690421108; 
+ Sun, 02 Aug 2026 10:07:01 -0700 (PDT)
 Received: from KITT.minareto (host-95-230-187-130.business.telecomitalia.it.
  [95.230.187.130]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49807b6745csm161687225e9.7.2026.08.02.10.06.55
+ 5b1f17b1804b1-49807b6745csm161687225e9.7.2026.08.02.10.06.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Aug 2026 10:06:56 -0700 (PDT)
+ Sun, 02 Aug 2026 10:07:00 -0700 (PDT)
 From: Cristian La Spina <cristian.laspina@kernel.srl>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@gmail.com, simona@ffwll.ch, jani.nikula@linux.intel.com,
@@ -71,9 +72,9 @@ To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
 Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  Cristian La Spina <cristian.laspina@kernel.srl>
-Subject: [PATCH 1/2] drm/edid: read the luminance range from DisplayID 2.0
-Date: Sun,  2 Aug 2026 19:06:46 +0200
-Message-ID: <20260802170647.206880-2-cristian.laspina@kernel.srl>
+Subject: [PATCH 2/2] drm/i915/display: accept a luminance range from any source
+Date: Sun,  2 Aug 2026 19:06:47 +0200
+Message-ID: <20260802170647.206880-3-cristian.laspina@kernel.srl>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260802170647.206880-1-cristian.laspina@kernel.srl>
 References: <20260802170647.206880-1-cristian.laspina@kernel.srl>
@@ -95,122 +96,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Panels carrying CTA HDR static metadata get their luminance range
-computed into display_info.luminance_range by
-drm_calculate_luminance_range(). Panels publishing the same information
-through the DisplayID 2.0 Display Parameters Data Block get nothing:
-drm_displayid_parse_display_params() already reads that block, but only
-for the device technology.
+intel_dp_aux_supports_hdr_backlight() refuses the Intel proprietary eDP
+backlight interface unless the panel carries CTA HDR static metadata.
+What the interface actually needs is the luminance range, and
+intel_dp_aux_hdr_setup_backlight() already reads that from
+display_info.luminance_range, which the DRM core now also fills in from
+the DisplayID 2.0 Display Parameters block.
 
-Such panels exist. The OLED panel in the Lenovo Yoga 9 2-in-1 14IPH11
-(EDO EE00QBA63.E) carries two DisplayID 2.0 extension blocks and no CTA
-extension at all, and declares:
+Accept a panel whose range came from there too. Panels carrying the CTA
+metadata are unaffected, including those that provide the metadata block
+without the optional luminance bytes and so still land on the hardcoded
+512 nits fallback.
 
-  Native Maximum Luminance (Full Coverage): 500.000 cd/m^2
-  Native Minimum Luminance:                   4.000 cd/m^2
-
-Fill in the luminance range from those fields when the EDID has not
-already provided one, so drivers doing nits based backlight control have
-a real range to work with instead of a hardcoded guess. CTA HDR static
-metadata is parsed first and keeps precedence, so panels providing both
-go on behaving exactly as before.
-
-DisplayID 2.0 encodes luminance as IEEE 754 binary16, an encoding the
-core has not needed until now; add a small decoder for it.
+On the Lenovo Yoga 9 2-in-1 14IPH11 this replaces a backlight that does
+not respond at all, because the PWM fallback drives nothing on an OLED
+panel, with working brightness over the 4-500 nits range the panel
+declares.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Cristian La Spina <cristian.laspina@kernel.srl>
 ---
- drivers/gpu/drm/drm_edid.c  | 47 +++++++++++++++++++++++++++++++++++++
- include/drm/drm_connector.h |  3 ++-
- 2 files changed, 49 insertions(+), 1 deletion(-)
+ .../drm/i915/display/intel_dp_aux_backlight.c   | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 07970e5b5..f4845d799 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -6733,6 +6733,31 @@ static void drm_displayid_process_base_section_header(struct drm_connector *conn
- 		info->non_desktop = true;
- }
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+index 7a6c07f6a..8ac47ed18 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
+@@ -136,19 +136,18 @@ intel_dp_aux_supports_hdr_backlight(struct intel_connector *connector)
+ 		return false;
  
-+/*
-+ * Convert an IEEE 754 binary16 value, the encoding DisplayID 2.0 uses for
-+ * luminance, to nits rounded to nearest. Negative, zero, subnormal, infinite
-+ * and NaN all report 0, meaning "no usable value".
-+ */
-+static u32 displayid_binary16_to_nits(u16 val)
-+{
-+	int exp = (val >> 10) & 0x1f;
-+	u32 mant = (val & 0x3ff) | 0x400;
-+	int shift;
-+
-+	if (val & 0x8000 || exp == 0 || exp == 0x1f)
-+		return 0;
-+
-+	shift = exp - 25;
-+	if (shift >= 0)
-+		return shift > 15 ? 0 : mant << shift;
-+
-+	shift = -shift;
-+	if (shift > 11)
-+		return 0;
-+
-+	return (mant + (1 << (shift - 1))) >> shift;
-+}
-+
- static void
- drm_displayid_parse_display_params(struct drm_connector *connector,
- 				   const struct displayid_block *block)
-@@ -6740,6 +6765,7 @@ drm_displayid_parse_display_params(struct drm_connector *connector,
- 	struct drm_display_info *info = &connector->display_info;
- 	const struct displayid_display_params_block *params =
- 		(const struct displayid_display_params_block *)block;
-+	u32 max_luminance, min_luminance;
- 	u8 tech;
- 
- 	if (block->num_bytes < sizeof(*params) - sizeof(params->base)) {
-@@ -6770,6 +6796,27 @@ drm_displayid_parse_display_params(struct drm_connector *connector,
- 	default:
- 		break;
- 	}
-+
-+	/*
-+	 * CTA HDR static metadata is parsed before this and takes precedence,
-+	 * so panels providing both keep the range they already have.
-+	 */
-+	if (info->luminance_range.max_luminance)
-+		return;
-+
-+	max_luminance = displayid_binary16_to_nits(le16_to_cpu(params->max_luminance_full));
-+	min_luminance = displayid_binary16_to_nits(le16_to_cpu(params->min_luminance));
-+
-+	if (!max_luminance || min_luminance >= max_luminance)
-+		return;
-+
-+	info->luminance_range.max_luminance = max_luminance;
-+	info->luminance_range.min_luminance = min_luminance;
-+
-+	drm_dbg_kms(connector->dev,
-+		    "[CONNECTOR:%d:%s] DisplayID luminance range %u-%u nits\n",
-+		    connector->base.id, connector->name,
-+		    min_luminance, max_luminance);
- }
- 
- static void update_displayid_info(struct drm_connector *connector,
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index a0cf0268d..15176ae63 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -425,7 +425,8 @@ struct drm_monitor_range_info {
-  * &drm_display_info. Calculated using data in EDID
-  *
-  * This struct is used to store a luminance range supported by panel
-- * as calculated using data from EDID's static hdr metadata.
-+ * as calculated using data from EDID's static hdr metadata, or as read
-+ * from the DisplayID 2.0 Display Parameters Data Block.
-  *
-  * @min_luminance: This is the min supported luminance value
-  *
+ 	/*
+-	 * If we don't have HDR static metadata there is no way to
+-	 * runtime detect used range for nits based control. For now
+-	 * do not use Intel proprietary eDP backlight control if we
+-	 * don't have this data in panel EDID. In case we find panel
+-	 * which supports only nits based control, but doesn't provide
+-	 * HDR static metadata we need to start maintaining table of
+-	 * ranges for such panels.
++	 * Nits based control needs to know the panel's luminance range. The
++	 * DRM core fills it in from CTA HDR static metadata, or from the
++	 * DisplayID 2.0 Display Parameters block for the panels that publish
++	 * it only there. With neither there is no way to detect the range at
++	 * runtime, so do not use the Intel proprietary eDP backlight control.
+ 	 */
+ 	if (display->params.enable_dpcd_backlight != INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL &&
+ 	    !(connector->base.display_info.hdr_sink_metadata.hdmi_type1.metadata_type &
+-	      BIT(HDMI_STATIC_METADATA_TYPE1))) {
++	      BIT(HDMI_STATIC_METADATA_TYPE1)) &&
++	    !connector->base.display_info.luminance_range.max_luminance) {
+ 		drm_info(display->drm,
+-			 "[CONNECTOR:%d:%s] Panel is missing HDR static metadata. Possible support for Intel HDR backlight interface is not used. If your backlight controls don't work try booting with i915.enable_dpcd_backlight=%d.\n",
++			 "[CONNECTOR:%d:%s] Panel is missing its luminance range. Possible support for Intel HDR backlight interface is not used. If your backlight controls don't work try booting with i915.enable_dpcd_backlight=%d.\n",
+ 			 connector->base.base.id, connector->base.name,
+ 			 INTEL_DP_AUX_BACKLIGHT_FORCE_INTEL);
+ 		return false;
 -- 
 2.52.0
 
