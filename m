@@ -4,45 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1651EC55162
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 22:41:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5F612C55162
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 22:41:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E354410E3E1;
-	Sun,  2 Aug 2026 22:41:01 +0000 (UTC)
-Received: from mail-gw-fk003.vdone.jp (mail-gw-fk003.vdone.jp
- [160.251.152.193])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 100EF10E185
- for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 22:35:27 +0000 (UTC)
-Received: from mail-gw-fk003.vdone.jp (localhost.localdomain [127.0.0.1])
- by mail-gw-fk003.vdone.jp (Proxmox) with ESMTP id 2B92F40177F92
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 07:35:26 +0900 (JST)
-Received: from e3.valueserver.jp (e3.valueserver.jp [157.7.184.13])
- by mail-gw-fk003.vdone.jp (Proxmox) with ESMTPS id 245CF401827E4
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 07:35:25 +0900 (JST)
-Received: (qmail 849831 invoked by uid 89); 2 Aug 2026 07:35:24 +0900
-Received: from p1706034-ipxg06601niigatani.niigata.ocn.ne.jp (HELO
- localhost.localdomain) (jack@supremeoverlordjabs.co)
- by e3.valueserver.jp with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 2 Aug 2026 07:35:24 +0900
-From: Tomonori Nakagawa <jack@supremeoverlordjabs.co>
-To: Chaoyi Chen <chaoyi.chen@rock-chips.com>, Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDA7F10E469;
+	Sun,  2 Aug 2026 22:41:02 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=humanlearning.ch header.i=@humanlearning.ch header.b="HnfVTHok";
+	dkim-atps=neutral
+Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch
+ [83.166.143.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F28F10E2A4
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 14:00:22 +0000 (UTC)
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch
+ [10.4.36.107])
+ by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hCh6V1KWnz9x0;
+ Sun,  2 Aug 2026 15:51:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=humanlearning.ch;
+ s=20250828; t=1785678673;
+ bh=o92P7F2EnB1nqviK68TQink9VVnTVZAei/XO4/eSimw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=HnfVTHokDIKQOFebFbWR4gKHk0wU+IwlTmmSqIWdxmzZtjfNM0TSsusI3K2Y8VvPX
+ sUwuLJ6xmCNnAZbxTp03AukNENhX5ZbrYL3jGvxs21uW8KpA+skask5cELFZMGkv9j
+ vs5HJALP6a06s2UmALHqyJqiYH8NOW3mHxLneBd0P/snTRA+4y+ibefWBHExQzLHaA
+ obtvWuemfEl5FSfIznBvz19Z7T38IcQZc6maWBT5B98CzCKvBNJwGyu3bAVecZyERW
+ NVVELrL3SoDon8HuRFfuTTJ1bXyCsjwxRX0koUlnog2VlpdLu5Y34Qxl0qWdLPhWAg
+ TNEgPdaEZhuIg==
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA
+ id 4hCh6S66f8zk5t; Sun,  2 Aug 2026 15:51:12 +0200 (CEST)
+From: =?UTF-8?q?Fran=C3=A7ois=20Roux?= <info@humanlearning.ch>
+To: Douglas Anderson <dianders@chromium.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org,
- Tomonori Nakagawa <jack@supremeoverlordjabs.co>
-Subject: [PATCH v2] drm/rockchip: vop2: give rk3576 VP2 a primary plane
-Date: Sun,  2 Aug 2026 07:35:20 +0900
-Message-ID: <20260801223520.8661-1-jack@supremeoverlordjabs.co>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260729232450.13797-1-jack@supremeoverlordjabs.co>
-References: <20260729232450.13797-1-jack@supremeoverlordjabs.co>
+ =?UTF-8?q?Fran=C3=A7ois=20Roux?= <info@humanlearning.ch>
+Subject: [PATCH v2] drm/panel-edp: Add Sharp LQ120P1JX51 (Surface Pro 12in 1st
+ Ed.)
+Date: Sun,  2 Aug 2026 15:50:50 +0200
+Message-ID: <20260802135107.4420-1-info@humanlearning.ch>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260731115127.15140-1-info@humanlearning.ch>
+References: <20260731115127.15140-1-info@humanlearning.ch>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 X-Mailman-Approved-At: Sun, 02 Aug 2026 22:41:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -59,54 +66,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On rk3576 the two Cluster windows are the only windows typed
-DRM_PLANE_TYPE_PRIMARY, and both have possible_vp_mask = BIT(0) | BIT(1),
-so they can only be attached to VP0 or VP1. VP2's only attachable
-windows are the Esmart windows, which are all DRM_PLANE_TYPE_OVERLAY.
+The internal eDP panel of the Microsoft Surface Pro 12in 1st Edition
+(Snapdragon X Plus, X1P42100) is not in edp_panels[], so every boot
+produces the deliberate WARN_ON splat in panel_edp_probe() and the panel
+falls back to conservative timings:
 
-vop2_create_crtcs() requires every video port a board wires up (an output
-endpoint on video_portN) to own a DRM_PLANE_TYPE_PRIMARY plane. On a
-board whose DT routes any interface to VP2, no attachable primary plane
-is found and probe fails with -ENOENT ("no primary plane for vp 2"),
-tearing down the whole VOP2.
+  WARNING: drivers/gpu/drm/panel/panel-edp.c:814 panel_edp_probe+0x53c/0x56c
+  panel-simple-dp-aux aux-aea0000.displayport-controller:
+      Unknown panel SHP 0x15a7, using conservative timings
 
-Promote Esmart0 to DRM_PLANE_TYPE_PRIMARY. Its possible_vp_mask is
-BIT(0) | BIT(2); since vop2_create_crtcs() assigns primaries in window
-array order and Cluster0/Cluster1 precede Esmart0, VP0 and VP1 still take
-Cluster0/Cluster1, and only VP2 gains Esmart0 as its primary:
+EDID, read over the panel's DP AUX DDC bus:
 
-  VP0: primary Cluster0
-  VP1: primary Cluster1
-  VP2: primary Esmart0
+  00 ff ff ff ff ff ff 00 4d 10 a7 15 a0 00 00 1f
+  31 22 01 04 a5 19 11 78 07 ee 91 a3 54 4c 99 26
+  0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+  01 01 01 01 01 01 62 53 94 a0 80 b8 2e 50 18 10
+  3a 00 fe a9 00 00 00 18 13 7d 94 a0 80 b8 2e 50
+  18 10 3a 00 fe a9 00 00 00 18 00 00 00 fd 00 18
+  5a 88 88 21 01 00 00 00 00 00 00 00 00 00 00 fc
+  00 4c 51 31 32 30 50 31 4a 58 35 31 0a 20 00 69
 
-Tested on Anbernic RG Vita Pro (rk3576), which routes its DP output to
-VP2.
+  Manufacturer: SHP
+  Model: 0x15a7
+  Made in: week 49 of 2024
+  Display Product Name: 'LQ120P1JX51'
+  DTD 1: 2196x1464 60.001799 Hz 3:2 (254 mm x 169 mm)
+  DTD 2: 2196x1464 90.002698 Hz 3:2 (254 mm x 169 mm)
 
-Signed-off-by: Tomonori Nakagawa <jack@supremeoverlordjabs.co>
+Timings are deliberately cautious rather than datasheet-derived. The
+conservative fallback sets unprepare=2000 and enable=200; unprepare=2000
+is a safety margin for unknown panels only and is the single occurrence
+of that value in the file -- no real panel entry uses it.
+delay_200_500_e200 keeps the same generous 200 ms enable delay while
+using the 500 ms unprepare shared by every actual panel in the table. A
+shorter enable delay may well be fine, but has not been validated here.
+
+Signed-off-by: François Roux <info@humanlearning.ch>
 ---
-v2: reword the commit message per Chaoyi Chen's review - VP2 is not
-    DP-specific; describe the plane topology instead (the two
-    PRIMARY-typed Cluster windows are limited to VP0/VP1 by
-    possible_vp_mask, so VP2 has no attachable primary). No functional
-    change.
+Changes in v2:
+- Read the EDID over the panel's DP AUX DDC bus and included it in the
+  commit message, as requested. My v1 claim that the EDID was not
+  obtainable was wrong: the connector does not export it
+  (/sys/class/drm/card0-eDP-1/edid is 0 bytes) and
+  CONFIG_DRM_DP_AUX_CHARDEV no longer exists, but the AUX bus is
+  registered as an i2c adapter, so a plain DDC read works:
+      i2ctransfer -y <bus> w1@0x50 0x00 r128
+  (i2cdump in byte mode does not: it drops a header byte and yields a
+  block with a bad checksum.)
+- The EDID carries a Display Product Name, so the entry is now
+  "LQ120P1JX51" instead of "Unknown".
+- Timings unchanged (delay_200_500_e200).
+- Now sent under my real name, as you asked. v1 went out as
+  "franzelverbier"; same person, same address.
 
- drivers/gpu/drm/rockchip/rockchip_vop2_reg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/panel/panel-edp.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-index 17eda592b..e7d013dc3 100644
---- a/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_vop2_reg.c
-@@ -894,7 +894,7 @@ static const struct vop2_win_data rk3576_vop_win_data[] = {
- 		.format_modifiers = format_modifiers,
- 		.layer_sel_id = { 2, 0xf, 0, 0xf },
- 		.supported_rotations = DRM_MODE_REFLECT_Y,
--		.type = DRM_PLANE_TYPE_OVERLAY,
-+		.type = DRM_PLANE_TYPE_PRIMARY,
- 		.axi_bus_id = 0,
- 		.axi_yrgb_r_id = 0x10,
- 		.axi_uv_r_id = 0x11,
--- 
-2.54.0
-
-
+diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/panel-edp.c
+index 13ce277d7..4defef820 100644
+--- a/drivers/gpu/drm/panel/panel-edp.c
++++ b/drivers/gpu/drm/panel/panel-edp.c
+@@ -2145,6 +2145,7 @@ static const struct edp_panel_entry edp_panels[] = {
+ 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x154c, &delay_200_500_p2e100, "LQ116M1JW10"),
+ 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x158f, &delay_200_500_p2e100, "LQ134Z1"),
+ 	EDP_PANEL_ENTRY('S', 'H', 'P', 0x1593, &delay_200_500_p2e100, "LQ134N1"),
++	EDP_PANEL_ENTRY('S', 'H', 'P', 0x15a7, &delay_200_500_e200, "LQ120P1JX51"),
+ 
+ 	EDP_PANEL_ENTRY('S', 'T', 'A', 0x0004, &delay_200_500_e200, "116KHD024006"),
+ 	EDP_PANEL_ENTRY('S', 'T', 'A', 0x0009, &delay_200_500_e250, "116QHD024002"),
