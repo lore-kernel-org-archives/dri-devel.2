@@ -4,98 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38B72C55171
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 05:47:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 789ACC55171
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 05:55:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 049C710E3DB;
-	Sun,  2 Aug 2026 05:47:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 907E210E0D5;
+	Sun,  2 Aug 2026 05:55:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T1qbkqX3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rmnps2B6";
 	dkim-atps=neutral
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com
- [209.85.221.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2734E10E3DB
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 05:47:44 +0000 (UTC)
-Received: by mail-vk1-f178.google.com with SMTP id
- 71dfb90a1353d-59b074ec7ceso884932e0c.1
- for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 22:47:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785649663; cv=none;
+Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com
+ [209.85.217.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD87A10E0D5
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 05:55:18 +0000 (UTC)
+Received: by mail-vs1-f48.google.com with SMTP id
+ ada2fe7eead31-7564b7a9490so2386893137.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 22:55:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785650117; cv=none;
  d=google.com; s=arc-20260327;
- b=dO138fLKzGKHTsXJGp+ayF8unobeaKeWF2kPZ7kQCKFGKCyWdCsXj/B7CH/FT0O4vx
- 2iw7lJ31aJaZ1nOu9E1Xr9tqn8dN8g7lFTIgnZv5nOr4MFwbFknQ1wyFJzQW6HSeiKwc
- hUvwpBFLpZy3j1Erjqh6sk/brzNaZu2iRQ14CZp6gWLQT1tLRVB3kqkP9GTBXi2gpCWl
- yFTMdLtiINJpJ1ujXJuiw4vAkIna4euNqiftBV9I/E3wiMZgHaqu3wx6DEH/wWkAgAgq
- Z1NnlrOKiunOfXSm3Nm6yV516EDLKKuUAppnO4SbyStWLpQZrUvGQjzs9g18FGnpBIPn
- uOdw==
+ b=MyX0p5SyFtZfGUn8JZDpNP7GX7f8LUCw0TW+nwF0qup0VYuFPHYHNc5HiULJgHDTp1
+ OseUiSz0DMavOIWo5b2Lkq4sbSADITBV9kbvfPuM/JhkA8WAMQ/+XftOzS1PM1WqMRyi
+ 9K+E5V3OXXDqKEnQdvEZk5wSXXrw0u5QsVO7qkfLOzRjYLROIbmnqPDGhoinGMtULcNd
+ inCDGhWAdir2EtNQ+iqPmjw9/GLCSxbWC7acKU/RtdT5OKbgVtQzg3HAsMc0/+mx9AcM
+ fZsAceIIpnqS6VSdU+wQyliFcb+qRehBohugLPbk/ddT5SQzIp2QwMJiSke2sGSVY7IN
+ G7eA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=pzUc3cu7eYXLZesTw+qzStppD+6/bSKMRwSOeVVbqx4=;
- fh=QwveCAKG2k5MBFYISr/DhkOqFVwX4msL/Rwqn8AbqZw=;
- b=gaZwP/7EvIK6Xr3/Vy38BUuNXNHDC10Do+5HZCXxyjk6GtvmJ43+4GlD+C+zkRwlUc
- xVzzdCbFoGpEWKsnuf8ldqNu1JTxAPfUfAspuEBkfaxPht8mnj1VlJt8M+LxgiPcV5d+
- fdT6/SxQhw6RcovN7KUO78CiXHj004kbHqOzhhHDEEJG124Cc39WSQP+d0xmThHJeEd5
- upFWNK3Gus9qE5mEc0VJOqBJe4Y8f04+Cz1qB25b2VTaNxtwEECGtxSXWMovU+PqBZvd
- 1Jpmmi4GgvkHx7coI3+ZSi4XwJ/YF+Jyt9sW7HThyKs7g0zQQYC68g4TA8Cfsq0Ylncn
- h1aQ==; darn=lists.freedesktop.org
+ bh=3Vs1SQCwA2eulFFZ+BXHMpPyX24h7ndFKDeTGaZkolU=;
+ fh=qHQAfLoGrqOT0v/qUmfC/ZYURYIuM8orJCvC8kUFABQ=;
+ b=VUr8yeYmWfEWwQgIirOnwV5tHEkKJ2lCpMDZYQgKRohtSLKF1iSGBPrDZxFErp7DqI
+ 9i1RLq5c53adBKjF4Iq85H7R9U4s10fOkSjo/suv+6W4thsey1BEFj7P29oWu70C+rUs
+ ZsX0jveI42QDofRcmq/GAb9B0n2I/WMmmxHbBoEX+p6Yi+tovT2r2nJso+VUTY75NJHn
+ k0WqVlyvT7BXEiPyQ6uStphNl89gtcFL9TYAeIbK1XYNjV5JOMSzqQOwWjsrxxdIx2l/
+ Ap5soeZVYN8b3aLr87myROuhBEx6gjyEtD5lm66pu7UO2k+EkDmPZrzcDrzVUWJX9ulh
+ ml+w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785649663; x=1786254463; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785650117; x=1786254917; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=pzUc3cu7eYXLZesTw+qzStppD+6/bSKMRwSOeVVbqx4=;
- b=T1qbkqX3r0D8oZhvCKfLtY3mvXWNUeNuxUOUikiDv86Qvh8qNVU17B+UFL1C+zFcfR
- i5ULiQw2DxBoz3/jxKfXlzqGfoNCvXrxKFCvAjRP2P/tJIag3EDU2wQIVkBx8Ek2f460
- ZhKhmfVLnt4brDTVRSC2m/r69lJSe7yDAQQvpEcOBfb6nJ5Y09gJ5G3idJe1j65DIKZm
- i3fHsyLZX6CVCoUq26x7hyLCGtoz6+MRCAMd/5k4FKNiLZhM22bMVSnZGBaAvwoUmBmF
- ZiNT8B/BTomeZlpH9z6tJ725kH2YrwYR9Z+D6d4x8y5cn4UmZV3Gk39G7O6C0dy+znER
- FNGg==
+ bh=3Vs1SQCwA2eulFFZ+BXHMpPyX24h7ndFKDeTGaZkolU=;
+ b=rmnps2B6mi9aXYXaC2Tl2zbX0flz5UtVD7cMTvbYv8uJSnHgqgd3dKVSRV1Oqjs693
+ cn8tnS1hmc1zK5IIcU7z0C15knilJS5io/8s9QbzfqQwqOQC1Ul19xDOgc1ln65+OmAN
+ pEF9SkU0K2Bi2NxJVlbJ/DENc2P7V4Z9VrwEgNzA2DLLWJdQ4PoACuPTF2zV0D49LNi/
+ jV/q8BibvgI5nw+2nOAVhunIVkBhnzHBhCKXVy7bfcy9uSAa88SbGfHrxlTsYFgyroQN
+ UvBV/Qf94zX4v0a+YxWFOQalSxVb4v4Vwp2CBSKx7DD/3nNn/P9+sj3BFzJrcg8R+qK+
+ k6fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785649663; x=1786254463;
+ d=1e100.net; s=20251104; t=1785650117; x=1786254917;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=pzUc3cu7eYXLZesTw+qzStppD+6/bSKMRwSOeVVbqx4=;
- b=lXiv5accaOXw/iaS1ytwxVqXrjtTRkR22KWNIRzvCG9BBIwC6b3N3zejcv0tKBPelx
- y/vCWubDGarYq6BV3ijHJ/WBlEIkoNyuFQAhUYby0woIGoZsMkHU44CFEn4h1Psgy5/o
- ZJaFGVq59WDOxo1rMqmFxCj9X7BHED8RWiaZ7EjliFGgbl7GYE6ZJ0JDFvzVFhLHZJvn
- EPCA2HCJlkVWEvWUOLLthk28My34vectbG/eIWgRGf6z3SW7rO9I3m2RCRmdPhhMMP+a
- r1LUZeztPjNLYSE4lvTUaJKIosMQ3jSHB6sW6YYU34zcYW4CN2Kt3W5O51jsUotEr3VH
- k+SA==
+ bh=3Vs1SQCwA2eulFFZ+BXHMpPyX24h7ndFKDeTGaZkolU=;
+ b=a7wiYcgisgnPkTHDAf7JvEra0iDguC1vFLr9a2X+PhYsXJvem3qziM/Y6ooHUWfwGY
+ +9NEfrFftdvDcQ0Bxiiz9p9Ui8dGhmoqkVL9NYKK3+0OQjWnv0eKl5UVc7vnelJRg+EZ
+ l2gS5YqzjAwQSdBsIz+JpC23Kk0RAA0HcOYfzSTQJw/aj00gTMm+8h+CybVBCuwC06e1
+ yrNImXuSS4N3heB8Xn/+E3xzXHxqmnGw9X+4eLl9tvndLOUf5sz24pcK34YFB4FWksol
+ rK4Eq2La75DxJhm3U35VvlV5HcTCoiFXAuwarGua+mX2RZiHdE1KvRQsLM91I6lWqUC6
+ rfyA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rpppm1IYG9K2KKB3fWWcjwb924K/i2Bdr3NFdAqQXB9uKQJzL4qSq0Xv2EtG5xAqQXRpD33m9KsJcs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyxvWwHWcUsFgm/uT/JE3RKFPdmfljPPCbxLgQDOnlcFALPIl/O
- mWaukHN5ZbNh638wSSEXoQrlqsP9xdooZqsj98UUOWpt1bFCYvPS4JQLr43sPJjqh6EIhr7aCIS
- c+vzJG/L5rQmkdqJc67Ejo0mGGEZ65XM=
-X-Gm-Gg: AR+sD120wbtHMXYV63Gx2/30M7Z/42uP54esPkZy1jn0i3bcnt3tehA5fHujwnqxlCV
- oNohoJLre6DtYur7KlJ73kTCnvpzg5I+fE1NRnJg09ZOQYh2xNkCkBCC+jM8eZgxFZvpq7BH/M1
- Qk69+i8iXrRSvOyNP47b13RbvMjvsznsMe3MZVuEb/ocWexklCJZiBwyF3h1fVxU20vtfJWcFzO
- SsVVtw1LYc7JWL9690dkvunFzGN2YskcWdQjdry90Ovq1uh0E1nrMA4QvPuaKrDzeyB9OFsCXFe
- N1orrQiKu4FDLwc1rpI/VNCbuyEhPOMawpMOQuqoeh6pAsZMLLkh4L0RXuY0Pw2ev0uv8Q4w7ws
- kg4+9/8M08A==
-X-Received: by 2002:a05:6102:6899:b0:726:cd42:d023 with SMTP id
- ada2fe7eead31-75b2375d6eemr3857526137.11.1785649662796; Sat, 01 Aug 2026
- 22:47:42 -0700 (PDT)
+ AHgh+RrNFtBUQxwIivAqOYSPQxLr+IkkjhWjGlPLMwFSFbNL9+xgqni2YxEa7XopuebLbzh1a6s77iabxGY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyEfDmaGeqgX5jYtjEC3LO0PLIangphBbgmX8RUovYKzT1lW3SX
+ w/vUXhIgPLTqY7+sMKAcleCwPFqh7e+G4lMwE/GdrDTYLxQzgl6F9T+/2Z3TfTzsotleD/aZUKT
+ oTe79EtbI3DJNVPS+ndYKuAI+jd0KKybdoU0v
+X-Gm-Gg: AR+sD10IXzok8IWEmZ4kQc1u8IxFciq2ZkoeBXHT80xKzpI96BwwZ7zU3Oe9eVyuhOz
+ 456X8t0slakroe6dEK98TGNb8svdkJaRDqAJTZb3GbzPW8wX+UpV+EElxCRGs1dpMCILrpySSZv
+ rcqgTlJFHTJHIA10KFWKCGlj1VpPTA8CD8yFcb+nkQ5sXWioIOsVPMyYpiIQsflHe5aofr86iFS
+ JEbIEfjI+c9vZjOpcIh5FmBUnyWLG7uLEz3P4cHO2iWGKpfMeHJIf8deYukri7fulxluz3Bpc83
+ B0RmWzB+3/o26+oluti+/3dOFuJ5tqU+1rA5fAEH5bNusnnDnCBxw08/7eOF17zWwBgDyqzewI0
+ =
+X-Received: by 2002:a05:6102:7ad:b0:738:f27:43fc with SMTP id
+ ada2fe7eead31-758f8869b41mr1922174137.2.1785650117459; Sat, 01 Aug 2026
+ 22:55:17 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260623-exynos-drm-simple-v2-0-a8d59678b7d2@gmail.com>
- <CAAQKjZN12OSBg+ch+xf+-uO6_Sbrtq-o8AkLdLA3mFQ_ubiLxA@mail.gmail.com>
- <CAJpoHp48cXPLrwvANAt_-D-jE=DcSyodAL=p36kQw3cGtQW_fw@mail.gmail.com>
-In-Reply-To: <CAJpoHp48cXPLrwvANAt_-D-jE=DcSyodAL=p36kQw3cGtQW_fw@mail.gmail.com>
+References: <20260716131802.1564776-1-johan@kernel.org>
+In-Reply-To: <20260716131802.1564776-1-johan@kernel.org>
 From: Inki Dae <daeinki@gmail.com>
-Date: Sun, 2 Aug 2026 14:47:05 +0900
-X-Gm-Features: AUfX_mymp3gbWIvEFlOpn_puCcmLWjZUNex9N8Qxwa40WVIlIo2zevDdW66QGDA
-Message-ID: <CAAQKjZM5cY8V_YaZzgF734Brabz=zwRkp2k-+b9CbqS2_Xvi2A@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] drm/exynos: DRM encoder improvements for Exynos
- devices
-To: Diogo Silva <diogompaissilva@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, 
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+Date: Sun, 2 Aug 2026 14:54:41 +0900
+X-Gm-Features: AUfX_mxYVom-AX8ugZp9yvdrgZXKEh5DEfjSaw3ZzVclgiqSMtSKQ8CYJUJRy5U
+Message-ID: <CAAQKjZPW+mHcXQJKQc7wJL=MGssBf10H_FO0S8D7uCjX48qrKg@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos: hdmi: take i2c adapter module reference
+To: Johan Hovold <johan@kernel.org>
+Cc: Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, 
  linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -114,65 +110,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Diogo,
+Hi,
 
-Thanks for the patch. The conversion itself looks correct.
-
-Two small things to fix:
-
-1. exynos_hdmi.c: double blank line
-
-> +static const struct drm_encoder_funcs exynos_hdmi_encoder_funcs =3D {
-> +   .destroy =3D drm_encoder_cleanup,
-> +};
-> +
-> +
->  static const struct drm_encoder_helper_funcs exynos_hdmi_encoder_helper_=
-funcs =3D {
-
-Please drop one of the blank lines. The other four files are fine,
-only exynos_hdmi.c has this.
-
-2. exynos_drm_dsi.c: header include order
-
-> --- a/drivers/gpu/drm/exynos/exynos_drm_dsi.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_dsi.c
-> @@ -13,7 +13,7 @@
->  #include <drm/bridge/samsung-dsim.h>
->  #include <drm/drm_probe_helper.h>
-> -#include <drm/drm_simple_kms_helper.h>
-> +#include <drm/drm_encoder.h>
-
-Here the new include was put in place of the removed one, which breaks
-the alphabetical ordering. In the other four files you added
-<drm/drm_encoder.h> at the correct sorted position, so please do the
-same here:
-
- #include <drm/bridge/samsung-dsim.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_probe_helper.h>
-
-Both are trivial, so no need to resend - I will fix them up myself
-while applying the patch.
-
-Thanks,
+Merged. Thanks,
 Inki Dae
 
-2026=EB=85=84 7=EC=9B=94 5=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 4:54, Di=
-ogo Silva <diogompaissilva@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+2026=EB=85=84 7=EC=9B=94 16=EC=9D=BC (=EB=AA=A9) =EC=98=A4=ED=9B=84 10:18, =
+Johan Hovold <johan@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
 >
-> Hi Inki,
+> The i2c subsystem currently blocks during adapter deregistration
+> whenever there are consumers holding a reference.
 >
-> > It looks like you may have forgotten to post the v2 patch. Could you
-> > please check?
+> Switch to using of_get_i2c_adapter_by_node() which also takes a
+> reference to the adapter module so that an attempt to unload the module
+> while in use fails gracefully instead of blocking uninterruptibly.
 >
-> I think they are here:
-> https://lore.kernel.org/all/20260623-exynos-drm-simple-v2-1-a8d59678b7d2@=
-gmail.com/
-> https://lore.kernel.org/all/20260623-exynos-drm-simple-v2-2-a8d59678b7d2@=
-gmail.com/
+> Signed-off-by: Johan Hovold <johan@kernel.org>
+> ---
+>  drivers/gpu/drm/exynos/exynos_hdmi.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
 >
-> If I did something wrong tell me and I will re-send them.
+> diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exyno=
+s/exynos_hdmi.c
+> index 09b2cabb236f..b971b7098a4d 100644
+> --- a/drivers/gpu/drm/exynos/exynos_hdmi.c
+> +++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+> @@ -1913,7 +1913,7 @@ static int hdmi_get_ddc_adapter(struct hdmi_context=
+ *hdata)
+>                 return -ENODEV;
+>         }
 >
-> Thanks,
-> Diogo
+> -       adpt =3D of_find_i2c_adapter_by_node(np);
+> +       adpt =3D of_get_i2c_adapter_by_node(np);
+>         of_node_put(np);
+>
+>         if (!adpt) {
+> @@ -2069,7 +2069,7 @@ static int hdmi_probe(struct platform_device *pdev)
+>         if (hdata->regs_hdmiphy)
+>                 iounmap(hdata->regs_hdmiphy);
+>  err_ddc:
+> -       put_device(&hdata->ddc_adpt->dev);
+> +       i2c_put_adapter(hdata->ddc_adpt);
+>
+>         return ret;
+>  }
+> @@ -2094,7 +2094,7 @@ static void hdmi_remove(struct platform_device *pde=
+v)
+>         if (hdata->regs_hdmiphy)
+>                 iounmap(hdata->regs_hdmiphy);
+>
+> -       put_device(&hdata->ddc_adpt->dev);
+> +       i2c_put_adapter(hdata->ddc_adpt);
+>
+>         drm_bridge_put(hdata->bridge);
+>
+> --
+> 2.54.0
+>
+>
