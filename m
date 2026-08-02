@@ -4,48 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 216EDC55172
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 01:05:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C144C55162
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 05:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEEB110E09A;
-	Sun,  2 Aug 2026 01:05:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FE6E10E3CF;
+	Sun,  2 Aug 2026 05:24:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="mRqFk86T";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Wy11c1bN";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012000.outbound.protection.outlook.com [52.101.48.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D63C110E09A
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 01:05:40 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010004.outbound.protection.outlook.com [52.101.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9844410E3CF
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 05:24:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X7jWDm8NSmnIYjf7O1eKwwyw9bLnHEZm46TMKyi0Pzt/pHPKE8koNEbxAzaUmqoYJH5/wqq2eDtToRTDQIuQLldoSWVU6pcXkdjM9KgAv3vPHLuJ7uqRDvFV5o6pzg3IHUJsF8m2PL5ME7dIDqIluMjsfIBMKxgNuA+z1Ii1cJVwKCHiV3FMXZ0yROPpCo5chHuZvDCMbtWR6UAMfwazO7Q/FJmd1FlsJ/loKLt3glIM5m7Z0MD1eMmd3pyabAwe1EH0EaH9g6+5wN9bwCa/82Fw4tETrW6OHlw4ak0tkY65SW7ZGnrGr4XHniHQ0/1+nBQ2ry62VvSI67AEl4QszA==
+ b=JKiYpGI0yFH+ltD3UGnAyfU1WhXitJZdL1glLKpKWpsDCkT/u8IBQMbULfacGiRe2fKV7tTkI/kGtTTvjzaQV/ZHO9h91NjkGvdnppCC7sbw+jtsqKPRk4ZbKRz3ak/DQuzviglkollgHtCbO9wibtzxu+UMs8rwu/vTszQDccVRTI6/eW1QWrv4iIPLsa7yMI9OXOWafyDJc+DD8AIqKHD9i3tUqRMptqP1Rxx7KzjwQzRYaetZ7Juc8wS3A4wW1AL4XEdJu4ews9DmlKISPlrQ5kHsNx+VbFgXCtWjK2u2BqKzpP1A9UiqHZd1Bxnu2Xk6wU9ivFMpxZ8Emk7XYg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=D0yc9l7JR2VPjp9tivJa44UXt/uaOCu+VQpoSEf8CSk=;
- b=H8xecjl4Twchscn+iHCf+V0hg2/tUVa/3rH2UpZToKVknYRfZ7yi8Fg1WMRF6XdG8p2C3Nd+ysUp/3g12LaOlFNl7d+Co8uHppnZXZUIvGzKX5ZebdDL35fbMYAT74tCHMZlEj6uvUK4SDLtI8QeXMrVm1mzLKOSlm/Z1M5DueFKQIchkAvzllFV6WWXArQbm49Ppb0hUo+63VoUiJ2BSC4pnonTJhmPY9LzkGNYbgargupg6oVjbE56YZH78CI8OQH2z9Aq87uUCp5ZpLt6QcmYeedxtGJuRmtQNPF6CahggRkMjwG8t0VI0MrnkOIYOJPSb1afzGIj2qolZBSM8g==
+ bh=eczUneMTiSCYWKDMBCUnzsG9qrQPASttq2272vQbIoc=;
+ b=TusTmPA48kjadqaMbNIMtxxboU4PXc+Ce3oh8pwSVDKYtskc6RoB0jUNWFD61UU8zK50SjhkvxnRnGA9l40U1mY05PyNrxYQtfeyMkHdMPbLAQ0IePIY4ytkLsGC77xg0iLLe9U5nAvftE4Q+6Y9S9P3S/Ue7AkFFLOWPtIAI4dRc/1rnK1lTvecH0PdpaUPoqMPgCgkEF7ouBucKhWNfl6xs6aN8IJMg6OfayvQp5OO+uwGNJo3X70Ku3nCeS3eXTtmKL6wczRTTCq3Caq7xOu2PTdpVNsmrQbtLN+s2JOC+sGlKM7rqHIr3qeZ3U5Xmj8W3D7IQuYqjhif5tDGuQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=D0yc9l7JR2VPjp9tivJa44UXt/uaOCu+VQpoSEf8CSk=;
- b=mRqFk86TmZnIBfqfKG96CXP6yHYQtKnyi5OOficgXA6sslR70uri4BQ0/XoAHRXf6JAF+DBlRIOHlT+7b3+StFf9o/5kM9LgGz6lEGDpCffJNkQOkkhUg+Xlg/zE37SDzht7lVBmMT7lDbCKuzv4Hx7LR5FK5f0PXDHt3JmIy0roVSTkXC0bcvRTSTng72Ih46JE8AuTd+jVB5PuVe7u0nL6Zd5liqlZ0ku7tiXGu24QUSbNl+YEgm9cU2bsLwArrUAbgLX63V2/MD1X1a3c5SV8P6ZEwog7MRVaj9xz5yioaEzOFj0FIBA/CPls5zLCdKfvMNWz2oFiRwcWWrgL7Q==
+ bh=eczUneMTiSCYWKDMBCUnzsG9qrQPASttq2272vQbIoc=;
+ b=Wy11c1bNBWKjpRVRXZRmqpyg9EBjdpGntfKFHZlqZL0CFjK0XhB/bWH2rjqvZoRM+XUgKPUj7NvR9/ws2hqWDVVIUE5bu0bM56mK1Kc2qoX7+21y+1T1kKfSTi9iCp8yznc4T/d5BHGmFEmwPvh3aqaMyi/0qp7HMcldGo+qA5qtVSUAndP2/5EGnQ/G6ygHzSEcVdDo12xIjzfmqEhq34l2H22N9tk0WCjKenzO9FZefadw5vT3INtKy0MPj5ipD1SXwk7qRdxrQKrZYYE7hM047tCsb99MqPURaP5j+antukebA3TgPFMg1A7B9NJBN02d9ejMvZEgxo6fPYXNBg==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by MN2PR12MB4078.namprd12.prod.outlook.com (2603:10b6:208:1de::18)
+ by SJ1PR12MB6026.namprd12.prod.outlook.com (2603:10b6:a03:48b::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Sun, 2 Aug
- 2026 01:05:36 +0000
+ 2026 05:24:22 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0270.015; Sun, 2 Aug 2026
- 01:05:36 +0000
+ 05:24:21 +0000
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 02 Aug 2026 10:05:32 +0900
-Message-Id: <DKE1Z4WT4K89.3QZI5FUEB37U0@nvidia.com>
-From: "Alexandre Courbot" <acourbot@nvidia.com>
+Date: Sun, 02 Aug 2026 14:24:17 +0900
+Message-Id: <DKE7H940RYTG.2DL2793GTF3XB@nvidia.com>
 To: "Daniel Almeida" <daniel.almeida@collabora.com>
 Cc: "Rafael J. Wysocki" <rafael@kernel.org>, "Viresh Kumar"
  <viresh.kumar@linaro.org>, "Danilo Krummrich" <dakr@kernel.org>, "Alice
@@ -67,79 +66,80 @@ Cc: "Rafael J. Wysocki" <rafael@kernel.org>, "Viresh Kumar"
  <linux-clk@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Boris
  Brezillon" <boris.brezillon@collabora.com>, =?utf-8?q?Onur_=C3=96zkan?=
  <work@onurozkan.dev>, "Maurice" <mhi@mailbox.org>
-Subject: Re: [PATCH v5 2/4] rust: clk: implement Clone for Clk<T>
+Subject: Re: [PATCH v5 3/4] rust: clk: add devres-managed clks
+From: "Alexandre Courbot" <acourbot@nvidia.com>
 Content-Transfer-Encoding: quoted-printable
 References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
- <20260706-clk-type-state-v5-2-67c5f326a16c@collabora.com>
-In-Reply-To: <20260706-clk-type-state-v5-2-67c5f326a16c@collabora.com>
-X-ClientProxiedBy: OSTP286CA0029.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:216::9) To CH2PR12MB3990.namprd12.prod.outlook.com
+ <20260706-clk-type-state-v5-3-67c5f326a16c@collabora.com>
+In-Reply-To: <20260706-clk-type-state-v5-3-67c5f326a16c@collabora.com>
+X-ClientProxiedBy: TY4PR01CA0005.jpnprd01.prod.outlook.com
+ (2603:1096:405:26e::8) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|MN2PR12MB4078:EE_
-X-MS-Office365-Filtering-Correlation-Id: c5a58ed6-7bdf-421a-e18f-08def0322942
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|SJ1PR12MB6026:EE_
+X-MS-Office365-Filtering-Correlation-Id: 30f5a2a2-5f88-41a9-9943-08def0564e92
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|7416014|10070799003|1800799024|3023799007|11063799006|10067099003|5023799004|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: MaWCjPVr8a/xi0fQoa2Mapy3+kmTYD+n/94OEmqAGLFdfTr9moPETuAFDVWcq7Htmcd77S+jvdKFykyi+Cf1BfqqziKn4IqHWZ89zzkVGl19M/zK6ukWz3D1XUtixTj2P9QlL/VCyRpRJQoZaTBOiixhbRMmwP0LgyuHQ20p0EEangDQD8pSoypRxgNPeyBjY4l0JRRtFDmaTBxln3d4YIsM8Zk/yL4hMLwjmBCbZOrEOX0rzwBOT+65hesRivG2U6fd6dCRq5jB7gakZzNfhPn4NhTRZhiSgybQ4piyjDCFS6UjYRKmc+aQ/KOfSleYxzEBl0M8/iyYtvqXkV6hmlPpNYHezmFOspujmLqyeexXp8Pa9QPNN3SLJb3ve42GTxcnvjeSiYvVQ9Z3aILuAm9846m7nLPEoU/noUJ1q3pqSaQytuzTGhS78TJdNkwePE2WMLD5QFOFk1CEbDhcCG9ucKNUFtj4ZeBLcFV91Ajxt8BpBP0zFS3SVeF47GR/+r1FLebg4r3kXutz79weLlmzuMvZBTrQ/tmpLh+vVM7IJofBurnk3Ll/8vndUYGayF/I8TBnjnwNWATjtx3zPFBH5eCvwR6PA/l6Advnu4A4Cd6C+0DDxmcHS6bKrFTtYtmHM8HeJ7h+nxV7LpJDB0PBcTiuuUZ05K93HG2NykQ=
+ ARA:13230040|10070799003|376014|7416014|23010399003|366016|1800799024|6133799003|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: mZ9/aLIv+37e04hn5BbhXb0Az87cHcXgrZVX60nyS8aS9wTS4WFud3H3JfZ4NEqr9qNZypJ/NsU2KFUVnc4Hx9nYhL27YkWQHWTpPG3qNCwaWscFstZqgkXvp5B3eh6ei+GJsCUpWPk/w4gkiLNmE3oGC8dY3V9csn6s5RRwkYsaduoAs+z2lfZahIa2PwK81UaLJB3G7dSnwbAaKouNAAA6hp1oDBkRCKE0Vq4cKzkedYgzMq+rRZD8PVt6u0lTqb9GpNkuG11IBaNy5QTtgy+27klaTo+ukfgyd5OWRL9bx2F6ioWuryKSmnhmeQ6DDeRqS5Fm4WWq6r17a0TMvDUcrIf8S4yz+YDw/UlTG4VeHfQhEgsNB58lgcyr0GFaG1PQQ5CKAtrNPI37TGnkCedBJ6MY5ICbRIGKfVEanN/rYNRLkRSQi/qYXHoMh1IhIDgndKlpm/qSi67pKms+CBGcrrPTi45vFe+rNpN0wNbTfTqFHtL58OjTGIMT4q/S3wYkcpGmDsFTKRooYvEWxOZLh6gjXhSj+AMkNJixSB6+KEB9YX7QdKjBTR2UdJDf9xU210M4i1EjrGkY0mbj6QEHvSAcZC0TygNGAkSHi4HOQOzR6RYzcmqcouE806qdr9VvBcCGgaY9rglVPrqgkh6rCGLBr/MYsQMUJJrUWKs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(7416014)(10070799003)(1800799024)(3023799007)(11063799006)(10067099003)(5023799004)(4143699003)(56012099006)(18002099003)(22082099003);
+ SFS:(13230040)(10070799003)(376014)(7416014)(23010399003)(366016)(1800799024)(6133799003)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2U1THR5LzkvalNZN1FQNVBtRk05NWI3SlBsb2tPZXdRd08yUnhwWjk4Smx6?=
- =?utf-8?B?Um41QmhybG83ZzdYY2ozMi94bmRkWW9RSitackxHaVBkaEhrbHV2cEpId1RS?=
- =?utf-8?B?Y0M4VFNkUk83VFhMeDJkdXFmdGs5ajZOcENocFc3dDFMWjZmMVlaeEtOMlcz?=
- =?utf-8?B?UnNkTkRoYTcyOXlsTkhTSFJCY0UyWWY0eTlCVzRWd3RjdnhSQUdDb0JHZUJ0?=
- =?utf-8?B?bWxjWWVWN3hScVM0MkJjS1QwMlozT2ZPZGpwb09LakJvWVFSdHoweVgrVU9E?=
- =?utf-8?B?cXN1dGcvQkdGRG56cWhDaE5EQVpCdDVvMSt6OXVOVUx3MTRnYkM3UDZ5SEM2?=
- =?utf-8?B?L2NBYWdQU2R4dXljb2gxdTVKaitIbWcwZ3ZLYlIrclU0d1pJemwxYUpJWjFs?=
- =?utf-8?B?MkZXcnlRZzNuNHJMK2hib3o3azFTS0x3ZUlnc2JKTjRSRjRXbDZ4bjdwNTlK?=
- =?utf-8?B?QVRwYXV4SWh6TWkrWTdndFg2YTBub2FzRHpSWnkxdVMxVXBveDZWUW9janpQ?=
- =?utf-8?B?aVVFQWZkWTNFMVhVVndnUmdkOUF0QjlzUTlJcU9PUTUzbUpHWkgrZ05TM21t?=
- =?utf-8?B?L3BxMXVTUHBGcWVPZ1EwOUFvME1LZzJZSFhydHNWWFJ1NjQwNnVQYkI2bGhn?=
- =?utf-8?B?ZmNMb2oremxrMnJLUDFGdTZ6dHJzektiWTk4cW1WbWpFQ1JSMjlCZElPODJI?=
- =?utf-8?B?VTVtR3d6QmlzdC9NYzNjb3FhVFRMV2grRkFuRCtwbStZcjJLd0NaN1RtMHJM?=
- =?utf-8?B?ZTd3UllFNjNhUGV4Z1FraEhaVUdMQWNzbGpJY0wxbGkvZUhyRmNYZzJLUnRK?=
- =?utf-8?B?VUxOQS8yQ0k1QkQrK3ZxQ24rd2hFVjYzNno0R3lOeVBoaTNpNmF3TklES0lw?=
- =?utf-8?B?WW9YK0NkbFRVMW1tM0ZPM28xWDhyY1J4ZXl0aVJhd241cWNtSUE1SHY1dnZp?=
- =?utf-8?B?ZG5nbjJ5YWFuMHA1Y1kyR2FQNjdsNE91STNQSVFzODEwOFQ4RlFFM1pUcWNu?=
- =?utf-8?B?SmIrM3dSK1VyWERINDVDTDBmU1ZOYTY1cTFvMVBqckM0b3I4cTMyaTVrMGhz?=
- =?utf-8?B?VTg0Mmp1cTFhU1hBRWdyT3hreDdzbElGUmlKYkJ6YXpHS01Ia3J5WHZYajlO?=
- =?utf-8?B?SW1nUUkxblpDdk9uTnRaNW90UjBDV3puOTR3ODJ0bjArMncrVEp4RmdmV0Z3?=
- =?utf-8?B?T0xka0svQmRHcjhUOXp1ZFB5V3JLYnlEYnJXdGR1SFZ0YWdudjI5bG5YVXpF?=
- =?utf-8?B?Y01HeVpkZ1IrcS8xNzZ2U1ZodlNpcUd5d0ZyY2FxQ1JUNW5QQmNTNnllNW5I?=
- =?utf-8?B?SVdJZjY3TVg1Wm0wOEpFNmNPTWtGTU9mMmx3T2xFVzZQdGpnQzZaNDNrNFdn?=
- =?utf-8?B?Z0lFeFhrUVJyMkpNd1BtTmtIWE9RZCtyQTkzRld0RmlSMCtnUWNkL0t5QjFh?=
- =?utf-8?B?M0xaZE81bEZPTkhiYTRoOFlucUY3T08xYlcyWW1FVjI1WW1wRm5pR1RUa0Vx?=
- =?utf-8?B?MmU2Wk1wMG1qb0htaWh6ZFFUQnpUUWJJZHpRSWJCazhTbkNGYTdHNWJBNzBV?=
- =?utf-8?B?aEV5RDhkZCtWbU4xb3J2MWVwSnBxdGRoTHBtbFRwT1BPcnRxNWJsU2dJbFFU?=
- =?utf-8?B?RFdqT3laTmZwNkRtM254c040bHB6OUY2S3d2ck9talRTdy95M2hPSkFNa0pl?=
- =?utf-8?B?bTA0QllxTjJUT0FkSG9GcjJvNzBGS1p1RFM0eE9wdmFmNTVzdVVCVXhnaUJV?=
- =?utf-8?B?SE9QVU5PV1JFeHROM3VURXNMNHRtZmE2V045QWFvdTZOUjRuQmdsWmo3VlZT?=
- =?utf-8?B?SE1wVkppWjduWEdpUjNibllFY3llUU1xTHJ4OHpIcjJ6NG9VZlVYb2h6VkhB?=
- =?utf-8?B?OFJ1N00vWC9zZDlWY1YxMTllSjdnU0gzNlY1Q3VOdlU0bXZxQ3VObFl2RzNv?=
- =?utf-8?B?L0NGcUlpK2V1OXE0NHBhSWlFVlRlMXFRVGNXclo1dlNaYWZ2Q1RHNFNNbjRi?=
- =?utf-8?B?NFZxQldYeXVnYUlSdHNCQlJOMnNuTGxkTUY4cWRoUVdVZXNQYlI5czhpdzRK?=
- =?utf-8?B?WkRXa1RZWmEyUjNrRDBHUDhXWUVDdEtMK3hPd3E5SFBEdjBPTDI4ZFNXNXNP?=
- =?utf-8?B?ajdqbGFoS3p3RWU5Ym5neW1yMk8zOGxIdWtyZERjSDJkZVJEZ2JvNGxUd2p3?=
- =?utf-8?B?Q0JDT2NzY0EvNStxOE5aOE93enVHa2dxN0pQK0VUeFMrSnNLdDh3bDRjMUJh?=
- =?utf-8?B?cUJva0ZFazNhcVdsY0w4NTM4ZXZZajVxTWNoeVZOcmt5ZUdtWDVJZGc5NUto?=
- =?utf-8?B?SVJpL0ZzQURGY210b3BzR1VicGNodWtmckp6U1pzNGltTlZxeE5vOVdSTXpl?=
- =?utf-8?Q?03wxEhDVJX/ssirVmFvEVgBpm9HsHLri1VjOzY9gjksa5?=
-X-MS-Exchange-AntiSpam-MessageData-1: VSlWOmIzROt3BA==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bk5TbHExYjUyOFpZY2Q5cjlFWW1yUlhmaTlOMHZzd0RjaWtOSk16ZVZNMXV0?=
+ =?utf-8?B?Unc0aUVlVXJkalo0czdJMXRRcWpsQmE2dWRzb1FhTm5VKzlaa1NvTWk3ZGxR?=
+ =?utf-8?B?ZUVtSkZLUjE5VEJUOEV5QUxDUHpRTTVTdnZmYWhoVHdmalgxU0NBd0Y5bGtp?=
+ =?utf-8?B?UGhJU0pEYS9qbnltVEtCV1BqMXBydXZLeFJqRzRDSnRyUy9iUk9oa3Q3VlVh?=
+ =?utf-8?B?b2NHc0puNTNpZUcrdUlvT3FWeFRpcnlJYXU5VlYwY1hJQnRHUGhmNWUyblZa?=
+ =?utf-8?B?eDJCa2lUdHZ6UmhVR1N0bVcxWG9jUEVTSmY4QSt3TEtnZXdFajR5TlBMY1pQ?=
+ =?utf-8?B?SUtTY0Rrb3Y4MlBYQlpoSkNDbkE1d2tCa1ZQNjkrTlZSSEpYRHNuVFE4ZEZS?=
+ =?utf-8?B?M1JtQ2QyajhIUlFEeXhoSEtqN1dXU3FJWWs3SmgzakN6WTRIV1ZCTUNuK0pG?=
+ =?utf-8?B?U2Q2WXRyRGtDOFhGTTY3SjlacGNzNGRoTFBVVTA0cVo3QXhrc0pWeWRpMFlR?=
+ =?utf-8?B?VTEvRkViZVRFMUtFd2l0V2JpWm9kVk5BbUVINGVDM2prYmVqc0FVb2xiZk85?=
+ =?utf-8?B?ZlBoR2lHTzJqSlpKcnBDZ0haQzQyMVN0cVVySGM0SVo1WjlMSkY3OHo4cTB3?=
+ =?utf-8?B?dzkyeG5CNkdSQ2VDRlpyWlREeFkwcTZPNnRacTBhODJvWExjODhkQUZObGtl?=
+ =?utf-8?B?Y0pnVHNrb3c0UHVBNEp4Y2haMEhvNC9EL1huRkdtcFpIWUV3YUcyc1YwRWxS?=
+ =?utf-8?B?OU1LV0VsUFdYVFR5WEtheWhCWXlvb1RtYld3anJtS1FqOXVGci9XMlpRZDd2?=
+ =?utf-8?B?REdVWStkUkczOXZoSjF3Q0NsUDZuMTRiajNmMzNRZ3JQRU5UV0tIVlpjWWpv?=
+ =?utf-8?B?ejd6ZnBqQVVlNzhEbW0yVXNOUFZiN0drbkFLY2IvbldoeUp1b0dHYW5PWGcr?=
+ =?utf-8?B?OTJqY0d1R2J6bGJoUkFSMURYKzIzNzIvMXVGbk0xZTlmZS96RFo1UGZHcWI0?=
+ =?utf-8?B?UmRBY0QvdTU1enRUTFJFSlNHU0ZySlJjU2svVXZocjBMelBYRUlBRE44ZDNE?=
+ =?utf-8?B?QVhtT0taMXh1enhhN0ZrMHZ0OS9OUmU2S05jR2JKVUZEYlF1QUM5YzAzZWgx?=
+ =?utf-8?B?MGlZbWpJUVJQTW90RGt5OEpVUjF6SkNISDBuK0N6UjNGZ3BiOGxLVUk3MDNY?=
+ =?utf-8?B?TXVzMHR5VC8vV3Z4MDMvV0laTmFKVzF4SjhrR0RYWHkwelVrK3dqOHNDdDdQ?=
+ =?utf-8?B?TFB2VlF6Nm9QNy9vTGpoRlJ3ZjRaelZCTXNKU09xVFg5QmNyRU9rNTdoSVRD?=
+ =?utf-8?B?QjNHc1JHR1RROEVvT1FqVGw5ZDVBNkY3Z0Jma3NVZXE1N21IenMyZDZpaWx5?=
+ =?utf-8?B?UmVOSTdzUzBwb2JVTEdPMUFaSmh5YWJYaUpyZklDak95eVRlTW1mbVlDMEhD?=
+ =?utf-8?B?QkluNHNXS1lid29yaUZYSUgzdGdPL25DYlBuUEdzazRiQXNhWDhCN3NadldO?=
+ =?utf-8?B?aVR5ZXJyemJhdWhqMCtYYnRnY1dnQkFsTFJpZXh2VVp0REZ2S1M5enVPQzdv?=
+ =?utf-8?B?RndZVyttdk5OTjJJSU9NcWJhaGYwMXpYY2dJSzAwWCt3Y0FlbHlaU0pTTXQ0?=
+ =?utf-8?B?NUljUUNXdk1KV1dmV1pvQkUwQW1tM2E0Y01VRXBmY1o3SmlyK1doZ2E3VElz?=
+ =?utf-8?B?cUd5djV4Y3czcjlpTTVMMy80SFJDZ2g4QjNQNDMwOEs5Q0dmNWtFRWNjLzRa?=
+ =?utf-8?B?THFQcFFYbkUyUTJXR3Z2ZENQRVU2bHRoTFRQcUp1M28wQU9VRWwybFZUaHVy?=
+ =?utf-8?B?YzRZcHRKdVZzamxiNWJtbk42aVhTcXZ3RTJ4OVhhNUI5aWFsK2I4a3NyVmZ5?=
+ =?utf-8?B?M0Q5cE5DQnBPRVhKWmJTQm5HeWpOTElEaU1zYy96RUlPZFpkQ09RRkhWelBy?=
+ =?utf-8?B?SXZxeEhrOE0rQksraE5iV2NyNjcybjM3UzB5SDcrTnpWc2Y1L0xvaHZVRi9h?=
+ =?utf-8?B?UFFyZW85K1VySlQ0dWVwdU0zT0tpQ0k1aDlEdmRSMndXaHcrWWpWUXNkcVI5?=
+ =?utf-8?B?RzRGVHNaZnpFbzIyRmcyWDNCdFZQZHVEY2kxS0JGbHdJNFZTQ0dFdjlYWEhI?=
+ =?utf-8?B?Tm41Z1VvVWJvUEpBR2JYVU8xVzB3VTJnSVdOY2UzWmJORVF4d2JQcFpndnBy?=
+ =?utf-8?B?L2VjRWpkTlBFVmdRNlRCNlBHY2F0eXlvVjdXV1B1VTUvaG91anMrUUR1Y3Za?=
+ =?utf-8?B?czU0Mmt3UW1LMEE2RmhXM09LRVlTR29uVFY5b2hmbTNOOU9sRjUyRnltOEsw?=
+ =?utf-8?B?N25ybzRSeHprWjhBQjk4SURpT3dvMitZR1NxUUJjSXp3dHdnSUEzQVFpTTJq?=
+ =?utf-8?Q?0m0njlRM9oHaZNkiEnwLI1WT7hiQtfsxRHIjPNDgIGsOU?=
+X-MS-Exchange-AntiSpam-MessageData-1: dSIzGlpt4d4Zjw==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c5a58ed6-7bdf-421a-e18f-08def0322942
+X-MS-Exchange-CrossTenant-Network-Message-Id: 30f5a2a2-5f88-41a9-9943-08def0564e92
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2026 01:05:36.7991 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2026 05:24:21.2656 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p+Q7r1HujxgI1YoH1hfI2E49Ohwj5YmIEGIeZ/RL3HEGbokFtShQjwPijA84GXCKkLCh87a9SHiJ5wVTbSVdXg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4078
+X-MS-Exchange-CrossTenant-UserPrincipalName: JfQQxoVrUx8WXHH14qT8FeywmXPRLJwW7bMFMeFpbawdjY4GCacChpjDT6Yur3BgoZJsR2wzcqC0UzxiHz5EdQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6026
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,76 +156,53 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Mon Jul 6, 2026 at 11:37 PM JST, Daniel Almeida wrote:
-> The type-state pattern makes state transitions consume the Clk value,
-> which means a single Clk cannot be shared between users that need to
-> hold the clock in different states,
-
-Sharing a clock can be done by acquiring it several times though - this
-actually seems cleaner to me when concurrent setting of a given clock is
-needed within the same driver.
-
-> nor can a driver keep a long-lived
-> Clk<Prepared> around while temporarily enabling it for scoped sections.
-
-Something like an `EnabledGuard` for a `Clk<Prepared>` should be a good
-fit for this? If you make it generic over `Deref<Target =3D
-Clk<Prepared>>` you could even make it work with `&Clk<Prepared>` (for
-short-lived enables) and `Arc<Clk<Prepared>>` (for enable periods longer
-than a code block).
-
+> The clk API allows fine-grained control, but some drivers might be
+> more interested in a "set and forget" API.
 >
-> Implement Clone for Clk<T>: each clone is an independent view of the
-> same underlying clock, in the same state, owning its own
-> clk_prepare()/clk_enable() counts, e.g.:
+> Expand the current API to support this. The clock will automatically be
+> disabled, unprepared and freed when the device is unbound from the bus
+> without further intervention by the driver.
 >
-> 	let enabled_clk =3D prepared_clk.clone().enable()?;
+> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+
+One nit below.
+
+> ---
+>  rust/kernel/clk.rs | 46 ++++++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 46 insertions(+)
 >
-> 	// Do stuff that requires the clock to be enabled.
->
-> 	// enabled_clk goes out of scope and releases the counts it
-> 	// owns; the clock remains prepared through prepared_clk.
+> diff --git a/rust/kernel/clk.rs b/rust/kernel/clk.rs
+> index dd5fd656271e..b9a44f83843a 100644
+> --- a/rust/kernel/clk.rs
+> +++ b/rust/kernel/clk.rs
+> @@ -96,6 +96,52 @@ impl Sealed for super::Prepared {}
+>          impl Sealed for super::Enabled {}
+>      }
+> =20
+> +    /// Obtains and enables a [`devres`]-managed [`Clk`] for a bound dev=
+ice.
+> +    ///
+> +    /// [`devres`]: crate::devres::Devres
+> +    #[inline]
+> +    pub fn devm_enable(dev: &Device<Bound>, name: Option<&CStr>) -> Resu=
+lt {
+> +        let name =3D name.map_or(ptr::null(), |n| n.as_char_ptr());
+> +
+> +        // SAFETY: It is safe to call [`devm_clk_get_enabled`] with a va=
+lid
+> +        // device pointer.
+> +        from_err_ptr(unsafe { bindings::devm_clk_get_enabled(dev.as_raw(=
+), name) })?;
+> +        Ok(())
+> +    }
+> +
+> +    /// Obtains and enables a [`devres`]-managed [`Clk`] for a bound dev=
+ice.
+> +    ///
+> +    /// This does not print any error messages if the clock is not found=
+.
 
-Looks indeed like something an `EnabledGuard` would cover.
-
->
-> Since struct clk is not refcounted on the C side, share it between
-> clones by wrapping the pointer in an Arc'd RawClk, whose drop
-> implementation calls clk_put() exactly once, when the last clone goes
-> out of scope. This costs one small allocation per clk_get(), which was
-> deemed negligible when compared against the pre-existing indirections
-> in the clk framework.
->
-> Cloning a prepared (or enabled) Clk calls clk_prepare() (and
-> clk_enable()) on the underlying clock. These calls cannot fail here:
-> the value being cloned already holds a count of each, so the C side
-> only increments the respective counts. This is what makes an infallible
-> Clone implementation possible.
-
-Another point to consider is that `clk_prepare` (and thus `clone()`, as
-you mentioned in the doccomment of the patch) can sleep. An
-`EnabledGuard`, otoh, would only need to call `clk_enable` and thus
-wouldn't sleep, making it usable in atomic context.
-
->
-> The DISABLE_ON_DROP and UNPREPARE_ON_DROP constants are renamed to
-> ENABLED and PREPARED respectively, since they now describe the state
-
-Let's give them their final name in patch 1 then, since it's also
-accurate (and arguably better) even before this patch.
-
-I am not quite familiar with the client code that will make use of this;
-a pointer would be welcome. But I strongly suspect that multiple calls
-to `get` and an `EnabledGuard` can cover most (if not all) use-cases.
-Introducing an `Arc` here forces a storage decision upon users while
-hiding it.
-
-It sets us up for some dilemmas in the future: for instance, Maurice's
-series exposing `clk_rate_exclusive_get` turns a `Clk` into an
-`ExclusiveClk`, but its potential clones are still around as regular
-`Clk`s. Moreover, `ExclusiveClk` derefs to `Clk<Enabled>`, which can be
-cloned as per this patch; so is it really exclusive?
-
-So I'd like to keep discussing this design a bit more, with more
-visibility over user code. Maybe it should be moved to the tail of the
-series, or even extracted into its own series so as to not block the
-other patches.
+This sounds like a clock not being found returns an error, but no
+message is printed.
