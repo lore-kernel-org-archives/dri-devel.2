@@ -4,86 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1A6FEC55162
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 13:35:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80A16C55175
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 14:35:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 610F210E108;
-	Sun,  2 Aug 2026 13:35:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6790910E41C;
+	Sun,  2 Aug 2026 14:35:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="PEFguoo5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d7VpnfY1";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC10D10E108
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 13:35:44 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4980fe6b3beso4196645e9.0
- for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 06:35:44 -0700 (PDT)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com
+ [209.85.167.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F2DB10E419
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 14:35:31 +0000 (UTC)
+Received: by mail-oi1-f173.google.com with SMTP id
+ 5614622812f47-495b27007d0so1313653b6e.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 07:35:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1785677742; x=1786282542;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=UlAe688FL5SqYvNdYPiubZv5Vup2lbXf0/HgRirxAQY=;
- b=PEFguoo5v+u6AhFcoWEDNnosgkR3KB/BThpN/fq1B3vc7ldW886prR3g80aWzBI/eM
- YhseyyNzDmMnoIQQuFGjAw3qYlXnZnIRG+aPYNRTfeMHJjioIC2esXel2n5vtdURgxy+
- eEyDxLioZPFD5kJGscuUyYD/vOXPdHwwT9ZpRu5fWOaVglIqsFKZsVMSFEw45EM0MIH1
- IVSxX3P9HPSdF3cj/PfNeHWvTAVsgOyTGLkmMuB0Jgz2N5kXlCM9I2+ZWWAeGDae0w2j
- VFQ27vVe5rj4ucwZCxb8YPeVQ/QOubzFZomAzSh8t4s5baP8fR6Dw/TcViWySzblMk//
- Adag==
+ d=gmail.com; s=20251104; t=1785681330; x=1786286130; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=OBwqQBQZ7gr9qfD8QTCGZXfSKgrXALeSbfMpkftaqF8=;
+ b=d7VpnfY1KZAO++h/pI7q/GgtBS7Njn1tkRUNneDcLrlFHxetsqknAcfi7MO9nbhNS4
+ zY8Pr57ZHH48EXsosfMBeecCWscnXwqoysHKNvOIV61ntvHCiHahDf5o7pPXX67eDX3g
+ RI0w84eouG1fb7scSUwIIZ1nqCj3m/GKaa7OiskxGCzCK1GM96SN5A3k/Gyg6GZOR8Uw
+ zQ69Ty5HY4BrC1OXmq1X1TMn321Apxcawki+H4XDHGTCeMKPsJwNbTKDtBUQ0qToeNSl
+ ajujfMxeRETbvSKXmsd60qd+erZD53WPt1wUvItBVXtQ+lsJCpS/a354veBI3W1H0d3f
+ pA2w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785677742; x=1786282542;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=UlAe688FL5SqYvNdYPiubZv5Vup2lbXf0/HgRirxAQY=;
- b=gNd1VOlaGOtKtiG8hH2NhK+ZltW6MuT8g4ijRtpjNC49J0VEnLUJXhn+uGd0sVOpxJ
- GjRfOnGvDep8AdHYjCkwqDk6xyDEz/y9HJC9GqQ8MN/02V/clT8DENDZC+V2Uq8I9XiU
- IR8iejsx1xJzJuHWCGQk0wJT+JeqkPrhwxL5/PclFBdQlF/NEQfpNbmfPyN+pwFcZM3K
- xZHNaeTh6oeUCCCJ2A9WG/Y7GIPNMpxt5yq34yvj/1DZhyIQHMhpF9GwxbzDL9T9GRLP
- GZpQolpvmQ4Xc11jtLI2aQj1m0JHt+bu9AFRJHh6ik7L4+LJVfYyBUfabpuZJ4Z5zae7
- s4DA==
+ d=1e100.net; s=20251104; t=1785681330; x=1786286130;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=OBwqQBQZ7gr9qfD8QTCGZXfSKgrXALeSbfMpkftaqF8=;
+ b=bLaZK2tjJXRT821sD6kGDtXpvzAV2z8jqFf/s8ijBn7Ke/0P5uLSLJWhQSgzz6wyHg
+ 5iYl+55DVRUauwIGmWjLC/21UG2Q4FgU3IOl38r3/+XJCXrc+OkaIzWcU+RErT2X+tGz
+ cBvWy+7Q2GvXiEeaGCD5rUFioc9e6OS/fji9214LPXKXAF4QMuY52OkWndFMGTL5xCSo
+ FDaWj26r5SMQbdm6hY7P7zSWqnX3savfNll/jX7O8zlIwPKCGhG3OdImUTbgHcn7v0ti
+ Eay8iY2buMrFGsLPc9+hATau4G74xW/8HMfYNOvIe7nvpR2GwGVW7yAUmkbFsyRQ0Imr
+ FLtA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrqnqAh83gqm6UYig+/xQ0/1bL5DEhtqQ+VmQms/FrKF7EK8Ai2ep3nEdZfZ+W5H2mQFWCDJbx3lEM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy6AViKfVrlb7lAF5pRwK176pGGEKh6eZYTwaE0TQ4H4LbUPazX
- yz2k6yPbpcnAdIWFjapH3wtK6gztGEFN+ILfOs4kbbdTUmDhbbVUO8taDfex1lFrpm0=
-X-Gm-Gg: AR+sD10gIYdV6eKX1Q+rDGPpLjLv3Nw0UTu73kA+EXP/o/EoS2AWIHuqaf8GxCQWFw/
- G4XQZk84V5+VTkJrXpbn+2I9bNElKFphBA2KHPz4GHE/vOpoK0VE1a1890/D0NfmsOWOEeS3mlh
- sbb48QAIU5A2qcVFw17KNNehRnRvg10Luyc0bIzZ3TgxyZB8FDw7BLspv0dwsDrf60IC/ypm5rN
- K0wr/kZZmK8xm5mCVpv2VWL44GfeIQjw1XK0zmgIbL1A37MnlgltFlU91/09woKBX3FOQtHCtqx
- 3f0DwhMtFunp1XJmxePX0ffoqIEHMCkm/UdwYC+pqWgWcy2h/hDsTaYlvXcV31NnN5VihhL73Lf
- 2qBWEVsBlbMLv+LveIXVHLxsx6sD8ArbPih+CFq9u4zE/KFMghqAG1aGszDJDSHZY36WaplaP+U
- RzzA/Q5mc1HPCKEvB8q2L3egfTB+3rSOslLAj+RUTwG+HH7302fDyDroEu3fOj1KZleQ==
-X-Received: by 2002:a05:600c:3150:b0:495:3c6f:7c18 with SMTP id
- 5b1f17b1804b1-4980eb8c4c9mr97559055e9.3.1785677742549; 
- Sun, 02 Aug 2026 06:35:42 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4980819a030sm144499215e9.6.2026.08.02.06.35.41
+ AHgh+RqOPd2nNF/PAB5L/cc0htmIoVOtU/EX5CTMs5M9PExQd634goxezrM0arK13itLtLBceSPYgZavm4E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yynt2VPoNN1/uRAcCq49yH9ZxkOfVWPrUu/xQk8rqVoKtqDY1TM
+ URMTraNVTqEBFedxYOi7OCCqHG4m2gdswqJ+DSEI/YhHoioEx07pwOpo
+X-Gm-Gg: AR+sD11U1LSNu5f2n2UTrABfK9QK1I/b8vdqIJLQLxiBdV7JjfNv26ZR/TpyvfaR9+o
+ RcLxikOKkhM0pOn/GYE4bfRMncEPRbmiTtk1CYtqqkay52Yr543QvTTDg+AF+fnP9iRcYpiW/p0
+ GA1+zxJVmUlQ5bImr0oBt6c7UjZ6xPRDcaOtwbQrl6c9DgwrgFK/34REmp65gbwIuKWSzTll7mP
+ z3psUA9K+m8fAo8SIx0MzXpcX0eYLquqPD8EGc8S+8JMKtk5a3VKnFNqSCKSW6kfzc866wOGQcX
+ Ry4VP4ygluQ5MrMWV8YUfNSx9X/kyNBeBdoc2/J5n1FDjyYmBL6hIYu4lyv4RYHSUEvISEgkknu
+ /ncp2VgWKHxAej2+sYB9jl3YSngG9mYZGh1UrXSypl1UH25z538Y/OtDUbXqrFeRIE9Q30FSagi
+ H4S/8WjS2yk5krjlzqV1guQ1hzLmJqrlD8AKS3vYWbU/QVC8Cuc38u9nXnHgGtOTxcWbpeiIote
+ fWleHNYu8vWaoNJ0nES8r2MUujRyLz6/0TfpgxdFpV5
+X-Received: by 2002:a05:6808:14c1:b0:4a3:58a6:8a57 with SMTP id
+ 5614622812f47-4af5e3a5f51mr11753697b6e.20.1785681330605; 
+ Sun, 02 Aug 2026 07:35:30 -0700 (PDT)
+Received: from natebox2.jabitha.com (46-110-104-162.wmnscoaa.metronetinc.net.
+ [46.110.104.162]) by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-4af58e9551dsm4778877b6e.11.2026.08.02.07.35.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Aug 2026 06:35:41 -0700 (PDT)
-Date: Sun, 2 Aug 2026 15:35:40 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
- linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-Message-ID: <am9DGQFk6JfR6bXl@monoceros>
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
- <am2mvECnCcO9IxuI@monoceros>
- <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
- <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
+ Sun, 02 Aug 2026 07:35:30 -0700 (PDT)
+From: Nathan Lucas <nlucasgit@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, joshua@froggi.es, mwen@igalia.com,
+ leorize+oss@disroot.org, alex.hung@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] drm/amd/display: fix BT.2020 YCbCr output CSC matrices
+Date: Sun,  2 Aug 2026 08:35:22 -0600
+Message-ID: <cover.1785616749.git.nlucasgit@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="6rrxlhjbsv2gpeab"
-Content-Disposition: inline
-In-Reply-To: <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,68 +89,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+This patch series fixes COLOR_SPACE_YCBCR2020_TYPE in dc_hw_sequencer.c
+which is used for COLOR_SPACE_2020_YCBCR_LIMITED output but does not have
+correct luma and chroma scaling for that output range, and fixes its
+copies in dce_transform.c and dce110_opp_csc_v.c.
 
---6rrxlhjbsv2gpeab
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-MIME-Version: 1.0
+It looks like this matrix was originally added in commit 40df2f809e8f
+("drm/amd/display: color space ycbcr709 support") as a raw BT.2020-NCL RGB
+to YCbCr conversion matrix that had not yet been prepared for unsigned
+limited or full-range quantization.  Commit 973a9c810c78
+("drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix") applied offsets
+for unsigned limited-range quantization but did not fix the luma and chroma
+scales which are still full range.  Because of this, output on a calibrated
+display is too bright with incorrect color, although it still looks roughly
+correct at low luminance in my testing.
 
-Hello M=C3=A0xim,
+Later, in commit 51e6668ab4ba
+("drm/amd/display: add missing CSC entries for BT.2020 for DCE IPs"), the
+incorrect COLOR_SPACE_YCBCR2020_TYPE matrix coefficients were duplicated to
+DCE COLOR_SPACE_2020_YCBCR_LIMITED and COLOR_SPACE_2020_YCBCR_FULL, so
+those matrices are also currently incorrect.
 
-On Sun, Aug 02, 2026 at 12:01:58AM +0200, M=C3=A0xim Pedraza Padilla wrote:
-> Uwe Kleine-K=C3=B6nig wrote:
-> > My 0.02=E2=82=AC: Usually you want to use the display using drm and not=
- fb once
-> > the machine is fully booted. If you're using fb during boot to display a
-> > logo, it's hardly possible to switch to drm later in the boot process
-> > without flicker.
-> >
-> > So my recommendation for your usecase is to not use the kernel boot logo
-> > stuff, but something like https://github.com/pengutronix/platsch.
->=20
-> Thanks for the pointer, I did not know platsch and it looks like a good
-> fit for the problem it solves. It does not solve mine, though, and I
-> think the reason is worth spelling out, because it is not about how the
-> image gets drawn but about when.
->=20
-> These are industrial units, and the requirement is time to first pixel
-> after power is applied. If the panel stays dark for more than a moment
-> the unit reads as dead, and that is a support call. Anything running in
-> userspace is by construction later than the kernel: it needs the kernel
-> booted, the rootfs mounted and init far enough along to exec it. I can
-> measure the exact difference on our hardware if that is useful for the
-> discussion.
+The first patch adds separate matrices for full and limited-range.  The
+derivation is in the commit message.  The second patch replaces the copied
+matrix coefficients in dce_transform.c and dce110_opp_csc_v.c with the new
+ones.
 
-No need to wait for init, the idea is to use init=3D/usr/sbin/platsch so
-it starts before init (and once the display is setup execve()s
-/sbin/init). Also you can put it in an initramfs which gets rid of the
-dependency on "rootfs mounted". And if your kernel is modular apart from
-what is needed for the display the time difference between kernel boot
-image and platsch might be negligible compared to the simplification of
-the software architecture.
+For testing I have only been able to check the limited-range DCN path on a
+9070 XT with a patched kernel.  amdgpu_dm_get_output_color_space does not
+currently have a path to select COLOR_SPACE_2020_YCBCR_FULL although the
+enum value exists.  Also, I cannot test the DCE paths as I do not have the
+hardware to do so.
 
-Having said that, I'm against putting boot splash info in the device
-tree as the pointed out alternative is IMHO good enough. But my opinion
-probably isn't the one that eventually counts.
+I ran into this issue measuring PQ test patterns through mpv with the
+following command line:
 
-Best regards
-Uwe
+mpv \
+  --no-config \
+  --vo=gpu-next \
+  --gpu-context=displayvk \
+  --gpu-api=vulkan \
+  --vulkan-display-plane=3 \
+  --vulkan-display-mode=22 \
+  --target-trc=pq \
+  --target-prim=bt.2020 \
+  --target-colorspace-hint-mode=source \
+  --target-colorspace-hint=yes \
+  --tone-mapping=clip \
+  --hdr-compute-peak=no \
+  [pattern file]
 
---6rrxlhjbsv2gpeab
-Content-Type: application/pgp-signature; name="signature.asc"
+Free test patterns:
+https://diversifiedvideosolutions.com/hdr-10.html
 
------BEGIN PGP SIGNATURE-----
+Below is a table of values I measured on a Samsung S95H (US model) with a
+Calibrite Display Pro HL meter.
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpvR6YACgkQj4D7WH0S
-/k55+wf+LNETFlaOPhwExqKupPUo/OH39ybKdaQJ9uAkqBo70lHb+Xm37TY6D1sa
-P6+sFxOwFR6mGxWni4QEila6hAYHRNzqqp1o4Rl8mpnPTbG6vkJrRaT4vFCnOie+
-6Y+yocUerh6JqqjAim+X+SGrIjaJ/54KtfaQ6dGBUxGFHr0q/pThdXedHep4ZcB6
-viwOGBykkKZpx1gNKR09GiA8PlxG00jkAvA9ay3cvlzMg7zwU0nRjjIDp1d+lo7K
-ef908NB2SG1R1TNMBEYy9T103E2VidGZ7bA9NsIqYLiCEGo3z1smJcAVdaXl1iTy
-hyLG+z6x2P06fk2+cllcwxaOEU/dXQ==
-=CFkM
------END PGP SIGNATURE-----
+Three sets of meter readings below:
+Unpatched - Unpatched Fedora 44 kernel 7.1.4-200.fc44.x86_64
+Patched   - The patches in these e-mails applied to Fedora 44 kernel
+            7.1.4-200.fc44.x86_64
+NVS/Kodi  - NVIDIA Shield Pro with Kodi
 
---6rrxlhjbsv2gpeab--
+ 5% HDR10/PQ
+ Test Pattern        Meter Readings (nits)
+==============   ==============================
+PQ%       Nits   Unpatched   Patched   NVS/Kodi
+15        1.01        1.63      1.01     1.02
+25        5.24        9.68      5.46     5.12
+35       18.78       40        20.5     21.2
+45       56.55      128        62.0     62.1
+55      148.03      369       155      155
+65      384.71     1106       403      401
+75      973.13     2681*     1030     1025
+
+* This is at the peak capability for this TV.
+
+PQ brightness overtracks a bit in Patched and NVS/Kodi, but that is likely
+due to the TV's default calibration or my meter since the readings are so
+similar.  Unpatched stands out as being way too bright.
+
+Nathan Lucas (2):
+  drm/amd/display: fix BT.2020 YCbCr limited output CSC matrix
+  drm/amd/display: fix BT.2020 YCbCr output CSC matrices for DCE
+
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 31 ++++++++++++-------
+ .../drm/amd/display/dc/dce/dce_transform.c    |  7 +++--
+ .../amd/display/dc/dce110/dce110_opp_csc_v.c  |  7 +++--
+ 3 files changed, 28 insertions(+), 17 deletions(-)
+
+-- 
+2.55.0
+
