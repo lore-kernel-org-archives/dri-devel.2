@@ -4,70 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93FE9C55177
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 16:35:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA59DC55177
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 17:07:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C9CC10E2AF;
-	Sun,  2 Aug 2026 16:35:20 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mdIs1U6W";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 89D3410E2AF
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 16:35:19 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 72F6560DED;
- Sun,  2 Aug 2026 16:35:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 17CA4C19425;
- Sun,  2 Aug 2026 16:35:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1785688518;
- bh=ukOtf677Gv6a8kEcPYzgmcecGQqi1e3EzxxsbW6ydfE=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=mdIs1U6WPQzGyn6sQ+KGteUUqOPL+wXGWpqeUUPquJSI/+2bcTA22XonWFEYL4nzy
- DpxpLBHweM/2CbXhnEry6/dJZzPJjpPn5CJHa0ikcDom8G9rcszDeogEUNb3H67VEA
- x7k8/gdt2TrLCEUNaYYh2vUQwP31CyBxMJkIBktvRRueLV5khsQr5JahBfR/sxMfy3
- G8mHvPWZlGcSy9A9ctCM13OQ3otATWuZnjJxH9MMtVqjhD0qCAfT1UYEbEl5i7yQqC
- piimdHK56Ie7j5ICG1nqXLPH7CDSS+0UZwu66D094DJ4F3cHAMNWmwfyW8xcGORE9y
- NmrZu3pMztbaw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id E2456C55177;
- Sun,  2 Aug 2026 16:35:17 +0000 (UTC)
-From: Anuj Bolewar via B4 Relay <devnull+bolewara.gmail.com@kernel.org>
-Date: Sun, 02 Aug 2026 22:05:17 +0530
-Subject: [PATCH v2] drm/virtio: reclaim pending vbufs before tearing down vqs
+	by gabe.freedesktop.org (Postfix) with ESMTP id F31CA10E431;
+	Sun,  2 Aug 2026 17:07:03 +0000 (UTC)
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com
+ [209.85.210.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16FDC10E435
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 17:07:03 +0000 (UTC)
+Received: by mail-ot1-f70.google.com with SMTP id
+ 46e09a7af769-7ee50225cc7so3716795a34.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 10:07:03 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785690422; x=1786295222;
+ h=content-type:to:from:subject:message-id:in-reply-to:date
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=zxFXnSoB4KgiBC0T5VAyA9bBTcGnRnLoGoYzvYWvSBw=;
+ b=dsZ3pDQ63rVEy55/1rxDF15gj0FO1tBdGl8eJ0qRL3gdXs+cDx/4xTNcTEDVDudpZn
+ HUNeF7IGI861Q1eS7pOoz08DMmznEopcmoagQs/Z1uHJn9FoQAhPJMxJgJaPRV+PA0wY
+ EchF9IpE2iMUcFw+lMhqN+jPSPupuXgRWJn7uHccfTf2yRht3G5IK/6aaamNRrdn9sL8
+ ZqaJcPK3G7x+Yct10446Q92PB1uNazpsUkew6A7mobc5l+EyTyasx7OLISl6VxNBeRb+
+ W/0Pu8k0M5orxVSUvXLThd1VhGTS6md2qMJHy+vnCW2ZCpA3RQt8wKA7Gs4iOg0ndeLL
+ h4TA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrK7F4FmI2qFnEfcvTOmMOqbBjjThO0lXUz78LNqE/xMIVZuTbsfdWnksI7xABHCsJvPqDKd3q5e1k=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwRHR66C3JZPEWqnogZY1atOj+6h/aQxj6JVKl1hHV2rH3R4VbP
+ qypclBLLk6NffNQaWWJIwr8gY+kG31iOb9qy4Hl1EiCcADYMjUXwehuAR24H7DAKcJVK2ElMEUi
+ 6jA/OYqqa3Y17pIiqKPYlXVQVTpBRz9jpp6O65DypSn4X/+qoUt4SElAiD3I=
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260802-virtio-gpu-reclaim-vbufs-v2-1-5767fb860691@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0K6dkzbIBZX3sOwaOsUxgAlbWk0h
- LsLeAGXL3n//YVFDISR3YqFBcwUyY8byFPBbKfHFoGeGzPJZcUVl5ApJPLQTjMEtL2mAbKZXYR
- SicpapS/G1WybTwEdvY/0o/lxnM0Lbdp7u9FRTD58ju8sdu+PmyxAQF2XVyeUkRzlvR009WfrB
- 9as6/oFiy4+ldIAAAA=
-X-Change-ID: 20260802-virtio-gpu-reclaim-vbufs-4816cc8a5bf9
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, 
- linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
- syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com, 
- Anuj Bolewar <bolewara@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785688516; l=4832;
- i=bolewara@gmail.com; s=20260802; h=from:subject:message-id;
- bh=ip9758ecvu5Lc+AGn+NJtR1MumyMs6TZADIy4kALth8=;
- b=gueT/54Hp0J8eQ2wmW1BmksUne+9bduUi5wu1Rl2EqJkTwAsbMMASolkPJ1godpqMFGsH9RbA
- x9WXXQxaMt5BBfNnS4RKf3cxHp/iZAOI7GPyoGlTnWPEximQE3zK2so
-X-Developer-Key: i=bolewara@gmail.com; a=ed25519;
- pk=XxcXxqFWk9xQziyNEfhS6NRJQR1shqHRRYzkbaYamm0=
-X-Endpoint-Received: by B4 Relay for bolewara@gmail.com/20260802 with
- auth_id=907
-X-Original-From: Anuj Bolewar <bolewara@gmail.com>
+X-Received: by 2002:a05:6808:2228:b0:48b:5dcb:85ab with SMTP id
+ 5614622812f47-4af5e07d704mr12408667b6e.8.1785690422033; Sun, 02 Aug 2026
+ 10:07:02 -0700 (PDT)
+Date: Sun, 02 Aug 2026 10:07:02 -0700
+In-Reply-To: <68dc3ade.a70a0220.10c4b.015b.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a6f7936.13bfb6d0.1ecdd5.0272.GAE@google.com>
+Subject: Re: [syzbot] [fs?] [mm?] WARNING in path_noexec (2)
+From: syzbot <syzbot+a9391462075ffb9f77c6@syzkaller.appspotmail.com>
+To: brauner@kernel.org, christian.koenig@amd.com, 
+ dri-devel@lists.freedesktop.org, hch@infradead.org, jack@suse.cz, 
+ jhubbard@nvidia.com, kees@kernel.org, linaro-mm-sig@lists.linaro.org, 
+ linux-fsdevel@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, linux-mm@kvack.org, 
+ sumit.semwal@linaro.org, syzkaller-bugs@googlegroups.com, 
+ viro@zeniv.linux.org.uk
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,118 +64,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: bolewara@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Anuj Bolewar <bolewara@gmail.com>
+syzbot suspects this issue was fixed by commit:
 
-virtio_gpu_free_vbufs() destroys the vbufs kmem_cache after the virtqueues
-have already been released. Commands that were queued but never completed
-by the device leave their vbuffers stranded in the virtqueue, so the cache
-still holds live objects when virtio_gpu_deinit() tears everything down.
-This triggers a WARNING in virtio_gpu_free_vbufs:
+commit 6de2aeffabaafaeda819e60ec8d04f199711e11a
+Author: John Hubbard <jhubbard@nvidia.com>
+Date:   Thu Jun 4 02:53:14 2026 +0000
 
-    BUG virtio-gpu-vbufs (Not tainted): Objects remaining in cache
-    on __kmem_cache_shutdown()
+    libfs: set SB_I_NOEXEC and SB_I_NODEV by default in init_pseudo()
 
-Drain any buffers still sitting in the control and cursor virtqueues in
-virtio_gpu_deinit() after the device has been reset and before the
-virtqueues are deleted, following the same pattern used by virtio_console's
-remove_vqs(). Each reclaimed buffer is released with free_vbuf(), dropping
-the reference on any GEM objects it holds. Pending RESOURCE_UNREF
-commands are handled as well: their resp_cb_data still references a GEM
-object, so it is cleaned up with virtio_gpu_cleanup_object() to avoid
-leaking it on teardown.
+bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=11c53db9580000
+start commit:   ba3e43a9e601 Merge tag 'soc-fixes-7.1-2' of git://git.kern..
+git tree:       upstream
+kernel config:  https://syzkaller.appspot.com/x/.config?x=65472e27d1590a04
+dashboard link: https://syzkaller.appspot.com/bug?extid=a9391462075ffb9f77c6
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12a08f2e580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1697af2e580000
 
-Reported-by: syzbot+06f9b2a53ba4a5a47644@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=06f9b2a53ba4a5a47644
-Signed-off-by: Anuj Bolewar <bolewara@gmail.com>
----
-This series fixes a syzbot-triggered WARNING in virtio_gpu_free_vbufs
-(cache object: virtio-gpu-vbufs) seen on device removal. Commands that
-are queued but never complete leave vbuffers stranded in the control and
-cursor virtqueues. virtio_gpu_deinit() reset the device and deleted the
-virtqueues without draining them, so a later kmem_cache_destroy() in
-virtio_gpu_release() ran with live objects still allocated.
+If the result looks correct, please mark the issue as fixed by replying with:
 
-Patch 1 drains the queues in virtio_gpu_deinit(): after the device reset
-and before del_vqs(), virtio_gpu_reclaim_vbufs() detaches every unused
-buffer from both virtqueues, releases their object arrays, and runs the
-pending resource-unref cleanup so the referenced GEM objects are freed
-rather than leaked. This mirrors the drain pattern used by
-virtio_console's remove_vqs().
+#syz fix: libfs: set SB_I_NOEXEC and SB_I_NODEV by default in init_pseudo()
 
-Link: https://syzkaller.appspot.com/bug?extid=06f9b2a53ba4a5a47644
----
-Changes in v2:
-- Also release the GEM object referenced by vbuf->resp_cb_data when
-  reclaiming stranded buffers, so pending RESOURCE_UNREF commands do not
-  leak their underlying objects on teardown.
-- Link to v1: https://patch.msgid.link/20260802-virtio-gpu-reclaim-vbufs-v1-1-9947f18b20e2@gmail.com
----
- drivers/gpu/drm/virtio/virtgpu_drv.h |  1 +
- drivers/gpu/drm/virtio/virtgpu_kms.c |  1 +
- drivers/gpu/drm/virtio/virtgpu_vq.c  | 15 +++++++++++++++
- 3 files changed, 17 insertions(+)
-
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 7449907754a..3e491c80873 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -332,6 +332,7 @@ void virtio_gpu_array_put_free_work(struct work_struct *work);
- /* virtgpu_vq.c */
- int virtio_gpu_alloc_vbufs(struct virtio_gpu_device *vgdev);
- void virtio_gpu_free_vbufs(struct virtio_gpu_device *vgdev);
-+void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev);
- void virtio_gpu_cmd_create_resource(struct virtio_gpu_device *vgdev,
- 				    struct virtio_gpu_object *bo,
- 				    struct virtio_gpu_object_params *params,
-diff --git a/drivers/gpu/drm/virtio/virtgpu_kms.c b/drivers/gpu/drm/virtio/virtgpu_kms.c
-index b4329f28e97..e5a6ae679f3 100644
---- a/drivers/gpu/drm/virtio/virtgpu_kms.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_kms.c
-@@ -298,6 +298,7 @@ void virtio_gpu_deinit(struct drm_device *dev)
- 	flush_work(&vgdev->cursorq.dequeue_work);
- 	flush_work(&vgdev->config_changed_work);
- 	virtio_reset_device(vgdev->vdev);
-+	virtio_gpu_reclaim_vbufs(vgdev);
- 	vgdev->vdev->config->del_vqs(vgdev->vdev);
- }
- 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index e5e1af8b8e8..ab6106f4bdf 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -208,6 +208,21 @@ static void free_vbuf(struct virtio_gpu_device *vgdev,
- 	kmem_cache_free(vgdev->vbufs, vbuf);
- }
- 
-+void virtio_gpu_reclaim_vbufs(struct virtio_gpu_device *vgdev)
-+{
-+	struct virtio_gpu_vbuffer *vbuf;
-+
-+	while ((vbuf = virtqueue_detach_unused_buf(vgdev->ctrlq.vq))) {
-+		if (vbuf->objs)
-+			virtio_gpu_array_put_free(vbuf->objs);
-+		if (vbuf->resp_cb_data)
-+			virtio_gpu_cleanup_object(vbuf->resp_cb_data);
-+		free_vbuf(vgdev, vbuf);
-+	}
-+	while ((vbuf = virtqueue_detach_unused_buf(vgdev->cursorq.vq)))
-+		free_vbuf(vgdev, vbuf);
-+}
-+
- static void reclaim_vbufs(struct virtqueue *vq, struct list_head *reclaim_list)
- {
- 	struct virtio_gpu_vbuffer *vbuf;
-
----
-base-commit: 2d2338c93da79b3bfe4b6099a931d9468d539952
-change-id: 20260802-virtio-gpu-reclaim-vbufs-4816cc8a5bf9
-
-Best regards,
---  
-Anuj Bolewar <bolewara@gmail.com>
-
-
+For information about bisection process see: https://goo.gl/tpsmEJ#bisection
