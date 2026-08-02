@@ -4,53 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5670C55175
-	for <dri-devel@archiver.kernel.org>; Sat,  1 Aug 2026 22:13:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 285F6C55172
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 00:00:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D76DC10E217;
-	Sat,  1 Aug 2026 22:13:42 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jcbyW9US";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0E4F10E217
- for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 22:13:40 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 81BCD43A78;
- Sat,  1 Aug 2026 22:13:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1731F00AC4;
- Sat,  1 Aug 2026 22:13:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785622420;
- bh=j10OoZVS7Iup1R4hlOXe0TgbrZKyvcYv8zUr346kSZc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=jcbyW9USiszr3tsIYDwcABUlXW9RzwZZ8xka3mLLSAoilDiQucNJXvxH9HBbrGh1+
- t79kW7u2dE3+Cbdfz32lVPOgzhG3hLHt9rqzhYO0k+mSx6p4L6KKaeVPCDqMHXJ37x
- ENzzrC+BSnHZGo1f38Ov8A4m4vqDc/qn0oUR9Ve8/AeG7WhqWTz1/7TJkIwfi7ICev
- xdWGyXWqRXBoLQ8PS99VFztoCefPGw0jWiQLs64Kchmj5ZSNM909sVx6FPkYozZ5fR
- WJ669+8/eoFXH0hZwjZ1HH+tUXEvhIZyNTj/ywlxHEBJCrt8A+87SJdQJRICXmAK6R
- 1u4o9V1nlG+pQ==
-From: Sasha Levin <sashal@kernel.org>
-To: gregkh@linuxfoundation.org
-Cc: Sasha Levin <sashal@kernel.org>, achill@achill.org,
- akpm@linux-foundation.org, broonie@kernel.org, conor@kernel.org,
- f.fainelli@gmail.com, hargar@microsoft.com, jonathanh@nvidia.com,
- linux-kernel@vger.kernel.org, linux@roeck-us.net,
- lkft-triage@lists.linaro.org, patches@kernelci.org,
- patches@lists.linux.dev, pavel@nabladev.com, rwarsow@gmx.de,
- shuah@kernel.org, sr@sladewatkins.com, stable@vger.kernel.org,
- sudipm.mukherjee@gmail.com, torvalds@linux-foundation.org,
- Miguel Ojeda <ojeda@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH 6.18 000/675] 6.18.42-rc1 review
-Date: Sat,  1 Aug 2026 18:13:28 -0400
-Message-ID: <20260801154223.stable-0006@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730181717.95457-1-ojeda@kernel.org>
-References: <20260730181717.95457-1-ojeda@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 092BD10E3AB;
+	Sun,  2 Aug 2026 00:00:37 +0000 (UTC)
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com
+ [209.85.160.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F112810E3AB
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 00:00:35 +0000 (UTC)
+Received: by mail-oa1-f72.google.com with SMTP id
+ 586e51a60fabf-451acf33124so1090689fac.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 17:00:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785628835; x=1786233635;
+ h=content-type:to:from:subject:message-id:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=QjHIjLz5MhTnCXo8dRZUEFgZX2dtbtH31287QvdH0VA=;
+ b=pEru0JlWX3lmeb1STy1qGMDOFVKZfNRW75T+n8vmg05yUY3J9ENU3q/TRKgXqnYFaw
+ 7JSWI7SO64yllvnqWeY5kKMlnAZSSGk+HNkOVi0BYJAjaoYV8e7jFGmJ/ePyzbs8+6pl
+ PZhCCbb5kWlj+2xnhYAWF13NHzmHGniE2vKCjKUCXdeQgCuqz/p5/pi9RJBvJEC7sa3Q
+ Me8PI96JXhTvBvQE7pHSF+yJ7J3pn3xi0Z6Da6mvICCrfesBYJ8ubDwfG4WXxn+Hi2lH
+ qoeDgKAs8/h602dMs67kWobmYV0bDcwArh/DaM7iCaF1URVobtO0jukbXQ6aIUfV+zZw
+ ZLTQ==
+X-Gm-Message-State: AOJu0YzJcA1563pC+TCjxuQuRWYd5Lw7KjEAdLCjTjYSE8V9gFDEVGIg
+ 7JcL7m1EIYyIx+rNfIkfdWt/QGTAM40PQdFrD5VlImnaLyUIf4+xR7qQWsVAjzJkx201nzT4U/y
+ jeeJe+juUVJSsheVU44plW3o2lm6AD7Z/MMJ5QRynn8897uGbEc7glMMtWR8=
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:191f:b0:4a3:fb6c:9adf with SMTP id
+ 5614622812f47-4af5e1d35e2mr9668062b6e.12.1785628835088; Sat, 01 Aug 2026
+ 17:00:35 -0700 (PDT)
+Date: Sat, 01 Aug 2026 17:00:34 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a6e88a2.13bfb6d0.1ecdd5.0263.GAE@google.com>
+Subject: [syzbot] Monthly dri report (Aug 2026)
+From: syzbot <syzbot+list1d8c11daf60228899e92@syzkaller.appspotmail.com>
+To: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,20 +59,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 08:17:17PM +0200, Miguel Ojeda wrote:
-> Having said that, there is something going on a bit confusing: commits
-> "part one" (4a9671a03f2b) and "part two" (ba110db8e1bc) in mainline seem
-> to have been merged into just the "part two" above in this -rc. Is that
-> intentional? I am asking because the original removal of the `lib`
-> folder happened in "part one" in mainline, so I was expecting to have to
-> point to that one above, but it doesn't exist on its own.
+Hello dri maintainers/developers,
 
-No, that was not intentional - part one got squashed into the part two
-backport by mistake on my end, which is also why the `lib` removal has
-no commit of its own to point at.
+This is a 31-day syzbot report for the dri subsystem.
+All related reports/information can be found at:
+https://syzkaller.appspot.com/upstream/s/dri
 
-I can revert and re-do if there's interest in that?
+During the period, 3 new issues were detected and 0 were fixed.
+In total, 8 issues are still open and 38 have already been fixed.
+There are also 7 low-priority issues.
 
--- 
-Thanks,
-Sasha
+Some of the still happening issues:
+
+Ref Crashes Repro Title
+<1> 38      No    WARNING in virtio_gpu_alloc_vbufs
+                  https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
+<2> 23      No    WARNING in drm_mm_takedown
+                  https://syzkaller.appspot.com/bug?extid=d93b9064fe5f74af3aa3
+<3> 3       Yes   memory leak in drm_mode_atomic_ioctl
+                  https://syzkaller.appspot.com/bug?extid=3fc9eecaf97147282c87
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+To disable reminders for individual bugs, reply with the following command:
+#syz set <Ref> no-reminders
+
+To change bug's subsystems, reply with:
+#syz set <Ref> subsystems: new-subsystem
+
+You may send multiple commands in a single email message.
