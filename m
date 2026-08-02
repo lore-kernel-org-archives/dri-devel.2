@@ -4,73 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2E3DC55162
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 06:10:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F6FAC55173
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 06:47:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52BF210E05D;
-	Sun,  2 Aug 2026 06:10:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C68510E3E2;
+	Sun,  2 Aug 2026 06:47:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="E5V325uT";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="drOEegSk";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FC2910E05D
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 06:10:44 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-38e7109321dso1313433a91.3
- for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 23:10:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785651044; x=1786255844; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=vji7wKx6xE1l/WWcvsYGR+bhlFDcfVWGe0tEz1c5YfY=;
- b=E5V325uTryCqQ/+GobCUif1xyvmVxgaIpWy5V6BNBXt98VuLzOFc5PHBj0zH3qhhMG
- 1yPjuO2n7luBu7HUeLaU/XJslGroiT72+g1u1kV6yH+OSEotQHJHCdep1RnUxfMAGY2U
- DbHTIGeNm5wZbQ+HGoC+66FV6FEr1vWaHL+qxnZMSeJ0fR3XUgUFq2g5y2bfgobjxLCh
- or4lXKK4qmuiUKeBlqNr47iqd6u3hQkj13Dt8tDYOpFOdtdWvRQXabgyFy4pBd2qKYrV
- YqrEu5eglYkWZtfb4Wzxu4YOnLNHvZNZXGdXlceYY3vWNO6jl6uTFU9/xJ7bD44WysVf
- Mkzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785651044; x=1786255844;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=vji7wKx6xE1l/WWcvsYGR+bhlFDcfVWGe0tEz1c5YfY=;
- b=Au78iBTJlvZaDnq0d//puzCTOEXNkBzTurrkbSrhp2/vv4pUtDJuSiLBchp5zmn9Ox
- aDmy00Oo7ty3cCWGAX4rl3jbFIjT8tVA37AdjIwfXJ+/CxqSFDZfaQGD0NrPJC7CSHpE
- ih+3C1nroUKVhar9FGMN1/advO9iB42sJXgnl81iKju07o5SHYw2X0Qxtasjoibbjs6l
- Oz8/X5ltJKmEmzF67vxoDhXyLv/4cbMs/4MX4qEh7hygfzn3FAzq9w4SsPIwFrL5cfC1
- pelvCQPD8VuogJGycDqM0uFb0Ukc/nKGgYX1+K72EjlQpUSVKTF4vAXsLXhOYKrn9++E
- g+Lw==
-X-Gm-Message-State: AOJu0YxWht3El+9/C//G0z5i3L1xYDx5dG5eYZMIMTp/ae95vdBZr0kF
- MBLfGr/NkLwgjUQY/qEpJq8asnbsMARsDACZOkmI6z/nZVHUEEPkg9g/
-X-Gm-Gg: AR+sD12/L39omAofJTwNfB2LpcE6CO89uPD8gq8iiV9I2e/Q/LE0617nkv9pkze8HuL
- zBEIOzfsta6XZfI3eopEm7jR9vt5Sy/dhO2DlJ7hEnU+HN24RHWEa3n9bzVkBBCylYxMxKIW3RK
- bmtPN588FzY3sYVaZzPq8EOtVjJekK74PzHY2vmoJzAiX92wQfvnmnmYJ74v8mp0ygHnr/NF8X8
- GhLVrx1uh6q4SAa/8t0ATZmnnVQtw3vdsgFGFFobiBmRMJbh8jocVgdtV8IexPcbPUoyAKX7LrR
- 7zhq9Pggf2tNn3dQWqy6CQd3PB+4eIQ+wwa4EaTsa622DWaJgYpI2pODjJ4UI+M+wyRz5GEIM8G
- v8BNB+2aQw7XUsvVyJURUocRG+vshmRYz9tY0uSWIWHZiIbxcYvYrHnFUwVOvdXR2884lG0AOq+
- riaKTp15U0cW91CAEkLkNqNsy60Ln268+kokE8Z/J9URA16hroe9bY/srhiTvqlcjadi7Miqr6D
- d0TL3iEqP4utsS9gi0DGF2DjJM2MCdnzma82OV6GhzcjrGINCCAVxp8u5GJA/iw
-X-Received: by 2002:a17:90a:e7c4:b0:38e:9279:468c with SMTP id
- 98e67ed59e1d1-38fbc4d976dmr5437191a91.25.1785651043549; 
- Sat, 01 Aug 2026 23:10:43 -0700 (PDT)
-Received: from daeinki-virtual-machine.localdomain ([58.124.60.88])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38fb2f65459sm2564706a91.6.2026.08.01.23.10.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 01 Aug 2026 23:10:43 -0700 (PDT)
-From: Inki Dae <inki.dae@samsung.com>
-To: airlied@linux.ie,
-	daniel@ffwll.ch
-Cc: dri-devel@lists.freedesktop.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: [GIT PULL] exynos-drm-next
-Date: Sun,  2 Aug 2026 15:10:39 +0900
-Message-Id: <20260802061039.73544-1-inki.dae@samsung.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7172C10E18A;
+ Sun,  2 Aug 2026 06:47:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785653252; x=1817189252;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=9iOkdNpMfmmt+OY1OU4ti4um/gx1Z9ZwrrWt68seYhk=;
+ b=drOEegSkby8VyHLs5Pq+kGecDgNuQqa8gFYAI776bJbEIKcMn174GuM6
+ O5lzjyEej+IY0/13iQNWfpjrUz4ScPU9GpBOHJPYzFy83iW2G5wAzNnmX
+ JM+D9nwG4AR3VvCEEzuet4QiXDKPQb98dfI9cHa6/nJDinGabsPfvNzQv
+ UdFw6MKbbe7VRJ+Onz4Aa1YqDOUdH8/mSOklh6fPzt+4/C6pfqzjpbb50
+ ee20XEZlB9DogY6Q0MiZttSkwA1FmKk6C190LmIvnaDiwFQM04fGryPlP
+ MZk7/EdsZhKuqf9AQs6u7VEMfMOZOvHJS0eQNQ+omimhVHblk3cGqhIG2 Q==;
+X-CSE-ConnectionGUID: K6IMcmTURRmpce06vBZsfw==
+X-CSE-MsgGUID: SIHrdiLvQxyMOabZeD6kbg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11862"; a="85990197"
+X-IronPort-AV: E=Sophos;i="6.25,200,1779174000"; d="scan'208";a="85990197"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 01 Aug 2026 23:47:31 -0700
+X-CSE-ConnectionGUID: gF8iSAe/R0OVb5Rc3wbWOQ==
+X-CSE-MsgGUID: t74S5D/oTK6DeG1YGWtwmg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,200,1779174000"; d="scan'208";a="259694278"
+Received: from black.igk.intel.com ([10.91.253.5])
+ by orviesa010.jf.intel.com with ESMTP; 01 Aug 2026 23:47:30 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+ id 3D5D999; Sun, 02 Aug 2026 08:47:29 +0200 (CEST)
+Date: Sun, 2 Aug 2026 08:47:29 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Bernd Behler <bernd@behler.me>
+Cc: linux-usb@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, Imre Deak <imre.deak@intel.com>
+Subject: Re: Apple Studio Display =?utf-8?Q?=282026?=
+ =?utf-8?Q?=2C_Thunderbolt_5=29_?= =?utf-8?B?4oCU?= DP tunnel torn down every
+ few minutes on Intel TB4 host
+Message-ID: <20260802064729.GL20844@black.igk.intel.com>
+References: <CAM=hwCxiJwODObeut=JcCA8jbu4C-XVEKJpR-y2MnDJibBQyOw@mail.gmail.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <CAM=hwCxiJwODObeut=JcCA8jbu4C-XVEKJpR-y2MnDJibBQyOw@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,67 +71,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave and Daniel,
+Hi,
 
-  This PR brings an encoder cleanup series for Exynos DRM along with a
-  refcounting fix for the HDMI DDC adapter.
+Great report!
 
-  Major changes are:
-      - drop the deprecated DRM simple KMS helper dependency and initialize
-        the encoders directly,
-      - handle the drm_encoder_init() return code so that a failure no longer
-        goes unnoticed or leads to cleanup of an uninitialized encoder,
-      - take a module reference to the DDC i2c adapter so that unloading the
-        adapter driver while in use fails gracefully instead of blocking
-        uninterruptibly.
+On Sat, Aug 01, 2026 at 06:05:34PM +0200, Bernd Behler wrote:
+> Summary
+> -------
+> 
+> An Apple Studio Display (2026 model, Thunderbolt 5) connected to an Intel
+> Arrow Lake-H host with integrated Thunderbolt 4 loses its DisplayPort
+> tunnel every 2-5 minutes under normal desktop use. The screen goes black
+> for ~2 s, occasionally for several minutes. The Thunderbolt link itself,
+> the tunnelled USB3 and the tunnelled PCIe stay up throughout -- only the
+> DP tunnels are torn down and re-established.
+> 
+> The previous Studio Display model (2022, Thunderbolt 3) on the same host,
+> same port, same cable, same kernel does not show the problem.
+> 
+> Hardware
+> --------
+> 
+> Host:        Intel NUC 15 Pro "Cyber Canyon" (NUC15CRKU5), Core Ultra 5 225H
+> Host TB:     integrated, 8086:7ec2 / 8086:7ec3, host router generation 4
+> GPU:         Intel Arc 130T/140T (8086:7d51), i915
+> Kernel:      7.1.4-arch1-1 (Arch Linux)
+> Compositor:  Hyprland / aquamarine (Wayland, atomic KMS)
+> 
+> Failing display -- Apple Studio Display 2026
+> - EDID: manufacturer APP, model 44614, made week 1 of 2026
+> - TB device 0x8025, generation 4, 20.0 Gb/s x 2 lanes, NVM 64.81
+> - contains an Intel JHL9480 (Barlow Ridge, TB5) -- appears as
+>   8086:5786 PCIe switch behind the tunnel
+> - firmware updated via macOS immediately before these traces; no change
+> 
+> Working reference -- Apple Studio Display 2022
+> - EDID: manufacturer APP, model 44602, made week 7 of 2022
+> - TB device 0x801f, generation 3, NVM 67.0
+> 
+> Symptom
+> -------
+> 
+> Reproducible within minutes by scrolling bright web pages. Frequency under
+> load is one event every 2-5 minutes. Recovery is usually ~2 s; three events
+> during the session took between 2 and 3 minutes.
+> 
+> Only the Studio Display blanks. A second monitor on HDMI is unaffected.
+> 
+> Trace
+> -----
+> 
+> drm.debug=0x104 plus "module thunderbolt +p". A single event:
+> 
+>   i915 0000:00:02.0: [drm:xelpdp_pica_irq_handler] pica hotplug event received,
+>                      stat 0x0000000c, pins 0x00001800, long 0x00001800
+>   i915 0000:00:02.0: [drm:intel_dp_hpd_pulse] got hpd irq on
+>                      [ENCODER:521:DDI TC3/PHY TC3] - long
+>   i915 0000:00:02.0: [drm:drm_dp_dpcd_access] AUX USBC3/DDI TC3/PHY TC3:
+>                      Too many retries, giving up. First error: -6
+>   i915 0000:00:02.0: [drm:intel_dp_hpd_pulse] got hpd irq on
+>                      [ENCODER:549:DDI TC4/PHY TC4] - long
+>   i915 0000:00:02.0: [drm:intel_tc_port_reset_mode] Port G/TC#4:
+>                      TC port mode reset (disconnected -> tbt-alt)
+>   i915 0000:00:02.0: [drm:drm_dp_tunnel_destroy] [DPTUN 1:1:5] destroying
+>   i915 0000:00:02.0: [drm:drm_dp_tunnel_destroy] [DPTUN 1:1:6] destroying
+> 
+> Thunderbolt side of the same event:
+> 
+>   thunderbolt 0000:00:0d.3: acking hot unplug event on 1:11
+>   thunderbolt 0000:00:0d.3: 1:11: DP OUT resource unavailable: adapter unplug
+>   thunderbolt 0000:00:0d.3: 0:5 <-> 1:11 (DP): deactivating
+>   thunderbolt 0000:00:0d.3: acking hot unplug event on 1:12
+>   thunderbolt 0000:00:0d.3: deactivating Video path from 0:5 to 1:11
+>   thunderbolt 0000:00:0d.3: 0:5: detached from bandwidth group 1
+>   thunderbolt 0000:00:0d.3: 0: released DP resource for port 5
+>   thunderbolt 0000:00:0d.3: 0:6 <-> 1:12 (DP): DPRX read timeout
+> 
+> The "hot unplug event" originates from the device router; the host acks it
+> and tears the tunnels down. "DPRX read timeout" recurs on every event.
+> 
+> In one earlier trace the teardown was preceded by a bandwidth-allocation
+> request from the display asking for zero:
+> 
+>   thunderbolt 0000:00:0d.3: acking DP_BW (0x20) notification on 0
+>   thunderbolt 0000:00:0d.3: 0:6: requested bandwidth 0 Mb/s
+>   thunderbolt 0000:00:0d.3: 0:6 <-> 1:12 (DP): bandwidth allocation
+> changed to 0/0 Mb/s
+>   thunderbolt 0000:00:0d.3: acking hot unplug event on 1:12
+> 
+> Later events start directly at the active adapter 1:11 with no such
+> prelude, also with bw_alloc_mode=N.
+> 
+> Possibly relevant: tunnel topology differs between the two models
+> -----------------------------------------------------------------
+> 
+> Both displays expose a 2x1 tiled EDID (2560x2880 per tile).
+> 
+> 2026 model -- i915 drives the full 5120x2880 through a single tunnel at
+> HBR3; the second DP tunnel exists but never carries a stream:
+> 
+>   0:5 <-> 1:11 (DP): consumed bandwidth 0/22500 Mb/s      <- carries all of 5K
+>   0:6 <-> 1:12 (DP): consumed bandwidth 0/0 Mb/s          <- idle
+>   port_clock=810000, lane_count=4
+> 
+> 2022 model -- driven as two real tiles, both tunnels carrying video:
+> 
+>   0:5 <-> 1:10 (DP): consumed bandwidth 0/17000 Mb/s
+>   0:6 <-> 1:11 (DP): estimated bandwidth 19000 Mb/s
+>   port_clock=540000, lane_count=4
+> 
+> The idle second tunnel of the 2026 model was the adapter that unplugged
+> first in the earliest traces.
+> 
+> Link maximum on this host is 36000 Mb/s. The tunnelled USB3 grows to
+> 14738 Mb/s when DP releases bandwidth.
+> 
+> Ruled out
+> ---------
+> 
+> Each of these was tested; the trace signature stayed byte-for-byte
+> identical.
+> 
+> - Display firmware update (performed via macOS; now NVM 64.81)
+> - thunderbolt.clx=0 -- link low-power states
+> - thunderbolt.bw_alloc_mode=0 -- DP bandwidth allocation mode
+> - Thunderbolt/PCIe runtime PM (power/control=on on the NHI controllers,
+>   the tunnel PCIe ports and all TB devices). This did eliminate a
+>   separate, rarer failure in which the whole TB link dropped for ~8 s
+>   including USB -- but has no effect on the DP-only events described here.
+> - Cable: swapped the 2026 display's cable for the 2022 display's TB3
+>   cable. Link still negotiates generation 4 at 20 Gb/s x 2; failure
+>   unchanged.
+> - Bandwidth / link training: AUX dies outright (-ENXIO), no retrain is
+>   ever attempted.
+> - PSR / Panel Replay: "Sink support: PSR = no, Panel Replay = no".
+> 
+> Not yet tested: driving the 2026 display as two explicit tiles to mirror
+> the 2022 model's working configuration.
+> 
+> Questions
+> ---------
+> 
+> 1. Is the host expected to tear down both DP tunnels when one DP OUT
+>    adapter signals unplug, or could the teardown be scoped to the
+>    affected adapter?
 
-Please kindly let me know if there is any problem.
+It should tear down the tunnel at that point.
 
-Thanks,
-Inki Dae
+> 2. Would a debounce or retry be appropriate before releasing the DP
+>    resource, given the adapter reappears ~2 s later?
 
-The following changes since commit 82cb10c8bc506a4d2093e0e59672fd307f549d38:
+I don't think that is good solution. We should get bottom of this so adding
+Imre Deak to take a look from DP side. Do you have full dmesg with the
+debugging enabled available somewhere?
 
-  Merge tag 'drm-xe-next-2026-07-30' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-next (2026-08-01 07:06:36 +1000)
+> 3. Is the recurring "DPRX read timeout" on this device a known interop
+>    issue? dprx_timeout is at its default of 12000 ms here.
 
-are available in the Git repository at:
+Those happen until GFX reads the capabilites through the DP tunnel - its
+normal (well unless it times out completely in which case it tears down the
+DP tunnel as well but I don't think that happens here).
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/daeinki/drm-exynos tags/exynos-drm-next-for-v7.3
+> Happy to test patches or collect further traces.
 
-for you to fetch changes up to 99b1947ba2f82b30c0a4ef3e457eacc31d1b0220:
+We also used to have similar issue, related to MST register access that
+triggered DP OUT unplug but I think that's already worked around in the
+graphics side for Meteor Lake.
 
-  drm/exynos: hdmi: take i2c adapter module reference (2026-08-02 14:54:06 +0900)
+Can you also repro this so that you enable tracing of the TB driver and
+provide the output (alongside with the full dmesg so we can compare):
 
-----------------------------------------------------------------
-  Cleanup and modernization for Exynos encoders
-  - Remove dependency on deprecated DRM simple KMS helpers
-    . Replaces drm_simple_encoder_init() with drm_encoder_init() across dp,
-      dpi, dsi, vidi and hdmi.
-    . Adds per-driver drm_encoder_funcs with .destroy = drm_encoder_cleanup,
-      removing the intermediate layer between the drivers and atomic modesetting.
-  - Add error handling to drm_encoder_init()
-    . Checks the return code at every call site instead of ignoring it.
-    . Prevents silent encoder creation failures and drm_encoder_cleanup() on an
-      uninitialized encoder.
+  # tbtrace enable
 
-  Bug fix for Exynos HDMI DDC adapter refcounting
-  - Take an i2c adapter module reference
-    . Switches to of_get_i2c_adapter_by_node() / i2c_put_adapter() so the
-      adapter module reference is held while the DDC bus is in use.
-    . Makes an unload attempt fail gracefully with -EBUSY instead of blocking
-      uninterruptibly in i2c_del_adapter().
+  <repro the issue>
 
-----------------------------------------------------------------
-Diogo Silva (2):
-      drm/exynos: Remove dependency on DRM simple helpers
-      drm/exynos: Add error handling to drm_encoder_init()
+  # tbrace disable
+  # tbtrace dump -vv > trace.out
 
-Johan Hovold (1):
-      drm/exynos: hdmi: take i2c adapter module reference
+You can find tbrace here [1]:
 
- drivers/gpu/drm/exynos/exynos_dp.c       | 13 +++++++++++--
- drivers/gpu/drm/exynos/exynos_drm_dpi.c  | 14 ++++++++++++--
- drivers/gpu/drm/exynos/exynos_drm_dsi.c  | 11 +++++++++--
- drivers/gpu/drm/exynos/exynos_drm_vidi.c | 14 ++++++++++++--
- drivers/gpu/drm/exynos/exynos_hdmi.c     | 20 +++++++++++++++-----
- 5 files changed, 59 insertions(+), 13 deletions(-)
+[1] https://github.com/intel/tbtools
