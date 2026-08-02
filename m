@@ -4,97 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1CCC55162
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 09:15:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A590C55162
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 10:22:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4775010E32D;
-	Sun,  2 Aug 2026 09:15:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oEp6I4IX";
-	dkim-atps=neutral
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
- [209.85.160.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4281710E32D
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 09:15:25 +0000 (UTC)
-Received: by mail-oa1-f47.google.com with SMTP id
- 586e51a60fabf-458de93b53fso1065386fac.2
- for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 02:15:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785662124; cv=none;
- d=google.com; s=arc-20260327;
- b=V4/LTqaJwqPaFBL0KyUH4YtOguh92HhTjMqEnpouxeJmzzjUOrMd+T6xKhXqn7odGD
- JF2K0PLOh8HGeUVyOhhI7f+qAOaWYMo9aiet2cGeMQ5Q/bkmAktT4lLXAmaaC6eHeCxz
- Ebfplu3vO34V14OwHww4U07Yo4oTSMyDso9INNXHdJobOshgK/lRYCDU1gEXAklIqkY1
- QJMvE1nGHbOvlXWoax+91TYYfoSsLGhfj3JFjoSqfgoXSyi1qwrC8Uhhh60mY+b5bI10
- No6PgwSqPGHoADm72kRPPNJp7dM38dcRbLISooq2NMYGDGbjsVPrrXWPTacLX77HAigS
- HIeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=QZV8ynflEO4JQkppwv0nIitNDbgzI01paOOgnqEbB/0=;
- fh=cTyJNMiRW70e9ukDfdd4GfQ+Dy2J+h07k5pgwtMwjZw=;
- b=qnbD7A8AaNRcGnkrkV/GF9h4tRkTUBRmiR0dKrIXU6ieNT+XvlmtmT9QU+HStMf3dV
- 5cEV12KrmEb0BQ/Axt7gZzDVyMgfX71oQNW7DU1LupZdEKJsU0NzMpS4UCcv6MI79PYn
- mpasRs66Hfb2vo1dWVmXV1oJ3B7/7pKdty2hPj+X7MXMIEQHVhbiZM02FRXHRnrEB3ur
- TTaC/5k8SNMDtdBC30fxm7I7oNT2L0IY/Z8Ut+DnJiyCSjjEVLUfB8QOhh/N7ta6D6Eu
- W/Qk7up5uCkKECcckZL1VBIMuFEZ6gIF2OxrrjyvSkjR/YTRTq7t52Hy39+l9JVhqGs6
- Vd3g==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785662124; x=1786266924; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=QZV8ynflEO4JQkppwv0nIitNDbgzI01paOOgnqEbB/0=;
- b=oEp6I4IXhDBdPnWexAhtk2O6jUAx5MFPC/97FJ/VF+PaG+kNChlTVyi/5dbv02c8I1
- zAzVfmftD/B3iUubr2eIt+j9ZjQQ5/lok6TR/E38FfeYmdW8e+XCjTvIXnJm2hJBz4kr
- cCmbVvnQAD1qZ04B0jE2ghbavwhTKrarITMW9XhFuDXDNirHRhnIiJ4OhGc8IZhgIHsq
- awpuUrBgngWGfCEM22qtCTv4Zi/lDckvvCxpNDjRIL7PH9xjiwGYzzacMDpssehOBKkG
- pEvRcmcLmZrcOMZ0YQqw9BbEjg6h76dh9UfLdqAX/kIRI5ach/dr4KCSTvOY610bgOl4
- BP/Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5DBF410E2B6;
+	Sun,  2 Aug 2026 10:22:35 +0000 (UTC)
+Received: from mail-oi1-f205.google.com (mail-oi1-f205.google.com
+ [209.85.167.205])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4966110E2B6
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 10:22:34 +0000 (UTC)
+Received: by mail-oi1-f205.google.com with SMTP id
+ 5614622812f47-48576b535b6so1425798b6e.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 03:22:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785662124; x=1786266924;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=QZV8ynflEO4JQkppwv0nIitNDbgzI01paOOgnqEbB/0=;
- b=D0Qs+jVk3NANSPQQ4xs6DB5ownra0lecJzO/cC4tn0JELOHZnV88CxIh2WyxGnAmMC
- Aj0K99EfRNROFK/T0wFRE3bA/vhSLHzdQ5m1tWiqwxmZvfw6R8VGME7xgJCiikvVqq2S
- bx5Q9Ai0yAMGr8amsL4RclT68s2+YLDNqzPYsk1Iu8roZyGoRExSkvbXr7zIO/Kw80sW
- Kdni/JqbCO6rEvdjeR7e92ua0pfQudRzwgqMhOO75ZG/l+jUZyRmgOLxefcPRvq0NnZP
- eZw8BfAlzeTLMCu0o/9+jGvBjWmM5AbQ8MPBFQDXbRp9jq3jtZSJ9zdHgH8VFNY01kX5
- h1fw==
+ d=1e100.net; s=20251104; t=1785666153; x=1786270953;
+ h=content-type:to:from:subject:message-id:in-reply-to:date
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=DhOzp+4ao+2WjuM5XUiRiiEbbew1BWqOp8B2qmzYztI=;
+ b=cAT5boqQ7Z5dpEtgxa/OfbWAAfw9y58LSfOCbfX0FRMzPjAxJZXjiwUtY/DiYKdi1K
+ foFrMjLLJuSo5Tp7xwicgHAXCPL+qUMdR3blOIMgE4WkVw7qre8IrrsqjgGaZ6UejwWM
+ YJKC4LFagfjdDzAHDl6WNJWBMV5tqw0r7W3BiJshc/5BNJxIao7TSlpfAS97HMO0Glp/
+ aCXJD47Ys+8quNEykP/v/siHaiymOO5ZuTQ1bXR7tm3Gjgg2yBs4VIkX4macj19HngUC
+ o0vzIuRJJ5eAw0i4ej5sKU6eInOgzJX60QNdsQTxGoV7wBow518nIikx6GIQpqlVQ9re
+ Ji6Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RossiGoi0vodUC/fcqCASLXz2UdmmbKqfWq29cw2fl8kQ28GwS6DDCc4EMSwwc0r0JrUS2wKP2ZsyI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyWD+IqE3GaIEsgQpAgETLwIUgzS5dgg3rqEtqDeASu7KzRSJb5
- tho2tYdAqxokqwEChFZfAlIhlDcLhjDnxvEoYAHfXJNzZS0Ug8sNLv0WineM4+uvC5Wb4KDbxRX
- nn8yCm02nloUhSRhZGAY1E0EG2vJeqEk=
-X-Gm-Gg: AR+sD13wqEvxfR4p3pbB5Q4xdH0xBCgZ9CJ4VAV76mya+RMCWdPminKmLd82enOJepS
- Q4fybyJD8/B8ilNx6yfRMqXCEh5+auIjGVz7RFjqZX5ZESPT+DGKs+2i/KJBWJZrtJMrB3DDWTK
- Xoix7EVCmw6ofFj9mkgriJ+vjcaqk3iYjiCcLHTnkt6Kj4i5hmdff2cQp9OU5P5c1Vhgh1V/+zK
- BrFZ3moh3Gof3JhUlAeJECPyC6vGgtGjzYHADfb8vXuqh24DYgHAJ82TR7+SMnaijKwazjJn8bA
- nLbMrrJXvL+BEz5rH1h2VUP8jCd/Izy1JSiL4nkgJQXKzyVm+HrpnErDdA==
-X-Received: by 2002:a05:6871:6005:b0:455:9a0a:f40f with SMTP id
- 586e51a60fabf-45905d32498mr9874666fac.12.1785662124236; Sun, 02 Aug 2026
- 02:15:24 -0700 (PDT)
+ AHgh+RoR+S/BQdenvgzHu81A0QfuuOd6ZOjfo7m05SyE9fnJN1SU4mp36UPnuPDZlbSHEzt/pClTtqQFyWE=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfTwPjhVU2iXG+QJxZHUo8rm9yen7mEQzra3U6fE7gGwc0JWo5
+ QGdomY8B2tXx1QcfzruhtkwmqcJb+gdosg4Psd+QRKoykIwSM/0k+lC3GKX0wBQQ5hK9SK5zkt0
+ RNtwHJhT/pwVAs6zoDsGUCO+JZmwrryqZHmP+pUcHVkSbBLaMQPwsTpP9zDc=
 MIME-Version: 1.0
-References: <20260623-exynos-drm-simple-v2-0-a8d59678b7d2@gmail.com>
- <CAAQKjZN12OSBg+ch+xf+-uO6_Sbrtq-o8AkLdLA3mFQ_ubiLxA@mail.gmail.com>
- <CAJpoHp48cXPLrwvANAt_-D-jE=DcSyodAL=p36kQw3cGtQW_fw@mail.gmail.com>
- <CAAQKjZM5cY8V_YaZzgF734Brabz=zwRkp2k-+b9CbqS2_Xvi2A@mail.gmail.com>
-In-Reply-To: <CAAQKjZM5cY8V_YaZzgF734Brabz=zwRkp2k-+b9CbqS2_Xvi2A@mail.gmail.com>
-From: Diogo Silva <diogompaissilva@gmail.com>
-Date: Sun, 2 Aug 2026 11:15:13 +0200
-X-Gm-Features: AUfX_mz1aNx58MfilAVRqksW7MpjeaHqifC8P2ZXRQ0TR5zNx84ocL2q9Pi4X1A
-Message-ID: <CAJpoHp69qLrMKJvhktAtZBdLuh-fDQvmPYvae2YDsua2EBDZUQ@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] drm/exynos: DRM encoder improvements for Exynos
- devices
-To: Inki Dae <daeinki@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alim Akhtar <alim.akhtar@samsung.com>, 
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6808:c1e8:b0:497:d371:21c8 with SMTP id
+ 5614622812f47-4af5e2cd936mr10075081b6e.19.1785666153520; Sun, 02 Aug 2026
+ 03:22:33 -0700 (PDT)
+Date: Sun, 02 Aug 2026 03:22:33 -0700
+In-Reply-To: <6a6a9634.57649fcc.360844.000a.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a6f1a69.1aa927e4.17d4bf.0017.GAE@google.com>
+Subject: Re: [syzbot] [virt?] [dri?] WARNING in virtio_gpu_alloc_vbufs
+From: syzbot <syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com>
+To: airlied@redhat.com, dmitry.osipenko@collabora.com, 
+ dri-devel@lists.freedesktop.org, gurchetansingh@chromium.org, 
+ kraxel@redhat.com, linux-kernel@vger.kernel.org, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, olvaffe@gmail.com, 
+ simona@ffwll.ch, syzkaller-bugs@googlegroups.com, tzimmermann@suse.de, 
+ virtualization@lists.linux.dev
 Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -111,12 +66,121 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hey Inki,
+syzbot has found a reproducer for the following issue on:
 
-> Both are trivial, so no need to resend - I will fix them up myself
-> while applying the patch.
+HEAD commit:    2d2338c93da7 Merge tag 'i2c-fixes-7.2-rc6' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=15f3edb9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=145fa60d73086782
+dashboard link: https://syzkaller.appspot.com/bug?extid=1b129b44597a126d2d79
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=173115b9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1782f4c6580000
 
-Thanks for the hints and the help!
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-2d2338c9.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/89fdd9cdbdc2/vmlinux-2d2338c9.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/a7930b1db6cb/bzImage-2d2338c9.xz
 
-Best regards,
-Diogo
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+1b129b44597a126d2d79@syzkaller.appspotmail.com
+
+[drm] features: -virgl +edid -resource_blob -host_visible
+[drm] features: -context_init -blob_alignment
+------------[ cut here ]------------
+kmem_cache of name 'virtio-gpu-vbufs' already exists
+WARNING: mm/slab_common.c:111 at kmem_cache_sanity_check mm/slab_common.c:111 [inline], CPU#0: syz.0.17/5926
+WARNING: mm/slab_common.c:111 at __kmem_cache_create_args+0xa6/0x420 mm/slab_common.c:352, CPU#0: syz.0.17/5926
+Modules linked in:
+CPU: 0 UID: 0 PID: 5926 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:kmem_cache_sanity_check mm/slab_common.c:111 [inline]
+RIP: 0010:__kmem_cache_create_args+0xa9/0x420 mm/slab_common.c:352
+Code: 48 8b 43 60 48 8d 58 a0 48 3d b0 82 d8 8e 74 1f 48 8b 7b 58 48 89 ee e8 c5 50 5e 09 85 c0 75 e0 48 8d 3d 1a 39 ce 0e 48 89 ee <67> 48 0f b9 3a be 20 00 00 00 48 89 ef e8 45 52 5e 09 48 85 c0 0f
+RSP: 0018:ffffc9000388ef58 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffff8881012c77c0 RCX: fffff52000711dc6
+RDX: 0000000000000000 RSI: ffffffff8c6f8d40 RDI: ffffffff91275ec0
+RBP: ffffffff8c6f8d40 R08: 0000000000000000 R09: fffffbfff22450fa
+R10: ffffc9000388ef58 R11: 0000000000000000 R12: 0000000000000000
+R13: ffffc9000388efc8 R14: 00000000000000d8 R15: 0000000000000000
+FS:  000055557ecab500(0000) GS:ffff8880d5dd8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000001b33324008 CR3: 000000002ad27000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ __kmem_cache_create include/linux/slab.h:399 [inline]
+ virtio_gpu_alloc_vbufs+0xc2/0x150 drivers/gpu/drm/virtio/virtgpu_vq.c:75
+ virtio_gpu_init.cold+0x51c/0x126e drivers/gpu/drm/virtio/virtgpu_kms.c:228
+ virtio_gpu_probe+0x21c/0x360 drivers/gpu/drm/virtio/virtgpu_drv.c:103
+ virtio_dev_probe+0x6a2/0xbe0 drivers/virtio/virtio.c:347
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
+ device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x64/0x160 drivers/base/bus.c:620
+ device_add+0x121d/0x1970 drivers/base/core.c:3772
+ register_virtio_device+0x4f0/0x5d0 drivers/virtio/virtio.c:568
+ virtio_pci_probe+0x255/0x410 drivers/virtio/virtio_pci_common.c:722
+ local_pci_probe+0xdd/0x1b0 drivers/pci/pci-driver.c:332
+ pci_call_probe+0x176/0x800 drivers/pci/pci-driver.c:394
+ __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
+ pci_device_probe+0x1cd/0x370 drivers/pci/pci-driver.c:489
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
+ device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
+ pci_bus_add_device+0xc5/0x100 drivers/pci/bus.c:373
+ pci_bus_add_devices+0x9a/0x1f0 drivers/pci/bus.c:394
+ pci_rescan_bus+0x2a/0x40 drivers/pci/probe.c:3500
+ rescan_store+0xfb/0x130 drivers/pci/pci-sysfs.c:473
+ bus_attr_store+0x74/0xb0 drivers/base/bus.c:172
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6ac/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fba4739e019
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffeb190b8e8 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007fba47625fa0 RCX: 00007fba4739e019
+RDX: 0000000000000001 RSI: 0000200000000a00 RDI: 0000000000000005
+RBP: 00007fba4743500c R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fba47625fac R14: 00007fba47625fa0 R15: 00007fba47625fa0
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	48 8b 43 60          	mov    0x60(%rbx),%rax
+   4:	48 8d 58 a0          	lea    -0x60(%rax),%rbx
+   8:	48 3d b0 82 d8 8e    	cmp    $0xffffffff8ed882b0,%rax
+   e:	74 1f                	je     0x2f
+  10:	48 8b 7b 58          	mov    0x58(%rbx),%rdi
+  14:	48 89 ee             	mov    %rbp,%rsi
+  17:	e8 c5 50 5e 09       	call   0x95e50e1
+  1c:	85 c0                	test   %eax,%eax
+  1e:	75 e0                	jne    0x0
+  20:	48 8d 3d 1a 39 ce 0e 	lea    0xece391a(%rip),%rdi        # 0xece3941
+  27:	48 89 ee             	mov    %rbp,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	be 20 00 00 00       	mov    $0x20,%esi
+  34:	48 89 ef             	mov    %rbp,%rdi
+  37:	e8 45 52 5e 09       	call   0x95e5281
+  3c:	48 85 c0             	test   %rax,%rax
+  3f:	0f                   	.byte 0xf
+
+
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
