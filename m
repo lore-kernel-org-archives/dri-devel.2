@@ -4,142 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D111C55171
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 05:37:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38B72C55171
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 05:47:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2298C10E3D6;
-	Sun,  2 Aug 2026 05:37:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 049C710E3DB;
+	Sun,  2 Aug 2026 05:47:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="Oa/65k6G";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="T1qbkqX3";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012049.outbound.protection.outlook.com [52.101.43.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E090610E3D6
- for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 05:36:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bbdn39Logz3oyDXyuB+9GnVEU4amGz1QhUnkEPm2UMdmdmK1kRZXnlVeeq06WmKENMe+yu0Z9Ijp7x4NhB/S7ESXoC0Qn/YSnH1FZbMbxD/Uz3aGoUwGrITWdtqlOj9huRQn/X3euE9YVzVDIk2Pa2OBY15/8RBTvMm3KFnWjqO9LOOxmht1gCcx+MKm5Plykt9mshKCesjvY4+hmXoQHv0mHXAER1qfldUEkFhtFbp8ujefYDofmDhL+HP99AAkjkcqL5+qax+z+s79L/LBFLFrc1Z9tsizAg/lr5HLI5omKfGVrBraQlabJGQ3W62x+MRF7a/ubnySNxJ4RjRiOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UQP0KkgX4x6So4quJepdUIAgBLtxYx2odpddBaABKpI=;
- b=crgHP3/bY6G7va3zLsFaH6z0cp+Ffkc9Yfjs4Etw/Ij54J2jDQua3oIbsCXztnMiewAqy7iJ/drIbquJo4Wv4/BfZHk7TJmDAIeYCmclyDKeN/n/pKl1uqSq9m9ENGMU+Hb744IgSNxe0AWg8mRnAJwNb6YGfOcW13b2GNoSvqg0iTQosjfC1tBWLZRicJnjtPo4BJaexPgHYCsjrIa/4eQ0vUt56hjKGHM8jtIuF1rqo8fhOTF+6q7jZLWJciay97vyd2Y4ZT4TFG6PrCruah/sJRXb94HCes3N0ThSuCD5/f3EgKGL1nyi/GJpstEe/EqzJxfqrhtszdzhlLkrvw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UQP0KkgX4x6So4quJepdUIAgBLtxYx2odpddBaABKpI=;
- b=Oa/65k6G1Z9ow/4MzqIFY8VfgYnbUGvKu8GuTfc2/ZUuj11K6oUtu2ZhU6PN5FY8EcaGxLaYZhYSUEjOmGrLEM8YiNEYsj6kfZAQ5aP32yfGNewTdAZA9YwecNhXF88zl499WCnq+AYpUAqGxZqo3CTCowVbiSuZUTrNQJUF6EvXoOqxZe0hRkSa01/DpSjyH9s49+q/vnQpjjSHXCQS5TYooDS2fORGk4bbX9ONBa7Bn+djhABq/8yDdsSNWVwzSFwrJ9vlHSEkHjT+841jP2rR5w32ftQatYE2tt7MDvZsKD7J4z6HcbwMZpJyJ+v/xhPxjjM/tA4fBEn7g2IH5Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
- by DS4PR12MB9612.namprd12.prod.outlook.com (2603:10b6:8:278::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Sun, 2 Aug
- 2026 05:36:49 +0000
-Received: from CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
- ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0270.015; Sun, 2 Aug 2026
- 05:36:49 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 02 Aug 2026 14:36:45 +0900
-Message-Id: <DKE7QSH5J55L.2C0VNKQXS731Q@nvidia.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, "Viresh Kumar"
- <viresh.kumar@linaro.org>, "Danilo Krummrich" <dakr@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Drew Fustini"
- <fustini@kernel.org>, "Guo Ren" <guoren@kernel.org>, "Fu Wei"
- <wefu@redhat.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- "Michael Turquette" <mturquette@baylibre.com>, "Stephen Boyd"
- <sboyd@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Michal Wilczynski" <m.wilczynski@samsung.com>, "Boqun Feng"
- <boqun@kernel.org>, <linux-pm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-riscv@lists.infradead.org>, <linux-pwm@vger.kernel.org>,
- <linux-clk@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Boris
- Brezillon" <boris.brezillon@collabora.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Maurice" <mhi@mailbox.org>
-Subject: Re: [PATCH v5 4/4] rust: clk: use 'kernel vertical style' for imports
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
-References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
- <20260706-clk-type-state-v5-4-67c5f326a16c@collabora.com>
-In-Reply-To: <20260706-clk-type-state-v5-4-67c5f326a16c@collabora.com>
-X-ClientProxiedBy: OS7PR01CA0025.jpnprd01.prod.outlook.com
- (2603:1096:604:24f::15) To CH2PR12MB3990.namprd12.prod.outlook.com
- (2603:10b6:610:28::18)
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com
+ [209.85.221.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2734E10E3DB
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 05:47:44 +0000 (UTC)
+Received: by mail-vk1-f178.google.com with SMTP id
+ 71dfb90a1353d-59b074ec7ceso884932e0c.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 22:47:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785649663; cv=none;
+ d=google.com; s=arc-20260327;
+ b=dO138fLKzGKHTsXJGp+ayF8unobeaKeWF2kPZ7kQCKFGKCyWdCsXj/B7CH/FT0O4vx
+ 2iw7lJ31aJaZ1nOu9E1Xr9tqn8dN8g7lFTIgnZv5nOr4MFwbFknQ1wyFJzQW6HSeiKwc
+ hUvwpBFLpZy3j1Erjqh6sk/brzNaZu2iRQ14CZp6gWLQT1tLRVB3kqkP9GTBXi2gpCWl
+ yFTMdLtiINJpJ1ujXJuiw4vAkIna4euNqiftBV9I/E3wiMZgHaqu3wx6DEH/wWkAgAgq
+ Z1NnlrOKiunOfXSm3Nm6yV516EDLKKuUAppnO4SbyStWLpQZrUvGQjzs9g18FGnpBIPn
+ uOdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=pzUc3cu7eYXLZesTw+qzStppD+6/bSKMRwSOeVVbqx4=;
+ fh=QwveCAKG2k5MBFYISr/DhkOqFVwX4msL/Rwqn8AbqZw=;
+ b=gaZwP/7EvIK6Xr3/Vy38BUuNXNHDC10Do+5HZCXxyjk6GtvmJ43+4GlD+C+zkRwlUc
+ xVzzdCbFoGpEWKsnuf8ldqNu1JTxAPfUfAspuEBkfaxPht8mnj1VlJt8M+LxgiPcV5d+
+ fdT6/SxQhw6RcovN7KUO78CiXHj004kbHqOzhhHDEEJG124Cc39WSQP+d0xmThHJeEd5
+ upFWNK3Gus9qE5mEc0VJOqBJe4Y8f04+Cz1qB25b2VTaNxtwEECGtxSXWMovU+PqBZvd
+ 1Jpmmi4GgvkHx7coI3+ZSi4XwJ/YF+Jyt9sW7HThyKs7g0zQQYC68g4TA8Cfsq0Ylncn
+ h1aQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785649663; x=1786254463; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=pzUc3cu7eYXLZesTw+qzStppD+6/bSKMRwSOeVVbqx4=;
+ b=T1qbkqX3r0D8oZhvCKfLtY3mvXWNUeNuxUOUikiDv86Qvh8qNVU17B+UFL1C+zFcfR
+ i5ULiQw2DxBoz3/jxKfXlzqGfoNCvXrxKFCvAjRP2P/tJIag3EDU2wQIVkBx8Ek2f460
+ ZhKhmfVLnt4brDTVRSC2m/r69lJSe7yDAQQvpEcOBfb6nJ5Y09gJ5G3idJe1j65DIKZm
+ i3fHsyLZX6CVCoUq26x7hyLCGtoz6+MRCAMd/5k4FKNiLZhM22bMVSnZGBaAvwoUmBmF
+ ZiNT8B/BTomeZlpH9z6tJ725kH2YrwYR9Z+D6d4x8y5cn4UmZV3Gk39G7O6C0dy+znER
+ FNGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785649663; x=1786254463;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=pzUc3cu7eYXLZesTw+qzStppD+6/bSKMRwSOeVVbqx4=;
+ b=lXiv5accaOXw/iaS1ytwxVqXrjtTRkR22KWNIRzvCG9BBIwC6b3N3zejcv0tKBPelx
+ y/vCWubDGarYq6BV3ijHJ/WBlEIkoNyuFQAhUYby0woIGoZsMkHU44CFEn4h1Psgy5/o
+ ZJaFGVq59WDOxo1rMqmFxCj9X7BHED8RWiaZ7EjliFGgbl7GYE6ZJ0JDFvzVFhLHZJvn
+ EPCA2HCJlkVWEvWUOLLthk28My34vectbG/eIWgRGf6z3SW7rO9I3m2RCRmdPhhMMP+a
+ r1LUZeztPjNLYSE4lvTUaJKIosMQ3jSHB6sW6YYU34zcYW4CN2Kt3W5O51jsUotEr3VH
+ k+SA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpppm1IYG9K2KKB3fWWcjwb924K/i2Bdr3NFdAqQXB9uKQJzL4qSq0Xv2EtG5xAqQXRpD33m9KsJcs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyxvWwHWcUsFgm/uT/JE3RKFPdmfljPPCbxLgQDOnlcFALPIl/O
+ mWaukHN5ZbNh638wSSEXoQrlqsP9xdooZqsj98UUOWpt1bFCYvPS4JQLr43sPJjqh6EIhr7aCIS
+ c+vzJG/L5rQmkdqJc67Ejo0mGGEZ65XM=
+X-Gm-Gg: AR+sD120wbtHMXYV63Gx2/30M7Z/42uP54esPkZy1jn0i3bcnt3tehA5fHujwnqxlCV
+ oNohoJLre6DtYur7KlJ73kTCnvpzg5I+fE1NRnJg09ZOQYh2xNkCkBCC+jM8eZgxFZvpq7BH/M1
+ Qk69+i8iXrRSvOyNP47b13RbvMjvsznsMe3MZVuEb/ocWexklCJZiBwyF3h1fVxU20vtfJWcFzO
+ SsVVtw1LYc7JWL9690dkvunFzGN2YskcWdQjdry90Ovq1uh0E1nrMA4QvPuaKrDzeyB9OFsCXFe
+ N1orrQiKu4FDLwc1rpI/VNCbuyEhPOMawpMOQuqoeh6pAsZMLLkh4L0RXuY0Pw2ev0uv8Q4w7ws
+ kg4+9/8M08A==
+X-Received: by 2002:a05:6102:6899:b0:726:cd42:d023 with SMTP id
+ ada2fe7eead31-75b2375d6eemr3857526137.11.1785649662796; Sat, 01 Aug 2026
+ 22:47:42 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|DS4PR12MB9612:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8ef38e1-2072-4fa9-479b-08def0580ca9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|366016|7416014|376014|1800799024|6133799003|56012099006|4143699003|5023799004|11063799006|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: ZhlgkZro/XZmuuMN4ii8HgobXs1/kVF/q+llp8spPWs2Vbqemo4JxhZP6+e+yhuMa55OPsQYnA2gVTaMsIhPVqBPK8p1w4Fbud02BaxVoL0+RKbu2OsP5zmOuGvg5+0jNVulDaRHlWW+sOuzvif5arLn/Uco8mXHW0DfboQfkApBcVD6CpauwLb8U0t8cQh1ypdMpQi+2ANOOpUN2VBDa/ar5e4iCqoqandR5simVko3zVGh7UTvperwwsITPPAPoZWZ4AE5w75psRawnWg+0j5BC2LFLicI6uKtOYLZpJ1WZUBkF/6hAkYKIzm0bdeQtREkg55NHmv4kaof87sgNd4RiUqxgWIgicNNAcyEM0sltCGKEspYKEV3m7Ozq0f9R0JaSTaXnf1qGOw7LHMEJSB9OP8bvht5aNqU9fZ/NwH94XHLAUkyI9WfCLhq7GPnpnsFAr4RgMJv+OAE/31hmZW/EV/jEB6HYtQU2z0TWhJvmck0+BdweECL5tZSfqo2bQ9mW2n9JwLf931pwRlFUmVXirSsma+xm/qv26qf3G4u9B18db1rC/Z70yZaYDSYGdOGnsyzFcvT430wnt6Tyn0JOFXxUc+Rp5O6yjxhMy+sCl7e0SEA570TaTy3VfQ+BElmFx0lHVrwIyRqV2/1vT1wVJFwAG5A41CsViLaAoA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(366016)(7416014)(376014)(1800799024)(6133799003)(56012099006)(4143699003)(5023799004)(11063799006)(10067099003)(22082099003)(18002099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bjdWbWtIdGxUVHFUeDZlUG1xaU1kVUc2L1FHZXI1bHNNYXVac2hodnZWcEFy?=
- =?utf-8?B?c3pncEo5c01aQWlKTnhPSGZVZkw0WmsrVEs2WS9Ub0FGSm84Um5KcUVTbkdQ?=
- =?utf-8?B?YUxaQi9heGJhdXZwZTlEOGZUemJvUUZIY1VJU2EzYWdIWXUyeTFyQUEraFRO?=
- =?utf-8?B?ZDMxYUVhYTFJNGVCaW9FVkExL1BuRlEwbWdrU2ZXbWZjZmJKZWNFc0ZpU2dM?=
- =?utf-8?B?bTNtZFRHVk9LZ0lwL3RkYXRiRzRWWFRDYnBYUUJ3NWpPWE90S2dnaEZLNUFO?=
- =?utf-8?B?b2Zpb0xrMWI4OURteDZrbFhNeDZlRzJ0NXdxYXN6blZWRStPdEdpNlVhekwv?=
- =?utf-8?B?UDR4VmhYKzdrVmlHdFprekxhTXpnMk4raUpVWjd6eXhtb2NlTkcvbHk0NHRu?=
- =?utf-8?B?TzhzQWpRMWtDOUhpaWZQRlBodkp1NitzV0N5NXFuRXN2TnNTN2oyNks2WEdu?=
- =?utf-8?B?SkdQVHdKYVdXQU5BRFFYVmNHZG9Jekg0MUNab3JabGFwQ1VvYjl6Q3c5d2dR?=
- =?utf-8?B?ZzRKVHRsemordXZmV2RYWXp1SGpkdjc2RWw4WUQ1NDQ4aUZSUGs1c1JDdnhE?=
- =?utf-8?B?Mm9yWlg0QWUydk1Va2RscVovVFNQMUhQWDZuVmduZENtWHhqdzR0bnI0MTlm?=
- =?utf-8?B?Vno3Rkx1OG1aekdJckNqa2pUd2pXcTNXNUprUWR3Y2R1aFpxWW9Zc3hHelNs?=
- =?utf-8?B?aGh4c2huSDZ5SnpoL0R0UVNRSXptVVFmUDdSUnZHVHJBWW15WjBjdkVHLzJB?=
- =?utf-8?B?MUUwbUd1Mk15N091Sk5ua3lFQkNPZzFkb3U4VVpHd3c5R1pvRytrSEVvU1M4?=
- =?utf-8?B?SmMvaUNYbXhQY3kwZVUyMlBCbWQzdktUVUhJdDV6WExjY2J0Z20vMTlIOHp4?=
- =?utf-8?B?SzlDMXhEemtBNEludllHTlExbktYUkJUTVJ0NjIvcWFWazBuSXYyRVZkUTkx?=
- =?utf-8?B?RDV1dWFBd2VhTE4ySldvTTlZUVA3Nm4venFSTldZRnVVUkx5UTU0Y3VJOVU0?=
- =?utf-8?B?WlRLUGNTdG1pRFp6Y2hPVTZmOGx2aEFVMkJTQUNicVE4cS9CUERYR1VnNlZR?=
- =?utf-8?B?SjlZZmR1UTA2R0lJZTNEMmkvZ1dnTjM5a2s1NTZCZWpiRjRrczdlakNpMzVM?=
- =?utf-8?B?aXVmaDlaWndxLzhoS3hrNWNoQzl5K282dmpwQWo1S2Z2SloxZFFwSkZqTDlS?=
- =?utf-8?B?WlpVWGdMSldXNk1NSnpLWEVURy8zRFRqSWV0YkFndW4yc3Z3S1EvUkNFUTR0?=
- =?utf-8?B?UzR5MkhlQWdYajFBY1QrS09zVDZJd0psNjg5YUdmYW9acGJ5SEliMU04aUIr?=
- =?utf-8?B?SGFtaFZpWERvVk1KSWdmbkdQQTNTZkRSWm4zeTQ1RW50OUo1aU5PVXdHbkdu?=
- =?utf-8?B?VTlzQmhWNzNhOTZlVGdNQTRqaCt5WEoxbjFBYitpczVpRldOcVUvVklpc2Ey?=
- =?utf-8?B?Q09UN3Q0UVUrdEZrS2s5UFg3RTFwZTJNeHVyeVkwa2tXNTluNGVVd1kxRUZL?=
- =?utf-8?B?cHZRdjNCSWJ1MmVZUTJJbmhsNnNmZUZ3QkFuVlNWejR5blhoRmcxY1hoQXFo?=
- =?utf-8?B?c1BHSUptZHZqN1VvbHBWeU9uSmJiU1VPOTd2WllWbVhGeXF1UlFJYmkycVlG?=
- =?utf-8?B?QWdsOFBlQTYyaVNsbGRlclJ4MDA0WlVtTS9KRXZkUDE2R1JxeXBvOG1FdHl0?=
- =?utf-8?B?Z056Y1labHUwMjE5dG55UlhQWElpVkcxMHJseDdYclhFaytyRUpVQWZ0L0tn?=
- =?utf-8?B?YktPODdud0Y1YStQMXRHcFRYcVZEZFIvWVQ0YzdPMm9adWljZE1VUUtyOGxx?=
- =?utf-8?B?REFjMEdwaDNTbURBKzFQS0FnOE5vbTIrY29zWXUwMndZVUxZQ09ZcC95WURu?=
- =?utf-8?B?WVVHeUNzUGNlbHRBaWdJRFN2bHJ5SmhrTFNwTkd4cXFoMXNXQ1lqL29PcHMz?=
- =?utf-8?B?VmJXdTYwaWc0RVhtSTRub1o3dU9iemVnQmlwMkw4eWNrUmtRSmxJTGRqQjJX?=
- =?utf-8?B?UGR1RTJ4L29CZU1ZZlRZQkhCQ1MzdVRJN2pIVDBIdndnWmdnWTlHV0w2a28v?=
- =?utf-8?B?Q3A2eVBoUm45V1NDSUlwQTFmend0SEV1RTlDc2MrckhTSVhsQm1kTkhLQVdQ?=
- =?utf-8?B?QnhsWk9KZXFuaWhhOS93VnBmNGs0OTFSdHNQQU5jSUJGaWFPQkQwalVWUkpY?=
- =?utf-8?B?MlVnclo0TkNYbGVRL1V4WFBxS2d5K1pqLzljb1BTMmltOU5uOGdVU0FDU3lV?=
- =?utf-8?B?ZDRZNVRURmIrVzAySnB6aWhLK2hBbnJwTjZWQjB1ZG1rSHJPWGQzeXcyS2l6?=
- =?utf-8?B?ZHFiVkJRR2tJdUc2UVAvM0VVOVZyT2grcVdiRHBWMnc3NmxjRFlHdDkrM2da?=
- =?utf-8?Q?uTH6znDImjFdzXRMc1wQoh7sO5hCHyiyWeHSvYYY73wbl?=
-X-MS-Exchange-AntiSpam-MessageData-1: YqM9FKmQzIVwZQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8ef38e1-2072-4fa9-479b-08def0580ca9
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Aug 2026 05:36:49.5673 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Y0NQVoFT3ga6WhiaEUnOprrDzGoiFQ+yF+hBRLkNaLCsfKE3I2d8Rwebe+sMftruVIMakoGglE6EGrJ9iZ8bgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9612
+References: <20260623-exynos-drm-simple-v2-0-a8d59678b7d2@gmail.com>
+ <CAAQKjZN12OSBg+ch+xf+-uO6_Sbrtq-o8AkLdLA3mFQ_ubiLxA@mail.gmail.com>
+ <CAJpoHp48cXPLrwvANAt_-D-jE=DcSyodAL=p36kQw3cGtQW_fw@mail.gmail.com>
+In-Reply-To: <CAJpoHp48cXPLrwvANAt_-D-jE=DcSyodAL=p36kQw3cGtQW_fw@mail.gmail.com>
+From: Inki Dae <daeinki@gmail.com>
+Date: Sun, 2 Aug 2026 14:47:05 +0900
+X-Gm-Features: AUfX_mymp3gbWIvEFlOpn_puCcmLWjZUNex9N8Qxwa40WVIlIo2zevDdW66QGDA
+Message-ID: <CAAQKjZM5cY8V_YaZzgF734Brabz=zwRkp2k-+b9CbqS2_Xvi2A@mail.gmail.com>
+Subject: Re: [PATCH v2 0/2] drm/exynos: DRM encoder improvements for Exynos
+ devices
+To: Diogo Silva <diogompaissilva@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>, 
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,32 +114,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Jul 6, 2026 at 11:37 PM JST, Daniel Almeida wrote:
-> Convert all imports to use the new import style. This will make it easier
-> to land new changes in the future.
+Hi Diogo,
+
+Thanks for the patch. The conversion itself looks correct.
+
+Two small things to fix:
+
+1. exynos_hdmi.c: double blank line
+
+> +static const struct drm_encoder_funcs exynos_hdmi_encoder_funcs =3D {
+> +   .destroy =3D drm_encoder_cleanup,
+> +};
+> +
+> +
+>  static const struct drm_encoder_helper_funcs exynos_hdmi_encoder_helper_=
+funcs =3D {
+
+Please drop one of the blank lines. The other four files are fine,
+only exynos_hdmi.c has this.
+
+2. exynos_drm_dsi.c: header include order
+
+> --- a/drivers/gpu/drm/exynos/exynos_drm_dsi.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_dsi.c
+> @@ -13,7 +13,7 @@
+>  #include <drm/bridge/samsung-dsim.h>
+>  #include <drm/drm_probe_helper.h>
+> -#include <drm/drm_simple_kms_helper.h>
+> +#include <drm/drm_encoder.h>
+
+Here the new include was put in place of the removed one, which breaks
+the alphabetical ordering. In the other four files you added
+<drm/drm_encoder.h> at the correct sorted position, so please do the
+same here:
+
+ #include <drm/bridge/samsung-dsim.h>
+ #include <drm/drm_encoder.h>
+ #include <drm/drm_probe_helper.h>
+
+Both are trivial, so no need to resend - I will fix them up myself
+while applying the patch.
+
+Thanks,
+Inki Dae
+
+2026=EB=85=84 7=EC=9B=94 5=EC=9D=BC (=EC=9D=BC) =EC=98=A4=ED=9B=84 4:54, Di=
+ogo Silva <diogompaissilva@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
 >
-> No change of functionality implied.
+> Hi Inki,
 >
-> Link: https://docs.kernel.org/rust/coding-guidelines.html#imports
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-
-Would ideally be the first patch of the series to avoid churn. One small
-comment below.
-
-<...>
-> @@ -193,9 +203,15 @@ impl<State: ClkState> From<Error<State>> for kernel:=
-:error::Error {
->          /// original [`Clk`], e.g.:
->          ///
->          /// ```
-> -        /// use kernel::clk::{Clk, Enabled, Unprepared};
-> -        /// use kernel::device::{Bound, Device};
-> -        /// use kernel::error::Result;
-> +        /// use kernel::clk::{
-> +        ///     Clk,
-> +        ///     Enabled,
-> +        ///     Unprepared, //
-
-Doctests aren't reformatted by `rustfmt` and don't need the trailing `//`.
+> > It looks like you may have forgotten to post the v2 patch. Could you
+> > please check?
+>
+> I think they are here:
+> https://lore.kernel.org/all/20260623-exynos-drm-simple-v2-1-a8d59678b7d2@=
+gmail.com/
+> https://lore.kernel.org/all/20260623-exynos-drm-simple-v2-2-a8d59678b7d2@=
+gmail.com/
+>
+> If I did something wrong tell me and I will re-send them.
+>
+> Thanks,
+> Diogo
