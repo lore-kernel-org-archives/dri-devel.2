@@ -4,99 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27072C55175
-	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 22:41:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 542C2C55162
+	for <dri-devel@archiver.kernel.org>; Sun,  2 Aug 2026 22:41:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8371710E474;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D00B410E475;
 	Sun,  2 Aug 2026 22:41:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P+V2y7OH";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.srl header.i=@kernel.srl header.b="ViMEmTBl";
 	dkim-atps=neutral
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
- [209.85.208.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1467B10E217
- for <dri-devel@lists.freedesktop.org>; Sat,  1 Aug 2026 22:02:12 +0000 (UTC)
-Received: by mail-ed1-f52.google.com with SMTP id
- 4fb4d7f45d1cf-69c5fda04a8so3950177a12.1
- for <dri-devel@lists.freedesktop.org>; Sat, 01 Aug 2026 15:02:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785621730; cv=none;
- d=google.com; s=arc-20260327;
- b=I1Wf+PnifP5+3V+8wc42BoxK+oUni6GwBTkca82t8HQGnQ2GAQYQKMJImQQyWLdBjR
- g0BLkrNFYy6Fw9rBxJrcgHbT2M26LX4SnyDdtP5xqEzZ97CT6/bgEqgRLt2txN9tvAqU
- 4LzaN3BdKSpG7lkwuVx3/fMBUKmkokbqj4Y+ZcEs3CfnohB4L3g4sKqVGu5Bfw+TMNqa
- aCj4NEclfFYfffn/85NebNNo7Fowiov2P89rQ2Sl54jriqW+4Zn9naGG31VipiH8qfTF
- OtReDuxrAjNSZN48GlIJM8FpfBVMeJu3M4Z/iN0BlW8osGvb5X50bkGjCAbT1JmHzQz3
- W5Pw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=mRPnZZvS2qFMF4MYzT26qlGn6HblvmPRKe4fqm9r0Zk=;
- fh=hmYgGozDdHIQMwFVBAkfXNmg/yqEySt9mmcz5wLMQOE=;
- b=gkCag6Gg6F/ukFbSfxjdG7vpsVaBxo7jCJzNBN+0Y4TrA+58DNoGRiOYpo9NOQT9FR
- reP8TiVwhE9Qx0nkLvk3Ct+Z6yiKMN4raMNc3Ls+RgG/VUtX5x6cksdfGbcesKtuiW4S
- wCUYmjPCeVtKW9JtThUWNgQchXP0nBqpQFOD8VcVCIdNXv4h2V9V5Wcl/QWY3rzLbwjy
- HaVLRJlHhBAFPwrIP5+PH2zwOqfkTWRFkqrlrwfIFsEn58P6IpC7ZojrBrBLioFMBaPf
- 3WSQD819HI6ss5i2ZAeXGDreX68vtkobOXzQgP8HZMjoJApOLdGPQM1Apm6A1F8WWi1d
- D0jA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BABD10E435
+ for <dri-devel@lists.freedesktop.org>; Sun,  2 Aug 2026 17:06:59 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-496b7622a83so8052135e9.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 10:06:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785621730; x=1786226530; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=mRPnZZvS2qFMF4MYzT26qlGn6HblvmPRKe4fqm9r0Zk=;
- b=P+V2y7OH2iSXa7iqa67yB5Es9CfKoGLOHiEANMfGiSxyvFrPmebH7nsKRnhTbn+HTw
- 6gM2xdIHKcsUly6hZ7bdMJ9piSXn5oeNMv+MxZfYwjf/6bkGHDOkCxvQx6/ygfsI9YXR
- VhL8A6F+5DLn2d2CX7XNSCj7QbGo84YdH/c3xZnOFIxHECAVLV8gv2MxqVnulSwWc/Oe
- C8r1ice1zFA4v1DLZc9a2Cg2gHn4weJ0h22Buhjwv8ivbuExBd+pfKmdT0bg6gMc+/Qp
- E/nDw6C/x/EdJusyOMvOVgB6JDikpwcvRsC+Thm0F0fIi4y2/Ef/xQKw+EzjpK0o6Du8
- +3Rg==
+ d=kernel.srl; s=google; t=1785690418; x=1786295218; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=/VNyRxg25eQX1o5yblY5pzpZRITiV9Czj9RlgyEyn0w=;
+ b=ViMEmTBl5iBNTy/NLY6vN3RTrODU1eM54zj7shf4yIqvNdGV7E+9HTtQSyE+Hs+YPO
+ uRtoll1jrVpdVAw9uQfi1EU+I49HOeQxK85a8pyU14Ce4cXOIM0TMV7AnkuD+7t88y9l
+ tvbUIWVGbHMTfSSM7JYuIoMH43/Bi+q1x8MeNvbhkb4ilDbFCiV81gxDRwXdYU2MyHL7
+ GjgEm9zaKUrEdRYeWQio1VPeppG4ghsmsgShzU0aI08Q/kOb9/b67vubnSWDbjOgreyA
+ 4p5zbi6DtByMVmsJfR2ZSK2tKkKUZaVF5bPAWzfEZokOGGsCippj9FhSh3LVPZNjN+7/
+ +mAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785621730; x=1786226530;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=mRPnZZvS2qFMF4MYzT26qlGn6HblvmPRKe4fqm9r0Zk=;
- b=lE/Qdr0NH4i1YtQF+xHbNtl9OTquW53YquYLNOTepaykqbpfEDhjg9M2Vz0HeAu1FK
- egHGMIezK8mmoQA5u1ZLqqgEQjiZNpZ7txPrQ6x487uuTHtiXx95166/U4ZnEUJGQNe+
- SrEMVf/tx4yXCMCxbDXezMBrXxVhBYXjVZk0ncvmyQf6Aax9l6s93jV/CMmDA1uYLMHH
- IY5omPDPxZSvb3iusS4ElN11DYwSlDIVRbEc5B2p2Pn9cbCf2avLdbl3aObQQ6ABOaXA
- ScgCYimWhVhKGVfAIgoxLxlnjjN736KhCjDnAf3ODb+OjDaFLiQfR3p7l/tPu6GaPkIx
- OGGA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RooVLoGruOg8vxWHdS8dv/w/GHas5texLeg09gV/sy2d4sbFcXkXpWOsQVarzcFMrlhbguKx3bOJkU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyrXcPEM0QXQaJxU+N5ZBXSLIlnNcOfzUQhp+D8Ay8Rl78svY/g
- NpaTER30bowaQtR3+4rf/xxLTECS/SdABd9blyGeX7YcrgqMbTwpyICTYiAy7LSJDQK9wEwLps6
- TyOe51ExRwhbLbsNomHRRM42iH186dc0=
-X-Gm-Gg: AR+sD11qxe7DYBI25l51wFahgwTWhjJJ6I6hk1zgZTjJuh+khFinsWuc6XIuvNv1ws5
- eXXD2CrdyZdazNgLCOTJ5z3rlPzSHdjc1zl7kC4CZDYkqHSy7koWzoqZyzbAy+DIpUrb0ypU9AF
- t79LvjKnudHN2jjOi93kYhKeTm07iCpzqM5m5ujNB6K0hZ1d+Qt5e5scfAst+dsM+JtliVt1oJa
- 9Ir/MvSFXP/XnUEJBPQUwxXvD8jbOeSpse76hoKuqDil9Ls0ZFMdRXU9qqZz+8xvXIISVuQ0bDk
- 1WJztUZRupzDBMWu3/T8XMIWh2BSSTMm0wpCn8Q9Q34=
-X-Received: by 2002:a05:6402:a0c5:b0:6a0:a560:f6d with SMTP id
- 4fb4d7f45d1cf-6a0a7c5ef88mr3046152a12.6.1785621730054; Sat, 01 Aug 2026
- 15:02:10 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1785690418; x=1786295218;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=/VNyRxg25eQX1o5yblY5pzpZRITiV9Czj9RlgyEyn0w=;
+ b=gzNjhs3XvcL8XEnYdRGjsPnJreq7tm3ikkICYEzHqEutfRFkiq0+btCiOKoM9wcHsM
+ UYq0QLNsiOkz7Kj0D2XUxJBUUiDREhKUpfFtV6cpqFbSLZ8mMiLfjqgw2ufE7RUYwGPA
+ KMYm8jJAqNLmWT9jTb2+FqOIYR0uKf3GrIx7VAhm8BQ0uQA2l3lZZFg9clMofiqdaVjI
+ BCWXTXjFhZSisS7l3cEWTyRtXst8Gsy9wHSvLv3RmuJEW0H+kEohAkTHNEucKlzleyJ5
+ jY3txEW6XS0V2UBuRgl8HAQuYXwtF3Y/PyHmJKBvEpXLdrV6sFGJEkAm6TsuobsJf4+u
+ m30w==
+X-Gm-Message-State: AOJu0YyqlHJxy2L//Nqm48WJ6rmnoDYR+lI7UIwnOYqK5Eosp++syNLq
+ U5hyULSBKZlGgT/J/+TOU0QeriA17fe7cJ69vCKLYR6YXsG+Isz0TPwt6TZpVccODAg=
+X-Gm-Gg: AR+sD13bVNbc8lShc7qhzxo8kmey+qOddZxPPPlkaXrLP2kQtwDQosJhN/XwB8407zm
+ lJH9HrhQ4O01aJyXplDr/fOwmTehGHQ6eOClpKaX7I3AxkTBf/c2GlsWeTLj4+YJtEISiGXW9lH
+ P84Hq+Mi7nFORSXIqXBmOAK6H2ihF688xfu448xZyqWnc16Vipt81B0K9MQIIgBVOYPRqY1vzjT
+ ZlFWcnT2jZpRQl6heh3xPuzEElpv49fT3zjCH6vW8ujRpK2WH09o32Zzw1mCCDqs0DgKn96CwbL
+ a2n2eeJ/67Ezxat9YTXs1+13FFnETDew3bOPqRm0WAilfVziuLWu0ip+Ns8ZzF4b7qnUJ6erAOQ
+ jYnPck0WdGSQUDV3Kksffekf4BgcY2Rscob8nKD04h3RV6BKYnkDzmAb0+tSiUmcZDX//lxwHLK
+ ryBls5fuaHtJ4FwHd1vB8tnQjPfZ05tuaBS91/UyFuJYg/Sbr7GEhOGI0x0qUFA0k7goKQ8i0sE
+ MUJT+ssNHlynGZrP6KdYcuT1WUAelfuuCkQPnyIHLSfUQdxu8+xZSgeBA6eOrpXnRtXeiijqsYu
+ ioh9wI8CWPpJHpz0ts6xCzBfvTmBoyCfIr6XPyyOzOuVlBVC65+RFhtxeFoUzmLsHdHetyeOJPQ
+ 8/88TmhJu/rkl/AmmP0g6w+DVOBT43zvkYE1JX2UG+yE5k4E4Pg==
+X-Received: by 2002:a05:600c:4fc5:b0:494:6baa:ccef with SMTP id
+ 5b1f17b1804b1-4980f23257cmr144313965e9.11.1785690417802; 
+ Sun, 02 Aug 2026 10:06:57 -0700 (PDT)
+Received: from KITT.minareto (host-95-230-187-130.business.telecomitalia.it.
+ [95.230.187.130]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49807b6745csm161687225e9.7.2026.08.02.10.06.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 02 Aug 2026 10:06:56 -0700 (PDT)
+From: Cristian La Spina <cristian.laspina@kernel.srl>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, jani.nikula@linux.intel.com,
+ rodrigo.vivi@intel.com, joonas.lahtinen@linux.intel.com,
+ tursulin@ursulin.net
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Cristian La Spina <cristian.laspina@kernel.srl>
+Subject: [PATCH 1/2] drm/edid: read the luminance range from DisplayID 2.0
+Date: Sun,  2 Aug 2026 19:06:46 +0200
+Message-ID: <20260802170647.206880-2-cristian.laspina@kernel.srl>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260802170647.206880-1-cristian.laspina@kernel.srl>
+References: <20260802170647.206880-1-cristian.laspina@kernel.srl>
 MIME-Version: 1.0
-References: <20260731215043.30392-1-maximpedraza@gmail.com>
- <am2mvECnCcO9IxuI@monoceros> <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
-In-Reply-To: <0219df57-06e3-4776-afb1-d167cad2e795@gmx.de>
-From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
-Date: Sun, 2 Aug 2026 00:01:58 +0200
-X-Gm-Features: AUfX_mwycUF1fY8pRphTmL8dbgwqxDow6kFrZA_PElLtzrxC-GpVrweyge4UTDw
-Message-ID: <CAEUXW=GUY+x1A72n99i1Cpgy03jTYv3FPAX5nY3DCHqmeq9YVg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-To: Helge Deller <deller@gmx.de>
-Cc: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
- linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, kernel@pengutronix.de
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 02 Aug 2026 22:41:01 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -113,82 +95,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Uwe Kleine-K=C3=B6nig wrote:
-> My 0.02=E2=82=AC: Usually you want to use the display using drm and not f=
-b once
-> the machine is fully booted. If you're using fb during boot to display a
-> logo, it's hardly possible to switch to drm later in the boot process
-> without flicker.
->
-> So my recommendation for your usecase is to not use the kernel boot logo
-> stuff, but something like https://github.com/pengutronix/platsch.
+Panels carrying CTA HDR static metadata get their luminance range
+computed into display_info.luminance_range by
+drm_calculate_luminance_range(). Panels publishing the same information
+through the DisplayID 2.0 Display Parameters Data Block get nothing:
+drm_displayid_parse_display_params() already reads that block, but only
+for the device technology.
 
-Thanks for the pointer, I did not know platsch and it looks like a good
-fit for the problem it solves. It does not solve mine, though, and I
-think the reason is worth spelling out, because it is not about how the
-image gets drawn but about when.
+Such panels exist. The OLED panel in the Lenovo Yoga 9 2-in-1 14IPH11
+(EDO EE00QBA63.E) carries two DisplayID 2.0 extension blocks and no CTA
+extension at all, and declares:
 
-These are industrial units, and the requirement is time to first pixel
-after power is applied. If the panel stays dark for more than a moment
-the unit reads as dead, and that is a support call. Anything running in
-userspace is by construction later than the kernel: it needs the kernel
-booted, the rootfs mounted and init far enough along to exec it. I can
-measure the exact difference on our hardware if that is useful for the
-discussion.
+  Native Maximum Luminance (Full Coverage): 500.000 cd/m^2
+  Native Minimum Luminance:                   4.000 cd/m^2
 
-We do already paint a BMP from U-Boot, which is as early as we can
-possibly be. The problem is the gap that follows: once the display
-driver probes, the panel is cleared, and nothing puts anything back
-until userspace is running. Moving the logo further out into userspace
-widens that gap rather than closing it. The kernel boot logo is what
-fills it, and that is the whole reason this series exists.
+Fill in the luminance range from those fields when the EDID has not
+already provided one, so drivers doing nits based backlight control have
+a real range to work with instead of a hardcoded guess. CTA HDR static
+metadata is parsed first and keeps precedence, so panels providing both
+go on behaving exactly as before.
 
-For completeness, since it is the usual answer to the U-Boot handover
-problem: a simple-framebuffer node plus simpledrm does keep the
-bootloader image on screen. It moves the gap rather than removing it,
-though, because the real driver still has to take over at some point,
-and it makes the logo a property of the bootloader instead of the board
-description. The two are complementary rather than alternatives:
-simpledrm covers up to the driver handover, the boot logo covers from
-there.
+DisplayID 2.0 encodes luminance as IEEE 754 binary16, an encoding the
+core has not needed until now; add a small decoder for it.
 
-> If you're using fb during boot to display a logo, it's hardly possible
-> to switch to drm later in the boot process without flicker.
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Cristian La Spina <cristian.laspina@kernel.srl>
+---
+ drivers/gpu/drm/drm_edid.c  | 47 +++++++++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h |  3 ++-
+ 2 files changed, 49 insertions(+), 1 deletion(-)
 
-You are right in the general case, but I should be precise about what
-happens here, because there is no fbdev to DRM switch on this hardware.
-The display driver is tilcdc, which is a DRM driver; the logo ends up in
-the fbdev emulation that drm_fb_helper provides, so DRM is scanning out
-from the first pixel. Userspace then takes DRM over directly. The
-transition that remains is the same one any solution has when the
-application starts.
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index 07970e5b5..f4845d799 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6733,6 +6733,31 @@ static void drm_displayid_process_base_section_header(struct drm_connector *conn
+ 		info->non_desktop = true;
+ }
+ 
++/*
++ * Convert an IEEE 754 binary16 value, the encoding DisplayID 2.0 uses for
++ * luminance, to nits rounded to nearest. Negative, zero, subnormal, infinite
++ * and NaN all report 0, meaning "no usable value".
++ */
++static u32 displayid_binary16_to_nits(u16 val)
++{
++	int exp = (val >> 10) & 0x1f;
++	u32 mant = (val & 0x3ff) | 0x400;
++	int shift;
++
++	if (val & 0x8000 || exp == 0 || exp == 0x1f)
++		return 0;
++
++	shift = exp - 25;
++	if (shift >= 0)
++		return shift > 15 ? 0 : mant << shift;
++
++	shift = -shift;
++	if (shift > 11)
++		return 0;
++
++	return (mant + (1 << (shift - 1))) >> shift;
++}
++
+ static void
+ drm_displayid_parse_display_params(struct drm_connector *connector,
+ 				   const struct displayid_block *block)
+@@ -6740,6 +6765,7 @@ drm_displayid_parse_display_params(struct drm_connector *connector,
+ 	struct drm_display_info *info = &connector->display_info;
+ 	const struct displayid_display_params_block *params =
+ 		(const struct displayid_display_params_block *)block;
++	u32 max_luminance, min_luminance;
+ 	u8 tech;
+ 
+ 	if (block->num_bytes < sizeof(*params) - sizeof(params->base)) {
+@@ -6770,6 +6796,27 @@ drm_displayid_parse_display_params(struct drm_connector *connector,
+ 	default:
+ 		break;
+ 	}
++
++	/*
++	 * CTA HDR static metadata is parsed before this and takes precedence,
++	 * so panels providing both keep the range they already have.
++	 */
++	if (info->luminance_range.max_luminance)
++		return;
++
++	max_luminance = displayid_binary16_to_nits(le16_to_cpu(params->max_luminance_full));
++	min_luminance = displayid_binary16_to_nits(le16_to_cpu(params->min_luminance));
++
++	if (!max_luminance || min_luminance >= max_luminance)
++		return;
++
++	info->luminance_range.max_luminance = max_luminance;
++	info->luminance_range.min_luminance = min_luminance;
++
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] DisplayID luminance range %u-%u nits\n",
++		    connector->base.id, connector->name,
++		    min_luminance, max_luminance);
+ }
+ 
+ static void update_displayid_info(struct drm_connector *connector,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index a0cf0268d..15176ae63 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -425,7 +425,8 @@ struct drm_monitor_range_info {
+  * &drm_display_info. Calculated using data in EDID
+  *
+  * This struct is used to store a luminance range supported by panel
+- * as calculated using data from EDID's static hdr metadata.
++ * as calculated using data from EDID's static hdr metadata, or as read
++ * from the DisplayID 2.0 Display Parameters Data Block.
+  *
+  * @min_luminance: This is the min supported luminance value
+  *
+-- 
+2.52.0
 
-> Max, is this a viable option for your usecase?
-
-Not for the reason above, no. Let me also be explicit about something
-the cover letter only mentions in passing, because it is directly
-relevant to Uwe's point and I would rather raise it myself.
-
-This series does not draw anything anywhere new. It only teaches the
-existing fbdev logo code where the image may come from: a device tree
-node instead of a built-in PPM. With CONFIG_FRAMEBUFFER_CONSOLE the
-drawing is still done by fbcon, exactly as it is today.
-
-The piece that matters for a product with no text console is a separate
-two patch series I have deliberately not posted yet. It exports a
-fb_draw_logo() helper from fbdev and calls it from drm_fb_helper when
-fbcon is not built in. I am aware that is pushing against the direction
-fbdev dependencies are being removed from DRM, which is precisely why I
-kept it out of this series: I did not want that discussion to decide the
-fate of the binding.
-
-So the honest summary of where I stand: if the device tree part is
-acceptable I will post the drawing part separately to dri-devel and let
-it be judged on its own merits. If the conclusion there is that DRM
-should grow its own way to put an image on screen before userspace
-exists, rather than reaching into fbdev, I would rather help build that
-than carry a hook downstream forever. What I cannot do is wait for
-userspace.
-
-Thanks both for looking at this,
-Max
