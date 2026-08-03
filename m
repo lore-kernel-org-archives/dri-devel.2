@@ -4,63 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C41C9C5518F
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 13:52:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 505BCC55179
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 13:53:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08B1A10E5E5;
-	Mon,  3 Aug 2026 13:52:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9556D10E040;
+	Mon,  3 Aug 2026 13:53:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="ZbG5CFDK";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="SNzVJbhv";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF99610E5E5
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 13:52:57 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2ceb096e675so39826195ad.0
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 06:52:57 -0700 (PDT)
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1576010E040
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 13:53:29 +0000 (UTC)
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-84eb992a881so2715516b3a.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 06:53:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1785765177; x=1786369977;
+ d=chromium.org; s=google; t=1785765208; x=1786370008;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=KP2LOm/b1vDApC79L7HU3Q+z5sMfbtyywYlbaxYaS3U=;
- b=ZbG5CFDK0mJquv09ZtgJTCyE0kx3pl5sm08M79797O6jm1AH8pdEsJknfrv5zTl/Fd
- VqvBHNLMcdcHrZ2J2P+l/BkwK1XIyUNDLGsPUYSzCKBs0VRwhcXyW1UdAGFPB0fu2d7X
- /9cgbQErmstUApe+H+01OkjgSZSfFTSuBxrTg=
+ bh=5Gx76VJyX4gBn4VLPhypngQoj/jr3IBftVHMJXbc1Po=;
+ b=SNzVJbhv6hFbuljb9o4pU8RjC/E8qzRi4BmnVvPAvF+Sy8dwUMi1MfFeNd52vzPpya
+ hwcRW+dQgoFfo4SejgEKAqI5lP/tMaKs+hf49L+MvkW5oGG+2fpYF/ijp/32hF/pUxWa
+ Ebk5EsaYu63hDYylTXA6GUZmOM+UvgQJX4CZQ=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785765177; x=1786369977;
+ d=1e100.net; s=20251104; t=1785765208; x=1786370008;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=KP2LOm/b1vDApC79L7HU3Q+z5sMfbtyywYlbaxYaS3U=;
- b=os6l/D5Ked1hJwOvWJZ1fw2aNdemdDGp0GsD8Ly3Aya9RjbS+WGsFCxMUmpV6ukVQq
- uI7LQHtVHEujy8ie92QZ/V71dyIe3R+Pz7RZr69Y2tQkk1AlJkIFLAnzGgoBNI7avoXw
- JxH0+qlzW273tcUks5PI2OUcuRcSbOFY6e0TroGVvfKBjMR6TTXxfUII4Ja79mlOJu3i
- l25qvkVWI4cZqR42QgA6JgFrXsldjMydZxtjZQ4hRPuOIpW3MCsKLLQwUckl4cCV9nC7
- kYG+lSW8ZRNVmAOVrZR11SeBqGvJ0/DaFqXOaAbxwLJNbFMQ+yZcynkqxDOvBMnq7rcK
- B8ww==
+ bh=5Gx76VJyX4gBn4VLPhypngQoj/jr3IBftVHMJXbc1Po=;
+ b=qvA6NZ1xXgUIikKTDSxh8iycRbt4KVMVJLNzFt0swoktQccOb/p3uvqu++o/z85fOU
+ CvvThdxOTaXmVpHgGD9GSzQ8xq3mh79scV5x2a2Iwx7Rpeq39Qn/e3L5tN8h39OftfBv
+ sRrJIdp7H9oq6/rR6K352H+wnmQyy0VdEc7ASBVIJbRm1g0+lj34y2mgdWxcjfD/GnyF
+ hKnA4abZ2tFAjFiQIfITe6xIrKU/dqJbhVIod59YA5yGWu3xxhsc9vKBXrLWfN2pvXQv
+ 0xOVVd9aT8kEAHnR7TdQdSNRixo3qOVBBx4iZH1wbY7yKMx3wxUlRYoQuLJT05Lqzeyl
+ NnZg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpsQRjauw8/TiW5FuGssWZUvp28LwmOSGQTg5ZA3xtBNj8MlicXYzPkfPxeR7o2GCmV/YMAVBrDKo8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywzl2BKmjbkdA9pk/3cOKzRNxAuG4SC0ZXhHs1NaxKZrdeU32Ck
- 7A4W8ieAH7TVNvtZfPqB0lawQv7u5zk31YO1CtNilik9dNAJXHXjY/MV01pEssbrfg==
-X-Gm-Gg: AR+sD12MRpJRMotVrTpZpzc/WqVhagXj8RY/bKnV6CE5STWIShZYbve70ReT2jSuktS
- FusOWIciiZ9A44aSNHUTjIK2DrFvHndqhgJGCvYxSmHgdHko2vnUvPrjjr2h1/oPxTL7zfHbga4
- UlZd1ITWg9LeJ7B+I30Xkg1B/Llrl1g2aF9Le2kvYdEOUhXktdgiVej4HsLdP6LRPL5l3Vk8Lsv
- ISqpkuZJZ2FD6IWRPYsczbyW3Qx6VgSHRNQaCsOrEGOhOtAzP7CylCxXxKZY3dF2EiizDIgc+jY
- nYHeIxATTQ0b3TcztLIJo9/CPD/Nf52lwSe2NrBmV8PaLrv8LypuV3Pxrrapez5FaZqe218yNjQ
- 5qhNJDRA7ZoFYvA0VHzLlmOYXK6azcrNR3ZwyNbLDM3hwVCMg2eoWi/+zzSaXhd+VklUMOJ6PkA
- vnLlmm02PTIwRK73iAubyk8JY8MoHof5OejTgtxh3SNBfOiRxV5AdGUWS+TEVwM6QhjxHt2wm7l
- kUBm4EeZiZIthLdHpwMuTV9bIJq/CxhFgMXEYI6nQy5D2gaxKmHhoPL
-X-Received: by 2002:a17:902:ce0b:b0:2cc:f4d4:299f with SMTP id
- d9443c01a7336-2d05229b34fmr106179645ad.27.1785765177126; 
- Mon, 03 Aug 2026 06:52:57 -0700 (PDT)
+ AHgh+RqHM+0SeJKBDTIPrJGB2ReFpqFTfmJFtkKWq/92KKr2UY3c/ArawO8MWshkqxzcE+g9M4c7+J/8ETk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+PL7GwWgDGEGVFO8EaKDrFfE/7Z6LDkMR1s102m8sYaWHYtqv
+ X9XXX+toXqcDvzH709n4XxSYobqWtZvIQTSiqV8xoVgje/WK0OCTu2lacjo7C00f6g==
+X-Gm-Gg: AR+sD109YIQ9TyHeO0V+PUu6MMCS3QfbIleuZzKSGgVh/jIpk/4bqCT2KYrTdmCo1tr
+ JTiTtRcnADx+SGrLzE25b79c+yirE8AQu2fpNg3olrBCEfMa610Qb+5Owe4XYTHmzBc+KS+Q7rb
+ uVPE57MQKmC+hzHXiyVqdTkD9ZX3Zr2FUH7L9pj8uez9+TE396t3qcJAYuZmTOjSMIgAoulJobC
+ y0BPOKytuYsiHx0iJqyOcoFYjdTp1Fc7miZEsXDrpeZpDY4DZbdmSHKes7AFLJ177VnlZai5pjp
+ FqA2QyZW20omI39OhgPl7fqiIwzhXwWCSHDD/B4S9XiqT04IrEUMXFPyH+0e4BO4pXtuY1A12Sv
+ 6CyxX0LYWwiDYP5Op0+sdehYONsqH3Ec1ihBZ1w4O5s297g5YvI37DHq4kgFy79Tp7aCvJuri5U
+ XodJsLej0loqt7ChIsvSmHebMBk1ojdmxSGi5nxd6kajr/afkEadG0luRbaifxqAWbkw0/nSacu
+ 7B+yGGBKJK0tiq45QwpvInrXNIq2eBYYnt+4bwsIvASXg==
+X-Received: by 2002:a05:6a00:399b:b0:848:4ff5:5316 with SMTP id
+ d2e1a72fcca58-84ee480a3c8mr9142674b3a.19.1785765208605; 
+ Mon, 03 Aug 2026 06:53:28 -0700 (PDT)
 Received: from wenstp920.tpe.corp.google.com
  ([2a00:79e0:201d:8:1c0b:57ba:92e2:e178])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d04b12066fsm38791965ad.60.2026.08.03.06.52.53
+ d2e1a72fcca58-84edbe7a243sm3757511b3a.24.2026.08.03.06.53.25
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 06:52:56 -0700 (PDT)
+ Mon, 03 Aug 2026 06:53:28 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
  Kyungmin Park <kyungmin.park@samsung.com>,
@@ -70,9 +70,10 @@ Cc: Chen-Yu Tsai <wenst@chromium.org>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/exynos: Set supported modifiers during plane init
-Date: Mon,  3 Aug 2026 21:52:47 +0800
-Message-ID: <20260803135249.2898083-1-wenst@chromium.org>
+Subject: [PATCH] drm/exynos/gem: Drop extra "0x" prefix in front of "%pad"
+ format
+Date: Mon,  3 Aug 2026 21:53:21 +0800
+Message-ID: <20260803135322.2898247-1-wenst@chromium.org>
 X-Mailer: git-send-email 2.55.0.571.g244d577d93-goog
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -91,132 +92,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The exynos driver currently checks the modifier in a helper called by
-the plane atomic check helper callback. This check only concerns whether
-the selected plane supports the tiled format or not. This is tied to
-the plane's hardware capability.
+The recent size_t format string fix for exynos DRM driver left the "0x"
+prefix in front of "%pad" format around. Since the pointer format output
+already provides "0x" prefix, this ends up adding an extra prefix.
 
-Turns out the tiled support was added around the same time modifiers
-were being plumbed through DRM planes. The latter provided a way to
-describe per-plane modifier support.
+Drop the redundant "0x" prefix".
 
-Add a field to the hardware plane capability struct to allow adding
-an optional list of supported modifiers. This is passed to
-drm_universal_plane_init(). This also allows the core to generate
-and pass to userspace a list of supported modifiers for each plane.
-
-EXYNOS_DRM_PLANE_CAP_TILE and the existing helper are removed, as the
-check is now down by the DRM atomic check.
-
+Fixes: 3470274dca48 ("drm/exynos: fix size_t format string")
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
- drivers/gpu/drm/exynos/exynos_drm_drv.h   |  2 +-
- drivers/gpu/drm/exynos/exynos_drm_plane.c | 30 +----------------------
- drivers/gpu/drm/exynos/exynos_mixer.c     |  8 +++++-
- 3 files changed, 9 insertions(+), 31 deletions(-)
+ drivers/gpu/drm/exynos/exynos_drm_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_drv.h b/drivers/gpu/drm/exynos/exynos_drm_drv.h
-index b126cd129944..ab0edb826261 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_drv.h
-+++ b/drivers/gpu/drm/exynos/exynos_drm_drv.h
-@@ -92,7 +92,6 @@ struct exynos_drm_plane {
- #define EXYNOS_DRM_PLANE_CAP_DOUBLE	(1 << 0)
- #define EXYNOS_DRM_PLANE_CAP_SCALE	(1 << 1)
- #define EXYNOS_DRM_PLANE_CAP_ZPOS	(1 << 2)
--#define EXYNOS_DRM_PLANE_CAP_TILE	(1 << 3)
- #define EXYNOS_DRM_PLANE_CAP_PIX_BLEND	(1 << 4)
- #define EXYNOS_DRM_PLANE_CAP_WIN_BLEND	(1 << 5)
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+index 0208c9259572..acb8def747de 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+@@ -80,7 +80,7 @@ static void exynos_drm_free_buf(struct exynos_drm_gem *exynos_gem)
+ 		return;
+ 	}
  
-@@ -112,6 +111,7 @@ struct exynos_drm_plane_config {
- 	const uint32_t *pixel_formats;
- 	unsigned int num_pixel_formats;
- 	unsigned int capabilities;
-+	const uint64_t *modifiers;
- };
+-	DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%pad), size(0x%zx)\n",
++	DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(%pad), size(0x%zx)\n",
+ 			  &exynos_gem->dma_addr, exynos_gem->base.size);
  
- /*
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_plane.c b/drivers/gpu/drm/exynos/exynos_drm_plane.c
-index 5c04ef87e400..31f5f0941154 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_plane.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_plane.c
-@@ -174,30 +174,6 @@ static struct drm_plane_funcs exynos_plane_funcs = {
- 	.atomic_destroy_state = exynos_drm_plane_destroy_state,
- };
- 
--static int
--exynos_drm_plane_check_format(const struct exynos_drm_plane_config *config,
--			      struct exynos_drm_plane_state *state)
--{
--	struct drm_framebuffer *fb = state->base.fb;
--	struct drm_device *dev = fb->dev;
--
--	switch (fb->modifier) {
--	case DRM_FORMAT_MOD_SAMSUNG_64_32_TILE:
--		if (!(config->capabilities & EXYNOS_DRM_PLANE_CAP_TILE))
--			return -ENOTSUPP;
--		break;
--
--	case DRM_FORMAT_MOD_LINEAR:
--		break;
--
--	default:
--		DRM_DEV_ERROR(dev->dev, "unsupported pixel format modifier");
--		return -ENOTSUPP;
--	}
--
--	return 0;
--}
--
- static int
- exynos_drm_plane_check_size(const struct exynos_drm_plane_config *config,
- 			    struct exynos_drm_plane_state *state)
-@@ -245,10 +221,6 @@ static int exynos_plane_atomic_check(struct drm_plane *plane,
- 	/* translate state into exynos_state */
- 	exynos_plane_mode_set(exynos_state);
- 
--	ret = exynos_drm_plane_check_format(exynos_plane->config, exynos_state);
--	if (ret)
--		return ret;
--
- 	ret = exynos_drm_plane_check_size(exynos_plane->config, exynos_state);
- 	return ret;
- }
-@@ -312,7 +284,7 @@ int exynos_plane_init(struct drm_device *dev,
- 				       &exynos_plane_funcs,
- 				       config->pixel_formats,
- 				       config->num_pixel_formats,
--				       NULL, config->type, NULL);
-+				       config->modifiers, config->type, NULL);
- 	if (err) {
- 		DRM_DEV_ERROR(dev->dev, "failed to initialize plane\n");
- 		return err;
-diff --git a/drivers/gpu/drm/exynos/exynos_mixer.c b/drivers/gpu/drm/exynos/exynos_mixer.c
-index 69dea5049309..d74e605a452b 100644
---- a/drivers/gpu/drm/exynos/exynos_mixer.c
-+++ b/drivers/gpu/drm/exynos/exynos_mixer.c
-@@ -93,6 +93,12 @@ static const uint32_t vp_formats[] = {
- 	DRM_FORMAT_NV21,
- };
- 
-+static const uint64_t vp_modifiers[] = {
-+	DRM_FORMAT_MOD_LINEAR,
-+	DRM_FORMAT_MOD_SAMSUNG_64_32_TILE,
-+	DRM_FORMAT_MOD_INVALID
-+};
-+
- struct mixer_context {
- 	struct platform_device *pdev;
- 	struct device		*dev;
-@@ -148,8 +154,8 @@ static const struct exynos_drm_plane_config plane_configs[MIXER_WIN_NR] = {
- 		.num_pixel_formats = ARRAY_SIZE(vp_formats),
- 		.capabilities = EXYNOS_DRM_PLANE_CAP_SCALE |
- 				EXYNOS_DRM_PLANE_CAP_ZPOS |
--				EXYNOS_DRM_PLANE_CAP_TILE |
- 				EXYNOS_DRM_PLANE_CAP_WIN_BLEND,
-+		.modifiers = vp_modifiers,
- 	},
- };
- 
+ 	dma_free_attrs(drm_dev_dma_dev(dev), exynos_gem->base.size, exynos_gem->cookie,
 -- 
 2.55.0.571.g244d577d93-goog
 
