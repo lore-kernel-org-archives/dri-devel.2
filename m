@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4D4FC55822
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 18:27:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA9CAC55196
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 18:35:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10E1510E764;
-	Mon,  3 Aug 2026 18:27:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A9E510E098;
+	Mon,  3 Aug 2026 18:35:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D0vrXOcW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZIn7DATT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FBBA10E764
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 18:27:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB43A10E098
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 18:35:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B911B60AB4;
- Mon,  3 Aug 2026 18:27:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284A11F00A3A;
- Mon,  3 Aug 2026 18:27:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7235842B6E;
+ Mon,  3 Aug 2026 18:35:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044E41F00A3D;
+ Mon,  3 Aug 2026 18:35:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785781641;
- bh=cagmjcCnugkZqel+yCa4eKiX2O2nCPdhL7kDhUmszqc=;
+ s=k20260515; t=1785782101;
+ bh=56dAQEl/uWsg2t/erpRYymTDZhcEWsarYH0GDBKSWtA=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=D0vrXOcWiHlCUOKsutcHnX1dhfaAWF/Fa+m4BWB76M+CAQ77lEyZFua+DnsYW70+e
- j1CxW+WpbMQZ66L72VW08RW4ZRNlL50jxmdwIS2tgNwNUYRrKKR9Fp0JNy/v6Vqoql
- ekcF8wk4qWB8Jm3O7qxu/8vega4Mz91A/mJ/xedi6Rdes74vSrgC+/F38taDLISQtL
- 2jsqkrLUNw9kStheO69K22g67UMErPKoQeH9xHwkYf1RzXOtBIMbHP/JfWyZWq2sev
- 95GnxhGqi1bowVl+NflCOhNvhLX+RL9qGtVjcKFQkRxsZ+jjjGGWikJ+CIck+iqYBa
- 27sR2eBjU21aQ==
+ b=ZIn7DATTcAA5pLYQavX33/o47O7vxRkp8KXGugRlaI7emd0H8f7FaXtP5v3qdEony
+ xI2OOpc5+x/FtnksFzWWVgqt13how3VTlbN12SCLL7dYs7theiiEhWJASQlt7x6T1O
+ 3ZXPSB6dJ6O8V6+XgOv2xSuhU5N/AFV5Sa5E2tMYbGKxdx/cQ3YgpHBZw5hYcyvPW2
+ Tv7k1YzQME0kJXyFlzz5we8ZhF9AaFqdemsvPZ50O+KUdB0U1CnWW0FwiJA7rl9cua
+ 4RHW09NFYaeIjpUS6mOHqRqQNC6E0yTR6VsHYVdk0ls/ky+W3kDZgAO3LM0d7CR3fG
+ gHSgF2KeiA0jQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 02/22] drm/bridge: synopsys: dw-dp: Fix incorrect
- resource lifetimes in bind callback
+Subject: Re: [PATCH v9 09/22] drm/bridge: synopsys: dw-dp: Free output_fmts
+ when none are valid
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-2-2e6e46135312@collabora.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-9-2e6e46135312@collabora.com>
 References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
- <20260803-synopsys-dw-dp-improvements-v9-2-2e6e46135312@collabora.com>
+ <20260803-synopsys-dw-dp-improvements-v9-9-2e6e46135312@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 18:27:20 +0000
-Message-Id: <20260803182721.284A11F00A3A@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 18:35:00 +0000
+Message-Id: <20260803183501.044E41F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,137 +59,90 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing `cancel_work_sync(&dp->hpd_work)` causes a use-after-free =
-of `dp` on driver removal.
-- [High] Lockless TOCTOU check of `dp->bridge.dev` in `dw_dp_hpd_work` caus=
-es Use-After-Free or NULL pointer dereference on unbind.
-- [High] Unhandled interrupt sources in `dw_dp_irq()` can lead to an interr=
-upt storm.
-- [High] Sleeping functions are called from an atomic context path (`atomic=
-_disable`).
+- [High] The DRM core's bridge bus format negotiation protocol contains a m=
+emory leak when a driver returns an allocated format array but 0 valid form=
+ats. This problem wasn't introduced by this patch, but this patch adds a dr=
+iver-local workaround instead of fixing the core API.
 --
 
---- Patch [2]: [PATCH v9 02/22] drm/bridge: synopsys: dw-dp: Fix incorrect =
-resource lifetimes in bind callback ---
-commit 639a2b7137e1fc5209a35b30731a14a632ba6684
+--- Patch [9]: [PATCH v9 09/22] drm/bridge: synopsys: dw-dp: Free output_fm=
+ts when none are valid ---
+commit 91ba4a99e0fef78bbe1a7632011fef0a483a9e57
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in b=
-ind callback
-   =20
-Currently the Synopsys DesignWare DP controller driver's bind function
-requests lots of resources using device managed functions. These are
-free'd on driver removal instead of at unbind time. Fix this discrepancy
-by introducing a new probe helper function and moving over the whole
-bind function. This results in a fully functional DRM bridge once probe
-succeeded.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+drm/bridge: synopsys: dw-dp: Free output_fmts when none are valid
+
+This commit modifies dw_dp_bridge_atomic_get_output_bus_fmts() to free
+the allocated output_fmts array if the number of valid formats is 0,
+avoiding a memory leak.
 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
 idge/synopsys/dw-dp.c
-> index 112a499113095..06997208945ed 100644
+> index 22a244de08aa1..bde938b0d116d 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -1895,6 +1895,9 @@ static void dw_dp_hpd_work(struct work_struct *work)
->  	long_hpd =3D dp->hotplug.long_hpd;
->  	mutex_unlock(&dp->irq_lock);
+> @@ -1813,6 +1813,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmt=
+s(struct drm_bridge *bridge,
+>  		output_fmts[j++] =3D fmt->bus_format;
+>  	}
 > =20
-> +	if (!dp->bridge.dev)
-> +		return;
+> +	if (j =3D=3D 0) {
+> +		kfree(output_fmts);
+> +		output_fmts =3D NULL;
+> +	}
 > +
 
 [Severity: High]
-This is a pre-existing issue, but does this lockless check create a race
-condition?
+This isn't a bug introduced by this patch, but should this memory leak be
+fixed in the DRM core instead of adding a driver-local workaround?
 
-If drm_bridge_detach() executes concurrently and clears bridge->dev, can
-this work function still proceed and pass a NULL or freed drm_device pointer
-to drm_helper_hpd_irq_event()?
+Looking at the DRM core's bridge bus format negotiation protocol in
+drivers/gpu/drm/drm_bridge.c, the core leaks the array when a driver returns
+an allocated format array but 0 valid formats:
 
->  	dev_dbg(dp->dev, "[drm] Get hpd irq - %s\n", long_hpd ? "long" : "short=
-");
+drivers/gpu/drm/drm_bridge.c:drm_atomic_bridge_chain_select_bus_fmts() {
+    ...
+		out_bus_fmts =3D funcs->atomic_get_output_bus_fmts(last_bridge,
+							last_bridge_state,
+							crtc_state,
+							conn_state,
+							&num_out_bus_fmts);
+		if (!num_out_bus_fmts)
+			return -ENOTSUPP;
+    ...
+}
+
+The core returns an error immediately without calling kfree(out_bus_fmts),
+silently leaking the dynamically allocated array.
+
+The same issue appears in select_bus_fmt_recursive() for
+atomic_get_input_bus_fmts:
+
+drivers/gpu/drm/drm_bridge.c:select_bus_fmt_recursive() {
+    ...
+	in_bus_fmts =3D cur_bridge->funcs->atomic_get_input_bus_fmts(cur_bridge,
+							cur_state,
+							crtc_state,
+							conn_state,
+							out_bus_fmt,
+							&num_in_bus_fmts);
+	if (!num_in_bus_fmts)
+		return -ENOTSUPP;
+    ...
+}
+
+Would it be better to fix the core API to handle freeing the array when
+num_out_bus_fmts or num_in_bus_fmts is 0, rather than patching each
+individual bridge driver?
+
+>  	*num_output_fmts =3D j;
 > =20
->  	if (!long_hpd) {
-
-[ ... ]
-
-> @@ -2005,9 +2027,8 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct=
- drm_encoder *encoder,
-> =20
->  	dp->dev =3D dev;
->  	dp->pixel_mode =3D plat_data->pixel_mode;
-> -
->  	dp->plat_data.max_link_rate =3D plat_data->max_link_rate;
-> -	bridge =3D &dp->bridge;
-> +
->  	mutex_init(&dp->irq_lock);
->  	INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
-
-[Severity: High]
-This is a pre-existing issue, but does this workqueue lack a cleanup step?
-
-Since dp->hpd_work is initialized here but doesn't have a corresponding
-devm action to cancel it on teardown, could a pending work item execute
-after the dp structure is freed during driver unbind, resulting in a
-use-after-free?
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but can unhandled interrupt sources cause an
-interrupt storm?
-
-Looking at dw_dp_irq():
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_irq() {
-    ...
-    if (value & HPD_EVENT)
-        dw_dp_handle_hpd_event(dp);
-
-    if (value & AUX_REPLY_EVENT) {
-        regmap_write(dp->regmap, DW_DP_GENERAL_INTERRUPT, AUX_REPLY_EVENT);
-        complete(&dp->complete);
-    }
-
-    return IRQ_HANDLED;
-}
-
-If an interrupt source other than HPD_EVENT or AUX_REPLY_EVENT fires (such
-as HDCP_EVENT), the handler returns IRQ_HANDLED without clearing the event
-in DW_DP_GENERAL_INTERRUPT. Will this keep the IRQ line asserted and
-continuously re-enter the handler?
-
-[Severity: High]
-This is a pre-existing issue, but are sleeping functions being called from
-atomic context?
-
-The DRM documentation indicates that atomic disable callbacks run in atomic
-context during non-blocking commits.
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_bridge_atomic_disable() {
-    ...
-    dw_dp_reset(dp);
-}
-
-And dw_dp_reset() unconditionally calls sleeping functions:
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_reset() {
-    ...
-    disable_irq(dp->irq);
-    ...
-    usleep_range(10, 20);
-    ...
-    regmap_read_poll_timeout(...);
-}
-
-Could this lead to kernel warnings or system instability when non-blocking
-atomic commits occur?
+>  	return output_fmts;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-synopsys-d=
-w-dp-improvements-v9-0-2e6e46135312@collabora.com?part=3D2
+w-dp-improvements-v9-0-2e6e46135312@collabora.com?part=3D9
