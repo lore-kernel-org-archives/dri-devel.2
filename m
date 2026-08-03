@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2E1BC55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:57:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A394C55184
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:57:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F09510E6C9;
-	Mon,  3 Aug 2026 14:57:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C363410E6DD;
+	Mon,  3 Aug 2026 14:57:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="SHb9iWuq";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="DysI+TXI";
 	dkim-atps=neutral
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2281410E6C9
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:57:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1785768997; x=1786028197;
- bh=8q2edUY/F+R6eEwokl1w5l9rk95zvIg7QcBwF/3Dezw=;
- h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=SHb9iWuqU2MjmhvgQFxqubhoTBWeaBW73Bzm5hLzedq7fzNuAXrMGmXFOK7UE2bqi
- iAfJ8yZGPu1lZ9PwFd+fsR5BR+oQiPcRqFmPlZK2w+7NJfxQOpWw6xmT0ewBkVi9uH
- K2ZpN+0EQmcZ2ifp/PT1wLH1RVdizGdYfnc+XPHCqyVLp/O2+dB9gNdw9ZTKYG4Srj
- b7rK4CZnOUJhK5BodmawnPYZErJFu9L+Gk1AAS39LyP47/C7oBQ9londfZ74s3iZAG
- MKkPTwedXg4cGzVKgoUbjIibfswaNvfn55IYHrwC1YmkFoWe2Md0w/AUogvAyBXCYI
- wc8B0/5CE9A5Q==
-X-Pm-Submission-Id: 4hDKWR29Bfz2Sd3H
-From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 03 Aug 2026 16:56:19 +0200
-Subject: [PATCH v2 1/4] drm/bridge: nwl-dsi: Limit LCDIF specific sync override
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A9C110E6DD;
+ Mon,  3 Aug 2026 14:57:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785769068; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=nCbIWIpOY9mnXvTlxX4V3ItQJolyEDAVuCn987X95RUwD+yysCaY/7ipSKkIx9ImGmjztedcKbubmk2c8AbxUjwZDT3E7QbtC+wXuwNq8o39rOKorsyqGRhH2XF/k0TMFfwfsE2UbQT0ehpxJDqFvSgWCbTHXToS2moT3M31mI0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785769068;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=gtnRxnAJy2dsiKrobx2oFPPKqEB9iFtcSoUIiKrtqa4=; 
+ b=FilKMOvbhSjpRQMHqH2o8A7F/MFfqAaMETAGrSEHqR9g6aoI0ANjUnlNWQlX4w5uT6nXhq0z6nsYlqozzcRtwImfPAylhN3rRFJoiWl++tPx2KtPX4fam3spKKEjQm+YXQ7ypw9eZyYCKmcuo71GvGxTWAyAMif33znXYrR34DI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785769068; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=gtnRxnAJy2dsiKrobx2oFPPKqEB9iFtcSoUIiKrtqa4=;
+ b=DysI+TXIVYay5Z5FUzkO3OefQHVO87Au7luV5QsHXGVC/cEdimXoYHf4DNqzRULT
+ VpkJzjQtFrLwW7X289Bl/2HRYPYMfKT5DUWniEKXE8qIVaaNSlGh2nM+SKOvJon9TT+
+ DaJp3bvB3Ujvx1ashhL6I3+ewclbSiDPpWHeJHUs=
+Received: by mx.zohomail.com with SMTPS id 1785769067337954.6216272757437;
+ Mon, 3 Aug 2026 07:57:47 -0700 (PDT)
+Message-ID: <2353697f-b1da-495a-b043-7a81d875856e@collabora.com>
+Date: Mon, 3 Aug 2026 16:57:43 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] udmabuf: vastly increase the size limit per dmabuf
+To: Xaver Hugl <xaver.hugl@kde.org>, dri-devel@lists.freedesktop.org
+Cc: wayland-devel@lists.freedesktop.org, kraxel@redhat.com,
+ stable@vger.kernel.org
+References: <20260803144120.11524-1-xaver.hugl@kde.org>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260803144120.11524-1-xaver.hugl@kde.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-nwl-dsi-fixes-v2-1-1809a0ac453f@geanix.com>
-References: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
-In-Reply-To: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785768991; l=2620;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=bElw+EC3BtkVujNhRAmFC3bBhwHEY6yVLOiO9cFKvzY=;
- b=tf10PB+CdHMCQittUe4/dypD0qXYyGWbETuSqWW3UIIV6Pf93oVO00lajlamdE7fC06Jmp/Bs
- p6IhUBmJ3ujAarryS04mLHPzJfs1fDz0Q2rugS5ImS74JU/a5LokM/7
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,75 +66,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-When using DCSS with NWL, overriding the mode flags to enforce active high
-sync is preventing the use of active low with downstream bridges, such as
-ti-sn65dsi83, which will not see such mode flags set by the panel.
+See 
+https://lore.kernel.org/dri-devel/20260722110145.36641-1-robert.mader@collabora.com/ 
+;)
 
-Signed-off-by: Esben Haabendal <esben@geanix.com>
----
- drivers/gpu/drm/bridge/nwl-dsi.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 3c9ae93c4f67..915e1bdc73c8 100644
---- a/drivers/gpu/drm/bridge/nwl-dsi.c
-+++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -110,6 +110,8 @@ struct nwl_dsi {
- 	int error;
- 
- 	struct nwl_dsi_transfer *xfer;
-+
-+	unsigned int endpoint;
- };
- 
- static const struct regmap_config nwl_dsi_regmap_config = {
-@@ -821,10 +823,13 @@ static int nwl_dsi_bridge_atomic_check(struct drm_bridge *bridge,
- 				       struct drm_connector_state *conn_state)
- {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
- 
- 	/* At least LCDIF + NWL needs active high sync */
--	adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
--	adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
-+	if (dsi->endpoint == NWL_DSI_ENDPOINT_LCDIF) {
-+		adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
-+		adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
-+	}
- 
- 	/*
- 	 * Do a full modeset if crtc_state->active is changed to be true.
-@@ -1088,13 +1093,12 @@ static int nwl_dsi_parse_dt(struct nwl_dsi *dsi)
- static int nwl_dsi_select_input(struct nwl_dsi *dsi)
- {
- 	struct device_node *remote;
--	u32 use_dcss = 1;
- 	int ret;
- 
- 	remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
- 					  NWL_DSI_ENDPOINT_LCDIF);
- 	if (remote) {
--		use_dcss = 0;
-+		dsi->endpoint = NWL_DSI_ENDPOINT_LCDIF;
- 	} else {
- 		remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
- 						  NWL_DSI_ENDPOINT_DCSS);
-@@ -1103,11 +1107,12 @@ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
- 				      "No valid input endpoint found\n");
- 			return -EINVAL;
- 		}
-+		dsi->endpoint = NWL_DSI_ENDPOINT_DCSS;
- 	}
- 
- 	DRM_DEV_INFO(dsi->dev, "Using %s as input source\n",
--		     (use_dcss) ? "DCSS" : "LCDIF");
--	ret = mux_control_try_select(dsi->mux, use_dcss);
-+		     (dsi->endpoint == NWL_DSI_ENDPOINT_DCSS) ? "DCSS" : "LCDIF");
-+	ret = mux_control_try_select(dsi->mux, dsi->endpoint == NWL_DSI_ENDPOINT_DCSS);
- 	if (ret < 0)
- 		DRM_DEV_ERROR(dsi->dev, "Failed to select input: %d\n", ret);
- 
+On 03.08.26 16:41, Xaver Hugl wrote:
+> Buffer sizes can get big very fast, and the previous limit of 64MB
+> is easily hit nowadays.
+> I hit this problem while working on better multi-gpu copies for KWin,
+> where on my 5120x1440 monitor with scaling applied, some apps ended
+> up using a resolution of 8192x2304, resulting in buffer sizes of
+> roughly 75MB.
+>
+> As another reference, with merely 32 bits per pixel, buffers reach
+> - 33MB for 4k
+> - 133MB for 8k
+> - 530MB for 16k
+>
+> With 64bpp, those sizes would be doubled, and even 4k would hit the
+> previous 64MB limit.
+>
+> Signed-off-by: Xaver Hugl <xaver.hugl@kde.org>
+> Cc: stable@vger.kernel.org
+> ---
+>   drivers/dma-buf/udmabuf.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
+> index 2f94be1df525..8cbba7ddfa00 100644
+> --- a/drivers/dma-buf/udmabuf.c
+> +++ b/drivers/dma-buf/udmabuf.c
+> @@ -20,9 +20,9 @@ static int list_limit = 1024;
+>   module_param(list_limit, int, 0644);
+>   MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default is 1024.");
+>   
+> -static int size_limit_mb = 64;
+> +static int size_limit_mb = 1024;
+>   module_param(size_limit_mb, int, 0644);
+> -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 64.");
+> +MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Default is 1024.");
+>   
+>   struct udmabuf {
+>   	pgoff_t pagecount;
 
 -- 
-2.55.0
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
