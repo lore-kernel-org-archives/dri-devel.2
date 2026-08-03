@@ -4,79 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 408B7C55196
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 20:53:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3769FC55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 20:54:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9561410E043;
-	Mon,  3 Aug 2026 20:53:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68EF210E0B1;
+	Mon,  3 Aug 2026 20:54:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WcECJy5z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="b5+g8a3p";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3AD10E043
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 20:53:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 366E110E0B1
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 20:54:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 66B6160A59;
- Mon,  3 Aug 2026 20:53:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3681F00A3A;
- Mon,  3 Aug 2026 20:53:26 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D263F43E02;
+ Mon,  3 Aug 2026 20:54:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937591F000E9;
+ Mon,  3 Aug 2026 20:54:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785790408;
- bh=42fMjfMmyKoxIac5xGfUWe0H4Hd5p40u1U7vZae7AME=;
+ s=k20260515; t=1785790468;
+ bh=cAICv9Y3OiRkODMPephn+FNJ7giL9q2NHL4/K0cdySo=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=WcECJy5zwe3it57uD+HxHZblPLjWVcBNQ4VhRCHd+jKDvO2jXi+m1kaTmRCsRRtg2
- QZv+SCD+KsaR3eZlvT0BW/ID679n01MbA83TiXwbEoW1L+W3NZwEyTU1zQpKDvOGCE
- urFSI4Joboi6Hyiq5c2YqJ6nXTowsFtdF/4P6kZgUHmg/GSO7B+hNn4Hqlen68o8R/
- q9bBSdE7BE92kMkNHFWafNdaz3b4KDwLwEOSwwtD5f8211u/yLgB7/tTHtKXWQzNHT
- MQg75JSK1wxMkLL4SVfp7mSe+XGv74BCfS570fKjbcvIODC2S4wXYzjPPjvkQ2o8Q3
- bLV42DdnxLicQ==
-Date: Mon, 3 Aug 2026 22:53:24 +0200
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>, 
- James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
- Damien Le Moal <dlemoal@kernel.org>, 
- Niklas Cassel <cassel@kernel.org>, Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Patrice Chotard <patrice.chotard@foss.st.com>, 
- Jassi Brar <jassisinghbrar@gmail.com>, Lee Jones <lee@kernel.org>, 
- Johannes Berg <johannes@sipsolutions.net>, Jeff Johnson <jjohnson@kernel.org>, 
- Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
- Stephen Boyd <sboyd@kernel.org>, Yangbo Lu <yangbo.lu@nxp.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Richard Cochran <richardcochran@gmail.com>, 
- Jens Wiklander <jenswi@kernel.org>,
- Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>, 
- YC Hung <yc.hung@mediatek.com>, Svyatoslav Ryhel <clamor95@gmail.com>, 
- Sean Wang <sean.wang@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Peter Ujfalusi <peter.ujfalusi@gmail.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
- linux-arm-msm@vger.kernel.org, 
- linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-i2c@vger.kernel.org, 
- mfd@lists.linux.dev, linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
- linux-pm@vger.kernel.org, netdev@vger.kernel.org, linux-pwm@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Correct white-space style
-Message-ID: <anD_bci501e0J3q2@zenone.zhora.eu>
-References: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+ b=b5+g8a3pgXZdcnVmp568x58Ne0p6KUyuwI+CO9HFchejoac9WP747WJLGny3v2ubQ
+ un/M+93X4m9qDZBekn+JWjr5qukpgI84qfzXEq/rGWz5NUtfW3cljAGw0Ynergdqzx
+ dGMcClv6OSGacnww5Z4uwLfRvADsNDQZtedrM/PgpJ8WLvgvDwsBggt/kkP1+7qdhY
+ W//sy9NVnMjUwpSmatMEKuQLOCH+ZYOqoYzN2nBR/6sAvyRjh8ysEkPZ4f/bG62G2q
+ /lEDodIwZC8whYvAg4Mc/OR2eheDDCD5PnYbHEsLGT/zLD5cWByIEh/34sSQMiZW5s
+ 2FLYO+li4csaA==
+Date: Mon, 3 Aug 2026 15:54:28 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Manuel Ebner <manuelebnerli@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, krzk@kernel.org, jingoohan1@gmail.com,
+ pavel@kernel.org, conor+dt@kernel.org, krzk+dt@kernel.org,
+ lee@kernel.org, manuelebner@mailbox.org, devicetree@vger.kernel.org,
+ linux-leds@vger.kernel.org, linux-kernel@vger.kernel.org,
+ danielt@kernel.org
+Subject: Re: [PATCH v2] dt-bindings: fix typos and brackets
+Message-ID: <178579016893.432136.13741968373464663974.robh@kernel.org>
+References: <20260722101246.3113818-2-manuelebnerli@mailbox.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260722101246.3113818-2-manuelebnerli@mailbox.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,36 +60,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Krzysztof,
 
-On Sat, Aug 01, 2026 at 09:56:14PM +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues, like double space after '=' or before
-> bracket '{' characters, which will be flagged by dt-check-style.  No
-> functional changes.
+On Wed, 22 Jul 2026 12:12:47 +0200, Manuel Ebner wrote:
+> Add missing '(', ')', '}'
+> Remove needless '(', ')', '{', '}'
+> 'lover voltage' -> 'lower voltage'
 > 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
+> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
 > ---
+> [v2]
+>  rebased
 > 
-> Patch applies on Rob's for-next branch.
+> [v1]
+>  https://lore.kernel.org/all/20260713134751.498891-2-manuelebner@mailbox.org/
+> 
+> I changed to my new address, manuelebner +LI @mailbox.org to
+> reduce the mail to my main address.
 > ---
->  .../arm/firmware/linaro,optee-tz.yaml         |  8 +-
->  .../devicetree/bindings/arm/psci.yaml         | 18 ++--
->  .../bindings/arm/qcom,coresight-tnoc.yaml     |  2 +-
->  .../devicetree/bindings/ata/st,ahci.yaml      | 22 ++---
->  .../bindings/display/ti/ti,am65x-dss.yaml     | 12 +--
->  .../bindings/display/ti/ti,j721e-dss.yaml     | 96 +++++++++----------
->  .../bindings/display/ti/ti,k2g-dss.yaml       | 36 +++----
->  .../bindings/dsp/mediatek,mt8195-dsp.yaml     |  2 +-
->  .../bindings/gpio/st,nomadik-gpio.yaml        |  2 +-
->  .../devicetree/bindings/i2c/st,sti-i2c.yaml   |  2 +-
+>  Documentation/devicetree/bindings/arm/mediatek.yaml           | 2 +-
+>  .../devicetree/bindings/arm/qcom,coresight-tpdm.yaml          | 2 +-
+>  .../bindings/clock/renesas,rcar-usb2-clock-sel.yaml           | 4 ++--
+>  .../devicetree/bindings/memory-controllers/renesas,dbsc.yaml  | 2 +-
+>  .../devicetree/bindings/memory-controllers/ti-aemif.txt       | 4 ++--
+>  Documentation/devicetree/bindings/mips/brcm/soc.txt           | 2 +-
+>  Documentation/devicetree/bindings/phy/phy-miphy365x.txt       | 2 +-
+>  Documentation/devicetree/bindings/powerpc/ibm,vas.txt         | 2 +-
+>  Documentation/devicetree/bindings/regulator/max8907.txt       | 1 -
+>  .../bindings/regulator/mediatek,mt6358-regulator.yaml         | 2 +-
+>  .../devicetree/bindings/regulator/pbias-regulator.txt         | 1 +
+>  .../devicetree/bindings/regulator/rohm,bd71837-regulator.yaml | 4 ++--
+>  .../devicetree/bindings/regulator/rohm,bd71847-regulator.yaml | 4 ++--
+>  .../devicetree/bindings/sound/mikroe,mikroe-proto.txt         | 1 -
+>  Documentation/devicetree/bindings/usb/iproc-udc.txt           | 1 +
+>  15 files changed, 17 insertions(+), 17 deletions(-)
+> 
 
-Yes, I had noticed this recent white space which slipped off my
-review, but it looked too much hassle for a single patch removing
-the white space.
+I applied, but dropped the .txt changes. The only fixes for .txt 
+bindings are converting them to schema.
 
-Thanks!
-
-Acked-by: Andi Shyti <andi.shyti@kernel.org>
-
-Andi
+Thanks,
+Rob
