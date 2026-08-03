@@ -4,63 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6F6CC55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 08:28:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A3F9C55175
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 08:34:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2AE5710E4B6;
-	Mon,  3 Aug 2026 08:28:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 528F410E4B2;
+	Mon,  3 Aug 2026 08:34:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hk7siMCm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NPXLqTlI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56AFE10E4B6
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 08:28:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785745736; x=1817281736;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=xC3OrNnP/G/fQTfG7vaW1/GEapYnFwmRXLB2yIGlMC8=;
- b=hk7siMCmiJK1idYtxJqkcQc1JMVSQIxTqCJ33TgFF0Y7f9TW4QvqSW9N
- DvCe7AVy4MOLkMDADxh2RX9TLIawRqqOyP0fKlzkCjFzNeQMxZZpEIJ1E
- VjsJVLoT1dNqKXW5DdDYeeZReOKGKHQ+7lrZ4I09bVnEdpkuntwn2bGZM
- ASnqF2OV59MwR6vnNcBtnbk9sARyBoViHLC+ktNzJbxQ9G8w3dXYZZloT
- dA5gEYYe/+64ixZH8grAkvH/GXQnoYBznB/Zo7IZirhROmPBcm/gLVxS/
- dj1Xzu4fM0xaA3V7kFZE8LpTx3pTPsMwwHbvhMZ872VXE1bTc0vERRQ6V w==;
-X-CSE-ConnectionGUID: KqCZ96j2RgKKO/2a01U4Mg==
-X-CSE-MsgGUID: 61OrCFJFQVKjrWKSGMg9sw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11863"; a="111828637"
-X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; d="scan'208";a="111828637"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2026 01:28:55 -0700
-X-CSE-ConnectionGUID: Ag1Csky0THygb39DjHKQlg==
-X-CSE-MsgGUID: Q3rjCMSzRxy8JGh8k8BaNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; d="scan'208";a="254882189"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
- by fmviesa009.fm.intel.com with ESMTP; 03 Aug 2026 01:28:53 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wqo2U-000000006WT-0ms4;
- Mon, 03 Aug 2026 08:28:50 +0000
-Date: Mon, 3 Aug 2026 16:28:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
- mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
- andi.shyti@kernel.org, sumit.semwal@linaro.org, christian.koenig@amd.com
-Cc: oe-kbuild-all@lists.linux.dev, linux-i2c@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, naresh.maramaina@oss.qualcomm.com,
- aniket.randive@oss.qualcomm.com
-Subject: Re: [PATCH V5] i2c: qcom-geni: Add dynamic transfer timeout based on
- transfer length and frequency
-Message-ID: <202608031643.mPIeogxp-lkp@intel.com>
-References: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADC7210E4B2
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 08:34:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id A0937600FF;
+ Mon,  3 Aug 2026 08:34:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C9151F000E9;
+ Mon,  3 Aug 2026 08:34:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785746051;
+ bh=ocpvpi2NArcOC90TKmTQCVuO5qbsZgPqGuWVp8yEIuI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=NPXLqTlIUfHO078x2ULmPwHFX1vR8hBeUdnGadGMw4sVH6YS043Vf/FDqGeMlVt7f
+ +wsEx8DqIGWTUKy6p9xZ5QEYNV5JQ/kullic4Do43hNeCfaza65gKYylchNLo754r7
+ Cm3vsqWnl3y6bZdXuH7PkTafqWvfPzZQllH96NWhHoMUWx3tJ8Smhyby84cfkO9EqX
+ HJ3w/q1y/tIWjVVII164anOsoZY0xijCTOJPEIfN8t/fzMw6WDR6F7nJYVtSmsYyzF
+ vkkZ3/Q7AGpKPX3RmgV1BmwuNwOwJvbWyE5s4wbsgZ9mX7wfKp9U3G4PhOL89QQDXA
+ NCS12Mf9uTGuw==
+Date: Mon, 3 Aug 2026 10:34:07 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Biju <biju.das.au@gmail.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v2 01/16] dt-bindings: display: bridge: renesas,dsi:
+ Document RZ/G3L
+Message-ID: <20260803-prodigious-brave-myna-08deb7@quoll>
+References: <20260729125516.230757-1-biju.das.jz@bp.renesas.com>
+ <20260729125516.230757-2-biju.das.jz@bp.renesas.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
+In-Reply-To: <20260729125516.230757-2-biju.das.jz@bp.renesas.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,36 +73,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Aniket,
+On Wed, Jul 29, 2026 at 01:54:53PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+> 
+> The RZ/G3L DSI IP is similar to the RZ/G2L but has different global PHY
+> timings and also the PLLCLK is ungateble clock. Add the compatible
+> string "renesas,r9a08g046-mipi-dsi" to handle these difference for the
+> Renesas RZ/G3L SoC. The power to DSI region is controlled by SYSC block.
+> Document renesas,sysc-pwrrdy property to handle the power control.
+> 
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> ---
+> v1->v2:
+>  * Dropped renesas,sysc-pwrrdy property as it is modelled as power
+>    sequence.
+> ---
+>  .../devicetree/bindings/display/bridge/renesas,dsi.yaml          | 1 +
+>  1 file changed, 1 insertion(+)
 
-kernel test robot noticed the following build warnings:
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-[auto build test WARNING on andi-shyti/i2c/i2c-host]
-[cannot apply to linus/master v7.2-rc5 next-20260731]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Best regards,
+Krzysztof
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Aniket-Randive/i2c-qcom-geni-Add-dynamic-transfer-timeout-based-on-transfer-length-and-frequency/20260803-151058
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git i2c/i2c-host
-patch link:    https://lore.kernel.org/r/20260715101805.3615166-1-aniket.randive%40oss.qualcomm.com
-patch subject: [PATCH V5] i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and frequency
-config: alpha-allmodconfig (https://download.01.org/0day-ci/archive/20260803/202608031643.mPIeogxp-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260803/202608031643.mPIeogxp-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608031643.mPIeogxp-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> Warning: drivers/i2c/busses/i2c-qcom-geni.c:622 function parameter 'timeout_jiffies' not described in 'geni_i2c_gpi_multi_xfer_timeout_handler'
->> Warning: drivers/i2c/busses/i2c-qcom-geni.c:622 Excess function parameter 'transfer_timeout_msecs' description in 'geni_i2c_gpi_multi_xfer_timeout_handler'
->> Warning: drivers/i2c/busses/i2c-qcom-geni.c:622 function parameter 'timeout_jiffies' not described in 'geni_i2c_gpi_multi_xfer_timeout_handler'
->> Warning: drivers/i2c/busses/i2c-qcom-geni.c:622 Excess function parameter 'transfer_timeout_msecs' description in 'geni_i2c_gpi_multi_xfer_timeout_handler'
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
