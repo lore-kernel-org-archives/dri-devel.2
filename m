@@ -4,86 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 790E1C55179
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:30:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4968C55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:31:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D732810E048;
-	Mon,  3 Aug 2026 14:30:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB9EA10E061;
+	Mon,  3 Aug 2026 14:31:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Iy/tguGw";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LQmrHyHU";
 	dkim-atps=neutral
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46D8E10E5F1
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:29:59 +0000 (UTC)
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-69c5fda04a8so6081546a12.1
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 07:29:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785767398; x=1786372198; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ULsy1ctbWqO6V2elk1FWgzGLxyQfY/VXo4lHMIY/JzI=;
- b=Iy/tguGwuO494JsrnT8msFqyC8OHWPEp1z0fZ4A0soYPD9n41q9e0CJ3/SlQBFDsqv
- ZmpN5K4rrg1CpDld0hwPrG4fYHEyhI8EUDKhPo3A+wZK8bDdf8sOZF+iMeWCM+xN1j5R
- otzobstVAdma46IPdF80vgFZFQk35olN75K6E27neHqzTnc2zGOAnGmIvitC4kWwvzf6
- mtDwspFlKewQElJf/Zjtsa0mHz4c9SP4TWwve3/cIkPblI4WZZmOMucRimx79wkpn6Tp
- jmiVjYv4YbBCODHhzim0JC7YK7Eo/8qLEguxSZ5LJ5tKn99cDvLJMVYAJ1BUxZ5UYEOT
- cPYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785767398; x=1786372198;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ULsy1ctbWqO6V2elk1FWgzGLxyQfY/VXo4lHMIY/JzI=;
- b=aDxCTdkwOuF1mlnCjyn6O4jfOCjEG7DnGzK9/NfBoxd4S0nCOUk9C2auO2iRFoBqr8
- WvCUMJdIrc+OpXQEM7dZ0tHw0dWCSrizzq9U0WdSnOFeQtZDIx2/vpWs4fkw/JEasxiU
- Z0snKCKqsEX3qQ2d7h/gW9c/6fC2kMsQPHKkz00nEODEgwpF04CJYuM7JpWiOkcvJBnX
- nVampe1euEB+TOI60+zP22V/2lOIead3SbNjapODcHP11RZkHtd9zb1Y1a/Ik94tSv8U
- U7aT8KPtk8lBOQpvjfyFNsvfTcq0dk0Bx80ss/HuOiQ1WtQpIAWCc2MDrBX59KuvRyHK
- 9oqA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpKbFqw6l6P6h8TrcSqbEPwYbXxXMxb0cRbWFocEllQTKx0KCmC8/pPFkhbFZ12Tk/A8VPOCG7fl18=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyL5Hn2dvgkchOm563ThYf+M3jTwIrEtQdawBLXS/heRMy8NbzV
- 5TLLbkvG8c1+Hzxj3Udj2avW8IYJ9xkbqdPnKymcgx5ewQIXssV00/XH
-X-Gm-Gg: AR+sD13UEivpZmfCFaBtmJrQs3nYrtM22siSbJVgO3WIDEYd7Bz0upULLndpWa750qM
- NriOGBdQIf0Ck/k9gyZPfpkWB0H1YFTe1VUDTlFhveoMcG7u34IwOfio5QG0NHgUNGNF+XLY76x
- S5PB0s2SGkljqiDHo55tfNmhm+EmhrSg9uGV5noQ9LmWRpcwBx+ivojv3q0UE2v2C5dHzq56YkQ
- HKfhNgQCh+r7QA8imZO4MFEdnwwJ4XNK5cOqFcHbCU2VC6ZCv5IjsU21fuQPmECEJP5Y97xuU3X
- NgB4V/SixEmsnv3+4u+ACZKKps8J8lLZueKrEe+xmLEZj7FguJTgF3Zql2PfeBzq3bqQB8gr+DQ
- dJPPQ3mM7Pb6P93dbi3clbhFQO+0azRFUNriZtUByB0j/YM6QWj/XmMd7YKhBhOzjNKvorq2Afy
- 1CRburgcT0XnGzi7ZnqRrBfH5hfX/BraSmG6TyfNg58XVtKH2dPsQE2UgGwFS+E7uAAJ2NbzoJy
- KjJ9fV9hbD4WzKpPlyIEyFgbQGQ/g1GjGbb/6KNziWzV1xlVpidMgb7nBghnztKlLko8TrynmVa
- cOIsrB0Y1s8oIWoo/DBteS/y9yybMhw0+45jQuGYuiem/6y88WDlflxAL8e/qcYO2+9rAjT85yt
- zXSWwyCuxkIpxiDqWfPEU36eK2rBlgNaeiVKahLhMjwZsKNQrIMbSEJuuGXw560HoYrc3VtmbMF
- xi/twKtHs=
-X-Received: by 2002:a05:6402:21ca:b0:698:c13e:179a with SMTP id
- 4fb4d7f45d1cf-6a0a7c72678mr7302242a12.10.1785767397382; 
- Mon, 03 Aug 2026 07:29:57 -0700 (PDT)
-Received: from jernej-laptop.localnet (86-58-6-68.dynamic.telemach.net.
- [86.58.6.68]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a09c63dca6sm5741293a12.16.2026.08.03.07.29.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 07:29:56 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej@kernel.org>,
- Samuel Holland <samuel@sholland.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, linux-sunxi@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/sun4i: framebuffer: Set mode_config.normalize_zpos
-Date: Mon, 03 Aug 2026 16:29:53 +0200
-Message-ID: <lyqNcSMNQtSAKCGG4XMGOg@gmail.com>
-In-Reply-To: <20260803111319.2836240-1-wenst@chromium.org>
-References: <20260803111319.2836240-1-wenst@chromium.org>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7F0B10E061
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:31:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id F06E660A7F;
+ Mon,  3 Aug 2026 14:31:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D18AA1F00A3D;
+ Mon,  3 Aug 2026 14:31:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785767480;
+ bh=UrNRsvkq3mRq9rnhVFpNzGn9hA5dWUxfYCBYBKp8OXA=;
+ h=Date:From:To:Cc:Subject;
+ b=LQmrHyHUdiSIxAHst772BpJZkeznqd3RmMzB1aEDDpbmCg+zvpGMpRu1kqNtlp09g
+ VWjaV2b8GbPXUBkY1cucqSeffCLjwXDayr/wUTkfCGudAR5O1aapz5IffXZaVctMxf
+ BaM3mu0IkjpLV/8LAA6iOF8wtdSM1mU2eL5QYPYlcCZvjahPBvSlko7T1bjmGLqfya
+ nF66KJYAH2W9JCa1iqEtPhSU0DCkHgaMYH5r37U+ERVBi+VrGJ4+h8XZZoFWZ8xXBq
+ mWNzKNSZ6B9VN/N/CMg9p2fhJ9ju7KXLdDmAiHVlQpe4FnT12unOgEO0Xq77mJaPCw
+ 3ML2bysk571XQ==
+Date: Mon, 3 Aug 2026 15:31:15 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Dave Airlie <airlied@redhat.com>, DRI <dri-devel@lists.freedesktop.org>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Laura Nao <laura.nao@collabora.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Satyanarayana K V P <satyanarayana.k.v.p@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: linux-next: manual merge of the drm tree with the origin tree
+Message-ID: <anCmM4lBkA_d6vcW@sirena.org.uk>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="0RQ1E4DKTet8pR8b"
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,27 +61,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Dne ponedeljek, 3. avgust 2026 ob 13:13:18 Srednjeevropski poletni =C4=8Das=
- je Chen-Yu Tsai napisal(a):
-> Back when support for zpos was added in commit 47a05f4a68f9 ("drm/sun4i:
-> backend: Add support for zpos"), a custom atomic_check callback was also
-> added in commit b8f1230dd3bf ("drm/sun4i: framebuffer: Add a custom
-> atomic_check") to have a place to call drm_atomic_normalize_zpos().
->=20
-> Commit 49efffc7fbd4 ("drm: Add drm_mode_config->normalize_zpos boolean")
-> added drm_atomic_normalize_zpos() to the standard atomic_check function.
->=20
-> Set mode_config.normalize_zpos and drop the custom atomic_check
-> implementation, which at this point is just a simplified copy of the
-> standard one. The standard one also checks whether async updates are
-> valid and updates the self refresh state, but neither feature is
-> supported by this driver.
->=20
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 
-Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+--0RQ1E4DKTet8pR8b
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Best regards,
-Jernej
+Hi all,
 
+Today's linux-next merge of the drm tree got a conflict in:
 
+  drivers/gpu/drm/xe/xe_device.c
+
+between commit:
+
+  130910bac905a ("drm/xe/pf: Disable display in admin only PF mode")
+
+=66rom the origin tree and commits:
+
+  7ef55ae582eba ("drm/xe/pf: Disable display in admin only PF mode")
+  21fcb222f0d1e ("drm: Remove DRIVER_GEM_GPUVA feature flag")
+
+=66rom the drm tree.
+
+I fixed it up (see below) and can carry the fix as necessary. This
+is now fixed as far as linux-next is concerned, but any non trivial
+conflicts should be mentioned to your upstream maintainer when your tree
+is submitted for merging.  You may also want to consider cooperating
+with the maintainer of the conflicting tree to minimise any particularly
+complex conflicts.
+
+*Please* consider using merges rather than cherry picking.
+
+diff --combined drivers/gpu/drm/xe/xe_device.c
+index 9d119c95a569a,7007b6113760a..0000000000000
+--- a/drivers/gpu/drm/xe/xe_device.c
++++ b/drivers/gpu/drm/xe/xe_device.c
+@@@ -61,6 -61,7 +61,7 @@@
+  #include "xe_psmi.h"
+  #include "xe_pxp.h"
+  #include "xe_query.h"
++ #include "xe_ras.h"
+  #include "xe_shrinker.h"
+  #include "xe_soc_remapper.h"
+  #include "xe_survivability_mode.h"
+@@@ -281,7 -282,7 +282,7 @@@ static vm_fault_t barrier_fault(struct=20
+  	pgprot_t prot;
+  	int idx;
+ =20
+ -	prot =3D vm_get_page_prot(vma->vm_flags);
+ +	prot =3D vma_get_page_prot(vma);
+ =20
+  	if (drm_dev_enter(dev, &idx)) {
+  		unsigned long pfn;
+@@@ -396,7 -397,7 +397,7 @@@ static const struct drm_driver regular_
+  	    XE_DISPLAY_DRIVER_FEATURES |
+  	    DRIVER_GEM |
+  	    DRIVER_RENDER | DRIVER_SYNCOBJ |
+- 	    DRIVER_SYNCOBJ_TIMELINE | DRIVER_GEM_GPUVA,
++ 	    DRIVER_SYNCOBJ_TIMELINE,
+  	.open =3D xe_file_open,
+  	.postclose =3D xe_file_close,
+ =20
+@@@ -426,7 -427,7 +427,7 @@@ static const struct drm_ioctl_desc xe_i
+ =20
+  static const struct drm_driver admin_only_driver =3D {
+  	.driver_features =3D
+- 	    DRIVER_GEM | DRIVER_RENDER | DRIVER_GEM_GPUVA,
++ 	    DRIVER_GEM | DRIVER_RENDER,
+  	.open =3D xe_file_open,
+  	.postclose =3D xe_file_close,
+  	.ioctls =3D xe_ioctls_admin_only,
+@@@ -736,9 -737,11 +737,11 @@@ static void vf_update_device_info(struc
+  	xe->info.probe_display =3D 0;
+  	xe->info.has_heci_cscfi =3D 0;
+  	xe->info.has_heci_gscfi =3D 0;
++ 	xe->info.has_i2c =3D 0;
+  	xe->info.has_late_bind =3D 0;
+  	xe->info.skip_guc_pc =3D 1;
+  	xe->info.skip_pcode =3D 1;
++ 	xe->info.has_drm_ras =3D false;
+  }
+ =20
+  static int xe_device_vram_alloc(struct xe_device *xe)
+@@@ -918,6 -921,27 +921,27 @@@ static void xe_device_wedged_fini(struc
+  		xe_pm_runtime_put(xe);
+  }
+ =20
++ #ifdef CONFIG_DRM_XE_DEBUG_PAGE_SIZE
++ static int xe_debug_page_size_alloc_ctrl_init(struct xe_device *xe)
++ {
++ 	int err;
++=20
++ 	err =3D drmm_mutex_init(&xe->drm, &xe->page_size_alloc_ctrl.lock);
++ 	if (err)
++ 		return err;
++=20
++ 	xe->page_size_alloc_ctrl.mode =3D XE_PAGE_SIZE_ALLOC_CTRL_MODE_NONE;
++ 	xe->page_size_alloc_ctrl.cur_index =3D 0;
++=20
++ 	return 0;
++ }
++ #else
++ static int xe_debug_page_size_alloc_ctrl_init(struct xe_device *xe)
++ {
++ 	return 0;
++ }
++ #endif
++=20
+  int xe_device_probe(struct xe_device *xe)
+  {
+  	struct xe_tile *tile;
+@@@ -947,6 -971,15 +971,15 @@@
+  			return err;
+  	}
+ =20
++ 	/*
++ 	 * Wa_16029380221: The affected GT will always use non-coherent
++ 	 * access to page tables, so we must do uncached writes from the
++ 	 * CPU.
++ 	 */
++ 	for_each_gt(gt, xe, id)
++ 		if (XE_GT_WA(gt, 16029380221))
++ 			xe->info.has_cached_pt =3D false;
++=20
+  	for_each_tile(tile, xe, id) {
+  		err =3D xe_ggtt_init_early(tile->mem.ggtt);
+  		if (err)
+@@@ -987,6 -1020,16 +1020,16 @@@
+  	if (err)
+  		return err;
+ =20
++ 	err =3D xe_soc_remapper_init(xe);
++ 	if (err)
++ 		return err;
++=20
++ 	err =3D xe_sysctrl_init(xe);
++ 	if (err)
++ 		return err;
++=20
++ 	xe_ras_init(xe);
++=20
+  	/*
+  	 * Now that GT is initialized (TTM in particular),
+  	 * we can try to init display, and inherit the initial fb.
+@@@ -1027,10 -1070,6 +1070,6 @@@
+ =20
+  	xe_nvm_init(xe);
+ =20
+- 	err =3D xe_soc_remapper_init(xe);
+- 	if (err)
+- 		return err;
+-=20
+  	err =3D xe_heci_gsc_init(xe);
+  	if (err)
+  		return err;
+@@@ -1055,6 -1094,10 +1094,10 @@@
+  	if (err)
+  		return err;
+ =20
++ 	err =3D xe_debug_page_size_alloc_ctrl_init(xe);
++ 	if (err)
++ 		return err;
++=20
+  	err =3D drm_dev_register(&xe->drm, 0);
+  	if (err)
+  		return err;
+@@@ -1069,10 -1112,6 +1112,6 @@@
+  	if (err)
+  		goto err_unregister_display;
+ =20
+- 	err =3D xe_sysctrl_init(xe);
+- 	if (err)
+- 		goto err_unregister_display;
+-=20
+  	err =3D xe_device_sysfs_init(xe);
+  	if (err)
+  		goto err_unregister_display;
+@@@ -1127,14 -1166,14 +1166,14 @@@ void xe_device_shutdown(struct xe_devic
+ =20
+  	drm_dbg(&xe->drm, "Shutting down device\n");
+ =20
+- 	xe_display_pm_shutdown(xe);
++ 	xe_display_shutdown(xe);
+ =20
+  	xe_irq_suspend(xe);
+ =20
+  	for_each_gt(gt, xe, id)
+  		xe_gt_shutdown(gt);
+ =20
+- 	xe_display_pm_shutdown_late(xe);
++ 	xe_display_shutdown_late(xe);
+ =20
+  	if (!xe_driver_flr_disabled(xe)) {
+  		/* BOOM! */
+
+--0RQ1E4DKTet8pR8b
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmpwpjMACgkQJNaLcl1U
+h9Aiagf+Od6B4wfFaCmAMwE7fVd4W24Za1tYlkAbmAALmuI7PgdG2UbuQpF3S1Bb
+oN3if3nkbRDIHVD94bGUtbIvu0Wn3WZmya0OwQUCPaaHPF1z5jpFh8chAzZnlMA3
+nIl1/OvDRtCcJzJzY7+3aX6rD+PNq5ansEqyQ6y7neGYeR5GdZBDKEvWYO6FBmWu
+ND/x5++XDXkDzEoCEB1uF6JaHROjr1Rbsm2BVoktH8f/UvhSfoDsNChnJXSBQG8P
+JdEkvIe2bO5zXINpd9Dl/7LhzvnlO0QfvZ2brd5S3P3UiAt9+S3w3aimERm74IiO
+29W+gCMTu0tZPb5x/HnmlTEkV2H8bQ==
+=agZI
+-----END PGP SIGNATURE-----
+
+--0RQ1E4DKTet8pR8b--
