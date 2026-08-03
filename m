@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC0D8C55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:11:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E0C0C55838
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:11:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B35B10E720;
-	Mon,  3 Aug 2026 16:11:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6EE910E726;
+	Mon,  3 Aug 2026 16:11:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qo/DJlUE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b76Ugon1";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE1CB10E720
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:11:31 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-490cf322ed0so12696895e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:11:31 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47DC110E723
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:11:34 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-493b966dd74so12668975e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:11:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785773490; x=1786378290; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785773493; x=1786378293; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=l/erqd8k66TTCAw8PMmbwYLxInnN4rdx5bNv3CpPzY8=;
- b=Qo/DJlUEpjOhvVB3m02bhe5+0BdUC4g90Hec13cl9HgIiqlfi2p7bBPRnbf3UYh1Ux
- HUHuL2ECAmmu6+sIguDcqu8KKgutJ+tDjX7QnfkUmAwOT5CHzF/WQ8CjiC7RKjb0akCV
- l9GsDghYHNIjblaXeWPrNGA0QnkTBkRtkuNR9ejafM3E8/vGdh5LEYbEE9MUPrhnOt9C
- SQRzQBHUfB8zkOoVhqZelWrxQQjJLNJe6FsuNR52iIEG++MHUL1QXANcx/dB5BPobG+v
- ZCeC08dh7c05JeqYIgZ4KciMIq46r0i9nswhQWSpYntoV0X7ynisR5uwAjDF/+Qea3hy
- 1Cog==
+ bh=2K51/FwVv7xc1HWMtJnTlI6NfH3sfU8zC/PFmRYZpYI=;
+ b=b76Ugon1a0Oji221DtykvZ2GkO4udyCWYwbf1mmIgvT7ZnBF19nFJEsfbmWM+K2kvQ
+ 0CkYgB2DusS9Zjr16u+4XNZh2fJmhWdao57fmVOkwAW4MMiCqpA/Ie8lsV/tx0q8Lcss
+ Zxlx61rVDu87H+Ya5tcsvIAXI4jkLVgJNBOeFZ5sHlMGjvivRJ0RWyAT6q6P4ylxQ7o+
+ 6Q97d/jqm5ktNOUgUGPkbI0oaT/DGItmgg8qML/rLH8O4BBvd2NOnmnX/seIGNU4NTMm
+ TnqY5oQZMq9LOrBY44A6shbxzuYO48nkVTJXzxFNRb2HTLGq1avBrcS5H0ieG6CaLXnk
+ fDCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785773490; x=1786378290;
+ d=1e100.net; s=20251104; t=1785773493; x=1786378293;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=l/erqd8k66TTCAw8PMmbwYLxInnN4rdx5bNv3CpPzY8=;
- b=hlWJt+OQqH0rYBpd36h3LH7H8YJFUp/Rai/ASQNXGgojRux3HLRFJ/OJVHL2DiBiCD
- L6pPu7oarq8RRCP5N7jRImIKVnoiyT7IWQKsWizAmGCzxlByqP4+hnPecBR8ButsxtHv
- p78GvumtD0pc8WWFin36WuWICRy3jO+gxXOQ4cZP9RUdOfZhRrlYXjPlSwKNz5xFyt3a
- ESeXsPJS4OindhsgskkI8u/tzsR057J7xBc7Ha+/gttAJqvIWE3d9MG4Gr8ol+B0Jyw8
- 3gGxDi4pw1cfFnN/1XR18s7GXWcwtYIsqh6NKw4bL1VtjwMBWip5e0SNf/Gv+Pv8JEqX
- mdrQ==
+ bh=2K51/FwVv7xc1HWMtJnTlI6NfH3sfU8zC/PFmRYZpYI=;
+ b=M85uzVv7/EgNILzNkWx72WHyHoCtU4nkMnvDYY2WPmWnT1lgRWdUEfZp2ht44sBlpN
+ FAXDfUCES1gHyLhG0CmJU2lJEuaJpZ2PYQyDSGBDoDvVPz/zA/UubPNEEiTSz4wi2vC0
+ vcAPRl49RWtnkc+rKPeZAghCJbbKkjBe3utp1ccR7VcZqj75gl8u1186/sAlukTOicB0
+ Su/r9wJYyiXDXBNU1PyXVnr2EADhw6yEKukykWZEmaZPSU3KB8W6hALWwYKU2YqrplUa
+ 66PFpNhbG8vBsJwaJYRVmcdfdFQ+TUDPE335PDm/esBqzwICDZCe5wQovQQ3FO6Asfj2
+ gOWQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpbrgWQhBLKsnnYX6YhH1uiG0XqVhH6j1Cx4mh2tXFF7FqYYMOyvlwEnzwnH0QonDa5Z6vqfguT5d0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxY7NqZv6WkRlxbUjU95hZK9Ltqezw9V0vRw13Si5tgIiqM7fLK
- L284EiQhY4mOzaSlIjiAaRhN8lPmVVEevdoheUIWmXbFBoywdUMQSQnu
-X-Gm-Gg: AR+sD13PaX93jGm/RFuuIvHuy3ST4gVyqSEUzYL4rJsquMAgRycRDGrT9LZsf/a9bkR
- Fa6fBYvdw66gMJ+9X3CukV28vM9i3qmzf6algZV+RvPY6Eqt1OV2LAV7BzmjP7731akcczUF2os
- bzRvm+xx7zvpysM90SA8z+01S9tHSp7kqQqs0CgCQau2US9Wti0726fcfIGlogwUMJq/dFu0X3I
- CHN1FehNgk8VMpXNFsh3HxLgE7dRRAPtJeH8TLVrm5Qp5orxQysylnR9elt4K6w5Nqph5wns/EY
- 4JIZqcQ+2lXW3zaSMqxXI96OFjzUjCLvd2o0WxXZQAkw9Atlg8w6VzRnwN6YBT4aRKWcbIAkQzK
- Iq9MJRDujiUFpefPaSgjB8Whx+5/aXYvNF2Nx9dbBWB6ODrxiteRKN6lQYUZ/yzdioGyYr5hPeQ
- EA0WID+YE/zQ8juPMX1SwWCkTXlYzwnxTowDdv8d5AtlbDxwqwx76fy6xvDhtLB0aR85vlC5l8M
- HBugkfDbJwg+W1kDH6ukKpimxyTGjNEM3kNONxx4BMLcGQOqvHY8YrfyIS52wx9jONVhMKQDypo
- Z1NA8phy5iDzMxkwsqWqwTdRdq79hw6ZHyY/0r7cpltVwjFUbDeqrBBHfmapgA6ukw/lQfWXn4K
- iodHFMCMFX2ELRyo1vT9ywUZRkqnDPJoIZrMLAmTAbPlxl8jvkCqQCueZ8BZUl65O3fmr7RVFF9
- tTkA==
-X-Received: by 2002:a05:600c:3f0d:b0:495:4cb6:71cc with SMTP id
- 5b1f17b1804b1-4980c66b530mr267029485e9.5.1785773490118; 
- Mon, 03 Aug 2026 09:11:30 -0700 (PDT)
+ AHgh+RqKZmFBeCKlejrkQy2Blvriz9e4m0YkuudfJV5W8qvlcrOkqZkuWNi2vwfDyLyBMm+0Nhxw5PbSoOI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxz04nQFriKZDS0d7V2r89xdFW9zxaj0QVgVw5aQtt6U3Kmeib8
+ Zgv1TqZZWpyL2HwF3UzNYvtb8s4h4XVANmW0uqet8y+3JsNKAM0GewjL
+X-Gm-Gg: AR+sD10wBw0NqNUAN3Hc/TzJhSrVIAXk6ZYZf/yxAAfV2m70oh7UF0UBTq3frFUVHKG
+ +vv3aK/yL6ViQb1WfxK1YX6Y8ocfww1u5dyDg3tYAmcjYNTXiQ+yA+QlewRbp2ZGWn0Aj+IdBCn
+ ReQZ5CwD6SEgjAjlwr19WyqzuI8tyz1MHzfuD3HGOUOO2fFSyyGz8KLSGmUd67Xs0QgFkDgpEa0
+ WckQG5cWQFSlTuT2R8VEEkHXPcKSaQW9Y4XI9M4+4AJTm1I49iMQ0JOqMJkqiHKReHn7O783MBH
+ zz1ksl4tX2JMRNQWSw5uOAakS2uybi5JWrC30r14zSQqu4Z6uluvtkh2pYd8H/N4NtDt3GXC2UE
+ 4+KFLNeBcc7wUXDqnYMttEET8lfL+o0nqyC7Eh8nxPxcsQlHektkS0zuFNiZuP8olfbqjiMnmEf
+ rcSaZ4GQaNK0b17JKS0y1RVQb3Mis4f/wmDP/am9KYmVceCQQwANVk3AaFxRMI6i7YXHMPJy1i5
+ rZ3E7g88DaWGvpy40CAAkF6GX8+qkkpEFaJSTbFJhxoHsxerMQzZIODbkBi6xn9sMo8m2HXOU8j
+ 3PPgWvkcVhQXCuDZtE/QrxdYnu0Z5rJBoEMfHsJBhZSYqEKUJWS4MjFSiS+sYBLnKEg3+95wPiR
+ h+lM9I/qU8AhHdeBj3QV4yjCImTDngTIkGi1ZfpHKf9SiswALP1AkCx0CXqeN8xvkARsuR5shmh
+ qBeQ==
+X-Received: by 2002:a05:600c:4444:b0:493:f5bf:4dc6 with SMTP id
+ 5b1f17b1804b1-4980c645e1amr227533685e9.7.1785773492549; 
+ Mon, 03 Aug 2026 09:11:32 -0700 (PDT)
 Received: from jernej-laptop (APN-122-100-117-gprs.simobil.net.
  [46.122.100.117]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49949fc2da2sm3363735e9.3.2026.08.03.09.11.27
+ 5b1f17b1804b1-49949fc2da2sm3363735e9.3.2026.08.03.09.11.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 09:11:29 -0700 (PDT)
+ Mon, 03 Aug 2026 09:11:32 -0700 (PDT)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: wens@kernel.org
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
@@ -73,10 +73,9 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
  Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH 07/13] drm/sun4i: hdmi: Don't leak sync polarity bits into
- packet control
-Date: Mon,  3 Aug 2026 18:10:45 +0200
-Message-ID: <51ba0918ce016a4b45313d5df1b6ce31b8c8731e.1785772659.git.jernej.skrabec@gmail.com>
+Subject: [PATCH 08/13] drm/sun4i: crtc: Propagate layer initialization error
+Date: Mon,  3 Aug 2026 18:10:46 +0200
+Message-ID: <b26a0d427d9dfae9c82e3ca90a67d24d8ece5a28.1785772659.git.jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1785772659.git.jernej.skrabec@gmail.com>
 References: <cover.1785772659.git.jernej.skrabec@gmail.com>
@@ -97,36 +96,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-sun4i_hdmi_enable() keeps using the same variable after it programmed
-the video timing polarity register with it. The leftover TX_CLK, HSYNC
-and VSYNC bits are then ORed into the packet control register, where
-each nibble selects the packet type sent in one slot.
+sun4i_crtc_init() returns plain NULL when layer initialization fails,
+while all its other error paths return an error pointer. The only
+caller, sun4i_tcon_bind(), checks the result with IS_ERR() and happily
+continues with tcon->crtc set to NULL. sun4i_rgb_init() and
+sun4i_lvds_init() then dereference it in drm_crtc_mask(), which
+oopses.
 
-As a result, slot 0 selects packet type 3 instead of the AVI infoframe
-whenever the mode has positive HSYNC polarity, and the TX_CLK bits set
-nibbles which the driver never programs.
+Return the error pointer instead.
 
-Assign the packet types instead of ORing them into the stale value.
-
-Fixes: 9ca6bc246035 ("drm/sun4i: hdmi: Move mode_set into enable")
+Fixes: dcd215801b02 ("drm/sun4i: Drop primary layer pointer from sun4i_drv")
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c | 2 +-
+ drivers/gpu/drm/sun4i/sun4i_crtc.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-index 74c7c3720ba8..a27d394d0570 100644
---- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
-@@ -161,7 +161,7 @@ static void sun4i_hdmi_enable(struct drm_encoder *encoder,
+diff --git a/drivers/gpu/drm/sun4i/sun4i_crtc.c b/drivers/gpu/drm/sun4i/sun4i_crtc.c
+index c2f7f69baf75..3fa1f4fda0f0 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_crtc.c
++++ b/drivers/gpu/drm/sun4i/sun4i_crtc.c
+@@ -208,7 +208,7 @@ struct sun4i_crtc *sun4i_crtc_init(struct drm_device *drm,
+ 	planes = sunxi_engine_layers_init(drm, engine);
+ 	if (IS_ERR(planes)) {
+ 		dev_err(drm->dev, "Couldn't create the planes\n");
+-		return NULL;
++		return ERR_CAST(planes);
+ 	}
  
- 	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
- 
--	val |= SUN4I_HDMI_PKT_CTRL_TYPE(0, SUN4I_HDMI_PKT_AVI);
-+	val = SUN4I_HDMI_PKT_CTRL_TYPE(0, SUN4I_HDMI_PKT_AVI);
- 	val |= SUN4I_HDMI_PKT_CTRL_TYPE(1, SUN4I_HDMI_PKT_END);
- 	writel(val, hdmi->base + SUN4I_HDMI_PKT_CTRL_REG(0));
- 
+ 	/* find primary and cursor planes for drm_crtc_init_with_planes */
 -- 
 2.43.0
 
