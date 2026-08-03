@@ -4,78 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3878C55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 10:30:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66102C55179
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 11:02:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1FC6910E392;
-	Mon,  3 Aug 2026 10:30:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C8D910E00E;
+	Mon,  3 Aug 2026 11:02:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="kGS+12mP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Qz6hzBAA";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E65B10E00E;
- Mon,  3 Aug 2026 10:30:07 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6737ZLZk652790; Mon, 3 Aug 2026 11:29:59 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=4
- Xz45P66kgy2KqbSnZjfRVqEpqUwnoGGdKNT/6LnUE4=; b=kGS+12mPC+1wVqD+7
- ATUFSNTRW8mr9l44+7jMZpL3QRwoJ3vKEvjlhQSvmdPUdLLCgavHlYV84x4ne0V9
- DtNQ51foABCsbZQ235xNb8OByYLOytXX1OrwNkcfgPGYrSf3ttQNeEGYAJX10y+T
- N1G8ndjIpxz8SHXWyrv+QMIMOSGbZJpC1a3kFF/qcNALlUwRaKwX3oouQlpsTnls
- jroR/AHNV0dC8Hn6FPJ7jwkGSFhfFi+eqFfUdPCgyexgS2xHUWPEQh9ms20s2uei
- RMPgxS4uEiSv2rLi3rfU5e7HBdZ4/wVBoGTy4ii7c4DbStk/+HuYqDxEBxmHJ4jA
- FXdhA==
-Received: from hhmail02.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4fs72psccs-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 03 Aug 2026 11:29:59 +0100 (BST)
-Received: from NP-A-BELLE.kl.imgtec.org (172.25.4.151) by
- HHMAIL02.hh.imgtec.org (10.100.10.20) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 3 Aug 2026 11:29:58 +0100
-From: Alessio Belle <alessio.belle@imgtec.com>
-To: Luigi Santivetti <luigi.santivetti@imgtec.com>, Brajesh Gupta
- <brajesh.gupta@imgtec.com>, Alexandru Dadu <alexandru.dadu@imgtec.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alessio Belle
- <alessio.belle@imgtec.com>
-CC: <linux-kernel@vger.kernel.org>, <imagination@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-In-Reply-To: <20260729-fwif-checks-updates-v1-0-af65e9606a7e@imgtec.com>
-References: <20260729-fwif-checks-updates-v1-0-af65e9606a7e@imgtec.com>
-Subject: Re: [PATCH 0/2] drm/imagination: Tidy-up firmware interface checks
-Message-ID: <178575299848.80848.11796688985313316357.b4-ty@imgtec.com>
-Date: Mon, 3 Aug 2026 11:29:58 +0100
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
-X-Originating-IP: [172.25.4.151]
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA5MyBTYWx0ZWRfX0mQuXk/jNpf2
- eEQjqK29uppYFAEgVD2rGjeejXCcCASTGm7TFWadhUXH7j/zYEriUX7dyKvBtUMw/X5eNr64ZQ0
- AWUL0xdHJjzh6ToT2qW8cD9bZu7nCNk=
-X-Proofpoint-ORIG-GUID: BsnxxOQtHC2niiy7XGTBgMpey8cevEzT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA5MyBTYWx0ZWRfX/pdQA4382bVG
- u34W+tDOFS12lGtg2MauNoMzoqpnEjB5tu2hTJ96JmWXwZuqJb1TxZKqQrqBg91BOfytIYjsyVx
- pe2Ksd5nCQlHuxnVLntjgH647wzzLe/43l8gLRREl2svsUapi6cuzFuNxrc1gOfG1Y3nguZTiMf
- BlNKPh7yMkeNJ696s1av+3IRY3qCb2+HLKCkdSIVTLyvTgSYHSBHFKB+WPNY6VE5rzSKa3IuOgY
- PwIl7wgWUlRX5QPt31sZ5mbXIUk0BUbyvT9XOLyE8pFcBBOxwoTxcTzccSeTMMNJC8HS0vepein
- Iye1CyRlsIKm/rhGRvscxPens1S+pIKljNrc96ppOl77hbVudmPmoB20YP6U8ScFmJrvRzFnY9Q
- CXSiWvK1Iu5R0Xh7t2Yg2mOEP0hSGCUWGHbg3R0U4Rrd6ucrBZ/TkIsIsgVB4ZfjT+jtVYp1HVU
- 6R8YU8aY77/94f5ssyQ==
-X-Authority-Analysis: v=2.4 cv=auyCzyZV c=1 sm=1 tr=0 ts=6a706da7 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=XqWWZq4ChBYA:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=XMby5x-gFRhWGDQU36QA:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: BsnxxOQtHC2niiy7XGTBgMpey8cevEzT
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D38FF10E00E
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 11:02:44 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9BDE8439B9;
+ Mon,  3 Aug 2026 11:02:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FCD81F000E9;
+ Mon,  3 Aug 2026 11:02:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785754964;
+ bh=JyPuvE8WF3jQrj/fG1aJPEnL6oC9T9tcZ3s8/vwfqnI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Qz6hzBAAIZELvsPWwKOWIHMI2kjUPCMF+U3IoQbCJQ1Vouw8imLC8ipFbODWoq/6l
+ N7QlDCf+UYfcZt6Qcjj/6jCplQU/fuo+TE8oEug8XMG0os8vnCb9KnUvOsFxnF9q0p
+ ajiISiu7gDPot8+nZo0qDg4Ld4UqFu9t1ME0bdibAQl56IxAC7dDK+28VYr6yi12k1
+ j3DxHOUZ4adMkwEw/nQB6LC6YXUgvNACfjdiP6Bpz68tOoAD0AckEDC8hUpNNjpOY0
+ XLzRVhPiH91NHUMHfmlSlXQSjSsTJMQostMQpqDl/QEBn0v63IguqlLKvJLKbatcTN
+ DWWN/xXdlG+zg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/i915/dsi: Fix command mode line time calculation
+To: "Jinman Ma" <justdreemurr@fzu.edu.cn>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260803104851.267090-1-justdreemurr@fzu.edu.cn>
+References: <20260803104851.267090-1-justdreemurr@fzu.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 03 Aug 2026 11:02:43 +0000
+Message-Id: <20260803110244.5FCD81F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,27 +52,104 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 29 Jul 2026 15:57:05 +0100, Alessio Belle wrote:
-> The same macros were repeated in multiple header files, and another
-> header that could have used them, didn't.
-> Move things around to to sort out these minor issues.
-> 
-> Strict checkpatch reports "Macro argument reuse 'member' - possible
-> side-effects?" for FLEX_ARRAY_CHECK() but that's not a problem here.
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Applied to drm-misc-next, thanks!
+New issues:
+- [Low] DIV_ROUND_UP_ULL is incorrectly used with a 64-bit divisor and a 32=
+-bit numerator, which violates the underlying macro contract.
 
-[1/2] drm/imagination: Move all FW interface check macros to pvr_checks.h
-      commit: e0c92f0f9e200799eec6ba76d921643fd5b9f2b2
-[2/2] drm/imagination: Reuse layout check macros for MIPS FW structures
-      commit: 173dceaed68eef074b77278bd92e6fdb4e09606d
+Pre-existing issues:
+- [High] The command mode line time calculation fails to account for dual-l=
+ink DSI panel bandwidth scaling, resulting in a computed line time that is =
+exactly twice the physical line time and halving the requested vertical bla=
+nking period.
+--
 
-Best regards,
--- 
-Alessio Belle <alessio.belle@imgtec.com>
+--- Patch [1]: [PATCH] drm/i915/dsi: Fix command mode line time calculation=
+ ---
+commit edcb713539337dd734175d1e81417b69dd057925
+Author: Jinman Ma <justdreemurr@fzu.edu.cn>
 
+drm/i915/dsi: Fix command mode line time calculation
+
+This commit changes the line time calculation for command mode DSI panels
+from microseconds to nanoseconds. This prevents divide-by-zero errors during
+atomic commits at high link rates.
+
+> diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i91=
+5/display/icl_dsi.c
+> --- a/drivers/gpu/drm/i915/display/icl_dsi.c
+> +++ b/drivers/gpu/drm/i915/display/icl_dsi.c
+> @@ -917,16 +917,19 @@ gen11_dsi_set_transcoder_timings(struct intel_encod=
+er *encoder,
+>  	if (is_vid_mode(intel_dsi)) {
+>  		vtotal =3D adjusted_mode->crtc_vtotal;
+>  	} else {
+> -		int bpp, line_time_us, byte_clk_period_ns;
+> +		u64 line_time_ns;
+> +		int bpp;
+> =20
+>  		if (crtc_state->dsc.compression_enable)
+>  			bpp =3D fxp_q4_to_int(crtc_state->dsc.compressed_bpp_x16);
+>  		else
+>  			bpp =3D mipi_dsi_pixel_format_to_bpp(intel_dsi->pixel_format);
+> =20
+> -		byte_clk_period_ns =3D 1000000 / afe_clk(encoder, crtc_state);
+> -		line_time_us =3D (htotal * (bpp / 8) * byte_clk_period_ns) / (1000 * i=
+ntel_dsi->lane_count);
+> -		vtotal =3D vactive + DIV_ROUND_UP(400, line_time_us);
+> +		line_time_ns =3D DIV_ROUND_UP_ULL((u64)htotal * bpp * 1000000,
+> +						afe_clk(encoder, crtc_state) *
+> +						intel_dsi->lane_count);
+
+[Severity: High]
+This is a pre-existing issue, but does this calculation fail to account for
+dual-link DSI panel bandwidth scaling?
+
+Because the calculation uses the full htotal against the single-port
+bandwidth, and afe_clk is already halved for dual-link setups during VBT
+parsing, this results in a computed line_time_ns that is exactly twice the
+physical line time.
+
+Further down in gen11_dsi_set_transcoder_timings(), htotal is properly
+halved for dual-link configurations:
+
+    if (intel_dsi->dual_link) {
+        hactive /=3D 2;
+        if (intel_dsi->dual_link =3D=3D DSI_DUAL_LINK_FRONT_BACK)
+            hactive +=3D intel_dsi->pixel_overlap;
+        htotal /=3D 2;
+    }
+
+Since this htotal halving happens after line_time_ns is calculated, could
+this be requesting half the necessary blanking lines, providing ~200 us
+of vertical blanking time instead of the required 400 us? This might explain
+the persistent tearing and jitter mentioned in the commit message.
+
+> +		vtotal =3D vactive +
+> +			DIV_ROUND_UP_ULL(400 * 1000, line_time_ns);
+
+[Severity: Low]
+Does this usage of DIV_ROUND_UP_ULL() reverse the expected types for the
+numerator and denominator?
+
+The DIV_ROUND_UP_ULL() macro is designed for a 64-bit numerator and a 32-bit
+denominator. When do_div() is used internally on 32-bit architectures, it
+implicitly truncates the denominator to 32 bits.
+
+While line_time_ns easily fits within 32 bits here, so there is no
+functional impact, is there a risk of violating the underlying macro
+contract by using a 32-bit numerator and a 64-bit divisor?
+
+>  	}
+>  	vsync_start =3D adjusted_mode->crtc_vsync_start;
+>  	vsync_end =3D adjusted_mode->crtc_vsync_end;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803104851.2670=
+90-1-justdreemurr@fzu.edu.cn?part=3D1
