@@ -4,96 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 21DDDC55179
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 12:16:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 985D9C55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 12:26:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A98010E5E4;
-	Mon,  3 Aug 2026 12:16:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEE6810E037;
+	Mon,  3 Aug 2026 12:26:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZhilxiHV";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tTTIpK/L";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC4BB10E5E4
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 12:16:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5BA2360A81;
- Mon,  3 Aug 2026 12:16:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0933A1F000E9;
- Mon,  3 Aug 2026 12:16:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785759398;
- bh=55xmHsjPqzaGV0ly1LUi624NBcwUFcBTGLs//q+Aif4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=ZhilxiHVcGglLBMt5PIQz/4XhyzmurGW7f7hDst5wFgXLkEJ7Ql4j38SUeUjDtxpo
- iujYsQK51eOkQ+gMwj9rS2dVQ7eOYOVNnhbZESsOAcqCXH+mx1d/0Fdd9WEzcoiI8c
- vDP9WGdcT7/uIbYeu3lbftJzQrqcB1xe98RAX036DKn6XJXwFInPs1bs1Ka5WOVZcj
- h7OmESiRPlzjasLU3dDExgLYViNgbcUhxF4UfAyoDE9r+H+KGPx+tuBH7/2OUI0/u1
- /x/TJ2Xr65rD94DLz9eth0zXRCVGm6UE64DiY5TolS1I3TuHsCYsINlPMG/kPcDX+W
- 4IjSrT+t9CKJg==
-Message-ID: <bf97ed0d-571f-4c61-b761-5b45d435c4c2@kernel.org>
-Date: Mon, 3 Aug 2026 14:16:33 +0200
-MIME-Version: 1.0
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010004.outbound.protection.outlook.com
+ [52.101.193.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A6AF510E00A
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 12:26:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PyrGYagXHbXMqIGeOkqvHCgJibKg4aYhmF5AWxI2eWTlN+7MaGAfWoRsgtckyaz9COdL2+1V538ZTtQHsSneAZVnZDlpxv/7t2PuxB7tv4EFX+IHmHT9EBEHgYSvpXBBn06kFAKVMYUre8bhUGEZoLIcvkaE7PpDr4fb0GfKBmo4iflIJYpGiqvQhAzOl1wiNpa/U6hFXd12R5C5GHbaR8ocklaj+wiLAg1LL/0mn1IOKcoTxLVbOvyB6UxS/+NK1kZVUdXlZbxuRNDrIYNUhD6duzCwYKEjh8lJ70Pt/kElB+J7pDtr5EdzFxCmm6aiM4y3fWTvhtM1O87baOjc/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
+ b=e6Cgga8s3md7eVmeHul5kmwOKMD6d6UmyigQkJ4h5B9/mFPqT6K095uKu4SeI7natf9xY+5KHC4WEZSyMRpvPUxdolK6BSn+rFJEUqvNla4gfZHUb/0ruvv32SPYuQMnYxvRQtvrkjCI509uFXVlJNHezyDNmMj1DacVzx1CBLIzgzpAN8kyw4czyQXKfrcBZvb+BEi+R+bTMuF1zKEcf90LMMwaOvipbg5URxeZuXAG0nSVWPC8VjhjaIPVPpl/OOFK63pqYuIaz5xqXNKQvOULWTwSUSoUr5qOBTb/4bp/1YQ2BvlYGsi2Ach8qsky898bhefaLPz9RdF6RDNIpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
+ b=tTTIpK/LDeOXbXVlKMOGPJo/ZgwjpzDf0emX1kDbsTGVeMezpR2EfhEGl+4dMTOV0cTetAtWLrW1j+KgNIrHg8VyEua49OYMB1WU4vGjCF3NbY5rfLZ7prMfGjHLMX/DztK5BnVDBRQWQtm2M6RIe5xFRiS6R/BQGT78fkqd35E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA0PR12MB4446.namprd12.prod.outlook.com (2603:10b6:806:71::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 12:26:35 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
+ 12:26:34 +0000
+Message-ID: <5beb0994-556c-4715-aa1c-c8a31b5929b5@amd.com>
+Date: Mon, 3 Aug 2026 14:26:26 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT 1/3] mm: export variants of vmf_insert_pfn* for use
- with pfn_mkwrite()
-To: Paolo Bonzini <pbonzini@redhat.com>, linux-kernel@vger.kernel.org,
- kvm@vger.kernel.org
-Cc: Boris Brezillon <boris.brezillon@collabora.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Michal Hocko <mhocko@suse.com>,
- Sergio Lopez <slp@redhat.com>, Christian Koenig <christian.koenig@amd.com>,
- Huang Rui <ray.huang@amd.com>, bcm-kernel-feedback-list@broadcom.com,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org
-References: <20260731164341.1109827-1-pbonzini@redhat.com>
- <20260731164341.1109827-2-pbonzini@redhat.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
+ during device unbind
+To: phasta@kernel.org, =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>, Sean Paul <seanpaul@chromium.org>,
+ Gustavo Padovan <gustavo.padovan@collabora.co.uk>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
+ kernel-team@android.com, Simona Vetter <simona.vetter@ffwll.ch>,
+ stable@vger.kernel.org
+References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
+ <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
+ <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260731164341.1109827-2-pbonzini@redhat.com>
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0201.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e5::17) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB4446:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|23010399003|4143699003|56012099006|11063799006|10067099003|6133799003|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info: sOfBtrTJPBrF6arjPt/n4xQDs8pJevWUd5eJk0oYhmGU+z7+YEKvAcLgEbA5WCGDSVElJ4Eq3cYwsaazxRZjyH6+E5foZmB3WiF0dtD07kBMn2udyoMiKrSNEkVOqYT1AxKpVR+skQLDRFQdHvRNZFuXhb7Rj3gA3gyi2wHMFFf7rpnsFSJEB1hP0AoPbteCEMdG2JTfjL/93HvWCSY/ogXABV/MXvfefRgv8HQqGAorU8LFNCWMtrM7KrHXDV1wTF/6ISl+m4mGdh0QfrXSTtsrSJMv4KTo1UFvNI6B2i2yMyqI7NtbGmkTdTk9utwmA06+nvP8TXNf4S/EpMfXBzwUy25hEI7hSlKZpBQUoMO6ui+M2Ax5LEo63+jr0kVL3zAJD85veoZzOY0JnIexyIctFWrQ9JIvKEEhKhIezX8BqCS7z7kqjTYggTS2I9DNdMUFhiiYqXldoEnjXUuBonkgaSG+mCIFPFZU6sOIykpR81Gq/VnMGAf0NnCwP++q5LUYywyq0bsGD5HjEeC2wDjbXnaPy07rpP54BylPAaIud/AAZ45B4kKyNb+vH6J/BoCT5oruMRoy7gVDPqimfTMiFl0wjP4p3v2eYgenY+dVgJo5z5328WAXxuJUSGSqvkdC1Q1Uh7qTJc1hjBiUsQ==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXYweU9Sa09TVVliTWhid1pHYUNZTjBHMFJNVEV5QkRRdEVqeVMwdzNLdmtY?=
+ =?utf-8?B?RlRYMUdlRW5FcGZjLzFEZXZkcXBCd3k2Wm1WOU14WVFveXVuRnNPR3NuYTND?=
+ =?utf-8?B?Z25wK0NWTmtEM05GdnlHOXg1U1FVN2lYMVVzYXc4U3NPdEpBRmR5WVIrYzdI?=
+ =?utf-8?B?T2lqQ2F2MzF4WWFEeHA3SnlqVVdKUnp4QSt2SnNzL3pBcDRHMktRZlhBUHZi?=
+ =?utf-8?B?QmFCZ3lIaTJRM3piVDdDYUZXTVN5dzcrMkx4L0xpQWtOSVBEeG0zY3VxZnFi?=
+ =?utf-8?B?Q0dacDBqVVVaUmpVdlI5Rlg3UFErc0pScDdLSVgyRS9YMXA4ODdqU0h1RzlO?=
+ =?utf-8?B?YVJPSTBlU2U2QjJtY1pVUUFsUnhzQnZtSkR1QlRXeGl4bkY2c1RKVmJwajFX?=
+ =?utf-8?B?dGhDMTRJdW9abGxybDdiWlBCOUd2VUZtMHBXRFFkbzFqaHQwcGNiTldTWHpE?=
+ =?utf-8?B?azZqVTdLNzU4Y0R3OGM4YTZ3OTk0YjFsQzVGTDdCY095MVAwZ3JaT0lmWFVj?=
+ =?utf-8?B?S1Y4bWRmWE91UDhBTHdkbVhpU21NSmZjdU1nQ0JtQk02c3FTOFQzQnF3K21Y?=
+ =?utf-8?B?VndtcERuWUJHQ2EydEZUZDZkc0FFWXFTTFBsamtlRXhtMVN4MStQNjM5TG4z?=
+ =?utf-8?B?amNaQjY0N2ptSDUwVnRLNWtpTnZScGpUdEVWNXBMRFVvaCtqNDd4Z0tPL3Bh?=
+ =?utf-8?B?Ym1tL1VsT2hTVU9PRitqWHZURE44K2tVRnJzcnQzUjhwV3FSYzhjVTJBSE5t?=
+ =?utf-8?B?dFpiZFdtUTB0c3E3Zm5zSXVQZTJpdFlWdUQyTXpPL2IzZjR1K1V2SE9DdFdK?=
+ =?utf-8?B?RGVVNU4xMTdzcDVvVUhCS1dTU0RFc2lKUUR1RUxMUDc5L1g2MkVUZ3pZQk9I?=
+ =?utf-8?B?OHp4RFpweWYyODZqMmtsNDQvNnRhYVZpQ0hDWGlYaWF4SzNvdUxTQm9aSXNQ?=
+ =?utf-8?B?YU15UEh5OG9LNHkrajFWYlN4UGhsSDFKWDMvSVFYaDRkRDBSVUJLSmxuY09K?=
+ =?utf-8?B?N002RUl3c2VFQU5qQ2lZWUNrRE9VaFEzRDgyNXJIWVRSUldFR2dpUGg2QzMw?=
+ =?utf-8?B?L0E0ZUgwaFc3S2xzNHk3VEptUWhQMG4yOWRET1VtWmoxaDRVeEhuRFQ0bUUv?=
+ =?utf-8?B?WmE2STJFSldhWDJESzZnSkZnMjBGNjJrVTQzQU54S0dOT3QrTlpmQUR6c2VG?=
+ =?utf-8?B?UHE2c0tQZmtRdXNzVlFMWjFTQ0RmVzlacmw5THpER1g2YWF2Q05SRTBtcExJ?=
+ =?utf-8?B?K0RFSUg0ckoxZ2pYNE1sOFUwVmNRcEJ4VTl4V0tFNzhLeU80dGpzdVJQQy9x?=
+ =?utf-8?B?Z29JTG8wUVVJeW53Q0V0aTRhaExaY0t5c3ZOa1ZCbXQ3VGF2TTVjamZlVG9Q?=
+ =?utf-8?B?eEhBNVRuZGRyRTdGQ3hqWGFLVmVvZkFibzNoYWN1TlVjcThuZjQ3VTBLQkY5?=
+ =?utf-8?B?bDVENlpyNjhrZm0xZEVieVJ1UTMxRzNDZU5IQ0dDUm1RYURaZlE4MWZvaEtp?=
+ =?utf-8?B?YWdFSFpuNU1GV25rQWUxYWxPQ0piWmFESGJQajdWcitiS2kxL2tBTFFKYlVn?=
+ =?utf-8?B?ZFdqUnIxSFVybHRRQXRIbDRiMzBVVUdqbVdQVEJHUGZsdUVHNmd0WlZtU0lu?=
+ =?utf-8?B?Y0hxMDRkMW5DeGJnbTd3RzhWUDJkV0hHenZFVWJZNEh2UTNJbzFxK0FhQzAw?=
+ =?utf-8?B?aUdnZGZUdTJoZ3Q5ZmhENTV5d0VNMnY2N1dFSjB4NzNDRGRoYXpGbDRBQ0Nw?=
+ =?utf-8?B?WUVRSUVKSjc1NGg5b1hVZUJiR200YlhEYUxaZHJEa2QwdUhvUWZZaGMyeVBk?=
+ =?utf-8?B?dDd0VVNxMW1tQ3k2dXRnTGtqVzRBOGFkbW9vQktsRXdTNzdaWExKb1hUVDUv?=
+ =?utf-8?B?eG5WR0VlWk1KRFhvNklLNldpTEVJY2hsdjMra1dZUk12dS8yc3IwYXJpUW9D?=
+ =?utf-8?B?bDlvalN3eG40T0pYZjVJSUU4UnBjR3pPVEdLN09qVWd4NDZRMWNBS3ZYYzNy?=
+ =?utf-8?B?K21XZ3ptekxKbzR5UDl6ZjRYbHk1bk5vV1YwMFpaRnJsZjJUR281TEtTbjVW?=
+ =?utf-8?B?bnp3akZ1d0Qwbk9VMzdEekl4MUtrazZxNlQyRHVPcE52aE1XblNVSGlUa1J2?=
+ =?utf-8?B?L09tWTZnd29NMGZEVWU1eG1pVU9kanc3UHQ2MktJNzhDUU9QRXJSMFlCblJ3?=
+ =?utf-8?B?V1A0dnJMOTFidWpkcDZyQUFkalYwZTF1YUxLQWxldEFkS0ZaMmE3bThOd1ZU?=
+ =?utf-8?B?WWRaaXhOSFVwOFBHRW1sM09YOGZMeWUyb3oxY25GS1gzbzl5Y3RZVEY5Zjhj?=
+ =?utf-8?Q?1kEV7gEQK/Kde4bYQ+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 12:26:34.7295 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6CmZqGL67c4rEa1ngRN62QIWZVkN9WyvEECIMN/RLl1iGTB/10wM5GuS2hzwwV+F
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4446
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,124 +152,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/31/26 18:43, Paolo Bonzini wrote:
-> Right now, users of .pfn_mkwrite() have no way to create a PTE
-> that has gone through maybe_mkwrite().  Because vma_set_page_prot()
-> will have cleared the writable PTE bit, users of fixup_user_fault()
-> will see a read-only PTE and have no clue that the page needs
-> a *second* fault to reach its final status.
+On 7/21/26 13:20, Philipp Stanner wrote:
+> On Tue, 2026-07-21 at 09:21 +0100, André Draszik wrote:
+>> In [1], sashiko reported the following issue:
+>>
+>> === snip ===
+>> Looking at how these fences are managed, drm_crtc_create_fence()
+>> creates a dma_fence without taking a reference to the drm_device or
+>> drm_crtc. Because the sync_file framework exposes this fence to
+>> userspace, the fence can outlive the CRTC.
+>>
+>> The dma_fence contract requires that data accessed by dma_fence_ops
+>> (like get_driver_name) must remain valid for an RCU grace period after
+>> the fence is signaled. However, drm_crtc_cleanup() and the subsequent
+>> freeing of the device do not wait for an RCU grace period via
+>> synchronize_rcu().
+>>
+>> If userspace calls ioctl(SYNC_IOC_FILE_INFO) concurrently with a device
+>> hot-unplug:
+>>
+>> CPU1 (Userspace)
+>> sync_file_get_name()
+>>   ops = rcu_dereference(fence->ops);
+>>   if (!dma_fence_test_signaled_flag())
+>>     // Preempted or delayed here
 > 
-> Handling this in fixup_user_fault() is problematic: the information
-> about the presence of *_mkwrite is only recorded in vma->vm_page_prot,
-> which is an opaque pgprot_t, therefore only follow_pfnmap_start()
-> knows how to retrieve it.
+> nit: no one will be preempted here since the RCU read lock must be
+> held. The Sashiko tool misses the point, which is simply that someone
+> illegally frees up stuff that might be still in use, with or without
+> delay or preemption, that's all irrelevant for the issue.
 > 
-> There are actually some preexisting functions that suggest how this
-> is supposed to be handled, namely vmf_insert_page_mkwrite() and
-> vmf_insert_pfn_pmd().  Adjust mm/memory.c to export two more
-> functions: vmf_insert_pfn_mkwrite() for the common case where
-> vma->vm_page_prot is okay, and __vmf_insert_pfn_prot() when
-> really all parameters are needed.  This makes it possible
-> to fix drivers that use .pfn_mkwrite together with
-> vmf_insert_pfn() and vmf_insert_pfn_prot().
+> Anyways, thanks for fixing this:
+
+Seconded.
+
 > 
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
->  include/linux/mm.h |  4 +++
->  mm/huge_memory.c   |  2 +-
->  mm/memory.c        | 75 +++++++++++++++++++++++++++++++++-------------
->  3 files changed, 59 insertions(+), 22 deletions(-)
+>>
+>>
 > 
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 34c79b5fcb9b..33c7de36b214 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -4551,6 +4551,10 @@ vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned long addr,
->  			unsigned long pfn);
->  vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
->  			unsigned long pfn, pgprot_t pgprot);
-> +vm_fault_t vmf_insert_pfn_mkwrite(struct vm_area_struct *vma, unsigned long addr,
-> +			unsigned long pfn, bool write);
-> +vm_fault_t __vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
-> +			unsigned long pfn, pgprot_t pgprot, bool mkwrite);
->  vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
->  			unsigned long pfn);
->  vm_fault_t vmf_insert_mixed_mkwrite(struct vm_area_struct *vma,
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index b5d1e9d4463d..2f4dcaa819b7 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1615,7 +1615,7 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
->   * @pfn: pfn to insert
->   * @write: whether it's a write fault
->   *
-> - * Insert a pmd size pfn. See vmf_insert_pfn() for additional info.
-> + * Insert a pmd size pfn. See vmf_insert_pfn_mkwrite() for additional info.
->   *
->   * Return: vm_fault_t value.
->   */
-> diff --git a/mm/memory.c b/mm/memory.c
-> index 40997a26846f..7b950be8f511 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -2718,6 +2718,34 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
->  	return VM_FAULT_NOPAGE;
->  }
->  
+> […]
+> 
+>> Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org?part=1
+>> Fixes: 6d6003c4b613 ("drm/fence: add fence timeline to drm_crtc")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: André Draszik <andre.draszik@linaro.org>
+> 
+> Reviewed-by: Philipp Stanner <phasta@kernel.org>
 
+Reviewed-by: Christian König <christian.koenig@amd.com> for both patches.
 
-[...]
+> 
+>>
+>> ---
+>> v3:
+>> - Philipp: update kerneldoc, add Fixes:
+>>
+>> v2: new patch
+>> ---
+>>  drivers/gpu/drm/drm_crtc.c | 15 ++++++++++++---
+>>  1 file changed, 12 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+>> index 63ead8ba6756..e8e80c936852 100644
+>> --- a/drivers/gpu/drm/drm_crtc.c
+>> +++ b/drivers/gpu/drm/drm_crtc.c
+>> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
+>>   * drm_crtc_cleanup - Clean up the core crtc usage
+>>   * @crtc: CRTC to cleanup
+>>   *
+>> - * This function cleans up @crtc and removes it from the DRM mode setting
+>> - * core. Note that the function does *not* free the crtc structure itself,
+>> - * this is the responsibility of the caller.
+>> + * This function cleans up @crtc and removes it from the DRM mode setting core,
+>> + * after first waiting an RCU grace period to ensure @crtc->dev can safely be
+>> + * dereferenced by our dma_fence_ops.
+>> + *
+>> + * Note that the function does *not* free the crtc structure itself, this is the
+>> + * responsibility of the caller.
+>>   */
+>>  void drm_crtc_cleanup(struct drm_crtc *crtc)
+>>  {
+>>  	struct drm_device *dev = crtc->dev;
+>>  
+>> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
+>> +	 * the fence is signaled. This is necessary because our dma_fence_ops
+>> +	 * dereference crtc->dev.
+>> +	 */
+>> +	synchronize_rcu();
+>> +
+>>  	/* Note that the crtc_list is considered to be static; should we
+>>  	 * remove the drm_crtc at runtime we would have to decrement all
+>>  	 * the indices on the drm_crtc after us in the crtc_list.
 
-> +vm_fault_t __vmf_insert_pfn_prot(struct vm_area_struct *vma,
-> +			unsigned long addr, unsigned long pfn, pgprot_t pgprot,
-> +			bool mkwrite)
-
-(We indent two tabs, I assume vmf_insert_pfn_prot uses 3 for legacy reasons after
-renamings)
-
-Hm, having a __ function that looks like an internal helper exported to drivers
-and then not adding kerneldocs.
-
-Why not simply have
-
-	vmf_insert_pfn_prot_mkwrite()
-
-And add proper documentation?
-
-I guess we could also turn vmf_insert_pfn(), vmf_insert_pfn_mkwrite() and
-vmf_insert_pfn_prot() into simple inline functions in the header. And I'd even
-say that a single excessive documentation of vmf_insert_pfn_prot_mkwrite()
-might be sufficient, and keeping it very short for the wrappers.
-
-
-> +{
-> +	/*
-> +	 * Technically, architectures with pte_special can avoid all these
-> +	 * restrictions (same for remap_pfn_range).  However we would like
-> +	 * consistency in testing and feature parity among all, so we should
-> +	 * try to keep these invariants in place for everybody.
-> +	 */
-> +	BUG_ON(!(vma->vm_flags & (VM_PFNMAP|VM_MIXEDMAP)));
-> +	BUG_ON((vma->vm_flags & (VM_PFNMAP|VM_MIXEDMAP)) ==
-> +						(VM_PFNMAP|VM_MIXEDMAP));
-> +	BUG_ON((vma->vm_flags & VM_PFNMAP) && is_cow_mapping(vma->vm_flags));
-> +	BUG_ON((vma->vm_flags & VM_MIXEDMAP) && pfn_valid(pfn));
-> +
-> +	if (addr < vma->vm_start || addr >= vma->vm_end)
-> +		return VM_FAULT_SIGBUS;
-> +
-> +	if (!pfn_modify_allowed(pfn, pgprot))
-> +		return VM_FAULT_SIGBUS;
-> +
-> +	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
-> +
-> +	return insert_pfn(vma, addr, pfn, pgprot, mkwrite);
-> +}
-> +EXPORT_SYMBOL(__vmf_insert_pfn_prot);
-
-If this becomes a dedicated symbol, why not GPL?
-
--- 
-Cheers,
-
-David
