@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5D02C55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:11:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC0D8C55184
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:11:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2756610E71E;
-	Mon,  3 Aug 2026 16:11:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B35B10E720;
+	Mon,  3 Aug 2026 16:11:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="naKIZT0u";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qo/DJlUE";
 	dkim-atps=neutral
 Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
  [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0E5B10E71E
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:11:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE1CB10E720
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:11:31 +0000 (UTC)
 Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49553515a8bso36278665e9.1
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:11:28 -0700 (PDT)
+ 5b1f17b1804b1-490cf322ed0so12696895e9.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:11:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785773487; x=1786378287; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785773490; x=1786378290; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=WnZE5eYLucvHUcpEznH4hSEo3d2Mtfchio0f8Z2eXVU=;
- b=naKIZT0uHQ62RyBMn9dKyuK59ofyGfVYVLEfBg7DyEx4NnMFrVfQVUeIlg7mqQ12AA
- iTsb0JxzBA0eH8y9XFvXrJIjMAcDtBh8+M8r5et+j0dEJvwjPdSqgjZWzHSapRg8Pjx0
- HXpkWrWuM1fXBb7z8TZEbjR6OXWJWJKyHbCKeyrhRDd0rwzDqg+X6o/BHB8Cat+RPf/H
- 6HB37a6+Adf5cEfX8blh8j7VObm3SiSHiaNmA/4+nr8WT2JEczbNVr5zyPNhkhQjK6oF
- Fv+DH3CVw/zATb+MIosykydckZM9t528EjW8dzp5X+fDmC5EZZ8s5QO5GTgdGCYUlG3E
- qBIA==
+ bh=l/erqd8k66TTCAw8PMmbwYLxInnN4rdx5bNv3CpPzY8=;
+ b=Qo/DJlUEpjOhvVB3m02bhe5+0BdUC4g90Hec13cl9HgIiqlfi2p7bBPRnbf3UYh1Ux
+ HUHuL2ECAmmu6+sIguDcqu8KKgutJ+tDjX7QnfkUmAwOT5CHzF/WQ8CjiC7RKjb0akCV
+ l9GsDghYHNIjblaXeWPrNGA0QnkTBkRtkuNR9ejafM3E8/vGdh5LEYbEE9MUPrhnOt9C
+ SQRzQBHUfB8zkOoVhqZelWrxQQjJLNJe6FsuNR52iIEG++MHUL1QXANcx/dB5BPobG+v
+ ZCeC08dh7c05JeqYIgZ4KciMIq46r0i9nswhQWSpYntoV0X7ynisR5uwAjDF/+Qea3hy
+ 1Cog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785773487; x=1786378287;
+ d=1e100.net; s=20251104; t=1785773490; x=1786378290;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=WnZE5eYLucvHUcpEznH4hSEo3d2Mtfchio0f8Z2eXVU=;
- b=NgXQtS6lYfW1l6jl/o1jnUX7IRsjr2nd+BTn/zU/d1aeGV0AqW9NCpIJtfO5K4mSPS
- RgtbvumVk9WWAh5KnmG40V/QbIja/LvKnoQL0fPtumVXMf72Y+3Whk0yJQwS4HzUfWic
- Iu9pJyuTEytXoj4XbxOAb85xo/3l/V+ulMMbu7gZeN5BHMBAueWjnhFx2HK5WtZ0XgEN
- BcpYnhGoFh5jOrjBahkV2GmpuTuL6VI2/ochCquhAmU0ThUHOBg6vOxdL+PsPJNwI7T9
- fmk3P968RwXe46Lp27PkDm1sHmQDqkaeuTF99wDXsjWNmB1ZrMdWFZDR3SPkFv2a6RsL
- OeWg==
+ bh=l/erqd8k66TTCAw8PMmbwYLxInnN4rdx5bNv3CpPzY8=;
+ b=hlWJt+OQqH0rYBpd36h3LH7H8YJFUp/Rai/ASQNXGgojRux3HLRFJ/OJVHL2DiBiCD
+ L6pPu7oarq8RRCP5N7jRImIKVnoiyT7IWQKsWizAmGCzxlByqP4+hnPecBR8ButsxtHv
+ p78GvumtD0pc8WWFin36WuWICRy3jO+gxXOQ4cZP9RUdOfZhRrlYXjPlSwKNz5xFyt3a
+ ESeXsPJS4OindhsgskkI8u/tzsR057J7xBc7Ha+/gttAJqvIWE3d9MG4Gr8ol+B0Jyw8
+ 3gGxDi4pw1cfFnN/1XR18s7GXWcwtYIsqh6NKw4bL1VtjwMBWip5e0SNf/Gv+Pv8JEqX
+ mdrQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rqe6N6zwqpXq/jXWU10tBEQbOVcPEcCW7d8Vj/Yj82x2PwL8ZzHLpq2z1I8jiA6DcaH4zuvAbJFitw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywm5DIIccT4r94/aX55im3OEAaXOHf/xKyD5vC75c75RUOZDLen
- yn/tDruOa0WgNAAfEFLwz1Xa+/r3AoxltTGCXmt8oBDDeT9rO3dLmuAA
-X-Gm-Gg: AR+sD11VxmRf7iyk0M/iL227hUwz1YR0hz2t7IqOgThvaRGO3WtrNnZBZ2b9BpmUDUB
- NkAIiv6ULdNqFeVoYuXMPggX43kabdRF+lRaMtRTwykrPwchH8foPWWw6LOBgpbHuRXOkSuO9bc
- suG3f8tsN3Pzx6MQfJLin13WXGB5jOLdx91XOdP/HGYmZL/iFezLkIAKmI/Eg/i5rsLFupa9Raj
- g8eyiotmXdzXL2ljM5OAaNgBpBdesbKCJKBCt2hPhwAh4DkoP0Wf0Rnv1M+0bGhLXeqzJKhY97z
- t4GTdTNcjSXndm3xvxsBCD+lwiwz3/dD9rRtXjiyH96zI/7mggxmyNRaCKs3sQABq0zOF9EziFF
- nHUeceIPRn7dBPE6bG7jzlCI+W9wmBaxgj0g/BysYF1BieWuwUcq0Kmo8ZOnKu8lIEPHwsBIfhs
- u01PqUwNBCZnxc1QK5V8l5hEkYwLuyoFppUu0qpOE9OImdKBfNSAcAGwW93jWyrElsW4wxgdhsc
- NWh6138pX5QEnpCZmORJq6+SgffLhcD8uyDiu2LpmjVWL6EIhu0DvtjEDP0vha6S9Hi5cknspw3
- aDYl5i1PZQVq2YghYdWLPOeZWfexFiZJdvyzblpLvLJIJ6pMekY4kadetj7nuMEyQ7pm4adaOT7
- fFODHNNdwIZDCcbP3Mg/yK//r6MDTnNP9v/FHtp/NzE6Pq4Lvpop5hm0dSEPCMfnmMNJFomzMhA
- yC5eZ/5jAy+4Xb4Q==
-X-Received: by 2002:a05:600c:4f87:b0:490:c6c2:52 with SMTP id
- 5b1f17b1804b1-4980c66c7d9mr217127655e9.3.1785773487184; 
- Mon, 03 Aug 2026 09:11:27 -0700 (PDT)
+ AHgh+RpbrgWQhBLKsnnYX6YhH1uiG0XqVhH6j1Cx4mh2tXFF7FqYYMOyvlwEnzwnH0QonDa5Z6vqfguT5d0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxY7NqZv6WkRlxbUjU95hZK9Ltqezw9V0vRw13Si5tgIiqM7fLK
+ L284EiQhY4mOzaSlIjiAaRhN8lPmVVEevdoheUIWmXbFBoywdUMQSQnu
+X-Gm-Gg: AR+sD13PaX93jGm/RFuuIvHuy3ST4gVyqSEUzYL4rJsquMAgRycRDGrT9LZsf/a9bkR
+ Fa6fBYvdw66gMJ+9X3CukV28vM9i3qmzf6algZV+RvPY6Eqt1OV2LAV7BzmjP7731akcczUF2os
+ bzRvm+xx7zvpysM90SA8z+01S9tHSp7kqQqs0CgCQau2US9Wti0726fcfIGlogwUMJq/dFu0X3I
+ CHN1FehNgk8VMpXNFsh3HxLgE7dRRAPtJeH8TLVrm5Qp5orxQysylnR9elt4K6w5Nqph5wns/EY
+ 4JIZqcQ+2lXW3zaSMqxXI96OFjzUjCLvd2o0WxXZQAkw9Atlg8w6VzRnwN6YBT4aRKWcbIAkQzK
+ Iq9MJRDujiUFpefPaSgjB8Whx+5/aXYvNF2Nx9dbBWB6ODrxiteRKN6lQYUZ/yzdioGyYr5hPeQ
+ EA0WID+YE/zQ8juPMX1SwWCkTXlYzwnxTowDdv8d5AtlbDxwqwx76fy6xvDhtLB0aR85vlC5l8M
+ HBugkfDbJwg+W1kDH6ukKpimxyTGjNEM3kNONxx4BMLcGQOqvHY8YrfyIS52wx9jONVhMKQDypo
+ Z1NA8phy5iDzMxkwsqWqwTdRdq79hw6ZHyY/0r7cpltVwjFUbDeqrBBHfmapgA6ukw/lQfWXn4K
+ iodHFMCMFX2ELRyo1vT9ywUZRkqnDPJoIZrMLAmTAbPlxl8jvkCqQCueZ8BZUl65O3fmr7RVFF9
+ tTkA==
+X-Received: by 2002:a05:600c:3f0d:b0:495:4cb6:71cc with SMTP id
+ 5b1f17b1804b1-4980c66b530mr267029485e9.5.1785773490118; 
+ Mon, 03 Aug 2026 09:11:30 -0700 (PDT)
 Received: from jernej-laptop (APN-122-100-117-gprs.simobil.net.
  [46.122.100.117]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49949fc2da2sm3363735e9.3.2026.08.03.09.11.24
+ 5b1f17b1804b1-49949fc2da2sm3363735e9.3.2026.08.03.09.11.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 09:11:26 -0700 (PDT)
+ Mon, 03 Aug 2026 09:11:29 -0700 (PDT)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: wens@kernel.org
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
@@ -73,9 +73,10 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
  Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH 06/13] drm/sun4i: tcon: Drop TCON TOP device reference
-Date: Mon,  3 Aug 2026 18:10:44 +0200
-Message-ID: <871a3108086c15a483eef23301984c8d2254dfa7.1785772659.git.jernej.skrabec@gmail.com>
+Subject: [PATCH 07/13] drm/sun4i: hdmi: Don't leak sync polarity bits into
+ packet control
+Date: Mon,  3 Aug 2026 18:10:45 +0200
+Message-ID: <51ba0918ce016a4b45313d5df1b6ce31b8c8731e.1785772659.git.jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1785772659.git.jernej.skrabec@gmail.com>
 References: <cover.1785772659.git.jernej.skrabec@gmail.com>
@@ -96,58 +97,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-of_find_device_by_node() takes a device reference. Drop it after mux
-configuration succeeds.
+sun4i_hdmi_enable() keeps using the same variable after it programmed
+the video timing polarity register with it. The leftover TX_CLK, HSYNC
+and VSYNC bits are then ORed into the packet control register, where
+each nibble selects the packet type sent in one slot.
 
-Fixes: 0305189afb32 ("drm/sun4i: tcon: Add support for R40 TCON")
+As a result, slot 0 selects packet type 3 instead of the AVI infoframe
+whenever the mode has positive HSYNC polarity, and the TX_CLK bits set
+nibbles which the driver never programs.
+
+Assign the packet types instead of ORing them into the stale value.
+
+Fixes: 9ca6bc246035 ("drm/sun4i: hdmi: Move mode_set into enable")
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun4i_tcon.c | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-index ea7c90fef316..de2d66623f7a 100644
---- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-@@ -1409,7 +1409,7 @@ static int sun8i_r40_tcon_tv_set_mux(struct sun4i_tcon *tcon,
- {
- 	struct device_node *port, *remote;
- 	struct platform_device *pdev;
--	int id, ret;
-+	int id, ret = 0;
+diff --git a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+index 74c7c3720ba8..a27d394d0570 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
++++ b/drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c
+@@ -161,7 +161,7 @@ static void sun4i_hdmi_enable(struct drm_encoder *encoder,
  
- 	/* find TCON TOP platform device and TCON id */
+ 	drm_atomic_helper_connector_hdmi_update_infoframes(connector, state);
  
-@@ -1432,21 +1432,20 @@ static int sun8i_r40_tcon_tv_set_mux(struct sun4i_tcon *tcon,
- 	if (IS_ENABLED(CONFIG_DRM_SUN8I_TCON_TOP) &&
- 	    encoder->encoder_type == DRM_MODE_ENCODER_TMDS) {
- 		ret = sun8i_tcon_top_set_hdmi_src(&pdev->dev, id);
--		if (ret) {
--			put_device(&pdev->dev);
--			return ret;
--		}
-+		if (ret)
-+			goto out_put_device;
- 	}
+-	val |= SUN4I_HDMI_PKT_CTRL_TYPE(0, SUN4I_HDMI_PKT_AVI);
++	val = SUN4I_HDMI_PKT_CTRL_TYPE(0, SUN4I_HDMI_PKT_AVI);
+ 	val |= SUN4I_HDMI_PKT_CTRL_TYPE(1, SUN4I_HDMI_PKT_END);
+ 	writel(val, hdmi->base + SUN4I_HDMI_PKT_CTRL_REG(0));
  
- 	if (IS_ENABLED(CONFIG_DRM_SUN8I_TCON_TOP)) {
- 		ret = sun8i_tcon_top_de_config(&pdev->dev, tcon->id, id);
--		if (ret) {
--			put_device(&pdev->dev);
--			return ret;
--		}
-+		if (ret)
-+			goto out_put_device;
- 	}
- 
--	return 0;
-+out_put_device:
-+	put_device(&pdev->dev);
-+
-+	return ret;
- }
- 
- static const struct sun4i_tcon_quirks sun4i_a10_quirks = {
 -- 
 2.43.0
 
