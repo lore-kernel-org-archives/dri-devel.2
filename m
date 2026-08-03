@@ -4,57 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C588CC55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 20:46:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 408B7C55196
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 20:53:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C058D10E091;
-	Mon,  3 Aug 2026 20:46:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9561410E043;
+	Mon,  3 Aug 2026 20:53:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HLIrXYCi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WcECJy5z";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23B4B10E091
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 20:46:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E3AD10E043
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 20:53:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D05DF437D5;
- Mon,  3 Aug 2026 20:46:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70EC51F000E9;
- Mon,  3 Aug 2026 20:46:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 66B6160A59;
+ Mon,  3 Aug 2026 20:53:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B3681F00A3A;
+ Mon,  3 Aug 2026 20:53:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785789986;
- bh=CKukr0kKtwGlYBu1PNlJeaKZSMwsaeEvONoBJmI2Ijs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=HLIrXYCidf5yZItQJ7euKmQldxLQCaXhOLLk7+CqYVwi1Yk5S5RH9J2C3YA2PLMUt
- bSPkfUEm5gPFbkguhIFVPIu9XZCmm7FgK2ktiuDnu0xOxMJXp0yHuB4d1fbVJk3JNB
- xeASrv82DkF5BK8tcWVFhhVeCAgpDBPNHQm39c7kcJ4A0bQs0FETb32ojwjyh8P0lO
- IWHCRw9xiOobhkmWXvCBveItkzH++Fc4n2ytv58jN3AarfZTFZ7Il5tgYuEkwrSI96
- xqm80uo3hD4JZTN9Xj3LIQhylOJeblmZjTvJk6ogpHbSMTAVFR7FpYrYyxDvIGJHT9
- Gw0ke0VgmqAXA==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, Eliot Courtney <ecourtney@nvidia.com>,
- Zhi Wang <zhiw@nvidia.com>, driver-core@lists.linux.dev,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 0/3] rust: io: register: a few fixups
-Date: Mon,  3 Aug 2026 22:46:19 +0200
-Message-ID: <20260803204619.3606521-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260724-registers_fix-v2-0-a0fb58b02185@nvidia.com>
-References: <20260724-registers_fix-v2-0-a0fb58b02185@nvidia.com>
-X-Patch-Reply: applied
+ s=k20260515; t=1785790408;
+ bh=42fMjfMmyKoxIac5xGfUWe0H4Hd5p40u1U7vZae7AME=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=WcECJy5zwe3it57uD+HxHZblPLjWVcBNQ4VhRCHd+jKDvO2jXi+m1kaTmRCsRRtg2
+ QZv+SCD+KsaR3eZlvT0BW/ID679n01MbA83TiXwbEoW1L+W3NZwEyTU1zQpKDvOGCE
+ urFSI4Joboi6Hyiq5c2YqJ6nXTowsFtdF/4P6kZgUHmg/GSO7B+hNn4Hqlen68o8R/
+ q9bBSdE7BE92kMkNHFWafNdaz3b4KDwLwEOSwwtD5f8211u/yLgB7/tTHtKXWQzNHT
+ MQg75JSK1wxMkLL4SVfp7mSe+XGv74BCfS570fKjbcvIODC2S4wXYzjPPjvkQ2o8Q3
+ bLV42DdnxLicQ==
+Date: Mon, 3 Aug 2026 22:53:24 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Mark Rutland <mark.rutland@arm.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>, 
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+ Damien Le Moal <dlemoal@kernel.org>, 
+ Niklas Cassel <cassel@kernel.org>, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, 
+ Jassi Brar <jassisinghbrar@gmail.com>, Lee Jones <lee@kernel.org>, 
+ Johannes Berg <johannes@sipsolutions.net>, Jeff Johnson <jjohnson@kernel.org>, 
+ Viresh Kumar <vireshk@kernel.org>, Nishanth Menon <nm@ti.com>,
+ Stephen Boyd <sboyd@kernel.org>, Yangbo Lu <yangbo.lu@nxp.com>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Samuel Holland <samuel.holland@sifive.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Richard Cochran <richardcochran@gmail.com>, 
+ Jens Wiklander <jenswi@kernel.org>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>, 
+ YC Hung <yc.hung@mediatek.com>, Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Sean Wang <sean.wang@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, coresight@lists.linaro.org,
+ linux-arm-msm@vger.kernel.org, 
+ linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-i2c@vger.kernel.org, 
+ mfd@lists.linux.dev, linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-pm@vger.kernel.org, netdev@vger.kernel.org, linux-pwm@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Correct white-space style
+Message-ID: <anD_bci501e0J3q2@zenone.zhora.eu>
+References: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,23 +92,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 24 Jul 2026 20:37:03 +0900, Alexandre Courbot wrote:
-> [PATCH v2 0/3] rust: io: register: a few fixups
+Hi Krzysztof,
 
-Applied, thanks!
+On Sat, Aug 01, 2026 at 09:56:14PM +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues, like double space after '=' or before
+> bracket '{' characters, which will be flagged by dt-check-style.  No
+> functional changes.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> Patch applies on Rob's for-next branch.
+> ---
+>  .../arm/firmware/linaro,optee-tz.yaml         |  8 +-
+>  .../devicetree/bindings/arm/psci.yaml         | 18 ++--
+>  .../bindings/arm/qcom,coresight-tnoc.yaml     |  2 +-
+>  .../devicetree/bindings/ata/st,ahci.yaml      | 22 ++---
+>  .../bindings/display/ti/ti,am65x-dss.yaml     | 12 +--
+>  .../bindings/display/ti/ti,j721e-dss.yaml     | 96 +++++++++----------
+>  .../bindings/display/ti/ti,k2g-dss.yaml       | 36 +++----
+>  .../bindings/dsp/mediatek,mt8195-dsp.yaml     |  2 +-
+>  .../bindings/gpio/st,nomadik-gpio.yaml        |  2 +-
+>  .../devicetree/bindings/i2c/st,sti-i2c.yaml   |  2 +-
 
-  Branch: driver-core-testing
-  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
+Yes, I had noticed this recent white space which slipped off my
+review, but it looked too much hassle for a single patch removing
+the white space.
 
-[1/3] rust: io: register: dispatch shortcut rules internally
-      commit: ebb314763f97
-[2/3] rust: io: register: remove unused rule arguments
-      commit: 78e9b4389231
-[3/3] rust: io: register: use path fragment for alias destination
-      commit: 2230d3882850
+Thanks!
 
-The patches will appear in the next linux-next integration (typically within 24
-hours on weekdays).
+Acked-by: Andi Shyti <andi.shyti@kernel.org>
 
-The patches are in the driver-core-testing branch and will be promoted to
-driver-core-next after validation.
+Andi
