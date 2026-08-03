@@ -4,135 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69937C55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 13:54:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B223CC55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 13:58:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC66010E616;
-	Mon,  3 Aug 2026 13:54:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 144AB10E43A;
+	Mon,  3 Aug 2026 13:58:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="a1fNdxZF";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kZOTiWL8";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011041.outbound.protection.outlook.com [52.101.52.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0AC210E616;
- Mon,  3 Aug 2026 13:54:41 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010011.outbound.protection.outlook.com [52.101.46.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC2C10E43A;
+ Mon,  3 Aug 2026 13:58:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m24s7lvF9byWb4upvtYMQ1OFW2q8PCpMQnleJoW0jB7izOLr4R8A7ZApcOBShhtVHX7GdxtPbAiQMTEGrVgwDlPOzx3JGhUNzI7EPeNHrqko0kGHFFA/gWunwG2uILJFDN2VIid1/biDurVFgiaQhmzpzjPCXYfoc1tdqREcm2TcMFHLVRCi04qR8wdKrdShXn7hQlwjzGSTY7WEstEs5BL6RQvyWjklg3cmV6FunTH8JeScFISWi3zKgJJ0gfaR8cEbru72gor9Ip/x1YG0VY/ulm2hLgr1vrvw0S/FcZ/Vgz582OY+QDD/Yz018S4jSFJ9k+VaGBOPZMJ9oa+dtw==
+ b=OPKv38J+pBfmOWetfo7xpfor8b4Moz0CQoBh58jPiR8EgnV518mloCcu3AxCZwaBet3EeXtvAfGuj7MqR4CtG6m/EYs23kM71XHp/+byGDjboTm2Ak/WzELe2JPKZCwF0HHJh7XN38wSKyKJu6kWln6NUHS01kHocsqhGpk7GAgjNPa+5lK/bYCBmnmanVDe7R30HdtxnZgvOLZ2ipySEEHGlBDX9ZutV834zMN01MuAmfILK27twUcNidITvJOaU//l5Kk6amzMbbb0oCaFWodF3OT1fQbA/GAeyJuyBaxxXfUziUyT47V9wEsKcAJRqT6SSEu6jV85BsBMA9FqCQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=J/1gRhPoHEcaO4S1BBbQYvfz6mXmbVkM35cABLK2k+E=;
- b=WFtAqnsQHZkQY279BCXF8CDs2wrxSF6FmHB/fUlxFbGv34+Ry+L9evCNI0BJamZ1LLZhY6JsgqyR7ayIYsngTX/RrMUq3s+hFDBEtc9DkEU1ca/onxUbXTsMC7NDdrb0GS0xhWGk9MzrGbApfK3uNhuziCoeq0+EWtCeCzHOk9gCCSeYgqXCtGTCh7q2Blf1F38VXosyAac1ifVe6fWvPABcANLYmXbvrMhOCt7+eemqah7xLjH5Foce7xWFfysxN23TqWgg9AF12meRMrVNp3TPDoBiOjD6VhuEDzuyAb1R3JO0K2R3ATt6HLrgDdHg3I34u3UbrTdpbafymgKfGQ==
+ bh=hy+z3jcShTI1guMGkbEPhi7jQtf1zmlEvaK07/0uq/M=;
+ b=w71AVm9C9JchYpMVQWLRM+chCP2s1nLGi4xVQQVtlsuqv9j2fQOP1xMRXr0DNjqifUnqGaa6OPMHtHWKZd+cZx0IVnYBQkp2u9yuEWBG+fRI+1Bg/tcS66WwgGk80Az54TVVXrUSnbg2qte7um9luc6HYQB2daY59I+QTWO3ns+35mk7U7eivV5OVFJEdJBq4vEWO/IVSvZlcWVk6V0EcZ9xgvSdzOVfQ1UDF4O1kXksTi6I8YGixc5ScCqQ2kvxoyfUV2EL7nhyUjVOBD27aCf7gal8gVpY+JF6kutEKz8aNL8RZd3coH6IBVLAf0nkojBOjjEwwHqH8dSt0Qo+zA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=J/1gRhPoHEcaO4S1BBbQYvfz6mXmbVkM35cABLK2k+E=;
- b=a1fNdxZFqVmnyM9c3AYDlLxlhwowsSmPh89dSxxtmaDyIm/rVoLTP5zFBMWhJLrhqtW/6EPkQY8ZxN18RmTSlZ9zjKwO8cYR6+D0nG3B96jxNQtkgg3NNyfb6UpJyW722z3UQzaNFlaoFzLKbK/tDN631+MNBUStweupce14+9Y=
+ bh=hy+z3jcShTI1guMGkbEPhi7jQtf1zmlEvaK07/0uq/M=;
+ b=kZOTiWL85x7+RWkTJ1PFLbJa367WhTXOgWmUIFfJXL8yuw0JFB0qYeMCjp3Zn0tFSQFJEZ2iXRjDJNCwNGhCwbUZ9VzaLNj7Hsac3nFYOSNrUixmYDPPnyHmIV0mJgvXmWCgYaTZwkyyRdOOkfrgcZyVkBEV9RoY9DwI7Qch4MY=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB8576.namprd12.prod.outlook.com (2603:10b6:8:165::14) with
+ by DM6PR12MB4249.namprd12.prod.outlook.com (2603:10b6:5:223::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
- 2026 13:54:35 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 13:58:28 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
- 13:54:35 +0000
-Message-ID: <80fdf249-6f24-4cc7-bc9a-91bf23293497@amd.com>
-Date: Mon, 3 Aug 2026 15:54:27 +0200
+ 13:58:28 +0000
+Message-ID: <2ef4fe44-1588-4e12-9ee1-98f5ad7de37a@amd.com>
+Date: Mon, 3 Aug 2026 15:58:23 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/ttm: allocate pool pages as compound (__GFP_COMP)
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <npache@redhat.com>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Dave Airlie
- <airlied@redhat.com>, Matthew Wilcox <willy@infradead.org>
-References: <20260722044220.1110278-1-matthew.brost@intel.com>
- <20260722044220.1110278-3-matthew.brost@intel.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix use-after-free in amdgpu_vram_mgr_fini()
+ on init failure
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, Sashiko-bot <sashiko-bot@kernel.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+References: <20260722095201.658119-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260722044220.1110278-3-matthew.brost@intel.com>
+In-Reply-To: <20260722095201.658119-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0082.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cd::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0089.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:cd::18) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8576:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b85e231-8005-47de-e6af-08def166c08b
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 03ddcb49-a6ca-4e4f-6307-08def1674b4d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|366016|22082099003|18002099003|56012099006|10067099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: X9vXXrXKA8YuzMh04+PAROAaxrm71vsWB4vstcO404CkVcsbyoxKSvJ/ZluWm+v7YL9xQEbGSK6OA81fpaoVTcsaF9Scwdk/OlYE2eNIRq2n+q1RrCth7jpv2wP1ao0q67yDgJX28Z6ZNfQdSyVHJVa+/gn8P+1RnrfdBntXWfApQ+Y9/uMc8WvbJBmGWUYNs78932E2VNqColRO9nYeD5C/dqS00EQzSYchoIVVc6HwgFil1MMNq8uBvIvlv4AhrPBANIiPOc/C7/iFBpp28yOgTbCR0Oyx6sVGE0SkUXkyrVcOLjXo7MLtCB8sxe4v03CFJioWfyw3S/GMmI++yIJBI4RFaaYD0TDR7heJTNuxuDB6B8huWlCZUDiULcDom/TIZcSeR9K8C1Ah9TOLf4bSpqhVnD+U8RvJVXWc5DhFbAdfEmSkx78x45bf0fhop/o3I/AjKK5mDv19TUTeUsVZhyeDjuVwKyXx9xa3IEBnIOyzYWBUlrTEZW3xJyNOY4b51gUdHFsmZAxvoC7Fk0jL5Ty22WmMFSo8AvZXG+055e9cP4I4+pc4b0DEu62+nqW/YYowOavqi2TGa8fVHU3hZrMUF/QtBFAR0TUIUO6+SThdrlJDpDG5V9pr7OVz/H0PZ9bdaU5DPClMF+EOnRlmf0uOkylYiSaVF7JH1ow=
+ ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|5023799004|56012099006|11063799006|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: j+YvHrSRjBCOmhDzqNNEe5AnPx1lSUJQIGLezH8UEcqdRAqMbrYTWwKENAZruMKN6mL0MximoYnvrM8neLSOLc++tq8SlxtkaN/78gNsDXzXUjcFJwBQ2cT0GyWGKrZjurgnovYaplLwjdAnB+AxG3cN3D8eCAl8yGE4dxx9Kn7HUSMPi1pmMEwc9LJ3AtD9dWT29x4o6JL4qDrFFpVXBcwPs/9WFb401nBK6g2S1aTTQ9leGEDt30wczH8osL9Ti+AutRzB3tJ5QO2NWiy6C1x+i7VuC6qkq6QCCSOSpjO7nwctjK80G9zHhX22skp/WbT0azITi9753o4ISs8SI9f6BGTkPwnEgjJ6zYKBgNS+HDKmt6x5D3bFEjOLt4YqkNKzBCcnCoUMgENSEzIP+Z2b8iBpdZv49ePlE9RulSehQVInEDOPlmOp14ALe3yeKf++FaH+D6NQecanYphYPam62IexA6ddDUdXNLd0yVhDPwh28/tVRm62oqeM6oDVSbfJ3xyg+S54eUdFIDWUbvCfx3Q052Fvh6Udo8LvLhYRnkBFolJhBSnI76XHx99R/JkTo+5/qPRyz7XaVZ1rbRO8HlBfe1wDw9OX/GYPqEM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(22082099003)(18002099003)(56012099006)(10067099003)(4143699003)(11063799006);
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(5023799004)(56012099006)(11063799006)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UURSZHdFRWgzQzRFYnV4YlpEZHg4c204bjRvelBTWGF4ZlZweUZnZGhLSytk?=
- =?utf-8?B?K3dRLzZ4alFIOXVqVWVId29mVlpQS0txK1hSZTd2Wk16a1Zyb2g4NU14YUJY?=
- =?utf-8?B?RjU1K0NCR3lyMU9uMS95Rlp0cGJvR0RIbzlFdmNXNU5oWk84Q0o5MjRDckxt?=
- =?utf-8?B?QzlkTUQ3OThtRThHTzVCSEI0TmZNZWt0WlNlOXFIT2xjSFJrcEtHZ0U2K0pI?=
- =?utf-8?B?czRaWWllQ0FmQnN6blJ1NjJaV05uU3llbzBIaUIzQVFtNGZFQ2Q0VDFtdWNH?=
- =?utf-8?B?NlQ0NFlLUnkwUTZQZ29QN09JU29HT0l4UGp6clJiUzRwUWJaQWdFMnBmMXVD?=
- =?utf-8?B?bm5DbmFNUWo5bTRMUEZVaWYrODRRNGJhY3FoaG40aW1NdEdCQm9kMm9MRlJG?=
- =?utf-8?B?NFNOdldBRkg4ZmxEVVVTZnpGdGw0YnFhQzZkUUxWQW4wU2dqTHp2aDljUUFn?=
- =?utf-8?B?bHpjbndza2lVcGZnMldGUkJBbTM0RG9lZm5mRE16OW8vZmF4MVExYjZ0TUxE?=
- =?utf-8?B?WkV1MVBJM2VpdGRGdEcxaXIzbUJWYzRnVVZDTmQzeHk5Z3VoeEttSVc3SmM4?=
- =?utf-8?B?RVBqajJpM0wyMXZ6bE8rbjJJdGxKNWdXT1hydnphaEd3K2hEbnliMndZWjJk?=
- =?utf-8?B?b1JEWnl6L3pGWGpneU9zK0IrWGthSDlrZUplQUlBTWFycWkyRWxyM0M0bnA3?=
- =?utf-8?B?ZWcxY1ZHcGJBNUQrSlV0YU9CQko2eVpub2R3NzZHN25IQjFrUkRCY21DVHo2?=
- =?utf-8?B?SjFFSEV0bzlycmY4MWFucm1xMFRHdmRhSCtTRnZibi92ZllCM29tdXpPR1dO?=
- =?utf-8?B?bVBWZEppb09nTlc0cWs1RWMxcldYVXI1ZHZrcnZoQ0RuK0RtT00wS3JranNE?=
- =?utf-8?B?aytzakRPSzRvUnNtcWVwZXdkZUlydGM2TTZGSzFHQWxuTUpzY2JpQ1MyQWV3?=
- =?utf-8?B?OCtaS2s4UWVKUE90N1NpZWFEVHhxbXVuOGZyblRxU1RGZnVNdTRkd2pxMUZi?=
- =?utf-8?B?REtVeWhHWXpDeCtlc21aSUdtYmNHckRaOHBUZTh3ZVNwdjRFbHpsNHZXNmkw?=
- =?utf-8?B?N1Jramd2blFmcWJQdFc4TVNpTklKQ0QxcVdtQ0RZTGNxQTBpZU1USHNORHpV?=
- =?utf-8?B?SCtKdWpFeU9wVlpGa2ZzQllkTmZFWTJZQnBsbmhOTW1JYVhRNFQyb2VsZ1RG?=
- =?utf-8?B?K2dRajlQYkZhNTNNWVBJUzIwTTlvcTU2WitWR3duMUFXTEJCR3R3RTVuN0Ju?=
- =?utf-8?B?alhpZFRUSnp6Z2QzZGxJWCtidDN2ZURGWi9kZEdkSElncUNOdFA5QzIzTUVB?=
- =?utf-8?B?MVlQQUo1N21ZODFvaFVaVWplUXdMeG12eUs2ZFZaZDBCaHFQem9oNmZpQzJM?=
- =?utf-8?B?ZllFMVJrTnRMMWJsZ1ZLZmppaGVLK1VmZXByampFd1c2TE9oZk5MOXhrTG5j?=
- =?utf-8?B?c3ZZTzNWS0RlZXYxd0pQOXVmcmp3bHhIaXM4aWEyRmgzNjc5VzVKTldCZEcz?=
- =?utf-8?B?NjRDY0U3NUErclZXZTArTW44Yk9PSUk5MlpZTTFVMGxzME5YWnlhQk5LQlNW?=
- =?utf-8?B?dVlHdlk0NE9MeVk5VCtOZUI5MDdpVFRlSzN1NFhyWUJwTXNidFUrdUF2cDBq?=
- =?utf-8?B?SGpZZ1p5ZHlmVjQ2L3FUOVBhNG1oRmZvYjN5YzZzd3d2U2NCU2w4S1o3ZFNC?=
- =?utf-8?B?VVZHd0d2NHhNUElhSjAzNC92QTMwVFd0c3RiNGlvRkJaQUgrWHR3amFUUDh2?=
- =?utf-8?B?M2dhVWVaekcxM3JhZmxSTktBNzlPdkVBc2E5ZVBQZUd6dGxEbXlTaXl2OEFI?=
- =?utf-8?B?MnlMaUtIZU9Ra0J5VjJmUnZxMnUwenVrT0JzTDhZNTNuL2tKZUVuWjRZNFhn?=
- =?utf-8?B?T2dLZUY0RU00QVAybnQ0dlJueERVblhpT2hGVXdsTUhGQ252enJTQ1Vndk84?=
- =?utf-8?B?SlM3bmtjVjFqYjlmMlA0K0hLbWJqZklFdCtYQWpZaUNTR2FZeVB6NGs3SnE0?=
- =?utf-8?B?UmV0YVpCODFyeWRsSExYUGVjUkkxVVBMYzBLS3dYOTVRbVhMbkQ2UTkvUkZZ?=
- =?utf-8?B?cXBLckVjNVF1TFhHUzlOUU5NQ3NhZkd5V2ZEeHVsbWpPOVlHSWIyelNjdGll?=
- =?utf-8?B?ZlhoTnRDeWNvV3kwcEpTRzVVdzk0RFdhYlN3TTVqN3Q0aTNvbDRNTTh2eXlq?=
- =?utf-8?B?c1ppME1JVXdiL1dLcnh1VjNhWkVkbEx6aStTTjV5K0FGTWR5Ris0ZS9VVHV6?=
- =?utf-8?B?SVFUR1F2KzRkVVU5STM2SHhzU3ljc1hRbG1neHBVSUVJUWJXS2docTFrWlBz?=
- =?utf-8?Q?sYKam/003KsdJoQtTY?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czhXcDB1c3NIY1l5MkF5Wklad2w5b0pBTzVnS3J4L0s0YlA0b3o1WmkwcEYy?=
+ =?utf-8?B?ZjF4T1owMjA4MWxUTm5xUjZTQithSlB4K1VHbEp2OEdyQWdQc0xyMzI5dEVI?=
+ =?utf-8?B?NHJYU0NoN1JOdWhVSkZCcml2VVloVGsrb1ljMDFzdUZUcTVaVVpucXJuNWla?=
+ =?utf-8?B?ekNLb1ZTbXZCY2VWZnRyVFpRc0gzZnhiYjBWcVlIK1lKWjhNSVd6alRReUZO?=
+ =?utf-8?B?V2l6aXE3ajcybFlFYkh6NnJ0by9SbWlsZW56NzJNMGpnek43cC84Z3B0bG8y?=
+ =?utf-8?B?amZ2MjRWejc3ZE42M0JUcXpYMXBBUmplcjgwc0dyMm02Ulk0N29QQnQ3VzFu?=
+ =?utf-8?B?MEJ4ODUyZ0RQQk5QRUFHS2R2ZkJYdloxV1RVQnlkYWJrejV5ZUxrSkNPWllh?=
+ =?utf-8?B?azBnYTZUSjN4bDJPc29TNkU1ZUUra0NoYi9HbjE1WkMyWFVxYzN6MmZ6VjFI?=
+ =?utf-8?B?QUE3RFlkWFVUVEJqdUhXdzV4MzlWL3BxcGltVjFYVnNGLzRRalhCM2Y3MDl6?=
+ =?utf-8?B?M1RjVUN3Wk1WMHNEK0xoZ0JSWjVGSXRvc1NvQ2JmalY3c043MGs5aUtidUlj?=
+ =?utf-8?B?OUtHZzduSERMbEttUGRWZGRGK3dDK2NKWExtbmRkNzNNeTFQb0VDWVUyTmdv?=
+ =?utf-8?B?WnhsaXlMT3VPVDVpVWM3eHJjazhKaEx3MnludnBxYnJLeWhLaFI1ZzA3Q1Bu?=
+ =?utf-8?B?VXlqVjg2cGVFeHA3OERYTStjeW9GalBoMFc4YkF6Um5IQWI1RlFZaTBPWGVr?=
+ =?utf-8?B?Rnc1R2JIVGxyaDdKZ3FKa01BS2M0NWRFQUlFMDBnQmFUVGdQMlZaWHF0bEpL?=
+ =?utf-8?B?RG8zaTYrSG5rY0J0THlCWlNCZkhMS1BBRnlIaFU3S2ppVFdmUDRqeWZCdmFR?=
+ =?utf-8?B?VklrQkQ5cGVJSy9mem9jSXRYTWR5WUEyRUJvSWtjYVBhSjdBZUZ0OFZkTmpr?=
+ =?utf-8?B?amJ1M0cxc25xdklUUXdtOE92bDhEUEJHRlc1MW52U1ZWWFRVcFI5a1J3Y3h0?=
+ =?utf-8?B?K0FNSE1KWGFSa2NjMmFTaCtURVVHMnZ6bU1Uc09ieHRwRDhPaHMybkpsdEIr?=
+ =?utf-8?B?Q2Zvbm1IeVY1bWxrQWt6QWV1Q0RvL0g1dUFJRGtNS1NZMzhvZGdwNjBvVTEr?=
+ =?utf-8?B?UXoycU5CN1lyUFNFbXVlTkM5b01CdnlyaENCVHZnbUhYV1FuVXpMV3BYMzBi?=
+ =?utf-8?B?b1BZdFVZdFd5bGxOeDR1RFJIa3U2SndEOUdrQ0tMWmlWN0N5TkRTV1dmck1y?=
+ =?utf-8?B?Qm5aWUlTSHEzaVBHQjZrNmFoam9wRXk2M1lDcHowSDloQ3pscW1GVTZzR1h4?=
+ =?utf-8?B?ZzdubEJISkxsZTZrcUJ5QWh1SmVEaVNIVGVlU0duRVlIV09vTW05eGVPRVZj?=
+ =?utf-8?B?Slk2eWs0Y0hBdnp3Z2lVRFNFMFZJMjU0cTRhckFTYnFZeUdPN1dBVHZibUl3?=
+ =?utf-8?B?SG1JbUpJSzRQa3l6VlNYeGFvZzNiQi9lMXFPV284cDlxeWQrOHhwTXU4TVds?=
+ =?utf-8?B?QWhvMXlodktDUVdSaWlmVFpMbWo4R0lqcUl5aGw5L3puNkhibmdvZ0FCMjRK?=
+ =?utf-8?B?WmhLSGJ5NE5ER2g4Z1JiYldOenFjaFJOSXVRMWZkMnNOWlRlWW1uQlhZZUVJ?=
+ =?utf-8?B?Qms2WFBXaTB1b3NSa1JCazdmR3VnMjJXOXpTTXlGUG1HWUpKakwrZy9uV0I4?=
+ =?utf-8?B?WFhBT1FvaytmeVJHbmxjZDNoeGhmMDcxWDFHZE0vV2pGMGQvaXJseStmbHc0?=
+ =?utf-8?B?UlAwNWh0dUxzQ3dFVHpPLzFmM21DL1o0Ny9YL283K3pwSEpMMEtzNVl2L05Q?=
+ =?utf-8?B?enBBb2d0NExGVTdXT1hHd2dqZW9Wb0pmeWE4K2pZZTJxRUhKa2FtOG5BcnNv?=
+ =?utf-8?B?N1crRjFpTDF6Rll2UzNhU1AxVzR0RUwyWnh3NnFFQWZKVEZCeEFlcUxLNlgr?=
+ =?utf-8?B?VGFHWXJCemdEVThFTGg1YWxkU25uVzlSRzVoWGM0UFNwOVBHUEcvN2pRdnVE?=
+ =?utf-8?B?cjg4aS9oc0Q1anJTemdMK1NsdjRsWUVpdXRrN0lrMFBlYlRnSjdGSm5hQ3hr?=
+ =?utf-8?B?MUNSRlA2Uktjc1ZWNE9zZjR6M1FKOHpqWWpEbTBpRUNmT0c0ZXpYY2JEcm4w?=
+ =?utf-8?B?L0FRd2lBakR2bmJkR21oTHZkM05XSGdsUVp6YjNpUHBMMnZEMFEwSFVJaDNR?=
+ =?utf-8?B?YVZoYXIzMEI1a1UzbTdJNGRza1EzeDR0Q2ZHOVNDRWRFTU5iY1NBRzU2dGMy?=
+ =?utf-8?B?dElmZUNIcVpScmsyY2J2d3FmQm1jNHA2aXNVbkJWQkFpaVVrQmoweFYyQm1E?=
+ =?utf-8?Q?3V015gGaWgzm2ifYqa?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b85e231-8005-47de-e6af-08def166c08b
+X-MS-Exchange-CrossTenant-Network-Message-Id: 03ddcb49-a6ca-4e4f-6307-08def1674b4d
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 13:54:35.5697 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 13:58:28.3838 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tggL/DKIAg+mCsLt1BDFx70PJwrruSptic6x7vUAaNHbR8TdDSlWibzIVy6mSWqz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8576
+X-MS-Exchange-CrossTenant-UserPrincipalName: HCO7V04aTNGbDR7DbjCxRGijDaFcvprJFvGfTUXVT49T6jOEsSoKuzMC87b6GWE1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4249
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,253 +138,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/22/26 06:42, Matthew Brost wrote:
-> Historically ttm_pool_alloc_page() deliberately avoided __GFP_COMP for
-> higher-order allocations and instead stashed the allocation order in
-> page->private. The stated reason was that mapping a TTM page into a
-> userspace process and having that process call put_page() on it would be
-> illegal on a compound page, because the stray reference would fold into
-> the compound head and could free the whole block behind TTM's back.
+On 7/22/26 11:52, Arunpravin Paneer Selvam wrote:
+> adev->mman.initialized is set to true before amdgpu_vram_mgr_init() is
+> called, so any failure in amdgpu_vram_mgr_init() still leads to the full
+> teardown path amdgpu_ttm_fini() -> amdgpu_vram_mgr_fini() ->
+> gpu_buddy_fini() being run.
 > 
-> That hazard no longer applies to the non-DMA path. TTM faults its pages
-> into userspace via VM_PFNMAP (see ttm_bo_vm_fault_reserved() /
-> vmf_insert_pfn_prot()), so the core mm never takes a struct page
-> reference on them and GUP rejects the range; a stray userspace put_page()
-> cannot reach these pages at all.
+> When gpu_buddy_init() fails, it frees its partial allocations but leaves
+> mgr->mm.free_trees, mgr->mm.roots and the scoreboards as dangling
+> pointers. gpu_buddy_fini() then unconditionally dereferences these
+> (iterating mm->roots, kfree(mm->free_trees[i]), mm->used_scoreboard[i]),
+> resulting in a double-free / use-after-free and a kernel panic during
+> probe error handling.
+> 
+> The manager is only marked as used as the final step of a fully
+> successful amdgpu_vram_mgr_init(), i.e. after gpu_buddy_init() has
+> succeeded, and nothing in between can fail. Use that state to guard the
+> buddy teardown so gpu_buddy_fini() is only called when the buddy
+> allocator was actually initialized.
+> 
+> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260611173301.17473-1-thomas.hellstrom@linux.intel.com?part=1
+> Cc: Christian König <christian.koenig@amd.com>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Assisted-by: GitHub_Copilot:claude-opus-4.8
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> index 2a241a5b12c42..38529a904deb6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+> @@ -954,6 +954,9 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
+>  	struct ttm_resource_manager *man = &mgr->manager;
+>  	int ret;
+>  	struct amdgpu_vram_reservation *rsv, *temp;
+> +	bool was_used;
+> +
+> +	was_used = ttm_resource_manager_used(man);
 
-Yeah unfortunately I clearly have to reject that.
+The used flag indicates if TTM can use this allocation back end but doesn't indicates if initialization was successfully or not.
 
-This is exactly what we have thought before but that doesn't hold true. Especially KVM completely broke our neck here.
-
-But let's continue the discussion on the other thread.
+So that approach here is clearly not correct.
 
 Regards,
 Christian.
 
-
-> 
-> Convert the !ttm_pool_uses_dma_alloc() path to allocate compound pages
-> with __GFP_COMP and recover the order via folio_order() instead of
-> page->private:
-> 
->   - ttm_pool_alloc_page(): add __GFP_COMP, drop the page->private write.
->   - ttm_pool_page_order() / ttm_pool_unmap_and_free(): read the order
->     from folio_order() for the non-DMA case.
->   - ttm_pool_split_for_swap(): for compound folios, split via the new
->     folio_split_driver_managed() helper rather than split_page(), which
->     rejects compound pages. Each resulting order-0 folio is then freed
->     individually as it is backed up.
->   - Drop the now-dead page->private = 0 clears on the purge and
->     full-backup free paths.
-> 
-> The DMA path is intentionally left unchanged: dma_alloc_attrs() does not
-> produce compound pages, so it keeps split_page() and the page->private
-> order stash.
-> 
-> folio_split_driver_managed() lives in the THP split machinery
-> (mm/huge_memory.c), which only builds when CONFIG_TRANSPARENT_HUGEPAGE
-> is enabled. Drivers that drive the TTM shrinker and therefore reach the
-> split path must select TRANSPARENT_HUGEPAGE.
-> 
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Christian Koenig <christian.koenig@amd.com>
-> Cc: Huang Rui <ray.huang@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Cc: "Liam R. Howlett" <liam@infradead.org>
-> Cc: Nico Pache <npache@redhat.com>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Dev Jain <dev.jain@arm.com>
-> Cc: Barry Song <baohua@kernel.org>
-> Cc: Lance Yang <lance.yang@linux.dev>
-> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Dave Airlie <airlied@redhat.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-mm@kvack.org
-> Suggested-by: Matthew Wilcox <willy@infradead.org>
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> Assisted-by: GitHub-Copilot:claude-opus-4.8
-> ---
->  drivers/gpu/drm/ttm/tests/ttm_pool_test.c | 23 +++++++++---
->  drivers/gpu/drm/ttm/ttm_backup.c          |  8 ++--
->  drivers/gpu/drm/ttm/ttm_pool.c            | 46 +++++++++++++++--------
->  3 files changed, 53 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-> index be75c8abf388..771ed257778c 100644
-> --- a/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-> +++ b/drivers/gpu/drm/ttm/tests/ttm_pool_test.c
-> @@ -169,7 +169,14 @@ static void ttm_pool_alloc_basic(struct kunit *test)
->  			KUNIT_ASSERT_NOT_NULL(test, (void *)fst_page->private);
->  			KUNIT_ASSERT_NOT_NULL(test, (void *)last_page->private);
->  		} else {
-> -			KUNIT_ASSERT_EQ(test, fst_page->private, params->order);
-> +			/*
-> +			 * The non-DMA path allocates compound pages, so the
-> +			 * order is recovered from the folio rather than from
-> +			 * page->private.
-> +			 */
-> +			KUNIT_ASSERT_EQ(test,
-> +					folio_order(page_folio(fst_page)),
-> +					params->order);
->  		}
->  	} else {
->  		if (ttm_pool_uses_dma_alloc(pool)) {
-> @@ -177,13 +184,19 @@ static void ttm_pool_alloc_basic(struct kunit *test)
->  			KUNIT_ASSERT_NULL(test, (void *)last_page->private);
->  		} else {
->  			/*
-> -			 * We expect to alloc one big block, followed by
-> -			 * order 0 blocks
-> +			 * We expect to alloc one or more max-order compound
-> +			 * blocks. page_folio() on any subpage resolves to the
-> +			 * compound head, so both the first and last pages
-> +			 * report the max block order.
->  			 */
-> -			KUNIT_ASSERT_EQ(test, fst_page->private,
-> +			KUNIT_ASSERT_EQ(test,
-> +					folio_order(page_folio(fst_page)),
-> +					min_t(unsigned int, MAX_PAGE_ORDER,
-> +					      params->order));
-> +			KUNIT_ASSERT_EQ(test,
-> +					folio_order(page_folio(last_page)),
->  					min_t(unsigned int, MAX_PAGE_ORDER,
->  					      params->order));
-> -			KUNIT_ASSERT_EQ(test, last_page->private, 0);
->  		}
+>  
+>  	ttm_resource_manager_set_used(man, false);
+>  
+> @@ -969,7 +972,7 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
+>  		gpu_buddy_free_list(&mgr->mm, &rsv->allocated, 0);
+>  		kfree(rsv);
 >  	}
->  
-> diff --git a/drivers/gpu/drm/ttm/ttm_backup.c b/drivers/gpu/drm/ttm/ttm_backup.c
-> index 3c067aadc52d..9194747a1dff 100644
-> --- a/drivers/gpu/drm/ttm/ttm_backup.c
-> +++ b/drivers/gpu/drm/ttm/ttm_backup.c
-> @@ -72,9 +72,11 @@ int ttm_backup_copy_page(struct file *backup, struct page *dst,
->   * ttm_backup_backup_folio() - Backup a folio
->   * @backup: The struct backup pointer to use.
->   * @folio: The folio to back up.
-> - * @order: The allocation order of @folio.  Since TTM allocates higher-order
-> - *         pages without __GFP_COMP, folio_nr_pages(@folio) would always
-> - *         return 1; the caller must pass the true order explicitly.
-> + * @order: The allocation order of @folio, passed explicitly. For the DMA
-> + *         path TTM allocates higher-order pages without __GFP_COMP, so
-> + *         folio_order(@folio) would return 0 rather than the true order;
-> + *         the caller therefore passes the order explicitly. (The non-DMA
-> + *         path allocates compound pages, for which the two agree.)
->   * @writeback: Whether to perform immediate writeback of the folio's pages.
->   * This may have performance implications.
->   * @idx: A unique integer for the first page of the folio and each struct backup.
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-> index 1bf37023fed6..364cc7ec7469 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -168,9 +168,11 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
->  	struct page *p;
->  	void *vaddr;
->  
-> -	/* Don't set the __GFP_COMP flag for higher order allocations.
-> -	 * Mapping pages directly into an userspace process and calling
-> -	 * put_page() on a TTM allocated page is illegal.
-> +	/*
-> +	 * For higher-order allocations be a good citizen: don't dip into
-> +	 * memory reserves, don't retry hard, don't warn on failure and stay
-> +	 * on the local node. The non-DMA path additionally sets __GFP_COMP
-> +	 * below; the DMA path allocates via dma_alloc_attrs().
->  	 */
->  	if (order)
->  		gfp_flags |= __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN |
-> @@ -189,11 +191,9 @@ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
->  	}
->  
->  	if (!ttm_pool_uses_dma_alloc(pool)) {
-> -		p = alloc_pages_node(pool->nid, gfp_flags, order);
-> -		if (p) {
-> -			p->private = order;
-> +		p = alloc_pages_node(pool->nid, gfp_flags | __GFP_COMP, order);
-> +		if (p)
->  			mod_lruvec_page_state(p, NR_GPU_ACTIVE, 1 << order);
-> -		}
->  		return p;
->  	}
->  
-> @@ -482,7 +482,7 @@ static unsigned int ttm_pool_page_order(struct ttm_pool *pool, struct page *p)
->  		return dma->vaddr & ~PAGE_MASK;
->  	}
->  
-> -	return p->private;
-> +	return folio_order(page_folio(p));
->  }
->  
->  /*
-> @@ -493,15 +493,31 @@ static unsigned int ttm_pool_page_order(struct ttm_pool *pool, struct page *p)
->  static void ttm_pool_split_for_swap(struct ttm_pool *pool, struct page *p)
->  {
->  	unsigned int order = ttm_pool_page_order(pool, p);
-> -	pgoff_t nr;
->  
->  	if (!order)
->  		return;
->  
-> -	split_page(p, order);
-> -	nr = 1UL << order;
-> -	while (nr--)
-> -		(p++)->private = 0;
-> +	if (ttm_pool_uses_dma_alloc(pool)) {
-> +		pgoff_t nr;
-> +
-> +		/*
-> +		 * DMA-alloc pages are not compound; split the plain
-> +		 * higher-order allocation and clear the per-page private
-> +		 * (which held the order for the non-compound case).
-> +		 */
-> +		split_page(p, order);
-> +		nr = 1UL << order;
-> +		while (nr--)
-> +			(p++)->private = 0;
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * The non-DMA path allocates compound folios (__GFP_COMP). Split the
-> +	 * driver-owned, off-LRU, unmapped folio into order-0 folios so each
-> +	 * page can be freed as soon as it has been backed up.
-> +	 */
-> +	folio_split_driver_managed(page_folio(p), 0);
->  }
->  
->  /**
-> @@ -548,7 +564,7 @@ static pgoff_t ttm_pool_unmap_and_free(struct ttm_pool *pool, struct page *page,
->  
->  		pt = ttm_pool_select_type(pool, caching, order);
->  	} else {
-> -		order = page->private;
-> +		order = folio_order(page_folio(page));
->  		nr = (1UL << order);
->  	}
->  
-> @@ -1124,7 +1140,6 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
->  					       num_pages);
->  			if (flags->purge) {
->  				shrunken += num_pages;
-> -				page->private = 0;
->  				__free_pages_gpu_account(page, order, false);
->  				memset(tt->pages + i, 0,
->  				       num_pages * sizeof(*tt->pages));
-> @@ -1214,7 +1229,6 @@ long ttm_pool_backup(struct ttm_pool *pool, struct ttm_tt *tt,
->  		}
->  
->  		/* Fully backed up: free at native order. */
-> -		page->private = 0;
->  		__free_pages_gpu_account(page, order, false);
->  	}
+> -	if (!adev->gmc.is_app_apu)
+> +	if (!adev->gmc.is_app_apu && was_used)
+>  		gpu_buddy_fini(&mgr->mm);
+>  	mutex_unlock(&mgr->lock);
 >  
 
