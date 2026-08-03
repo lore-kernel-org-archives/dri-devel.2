@@ -4,78 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2D2FC55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 13:24:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D66EC55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 13:28:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E13010E64A;
-	Mon,  3 Aug 2026 13:24:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6EEA10E6A7;
+	Mon,  3 Aug 2026 13:28:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="C2BVDXKK";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="roBGOB7/";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8063F10E64A
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 13:24:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785763466; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=iQda+jXa4ObWd1OpAuOfe8pVvgRFkZcFAhHlQVrSgVPc49t25B1clVVSA2q8yt1BMqT1ETiDUJKcEk6JFPydngJtZTsRQ+mJTDYMDiraUs5nah1xlEwQSLgaC3gvzl/bim1jYqDLI5Y2Fqpiskdei4r+H5HuoO9rqzq3vCP22W8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785763466;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=lQ7W80MyLGC4g6TQVRHVS4jqxiCOFRgPhA4MHHto2h4=; 
- b=DQO+XsfpR4SuneJRvJMVC1mIiH+N/OrSB7YkVAKjfdxuP0X3shK7JVCGRTrHB1b5J8oyBWsg4Sy/KUXbK0zRQto5y/Kc7iQgkawU2WSYTi4JrLpJfmyXoAZ21EvXmwqYkFszWPRIh/uMwSfvz87Q+EcQLhyt74KWmMddIDxqef4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785763466; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=lQ7W80MyLGC4g6TQVRHVS4jqxiCOFRgPhA4MHHto2h4=;
- b=C2BVDXKK+fe1ExBLpGmi9cFtGO/+HeSpprIrmumVp09xPwoaNmpviVgltTRkd+8f
- 9/rwc0v3QEmaWg15gQzCjpdVCq2sL+g4WGiy4yANNvkx70g2YbDmvvuW5bM5f9PIldB
- smcOO220uadEIoYOO+35eQt2Qzrxg24+3mCkTzwo=
-Received: by mx.zohomail.com with SMTPS id 1785763465078767.4008380254238;
- Mon, 3 Aug 2026 06:24:25 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v5 0/4] Clk improvements
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <anCSTCxDpFtKmOgj@redhat.com>
-Date: Mon, 3 Aug 2026 10:24:02 -0300
-Cc: Maurice Hieronymus <mhi@mailbox.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 734B310E60D
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 13:28:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=xkwWu4nUct9+ls+GGHocr+XJ5HrovmM0eVtqRfDKvHI=; b=roBGOB7/YN3GV6bm3Avz6BiL2u
+ RK5JdZyN+OEcQ7RRuwPgKBVWjyOKshSgSfKI0+hOt0BYHOil6PU+kIuCbeTZs3PH+l+gDJENh5b8x
+ CYA5DZDU3TXwcj3N6/P2vd9w9iUVZIV0en3/x9XBZMeTo0tRLyz6Y27Hr3P02Uc/wyyiOKbY7WW8c
+ BKj8eqT3nBnARlayCylQE4Ik2jynfmXBZeB7bgEvyabXn1ebtsdO1gjo2MMM3I9oAPbraJRagJ2NI
+ snuC2ZvUehiL8m1nFK6Z2y2xaQu8LmFcdNWsrSbXMJCrOADDR3g0QhXJ58+yFOpGZOwYENFucCD8g
+ SXAH84zA==;
+Received: from [187.36.208.132] (helo=prince)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wqsi3-00Cz51-PE; Mon, 03 Aug 2026 15:28:04 +0200
+From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+To: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
- Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>,
- Michal Wilczynski <m.wilczynski@samsung.com>,
- Boqun Feng <boqun@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-pm@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org,
- linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B6441EFC-C2E4-437A-9FDF-F18E2CAD36C3@collabora.com>
-References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
- <20260731183735.15036-1-mhi@mailbox.org>
- <E20E4FD3-F4DA-4029-99F7-DB4F93AA2994@collabora.com>
- <anCSTCxDpFtKmOgj@redhat.com>
-To: Brian Masney <bmasney@redhat.com>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Subject: [PATCH] drm/sysfs: Remove drm_class_device_(un)register()
+Date: Mon,  3 Aug 2026 10:26:52 -0300
+Message-ID: <20260803132706.1497980-2-mcanal@igalia.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,23 +59,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Brian,
+The last usage of the functions drm_class_device_register() and
+drm_class_device_unregister() was removed in commit ed89fff97382
+("drm/ttm: drop sysfs directory").
 
-> I can also provide an Acked-by here for clk. I'll admit that I'm not a
-> rust programmer yet (planning to learn this coming Winter), however if =
-the
-> rust maintainers are happy with this, then I'm good.
->=20
-> It looks like there may be some outstanding comments on this series =
-just
-> skimming the comments. I'll wait for the next version to leave an
-> Acked-by.
->=20
-> Brian
->=20
+Remove such functions as they are no longer used.
 
-Yeah, more people chimed in :)
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
+---
+ drivers/gpu/drm/drm_sysfs.c      | 32 --------------------------------
+ drivers/gpu/drm/ttm/ttm_module.c |  1 -
+ include/drm/drm_sysfs.h          |  4 ----
+ 3 files changed, 37 deletions(-)
 
-Cool, I will ping you again when I send a new version.
+diff --git a/drivers/gpu/drm/drm_sysfs.c b/drivers/gpu/drm/drm_sysfs.c
+index ef4e923a8728..7b16d32b6ff6 100644
+--- a/drivers/gpu/drm/drm_sysfs.c
++++ b/drivers/gpu/drm/drm_sysfs.c
+@@ -589,35 +589,3 @@ struct device *drm_sysfs_minor_alloc(struct drm_minor *minor)
+ 	put_device(kdev);
+ 	return ERR_PTR(r);
+ }
+-
+-/**
+- * drm_class_device_register - register new device with the DRM sysfs class
+- * @dev: device to register
+- *
+- * Registers a new &struct device within the DRM sysfs class. Essentially only
+- * used by ttm to have a place for its global settings. Drivers should never use
+- * this.
+- */
+-int drm_class_device_register(struct device *dev)
+-{
+-	if (!drm_class || IS_ERR(drm_class))
+-		return -ENOENT;
+-
+-	dev->class = drm_class;
+-	return device_register(dev);
+-}
+-EXPORT_SYMBOL_GPL(drm_class_device_register);
+-
+-/**
+- * drm_class_device_unregister - unregister device with the DRM sysfs class
+- * @dev: device to unregister
+- *
+- * Unregisters a &struct device from the DRM sysfs class. Essentially only used
+- * by ttm to have a place for its global settings. Drivers should never use
+- * this.
+- */
+-void drm_class_device_unregister(struct device *dev)
+-{
+-	return device_unregister(dev);
+-}
+-EXPORT_SYMBOL_GPL(drm_class_device_unregister);
+diff --git a/drivers/gpu/drm/ttm/ttm_module.c b/drivers/gpu/drm/ttm/ttm_module.c
+index aa137ead5cc5..3daace105930 100644
+--- a/drivers/gpu/drm/ttm/ttm_module.c
++++ b/drivers/gpu/drm/ttm/ttm_module.c
+@@ -34,7 +34,6 @@
+ #include <linux/pgtable.h>
+ #include <linux/sched.h>
+ #include <linux/debugfs.h>
+-#include <drm/drm_sysfs.h>
+ #include <drm/ttm/ttm_caching.h>
+ 
+ #include "ttm_module.h"
+diff --git a/include/drm/drm_sysfs.h b/include/drm/drm_sysfs.h
+index 96a5d858404b..7695873a9456 100644
+--- a/include/drm/drm_sysfs.h
++++ b/include/drm/drm_sysfs.h
+@@ -3,13 +3,9 @@
+ #define _DRM_SYSFS_H_
+ 
+ struct drm_device;
+-struct device;
+ struct drm_connector;
+ struct drm_property;
+ 
+-int drm_class_device_register(struct device *dev);
+-void drm_class_device_unregister(struct device *dev);
+-
+ void drm_sysfs_hotplug_event(struct drm_device *dev);
+ void drm_sysfs_connector_hotplug_event(struct drm_connector *connector);
+ void drm_sysfs_connector_property_event(struct drm_connector *connector,
+-- 
+2.55.0
 
-=E2=80=94 Daniel=
