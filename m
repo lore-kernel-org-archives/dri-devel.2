@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9C7DC55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 17:10:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10CAFC55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 17:11:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0822310E5F4;
-	Mon,  3 Aug 2026 17:10:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D02510E5F8;
+	Mon,  3 Aug 2026 17:11:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eOr794kI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NfGftYnB";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1099D10E5F4
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:10:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E55C10E5F8
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:11:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1DB2760A5D
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:10:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C90C31F000E9
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:10:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9FB2A412D1
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:11:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4951F00ADB
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:11:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785777036;
- bh=doqYgb+n1+MzYaFBkm0Z2OZtZJMR4/CPw3oK9XHvRn8=;
+ s=k20260515; t=1785777074;
+ bh=FUo1LO52BYWcoiJd1dWpDlLgNt48xObBzCM2IkzYHyY=;
  h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
- b=eOr794kIfY7W46iYnnLxRi118Vzcbg5sdZLUGw8OGSnDbs1p7MZ2Ldhbj3haxzko/
- yzTY9dPWS0RMMlQV4lxj2OoVbIcTJvN/othQoHnVe801TzUUo0JFOtu+/iHTGpWMi/
- Rzx2A08ukI8cx1n5taUtGS9EEtHLSA5yuq7o7fJhmtPAWersXusVQeoVbb4BWl0HIg
- juRcwHPOdd5zwWfjrlnnqfGmr+B6M9jn+J5H0SNOyaSF4VgFoaspl5QchpzZNumLMU
- LU+jaoyNSEpdss+sJdFx50CC8qA/8+w7mQN2HkcxXGrDoiVfJ5B96XGq1yddYAYVhZ
- 4qmYRo5wtKnzA==
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-39c7ce122c7so32046231fa.2
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 10:10:36 -0700 (PDT)
+ b=NfGftYnBfCQtA4iYivRTo6vxQG6mxmsK57/zIQ4cXNsMMGJJcKE6+iXd8OIBRG2JU
+ zURXcsGGpsRSmGIHsTSzoed9DilauVTCNRrKpiW6AtPEN5/QrQeJJGEjSFCFOZHxvs
+ VCZcKwG2fJwkvnjPy6PrktY0J+5BuG8ek44duC9ZbdWTv3wgetM/JDOmt2ddwp8mde
+ ngxktLJ117g8ktHUsZrFvng0s8r5K6R+PivfWE1hMZAy7r8rgeBIquOc79AKr8V0l1
+ QgMLkkkCnavtufeNnHO6djpj8e7C9AMRD7pHNBIuhbJNXTGJlwugsn3KZX2LeaL3Qh
+ RcQJNHDWugB4w==
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-39faa67fab8so4404951fa.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 10:11:14 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AHgh+RrtrZeuCy0nkV3u1evyUmF/2/LT8iosb/KesWQSTMz5Hb3a+IpXJ0iDGQKH9k7Nb1Qif8OocYQlR7g=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxRXrCiAd0Hlt1YxAoAS5BHXLTe0ffjwCU0Bx4pTnkHTK7GLneg
- cgvONoem5IfeYwvMkzIC5JFRlM7CqKJhnJO7hPxv5kU97ALcqaxRMAzMxyWKF5xr76yKpyA4m8O
- A5f+5vhWHV6c58mfwZWBxkLFS2ZNxlVk=
-X-Received: by 2002:a05:651c:a331:b0:39c:7294:edd5 with SMTP id
- 38308e7fff4ca-39f86149fbcmr20474521fa.16.1785777035316; Mon, 03 Aug 2026
- 10:10:35 -0700 (PDT)
+ AHgh+RqwkngQY0f74Zotsv04FCAd1nrxJ2V9pm/MuXP38mq7DmY0IfEmcnAYypdNFFAaptCUZfUpT2mXNus=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyDNsg51GRbdxN0IX2hCH0jkNbvIdNc2lqfUNwXU2mc3K3kszWJ
+ lHt3C42UxhpLOm3m6uHvgDfu0WDZEIL3sAA+tSvcJcIrhuER8caeDJJQLeb1dV7VAX1uXroPvHA
+ sMld2+2TazSGaqdOd5NJLCxaUmRiKUjs=
+X-Received: by 2002:a05:651c:1993:b0:39b:2757:c1d3 with SMTP id
+ 38308e7fff4ca-39f86123ea9mr23096581fa.9.1785777072773; Mon, 03 Aug 2026
+ 10:11:12 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1785772659.git.jernej.skrabec@gmail.com>
- <759c74e3a22b97ca066ef7910ca4b91b852011e6.1785772659.git.jernej.skrabec@gmail.com>
-In-Reply-To: <759c74e3a22b97ca066ef7910ca4b91b852011e6.1785772659.git.jernej.skrabec@gmail.com>
+ <aec9060209473b8176eb43bc7c63c20b21306adf.1785772659.git.jernej.skrabec@gmail.com>
+In-Reply-To: <aec9060209473b8176eb43bc7c63c20b21306adf.1785772659.git.jernej.skrabec@gmail.com>
 From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 4 Aug 2026 01:10:23 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65TCJTNNJCNHOrD5crXDHaB5xHk38OoU8cJYneLoK6WzQ@mail.gmail.com>
-X-Gm-Features: AUfX_mwpcFy3zfeI7QO6fCWDy-K5pNTC3w93qmXynM_39UegKq3dSKNgaBP3zYY
-Message-ID: <CAGb2v65TCJTNNJCNHOrD5crXDHaB5xHk38OoU8cJYneLoK6WzQ@mail.gmail.com>
-Subject: Re: [PATCH 11/13] drm/sun4i: Drop node references while building
- component list
+Date: Tue, 4 Aug 2026 01:10:59 +0800
+X-Gmail-Original-Message-ID: <CAGb2v66dgpoMwpackOsKGb7JFUMP-1Vc667xFE54j5odCdpv+w@mail.gmail.com>
+X-Gm-Features: AUfX_myw6C25eVU1rBodfF_fAck2j4rXU1pTMBlvs-af7cQRwy-_-acRDgCMMzA
+Message-ID: <CAGb2v66dgpoMwpackOsKGb7JFUMP-1Vc667xFE54j5odCdpv+w@mail.gmail.com>
+Subject: Re: [PATCH 12/13] drm/sun4i: hdmi-phy: Fix H6 8-bit MPLL config at
+ 594 MHz
 To: Jernej Skrabec <jernej.skrabec@gmail.com>
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@gmail.com, simona@ffwll.ch, samuel@sholland.org, 
@@ -78,49 +78,39 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Tue, Aug 4, 2026 at 12:11=E2=80=AFAM Jernej Skrabec <jernej.skrabec@gmai=
 l.com> wrote:
 >
-> Two references are leaked every time the display pipeline is walked:
-> the output port node in sun4i_drv_traverse_endpoints(), which was never
-> released since the driver was introduced, and each node taken out of
-> the endpoint fifo in sun4i_drv_probe(), which stopped being released
-> when the fifo was introduced. The latter is still safe to drop right
-> after processing, since drm_of_component_match_add() takes its own
-> reference.
+> The 8-bit entry of the last MPLL row (594 MHz) doesn't lock reliably on
+> H6. 4K@60 RGB/YUV444, which is the mode that reaches this entry, doesn't
+> come up.
 >
-> Fixes: 9026e0d122ac ("drm: Add Allwinner A10 Display Engine support")
-> Fixes: 8b11aaface2b ("drm/sun4i: Implement endpoint parsing using kfifo")
+> Align the value with the vendor driver. Other entries are left alone,
+> they are used by lower pixel clocks which work fine.
+>
+> Tested with 4K@60 on a LG TV.
+>
+> Fixes: 0fb4b858b102 ("drm/sun4i: Add support for H6 HDMI PHY")
 > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
 Acked-by: Chen-Yu Tsai <wens@kernel.org>
 
 > ---
->  drivers/gpu/drm/sun4i/sun4i_drv.c | 3 +++
->  1 file changed, 3 insertions(+)
+>  drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_drv.c b/drivers/gpu/drm/sun4i/su=
-n4i_drv.c
-> index 8a409eee1dca..e9baca360160 100644
-> --- a/drivers/gpu/drm/sun4i/sun4i_drv.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_drv.c
-> @@ -289,6 +289,8 @@ static void sun4i_drv_traverse_endpoints(struct endpo=
-int_list *list,
->
->                 kfifo_put(&list->fifo, remote);
->         }
-> +
-> +       of_node_put(port);
->  }
->
->  static int sun4i_drv_add_endpoints(struct device *dev,
-> @@ -394,6 +396,7 @@ static int sun4i_drv_probe(struct platform_device *pd=
-ev)
->                 /* process this endpoint */
->                 ret =3D sun4i_drv_add_endpoints(&pdev->dev, &list, &match=
-,
->                                               endpoint);
-> +               of_node_put(endpoint);
->
->                 /* sun4i_drv_add_endpoints can fail to allocate memory */
->                 if (ret < 0)
+> diff --git a/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c b/drivers/gpu/drm/sun=
+4i/sun8i_hdmi_phy.c
+> index 4fa69c463dc4..489ea94693ff 100644
+> --- a/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
+> +++ b/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
+> @@ -91,7 +91,7 @@ static const struct dw_hdmi_mpll_config sun50i_h6_mpll_=
+cfg[] =3D {
+>                 },
+>         },  {
+>                 594000000, {
+> -                       { 0x1a40, 0x0003 },
+> +                       { 0x1a7c, 0x0003 },
+>                         { 0x3b4c, 0x0003 },
+>                         { 0x5a64, 0x0003 },
+>                 },
 > --
 > 2.43.0
 >
