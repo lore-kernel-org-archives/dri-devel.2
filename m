@@ -4,84 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ADF7C55196
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 22:29:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD6FAC55184
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 22:34:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7045010E041;
-	Mon,  3 Aug 2026 22:29:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2114D10E25D;
+	Mon,  3 Aug 2026 22:34:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DmKJiF5i";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GZn976nu";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF94710E041
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 22:29:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 70C7143707;
- Mon,  3 Aug 2026 22:29:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293B21F000E9;
- Mon,  3 Aug 2026 22:29:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785796163;
- bh=oLU6AvVAmTV2ZbC3IT+O0inRa1mJRdKCmd2hcYx6gBI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=DmKJiF5i+Dfn7N3QvT8zUoxcutcqjN7pUT5d+Wik/cBCviAK4LQniuFMsTgQWn+fj
- zuyLSLmwLlp9X8MftTFYCdCowTuBQAGeJCgc2k2cbLebPEKduXBPV/l9jvXsOzV4Mf
- /5cuVInqu1m+Mw1pqRNm8WYLvzZ4W1D25R+PnQOCg4ON8t9IFPfa3n80DFMifwLI6q
- juq06h7PtZgnS/E75ewvu4NA+W5GYYbv0OpO6kWjvcvDpKPmxP9GSGv9NGdxHLWHW9
- h0QBhf+2j23nHj4p0tiymkluxKk7GYFn3QnRsPdMpVK9+ztCKRw8Z082N6q8JFVtik
- WPFmBUNSlo/Sg==
-Date: Mon, 3 Aug 2026 17:29:22 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: linux-pwm@vger.kernel.org, linux-pm@vger.kernel.org,
- Sean Wang <sean.wang@kernel.org>, Nishanth Menon <nm@ti.com>,
- Conor Dooley <conor+dt@kernel.org>, YC Hung <yc.hung@mediatek.com>,
- Yangbo Lu <yangbo.lu@nxp.com>, Maxime Ripard <mripard@kernel.org>,
- Johannes Berg <johannes@sipsolutions.net>, Stephen Boyd <sboyd@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Jyri Sarha <jyri.sarha@iki.fi>, Lee Jones <lee@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>,
- Viresh Kumar <vireshk@kernel.org>, linux-wireless@vger.kernel.org,
- Linus Walleij <linusw@kernel.org>, James Clark <james.clark@linaro.org>,
- Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
- linux-usb@vger.kernel.org, David Airlie <airlied@gmail.com>,
- linux-arm-kernel@lists.infradead.org,
- Matthias Brugger <matthias.bgg@gmail.com>,
- linux-ide@vger.kernel.org, ath10k@lists.infradead.org,
- Richard Cochran <richardcochran@gmail.com>,
- linux-riscv@lists.infradead.org, linux-gpio@vger.kernel.org,
- linux-mediatek@lists.infradead.org,
- Niklas Cassel <cassel@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Paul Walmsley <pjw@kernel.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Jassi Brar <jassisinghbrar@gmail.com>,
- Mike Leach <mike.leach@arm.com>, linux-arm-msm@vger.kernel.org,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- coresight@lists.linaro.org, devicetree@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- mfd@lists.linux.dev, Andi Shyti <andi.shyti@kernel.org>,
- Damien Le Moal <dlemoal@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Patrice Chotard <patrice.chotard@foss.st.com>,
- Jens Wiklander <jenswi@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Samuel Holland <samuel.holland@sifive.com>,
- linux-i2c@vger.kernel.org, Mark Rutland <mark.rutland@arm.com>,
- dri-devel@lists.freedesktop.org, netdev@vger.kernel.org,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Jeff Johnson <jjohnson@kernel.org>,
- Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
- linux-kernel@vger.kernel.org, Leo Yan <leo.yan@arm.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: Re: [PATCH] dt-bindings: Correct white-space style
-Message-ID: <178579615849.757032.17209099883451822613.robh@kernel.org>
-References: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 19E1010E0E5
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 22:34:45 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 23BBD60A5F;
+ Mon,  3 Aug 2026 22:34:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BFA42C2BCB9;
+ Mon,  3 Aug 2026 22:34:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1785796483;
+ bh=H0kgME+59pbHu35ntL0gtmYTh0nf/TN1AHSGkneMNN0=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=GZn976nu7ac66csSDx/t/xCCLxr9V8+wOZWVcIn2Z7mcwp6DHpULWWJjE5Dx4+VXo
+ pB9VyWm9M+5RDMkHnb9w0hpnxfDARq5r7ILtuqbGOiqpfFlCduK/r67LYDXjQvpfdB
+ P3aV1i4c79MdGlfJzmRhZy6uqQmb4z+QKFkD7hbKh/ZNU5jYTfAxl5bB/8UOU4f6IK
+ t/oQ1H+2DxUcnWy7fOrt2fFIlso/oTq+zQdppMSPpiiyGU1y667+aXKeSevTbZ6jyO
+ 3o4iBydaxZgAK36o1I98hjGC/yGNyiHs7wazzGTT89POUC3cvDFHc+mUGWPXXpGnuS
+ LWz/FWAw4rTAg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id ACF92C55184;
+ Mon,  3 Aug 2026 22:34:43 +0000 (UTC)
+From: Antonin Malzieu Ridolfi via B4 Relay <devnull+dev.nanonej.com@kernel.org>
+Date: Tue, 04 Aug 2026 00:34:42 +0200
+Subject: [PATCH] gpu: nova-core: Extract PMC registers definitions
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260804-b4-extract-pmc-registers-to-gpu-mod-v1-1-86c0895b6072@nanonej.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQqDMBBA0avIrDuQRqm2VykuYhzjFDRhJhZBv
+ HvTdvk2/x+gJEwKj+oAoTcrx7XgeqnAz24NhDwWgzX2ZjrT4NAg7Vmcz5gWj0KBNZMo5oghbbj
+ EEdt7TWRN2zlbQykloYn33+XZ/63b8CKfv2k4zw8RDL7fhwAAAA==
+X-Change-ID: 20260804-b4-extract-pmc-registers-to-gpu-mod-793ee2078a23
+To: Danilo Krummrich <dakr@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, Antonin Malzieu Ridolfi <dev@nanonej.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8896; i=dev@nanonej.com;
+ h=from:subject:message-id;
+ bh=BCiN9iC9b9zOA3uAT+vAUZnIyLFnI7OUNMD8vE7JRrA=;
+ b=owEBbQKS/ZANAwAKAWaH8SMKFRX9AcsmYgBqcReCVlHmmicZXeWzfmHTNzI0UfUGh5pf+O+Fe
+ 6OIbvpJf8KJAjMEAAEKAB0WIQSDtk+wfJEhL1KFIn1mh/EjChUV/QUCanEXggAKCRBmh/EjChUV
+ /RTEEACLoF/XsFg3JHHeMZuzwLclYhd1nw5U1hJcugCezfZMHCdA6KLfMpjJq6fMMQBmX3VNrPf
+ hFH4cMN2mS1Rp6USpd30IuEW3MFQZJTfI17gHcwYo7wzQ1Hy1wdTP2IrCnsZ28skvBHeBSHz6UD
+ 4hmtKBUGm4/njJmeLeNHiTmZoXDDydtdAyVG3vUtk50Sycfp4Mv8BBA5JqOMLdO41RpGaYdpQMa
+ xmM1QJ1/jgsCFCB+mMN110Q8phguwnCna/hr6rO9R6rLEPE22WJnrhP0i7MG0U1Quw8Q9LrUi+y
+ +s+p5nRoyH60xnini3z5fHNcY0M6GUPbU/V/ARfPjR3hWcnbvCPVxlz+08nrsLYqseSAf57NWwr
+ yB9quXEutJ/yzcWIJ81B01JviiwNyD71zxbM0uxK+LB638ExO6yAzzYkiChOBfsnlM2dnfQguRq
+ lDYZ07TM1ECtTZ/pm7/ZkXPUkp0hQ2rxJb8ASBgi0S4QpJkOFVcSO/+ze1SLCAxwNqyhAXd0z3w
+ 2MddZh85NgTM0npQThIRevP6sSrUrSx5tdWeVexAPf8Z/oePjRoNNZ3VF0/IHK+rl9Q+mg4kGG/
+ np2cDSjg8xDEkpqvBzFwgaXNNOQ21D1ui507LOkGPWlZGKxlxooUh0tskerYoT7MMHQ5OSU+zr/
+ 2zocB7JAc1trjxw==
+X-Developer-Key: i=dev@nanonej.com; a=openpgp;
+ fpr=83B64FB07C91212F5285227D6687F1230A1515FD
+X-Endpoint-Received: by B4 Relay for dev@nanonej.com/default with auth_id=825
+X-Original-From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,41 +82,270 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: dev@nanonej.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+From: Antonin Malzieu Ridolfi <dev@nanonej.com>
 
-On Sat, 01 Aug 2026 21:56:14 +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues, like double space after '=' or before
-> bracket '{' characters, which will be flagged by dt-check-style.  No
-> functional changes.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> ---
-> 
-> Patch applies on Rob's for-next branch.
-> ---
->  .../arm/firmware/linaro,optee-tz.yaml         |  8 +-
->  .../devicetree/bindings/arm/psci.yaml         | 18 ++--
->  .../bindings/arm/qcom,coresight-tnoc.yaml     |  2 +-
->  .../devicetree/bindings/ata/st,ahci.yaml      | 22 ++---
->  .../bindings/display/ti/ti,am65x-dss.yaml     | 12 +--
->  .../bindings/display/ti/ti,j721e-dss.yaml     | 96 +++++++++----------
->  .../bindings/display/ti/ti,k2g-dss.yaml       | 36 +++----
->  .../bindings/dsp/mediatek,mt8195-dsp.yaml     |  2 +-
->  .../bindings/gpio/st,nomadik-gpio.yaml        |  2 +-
->  .../devicetree/bindings/i2c/st,sti-i2c.yaml   |  2 +-
->  .../bindings/mailbox/st,sti-mailbox.yaml      |  2 +-
->  .../bindings/mfd/maxim,max77620.yaml          |  2 +-
->  .../bindings/net/wireless/qcom,ath10k.yaml    | 34 +++----
->  .../devicetree/bindings/opp/opp-v2.yaml       | 28 +++---
->  .../pinctrl/mediatek,mt7988-pinctrl.yaml      |  2 +-
->  .../devicetree/bindings/ptp/fsl,ptp.yaml      | 12 +--
->  .../devicetree/bindings/pwm/pwm-sifive.yaml   |  2 +-
->  .../bindings/usb/ti,twl4030-usb.yaml          |  2 +-
->  18 files changed, 142 insertions(+), 142 deletions(-)
-> 
+Move PMC register definitions (NV_PMC_BOOT_0, NV_PMC_BOOT_42) and
+their associated implementations from the root regs.rs file into the
+gpu module that own them, in the new gpu/regs.rs file.
 
-Applied, thanks!
+This follows the same pattern established by previous commits for
+GSP, PDISP, PFB, and PBUS registers: register definitions move to
+the module that owns them, visibility changes to pub(super), and
+cross-module access is provided via pub(crate) helper functions.
+
+Since falcon.rs (outside the gpu module) also reads NV_PMC_BOOT_0 for
+its raw value, a pub(crate) helper function boot_0_raw() is added in
+gpu.rs to provide that access without exposing the register type
+directly.
+
+Signed-off-by: Antonin Malzieu Ridolfi <dev@nanonej.com>
+---
+Move PMC register definitions (NV_PMC_BOOT_0, NV_PMC_BOOT_42) and
+their associated implementations from the root regs.rs file into the
+gpu module that own them, in the new gpu/regs.rs file.
+
+This follows the same pattern established by previous commits for
+GSP, PDISP, PFB, and PBUS registers: register definitions move to
+the module that owns them, visibility changes to pub(super), and
+cross-module access is provided via pub(crate) helper functions.
+
+Since falcon.rs (outside the gpu module) also reads NV_PMC_BOOT_0 for
+its raw value, a pub(crate) helper function boot_0_raw() is added in
+gpu.rs to provide that access without exposing the register type
+directly.
+---
+ drivers/gpu/nova-core/falcon.rs   |  2 +-
+ drivers/gpu/nova-core/gpu.rs      |  7 +++-
+ drivers/gpu/nova-core/gpu/regs.rs | 82 +++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/nova-core/regs.rs     | 75 -----------------------------------
+ 4 files changed, 89 insertions(+), 77 deletions(-)
+
+diff --git a/drivers/gpu/nova-core/falcon.rs b/drivers/gpu/nova-core/falcon.rs
+index a91cbdd5d636..5bc03cc0d33f 100644
+--- a/drivers/gpu/nova-core/falcon.rs
++++ b/drivers/gpu/nova-core/falcon.rs
+@@ -394,7 +394,7 @@ pub(crate) fn reset(&self) -> Result {
+ 
+         self.bar.write(
+             WithBase::of::<E>(),
+-            regs::NV_PFALCON_FALCON_RM::from(self.bar.read(regs::NV_PMC_BOOT_0).into_raw()),
++            regs::NV_PFALCON_FALCON_RM::from(crate::gpu::boot_0_raw(self.bar)),
+         );
+ 
+         Ok(())
+diff --git a/drivers/gpu/nova-core/gpu.rs b/drivers/gpu/nova-core/gpu.rs
+index 42a4cd7971fa..9e4232645a7e 100644
+--- a/drivers/gpu/nova-core/gpu.rs
++++ b/drivers/gpu/nova-core/gpu.rs
+@@ -29,11 +29,11 @@
+         Gsp,
+         GspBootContext, //
+     },
+-    regs,
+     vgpu::VgpuManager, //
+ };
+ 
+ mod hal;
++mod regs;
+ 
+ macro_rules! define_chipset {
+     ({ $($variant:ident = $value:expr),* $(,)* }) =>
+@@ -414,3 +414,8 @@ pub(crate) fn new(
+         })
+     }
+ }
++
++/// Reads the boot0 register and returns its raw value.
++pub(crate) fn boot_0_raw(bar: Bar0<'_>) -> u32 {
++    bar.read(regs::NV_PMC_BOOT_0).into_raw()
++}
+diff --git a/drivers/gpu/nova-core/gpu/regs.rs b/drivers/gpu/nova-core/gpu/regs.rs
+new file mode 100644
+index 000000000000..1c4db9625250
+--- /dev/null
++++ b/drivers/gpu/nova-core/gpu/regs.rs
+@@ -0,0 +1,82 @@
++// SPDX-License-Identifier: GPL-2.0
++
++use kernel::{
++    io::register,
++    prelude::*, //
++};
++
++use super::{
++    Architecture,
++    Chipset, //
++};
++
++// PMC
++
++register! {
++    /// Basic revision information about the GPU.
++    pub(super) NV_PMC_BOOT_0(u32) @ 0x00000000 {
++        /// Lower bits of the architecture.
++        28:24   architecture_0;
++        /// Implementation version of the architecture.
++        23:20   implementation;
++        /// MSB of the architecture.
++        8:8     architecture_1;
++        /// Major revision of the chip.
++        7:4     major_revision;
++        /// Minor revision of the chip.
++        3:0     minor_revision;
++    }
++
++    /// Extended architecture information.
++    pub(super) NV_PMC_BOOT_42(u32) @ 0x00000a00 {
++        /// Architecture value.
++        29:24   architecture ?=> Architecture;
++        /// Implementation version of the architecture.
++        23:20   implementation;
++        /// Major revision of the chip.
++        19:16   major_revision;
++        /// Minor revision of the chip.
++        15:12   minor_revision;
++    }
++}
++
++impl NV_PMC_BOOT_0 {
++    pub(super) fn is_older_than_fermi(self) -> bool {
++        // From https://github.com/NVIDIA/open-gpu-doc/tree/master/manuals :
++        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u32 = 0xc;
++
++        // Older chips left arch1 zeroed out. That, combined with an arch0 value that is less than
++        // GF100, means "older than Fermi".
++        self.architecture_1() == 0 && self.architecture_0() < NV_PMC_BOOT_0_ARCHITECTURE_GF100
++    }
++}
++
++impl NV_PMC_BOOT_42 {
++    /// Combines `architecture` and `implementation` to obtain a code unique to the chipset.
++    pub(super) fn chipset(self) -> Result<Chipset> {
++        self.architecture()
++            .map(|arch| {
++                ((arch as u32) << Self::IMPLEMENTATION_RANGE.len())
++                    | u32::from(self.implementation())
++            })
++            .and_then(Chipset::try_from)
++    }
++
++    /// Returns the raw architecture value from the register.
++    fn architecture_raw(self) -> u8 {
++        ((self.into_raw() >> Self::ARCHITECTURE_RANGE.start())
++            & ((1 << Self::ARCHITECTURE_RANGE.len()) - 1)) as u8
++    }
++}
++
++impl kernel::fmt::Display for NV_PMC_BOOT_42 {
++    fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
++        write!(
++            f,
++            "boot42 = 0x{:08x} (architecture 0x{:x}, implementation 0x{:x})",
++            self.inner,
++            self.architecture_raw(),
++            self.implementation()
++        )
++    }
++}
+diff --git a/drivers/gpu/nova-core/regs.rs b/drivers/gpu/nova-core/regs.rs
+index caeef4d85874..7ebb62e504b4 100644
+--- a/drivers/gpu/nova-core/regs.rs
++++ b/drivers/gpu/nova-core/regs.rs
+@@ -28,83 +28,8 @@
+         PFalconBase,
+         PeregrineCoreSelect, //
+     },
+-    gpu::{
+-        Architecture,
+-        Chipset, //
+-    },
+ };
+ 
+-// PMC
+-
+-register! {
+-    /// Basic revision information about the GPU.
+-    pub(crate) NV_PMC_BOOT_0(u32) @ 0x00000000 {
+-        /// Lower bits of the architecture.
+-        28:24   architecture_0;
+-        /// Implementation version of the architecture.
+-        23:20   implementation;
+-        /// MSB of the architecture.
+-        8:8     architecture_1;
+-        /// Major revision of the chip.
+-        7:4     major_revision;
+-        /// Minor revision of the chip.
+-        3:0     minor_revision;
+-    }
+-
+-    /// Extended architecture information.
+-    pub(crate) NV_PMC_BOOT_42(u32) @ 0x00000a00 {
+-        /// Architecture value.
+-        29:24   architecture ?=> Architecture;
+-        /// Implementation version of the architecture.
+-        23:20   implementation;
+-        /// Major revision of the chip.
+-        19:16   major_revision;
+-        /// Minor revision of the chip.
+-        15:12   minor_revision;
+-    }
+-}
+-
+-impl NV_PMC_BOOT_0 {
+-    pub(crate) fn is_older_than_fermi(self) -> bool {
+-        // From https://github.com/NVIDIA/open-gpu-doc/tree/master/manuals :
+-        const NV_PMC_BOOT_0_ARCHITECTURE_GF100: u32 = 0xc;
+-
+-        // Older chips left arch1 zeroed out. That, combined with an arch0 value that is less than
+-        // GF100, means "older than Fermi".
+-        self.architecture_1() == 0 && self.architecture_0() < NV_PMC_BOOT_0_ARCHITECTURE_GF100
+-    }
+-}
+-
+-impl NV_PMC_BOOT_42 {
+-    /// Combines `architecture` and `implementation` to obtain a code unique to the chipset.
+-    pub(crate) fn chipset(self) -> Result<Chipset> {
+-        self.architecture()
+-            .map(|arch| {
+-                ((arch as u32) << Self::IMPLEMENTATION_RANGE.len())
+-                    | u32::from(self.implementation())
+-            })
+-            .and_then(Chipset::try_from)
+-    }
+-
+-    /// Returns the raw architecture value from the register.
+-    fn architecture_raw(self) -> u8 {
+-        ((self.into_raw() >> Self::ARCHITECTURE_RANGE.start())
+-            & ((1 << Self::ARCHITECTURE_RANGE.len()) - 1)) as u8
+-    }
+-}
+-
+-impl kernel::fmt::Display for NV_PMC_BOOT_42 {
+-    fn fmt(&self, f: &mut kernel::fmt::Formatter<'_>) -> kernel::fmt::Result {
+-        write!(
+-            f,
+-            "boot42 = 0x{:08x} (architecture 0x{:x}, implementation 0x{:x})",
+-            self.inner,
+-            self.architecture_raw(),
+-            self.implementation()
+-        )
+-    }
+-}
+-
+ // PBUS
+ 
+ register! {
+
+---
+base-commit: 44e7e7f7cffb10a93bb88e7cb59b7b8b3e2deb1c
+change-id: 20260804-b4-extract-pmc-registers-to-gpu-mod-793ee2078a23
+
+Best regards,
+--  
+Antonin Malzieu Ridolfi <dev@nanonej.com>
+
 
