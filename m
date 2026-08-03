@@ -4,39 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 923FBC55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:56:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 937F6C55179
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:56:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DD93610E6BA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA92F10E6CD;
 	Mon,  3 Aug 2026 14:56:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="Q3oykL5o";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="uNzMgbNs";
 	dkim-atps=neutral
 Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
  [79.135.106.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 887E110E6EA
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:56:39 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9082C10E6E2
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:56:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1785768997; x=1786028197;
- bh=QPBm4NG7A+HSGHSOUZg6VDUd6exXx8y8wk5CPF99Uq0=;
- h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Q3oykL5o6e9h7yAA9/PJO+Cl6fCRwfCcAuyd/wE540gLfafKXRdhl10Oh4Tf9i5Bz
- DOnxbM1IupdevPznUTfiFEKmf2/7ViXSa1iWyKeJ2ZH36Bj5PAg2De56oVD5a2ZyGU
- yJP/C2jdOPhIo0tIy+yENL/HLbJpbeledx/Zgxfw1CpXKEayW1i4VC1+Zq0urXIMw4
- 2+c9qGIrBAgVHqhJFCc38HtXXjftzkirXo+ivay4qYNRDFwH5zotoYggdWnz/V+rmm
- fxiFEldgxhPUf71xJp4P3VcHhP1NZHHHNNU0NKYmf9YffGG9m6lJ27Fsp/Bxj6+FsA
- ZAm2lnQtcBmLw==
-X-Pm-Submission-Id: 4hDKWS61vGz2Sd49
+ s=protonmail3; t=1785768996; x=1786028196;
+ bh=bm4q2aoJhc6SLCSs6kkxL7x3OeC/21eQOQIMKY2W1FU=;
+ h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+ Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=uNzMgbNsWtnMXXlgKUi5D9Gtqg80xp1oewvXmpmVqSM1qfjzNHDczjsUFxHejvOhM
+ 7REzpCGIybaUBTKxgxUFsdNygDYtjYBY7/++3qhplrp1TjSaxi7N++lzUT83hNv35v
+ qkN+kM0AMQnbIW5/+PywaZIF8xnjm6bFtaeKuAtFYHZ2Yc6wep3ivkASrhxcfm9CZd
+ I/0EyrZ8DSZIC26DI0oKbAVhcLhKUAAmIl4duZIyT4NhHd9MsmXf2DJjBwA5hO1qPj
+ 8fbY5yZLcH/3gpyvK4e3kxWpD+umWIueXh4pz5RX4tLuJuFYZ2Tj+C9Cxgh3CrPPMb
+ Ffldx0ZmaI37w==
+X-Pm-Submission-Id: 4hDKWN4CgTz1DDLT
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 03 Aug 2026 16:56:20 +0200
-Subject: [PATCH v2 2/4] drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
+Subject: [PATCH v2 0/4] drm/bridge: nwl-dsi: Various fixes
+Date: Mon, 03 Aug 2026 16:56:18 +0200
+Message-Id: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-nwl-dsi-fixes-v2-2-1809a0ac453f@geanix.com>
-References: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
-In-Reply-To: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf4X07Jq2USie/A/DobQrrNHWdBExh
+ H+34Nnjy8ybmQVjImRxKmaRcCSmGDLoXSFcb0OHQD6z0FKXslISwvsOngmuNCGDUwfTSuvb0hx
+ Fdp4JtyArl+bH/Gpv6IZ1ZG30xENMn+1wVGvv3/aoQEKtK18rY01p/blDG2jau/gQzbIsX4JZG
+ OO9AAAA
+X-Change-ID: 20260710-nwl-dsi-fixes-c148b0adb685
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -47,13 +50,14 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Robert Chiras <robert.chiras@nxp.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ "Oliver F. Brown" <oliver.brown@oss.nxp.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785768991; l=1428;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785768991; l=2012;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=MlnAnk3D6X3Xr53pwTpcKxu0eo4On3ljZI9uhBncg4s=;
- b=z3Jf9W6nXyVo8zGhXIdad7r6BjnrXxZBxPVxtH64DgqHWCLyfKHg8GIvHFABmn0o443//Porl
- X7oJvA/lNBpCvWeGuGJ4pZIKpQFr42Mz/523QQiiPNf6ZRwBwSdItHk
+ bh=9f+elwfxZa6LosTTskwWLYOnEdaKJa9JfedkQ24JylE=;
+ b=bFH6lb21qE3OPDweIp1kGJFsPV3ij09VvG/HrNHnL5k6u83jfKC6i2OjkN8w+PeQsaJO5AMVw
+ KOoJQR7CM2CBcmPTbo5cYGaRbGOImG68MTxvsrthQR7eISqzGEVrymM
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,44 +75,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Robert Chiras <robert.chiras@nxp.com>
+This series brings a few patches fixing horizontal sync timing, EOTP packet
+behavior and hsync/vsync polarity selection when using DCSS endpoint, as
+well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
 
-In order to respect the DSI protocol, make sure that auto-insert EOTP is
-enabled according to the NO_EOT_PACKET flag instead of the
-CLOCK_NON_CONTINUOUS flag.
+The 2nd commit ("Correct auto-insert EOTP behavior") is taken directly from
+NXP vendor tree, so I have kept Author unchanged, although I have modified
+the commit message. Let me know if I should change Author for that.
 
 Signed-off-by: Esben Haabendal <esben@geanix.com>
-Cc: Robert Chiras <robert.chiras@nxp.com>
-Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 ---
- drivers/gpu/drm/bridge/nwl-dsi.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+Changes in v2:
+- Added safeguard against small horizontal sync timings, protecting against
+  division by zero and integer underflow.
+- Added error handling of nwl_dsi_mode_set() call.
+- Link to v1: https://patch.msgid.link/20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com
 
-diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
-index 915e1bdc73c8..c9af6a3d47e1 100644
---- a/drivers/gpu/drm/bridge/nwl-dsi.c
-+++ b/drivers/gpu/drm/bridge/nwl-dsi.c
-@@ -222,13 +222,15 @@ static int nwl_dsi_config_host(struct nwl_dsi *dsi)
- 	DRM_DEV_DEBUG_DRIVER(dsi->dev, "DSI Lanes %d\n", dsi->lanes);
- 	nwl_dsi_write(dsi, NWL_DSI_CFG_NUM_LANES, dsi->lanes - 1);
- 
--	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
-+	if (dsi->dsi_mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x01);
--		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
--	} else {
-+	else
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_NONCONTINUOUS_CLK, 0x00);
-+
-+	if (dsi->dsi_mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
- 		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x00);
--	}
-+	else
-+		nwl_dsi_write(dsi, NWL_DSI_CFG_AUTOINSERT_EOTP, 0x01);
- 
- 	/* values in byte clock cycles */
- 	cycles = ui2bc(cfg->clk_pre);
+To: Andrzej Hajda <andrzej.hajda@intel.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Robert Foss <rfoss@kernel.org>
+To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
+To: Jonas Karlman <jonas@kwiboo.se>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
 
--- 
-2.55.0
+---
+Esben Haabendal (3):
+      drm/bridge: nwl-dsi: Limit LCDIF specific sync override
+      drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
+      drm/bridge: nwl-dsi: Add error handling of nwl_dsi_mode_set()
+
+Robert Chiras (1):
+      drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
+
+ drivers/gpu/drm/bridge/nwl-dsi.c | 95 ++++++++++++++++++++++++++++++++++------
+ 1 file changed, 81 insertions(+), 14 deletions(-)
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260710-nwl-dsi-fixes-c148b0adb685
+
+Best regards,
+--  
+Esben Haabendal <esben@geanix.com>
 
