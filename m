@@ -4,84 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC52C55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:05:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91BE8C55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:11:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9387510E6ED;
-	Mon,  3 Aug 2026 16:05:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD62610E6F0;
+	Mon,  3 Aug 2026 16:11:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ovCWdIhM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mBsGQQPM";
 	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C0DE10E6ED
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:05:40 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-47f6981d244so181440f8f.1
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:05:39 -0700 (PDT)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB46E10E6F0
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:11:11 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4954aff6088so19959205e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:11:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785773138; x=1786377938; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Orw1gQutvOkZopO7ifTGK4f+dabsbqDeP0c5VLSqs1g=;
- b=ovCWdIhMNerQjo05huIc54muNRpSOPFlpZWbRA6SYCxbI1q5JyI0uXLYFMaHwCitPM
- tWzppodtIbAtTm281qfmSt9CIp+gNFJud70x+eElhg9UmXpnIfN9tS2kfnqoCuT11nao
- UsKBiHNTJEZCnUFgY+o5MSh/Po3Aiw+35neZuvJ9Sq7cf+UaVeX39AlKvgMLXBp+bRRl
- YFlc6uRU1RFFJZ4T7VJDbXzTDn+cVCBkvNDVtQoATotWRB/A/FsvsO9i5eieXztBj4Tb
- LUhU6pfX910n0Gl0Llg3DjPgOzCU/nVWzAXGnu7uTuI7mrtNgljD20l+Ic8fWKDCIq5j
- vt4g==
+ d=gmail.com; s=20251104; t=1785773470; x=1786378270; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=TkgRTuLVuCLYpIvdltmqBCjRKT4GYVnjKziTrqAUoEE=;
+ b=mBsGQQPM6aT0hqDtbZK5mH5G1U1tmZyNd8Jv5uGdODWDEf/viHoP8fxQsCb7v1qQ9N
+ VlTsr3ITASX5UArRTndcmGL6z52z3B/Rq884NDJvIpL/84SixXBai51ZgTp9Gb/0yr9R
+ Q4IJuampyJ6K92UgsVNCPPsgyB7u4J6Ws86IxxCMFJk823rZiKMoDY9Bchq+G8k3kz8N
+ zN2DiIPHggBXkeaRG4WT/oBG3vUWuugQGqpAatQd3sXO83s74dTNAens28572dsOX0+T
+ ElMQW+OQCmH8NnLlEvtiXAOHKp+LOMhxm5LZyukzS+32q4mJw4Ct+dM2G9VLwHNIxn6/
+ eQEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785773138; x=1786377938;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Orw1gQutvOkZopO7ifTGK4f+dabsbqDeP0c5VLSqs1g=;
- b=iNFKgvo2oefmDZBsqjz+O32RF6Xv7wYVD8aliY/5+wDFi8bvZlMg3l2q3+E9XLguhU
- Wmpc2Z17MC2E8awcRTwB1pa5TlmEJfFVu28FKdMW5cLDWdXHpZyiLAtQHC+6xG9iqPK/
- FPgHm0JMBkpwvt8TR9fW+4DSTX6ly/67yn4pqilgbOVxh85SBuMdqlqRUHxxvh3J195/
- H+2YUUzyiIWCedSzDBcUobxckgDm7gsj53kfU7kwv/hdW8q9jDj9J+I9x2gKMakvmVpP
- kcwHTz6nKH6R4gZ0505Aghzvpi1PmtOR32K5HJRlBtrIP3aNAR/tpufulHkWm1JXkJk1
- sJkg==
+ d=1e100.net; s=20251104; t=1785773470; x=1786378270;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=TkgRTuLVuCLYpIvdltmqBCjRKT4GYVnjKziTrqAUoEE=;
+ b=aAlzbymDKC1vFvPjUbN9axRzMIw5JWWPa53hfcxNeN658bZKtpLRoQq4JgRGhjTpQo
+ lBn27LTAejNHrCuy/+yC1qPz8wPgttEQ15nWwPaq044oopR3RvFkRShPoMBvN6YJGsYb
+ +q3kVKjkGi06XSfm2Bhphqs3zckwi0MX2Wa8FWtTUb4J+f00j+EM1yCYPd8VyWrL40uj
+ 7klSI7BG2ZDJrfxo/2/vYkONjl28QiQ7JHXZE+1XWaWuVGQXbQv0vtm+LDXZiAPYOarF
+ u5fWbcZJrJJrGLaiKeSCrcoCwXc+qSbp1cp6z8jtKGMwQmvzabUhPQ9FggX9Y/CbIZa3
+ LuaA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoKd5yRWhZwbI4OiuOlbmWYliCOwvdZkSrlTFl9xxNz4xb9DLL3qrtlS3X35Fo3J9J0X+Z+mRah9LI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyznPE0KgVjoOgLaDYrp8BvZU0n1izNFG/IGKbXXwtnC8+Gb7jF
- mk1jIdRUvOG7YUoUIiLfIpblcurEphZDyxwyjyAOLyYiAjaeXuuadwoI
-X-Gm-Gg: AR+sD12Vm/IdYtG4bnKeHnyAn0QurQAeh1CTZH66PTc/sPb5jK93xlXykyI6lxaMw4y
- eRjJm+1PVqMMWq/8k1auVMtPz483IdNA5X+6NGyhe5v1p9R2QcJllbRlLBYd5z14DesdbQHrtig
- Ao6QZkoWA3sgY6vkToG/iqyVm+vk41B62jOSoshgjJdnCu6N1r2lYGqOYjTZbMRzfEameWJKFv2
- nx4//yZF8nEBilyC9LpueYi/sHgzDu65EVDkigGfnYKUmYBB7k8NlSGQrrMhELr30Xoz8skgZpE
- HIN0PpxqH0k4WJoIov0wefPs4ymslb9JTjIVL5Kuedu5IsfFgohy92+I5nBSiOW3rBmThi6ytm1
- hFqME3AGXhjgkj4SF1oMCZhlp78drqc31+REAsa76tKeRcsmZEo+9fy97JTeFcmbbMEkTUXyMyD
- VuY/9zlD9OM+vJ9MnlIGVE22k5dpJFmck4jebabGvv9X/3ZrIlPLgt96WAT++HClYDWMvDiQYl5
- e6FLniO3GS5cSzqoKhk4oS2PGL5/WnOKxUoo79OvBXL7apeox63aLufLeSiUJrjArxZ
-X-Received: by 2002:a05:6000:61e:b0:47f:4d11:3472 with SMTP id
- ffacd0b85a97d-47fd72a00e1mr15561662f8f.1.1785773138178; 
- Mon, 03 Aug 2026 09:05:38 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B85F300A5CC0DBDABDC4661.dsl.pool.telekom.hu.
- [2001:4c4e:1b85:f300:a5cc:dbd:abdc:4661])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd458b73asm31953719f8f.29.2026.08.03.09.05.36
+ AHgh+Rob6XP/BU4ZR0mP+ZnL3ARDC9BZ1R6r9xY+ttFQXt5q4rnWYfoJlrFiC3eQy6mOymtq1A7bvx4g55E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxNd0DYuaZfJfPOKfHDJg5xrOik94X/O8G/2Bk4hoW4R6CmTcJj
+ zIpaq7LTDDtbWQSjFGAW7NYMQBqo8pR8dIaYaox9AvlLPi4fd6IXjtsz
+X-Gm-Gg: AR+sD11f7kPjWRveHNgUFNNrEZg3VSb9CXKuRtkrbwUjJwPq46ZV2KMU1v6Vf5sq08H
+ ie8/DukxomWnQW2Ebqj9fw5W0FatJ8bS0g0f0VUjRtGomwA60y06ZY2E2LfzxknJmh+0BrnLVNy
+ FDSLkyl9tpRrpNPx9lP3lqCU1g3CPEmlMqlCPST0kr41MpCxbnnUMOPXuiIxDRtacgQNvWdKJmY
+ UN/+KUbbvEhR0jDF22Q+0YcyyHs/omN3Mn2NLZZ3o90DNRJEbayQN0EIR/yYyL23DXH3+hvaOts
+ AcpTNhEAjXoBO8QFtlmfY2OVTjk08SN9EUZdK+4L+lvv6fq1ErvBsk/QnK9c51hImw/J4Z91lap
+ al25WaWZtnAdKCLcx5iyBoKjHKl7t97Qtg5zXOJhy6qGYx26s72bXMivCG3funF0kyXPw601zgP
+ 3Xw0fZR2OfjOzU9x1JJwI1d0nQGj7TdF4mAOmrHlkcWxI4WzM9b3RL/hohsz3bMqeGqsYp1boMf
+ 8YehypVfyuBqALgJ9Xkuyu2dC6OmKWyu5J9RdGwV0VpcFLlQeXCsZ0Y9W8dnH3GU3wPYCYkutqI
+ ZZS+5ZbIRTBMQVRXhXG3E5rlUx1ayeg8Ub3U8bviWuj/sdFR9gnSsRZe+3t8GV4SqJN449cQh/b
+ 4FJCWlxDjqKz8SD9kdE7s9xWvDSC+/xbup/SzwVz8fGjQ2OB65SCZsMSp5+ihtH5hR3vfZiEOTC
+ aisA==
+X-Received: by 2002:a05:600c:468e:b0:495:4b42:8677 with SMTP id
+ 5b1f17b1804b1-4980c6a2268mr222728085e9.18.1785773469919; 
+ Mon, 03 Aug 2026 09:11:09 -0700 (PDT)
+Received: from jernej-laptop (APN-122-100-117-gprs.simobil.net.
+ [46.122.100.117]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49949fc2da2sm3363735e9.3.2026.08.03.09.11.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 09:05:37 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, ulfh@kernel.org,
- p.zabel@pengutronix.de, ogabbay@kernel.org, alchark@gmail.com,
- chaoyi.chen@rock-chips.com, krzk@kernel.org, will@kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v4 5/6] arm64: dts: rockchip: rk3576: add NPU (RKNN)
- nodes
-Date: Mon,  3 Aug 2026 18:05:21 +0200
-Message-ID: <20260803160521.14621-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260803094125.3285895-6-gahing@gahingwoo.com>
-References: <20260803094125.3285895-1-gahing@gahingwoo.com>
- <20260803094125.3285895-6-gahing@gahingwoo.com>
+ Mon, 03 Aug 2026 09:11:08 -0700 (PDT)
+From: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: wens@kernel.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, samuel@sholland.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Jernej Skrabec <jernej.skrabec@gmail.com>
+Subject: [PATCH 00/13] drm/sun4i: Assorted display fixes
+Date: Mon,  3 Aug 2026 18:10:38 +0200
+Message-ID: <cover.1785770165.git.jernej.skrabec@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,125 +93,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jiaxing,
+This series contains fixes for issues found while working on the DE3
+and DE33 functionalities, used on H6 and H616 SoCs.
 
-Following on from my note on 4/6, since a v5 is coming anyway: rknn_core_0
-as written here does not validate against the binding 1/6 installs. 1/6
-adds the compatible and the conditional sram-supply, so every other
-constraint in rockchip,rk3588-rknn-core.yaml still describes RK3588 only.
+VI scaler and VI layer:
 
-I put your node through dt-validate (dtschema 2026.6) against the binding
-with 1/6 applied, macros resolved to plain numbers and everything else
-left as you wrote it:
+- V3s advertises a 2048 pixel YUV line buffer, while it only has half
+  of that, so wide YUV layers end up corrupted.
+- Vertical scaler coefficients were picked based on the horizontal
+  scaling factor and chroma coefficients ignored subsampling.
+- DE3 mixer initialization clears the whole register space, which also
+  clears the scaler global alpha. Since video mode takes alpha from
+  that register, subsampled YUV layers are fully transparent.
+- Since the conversion to drm_fb_dma_get_gem_addr(), luma and chroma
+  plane addresses no longer describe the same pixel for odd source
+  offsets, which the scaler can't handle.
 
-  npu@27700000 (rockchip,rk3576-rknn-core): clocks: [...6 entries...] is too long
-  npu@27700000 (rockchip,rk3576-rknn-core): clock-names: ['aclk', 'hclk',
-      'npu', 'pclk', 'aclk_cbuf', 'hclk_cbuf'] is too long
-  npu@27700000 (rockchip,rk3576-rknn-core): power-domains: [[2, 7], [2, 8]] is too long
-  npu@27700000 (rockchip,rk3576-rknn-core): resets: [[1, 20]] is too short
-  npu@27700000 (rockchip,rk3576-rknn-core): reset-names: ['srst_a'] is too short
+TCON TOP and TCON:
 
-The last two are the ones easy to miss: the binding writes only
-"resets: maxItems: 2", and dtschema fills in minItems from maxItems, so a
-single reset is a hard failure rather than a permitted subset.
+- Both mixer selectors reset to TCON 0. If both mixers end up selecting
+  the same TCON, output is black or corrupted, so park the other mixer
+  elsewhere.
+- DSI and LVDS never called the output mux setup, so on D1 the mixer is
+  not routed to the TCON driving the panel.
 
-The v4 changelog says the reg entries were cut to the three the binding
-defines after running dtbs_check, so I suspect that run predates the CBUF
-clocks and the second power domain going in.
+HDMI:
 
-The fix is the same allOf shape you already used for sram-supply. This is
-the diff I tested, on top of 1/6:
+- sun4i_hdmi_enable() ORs stale video timing polarity bits into the
+  packet control register, so the AVI infoframe is not sent for modes
+  with positive HSYNC polarity.
+- The 594 MHz 8-bit MPLL entry doesn't lock on H6, so 4K@60 8-bit
+  doesn't come up.
 
---- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-+++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-@@
-   clocks:
--    maxItems: 4
-+    minItems: 4
-+    maxItems: 6
+The rest are an error propagation fix in sun4i_crtc_init(), which
+otherwise oopses later on, and four patches fixing OF node and device
+reference leaks, two of which accumulate on every mode set.
 
-   clock-names:
-+    minItems: 4
-     items:
-       - const: aclk
-       - const: hclk
-       - const: npu
-       - const: pclk
-+      - const: aclk_cbuf
-+      - const: hclk_cbuf
-@@
-   power-domains:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
+Tested on Tanix TX6 (H6, HDMI up to 4K@60) and Orange Pi 3 (H6,
+TCON_LCD0 and TCON_TV0).
 
-   resets:
-+    minItems: 1
-     maxItems: 2
+Some of the issues were found and/or fixed with Claude and GPT.
 
-   reset-names:
-+    minItems: 1
-     items:
-       - const: srst_a
-       - const: srst_h
-@@ allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: rockchip,rk3576-rknn-core
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 6
-+        clock-names:
-+          minItems: 6
-+        power-domains:
-+          minItems: 2
-+        resets:
-+          minItems: 1
-+          maxItems: 1
-+        reset-names:
-+          maxItems: 1
-+    else:
-+      properties:
-+        clocks:
-+          maxItems: 4
-+        clock-names:
-+          maxItems: 4
-+        power-domains:
-+          maxItems: 1
-+        resets:
-+          minItems: 2
-+        reset-names:
-+          minItems: 2
+It would be nice if anyone could test V3s fix before and after. Testing
+other fixes would be nice as well.
 
-With that, your node validates clean, and the RK3588 example in the
-binding still passes, so nothing loosens for the existing SoC - the else
-branch pins it back to exactly what it has today. Take it as a starting
-point rather than a finished patch; the DT maintainers may well want the
-per-SoC clock list spelled out differently.
+Best regards,
+Jernej
 
-Separately, and this one spans 3/6 and 5/6: the resets you add to the
-power-domain@ nodes have no binding at all. Same test, against
-Documentation/devicetree/bindings/power/rockchip,power-controller.yaml:
+Jernej Skrabec (13):
+  drm/sun4i: Fix V3s YUV scanline size
+  drm/sun4i: vi scaler: Fix coefficient selection
+  drm/sun4i: vi scaler: Restore opaque alpha in video modes
+  drm/sun4i: tcon-top: Keep mixer routes distinct
+  drm/sun4i: tcon: Set output mux for DSI and LVDS
+  drm/sun4i: tcon: Drop TCON TOP device reference
+  drm/sun4i: hdmi: Don't leak sync polarity bits into packet control
+  drm/sun4i: crtc: Propagate layer initialization error
+  drm/sun4i: tcon: Drop remote endpoint reference
+  drm/sun4i: dw-hdmi: Drop TCON TOP port reference
+  drm/sun4i: Drop node references while building component list
+  drm/sun4i: hdmi-phy: Fix H6 8-bit MPLL config at 594 MHz
+  drm/sun4i: Align VI buffer addresses for subsampled formats
 
-  power-controller (rockchip,rk3576-power-controller): power-domain@7:
-      Unevaluated properties are not allowed ('resets' was unexpected)
+ drivers/gpu/drm/sun4i/sun4i_crtc.c      |  2 +-
+ drivers/gpu/drm/sun4i/sun4i_drv.c       |  3 ++
+ drivers/gpu/drm/sun4i/sun4i_hdmi_enc.c  |  2 +-
+ drivers/gpu/drm/sun4i/sun4i_tcon.c      | 22 ++++----
+ drivers/gpu/drm/sun4i/sun8i_dw_hdmi.c   |  2 +
+ drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c  |  2 +-
+ drivers/gpu/drm/sun4i/sun8i_mixer.c     |  2 +-
+ drivers/gpu/drm/sun4i/sun8i_tcon_top.c  | 71 ++++++++++++++++++++-----
+ drivers/gpu/drm/sun4i/sun8i_tcon_top.h  |  6 +++
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c  | 20 ++++++-
+ drivers/gpu/drm/sun4i/sun8i_vi_scaler.c | 20 ++++---
+ drivers/gpu/drm/sun4i/sun8i_vi_scaler.h |  1 +
+ 12 files changed, 119 insertions(+), 34 deletions(-)
 
-$defs/pd-node there defines reg, clocks, domain-supply, pm_qos and
-#power-domain-cells, and every nesting level is unevaluatedProperties:
-false. So 3/6 teaches the driver to read a property the schema does not
-admit; that patch needs a binding change of its own, before or alongside
-it.
+-- 
+2.43.0
 
-For what it is worth I did check the DOMAIN_M_O_R_G to DOMAIN_M_O_R_G_W
-rename in 2/6 against mainline, and you are right that DOMAIN_RK3576 is
-its only user, so nothing else moves.
-
-None of this touches RK3588, so it does not change what I said about the
-tag on 4/6 - just worth folding into the same v5 rather than finding it
-in a v6.
-
-Thanks,
-Igor
