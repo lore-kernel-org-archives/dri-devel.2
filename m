@@ -4,91 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F210C55196
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 19:50:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45656C55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 20:03:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7904893ED;
-	Mon,  3 Aug 2026 19:50:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F87810E089;
+	Mon,  3 Aug 2026 20:03:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="d5iHLn7w";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="dyxas8Vx";
 	dkim-atps=neutral
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
- [209.85.160.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B91E893ED
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 19:50:27 +0000 (UTC)
-Received: by mail-qt1-f175.google.com with SMTP id
- d75a77b69052e-51c1372f84dso21830451cf.2
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 12:50:27 -0700 (PDT)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com
+ [209.85.217.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A27EF10E355
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 20:03:07 +0000 (UTC)
+Received: by mail-vs1-f51.google.com with SMTP id
+ ada2fe7eead31-7473e927969so992939137.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 13:03:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1785786626; x=1786391426;
+ d=chromium.org; s=google; t=1785787386; x=1786392186;
  darn=lists.freedesktop.org; 
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Vi+Ec0BYQ+7t+lU4qYjrIT9EenAj7FU6achVuOQCI30=;
- b=d5iHLn7wWDt8FfGDq8jeNmGqirU9FWmGQGyIiGu5W7Tdu74zUR+xFwuEbwh3Iq2yJr
- AWpJdD1nuPCKcRm+tMZ3ks4DIjUGU0IO3C38CvMEZ0NtinKMh4/4IWRzHa9bh7S0sS4/
- tolcYEqespY7kAkNSud3O7l3cDjrmqQ8sJX9U=
+ bh=uof2fBunpwjuy+95Qrd807tlF5VuWSAH+/o2IO99jyY=;
+ b=dyxas8Vxm+hs+XqxuiKtRnJWqxYfCzJPprziFrZiBA+xA/XWkQpVStTerTR5NWaOl/
+ qAI4sZZdwieXh2c1WS2Pg1bQnNobg+BTC4D0ZRwi0swe6E/+dr97JgdXlfmHClX4IWrf
+ 1gsWpxso3i9Q9o8GIIyJgNRQVMWKhbtKOVZ0A=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785786626; x=1786391426;
+ d=1e100.net; s=20251104; t=1785787386; x=1786392186;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Vi+Ec0BYQ+7t+lU4qYjrIT9EenAj7FU6achVuOQCI30=;
- b=tZa7H7zDI9lpeOJIQG/Ul7jRfH/lsFQu1ChRF8B/JEIbwz8uC9KQmnqHn0nmP/Y61C
- Tx9hoUaz/c/PLOD/614Hn+JYuc7OIgRPJy5cvyY+ihRywcgzH3dxL997KH/cveomjtvM
- NAWtWccDZY1sloWi4vq08o3QPfIaAiUTvn11hGfxDYdyrf3nrNAJ1mTIf7+S+CgYkBJ0
- LiIeYDM+/5DcTItoG4Gh6ZgzRwU1EHelDL4JyPUBvebyvRUMaY86eybMi6LTux+Uuxo+
- czE2umwQuu3ijspalU0WXQjgH569O15lhIwik4HF3fWIL+h3D7TDr97WVF/VZq/TnzEC
- 2c1w==
+ bh=uof2fBunpwjuy+95Qrd807tlF5VuWSAH+/o2IO99jyY=;
+ b=o6pPnYLDnwIhsoBQIyBcLT9BA1srcFguZGt6ZPLv73U1XhmpAXVdvqZyOXv+hYNZoB
+ P1WkZnQMP5br5R9E5kmcgFaIaPg90F3KgDP48Wv+sqzW2smltxoUll0D6+D0cQvm3QIt
+ zf9RHCCD0Iy0yjzaupjL07ZVFKdlo34iNpPHbuo4I2IolO/0wSNdDx4Yx4aUl5q1Eqmi
+ 4MA3TZptpVaUN01WSR2XQK8evDdnUKejDXsfa4FsbyNjSS39pISzDnjk0nMAHoHOPphN
+ hlrZsw6EHlSzlAegHuqaiyqN5f/xM4z9suQwsclwhf/fUTQbovxTcjKwqXnRe6QpMW3L
+ ySxA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rptc9KX/vH0VGOWN819rd6cSjHfoILLgPVmRukHnMxJCg5e3301UnNBLT1WJAdJVaHrviSgWTDnaNs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw1vvZv+/mgfGFe1I11ujor1spRGgOSoOa+RIitzn/wxLFE4A/d
- rGQhQjOtDxzLtjVnfDu/WwaXeyU63gxY5iRVoADiSkwFKDhFUXXOQIeumWxc116EOb2e7y7ggrO
- 55qc=
-X-Gm-Gg: AR+sD10kmU0Is9Nbv88/yIbKeoaHfn3/8+5HwelBpGHtrOetXQwpbCr4Qb/0GRwQARr
- R31VrbC9x9kqsv0kD4hrDe3d8qlAZT9CwGj/pC2BqyUjNo5T4hEwINwA/mLB7JqMmxKSUbtWz2n
- lpgQb17klUjXqkhNjiood9joB4UtemdGuxFBqx4951E7U2/z35uYq5hUO/ca/ch0hp3bFVhe64w
- NUspL+osaOVR7qLdu5I/7hD6ujPwggdXwqk5ou3rNOvqjUs668IKMW6SDOu3CUaJqlWWKke/YUv
- HGbS/6kMps5GvDTiPNXCVM3HYG/P+9DX2a0F475rcSYCiZzJBc4cf89sN/flf9zDXmVVFaEUfDz
- CxZy6YO4DvEso2e3i54Fpa5p/8qJStEkC5rRtB6XJ1EizVmzhYi8yUqUDeCzLNWFIFo6xq+C+HA
- 8JEw60mMWYJeaXFGpYb3BGQXfDluTV4oxZ1FpusVmghq/LSAeirAZHc7q0gGqsfCGedQxCJO9Nj
- MFCIMxsRFszj3YwYdo/X0iZCw0=
-X-Received: by 2002:a05:622a:4cce:b0:51b:efbb:fbf with SMTP id
- d75a77b69052e-52b566b52e9mr254127531cf.18.1785786626121; 
- Mon, 03 Aug 2026 12:50:26 -0700 (PDT)
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com.
- [209.85.219.41]) by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-52cd3f9bf89sm3684001cf.27.2026.08.03.12.50.24
+ AHgh+RrdfHBRIKO15gQZZABm+2U4mar7t2vPaa0vnKbgQoDNbpwyH56xfK3j/XjLHpOMxCCK/qRohz51UJw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwWPejw5Zf2iL/u2uaZzTDTW0vlAkvSRXYCpwMDaRms2niATXTM
+ u6skTrtpYnuUZYCpkAonOiKxSX/KfmXuotLTqQ9fV5Zp3nIPSF9+xakoUzB/MOeuOW3N+Dr0shE
+ y8+Q=
+X-Gm-Gg: AR+sD12FSxB/7nkkFaCJbuaxor2BILkPmFSIZuIr/ApFr+TEaYgQaMxAe58b7DCLWHp
+ gbuMRCyBzKTonHUBHtGkUbPcRoRywwJHGZT7i+mbt/SUoAbn57PigDax60qS4g81WXws+YFR3QZ
+ vQWCMhaw6OJppOV1ns0RDyOtSwWGR760d+eFiw49xEVPNrXFEwxZzD+xKLiIWxvb5jt7DRTy0vF
+ /MilooDiDFaJuTwTjwN28oD4sQgk0vpdDKasOefyv6dcDwFKXFzE6c8BwZcbfL1BRHiVKGV9uAu
+ Czi/9GDx+FmWXB716E3KJn5G05Ui8luTa7QGlolue+HkDcfEqMvN1FP0xU8unQyqOBkx52xM34C
+ apvgL8JsPE2srlORym9HydgAokmukIg6bI7gCO6y5fs+BNCPjORCwFYqIDKUlWLqhWsJ6+ief83
+ DpGCzv4Q6kDK8jGWRCgCClkZfZFoLjVdfTCUaOyu273350A8yRW2T4OTfLNSR12gb8yxtW3bwjQ
+ PV+YEFfvMdKKBsxGU3r33BkW0/ZZdA=
+X-Received: by 2002:a05:6102:809c:b0:74a:992e:84f6 with SMTP id
+ ada2fe7eead31-75b23b6aa90mr8440344137.10.1785787386237; 
+ Mon, 03 Aug 2026 13:03:06 -0700 (PDT)
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com.
+ [209.85.221.176]) by smtp.gmail.com with ESMTPSA id
+ a1e0cc1a2514c-977e61a485csm6753402241.2.2026.08.03.13.03.05
  for <dri-devel@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Aug 2026 12:50:24 -0700 (PDT)
-Received: by mail-qv1-f41.google.com with SMTP id
- 6a1803df08f44-8f1a8e914a9so28921236d6.1
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 12:50:24 -0700 (PDT)
+ Mon, 03 Aug 2026 13:03:05 -0700 (PDT)
+Received: by mail-vk1-f176.google.com with SMTP id
+ 71dfb90a1353d-5c38565e774so793516e0c.2
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 13:03:05 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AHgh+RqYbxn/t7ZLfIYHdCC2dAXIh0sjhsTnOVe0TOw2wA8dDWO35NKSRedYPoN4fudLcYE6LqGP/rlky/E=@lists.freedesktop.org
-X-Received: by 2002:a0c:f40d:0:b0:8e3:fa57:ecb4 with SMTP id
- 6a1803df08f44-90849611bddmr265017806d6.16.1785786622718; Mon, 03 Aug 2026
- 12:50:22 -0700 (PDT)
+ AHgh+RrQGrBEnIrwPaWof/hHBuBitNwdgvs2Krzcdm5/6eb3uKIo38vkEiw7ZGS3Q+ajSMPijKwgogIsbl4=@lists.freedesktop.org
+X-Received: by 2002:a05:6122:8f84:b0:5bf:b500:c4f4 with SMTP id
+ 71dfb90a1353d-5c38761f684mr3079807e0c.2.1785787384073; Mon, 03 Aug 2026
+ 13:03:04 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260803-edp-v1-1-3e92dec1d56c@chromium.org>
-In-Reply-To: <20260803-edp-v1-1-3e92dec1d56c@chromium.org>
+References: <20260731115127.15140-1-info@humanlearning.ch>
+ <20260802135107.4420-1-info@humanlearning.ch>
+In-Reply-To: <20260802135107.4420-1-info@humanlearning.ch>
 From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 3 Aug 2026 12:50:11 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=XeW806uSg5JM95qHrfKUKXpC_z9BUaDv61wu0KGFry5A@mail.gmail.com>
-X-Gm-Features: AUfX_myZ3LMWfAhHTfQu-xqOf9fJ2BKoPdJKDaRz-IurZ8-adLWeA-WbUmIuJKM
-Message-ID: <CAD=FV=XeW806uSg5JM95qHrfKUKXpC_z9BUaDv61wu0KGFry5A@mail.gmail.com>
-Subject: Re: [PATCH] drm/panel-edp: Add pre_unprepare delay
-To: Hsin-Te Yuan <yuanhsinte@chromium.org>
+Date: Mon, 3 Aug 2026 13:02:53 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=X6ZOavAM_G2OX2kqpK5fweJR0e8sMXiJXXRvWpKqWAbg@mail.gmail.com>
+X-Gm-Features: AUfX_mwpr-2-6nuaVJeXvtbsDEa5xqZjNtkIA7EawaPt7YsCN1ha9hX0MJBkUqk
+Message-ID: <CAD=FV=X6ZOavAM_G2OX2kqpK5fweJR0e8sMXiJXXRvWpKqWAbg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/panel-edp: Add Sharp LQ120P1JX51 (Surface Pro 12in
+ 1st Ed.)
+To: =?UTF-8?Q?Fran=C3=A7ois_Roux?= <info@humanlearning.ch>
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -109,120 +107,86 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Hi,
 
-On Mon, Aug 3, 2026 at 2:47=E2=80=AFAM Hsin-Te Yuan <yuanhsinte@chromium.or=
-g> wrote:
+On Sun, Aug 2, 2026 at 6:51=E2=80=AFAM Fran=C3=A7ois Roux <info@humanlearni=
+ng.ch> wrote:
 >
-> In eDP power-off timing specifications, T10 defines the minimum delay
-> required between the end of valid video data from the source and panel
-> power-down (main VDD off).
+> The internal eDP panel of the Microsoft Surface Pro 12in 1st Edition
+> (Snapdragon X Plus, X1P42100) is not in edp_panels[], so every boot
+> produces the deliberate WARN_ON splat in panel_edp_probe() and the panel
+> falls back to conservative timings:
 >
-> Currently, panel-edp only supports the 'disable' delay, which corresponds
-> to T9 (backlight off to end of video data) and runs in panel_edp_disable(=
-)
-> while video data is still active. For panels that require a delay after
-> video data has stopped before cutting power, this delay must occur in
-> panel_edp_unprepare() before turning off power rails.
+>   WARNING: drivers/gpu/drm/panel/panel-edp.c:814 panel_edp_probe+0x53c/0x=
+56c
+>   panel-simple-dp-aux aux-aea0000.displayport-controller:
+>       Unknown panel SHP 0x15a7, using conservative timings
 >
-> Add a 'pre_unprepare' field to struct panel_delay to model T10-min, and
-> delay for this duration in panel_edp_unprepare() before calling
-> pm_runtime_put_sync_suspend().
+> EDID, read over the panel's DP AUX DDC bus:
 >
-> Additionally, adjust the timing entry for TM156VDXP25 to use
-> delay_200_500_e80_pu100 (enable =3D 80ms, pre_unprepare =3D 100ms) to mat=
-ch
-> its panel specification, replacing the previous delay_200_500_e50_d100.
+>   00 ff ff ff ff ff ff 00 4d 10 a7 15 a0 00 00 1f
+>   31 22 01 04 a5 19 11 78 07 ee 91 a3 54 4c 99 26
+>   0f 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+>   01 01 01 01 01 01 62 53 94 a0 80 b8 2e 50 18 10
+>   3a 00 fe a9 00 00 00 18 13 7d 94 a0 80 b8 2e 50
+>   18 10 3a 00 fe a9 00 00 00 18 00 00 00 fd 00 18
+>   5a 88 88 21 01 00 00 00 00 00 00 00 00 00 00 fc
+>   00 4c 51 31 32 30 50 31 4a 58 35 31 0a 20 00 69
 >
-> Fixes: b9e2d5cdaab0 ("drm/panel-edp: Support NV140FHM-N5B and TM156VDXP25=
-")
-> Signed-off-by: Hsin-Te Yuan <yuanhsinte@chromium.org>
+>   Manufacturer: SHP
+>   Model: 0x15a7
+>   Made in: week 49 of 2024
+>   Display Product Name: 'LQ120P1JX51'
+>   DTD 1: 2196x1464 60.001799 Hz 3:2 (254 mm x 169 mm)
+>   DTD 2: 2196x1464 90.002698 Hz 3:2 (254 mm x 169 mm)
+>
+> Timings are deliberately cautious rather than datasheet-derived. The
+> conservative fallback sets unprepare=3D2000 and enable=3D200; unprepare=
+=3D2000
+> is a safety margin for unknown panels only and is the single occurrence
+> of that value in the file -- no real panel entry uses it.
+> delay_200_500_e200 keeps the same generous 200 ms enable delay while
+> using the 500 ms unprepare shared by every actual panel in the table. A
+> shorter enable delay may well be fine, but has not been validated here.
+>
+> Signed-off-by: Fran=C3=A7ois Roux <info@humanlearning.ch>
 > ---
-> Change-Id: I3361bdf4d3289c773f0c2b77163e427b774797d5
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 23 ++++++++++++++++++++++-
->  1 file changed, 22 insertions(+), 1 deletion(-)
+> Changes in v2:
+> - Read the EDID over the panel's DP AUX DDC bus and included it in the
+>   commit message, as requested. My v1 claim that the EDID was not
+>   obtainable was wrong: the connector does not export it
+>   (/sys/class/drm/card0-eDP-1/edid is 0 bytes) and
+>   CONFIG_DRM_DP_AUX_CHARDEV no longer exists, but the AUX bus is
+>   registered as an i2c adapter, so a plain DDC read works:
+>       i2ctransfer -y <bus> w1@0x50 0x00 r128
+>   (i2cdump in byte mode does not: it drops a header byte and yields a
+>   block with a bad checksum.)
+> - The EDID carries a Display Product Name, so the entry is now
+>   "LQ120P1JX51" instead of "Unknown".
+> - Timings unchanged (delay_200_500_e200).
+> - Now sent under my real name, as you asked. v1 went out as
+>   "franzelverbier"; same person, same address.
+>
+>  drivers/gpu/drm/panel/panel-edp.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
 > diff --git a/drivers/gpu/drm/panel/panel-edp.c b/drivers/gpu/drm/panel/pa=
 nel-edp.c
-> index 98bdcf352701..f6624191f97c 100644
+> index 13ce277d7..4defef820 100644
 > --- a/drivers/gpu/drm/panel/panel-edp.c
 > +++ b/drivers/gpu/drm/panel/panel-edp.c
-> @@ -144,6 +144,16 @@ struct panel_delay {
->          */
->         unsigned int disable;
->
-> +       /**
-> +        * @pre_unprepare: Time for the end of video data to power off.
-> +        *
-> +        * The time (in milliseconds) that it needs to have passed betwee=
-n
-> +        * the end of valid video data from source and start powering off=
-.
-> +        *
-> +        * This is T10-min on eDP timing diagrams. It is not common to se=
-t.
-> +        */
-> +       unsigned int pre_unprepare;
-> +
->         /**
->          * @unprepare: Time to power down completely.
->          *
-> @@ -413,8 +423,12 @@ static int panel_edp_suspend(struct device *dev)
->
->  static int panel_edp_unprepare(struct drm_panel *panel)
->  {
-> +       struct panel_edp *p =3D to_panel_edp(panel);
->         int ret;
->
-> +       if (p->desc->delay.pre_unprepare)
-> +               msleep(p->desc->delay.pre_unprepare);
-> +
->         ret =3D pm_runtime_put_sync_suspend(panel->dev);
->         if (ret < 0)
->                 return ret;
-> @@ -1810,6 +1824,13 @@ static const struct panel_delay delay_80_500_e80_p=
-2e200 =3D {
->         .prepare_to_enable =3D 200,
->  };
->
-> +static const struct panel_delay delay_200_500_e80_pu100 =3D {
-> +       .hpd_absent =3D 200,
-> +       .unprepare =3D 500,
-> +       .enable =3D 80,
-> +       .pre_unprepare =3D 100,
-> +};
-> +
->  static const struct panel_delay delay_100_500_e200 =3D {
->         .hpd_absent =3D 100,
->         .unprepare =3D 500,
-> @@ -2181,7 +2202,7 @@ static const struct edp_panel_entry edp_panels[] =
+> @@ -2145,6 +2145,7 @@ static const struct edp_panel_entry edp_panels[] =
 =3D {
->
->         EDP_PANEL_ENTRY('T', 'M', 'A', 0x0811, &delay_200_500_e80_d50, "T=
-M140VDXP01-04"),
->         EDP_PANEL_ENTRY('T', 'M', 'A', 0x2094, &delay_200_500_e50_d100, "=
-TL140VDMS03-01"),
-> -       EDP_PANEL_ENTRY('T', 'M', 'A', 0x2139, &delay_200_500_e50_d100, "=
-TM156VDXP25"),
-> +       EDP_PANEL_ENTRY('T', 'M', 'A', 0x2139, &delay_200_500_e80_pu100, =
-"TM156VDXP25"),
-
-Looks OK to me. Thank you for the thorough description.
+>         EDP_PANEL_ENTRY('S', 'H', 'P', 0x154c, &delay_200_500_p2e100, "LQ=
+116M1JW10"),
+>         EDP_PANEL_ENTRY('S', 'H', 'P', 0x158f, &delay_200_500_p2e100, "LQ=
+134Z1"),
+>         EDP_PANEL_ENTRY('S', 'H', 'P', 0x1593, &delay_200_500_p2e100, "LQ=
+134N1"),
+> +       EDP_PANEL_ENTRY('S', 'H', 'P', 0x15a7, &delay_200_500_e200, "LQ12=
+0P1JX51"),
 
 Reviewed-by: Douglas Anderson <dianders@chromium.org>
 
-Do you happen to know if any of the other TMA panels should also get
-this updated timing?
+Pushed to drm-misc-next:
 
-
-My thought would be to land this in drm-misc-next instead of
-drm-misc-fixes. Is that OK w/ you? I assume you just need a stable git
-hash to pick and it's not urgent for you to get this in through stable
-trees. Getting the updated timings is usually not massively
-time-critical and having bake time / avoiding merge conflicts is
-nice...
-
-Assuming nothing else comes up, I'll try to land in the next few days.
-Usually I don't delay at all for panel timings, but since this changes
-an old panel I'll at least give it an extra day or two...
-
--Doug
+[1/1] drm/panel-edp: Add Sharp LQ120P1JX51 (Surface Pro 12in 1st Ed.)
+      commit: 6ed8d820cea9cae226f500d3af86e156eede27f6
