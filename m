@@ -4,57 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85595C55175
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 09:30:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC184C5518E
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 09:35:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D05FA10E559;
-	Mon,  3 Aug 2026 09:30:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 390F810E3FA;
+	Mon,  3 Aug 2026 09:35:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Yg4UesiG";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DshCaFom";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80F8710E559
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 09:30:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785749399;
- bh=zoaM8tKoFUvw0g8W7cpM9crcYV/t5OzS0yVXiTNuVY4=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Yg4UesiGWMbG3g3hhxQzQcl8pXd0+dNFiNt22nBZ7V3ZQwjwZrWaWYYg9oJDZkhdz
- lYJUCLVcCGmhze4/FCYYibD/mPnBJ9gXmjVqtBI+BpTw/9zielvt4NQKPLnG6btB1F
- jJF05ymlKHPlKVB9hp61ezSAoCS4ftCEc5RQaXEhjmaexqy0ptSs9lH/HWAjHPWL1G
- QSk3N7UuW3q8k402j5389VGsu2CQbvHQ29zxkEdikoFSdi60cBQ/1pncawnT3ExH8f
- daZttOwJwl2NvWztQwDjO17H74+0PZamHK58X2wenZYHL/ZDM9YO7rf8eJAhTSu+lX
- jKRiZrYo63WBQ==
-Received: from fedora1.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 87B6217E08E1;
- Mon, 03 Aug 2026 11:29:58 +0200 (CEST)
-Date: Mon, 3 Aug 2026 11:29:54 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Chia-I Wu
- <olvaffe@gmail.com>, Karunika Choo <karunika.choo@arm.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- sashiko-bot@kernel.org
-Subject: Re: [PATCH 03/11] drm/panthor: Fix UAF on works queued to
- panthor_cleanup_wq
-Message-ID: <20260803112954.69bf18f5@fedora1.home>
-In-Reply-To: <bw7DeMSTSiqMFTSPLhpuNA@collabora.com>
-References: <20260625-panthor-misc-fixes-v1-0-b67ed973fea6@collabora.com>
- <20260625-panthor-misc-fixes-v1-3-b67ed973fea6@collabora.com>
- <bw7DeMSTSiqMFTSPLhpuNA@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42ACB10E3FA
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 09:35:23 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 48DED60A6A;
+ Mon,  3 Aug 2026 09:35:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E5EAEC2BCF4;
+ Mon,  3 Aug 2026 09:35:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1785749722;
+ bh=pEhdubdwQhXLBA4KlTkM0Pj/hAXqDs67/ox0ZY9gVdI=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=DshCaFomi9EV93fQWqzCjCsSZ3LUkA2c7edji9d1dNk54BHaYdGq3cWMmbNlxlI4G
+ fJUFudW8rudVBsC/cQngqoKmgRijQP7CBlRK/S3YP1ZUj3dTE6lUqtJVfQxbPuTZR2
+ PC8KN4PkWCB93dxXJQFLGsKpbn2oDs/2KtjTjKbaVbmlashDcd7bEKjEgd0ng18+SV
+ IDmQ7uvyNTGliw2cV1mijA8G30dHGaTZvqEW2RztS6P37hLbUvKOzBk8YOwINTlSQM
+ jCufC/0FTjG6m92UJ8+vUBtrhFRmKzHOEhTvaTIACB5z+LbiT995DXR8naV358OfIf
+ yHhuKcb8q+IWQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D3A26C5518E;
+ Mon,  3 Aug 2026 09:35:21 +0000 (UTC)
+From: Markuss Broks via B4 Relay <devnull+markuss.broks.gmail.com@kernel.org>
+Date: Mon, 03 Aug 2026 12:35:20 +0300
+Subject: [PATCH] drm/panfrost: add Mali-G68 support
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260803-staging-mainline-v1-1-5071dc782149@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBG4auQWduktkDQqxgWLf7WMTqaDhASw
+ t2tsvwW762kyAylc7VSxszKbyk4Hioa7kESDF+LyVnX2s56o2NILMm8AsuTBQYR3ampfWy9o5J
+ 9Mm68/JeXfrdO8YFh/H1o276AUGJddAAAAA==
+X-Change-ID: 20260803-staging-mainline-ebe89543b632
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Markuss Broks <markuss.broks@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785749721; l=2284;
+ i=markuss.broks@gmail.com; s=20260803; h=from:subject:message-id;
+ bh=zQVxjMJtITy41A+IcC52/FUWFw7jC+G0clbf2HLVuYM=;
+ b=fvHu/gkWgO0W0WtruK/CG5K4YBiMRZZckWUWdyak5vKrg0BS2uBKssba19WFr1IG1XczflJjL
+ uILvCc8Wf4aA/3q6+8GLRgj5IgqTY6hg4qoSMtqGanz9XaM4OhXSMRo
+X-Developer-Key: i=markuss.broks@gmail.com; a=ed25519;
+ pk=oKzGUTm30BCDqinRMpiHQqByOx1mp2mwmhg80Mv7Zg4=
+X-Endpoint-Received: by B4 Relay for markuss.broks@gmail.com/20260803 with
+ auth_id=911
+X-Original-From: Markuss Broks <markuss.broks@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,68 +76,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: markuss.broks@gmail.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 20 Jul 2026 11:47:59 +0200
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+From: Markuss Broks <markuss.broks@gmail.com>
 
-> On Thursday, 25 June 2026 14:40:29 Central European Summer Time Boris Brezillon wrote:
-> > If we don't drain the panthor_cleanup_wq before
-> > unregistering/destroying the panthor_device, we might end up with
-> > cleanup works that are executed after the device is gone.
-> > 
-> > Add a drain_workqueue() call in panthor_device_unplug() to prevent
-> > that.
-> > 
-> > Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
-> > Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
-> > Reported-by: sashiko-bot@kernel.org
-> > Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
-> > Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> > ---
-> >  drivers/gpu/drm/panthor/panthor_device.c | 5 +++++
-> >  1 file changed, 5 insertions(+)
-> > 
-> > diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> > index 0b25abebb803..a0774e28aa94 100644
-> > --- a/drivers/gpu/drm/panthor/panthor_device.c
-> > +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> > @@ -101,6 +101,11 @@ void panthor_device_unplug(struct panthor_device *ptdev)
-> >  	panthor_gpu_unplug(ptdev);
-> >  	panthor_pwr_unplug(ptdev);
-> >  
-> > +	/* Make sure works queued to panthor_cleanup_wq are executed
-> > +	 * before the device is destroyed.
-> > +	 */
-> > +	drain_workqueue(panthor_cleanup_wq);
-> > +
-> >  	pm_runtime_dont_use_autosuspend(ptdev->base.dev);
-> >  	pm_runtime_put_sync_suspend(ptdev->base.dev);
-> >  
-> > 
-> >   
-> 
-> I feel like nothing in the driver instance should be allowed to queue new
-> work to that workqueue while the unplug mutex is being held, and
-> panthor_sched_unplug should just disable_work_sync all the associated group
-> release_work items as well. If there's not a strong enough relationship
-> between a scheduler and the groups to ensure we get all the groups in a
-> non-racey manner that might not work out cleanly though.
+Add the features, issues, and ID for Mali-G68, a first-generation
+(v9) Valhall GPU.
+Tested on Exynos8835: the GPU reports GPU_ID 0x9204 (G68 r1p1).
 
-Release is a bit a special work though. It's something that happens
-once we know the group has left the scheduler, and all it's supposed
-to do is free the resources the group might hold (mostly memory).
+Signed-off-by: Markuss Broks <markuss.broks@gmail.com>
+---
+ drivers/gpu/drm/panfrost/panfrost_features.h | 2 ++
+ drivers/gpu/drm/panfrost/panfrost_gpu.c      | 3 +++
+ drivers/gpu/drm/panfrost/panfrost_issues.h   | 8 ++++++++
+ 3 files changed, 13 insertions(+)
 
-> 
-> Having a scheduler unplug be completely disconnected from the associated
-> groups being gone seems counter-intuitive to me.
+diff --git a/drivers/gpu/drm/panfrost/panfrost_features.h b/drivers/gpu/drm/panfrost/panfrost_features.h
+index 52f9d69f6db9..34c65847192f 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_features.h
++++ b/drivers/gpu/drm/panfrost/panfrost_features.h
+@@ -121,6 +121,8 @@ enum panfrost_hw_feature {
+ 	BIT_ULL(HW_FEATURE_IDVS_GROUP_SIZE) | \
+ 	BIT_ULL(HW_FEATURE_CLEAN_ONLY_SAFE))
+ 
++#define hw_features_g68 hw_features_g57
++
+ static inline bool panfrost_has_hw_feature(struct panfrost_device *pfdev,
+ 					   enum panfrost_hw_feature feat)
+ {
+diff --git a/drivers/gpu/drm/panfrost/panfrost_gpu.c b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+index 7d555e63e21a..83223192a544 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_gpu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_gpu.c
+@@ -242,6 +242,9 @@ static const struct panfrost_model gpu_models[] = {
+ 	/* MediaTek MT8188 Mali-G57 MC3 */
+ 	GPU_MODEL(g57, 0x9093,
+ 		GPU_REV(g57, 0, 0)),
++
++	GPU_MODEL(g68, 0x9004,
++		GPU_REV(g68, 1, 0), GPU_REV(g68, 1, 1)),
+ 	{0},
+ };
+ 
+diff --git a/drivers/gpu/drm/panfrost/panfrost_issues.h b/drivers/gpu/drm/panfrost/panfrost_issues.h
+index eb60cb83667a..dd39946bb572 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_issues.h
++++ b/drivers/gpu/drm/panfrost/panfrost_issues.h
+@@ -265,6 +265,14 @@ enum panfrost_hw_issue {
+ #define hw_issues_g57_r0p0 (\
+ 	BIT_ULL(HW_ISSUE_TTRX_3485))
+ 
++#define hw_issues_g68 (\
++	BIT_ULL(HW_ISSUE_TTRX_2968_TTRX_3162))
++
++#define hw_issues_g68_r1p0 (\
++	BIT_ULL(HW_ISSUE_TTRX_3485))
++
++#define hw_issues_g68_r1p1 0
++
+ static inline bool panfrost_has_hw_issue(const struct panfrost_device *pfdev,
+ 					 enum panfrost_hw_issue issue)
+ {
 
-It's actually the other way around: unplugging the scheduler might
-result in new group_release work items being queued to the cleanup_wq.
-The drain_worqueue() (which should actually be a flush_worqueue) is
-here to guarantee that we're not leaving objects behind that would
-still have references to objects that are about to be destroyed (in the
-case of group_release, that's the drm_device, which holds all the GEM
-database that we need to return the GEM refs the destroyed groups need
-to release).
+---
+base-commit: 415606a7be939835db9b0d6b711887586646346d
+change-id: 20260803-staging-mainline-ebe89543b632
+
+Best regards,
+--  
+Markuss Broks <markuss.broks@gmail.com>
+
+
