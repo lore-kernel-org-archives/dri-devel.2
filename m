@@ -4,63 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30F52C55162
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 01:43:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C34C7C55162
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 01:50:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 34D5910E4A0;
-	Mon,  3 Aug 2026 01:43:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECF6010E4C1;
+	Mon,  3 Aug 2026 01:50:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="Jt5HTmsU";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="KbRfJgCD";
 	dkim-atps=neutral
-X-Greylist: delayed 304 seconds by postgrey-1.36 at gabe;
- Mon, 03 Aug 2026 01:43:35 UTC
-Received: from mail-m158189.netease.com (mail-m158189.netease.com
- [47.251.158.189])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2D4F910E4A0
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 01:43:34 +0000 (UTC)
-Received: from [127.0.0.1] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 487cbd68b;
- Mon, 3 Aug 2026 09:38:26 +0800 (GMT+08:00)
-Message-ID: <c6728974-3098-4232-927f-40911f0b4e39@rock-chips.com>
-Date: Mon, 3 Aug 2026 09:38:17 +0800
+Received: from mail-m128193.netease.com (mail-m128193.netease.com
+ [103.209.128.193])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD2810E4C1
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 01:50:36 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 487d3130a;
+ Mon, 3 Aug 2026 09:50:31 +0800 (GMT+08:00)
+Message-ID: <a51a6359-c00c-4190-b3ef-13c79bb5bfed@rock-chips.com>
+Date: Mon, 3 Aug 2026 09:50:31 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/6] drm/bridge: Implement generic USB Type-C DP HPD
- bridge
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+Subject: Re: [PATCH v1 0/7] Add HPD support for Rockchip Analogix DP
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Vinod Koul <vkoul@kernel.org>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-phy@lists.infradead.org
-References: <20260730013349.51-1-kernel@airkyi.com>
- <20260730013349.51-2-kernel@airkyi.com> <amyp3C_yzxpKzigR@venus>
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260730032744.381566-1-damon.ding@rock-chips.com>
+ <24131962.ssLaC8jLEa@diego>
+ <44ff5316-43cc-46be-b947-ea6e1f5da1bb@rock-chips.com>
+ <5209243.oAaWjsssbx@diego>
 Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <amyp3C_yzxpKzigR@venus>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9fc545af7303a7kunmdf79e4127cbc75
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <5209243.oAaWjsssbx@diego>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fc550bff503a8kunm98219b2a55f5b9
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCH0hCVhlCSUxCSB5CHx1CHlYVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTUlMVkNMT01PSU9MSR8dQ1YVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
  9PT0hVSktLVUpCS0tZBg++
 DKIM-Signature: a=rsa-sha256;
- b=Jt5HTmsU9lA0nVJbfxu5LdwAyRIq9ZBtXrW3nIcOVhQXF0H4282MRbkzExrMAbPWV2ZeVjMQYl6mf7ZqUDz8jYEWQLUo/NPo3/7n6w/vYPCXxwIWRW0Tn3FmfFwXuin4YyI0Lqv0nVORUrti9WiKpQkwmAKSxD9cR/jyimtV30o=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=hCaqyyISkfmc8KoVMA+IE9BEl7i+kSQyUjrBtfdkvIc=;
+ b=KbRfJgCDsDrnjcREajGQGc5avyyAbQToOYReFowTyhSSJ7BHpVIUrzum2s11qB4PSjrizUtHAq66dMGoLg93ne4f9uXk7tbb7/Z1CHHKNMtuD3PiQjBBf537wFyD/yAqXgEMRvqx/LeyUP4L7ublfViUYWrJZ9R0eCOY/heSB3M=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=c6wh7zdiLYbCoFb7Xy9PfvQW4nqvBFuzM1gperfrKNs=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,212 +75,277 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Sebastian,
+Hi Heiko,
 
-On 7/31/2026 10:20 PM, Sebastian Reichel wrote:
-> Hi,
+On 7/31/2026 6:30 PM, Heiko Stübner wrote:
+> Hi Damon,
 > 
-> On Thu, Jul 30, 2026 at 09:33:44AM +0800, Chaoyi Chen wrote:
->> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+> Am Freitag, 31. Juli 2026, 11:55:42 Mitteleuropäische Sommerzeit schrieb Damon Ding:
+>> On 7/31/2026 5:23 PM, Heiko Stübner wrote:
+>>> Am Freitag, 31. Juli 2026, 05:08:45 Mitteleuropäische Sommerzeit schrieb Damon Ding:
+>>>> On 7/31/2026 2:49 AM, Heiko Stübner wrote:
+>>>>> Am Donnerstag, 30. Juli 2026, 05:27:37 Mitteleuropäische Sommerzeit schrieb Damon Ding:
+>>>>>> This series improves the HPD (Hotplug Detect) interrupt handling in
+>>>>>> the Analogix DP driver to enable reliable native HPD pin detection on
+>>>>>> Rockchip platforms, and introduces platform-specific HPD detection
+>>>>>> schemes with fine-grained interrupt control.
+>>>>>
+>>>>> [...]
+>>>>>
+>>>>>> Tested on RK3576 with both native HPD pin and GPIO HPD configurations.
+>>>>>>
+>>>>>> Native HPD pin mode:
+>>>>>>
+>>>>>>      &edp {
+>>>>>>          status = "okay";
+>>>>>>          pinctrl-names = "default";
+>>>>>>          pinctrl-0 = <&edp_txm0_pins>;
+>>>>>>      };
+>>>>>>
+>>>>>> GPIO HPD mode:
+>>>>>>
+>>>>>>      &edp {
+>>>>>>          status = "okay";
+>>>>>>          pinctrl-names = "default";
+>>>>>>          pinctrl-0 = <&edp0_hpd>;
+>>>>>>          hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+>>>>>>      };
+>>>>>>
+>>>>>>      &pinctrl {
+>>>>>>          edp {
+>>>>>>              edp0_hpd: edp0-hpd {
+>>>>>>                  rockchip,pins = <4 RK_PC1 0 &pcfg_pull_none>;
+>>>>>>              };
+>>>>>>          };
+>>>>>>      };
+>>>>>
+>>>>> Yay and thanks a lot for working on that.
+>>>>>
+>>>>> If I roll my display-port carrier board back to the analogix-dp being
+>>>>> the endpoint, this works exactly as expected :-) .
+>>>>>
+>>>>> I can plug in the display at some point after the boot and have it
+>>>>> detected and setup correctly. Same with unplugging it while
+>>>>> the system is running. The connection status is correctly reported
+>>>>> in sysfs.
+>>>>>
+>>>>>
+>>>>> Though there is a caveat. When the eDP is not the last part, this does not
+>>>>> work anymore. The detect function always returns "connected" if there is
+>>>>> a next bridge available.
+>>>>>
+>>>>> My board [0] has a physical DP connector on it, so models it as
+>>>>> dp-connector, but in that case the Analogix driver always reports being
+>>>>> connected.
+>>>>>
+>>>>>
+>>>>> [0] https://lore.kernel.org/linux-rockchip/20251009225050.88192-3-heiko@sntech.de/
+>>>>> ... same effect with hpd-gpios in either the edp node or dp-connector node
+>>>>>
+>>>>>
+>>>>
+>>>> My previous tests were carried out on the modified RK3576 IOTEST board
+>>>> DTS based on RK3576 EVB1, which includes dp-connector by default. I also
+>>>> did extra verification without dp-connector, and HPD detection works
+>>>> correctly in both cases.
+>>>>
+>>>> I've taken a look at the Tiger board DT configuration. The pinctrl
+>>>> settings for the eDP HPD GPIO may need adjustment:
+>>>>
+>>>> &pinctrl {
+>>>> 	edp0 {
+>>>> 		edp0_hpd_l: edp0-hpd-l-pin {
+>>>> 			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
+>>>> 		};
+>>>> 	};
+>>>> };
+>>>>
+>>>> It is recommended to configure GPIO4B5 as pull-down or pll-none. Pull-up
+>>>> configuration may prevent GPIO interrupts from being triggered properly,
+>>>> resulting in a permanent "connected" status.
+>>>
+>>> At least on that DP-carrier the pin direction is different.
+>>> I.e. it is active-low, meaning 0 for plugged in.
+>>>
+>>> In the schematics I do see a hw pull up too - so pull-none in the pinconfig
+>>> would also be possible, but pull-down is definitly wrong on _this_ board.
+>>>
+>>> So we're talking about the same code, I put the dts up on [0] .
+>>>
+>>> I'm currently running with a printk diff [1] to showcase the issue.
+>>>
+>>> So on boot, with the display unplugged I get:
+>>> [   14.757911] ---> drm_bridge_connector_detect: detect
+>>> [   14.757914] ---> analogix_dp_bridge_detect a
+>>> [   14.757918] ---> drm_bridge_connector_detect: detect
+>>> [   14.773779] ---> analogix_dp_bridge_detect a
+>>> [   14.838658] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+>>> [   14.838662] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
+>>> [   14.838670] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
+>>> [   14.884791] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+>>> [   14.884793] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
+>>> [   14.884796] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
+>>> [   14.930925] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+>>> [   14.930927] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
+>>> [   14.930930] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
+>>> [   14.977032] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+>>> [   14.977034] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
+>>> [   14.977037] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
+>>> [   15.023150] rockchip-dp fdec0000.edp: failed to read dpcd caps: -110
+>>> [   15.023152] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* dp commit error, ret = -110
+>>> [   15.023155] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
+>>> [   15.023168] rockchip-dp fdec0000.edp: too many times retry set bridge, give it up
+>>> [   15.052485] Console: switching to colour frame buffer device 80x30
+>>> [   15.210457] rockchip-drm display-subsystem: [drm] fb0: rockchipdrmfb frame buffer device
+>>> [   15.223444] ---> drm_bridge_connector_detect: detect
+>>> [   15.231974] ---> analogix_dp_bridge_detect a
+>>> [   15.239587] ---> drm_bridge_connector_detect: detect
+>>> [   15.245341] ---> analogix_dp_bridge_detect a
+>>>
+>>> So analogix_dp_bridge_detect() is called and always returns connected.
+>>>
+>>> Plugging in the the display, I get:
+>>> [  290.592096] ---> display_connector_detect gpio value is 1   {display-connector returning connected}
+>>> [  290.598648] ---> drm_bridge_connector_detect: detect
+>>> [  290.604637] ---> analogix_dp_bridge_detect a
+>>> [  290.609826] ---> drm_bridge_connector_detect: detect
+>>> [  290.615784] ---> analogix_dp_bridge_detect a
+>>>
+>>> Unplugging the display, I get:
+>>> [  302.081444] ---> display_connector_detect gpio value is 0   {display-connector returning disconnected}
+>>> [  302.087996] ---> drm_bridge_connector_detect: detect
+>>> [  302.093945] ---> analogix_dp_bridge_detect a
+>>> [  302.099131] ---> drm_bridge_connector_detect: detect
+>>> [  302.105090] ---> analogix_dp_bridge_detect a
+>>> [  302.144834] ---> drm_bridge_connector_detect: detect
+>>> [  302.150784] ---> analogix_dp_bridge_detect a
+>>> [  302.155933] ---> drm_bridge_connector_detect: detect
+>>> [  302.161859] ---> analogix_dp_bridge_detect a
+>>>
+>>>
+>>> So it looks like on the gpio-side the detection is correct and/but
+>>> analogix_dp_bridge_detect() is always returning a connected state
+>>> ("b" output is never reached).
+>>>
+>>> I'm still working on understanding how the whole detection logic works
+>>> in drm ;-) .
+>>>
+>>>
 >>
->> The HPD function of Type-C DP is implemented through
->> drm_connector_oob_hotplug_event(). For embedded DP, it is required
->> that the DRM connector fwnode corresponds to the Type-C port fwnode.
+>> I think I've spotted the environmental difference between our setups.
+>> Your DTS places the hpd-gpios property under the dp-connector node,
+>> which is a scenario I haven't covered yet. I will reproduce and test
+>> this case locally.
 >>
->> To describe the relationship between the DP controller and the Type-C
->> port device, we usually using drm_bridge to build a bridge chain.
->>
->> Now several USB-C controller drivers have already implemented the DP
->> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
->> HPD bridge on USB-C connector port device.
->>
->> But this requires the USB-C controller driver to manually register the
->> HPD bridge. If the driver does not implement this feature, the bridge
->> will not be create.
->>
->> So this patch implements a generic DP HPD bridge based on
->> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
->> Type-C port device containing the DP svid is registered, it will
->> create an HPD bridge for it without the need for the USB-C controller
->> driver to implement it.
->>
->> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
->> Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
->> ---
->>
->> (no changes since v5)
->>
->> Changes in v4:
->> - Scan the entire typec_bus and attempt to register the hpd bridge,
->>   so as not to miss devices that were already added during initialization.
->>
->> (no changes since v3)
->>
->> Changes in v2:
->> - Add copyright text.
->> - Remove useless goto.
->> ---
->>  drivers/gpu/drm/bridge/Kconfig                | 10 +++
->>  drivers/gpu/drm/bridge/Makefile               |  1 +
->>  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 64 +++++++++++++++++++
->>  3 files changed, 75 insertions(+)
->>  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
->>
->> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
->> index 4a57d49b4c6d..9739b2a19758 100644
->> --- a/drivers/gpu/drm/bridge/Kconfig
->> +++ b/drivers/gpu/drm/bridge/Kconfig
->> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
->>  	  Simple bridge that terminates the bridge chain and provides HPD
->>  	  support.
->>  
->> +if DRM_AUX_HPD_BRIDGE
->> +config DRM_AUX_HPD_TYPEC_BRIDGE
->> +	tristate
->> +	depends on TYPEC || !TYPEC
->> +	default TYPEC
->> +	help
->> +	  Simple bridge that terminates the bridge chain and provides HPD
->> +	  support. It build bridge on each USB-C connector device node.
->> +endif
->> +
->>  menu "Display Interface Bridges"
->>  	depends on DRM && DRM_BRIDGE
->>  
->> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
->> index 15cc821d85b7..d88a9e1ccc9a 100644
->> --- a/drivers/gpu/drm/bridge/Makefile
->> +++ b/drivers/gpu/drm/bridge/Makefile
->> @@ -1,6 +1,7 @@
->>  # SPDX-License-Identifier: GPL-2.0
->>  obj-$(CONFIG_DRM_AUX_BRIDGE) += aux-bridge.o
->>  obj-$(CONFIG_DRM_AUX_HPD_BRIDGE) += aux-hpd-bridge.o
->> +obj-$(CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE) += aux-hpd-typec-dp-bridge.o
->>  obj-$(CONFIG_DRM_CHIPONE_ICN6211) += chipone-icn6211.o
->>  obj-$(CONFIG_DRM_CHRONTEL_CH7033) += chrontel-ch7033.o
->>  obj-$(CONFIG_DRM_CROS_EC_ANX7688) += cros-ec-anx7688.o
->> diff --git a/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
->> new file mode 100644
->> index 000000000000..43af3ea20f20
->> --- /dev/null
->> +++ b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
->> @@ -0,0 +1,64 @@
->> +// SPDX-License-Identifier: GPL-2.0+
->> +/*
->> + * Copyright (C) 2026 Rockchip Electronics Co., Ltd.
->> + *
->> + * Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->> + */
->> +#include <linux/of.h>
->> +#include <linux/usb/typec_altmode.h>
->> +#include <linux/usb/typec_dp.h>
->> +
->> +#include <drm/bridge/aux-bridge.h>
->> +
->> +static int drm_typec_bus_event(struct notifier_block *nb,
->> +			       unsigned long action, void *data)
->> +{
->> +	struct device *dev = (struct device *)data;
->> +	struct typec_altmode *alt = to_typec_altmode(dev);
->> +
->> +	if (action != BUS_NOTIFY_ADD_DEVICE)
->> +		return NOTIFY_OK;
->> +
->> +	/*
->> +	 * alt->dev.parent->parent : USB-C controller device
->> +	 * alt->dev.parent         : USB-C connector device
->> +	 */
->> +	if (is_typec_port_altmode(&alt->dev) && alt->svid == USB_TYPEC_DP_SID)
->> +		drm_dp_hpd_bridge_register(alt->dev.parent->parent,
->> +					   to_of_node(alt->dev.parent->fwnode));
+>> As a quick experiment, could you try removing hpd-gpios from
+>> dp-connector and move it under the edp node instead? As expected, GPIO
+>> HPD should work properly with that configuration.
 > 
-> So there are 3 ways to end up with duplicated hpd bridges now:
+> I've updated the branch in [0] with that hpd move to the edp node, but
+> the result is similar:
 > 
-> 1. TypeC controller driver already registered one manually
-> 2. There is a race in drm_aux_hpd_typec_dp_bridge_module_init, if a
->    device appears between registering the notifier and looping
->    through all pre-existing devices
-> 3. Reloading the aux-hpd-typec-dp-bridge module re-registers the
->    bridges
+> With the panel _disconnected_ on boot I see
+> [   12.887555] ---> drm_bridge_connector_detect: detect
+> [   12.893104] ---> analogix_dp_bridge_detect a
+> [   12.897881] ---> drm_bridge_connector_detect: detect
+> [   12.903424] ---> analogix_dp_bridge_detect a
+> [   14.124848] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
+> [   14.124891] rockchip-dp fdec0000.edp: failed to set bridge, retry: 0
+> [   14.236031] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
+> [   14.236074] rockchip-dp fdec0000.edp: failed to set bridge, retry: 1
+> [   14.346940] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
+> [   14.346990] rockchip-dp fdec0000.edp: failed to set bridge, retry: 2
+> [   14.458590] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
+> [   14.458638] rockchip-dp fdec0000.edp: failed to set bridge, retry: 3
+> [   14.570262] [drm:analogix_dp_bridge_atomic_enable [analogix_dp]] *ERROR* failed to get hpd single ret = -110
+> [   14.570312] rockchip-dp fdec0000.edp: failed to set bridge, retry: 4
+> [   14.570328] rockchip-dp fdec0000.edp: too many times retry set bridge, give it up
+> [   14.751371] ---> drm_bridge_connector_detect: detect
+> [   14.757207] ---> analogix_dp_bridge_detect a
 > 
-> It's not a huge problem as the system works with the duplicated HPD
-> bridges, but it's also quite ugly.
+> So with the diff from earlier, analogix_dp_bridge_detect() still runs,
+> finds its next bridge and returns "connected".
 > 
-> I think it can be trivially avoided by adding this function to
-> drivers/gpu/drm/bridge/aux-hpd-bridge.c and then making use of it
-> here as an additional check (code untested):
+> I.e. the
+>>>           if (dp->plat_data->next_bridge)
+>>>                   return connector_status_connected;
 > 
-> bool drm_device_has_dp_hpd_bridge(struct device *parent)
-> {
-> 	struct device *hpd_bridge = device_find_child_by_name(parent, "dp_hpd_bridge");
+> part.
 > 
-> 	if (!hpd_bridge)
-> 		return false;
 > 
-> 	put_device(hpd_bridge);
-> 	return true;
-> }
-> EXPORT_SYMBOL_GPL(drm_dev_has_dp_hpd_bridge);
->
 
-I think deduplication during registration is a good idea. Detecting it
-during alloc seems a bit premature.
+Thanks a lot for running the test and confirming the behaviour. I've 
+also reproduced this issue locally.
 
-Thanks again for your suggestion. I'll try to add it in the next version.
+I will dig deeper into this problem and fix this incorrect connection 
+status logic in v2. :-)
 
-> That would solve all of the above, but leaves one problem when this
-> module races against manual device creation in a TypeC controller
-> driver. That could be avoided by doing the check in
-> devm_drm_dp_hpd_bridge_alloc() under a lock, but that's probably not
-> worth the trouble (it would require updating all users to handle a
-> new error code like -EEXIST) considering manual registration can be
-> removed from all drivers anyways.
+Best regards,
+Damon
+
 > 
-> Greetings,
 > 
-> -- Sebastian
 > 
->> +
->> +	return NOTIFY_OK;
->> +}
->> +
->> +static struct notifier_block drm_typec_event_nb = {
->> +	.notifier_call = drm_typec_bus_event,
->> +};
->> +
->> +static int check_device_already_added(struct device *dev, void *data)
->> +{
->> +	drm_typec_bus_event(NULL, BUS_NOTIFY_ADD_DEVICE, dev);
->> +	return 0;
->> +}
->> +
->> +static void drm_aux_hpd_typec_dp_bridge_module_exit(void)
->> +{
->> +	bus_unregister_notifier(&typec_bus, &drm_typec_event_nb);
->> +}
->> +
->> +static int __init drm_aux_hpd_typec_dp_bridge_module_init(void)
->> +{
->> +	bus_register_notifier(&typec_bus, &drm_typec_event_nb);
->> +	/*
->> +	 * Before module initialization, some devices may have already been added.
->> +         * Register the HPD bridge for these devices.
->> +	 */
->> +	bus_for_each_dev(&typec_bus, NULL, NULL, check_device_already_added);
->> +	return 0;
->> +}
->> +
->> +module_init(drm_aux_hpd_typec_dp_bridge_module_init);
->> +module_exit(drm_aux_hpd_typec_dp_bridge_module_exit);
->> +
->> +MODULE_AUTHOR("Chaoyi Chen <chaoyi.chen@rock-chips.com>");
->> +MODULE_DESCRIPTION("DRM TYPEC DP HPD BRIDGE");
->> +MODULE_LICENSE("GPL");
->> -- 
->> 2.53.0
+>>> [0] https://github.com/mmind/linux-rockchip/blob/dev/v7.3/rk3588-tiger-dp-carrier-v5/arch/arm64/boot/dts/rockchip/rk3588-tiger-displayport-carrier.dts
+>>> [1]
+>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> index 7a89548a7a885..0accdf62637ae 100644
+>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> @@ -915,8 +915,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
+>>>           struct analogix_dp_device *dp = to_dp(bridge);
+>>>           enum drm_connector_status status = connector_status_disconnected;
+>>>    
+>>> +printk("---> %s a\n", __func__);
+>>>           if (dp->plat_data->next_bridge)
+>>>                   return connector_status_connected;
+>>> +printk("---> %s b\n", __func__);
+>>>    
+>>>           if (!analogix_dp_detect_hpd(dp))
+>>>                   status = connector_status_connected;
+>>> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+>>> index 16c0631adeb18..b0c07694b82e3 100644
+>>> --- a/drivers/gpu/drm/bridge/display-connector.c
+>>> +++ b/drivers/gpu/drm/bridge/display-connector.c
+>>> @@ -45,6 +45,7 @@ static enum drm_connector_status display_connector_detect(struct drm_bridge *bri
+>>>           struct display_connector *conn = to_display_connector(bridge);
+>>>    
+>>>           if (conn->hpd_gpio) {
+>>> +printk("---> %s gpio value is %d\n", __func__, gpiod_get_value_cansleep(conn->hpd_gpio));
+>>>                   if (gpiod_get_value_cansleep(conn->hpd_gpio))
+>>>                           return connector_status_connected;
+>>>                   else
+>>> @@ -84,6 +85,7 @@ static enum drm_connector_status display_connector_detect(struct drm_bridge *bri
+>>>    static enum drm_connector_status
+>>>    display_connector_bridge_detect(struct drm_bridge *bridge, struct drm_connector *connector)
+>>>    {
+>>> +printk("---> %s\n", __func__);
+>>>           return display_connector_detect(bridge);
+>>>    }
+>>>    
+>>> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+>>> index 649969fca1413..8816d837c9a77 100644
+>>> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+>>> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+>>> @@ -218,6 +218,7 @@ drm_bridge_connector_detect(struct drm_connector *connector, bool force)
+>>>           enum drm_connector_status status;
+>>>    
+>>>           if (detect) {
+>>> +printk("---> %s: detect\n", __func__);
+>>>                   status = detect->funcs->detect(detect, connector);
+>>>    
+>>>                   if (hdmi)
+>>>
+>>>
+>>>
+>>>
+>>>
 >>
+>>
+> 
+> 
+> 
+> 
+> 
+> 
 
--- 
-Best, 
-Chaoyi
