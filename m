@@ -4,93 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B34ABC55162
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 05:28:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55C5BC55162
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 06:31:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F07A310E204;
-	Mon,  3 Aug 2026 05:28:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 911D710E29C;
+	Mon,  3 Aug 2026 06:31:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g9UvhvGG";
+	dkim=pass (1024-bit key; unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oer8sGJV";
 	dkim-atps=neutral
-Received: from mail-yx1-f51.google.com (mail-yx1-f51.google.com
- [74.125.224.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 94AC410E204
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 05:28:25 +0000 (UTC)
-Received: by mail-yx1-f51.google.com with SMTP id
- 956f58d0204a3-6688acd1a51so4304481d50.3
- for <dri-devel@lists.freedesktop.org>; Sun, 02 Aug 2026 22:28:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785734904; cv=none;
- d=google.com; s=arc-20260327;
- b=Czt07Lyu+u+pZIsT6qb46avnvSGOBY3V2wHl+9nPfBRR7Pe+r+OPdhGT+BE+xkp63d
- rkjGvNgTOTCc3kXnLJ+UNhalhe8OxSFbpizogXe4Gz27JGyW27mohOdYOtKN0z7emYld
- Egpd77Qy1l9LrAbSKubXsyWeivdh1+LiXpFbF1SIt5Kq6R0CocLNqZPVjmU4C73wu6nh
- 35Yva2mHS1cblQ3U1+pXlENzuKTLDMJn9MbJooMhET4TfE6Ps37uFmCOSbOZZLhrpq7+
- RbvtHaNuy38dhV9ac0Fblg0QXe9DvaL77NwJIdS3D4bJ3HwhCReJfU7Xvc4i0OpHc0lq
- Cgsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=K50g3LVe2JIlyne/f7MYa/IcLR6llYiCcw8Ef17gXBk=;
- fh=44j9ZpdrkV0kfM26AhMk/b59X8/b4egUJVtBOHthJ5I=;
- b=OKKhKTwLrsSfAKCg1+eCPePDZqWNICMf4iihkUO1NOIqQoByx8uAJhGy70jkXYpdnE
- JTO0e0Wt+tga0m7CmfQkpPHyIy8d1tzbjIIlgfc13uLkHt2ZG0/JCEk8BfS/hBhLMhcP
- 5sBnl6f7klV8J58z3HQWmLO7UglkOp+c8TQmm8f0WgtyNr3KkWeT1zWntSQ6cvuMCPwA
- lJ93I+gDBB4eaGy59W3TeAPz/cqpa+Fo5+E7mPoAikO69UViKoayIMC5NprxKMrESatK
- MMf4ut8shjP9dvcpIhc+CQeg38ONucxdark0dlzgZqHUNk2GMYVa/BAZFOVx7iWCvQ+f
- c3RQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785734904; x=1786339704; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=K50g3LVe2JIlyne/f7MYa/IcLR6llYiCcw8Ef17gXBk=;
- b=g9UvhvGGkvRKXBbQ7eYPeMZAEjc3jnHcgh4gbtkgNsNvsAS4K2J/MkffQVBk/VabsY
- 0wGPzMNVAq/VjdC+JL4jFqFp6+dGOZUs133DBj+ZAERB8XS3VfXzdTLS9MKt/GsMAj1g
- Ugkn38qbwR8+kxWltXD7lb05cC/J5awY8s0tZBjlhZkMdWdmc8uX/sAriI3kM4e6lWqF
- 8DYcaE12AFXvFUy/U2w5huuVIlEI4FL4YZqZ4azx0kPawaufyCTJuLKqJDKtA22LgqDm
- TcQoiiMb/3dCJZlwvXUg5OFINm2nCYhj3IN0rmdZe+NT6K0+sG4jfpMoIHFvQyMFsjZT
- 55UA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785734904; x=1786339704;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=K50g3LVe2JIlyne/f7MYa/IcLR6llYiCcw8Ef17gXBk=;
- b=hFJ7Yy1jJ+xZowY5q0LOFKIRjwi1kP5Idt0UsD8oCHnBCmJ96XfibC8865hlq5DG1X
- r+dMg/IvNOaIG/Tf6Bip363AFmADFFvSl45QBFyDTqN3Dn3PvQgg09eIfE7z6NHKrvxI
- 7Je6KqCTOyvJvVQLdpw5tE4vXPMFtdNHwDYb5ofi4dvdZM8H5fVucxeTVDROUZbSU9Yo
- Rs/9RB8CTMFk7kWyUZNZskH+YR7GjQFoUbtJcwKUr+TJyIJgYBSi+p7+ScmR9M0hV71L
- Cb+57bUp1CpDVY+XnTJsy+UO4Y3DYrJu3FJ8+qcPLO5qoBeYPp+0PdZOdMssgBhOX1oG
- vrxg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqEqzrjlU5+/Ywfl2HotwKPOA2W/Pu1b8DYAGohk4JKeLCu8fIk/ePtGIACjUmCDbA8FNm3blEyUwc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz4SOvYfo/r7n+90eBDRZVzm4k3et5Zs6xKkS9mj/rsqULdEUGg
- AkCIXkRaiPIE6FegnN2yYyPuE+1ZG4m/yctS9y0YZ4RRu4Kyzv/4OWaQY8SCn1ZP9QyIHw/epGQ
- 4PeOlAFmr/ULfn+3MiCyaIwBoytcspQA=
-X-Gm-Gg: AR+sD13M6AmF1hU/GcFDVTEB0/m64rlk/6MeGoNhv9PGOcPvKBCI/h/3yJ9uzwYPQlG
- Z97VUU9n70GdG5rsz6RJUZzKM+k0gZvsroEvCNZZ25zXArXOmWCpPuhQyTvI+zSSF+uDq3o78IZ
- n+EwVny8gH91WrhlZfrOM7RHM7pM70J7cuWIRaBqTuyhS1YO53jz/xl3GXcZrqBbPlSiesOCXjX
- cQpPXdYawhLzkv45LjwY09szCBJ/RUNUzRaThB4xB4+SVX+Da4R0cyQLhCr2NXIdC6llyHgZ5Qz
- ls5EPC7moBo0Sv4i5P2+ONsCGaQnxOloY9cm8dC588V/2PnxxxTeMQykIWn0AHWM8EDmLu9bDSy
- 27JIWz8mWzsz6jNsqgOt3ZRAQikVpcw==
-X-Received: by 2002:a05:690c:6701:b0:7ff:1a93:be35 with SMTP id
- 00721157ae682-81fd4a6f84emr111918477b3.16.1785734904411; Sun, 02 Aug 2026
- 22:28:24 -0700 (PDT)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4673D10E29C
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 06:31:23 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9B0DE512;
+ Mon,  3 Aug 2026 08:30:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1785738612;
+ bh=0w26mLCibxmzad5cJ4RsBqQcZLwhm5292+fwf5AEBhg=;
+ h=Date:Subject:To:References:Cc:From:In-Reply-To:From;
+ b=oer8sGJVImG3eAdX/1tDX4OfNrWm4pjhxRA/1dweeK0/QNZxTPxYqBKHqEkpRPb3+
+ Egk1n6NaDUmYkxMzDpzoE4nw/3yETSw8cW+rrdPTRWBDGvsL/5y/zRRpTIM1V1Upa9
+ AsybJri2Bo0Ucca/CHkw+txSHZGcz913RI4heSi4=
+Message-ID: <f428f54b-90dd-425a-b204-531df0e1d5fa@ideasonboard.com>
+Date: Mon, 3 Aug 2026 09:31:14 +0300
 MIME-Version: 1.0
-References: <20260730204604.1729505-1-lyude@redhat.com>
- <20260730204604.1729505-4-lyude@redhat.com>
- <20260730205633.9AF051F000E9@smtp.kernel.org>
-In-Reply-To: <20260730205633.9AF051F000E9@smtp.kernel.org>
-From: Dave Airlie <airlied@gmail.com>
-Date: Mon, 3 Aug 2026 15:28:12 +1000
-X-Gm-Features: AUfX_myCuk4f-IKfNaeeSw-seOnjdRXgmvV5zKiXoeio5KdDQO4TXcGu_APjeoI
-Message-ID: <CAPM=9tzFg34jBT7-YYncOoYfvpvXvGnymuYeR6pQ2bQ4qeV4=g@mail.gmail.com>
-Subject: Re: [PATCH v5 3/5] drm/nouveau: Fix drm_driver struct/nouveau.atomic
- parameter handling
-To: sashiko-reviews@lists.linux.dev
-Cc: Lyude Paul <lyude@redhat.com>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dt-bindings: Correct white-space style
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
+ James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
+ Jyri Sarha <jyri.sarha@iki.fi>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>,
+ Lee Jones <lee@kernel.org>, Johannes Berg <johannes@sipsolutions.net>,
+ Jeff Johnson <jjohnson@kernel.org>, Viresh Kumar <vireshk@kernel.org>,
+ Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>,
+ Yangbo Lu <yangbo.lu@nxp.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Samuel Holland <samuel.holland@sifive.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Jens Wiklander <jenswi@kernel.org>,
+ Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
+ YC Hung <yc.hung@mediatek.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
+ Sean Wang <sean.wang@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Peter Ujfalusi <peter.ujfalusi@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ coresight@lists.linaro.org, linux-arm-msm@vger.kernel.org,
+ linux-ide@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org,
+ linux-i2c@vger.kernel.org, mfd@lists.linux.dev,
+ linux-wireless@vger.kernel.org, ath10k@lists.infradead.org,
+ linux-pm@vger.kernel.org, netdev@vger.kernel.org, linux-pwm@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-usb@vger.kernel.org
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+In-Reply-To: <20260801195613.235430-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,19 +90,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, 31 Jul 2026 at 07:13, <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
->
-> New issues:
-> - [Critical] Embedding `drm_driver` inside `nouveau_drm` causes a Use-After-Free of `dev->driver` in the DRM core when the device is unbound or hot-unplugged while userspace holds an open file descriptor.
+Hi,
 
-I'm going to agree with sashiko here. We don't want to embed it.
+On 01/08/2026 22:56, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues, like double space after '=' or before
+> bracket '{' characters, which will be flagged by dt-check-style.  No
+> functional changes.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> Patch applies on Rob's for-next branch.
+> ---
+>   .../arm/firmware/linaro,optee-tz.yaml         |  8 +-
+>   .../devicetree/bindings/arm/psci.yaml         | 18 ++--
+>   .../bindings/arm/qcom,coresight-tnoc.yaml     |  2 +-
+>   .../devicetree/bindings/ata/st,ahci.yaml      | 22 ++---
+>   .../bindings/display/ti/ti,am65x-dss.yaml     | 12 +--
+>   .../bindings/display/ti/ti,j721e-dss.yaml     | 96 +++++++++----------
+>   .../bindings/display/ti/ti,k2g-dss.yaml       | 36 +++----
+>   .../bindings/dsp/mediatek,mt8195-dsp.yaml     |  2 +-
+>   .../bindings/gpio/st,nomadik-gpio.yaml        |  2 +-
+>   .../devicetree/bindings/i2c/st,sti-i2c.yaml   |  2 +-
+>   .../bindings/mailbox/st,sti-mailbox.yaml      |  2 +-
+>   .../bindings/mfd/maxim,max77620.yaml          |  2 +-
+>   .../bindings/net/wireless/qcom,ath10k.yaml    | 34 +++----
+>   .../devicetree/bindings/opp/opp-v2.yaml       | 28 +++---
+>   .../pinctrl/mediatek,mt7988-pinctrl.yaml      |  2 +-
+>   .../devicetree/bindings/ptp/fsl,ptp.yaml      | 12 +--
+>   .../devicetree/bindings/pwm/pwm-sifive.yaml   |  2 +-
+>   .../bindings/usb/ti,twl4030-usb.yaml          |  2 +-
+>   18 files changed, 142 insertions(+), 142 deletions(-)
 
-Just create two copies of the struct, one with atomic and one without,
-or use some macros to do that, because anything else is just going to
-have messy lifetimes.
 
-I think you could also move the atomic flag handling earlier.
+> diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+> index 49a007cbcd3a..d1e530e12604 100644
+> --- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+> +++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+> @@ -261,9 +261,9 @@ examples:
+>                   "ovr1", "ovr2", "vp1", "vp2", "common1";
+>           ti,am65x-oldi-io-ctrl = <&dss_oldi_io_ctrl>;
+>           power-domains = <&k3_pds 67 TI_SCI_PD_EXCLUSIVE>;
+> -        clocks =        <&k3_clks 67 1>,
+> -                        <&k3_clks 216 1>,
+> -                        <&k3_clks 67 2>;
+> +        clocks = <&k3_clks 67 1>,
+> +                 <&k3_clks 216 1>,
+> +                 <&k3_clks 67 2>;
+>           clock-names = "fck", "vp1", "vp2";
+>           interrupts = <GIC_SPI 166 IRQ_TYPE_EDGE_RISING>;
+>           ports {
+> @@ -299,9 +299,9 @@ examples:
+>               reg-names = "common", "vidl1", "vid",
+>                           "ovr1", "ovr2", "vp1", "vp2", "common1";
+>               power-domains = <&k3_pds 186 TI_SCI_PD_EXCLUSIVE>;
+> -            clocks =        <&k3_clks 186 6>,
+> -                            <&vp1_clock>,
+> -                            <&k3_clks 186 2>;
+> +            clocks = <&k3_clks 186 6>,
+> +                     <&vp1_clock>,
+> +                     <&k3_clks 186 2>;
+>               clock-names = "fck", "vp1", "vp2";
+>               interrupts = <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
+>               oldi-transmitters {
+> diff --git a/Documentation/devicetree/bindings/display/ti/ti,j721e-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,j721e-dss.yaml
+> index 65ae8a1c3998..cac5ef1743d3 100644
+> --- a/Documentation/devicetree/bindings/display/ti/ti,j721e-dss.yaml
+> +++ b/Documentation/devicetree/bindings/display/ti/ti,j721e-dss.yaml
+> @@ -154,54 +154,54 @@ examples:
+>       #include <dt-bindings/soc/ti,sci_pm_domain.h>
+>   
+>       dss: dss@4a00000 {
+> -            compatible = "ti,j721e-dss";
+> -            reg =   <0x04a00000 0x10000>, /* common_m */
+> -                    <0x04a10000 0x10000>, /* common_s0*/
+> -                    <0x04b00000 0x10000>, /* common_s1*/
+> -                    <0x04b10000 0x10000>, /* common_s2*/
+> -                    <0x04a20000 0x10000>, /* vidl1 */
+> -                    <0x04a30000 0x10000>, /* vidl2 */
+> -                    <0x04a50000 0x10000>, /* vid1 */
+> -                    <0x04a60000 0x10000>, /* vid2 */
+> -                    <0x04a70000 0x10000>, /* ovr1 */
+> -                    <0x04a90000 0x10000>, /* ovr2 */
+> -                    <0x04ab0000 0x10000>, /* ovr3 */
+> -                    <0x04ad0000 0x10000>, /* ovr4 */
+> -                    <0x04a80000 0x10000>, /* vp1 */
+> -                    <0x04aa0000 0x10000>, /* vp2 */
+> -                    <0x04ac0000 0x10000>, /* vp3 */
+> -                    <0x04ae0000 0x10000>, /* vp4 */
+> -                    <0x04af0000 0x10000>; /* wb */
+> -            reg-names = "common_m", "common_s0",
+> -                    "common_s1", "common_s2",
+> -                    "vidl1", "vidl2","vid1","vid2",
+> -                    "ovr1", "ovr2", "ovr3", "ovr4",
+> -                    "vp1", "vp2", "vp3", "vp4",
+> -                    "wb";
+> -            clocks =        <&k3_clks 152 0>,
+> -                            <&k3_clks 152 1>,
+> -                            <&k3_clks 152 4>,
+> -                            <&k3_clks 152 9>,
+> -                            <&k3_clks 152 13>;
+> -            clock-names = "fck", "vp1", "vp2", "vp3", "vp4";
+> -            power-domains = <&k3_pds 152 TI_SCI_PD_EXCLUSIVE>;
+> -            interrupts =    <GIC_SPI 602 IRQ_TYPE_LEVEL_HIGH>,
+> -                            <GIC_SPI 603 IRQ_TYPE_LEVEL_HIGH>,
+> -                            <GIC_SPI 604 IRQ_TYPE_LEVEL_HIGH>,
+> -                            <GIC_SPI 605 IRQ_TYPE_LEVEL_HIGH>;
+> -            interrupt-names =       "common_m",
+> -                                    "common_s0",
+> -                                    "common_s1",
+> -                                    "common_s2";
+> -            ports {
+> -                    #address-cells = <1>;
+> -                    #size-cells = <0>;
+> -                    port@0 {
+> -                            reg = <0>;
+> +        compatible = "ti,j721e-dss";
+> +        reg = <0x04a00000 0x10000>, /* common_m */
+> +              <0x04a10000 0x10000>, /* common_s0*/
+> +              <0x04b00000 0x10000>, /* common_s1*/
+> +              <0x04b10000 0x10000>, /* common_s2*/
+> +              <0x04a20000 0x10000>, /* vidl1 */
+> +              <0x04a30000 0x10000>, /* vidl2 */
+> +              <0x04a50000 0x10000>, /* vid1 */
+> +              <0x04a60000 0x10000>, /* vid2 */
+> +              <0x04a70000 0x10000>, /* ovr1 */
+> +              <0x04a90000 0x10000>, /* ovr2 */
+> +              <0x04ab0000 0x10000>, /* ovr3 */
+> +              <0x04ad0000 0x10000>, /* ovr4 */
+> +              <0x04a80000 0x10000>, /* vp1 */
+> +              <0x04aa0000 0x10000>, /* vp2 */
+> +              <0x04ac0000 0x10000>, /* vp3 */
+> +              <0x04ae0000 0x10000>, /* vp4 */
+> +              <0x04af0000 0x10000>; /* wb */
+> +        reg-names = "common_m", "common_s0",
+> +                "common_s1", "common_s2",
+> +                "vidl1", "vidl2","vid1","vid2",
+> +                "ovr1", "ovr2", "ovr3", "ovr4",
+> +                "vp1", "vp2", "vp3", "vp4",
+> +                "wb";
+> +        clocks = <&k3_clks 152 0>,
+> +                 <&k3_clks 152 1>,
+> +                 <&k3_clks 152 4>,
+> +                 <&k3_clks 152 9>,
+> +                 <&k3_clks 152 13>;
+> +        clock-names = "fck", "vp1", "vp2", "vp3", "vp4";
+> +        power-domains = <&k3_pds 152 TI_SCI_PD_EXCLUSIVE>;
+> +        interrupts = <GIC_SPI 602 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 603 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 604 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 605 IRQ_TYPE_LEVEL_HIGH>;
+> +        interrupt-names = "common_m",
+> +                          "common_s0",
+> +                          "common_s1",
+> +                          "common_s2";
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +            port@0 {
+> +                reg = <0>;
+>   
+> -                            dpi_out_0: endpoint {
+> -                                    remote-endpoint = <&dp_bridge_input>;
+> -                            };
+> -                    };
+> +                dpi_out_0: endpoint {
+> +                    remote-endpoint = <&dp_bridge_input>;
+> +                };
+>               };
+> +        };
+>       };
+> diff --git a/Documentation/devicetree/bindings/display/ti/ti,k2g-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,k2g-dss.yaml
+> index 96b1439f88e3..87721da0a8af 100644
+> --- a/Documentation/devicetree/bindings/display/ti/ti,k2g-dss.yaml
+> +++ b/Documentation/devicetree/bindings/display/ti/ti,k2g-dss.yaml
+> @@ -80,26 +80,26 @@ examples:
+>       #include <dt-bindings/interrupt-controller/arm-gic.h>
+>       #include <dt-bindings/interrupt-controller/irq.h>
+>   
+> -    dss: dss@2540000 {
+> -            compatible = "ti,k2g-dss";
+> -            reg =   <0x02540000 0x400>,
+> -                    <0x02550000 0x1000>,
+> -                    <0x02557000 0x1000>,
+> -                    <0x0255a800 0x100>,
+> -                    <0x0255ac00 0x100>;
+> -            reg-names = "cfg", "common", "vid1", "ovr1", "vp1";
+> -            clocks =        <&k2g_clks 0x2 0>,
+> -                            <&k2g_clks 0x2 1>;
+> -            clock-names = "fck", "vp1";
+> -            interrupts = <GIC_SPI 247 IRQ_TYPE_EDGE_RISING>;
+> +    dss@2540000 {
+> +        compatible = "ti,k2g-dss";
+> +        reg = <0x02540000 0x400>,
+> +              <0x02550000 0x1000>,
+> +              <0x02557000 0x1000>,
+> +              <0x0255a800 0x100>,
+> +              <0x0255ac00 0x100>;
+> +        reg-names = "cfg", "common", "vid1", "ovr1", "vp1";
+> +        clocks = <&k2g_clks 0x2 0>,
+> +                 <&k2g_clks 0x2 1>;
+> +        clock-names = "fck", "vp1";
+> +        interrupts = <GIC_SPI 247 IRQ_TYPE_EDGE_RISING>;
+>   
+> -            power-domains = <&k2g_pds 0x2>;
+> +        power-domains = <&k2g_pds 0x2>;
+>   
+> -            max-memory-bandwidth = <230000000>;
+> +        max-memory-bandwidth = <230000000>;
+>   
+> -            port {
+> -                    dpi_out: endpoint {
+> -                            remote-endpoint = <&sii9022_in>;
+> -                    };
+> +        port {
+> +            dpi_out: endpoint {
+> +                remote-endpoint = <&sii9022_in>;
+>               };
+> +        };
+>       };
+For the TI DSS parts:
 
-Dave.
+Acked-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
+  Tomi
+
