@@ -4,37 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81C23C55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 17:56:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B088C55822
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 17:56:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D148C10E623;
-	Mon,  3 Aug 2026 17:56:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1DCE10E639;
+	Mon,  3 Aug 2026 17:56:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fuFz+tmd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OdRw8WJC";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92BA710E623
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:56:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2D9910E639
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:56:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7809243A0C;
- Mon,  3 Aug 2026 17:56:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1BE61F000E9;
- Mon,  3 Aug 2026 17:56:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 997F841A6B;
+ Mon,  3 Aug 2026 17:56:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4C6B1F000E9;
+ Mon,  3 Aug 2026 17:56:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785779788;
- bh=Qvrs2oBboVMB507TatCgoFZaOC1I0y25AAlsZMSic58=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=fuFz+tmdn1gJS5SbwyUATSbpaBEq0otZ4K4VKTwmDHWnoxOwfCuemfOsEzo0u8YMj
- cP7X9rlSZJd5kezXZuUewSlPM0U7TIVTWyFp+vECqHmbTv4Nkg6QtrOLFfaWTMRU6I
- JQbefjoo+z8uRb/+uT6WpCFqGdiIdx9myxhVBm5cuU6+J8100nRlTRZU7uO4zQPriE
- kE42qw6IfsFzYgLIQRac2gjUzVOMy4l9gmPxkOTjm9bMz0ib33pOiV6eIdI6BuIDgT
- NdkW0EPvKeMD11BI4Akb+YfKhBoH2Mk7cn6Wt+Bqoja/4BevQSzlLBfcv8ggqw+BJj
- SDM+yzZAgWdng==
+ s=k20260515; t=1785779797;
+ bh=ihzE00+caEyyGAyJnAUTpAAPcz2FPtHVqqcNm5l8H8Y=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=OdRw8WJCR5s67MPCCDorPFOUgUk/FS8WgAxajB4Ins7fYQvAzwi/g50xFhbRPDGI7
+ j5o2T8zpPNIh0Q4ECnR5oTU9NkMEeV5ssoY1AN63S9jYy4A1MiefEuboQLdSH6LjaD
+ E0ZbFipEqW3LKKkUY8HldcUeS+8jsOKkFcpYfOCucMi8x9pPGuAQoPFWPP7TzhfsG6
+ ZgcOQq5Y+PdPZNlGeq3RVNgeLlFqMHK42hWY3YjxsLfxnd3/eordh3BFB56ko5SEzB
+ 2j21QfTqKnSHC6kpRMRbw/cjw400Wp2PPlR2yfOeiZ3JC2sVD6W8L4InN48k6cM8zc
+ 5O6oB4VDxgyMg==
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 03 Aug 2026 19:56:21 +0200
-Message-Id: <DKFI3M4IEPIS.1Q2UYQGFIC6EO@kernel.org>
+Date: Mon, 03 Aug 2026 19:56:30 +0200
+Message-Id: <DKFI3QBK1A04.28I347HOKJ8TE@kernel.org>
+Subject: Re: [PATCH v2 8/9] drm/tyr: add gpuvas debugfs file
 Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
  "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
  <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
@@ -57,10 +58,9 @@ Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
  <dri-devel@lists.freedesktop.org>
 To: "Alvin Sun" <alvin.sun@linux.dev>
 From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH v2 6/9] rust: drm: add DrmSeqShow seq_file adapter
 References: <20260731-tyr-debugfs-v2-v2-0-aea19eccb996@linux.dev>
- <20260731-tyr-debugfs-v2-v2-6-aea19eccb996@linux.dev>
-In-Reply-To: <20260731-tyr-debugfs-v2-v2-6-aea19eccb996@linux.dev>
+ <20260731-tyr-debugfs-v2-v2-8-aea19eccb996@linux.dev>
+In-Reply-To: <20260731-tyr-debugfs-v2-v2-8-aea19eccb996@linux.dev>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,14 +77,37 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 On Thu Jul 30, 2026 at 7:05 PM CEST, Alvin Sun wrote:
-> Add DrmSeqShow trait and its SeqShow blanket impl for Device<T, Normal>,
-> enabling Rust DRM drivers to expose device state via debugfs seq_file
-> entries. Device registration data is kept alive for the duration of
-> each seq_file read.
->
-> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
+> +impl drm::debugfs::DrmSeqShow<TyrDrmDriver> for GpuvasShow {
+> +    fn show(guard: &drm::RegistrationGuard<'_, TyrDrmDriver>, m: &seq_fi=
+le::SeqFile) -> Result {
+> +        guard.registration_data_with(|reg_data| {
+> +            reg_data
+> +                .debugfs_data
+> +                .gpuvas
+> +                .for_each(|vm| vm.dump_gpuva_info(m))
+> +        })
+> +    }
+> +}
 
-This patch shouldn't be needed with the ScopeRef approach. The full proxy
-already guarantees show() can't run after debugfs_remove_recursive(). So, t=
-he
-driver can just implement plain debugfs::SeqShow<RegistrationData<'_>>.
+Should simplify to:
+
+	impl SeqShow<TyrDrmRegistrationData<'_>> for GpuvasShow {
+	    fn show(reg_data: &TyrDrmRegistrationData<'_>, m: &SeqFile) -> Result =
+{
+	        reg_data
+	            .debugfs_data
+	            .gpuvas
+	            .for_each(|vm| vm.dump_gpuva_info(m))
+	    }
+	}
+
+> +    fn debugfs_init<'a>(dev: &'a drm::Device<Self, drm::Normal>, dir: &S=
+copedDir<'a, 'static>) {
+> +        dir.seq_file::<GpuvasShow, _>(c"gpuvas", dev);
+> +    }
+
+Should become:
+
+	fn debugfs_init(dir: &debugfs::ScopeRef<'_, TyrDrmRegistrationData<'_>>) {
+	    dir.seq_file::<GpuvasShow>(c"gpuvas");
+	}
