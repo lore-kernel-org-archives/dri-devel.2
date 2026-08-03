@@ -4,83 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BDF6C55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:12:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4FC63C55179
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:19:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ABB8610E00D;
-	Mon,  3 Aug 2026 14:12:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8994810E675;
+	Mon,  3 Aug 2026 14:19:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OQbQIHqT";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="OApHNgJo";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E075B10E00D
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:12:00 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4954a2e73a9so12945015e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 07:12:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785766319; x=1786371119; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ri6+Lm8RQVb+XPY7XH6+RgGkE3WKXcXpIGv8fON2pYg=;
- b=OQbQIHqToESUv/eqeGLkAsSazYAc+WY8ztDw6drdatTuDp98x211958diLJ9vV7tMK
- yqWQc/ro5C2kilqkFafGWIh1KQ+xJ8sLcycq3cX6Bl/AaY1eLQODaVDmNZSbaCUFI1ft
- wUDsciBASjcwdxAwdnLTO2heOnuHqdji4VEfFtjIXYd9KnUXNcKWp9j0roPYtGyDfZU3
- FeYHzhTKF+eyplLyD0qvINQPA4oCXiLyRgxkS80okqv/OIczYLwA5y1/XGT+s2LUYKfm
- Klsv6J/cnrVfR3Kv/rwGBsjr4dekBz3pCeBOTtdyTNLW6xB49g8Qs3PFD8Mcl1BH65iW
- FImA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785766319; x=1786371119;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ri6+Lm8RQVb+XPY7XH6+RgGkE3WKXcXpIGv8fON2pYg=;
- b=kT1OT7tRanXMdqIrCK6EpetENHMB/r4hZB91EASspSUfNYmw78GBZ/DE8/ozLnzaFK
- 09Jjce4e6dVxVIsFJmyxjW8hZLjJitKKI8LxgTKlHzxxVD5g59V+XSy+hnhgNqnzWDAd
- zvuUJEe533qIBv6rJpPTTea1R2Bfn79drvpYjRRRun/bsMHR7kuYSZZyi/yj36R1E92L
- 4RHhaSMl5SjfH0fETrySTgnhGM2e755kPsCfuF8J9RVJbkzUhPO4KN1w1lgqYnxHVtQb
- HnTPhDVMpnVvI1cACylNQUxhq8+plZWWE3C4lBLSFIKJzXfv6WCbIbykvr0Ih/c/roiJ
- 4rdg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpnPfZHu/UAza9fUnuWerctxcs7iydmfHmWyBGOQiMIqZQMZQYmqfOiHRxlvYPAihsxGHJLVer1bxo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1mRgJG10J01pLl9bUuOYfQP7FEcZv7+iuuOlqOw1q7k4eC1Zs
- seGJ4jN13zCPFQAAjKh4mpnWptPLnELR78+xZ3wLrvGlSNYipAFsXZmI
-X-Gm-Gg: AR+sD130DevZ5jgTNrykSh52O1IQDPOfwFil614AvpnXJCpt1ZawI7Q++8hv3DejDzi
- yd9zOTtUIxouLJgl58lxA7PbOexXaZwdrKpsn2hNzMO4if14C1wUUMu25Qrq1MHc4tvJA64meDL
- N+0hKrKea7W1D5C/FWY9oyqH/LEPTazFXJSlboBJrVCepgxUGW6uyLXpcctP7EhxaSBBZNN5LB1
- 9YBXZAj99UMr51Np+N342NjPrEahHnx9QCEHftL7jE/eEd491mzKpzIgHILs48ig9GOyNyD4fO6
- RMsgC85hQ40NypeszqkxDMtwMj/lPrl/e2Pp7sCYwQp1Pm1NHDYG21LHxLJYU7S6V36U+GQLqMM
- XJlRzu1a9BucKkwD7NsaHwnP14uD1w3bSWeNA0Za0LBtHvMA4wZ1EfWnkN9lW9vYBnnlWUPySyf
- tGe8r2uuKgGx6MvTaX3Ut+4kczG5Sf+dhO1hnD4Xr/F+znd09/c6VvqhSfivwz0L1qzhj/fUyXJ
- e8lO8lG+VaxeSKlXH3J5UMX
-X-Received: by 2002:a05:600c:5914:b0:495:5cda:52ec with SMTP id
- 5b1f17b1804b1-4980c662d03mr200306225e9.16.1785766318949; 
- Mon, 03 Aug 2026 07:11:58 -0700 (PDT)
-Received: from osama.. ([2a02:908:185:7e40:3586:7967:eb8:8b0d])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd41cf404sm32589557f8f.1.2026.08.03.07.11.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 07:11:58 -0700 (PDT)
-From: Osama Abdelkader <osama.abdelkader@gmail.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Osama Abdelkader <osama.abdelkader@gmail.com>
-Subject: [PATCH v3] drm/panthor: use local variables for firmware interface
- counts
-Date: Mon,  3 Aug 2026 16:11:49 +0200
-Message-ID: <20260803141149.68182-1-osama.abdelkader@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260803153555.70ca46de@fedora1.home>
-References: <20260803153555.70ca46de@fedora1.home>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A39610E5C3
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:19:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1785766790;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=hXmSSQiql4lPt359U06+XjBJquVgqILNx41T0YVm9Ag=;
+ b=OApHNgJoadICjfVVfuk3a3DsqkuXdkQz6aTUTiwIVI+HluN/+5elsoAfDnoskEwxRZsO9S
+ lSHiMWx0kba9xo2j4gMbemI0b/AVPZ4Dp6ilazA7x1BbXcd50aKGxCOGw/3ximRW0D3hdE
+ 7EH1smSnfmoMkI/3du3LfCk6A5fbAtc=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-460-QykCMbifONmPD1yzZM3sjA-1; Mon,
+ 03 Aug 2026 10:19:42 -0400
+X-MC-Unique: QykCMbifONmPD1yzZM3sjA-1
+X-Mimecast-MFC-AGG-ID: QykCMbifONmPD1yzZM3sjA_1785766781
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com
+ (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id B4795180059B; Mon,  3 Aug 2026 14:19:40 +0000 (UTC)
+Received: from [10.44.50.44] (unknown [10.44.50.44])
+ by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP
+ id EF83441C; Mon,  3 Aug 2026 14:19:35 +0000 (UTC)
+Message-ID: <58fc5ce1-b6f5-48df-bd3b-054443c60cdf@redhat.com>
+Date: Mon, 3 Aug 2026 16:19:33 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFT 0/3] mm, drm: ensure .fault() does not have to be
+ followed by .pfn_mkwrite() for write faults
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Michal Hocko <mhocko@suse.com>,
+ Sergio Lopez <slp@redhat.com>, Christian Koenig <christian.koenig@amd.com>,
+ Huang Rui <ray.huang@amd.com>, bcm-kernel-feedback-list@broadcom.com,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org
+References: <20260731164341.1109827-1-pbonzini@redhat.com>
+ <8d94897f-0f56-4ecf-bcc8-50bffd6750b2@kernel.org>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Autocrypt: addr=pbonzini@redhat.com; keydata=
+ xsEhBFRCcBIBDqDGsz4K0zZun3jh+U6Z9wNGLKQ0kSFyjN38gMqU1SfP+TUNQepFHb/Gc0E2
+ CxXPkIBTvYY+ZPkoTh5xF9oS1jqI8iRLzouzF8yXs3QjQIZ2SfuCxSVwlV65jotcjD2FTN04
+ hVopm9llFijNZpVIOGUTqzM4U55sdsCcZUluWM6x4HSOdw5F5Utxfp1wOjD/v92Lrax0hjiX
+ DResHSt48q+8FrZzY+AUbkUS+Jm34qjswdrgsC5uxeVcLkBgWLmov2kMaMROT0YmFY6A3m1S
+ P/kXmHDXxhe23gKb3dgwxUTpENDBGcfEzrzilWueOeUWiOcWuFOed/C3SyijBx3Av/lbCsHU
+ Vx6pMycNTdzU1BuAroB+Y3mNEuW56Yd44jlInzG2UOwt9XjjdKkJZ1g0P9dwptwLEgTEd3Fo
+ UdhAQyRXGYO8oROiuh+RZ1lXp6AQ4ZjoyH8WLfTLf5g1EKCTc4C1sy1vQSdzIRu3rBIjAvnC
+ tGZADei1IExLqB3uzXKzZ1BZ+Z8hnt2og9hb7H0y8diYfEk2w3R7wEr+Ehk5NQsT2MPI2QBd
+ wEv1/Aj1DgUHZAHzG1QN9S8wNWQ6K9DqHZTBnI1hUlkp22zCSHK/6FwUCuYp1zcAEQEAAc0j
+ UGFvbG8gQm9uemluaSA8cGJvbnppbmlAcmVkaGF0LmNvbT7CwU0EEwECACMFAlRCcBICGwMH
+ CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRB+FRAMzTZpsbceDp9IIN6BIA0Ol7MoB15E
+ 11kRz/ewzryFY54tQlMnd4xxfH8MTQ/mm9I482YoSwPMdcWFAKnUX6Yo30tbLiNB8hzaHeRj
+ jx12K+ptqYbg+cevgOtbLAlL9kNgLLcsGqC2829jBCUTVeMSZDrzS97ole/YEez2qFpPnTV0
+ VrRWClWVfYh+JfzpXmgyhbkuwUxNFk421s4Ajp3d8nPPFUGgBG5HOxzkAm7xb1cjAuJ+oi/K
+ CHfkuN+fLZl/u3E/fw7vvOESApLU5o0icVXeakfSz0LsygEnekDbxPnE5af/9FEkXJD5EoYG
+ SEahaEtgNrR4qsyxyAGYgZlS70vkSSYJ+iT2rrwEiDlo31MzRo6Ba2FfHBSJ7lcYdPT7bbk9
+ AO3hlNMhNdUhoQv7M5HsnqZ6unvSHOKmReNaS9egAGdRN0/GPDWr9wroyJ65ZNQsHl9nXBqE
+ AukZNr5oJO5vxrYiAuuTSd6UI/xFkjtkzltG3mw5ao2bBpk/V/YuePrJsnPFHG7NhizrxttB
+ nTuOSCMo45pfHQ+XYd5K1+Cv/NzZFNWscm5htJ0HznY+oOsZvHTyGz3v91pn51dkRYN0otqr
+ bQ4tlFFuVjArBZcapSIe6NV8C4cEiSTOwE0EVEJx7gEIAMeHcVzuv2bp9HlWDp6+RkZe+vtl
+ KwAHplb/WH59j2wyG8V6i33+6MlSSJMOFnYUCCL77bucx9uImI5nX24PIlqT+zasVEEVGSRF
+ m8dgkcJDB7Tps0IkNrUi4yof3B3shR+vMY3i3Ip0e41zKx0CvlAhMOo6otaHmcxr35sWq1Jk
+ tLkbn3wG+fPQCVudJJECvVQ//UAthSSEklA50QtD2sBkmQ14ZryEyTHQ+E42K3j2IUmOLriF
+ dNr9NvE1QGmGyIcbw2NIVEBOK/GWxkS5+dmxM2iD4Jdaf2nSn3jlHjEXoPwpMs0KZsgdU0pP
+ JQzMUMwmB1wM8JxovFlPYrhNT9MAEQEAAcLBMwQYAQIACQUCVEJx7gIbDAAKCRB+FRAMzTZp
+ sadRDqCctLmYICZu4GSnie4lKXl+HqlLanpVMOoFNnWs9oRP47MbE2wv8OaYh5pNR9VVgyhD
+ OG0AU7oidG36OeUlrFDTfnPYYSF/mPCxHttosyt8O5kabxnIPv2URuAxDByz+iVbL+RjKaGM
+ GDph56ZTswlx75nZVtIukqzLAQ5fa8OALSGum0cFi4ptZUOhDNz1onz61klD6z3MODi0sBZN
+ Aj6guB2L/+2ZwElZEeRBERRd/uommlYuToAXfNRdUwrwl9gRMiA0WSyTb190zneRRDfpSK5d
+ usXnM/O+kr3Dm+Ui+UioPf6wgbn3T0o6I5BhVhs4h4hWmIW7iNhPjX1iybXfmb1gAFfjtHfL
+ xRUr64svXpyfJMScIQtBAm0ihWPltXkyITA92ngCmPdHa6M1hMh4RDX+Jf1fiWubzp1voAg0
+ JBrdmNZSQDz0iKmSrx8xkoXYfA3bgtFN8WJH2xgFL28XnqY4M6dLhJwV3z08tPSRqYFm4NMP
+ dRsn0/7oymhneL8RthIvjDDQ5ktUjMe8LtHr70OZE/TT88qvEdhiIVUogHdo4qBrk41+gGQh
+ b906Dudw5YhTJFU3nC6bbF2nrLlB4C/XSiH76ZvqzV0Z/cAMBo5NF/w=
+In-Reply-To: <8d94897f-0f56-4ecf-bcc8-50bffd6750b2@kernel.org>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+X-Mimecast-MFC-PROC-ID: xsLaXdEzHKWzxgT0t4D2Pw4FFqYENzHzNqAQpknEOyc_1785766781
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,91 +116,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The firmware exposes the global group count and per-group stream count in
-the shared control interface. These values are validated before being used
-as loop bounds.
+On 8/3/26 13:54, David Hildenbrand (Arm) wrote:
+> On 7/31/26 18:43, Paolo Bonzini wrote:
+>> Warning - DRM parts (i.e. most of the patches) untested; I have Cc'd
+>> the reporter to help with testing these patches.
+>>
+>> Right now, users of .pfn_mkwrite() have no way to create a PTE
+>> that has gone through maybe_mkwrite().  Because vma_set_page_prot()
+>> will have cleared the writable PTE bit, users of fixup_user_fault()
+>> will see a read-only PTE and have no clue that the page needs
+>> a *second* fault to reach its final status.
+>>
+>> Handling this in fixup_user_fault() is problematic: the information
+>> about the presence of *_mkwrite is only recorded in vma->vm_page_prot,
+>> which is an opaque pgprot_t, therefore only follow_pfnmap_start()
+>> knows how to retrieve it.
+> 
+> How is mprotect() supposed to work in that case?
 
-Read each count once with READ_ONCE() and store it in a local variable.
-This avoids reading the same control section field twice and makes it
-explicit that the loop uses the same value that passed validation
-to protect against self-modifying control sections.
+Hi David,
 
-Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
-Reviewed-by: Steven Price <steven.price@arm.com>
----
-v3:
-- Add comments explaining the READ_ONCE() usage.
+not sure what you are worried about specifically, but fixup_user_fault() 
+catches !VM_WRITE VMAs and returns early (see vma_permits_fault()).
 
- drivers/gpu/drm/panthor/panthor_fw.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+Also, do_wp_page() has the comment:
 
-diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
-index 8411c468bdac..b2ccb81f280c 100644
---- a/drivers/gpu/drm/panthor/panthor_fw.c
-+++ b/drivers/gpu/drm/panthor/panthor_fw.c
-@@ -954,6 +954,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
- 	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
- 	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
- 			   ((u64)csg_idx * glb_iface->control->group_stride);
-+	u32 stream_num;
- 	unsigned int i;
- 
- 	if (iface_offset > shared_section_sz ||
-@@ -967,8 +968,13 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
- 	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
- 						 sizeof(*csg_iface->output));
- 
--	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
--	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
-+	/*
-+	 * To protect against self-modifying control sections
-+	 * take a single snapshot from the control section so validation and
-+	 * iteration use the same value.
-+	 */
-+	stream_num = READ_ONCE(csg_iface->control->stream_num);
-+	if (stream_num < MIN_CS_PER_CSG || stream_num > MAX_CS_PER_CSG)
- 		return -EINVAL;
- 
- 	if (!csg_iface->input || !csg_iface->output) {
-@@ -986,7 +992,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
- 		}
- 	}
- 
--	for (i = 0; i < csg_iface->control->stream_num; i++) {
-+	for (i = 0; i < stream_num; i++) {
- 		int ret = panthor_init_cs_iface(ptdev, csg_idx, i);
- 
- 		if (ret)
-@@ -1010,6 +1016,7 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
- {
- 	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
- 	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
-+	u32 group_num;
- 	unsigned int i;
- 
- 	if (!ptdev->fw->shared_section->mem->kmap)
-@@ -1035,13 +1042,18 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
- 		return -EINVAL;
- 	}
- 
--	if (glb_iface->control->group_num > MAX_CSGS ||
--	    glb_iface->control->group_num < MIN_CSGS) {
-+	/*
-+	 * To protect against self-modifying control sections
-+	 * take a single snapshot from the control section so validation and
-+	 * iteration use the same value.
-+	 */
-+	group_num = READ_ONCE(glb_iface->control->group_num);
-+	if (group_num > MAX_CSGS || group_num < MIN_CSGS) {
- 		drm_err(&ptdev->base, "Invalid number of control groups");
- 		return -EINVAL;
- 	}
- 
--	for (i = 0; i < glb_iface->control->group_num; i++) {
-+	for (i = 0; i < group_num; i++) {
- 		int ret = panthor_init_csg_iface(ptdev, i);
- 
- 		if (ret)
--- 
-2.43.0
+         /*
+          * Shared mapping: we are guaranteed to have VM_WRITE and
+          * FAULT_FLAG_WRITE set at this point.
+          */
+
+before the call to wp_pfn_shared() which is where .pfn_mkwrite() is called.
+
+Let me know if this was not what you were asking.
+
+Thanks for the review of patch 1---I mentioned here in the cover letter 
+that the name was temporary and I'll take your suggestion.  I can either 
+use EXPORT_SYMBOL_GPL or switch to inlines, but not both because the 
+existing functions like vmf_insert_pfn_prot() need to stay non-GPL-only.
+
+Anyhow, now that the series has a Tested-by I'll clean up everything, 
+and repost later this week.
+
+Paolo
 
