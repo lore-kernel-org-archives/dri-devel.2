@@ -4,59 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E273C55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:57:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2E1BC55184
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:57:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDC110E6F7;
-	Mon,  3 Aug 2026 14:57:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F09510E6C9;
+	Mon,  3 Aug 2026 14:57:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="h2PISO7U";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="SHb9iWuq";
 	dkim-atps=neutral
-Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch
- [185.70.43.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7306110E6F0
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:57:17 +0000 (UTC)
+Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2281410E6C9
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:57:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1785769035; x=1786028235;
- bh=7J6ydw4tXYe53kVdrjkSOhg9eiJL2F6GMm09fOeodoA=;
+ s=protonmail3; t=1785768997; x=1786028197;
+ bh=8q2edUY/F+R6eEwokl1w5l9rk95zvIg7QcBwF/3Dezw=;
  h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=h2PISO7U/FAotAeQjCcRMzflBxwPiEeQEwsZpuNZ9D8YbRRXzU/8I9yltIG/tD/0o
- I0DLPaFJpwuZ1OxtnuW+vkcV6fb1t0pxeVCIL3dVlWp2Nz72PNwDxKdGYwaLMAb7+K
- GFioobCAkXyprgwTxvCn+OVVHGx9c2t9pboSDLrZOztBuQBfIltadZRSUrFNvybyL7
- HCZKv6EPd4ZlDLlNJTTC8uac1H05hy2aiTLtV+K5iNSdgpQzivAqreitmUhunmB9rl
- AAfvoDPd+sv4Yyv0PI952rfN/xRAaN3PvB9blYXcQKCFnp+XNn/n9c8hSyCmL3rNhk
- I5Or4FDSqH3FA==
-X-Pm-Submission-Id: 4hDKXC0hxHz1DFF3
+ b=SHb9iWuqU2MjmhvgQFxqubhoTBWeaBW73Bzm5hLzedq7fzNuAXrMGmXFOK7UE2bqi
+ iAfJ8yZGPu1lZ9PwFd+fsR5BR+oQiPcRqFmPlZK2w+7NJfxQOpWw6xmT0ewBkVi9uH
+ K2ZpN+0EQmcZ2ifp/PT1wLH1RVdizGdYfnc+XPHCqyVLp/O2+dB9gNdw9ZTKYG4Srj
+ b7rK4CZnOUJhK5BodmawnPYZErJFu9L+Gk1AAS39LyP47/C7oBQ9londfZ74s3iZAG
+ MKkPTwedXg4cGzVKgoUbjIibfswaNvfn55IYHrwC1YmkFoWe2Md0w/AUogvAyBXCYI
+ wc8B0/5CE9A5Q==
+X-Pm-Submission-Id: 4hDKWR29Bfz2Sd3H
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 03 Aug 2026 16:57:05 +0200
-Subject: [PATCH v3 3/3] drm/bridge: ti-sn65dsi83: Support LVDS Channel B on
- SN65DSI84
+Date: Mon, 03 Aug 2026 16:56:19 +0200
+Subject: [PATCH v2 1/4] drm/bridge: nwl-dsi: Limit LCDIF specific sync override
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-ti-sn65dsi83-fixes-v3-3-9b403a405ccd@geanix.com>
-References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
-In-Reply-To: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Herve Codina <herve.codina@bootlin.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
+Message-Id: <20260803-nwl-dsi-fixes-v2-1-1809a0ac453f@geanix.com>
+References: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
+In-Reply-To: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
  Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Linus Walleij <linusw@kernel.org>, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785769029; l=3859;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785768991; l=2620;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=bqdZXy04IePD71NX1IPGcT1EZ39CRd/G13MuL02gH5w=;
- b=B1TsBn3U/VMAfax411RNuwNZU4OpyE8F98DRA+Osv0YSkU1V0Td2L3x05rkSHC76/CaCBoISw
- z8Hmz+N2paBDjr3jMS3e0jHbKc0P/LmuXivBMo3M3wh1udR0z4w3j+A
+ bh=bElw+EC3BtkVujNhRAmFC3bBhwHEY6yVLOiO9cFKvzY=;
+ b=tf10PB+CdHMCQittUe4/dypD0qXYyGWbETuSqWW3UIIV6Pf93oVO00lajlamdE7fC06Jmp/Bs
+ p6IhUBmJ3ujAarryS04mLHPzJfs1fDz0Q2rugS5ImS74JU/a5LokM/7
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,101 +69,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This adds support for using SN65DSI84 in single-link mode with output to
-LVDS Channel B.
+When using DCSS with NWL, overriding the mode flags to enforce active high
+sync is preventing the use of active low with downstream bridges, such as
+ti-sn65dsi83, which will not see such mode flags set by the panel.
 
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 34 +++++++++++++++++++++++-----------
- 1 file changed, 23 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/bridge/nwl-dsi.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 5551845ea0dd..b830538b405b 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -11,6 +11,8 @@
-  *   = 1x Single-link DSI ~ 2x Single-link or 1x Dual-link LVDS
-  *   - Supported
-  *   - Dual-link LVDS mode tested
-+ *   - Single-link to LVDS Channel A tested
-+ *   - Single-link to LVDS Channel B tested
-  *   - 2x Single-link LVDS mode unsupported
-  *     (should be easy to add by someone who has the HW)
-  * - SN65DSI85
-@@ -162,7 +164,7 @@ struct sn65dsi83 {
- 	struct gpio_desc		*enable_gpio;
- 	struct regulator		*vcc;
- 	bool				lvds_dual_link;
--	bool				lvds_dual_link_even_odd_swap;
-+	bool				lvds_channel_swap;
- 	int				lvds_vod_swing_conf[2];
- 	int				lvds_term_conf[2];
- 	int				irq;
-@@ -643,7 +645,7 @@ static void sn65dsi83_atomic_pre_enable(struct drm_bridge *bridge,
- 			REG_LVDS_VCOM_CHA_LVDS_VOD_SWING(ctx->lvds_vod_swing_conf[CHANNEL_A]) |
- 			REG_LVDS_VCOM_CHB_LVDS_VOD_SWING(ctx->lvds_vod_swing_conf[CHANNEL_B]));
- 	regmap_write(ctx->regmap, REG_LVDS_LANE,
--		     (ctx->lvds_dual_link_even_odd_swap ?
-+		     (ctx->lvds_channel_swap ?
- 		      REG_LVDS_LANE_EVEN_ODD_SWAP : 0) |
- 		     (ctx->lvds_term_conf[CHANNEL_A] ?
- 			  REG_LVDS_LANE_CHA_LVDS_TERM : 0) |
-@@ -894,6 +896,7 @@ static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx, enum sn65dsi83_model model)
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index 3c9ae93c4f67..915e1bdc73c8 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -110,6 +110,8 @@ struct nwl_dsi {
+ 	int error;
+ 
+ 	struct nwl_dsi_transfer *xfer;
++
++	unsigned int endpoint;
+ };
+ 
+ static const struct regmap_config nwl_dsi_regmap_config = {
+@@ -821,10 +823,13 @@ static int nwl_dsi_bridge_atomic_check(struct drm_bridge *bridge,
+ 				       struct drm_connector_state *conn_state)
  {
- 	struct drm_bridge *panel_bridge;
- 	struct device *dev = ctx->dev;
-+	u32 output_port = 2;
+ 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
++	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
+ 
+ 	/* At least LCDIF + NWL needs active high sync */
+-	adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
+-	adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
++	if (dsi->endpoint == NWL_DSI_ENDPOINT_LCDIF) {
++		adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
++		adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
++	}
+ 
+ 	/*
+ 	 * Do a full modeset if crtc_state->active is changed to be true.
+@@ -1088,13 +1093,12 @@ static int nwl_dsi_parse_dt(struct nwl_dsi *dsi)
+ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
+ {
+ 	struct device_node *remote;
+-	u32 use_dcss = 1;
  	int ret;
  
- 	ret = sn65dsi83_parse_lvds_endpoint(ctx, CHANNEL_A);
-@@ -905,29 +908,38 @@ static int sn65dsi83_parse_dt(struct sn65dsi83 *ctx, enum sn65dsi83_model model)
- 		return ret;
- 
- 	ctx->lvds_dual_link = false;
--	ctx->lvds_dual_link_even_odd_swap = false;
-+	ctx->lvds_channel_swap = false;
- 	if (model != MODEL_SN65DSI83) {
--		struct device_node *port2, *port3;
-+		struct device_node *port0, *port1, *port2, *port3;
- 		int dual_link;
- 
-+		port0 = of_graph_get_port_by_id(dev->of_node, 0);
-+		port1 = of_graph_get_port_by_id(dev->of_node, 1);
- 		port2 = of_graph_get_port_by_id(dev->of_node, 2);
- 		port3 = of_graph_get_port_by_id(dev->of_node, 3);
- 		dual_link = drm_of_lvds_get_dual_link_pixel_order(port2, port3);
--		of_node_put(port2);
--		of_node_put(port3);
- 
- 		if (dual_link == DRM_LVDS_DUAL_LINK_ODD_EVEN_PIXELS) {
--			ctx->lvds_dual_link = true;
- 			/* Odd pixels to LVDS Channel A, even pixels to B */
--			ctx->lvds_dual_link_even_odd_swap = false;
--		} else if (dual_link == DRM_LVDS_DUAL_LINK_EVEN_ODD_PIXELS) {
- 			ctx->lvds_dual_link = true;
-+		} else if (dual_link == DRM_LVDS_DUAL_LINK_EVEN_ODD_PIXELS) {
- 			/* Even pixels to LVDS Channel A, odd pixels to B */
--			ctx->lvds_dual_link_even_odd_swap = true;
-+			ctx->lvds_dual_link = true;
-+			ctx->lvds_channel_swap = true;
-+		} else if (port0 && !port1 && port2 && !port3) {
-+			/* DSI Channel A to LVDS Channel A */
-+		} else if (port0 && !port1 && !port2 && port3) {
-+			/* DSI Channel A to LVDS Channel B */
-+			ctx->lvds_channel_swap = true;
-+			output_port = 3;
+ 	remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
+ 					  NWL_DSI_ENDPOINT_LCDIF);
+ 	if (remote) {
+-		use_dcss = 0;
++		dsi->endpoint = NWL_DSI_ENDPOINT_LCDIF;
+ 	} else {
+ 		remote = of_graph_get_remote_node(dsi->dev->of_node, 0,
+ 						  NWL_DSI_ENDPOINT_DCSS);
+@@ -1103,11 +1107,12 @@ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
+ 				      "No valid input endpoint found\n");
+ 			return -EINVAL;
  		}
-+		of_node_put(port0);
-+		of_node_put(port1);
-+		of_node_put(port2);
-+		of_node_put(port3);
++		dsi->endpoint = NWL_DSI_ENDPOINT_DCSS;
  	}
  
--	panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, 2, 0);
-+	panel_bridge = devm_drm_of_get_bridge(dev, dev->of_node, output_port, 0);
- 	if (IS_ERR(panel_bridge))
- 		return dev_err_probe(dev, PTR_ERR(panel_bridge), "Failed to get panel bridge\n");
+ 	DRM_DEV_INFO(dsi->dev, "Using %s as input source\n",
+-		     (use_dcss) ? "DCSS" : "LCDIF");
+-	ret = mux_control_try_select(dsi->mux, use_dcss);
++		     (dsi->endpoint == NWL_DSI_ENDPOINT_DCSS) ? "DCSS" : "LCDIF");
++	ret = mux_control_try_select(dsi->mux, dsi->endpoint == NWL_DSI_ENDPOINT_DCSS);
+ 	if (ret < 0)
+ 		DRM_DEV_ERROR(dsi->dev, "Failed to select input: %d\n", ret);
  
 
 -- 
