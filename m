@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E0C0C55838
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:11:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 850C1C55184
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:11:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6EE910E726;
-	Mon,  3 Aug 2026 16:11:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BECAF10E728;
+	Mon,  3 Aug 2026 16:11:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b76Ugon1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K286SQLy";
 	dkim-atps=neutral
 Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
  [209.85.128.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47DC110E723
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:11:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5770910E728
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:11:36 +0000 (UTC)
 Received: by mail-wm1-f45.google.com with SMTP id
- 5b1f17b1804b1-493b966dd74so12668975e9.3
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:11:34 -0700 (PDT)
+ 5b1f17b1804b1-49554ebb87dso19346115e9.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:11:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785773493; x=1786378293; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785773495; x=1786378295; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=2K51/FwVv7xc1HWMtJnTlI6NfH3sfU8zC/PFmRYZpYI=;
- b=b76Ugon1a0Oji221DtykvZ2GkO4udyCWYwbf1mmIgvT7ZnBF19nFJEsfbmWM+K2kvQ
- 0CkYgB2DusS9Zjr16u+4XNZh2fJmhWdao57fmVOkwAW4MMiCqpA/Ie8lsV/tx0q8Lcss
- Zxlx61rVDu87H+Ya5tcsvIAXI4jkLVgJNBOeFZ5sHlMGjvivRJ0RWyAT6q6P4ylxQ7o+
- 6Q97d/jqm5ktNOUgUGPkbI0oaT/DGItmgg8qML/rLH8O4BBvd2NOnmnX/seIGNU4NTMm
- TnqY5oQZMq9LOrBY44A6shbxzuYO48nkVTJXzxFNRb2HTLGq1avBrcS5H0ieG6CaLXnk
- fDCg==
+ bh=dQSiWGawSQuy9JjtPPgjfFND1Bm19QyKn7xZ0H2UpZ0=;
+ b=K286SQLysZoN0PBIunPmgXhao7yrM19Py/FiP0BtGb27hM6dTchVQgChGbjoMOEeNW
+ zAfsBFwdMotrSX475pRPNOWtu1MxmwSEyRLWKM4KYJGVT76WQMrY7rjNmQKl8uhxhHyO
+ bNkPufd+orrT4GhFyfJO3hnZCrSLyknHCi0ZPSRqAQ84+Ui+LJYbbXLMTqaRYj8SsTVE
+ W74yHhsoiATuEoox1d9/+MCi3fdQZ64BrzlIdw2dTBSEulP8ct3MfigBOL4bplUFUBGT
+ Rm54QLq5Bp+Q8fDxLoQaYwd4gomXvE1w4dQEUwYaufXkmX77c5JqU7TRq6f4thXE7XCD
+ JBOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785773493; x=1786378293;
+ d=1e100.net; s=20251104; t=1785773495; x=1786378295;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=2K51/FwVv7xc1HWMtJnTlI6NfH3sfU8zC/PFmRYZpYI=;
- b=M85uzVv7/EgNILzNkWx72WHyHoCtU4nkMnvDYY2WPmWnT1lgRWdUEfZp2ht44sBlpN
- FAXDfUCES1gHyLhG0CmJU2lJEuaJpZ2PYQyDSGBDoDvVPz/zA/UubPNEEiTSz4wi2vC0
- vcAPRl49RWtnkc+rKPeZAghCJbbKkjBe3utp1ccR7VcZqj75gl8u1186/sAlukTOicB0
- Su/r9wJYyiXDXBNU1PyXVnr2EADhw6yEKukykWZEmaZPSU3KB8W6hALWwYKU2YqrplUa
- 66PFpNhbG8vBsJwaJYRVmcdfdFQ+TUDPE335PDm/esBqzwICDZCe5wQovQQ3FO6Asfj2
- gOWQ==
+ bh=dQSiWGawSQuy9JjtPPgjfFND1Bm19QyKn7xZ0H2UpZ0=;
+ b=fyCqi74j+Yf2OmEmVGt5NtwsE5YijJtdh5uxiuHvi6eg5YjhrFYZ9XqbDDDUfG7Vgs
+ DOksug3ELx5lmct4vWwO/ih1tXRg978pDt/kbxd0ic6TOtltdHJUWCQVxrl9tdXK7NqO
+ zi6POrIBu1r8tmueqzTUXyJoTTqNclKbrTqUnJ1eT54pnDsy8I723ZjmzemvHptT6+Da
+ yCqo+qG0VX7J4Rrtbu4bGA1asLmnOFRpWiC+iVd5vf05IgHAZCxguCc0ZyAMezLABK2t
+ m1Pb6XEKE61PP/BGyT6Rv+coEwnme8c7g4Ox2KN2ypfbqsBRq01/uJ36Bgbu9pZmYKNF
+ s5Kw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqKZmFBeCKlejrkQy2Blvriz9e4m0YkuudfJV5W8qvlcrOkqZkuWNi2vwfDyLyBMm+0Nhxw5PbSoOI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxz04nQFriKZDS0d7V2r89xdFW9zxaj0QVgVw5aQtt6U3Kmeib8
- Zgv1TqZZWpyL2HwF3UzNYvtb8s4h4XVANmW0uqet8y+3JsNKAM0GewjL
-X-Gm-Gg: AR+sD10wBw0NqNUAN3Hc/TzJhSrVIAXk6ZYZf/yxAAfV2m70oh7UF0UBTq3frFUVHKG
- +vv3aK/yL6ViQb1WfxK1YX6Y8ocfww1u5dyDg3tYAmcjYNTXiQ+yA+QlewRbp2ZGWn0Aj+IdBCn
- ReQZ5CwD6SEgjAjlwr19WyqzuI8tyz1MHzfuD3HGOUOO2fFSyyGz8KLSGmUd67Xs0QgFkDgpEa0
- WckQG5cWQFSlTuT2R8VEEkHXPcKSaQW9Y4XI9M4+4AJTm1I49iMQ0JOqMJkqiHKReHn7O783MBH
- zz1ksl4tX2JMRNQWSw5uOAakS2uybi5JWrC30r14zSQqu4Z6uluvtkh2pYd8H/N4NtDt3GXC2UE
- 4+KFLNeBcc7wUXDqnYMttEET8lfL+o0nqyC7Eh8nxPxcsQlHektkS0zuFNiZuP8olfbqjiMnmEf
- rcSaZ4GQaNK0b17JKS0y1RVQb3Mis4f/wmDP/am9KYmVceCQQwANVk3AaFxRMI6i7YXHMPJy1i5
- rZ3E7g88DaWGvpy40CAAkF6GX8+qkkpEFaJSTbFJhxoHsxerMQzZIODbkBi6xn9sMo8m2HXOU8j
- 3PPgWvkcVhQXCuDZtE/QrxdYnu0Z5rJBoEMfHsJBhZSYqEKUJWS4MjFSiS+sYBLnKEg3+95wPiR
- h+lM9I/qU8AhHdeBj3QV4yjCImTDngTIkGi1ZfpHKf9SiswALP1AkCx0CXqeN8xvkARsuR5shmh
- qBeQ==
-X-Received: by 2002:a05:600c:4444:b0:493:f5bf:4dc6 with SMTP id
- 5b1f17b1804b1-4980c645e1amr227533685e9.7.1785773492549; 
- Mon, 03 Aug 2026 09:11:32 -0700 (PDT)
+ AHgh+RoaQ2sGolx/onbtFvg2Ij3stBIt2qX9Hucg8umN4rcDNFaL//gtB2XYFcq9y5IX1LH5t8gTt6DfH1I=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzk99ZB31QNVziRqCMUydCPKisLnweaxGLtICL3tDVTBpIhS3En
+ BWUAEsNirTpwnoRTmlhZhEIzgqIMCibRk7doyBez0DajNgdl8KaS2alP
+X-Gm-Gg: AR+sD116TtiACqPsokcVt5dHkmMMenvztcbnPrSByobPxhkLqID/u3NHm90UweFNLdu
+ VYx5k3aGFogb3r4GqJy+JkD+qurM7ziYcUKADme4TkO5T4DPXjk91lr1OXDZRhXFCYeX8ypQxjQ
+ MYnE1bOLUPWRz8W/qt2a39sHl5zr5jLONEoZZ7Zhid1QrVOevDxLGnu+giSdvGxOkP7U43ftckU
+ P7m2SZqxUHFeoeKLwdtmMKdGKni6vKa8jq2YCBIPkfn9OB6vYTGtK5Jr8EkIE3P3ZH4ZkuGeStj
+ rV/anVpauAj10Sqc50tcdt7kehm2xjEVh7wrPp0nP12VdI10/pQxeCaipQL1hbxIOc+ZkE3TMIg
+ GDcLzHTKkdOD7o5ifeQN+Tfq/6IHkJAinh0m5kwAHwXs+7oARbrlm+grcMuMjQ1IMoehYMvD4fy
+ gmkW1IvCdtx5bsb6FYb4wcNiNgel1Ts7OdG/sGiwfDzW+USFGUT5cqqZeUfvjXcLadai/voE4Zp
+ Pp9wccoiFGD64thhByl9aVxr3sVc9Y03VQ5d0tw9n6sAly8bnZB//9d1rAmOMRm4ID12wWrtq8U
+ 1awv6EulVc/sT1E7hMHOnl4lTr4xbAUxvlZpnk0nzO0MmhxYHJZQSDLd5LlPRSA7kZw5KNLBwea
+ FzZLZ5Ewp4YFdxUHoGcwwD+4hcGRa9UYirQwsq/rolTsJr/bHSXboGTta+6N004eiY8n2UowGMo
+ gdsg==
+X-Received: by 2002:a05:600c:354a:b0:495:4e89:3f30 with SMTP id
+ 5b1f17b1804b1-4980c673874mr224712255e9.15.1785773494475; 
+ Mon, 03 Aug 2026 09:11:34 -0700 (PDT)
 Received: from jernej-laptop (APN-122-100-117-gprs.simobil.net.
  [46.122.100.117]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49949fc2da2sm3363735e9.3.2026.08.03.09.11.30
+ 5b1f17b1804b1-49949fc2da2sm3363735e9.3.2026.08.03.09.11.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 09:11:32 -0700 (PDT)
+ Mon, 03 Aug 2026 09:11:34 -0700 (PDT)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: wens@kernel.org
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
@@ -73,9 +73,9 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
  Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH 08/13] drm/sun4i: crtc: Propagate layer initialization error
-Date: Mon,  3 Aug 2026 18:10:46 +0200
-Message-ID: <b26a0d427d9dfae9c82e3ca90a67d24d8ece5a28.1785772659.git.jernej.skrabec@gmail.com>
+Subject: [PATCH 09/13] drm/sun4i: tcon: Drop remote endpoint reference
+Date: Mon,  3 Aug 2026 18:10:47 +0200
+Message-ID: <3f5ec952ad80cb51efebf2fe230df50259041a23.1785772659.git.jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1785772659.git.jernej.skrabec@gmail.com>
 References: <cover.1785772659.git.jernej.skrabec@gmail.com>
@@ -96,34 +96,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-sun4i_crtc_init() returns plain NULL when layer initialization fails,
-while all its other error paths return an error pointer. The only
-caller, sun4i_tcon_bind(), checks the result with IS_ERR() and happily
-continues with tcon->crtc set to NULL. sun4i_rgb_init() and
-sun4i_lvds_init() then dereference it in drm_crtc_mask(), which
-oopses.
+sun4i_tcon_of_get_id_from_port() never drops the reference taken by
+of_graph_get_remote_endpoint(). The function is not only called during
+bind, but also on every mode set through sun8i_r40_tcon_tv_set_mux(),
+so the leak accumulates.
 
-Return the error pointer instead.
-
-Fixes: dcd215801b02 ("drm/sun4i: Drop primary layer pointer from sun4i_drv")
+Fixes: e8d5bbf7f4c4 ("drm/sun4i: tcon: get TCON ID and matching engine with remote endpoint ID")
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun4i_crtc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/sun4i/sun4i_tcon.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_crtc.c b/drivers/gpu/drm/sun4i/sun4i_crtc.c
-index c2f7f69baf75..3fa1f4fda0f0 100644
---- a/drivers/gpu/drm/sun4i/sun4i_crtc.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_crtc.c
-@@ -208,7 +208,7 @@ struct sun4i_crtc *sun4i_crtc_init(struct drm_device *drm,
- 	planes = sunxi_engine_layers_init(drm, engine);
- 	if (IS_ERR(planes)) {
- 		dev_err(drm->dev, "Couldn't create the planes\n");
--		return NULL;
-+		return ERR_CAST(planes);
- 	}
+diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+index de2d66623f7a..67047e3b657f 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
++++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+@@ -972,6 +972,7 @@ static int sun4i_tcon_of_get_id_from_port(struct device_node *port)
+ 			continue;
  
- 	/* find primary and cursor planes for drm_crtc_init_with_planes */
+ 		ret = of_property_read_u32(remote, "reg", &reg);
++		of_node_put(remote);
+ 		if (ret)
+ 			continue;
+ 
 -- 
 2.43.0
 
