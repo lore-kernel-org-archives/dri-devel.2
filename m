@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B1A9C55ABF
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 18:05:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 788E9C56208
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 18:05:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E21CD10E75C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A93410E75B;
 	Mon,  3 Aug 2026 18:05:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ICUmLR/X";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="S2vhX5pP";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61C2610E74C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4875410E741
  for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 18:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1785780304;
- bh=3bTbYsMSWqF5XgaTC49zBPKwudZfExbdC/3I2Nchkvs=;
+ bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ICUmLR/XfOBw9XphkA581gv712OasV97KqKyJIQsvYNZhryo5WGaRcNAp93UXXFB8
- 3uV5fB/x/oX6FfFsYrAJY9I5q7r7Wb9+ikVla+HZh7ewpNqFW5Shuykfs2mMnWfht+
- H9Ewkc3MbJXHzeG8fEve1vWB5LpaLzc86c3qDVFr/6KeKhjs2EtHmnc8dyA3U1Itlq
- /Zv6yZC+NcqTaf8/zm89kTvET/o1S4XF6oheM2SOr70eX/Itq/4aiOeaNByPm5eMdQ
- MBhmYVxY+L00nrg6OsCsb45mWt+q/xRgXke0O3bkW65ekPlcZdq+yxH6N7oRSWv3RI
- ReUXbIHN9S0yA==
+ b=S2vhX5pPJZ6qsJ3dRVOK5hHZgtJzfoKxDf5BaktPx2ggykjXmaL66AcvrVoKB63We
+ V74kytV/MNiI1fVkLbMobZbk2xKst3bkS3YvqQ2wVP2CCyhUvIMyKxDHy2bN2qAl6e
+ jJrlxvsShbTYa4bsyYe/FUqA5zBlXHBzO90YRwPh3ej66Ow5X+d8+uUSbQp07UduLF
+ HXhU/7QPt9Rxbm0T7QZas+TUUhaZDcJo5XK4hr57MPjlK6KGgwcNZtuBa6U01aSXEc
+ 4Jc4hON6b0jJtnI+SU2NhR8xxC0EJkrwYZ4m/Sz3OD2Z+4T66QLDZHQDMwU/qaDjgE
+ kVze0ae2K2Auw==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4602B17E11EA;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 3D42D17E11E6;
  Mon, 03 Aug 2026 20:05:04 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 7382348004E; Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
+ id 720A448004C; Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Mon, 03 Aug 2026 20:05:14 +0200
-Subject: [PATCH v9 13/22] drm/bridge: synopsys: dw-dp: Support software
- triggered OOB HPD
+Date: Mon, 03 Aug 2026 20:05:13 +0200
+Subject: [PATCH v9 12/22] drm/bridge: Add out-of-band HPD notify handler
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-synopsys-dw-dp-improvements-v9-13-2e6e46135312@collabora.com>
+Message-Id: <20260803-synopsys-dw-dp-improvements-v9-12-2e6e46135312@collabora.com>
 References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
 In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3664;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2377;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=3bTbYsMSWqF5XgaTC49zBPKwudZfExbdC/3I2Nchkvs=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpw2E66dD4QDdNyFLdlA2nglpsh842CtById
- LNusQT55ZS7V4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqcNhOAAoJENju1/PI
- O/qaqz4P+gOV3NggeaKXaGWPG30ykPxgN62VoiG8lm5ZoUsBzA8vy6YpjxpjPe3WHK7UKTKnXon
- HWexxX0+W9XDxZFrJMdL99Un8+ELgxNVEHJqgviWfE5ezSvR48eYdgMktlHVZM2p/9nXNarleTa
- eEJKsDeNa+4zc2935NEaY6kzsnJGvgrWG8JbkcdnWQGr77HtHy3LLgAvDsJUCvwWB7RqWUb4GbS
- l7i72jhXoQl+2qDX7y+Xrcu2NkR/y1ZhA62cV/OlgrFvIkzTpJQSiklmm4NOU5OyIsbk4kDvqem
- +ovC+yhSsvBCAs5Bh1vw8g5l1GXbhmTnF5XJKtOMMOmalTGR29BIb0FD+9Z5HkgiY47Y3EH8Xj4
- vwVlTdFpHQY0bMnvmjHflqiv+HJ6fDRLXi9Hhq65aNfWAyjza8Jl4i/P7GTmBEqGEq2whG+Hgej
- 4OgdLp9o7fxzywcvEGBvnTws/1HgPKIy8iuOkyfmxToaRKK9wCo0FIrHyCk4KZNJVHVU4vJHO6N
- k0RXkgW+uFCDlAO6/hVHjPRTR3MXm2DCMTg96J9mjnJJdE97mS2V0WIz6CLm++hoZtO1qxEk7n6
- mYW4PK/YFjJiyO/FLZJlPgixHOWcMhtBMpkME8eGCSVKz+IBVt9qjzpJDmdz9yDctKG4P3k0+ZX
- vfRBVMZrTv7FIiJP6pnwxaA==
+ bh=rAX8Gkdd0l2SvPThxGwSATdesygL1W5j4bmXRGpe4TM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpw2E7TGTFviK0mQ23q8a18/F3gqxVuSqW3b
+ VzN92r3UZUYD4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqcNhOAAoJENju1/PI
+ O/qaDa4P/2lxII8SdFU+mCdan/NuG2rcTag+x2tacHOZ9vZQKrhFPYEZuSa1X/LSDFUVDuxadIe
+ 3IyGY24aYpnBFfwcIJ8jNfVraCwWvF0EDZs3jjzWoBs5kjJ7myZJmu9zBvbck14pjCYVH7NkoZb
+ 47qoYc1CCNR01Xyrh6RN+tAYQACR474rNbms8XROXTPRYu+or2AX0YQ/bb5KtmdWEx0B0zn8d/U
+ 2hFG9xahJYx2yuvBPUhoZ/6Ig7lSsJT7ePdqh5fIXVv5EWZarX4kgyTXOHJQmvSDLW32iTzIw3P
+ 356qWIE9mkgep+uwCed0210Nt/3kI/ZtISc6L2Nc2j8ksixK3FDbS+Xybva2nDD9rxMa8a255TQ
+ ga0dQIfd1nvQZALi/ZPH2Qor3XnSJ8yxSpqBX7cwbCsciXdHTVlxGnZq59XXR3arbYiIuqhpfCX
+ v5p9dXe2O0yc+tM5VR8NWHwxgfO1LjGjpU4ZDQDg7soVxjuL6bi3wyVDoxUYZ2c/JcGObvrTgXo
+ +9Q2OObCT0Kqrp38fuG68MEh96MyZ04n1uLSeeK4IryBlWK1LNWPmcrLIf/Ity6E3FUkYx1WcjA
+ rOAu+AmaFmAEBdCyjNKAqt7ZZvOoN3xSCQ19FixGc1AnNrfJQq/KU4GMhbJ5Pl6Q/DbsBBST7OO
+ ILQceB+kaAS8ut0wAtwosig==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,109 +98,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for USB-C DP AltMode out-of-band hotplug handling. The
-handling itself is implemented in the platform specific driver as the
-registers to force HPD state are not part of the Designware DisplayPort
-IP itself. Instead the platform integration might provide the necessary
-functionality to mux the HPD signal.
+For DP bridges, that can be used for DP AltMode, it might be necessary
+to enforce HPD status. There is an existing ->oob_hotplug_event() on
+the DRM connector, but it currently just calls into hpd_notify().
+
+As DP bridge drivers usually also implement .detect and that also
+generates calls into hpd_notify, this is a bad place to force the
+HPD status as the follow-up detect call might force it off again
+resulting in all follow-up calls to the detection routine also
+failing.
+
+Avoid this by having a dedicated function for OOB events.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 38 +++++++++++++++++++++++++++++++++
- include/drm/bridge/dw_dp.h              |  3 +++
- 2 files changed, 41 insertions(+)
+ drivers/gpu/drm/display/drm_bridge_connector.c |  6 ++++++
+ include/drm/drm_bridge.h                       | 14 ++++++++++++++
+ 2 files changed, 20 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 577ec42c94a4..7b8a9855ceae 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1895,6 +1895,19 @@ static void dw_dp_bridge_detach(struct drm_bridge *bridge)
- 	drm_dp_aux_unregister(&dp->aux);
- }
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 8b54069fa53a..632cc3ae3b54 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -180,6 +180,12 @@ static void drm_bridge_connector_oob_hotplug_event(struct drm_connector *connect
+ 	struct drm_bridge_connector *bridge_connector =
+ 		to_drm_bridge_connector(connector);
  
-+static void dw_dp_bridge_oob_notify(struct drm_bridge *bridge,
-+				    struct drm_connector *connector,
-+				    enum drm_connector_status status)
-+{
-+	bool hpd_high = status != connector_status_disconnected;
-+	struct dw_dp *dp = bridge_to_dp(bridge);
-+
-+	if (dp->plat_data.hpd_sw_cfg)
-+		dp->plat_data.hpd_sw_cfg(dp->plat_data.data, hpd_high);
-+	else
-+		dev_err_once(dp->dev, "Missing platform handler for OOB HPD handling\n");
-+}
-+
- static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.attach = dw_dp_bridge_attach,
- 	.detach = dw_dp_bridge_detach,
-@@ -1909,6 +1922,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.atomic_disable = dw_dp_bridge_atomic_disable,
- 	.detect = dw_dp_bridge_detect,
- 	.edid_read = dw_dp_bridge_edid_read,
-+	.oob_notify = dw_dp_bridge_oob_notify,
- };
- 
- static int dw_dp_link_retrain(struct dw_dp *dp)
-@@ -2041,6 +2055,19 @@ static const struct regmap_config dw_dp_regmap_config = {
- 	.rd_table = &dw_dp_readable_table,
- };
- 
-+static bool dw_dp_is_routed_to_usb_c(struct drm_encoder *encoder)
-+{
-+	struct drm_bridge *last_bridge __free(drm_bridge_put) = NULL;
-+	struct fwnode_handle *fwnode;
-+
-+	last_bridge = drm_bridge_chain_get_last_bridge(encoder);
-+	if (!last_bridge)
-+		return false;
-+
-+	fwnode = of_fwnode_handle(last_bridge->of_node);
-+	return fwnode_device_is_compatible(fwnode, "usb-c-connector");
-+}
-+
- int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
- {
- 	struct drm_bridge *bridge = &dp->bridge;
-@@ -2064,6 +2091,13 @@ int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
- 		goto put_next_bridge;
- 	}
- 
-+	if (dw_dp_is_routed_to_usb_c(encoder)) {
-+		dev_dbg(dev, "USB-C mode\n");
-+
-+		if (dp->plat_data.hpd_sw_sel)
-+			dp->plat_data.hpd_sw_sel(dp->plat_data.data, 1);
++	/* Notify all bridges in the pipeline of hotplug events. */
++	drm_for_each_bridge_in_chain(bridge_connector->encoder, bridge) {
++		if (bridge->funcs->oob_notify)
++			bridge->funcs->oob_notify(bridge, connector, status);
 +	}
 +
- 	return 0;
+ 	drm_bridge_connector_handle_hpd(bridge_connector, status);
+ }
  
- put_next_bridge:
-@@ -2100,6 +2134,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 58fff047f43b..713652fca033 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -540,6 +540,20 @@ struct drm_bridge_funcs {
+ 	 */
+ 	void (*hpd_disable)(struct drm_bridge *bridge);
  
- 	dp->dev = dev;
- 	dp->pixel_mode = plat_data->pixel_mode;
++	/**
++	 * @oob_notify:
++	 *
++	 * Notify the bridge of out of band hot plug detection.
++	 *
++	 * This callback is optional, it may be implemented by bridges that
++	 * need to be notified of display connection or disconnection for
++	 * internal reasons. One use case is to force the DP controllers HPD
++	 * signal for USB-C DP AltMode.
++	 */
++	void (*oob_notify)(struct drm_bridge *bridge,
++			   struct drm_connector *connector,
++			   enum drm_connector_status status);
 +
-+	dp->plat_data.hpd_sw_sel = plat_data->hpd_sw_sel;
-+	dp->plat_data.hpd_sw_cfg = plat_data->hpd_sw_cfg;
-+	dp->plat_data.data = plat_data->data;
- 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
- 
- 	init_completion(&dp->complete);
-diff --git a/include/drm/bridge/dw_dp.h b/include/drm/bridge/dw_dp.h
-index a82412a9e769..79b2cdf0df99 100644
---- a/include/drm/bridge/dw_dp.h
-+++ b/include/drm/bridge/dw_dp.h
-@@ -20,6 +20,9 @@ enum {
- struct dw_dp_plat_data {
- 	u32 max_link_rate;
- 	u8 pixel_mode;
-+	void *data;
-+	void (*hpd_sw_sel)(void *data, bool hpd);
-+	void (*hpd_sw_cfg)(void *data, bool hpd);
- };
- 
- int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder);
+ 	/**
+ 	 * @hdmi_tmds_char_rate_valid:
+ 	 *
 
 -- 
 2.53.0
