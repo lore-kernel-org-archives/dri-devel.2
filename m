@@ -4,65 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04235C55179
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 13:20:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2D2FC55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 13:24:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6951910E64E;
-	Mon,  3 Aug 2026 13:20:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E13010E64A;
+	Mon,  3 Aug 2026 13:24:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="A30PE+Vf";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="C2BVDXKK";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FE0310E653
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 13:20:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785763223; cv=none; 
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8063F10E64A
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 13:24:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785763466; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=EvVRl/yXstn8NkEx27l4Z5npudKXR2KuJnjosYfUq+5qbLqHCgP5dvaXbHXd636UqUV4LnXx8XyULv1ZPkeRJea0OOqoV3vIykSzZB2ZHbm8ukCnTJJmcc7N2YaPnk1iBAkShZ/lqmaco6/t/A8GTQbHy2PvdgbzpIfqL52DwbE=
+ b=iQda+jXa4ObWd1OpAuOfe8pVvgRFkZcFAhHlQVrSgVPc49t25B1clVVSA2q8yt1BMqT1ETiDUJKcEk6JFPydngJtZTsRQ+mJTDYMDiraUs5nah1xlEwQSLgaC3gvzl/bim1jYqDLI5Y2Fqpiskdei4r+H5HuoO9rqzq3vCP22W8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785763223;
+ s=zohoarc; t=1785763466;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=3XDs2AL6dDQ4H+CdWU65MVevEoVYOrc0yGy3mX2p2jE=; 
- b=CNrEOnakREEaj1lXADE8lJD5R0McKwFAf+fX7lCbj/vigvMKNNrIgT+ADDVM7Hwg4cUJobTmF2qJzqjc442TMurLFhO95dmS1LdgLauzK35YvIomR9ocAAdlijtX7FHGMgVijii0Onx3pPG5ZUhR7gi2d3a4CaLuqb7FOCz2Ous=
+ bh=lQ7W80MyLGC4g6TQVRHVS4jqxiCOFRgPhA4MHHto2h4=; 
+ b=DQO+XsfpR4SuneJRvJMVC1mIiH+N/OrSB7YkVAKjfdxuP0X3shK7JVCGRTrHB1b5J8oyBWsg4Sy/KUXbK0zRQto5y/Kc7iQgkawU2WSYTi4JrLpJfmyXoAZ21EvXmwqYkFszWPRIh/uMwSfvz87Q+EcQLhyt74KWmMddIDxqef4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785763223; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
- bh=3XDs2AL6dDQ4H+CdWU65MVevEoVYOrc0yGy3mX2p2jE=;
- b=A30PE+VfdbTWRMbr585ir6P6g2kEFP6YXQt2tbkYWoggOXt1JSt5BFXQJTziwoXr
- v7RBojQnjt2Oe9iBXlo6yl5s56gO2l8uiprhS89qOdc+oLABFbT2mx5pprcvJFi15jW
- lt8naiysz7DOzGZzf6WMZXOiY701X9Z8GowP7OsI=
-Received: by mx.zohomail.com with SMTPS id 1785763222071159.7552701038611;
- Mon, 3 Aug 2026 06:20:22 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785763466; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=lQ7W80MyLGC4g6TQVRHVS4jqxiCOFRgPhA4MHHto2h4=;
+ b=C2BVDXKK+fe1ExBLpGmi9cFtGO/+HeSpprIrmumVp09xPwoaNmpviVgltTRkd+8f
+ 9/rwc0v3QEmaWg15gQzCjpdVCq2sL+g4WGiy4yANNvkx70g2YbDmvvuW5bM5f9PIldB
+ smcOO220uadEIoYOO+35eQt2Qzrxg24+3mCkTzwo=
+Received: by mx.zohomail.com with SMTPS id 1785763465078767.4008380254238;
+ Mon, 3 Aug 2026 06:24:25 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v5 0/4] Clk improvements
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <anCSTCxDpFtKmOgj@redhat.com>
+Date: Mon, 3 Aug 2026 10:24:02 -0300
+Cc: Maurice Hieronymus <mhi@mailbox.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Danilo Krummrich <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Grant Likely <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Drew Fustini <fustini@kernel.org>,
+ Guo Ren <guoren@kernel.org>, Fu Wei <wefu@redhat.com>,
+ =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>,
+ Michal Wilczynski <m.wilczynski@samsung.com>,
+ Boqun Feng <boqun@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, linux-pm@vger.kernel.org,
  linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel@collabora.com
-Subject: Re: [PATCH v2 2/3] drm/panthor: Revisit reqs_lock handling in
- flush/reset paths
-Date: Mon, 03 Aug 2026 15:20:14 +0200
-Message-ID: <d8RYWTYuQ0anmClym0IahA@collabora.com>
-In-Reply-To: <fiUy-cD0Q9OOQiaEoz9UeA@collabora.com>
-References: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
- <20260803105324.478ed594@fedora1.home> <fiUy-cD0Q9OOQiaEoz9UeA@collabora.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
+ linux-riscv@lists.infradead.org, linux-pwm@vger.kernel.org,
+ linux-clk@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <B6441EFC-C2E4-437A-9FDF-F18E2CAD36C3@collabora.com>
+References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
+ <20260731183735.15036-1-mhi@mailbox.org>
+ <E20E4FD3-F4DA-4029-99F7-DB4F93AA2994@collabora.com>
+ <anCSTCxDpFtKmOgj@redhat.com>
+To: Brian Masney <bmasney@redhat.com>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,57 +91,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Monday, 3 August 2026 15:13:25 Central European Summer Time Nicolas Frattaroli wrote:
-> On Monday, 3 August 2026 10:53:24 Central European Summer Time Boris Brezillon wrote:
-> > Hello Nicolas,
-> > 
-> > On Thu, 30 Jul 2026 13:45:15 +0200
-> > Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> > 
-> > > panthor_gpu_flush_caches() and panthor_gpu_soft_reset() would read (and
-> > > even reset) the contents of the pending_reqs register outside of holding
-> > > the reqs_lock.
-> > 
-> > Can you elaborate a bit on the race being fixed here? If pending_reqs bits
-> > are truly cleared before the wake_up_all() call (which would require a
-> > WRITE_ONCE() to be enforced, admittedly), there's no risk for the
-> > wait_event() call to do a test before the bits have been updated,
-> > and this holds even if the test is done without the lock held.
-> > 
-> > The other race I could think of is two threads calling
-> > panthor_gpu_flush_caches() concurrently, and the second one stealing
-> > the FLUSH_COMPLETED event the first thread waits on and re-issuing a
-> > second flush on top, thus delaying the completion for the first thread.
-> > But that should be covered by the cache_flush_lock.
-> 
-> panthor_gpu_flush_caches() is not the only thing that sets/gets
-> pending_reqs. Notably, the threaded interrupt handler does, as
-> well as any other functionality using the same member for reqs
-> tracking (e.g. the soft reset).
-> 
-> Consider the following serialisation of events:
-> 1. T1 asks to flush caches by writing GPU_CMD and setting pending_reqs
-> 2. T1 drops reqs_lock.
-> 3. T2 enters IRQ handler for flush complete, spins lock waiting for
->    reqs_lock
+Hi Brian,
 
-Minor correction: Imagine 2 and 3 reversed here in a non-IRQ-disabling,
-variant, otherwise "spins lock" does not make sense. With an IRQ-disabling
-variant, ignore the "spins lock waiting for reqs_lock" part. 
+> I can also provide an Acked-by here for clk. I'll admit that I'm not a
+> rust programmer yet (planning to learn this coming Winter), however if =
+the
+> rust maintainers are happy with this, then I'm good.
+>=20
+> It looks like there may be some outstanding comments on this series =
+just
+> skimming the comments. I'll wait for the next version to leave an
+> Acked-by.
+>=20
+> Brian
+>=20
 
-> 4. T1 sleeps at wait_event_timeout
-> 5. T2 updates pending_reqs and wakes up the waiter in any order, since
->    the effects of those two can't consistently be observed as sequential
->    logic without the outer reqs_lock being held by the observer
-> 6. T1 wakes up, checks pending_reqs, but since pending_reqs is checked
->    without holding any lock, so we implictly depend on the synchronisation
->    point that is the waitqueue's lock rather than the reqs_lock spinlock,
->    which says nothing about whether the pending_reqs change materialised
->    on T1's side yet as far as I can tell?
-> 7. T1 sees that pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED is still != 0,
->    so goes back to sleep for some future wake-up of reqs_acked or a timeout.
-> 
+Yeah, more people chimed in :)
 
+Cool, I will ping you again when I send a new version.
 
-
-
+=E2=80=94 Daniel=
