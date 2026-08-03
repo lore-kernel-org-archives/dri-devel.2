@@ -4,42 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 937F6C55179
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:56:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27BF2C5518F
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:56:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA92F10E6CD;
-	Mon,  3 Aug 2026 14:56:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C6F510E6C0;
+	Mon,  3 Aug 2026 14:56:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="uNzMgbNs";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="mCzUfzZR";
 	dkim-atps=neutral
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch
- [79.135.106.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9082C10E6E2
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:56:38 +0000 (UTC)
+Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
+ [109.224.244.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D78D110E6C9
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:56:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1785768996; x=1786028196;
- bh=bm4q2aoJhc6SLCSs6kkxL7x3OeC/21eQOQIMKY2W1FU=;
- h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
- Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=uNzMgbNsWtnMXXlgKUi5D9Gtqg80xp1oewvXmpmVqSM1qfjzNHDczjsUFxHejvOhM
- 7REzpCGIybaUBTKxgxUFsdNygDYtjYBY7/++3qhplrp1TjSaxi7N++lzUT83hNv35v
- qkN+kM0AMQnbIW5/+PywaZIF8xnjm6bFtaeKuAtFYHZ2Yc6wep3ivkASrhxcfm9CZd
- I/0EyrZ8DSZIC26DI0oKbAVhcLhKUAAmIl4duZIyT4NhHd9MsmXf2DJjBwA5hO1qPj
- 8fbY5yZLcH/3gpyvK4e3kxWpD+umWIueXh4pz5RX4tLuJuFYZ2Tj+C9Cxgh3CrPPMb
- Ffldx0ZmaI37w==
-X-Pm-Submission-Id: 4hDKWN4CgTz1DDLT
+ s=protonmail3; t=1785769001; x=1786028201;
+ bh=gqaBtFR4Z/07WCeHUHqgkYtBAsl6+84WQQkcCa8NAxM=;
+ h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=mCzUfzZRHUtKvG8MGDy2T/LdSRzsBKMjObqByztZlE3ogB3Wx2mzq+dIVqGScY+lf
+ XCc1oHQuNAdGqvhLKHfFG50BSLsg4UmXCemip/AyscEcPfD2kBVPwzcWW3cvURed7N
+ aPvqL3Ssfk9/I2FKzrt+R6rJP2qeUkUDUC8/feAULgo+HZzj3OPnyZOfD1PVpNoK1Y
+ bVKqSmandYv83a1xhWjM4arcG+x2Jk7yJwsB/K+/1mTxUBG1U1FoMZuCjXFGeIdApw
+ V1DEBuKKUZncgHdo63ZA+Bq1iNQL63P/868nUNLmbBJ9k437j1Zpi9IseKZAIOGEz+
+ fTWaTTHfUk7Qw==
+X-Pm-Submission-Id: 4hDKWW2yHkz1DFF7
 From: Esben Haabendal <esben@geanix.com>
-Subject: [PATCH v2 0/4] drm/bridge: nwl-dsi: Various fixes
-Date: Mon, 03 Aug 2026 16:56:18 +0200
-Message-Id: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
+Date: Mon, 03 Aug 2026 16:56:22 +0200
+Subject: [PATCH v2 4/4] drm/bridge: nwl-dsi: Add error handling of
+ nwl_dsi_mode_set()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf4X07Jq2USie/A/DobQrrNHWdBExh
- H+34Nnjy8ybmQVjImRxKmaRcCSmGDLoXSFcb0OHQD6z0FKXslISwvsOngmuNCGDUwfTSuvb0hx
- Fdp4JtyArl+bH/Gpv6IZ1ZG30xENMn+1wVGvv3/aoQEKtK18rY01p/blDG2jau/gQzbIsX4JZG
- OO9AAAA
-X-Change-ID: 20260710-nwl-dsi-fixes-c148b0adb685
+Message-Id: <20260803-nwl-dsi-fixes-v2-4-1809a0ac453f@geanix.com>
+References: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
+In-Reply-To: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -49,15 +47,13 @@ To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Robert Chiras <robert.chiras@nxp.com>, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- "Oliver F. Brown" <oliver.brown@oss.nxp.com>
+ linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785768991; l=2012;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785768991; l=804;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=9f+elwfxZa6LosTTskwWLYOnEdaKJa9JfedkQ24JylE=;
- b=bFH6lb21qE3OPDweIp1kGJFsPV3ij09VvG/HrNHnL5k6u83jfKC6i2OjkN8w+PeQsaJO5AMVw
- KOoJQR7CM2CBcmPTbo5cYGaRbGOImG68MTxvsrthQR7eISqzGEVrymM
+ bh=On7LASVbhL6jAPGUOgbfKiflmxrZf2uOOjxZiGuazcg=;
+ b=bBSFj2fIUxpX/hUBTlFhuTuzRP8ObVz6qasMPI7UNewX2FWMzYF1tOeEclgNiLPGY1JNgb5tY
+ hSw0QXMeWG3CQo8JE3QZpJKYJnRP6IvoUCU07p0Hr7emeToOoC//Kb6
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,53 +71,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series brings a few patches fixing horizontal sync timing, EOTP packet
-behavior and hsync/vsync polarity selection when using DCSS endpoint, as
-well as a small fix to properly handle if/when nwl_dsi_mode_set() fails.
-
-The 2nd commit ("Correct auto-insert EOTP behavior") is taken directly from
-NXP vendor tree, so I have kept Author unchanged, although I have modified
-the commit message. Let me know if I should change Author for that.
+There does not seem to be any good reasons for ignoring the return value of
+the nwl_dsi_mode_set() function.
 
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
-Changes in v2:
-- Added safeguard against small horizontal sync timings, protecting against
-  division by zero and integer underflow.
-- Added error handling of nwl_dsi_mode_set() call.
-- Link to v1: https://patch.msgid.link/20260710-nwl-dsi-fixes-v1-0-927d918a86ad@geanix.com
+ drivers/gpu/drm/bridge/nwl-dsi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index 226036d22e3f..08e87d166b17 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -942,7 +942,9 @@ nwl_dsi_bridge_mode_set(struct drm_bridge *bridge,
+ 	}
+ 
+ 	/* Step 2 from DSI reset-out instructions */
+-	nwl_dsi_mode_set(dsi);
++	ret = nwl_dsi_mode_set(dsi);
++	if (ret < 0)
++		goto runtime_put;
+ 
+ 	/* Step 3 from DSI reset-out instructions */
+ 	ret = reset_control_deassert(dsi->rst_esc);
 
----
-Esben Haabendal (3):
-      drm/bridge: nwl-dsi: Limit LCDIF specific sync override
-      drm/bridge: nwl-dsi: Correct MIPI DSI horizontal sync timing
-      drm/bridge: nwl-dsi: Add error handling of nwl_dsi_mode_set()
-
-Robert Chiras (1):
-      drm/bridge: nwl-dsi: Correct auto-insert EOTP behavior
-
- drivers/gpu/drm/bridge/nwl-dsi.c | 95 ++++++++++++++++++++++++++++++++++------
- 1 file changed, 81 insertions(+), 14 deletions(-)
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260710-nwl-dsi-fixes-c148b0adb685
-
-Best regards,
---  
-Esben Haabendal <esben@geanix.com>
+-- 
+2.55.0
 
