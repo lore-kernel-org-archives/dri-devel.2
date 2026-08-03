@@ -4,68 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AA5FC55838
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:11:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87341C55AB9
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:11:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70BBA10E727;
-	Mon,  3 Aug 2026 16:11:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3C5810E735;
+	Mon,  3 Aug 2026 16:11:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HmIv2/Zn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="L7JGu/0d";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E8410E727
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:11:43 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4980fe6b3beso491825e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:11:42 -0700 (PDT)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BCD2310E738
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:11:44 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-47fd4531020so2130301f8f.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:11:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785773501; x=1786378301; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785773503; x=1786378303; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=QwcCW5bnIxEMSTfDGEDmQeCwaEieT0mPnUwcX4qTD6M=;
- b=HmIv2/ZnQvNhe4kETF6AsJMCmjO0iFebJ8TkFMEcKr3B20uR+bKNglFk2NYoRTUCIK
- y4COHEurGq48GvpnFwga/HVOvf3d++pcxkf5ux/xUR/4vAlw+69lpjJ3qvM3yM5nqvRQ
- JhLqMqSTFv/KB5kQ/7BMjW4//wYZKD1vp4H/b8SlbUWanck5eJiBgo/2iXmU6D26Z2Vp
- s5Wg9BB2CEbXiOJWAnJiXU0bOeg9bkUVHeyVtuVjZ1dLLEyrBpPdVp7ZYf5uQZ0YPYYM
- v5HkPQXfiAfFU19xzhnM0qKGJAa9jnVoTI7FPhuCFbzEdpONvesSBalEPl/6jPzEkuBG
- mb1Q==
+ bh=K3+RPMRTD2bspWZ1EZegXMowVkzRDKKmin7c2HjnpVI=;
+ b=L7JGu/0dq39/p7CP5kY7ZjwfwOCeHUwvHfyqRJM3yT6rvBDm07+k0C50pAUJRD2I7d
+ Mc6qv9rRscMt2Hs5kHe5DOmhOIAOCaOtYbWsqZhwcAw0XYxb2IGARx0ocXvJ92P8Ws8Z
+ d1Sucb9ikxHOv4GgG1L5v3GL+mIxD/2oEAx07uZ3ddmLUJ0HUhye9HNBfJ2emSYcorQL
+ UOVQ4Z82H+R7iFA1Vg5RhkR8z0an2EdoM1QCzOpTx8g9edYdTSqY8xHxUrrHguzVtV6t
+ eS/NBLsfDvPewQoTe5DuvZy+0zBwciWX/4rqvNw16YfgAPt8nZNS6lOPu/ZDZrKiDaQ/
+ a0lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785773501; x=1786378301;
+ d=1e100.net; s=20251104; t=1785773503; x=1786378303;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=QwcCW5bnIxEMSTfDGEDmQeCwaEieT0mPnUwcX4qTD6M=;
- b=aoUJqIo5ZM3iXJ0W5I/Jln3Atwk9hiL16yEwkb4AAGQbx7teNRbXRjYextlSiRizO0
- W0G96eyz+7U/cyUM3RrYO5ZCWL7h4AGUAegFVW2EIcHbX2Toai9QIHfg75FMaW6kHp//
- kXYVMWPu9kxGjGzllKZVPIsixEm0sP/V9BB9qDubCMRkO9l4zw2aoTK0/Fxj2lnmNBrp
- v/EHelXo7F26rHWG87VBYyrSMyxkhNvpG1ranM1DfzRfr9CX2og3RrOcGTbrMh7eGUW9
- Xxl4K84A2xAmPHUYlfZMnN594uOkdC3uQny5v6xHLjoKlgVMrPfoQnCbBD3MvYEfqBoB
- eaSA==
+ bh=K3+RPMRTD2bspWZ1EZegXMowVkzRDKKmin7c2HjnpVI=;
+ b=SOE4gj99GCxQSpIz6ScDl1IshrApJA3g5PzrNKXRIirquJh0evq+V42vrdhyurBw1M
+ almjXnH6y4XdCSGUNrYTQ7MNpf3mA4omBqIexoZFT5WOXVpUKO8M9X3zhhiFuMXRunq8
+ Fj1EUwe85t5NuJLH2Dac867MifEQwZapvJ2EjvuQd/Blo5cAhcqj+PzVM1FWo9WVpbcO
+ /9ryGLaHNOpymvzkRrZ83k8ak8xVD6ACQmM0MuQX8gUMIVqXGkU7/PqtyOtkez/LPb3z
+ SSCK/0nGBOqUUPuo5rYIZz5dcpVpwcjgQuebyJKuWKs2bt6PgVLmFX2cjNrEjs3rhHkf
+ +Lkg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rrs1mIj+dA2Qq6dzaH5kJYb6wLaUrH9N/SGXzSZAmfZmSnXuHT32VPRcM6sF5NenCXzRYcwta38BrU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwoulBEZy6Z6gnvj9b0LSAopqZiH+3yAj3si+OcZAGaAzZboHFf
- Nmu+FGZBIA0/lN7k3LZb5BYnndrPeWpZ7kTE8ixdn7wyYWajwoyXpKrC
-X-Gm-Gg: AR+sD1260fXcwmAMgZlsTTijfUbUZ6EovnowX8AvJVzXbDiN3WedI9YxOjV5g4pxJf/
- JA3PTaNPcfvG6KYRgXAIAjUfM5hCCMIIx3d3DA1eZK5smal9BzCJBq3l22u3DAhg3q8UWzUXnQc
- LtCvWuvf7f8PjL9CGv6bnpUzdHXdtPpN/EdruTrhEjTeqiisj2gputj0bxQ41T+6dNmRDQTuZfm
- XlBsMkdSpUjvjZvSG5EnaioaDB73/3xIEEx77lJdYQFx0TodZdHwyvV7vtZSVB5zQTyaZa7vsdu
- jyhREUTG9JWroO+lFi3o/GgVTSYLkUD/BLCUtrn3iyfI3VzLHqP2e9LDAh7lhgTvRiTEaDmwtX+
- mhwcXEVMJ0erGc8SPRs5coe/32/VNiNQ6YYX+c/9gxT1VahoxDidFOfbCSornmvUZSXihfb8MAH
- TSm9pD14J8JwON7nmg/GTEvDhR9rLRbfxYtP6HPzbEoGQjTxLU91koGa1B3khHm286JD0NLyS+O
- L9YHHpBqsW2pC4HmtiliQ1qgFFY3wk8zuZA81CSu8GofN3WpAiWwY1Hp9+b3Doz0FmWKq6gleoB
- 1P8ahYZNaaL59mA3/3faPZA/wNKKG1S8YCNg5SNLqnSEBeO61jNooFlDlh3x9UkL9w7ObczUcaY
- aK55eJQaWo/+lIvaQj9AjBhIqAvr8Qm7HbFZ+RC0m1Mn+aeKiwM7xel40fEGojjIewsz882pN+U
- bs8g==
-X-Received: by 2002:a05:600c:8010:b0:495:4f84:7280 with SMTP id
- 5b1f17b1804b1-4994a0f6838mr3426715e9.4.1785773501354; 
- Mon, 03 Aug 2026 09:11:41 -0700 (PDT)
+ AHgh+Rpacs7mlDSKe5Fc4KFWnZxjYZzWGDNk6ojeG0sO5aBrkVU4SrXWGcRJbc+nb2TEyYZjiqdO7Xt/Jk8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzl/iX/Co3hozygMA6cpxI6YafZg3c2TTmJEpXuX+5HzKnGcYlI
+ g00iorCEvEImnsNqGpdY1JdSQQZ2QrMeIj2zEaCaXhBVj1J9SiK7yFnb
+X-Gm-Gg: AR+sD12kOZEw7uwQ5LsjvZhCerP71MBU6vnhFB/UwXPg0QJyBs43Gv3SSicmh0ojBJJ
+ HyA2wnuuT0dy2HZd6zTFuxoLW8jp3He8q6fzKvOTuocqr/0FhebuT/l7+6pOcTw59/mfvSMGzB/
+ KOH/8fLB8dKKe8RNRMfZ9Xw9FVlXWH15q6w3Kuj60g+KyWFtnBB800+yREefCUo5hoWlm3Wz1Mj
+ 8zq/BWEXJS4TTNxvkmsDpKf6a4sJxwtnrk0MaQJainATttxqa+lEzt+xGFqDUCJ8Wb5gJNzLsqf
+ 78rUP6PpUPmPoTSXn3t7Q7i1ELNvCsqYnnfuhbS0fh5d4kKemJ5l7M4aMhCa5Dry8fSooxFt2NS
+ cFPxmwGg6PR1cWlLFEwq6WMWRwTD945H4mECo0dVcnScE1Zl2R7MPzhjSFoJhMcai0Ce+I1WL5T
+ Mrsy3M3xiqs6NaDo7eG2L4OnK483paMbSPkaqcOajFcdZsCAwAU1fXAo4atFrYBn2jiGtWg8jqK
+ HU7IxfD5DAteeD3MPs0Gv9ysUTlQ8M4St/9FFSl7mvxVB5Mpkk2XFoH9lzgMID0ULPrEkEETsmm
+ fb1Kup+EzuIM61LE8Nm12GDj2Pn0sK2wbd7LzX8BsAPG0CZfq+Nfh4gPQFlaYZ55eLLlj7nOPml
+ BlPjm3Sn6KRIE1d4iAJ1j/aRA7zjTDwVoRduMRir5ipGKM7NGnhy3O6OFUCIbahGiacm4NB9bZk
+ 284A==
+X-Received: by 2002:a05:600c:c4ac:b0:493:a623:d090 with SMTP id
+ 5b1f17b1804b1-4980dda1993mr193930475e9.10.1785773503133; 
+ Mon, 03 Aug 2026 09:11:43 -0700 (PDT)
 Received: from jernej-laptop (APN-122-100-117-gprs.simobil.net.
  [46.122.100.117]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49949fc2da2sm3363735e9.3.2026.08.03.09.11.38
+ 5b1f17b1804b1-49949fc2da2sm3363735e9.3.2026.08.03.09.11.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 09:11:41 -0700 (PDT)
+ Mon, 03 Aug 2026 09:11:42 -0700 (PDT)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: wens@kernel.org
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
@@ -73,9 +73,10 @@ Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
  Jernej Skrabec <jernej.skrabec@gmail.com>
-Subject: [PATCH 12/13] drm/sun4i: hdmi-phy: Fix H6 8-bit MPLL config at 594 MHz
-Date: Mon,  3 Aug 2026 18:10:50 +0200
-Message-ID: <aec9060209473b8176eb43bc7c63c20b21306adf.1785772659.git.jernej.skrabec@gmail.com>
+Subject: [PATCH 13/13] drm/sun4i: Align VI buffer addresses for subsampled
+ formats
+Date: Mon,  3 Aug 2026 18:10:51 +0200
+Message-ID: <3980ea1aeb3f7fe8b4700e36560deeba3d050664.1785772659.git.jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1785772659.git.jernej.skrabec@gmail.com>
 References: <cover.1785772659.git.jernej.skrabec@gmail.com>
@@ -96,34 +97,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The 8-bit entry of the last MPLL row (594 MHz) doesn't lock reliably on
-H6. 4K@60 RGB/YUV444, which is the mode that reaches this entry, doesn't
-come up.
+This is a partial revert of commit 79ac1c945ab8 ("drm/sun4i: layers:
+Use drm_fb_dma_get_gem_addr() to get display memory").
 
-Align the value with the vendor driver. Other entries are left alone,
-they are used by lower pixel clocks which work fine.
+Chroma must start at the beginning of a subsampling block, for example
+chroma start address for NV12 must be aligned to 2 pixels.
+drm_fb_dma_get_gem_addr() offsets luma by the exact source coordinates
+and chroma by the coordinates divided by the subsampling factor, so for
+odd offsets both planes no longer describe the same pixel, which the
+Display Engine scaler can't handle.
 
-Tested with 4K@60 on a LG TV.
+Align source coordinates down for all planes instead. Remaining shift
+of one pixel is already compensated with scaler phase shift in
+sun8i_vi_layer_update_coord().
 
-Fixes: 0fb4b858b102 ("drm/sun4i: Add support for H6 HDMI PHY")
+Fixes: 79ac1c945ab8 ("drm/sun4i: layers: Use drm_fb_dma_get_gem_addr() to get display memory")
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/sun4i/sun8i_vi_layer.c | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c b/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
-index 4fa69c463dc4..489ea94693ff 100644
---- a/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
-+++ b/drivers/gpu/drm/sun4i/sun8i_hdmi_phy.c
-@@ -91,7 +91,7 @@ static const struct dw_hdmi_mpll_config sun50i_h6_mpll_cfg[] = {
- 		},
- 	},  {
- 		594000000, {
--			{ 0x1a40, 0x0003 },
-+			{ 0x1a7c, 0x0003 },
- 			{ 0x3b4c, 0x0003 },
- 			{ 0x5a64, 0x0003 },
- 		},
+diff --git a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+index 09f668c8af24..ad036cb9d88e 100644
+--- a/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
++++ b/drivers/gpu/drm/sun4i/sun8i_vi_layer.c
+@@ -197,15 +197,31 @@ static void sun8i_vi_layer_update_buffer(struct sun8i_layer *layer,
+ 	struct drm_plane_state *state = plane->state;
+ 	struct drm_framebuffer *fb = state->fb;
+ 	const struct drm_format_info *format = fb->format;
++	struct drm_gem_dma_object *gem;
++	u32 dx, dy, src_x, src_y;
+ 	dma_addr_t dma_addr;
+ 	u32 ch_base;
+ 	int i;
+ 
+ 	ch_base = sun8i_channel_base(layer);
+ 
++	/* Adjust x and y to be divisible by subsampling factor */
++	src_x = (state->src.x1 >> 16) & ~(format->hsub - 1);
++	src_y = (state->src.y1 >> 16) & ~(format->vsub - 1);
++
+ 	for (i = 0; i < format->num_planes; i++) {
+-		/* Get the start of the displayed memory */
+-		dma_addr = drm_fb_dma_get_gem_addr(fb, state, i);
++		gem = drm_fb_dma_get_gem_obj(fb, i);
++		dma_addr = gem->dma_addr + fb->offsets[i];
++
++		dx = src_x;
++		dy = src_y;
++		if (i > 0) {
++			dx /= format->hsub;
++			dy /= format->vsub;
++		}
++
++		dma_addr += dx * format->cpp[i];
++		dma_addr += dy * fb->pitches[i];
+ 
+ 		/* Set the line width */
+ 		DRM_DEBUG_DRIVER("Layer %d. line width: %d bytes\n",
 -- 
 2.43.0
 
