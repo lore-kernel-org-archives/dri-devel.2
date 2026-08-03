@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C072FC55196
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 19:06:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C3A8C55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 19:11:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0430910E084;
-	Mon,  3 Aug 2026 19:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EBA510E074;
+	Mon,  3 Aug 2026 19:11:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VTy6mRKX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V42jbEtP";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B56AF10E084
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 19:06:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C3D110E074
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 19:11:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1465260AAE;
- Mon,  3 Aug 2026 19:06:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 496561F000E9;
- Mon,  3 Aug 2026 19:06:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C440E60AB5;
+ Mon,  3 Aug 2026 19:11:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB6881F000E9;
+ Mon,  3 Aug 2026 19:11:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785783992;
- bh=KupbQ+6/ZLVWmEy2BVuAvhaLsOv6mXsqhNbcvwmaEaI=;
+ s=k20260515; t=1785784285;
+ bh=CEkB3xaDs0YfnDvaLlwCGFAPS42mAHu8+bIMDJw6FWU=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VTy6mRKXPLPbvorympvkeDYYL5XoG1262ZWf0SN2+hv9lGFDEq60s5DzbAhPFfFB7
- OO3nTZtw0qcqiGbi9gSeqIqLQG/SftYB5mKJrc0kL4npbWMmH7rAtC94DPsg+X2zg7
- 8EKRDuJbbtQuT9tSR6IsPRNtQN1JoTk4Wnwvh4AN4b3dNf0RnK22Xkjjp3EnLIPf3m
- 5XUnvOokQnL2phZyXxp7mPiWU5TXtS5ntv4tuNzyRzP47eMyVaCbF7Mio+RxfZAqAP
- xrwt/Wvm354CyWhq8xJ7SVTwh1+WvtLEh5GP9QWnj5nWL108KhSBf4yX6Vw61/cLpH
- nYuUHXlZw/E7w==
+ b=V42jbEtPHEasv/YwWqUtEjJVvPNxlVam/kdBKspeE4qeAcR1hhRX6R/z6TW+68hNJ
+ gjc4o9QjhAsBcyWnXaruuJgm8M+9+TOceRJYmxqpxK59nbjt1FJvp+uyMbKPNvB/T0
+ 1SrQF7JjkU6I5eh1gaoHpgLQ1dNPFQ081ZLd30rku2pOSTi11KG11vzpgnW346rpdM
+ 8FIrRlJQa0InjOCbz9LwL1rFnTuR/+vwoWleIaOoSMPVdOzI9uEPeMeeKKdbzcajaL
+ 7DOMIKODr1tOXahWrZNuL63DMYpqTtqAbWaQqRud05iZIsj8yzj5621ZZ24nh1zy+f
+ e88NnxMfWCwvw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 21/22] dt-bindings: display: rockchip: dw-dp: Fix
- sound DAI cells
+Subject: Re: [PATCH v9 22/22] drm/bridge: synopsys: dw-dp: Add audio support
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-21-2e6e46135312@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-22-2e6e46135312@collabora.com>
 References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
- <20260803-synopsys-dw-dp-improvements-v9-21-2e6e46135312@collabora.com>
+ <20260803-synopsys-dw-dp-improvements-v9-22-2e6e46135312@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 19:06:31 +0000
-Message-Id: <20260803190632.496561F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 19:11:24 +0000
+Message-Id: <20260803191124.DB6881F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +60,80 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Changing the `#sound-dai-cells` constraint to `const: 1` breaks `dt=
-bs_check` for existing in-tree device trees.
+- [Medium] The result of regmap_read() is used without checking its return =
+value, potentially leading to the use of uninitialized stack memory.
 --
 
---- Patch [21]: [PATCH v9 21/22] dt-bindings: display: rockchip: dw-dp: Fix=
- sound DAI cells ---
-commit 843ed61619d9c1e4f037cc1104f1104af5111210
+--- Patch [22]: [PATCH v9 22/22] drm/bridge: synopsys: dw-dp: Add audio sup=
+port ---
+commit f36ed9436eafc188ce4405c443eb47147a26dbd1
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+drm/bridge: synopsys: dw-dp: Add audio support
 
-dt-bindings: display: rockchip: dw-dp: Fix sound DAI cells
+This commit implements audio support for the Synopsys DesignWare DisplayPort
+controller.
 
-This commit updates the device tree binding for the Rockchip DesignWare
-DisplayPort controllers to support multiple DAI interfaces (I2S and S/PDIF).
-It changes the #sound-dai-cells property constraint from 0 to 1 to allow
-selecting the appropriate audio interface.
-
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
-dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw=
--dp.yaml
-> index 2b0d9e23e9432..c4f8959dd65da 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.y=
-aml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.y=
-aml
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
 [ ... ]
 
-> @@ -83,7 +83,8 @@ properties:
->      maxItems: 1
-> =20
->    "#sound-dai-cells":
-> -    const: 0
-> +    const: 1
-> +    description: 0 for I2S, 1 for S/PDIF
+> @@ -1690,6 +1721,254 @@ static int dw_dp_link_enable(struct dw_dp *dp)
 
-[Severity: Low]
-Does this strict constraint change break dtbs_check for existing in-tree
-device trees?
+[ ... ]
 
-While the commit message notes this is an ABI break and that the mainline
-rk3588 DTS will be fixed up separately, changing this directly to const: 1
-causes validation warnings for existing boards.
+> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
+> +			       struct drm_connector *connector,
+> +			       struct hdmi_codec_daifmt *daifmt,
+> +			       struct hdmi_codec_params *params)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +	u8 supported_audio_interfaces;
+> +	enum dw_dp_audio_interface audio_interface;
+> +	u32 cfg1;
+> +	int ret;
 
-Would it be better to temporarily allow both values using an enum: [0, 1]
-during the transition to preserve CI and bisectability until the dts updates
-are merged?
+[ ... ]
+
+> +	switch (daifmt->fmt) {
+> +	case HDMI_SPDIF:
+> +		audio_interface =3D DW_DP_AUDIO_SPDIF;
+> +		break;
+> +	case HDMI_I2S:
+> +		/*
+> +		 * It is recommended to use SPDIF instead of I2S, since I2S mode requi=
+res
+> +		 * manually inserting PCUV control bits from userspace and this is done
+> +		 * automatically in hardware for SPDIF mode.
+> +		 */
+> +		audio_interface =3D DW_DP_AUDIO_I2S;
+> +		break;
+> +	default:
+> +		dev_err(dp->dev, "invalid DAI format %d\n", daifmt->fmt);
+> +		return -EINVAL;
+> +	}
+> +
+> +	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
+> +	supported_audio_interfaces =3D FIELD_GET(AUDIO_SELECT, cfg1);
+
+[Severity: Medium]
+Is it possible for regmap_read() to fail here? If the read operation fails,
+cfg1 would remain uninitialized, causing FIELD_GET() to operate on
+uninitialized stack memory.=20
+
+Should the return value of regmap_read() be checked before accessing cfg1?
+
+> +
+> +	if (supported_audio_interfaces !=3D DW_DP_AUDIO_I2S_AND_SPDIF &&
+> +	    supported_audio_interfaces !=3D audio_interface) {
+> +		dev_err(dp->dev, "unsupported DAI %d\n", daifmt->fmt);
+> +		return -EINVAL;
+> +	}
+
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-synopsys-d=
-w-dp-improvements-v9-0-2e6e46135312@collabora.com?part=3D21
+w-dp-improvements-v9-0-2e6e46135312@collabora.com?part=3D22
