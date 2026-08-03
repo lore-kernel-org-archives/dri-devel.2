@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF9DBC55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:45:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5EEE3C55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:45:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36B8A10E025;
-	Mon,  3 Aug 2026 16:45:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F05110E5D9;
+	Mon,  3 Aug 2026 16:45:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CXhcWL7m";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P7Y32Wwu";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72E5F10E025
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:45:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB53410E5D9
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:45:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2300243DC8
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:45:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A8AB1F00A3D
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:45:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0A7B060AA6
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:45:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE49B1F00ACA
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:45:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785775511;
- bh=wXOfikKqyccWdJOmPTIyOaKQPXwqCCx6SW5ye3VQI60=;
+ s=k20260515; t=1785775549;
+ bh=SXxFPuDCxz3Aji6z4V5I94Ca9I9A0J3OETny9fcwk9g=;
  h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
- b=CXhcWL7mortE0CcKd5DgcgHtjMqibzHh9VXgayuANcJBFLhZY+7AtgZFvbSNEjGWa
- t3HjFlqALsihyptzu1FwMlEBa5deZ7h0z3aG6joVcg1xNq6gONLoy0mepNFQgTJHhT
- c/s6RMg85AJFJG6B52m8s+McP5UrKBXiLPKzpFZhJVgJX+qTSHlk8y0j/kFKA3qwJD
- r7Las/NUVaIrFrI6CuawqmeZPbhO8rza0Uhf3YBVaeKQwaIbf2ditfyV3BoZz9ENa2
- RyD9iw5kWLOiHdPfXpQRSlkbevx91sSizFDDxtGtiyMH5Fh36LuDjRINbq6t+6a4Up
- Wv4OIwM+vaFlw==
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5b2a44a3b66so3709299e87.1
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:45:10 -0700 (PDT)
+ b=P7Y32Wwu5CLcyaG4uHJwQw/yPwMDH8PRwLZoe8YqxPZjHQ52LTeR9XnqX2Iv407og
+ 1E0m0JDC58qFlh/g78Yq5DDM4PFeUOA8eF8JybeQq/jxx4Tj4PdQAfCrLQmnfHO/oM
+ RiY1HbG00m7mBpr12/n0JgS5UFeln7WWtH1tXC2uFlZ78GqbJzkJfb7Ba573dJBm0q
+ uAIfwKNoYyvQ+rteuURYqIIzkBzh2cRpJJDD/PBE5pd15CdJvVqXhGtWdePk7bwhP6
+ PuHK+gn2EnFx6jxIOT5eFGNtb8QE5Zs0l6ET60LWCvQpfy0j8x1/ufcLewW1QJXmcM
+ M/UT+WZ7zzo7g==
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-39c83acb86eso32321041fa.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:45:49 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq4jZJyO88PbliyASUWZu2vSXr9MMIAj3VzL7xLcNoWspQshEAPcAUufxbj4J7j43g+Mz27T1oxwIc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzBvUGy7l8Di3ESozO0LA9VWPa/qZ8usaFDagQdibb8NCni2srW
- hrI138DpT8Bin8DxebeGnfO3RX4rBBrbg4A2Yfi9drab3bQ0zJERMt6sw9m5Pv+YK/9qIich1fH
- UloC5x5IRONwWCmAcPnDFjncpjPInRBQ=
-X-Received: by 2002:ac2:442d:0:b0:5b0:21e3:672a with SMTP id
- 2adb3069b0e04-5b2e4f936cemr1411737e87.56.1785775509359; Mon, 03 Aug 2026
- 09:45:09 -0700 (PDT)
+ AHgh+Rr1rvBmf6wFK+rqt9dYOcdB6aT2bpVLantNlRPZ/DFMGD6cbe/dioei2y4kuz00uP9o/owrfbY40NY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9cqfdkQivG5q5RAeaWlNJAP8vPtOk09Npdv5QK+ny0QFCpWsf
+ qYctcB3c6NEUe6YlAL+CX4Qju97cDOt7ZkpBOhg9R7hSVgwgze4V2prsFU3BHbTtS0Z2rA2dTCu
+ vwJOk3HNUdD9ia/BRnt50QHaDjNcrcGw=
+X-Received: by 2002:a2e:bcc6:0:b0:39f:fbd:69e4 with SMTP id
+ 38308e7fff4ca-39f8647da2emr21946901fa.41.1785775548162; Mon, 03 Aug 2026
+ 09:45:48 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1785772659.git.jernej.skrabec@gmail.com>
- <52eb247169b268054302afa71e598add0b04748d.1785772659.git.jernej.skrabec@gmail.com>
-In-Reply-To: <52eb247169b268054302afa71e598add0b04748d.1785772659.git.jernej.skrabec@gmail.com>
+ <7e9dad9eed2e91a79c4e1202caa8fed7c2427531.1785772659.git.jernej.skrabec@gmail.com>
+In-Reply-To: <7e9dad9eed2e91a79c4e1202caa8fed7c2427531.1785772659.git.jernej.skrabec@gmail.com>
 From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 4 Aug 2026 00:44:55 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67+AR+UDSM6tJSDtJw_zje164F8CmjUJaFegDr=txmUaw@mail.gmail.com>
-X-Gm-Features: AUfX_mwkv5wRgU6YrCVP-n9_AeYgFr7hs0G3AjcJP388guGB69s2xIov8DPXNPg
-Message-ID: <CAGb2v67+AR+UDSM6tJSDtJw_zje164F8CmjUJaFegDr=txmUaw@mail.gmail.com>
-Subject: Re: [PATCH 04/13] drm/sun4i: tcon-top: Keep mixer routes distinct
+Date: Tue, 4 Aug 2026 00:45:33 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64MMcUQW-6X3Hb=ifO87VhEDicjXtpHvq+pBYczyLECrA@mail.gmail.com>
+X-Gm-Features: AUfX_mwZCPbOCHuxVBeBJfg0hkv1k_HMStH-Sat9nWvpFIL9sOzUuH6ZR1uJGfk
+Message-ID: <CAGb2v64MMcUQW-6X3Hb=ifO87VhEDicjXtpHvq+pBYczyLECrA@mail.gmail.com>
+Subject: Re: [PATCH 05/13] drm/sun4i: tcon: Set output mux for DSI and LVDS
 To: Jernej Skrabec <jernej.skrabec@gmail.com>
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@gmail.com, simona@ffwll.ch, samuel@sholland.org, 
@@ -77,83 +77,40 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Tue, Aug 4, 2026 at 12:11=E2=80=AFAM Jernej Skrabec <jernej.skrabec@gmai=
 l.com> wrote:
 >
-> Both mixer selectors reset to TCON 0. Selecting the same TCON for both
-> mixers causes black or corrupted output.
+> DSI and LVDS skip output mux setup, so TCON TOP cannot route the selected
+> mixer. Configure them like other channel 0 outputs.
 >
-> When a route would collide, park the other mixer on another described
-> TCON, or an unused selector if none exists.
+> In practice this matters for D1, where channel 0 TCONs are fed through
+> TCON TOP. The remaining set_mux implementations only handle TMDS and
+> return an error for other encoder types, as before.
 >
-> Since the TCON index is now used as a shift, also reject negative
-> values.
->
-> Tested on Orange Pi 3 with TCON_LCD0 and TCON_TV0.
->
-> Link: https://lore.kernel.org/linux-sunxi/Zn8GVkpwXwhaUFno@titan/
-> Link: https://lore.kernel.org/linux-sunxi/20241108-tcon_fix-v1-1-616218cc=
-0d5f@jookia.org/
-> Fixes: 05db311a792d ("drm/sun4i: tcon-top: Add helpers for mux switching"=
-)
+> Fixes: b9b52d2f4aaf ("drm/sun4i: Add support for D1 TCONs")
 > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Acked-by: Chen-Yu Tsai <wens@kernel.org>
 
-Though I have a couple nits.
 > ---
->  drivers/gpu/drm/sun4i/sun8i_tcon_top.c | 71 +++++++++++++++++++++-----
->  drivers/gpu/drm/sun4i/sun8i_tcon_top.h |  6 +++
->  2 files changed, 65 insertions(+), 12 deletions(-)
+>  drivers/gpu/drm/sun4i/sun4i_tcon.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c b/drivers/gpu/drm/sun=
-4i/sun8i_tcon_top.c
-> index 8adda578c51b..9cbd655518b2 100644
-> --- a/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-> +++ b/drivers/gpu/drm/sun4i/sun8i_tcon_top.c
-> @@ -25,6 +25,49 @@ static bool sun8i_tcon_top_node_is_tcon_top(struct dev=
-ice_node *node)
->         return !!of_match_node(sun8i_tcon_top_of_table, node);
->  }
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
+un4i_tcon.c
+> index 960e83c8291d..ea7c90fef316 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> @@ -717,9 +717,11 @@ void sun4i_tcon_mode_set(struct sun4i_tcon *tcon,
+>         case DRM_MODE_ENCODER_DSI:
+>                 /* DSI is tied to special case of CPU interface */
+>                 sun4i_tcon0_mode_set_cpu(tcon, encoder, mode);
+> +               sun4i_tcon_set_mux(tcon, 0, encoder);
+>                 break;
+>         case DRM_MODE_ENCODER_LVDS:
+>                 sun4i_tcon0_mode_set_lvds(tcon, encoder, mode);
+> +               sun4i_tcon_set_mux(tcon, 0, encoder);
+>                 break;
+>         case DRM_MODE_ENCODER_NONE:
+>                 sun4i_tcon0_mode_set_rgb(tcon, encoder, mode);
+> --
+> 2.43.0
 >
-> +static unsigned int sun8i_tcon_top_get_tcon_map(struct device_node *node=
-)
-> +{
-> +       static const u32 out_ports[] =3D {
-> +               TCON_TOP_MIXER0_OUT_PORT,
-> +               TCON_TOP_MIXER1_OUT_PORT,
-> +       };
-> +       unsigned int i, map =3D 0;
-> +
-> +       for (i =3D 0; i < ARRAY_SIZE(out_ports); i++) {
-
-You can declare `i` directly in the for statement.
-
-> +               struct device_node *port;
-> +
-> +               port =3D of_graph_get_port_by_id(node, out_ports[i]);
-
-You could probably use the __free() cleanup macro and make `port`
-scoped and put the reference automatically.
-
-> +               if (!port)
-> +                       continue;
-> +
-> +               for_each_of_graph_port_endpoint(port, ep) {
-> +                       struct of_endpoint endpoint;
-> +
-> +                       if (of_graph_parse_endpoint(ep, &endpoint))
-> +                               continue;
-> +
-> +                       if (endpoint.id < TCON_TOP_PORT_TCON_NUM)
-> +                               map |=3D BIT(endpoint.id);
-> +               }
-> +
-> +               of_node_put(port);
-
-And this line wouldn't be needed.
-
-> +       }
-> +
-> +       return map;
-> +}
-> +
-
-[...]
+>
