@@ -4,85 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A281C55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 15:44:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A743AC55184
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 15:59:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7192610E036;
-	Mon,  3 Aug 2026 15:44:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBBC810E708;
+	Mon,  3 Aug 2026 15:59:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WwH9Sr5G";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="I7DzS0lZ";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F1E510E036
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 15:44:47 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49544f26c43so2420795e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 08:44:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785771886; x=1786376686; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=brpCBQVGbNrDVt7cTfK+56VzO28aZ7jJCm8ldakLLGM=;
- b=WwH9Sr5GBU8x2MlkP6OA3alYKFVH6k8fQvYssUpT6D613CYCvBC6i7BhXjFSld7heq
- YCgDQINYsT4JXc/a4D6iclQreHxFPxgXVhxGsYEIwt4P2cyAmiFqU81ubmHi2x5BL0Fz
- axalOedB9e+bxqJmKO974sc+/JpQVSu81ke9s6CN/xxdNH4t5UlqMg11Dy+hiudbF8km
- 9vACbMFS95TTBBhl7h2SQAfzqYvE76VYqINHB8a1Gsac/SWLi7Oz4JyZ5h+ZDqXIy6Ib
- HZ55MuEwPPdKyOWN4byva3usKFG7iS3m1PXofLkqjgjtPoBS7Q7bI6CL0w4K8PTAbbb+
- IR1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785771886; x=1786376686;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=brpCBQVGbNrDVt7cTfK+56VzO28aZ7jJCm8ldakLLGM=;
- b=BIP9rBKiz0QXMOimBkGtFSLyTdeWaHd4JOTUwJvwaermnnT5uUJvGIrSg+ImGk1tHv
- VnSWTvSr8M42NJFUbBV59UrvHKaJdSbfkBLJF5jgRBwVq+buSWJouqYfNLRKy+zDLe8q
- WrOtOj3j8jTYP74ydNTCEJEuCyVvH7VlH6/x7si9NprBZC0J3YyrWL7ITfRAGV63yHUF
- DHTxuHPNFpLzB/+3pWOzNkejAZD1IutNc401JkJmKvdMAGi60RNxi1o0MJzFtnqGhAIK
- cINT024KIhz8kg9KV7FmDoyEgUwkvUsJuBwPRUsP4efJn3vZrwt3sSj3/mOGbkb2EIVs
- 0fUQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoWvrbuA54/jRV8ybFSCXafmg3xwg7h/s3DREOGZSSMctw31pMH+u5A2+BRXM2qR3guYicofgWj3pE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyyMH4sShI71yDrplANHOqWnwBbWgoHbrORWcvrR1Gl508JRJu2
- eBqhuE8o5smu99zP9qWlMMakwUKpv6ojnBtBZ5XRKo40ILb1z2PjX293
-X-Gm-Gg: AR+sD10Jbh2E4DzoStdY+E/3yyf4WxFtMX20v9Z0xXFj7EZFmp627fDhpZRGbDluyes
- tn0ujDRyJh3SSiJ/hCyRhdiPZribbqjb6wgsRVRVORvbwGke5eTGhzIv9SNYzxilsp5z/arM1k/
- VTEka/KwONdO9nK+v2phFFTwu3EAR4JE61CLD0A+utzFWBgtUo685xWNNvn1yRyCTXR1SIGInfG
- /q7d5HHMMtpfHXH/YFd0zfxpThFCVxYZFuwpkapgKI1vuoIbx6U18hWKwzi+YHNj6KO1zB8LwcB
- dXuP8DQG1jUW4r+nDWB9hjTnZgMuskkd42rk+AZfG0duw2ksK1hRKIlmiY4Y+vyiwzu5IVwd+1M
- hAtYX0tyu4pvKxnDfmjEQipxtQz7od01kHIl6Bo0VCu/PrQJA9SCN4wTI0V7E833B30i0khLeAE
- GWd1ZNwT2z/Nb6PVjA0ehxJtqeoVzcPdwz+HAdh5xAc6Z8tFTBqA2wLVE5iNkigeRpLxzq4J1rs
- dHA7vLoirVjiiS+2EETpwVo20N9degRfS+fajJlBldWQmrsECOMJ7pUnqd1yhp4rtEn
-X-Received: by 2002:a05:600c:1c11:b0:495:7561:a9cc with SMTP id
- 5b1f17b1804b1-4980c6aa664mr130391355e9.4.1785771885581; 
- Mon, 03 Aug 2026 08:44:45 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B85F300A5CC0DBDABDC4661.dsl.pool.telekom.hu.
- [2001:4c4e:1b85:f300:a5cc:dbd:abdc:4661])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49807b9441csm233512265e9.4.2026.08.03.08.44.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 08:44:45 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, ulfh@kernel.org,
- p.zabel@pengutronix.de, ogabbay@kernel.org, alchark@gmail.com,
- chaoyi.chen@rock-chips.com, krzk@kernel.org, will@kernel.org,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v4 4/6] accel/rocket: add RK3576 NPU (RKNN) support
-Date: Mon,  3 Aug 2026 17:44:23 +0200
-Message-ID: <20260803154423.12175-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260803094125.3285895-5-gahing@gahingwoo.com>
-References: <20260803094125.3285895-1-gahing@gahingwoo.com>
- <20260803094125.3285895-5-gahing@gahingwoo.com>
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB8210E723
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 15:59:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1785772789;
+ bh=fZYG0O/tPcBi7Y0vzF0OznXX2JFW1TwNXlaYh02yVqw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=I7DzS0lZt9DBsHaiHS/k3A0R2tBi8v/xxrT/7vul+bnKQuUztP49SGxUyMePMROmx
+ o1FJRcXyGM6jJ6U+2T909jEEpXgGF5Z9A/nY9UH3caCH2w15tk9J8pbCkVPERKbYt9
+ sWeBDzZK/rEoD8UsYSpHSkQq0mB+XJCFCeSd6zgpt1Y3VIT/NJGvoUQ0R6m4KrJcet
+ r0Zxx0gDESNIQxuvyIqgrBM/SVDJiTiwYsNTUt3lQRsa+RqhJv2d/LYgxtLVYH4G5f
+ zOwUXEyEFE2Pt52UGS4E2qmZIkFszaUQ0WXBQkRxE1PPQ1H/ZBv0Tl25/4/Pxv6QpK
+ lTKmuERywJMlw==
+Received: from fedora1.home (unknown [100.64.0.11])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: bbrezillon)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id CF2F817E025E;
+ Mon, 03 Aug 2026 17:59:48 +0200 (CEST)
+Date: Mon, 3 Aug 2026 17:59:45 +0200
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel
+ Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K
+ Prateek Nayak <kprateek.nayak@amd.com>, Steven Price
+ <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Grant Likely
+ <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel@collabora.com
+Subject: Re: [PATCH v2 2/3] drm/panthor: Revisit reqs_lock handling in
+ flush/reset paths
+Message-ID: <20260803175945.10c3c175@fedora1.home>
+In-Reply-To: <fiUy-cD0Q9OOQiaEoz9UeA@collabora.com>
+References: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
+ <20260730-panthor-cache-flush-fix-v2-2-28790478bfff@collabora.com>
+ <20260803105324.478ed594@fedora1.home>
+ <fiUy-cD0Q9OOQiaEoz9UeA@collabora.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,84 +77,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Jiaxing,
+On Mon, 03 Aug 2026 15:13:25 +0200
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
 
-Thanks for the re-spin, and thanks for asking about the tag rather than
-carrying it over. I went to re-test on RK3588 and stopped at the diff,
-because patch 4/6 is not the fixes-only patch the cover describes: it
-carries your debugging tree with it.
+> On Monday, 3 August 2026 10:53:24 Central European Summer Time Boris Brezillon wrote:
+> > Hello Nicolas,
+> > 
+> > On Thu, 30 Jul 2026 13:45:15 +0200
+> > Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+> >   
+> > > panthor_gpu_flush_caches() and panthor_gpu_soft_reset() would read (and
+> > > even reset) the contents of the pending_reqs register outside of holding
+> > > the reqs_lock.  
+> > 
+> > Can you elaborate a bit on the race being fixed here? If pending_reqs bits
+> > are truly cleared before the wake_up_all() call (which would require a
+> > WRITE_ONCE() to be enforced, admittedly), there's no risk for the
+> > wait_event() call to do a test before the bits have been updated,
+> > and this holds even if the test is done without the lock held.
+> > 
+> > The other race I could think of is two threads calling
+> > panthor_gpu_flush_caches() concurrently, and the second one stealing
+> > the FLUSH_COMPLETED event the first thread waits on and re-issuing a
+> > second flush on top, thus delaying the completion for the first thread.
+> > But that should be covered by the cache_flush_lock.  
+> 
+> panthor_gpu_flush_caches() is not the only thing that sets/gets
+> pending_reqs. Notably, the threaded interrupt handler does, as
+> well as any other functionality using the same member for reqs
+> tracking (e.g. the soft reset).
+> 
+> Consider the following serialisation of events:
+> 1. T1 asks to flush caches by writing GPU_CMD and setting pending_reqs
+> 2. T1 drops reqs_lock.
+> 3. T2 enters IRQ handler for flush complete, spins lock waiting for
+>    reqs_lock
+> 4. T1 sleeps at wait_event_timeout
+> 5. T2 updates pending_reqs and wakes up the waiter in any order, since
+>    the effects of those two can't consistently be observed as sequential
+>    logic without the outer reqs_lock being held by the observer
+> 6. T1 wakes up, checks pending_reqs, but since pending_reqs is checked
+>    without holding any lock, so we implictly depend on the synchronisation
+>    point that is the waitqueue's lock rather than the reqs_lock spinlock,
+>    which says nothing about whether the pending_reqs change materialised
+>    on T1's side yet as far as I can tell?
+> 7. T1 sees that pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED is still != 0,
+>    so goes back to sleep for some future wake-up of reqs_acked or a timeout.
+> 
+> I'm not 100% sure, but I think 6. means that the memory model would permit
+> T1 to re-use the pending_reqs it previously set, rather than the updated
+> one set by T2, since there's nothing stopping us from being woken up before
+> the pending_reqs change has made itself known to observers not serialising
+> with the reqs_lock being released by T2 in panthor_gpu_irq_handler after.
 
-Diffing v3 4/6 against v4 4/6, rocket_job.c goes from +55 to +306 lines,
-and 202 of those added lines are the ping-pong experiment. It brings in
-five module parameters that were not in v3:
+If I read the "SLEEP AND WAKE-UP FUNCTIONS" section in [1] correctly, I
+think we're covered by the "general memory barrier" here.
 
-  state_init  (rocket_core.c)  - default 1, i.e. ON
-  sptr_alt    (rocket_job.c)
-  snap        (rocket_job.c)
-  pp_clear    (rocket_job.c)
-  sptr_dbg    (rocket_job.c)
+> 
+> If you check lock_stat before the change, you see that the reqs_lock is
+> actually never contended. This isn't a good sign because it means
+> whatever situation it exists to protect against never occurs, so either
+> the lock is pointless or the lock is non-functional.
 
-plus rocket_snap_take() with its ioremap() of a hardcoded
-ROCKET_SNAP_DPU_PHYS and two kmalloc_array() buffers that are never
-freed, and rocket_sptr_patch_regcmd() doing phys_to_virt() on the
-IOMMU-mapped regcmd and a hand-rolled dma_sync_sg_for_device(). The
-comment above the block says it itself:
+Or we're just in a situation where there's almost never two threads updating
+the pending_reqs concurrently, which is not the same as saying this can't
+happen at all.
 
-  /*
-   * EXPERIMENT (not for upstream), 2026-08-01, following Tomeu's
-   * suggestion that the block is stuck on ping-pong bank 0.
+> 
+> > > Additionally, when it did hold the lock, it did so with
+> > > the irqsave/irqrestore variants, even though the spinlock was never
+> > > acquired in an atomic context, just the threaded handler.
+> > > 
+> > > Use the new wait_event_lock_timeout() macro to check pending_reqs under
+> > > the lock, and only do so without disabling interrupts.
+> > > 
+> > > Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
+> > > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> > > ---
+> > >  drivers/gpu/drm/panthor/panthor_gpu.c | 25 +++++++++++--------------
+> > >  1 file changed, 11 insertions(+), 14 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
+> > > index c013d6bf9a59..f015bde80abf 100644
+> > > --- a/drivers/gpu/drm/panthor/panthor_gpu.c
+> > > +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
+> > > @@ -330,35 +330,34 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
+> > >  			     u32 l2, u32 lsc, u32 other)
+> > >  {
+> > >  	struct panthor_gpu *gpu = ptdev->gpu;
+> > > -	unsigned long flags;
+> > >  	int ret = 0;
+> > >  
+> > >  	/* Serialize cache flush operations. */
+> > >  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
+> > >  
+> > > -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
+> > > +	spin_lock(&ptdev->gpu->reqs_lock);  
+> > 
+> > Can we make the _irq{save,restore}-drop its own patch?  
+> 
+> I'm not sure it's fine to drop the IRQ disabling without fixing the read of
+> pending_reqs outside its lock.
 
-So I think the trim simply did not catch this hunk.
+Can be done after fixing the race, if it's really making the race more
+likely. Although, as I said above, I'm not yet convinced the race we're
+chasing is the one we've been discussing here.
 
-The part that matters for the tag you asked me about:
+> 
+> >   
+> > >  	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
+> > >  		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
+> > >  		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
+> > >  	} else {
+> > >  		ret = -EIO;
+> > >  	}
+> > > -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
+> > >  
+> > > -	if (ret)
+> > > +	if (ret) {
+> > > +		spin_unlock(&ptdev->gpu->reqs_lock);
+> > >  		return ret;
+> > > +	}
+> > >  
+> > > -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+> > > +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
+> > >  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),  
+> > 
+> > Assuming we really need to do the test with the lock held, could we add
+> > a patch at the beginning of the series that fixes the race without depending
+> > on the new wait macro, so that we have a version that can easily be backported?  
+> 
+> It's either backporting the prerequisite new macro or still doing this all
+> with IRQs disabled using the pre-existing wait_event_lock_irq_timeout macro,
+> and the IRQ disabled thing is what caused problems.
 
-  rocket_core_state_init() is called unconditionally from
-  rocket_device_runtime_resume(), not behind core->soc->poll_completion
-  or any RK3576 check, and rocket_state_init defaults to 1.
+Can't we have the following helper function?
 
-So on RK3588 every runtime resume now writes PC BASE_ADDRESS = 0x1 and
-the CNA S_POINTER 0 / DATA_SIZE1 / S_POINTER 1 / DATA_SIZE1 / S_POINTER
-0x1e sequence, i.e. the RK3576 vendor init replayed on RK3588 silicon.
-That is a third change to my board that the cover does not list, and it
-is the one I would have to characterise before I could put my name on
-anything. "RK3588 never reaches either" is true of the two fixes you
-name, but not of this patch as it stands.
+static bool cache_flush_done(struct panthor_device *ptdev)
+{
+	guard(spinlock_irqsave)(&ptdev->gpu->reqs_lock);
 
-The two fixes themselves look right to me, and both are correctly gated:
+	return ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED;
+}
 
-  * rocket_job_fini() cancelling poll_timer and poll_work under
-    soc->poll_completion - RK3588 has poll_completion = false, so it
-    cannot regress here.
+and then:
 
-  * poll_work_seq / poll_seq in rocket_poll_work_fn() - same gate, and
-    the stale-work window it closes is real.
+	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
+			        cache_flush_done(ptdev),
+				msecs_to_jiffies(100))) {
+....
 
-So: send a v5 with 4/6 trimmed back to the fixes, and I will re-run the
-RK3588 bench and give you the Tested-by on that. It is a mechanical
-respin, no new debugging needed from your side.
-
-Two smaller things while I am in there, for whenever the experiment code
-does come out anyway:
-
-  * rocket_state_init is not static, so it lands in the global namespace.
-  * The two snap buffers and the ioremap are never released, so with
-    snap=1 that leaks per module load.
-
-On the real problem: I do not have an RK3576 to poke at, but the shape
-you describe - one configuration byte exact forever, a second one
-computing nothing, the pointer reading back 1 no matter what we write,
-and the 20 KB snapshot differing only in OPERATION_ENABLE - reads to me
-less like a register we are failing to write and more like something the
-block never re-fetches. The regcmd is DMA'd, so the interesting question
-might be whether the second configuration's regcmd is actually being
-read by the block at all on the second submit, rather than whether the
-bank flipped. If you can get at it, an IOMMU fault trace or a read-side
-counter over the regcmd buffer across the two submits would separate
-"fetched and ignored" from "never fetched". If it is never fetched, the
-bank is a red herring and the ping-pong work has been ruling out the
-wrong half of the path.
-
-Happy to run anything you want tried on RK3588 as a control.
-
-Thanks,
-Igor
+[1]https://docs.kernel.org/core-api/wrappers/memory-barriers.html#
