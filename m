@@ -4,43 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAA4DC55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 08:54:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F16A7C55175
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 08:54:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A69D10E4A4;
-	Mon,  3 Aug 2026 08:54:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4133410E4A5;
+	Mon,  3 Aug 2026 08:54:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OuXBgtYV";
+	dkim=pass (2048-bit key; unprotected) header.d=suse.com header.i=@suse.com header.b="XzQNl4JR";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42D3510E4A4
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 08:54:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EE2E2413B1;
- Mon,  3 Aug 2026 08:54:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14601F000E9;
- Mon,  3 Aug 2026 08:54:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785747255;
- bh=E2Yzyg71a3kbLpSCSBNFDwznmsleX59CeYDXF7RJ1gQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=OuXBgtYV58Va9dN/s7LUMWs4g4jY18uLMIR1fER5ksN5ufol/CXzhHEdaI5szTZyc
- kYvQg7gxqxXCdnvK1VqFNYP82nkGdONlUJ1Y8zvanXZmy7REyoxur0kfrq9U/cvaFx
- UMU+LDIzSdDMEoVUVownGEb/C0G/bUdAv6JxB2UL6FhgHiRyw0Zill8nJu+EmRv8gd
- lcA2PQDcM8qsoYKB1GYbnIUTHoxO+dTs9W7gERrhN5+kM1IEoud4wKDexPsZyedNWK
- JZJYOfCyzIRVZ4kATyDwiGLrIYg7PejLxTNoCxmKmRET7C8S7YM9XINkNZfqw6Lq33
- uLVapAOz1bNIw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/bridge: aux-hpd-bridge: replay last HPD status on
- hpd_enable
-To: "Yongxing Mou" <yongxing.mou@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260803-drm-usbdp-preboot-v1-1-2539b362be00@oss.qualcomm.com>
-References: <20260803-drm-usbdp-preboot-v1-1-2539b362be00@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 08:54:15 +0000
-Message-Id: <20260803085415.B14601F000E9@smtp.kernel.org>
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C88610E4A5
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 08:54:17 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-495635a85d2so17040385e9.0
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 01:54:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1785747256; x=1786352056; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=EPO+ED0ot3Taa08GbV6IzKrIjqgkBaW3P1eEmTzgiUE=;
+ b=XzQNl4JRe5IaHLHUWNRz7bMqIh0vYFSJLWtJUft6kfNy7KdzOpZDbKrMttzXaBXlNN
+ SzqocATfpxwYQAgTGRROAUJreSndcuehc1S1HF7gt5YwBXpTxGSXkWs1W2vYRvZ5g6mA
+ Ny8pmV6dZOYleTLEIHeFHZuSsw7zDLRRoabmjoWNvOr4UDYY482MknlpOMgx1hC/Xk8Q
+ aN1JaLz4uyvARnvn3rxiNfQ53dKnQUCGNpxgIwbUxxpUQ4CWb9sl6aDK0tL7wiKTaVFJ
+ jFRTRfeu7TEY8p0ihdYLTL0XcO3QsKajM1fO8lMlI2CfsCvpIip7U7JjjvLjxMI5m3r8
+ dsqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785747256; x=1786352056;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=EPO+ED0ot3Taa08GbV6IzKrIjqgkBaW3P1eEmTzgiUE=;
+ b=DTRMpQd6kihlKFW9roex5WpNumGfmtCwLwByEXs7gZAMVaPCwzjzWggzbzKsOYz3z/
+ pgZs4ZI+9jdVZxOeLjqS+Vn31V0oF17vtw0B2qtxKeDfSstqn5C+qP9Owqv6NGdx3pvu
+ lf7O7RjYbJdkks0kZI6q4hA+H9yM5fihksRK06MoX7+tkiD43uksxunqtouM1yQVvY39
+ 1xXFRxfP5jWdN8fTkDSMG8W2Pjfg8/BibJeie9qlt6MkHBPxHXaW7brt+0LLlul+c3yR
+ kj3U6z34EE8G8SSw0vFP4aw3L92+WhjiOugJBaZSud51gN1V6aWabv5G3uPx04BuF6Ch
+ rAYw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqDAlpcZOeBaOmXRODUkhHz7p3SLEDdA5s+m9oxSSf4M9AXH3hPvSKQdyFgByRZs2GDB0kH7V4iq1w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxj4sdYN5bq6bAjm5KSB/wLkm3jgmGiMRnWNmEWxsHDWJTUhR1c
+ PVxMZ7UZsJvvW4+6ez1DjOz+uUn5FCHt6UWG8mQcodie9bk4Y5MtAh8/1OLkqoyjxfU=
+X-Gm-Gg: AR+sD10IKyS09u+66OLLOeW36sU+sgeszlX8cPqZ1T3LsbAPiK/MIEOp0BDh5A1+yv8
+ q5+w28wfVKeWF6wmBGk1qFB1OatSRB3Rl0dQ8pB37tNBHyBXwg+iC3xuyIqw1Ra5GvQ2NqpBcm6
+ IDJb3PHyU5BEGb2xssPULJAgwbQeXPlaRsEq2ofa1RNxqSWiEie4H2Bw4y73ATySMkP5gfh9jsI
+ uzjZvIDeu8AkXrVPNONBRawYZHhI4llkzYtA6PxaTvoJYO7DzgkQrj0zrWNf/5GH+LsSqGT41LA
+ VNUurf5EXRL8Er73VS/HVmVRqPJaH3FuX3Zsa+ZzfeK+7R5bqegwPt761yDfWgLIrSS65uEG7mm
+ 4jNlgPJ7WtkcVAF0him6I2qzk3lhyR5DqFjWZVv93Os4iflUrAD66K+rrwUqrLXrZTw+Aolsn77
+ 50NmnYegZaRzOLGJVfnIKXF6WootL5sIjQAd+ZXM2sTOBUcWtZ1SEbu0oIdA9T2P79Inc57jqps
+ 4nRAhBKzgszEn5WsL5AxBY8NJuPfvGxcY1gKVeRKQIWuHYdMVXzYdgShy4808Pb6eA8cUeDNr+I
+ v0Xy52Ma7fTIENuDuZ3LOTHVr68Nqla4PiEnNZFwYw==
+X-Received: by 2002:a05:600c:5914:b0:495:5cda:52ec with SMTP id
+ 5b1f17b1804b1-4980c662d03mr170527905e9.16.1785747255995; 
+ Mon, 03 Aug 2026 01:54:15 -0700 (PDT)
+Received: from ?IPV6:2a00:1028:838d:271e:8e3b:4aff:fe4c:a100?
+ (dynamic-2a00-1028-838d-271e-8e3b-4aff-fe4c-a100.ipv6.o2.cz.
+ [2a00:1028:838d:271e:8e3b:4aff:fe4c:a100])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49807b7afe6sm200011075e9.0.2026.08.03.01.54.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 03 Aug 2026 01:54:15 -0700 (PDT)
+Message-ID: <a6a83aae-2f51-428e-8e38-e6a36f095f13@suse.com>
+Date: Mon, 3 Aug 2026 10:54:13 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 10/10] rust: module: update MAINTAINERS to cover
+ module.rs
+To: Alvin Sun <alvin.sun@linux.dev>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Luis Chamberlain <mcgrof@kernel.org>, Daniel Gomez <da.gomez@kernel.org>,
+ Sami Tolvanen <samitolvanen@google.com>, Aaron Tomlin <atomlin@atomlin.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Daniel Almeida <daniel.almeida@collabora.com>, Arnd Bergmann
+ <arnd@arndb.de>, Brendan Higgins <brendan.higgins@linux.dev>,
+ David Gow <david@davidgow.net>, Rae Moar <raemoar63@gmail.com>,
+ Breno Leitao <leitao@debian.org>, Jens Axboe <axboe@kernel.dk>,
+ Dave Ertman <david.m.ertman@intel.com>, Leon Romanovsky <leon@kernel.org>,
+ Igor Korotin <igor.korotin@linux.dev>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ =?UTF-8?Q?Arve_Hj=C3=B8nnev=C3=A5g?= <arve@android.com>,
+ Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>,
+ Carlos Llamas <cmllamas@google.com>, rust-for-linux@vger.kernel.org,
+ linux-modules@vger.kernel.org, driver-core@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
+ linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-pci@vger.kernel.org
+References: <20260723-fix-fops-owner-v9-0-c1c3af7f7bcb@linux.dev>
+ <20260723-fix-fops-owner-v9-10-c1c3af7f7bcb@linux.dev>
+Content-Language: en-US
+From: Petr Pavlu <petr.pavlu@suse.com>
+In-Reply-To: <20260723-fix-fops-owner-v9-10-c1c3af7f7bcb@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,110 +120,39 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing cancellation of `hpd_work` on device unbind leads to acces=
-s of a destroyed mutex and use-after-free.
-- [High] Lockless read of `last_status` in `hpd_work` creates a TOCTOU race=
- condition that can deliver stale HPD events out of order.
---
+On 7/23/26 4:10 AM, Alvin Sun wrote:
+> Module types now live in `rust/kernel/module.rs` alongside
+> `rust/kernel/module_param.rs`. Update the MODULE SUPPORT file pattern
+> from `rust/kernel/module_param.rs` to `rust/kernel/module*.rs` so both
+> files are covered.
+> 
+> Cc: Petr Pavlu <petr.pavlu@suse.com>
+> Assisted-by: opencode:glm-5.2
+> Link: https://lore.kernel.org/rust-for-linux/8ea21b29-9baf-4926-a16f-7d21c5a1a1b8@suse.com
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+> Acked-by: Danilo Krummrich <dakr@kernel.org>
+> Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 
---- Patch [1]: [PATCH] drm/bridge: aux-hpd-bridge: replay last HPD status o=
-n hpd_enable ---
-commit ac67055ec791a818497d8d0b82453f5ad00a28d3
-Author: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+Acked-by: Petr Pavlu <petr.pavlu@suse.com>
 
-drm/bridge: aux-hpd-bridge: replay last HPD status on hpd_enable
-
-This commit caches the last HPD status reported by an upstream driver
-and replays it when a downstream consumer enables HPD handling on the
-bridge. The replay is deferred to a work item to run outside the
-.hpd_enable() call context.
-
-> diff --git a/drivers/gpu/drm/bridge/aux-hpd-bridge.c b/drivers/gpu/drm/br=
-idge/aux-hpd-bridge.c
-> index a2e525aa57887..bb81aabf58d49 100644
-> --- a/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-> +++ b/drivers/gpu/drm/bridge/aux-hpd-bridge.c
-[ ... ]
-> @@ -154,6 +166,8 @@ void drm_aux_hpd_bridge_notify(struct device *dev, en=
-um drm_connector_status sta
->  	if (!data)
->  		return;
-> =20
-> +	WRITE_ONCE(data->last_status, status);
-> +
->  	drm_bridge_hpd_notify(&data->bridge, status);
-
-[Severity: High]
-Could this create a race condition with drm_aux_hpd_bridge_hpd_work() where
-stale HPD events are delivered out of order?
-
-If drm_aux_hpd_bridge_hpd_work() reads the status locklessly but gets
-preempted before calling drm_bridge_hpd_notify(), a concurrent hardware
-event here could update the status and dispatch it synchronously.=20
-
-When drm_aux_hpd_bridge_hpd_work() resumes, it might then dispatch the olde=
-r,=20
-stale status it cached earlier, leaving the consumer with an outdated=20
-connection state.
-
->  }
->  EXPORT_SYMBOL_GPL(drm_aux_hpd_bridge_notify);
-> @@ -165,11 +179,45 @@ static int drm_aux_hpd_bridge_attach(struct drm_bri=
-dge *bridge,
->  	return flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR ? 0 : -EINVAL;
->  }
-> =20
-> +static void drm_aux_hpd_bridge_hpd_work(struct work_struct *work)
-> +{
-> +	struct drm_aux_hpd_bridge_data *data =3D
-> +		container_of(work, struct drm_aux_hpd_bridge_data, hpd_work);
-> +	enum drm_connector_status status =3D READ_ONCE(data->last_status);
-> +
-> +	if (status =3D=3D connector_status_unknown)
-> +		return;
-> +
-> +	drm_bridge_hpd_notify(&data->bridge, status);
-
-[Severity: High]
-Can this work item execute after the device is unbound?
-
-If the auxiliary device unbinds while this work item is pending, devres
-teardown will call drm_bridge_remove_void(), which in turn destroys
-bridge->hpd_mutex and can free the data structure.=20
-
-If this work item executes after that teardown, wouldn't it result in a=20
-use-after-free on data and an attempt to lock a destroyed mutex inside
-drm_bridge_hpd_notify()?
-
-[ ... ]
-> @@ -192,6 +240,9 @@ static int drm_aux_hpd_bridge_probe(struct auxiliary_=
-device *auxdev,
->  	data->bridge.interlace_allowed =3D true;
->  	data->bridge.ycbcr_420_allowed =3D true;
-> =20
-> +	data->last_status =3D connector_status_unknown;
-> +	INIT_WORK(&data->hpd_work, drm_aux_hpd_bridge_hpd_work);
-> +
-
-[Severity: High]
-Since INIT_WORK() is used here, should there be a corresponding devm cleanup
-action to ensure the work is cancelled on unbind?
-
-Adding something like devm_add_action_or_reset() to call cancel_work_sync()=
-=20
-would ensure the work item doesn't outlive the data structure it operates o=
-n.
-
->  	auxiliary_set_drvdata(auxdev, data);
-> =20
->  	return devm_drm_bridge_add(data->dev, &data->bridge);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-drm-usbdp-=
-preboot-v1-1-2539b362be00@oss.qualcomm.com?part=3D1
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index e035a3be797c4..74733de3e41ee 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17984,7 +17984,7 @@ F:	include/linux/module*.h
+>  F:	kernel/module/
+>  F:	lib/test_kmod.c
+>  F:	lib/tests/module/
+> -F:	rust/kernel/module_param.rs
+> +F:	rust/kernel/module*.rs
+>  F:	rust/macros/module.rs
+>  F:	scripts/module*
+>  F:	tools/testing/selftests/kmod/
+> 
