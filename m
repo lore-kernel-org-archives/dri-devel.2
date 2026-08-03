@@ -4,139 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 985D9C55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 12:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A94DC55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 12:29:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEE6810E037;
-	Mon,  3 Aug 2026 12:26:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 97C758994A;
+	Mon,  3 Aug 2026 12:29:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tTTIpK/L";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="YpuRy0+i";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010004.outbound.protection.outlook.com
- [52.101.193.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A6AF510E00A
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 12:26:38 +0000 (UTC)
+Received: from LO2P265CU024.outbound.protection.outlook.com
+ (mail-uksouthazon11021077.outbound.protection.outlook.com [52.101.95.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF5D48994A
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 12:29:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PyrGYagXHbXMqIGeOkqvHCgJibKg4aYhmF5AWxI2eWTlN+7MaGAfWoRsgtckyaz9COdL2+1V538ZTtQHsSneAZVnZDlpxv/7t2PuxB7tv4EFX+IHmHT9EBEHgYSvpXBBn06kFAKVMYUre8bhUGEZoLIcvkaE7PpDr4fb0GfKBmo4iflIJYpGiqvQhAzOl1wiNpa/U6hFXd12R5C5GHbaR8ocklaj+wiLAg1LL/0mn1IOKcoTxLVbOvyB6UxS/+NK1kZVUdXlZbxuRNDrIYNUhD6duzCwYKEjh8lJ70Pt/kElB+J7pDtr5EdzFxCmm6aiM4y3fWTvhtM1O87baOjc/w==
+ b=Iy7n/GDLGHeZaSc964lHB1KUPkNqwJ3AN0P5WSCkg3W2+w1mF5RmABzllq33DGAbdAR4XNvpjU56OSSVKh9TbqU12aXNp3/AF/7k/T+69Tq2LcO48zaeQ87Oq4WfnQAVFn53xqdKHo0U+brVXafOthc7a87xVgNT7FRJdL5jf2zofbrIThRLr2mntwxj2RZ1PbPhrrgeyndcJKSEjVqPVgsiRRI9sVtz0ZZ4mkZ4jur7UbbVQJjTCFZOu9BRhZ8nTaq6qPgc/cxAk7meY1MV7FwpHthXh+K8x+iWw2UO8/RJ1RsexCghNYTnefK7xf0cGNdG3yOIpr1k55iEfcAx6w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
- b=e6Cgga8s3md7eVmeHul5kmwOKMD6d6UmyigQkJ4h5B9/mFPqT6K095uKu4SeI7natf9xY+5KHC4WEZSyMRpvPUxdolK6BSn+rFJEUqvNla4gfZHUb/0ruvv32SPYuQMnYxvRQtvrkjCI509uFXVlJNHezyDNmMj1DacVzx1CBLIzgzpAN8kyw4czyQXKfrcBZvb+BEi+R+bTMuF1zKEcf90LMMwaOvipbg5URxeZuXAG0nSVWPC8VjhjaIPVPpl/OOFK63pqYuIaz5xqXNKQvOULWTwSUSoUr5qOBTb/4bp/1YQ2BvlYGsi2Ach8qsky898bhefaLPz9RdF6RDNIpw==
+ bh=AXwwUv4AU7eNZgEqa5ZHD/NioKWhoX0HHu4w5IUr1KY=;
+ b=r5RBkWjpYBbi158dNLJVqBjKNbCwXIZ10Y2y4UXKnOWtlj3qFBcx1ve/XJij9pUIGUbA6rRP1ACACVzE0ZXM1kW+bVZIfiDndj0vS9WfhdoSFTdpX3A2Pva7myIihhCdhILviNGp95NxiEDfSWY0ZRPNZy9EFBX0+lwWx/u0kwo2gmF0Er0qfBMl3a/ZMcr/jwlO3SEjqxRUK1EXHNow75ZHyRjMx7+h62eZaBj2zKUaIFM7LGu2oDmfNPQ0Os4q/6H4LOGRC0+qY9XLWA9dEu3p+ZlFS+NNvP140Pdg6MAvO/ruxPIS5qWt3Y5Dso/zbUpyPtDFQPjv96cdh6lNYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
- b=tTTIpK/LDeOXbXVlKMOGPJo/ZgwjpzDf0emX1kDbsTGVeMezpR2EfhEGl+4dMTOV0cTetAtWLrW1j+KgNIrHg8VyEua49OYMB1WU4vGjCF3NbY5rfLZ7prMfGjHLMX/DztK5BnVDBRQWQtm2M6RIe5xFRiS6R/BQGT78fkqd35E=
+ bh=AXwwUv4AU7eNZgEqa5ZHD/NioKWhoX0HHu4w5IUr1KY=;
+ b=YpuRy0+iXOKzsUlKZjsCZZzqpS9Okh6rMXNnV0eCpJM27mS8irJQE7Oqte+AqTFsqU6U+xytAjlPPIfHafIha49endRI6uiuDcfCZNQQ1SbxIN+YY+VyN+po8g640n3N/flfqUyyJqFIQjfMu+g7yMJlMHY2X9Qiu0AymDQe6YQ=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA0PR12MB4446.namprd12.prod.outlook.com (2603:10b6:806:71::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
- 2026 12:26:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
- 12:26:34 +0000
-Message-ID: <5beb0994-556c-4715-aa1c-c8a31b5929b5@amd.com>
-Date: Mon, 3 Aug 2026 14:26:26 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
- during device unbind
-To: phasta@kernel.org, =?UTF-8?Q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, Sean Paul <seanpaul@chromium.org>,
- Gustavo Padovan <gustavo.padovan@collabora.co.uk>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
- kernel-team@android.com, Simona Vetter <simona.vetter@ffwll.ch>,
- stable@vger.kernel.org
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
- <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
- <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO7P265MB8891.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ea::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
+ 2026 12:29:31 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
+ 12:29:30 +0000
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0201.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e5::17) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+Date: Mon, 03 Aug 2026 13:29:29 +0100
+Message-Id: <DKFB5CL2I1FO.7ULPVEF0VG5Z@garyguo.net>
+Subject: Re: [PATCH v5 1/4] rust: clk: use the type-state pattern
+From: "Gary Guo" <gary@garyguo.net>
+To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
+Cc: "Daniel Almeida" <daniel.almeida@collabora.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "Viresh Kumar" <viresh.kumar@linaro.org>, "Danilo
+ Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Drew
+ Fustini" <fustini@kernel.org>, "Guo Ren" <guoren@kernel.org>, "Fu Wei"
+ <wefu@redhat.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ "Michael Turquette" <mturquette@baylibre.com>, "Stephen Boyd"
+ <sboyd@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Michal Wilczynski" <m.wilczynski@samsung.com>,
+ "Boqun Feng" <boqun@kernel.org>, <linux-pm@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-riscv@lists.infradead.org>, <linux-pwm@vger.kernel.org>,
+ <linux-clk@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Boris
+ Brezillon" <boris.brezillon@collabora.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Maurice" <mhi@mailbox.org>
+X-Mailer: aerc 0.21.0
+References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
+ <20260706-clk-type-state-v5-1-67c5f326a16c@collabora.com>
+ <DKEO7DXQ8604.1CB09QFM2EO68@garyguo.net>
+ <DKF0BU8N7JJX.T802R11VZ0A5@nvidia.com>
+In-Reply-To: <DKF0BU8N7JJX.T802R11VZ0A5@nvidia.com>
+X-ClientProxiedBy: LO4P123CA0388.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:18f::15) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB4446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO7P265MB8891:EE_
+X-MS-Office365-Filtering-Correlation-Id: dcde09be-5d55-4d3f-3393-08def15addd4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|1800799024|366016|23010399003|4143699003|56012099006|11063799006|10067099003|6133799003|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info: sOfBtrTJPBrF6arjPt/n4xQDs8pJevWUd5eJk0oYhmGU+z7+YEKvAcLgEbA5WCGDSVElJ4Eq3cYwsaazxRZjyH6+E5foZmB3WiF0dtD07kBMn2udyoMiKrSNEkVOqYT1AxKpVR+skQLDRFQdHvRNZFuXhb7Rj3gA3gyi2wHMFFf7rpnsFSJEB1hP0AoPbteCEMdG2JTfjL/93HvWCSY/ogXABV/MXvfefRgv8HQqGAorU8LFNCWMtrM7KrHXDV1wTF/6ISl+m4mGdh0QfrXSTtsrSJMv4KTo1UFvNI6B2i2yMyqI7NtbGmkTdTk9utwmA06+nvP8TXNf4S/EpMfXBzwUy25hEI7hSlKZpBQUoMO6ui+M2Ax5LEo63+jr0kVL3zAJD85veoZzOY0JnIexyIctFWrQ9JIvKEEhKhIezX8BqCS7z7kqjTYggTS2I9DNdMUFhiiYqXldoEnjXUuBonkgaSG+mCIFPFZU6sOIykpR81Gq/VnMGAf0NnCwP++q5LUYywyq0bsGD5HjEeC2wDjbXnaPy07rpP54BylPAaIud/AAZ45B4kKyNb+vH6J/BoCT5oruMRoy7gVDPqimfTMiFl0wjP4p3v2eYgenY+dVgJo5z5328WAXxuJUSGSqvkdC1Q1Uh7qTJc1hjBiUsQ==
+ ARA:13230040|23010399003|366016|7416014|376014|10070799003|1800799024|56012099006|5023799004|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 2/8QGUni+R+/LmjB1rsz3I35f2TIUV/neyjpn2VbnJ41hF1JHk2MvTuR0hycNLLYc2iBP5Aqv6x5FlnBvoQn4DoBUMYwH4H1hsK602Oa9anpgTd5YnLWISITH7vLXhIRi5ERFEWZqRNPKjWXCWIJ8tYLFQ0HxJS/5jwNyWDrff4laMzEwFJNRGNkmrX+NErZ3ueKpE8D6GGKvniRZCLouUE/JmNX+otBlDThsGst6J5Z8cQwMIeqqsONFez0LRFFhQXaBCP/8JOkDhahlfzANl9pRGPDLOQEdaue+uP+SerKRZBZlvWkWwy6y6HRxI87xQV39RSIuWTyY0daljPf1gqJgQlkauv5nB+n1XPaX3ZtPXuKj0ImBEoa5fdWzGUUP6k6E6kCK+O+tlOvC22g0GZeU8cIeaL8/fCNQD1eeFz7yXX/cdCpCl5Fwb1XaohPKdGQmEhV3Kk/lTy8GMqYSlUec+yGJp5Yp5+F0dfdwmHADvn4rqox9JWrMknxvCKkw02lzu2qrQWmpNm+mVuKgpHxVPMXHiCZs8ukkE9kPq7eoO/RqII+66PtkwVVIKxxlQlIyPlZG3hVINLmBV0015aqGYJ93kw3SB18+58NHBpMvXig9PY3w6nYFaPmWasSqgcUv1WHy/t1eUYqA52qB977jedbQdm4qqhx2BGKJ7g=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003)(921020);
- DIR:OUT; SFP:1101; 
+ IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(7416014)(376014)(10070799003)(1800799024)(56012099006)(5023799004)(4143699003)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cXYweU9Sa09TVVliTWhid1pHYUNZTjBHMFJNVEV5QkRRdEVqeVMwdzNLdmtY?=
- =?utf-8?B?RlRYMUdlRW5FcGZjLzFEZXZkcXBCd3k2Wm1WOU14WVFveXVuRnNPR3NuYTND?=
- =?utf-8?B?Z25wK0NWTmtEM05GdnlHOXg1U1FVN2lYMVVzYXc4U3NPdEpBRmR5WVIrYzdI?=
- =?utf-8?B?T2lqQ2F2MzF4WWFEeHA3SnlqVVdKUnp4QSt2SnNzL3pBcDRHMktRZlhBUHZi?=
- =?utf-8?B?QmFCZ3lIaTJRM3piVDdDYUZXTVN5dzcrMkx4L0xpQWtOSVBEeG0zY3VxZnFi?=
- =?utf-8?B?Q0dacDBqVVVaUmpVdlI5Rlg3UFErc0pScDdLSVgyRS9YMXA4ODdqU0h1RzlO?=
- =?utf-8?B?YVJPSTBlU2U2QjJtY1pVUUFsUnhzQnZtSkR1QlRXeGl4bkY2c1RKVmJwajFX?=
- =?utf-8?B?dGhDMTRJdW9abGxybDdiWlBCOUd2VUZtMHBXRFFkbzFqaHQwcGNiTldTWHpE?=
- =?utf-8?B?azZqVTdLNzU4Y0R3OGM4YTZ3OTk0YjFsQzVGTDdCY095MVAwZ3JaT0lmWFVj?=
- =?utf-8?B?S1Y4bWRmWE91UDhBTHdkbVhpU21NSmZjdU1nQ0JtQk02c3FTOFQzQnF3K21Y?=
- =?utf-8?B?VndtcERuWUJHQ2EydEZUZDZkc0FFWXFTTFBsamtlRXhtMVN4MStQNjM5TG4z?=
- =?utf-8?B?amNaQjY0N2ptSDUwVnRLNWtpTnZScGpUdEVWNXBMRFVvaCtqNDd4Z0tPL3Bh?=
- =?utf-8?B?Ym1tL1VsT2hTVU9PRitqWHZURE44K2tVRnJzcnQzUjhwV3FSYzhjVTJBSE5t?=
- =?utf-8?B?dFpiZFdtUTB0c3E3Zm5zSXVQZTJpdFlWdUQyTXpPL2IzZjR1K1V2SE9DdFdK?=
- =?utf-8?B?RGVVNU4xMTdzcDVvVUhCS1dTU0RFc2lKUUR1RUxMUDc5L1g2MkVUZ3pZQk9I?=
- =?utf-8?B?OHp4RFpweWYyODZqMmtsNDQvNnRhYVZpQ0hDWGlYaWF4SzNvdUxTQm9aSXNQ?=
- =?utf-8?B?YU15UEh5OG9LNHkrajFWYlN4UGhsSDFKWDMvSVFYaDRkRDBSVUJLSmxuY09K?=
- =?utf-8?B?N002RUl3c2VFQU5qQ2lZWUNrRE9VaFEzRDgyNXJIWVRSUldFR2dpUGg2QzMw?=
- =?utf-8?B?L0E0ZUgwaFc3S2xzNHk3VEptUWhQMG4yOWRET1VtWmoxaDRVeEhuRFQ0bUUv?=
- =?utf-8?B?WmE2STJFSldhWDJESzZnSkZnMjBGNjJrVTQzQU54S0dOT3QrTlpmQUR6c2VG?=
- =?utf-8?B?UHE2c0tQZmtRdXNzVlFMWjFTQ0RmVzlacmw5THpER1g2YWF2Q05SRTBtcExJ?=
- =?utf-8?B?K0RFSUg0ckoxZ2pYNE1sOFUwVmNRcEJ4VTl4V0tFNzhLeU80dGpzdVJQQy9x?=
- =?utf-8?B?Z29JTG8wUVVJeW53Q0V0aTRhaExaY0t5c3ZOa1ZCbXQ3VGF2TTVjamZlVG9Q?=
- =?utf-8?B?eEhBNVRuZGRyRTdGQ3hqWGFLVmVvZkFibzNoYWN1TlVjcThuZjQ3VTBLQkY5?=
- =?utf-8?B?bDVENlpyNjhrZm0xZEVieVJ1UTMxRzNDZU5IQ0dDUm1RYURaZlE4MWZvaEtp?=
- =?utf-8?B?YWdFSFpuNU1GV25rQWUxYWxPQ0piWmFESGJQajdWcitiS2kxL2tBTFFKYlVn?=
- =?utf-8?B?ZFdqUnIxSFVybHRRQXRIbDRiMzBVVUdqbVdQVEJHUGZsdUVHNmd0WlZtU0lu?=
- =?utf-8?B?Y0hxMDRkMW5DeGJnbTd3RzhWUDJkV0hHenZFVWJZNEh2UTNJbzFxK0FhQzAw?=
- =?utf-8?B?aUdnZGZUdTJoZ3Q5ZmhENTV5d0VNMnY2N1dFSjB4NzNDRGRoYXpGbDRBQ0Nw?=
- =?utf-8?B?WUVRSUVKSjc1NGg5b1hVZUJiR200YlhEYUxaZHJEa2QwdUhvUWZZaGMyeVBk?=
- =?utf-8?B?dDd0VVNxMW1tQ3k2dXRnTGtqVzRBOGFkbW9vQktsRXdTNzdaWExKb1hUVDUv?=
- =?utf-8?B?eG5WR0VlWk1KRFhvNklLNldpTEVJY2hsdjMra1dZUk12dS8yc3IwYXJpUW9D?=
- =?utf-8?B?bDlvalN3eG40T0pYZjVJSUU4UnBjR3pPVEdLN09qVWd4NDZRMWNBS3ZYYzNy?=
- =?utf-8?B?K21XZ3ptekxKbzR5UDl6ZjRYbHk1bk5vV1YwMFpaRnJsZjJUR281TEtTbjVW?=
- =?utf-8?B?bnp3akZ1d0Qwbk9VMzdEekl4MUtrazZxNlQyRHVPcE52aE1XblNVSGlUa1J2?=
- =?utf-8?B?L09tWTZnd29NMGZEVWU1eG1pVU9kanc3UHQ2MktJNzhDUU9QRXJSMFlCblJ3?=
- =?utf-8?B?V1A0dnJMOTFidWpkcDZyQUFkalYwZTF1YUxLQWxldEFkS0ZaMmE3bThOd1ZU?=
- =?utf-8?B?WWRaaXhOSFVwOFBHRW1sM09YOGZMeWUyb3oxY25GS1gzbzl5Y3RZVEY5Zjhj?=
- =?utf-8?Q?1kEV7gEQK/Kde4bYQ+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzIwcVhjMEg1bWdNT3FEV3gvSUhxZUhUZmdvNnY1YmVWdmxVUkhBODNPV2k1?=
+ =?utf-8?B?bGpSbnNzYVRsa3dDQkJyMTZGTDkwU3RrMG5aWWY1cXNsQVl0bmh5aCtxZEdr?=
+ =?utf-8?B?QUNDb200enUyTVZGOWFmOWF0VWhzMjgyTXY5a0tHQVcvSVBUNythejFSVXly?=
+ =?utf-8?B?VTB1V05qLzRNeXNLZ0Zkb1JycGpqT0Y1SnRzWVpSQ21TSThRKy9IZGZpUm9U?=
+ =?utf-8?B?cjFnVVNseVFWTVZCbm5FWjRmbE5RWTA3RjZjZFEwQk5GSThJNVpGZ253OEEz?=
+ =?utf-8?B?TzdOdVFnSFlEaGlhQWpYWXNlcDVIalFpRG5FWXo4TnlFRHZ1Rjd5cllXNHFH?=
+ =?utf-8?B?c0FROThlRFg5T05rKy96bzJMdXBpOGNJeklqT3B3VUVQdElUNEl3TVFwUlNF?=
+ =?utf-8?B?czgwdVh0UGxWa2lJRTErZ1NzNExuQktsanFnOUJMZHNPTWZPNkxLY0g0RFRQ?=
+ =?utf-8?B?TUF6dk95dU9VbGIvTzhXN2I1ZlREaks0NThMMWVBMlFJcXVWVUJ4cDVySDE0?=
+ =?utf-8?B?V3NsOEQxMmQ1TTkwaWRkSXJldm9FWDkzMUZQMm9GR3Q0bjBtT3FQWXduNXNu?=
+ =?utf-8?B?S0hGTlF2VS9SS3A1U1QzWkIwVVRuOUFvSWdWNnhYSFE0dm9LUi9JcHlSeXFy?=
+ =?utf-8?B?NFBsVmM5ZlB2bzVaVXc0Tlp5VGJiNWR6alEyRS8zMVI1OFZCY1JjQzBTYkpr?=
+ =?utf-8?B?MUxvSnQwWDZqOXMwQURGd2xCL1ZFdUd0US8wTGlZN1FVZWJnSlJoSVlnMGk3?=
+ =?utf-8?B?eFp6V2JVMXlKQnFOWmlaM3lWa0pDRHNQRWlhNEllbklQRXBoRE9pQXdNTVVL?=
+ =?utf-8?B?M0QrNHhsUWh3VGVPZlhLcWFqL1hLMGovVUFYaU1xUDBiT0Nnc0NuRG5KNzdn?=
+ =?utf-8?B?V2NLR2Y3QjhNN3dqUk11ckVEeUtxNjBteStsc1RacEgvVC9EcTBiSkZpUXNw?=
+ =?utf-8?B?NWQ2T2dmb0NLQUhYekp5aHF6ellwb1lHR0NNVVNOM2JZUzdCNW80Wm5lQ2Mx?=
+ =?utf-8?B?NytZVmVzK2FoVlN3QlZlL3AzcDFuMEVmM1Q4V2ZZS0RURnJYc2dqR1ExQld2?=
+ =?utf-8?B?eVlCM1ZzZXVJZkN6Y1pIWG4yZkI5SVl0bEszNFJ2dkxOd2tsMVo0MkY2OWFC?=
+ =?utf-8?B?NnRTZ2dVNURGUjhLU3lqaVI5YVBoOWVFL25RT3pucXk2WGRPVU5rTHdpbGl0?=
+ =?utf-8?B?eGNrb0J6OG1NNWhQQnN5dXVHSDhZVHNreDJlRDc5ZjBjakVhUzllck1YMVRZ?=
+ =?utf-8?B?UEtzcUluNG1VeXVVRUYzUGxVME02MjFzcXBxR3F2UGNUYzJYb0FBV1FXL3Bu?=
+ =?utf-8?B?SURha0Zvc1VDam1CeDBJWjlnNHo0eTBnRi80VjVJUlV4Tm5qSlJUUHdod0Ri?=
+ =?utf-8?B?THdyV001MDlmdWFPRkJkTVI1aWY4NjR6NDI4YU1QcG5UWFZMZi9EdzBSSUZ3?=
+ =?utf-8?B?ODRBbUtWL2p6UDMvV3pHMDQyZ21kbnMrVGgzM040bDh3RG1sUmpnVFUrS2dZ?=
+ =?utf-8?B?dmZaQjZRNzhDLzZ0VE5sMkVjYk1ud3pPMjI2RHNyV1FqUUtYL0dUQmRzUU9F?=
+ =?utf-8?B?blNIK2VsTGNhb1B4NWZsRWRZaStLZkNEa0NVL1Fvd2UrN1M1NGN2eE14TXRT?=
+ =?utf-8?B?VnZiSzZRTHhvZHY2S1JGOVNOVVpqYjNQVC91L2dLdGYyZ1RyT25MREh6SmNL?=
+ =?utf-8?B?cGVlOWlrelp6VGNxS29SbEhvR3JXZUNJS1k0TjhxekFGdzNMN2xwOGh4WFlH?=
+ =?utf-8?B?eSt3UVpobkJkekxiV2FrWFdJYmsxVDZEYmV4bStOb1M1Q1ZkcThDSVpyWkhR?=
+ =?utf-8?B?QzJHVVJKOEtaYmJCODZFN2FGYktJZWtEdkpSaUFXU0tvTHNMeHZyeE1YNDNp?=
+ =?utf-8?B?eWtqNW1PODh0WHIwTDdDN1J3b25na252eUxBMGdldWRObEh3YytOMHFjWVNa?=
+ =?utf-8?B?dXNTQTMranUzY2JSMklleU5iTkVMSGc0QWxLQkRleXhrek9xUWV5M1FuT0JL?=
+ =?utf-8?B?T05ZVFFhNWwyYWJ3N1k1NUVLQ0xSMlgzK2drd0JkaWp4UEZjaFJnM3RzdXdi?=
+ =?utf-8?B?eTROR2tTYVErU2NMb2huTmlRQ1Q3cTNIN3orZFV0YnRJaXVFdEFhTWd1L2Ru?=
+ =?utf-8?B?N2tkM1ZKTDZFenlKdXd4TnNSczRWaUV2eGxXM1dsRFdtMXliUWwyU1AvRndZ?=
+ =?utf-8?B?Wk9QYjZZdjZKNFhTekFqM3RCVGllN1F1QmhQaURrdGkzMzBGM0NoV2Fybkwy?=
+ =?utf-8?B?OHM2SGdDcWxvNHFlbUx4U1pRWVAzL0xjVExzU05HcjRoZDhFazdId01FUjM1?=
+ =?utf-8?B?SEpsS3VLR0lWZUs3QWxuamI3Q1h3UEtiK29KK1ZmVU5USVpmVmR5Zz09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: dcde09be-5d55-4d3f-3393-08def15addd4
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 12:26:34.7295 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 12:29:30.7378 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6CmZqGL67c4rEa1ngRN62QIWZVkN9WyvEECIMN/RLl1iGTB/10wM5GuS2hzwwV+F
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4446
+X-MS-Exchange-CrossTenant-UserPrincipalName: qukRCU61aM+Y82CH6tyYTVca9kEy6C/6ZnTPfejLnlJJ9paZCsI/RlakV/rgplqyRvyfdirPDMyrAng3Y3fScA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB8891
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,95 +155,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/21/26 13:20, Philipp Stanner wrote:
-> On Tue, 2026-07-21 at 09:21 +0100, André Draszik wrote:
->> In [1], sashiko reported the following issue:
+On Mon Aug 3, 2026 at 5:00 AM BST, Alexandre Courbot wrote:
+> On Mon Aug 3, 2026 at 3:30 AM JST, Gary Guo wrote:
+>> On Mon Jul 6, 2026 at 3:37 PM BST, Daniel Almeida wrote:
+> <...>
+>>> It solves d) by directly encoding the state of the Clk into the type, e=
+.g.:
+>>> Clk<Enabled> is now known to be a Clk that is enabled.
 >>
->> === snip ===
->> Looking at how these fences are managed, drm_crtc_create_fence()
->> creates a dma_fence without taking a reference to the drm_device or
->> drm_crtc. Because the sync_file framework exposes this fence to
->> userspace, the fence can outlive the CRTC.
+>> The design conflate states with actions. Our existing type state for dev=
+ices
+>> don't do this: `Device<Bound>` means that the device is currently bound,=
+ not
+>> that dropping it will unbind it. Yet, a `Clk<Prepared>` doesn't mean jus=
+t that
+>> "clock is prepared" but rather "clock is prepared and needs to be unprep=
+ared on
+>> drop".
 >>
->> The dma_fence contract requires that data accessed by dma_fence_ops
->> (like get_driver_name) must remain valid for an RCU grace period after
->> the fence is signaled. However, drm_crtc_cleanup() and the subsequent
->> freeing of the device do not wait for an RCU grace period via
->> synchronize_rcu().
->>
->> If userspace calls ioctl(SYNC_IOC_FILE_INFO) concurrently with a device
->> hot-unplug:
->>
->> CPU1 (Userspace)
->> sync_file_get_name()
->>   ops = rcu_dereference(fence->ops);
->>   if (!dma_fence_test_signaled_flag())
->>     // Preempted or delayed here
-> 
-> nit: no one will be preempted here since the RCU read lock must be
-> held. The Sashiko tool misses the point, which is simply that someone
-> illegally frees up stuff that might be still in use, with or without
-> delay or preemption, that's all irrelevant for the issue.
-> 
-> Anyways, thanks for fixing this:
+>> One way around this is to mimic the "Registration" pattern: have a type =
+to
+>> indicate that a `Clk` has been prepared and its `drop` will undo it, and=
+ then
+>> this type can `Deref` to `Clk<Prepared>` which just mean a prepared cloc=
+k.
+>
+> Just as the driver core hands over `&Device<Bound>` to a driver as a
+> guarantee that the device is currently bound, so can the driver pass a
+> `&Clk<Prepared>` to a function to assert a similar proof. Here the
+> reference only means "clock is prepared", without any action implied.
+>
+> The typestate has real practical benefits, as unlike `Device` which has
+> a well-defined life cycle entirely controlled by the driver core, clock
+> handles are owned by drivers and their use can go all over the place.
+>
+> Driver A might want to enable a clock in short bursts in order to
+> preserve power, and keep it prepared otherwise. For this, a
+> `Clk<Prepared>` with the `EnabledGuard` I mentioned in patch 2 would be
+> a good fit. Driver B might need to keep a given clock enabled all the
+> time and only change its rate, and thus will store a `Clk<Enabled>`.
+> Driver C may have different PM states, and can encode these in an enum
+> where relevant clocks are either `Prepared` or `Enabled` depending on
+> the variant.
+>
+> Mandating a registration-like pattern here looks a bit overkill to me
+> and I am not sure what this would grant us. It would definitely
+> introduce some complexity: say that you want to keep a prepared clock in
+> your driver data, does it mean you need to store the `Clk` itself, and
+> then its prepared guard, which references the `Clk` in the same
+> structure?
 
-Seconded.
+You could have the `PreparedGuard` takes a reference to the clock, no need =
+to
+store `Clk` separately. We can have a method that gives out `Clk<Prepared<'=
+_>>`.
+The lifetime would be that of the guard, so the token cannot outlive
+`PreparedGuard`.
 
-> 
->>
->>
-> 
-> […]
-> 
->> Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org?part=1
->> Fixes: 6d6003c4b613 ("drm/fence: add fence timeline to drm_crtc")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: André Draszik <andre.draszik@linaro.org>
-> 
-> Reviewed-by: Philipp Stanner <phasta@kernel.org>
+(Using `klint` annotation below just to demonstrate if they can be used fro=
+m
+atomic context)
 
-Reviewed-by: Christian König <christian.koenig@amd.com> for both patches.
+    struct PreparedGuard { ... }
+    struct PrepareEnabledGuard { ... }
+    struct EnabledGuard<'a> { ... }
 
-> 
->>
->> ---
->> v3:
->> - Philipp: update kerneldoc, add Fixes:
->>
->> v2: new patch
->> ---
->>  drivers/gpu/drm/drm_crtc.c | 15 ++++++++++++---
->>  1 file changed, 12 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
->> index 63ead8ba6756..e8e80c936852 100644
->> --- a/drivers/gpu/drm/drm_crtc.c
->> +++ b/drivers/gpu/drm/drm_crtc.c
->> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
->>   * drm_crtc_cleanup - Clean up the core crtc usage
->>   * @crtc: CRTC to cleanup
->>   *
->> - * This function cleans up @crtc and removes it from the DRM mode setting
->> - * core. Note that the function does *not* free the crtc structure itself,
->> - * this is the responsibility of the caller.
->> + * This function cleans up @crtc and removes it from the DRM mode setting core,
->> + * after first waiting an RCU grace period to ensure @crtc->dev can safely be
->> + * dereferenced by our dma_fence_ops.
->> + *
->> + * Note that the function does *not* free the crtc structure itself, this is the
->> + * responsibility of the caller.
->>   */
->>  void drm_crtc_cleanup(struct drm_crtc *crtc)
->>  {
->>  	struct drm_device *dev = crtc->dev;
->>  
->> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
->> +	 * the fence is signaled. This is necessary because our dma_fence_ops
->> +	 * dereference crtc->dev.
->> +	 */
->> +	synchronize_rcu();
->> +
->>  	/* Note that the crtc_list is considered to be static; should we
->>  	 * remove the drm_crtc at runtime we would have to decrement all
->>  	 * the indices on the drm_crtc after us in the crtc_list.
+    impl PreparedGuard {
+        fn as_clk(&self) -> &Clk<Prepared<'_>> { .. }
+
+        #[klint::atomic_context]
+        fn enable(self) -> PrepareEnabledGuard { .. }
+    }
+    impl PrepareEnabledGuard {
+        fn as_clk(&self) -> &Clk<Enabled<'_>> { .. }
+    }
+    impl<'a> EnabledGuard<'a> {
+        fn as_clk(&self) -> &Clk<Enabled<'_>> { .. }
+    }
+
+    impl<S> RefCounted for Clk<S> {
+        #[klint::atomic_context]
+        unsafe fn inc_ref(..) {
+           /* just add inc count here */
+        }
+    }
+
+    impl<S> Clk<S> {
+        #[klint::process_context]
+        fn prepare(&self) -> PreparedGuard { ... }
+        #[klint::process_context]
+        fn prepare_enable(&self) -> PrepareEnabledGuard { ... }
+    }
+
+    impl Clk<Prepared<'_>> {
+        #[klint::atomic_context]
+        fn enable(&self) -> EnabledGuard { .. }
+    }
+
+Best,
+Gary
 
