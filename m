@@ -4,44 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95773C55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 15:04:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 683CCC55184
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 15:04:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C6F6710E6B1;
-	Mon,  3 Aug 2026 15:04:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A057410E6E9;
+	Mon,  3 Aug 2026 15:04:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nuRCh46U";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="IJsUVJw5";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6891010E6B1
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 15:04:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EFD1E40797;
- Mon,  3 Aug 2026 15:04:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF11F1F000E9;
- Mon,  3 Aug 2026 15:04:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785769452;
- bh=gM4FCMik/iz+q0x/G4qwU3gAFqWT2vo73/mhnzO0TOI=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nuRCh46UbOP1ZsLuj06TJi0JT2dukpRgVFoG0TikuvihaDg93qg0K16f5p69EzREY
- bS0+uieyGpWZluZMQPYxsq6B/Lw5/CBq1hprN2XhcYrp1cDCImjrmhR6kBvl2L19fW
- Zk1ZuBKDDLTZmV3RSGSezsnHGyzQKKhyf9F9YgdSBrnnuVwP2vVrsADiUuulcU79ny
- 9Z5fMDsVsrrxy9QJwoU4UpwNdhxN/VwHiZfKRH8+zrg6jlDq/oukFU7imuy9FT1UUW
- h6dDGcbjn/oZm1i8Fsc7IhNfoFeLUSLoplmmRO4nuLDq1WKe9tUz5/ew0oX/m0zP+S
- z8oRgf/463F1w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] drm/bridge: ti-sn65dsi83: Propagate error in
- sn65dsi83_reset_pipe()
-To: "Esben Haabendal" <esben@geanix.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
-References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
- <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 15:04:12 +0000
-Message-Id: <20260803150412.BF11F1F000E9@smtp.kernel.org>
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F9D010E6F5
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 15:04:46 +0000 (UTC)
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 6C1F4330A3C
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:04:45 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1785769485; bh=bec7vQNQOVKg0g28IThleZ8LFfU+/ZLXxDRoimvaM/E=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=IJsUVJw5E4911zpmz2XaKpPLyI/gNaxtcbenEqB6B5by+yut2fsC38cX4Kn4m4Uax
+ turaoc4WJOqUTg/anazRhyxUTaKNTjEWd/f3I/UK5tJ9SNXkuZImCBncLH++3fVIzj
+ OdpbQHmJ1VfAA2mw7gjo/PzLRRNuKPn0qb3pQ88qfyb5AItWxRYp0Pq7FU5uDNrugH
+ ot8GyI5bbn5i0W4kV9I8hAz9vHGi3iVMMewVHjd5rAU3WkyWAdfSoy6p0Ysn7kwnR/
+ nZUq6VNTifKBe4xEYEfrrjJeUc2sc8amxXB1hkxBnFwpA4iLJa0kdOGxhlHVS+smfp
+ EA7rezr4TrZgQ==
+Received: by mail-qk1-f174.google.com with SMTP id
+ af79cd13be357-92e54f8c051so170968185a.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 08:04:45 -0700 (PDT)
+X-Gm-Message-State: AOJu0YxLhYrjayPETAmVwU9A1p0rbmbmC/tfCNY7hcKzUkC/2dxAHGnt
+ taO4MtfnwBlimXuMNAU0e/loheb9jTG22XUdQatRr58l94AnimH1kAcfFF0bv+gsoZAT99fl3Se
+ UFVAIP8cHLR8a8bfHXs+1S2dgjcF0Tcs=
+X-Received: by 2002:a05:620a:a509:b0:92a:dcf5:ba5b with SMTP id
+ af79cd13be357-934a078ec66mr1874803285a.14.1785769484157; Mon, 03 Aug 2026
+ 08:04:44 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260803144120.11524-1-xaver.hugl@kde.org>
+ <2353697f-b1da-495a-b043-7a81d875856e@collabora.com>
+In-Reply-To: <2353697f-b1da-495a-b043-7a81d875856e@collabora.com>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Mon, 3 Aug 2026 17:04:33 +0200
+X-Gmail-Original-Message-ID: <CAFZQkGyfDwjPuciiOvZM3Ha8Xj+YkgkMaveHZtBK2w_S+Z+Vcw@mail.gmail.com>
+X-Gm-Features: AUfX_mw8sK2V6GPnRFO7u88fP9ZT8Klne3x4kZYGrMC-8pF3piipOttVIK9wP9k
+Message-ID: <CAFZQkGyfDwjPuciiOvZM3Ha8Xj+YkgkMaveHZtBK2w_S+Z+Vcw@mail.gmail.com>
+Subject: Re: [PATCH] udmabuf: vastly increase the size limit per dmabuf
+To: Robert Mader <robert.mader@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org, 
+ kraxel@redhat.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,62 +63,14 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Leaking an SRCU read lock on the error path in `sn65dsi83_reset_wo=
-rk()` due to an early return without calling `drm_bridge_exit()`.
---
+Oh, nice! I should've checked the list before making a patch :D
 
---- Patch [1]: [PATCH v3 1/3] drm/bridge: ti-sn65dsi83: Propagate error in =
-sn65dsi83_reset_pipe() ---
-commit d19637cc30dea31a13c6747fe2aa3733116ec5e5
-Author: Esben Haabendal <esben@geanix.com>
+Could your commit also be backported to stable? I fear I'll need to
+find ways to work around this or disable the relevant optimizations in
+KWin on older kernels either way, but it would be great if that could
+at least be a very temporary problem.
 
-drm/bridge: ti-sn65dsi83: Propagate error in sn65dsi83_reset_pipe()
-   =20
-Propagate the error code from drm_bridge_helper_reset_crtc(), so that
-callers has a chance to handle the failure.
-
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
-ge/ti-sn65dsi83.c
-> index 42b451432bbb6..476f255bd34dd 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> @@ -403,7 +403,7 @@ static int sn65dsi83_reset_pipe(struct sn65dsi83 *sn6=
-5dsi83)
->  	drm_modeset_drop_locks(&ctx);
->  	drm_modeset_acquire_fini(&ctx);
-> =20
-> -	return 0;
-> +	return err;
->  }
-> =20
->  static void sn65dsi83_reset_work(struct work_struct *ws)
-
-[Severity: High]
-Does propagating the error here cause an SRCU read lock leak?
-
-By propagating the error from sn65dsi83_reset_pipe(), it is now possible
-to hit the early return path in sn65dsi83_reset_work():
-
-	if (!drm_bridge_enter(&ctx->bridge, &idx))
-		return;
-
-	/* Reset the pipe */
-	ret =3D sn65dsi83_reset_pipe(ctx);
-	if (ret) {
-		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
-		return;
-	}
-
-Because this early return skips the call to drm_bridge_exit(idx) at the
-end of the function, wouldn't this leak the lock and cause a system hang
-during drm_bridge_unplug() when synchronize_srcu() is called?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-ti-sn65dsi=
-83-fixes-v3-0-9b403a405ccd@geanix.com?part=3D1
+- Xaver
