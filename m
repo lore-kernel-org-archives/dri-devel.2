@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB00AC55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 18:43:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 793F8C55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 18:46:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C67810E776;
-	Mon,  3 Aug 2026 18:43:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD97310E778;
+	Mon,  3 Aug 2026 18:46:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TUejm2+D";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DRdCMe1u";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B80210E780
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 18:43:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 099A810E063
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 18:46:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3150641325;
- Mon,  3 Aug 2026 18:43:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 561921F000E9;
- Mon,  3 Aug 2026 18:43:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C4C6843CC6;
+ Mon,  3 Aug 2026 18:46:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56CB11F0155A;
+ Mon,  3 Aug 2026 18:46:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785782596;
- bh=j0VZL6JhnPfBNF4P8887PVTU5xpaUqguwksk7tHuUnY=;
+ s=k20260515; t=1785782796;
+ bh=6hT783PxJWRn5Td9TGHtiwX4oeNCedtPkNsMlRI8Zps=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TUejm2+DBiDfTs7ui2RoxOVMV1Q71q8ZqWS9FXx99iycfuK3nNJV9GxzRwsgFaG4k
- n5Zbjt9XQ02mKQoErWiwcPu3CZjgAQj41JduLTKVvqvQoMLfvfuyE04CCVP88vlx0H
- rNUoXrP0mjjrJqqnJUIcYE+GJrrdQ4+cHHdXkTzVZSeoeT7xtM5dV6VfAIzAt4ppfk
- Z7dVzdhpVnhni17lq91PVUko9IE0sq3XcD4R3V9DKVHvn5lod7bNb3SuDDf67v9pRt
- pV21037Kf9GsYd7VVLKwo46yAHq7MRqymjVjUfE1sKPKZfcH7mhsBYz6+TGDmxNQk4
- +LsrBISRNrYnQ==
+ b=DRdCMe1uDApNxZawX3Dmh7jpWcnjA6kb+AFYTVoFu4GyXMYGMbMuH8vIG6FuwCK9/
+ bcFV3ltlEx0dS8y2B445jBILTRMHYW6FaVj9sT/5D1aFaMt6+RIrO1aI0I3keBwvaM
+ HlgTYFYBj8nlsgnOdfiKZwr7ULVuQMSeSxSpioSbaLKdaCzjrCZVj99kVwWW4Lco6n
+ 81zEkjLDbDjyx6si0lGPyt0VQyQkk4yokPUHIaYgXKCwQXS0rTBHGUB9pVYGjx5miR
+ ZODshsqpERc6ZnjP73HEd2m8ZjPtJhw89xE5xRFMaA3LwyFLir066EeuHzm0jQtben
+ aglIwyGqY/9qw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 10/22] drm/bridge: synopsys: dw-dp: Support
- MEDIA_BUS_FMT_FIXED
+Subject: Re: [PATCH v9 14/22] drm/rockchip: dw_dp: Implement out-of-band HPD
+ handling
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-10-2e6e46135312@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-14-2e6e46135312@collabora.com>
 References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
- <20260803-synopsys-dw-dp-improvements-v9-10-2e6e46135312@collabora.com>
+ <20260803-synopsys-dw-dp-improvements-v9-14-2e6e46135312@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 18:43:14 +0000
-Message-Id: <20260803184315.561921F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 18:46:35 +0000
+Message-Id: <20260803184636.56CB11F0155A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,92 +59,166 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] dw_dp_bridge_atomic_get_input_bus_fmts blindly propagates unsuppor=
-ted formats, breaking bus format negotiation fallback.
+- [High] Unpowered Register Access (SError) in OOB HPD callbacks.
+- [Medium] Unreachable fallback logic in `dw_dp_rockchip_get_vo_grf`.
+- [Medium] Physical IO address truncation due to `u32` typing in `ctrl_ids`.
 --
 
---- Patch [10]: [PATCH v9 10/22] drm/bridge: synopsys: dw-dp: Support MEDIA=
-_BUS_FMT_FIXED ---
-commit 536f8f5a7df863a273e0062b67fbc6ca7b57d8a8
+--- Patch [14]: [PATCH v9 14/22] drm/rockchip: dw_dp: Implement out-of-band=
+ HPD handling ---
+commit 48b6797379434de3ea2e6ba62d355e782a42ada0
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-drm/bridge: synopsys: dw-dp: Support MEDIA_BUS_FMT_FIXED
 
-Add support for MEDIA_BUS_FMT_FIXED, which is requested for USB-C DP
-chains when the last bridge does not implement atomic_get_output_bus_fmts().
-This resolves the output format by using the negotiated input format in=20
-atomic_check and implements a custom atomic_get_input_bus_fmts hook.
+drm/rockchip: dw_dp: Implement out-of-band HPD handling
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index bde938b0d116d..e60dab0d3b9dd 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+This patch implements out-of-band hotplug handling to receive external
+hotplug information from the USB-C state machine via the vo_grf regmap.
+It aims to avoid SError problems when runtime PM is enabled.
+
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index 005938dc66c9f..d516b3910b516 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
 [ ... ]
-> @@ -1823,6 +1827,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmt=
-s(struct drm_bridge *bridge,
->  	return output_fmts;
->  }
+> @@ -23,12 +26,48 @@
 > =20
-> +static u32 *
-> +dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
-> +				       struct drm_bridge_state *bridge_state,
-> +				       struct drm_crtc_state *crtc_state,
-> +				       struct drm_connector_state *conn_state,
-> +				       u32 output_fmt,
-> +				       unsigned int *num_input_fmts)
-> +{
-> +	/*
-> +	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
-> +	 * the bus format. In that case, advertise all formats supported by the
-> +	 * DP link so the upstream encoder can negotiate the best match.
-> +	 */
-> +	if (output_fmt =3D=3D MEDIA_BUS_FMT_FIXED)
-> +		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
-> +							       bridge_state,
-> +							       crtc_state,
-> +							       conn_state,
-> +							       num_input_fmts);
+>  #include "rockchip_drm_drv.h"
+> =20
+> +#define ROCKCHIP_MAX_CTRLS 2
 > +
-> +	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
-> +							 crtc_state, conn_state,
-> +							 output_fmt,
-> +							 num_input_fmts);
-> +}
+> +#define ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL BIT(10)
+> +#define ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG BIT(11)
+> +
+> +struct rockchip_dw_dp_plat_data {
+> +	u8 num_ctrls;
+> +	u32 ctrl_ids[ROCKCHIP_MAX_CTRLS];
+
+[Severity: Medium]
+Will this truncate physical IO addresses on 64-bit architectures?=20
+
+The ctrl_ids array stores base IO addresses using u32, but in=20
+dw_dp_rockchip_probe() this is compared against the 64-bit=20
+resource_size_t res->start:
+
+	if (res->start =3D=3D plat_data_const->ctrl_ids[id]) {
+
+If a future variant maps the DP controller above the 4GB boundary,=20
+the upper 32 bits of the address will be lost, causing the hardware=20
+controller ID lookup to fail.
+
+> +	u32 max_link_rate;
+> +	u8 pixel_mode;
+> +	u32 hpd_reg[ROCKCHIP_MAX_CTRLS];
+> +};
+> +
+>  struct rockchip_dw_dp {
+>  	struct dw_dp *base;
+>  	struct device *dev;
+> +	const struct rockchip_dw_dp_plat_data *pdata;
+> +	struct regmap *vo_grf;
+>  	struct rockchip_encoder *encoder;
+> +	int id;
+>  };
+> =20
+> +static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
+> +{
+> +	struct rockchip_dw_dp *dp =3D data;
+> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
+> +
+> +	regmap_write(dp->vo_grf, hpd_reg,
+> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, force_hpd_from_s=
+w));
 
 [Severity: High]
-This is a pre-existing issue, but since we are adding a custom
-dw_dp_bridge_atomic_get_input_bus_fmts() hook here, does this code blindly
-propagate downstream formats even if they aren't supported by the dw-dp
-hardware?
+Does this code risk triggering an SError by accessing unpowered registers?=
+=20
 
-If a downstream bridge proposes an unsupported preferred bus format,
-propagating it directly via drm_atomic_helper_bridge_propagate_bus_fmt() ma=
-kes
-the format negotiation succeed prematurely. It seems this would skip testing
-any valid fallback formats.
+The commit message states that accessing the vo_grf register requires the D=
+P=20
+controller power domain to be active. Since this function is called during=
+=20
+initialization and the driver enables runtime PM with autosuspend, the writ=
+e=20
+might execute against an unpowered register domain. Should this acquire a P=
+M=20
+runtime reference via pm_runtime_get_sync(dp->dev) first?
 
-Later during the modeset, this results in a complete failure (a black scree=
-n)
-when dw_dp_bridge_atomic_check() checks if the negotiated format is actually
-supported:
+> +}
+> +
+> +static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
+> +{
+> +	struct rockchip_dw_dp *dp =3D data;
+> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
+> +
+> +	dev_dbg(dp->dev, "Force HPD connected=3D%s\n", str_yes_no(hpd));
+> +
+> +	regmap_write(dp->vo_grf, hpd_reg,
+> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, hpd));
 
-dw_dp_bridge_atomic_check() {
-        ...
-        fmt =3D dw_dp_get_output_format(out_bus_format);
-        if (!fmt)
-                return -EINVAL;
-}
+[Severity: High]
+Similarly, because this out-of-band hotplug notification is triggered=20
+asynchronously by the Type-C controller, could the DP controller be suspend=
+ed=20
+when this executes? This seems to risk triggering the exact SError the patc=
+h=20
+intended to fix if a wake up isn't performed before the regmap write.
 
-Should this new hook check if output_fmt is supported by dw-dp (e.g., verif=
-ying
-it exists in dw_dp_output_formats) before propagating it, to allow the brid=
-ge
-chain to properly negotiate a fallback format?
+> +}
+> +
+[ ... ]
+> @@ -71,6 +110,35 @@ static const struct drm_encoder_helper_funcs dw_dp_en=
+coder_helper_funcs =3D {
+>  	.atomic_check		=3D dw_dp_encoder_atomic_check,
+>  };
+> =20
+> +static struct regmap *dw_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *d=
+p)
+> +{
+> +	struct device_node *np =3D dev_of_node(dp->dev);
+> +	struct of_phandle_args args;
+> +	struct regmap *regmap;
+> +	int ret;
+> +
+> +	ret =3D of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
+> +	if (ret)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	/*
+> +	 * Limit this workaround to RK3576 and RK3588, potential future platfor=
+ms
+> +	 * reusing the driver should just add a VO GRF phandle in the DisplayPo=
+rt
+> +	 * controller DT node.
+> +	 */
+> +	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
+> +	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
+> +		regmap =3D ERR_PTR(-ENODEV);
+> +		goto out_put_node;
+> +	}
+
+[Severity: Medium]
+Will this unconditionally fail for future platforms instead of attempting=20
+the fallback mechanism?=20
+
+The comment above states that future platforms should add a VO GRF phandle=
+=20
+in the DP controller DT node. However, this logic explicitly returns -ENODE=
+V=20
+if the phy isn't one of the hardcoded compatible strings, without ever pars=
+ing=20
+the rockchip,vo-grf phandle from the DisplayPort node.=20
+
+> +
+> +	regmap =3D syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
+> +
+> +out_put_node:
+> +	of_node_put(args.np);
+> +	return regmap;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-synopsys-d=
-w-dp-improvements-v9-0-2e6e46135312@collabora.com?part=3D10
+w-dp-improvements-v9-0-2e6e46135312@collabora.com?part=3D14
