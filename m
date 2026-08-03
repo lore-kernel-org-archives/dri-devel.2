@@ -4,42 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 045C9C55179
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:57:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C08EC55179
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:57:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 50CB710E6BC;
-	Mon,  3 Aug 2026 14:57:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABBB10E6DF;
+	Mon,  3 Aug 2026 14:57:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="xMcvLZ4T";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="CioNybO9";
 	dkim-atps=neutral
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch
- [185.70.43.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2805C10E6BC
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:57:13 +0000 (UTC)
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch
+ [79.135.106.111])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 22AB810E6EA
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:57:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1785769031; x=1786028231;
- bh=MRuZBZYOmb7+F96P/Nqj6n9WgyHe8h0snVBEQIZBH2Y=;
- h=From:Subject:Date:Message-Id:To:Cc:From:To:Cc:Date:Subject:
- Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=xMcvLZ4Ta8CwmX0JbUmrXgN8IFk2aN18jVBJ3ZPh5DJh82EnmDDZhKE4WXjM2/1bU
- 2+A+gllIiBAVv3seDjZXkXqznndxSO1j6dODP7h3nw3K9teyscPekVf6B3QBgDM/gx
- GmVkj/b/gEBfhUK7y8gFKhGGq8Cw9WxtmwrEP87Mr9OVX7hIedEZMw7KWGm6V/3WV1
- 0s2uDg0CnFkdnYtJpc9vaKDDsc/YDhax1+fHSJ18O9PWMciAjNc7/TQ79v0U+gHVr/
- 8GW+VD2RSKKbXnoTFhbhH0z+dSfIH3YmjqlwgvGC+pZLpdnDHVnvAfoph5St0Roa3q
- iLsbVbZlJ0p/w==
-X-Pm-Submission-Id: 4hDKX55jDdz1DFF2
+ s=protonmail3; t=1785769035; x=1786028235;
+ bh=G3qiWzBEND8YgpNWecgDdwzMBBEEvdJc+STZBSOtEJE=;
+ h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+ Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=CioNybO9VCnr9CruU4lvqeWs3ix6wMQpfQamwjFJ8nNZvgeNHGDM7YnguZb3Gmha3
+ b5L67nnd31yeowDQ2o2x8wX9wC7LhKWQ+f9XMZ3Ch6W3GJQezAn+mFtgIk2rJetOEs
+ 6OxGyGiv6pqC+hfeAP/YfS0OgoGz7MsS8qGSoQzl5k4Kf0GMRJtvIpPSCBiwQYmzlA
+ cgb970SaE8AkdxY1JnJS35f/NiHV7SNGGxLW5aU9I6cP6lwU9xq/vuQiqq6FJywCLV
+ pu8QtUGlK3GeVLB5C/WNs6nXi2mhCeGnyUl4M5JcgM8pWXh/ASlm6MahItw140ZiaN
+ tfZUlb+P+KZYA==
+X-Pm-Submission-Id: 4hDKX85XNYz2Sd49
 From: Esben Haabendal <esben@geanix.com>
-Subject: [PATCH v3 0/3] drm/bridge: ti-sn65dsi83: Various fixes
-Date: Mon, 03 Aug 2026 16:57:02 +0200
-Message-Id: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
+Date: Mon, 03 Aug 2026 16:57:04 +0200
+Subject: [PATCH v3 2/3] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBREf4V0bU0fFIor/8O4oOUC18RiuEgwh
- H+3YEw0YTmZmXNmRtAjEDslM+thRMIuxKAPCfNtGRrgWMXMlFCZyKXgA3IKmakIreY1TkBcVsK
- CKH2WO83i8dHDVsTf5frJ9HQ38MNKWhct0tD1r806ynX3Fcg9wSi54JU14IxOlSvsuYEy4HT03
- Z2thlH9MswuQ0UGOJ96XYMqXPbHWJblDUnYHb8LAQAA
-X-Change-ID: 20260710-ti-sn65dsi83-fixes-1d08e0ac67b3
+Message-Id: <20260803-ti-sn65dsi83-fixes-v3-2-9b403a405ccd@geanix.com>
+References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
+In-Reply-To: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
  Herve Codina <herve.codina@bootlin.com>, 
  Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -54,11 +52,11 @@ To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785769029; l=2559;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785769029; l=812;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=8WNjm3GANp+5zTz1RkKwjR1O6RbsHW3GmvX0m75Y0TE=;
- b=/O/SVH8yZvmXD6bSfXdtJ6EmEUBiR1emuiFnICS5BlJR0VgplA/6+fJC3KzKGXVpepeU3WZ9Q
- Vibnx6FNL7FD9fHs3hGxfJXRmtv0YdFOd/ZaPHR1lGxIdt1K6n2to6f
+ bh=JjiHpZszbJpucQsbmOMl8d52BhhvfvUVXtcScjW0e9c=;
+ b=xHK6bAA+3PEjRSHluSTwuxnNOSWPCYfSWEuEaYm+hQ5ccZirOB0t/VPTJrHZzaLgeHpXf6+a+
+ duJNFYqqtMiD/wAPgWwlhmnFlxxyGaPyKSbpFTNOVOS2KXVu5VXheHh
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -76,64 +74,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This small series adds support for using SN65DSI84 in single-link mode with
-output to LVDS channel B, and provides a fix for a PLL locking issue.
+We obviously should not leave the DRM bridge critical section activated
+when exiting on error.
 
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
-Changes in v3:
-- Rename panel_port variable to output_port.
-- Propagate error code from drm_bridge_helper_reset_crtc() in
-  sn65dsi83_reset_pipe().
-- Drop with fix for premature PLL locking. Should be fixed in DSI host
-  driver (or upstream bridge driver) instead.
-  See https://lore.kernel.org/all/48f6f55f-43fd-4355-88b9-d2e2d0e26d07@kontron.de/
-- Link to v2: https://patch.msgid.link/20260715-ti-sn65dsi83-fixes-v2-0-ebc4c3fe29b6@geanix.com
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Changes in v2:
-- Fix error handling in sn65dsi83_atomic_enable() to ensure
-  drm_brige_exit() is always called on exit.
-- Change logging level from warn to dbg for two messages in
-  sn65dsi83_parse_dt().
-- Removed trailing dot in comment lines.
-- Added patch with fix so that DRM bridge critical section is exited on
-  error in sn65dsi83_reset_work().
-- Added Fixes and Cc: stable tags to the premature PLL patch.
-- Re-ordered patch so fixes comes first.
-- Link to v1: https://patch.msgid.link/20260711-ti-sn65dsi83-fixes-v1-0-d85eb5342b98@geanix.com
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index 476f255bd34d..5551845ea0dd 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -419,11 +419,12 @@ static void sn65dsi83_reset_work(struct work_struct *ws)
+ 	ret = sn65dsi83_reset_pipe(ctx);
+ 	if (ret) {
+ 		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+-		return;
++		goto err_exit;
+ 	}
+ 	if (ctx->irq)
+ 		enable_irq(ctx->irq);
+ 
++err_exit:
+ 	drm_bridge_exit(idx);
+ }
+ 
 
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Herve Codina <herve.codina@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-To: Robert Foss <rfoss@kernel.org>
-To: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>
-To: Jonas Karlman <jonas@kwiboo.se>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Linus Walleij <linusw@kernel.org>
-To: Frieder Schrempf <frieder.schrempf@kontron.de>
-To: Marek Vasut <marex@denx.de>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-
----
-Esben Haabendal (3):
-      drm/bridge: ti-sn65dsi83: Propagate error in sn65dsi83_reset_pipe()
-      drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
-      drm/bridge: ti-sn65dsi83: Support LVDS Channel B on SN65DSI84
-
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 39 +++++++++++++++++++++++------------
- 1 file changed, 26 insertions(+), 13 deletions(-)
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260710-ti-sn65dsi83-fixes-1d08e0ac67b3
-
-Best regards,
---  
-Esben Haabendal <esben@geanix.com>
+-- 
+2.55.0
 
