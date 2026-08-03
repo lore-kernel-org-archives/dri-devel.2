@@ -4,54 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1FECCC55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 17:02:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9B3FC55184
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 17:04:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2C8EA10E059;
-	Mon,  3 Aug 2026 17:02:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52AA010E049;
+	Mon,  3 Aug 2026 17:04:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FTdXnF8G";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ilTz7EDF";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B435410E06C
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:02:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C71D510E049
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:04:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0BE4960A69
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:02:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70EC1F00AC4
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:02:53 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4EAD24331D
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:04:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32A571F00ACA
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 17:04:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785776573;
- bh=1IenpiuM5JsmgqLGPzCFWXP8UT6+FeKulhYM9DPJHH0=;
+ s=k20260515; t=1785776680;
+ bh=n/iOnG2AgOH05ZK960YynpPzVU3vp84xiLR+imEY/xU=;
  h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
- b=FTdXnF8GFLny3L584AQMMgX2xFs2nxONoFzoXYXqVfCFkjBOgeX8Mr/iTQ9uusC3r
- Zgj3u3iA940U7/5dptUgEJR63P/Yb+TVqM0phvTk3cTLIEbBs8bljGub28r+RCUbwV
- EkLQsjUHId9GqE8Ku9EU/+GjtYNYBPmPynBYLHs6WTRfmevunezT+XRbZ3MebOQf4D
- A1opir9RT91tIzWOrZQK3fkhpuO0gNdIyUr0JBq/dYWEi3HFFM6TFM6/OwO4DVKTz3
- mLsIEks8ez6oRODt/3GYbQ7+hrOxNVzwB6uV85OQDVjhcYsXBLauovRXM7ewba5Wcz
- qmp169nCj/83Q==
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-39ee96f8047so25596031fa.1
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 10:02:53 -0700 (PDT)
+ b=ilTz7EDFtHNfXmhP/huN5N3HdbumDZlyjG48BjpB0rHnz+2bHocp9RaYN5/k0mvv+
+ /RpCo6h94xPzJDdW6dsL0/F7v6ZlGg071Adj9WrXCLBjHEerHHzGMqXOR6RymX4CLA
+ MVZ2ixLXG97fZHiSD4BgmMAHviwcSrpBGPjwGss1YwXOCHpOs5T5kfHU7crMrS8Jsb
+ zK5NqGgx1jDRnhh8xWeaq0w7eJVPpJNNj0qY8Db70C5K8jF6KYtGGUFSNgBf83J1nn
+ B/cudKs2WY5dMxxrqQ/Mu8Gvt3MtRlb91sv+3kzur2ZtGcdmBWuzVTDrIrHlw8nlKN
+ 30fx4qTuaQ6bQ==
+Received: by mail-lj1-f177.google.com with SMTP id
+ 38308e7fff4ca-39da69c5ba3so33506531fa.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 10:04:40 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp8XJq0WGTXcLnHecIiEmTloQvPfS9JjKGmhKA991ehn/7JToQc888nvrk6H6alI5L81Ut74bKL0Tg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzwGCH+182nnyR569xfzmkrYImEnA9K+WGpqZr0ytEBazub1lOy
- 5+W2U1f4kNZ4+Y7UV4IWW4PI4GH2g+f2vsLvxSQq+aIY+g0BqZc0GWFC45+4JvpBMY0P10AGhT0
- ycfsHx9lPly4c9vNNx6o7ihhWdswxFEg=
-X-Received: by 2002:a05:651c:a110:10b0:39d:9eac:8ec with SMTP id
- 38308e7fff4ca-39f863feedamr15152501fa.25.1785776572170; Mon, 03 Aug 2026
- 10:02:52 -0700 (PDT)
+ AHgh+RpraOYtyIJl4BN6r4CG9uxXxqsJd6nc6M6PsYmjMHO7pkVXuPGFKHK94nA38/SuvunjYGSKisC209c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwYUqGl6f3gIOPSbehhDq+6PzVxznPO5kowongZ7FOnqxY9wYFU
+ LkFEMAlFXmxPdecz1/WYTay1Mnc8cO+4kztoMGYjZjVuYbL/UxneBaqNgBkHH1Hjv7EqhsNnvro
+ zktpDxITkMVapzIMkd1NDONeteQXH1Gw=
+X-Received: by 2002:a2e:a593:0:b0:39b:4371:dbe6 with SMTP id
+ 38308e7fff4ca-39f8616c4d5mr23211641fa.16.1785776678644; Mon, 03 Aug 2026
+ 10:04:38 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1785772659.git.jernej.skrabec@gmail.com>
- <b26a0d427d9dfae9c82e3ca90a67d24d8ece5a28.1785772659.git.jernej.skrabec@gmail.com>
-In-Reply-To: <b26a0d427d9dfae9c82e3ca90a67d24d8ece5a28.1785772659.git.jernej.skrabec@gmail.com>
+ <3f5ec952ad80cb51efebf2fe230df50259041a23.1785772659.git.jernej.skrabec@gmail.com>
+In-Reply-To: <3f5ec952ad80cb51efebf2fe230df50259041a23.1785772659.git.jernej.skrabec@gmail.com>
 From: Chen-Yu Tsai <wens@kernel.org>
-Date: Tue, 4 Aug 2026 01:02:39 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66yVbzTSu6sb4ryuD-djcH+vaCtamuhtY=xnq93_ZvKog@mail.gmail.com>
-X-Gm-Features: AUfX_mxnJXn_HowfQijlCXTBUd6N7zXjEPoDoAqA1n9Cl_6r3aRntgABVyXhcqU
-Message-ID: <CAGb2v66yVbzTSu6sb4ryuD-djcH+vaCtamuhtY=xnq93_ZvKog@mail.gmail.com>
-Subject: Re: [PATCH 08/13] drm/sun4i: crtc: Propagate layer initialization
- error
+Date: Tue, 4 Aug 2026 01:04:24 +0800
+X-Gmail-Original-Message-ID: <CAGb2v672PXcS7zLtGLrVQs0D00Pvh97pUo=tgPMCswJMbg7=Rg@mail.gmail.com>
+X-Gm-Features: AUfX_mx02KEK-kEu0E0pYT9Oatt7b9Hz1g3PJFr357J8Y3_fc2ljcAF3lcI4DE0
+Message-ID: <CAGb2v672PXcS7zLtGLrVQs0D00Pvh97pUo=tgPMCswJMbg7=Rg@mail.gmail.com>
+Subject: Re: [PATCH 09/13] drm/sun4i: tcon: Drop remote endpoint reference
 To: Jernej Skrabec <jernej.skrabec@gmail.com>
 Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  airlied@gmail.com, simona@ffwll.ch, samuel@sholland.org, 
@@ -78,41 +77,35 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 On Tue, Aug 4, 2026 at 12:11=E2=80=AFAM Jernej Skrabec <jernej.skrabec@gmai=
 l.com> wrote:
 >
-> sun4i_crtc_init() returns plain NULL when layer initialization fails,
-> while all its other error paths return an error pointer. The only
-> caller, sun4i_tcon_bind(), checks the result with IS_ERR() and happily
-> continues with tcon->crtc set to NULL. sun4i_rgb_init() and
-> sun4i_lvds_init() then dereference it in drm_crtc_mask(), which
-> oopses.
+> sun4i_tcon_of_get_id_from_port() never drops the reference taken by
+> of_graph_get_remote_endpoint(). The function is not only called during
+> bind, but also on every mode set through sun8i_r40_tcon_tv_set_mux(),
+> so the leak accumulates.
 >
-> Return the error pointer instead.
->
-> Fixes: dcd215801b02 ("drm/sun4i: Drop primary layer pointer from sun4i_dr=
-v")
+> Fixes: e8d5bbf7f4c4 ("drm/sun4i: tcon: get TCON ID and matching engine wi=
+th remote endpoint ID")
 > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
 Acked-by: Chen-Yu Tsai <wens@kernel.org>
 
 > ---
->  drivers/gpu/drm/sun4i/sun4i_crtc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/gpu/drm/sun4i/sun4i_tcon.c | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/drivers/gpu/drm/sun4i/sun4i_crtc.c b/drivers/gpu/drm/sun4i/s=
-un4i_crtc.c
-> index c2f7f69baf75..3fa1f4fda0f0 100644
-> --- a/drivers/gpu/drm/sun4i/sun4i_crtc.c
-> +++ b/drivers/gpu/drm/sun4i/sun4i_crtc.c
-> @@ -208,7 +208,7 @@ struct sun4i_crtc *sun4i_crtc_init(struct drm_device =
-*drm,
->         planes =3D sunxi_engine_layers_init(drm, engine);
->         if (IS_ERR(planes)) {
->                 dev_err(drm->dev, "Couldn't create the planes\n");
-> -               return NULL;
-> +               return ERR_CAST(planes);
->         }
+> diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/s=
+un4i_tcon.c
+> index de2d66623f7a..67047e3b657f 100644
+> --- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> +++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
+> @@ -972,6 +972,7 @@ static int sun4i_tcon_of_get_id_from_port(struct devi=
+ce_node *port)
+>                         continue;
 >
->         /* find primary and cursor planes for drm_crtc_init_with_planes *=
-/
+>                 ret =3D of_property_read_u32(remote, "reg", &reg);
+> +               of_node_put(remote);
+>                 if (ret)
+>                         continue;
+>
 > --
 > 2.43.0
 >
