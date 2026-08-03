@@ -4,86 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0653FC55822
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 18:11:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DE0BC55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 18:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 66B8F10E755;
-	Mon,  3 Aug 2026 18:10:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 631DB10E758;
+	Mon,  3 Aug 2026 18:22:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="mSJ0pTHH";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e+boavB4";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BCAA810E755
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 18:10:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785780653;
- bh=Aruh5826b4wtnxe+k2RSV4tTeWw4FEiWIslPr3Y+k4Y=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=mSJ0pTHHWVV8zTxw2HDA7G2WZ2FmevEUbcTX+haILU+Be7mpnV6tqNr6n1PMDE2Tz
- AlHH+WwgCPFmf1lYn+5Q4ThKWGXEWaRYvQh2BfnCD8yWx/hTmMK5h70Nilm++ZY6R1
- fInBfBtGV95r/NIY2kdnABvdm9c8k5lwkBlZHg/LDBzs0uvRzZ6p6emEhGCZUVDlrn
- aLwiVs9xyLWf/v6ZGCZdAnErEHBBqcbZCjp1zFxc7MLREO4QD47FtW5z/Wejuh1gB7
- w5mKtL1KePGwEm77lwpVgDnfVKitDYXwatM9jAnbtuC+vuaenDJrOZHp7cpDr7vQFD
- vQ0LLS+AFt8Rg==
-Received: from jupiter.universe (unknown [100.64.1.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 489AC17E0235;
- Mon, 03 Aug 2026 20:10:53 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
- id 79750480062; Mon, 03 Aug 2026 20:05:03 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Mon, 03 Aug 2026 20:05:18 +0200
-Subject: [PATCH v9 17/22] drm/bridge: synopsys: dw-dp: Protect sdp_reg_bank
- from concurrent access
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFE8E10E764
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 18:22:10 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c1f7666a90bso568589566b.3
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 11:22:10 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785781329; cv=none;
+ d=google.com; s=arc-20260327;
+ b=BEEHJxkI09ItHLcdGNbMWPv4uV9NaGuiD364yTZDmWdEkHQ0aWuxUch9HPlJrZ/0+8
+ gJDI65DRRUFKkacQfLILcIZIpnJ4Xn0u5vXeHY9PifPx2+bExT2PgRmVocvjHj8TdLEY
+ 4Qu9zJmBH9Nozcn+cOGQ5ALG5Hvwi2pdLiougDUnH0iEsZXkyqHcnnjkzdVmoqq+GndP
+ iyMyroLVoWssZRYX/OpNcILIs7KcWcnJwyW9zcmFeznC0F/w9GjgjFSFWVoleB8AkSV5
+ 6TgBF7xmERpaNRtOLVYZ38xtb4r+rtbDjXsHOCRHg1qKgGkwwjKEw2bVHZz0muPmm8nn
+ X7lg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=x9ZImVd/rO7BV0YppEaOdAU/wiWFe96AuvDqT6HskHA=;
+ fh=EsT3r/xynwoBZ3R+re7jBLs+uKdmpVam1GF54SGgyMQ=;
+ b=POTgRl6yqN1F0e8/dIkFu4jN2D7guWA9yBnnws1rMRIRlXm6xpAhXQjEsyzEWmwJUu
+ 9m4GaG4eT5rK9+fvWH+4JnWAelnbCF5yLq8alvJVVf0GgVKITLEEm7uIA0tqiueVmk6P
+ hjo6c1f5niqHFZebE79kKqdpd5IOF3YvTN8iO0m8wmKG/hnIsE/61O/MMN1KpqdJO/jV
+ iFstd4incl+xg3kPtFSD6hBsvFz3Tt67KEO9KWXjtTlakd7XrEQUb5E0/igKImK9bW4D
+ PAAjcDh7i/4UTh+mR7jByDLCxNwPTBv0zla1itUgtWHodKaislS3StolUYuSVyQb1KDP
+ l4vg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785781329; x=1786386129; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=x9ZImVd/rO7BV0YppEaOdAU/wiWFe96AuvDqT6HskHA=;
+ b=e+boavB4wbxOC8IQIB4wtlmcrACN0Fr4QTD2/4XG4BXbAmNq+/keJPnlbbeKFiU0/m
+ oLS/hxK+t4lCE/Dpl5gRARWp+T/XCS+WmGgNISr6GXRSbwo1nFMBQkt7sDcFkaDzOLt9
+ HRY8YW4GpFQPdrJhXAuRT725jhgYdWmHrpRG9ZLAJBL/XnMwolPsKAvW9Bqiz5KU9/SI
+ bTxmULro1gzpaUj2bA8q89kBCJY0gSMwoiIPiLX0Hqsp+qbzZieTY2CD2dkpvEw0VrQL
+ X4XLEUcKCj/NkjUry6lEYgQIVb86qFQtuw6o7VHgQcM/+m0BF3FyVUO3g1vS1KQtZLoE
+ 0XOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785781329; x=1786386129;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=x9ZImVd/rO7BV0YppEaOdAU/wiWFe96AuvDqT6HskHA=;
+ b=D37j8GcsCHApNquhb+qII0f68m2SfJBhC9/O7ti31Du+FOMp3gUO49acfGGEPyjvVX
+ uSeNwRhzQULSzPxQu7wt9ImJuMVUE5mM8ofG/gBUFSyWVbdIdlBIF6K66rQ9cPsPtB8p
+ xl5A4vvXqIuR5EljHfm/qIjw4e780taXrPB9qhfSH8zVAJj9uZEwpHmPeUN2JDemsRv1
+ twmVauC43lXyYpaxbjy2VllaN9XBfoMKv64wFxso4DfihtVM2kwT4+vKkvGAAZoa1hP+
+ eZKkJPFBXh0vxLKkecRmBgRVOeJ2pcruGjKte5K+8Q/E+BmpeicjB4JlFsX5BogZIvnn
+ CMFw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqX1P2EpwPR5vci86Yw5p4gpdMDSyKgHH2OvA+Pa5ayWNbjoxD2Gjn5StdV2fLGKZNOFoumBLUGJtA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxqUPj0LrXxfiuViOg41rm6caQMFxzZVRHBMumg375Pxtlxbwdf
+ KvOLYOJWUMXKGPztjltXlm2w797UaYMlYtOxQFnsoGKN+kTHwp+7fLQAKOr6AwhnwW3og8q50PX
+ ZhtrGJx2POG9ZoOKs5MadYRP03SE6eAA=
+X-Gm-Gg: AR+sD12oZHMTmhOPTFts2uYj6xJg9Y8WSrRuYkXmtAjcPyzq11pv07jPo49k+AC8VgO
+ ZYlLMhziVw4hG4HFzTrAfFkQxIAIQHXEAqOYILtLpRifqNeqeyLlU2SkglIVtANhREPXroPKJ+d
+ UR47BzdCkGr+2jmMsLjtrOz/Jp3tSGUS6kTDlyukV8dOENvlNm7v6AudizSwJXQF1WPB52VzERq
+ reNtlusuXQ3S4eGrGozPg9UsyuAfwwn2mKb4kdkr8s3DxQBWqpaNR/5gHXjqPz38HCREL0n3GIq
+ RNV8R8wBHqUcZ09AhssFcIjY438HCp1o/oMbL8O8qmhxwfymAkjPit95eNm0KUxLG42KUdcOJ6I
+ FATubsllLnLmfG2EXEywLE9pV
+X-Received: by 2002:a17:906:345a:b0:c15:df42:952c with SMTP id
+ a640c23a62f3a-c1fe814f9d3mr623164666b.28.1785781329045; Mon, 03 Aug 2026
+ 11:22:09 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-synopsys-dw-dp-improvements-v9-17-2e6e46135312@collabora.com>
-References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
-In-Reply-To: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+References: <20260707175212.412699-1-dbgh9129@gmail.com>
+ <20260707180553.78C7F1F000E9@smtp.kernel.org>
+ <ka3af5qc63pdcvh3uf6ulb25wrsf6udjugm62ooxuscxvz6zhz@mbuivewege2k>
+In-Reply-To: <ka3af5qc63pdcvh3uf6ulb25wrsf6udjugm62ooxuscxvz6zhz@mbuivewege2k>
+From: =?UTF-8?B?7LWc7Jyg7Zi4?= <dbgh9129@gmail.com>
+Date: Mon, 3 Aug 2026 14:21:58 -0400
+X-Gm-Features: AUfX_mxg5JGAIlsbnyi6v5lSwC5pBz1uJRyo3H-rzUgbkZm2NvpqldQcxoYUhKc
+Message-ID: <CACrCO_UUX_A+Z7uCsT9=JkXqqkG0Tp=n0rXO3j+KAzNxGRuVQQ@mail.gmail.com>
+Subject: Re: [PATCH v1] drm/msm/dp: Disable stream clock after video-ready
+ timeout
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: sashiko-reviews@lists.linux.dev, Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2378;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=Aruh5826b4wtnxe+k2RSV4tTeWw4FEiWIslPr3Y+k4Y=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpw2E8yhIO8BZ7FGnbgyT2xSBAKvjm6mFpTL
- BuKe2JvfIqWLokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqcNhPAAoJENju1/PI
- O/qalewP/3Aqct1OjEEN3uR0AqUaagiH4nkmlfmNLkdgMATAie4QKABebBRbo9LqcQexWr3KOUc
- 0vzosJEJgcOJ48kzuC6DqKwRBYtzrlXKJGkw2ofyQ0S7EQ1sNYzLgT/SomleK0qwHGaK178Gh/O
- TERFAKISEWmXm+9KLIMGkTryeeyRPl5pouhHI40nU3WzZvtcpYXZtgoenM7yr1BctmTd7W5hhYi
- C6ZDT/kgMcV/RGj534lrsEEIs8t5mMMB/sAZTMKcaa6XMR4VjCngEJhkjHBRtE8u8UqwYWXYoFm
- yLOJtKm7qCo1yoYcQ2fpp+Ek/st5O0HdUAHF0OxZAd6S2GjK9yIJGa/M7J9Jdc7lTlnKDL5HuBJ
- TcRTVjDGVxuQ4OEj7hKInq4AqVfMx6fRWWBDQQKVE3EasqZixFimO25Fsn6vMySl1MxZ/FqAlnP
- FtzGloXy28cTA3bEF+4JgvvQyfCf4V2YBfNUjV5yJt9j70geblLWQ5VR7mJHvHJo6E0XVvw4mSd
- 2acNR5QaY5I1bn5lyECe4UfQDRStrPy/wn8ON8Rflmm90qbv2Dj0aVhYBDYrSJjbyDUhg9Ye/Aa
- TxQ/2VubkmdyYGHytMNC7n7hSJIxfbChiSxhLfHk5MyU4ay9yrUK978Ekk0qmA3v2vEz0/0lkr9
- H6VXUCdllBVLhDpRkrFwrcg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+ dri-devel@lists.freedesktop.org, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, 
+ Kees Cook <kees@kernel.org>, Dale Whinham <daleyo@gmail.com>, 
+ Nathan Chancellor <nathan@kernel.org>,
+ Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>, 
+ Kuogee Hsieh <quic_khsieh@quicinc.com>, linux-arm-msm@vger.kernel.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,81 +117,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Right now sdp_reg_bank is only used during atomic enable/disable and
-thus there is no risk of two threads accidently claiming the same bit.
+On Fri, 31 Jul 2026 at 10:05, Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> On Tue, Jul 07, 2026 at 06:05:53PM +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [High] Disabling the pixel clock while the DP controller is actively in the SEND_VIDEO state violates the teardown sequence and can lock up the hardware.
+> > --
+>
+> Could you please comment on this Sashiko comment?
 
-This changes once more SDP users (like audio support) are added, so
-introduce a mutex to protect concurrent access to the bitmap.
+Thanks, agreed. The posted patch disables the pixel clock before
+reverting the controller from SEND_VIDEO, and the bridge disable path
+may later issue PUSH_IDLE with the clock disabled. I will send the
+revised patch addressing the comment.
+I appreciate your time for the review.
 
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
----
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 24 +++++++++++++++++-------
- 1 file changed, 17 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 501b28abeca2..19b6c11f672f 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -323,6 +323,8 @@ struct dw_dp {
- 	struct dw_dp_hotplug hotplug;
- 	/* Serialize hpd status access */
- 	struct mutex irq_lock;
-+	/* Serialize sdp_reg_bank access */
-+	struct mutex sdp_lock;
- 
- 	struct drm_dp_aux aux;
- 
-@@ -1048,11 +1050,13 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
- 	u32 reg;
- 	int i, nr;
- 
--	nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
--	if (nr < SDP_REG_BANK_SIZE)
--		set_bit(nr, dp->sdp_reg_bank);
--	else
--		return -EBUSY;
-+	scoped_guard(mutex, &dp->sdp_lock) {
-+		nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+		if (nr < SDP_REG_BANK_SIZE)
-+			set_bit(nr, dp->sdp_reg_bank);
-+		else
-+			return -EBUSY;
-+	}
- 
- 	reg = DW_DP_SDP_REGISTER_BANK + nr * 9 * 4;
- 
-@@ -1702,7 +1706,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
- 		return;
- 	}
- 
--	set_bit(0, dp->sdp_reg_bank);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		set_bit(0, dp->sdp_reg_bank);
- 
- 	ret = dw_dp_link_enable(dp);
- 	if (ret < 0) {
-@@ -1746,7 +1751,8 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
- 
- 	dw_dp_video_disable(dp);
- 	dw_dp_link_disable(dp);
--	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
-+	scoped_guard(mutex, &dp->sdp_lock)
-+		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
- 	dw_dp_reset(dp);
- 	pm_runtime_put_autosuspend(dp->dev);
- }
-@@ -2249,6 +2255,10 @@ int dw_dp_probe(struct dw_dp *dp)
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_mutex_init(dev, &dp->sdp_lock);
-+	if (ret)
-+		return ret;
-+
- 	res = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(res))
- 		return PTR_ERR(res);
-
--- 
-2.53.0
-
+Thanks,
+Yuho
