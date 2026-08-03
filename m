@@ -4,45 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46BFBC55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:21:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 790E1C55179
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:30:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 907B210E5D8;
-	Mon,  3 Aug 2026 14:21:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D732810E048;
+	Mon,  3 Aug 2026 14:30:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="dJhPz/bf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Iy/tguGw";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 6BFDC10E5F1
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:21:45 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F2CCE1595;
- Mon,  3 Aug 2026 07:21:40 -0700 (PDT)
-Received: from e135116.arm.com (unknown [10.57.0.74])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 17DAC3F632;
- Mon,  3 Aug 2026 07:21:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785766905; bh=4CJhajy18FhKKEtxtQelzRWT70J1u2W4WYVGHD/S0C8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dJhPz/bfVnGss2yjBsBV116eXhaLoOkzluq9Yw7sYl74DIp/gALyANPDPWgXByl/c
- ljMDq4jhOTnQsQ2xuFEbfW5ic4SUTcQ1LBTrfW4nt2TVYVbjuQuWWjDqCZ/sXDSFTF
- Jsl6pEUexuInWjXNzGaKC9z3CI4WfY3SdxHuwTTs=
-From: Raveendra Talabattula <raveendra.talabattula@arm.com>
-To: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
- Raveendra Talabattula <raveendra.talabattula@arm.com>, liviu.dudau@arm.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, james.qian.wang@arm.com,
- asad.malik@arm.com, vincenzo.frascino@arm.com, nayden.kanchev@arm.com,
- charvi.mehta@arm.com
-Subject: [PATCH v2 2/2] drm/komeda: Set display/writeback clone masks
-Date: Mon,  3 Aug 2026 15:21:22 +0100
-Message-ID: <20260803142122.4127851-3-raveendra.talabattula@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260803142122.4127851-1-raveendra.talabattula@arm.com>
-References: <20260803142122.4127851-1-raveendra.talabattula@arm.com>
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 46D8E10E5F1
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:29:59 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-69c5fda04a8so6081546a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 07:29:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785767398; x=1786372198; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ULsy1ctbWqO6V2elk1FWgzGLxyQfY/VXo4lHMIY/JzI=;
+ b=Iy/tguGwuO494JsrnT8msFqyC8OHWPEp1z0fZ4A0soYPD9n41q9e0CJ3/SlQBFDsqv
+ ZmpN5K4rrg1CpDld0hwPrG4fYHEyhI8EUDKhPo3A+wZK8bDdf8sOZF+iMeWCM+xN1j5R
+ otzobstVAdma46IPdF80vgFZFQk35olN75K6E27neHqzTnc2zGOAnGmIvitC4kWwvzf6
+ mtDwspFlKewQElJf/Zjtsa0mHz4c9SP4TWwve3/cIkPblI4WZZmOMucRimx79wkpn6Tp
+ jmiVjYv4YbBCODHhzim0JC7YK7Eo/8qLEguxSZ5LJ5tKn99cDvLJMVYAJ1BUxZ5UYEOT
+ cPYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785767398; x=1786372198;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ULsy1ctbWqO6V2elk1FWgzGLxyQfY/VXo4lHMIY/JzI=;
+ b=aDxCTdkwOuF1mlnCjyn6O4jfOCjEG7DnGzK9/NfBoxd4S0nCOUk9C2auO2iRFoBqr8
+ WvCUMJdIrc+OpXQEM7dZ0tHw0dWCSrizzq9U0WdSnOFeQtZDIx2/vpWs4fkw/JEasxiU
+ Z0snKCKqsEX3qQ2d7h/gW9c/6fC2kMsQPHKkz00nEODEgwpF04CJYuM7JpWiOkcvJBnX
+ nVampe1euEB+TOI60+zP22V/2lOIead3SbNjapODcHP11RZkHtd9zb1Y1a/Ik94tSv8U
+ U7aT8KPtk8lBOQpvjfyFNsvfTcq0dk0Bx80ss/HuOiQ1WtQpIAWCc2MDrBX59KuvRyHK
+ 9oqA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpKbFqw6l6P6h8TrcSqbEPwYbXxXMxb0cRbWFocEllQTKx0KCmC8/pPFkhbFZ12Tk/A8VPOCG7fl18=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyL5Hn2dvgkchOm563ThYf+M3jTwIrEtQdawBLXS/heRMy8NbzV
+ 5TLLbkvG8c1+Hzxj3Udj2avW8IYJ9xkbqdPnKymcgx5ewQIXssV00/XH
+X-Gm-Gg: AR+sD13UEivpZmfCFaBtmJrQs3nYrtM22siSbJVgO3WIDEYd7Bz0upULLndpWa750qM
+ NriOGBdQIf0Ck/k9gyZPfpkWB0H1YFTe1VUDTlFhveoMcG7u34IwOfio5QG0NHgUNGNF+XLY76x
+ S5PB0s2SGkljqiDHo55tfNmhm+EmhrSg9uGV5noQ9LmWRpcwBx+ivojv3q0UE2v2C5dHzq56YkQ
+ HKfhNgQCh+r7QA8imZO4MFEdnwwJ4XNK5cOqFcHbCU2VC6ZCv5IjsU21fuQPmECEJP5Y97xuU3X
+ NgB4V/SixEmsnv3+4u+ACZKKps8J8lLZueKrEe+xmLEZj7FguJTgF3Zql2PfeBzq3bqQB8gr+DQ
+ dJPPQ3mM7Pb6P93dbi3clbhFQO+0azRFUNriZtUByB0j/YM6QWj/XmMd7YKhBhOzjNKvorq2Afy
+ 1CRburgcT0XnGzi7ZnqRrBfH5hfX/BraSmG6TyfNg58XVtKH2dPsQE2UgGwFS+E7uAAJ2NbzoJy
+ KjJ9fV9hbD4WzKpPlyIEyFgbQGQ/g1GjGbb/6KNziWzV1xlVpidMgb7nBghnztKlLko8TrynmVa
+ cOIsrB0Y1s8oIWoo/DBteS/y9yybMhw0+45jQuGYuiem/6y88WDlflxAL8e/qcYO2+9rAjT85yt
+ zXSWwyCuxkIpxiDqWfPEU36eK2rBlgNaeiVKahLhMjwZsKNQrIMbSEJuuGXw560HoYrc3VtmbMF
+ xi/twKtHs=
+X-Received: by 2002:a05:6402:21ca:b0:698:c13e:179a with SMTP id
+ 4fb4d7f45d1cf-6a0a7c72678mr7302242a12.10.1785767397382; 
+ Mon, 03 Aug 2026 07:29:57 -0700 (PDT)
+Received: from jernej-laptop.localnet (86-58-6-68.dynamic.telemach.net.
+ [86.58.6.68]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6a09c63dca6sm5741293a12.16.2026.08.03.07.29.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Aug 2026 07:29:56 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej@kernel.org>,
+ Samuel Holland <samuel@sholland.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, linux-sunxi@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/sun4i: framebuffer: Set mode_config.normalize_zpos
+Date: Mon, 03 Aug 2026 16:29:53 +0200
+Message-ID: <lyqNcSMNQtSAKCGG4XMGOg@gmail.com>
+In-Reply-To: <20260803111319.2836240-1-wenst@chromium.org>
+References: <20260803111319.2836240-1-wenst@chromium.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,85 +99,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Vincenzo Frascino <vincenzo.frascino@arm.com>
+Dne ponedeljek, 3. avgust 2026 ob 13:13:18 Srednjeevropski poletni =C4=8Das=
+ je Chen-Yu Tsai napisal(a):
+> Back when support for zpos was added in commit 47a05f4a68f9 ("drm/sun4i:
+> backend: Add support for zpos"), a custom atomic_check callback was also
+> added in commit b8f1230dd3bf ("drm/sun4i: framebuffer: Add a custom
+> atomic_check") to have a place to call drm_atomic_normalize_zpos().
+>=20
+> Commit 49efffc7fbd4 ("drm: Add drm_mode_config->normalize_zpos boolean")
+> added drm_atomic_normalize_zpos() to the standard atomic_check function.
+>=20
+> Set mode_config.normalize_zpos and drop the custom atomic_check
+> implementation, which at this point is just a simplified copy of the
+> standard one. The standard one also checks whether async updates are
+> valid and updates the self refresh state, but neither feature is
+> supported by this driver.
+>=20
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 
-Since commit 41b4b11da0215 ("drm: Add valid clones check"),
-all encoders attached to the same CRTC must advertise
-each other through possible_clones.
+Acked-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-Komeda creates one writeback connector per CRTC. Allow the writeback
-encoder to be cloned only with encoders that can drive the same CRTC,
-and update those encoders reciprocally.
+Best regards,
+Jernej
 
-Do this when the writeback connector is created rather than modifying
-every encoder registered with the DRM device from komeda_kms_attach().
-This leaves encoders associated with other CRTCs untouched.
-
-Signed-off-by: Asad Malik <asad.malik@arm.com>
-Signed-off-by: Vincenzo Frascino <vincenzo.frascino@arm.com>
-Co-developed-by: Raveendra Talabattula <raveendra.talabattula@arm.com>
-Signed-off-by: Raveendra Talabattula <raveendra.talabattula@arm.com>
----
- .../arm/display/komeda/komeda_wb_connector.c  | 33 +++++++++++++++++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-index 41cc3e080dc9..4872253a2449 100644
---- a/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-+++ b/drivers/gpu/drm/arm/display/komeda/komeda_wb_connector.c
-@@ -143,12 +143,17 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
- 	struct komeda_wb_connector *kwb_conn;
- 	struct drm_writeback_connector *wb_conn;
- 	struct drm_display_info *info;
-+	struct drm_encoder *encoder;
-+	struct drm_encoder *wb_encoder;
- 	u32 *formats, n_formats = 0;
-+	u32 crtc_mask;
- 	int err;
- 
- 	if (!kcrtc->master->wb_layer)
- 		return 0;
- 
-+	crtc_mask = drm_crtc_mask(&kcrtc->base);
-+
- 	kwb_conn = kzalloc_obj(*kwb_conn);
- 	if (!kwb_conn)
- 		return -ENOMEM;
-@@ -176,6 +181,34 @@ static int komeda_wb_connector_add(struct komeda_kms_dev *kms,
- 		return err;
- 	}
- 
-+	wb_encoder = &wb_conn->encoder;
-+
-+	/*
-+	 * The writeback connector is associated with a single CRTC. Make its
-+	 * encoder clone-compatible only with encoders that can drive that CRTC.
-+	 *
-+	 * possible_clones must contain the encoder's own bit whenever it is
-+	 * non-zero. Add both the encoder itself and the writeback encoder when
-+	 * updating the reciprocal clone relationship.
-+	 */
-+	wb_encoder->possible_clones = drm_encoder_mask(wb_encoder);
-+
-+	drm_for_each_encoder(encoder, &kms->base) {
-+		u32 encoder_mask;
-+
-+		if (encoder == wb_encoder)
-+			continue;
-+
-+		if (!(encoder->possible_crtcs & crtc_mask))
-+			continue;
-+
-+		encoder_mask = drm_encoder_mask(encoder);
-+
-+		wb_encoder->possible_clones |= encoder_mask;
-+		encoder->possible_clones |= encoder_mask |
-+					    drm_encoder_mask(wb_encoder);
-+	}
-+
- 	drm_connector_helper_add(&wb_conn->base, &komeda_wb_conn_helper_funcs);
- 
- 	info = &kwb_conn->base.base.display_info;
--- 
-2.43.0
 
