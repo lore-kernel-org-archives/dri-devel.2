@@ -4,44 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ABFBC55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:33:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC7A8C55179
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:38:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A17B610E04A;
-	Mon,  3 Aug 2026 14:33:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CFB910E604;
+	Mon,  3 Aug 2026 14:38:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R7RrTkHh";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="M6itl3Ns";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB79010E604
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:33:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 474D760A81;
- Mon,  3 Aug 2026 14:33:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF1E31F00A3D;
- Mon,  3 Aug 2026 14:33:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785767600;
- bh=nV542CgoNEKtf4DVWxD4tCwX+nAaxcDjleNbtYi16E4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=R7RrTkHhAwXwvBdX9w5kNsZ/QivJ2vYVuqlEL4LKfJEfU61590a69BvLqFk4jvUuA
- +zhdNREBlvCyFP7J3Nx75IirBLsOnWyo6xJyCTfnRxv3x2+83UMRASlid9ArGvkWGL
- 682ScogHysicUUvMQYol190Fc1JMbuLXMVI9pX+xgs2A0zdlS4T3xK+3iV5mxnTHD1
- 4lbnzQaKV/MlXx8otfqW7w7OngXCNWV/plxxOHm4esSQhwumfIJZiJ5E2Pl9E8j5U2
- 4V7KATJuIuLG4nfjlSk8ERxTYC5QeyEtr40Jur+aYjpAZMA2cI7xjKH4424zaLAhOR
- oZ17WmD7J+hAw==
-From: sashiko-bot@kernel.org
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 68A9510E604
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:38:03 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E4C7E143D
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 07:37:58 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ B98E73F632
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 07:38:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785767883; bh=myIJN7qk85z7FqQofK3r/8NHttuSxMUwSKGXvlxKYyc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=M6itl3NscRon6qUxdINGMflxZyu3kvGHY/khCU0GrMGnoUwOw7x3BX8NHXmutC87e
+ pteZL4LvJNcf28Llsmo6lupi3UvmO27LlZAFqO2xlKRjK1WXsnvBy+BZzdLh3lKLiM
+ x3cOblynk7/UeXlM1lLQh0IGzzbJRe1jssOzBVjU=
+Date: Mon, 3 Aug 2026 15:37:52 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Subject: Re: [PATCH v3] drm/panthor: use local variables for firmware
  interface counts
-To: "Osama Abdelkader" <osama.abdelkader@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260803141149.68182-1-osama.abdelkader@gmail.com>
+Message-ID: <anCnwPrkXjPLjoil@e142607>
 References: <20260803153555.70ca46de@fedora1.home>
  <20260803141149.68182-1-osama.abdelkader@gmail.com>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 14:33:18 +0000
-Message-Id: <20260803143319.CF1E31F00A3D@smtp.kernel.org>
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260803141149.68182-1-osama.abdelkader@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,73 +60,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Mon, Aug 03, 2026 at 04:11:49PM +0200, Osama Abdelkader wrote:
+> The firmware exposes the global group count and per-group stream count in
+> the shared control interface. These values are validated before being used
+> as loop bounds.
+> 
+> Read each count once with READ_ONCE() and store it in a local variable.
+> This avoids reading the same control section field twice and makes it
+> explicit that the loop uses the same value that passed validation
+> to protect against self-modifying control sections.
+> 
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+> Reviewed-by: Steven Price <steven.price@arm.com>
 
-Pre-existing issues:
-- [High] The patch prevents TOCTOU vulnerabilities during firmware interfac=
-e initialization by using READ_ONCE() for `group_num` and `stream_num`, but=
- fails to apply this protection to `panthor_sched_init()`, which re-reads t=
-hese exact same fields directly from the volatile firmware-shared memory. T=
-his can lead to an initialization mismatch and a subsequent NULL pointer de=
-reference.
-- [High] Userspace queue creation validates `group_args->queues.count` agai=
-nst the hardcoded `MAX_CS_PER_CSG`, but fails to validate it against the fi=
-rmware-reported and initialized `cs_slot_count`, allowing a NULL pointer de=
-reference.
-- [Medium] The patch adds `READ_ONCE()` for `group_num` and `stream_num` bu=
-t leaves `group_stride` and `stream_stride` unprotected, allowing potential=
- out-of-bounds memory accesses if the compiler rematerializes the reads.
---
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
---- Patch [1]: [PATCH v3] drm/panthor: use local variables for firmware int=
-erface counts ---
-commit 49abfdca3f9a1c66d7525434ea16162686b42354
-Author: Osama Abdelkader <osama.abdelkader@gmail.com>
+Best regards,
+Liviu
 
-drm/panthor: use local variables for firmware interface counts
-
-The firmware exposes the global group count and per-group stream count in
-the shared control interface. These values are validated before being used
-as loop bounds.
-
-> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panth=
-or/panthor_fw.c
-> index 10b7e12c1f1ed..fbc4d10aed1fb 100644
+> ---
+> v3:
+> - Add comments explaining the READ_ONCE() usage.
+> 
+>  drivers/gpu/drm/panthor/panthor_fw.c | 24 ++++++++++++++++++------
+>  1 file changed, 18 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_fw.c b/drivers/gpu/drm/panthor/panthor_fw.c
+> index 8411c468bdac..b2ccb81f280c 100644
 > --- a/drivers/gpu/drm/panthor/panthor_fw.c
 > +++ b/drivers/gpu/drm/panthor/panthor_fw.c
-> @@ -955,6 +955,7 @@ static int panthor_init_csg_iface(struct panthor_devi=
-ce *ptdev,
->  	u64 shared_section_sz =3D panthor_kernel_bo_size(ptdev->fw->shared_sect=
-ion->mem);
->  	u64 iface_offset =3D CSF_GROUP_CONTROL_OFFSET +
+> @@ -954,6 +954,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+>  	u64 iface_offset = CSF_GROUP_CONTROL_OFFSET +
 >  			   ((u64)csg_idx * glb_iface->control->group_stride);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but since we are preventing
-TOCTOU vulnerabilities with READ_ONCE(), should group_stride (and
-stream_stride in panthor_init_cs_iface) also be protected?
-
-If the compiler rematerializes the reads for the strides after the bounds
-checks, could a malicious firmware modify the stride concurrently and cause
-out-of-bounds pointer arithmetic when setting up the interface pointers?
-
 > +	u32 stream_num;
 >  	unsigned int i;
-> =20
+>  
 >  	if (iface_offset > shared_section_sz ||
-
-[ ... ]
-
-> @@ -1036,13 +1043,18 @@ static int panthor_fw_init_ifaces(struct panthor_=
-device *ptdev)
+> @@ -967,8 +968,13 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>  	csg_iface->output = iface_fw_to_cpu_addr(ptdev, csg_iface->control->output_va,
+>  						 sizeof(*csg_iface->output));
+>  
+> -	if (csg_iface->control->stream_num < MIN_CS_PER_CSG ||
+> -	    csg_iface->control->stream_num > MAX_CS_PER_CSG)
+> +	/*
+> +	 * To protect against self-modifying control sections
+> +	 * take a single snapshot from the control section so validation and
+> +	 * iteration use the same value.
+> +	 */
+> +	stream_num = READ_ONCE(csg_iface->control->stream_num);
+> +	if (stream_num < MIN_CS_PER_CSG || stream_num > MAX_CS_PER_CSG)
+>  		return -EINVAL;
+>  
+>  	if (!csg_iface->input || !csg_iface->output) {
+> @@ -986,7 +992,7 @@ static int panthor_init_csg_iface(struct panthor_device *ptdev,
+>  		}
+>  	}
+>  
+> -	for (i = 0; i < csg_iface->control->stream_num; i++) {
+> +	for (i = 0; i < stream_num; i++) {
+>  		int ret = panthor_init_cs_iface(ptdev, csg_idx, i);
+>  
+>  		if (ret)
+> @@ -1010,6 +1016,7 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
+>  {
+>  	struct panthor_fw_global_iface *glb_iface = &ptdev->fw->iface.global;
+>  	u64 shared_section_sz = panthor_kernel_bo_size(ptdev->fw->shared_section->mem);
+> +	u32 group_num;
+>  	unsigned int i;
+>  
+>  	if (!ptdev->fw->shared_section->mem->kmap)
+> @@ -1035,13 +1042,18 @@ static int panthor_fw_init_ifaces(struct panthor_device *ptdev)
 >  		return -EINVAL;
 >  	}
-> =20
+>  
 > -	if (glb_iface->control->group_num > MAX_CSGS ||
 > -	    glb_iface->control->group_num < MIN_CSGS) {
 > +	/*
@@ -128,50 +144,27 @@ device *ptdev)
 > +	 * take a single snapshot from the control section so validation and
 > +	 * iteration use the same value.
 > +	 */
-> +	group_num =3D READ_ONCE(glb_iface->control->group_num);
+> +	group_num = READ_ONCE(glb_iface->control->group_num);
 > +	if (group_num > MAX_CSGS || group_num < MIN_CSGS) {
 >  		drm_err(&ptdev->base, "Invalid number of control groups");
 >  		return -EINVAL;
 >  	}
+>  
+> -	for (i = 0; i < glb_iface->control->group_num; i++) {
+> +	for (i = 0; i < group_num; i++) {
+>  		int ret = panthor_init_csg_iface(ptdev, i);
+>  
+>  		if (ret)
+> -- 
+> 2.43.0
+> 
 
-[Severity: High]
-This is a pre-existing issue, but does the scheduler also need to use these
-protected values?
-
-In drivers/gpu/drm/panthor/panthor_sched.c:panthor_sched_init(), the code
-re-reads these fields directly from the volatile firmware memory:
-
-	sched->csg_slot_count =3D num_groups;
-	sched->cs_slot_count =3D csg_iface->control->stream_num;
-
-If the firmware increases stream_num after the bounds checks here in
-panthor_fw_init_ifaces(), could the scheduler configure cs_slot_count to a
-larger value than the initialized structures in ptdev->fw->iface?
-
-Later, when iterating up to these counts in tick_ctx_apply() or
-csg_slot_prog_locked(), could the driver retrieve a zero-initialized
-interface structure and dereference NULL pointers?
-
-
-[Severity: High]
-This is also a pre-existing issue, but is the userspace queue count properly
-bounded by the initialized firmware slot count?
-
-In drivers/gpu/drm/panthor/panthor_drv.c:panthor_ioctl_group_create(),
-the queue count is validated against the hardcoded maximum:
-
-	if (!args->queues.count || args->queues.count > MAX_CS_PER_CSG)
-		return -EINVAL;
-
-However, if the firmware reports fewer slots than MAX_CS_PER_CSG,
-panthor_fw_init_ifaces() will only initialize that smaller number of
-stream interfaces.
-
-If unprivileged userspace requests more queues than the firmware reported
-(but less than MAX_CS_PER_CSG), could cs_slot_prog_locked() fetch an
-uninitialized stream interface and crash when dereferencing
-cs_iface->input->ringbuf_base?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803141149.6818=
-2-1-osama.abdelkader@gmail.com?part=3D1
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
