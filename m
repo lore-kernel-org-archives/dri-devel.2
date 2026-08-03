@@ -4,76 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3D19C55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 21:50:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA13DC55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 22:04:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9814C10E7D5;
-	Mon,  3 Aug 2026 21:50:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1CF5010E092;
+	Mon,  3 Aug 2026 22:04:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d4cA4ocZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VIe6d9tl";
 	dkim-atps=neutral
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE4CA10E095
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 21:50:34 +0000 (UTC)
-Received: by mail-wm1-f44.google.com with SMTP id
- 5b1f17b1804b1-4954afac04bso30241195e9.0
- for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 14:50:34 -0700 (PDT)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com
+ [209.85.208.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FFD210E092
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 22:04:36 +0000 (UTC)
+Received: by mail-ed1-f52.google.com with SMTP id
+ 4fb4d7f45d1cf-6a0de062db5so2604837a12.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 15:04:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785794675; cv=none;
+ d=google.com; s=arc-20260327;
+ b=dgop8b/XBaDZQAsU6BVE/dzyxDIe582079j9gWotdTJfOXSTdbBXrh0CdzjFjvaccj
+ IC1BFMhmdCaC18apZJtImy7rF3Ic45Tsxf6j0wU2gllrSdpW4rFVKY+nNBcZX7l05/+e
+ 6lqCGa2CZie8InIBAk+i9iw9sg6CltfVi04qIpE4lx1oazqnJ8r1LAp2mjuHSSKfZtcG
+ gkj9SZlLQeX64haODjArLKgHNwOSvZ9m84mugrGN2lin9j+NuF4to/i0s6AayevSsrWa
+ eLdJgR9MZtSt6Xkb8XJBECWkNWanZjp0d/ojlRzbS5Gmh40SniKvAqh+4OGLU78mxZGT
+ nBGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=7WoJ364o71w8b02TDFU0Hi19/xzHT2Re2qR96++mBVE=;
+ fh=pkcBx2D1C0yZ+qhRvwSHtPXR5iEVKYNigoNsFOK78+M=;
+ b=csRjIpiqRCBWH8b/lhVUDBveSUHtSpPnHNmr2UU5SStpjMKOCF7DMv9J8vEKvxLZob
+ wVzPzEUNoaew1ML1kdbmyzPsWYv2shCk3Lq7hZZm6/VztiEFVQs0upuhVqen047fXu3P
+ x3n0T8YwwyfIemgatBJJ7ZGxl3GV8pDoBSrK0Ppa9RkZJaFj4YE0+1czNzj1hCATRorQ
+ 1mACR4VOjSK9qTdACyJGZgOE/ZJBBMjjCEQFjj9qdMIzt0rU4aIzkR2rptfgyOLjx91Z
+ 11bS5fd5zj1Kv3KY8wcDXPn8x1H1BorubxrirM9ONz68gbs4AVzkAfEqrm7K0MbgHLo9
+ eK/w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785793833; x=1786398633; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=eTvs94omlnn6KRMYaf/xTULVGskgqo6uDr6699pyZW4=;
- b=d4cA4ocZNTvVseGeAiQCkVUFvgPihVSgA2+HkStgzzAxsVYx/DtU5jeBrdDGHDHLF5
- QOU7TREKscKdR3Zj3DmSnK9SzBruopAbnQWSbazMDNQmvBrlxQE11hbZOYq2wR74VILk
- s/67jwsXjjqw+Z7458WseixRgTVjIR2yXRC7mTCylD909BwtYfMnSBLy1JwUhpQ0R/OS
- exewZ8/KpNl0Lgce24oW0QvFUlgMYcaMafuRvs0jEnKdUpcBTcu9BRgT27fCNmd+WXLP
- Vkx4pN2rsJRyCYCHfsIEbvbm8qxrQyi67jqRBDeWnjCbnyrxbaH3mCGvh/6KIcJfXhnk
- utOw==
+ d=gmail.com; s=20251104; t=1785794675; x=1786399475; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=7WoJ364o71w8b02TDFU0Hi19/xzHT2Re2qR96++mBVE=;
+ b=VIe6d9tlX5BvqFvJh5guVY9JHtlRZqUUkJqPKItDSlpQFccvla5tZO8jXDLBbKEFle
+ vhiVZNMMD0dmH3YrhUcVHil5OLjHxHqX1m5hGpfShxKAPS1fvUU2cm0M7NvHZY7rdw65
+ sQ6DufOtPp0YT2SmqIk1EY1x08xSjzGCRAMlWS/bujv3LDyfpat814jEakY5oeEhfMFr
+ zYqOP+cFyYEKiI/xcqEd5Vvm7c3Dyd61sQAo5Jt3kU2z4aUzlm43rfu4lWDdbKf46nNh
+ l9xrcCCTO4Ldlkgqv+R153bWKhQnLnO5Qs6LAflwNz8vasneMRGFqRLwDcvZ1V8YWTfF
+ j0gw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785793833; x=1786398633;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eTvs94omlnn6KRMYaf/xTULVGskgqo6uDr6699pyZW4=;
- b=McgNcYbVTvXxyhcXbT1gnhoVbvNJw1NoD/bu2beWZQ8PUnOaquHljhbXDRqe2FFHhp
- IlMaa6B/neNI4qYmsHspt5/hjjsq19wSJsib0UNBtC40RNv4YZixhStK/2aFWLsXT0jQ
- htCL5jcbdrerKgd/gWclU8hR1vKH8+ae5vEJYwBTGdjKBwpLfkpMZN5vSpAEen60uFXw
- xqbF4mzz3uWUhhurFhl6anB+p5GyAXYs/OYfiW/O80p6qT7o6q3vvT2zd7MMysAEF+VG
- 6yviyXWzYUtz+yWqlZFB3TF5GJea+Jo6gHhMYjPyrGTOxwuPVRgfSgPS2N4vWV2YcR8G
- 11fA==
+ d=1e100.net; s=20251104; t=1785794675; x=1786399475;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=7WoJ364o71w8b02TDFU0Hi19/xzHT2Re2qR96++mBVE=;
+ b=bNp9WU2wkRAkw9CIgn+WjbnE7vuT6MeCxnB31r0+QyF4dz0chvRq3tFuO6Vd+WhLN+
+ cQOSyUBtRYQM3/lchpiROjIYhtB/xhSNC7QU0eU/5xbOEYhHOaccTDQj2s/suGtGD5M+
+ eQiqFrEC7IIRQeDetW6faAE3N7yQtCMl5P6vi/oao7n1loMgLlMOsqOwftEcbgImyFUa
+ k5t36JmbEepudc3I6Z9S9tsXCasQudbXgCLzPc39tZ123h2kEr7lfqshYAmWwtmI6bTP
+ 66yZ/xxSPbEaxiuE4+YDmcFK1MTcdzIrd7fBUVCecwHqBs1WQdzqlSMeutXkFt2oK1hZ
+ KB6w==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpzjxG0+wJMO9hfkIFohBDXTfH5tlI4KZGrL8MhTnlfwDipHTa6XVru8fAt15dT3bp0fqU6sasRSw8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz10XESHzRPGyP7bIIDjQs5gGnIcbymGR3rIyGZZK39x+uE+U31
- QFmWVnEJMpCc6qNVK/lp9ZHv60YXePM8NWROQ1XrN1ZHRs4mbz2LRLNM
-X-Gm-Gg: AR+sD13Rfod9+QYqa4jHd3+tiWf1/YikNa5mCehL7a488DPL4MRLNnTy5oy4nQtpv2i
- C8mUiqDj6oWQIMtM2EjkS0txzbgXtNN5IqgEhOjQ7IbGMErsFpDRGjhDZN8gNVXE0mHXNfkKTi1
- As1cDc5/DXKrByQQaDLInivrUd4T9FfURHZSTBAYEoqnIIo4d4g2e5HSw+bNSL4IcyOH0pKufuZ
- x4SAFQnlLav24qYgUdVWDcpsnHxTcam0YZAbkP/OSc7L2wRzLSgscFtQXPbrROCoX+Cl3G/YrN6
- 4FShMrAJGGQ6Zt7h+1SsuNdD4NlEHbyVRY0dvD0VaIpqQLU6wePa6pVTPfDwSoCsElo+6cCvcpQ
- aJET6a7j/Ey3LzhXKckvxslQBMaWn8Eial399BET5Q/6QsEE5ZWTMXMNEEgUF7RmQMgQstnfChW
- fYKl/9R2EoR1F9zMVHtsTPiv3Nn82qtZkUpEn/wNM03tEQCE5Mi1xGQWX92INZI0aw2w/dxnNJ4
- drwSne34HYyN5Ty+qlmaOS0YxsqzRon3A5qKKrn5KM=
-X-Received: by 2002:a05:600c:34d1:b0:495:7561:a9ed with SMTP id
- 5b1f17b1804b1-4980c679d9dmr297266215e9.17.1785793833068; 
- Mon, 03 Aug 2026 14:50:33 -0700 (PDT)
-Received: from fedora ([202.47.63.86]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49949fdf392sm44274645e9.11.2026.08.03.14.50.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 14:50:32 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: nouveau@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: lyude@redhat.com, dakr@kernel.org, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH] drm/nouveau/iccsense: fix memory leak in nvkm_iccsense_oneinit
-Date: Tue,  4 Aug 2026 02:50:22 +0500
-Message-ID: <20260803215022.172201-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ AHgh+RpcTMjPR+nuQK4x4L3imFeN6pZoj6K3RBIQlana5TqeBBIo/tC5VJ2Zi/9M+6FO4Xly5iREH1mpahw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwELPE0v4T4tD2GiSw8HHZA6rksk+suy9MakCkAC4+vuEq0ONDj
+ EXXRxIceVNkWXxjCQyW5QSrfyxQCI0islrCOV//ctbMv0hLBov/cbnSbn6xtAVIPG3nIkx2j/WI
+ JKV0P3SHT2I2Qa0ckxxWG/NUjOHRaiT0=
+X-Gm-Gg: AR+sD12yyep4zyA3pSFXT1h5Gnach/0A6sWeNjqOgTxaSex6XnBSD8vg0RXr6zhalIf
+ ErJtCcGZTih/ttvc8jHTJ9lbwwMkjnhI271P9nZycq/obEbFWXgxcTUhkyRw6u4RTeDoL8WtyFo
+ iGHfVuU5joHzur4wR3pX8oGMaWyHbWi2wnBZ0luOgrMHE173Imc0SWo0dlqHK0h96/ImRgzSOhu
+ 5hbgLjsPGy6XJag9exJPHlwFixHzknKCoUt2ATXy+KLryCoEHc8+8WAz+iV9ksjJyJouCxPvp02
+ eMu2DBaHgeHn6cWckSTxwRaVyQ2/1YkeeAET59SbSlk=
+X-Received: by 2002:a05:6402:a0c2:b0:699:728e:48c3 with SMTP id
+ 4fb4d7f45d1cf-6a0a7c60706mr9085678a12.9.1785794674539; Mon, 03 Aug 2026
+ 15:04:34 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
+ <am2mvECnCcO9IxuI@monoceros> <6rbjbj74zh.fsf@pengutronix.de>
+In-Reply-To: <6rbjbj74zh.fsf@pengutronix.de>
+From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
+Date: Tue, 4 Aug 2026 00:04:23 +0200
+X-Gm-Features: AUfX_mwLFzASRisUw0SGYbdrUbrTEEZl2WcpJHPwHspkAa-eHL0jaqDpB83YDME
+Message-ID: <CAEUXW=EHD1Y1zHQWE=jFhONM5Hg6TTc_uPYHgp-GS-4YWYJN3A@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+To: =?UTF-8?Q?Ulrich_=C3=96lmann?= <u.oelmann@pengutronix.de>
+Cc: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ kernel@pengutronix.de, 
+ devicetree@vger.kernel.org, Helge Deller <deller@gmx.de>,
+ linux-fbdev@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,81 +113,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nvbios_iccsense_parse() allocates stbl.rail via kmalloc_objs() to hold
-the per-entry power-rail table parsed out of the vbios ICCSENSE table
-(drivers/gpu/drm/nouveau/nvkm/subdev/bios/iccsense.c). The only
-consumer of that table, nvkm_iccsense_oneinit(), copies the fields it
-needs into freshly allocated struct nvkm_iccsense_rail nodes but never
-frees stbl.rail itself, on either the normal return path or the
--ENOMEM error path taken when a rail node allocation fails.
+El lun, 3 ago 2026 a las 14:39, Ulrich =C3=96lmann
+(<u.oelmann@pengutronix.de>) escribi=C3=B3:
+> independently of the specific implementation, please keep in mind that
+> the kernel is distributed under the GPLv2, which may have implications
+> for a proprietary image embedded in the device tree. That doesn't
+> necessarily have to be a deal-breaker, but it's probably something that
+> should be considered carefully.
 
-nvkm_iccsense_dtor() only walks and frees iccsense->rails (the copied
-nodes) and iccsense->sensors -- it has no reference to the transient
-stbl.rail array, so that allocation is unrecoverably leaked every time
-oneinit() runs.
+Good point, I had not considered it.
 
-Observed with kmemleak on a KASAN build:
+A warning could be added to the binding documentation about the licensing
+implications of a proprietary logo, aimed at anyone thinking of
+submitting a device tree carrying one to the kernel tree. I am happy to
+add that in v2 if it is considered useful.
 
-  unreferenced object 0xffff888104cbe480 (size 96)
-  comm "(udev-worker)" pid 526
-  backtrace:
-    nvbios_iccsense_parse+0x217/0x740 [nouveau]
-    nvkm_iccsense_oneinit+0x140/0xdd0
+Patches 4 and 5 also avoid the question by construction: there the image
+is a separate binary the bootloader loads, and the device tree carries
+only a phandle to the reserved region.
 
-Free stbl.rail once we're done consuming it, via a common exit path
-that also covers the -ENOMEM case.
+In any case, whether such device trees are accepted is ultimately for the
+device tree maintainers to decide.
 
-Note: ret is reset to 0 immediately before the loop rather than at
-declaration time, since it is already in use a few lines earlier for
-the unrelated nvbios_power_budget_header()/nvbios_power_budget_entry()
-return codes. Returning it unreset from the done: label would leak
-that unrelated (and commonly non-zero, e.g. on boards without a power
-budget table) status code out of oneinit() on the success path.
-
-Fixes: b71c0892631a ("drm/nouveau/iccsense: implement for ina209, ina219 and ina3221")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- drivers/gpu/drm/nouveau/nvkm/subdev/iccsense/base.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/iccsense/base.c b/drivers/gpu/drm/nouveau/nvkm/subdev/iccsense/base.c
-index 3ccdbbe2fad0..6bfe4913dcb6 100644
---- a/drivers/gpu/drm/nouveau/nvkm/subdev/iccsense/base.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/subdev/iccsense/base.c
-@@ -239,6 +239,7 @@ nvkm_iccsense_oneinit(struct nvkm_subdev *subdev)
- 		return 0;
- 
- 	iccsense->data_valid = true;
-+	ret = 0;
- 	for (i = 0; i < stbl.nr_entry; ++i) {
- 		struct pwr_rail_t *pwr_rail = &stbl.rail[i];
- 		struct nvkm_iccsense_sensor *sensor;
-@@ -280,8 +281,10 @@ nvkm_iccsense_oneinit(struct nvkm_subdev *subdev)
- 			}
- 
- 			rail = kmalloc_obj(*rail);
--			if (!rail)
--				return -ENOMEM;
-+			if (!rail) {
-+				ret = -ENOMEM;
-+				goto done;
-+			}
- 
- 			rail->read = read;
- 			rail->sensor = sensor;
-@@ -291,7 +294,10 @@ nvkm_iccsense_oneinit(struct nvkm_subdev *subdev)
- 			list_add_tail(&rail->head, &iccsense->rails);
- 		}
- 	}
--	return 0;
-+
-+done:
-+	kfree(stbl.rail);
-+	return ret;
- }
- 
- static int
--- 
-2.55.0
-
+Best regards,
+Max
