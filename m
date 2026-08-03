@@ -4,38 +4,38 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C08EC55179
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:57:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36199C5518F
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:57:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ABBB10E6DF;
-	Mon,  3 Aug 2026 14:57:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EF6B10E6F2;
+	Mon,  3 Aug 2026 14:57:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="CioNybO9";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="p/fVK14s";
 	dkim-atps=neutral
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch
- [79.135.106.111])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22AB810E6EA
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:57:17 +0000 (UTC)
+Received: from mail-244102.protonmail.ch (mail-244102.protonmail.ch
+ [109.224.244.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC2E10E6EB
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:57:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1785769035; x=1786028235;
- bh=G3qiWzBEND8YgpNWecgDdwzMBBEEvdJc+STZBSOtEJE=;
+ s=protonmail3; t=1785769032; x=1786028232;
+ bh=lWFNcg3Z0aeqqXp77FdcarolwwC73/Be0zDs18Ibqlk=;
  h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=CioNybO9VCnr9CruU4lvqeWs3ix6wMQpfQamwjFJ8nNZvgeNHGDM7YnguZb3Gmha3
- b5L67nnd31yeowDQ2o2x8wX9wC7LhKWQ+f9XMZ3Ch6W3GJQezAn+mFtgIk2rJetOEs
- 6OxGyGiv6pqC+hfeAP/YfS0OgoGz7MsS8qGSoQzl5k4Kf0GMRJtvIpPSCBiwQYmzlA
- cgb970SaE8AkdxY1JnJS35f/NiHV7SNGGxLW5aU9I6cP6lwU9xq/vuQiqq6FJywCLV
- pu8QtUGlK3GeVLB5C/WNs6nXi2mhCeGnyUl4M5JcgM8pWXh/ASlm6MahItw140ZiaN
- tfZUlb+P+KZYA==
-X-Pm-Submission-Id: 4hDKX85XNYz2Sd49
+ b=p/fVK14sXxOEJ8mWVYa/gC3/sLDs4ARqlfhksFd97oPEmULMm78mrYLy34U9RC/Fm
+ h6LwBDyrFtE01vu6pggUeCu/DxGpkFuWLBv6iK29CzwCdZppjsR4tO2drVokVza2nX
+ xUAKDy71NwvJ0xwldCTm73mQv1aRIsti5Wls9HBybJy6PSDOYvnNutXUBO0Csopmg5
+ /ZhvEWoYZg829w7zQbtX1P6wZwS0D4Fz4BMSRkNzLfXVPJI0PobsiMYql662DxcVM/
+ T+CP9qc212XfyaUtDcom9rkz9jnW9WQeFyDELTqVYH4GjrF8XjWrgdCDT7nQllhcWw
+ 8puVtB00Ve4DQ==
+X-Pm-Submission-Id: 4hDKX71qhHz2ScQ9
 From: Esben Haabendal <esben@geanix.com>
-Date: Mon, 03 Aug 2026 16:57:04 +0200
-Subject: [PATCH v3 2/3] drm/bridge: ti-sn65dsi83: Fix error handling in
- sn65dsi83_reset_work()
+Date: Mon, 03 Aug 2026 16:57:03 +0200
+Subject: [PATCH v3 1/3] drm/bridge: ti-sn65dsi83: Propagate error in
+ sn65dsi83_reset_pipe()
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-ti-sn65dsi83-fixes-v3-2-9b403a405ccd@geanix.com>
+Message-Id: <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
 References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
 In-Reply-To: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
 To: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
@@ -52,11 +52,11 @@ To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
 Cc: Esben Haabendal <esben@geanix.com>, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785769029; l=812;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785769029; l=756;
  i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=JjiHpZszbJpucQsbmOMl8d52BhhvfvUVXtcScjW0e9c=;
- b=xHK6bAA+3PEjRSHluSTwuxnNOSWPCYfSWEuEaYm+hQ5ccZirOB0t/VPTJrHZzaLgeHpXf6+a+
- duJNFYqqtMiD/wAPgWwlhmnFlxxyGaPyKSbpFTNOVOS2KXVu5VXheHh
+ bh=bLWFQzGGZZzZ81AoA17VFOtTn8HPelQlz4iKIBMhusI=;
+ b=PJodPx3YdSEoMORx54kk+TPVbypksNqcUrYpNWh8UdalKP1+ZLSat/t78wRT3Vb7foTSdbuOp
+ RHJrz+urxDqCV9/Yu9XL1KvOeG6TWZ2gyrAjxWA2RS9L5fYh02t4Icq
 X-Developer-Key: i=esben@geanix.com; a=ed25519;
  pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,32 +74,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We obviously should not leave the DRM bridge critical section activated
-when exiting on error.
+Propagate the error code from drm_bridge_helper_reset_crtc(), so that
+callers has a chance to handle the failure.
 
 Signed-off-by: Esben Haabendal <esben@geanix.com>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 476f255bd34d..5551845ea0dd 100644
+index 42b451432bbb..476f255bd34d 100644
 --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
 +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -419,11 +419,12 @@ static void sn65dsi83_reset_work(struct work_struct *ws)
- 	ret = sn65dsi83_reset_pipe(ctx);
- 	if (ret) {
- 		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
--		return;
-+		goto err_exit;
- 	}
- 	if (ctx->irq)
- 		enable_irq(ctx->irq);
+@@ -403,7 +403,7 @@ static int sn65dsi83_reset_pipe(struct sn65dsi83 *sn65dsi83)
+ 	drm_modeset_drop_locks(&ctx);
+ 	drm_modeset_acquire_fini(&ctx);
  
-+err_exit:
- 	drm_bridge_exit(idx);
+-	return 0;
++	return err;
  }
  
+ static void sn65dsi83_reset_work(struct work_struct *ws)
 
 -- 
 2.55.0
