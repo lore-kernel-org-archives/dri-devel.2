@@ -4,142 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A94DC55182
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 12:29:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B714C55184
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 12:31:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97C758994A;
-	Mon,  3 Aug 2026 12:29:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8802C10E00A;
+	Mon,  3 Aug 2026 12:31:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="YpuRy0+i";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WA71T8nK";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021077.outbound.protection.outlook.com [52.101.95.77])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF5D48994A
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 12:29:34 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010009.outbound.protection.outlook.com [52.101.61.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1690310E00A;
+ Mon,  3 Aug 2026 12:31:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Iy7n/GDLGHeZaSc964lHB1KUPkNqwJ3AN0P5WSCkg3W2+w1mF5RmABzllq33DGAbdAR4XNvpjU56OSSVKh9TbqU12aXNp3/AF/7k/T+69Tq2LcO48zaeQ87Oq4WfnQAVFn53xqdKHo0U+brVXafOthc7a87xVgNT7FRJdL5jf2zofbrIThRLr2mntwxj2RZ1PbPhrrgeyndcJKSEjVqPVgsiRRI9sVtz0ZZ4mkZ4jur7UbbVQJjTCFZOu9BRhZ8nTaq6qPgc/cxAk7meY1MV7FwpHthXh+K8x+iWw2UO8/RJ1RsexCghNYTnefK7xf0cGNdG3yOIpr1k55iEfcAx6w==
+ b=jl3u7mxRTL0exnG7E5G6uSoLG/nu/VuhLnI6NkYbmqyL41I5UYu6OyoUNWLmxjDTOcdEELLFU7Yvc3SvA5z8cU8fFHG/3JlIX2Hhq9PgMWiLqgjS8fgGkSzsHkW2BNs5aWdSoxiWSGjX0QuaRQGhM8Ek2K17kEPuRM83cAV4sd+3T+D0x6wd7A7SBw64b4j9eAvKRMm1a345oHb075ZnGo/j0dG4OFoJ78WXasm1GDa35VqUH4aohS0np68Vl/aAA76QCM9W35bscbmJHwk/YIMEXXJYBhiJhg6ydlIN1e7+xfkMlsg4PzfWzN7/GXkfDndSA3scr1ij0madq+OJSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=AXwwUv4AU7eNZgEqa5ZHD/NioKWhoX0HHu4w5IUr1KY=;
- b=r5RBkWjpYBbi158dNLJVqBjKNbCwXIZ10Y2y4UXKnOWtlj3qFBcx1ve/XJij9pUIGUbA6rRP1ACACVzE0ZXM1kW+bVZIfiDndj0vS9WfhdoSFTdpX3A2Pva7myIihhCdhILviNGp95NxiEDfSWY0ZRPNZy9EFBX0+lwWx/u0kwo2gmF0Er0qfBMl3a/ZMcr/jwlO3SEjqxRUK1EXHNow75ZHyRjMx7+h62eZaBj2zKUaIFM7LGu2oDmfNPQ0Os4q/6H4LOGRC0+qY9XLWA9dEu3p+ZlFS+NNvP140Pdg6MAvO/ruxPIS5qWt3Y5Dso/zbUpyPtDFQPjv96cdh6lNYg==
+ bh=s/Qb8vfqR7j38gjpFqRgGe+P/ND8LjiTd/nJ6eEvLy8=;
+ b=iKGdBf5Bq2YXna/SaScMFmYLxoLEsVQ7wivnu7K2WlCShKfczeQFJWFHbayB06MW4y7Mu9iqKK8ZO63F5Ji4DWozFCWFOLlKWvbPD/5RL50xuITWgRfwDpsZUJClTbTFUJN63WfdDbe7yTjrEdpcOng05hWNZ0DgSUeX8+V7xo2dzQM69FbaURXa1mu1k+NG1eWlei6juY2gSbt7IS9gG7Ne2QJTPwyIkUc45EeSMRCLuhu+9BbAhjBd+sqseAlWmoeGvoSUfd3CssfrrZOgrvaSQM888T83QmcF8AT6ZOao5yeIwqVvWILBOyBmEopeHwD53H3L30BmOmNn+VR4Gg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=AXwwUv4AU7eNZgEqa5ZHD/NioKWhoX0HHu4w5IUr1KY=;
- b=YpuRy0+iXOKzsUlKZjsCZZzqpS9Okh6rMXNnV0eCpJM27mS8irJQE7Oqte+AqTFsqU6U+xytAjlPPIfHafIha49endRI6uiuDcfCZNQQ1SbxIN+YY+VyN+po8g640n3N/flfqUyyJqFIQjfMu+g7yMJlMHY2X9Qiu0AymDQe6YQ=
+ bh=s/Qb8vfqR7j38gjpFqRgGe+P/ND8LjiTd/nJ6eEvLy8=;
+ b=WA71T8nKAUrf/C1oO5Iiu9rDIQB7SQ3EnT7rMuO5L/bsZc/ww/FKC8YI9oxnJYEdnG9Yb+s+NEgyiuvb81gl2pOX1Z7ig53fw+eONFeovpkfrtUV9BNt00pvnb92Z9BJ/tv5m4tu9/xH62xEQ3okA2IMgIKAVgpefKjjlwklxZM=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO7P265MB8891.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ea::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
- 2026 12:29:31 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
- 12:29:30 +0000
-Content-Transfer-Encoding: quoted-printable
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA1PR12MB6994.namprd12.prod.outlook.com (2603:10b6:806:24d::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 12:31:04 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
+ 12:31:04 +0000
+Message-ID: <c46ea663-756c-4575-be30-60c8b7d15c06@amd.com>
+Date: Mon, 3 Aug 2026 14:30:55 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Sashiko-bot <sashiko-bot@kernel.org>,
+ Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
+ <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+ <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+ <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
+ <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
 Content-Type: text/plain; charset=UTF-8
-Date: Mon, 03 Aug 2026 13:29:29 +0100
-Message-Id: <DKFB5CL2I1FO.7ULPVEF0VG5Z@garyguo.net>
-Subject: Re: [PATCH v5 1/4] rust: clk: use the type-state pattern
-From: "Gary Guo" <gary@garyguo.net>
-To: "Alexandre Courbot" <acourbot@nvidia.com>, "Gary Guo" <gary@garyguo.net>
-Cc: "Daniel Almeida" <daniel.almeida@collabora.com>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Viresh Kumar" <viresh.kumar@linaro.org>, "Danilo
- Krummrich" <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Drew
- Fustini" <fustini@kernel.org>, "Guo Ren" <guoren@kernel.org>, "Fu Wei"
- <wefu@redhat.com>, =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- "Michael Turquette" <mturquette@baylibre.com>, "Stephen Boyd"
- <sboyd@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
- Gross" <tmgross@umich.edu>, "Michal Wilczynski" <m.wilczynski@samsung.com>,
- "Boqun Feng" <boqun@kernel.org>, <linux-pm@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-riscv@lists.infradead.org>, <linux-pwm@vger.kernel.org>,
- <linux-clk@vger.kernel.org>, <rust-for-linux@vger.kernel.org>, "Boris
- Brezillon" <boris.brezillon@collabora.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, "Maurice" <mhi@mailbox.org>
-X-Mailer: aerc 0.21.0
-References: <20260706-clk-type-state-v5-0-67c5f326a16c@collabora.com>
- <20260706-clk-type-state-v5-1-67c5f326a16c@collabora.com>
- <DKEO7DXQ8604.1CB09QFM2EO68@garyguo.net>
- <DKF0BU8N7JJX.T802R11VZ0A5@nvidia.com>
-In-Reply-To: <DKF0BU8N7JJX.T802R11VZ0A5@nvidia.com>
-X-ClientProxiedBy: LO4P123CA0388.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:18f::15) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0197.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e5::7) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO7P265MB8891:EE_
-X-MS-Office365-Filtering-Correlation-Id: dcde09be-5d55-4d3f-3393-08def15addd4
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6994:EE_
+X-MS-Office365-Filtering-Correlation-Id: d473c0cc-f706-4b1a-8f66-08def15b1567
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|7416014|376014|10070799003|1800799024|56012099006|5023799004|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 2/8QGUni+R+/LmjB1rsz3I35f2TIUV/neyjpn2VbnJ41hF1JHk2MvTuR0hycNLLYc2iBP5Aqv6x5FlnBvoQn4DoBUMYwH4H1hsK602Oa9anpgTd5YnLWISITH7vLXhIRi5ERFEWZqRNPKjWXCWIJ8tYLFQ0HxJS/5jwNyWDrff4laMzEwFJNRGNkmrX+NErZ3ueKpE8D6GGKvniRZCLouUE/JmNX+otBlDThsGst6J5Z8cQwMIeqqsONFez0LRFFhQXaBCP/8JOkDhahlfzANl9pRGPDLOQEdaue+uP+SerKRZBZlvWkWwy6y6HRxI87xQV39RSIuWTyY0daljPf1gqJgQlkauv5nB+n1XPaX3ZtPXuKj0ImBEoa5fdWzGUUP6k6E6kCK+O+tlOvC22g0GZeU8cIeaL8/fCNQD1eeFz7yXX/cdCpCl5Fwb1XaohPKdGQmEhV3Kk/lTy8GMqYSlUec+yGJp5Yp5+F0dfdwmHADvn4rqox9JWrMknxvCKkw02lzu2qrQWmpNm+mVuKgpHxVPMXHiCZs8ukkE9kPq7eoO/RqII+66PtkwVVIKxxlQlIyPlZG3hVINLmBV0015aqGYJ93kw3SB18+58NHBpMvXig9PY3w6nYFaPmWasSqgcUv1WHy/t1eUYqA52qB977jedbQdm4qqhx2BGKJ7g=
+ ARA:13230040|366016|1800799024|7416014|376014|23010399003|18002099003|22082099003|4143699003|56012099006|11063799006|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: PgbvhTyu5nP6A5GcBL1AkFySyTgM9iBFkanudPTqhllr9iHgHjt0F0eoEY4wNJuFXGgd+xccKLts7rgTtmu2KTB9ugAvB3BevPqqkulaIJqAPdTEOmoH4AcuUo6G8ERGqDJX89Ws075qYHpanSI992amCTA0Nt3EHAKwSo7wCqjrzabUwZuBKtJhGTkOlUZxZMuJrrHhicrYhy2TpnHQPESGRCDGLQksF+Z0GuLm7jlQv6RAycJ/JS/UhRG8fJ2e6eRvALPmEE9rV2iBEHGdcmzr/H0dbEiS/N3Y32Hw7y69S62Sl2G7qNiti+4DX+94qJiq+hUoUiLyBJkkrKJd9fJC1YgafVuOzJSE6t4eRrfL5FlR1+xdlRWX+CnzMLzg8RXRrXWCfubI2BKsMCL9hRQuNDpTd3JIGsiw269usCP/xjefE9icLeIW+XrrtRaZQ8EZKVAvwdRLSZP1N99kCQKolsm6F9uRjvuGfTsAPwN2K45lRSpxFBrKZb3T3u4utEY5GYajzIWVgloe3rtMyh+7u+UXB9/IMTMgUmY6LibKqIfQrq4UmyQTeLwtm2wrmpERM/DJxLEGV/wBTQF5Ut6jZ571jOQTm3hx1DHdHZQ=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(7416014)(376014)(10070799003)(1800799024)(56012099006)(5023799004)(4143699003)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(6133799003)(10067099003);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzIwcVhjMEg1bWdNT3FEV3gvSUhxZUhUZmdvNnY1YmVWdmxVUkhBODNPV2k1?=
- =?utf-8?B?bGpSbnNzYVRsa3dDQkJyMTZGTDkwU3RrMG5aWWY1cXNsQVl0bmh5aCtxZEdr?=
- =?utf-8?B?QUNDb200enUyTVZGOWFmOWF0VWhzMjgyTXY5a0tHQVcvSVBUNythejFSVXly?=
- =?utf-8?B?VTB1V05qLzRNeXNLZ0Zkb1JycGpqT0Y1SnRzWVpSQ21TSThRKy9IZGZpUm9U?=
- =?utf-8?B?cjFnVVNseVFWTVZCbm5FWjRmbE5RWTA3RjZjZFEwQk5GSThJNVpGZ253OEEz?=
- =?utf-8?B?TzdOdVFnSFlEaGlhQWpYWXNlcDVIalFpRG5FWXo4TnlFRHZ1Rjd5cllXNHFH?=
- =?utf-8?B?c0FROThlRFg5T05rKy96bzJMdXBpOGNJeklqT3B3VUVQdElUNEl3TVFwUlNF?=
- =?utf-8?B?czgwdVh0UGxWa2lJRTErZ1NzNExuQktsanFnOUJMZHNPTWZPNkxLY0g0RFRQ?=
- =?utf-8?B?TUF6dk95dU9VbGIvTzhXN2I1ZlREaks0NThMMWVBMlFJcXVWVUJ4cDVySDE0?=
- =?utf-8?B?V3NsOEQxMmQ1TTkwaWRkSXJldm9FWDkzMUZQMm9GR3Q0bjBtT3FQWXduNXNu?=
- =?utf-8?B?S0hGTlF2VS9SS3A1U1QzWkIwVVRuOUFvSWdWNnhYSFE0dm9LUi9JcHlSeXFy?=
- =?utf-8?B?NFBsVmM5ZlB2bzVaVXc0Tlp5VGJiNWR6alEyRS8zMVI1OFZCY1JjQzBTYkpr?=
- =?utf-8?B?MUxvSnQwWDZqOXMwQURGd2xCL1ZFdUd0US8wTGlZN1FVZWJnSlJoSVlnMGk3?=
- =?utf-8?B?eFp6V2JVMXlKQnFOWmlaM3lWa0pDRHNQRWlhNEllbklQRXBoRE9pQXdNTVVL?=
- =?utf-8?B?M0QrNHhsUWh3VGVPZlhLcWFqL1hLMGovVUFYaU1xUDBiT0Nnc0NuRG5KNzdn?=
- =?utf-8?B?V2NLR2Y3QjhNN3dqUk11ckVEeUtxNjBteStsc1RacEgvVC9EcTBiSkZpUXNw?=
- =?utf-8?B?NWQ2T2dmb0NLQUhYekp5aHF6ellwb1lHR0NNVVNOM2JZUzdCNW80Wm5lQ2Mx?=
- =?utf-8?B?NytZVmVzK2FoVlN3QlZlL3AzcDFuMEVmM1Q4V2ZZS0RURnJYc2dqR1ExQld2?=
- =?utf-8?B?eVlCM1ZzZXVJZkN6Y1pIWG4yZkI5SVl0bEszNFJ2dkxOd2tsMVo0MkY2OWFC?=
- =?utf-8?B?NnRTZ2dVNURGUjhLU3lqaVI5YVBoOWVFL25RT3pucXk2WGRPVU5rTHdpbGl0?=
- =?utf-8?B?eGNrb0J6OG1NNWhQQnN5dXVHSDhZVHNreDJlRDc5ZjBjakVhUzllck1YMVRZ?=
- =?utf-8?B?UEtzcUluNG1VeXVVRUYzUGxVME02MjFzcXBxR3F2UGNUYzJYb0FBV1FXL3Bu?=
- =?utf-8?B?SURha0Zvc1VDam1CeDBJWjlnNHo0eTBnRi80VjVJUlV4Tm5qSlJUUHdod0Ri?=
- =?utf-8?B?THdyV001MDlmdWFPRkJkTVI1aWY4NjR6NDI4YU1QcG5UWFZMZi9EdzBSSUZ3?=
- =?utf-8?B?ODRBbUtWL2p6UDMvV3pHMDQyZ21kbnMrVGgzM040bDh3RG1sUmpnVFUrS2dZ?=
- =?utf-8?B?dmZaQjZRNzhDLzZ0VE5sMkVjYk1ud3pPMjI2RHNyV1FqUUtYL0dUQmRzUU9F?=
- =?utf-8?B?blNIK2VsTGNhb1B4NWZsRWRZaStLZkNEa0NVL1Fvd2UrN1M1NGN2eE14TXRT?=
- =?utf-8?B?VnZiSzZRTHhvZHY2S1JGOVNOVVpqYjNQVC91L2dLdGYyZ1RyT25MREh6SmNL?=
- =?utf-8?B?cGVlOWlrelp6VGNxS29SbEhvR3JXZUNJS1k0TjhxekFGdzNMN2xwOGh4WFlH?=
- =?utf-8?B?eSt3UVpobkJkekxiV2FrWFdJYmsxVDZEYmV4bStOb1M1Q1ZkcThDSVpyWkhR?=
- =?utf-8?B?QzJHVVJKOEtaYmJCODZFN2FGYktJZWtEdkpSaUFXU0tvTHNMeHZyeE1YNDNp?=
- =?utf-8?B?eWtqNW1PODh0WHIwTDdDN1J3b25na252eUxBMGdldWRObEh3YytOMHFjWVNa?=
- =?utf-8?B?dXNTQTMranUzY2JSMklleU5iTkVMSGc0QWxLQkRleXhrek9xUWV5M1FuT0JL?=
- =?utf-8?B?T05ZVFFhNWwyYWJ3N1k1NUVLQ0xSMlgzK2drd0JkaWp4UEZjaFJnM3RzdXdi?=
- =?utf-8?B?eTROR2tTYVErU2NMb2huTmlRQ1Q3cTNIN3orZFV0YnRJaXVFdEFhTWd1L2Ru?=
- =?utf-8?B?N2tkM1ZKTDZFenlKdXd4TnNSczRWaUV2eGxXM1dsRFdtMXliUWwyU1AvRndZ?=
- =?utf-8?B?Wk9QYjZZdjZKNFhTekFqM3RCVGllN1F1QmhQaURrdGkzMzBGM0NoV2Fybkwy?=
- =?utf-8?B?OHM2SGdDcWxvNHFlbUx4U1pRWVAzL0xjVExzU05HcjRoZDhFazdId01FUjM1?=
- =?utf-8?B?SEpsS3VLR0lWZUs3QWxuamI3Q1h3UEtiK29KK1ZmVU5USVpmVmR5Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: dcde09be-5d55-4d3f-3393-08def15addd4
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T01PQ0ZyN1cvenZjekIrNEZtSGVLOHZZeU9ZQmFPbmExbE0rTk1VU1RLQyts?=
+ =?utf-8?B?YVNXZFA0U3RkNEE4NUc0VTRSUDBVaFkxbVplbStRN1BzN3NObE9nK1JtMENt?=
+ =?utf-8?B?R2FwbFJyaG5tOE9aZTdUTy9zWjJPSDNtTmJxSkN5ZzZjaWVCOHNXRHBGWEJk?=
+ =?utf-8?B?V0R6L1hScGpqOUtuNG10b0o0RnlwL0FUV3hrWUJJL2ZLZkJ2ZXZsdGcxNDhG?=
+ =?utf-8?B?VXE0dXpueloxUVAzSlVjWTZwSmdPRG91V3M5SDFOZWdIWDkrQWg1UnFtbHl5?=
+ =?utf-8?B?Q1M0TGJ3eUVCMUF1Wmh3RnpvWnJpYlZaTHFodTE3cFpobEN5Z3MvUjFPZlMv?=
+ =?utf-8?B?WWxBbytVS0lqZ3BuM1dIb3JwUXhTT2pOS2VPb3NZNE1TemQ4TUZLS1plVC8r?=
+ =?utf-8?B?amR3ZHNrMHZ0ai9FMWF5SWFONlpNTDkraUNQRjVyVlJobWlNTEtuKzJSVTdh?=
+ =?utf-8?B?dWxjYkE5M0RpYTlkU0l2aE5pNnlxRlZyU2RsRWdFczUxbnRXOUF6Z21TOWpW?=
+ =?utf-8?B?ek9XS3ErN2hvUGpJNENldExqNzA4QjBibHNDaVMxbkxTQWJVZGc1djd0cTcy?=
+ =?utf-8?B?TG0wbTlsb0tBekdaWExmVFpmYVdORXpVYVYyYXZ4eVNFazZJQmhON2JvQ05Z?=
+ =?utf-8?B?eFBQZHhIc0xFMExJOWVBaWNFQ1NjTzV0ZTBpR0NZZFdVWWxMeUVnWnpUYzVo?=
+ =?utf-8?B?bHNlekJSeFN4N21SR1ZTRlRXR2ZPSFlNNnNvL0ZVOWlUZ2RwVlA3V0JYS1Fo?=
+ =?utf-8?B?Q2tsWHM4ZVBBVU5tWThKWXRSR3QxQXAxeE83U2EzSm1FbUZlMnlZVkM2M3N3?=
+ =?utf-8?B?cU5VNzVTM0svcWhmUEFSem9ya2xaTUltOSsrY3NRU2g3SVZldXZBL04wOGJp?=
+ =?utf-8?B?eVlpSk1UN1RkL2ZlVnljcVBuelJudmQrTkVZdjNjMWNLc0svSjVoQ01wT2NW?=
+ =?utf-8?B?YWVVcTZmUndBS1BvV1liSUNMRXA1d0QrQk83ZkRWQjZ6SUFOL29qL1FFdzBD?=
+ =?utf-8?B?ZldBTWlUaVREV3hTdXdKREpqaE83d0xUUXJGRFhGbElJY2tHTWVDNG01YVhp?=
+ =?utf-8?B?NnFzMlQwUkp6VGFSa3V2ZklKS1B1a2x2YW5VeWE0S0tCaDlQK1QrWkRjaGw1?=
+ =?utf-8?B?ZlAyaVVjczl0UlZPdGRFNmgzbUc5ckdzTERVZjlWNXBIcGtVQ0FWaXRXZURy?=
+ =?utf-8?B?dzNVd3RFMmpBWjBVQlh0VG1mWlZURkRMSXczR1U0aXpGdUU3UjJYTVFvYzdD?=
+ =?utf-8?B?YnRxdjZEalNoNHp4LzdrSmxBZFBoa0liNTRxd3JnMmQyWlgrK05KbjZmZEx5?=
+ =?utf-8?B?RnBpT0NsU1M2TEtmTG56MHpNZHI1WUsvWnJrRDdSdC9obzZ0Mndmc1JNSTBt?=
+ =?utf-8?B?OW5vZWhGNGFGTnRFL0J2cDBSMWx0RW40Z1Y1bXUraTlkVWpzdXplM3l0Nzll?=
+ =?utf-8?B?ZnUrT1YzVFhudXNlNFhZdVU1TXIxT00wOWdjdnM4RGxVNzE2RnpSYyswN0tG?=
+ =?utf-8?B?WGNIeHZwdnB5NGcyZDQ4bkF1dU1SamM0QVluZzdQOEU5clh0dHVvU1Zad21s?=
+ =?utf-8?B?b2lOUU5IL2hPajdBU1h1L1hoTmF0b1VDTHF5Q2IxWnhuYVQ4S29aUC9ySHFj?=
+ =?utf-8?B?MWx3NW5QY25SYVk1WlFhMGN5bjRVN3NVWlNTeEQ3bEtTREtyWmp2RUVjUW1K?=
+ =?utf-8?B?dERkcy9UVWpLSHg3MlFCY2lCRnA2cWlYV2pqeWJweTljVndJMmhOYXRHcWV3?=
+ =?utf-8?B?a0FNWVNOZFFDWlUwTk4rMWc5MkNwNXhyWGJ2OXNVV24vQnhkb0R1MTh1WVNm?=
+ =?utf-8?B?MndqTXBBUUE2eEpyKzFVbnpDTW9LUmNtMGoyWkRsYjJ1U3pGbEVqWkJ3RDlr?=
+ =?utf-8?B?N0tnS2EzcXVoZUFSdTF6VEticWJIcnQyWE5Pdk5EYmQ2QkdiTlNYaGpUYm1D?=
+ =?utf-8?B?Zk1yOEtvc1Jsak1wY2c0TzI1MEJ3Ti9ubWJqLzliTnpHNktROTl4TVNGMG1q?=
+ =?utf-8?B?WVE4eEJWSDR0V1VnWE1rUXhpb3ZlVW5DQmY2eGR5VFhWeDBzMFU3dzgxaFRF?=
+ =?utf-8?B?OUtEdVVaTWxUZUMyU3d3Z1BkTHZ6MzZVdCtOOUFtT1VweWZkRHVYMm9hZjVu?=
+ =?utf-8?B?eCtmZWNScjRPcTM5ZEJIZkZRUVdQSFhoOE45RjRtU0ROYUM3N3BlOEpBaE9K?=
+ =?utf-8?B?MW9pRVozVDdjMDVWc2s4Um9HQ2ZUb3pvcmx6N0JaMFhrWk4zYTkvVUpsUWpQ?=
+ =?utf-8?B?Z2hMVHg1Yy9vazAzMW1Xei9tYUtBdE1oNG41SjVmWVRhVUo3cC9ZZ241VndS?=
+ =?utf-8?Q?7VLnCTrxcaCdROJhE1?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d473c0cc-f706-4b1a-8f66-08def15b1567
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 12:29:30.7378 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 12:31:04.0066 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qukRCU61aM+Y82CH6tyYTVca9kEy6C/6ZnTPfejLnlJJ9paZCsI/RlakV/rgplqyRvyfdirPDMyrAng3Y3fScA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB8891
+X-MS-Exchange-CrossTenant-UserPrincipalName: su/K/Zw+KbYt0IbQlljmnngsqqy+JTrMYqvU4xquS4LlVgCPSuoi5C6hZzzrdNDB
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6994
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,103 +155,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon Aug 3, 2026 at 5:00 AM BST, Alexandre Courbot wrote:
-> On Mon Aug 3, 2026 at 3:30 AM JST, Gary Guo wrote:
->> On Mon Jul 6, 2026 at 3:37 PM BST, Daniel Almeida wrote:
-> <...>
->>> It solves d) by directly encoding the state of the Clk into the type, e=
-.g.:
->>> Clk<Enabled> is now known to be a Clk that is enabled.
+On 7/21/26 13:46, Maarten Lankhorst wrote:
+> Hey,
+> 
+> Can I merge this through drm-misc-next together with the rest of the series?
+
+Sure go ahead, sorry for the delay I was on vacation for a while.
+
+Regards,
+Christian.
+
+> 
+> Kind regards
+> ~Maarten
+> 
+> On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
 >>
->> The design conflate states with actions. Our existing type state for dev=
-ices
->> don't do this: `Device<Bound>` means that the device is currently bound,=
- not
->> that dropping it will unbind it. Yet, a `Clk<Prepared>` doesn't mean jus=
-t that
->> "clock is prepared" but rather "clock is prepared and needs to be unprep=
-ared on
->> drop".
 >>
->> One way around this is to mimic the "Registration" pattern: have a type =
-to
->> indicate that a `Clk` has been prepared and its `drop` will undo it, and=
- then
->> this type can `Deref` to `Clk<Prepared>` which just mean a prepared cloc=
-k.
->
-> Just as the driver core hands over `&Device<Bound>` to a driver as a
-> guarantee that the device is currently bound, so can the driver pass a
-> `&Clk<Prepared>` to a function to assert a similar proof. Here the
-> reference only means "clock is prepared", without any action implied.
->
-> The typestate has real practical benefits, as unlike `Device` which has
-> a well-defined life cycle entirely controlled by the driver core, clock
-> handles are owned by drivers and their use can go all over the place.
->
-> Driver A might want to enable a clock in short bursts in order to
-> preserve power, and keep it prepared otherwise. For this, a
-> `Clk<Prepared>` with the `EnabledGuard` I mentioned in patch 2 would be
-> a good fit. Driver B might need to keep a given clock enabled all the
-> time and only change its rate, and thus will store a `Clk<Enabled>`.
-> Driver C may have different PM states, and can encode these in an enum
-> where relevant clocks are either `Prepared` or `Enabled` depending on
-> the variant.
->
-> Mandating a registration-like pattern here looks a bit overkill to me
-> and I am not sure what this would grant us. It would definitely
-> introduce some complexity: say that you want to keep a prepared clock in
-> your driver data, does it mean you need to store the `Clk` itself, and
-> then its prepared guard, which references the `Clk` in the same
-> structure?
-
-You could have the `PreparedGuard` takes a reference to the clock, no need =
-to
-store `Clk` separately. We can have a method that gives out `Clk<Prepared<'=
-_>>`.
-The lifetime would be that of the guard, so the token cannot outlive
-`PreparedGuard`.
-
-(Using `klint` annotation below just to demonstrate if they can be used fro=
-m
-atomic context)
-
-    struct PreparedGuard { ... }
-    struct PrepareEnabledGuard { ... }
-    struct EnabledGuard<'a> { ... }
-
-    impl PreparedGuard {
-        fn as_clk(&self) -> &Clk<Prepared<'_>> { .. }
-
-        #[klint::atomic_context]
-        fn enable(self) -> PrepareEnabledGuard { .. }
-    }
-    impl PrepareEnabledGuard {
-        fn as_clk(&self) -> &Clk<Enabled<'_>> { .. }
-    }
-    impl<'a> EnabledGuard<'a> {
-        fn as_clk(&self) -> &Clk<Enabled<'_>> { .. }
-    }
-
-    impl<S> RefCounted for Clk<S> {
-        #[klint::atomic_context]
-        unsafe fn inc_ref(..) {
-           /* just add inc count here */
-        }
-    }
-
-    impl<S> Clk<S> {
-        #[klint::process_context]
-        fn prepare(&self) -> PreparedGuard { ... }
-        #[klint::process_context]
-        fn prepare_enable(&self) -> PrepareEnabledGuard { ... }
-    }
-
-    impl Clk<Prepared<'_>> {
-        #[klint::atomic_context]
-        fn enable(&self) -> EnabledGuard { .. }
-    }
-
-Best,
-Gary
+>> On 7/3/2026 6:38 PM, Christian König wrote:
+>>> Arun please take a look at this.
+>> Sure Christian. This fix looks correct to me.
+>> Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+>>
+>> Thanks,
+>> Arun.
+>>>
+>>> Thanks,
+>>> Christian.
+>>>
+>>> On 7/3/26 15:05, Thomas Hellström wrote:
+>>>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
+>>>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
+>>>> returns early and bypasses those initializations.
+>>>>
+>>>> Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
+>>>> is called, a failure triggers amdgpu_ttm_fini(), which calls
+>>>> amdgpu_vram_mgr_fini(), which then:
+>>>>
+>>>>   - Calls list_for_each_entry_safe() on reservations_pending and
+>>>>     reserved_pages, whose list_head::next pointers are zero-initialized
+>>>>     (NULL). The loop does not recognize them as empty and dereferences NULL.
+>>>>
+>>>>   - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
+>>>>     via for_each_free_tree(). Since mm->free_trees is NULL
+>>>>     (never allocated), this dereferences NULL.
+>>>>
+>>>> Both result in a kernel panic on the module load error path.
+>>>>
+>>>> Fix by moving drmm_cgroup_register_region() to after the list and buddy
+>>>> allocator are fully initialized, so the teardown path is safe to run.
+>>>>
+>>>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+>>>> Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
+>>>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
+>>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>>> Cc: Maarten Lankhorst <dev@lankhorst.se>
+>>>> Cc: Tejun Heo <tj@kernel.org>
+>>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>>> Cc: Christian König <christian.koenig@amd.com>
+>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>>> Cc: amd-gfx@lists.freedesktop.org
+>>>> Cc: dri-devel@lists.freedesktop.org
+>>>> Cc: <stable@vger.kernel.org> # v6.14+
+>>>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+>>>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>>> ---
+>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+>>>>   1 file changed, 4 insertions(+), 3 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>> index 2a241a5b12c4..ac3f71d77140 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>>>>       struct ttm_resource_manager *man = &mgr->manager;
+>>>>       int err;
+>>>>   -    man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
+>>>> -    if (IS_ERR(man->cg))
+>>>> -        return PTR_ERR(man->cg);
+>>>>       ttm_resource_manager_init(man, &adev->mman.bdev,
+>>>>                     adev->gmc.real_vram_size);
+>>>>   @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>>>>       if (err)
+>>>>           return err;
+>>>>   +    man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
+>>>> +    if (IS_ERR(man->cg))
+>>>> +        return PTR_ERR(man->cg);
+>>>> +
+>>>>       ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+>>>>       ttm_resource_manager_set_used(man, true);
+>>>>       return 0;
+>>
+> 
 
