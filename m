@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50B87C55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 14:59:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95773C55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 15:04:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A684110E6EB;
-	Mon,  3 Aug 2026 14:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6F6710E6B1;
+	Mon,  3 Aug 2026 15:04:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BouBC2ip";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nuRCh46U";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C926A10E6FE
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 14:59:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6891010E6B1
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 15:04:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D6DDD60AA3;
- Mon,  3 Aug 2026 14:59:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62C931F000E9;
- Mon,  3 Aug 2026 14:59:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id EFD1E40797;
+ Mon,  3 Aug 2026 15:04:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF11F1F000E9;
+ Mon,  3 Aug 2026 15:04:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785769156;
- bh=cliP6khiAYIqGakNZ9MKPy5IZbcuq2DG1AkEyuHOhvQ=;
+ s=k20260515; t=1785769452;
+ bh=gM4FCMik/iz+q0x/G4qwU3gAFqWT2vo73/mhnzO0TOI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=BouBC2ipI1P09RnGlfKyz/OSHauKRN+X9BXARwRWK8kjJhNajE73wih4jRkmEXEeg
- 0fB91zVJEokMZSNi8PxTNvL/W3gQYmDXoUPtWLCTs00vhQY2qsYxP4e/x899MCB/zE
- 1+Fmcre3P7fwiSurO317m2e7z500Z0ovG95cw6slkWGibQISZ11OHeVwGBSsQ9NJsz
- 3RweSvvsICjc8TVqi4EMMrszzwsECMKSnwTAJSokbca7pH/RttQt8yt99ZrRDA+sA+
- 7F8sCGZ4Xd17c4K+jOKY+/TTV9Ru+uihN+w3CcKQPptzY5FhWK/WFs3kL6jgSnk6AA
- K0Pvp0phWCUAA==
+ b=nuRCh46UbOP1ZsLuj06TJi0JT2dukpRgVFoG0TikuvihaDg93qg0K16f5p69EzREY
+ bS0+uieyGpWZluZMQPYxsq6B/Lw5/CBq1hprN2XhcYrp1cDCImjrmhR6kBvl2L19fW
+ Zk1ZuBKDDLTZmV3RSGSezsnHGyzQKKhyf9F9YgdSBrnnuVwP2vVrsADiUuulcU79ny
+ 9Z5fMDsVsrrxy9QJwoU4UpwNdhxN/VwHiZfKRH8+zrg6jlDq/oukFU7imuy9FT1UUW
+ h6dDGcbjn/oZm1i8Fsc7IhNfoFeLUSLoplmmRO4nuLDq1WKe9tUz5/ew0oX/m0zP+S
+ z8oRgf/463F1w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] udmabuf: vastly increase the size limit per dmabuf
-To: "Xaver Hugl" <xaver.hugl@kde.org>
+Subject: Re: [PATCH v3 1/3] drm/bridge: ti-sn65dsi83: Propagate error in
+ sn65dsi83_reset_pipe()
+To: "Esben Haabendal" <esben@geanix.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260803144120.11524-1-xaver.hugl@kde.org>
-References: <20260803144120.11524-1-xaver.hugl@kde.org>
+In-Reply-To: <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
+References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
+ <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 03 Aug 2026 14:59:15 +0000
-Message-Id: <20260803145916.62C931F000E9@smtp.kernel.org>
+Date: Mon, 03 Aug 2026 15:04:12 +0000
+Message-Id: <20260803150412.BF11F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,113 +58,58 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Unprivileged users can exhaust system memory by pinning an unbound=
-ed amount of pages, bypassing RLIMIT_MEMLOCK limits.
-- [High] On 32-bit systems, an integer overflow in `udmabuf_create` during =
-the accumulation of `pgcnt` allows a local attacker to bypass the `size_lim=
-it_mb` check and cause a kernel heap buffer overflow.
+- [High] Leaking an SRCU read lock on the error path in `sn65dsi83_reset_wo=
+rk()` due to an early return without calling `drm_bridge_exit()`.
 --
 
---- Patch [1]: [PATCH] udmabuf: vastly increase the size limit per dmabuf -=
---
-commit 35feed24a80e2f326fb9ba08e55d7ef8e97bae25
-Author: Xaver Hugl <xaver.hugl@kde.org>
-udmabuf: vastly increase the size limit per dmabuf
+--- Patch [1]: [PATCH v3 1/3] drm/bridge: ti-sn65dsi83: Propagate error in =
+sn65dsi83_reset_pipe() ---
+commit d19637cc30dea31a13c6747fe2aa3733116ec5e5
+Author: Esben Haabendal <esben@geanix.com>
 
-This commit increases the default size limit per dmabuf from 64MB to 1024MB.
-This accommodates larger buffers used by high-resolution displays when scal=
-ing
-is applied.
+drm/bridge: ti-sn65dsi83: Propagate error in sn65dsi83_reset_pipe()
+   =20
+Propagate the error code from drm_bridge_helper_reset_crtc(), so that
+callers has a chance to handle the failure.
 
-> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> index bced421c0d658..be2bcda0fb0f3 100644
-> --- a/drivers/dma-buf/udmabuf.c
-> +++ b/drivers/dma-buf/udmabuf.c
-> @@ -20,9 +20,9 @@ static int list_limit =3D 1024;
->  module_param(list_limit, int, 0644);
->  MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit. Default =
-is 1024.");
+> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
+ge/ti-sn65dsi83.c
+> index 42b451432bbb6..476f255bd34dd 100644
+> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+> @@ -403,7 +403,7 @@ static int sn65dsi83_reset_pipe(struct sn65dsi83 *sn6=
+5dsi83)
+>  	drm_modeset_drop_locks(&ctx);
+>  	drm_modeset_acquire_fini(&ctx);
 > =20
-> -static int size_limit_mb =3D 64;
-> +static int size_limit_mb =3D 1024;
+> -	return 0;
+> +	return err;
+>  }
+> =20
+>  static void sn65dsi83_reset_work(struct work_struct *ws)
 
 [Severity: High]
-This is a pre-existing issue, but does increasing the default size limit to
-1024MB make it easier for unprivileged users to exhaust system memory?
+Does propagating the error here cause an SRCU read lock leak?
 
-In drivers/dma-buf/udmabuf.c:udmabuf_create(), memory is pinned using
-memfd_pin_folios() but it doesn't appear to call account_locked_vm() or che=
-ck
-against RLIMIT_MEMLOCK:
+By propagating the error from sn65dsi83_reset_pipe(), it is now possible
+to hit the early return path in sn65dsi83_reset_work():
 
-drivers/dma-buf/udmabuf.c:udmabuf_create() {
-    ...
-		ret =3D udmabuf_pin_folios(ubuf, memfd, list[i].offset,
-					 list[i].size, folios);
-    ...
-}
+	if (!drm_bridge_enter(&ctx->bridge, &idx))
+		return;
 
-Without a hard limit on the total number of dmabufs a user can create, an
-unprivileged user with access to /dev/udmabuf might be able to repeatedly
-allocate dmabufs up to the size_limit_mb per file descriptor and pin system
-memory until the tmpfs limit or physical RAM is completely exhausted.
+	/* Reset the pipe */
+	ret =3D sn65dsi83_reset_pipe(ctx);
+	if (ret) {
+		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+		return;
+	}
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does the larger size limit m=
-ake
-it easier to hit an integer overflow on 32-bit systems?
-
-In drivers/dma-buf/udmabuf.c:udmabuf_create(), pgcnt is accumulated using a
-32-bit pgoff_t on 32-bit systems:
-
-drivers/dma-buf/udmabuf.c:udmabuf_create() {
-    ...
-		subpgcnt =3D list[i].size >> PAGE_SHIFT;
-		pgcnt +=3D subpgcnt;
-		if (pgcnt > pglimit)
-			goto err_noinit;
-    ...
-}
-
-By supplying up to list_limit (default 1024) items, an attacker could spread
-2^32 pages across the items such that pgcnt wraps around to a small value,
-bypassing the pglimit check.
-
-init_udmabuf() then allocates an undersized ubuf->pages array. Later, when
-udmabuf_pin_folios() successfully pins the large items, it iterates over the
-actual requested size and can write out of bounds into the small heap array:
-
-drivers/dma-buf/udmabuf.c:udmabuf_pin_folios() {
-    ...
-		for (; subpgoff < fsize; subpgoff +=3D PAGE_SIZE) {
-			ubuf->pages[upgcnt] =3D folio_page(folios[cur_folio],
-						subpgoff >> PAGE_SHIFT);
-			++upgcnt;
-		}
-    ...
-}
-
-Triggering this out-of-bounds write requires memfd_pin_folios() to
-successfully pin the largest item (minimum ~16.7 GB spread across 1024 item=
-s).
-Thus, it relies on the 32-bit system having enough physical RAM available
-(e.g. via PAE) to not fail safely with -ENOMEM before reaching the vulnerab=
-le
-write.
-
->  module_param(size_limit_mb, int, 0644);
-> -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Def=
-ault is 64.");
-> +MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in megabytes. Def=
-ault is 1024.");
-> =20
->  struct udmabuf {
->  	pgoff_t pagecount;
+Because this early return skips the call to drm_bridge_exit(idx) at the
+end of the function, wouldn't this leak the lock and cause a system hang
+during drm_bridge_unplug() when synchronize_srcu() is called?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803144120.1152=
-4-1-xaver.hugl@kde.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-ti-sn65dsi=
+83-fixes-v3-0-9b403a405ccd@geanix.com?part=3D1
