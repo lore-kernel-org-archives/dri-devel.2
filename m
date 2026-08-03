@@ -4,64 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A743AC55184
-	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 15:59:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2BC52C55182
+	for <dri-devel@archiver.kernel.org>; Mon,  3 Aug 2026 16:05:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EBBC810E708;
-	Mon,  3 Aug 2026 15:59:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9387510E6ED;
+	Mon,  3 Aug 2026 16:05:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="I7DzS0lZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ovCWdIhM";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4FB8210E723
- for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 15:59:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785772789;
- bh=fZYG0O/tPcBi7Y0vzF0OznXX2JFW1TwNXlaYh02yVqw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=I7DzS0lZt9DBsHaiHS/k3A0R2tBi8v/xxrT/7vul+bnKQuUztP49SGxUyMePMROmx
- o1FJRcXyGM6jJ6U+2T909jEEpXgGF5Z9A/nY9UH3caCH2w15tk9J8pbCkVPERKbYt9
- sWeBDzZK/rEoD8UsYSpHSkQq0mB+XJCFCeSd6zgpt1Y3VIT/NJGvoUQ0R6m4KrJcet
- r0Zxx0gDESNIQxuvyIqgrBM/SVDJiTiwYsNTUt3lQRsa+RqhJv2d/LYgxtLVYH4G5f
- zOwUXEyEFE2Pt52UGS4E2qmZIkFszaUQ0WXBQkRxE1PPQ1H/ZBv0Tl25/4/Pxv6QpK
- lTKmuERywJMlw==
-Received: from fedora1.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id CF2F817E025E;
- Mon, 03 Aug 2026 17:59:48 +0200 (CEST)
-Date: Mon, 3 Aug 2026 17:59:45 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
- <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel
- Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K
- Prateek Nayak <kprateek.nayak@amd.com>, Steven Price
- <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Grant Likely
- <grant.likely@linaro.org>, Heiko Stuebner <heiko@sntech.de>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- kernel@collabora.com
-Subject: Re: [PATCH v2 2/3] drm/panthor: Revisit reqs_lock handling in
- flush/reset paths
-Message-ID: <20260803175945.10c3c175@fedora1.home>
-In-Reply-To: <fiUy-cD0Q9OOQiaEoz9UeA@collabora.com>
-References: <20260730-panthor-cache-flush-fix-v2-0-28790478bfff@collabora.com>
- <20260730-panthor-cache-flush-fix-v2-2-28790478bfff@collabora.com>
- <20260803105324.478ed594@fedora1.home>
- <fiUy-cD0Q9OOQiaEoz9UeA@collabora.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C0DE10E6ED
+ for <dri-devel@lists.freedesktop.org>; Mon,  3 Aug 2026 16:05:40 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-47f6981d244so181440f8f.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 09:05:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785773138; x=1786377938; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Orw1gQutvOkZopO7ifTGK4f+dabsbqDeP0c5VLSqs1g=;
+ b=ovCWdIhMNerQjo05huIc54muNRpSOPFlpZWbRA6SYCxbI1q5JyI0uXLYFMaHwCitPM
+ tWzppodtIbAtTm281qfmSt9CIp+gNFJud70x+eElhg9UmXpnIfN9tS2kfnqoCuT11nao
+ UsKBiHNTJEZCnUFgY+o5MSh/Po3Aiw+35neZuvJ9Sq7cf+UaVeX39AlKvgMLXBp+bRRl
+ YFlc6uRU1RFFJZ4T7VJDbXzTDn+cVCBkvNDVtQoATotWRB/A/FsvsO9i5eieXztBj4Tb
+ LUhU6pfX910n0Gl0Llg3DjPgOzCU/nVWzAXGnu7uTuI7mrtNgljD20l+Ic8fWKDCIq5j
+ vt4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785773138; x=1786377938;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Orw1gQutvOkZopO7ifTGK4f+dabsbqDeP0c5VLSqs1g=;
+ b=iNFKgvo2oefmDZBsqjz+O32RF6Xv7wYVD8aliY/5+wDFi8bvZlMg3l2q3+E9XLguhU
+ Wmpc2Z17MC2E8awcRTwB1pa5TlmEJfFVu28FKdMW5cLDWdXHpZyiLAtQHC+6xG9iqPK/
+ FPgHm0JMBkpwvt8TR9fW+4DSTX6ly/67yn4pqilgbOVxh85SBuMdqlqRUHxxvh3J195/
+ H+2YUUzyiIWCedSzDBcUobxckgDm7gsj53kfU7kwv/hdW8q9jDj9J+I9x2gKMakvmVpP
+ kcwHTz6nKH6R4gZ0505Aghzvpi1PmtOR32K5HJRlBtrIP3aNAR/tpufulHkWm1JXkJk1
+ sJkg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoKd5yRWhZwbI4OiuOlbmWYliCOwvdZkSrlTFl9xxNz4xb9DLL3qrtlS3X35Fo3J9J0X+Z+mRah9LI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyznPE0KgVjoOgLaDYrp8BvZU0n1izNFG/IGKbXXwtnC8+Gb7jF
+ mk1jIdRUvOG7YUoUIiLfIpblcurEphZDyxwyjyAOLyYiAjaeXuuadwoI
+X-Gm-Gg: AR+sD12Vm/IdYtG4bnKeHnyAn0QurQAeh1CTZH66PTc/sPb5jK93xlXykyI6lxaMw4y
+ eRjJm+1PVqMMWq/8k1auVMtPz483IdNA5X+6NGyhe5v1p9R2QcJllbRlLBYd5z14DesdbQHrtig
+ Ao6QZkoWA3sgY6vkToG/iqyVm+vk41B62jOSoshgjJdnCu6N1r2lYGqOYjTZbMRzfEameWJKFv2
+ nx4//yZF8nEBilyC9LpueYi/sHgzDu65EVDkigGfnYKUmYBB7k8NlSGQrrMhELr30Xoz8skgZpE
+ HIN0PpxqH0k4WJoIov0wefPs4ymslb9JTjIVL5Kuedu5IsfFgohy92+I5nBSiOW3rBmThi6ytm1
+ hFqME3AGXhjgkj4SF1oMCZhlp78drqc31+REAsa76tKeRcsmZEo+9fy97JTeFcmbbMEkTUXyMyD
+ VuY/9zlD9OM+vJ9MnlIGVE22k5dpJFmck4jebabGvv9X/3ZrIlPLgt96WAT++HClYDWMvDiQYl5
+ e6FLniO3GS5cSzqoKhk4oS2PGL5/WnOKxUoo79OvBXL7apeox63aLufLeSiUJrjArxZ
+X-Received: by 2002:a05:6000:61e:b0:47f:4d11:3472 with SMTP id
+ ffacd0b85a97d-47fd72a00e1mr15561662f8f.1.1785773138178; 
+ Mon, 03 Aug 2026 09:05:38 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B85F300A5CC0DBDABDC4661.dsl.pool.telekom.hu.
+ [2001:4c4e:1b85:f300:a5cc:dbd:abdc:4661])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47fd458b73asm31953719f8f.29.2026.08.03.09.05.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Aug 2026 09:05:37 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, ulfh@kernel.org,
+ p.zabel@pengutronix.de, ogabbay@kernel.org, alchark@gmail.com,
+ chaoyi.chen@rock-chips.com, krzk@kernel.org, will@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v4 5/6] arm64: dts: rockchip: rk3576: add NPU (RKNN)
+ nodes
+Date: Mon,  3 Aug 2026 18:05:21 +0200
+Message-ID: <20260803160521.14621-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260803094125.3285895-6-gahing@gahingwoo.com>
+References: <20260803094125.3285895-1-gahing@gahingwoo.com>
+ <20260803094125.3285895-6-gahing@gahingwoo.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,154 +99,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Mon, 03 Aug 2026 15:13:25 +0200
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
+Hi Jiaxing,
 
-> On Monday, 3 August 2026 10:53:24 Central European Summer Time Boris Brezillon wrote:
-> > Hello Nicolas,
-> > 
-> > On Thu, 30 Jul 2026 13:45:15 +0200
-> > Nicolas Frattaroli <nicolas.frattaroli@collabora.com> wrote:
-> >   
-> > > panthor_gpu_flush_caches() and panthor_gpu_soft_reset() would read (and
-> > > even reset) the contents of the pending_reqs register outside of holding
-> > > the reqs_lock.  
-> > 
-> > Can you elaborate a bit on the race being fixed here? If pending_reqs bits
-> > are truly cleared before the wake_up_all() call (which would require a
-> > WRITE_ONCE() to be enforced, admittedly), there's no risk for the
-> > wait_event() call to do a test before the bits have been updated,
-> > and this holds even if the test is done without the lock held.
-> > 
-> > The other race I could think of is two threads calling
-> > panthor_gpu_flush_caches() concurrently, and the second one stealing
-> > the FLUSH_COMPLETED event the first thread waits on and re-issuing a
-> > second flush on top, thus delaying the completion for the first thread.
-> > But that should be covered by the cache_flush_lock.  
-> 
-> panthor_gpu_flush_caches() is not the only thing that sets/gets
-> pending_reqs. Notably, the threaded interrupt handler does, as
-> well as any other functionality using the same member for reqs
-> tracking (e.g. the soft reset).
-> 
-> Consider the following serialisation of events:
-> 1. T1 asks to flush caches by writing GPU_CMD and setting pending_reqs
-> 2. T1 drops reqs_lock.
-> 3. T2 enters IRQ handler for flush complete, spins lock waiting for
->    reqs_lock
-> 4. T1 sleeps at wait_event_timeout
-> 5. T2 updates pending_reqs and wakes up the waiter in any order, since
->    the effects of those two can't consistently be observed as sequential
->    logic without the outer reqs_lock being held by the observer
-> 6. T1 wakes up, checks pending_reqs, but since pending_reqs is checked
->    without holding any lock, so we implictly depend on the synchronisation
->    point that is the waitqueue's lock rather than the reqs_lock spinlock,
->    which says nothing about whether the pending_reqs change materialised
->    on T1's side yet as far as I can tell?
-> 7. T1 sees that pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED is still != 0,
->    so goes back to sleep for some future wake-up of reqs_acked or a timeout.
-> 
-> I'm not 100% sure, but I think 6. means that the memory model would permit
-> T1 to re-use the pending_reqs it previously set, rather than the updated
-> one set by T2, since there's nothing stopping us from being woken up before
-> the pending_reqs change has made itself known to observers not serialising
-> with the reqs_lock being released by T2 in panthor_gpu_irq_handler after.
+Following on from my note on 4/6, since a v5 is coming anyway: rknn_core_0
+as written here does not validate against the binding 1/6 installs. 1/6
+adds the compatible and the conditional sram-supply, so every other
+constraint in rockchip,rk3588-rknn-core.yaml still describes RK3588 only.
 
-If I read the "SLEEP AND WAKE-UP FUNCTIONS" section in [1] correctly, I
-think we're covered by the "general memory barrier" here.
+I put your node through dt-validate (dtschema 2026.6) against the binding
+with 1/6 applied, macros resolved to plain numbers and everything else
+left as you wrote it:
 
-> 
-> If you check lock_stat before the change, you see that the reqs_lock is
-> actually never contended. This isn't a good sign because it means
-> whatever situation it exists to protect against never occurs, so either
-> the lock is pointless or the lock is non-functional.
+  npu@27700000 (rockchip,rk3576-rknn-core): clocks: [...6 entries...] is too long
+  npu@27700000 (rockchip,rk3576-rknn-core): clock-names: ['aclk', 'hclk',
+      'npu', 'pclk', 'aclk_cbuf', 'hclk_cbuf'] is too long
+  npu@27700000 (rockchip,rk3576-rknn-core): power-domains: [[2, 7], [2, 8]] is too long
+  npu@27700000 (rockchip,rk3576-rknn-core): resets: [[1, 20]] is too short
+  npu@27700000 (rockchip,rk3576-rknn-core): reset-names: ['srst_a'] is too short
 
-Or we're just in a situation where there's almost never two threads updating
-the pending_reqs concurrently, which is not the same as saying this can't
-happen at all.
+The last two are the ones easy to miss: the binding writes only
+"resets: maxItems: 2", and dtschema fills in minItems from maxItems, so a
+single reset is a hard failure rather than a permitted subset.
 
-> 
-> > > Additionally, when it did hold the lock, it did so with
-> > > the irqsave/irqrestore variants, even though the spinlock was never
-> > > acquired in an atomic context, just the threaded handler.
-> > > 
-> > > Use the new wait_event_lock_timeout() macro to check pending_reqs under
-> > > the lock, and only do so without disabling interrupts.
-> > > 
-> > > Fixes: 5cd894e258c4 ("drm/panthor: Add the GPU logical block")
-> > > Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-> > > ---
-> > >  drivers/gpu/drm/panthor/panthor_gpu.c | 25 +++++++++++--------------
-> > >  1 file changed, 11 insertions(+), 14 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/panthor/panthor_gpu.c b/drivers/gpu/drm/panthor/panthor_gpu.c
-> > > index c013d6bf9a59..f015bde80abf 100644
-> > > --- a/drivers/gpu/drm/panthor/panthor_gpu.c
-> > > +++ b/drivers/gpu/drm/panthor/panthor_gpu.c
-> > > @@ -330,35 +330,34 @@ int panthor_gpu_flush_caches(struct panthor_device *ptdev,
-> > >  			     u32 l2, u32 lsc, u32 other)
-> > >  {
-> > >  	struct panthor_gpu *gpu = ptdev->gpu;
-> > > -	unsigned long flags;
-> > >  	int ret = 0;
-> > >  
-> > >  	/* Serialize cache flush operations. */
-> > >  	guard(mutex)(&ptdev->gpu->cache_flush_lock);
-> > >  
-> > > -	spin_lock_irqsave(&ptdev->gpu->reqs_lock, flags);
-> > > +	spin_lock(&ptdev->gpu->reqs_lock);  
-> > 
-> > Can we make the _irq{save,restore}-drop its own patch?  
-> 
-> I'm not sure it's fine to drop the IRQ disabling without fixing the read of
-> pending_reqs outside its lock.
+The v4 changelog says the reg entries were cut to the three the binding
+defines after running dtbs_check, so I suspect that run predates the CBUF
+clocks and the second power domain going in.
 
-Can be done after fixing the race, if it's really making the race more
-likely. Although, as I said above, I'm not yet convinced the race we're
-chasing is the one we've been discussing here.
+The fix is the same allOf shape you already used for sram-supply. This is
+the diff I tested, on top of 1/6:
 
-> 
-> >   
-> > >  	if (!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED)) {
-> > >  		ptdev->gpu->pending_reqs |= GPU_IRQ_CLEAN_CACHES_COMPLETED;
-> > >  		gpu_write(gpu->iomem, GPU_CMD, GPU_FLUSH_CACHES(l2, lsc, other));
-> > >  	} else {
-> > >  		ret = -EIO;
-> > >  	}
-> > > -	spin_unlock_irqrestore(&ptdev->gpu->reqs_lock, flags);
-> > >  
-> > > -	if (ret)
-> > > +	if (ret) {
-> > > +		spin_unlock(&ptdev->gpu->reqs_lock);
-> > >  		return ret;
-> > > +	}
-> > >  
-> > > -	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-> > > +	if (!wait_event_lock_timeout(ptdev->gpu->reqs_acked,
-> > >  				!(ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED),  
-> > 
-> > Assuming we really need to do the test with the lock held, could we add
-> > a patch at the beginning of the series that fixes the race without depending
-> > on the new wait macro, so that we have a version that can easily be backported?  
-> 
-> It's either backporting the prerequisite new macro or still doing this all
-> with IRQs disabled using the pre-existing wait_event_lock_irq_timeout macro,
-> and the IRQ disabled thing is what caused problems.
+--- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
++++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+@@
+   clocks:
+-    maxItems: 4
++    minItems: 4
++    maxItems: 6
 
-Can't we have the following helper function?
+   clock-names:
++    minItems: 4
+     items:
+       - const: aclk
+       - const: hclk
+       - const: npu
+       - const: pclk
++      - const: aclk_cbuf
++      - const: hclk_cbuf
+@@
+   power-domains:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
 
-static bool cache_flush_done(struct panthor_device *ptdev)
-{
-	guard(spinlock_irqsave)(&ptdev->gpu->reqs_lock);
+   resets:
++    minItems: 1
+     maxItems: 2
 
-	return ptdev->gpu->pending_reqs & GPU_IRQ_CLEAN_CACHES_COMPLETED;
-}
+   reset-names:
++    minItems: 1
+     items:
+       - const: srst_a
+       - const: srst_h
+@@ allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3576-rknn-core
++    then:
++      properties:
++        clocks:
++          minItems: 6
++        clock-names:
++          minItems: 6
++        power-domains:
++          minItems: 2
++        resets:
++          minItems: 1
++          maxItems: 1
++        reset-names:
++          maxItems: 1
++    else:
++      properties:
++        clocks:
++          maxItems: 4
++        clock-names:
++          maxItems: 4
++        power-domains:
++          maxItems: 1
++        resets:
++          minItems: 2
++        reset-names:
++          minItems: 2
 
-and then:
+With that, your node validates clean, and the RK3588 example in the
+binding still passes, so nothing loosens for the existing SoC - the else
+branch pins it back to exactly what it has today. Take it as a starting
+point rather than a finished patch; the DT maintainers may well want the
+per-SoC clock list spelled out differently.
 
-	if (!wait_event_timeout(ptdev->gpu->reqs_acked,
-			        cache_flush_done(ptdev),
-				msecs_to_jiffies(100))) {
-....
+Separately, and this one spans 3/6 and 5/6: the resets you add to the
+power-domain@ nodes have no binding at all. Same test, against
+Documentation/devicetree/bindings/power/rockchip,power-controller.yaml:
 
-[1]https://docs.kernel.org/core-api/wrappers/memory-barriers.html#
+  power-controller (rockchip,rk3576-power-controller): power-domain@7:
+      Unevaluated properties are not allowed ('resets' was unexpected)
+
+$defs/pd-node there defines reg, clocks, domain-supply, pm_qos and
+#power-domain-cells, and every nesting level is unevaluatedProperties:
+false. So 3/6 teaches the driver to read a property the schema does not
+admit; that patch needs a binding change of its own, before or alongside
+it.
+
+For what it is worth I did check the DOMAIN_M_O_R_G to DOMAIN_M_O_R_G_W
+rename in 2/6 against mainline, and you are right that DOMAIN_RK3576 is
+its only user, so nothing else moves.
+
+None of this touches RK3588, so it does not change what I said about the
+tag on 4/6 - just worth folding into the same v5 rather than finding it
+in a v6.
+
+Thanks,
+Igor
