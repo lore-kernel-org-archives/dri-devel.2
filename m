@@ -4,84 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 512DFC55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:50:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2293C55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:51:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36B0210EA30;
-	Tue,  4 Aug 2026 13:50:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC01710EA5B;
+	Tue,  4 Aug 2026 13:51:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="s/3JvcdZ";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="iG/dtdeh";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1077410E189
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 13:50:18 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-47f96c5b722so2715609f8f.0
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 06:50:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785851416; x=1786456216; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=EnvjlA4VIB7kb1Sr8VcLedlruGUDjsd/vyAj9uQl35A=;
- b=s/3JvcdZ+ZlDKkIT7aeGOXaBIbVTc1ktV8Txvqiw9XOfdStj0lplBQkyiiu58NvskI
- abrciZqhfowC8U6LMpShMu3qnTnAHPYxAXDbedguF6OFpP6cvHJgM7LK5eLXFy0TCklG
- 8PPTUimFrtk+D6L9XEnCm8Psn21qdwEl3E+LkJXnlLvCcq1oiGqQAipwFde8/U84Xx4a
- wolbgnUc6CnY0iHCwTQggRkIaJ/rgl4H3foxHf4Eu9kup6hg0itY1jnnWi/8/B/v+4nB
- Cy0zCayVzosHiZjaOBEgKXoBnwDJGw0Kdn+XywoWA/JdoO58dLSSD7zmjrItqGoQBHuA
- OdeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785851416; x=1786456216;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=EnvjlA4VIB7kb1Sr8VcLedlruGUDjsd/vyAj9uQl35A=;
- b=cwwGCyrhk2ntZWJ1U4ZXWbUpnjm4Hjp4BMQrJo26Ysx5nrj0f3K1sFRAJhTv0xlthF
- zMLTvM0RcV3epcX6z2lIGvCI9vwSYGytuIR6NVLRAsRcN2fwp0ObVItz1JxB5poFDNnO
- FJ1NPRUdSyd0jQ6mU4YXNXqK7lvYy0HPpNZj5WF3hDjrPAcEkxLSaPHmQcU0+ayYm6Rv
- PeOly7OXz5CHc0YYdC/uScey50BjOMjNcVqNn2oYO2ZTb2lHFXmiyJaxPCNUmwLuxxOm
- 8fjPogDOU0+unfcfTQPd4SIwssesoxk3KtYTbAxM68TuxpBiLqa5jSUvPrvSAOabkB6P
- zCUQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp+JvK0L/LJxH5oSts08pN3ba+Bk/yoI8TnGJwUCt+0JTrAQuTCclk/wPMA49vMfkREHAZxRoBHEbM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yze3UfDc7yvn+8iPKOI7DMpC94hQSVzWi2Hvln/C5+KKX6/h9Ac
- xoCpj9BkFXozwRnuzuSLYcmYfW8D+p2cmnswiYA8OQ2wJG+E4+ih78CJ
-X-Gm-Gg: AR+sD10kmO70dJ9kEM/a4c12scEmByyihywYBMHqhCwWgiLwPBTwUdvPAfkmJjXNS58
- SrPa3xyLv05+Py1cgNUhDd6CuiYgHDcY4Gativ67FnCD392NDTFWODnk2wNHTyFRl3bQ1oOLo9s
- i/0Wnt5LBeRw7e3PftEVXIPppZtx5GM8yzh/4rvL2lQKdBYBJ6DSyqbc2e2radEstScJV9FvL3Y
- rm9LSuopTWHr+I52WJrptc3pDpK4OTM3GAhEZP0DYQvxLidK3AtBeuUb3lHfwbPBIKh5yAx3XIi
- 1ScspfdoQJsy7myaQ3XRg6hk3ZifFv6XcEknSDqU82XMCBE2U4OBEW0nSQse7geg2bebrTGK0KU
- Vq5YzWHxkmQHhb91CeqYVsJDiWrEqr+DHEMb3U4aX6A1wUQybfBdtEQckmz3zYCpVwGVvRH6IlU
- f3wb3QL98r+s8W5L7CINBmJWtiv8OH6gMUX0CZ4EACyJ59OK51esGAbMc9nRPdRueFXlKnJh2bQ
- h2Ph90+sA==
-X-Received: by 2002:adf:e199:0:b0:47f:e729:c588 with SMTP id
- ffacd0b85a97d-47fe729c5bamr16715641f8f.14.1785851416133; 
- Tue, 04 Aug 2026 06:50:16 -0700 (PDT)
-Received: from [192.168.178.84] ([134.19.63.247])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd45a0ae0sm45000523f8f.33.2026.08.04.06.50.15
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Tue, 04 Aug 2026 06:50:15 -0700 (PDT)
-Message-ID: <0c5ceb5e-a9d3-48c9-9ea8-d00966de22de@gmail.com>
-Date: Tue, 4 Aug 2026 15:50:14 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0C0D10EA47;
+ Tue,  4 Aug 2026 13:51:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785851483; x=1817387483;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=7bIG1HRzvtOfObjOdqK6+arct743T/lTsJzgChsHWhw=;
+ b=iG/dtdehjMGFMIZGEZnPuWyugRemFU42RIlYCchgRbJp58NJClJ0gU2r
+ hPjZY6ZgdBWQyA89QBt7UmnUxI4lfxOPg+2prMG/GreSOS1A1J8wlcltY
+ sgybcGKy0gGGm//EbGJCscI+WBGed9lXysNgvVMckvqy9ZmGkNT2p10Kd
+ 4y2kCzehEM6vnvjmYWT12eRjke5XMAqp1fBn0lbrcCZAUZ8jyUR7PSh+f
+ 2T2/ixhHhp2Z6TfyAWL49ywLACWtoWtPK3bkWC6kwjEZ9K2n6kNeLuezb
+ umOZKsT2AvPEb1wGlIHTztiQT431TAxj8IK9nywMRnfH/dWNvifySdDz8 Q==;
+X-CSE-ConnectionGUID: qJrWzddTSVejyiuiv8CZ2w==
+X-CSE-MsgGUID: bLnaMMlcQdGNNcUfX/H1Ow==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="97908589"
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="97908589"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2026 06:51:23 -0700
+X-CSE-ConnectionGUID: 4ayE50L8Q467R/GCSfrsow==
+X-CSE-MsgGUID: JWwjPt+6QwaOi0m5bfeSEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="257185788"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+ by fmviesa006.fm.intel.com with ESMTP; 04 Aug 2026 06:51:06 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wrFXr-000000009zx-3ZFX;
+ Tue, 04 Aug 2026 13:51:03 +0000
+Date: Tue, 4 Aug 2026 21:50:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: yaolu@kylinos.cn, jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
+ joonas.lahtinen@linux.intel.com, tursulin@ursulin.net
+Cc: oe-kbuild-all@lists.linux.dev, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Lu Yao <yaolu@kylinos.cn>
+Subject: Re: [PATCH] drm/i915/display: fix error handling in
+ intel_display_driver_probe_noirq
+Message-ID: <202608042133.a0zParAB-lkp@intel.com>
+References: <20260630031652.67747-1-yaolu@kylinos.cn>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/qxl: avoid hangs on an unresponsive SPICE host
-To: Mikhail Novosyolov <m.novosyolov@rosa.ru>, dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com, kraxel@redhat.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, simona@ffwll.ch,
- sumit.semwal@linaro.org, dreaming.about.electric.sheep@gmail.com,
- linux-kernel@vger.kernel.org, virtualization@lists.linux.dev,
- spice-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- a.sudakov@rosa.ru, ghadi.rahme@canonical.com, timo.lindfors@iki.fi
-References: <20260724122636.213906-1-m.novosyolov@rosa.ru>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-In-Reply-To: <20260724122636.213906-1-m.novosyolov@rosa.ru>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260630031652.67747-1-yaolu@kylinos.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,230 +74,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 7/24/26 14:26, Mikhail Novosyolov wrote:
-> Symptoms:
->   - text/fbcon console (and TTY) of a QEMU VM hangs (does not work)
->   - SSH works OK
->   - system cannot be rebooted or powered off via systemd
-> 
-> QXL is a paravirtual display device: the guest submits drawing commands
-> and the host (QEMU's SPICE server) executes them.  Each
-> submitted batch carries a "release" -- a completion record the host
-> marks done when the work is finished -- which the guest uses as a
-> dma_fence.  Before the guest can reuse or evict a piece of video memory
-> it must wait for the release covering it to be marked done: a to-do
-> entry that needs its checkbox ticked before the page can be recycled.
-> 
-> The host drains the command ring only while a display client is
-> attached (someone is watching the screen).  With no client -- the
-> normal state of an unattended server VM -- the host stops processing,
-> the checkboxes are never ticked, and the guest's wait never completes.
-> Heavy console output (fbcon redraw) fills video memory and keeps the
-> guest waiting on these releases, which surfaces as "[TTM] Buffer
-> eviction failed" / "failed to allocate VRAM BO"; and during shutdown,
-> where teardown waits on the same releases with no timeout, as an
-> uninterruptible hang that leaves systemd and the console callback stuck
-> in D state and makes the VM impossible to reboot cleanly.
+Hi,
 
-That is a really good catch, it is actually mandatory for a dma_fence implementation to have a fallback timer to avoid such things.
+kernel test robot noticed the following build warnings:
 
-> This change makes the guest drive the host forward again while it
-> waits: periodically notify the host to process and free completed work,
-> and run the cleanup that ticks the checkboxes -- restoring the
-> behaviour removed by commit 5a838e5d5825 ("drm/qxl: simplify
-> qxl_fence_wait").  Two deliberate choices keep the two known upstream
-> failure modes from coming back:
-> 
->   - the cleanup is queued asynchronously, never flushed inline (flushing
->     here would deadlock -- CVE-2024-36944; details below);
->   - the total wait is bounded (30 s by default), so a completely
->     unresponsive host can no longer hold the console/modeset locks
->     forever; on give-up a ratelimited warning is logged and the caller
->     proceeds or retries.
+[auto build test WARNING on drm-i915/for-linux-next]
+[also build test WARNING on drm-i915/for-linux-next-fixes linus/master v7.2-rc6 next-20260803]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-That sounds extremely questionable to me. From a dma_fence perspective implementing this in the qxl_fence_wait() callback is pretty much a NO-GO to begin with and most likely the reason why Gerd and Thomas reworked the code in the first place.
+url:    https://github.com/intel-lab-lkp/linux/commits/yaolu-kylinos-cn/drm-i915-display-fix-error-handling-in-intel_display_driver_probe_noirq/20260804-144429
+base:   https://gitlab.freedesktop.org/drm/i915/kernel.git for-linux-next
+patch link:    https://lore.kernel.org/r/20260630031652.67747-1-yaolu%40kylinos.cn
+patch subject: [PATCH] drm/i915/display: fix error handling in intel_display_driver_probe_noirq
+config: parisc-allmodconfig (https://download.01.org/0day-ci/archive/20260804/202608042133.a0zParAB-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260804/202608042133.a0zParAB-lkp@intel.com/reproduce)
 
-The usual approach is to have either a timer or delayed work which is started as soon as the fence is created and when times out pings the host periodically to do something.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608042133.a0zParAB-lkp@intel.com/
 
-To summarize the general idea is ok, but don't do that in qxl_fence_wait().
+All warnings (new ones prefixed by >>):
 
-Regards,
-Christian.
+   drivers/gpu/drm/i915/display/intel_display_driver.c: In function 'intel_display_driver_probe_noirq':
+>> drivers/gpu/drm/i915/display/intel_display_driver.c:309:1: warning: label 'cleanup_wq_unordered' defined but not used [-Wunused-label]
+     309 | cleanup_wq_unordered:
+         | ^~~~~~~~~~~~~~~~~~~~
 
-> 
-> The periodic nudge resolves the eviction failures; the bound resolves
-> the reboot hang.
-> 
-> Background -- known discussions of this regression:
-> 
->   * Ubuntu/Launchpad bug and reproducer (test.sh):
->       https://bugs.launchpad.net/bugs/2065153
->   * Regression report and analysis:
->       https://lore.kernel.org/regressions/ZTgydqRlK6WX_b29@eldamar.lan/
->   * Debian #1054514 (the report behind the upstream revert):
->       https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1054514
->   * Ubuntu kernel-team reproducer thread:
->       https://lists.ubuntu.com/archives/kernel-team/2025-July/161304.html
-> 
-> Commit 5a838e5d5825 ("drm/qxl: simplify qxl_fence_wait") reduced the
-> wait to a single wait_event_timeout() whose condition calls
-> qxl_io_notify_oom() exactly once, when first tested.  The condition is
-> never re-evaluated unless release_event fires, and with the host not
-> draining no such wakeup arrives; releases never complete and the fence
-> is never signalled.
-> 
-> qxl_queue_garbage_collect() is called with flush=false on purpose:
-> flush_work() in this context deadlocks against the console owner and the
-> worker pool -- the CVE-2024-36944 regression -- which is why the upstream
-> revert of commit 5a838e5d5825 ("drm/qxl: simplify qxl_fence_wait") did
-> not stick and was reapplied as commit 3628e0383dd3 ("Reapply "drm/qxl:
-> simplify qxl_fence_wait"").  flush=false matches what the IRQ handler
-> already does and cannot deadlock.
-> 
-> Bounding the wait deliberately relaxes the assumption documented in
-> dma_fence_wait() (include/linux/dma-fence.h) that a MAX_SCHEDULE_TIMEOUT
-> wait can never time out: a give-up is reported to the caller as a
-> timeout (0), so the few MAX_SCHEDULE_TIMEOUT callers reachable from qxl
-> through TTM (the page-fault idle wait, delayed delete, the OOM ghost
-> swapout and evict_all) continue with an unsignaled fence.  This is not a
-> new failure class: it only fires after fence_giveup_ms on a host that is
-> entirely unresponsive -- on a merely slow host the fence signals long
-> before the bound, thanks to the periodic nudge -- and the pre-regression
-> implementation, commit 07ed11afb68d ("Revert "drm/qxl: simplify
-> qxl_fence_wait""), already returned with an unsignaled fence via its
-> 'goto signaled' path once its spin-count limit was reached.
-> 
-> The reboot/shutdown hang is a lock-contagion effect.  An atomic commit
-> holds a DRM modeset ww-mutex and blocks on a release fence that never
-> signals, so every later console update then blocks on that same mutex.
-> Systemd's own console writes are such an update: they trigger fbcon
-> panning (drm_fb_helper_pan_display() -> drm_atomic_get_plane_state() ->
-> drm_modeset_lock()), which takes the ww-mutex non-interruptibly
-> (TASK_UNINTERRUPTIBLE) and therefore lands in D state.  With pid 1
-> stuck in D state the VM can neither be shut down nor rebooted, and only
-> a host-side reset clears it.
-> 
-> Example of this lock:
->   INFO: task systemd:1 blocked for more than 245 seconds.
->   Not tainted 6.12.47-generic-5rosa2021.1-x86_64 #1
->   "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
->   task:systemd
->   state:D stack:0 pid:1 tgid:1 ppid:0
->   flags:0x00000000
-> Call Trace:
->   <TASK>
->   __schedule+0x408/0x1360
->   schedule+0x27/0xf0
->   schedule_preempt_disabled+0x15/0x30
->   __ww_mutex_lock.constprop.0+0x526/0x980
->   ? __kmalloc_noprof+0x177/0x420
->   drm_modeset_lock+0x37/0xc0
->   drm_atomic_get_plane_state+0x7e/0x180
->   drm_client_modeset_commit_atomic+0xaa/0x230
->   drm_client_modeset_commit_locked+0x5a/0x160
->   drm_fb_helper_pan_display+0xfd/0x240
-> 
-> 30 seconds seems to be a reasonable default value:
->   - it should not be triggered on a slow, but responsive host,
->     realistic worst-case release completion on a slow host is < 10 sec
->   - it must be less than hung_task_timeout_secs=120s
->   - it should be less than DefaultTimeoutStopSec=90s in systemd
-> 
-> Fixes: 5a838e5d5825 ("drm/qxl: simplify qxl_fence_wait")
-> Assisted-by: Kimi:K3
-> Assisted-by: Z.AI:GLM-5.2
-> Signed-off-by: Mikhail Novosyolov <m.novosyolov@rosa.ru>
-> ---
->  drivers/gpu/drm/qxl/qxl_release.c | 59 ++++++++++++++++++++++++++++---
->  1 file changed, 54 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
-> index 06979d0e8a9f..75286e6d5ec5 100644
-> --- a/drivers/gpu/drm/qxl/qxl_release.c
-> +++ b/drivers/gpu/drm/qxl/qxl_release.c
-> @@ -21,6 +21,8 @@
->   */
-> 
->  #include <linux/delay.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/moduleparam.h>
-> 
->  #include <drm/drm_print.h>
-> 
-> @@ -56,20 +58,67 @@ static const char *qxl_get_timeline_name(struct dma_fence *fence)
->         return "release";
->  }
-> 
-> +/*
-> + * Upper bound for a single release fence wait when the host does not
-> + * respond at all, in milliseconds.  Prevents uninterruptible sleeps
-> + * without a bound when a SPICE host stops draining the QXL rings.
-> + */
-> +static unsigned int fence_giveup_ms = 30000;
-> +module_param(fence_giveup_ms, uint, 0644);
-> +MODULE_PARM_DESC(fence_giveup_ms,
-> +                "upper bound in ms for a qxl release fence wait with unresponsive host (default 30000)");
-> +
->  static long qxl_fence_wait(struct dma_fence *fence, bool intr,
->                            signed long timeout)
->  {
->         struct qxl_device *qdev;
->         unsigned long cur, end = jiffies + timeout;
-> +       unsigned long giveup = jiffies + msecs_to_jiffies(fence_giveup_ms);
-> +       signed long left = timeout, slice;
-> 
->         qdev = container_of(fence->extern_lock, struct qxl_device,
->                             release_lock);
-> 
-> -       if (!wait_event_timeout(qdev->release_event,
-> -                               (dma_fence_is_signaled(fence) ||
-> -                                (qxl_io_notify_oom(qdev), 0)),
-> -                               timeout))
-> -               return 0;
-> +       /*
-> +        * A SPICE host may stop draining the QXL rings, e.g. when no
-> +        * display client is attached to the VM.  In that state releases
-> +        * complete only if the device is kicked through the OOM notifier
-> +        * and garbage collection gets a chance to run, so poke both
-> +        * periodically while waiting.
-> +        *
-> +        * Garbage collection is queued without flushing on purpose:
-> +        * flush_work() here can deadlock against the console owner and
-> +        * the worker pool (see CVE-2024-36944).
-> +        *
-> +        * The wait is bounded by fence_giveup_ms even when the caller
-> +        * passed an infinite timeout: a completely unresponsive host
-> +        * must not hang tasks holding the console lock forever.  The
-> +        * bound is reported to the caller as an ordinary timeout,
-> +        * letting TTM retry eviction later.
-> +        */
-> +       for (;;) {
-> +               qxl_io_notify_oom(qdev);
-> +               qxl_queue_garbage_collect(qdev, false);
-> +
-> +               slice = min_t(signed long, left, msecs_to_jiffies(100));
-> +               if (wait_event_timeout(qdev->release_event,
-> +                                      dma_fence_is_signaled(fence),
-> +                                      slice))
-> +                       break;
-> +
-> +               left -= slice;
-> +               if (left <= 0)
-> +                       return 0;
-> +
-> +               if (time_after(jiffies, giveup)) {
-> +                       dev_warn_ratelimited(qdev->ddev.dev,
-> +                                            "fence %llu#%llu not signaled after %u ms, giving up\n",
-> +                                            (unsigned long long)fence->context,
-> +                                            (unsigned long long)fence->seqno,
-> +                                            fence_giveup_ms);
-> +                       return 0;
-> +               }
-> +       }
-> 
->         cur = jiffies;
->         if (time_after(cur, end))
-> --
-> 2.51.0
-> 
 
+vim +/cleanup_wq_unordered +309 drivers/gpu/drm/i915/display/intel_display_driver.c
+
+62bb6b4920ce9d Jani Nikula         2023-04-14  201  
+40053823baadce Jani Nikula         2023-04-14  202  /* part #1: call before irq install */
+f5d38d4fa88441 Jani Nikula         2024-12-04  203  int intel_display_driver_probe_noirq(struct intel_display *display)
+40053823baadce Jani Nikula         2023-04-14  204  {
+40053823baadce Jani Nikula         2023-04-14  205  	int ret;
+40053823baadce Jani Nikula         2023-04-14  206  
+ff8c73b7bfb547 Jani Nikula         2026-06-15  207  	intel_opregion_setup(display);
+ff8c73b7bfb547 Jani Nikula         2026-06-15  208  
+ff8c73b7bfb547 Jani Nikula         2026-06-15  209  	/*
+ff8c73b7bfb547 Jani Nikula         2026-06-15  210  	 * Fill the dram structure to get the system dram info. This will be
+ff8c73b7bfb547 Jani Nikula         2026-06-15  211  	 * used for memory latency calculation.
+ff8c73b7bfb547 Jani Nikula         2026-06-15  212  	 */
+ff8c73b7bfb547 Jani Nikula         2026-06-15  213  	ret = intel_dram_detect(display);
+ff8c73b7bfb547 Jani Nikula         2026-06-15  214  	if (ret)
+ff8c73b7bfb547 Jani Nikula         2026-06-15  215  		goto cleanup_opregion;
+ff8c73b7bfb547 Jani Nikula         2026-06-15  216  
+ff8c73b7bfb547 Jani Nikula         2026-06-15  217  	intel_bw_init_hw(display);
+ff8c73b7bfb547 Jani Nikula         2026-06-15  218  
+f5d38d4fa88441 Jani Nikula         2024-12-04  219  	if (HAS_DISPLAY(display)) {
+f5d38d4fa88441 Jani Nikula         2024-12-04  220  		ret = drm_vblank_init(display->drm,
+f5d38d4fa88441 Jani Nikula         2024-12-04  221  				      INTEL_NUM_PIPES(display));
+40053823baadce Jani Nikula         2023-04-14  222  		if (ret)
+ff8c73b7bfb547 Jani Nikula         2026-06-15  223  			goto cleanup_opregion;
+40053823baadce Jani Nikula         2023-04-14  224  	}
+40053823baadce Jani Nikula         2023-04-14  225  
+9aec6f76a28cd6 Jani Nikula         2024-08-09  226  	intel_bios_init(display);
+40053823baadce Jani Nikula         2023-04-14  227  
+39e4d3c2f89ab8 Jouni Högander      2025-04-14  228  	intel_psr_dc5_dc6_wa_init(display);
+39e4d3c2f89ab8 Jouni Högander      2025-04-14  229  
+40053823baadce Jani Nikula         2023-04-14  230  	/* FIXME: completely on the wrong abstraction layer */
+ad5190d6f35db6 Jani Nikula         2026-05-26  231  	ret = intel_display_power_init(display);
+40053823baadce Jani Nikula         2023-04-14  232  	if (ret < 0)
+70ea362b84449b Ville Syrjälä       2025-12-08  233  		goto cleanup_bios;
+40053823baadce Jani Nikula         2023-04-14  234  
+445fc685498bbb Jani Nikula         2024-12-31  235  	intel_pmdemand_init_early(display);
+4c4cc7ac207f56 Mika Kahola         2023-06-06  236  
+771394b4fb6d7d Jani Nikula         2026-05-26  237  	intel_display_power_init_hw(display);
+40053823baadce Jani Nikula         2023-04-14  238  
+f5d38d4fa88441 Jani Nikula         2024-12-04  239  	if (!HAS_DISPLAY(display))
+40053823baadce Jani Nikula         2023-04-14  240  		return 0;
+40053823baadce Jani Nikula         2023-04-14  241  
+41837232b83874 Lu Yao              2026-06-30  242  	intel_dmc_init(display);
+41837232b83874 Lu Yao              2026-06-30  243  
+ed23224b3f5e5e Jani Nikula         2025-05-16  244  	display->hotplug.dp_wq = alloc_ordered_workqueue("intel-dp", 0);
+ed23224b3f5e5e Jani Nikula         2025-05-16  245  	if (!display->hotplug.dp_wq) {
+ed23224b3f5e5e Jani Nikula         2025-05-16  246  		ret = -ENOMEM;
+70ea362b84449b Ville Syrjälä       2025-12-08  247  		goto cleanup_pw_domain_dmc;
+ed23224b3f5e5e Jani Nikula         2025-05-16  248  	}
+ed23224b3f5e5e Jani Nikula         2025-05-16  249  
+f5d38d4fa88441 Jani Nikula         2024-12-04  250  	display->wq.modeset = alloc_ordered_workqueue("i915_modeset", 0);
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  251  	if (!display->wq.modeset) {
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  252  		ret = -ENOMEM;
+ed23224b3f5e5e Jani Nikula         2025-05-16  253  		goto cleanup_wq_dp;
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  254  	}
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  255  
+f5d38d4fa88441 Jani Nikula         2024-12-04  256  	display->wq.flip = alloc_workqueue("i915_flip", WQ_HIGHPRI |
+40053823baadce Jani Nikula         2023-04-14  257  						WQ_UNBOUND, WQ_UNBOUND_MAX_ACTIVE);
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  258  	if (!display->wq.flip) {
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  259  		ret = -ENOMEM;
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  260  		goto cleanup_wq_modeset;
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  261  	}
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  262  
+c15d0056fb74d6 Marco Crivellari    2025-11-04  263  	display->wq.cleanup = alloc_workqueue("i915_cleanup", WQ_HIGHPRI | WQ_PERCPU, 0);
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  264  	if (!display->wq.cleanup) {
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  265  		ret = -ENOMEM;
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  266  		goto cleanup_wq_flip;
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  267  	}
+40053823baadce Jani Nikula         2023-04-14  268  
+c15d0056fb74d6 Marco Crivellari    2025-11-04  269  	display->wq.unordered = alloc_workqueue("display_unordered", WQ_PERCPU, 0);
+7c377900772d8f Luca Coelho         2025-06-20  270  	if (!display->wq.unordered) {
+7c377900772d8f Luca Coelho         2025-06-20  271  		ret = -ENOMEM;
+7c377900772d8f Luca Coelho         2025-06-20  272  		goto cleanup_wq_cleanup;
+7c377900772d8f Luca Coelho         2025-06-20  273  	}
+7c377900772d8f Luca Coelho         2025-06-20  274  
+f5d38d4fa88441 Jani Nikula         2024-12-04  275  	intel_mode_config_init(display);
+40053823baadce Jani Nikula         2023-04-14  276  
+d34927acff9150 Ville Syrjälä       2024-09-06  277  	ret = intel_cdclk_init(display);
+40053823baadce Jani Nikula         2023-04-14  278  	if (ret)
+41837232b83874 Lu Yao              2026-06-30  279  		goto cleanup_mode_config;
+40053823baadce Jani Nikula         2023-04-14  280  
+9d476ce24f72fc Ville Syrjälä       2024-10-24  281  	ret = intel_color_init(display);
+40053823baadce Jani Nikula         2023-04-14  282  	if (ret)
+41837232b83874 Lu Yao              2026-06-30  283  		goto cleanup_mode_config;
+40053823baadce Jani Nikula         2023-04-14  284  
+6fe8f9c1388b53 Jani Nikula         2025-04-08  285  	ret = intel_dbuf_init(display);
+40053823baadce Jani Nikula         2023-04-14  286  	if (ret)
+41837232b83874 Lu Yao              2026-06-30  287  		goto cleanup_mode_config;
+40053823baadce Jani Nikula         2023-04-14  288  
+ac930bab1c8985 Ville Syrjälä       2025-10-13  289  	ret = intel_dbuf_bw_init(display);
+ac930bab1c8985 Ville Syrjälä       2025-10-13  290  	if (ret)
+41837232b83874 Lu Yao              2026-06-30  291  		goto cleanup_mode_config;
+ac930bab1c8985 Ville Syrjälä       2025-10-13  292  
+d706998b6da687 Gustavo Sousa       2025-03-11  293  	ret = intel_bw_init(display);
+40053823baadce Jani Nikula         2023-04-14  294  	if (ret)
+41837232b83874 Lu Yao              2026-06-30  295  		goto cleanup_mode_config;
+40053823baadce Jani Nikula         2023-04-14  296  
+445fc685498bbb Jani Nikula         2024-12-31  297  	ret = intel_pmdemand_init(display);
+4c4cc7ac207f56 Mika Kahola         2023-06-06  298  	if (ret)
+41837232b83874 Lu Yao              2026-06-30  299  		goto cleanup_mode_config;
+4c4cc7ac207f56 Mika Kahola         2023-06-06  300  
+409c23ae6735cf Jani Nikula         2024-04-17  301  	intel_init_quirks(display);
+40053823baadce Jani Nikula         2023-04-14  302  
+fd5a9b950ea8ba Ville Syrjälä       2024-07-05  303  	intel_fbc_init(display);
+40053823baadce Jani Nikula         2023-04-14  304  
+40053823baadce Jani Nikula         2023-04-14  305  	return 0;
+40053823baadce Jani Nikula         2023-04-14  306  
+41837232b83874 Lu Yao              2026-06-30  307  cleanup_mode_config:
+41837232b83874 Lu Yao              2026-06-30  308  	intel_mode_config_cleanup(display);
+7c377900772d8f Luca Coelho         2025-06-20 @309  cleanup_wq_unordered:
+7c377900772d8f Luca Coelho         2025-06-20  310  	destroy_workqueue(display->wq.unordered);
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  311  cleanup_wq_cleanup:
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  312  	destroy_workqueue(display->wq.cleanup);
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  313  cleanup_wq_flip:
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  314  	destroy_workqueue(display->wq.flip);
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  315  cleanup_wq_modeset:
+dcab7a228f4ea9 Haoxiang Li         2025-05-16  316  	destroy_workqueue(display->wq.modeset);
+ed23224b3f5e5e Jani Nikula         2025-05-16  317  cleanup_wq_dp:
+ed23224b3f5e5e Jani Nikula         2025-05-16  318  	destroy_workqueue(display->hotplug.dp_wq);
+70ea362b84449b Ville Syrjälä       2025-12-08  319  cleanup_pw_domain_dmc:
+5c30cfa295ccbf Ville Syrjälä       2024-09-06  320  	intel_dmc_fini(display);
+ad5190d6f35db6 Jani Nikula         2026-05-26  321  	intel_display_power_driver_remove(display);
+40053823baadce Jani Nikula         2023-04-14  322  cleanup_bios:
+9aec6f76a28cd6 Jani Nikula         2024-08-09  323  	intel_bios_driver_remove(display);
+ff8c73b7bfb547 Jani Nikula         2026-06-15  324  cleanup_opregion:
+ff8c73b7bfb547 Jani Nikula         2026-06-15  325  	intel_opregion_cleanup(display);
+40053823baadce Jani Nikula         2023-04-14  326  
+40053823baadce Jani Nikula         2023-04-14  327  	return ret;
+40053823baadce Jani Nikula         2023-04-14  328  }
+5e2e6b595d9d4c Juha-Pekka Heikkila 2025-12-16  329  ALLOW_ERROR_INJECTION(intel_display_driver_probe_noirq, ERRNO);
+40053823baadce Jani Nikula         2023-04-14  330  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
