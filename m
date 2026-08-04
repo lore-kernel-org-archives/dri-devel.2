@@ -4,42 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4EF3C55172
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:19:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEBA3C55ABA
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EFCDC10E671;
-	Tue,  4 Aug 2026 10:19:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 029B510E998;
+	Tue,  4 Aug 2026 10:19:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="m5jQx+FS";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="XvgBaz9m";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D145B10E671
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E05E810E9A7
  for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:19:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=UxWTUmWK4iBD/ChCAecu2Tlv0cbJ+ERCz/+/ZIEzh7Y=; b=
- m5jQx+FShULl8zpgCl8BBVfFfvSkclWTDYsz6yfRG9mhOgUf6OPTOutZgFrzXmgPnjXxl0s5KBzWs
- HT4Jr/1HTn2oCqJw9Src4y4oGzKEDc9VOLUt4wzPJ0MQwnquBJS9Oa/fVKtxSZDoGR2ukIEV3H7nG
- 04ZbFLKuYcKVFe/6PTeBElXDi+FLSDWosTliOKtiyXsQMyO82DbN+qKEcoiIPIFxoLQEIFnnI0ByQ
- a66Zpg5cAr8yemWPkHcwfQT+14BVTCAASQjONwf5LHkUdXZ9UEhoDhpo9eizRkDQ51u2PFbUhDBpk
- IpWPsUr0eFnCX7qFMNF9OrW3NhTvuefNew==;
+ Cc:To:From:From:Reply-To; bh=zbaI3sQ6YPCXrAq42IRoNR3zoLxo4B2tq51lMOaeKLc=; b=
+ XvgBaz9mV6oZm4D5RTC2o01y3UYD6CXEcgjFIVO3PzFyFHHdjpY7QUDGsqLDcP5ckyaTKvj833+re
+ TyzKiutLbVG1UkDUVsARmEfwurG/c//9pSvieB/GL9CsyD/zMOfZLRu/8e3qrUn6/WsA9Vion/tko
+ Vx8/nnCnehZikPetSPUKaC3ObFRVuRP2M9beir5I0mpgv932eb7y2H80v5zoGsP/BJZTiz1SgpKvT
+ Ve//QdCjCYdW1fJ1EAumlY6UdA3pBo1xzpCkaAn+2ZPjYYyABcYmH/GvGWxPToAqZt5SOHqfWMI6V
+ Aws+o3rAdCdJL1HNnZAv4t3iSYKxMiPMrg==;
 Received: from [90.248.143.204] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wrCF6-00DlqL-7G; Tue, 04 Aug 2026 12:19:28 +0200
+ id 1wrCF6-00DlqR-UE; Tue, 04 Aug 2026 12:19:29 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: Boris Brezillon <boris.brezillon@collabora.com>,
  Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
  Chia-I Wu <olvaffe@gmail.com>, Matthew Brost <matthew.brost@intel.com>,
  kernel-dev@igalia.com, linux-kernel@vger.kernel.org,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Chia-I Wu <olv@google.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Bradley Morgan <include@grrlz.net>, Chia-I Wu <olv@google.com>,
  Tejun Heo <tj@kernel.org>
-Subject: [RFC v4 0/2] Realtime workqueues and panthor realtime submission
-Date: Tue,  4 Aug 2026 11:19:23 +0100
-Message-ID: <20260804101925.55414-1-tvrtko.ursulin@igalia.com>
+Subject: [RFC v4 1/2] workqueue: Add support for real-time workers
+Date: Tue,  4 Aug 2026 11:19:24 +0100
+Message-ID: <20260804101925.55414-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260804101925.55414-1-tvrtko.ursulin@igalia.com>
+References: <20260804101925.55414-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -57,75 +60,358 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a continuation of the previous discussion which was here:
-https://lore.kernel.org/dri-devel/20260702143745.79293-1-tvrtko.ursulin@igalia.com/
+For use cases such as the DRM scheduler submitting work to the GPU on
+behalf of low latency userspace applications, where latter have sufficient
+privileges to have had successfully obtained realtime Vulkan global
+priority, competing with random background CPU load can create large
+latency spikes which gets in the way of a smooth user experience.
 
-Work is now converted to a much simpler approach by adding real-time scheduling
-workqueues based on Tejun's feedback
+For these situations the existing WQ_HIGHPRI does not bring a noticeable
+improvement and a stronger hint is needed.
 
-To re-cap, when an userspace thread submits GPU work, due how the DRM scheduler
-uses workqueues to feed the GPU, and regardless of the GPU rendering context
-priority, or the CPU scheduling priority of the userspace thread itself, the
-use of workqueues can add significant latency to the submit path.
+Lets add WQ_RTPRI which creates workers with a SCHED_FIFO scheduling class
+to improve this.
 
-When CPU is busy with enough backround load this translates to severe latency
-spikes measured as time between userspace submitting work and GPU actually being
-given that work to execute.
+We use a minimum priority level since we only care about winning the
+contest against normal background CPU load.
 
-With the panthor workqueue upgraded to use WQ_HIGHPRI and varying the CPU
-priority of the submit thread, the test program from
-https://gitlab.freedesktop.org/panfrost/linux/-/work_items/49 reproduces these
-kind of latencies:
-
-         .    N    RT
-    M   27   28    32
-  95%  163  246   809
-  98%  924  991  1882
-
-Legend:
-
-   M = Median submit latency in us
- 95% = Percentile latency in us
-
-   . = Userspace submit thread SCHED_OTHER
-   N = -||= nice -1
-  RT = -||- FIFO 1
-
-Upgrading the panthor workqueues so that the realtime GPU priority queue uses
-WQ_RTPRI, submit latency becomes completely controlled with the median of 14us
-and 95 and 98-th percentiles at 23us and 25us respectively.
-
-Important to note is that VK_QUEUE_GLOBAL_PRIORITY_REALTIME already required
-the userspace to have CAP_SYS_NICE, meaning access to real-time workqueues is
-effectively also guared behind this capability. 
-
-v2:
- * See patch 1 changelog.
-
-v3:
- * See patch 1 changelog + apologies for v3 following so quickly after v2.
-   I have found a race condition as I expanded the testing to a second platform.
-
-v4:
- * See patch 1 changelog.
-
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Bradley Morgan <include@grrlz.net>
 Cc: Chia-I Wu <olv@google.com>
 Cc: Liviu Dudau <liviu.dudau@arm.com>
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Steven Price <steven.price@arm.com>
 Cc: Tejun Heo <tj@kernel.org>
+---
+v2:
+ * Limit WQ_RTPRI to unbound workqueues and make it have strict CPU
+   affinitity. (Tejun)
+ * Fixed commit message typos. (AI)
+ * Fixed sysfs handling, max_active setting and user modified nice
+   application. (AI)
 
-Tvrtko Ursulin (2):
-  workqueue: Add support for real-time workers
-  drm/panthor: Create per queue priority workqueues
+v3:
+ * Fix worker->pool null pointer dereference race by moving the
+   global decrement to detach_dying_workers().
+ * Rebase for upstream changes.
 
- Documentation/core-api/workqueue.rst    |  5 ++
- drivers/gpu/drm/panthor/panthor_sched.c | 38 ++++++++++--
- include/linux/workqueue.h               | 23 +++++--
- kernel/workqueue.c                      | 80 +++++++++++++++++++------
- 4 files changed, 119 insertions(+), 27 deletions(-)
+v4:
+ * Fixed onion unwind.
+ * Moved affinity setting to default attributes.
 
+v5:
+ * Dropped global and local limits.
+ * Documented in workqueue.rst.
+ * Added NR_WQ_ATTRIBUTES.
+ * Reverted BH handling changes.
+---
+ Documentation/core-api/workqueue.rst |  5 ++
+ include/linux/workqueue.h            | 23 ++++++--
+ kernel/workqueue.c                   | 80 ++++++++++++++++++++++------
+ 3 files changed, 86 insertions(+), 22 deletions(-)
+
+diff --git a/Documentation/core-api/workqueue.rst b/Documentation/core-api/workqueue.rst
+index 411e1b28b8de..6b6179e0a38a 100644
+--- a/Documentation/core-api/workqueue.rst
++++ b/Documentation/core-api/workqueue.rst
+@@ -225,6 +225,11 @@ resources, scheduled and executed.
+   each other.  Each maintains its separate pool of workers and
+   implements concurrency management among its workers.
+ 
++``WQ_RTPRI``
++  Real time priority workqueues must be created as unbound and have the strict
++  CPU affinity set.  Their worker threads use the FIFO scheduling policy with
++  the lowest priority.
++
+ ``WQ_CPU_INTENSIVE``
+   Work items of a CPU intensive wq do not contribute to the
+   concurrency level.  In other words, runnable CPU intensive
+diff --git a/include/linux/workqueue.h b/include/linux/workqueue.h
+index a283766a192a..e9ab53568e0c 100644
+--- a/include/linux/workqueue.h
++++ b/include/linux/workqueue.h
+@@ -140,6 +140,13 @@ enum wq_affn_scope {
+ 	WQ_AFFN_NR_TYPES,
+ };
+ 
++enum wq_priority {
++	WQ_PRIO_NORMAL = 0,
++	WQ_PRIO_HIGH = 1,
++	WQ_PRIO_RT = 2,
++	NUM_WQ_PRIO, /* Keep last */
++};
++
+ /**
+  * struct workqueue_attrs - A struct for workqueue attributes.
+  *
+@@ -147,7 +154,12 @@ enum wq_affn_scope {
+  */
+ struct workqueue_attrs {
+ 	/**
+-	 * @nice: nice level
++	 * @prio: priority level
++	 */
++	enum wq_priority prio;
++
++	/**
++	 * @nice: nice level for WQ_PRIO_HIGH
+ 	 */
+ 	int nice;
+ 
+@@ -374,8 +386,9 @@ enum wq_flags {
+ 	WQ_FREEZABLE		= 1 << 2, /* freeze during suspend */
+ 	WQ_MEM_RECLAIM		= 1 << 3, /* may be used for memory reclaim */
+ 	WQ_HIGHPRI		= 1 << 4, /* high priority */
+-	WQ_CPU_INTENSIVE	= 1 << 5, /* cpu intensive workqueue */
+-	WQ_SYSFS		= 1 << 6, /* visible in sysfs, see workqueue_sysfs_register() */
++	WQ_RTPRI		= 1 << 5, /* real-time priority, valid only with WQ_UNBOUND */
++	WQ_CPU_INTENSIVE	= 1 << 6, /* cpu intensive workqueue */
++	WQ_SYSFS		= 1 << 7, /* visible in sysfs, see workqueue_sysfs_register() */
+ 
+ 	/*
+ 	 * Per-cpu workqueues are generally preferred because they tend to
+@@ -402,8 +415,8 @@ enum wq_flags {
+ 	 *
+ 	 * http://thread.gmane.org/gmane.linux.kernel/1480396
+ 	 */
+-	WQ_POWER_EFFICIENT	= 1 << 7,
+-	WQ_PERCPU		= 1 << 8, /* bound to a specific cpu */
++	WQ_POWER_EFFICIENT	= 1 << 8,
++	WQ_PERCPU		= 1 << 9, /* bound to a specific cpu */
+ 
+ 	__WQ_DESTROYING		= 1 << 15, /* internal: workqueue is destroying */
+ 	__WQ_DRAINING		= 1 << 16, /* internal: workqueue is draining */
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index 78068ae8f28a..6b60380a8742 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -105,6 +105,7 @@ enum work_cancel_flags {
+ 
+ enum wq_internal_consts {
+ 	NR_STD_WORKER_POOLS	= 2,		/* # standard pools per cpu */
++	NR_WQ_ATTRIBUTES	= NUM_WQ_PRIO,	/* # of attributes */
+ 
+ 	UNBOUND_POOL_HASH_ORDER	= 6,		/* hashed by pool->attrs */
+ 	BUSY_WORKER_HASH_ORDER	= 6,		/* 64 pointers */
+@@ -509,10 +510,10 @@ static DEFINE_IDR(worker_pool_idr);	/* PR: idr of all pools */
+ static DEFINE_HASHTABLE(unbound_pool_hash, UNBOUND_POOL_HASH_ORDER);
+ 
+ /* I: attributes used when instantiating standard unbound pools on demand */
+-static struct workqueue_attrs *unbound_std_wq_attrs[NR_STD_WORKER_POOLS];
++static struct workqueue_attrs *unbound_std_wq_attrs[NR_WQ_ATTRIBUTES];
+ 
+ /* I: attributes used when instantiating ordered pools on demand */
+-static struct workqueue_attrs *ordered_wq_attrs[NR_STD_WORKER_POOLS];
++static struct workqueue_attrs *ordered_wq_attrs[NR_WQ_ATTRIBUTES];
+ 
+ /*
+  * I: kthread_worker to release pwq's. pwq release needs to be bounced to a
+@@ -2871,7 +2872,11 @@ static struct worker *create_worker(struct worker_pool *pool)
+ 			goto fail;
+ 		}
+ 
+-		set_user_nice(worker->task, pool->attrs->nice);
++		if (pool->attrs->prio == WQ_PRIO_RT)
++			sched_set_fifo_low(worker->task);
++		else
++			set_user_nice(worker->task, pool->attrs->nice);
++
+ 		kthread_bind_mask(worker->task, pool_allowed_cpus(pool));
+ 	}
+ 
+@@ -4780,6 +4785,7 @@ struct workqueue_attrs *alloc_workqueue_attrs_noprof(void)
+ static void copy_workqueue_attrs(struct workqueue_attrs *to,
+ 				 const struct workqueue_attrs *from)
+ {
++	to->prio = from->prio;
+ 	to->nice = from->nice;
+ 	cpumask_copy(to->cpumask, from->cpumask);
+ 	cpumask_copy(to->__pod_cpumask, from->__pod_cpumask);
+@@ -4811,6 +4817,7 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
+ {
+ 	u32 hash = 0;
+ 
++	hash = jhash_1word(attrs->prio, hash);
+ 	hash = jhash_1word(attrs->nice, hash);
+ 	hash = jhash_1word(attrs->affn_strict, hash);
+ 	hash = jhash(cpumask_bits(attrs->__pod_cpumask),
+@@ -4825,6 +4832,8 @@ static u32 wqattrs_hash(const struct workqueue_attrs *attrs)
+ static bool wqattrs_equal(const struct workqueue_attrs *a,
+ 			  const struct workqueue_attrs *b)
+ {
++	if (a->prio != b->prio)
++		return false;
+ 	if (a->nice != b->nice)
+ 		return false;
+ 	if (a->affn_strict != b->affn_strict)
+@@ -5601,11 +5610,17 @@ static void unbound_wq_update_pwq(struct workqueue_struct *wq, int cpu)
+ 
+ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
+ {
+-	bool highpri = wq->flags & WQ_HIGHPRI;
+-	int cpu, ret;
++	int prio, cpu, ret;
+ 
+ 	lockdep_assert_held(&wq_pool_mutex);
+ 
++	if (wq->flags & WQ_RTPRI)
++		prio = WQ_PRIO_RT;
++	else if (wq->flags & WQ_HIGHPRI)
++		prio = WQ_PRIO_HIGH;
++	else
++		prio = WQ_PRIO_NORMAL;
++
+ 	wq->cpu_pwq = alloc_percpu(struct pool_workqueue *);
+ 	if (!wq->cpu_pwq)
+ 		goto enomem;
+@@ -5622,7 +5637,7 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
+ 			struct pool_workqueue **pwq_p;
+ 			struct worker_pool *pool;
+ 
+-			pool = &(per_cpu_ptr(pools, cpu)[highpri]);
++			pool = &(per_cpu_ptr(pools, cpu)[prio]);
+ 			pwq_p = per_cpu_ptr(wq->cpu_pwq, cpu);
+ 
+ 			*pwq_p = kmem_cache_alloc_node(pwq_cache, GFP_KERNEL,
+@@ -5642,14 +5657,14 @@ static int alloc_and_link_pwqs(struct workqueue_struct *wq)
+ 	if (wq->flags & __WQ_ORDERED) {
+ 		struct pool_workqueue *dfl_pwq;
+ 
+-		ret = apply_workqueue_attrs_locked(wq, ordered_wq_attrs[highpri]);
++		ret = apply_workqueue_attrs_locked(wq, ordered_wq_attrs[prio]);
+ 		/* there should only be single pwq for ordering guarantee */
+ 		dfl_pwq = rcu_access_pointer(wq->dfl_pwq);
+ 		WARN(!ret && (wq->pwqs.next != &dfl_pwq->pwqs_node ||
+ 			      wq->pwqs.prev != &dfl_pwq->pwqs_node),
+ 		     "ordering guarantee broken for workqueue %s\n", wq->name);
+ 	} else {
+-		ret = apply_workqueue_attrs_locked(wq, unbound_std_wq_attrs[highpri]);
++		ret = apply_workqueue_attrs_locked(wq, unbound_std_wq_attrs[prio]);
+ 	}
+ 
+ 	if (ret)
+@@ -5814,6 +5829,12 @@ static struct workqueue_struct *__alloc_workqueue(const char *fmt,
+ 			return NULL;
+ 	}
+ 
++	if (flags & WQ_RTPRI) {
++		if (WARN_ON_ONCE((flags & (WQ_HIGHPRI | WQ_UNBOUND)) !=
++			         WQ_UNBOUND))
++			return NULL;
++	}
++
+ 	/* see the comment above the definition of WQ_POWER_EFFICIENT */
+ 	if ((flags & WQ_POWER_EFFICIENT) && wq_power_efficient)
+ 		flags = (flags & ~WQ_PERCPU) | WQ_UNBOUND;
+@@ -7302,7 +7323,11 @@ static ssize_t wq_nice_show(struct device *dev, struct device_attribute *attr,
+ 	int written;
+ 
+ 	mutex_lock(&wq->mutex);
+-	written = scnprintf(buf, PAGE_SIZE, "%d\n", wq->unbound_attrs->nice);
++	if (wq->unbound_attrs->prio != WQ_PRIO_RT)
++		written = scnprintf(buf, PAGE_SIZE, "%d\n",
++				    wq->unbound_attrs->nice);
++	else
++		written = -EINVAL;
+ 	mutex_unlock(&wq->mutex);
+ 
+ 	return written;
+@@ -7328,13 +7353,20 @@ static ssize_t wq_nice_store(struct device *dev, struct device_attribute *attr,
+ {
+ 	struct workqueue_struct *wq = dev_to_wq(dev);
+ 	struct workqueue_attrs *attrs;
+-	int ret = -ENOMEM;
++	int ret;
+ 
+ 	mutex_lock(&wq_pool_mutex);
+ 
+ 	attrs = wq_sysfs_prep_attrs(wq);
+-	if (!attrs)
++	if (!attrs) {
++		ret = -ENOMEM;
+ 		goto out_unlock;
++	}
++
++	if (attrs->prio == WQ_PRIO_RT) {
++		ret = -EINVAL;
++		goto out_unlock;
++	}
+ 
+ 	if (sscanf(buf, "%d", &attrs->nice) == 1 &&
+ 	    attrs->nice >= MIN_NICE && attrs->nice <= MAX_NICE)
+@@ -7942,12 +7974,13 @@ static void __init restrict_unbound_cpumask(const char *name, const struct cpuma
+ 	cpumask_and(wq_unbound_cpumask, wq_unbound_cpumask, mask);
+ }
+ 
+-static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int nice)
++static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, enum wq_priority prio, int nice)
+ {
+ 	BUG_ON(init_worker_pool(pool));
+ 	pool->cpu = cpu;
+ 	cpumask_copy(pool->attrs->cpumask, cpumask_of(cpu));
+ 	cpumask_copy(pool->attrs->__pod_cpumask, cpumask_of(cpu));
++	pool->attrs->prio = prio;
+ 	pool->attrs->nice = nice;
+ 	pool->attrs->affn_strict = true;
+ 	pool->node = cpu_to_node(cpu);
+@@ -7971,7 +8004,8 @@ static void __init init_cpu_worker_pool(struct worker_pool *pool, int cpu, int n
+ void __init workqueue_init_early(void)
+ {
+ 	struct wq_pod_type *pt = &wq_pod_types[WQ_AFFN_SYSTEM];
+-	int std_nice[NR_STD_WORKER_POOLS] = { 0, HIGHPRI_NICE_LEVEL };
++	int std_prio[NR_WQ_ATTRIBUTES] = { 0, WQ_PRIO_HIGH, WQ_PRIO_RT };
++	int std_nice[NR_WQ_ATTRIBUTES] = { 0, HIGHPRI_NICE_LEVEL, 0 };
+ 	void (*irq_work_fns[NR_STD_WORKER_POOLS])(struct irq_work *) =
+ 		{ bh_pool_kick_normal, bh_pool_kick_highpri };
+ 	int i, cpu;
+@@ -8023,23 +8057,34 @@ void __init workqueue_init_early(void)
+ 
+ 		i = 0;
+ 		for_each_bh_worker_pool(pool, cpu) {
+-			init_cpu_worker_pool(pool, cpu, std_nice[i]);
++			init_cpu_worker_pool(pool, cpu, std_prio[i], std_nice[i]);
+ 			pool->flags |= POOL_BH;
+ 			init_irq_work(bh_pool_irq_work(pool), irq_work_fns[i]);
+ 			i++;
+ 		}
+ 
+ 		i = 0;
+-		for_each_cpu_worker_pool(pool, cpu)
+-			init_cpu_worker_pool(pool, cpu, std_nice[i++]);
++		for_each_cpu_worker_pool(pool, cpu) {
++			init_cpu_worker_pool(pool, cpu, std_prio[i], std_nice[i]);
++			i++;
++		}
+ 	}
+ 
+ 	/* create default unbound and ordered wq attrs */
+-	for (i = 0; i < NR_STD_WORKER_POOLS; i++) {
++	for (i = 0; i < NR_WQ_ATTRIBUTES; i++) {
+ 		struct workqueue_attrs *attrs;
+ 
+ 		BUG_ON(!(attrs = alloc_workqueue_attrs()));
++		attrs->prio = std_prio[i];
+ 		attrs->nice = std_nice[i];
++		if (i == WQ_PRIO_RT) {
++			/*
++			 * RT workqueues have strict CPU affinity for low
++			 * latency execution.
++			 */
++			attrs->affn_scope = WQ_AFFN_CPU;
++			attrs->affn_strict = true;
++		}
+ 		unbound_std_wq_attrs[i] = attrs;
+ 
+ 		/*
+@@ -8047,6 +8092,7 @@ void __init workqueue_init_early(void)
+ 		 * guaranteed by max_active which is enforced by pwqs.
+ 		 */
+ 		BUG_ON(!(attrs = alloc_workqueue_attrs()));
++		attrs->prio = std_prio[i];
+ 		attrs->nice = std_nice[i];
+ 		attrs->ordered = true;
+ 		ordered_wq_attrs[i] = attrs;
 -- 
 2.54.0
 
