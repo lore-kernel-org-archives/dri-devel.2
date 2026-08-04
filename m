@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74480C55172
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:44:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1155BC5518F
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:44:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A541810E913;
-	Tue,  4 Aug 2026 08:44:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6D53A10E911;
+	Tue,  4 Aug 2026 08:44:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nnO1NTVI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CHEgP5Vd";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B007B10E129
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:44:14 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC10A10E913
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:44:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7E56043BD2;
- Tue,  4 Aug 2026 08:44:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 143611F000E9;
+ by tor.source.kernel.org (Postfix) with ESMTP id 4CBB960A71;
+ Tue,  4 Aug 2026 08:44:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3321F00A3A;
  Tue,  4 Aug 2026 08:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785833054;
- bh=G5gRoThDumjl7Z03nsTXlne3uHQ2LmlU8pnWBDU0ZNI=;
+ s=k20260515; t=1785833055;
+ bh=Hp5IKlJ+B5dWx88dWAZGpSS/znrzf0raS+wi/FkjJPg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nnO1NTVIj3StWXDiq0ZMsz+gtF6NtJMOwQNkG+DGkTMYoSVqf9HUTh4mG0HOfVrlV
- A9X3aPeuTeZ3Rl9BHN2NSw1xkEdVhEZIu9qO+igGOEu/KNDzUDp/m0aox7UsP9hRSn
- 43/TCUhzfCBQnZcvMRYkpTuJwYVADXCvoVezhgXPXKUrzrH4q47zB1etJeYm/cI0rN
- q+BjVkeY3X1B20vFMxDI3/Ll4qerxuy+DiTWuBzCuk6Vn8rTUj/NKTIzv9U0Mw9ljh
- LpEyooB4Bguwm0uQud/ylwC+I6JDx/bE+9ZtfijQZ/KhXT/BD/WbAn9idQhoA00I82
- Evm/m9wqzeigw==
+ b=CHEgP5VduRhJn0rh9hB57MDdhMF7+71H7VUYtQKCAeyXvrDtvo4w3DhYFo6O0tuNt
+ a4bnVFsP6EB7IbQLB23BiiW0fyZkxiUXCC2VajTLBQJDVxrO+aP+5r7V8rYRGrCiat
+ XGxwBOofUW2Vc35s0ihWUDNn/9wBoZjhYJTM4K4/rhUOvda5m8uvcniKpjHMwVsKFg
+ BG8TLB0t9+i6FVXNPcOCAMcJuBNWM9J2Z0UAMXiYYfYVIlEMtuXQGs4GgfjUiDovPL
+ mLwycIBnmZiXYUkPoiNgEr+a4NNSy/IF5AEZj2q2vyZBpvD+74iwt4KqQ4R7A4nmrL
+ oBcqGBI/8wp/A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 10/10] drm/bridge: analogix_dp: Handle HPD
- notification from downstream bridge
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260804081717.741404-11-damon.ding@rock-chips.com>
-References: <20260804081717.741404-1-damon.ding@rock-chips.com>
- <20260804081717.741404-11-damon.ding@rock-chips.com>
+Subject: Re: [PATCH v8 4/6] drm/ttm: Split cgroup charge and resource
+ allocation
+To: "Natalie Vock" <natalie.vock@gmx.de>
+Cc: tj@kernel.org, dri-devel@lists.freedesktop.org, mkoutny@suse.com,
+ hannes@cmpxchg.org
+In-Reply-To: <20260804-dmemcg-aggressive-protect-v8-4-07af96681bf8@gmx.de>
+References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
+ <20260804-dmemcg-aggressive-protect-v8-4-07af96681bf8@gmx.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 08:44:13 +0000
-Message-Id: <20260804084414.143611F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 08:44:14 +0000
+Message-Id: <20260804084414.CC3321F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,78 +63,116 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] Bypassing force_hpd initialization breaks AUX channel and link tra=
-ining
+- [High] Eviction walk continues to restrict evictions to a specific cgroup=
+ even after its memory limit is satisfied, causing spurious allocation fail=
+ures under global memory pressure.
 
 Pre-existing issues:
-- [High] Sleeping in atomic context during bridge enable
+- [Critical] dmem_cgroup_get_common_ancestor returns a pool without a CSS r=
+eference, but the caller puts it using dmem_cgroup_pool_state_put which dro=
+ps a CSS reference, leading to a CSS refcount underflow.
 --
 
---- Patch [10]: [PATCH v2 10/10] drm/bridge: analogix_dp: Handle HPD notifi=
-cation from downstream bridge ---
-commit 9728fd12d41ed8de2891a5a3947c23bae76130a5
-Author: Damon Ding <damon.ding@rock-chips.com>
+--- Patch [4]: [PATCH v8 4/6] drm/ttm: Split cgroup charge and resource all=
+ocation ---
+commit aa5cab6f4c763e172491a34bffbf1a67e37f5262
+Author: Natalie Vock <nat@pixelcluster.dev>
 
-drm/bridge: analogix_dp: Handle HPD notification from downstream bridge
+drm/ttm: Split cgroup charge and resource allocation
 
-The patch implements the .hpd_notify bridge callback to receive connection
-status updates from downstream bridges. It caches the connection status to
-short-circuit analogix_dp_detect_hpd() when a downstream bridge has already
-confirmed the connection.
+This patch decouples resource allocation from cgroup charging to address=20
+raciness when checking min/low cgroup limits during eviction. It charges=20
+the allocation to the cgroup once and keeps the charge for the duration of
+the resource allocation attempt.
 
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
-/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index f7db5b5a3f917..14a78aea48bd7 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -68,6 +68,13 @@ static int analogix_dp_detect_hpd(struct analogix_dp_d=
-evice *dp)
->  {
->  	int timeout_loop =3D 0;
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 1cdb2172d5924..3becddd2c43b8 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+[ ... ]
+> @@ -518,18 +522,39 @@ static int ttm_bo_alloc_at_place(struct ttm_buffer_=
+object *bo,
+>  	bool may_evict;
+>  	int ret;
 > =20
-> +	/*
-> +	 * Trust connection status from downstream bridge (e.g.,
-> +	 * display-connector with hpd-gpios).
-> +	 */
-> +	if (dp->plat_data->next_bridge && dp->connection_notified)
-> +		return 0;
+> -	may_evict =3D force_space && place->mem_type !=3D TTM_PL_SYSTEM;
+> -
+> -	ret =3D ttm_resource_alloc(bo, place, res,
+> -				 force_space ? &alloc_state->limit_pool : NULL);
+> +	may_evict =3D !alloc_state->in_evict && force_space &&
+> +		    place->mem_type !=3D TTM_PL_SYSTEM;
+> +	if (!alloc_state->charge_pool) {
+> +		ret =3D ttm_resource_try_charge(bo, place, &alloc_state->charge_pool,
+> +					      force_space ? &alloc_state->limit_pool
+> +							  : NULL);
 
 [Severity: High]
-Does returning early here bypass the analogix_dp_force_hpd(dp) call needed
-to unblock the AUX channel?
+If ttm_resource_try_charge() succeeds during an eviction callback (where
+force_space is false), alloc_state->limit_pool is not cleared.
 
-If the downstream bridge manages HPD, the native HPD pin is typically
-unconnected, making the hardware HPD_STATUS register read 0. The Analogix
-DP hardware blocks all AUX transactions when HPD_STATUS is 0.
+If the subsequent physical resource allocation still fails due to global
+memory pressure, the eviction walk will continue.
 
-By returning 0 early, analogix_dp_force_hpd(dp) is skipped, leaving the
-F_HPD bit cleared and the AUX channel blocked. This could cause link
-training to fail because it cannot read DPCD over the AUX channel.
+Because alloc_state->limit_pool remains set, will the LRU walk continue to
+only evict buffers from that specific cgroup, eventually causing a spurious
+-ENOSPC failure if that cgroup has no more evictable buffers?
 
->  	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
->  		if (analogix_dp_get_plug_in_status(dp) =3D=3D 0)
->  			return 0;
+> +		if (ret) {
+> +			/*
+> +			 * -EAGAIN means the charge failed, which we treat
+> +			 * like an allocation failure. Therefore, return an
+> +			 * error code indicating the allocation failed -
+> +			 * either -EBUSY if the allocation should be
+> +			 * retried with eviction, or -ENOSPC if there should
+> +			 * be no second attempt.
+> +			 */
+> +			if (ret =3D=3D -EAGAIN)
+> +				ret =3D may_evict ? -EBUSY : -ENOSPC;
+> +			return ret;
+> +		}
+> +	}
+[ ... ]
+> @@ -584,8 +609,10 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk=
+, struct ttm_buffer_object *
 > =20
->  		timeout_loop++;
->  		usleep_range(1000, 1100);
+>  	evict_walk->evicted++;
+>  	if (evict_walk->res)
+> -		lret =3D ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
+> -					  evict_walk->res, NULL);
+> +		lret =3D ttm_bo_alloc_at_place(evict_walk->evictor,
+> +					     evict_walk->place, false,
+> +					     evict_walk->res,
+> +					     evict_walk->alloc_state);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this usleep_range()
-violate atomic context requirements?
+[Severity: Critical]
+This is a pre-existing issue, but I noticed a potential refcount underflow
+involving the ancestor pool earlier in ttm_bo_evict_cb().
 
-When the core DRM framework calls analogix_dp_bridge_atomic_enable() during
-a non-blocking atomic commit, it executes analogix_dp_set_bridge() which
-then calls analogix_dp_detect_hpd():
+dmem_cgroup_get_common_ancestor() explicitly drops its CSS reference before
+returning the pool:
 
-analogix_dp_bridge_atomic_enable()
-  analogix_dp_set_bridge()
-    analogix_dp_detect_hpd()
-      usleep_range(1000, 1100);
+kernel/cgroup/dmem.c:dmem_cgroup_get_common_ancestor() {
+    ...
+    if (IS_ERR(pool))
+        pool =3D NULL;
+    css_put(ancestor_css);
+    return pool;
+}
 
-Since atomic enable/disable callbacks execute in atomic context, sleeping
-functions like usleep_range() are not allowed and can cause kernel
-warnings (BUG: scheduling while atomic) or system instability.
+However, in ttm_bo_evict_cb(), the ancestor pool is freed using
+dmem_cgroup_pool_state_put():
+
+    if (ancestor)
+        dmem_cgroup_pool_state_put(ancestor);
+
+Since dmem_cgroup_pool_state_put() calls css_put(&pool->cs->css), doesn't
+this drop a CSS reference that the caller does not own, potentially leading
+to a use-after-free of the cgroup subsystem state?
+
+>  	if (lret =3D=3D 0)
+>  		return 1;
+>  out:
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804081717.7414=
-04-1-damon.ding@rock-chips.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-dmemcg-agg=
+ressive-protect-v8-0-07af96681bf8@gmx.de?part=3D4
