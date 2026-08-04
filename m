@@ -4,75 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3029DC55ABA
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:56:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BEA2C55172
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 09:08:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A799C10E921;
-	Tue,  4 Aug 2026 08:56:08 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="D42suQQr";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A49010E91C
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:56:05 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 55A87600AA;
- Tue,  4 Aug 2026 08:56:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F2EA2C2BCF5;
- Tue,  4 Aug 2026 08:56:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1785833764;
- bh=goWIcnvl16p6Hy5rNc9ISB637rHTfcV7JGaLd5HxRQE=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=D42suQQrVOZYdjug603egLVBJY/M482Eg+jdCCxYKvhrX0RRJCGOueJSOsjPt3wjk
- D0Hbw9iztr7WxVKZ3CGPC3Q3kNINvE9fBw5lAfSM37OZFsgnYVFK4B2cHSB8Fh4yfU
- eUpn2se8pMQt66rt6+EH/Dh8IKOfga09IZaaku2CTlBr0RjZIfh1rytvBEbjZ28sms
- HvKXM8EJ+92ErK7ts7D50VygL5aaS1BY07UFCz2dfe5GMtJUrkhtnINN8syNAVUBjC
- 4YsHDyBiYNqED/mg+nHn8PFCfPLPFGV5WXPUZMjf9ppQuAS6etFyjEcCKXyeXQ431o
- j8Tiel69A50Jw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id DEC60C55172;
- Tue,  4 Aug 2026 08:56:03 +0000 (UTC)
-From: =?utf-8?q?Dawid_Wr=C3=B3bel_via_B4_Relay?=
- <devnull+me.dawidwrobel.com@kernel.org>
-Subject: [PATCH v2 0/3] arm64: dts: qcom: add the Xiaomi Mi Pad 5 Pro 5G
-Date: Tue, 04 Aug 2026 10:55:54 +0200
-Message-Id: <20260804-sm8250-xiaomi-enuma-v2-0-9dd0486f1155@dawidwrobel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD54110E927;
+	Tue,  4 Aug 2026 09:08:09 +0000 (UTC)
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com
+ [209.85.221.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A251810E927
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 09:08:08 +0000 (UTC)
+Received: by mail-vk1-f176.google.com with SMTP id
+ 71dfb90a1353d-5c38565e774so924235e0c.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 02:08:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785834487; x=1786439287;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=tOv5bZo9Op0KGuR4P2o8R2YUQOyL+65z/H44Za0zUBM=;
+ b=BACaeBYABKjzRmQSgz2JLInJtDwcrNZ3UOSrk14x2ZT57TwvD3QJmf8/QZObv4v+6/
+ xEjgrmyGs4Nkp/b369N2wc6NqXRJDcHAF1VRe74GwQ47g3SPdWcbWRTZfNaP0y25gKfE
+ +XQ79mCBj6hNY7mWybcZ9rk954VVoiqeGq/L6n/JE4t727k2K+uSPm5F+QF7hEq8DSWA
+ 8VjSUnNEIe4qFwSUI1ELaz5fPVE/Q17NWcAnCGvFV/efKFFdfEm/DwdJzcrSELuSfPTs
+ DVXtRpwL9lrbqEL3+m3goa5xiTHLdRrFOSS1hBtraILx2SFs5KTXegJzysgBKqX7yZwZ
+ t32w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqYW54YriteaSkWvqpRimRlz2GmvNCmhlYZ8rFgnvUxNDeGDgx9g/cVEtvNIN8gFri2hpA3nwRxr20=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy9IZz/W3UWVjlD9mFs5Rm+UO+Km0FpyTxRv6w+VN2EPu231p2y
+ PRwtoJ7N5OONqi+GMjxGL4cvu0x4TqptzoZMsDMiByQ29WU9gFPYw+hO0MahNNCR
+X-Gm-Gg: AR+sD12srGlTKGZyZ9PRG6lVTzVE/9ZN7oeq4kIeJqPXE8hKKj2x68rutkg2gMzGF5y
+ IBd76t9JLFk/wkvgDpbhVQ4VZu8R2YwJjRIkvJN4KG6FstLvvT7yx+4/0cDj8R/VEYu2nUQpuDe
+ TvPnnJVHrPYw6b53CBTtnbttmL0xj8XNblP8ijbUEBcR1dfn69z2Tvo6lzLA4w+1Rt6jhzTk+7Q
+ 6Gk/1RuVkH2lLh26Bsx4KzKDIqkeXyWmTIgQhYVCDSUHdHhrApOjc9CUg8wzG20ScykffRp8j/q
+ yO6Uk4DixSYy4DGavHLLoDjy0W3B5Iwc35ZL0f4XCw4e5N0icWdqtdJNDLvd7vI0YLcarIrEZrn
+ eevhtdkWwNfB3LW6ur7VVkzIbxpB7sZ1P1vm5wl569FFNk3k7LvAXckfgQlXTunEbOjA9JWCwfq
+ tUiSZH97MClK45yEOXtrPtMYccxZgaakhIphFLVD6XicAgZ0muWWk/tUCwKgul8uXn/XCxRK/HD
+ nDNPGl28NoTeU2w0Uam/BSjWg==
+X-Received: by 2002:a05:6122:7d0:b0:5bf:9461:925 with SMTP id
+ 71dfb90a1353d-5c3877e013emr3548642e0c.9.1785834487255; 
+ Tue, 04 Aug 2026 02:08:07 -0700 (PDT)
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com.
+ [209.85.222.41]) by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5c3d01eab3asm118214e0c.0.2026.08.04.02.08.05
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 04 Aug 2026 02:08:06 -0700 (PDT)
+Received: by mail-ua1-f41.google.com with SMTP id
+ a1e0cc1a2514c-96723c7151eso1105968241.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 02:08:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrfEhhj9UyWPiZrPVR/jRGXvTm4ObC3vkr8FwVj36/bG5jCL9LgBLhNYNWXxMr9bX2a9PxXy7lrJY4=@lists.freedesktop.org
+X-Received: by 2002:a05:6102:6893:b0:74a:b5e3:e96f with SMTP id
+ ada2fe7eead31-75b22661bb0mr8022779137.7.1785834485554; Tue, 04 Aug 2026
+ 02:08:05 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NQQ6CMBBFr0Jm7ZhStBRX3sOwKHSQSSw1rQKG9
- O5WDuDyveS/v0GkwBThUmwQaObIfsogDwX0o5nuhGwzgxRSiboSGJ2WZ4ErG+8YaXo7g6RrPch
- e6FNZQV4+Aw287tVbm3nk+PLhs5/M5c/+780lCiSrrB66plFKX61Z2C7Bd/Q49t5Bm1L6ArLfJ
- ES8AAAA
-X-Change-ID: 20260730-sm8250-xiaomi-enuma-e878f2c08413
-To: Jianhua Lu <lujianhua000@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2597; i=me@dawidwrobel.com;
- h=from:subject:message-id;
- bh=goWIcnvl16p6Hy5rNc9ISB637rHTfcV7JGaLd5HxRQE=;
- b=owGbwMvMwCV2qrTGfeXVd28ZT6slMWQVrlRK8An+9WPKqTO8p//N0vg1o+y0QIHvHNe3oS/va
- FwSE58f1FHKwiDGxSArpsiilxa0xyr45fd3L36Hw8xhZQIZwsDFKQAT+fGa4Z+17YmDdhXbFV5c
- vLF/hpndMf9u2bSTufzXd0pHVVq8SE9lZDg3e4HTkfqW/I9h/lwNB1+EZcfcbCk8+0HD7zh3lda
- 3RewA
-X-Developer-Key: i=me@dawidwrobel.com; a=openpgp;
- fpr=B64A778E0E64049A70C831C8B7B81FA12B282A92
-X-Endpoint-Received: by B4 Relay for me@dawidwrobel.com/default with
- auth_id=901
-X-Original-From: =?utf-8?q?Dawid_Wr=C3=B3bel?= <me@dawidwrobel.com>
+References: <20260526181700.25310-1-leandro.ribeiro@collabora.com>
+ <20260526181700.25310-3-leandro.ribeiro@collabora.com>
+ <20260721234802.GA439272@ax162>
+ <126e8bdb-9c39-4fbd-ae8a-26a61dd4f3d6@nvidia.com>
+In-Reply-To: <126e8bdb-9c39-4fbd-ae8a-26a61dd4f3d6@nvidia.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 4 Aug 2026 11:07:54 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXXbPUkyOy0R0s58ayBK0mFFjZa4BKMUBwsnwr-oCQ08Q@mail.gmail.com>
+X-Gm-Features: AUfX_mwSlmcVBCWNW55tO8uYYwlx8mnEjjrIqIaC97jtl2OBGsfuVpnzc0Yxtps
+Message-ID: <CAMuHMdXXbPUkyOy0R0s58ayBK0mFFjZa4BKMUBwsnwr-oCQ08Q@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] drm: ensure blend mode supported if pixel format
+ with alpha exposed
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Nathan Chancellor <nathan@kernel.org>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>, 
+ Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jocelyn Falempe <jfalempe@redhat.com>, dri-devel@lists.freedesktop.org,
+ airlied@gmail.com, daniels@collabora.com, jani.nikula@linux.intel.com, 
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ pekka.paalanen@collabora.com, simona@ffwll.ch, ville.syrjala@linux.intel.com, 
+ linux-kernel@vger.kernel.org, 
+ "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>, 
+ Linux-Renesas <linux-renesas-soc@vger.kernel.org>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,65 +97,107 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: me@dawidwrobel.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Mi Pad 5 Pro 5G (enuma, 2021) is the modem-equipped variant of the
-Mi Pad 5 Pro (elish). The two boards share a design, so this describes
-enuma as sm8250-xiaomi-elish-common.dtsi plus the three things that
-differ: the board ID the bootloader matches on, the panel compatible and
-the WiFi board data variant.
+On Wed, 22 Jul 2026 at 14:08, Jon Hunter <jonathanh@nvidia.com> wrote:
+> On 22/07/2026 00:48, Nathan Chancellor wrote:
+> > On Tue, May 26, 2026 at 03:17:00PM -0300, Leandro Ribeiro wrote:
+> >> Before "drm/drm_blend: allow blend mode property without PREMULTI",
+> >> userspace would have to assume that only PREMULTI was supported by
+> >> drivers that didn't expose the blend mode property. But now userspace
+> >> shouldn't rely on that, as they can't count with drivers always
+> >> supporting PREMULTI.
+> >>
+> >> Warn if a driver exposes pixel formats with alpha but doesn't expose the
+> >> blend mode property. This way userspace doesn't have to guess. Drivers
+> >> triggering this warning must be fixed.
+> >>
+> >> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> >> ---
+> >>   drivers/gpu/drm/drm_mode_config.c | 21 +++++++++++++++++++++
+> >>   1 file changed, 21 insertions(+)
+> >>
+> >> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
+> >> index 66f7dc37b597..8cca1dea3b3d 100644
+> >> --- a/drivers/gpu/drm/drm_mode_config.c
+> >> +++ b/drivers/gpu/drm/drm_mode_config.c
+> >> @@ -674,6 +674,25 @@ static void validate_encoder_possible_crtcs(struct drm_encoder *encoder)
+> >>           encoder->possible_crtcs, crtc_mask);
+> >>   }
+> >>
+> >> +static void validate_blend_mode_for_alpha_formats(struct drm_plane *plane)
+> >> +{
+> >> +    const struct drm_format_info *fmt;
+> >> +    u32 i;
+> >> +
+> >> +    /* blend mode property supported, no need to check anything */
+> >> +    if (plane->blend_mode_property)
+> >> +            return;
+> >> +
+> >> +    for (i = 0; i < plane->format_count; i++) {
+> >> +            fmt = drm_format_info(plane->format_types[i]);
+> >> +            if (fmt->has_alpha) {
+> >> +                    WARN(1, "[PLANE:%d:%s] pixel format with alpha exposed but "
+> >> +                         "blend mode not setup", plane->base.id, plane->name);
+> >
+> > I am seeing this warning trigger on a few of my machines in -next. A
+> > couple of those use amdgpu, which I see has already been reported in a
+> > separate thread. Another one uses ast, which I do not see reported
+> > (apologies if I missed it).
+> >
+> >    [  +0.000137] ------------[ cut here ]------------
+> >    [  +0.000004] [PLANE:37:plane-1] pixel format with alpha exposed but blend mode not setup
+> >    [  +0.000019] WARNING: drivers/gpu/drm/drm_mode_config.c:873 at drm_mode_config_validate+0xa24/0xad0, CPU#0: kworker/0:2/507
+> >    [  +0.000010] Modules linked in: ghash_ce gf128mul nvme ast(+) nvme_core sbsa_gwdt i2c_algo_bit nvme_keyring nvme_auth xgene_hwmon gpio_dwapb fuse scsi_dh_alua scsi_dh_rdac i2c_dev scsi_dh_emc
+> >    [  +0.000014] CPU: 0 UID: 0 PID: 507 Comm: kworker/0:2 Not tainted 7.2.0-rc4-next-20260721-00002-g17fa9b81f4c4 #1 PREEMPT(lazy)
+> >    [  +0.000003] Hardware name: To be filled by O.E.M Ampere Altra Developer Platform/Ampere Altra Developer Platform, BIOS TianoCore 2.10.100.02 (SYS: 2.10.20
+> >    [  +0.000002] Workqueue: sync_wq local_pci_probe_callback
+> >    [  +0.000004] pstate: 60400009 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> >    [  +0.000003] pc : drm_mode_config_validate+0xa24/0xad0
+> >    [  +0.000002] lr : drm_mode_config_validate+0xa24/0xad0
+> >    [  +0.000002] sp : ffff800082df3c30
+> >    [  +0.000001] x29: ffff800082df3c60 x28: ffffde7ac3633fc2 x27: 0000000000000001
+> >    [  +0.000004] x26: 0000000000000001 x25: 0000000000000002 x24: 0000000000000000
+> >    [  +0.000003] x23: ffff07ffb54b0290 x22: ffff07ffb54b0be0 x21: ffffde7ac36ebb13
+> >    [  +0.000003] x20: 0000000000000001 x19: ffff07ffb54b0000 x18: ffff800082dd5038
+> >    [  +0.000003] x17: 00000000d949c370 x16: 00000000d949c370 x15: ffffde7ac358f156
+> >    [  +0.000002] x14: 0000000000000386 x13: ffff081eeebf2850 x12: 0000000000000000
+> >    [  +0.000003] x11: 0000000000000000 x10: ffffde7ac44b5850 x9 : 738b2a5f3c615c00
+> >    [  +0.000003] x8 : 738b2a5f3c615c00 x7 : 0000000000000000 x6 : 206c65786970205d
+> >    [  +0.000003] x5 : ffff081f6fcc917b x4 : ffffde7ac36ebb59 x3 : ffffffffffff0a00
+> >    [  +0.000002] x2 : 0000000000000001 x1 : 0000000000000000 x0 : 000000000000004b
+> >    [  +0.000003] Call trace:
+> >    [  +0.000001]  drm_mode_config_validate+0xa24/0xad0 (P)
+> >    [  +0.000003]  drm_dev_register+0x44/0x3d8
+> >    [  +0.000004]  ast_pci_probe+0x330/0x354 [ast]
+> >    [  +0.000016]  local_pci_probe_callback+0x68/0xc0
+> >    [  +0.000002]  process_scheduled_works+0x23c/0x668
+> >    [  +0.000003]  worker_thread+0x218/0x324
+> >    [  +0.000003]  kthread+0x130/0x180
+> >    [  +0.000002]  ret_from_fork+0x10/0x20
+> >    [  +0.000004] ---[ end trace 0000000000000000 ]---
+>
+> I am also seeing the same warning on -next for Tegra194 based devices.
+>
+> > If there is any other information I can provide or patches I can test, I
+> > am more than happy to do so.
+>
+> Same. Happy to provide any more information or test any other changes.
 
-Unlike elish, enuma shipped with a single display variant, so there is
-one device tree rather than a per-panel pair. The vendor device trees key
-the touch configuration to a display maker, and enuma declares a single
-entry against elish's three:
+Same on R-Car Gen2 (R-Car DU without VSP).
 
-  https://github.com/MiCode/kernel_devicetree/blob/elish-r-oss/qcom/enuma-sm8250.dtsi#L309
-  https://github.com/MiCode/kernel_devicetree/blob/elish-r-oss/qcom/elish-sm8250.dtsi#L294
+I don't see the warning on R-Car Gen3 and Gen4, but I don't have
+a display connecting to those boards (meh), and rcar_du_vsp.c does
+call drm_plane_create_blend_mode_property() (yup ;-).
 
-The panel itself is the same part elish uses: both trees pull in the
-same dsi-panel-k81-42-02-0a-video.dtsi, so the new
-xiaomi,enuma-csot-nt36523 compatible falls back to
-xiaomi,elish-csot-nt36523, leaving room to handle any difference that
-turns up later without requiring a device tree change.
+Gr{oetje,eeting}s,
 
-The WiFi board data is already upstream in ath11k-firmware as
-bus=pci,qmi-chip-id=0,qmi-board-id=255,variant=Xiaomi_Pad_5Pro_5G
-(QCA6390 hw2.0 board-2.bin, commit 235d09a5e111).
+                        Geert
 
-Tested on the device: the panel and WiFi come up and perform as expected
-under postmarketOS.
-
-The fingerprint sensor, PCIe2/modem and touchscreen this board also
-provides are left out here; they depend on bindings that are not upstream
-yet and will follow separately.
-
-Signed-off-by: Dawid Wróbel <me@dawidwrobel.com>
----
-Changes in v2:
-- Dropped the "label the WiFi node" patch, folded into device tree patch (Krzysztof Kozlowski)
-- Link to v1: https://lore.kernel.org/r/20260730-sm8250-xiaomi-enuma-v1-0-ed6d8fb99668@dawidwrobel.com
-
----
-Dawid Wróbel (3):
-      dt-bindings: display: panel: novatek,nt36523: add the Mi Pad 5 Pro 5G panel
-      dt-bindings: arm: qcom: add the Xiaomi Mi Pad 5 Pro 5G
-      arm64: dts: qcom: sm8250: add device tree for the Xiaomi Mi Pad 5 Pro 5G
-
- Documentation/devicetree/bindings/arm/qcom.yaml    |  5 +++++
- .../bindings/display/panel/novatek,nt36523.yaml    |  4 ++++
- arch/arm64/boot/dts/qcom/Makefile                  |  1 +
- .../boot/dts/qcom/sm8250-xiaomi-elish-common.dtsi  |  2 +-
- arch/arm64/boot/dts/qcom/sm8250-xiaomi-enuma.dts   | 26 ++++++++++++++++++++++
- 5 files changed, 37 insertions(+), 1 deletion(-)
----
-base-commit: bd94276d96726a82700d85ad3b32892f45809d3a
-change-id: 20260730-sm8250-xiaomi-enuma-e878f2c08413
-
-Best regards,
 -- 
-Dawid Wróbel <me@dawidwrobel.com>
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
