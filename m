@@ -4,111 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E0AC56201
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:24:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0FA7C55822
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:24:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3AD10ED39;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0F6E10ED42;
 	Wed,  5 Aug 2026 07:24:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="RvTurGTu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mKA4HVIE";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64D2D10E9AD
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:13:25 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4955aa106b1so27763825e9.0
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 03:13:25 -0700 (PDT)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
+ [209.85.208.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1221310E65B
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 14:04:26 +0000 (UTC)
+Received: by mail-lj1-f180.google.com with SMTP id
+ 38308e7fff4ca-39c8ee87f7eso41288461fa.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 07:04:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1785838404;
- x=1786443204; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=QC4AFuTm4HDDPDQl/NigTkSn6PdRCMtpbKbWNy2fmpU=;
- b=RvTurGTuIbQukz/kWoJrl7rqfvXdsXdoM1XdVBzDlLGqs8SAl7KBE850rhDLULNeMg
- rZRhyCblAMNUkee4++hEl7HoZxCEachGy/Te+QtjBSBg+iGA0hqo495YG7V8uLgN5Xnl
- CJJVTU0FnEhSJdGeax7OvW3a7nBEFMyxXKhZcNCfVb6kxVklcbji7hsB9bez47Kpk7b8
- GYoceh8BN5vNvl4xUC7qXDeKU+msehOBj+OBoedtGwGKc4lfz/TmPeS5dJ8k4J2ECiud
- kHUZSi6FgDb91zTCNe9tMLByHuS9wcICtUzRvOzpEfJ2qqYqIPTINbix827T5WgBHP6r
- 93GA==
+ d=gmail.com; s=20251104; t=1785852264; x=1786457064; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=0SIB9ZNDGWSkbhYbrVPXtpZTZPzNmn29odQM0RAb0dw=;
+ b=mKA4HVIEMdlZbebc35h4WeMjQvpWoy8LruHDDsle0DfWo//vAAFytBabq911FeTRKD
+ CyHTGaqK2vdvUtc1qZZPobLsHY/9XmOo0PS4MIbFjJXKsSBj+yINH1h8iHlpij5npwQU
+ nSR4JE8qC6AV4e/amipauTHnvjeN80YwftFNUGZSqBlZQ751RWmS+CiDDXHYDj9IDsm7
+ wwCVnR4Oc4YBzukv3kbDLh0C/YvEpXN1oX26H1lC2x1pHCgFKAVTypEHYX5vPG/3tdGH
+ /ARWhO+ne1UcVB034E0gjWfuwnG2Gc8Kwc2Jl19vdnJqGKof75HE2/vAnHvTHAnwxtZm
+ HE/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785838404; x=1786443204;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=QC4AFuTm4HDDPDQl/NigTkSn6PdRCMtpbKbWNy2fmpU=;
- b=tAjxX/jQ7kLDHJwhVyqLGNU4Y1qE6KhsZhCXVM+6Ne51jjvPRxwZ9sJP9s0znjl8EN
- He1JeM93Vg9vrDSCFP0xoqRzJNJV/uf36BdEOHFvSL3qQd7XqAWn05JMkWRT/VTARftz
- XvFaSihoM8HAMRmYjBW7VJZdNi6/bp4ggYtE6yfMSol+6Ky15qcRSgexud/Qj3FKH2O0
- yE20wCJC1f3wfErV2xqyZYjBzq9cX/X4/854eaQjmLEfNBSXq0Oqn3qlGggz64bXQ/gH
- vxXRKjyAf3HtXaNDMOnARop4RAv/OaMk5SmMab52eCnEVvxJCyyVVV2cbQJgK3EycZVD
- j/iA==
+ d=1e100.net; s=20251104; t=1785852264; x=1786457064;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=0SIB9ZNDGWSkbhYbrVPXtpZTZPzNmn29odQM0RAb0dw=;
+ b=g5xC3B66CUNe6xmCI5r1Zrit3MDMXK1sJ91Tu/vNEvemHGxtEQNBYKKA7ytKxl++CD
+ q9xVeT9FOqtuZoFAT6Qn5xbzrVEUFnrIutBm8d25r5DNQOim0aY0M6eSLsMXnOzAwL9B
+ BlfyqmBdS0WLtyRhQ5o5bPde0d/aq/AJv262+f1Uo+H8Mn2WNYZla1Ct92bnhNU76yWs
+ wKWChLT2JWY0Xwr2xJLRmoLKdkP9Fxiuns3NbjO4BH0qZWNIOP/OxGWA5I7UDLK9HVX4
+ i1BW2W5Zofw14DcJAosThjvGnsGuXGRNPzd8xNTAJVH0aOAtJuJR7X50WKo9GWWcXi9R
+ MWJg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp07ePa2FSDOgJgVPzXGGsBdPIrALQnbDdTZbUhUadsjczgWbE3vlVG/2eXWkFOY9iPC0wSPSi2HFc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzmQJU1R2/cCi0WyE572lYHbo0Fxi5bvv2kxuHn6It/BtH+/OmZ
- 5m47PBUEiywxP6gIiRfablpodKAUATTxNU3aQX5590e/GckVlK9orO8Ue5bnNcfriA==
-X-Gm-Gg: AR+sD10ZqH6irJnLO1LxTz4pTeOd7NA9Bu2aK+Jvay8Qc7QbYoHwNCIoEr0yWzzWqt4
- Q6+x4Mo2Zq+FqNJFZGls5iINzbtUrrsDnrhFMREAHUCY3AnDeiVXPka2f86GnO06YbJXLAAzRcJ
- c9rlkurOyVK946RwakTO71JRJ5OW0pPGGdVAGdNmojhnzNt38xYYEBirPpWihZDQmdVa815Ejcw
- ptWLhlZOE/P1jKCa6EFO3bSuPmMFmpgt2dqBBx/Qp7APaIMvizDiyQ3EEVUtqhAbXwp9kY+UEbw
- cAS/GsdLkYsgNEsrQ9HwhY9zRppVZB0ElP2hWyOZRLkpd86hjBNnMewjyplX4wGHuTzwrK9BUCD
- zl3cFJ7Cez/hYQ/6DtNtECFF9pY6vqMxumMIfsMDHoPxNs8+A2wAInbE839rdOH5C1YjvbTzLvy
- gwPJGSoLCS2FvtMPranj3h2W20KfcdNVxM2D3b8OdTG/P33XHNjDePqZDdm9kVDT4MsNr4I4iY1
- +1xDrAJYCcBST+gteMXkLZwBveH672T
-X-Received: by 2002:a05:600c:2153:b0:497:fe58:d714 with SMTP id
- 5b1f17b1804b1-4980c674df7mr198300025e9.9.1785838403656; 
- Tue, 04 Aug 2026 03:13:23 -0700 (PDT)
-Received: from horizon.localdomain ([216.128.28.240])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49949fcb0c5sm67300275e9.4.2026.08.04.03.13.21
+ AHgh+RpenVyYIkTW2Izx3MSzPoK89BmxO0NhEz2VEL9KxpFwAGa/qp9y39eht420DABifIe1AQxTw39WphA=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Ywmefe/BpwjboXolWJTP/i31KfJRsX8LbZLnBcIZOgpWz3qcGFR
+ MxubiEhkH4L6zK7F+Xq4OoDrwoH1cZ/Y9yBhspBLrC6X+P7S8Omv9HcA
+X-Gm-Gg: AR+sD11Pn2QZ69roqZgxvYemSe9TrNAKKNQGEbRvCPlUz+QQpVZ7V6XnEKWawM3NS78
+ nkm3Z5zs+MrcoqO3Hi5NqrE0mlTZ5trFqQSAeMqSBtg8iokO7fzyAAKCw1gdR7IQ5RDg/v6wtLU
+ SHxvNlIrlmbk0BHZoVsrhvL/4i4aZxT1N81+QsPuz7EF/c6LfcR8HaawYDTd7THX7cFK8VFUvg7
+ j04G8iHWMRsTKhWSytqKP7+2Unckzcilt8UpQaRnkRAnPfDiwZobhQWcISy3k7YMpspQFyFfgnb
+ GAb1NmKAbceqQOMa7ciGG0DV1/TjJE75kGyiy1UkB9LDrfm5IzTkkjAIBvfRdeMvJegrT1zdRNd
+ f8jcjp3aHkd3n+L2hpCY/Vhw3uRruneD8lkqV6H9/Pc3JAsbhrkKv6FBDfO7+IxEJB3oumRo/Cf
+ E8ncGOuslD0aeoVx/GMxR0TQ9z2nJzp1EboslsvV1yNPJ02YERtaiz8R4nLmaDTiBmIgyhNhJkz
+ oq7F5P9L6tII0Y3z8YCNoXii+UMMh3c7G/9qD9w
+X-Received: by 2002:a05:6512:39c3:b0:5b2:a396:1793 with SMTP id
+ 2adb3069b0e04-5b2e4f76abemr2965624e87.37.1785852263358; 
+ Tue, 04 Aug 2026 07:04:23 -0700 (PDT)
+Received: from kfastov-mac ([91.217.3.226]) by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b2e245536dsm2669672e87.67.2026.08.04.07.04.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Aug 2026 03:13:23 -0700 (PDT)
-From: Sean Rhodes <sean@starlabs.systems>
-To: chrome-platform@lists.linux.dev
-Cc: Corentin Chary <corentin.chary@gmail.com>,
- "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>,
- Mark Pearson <mpearson-lenovo@squebb.ca>,
- "Derek J. Clark" <derekjohn.clark@gmail.com>,
- Joshua Grisham <josh@joshuagrisham.com>,
- platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- Dell.Client.Kernel@dell.com, Sean Rhodes <sean@starlabs.systems>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Huacai Chen <chenhuacai@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
- Chen-Yu Tsai <wenst@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
- Brian Norris <briannorris@chromium.org>,
- Julius Werner <jwerner@chromium.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Javier Martinez Canillas <javierm@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Arnd Bergmann <arnd@arndb.de>, Eric Biggers <ebiggers@kernel.org>,
- Luca Weiss <luca.weiss@fairphone.com>, Michal Simek <michal.simek@amd.com>,
- Sven Peter <sven@kernel.org>,
- =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
- <u.kleine-koenig@baylibre.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>,
- Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
- Kees Cook <kees@kernel.org>, dri-devel@lists.freedesktop.org,
- Oliver Lin <oliver@liuxiaozhen.dev>
-Subject: [PATCH v11 2/4] firmware: Move firmware attributes class helper
-Date: Tue,  4 Aug 2026 11:13:07 +0100
-Message-ID: <6d82b7ed6fd917ff4923436fdc6fafcaf8745cc3.1785838269.git.sean@starlabs.systems>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1785838269.git.sean@starlabs.systems>
-References: <cover.1785838269.git.sean@starlabs.systems>
+ Tue, 04 Aug 2026 07:04:22 -0700 (PDT)
+From: Konstantin Fastov <kfastov@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+ stable@vger.kernel.org, Konstantin Fastov <kfastov@gmail.com>
+Subject: [PATCH] drm/gem-shmem: Install writable PTEs for write faults
+Date: Tue,  4 Aug 2026 17:04:03 +0300
+Message-ID: <20260804140403.16337-1-kfastov@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 05 Aug 2026 07:24:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -126,221 +93,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move the firmware attributes class helper from drivers/platform/x86 to
-drivers/firmware and expose its class declaration through a public Linux
-header.
+Since the introduction of dirty tracking, drm_gem_shmem_vm_ops has a
+.pfn_mkwrite handler.  Its presence makes vma_wants_writenotify() true,
+so vma_set_page_prot() removes the write bit from vm_page_prot of
+shared mappings, and the vmf_insert_pfn() call in the fault handler now
+installs read-only PTEs even when serving a write fault.
 
-The helper is not x86-specific. Keeping it in firmware lets coreboot
-firmware drivers use the standard firmware-attributes ABI without living
-under platform/x86.
+For regular CPU accesses this is transparent: the retried access faults
+again on the present read-only PTE, goes through wp_pfn_shared() into
+.pfn_mkwrite() and the PTE is upgraded to writable.  But consumers that
+resolve faults through fixup_user_fault() + follow_pfnmap_start()
+perform no such retry.  In particular KVM's hva_to_pfn_remapped(),
+after "successfully" handling a write fault, finds a present read-only
+PTE, treats it as KVM_PFN_ERR_RO_FAULT and fails the vcpu run with
+EFAULT.  Observed as AsahiLinux/linux#560: muvm/libkrun microVMs
+mapping virtio-gpu blob resources die with EFAULT on first GPU access.
+The traced failing sequence:
 
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-Reviewed-by: Derek J. Clark <derekjohn.clark@gmail.com>
-Tested-by: Oliver Lin <oliver@liuxiaozhen.dev>
-Signed-off-by: Sean Rhodes <sean@starlabs.systems>
+  follow_pfnmap_start()        -> -EINVAL   (no PTE yet)
+  fixup_user_fault(WRITE)
+    drm_gem_shmem_fault()
+      vmf_insert_pfn()         -> NOPAGE    (read-only PTE installed)
+  fixup_user_fault()           -> 0         (fault "handled")
+  follow_pfnmap_start()        -> 0, !writable
+  hva_to_pfn()                 -> KVM_PFN_ERR_RO_FAULT
+
+Fix it the same way commit cb2a2a5b37ad ("drm/shmem_helper: Make sure
+PMD entries get the writeable upgrade") did for the PMD path: when the
+fault is a write fault, install a writable entry directly and record
+the write for dirty tracking, instead of relying on a refault that not
+every fault-resolution path performs.
+
+To do that at PTE level, add vmf_insert_pfn_mkwrite(), the VM_PFNMAP
+counterpart of vmf_insert_mixed_mkwrite(): insert_pfn() already
+implements the mkwrite semantics, there was just no wrapper exposing it
+for pfn inserts with the default pgprot.
+
+Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
+Cc: stable@vger.kernel.org
+Closes: https://github.com/AsahiLinux/linux/issues/560
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Konstantin Fastov <kfastov@gmail.com>
 ---
- MAINTAINERS                                               | 8 ++++++++
- drivers/firmware/Kconfig                                  | 3 +++
- drivers/firmware/Makefile                                 | 1 +
- .../x86 => firmware}/firmware_attributes_class.c          | 2 +-
- drivers/platform/x86/Kconfig                              | 3 ---
- drivers/platform/x86/Makefile                             | 2 --
- drivers/platform/x86/asus-armoury.c                       | 2 +-
- drivers/platform/x86/dell/dell-wmi-sysman/sysman.c        | 2 +-
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c              | 2 +-
- drivers/platform/x86/lenovo/think-lmi.c                   | 2 +-
- drivers/platform/x86/lenovo/wmi-other.c                   | 2 +-
- drivers/platform/x86/samsung-galaxybook.c                 | 2 +-
- .../linux/firmware_attributes.h                           | 6 +++---
- 13 files changed, 22 insertions(+), 15 deletions(-)
- rename drivers/{platform/x86 => firmware}/firmware_attributes_class.c (94%)
- rename drivers/platform/x86/firmware_attributes_class.h => include/linux/firmware_attributes.h (60%)
+ drivers/gpu/drm/drm_gem_shmem_helper.c | 20 +++++++++++++-
+ include/linux/mm.h                     |  2 ++
+ mm/memory.c                            | 36 +++++++++++++++++++++++---
+ 3 files changed, 54 insertions(+), 4 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2f9472c1a090..e6a8c271e79d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10115,6 +10115,14 @@ F:	include/linux/firewire.h
- F:	include/uapi/linux/firewire*.h
- F:	tools/firewire/
- 
-+FIRMWARE ATTRIBUTES CLASS
-+M:	Hans de Goede <hansg@kernel.org>
-+M:	Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-+L:	platform-driver-x86@vger.kernel.org
-+S:	Maintained
-+F:	drivers/firmware/firmware_attributes_class.c
-+F:	include/linux/firmware_attributes.h
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 545933c7f712..37662f6f6ed9 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -573,7 +573,25 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
+ 				 unsigned long pfn)
+ {
+ 	if (!order) {
+-		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
++		vm_fault_t ret;
 +
- FIRMWARE FRAMEWORK FOR ARMV8-A
- M:	Sudeep Holla <sudeep.holla@kernel.org>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
-diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-index 12dc70254842..78a239f8bbef 100644
---- a/drivers/firmware/Kconfig
-+++ b/drivers/firmware/Kconfig
-@@ -8,6 +8,9 @@ menu "Firmware Drivers"
- 
- source "drivers/firmware/arm_scmi/Kconfig"
- 
-+config FW_ATTR_CLASS
-+	tristate
++		/* .pfn_mkwrite enables write-notify, so vm_page_prot lacks
++		 * the write bit and a plain vmf_insert_pfn() would install
++		 * a read-only PTE even for a write fault.  Not every fault
++		 * resolver refaults into .pfn_mkwrite() to upgrade it (KVM
++		 * doesn't), so install a writable PTE and record the write
++		 * directly, like the PMD path below.
++		 */
++		if (vmf->flags & FAULT_FLAG_WRITE) {
++			ret = vmf_insert_pfn_mkwrite(vmf->vma, vmf->address,
++						     pfn);
++			if (ret == VM_FAULT_NOPAGE)
++				drm_gem_shmem_record_mkwrite(vmf);
++		} else {
++			ret = vmf_insert_pfn(vmf->vma, vmf->address, pfn);
++		}
 +
- config ARM_SCPI_PROTOCOL
- 	tristate "ARM System Control and Power Interface (SCPI) Message Protocol"
- 	depends on ARM || ARM64 || COMPILE_TEST
-diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
-index 4ddec2820c96..385b6e8b7fc6 100644
---- a/drivers/firmware/Makefile
-+++ b/drivers/firmware/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_FIRMWARE_MEMMAP)	+= memmap.o
- obj-$(CONFIG_MTK_ADSP_IPC)	+= mtk-adsp-ipc.o
- obj-$(CONFIG_RASPBERRYPI_FIRMWARE) += raspberrypi.o
- obj-$(CONFIG_FW_CFG_SYSFS)	+= qemu_fw_cfg.o
-+obj-$(CONFIG_FW_ATTR_CLASS)	+= firmware_attributes_class.o
- obj-$(CONFIG_SYSFB)		+= sysfb.o
- obj-$(CONFIG_SYSFB_SIMPLEFB)	+= sysfb_simplefb.o
- obj-$(CONFIG_TH1520_AON_PROTOCOL) += thead,th1520-aon.o
-diff --git a/drivers/platform/x86/firmware_attributes_class.c b/drivers/firmware/firmware_attributes_class.c
-similarity index 94%
-rename from drivers/platform/x86/firmware_attributes_class.c
-rename to drivers/firmware/firmware_attributes_class.c
-index 736e96c186d9..503ecc288086 100644
---- a/drivers/platform/x86/firmware_attributes_class.c
-+++ b/drivers/firmware/firmware_attributes_class.c
-@@ -3,7 +3,7 @@
- /* Firmware attributes class helper module */
++		return ret;
+ #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+ 	} else if (order == PMD_ORDER) {
+ 		unsigned long paddr = pfn << PAGE_SHIFT;
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index 80fce2515930..7b76a281bdd1 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -4551,6 +4551,8 @@ vm_fault_t vmf_insert_page_mkwrite(struct vm_fault *vmf, struct page *page,
+ 			bool write);
+ vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+ 			unsigned long pfn);
++vm_fault_t vmf_insert_pfn_mkwrite(struct vm_area_struct *vma,
++		unsigned long addr, unsigned long pfn);
+ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
+ 			unsigned long pfn, pgprot_t pgprot);
+ vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
+diff --git a/mm/memory.c b/mm/memory.c
+index 86a973119bd4..6562a0d8bb68 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -2751,8 +2751,9 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+  * Context: Process context.  May allocate using %GFP_KERNEL.
+  * Return: vm_fault_t value.
+  */
+-vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
+-			unsigned long pfn, pgprot_t pgprot)
++static vm_fault_t __vmf_insert_pfn_prot(struct vm_area_struct *vma,
++		unsigned long addr, unsigned long pfn, pgprot_t pgprot,
++		bool mkwrite)
+ {
+ 	/*
+ 	 * Technically, architectures with pte_special can avoid all these
+@@ -2774,10 +2775,39 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
  
- #include <linux/module.h>
--#include "firmware_attributes_class.h"
-+#include <linux/firmware_attributes.h>
+ 	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
  
- const struct class firmware_attributes_class = {
- 	.name = "firmware-attributes",
-diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
-index b54b5212b204..beed14c38b54 100644
---- a/drivers/platform/x86/Kconfig
-+++ b/drivers/platform/x86/Kconfig
-@@ -926,9 +926,6 @@ config DASHARO_ACPI
+-	return insert_pfn(vma, addr, pfn, pgprot, false);
++	return insert_pfn(vma, addr, pfn, pgprot, mkwrite);
++}
++
++vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
++			unsigned long pfn, pgprot_t pgprot)
++{
++	return __vmf_insert_pfn_prot(vma, addr, pfn, pgprot, false);
+ }
+ EXPORT_SYMBOL(vmf_insert_pfn_prot);
  
- source "drivers/platform/x86/x86-android-tablets/Kconfig"
- 
--config FW_ATTR_CLASS
--	tristate
--
- config INTEL_IMR
- 	bool "Intel Isolated Memory Region support"
- 	depends on X86_INTEL_QUARK && IOSF_MBI
-diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefile
-index 872ac3842391..cab20a4145e3 100644
---- a/drivers/platform/x86/Makefile
-+++ b/drivers/platform/x86/Makefile
-@@ -63,8 +63,6 @@ obj-$(CONFIG_X86_PLATFORM_DRIVERS_HP)	+= hp/
- # Hewlett Packard Enterprise
- obj-$(CONFIG_UV_SYSFS)       += uv_sysfs.o
- 
--obj-$(CONFIG_FW_ATTR_CLASS)	+= firmware_attributes_class.o
--
- # IBM Thinkpad (before 2005)
- obj-$(CONFIG_IBM_RTL)		+= ibm_rtl.o
- obj-$(CONFIG_SENSORS_HDAPS)	+= hdaps.o
-diff --git a/drivers/platform/x86/asus-armoury.c b/drivers/platform/x86/asus-armoury.c
-index f3d8c5a85762..e6af93608ec5 100644
---- a/drivers/platform/x86/asus-armoury.c
-+++ b/drivers/platform/x86/asus-armoury.c
-@@ -20,7 +20,7 @@
- #include <linux/dmi.h>
- #include <linux/err.h>
- #include <linux/errno.h>
--#include "firmware_attributes_class.h"
-+#include <linux/firmware_attributes.h>
- #include <linux/fs.h>
- #include <linux/kernel.h>
- #include <linux/kmod.h>
-diff --git a/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c b/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c
-index 4ff9003c6589..963b3473991d 100644
---- a/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c
-+++ b/drivers/platform/x86/dell/dell-wmi-sysman/sysman.c
-@@ -9,7 +9,7 @@
- 
- #include <linux/align.h>
- #include <linux/dmi.h>
--#include "../../firmware_attributes_class.h"
-+#include <linux/firmware_attributes.h>
- #include <linux/fs.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-index 1965a329be48..f13f21580acd 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-@@ -8,7 +8,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/errno.h>
--#include "../../firmware_attributes_class.h"
-+#include <linux/firmware_attributes.h>
- #include <linux/fs.h>
- #include <linux/kernel.h>
- #include <linux/module.h>
-diff --git a/drivers/platform/x86/lenovo/think-lmi.c b/drivers/platform/x86/lenovo/think-lmi.c
-index 9e4b3e973de9..4437785aa1f2 100644
---- a/drivers/platform/x86/lenovo/think-lmi.c
-+++ b/drivers/platform/x86/lenovo/think-lmi.c
-@@ -15,7 +15,7 @@
- #include <linux/array_size.h>
- #include <linux/dmi.h>
- #include <linux/errno.h>
--#include "../firmware_attributes_class.h"
-+#include <linux/firmware_attributes.h>
- #include <linux/fs.h>
- #include <linux/mutex.h>
- #include <linux/string_helpers.h>
-diff --git a/drivers/platform/x86/lenovo/wmi-other.c b/drivers/platform/x86/lenovo/wmi-other.c
-index fdebaa0a9992..b175971bb308 100644
---- a/drivers/platform/x86/lenovo/wmi-other.c
-+++ b/drivers/platform/x86/lenovo/wmi-other.c
-@@ -33,7 +33,7 @@
- #include <linux/container_of.h>
- #include <linux/device.h>
- #include <linux/export.h>
--#include "../firmware_attributes_class.h"
-+#include <linux/firmware_attributes.h>
- #include <linux/gfp_types.h>
- #include <linux/hwmon.h>
- #include <linux/idr.h>
-diff --git a/drivers/platform/x86/samsung-galaxybook.c b/drivers/platform/x86/samsung-galaxybook.c
-index 74103c00b0c8..3911f60c23ea 100644
---- a/drivers/platform/x86/samsung-galaxybook.c
-+++ b/drivers/platform/x86/samsung-galaxybook.c
-@@ -14,7 +14,7 @@
- #include <linux/acpi.h>
- #include <linux/bits.h>
- #include <linux/err.h>
--#include "firmware_attributes_class.h"
-+#include <linux/firmware_attributes.h>
- #include <linux/i8042.h>
- #include <linux/init.h>
- #include <linux/input.h>
-diff --git a/drivers/platform/x86/firmware_attributes_class.h b/include/linux/firmware_attributes.h
-similarity index 60%
-rename from drivers/platform/x86/firmware_attributes_class.h
-rename to include/linux/firmware_attributes.h
-index d27abe54fcf9..d4026ba1fcc2 100644
---- a/drivers/platform/x86/firmware_attributes_class.h
-+++ b/include/linux/firmware_attributes.h
-@@ -2,11 +2,11 @@
- 
- /* Firmware attributes class helper module */
- 
--#ifndef FW_ATTR_CLASS_H
--#define FW_ATTR_CLASS_H
-+#ifndef _LINUX_FIRMWARE_ATTRIBUTES_H
-+#define _LINUX_FIRMWARE_ATTRIBUTES_H
- 
- #include <linux/device/class.h>
- 
- extern const struct class firmware_attributes_class;
- 
--#endif /* FW_ATTR_CLASS_H */
-+#endif /* _LINUX_FIRMWARE_ATTRIBUTES_H */
++/**
++ * vmf_insert_pfn_mkwrite - insert single pfn into user vma, making it writable
++ * @vma: user vma to map to
++ * @addr: target user address of this page
++ * @pfn: source kernel pfn
++ *
++ * Similar to vmf_insert_pfn(), but the inserted PTE is made young, dirty and
++ * writable (subject to the VMA's write permission).  For use by fault
++ * handlers of write-notify VMAs (where vma->vm_page_prot has the write bit
++ * removed) that serve a write fault and do their own dirty accounting, so
++ * that a "handled" write fault always results in a writable PTE.  The
++ * VM_PFNMAP counterpart of vmf_insert_mixed_mkwrite().
++ *
++ * Context: Process context.  May allocate using %GFP_KERNEL.
++ * Return: vm_fault_t value.
++ */
++vm_fault_t vmf_insert_pfn_mkwrite(struct vm_area_struct *vma,
++		unsigned long addr, unsigned long pfn)
++{
++	return __vmf_insert_pfn_prot(vma, addr, pfn, vma->vm_page_prot, true);
++}
++EXPORT_SYMBOL(vmf_insert_pfn_mkwrite);
++
+ /**
+  * vmf_insert_pfn - insert single pfn into user vma
+  * @vma: user vma to map to
+-- 
+2.55.0
+
