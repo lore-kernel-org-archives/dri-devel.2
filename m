@@ -4,44 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52780C55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 15:35:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A485BC55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 15:36:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7F2610E177;
-	Tue,  4 Aug 2026 15:35:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A91D10EAEA;
+	Tue,  4 Aug 2026 15:36:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WuZvIrr/";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h2CQSHtx";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F81C10E177
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 15:35:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 06B5060A75;
- Tue,  4 Aug 2026 15:35:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893421F000E9;
- Tue,  4 Aug 2026 15:35:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785857743;
- bh=TYetphJNPgj8BWiAp+/mUnftps/hVL6HopV32c0/nP0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=WuZvIrr/HS2kx4qgebRfwSGMCGDPGib/hIIzGTLcsacxsSsCE9twTLOX2D6Bwm9pS
- KAH/OcBiuOecEvymaafCfEAhXD041t28HUs8WebjRgvaCfZlZliimGW93ZJ/MVxINx
- MR9/rhJGKhaNKB1dMJptvFNYx5bWeERmi58lgwaUREbTOfp7AW/VNzfs2KNhLB9iLh
- R7GeqhqDx7ICA+Y5oVi/6hj7JSdX1je3jdQlIfhWWiZSK8eWUf6lDf5v7JuwDAj+Y9
- /H1PWLasBmNOQpYt06c1ShPiWrXsoo97icTic+ebLQRsw/gA8PLhs2Ou7U4bWbX7ms
- Zud6q8c1TsymQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/4] drm/amd/display: Clean up FreeSync capability
- detection
-To: "Alex Huang" <Alex.Huang2@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260804143339.714548-4-Alex.Huang2@amd.com>
-References: <20260804143339.714548-1-Alex.Huang2@amd.com>
- <20260804143339.714548-4-Alex.Huang2@amd.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A7CA10EAEA
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 15:36:15 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-6a0cb6e96dcso4828307a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 08:36:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785857774; x=1786462574; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ksBlfHiQymAuiEvSzpwhdyj7GzYzB5CWn+8bkyQnsf0=;
+ b=h2CQSHtxLe/6RR0ALWc3sG6U3wH8CyliioDHtkdtIOSOZNlrUTrH+0GO86v10uytuk
+ ZYLDoEhyRfALWeFQmsL+Wji2yB+4EZImy8yqHALIyEhRx8SBmuz0EzML1RDaW0RU03eS
+ m7LUWlRHTJpeZSm32CqzVxeoGruVDme4DPeSNZb/ceF2TON4rt3SFnV+NHGvi6Zx6dr0
+ FLgagydZWQs2O6tt7YluOXusaOQWUqP6hy+aK+vFABT2qEz12n/0xoqs4h00gng/HimZ
+ GaCHnirG19HfK9pPXhaJ95cv6Wwufkm8zCtZATfMcTq6HP8AcepYg2MziiwKfojJyaDV
+ bmdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785857774; x=1786462574;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ksBlfHiQymAuiEvSzpwhdyj7GzYzB5CWn+8bkyQnsf0=;
+ b=DXcJ5f/zLgZ6zTOAt34smGiUIpJpmbHRciCtpt1uvVR/7X0F7edDVfyE6aYMOk7ylu
+ pG//wM+ftKPDS9iBquhie8KTFmUmUMjLND2/0pd/a9IidOyMLAmvo0285WgLl8HN8D4K
+ fGn0BUiw8tr5DnvJ5zcAW8qmcUhn7VV7PybMUPv1qdNj9p9gYzS87yyWQcSZfU1T2K2z
+ r5buiJOF4Eeb87w4tNNe7Cn/4C4LITKabop/JRzHqfuHYzKm5JsHjaRH8knNmPo9ZDfB
+ Lrp1vg3FOrPjWW9EfDSw2NvdfQdn6aE8zIlnsKLR50C9AaYWGDn19gbKLtEb+6vzcCwz
+ nURw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpniri1tBQ32r3D+6BhNNg3cN7g07N3h/BlxoJBYBHtuklG3riQ2kZYdavyGgpBrqvH/LhfX8gq41c=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxlQyULX7fxeCCxmbcr1YN/aOISfaFd7RzYnEmoxZirz84TPyqn
+ LtQlWnRY98bPqOy6kQ+JENqsSbPki216woPNyg9W+lN5Sbi0ux5uItJw
+X-Gm-Gg: AR+sD12pj8VdJOrr8GgccFRJSL6e2ZigfGC4PGnYjo7S3eLCdvVdf7oBfY1uvdgAKKZ
+ 24gmFs4C/PB+rR1h8YfeRjQtJit4sJqdYM6QpsMvaolTCv5y8ZPlRpXI05mgNfbJGfqnVMYfbSx
+ leiSs4HTdNpQiZ/7NcRikrUsuAi5VmQkaOVOKpLWjOTvoWtOW7pV3YruDph1owyrDGNUIjIN3jf
+ AXLlVhAU6ZRRGu23tXTCXecHHIP/3/qwhIgVz847AfJ/kYHUmWluqfqofAtgBef4So0Cp+ZX/Do
+ 2KG3cfMwgEhHpdvXkPhqE6M40kd5Y067tdMAdpeaFvNB2zO1ajDUIf5B4tC5Pr4E8Y/uJu8kV1c
+ sYlUoVrtwCzM7kw8zvk4n3vrr30mZOBfeR/Xs3xqFU2FYHYf3Jnn/Ii3/m0EG4m6FuP6g3qLITf
+ KIGhIWAz9rNFaf+ZHP2Yepuj0KU91YvtjVSnEsmwJ+7bLHVbfCA8yhEGZRopAeN/l20wBPyXrf3
+ ouHkfV2VqSskFyZBBySk8hcjAZ+dD6L4AzH
+X-Received: by 2002:a05:6402:4541:b0:6a0:a505:1b54 with SMTP id
+ 4fb4d7f45d1cf-6a0a7ca981bmr10891559a12.16.1785857773324; 
+ Tue, 04 Aug 2026 08:36:13 -0700 (PDT)
+Received: from timur-hyperion.localnet (5401D2B5.dsl.pool.telekom.hu.
+ [84.1.210.181]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6a1462c4f8fsm265025a12.29.2026.08.04.08.36.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Aug 2026 08:36:11 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Michal =?UTF-8?B?S291dG7DvQ==?= <mkoutny@suse.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Natalie Vock <natalie.vock@gmx.de>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Subject: Re: [PATCH v8 0/6] cgroup/dmem,
+ drm/ttm: Improve protection in contended cases
+Date: Tue, 04 Aug 2026 17:36:07 +0200
+Message-ID: <lpofhPXuQVOAKGLqOkO7sA@gmail.com>
+In-Reply-To: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
+References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
+MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 15:35:42 +0000
-Message-Id: <20260804153543.893421F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,95 +99,171 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing fallback to EDID monitor range when an AMD VSDB is present=
- but does not advertise FreeSync support, breaking VRR on DP/eDP displays.
---
+On Tuesday, August 4, 2026 10:25:15=E2=80=AFAM Central European Summer Time=
+ Natalie=20
+Vock wrote:
+> Hi all,
+>=20
+> I've been looking into some cases where dmem protection fails to prevent
+> allocations from ending up in GTT when VRAM gets scarce and apps start
+> competing hard.
+>=20
+> In short, this is because other (unprotected) applications end up
+> filling VRAM before protected applications do. This causes TTM to back
+> off and try allocating in GTT before anything else, and that is where
+> the allocation is placed in the end. The existing eviction protection
+> cannot prevent this, because no attempt at evicting is ever made
+> (although you could consider the backing-off as an immediate eviction to
+> GTT).
+>=20
+> This series tries to alleviate this by adding a special case when the
+> allocation is protected by cgroups: Instead of backing off immediately,
+> TTM will try evicting unprotected buffers from the domain to make space
+> for the protected one. This ensures that applications can actually use
+> all the memory protection awarded to them by the system, without being
+> prone to ping-ponging (only protected allocations can evict unprotected
+> ones, never the other way around).
+>=20
+> The first two patches just add a few small utilities needed to implement
+> this to the dmem controller. The other patches are the TTM implementation:
+>=20
+> "drm/ttm: Be more aggressive..." decouples cgroup charging from resource
+> allocation to allow us to hold on to the charge even if allocation fails
+> on first try, and adds a path to call ttm_bo_evict_alloc when the
+> charged allocation falls within min/low protection limits.
+>=20
+> "drm/ttm: Use common ancestor..." is a more general improvement in
+> correctly implementing cgroup protection semantics. With recursive
+> protection rules, unused memory protection afforded to a parent node is
+> transferred to children recursively, which helps protect entire
+> subtrees from stealing each others' memory without needing to protect
+> each cgroup individually. This doesn't apply when considering direct
+> siblings inside the same subtree, so in order to not break
+> prioritization between these siblings, we need to consider the
+> relationship of evictor and evictee when calculating protection.
+> In practice, this fixes cases where a protected cgroup cannot steal
+> memory from unprotected siblings (which, in turn, leads to eviction
+> failures and new allocations being placed in GTT).
+>=20
+> Thanks,
+> Natalie
+>=20
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
 
---- Patch [3]: [PATCH v3 3/4] drm/amd/display: Clean up FreeSync capability=
- detection ---
-commit 54e384ef3776414446c8d6bb002d768a87198a34
-Author: Alex Huang <Alex.Huang2@amd.com>
+Very nice work!
 
-drm/amd/display: Clean up FreeSync capability detection
+Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
 
-This commit refactors FreeSync capability detection in the amdgpu_dm driver.
-It extracts duplicate code for reading the AMD VSDB and sets up the connect=
-or
-fields outside of the specific display interface branches. It also falls ba=
-ck
-to the monitor_range data if the VSDB is not present.
+for the whole series.
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
-gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 44b8dd000f5ca..6d83e9a425377 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-[ ... ]
-> @@ -13766,63 +13766,57 @@ void amdgpu_dm_update_freesync_caps(struct drm_=
-connector *connector,
->  	     connector->display_info.monitor_range.max_vfreq =3D=3D 0))
->  		parse_edid_displayid_vrr(connector, edid);
-> =20
-> -	if (edid && (sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT ||
-> -		     sink->sink_signal =3D=3D SIGNAL_TYPE_EDP)) {
-> -		if (amdgpu_dm_connector->dc_link &&
-> -		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_p=
-aram) {
-> -			amdgpu_dm_connector->min_vfreq =3D connector->display_info.monitor_ra=
-nge.min_vfreq;
-> -			amdgpu_dm_connector->max_vfreq =3D connector->display_info.monitor_ra=
-nge.max_vfreq;
-> -			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq >=
- 10)
-> -				freesync_capable =3D true;
-> +	has_vsdb =3D get_amd_vsdb(amdgpu_dm_connector, &vsdb_info) !=3D 0;
-> +
-> +	if (has_vsdb) {
-> +		amdgpu_dm_connector->vsdb_info =3D vsdb_info;
-> +
-> +		/* copy refresh rate info as long as VSDB advertises FreeSync */
-> +		if (vsdb_info.freesync_supported) {
-> +			amdgpu_dm_connector->min_vfreq =3D vsdb_info.min_refresh_rate_hz;
-> +			amdgpu_dm_connector->max_vfreq =3D vsdb_info.max_refresh_rate_hz;
-> +
-> +			connector->display_info.monitor_range.min_vfreq =3D
-> +				vsdb_info.min_refresh_rate_hz;
-> +			connector->display_info.monitor_range.max_vfreq =3D
-> +				vsdb_info.max_refresh_rate_hz;
->  		}
-> +	} else {
-> +		/* fall back to the base EDID range when there is no VSDB */
-> +		amdgpu_dm_connector->min_vfreq =3D connector->display_info.monitor_ran=
-ge.min_vfreq;
-> +		amdgpu_dm_connector->max_vfreq =3D connector->display_info.monitor_ran=
-ge.max_vfreq;
-> +	}
+> ---
+> Changes in v8:
+> - Fix a few Sashiko complaints
+> - Link to v7:
+> https://patch.msgid.link/20260721-dmemcg-aggressive-protect-v7-0-97c4b101=
+43
+> 15@gmx.de
+>=20
+> Changes in v7:
+> - Fix incorrect refcounting/locking around dmem_cgroup_common_ancestor
+>   (Cascardo)
+> - Rebase on latest drm-misc-next
+> - Link to v6:
+> https://lore.kernel.org/r/20260313-dmemcg-aggressive-protect-v6-0-7c71cc1=
+49
+> 2db@gmx.de
+>=20
+> Changes in v6:
+> - Rename dmem_cgroup_common_ancestor to dmem_cgroup_get_common_ancestor
+>   (Maarten)
+> - Use ttm_bo_alloc_at_place in eviction cb as well (Tvrtko)
+> - Clean up the more aggressive eviction logic (Tvrtko)
+> - Link to v5:
+> https://lore.kernel.org/r/20260302-dmemcg-aggressive-protect-v5-0-ffd3a26=
+02
+> 309@gmx.de
+>=20
+> Changes in v5:
+> - Added cgroup_common_ancestor helper to use with
+>   dmem_cgroup_common_ancestor (Tejun)
+> - Note: "drm/ttm: Use common ancestor..." needed minor changes since
+>   dmem_cgroup_common_ancestor now grabs a reference to the ancestor
+>   pool which needs to be dropped after use
+> - Removed extraneous whitespaces in "drm/ttm: Split cgroup charge..."
+>   and unnecessary changes done in "drm/ttm: Extract code..." (Tvrtko)
+> - Applied a comment from v3 about below_low not needing to be
+>   initialized in "drm/ttm: Be more aggressive..." (Tvrtko)
+> - Fixed uncharging the cgroup on allocation failure (Tvrtko)
+> - Fixed a typo in the message of "drm/ttm: Split cgroup charge..."
+>   (Tvrtko)
+> - Added case in ttm_bo_evict_cb for when charging fails, since we need
+>   to retry the charge (found myself)
+> - Link to v4:
+> https://lore.kernel.org/r/20260225-dmemcg-aggressive-protect-v4-0-de847ab=
+35
+> 184@gmx.de
+>=20
+> Changes in v4:
+> - Split cgroup charge decoupling and eviction logic changes into
+>   separate commits (Tvrtko)
+> - Fix two cases of errno handling in ttm_bo_alloc_place and its caller
+>   (Tvrtko)
+> - Improve commit message/description of "drm/ttm: Make a helper..." (now
+>   "drm/ttm: Extract code...") (Tvrtko)
+> - Documentation improvements for new TTM eviction logic (Tvrtko)
+> - Formatting fixes (Tvrtko)
+> - Link to v3:
+> https://lore.kernel.org/r/20251110-dmemcg-aggressive-protect-v3-0-219ffcf=
+c5
+> 4e9@gmx.de
+>=20
+> Changes in v3:
+> - Improved documentation around cgroup queries and TTM eviction helpers
+>   (Maarten)
+> - Fixed up ttm_alloc_at_place charge failure logic to return either
+>   -EBUSY or -ENOSPC, not -EAGAIN (found this myself)
+> - Link to v2:
+> https://lore.kernel.org/r/20251015-dmemcg-aggressive-protect-v2-0-36644fb=
+4e
+> 37f@gmx.de
+>=20
+> Changes in v2:
+> - Factored out the ttm logic for charging/allocating/evicting into a
+>   separate helper to keep things simpler
+> - Link to v1:
+> https://lore.kernel.org/r/20250915-dmemcg-aggressive-protect-v1-0-2f3353b=
+fc
+> dac@gmx.de
+>=20
+> ---
+> Natalie Vock (6):
+>       cgroup/dmem: Add queries for protection values
+>       cgroup,cgroup/dmem: Add (dmem_)cgroup_common_ancestor helper
+>       drm/ttm: Extract code for attempting allocation in a place
+>       drm/ttm: Split cgroup charge and resource allocation
+>       drm/ttm: Be more aggressive when allocating below protection limit
+>       drm/ttm: Use common ancestor of evictor and evictee as limit pool
+>=20
+>  drivers/gpu/drm/ttm/ttm_bo.c       | 223
+> ++++++++++++++++++++++++++++++++----- drivers/gpu/drm/ttm/ttm_resource.c =
+|=20
+> 51 ++++++---
+>  include/drm/ttm/ttm_resource.h     |   6 +-
+>  include/linux/cgroup.h             |  21 ++++
+>  include/linux/cgroup_dmem.h        |  25 +++++
+>  kernel/cgroup/dmem.c               | 103 +++++++++++++++++
+>  6 files changed, 383 insertions(+), 46 deletions(-)
+> ---
+> base-commit: 44e9eb5a762142a4aa46c0b5da7c39bfeb78910e
+> change-id: 20250915-dmemcg-aggressive-protect-5cf37f717cdb
+>=20
+> Best regards,
+> --
+> Natalie Vock <natalie.vock@gmx.de>
 
-[Severity: High]
-Does this code inadvertently drop the EDID monitor range fallback when an A=
-MD
-VSDB is present but does not support FreeSync?
 
-Looking at amdgpu_dm_update_freesync_caps(), if has_vsdb is true but
-vsdb_info.freesync_supported is false, the code skips updating the frequency
-limits in the if block.
 
-Because has_vsdb is true, the else block is also bypassed, leaving
-amdgpu_dm_connector->min_vfreq and max_vfreq at their default zero values.
 
-Would this cause the subsequent VRR capability check=20
-max_vfreq - min_vfreq > 10 to fail, disabling FreeSync on DP/eDP displays?
-
-Should the EDID fallback assignment be applied whenever
-!vsdb_info.freesync_supported, rather than only when the VSDB is entirely
-absent?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804143339.7145=
-48-1-Alex.Huang2@amd.com?part=3D3
