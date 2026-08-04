@@ -4,45 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C5C7C55ABA
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 21:09:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB964C561E6
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 21:15:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 80D8110EBDC;
-	Tue,  4 Aug 2026 21:09:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 587AD10E2F3;
+	Tue,  4 Aug 2026 21:15:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pu9rBH1k";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="Sfz9oeaV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 81E2110EBDC
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 21:09:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 359CB4398D;
- Tue,  4 Aug 2026 21:09:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C979F1F000E9;
- Tue,  4 Aug 2026 21:09:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785877776;
- bh=QEoNqKl434OcZ9ol7VN+iY+WCGKC5wklOthnlL5AtoA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Pu9rBH1kiEntXN6r6rePk7bmacoaz7MXBGqkCHADxeTUiYczwKuM7jM4AE+u79+hf
- 3OlYlDvFFXR0jZzkd2XeDfljEouqPRAeZs4qm0J3Sq3NsQOzzCNlUkOIXX2u7ZAp88
- S6eszK+cD3HULtRp3L0bAwV762mtLwfFDV0Bz04E5cm3WscU+GssOjFcGZVD1AqtPp
- kW9Lw5P+hLiJHnsWK6U8MO6Xse3e9UzXZ5Z61X4EDauvSwPGwSMi14n1v2SVy/JPN+
- JxGhTKSddZ+TMXw9c4rYtY+dTvrSEHSvu1Hkb+5xnH4RyDgyd+XuPLRO27ns+R0Qrr
- kLvmsHqTWY8og==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/6] video: logo: allow the boot logo to come from
- the device tree
-To: "Max Pedraza" <maximpedraza@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260804225617.264861-3-maximpedraza@gmail.com>
-References: <20260804225617.264861-1-maximpedraza@gmail.com>
- <20260804225617.264861-3-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 21:09:35 +0000
-Message-Id: <20260804210935.C979F1F000E9@smtp.kernel.org>
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
+ [209.85.216.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B95C10E4F4
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 21:15:43 +0000 (UTC)
+Received: by mail-pj1-f71.google.com with SMTP id
+ 98e67ed59e1d1-38e22137fb3so331503a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 14:15:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1785878143; x=1786482943;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rHQOfCFF6yaKH9HqGSLDO98Dtf8szKrkpDeyDbaXUEA=;
+ b=Sfz9oeaVfuZvamsASosEu1jgtrFLYHOouPmDQiznzlPCDRQvXo+IwXlhbn8SfZnCWK
+ 8t8aIMCnaJPPY2xeFAls9V1bgCarjpZ0IGG5XuPUINpOUb1Fz5JkQYS2Bvzw++TVBOhL
+ 2AmHH+gPv7iZ1TW4m43RRpiGpe7BJ3B/6/csKwBP8iUAWIvU/ntAO2Qhab9bfpfaU+J3
+ fvlyTNHAzp0zqE0NXZpDm+kodxWMQuOjNiXDzHYnhQdwcSnhkP3s9c5fynUlU0I6B86y
+ 3TU2PGHfJP+dAy0NNjXFGSuePXa0F5bm8NKE3qA9qD0vf8DGagAbv4V6yz6rQM+ASSbw
+ 6XnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785878143; x=1786482943;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rHQOfCFF6yaKH9HqGSLDO98Dtf8szKrkpDeyDbaXUEA=;
+ b=MQrRNBZxqGyINThCLnNQWeSf6gZ2ZvnkovBFJhknyxdthrMMlIbbWeF4gYgf6XbD/K
+ eCRozmaraoIeVAoLpFbGhZkBPo+B5LsqR/e8TeV420mo+mqLPlIsqMchiFl/LYA9xQOU
+ MtzDJDJ64INJlspUBm/tlVIEclsIr/HDgh0GFEjVofkawjOxnNLKEq6nD0o1GCQgOfOA
+ t/o9pqj/VXYRI2XtCRKTG3JPrdLos6drVSmTVcNQDpnRcYlvuKtdAGkLl6Ngrb3tPkt/
+ pIcAhr2zSeXF3aNniIsUayObZImcrSVvljbAws05k0K8GxmW7xEeDrBM/K9esDBo+2dK
+ vc8Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq5e+VqotHQRAqfoN7s8nKdOm2PhBQqEzLy+blT4UugGz5VjCfK+91YcF/OQXWNSI8MvRdGHg3r96g=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyAN8t30DSrvTHBbmgGKPU8MquOpyQOv22xufavnDAjTH9hsEE1
+ sOUkwVVFw3prhIfaFOLmzuAZN/CY6q/8imiW3/FIDZV0OnWyb+E9wn5amyiPH/D5CQ9UJdYH57x
+ QIawrGw==
+X-Received: from pjot9.prod.google.com ([2002:a17:90a:9509:b0:38e:1db:751c])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:540e:b0:38e:6a30:4bbc
+ with SMTP id 98e67ed59e1d1-3903c681346mr1785320a91.21.1785878142058; Tue, 04
+ Aug 2026 14:15:42 -0700 (PDT)
+Date: Tue, 4 Aug 2026 14:15:41 -0700
+In-Reply-To: <20260804120529.1730187-5-pbonzini@redhat.com>
+Mime-Version: 1.0
+References: <20260804120529.1730187-1-pbonzini@redhat.com>
+ <20260804120529.1730187-5-pbonzini@redhat.com>
+Message-ID: <anJWfesPj1C8fzFr@google.com>
+Subject: Re: [PATCH v2 4/6] kvm: apply VM_READ/VM_WRITE checks to all VMA types
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+ Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ David Hildenbrand <david@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Fei Li <fei1.li@intel.com>, Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, 
+ linux-s390@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Sergio Lopez <slp@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,152 +85,117 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Premature freeing of device tree boot logo memory creates a race c=
-ondition with asynchronous framebuffer probes, leading to a NULL pointer de=
-reference.
-- [Medium] Unbounded kmalloc() allocation for device tree boot logo trigger=
-s a kernel warning and fails for sizes exceeding KMALLOC_MAX_SIZE.
-- [Medium] Silent fallback to searching the device tree root node if the /c=
-hosen node does not exist.
---
+KVM:
 
---- Patch [2]: [PATCH v2 2/6] video: logo: allow the boot logo to come from=
- the device tree ---
-commit f460a2fda249375abd332c49e9ef32c7cd3a3f7b
-Author: Max Pedraza <maximpedraza@gmail.com>
-
-video: logo: allow the boot logo to come from the device tree
-
-Add CONFIG_LOGO_DT_CLUT224, which makes fb_find_logo() look for a node
-compatible with "linux,boot-logo-clut224" under /chosen before falling
-back to the logos built into the kernel image.
-
-> diff --git a/drivers/video/logo/logo.c b/drivers/video/logo/logo.c
-> index 91535f8848da9..7f8b04ecfa987 100644
-> --- a/drivers/video/logo/logo.c
-> +++ b/drivers/video/logo/logo.c
-
-[ ... ]
-
-> +static int logo_dt_parse(struct device_node *np)
-> +{
-> +	unsigned int clutsize, npixels, i;
-> +	unsigned char *clut, *data;
-> +	u32 width, height;
-> +	int len, ret;
-> +
-> +	ret =3D of_property_read_u32(np, "width", &width);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D of_property_read_u32(np, "height", &height);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!width || !height || (u64)width * height > LOGO_DT_MAX_PIXELS)
-> +		return -EINVAL;
-> +
-> +	npixels =3D width * height;
-> +
-> +	len =3D of_property_count_u8_elems(np, "clut");
-> +	if (len < 3 || len % 3)
-> +		return -EINVAL;
-> +
-> +	clutsize =3D len / 3;
-> +	if (clutsize > LOGO_DT_MAX_CLUT)
-> +		return -EINVAL;
-> +
-> +	ret =3D of_property_count_u8_elems(np, "data");
-> +	if (ret < 0)
-> +		return ret;
-> +	if ((unsigned int)ret !=3D npixels)
-> +		return -EINVAL;
-> +
-> +	clut =3D kmalloc(len, GFP_KERNEL);
-> +	if (!clut)
-> +		return -ENOMEM;
-> +
-> +	data =3D kmalloc(npixels, GFP_KERNEL);
-
-[Severity: Medium]
-Could this allocation trigger a kernel warning (WARN_ON_ONCE_GFP) and fail =
-if
-the device tree provides a valid boot logo larger than KMALLOC_MAX_SIZE?
-LOGO_DT_MAX_PIXELS is 32MB, but kmalloc() without __GFP_NOWARN will warn if
-it exceeds the maximum contiguous allocation size. Does this code need to u=
-se
-kvmalloc() instead, or restrict the size limit to KMALLOC_MAX_SIZE?
-
-> +	if (!data) {
-> +		ret =3D -ENOMEM;
-> +		goto err_free_clut;
-> +	}
-> +
-> +	ret =3D of_property_read_u8_array(np, "clut", clut, len);
-
-[ ... ]
-
-> +static const struct linux_logo *logo_dt_find(void)
-> +{
-> +	static bool probed;
-> +	struct device_node *np;
-> +	int ret;
-> +
-> +	if (probed)
-> +		return logo_dt_data ? &logo_dt_clut224 : NULL;
-> +
-> +	probed =3D true;
-> +
-> +	np =3D of_get_compatible_child(of_chosen, LOGO_DT_COMPATIBLE);
-
-[Severity: Medium]
-If the device tree lacks a /chosen node, of_chosen will be NULL. In that
-scenario, wouldn't of_get_compatible_child() silently fall back to iterating
-the children of the root node (of_root)? This seems to bypass the strict
-constraint mentioned in the commit message that the node must be located un=
-der
-/chosen.
-
-> +	if (!np)
-> +		return NULL;
-> +
-> +	if (of_device_is_available(np)) {
-> +		ret =3D logo_dt_parse(np);
-> +		if (ret)
-> +			pr_warn("logo: ignoring malformed %pOF node (%d)\n",
-> +				np, ret);
-> +	}
-> +
-> +	of_node_put(np);
-
-[ ... ]
-
-> @@ -32,6 +184,7 @@ static bool logos_freed;
->  static int __init fb_logo_late_init(void)
->  {
->  	logos_freed =3D true;
-> +	logo_dt_free();
-
-[Severity: High]
-Can this introduce a race condition resulting in a NULL pointer dereference
-or use-after-free for framebuffer drivers that use async probing?
-
-fb_logo_late_init() executes as a late_initcall_sync during do_initcalls(),
-which happens before async_synchronize_full() guarantees async probes are
-complete. If an async probe caches the logo pointer via fb_find_logo(), and
-then fb_logo_late_init() frees the memory and clears the pointers, the async
-probe might dereference the freed memory later in fb_show_logo().
-
->  	return 0;
+On Tue, Aug 04, 2026, Paolo Bonzini wrote:
+> The VM_READ and VM_WRITE flags are checked only at the very end of
+> hva_to_pfn().  For both the hva_to_pfn_remapped() case and for regular
+> mappings, this adds unnecessary cases and inconsistent error behavior.
+> 
+> For hva_to_pfn_remapped(), the code is relying on fixup_user_fault() to
+> detect this situation.  This is fragile because hva_to_pfn_remapped()
+> returns different error codes for a !VM_WRITE VMA depending on whether
+> the PTE happens to be mapped:
+> 
+> * if the PTE is present, follow_pfnmap_start() sets args.writable to
+>   false and KVM_PFN_ERR_RO_FAULT is returned;
+> 
+> * if no PTE is present, fixup_user_fault(FAULT_FLAG_WRITE) returns
+>   -EFAULT after checking vma_permits_fault(), and hva_to_pfn() ends
+>   up returning KVM_PFN_ERR_FAULT.
+> 
+> With this patch KVM_PFN_ERR_RO_FAULT is returned uniformly.  Likewise,
+> a PROT_NONE pfnmap VMA would be mapped into the guest if the PTE was
+> pte_present()[1] when the guest attempted to read it; with the patch
+> instead KVM uniformly returns KVM_PFN_ERR_FAULT.  Doing the check early
+> avoids these special cases and also sidesteps the issue pointed out at
+> https://sashiko.dev/#/patchset/20260731160514.1101989-1-pbonzini%40redhat.com.
+> 
+> For regular mappings a PROT_READ VMA, if placed in a writable memslot,
+> would return KVM_PFN_ERR_FAULT instead of KVM_PFN_ERR_RO_FAULT when
+> the guest writes to it.  This would cause a -EFAULT exit to userspace,
+> instead of triggering emulation as the VM_IO|VM_PFNMAP arm would do;
+> however it should be considered part of the KVM API because mmu_stress_test
+> relies on it.
+> 
+> Still, even with this snag about the returned pfn error code, pull the
+> vm_flags checks in front so that they are done for all VMAs and the
+> above inconsistency goes away for the VM_IO|VM_PFNMAP case.
+> 
+> [1] on x86, for example, such a page would have _PAGE_PRESENT clear
+>   but _PAGE_PROTNONE set
+> 
+> Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
+>  virt/kvm/kvm_main.c | 34 ++++++++++++++++------------------
+>  1 file changed, 16 insertions(+), 18 deletions(-)
+> 
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index 45e784462ec6..576bcb21be3a 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+> @@ -2925,17 +2925,6 @@ static int hva_to_pfn_slow(struct kvm_follow_pfn *kfp, kvm_pfn_t *pfn)
+>  	return npages;
 >  }
->
+>  
+> -static bool vma_is_valid(struct vm_area_struct *vma, bool write_fault)
+> -{
+> -	if (unlikely(!(vma->vm_flags & VM_READ)))
+> -		return false;
+> -
+> -	if (write_fault && (unlikely(!(vma->vm_flags & VM_WRITE))))
+> -		return false;
+> -
+> -	return true;
+> -}
+> -
+>  static int hva_to_pfn_remapped(struct vm_area_struct *vma,
+>  			       struct kvm_follow_pfn *kfp, kvm_pfn_t *p_pfn)
+>  {
+> @@ -3008,20 +2997,29 @@ kvm_pfn_t hva_to_pfn(struct kvm_follow_pfn *kfp)
+>  retry:
+>  	vma = vma_lookup(current->mm, kfp->hva);
+>  
+> -	if (vma == NULL)
+> +	/*
+> +	 * GUP failed.  It could be an inaccessible mapping, a pfnmap one,
+> +	 * or the page might be absent.
+> +	 */
+> +
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804225617.2648=
-61-1-maximpedraza@gmail.com?part=3D2
+Unnecessary newline, IMO.
+
+> +	if (vma == NULL || unlikely(!(vma->vm_flags & VM_READ))) {
+>  		pfn = KVM_PFN_ERR_FAULT;
+> -	else if (vma->vm_flags & (VM_IO | VM_PFNMAP)) {
+> +	} else if ((kfp->flags & FOLL_WRITE) && unlikely(!(vma->vm_flags & VM_WRITE))) {
+> +		/*
+> +		 * Exit to userspace for PROT_READ mappings in a writable
+> +		 * memslot, as this is part of the API.
+
+Can we say something along the lines of "for backwards compatibility" instead
+of saying this is part of the API?  Because that's definitely not KVM's documented
+API, and we're hoping it's not part of KVM's undocumented API either.
+
+> +		 */
+> +		pfn = vma->vm_flags & (VM_IO | VM_PFNMAP) ? KVM_PFN_ERR_RO_FAULT :
+> +			KVM_PFN_ERR_FAULT;
+
+Please align the two branches of the ternary operators:
+
+		pfn = vma->vm_flags & (VM_IO | VM_PFNMAP) ? KVM_PFN_ERR_RO_FAULT :
+							    KVM_PFN_ERR_FAULT;
+	} else if (vma->vm_flags & (VM_IO | VM_PFNMAP)) {
+		r = hva_to_pfn_remapped(vma, kfp, &pfn);
+		if (r == -EAGAIN)
+			goto retry;
+		if (r < 0)
+			pfn = KVM_PFN_ERR_FAULT;
+	} else {
+		pfn = kfp->flags & FOLL_NOWAIT ? KVM_PFN_ERR_NEEDS_IO :
+						 KVM_PFN_ERR_FAULT;
