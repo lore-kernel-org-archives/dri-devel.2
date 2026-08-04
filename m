@@ -4,88 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 338DAC55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:24:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23E05C561E6
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:24:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8ADC10ED3C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 935C710ED3A;
 	Wed,  5 Aug 2026 07:24:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ISz4aaTC";
+	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="YuL9mR3P";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DDEE10ECA8
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 05:02:34 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-ca5b707b78aso61323a12.0
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 22:02:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785906154; cv=none;
- d=google.com; s=arc-20260327;
- b=piRa7MFz8jDJDMT52eQumscFCuYZnyjHkaBTlEIuD20THTMWRGzDVC6WQsnmb4MKXd
- 9ftsUKF5X8dFpxkLmEnWiWM6ddCCmzGn33YViFOeZSdWqQpsiirRsdUlD4QYrzsSV3vn
- iNhGHAco+rVQU+eiuOeuYuocHS9oXYcDxseNK22qj13WHwPuL7pQyUF5hlzCaPURbNSM
- O4g+vUuL65ehl2ntBkroEXXq8g49KOvZMVdACS9TR4D7CGm0/29VLFXbkkcLyV3YmzdY
- VV521CH6WB534ODsbnqbT/DujSzqLP51617bg/RVGp2G5OxRjIZOoTFaf+MFh/8lQ1q7
- Z/aw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=IfMuWOWMqjMkwepOgGFeNztuOZSjc/0X5JOkM+uzAG8=;
- fh=k/F8ZUs98yyuuLuY20tjB9kfzzspqzCTzcERBC1xEhg=;
- b=DoPxj27+XkeHF/s+eJqttMeLCRxVXaQX/wRbZLV1sXFq/CvdGHpx+5ueKykp8W58ex
- Ff0//k3XrbXZZjjUe26vmjCgfHcsDvFF69wUn6VVFc8th4YNqYjxTcmsPEuuyh6xSkv4
- 9d+ZqRBQ9DajSJWUlubrxqwCY2kd7LX3WbX7R/+GSwAsIxMA8/PmPv4Jqru5WZRkXu0y
- XHMYnMycoea78bXtTDfTGl1UVFjM38fqzntLRdSJ2qkdfSPLWPVir69CbLWcugMD3rjg
- lOoHZ/fOfVu2qItA4WDsDwj1vT8Tp4UjhoUzDPqPe/mzCDcXITz8+9ndoVIWJIYJGsdP
- sl+Q==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785906154; x=1786510954; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=IfMuWOWMqjMkwepOgGFeNztuOZSjc/0X5JOkM+uzAG8=;
- b=ISz4aaTChyak2CNJZEVpIrUJoi9h/PVqDo3MiLbG1EU208deZs+3tgxIXVkSloQl8N
- AHd0+k0qIfv1oFD8Z0Fl4ZtekEA4Pj2XMPW2bmChmsL6Hq+k464J87n7XY83MS8AtQuH
- bJVXmDtvZIm4PMumMtnw7OrAXGKBgKtqUY9Xk83/pUhyHF+Lw492sk3xuD5oDXRO5Kem
- RuHpM1wpuprzgarOmifAqhAZYr7v6ZVmkjQs0ZH1UY0GY7cr17uIolb8tP7+f0O6YwVe
- 9Y2HFnVEfax7VM3+MKu8MqAcOclKJhKWOhxL2//dIN/uLqLKM/qmlgRWepyASjIUcB5Q
- DOmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785906154; x=1786510954;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=IfMuWOWMqjMkwepOgGFeNztuOZSjc/0X5JOkM+uzAG8=;
- b=mVTUNVAHJUu/ugmNyaV/j9Icbrl4trZqsLND26jLLGHd/NgjQihZ6uX0+35cfJbiQ4
- JQa9MGNPbJ4yQUiN1s/YU7ez5mW3kV/Odruj2/h2y/b0eCQd/KZYnZOuec2mYU/Yuu0E
- yZ4kSVzk1YOZSp5pUPGW3SDx4S40O0fpYMt1Womln723CuP0sKrpygaS3tCmwd8CFJkz
- jKZwmp/naJxSLRbH8Gz/fC6HeQdsP68HGdkac5AVYEKtRBe7sZ2epLKC0+E0cee4UqQq
- az6V9Suy/wQi6CHnMfx+y+z4Z+t34Ek/YpGd+ImmJv79+VsTPgsIghTDa9Ucsv1GjaOH
- APoA==
-X-Gm-Message-State: AOJu0YyfJfC70eHgVW3vPDCP3mZTimD41Qk6kgJQLowoAQr1oaMex7/K
- PiW2ltVVyLdacdrvEiTk3c1y38VAckGKA4sM2W5kC8cxB+PPVZfri4jXgr0TD+yKCBszsK2xztv
- xcvuUUuYOWlTTZZiO1LE6p8j0cF1XfRTzBQ==
-X-Gm-Gg: AR+sD11nYErjrRtN+kfbllqZ8qmJR9XZTblkAtahEFv+nFJ3fFUjN1od4Jn/3XQC4WV
- l4pfTEBU9/Aql/0/HD5CuOmj4PvSIPUkAj2mPnUd5JgGpcGM5ngoTHYWMYBFjIccZkGfYKze3TZ
- 9c2wszP+ZavaIsmlez9yE5fXF8urCwHiP/syIHOiVosCTvspOUDatAzCmRM0cidlEUL988SIKAO
- N1g3hDnbtzOf3vPNpJFrARUW10929F784bsxRho208dCWxeXGb8oraEk8fz6pf57t52dGATQtqQ
- wjefThPH0Dqwat8NVdhZCa623R7U8nP1FYH3A1zj4AQuJJtXs55NKQ67lMQXa5OE5wZSGBzbqdc
- ApcDdaGTr805l7LDE2gyzFsKgnWdxgmqEJbBLLHbVo+7c4g==
-X-Received: by 2002:a05:6a20:6f02:b0:3c3:bbe6:95db with SMTP id
- adf61e73a8af0-3cb85e2babemr3736704637.1.1785906153753; Tue, 04 Aug 2026
- 22:02:33 -0700 (PDT)
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 855DD10E89D
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 07:29:15 +0000 (UTC)
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+ by mailout4.samsung.com (KnoxPortal) with ESMTP id
+ 20260804072913epoutp046329ac981ab51827de1a5cd2423be8cf~IiZuL-dxR3078330783epoutp04V
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 07:29:13 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
+ 20260804072913epoutp046329ac981ab51827de1a5cd2423be8cf~IiZuL-dxR3078330783epoutp04V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1785828553;
+ bh=oq3WXJu/SsF/yYJkxmJpNIikAfWrsHK6PFkUbOrSyxQ=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=YuL9mR3PGb2opeFZiYN0zNin1lKqXZc/cCNGngvIs07OjuKhr0shXabI7kR3ToXg4
+ m9eu0VhaMLeIMH0kAURIYdc6jWK1UzL4Ga89eE+9NWPW/uLnZVQbYCgfFY8TbDhK0f
+ rLSzDKGyEGvDXov2c9EdXQ2JUy6DIGmt0glyRSes=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+ epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+ 20260804072912epcas5p2adb2d94e9dbee254b808fbe3e7596043~IiZtxp_B41422314223epcas5p25;
+ Tue,  4 Aug 2026 07:29:12 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.94]) by
+ epsnrtp02.localdomain (Postfix) with ESMTP id 4hDlXm00m2z2SSKd; Tue,  4 Aug
+ 2026 07:29:12 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+ epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260804072911epcas5p11ac571c654cc6f9181d41e68c1d776f7~IiZsQAmmo3024630246epcas5p1l;
+ Tue,  4 Aug 2026 07:29:11 +0000 (GMT)
+Received: from [107.122.10.194] (unknown [107.122.10.194]) by
+ epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260804072906epsmtip1f5a677211ba3b877f3e13174d1789292~IiZnod7M11634816348epsmtip18;
+ Tue,  4 Aug 2026 07:29:06 +0000 (GMT)
+Message-ID: <c4cec417-24b8-428a-853f-4e1ff1e29a6a@samsung.com>
+Date: Tue, 4 Aug 2026 12:59:05 +0530
 MIME-Version: 1.0
-References: <CACa-pC0Adw8u5NXCAhZUfrEyO0-kosqJZa8FeFjD7nvGNX1qaQ@mail.gmail.com>
-In-Reply-To: <CACa-pC0Adw8u5NXCAhZUfrEyO0-kosqJZa8FeFjD7nvGNX1qaQ@mail.gmail.com>
-From: Min Ma <mamin506@gmail.com>
-Date: Tue, 4 Aug 2026 22:02:22 -0700
-X-Gm-Features: AUfX_mxeltQGfrFXUkq1ah3VR0LUcqRSpPzMXeWSpwrFaLNee0RAx-JePttWnPk
-Message-ID: <CADqY2u7ast+7SbjR_y2CqrNZF7uj4+D64+d81m7yaKjvWQW13A@mail.gmail.com>
-Subject: Re: Interest in the amdxdna debugfs TODO item
-To: Parth Kamani <parthvipulkamani@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: multipart/alternative; boundary="000000000000e58f66065845ad0c"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 09/16] nvme-pci: implement dma-buf backed requests
+To: Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+ Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, Sagi
+ Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
+ <brauner@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Sumit
+ Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Nitesh Shetty <nj.shetty@samsung.com>, Kanchan
+ Joshi <joshi.k@samsung.com>, Jason Gunthorpe <jgg@nvidia.com>, Damien Le
+ Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>, Mike Snitzer
+ <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, Benjamin
+ Marzinski <bmarzins@redhat.com>, David Sterba <dsterba@suse.com>, Ilya
+ Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+Content-Language: en-US
+From: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>
+In-Reply-To: <9e3dd1b2d71dc0f9bd556b6a6d6e48fb6a8d727b.1785596451.git.asml.silence@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260804072911epcas5p11ac571c654cc6f9181d41e68c1d776f7
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260801155005epcas5p4ecdcdf532aa2c2ff4e94638eedaa435b
+References: <cover.1785596451.git.asml.silence@gmail.com>
+ <CGME20260801155005epcas5p4ecdcdf532aa2c2ff4e94638eedaa435b@epcas5p4.samsung.com>
+ <9e3dd1b2d71dc0f9bd556b6a6d6e48fb6a8d727b.1785596451.git.asml.silence@gmail.com>
 X-Mailman-Approved-At: Wed, 05 Aug 2026 07:24:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,105 +96,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000e58f66065845ad0c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On 8/1/2026 9:16 PM, Pavel Begunkov wrote:
+> +	map = kmalloc_flex(*map, dma_list, nr_entries);
+> +	if (!map)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	sgt = dma_buf_map_attachment(attach, ctx->dir);
+> +	if (IS_ERR(sgt)) {
+> +		ret = PTR_ERR(sgt);
+> +		sgt = NULL;
+> +		goto err;
+> +	}
+> +
+> +	for_each_sgtable_dma_sg(sgt, sg, tmp) {
+> +		dma_addr_t dma_addr = sg_dma_address(sg);
+> +		unsigned long sg_len = sg_dma_len(sg);
+> +
+> +		if (sg_len % NVME_CTRL_PAGE_SIZE) {
+> +			ret = -EINVAL;
+> +			goto err;
+> +		}
+> +		seg_shift = min(seg_shift, __ffs(sg_len));
+> +
+> +		while (sg_len) {
+> +			map->dma_list[i++] = dma_addr;
+> +			dma_addr += NVME_CTRL_PAGE_SIZE;
+> +			sg_len -= NVME_CTRL_PAGE_SIZE;
+> +		}
+> +	}
+> +
+> +	if (WARN_ON_ONCE(seg_shift < NVME_CTRL_PAGE_SHIFT))
+> +		return ERR_PTR(-EFAULT);
 
-Hi Parth,
+This should be 'goto err;' instead of a direct return. If this ever 
+triggers, it leaks the map and already established sgt mapping.
 
-Thanks for reaching out.
+> +
+> +	ret = dma_buf_io_init_map(ctx, &map->base);
+> +	if (ret)
+> +		goto err;
+> +	map->base.seg_shift = seg_shift;
+> +	map->nr_entries = nr_entries;
+> +	map->sgt = sgt;
+> +	return &map->base;
+> +err:
+> +	if (sgt)
+> +		dma_buf_unmap_attachment(attach, sgt, ctx->dir);
+> +	kfree(map);
+> +	return ERR_PTR(ret);
+> +}
 
-Yes, adding debugfs support is still an open and wanted item for the
-amdxdna driver. Your plan to keep the patches small and test them against
-mainline is exactly the right approach.
-You might also want to check the amdxdna repo in github. :)
-
-I'm no longer working at AMD. It will be good that contact Lizhi. So that
-you can align with AMD.
-
-Thank you,
-Min Ma
-
-
-On Sun, Aug 2, 2026 at 1:37=E2=80=AFPM Parth Kamani <parthvipulkamani@gmail=
-.com>
-wrote:
-
-> Hi Min,
->
-> I was looking through drivers/accel/amdxdna/TODO and noticed that one
-> item still appears to be open: *add debugfs support*.
->
-> From the TODO, it seems the direction is already defined, so the work
-> looks more like implementation than design. My plan would be to keep the
-> patch small enough to review in one sitting, run checkpatch --strict,
-> test it against current mainline, and submit it via git send-email.
->
-> Before I start writing code, though, I wanted to check with you first
-> rather than spend your review time on something based on a wrong
-> assumption. Is this item still wanted, and has anyone already claimed it?
->
-> I'm currently in my final year of B.Tech in Computer Engineering at K J
-> Somaiya College of Engineering, Mumbai (graduating mid-2027), and I have =
-a
-> meaningful amount of time to contribute before graduation. I'd much rathe=
-r
-> spend that time contributing to a live upstream codebase than working onl=
-y
-> on coursework. If this isn't a good first task, I'd really appreciate a
-> suggestion for something more suitable, and I'll happily work on that
-> instead.
->
-> Thank you for your time, and I look forward to hearing from you.
->
-> Best regards,
->
-> Parth Kamani
-> Final-year B.Tech Computer Engineering
-> K J Somaiya College of Engineering, Mumbai
-> Email: parthvipulkamani@gmail.com
-> Phone: +91 9820081318
-> Timezone: IST (UTC+5:30)
->
-
---000000000000e58f66065845ad0c
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Hi Parth,<br><br>Thanks for reaching out.<br><br>Yes, addi=
-ng debugfs support is still an open and wanted item for the amdxdna driver.=
- Your plan to keep the patches small and test them against mainline is exac=
-tly the right approach.<br>You might also want to check the amdxdna=C2=A0re=
-po in github. :)<br><br>I&#39;m no longer working at AMD. It will be good t=
-hat contact Lizhi. So that you can align=C2=A0with AMD.<br><br><div><div di=
-r=3D"ltr" class=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div=
- dir=3D"ltr">Thank you,<div>Min Ma</div></div></div></div><br></div><br><di=
-v class=3D"gmail_quote gmail_quote_container"><div dir=3D"ltr" class=3D"gma=
-il_attr">On Sun, Aug 2, 2026 at 1:37=E2=80=AFPM Parth Kamani &lt;<a href=3D=
-"mailto:parthvipulkamani@gmail.com">parthvipulkamani@gmail.com</a>&gt; wrot=
-e:<br></div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0=
-.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex"><div dir=3D"l=
-tr"><p>Hi Min,</p><p>I was looking through <code>drivers/accel/amdxdna/TODO=
-</code> and noticed that one item still appears to be open: <strong>add deb=
-ugfs support</strong>.</p><p>From the TODO, it seems the direction is alrea=
-dy defined, so the work looks more like implementation than design. My plan=
- would be to keep the patch small enough to review in one sitting, run <cod=
-e>checkpatch --strict</code>, test it against current mainline, and submit =
-it via <code>git send-email</code>.</p><p>Before I start writing code, thou=
-gh, I wanted to check with you first rather than spend your review time on =
-something based on a wrong assumption. Is this item still wanted, and has a=
-nyone already claimed it?</p><p>I&#39;m currently in my final year of B.Tec=
-h in Computer Engineering at K J Somaiya College of Engineering, Mumbai (gr=
-aduating mid-2027), and I have a meaningful amount of time to contribute be=
-fore graduation. I&#39;d much rather spend that time contributing to a live=
- upstream codebase than working only on coursework. If this isn&#39;t a goo=
-d first task, I&#39;d really appreciate a suggestion for something more sui=
-table, and I&#39;ll happily work on that instead.</p><p>Thank you for your =
-time, and I look forward to hearing from you.</p><p>Best regards,</p><p>Par=
-th Kamani<br>Final-year B.Tech Computer Engineering<br>K J Somaiya College =
-of Engineering, Mumbai<br>Email: <a href=3D"mailto:parthvipulkamani@gmail.c=
-om" target=3D"_blank">parthvipulkamani@gmail.com</a><br>Phone: +91 98200813=
-18<br>Timezone: IST (UTC+5:30)</p></div>
-</blockquote></div>
-
---000000000000e58f66065845ad0c--
