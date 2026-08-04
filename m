@@ -4,154 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EB1BC55172
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 06:22:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1DD8C55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 06:34:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E848810E663;
-	Tue,  4 Aug 2026 06:22:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29A4010E887;
+	Tue,  4 Aug 2026 06:34:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RsgxYxgs";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="J3kiwgSK";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 308EA10E663
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 06:22:35 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 14D5A10E645;
+ Tue,  4 Aug 2026 06:34:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785824555; x=1817360555;
- h=from:to:cc:subject:date:message-id:references:
- in-reply-to:content-transfer-encoding:mime-version;
- bh=HYbWQHmGd5Ehc7k5Pe+kW0gSvO6BgK18+NjInLvvJNg=;
- b=RsgxYxgsqcQNIYbnG9Wl7gi0CludQQATKudjE/zItFSuPrgsZs5IK+B4
- mhFoYamJmzxp+ftyZlRV62P8FaNvn/CUyKOYSou/Oggh4E7Y0FsyLP8+E
- Ttwga2ztSjr2OGlENv/zHpi9BhB7p5xzjpU+5444e4s78DDl93FFZ5YRY
- 7P/ces9ZOz94FKLw9p9cMvfrZ369hzTdb4C8dH4zDDG0RzhVXTQchgP2e
- JpFYLW5SDUIzmJnkGne7kWdzrhFxtlVZPD6lYS6cqaYStVrzEQnMcIToH
- mijdJmVWsFmvwfC4gwCMqzpWzeHOpL42z72eM2XzUIxMIIa3yLB8Tslcy g==;
-X-CSE-ConnectionGUID: xiwcoa0aREOkKggVJAz6sQ==
-X-CSE-MsgGUID: gA8DB31ZRRaFGdpr5XpQRw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="103907774"
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; d="scan'208";a="103907774"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2026 23:22:34 -0700
-X-CSE-ConnectionGUID: JV0sEFD0TZqrM1hWEvqrMQ==
-X-CSE-MsgGUID: rUEwJR5CSgyHdIH0Ef9/9w==
+ t=1785825250; x=1817361250;
+ h=date:from:to:cc:subject:message-id:references:
+ content-transfer-encoding:in-reply-to:mime-version;
+ bh=ZYE4nNnSDkYpEGKhFcZ5My/uxKLrzbyPXF4Zdn6DKrY=;
+ b=J3kiwgSKZ6D/gKwXHG/aqfBkNms3TF8lxNtBUSUCoMGw97CRP1Um+uGs
+ Oex3DQNKtl6doDfbnahc1jphnZTkxR6dgYIcli3SCs+15l0WHInrwzDn9
+ GwQ9efD6BlgHqm8uV1XuRqWun1dNYQShOFrZkN2kjBa8M5ScXX76oAeam
+ E1UnJBZNhD6CDdyeiJDPDcxnwWX6tD+w7GB8XwPLeUmMTtGCwM+xlgxo4
+ gpQyxMge2GT7eMP0kSQBMOh2YXd1CzY/Up6N0xQg1oJrRqyCuUTyDLS2v
+ eLuVxHD8H0n6CrNZrDhrDq2fc7x9uXguSF4zWP0SdNf/N5x2mF5xnOIO/ Q==;
+X-CSE-ConnectionGUID: Mo7T3CBST7SjTRv/eLdv8Q==
+X-CSE-MsgGUID: OXqCNLmpQM6pIWw8cslP+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86222644"
+X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; d="scan'208";a="86222644"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2026 23:33:56 -0700
+X-CSE-ConnectionGUID: qmevrC0yTieN5Y6OyPsQJQ==
+X-CSE-MsgGUID: sCsVhy+JSMC9yvlRbsyZCg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; d="scan'208";a="266542090"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
- by fmviesa005.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Aug 2026 23:22:34 -0700
+X-IronPort-AV: E=Sophos;i="6.25,203,1779174000"; d="scan'208";a="260820767"
+Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
+ by orviesa008.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 03 Aug 2026 23:33:55 -0700
 Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 3 Aug 2026 23:22:33 -0700
+ 15.2.2562.45; Mon, 3 Aug 2026 23:33:54 -0700
 Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
  FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Mon, 3 Aug 2026 23:22:33 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.28) by
+ 15.2.2562.45 via Frontend Transport; Mon, 3 Aug 2026 23:33:54 -0700
+Received: from CH1PR05CU001.outbound.protection.outlook.com (52.101.193.52) by
  edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 3 Aug 2026 23:22:33 -0700
+ 15.2.2562.45; Mon, 3 Aug 2026 23:33:54 -0700
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CN1zgEFkEuMwawnvGW1EfjzcW47ThdxW9AG+vPN4+FZswtGfgMEt5ijCEuuNKSMjdUNukG9dR8ibA1jvjrCGh5C/EbAJi7Uw+qQO6E3E11il/yvd8ePFcFNhP/Pz/Api7RxIa4QBPomT9X1kL5g6Q3lsEZ4k8zu3jE0gym32i7OIa9x0QOAoJ4Je8KjrFIMANTltMBQaYzHRZTyS+ZOmkwTc8B2HqMr0mEk+PHjKTEk7ID5oGjmZKFeHMSjOm0q/JvNVOHs2btrzry9DqNk6O3kC2lGX1s1/cfZvhkcwx8UewrkyMDEsdl0nTpfNJEKOTmasyHY22zwC5hfdOfoO4A==
+ b=AqZ9VIGvUj8jSxKUorHddBG782d0sXmxcOdClA4JytcLSjBUo0/e8J2mmiAMLdwPeCQb+Ir0ig/3DODqoDx4OuOBA2sNIQq083R2FPIQLjVVCXCOgFLVTPeUSKNz7VTCk10/wdy31OKGKLSaPNaCgQUestZWTVYo7yk+QT49Es/DI9n4mAjdkUIMiA+Wt9azfFgfiw5azorbvmdbqFiXUm0rbbQmJeRjiwcM+Q6KT1zeb/bYmW31O+mqTIQt74US2+b3BzmVr7HNFRFGpyfHZysFebP0pjuMVPupbwGCuJmWWZ748FE6BkGAnLBkiiucLqoUO965bEKB4JvTZJUwGg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xTC9zfBDaIaUak6DJi/sI/czRNGSFZAeohRrVkr6g54=;
- b=OylcW3C31YovLjJCzOq+E0SeMdRtcD8mRDVMsSha6psm2jTBHQ7T5Bi8or+Ejo3Zcg5da1pqGyy7zLJ+EP6wd+Px7GtYK+JasE2Hnoj+DFqg1o8a2iRLT+X0/m3JYy1fgUR6LT2MXDtXJfmSp6NNXQ0OBOPCdawYH1amClkfhWrdBx4W0VMCcxwMEhQZkI6xvdBnFkY6wNOS9ZLqsY3Dk5YXAvbcSskmcSbxzZ0qeEkjPbp1lqky/g8Nl/0sfwkZTLUBdOUy7ShEgMCDWMlz1AYSPsZ9C20/zE3p39BPcvc4LenBX3K8x/fu1yBcPBM0xh+kY6SHffc32dumtCdijw==
+ bh=YrIlQrIKWjHBbGdlVa5SCFQsATsNy81wKHI81fc9O/Q=;
+ b=ar8gNveCDF1AUxr7lx6BbttDMxLAYkPwyaHYBTPQw50T6WGtF+A5FjqxoqvPvLGIVYnqvwP3mSWZXOtlDG6CkeZyxWGC6ejgZmZvFjVgIEb2x+f82Z/rj4WOvgbz4EEWE7dwb+cknfPut+MvI4NUkZjVLjOQNhD46Uyxv8VtdkN5xUrqkZn7x1uFVQIROCKHOTVTvajzGrHsIQOcYa8MyMit64Ml4EgwpZN4CDJN0tRrWovDF002SCH3RS5jjqHZ96YACbxHVJkT4lERj7pjB5/N+HPBgTNp+wURQhfbhmXWW++dXUt1nGyKVylEt+ofF/W7c5pywtch2YH4dHcvpw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
  dkim=pass header.d=intel.com; arc=none
-Received: from IA0PR11MB7185.namprd11.prod.outlook.com (2603:10b6:208:432::20)
- by SAWPR11MB9900.namprd11.prod.outlook.com (2603:10b6:806:54d::24)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
- 2026 06:22:31 +0000
-Received: from IA0PR11MB7185.namprd11.prod.outlook.com
- ([fe80::9f37:cb81:5463:300e]) by IA0PR11MB7185.namprd11.prod.outlook.com
- ([fe80::9f37:cb81:5463:300e%6]) with mapi id 15.21.0270.016; Tue, 4 Aug 2026
- 06:22:31 +0000
-From: "Kasireddy, Vivek" <vivek.kasireddy@intel.com>
-To: Robert Mader <robert.mader@collabora.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-CC: Gerd Hoffmann <kraxel@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
- =?iso-8859-1?Q?Christian_K=F6nig?= <christian.koenig@amd.com>,
- "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
- "linaro-mm-sig@lists.linaro.org" <linaro-mm-sig@lists.linaro.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2] dma-buf/udmabuf: Disable the size limit by default
-Thread-Topic: [PATCH v2] dma-buf/udmabuf: Disable the size limit by default
-Thread-Index: AQHdGcmgIlKoMcnWgUS+mY72ClF+rLZ826QAgA+mMYCAAD40IA==
-Date: Tue, 4 Aug 2026 06:22:30 +0000
-Message-ID: <IA0PR11MB71852141D71DB8879A3EEAE6F8D42@IA0PR11MB7185.namprd11.prod.outlook.com>
-References: <20260722110145.36641-1-robert.mader@collabora.com>
- <IA0PR11MB71859E0D17C2959DCBA7CF3AF8CB2@IA0PR11MB7185.namprd11.prod.outlook.com>
- <e0129e0c-9157-4ddd-a54b-37d09135160f@collabora.com>
-In-Reply-To: <e0129e0c-9157-4ddd-a54b-37d09135160f@collabora.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-authentication-results: dkim=none (message not signed)
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA0PR11MB7185:EE_|SAWPR11MB9900:EE_
-x-ms-office365-filtering-correlation-id: 44b73319-1f0a-4a7f-55b3-08def1f0c3a8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|56012099006|10067099003|11063799006|4143699003|6133799003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: /oLJNKpEmsd+uh+HmLkCPOiSm1rHAexZBNxn3ebIf4FGtMOysL4X4/OdAVOtroGzTMCWTleoFKBG8+6KYF0TByteCdkCVk2h+lig2JSDjvotIVQjLUOFFFmfri/QXexqU+jFJpIeLtYl3mRgS1+J5otVNNa5a/JPDs/oTKE3BHSJWJ5OOk2bSVwblHsVwmokkHNl2D6HuZTDOxzenPSf7xrfzS/or0j4dSLDTaKsMuZ85CnkzRagY2iAWT7mMHCQXDaaUf9lCXdD3fY128I37D8HKwNdtQhEmcPQjHaAw1xozuMv3/HRluIw5oQppuKRDYxU7eJwItNZqMKuCHPazOBqnHcy4tUxktx9pvYiEl2oQ247nxatUdpgVCNJKyWZMU4fVU5S95EjY4xR3BTjyL3uNVOqz46mpTkGojZMyoGPOnYX6S8unFCE78X+yEofI2TyV2O9Kk1tTiEqx1dR3aEvB+/5E2L2hRqmu0tkVjupwJ6lKwSd0sH0+3BtfzA+aoEshd3AeCblT7xuaQ9eO9yVqmKvFvpOWmdJKpWr+MyzKEcMFsD6Ig7L4YGEZBXIwfFNqPWvnT8NdYYd6/1/J+RSB/bcvr8n4VnqBsX8LFEaPaCTCe9I4nqJ58gpDYuZ16WO/nzUD3s0higelfk8F95zqowMxk0DVaxlnsmMwHjlQGAdQQW7BTvPFkLeTD5SLYjfMpAZ/tM2wXRWUWIkNXzzLXKxTu0FLFI4JWv9LmU=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:IA0PR11MB7185.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(56012099006)(10067099003)(11063799006)(4143699003)(6133799003)(22082099003)(18002099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?S1QzysGfe03elkvmX7YK6h+YLVffw3P+fSF2iO5uM68FqrGpoTpfelCfuC?=
- =?iso-8859-1?Q?Jq/TP0c/RybmOkcDOvPZ0amEI5uSElhvaheVHqex0ypumzXM8P97JWbP5i?=
- =?iso-8859-1?Q?e5vkhh/uMmCk3n9drAkZD8WTaLt5P3lW1pB4bijzYr1hzktAHDeNQZLNLS?=
- =?iso-8859-1?Q?BBr6NNkQG2b31cXGj24TgNPKg0y6Rr3luDsz3L7y9XUUNVGPcEn+e+ELhX?=
- =?iso-8859-1?Q?8+KOf6dcYMd6KnljkvCSQqxCKywBmE6yk8cWYnfnlJnQzchkVR9yF44veN?=
- =?iso-8859-1?Q?0E7juIQ5aSGZFh7UUdQ37vz41s4O13FbuNFKLMyEPKu3txbZuOd1Wi+KOK?=
- =?iso-8859-1?Q?UbRvWrkpFdm6YQR2SZfzxKlb5pHMAOSqZkcsSqVa/yVc6/DnpmRzzEdxQw?=
- =?iso-8859-1?Q?Pbs83yKf7/9EHIX9AbmJqRSl5Vi8AtquAYetY15H8nvM74mS9JGQxPrxoz?=
- =?iso-8859-1?Q?hqckFq1d16SlQ4xNLtO7OZTG2Qp2H2/R0PgUQSD9pHmJOGYReeIZr6NMdS?=
- =?iso-8859-1?Q?w53TtbN3fnDrFMq22ONORO+sNcv1anz8CJ6WaRewACpZgN/ob8YEXX6cyw?=
- =?iso-8859-1?Q?NJrarrgfxn0jlfID/tvmrH6x8+attjSlusacqEWQSGJ6cD1x6HPeddZ53Z?=
- =?iso-8859-1?Q?xTFUh755MkS03gu7/3t9vuf//S2PJ7pOyYh/nayo/+pENHPGPw0TgHYciG?=
- =?iso-8859-1?Q?/Q6DtGh9O0ATsSP9wlty3M5B0RnDNtPNWPXIBaKPVZsu79yRoA9xs0jTmd?=
- =?iso-8859-1?Q?R/KFsB5poSFNY4L4KSkywKtAUXB75hWRqTIGehxa+c21r+2dM3CAZH5H/b?=
- =?iso-8859-1?Q?L3u+W1+tdeIxfXLYFju5EQdfkReZLnbgF+u1yGuaHqamv8fz55T+C9Zn29?=
- =?iso-8859-1?Q?56yFlzzCwA+VV+Cs9A9JwKbsYYF9SmyFr6WBC1e170URiru3Cw6jCJciJF?=
- =?iso-8859-1?Q?g7STJKx4Q81cLGUN+DAXAxZVkcACoHdnup3UvjXqjAJUuXCV99rgugUnhI?=
- =?iso-8859-1?Q?vsjVJPoNv2duQsf3BdinfY9xwrbWm9sOWciEG257ShB+Q8PWnWhwGqbVkK?=
- =?iso-8859-1?Q?fOJS2n7cNqp07WHmZSHy0TM9JyAUAZc0YwhqO/kfP4IYRSMiAWTrAJxGks?=
- =?iso-8859-1?Q?zs/fK9Hhez9Pe/0AmQYP3WGBXAVbOfCcJjuIHwkU8EduXbKHNfgRpSddaB?=
- =?iso-8859-1?Q?tVs5Dw4e43LTK6jOCs3KXaHL+pUzdv1HLBqjc+AhkatwVrVb9B16EEHy0O?=
- =?iso-8859-1?Q?RF6rSAzujomZsfJe6k04MhnUOj42ZBdNFIkyoVjVWt+9vKFJSdzcFd969W?=
- =?iso-8859-1?Q?zAMcKHK33WVLCbZ1xbReooQ8maEbZ48VnC30VUACEXQheK+l5RIZgT9Cjb?=
- =?iso-8859-1?Q?1i7ED/XtC5lFbtpS+ZbtbNwVgtaBkhKhoXDEJnIM6zyOw9z0YES6NTNE7I?=
- =?iso-8859-1?Q?VkW4c5HjruEOyQgsHHZzw3C2U9QOAidhxtmeHsQ4ELGMtmk6Y8UeThqSEx?=
- =?iso-8859-1?Q?du88858zSinV32Mm5ujoNkE2nKLfWgQEd/8ly/Ss/qHo6VmFv5wP0xxELR?=
- =?iso-8859-1?Q?ohkdnZWXbWBnOSXSQ+ITyWDLkuPpDoTuMT6u/gdi6Tmxz7tH0xhBJG4DZU?=
- =?iso-8859-1?Q?j2G9Gjfdr9+B8PjVwUjPgZm7e0ioWoLsBRana3/clGOoZm7WmUikI2bRb+?=
- =?iso-8859-1?Q?1Z/YV6Wk2P4sQ0Y9/qAuqdPyZu1IGT5WktXCH5VswU0iFdUgIUxO7VnjzK?=
- =?iso-8859-1?Q?SysrLgOjTQF2LNqTozs8VhqRpL21xhvX+bmJvLJc7n0n2IDih/RFY30V9p?=
- =?iso-8859-1?Q?YFa4ACDfeQ=3D=3D?=
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by IA0PR11MB7308.namprd11.prod.outlook.com (2603:10b6:208:436::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Tue, 4 Aug
+ 2026 06:33:52 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0270.016; Tue, 4 Aug 2026
+ 06:33:51 +0000
+Date: Mon, 3 Aug 2026 23:33:48 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: "Yadav, Arvind" <arvind.yadav@intel.com>
+CC: <dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <thomas.hellstrom@linux.intel.com>,
+ <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <himal.prasad.ghimiray@intel.com>
+Subject: Re: [PATCH] drm/pagemap: Prevent double migration of device pages
+Message-ID: <anGHzKVztOpbKr+O@gsse-cloud1.jf.intel.com>
+References: <20260803092553.4117408-1-arvind.yadav@intel.com>
+ <anDT86fV1Xbq6fkc@gsse-cloud1.jf.intel.com>
+ <anDV8wqPd8G8rIW/@gsse-cloud1.jf.intel.com>
+ <c770a90a-a6e3-4a8e-bf40-541f8c1e6512@intel.com>
 Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c770a90a-a6e3-4a8e-bf40-541f8c1e6512@intel.com>
+X-ClientProxiedBy: MW4PR02CA0004.namprd02.prod.outlook.com
+ (2603:10b6:303:16d::19) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: FNuf/yxkRU+QSC+sV4dd+wcaFh0TnupkLvDwOY6dO6FaIzoOgs1kCt2T8pZ2Kge9CkmmrzvPa09o0qTZ6+A3N8K//CAKXC7bHSylCdD3kyNpVZddMwCIgVTS4yvNfbKQk7FcBcid+Oo8DWLViwAbT1qfCoiYsksloyDR3BUPz2fFCHuPsnJXnrS4M+z6v6IRlc80LPYmzim1/iw9ZkUK/sDR3abWWeCoqCYiMz1+3czxfTicme5dI/BOtNDymrccDc+8iQwE2QvGdYuY/oztlVV3xgzv8X3t/2F6XHmTy9A7psTXRKvovIelcRW1JabUiUlUyTCyYTvDgkvuK91FVw==
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|IA0PR11MB7308:EE_
+X-MS-Office365-Filtering-Correlation-Id: 451670d0-9268-48ad-55e9-08def1f2595c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|366016|1800799024|6133799003|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: Lx/KzV95LQP2PNCJQp3q3P9iEhQcn3IKyHWL8HH4Wx1uWwdTARRGK7PNy0RCFMy75LsrxPRspDEooizyUKJiFtKIfDT2GptbnRzUSy+PcAXKoDefLLx9qdwXBphSSwGr1+/6Psr1Kbc8ylqqGd20AORphN5u5QHpeUfJUlTqDmkwPva/lGjluyWnKkXtQT3tUs/CsNeDlub9x6I7FwehFLvVho7BlLT3uTzh4MWJEoaiLREDCHULALdHxAMVDCqdFlKFALeHWbPMo0QJidZ+xt6maASQnK5Mh1rZRlq73T3QEB2l89rj+YxqQSyDVLB+o5yDsNyWKxn+cmPjSWt+DoOzqgGlPsmhz/E/JCJb+IojJ10izcKm7LYvjJuFsNlW8LKeUB4yEwm8/yX5P1/CPz0Fc7foFHlPfwHcoN5snEi0OZXPgC35K8ttPgCA5xelkmC7a0W0wD866MCB765TYl2DWWdmuQFEirKHxHs8xsxb/91LxdZVGQfDSfmGSZParY9xb4Prn4G7q1/aReuuayvV4bmIIa7VCItpVyJ9wIowLq3qR3MqMBvj/kF0wm3QsPn7TLaYkSn7GT9ZpU8oWzFELBk4klt16TRBZvmfBU/GoZbFAvkr4om6YpFXujfRkdKSEcex+h36JrmLAUlkgC3w9Qxn//4KvbD5FoT5PB0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(6133799003)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?iso-8859-1?Q?JlEojxQ3bGCnn4XqypqYr+K6KuqnCN4jb4jTRlFgdGnAwvUnpgh8C8udfN?=
+ =?iso-8859-1?Q?Gbht875Dda74usa0pdRQtIWft/D1n1bQ2hBHQXd19B5q9r9Aix//R0Pl9X?=
+ =?iso-8859-1?Q?rdS+OEM5S8oo3pM2sbo/8fHyimpwX6Emz8ULU2uJokUfJ+YWo6ieLF0mnR?=
+ =?iso-8859-1?Q?KLSzsQ44hjf0Sanitr7pIcJ6yz8MEQ7jg7f+O82fsC4iaZqegt0AH0RLlC?=
+ =?iso-8859-1?Q?Ur4POAdkGHa7Vnn3EnT5kI0PCwJEk6MQnfEh8ETjxWNLsP01kBz3WxurnI?=
+ =?iso-8859-1?Q?4/V50k4pEgQpC6LZZaIDg4pUZoIReOW5mFmRgwUtt2A2XphZfPOtepKJaR?=
+ =?iso-8859-1?Q?IcWO8yeF/g8LY1LPHzXu4Ba/3AlRZHp92iWQRtSVtwJjg0aHB/yzjTBp10?=
+ =?iso-8859-1?Q?cMRRNcgM1+1/G5W8oy7Js5y7oS5w6CFGol88oJpPh+VCPfVSHZE6M5LEvu?=
+ =?iso-8859-1?Q?lGhSb5gnvhb5KQGIAnbd//KqBzRZe3e62aZhcvLLOeeUOjDjM7S0EFnkqD?=
+ =?iso-8859-1?Q?pVAvACxGTDmoR6dd6yIVXPjFUGzHfThsXivpXrvvFyf4o+RPb7xyxsL4Hu?=
+ =?iso-8859-1?Q?jboi3K3Dl27RDFGsyml/67kpxysBM2tc+jSyHiUA+PhtnZTVa18hXSLSxa?=
+ =?iso-8859-1?Q?qFX5VjyuOK+GJQJxtODjFGpgtepx8w+maJ8yx9kHxThvpL6JjZ+tTpT1Wk?=
+ =?iso-8859-1?Q?LlupQZqYtVa3mt473swM7SnUDV44XlzKCNYJjDTmGA8lqxNdf1BLowp9aD?=
+ =?iso-8859-1?Q?XdbaAyJfBxWrJkgMKPyeq5V6N6imLzb2QpNuaxjAvh3GcY4DGpqMlL/Z0m?=
+ =?iso-8859-1?Q?G+CMSdxZg2bgHNC24GECg+rX1skbGCFT9d5UhA9s64d1npvkiAB8dVQdyC?=
+ =?iso-8859-1?Q?Lfg40RKCmgBJWe+BKG5hpKFC53F9buyAzjXYW+YOpc6zE63qnnyT0uUfLB?=
+ =?iso-8859-1?Q?3MF0JwIwWGtrexcsAr2z41qN4FVTtcHp6SpdcXpr8ilL6R0xvj1pcwxflF?=
+ =?iso-8859-1?Q?trYEOT5eoG1nCaAnmlg/I/x8sppQixeGWX7HbIFAP7HV1UEH9ykP7ffR56?=
+ =?iso-8859-1?Q?sT6D8TVoQtD+8JmaXXREOWjY6DhwmVck0isqKN3a9PD0YXWucPhx8c4lsN?=
+ =?iso-8859-1?Q?wS/E4d71/ZuHsqTHmX1z0d+vzkSqMDhtJYW3UjKxha52XuLH8BnAGLRiQd?=
+ =?iso-8859-1?Q?rVo/dPOr014zhhYCM1DFScrFsNdLVpi/XFr3U3b6vFX71p6c7B8X/aRqMI?=
+ =?iso-8859-1?Q?bD6KQMZ/3i7tsAKTictvypWUf4gMy6REvQfPkB1cIue1czPZrN2zzpbrNz?=
+ =?iso-8859-1?Q?iMOR8C5urr3zgOH8uawd7ljGEm03jdkR9PiZrEiGy97G3kyS8Lul08Wr0r?=
+ =?iso-8859-1?Q?oAFfxtn9ayCUZ1AnkDOKQpP2NiM+BP/DEnDP3S+mRTowd6xZShh6BPnsWR?=
+ =?iso-8859-1?Q?ETbJD1mLaOXstGntNrSHu9zqDdAUutgSBvlPjZpUj3vZWYMD1zBxj8aDmr?=
+ =?iso-8859-1?Q?DYs4lfggASbE0jG2kGuIk1pmxjRymkL7W7O2cH2KT09zdZa4xyvGwO+P/U?=
+ =?iso-8859-1?Q?1McQ+w40jqIFcxAeJ3GhZZkO+RG2Qd1tSOOUqZ2htzgJAyaCtm+Z+gdK/w?=
+ =?iso-8859-1?Q?pFdhc5yvLRaVGRIbIvi9KpM60Gml1idnJ5RES5pu+S3MUALIAJOQMxNnzf?=
+ =?iso-8859-1?Q?eLFpOGwD+c4bvhXu2moFZFK3ie+McDLz+shwZ13pdMkUgh5z8MOCRTc4TK?=
+ =?iso-8859-1?Q?sfyFRt+2XKAnBm+gEUJyj8VEIT08o5zGCX44kVJNVRUUhl3OErubBGhcfd?=
+ =?iso-8859-1?Q?jGM+cLB1hg=3D=3D?=
+X-Exchange-RoutingPolicyChecked: SO/AY1JLObLcw4Fkp71kk05Qhh54JDZYaDz81SjgjGlSVKtRwp7M1dMgr7MMd+GERHGh7ubU2QtMBplu5vJBzlRtewtl2UonNpVR8mDmtF/+dUepMGRhO5yupM4aHG9WgPz/0KR+1sqZnt70Zc0atHvHvAUuRRWKPt+nxnVwZhIkgbhLGwAvolDrZuJWHjYx6Mc1JHzwvVrZqiLjjhrBjFSu8oQVUgkD+nSSS5y6+RMnC3asFxShrJmhxZmJxzWiz/SNIL7hrL87CXgBCGCj+nFpha+BKdTMeoMxgECgo1T94JYwvYjGSETiAn7bmSUYiWbGMU1zRbOr6E5spgZf+A==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 451670d0-9268-48ad-55e9-08def1f2595c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR11MB7185.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44b73319-1f0a-4a7f-55b3-08def1f0c3a8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 06:22:31.0032 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: j3mID7QoVxxHbGT/+N8GSCNliD0jSVF00WWFQ/5MjawAB8F4MNTO2VD8kfrY0GJzc+Ow6vo9LcRsvob73PPhR0G7B1P4OwWH1opMUv57tX8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR11MB9900
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 06:33:51.8674 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Nm+fZM0NWvKcE3aRYX4uEnLRgk3Tjagw9/51CKaXstuSOjJIe8euW8e26r/inwt9lJEs4NQq32DPxkqe5a6zfA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR11MB7308
 X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -168,108 +166,448 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> Subject: Re: [PATCH v2] dma-buf/udmabuf: Disable the size limit by
-> default
->=20
-> On 28.07.26 22:20, Kasireddy, Vivek wrote:
-> > Hi Robert,
-> >
-> >> Subject: [PATCH v2] dma-buf/udmabuf: Disable the size limit by
-> default
-> >>
-> >> As udmabuf increasingly enjoys popularity - being used in projects
-> like
-> >> libcamera, Gstreamer, Mesa, KWin and Weston - users more
-> frequently
-> >> encounter cases where the current default size limit of 64MB is too
-> low.
-> >> Examples include allocating video buffers at a 8K resolution - and
-> even
-> >> 4K
-> >> is affected when using non-subsampled video formats and high bit
-> >> depths.
-> >>
-> >> In its current form the size limit for individual buffers does not see=
-m
-> to
-> >> provide any additional level of protection - such as limiting the
-> amount
-> >> of
-> >> memory a process can pin - as the later can just allocate multiple
-> >> buffers.
-> >> If additional guardrails are desired, they would likely require some
-> kind
-> >> accounting not limited to individual buffers.
-> >>
-> >> Therefor let's disable the size limit by default by setting it to the
-> >> maximal possible value, INT_MAX.
-> >>
-> >> Signed-off-by: Robert Mader <robert.mader@collabora.com>
-> >>
-> >> ---
-> >>
-> >> Changes in V2:
-> >>   - Use INT_MAX instead of 0 in order to not change behavior
-> otherwise.
-> >>
-> >> See
-> >> https://lore.kernel.org/dri-devel/20260711144814.8205-1-
-> >> robert.mader@collabora.com/
-> >> for a previous attempt to make the value configurable via kconfig -
-> and
-> >> in particular
-> >> https://lore.kernel.org/dri-devel/6764ca6f-b4d8-4baa-9d27-
-> >> 2ca867ac2d41@amd.com/
-> >> for the suggestion and discussion to remove the default limit.
-> >> ---
-> >>   drivers/dma-buf/udmabuf.c | 4 ++--
-> >>   1 file changed, 2 insertions(+), 2 deletions(-)
-> >>
-> >> diff --git a/drivers/dma-buf/udmabuf.c b/drivers/dma-buf/udmabuf.c
-> >> index bced421c0d65..639e93704924 100644
-> >> --- a/drivers/dma-buf/udmabuf.c
-> >> +++ b/drivers/dma-buf/udmabuf.c
-> >> @@ -20,9 +20,9 @@ static int list_limit =3D 1024;
-> >>   module_param(list_limit, int, 0644);
-> >>   MODULE_PARM_DESC(list_limit, "udmabuf_create_list->count limit.
-> >> Default is 1024.");
-> >>
-> >> -static int size_limit_mb =3D 64;
-> >> +static int size_limit_mb =3D INT_MAX;
-> >>   module_param(size_limit_mb, int, 0644);
-> >> -MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in
-> >> megabytes. Default is 64.");
-> >> +MODULE_PARM_DESC(size_limit_mb, "Max size of a dmabuf, in
-> >> megabytes. Default is INT_MAX.");
-> > Acked-by: Vivek Kasireddy <vivek.kasireddy@intel.com>
-> >
-> > If there are no further concerns/questions from anyone, I'll push it to
-> > drm-misc-next soon.
->=20
-> FTR., we already have a first duplicate :P
->=20
-> https://lore.kernel.org/dri-devel/20260803144120.11524-1-
-> xaver.hugl@kde.org/
-Yeah, looks like this change seems to be desirable in many use-cases.
-I have pushed it to drm-misc-next today.
+On Tue, Aug 04, 2026 at 10:12:10AM +0530, Yadav, Arvind wrote:
+> 
+> On 03-08-2026 23:24, Matthew Brost wrote:
+> > On Mon, Aug 03, 2026 at 10:46:27AM -0700, Matthew Brost wrote:
+> > > On Mon, Aug 03, 2026 at 02:55:53PM +0530, Arvind Yadav wrote:
+> > > > A device page migrated to system memory by a CPU fault can remain
+> > > > referenced for a short time after migration completes. During this
+> > > > window, the raw-PFN eviction path can select the same device PFN and
+> > > > migrate it again.
+> > > > 
+> > > So is the race a CPU immediately followed by an evict?
+> 
+> 
+> Yes. The CPU-fault migration completes first, then eviction selects the same
+> device folio before its remaining reference is dropped.
+> 
+> > > 
+> > > > The first migration has already moved the memcg charge away from the
+> > > > source folio. Migrating that source again can create an uncharged system
+> > > > folio. Adding such a folio to the LRU can spin indefinitely in
+> > > > folio_lruvec_lock_irqsave(), resulting in a soft lockup and an RCU stall.
+> > > > 
+> > > Do you have stack trace of this lockup? It would be good include that in
+> > > this commit message.
+> 
+> 
+> Yes, I have the trace. I will add in next version.
+> 
+> > > 
+> > > > Track successfully migrated device PFNs in drm_pagemap_zdd for the
+> > > > lifetime of the device-mapping generation.
+> > > > 
+> > > > Record successful migrations in both the CPU-fault and raw-PFN eviction
+> > > > paths.
+> > > > 
+> > > > Make raw-PFN eviction skip retired PFNs, preventing an already migrated
+> > > > device page from being handed to the migration path a second time.
+> > > > 
+> > > > Fixes: 99624bdff867 ("drm/gpusvm: Add support for GPU Shared Virtual Memory")
+> > > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > > > Cc: Maxime Ripard <mripard@kernel.org>
+> > > > Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> > > > Cc: David Airlie <airlied@gmail.com>
+> > > > Cc: Simona Vetter <simona@ffwll.ch>
+> > > > Cc: Matthew Brost <matthew.brost@intel.com>
+> > > > Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> > > > Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+> > > > Assisted-by: Claude:claude-opus-4-8
+> > > > Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+> > > > ---
+> > > >   drivers/gpu/drm/drm_pagemap.c | 188 +++++++++++++++++++++++++++++++++-
+> > > >   1 file changed, 186 insertions(+), 2 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+> > > > index 7a056592ac66..f7040fc0dea6 100644
+> > > > --- a/drivers/gpu/drm/drm_pagemap.c
+> > > > +++ b/drivers/gpu/drm/drm_pagemap.c
+> > > > @@ -7,6 +7,7 @@
+> > > >   #include <linux/dma-mapping.h>
+> > > >   #include <linux/migrate.h>
+> > > >   #include <linux/pagemap.h>
+> > > > +#include <linux/xarray.h>
+> > > >   #include <drm/drm_drv.h>
+> > > >   #include <drm/drm_pagemap.h>
+> > > >   #include <drm/drm_pagemap_util.h>
+> > > > @@ -66,6 +67,8 @@
+> > > >    * @refcount: Reference count for the zdd
+> > > >    * @devmem_allocation: device memory allocation
+> > > >    * @dpagemap: Refcounted pointer to the underlying struct drm_pagemap.
+> > > > + * @retired: Device PFNs already migrated to RAM. Entries remain until this
+> > > > + * mapping generation is destroyed.
+> > > >    *
+> > > >    * This structure serves as a generic wrapper installed in
+> > > >    * page->zone_device_data. It provides infrastructure for looking up a device
+> > > > @@ -78,6 +81,7 @@ struct drm_pagemap_zdd {
+> > > >   	struct kref refcount;
+> > > >   	struct drm_pagemap_devmem *devmem_allocation;
+> > > >   	struct drm_pagemap *dpagemap;
+> > > > +	struct xarray retired;
+> > > I don't think an xarray is the right data structure here, given that
+> > > load/store operations are slower than direct memory loads and stores.
+> > > 
+> > > The CPU fault path is about as critical a code path as we can get, so I
+> > > think it needs to be highly optimized.
+> > > 
+> > > I believe a bitmap [1] is the right data structure.
+> > > 
+> > > include/linux/bitmap.h
+> > > 
+> > > I'd suggest using an embedded bitmap here, sized based on the ZDD size.
+> > > 
+> > > For example:
+> > > 
+> > > /* last member */
+> > > unsigned long retire_map[];
+> > > Show more lines
+> > > 4K, 64K -> length 1
+> > > 2M -> length 8
+> > > 
+> > > Lastly, the only bits that are ever checked are those corresponding to
+> > > the folio order. For example, if the folio order is 9, only bit 0 is set
+> > > and checked, and the check loop increments based on the folio order.
+> 
+> 
+> Agreed. I will replace the XArray with an embedded bitmap sized for the ZDD
+> allocation and remove the reservation helpers.
+> 
+> > > >   };
+> > > >   /**
+> > > > @@ -101,6 +105,7 @@ drm_pagemap_zdd_alloc(struct drm_pagemap *dpagemap)
+> > > >   	kref_init(&zdd->refcount);
+> > > >   	zdd->devmem_allocation = NULL;
+> > > >   	zdd->dpagemap = drm_pagemap_get(dpagemap);
+> > > > +	xa_init(&zdd->retired);
+> > > >   	return zdd;
+> > > >   }
+> > > > @@ -137,6 +142,7 @@ static void drm_pagemap_zdd_destroy(struct kref *ref)
+> > > >   		if (devmem->ops->devmem_release)
+> > > >   			devmem->ops->devmem_release(devmem);
+> > > >   	}
+> > > > +	xa_destroy(&zdd->retired);
+> > > >   	kfree(zdd);
+> > > >   	drm_pagemap_put(dpagemap);
+> > > >   }
+> > > > @@ -1102,12 +1108,169 @@ void drm_pagemap_put(struct drm_pagemap *dpagemap)
+> > > >   }
+> > > >   EXPORT_SYMBOL(drm_pagemap_put);
+> > > > +/**
+> > > > + * drm_pagemap_is_devmem_page() - Is @page a drm_pagemap device page
+> > > > + * @page: The page to test
+> > > > + *
+> > > > + * Return: true for device-private or device-coherent pages, which carry a
+> > > > + * struct drm_pagemap_zdd in their zone_device_data.
+> > > > + */
+> > > > +static bool drm_pagemap_is_devmem_page(const struct page *page)
+> > > > +{
+> > > > +	return is_device_private_page(page) || is_device_coherent_page(page);
+> > > > +}
+> > > > +
+> > > > +static void
+> > > > +drm_pagemap_release_retired_reservations(unsigned long *src_pfns,
+> > > > +					 unsigned long npages)
+> > > > +{
+> > > This function won't be needed with above.
+> 
+> 
+> Noted,
+> 
+> > > 
+> > > > +	unsigned long i = 0;
+> > > > +
+> > > > +	while (i < npages) {
+> > > > +		struct page *page = migrate_pfn_to_page(src_pfns[i]);
+> > > > +		struct drm_pagemap_zdd *zdd;
+> > > > +		struct folio *folio;
+> > > > +		unsigned long pfn, nr, j;
+> > > > +
+> > > > +		if (!page || !(src_pfns[i] & MIGRATE_PFN_MIGRATE) ||
+> > > > +		    !drm_pagemap_is_devmem_page(page)) {
+> > > > +			i++;
+> > > > +			continue;
+> > > > +		}
+> > > > +
+> > > > +		folio = page_folio(page);
+> > > > +		zdd = drm_pagemap_page_zone_device_data(page);
+> > > > +		pfn = folio_pfn(folio);
+> > > > +		nr = folio_nr_pages(folio);
+> > > > +
+> > > > +		for (j = 0; j < nr; j++)
+> > > > +			xa_release(&zdd->retired, pfn + j);
+> > > > +
+> > > > +		i += nr;
+> > > > +	}
+> > > > +}
+> > > > +
+> > > > +/**
+> > > > + * drm_pagemap_reserve_retired_pages() - Pre-reserve retirement slots
+> > > > + * @src_pfns: migrate_vma source array after migrate_vma_setup()
+> > > > + * @npages: number of entries in @src_pfns
+> > > > + *
+> > > > + * Reserve every base PFN because migration may split a large source
+> > > > + * folio. Recording the result must not allocate.
+> > > > + */
+> > > > +static int drm_pagemap_reserve_retired_pages(unsigned long *src_pfns,
+> > > > +					     unsigned long npages)
+> > > This function won't be needed.
+> 
+> 
+> Noted,
+> 
+> > > 
+> > > > +{
+> > > This function will look something like:
+> > > 
+> > > 	unsigned long i = 0;
+> > > 	int err;
+> > > 
+> > > 	while (i < npages) {
+> > > 		struct page *page = migrate_pfn_to_page(src_pfns[i]);
+> > > 		struct folio *folio;
+> > > 		struct drm_pagemap_zdd *zdd;
+> > > 		unsigned long pfn, nr;
+> > > 
+> > > 		if (!page || !drm_pagemap_is_devmem_page(page))
+> > > 			continue;
+> > > 
+> > > 		folio = page_folio(page);
+> > > 		nr = folio_nr_pages(folio);
+> > > 
+> > > 		if (!(src_pfns[i] & MIGRATE_PFN_MIGRATE)) {
+> > > 			i += nr;
+> > > 			continue;
+> > > 		}
+> > > 
+> > > 		zdd = drm_pagemap_page_zone_device_data(page);
+> > > 		bitmap_set(zdd->retire_map, i, 1);
+> > > 		i += nr;
+> > > 	}
+> > > 
+> > > 	return 0;
+> > ^^^
+> > 
+> > Opps, copy paste error. This function isn't needed and the above snippet
+> > is for the function below (include there in previous reply).
+> 
+> 
+> Noted,
+> 
+> > 
+> > > > +	unsigned long i = 0;
+> > > > +	int err;
+> > > > +
+> > > > +	while (i < npages) {
+> > > > +		struct page *page = migrate_pfn_to_page(src_pfns[i]);
+> > > > +		struct drm_pagemap_zdd *zdd;
+> > > > +		unsigned long pfn, nr, k;
+> > > > +
+> > > > +		if (!page || !(src_pfns[i] & MIGRATE_PFN_MIGRATE) ||
+> > > > +		    !drm_pagemap_is_devmem_page(page)) {
+> > > > +			i++;
+> > > > +			continue;
+> > > > +		}
+> > > > +
+> > > > +		zdd = drm_pagemap_page_zone_device_data(page);
+> > > > +		pfn = folio_pfn(page_folio(page));
+> > > > +		nr = folio_nr_pages(page_folio(page));
+> > > > +
+> > > > +		for (k = 0; k < nr; k++) {
+> > > > +			err = xa_reserve(&zdd->retired, pfn + k, GFP_KERNEL);
+> > > > +			if (err) {
+> > > > +				drm_pagemap_release_retired_reservations(src_pfns,
+> > > > +									 npages);
+> > > > +				return err;
+> > > > +			}
+> > > > +		}
+> > > > +
+> > > > +		i += nr;
+> > > > +	}
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > > > +
+> > > > +/**
+> > > > + * drm_pagemap_retire_migrated_pages() - Retire CPU-migrated device PFNs
+> > > > + * @src_pfns: migrate_vma source array, valid after migrate_vma_pages()
+> > > > + * @npages: number of entries in @src_pfns
+> > > > + *
+> > > > + * Record successful migrations before finalize unlocks the sources.
+> > > > + * Release reservations for pages that were not migrated.
+> > > > + */
+> > > > +static void drm_pagemap_retire_migrated_pages(unsigned long *src_pfns,
+> > > > +					      unsigned long npages)
+> > > > +{
+> > > > +	unsigned long i = 0;
+> > > > +
+> > > 
+> > > This function will look something like:
+> > > 
+> > > 	unsigned long i = 0;
+> > > 	int err;
+> > > 
+> > > 	while (i < npages) {
+> > > 		struct page *page = migrate_pfn_to_page(src_pfns[i]);
+> > > 		struct folio *folio;
+> > > 		struct drm_pagemap_zdd *zdd;
+> > > 		unsigned long pfn, nr;
+> > > 
+> > > 		if (!page || !drm_pagemap_is_devmem_page(page))
+> > > 			continue;
+> > > 
+> > > 		folio = page_folio(page);
+> > > 		nr = folio_nr_pages(folio);
+> > > 
+> > > 		if (!(src_pfns[i] & MIGRATE_PFN_MIGRATE)) {
+> > > 			i += nr;
+> > > 			continue;
+> > > 		}
+> > > 
+> > > 		zdd = drm_pagemap_page_zone_device_data(page);
+> > > 		WARN_ON_ONCE(__test_and_set_bit(i, zdd->retire_map));		
+> > > 		i += nr;
+> > > 	}
+> > > 
+> > > 	return 0;
+> > > 
+> > > 
+> > > 
+> > > > +	while (i < npages) {
+> > > > +		struct page *page = migrate_pfn_to_page(src_pfns[i]);
+> > > > +		struct drm_pagemap_zdd *zdd;
+> > > > +		unsigned long pfn, nr, k;
+> > > > +		bool migrated;
+> > > > +
+> > > > +		if (!page || !drm_pagemap_is_devmem_page(page)) {
+> > > > +			i++;
+> > > > +			continue;
+> > > > +		}
+> > > > +
+> > > > +		zdd = drm_pagemap_page_zone_device_data(page);
+> > > > +		pfn = folio_pfn(page_folio(page));
+> > > > +		nr = folio_nr_pages(page_folio(page));
+> > > > +		migrated = src_pfns[i] & MIGRATE_PFN_MIGRATE;
+> > > > +
+> > > > +		/* Keep later folio splits covered. */
+> > > > +		for (k = 0; k < nr; k++) {
+> > > > +			if (migrated)
+> > > > +				WARN_ON_ONCE(xa_err(xa_store(&zdd->retired,
+> > > > +							     pfn + k,
+> > > > +							     xa_mk_value(1),
+> > > > +							     GFP_NOWAIT)));
+> > > > +			else
+> > > > +				xa_release(&zdd->retired, pfn + k);
+> > > > +		}
+> > > > +
+> > > > +		i += nr;
+> > > > +	}
+> > > > +}
+> > > > +
+> > > > +/**
+> > > > + * drm_pagemap_skip_retired_pages() - Drop retired PFNs from a raw-PFN eviction
+> > > > + * @src_pfns: source array after migrate_device_pfns() (MIGRATE_PFN encoded)
+> > > > + * @npages: number of entries in @src_pfns
+> > > > + *
+> > > > + * Skip source PFNs already migrated to RAM by either migration path.
+> > > > + */
+> > > > +static void drm_pagemap_skip_retired_pages(unsigned long *src_pfns,
+> > > > +					   unsigned long npages)
+> > > > +{
+> > > > +	unsigned long i;
+> > > > +
+> > > > +	for (i = 0; i < npages; i++) {
+> > > > +		struct page *page = migrate_pfn_to_page(src_pfns[i]);
+> > > > +		struct drm_pagemap_zdd *zdd;
+> > > > +
+> > > > +		if (!page || !(src_pfns[i] & MIGRATE_PFN_MIGRATE) ||
+> > > > +		    !drm_pagemap_is_devmem_page(page))
+> > > > +			continue;
+> > > > +
+> > > > +		zdd = drm_pagemap_page_zone_device_data(page);
+> > > > +		if (xa_load(&zdd->retired, folio_pfn(page_folio(page))))
+> > > if (__test_and_set_bit(i, zdd->retire_map))
+> > > 
+> > > > +			src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
+> > > Iterate based on nr.
+> 
+> 
+> Agreed on iterating by folio order. I will use test_bit() here and set the
 
-Thanks,
-Vivek
+Yes, test_bit is better.
 
->=20
-> >
-> > Thanks,
-> > Vivek
-> >>   struct udmabuf {
-> >>   	pgoff_t pagecount;
-> >> --
-> >> 2.55.0
->=20
-> --
-> Robert Mader
-> Consultant Software Developer
->=20
-> Collabora Ltd.
-> Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-> Registered in England & Wales, no. 5513718
+Matt
 
+> bit only after successful migration, so a failed migration is not left
+> falsely retired.
+> 
+> Thanks,
+> Arvind
+> 
+> > > 
+> > > Matt
+> > > 
+> > > > +	}
+> > > > +}
+> > > > +
+> > > >   /**
+> > > >    * drm_pagemap_evict_to_ram() - Evict GPU SVM range to RAM
+> > > >    * @devmem_allocation: Pointer to the device memory allocation
+> > > >    *
+> > > > - * Similar to __drm_pagemap_migrate_to_ram but does not require mmap lock and
+> > > > - * migration done via migrate_device_* functions.
+> > > > + * Similar to __drm_pagemap_migrate_to_ram(), but uses the
+> > > > + * migrate_device_* helpers and does not require the mmap lock. Device
+> > > > + * PFNs already migrated by a CPU fault are skipped.
+> > > >    *
+> > > >    * Return: 0 on success, negative error code on failure.
+> > > >    */
+> > > > @@ -1149,6 +1312,17 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
+> > > >   	if (err)
+> > > >   		goto err_free;
+> > > > +	drm_pagemap_skip_retired_pages(src, npages);
+> > > > +
+> > > > +	/*
+> > > > +	 * Reserve retirement entries before migration so recording successful
+> > > > +	 * PFNs cannot fail. Otherwise, a retry could select and migrate the same
+> > > > +	 * PFN again.
+> > > > +	 */
+> > > > +	err = drm_pagemap_reserve_retired_pages(src, npages);
+> > > > +	if (err)
+> > > > +		goto err_finalize;
+> > > > +
+> > > >   	err = drm_pagemap_migrate_populate_ram_pfn(NULL, NULL, npages, &mpages,
+> > > >   						   src, dst, 0);
+> > > >   	if (err || !mpages)
+> > > > @@ -1179,6 +1353,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
+> > > >   	if (err)
+> > > >   		drm_pagemap_migration_unlock_put_pages(npages, dst);
+> > > >   	migrate_device_pages(src, dst, npages);
+> > > > +	drm_pagemap_retire_migrated_pages(src, npages);
+> > > >   	migrate_device_finalize(src, dst, npages);
+> > > >   	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
+> > > >   					DMA_FROM_DEVICE, &state);
+> > > > @@ -1276,6 +1451,14 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
+> > > >   	if (!migrate.cpages)
+> > > >   		goto err_free;
+> > > > +	/*
+> > > > +	 * Reserve retirement entries before migration so recording successful
+> > > > +	 * PFNs cannot fail. On failure, finalize can still restore the sources.
+> > > > +	 */
+> > > > +	err = drm_pagemap_reserve_retired_pages(migrate.src, npages);
+> > > > +	if (err)
+> > > > +		goto err_finalize;
+> > > > +
+> > > >   	ops = zdd->devmem_allocation->ops;
+> > > >   	dev = zdd->devmem_allocation->dev;
+> > > > @@ -1309,6 +1492,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
+> > > >   	if (err)
+> > > >   		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
+> > > >   	migrate_vma_pages(&migrate);
+> > > > +	drm_pagemap_retire_migrated_pages(migrate.src, npages);
+> > > >   	migrate_vma_finalize(&migrate);
+> > > >   	if (dev)
+> > > >   		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
+> > > > -- 
+> > > > 2.43.0
+> > > > 
