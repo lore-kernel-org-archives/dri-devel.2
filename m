@@ -4,43 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2D66C55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 16:01:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B7ECC55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 16:19:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0665B10EB08;
-	Tue,  4 Aug 2026 16:01:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4ACBB10EB15;
+	Tue,  4 Aug 2026 16:19:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ESNcoHTs";
+	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="YTGNKiHl";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0751A10EB08
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 16:01:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 13FBB60A83;
- Tue,  4 Aug 2026 16:01:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B8021F000E9;
- Tue,  4 Aug 2026 16:01:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785859285;
- bh=pxt/+ajdG75cb8ZE2lOHuYLdHm6cxAU0nUcvwO75wnA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ESNcoHTso9aVAr4ELvTcyRUXGz6XFzRl9yF3Lc5XAiUMV4MH5KhiKFjX2g5q14u6R
- CgkOceY34cu5iqO2Acz9V/vPsjAyZRbEdPgFaSlb40hY6DOQgkQYg0k89Dfa7I/sSq
- cYyquRN5hlE7hAqmZhb4fjMhITyPQ1IRJ5EBjm2/JdTJTqY+ZIqOfpZQDxh4I0mRvw
- xetIt8XI/W3YB9Vop0X+k1u0w8J/fzxXlVoybvfjcEavrzzgzO/fQgVaNluF7+GKyj
- X8mgW9cdAk+JBIeG3QuFZcZM1Z/JuebXWgQdcpBg5UnrGVkc03NsU05Ar5tSD+CJHw
- ebRia0tBBmnNg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 12/12] drm/panthor: Fix unplug in the reset path
-To: "Boris Brezillon" <boris.brezillon@collabora.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260804-panthor-unplug-fixes-v1-12-abbbd2d41b13@collabora.com>
-References: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
- <20260804-panthor-unplug-fixes-v1-12-abbbd2d41b13@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 16:01:24 +0000
-Message-Id: <20260804160125.5B8021F000E9@smtp.kernel.org>
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADBEE10E109
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 16:19:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+ MIME-Version:Date:Message-ID:content-disposition;
+ bh=msNOem7p+wuff5GBoLB08T6D1Qgn/zf/MKSf7PCUJ9I=; b=YTGNKiHlWOxB29f/0WDUBxevAz
+ wWQbgY4hcj9VuegwPDCW2O4ETw3h8yU99cJ3iWAuHfgW7zaVgtGVRDyZw/PtB5CEn9YTipJb4Ur2j
+ XsKoAzfajZggFn6Yxm+fui4u+uD21U7vZ867CgVMajfYVICR5XKEQfUzD+k6J7SBFCqtY3HqTl2ow
+ T/ZdOTGzYJH/3mSW58cfeT5FvL8m4FUlfkUVbx+SXzbgPZqp7KKJ6XfR6+TtEjqUhA7rXGKsfHZLr
+ /epv48dfzHRXf1VRSFETvL3hqBFaBaWPxZGPTVGOn6SuylnrPYL05zybmbOygD+pgG9mR5Y1rgm38
+ daV/hkjA==;
+Received: from guinness.priv.deltatee.com ([172.16.1.162])
+ by ale.deltatee.com with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
+ (envelope-from <logang@deltatee.com>) id 1wrHrS-00000006NYF-3B7f;
+ Tue, 04 Aug 2026 10:19:27 -0600
+Message-ID: <b30e75d8-37d6-478d-bc72-a9ed0b7e200c@deltatee.com>
+Date: Tue, 4 Aug 2026 10:19:11 -0600
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: Matt Evans <matt@ozlabs.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>
+Cc: Alex Williamson <alex@shazbot.org>, Alex Mastro <amastro@fb.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org, Longfang Liu <liulongfang@huawei.com>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-3-matt@ozlabs.org>
+ <e90b0bd0-fb8e-4d4e-b282-609c26692e4a@ozlabs.org>
+Content-Language: en-CA
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <e90b0bd0-fb8e-4d4e-b282-609c26692e4a@ozlabs.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.16.1.162
+X-SA-Exim-Rcpt-To: matt@ozlabs.org, leon@kernel.org, jgg@nvidia.com,
+ alex@shazbot.org, amastro@fb.com, bhelgaas@google.com, kevin.tian@intel.com,
+ praan@google.com, mngyadam@amazon.de, dmatlack@google.com, bjorn@kernel.org,
+ sumit.semwal@linaro.org, ankita@nvidia.com, christian.koenig@amd.com,
+ apopple@nvidia.com, vivek.kasireddy@intel.com, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org, linux-pci@vger.kernel.org,
+ liulongfang@huawei.com
+X-SA-Exim-Mail-From: logang@deltatee.com
+Subject: Re: [PATCH v5 2/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,93 +79,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] Concurrent execution of device removal and a failing reset work ca=
-uses an unrecoverable AB-BA cross-thread deadlock.
---
 
---- Patch [12]: [PATCH 12/12] drm/panthor: Fix unplug in the reset path ---
-commit cac1a79672cc7dc4544f4f69a02f107969842cb8
-Author: Boris Brezillon <boris.brezillon@collabora.com>
+On 2026-08-04 09:42, Matt Evans wrote:
+> 
+> Just shoving an #ifdef in mlx5 isn't right, so would be grateful for
+> your advice on the most tasteful resolution:
+> 
+>  1. Imagining future drivers might use pcim_p2pdma_provider(), maybe
+>     p2pdma could export a `pcim_p2pdma_supported()` or similar which
+>     returns whether CONFIG_PCI_P2PDMA is present and P2P can ever work.
+>     A user of pcim_p2pdma_provider() is required to also check if P2P is
+>     overall supported.
+> 
+>     Ugliness aside, a driver could use #ifdef CONFIG_PCI_P2PDMA to test
+>     whether P2P is expected to work, except that doesn't stop modules
+>     falling into the same trap.  I think a function export is better.
+> 
+>  2. And/or a test (such the function from #1, or an #ifdef) in the IB
+>     core DMABUF path, to avoid individual drivers from doing the test in
+>     their .mmap_get_pfns().  Other future drivers would be expected to
+>     do similar.
+> 
+> Any better ideas?  Sorry I didn't catch this earlier in the review
+> cycles, I know we've looked at this patch a few times now.
 
-drm/panthor: Fix unplug in the reset path
+I see the problem now. Yes, it's a bit tricky and I don't have a great
+answer. But the proposed solution seems very confusing. I definitely
+don't think we should be adding ifdefs in the IB core for this.
 
-We can't use disable_work_sync() if panthor_device_unplug() is called
-from the reset work or we'll deadlock. Pass a from_reset_work bool to
-the panthor_device_unplug() function and lower the disable_work_sync()
-to a disable_work() in that case.
+For me, this is mainly a naming problem as there's a bunch of ways to
+address it in the code. The question is what do we call p2pdma vs. core
+p2pdma in a way that makes the distinction more obvious.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
-anthor/panthor_device.c
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -189,13 +192,16 @@ static void panthor_device_reset_work(struct work_s=
-truct *work)
->  	panthor_hw_soft_reset(ptdev);
->  	panthor_hw_l2_power_on(ptdev);
->  	panthor_mmu_post_reset(ptdev);
-> -	ret =3D panthor_fw_post_reset(ptdev);
-> +	if (ptdev->reset.fake_failure)
-> +		ret =3D -EIO;
-> +	else
-> +		ret =3D panthor_fw_post_reset(ptdev);
->  	atomic_set(&ptdev->reset.pending, 0);
->  	panthor_sched_post_reset(ptdev, ret !=3D 0);
->  	drm_dev_exit(cookie);
-> =20
->  	if (ret) {
-> -		panthor_device_unplug(ptdev);
-> +		panthor_device_unplug(ptdev, true);
+There's a vague convention for this already: the term 'p2pmem' is often
+used for cases where the driver uses the allocator, etc. (I think I had
+this intention when I wrote the code and have since forgotten about it).
+I'm thinking we should lean into that more and instead of introducing
+CONFIG_PCI_P2PDMA_CORE we introduce CONFIG_PCI_P2PMEM and move all that
+code into it's own file, potentially renaming some functions. Then, in
+the end, we would probably have a pcim_p2pdma_supported() function and a
+pcim_p2pmem_supported() function, the latter being used by existing use
+cases.
 
-[Severity: High]
-This is a pre-existing issue, but does this sequence still leave an AB-BA
-deadlock if driver removal runs concurrently with a failing reset work?
-
-If CPU1 is running driver removal via panthor_remove(), it calls
-panthor_device_unplug(..., false). This acquires ptdev->unplug.lock
-earlier in the function.
-
-If CPU2 is running panthor_device_reset_work(), it holds the SRCU
-read lock via drm_dev_enter().
-
-CPU1 then blocks in drm_dev_unplug() waiting for active SRCU readers.
-
-CPU2 encounters a reset error, calls drm_dev_exit() (releasing SRCU),
-and unblocks CPU1.
-
-CPU1 continues in panthor_device_unplug() and blocks in
-disable_work_sync() waiting for the reset work to finish (since it
-holds ptdev->unplug.lock and from_reset_work is false):
-
-CPU1:
-panthor_remove()
-  panthor_device_unplug(ptdev, false)
-    mutex_lock(&ptdev->unplug.lock);
-    ...
-    drm_dev_unplug(&ptdev->base);
-    ...
-    disable_work_sync(&ptdev->reset.work);
-
-Meanwhile, CPU2 proceeds to the error handling path and calls
-panthor_device_unplug(ptdev, true). This attempts to acquire
-ptdev->unplug.lock, but CPU1 already holds it:
-
-CPU2:
-panthor_device_reset_work()
-  ...
-  if (ret)
-    panthor_device_unplug(ptdev, true)
-      mutex_lock(&ptdev->unplug.lock);
-
-Could this cause both threads to hang indefinitely?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-panthor-un=
-plug-fixes-v1-0-abbbd2d41b13@collabora.com?part=3D12
+Logan
