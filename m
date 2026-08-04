@@ -4,79 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F0FA7C55822
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:24:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2C7DC561E6
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:24:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C0F6E10ED42;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB00810ED43;
 	Wed,  5 Aug 2026 07:24:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mKA4HVIE";
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="AxFBzJQy";
 	dkim-atps=neutral
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com
- [209.85.208.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1221310E65B
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 14:04:26 +0000 (UTC)
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-39c8ee87f7eso41288461fa.3
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 07:04:25 -0700 (PDT)
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
+ [74.125.224.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F52A10E661
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 11:24:48 +0000 (UTC)
+Received: by mail-yx1-f47.google.com with SMTP id
+ 956f58d0204a3-6626b5ace23so1429407d50.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 04:24:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785842687; cv=none;
+ d=google.com; s=arc-20260327;
+ b=bzhSgZMokKia8CZejINxvYKJFOmoQqGIdvflDEaj/xipYmEt8iukYgtU3i+TVwZ0l3
+ zsR8pTMoopnsjkrcFXZFWjrkCDr7FZCYz/SsWLIOZF6byRuV9GZHB3IuHCnvxkTslV9R
+ IIFgEyrZdFXbwSmtNMtObJy1ZJtruke5DrMB4Q6ej6S8B8iAZr5WWSsvAF7ErbE1buEj
+ iTypSxhlknZ7RnJ08hxrN6BXI7ewZ+UxY+bKOFCnlvwe6hjUafTHw21vzIGLZb5ChK8C
+ MLRarLZJUXhP70umStyqE3JTCTZxHK/rXLajn/cJf9IQe3IH9zp9FHbmer3xY/gPKtOz
+ pxvA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=uEVKlwbWy5DXWZajPw8ll3lGkPxZtANhBjPjY4Q6jfY=;
+ fh=xxXKn1E7+XyotTBgkX8ARp5BZTbxXxuzYZwtoKtGP1c=;
+ b=j+BDj+TLu7ufkzpGq8JLTmEzGGVcMYgZ/+w4vmlZGK+EKesTCQ/c4FK1R51NNy+TuT
+ bNeq95SpkkgsWB0HQUj2t79rKPbEWKB6EPLyb7+QxSxoya6QpJqNNmtp0+G/3MEcnJMG
+ JpcjUup+6bwLHxoT9DKdcii9THy3bnnqcIYowEGLyIZHjdMjPk4O2MGlplvc01/AhCr9
+ ANhIb9d6F29obFB17e+VgYdwtcc+WlOuwxlzOYAdYjQvSU3z6q6KO6Nzjv9FHDnoih4V
+ jyM8co7Edh6XuRqSm62rCTWCkEuTw9Z6sLLVC8aEayPIooTfZOswbKc0BgCAxWMoepGu
+ KgCw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785852264; x=1786457064; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=0SIB9ZNDGWSkbhYbrVPXtpZTZPzNmn29odQM0RAb0dw=;
- b=mKA4HVIEMdlZbebc35h4WeMjQvpWoy8LruHDDsle0DfWo//vAAFytBabq911FeTRKD
- CyHTGaqK2vdvUtc1qZZPobLsHY/9XmOo0PS4MIbFjJXKsSBj+yINH1h8iHlpij5npwQU
- nSR4JE8qC6AV4e/amipauTHnvjeN80YwftFNUGZSqBlZQ751RWmS+CiDDXHYDj9IDsm7
- wwCVnR4Oc4YBzukv3kbDLh0C/YvEpXN1oX26H1lC2x1pHCgFKAVTypEHYX5vPG/3tdGH
- /ARWhO+ne1UcVB034E0gjWfuwnG2Gc8Kwc2Jl19vdnJqGKof75HE2/vAnHvTHAnwxtZm
- HE/g==
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1785842687;
+ x=1786447487; darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=uEVKlwbWy5DXWZajPw8ll3lGkPxZtANhBjPjY4Q6jfY=;
+ b=AxFBzJQyJXEVez8XvrjuySmAKqzTlqE5lfI868aetN/ANbtyh1TGeGvIsPq+tSlslp
+ XmxOsxZB9n6PHLEtYJ8EUK2TPnreXJfK3hmTNI1esg3ivNlHPCWGxL4elboveuphBnZe
+ ci1+pM8CopmDepHY9o/Y2BENszcSInE5DnbLA9lGmDQJN3Nxgp3qQL5fuOyeIpdJ/UGh
+ Q2qy1vY729zGPoaIZ6V+rE5v4Frge0FcZBAx3/deELlqOGy2SLVs6qGW1jkEhymkEViQ
+ GOrVGCRvuIZRWHoBeKDEsi9hyIVvaBQl8dHtYUgUQG3D4fShGuKMtAnNh0oFdd0cH5qi
+ 0bQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785852264; x=1786457064;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=0SIB9ZNDGWSkbhYbrVPXtpZTZPzNmn29odQM0RAb0dw=;
- b=g5xC3B66CUNe6xmCI5r1Zrit3MDMXK1sJ91Tu/vNEvemHGxtEQNBYKKA7ytKxl++CD
- q9xVeT9FOqtuZoFAT6Qn5xbzrVEUFnrIutBm8d25r5DNQOim0aY0M6eSLsMXnOzAwL9B
- BlfyqmBdS0WLtyRhQ5o5bPde0d/aq/AJv262+f1Uo+H8Mn2WNYZla1Ct92bnhNU76yWs
- wKWChLT2JWY0Xwr2xJLRmoLKdkP9Fxiuns3NbjO4BH0qZWNIOP/OxGWA5I7UDLK9HVX4
- i1BW2W5Zofw14DcJAosThjvGnsGuXGRNPzd8xNTAJVH0aOAtJuJR7X50WKo9GWWcXi9R
- MWJg==
+ d=1e100.net; s=20251104; t=1785842687; x=1786447487;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=uEVKlwbWy5DXWZajPw8ll3lGkPxZtANhBjPjY4Q6jfY=;
+ b=Wz03Fuw75w2J6YNG45kdrSmrAkqQHmRlpWzUjyz4D4xQtzkvxYPlcVDli9Qtj8ujA8
+ L/MzRdSTl5baIXtiaZ49yooW0dwAO8sxciz6s0BGX4+haxfW6i9P0wMiHELd5kFmPAIR
+ YNRrnxhkxYdWo8KmRk9GaFd3vta9OpVZwB7XHG72NckCUn4HnBBhW1ZNEX+yefUsFAgI
+ 8NjUh9uZpdsLIToCEvN9rw0NuH4RgeLafAH8piU1glt7mBK87LMVzsOpNa+Xy8EwmzYg
+ IW5OpyayNla58IT03m76FhYmzzysdr36Kl8eY2wXoAoP2eLe/VO0KlguGiuxx7vuHUi0
+ EONA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpenVyYIkTW2Izx3MSzPoK89BmxO0NhEz2VEL9KxpFwAGa/qp9y39eht420DABifIe1AQxTw39WphA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywmefe/BpwjboXolWJTP/i31KfJRsX8LbZLnBcIZOgpWz3qcGFR
- MxubiEhkH4L6zK7F+Xq4OoDrwoH1cZ/Y9yBhspBLrC6X+P7S8Omv9HcA
-X-Gm-Gg: AR+sD11Pn2QZ69roqZgxvYemSe9TrNAKKNQGEbRvCPlUz+QQpVZ7V6XnEKWawM3NS78
- nkm3Z5zs+MrcoqO3Hi5NqrE0mlTZ5trFqQSAeMqSBtg8iokO7fzyAAKCw1gdR7IQ5RDg/v6wtLU
- SHxvNlIrlmbk0BHZoVsrhvL/4i4aZxT1N81+QsPuz7EF/c6LfcR8HaawYDTd7THX7cFK8VFUvg7
- j04G8iHWMRsTKhWSytqKP7+2Unckzcilt8UpQaRnkRAnPfDiwZobhQWcISy3k7YMpspQFyFfgnb
- GAb1NmKAbceqQOMa7ciGG0DV1/TjJE75kGyiy1UkB9LDrfm5IzTkkjAIBvfRdeMvJegrT1zdRNd
- f8jcjp3aHkd3n+L2hpCY/Vhw3uRruneD8lkqV6H9/Pc3JAsbhrkKv6FBDfO7+IxEJB3oumRo/Cf
- E8ncGOuslD0aeoVx/GMxR0TQ9z2nJzp1EboslsvV1yNPJ02YERtaiz8R4nLmaDTiBmIgyhNhJkz
- oq7F5P9L6tII0Y3z8YCNoXii+UMMh3c7G/9qD9w
-X-Received: by 2002:a05:6512:39c3:b0:5b2:a396:1793 with SMTP id
- 2adb3069b0e04-5b2e4f76abemr2965624e87.37.1785852263358; 
- Tue, 04 Aug 2026 07:04:23 -0700 (PDT)
-Received: from kfastov-mac ([91.217.3.226]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5b2e245536dsm2669672e87.67.2026.08.04.07.04.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Aug 2026 07:04:22 -0700 (PDT)
-From: Konstantin Fastov <kfastov@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, Konstantin Fastov <kfastov@gmail.com>
-Subject: [PATCH] drm/gem-shmem: Install writable PTEs for write faults
-Date: Tue,  4 Aug 2026 17:04:03 +0300
-Message-ID: <20260804140403.16337-1-kfastov@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ AHgh+RrM+TYLWHwZp1bNd8zhJ9ZdXu54TkjpdFOI5Quv4DzoPR3Rtpo/Li0916Q5TwP6KAqGXfQrteNmX1s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw5Xp+7eF/gQZRToaJL4Ibq29hF1Z4TGWS7ZXVwWr9l+Vjyu923
+ eQXcQMNRKoEBHDxgCgrvMvUrMMdnfv0GEDKjWt6VpbjD3ugvd86cUT8y39ZWNY67ehGwGbYtiXD
+ ubfxInlzSlcJD6X+j+U6Ied/RlcxTOkOitz2Q9YdO
+X-Gm-Gg: AR+sD12oir2OYfHIIVLWpQiAOsYSR1cMLypJ8IQL4EEnBqBt5gZddNnUKLZkjFk5iZ8
+ bwuwWJNWehG5ekgAMKju/j+HZnJ0/P+6Ro8SLwMY+dOVfLt4rEWFopezXRhb8hzeVAnOZ6DuTI3
+ hJAvovueezJFGe3BmHwiBUiBIrHl4sa0jnpk4K6EsJ7KDKAMt8Jo2RTKvNZKyxQe3j2hxbBSNp7
+ iPDuxhpcuNU+7h7w/wLUBj0KYZAtD30bVyh7yF7bmQwPsXz1kUIVCYGXnmbVnH0wWcKH3/apcty
+ hkEm44WI5j502IL7Q3t3azI4NQXNDCzE92s+FXcfKYMCx4Mt1XK29FVTcW9Dz7mNPFoVxSHBvjc
+ Yii0Y4BmhUN4=
+X-Received: by 2002:a53:e809:0:b0:668:894e:4bf with SMTP id
+ 956f58d0204a3-66985b8b487mr2701317d50.13.1785842686824; Tue, 04 Aug 2026
+ 04:24:46 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <cover.1785838269.git.sean@starlabs.systems>
+ <6f65c9869714188539f2890aef6cf30e7bd2edcb.1785838269.git.sean@starlabs.systems>
+ <e0d2a22e-a0cd-4a71-82c4-b88abcc7456e@oss.qualcomm.com>
+ <04db0ee0-a8d5-4f30-a494-5c7f8ac757c8@oss.qualcomm.com>
+In-Reply-To: <04db0ee0-a8d5-4f30-a494-5c7f8ac757c8@oss.qualcomm.com>
+From: Sean Rhodes <sean@starlabs.systems>
+Date: Tue, 4 Aug 2026 12:24:35 +0100
+X-Gm-Features: AUfX_mwh-6pbB3G3eHLoi8Syc4jiVFprtmWw6VDhCY8_98Qp6PgmXdAIR53yGtM
+Message-ID: <CABtds-35m_cfT=Vm4MZkJYRe=dOPAKR6HYO_fu3SnwkdVQE0nQ@mail.gmail.com>
+Subject: Re: [PATCH v11 3/4] firmware: Rename google firmware directory to
+ coreboot
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: chrome-platform@lists.linux.dev, Corentin Chary <corentin.chary@gmail.com>,
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, 
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>, 
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Joshua Grisham <josh@joshuagrisham.com>, platform-driver-x86@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Dell.Client.Kernel@dell.com, 
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Huacai Chen <chenhuacai@kernel.org>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, Chen-Yu Tsai <wenst@chromium.org>,
+ Tzung-Bi Shih <tzungbi@kernel.org>, 
+ Brian Norris <briannorris@chromium.org>, Julius Werner <jwerner@chromium.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Arnd Bergmann <arnd@arndb.de>, 
+ Eric Biggers <ebiggers@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>, 
+ Michal Simek <michal.simek@amd.com>, Sven Peter <sven@kernel.org>, 
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, 
+ Bjorn Helgaas <bhelgaas@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>, 
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
+ Kees Cook <kees@kernel.org>, 
+ dri-devel@lists.freedesktop.org, Oliver Lin <oliver@liuxiaozhen.dev>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Wed, 05 Aug 2026 07:24:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,154 +140,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since the introduction of dirty tracking, drm_gem_shmem_vm_ops has a
-.pfn_mkwrite handler.  Its presence makes vma_wants_writenotify() true,
-so vma_set_page_prot() removes the write bit from vm_page_prot of
-shared mappings, and the vmf_insert_pfn() call in the fault handler now
-installs read-only PTEs even when serving a write fault.
+On Tue, 4 Aug 2026 at 12:05, Krzysztof Kozlowski
+<krzysztof.kozlowski@oss.qualcomm.com> wrote:
+>
+> On 04/08/2026 13:02, Krzysztof Kozlowski wrote:
+> > On 04/08/2026 12:13, Sean Rhodes wrote:
+> >> rename to drivers/firmware/coreboot/Kconfig
+> >> index b78c644fa253..d273bd836245 100644
+> >> --- a/drivers/firmware/google/Kconfig
+> >> +++ b/drivers/firmware/coreboot/Kconfig
+> >> @@ -1,13 +1,16 @@
+> >>  # SPDX-License-Identifier: GPL-2.0-only
+> >> -menuconfig GOOGLE_FIRMWARE
+> >> -    bool "Google Firmware Drivers"
+> >> +menuconfig COREBOOT_FIRMWARE
+> >
+> > As pointed out by defconfig change, which is supposed to be separate
+> > commit, this will affect users of the kernel for no real gain.
+> >
+> > Do not change this.
+>
+> I am surprised that such change appeared at v10.
+>
+> Changelog is quite incomplete and I do not see any explanation for this.
 
-For regular CPU accesses this is transparent: the retried access faults
-again on the present read-only PTE, goes through wp_pfn_shared() into
-.pfn_mkwrite() and the PTE is upgraded to writable.  But consumers that
-resolve faults through fixup_user_fault() + follow_pfnmap_start()
-perform no such retry.  In particular KVM's hva_to_pfn_remapped(),
-after "successfully" handling a write fault, finds a present read-only
-PTE, treats it as KVM_PFN_ERR_RO_FAULT and fails the vcpu run with
-EFAULT.  Observed as AsahiLinux/linux#560: muvm/libkrun microVMs
-mapping virtio-gpu blob resources die with EFAULT on first GPU access.
-The traced failing sequence:
+Sorry, don't follow - so put the names back, or split it into its own patch?
 
-  follow_pfnmap_start()        -> -EINVAL   (no PTE yet)
-  fixup_user_fault(WRITE)
-    drm_gem_shmem_fault()
-      vmf_insert_pfn()         -> NOPAGE    (read-only PTE installed)
-  fixup_user_fault()           -> 0         (fault "handled")
-  follow_pfnmap_start()        -> 0, !writable
-  hva_to_pfn()                 -> KVM_PFN_ERR_RO_FAULT
-
-Fix it the same way commit cb2a2a5b37ad ("drm/shmem_helper: Make sure
-PMD entries get the writeable upgrade") did for the PMD path: when the
-fault is a write fault, install a writable entry directly and record
-the write for dirty tracking, instead of relying on a refault that not
-every fault-resolution path performs.
-
-To do that at PTE level, add vmf_insert_pfn_mkwrite(), the VM_PFNMAP
-counterpart of vmf_insert_mixed_mkwrite(): insert_pfn() already
-implements the mkwrite semantics, there was just no wrapper exposing it
-for pfn inserts with the default pgprot.
-
-Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status in mmap")
-Cc: stable@vger.kernel.org
-Closes: https://github.com/AsahiLinux/linux/issues/560
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Konstantin Fastov <kfastov@gmail.com>
----
- drivers/gpu/drm/drm_gem_shmem_helper.c | 20 +++++++++++++-
- include/linux/mm.h                     |  2 ++
- mm/memory.c                            | 36 +++++++++++++++++++++++---
- 3 files changed, 54 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 545933c7f712..37662f6f6ed9 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -573,7 +573,25 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int order,
- 				 unsigned long pfn)
- {
- 	if (!order) {
--		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
-+		vm_fault_t ret;
-+
-+		/* .pfn_mkwrite enables write-notify, so vm_page_prot lacks
-+		 * the write bit and a plain vmf_insert_pfn() would install
-+		 * a read-only PTE even for a write fault.  Not every fault
-+		 * resolver refaults into .pfn_mkwrite() to upgrade it (KVM
-+		 * doesn't), so install a writable PTE and record the write
-+		 * directly, like the PMD path below.
-+		 */
-+		if (vmf->flags & FAULT_FLAG_WRITE) {
-+			ret = vmf_insert_pfn_mkwrite(vmf->vma, vmf->address,
-+						     pfn);
-+			if (ret == VM_FAULT_NOPAGE)
-+				drm_gem_shmem_record_mkwrite(vmf);
-+		} else {
-+			ret = vmf_insert_pfn(vmf->vma, vmf->address, pfn);
-+		}
-+
-+		return ret;
- #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
- 	} else if (order == PMD_ORDER) {
- 		unsigned long paddr = pfn << PAGE_SHIFT;
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 80fce2515930..7b76a281bdd1 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -4551,6 +4551,8 @@ vm_fault_t vmf_insert_page_mkwrite(struct vm_fault *vmf, struct page *page,
- 			bool write);
- vm_fault_t vmf_insert_pfn(struct vm_area_struct *vma, unsigned long addr,
- 			unsigned long pfn);
-+vm_fault_t vmf_insert_pfn_mkwrite(struct vm_area_struct *vma,
-+		unsigned long addr, unsigned long pfn);
- vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
- 			unsigned long pfn, pgprot_t pgprot);
- vm_fault_t vmf_insert_mixed(struct vm_area_struct *vma, unsigned long addr,
-diff --git a/mm/memory.c b/mm/memory.c
-index 86a973119bd4..6562a0d8bb68 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2751,8 +2751,9 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
-  * Context: Process context.  May allocate using %GFP_KERNEL.
-  * Return: vm_fault_t value.
-  */
--vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
--			unsigned long pfn, pgprot_t pgprot)
-+static vm_fault_t __vmf_insert_pfn_prot(struct vm_area_struct *vma,
-+		unsigned long addr, unsigned long pfn, pgprot_t pgprot,
-+		bool mkwrite)
- {
- 	/*
- 	 * Technically, architectures with pte_special can avoid all these
-@@ -2774,10 +2775,39 @@ vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
- 
- 	pfnmap_setup_cachemode_pfn(pfn, &pgprot);
- 
--	return insert_pfn(vma, addr, pfn, pgprot, false);
-+	return insert_pfn(vma, addr, pfn, pgprot, mkwrite);
-+}
-+
-+vm_fault_t vmf_insert_pfn_prot(struct vm_area_struct *vma, unsigned long addr,
-+			unsigned long pfn, pgprot_t pgprot)
-+{
-+	return __vmf_insert_pfn_prot(vma, addr, pfn, pgprot, false);
- }
- EXPORT_SYMBOL(vmf_insert_pfn_prot);
- 
-+/**
-+ * vmf_insert_pfn_mkwrite - insert single pfn into user vma, making it writable
-+ * @vma: user vma to map to
-+ * @addr: target user address of this page
-+ * @pfn: source kernel pfn
-+ *
-+ * Similar to vmf_insert_pfn(), but the inserted PTE is made young, dirty and
-+ * writable (subject to the VMA's write permission).  For use by fault
-+ * handlers of write-notify VMAs (where vma->vm_page_prot has the write bit
-+ * removed) that serve a write fault and do their own dirty accounting, so
-+ * that a "handled" write fault always results in a writable PTE.  The
-+ * VM_PFNMAP counterpart of vmf_insert_mixed_mkwrite().
-+ *
-+ * Context: Process context.  May allocate using %GFP_KERNEL.
-+ * Return: vm_fault_t value.
-+ */
-+vm_fault_t vmf_insert_pfn_mkwrite(struct vm_area_struct *vma,
-+		unsigned long addr, unsigned long pfn)
-+{
-+	return __vmf_insert_pfn_prot(vma, addr, pfn, vma->vm_page_prot, true);
-+}
-+EXPORT_SYMBOL(vmf_insert_pfn_mkwrite);
-+
- /**
-  * vmf_insert_pfn - insert single pfn into user vma
-  * @vma: user vma to map to
--- 
-2.55.0
-
+>
+> Best regards,
+> Krzysztof
