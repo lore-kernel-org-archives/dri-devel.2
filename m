@@ -4,65 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5387FC55ABA
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:56:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12876C55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:56:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC04810EBCE;
-	Tue,  4 Aug 2026 20:56:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08E5C10EBCF;
+	Tue,  4 Aug 2026 20:56:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fbAP03fp";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NqnPpmIz";
 	dkim-atps=neutral
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 453FB10E127
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:56:25 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-498028b3d5eso2140075e9.1
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 13:56:25 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8612910EBC8
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:56:26 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4980dc26022so2030545e9.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 13:56:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785876983; x=1786481783; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785876985; x=1786481785; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=FsSyzNurkU2AZCAgXzFDhA+4Szt1QyFprpuh+Ygbe6g=;
- b=fbAP03fpaWfei9cw1BiUSynXuz394g7kZkZmO9p3MiEujEGOPWcwWVStA1vsgTiZl4
- OklnEl85KIxjdtt4syZ+dLT49IeI/bDfhbmd3EpKwb/jTdPf15mBPaVpRijLfejNb3c2
- eZMpSuatyHun8RzTwZVkseFfhW7QHoQp4CSezBCRWEq0UoDAty1+h9+epg93b8r1P/eN
- fIfA+XYn+OcEp74LdaF3mOtTeyOrZY/Ph0+YEzBPtpcBlgPduCSs2bZ9wnfa+wcaMfBI
- NwErzGuDd8c05wedhYGorQ/aZ9MadTBUpjp9iabXcIzBVLHY3IILEJAT20fhxvYPIiYI
- PzsA==
+ bh=xEGbIZ53FjPXZVHPJc+jEB5q1hKyvKtu0OiAqfcxBNQ=;
+ b=NqnPpmIzpeEbFa5PImZNCTfItthg0+DmRsTNXec7STHHeSCTz7KhjHayPTt0drLh/A
+ s9gEBOMiY808alBSdsGmjkxYdrVZ5qnbeHsmuU/Jyb3VS0lMZPGIZCdqo8Jk1SHAWM9Y
+ iXDpsHXU6xrIZZSr3RVWuVv+5w09P+wnSrhhZgoOmUV+3wRybbVcIp3lEKzFkPAN31sD
+ f79DB2JrRdgEMEFDV9KSgkj7hSgIF4V8H44rUFun2c6NXL7dpNtRZJ8FK0fSdGKK5piV
+ SqZCWURZX7AaE2jmpp8x2Trk5AAK0u+u5Ckdbr4QbsBtofxtafEJijNn9Nsb9DhZ3omr
+ WmJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785876983; x=1786481783;
+ d=1e100.net; s=20251104; t=1785876985; x=1786481785;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=FsSyzNurkU2AZCAgXzFDhA+4Szt1QyFprpuh+Ygbe6g=;
- b=GqShHoiRV1sLo8OdSfUAHojHFgMkNKZb18HJ+8E+eq4kQfrQlkMCKGOQqaPoUBVCpr
- YU/jt9uEGHjI9kda7fGqI+Xt9KTIgtbGcE+MBjT/6WHZqO5/HcPj/qHyFeCyGyswl5sw
- 23BmdbB5DvF73l4DNLYdaJ7vENahkSMcgY75DTNc5fICGCdkb1TIlgdjCYCSL7YLLE5X
- sVSEUkuHLW6w3ucBmpi3rhlzdMYzoAEbVLteMcfeeJ6gU9cBcTcwgck9cBVKQjidJw1Y
- 5U1tvj3MyVWxcRqhLKL/kCpkpI1lGHLWKDxbdFMvATS/OA8nc/1ajjRC0ASLqYWJ8BCJ
- /Q4A==
+ bh=xEGbIZ53FjPXZVHPJc+jEB5q1hKyvKtu0OiAqfcxBNQ=;
+ b=KAaG6a4gwV+wS7S2lGKIzW5oZxPA8swWFTlRTuCJehIbg9zJOzwhBD/fptZwxBDA/9
+ szsNez9S/TjsTSpEOiuIQaX1SZJf6nchIHJX6QogOvTGNOdzVsz4Y9sAdi6fVVaJKBpc
+ DxJQdnpXrMildB9qpHDqXTFIzekWv6bZUYFHxWrtTApz773wa5WHapFNMdBwI864ykxZ
+ AWpHgYXYUFN/JQcYE+vjHStoOdoOqtGFodrpigPk89pECSaj8vqS4TMd763+qkHcMFSb
+ HO+0Hrm2afo0mMjp4T42h3GR5D8sGwECjBPuce0BD+Y0ltsesP9s+0ADKZ0yXlLkc6Up
+ pcZg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrZTi/ZPMjSDMKwTPKe62u7J+Z7Gjj8dif5uQx2HVNgPu2Je+nKSDzOnSFGnfUZBLo3axCn7WyN9eo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz/jiEtfRbQnf8AEnz+9ICMT3cd6nIk5jpOgzI5NTqy9jQGzBMX
- XqGpMiiEO0IsHWry+0hHwKaaE8XSLqY6jaI3seb63iVtah7YYZtne0p3
-X-Gm-Gg: AR+sD11Ui/IX9Vt97B897i08j+1HHwEriT7XdfY/2tLSg9ptlvQJ/7Gqg5BRAc4OeZO
- jaopW0rzNpwyAHMxPDLdbnyCx9mvqZBjXiIz4gQ+QPkWcuiv1/2uc//p32M73bOtHw5Cyz0N6hY
- DPK+eMZwaOQwQYwvtrKHcwAcDPmtH5yT6y4QSpgnjAVTk7pq2VUhiWkW/X20eE/JNVe0ot3nuxq
- fhPjM370V7cKXr3QKUAN4ji+Y35TUsQNgqbdSI8UE1/USsD7EUPu2v/heDzac5AmL+ImOgjgs9f
- LOa+AtSO4504TYWYSEk8YgisW7iGF0PeL/TCtyq6uZ5Wk9zUr4/+Yay9syq/2OfvzSWZxcXZuDt
- 7sjMw5z7T/hLZ3K2sPLNpTM2uiAG+Wm6RlMsfbM30Nkm954d0+bx5eydsUXNHsdzvqp2FPDenXK
- gpyJLdYiVxIHV6KfPYH9O5xg+pYVhX7WtK2bPeBtkQVfihQ5MVZ9UKpGFRNEs00sEkSM7zqpdqP
- MeiB+luDK9tozj9ydOMYRxBEw==
-X-Received: by 2002:a05:600c:4e94:b0:497:ff73:68d5 with SMTP id
- 5b1f17b1804b1-4994e6c5eafmr12299005e9.0.1785876983257; 
- Tue, 04 Aug 2026 13:56:23 -0700 (PDT)
+ AHgh+RrOmQNSB29T482/QKqCacW8HbWOx6Dl+F1ywURQ5JUuBBhdr/eRTZpV0R2OsiI3Ieph2hhEL4z8Bwg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxOnowfYWSBErQLNUqdgRqB+jbCayB9Tjyy55xut8RxfNLCvajB
+ t7hDJ8MbcUoLadAKNNpAFMqt4b2EAbQhaQUX6H4xVoXhCH3uCsrQs6ZFipy4SQ==
+X-Gm-Gg: AR+sD11NEC2UAAxNoFDGnCUvDtJx9CJAqYCpFqD5htENqxnZA4uGQ8chBDyYJQFyGp/
+ 7rrMh8BKtlCu6tRvi0iWfbcwx1oXbA+j43x4F5ldWU9ARaxnq0XuLJ1FlGv89LxmzVNxUsolPaz
+ MZLF9TDmFazVPcEnRZ2KE1VjYkxl8hoO10lfDXPD2rrQsb4fdkFxXL5zaNMBoZt5cg7Q6QwHa85
+ qbQRIlYid+eFR/CJlHPjrBOGBVB7agxGrt5n9ADoFdF8lS5CiZ+SSu2GiWfS3/B5HVuxs3ojWQh
+ iN0m22HDMxvWvHuXG4w4+DqcEHP0yZ/1kiigJQt5Md8BVHsFh0UazuZycpurviBZ+PLiFgIKhZX
+ a+QbfMe9TiLM+PcTJs3QzJTim56T7j08yXOgzCF29GYF11d36TSZnAoKsgW5AII5hY/EjxP3ZSb
+ oVRfE7K/nyono7XWc/4fuqq1H99SZxTAKo8GODIME3CLwtWB8Lien0UKNCLBVPY+BM+5Rxixxvq
+ mVseHFOlTVl+Hs=
+X-Received: by 2002:a05:600c:a20b:b0:495:737a:7afe with SMTP id
+ 5b1f17b1804b1-4994e7d5b82mr8732495e9.15.1785876984840; 
+ Tue, 04 Aug 2026 13:56:24 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.116.176.33])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4994e4bf820sm12070645e9.0.2026.08.04.13.56.21
+ 5b1f17b1804b1-4994e4bf820sm12070645e9.0.2026.08.04.13.56.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 04 Aug 2026 13:56:22 -0700 (PDT)
+ Tue, 04 Aug 2026 13:56:24 -0700 (PDT)
 From: Max Pedraza <maximpedraza@gmail.com>
 To: Helge Deller <deller@gmx.de>
 Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Rob Herring <robh@kernel.org>,
@@ -74,10 +74,10 @@ Cc: Geert Uytterhoeven <geert@linux-m68k.org>, Rob Herring <robh@kernel.org>,
  linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Max Pedraza <maximpedraza@gmail.com>
-Subject: [PATCH v2 1/6] dt-bindings: display: add a device tree supplied boot
- logo
-Date: Wed,  5 Aug 2026 00:56:12 +0200
-Message-Id: <20260804225617.264861-2-maximpedraza@gmail.com>
+Subject: [PATCH v2 2/6] video: logo: allow the boot logo to come from the
+ device tree
+Date: Wed,  5 Aug 2026 00:56:13 +0200
+Message-Id: <20260804225617.264861-3-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20260804225617.264861-1-maximpedraza@gmail.com>
 References: <20260804225617.264861-1-maximpedraza@gmail.com>
@@ -98,177 +98,244 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Embedded products frequently need a product specific boot logo. Today the
-only way to get one is to replace one of the logo_*_clut224.ppm files in
-the kernel source tree, which bakes the image into the kernel image: a
-change of branding, or a second product sharing the same board support,
-requires a separate kernel build.
+Add CONFIG_LOGO_DT_CLUT224, which makes fb_find_logo() look for a node
+compatible with "linux,boot-logo-clut224" under /chosen before falling
+back to the logos built into the kernel image.
 
-Add a binding for a "linux,boot-logo-clut224" node, which carries the logo
-in the same paletted format the built-in CLUT224 logos already use, plus a
-few optional properties describing where on the screen it is drawn.
+The image is validated before it is used: the palette must have at most
+224 entries, the pixel data length must match the geometry, and every
+pixel must reference an entry that exists. A malformed node is reported
+and ignored rather than drawn, so a bad device tree cannot take the
+display down with it.
 
-The palette size is derived from the length of the "clut" property rather
-than spelled out separately, and "data" holds plain palette indices; the
-32 entry offset the frame buffer layer reserves for the console is an
-implementation detail and is applied by the kernel, not by the binding.
+The image is copied out of the device tree so that the 32 entry offset
+the frame buffer layer reserves for the console can be applied to the
+pixels, and the copy is released from fb_logo_late_init() alongside the
+built-in logos.
+
+The node lives under /chosen because a logo is configuration handed over
+by firmware rather than a description of the hardware, which is also
+where simple-framebuffer nodes live for the same reason.
 
 Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
 ---
- .../display/linux,boot-logo-clut224.yaml      | 131 ++++++++++++++++++
- MAINTAINERS                                   |   1 +
- 2 files changed, 132 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/linux,boot-logo-clut224.yaml
+ drivers/video/logo/Kconfig |  12 +++
+ drivers/video/logo/logo.c  | 160 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 172 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/linux,boot-logo-clut224.yaml b/Documentation/devicetree/bindings/display/linux,boot-logo-clut224.yaml
-new file mode 100644
-index 000000000..a6a206964
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/linux,boot-logo-clut224.yaml
-@@ -0,0 +1,131 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/linux,boot-logo-clut224.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/video/logo/Kconfig b/drivers/video/logo/Kconfig
+index cda15b958..215afa7ef 100644
+--- a/drivers/video/logo/Kconfig
++++ b/drivers/video/logo/Kconfig
+@@ -76,4 +76,16 @@ config LOGO_LINUX_CLUT224_FILE
+ 
+ 	    magick source_image -compress none -colors 224 destination.ppm
+ 
++config LOGO_DT_CLUT224
++	bool "224-color logo supplied by the device tree"
++	depends on OF
++	help
++	  Look for a boot logo in the device tree, in a node compatible with
++	  "linux,boot-logo-clut224" under /chosen, instead of using one of
++	  the logos built into the kernel image. This allows a single kernel
++	  image to be used by several products that only differ in branding.
 +
-+title: Boot logo supplied by the device tree
++	  If no such node is present, or it is disabled, the built-in logo
++	  selected above is used, so saying Y here is safe.
 +
-+maintainers:
-+  - Max Pedraza <maximpedraza@gmail.com>
+ endif # LOGO
+diff --git a/drivers/video/logo/logo.c b/drivers/video/logo/logo.c
+index 91535f884..7f8b04ecf 100644
+--- a/drivers/video/logo/logo.c
++++ b/drivers/video/logo/logo.c
+@@ -11,6 +11,9 @@
+  */
+ 
+ #include <linux/linux_logo.h>
++#include <linux/of.h>
++#include <linux/sizes.h>
++#include <linux/slab.h>
+ #include <linux/stddef.h>
+ #include <linux/module.h>
+ 
+@@ -22,6 +25,155 @@ static bool nologo;
+ module_param(nologo, bool, 0);
+ MODULE_PARM_DESC(nologo, "Disables startup logo");
+ 
++#ifdef CONFIG_LOGO_DT_CLUT224
 +
-+description: |
-+  Embedded systems commonly need a product specific boot logo. Today that
-+  means pointing CONFIG_LOGO_LINUX_CLUT224_FILE at a different image, which
-+  bakes it into the kernel image: changing the logo means building and
-+  deploying a new kernel.
++#define LOGO_DT_COMPATIBLE	"linux,boot-logo-clut224"
++#define LOGO_DT_MAX_CLUT	224
++/*
++ * The first 32 palette entries are reserved for the console, so the logo
++ * colours start at index 32. That is an implementation detail of the frame
++ * buffer layer rather than a property of the image, so the device tree stores
++ * plain indices and the offset is applied here.
++ */
++#define LOGO_DT_CLUT_OFFSET	32
++/* Sanity limit on the image size, a device tree is not a good place for more */
++#define LOGO_DT_MAX_PIXELS	SZ_32M
 +
-+  This node lets the boot logo be described by the device tree instead, so that
-+  a single kernel image can serve several products, or several revisions of the
-+  same product, that only differ in branding.
++static struct linux_logo logo_dt_clut224 = {
++	.type		= LINUX_LOGO_CLUT224,
++};
 +
-+  Since a logo is configuration rather than a description of the hardware, the
-+  node lives under /chosen, next to the other things firmware hands to the
-+  operating system. Open Firmware, which the device tree descends from, carried
-+  a boot logo in the same spirit as the oem-logo variable under /options.
++static unsigned char *logo_dt_clut;
++static unsigned char *logo_dt_data;
 +
-+  The image is stored in the same paletted format the in-kernel CLUT224 logos
-+  use: a palette of at most 224 RGB entries plus one palette index per pixel.
++static int logo_dt_parse(struct device_node *np)
++{
++	unsigned int clutsize, npixels, i;
++	unsigned char *clut, *data;
++	u32 width, height;
++	int len, ret;
 +
-+properties:
-+  compatible:
-+    const: linux,boot-logo-clut224
++	ret = of_property_read_u32(np, "width", &width);
++	if (ret)
++		return ret;
 +
-+  width:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Logo width in pixels.
-+    minimum: 1
-+    maximum: 65535
++	ret = of_property_read_u32(np, "height", &height);
++	if (ret)
++		return ret;
 +
-+  height:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Logo height in pixels.
-+    minimum: 1
-+    maximum: 65535
++	if (!width || !height || (u64)width * height > LOGO_DT_MAX_PIXELS)
++		return -EINVAL;
 +
-+  clut:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      Colour lookup table, as consecutive red, green and blue bytes per entry.
-+      The number of entries is derived from the property length and must not
-+      exceed 224.
-+    minItems: 3
-+    maxItems: 672
++	npixels = width * height;
 +
-+  data:
-+    $ref: /schemas/types.yaml#/definitions/uint8-array
-+    description:
-+      One byte per pixel, left to right and top to bottom, each byte being an
-+      index into the colour lookup table. The property length must be equal to
-+      width multiplied by height.
++	len = of_property_count_u8_elems(np, "clut");
++	if (len < 3 || len % 3)
++		return -EINVAL;
 +
-+  logo-position:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    description:
-+      X and Y coordinates, in pixels, of the top left corner of the logo.
-+      Defaults to the top left corner of the screen.
-+    items:
-+      - description: X coordinate
-+      - description: Y coordinate
++	clutsize = len / 3;
++	if (clutsize > LOGO_DT_MAX_CLUT)
++		return -EINVAL;
 +
-+  logo-offset:
-+    $ref: /schemas/types.yaml#/definitions/int32-array
-+    description:
-+      X and Y displacement, in pixels, applied after the logo has been placed.
-+      Mostly useful together with logo-centered.
-+    items:
-+      - description: X displacement
-+      - description: Y displacement
++	ret = of_property_count_u8_elems(np, "data");
++	if (ret < 0)
++		return ret;
++	if ((unsigned int)ret != npixels)
++		return -EINVAL;
 +
-+  logo-centered:
-+    type: boolean
-+    description:
-+      Centre the logo on the screen, overriding logo-position.
++	clut = kmalloc(len, GFP_KERNEL);
++	if (!clut)
++		return -ENOMEM;
 +
-+  logo-rotation:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description: Rotation applied to the logo before it is drawn.
-+    enum: [none, cw, ccw, ud]
-+    default: none
++	data = kmalloc(npixels, GFP_KERNEL);
++	if (!data) {
++		ret = -ENOMEM;
++		goto err_free_clut;
++	}
 +
-+required:
-+  - compatible
-+  - width
-+  - height
-+  - clut
-+  - data
++	ret = of_property_read_u8_array(np, "clut", clut, len);
++	if (ret)
++		goto err_free_data;
 +
-+# The image either lives in the device tree or in a reserved memory region,
-+# never both.
-+oneOf:
-+  - required:
-+      - width
-+      - height
-+      - clut
-+      - data
-+  - required:
-+      - memory-region
++	ret = of_property_read_u8_array(np, "data", data, npixels);
++	if (ret)
++		goto err_free_data;
 +
-+additionalProperties: false
++	for (i = 0; i < npixels; i++) {
++		if (data[i] >= clutsize) {
++			ret = -ERANGE;
++			goto err_free_data;
++		}
++		data[i] += LOGO_DT_CLUT_OFFSET;
++	}
 +
-+examples:
-+  - |
-+    // A 4x2 logo using three colours, centred on the screen.
-+    / {
-+        #address-cells = <1>;
-+        #size-cells = <1>;
++	logo_dt_clut = clut;
++	logo_dt_data = data;
 +
-+        chosen {
-+            logo {
-+                compatible = "linux,boot-logo-clut224";
-+                width = <4>;
-+                height = <2>;
-+                clut = /bits/ 8 <0xff 0x00 0x00
-+                                 0x00 0xff 0x00
-+                                 0x00 0x00 0xff>;
-+                data = /bits/ 8 <0x00 0x01 0x01 0x00
-+                                 0x02 0x00 0x00 0x02>;
-+                logo-centered;
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5114e6db7..8cf5163b8 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10269,6 +10269,7 @@ L:	dri-devel@lists.freedesktop.org
- S:	Maintained
- Q:	http://patchwork.kernel.org/project/linux-fbdev/list/
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git
-+F:	Documentation/devicetree/bindings/display/linux,boot-logo-clut224.yaml
- F:	Documentation/fb/
- F:	drivers/video/
- F:	include/linux/fb.h
++	logo_dt_clut224.width = width;
++	logo_dt_clut224.height = height;
++	logo_dt_clut224.clutsize = clutsize;
++	logo_dt_clut224.clut = clut;
++	logo_dt_clut224.data = data;
++
++	return 0;
++
++err_free_data:
++	kfree(data);
++err_free_clut:
++	kfree(clut);
++	return ret;
++}
++
++static const struct linux_logo *logo_dt_find(void)
++{
++	static bool probed;
++	struct device_node *np;
++	int ret;
++
++	if (probed)
++		return logo_dt_data ? &logo_dt_clut224 : NULL;
++
++	probed = true;
++
++	np = of_get_compatible_child(of_chosen, LOGO_DT_COMPATIBLE);
++	if (!np)
++		return NULL;
++
++	if (of_device_is_available(np)) {
++		ret = logo_dt_parse(np);
++		if (ret)
++			pr_warn("logo: ignoring malformed %pOF node (%d)\n",
++				np, ret);
++	}
++
++	of_node_put(np);
++
++	return logo_dt_data ? &logo_dt_clut224 : NULL;
++}
++
++static void logo_dt_free(void)
++{
++	logo_dt_clut224.clut = NULL;
++	logo_dt_clut224.data = NULL;
++
++	kfree(logo_dt_clut);
++	logo_dt_clut = NULL;
++
++	kfree(logo_dt_data);
++	logo_dt_data = NULL;
++}
++
++#else /* !CONFIG_LOGO_DT_CLUT224 */
++
++static inline const struct linux_logo *logo_dt_find(void)
++{
++	return NULL;
++}
++
++static inline void logo_dt_free(void) { }
++
++#endif /* CONFIG_LOGO_DT_CLUT224 */
++
+ /*
+  * Logos are located in the initdata, and will be freed in kernel_init.
+  * Use late_init to mark the logos as freed to prevent any further use.
+@@ -32,6 +184,7 @@ static bool logos_freed;
+ static int __init fb_logo_late_init(void)
+ {
+ 	logos_freed = true;
++	logo_dt_free();
+ 	return 0;
+ }
+ 
+@@ -48,6 +201,13 @@ const struct linux_logo * __ref fb_find_logo(int depth)
+ 	if (nologo || logos_freed)
+ 		return NULL;
+ 
++	/* A logo supplied by the device tree wins over the built-in ones */
++	if (depth >= 8) {
++		logo = logo_dt_find();
++		if (logo)
++			return logo;
++	}
++
+ #ifdef CONFIG_LOGO_LINUX_MONO
+ 	if (depth >= 1)
+ 		logo = &logo_linux_mono;
 -- 
 2.39.5
 
