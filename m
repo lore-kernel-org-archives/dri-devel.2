@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49736C5518F
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 07:35:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3737C5518F
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 07:35:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DC3D10E65E;
-	Tue,  4 Aug 2026 07:35:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA6410E89D;
+	Tue,  4 Aug 2026 07:35:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="IGEX/we1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SQYBSKz0";
 	dkim-atps=neutral
-Received: from out-183.mta0.migadu.com (out-183.mta0.migadu.com
- [91.218.175.183])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1CCA10E65E
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 07:34:59 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1785828897;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=DWMTuq9NkCnrgokFcLH3C7+v8FiIoP6xFMC71YOuo3Y=;
- b=IGEX/we1QDJAsgCIQRHFTugI6JeEnyAKDp6+LNwa6ghbmAFdvduUPZL3I/3lhcGFlwJufh
- 5CD8OSL2wmoekN11h15y1hViiMEuh/vieEU87mSvn1zzC2MzII3lVtLCvpcT+fjND/AvOI
- u/ryaZ/YyiBWo35SAqtXEqjTfsvisQQ=
-From: Junjie Cao <junjie.cao@linux.dev>
-To: neil.armstrong@linaro.org, jesszhan0024@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org
-Cc: dmitry.baryshkov@oss.qualcomm.com, konrad.dybcio@oss.qualcomm.com,
- mitltlatltl@gmail.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3 0/2] drm/panel: Add support for Novatek NT36532 panel
-Date: Tue,  4 Aug 2026 00:34:17 -0700
-Message-ID: <20260804073419.84727-1-junjie.cao@linux.dev>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3CA9610E89D
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 07:35:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4DA3160A77;
+ Tue,  4 Aug 2026 07:35:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 560F71F000E9;
+ Tue,  4 Aug 2026 07:35:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785828917;
+ bh=e7qRs4IqtYJoIg5+mk7KbBb3QrwL3cGkLcEJyc3Ym5c=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=SQYBSKz0BOB9mAdZEF0rl81gs4JjTKmV9foVwORdAF2ANieWFUF/wz0h5gaTgsq46
+ YQjrbKqY95Llny6IPE+hn1lfsxQoeLbmkK7qXEpApHtdWforOpkov4CMR/3V7wQlP4
+ CU/0yisln0CTF9wxigxE0be7lwwzyZZMxhBnRnwEO6RRB0QW+VOYHv+dsJxf36BeIf
+ oLUKCKznUu4h8l9Kx0/wtnKBP48aIpBZKFhy9gRNBrrxd0kCv5c+lFKG2zA+XSDDPi
+ TzdmKFOZq6++mDhCD6AciWB7np43zquiP2c92qm4Z/HoV/4MngdPInmIu2IhBP3dG+
+ O13nKDY1s1qjQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 6/7] drm/rockchip: cdn-dp: Support handle lane info
+ without extcon
+To: "Chaoyi Chen" <kernel@airkyi.com>
+Cc: olteanv@gmail.com, linux-phy@lists.infradead.org,
+ dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org, vkoul@kernel.org
+In-Reply-To: <20260804070730.68-7-kernel@airkyi.com>
+References: <20260804070730.68-1-kernel@airkyi.com>
+ <20260804070730.68-7-kernel@airkyi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 07:35:15 +0000
+Message-Id: <20260804073516.560F71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,54 +55,109 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series adds support for panels using the Novatek NT36532 Display
-Driver IC, a dual-DSI, dual-DSC controller that requires DPU support
-for MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] Logic error in pointer error checking breaks probe for all exi=
+sting boards using extcon.
+- [High] Missing hotplug detection (HPD) mechanism when extcon is absent.
+--
 
-The first user is the CSOT PPC100HB1-1 panel found in the OnePlus Pad 2
-(OnePlus Pad Pro in China) tablet: 3000x2120, dual-DSI in bonded mode,
-DSC 1.2 with two slices per line.
+--- Patch [6]: [PATCH v6 6/7] drm/rockchip: cdn-dp: Support handle lane inf=
+o without extcon ---
+commit 2ec5f110f1557ebaec82cbe6b39d4e2ab7f4a88f
+Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-v2 has been tested on the OnePlus Pad 2: the panel comes up in its
-native 3000x2120 mode at 120Hz over dual-DSI in bonded mode with DSC,
-and displays a stable image. The only wire-level change in v3 is the
-page 0x23 0x51 write going from two bytes to one, matching the stock
-firmware DT.
+drm/rockchip: cdn-dp: Support handle lane info without extcon
 
-Changes in v3:
-- Kconfig: select DRM_DISPLAY_DSC_HELPER, DRM_DISPLAY_HELPER and
-  DRM_KMS_HELPER, depend on BACKLIGHT_CLASS_DEVICE.
-- Write the page 0x23 dimming table entry 0x51 as a plain one-byte
-  write instead of the two-byte DCS brightness helper.
-- Spell the page 0x10 brightness write as MIPI_DCS_SET_DISPLAY_BRIGHTNESS
-  with an explicit 07 ff payload instead of the byte-swapped 0xff07.
-- Drop accidental MIPI_DCS_* macro names from vendor-page register
-  writes.
-- Make the DSC config const and copy it into the panel instance at
-  probe time.
-- Support an external backlight via drm_panel_of_backlight().
-- Report the panel physical size via the display mode.
-- Link to v2: https://lore.kernel.org/all/20260729160804.912826-1-junjie.cao@linux.dev
-- Link to v1: https://lore.kernel.org/all/20251001135914.13754-1-caojunjie650@gmail.com
+This patch add support for get PHY lane info without help of extcon.
 
-Junjie Cao (2):
-  dt-bindings: display: panel: Add Novatek NT36532
-  drm/panel: Add Novatek NT36532 panel driver
+There is no extcon needed if the Type-C controller is present. In this
+case, the lane info can be get from PHY instead of extcon.
 
- .../display/panel/novatek,nt36532.yaml        |  83 ++++
- MAINTAINERS                                   |   7 +
- drivers/gpu/drm/panel/Kconfig                 |  14 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt36532.c | 431 ++++++++++++++++++
- 5 files changed, 536 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/novatek,nt36532.yaml
- create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt36532.c
+The extcon device should still be supported if Type-C controller is
+not present.
 
+> diff --git a/drivers/gpu/drm/rockchip/cdn-dp-core.c b/drivers/gpu/drm/roc=
+kchip/cdn-dp-core.c
+> index 190cce9530c82..74e1f5422a6e2 100644
+> --- a/drivers/gpu/drm/rockchip/cdn-dp-core.c
+> +++ b/drivers/gpu/drm/rockchip/cdn-dp-core.c
 
-base-commit: 0d33d21e47d9dc66f91e44da3fc9220c74d93df7
--- 
-2.43.0
+[ ... ]
 
+> @@ -1027,6 +1033,9 @@ static int cdn_dp_bind(struct device *dev, struct d=
+evice *master, void *data)
+>  	for (i =3D 0; i < dp->ports; i++) {
+>  		port =3D dp->port[i];
+> =20
+> +		if (!port->extcon)
+> +			continue;
+> +
+
+[Severity: High]
+Does skipping the notifier registration when extcon is absent break hotplug=
+=20
+detection?=20
+
+The driver relies on cdn_dp_pd_event_work() to transition dp->connected to=
+=20
+true, load firmware, and train the link. Without the extcon notifier,=20
+event_work is never scheduled on hotplug.=20
+
+Since cdn_dp_bridge_detect() simply returns the static dp->connected state:
+
+drivers/gpu/drm/rockchip/cdn-dp-core.c:cdn_dp_bridge_detect() {
+    mutex_lock(&dp->lock);
+    if (dp->connected)
+        status =3D connector_status_connected;
+    mutex_unlock(&dp->lock);
+    ...
+}
+
+Could KMS polling always see the port as disconnected when hardware is=20
+configured without an extcon device?
+
+>  		port->event_nb.notifier_call =3D cdn_dp_pd_event;
+>  		ret =3D devm_extcon_register_notifier(dp->dev, port->extcon,
+>  						    EXTCON_DISP_DP,
+
+[ ... ]
+
+> @@ -1119,14 +1128,14 @@ static int cdn_dp_probe(struct platform_device *p=
+dev)
+>  		    PTR_ERR(phy) =3D=3D -EPROBE_DEFER)
+>  			return -EPROBE_DEFER;
+> =20
+> -		if (IS_ERR(extcon) || IS_ERR(phy))
+> +		if (IS_ERR(phy) || PTR_ERR(extcon) !=3D -ENODEV)
+>  			continue;
+> =20
+
+[Severity: Critical]
+Will this condition accidentally skip port initialization for all valid ext=
+con
+pointers?
+
+If extcon is a valid pointer, PTR_ERR(extcon) evaluates to its memory addre=
+ss,
+which will never equal -ENODEV. This causes the condition to evaluate to tr=
+ue,
+triggering the continue statement and bypassing port setup completely for a=
+ny
+hardware that has an extcon device.
+
+>  		port =3D devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+>  		if (!port)
+>  			return -ENOMEM;
+> =20
+> -		port->extcon =3D extcon;
+> +		port->extcon =3D IS_ERR(extcon) ? NULL : extcon;
+>  		port->phy =3D phy;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804070730.68-1=
+-kernel@airkyi.com?part=3D6
