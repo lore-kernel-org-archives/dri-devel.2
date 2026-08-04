@@ -4,53 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92CBFC56201
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:07:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B8F2C55ABA
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:10:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C39B710EB9D;
-	Tue,  4 Aug 2026 20:07:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76A5510E1CE;
+	Tue,  4 Aug 2026 20:10:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="j6HH9992";
+	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="TvhqnR7m";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="jV/BhCRP";
 	dkim-atps=neutral
-X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
- Tue, 04 Aug 2026 20:07:10 UTC
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
- [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6179310E1CE;
- Tue,  4 Aug 2026 20:07:10 +0000 (UTC)
-Received: from wsembach-tuxedo.fritz.box (i5C75F579.versanet.de
- [92.117.245.121]) (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPA id E26212FC0076;
- Tue,  4 Aug 2026 22:00:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1785873626;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=9ulJOcEEceizbnkPTVlXijRI+neopfXk8AziE062Or8=;
- b=j6HH9992mHZocwbMoaxg+An4h2LOStyPXjDmTf0N+G9mFQFTIbjwPi5xeWSORLeo58nUH1
- 9btLEnF4DaOf7zqvrmlDYb+CU2kE5BWDlo17WT6uCIl3MwWNA1j4zU8d8KyREvtEkOGvcx
- Ez5lxy9E4B2HDOpcRsvfvbckVd5ta9M=
-Authentication-Results: mail.tuxedocomputers.com;
- auth=pass smtp.auth=wse@tuxedocomputers.com
- smtp.mailfrom=wse@tuxedocomputers.com
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch
-Cc: wse@tuxedocomputers.com, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v3 1/1] drm/i915/display: Add quirk to force backlight type on
- some TUXEDO devices
-Date: Tue,  4 Aug 2026 21:52:47 +0200
-Message-ID: <20260804200021.171947-2-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260804200021.171947-1-wse@tuxedocomputers.com>
-References: <20260804200021.171947-1-wse@tuxedocomputers.com>
+Received: from fhigh-a4-smtp.messagingengine.com
+ (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 506A110E1CE
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:10:29 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.phl.internal (Postfix) with ESMTP id 84DBE14000BB;
+ Tue,  4 Aug 2026 16:10:28 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-06.internal (MEProxy); Tue, 04 Aug 2026 16:10:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+ cc:cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm2; t=1785874228;
+ x=1785960628; bh=DGDpNHg7f9ztXGjzjzb4ybcoE+sIyQ0zmpGoEdgW4g4=; b=
+ TvhqnR7mCECTjp74lUFk4G4kFKYnDIbC4XNAlIU5Z3FhZ2Yp14QvfA8I5Dge0rZj
+ AVMK050Y2EXORNA+5w3npdI8mTHHzB7brHEtxkAfzizr7JwtFXQW0HIJ3EIz2p6c
+ 7/CTBd2jrTNd0iFl1no3FMI1bBInZqbM/OTzKZ3o4TfdGCa5Aupf2SzrFTRaoyMO
+ kjmBg+dMDXgWk8C0iBK1iM2kS3W9XglkkC3PRvzWgxNssG6QcpCpTzb16W3+ENOQ
+ 7g5ub4ierd5E1KJ8szv3WolRxMN0056ctenE+S4CGBVwqWPu6MaLqyxvOmdR+Med
+ nilmm1ADQQahAe58GZPN6g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785874228; x=
+ 1785960628; bh=DGDpNHg7f9ztXGjzjzb4ybcoE+sIyQ0zmpGoEdgW4g4=; b=j
+ V/BhCRPJYsv+ODbPHoPDuYrD4LYQJrbE58aquOw6yEKnyMaQdkkrfis6i0rONgoM
+ XaS+Kd3NkLxFvwJjOq7AzGCq0uzFCabQ8qynR9/PE96snQm+uc0cp1+OE2SzaR7i
+ tk05YXDlKfRFu0TRkM1EqiIaE8vCev1iAASqrsZuP4cdsgamHovx34DiQiWjGHqj
+ SOUma0xptLjEUB/ABgR+Rth8RYrcf2zHLJnFjo/jH0RglEkkhWzz5VJpbqOZrKMD
+ XJg6TztYWZx1AoN3fRK0/WjIxmyqZpH3fyTvxULZIamL0Ok1/Bx5craoOy7qLlx3
+ 7DliLKr6E5eP38TrHHATA==
+X-ME-Sender: <xms:M0dyapdXOK53MZxGFwM9IEhajUFmem4pf5oKoDXJDzp5V4CJ_WIzZw>
+ <xme:M0dyaioHLH0De3JSkLQpYHvbFqJ9hAWZRWqMIkGS6t5pn1vmTgNFN3Eyb-Kp3C9sW
+ LQzIrNB5tfJgf1364dmNBtrxOO61pnyk_xpz7SdJhj6mpbEqdSBoQ>
+X-ME-Received: <xmr:M0dyahPv1zAe0W-WWMO46nUWLEmDpBMK5JXdSwwmxUVbCIz91PqE0ge5uHPGlw>
+X-ME-Proxy-Cause: dmFkZTFz0qZml1tMgspJLvQROyFjxo2iF8dhBLG1gtWRuVGqbuDRnJRSCDTFVRpCARIfiq
+ p3San+6x+JgTfRDCa6JBZsenI68aONWfSHUYcbyfYK6A/5lMqgtwyRGiR3tIAbrTXet38u
+ i+QO8myxi9xRWUJuwDzgccQxCLFmyqcbNr9Rv28m1qlQSzbceTd2CI4KV3jnRkdZM5/zA+
+ B1dU/SLUd3a0UgVzR1Z0a0lAzAnN02ZTOGg0/5ioy3i8bBVIKEyL83cVcVtsr7pH78GSJA
+ qRYYsIFmKmGey4GXe+l8asTXRBmpS9hhZyjnvk143mQEwWjndPd5+SEps8e/cZNACoZWlE
+ 4Mfpjo6x5KnZJioSCjIK5fIGt3/jP5Q5Tx1SlsHlmfBX0IYNe6wpw68EogoZ+YusOtv6YH
+ pXSFT3JE7csZCMs3A3kW/8NM+xh8MLZtZ4lCCaxvhdjr6CuUpi1dtkttZVQTATJfUeBp22
+ yWGUMbYdzUhFxjGmuWxC3aQ2wWzrIw7Xq+d0rAMbtpf9bxhA0N63qmi8YLz0ZJBJN1Tv3K
+ lO+S2hZ3hh+cpORTKTBbq045O3Pagme9MthyaugmLDiXB7AZMouCUEXeZ2VSQ+jl99CfP3
+ 9qz8+Pa8I7u1ZCvyG7/cRNwNrlZstfl1eghiC4Xf7kf4/9xmo7lVxdVSejNw
+X-ME-Proxy: <xmx:M0dyagEM4gSmDssLubmn_6YVnByO9-qB8KzWbeoc1e_0-NYwK7wAUA>
+ <xmx:M0dyasFOPkII3QdfzcXRVDvt-06AFTE6dSPOamdXftyyUMcV3miqoQ>
+ <xmx:M0dyanCJkbrtLRbYedsDNmVJGg5OT6a6XLNAqLuA6whv5Gf31wK3kQ>
+ <xmx:M0dyapnVsAGlDqnw4TkWFKvLlIMrI5QLzuDd1oSD2l3NP8-qJJ3AjA>
+ <xmx:NEdyakMeyIhaiVEwdtSqBLz0DIZTbrGyTWKemyo_Ta627fyHnW7ZPhvm>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 4 Aug 2026 16:10:25 -0400 (EDT)
+Date: Tue, 4 Aug 2026 14:10:22 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
+ Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
+ Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair
+ Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
+Message-ID: <20260804141022.71b6429d@shazbot.org>
+In-Reply-To: <6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-8-matt@ozlabs.org>
+ <20260729115204.2a9a50b2@shazbot.org>
+ <6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,113 +109,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The display backlight on TUXEDO DX1708 and InsanityBook 15 v1 with panels
-AUO 12701 and AUO 12701 must be forced to INTEL_DP_AUX_BACKLIGHT_ON to be
-able to control the brightness.
+On Thu, 30 Jul 2026 15:47:13 +0100
+Matt Evans <matt@ozlabs.org> wrote:
 
-This could already be archived via a module parameter, but this patch adds
-a quirk to apply this by default on the mentioned devices.
+> Hi Alex,
+> 
+> On 29/07/2026 18:52, Alex Williamson wrote:
+> > On Wed, 15 Jul 2026 18:47:30 +0100
+> > Matt Evans <matt@ozlabs.org> wrote:  
+> >> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+> >> index 9a1674c152aa..e2b4252e7c3f 100644
+> >> --- a/include/linux/vfio_pci_core.h
+> >> +++ b/include/linux/vfio_pci_core.h
+> >> @@ -134,6 +134,7 @@ struct vfio_pci_core_device {
+> >>  	bool			pm_intx_masked;
+> >>  	bool			pm_runtime_engaged;
+> >>  	bool			sriov_active;
+> >> +	bool			zap_bars_on_revoke;
+> >>  	struct pci_saved_state	*pci_saved_state;
+> >>  	struct pci_saved_state	*pm_save;
+> >>  	int			ioeventfds_nr;  
+> > 
+> > This should be in the bitfield usage group since it's only modified at
+> > init time.  
+> 
+> This was intentional, but happy to change it if you're certain ofc.  Is
+> it inconceivable that a sub-driver could set it after init?  I'd say
+> they _shouldn't_, but only review will stop them and this placement
+> intended to be cautious.  It seemed a low cost way to avoid issues
+> around synchronisation on the bitfield.
 
-This patch does not actually test for the exact panels as the id that is
-used in the intel_dpcd_quirks list is sadly zeroed on the devices, but
-afaik all these devices use try_intel_interface first anyway so all the
-quirk does is to add the fallback to try_vesa_interface, so the behaviour
-on the devices not needing the quirk and fallback should functionally stay
-the same.
+I'd agree with the statement that they shouldn't, it would be difficult
+to synchronize setting the flag once there are any active mappings of
+the BARs.  Also, if we put it in the bitfield category under the
+comment that the value is only modified at setup/release, it documents
+the intentions, hopefully to the extent the author or reviewers notice.
+An argument can always be made to change it if there's a worthwhile use
+case.  Thanks,
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
----
- .../drm/i915/display/intel_dp_aux_backlight.c |  9 ++++++-
- drivers/gpu/drm/i915/display/intel_quirks.c   | 24 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
- 3 files changed, 33 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 266e042e00237..594c59f2d8309 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -41,6 +41,7 @@
- #include "intel_display_types.h"
- #include "intel_dp.h"
- #include "intel_dp_aux_backlight.h"
-+#include "intel_quirks.h"
- 
- /*
-  * DP AUX registers for Intel's proprietary HDR backlight interface. We define
-@@ -687,11 +688,17 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 	struct drm_device *dev = connector->base.dev;
- 	struct intel_panel *panel = &connector->panel;
- 	bool try_intel_interface = false, try_vesa_interface = false;
-+	int enable_dpcd_backlight;
- 
- 	/* Check the VBT and user's module parameters to figure out which
- 	 * interfaces to probe
- 	 */
--	switch (display->params.enable_dpcd_backlight) {
-+	enable_dpcd_backlight = display->params.enable_dpcd_backlight;
-+	if (enable_dpcd_backlight == INTEL_DP_AUX_BACKLIGHT_AUTO &&
-+	    intel_has_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT))
-+		enable_dpcd_backlight = INTEL_DP_AUX_BACKLIGHT_ON;
-+
-+	switch (enable_dpcd_backlight) {
- 	case INTEL_DP_AUX_BACKLIGHT_OFF:
- 		return -ENODEV;
- 	case INTEL_DP_AUX_BACKLIGHT_AUTO:
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 33245f44c0d50..89d82364ae45d 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,14 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT);
-+	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -286,6 +294,22 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
-+	/* TUXEDO InsanityBook 15 v1 */
-+	{
-+		.device = 0x591b,
-+		.subsystem_vendor = 0x1558,
-+		.subsystem_device = 0x9501,
-+		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
-+		.hook = quirk_enable_dpcd_backlight,
-+	},
-+	/* TUXEDO DX1708 */
-+	{
-+		.device = 0x3e9b,
-+		.subsystem_vendor = 0x1558,
-+		.subsystem_device = 0x8500,
-+		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
-+		.hook = quirk_enable_dpcd_backlight,
-+	},
- };
- 
- void intel_init_quirks(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe52fafc..4996419ae76bd 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_ENABLE_DPCD_BACKLIGHT,
- };
- 
- void intel_init_quirks(struct intel_display *display);
--- 
-2.43.0
-
+Alex
