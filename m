@@ -4,62 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C074C55172
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:38:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97029C5518F
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:39:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2C1510E0BA;
-	Tue,  4 Aug 2026 08:38:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0824910E8FE;
+	Tue,  4 Aug 2026 08:39:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kemnade.info header.i=@kemnade.info header.b="YtCGSGXb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dZB08stG";
 	dkim-atps=neutral
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BF41810E0BA
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:38:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=kemnade.info; s=20220719; h=Cc:To:Subject:From:Reply-To:Content-ID:
- Content-Description:In-Reply-To:References;
- bh=vVI/Ujk0KwTGd5n0g8xMO7yHNTpLhhBOK8e/88GzWOY=; t=1785832713; x=1787042313; 
- b=YtCGSGXbudDENEDaBnogdRbeWVYqGpM2eLTIjWTOj7oMFaXizqLWMDQClszsLM34NCz7x5FSBRQ
- GbrYskJKJYmne8XoKSnF6e68u8COg/ufTHjOCcI5yHzRULfuJOPYOdjdesHCxTE4o7PQ+Fpn1xEYL
- PH902W75vxZUqjpg15XXsmjAJjqDMfJ5Jl4Rre9jV3Ir9cbioR4TGJExFuijZjStjhXhyLCQJUVgH
- dwJvh77mA2iXqauHqCmLc28EZKjS7Wwnyidmci4hZONPj4WM4J9edkoSYQqEjb3BDklUUBY7WZTeA
- g883oS/ohaHWio3dT8cwx/GismwT6X0yBbAg==;
-From: Andreas Kemnade <andreas@kemnade.info>
-Date: Tue, 04 Aug 2026 10:37:00 +0200
-Subject: [PATCH v6] drm/omap: dsi: avoid sending bta sync all the time in
- writes
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D61210E8FE
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:39:53 +0000 (UTC)
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-2cab973140bso54130855ad.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 01:39:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785832793; x=1786437593; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=64eSuQSg7peuhPy9EAyTkvD08lRNBOCEScrOfZTKXsQ=;
+ b=dZB08stG1O7FsQM8JndqSr8ZubpbAal2gZdMbRNUU52E38tRFgYHXHMI1hevK8dHdb
+ MkrByoEBp9YMbQR+o6+nk5OfOfS5Y41RPED0H0j9WMKrrZn+d+vQw1qaJQHmItG8jcPR
+ GEBe134wNHLWpyuneyT91CqvRwctzTkRk9JGM85vjhzFVeXKEcn2/gB+Uvocn+o90y4d
+ kH2wNnqVSHH5Z+HbaE5D5hdHS09Dv2DgsQHheeMonTTeA8dVdMoC68D+nns89IE9Mznu
+ LilW5VN+JSryuU/FfaM72+n1BkKguozPkZ1c0MBYQ25zo8qnXaUC4xR+mXFn0lfRrj3l
+ NHtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785832793; x=1786437593;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=64eSuQSg7peuhPy9EAyTkvD08lRNBOCEScrOfZTKXsQ=;
+ b=OxwXhmjCQQvxMCdk27u5tVsD4wiNiCa34Yd4jyTS6jGFaHzDYBPKXHa1QPqczyXOrN
+ GIrBdCr+5/0cQaGGFQI3Ru0qZHY3PO8p5lbSfNIyrTasy5wPZ/J6Uen/6MCD9eK4VOmN
+ MLMJ9qrhKXAfku/22jxYozNc8+owX0fZHt8TqJxYaHP6o2y+xQCB+xS03hUBeBalcE4s
+ xX1rkx0HIC+oiXwQQ6mmB5Q5bePBlLb5XsUYxTPW3GxbIw1YT03YR127+psbOVBbzizL
+ 6ZsUp7kx2MSFWGGxttjpznRtyE2kXkFxVabve+eHRC091Ohi1tvxYO6R3BIReFL0ITqN
+ DzJQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq1W9VUsvnYnTugF7vwVl7BtKecIpGWxcH0qkzuM5Xf70f3IbhOnErDB0qzC0qjdu5D0sPIom0O3Uo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YykqsWe5TyQWYlz3pTBwpG0SO/sJ4NbaBUC4xvF8QtqHZKxhzqY
+ +6DZGes+NEkEaY2sujiugsUfh7G/+bo5FFfXDF3KNOihVeIkhiGF6Rqw
+X-Gm-Gg: AR+sD12WyDaq3NvN0epB7ae+uRyXITTbhXNoyRTgYlPll5XqK+6fEqehplzOyTQVvhy
+ F+Ckotm1Gpc2Zot0Y1m7QVLKh4VH1aCpYQ2xwem3ghphXQ2GmGRAcq3k+hWFm62WmQQV1CrmzSr
+ oyUdLSuXp72v7v66MGs2n7y6BpdO4H0Vywv8O4VaoSFKju7cO6cA+f9ZgyNyy0bicYaivFDtKaW
+ 3GAY+R8sWoK0O2G3B3EzGWrVAJ3PD7KxZitqJL0HU10HvpYqf60J5Y6UJ0q46f/9W5hz7B3VrxM
+ H6nlpf6MlQl06T+DsDwkEtcVvauShd0rbBJjrufgIYQ3WGvQIy/wrBA3OtnJcJEgSXigQ0QiWIx
+ Klq8B+AJ9wgsnrjz14T6AxGy9S/cozKbNXb4hcGeeWjd3dm/X4xBvCVhwTW0X+cI2zXn1H/8Qce
+ BgsmC3hVou8RPzr634MzmaWsgBjdopewRUiRf2C26ULTQ5/aRpAjdRI4tagFo10jih/y/8FSmPt
+ 9BmUtm/dZN36Ei8/2f2YCqiPJnTRGbsplGQ0sNrA98p0q5hNmAe5GJ3nRndoZAa1++5Z4Cx3DkC
+ 1jCVX6Cn0XKOfj/D0f8z
+X-Received: by 2002:a17:902:da81:b0:2c9:e69f:8b0f with SMTP id
+ d9443c01a7336-2d0521dd6e5mr137791555ad.17.1785832792742; 
+ Tue, 04 Aug 2026 01:39:52 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87?
+ ([2620:10d:c092:600::1:541b]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d0a9f93703sm3064405ad.7.2026.08.04.01.39.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 04 Aug 2026 01:39:51 -0700 (PDT)
+Message-ID: <214cf82d-742a-4753-bc86-c249366b54ed@gmail.com>
+Date: Tue, 4 Aug 2026 09:39:31 +0100
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260804-vm-upstr-v6-1-1bf3748b2fa3@kemnade.info>
-X-B4-Tracking: v=1; b=H4sIAKukcWoC/23NyQ7CIBQF0F8xrMUwyeDK/zAuWngoUWkDSjSm/
- y7VhXVY3pd37r2jDClARqvZHSUoIYcu1iDnM2T3TdwBDq5mxAiTZMk0Lid86fM5YatBSS6g9Uu
- J6nufwIfrs2qzrXkf8rlLt2dzoeP1T0mhmGLfGg5e2xaEWh8gRTguurRDY0thU2kmklXJhOVEK
- qqo8T+Sv6X82ORVGjCNc4ZzpdsqT7FxsAjRdy8rpna6KkbriZXMaU00fNlhGB6Yvj93UwEAAA=
- =
-X-Change-ID: 20260528-vm-upstr-c8e7634ebf56
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Tony Lindgren <tony@atomide.com>, 
- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Cc: Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>, 
- "H. Nikolaus Schaller" <hns@goldelico.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Tomi Valkeinen <tomi.valkeinen@ti.com>, 
- Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6447; i=andreas@kemnade.info; 
- h=from:subject:message-id;
- bh=1cbk78Fg6/NeH9VP//xUSUpgrlHro0nEvOOwe0ydQQA=; 
- b=owGbwMvMwCUm/rzkS6lq2x3G02pJDFmFS7ZYb1wbmj/D053rt9zyZA71gMepHjUXFxzdtnP6F
- 04/zReFHaUsDGJcDLJiiiy/rBXcPqk8yw2eGmEPM4eVCWQIAxenAEwk/AbD/xSRs0n5Zz25RFhW
- LF18qWbPOf11Ezue+y9s2xj3z/3o7SUM/6PPWupkPvquLpl+8d5n/X2rXwn+0om0cY96LtG5ONB
- yCisA
-X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
- fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 02/16] iov_iter: add iterator type for dmabuf maps
+To: Anuj gupta <anuj1072538@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <cover.1785596451.git.asml.silence@gmail.com>
+ <c1ab6c0db3853b339a89aee0b1a9c5ac0c48b79e.1785596451.git.asml.silence@gmail.com>
+ <CACzX3AvwBF32_ODomei3XHSZ=KtRaWLN-_Tfkwv7sV3Ssc3wmw@mail.gmail.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <CACzX3AvwBF32_ODomei3XHSZ=KtRaWLN-_Tfkwv7sV3Ssc3wmw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,186 +116,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Some chips need configuration commands to be sent first, before they can
-send data. TC358762 for example needs PPI_LPTXTIMECNT configured
-and PPI_STARTPPI set to 1 to be able to transmit anything. To be able to
-configure such chips, do not send bta sync during writes if no acks are
-requested. Instead just wait for the packet to be sent to avoid FIFO
-overflows. There might be more to do about acks, but there seem to be
-virtually no users of that flag.
+On 8/3/26 14:20, Anuj gupta wrote:
+> On Sat, Aug 1, 2026 at 9:19 PM Pavel Begunkov <asml.silence@gmail.com> wrote:
+>> @@ -841,7 +857,7 @@ static unsigned long iov_iter_alignment_bvec(const struct iov_iter *i)
+>>
+>>   unsigned long iov_iter_alignment(const struct iov_iter *i)
+>>   {
+>> -       if (likely(iter_is_ubuf(i))) {
+>> +       if (likely(iter_is_ubuf(i)) || iov_iter_is_dmabuf_map(i)) {
+>>                  size_t size = i->count;
+>>                  if (size)
+>>                          return ((unsigned long)i->ubuf + i->iov_offset) | size;
+> 
+> dmabuf_map shares the same union slot as ubuf, so this reads the map
+> pointer as a user address. gap_alignment() below already returns 0
+> correctly for dmabuf - this should too. Checked the rest of this patch
+> (advance/revert/restore) - none of them dereference the union pointer
+> for dmabuf, so it's isolated to this one spot. Doesn't affect the
+> current series, nothing reaches this with a dmabuf iter yet.
 
-This came to light when fiddling with the Epson Moverio BT-200 display
-which consists of 2 TC358762 bridges with SPI funneled through
-to the unknown display chip. With that patch the bridge can be accessed,
-Reading back registers works, when the above-mentioned registers are set.
+Ah yes, that's nonsense, it should've checked iov_offset instead. Thanks
 
-In Command-Mode update, there was a nop sent, apparently the most
-relevant part was the bta sync to actually force low power mode.
-
-Video mode panel at OMAP4 (BT-200) and video mode at OMAP5 was tested.
-
-Fixes: e70965386353e ("drm/omap: dsi: simplify write function")
-Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
----
-Changes in v6:
-- clear errors on every write
-- remove unneeded forward declaration
-
-Changes in v5:
-- send bta sync on VC_CMD again
-- Link to v4: https://patch.msgid.link/20260629-vm-upstr-v4-1-9f0c62d8808e@kemnade.info
-
-Changes in v4:
-- wait on completition on all packets (was limited to long packets only,
-  because I had the wrong impression that there is no confirmation on
-  these)
-- Link to v3: https://patch.msgid.link/20260628-vm-upstr-v3-1-9e9add93378b@kemnade.info
-
-Changes in v3:
-
-- Link to v2: https://patch.msgid.link/20260529-vm-upstr-v2-1-24c30671719f@kernel.org
-- fix things mentioned by claude here:
-  https://lore.gitlab.freedesktop.org/drm-ai-reviews/review-patch1-20260529-vm-upstr-v2-1-24c30671719f@kernel.org/
-  - fix typos
-  - register ISR before sending packet
-  - check for RX_FIFO_NOT_EMPTY also in for short packets
-
-Changes in v2:
-- fix commandmode update, need bta sync there
-- do not wait on short packets
-- Link to v1: https://patch.msgid.link/20260528-vm-upstr-v1-1-fb93ef8cbe47@kernel.org
-
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Tomi Valkeinen <tomi.valkeinen@ti.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
----
- drivers/gpu/drm/omapdrm/dss/dsi.c | 63 +++++++++++++++++++--------------------
- 1 file changed, 31 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/gpu/drm/omapdrm/dss/dsi.c b/drivers/gpu/drm/omapdrm/dss/dsi.c
-index 27fe7bca9e2c..27bf9bbe0697 100644
---- a/drivers/gpu/drm/omapdrm/dss/dsi.c
-+++ b/drivers/gpu/drm/omapdrm/dss/dsi.c
-@@ -58,9 +58,6 @@ static void dsi_uninit_dispc(struct dsi_data *dsi);
- 
- static int dsi_vc_send_null(struct dsi_data *dsi, int vc, int channel);
- 
--static ssize_t _omap_dsi_host_transfer(struct dsi_data *dsi, int vc,
--				       const struct mipi_dsi_msg *msg);
--
- #ifdef DSI_PERF_MEASURE
- static bool dsi_perf;
- module_param(dsi_perf, bool, 0644);
-@@ -2194,28 +2191,45 @@ static int dsi_vc_send_null(struct dsi_data *dsi, int vc, int channel)
- static int dsi_vc_write_common(struct omap_dss_device *dssdev, int vc,
- 			       const struct mipi_dsi_msg *msg)
- {
-+	DECLARE_COMPLETION_ONSTACK(completion);
- 	struct dsi_data *dsi = to_dsi_data(dssdev);
-+	u32 err;
- 	int r;
- 
-+	/* wait for IRQ for packet transmission confirmation */
-+	r = dsi_register_isr_vc(dsi, vc, dsi_completion_handler,
-+				&completion, DSI_VC_IRQ_PACKET_SENT);
-+	if (r)
-+		return r;
-+
- 	if (mipi_dsi_packet_format_is_short(msg->type))
- 		r = dsi_vc_send_short(dsi, vc, msg);
- 	else
- 		r = dsi_vc_send_long(dsi, vc, msg);
- 
--	if (r < 0)
-+	if ((!r) && wait_for_completion_timeout(&completion,
-+				msecs_to_jiffies(500)) == 0)
-+		r = -EIO;
-+
-+	dsi_unregister_isr_vc(dsi, vc, dsi_completion_handler,
-+			      &completion, DSI_VC_IRQ_PACKET_SENT);
-+	if (r)
- 		return r;
- 
--	/*
--	 * TODO: we do not always have to do the BTA sync, for example
--	 * we can improve performance by setting the update window
--	 * information without sending BTA sync between the commands.
--	 * In that case we can return early.
--	 */
-+	/* TODO: find out if more needs to be done for MIPI_DSI_MSG_REQ_ACK */
- 
--	r = dsi_vc_send_bta_sync(dssdev, vc);
--	if (r) {
--		DSSERR("bta sync failed\n");
--		return r;
-+	if (msg->flags & MIPI_DSI_MSG_REQ_ACK) {
-+		r = dsi_vc_send_bta_sync(dssdev, vc);
-+		if (r) {
-+			DSSERR("bta sync failed\n");
-+			return r;
-+		}
-+	} else {
-+		err = dsi_get_errors(dsi);
-+		if (err) {
-+			DSSERR("Error while sending: %x\n", err);
-+			return -EIO;
-+		}
- 	}
- 
- 	/* RX_FIFO_NOT_EMPTY */
-@@ -3233,21 +3247,6 @@ static int _dsi_update(struct dsi_data *dsi)
- 	return 0;
- }
- 
--static int _dsi_send_nop(struct dsi_data *dsi, int vc, int channel)
--{
--	const u8 payload[] = { MIPI_DCS_NOP };
--	const struct mipi_dsi_msg msg = {
--		.channel = channel,
--		.type = MIPI_DSI_DCS_SHORT_WRITE,
--		.tx_len = 1,
--		.tx_buf = payload,
--	};
--
--	WARN_ON(!dsi_bus_is_locked(dsi));
--
--	return _omap_dsi_host_transfer(dsi, vc, &msg);
--}
--
- static int dsi_update_channel(struct omap_dss_device *dssdev, int vc)
- {
- 	struct dsi_data *dsi = to_dsi_data(dssdev);
-@@ -3268,13 +3267,13 @@ static int dsi_update_channel(struct omap_dss_device *dssdev, int vc)
- 	DSSDBG("dsi_update_channel: %d", vc);
- 
- 	/*
--	 * Send NOP between the frames. If we don't send something here, the
-+	 * Transition to LP here. If we don't send something here, the
- 	 * updates stop working. This is probably related to DSI spec stating
- 	 * that the DSI host should transition to LP at least once per frame.
- 	 */
--	r = _dsi_send_nop(dsi, VC_CMD, dsi->dsidev->channel);
-+	r = dsi_vc_send_bta_sync(dssdev, VC_CMD);
- 	if (r < 0) {
--		DSSWARN("failed to send nop between frames: %d\n", r);
-+		DSSWARN("failed to send bta sync between frames: %d\n", r);
- 		goto err;
- 	}
- 
-
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260528-vm-upstr-c8e7634ebf56
-
-Best regards,
---  
-Andreas Kemnade <andreas@kemnade.info>
+-- 
+Pavel Begunkov
 
