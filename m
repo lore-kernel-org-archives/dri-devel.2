@@ -4,88 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ABA9C55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:49:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 170EAC55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:50:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B78D010EA12;
-	Tue,  4 Aug 2026 12:49:58 +0000 (UTC)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com
- [209.85.222.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D31C10EA12
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:49:57 +0000 (UTC)
-Received: by mail-ua1-f48.google.com with SMTP id
- a1e0cc1a2514c-9773507d36aso2781606241.2
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 05:49:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785847796; x=1786452596;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=JBGPEMXGhnDdgHfHxVUKfwNAKxtFiEiLS7I0AAldjOk=;
- b=TN4OApIAzSkX12mLIrspI/13YtMnf0zYiEOnD3XFm+Hie0ShLMAfJa9DJc7QRcOx5h
- KbJFX+mtk/ZkoJCZZ3TzA3PmX/ThRrwwDAKyMmB+ItwaNUgOvNoIIbLX8FHgXQQls1lX
- QiEt1wt9nnlYfKeLYS7KODWbUU69SBGHh2l5+VD+lJjs7PAorHrS5EH5lsmDok/ui3s/
- jQco25Sn3ufhL8EIuYxJqK6lDNWXYNGiLtttauxDHDGlvcy1vG19IOD8yVh7BmYnz1rV
- 1zvM3iYD328Dn3OZjmRHc//TgQHIKv55NQSklgefa0TzOP39RxNTWcW+fpSMGu9I1HPj
- A1qA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqM6G9gDe1JxWrjRTsfXemO0vlfLh640d0R9fDR+7e8gUCZssL4GVX+nOcwsG1Ig1pwam6w549JTdQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwZnOICg/W96edcc9CKlUfL10RP+o8G4TJ34xpTwkPSOblzXnbC
- 93iNnhg6mVeba2mzSQFTXCzneFnXybc0IFiaV+vegLtRiUztm1cmNKzoLHvBF/mH
-X-Gm-Gg: AR+sD13FfSb9xy4fd1M4PtftovTCmPZsFqjbsbqYU+aURHS/BNawnnUhe4m+Y/hsWgE
- UzC5svQB1V2zBvQAhW66cAQv/8fJSb0aiPdw66PYuv/GDbD7U3uquIKONoUXLQ/mIy2mG7oHU4Q
- c545pMSMwUcL2w1QryamplWjre9P4G/MrEfsKRbzpf47GmMl29HAPkzhhaZs06FvG3ReaZ+OY49
- WZMd3z6fu0Qj5JZ2n3IadeHeD96WUJKrreVuGnqUEJN730C8bw7CqUO6JUcx4twfjmMcBP7311M
- aQUgye/F2N6NGvonZXdX8RvKh4QGPML0MCNR31TSX8TMWpztT5m9nqH4A/yWvoUCGLNrPwNcrq1
- FCumWTO8/63nKFdANPFXsN527wPnXsCYxFVvA9bnlzyZoKRMVN+9nNpaX00YnRSvZq9ld645kxT
- C7j/z0sLM+PTvfyilOub38ppqTdGx2uyJ2GpRdrXHx93z9bqvaZJsApVQIUmcH3LA/aRIBG/4JL
- yPNeIDD0nVPgN7texM0t93uvQ==
-X-Received: by 2002:a05:6102:4b19:b0:74a:b948:d16b with SMTP id
- ada2fe7eead31-75b2196037dmr10877414137.3.1785847796036; 
- Tue, 04 Aug 2026 05:49:56 -0700 (PDT)
-Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com.
- [209.85.217.47]) by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-9782c7d0a96sm20043241.4.2026.08.04.05.49.54
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Aug 2026 05:49:54 -0700 (PDT)
-Received: by mail-vs1-f47.google.com with SMTP id
- ada2fe7eead31-74748e3a4d1so2086682137.3
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 05:49:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RoXUXttXC9lRHpXWMLNdTrLy/ThngitY+3AeiMB1fTEBMOZtMbkXIiJ/d/zCVmStLj96+PkEjS+Trs=@lists.freedesktop.org
-X-Received: by 2002:a05:6102:2c86:b0:745:1c72:cf72 with SMTP id
- ada2fe7eead31-75b2406f27bmr10567769137.13.1785847794532; Tue, 04 Aug 2026
- 05:49:54 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 52CDD10EA25;
+	Tue,  4 Aug 2026 12:50:37 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="k2fftbKM";
+	dkim-atps=neutral
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2F0E210EA20
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:50:35 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A546C165C
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 05:50:30 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 72D8A3F66F
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 05:50:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785847834; bh=snTQtcGEqteAJu+Rvoz3D4mB2JBxEopiOgm2EBh9KKc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=k2fftbKMw/iu9Ti07oFOE8epnvkuKjnVlz+9kRadqpaOzFm3OO80JRtd3G/QHku9X
+ 5aqpr9vW2SVAGvNpqLpXbpU2GMLI7OPam5vK24Hp8zDTm/AnNmBJDIR7Rg71MYA50k
+ 55VAwhXS4waLnLYa380WtkSAwIX9POWI3O4KppzY=
+Date: Tue, 4 Aug 2026 13:50:25 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: Steven Price <steven.price@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 03/12] drm/panthor: Move the debugfs initialization to
+ panthor_device.c
+Message-ID: <anHgEQIVMZkPXxLr@e142607>
+References: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
+ <20260804-panthor-unplug-fixes-v1-3-abbbd2d41b13@collabora.com>
 MIME-Version: 1.0
-References: <20260526181700.25310-1-leandro.ribeiro@collabora.com>
- <20260526181700.25310-3-leandro.ribeiro@collabora.com>
- <20260721234802.GA439272@ax162>
- <126e8bdb-9c39-4fbd-ae8a-26a61dd4f3d6@nvidia.com>
- <CAMuHMdXXbPUkyOy0R0s58ayBK0mFFjZa4BKMUBwsnwr-oCQ08Q@mail.gmail.com>
-In-Reply-To: <CAMuHMdXXbPUkyOy0R0s58ayBK0mFFjZa4BKMUBwsnwr-oCQ08Q@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 4 Aug 2026 14:49:43 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdW3dno+-XD8kHG=vQSue9oZe+H1uAWF0v9ZhqUqrzHF6w@mail.gmail.com>
-X-Gm-Features: AUfX_my1DFORQUxVgV1ttAGOeGGrmxibdLdSpELwdogkwifIufYpPCOG_LYxVNs
-Message-ID: <CAMuHMdW3dno+-XD8kHG=vQSue9oZe+H1uAWF0v9ZhqUqrzHF6w@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] drm: ensure blend mode supported if pixel format
- with alpha exposed
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Nathan Chancellor <nathan@kernel.org>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>, 
- Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Jocelyn Falempe <jfalempe@redhat.com>, dri-devel@lists.freedesktop.org,
- airlied@gmail.com, daniels@collabora.com, jani.nikula@linux.intel.com, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- pekka.paalanen@collabora.com, simona@ffwll.ch, ville.syrjala@linux.intel.com, 
- linux-kernel@vger.kernel.org, 
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>, 
- Linux-Renesas <linux-renesas-soc@vger.kernel.org>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260804-panthor-unplug-fixes-v1-3-abbbd2d41b13@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,67 +62,101 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 4 Aug 2026 at 11:07, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> On Wed, 22 Jul 2026 at 14:08, Jon Hunter <jonathanh@nvidia.com> wrote:
-> > On 22/07/2026 00:48, Nathan Chancellor wrote:
-> > > On Tue, May 26, 2026 at 03:17:00PM -0300, Leandro Ribeiro wrote:
-> > >> Before "drm/drm_blend: allow blend mode property without PREMULTI",
-> > >> userspace would have to assume that only PREMULTI was supported by
-> > >> drivers that didn't expose the blend mode property. But now userspace
-> > >> shouldn't rely on that, as they can't count with drivers always
-> > >> supporting PREMULTI.
-> > >>
-> > >> Warn if a driver exposes pixel formats with alpha but doesn't expose the
-> > >> blend mode property. This way userspace doesn't have to guess. Drivers
-> > >> triggering this warning must be fixed.
-> > >>
-> > >> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-> > >> ---
-> > >>   drivers/gpu/drm/drm_mode_config.c | 21 +++++++++++++++++++++
-> > >>   1 file changed, 21 insertions(+)
-> > >>
-> > >> diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-> > >> index 66f7dc37b597..8cca1dea3b3d 100644
-> > >> --- a/drivers/gpu/drm/drm_mode_config.c
-> > >> +++ b/drivers/gpu/drm/drm_mode_config.c
-> > >> @@ -674,6 +674,25 @@ static void validate_encoder_possible_crtcs(struct drm_encoder *encoder)
-> > >>           encoder->possible_crtcs, crtc_mask);
-> > >>   }
-> > >>
-> > >> +static void validate_blend_mode_for_alpha_formats(struct drm_plane *plane)
-> > >> +{
-> > >> +    const struct drm_format_info *fmt;
-> > >> +    u32 i;
-> > >> +
-> > >> +    /* blend mode property supported, no need to check anything */
-> > >> +    if (plane->blend_mode_property)
-> > >> +            return;
-> > >> +
-> > >> +    for (i = 0; i < plane->format_count; i++) {
-> > >> +            fmt = drm_format_info(plane->format_types[i]);
-> > >> +            if (fmt->has_alpha) {
-> > >> +                    WARN(1, "[PLANE:%d:%s] pixel format with alpha exposed but "
-> > >> +                         "blend mode not setup", plane->base.id, plane->name);
-> > >
-> > > I am seeing this warning trigger on a few of my machines in -next. A
-> > > couple of those use amdgpu, which I see has already been reported in a
-> > > separate thread. Another one uses ast, which I do not see reported
-> > > (apologies if I missed it).
-> > >
-> > >    [  +0.000137] ------------[ cut here ]------------
-> > >    [  +0.000004] [PLANE:37:plane-1] pixel format with alpha exposed but blend mode not setup
+On Tue, Aug 04, 2026 at 12:09:42PM +0200, Boris Brezillon wrote:
+> Those are per-device debugfs-files, so it makes sense to have the
+> initialization logic in panthor_device.c.
+> 
+> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 
-> Same on R-Car Gen2 (R-Car DU without VSP).
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-And on R-Mobile A1 (shmob_drm).
+Best regards,
+Liviu
 
-Gr{oetje,eeting}s,
-
-                        Geert
+> ---
+>  drivers/gpu/drm/panthor/panthor_device.c |  9 +++++++++
+>  drivers/gpu/drm/panthor/panthor_device.h |  4 ++++
+>  drivers/gpu/drm/panthor/panthor_drv.c    | 10 +---------
+>  3 files changed, 14 insertions(+), 9 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
+> index 1aa86d00646f..7d336f160d1f 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
+> @@ -13,6 +13,7 @@
+>  #include <linux/reset.h>
+>  
+>  #include <drm/drm_drv.h>
+> +#include <drm/drm_file.h>
+>  #include <drm/drm_managed.h>
+>  #include <drm/drm_print.h>
+>  
+> @@ -616,3 +617,11 @@ int panthor_device_suspend(struct device *dev)
+>  	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
+>  	return 0;
+>  }
+> +
+> +#ifdef CONFIG_DEBUG_FS
+> +void panthor_device_debugfs_init(struct drm_minor *minor)
+> +{
+> +	panthor_mmu_debugfs_init(minor);
+> +	panthor_gem_debugfs_init(minor);
+> +}
+> +#endif
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
+> index 0fda64fbe5f2..a6b1a2a5fca4 100644
+> --- a/drivers/gpu/drm/panthor/panthor_device.h
+> +++ b/drivers/gpu/drm/panthor/panthor_device.h
+> @@ -403,6 +403,10 @@ int panthor_device_mmap_io(struct panthor_device *ptdev,
+>  int panthor_device_resume(struct device *dev);
+>  int panthor_device_suspend(struct device *dev);
+>  
+> +#ifdef CONFIG_DEBUG_FS
+> +void panthor_device_debugfs_init(struct drm_minor *minor);
+> +#endif
+> +
+>  static inline int panthor_device_resume_and_get(struct panthor_device *ptdev)
+>  {
+>  	int ret = pm_runtime_resume_and_get(ptdev->base.dev);
+> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
+> index 46a3080b0b20..924a7ecd3733 100644
+> --- a/drivers/gpu/drm/panthor/panthor_drv.c
+> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
+> @@ -1764,14 +1764,6 @@ static const struct file_operations panthor_drm_driver_fops = {
+>  	.fop_flags = FOP_UNSIGNED_OFFSET,
+>  };
+>  
+> -#ifdef CONFIG_DEBUG_FS
+> -static void panthor_debugfs_init(struct drm_minor *minor)
+> -{
+> -	panthor_mmu_debugfs_init(minor);
+> -	panthor_gem_debugfs_init(minor);
+> -}
+> -#endif
+> -
+>  /*
+>   * PanCSF driver version:
+>   * - 1.0 - initial interface
+> @@ -1807,7 +1799,7 @@ static const struct drm_driver panthor_drm_driver = {
+>  	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
+>  	.gem_prime_import = panthor_gem_prime_import,
+>  #ifdef CONFIG_DEBUG_FS
+> -	.debugfs_init = panthor_debugfs_init,
+> +	.debugfs_init = panthor_device_debugfs_init,
+>  #endif
+>  };
+>  
+> 
+> -- 
+> 2.55.0
+> 
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
