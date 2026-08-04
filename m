@@ -4,48 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65290C55172
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 06:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD892C55172
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 07:03:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C84D610E09E;
-	Tue,  4 Aug 2026 06:48:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA0A10E115;
+	Tue,  4 Aug 2026 07:03:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="Nn8YHZBx";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="A9h45/RL";
 	dkim-atps=neutral
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch
- [79.135.106.113])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DBE710E09E
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 06:48:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1785826110; x=1786085310;
- bh=KqfKYGJNjUhLaSbht+pZlWC4kNkno5tAwM66cjF7pOo=;
- h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
- Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Nn8YHZBxoxcm8q3IdKc0RZvj4sZ1ZWU1Zkg+S/aq3JRl55xBChJoBDqdBQ2Yg22L/
- blueCFboPS3fBp1B6cykoqG5EL+aHLI5//+F0on4OIfFUgMWKM52932g1DneIZ6FXN
- U2rc0UfXeocagPRhOv98GvF6rqBPgefqIKWTPWgQZU790VhBWgJT6ZmAEYXinGsnlP
- Y/bEqGs4QHmX4LJ1EXVCLw2q71i/A+N4a45WgeOfeFo2LtYZsxld8pbv+jw4hMFLEL
- 1o0FMUqNYeGfAN7/Wwhz6ydlXk3F4QcY92kr2D41DwKC2i4Vv4spaSw4c0B0wv9OYK
- RdV2bP+tSKZ/g==
-X-Pm-Submission-Id: 4hDkdn21mVz2Sdm1
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-bot@kernel.org>
-Cc: <sashiko-reviews@lists.linux.dev>,  <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 2/3] drm/bridge: ti-sn65dsi83: Fix error handling in
- sn65dsi83_reset_work()
-In-Reply-To: <20260803152112.5CC281F000E9@smtp.kernel.org>
- (sashiko-bot@kernel.org's message of "Mon, 03 Aug 2026 15:21:11
- +0000")
-References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
- <20260803-ti-sn65dsi83-fixes-v3-2-9b403a405ccd@geanix.com>
- <TKBCK7kXBFomt3_G6e_k5x4Azce7mNJH-pBKtQftoFH2IaNTAU1lbZd0nwutvpQD9ZhjDZGOxBjCFfBJG0fFmA==@protonmail.internalid>
- <20260803152112.5CC281F000E9@smtp.kernel.org>
-Date: Tue, 04 Aug 2026 08:48:25 +0200
-Message-ID: <87tspabcue.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C54210E115;
+ Tue,  4 Aug 2026 07:03:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785827032; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=YKEegjnpuSmHTOcRrWivKsOOzbbB08CCOj0SkP66xgoeeRUDl4q9qX6KRyJ0P/O/Uc0DTK7/ztOr0Vxbn5M44/apLUHVMNQY0auPY4V0BhCHSXE0P2lmLw3KHoVgQeWb+VrCU5JolVPMLXQAaQu6oB7q9hQo99tVRkiBJyU0Gq0=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785827032;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=LgTqR8hX+MSPNZK1/ZnmYeT+jeK9oY4pjRChRQ3k7rU=; 
+ b=DlFR7UTuyweWfc4n6G0VU5nhbzBuvVJoJxdEq3NvQgkAjIzPvzjFih1narD93mJh0yCmFOHN8yKnLk4ejqmRIfWAT3TNRUXYybNAlC5EpxiT9ts+TP/DvAcfUevdW8S0h26rXBKGdl7JgZ2kW0HuqdQtL9Y52gH6pokz8nge/6Y=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785827032; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=LgTqR8hX+MSPNZK1/ZnmYeT+jeK9oY4pjRChRQ3k7rU=;
+ b=A9h45/RLAnHcnEGuDcLxNPHwcp1TGklEP6xwpHZW9svKcRED3hZD6gdBwEtkSHsw
+ oHg67mvHF2W6vbAKEP+cM+xvavZ7QP6GBcTwyfNg8IEDe/xxQFrH9ihYe7GkG6gekNr
+ cvmMrcU6d5InLRWQZ24+iaopqdaIXsSUaIFergx8=
+Received: by mx.zohomail.com with SMTPS id 1785827030764705.228708125434;
+ Tue, 4 Aug 2026 00:03:50 -0700 (PDT)
+Message-ID: <c6c0e544-5a19-4ca1-b113-c085bab0c967@collabora.com>
+Date: Tue, 4 Aug 2026 09:03:47 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] udmabuf: vastly increase the size limit per dmabuf
+To: Xaver Hugl <xaver.hugl@kde.org>
+Cc: dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
+ kraxel@redhat.com, stable@vger.kernel.org, vivek.kasireddy@intel.com
+References: <20260803144120.11524-1-xaver.hugl@kde.org>
+ <2353697f-b1da-495a-b043-7a81d875856e@collabora.com>
+ <CAFZQkGyfDwjPuciiOvZM3Ha8Xj+YkgkMaveHZtBK2w_S+Z+Vcw@mail.gmail.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <CAFZQkGyfDwjPuciiOvZM3Ha8Xj+YkgkMaveHZtBK2w_S+Z+Vcw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,88 +68,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-<sashiko-bot@kernel.org> writes:
+Hi,
 
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
->
-> Pre-existing issues:
-> - [Critical] Missing cancel_work_sync() for ctx->reset_work during driver=
- teardown leads to a Use-After-Free.
-> - [High] Skipping enable_irq() on the error path causes an IRQ disable de=
-pth leak, leaving the interrupt permanently disabled.
-> --
->
-> --- Patch [2]: [PATCH v3 2/3] drm/bridge: ti-sn65dsi83: Fix error handlin=
-g in sn65dsi83_reset_work() ---
-> commit 58246b5ef131d7aeea7b5c2b693088e7255aa435
-> Author: Esben Haabendal <esben@geanix.com>
->
-> drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
->
-> This commit fixes the error path in sn65dsi83_reset_work() by adding a
-> goto to ensure drm_bridge_exit() is called when sn65dsi83_reset_pipe()
-> fails, safely closing the critical section.
->
->> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bri=
-dge/ti-sn65dsi83.c
->> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
->> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
->> @@ -419,11 +419,12 @@ static void sn65dsi83_reset_work(struct work_struc=
-t *ws)
->
-> [Severity: Critical]
-> This is a pre-existing issue, but could this work function execute after
-> the device is unbound, resulting in a use-after-free?
->
-> If the driver is removed and devres frees the ctx structure, the work
-> could still be pending since sn65dsi83_remove() does not appear to call
-> cancel_work_sync() before returning:
->
-> sn65dsi83_remove() {
->         ...
->         drm_bridge_unplug(&ctx->bridge);
->         // missing cancel_work_sync(&ctx->reset_work);
-> }
->
-> If the workqueue executes sn65dsi83_reset_work() after teardown,
-> dereferencing ctx for drm_bridge_enter() might access freed memory.
->
->>  	ret =3D sn65dsi83_reset_pipe(ctx);
->>  	if (ret) {
->>  		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
->> -		return;
->> +		goto err_exit;
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but doesn't jumping to err_exit
-> here leave the interrupt permanently disabled?
->
-> If a hardware error triggers the IRQ handler, sn65dsi83_handle_errors()
-> calls disable_irq_nosync(), which increments the IRQ disable depth. By
-> skipping the enable_irq() call on this error path, the depth counter
-> remains unbalanced.
->
-> Would it be better to mask the interrupt source via hardware registers
-> on failure, and still call enable_irq() so the kernel's depth counter
-> remains balanced?
+Vivek (thanks!) just pulled the patch into drm-misc-next / 
+for-linux-next so it should go into 7.3 \o/
 
-Nah. I would rather just balance the counter here.
-Calling enable_irq() on error should be the safe choice.
-As sn65dsi83_reset_pipe() have always been returning 0 until now, we
-have in practise been doing that unconditionally anyway.
+On 03.08.26 17:04, Xaver Hugl wrote:
+> Oh, nice! I should've checked the list before making a patch :D
+>
+> Could your commit also be backported to stable? I fear I'll need to
+> find ways to work around this or disable the relevant optimizations in
+> KWin on older kernels either way, but it would be great if that could
+> at least be a very temporary problem.
 
-I will do that in next version.
+I'm not sure how realistic that is / how the policies around such 
+changes are - there shouldn't be any serious risk of regressions, but 
+who knows.
+
+OTOH there are several other options AFAICS:
+
+1. affected distros could backport the patch or set a higher limit via 
+kernel command line
+
+2. kwin could try to check the size 
+(`/sys/module/udmabuf/parameters/size_limit_mb`) and disallow the code 
+path if the required buffer size exceeds it (or just have a fallback in 
+place whenever allocation fails)
+
+Arguably having a working fallback path were possible would be good 
+style either way - would it be a big effort to do so in kwin?
+
+Best regards
 
 >
->>  	}
->>  	if (ctx->irq)
->>  		enable_irq(ctx->irq);
->>
->> +err_exit:
->>  	drm_bridge_exit(idx);
->>  }
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-ti-sn65d=
-si83-fixes-v3-0-9b403a405ccd@geanix.com?part=3D2
+> - Xaver
+
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
+
