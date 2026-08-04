@@ -4,95 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B8F2C55ABA
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:10:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 509EBC561E6
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:17:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76A5510E1CE;
-	Tue,  4 Aug 2026 20:10:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B219010E13E;
+	Tue,  4 Aug 2026 20:17:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=shazbot.org header.i=@shazbot.org header.b="TvhqnR7m";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="jV/BhCRP";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="RgrMpsLG";
 	dkim-atps=neutral
-Received: from fhigh-a4-smtp.messagingengine.com
- (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 506A110E1CE
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:10:29 +0000 (UTC)
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
- by mailfhigh.phl.internal (Postfix) with ESMTP id 84DBE14000BB;
- Tue,  4 Aug 2026 16:10:28 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-06.internal (MEProxy); Tue, 04 Aug 2026 16:10:28 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
- cc:cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm2; t=1785874228;
- x=1785960628; bh=DGDpNHg7f9ztXGjzjzb4ybcoE+sIyQ0zmpGoEdgW4g4=; b=
- TvhqnR7mCECTjp74lUFk4G4kFKYnDIbC4XNAlIU5Z3FhZ2Yp14QvfA8I5Dge0rZj
- AVMK050Y2EXORNA+5w3npdI8mTHHzB7brHEtxkAfzizr7JwtFXQW0HIJ3EIz2p6c
- 7/CTBd2jrTNd0iFl1no3FMI1bBInZqbM/OTzKZ3o4TfdGCa5Aupf2SzrFTRaoyMO
- kjmBg+dMDXgWk8C0iBK1iM2kS3W9XglkkC3PRvzWgxNssG6QcpCpTzb16W3+ENOQ
- 7g5ub4ierd5E1KJ8szv3WolRxMN0056ctenE+S4CGBVwqWPu6MaLqyxvOmdR+Med
- nilmm1ADQQahAe58GZPN6g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785874228; x=
- 1785960628; bh=DGDpNHg7f9ztXGjzjzb4ybcoE+sIyQ0zmpGoEdgW4g4=; b=j
- V/BhCRPJYsv+ODbPHoPDuYrD4LYQJrbE58aquOw6yEKnyMaQdkkrfis6i0rONgoM
- XaS+Kd3NkLxFvwJjOq7AzGCq0uzFCabQ8qynR9/PE96snQm+uc0cp1+OE2SzaR7i
- tk05YXDlKfRFu0TRkM1EqiIaE8vCev1iAASqrsZuP4cdsgamHovx34DiQiWjGHqj
- SOUma0xptLjEUB/ABgR+Rth8RYrcf2zHLJnFjo/jH0RglEkkhWzz5VJpbqOZrKMD
- XJg6TztYWZx1AoN3fRK0/WjIxmyqZpH3fyTvxULZIamL0Ok1/Bx5craoOy7qLlx3
- 7DliLKr6E5eP38TrHHATA==
-X-ME-Sender: <xms:M0dyapdXOK53MZxGFwM9IEhajUFmem4pf5oKoDXJDzp5V4CJ_WIzZw>
- <xme:M0dyaioHLH0De3JSkLQpYHvbFqJ9hAWZRWqMIkGS6t5pn1vmTgNFN3Eyb-Kp3C9sW
- LQzIrNB5tfJgf1364dmNBtrxOO61pnyk_xpz7SdJhj6mpbEqdSBoQ>
-X-ME-Received: <xmr:M0dyahPv1zAe0W-WWMO46nUWLEmDpBMK5JXdSwwmxUVbCIz91PqE0ge5uHPGlw>
-X-ME-Proxy-Cause: dmFkZTFz0qZml1tMgspJLvQROyFjxo2iF8dhBLG1gtWRuVGqbuDRnJRSCDTFVRpCARIfiq
- p3San+6x+JgTfRDCa6JBZsenI68aONWfSHUYcbyfYK6A/5lMqgtwyRGiR3tIAbrTXet38u
- i+QO8myxi9xRWUJuwDzgccQxCLFmyqcbNr9Rv28m1qlQSzbceTd2CI4KV3jnRkdZM5/zA+
- B1dU/SLUd3a0UgVzR1Z0a0lAzAnN02ZTOGg0/5ioy3i8bBVIKEyL83cVcVtsr7pH78GSJA
- qRYYsIFmKmGey4GXe+l8asTXRBmpS9hhZyjnvk143mQEwWjndPd5+SEps8e/cZNACoZWlE
- 4Mfpjo6x5KnZJioSCjIK5fIGt3/jP5Q5Tx1SlsHlmfBX0IYNe6wpw68EogoZ+YusOtv6YH
- pXSFT3JE7csZCMs3A3kW/8NM+xh8MLZtZ4lCCaxvhdjr6CuUpi1dtkttZVQTATJfUeBp22
- yWGUMbYdzUhFxjGmuWxC3aQ2wWzrIw7Xq+d0rAMbtpf9bxhA0N63qmi8YLz0ZJBJN1Tv3K
- lO+S2hZ3hh+cpORTKTBbq045O3Pagme9MthyaugmLDiXB7AZMouCUEXeZ2VSQ+jl99CfP3
- 9qz8+Pa8I7u1ZCvyG7/cRNwNrlZstfl1eghiC4Xf7kf4/9xmo7lVxdVSejNw
-X-ME-Proxy: <xmx:M0dyagEM4gSmDssLubmn_6YVnByO9-qB8KzWbeoc1e_0-NYwK7wAUA>
- <xmx:M0dyasFOPkII3QdfzcXRVDvt-06AFTE6dSPOamdXftyyUMcV3miqoQ>
- <xmx:M0dyanCJkbrtLRbYedsDNmVJGg5OT6a6XLNAqLuA6whv5Gf31wK3kQ>
- <xmx:M0dyapnVsAGlDqnw4TkWFKvLlIMrI5QLzuDd1oSD2l3NP8-qJJ3AjA>
- <xmx:NEdyakMeyIhaiVEwdtSqBLz0DIZTbrGyTWKemyo_Ta627fyHnW7ZPhvm>
-Feedback-ID: i03f14258:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 4 Aug 2026 16:10:25 -0400 (EDT)
-Date: Tue, 4 Aug 2026 14:10:22 -0600
-From: Alex Williamson <alex@shazbot.org>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
- Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
- Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Sumit Semwal
- <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair
- Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org, alex@shazbot.org
-Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
-Message-ID: <20260804141022.71b6429d@shazbot.org>
-In-Reply-To: <6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-8-matt@ozlabs.org>
- <20260729115204.2a9a50b2@shazbot.org>
- <6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A363010E13E
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:17:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1785874639;
+ bh=dHRRYCr6KNXPQ/XC3VIjH4wQn3v7mHs7limZc8dV07w=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=RgrMpsLGhMHrvhXETcOnUlgTp2Cku8y6q4XDrRMwzak0C7NG5WtLfiwa4IP9tC8J1
+ y0WXbpfIinT8aEKyLCq1cHgwCJFT47cCER/oHQ8TZSXZDac4zTnxUj/Mdg4FFnSTbp
+ gGq3HLv1fNAkXTCJGHAEnB7ZqYohflhSfx5s/GtwSWib0cOvYWB8qqnegGwX9KuYmF
+ JZphUsZ6RM3SPT0WeLBEJwzbIaEtGhIcmJNzUaT1XWGl8uvGDukDTsfu6WQTI/M8un
+ YCc1eaQ0saK7h/coYFZLi+9jrgneOYye7RqpkMGOf1oXeGfZgg7OqO5VRAv3x3Bu6X
+ RSYenpeRdV98Q==
+Message-ID: <b5b80acd-feea-408b-87eb-4264ffc7e2cd@lankhorst.se>
+Date: Tue, 4 Aug 2026 22:18:32 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/6] cgroup,cgroup/dmem: Add
+ (dmem_)cgroup_common_ancestor helper
+To: Natalie Vock <natalie.vock@gmx.de>, Maxime Ripard <mripard@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
+ <20260804-dmemcg-aggressive-protect-v8-2-07af96681bf8@gmx.de>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <20260804-dmemcg-aggressive-protect-v8-2-07af96681bf8@gmx.de>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -109,42 +65,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, 30 Jul 2026 15:47:13 +0100
-Matt Evans <matt@ozlabs.org> wrote:
 
-> Hi Alex,
+
+On 8/4/26 10:25, Natalie Vock wrote:
+> This helps to find a common subtree of two resources, which is important
+> when determining whether it's helpful to evict one resource in favor of
+> another.
 > 
-> On 29/07/2026 18:52, Alex Williamson wrote:
-> > On Wed, 15 Jul 2026 18:47:30 +0100
-> > Matt Evans <matt@ozlabs.org> wrote:  
-> >> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-> >> index 9a1674c152aa..e2b4252e7c3f 100644
-> >> --- a/include/linux/vfio_pci_core.h
-> >> +++ b/include/linux/vfio_pci_core.h
-> >> @@ -134,6 +134,7 @@ struct vfio_pci_core_device {
-> >>  	bool			pm_intx_masked;
-> >>  	bool			pm_runtime_engaged;
-> >>  	bool			sriov_active;
-> >> +	bool			zap_bars_on_revoke;
-> >>  	struct pci_saved_state	*pci_saved_state;
-> >>  	struct pci_saved_state	*pm_save;
-> >>  	int			ioeventfds_nr;  
-> > 
-> > This should be in the bitfield usage group since it's only modified at
-> > init time.  
+> To facilitate this, add a common helper to find the ancestor of two
+> cgroups using each cgroup's ancestor array.
 > 
-> This was intentional, but happy to change it if you're certain ofc.  Is
-> it inconceivable that a sub-driver could set it after init?  I'd say
-> they _shouldn't_, but only review will stop them and this placement
-> intended to be cautious.  It seemed a low cost way to avoid issues
-> around synchronisation on the bitfield.
+> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+> ---
+>  include/linux/cgroup.h      | 21 +++++++++++++++++++++
+>  include/linux/cgroup_dmem.h |  9 +++++++++
+>  kernel/cgroup/dmem.c        | 41 +++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 71 insertions(+)
+> 
+> diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
+> index f2aa46a4f871e..83a17ded1c516 100644
+> --- a/include/linux/cgroup.h
+> +++ b/include/linux/cgroup.h
+> @@ -623,6 +623,27 @@ static inline struct cgroup *cgroup_ancestor(struct cgroup *cgrp,
+>  	return cgrp->ancestors[ancestor_level];
+>  }
+>  
+> +/**
+> + * cgroup_common_ancestor - find common ancestor of two cgroups
+> + * @a: first cgroup to find common ancestor of
+> + * @b: second cgroup to find common ancestor of
+> + *
+> + * Find the first cgroup that is an ancestor of both @a and @b, if it exists
+> + * and return a pointer to it. If such a cgroup doesn't exist, return NULL.
+> + *
+> + * This function is safe to call as long as both @a and @b are accessible.
+> + */
+> +static inline struct cgroup *cgroup_common_ancestor(struct cgroup *a,
+> +						    struct cgroup *b)
+> +{
+> +	int level;
+> +
+> +	for (level = min(a->level, b->level); level >= 0; level--)
+> +		if (a->ancestors[level] == b->ancestors[level])
+> +			return a->ancestors[level];
+> +	return NULL;
+> +}
+> +
+>  /**
+>   * task_under_cgroup_hierarchy - test task's membership of cgroup ancestry
+>   * @task: the task to be tested
+> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+> index 1a88cd0c9eb00..9d72457c4cb9d 100644
+> --- a/include/linux/cgroup_dmem.h
+> +++ b/include/linux/cgroup_dmem.h
+> @@ -28,6 +28,8 @@ bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
+>  			   struct dmem_cgroup_pool_state *test);
+>  bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
+>  			   struct dmem_cgroup_pool_state *test);
+> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
+> +							       struct dmem_cgroup_pool_state *b);
+>  
+>  void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
+>  #else
+> @@ -75,6 +77,13 @@ static inline bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
+>  	return false;
+>  }
+>  
+> +static inline
+> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
+> +							       struct dmem_cgroup_pool_state *b)
+> +{
+> +	return NULL;
+> +}
+> +
+>  static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
+>  { }
+>  
+> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+> index 9df3b33c65046..a587611ca2235 100644
+> --- a/kernel/cgroup/dmem.c
+> +++ b/kernel/cgroup/dmem.c
+> @@ -762,6 +762,47 @@ bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
+>  }
+>  EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
+>  
+> +/**
+> + * dmem_cgroup_get_common_ancestor(): Find the first common ancestor of two pools.
+> + * @a: First pool to find the common ancestor of.
+> + * @b: First pool to find the common ancestor of.
+> + *
+> + * Return: The first pool that is a parent of both @a and @b, or NULL if either @a or @b are NULL,
+> + * or if such a pool does not exist. A reference to the returned pool is grabbed and must be
+> + * released by the caller when it is done using the pool.
+> + */
+> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
+> +							       struct dmem_cgroup_pool_state *b)
+> +{
+> +	struct cgroup *ancestor_cgroup;
+> +	struct cgroup_subsys_state *ancestor_css;
+> +	struct dmemcg_state *ancestor_dmemcs = NULL;
+> +	struct dmem_cgroup_pool_state *pool = NULL;
+> +
+> +	if (!a || !b)
+> +		return NULL;
+> +
+> +	ancestor_cgroup = cgroup_common_ancestor(a->cs->css.cgroup, b->cs->css.cgroup);
+> +	if (!ancestor_cgroup)
+> +		return NULL;
+> +
+> +	rcu_read_lock();
+> +	ancestor_css = cgroup_e_css(ancestor_cgroup, &dmem_cgrp_subsys);
+> +	if (css_tryget(ancestor_css))
+> +		ancestor_dmemcs = css_to_dmemcs(ancestor_css);
+> +	rcu_read_unlock();
+> +
+> +	if (ancestor_dmemcs) {
+> +		pool = get_cg_pool_unlocked(css_to_dmemcs(ancestor_css),
+> +					    a->region);
+> +		if (IS_ERR(pool))
+> +			pool = NULL;
+This should probably be a warn_on as this can never happen, sashiko is wrong here.
 
-I'd agree with the statement that they shouldn't, it would be difficult
-to synchronize setting the flag once there are any active mappings of
-the BARs.  Also, if we put it in the bitfield category under the
-comment that the value is only modified at setup/release, it documents
-the intentions, hopefully to the extent the author or reviewers notice.
-An argument can always be made to change it if there's a worthwhile use
-case.  Thanks,
+If a and b are charged, all their ancestors are charged too. And when they share a
+common ancestor, then the common ancestor has to have an existing charged pool as
+well because there's a huge bug in the code otherwise.
 
-Alex
+> +		css_put(ancestor_css);
+> +	}
+> +	return pool;
+> +}
+> +EXPORT_SYMBOL_GPL(dmem_cgroup_get_common_ancestor);
+> +
+>  static int dmem_cgroup_region_capacity_show(struct seq_file *sf, void *v)
+>  {
+>  	struct dmem_cgroup_region *region;
+> 
+
+Otherwise looks good, so feel free to extend my r-b to this patch too, and with that minor fix up commit it.
+
+Reviewed-by: Maarten Lankhorst <dev@lankhorst.se>
+
