@@ -4,45 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8B89C5518F
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:37:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAFA6C5518F
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:38:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F418210E8F6;
-	Tue,  4 Aug 2026 08:37:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16DE110E8FA;
+	Tue,  4 Aug 2026 08:38:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="X2Tw0AXa";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="uYYzJRno";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2E07A10E8F6
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:37:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 56A08600AA;
- Tue,  4 Aug 2026 08:37:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8451F00A3D;
- Tue,  4 Aug 2026 08:37:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785832628;
- bh=oTW1PYZcVUnrbob+AkDygsawNkQa69UCku9iYiabzbk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=X2Tw0AXarieigFrhpal5wrqzANsHqDjsiJ44JAyv7MnYR5Bfja9ISCgrCoXiTx7Ds
- Xc+l8yDjFtxORYCvDuN3S6WgjMYqecMfH5D5qnTHX/O7KKI7557NzbaS047FP+Bw9F
- eQfZ7EPgr7eHK4R9umpoNirOnFFLad94WqhOJcW4fGeksaymJTeY7uYJk2NWDHiZQU
- GhZvwoeO2l+O8lMUHAycTJLa+tgjchyC4YsNcqJAwc0spqhtG+AyAzPHEy6IY1HIjP
- ugVafYq5+oEdwHmbP70btlef6jqazFy6lriphtlWh8RN7R1mQuBT8/v/mtLRJqCenb
- fHOlMh9ZxljWw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/10] drm/bridge: analogix_dp: Manage pm runtime and
- IRQ for native HPD pin detection
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260804081717.741404-2-damon.ding@rock-chips.com>
-References: <20260804081717.741404-1-damon.ding@rock-chips.com>
- <20260804081717.741404-2-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011070.outbound.protection.outlook.com [52.101.62.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09E9A10E8FA;
+ Tue,  4 Aug 2026 08:38:00 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Wxt7rCbdx1a8nYEd/Zw+J20C00bUpOqUuzhgP2rVAz5TlrCtaCPvm0afIjXuyEbt6ltXNzJ+w+s+OsB+fGVeD+Sm+HBO8k5r6ngivxCYN8S2E/q3fCgg3Vq71w4BynxfUnZAXsiPjflPzX8663GyuBl6VAo3891eHACbNIZY7A565omtUa/ysi2ny2UiT1+kH+NHL8B89ptMtskUjaVZdJ28NgJzO8ZV9JCJyUeSL33Gg8ZWmBumqMOWowdgUHgA6VJw/1D+lAOLSqXDi3j/jRSUqerHBUpAyD8cGY1LQrm3AM/ndjTi0x9mZPzGdMfRPchjkE3Nsp1yeaWcZbiutg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7C1ppodPgGEKAbw5a43DRy79IxJrmOjGRUWQYc6Knfs=;
+ b=PS7YtazYZZ1FHRhYNibTQAqBgsTw70t9CD+5GSFjiOsz0vkHmOGhuomDtmCOEbsqhYoa/HODblCw4YKRsWfq1pky7eK+V8RBBdDxNASWKSSXq38o0DfxekoogAWzPZoGA/XSQWkqKJVKgY0ipkmB/bz5dAPV2eySuXFspY+Uz3rYjhSdpYWBhMa84XydcSpMbyw7eabRveVd+vEt88yfpvfONtdLzzXR492iajN76LeiKH4wywgYP4g885U8Ep7v31yLkrtb0UEgPTmnGqlAxxqNLYnUNYMI4csIvZrnkMqAbe6GlKVB6yKDOyXvDgex0R4gTKC4Va8YAVUYXQ9tYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7C1ppodPgGEKAbw5a43DRy79IxJrmOjGRUWQYc6Knfs=;
+ b=uYYzJRnonTGi0+RQ/75Z/FCesG8hxOqaKxA/EhLLt1pSJ5GBB+lximAqf1weTiXdOz5b9Xtkpy/ovzvOXOSXW8BCljLWcprFB0mO5e7PbgT7kfWVCg9MDqPf5+jX0J3E8RS3+j73Ma5n/O2Zwv9vA1r1IX2b414XGvDYsivi0AMzZsMYC4GEtjmSaBbum6zr9lcI4iiJW+QulUKlScIMRoZVcTx1rbxRku3oon++uLT8y3PpFmVJ8Lt3OCY0uSwWGrlpcALk7g1TU6ucm5DdfbciiLb3n2jp55ezBxjhqIGxfzJASF0FOJxHevxZtij526/lxk6AnKTCE08CK5yM+A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com (2603:10b6:207:4c::31)
+ by CH3PR12MB7762.namprd12.prod.outlook.com (2603:10b6:610:151::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
+ 2026 08:37:32 +0000
+Received: from BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0]) by BL0PR12MB2353.namprd12.prod.outlook.com
+ ([fe80::99b:dcff:8d6d:78e0%4]) with mapi id 15.21.0270.017; Tue, 4 Aug 2026
+ 08:37:32 +0000
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 08:37:07 +0000
-Message-Id: <20260804083707.CB8451F00A3D@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 04 Aug 2026 17:37:28 +0900
+Message-Id: <DKG0U8RLO7LZ.2I1AIH0S38PAP@nvidia.com>
+Subject: Re: [PATCH v3 2/4] rust: bitmap: add contiguous area operations
+From: "Eliot Courtney" <ecourtney@nvidia.com>
+To: "Yury Norov" <ynorov@nvidia.com>, "Eliot Courtney" <ecourtney@nvidia.com>
+Cc: "Alice Ryhl" <aliceryhl@google.com>, "Burak Emir"
+ <burak.emir@gmail.com>, "Yury Norov" <yury.norov@gmail.com>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
+ "Danilo Krummrich" <dakr@kernel.org>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "John
+ Hubbard" <jhubbard@nvidia.com>, "Alistair Popple" <apopple@nvidia.com>,
+ "Timur Tabi" <ttabi@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>, "dri-devel"
+ <dri-devel-bounces@lists.freedesktop.org>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260729-chid-v3-0-20cc08032bbc@nvidia.com>
+ <20260729-chid-v3-2-20cc08032bbc@nvidia.com> <amrZcX33BGJCTDMp@yury>
+ <DKFBEPDNAD1V.1LFARFHMO5WKC@nvidia.com> <anELwosZSI5MZR4d@yury>
+In-Reply-To: <anELwosZSI5MZR4d@yury>
+X-ClientProxiedBy: TY4PR01CA0070.jpnprd01.prod.outlook.com
+ (2603:1096:405:370::18) To BL0PR12MB2353.namprd12.prod.outlook.com
+ (2603:10b6:207:4c::31)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL0PR12MB2353:EE_|CH3PR12MB7762:EE_
+X-MS-Office365-Filtering-Correlation-Id: b975420d-1275-4a41-a1a6-08def203a024
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|10070799003|7416014|376014|4143699003|5023799004|56012099006|10067099003|11063799006|6133799003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: 6aQwGbKFycT52roOQSHWxGxtYtwI/ZTfMEKpOugl1NsrEJca2rots5XfUoOiETV+VvZmAGc07DNFuw6Mtg1BsB4R3QvWXdPxIXngENH/T4wh8SmYOlOl6q/nNwba2PXOxEbLSsQZY34MAfG/gVyUnVobIAvO+u5jfNW0eEZYYio6Azt/+clBioG4BC/hL4uETnP+IuYscwstbMB1Ids6Y0FctJSEX7uVdHIw7jK1rhOIDbXcoSg5veUWIhyc3T6d1uIdiVRzC1KFDmiDO0C6X9IkZlvTGKUUrF2SWiMCnKDb3lsOJxbxqL36pF5n6STAfWdUAPLD753wGaWbpIfnu/H0h/69Ze7Pi5ly84p9tyJr4TebUJWw4aZw0CRJcq2AEQU85XkzM1T8mnUFp+hezJ6AZEsOv3oPHP8o7hK9RGGcz6Z2NiyTgaEP4n56TpysneweZ4EjKST1QZTdKPhYbj9J+NRHpGYVprTqd2JUYryqZKguQR8bnCRo0a581/4mi/qd7As8cPIrwFuKJb3tVRZ8GR24T05bbOI66Kg1K8whP6kOCIgZTD+yHTF2XXAjmeHLYSIo6kA1VY3Ik+4OJXYa7wA6vnBGzdeVb5SlBq5jw8dLab+nv9IQukryPeroTvMJna6xKfR7sLkR2oixIpyCNR24iZjAbdR/n4zrRcg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL0PR12MB2353.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(10070799003)(7416014)(376014)(4143699003)(5023799004)(56012099006)(10067099003)(11063799006)(6133799003)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TE9LMWxVSlFaMkpEaHlyckx3WG5JT1JSYVc3ZTBOM0psOHNDMmM4Z3ZldmFn?=
+ =?utf-8?B?T0sxVys0czJvSE4wbnhyUTdFdWFHOG03a21OU3BMc3B1MU0zc1VxUEQ0dEJV?=
+ =?utf-8?B?VCsxdlZJN0tzTHUyZTIwZnV1dUo3UDZZa3QvL1ROd2pkVG84ZGUyYjVTRFpM?=
+ =?utf-8?B?MkNIN2NJUHozcFBZd2xNVWdjcVVRMk5kYTdSSm5FSi9mZUVmOFQ1NTU4VlNw?=
+ =?utf-8?B?SmVuNGc3YUNmcHhxVjdQenZQZWpSRmM4WHRrN21jMlhrU3NlTTY0eUlubjBG?=
+ =?utf-8?B?em5PRDNkeUhlbHc2Q1lxVzhiOVNHVC9ZclNaRGtJOUljejQvRkVHZDJTOGhI?=
+ =?utf-8?B?KzBMbWpSZVFQeHZhU1BhcFc2YjhCRXVOZlFDUlRVckU4WUF0M2lJdDdmcVRZ?=
+ =?utf-8?B?RUFWNTRhZFplU1g2RWtZM0hEai94Qjd6VHcrbWYxODhycUd0YXNjMFVZQ3Iz?=
+ =?utf-8?B?NG5qK3ViU1dnMmsxTm9IamtZQU5kcFptZno0OGxwbU5SWGEvakN1cW1wbGtD?=
+ =?utf-8?B?c1lNVzZVN08rVXlXMU5CTEl5TWcyM01kME9rZi81ZmptRzRHUjVTTVc2bmli?=
+ =?utf-8?B?TkR3K1A3Yy93c3RVVThFZWlveURKbG1kdktCaThoY0w1c3BKUDlFUGNIeHNM?=
+ =?utf-8?B?QU5nb1JrVXBMd0pGMzJXaHFtU2FYYnhxc1pwc2ZWbnJnZkdtQTNTWE9WdThK?=
+ =?utf-8?B?b2NyeDJIaTErRE9Hd21Jd2lmV0FKc0F1dHFZeXFlZlZlUS9Vczk3SnI5eWE4?=
+ =?utf-8?B?QVVrUkFhc1pEeWJJY3BSTklNUyswQmhYeVBxZ2VSb3l6MHVSSGR3Ujdrbzk1?=
+ =?utf-8?B?Tms5VGdFaUVmQ2lQRkVwUUs2dDFMWGlCTTd4QXNyRUhNdS85ZER5Mjk5MUlC?=
+ =?utf-8?B?WlJ2Nk1tcTFnWi9GL1AxMmgrQUo3SG45S1ExVTJHSTZqMSs5Rm1JQU1TLy9x?=
+ =?utf-8?B?M05QNlVzZ3lIVGVrem5jQlpqVnlEOGFkT1B4Slo5cVY5OGx1OFVQbWtkVGtU?=
+ =?utf-8?B?VElTdFhhWXdlTk5QYjVsU204NTd5Mmg4WWYxZlR3VW5Xd2NzaXE5QlVFZmQ0?=
+ =?utf-8?B?RmVwRlEzWWJyWFltdTdwOUVOMjEvYkg2d1FMTy9vVmpURVk3MW9XTTJCcC9L?=
+ =?utf-8?B?UmJVeTVzRUI0MWJJMUV4c3pzakd6cFdyVWpoQUNjUWFCRnVSUlJ2Ry96SDJr?=
+ =?utf-8?B?L2x4S2pjcWRIeGhoc1Y3UkNEZ1ZhanpxY0FUcmpiemdDR2JMclcrcjlEeHI1?=
+ =?utf-8?B?OWRoVGwzVVNwVjFXaWZqdjBQZmNIa25uSFZpOHk2Sk56bjFXb2lmMElrQTdM?=
+ =?utf-8?B?cUZZQUErQUNnbk9rc0liclZtZTRLMkc5YUZnWENpTDFmVElqNVpCZ1UrR3h5?=
+ =?utf-8?B?c0hldVdXZGN4TGovSlQzejNLSHZUY2NRdTJQTjNUbjBOdmVnODZLREY3UnFK?=
+ =?utf-8?B?L0cvUFRDaS8wcURJQWFPVmVXaXJHWGU1bXB1cGc1dWF5Rjd3Z3d4OUhNSjln?=
+ =?utf-8?B?c2kyb0x1QlRZcDNDT3BpWGZYQVVaVWhYSjl4dHpjQTFOdzI0SkVOTDcyaktk?=
+ =?utf-8?B?elJmS0tpbjhKVzROYXdjT3c5Z1F4OUxkZlk0YlJVWkFpUjk4Yk1mK0lLb1Fi?=
+ =?utf-8?B?dFM2WDNIcGxzVTlMaHFacFNkRVFCL24xdjZ3WFJrOFlSemlUU0ZQd3pYS0Uv?=
+ =?utf-8?B?VzVJRmREbWhwem1xRHFGOTZNTVBMRCtZYTJsQ05vdHVxZ3diZkkwMzJCYkpU?=
+ =?utf-8?B?c1JQZTllYWp2KzZrRXkwLzRUU2ozc3dycGJhc0Uxc2ViWWx5Qy9pdko1Y0ZX?=
+ =?utf-8?B?ZFJzQndVeDgwVnpkMC9GY2lMbWRIRncxUFZPZENHaFdJK0Rmam1BS09FajZN?=
+ =?utf-8?B?bU52cFdqcEtNU3l4RERNNkZQZ3ZDYld1Z3o0SnRnbjBIMUpWVGJma09tVFlO?=
+ =?utf-8?B?MWNTWi93MlB5VmZuRFhiN3ZCVkNQZGliamx5L3VVdXV4M0plaW50UnpVMENz?=
+ =?utf-8?B?R1dGR3dsbmxwSWowWVdmOWdCNWtlLzhHbzNoSlV2ZUY2Qm16VjJUVXpJZkpO?=
+ =?utf-8?B?eWl2M3VoYVI2Ylp5bmlMazlHMjR2SUIrWmcxUGdDSU0xYzBPQTJaRUg1MWQx?=
+ =?utf-8?B?UTV5aVJVZ0piZUdxdXI2MUV1N1YrVzRkS3dVYlVXc1kvaWt4YWxkV1BVV3Z6?=
+ =?utf-8?B?bitnalhyVXdEYVZyS2tBTzZMRDRQcHh0UVZSc3VqV3c2SDJRcEVLZnpYQ0F5?=
+ =?utf-8?B?YThrNVRnZ0l6LzhRN29MUVVRRW4xOUlLZ1YvZVlHNExqWVA0OVNTWHVEOFhN?=
+ =?utf-8?B?WjBsRTVqYytGVzU2QW5PUlE4T2YrZlA5OGticktjQWtjSWRWWGwvK1hTZFhL?=
+ =?utf-8?Q?MmpG/EcCzMgRWp1dkRcdvGSAg1LSvztLgib2HYc0/R2Sc?=
+X-MS-Exchange-AntiSpam-MessageData-1: DCO+W6KfnBoi7A==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b975420d-1275-4a41-a1a6-08def203a024
+X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB2353.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 08:37:32.0476 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3bce3thWjc8+lTrUlv7/ClXH05G7LBq1Jnf5uNeC2PS4B1RKpOz84kwOboJ3q7yO2bjsQ99uMlilG68FaYYN+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7762
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,183 +150,209 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-
-New issues:
-- [High] The DP controller IRQ for native HPD mode is left enabled during s=
-ystem suspend, risking a kernel crash on hotplug events.
-- [High] Component bind failure leaves HPD IRQ enabled and PM reference lea=
-ked, causing a Use-After-Free.
-
-Pre-existing issues:
-- [High] The return value of `pm_runtime_get_sync()` is ignored in `analogi=
-x_dp_set_bridge()`, potentially leading to hardware access on a suspended d=
-evice.
-- [High] Sleeping in atomic context via `usleep_range()` in bridge atomic e=
-nable callback.
-- [High] Memory leak and list corruption due to `devm_drm_bridge_add` in co=
-mponent bind.
---
-
---- Patch [1]: [PATCH v2 01/10] drm/bridge: analogix_dp: Manage pm runtime =
-and IRQ for native HPD pin detection ---
-commit c884a0bafddd9bc289fdebe294b1a5fb1f401308
-Author: Damon Ding <damon.ding@rock-chips.com>
-
-drm/bridge: analogix_dp: Manage pm runtime and IRQ for native HPD pin detec=
-tion
-
-This commit modifies the Analogix DP driver to keep the native HPD pin
-IRQ active while the display is disabled on Rockchip platforms. It splits
-the IRQ management paths so that native HPD pin mode holds a runtime PM
-power reference and enables the IRQ during bind/unbind, rather than during
-bridge enable/disable.
-
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
-/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index 30c0c0b41d5aa..9f8544d3c8870 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-
-[ ... ]
-
-> @@ -1018,7 +1024,8 @@ static int analogix_dp_set_bridge(struct analogix_d=
-p_device *dp)
->  		goto out_dp_init;
->  	}
+On Tue Aug 4, 2026 at 6:44 AM JST, Yury Norov wrote:
+> On Mon, Aug 03, 2026 at 09:41:42PM +0900, Eliot Courtney wrote:
+>> On Thu Jul 30, 2026 at 1:56 PM JST, Yury Norov wrote:
+>> > On Wed, Jul 29, 2026 at 03:54:13PM +0900, Eliot Courtney wrote:
+>> >> Add bindings for area operations on bitmaps. Each one is
+>> >> made safe by adding some extra checks compared to the underlying C co=
+de
+>> >> (for example, checking bounds) and with additional checks to catch
+>> >> likely erroneous usage if `CONFIG_RUST_BITMAP_HARDENED` is on.
+>> >>=20
+>> >> The C code uses signed integers for some parameters, for example the
+>> >> length for `__bitmap_set`, so bounds check against i32::MAX. We can't
+>> >> rely on `BitmapVec::MAX_LEN` because `Bitmap` may not necessarily be
+>> >> backed by `BitmapVec`.
+>> >>=20
+>> >> Add tests demonstrating the edge cases.
+>> >>=20
+>> >> Signed-off-by: Eliot Courtney <ecourtney@nvidia.com>
+>> >> ---
+>> >>  rust/kernel/bitmap.rs | 194 ++++++++++++++++++++++++++++++++++++++++=
+++++++++++
+>> >>  1 file changed, 194 insertions(+)
+>> >>=20
+>> >> diff --git a/rust/kernel/bitmap.rs b/rust/kernel/bitmap.rs
+>> >> index a43bfe0ec3dc..f4b0b8ae39d8 100644
+>> >> --- a/rust/kernel/bitmap.rs
+>> >> +++ b/rust/kernel/bitmap.rs
+>> >> @@ -10,6 +10,7 @@
+>> >>  use crate::bindings;
+>> >>  #[cfg(not(CONFIG_RUST_BITMAP_HARDENED))]
+>> >>  use crate::pr_err;
+>> >> +use crate::ptr::Alignment;
+>> >>  use core::ptr::NonNull;
+>> >> =20
+>> >>  /// Represents a C bitmap. Wraps underlying C bitmap API.
+>> >
+>> > Some comments use indicative form in the file, but the imperative
+>> > 'represent' is a more standard way. Can you please use it instead?
+>>=20
+>> I think in rust, indicative is the standard even in the kernel - e.g.
+>> see Documentation/rust/coding-guidelines.rst around line 208-ish, and
+>> that's also what I see generally in code. But please let me know if
+>> you'd like me to use it in this file regardless.
+>
+> The documentation you've mentioned doesn't say: use indicative. This
+> is just a one example.
 > =20
-> -	enable_irq(dp->irq);
-> +	if (!analogix_dp_require_pm_for_hpd_irq(dp))
-> +		enable_irq(dp->irq);
+> This is what my AI machine says:
+>
+>   Among the 1,266 verb-led function comments, that is:
+>
+>   - 67.1% indicative
+>   - 32.9% imperative
+>
+> So, unless there's a strong (and not aligning with the rest of the
+> kernel) rule, please use imperative form in bitmaps.
 
-[Severity: High]
-This is a pre-existing issue, but does this code ignore the return value of
-pm_runtime_get_sync()?
+Yeah I got a similar result using my AI machine too~~
 
-If pm_runtime_get_sync(dp->dev) fails earlier in analogix_dp_set_bridge()
-and returns a negative error code, the device remains suspended. The driver
-subsequently calls analogix_dp_init_analog_func(), which accesses hardware
-registers on the unpowered device.
+There is a strong rule for rust specifically and it's encoded in RFC
+1574 [1].
 
->  	return 0;
-> =20
->  out_dp_init:
+[1]: https://github.com/rust-lang/rfcs/blob/master/text/1574-more-api-docum=
+entation-conventions.md#summary-sentence
 
-[ ... ]
+>
+> ...
+>
+>> >> +        bitmap_assert!(
+>> >> +            start < self.len(),
+>> >> +            "`start` must be < {}, was {}",
+>> >> +            self.len(),
+>> >> +            start
+>> >> +        );
+>> >> +
+>> >> +        let nr =3D u32::try_from(nbits).ok()?;
+>> >> +
+>> >> +        // SAFETY: `bitmap_find_next_zero_area_off` is safe to use w=
+ith an out of bounds `start`
+>> >> +        // value and never reads beyond `self.len()` bits.
+>> >> +        let index =3D unsafe {
+>> >> +            bindings::bitmap_find_next_zero_area_off(
+>> >> +                self.as_ptr().cast_mut(),
+>> >> +                self.len(),
+>> >> +                start,
+>> >> +                nr,
+>> >> +                align.as_usize() - 1,
+>> >> +                0,
+>> >> +            )
+>> >> +        };
+>> >> +
+>> >> +        // In case of overflow, we may get back a range outside of w=
+hat we requested.
+>> >
+>> > No, we can't. We've got the test_bitmap_find_next_zero_area_off() for
+>> > it (in next). If you think the test is incomplete, please extend it.
+>> >
+>> > If you believe that bitmap_find_next_zero_area_off() may return someth=
+ing
+>> > like that, it means the function is buggy, and you shouldn't trust it =
+at
+>> > all.
+>>=20
+>> TL;DR: Included some tests below that demonstrate overflow/OOB issues on
+>> 32-bit (with increased vmalloc) in some extreme cases. To keep the rust
+>> code completely safe we need to check for these, or update the C code,
+>> but not sure if the perf tradeoff is worth it. Please let me know.
+>>=20
+>> Ok it seems I was looking at the code previous to df81d444dc74 ("lib:
+>> bitmap: optimize bitmap_find_next_zero_area_off()"), but overflows can
+>> still cause wrong behaviour after this commit too:
+>>=20
+>> [1] On 32-bit, suppose we have an empty bitmap with size=3D=3D64, start=
+=3D=3D32,
+>> nr=3D=3D2^32-1, and align_mask=3D=3D0. Then, computing `end` overflows t=
+o 31.
+>> Computing `end - off` then underflows (31 - 32) which can cause OOB
+>> reads. So actually we need a check before calling
+>> `bitmap_find_next_zero_area_off` to avoid this case.
+>>=20
+>> [2] On 32-bit, suppose we have a bitmap with size=3D=3D2^31+2 and all bi=
+ts
+>> set except the 0th and 2^31+1st bit, and start=3D=3D1, nr=3D=3D1,
+>> align_mask=3D=3D2^31-1. We'll compute start=3D=3D2^31+1+2^31-1 which ove=
+rflows
+>> to 0. Then we'll end up returning 0 which is below start. So we need the
+>> `index < start` check.
+>
+> Both examples overflow int32::MAX. It is not supported in rust.
+> See the BitmapVec code. Your case is just 2048 bits, so it's not
+> a limitation for you.
+>
+> On the C side, there's a historical mess - some functions work with
+> unsigned longs, some with unsigned ints, and so on. I'm aware of it,
+> and there's a process of unification the API toward the unsigned
+> longs. That wouldn't help 32-bit architectures because they are all
+> ILP32, but there's no real use case for them that would overflow the
+> 32 bit.
 
-> @@ -1160,7 +1167,8 @@ static void analogix_dp_bridge_disable(struct drm_b=
-ridge *bridge)
->  	if (dp->dpms_mode !=3D DRM_MODE_DPMS_ON)
->  		return;
-> =20
-> -	disable_irq(dp->irq);
-> +	if (!analogix_dp_require_pm_for_hpd_irq(dp))
-> +		disable_irq(dp->irq);
+Currently it's possible to construct a non-BitmapVec backed Bitmap using
+Bitmap::from_raw that is larger than i32::MAX, and it's not part of the
+unsafe requirements. If we can restrict all Bitmaps (even non-BitmapVec
+backed ones) to have a max size of i32::MAX then that simplifies a few
+things. If ok, I'll add a patch adding that requirement to the unsafe
+requirements on Bitmap::from_raw, Bitmap::from_raw_mut, and the
+invariants on Bitmap.
 
-[Severity: High]
-Does skipping disable_irq() here leave the DP controller IRQ enabled during
-system suspend?
+But, if we want to keep the rust code completely safe even with
+requiring all Bitmaps to have max length i32::MAX we still need a check
+somewhere since OOB reads can occur even for a small bitmap. IIUC, we
+want to make sure all rust code is safe regardless of the inputs.
 
-During dpm_suspend, pm_runtime_force_suspend() runs and calls
-analogix_dp_suspend(), which disables the DP clock. Device IRQs are not
-disabled by the IRQ core until dpm_suspend_noirq().
+In particular, we need to check that `self.len() + align - 1 + nbits`
+does not overflow in `Bitmap::next_zero_area`. e.g. on bitmap-for-next,
+an empty bitmap with size=3D=3D2 called with
+Bitmap::next_zero_area(start=3D=3D1, nbits=3D=3D2^31, align=3D=3D2^31) read=
+s OOB (on
+32-bit).
 
-If a hotplug event occurs in this window, the active IRQ triggers the handl=
-er:
+Alternatively, an exact fix for this in the C implementation is as
+follows (obviating any need for the rust side check I mentioned above).
+I briefly benchmarked it (region_alloc_benchmark) and didn't see a
+slowdown, at least on x64. I'm not necessarily suggesting this, since in
+C I think the answer is just don't call with nonsense parameters, but
+just for reference:
 
-analogix_dp_hardirq() {
-    irq_type =3D analogix_dp_get_irq_type(dp);
-    ...
-}
+diff --git a/lib/bitmap.c b/lib/bitmap.c
+index ed685127a107..e500091c7e6a 100644
+--- a/lib/bitmap.c
++++ b/lib/bitmap.c
+@@ -435,18 +435,21 @@ unsigned long bitmap_find_next_zero_area_off(unsigned=
+ long *map,
+ 					     unsigned long align_mask,
+ 					     unsigned long align_offset)
+ {
+-	unsigned long end, i, off;
++	unsigned long index, end, i, off;
++
++	if (nr > size)
++		return size;
+=20
+ 	for_each_clear_bit_from(start, map, size) {
+-		start =3D __ALIGN_MASK(start + align_offset, align_mask) - align_offset;
+-		end =3D start + nr;
+-		if (end > size)
++		index =3D __ALIGN_MASK(start + align_offset, align_mask) - align_offset;
++		if (index < start || index > size - nr)
+ 			break;
+=20
+-		off =3D round_down(start, BITS_PER_LONG);
+-		i =3D find_last_bit(map + start / BITS_PER_LONG, end - off) + off;
+-		if (i >=3D end || i < start)
+-			return start;
++		end =3D index + nr;
++		off =3D round_down(index, BITS_PER_LONG);
++		i =3D find_last_bit(map + index / BITS_PER_LONG, end - off) + off;
++		if (i >=3D end || i < index)
++			return index;
+=20
+ 		start =3D i;
+ 	}
 
-This reads MMIO registers while the DP clock is disabled, which can crash
-the system.
 
-> =20
->  	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
-
-[ ... ]
-
-> @@ -1508,6 +1516,14 @@ int analogix_dp_bind(struct analogix_dp_device *dp=
-, struct drm_device *drm_dev)
->  		goto err_unregister_aux;
->  	}
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but does using devm_drm_bridge_add() earlier
-in this component bind callback cause a memory leak and list corruption
-on failure?
-
-If the component bind fails and is retried, the devm resources are tied to
-the physical platform device and are not freed between attempts. The retry
-will call devm_drm_bridge_add() on the same dp->bridge object again,
-causing list_add() on a node that is already part of the global bridge list.
-
-> +	if (analogix_dp_require_pm_for_hpd_irq(dp)) {
-> +		ret =3D pm_runtime_resume_and_get(dp->dev);
-> +		if (ret)
-> +			goto err_unregister_aux;
-> +
-> +		enable_irq(dp->irq);
-
-[Severity: High]
-Does this code leak the PM reference and leave the IRQ enabled if a subsequ=
-ent
-setup step fails?
-
-If the platform caller rockchip_dp_bind() fails at
-drm_bridge_connector_init() after analogix_dp_bind() succeeds, its error
-path is:
-
-rockchip_dp_bind() {
-    ...
-err_cleanup_encoder:
-    dp->encoder.encoder.funcs->destroy(&dp->encoder.encoder);
-    return ret;
-}
-
-Because analogix_dp_unbind() is not called in this error path, the PM
-reference is permanently leaked and the IRQ remains enabled. When the IRQ
-fires later, analogix_dp_irq_thread() dereferences the stale dp->drm_dev
-pointer.
-
-> +	}
-> +
->  	return 0;
-> =20
->  err_unregister_aux:
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue, but does analogix_dp_bridge_atomic_enable()
-sleep in atomic context?
-
-analogix_dp_bridge_atomic_enable() is called during the atomic commit seque=
-nce
-from drm_atomic_helper_commit_tail(). The driver explicitly calls
-usleep_range(10, 11) in a loop:
-
-analogix_dp_bridge_atomic_enable() {
-    ...
-    while (timeout_loop < MAX_PLL_LOCK_LOOP) {
-        if (analogix_dp_set_bridge(dp) =3D=3D 0) {
-            ...
-        }
-        ...
-        usleep_range(10, 11);
-    }
-}
-
-Calling sleeping functions in this atomic context violates DRM subsystem ru=
-les.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804081717.7414=
-04-1-damon.ding@rock-chips.com?part=3D1
