@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72DB5C55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 15:23:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52780C55184
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 15:35:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B63DA10EA0C;
-	Tue,  4 Aug 2026 15:23:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7F2610E177;
+	Tue,  4 Aug 2026 15:35:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bqssn5oi";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WuZvIrr/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 539BD10EA0C
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 15:23:53 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F81C10E177
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 15:35:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 86C2740DFE;
- Tue,  4 Aug 2026 15:23:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B591F000E9;
- Tue,  4 Aug 2026 15:23:52 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 06B5060A75;
+ Tue,  4 Aug 2026 15:35:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893421F000E9;
+ Tue,  4 Aug 2026 15:35:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785857032;
- bh=rFz8jaRSJUUsvWfA57vm3eV6p2u1HACiOb6EWmVbSjE=;
+ s=k20260515; t=1785857743;
+ bh=TYetphJNPgj8BWiAp+/mUnftps/hVL6HopV32c0/nP0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Bqssn5oic2yeMiH1jwI9TJPl2ToVGaU+SKY0Qs0QpTxN2ARcRZo6BRxjRXtQ3FM2z
- vQ4E4pNzpHLyq+VzUc88nhnJNgF9nTlwgmjz665+kNNJrty1ypzKO2kZxWkmnvm/DA
- WNfRgsT70lRAl9bcrU3pGlXQ/YED+9//W2oMbSd3TuS1lyu9lG+5+YShqzZK3F/dD5
- 9vcNKhVMB2INGbZwbnDeJjl2Sd33tkBWXDja9/vKS54VJMbnCgoqXqEkEEuJupLIbk
- V2atnX3ZpauoknY6mtNM2r/cjF1QkVj4qgEUZAhVbeXhT/joATTpxmTN6Q1HuMHO9A
- c5HA8xegIaJyA==
+ b=WuZvIrr/HS2kx4qgebRfwSGMCGDPGib/hIIzGTLcsacxsSsCE9twTLOX2D6Bwm9pS
+ KAH/OcBiuOecEvymaafCfEAhXD041t28HUs8WebjRgvaCfZlZliimGW93ZJ/MVxINx
+ MR9/rhJGKhaNKB1dMJptvFNYx5bWeERmi58lgwaUREbTOfp7AW/VNzfs2KNhLB9iLh
+ R7GeqhqDx7ICA+Y5oVi/6hj7JSdX1je3jdQlIfhWWiZSK8eWUf6lDf5v7JuwDAj+Y9
+ /H1PWLasBmNOQpYt06c1ShPiWrXsoo97icTic+ebLQRsw/gA8PLhs2Ou7U4bWbX7ms
+ Zud6q8c1TsymQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/12] drm/panthor: Make the VM cleanup path more robust
- against UAF
-To: "Boris Brezillon" <boris.brezillon@collabora.com>
+Subject: Re: [PATCH v3 3/4] drm/amd/display: Clean up FreeSync capability
+ detection
+To: "Alex Huang" <Alex.Huang2@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260804-panthor-unplug-fixes-v1-10-abbbd2d41b13@collabora.com>
-References: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
- <20260804-panthor-unplug-fixes-v1-10-abbbd2d41b13@collabora.com>
+In-Reply-To: <20260804143339.714548-4-Alex.Huang2@amd.com>
+References: <20260804143339.714548-1-Alex.Huang2@amd.com>
+ <20260804143339.714548-4-Alex.Huang2@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 15:23:51 +0000
-Message-Id: <20260804152352.49B591F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 15:35:42 +0000
+Message-Id: <20260804153543.893421F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,134 +58,91 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Use-After-Free of `mmu` structure during device teardown due to in=
-correct drmm action registration order.
-- [Medium] Memory leak of stranded VMs in `cleanup_list` if the device susp=
-ends before a scheduled reset can execute.
+- [High] Missing fallback to EDID monitor range when an AMD VSDB is present=
+ but does not advertise FreeSync support, breaking VRR on DP/eDP displays.
 --
 
---- Patch [10]: [PATCH 10/12] drm/panthor: Make the VM cleanup path more ro=
-bust against UAF ---
-commit 67363ef0cc8662df9cc3d191fcef3a128e79f9d4
-Author: Boris Brezillon <boris.brezillon@collabora.com>
-Subject: drm/panthor: Make the VM cleanup path more robust against UAF
+--- Patch [3]: [PATCH v3 3/4] drm/amd/display: Clean up FreeSync capability=
+ detection ---
+commit 54e384ef3776414446c8d6bb002d768a87198a34
+Author: Alex Huang <Alex.Huang2@amd.com>
 
-The VM cleanup tries to gracefully evict the page table from its AS slot to
-make sure the HW doesn't have access to the memory anymore. But it might
-happen that the eviction fails because the HW hung, and in that case, we
-have no guarantee that the HW won't access the memory until we've properly
-reset the GPU. Defer the cleanup of VMs after the reset is effective when
-this situation happens.
+drm/amd/display: Clean up FreeSync capability detection
 
-diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pantho=
-r/panthor_mmu.c
---- a/drivers/gpu/drm/panthor/panthor_mmu.c
-+++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+This commit refactors FreeSync capability detection in the amdgpu_dm driver.
+It extracts duplicate code for reading the AMD VSDB and sets up the connect=
+or
+fields outside of the specific display interface branches. It also falls ba=
+ck
+to the monitor_range data if the VSDB is not present.
 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 44b8dd000f5ca..6d83e9a425377 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 [ ... ]
-
-@@ -2098,64 +2129,114 @@ void panthor_mmu_post_reset(struct panthor_device =
-*ptdev)
-> +	if (!drm_dev_enter(&ptdev->base, &cookie)) {
-> +		guard(mutex)(&ptdev->mmu->as.slots_lock);
+> @@ -13766,63 +13766,57 @@ void amdgpu_dm_update_freesync_caps(struct drm_=
+connector *connector,
+>  	     connector->display_info.monitor_range.max_vfreq =3D=3D 0))
+>  		parse_edid_displayid_vrr(connector, edid);
 > =20
-> -		if (drm_dev_enter(&ptdev->base, &cookie)) {
-> -			panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
-> -			drm_dev_exit(cookie);
-> +		/* We're in the unplug path and can't recover from
-> +		 * that, so we just forcibly evict the pgtable. The
-> +		 * no-unmap restriction will leak resources if
-> +		 * we can't guarantee the HW stopped.
-> +		 */
-> +		if (as->hw_slot.id >=3D 0)
-> +			panthor_as_release_hw_slot_locked(as);
-> =20
-> -		panthor_as_release_hw_slot_locked(as);
-> +		return true;
-> +	}
-> =20
-> -	}
-> -	mutex_unlock(&ptdev->mmu->as.slots_lock);
-> -	mutex_unlock(&vm->as->op_lock);
-> =20
-> -	if (vm->dummy)
-> -		drm_gem_object_put(&vm->dummy->base);
-> +	scoped_guard(mutex, &ptdev->mmu->as.slots_lock) {
-> +		if (as->hw_slot.id >=3D 0) {
-> +			ret =3D panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
-> +			if (!ret) {
-> +				panthor_as_release_hw_slot_locked(as);
-> +			} else {
-> +				list_add_tail(&vm->node, &ptdev->mmu->as.cleanup_list);
-> +				panthor_device_schedule_reset(ptdev);
-
-[Severity: Medium]
-Could this leak stranded VMs if the device suspends before the scheduled
-reset executes?
-
-If a hardware hang prevents AS slot eviction here, the VM is added to the
-cleanup_list and a reset is scheduled. If the device suspends before the
-reset work executes, panthor_device_suspend() synchronously cancels the
-reset work. During resume, panthor_mmu_resume() is called but does not
-invoke mmu_post_reset_cleanup() to process this cleanup_list, leaving the
-VMs stranded.
-
-> +			}
->  		}
-> =20
-> -		panthor_as_release_hw_slot_locked(as);
-> +		/* Page table is no longer resident, we can relax the no-unmap
-> +		 * restriction.
-> +		 */
-> +		ready_for_cleanup =3D as->hw_slot.id < 0;
-> +		if (ready_for_cleanup)
-> +			atomic_and(~PANTHOR_AS_FORBID_UNMAP, &as->restrictions);
->  	}
-
-[ ... ]
-
-@@ -3488,6 +3573,27 @@ static void panthor_mmu_info_init(struct panthor_dev=
-ice *ptdev)
->  	ptdev->mmu_info.page_size_bitmap =3D SZ_4K | SZ_2M;
->  }
-> =20
-> +static void mmu_cleanup_vms_work(struct work_struct *work)
-> +{
-> +	struct panthor_mmu *mmu =3D
-> +		container_of(work, struct panthor_mmu, vm.cleanup_work);
-> +	struct panthor_vm *vm, *tmp;
-> +	LIST_HEAD(cleanup_list);
+> -	if (edid && (sink->sink_signal =3D=3D SIGNAL_TYPE_DISPLAY_PORT ||
+> -		     sink->sink_signal =3D=3D SIGNAL_TYPE_EDP)) {
+> -		if (amdgpu_dm_connector->dc_link &&
+> -		    amdgpu_dm_connector->dc_link->dpcd_caps.allow_invalid_MSA_timing_p=
+aram) {
+> -			amdgpu_dm_connector->min_vfreq =3D connector->display_info.monitor_ra=
+nge.min_vfreq;
+> -			amdgpu_dm_connector->max_vfreq =3D connector->display_info.monitor_ra=
+nge.max_vfreq;
+> -			if (amdgpu_dm_connector->max_vfreq - amdgpu_dm_connector->min_vfreq >=
+ 10)
+> -				freesync_capable =3D true;
+> +	has_vsdb =3D get_amd_vsdb(amdgpu_dm_connector, &vsdb_info) !=3D 0;
 > +
-> +	/* Collect the VMs to cleanup first. */
-> +	scoped_guard(mutex, &mmu->as.slots_lock) {
-> +		list_for_each_entry_safe(vm, tmp, &mmu->as.cleanup_list, node) {
+> +	if (has_vsdb) {
+> +		amdgpu_dm_connector->vsdb_info =3D vsdb_info;
+> +
+> +		/* copy refresh rate info as long as VSDB advertises FreeSync */
+> +		if (vsdb_info.freesync_supported) {
+> +			amdgpu_dm_connector->min_vfreq =3D vsdb_info.min_refresh_rate_hz;
+> +			amdgpu_dm_connector->max_vfreq =3D vsdb_info.max_refresh_rate_hz;
+> +
+> +			connector->display_info.monitor_range.min_vfreq =3D
+> +				vsdb_info.min_refresh_rate_hz;
+> +			connector->display_info.monitor_range.max_vfreq =3D
+> +				vsdb_info.max_refresh_rate_hz;
+>  		}
+> +	} else {
+> +		/* fall back to the base EDID range when there is no VSDB */
+> +		amdgpu_dm_connector->min_vfreq =3D connector->display_info.monitor_ran=
+ge.min_vfreq;
+> +		amdgpu_dm_connector->max_vfreq =3D connector->display_info.monitor_ran=
+ge.max_vfreq;
+> +	}
 
 [Severity: High]
-Can this result in a use-after-free during device teardown?
+Does this code inadvertently drop the EDID monitor range fallback when an A=
+MD
+VSDB is present but does not support FreeSync?
 
-In panthor_device_init(), the panthor_device_flush_cleanup_wq action is
-registered via drmm_add_action() before panthor_mmu_init() is called. Then,
-in panthor_mmu_init(), ptdev->mmu is allocated via drmm_kzalloc().
+Looking at amdgpu_dm_update_freesync_caps(), if has_vsdb is true but
+vsdb_info.freesync_supported is false, the code skips updating the frequency
+limits in the if block.
 
-Because drmm actions execute in LIFO order, ptdev->mmu will be freed before
-the workqueue is flushed. If this delayed work is pending or running during
-teardown, it will access the already-freed mmu structure here when trying to
-acquire the as.slots_lock.
+Because has_vsdb is true, the else block is also bypassed, leaving
+amdgpu_dm_connector->min_vfreq and max_vfreq at their default zero values.
 
-> +			if (vm->as->hw_slot.id < 0)
-> +				list_move_tail(&vm->node, &cleanup_list);
-> +		}
-> +	}
-> +
-> +	list_for_each_entry_safe(vm, tmp, &cleanup_list, node) {
-> +		list_del(&vm->node);
-> +		vm_cleanup(vm);
-> +	}
-> +}
-> +
+Would this cause the subsequent VRR capability check=20
+max_vfreq - min_vfreq > 10 to fail, disabling FreeSync on DP/eDP displays?
+
+Should the EDID fallback assignment be applied whenever
+!vsdb_info.freesync_supported, rather than only when the VSDB is entirely
+absent?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-panthor-un=
-plug-fixes-v1-0-abbbd2d41b13@collabora.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804143339.7145=
+48-1-Alex.Huang2@amd.com?part=3D3
