@@ -4,55 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD892C55172
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 07:03:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09A57C55172
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 07:15:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CA0A10E115;
-	Tue,  4 Aug 2026 07:03:56 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="A9h45/RL";
-	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C54210E115;
- Tue,  4 Aug 2026 07:03:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785827032; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=YKEegjnpuSmHTOcRrWivKsOOzbbB08CCOj0SkP66xgoeeRUDl4q9qX6KRyJ0P/O/Uc0DTK7/ztOr0Vxbn5M44/apLUHVMNQY0auPY4V0BhCHSXE0P2lmLw3KHoVgQeWb+VrCU5JolVPMLXQAaQu6oB7q9hQo99tVRkiBJyU0Gq0=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785827032;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=LgTqR8hX+MSPNZK1/ZnmYeT+jeK9oY4pjRChRQ3k7rU=; 
- b=DlFR7UTuyweWfc4n6G0VU5nhbzBuvVJoJxdEq3NvQgkAjIzPvzjFih1narD93mJh0yCmFOHN8yKnLk4ejqmRIfWAT3TNRUXYybNAlC5EpxiT9ts+TP/DvAcfUevdW8S0h26rXBKGdl7JgZ2kW0HuqdQtL9Y52gH6pokz8nge/6Y=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785827032; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=LgTqR8hX+MSPNZK1/ZnmYeT+jeK9oY4pjRChRQ3k7rU=;
- b=A9h45/RLAnHcnEGuDcLxNPHwcp1TGklEP6xwpHZW9svKcRED3hZD6gdBwEtkSHsw
- oHg67mvHF2W6vbAKEP+cM+xvavZ7QP6GBcTwyfNg8IEDe/xxQFrH9ihYe7GkG6gekNr
- cvmMrcU6d5InLRWQZ24+iaopqdaIXsSUaIFergx8=
-Received: by mx.zohomail.com with SMTPS id 1785827030764705.228708125434;
- Tue, 4 Aug 2026 00:03:50 -0700 (PDT)
-Message-ID: <c6c0e544-5a19-4ca1-b113-c085bab0c967@collabora.com>
-Date: Tue, 4 Aug 2026 09:03:47 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B74110E652;
+	Tue,  4 Aug 2026 07:15:11 +0000 (UTC)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE6AD10E0E8
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 05:25:42 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de
+ (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+ (Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C99062006F0;
+ Tue, 04 Aug 2026 07:25:40 +0200 (CEST)
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+ by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
+ (envelope-from <u.oelmann@pengutronix.de>) id 1wr7em-002oRb-2O;
+ Tue, 04 Aug 2026 07:25:40 +0200
+Received: from uol by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+ (envelope-from <u.oelmann@pengutronix.de>)
+ id 1wr7em-0000000ALgp-2dXe; Tue, 04 Aug 2026 07:25:40 +0200
+From: =?utf-8?Q?Ulrich_=C3=96lmann?= <u.oelmann@pengutronix.de>
+To: =?utf-8?Q?M=C3=A0xim?= Pedraza Padilla <maximpedraza@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,  devicetree@vger.kernel.org,
+ Helge Deller <deller@gmx.de>,  linux-fbdev@vger.kernel.org,  Maxime
+ Ripard <mripard@kernel.org>,  linux-kernel@vger.kernel.org,  Uwe
+ =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ dri-devel@lists.freedesktop.org,  kernel@pengutronix.de,  Krzysztof
+ Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+In-Reply-To: <CAEUXW=EHD1Y1zHQWE=jFhONM5Hg6TTc_uPYHgp-GS-4YWYJN3A@mail.gmail.com>
+ (=?utf-8?Q?=22M=C3=A0xim?= Pedraza Padilla"'s message of "Tue, 4 Aug 2026
+ 00:04:23 +0200")
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
+ <am2mvECnCcO9IxuI@monoceros> <6rbjbj74zh.fsf@pengutronix.de>
+ <CAEUXW=EHD1Y1zHQWE=jFhONM5Hg6TTc_uPYHgp-GS-4YWYJN3A@mail.gmail.com>
+User-Agent: mu4e 1.12.15; emacs 30.2
+Date: Tue, 04 Aug 2026 07:25:40 +0200
+Message-ID: <6r5x1q78yz.fsf@pengutronix.de>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] udmabuf: vastly increase the size limit per dmabuf
-To: Xaver Hugl <xaver.hugl@kde.org>
-Cc: dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org,
- kraxel@redhat.com, stable@vger.kernel.org, vivek.kasireddy@intel.com
-References: <20260803144120.11524-1-xaver.hugl@kde.org>
- <2353697f-b1da-495a-b043-7a81d875856e@collabora.com>
- <CAFZQkGyfDwjPuciiOvZM3Ha8Xj+YkgkMaveHZtBK2w_S+Z+Vcw@mail.gmail.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <CAFZQkGyfDwjPuciiOvZM3Ha8Xj+YkgkMaveHZtBK2w_S+Z+Vcw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Tue, 04 Aug 2026 07:15:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,46 +64,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Max,
 
-Vivek (thanks!) just pulled the patch into drm-misc-next / 
-for-linux-next so it should go into 7.3 \o/
-
-On 03.08.26 17:04, Xaver Hugl wrote:
-> Oh, nice! I should've checked the list before making a patch :D
+On Tue, Aug 04 2026 at 00:04 +0200, M=C3=A0xim Pedraza Padilla <maximpedraz=
+a@gmail.com> wrote:
+> El lun, 3 ago 2026 a las 14:39, Ulrich =C3=96lmann
+> (<u.oelmann@pengutronix.de>) escribi=C3=B3:
+>> independently of the specific implementation, please keep in mind that
+>> the kernel is distributed under the GPLv2, which may have implications
+>> for a proprietary image embedded in the device tree. That doesn't
+>> necessarily have to be a deal-breaker, but it's probably something that
+>> should be considered carefully.
 >
-> Could your commit also be backported to stable? I fear I'll need to
-> find ways to work around this or disable the relevant optimizations in
-> KWin on older kernels either way, but it would be great if that could
-> at least be a very temporary problem.
-
-I'm not sure how realistic that is / how the policies around such 
-changes are - there shouldn't be any serious risk of regressions, but 
-who knows.
-
-OTOH there are several other options AFAICS:
-
-1. affected distros could backport the patch or set a higher limit via 
-kernel command line
-
-2. kwin could try to check the size 
-(`/sys/module/udmabuf/parameters/size_limit_mb`) and disallow the code 
-path if the required buffer size exceeds it (or just have a fallback in 
-place whenever allocation fails)
-
-Arguably having a working fallback path were possible would be good 
-style either way - would it be a big effort to do so in kwin?
-
-Best regards
-
+> Good point, I had not considered it.
 >
-> - Xaver
+> A warning could be added to the binding documentation about the licensing
+> implications of a proprietary logo, aimed at anyone thinking of
+> submitting a device tree carrying one to the kernel tree. I am happy to
+> add that in v2 if it is considered useful.
 
--- 
-Robert Mader
-Consultant Software Developer
+I think the issue is broader than upstream submissions. Once such a
+device tree is shipped as part of a GPL kernel in a product, the GPL
+obligations already apply to that distribution. Therefore, the licensing
+implications of embedding a proprietary logo are not limited to upstream
+acceptance, they also affect downstream product distributions.
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+> Patches 4 and 5 also avoid the question by construction: there the image
+> is a separate binary the bootloader loads, and the device tree carries
+> only a phandle to the reserved region.
 
+Right, here everything is clearly uncoupled.
+
+> In any case, whether such device trees are accepted is ultimately for the
+> device tree maintainers to decide.
+
+As mentioned above, the issue also extends to deployed products.
+
+Those were just my thoughts on the licensing aspect.
+
+Best regards,
+Ulrich
+
+
+> Best regards,
+> Max
+--=20
+Pengutronix e.K.                           | Ulrich =C3=96lmann            =
+   |
+Industrial Linux Solutions                 | http://www.pengutronix.de/  |
+Peiner Str. 6-8, 31137 Hildesheim, Germany | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
