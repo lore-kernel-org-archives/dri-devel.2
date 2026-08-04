@@ -4,42 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C71CCC55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 15:23:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72DB5C55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 15:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 35C7210E664;
-	Tue,  4 Aug 2026 15:23:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B63DA10EA0C;
+	Tue,  4 Aug 2026 15:23:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nV/nwvnO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bqssn5oi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0EB1210E664
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 15:23:48 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 539BD10EA0C
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 15:23:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C45C860A73;
- Tue,  4 Aug 2026 15:23:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52F211F000E9;
- Tue,  4 Aug 2026 15:23:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 86C2740DFE;
+ Tue,  4 Aug 2026 15:23:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B591F000E9;
+ Tue,  4 Aug 2026 15:23:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785857026;
- bh=Ox0UvcVp1gNli8qcowt7xvx0lKE51/5jbJFoW+p/KFg=;
+ s=k20260515; t=1785857032;
+ bh=rFz8jaRSJUUsvWfA57vm3eV6p2u1HACiOb6EWmVbSjE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=nV/nwvnOUjVuwQtjnExBKeKPWfOOCwRkbr/86ZnboI3wPK8k1ywPossIbbd9Z1fD0
- +zhgf/gVMYhqFXz1uqq7XE0cJnUKPs/EVqv5oCi0A2o0M63pfXYtk3pUYfK2w1+n5N
- goYQPksggYZc++houghpfJhh8r/HDpHFbkDwcpVNsTGA2ZZXlkRq+wyWuxEAhetUP9
- Etq33agyuY+eAlgzIeb39EnaLDrtWdi9rXrFVwwpHtbVu7d0lfx3vDgP/GvzGuToZW
- jxgCJbeYAt8n7tTB666rHM8fr14qZLCp8b82bzzIWZFgCmMV3kj85Kzu+f9E3VWJcb
- IBGJqUaQHKLZw==
+ b=Bqssn5oic2yeMiH1jwI9TJPl2ToVGaU+SKY0Qs0QpTxN2ARcRZo6BRxjRXtQ3FM2z
+ vQ4E4pNzpHLyq+VzUc88nhnJNgF9nTlwgmjz665+kNNJrty1ypzKO2kZxWkmnvm/DA
+ WNfRgsT70lRAl9bcrU3pGlXQ/YED+9//W2oMbSd3TuS1lyu9lG+5+YShqzZK3F/dD5
+ 9vcNKhVMB2INGbZwbnDeJjl2Sd33tkBWXDja9/vKS54VJMbnCgoqXqEkEEuJupLIbk
+ V2atnX3ZpauoknY6mtNM2r/cjF1QkVj4qgEUZAhVbeXhT/joATTpxmTN6Q1HuMHO9A
+ c5HA8xegIaJyA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/gem-shmem: Install writable PTEs for write faults
-To: "Konstantin Fastov" <kfastov@gmail.com>
+Subject: Re: [PATCH 10/12] drm/panthor: Make the VM cleanup path more robust
+ against UAF
+To: "Boris Brezillon" <boris.brezillon@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260804140403.16337-1-kfastov@gmail.com>
-References: <20260804140403.16337-1-kfastov@gmail.com>
+In-Reply-To: <20260804-panthor-unplug-fixes-v1-10-abbbd2d41b13@collabora.com>
+References: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
+ <20260804-panthor-unplug-fixes-v1-10-abbbd2d41b13@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 15:23:45 +0000
-Message-Id: <20260804152346.52F211F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 15:23:51 +0000
+Message-Id: <20260804152352.49B591F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,84 +58,134 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Incorrect page offset calculation for split VMAs in drm_gem_shmem =
-fault handlers.
+- [High] Use-After-Free of `mmu` structure during device teardown due to in=
+correct drmm action registration order.
+- [Medium] Memory leak of stranded VMs in `cleanup_list` if the device susp=
+ends before a scheduled reset can execute.
 --
 
---- Patch [1]: [PATCH] drm/gem-shmem: Install writable PTEs for write fault=
-s ---
-commit e62e2d7a0bc9f9a9b0ed15d3b6506aec1a894539
-Author: Konstantin Fastov <kfastov@gmail.com>
+--- Patch [10]: [PATCH 10/12] drm/panthor: Make the VM cleanup path more ro=
+bust against UAF ---
+commit 67363ef0cc8662df9cc3d191fcef3a128e79f9d4
+Author: Boris Brezillon <boris.brezillon@collabora.com>
+Subject: drm/panthor: Make the VM cleanup path more robust against UAF
 
-    drm/gem-shmem: Install writable PTEs for write faults
-   =20
-    Since the introduction of dirty tracking, drm_gem_shmem_vm_ops has a
-    .pfn_mkwrite handler, which causes read-only PTEs to be installed even
-    for write faults. This commit fixes the issue by directly installing
-    writable PTEs for write faults and recording the write for dirty tracki=
-ng.
-    This mirrors a similar fix previously applied to the PMD path.
+The VM cleanup tries to gracefully evict the page table from its AS slot to
+make sure the HW doesn't have access to the memory anymore. But it might
+happen that the eviction fails because the HW hung, and in that case, we
+have no guarantee that the HW won't access the memory until we've properly
+reset the GPU. Defer the cleanup of VMs after the reset is effective when
+this situation happens.
 
-    Fixes: 28e3918179aa ("drm/gem-shmem: Track folio accessed/dirty status =
-in mmap")
-    Cc: stable@vger.kernel.org
-    Closes: https://github.com/AsahiLinux/linux/issues/560
-    Assisted-by: Claude:claude-fable-5
-    Signed-off-by: Konstantin Fastov <kfastov@gmail.com>
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/pantho=
+r/panthor_mmu.c
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
 
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm=
-_gem_shmem_helper.c
-> index 06d019d51d3e6..2afef0b9bb5b0 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -593,7 +593,25 @@ static vm_fault_t try_insert_pfn(struct vm_fault *vm=
-f, unsigned int order,
->  				 unsigned long pfn)
->  {
->  	if (!order) {
-> -		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
-> +		vm_fault_t ret;
-> +
-> +		/* .pfn_mkwrite enables write-notify, so vm_page_prot lacks
-> +		 * the write bit and a plain vmf_insert_pfn() would install
-> +		 * a read-only PTE even for a write fault.  Not every fault
-> +		 * resolver refaults into .pfn_mkwrite() to upgrade it (KVM
-> +		 * doesn't), so install a writable PTE and record the write
-> +		 * directly, like the PMD path below.
+[ ... ]
+
+@@ -2098,64 +2129,114 @@ void panthor_mmu_post_reset(struct panthor_device =
+*ptdev)
+> +	if (!drm_dev_enter(&ptdev->base, &cookie)) {
+> +		guard(mutex)(&ptdev->mmu->as.slots_lock);
+> =20
+> -		if (drm_dev_enter(&ptdev->base, &cookie)) {
+> -			panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
+> -			drm_dev_exit(cookie);
+> +		/* We're in the unplug path and can't recover from
+> +		 * that, so we just forcibly evict the pgtable. The
+> +		 * no-unmap restriction will leak resources if
+> +		 * we can't guarantee the HW stopped.
 > +		 */
-> +		if (vmf->flags & FAULT_FLAG_WRITE) {
-> +			ret =3D vmf_insert_pfn_mkwrite(vmf->vma, vmf->address,
-> +						     pfn);
-> +			if (ret =3D=3D VM_FAULT_NOPAGE)
-> +				drm_gem_shmem_record_mkwrite(vmf);
+> +		if (as->hw_slot.id >=3D 0)
+> +			panthor_as_release_hw_slot_locked(as);
+> =20
+> -		panthor_as_release_hw_slot_locked(as);
+> +		return true;
+> +	}
+> =20
+> -	}
+> -	mutex_unlock(&ptdev->mmu->as.slots_lock);
+> -	mutex_unlock(&vm->as->op_lock);
+> =20
+> -	if (vm->dummy)
+> -		drm_gem_object_put(&vm->dummy->base);
+> +	scoped_guard(mutex, &ptdev->mmu->as.slots_lock) {
+> +		if (as->hw_slot.id >=3D 0) {
+> +			ret =3D panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
+> +			if (!ret) {
+> +				panthor_as_release_hw_slot_locked(as);
+> +			} else {
+> +				list_add_tail(&vm->node, &ptdev->mmu->as.cleanup_list);
+> +				panthor_device_schedule_reset(ptdev);
+
+[Severity: Medium]
+Could this leak stranded VMs if the device suspends before the scheduled
+reset executes?
+
+If a hardware hang prevents AS slot eviction here, the VM is added to the
+cleanup_list and a reset is scheduled. If the device suspends before the
+reset work executes, panthor_device_suspend() synchronously cancels the
+reset work. During resume, panthor_mmu_resume() is called but does not
+invoke mmu_post_reset_cleanup() to process this cleanup_list, leaving the
+VMs stranded.
+
+> +			}
+>  		}
+> =20
+> -		panthor_as_release_hw_slot_locked(as);
+> +		/* Page table is no longer resident, we can relax the no-unmap
+> +		 * restriction.
+> +		 */
+> +		ready_for_cleanup =3D as->hw_slot.id < 0;
+> +		if (ready_for_cleanup)
+> +			atomic_and(~PANTHOR_AS_FORBID_UNMAP, &as->restrictions);
+>  	}
+
+[ ... ]
+
+@@ -3488,6 +3573,27 @@ static void panthor_mmu_info_init(struct panthor_dev=
+ice *ptdev)
+>  	ptdev->mmu_info.page_size_bitmap =3D SZ_4K | SZ_2M;
+>  }
+> =20
+> +static void mmu_cleanup_vms_work(struct work_struct *work)
+> +{
+> +	struct panthor_mmu *mmu =3D
+> +		container_of(work, struct panthor_mmu, vm.cleanup_work);
+> +	struct panthor_vm *vm, *tmp;
+> +	LIST_HEAD(cleanup_list);
+> +
+> +	/* Collect the VMs to cleanup first. */
+> +	scoped_guard(mutex, &mmu->as.slots_lock) {
+> +		list_for_each_entry_safe(vm, tmp, &mmu->as.cleanup_list, node) {
 
 [Severity: High]
-This is a pre-existing issue, but does drm_gem_shmem_record_mkwrite()
-calculate the correct page offset for split VMAs?
+Can this result in a use-after-free during device teardown?
 
-In drm_gem_shmem_record_mkwrite(), the page offset is calculated as:
-    pgoff_t page_offset =3D vmf->pgoff - vma->vm_pgoff;
+In panthor_device_init(), the panthor_device_flush_cleanup_wq action is
+registered via drmm_add_action() before panthor_mmu_init() is called. Then,
+in panthor_mmu_init(), ptdev->mmu is allocated via drmm_kzalloc().
 
-If userspace maps a GEM shmem object and then splits the VMA (e.g., via a
-partial munmap or mprotect), this yields the offset relative to the VMA
-start rather than the GEM object. This causes the wrong folio to be marked
-dirty, leading to potential data loss if the actually modified pages aren't
-written back.
+Because drmm actions execute in LIFO order, ptdev->mmu will be freed before
+the workqueue is flushed. If this delayed work is pending or running during
+teardown, it will access the already-freed mmu structure here when trying to
+acquire the as.slots_lock.
 
-A similar issue appears in drm_gem_shmem_any_fault(), which also calculates
-page_offset as vmf->pgoff - vma->vm_pgoff, causing subsequent faults on the
-remaining split VMA to map the wrong physical pages.
-
-> +		} else {
-> +			ret =3D vmf_insert_pfn(vmf->vma, vmf->address, pfn);
+> +			if (vm->as->hw_slot.id < 0)
+> +				list_move_tail(&vm->node, &cleanup_list);
 > +		}
+> +	}
 > +
-> +		return ret;
+> +	list_for_each_entry_safe(vm, tmp, &cleanup_list, node) {
+> +		list_del(&vm->node);
+> +		vm_cleanup(vm);
+> +	}
+> +}
+> +
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804140403.1633=
-7-1-kfastov@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-panthor-un=
+plug-fixes-v1-0-abbbd2d41b13@collabora.com?part=3D10
