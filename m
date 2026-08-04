@@ -4,63 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 393A8C5518F
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 07:15:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AD68C55ABE
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 07:15:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44D5F10E885;
-	Tue,  4 Aug 2026 07:15:13 +0000 (UTC)
-X-Greylist: delayed 17690 seconds by postgrey-1.36 at gabe;
- Mon, 03 Aug 2026 15:44:02 UTC
-Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net
- (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9894510E036;
- Mon,  3 Aug 2026 15:44:02 +0000 (UTC)
-Received: from fzu.edu.cn (unknown [10.132.197.193])
- by mtasvr (Coremail) with SMTP id _____7DwbCM1t3BqKYkAAA--.714S3;
- Mon, 03 Aug 2026 23:43:51 +0800 (CST)
-Received: from Archlinux (unknown [10.132.197.193])
- by front25 (Coremail) with UTF8SMTPA id GTAi0gAHQzk1t3BqvqJvAA--.8818S2;
- Mon, 03 Aug 2026 23:43:49 +0800 (CST)
-From: Jinman Ma <justdreemurr@fzu.edu.cn>
-To: jani.nikula@linux.intel.com,
-	rodrigo.vivi@intel.com
-Cc: Jinman Ma <justdreemurr@fzu.edu.cn>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v2] [PATCH v2] drm/i915/dsi: Fix command mode line time
- calculation
-Date: Mon,  3 Aug 2026 23:42:21 +0800
-Message-ID: <20260803154221.2102752-1-justdreemurr@fzu.edu.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B44C10E889;
+	Tue,  4 Aug 2026 07:15:14 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="a9Z3H3Tt";
+	dkim-atps=neutral
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B51510E0E0
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 02:14:56 +0000 (UTC)
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-848643382fcso3519178b3a.1
+ for <dri-devel@lists.freedesktop.org>; Mon, 03 Aug 2026 19:14:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785809696; x=1786414496; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=9MB0UMCnM2+3hlgPNsuT+ZmJq5NXPuSRNqgcWkcgqmc=;
+ b=a9Z3H3TtxgUrxgF85vw9oK8+qQnlRPDwqrhAuCTFQdkinjxeCGbBMkIznts4wPk5oZ
+ wW3EIFtAdQ/6Ur1XZ4OoJeNfeED7yjZpwI88EQR9muxVIjySCENtGnkGh/sp1aZbEtyX
+ hSKIcjeeS/03YlNLSvsIJATwpd4IUOgVXdeOVTou5SKaTU0w2e43GfP2/iw9GB6NqNNj
+ 0kkeyK4P8fwuiCVRd6hJiLDeIlJaj7n5t1iQsJwvl5MWo7IKICgCf10GzT0ty/F5aKh2
+ kw9MBpZeWKyqIb7ywJGl5L/stVO7P2CqqCxuoZxmZho0nZP++xOOezO++lrziDRdcSk7
+ Z6Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785809696; x=1786414496;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=9MB0UMCnM2+3hlgPNsuT+ZmJq5NXPuSRNqgcWkcgqmc=;
+ b=AdHMV3MGaVrm5VQnVkjDza26mH1WArYUP2EBhXLtYEiXBEzBJ8eD1vW12jM+uzhAps
+ QP9GGZosAMXTbi+xHn4iAwhsdXPbFceE9rcbvtWOvX4nwxJzqYfhOTcjhaYGKkq7nhzl
+ 3aZ7vlN5Xh1u3YCkcLNlLubtMEVLMtqekmw8lEbrfrQLzs+QKlHIqBhVCxB7g3gc3twv
+ f8ixvAkRL7hKMI7rxmE+uYIMLOOtbqyQ1ryMZzK7tGLcnJWdOeRixFFk+HVPUTFDnhsk
+ tmiK3AvBN+DTOA1FsVg0furtxkbIrTwA7/r2T2jgT7apVIRk8ptouuy/XEYa3k3IPxzn
+ c5xA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqNP41okgb8OIX7KMGnDuanM7FAD/LgXElFmJwc+zqbifx37RemOFcOykiLAI/z4i7bwUNPFxfbJ20=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwoVNufYH988qCtpYGY01CLXfLkU+g7zpk38xp91+/3G+CeBUac
+ vE5hYHFWM39rdMTFDQbLeVx48TTEs8N8FbTWKJE2wFPF3gA5WSCzQUBl
+X-Gm-Gg: AR+sD13BZ6H2rdWQvkMzQgNpj3NnNNZjdMFko0bCIq/tJCqjq+odBoDDldzekQS3lyS
+ mGsm/jwNXg+9Wm02iU5pTCOIfnYdqj1ZNUhCbquaUHTw9RZeLHMysTSecpoU14f+qwdSeKytO3n
+ PqXCs1JsY/MxtaSXFTL0Crxe0kF1k5f1nWwdrhPvmUXJnHZencBp7CPYl0fsmEP4qu01QedoC/o
+ lcN/cgC0nHaVspVZj6NdW5UF0TBSUei/QAThBDzA2Sk7Uz6l2BKJLUWjUUb7/evbkpAeBNDVk5F
+ idoUxNleXLC2kFvZsyB3Ii8g49K7cq5pcsxYWAAkKWqBqHTxoB7aPIIeXXGUt5lZN9LhY25KbAX
+ tI7tA5I1GXo0xpx9BuCL9hJIOtzSnyOKG7tVBB1bjghvDU7rhQUV5pJ8iTVSA2puFwMoow9hbTI
+ tYxvGGWnfmLQ1dFgRw9Ag1em/sReGoy+ujBlHaI3MzFRrHo2Bf5Z6u9OzBrKqv78vRtC/If4xz+
+ HvkYzd0250LflaM9bf3INnskJSDcKdUm8LLQhI=
+X-Received: by 2002:a05:6a20:4387:b0:3c3:ab31:3d2c with SMTP id
+ adf61e73a8af0-3c92a8a5d2amr11842109637.35.1785809695600; 
+ Mon, 03 Aug 2026 19:14:55 -0700 (PDT)
+Received: from lord ([170.246.208.189]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-3153dd4f0f0sm42267698eec.2.2026.08.03.19.14.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Aug 2026 19:14:55 -0700 (PDT)
+From: =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+To: intel-xe@lists.freedesktop.org
+Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
+ rodrigo.vivi@intel.com, dri-devel@lists.freedesktop.org,
+ =?UTF-8?q?Tales=20A=2E=20Mendon=C3=A7a?= <talesam@gmail.com>
+Subject: [RFC PATCH 3/3] drm/xe: Kick GuC while TLB invalidation acks are
+ overdue
+Date: Mon,  3 Aug 2026 23:14:41 -0300
+Message-ID: <20260804021441.3054424-4-talesam@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260803104851.267090-1-justdreemurr@fzu.edu.cn>
-References: <20260803104851.267090-1-justdreemurr@fzu.edu.cn>
+In-Reply-To: <20260804021441.3054424-1-talesam@gmail.com>
+References: <20260804021441.3054424-1-talesam@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: GTAi0gAHQzk1t3BqvqJvAA--.8818S2
-X-CM-SenderInfo: iquskiirrsiqxi2xhvlgxou0/1tbiAgEICGpwRIwBmAAEsM
-X-CM-DELIVERINFO: =?B?lh7qIlYeYwyZs1/OPERtTLXWCzObpZf1vPAd2grVCeLVvPYVBn/PLrhdkrnZPXykKm
- e1/WCO3aFlFb14bHIyBd2lo1v/GYKzntgmsHnuNz0qYUz/I8pUmuW1+6xywH7E4m5JdUDJ
- gS8Q3LFc5HmkHvTOkneu9ZY3vlXtX5EQd4HEA1/G
-X-Coremail-Antispam: 1Uk129KBj93XoWxZF1rGrWxAr4UKF1fuw1ktFc_yoWrWFWfpF
- WfWrykJF4kJFy0y34xJa129FyrWa95tay7Ary5X3yak3Z8Gan8Jrs5KF47GF98WFn3Ar1v
- vrnrta9I93WFkrXCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ36c02F40EFcxC0VAKzVAqx4xG6I80ewCY02Avz4vE-sDv73VFW2AGmfu7
- bjvjm3AaLaJ3UjIYCTnIWjp_UUUYv7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E6xAIw20EY4
- v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0
- rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267
- AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E
- 14v26r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44
- I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2
- jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5V
- A0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc2xSY4AK6svPMxAIw28I
- cxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2
- IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI42IY6xIIjxv20xvE
- 14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20x
- vaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8
- JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbXdbUUUUUU==
 X-Mailman-Approved-At: Tue, 04 Aug 2026 07:15:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,107 +94,267 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for the review. I verified both reported issues and addressed
-them in v2.
+On ARL with GuC 70.53.0, TLB invalidation acks intermittently stall:
+the H2G request is consumed from the CTB immediately, but the G2H ack
+only arrives ~2.3s later, tens of milliseconds after the fence timeout
+has fired. During the stall the GPU keeps rendering; only work blocked
+on the invalidation (e.g. Wayland compositors performing buffer
+unmaps) hitches for the full 2.3s. Observed on three machines so far
+(7d51, 7dd1, plus an Arc Pro 130T report), see Link.
 
-For dual-link DSI configurations, intel_dsi->pclk and afe_clk() describe
-the per-link bandwidth, while the previous calculation used the full
-horizontal total. This made the calculated line time twice the actual
-per-link line time and provided only about half of the required 400 us
-vertical blanking interval.
+Experiments ruled out the obvious suspects:
 
-v2 now calculates the line time using a per-link horizontal total by
-dividing htotal by two for dual-link configurations.
+ * GT C6 parking: holding forcewake across the whole GT (C6 residency
+   pinned at 0ms) still produced 9 timeouts in a row.
+ * Lost interrupt/CT processing on the host: the G2H CTB is empty at
+   timeout time; the ack genuinely has not been sent by the firmware.
 
-The second DIV_ROUND_UP_ULL() call also used line_time_ns, a u64 value,
-as its divisor. This does not match the macro's u32 divisor contract.
-v2 replaces it with DIV64_U64_ROUND_UP(), which supports a 64-bit
-numerator and divisor.
+What does help is poking the GuC while the ack is overdue. Add a
+delayed work that fires XE_TLB_INVAL_KICK_DELAY_MS after an
+invalidation is issued and, while any ack is pending, re-reads the GuC
+status register, flushes the CT fast-path and rings the GuC doorbell
+(xe_guc_notify()), re-arming itself until the ack arrives; the
+existing TDR still bounds the total wait.
 
-The changes were tested on a Huawei MateBook E with a Tiger Lake GPU and
-a 2560x1600 RGB888 dual-link front-back command-mode DSI panel.
+Instrumented results from two ARL machines over several days:
 
-Before v2, the driver programmed a vtotal below vsync_end and reported:
+ * Without kicks: every stall lasts the full ~2.3s and is reported as
+   a fence timeout (-ETIME), ~1/hour on a desktop workload.
+ * With kicks: the majority of stalls resolve 15-276ms after one of
+   the kicks, e.g.:
 
-i915 0000:00:02.0: [drm] *ERROR* Invalid vsync_end value
-i915 0000:00:02.0: [drm] *ERROR*
-[CRTC:171:pipe A] mismatch in hw.pipe_mode.crtc_vtotal
-(expected 1710, found 1622)
+     TLB invalidation ack after kick: seqno=36405 recv=36405, request-to-ack=528ms, last-kick-to-ack=15ms, kicks=2
 
-With v2, the per-link line time is approximately 8.18 us. The driver
-requests 49 blanking lines, providing approximately 400.9 us of vertical
-blanking and programming vtotal to 1649.
+ * A minority of severe episodes ignore 8-9 consecutive doorbells and
+   still run to the timeout (worst observed: ack 5996ms after request,
+   3.7s after the last kick), suggesting the firmware is internally
+   blocked for the whole window rather than missing a wake event.
 
-After a clean build and boot:
+This is a workaround, not a fix - the root cause looks like a GuC
+firmware issue - but it turns a guaranteed 2.3s stall into a sub-500ms
+hiccup for most occurrences, and the "ack after kick" log documents
+the firmware behavior for further debugging.
 
-  - vtotal is programmed to 1649
-  - Invalid vsync_end is no longer reported
-  - no divide error or kernel Oops occurs
-  - no FIFO underrun, GPU hang, or atomic update failure is reported
-  - the DSI connector and display pipe initialize successfully
-
-The existing modeset verification differences between the mode timings
-and command-mode transcoder timings remain unchanged and are outside the
-scope of this patch.
-
-
-Signed-off-by: Jinman Ma <justdreemurr@fzu.edu.cn>
+Link: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
+Signed-off-by: Tales A. Mendonça <talesam@gmail.com>
 ---
+ drivers/gpu/drm/xe/xe_tlb_inval.c       | 95 +++++++++++++++++++++++--
+ drivers/gpu/drm/xe/xe_tlb_inval_types.h | 25 +++++++
+ 2 files changed, 116 insertions(+), 4 deletions(-)
 
-Changes in v2:
-  - Use the per-link htotal when calculating dual-link DSI line time.
-  - Use DIV64_U64_ROUND_UP() when dividing by the u64 line_time_ns.
-  - Preserve the existing bpp selection for compressed and uncompressed
-      configurations.
-
-Testing notes:
-
-The corrected dual-link calculation removes the Invalid vsync_end error
-and provides the required 400 us vertical blanking interval. A slight
-intermittent display jitter is still visible, so the dual-link line-time
-error was not the sole cause of the previously reported jitter.
-
-TTY switching and suspend/resume can also leave the internal panel
-blank. These appear to involve separate fbcon and DSI command-mode
-resume paths and are not addressed by this patch. They will be reported
-and investigated separately.
-
- drivers/gpu/drm/i915/display/icl_dsi.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/i915/display/icl_dsi.c b/drivers/gpu/drm/i915/display/icl_dsi.c
-index ea0cdb782..0f942cc6e 100644
---- a/drivers/gpu/drm/i915/display/icl_dsi.c
-+++ b/drivers/gpu/drm/i915/display/icl_dsi.c
-@@ -917,16 +917,24 @@ gen11_dsi_set_transcoder_timings(struct intel_encoder *encoder,
- 	if (is_vid_mode(intel_dsi)) {
- 		vtotal = adjusted_mode->crtc_vtotal;
- 	} else {
--		int bpp, line_time_us, byte_clk_period_ns;
-+		int bpp;
-+		u64 line_time_ns;
-+		u16 link_htotal = htotal;
+diff --git a/drivers/gpu/drm/xe/xe_tlb_inval.c b/drivers/gpu/drm/xe/xe_tlb_inval.c
+index 9dd04d5bc4c..16c32d5669f 100644
+--- a/drivers/gpu/drm/xe/xe_tlb_inval.c
++++ b/drivers/gpu/drm/xe/xe_tlb_inval.c
+@@ -10,7 +10,9 @@
+ #include "xe_force_wake.h"
+ #include "xe_gt_stats.h"
+ #include "xe_gt_types.h"
++#include "xe_guc.h"
+ #include "xe_guc_ct.h"
++#include "xe_guc_pc.h"
+ #include "xe_guc_tlb_inval.h"
+ #include "xe_mmio.h"
+ #include "xe_pm.h"
+@@ -30,6 +32,15 @@
+ 
+ #define FENCE_STACK_BIT		DMA_FENCE_FLAG_USER_BITS
+ 
++/*
++ * Delay before poking the GuC about a pending invalidation that has not been
++ * acked yet. Acks normally arrive in microseconds; when the GuC stalls they
++ * only show up seconds later, after the timeout has already fired.
++ */
++#define XE_TLB_INVAL_KICK_DELAY_MS	250
 +
-+		if (intel_dsi->dual_link)
-+			link_htotal /= 2;
++static void xe_tlb_inval_kick(struct work_struct *work);
++
+ /* The frontend is only ever embedded in a GT */
+ static struct xe_gt *tlb_inval_to_gt(struct xe_tlb_inval *tlb_inval)
+ {
+@@ -54,8 +65,10 @@ xe_tlb_inval_fence_signal(struct xe_tlb_inval_fence *fence)
+ 	lockdep_assert_held(&fence->tlb_inval->pending_lock);
  
- 		if (crtc_state->dsc.compression_enable)
- 			bpp = fxp_q4_to_int(crtc_state->dsc.compressed_bpp_x16);
- 		else
- 			bpp = mipi_dsi_pixel_format_to_bpp(intel_dsi->pixel_format);
-+		line_time_ns =
-+			DIV_ROUND_UP_ULL((u64)link_htotal * bpp * 1000000,
-+					afe_clk(encoder, crtc_state) *
-+					intel_dsi->lane_count);
+ 	list_del(&fence->link);
+-	if (list_empty(&tlb_inval->pending_fences))
++	if (list_empty(&tlb_inval->pending_fences)) {
+ 		cancel_delayed_work(&tlb_inval->fence_tdr);
++		cancel_delayed_work(&tlb_inval->kick_work);
++	}
+ 	trace_xe_tlb_inval_fence_signal(fence->tlb_inval->xe, fence);
+ 	xe_tlb_inval_fence_fini(fence);
+ 	dma_fence_signal(&fence->base);
+@@ -168,6 +181,7 @@ int xe_gt_tlb_inval_init_early(struct xe_gt *gt)
+ 	spin_lock_init(&tlb_inval->pending_lock);
+ 	spin_lock_init(&tlb_inval->lock);
+ 	INIT_DELAYED_WORK(&tlb_inval->fence_tdr, xe_tlb_inval_fence_timeout);
++	INIT_DELAYED_WORK(&tlb_inval->kick_work, xe_tlb_inval_kick);
  
--		byte_clk_period_ns = 1000000 / afe_clk(encoder, crtc_state);
--		line_time_us = (htotal * (bpp / 8) * byte_clk_period_ns) / (1000 * intel_dsi->lane_count);
--		vtotal = vactive + DIV_ROUND_UP(400, line_time_us);
-+		vtotal = vactive +
-+			DIV64_U64_ROUND_UP(400000ULL, line_time_ns);
+ 	err = drmm_mutex_init(&xe->drm, &tlb_inval->seqno_lock);
+ 	if (err)
+@@ -218,6 +232,7 @@ void xe_tlb_inval_reset(struct xe_tlb_inval *tlb_inval)
+ 	mutex_lock(&tlb_inval->seqno_lock);
+ 	spin_lock_irq(&tlb_inval->pending_lock);
+ 	cancel_delayed_work(&tlb_inval->fence_tdr);
++	cancel_delayed_work(&tlb_inval->kick_work);
+ 	/*
+ 	 * We might have various kworkers waiting for TLB flushes to complete
+ 	 * which are not tracked with an explicit TLB fence, however at this
+@@ -231,6 +246,8 @@ void xe_tlb_inval_reset(struct xe_tlb_inval *tlb_inval)
+ 		pending_seqno = tlb_inval->seqno - 1;
+ 	WRITE_ONCE(tlb_inval->seqno_recv, pending_seqno);
+ 	tlb_inval->timedout_seqno = 0;
++	tlb_inval->kicked_seqno = 0;
++	tlb_inval->kicked_count = 0;
+ 
+ 	list_for_each_entry_safe(fence, next,
+ 				 &tlb_inval->pending_fences, link)
+@@ -268,6 +285,55 @@ static bool xe_tlb_inval_seqno_past(struct xe_tlb_inval *tlb_inval, int seqno)
+ 	return seqno_recv >= seqno;
+ }
+ 
++static void xe_tlb_inval_kick(struct work_struct *work)
++{
++	struct xe_tlb_inval *tlb_inval = container_of(work, struct xe_tlb_inval,
++						      kick_work.work);
++	struct xe_gt *gt = tlb_inval_to_gt(tlb_inval);
++	struct xe_tlb_inval_fence *fence;
++	ktime_t inval_time = 0;
++	int seqno = 0;
++
++	spin_lock_irq(&tlb_inval->pending_lock);
++	fence = list_first_entry_or_null(&tlb_inval->pending_fences,
++					 struct xe_tlb_inval_fence, link);
++	if (fence) {
++		seqno = fence->seqno;
++		inval_time = fence->inval_time;
++	}
++	spin_unlock_irq(&tlb_inval->pending_lock);
++
++	if (!seqno)
++		return;
++
++	/*
++	 * Poke the GuC: read its status register, flush the CT fast-path and
++	 * ring the doorbell. On ARL with GuC 70.53.0 the ack for a pending
++	 * invalidation sometimes only arrives seconds after the request even
++	 * though the H2G was consumed immediately; a doorbell ring while the
++	 * ack is overdue usually unsticks it within ~250ms (see Link in the
++	 * commit message). Keep kicking every interval until the ack shows
++	 * up; the TDR bounds how long this can go on.
++	 */
++	if (gt->gtidle.idle_residency)
++		xe_guc_pc_c_status(&gt->uc.guc.pc);
++	tlb_inval->ops->flush(tlb_inval);
++	xe_guc_notify(&gt->uc.guc);
++
++	spin_lock_irq(&tlb_inval->pending_lock);
++	if (!xe_tlb_inval_seqno_past(tlb_inval, seqno)) {
++		if (tlb_inval->kicked_seqno != seqno)
++			tlb_inval->kicked_count = 0;
++		tlb_inval->kicked_seqno = seqno;
++		tlb_inval->kicked_inval_time = inval_time;
++		tlb_inval->kicked_time = ktime_get();
++		tlb_inval->kicked_count++;
++		queue_delayed_work(tlb_inval->timeout_wq, &tlb_inval->kick_work,
++				   msecs_to_jiffies(XE_TLB_INVAL_KICK_DELAY_MS));
++	}
++	spin_unlock_irq(&tlb_inval->pending_lock);
++}
++
+ static void xe_tlb_inval_fence_prep(struct xe_tlb_inval_fence *fence)
+ {
+ 	struct xe_tlb_inval *tlb_inval = fence->tlb_inval;
+@@ -279,9 +345,12 @@ static void xe_tlb_inval_fence_prep(struct xe_tlb_inval_fence *fence)
+ 	fence->inval_time = ktime_get();
+ 	list_add_tail(&fence->link, &tlb_inval->pending_fences);
+ 
+-	if (list_is_singular(&tlb_inval->pending_fences))
++	if (list_is_singular(&tlb_inval->pending_fences)) {
+ 		queue_delayed_work(tlb_inval->timeout_wq, &tlb_inval->fence_tdr,
+ 				   tlb_inval->ops->timeout_delay(tlb_inval));
++		queue_delayed_work(tlb_inval->timeout_wq, &tlb_inval->kick_work,
++				   msecs_to_jiffies(XE_TLB_INVAL_KICK_DELAY_MS));
++	}
+ 	spin_unlock_irq(&tlb_inval->pending_lock);
+ 
+ 	tlb_inval->seqno = (tlb_inval->seqno + 1) %
+@@ -440,6 +509,20 @@ void xe_tlb_inval_done_handler(struct xe_tlb_inval *tlb_inval, int seqno)
+ 		tlb_inval->timedout_seqno = 0;
  	}
- 	vsync_start = adjusted_mode->crtc_vsync_start;
- 	vsync_end = adjusted_mode->crtc_vsync_end;
+ 
++	if (tlb_inval->kicked_seqno &&
++	    xe_tlb_inval_seqno_past(tlb_inval, tlb_inval->kicked_seqno)) {
++		ktime_t now = ktime_get();
++
++		drm_warn(&xe->drm,
++			 "TLB invalidation ack after kick: seqno=%d recv=%d, request-to-ack=%lldms, last-kick-to-ack=%lldms, kicks=%d",
++			 tlb_inval->kicked_seqno, seqno,
++			 ktime_ms_delta(now, tlb_inval->kicked_inval_time),
++			 ktime_ms_delta(now, tlb_inval->kicked_time),
++			 tlb_inval->kicked_count);
++		tlb_inval->kicked_seqno = 0;
++		tlb_inval->kicked_count = 0;
++	}
++
+ 	list_for_each_entry_safe(fence, next,
+ 				 &tlb_inval->pending_fences, link) {
+ 		trace_xe_tlb_inval_fence_recv(xe, fence);
+@@ -450,12 +533,16 @@ void xe_tlb_inval_done_handler(struct xe_tlb_inval *tlb_inval, int seqno)
+ 		xe_tlb_inval_fence_signal(fence);
+ 	}
+ 
+-	if (!list_empty(&tlb_inval->pending_fences))
++	if (!list_empty(&tlb_inval->pending_fences)) {
+ 		mod_delayed_work(tlb_inval->timeout_wq,
+ 				 &tlb_inval->fence_tdr,
+ 				 tlb_inval->ops->timeout_delay(tlb_inval));
+-	else
++		mod_delayed_work(tlb_inval->timeout_wq, &tlb_inval->kick_work,
++				 msecs_to_jiffies(XE_TLB_INVAL_KICK_DELAY_MS));
++	} else {
+ 		cancel_delayed_work(&tlb_inval->fence_tdr);
++		cancel_delayed_work(&tlb_inval->kick_work);
++	}
+ 
+ 	spin_unlock_irqrestore(&tlb_inval->pending_lock, flags);
+ }
+diff --git a/drivers/gpu/drm/xe/xe_tlb_inval_types.h b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
+index 38288966254..f8ae540dc4b 100644
+--- a/drivers/gpu/drm/xe/xe_tlb_inval_types.h
++++ b/drivers/gpu/drm/xe/xe_tlb_inval_types.h
+@@ -124,6 +124,31 @@ struct xe_tlb_inval {
+ 	 * the timeout interval is over.
+ 	 */
+ 	struct delayed_work fence_tdr;
++	/**
++	 * @kick_work: pokes the GuC while an invalidation ack is overdue,
++	 * bounding ack stalls on GuC firmware that misses CT notifications.
++	 */
++	struct delayed_work kick_work;
++	/**
++	 * @kicked_seqno: seqno the last kick was issued for, 0 if none.
++	 * Protected by @pending_lock.
++	 */
++	int kicked_seqno;
++	/**
++	 * @kicked_inval_time: request time of @kicked_seqno. Protected by
++	 * @pending_lock.
++	 */
++	ktime_t kicked_inval_time;
++	/**
++	 * @kicked_time: time the last kick for @kicked_seqno ran. Protected
++	 * by @pending_lock.
++	 */
++	ktime_t kicked_time;
++	/**
++	 * @kicked_count: number of kicks issued for @kicked_seqno. Protected
++	 * by @pending_lock.
++	 */
++	int kicked_count;
+ 	/** @job_wq: schedules TLB invalidation jobs */
+ 	struct workqueue_struct *job_wq;
+ 	/** @tlb_inval.lock: protects TLB invalidation fences */
 -- 
 2.55.0
 
