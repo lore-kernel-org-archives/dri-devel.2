@@ -4,45 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2857C55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:30:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0B01C55838
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:33:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DEE2110E14A;
-	Tue,  4 Aug 2026 12:30:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3712310E130;
+	Tue,  4 Aug 2026 12:33:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K0enCvpu";
+	dkim=pass (2048-bit key; unprotected) header.d=linaro.org header.i=@linaro.org header.b="a3xn+2hr";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C4E8310E14A
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:30:16 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E801860A83;
- Tue,  4 Aug 2026 12:30:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411CC1F000E9;
- Tue,  4 Aug 2026 12:30:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785846615;
- bh=h6uTgvbzsfHztun3X6lhFFLMxhJuej9DVPBNS+33W74=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K0enCvputhz/9LjsEu/IrIpuMarE7Ts377TNOShUIBV/rtGiKKiGOGEj329XPHSEn
- JCkDuu1LDJlLg4WqZaEgEmfWfJp7fCMHH9+MsXOKuIvOrHaE7fzAxy0KiULU+zQEO8
- ZoHWzSgt5fUrN7y0Rz6VuG6omM8W0kVnywlXNEGKcfvfFOvFo+HHcA6m5/n17ydWMO
- FjYlSDj5c/v8kPylDYgYXqPFZv7G1NDQfgukNgbdxvkn54wxrIrzbM+iMEQsVP7nuZ
- LMeVOx0NNP8BU5jDsh9pmQtx+/3aHrtNCUHnT4WM+68ZNecT+d80QVqhx4vQqB0RHL
- 0c9pbIyM6RL9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/6] drm/shmem_helper: use vmf_insert_pfn_mkwrite()
-To: "Paolo Bonzini" <pbonzini@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, "Heiko Carstens" <hca@linux.ibm.com>,
- linux-s390@vger.kernel.org, kvm@vger.kernel.org, "Vasily
- Gorbik" <gor@linux.ibm.com>, "Alexander Gordeev" <agordeev@linux.ibm.com>
-In-Reply-To: <20260804120529.1730187-3-pbonzini@redhat.com>
-References: <20260804120529.1730187-1-pbonzini@redhat.com>
- <20260804120529.1730187-3-pbonzini@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 12:30:13 +0000
-Message-Id: <20260804123015.411CC1F000E9@smtp.kernel.org>
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
+ [209.85.208.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18EFD10E130
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:33:53 +0000 (UTC)
+Received: by mail-ed1-f44.google.com with SMTP id
+ 4fb4d7f45d1cf-6a0a4a18180so5705722a12.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 05:33:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785846831; cv=none;
+ d=google.com; s=arc-20260327;
+ b=fAUXAiBKW9S60EKgE6X90UIIJ5g3r1YNBxNI2dHtRsLSYsyEjJGHVtKKJkYuCNpOFS
+ /mU98d1hAPqL8TAnpZ3nI/ybTtfKIE5Akd+2etThtak9aicTz7C8LPmxjq2CrSfu5siM
+ AaJHiop/w+Iov14PKg8mDIbwMftcAUKXIEcYVbW085cMcYaG+pVplgm/1IyGCwm/WY+3
+ nBe+vdITMdNr/ctxCvKxVp684thvyty9WIADUxA6qUEOrIxv5e7insQuKGNg+kabzIJB
+ El+jbOU3r+yNn6NabpOgOQtAvbTBG3RszDrQQ2Jt3E/TbDUCmnTcHf/s/V0LIMW0YIgA
+ MP7w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=HxBuSuUOsN3xcHdKVMUU11HrTG94kQJTqxpKG7QuLAE=;
+ fh=7TI9YjXojqdE63Z2rQ0nUNBMFpIIVFNRP+09PCNC+GQ=;
+ b=FOj3bK7q4ISifUe/4xzmr/4xOQex++tEL/ZEVYaBS64SWknvju0TmFuFr4ppsmpoQG
+ cKgOXmglcTElRSyZDI3gCIbYI1qeoCMy76Xv7qpsYvlqlo5UrC38uxPg8g0tKf+KQocd
+ BNM6SCef3/LjlBsAzhvIBKJO0AavfPLTI5dhODu3uiAwadz/ebAEEij89RU81k8HYo6a
+ 0fsBFWedfm22AZogL0tW85uhCQZg4Rww5R6gOBU7eVDXs32NcAg7CCcOJ2Rf9RVUu9z7
+ ANTri/4ZS0MUovg8r1y7AV04zxKD9dpEPFyvXvrGksukqxtD1eOTbasp24L5aIfU7fBd
+ a3nw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1785846831; x=1786451631; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=HxBuSuUOsN3xcHdKVMUU11HrTG94kQJTqxpKG7QuLAE=;
+ b=a3xn+2hrXECCOM1xRLNKPfd6jvjtOtMxJNEuljMfIDAz3u+BW+gXrlVpET+D0wetBF
+ V0lC10NsQbotvDqUsmj0e2RdINWUNHE0TZGZu42Y2hR6DSyNGXEoar0p8lYDu2Gn0bS5
+ FTD74PUnoBuhuNyA6SgHb+kNIJw5ajPlRvoznFR+sXUmE5S5zY7XnWpbqNKsNbsh0eko
+ pl4zVxteiEqORgoaBYfTmvQ8Add4eY6waCGVadyPzFW/bk0btlCFZk0gxKP6ZQN2WEPg
+ 4LHNSv37Bj0yYtarNkC24/7r35DZojKZz5YNEVyKILCURToaGDWGuVHHyrVUzO9nz12C
+ RoPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785846831; x=1786451631;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=HxBuSuUOsN3xcHdKVMUU11HrTG94kQJTqxpKG7QuLAE=;
+ b=QtaXY6ka89/OXScWy8qCcv+/gDt1mr8Wk+tL+G3i6wBrLqYdio5KReefWPlDX1CAh2
+ ON81XjTmUpp7TJPlV89YZILoqgOsIDN8M16+s9tpRn3qdhkbtUSE+bKMfLfZLdqLmOb7
+ iyLsEgICIY/yIcJMajhlOo5NbvFgRBMbaFlFOgxmm3J4e3G8EFBvW5ECeG6tUjpJ4o0j
+ NLDDmMnFmKhbnu6FR12J4C4imF+1sn3Ru0oOXWa0/9oyLwfQc2fLtkvqPUwALgIro/Xn
+ RYlervjy+i5IqeyaL++PW1ZEULSqwjcEynt04ZETxI3r4PZHjOmUxt7NeNBfc6nvBxIY
+ RY+g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rrmo564gfKtZqiwfOx4ObBvF8+0B763bsIH38tALWm2jZuq6P65NwRMjGjyyXKSrES0gCRJDkJvJO4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyABLihxLisfeD74FQX68eZDqQvb+hhLK9H08DeYEFaIrlv/UOd
+ X2dBYi1dlbMaVNJ+OgevdWhku6Q9T+eBf5B0z832WAnvarB1W4rWXNmF3fvxqSqWs7sZ5+E1IqI
+ KBAittdDBhdaudHWCw0bvEO7VJ7hsAMBDJKTC+LD8Ug==
+X-Gm-Gg: AR+sD13P0p2CXj3aO9x10n4xrkZ+FK/B7av9IhHChgz41CfgK+8i9In5iKp3ig/OyzC
+ 00SfpdZuBmvSTOZmDv3NxuV8xaaMHjwN+CQtss/S1i8g/FuAOcaxMpBB28jF5enpkjMVfKH/6Sq
+ PxO1cLduMfuY2uLP89Z8D8aR0CKsUdLaBYkZK9JH+V0RuG/BdXGteuZpQT5QucwzDz57xGPGWbT
+ hxz8g3HzVFQsfB3Wt8xsJ0v78WAiP7IMcpBrIryZQOq0/yMVIFhznx329rhFW2P++rQ5kyUm/LQ
+ pwrz0rNvC1Hvc74L6Wf8qtdbh1UaGP8zuH2YKRm2k81Mfad1NPO+/6B0T1gzLsiINsRMTFuVE8Y
+ dmjw=
+X-Received: by 2002:a05:6402:a6ca:20b0:6a0:dda3:83db with SMTP id
+ 4fb4d7f45d1cf-6a0dda38483mr5803047a12.0.1785846831292; Tue, 04 Aug 2026
+ 05:33:51 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260803135322.2898247-1-wenst@chromium.org>
+In-Reply-To: <20260803135322.2898247-1-wenst@chromium.org>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Tue, 4 Aug 2026 13:33:39 +0100
+X-Gm-Features: AUfX_myS2cidHM43LBbhd8UVPlKcCVWzzAL3r2Xg4qgdaYQLg0tQthlf_dnS1Jc
+Message-ID: <CADrjBPqVOTqfj6Xx6LMvnrVS8-gxrwh=-_XevD56Nf+ypSNhAg@mail.gmail.com>
+Subject: Re: [PATCH] drm/exynos/gem: Drop extra "0x" prefix in front of "%pad"
+ format
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org, 
+ linux-samsung-soc@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,133 +107,40 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Mon, 3 Aug 2026 at 15:28, Chen-Yu Tsai <wenst@chromium.org> wrote:
+>
+> The recent size_t format string fix for exynos DRM driver left the "0x"
+> prefix in front of "%pad" format around. Since the pointer format output
+> already provides "0x" prefix, this ends up adding an extra prefix.
+>
+> Drop the redundant "0x" prefix".
+>
+> Fixes: 3470274dca48 ("drm/exynos: fix size_t format string")
+> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> ---
 
-Pre-existing issues:
-- [Critical] The `.huge_fault` handler `drm_gem_shmem_any_fault` does not v=
-erify if the PMD-sized huge page fits entirely within the bounds of the VMA=
-, allowing a VMA boundary bypass.
-- [High] Incorrect page offset calculation in DRM shmem fault handlers caus=
-es the wrong pages to be mapped.
---
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
 
---- Patch [2]: [PATCH v2 2/6] drm/shmem_helper: use vmf_insert_pfn_mkwrite(=
-) ---
-commit 6ce5b52de7395aa4c0a50d399649686c52e613a9
-Author: Paolo Bonzini <pbonzini@redhat.com>
-
-drm/shmem_helper: use vmf_insert_pfn_mkwrite()
-
-This ensures that KVM or VFIO correctly see a writable PTE when
-they request one. Otherwise, a guest write to an unpopulated
-PTE from a mapping backed by a DRM GEM BO triggers a VM exit
-with EFAULT.
-
-Link: https://lore.kernel.org/kvm/20260729072044.25796-1-slp@redhat.com/
-
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm=
-_gem_shmem_helper.c
-> index c989459eb2159..c81be3e973173 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -589,11 +589,25 @@ static void drm_gem_shmem_record_mkwrite(struct vm_=
-fault *vmf)
->  	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
-
-[Severity: High]
-This is a pre-existing issue, but does this page_offset calculation
-correctly handle the requested offset within the GEM object?
-
-When userspace mmaps a sub-range of a GEM object with a non-zero
-offset, or unmaps a prefix of the VMA, the core memory management
-sets vma->vm_pgoff to include the requested offset. Because
-page_offset evaluates to vmf->pgoff - vma->vm_pgoff, it calculates
-the offset relative to the VMA start, ignoring the requested offset
-within the GEM object itself.
-
-This can cause folio_mark_dirty() to mark the wrong folio dirty.
-The same calculation is present in drm_gem_shmem_any_fault(),
-which could lead to mapping the wrong physical pages.
-
->  }
-> =20
-> +/*
-> + * Because the vm_ops have a .pfn_mkwrite() callback, vma_set_page_prot()
-> + * has cleared the write bit from vma->vm_page_prot.  vmf_insert_pfn()
-> + * would install a read-only entry even for a write fault, relying on a
-> + * second fault to reach .pfn_mkwrite() and upgrade it, but that second
-> + * fault never happens for fixup_user_fault() callers that directly
-> + * walk the page tables with follow_pfnmap_start().  To ensure that
-> + * they don't see the read-only entry, pass FAULT_FLAG_WRITE info down
-> + * to install a writable entry right away.  Because .pfn_mkwrite() is
-> + * not invoked, record the write afterwards.
-> + */
->  static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int orde=
-r,
->  				 unsigned long pfn)
->  {
-> +	bool write =3D vmf->flags & FAULT_FLAG_WRITE;
-> +	vm_fault_t ret =3D VM_FAULT_FALLBACK;
-> +
->  	if (!order) {
-> -		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
-> +		ret =3D vmf_insert_pfn_mkwrite(vmf->vma, vmf->address, pfn, write);
->  #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
->  	} else if (order =3D=3D PMD_ORDER) {
->  		unsigned long paddr =3D pfn << PAGE_SHIFT;
-> @@ -601,27 +615,15 @@ static vm_fault_t try_insert_pfn(struct vm_fault *v=
-mf, unsigned int order,
-> =20
->  		if (aligned &&
->  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
-> -			vm_fault_t ret;
-> -
->  			pfn &=3D PMD_MASK >> PAGE_SHIFT;
-> -
-> -			/* Unlike PTEs which are automatically upgraded to
-> -			 * writeable entries, the PMD upgrades go through
-> -			 * .huge_fault(). Make sure we pass the "write" info
-> -			 * along in that case.
-> -			 * This also means we have to record the write fault
-> -			 * here, instead of in .pfn_mkwrite().
-> -			 */
-> -			ret =3D vmf_insert_pfn_pmd(vmf, pfn,
-> -						 vmf->flags & FAULT_FLAG_WRITE);
-> -			if (ret =3D=3D VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
-> -				drm_gem_shmem_record_mkwrite(vmf);
-> -
-> -			return ret;
-> +			ret =3D vmf_insert_pfn_pmd(vmf, pfn, write);
-
-[Severity: Critical]
-This is a pre-existing issue, but does the fault handler verify that a
-PMD-sized huge page fits entirely within the bounds of the VMA?
-
-The core __thp_vma_allowable_orders() skips VMA boundary checks by
-relying on the driver's .huge_fault handler to enforce them. However,
-drm_gem_shmem_any_fault() does not appear to check if
-vmf->address + PMD_SIZE <=3D vma->vm_end before delegating to
-vmf_insert_pfn_pmd() via try_insert_pfn().
-
-Could an unprivileged user create a 4KB VMA backed by a PMD-aligned GEM
-object, and fault it to install a 2MB PMD that overwrites adjacent VMA
-page tables?
-
->  		}
->  #endif
->  	}
-> -	return VM_FAULT_FALLBACK;
-> +
-> +	if (ret =3D=3D VM_FAULT_NOPAGE && write)
-> +		drm_gem_shmem_record_mkwrite(vmf);
-> +	return ret;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804120529.1730=
-187-1-pbonzini@redhat.com?part=3D2
+>  drivers/gpu/drm/exynos/exynos_drm_gem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/exynos/exynos_drm_gem.c b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+> index 0208c9259572..acb8def747de 100644
+> --- a/drivers/gpu/drm/exynos/exynos_drm_gem.c
+> +++ b/drivers/gpu/drm/exynos/exynos_drm_gem.c
+> @@ -80,7 +80,7 @@ static void exynos_drm_free_buf(struct exynos_drm_gem *exynos_gem)
+>                 return;
+>         }
+>
+> -       DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(0x%pad), size(0x%zx)\n",
+> +       DRM_DEV_DEBUG_KMS(dev->dev, "dma_addr(%pad), size(0x%zx)\n",
+>                           &exynos_gem->dma_addr, exynos_gem->base.size);
+>
+>         dma_free_attrs(drm_dev_dma_dev(dev), exynos_gem->base.size, exynos_gem->cookie,
+> --
+> 2.55.0.571.g244d577d93-goog
+>
+>
