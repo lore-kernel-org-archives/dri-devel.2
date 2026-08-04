@@ -4,55 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0051AC55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:55:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCA7EC55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:59:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 44CF110EA48;
-	Tue,  4 Aug 2026 12:55:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D9CE10E148;
+	Tue,  4 Aug 2026 12:59:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="TqdRWXrI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TbHnOEAI";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18D6C10EA4B;
- Tue,  4 Aug 2026 12:55:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785848118; x=1817384118;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=xE6n1/onZAalq1L5nOOxjKV6YEeXWBJRmsXSrBTpZ5c=;
- b=TqdRWXrIS0b8P5eK561tMi+O32ifhrKdKYOa/C+gJ/LLAm47fBzZlADZ
- OTkWiL0yUoekh9UGV3zic7INA8sky4Da1WwICoY8dr3m1PhnsR/ITWBNP
- 3wnDaECy+s0vBfEfLhRAPGvaZhm4ux5petNYIAiXCyTbpfpFzuIXu6tev
- 0TE5wJAJTV3pQeY9pF/Id4teZpnU/7TvTt1RdP3hJWcopq4Ro/s1xbmHL
- 7JniBtPg5+pmrmyUCqoutyt8lekuHeXu3k3sjmD0/b5nwn9+bplK3Xhwk
- Xcqtw/r+4NY6wls4OnMwrOgeFK66j4PPQSPjIsN0bRJRsBCHY6zbylJE4 A==;
-X-CSE-ConnectionGUID: PPQmirKET9mGeyqBR6aTLA==
-X-CSE-MsgGUID: Ht5addyLQ5WOH7GVcya3IQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="90073252"
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="90073252"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 05:55:17 -0700
-X-CSE-ConnectionGUID: zCKp8mQOR7aCLRPNS0sQww==
-X-CSE-MsgGUID: HZ59O1nrTPGS/1RdMSJn4w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="262108450"
-Received: from dut-2a59.iind.intel.com ([10.190.239.113])
- by orviesa009.jf.intel.com with ESMTP; 04 Aug 2026 05:55:15 -0700
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>
-Subject: [v6 9/9] drm/i915/color: Add color pipeline support for SDR planes
-Date: Tue,  4 Aug 2026 18:01:07 +0530
-Message-ID: <20260804123107.2256124-10-chaitanya.kumar.borah@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260804123107.2256124-1-chaitanya.kumar.borah@intel.com>
-References: <20260804123107.2256124-1-chaitanya.kumar.borah@intel.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF07710E148
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:59:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8897A402B4;
+ Tue,  4 Aug 2026 12:59:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD6A1F000E9;
+ Tue,  4 Aug 2026 12:59:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785848379;
+ bh=6BgEOFimK9Ijc8WS/Da0OShanm+yXaE7lQ5oYYyKz7M=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=TbHnOEAIUhEsitGoEIiOwH3HpsL0JVG8RNSaXh/MofbVWFRtelDN2todtbcRyLN47
+ SGbUhpCX0WMwPWCxkijJAwnTtDSxUENZJH3ZTF2IkJ7cUbRWB8dDX1cp3DHwCgcYUc
+ HpBnyakUtV3KwF9WhFmFDB2lUlPBdlGWiRiBpjMWglDKQZ47LYzyby7oTQgHXgUxVr
+ iCf7F040bmZG4+SEGSYUniX6InusoRmc3x3EfpVmTUo3hm6UbXIgA7296RzDInvox/
+ 14P4QhXjjz1j2oh3zYBEFK1ngSReb+e4+LBmgHF2HNtHxKxFM9oKzjzA/DdChPJUOB
+ abWI1b5oNtaJw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+To: mohit.dsor@oss.qualcomm.com
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260804-lt9611c-v7-v9-2-3423a76856d3@oss.qualcomm.com>
+References: <20260804-lt9611c-v7-v9-0-3423a76856d3@oss.qualcomm.com>
+ <20260804-lt9611c-v7-v9-2-3423a76856d3@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 12:59:38 +0000
+Message-Id: <20260804125938.DCD6A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,40 +55,221 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Now that everything is in place expose the SDR plane color pipeline
-to user-space.
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [High] Missing `disable_irq()` before `cancel_work_sync()` in `lt9611c_re=
+move()` causes a use-after-free when `devm` frees the device context.
+- [High] Bridge is left registered and accessible to DRM core while its pow=
+er regulators are disabled during module unload.
+- [High] Unconditional dereference of `cdata` returned by `i2c_get_match_da=
+ta()` without checking for NULL.
+- [Medium] Incorrect interrupt clearing sequence in `lt9611c_irq_thread_han=
+dler()` can permanently suppress other pending interrupts.
+- [Medium] The return value of `devm_drm_bridge_add()` is ignored, which ca=
+n lead to silent probe failures.
+- [Medium] Firmware upgrade via sysfs silently resets the bridge hardware, =
+breaking active DRM display state.
+- [Medium] The IRQ handler incorrectly returns `IRQ_HANDLED` when the inter=
+rupt was not generated by this device.
+- [Medium] The return value of `read_poll_timeout` is ignored during flash =
+block erase, which can lead to firmware corruption.
+--
 
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Reviewed-by: Uma Shankar <uma.shankar@intel.com>
----
- drivers/gpu/drm/i915/display/intel_color_pipeline.c | 6 ------
- 1 file changed, 6 deletions(-)
+--- Patch [2]: [PATCH v9 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI =
+DSI to HDMI driver ---
+commit 6e88557e672677022a4675c645ef3cbef1ee7ce0
+Author: Sunyun Yang <syyang@lontium.com>
+Subject: drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
 
-diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-index 53e55ce0a5a3..38cfd6ed585d 100644
---- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-+++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
-@@ -177,17 +177,11 @@ int _intel_color_pipeline_plane_init(struct drm_plane *plane, struct drm_prop_en
- 
- int intel_color_pipeline_plane_init(struct drm_plane *plane, enum pipe pipe)
- {
--	struct drm_device *dev = plane->dev;
--	struct intel_display *display = to_intel_display(dev);
- 	struct drm_prop_enum_list pipelines[MAX_COLOR_PIPELINES] = {};
- 	int len = 0;
- 	int ret = 0;
- 	int i;
- 
--	/* Currently expose pipeline only for HDR planes */
--	if (!icl_is_hdr_plane(display, to_intel_plane(plane)->id))
--		return 0;
--
- 	/* Add pipeline consisting of transfer functions */
- 	ret = _intel_color_pipeline_plane_init(plane, &pipelines[len], pipe);
- 	if (ret)
--- 
-2.50.1
+This commit introduces a DRM bridge driver for the Lontium LT9611C,
+LT9611EX, and LT9611UXD DSI-to-HDMI chips. It handles configuration over I2=
+C,
+video timing setup, audio infoframe handling, and firmware upgrades.
 
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
+ridge/lontium-lt9611c.c
+> new file mode 100644
+> index 0000000000000..f5af2856ce00b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+[ ... ]
+> +static void lt9611c_block_erase(struct lt9611c *lt9611c)
+> +{
+> +	unsigned int block_num;
+> +	unsigned int flash_status =3D 0;
+> +	u32 flash_addr =3D 0;
+> +
+> +	for (block_num =3D 0; block_num < 2; block_num++) {
+> +		flash_addr =3D block_num * 0x008000;
+> +		lt9611c_erase_op(lt9611c, flash_addr);
+> +		msleep(100);
+> +		read_poll_timeout(read_flash_reg_status, flash_status,
+> +				  !(flash_status & 0x01),
+> +				  50 * USEC_PER_MSEC, 2500 * USEC_PER_MSEC,
+> +				  false, lt9611c);
+
+[Severity: Medium]
+Is it safe to ignore the return value of read_poll_timeout() here?
+
+If the hardware fails to erase the flash within the timeout, the driver
+will proceed to lt9611c_write_data() anyway. This would cause it to write
+new firmware data over un-erased or partially erased flash pages,
+potentially corrupting the device firmware permanently.
+
+[ ... ]
+> +static int lt9611c_firmware_upgrade(struct lt9611c *lt9611c)
+> +{
+[ ... ]
+> +	ret =3D lt9611c_write_crc(lt9611c, fw_crc, FW_SIZE - 1);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to write firmware crc\n");
+> +		goto out_unlock;
+> +	}
+> +
+> +	lt9611c_reset(lt9611c);
+> +	ret =3D lt9611c_upgrade_result(lt9611c, fw_crc);
+
+[Severity: Medium]
+Could this reset break the active DRM display state?
+
+When userspace writes to the firmware sysfs attribute, this function
+resets the bridge chip without notifying the DRM subsystem. This wipes all
+video timings and configurations, meaning an active display pipeline will
+go blank and become desynchronized from the DRM state.
+
+[ ... ]
+> +static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
+> +{
+> +	struct lt9611c *lt9611c =3D dev_id;
+> +	struct device *dev =3D lt9611c->dev;
+> +	int ret;
+> +	unsigned int irq_status;
+> +
+> +	guard(mutex)(&lt9611c->mcu_lock);
+> +
+> +	ret =3D regmap_read(lt9611c->regmap, 0xe084, &irq_status);
+> +	if (ret) {
+> +		dev_err(dev, "failed to read irq status: %d\n", ret);
+> +		return IRQ_HANDLED;
+> +	}
+> +
+> +	if (!(irq_status & BIT(0)))
+> +		return IRQ_HANDLED;
+
+[Severity: Medium]
+Should this early return use IRQ_NONE instead?
+
+Returning IRQ_HANDLED when the interrupt does not belong to this device
+defeats the kernel's spurious interrupt detection mechanism. If the IRQ
+line becomes noisy or stuck, the kernel will falsely assume this driver
+handled it and will not disable the line, potentially causing an interrupt
+storm that freezes the system.
+
+> +
+> +	/*Clear interrupt: hardware requires two writes with delay*/
+> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & BIT(0));
+> +	usleep_range(10000, 12000);
+> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & (~BIT(0)));
+
+[Severity: Medium]
+Could this interrupt clearing sequence accidentally suppress other pending
+interrupts?
+
+If multiple interrupts were pending (for example, bit 1 is also set in
+irq_status), the second write outputs a 1 for those other bits because of
+the bitwise inversion logic. If the hardware clears interrupts via a
+pulse mechanism, those other bits are left stuck at 1 and are never written
+back to 0. This would break the clearing mechanism for any interrupt
+other than the primary bit.
+
+[ ... ]
+> +static int lt9611c_probe(struct i2c_client *client)
+> +{
+> +	struct lt9611c *lt9611c;
+> +	struct device *dev =3D &client->dev;
+> +	bool fw_updated =3D false;
+> +	int ret;
+> +
+> +	crc8_populate_msb(lt9611c_crc8_table, LT9611C_CRC_POLYNOMIAL);
+> +
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+> +		return dev_err_probe(dev, -ENODEV, "device doesn't support I2C\n");
+> +
+> +	lt9611c =3D devm_drm_bridge_alloc(dev, struct lt9611c, bridge, &lt9611c=
+_bridge_funcs);
+> +	if (IS_ERR(lt9611c))
+> +		return dev_err_probe(dev, PTR_ERR(lt9611c), "drm bridge alloc failed.\=
+n");
+> +
+> +	lt9611c->dev =3D dev;
+> +	lt9611c->client =3D client;
+> +	const struct lt9611c_chip_data *cdata =3D i2c_get_match_data(client);
+> +
+> +	lt9611c->chip_type =3D cdata->chip_type;
+
+[Severity: High]
+Can cdata be NULL here?
+
+When the device is instantiated via the sysfs bind attribute or new_device
+without a valid match table entry (e.g., matching by driver name fallback),
+i2c_get_match_data() will return NULL. Dereferencing cdata immediately
+would result in a NULL pointer dereference and a kernel panic.
+
+[ ... ]
+> +	devm_drm_bridge_add(dev, &lt9611c->bridge);
+> +
+> +	enable_irq(client->irq);
+> +
+> +	return 0;
+
+[Severity: Medium]
+Is there a missing error check for devm_drm_bridge_add()?
+
+Since devm_drm_bridge_add() can return an error code like -ENOMEM,
+ignoring it allows the driver to probe successfully without registering the
+bridge. This leaves a dysfunctional driver bound to the device, silently
+consuming resources.
+
+[ ... ]
+> +static void lt9611c_remove(struct i2c_client *client)
+> +{
+> +	struct lt9611c *lt9611c =3D i2c_get_clientdata(client);
+> +
+> +	cancel_work_sync(&lt9611c->work);
+
+[Severity: High]
+Could this lead to a use-after-free since the IRQ is not disabled before
+cancelling the work?
+
+The IRQ was requested with devm_request_threaded_irq, meaning it remains
+active until devres cleanup, which happens after lt9611c_remove() returns.
+An interrupt firing right after cancel_work_sync() completes will invoke
+the threaded handler, which calls schedule_work(&lt9611c->work). When
+devres frees the lt9611c structure, the newly queued work isn't cancelled,
+causing the workqueue to eventually execute lt9611c_hpd_work on freed memor=
+y.
+
+> +	regulator_bulk_disable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies=
+);
+
+[Severity: High]
+Does this prematurely power down the chip while the bridge is still active?
+
+Because the bridge was registered with devm_drm_bridge_add(), the DRM core
+will only unregister it during devres teardown, which runs after this
+remove function completes. By manually disabling the regulators here, there
+is a window where the bridge is globally visible and can receive DRM calls
+(such as a detect call from userspace polling), but the hardware is powered
+off. This can cause I2C timeouts or bus lockups during module unload.
+
+> +	of_node_put(lt9611c->dsi1_node);
+> +	of_node_put(lt9611c->dsi0_node);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-lt9611c-v7=
+-v9-0-3423a76856d3@oss.qualcomm.com?part=3D2
