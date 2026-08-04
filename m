@@ -4,64 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13D66C55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 22:31:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30721C55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 22:40:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4405010E07F;
-	Tue,  4 Aug 2026 22:31:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5EC5710EBE5;
+	Tue,  4 Aug 2026 22:40:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VSdW48Lc";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="tKlXMgpH";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 18FB510E07F;
- Tue,  4 Aug 2026 22:31:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8399243F42;
- Tue,  4 Aug 2026 22:31:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77C731F00A3D;
- Tue,  4 Aug 2026 22:31:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785882685;
- bh=1rNKgpIx6sZKzmYQ6FweqLBwIUVjPux1He9OuvdAw/w=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=VSdW48Lc4jRQjSvOYK6+1RkSCe23ufhDsOsXhNt4Ddw8D/YQHxmW320dvP2P7ORz+
- Nzz4hCaj/lJheSxjNhu3iK8vKtbjkdRaSYOp9A3xKfMCmjo1wFCtcIoxttJJ7CHyTW
- 6FMLdwzCEAHkqLj2FEznUUNVP76O0jKtDVItxv3ED11ABBaD/MjbZTwf7dKQLMYfYP
- dEaRKsKWQs/SpA7P9pNqP15pttyCi9lzKbUd8DJdKNkfS4l3ybZmwCkpxRabdDxoZc
- l51MfSH06sfXgb8HFBXSqbR2LPPJEGwI4O/DC9mCeNnBGbOkIY2Ycs3abL1ZRO0ZNw
- 8giP29bCtxPug==
-From: Bjorn Andersson <andersson@kernel.org>
-To: konradybcio@kernel.org,
-	Sumit Garg <sumit.garg@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
- akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, marijn.suijten@somainline.org, airlied@gmail.com,
- simona@ffwll.ch, vikash.garodia@oss.qualcomm.com, bod@kernel.org,
- mchehab@kernel.org, elder@kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, jjohnson@kernel.org, mathieu.poirier@linaro.org,
- trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
- pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
- tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
- srinivas.kandagatla@oss.qualcomm.com, amirreza.zarrabi@oss.qualcomm.com,
- jenswi@kernel.org, op-tee@lists.trustedfirmware.org,
- apurupa@qti.qualcomm.com, skare@qti.qualcomm.com,
- linux-kernel@vger.kernel.org, Sumit Garg <sumit.garg@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v9 00/14] firmware: qcom: Add OP-TEE PAS service
- support
-Date: Tue,  4 Aug 2026 17:31:15 -0500
-Message-ID: <178588267268.451855.11887423649046062153.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260702115835.167602-1-sumit.garg@kernel.org>
-References: <20260702115835.167602-1-sumit.garg@kernel.org>
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 669BD10EBE5
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 22:40:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=/j2uzAZhQxgwE4ZqlG1NwZ+n42HBZvLc30dmyOCIIDc=; b=tKlXMgpHpsKfcsFbugXKoX47cv
+ PWexKvcUfggrRpoY/SsA/6G9xeHzbqnbpboHOquImuE9MXMAb2LnR3g/RzS6fqgfFrv6bSjf/UR9Z
+ ZoOcrZz8feZlDAt33YaOdgey1P/Ps8Sq5XlyL5eFbTjOMyT8PmnXEonvtGU1JWm4L5NEP5wAnA7Tf
+ TKnNqqJdXifFlNNFw0R2T0+vWWkZQf3aHJPuDkfpmJfcHbS9OyQYKl0UvIxWEGknPjMD5Eda4oKCh
+ A0+ZzItV+XUyPgNIh4TRmNuGzKGNIEyMdc3W10ZrObeyCgpDHA+rHTdOMDkUoomrVCP2H5OPpGvS3
+ 8LZmUPKw==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andy Yan <andy.yan@rock-chips.com>, Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, Damon Ding <damon.ding@rock-chips.com>
+Subject: Re: [PATCH v2 00/10] Add HPD support for Rockchip Analogix DP
+Date: Wed, 05 Aug 2026 00:39:27 +0200
+Message-ID: <5609825.iZASKD2KPV@diego>
+In-Reply-To: <20260804081717.741404-1-damon.ding@rock-chips.com>
+References: <20260804081717.741404-1-damon.ding@rock-chips.com>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,22 +64,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi Damon,
 
-On Thu, 02 Jul 2026 17:28:16 +0530, Sumit Garg wrote:
-> From: Sumit Garg <sumit.garg@oss.qualcomm.com>
-> 
-> Qcom platforms has the legacy of using non-standard SCM calls
-> splintered over the various kernel drivers. These SCM calls aren't
-> compliant with the standard SMC calling conventions which is a
-> prerequisite to enable migration to the FF-A specifications from Arm.
-> 
-> [...]
+Am Dienstag, 4. August 2026, 10:17:07 Mitteleurop=C3=A4ische Sommerzeit sch=
+rieb Damon Ding:
+> Display-connector mode (DP connector without HPD GPIO):
+>=20
+>   &edp_out_conn {
+>       remote-endpoint =3D <&dp_con_in>;
+>   };
+>=20
+>   dp-con {
+>       compatible =3D "dp-connector";
+>       label =3D "DP OUT";
+>       type =3D "full-size";
+>=20
+>       port {
+>           dp_con_in: endpoint {
+>               remote-endpoint =3D <&edp_out_conn>;
+>           };
+>       };
+>   };
+>=20
+> Display-connector mode (DP connector with HPD GPIO):
+>=20
+>   dp-con {
+>       compatible =3D "dp-connector";
+>       label =3D "DP OUT";
+>       type =3D "full-size";
+>       pinctrl-0 =3D <&edp0_hpd>;
+>       pinctrl-names =3D "default";
+>       hpd-gpios =3D <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+>=20
+>       port {
+>           dp_con_in: endpoint {
+>               remote-endpoint =3D <&edp_out_conn>;
+>           };
+>       };
+>   };
+>=20
+> All four configurations detect cable plug/unplug events correctly.
 
-Applied, thanks!
+hmm, it wasn't working entirely for me though and was still running into
+issues when the display was unplugged on boot.
 
-[09/14] media: qcom: Switch to generic PAS TZ APIs
-        commit: 94d3305d990b055e1561e3b78275344b1f40c86e
+I wiggled around a bit like in the diff below and am now getting correct
+plug and unplug events.
 
-Best regards,
--- 
-Bjorn Andersson <andersson@kernel.org>
+But of course, as the dp-variant of the connector does not provide
+a "detect" and just the "hpd" functionality, it's missing the initial state.
+
+I'm currently not sure how to find out _if_ a panel is connected on boot.
+
+
+In other review comments:
+=2D the bridge could use devm_drm_of_get_bridge() as suggested in
+  the documentation of drm_of_find_panel_or_bridge(), as that would
+  remove the separate panel_bridge creation
+=2D instead of using plat_data->next_bridge _inside_ the driver
+  struct drm_bridge has a field next_bridge already.
+
+
+Heiko
+
+
+=2D------ 8< -------
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/g=
+pu/drm/bridge/analogix/analogix_dp_core.c
+index 877e1b3ca7525..1388640a27de7 100644
+=2D-- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -43,7 +43,7 @@ static const bool verify_fast_training;
+ static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *=
+dp)
+ {
+ 	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod=
+ &&
+=2D	       !dp->force_hpd;
++	       !dp->hpd_bridge && !dp->force_hpd;
+ }
+=20
+ static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+@@ -72,7 +72,7 @@ static int analogix_dp_detect_hpd(struct analogix_dp_devi=
+ce *dp)
+ 	 * Trust connection status from downstream bridge (e.g.,
+ 	 * display-connector with hpd-gpios).
+ 	 */
+=2D	if (dp->plat_data->next_bridge && dp->connection_notified)
++	if (dp->hpd_bridge && dp->connection_notified)
+ 		return 0;
+=20
+ 	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
+@@ -926,10 +926,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, =
+struct drm_connector *conne
+ 	 */
+ 	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
+ 		status =3D connector_status_connected;
+=2D
+=2D	if (!analogix_dp_detect_hpd(dp))
++	else if (!analogix_dp_detect_hpd(dp))
+ 		status =3D connector_status_connected;
+=20
++printk("---> %s status %d\n", __func__, status);
+ 	return status;
+ }
+=20
+@@ -1044,7 +1044,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_=
+device *dp)
+ 		goto out_dp_init;
+ 	}
+=20
+=2D	if (!analogix_dp_require_pm_for_hpd_irq(dp))
++	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+ 		enable_irq(dp->irq);
+ 	return 0;
+=20
+@@ -1187,7 +1187,7 @@ static void analogix_dp_bridge_disable(struct drm_bri=
+dge *bridge)
+ 	if (dp->dpms_mode !=3D DRM_MODE_DPMS_ON)
+ 		return;
+=20
+=2D	if (!analogix_dp_require_pm_for_hpd_irq(dp))
++	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+ 		disable_irq(dp->irq);
+=20
+ 	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
+@@ -1264,6 +1264,7 @@ static void analogix_dp_bridge_notify(struct drm_brid=
+ge *bridge, struct drm_conn
+ 	struct analogix_dp_device *dp =3D to_dp(bridge);
+=20
+ 	dp->connection_notified =3D (status =3D=3D connector_status_connected);
++printk("---> %s connection_notified %d\n", __func__, dp->connection_notifi=
+ed);
+ }
+=20
+ static const struct drm_bridge_funcs analogix_dp_bridge_funcs =3D {
+@@ -1641,6 +1642,13 @@ static int analogix_dp_aux_done_probing(struct drm_d=
+p_aux *aux)
+ 	if (ret && ret !=3D -ENODEV)
+ 		return ret;
+=20
++	/*
++	 * There is a next link in the chain which is not a panel, we should
++	 * expect hotplug-information coming from there.
++	 */
++	if (plat_data->next_bridge && !drm_bridge_is_panel(plat_data->next_bridge=
+))
++		dp->hpd_bridge =3D true;
++
+ 	return component_add(dp->dev, plat_data->ops);
+ }
+=20
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/g=
+pu/drm/bridge/analogix/analogix_dp_core.h
+index d0fb25e543ea0..ecca3b87b4456 100644
+=2D-- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+@@ -169,6 +169,7 @@ struct analogix_dp_device {
+ 	bool			fast_train_enable;
+ 	bool			psr_supported;
+ 	bool			last_bridge_is_panel;
++	bool			hpd_bridge;
+ 	bool			connection_notified;
+=20
+ 	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gp=
+u/drm/bridge/analogix/analogix_dp_reg.c
+index ec5950066f838..6f0d642739ffd 100644
+=2D-- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -182,7 +182,7 @@ void analogix_dp_config_interrupt(struct analogix_dp_de=
+vice *dp)
+ 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+ 	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+=20
+=2D	if (dp->hpd_gpiod) {
++	if (dp->hpd_gpiod || dp->hpd_bridge) {
+ 		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
+ 	} else {
+ 		/*
+@@ -438,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
+ {
+ 	u32 reg;
+=20
+=2D	if (dp->hpd_gpiod)
++	if (dp->hpd_gpiod || dp->hpd_bridge)
+ 		return;
+=20
+ 	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
+@@ -539,6 +539,9 @@ int analogix_dp_get_plug_in_status(struct analogix_dp_d=
+evice *dp)
+ 	if (dp->hpd_gpiod) {
+ 		if (gpiod_get_value(dp->hpd_gpiod))
+ 			return 0;
++	} else if (dp->hpd_bridge) {
++		if (dp->connection_notified)
++			return 0;
+ 	} else {
+ 		reg =3D readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+ 		if (reg & HPD_STATUS)
+
+
+
