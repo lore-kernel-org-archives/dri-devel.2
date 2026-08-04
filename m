@@ -4,83 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7862DC55838
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:44:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 359D9C55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:48:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD00F10EA08;
-	Tue,  4 Aug 2026 12:44:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E24510EA16;
+	Tue,  4 Aug 2026 12:48:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="KPxFt9EP";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="eBqxB7f5";
 	dkim-atps=neutral
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F04DA10EA08
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:44:55 +0000 (UTC)
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D314010EA16
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:48:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785847495;
+ s=mimecast20190719; t=1785847686;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=AhCvAzGz5QWbk/302ntoX0RJ56FBrV8QY/YWkhL/+9Y=;
- b=KPxFt9EP5GqxlwskjyT9NEkaHe78JKqmsKYItSZhw60mKXod30UVSdN6WP9u1snf+2nfrH
- J6ZnP27ES+bhftOpxwBm39+EoFeCLWkRj4QTYZ8oqRXhI+QzNGn9xGwSjwpV76wiWbSm/H
- U0sDkH3x/BOx4nKLjOB/JI/9/L8HHO0=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ bh=V/8cjqgBsD+OEloLI1K1iMex5eqU9Q1Mx8Om0dbP7sg=;
+ b=eBqxB7f5KbqEbM+KNQscqAzr5OAO4dk64XQ+AusGf6fbrp8ocaLwKgDM4gK7BuHMpFe7EK
+ XXxiyZxFUryTgVT9iVZJT+PDNYSozIPqGobdNQphRek1xl/yHwdx2ArHPnQx4OIHW4gexq
+ RyC84ag+KpGFNeNq/ZGIh60Z+nPJscU=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-398-MKHlRXtVPkaPrEaiWwjjfg-1; Tue, 04 Aug 2026 08:44:53 -0400
-X-MC-Unique: MKHlRXtVPkaPrEaiWwjjfg-1
-X-Mimecast-MFC-AGG-ID: MKHlRXtVPkaPrEaiWwjjfg_1785847492
-Received: by mail-wr1-f70.google.com with SMTP id
- ffacd0b85a97d-47f84ac1990so3237323f8f.2
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 05:44:53 -0700 (PDT)
+ us-mta-675-fQwc4wdSMYK9GX1uZZnTAg-1; Tue, 04 Aug 2026 08:48:04 -0400
+X-MC-Unique: fQwc4wdSMYK9GX1uZZnTAg-1
+X-Mimecast-MFC-AGG-ID: fQwc4wdSMYK9GX1uZZnTAg_1785847683
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-475e540a0ffso2934915f8f.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 05:48:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785847492; x=1786452292;
+ d=1e100.net; s=20251104; t=1785847683; x=1786452483;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=AhCvAzGz5QWbk/302ntoX0RJ56FBrV8QY/YWkhL/+9Y=;
- b=Yt0nmuu5M00hdJVGG8gwIe0nlhkKBapshelc1V3xSysuRYt09DywoYoH7eyt5yHKXA
- FX8LUZSooT2PPUeSvPvRIAU7Z/vsIg29c3yQoo/C5WSFKQWvkYWe+JvET0x9UHEmhBZ4
- BbOhVqhNr08BJ0wGAG1EzgtObTwRcX/4WZ2bdyoPuOOGFXXB5w+uudQXblCXMu2vrvmX
- EyGzjAJy/EHA4HOqhM1cdUKApOCH0m+ZMlCdQ0ryRRBSLFjsT8D4YyvNeBH+p+dKFOC0
- dFwOyClfLAMvcD+2GYFCBpBdCvKMfziU8vy2XhFDB/wdEgClrvgcZc0iGpMWh86N440Y
- /iOA==
+ bh=V/8cjqgBsD+OEloLI1K1iMex5eqU9Q1Mx8Om0dbP7sg=;
+ b=QmfLM+WFmy04RaH4MF+LmrI4RZ4YJtYIqy9COMcp5svIjn0OiNUrS1ZwbDjHkPBzIJ
+ xKp+d1PPCS1Oyw8Trs7uI1lZOCvqqE6Y31k143YHsZZ5Z3b90vSUI0e9+eEN4Nq+spCi
+ CyHkc409ZN5YWH5rCi7ENnz9jyNsnJxkcGkS6RCfMtrGoHpDORamrXyYs2cCT470WiEH
+ CAke+KoESdX7VbiwzAwYss5Tblks4/ZePTFZ/LhUkkAVX3HEClmSONdZlasFxT//FnK0
+ E/HPT8jXeGAyyHhEGT4AWZ+SsuXmEbeh78QywOwNMXH6LGFJbZRMkOf4Up1ih93QyMg8
+ v0aQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpZhSY//ifE8NcqpPSrfCeW7z04U41yHO3GRa+3mfVziA3m4Ppa/DW3ySGF5e8v5owS+REyIr+juyQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz0xiPQRijYLbsk5Gpy8diULhzbK0P9BVVFBchO0aQwl0RKh4dY
- 7aHjGJYUw/exeDiHZjXsZc6bJb5kW1+pk+Xq+0iVZTCraqsWHiNQMlHzgO7SRGNaowTi2M/2JQT
- UqMEySq54orLaAlpzjepzu22OHWH231xAPAIjo0L/vZ1XRXLAy5Xd/dISe56mIYjECmEo3bi0wa
- dnFgqPNEJj5MGwwq+tgOx/0N2CG2TEcDiT/h3pVXUojbL0
-X-Gm-Gg: AR+sD12fi/0IA3m4mUgmCQnVGGMUOw/xO1tH5NWTdjcxOnS5dzpg27jIH3/JBQBXpfQ
- I+u3nFwAfo8SKMOyf8yZstgMjVVeE71iUwK8Ekf7hfBfYqqibEr+E7wpbHZiJkT4cgrzWoGyob5
- EtMnArkoKc2CGtKbThVc0yyEA94kDdld9hOJX71YWfZULBefrD4wTnEFl9mJ1xa36pqWGuBj9mE
- UPfWqAPfIR+ESNU10HPcmDhyo5tmcTA9C3T7/t4f7zhkqVzWH6s+pFl6Cs=
-X-Received: by 2002:adf:e196:0:b0:47f:91f0:9a8 with SMTP id
- ffacd0b85a97d-47fd72d9daamr44077311f8f.23.1785847492515; 
- Tue, 04 Aug 2026 05:44:52 -0700 (PDT)
-X-Received: by 2002:adf:e196:0:b0:47f:91f0:9a8 with SMTP id
- ffacd0b85a97d-47fd72d9daamr44077224f8f.23.1785847492081; Tue, 04 Aug 2026
- 05:44:52 -0700 (PDT)
+ AHgh+RpWY1oHn3Ru96MHst9dDCuZb6F4km8eZm6cFvefyl8AHPBviaZq6uD+H9tX3EXn6FTMRn3RCfaGwD8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwaQQ5GbEC66gg8yjty/bfVAJbWkSFX5UbAdxhpvLOUgSfBNPA/
+ dk1GuR0xvenQAlSHqS/7PVr7GiPiTB/hUT1Pnp7ZyOS7jCyXrxLAqvqs0ymy6QkKCkWv3zXZ5Lq
+ 7dH1xB0qd6lU+OHaEy97LrDbR2nr9Pnq+8MaQVWQI5SEr+DlL6QXQUhmsz4KnSX72PWs/tXh/03
+ VOANN9B8jjN7DET5gQ85cd6vD2lKQiNQ1C5xjx1izcvrMf
+X-Gm-Gg: AR+sD104O2HhLzNB4mOpBOZvwOWqrSHtHRPTzwqo2TjNQ38OlGFv+khN8OD2SCKMzXY
+ r3ht9XZwfLQh/JoDzAYeieKaurYISPq8GOtS5paFRGlg6AkhlWyz+C6t8efwaFNI9fSWBqg9Njg
+ +B7mt0h9Fcbj1ld8LtkqySm/X43/yaSJNbkAfR/zN5XVkNkuua7teMoXQ2eeI1zzceaL5PyAOuA
+ t8doI8Od/TvzOrhF0mLBcMLVBLVp4XHji8txxaa6bvWSAi++CoJKGW/ATI=
+X-Received: by 2002:a5d:6347:0:b0:47f:7b75:9dfe with SMTP id
+ ffacd0b85a97d-47fd72ba981mr33399481f8f.8.1785847683359; 
+ Tue, 04 Aug 2026 05:48:03 -0700 (PDT)
+X-Received: by 2002:a5d:6347:0:b0:47f:7b75:9dfe with SMTP id
+ ffacd0b85a97d-47fd72ba981mr33399406f8f.8.1785847682947; Tue, 04 Aug 2026
+ 05:48:02 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260804120529.1730187-1-pbonzini@redhat.com>
- <20260804120529.1730187-5-pbonzini@redhat.com>
- <20260804122348.AC6E51F00A3D@smtp.kernel.org>
-In-Reply-To: <20260804122348.AC6E51F00A3D@smtp.kernel.org>
+ <20260804120529.1730187-4-pbonzini@redhat.com>
+ <20260804122128.838941F000E9@smtp.kernel.org>
+In-Reply-To: <20260804122128.838941F000E9@smtp.kernel.org>
 From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 4 Aug 2026 14:44:40 +0200
-X-Gm-Features: AUfX_mzeBd9D7i9RK65m6Y6i1uzG2a-w4C9IIV172eXDDgUNWsdPG5F7opYXrlc
-Message-ID: <CABgObfbd63O_UkmCcik1z0J847Sr6a5rnFgwttBjBb0am=+2PQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/6] kvm: apply VM_READ/VM_WRITE checks to all VMA types
+Date: Tue, 4 Aug 2026 14:47:49 +0200
+X-Gm-Features: AUfX_mzc1UECOTjr13bdYLDwoSBcmazBIfNKBtso7fBXqj8NWhSnjvnTNjTJWfA
+Message-ID: <CABgObfb9-cEUykbZD5C5LMz8Otk8hJk-OCzgRq=HvU3-s9NSVw@mail.gmail.com>
+Subject: Re: [PATCH v2 3/6] drm/ttm, drm/vmwgfx: directly create writable PTEs
+ when mkwrite is in use
 To: sashiko-reviews@lists.linux.dev
-Cc: Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, Alexander Gordeev <agordeev@linux.ibm.com>, 
- dri-devel@lists.freedesktop.org
+Cc: Heiko Carstens <hca@linux.ibm.com>, linux-s390@vger.kernel.org, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ dri-devel@lists.freedesktop.org, kvm@vger.kernel.org
 X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: tPVlpxPVtc57xN-yo1HfTiq88Mp4K27COXemUYJ6f8E_1785847492
+X-Mimecast-MFC-PROC-ID: WmiP4KJ0zQmc-FlVCZLK4aYMIYMx9oi0lqjauFH9VlE_1785847683
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
@@ -99,30 +99,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 4, 2026 at 2:23=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+On Tue, Aug 4, 2026 at 2:21=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 >
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
 e(s) to consider:
-> - [High] Write faults on write-only `VM_IO | VM_PFNMAP` VMAs are incorrec=
-tly rejected, breaking guest writes to write-only device memory.
 >
-> If a guest performs a memory write to a guest physical address backed by =
-a
-> write-only host VMA (e.g. VM_IO or VM_PFNMAP mapped with PROT_WRITE but
-> without PROT_READ), get_user_pages() will fail and fall back to this look=
-up.
+> New issues:
+> - [High] Missing dirty page tracking in vmw_bo_vm_fault() when prefaultin=
+g fails, leading to silent data loss.
 >
-> Since the write-only VMA lacks VM_READ, this check will evaluate to true =
-and
-> return KVM_PFN_ERR_FAULT, skipping the VM_IO | VM_PFNMAP handler. Could t=
-his
-> prevent guests from writing to legitimate write-only device memory, such =
-as
-> command ring buffers or write-only PCI BARs?
+> Pre-existing issues:
+> - [High] Inverted error handling logic in ttm_bo_vm_fault_reserved() hide=
+s primary fault errors and propagates prefault errors.
 
-This is theoretical only but actually a bugfix, because KVM does not
-support write-only mappings and therefore it would not be possible to
-enforce !PROT_READ/PROT_WRITE.
+Fixing the preexisting bug avoids the other issue - I sent a patch
+separately at https://lists.freedesktop.org/archives/dri-devel/2026-August/=
+586696.html.
 
 Paolo
 
