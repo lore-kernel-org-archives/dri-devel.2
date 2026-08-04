@@ -4,45 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1155BC5518F
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:44:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93A36C55172
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:48:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D53A10E911;
-	Tue,  4 Aug 2026 08:44:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C6CB410E129;
+	Tue,  4 Aug 2026 08:48:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CHEgP5Vd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BoVsYl+Z";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EC10A10E913
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:44:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4CBB960A71;
- Tue,  4 Aug 2026 08:44:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC3321F00A3A;
- Tue,  4 Aug 2026 08:44:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785833055;
- bh=Hp5IKlJ+B5dWx88dWAZGpSS/znrzf0raS+wi/FkjJPg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CHEgP5VduRhJn0rh9hB57MDdhMF7+71H7VUYtQKCAeyXvrDtvo4w3DhYFo6O0tuNt
- a4bnVFsP6EB7IbQLB23BiiW0fyZkxiUXCC2VajTLBQJDVxrO+aP+5r7V8rYRGrCiat
- XGxwBOofUW2Vc35s0ihWUDNn/9wBoZjhYJTM4K4/rhUOvda5m8uvcniKpjHMwVsKFg
- BG8TLB0t9+i6FVXNPcOCAMcJuBNWM9J2Z0UAMXiYYfYVIlEMtuXQGs4GgfjUiDovPL
- mLwycIBnmZiXYUkPoiNgEr+a4NNSy/IF5AEZj2q2vyZBpvD+74iwt4KqQ4R7A4nmrL
- oBcqGBI/8wp/A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 4/6] drm/ttm: Split cgroup charge and resource
- allocation
-To: "Natalie Vock" <natalie.vock@gmx.de>
-Cc: tj@kernel.org, dri-devel@lists.freedesktop.org, mkoutny@suse.com,
- hannes@cmpxchg.org
-In-Reply-To: <20260804-dmemcg-aggressive-protect-v8-4-07af96681bf8@gmx.de>
-References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
- <20260804-dmemcg-aggressive-protect-v8-4-07af96681bf8@gmx.de>
-Content-Type: text/plain; charset=utf-8
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AB31D10E129
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:48:08 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C11E260A75
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:48:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 71C6AC2BCF5
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:48:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1785833287;
+ bh=F1oCHQ2mTVVJFzX3Qut2ycI7vonafQ5B39+vbHw51Dc=;
+ h=From:To:Subject:Date:In-Reply-To:References:From;
+ b=BoVsYl+ZgIPeXtiNXLHCWhsLe+PDmLEDMgoDSfAF+CHu659yi0Mho3D2AyojDORkY
+ 7+AR7j8G+U4RhGKyjPqdDXB0ZpbiwSXM0avGSYihbEOjifxpC/McTO3+cj4b7QIZge
+ Xl+fh2jZcZ1ri78gAmaw9rhx97c+W6zWhA2ZFTnZFfkw5OiNpl0FrAxLryvZAIHyET
+ SeQB6a94WGPKmOC3MPbILJzwm3CP6YsXnc7u+5ZKC9wPzU6AzUVw54buwyoCYo9lcZ
+ pwSSwMMplL8RnxV9172l4YvFeelaeTicBDAtlqp/fydXyxeQXpcML6HjZmbSnG87yL
+ T1a8h6rLsswfA==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id 538AAC41612; Tue,  4 Aug 2026 08:48:07 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221827] Backlight regression with 7.1.6
+Date: Tue, 04 Aug 2026 08:48:07 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: changed
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: regressions@leemhuis.info
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: cc
+Message-ID: <bug-221827-2300-y7ENeI0DRn@https.bugzilla.kernel.org/>
+In-Reply-To: <bug-221827-2300@https.bugzilla.kernel.org/>
+References: <bug-221827-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 08:44:14 +0000
-Message-Id: <20260804084414.CC3321F00A3A@smtp.kernel.org>
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,124 +71,37 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221827
 
-New issues:
-- [High] Eviction walk continues to restrict evictions to a specific cgroup=
- even after its memory limit is satisfied, causing spurious allocation fail=
-ures under global memory pressure.
+The Linux kernel's regression tracker (Thorsten Leemhuis) (regressions@leem=
+huis.info) changed:
 
-Pre-existing issues:
-- [Critical] dmem_cgroup_get_common_ancestor returns a pool without a CSS r=
-eference, but the caller puts it using dmem_cgroup_pool_state_put which dro=
-ps a CSS reference, leading to a CSS refcount underflow.
---
+           What    |Removed                     |Added
+----------------------------------------------------------------------------
+                 CC|                            |mario.limonciello@amd.com,
+                   |                            |regressions@leemhuis.info
 
---- Patch [4]: [PATCH v8 4/6] drm/ttm: Split cgroup charge and resource all=
-ocation ---
-commit aa5cab6f4c763e172491a34bffbf1a67e37f5262
-Author: Natalie Vock <nat@pixelcluster.dev>
+--- Comment #1 from The Linux kernel's regression tracker (Thorsten Leemhui=
+s) (regressions@leemhuis.info) ---
+(In reply to Raymond Jay Golo from comment #0)
+> Upon upgrading to 7.1.6, backlight at 100% is set to dimmest level.
 
-drm/ttm: Split cgroup charge and resource allocation
+@Mario, this is apparently caused by the following change of yours that was
+backported to 7.1.y: f1b5d8f9cc54ae ("drm/amd/display: Fix backlight
+max_brightness to match exported range") [v7.2-rc4, v7.1.6 (1191285ecb4233),
+v6.18.42]
 
-This patch decouples resource allocation from cgroup charging to address=20
-raciness when checking min/low cgroup limits during eviction. It charges=20
-the allocation to the cgroup once and keeps the charge for the duration of
-the resource allocation attempt.
-
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index 1cdb2172d5924..3becddd2c43b8 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
-[ ... ]
-> @@ -518,18 +522,39 @@ static int ttm_bo_alloc_at_place(struct ttm_buffer_=
-object *bo,
->  	bool may_evict;
->  	int ret;
-> =20
-> -	may_evict =3D force_space && place->mem_type !=3D TTM_PL_SYSTEM;
-> -
-> -	ret =3D ttm_resource_alloc(bo, place, res,
-> -				 force_space ? &alloc_state->limit_pool : NULL);
-> +	may_evict =3D !alloc_state->in_evict && force_space &&
-> +		    place->mem_type !=3D TTM_PL_SYSTEM;
-> +	if (!alloc_state->charge_pool) {
-> +		ret =3D ttm_resource_try_charge(bo, place, &alloc_state->charge_pool,
-> +					      force_space ? &alloc_state->limit_pool
-> +							  : NULL);
-
-[Severity: High]
-If ttm_resource_try_charge() succeeds during an eviction callback (where
-force_space is false), alloc_state->limit_pool is not cleared.
-
-If the subsequent physical resource allocation still fails due to global
-memory pressure, the eviction walk will continue.
-
-Because alloc_state->limit_pool remains set, will the LRU walk continue to
-only evict buffers from that specific cgroup, eventually causing a spurious
--ENOSPC failure if that cgroup has no more evictable buffers?
-
-> +		if (ret) {
-> +			/*
-> +			 * -EAGAIN means the charge failed, which we treat
-> +			 * like an allocation failure. Therefore, return an
-> +			 * error code indicating the allocation failed -
-> +			 * either -EBUSY if the allocation should be
-> +			 * retried with eviction, or -ENOSPC if there should
-> +			 * be no second attempt.
-> +			 */
-> +			if (ret =3D=3D -EAGAIN)
-> +				ret =3D may_evict ? -EBUSY : -ENOSPC;
-> +			return ret;
-> +		}
-> +	}
-[ ... ]
-> @@ -584,8 +609,10 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk=
-, struct ttm_buffer_object *
-> =20
->  	evict_walk->evicted++;
->  	if (evict_walk->res)
-> -		lret =3D ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
-> -					  evict_walk->res, NULL);
-> +		lret =3D ttm_bo_alloc_at_place(evict_walk->evictor,
-> +					     evict_walk->place, false,
-> +					     evict_walk->res,
-> +					     evict_walk->alloc_state);
-
-[Severity: Critical]
-This is a pre-existing issue, but I noticed a potential refcount underflow
-involving the ancestor pool earlier in ttm_bo_evict_cb().
-
-dmem_cgroup_get_common_ancestor() explicitly drops its CSS reference before
-returning the pool:
-
-kernel/cgroup/dmem.c:dmem_cgroup_get_common_ancestor() {
-    ...
-    if (IS_ERR(pool))
-        pool =3D NULL;
-    css_put(ancestor_css);
-    return pool;
-}
-
-However, in ttm_bo_evict_cb(), the ancestor pool is freed using
-dmem_cgroup_pool_state_put():
-
-    if (ancestor)
-        dmem_cgroup_pool_state_put(ancestor);
-
-Since dmem_cgroup_pool_state_put() calls css_put(&pool->cs->css), doesn't
-this drop a CSS reference that the caller does not own, potentially leading
-to a use-after-free of the cgroup subsystem state?
-
->  	if (lret =3D=3D 0)
->  		return 1;
->  out:
+@Raymond: This might be a general problem or something specific to the
+backport. Testing 7.2-rc6 or later is thus advised. You might also want to
+attach dmesg files separately from a working and a broken kernel, as they m=
+ost
+likely will be helpful for debugging.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-dmemcg-agg=
-ressive-protect-v8-0-07af96681bf8@gmx.de?part=3D4
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
