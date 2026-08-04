@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80B1AC55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 09:44:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24609C55184
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 09:44:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B910D10E979;
-	Tue,  4 Aug 2026 09:44:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80E0D10E97B;
+	Tue,  4 Aug 2026 09:44:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PitF+G7r";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2BS5ym5v";
 	dkim-atps=neutral
 Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011027.outbound.protection.outlook.com [52.101.62.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61DC610E979;
- Tue,  4 Aug 2026 09:44:21 +0000 (UTC)
+ (mail-centralusazon11011063.outbound.protection.outlook.com [52.101.62.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A4B110E978;
+ Tue,  4 Aug 2026 09:44:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=uG7PI1xz4Nk3UzNY+15pAwUYjGsnWuux8DI2+GfuatXtAfdeCkmtTuvtg+b5cuxZGRq3yRRxKLjGwdKlDVJiMCLe1jlXoE5vfRTvExVWvM/6e5w31gH5jhJdbKjMZEiFD9OAfLCUYeQsR91c1fEQxI8Wq5bNSxL+UitzgFCxk4gCCRqXngPf0kVHDUkVfq4YQLY7GXYyFfWhov1mD3BzbPGTmYFJqvTE5IlOdmXiXpNPXQmgYwU1/JX36F0qPrAkfOy0CYQWQo2LHUOY/aIw1aW0b5vwCunv0OHPzXLLb6Q9HcccKkuaS8M7n5Q10aTBq8xCGBTijKCx9915TbKtPQ==
+ b=o1IpPAFvBUQn+fiPQxCEofTlzU5QW4QI+dcVTisetZ2c07G1rigf+WAbgutYMRfq98T3y6nI+gfFGhoZzOOMxUtV+Es4FRNSQEp++GRls79PygSEQKWDq2sXwUDz4XIlxwwXwPIplBz/TjTZ9UVWXW+zdrhbp+04dsK4j6acriaKIToiw2Xyup4r6Vui0u/nFA6wJpvi7TRIFEQvAb7I5xQE5TAU3PdD5QQvoZGynXqIbBzyoN3tP3yK/to3NplBHCPptB8Uob9ccknXQsfCILXRJ3c8hp/0Sy5K0YU6dH+r+8e6woFBysM4YOWqBad5lOR/NcKradhJQo3aDGxz+w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c50gO5gyXQwG8l5JnyKSG86oTnvo9knV8m64pk6PTbQ=;
- b=dXx0tPjXNWKm/AgvkNWlGDefwWvGTefNE50wNS8/isArgdOwuhOG0arBCR7/b4z/D1TdaPmu2Z6da4lnZY9jc6FD9OEbJ/1TmA30bo7XcpWCfs+v0OHH0POSP8XnuBtthFjvzOHlHjt+WNJEQpqvPJo2bJSccbkxFo24onaGLhkdwU94xPA9nk+wL6WAG76NvCytR3xshBa3Z7zQCpY5LsJkiHSgcNVQ0NOmFQbsoUXORMA5Z/dbd+56iRq2x/gC84Y0CQAdSpD/lZTjU9IbFREHRgHDcrwUZ2LusLyrB5FyC6tOTRDpgpqw1zvDEAB1gT8jDPuoJ3lVBHVLiN30xw==
+ bh=6iBZr/42FOYZPvDOoadtnPKHf3RJxshzt2ICCiocSI8=;
+ b=RRx7lF+ijgoIVEAQkS0jay2S7L2ShwwjUwEIqIa1XBc2CjZwiJ6re7+tvgJNtWdXNbQ7ZdL/ZtefKTL0Ofo3K1LCh10aSo5txnsH8owbOY6OjS8GwS3HyQVuvvhx4H7De7dUr6CyJYDh7kJWbgh1oA4b1xqsD2UfaQFygfEV+OOa4P7vQ4lbzIriwE3CQWl5sAD1w78wIqVUiwnDYdj3Aq6T9XmPepnVpy0NnmD1dhm07Kg0o8ylfkjFVoRUVqETwxLiOVrXsT5tiJoKPpsDhdHSvHebxfOTH1D4aEYI+ZiX6j9+EkpQAEl1dofB/NXD6sERUI8MiUIjHpC/U7A2mA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c50gO5gyXQwG8l5JnyKSG86oTnvo9knV8m64pk6PTbQ=;
- b=PitF+G7r/nFQE0pEzW9wbKj8BjBhtLItDH6dmwdienfhBPcJMiqrvWSyUW6a4qrcO9GS3nnHCPJLY7vbA89c66qLYka/WtS56o9jTvurALh8wEoP+YQ7+zslL7FqVhxa5+3kf+k80f5pyO/XjAJVQnIN2gVwLr5CDczxuuHl9iA=
-Received: from MW4PR03CA0146.namprd03.prod.outlook.com (2603:10b6:303:8c::31)
- by MN2PR12MB4094.namprd12.prod.outlook.com (2603:10b6:208:15f::23)
+ bh=6iBZr/42FOYZPvDOoadtnPKHf3RJxshzt2ICCiocSI8=;
+ b=2BS5ym5v2Ie3k7WiMPrf56y3Cr7ZOOTSYr9k+3Ps0kRpqmcGcOX/CZ2wq2fJLQgyXvsSFsiytCzTaMiDKdegYL0957F27PJxDW2yCcF6n6Z+bIkBXCqACUXAbGeWPZcdXU9Gj4kdcMwJQqcr65cuN5jq9G+pJ6P0pEP6KSvhUYg=
+Received: from MW4PR03CA0135.namprd03.prod.outlook.com (2603:10b6:303:8c::20)
+ by SAWPR12MB999165.namprd12.prod.outlook.com (2603:10b6:806:4e1::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
- 2026 09:44:15 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Tue, 4 Aug
+ 2026 09:44:20 +0000
 Received: from CO1PEPF000066E9.namprd05.prod.outlook.com
- (2603:10b6:303:8c:cafe::41) by MW4PR03CA0146.outlook.office365.com
- (2603:10b6:303:8c::31) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:303:8c:cafe::8) by MW4PR03CA0135.outlook.office365.com
+ (2603:10b6:303:8c::20) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.18 via Frontend Transport; Tue, 4
- Aug 2026 09:44:15 +0000
+ Aug 2026 09:44:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  CO1PEPF000066E9.mail.protection.outlook.com (10.167.249.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 09:44:15 +0000
+ 15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 09:44:19 +0000
 Received: from hr-amd.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
- 2026 04:44:10 -0500
+ 2026 04:44:14 -0500
 From: Huang Rui <ray.huang@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Philip Yang
  <Philip.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Felix
@@ -68,44 +68,44 @@ CC: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>, "Jenny
  "Honglei
  Huang" <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>, Yiru Ma
  <yiru.ma@amd.com>, Huang Rui <ray.huang@amd.com>
-Subject: [PATCH v9 15/18] drm/amdgpu: implement synchronous TTM eviction for
- SVM BOs
-Date: Tue, 4 Aug 2026 17:42:41 +0800
-Message-ID: <20260804094246.1719318-16-ray.huang@amd.com>
+Subject: [PATCH v9 16/18] drm/amdgpu: hook up ZONE_DEVICE registration in
+ device init and reset
+Date: Tue, 4 Aug 2026 17:42:42 +0800
+Message-ID: <20260804094246.1719318-17-ray.huang@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260804094246.1719318-1-ray.huang@amd.com>
 References: <20260804094246.1719318-1-ray.huang@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E9:EE_|MN2PR12MB4094:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0968ab39-6463-493c-339c-08def20cf27a
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E9:EE_|SAWPR12MB999165:EE_
+X-MS-Office365-Filtering-Correlation-Id: 633c5500-1e56-4fec-2819-08def20cf4ee
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|1800799024|376014|82310400026|921020|6133799003|56012099006|11063799006|5023799004|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: nD4NFcQ2NkXt4MqMiQrNl90D7pB1yiNORHsAz5gqIx+XrQGAO0YhmljHc3+G8UmgZQk+FhGh47/nSh4mCWC8MK1wY+aFWwn8fuEfooXYeoxqiTWFvIBRlRuH0ZUJoi36SbMS4pBrYP36kOW5xvhhanmvtqVv9ezYm8TRqbuAtOVSYob49CnZHSl5Foea9QivfCnDUEy6X3/wKvzoHrBp1Eh152yAAuw0F2SfW9nhA0GQ0cYqeBscLQUUjQvpGymjgbcAONe/QEFIyFUj32BjhOISIzm+1wFJd1RKar93kXXKjlZ3TDc5FKnXlAz6KZUkrjOP33QFyxSah7NkowkMxsauERw+9fUjyQlew2nnw2cURsrms/QZQPvJWt4IgHYfjr3o15gR+15HgmJVRUCFYntrzYWIT3U4uJu4O89fMkRH6r/WlCjRdk/8CnNV/7RWQeq0Tz0xCUuxWSsNjd8PXk2nFY8TKC3AuoEYI6j7omFsnj2Xeg6yC5mrSnniVhhmsha9x/Bhd//xPAzg6J0duMocWy8TH/e3V2w/UEkDjbLC/y2FNEmhCfK7CU8ieuYRS1vyiiUEEkrfN9RSrTDqdLu5qHoq4XsWPAvt/gedyG+cPh1IzU3q5dEXx8v7QsFIAFu+Gwv1UITYO71ZLlsaNHIvAmPRcWRmvx3+D2KzhFY33ivcaE1JJq4SERhG8vee/78nhH0HuXbTmEJQOZypsAAS7SB2e0avbKlt90O+GSAuCw8RQHgD1iTjxsOcL59t
+ ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|921020|6133799003|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: GIyyySorYy6hFBhhnHoJrOsc3y8qxST4NQbrLqs3diz7hpqI1MPXeM5S+CwPF55zJrIG3J6o06i0ZgHsKZBWcyDj6UL1XQf/UqOVih3TSmcLO9ziaIrDzoYcErLQGf8wVXtB3wp+YUKVJMkHl/ThrFqef8HtohfY0rl0a3hMyuuDoYGyU1hFQ8Mjs7PvU/rlNYx2ofuZMFJkslfeoALVjcfhIcX28DQpqfDM2Fu1UR7CAjpEFc4y0MxnIe+DfGdGVQtzn5jO4LKONE8Nxl86CY79mjtL5mPHisdk8kS8zuMNUgIWhMg9zthJXMCorKxszwFWJz+WtrEI/RiRHkqhgcGcXO8hOTTS2hgugXl6Xms2sOCfytInTHNp4awk8irHVq6GrY+FYjZu6+4sr3mUnZ4yP2VAoDBqTV0U3QgW9Kh6OzmVgCjrzrRVsmhrCtioBfutoJIpD6qL9MidCAHmKRQN/QFJV8wPp14qj05uA8SIyiREKZS5qSacfrBA1HpCPqPx7BzB+hCr4gXDicUg99qluxSnDQAXyHyeCXYkdwacttuJyEwYFovE6PJL4kc5v9GveFwL/1Vaprr8hXESChpw+bkTJP+BNzHNKRHMEKyBVpp1oaBAtgBamkVQIvdUAGMKYlKkUurMVVCZ3yBhuTLFGLPYx5wtNUGrkBNlC1Co+r54kKQanbSIMtPOLNh8CjJjtZisrZTz9fHPb+9RSo3wuRGfdv2o+xktb/6LEvOe/vDlt6O92T/V4spFewAO
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(1800799024)(376014)(82310400026)(921020)(6133799003)(56012099006)(11063799006)(5023799004)(10067099003)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(921020)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: T9FfTxovWNsGSCFam+MvYwDzn5YhJouxlZyzExEUxl3EUBZgXxmcwsiv0uGJf567sMc9e3UpoD3NmS8qPbD0+pc1wMG6tvAPaTjrv99DrItANiEH83n5feVynqqmcr6ew7ZLVpi1P4Q6ytcby8tfb7dtq4ugHgR1I0/dbjm3kDoAIEG4nwWdPSXzLAFtVf3talWjiCg93V3H15aLs3Tazl0uqW1LvZH0ZbcW4c2oTZXpnQFTnpbtXHY8Gy8eQOYuP4ru0bb9KOxdHxy4GFlLEFK4robdy3+8vxhViM5urhReYjwVxXxpJZB2P+TllZXpI2HVaav7iu7weEdR6fgRJCpf0yRNj1iHQPG7KSTDQ/ZjetLEAMOAwwgZd94eNcXgHoWacLcOJ3/1H1iz6Yr0SoAfSN4AcBnllRsayqHwHg9GJOy4eP07qwV1q/US3N60
+X-MS-Exchange-AntiSpam-MessageData-0: ddKtTzbpJb1CrmyhvKuR9DHA8DVEMsdWRZMRvDirvl2SSeqraNEgXnlm7l01TMOTHnYjOFoIjr0+f3ZU2QNl1WxGpP5k3GYpT0fUw8f41ROkSRLkEHU08BiFk1GFgDu4emVrW8v4WeEDG6FjObHcFqkyiDn8uQSD4cxrqCkDun3LjVgv9ar2jjdjugpGWkNRh9eSe8XlsjGJ7H5cPiXHv0rcNuto/HRa0EdFVMZiQJ9nttqni1XN1sKeKwX2mWzvuazKCxorEsU/ClhutXS/pu7sKDY0QoQ+mCBXindsO3wNx7RNC2l54n5tjYlOEQzyXw1WN34rrXMVJN1TAgiCD0NYFhtNeBw/N2xQGRZxxQJfsgfsz1a1NMpdZfkMTQOTduLYdWKEom1zO3ykWBZh8TBoBqUJ7h4sUShbCruDCcaQkFUqysbl0g6TquHwnzbH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 09:44:15.3469 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0968ab39-6463-493c-339c-08def20cf27a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 09:44:19.5137 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 633c5500-1e56-4fec-2819-08def20cf4ee
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E9.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4094
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999165
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,196 +123,58 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Junhua Shen <Junhua.Shen@amd.com>
 
-Implement the TTM eviction path for SVM (Shared Virtual Memory) BOs,
-enabling VRAM overcommit scenarios where device-private pages must be
-migrated back to system memory when VRAM is full.
+Call amdgpu_svm_migration_init() in the device initialization and
+XGMI reset-restore paths to register the GPU's VRAM as a ZONE_DEVICE
+region before KFD initialization.
 
-- amdgpu_ttm.c: Add SVM BO detection in amdgpu_evict_flags() to evict
-  directly to SYSTEM domain. Add SVM BO handling in amdgpu_bo_move()
-  to call amdgpu_svm_bo_evict() for VRAM->SYSTEM transitions, which
-  synchronously migrates device-private pages back to RAM via
-  SDMA.
-
-- amdgpu_migrate.c: Add amdgpu_svm_bo_evict() and
-  amdgpu_svm_bo_is_svm() helpers.
-
-- amdgpu_object.c: Register SVM BO destroy callback in
-  amdgpu_bo_is_amdgpu_bo() so TTM eviction can identify and handle
-  SVM BOs correctly.
+This activates the drm_pagemap migration infrastructure.
 
 Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c | 44 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h | 12 ++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c  |  4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     | 20 ++++++++++
- 4 files changed, 79 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c  | 2 ++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
-index 6aeba9220ac41..26b99e3088f23 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
-@@ -64,6 +64,7 @@
- #include <drm/drm_pagemap.h>
- #include <linux/memremap.h>
- #include <linux/migrate.h>
-+#include <linux/sched/mm.h>
- 
- #include "amdgpu_migrate.h"
- #include "amdgpu.h"
-@@ -648,6 +649,49 @@ static const struct drm_pagemap_devmem_ops amdgpu_pagemap_ops = {
- 	.copy_to_ram         = amdgpu_svm_copy_to_ram,
- };
- 
-+/**
-+ * amdgpu_svm_bo_evict - Evict SVM BO by migrating device pages back to RAM
-+ * @bo: The amdgpu_bo to evict (must be an amdgpu_bo_svm)
-+ *
-+ * Called from amdgpu_bo_move() when TTM needs to evict a SVM BO from VRAM.
-+ * Uses drm_pagemap_evict_to_ram() to synchronously migrate all device-private
-+ * pages back to system memory via SDMA.
-+ *
-+ * If the owning process is exiting, there is nothing to migrate; return -EBUSY
-+ * so the TTM eviction LRU walk skips this BO instead of aborting the whole walk
-+ * (which would fail the allocation that triggered the eviction). Hold an mm
-+ * reference across the call so the framework's own dead-mm path stays
-+ * unreachable and any -EFAULT it returns is unambiguously a real error.
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+int amdgpu_svm_bo_evict(struct amdgpu_bo *bo)
-+{
-+	struct amdgpu_bo_svm *sbo = to_amdgpu_bo_svm(bo);
-+	struct mm_struct *mm = sbo->devmem.mm;
-+	int r;
-+
-+	if (!mmget_not_zero(mm))
-+		return -EBUSY;
-+
-+	r = drm_pagemap_evict_to_ram(&sbo->devmem);
-+
-+	mmput_async(mm);
-+
-+	return r;
-+}
-+
-+/**
-+ * amdgpu_svm_bo_is_svm - Check if a TTM BO is an SVM BO
-+ * @tbo: TTM buffer object
-+ *
-+ * Return: true if this is an amdgpu_bo_svm (identified by destroy callback)
-+ */
-+bool amdgpu_svm_bo_is_svm(struct ttm_buffer_object *tbo)
-+{
-+	return tbo->destroy == &amdgpu_bo_svm_destroy;
-+}
-+
- /* drm_pagemap_ops — top-level migration entry points */
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h
-index 56c66851f0a47..e9159e8167dd7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h
-@@ -30,6 +30,8 @@
- #include <linux/workqueue.h>
- 
- struct amdgpu_device;
-+struct amdgpu_bo;
-+struct ttm_buffer_object;
- 
- #define AMDGPU_INTERCONNECT_VRAM	DRM_INTERCONNECT_DRIVER
- #define AMDGPU_INTERCONNECT_P2P		(AMDGPU_INTERCONNECT_VRAM + 1)
-@@ -75,12 +77,22 @@ struct amdgpu_pagemap {
- 
- #if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
- int amdgpu_svm_migration_init(struct amdgpu_device *adev);
-+int amdgpu_svm_bo_evict(struct amdgpu_bo *bo);
-+bool amdgpu_svm_bo_is_svm(struct ttm_buffer_object *tbo);
- #else
- static inline
- int amdgpu_svm_migration_init(struct amdgpu_device *adev)
- {
- 	return 0;
- }
-+static inline int amdgpu_svm_bo_evict(struct amdgpu_bo *bo)
-+{
-+	return -ENODEV;
-+}
-+static inline bool amdgpu_svm_bo_is_svm(struct ttm_buffer_object *tbo)
-+{
-+	return false;
-+}
- #endif
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index 4dd7c712b8c31..d6ea8737dedc5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -43,6 +43,7 @@
- #include "amdgpu_vram_mgr.h"
- #include "amdgpu_vm.h"
- #include "amdgpu_dma_buf.h"
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index dc8c650fc3416..b5b6b2a1eb066 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -78,6 +78,7 @@
+ #include "amdgpu_reset.h"
+ #include "amdgpu_virt.h"
+ #include "amdgpu_dev_coredump.h"
 +#include "amdgpu_migrate.h"
  
- /**
-  * DOC: amdgpu_object
-@@ -93,7 +94,8 @@ static void amdgpu_bo_user_destroy(struct ttm_buffer_object *tbo)
- bool amdgpu_bo_is_amdgpu_bo(struct ttm_buffer_object *bo)
- {
- 	if (bo->destroy == &amdgpu_bo_destroy ||
--	    bo->destroy == &amdgpu_bo_user_destroy)
-+	    bo->destroy == &amdgpu_bo_user_destroy ||
-+	    amdgpu_svm_bo_is_svm(bo))
- 		return true;
+ #include <linux/suspend.h>
+ #include <drm/task_barrier.h>
+@@ -4102,6 +4103,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
  
- 	return false;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index cf78d70204941..6632abd92311b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -59,6 +59,7 @@
- #include "amdgpu_hmm.h"
- #include "amdgpu_atomfirmware.h"
- #include "amdgpu_res_cursor.h"
+ 	/* Don't init kfd if whole hive need to be reset during init */
+ 	if (adev->init_lvl->level != AMDGPU_INIT_LEVEL_MINIMAL_XGMI) {
++		amdgpu_svm_migration_init(adev);
+ 		kgd2kfd_init_zone_device(adev);
+ 		kfd_update_svm_support_properties(adev);
+ 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+index da77e0ef129ba..c2ea540e392b4 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c
+@@ -25,6 +25,7 @@
+ #include "aldebaran.h"
+ #include "sienna_cichlid.h"
+ #include "smu_v13_0_10.h"
 +#include "amdgpu_migrate.h"
- #include "bif/bif_4_1_d.h"
  
- MODULE_IMPORT_NS("DMA_BUF");
-@@ -121,6 +122,15 @@ static void amdgpu_evict_flags(struct ttm_buffer_object *bo,
- 		return;
- 	}
- 
-+	/* SVM BOs must evict directly to system memory for drm_pagemap
-+	 * migration back to RAM in amdgpu_bo_move().
-+	 */
-+	if (amdgpu_svm_bo_is_svm(bo)) {
-+		amdgpu_bo_placement_from_domain(abo, AMDGPU_GEM_DOMAIN_CPU);
-+		*placement = abo->placement;
-+		return;
-+	}
-+
- 	switch (bo->resource->mem_type) {
- 	case AMDGPU_PL_GDS:
- 	case AMDGPU_PL_GWS:
-@@ -576,6 +586,16 @@ static int amdgpu_bo_move(struct ttm_buffer_object *bo, bool evict,
- 		abo->flags &= ~AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED;
- 	}
- 
-+	/* SVM BO eviction: migrate device-private pages back to RAM */
-+	if (amdgpu_svm_bo_is_svm(bo) &&
-+	    old_mem->mem_type == TTM_PL_VRAM &&
-+	    new_mem->mem_type == TTM_PL_SYSTEM) {
-+		r = amdgpu_svm_bo_evict(abo);
-+		if (!r)
-+			ttm_bo_move_null(bo, new_mem);
-+		return r;
-+	}
-+
- 	if (adev->mman.buffer_funcs_enabled &&
- 	    ((old_mem->mem_type == TTM_PL_SYSTEM &&
- 	      new_mem->mem_type == TTM_PL_VRAM) ||
+ static int amdgpu_reset_xgmi_reset_on_init_suspend(struct amdgpu_device *adev)
+ {
+@@ -87,6 +88,7 @@ static int amdgpu_reset_xgmi_reset_on_init_restore_hwctxt(
+ 		return r;
+ 	list_for_each_entry(tmp_adev, reset_device_list, reset_list) {
+ 		if (!tmp_adev->kfd.init_complete) {
++			amdgpu_svm_migration_init(tmp_adev);
+ 			kgd2kfd_init_zone_device(tmp_adev);
+ 			amdgpu_amdkfd_device_init(tmp_adev);
+ 			amdgpu_amdkfd_drm_client_create(tmp_adev);
 -- 
 2.53.0
 
