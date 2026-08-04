@@ -4,61 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12CE0C55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:22:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4322C55838
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:23:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54B0910EA03;
-	Tue,  4 Aug 2026 12:22:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB1110EA04;
+	Tue,  4 Aug 2026 12:23:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EIUa5gt9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jz6PI/ia";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4017310EA03
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:22:37 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 639E760A73
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:22:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1B09CC2BCF7
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:22:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1785846156;
- bh=fc3NK3Z5gTfQuQV8OPlKWQEn321KPyuhoySiXMW0wzk=;
- h=From:To:Subject:Date:In-Reply-To:References:From;
- b=EIUa5gt9+5J+VPQZmlG9jcYTx41pb6mPKUpUEAJy/I1+4ZL+DFDlCM9w9fVJeJasi
- ADSoz9s9hmf2eB0lL4AtRI5YVfUrSlmmuiJj6B+MYNk+Da6/ooRPWKUfeJNwAM9fBy
- XuK109zraHN+JiWQhru7nKOspT/pIeKewhi4cr+rsAITB3Elseb9vC8wV46pSPHrId
- jjv/F+m09A4i+BpZs0KAyKFzA9FCh6fHlO0tQi8by8RoOtsZk7wHospvaZY0tp4peB
- Cr2CBWg4Tqf53roiHLVkauxgmppn5WTxovqT6beu9p5a8yayVlT8hJcgPkQU+zVoby
- xEh+JC2HHZmDA==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 0B118C53BBF; Tue,  4 Aug 2026 12:22:36 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: dri-devel@lists.freedesktop.org
-Subject: [Bug 221827] Backlight regression with 7.1.6
-Date: Tue, 04 Aug 2026 12:22:35 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: changed
-X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Product: Drivers
-X-Bugzilla-Component: Video(DRI - non Intel)
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: normal
-X-Bugzilla-Who: aros@gmx.com
-X-Bugzilla-Status: RESOLVED
-X-Bugzilla-Resolution: ANSWERED
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: cf_kernel_version
-Message-ID: <bug-221827-2300-pnAef7emUo@https.bugzilla.kernel.org/>
-In-Reply-To: <bug-221827-2300@https.bugzilla.kernel.org/>
-References: <bug-221827-2300@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 211C010EA04
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:23:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 68E5760A77;
+ Tue,  4 Aug 2026 12:23:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6E51F00A3D;
+ Tue,  4 Aug 2026 12:23:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785846229;
+ bh=2KQXGRcKEg+TweibH2l3N8b15Hx4fsIJOaOhHMa5qDY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jz6PI/iawhNWY7K60RXBx7DqXo1XuEmEInNOmsPpbUTM+xCDGkF6OZ7SW2MgZtcHN
+ 0bv8dh0VW6MNgJbJjNdoV5SlNvJNrPpXRqKoyY5eCugX6JRscsatBa9RU0HtUo/lrg
+ agoSujMLN9xWNbcFjihpvUxdwCTnyuiM7ItZ9VdTbNcjPQuwk8MwUZNvlkzN8zz6ZW
+ ep9hD8reXjZdlLHG2NGJ5lIhf006AqTboatVpzj12Y7wEejXOXupYvBEt5mJtwMFXl
+ 9rnP9m/MYIpDyvln7OACA01EahCd7uvnqxfSloaPqLfur6OPQVgvhARwIQMEj9FTxU
+ eEvh7m/iE50Vg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/6] kvm: apply VM_READ/VM_WRITE checks to all VMA types
+To: "Paolo Bonzini" <pbonzini@redhat.com>
+Cc: "Vasily Gorbik" <gor@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org, "Alexander
+ Gordeev" <agordeev@linux.ibm.com>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260804120529.1730187-5-pbonzini@redhat.com>
+References: <20260804120529.1730187-1-pbonzini@redhat.com>
+ <20260804120529.1730187-5-pbonzini@redhat.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
-MIME-Version: 1.0
+Date: Tue, 04 Aug 2026 12:23:48 +0000
+Message-Id: <20260804122348.AC6E51F00A3D@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,19 +55,71 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221827
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Write faults on write-only `VM_IO | VM_PFNMAP` VMAs are incorrectl=
+y rejected, breaking guest writes to write-only device memory.
+--
 
-Artem S. Tashkinov (aros@gmx.com) changed:
+--- Patch [4]: [PATCH v2 4/6] kvm: apply VM_READ/VM_WRITE checks to all VMA=
+ types ---
+commit 254a4090eb1ddc66d1d90350bb0e3ef36a2ee158
+Author: Paolo Bonzini <pbonzini@redhat.com>
 
-           What    |Removed                     |Added
-----------------------------------------------------------------------------
-     Kernel Version|6.1.7                       |7.1.6
+kvm: apply VM_READ/VM_WRITE checks to all VMA types
+
+This commit moves the VM_READ and VM_WRITE checks to the beginning of the
+fallback VMA lookup block in hva_to_pfn(). This standardizes the error
+return codes across remapped and regular VMAs, eliminating inconsistencies
+in how RO faults are handled.
+
+> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+> index 45e784462ec6e..576bcb21be3a6 100644
+> --- a/virt/kvm/kvm_main.c
+> +++ b/virt/kvm/kvm_main.c
+[ ... ]
+> @@ -3008,20 +2997,29 @@ kvm_pfn_t hva_to_pfn(struct kvm_follow_pfn *kfp)
+>  retry:
+>  	vma =3D vma_lookup(current->mm, kfp->hva);
+> =20
+> -	if (vma =3D=3D NULL)
+> +	/*
+> +	 * GUP failed.  It could be an inaccessible mapping, a pfnmap one,
+> +	 * or the page might be absent.
+> +	 */
+> +
+> +	if (vma =3D=3D NULL || unlikely(!(vma->vm_flags & VM_READ))) {
+
+[Severity: High]
+Does this unconditionally reject write-only mappings?=20
+
+If a guest performs a memory write to a guest physical address backed by a
+write-only host VMA (e.g. VM_IO or VM_PFNMAP mapped with PROT_WRITE but
+without PROT_READ), get_user_pages() will fail and fall back to this lookup.
+
+Since the write-only VMA lacks VM_READ, this check will evaluate to true and
+return KVM_PFN_ERR_FAULT, skipping the VM_IO | VM_PFNMAP handler. Could this
+prevent guests from writing to legitimate write-only device memory, such as
+command ring buffers or write-only PCI BARs?
+
+>  		pfn =3D KVM_PFN_ERR_FAULT;
+> -	else if (vma->vm_flags & (VM_IO | VM_PFNMAP)) {
+> +	} else if ((kfp->flags & FOLL_WRITE) && unlikely(!(vma->vm_flags & VM_W=
+RITE))) {
+> +		/*
+> +		 * Exit to userspace for PROT_READ mappings in a writable
+> +		 * memslot, as this is part of the API.
+> +		 */
+> +		pfn =3D vma->vm_flags & (VM_IO | VM_PFNMAP) ? KVM_PFN_ERR_RO_FAULT :
+> +			KVM_PFN_ERR_FAULT;
+> +	} else if (vma->vm_flags & (VM_IO | VM_PFNMAP)) {
+>  		r =3D hva_to_pfn_remapped(vma, kfp, &pfn);
+[ ... ]
 
 --=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804120529.1730=
+187-1-pbonzini@redhat.com?part=3D4
