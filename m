@@ -4,109 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9329EC561E6
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:24:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDEDEC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:24:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E94BA10ED33;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BB9D10ED2E;
 	Wed,  5 Aug 2026 07:24:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MM3HPnZx";
+	dkim=pass (2048-bit key; unprotected) header.d=starlabs-systems.20251104.gappssmtp.com header.i=@starlabs-systems.20251104.gappssmtp.com header.b="F7kwTMh+";
 	dkim-atps=neutral
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com
- [74.125.224.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 06E4210E186
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 07:02:44 +0000 (UTC)
-Received: by mail-yx1-f42.google.com with SMTP id
- 956f58d0204a3-66771ded50aso914934d50.1
- for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 00:02:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785913363; cv=none;
- d=google.com; s=arc-20260327;
- b=nIUilClj5o7fU+rnKk0Cp+/Sf0CjTaS/dPqCkP4PHA3VLsywPpm2JLj+8m53LQg0WQ
- MqiHBnXQJuU6ksC0jpGDh64dfZhMwjPtX2R2SX3E1F6NbUokJr6XcVPRfeTYoW2Ewfyg
- h4NnaaNawL4lg6azBz4cMhbkYarUB4r/qj5Ys0HvDz02NemfUrXanlmioVbAqFJ5tucM
- 0eVOo9MCeW9t928JBTmXE44s/9QZRC97v8859nedx5/TZQgrESRPNdYeZFY2PGOiKAFy
- oRuf1hT8+KcWANmcOtpCoajE/LB3X2J3tKXHVQ4N/TNzGFIt0dioCsV7O11QlD072y5l
- CCvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Y60TCRk5n5yLOLon2qFjPKh9SFL9tvHl6trgyo4bm3Q=;
- fh=ipmmXpedrOLLVWkG+kFevjWGhKYZAL0GGJNlMGvpib0=;
- b=d1bDgzMBcTxV80gxxKXF6A/MwRTy8Y5mFZ4maY/YqdYjayatSbHh5shdS4t8fXbdLP
- 6Sx2WbHOv1OcnSLUHcHpJQ8StYo7Ya2qKshJrhh7ANIwLFKG7FB7kPGUrAvXfcDzdZ42
- Opr8MOb40vsDW3OkEKo0W3bhdbhck9IY4Oo2auvUcAPrYIFzwmSEp3E/1aLSunoFRk8A
- cZPH47ijZAjAel/ByHysHqmSZ6aJb0NkE4ACQdSCvg+TAW3NxhwUVAU+z95T5Bj3NHy0
- IsnzYl4Y/ITavHUdKUspVHg51atu9VaHpTUWO/6o5VAw2SVh+5dr0j7EpEwHRgjIokly
- ae4A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D61EF10E150
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:13:15 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-49545ba3d4eso14676945e9.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 03:13:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785913363; x=1786518163; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Y60TCRk5n5yLOLon2qFjPKh9SFL9tvHl6trgyo4bm3Q=;
- b=MM3HPnZxGsx4PUpWrxmRqC4H1hR/mrh5EtXIun1pltMZ7nWbZ6wEW6deS+Z+p7IIfV
- a9nU0AKjmVuy07ucewmV5Bnt2IyoR8kBNfxseaXsnF7DHyDqDmX0Ky6gF22n4KDxCySw
- NwBbh3IFGGr9z9Nwt0doZcmZVe/HOGTNM0Se4xygJu1iSmxZiVupkR4Pa4JQesg/C+7q
- SPCHGiCUB55Q7Q377nxqFX4orh5+Z/BXDsg+VBFPUmxDddhi0U31/9y8EgQfp2TH80YK
- iQz7UwHuOquSzS/rUJJJJphcC0l5C07hkLtqmZ/SLs6o2Q51k2W7qD/nENQ6wAUmMMk4
- FrmA==
+ d=starlabs-systems.20251104.gappssmtp.com; s=20251104; t=1785838394;
+ x=1786443194; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=JTO+yub/oHkWnNxE/PR+YPqKbJIe1H0uu4C2i4wSPEY=;
+ b=F7kwTMh+ihoc79obw5D7yldE8f5Gm8HmFXd+4v0wctjVRpGRpwsgw1TPNbt1O09jQJ
+ cnfx242PXkhiRQVsAxwqCjhuL/8W0c4UldBvaplr8BAsO/v/akCqo+xsWxsSffX+x37h
+ j1JWbVcpJpO59tNf1CBgCCcHoi93auzJ9Nax3GKSsfJs9QyPv0jya5fnP4blzwQsmQW9
+ +51HUPcLyCNZs5Xeg7YCthAXuRXqNw8C1uN9IIo6j3KRthY0yXQPnrg15UaAM2/WR+rF
+ 7h/r1b/kcbswOh26rf6B5VFffoOlOYniFgq0UJco0DZ0ei+SOSSHIWKvOZJKKuCsrs7E
+ VrRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785913363; x=1786518163;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Y60TCRk5n5yLOLon2qFjPKh9SFL9tvHl6trgyo4bm3Q=;
- b=VgaxCj+ltxqdQETJuBlKmy3rcRwYJCE0s3+LRKkerppcykp2zCfCfYZXb1nsJqrbRY
- 984RWbxPed6N67YFDDuV44P14LOwg93Ey1F/uMVWbU/671LxPTD5Bhkpf71a7FpuCXE0
- x9t3pJqksk1wCuF3thbT3KLICGkN/ft1Zig4UU2ZAHD7h19kSRREABBwaACmAZt6wSjz
- lnUxQ1/JdM3eCx+6JOqcsAEKckNuD3x/9VkOrvmU+0wL4tlezdmjTso1a9rBm/wrRwkL
- Yz8RhlknoflKbXIBZ+H4OQVXJdyH/EvNQ7nJ4GWyS/F7FR1XvHovfTPJMMBld32uxf5P
- R0YQ==
+ d=1e100.net; s=20251104; t=1785838394; x=1786443194;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=JTO+yub/oHkWnNxE/PR+YPqKbJIe1H0uu4C2i4wSPEY=;
+ b=mfHUVP6XFQHlGMIR+HQjmOeneb49D0/C/sqF7D2bvjY7a0FAiNDSaMKjPTbf/uA3om
+ EWDqz0idWQdP1Y/v9CnVJTRQN+q6wfnErPyK0RWzSMTB7w0FhywMmCUdiLfISfwgtrAS
+ adcsie/cac82RBvbny7Z1UrPbUZnTRSJSjzWCq3ug9MWmw35DnXX0e9EgQnfCqIwWiyN
+ gKDoPNtEtD4hkt4EakNZD7tpOHV8fNN8/RLjqmzvVvz0/YwlJ8fmQAFBgO7szVVymwks
+ IC+1X4FXX80mSM/3dG6zybOMjgGAhrOZ2c4+46YwxeZBuDGS+CPvPFQfl91sn4exYMqA
+ 6J3w==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp+FZxqcbdzz5VzIT7nl4Tn4+VQJQmq9b0d58M/yNbEkrf8AZvZnwLoyQtqJ6/UD/h2QFyPpmk1ULY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz7tPEp9UjW1Z0HRjzsmjOdAK8qvHDcsyBretGJ1TPdMoo5rnOu
- zD4o1HjpiU0WnsQqdkH1M4tZpQ22etvDf6kT3HWmJtNphLwYlIJFdO8lsJQ8qBqRoRrUaNogMyp
- hykKn7/ywJ1cZs9EdzwJCNlpcqc26tGw=
-X-Gm-Gg: AR+sD11f3D9bQ+4LcvobnjnIoibGhIj90nYQbF9ZvotEv+0WMBjyRNb484Dnwvwctd0
- ir6ZBK0CgzgMdB93M8Bb7adRiHe40F73AOP73P9fzQy/MFucCUgHIttKRbC9ha/oU3eaTcC5Z5g
- Z7bm5MKLk+aBmlJtsorDQ4hKYYhAYHCEJ4q6zwTOjIzcRaagKLXitYQHKbYFLURS3LP3bpzSmof
- qPGRXrjmEl+vt7wcGEcqWYUBcn4t5+MmptxBlNDm5s/fgHwy2wVvTAE3gvZ1nys013IpuQ1mHgI
- QnfNdd/breOINXabhdbU+Td7+oNvYfXxq0L515bRro5C
-X-Received: by 2002:a05:690e:11ca:b0:664:dbfc:e454 with SMTP id
- 956f58d0204a3-6699a892fe6mr2574216d50.3.1785913362887; Wed, 05 Aug 2026
- 00:02:42 -0700 (PDT)
+ AHgh+RoHJ3GAT1xXe0ywCErcyaufJnYBrUmsKKqlXhqqnMJG4toTID4vgpZeWUIVOEWD0wvZOdFwlO75xis=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+L4tiPcD92bdfmTyYIgAVlXdpeZROb8WH3qV6nHurspwWQIfh
+ wv3YjIB15sqQeTfDiRq+DfAd0cWtHRE0sNGR7VG/JV5Nx8JEMBcKd14D5NcMql3QSQ==
+X-Gm-Gg: AR+sD13+gFM4OdOsdmg0lyK8TNXLXgFf9XVBVw8TrVePXws5WBbWpwsYnkC07qhPHFg
+ XA77DUEYoGUiKRrS7Vdei0n7RQfEI+3N+PhnRJ88gdoY9URXFkZyHkKxQQbh1HJ2FAWs7UjXjMU
+ /NvxNlymXBJBECr89e8t2hFHP6dJxVBRdlIgl/mGKaVSH63dyYspkaSi+/2Biavrgpd1T+3BbFZ
+ +9iqh7Wx3YRRVKncowNkihDYE1CqSYfO+J1/KvCVyAuDQHc7Xp0lZ3GpYFkOY4I0vN/3UgtsLR5
+ g8TaQ0Grp3Nimicc4oV+NQ8guxn2MeuCvYAww7U1RGSi/dsC1R7Sw25slrY+1JHrCazbgxDSBok
+ f91Dm805CCHDqe1rJ1ne4JAc02uX5bjNWRKtAwCGG0iUtf+6uSijGw1BB6WGFvmb0udvtsuEcu4
+ XTNKTGeu6CF3miC890VHODDS5MX7posjoFx71I7mISqHn2dnBEiPvNj4kRNoZUjefO2Gl7IIT81
+ NMs9PxNjttsjjzDu78eJVYjdlHHWQT1
+X-Received: by 2002:a05:600d:6451:20b0:495:4d5c:903e with SMTP id
+ 5b1f17b1804b1-4980c66d950mr239212685e9.7.1785838393168; 
+ Tue, 04 Aug 2026 03:13:13 -0700 (PDT)
+Received: from horizon.localdomain ([216.128.28.240])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49949fcb0c5sm67300275e9.4.2026.08.04.03.13.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Aug 2026 03:13:12 -0700 (PDT)
+From: Sean Rhodes <sean@starlabs.systems>
+To: chrome-platform@lists.linux.dev
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+ "Luke D. Jones" <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Prasanth Ksr <prasanth.ksr@dell.com>, Jorge Lopez <jorge.lopez2@hp.com>,
+ Mark Pearson <mpearson-lenovo@squebb.ca>,
+ "Derek J. Clark" <derekjohn.clark@gmail.com>,
+ Joshua Grisham <josh@joshuagrisham.com>,
+ platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dell.Client.Kernel@dell.com, Sean Rhodes <sean@starlabs.systems>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Huacai Chen <chenhuacai@kernel.org>, "Michael S. Tsirkin" <mst@redhat.com>,
+ Chen-Yu Tsai <wenst@chromium.org>, Tzung-Bi Shih <tzungbi@kernel.org>,
+ Brian Norris <briannorris@chromium.org>,
+ Julius Werner <jwerner@chromium.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Arnd Bergmann <arnd@arndb.de>, Eric Biggers <ebiggers@kernel.org>,
+ Luca Weiss <luca.weiss@fairphone.com>, Michal Simek <michal.simek@amd.com>,
+ Sven Peter <sven@kernel.org>,
+ =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Titouan Ameline de Cadeville <titouan.ameline@gmail.com>,
+ Kees Cook <kees@kernel.org>, dri-devel@lists.freedesktop.org,
+ Oliver Lin <oliver@liuxiaozhen.dev>
+Subject: [PATCH v11 0/4] coreboot CFR firmware attributes
+Date: Tue,  4 Aug 2026 11:13:05 +0100
+Message-ID: <cover.1785838269.git.sean@starlabs.systems>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-References: <20260805-falcon-dma-projections-v2-0-4cc9f3f13ee9@nvidia.com>
- <20260805-falcon-dma-projections-v2-1-4cc9f3f13ee9@nvidia.com>
-In-Reply-To: <20260805-falcon-dma-projections-v2-1-4cc9f3f13ee9@nvidia.com>
-From: Ethan Plant <plant.ethan@gmail.com>
-Date: Wed, 5 Aug 2026 00:02:31 -0700
-X-Gm-Features: AUfX_mwzehL-ePDmTswSjyc9hlF-NtAAFmKSmV6DsLAB8oAWcLbYIszSPAFss0U
-Message-ID: <CA+ZM=sFFWx-yCWaWsUk0usONc7BMh3xckFxZj5tQx70SXtao+g@mail.gmail.com>
-Subject: Re: [PATCH v2 1/3] gpu: nova-core: falcon: remove unnecessary check
-To: Alexandre Courbot <acourbot@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Abdiel Janulgue <abdiel.janulgue@gmail.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Robin Murphy <robin.murphy@arm.com>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
- Tamir Duberstein <tamird@kernel.org>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>,
- nova-gpu@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 05 Aug 2026 07:24:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -123,26 +121,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 4, 2026 at 10:03=E2=80=AFPM Alexandre Courbot <acourbot@nvidia.=
-com> wrote:
->
-> The `try_with_base` call performed on `NV_PFALCON_FALCON_DMATRFBASE1`
-> already returns `EOVERFLOW` if the address is too large for the
-> register, making this check redundant.
->
-> -        // The DMATRFBASE/1 register pair only supports a 49-bit address=
-.
-> -        if dma_start > DmaMask::new::<49>().value() {
-> -            dev_err!(self.dev, "DMA address {:#x} exceeds 49 bits\n", dm=
-a_start);
-> -            return Err(ERANGE);
-> -        }
+Move the firmware attributes class helper out of platform/x86, rename the
+coreboot-table firmware driver directory from google to coreboot, and add a
+coreboot CFR firmware attributes driver.
 
-This also changes the error returned for an address that does not fit
-from `ERANGE` to `EOVERFLOW`, and drops the `dev_err!` diagnostic.
+Changes in v11:
+- Keep the scoped cleanup in the CFR driver, but use explicit goto cleanup for
+  the nested sysfs group registration path.
 
-Is that change intentional? If so, would it be worth
-mentioning that in the commit message?
+Changes in v10:
+- Address the nested cleanup-path review on CFR attribute registration.
 
-Thanks,
-Ethan
+Changes in v9:
+- Add the missing kstrtox.h include used by kstrtou32().
+- Use a single kobject rollback path when setting registration fails.
+- Split a few helper locals for readability, including the pending reboot
+  device lookup and enum-value population.
+- Avoid an intermediate void pointer cast while parsing numeric CFR options.
+- Check the possible-values buffer length before computing each label length.
+
+Tested on a Star Labs Byte with firmware 26.07: runtime APM_CNT apply was
+verified with power_led, and reboot-needed behavior was verified with
+debug_level.
+
+Sean Rhodes (4):
+  platform/x86: Sort firmware attributes class includes
+  firmware: Move firmware attributes class helper
+  firmware: Rename google firmware directory to coreboot
+  firmware: coreboot: Add CFR firmware attributes driver
+
+ MAINTAINERS                                   |   18 +-
+ arch/arm64/configs/defconfig                  |    6 +-
+ drivers/firmware/Kconfig                      |    5 +-
+ drivers/firmware/Makefile                     |    3 +-
+ drivers/firmware/{google => coreboot}/Kconfig |   88 +-
+ drivers/firmware/coreboot/Makefile            |   15 +
+ drivers/firmware/{google => coreboot}/cbmem.c |    0
+ drivers/firmware/coreboot/coreboot-cfr.c      | 1205 +++++++++++++++++
+ .../{google => coreboot}/coreboot_table.c     |    0
+ .../{google => coreboot}/coreboot_table.h     |    0
+ .../framebuffer-coreboot.c                    |    0
+ drivers/firmware/{google => coreboot}/gsmi.c  |    0
+ .../memconsole-coreboot.c                     |    0
+ .../memconsole-x86-legacy.c                   |    0
+ .../{google => coreboot}/memconsole.c         |    0
+ .../{google => coreboot}/memconsole.h         |    6 +-
+ drivers/firmware/{google => coreboot}/vpd.c   |    0
+ .../{google => coreboot}/vpd_decode.c         |    0
+ .../{google => coreboot}/vpd_decode.h         |    0
+ .../firmware_attributes_class.c               |    2 +-
+ drivers/firmware/google/Makefile              |   14 -
+ drivers/gpu/drm/sysfb/Kconfig                 |    2 +-
+ drivers/platform/x86/Kconfig                  |    3 -
+ drivers/platform/x86/Makefile                 |    2 -
+ drivers/platform/x86/asus-armoury.c           |    2 +-
+ .../x86/dell/dell-wmi-sysman/sysman.c         |    9 +-
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c  |    9 +-
+ drivers/platform/x86/lenovo/think-lmi.c       |    5 +-
+ drivers/platform/x86/lenovo/wmi-other.c       |    2 +-
+ drivers/platform/x86/samsung-galaxybook.c     |    3 +-
+ .../linux/firmware_attributes.h               |    6 +-
+ 31 files changed, 1340 insertions(+), 65 deletions(-)
+ rename drivers/firmware/{google => coreboot}/Kconfig (57%)
+ create mode 100644 drivers/firmware/coreboot/Makefile
+ rename drivers/firmware/{google => coreboot}/cbmem.c (100%)
+ create mode 100644 drivers/firmware/coreboot/coreboot-cfr.c
+ rename drivers/firmware/{google => coreboot}/coreboot_table.c (100%)
+ rename drivers/firmware/{google => coreboot}/coreboot_table.h (100%)
+ rename drivers/firmware/{google => coreboot}/framebuffer-coreboot.c (100%)
+ rename drivers/firmware/{google => coreboot}/gsmi.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole-coreboot.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole-x86-legacy.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole.c (100%)
+ rename drivers/firmware/{google => coreboot}/memconsole.h (82%)
+ rename drivers/firmware/{google => coreboot}/vpd.c (100%)
+ rename drivers/firmware/{google => coreboot}/vpd_decode.c (100%)
+ rename drivers/firmware/{google => coreboot}/vpd_decode.h (100%)
+ rename drivers/{platform/x86 => firmware}/firmware_attributes_class.c (94%)
+ delete mode 100644 drivers/firmware/google/Makefile
+ rename drivers/platform/x86/firmware_attributes_class.h => include/linux/firmware_attributes.h (60%)
+
