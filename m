@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5176CC55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 03:14:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73381C55182
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 03:15:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85F8D10E0B9;
-	Tue,  4 Aug 2026 03:14:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA4C010E567;
+	Tue,  4 Aug 2026 03:15:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k3neUyAz";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="k8TbuyY2";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8992410E0B9
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 03:14:19 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5391D10E822
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 03:15:34 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 064D040DDE;
- Tue,  4 Aug 2026 03:14:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6801F000E9;
- Tue,  4 Aug 2026 03:14:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 20F29436A0;
+ Tue,  4 Aug 2026 03:15:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5CD41F00A3A;
+ Tue,  4 Aug 2026 03:15:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785813258;
- bh=pwfwF1E+vWFMuBOt14J3yWbEPmE9tGhB76aaQ4D7AO0=;
+ s=k20260515; t=1785813334;
+ bh=Pf4NxLroK6RaL2a1Y2//tPATGRTgTegVkXZ3orDWCjg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=k3neUyAzu023cjqDzovGv09MYhft2LIaEH5PQqUFKp86nHr4i5RPzFipDqdQhXdwQ
- G1pPEXW1fJTwo9Jr/gMvvy2bv3nPkM83zUOf3x7snX58gYLAxPTg+Lkw0T70LGyc3f
- 9DknvCrXAEtiveDDHngDpxQJc0ajkJBWBtEdHmxRwemY+8T2Og/DuaGW+t6I1vh6IG
- Wj08f7MnTufWW4g5umNagSI51TQntNhELanc5AGA/wudQyFduk9juXjwgaXz7wlqQx
- VzkBIDJUG+COCkSNXRoE47TWjAUrR+508PnCneb6Ds+DnDWco5Mv3PsXtxnz5i6cpS
- YAa9gvKgnauMw==
+ b=k8TbuyY2Qgu/VH7JA1fLdXrFoUTRFmx+5DYsjADkoohcDY8s4OgG+Y3kkBBHzOviP
+ LSST/wVm7gDz85fayedKNFH1xvVtvtMIO9FhHaR8Vcg4szWvagmCexElCz+Phv+abj
+ Rlzql6FCwuI/hTHa9LOGEvczwl1xGMof2eFYAaB8O9SNMqR/tfL3QTMYKvcv2PEOey
+ NptMxUeigHUWNhkcBAUYjKJXDc+RyWr2eviE0Fyf/7O2iuDW9ajuepCiZBqC6BZWmH
+ p8P6r6fWwO3CudbIOv5RvOQ8M3wyc9b9b2f55xjnxFh5GMQ5D4zia/0nXw7ecciO6f
+ Wwy9+f+vcWqig==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] backlight: aw99706: Validate all DT property
- values consistently
+Subject: Re: [PATCH v3 3/3] backlight: aw99706: Honor the core blank state
+ in update_status()
 To: "Junjie Cao" <junjie.cao@intel.com>
 Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, lee@kernel.org
-In-Reply-To: <20260804030255.1934470-3-junjie.cao@intel.com>
+In-Reply-To: <20260804030255.1934470-4-junjie.cao@intel.com>
 References: <20260804030255.1934470-1-junjie.cao@intel.com>
- <20260804030255.1934470-3-junjie.cao@intel.com>
+ <20260804030255.1934470-4-junjie.cao@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 03:14:17 +0000
-Message-Id: <20260804031418.0E6801F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 03:15:33 +0000
+Message-Id: <20260804031533.B5CD41F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,44 +62,45 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] I2C chip ID read is attempted before the hardware enable GPIO is a=
-sserted.
-- [High] Initial backlight brightness state is not synchronized to the hard=
-ware during probe.
+- [High] I2C read is performed before the hardware is powered up or enabled.
+- [High] The initial backlight state parsed from device tree is never appli=
+ed to the hardware during probe.
 --
 
---- Patch [2]: [PATCH v3 2/3] backlight: aw99706: Validate all DT property =
-values consistently ---
-commit 7ac792a99fb6a9cdd91d97a6eb34756415f65058
+--- Patch [3]: [PATCH v3 3/3] backlight: aw99706: Honor the core blank stat=
+e in update_status() ---
+commit 4fd7fd023a2e220d60fcbcb9c519d9b49b430467
 Author: Junjie Cao <junjie.cao@linux.dev>
 
-backlight: aw99706: Validate all DT property values consistently
-   =20
-The lookup helpers for dim-mode and ramp-ctl take a shortcut when
-lookup_tbl is NULL, accepting any u32 value without range-checking.
-This commit adds a field-width check for the NULL-table case so that
-values exceeding the register field maximum are rejected. It also updates
-the switching frequency table reserved marker to U32_MAX and changes
-error returns to -EINVAL.
+backlight: aw99706: Honor the core blank state in update_status()
+
+update_status() passes props.brightness straight to the hardware and
+ignores the power/blank state tracked by the core. Writing 4 to the
+bl_power sysfs attribute or blanking the framebuffer therefore leaves
+the backlight lit.
 
 > diff --git a/drivers/video/backlight/aw99706.c b/drivers/video/backlight/=
 aw99706.c
-> index e130f164303a2..6ec49b6cb14c6 100644
+> index 6ec49b6cb14c6..c4a66b59ecf13 100644
 > --- a/drivers/video/backlight/aw99706.c
 > +++ b/drivers/video/backlight/aw99706.c
-
-[ ... ]
+> @@ -340,7 +340,7 @@ static int aw99706_bl_update_status(struct backlight_=
+device *bl)
+>  {
+>  	struct aw99706_device *aw =3D bl_get_data(bl);
+> =20
+> -	return aw99706_update_brightness(aw, bl->props.brightness);
+> +	return aw99706_update_brightness(aw, backlight_get_brightness(bl));
+>  }
+> =20
+>  static const struct backlight_ops aw99706_bl_ops =3D {
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does aw99706_probe() attempt=
- an
-I2C read before the hardware enable GPIO is asserted?
+This is a pre-existing issue, but I noticed an I2C read is performed before
+the hardware is powered up or enabled.
 
-In aw99706_probe(), the driver calls aw99706_chip_id_read() before fetching
-hwen_gpio and calling aw99706_hw_init() to assert the enable pin:
+In drivers/video/backlight/aw99706.c:aw99706_probe():
 
-drivers/video/backlight/aw99706.c:aw99706_probe() {
-    ...
 	ret =3D aw99706_chip_id_read(aw);
 	if (ret !=3D AW99706_ID)
 		return dev_err_probe(dev, -ENODEV,
@@ -108,22 +109,21 @@ drivers/video/backlight/aw99706.c:aw99706_probe() {
 	aw99706_dt_parse(aw, &props);
 
 	aw->hwen_gpio =3D devm_gpiod_get(aw->dev, "enable", GPIOD_OUT_LOW);
-    ...
-}
 
-Could this cause the probe to fail with an I2C NACK or timeout if the
-bootloader hasn't already left the GPIO asserted?
+	ret =3D aw99706_hw_init(aw);
+
+Will the driver probe fail with -ENODEV here if the hardware is disabled by
+default, since the hardware enable GPIO (aw->hwen_gpio) is not requested and
+asserted until later via devm_gpiod_get() and aw99706_hw_init()?
 
 
 [Severity: High]
-This is a pre-existing issue, but is the initial backlight brightness state
-synchronized to the hardware during probe?
+This is also a pre-existing issue, but the initial backlight state parsed f=
+rom
+device tree is never applied to the hardware during probe.
 
-aw99706_probe() parses the default brightness and registers the backlight
-device, but returns without flushing the initial state:
+In drivers/video/backlight/aw99706.c:aw99706_probe():
 
-drivers/video/backlight/aw99706.c:aw99706_probe() {
-    ...
 	bl_dev =3D devm_backlight_device_register(dev, "aw99706-backlight", dev,
 						aw, &aw99706_bl_ops, &props);
 	if (IS_ERR(bl_dev))
@@ -133,14 +133,16 @@ drivers/video/backlight/aw99706.c:aw99706_probe() {
 	aw->bl_dev =3D bl_dev;
 
 	return 0;
-}
 
-Since backlight_update_status() or aw99706_update_brightness() is never cal=
-led
-here, does this mean the parsed brightness and the backlight enable bit are=
-n't
-written to the hardware, potentially leaving a black screen during boot?
+Does the backlight remain off during the entire boot process until userspace
+writes to the sysfs brightness attribute?
+
+The probe function completes without calling backlight_update_status() to
+synchronize the parsed device tree brightness properties to the hardware, a=
+nd
+the backlight core does not automatically sync the initial software state
+upon registration.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804030255.1934=
-470-1-junjie.cao@intel.com?part=3D2
+470-1-junjie.cao@intel.com?part=3D3
