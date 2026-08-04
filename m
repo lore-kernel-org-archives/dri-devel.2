@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C98CC56202
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:10:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4800DC55ABF
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:10:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E37E10E9A3;
-	Tue,  4 Aug 2026 10:10:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E5E010E99D;
+	Tue,  4 Aug 2026 10:10:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Yuke0yYE";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kuWSd9aG";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E70A10E99A
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:10:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3C88010E99A
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:10:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785838201;
- bh=IxNTkuNmGbCBaAyYnmtQYnwSXqfjegGebkYKXwCgjrg=;
+ s=mail; t=1785838200;
+ bh=XaYyKv1F9ZM5pSCD5EAZxniq21grwW5GRmcaEWbO/70=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Yuke0yYE+/10pWP7b+cwQySavj6vjESx0QFno7SVGWXnmOl2SW/V+oIRJ+oqZA9QV
- ahqNzWLJB9rBsXfpX0Wmk9qVivIDo1q6bk9tpFRHoZ+rAyzFzU7RwUd1BhCGIiEFya
- 4ZTEp/4f/NZIiiNMIJJ6eCnTLKQmi9uY5kerYYeT2DyzcNmBnRWLoFJJkhYt4sF1er
- SY265tAiZp0G9luIlPzvKGoYjcTTYBiPGzJVErUZUbLIkMvqKfJ457Pf09igM/9ORd
- pmhoSC2zd6h2iZfLCBC8F9vFVXAIRingFSzUvM7LlU5MD7XVtKg/HSBUiSVUxVvgdt
- 3q/IdJ4C1Q02w==
+ b=kuWSd9aG/dXZvBkp7mEutnDeYVGTFNgVZK4CvebFiBwwg17K3pcoQQ/OBbA4BwoNi
+ N532rwbRhod2LzbCyAwoN2VY5RmTbfBsjX3KKqP3B3XTXDwf/rN5/i8NZxNzYArrFY
+ SuFLLmjMaJ/5fZdwV9lZSg1liGbRaQtzpUtUrWsZ8NnGfLlsl7oc/nGNWSMBgwj0rB
+ THsR3FOiKZvjYSY3EaS36SRG7YGhTz0AjZBWuSN5vHr+gqHkA/hHmdhoOTCc7mUb9e
+ h2dgTccTA9GufjZQzO3W76rVb4J1lbXXcy9F8eqwP0/EJpA3ptd+L7lhubT7H3Y4Pn
+ B3qI4EngmzPtw==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A2E2E17E11E6;
- Tue, 04 Aug 2026 12:10:00 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A127717E1104;
+ Tue, 04 Aug 2026 12:09:59 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 04 Aug 2026 12:09:51 +0200
-Subject: [PATCH 12/12] drm/panthor: Fix unplug in the reset path
+Date: Tue, 04 Aug 2026 12:09:49 +0200
+Subject: [PATCH 10/12] drm/panthor: Make the VM cleanup path more robust
+ against UAF
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260804-panthor-unplug-fixes-v1-12-abbbd2d41b13@collabora.com>
+Message-Id: <20260804-panthor-unplug-fixes-v1-10-abbbd2d41b13@collabora.com>
 References: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
 In-Reply-To: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -48,11 +49,11 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Boris Brezillon <boris.brezillon@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785838194; l=6038;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785838194; l=10483;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=IxNTkuNmGbCBaAyYnmtQYnwSXqfjegGebkYKXwCgjrg=;
- b=0VypsmCoAzBuVv0BKjNGLP64WEoTBKF/lMs5VN7jfGKXjMwDuSz3xS3E30iK8W9QRaTbFpUc6
- Cma5b7gsAeDAzywB2+dlFxjKsp+jrRmA6OtJW5+W2OGHg5ACbOFV6y6
+ bh=XaYyKv1F9ZM5pSCD5EAZxniq21grwW5GRmcaEWbO/70=;
+ b=lVNksuBR5mrOjHCkfKLappJt8v7VUmCneys5C0TIPwMeFf2H9BIz27W34qbTnfp7tPAqGuatp
+ lSLD0W8BW5+DZDdqpZtp5XTG9MZJParyHwj8VL6Kh0vsr4mTMS1BcbL
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,167 +71,324 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-We can't use disable_work_sync() if panthor_device_unplug() is called
-from the reset work or we'll deadlock. Pass a from_reset_work bool to
-the panthor_device_unplug() function and lower the disable_work_sync()
-to a disable_work() in that case.
+The VM cleanup tries to gracefully evict the page table from its
+AS slot to make sure the HW doesn't have access to the memory anymore.
+But it might happen that the eviction fails because the HW hung, and
+in that case, we have no guarantee that the HW won't access the memory
+until we've properly reset the GPU.
 
-We also add debugfs knobs to simulate this situation.
-
-Maybe we should use a separate work and call device_release_driver()
-instead of calling panthor_device_unplug() directly. This would allow
-us to actually detach the device from panthor so it can later be
-re-attached without an explicit unbind/bind or rmmod/modprobe sequence.
-The problem is, this gets racy if the device is manually
-unbound/rebound, and it's hard to fix that race, so let's keep this
-for later.
+Defer the cleanup of VMs after the reset is effective when this situation
+happens.
 
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.c | 54 +++++++++++++++++++++++++++++---
- drivers/gpu/drm/panthor/panthor_device.h | 10 +++++-
- drivers/gpu/drm/panthor/panthor_drv.c    |  2 +-
- 3 files changed, 60 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/panthor/panthor_mmu.c | 226 +++++++++++++++++++++++++---------
+ 1 file changed, 167 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 425990369b99..d350bda58bb3 100644
---- a/drivers/gpu/drm/panthor/panthor_device.c
-+++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -93,7 +93,7 @@ static int panthor_device_stop_before_unplug(struct panthor_device *ptdev)
- 	return ret;
- }
- 
--void panthor_device_unplug(struct panthor_device *ptdev)
-+void panthor_device_unplug(struct panthor_device *ptdev, bool from_reset_work)
- {
- 	int ret;
- 
-@@ -121,7 +121,10 @@ void panthor_device_unplug(struct panthor_device *ptdev)
- 	drm_dev_unplug(&ptdev->base);
- 
- 	/* Make sure we're not interrupted by resets while we're unplugging. */
--	disable_work_sync(&ptdev->reset.work);
-+	if (!from_reset_work)
-+		disable_work_sync(&ptdev->reset.work);
-+	else
-+		disable_work(&ptdev->reset.work);
- 
- 	/* Do anything we can to stop the HW. If we can't guarantee that the HW
- 	 * is fully stopped, we also can't guarantee the resources it had access
-@@ -189,13 +192,16 @@ static void panthor_device_reset_work(struct work_struct *work)
- 	panthor_hw_soft_reset(ptdev);
- 	panthor_hw_l2_power_on(ptdev);
- 	panthor_mmu_post_reset(ptdev);
--	ret = panthor_fw_post_reset(ptdev);
-+	if (ptdev->reset.fake_failure)
-+		ret = -EIO;
-+	else
-+		ret = panthor_fw_post_reset(ptdev);
- 	atomic_set(&ptdev->reset.pending, 0);
- 	panthor_sched_post_reset(ptdev, ret != 0);
- 	drm_dev_exit(cookie);
- 
- 	if (ret) {
--		panthor_device_unplug(ptdev);
-+		panthor_device_unplug(ptdev, true);
- 		drm_err(&ptdev->base, "Failed to boot MCU after reset, making device unusable.");
- 	}
- }
-@@ -694,6 +700,40 @@ DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_unplug_failure_fops,
- 			 panthor_device_fake_unplug_failure_get,
- 			 panthor_device_fake_unplug_failure_set, "%llu\n");
- 
-+static int panthor_device_fake_fw_reset_failure_get(void *data, u64 *val)
-+{
-+	struct panthor_device *ptdev = data;
-+
-+	*val = ptdev->reset.fake_failure ? 1 : 0;
-+	return 0;
-+}
-+
-+static int panthor_device_fake_fw_reset_failure_set(void *data, u64 val)
-+{
-+	struct panthor_device *ptdev = data;
-+
-+	ptdev->reset.fake_failure = val ? true : false;
-+	return 0;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(panthor_device_fake_fw_reset_failure_fops,
-+			 panthor_device_fake_fw_reset_failure_get,
-+			 panthor_device_fake_fw_reset_failure_set, "%llu\n");
-+
-+static ssize_t panthor_device_reset_file_write(struct file *file,
-+					       const char __user *, size_t size,
-+					       loff_t *)
-+{
-+	struct panthor_device *ptdev = file_inode(file)->i_private;
-+
-+	panthor_device_schedule_reset(ptdev);
-+	return size;
-+}
-+
-+static const struct debugfs_short_fops panthor_device_reset_fops = {
-+	.write = panthor_device_reset_file_write,
-+};
-+
- void panthor_device_debugfs_init(struct drm_minor *minor)
- {
- 	struct panthor_device *ptdev = container_of(minor->dev, struct panthor_device, base);
-@@ -701,6 +741,12 @@ void panthor_device_debugfs_init(struct drm_minor *minor)
- 	debugfs_create_file("fake_unplug_failure", 0644,
- 			    minor->debugfs_root, ptdev,
- 			    &panthor_device_fake_unplug_failure_fops);
-+	debugfs_create_file("fake_fw_reset_failure", 0644,
-+			    minor->debugfs_root, ptdev,
-+			    &panthor_device_fake_fw_reset_failure_fops);
-+	debugfs_create_file("reset", 0200,
-+			    minor->debugfs_root, ptdev,
-+			    &panthor_device_reset_fops);
- 	panthor_mmu_debugfs_init(minor);
- 	panthor_gem_debugfs_init(minor);
- }
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index f960109f4b5b..7d3db80fdfb6 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -310,6 +310,14 @@ struct panthor_device {
- 		 * all FW sections to make sure we start from a fresh state.
+diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
+index 2ad8b15de0da..de242ff124ed 100644
+--- a/drivers/gpu/drm/panthor/panthor_mmu.c
++++ b/drivers/gpu/drm/panthor/panthor_mmu.c
+@@ -92,6 +92,17 @@ struct panthor_mmu {
+ 		 * TLB/cache flushes.
  		 */
- 		bool fast;
+ 		struct list_head lru_list;
 +
 +		/**
-+		 * @fake_failure: When true, pretend the FW boot in the reset path failed.
++		 * @cleanup_list: List containing VMs waiting for cleanup.
 +		 *
-+		 * This is important to check that we're doing the right thing in this very
-+		 * unlikely case.
++		 * This list is used to keep track of VMs that got released but
++		 * couldn't be evicted from their AS slot because the HW hanged.
++		 * In that case, we add the VM to the list, and wait for the next
++		 * post_reset, at which point we're sure the HW is idle and the
++		 * VM resources can go away.
 +		 */
-+		bool fake_failure;
- 	} reset;
++		struct list_head cleanup_list;
+ 	} as;
  
- 	/** @pm: Power management related data. */
-@@ -398,7 +406,7 @@ struct panthor_file {
+ 	/** @vm: VMs management fields */
+@@ -107,6 +118,12 @@ struct panthor_mmu {
+ 
+ 		/** @vm.wq: Workqueue used for the VM_BIND queues. */
+ 		struct workqueue_struct *wq;
++
++		/**
++		 * @vm.cleanup_work: Used to cleanup the VMs that are in
++		 * panthor_mmu::as::cleanup_list.
++		 */
++		struct work_struct cleanup_work;
+ 	} vm;
  };
  
- int panthor_device_init(struct panthor_device *ptdev);
--void panthor_device_unplug(struct panthor_device *ptdev);
-+void panthor_device_unplug(struct panthor_device *ptdev, bool from_reset_work);
- 
- /**
-  * panthor_device_schedule_reset() - Schedules a reset operation
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 924a7ecd3733..730f7996985c 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1827,7 +1827,7 @@ static void panthor_remove(struct platform_device *pdev)
- {
- 	struct panthor_device *ptdev = platform_get_drvdata(pdev);
- 
--	panthor_device_unplug(ptdev);
-+	panthor_device_unplug(ptdev, false);
+@@ -2059,6 +2076,35 @@ void panthor_mmu_pre_reset(struct panthor_device *ptdev)
+ 	mutex_unlock(&ptdev->mmu->vm.lock);
  }
  
- static ssize_t profiling_show(struct device *dev,
++static void mmu_post_reset_cleanup(struct panthor_device *ptdev, bool on_unplug)
++{
++	guard(mutex)(&ptdev->mmu->as.slots_lock);
++
++	/* Now that the reset is effective, we can assume that none of the
++	 * AS slots are setup, and clear the faulty flags too.
++	 */
++	ptdev->mmu->as.alloc_mask = 0;
++	ptdev->mmu->as.faulty_mask = 0;
++
++	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
++		struct panthor_as *as = ptdev->mmu->as.slots[i].as;
++
++		if (!as)
++			continue;
++
++		panthor_as_release_hw_slot_locked(as);
++
++		/* FIXME: We shouldn't drop the no-unmap restriction if
++		 * we're in the unplug path and the device wasn't properly
++		 * stopped with a SOFT_RESET.
++		 */
++		atomic_and(~PANTHOR_AS_FORBID_UNMAP, &as->restrictions);
++	}
++
++	if (!list_empty(&ptdev->mmu->as.cleanup_list))
++		queue_work(panthor_cleanup_wq, &ptdev->mmu->vm.cleanup_work);
++}
++
+ /**
+  * panthor_mmu_post_reset() - Restore things after a reset
+  * @ptdev: Device.
+@@ -2070,22 +2116,7 @@ void panthor_mmu_post_reset(struct panthor_device *ptdev)
+ {
+ 	struct panthor_vm *vm;
+ 
+-	mutex_lock(&ptdev->mmu->as.slots_lock);
+-
+-	/* Now that the reset is effective, we can assume that none of the
+-	 * AS slots are setup, and clear the faulty flags too.
+-	 */
+-	ptdev->mmu->as.alloc_mask = 0;
+-	ptdev->mmu->as.faulty_mask = 0;
+-
+-	for (u32 i = 0; i < ARRAY_SIZE(ptdev->mmu->as.slots); i++) {
+-		struct panthor_as *as = ptdev->mmu->as.slots[i].as;
+-
+-		if (as)
+-			panthor_as_release_hw_slot_locked(as);
+-	}
+-
+-	mutex_unlock(&ptdev->mmu->as.slots_lock);
++	mmu_post_reset_cleanup(ptdev, false);
+ 
+ 	panthor_mmu_irq_resume(&ptdev->mmu->irq);
+ 
+@@ -2098,58 +2129,26 @@ void panthor_mmu_post_reset(struct panthor_device *ptdev)
+ 	mutex_unlock(&ptdev->mmu->vm.lock);
+ }
+ 
+-static void panthor_vm_release(struct kref *kref)
++static void vm_cleanup(struct panthor_vm *vm)
+ {
+-	struct panthor_vm *vm = container_of(kref, struct panthor_vm, refcount);
+ 	struct panthor_as *as = vm->as;
+ 	struct panthor_device *ptdev = container_of(as->base.drm, struct panthor_device, base);
+ 
+-	/* Make sure the page table behind this VM doesn't participate in reclaim
+-	 * after that point, since we're about to release everything anyway.
+-	 */
+-	mutex_lock(&ptdev->base.gem_lru_mutex);
+-	list_del_init(&as->reclaim.lru_node);
+-	mutex_unlock(&ptdev->base.gem_lru_mutex);
++	if (!(atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP)) {
++		/* Unmap everything in case some BOs were still mapped. */
++		drm_WARN_ON(&ptdev->base,
++			    panthor_vm_unmap_range(vm, as->base.mm_start, as->base.mm_range));
++	}
+ 
+-	/* Unmap everything in case some BOs were still mapped. */
+-	drm_WARN_ON(&ptdev->base,
+-		    panthor_vm_unmap_range(vm, as->base.mm_start, as->base.mm_range));
+-
+-	mutex_lock(&vm->heaps.lock);
+-	if (drm_WARN_ON(&ptdev->base, vm->heaps.pool))
+-		panthor_heap_pool_destroy(vm->heaps.pool);
+-	mutex_unlock(&vm->heaps.lock);
++	scoped_guard(mutex, &vm->heaps.lock) {
++		if (drm_WARN_ON(&ptdev->base, vm->heaps.pool))
++			panthor_heap_pool_destroy(vm->heaps.pool);
++	}
+ 	mutex_destroy(&vm->heaps.lock);
+ 
+-	mutex_lock(&ptdev->mmu->vm.lock);
+-	list_del(&vm->node);
+-	/* Restore the scheduler state so we can call drm_sched_entity_destroy()
+-	 * and drm_sched_fini(). If get there, that means we have no job left
+-	 * and no new jobs can be queued, so we can start the scheduler without
+-	 * risking interfering with the reset.
+-	 */
+-	if (ptdev->mmu->vm.reset_in_progress)
+-		panthor_vm_start(vm);
+-	mutex_unlock(&ptdev->mmu->vm.lock);
+-
+ 	drm_sched_entity_destroy(&vm->entity);
+ 	drm_sched_fini(&vm->sched);
+ 
+-	mutex_lock(&vm->as->op_lock);
+-	mutex_lock(&ptdev->mmu->as.slots_lock);
+-	if (as->hw_slot.id >= 0) {
+-		int cookie;
+-
+-		if (drm_dev_enter(&ptdev->base, &cookie)) {
+-			panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
+-			drm_dev_exit(cookie);
+-		}
+-
+-		panthor_as_release_hw_slot_locked(as);
+-	}
+-	mutex_unlock(&ptdev->mmu->as.slots_lock);
+-	mutex_unlock(&vm->as->op_lock);
+-
+ 	if (vm->dummy)
+ 		drm_gem_object_put(&vm->dummy->base);
+ 
+@@ -2158,6 +2157,88 @@ static void panthor_vm_release(struct kref *kref)
+ 	kfree(vm);
+ }
+ 
++static bool vm_prep_for_cleanup(struct panthor_vm *vm)
++{
++	struct panthor_as *as = vm->as;
++	struct panthor_device *ptdev = container_of(as->base.drm, struct panthor_device, base);
++	bool ready_for_cleanup;
++	int cookie, ret;
++
++	/* First we forbid any kind of use on the VM that's about to be
++	 * released. UNMAP will be restored later if we manage to evict
++	 * the page table from its AS slot.
++	 */
++	atomic_or(PANTHOR_AS_FORBID_USE |
++		  PANTHOR_AS_FORBID_MAP |
++		  PANTHOR_AS_FORBID_UNMAP,
++		  &vm->as->restrictions);
++
++	/* Make sure the page table behind this VM doesn't participate in reclaim
++	 * after that point, since we're about to release everything anyway.
++	 */
++	scoped_guard(mutex, &ptdev->base.gem_lru_mutex)
++		list_del_init(&as->reclaim.lru_node);
++
++	scoped_guard(mutex, &ptdev->mmu->vm.lock) {
++		/* Remove the VM from the list early, so it can't be seen by the VM list
++		 * walkers after that point.
++		 */
++		list_del(&vm->node);
++
++		/* Restore the scheduler state so we can call drm_sched_entity_destroy()
++		 * and drm_sched_fini(). If get there, that means we have no job left
++		 * and no new jobs can be queued, so we can start the scheduler without
++		 * risking interfering with the reset.
++		 */
++		if (ptdev->mmu->vm.reset_in_progress)
++			panthor_vm_start(vm);
++	}
++
++	if (!drm_dev_enter(&ptdev->base, &cookie)) {
++		guard(mutex)(&ptdev->mmu->as.slots_lock);
++
++		/* We're in the unplug path and can't recover from
++		 * that, so we just forcibly evict the pgtable. The
++		 * no-unmap restriction will leak resources if
++		 * we can't guarantee the HW stopped.
++		 */
++		if (as->hw_slot.id >= 0)
++			panthor_as_release_hw_slot_locked(as);
++
++		return true;
++	}
++
++	scoped_guard(mutex, &ptdev->mmu->as.slots_lock) {
++		if (as->hw_slot.id >= 0) {
++			ret = panthor_mmu_as_disable(ptdev, as->hw_slot.id, false);
++			if (!ret) {
++				panthor_as_release_hw_slot_locked(as);
++			} else {
++				list_add_tail(&vm->node, &ptdev->mmu->as.cleanup_list);
++				panthor_device_schedule_reset(ptdev);
++			}
++		}
++
++		/* Page table is no longer resident, we can relax the no-unmap
++		 * restriction.
++		 */
++		ready_for_cleanup = as->hw_slot.id < 0;
++		if (ready_for_cleanup)
++			atomic_and(~PANTHOR_AS_FORBID_UNMAP, &as->restrictions);
++	}
++
++	drm_dev_exit(cookie);
++	return ready_for_cleanup;
++}
++
++static void panthor_vm_release(struct kref *kref)
++{
++	struct panthor_vm *vm = container_of(kref, struct panthor_vm, refcount);
++
++	if (vm_prep_for_cleanup(vm))
++		vm_cleanup(vm);
++}
++
+ /**
+  * panthor_vm_put() - Release a reference on a VM
+  * @vm: VM to release the reference on. Can be NULL.
+@@ -2762,7 +2843,11 @@ static void panthor_as_free(struct drm_gpuvm *gpuvm)
+ {
+ 	struct panthor_as *as = container_of(gpuvm, struct panthor_as, base);
+ 
+-	if (as->pt.ops)
++	/* If we get to that point and we're still not allowed to unmap,
++	 * this means the HW is still running and has a access to the page
++	 * table, so we just leak it to avoid UAF.
++	 */
++	if (as->pt.ops && !(atomic_read(&as->restrictions) & PANTHOR_AS_FORBID_UNMAP))
+ 		free_io_pgtable_ops(as->pt.ops);
+ 
+ 	mutex_destroy(&as->op_lock);
+@@ -3488,6 +3573,27 @@ static void panthor_mmu_info_init(struct panthor_device *ptdev)
+ 	ptdev->mmu_info.page_size_bitmap = SZ_4K | SZ_2M;
+ }
+ 
++static void mmu_cleanup_vms_work(struct work_struct *work)
++{
++	struct panthor_mmu *mmu =
++		container_of(work, struct panthor_mmu, vm.cleanup_work);
++	struct panthor_vm *vm, *tmp;
++	LIST_HEAD(cleanup_list);
++
++	/* Collect the VMs to cleanup first. */
++	scoped_guard(mutex, &mmu->as.slots_lock) {
++		list_for_each_entry_safe(vm, tmp, &mmu->as.cleanup_list, node) {
++			if (vm->as->hw_slot.id < 0)
++				list_move_tail(&vm->node, &cleanup_list);
++		}
++	}
++
++	list_for_each_entry_safe(vm, tmp, &cleanup_list, node) {
++		list_del(&vm->node);
++		vm_cleanup(vm);
++	}
++}
++
+ /**
+  * panthor_mmu_init() - Initialize the MMU logic.
+  * @ptdev: Device.
+@@ -3506,7 +3612,9 @@ int panthor_mmu_init(struct panthor_device *ptdev)
+ 	if (!mmu)
+ 		return -ENOMEM;
+ 
++	INIT_WORK(&mmu->vm.cleanup_work, mmu_cleanup_vms_work);
+ 	INIT_LIST_HEAD(&mmu->as.lru_list);
++	INIT_LIST_HEAD(&mmu->as.cleanup_list);
+ 
+ 	ret = drmm_mutex_init(&ptdev->base, &mmu->as.slots_lock);
+ 	if (ret)
 
 -- 
 2.55.0
