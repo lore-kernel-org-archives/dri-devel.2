@@ -4,57 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A473CC55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:13:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 798CDC55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:18:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E137D10EA51;
-	Tue,  4 Aug 2026 13:13:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D769D10E15E;
+	Tue,  4 Aug 2026 13:18:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Q87ATBFA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XtTHDJY9";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CADBA10EA51;
- Tue,  4 Aug 2026 13:13:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785849216; x=1817385216;
- h=from:to:subject:in-reply-to:references:date:message-id:
- mime-version; bh=rybi2gi45uqGfa5yrMPOMczdwx7wNC+VlwwLMKCBhbw=;
- b=Q87ATBFAE6CH7FwID30qTrJ3oi6Kp1O3RcRvP8d65fooHhIbgo7TiH8W
- xDVqMCPTAo2KB2nAdLNV57T7KRNvd7mrVN7QTVPMG4K5C0ykjjdWxhHsW
- Q3z3P+Xz0Evk/R6PNT+tEotpKXxNtGyoep2Gdz4QOLwc6FzPAfniFkoAp
- qnupI5+8MECwvlIkNxagFKLXrf9AxaXmOfXOD/X97HjVwlycMFbNf8wc6
- noI2AUlClh26VTEPpaNO94mLCJthnTHbociTdoWMHg0+5Fktfz1qq9YXF
- vz3oimK6RJ7RS91m2Nfr6F1OnsnKogjEQVaANIPqSBnOrDPgsG+8/Kadq A==;
-X-CSE-ConnectionGUID: fuxDITwfSPChIhcF5Vpv8Q==
-X-CSE-MsgGUID: b/YM7dX0S++Ca9qa+/XDFA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86598227"
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="86598227"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 06:13:35 -0700
-X-CSE-ConnectionGUID: XMyW5Z1hRrOr/tsJXKHLKA==
-X-CSE-MsgGUID: kxcnGRXETP2+j7OiRh0Y0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="284885289"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.151])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 06:13:01 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Haram Choi <haram@choiharam.com>, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, ville.syrjala@linux.intel.com
-Subject: Re: [REGRESSION] 7.1: apple-gmux backlight dead on MacBookPro13,3 -
- PCI bridge left with VGA enable set and VGA 16-bit decode cleared,
- aliasing legacy VGA I/O over the gmux ports
-In-Reply-To: <0102019fcb5d411c-e0a555b7-46da-43a1-bd9d-6cb120f58a7f-000000@eu-west-1.amazonses.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <0102019fcb5d411c-e0a555b7-46da-43a1-bd9d-6cb120f58a7f-000000@eu-west-1.amazonses.com>
-Date: Tue, 04 Aug 2026 16:12:58 +0300
-Message-ID: <4bf694add4bcd5b6361b3f8a827fb8dab9f250eb@intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6143C10E15E
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 13:18:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0218640727;
+ Tue,  4 Aug 2026 13:18:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A921F000E9;
+ Tue,  4 Aug 2026 13:18:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785849534;
+ bh=RTHV5v9tQNOB180OttEs0wmT8xa5rG3vlpFXX7jZKD8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=XtTHDJY9/S7JIhwl7aw020fmmXyI6RBIpFPR5G9NdBj2W1WdIJY7cA43p3HPvyHBS
+ dGsUIUwEebYZn+hTA8lNAblxIuLLlpCq0odQCbpj+0fkuzl4PWmGLpnb6urdy8vesn
+ SUYhlaz1PnrqHehafvhDG6BGIfK73NXZ0HWjWWdlOuB5QNO9/P/Rq6mulFmHxBrgl6
+ fz2lOxuxECUK9yhuMJCJh3R8Bz8s+IOn8uPdAgDTLhWjqtsXDSbqbgz6lcyttU4Oju
+ xVkaIh7u3n0swSlLygZ+CJtnsZwFm2khG/hOaxgPCWutT35aZUYSzZRS2HwUXrOChV
+ lGQayIgEJktaw==
+From: sashiko-bot@kernel.org
+Subject: Re: [v6 5/9] drm/i915/display: Program CSC on SDR planes based on
+ Fixed Matrix Colorop
+To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260804123107.2256124-6-chaitanya.kumar.borah@intel.com>
+References: <20260804123107.2256124-1-chaitanya.kumar.borah@intel.com>
+ <20260804123107.2256124-6-chaitanya.kumar.borah@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 13:18:53 +0000
+Message-Id: <20260804131854.B9A921F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,32 +54,102 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, 04 Aug 2026, Haram Choi <haram@choiharam.com> wrote:
-> I think I have found the commit. It is not in drivers/pci at all, and
-> my previous suspicion of 94555ea9a048 was wrong. Apologies to Simon
-> for the noise.
->
-> The regression is:
->
->   cc6ed470caa2 ("drm/i915/vga: Avoid VGA arbiter during
->                  intel_vga_disable() for iGPUs")
->   Ville Syrjala <ville.syrjala@linux.intel.com>, 2025-12-08
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Uh, that's a bit of a bummer. As you can see, I've only acked it,
-because quite honestly, I don't fully understand what's going on, but I
-fully trust Ville to follow through with any issues it might cause. Like
-this one. However, Ville's not available for a few weeks now, and the
-commit also does not revert cleanly anymore.
+Pre-existing issues:
+- [High] Plane color pipeline configuration (including `csc_ff_enable` and =
+LUT blobs) is silently discarded if an atomic commit updates the plane but =
+omits the color pipeline objects.
+--
 
-We can either try to hack together some sort of fix/revert, or wait for
-Ville's input.
+--- Patch [5]: [v6 5/9] drm/i915/display: Program CSC on SDR planes based o=
+n Fixed Matrix Colorop ---
+commit 17128052d77ad1b002034d74a8e48d89696c0df8
+Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
+drm/i915/display: Program CSC on SDR planes based on Fixed Matrix Colorop
 
-BR,
-Jani.
+When a color pipeline is active, program the SDR plane fixed-function
+CSC based on the Fixed Matrix Colorop's state. Re-use the existing plane
+state variables for color_range and color_encoding.
 
--- 
-Jani Nikula, Intel
+> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm=
+/i915/display/intel_plane.c
+> index d0f99a87c42e8..25ca049009efb 100644
+> --- a/drivers/gpu/drm/i915/display/intel_plane.c
+> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
+
+[ ... ]
+
+> @@ -485,11 +522,23 @@ intel_plane_color_copy_uapi_to_hw_state(struct inte=
+l_atomic_state *state,
+>  	while (iter_colorop) {
+>  		for_each_new_colorop_in_state(&state->base, colorop, new_colorop_state=
+, i) {
+>  			if (new_colorop_state->colorop =3D=3D iter_colorop) {
+> -				blob =3D new_colorop_state->bypass ? NULL : new_colorop_state->data;
+>  				intel_colorop =3D to_intel_colorop(colorop);
+> -				changed |=3D intel_plane_colorop_replace_blob(plane_state,
+> +				if (intel_colorop->id =3D=3D INTEL_PLANE_CB_CSC_FF) {
+> +					fm_type =3D new_colorop_state->fixed_matrix_type;
+> +
+> +					plane_state->hw.csc_ff_enable =3D
+> +						!new_colorop_state->bypass;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this iteration macro fa=
+il
+to preserve the hardware state during page flips?
+
+If userspace performs a simple plane update, such as a page flip to update =
+the
+FB, without explicitly including the color pipeline objects in the atomic
+commit, for_each_new_colorop_in_state() in
+intel_plane_color_copy_uapi_to_hw_state() will skip the unmodified colorops.
+
+Since intel_plane_copy_uapi_to_hw_state() calls intel_plane_clear_hw_state()
+prior to this step, the entire hardware state is cleared. As a result, the
+new csc_ff_enable flag and other LUT pointers will not be restored,
+permanently losing the hardware configuration.
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers=
+/gpu/drm/i915/display/skl_universal_plane.c
+> index 73be4c6ff1d3b..222c3b6bbe467 100644
+> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
+> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
+
+[ ... ]
+
+> @@ -1245,9 +1245,11 @@ static u32 glk_plane_color_ctl_input_csc(const str=
+uct intel_plane_state *plane_s
+>  	struct intel_display *display =3D to_intel_display(plane_state);
+>  	const struct drm_framebuffer *fb =3D plane_state->hw.fb;
+>  	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plane);
+> +	bool color_pipeline =3D !!plane_state->uapi.color_pipeline;
+> +	bool needs_csc =3D color_pipeline ? plane_state->hw.csc_ff_enable : fb-=
+>format->is_yuv;
+>  	u32 ctl =3D 0;
+> =20
+> -	if (!fb->format->is_yuv)
+> +	if (!needs_csc)
+>  		return 0;
+
+[Severity: High]
+Because of the issue mentioned above, could needs_csc evaluate to false
+incorrectly?
+
+When the csc_ff_enable flag is silently dropped during an atomic commit that
+does not modify colorops, glk_plane_color_ctl_input_csc() will evaluate
+needs_csc to false. This disables the hardware CSC, which can lead to
+incorrect colors or visual artifacts on the display.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804123107.2256=
+124-1-chaitanya.kumar.borah@intel.com?part=3D5
