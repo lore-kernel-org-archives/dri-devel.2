@@ -4,49 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 170EAC55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:50:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 714E9C55184
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:55:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 52CDD10EA25;
-	Tue,  4 Aug 2026 12:50:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFBF310E144;
+	Tue,  4 Aug 2026 12:55:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="k2fftbKM";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="l97IDUcV";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2F0E210EA20
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:50:35 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A546C165C
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 05:50:30 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 72D8A3F66F
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 05:50:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785847834; bh=snTQtcGEqteAJu+Rvoz3D4mB2JBxEopiOgm2EBh9KKc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=k2fftbKMw/iu9Ti07oFOE8epnvkuKjnVlz+9kRadqpaOzFm3OO80JRtd3G/QHku9X
- 5aqpr9vW2SVAGvNpqLpXbpU2GMLI7OPam5vK24Hp8zDTm/AnNmBJDIR7Rg71MYA50k
- 55VAwhXS4waLnLYa380WtkSAwIX9POWI3O4KppzY=
-Date: Tue, 4 Aug 2026 13:50:25 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: Boris Brezillon <boris.brezillon@collabora.com>
-Cc: Steven Price <steven.price@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 03/12] drm/panthor: Move the debugfs initialization to
- panthor_device.c
-Message-ID: <anHgEQIVMZkPXxLr@e142607>
-References: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
- <20260804-panthor-unplug-fixes-v1-3-abbbd2d41b13@collabora.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3024710E144;
+ Tue,  4 Aug 2026 12:55:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785848101; x=1817384101;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=IXjlgo6HpnwLHgWz7EQ0ryHAqlC5Qz9uv6WqFlK4L6c=;
+ b=l97IDUcVg2KNhf61kGSNkRT+QsBwN2OA5vTeJmef/8dIAEVvU4NY4zjd
+ tm8D3agBQDkLZ53zwxojT3HpAFxVAveotrxNbiJnr9Avh/uXDv3sIhYOn
+ TwjhMbxFcld0EPZfvgT/YoNNVD6qua2IQ+blFB/VhccJJvf0MkFjQBlKn
+ Wlw14lPVGRFtvZd3+3BPCZvVnfgxIf5AeJlBH3p+t+OsVLupdHLUPltMy
+ IhicyewiLvvaZKtM1ofFxegjo8sdElJr/Kt2k5cUPBbvzHapa4rWSJ9y1
+ 4HM0vW3MfKRZY/d0iFOVOlI3h16BiHLO1iXnXyR0AXpS1Z4npkhLT6hlm w==;
+X-CSE-ConnectionGUID: yaiD3aBQSbWxoWzWA24MzA==
+X-CSE-MsgGUID: 4wlbxc1ATL+gVbxkb7DfMA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="90073186"
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="90073186"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2026 05:55:00 -0700
+X-CSE-ConnectionGUID: OBkRCkMJRdmYBi2ERZ+Vig==
+X-CSE-MsgGUID: KKGKtxxQT0+dR/9/33fC2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; d="scan'208";a="262108215"
+Received: from dut-2a59.iind.intel.com ([10.190.239.113])
+ by orviesa009.jf.intel.com with ESMTP; 04 Aug 2026 05:54:55 -0700
+From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+To: intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>, Alex Hung <alex.hung@amd.com>,
+ Daniel Stone <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@intel.com>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Pranay Samala <pranay.samala@intel.com>,
+ Swati Sharma <swati2.sharma@intel.com>,
+ Naveen Kumar <naveen1.kumar@intel.com>,
+ Robert Mader <robert.mader@collabora.com>
+Subject: [v6 0/9] drm/i915/color: Enable SDR plane color pipeline
+Date: Tue,  4 Aug 2026 18:00:58 +0530
+Message-ID: <20260804123107.2256124-1-chaitanya.kumar.borah@intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260804-panthor-unplug-fixes-v1-3-abbbd2d41b13@collabora.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,101 +75,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 04, 2026 at 12:09:42PM +0200, Boris Brezillon wrote:
-> Those are per-device debugfs-files, so it makes sense to have the
-> initialization logic in panthor_device.c.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
+This series adds color pipeline support for SDR planes in i915 and
+exposes the functionality to userspace through the DRM colorop
+framework.
 
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+In contrast to HDR planes, SDR planes have LUTs with smaller sizes
+and a fixed function CSC block in contrast to a programmable CTM.
 
-Best regards,
-Liviu
+The series first introduces a new DRM colorop type,
+DRM_COLOROP_FIXED_MATRIX, which represents fixed-function CSC blocks where
+userspace selects predefined hardware conversion modes instead of
+programming arbitrary matrices. It also adds the YUV correction HW block.
+With this the color pipeline can accept both limited range and full range
+YUV framebuffers.
 
-> ---
->  drivers/gpu/drm/panthor/panthor_device.c |  9 +++++++++
->  drivers/gpu/drm/panthor/panthor_device.h |  4 ++++
->  drivers/gpu/drm/panthor/panthor_drv.c    | 10 +---------
->  3 files changed, 14 insertions(+), 9 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-> index 1aa86d00646f..7d336f160d1f 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -13,6 +13,7 @@
->  #include <linux/reset.h>
->  
->  #include <drm/drm_drv.h>
-> +#include <drm/drm_file.h>
->  #include <drm/drm_managed.h>
->  #include <drm/drm_print.h>
->  
-> @@ -616,3 +617,11 @@ int panthor_device_suspend(struct device *dev)
->  	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
->  	return 0;
->  }
-> +
-> +#ifdef CONFIG_DEBUG_FS
-> +void panthor_device_debugfs_init(struct drm_minor *minor)
-> +{
-> +	panthor_mmu_debugfs_init(minor);
-> +	panthor_gem_debugfs_init(minor);
-> +}
-> +#endif
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-> index 0fda64fbe5f2..a6b1a2a5fca4 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.h
-> +++ b/drivers/gpu/drm/panthor/panthor_device.h
-> @@ -403,6 +403,10 @@ int panthor_device_mmap_io(struct panthor_device *ptdev,
->  int panthor_device_resume(struct device *dev);
->  int panthor_device_suspend(struct device *dev);
->  
-> +#ifdef CONFIG_DEBUG_FS
-> +void panthor_device_debugfs_init(struct drm_minor *minor);
-> +#endif
-> +
->  static inline int panthor_device_resume_and_get(struct panthor_device *ptdev)
->  {
->  	int ret = pm_runtime_resume_and_get(ptdev->base.dev);
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index 46a3080b0b20..924a7ecd3733 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1764,14 +1764,6 @@ static const struct file_operations panthor_drm_driver_fops = {
->  	.fop_flags = FOP_UNSIGNED_OFFSET,
->  };
->  
-> -#ifdef CONFIG_DEBUG_FS
-> -static void panthor_debugfs_init(struct drm_minor *minor)
-> -{
-> -	panthor_mmu_debugfs_init(minor);
-> -	panthor_gem_debugfs_init(minor);
-> -}
-> -#endif
-> -
->  /*
->   * PanCSF driver version:
->   * - 1.0 - initial interface
-> @@ -1807,7 +1799,7 @@ static const struct drm_driver panthor_drm_driver = {
->  	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
->  	.gem_prime_import = panthor_gem_prime_import,
->  #ifdef CONFIG_DEBUG_FS
-> -	.debugfs_init = panthor_debugfs_init,
-> +	.debugfs_init = panthor_device_debugfs_init,
->  #endif
->  };
->  
-> 
-> -- 
-> 2.55.0
-> 
+With that, the SDR plane color pipeline looks like.
+
+[YUV Range Correct] -> [1D LUT] -> [CSC] -> [1D LUT]
+
+v2:
+ - Naming changes [Pekka]
+ - Adds YUV color range correct block
+
+v3:
+ - Fix NC matrix enum name and string [Melissa]
+ - Extract and simplify glk_plane_color_ctl_input_csc into
+   helpers (new prep patches)
+ - Restructure SDR pre/post-CSC LUT loops to match HDR function
+   pattern
+ - Drop HDR pre-CSC LUT clamping fix (submitted separately)
+ - Rebase
+
+v4:
+ - For CI
+ - Rebase
+
+v5:
+- Do not skip programming legacy property if color pipeline is not set.
+  Support for YUV buffers in color pipeline uAPI is a work in progress.
+  Therefore, color-pipeline-aware userspace might still use the legacy
+  COLOR_RANGE and COLOR_ENCODING property while keeping the color
+  pipeline to Bypass. Therefore, skip programming based on legacy
+  properties only when a color pipeline is set.
+
+v6:
+- Drop YCbCr limited-to-full and RGB709-to-RGB2020 matrices
+  until there is a non-IGT userspace implementation. [Robert]
+- Drop pre-CSC LUT and YUV range correct blocks from the
+  pipeline in favor of a simpler [CSC] -> [1D LUT] pipeline.
+  The Fixed Matrix CSC handles both full and limited range
+  YCbCr conversions internally.
+
+
+IGT series (needs update): https://patchwork.freedesktop.org/series/165021/
+A rough updated IGT implementation with some additional test can be found here.
+https://github.com/ckborah/igt-sandbox/tree/color/sdr-sw-ref
+
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@intel.com>
+Cc: Pekka Paalanen <pekka.paalanen@collabora.com>
+Cc: Pranay Samala <pranay.samala@intel.com>
+Cc: Swati Sharma <swati2.sharma@intel.com>
+Cc: Naveen Kumar <naveen1.kumar@intel.com>
+Cc: Robert Mader <robert.mader@collabora.com>
+
+Chaitanya Kumar Borah (7):
+  drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+  drm/i915/color: Add CSC on SDR plane color pipeline
+  drm/i915/display: extract glk_plane_color_ctl_input_csc helper
+  drm/i915/display: simplify glk_plane_color_ctl_input_csc
+  drm/i915/display: Program CSC on SDR planes based on Fixed Matrix
+    Colorop
+  drm/i915/color: Add support for 1D LUT in SDR planes
+  drm/i915/color: Add color pipeline support for SDR planes
+
+Pranay Samala (2):
+  drm/i915/color: Extract HDR post-CSC LUT programming to helper
+    function
+  drm/i915/color: Program Plane Post CSC registers for SDR planes
+
+ drivers/gpu/drm/drm_atomic.c                  |   4 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |   7 +
+ drivers/gpu/drm/drm_colorop.c                 | 107 +++++++++++++++
+ drivers/gpu/drm/i915/display/intel_color.c    |  76 ++++++++---
+ .../drm/i915/display/intel_color_pipeline.c   |  30 ++++-
+ .../drm/i915/display/intel_display_limits.h   |   1 +
+ .../drm/i915/display/intel_display_types.h    |   1 +
+ drivers/gpu/drm/i915/display/intel_plane.c    |  53 +++++++-
+ .../drm/i915/display/skl_universal_plane.c    |  42 +++---
+ include/drm/drm_colorop.h                     | 127 ++++++++++++++++++
+ include/uapi/drm/drm_mode.h                   |  12 ++
+ 11 files changed, 420 insertions(+), 40 deletions(-)
 
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+2.50.1
+
