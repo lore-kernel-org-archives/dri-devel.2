@@ -4,45 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4322C55838
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:23:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74AB3C55838
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:28:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DB1110EA04;
-	Tue,  4 Aug 2026 12:23:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CCF810E9FB;
+	Tue,  4 Aug 2026 12:28:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jz6PI/ia";
+	dkim=pass (2048-bit key; secure) header.d=kde.org header.i=@kde.org header.b="GduH9CIL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 211C010EA04
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:23:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 68E5760A77;
- Tue,  4 Aug 2026 12:23:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6E51F00A3D;
- Tue,  4 Aug 2026 12:23:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785846229;
- bh=2KQXGRcKEg+TweibH2l3N8b15Hx4fsIJOaOhHMa5qDY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=jz6PI/iawhNWY7K60RXBx7DqXo1XuEmEInNOmsPpbUTM+xCDGkF6OZ7SW2MgZtcHN
- 0bv8dh0VW6MNgJbJjNdoV5SlNvJNrPpXRqKoyY5eCugX6JRscsatBa9RU0HtUo/lrg
- agoSujMLN9xWNbcFjihpvUxdwCTnyuiM7ItZ9VdTbNcjPQuwk8MwUZNvlkzN8zz6ZW
- ep9hD8reXjZdlLHG2NGJ5lIhf006AqTboatVpzj12Y7wEejXOXupYvBEt5mJtwMFXl
- 9rnP9m/MYIpDyvln7OACA01EahCd7uvnqxfSloaPqLfur6OPQVgvhARwIQMEj9FTxU
- eEvh7m/iE50Vg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/6] kvm: apply VM_READ/VM_WRITE checks to all VMA types
-To: "Paolo Bonzini" <pbonzini@redhat.com>
-Cc: "Vasily Gorbik" <gor@linux.ibm.com>, "Heiko Carstens" <hca@linux.ibm.com>,
- kvm@vger.kernel.org, linux-s390@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260804120529.1730187-5-pbonzini@redhat.com>
-References: <20260804120529.1730187-1-pbonzini@redhat.com>
- <20260804120529.1730187-5-pbonzini@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 12:23:48 +0000
-Message-Id: <20260804122348.AC6E51F00A3D@smtp.kernel.org>
+Received: from letterbox.kde.org (letterbox.kde.org [46.43.1.242])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBFB910EA05
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:28:08 +0000 (UTC)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179]) (Authenticated sender: zamundaaa)
+ by letterbox.kde.org (Postfix) with ESMTPSA id 4872E330AC2
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 13:28:07 +0100 (BST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kde.org; s=users;
+ t=1785846487; bh=DTKgAiDAoqWybX/1QUJfHY1C1iV1Yvx0fh8FqJ9VSw0=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=GduH9CILW5fEFtpzvRm0IyhSLw/jN6zFcQFYDnCVwAlh7iJmW0mfEDrIe0SDMX4Yv
+ WZ6tVhwM3Di2Qjpgma+OrHunaoIDQ3VU7dMLjZfDuei22uaDBvODAEvDAM977G4j3e
+ C5JQs58f+gfZQj/6WcHwJPFckYgr6QH7U0EOFyVrXUdC5Cg12zTiUbWjhVug7uVTff
+ 1L9SXvrYVGk5KnzvHkdz9eO1MGiWCtBjz5XDI2mczyhdEtJ9vMmR3ZfnHu/E6XyrPc
+ meVOhQkJZIFKGaUA/1tIy87dhpDZ98+P4E75TFWrkNxsjAddWBRg7w+bBj2nNj8EL6
+ MiB5zGxaAkAzQ==
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-52b4e988c77so20293041cf.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 05:28:07 -0700 (PDT)
+X-Gm-Message-State: AOJu0YyEhVM0GyGKwdrzRvFKXHruegm688h8srZ7M8fBLCwfrNRqZXWD
+ 3uQRdWohw2QguUaBcqq3NAXNq3ZrY71QP5KUnsX8rlYKwhF3NeFsr1HYxTm0c0L05TJlKlaAFUC
+ Pz+kOwG7XuODlnzGE4jda13iTtpFNo2Q=
+X-Received: by 2002:a05:622a:229c:b0:51b:9873:e379 with SMTP id
+ d75a77b69052e-52b56796913mr269348581cf.36.1785846486036; Tue, 04 Aug 2026
+ 05:28:06 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260803144120.11524-1-xaver.hugl@kde.org>
+ <2353697f-b1da-495a-b043-7a81d875856e@collabora.com>
+ <CAFZQkGyfDwjPuciiOvZM3Ha8Xj+YkgkMaveHZtBK2w_S+Z+Vcw@mail.gmail.com>
+ <c6c0e544-5a19-4ca1-b113-c085bab0c967@collabora.com>
+In-Reply-To: <c6c0e544-5a19-4ca1-b113-c085bab0c967@collabora.com>
+From: Xaver Hugl <xaver.hugl@kde.org>
+Date: Tue, 4 Aug 2026 14:27:54 +0200
+X-Gmail-Original-Message-ID: <CAFZQkGztAGqKUuYarQGOcKnoGq-1CAxqXTTjLWZ0SqJZtkpOXQ@mail.gmail.com>
+X-Gm-Features: AUfX_mzCRJgqh4Y8EZERLOI0LGWIwkCaQyXiFvRk2SJ8v-VgLOGEjAX-EZkppKU
+Message-ID: <CAFZQkGztAGqKUuYarQGOcKnoGq-1CAxqXTTjLWZ0SqJZtkpOXQ@mail.gmail.com>
+Subject: Re: [PATCH] udmabuf: vastly increase the size limit per dmabuf
+To: Robert Mader <robert.mader@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, wayland-devel@lists.freedesktop.org, 
+ kraxel@redhat.com, stable@vger.kernel.org, vivek.kasireddy@intel.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,71 +65,22 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Write faults on write-only `VM_IO | VM_PFNMAP` VMAs are incorrectl=
-y rejected, breaking guest writes to write-only device memory.
---
+Am Di., 4. Aug. 2026 um 09:04 Uhr schrieb Robert Mader
+<robert.mader@collabora.com>:
+> 1. affected distros could backport the patch or set a higher limit via
+> kernel command line
+Yeah, I'll put it in our packaging recommendations for KWin.
 
---- Patch [4]: [PATCH v2 4/6] kvm: apply VM_READ/VM_WRITE checks to all VMA=
- types ---
-commit 254a4090eb1ddc66d1d90350bb0e3ef36a2ee158
-Author: Paolo Bonzini <pbonzini@redhat.com>
+> Arguably having a working fallback path were possible would be good
+> style either way - would it be a big effort to do so in kwin?
+For multi-gpu copies, it's not too bad, and I already implemented that
+part. For software rendering it would be rather annoying, but it's
+arguably a very unlikely edge case that would be terribly slow at
+these resolutions either way.
+So it'll probably be fine.
 
-kvm: apply VM_READ/VM_WRITE checks to all VMA types
-
-This commit moves the VM_READ and VM_WRITE checks to the beginning of the
-fallback VMA lookup block in hva_to_pfn(). This standardizes the error
-return codes across remapped and regular VMAs, eliminating inconsistencies
-in how RO faults are handled.
-
-> diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-> index 45e784462ec6e..576bcb21be3a6 100644
-> --- a/virt/kvm/kvm_main.c
-> +++ b/virt/kvm/kvm_main.c
-[ ... ]
-> @@ -3008,20 +2997,29 @@ kvm_pfn_t hva_to_pfn(struct kvm_follow_pfn *kfp)
->  retry:
->  	vma =3D vma_lookup(current->mm, kfp->hva);
-> =20
-> -	if (vma =3D=3D NULL)
-> +	/*
-> +	 * GUP failed.  It could be an inaccessible mapping, a pfnmap one,
-> +	 * or the page might be absent.
-> +	 */
-> +
-> +	if (vma =3D=3D NULL || unlikely(!(vma->vm_flags & VM_READ))) {
-
-[Severity: High]
-Does this unconditionally reject write-only mappings?=20
-
-If a guest performs a memory write to a guest physical address backed by a
-write-only host VMA (e.g. VM_IO or VM_PFNMAP mapped with PROT_WRITE but
-without PROT_READ), get_user_pages() will fail and fall back to this lookup.
-
-Since the write-only VMA lacks VM_READ, this check will evaluate to true and
-return KVM_PFN_ERR_FAULT, skipping the VM_IO | VM_PFNMAP handler. Could this
-prevent guests from writing to legitimate write-only device memory, such as
-command ring buffers or write-only PCI BARs?
-
->  		pfn =3D KVM_PFN_ERR_FAULT;
-> -	else if (vma->vm_flags & (VM_IO | VM_PFNMAP)) {
-> +	} else if ((kfp->flags & FOLL_WRITE) && unlikely(!(vma->vm_flags & VM_W=
-RITE))) {
-> +		/*
-> +		 * Exit to userspace for PROT_READ mappings in a writable
-> +		 * memslot, as this is part of the API.
-> +		 */
-> +		pfn =3D vma->vm_flags & (VM_IO | VM_PFNMAP) ? KVM_PFN_ERR_RO_FAULT :
-> +			KVM_PFN_ERR_FAULT;
-> +	} else if (vma->vm_flags & (VM_IO | VM_PFNMAP)) {
->  		r =3D hva_to_pfn_remapped(vma, kfp, &pfn);
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804120529.1730=
-187-1-pbonzini@redhat.com?part=3D4
+Thanks,
+- Xaver
