@@ -4,76 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71B87C55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:59:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E98B8C55184
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:59:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D3BFC10EA69;
-	Tue,  4 Aug 2026 13:59:07 +0000 (UTC)
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com
- [209.85.221.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C904910E190
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 13:59:05 +0000 (UTC)
-Received: by mail-vk1-f180.google.com with SMTP id
- 71dfb90a1353d-5c276bd3692so3158450e0c.3
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 06:59:05 -0700 (PDT)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42FBB10E190;
+	Tue,  4 Aug 2026 13:59:31 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hTvTdOSf";
+	dkim-atps=neutral
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2F8310E190
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 13:59:29 +0000 (UTC)
+Received: by mail-ed1-f48.google.com with SMTP id
+ 4fb4d7f45d1cf-6a051b737d8so4844548a12.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 06:59:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785851968; cv=none;
+ d=google.com; s=arc-20260327;
+ b=VZp19nbQRvM6I8wfiQ25vWKNJe4orPQLwP+pMoYTATpZNZsZyrEvvahPtW0SQjH0ZO
+ p+KI90CXc3RoR+NmJQcfG3FuHzdElumhR4xyinSHvED3u7U4Lsa3oGiTowudYaFEcrCE
+ Rvw9/o4iaiTwtK7GwX03D3PQeS+5+BB8vXguglinbThcmgdfcF/OhOKEJ40mLpMscZRN
+ oswuQoui4/omC3cZEoNMBNwQi5m51OlPEiPdA+EIi6lDYm7PNrsl0JSvxjBHhtjorR3U
+ cEUs3cYVzJgj9aejUEEaMVR68AUaPvCTNW1k3hEogS6bhMy75In3DFx6eAngKdXULJQZ
+ EvgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=89EaKRTuttPUHq+sVPSA7Zb6zcbSC6P4w6uUi6dNSdA=;
+ fh=kNKA7ZKeU/EZ/ENhnfBBxPf8rvaAiYi2qao0p0Y0+F4=;
+ b=GF/pq85gz3E3bXSoMDfjfdxfW3yHcprIoFYxirp4JiE+CwsP/8iI9495GH+pRXO7Kq
+ /BbN4PjYs+TfSJesqg604bBRpPFJk/qquAaLczNw20/z16a6kaI7ZLpeeSCXmw3JBUix
+ pNqU7pF2+HNddpeR5SXbp9Yi9+sONca50wy128JvHY2EYhTQ5XSu1/lEs8JE+BdboyFK
+ P8HGdJ5zRLs/igCMwr/5GTKhTF/KZrCKe+512BduzJWazTnUJ3tkba5EgleMNih90Xcv
+ gpJs3MZ+ulM9TH/WSAZzhzFDxrBg/jOwU55reAvl/XO+S9snbjuBZkq+hYMyf6GdLPe1
+ vrtQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785851968; x=1786456768; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=89EaKRTuttPUHq+sVPSA7Zb6zcbSC6P4w6uUi6dNSdA=;
+ b=hTvTdOSfbdV8j9UfrIRSrrIirPPGsGi5tULa2Myn0LLNC7MEUPYDEPw3JrMn1pXVpO
+ EMpcTJnmDLe7N6sj2azq06YHwM7Mz45vRNcoafF0M7HA3EtWx7lQNLrW7t0xg8WrQhwG
+ KUcje/kKQyWa6ylk1pmGjCrTxZg5AkmCnLom5gcLKios9CBudlSQYnijy/0dnRfwNPH+
+ E3/LJYz3ASeavKj5UKPNr8JLEqD3TUduAKQdwQ2Wu/K+Pio8CKPGhqWDyRva5UTqV0Gd
+ rL7Qq24MPnz0GgGC46I4gHBjmMrJ5cn6YQyqxv21RsCALOy4MbjA/TVAS4ogqwyKCUSr
+ SR6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785851945; x=1786456745;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=jMZGg3Hr90Da/te9ZK4e2PlgcVa8qZPpj3G51Zmu8Ic=;
- b=svrsYUYO27uLxPO4yQtYaOn1UFF1Cu1Uf2d2DfHUZLniOcASfPO7FMlWNpZlBMxc+Z
- 3sVGK1c4NLV8kDm6JUGlzdN7lddVHU+TatZjNXWQBRm6GT5rMELJHYSVo+t/zvgt3aFq
- POMAihtxxeEWCR8CqlNqlYYIjpxZdzmQUVByMB0nM1mpsY0z1cF8o998UR670y6B8UWi
- KQL7JGYHARmfuDWPLUMGjvFmJ4dqTxyd+EKTo3ENPFoVnmUxLpx/QlgcIgyP07f7NWiR
- nuobXedwIoVFc6h6jD+rLPQmHMkE0euqz9Fe4EgD+OuFpodGwSt4MP/WTT3s11XH6rYo
- 7OPQ==
+ d=1e100.net; s=20251104; t=1785851968; x=1786456768;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=89EaKRTuttPUHq+sVPSA7Zb6zcbSC6P4w6uUi6dNSdA=;
+ b=Rv1lQpXYFaTy+382jpMLu4KdCQaDcyjWI2qovzcL0fDTWYnOjD4vKEKQOSUr5Eq2/B
+ ON8oO/1fS/ZclTMer4Zsn9r4JA3Hw+Mgr67KBECUlhnN7Iepl/iAW0DbD8H2hNhBouJq
+ VI2b7Qc0BiJ28dmWvq5MGE8Z3kNuS2Q+eravjODRQpgCT7i4XuTbSITT4580SKhxQkYh
+ E+7tF7CqEwrx4fl3hJorGjICxWmMdZ89vJHAM1fchFxZM1YYft5iwUFp22zV6JsIUKTh
+ kwZEEd1STJWTNkK1X9B00pLH6DEPR8mmmSuAT8W9siPaF+WqcPFCijyBeb0hbyT8/zAA
+ jezA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpAXqQNcwtbVyW87LlC1kwgyDLTPYqnXowsibjAL39yEbfVOVmSVPUqH6W02+3y+1NmK1lQ2qY82OU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz+mWyJ68McJrHKOpq1Jwk+Or3hsdK/aC+19eFwqrlFpg0j+rT/
- sJshnMB1jteZJxj3EtJD2J8DPAF4Hlh323D7iMevn7j5mFgzKUhksii8AQ1eKlfJ
-X-Gm-Gg: AR+sD131NGyTjQ/Y91zrLoP7CfWa3H9inDT2sdq4PNzCPCMygWj22QkVKKMWSOTWSSP
- HpOcXuZKrIFVrQ0E6LiGrK72aGo72Bu0NjkwER45mkCdG51WGxyUUHmxsADn5axfazcp+PiOx1P
- 2K5SoejBki1Xx64NExbTzRBWjoeMGSWcn2TDpBKT7l2fAdPiIgK8vHRPvRf+zft5CdVFCiX3jiW
- DA7o4lpcO2sv/P3nNf+Q5bw98M2Kz9fHjhbUcoY2R/AjGWub9RjjNxNCzHAKk8rO4w21a60OF5z
- qZzgf8dTF9+CORUbqnH2YK81qgHFoXplrux9tJX5VIuDQQwULGmPCfH9hPzBYXrLZdL3YxkRTJ4
- 0l4aXiLdbmPOELJOVNstb0wQydXmGS4fcOKagT2e9lcajy/MKI7WEM7UBQtrZCKKSD3d8EVyVEE
- nxx6kAm5Dy7ARbF4QzLC/J8yVj/XDNqTQEh/Zw7acg72u0nfojMwHuMY7WFNyq+Csnnivcw7qz9
- CLxUI3V4RWLqVE25hKG0qgiA5eYcQ==
-X-Received: by 2002:a05:6122:3291:b0:5c2:c115:ef56 with SMTP id
- 71dfb90a1353d-5c3878da5dcmr5295463e0c.11.1785851944505; 
- Tue, 04 Aug 2026 06:59:04 -0700 (PDT)
-Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com.
- [209.85.221.175]) by smtp.gmail.com with ESMTPSA id
- 71dfb90a1353d-5c3d08b1e28sm463814e0c.10.2026.08.04.06.59.03
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 04 Aug 2026 06:59:03 -0700 (PDT)
-Received: by mail-vk1-f175.google.com with SMTP id
- 71dfb90a1353d-5c276bd3692so3158420e0c.3
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 06:59:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RprsjOlbl7F8H6ehpa/0VafH7PdjgMZwjrCw4Bv8dqS2axRoeS9AxO8MkejCmPaJlv60We543Ct/os=@lists.freedesktop.org
-X-Received: by 2002:a05:6122:178a:b0:5bd:ea6e:52f4 with SMTP id
- 71dfb90a1353d-5c3878da56dmr4433506e0c.10.1785851943093; Tue, 04 Aug 2026
- 06:59:03 -0700 (PDT)
+ AHgh+Rqa6uR8A+v5PxG+qp92OseCnze4XM47ZBdKovXM6hvtk1FfcO5+EVBBNdPm9bU7hWtW3g7dzOuVhac=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx+0NzgudgEMB45NJMYgU0AZvHPvHkHAWIbR5YozF/Q5h17Uh+Q
+ b4BqN1rquWFZwlYPnt43gfS0H35qJnFPRRJYnhwqb71PP9ywTE0PMkyoqyuXfrvMD2gB2LVbpHL
+ ijB7l8Qk3ANXRjoqq88gRf/3KbEg2vyg=
+X-Gm-Gg: AR+sD13inajEoER7CeC9kPbsmfiF3p5D7zJ0PSMvvZMXETfY32+BPiuOvsL7wkmuNQG
+ mX7NsV4Z3QNETmVtf0/W+tzL7C9icqnGHyqFnfsoWaKiNHFm3vXrqq2EX25HBxtNAKjNppPa3FX
+ cG7lFdbTNW+teTL0yqUllj8OaHv4zqjlLYy4DpRKXdVGJ5nj6bZdWj9Z5xPvDXFtipf7AhpAibA
+ U7NUCgBSM/4tRlPNwAtGiBtFbM2mJir8AFQOT7gkjDXxPybk2lbso14Fzpf6Eh/DXoA3VgSUQIZ
+ MUl4UdvD3t+fe0sgKdfPHd3FtUtVSJ7slwd3dQj6K5kt
+X-Received: by 2002:a05:6402:3209:b0:69f:fa13:ed3 with SMTP id
+ 4fb4d7f45d1cf-6a0a7cbcff7mr13543404a12.16.1785851967781; Tue, 04 Aug 2026
+ 06:59:27 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260731215043.30392-1-maximpedraza@gmail.com>
-In-Reply-To: <20260731215043.30392-1-maximpedraza@gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 4 Aug 2026 15:58:51 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVrmpZibxnP5k8wCr_Jpx2WzAe1bcUt9k_hWrreDs_-Eg@mail.gmail.com>
-X-Gm-Features: AUfX_mxuzkKCO3FqjKUxMjQ1O7E0RvhlBOsj8RUg6kF0tqsdz7CSmr5lOxZ_jd0
-Message-ID: <CAMuHMdVrmpZibxnP5k8wCr_Jpx2WzAe1bcUt9k_hWrreDs_-Eg@mail.gmail.com>
+ <am2mvECnCcO9IxuI@monoceros> <6rbjbj74zh.fsf@pengutronix.de>
+ <CAEUXW=EHD1Y1zHQWE=jFhONM5Hg6TTc_uPYHgp-GS-4YWYJN3A@mail.gmail.com>
+ <6r5x1q78yz.fsf@pengutronix.de>
+In-Reply-To: <6r5x1q78yz.fsf@pengutronix.de>
+From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
+Date: Tue, 4 Aug 2026 17:59:15 +0200
+X-Gm-Features: AUfX_mz3aSa6-cw2PyoYrLLjsrQMGpXNCxHpupxxxAIGNK-kmxelTU9OoI4pMZ8
+Message-ID: <CAEUXW=FxgN9Zj-1eR2MdxMTyyKTMTUSYHpkcCpuvZKnGYJ-zTA@mail.gmail.com>
 Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
-To: Max Pedraza <maximpedraza@gmail.com>
-Cc: Helge Deller <deller@gmx.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
- linux-fbdev@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
+To: =?UTF-8?Q?Ulrich_=C3=96lmann?= <u.oelmann@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, devicetree@vger.kernel.org, 
+ Helge Deller <deller@gmx.de>, linux-fbdev@vger.kernel.org, 
+ Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org, 
+ =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+ dri-devel@lists.freedesktop.org, kernel@pengutronix.de, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,67 +114,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Max,
+El mar, 4 ago 2026 a las 7:25, Ulrich =C3=96lmann
+(<u.oelmann@pengutronix.de>) escribi=C3=B3:
+> I think the issue is broader than upstream submissions. Once such a
+> device tree is shipped as part of a GPL kernel in a product, the GPL
+> obligations already apply to that distribution. Therefore, the licensing
+> implications of embedding a proprietary logo are not limited to upstream
+> acceptance, they also affect downstream product distributions.
 
-On Fri, 31 Jul 2026 at 23:56, Max Pedraza <maximpedraza@gmail.com> wrote:
-> Embedded products routinely need their own boot logo. Today the only way to
-> get one is to replace one of the logo_*_clut224.ppm files in the kernel
-> source tree, which bakes the image into the kernel image. Two products that
-> share a board support package but differ in branding therefore need two
-> kernel builds, and rebranding an existing product means rebuilding and
-> requalifying a kernel for what is purely a cosmetic change.
->
-> This series lets the logo be described by the device tree instead: a node
-> compatible with "linux,boot-logo-clut224" supplies the image in the same
-> paletted format the built-in CLUT224 logos already use, and the kernel
-> prefers it over the built-in ones when it is present and enabled. If the
-> node is absent or disabled, nothing changes.
->
-> The image can come from the node itself (patches 1-2) or from a reserved
-> memory region the bootloader filled in (patches 4-5), because the image and
-> its placement are independent axes of variation. One board sold to several
-> customers wants several device trees differing in the logo. One customer
-> with several products built on that board, with different panels, wants the
-> same logo placed differently on each: there the image belongs in a shared
-> binary and only the placement belongs in the device tree. Patch 3 adds that
-> placement.
->
-> We have been carrying a cruder version of this downstream on an AM335x
-> product since 2020, across a handful of board revisions, and it has removed
-> a real maintenance burden for us. This is an attempt to find out whether
-> something along these lines is wanted upstream, and if so in what shape --
-> hence RFC.
+Point taken, thanks for spelling it out. I am not qualified to argue the
+legal side and will not try to, but I follow the reasoning.
 
-Thanks for your series!
+In practice it reinforces the reserved memory path, which is the one we
+ship: there the device tree carries only a phandle and the placement,
+and the image stays a separate file with its own licensing, handled like
+any other asset in the product.
 
-> I am aware of the contentious part: a bitmap is not hardware, and the device
-> tree is not an obvious place to put one. The argument for it is that the
-> logo identifies the board in the same way the model property does, it is
-> available before any filesystem is mounted, and it is per board rather than
-> per kernel. The argument against is presumably that this is policy and
-> belongs in userspace or in the bootloader. I would rather hear that
-> explicitly than keep the patch downstream on a guess, and if the concept is
-> rejected I would still like to know whether a smaller subset -- say the
-> placement properties driven from the fbcon command line, without any image
-> in the device tree -- would be worth submitting separately.
-
-The standard location for configuration that is not hardware
-description is under /chosen...
-
-IIRC, real Open Firmware used to have some logo configuration, too...
-Yep, /options/oem-logo on CHRP LongTrail[1].
-And it's even documented[2], but fixed to 64x64 monochrome.
-
-[1] http://g33rt.be/migrated/Linux/PPC/DeviceTree.html
-[2] https://www.djc.id.au/2008/IEEE1275-1994.pdf
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Max
