@@ -4,77 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2814EC55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:37:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D977C55ABA
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:37:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87CDE10EBC4;
-	Tue,  4 Aug 2026 20:37:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B4FF310EBC5;
+	Tue,  4 Aug 2026 20:37:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="e/H3tm6d";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HxFYAvGE";
 	dkim-atps=neutral
-X-Greylist: delayed 611 seconds by postgrey-1.36 at gabe;
- Tue, 04 Aug 2026 20:37:15 UTC
-Received: from smtpout1.mo2.mail-out.ovh.net (smtpout1.mo2.mail-out.ovh.net
- [79.137.123.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F95810EBC4
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:37:15 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net
- (director5.derp.mail-out.ovh.net [57.128.106.70])
- by mo2.mail-out.ovh.net (Postfix) with ESMTPS id 4hF4pD5D9Fz427D;
- Tue,  4 Aug 2026 20:27:00 +0000 (UTC)
-Received: from director5.derp.mail-out.ovh.net
- (director5.derp.mail-out.ovh.net. [127.0.0.1])
- by director5.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <christian.koenig@amd.com>; Tue,  4 Aug 2026 20:27:00 +0000 (UTC)
-Received: from mta10.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.178.206])
- by director5.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4hF4pD2Q10z7tL2;
- Tue,  4 Aug 2026 20:27:00 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.8])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta10.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id E96AA781A39;
- Tue,  4 Aug 2026 20:26:57 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-112S00684a3ba6b-d2a0-4fc3-a5dc-50d53c9da3d9,
- 554F327AB99B0CF81BA34543D1D055DA486C6A81) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <7b2887b1-ecb7-4d6e-ad34-068ab1d7d41e@pixelcluster.dev>
-Date: Tue, 4 Aug 2026 22:26:56 +0200
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+ [209.85.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E484010EBC5
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:37:31 +0000 (UTC)
+Received: by mail-ed1-f45.google.com with SMTP id
+ 4fb4d7f45d1cf-69fc2261f2bso359687a12.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 13:37:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785875850; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Mh0INcIUopEiv9qy974v1rLJFttTsY4zcmGzadkQw9hsDzwUFaoK13m39Rs0Su1Vtl
+ UEpVdit9l2xzZ5UApj/FbLJWiGWanshx5Kvk1DtTpGsBHnQ/TtxWIih0Uj5Ym3xj/Qsv
+ p2AfFCiBg5Is8sFdgpuqklte/oPnybPqWbndSE5LRKfFydHalL99sxzbkQp8M2ajUYFq
+ xVNYJOs1HJAz7ifP8D19EnlPElhL/2H/yvbvutEx9CuuB7SeUKj1+dati84g1j4SfpyL
+ 1W3dVXrAaqDe6JNRL+3n0zYW0/8jVpDu44XRdXP4aGmfTufYlqIisW9xHOvHW8lHu5RY
+ eG5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=K8Nry9JZX0+jkudHxKcPqQRdC9OkvdOyv4wLmj940zo=;
+ fh=+4rdPau01z9ZhYkTymxGHLRmmBvJClYS4VtEtt8w2jY=;
+ b=FrO+8I1GFd0wSRzGHdX2kOJQPFDWYm7e1VeRA8ScBg8u3iph+o9yrbKbsZxjjSPnU4
+ L/rd/+OLTLVQNVPPC3e7RSPwGZuTYjSsW8Sd9bpnsDOLELP33syF/1O5aGzVvmwKV6Jq
+ IwG+B4Ny/FJON4FYreQZQ2rjUCjMGmlO/PUxlujJrt4L8jOKkUxR58Ize5asmziD+7o/
+ S7tWB2k4qlqjBCh5Rs/QTkLB1W7Xb/ZPKV8hIPXU1wsaY9+jyq+PQ9afbahFR5//bFNw
+ njqpVHVZ1d4Pa8FmkFASF43zDb6EGbv+vURe/w1KE1lRzKX9LFETSLpJQ+/4BUz9n6Sj
+ SrRw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785875850; x=1786480650; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=K8Nry9JZX0+jkudHxKcPqQRdC9OkvdOyv4wLmj940zo=;
+ b=HxFYAvGEI5yhcIGP1zZnwCWrLV4vG8oFib7CHU5pzyIrqQOgowB8F5Rb/YPCdZLOHS
+ E4HViBee3Cu6cAkh5gAIftwiO91K5GWp5X+UBMb4MTYIHEn5xj0Aq940wHpxFOz0l3d4
+ fgJ3NhFoPjII/sJwku4Px4kDe41t5zcvT2W6bXo2zYQlxsFgng3QEYztbG3uBhkehuF/
+ WP7uBWGNnK8fL2BCS2TK6KKZtp2RyKv+Gh1vy+7PtA1ADBbVamV/8Lrdx5O4G1YuR0Ru
+ d7kmUR7sVSxuAM3tiUxV0icbcN0MglRivHxgNGwNsNL5SK5sN8M/11opgvuOWlt69eSx
+ auGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785875850; x=1786480650;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=K8Nry9JZX0+jkudHxKcPqQRdC9OkvdOyv4wLmj940zo=;
+ b=ToyVkV61O+UfC4udo/LKf/jgTXzdE8PlKBl4IS37Tqam4PRtbY3z2qyvXa7QgtrjNC
+ TC3kjCzgfyZso6BLI4hsPsyWm06DcFAXrBgTv0/oEA25+H0e5S+4Y7E8AXbCDdsHH8fo
+ LTgpjC7vlEfY6ZuKNC2iAx0eecU1U7li+yzlk1/vHTeQURUMtUqmlM0cTTepST81Bqsq
+ PoZCR01UAjbFQ3n2AiXvlo/BPJZV97Y+axde2QNPTd5I5Ih/TvUNSsYBVgyRLZ+4lyBE
+ bOI4yNGNmPKpJAV02hUwySc6A2ZZLhs9a8UDSZONQPUpbj+ztnftw2LyOaBI6jwl1MdX
+ i6wg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrpjZ1KBePZ6FVIVwT5lY+0jDpMw4FGNGlWE2h0dlSGKvjDs7xcYi7EwwFh9D9IJhWE8UoH4lGdzYY=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx5jENd3TfRwF5cnZ91WkECp2pH8RqI/8bGIszS80GAvVxEuNxa
+ qjL5rm+ev82xRDkxV+igwMi33LnYJ+TbS2umnn8+/ySxBuUUdWYPGtOtcy/dAiw8Jmh8vRDmH7W
+ ZnZ5cR7bcVfis7UjC1x83p9gdbex25QQ=
+X-Gm-Gg: AR+sD13FgGfvsDE+Hi7he3VZPfxUjF7jvz1XiGp/OICsJmFE0aie+ErgP8y9aezan8n
+ Y/htQEFW7H5nb1aYEGOf3QRjREMtGEDGzhwcMTvv4Uid4wL32CmRTvPw73nr1wVucWCeoSYZE2W
+ hdNMvkhzGKFxpe8o/W8F2LWItOXpssnYAxdBGhN/lYargiDfpCzOkROh+lgBITYO+PwuW0A3Qun
+ 54Gk+5F9DTVyUEzfSufzmXCGom/by6oihTeTxEI9VLkMVWOmD7w9Ckyi0Yq0zV8RyTZbNjeFO7Q
+ sNBW3fuay4fQmWK/ZXoagHXJgrLRi1OfBhtF62ornBKW
+X-Received: by 2002:a05:6402:3506:b0:6a1:44c8:edc4 with SMTP id
+ 4fb4d7f45d1cf-6a14f15d5f7mr779529a12.12.1785875850152; Tue, 04 Aug 2026
+ 13:37:30 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/6] cgroup,cgroup/dmem: Add
- (dmem_)cgroup_common_ancestor helper
-To: Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
- <20260804-dmemcg-aggressive-protect-v8-2-07af96681bf8@gmx.de>
- <b5b80acd-feea-408b-87eb-4264ffc7e2cd@lankhorst.se>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <b5b80acd-feea-408b-87eb-4264ffc7e2cd@lankhorst.se>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-x-ovh-tracer-id: 5409949055335162134
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTEwfM3XXNsWe8F7B5ju/64XjbGDFzh52YUwkSrtdI55WXiADmmINK3ZApOBeFbHCVXU/nRvtkTjqGBFjF1FtbFUN5+dmwuOaMvt2SdPSwTQuvRuRuAYEjo1F4g9BzNIIZeSNhwV3YOei/JIQNdyApC+RrFUnvwvqKew084ZvfVc8CQXVCxenGMKbaYSTvuvoBqXpoYhomjm8lMDE6absgExhaTs70aV1hHk5KaK1AkUe006mxvbL4aHPsUUUArELUe294F+SniWrUJXz5C57egcxp+meXVeV+MGXIj7wgtSV/n2YxF1f8bDx3118PE9sl/lcyh9lzorWkH5KaJ9gPIKSUiNl4p0wV2rw9D7gHBFWFjq8lkN5YpoJbietFhFaa/7ZFZvKyUwO8fa49vLhTGbq2FtBqhPtom7MsdLwhWdgMXriObXJ1lgxMFaFiZZBpIV9BKKLrc2AOV3w9lAFroerzB6xfD+sH1F7ACRh8+fPrF5lS2PRG4UbLWJlTLsPrNILJMA8ddSdK6UG79dZwRFXybPbHqf6lETLTZ+CJ+hdYvCF0xh9rsXHnew5PNoJ40wueZU7Q/scSp9UZorXR76mrc9ddGmIPPie21iTy1Q+hhvM3t/TVIMSS0kcGZ//cx9pg6xA7ZYMN08cS40/RyrE57jtvLysHHE9AsiVM7qUw
-DKIM-Signature: a=rsa-sha256; bh=OWsSjdzRQizS7ptUXy3slBRvYZe2bgiMkPIBo/KEgpo=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1785875222; v=1;
- b=e/H3tm6d+BnZ/WSV84Z26odQcgIZndGtjo2t5agdGWXqEDQ1we2IaBu7SAyMqhV/I6x88wm9
- hOzZXtDqProvGuFCf6lZ/AFwm5N7p0KVHwQzdM5FUNJmrAVO0tKE2ku3dql+Yh6DWfY55bZcSEN
- WxnsXY4yIgYLp5lrwsIKVci3ePINPLrsqDRLixVaDMOCpxFxMozYrB4oa1ZSxxc6MJHveigCPUW
- Y2jAzCcakUbrMRf8vOLYbMO90UKBSH5DpZPTPcSyyT4cWQ3gmwJAbcb8x/gJUBhc+C1xH8H9P8D
- FV6TR9/EEVrEQrcfs2hXIxobIZ2X9A/J7/6J/lJj3bdGg==
+References: <20260731215043.30392-1-maximpedraza@gmail.com>
+ <CAMuHMdVrmpZibxnP5k8wCr_Jpx2WzAe1bcUt9k_hWrreDs_-Eg@mail.gmail.com>
+In-Reply-To: <CAMuHMdVrmpZibxnP5k8wCr_Jpx2WzAe1bcUt9k_hWrreDs_-Eg@mail.gmail.com>
+From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
+Date: Wed, 5 Aug 2026 00:37:15 +0200
+X-Gm-Features: AUfX_mxvS-q6d9SV5M7tSXzAAroVFKsSN0D5MKV2-5EaFu7n2XqTheS2vhlCf9g
+Message-ID: <CAEUXW=EAYTxdwyvpVFDLqof+wNGD-N3hRDRYve2Ou40ZA5R3fQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/6] Boot logo supplied by the device tree
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Helge Deller <deller@gmx.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>,
+ linux-fbdev@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,158 +111,26 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/4/26 22:18, Maarten Lankhorst wrote:
-> 
-> 
-> On 8/4/26 10:25, Natalie Vock wrote:
->> This helps to find a common subtree of two resources, which is important
->> when determining whether it's helpful to evict one resource in favor of
->> another.
->>
->> To facilitate this, add a common helper to find the ancestor of two
->> cgroups using each cgroup's ancestor array.
->>
->> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
->> ---
->>   include/linux/cgroup.h      | 21 +++++++++++++++++++++
->>   include/linux/cgroup_dmem.h |  9 +++++++++
->>   kernel/cgroup/dmem.c        | 41 +++++++++++++++++++++++++++++++++++++++++
->>   3 files changed, 71 insertions(+)
->>
->> diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
->> index f2aa46a4f871e..83a17ded1c516 100644
->> --- a/include/linux/cgroup.h
->> +++ b/include/linux/cgroup.h
->> @@ -623,6 +623,27 @@ static inline struct cgroup *cgroup_ancestor(struct cgroup *cgrp,
->>   	return cgrp->ancestors[ancestor_level];
->>   }
->>   
->> +/**
->> + * cgroup_common_ancestor - find common ancestor of two cgroups
->> + * @a: first cgroup to find common ancestor of
->> + * @b: second cgroup to find common ancestor of
->> + *
->> + * Find the first cgroup that is an ancestor of both @a and @b, if it exists
->> + * and return a pointer to it. If such a cgroup doesn't exist, return NULL.
->> + *
->> + * This function is safe to call as long as both @a and @b are accessible.
->> + */
->> +static inline struct cgroup *cgroup_common_ancestor(struct cgroup *a,
->> +						    struct cgroup *b)
->> +{
->> +	int level;
->> +
->> +	for (level = min(a->level, b->level); level >= 0; level--)
->> +		if (a->ancestors[level] == b->ancestors[level])
->> +			return a->ancestors[level];
->> +	return NULL;
->> +}
->> +
->>   /**
->>    * task_under_cgroup_hierarchy - test task's membership of cgroup ancestry
->>    * @task: the task to be tested
->> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
->> index 1a88cd0c9eb00..9d72457c4cb9d 100644
->> --- a/include/linux/cgroup_dmem.h
->> +++ b/include/linux/cgroup_dmem.h
->> @@ -28,6 +28,8 @@ bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
->>   			   struct dmem_cgroup_pool_state *test);
->>   bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
->>   			   struct dmem_cgroup_pool_state *test);
->> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
->> +							       struct dmem_cgroup_pool_state *b);
->>   
->>   void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
->>   #else
->> @@ -75,6 +77,13 @@ static inline bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
->>   	return false;
->>   }
->>   
->> +static inline
->> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
->> +							       struct dmem_cgroup_pool_state *b)
->> +{
->> +	return NULL;
->> +}
->> +
->>   static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
->>   { }
->>   
->> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
->> index 9df3b33c65046..a587611ca2235 100644
->> --- a/kernel/cgroup/dmem.c
->> +++ b/kernel/cgroup/dmem.c
->> @@ -762,6 +762,47 @@ bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
->>   }
->>   EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
->>   
->> +/**
->> + * dmem_cgroup_get_common_ancestor(): Find the first common ancestor of two pools.
->> + * @a: First pool to find the common ancestor of.
->> + * @b: First pool to find the common ancestor of.
->> + *
->> + * Return: The first pool that is a parent of both @a and @b, or NULL if either @a or @b are NULL,
->> + * or if such a pool does not exist. A reference to the returned pool is grabbed and must be
->> + * released by the caller when it is done using the pool.
->> + */
->> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
->> +							       struct dmem_cgroup_pool_state *b)
->> +{
->> +	struct cgroup *ancestor_cgroup;
->> +	struct cgroup_subsys_state *ancestor_css;
->> +	struct dmemcg_state *ancestor_dmemcs = NULL;
->> +	struct dmem_cgroup_pool_state *pool = NULL;
->> +
->> +	if (!a || !b)
->> +		return NULL;
->> +
->> +	ancestor_cgroup = cgroup_common_ancestor(a->cs->css.cgroup, b->cs->css.cgroup);
->> +	if (!ancestor_cgroup)
->> +		return NULL;
->> +
->> +	rcu_read_lock();
->> +	ancestor_css = cgroup_e_css(ancestor_cgroup, &dmem_cgrp_subsys);
->> +	if (css_tryget(ancestor_css))
->> +		ancestor_dmemcs = css_to_dmemcs(ancestor_css);
->> +	rcu_read_unlock();
->> +
->> +	if (ancestor_dmemcs) {
->> +		pool = get_cg_pool_unlocked(css_to_dmemcs(ancestor_css),
->> +					    a->region);
->> +		if (IS_ERR(pool))
->> +			pool = NULL;
-> This should probably be a warn_on as this can never happen, sashiko is wrong here.
-> 
-> If a and b are charged, all their ancestors are charged too. And when they share a
-> common ancestor, then the common ancestor has to have an existing charged pool as
-> well because there's a huge bug in the code otherwise.
-> 
->> +		css_put(ancestor_css);
->> +	}
->> +	return pool;
->> +}
->> +EXPORT_SYMBOL_GPL(dmem_cgroup_get_common_ancestor);
->> +
->>   static int dmem_cgroup_region_capacity_show(struct seq_file *sf, void *v)
->>   {
->>   	struct dmem_cgroup_region *region;
->>
-> 
-> Otherwise looks good, so feel free to extend my r-b to this patch too, and with that minor fix up commit it.
+El mar, 4 ago 2026 a las 15:59, Geert Uytterhoeven
+(<geert@linux-m68k.org>) escribi=C3=B3:
+> The standard location for configuration that is not hardware
+> description is under /chosen...
+>
+> IIRC, real Open Firmware used to have some logo configuration, too...
+> Yep, /options/oem-logo on CHRP LongTrail[1].
+> And it's even documented[2], but fixed to 64x64 monochrome.
 
-Thanks a lot! Correct me if I'm wrong here as it's been a while, but I 
-think sashiko's current comment about the css_put(ancestor_css) being 
-wrong seems to have merit too? Since dmem_cgroup_pool_state_put() also 
-puts a css reference but get_cg_pool_unlocked does not get another 
-reference to the css on its own? (Kind of a footgun if you ask me, but 
-not something for this series)
+Thank you, that is the answer I was missing. I had written the "a bitmap
+is not hardware" objection into the cover letter as something to defend
+against, and /chosen turns it into a matter of putting the node in the
+right place instead.
 
-Mind if I also drop the css_put() line while I'm at it and *then* 
-(finally :D) commit?
+v2 moves it there, and I will post it shortly: the node is a child of
+/chosen and the kernel looks it up with of_get_compatible_child(of_chosen,
+...). The binding now says why, and points at the oem-logo precedent. It
+also puts the node in the same company as simple-framebuffer, which lives
+under /chosen for the same reason.
 
-Natalie
+Thanks as well for the references, the CHRP one was new to me.
 
-> 
-> Reviewed-by: Maarten Lankhorst <dev@lankhorst.se>
-> 
-
+Max
