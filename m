@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF4C9C55172
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:21:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBBB6C55172
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:27:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E3F8610E9AF;
-	Tue,  4 Aug 2026 10:21:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B86F10E9A9;
+	Tue,  4 Aug 2026 10:27:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bVypkoEX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lsoPdNaX";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5450C10E9B3
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:21:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CCE1B10E150
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:27:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2FB3C60A83;
- Tue,  4 Aug 2026 10:21:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C3DD1F000E9;
- Tue,  4 Aug 2026 10:21:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6222342E95;
+ Tue,  4 Aug 2026 10:27:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D64F11F000E9;
+ Tue,  4 Aug 2026 10:27:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785838865;
- bh=VByj07q9OLyU3eqMtcABjq5yMEODLVx8l74bnYhlig8=;
+ s=k20260515; t=1785839262;
+ bh=mhydXuZ0P/jB+Dnx798J7rPr03QAXfWzLNLr7V1SIxI=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=bVypkoEX/oHJgdynburNi9fyRRrT8xapAcsIiiExIHRS4e3PJHIf0lxELBiIovGlS
- 48LooAjfN3hYuyj0NSAwanb9dEMSpMJK21ToG4QMa828HFlV/cbMRKjDY5m4CaDw6p
- c5iOvtOVxWdk7Z3Oo6FFObpRiHYSMw4nXmzslyQNSpDyq1XgbD7MD57DTtP4Xi3SFg
- WoHzvPn4N8Mq3HEXyYRWqFLnClQ9c5iK2IBAqEyto1Tc1LuNJ1803GZwxAtonvab/e
- 3hW3yBtNe1jyrQpXizB4DteMPOkvaInUIXryndZDqW12j0l0WSCI2rZHoNsCPhHSdG
- s9pJlkiOJnKzQ==
+ b=lsoPdNaXUlsfqz7UfgwU+ZMgr/6KDAceznab0gwDgzVaKuMrgJEOaANWLsQV99Wxf
+ jKco7XWbLNJBMZrnHErxszpx/cpJiGCzDqdYNnGSuGMmUhDrGG5SY++GDS1Rg2CX5h
+ toHGyStz7CAQiXBYV4wj6NTAkNdSN3rygKuG/Jaf1iFHPTiF+s0FkvS7DvxWlwE/Bg
+ WsUigQfZclO2iwOvA2Gx0Yid04mYgpuSQLO8XcmJkO6TMcDMZdui6kzaxIA1BLDJil
+ PvgAWb8DV5KSKLz3//ytJhVbkgFx1Uk1NjDg+GcrCvnQaWH5c3cuQMbBTIbwb3KRbc
+ nDKAMAi8GGD0A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/12] drm/panthor: Disable reset work before unplug
-To: "Boris Brezillon" <boris.brezillon@collabora.com>
+Subject: Re: [PATCH v11 4/4] firmware: coreboot: Add CFR firmware attributes
+ driver
+To: "Sean Rhodes" <sean@starlabs.systems>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260804-panthor-unplug-fixes-v1-1-abbbd2d41b13@collabora.com>
-References: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
- <20260804-panthor-unplug-fixes-v1-1-abbbd2d41b13@collabora.com>
+In-Reply-To: <4022650144cca8c242c6507825b29988adb6ac69.1785838269.git.sean@starlabs.systems>
+References: <cover.1785838269.git.sean@starlabs.systems>
+ <4022650144cca8c242c6507825b29988adb6ac69.1785838269.git.sean@starlabs.systems>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 10:21:04 +0000
-Message-Id: <20260804102105.8C3DD1F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 10:27:40 +0000
+Message-Id: <20260804102741.D64F11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,60 +60,72 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Deadlock (both self-deadlock and AB-BA) between `panthor_device_un=
-plug()` and `panthor_device_reset_work()`.
+- [Medium] Memory leak of enum label string when it contains invalid charac=
+ters.
 --
 
---- Patch [1]: [PATCH 01/12] drm/panthor: Disable reset work before unplug =
----
-commit 116cfe13ccbee774afdfc7f2e6251c1738450020
-Author: Boris Brezillon <boris.brezillon@collabora.com>
+--- Patch [4]: [PATCH v11 4/4] firmware: coreboot: Add CFR firmware attribu=
+tes driver ---
+commit ea61591b8dd6ac619938eac5285db7c41217e27e
+Author: Sean Rhodes <sean@starlabs.systems>
 
-drm/panthor: Disable reset work before unplug
+firmware: coreboot: Add CFR firmware attributes driver
 
-This commit disables the reset work during the unplug process to prevent
-interruptions.
+This commit adds a firmware-attributes driver for the coreboot CFR table
+entry to describe firmware setup options. It exposes runtime EFI
+variable-backed boolean, enum, and integer settings through sysfs.
 
-> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
-anthor/panthor_device.c
-> index 0b25abebb803c..e7f5744bc1e31 100644
-> --- a/drivers/gpu/drm/panthor/panthor_device.c
-> +++ b/drivers/gpu/drm/panthor/panthor_device.c
-> @@ -86,6 +86,9 @@ void panthor_device_unplug(struct panthor_device *ptdev)
->  	 */
->  	drm_dev_unplug(&ptdev->base);
-> =20
-> +	/* Make sure we're not interrupted by resets while we're unplugging. */
-> +	disable_work_sync(&ptdev->reset.work);
+Link: https://doc.coreboot.org/drivers/cfr.html
+Link: https://doc.coreboot.org/drivers/cfr_internal.html
 
-[Severity: High]
-Does this introduce a deadlock when the reset work fails?
+> diff --git a/drivers/firmware/coreboot/coreboot-cfr.c b/drivers/firmware/=
+coreboot/coreboot-cfr.c
+> new file mode 100644
+> index 0000000000000..1dfb2d29046b6
+> --- /dev/null
+> +++ b/drivers/firmware/coreboot/coreboot-cfr.c
+[ ... ]
+> +static int coreboot_cfr_copy_enum_values(struct coreboot_cfr_setting *se=
+tting,
+> +					 const void *base, size_t len)
+> +{
+[ ... ]
+> +	for (;;) {
+> +		entry =3D coreboot_cfr_next_entry(&iterator);
+[ ... ]
+> +		value =3D &setting->values[setting->n_values];
+> +		value->label =3D coreboot_cfr_string_dup(label);
+> +		if (!value->label)
+> +			return -ENOMEM;
+> +		if (!coreboot_cfr_string_is_valid_label(value->label))
+> +			return -EINVAL;
 
-Looking at panthor_device_reset_work(), if the reset fails, it calls
-panthor_device_unplug(). This would result in panthor_device_unplug() calli=
-ng
-disable_work_sync() on the currently executing work item, causing a
-self-deadlock:
+[Severity: Medium]
+Does this code leak the newly allocated value->label string?
 
-panthor_device_reset_work() {
+When coreboot_cfr_string_is_valid_label() fails and returns -EINVAL,
+setting->n_values has not been incremented yet. If the caller then cleans up
+the error by calling coreboot_cfr_free_setting(), the cleanup loop:
+
+static void coreboot_cfr_free_setting(struct coreboot_cfr_setting *setting)
+{
+	unsigned int i;
+
+	for (i =3D 0; i < setting->n_values; i++)
+		kfree(setting->values[i].label);
 	...
-	if (ret) {
-		panthor_device_unplug(ptdev);
-			...
-			disable_work_sync(&ptdev->reset.work);
 
-Additionally, since panthor_device_unplug() acquires ptdev->unplug.lock
-before calling disable_work_sync(), does this create an AB-BA deadlock if
-driver removal happens concurrently with a reset failure?
+will skip freeing the string that was just allocated because setting->n_val=
+ues
+does not include it yet. Should kfree() be called on value->label before
+returning -EINVAL here?
 
-The driver removal thread would acquire ptdev->unplug.lock and wait in
-disable_work_sync(), while the reset work would block trying to acquire
-ptdev->unplug.lock inside its call to panthor_device_unplug().
-
->  	/* We do the rest of the unplug with the unplug lock released,
->  	 * future callers will wait on ptdev->unplug.done anyway.
->  	 */
+> +
+> +		value->value =3D enum_value->value;
+> +		setting->n_values++;
+> +	}
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-panthor-un=
-plug-fixes-v1-0-abbbd2d41b13@collabora.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785838269.gi=
+t.sean@starlabs.systems?part=3D4
