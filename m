@@ -4,45 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC805C55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 21:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54494C55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 21:08:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C5D510E106;
-	Tue,  4 Aug 2026 21:08:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 937C210EBD5;
+	Tue,  4 Aug 2026 21:08:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cjfMDq3g";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="XQlQtUpf";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16C8310E106
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 21:08:13 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F40524050B;
- Tue,  4 Aug 2026 21:08:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A5281F000E9;
- Tue,  4 Aug 2026 21:08:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785877692;
- bh=dyQxeLvHZPBPULeFpNhUPh6gqriPr/vtpzGh3phT2fA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cjfMDq3gt0pnZe307+Dt0YwLgGjrd/yjvjM9+Q8XpDh0RT2yXAvDMH+Z9j3mAFXxD
- Dfi60WSAK4NrrLZgxxxzlQMROqiFLlN48ez7KCM/+xsxiJOs5S3JW8tF3XbAz7LzAH
- kIdk1QNwuVpfT2N/t55HSr0s1afJ/aPxjFh0+KtqFqWuayw66OMkWMjoloIpYNpE4l
- WZTU3zbRxvz+D/dvkkk2fDuaEm9H+b8tqdvLh+k+RjRbkNcbiM9PjWMeqn1xlxz9Kv
- ZNQ1ManJxzUDypBnWp4lOFZqppGWc8FgDEANaYECUGm6EyzLz22z45qXilQcR0cV+2
- 8umIB1faETYYA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/6] dt-bindings: display: allow the boot logo in a
- reserved memory region
-To: "Max Pedraza" <maximpedraza@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260804225617.264861-5-maximpedraza@gmail.com>
-References: <20260804225617.264861-1-maximpedraza@gmail.com>
- <20260804225617.264861-5-maximpedraza@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 21:08:12 +0000
-Message-Id: <20260804210812.8A5281F000E9@smtp.kernel.org>
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
+ [209.85.216.72])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 547B610EBD5
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 21:08:56 +0000 (UTC)
+Received: by mail-pj1-f72.google.com with SMTP id
+ 98e67ed59e1d1-38dc085b0a7so337964a91.2
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 14:08:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1785877736; x=1786482536;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Nz3aCp4Uyw3qY+MX7Sv/bu2ByRkx6w/quCe3kJ8ANw0=;
+ b=XQlQtUpfsTUYj8Pu7naFwNhGzcclEBoXLmBRJ6AQYv9niICr4V3d01vSdsKvhY6K07
+ 7djKv+WfQbH4I5yr1K1bDDVO5JF7U3YLHxvCcILaFbaOKBUsp7G1uV9BVUKVXFwZDc6L
+ evZ4Lsx/+mAoPj5fWKlr8kiFK86iMLHYO5BSPuczmv8em+YEVjWlhlRwxr/yAi7M4vQ9
+ zsARx+xPeSxb2oJ3KjXLT3emG1guVUzoUqJZ0MOSUjcqluDTOSzQl6Mm5WVVJvfz8Eey
+ qletbeey1uxsXNIYOJvLaG/gZP7sIuWipbb19tW8rutwyfwIzzlBh1wgUxSFi+HHxHot
+ zgGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785877736; x=1786482536;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Nz3aCp4Uyw3qY+MX7Sv/bu2ByRkx6w/quCe3kJ8ANw0=;
+ b=XHTef9Os1V7JKo4GUx5646JC4Zu8gASXsR191x5Ngj9Z/31HM76PIWJ24Moyw56urP
+ WQ2uFOyCyS7utYBot8JBdbVJz3DIb6mBd7lYFw83l9yuNwEhGcpew7hBcf3W1d7fk0LR
+ XDFRdkteMpzIGR4g9oU6PRTZvsEYYK+AjAnko82NtkkEksA4cum5a9L5C2jf/SBDIefB
+ +Kc62KD8yM45BIENZBlfAmpselnr72ODbXMlJb5jHx5UwLoBjNMADgwGT5HcaM7DSoXY
+ 5qA6ER2Je5CB6vGlKop6rocwwDvyw6zOieZzNSxPGAzMs9SYGRmw6n2TFuCq3Gfr7ckS
+ W4Aw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rol1b5YDowVBU84Nm+t0DVtrGapoAI7VLMFW3vm487V097B6c1OFSqxvsOOX+Efpx1Nn8MVtRFOObs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxzGwDWmyNigdjFuHEairzkVouGNuorHX47JcdMKgNpMTh5eKT0
+ e1K7yZcVSx0/uh4uMLvCL6f1JLmJLvam0kxcNIWslkeBUGC0wj6P9zncpsTds8IscFkRsCycOaS
+ mKGTBuw==
+X-Received: from pjsa12.prod.google.com ([2002:a17:90a:be0c:b0:38f:e6f2:5944])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90a:d644:b0:38e:2860:253f
+ with SMTP id 98e67ed59e1d1-3903c582511mr1841710a91.12.1785877735649; Tue, 04
+ Aug 2026 14:08:55 -0700 (PDT)
+Date: Tue, 4 Aug 2026 14:08:55 -0700
+In-Reply-To: <20260804120529.1730187-7-pbonzini@redhat.com>
+Mime-Version: 1.0
+References: <20260804120529.1730187-1-pbonzini@redhat.com>
+ <20260804120529.1730187-7-pbonzini@redhat.com>
+Message-ID: <anJU5-5xi3bcW0jf@google.com>
+Subject: Re: [PATCH v2 6/6] kvm: return -EFAULT for writes to !VM_WRITE IO
+ mappings
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+ Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Christian Koenig <christian.koenig@amd.com>, 
+ David Hildenbrand <david@kernel.org>, dri-devel@lists.freedesktop.org, 
+ Fei Li <fei1.li@intel.com>, Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, 
+ linux-s390@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ Peter Xu <peterx@redhat.com>, 
+ Sergio Lopez <slp@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>
+Content-Type: text/plain; charset="us-ascii"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,148 +85,34 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Arbitrary boot logo placement via device tree allows out-of-bounds=
- memory writes in framebuffer drivers.
-- [Medium] The YAML schema enforces contradictory constraints by unconditio=
-nally requiring inline image properties, making the new `memory-region` pro=
-perty impossible to use without failing validation.
-- [Medium] The kernel driver lacks any C implementation to parse or map the=
- newly added `memory-region` property.
-- [Medium] Using `kmalloc` for potentially large image allocations will fai=
-l for sizes exceeding `KMALLOC_MAX_SIZE`.
---
+I strongly prefer "KVM:" for the scope, and it's waaay more common.
 
---- Patch [4]: [PATCH v2 4/6] dt-bindings: display: allow the boot logo in =
-a reserved memory region ---
-commit 53263fda0e15a2f2d945eb9940e2236f6120727d
-Author: Max Pedraza <maximpedraza@gmail.com>
+ $ git log --pretty=oneline --after 2015.01.01 | grep "kvm:" | wc -l
+ 1298
+ $ git log --pretty=oneline --after 2015.01.01 | grep "KVM:" | wc -l
+ 16249
 
-dt-bindings: display: allow the boot logo in a reserved memory region
+On Tue, Aug 04, 2026, Paolo Bonzini wrote:
+> KVM's behavior when the guest writes to a non-writable VMA is inconsistent.
+> For regular, page-backed mappings it returns KVM_PFN_ERR_FAULT and thus
+> returns -EFAULT to userspace (which is ABI, and relied upon by tests);
+> for VM_IO/VM_PFNMAP mappings instead it returns KVM_PFN_ERR_RO_FAULT
+> and thus exits to userspace with KVM_EXIT_MMIO.
+> 
+> This behavior for VM_{IO,PFNMAP} was added by commit bd2fae8da794 ("KVM:
+> do not assume PTE is writable after follow_pfn"), and even if it has been
+> in place for five years it is unlikely that it is relied upon by userspace,
+> since it is inconsistent with KVM itself.  Change hva_to_pfn() to return
+> KVM_PFN_ERR_FAULT for all non-writable VMAs, and restrict KVM_EXIT_MMIO
+> to the case of an explicitly read-only memslot.
+> 
+> Suggested-by: Sean Christopherson <seanjc@google.com>
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+> ---
 
-This commit extends the boot logo device tree binding to support loading
-the image from a reserved memory region. It adds a memory-region property
-as a mutually exclusive alternative to providing the image data inline.
+Shortlog nit aside,
 
-> Carrying the image in the device tree ties it to the device tree, but the
-> image and where it goes on screen are independent axes of variation. One
-> board sold to several customers wants several device trees that differ in
-> the logo; one customer with several products built on that board wants the
-> same logo placed differently on each panel. The second case would otherwi=
-se
-> mean duplicating the same image into every device tree.
-
-[Severity: Medium]
-Can allocating these large images fail?  Using kmalloc() for potentially
-large image allocations up to the 32MB LOGO_DT_MAX_PIXELS limit will fail
-for sizes exceeding KMALLOC_MAX_SIZE:
-
-drivers/video/logo/logo.c:logo_dt_parse() {
-	...
-	data =3D kmalloc(npixels, GFP_KERNEL);
-	if (!data) {
-		ret =3D -ENOMEM;
-		goto err_free_clut;
-	}
-	...
-}
-
->=20
-> Let the node point at a reserved memory region filled in by the bootloader
-> instead, so one image can be shared by device trees that differ only in
-> placement. The region starts with a small header carrying a magic number
-> and the geometry, so the kernel can tell a logo from an empty or stale
-> region and bounds check everything against the reservation.
-
-[Severity: Medium]
-Is the parsing logic for this feature missing from this patch series?  The
-kernel driver lacks any C implementation to parse or map the newly added
-memory-region property.
-
-In drivers/video/logo/logo.c:logo_dt_parse(), it unconditionally checks
-for the inline properties and returns an error if they are absent, with no
-code to handle the memory-region property:
-
-drivers/video/logo/logo.c:logo_dt_parse() {
-	...
-	ret =3D of_property_read_u32(np, "width", &width);
-	if (ret)
-		return ret;
-	...
-}
-
-[Severity: High]
-Are the placement coordinates actually bounds-checked?  Arbitrary boot
-logo placement via device tree allows out-of-bounds memory writes in
-framebuffer drivers.
-
-In fb_logo_dt_place(), unvalidated coordinates from the DT are assigned
-to image->dy:
-
-drivers/video/fbdev/core/fb_logo.c:fb_logo_dt_place() {
-	...
-	image->dx =3D max(dx + p->offset_x, 0);
-	image->dy =3D fb_logo_dt_top(info->var.yres, image->height);
-}
-
-In fb_do_show_logo(), the bounds checks are completely missing for the Y
-axis depending on rotation:
-
-drivers/video/fbdev/core/fb_logo.c:fb_do_show_logo() {
-	...
-	if (rotate =3D=3D FB_ROTATE_UR) {
-		for (x =3D 0;
-		     x < num && image->dx + image->width <=3D info->var.xres;
-		     x++) {
-			info->fbops->fb_imageblit(info, image);
-	...
-}
-
-When fb_imageblit() is called, the driver computes an address using dy,
-which will write far outside the framebuffer limits.
-
-[ ... ]
-
-> diff --git a/Documentation/devicetree/bindings/display/linux,boot-logo-cl=
-ut224.yaml b/Documentation/devicetree/bindings/display/linux,boot-logo-clut=
-224.yaml
-> index a6a2069648359..7aec0cc2d3776 100644
-> --- a/Documentation/devicetree/bindings/display/linux,boot-logo-clut224.y=
-aml
-> +++ b/Documentation/devicetree/bindings/display/linux,boot-logo-clut224.y=
-aml
-> @@ -59,6 +59,23 @@ properties:
->        index into the colour lookup table. The property length must be eq=
-ual to
->        width multiplied by height.
-> =20
-> +  memory-region:
-> +    maxItems: 1
-
-[Severity: Medium]
-Will this property always fail validation?  The top-level required list
-permanently mandates width, height, clut, and data.  If a device
-tree node is added using only memory-region, it fails the global
-required check:
-
-Documentation/devicetree/bindings/display/linux,boot-logo-clut224.yaml:
-required:
-  - compatible
-  - width
-  - height
-  - clut
-  - data
-
-If a node provides both, it fails the oneOf constraint since the subschemas
-become mutually exclusive.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804225617.2648=
-61-1-maximpedraza@gmail.com?part=3D4
+Reviewed-by: Sean Christopherson <seanjc@google.com>
