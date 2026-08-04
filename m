@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81BAFC55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:42:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3B4ECC55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:47:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B433310EBC9;
-	Tue,  4 Aug 2026 20:42:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5604410E038;
+	Tue,  4 Aug 2026 20:47:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q+dFdrG+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ksyECih7";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E280710EBC9
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:42:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1736D10E038
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:47:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8B82341AEE;
- Tue,  4 Aug 2026 20:42:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43EEA1F000E9;
- Tue,  4 Aug 2026 20:42:37 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 22E35600AA;
+ Tue,  4 Aug 2026 20:47:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A68ED1F000E9;
+ Tue,  4 Aug 2026 20:47:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785876157;
- bh=TrP27D0fSTImEBhUioGj8feGNsdtko/BvrshrefOhrk=;
+ s=k20260515; t=1785876457;
+ bh=6BREG63RRWAZUSYgCD5PUkqHW9VmWLsqlKlI/0nGvyc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Q+dFdrG+tTKpt3YNRm+RO8K5Wep+1+kjBqR/rJRlVzBjJ7/nV8R3mEI/RNuaE9TnV
- MDgp7jiiuxLrtqHBunH/dgYs4ia+QkWgs26taG51FMStlWiZoolU/g5cdhTpP2RFdA
- ZtFCVaF/IxN/Z7Dzpl4mPK1ciMj8751JiYeCHyP7c4d98WRR7/zDSQTLl0ODbmNhPC
- 0NrnEidp6mxJnQVw8WM90DynKFEjIiy4TXZsRZnhPJqnSYWuIRFhQeyzcIUXFKkEAy
- qr9OQTcm3AgcSZDouqt8txbuSkjOpoVyPzo3Yg+2CUamv9jfTm63j/oBq1jXguaAxJ
- oqQ4hZZebsvsA==
+ b=ksyECih72rsLOJYubekIx1RRNhX+MEggA1R2fet2DoTNLs88RNWT40uIkFSoGpNAj
+ gWd/0r75RnkUQtwUxXoZMs7zWliK+gPUrVJVtUrIgJ68rlFeJmIBy4d0qjWkmlbFBi
+ MaWQgN5uBMLwMQAiACVLJfOCR5oUUmvZeRbBGQ6dbsQf3JBZjVps3s5sK5I7XmIF9r
+ 8nv9Ei6tvAIzpOA5hu+d0a7q4MnZwx+mafg7abJWxRlnk4mEmvUTRHr//jjKXbA9zz
+ Q4cjzyU3eWzedhxt5iAmLyuEGyr3H4KlKvn+U/aYas+zZP2ayjGYWiUXVK6me0MAhO
+ ONlwHy5wdnrtw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 04/11] drm/vkms: remove linear_eotf
+Subject: Re: [PATCH 10/11] drm/vkms: add script to create optimized LUTs for
+ color curves
 To: "Leandro Ribeiro" <leandro.ribeiro@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260804203351.148521-5-leandro.ribeiro@collabora.com>
+In-Reply-To: <20260804203351.148521-11-leandro.ribeiro@collabora.com>
 References: <20260804203351.148521-1-leandro.ribeiro@collabora.com>
- <20260804203351.148521-5-leandro.ribeiro@collabora.com>
+ <20260804203351.148521-11-leandro.ribeiro@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 20:42:36 +0000
-Message-Id: <20260804204237.43EEA1F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 20:47:36 +0000
+Message-Id: <20260804204737.A68ED1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,59 +60,80 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The `vkms_color_test_linear` KUnit test loop relies on a hardcod=
-ed multiplier of `0x101` that was designed for a 256-element LUT. The patch=
- replaces `linear_eotf` (256 elements) with `test_linear_lut` (16 elements)=
- without adjusting the multiplier. Since the loop now only executes 16 time=
-s (`i` from 0 to 15), the evaluated channel values only range from `0x0000`=
- to `0x0F0F` (~5.8% of the 16-bit color space). The test fails to exercise =
-the remaining 94% of the color range and leaves 14 out of the 16 elements o=
-f `test_linear_lut` completely untested. To restore proper test coverage ov=
-er the `0x0000` to `0xFFFF` range, both instances of `0x101` should be upda=
-ted to `0x1111` (since `15 * 0x1111 =3D 0xFFFF`).
+- [Medium] Unconditional GUI plot generation and matplotlib import block sc=
+ript execution and break in headless environments.
 --
 
---- Patch [4]: [PATCH 04/11] drm/vkms: remove linear_eotf ---
-commit e4769cf1ca6d6dd3c89f50766f7a24a69c53cccb
+--- Patch [10]: [PATCH 10/11] drm/vkms: add script to create optimized LUTs=
+ for color curves ---
+commit eeb1a305fab717b385cfb6fdf6633f43f03c3b5f
 Author: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 
-drm/vkms: remove linear_eotf
+drm/vkms: add script to create optimized LUTs for color curves
 
-This patch removes the linear_eotf LUT, which was only used for testing,
-and updates the kunit color tests to use test_linear_lut instead.
+This commit adds a Python script to generate u16 LUTs for VKMS color transf=
+er
+functions. The script compares different LUT generation strategies and outp=
+uts
+the generated LUTs as C arrays formatted for vkms_luts.c.
 
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/d=
-rm/vkms/tests/vkms_color_test.c
-> index 3489513af3527..28614edb8eb18 100644
-> --- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-> @@ -126,8 +126,8 @@ static void vkms_color_test_lerp(struct kunit *test)
-> =20
->  static void vkms_color_test_linear(struct kunit *test)
->  {
-> -	for (int i =3D 0; i < linear_eotf.lut_length; i++) {
-> -		int linear =3D apply_lut_to_channel_value(&linear_eotf, i * 0x101, LUT=
-_RED);
-> +	for (int i =3D 0; i < test_linear_lut.lut_length; i++) {
-> +		int linear =3D apply_lut_to_channel_value(&test_linear_lut, i * 0x101,=
- LUT_RED);
+> diff --git a/drivers/gpu/drm/vkms/scripts/color-curve-lut.py b/drivers/gp=
+u/drm/vkms/scripts/color-curve-lut.py
+> new file mode 100644
+> index 0000000000000..f80e67120f5b3
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vkms/scripts/color-curve-lut.py
+> @@ -0,0 +1,561 @@
+[ ... ]
+> +import sys
+> +import os
+> +import time
+> +import bisect
+> +import math
+> +import numpy as np
+> +import matplotlib.pyplot as plt
 
 [Severity: Medium]
-Since the new test_linear_lut only has 16 elements (compared to the 256
-elements in linear_eotf), does leaving the multiplier as 0x101 mean we
-only test values up to 0x0f0f (~5.8% of the 16-bit color space)?
-
-Should both instances of 0x101 in this loop be updated to 0x1111 so that
-the final iteration (15 * 0x1111) reaches 0xffff, restoring coverage over
-the full color range?
-
-> =20
-> -		KUNIT_EXPECT_EQ(test, DIV_ROUND_CLOSEST(linear, 0x101), i);
-> +		KUNIT_EXPECT_EQ(test, DIV_ROUND_CLOSEST(linear, 0x101), i);
->  	}
+Will this unconditional import of matplotlib crash the script in headless
+environments or CI pipelines that lack a configured display backend?
 
 [ ... ]
+> +def main(args):
+[ ... ]
+> +    # Save the greedy subdivision LUT as C arrays for VKMS
+> +    greedy_lut =3D luts[2]
+> +    emit_c_arrays(greedy_lut, func_str)
+> +
+> +    # Plot the LUTs... kind of useless when we have a big LUT, but still=
+ good to
+> +    # visualize with fewer taps.
+> +    fig, axes =3D plt.subplots(1, len(luts), figsize=3D(15, 6))
+> +    for i, lut in enumerate(luts):
+> +        ax =3D axes[i]
+> +        ax.set_title(f"{lut.name} - {func_str}, LUT size: {lut.lut_size}=
+")
+> +        ax.set_xlabel('X')
+> +        ax.set_ylabel('Y')
+> +        ax.grid(True, linestyle=3D'--')
+> +        ax.plot(lut.x, lut.y, 'o', color=3D"blue")
+> +        ax.set_aspect('equal')
+> +    plt.tight_layout()
+> +    plt.show()
+
+[Severity: Medium]
+Does this plt.show() call block execution indefinitely until the GUI window=
+ is
+manually closed?=20
+
+If this script is run as part of an automated workflow, this could cause the
+process to hang. Could the plotting functionality be made optional and put
+behind a command-line flag?
+
+> +
+> +
+> +if __name__ =3D=3D "__main__":
+> +    main(sys.argv)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804203351.1485=
-21-1-leandro.ribeiro@collabora.com?part=3D4
+21-1-leandro.ribeiro@collabora.com?part=3D10
