@@ -4,93 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72F2DC55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:45:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3CAEC55184
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:45:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D315D10E11F;
-	Tue,  4 Aug 2026 13:45:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3017E10E158;
+	Tue,  4 Aug 2026 13:45:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rgKcYt/7";
+	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="Mq1xS84L";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA95510E11F
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 13:45:11 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-38f57e312ecso242684a91.1
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 06:45:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785851111; cv=none;
- d=google.com; s=arc-20260327;
- b=ZghZAooCGXkG7Jl420xCCyg7fFUrMZNRgpTqMxHExHXll4oXb8pgWfTg52QeKwF4sb
- Oam2vYgdx8w6354MROCM9GyfLfbdz9oRlAleFR+JFPtVAdtf096OJDfwgCPI1KrRmHNF
- 7Gm3FgYG8e+mo9KytCO7ejCbu//maV7r50S7alVWu2mr8eHMzW7ICwTG/jPI4aO58LvM
- X8tie3LYK0FBFTLlS03RE7t8wP2FlPYNFslrmvK/FNfU9I4TsVWUbmn6HJkvdtnNcJZR
- pMuKLhA3oWoKmqKwwGCeAnE3L4iCyH9Brfr6sBRV+rTQbshefAZUizKcqrta3U6JYOko
- 8qEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=6KLSkQQH2H4b9RLq8BMZeOvATgLTkZiGqz35LpzOs3k=;
- fh=bYy1gdffJzDCrIK7z4EL5b/4iCdagfa/eUW4B0maKQ0=;
- b=PZP6yg5HMOLiMpMxEW+SwoBXrOwVCvKhfc9QdQ9b6OLpQe996c+GI9kqokfnWW3G7o
- Oe0MA2shz+1rzrcoBs3GUAf0Q6WAb7iWhnLHAgF7/yMf3/Mld5nTO6VvPG7bGvn9Zdjs
- k1mVk3xV/midZEew/PzcQqOKkiXYZGOjMx8Xj5mRv2gVQViZpO0dwZBLPpwzKHMxjuvX
- G3cFTBM7uE88oiRi/TRDF/oGA2lSXmw7QsUrlle/kChJ6Nm9DeiL3q0l/1toZ7VPVYc+
- R+00unSdJ5XGv4xMU1JnvP+f9mBCeKXXpa6omUrkIWHY1CwKrH18wLAxBOUgCoVx+mMs
- JUNA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785851111; x=1786455911; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=6KLSkQQH2H4b9RLq8BMZeOvATgLTkZiGqz35LpzOs3k=;
- b=rgKcYt/7TFBehmEfn4PLovhK7JX6/4Z33/t4VXRluS34Kza+bnTLRXIIjdlM/Pv7VX
- 6ckSN4WNWlDHxj+V5OEvdoeQZNY9nGOKIQZeVQv3OQWKz29LoIzBZ9+5kR4yox2fT4UI
- AezxyHh63vcEdt7WXkRtjWgDnPVhBEoqIPNY6XnxK9zKcWDPzjro8kFhgnfs470WNIE+
- GCg4TddE4gMZHPBfRQw2ozIaPjxvRWmg8/3OCjRlfqVkE3y2/xHOH84zus927LiQcubU
- pWWk5VTkyTjUaDTARhMeWwwHdFz3ELzTgUo38p8biVH8YmzRnHQ2XIr1/TR30tDXVXcN
- hR4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785851111; x=1786455911;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=6KLSkQQH2H4b9RLq8BMZeOvATgLTkZiGqz35LpzOs3k=;
- b=I5/9XcpYxD+oX66VoolCCvy4d0/yH1WhrrVfYrEd+rTtRw4tuD2DYfWZ+lhhNnj5ok
- H/u9nffctJ0IIsQ3f0iIjyDrBuyndgQI9V5zWZNj/3i3P4FNfum2e4MouoGNufv1BGkZ
- uzuAS4c06aLfFFPJMQ7pMjDRidL2uNI08MZnZonpB1TJAmCiNFxyG289dUsDE05GXjOI
- PBpXuCUeHNlj+4jp1fTULiPSdhiSBJZu60XTXndmTRoR12df2/N8eTa0V5TEO9mZ/ssb
- IVGRtex7PRYEz4cbopdhrA68xr9cX/W0HTrsapKtyMakZS8Zk0cNYk5GjhzOcyeyWfAS
- 31VQ==
-X-Gm-Message-State: AOJu0Yx5IB2uBDZdBNuhOtlSLc0uKWPxh6SpfsqShmg/F4wgiZK6W3BC
- 1Hgwh9X9mXHdmpkYWh9/BKjbfoXEIPtSVQtP2Rs5cJLPfdZ5WONgr6lfsba8Sm2/q7ywT27XOly
- EUPtEfmlh+4jhNnKCxP2K6sxkE4OAkVl8qg==
-X-Gm-Gg: AR+sD12jidNaK0HY3YIBS0JWrFwtfvtHCB+NOSMTeLDJ0W+gTktahOUhxpilre5nEPA
- IYzjJMqbuD/lw3zrZ+QlALliJZrZH/jABIRLbnBakJBJcxEm/bRoEmqhdJWMS1eAedY3wo/Czf9
- dlLl7flCv2reSZ04Fd3GRCesi+bbV80WBTwI+yX5s6dnywY95YPSXnoCML7zeYTMJtvQdMnwXs4
- TMPW66wfZLyk7vVvzeTHgkEo33Vk/0fxDb5fZ7KfVziEmKzAAmbNsGoEj5xZFG7B4PRebFxyWDQ
- pFMzI/mhg0AyZW1ST9xSrC6djraAme9ZPNT8avHXNWX3oprmJIo8289/9comJeXrBn+2E/s3R/h
- tdPOIPMKEFkZ49BVbFiVzMFg4FXscVgp5eM8GeXRr
-X-Received: by 2002:a17:90b:3947:b0:38e:549:9e04 with SMTP id
- 98e67ed59e1d1-38fbc3ebbb2mr17761731a91.1.1785851110674; Tue, 04 Aug 2026
- 06:45:10 -0700 (PDT)
+Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
+ [185.132.180.163])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57E5210E158;
+ Tue,  4 Aug 2026 13:45:37 +0000 (UTC)
+Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
+ by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 674CWlTh3702901; Tue, 4 Aug 2026 14:45:27 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
+ :content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=dk201812; bh=RYLFTl1DGM85kMXnCePjrdu
+ 7Z5iB9AcVp/HX6FDQOk0=; b=Mq1xS84LZk7v+T///HmwbYNKKTegLDn/T6yzwM/
+ VQe7ZHhkHkQ5715FbxjDfdEWuUA4nHr55RgWNxsXIuN7fq+83Aso+AmuUuIxgDPH
+ NWYCDlVfqNnT0Bv6qx1XnIpRvUG6Brl23+OzQ8N5OxeiN/IVVt8Yrc8Xub0iaTun
+ 8/d7ExOOuHxmu03iOEKCOYwbhcOB8Bxg8GJ9XUQioP+IEmn87N23REroD+vq3VX4
+ WdNwQVXMrimHgeZPbfrLAv3/DwI24GDZoQD5VLgyqQrL1bCYuurWPtrYi5GlQH+T
+ 64ShcTxLTCJJ2K9zZhSAfBJ2SeTS12td+yE5pKWuPiCPB7g==
+Received: from hhmail01.hh.imgtec.org
+ (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
+ by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4fs8vttrt7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 04 Aug 2026 14:45:27 +0100 (BST)
+Received: from [127.0.1.1] (172.25.5.47) by HHMAIL01.hh.imgtec.org
+ (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 4 Aug
+ 2026 14:45:24 +0100
+From: Alexandru Dadu <alexandru.dadu@imgtec.com>
+Date: Tue, 4 Aug 2026 16:45:04 +0300
+Subject: [PATCH] drm/imagination: Explicitly set CACHED flag on META FW
 MIME-Version: 1.0
-References: <20260730153555.15176-1-harimishal1@gmail.com>
- <20260730154644.226891F000E9@smtp.kernel.org>
-In-Reply-To: <20260730154644.226891F000E9@smtp.kernel.org>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 4 Aug 2026 09:44:59 -0400
-X-Gm-Features: AUfX_mwKR1ANLuyrvYO3QQh0kig5k8rc7ey8Arj9zRakX_48umkBTtR4sxPzqCk
-Message-ID: <CADnq5_MBQJ4XctXY8opW9+=iEb6PygYniwu7SLCcJOq-znD-Zg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdkfd: reject alloc_memory_of_gpu with wrapping
- va_addr/mmap_offset
-To: sashiko-reviews@lists.linux.dev, Hari Mishal <harimishal1@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260804-b4-cached-flag-on-meta-fw-v1-1-333bccf10d3a@imgtec.com>
+X-B4-Tracking: v=1; b=H4sIAN/scWoC/x3MTQqEMAxA4atI1gZq6fh3FXGR1lQDWqUVHRDvP
+ mWW3+K9BxJH4QR98UDkS5LsIaMqC3ALhZlRpmzQSteqVQatQUdu4Qn9SjPuATc+Cf2NVnmrP21
+ nqdGQ+yOyl+//PYzv+wN4sjv4awAAAA==
+To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
+ <luigi.santivetti@imgtec.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, Matt Coster <opensource@mtcoster.net>,
+ Alexandru Dadu <alexandru.dadu@imgtec.com>, Matt Coster
+ <opensource@mtcoster.net>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785851124; l=1493;
+ i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
+ bh=aBcrOPlE91O4pvHKvdOwFFp/N9zkjaWAgioEhllmshs=;
+ b=7i0fhj8kCEQd6em3XQKqckQAKG6ilBEC6XZBIfjNyPcwLka2x5S4pjS0hzm1NGTRXjlBkQXyj
+ jxiKfinM9UGDwkiFrx5a/+KO2NXsI1uBApmyS1iro9okPEtwrgOHYqA
+X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
+ pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
+X-Originating-IP: [172.25.5.47]
+X-Proofpoint-ORIG-GUID: dAXDPUZS1Q7rgsCuipcSaubnDF687BvR
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDExMCBTYWx0ZWRfX4E0u6CaemMav
+ P7FI6ValIfbykG1qX8WBnUWrBnTVK9pgCq/6pCFnHt8i8GcWJuyJ2VyykvqMl1tXO/jXfIORmQH
+ ptO6urRJjtppI1dPR/NkDxz1loGIxvQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDExMCBTYWx0ZWRfX/1dxdt2k2wfL
+ wt4c65k5lTuw78BNrBrEwpyxHOdlPDfltWf5kd2MnFfKl/5y9IOjbBrMBSbBjph8fxJna8z6jOx
+ GUs8EkPeiNC3j6qW6tod+RUAJOkFEGPnGzRwEdHV1y7ZsJSnApMd7tS3+30zQQHqjArRmUBb4B6
+ NanLARHlYoxmJkOwDTr3yjU10hDrbKy2u+xtK3je5zFDg9W3KKW1ybSR/bMxew1FeI4UZJEj5C2
+ 4zNoV3NXGl2bw3XjjqGVyhQ6hdL38qlNEYYL+eDJRHfR7wwqHzg3h9e+5XmfPESHEdhfzWkrz6u
+ gWYQsGiDpCYwRZCY1CDRDR+TUt7IClNmomyyCkHXarDcKRzyqluy3jzWHcYOoXtGm27bw9YGx6i
+ p//uEm48TAJJruffPaaPy/MMtRz2BuLfCJCtPUO52RDQywwr4InqSdtPgt2ZmfQpLEhakjp1SFJ
+ 0UEJjSFPc7jxuPNdBEg==
+X-Proofpoint-GUID: dAXDPUZS1Q7rgsCuipcSaubnDF687BvR
+X-Authority-Analysis: v=2.4 cv=D7V37PRj c=1 sm=1 tr=0 ts=6a71ecf7 cx=c_pps
+ a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
+ a=Ft80G52YQMEA:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
+ a=iB0s77fEAAAA:8 a=r_1tXGB3AAAA:8 a=DMDJWULzLjs8hIaqJQgA:9 a=QEXdDO2ut3YA:10
+ a=HyUCkmmLtCL0fD60kmUx:22 a=t8nPyN_e6usw4ciXM-Pk:22
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,73 +99,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 12:03=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] The patch adds an unconditional overflow check on `args->mmap_of=
-fset`, which is strictly an OUT parameter for most allocation types. This w=
-ill cause perfectly valid ioctl calls to randomly fail with `-EINVAL` if us=
-erspace leaves the output field uninitialized.
-> --
->
-> --- Patch [1]: [PATCH] drm/amdkfd: reject alloc_memory_of_gpu with wrappi=
-ng va_addr/mmap_offset ---
-> commit 90e63e5cacd60faaf13c89e037955751ad085487
-> Author: Hari Mishal <harimishal1@gmail.com>
->
-> drm/amdkfd: reject alloc_memory_of_gpu with wrapping va_addr/mmap_offset
->
-> This commit adds check_add_overflow() checks to kfd_ioctl_alloc_memory_of=
-_gpu()
-> to prevent integer wrap-arounds when calculating the end address of va_ad=
-dr
-> and mmap_offset.
->
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm=
-/amd/amdkfd/kfd_chardev.c
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-> > @@ -1089,10 +1089,15 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct=
- file *filep,
-> [ ... ]
-> >       if (args->size =3D=3D 0)
-> >               return -EINVAL;
-> >
-> > +     if (check_add_overflow(args->va_addr, args->size, &end) ||
-> > +         check_add_overflow(args->mmap_offset, args->size, &end))
-> > +             return -EINVAL;
-> > +
->
-> [Severity: High]
-> Will this check cause valid allocation requests to fail if the user space
-> application leaves args->mmap_offset uninitialized?
->
-> According to the uAPI in kfd_ioctl.h, mmap_offset is an OUT parameter
-> for non-USERPTR allocations:
->
-> struct kfd_ioctl_alloc_memory_of_gpu_args {
->         ...
->         __u64 mmap_offset;      /* to KFD (userptr), from KFD (mmap offse=
-t) */
->         ...
-> };
->
-> Since this check is unconditional, if userspace calls this ioctl without =
-the
-> KFD_IOC_ALLOC_MEM_FLAGS_USERPTR flag and leaves the mmap_offset field
-> uninitialized on the stack, random garbage in that field could trigger th=
-is
-> overflow check and spuriously return -EINVAL.
->
-> Should the args->mmap_offset overflow check be restricted to only run whe=
-n
-> (args->flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR) is true?
+From: Matt Coster <opensource@mtcoster.net>
 
-Hi Hari,
+For completeness, OR in the CACHED flags when we're not ORing in the
+UNCACHED counterparts. One of these is probably zero, but (a) it isn't
+evident just by reading these lines, and (b) the compiler will make it
+disappear in that case.
 
-I think this change makes sense.  Can you take a look and respin?
+Signed-off-by: Matt Coster <matt.coster@imgtec.com>
+Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
+---
+ drivers/gpu/drm/imagination/pvr_fw_meta.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Thanks,
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
+index 9ff03bc60a08..b5837ba56e33 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
++++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
+@@ -509,9 +509,13 @@ pvr_meta_get_fw_addr_with_offset(struct pvr_fw_object *fw_obj, u32 offset)
+ 	u32 fw_addr = fw_obj->fw_addr_offset + offset + ROGUE_FW_SEGMMU_DATA_BASE_ADDRESS;
+ 
+ 	/* META cacheability is determined by address. */
+-	if (fw_obj->gem->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED)
++	if (fw_obj->gem->flags & PVR_BO_FW_FLAGS_DEVICE_UNCACHED) {
+ 		fw_addr |= ROGUE_FW_SEGMMU_DATA_META_UNCACHED |
+ 			   ROGUE_FW_SEGMMU_DATA_VIVT_SLC_UNCACHED;
++	} else {
++		fw_addr |= ROGUE_FW_SEGMMU_DATA_META_CACHED |
++			   ROGUE_FW_SEGMMU_DATA_VIVT_SLC_CACHED;
++	}
+ 
+ 	return fw_addr;
+ }
 
-Alex
+---
+base-commit: e55fead22ff9ee047ab9f1903860c4b43043514e
+change-id: 20260804-b4-cached-flag-on-meta-fw-b0fb2589ba72
+
+Best regards,
+-- 
+Alexandru Dadu <alexandru.dadu@imgtec.com>
+
