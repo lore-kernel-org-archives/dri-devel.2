@@ -4,60 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D2A7FC55ABA
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1C02C55ABA
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 21:01:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 277DA10EBE2;
-	Tue,  4 Aug 2026 20:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F208A10E031;
+	Tue,  4 Aug 2026 21:01:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="B1lZVG4Z";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mACRRa8p";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3522510EBC8
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:57:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=NRWVZbN3PfkY4R5jatPQIr04idcr7DcBsDOGBqPe2gw=; b=B1lZVG4ZpSK2R2+thY4r3TdSoM
- i6tGZ+bWlPMl1ptPGyXNnQz2J68VXs6MLHB9dms+vHvlux5fGoFQye/nsy1ezYo90w4y2D+aDMJMg
- oNcDZgSb1QHgllRILo/8yA+7ri7pcfyKkm8he33UjubQup0X5WvZAwS2m7q0sWwdEDLZX8nTnwShI
- 6/npukegeyNgp7iriLF3AFQFo69DXSQKCsfmA0qv7JcYtRM5/M1CC4PfoS963s+l3Au7yr4Mo+h1D
- 4CsBgxsUpyAQuD0MjgCiizMVuwIOhONrM2KBcFEGqwsmSgvU07mmGCrkg/6xMWrzZE2ROub4WWDfs
- rgea0O5A==;
-Received: from 179-125-86-101-dinamico.pombonet.net.br ([179.125.86.101]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wrMBr-00E0hx-NC; Tue, 04 Aug 2026 22:56:48 +0200
-Date: Tue, 4 Aug 2026 17:56:38 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Maarten Lankhorst <dev@lankhorst.se>
-Cc: Natalie Vock <nat@pixelcluster.dev>, Maxime Ripard <mripard@kernel.org>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Timur =?iso-8859-1?Q?Krist=F3f?= <timur.kristof@gmail.com>,
- cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v8 2/6] cgroup,cgroup/dmem: Add
- (dmem_)cgroup_common_ancestor helper
-Message-ID: <anJSBu2zbo8_lG7N@quatroqueijos.cascardo.eti.br>
-References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
- <20260804-dmemcg-aggressive-protect-v8-2-07af96681bf8@gmx.de>
- <b5b80acd-feea-408b-87eb-4264ffc7e2cd@lankhorst.se>
- <7b2887b1-ecb7-4d6e-ad34-068ab1d7d41e@pixelcluster.dev>
- <bd7c2432-a34b-400a-8351-ca4398b24981@lankhorst.se>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <bd7c2432-a34b-400a-8351-ca4398b24981@lankhorst.se>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB62A10E031
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 21:01:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2D97D600B1;
+ Tue,  4 Aug 2026 21:01:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A37541F000E9;
+ Tue,  4 Aug 2026 21:01:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785877291;
+ bh=2mefUfUOSQEb3Po3WvN9Rb739lGP7HL7Hfbyuo5l7sc=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=mACRRa8pgG9vNfwCDg/hkmoIsxqTKnsnXDZUvUe0Tu+NyMyvOdusDphEArPh/N/tr
+ lGWJJyt+5zEhbKfB5TcAc/IUqn/5Q7ntGdMxyP8fX2x9dADfUgGj6jfwpQUxGs4gy4
+ guPJk4AbtVp4qeSwInbPtIUMB180PGOu5AanVFsO/YZxbS8Dd+MslFIcMrJXpdsRlk
+ WucSAo5k2ZcbZKPELnFplWO14CBPkIELsj+16FoPdCCnk4zUg6RwCPF0xA6HGHBU7i
+ fk8pNAsSD9nExW55dLJE69JMWRusQpNvt03oSjyMimqzXqyRgHddfF4fRJVKNbmhgv
+ F7px7JQUOhW7Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/6] dt-bindings: display: add a device tree supplied
+ boot logo
+To: "Max Pedraza" <maximpedraza@gmail.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260804225617.264861-2-maximpedraza@gmail.com>
+References: <20260804225617.264861-1-maximpedraza@gmail.com>
+ <20260804225617.264861-2-maximpedraza@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 21:01:30 +0000
+Message-Id: <20260804210130.A37541F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,182 +55,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Tue, Aug 04, 2026 at 10:41:25PM +0200, Maarten Lankhorst wrote:
-> Hey,
-> 
-> On 8/4/26 22:26, Natalie Vock wrote:
-> > On 8/4/26 22:18, Maarten Lankhorst wrote:
-> >>
-> >>
-> >> On 8/4/26 10:25, Natalie Vock wrote:
-> >>> This helps to find a common subtree of two resources, which is important
-> >>> when determining whether it's helpful to evict one resource in favor of
-> >>> another.
-> >>>
-> >>> To facilitate this, add a common helper to find the ancestor of two
-> >>> cgroups using each cgroup's ancestor array.
-> >>>
-> >>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
-> >>> ---
-> >>>   include/linux/cgroup.h      | 21 +++++++++++++++++++++
-> >>>   include/linux/cgroup_dmem.h |  9 +++++++++
-> >>>   kernel/cgroup/dmem.c        | 41 +++++++++++++++++++++++++++++++++++++++++
-> >>>   3 files changed, 71 insertions(+)
-> >>>
-> >>> diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
-> >>> index f2aa46a4f871e..83a17ded1c516 100644
-> >>> --- a/include/linux/cgroup.h
-> >>> +++ b/include/linux/cgroup.h
-> >>> @@ -623,6 +623,27 @@ static inline struct cgroup *cgroup_ancestor(struct cgroup *cgrp,
-> >>>       return cgrp->ancestors[ancestor_level];
-> >>>   }
-> >>>   +/**
-> >>> + * cgroup_common_ancestor - find common ancestor of two cgroups
-> >>> + * @a: first cgroup to find common ancestor of
-> >>> + * @b: second cgroup to find common ancestor of
-> >>> + *
-> >>> + * Find the first cgroup that is an ancestor of both @a and @b, if it exists
-> >>> + * and return a pointer to it. If such a cgroup doesn't exist, return NULL.
-> >>> + *
-> >>> + * This function is safe to call as long as both @a and @b are accessible.
-> >>> + */
-> >>> +static inline struct cgroup *cgroup_common_ancestor(struct cgroup *a,
-> >>> +                            struct cgroup *b)
-> >>> +{
-> >>> +    int level;
-> >>> +
-> >>> +    for (level = min(a->level, b->level); level >= 0; level--)
-> >>> +        if (a->ancestors[level] == b->ancestors[level])
-> >>> +            return a->ancestors[level];
-> >>> +    return NULL;
-> >>> +}
-> >>> +
-> >>>   /**
-> >>>    * task_under_cgroup_hierarchy - test task's membership of cgroup ancestry
-> >>>    * @task: the task to be tested
-> >>> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
-> >>> index 1a88cd0c9eb00..9d72457c4cb9d 100644
-> >>> --- a/include/linux/cgroup_dmem.h
-> >>> +++ b/include/linux/cgroup_dmem.h
-> >>> @@ -28,6 +28,8 @@ bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
-> >>>                  struct dmem_cgroup_pool_state *test);
-> >>>   bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
-> >>>                  struct dmem_cgroup_pool_state *test);
-> >>> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
-> >>> +                                   struct dmem_cgroup_pool_state *b);
-> >>>     void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
-> >>>   #else
-> >>> @@ -75,6 +77,13 @@ static inline bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
-> >>>       return false;
-> >>>   }
-> >>>   +static inline
-> >>> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
-> >>> +                                   struct dmem_cgroup_pool_state *b)
-> >>> +{
-> >>> +    return NULL;
-> >>> +}
-> >>> +
-> >>>   static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
-> >>>   { }
-> >>>   diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
-> >>> index 9df3b33c65046..a587611ca2235 100644
-> >>> --- a/kernel/cgroup/dmem.c
-> >>> +++ b/kernel/cgroup/dmem.c
-> >>> @@ -762,6 +762,47 @@ bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
-> >>>   }
-> >>>   EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
-> >>>   +/**
-> >>> + * dmem_cgroup_get_common_ancestor(): Find the first common ancestor of two pools.
-> >>> + * @a: First pool to find the common ancestor of.
-> >>> + * @b: First pool to find the common ancestor of.
-> >>> + *
-> >>> + * Return: The first pool that is a parent of both @a and @b, or NULL if either @a or @b are NULL,
-> >>> + * or if such a pool does not exist. A reference to the returned pool is grabbed and must be
-> >>> + * released by the caller when it is done using the pool.
-> >>> + */
-> >>> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
-> >>> +                                   struct dmem_cgroup_pool_state *b)
-> >>> +{
-> >>> +    struct cgroup *ancestor_cgroup;
-> >>> +    struct cgroup_subsys_state *ancestor_css;
-> >>> +    struct dmemcg_state *ancestor_dmemcs = NULL;
-> >>> +    struct dmem_cgroup_pool_state *pool = NULL;
-> >>> +
-> >>> +    if (!a || !b)
-> >>> +        return NULL;
-> >>> +
-> >>> +    ancestor_cgroup = cgroup_common_ancestor(a->cs->css.cgroup, b->cs->css.cgroup);
-> >>> +    if (!ancestor_cgroup)
-> >>> +        return NULL;
-> >>> +
-> >>> +    rcu_read_lock();
-> >>> +    ancestor_css = cgroup_e_css(ancestor_cgroup, &dmem_cgrp_subsys);
-> >>> +    if (css_tryget(ancestor_css))
-> >>> +        ancestor_dmemcs = css_to_dmemcs(ancestor_css);
-> >>> +    rcu_read_unlock();
-> >>> +
-> >>> +    if (ancestor_dmemcs) {
-> >>> +        pool = get_cg_pool_unlocked(css_to_dmemcs(ancestor_css),
-> >>> +                        a->region);
-> >>> +        if (IS_ERR(pool))
-> >>> +            pool = NULL;
-> >> This should probably be a warn_on as this can never happen, sashiko is wrong here.
-> >>
-> >> If a and b are charged, all their ancestors are charged too. And when they share a
-> >> common ancestor, then the common ancestor has to have an existing charged pool as
-> >> well because there's a huge bug in the code otherwise.
-> >>
-> >>> +        css_put(ancestor_css);
-> >>> +    }
-> >>> +    return pool;
-> >>> +}
-> >>> +EXPORT_SYMBOL_GPL(dmem_cgroup_get_common_ancestor);
-> >>> +
-> >>>   static int dmem_cgroup_region_capacity_show(struct seq_file *sf, void *v)
-> >>>   {
-> >>>       struct dmem_cgroup_region *region;
-> >>>
-> >>
-> >> Otherwise looks good, so feel free to extend my r-b to this patch too, and with that minor fix up commit it.
-> > 
-> > Thanks a lot! Correct me if I'm wrong here as it's been a while, but I think sashiko's current comment about the css_put(ancestor_css) being wrong seems to have merit too? Since dmem_cgroup_pool_state_put() also puts a css reference but get_cg_pool_unlocked does not get another reference to the css on its own? (Kind of a footgun if you ask me, but not something for this series)
-> > 
-> > Mind if I also drop the css_put() line while I'm at it and *then* (finally :D) commit?
-> I'd keep the css_put for the failure case then.
-> 
-> Since the get_cg_pool_unlocked() is a local function, it's less of an issue that it doesn't
-> obtain a reference itself, as all callers outside dmemcg.c never notice.
-> 
-> Maybe do a final round of testing too, in case it introduces new failures. :-)
-> 
-> Especially device unload/reload might show double puts. But otherwise looks good to me.
-> 
-> Kind regards,
-> ~Maarten
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `memory-region` alternative is completely broken due to conf=
+licting top-level `required` constraints and a missing property definition.
+--
 
-I wrote the fixup at [1] that included that css_put. I will look into the
-possibility of get_cg_pool_unlocked returning NULL or error. But I find
-that unconditionally calling css_put here is wrong. If pool is NULL, it
-needs to be called, because otherwise the css_tryget will be unbalanced.
+--- Patch [1]: [PATCH v2 1/6] dt-bindings: display: add a device tree suppl=
+ied boot logo ---
+commit f24f24c36e68703fb2282044b3ecdd6fe92fa5c4
+Author: Max Pedraza <maximpedraza@gmail.com>
 
-The reason not to call it unconditionally is that it will be called when
-dmem_cgroup_pool_state_put is caled, hence, balancing the css_tryget.
+dt-bindings: display: add a device tree supplied boot logo
 
-I also need to consider whether doing it outside the RCU section is fine.
+Embedded products frequently need a product specific boot logo. This commit
+adds a binding for a "linux,boot-logo-clut224" node to allow the boot logo
+to be described by the device tree instead of baked into the kernel. The
+image can live in the device tree directly or in a reserved memory region.
 
-I just looked here and one of the possibilities for pool to be NULL is that
-the region is unregistered in a race condition. region->unregistered is
-protected by dmemcg_lock, but that is taken by get_cg_pool_unlocked, so it
-seems possible.
+> diff --git a/Documentation/devicetree/bindings/display/linux,boot-logo-cl=
+ut224.yaml b/Documentation/devicetree/bindings/display/linux,boot-logo-clut=
+224.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/linux,boot-logo-clut224.y=
+aml
 
-By the way, while testing the whole series, I see many different issues
-here that I am still looking at as they may be otherwise hidden
-pre-existing bugs.
+[ ... ]
 
-Regards.
-Cascardo.
+> +required:
+> +  - compatible
+> +  - width
+> +  - height
+> +  - clut
+> +  - data
 
-[1] https://lore.kernel.org/cgroups/ahW8MY4XBox_nsmB@quatroqueijos.cascardo.eti.br/
+[Severity: Medium]
+Does this global required block conflict with the oneOf block below?
+
+Since width, height, clut, and data are unconditionally required here, any
+node attempting to use the memory-region alternative will fail schema
+validation because it lacks these globally required properties.
+
+> +
+> +# The image either lives in the device tree or in a reserved memory regi=
+on,
+> +# never both.
+> +oneOf:
+> +  - required:
+> +      - width
+> +      - height
+> +      - clut
+> +      - data
+> +  - required:
+> +      - memory-region
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Can this schema successfully validate a node using a memory-region?
+
+Since memory-region is missing from the main properties block, setting
+additionalProperties to false here will cause validation to reject any node
+that includes it, completely preventing this configuration alternative from
+being used.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804225617.2648=
+61-1-maximpedraza@gmail.com?part=3D1
