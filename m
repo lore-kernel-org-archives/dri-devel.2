@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 798CDC55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:18:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 996BEC55184
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 13:20:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D769D10E15E;
-	Tue,  4 Aug 2026 13:18:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED61710E160;
+	Tue,  4 Aug 2026 13:20:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XtTHDJY9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QYWl5dlA";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6143C10E15E
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 13:18:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3301310E160
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 13:20:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0218640727;
- Tue,  4 Aug 2026 13:18:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A921F000E9;
- Tue,  4 Aug 2026 13:18:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F3C2643C87;
+ Tue,  4 Aug 2026 13:20:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97B941F000E9;
+ Tue,  4 Aug 2026 13:20:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785849534;
- bh=RTHV5v9tQNOB180OttEs0wmT8xa5rG3vlpFXX7jZKD8=;
+ s=k20260515; t=1785849621;
+ bh=g76ZvUHuKVeTsJM2bCFmFYtkrtWBGB+VZWMCWB4lZ50=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XtTHDJY9/S7JIhwl7aw020fmmXyI6RBIpFPR5G9NdBj2W1WdIJY7cA43p3HPvyHBS
- dGsUIUwEebYZn+hTA8lNAblxIuLLlpCq0odQCbpj+0fkuzl4PWmGLpnb6urdy8vesn
- SUYhlaz1PnrqHehafvhDG6BGIfK73NXZ0HWjWWdlOuB5QNO9/P/Rq6mulFmHxBrgl6
- fz2lOxuxECUK9yhuMJCJh3R8Bz8s+IOn8uPdAgDTLhWjqtsXDSbqbgz6lcyttU4Oju
- xVkaIh7u3n0swSlLygZ+CJtnsZwFm2khG/hOaxgPCWutT35aZUYSzZRS2HwUXrOChV
- lGQayIgEJktaw==
+ b=QYWl5dlApVaqYeE6ye5gScptMt2US/V+EYEnhlqEAUTMvbaDd/sPhLifVsN/C4QAP
+ GoAurg8Yf/whDSRHVbvrODJp5435V38DIAvfz7r4zanFHCHqr++b5N8aUMSwwxx5nS
+ +ogCNxJtmzsueKDxWh+BNgwYOPxPYONDe5yDoPRxGOtFcVEWBITPOC9cCStM5oxVGX
+ n4XNAJ6HG2P74aOV/QuyIFHz2ZYS9JTA81d9AuwUMtb9273d9D/I4sWwuZg52ls77x
+ MtoPZ8daJuH3k7sdcR15yfqtZISVoYE3aEmRzxehwfDw1Jb2175VIT/OvElsITMfsj
+ F1jUXjUU740Bg==
 From: sashiko-bot@kernel.org
-Subject: Re: [v6 5/9] drm/i915/display: Program CSC on SDR planes based on
- Fixed Matrix Colorop
+Subject: Re: [v6 6/9] drm/i915/color: Add support for 1D LUT in SDR planes
 To: "Chaitanya Kumar Borah" <chaitanya.kumar.borah@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260804123107.2256124-6-chaitanya.kumar.borah@intel.com>
+In-Reply-To: <20260804123107.2256124-7-chaitanya.kumar.borah@intel.com>
 References: <20260804123107.2256124-1-chaitanya.kumar.borah@intel.com>
- <20260804123107.2256124-6-chaitanya.kumar.borah@intel.com>
+ <20260804123107.2256124-7-chaitanya.kumar.borah@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 13:18:53 +0000
-Message-Id: <20260804131854.B9A921F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 13:20:21 +0000
+Message-Id: <20260804132021.97B941F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,98 +57,101 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Plane color pipeline configuration (including `csc_ff_enable` and =
-LUT blobs) is silently discarded if an atomic commit updates the plane but =
-omits the color pipeline objects.
+- [High] Missing drm_mode_object_unregister() in colorop cleanup paths leav=
+es dangling pointers in the DRM object IDR.
+- [High] Missing NULL check for kasprintf leads to crash during color pipel=
+ine property creation.
+- [High] Error cleanup path in intel_color_pipeline_plane_add_colorop crash=
+es when colorop initialization fails early.
 --
 
---- Patch [5]: [v6 5/9] drm/i915/display: Program CSC on SDR planes based o=
-n Fixed Matrix Colorop ---
-commit 17128052d77ad1b002034d74a8e48d89696c0df8
+--- Patch [6]: [v6 6/9] drm/i915/color: Add support for 1D LUT in SDR plane=
+s ---
+commit b0190470a3e343638c9aa8e156a26be16a13657a
 Author: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
 
-drm/i915/display: Program CSC on SDR planes based on Fixed Matrix Colorop
+drm/i915/color: Add support for 1D LUT in SDR planes
+   =20
+This commit extends the SDR plane color pipeline to include a post-CSC 1D
+LUT block. It simplifies the YUV to RGB pipeline by dropping the pre-CSC
+LUT.
 
-When a color pipeline is active, program the SDR plane fixed-function
-CSC based on the Fixed Matrix Colorop's state. Re-use the existing plane
-state variables for color_range and color_encoding.
-
-> diff --git a/drivers/gpu/drm/i915/display/intel_plane.c b/drivers/gpu/drm=
-/i915/display/intel_plane.c
-> index d0f99a87c42e8..25ca049009efb 100644
-> --- a/drivers/gpu/drm/i915/display/intel_plane.c
-> +++ b/drivers/gpu/drm/i915/display/intel_plane.c
-
-[ ... ]
-
-> @@ -485,11 +522,23 @@ intel_plane_color_copy_uapi_to_hw_state(struct inte=
-l_atomic_state *state,
->  	while (iter_colorop) {
->  		for_each_new_colorop_in_state(&state->base, colorop, new_colorop_state=
-, i) {
->  			if (new_colorop_state->colorop =3D=3D iter_colorop) {
-> -				blob =3D new_colorop_state->bypass ? NULL : new_colorop_state->data;
->  				intel_colorop =3D to_intel_colorop(colorop);
-> -				changed |=3D intel_plane_colorop_replace_blob(plane_state,
-> +				if (intel_colorop->id =3D=3D INTEL_PLANE_CB_CSC_FF) {
-> +					fm_type =3D new_colorop_state->fixed_matrix_type;
-> +
-> +					plane_state->hw.csc_ff_enable =3D
-> +						!new_colorop_state->bypass;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this iteration macro fa=
-il
-to preserve the hardware state during page flips?
-
-If userspace performs a simple plane update, such as a page flip to update =
-the
-FB, without explicitly including the color pipeline objects in the atomic
-commit, for_each_new_colorop_in_state() in
-intel_plane_color_copy_uapi_to_hw_state() will skip the unmodified colorops.
-
-Since intel_plane_copy_uapi_to_hw_state() calls intel_plane_clear_hw_state()
-prior to this step, the entire hardware state is cleared. As a result, the
-new csc_ff_enable flag and other LUT pointers will not be restored,
-permanently losing the hardware configuration.
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/i915/display/skl_universal_plane.c b/drivers=
-/gpu/drm/i915/display/skl_universal_plane.c
-> index 73be4c6ff1d3b..222c3b6bbe467 100644
-> --- a/drivers/gpu/drm/i915/display/skl_universal_plane.c
-> +++ b/drivers/gpu/drm/i915/display/skl_universal_plane.c
-
-[ ... ]
-
-> @@ -1245,9 +1245,11 @@ static u32 glk_plane_color_ctl_input_csc(const str=
-uct intel_plane_state *plane_s
->  	struct intel_display *display =3D to_intel_display(plane_state);
->  	const struct drm_framebuffer *fb =3D plane_state->hw.fb;
->  	struct intel_plane *plane =3D to_intel_plane(plane_state->uapi.plane);
-> +	bool color_pipeline =3D !!plane_state->uapi.color_pipeline;
-> +	bool needs_csc =3D color_pipeline ? plane_state->hw.csc_ff_enable : fb-=
->format->is_yuv;
->  	u32 ctl =3D 0;
+> diff --git a/drivers/gpu/drm/i915/display/intel_color_pipeline.c b/driver=
+s/gpu/drm/i915/display/intel_color_pipeline.c
+> index efd4375c43318..53e55ce0a5a35 100644
+> --- a/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> +++ b/drivers/gpu/drm/i915/display/intel_color_pipeline.c
+> @@ -45,6 +45,7 @@ static const enum intel_color_block hdr_plane_pipeline[=
+] =3D {
 > =20
-> -	if (!fb->format->is_yuv)
-> +	if (!needs_csc)
->  		return 0;
+>  static const enum intel_color_block sdr_plane_yuv_pipeline[] =3D {
+>  	INTEL_PLANE_CB_CSC_FF,
+> +	INTEL_PLANE_CB_POST_CSC_LUT,
+>  };
 
 [Severity: High]
-Because of the issue mentioned above, could needs_csc evaluate to false
-incorrectly?
+This is a pre-existing issue, but I have a question about the cleanup path
+when initializing these colorops. If colorop initialization fails halfway
+(for example, if drm_property_create_enum fails in drm_plane_colorop_init
+after drm_mode_object_add), the error path calls intel_colorop_destroy
+which delegates to drm_colorop_cleanup:
 
-When the csc_ff_enable flag is silently dropped during an atomic commit that
-does not modify colorops, glk_plane_color_ctl_input_csc() will evaluate
-needs_csc to false. This disables the hardware CSC, which can lead to
-incorrect colors or visual artifacts on the display.
+void drm_colorop_cleanup(struct drm_colorop *colorop)
+{
+	struct drm_device *dev =3D colorop->dev;
+	struct drm_mode_config *config =3D &dev->mode_config;
+
+	list_del(&colorop->head);
+	config->num_colorop--;
+...
+
+Is a call to drm_mode_object_unregister() missing here before the caller
+frees the memory? It seems this could leave dangling pointers in the DRM
+object IDR, which might be exploitable via DRM_IOCTL_MODE_OBJ_GETPROPERTIES.
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the error path in
+intel_color_pipeline_plane_add_colorop handle early initialization failures
+safely?
+
+intel_color_pipeline_plane_add_colorop()
+...
+cleanup:
+	intel_colorop_destroy(&colorop->base);
+	return ERR_PTR(ret);
+
+If an initialization function like drm_plane_colorop_curve_1d_lut_init
+fails early inside drm_plane_colorop_init (such as when drm_mode_object_add
+fails), colorop->dev is left as NULL and the head list node is uninitialize=
+d.
+When drm_colorop_cleanup accesses dev->mode_config.num_colorop, could this
+cause a NULL pointer dereference and an invalid list_del?
+
+[Severity: High]
+This is another pre-existing issue in the color pipeline setup code. I
+noticed a potential issue in _intel_color_pipeline_plane_init where
+kasprintf is used without checking the return value:
+
+_intel_color_pipeline_plane_init()
+...
+	list->type =3D colorop[0]->base.base.id;
+	list->name =3D kasprintf(GFP_KERNEL, "Color Pipeline %d", colorop[0]->base=
+.base.id);
+
+	return 0;
+
+Can this lead to a crash if kasprintf fails? If list->name is NULL, the
+function still returns success. This NULL name is then passed through to
+drm_plane_create_color_pipeline_property and eventually drm_property_add_en=
+um,
+where WARN_ON(strlen(name) >=3D DRM_PROP_NAME_LEN) could oops when attempti=
+ng
+to dereference the NULL pointer.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804123107.2256=
-124-1-chaitanya.kumar.borah@intel.com?part=3D5
+124-1-chaitanya.kumar.borah@intel.com?part=3D6
