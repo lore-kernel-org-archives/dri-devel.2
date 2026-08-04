@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29617C55172
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:40:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51E86C5518F
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 08:41:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C83310E909;
-	Tue,  4 Aug 2026 08:40:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB02310E149;
+	Tue,  4 Aug 2026 08:41:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Wh02DiHe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="L4rJGvy+";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C386310E149
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:40:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A300210E149
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 08:41:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 371F5600AA;
- Tue,  4 Aug 2026 08:40:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B71D1F000E9;
- Tue,  4 Aug 2026 08:40:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 21552600AA;
+ Tue,  4 Aug 2026 08:41:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5591F000E9;
+ Tue,  4 Aug 2026 08:41:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785832847;
- bh=L79m/LbSPk6X8SgowI4lKtqYpnsB3tHP1d321PMomMY=;
+ s=k20260515; t=1785832882;
+ bh=EtJtE0aRyIXj2dH1ztnuLIqWkMGTh4BW+jkeUkdvjmo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Wh02DiHeukfTA/4lp391ULWuMgetL4KXSBt4ESK2yx/ZHjE7IKWeJg/bu3T+ZiTS0
- ljCJ5h093uuEvs4g3L+1iGVfA++xrWT5Bs2FUnvOWhtUBfqNlaDxHT2IAFe7qnAUX4
- i8Oqv1gxjZ2S7Jdeb+zoH/ch3alWTRIXIeQykRxcjl8+OJVfR8ImLZCmyxkRAozvOF
- OfvhaJ/D36gCDcmAN+P+rkR2AK9nKvpfAy6t6NqJwsnmByUbqw1WPcf7+FmjCRmQ+8
- jau1z9sZ1if49qY1vPqAJ1AO1i+RKInAh/uN9Bm5BjA/DWEa+1Wx7kJeB54o8LcTZp
- VAU4YTI0PBi5A==
+ b=L4rJGvy+UdAgYOgSPFfWUlTWKeBsFoKICsYpJRZ1w/cB8fe7OU2UN8T9UtONfzZY5
+ cZkhvdkHmR/wNjmvGjrL27FDOKqKr0kV6yRnVkW83zr8ZYZpvTypxqAxdZQ5jiTRpY
+ V6OqFTRvnDH5r+c5h1r17RoyLW4FRf3RcHcf7ah6TRQzOd4oui2jQiszaW8jhYDi6D
+ 28WQ3fgmWg0YOFAjmPBN1El9cFyfT3aKj5CT+C9Nfwd36KhobFA1gxxTWg1cRF4Rz7
+ KSiA4Hp5YnX9pWDZLS5HEUmcxS4XsGU5M7KAyWrfaYbbjzO5sb8omZsNrc+Nw+FGDn
+ XcYrbIW6iMjhA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/6] drm/ttm: Be more aggressive when allocating
- below protection limit
+Subject: Re: [PATCH v8 1/6] cgroup/dmem: Add queries for protection values
 To: "Natalie Vock" <natalie.vock@gmx.de>
-Cc: tj@kernel.org, dri-devel@lists.freedesktop.org, mkoutny@suse.com,
- hannes@cmpxchg.org
-In-Reply-To: <20260804-dmemcg-aggressive-protect-v8-5-07af96681bf8@gmx.de>
+Cc: tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260804-dmemcg-aggressive-protect-v8-1-07af96681bf8@gmx.de>
 References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
- <20260804-dmemcg-aggressive-protect-v8-5-07af96681bf8@gmx.de>
+ <20260804-dmemcg-aggressive-protect-v8-1-07af96681bf8@gmx.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 08:40:46 +0000
-Message-Id: <20260804084047.8B71D1F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 08:41:18 +0000
+Message-Id: <20260804084122.7B5591F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,70 +58,171 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Allocations protected by the dmem cgroup `min` limit will incorrec=
-tly evict their own cgroup's buffers during the early eviction pass, preven=
-ting the cgroup from reaching its `min` guarantee.
+
+New issues:
+- [High] Missing ancestry check can result in using stale protection values=
+ for non-descendants.
+
+Pre-existing issues:
+- [High] O(N) cgroup tree traversal per isolated query causes massive overh=
+ead on eviction paths.
 --
 
---- Patch [5]: [PATCH v8 5/6] drm/ttm: Be more aggressive when allocating b=
-elow protection limit ---
-commit 30d3ed5047eb42c7b72fcb6f1d1973210be68163
+--- Patch [1]: [PATCH v8 1/6] cgroup/dmem: Add queries for protection value=
+s ---
+commit def4bae1e53d26c789e6edbd5c551a0f50ade339
 Author: Natalie Vock <nat@pixelcluster.dev>
 
-drm/ttm: Be more aggressive when allocating below protection limit
+cgroup/dmem: Add queries for protection values
    =20
-When the cgroup's memory usage is below the low/min limit and allocation
-fails, try evicting some unprotected buffers to make space. Otherwise,
-application buffers may be forced to go into GTT even though usage is
-below the corresponding low/min limit, if other applications filled VRAM
-with their allocations first.
+Callers can use this feedback to be more aggressive in making space for
+allocations of a cgroup if they know it is protected.
+   =20
+These are counterparts to memcg's mem_cgroup_below_{min,low}.
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-> index 3becddd2c43b8..6bbea148838e4 100644
-> --- a/drivers/gpu/drm/ttm/ttm_bo.c
-> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+> index 39930c59cb769..9df3b33c65046 100644
+> --- a/kernel/cgroup/dmem.c
+> +++ b/kernel/cgroup/dmem.c
+
 [ ... ]
-> @@ -537,12 +541,50 @@ static int ttm_bo_alloc_at_place(struct ttm_buffer_=
-object *bo,
-[ ... ]
-> +	/*
-> +	 * Buffers protected by 'min' will never be considered for eviction
-> +	 * anyway, so the regular eviction path should be triggered here.
-> +	 * Buffers protected by 'low' but not 'min' will take a special
-> +	 * eviction path that only evicts buffers covered by neither 'low' or
-> +	 * 'min' protections.
-> +	 */
-> +	if (!alloc_state->in_evict) {
-> +		may_evict |=3D dmem_cgroup_below_min(NULL, alloc_state->charge_pool);
-> +		alloc_state->may_try_low =3D may_evict;
+
+> @@ -700,6 +700,68 @@ int dmem_cgroup_try_charge(struct dmem_cgroup_region=
+ *region, u64 size,
+>  }
+>  EXPORT_SYMBOL_GPL(dmem_cgroup_try_charge);
+> =20
+> +/**
+> + * dmem_cgroup_below_min() - Tests whether current usage is within min l=
+imit.
+> + *
+> + * @root: Root of the subtree to calculate protection for, or NULL to ca=
+lculate global protection.
+> + * @test: The pool to test the usage/min limit of.
+> + *
+> + * Return: true if usage is below min and the cgroup is protected, false=
+ otherwise.
+> + */
+> +bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
+> +			   struct dmem_cgroup_pool_state *test)
+> +{
+> +	if (root =3D=3D test || !pool_parent(test))
+> +		return false;
 > +
-> +		may_evict |=3D dmem_cgroup_below_low(NULL, alloc_state->charge_pool);
+> +	if (!root) {
+> +		for (root =3D test; pool_parent(root); root =3D pool_parent(root))
+> +			{}
 > +	}
+> +
+> +	/*
+> +	 * In mem_cgroup_below_min(), the memcg pendant, this call is missing.
+> +	 * mem_cgroup_below_min() gets called during traversal of the cgroup tr=
+ee, where
+> +	 * protection is already calculated as part of the traversal. dmem cgro=
+up eviction
+> +	 * does not traverse the cgroup tree, so we need to recalculate effecti=
+ve protection
+> +	 * here.
+> +	 */
+> +	dmem_cgroup_calculate_protection(root, test);
 
 [Severity: High]
-Does this code inadvertently allow a cgroup to evict its own buffers when i=
-t is
-below the min limit?
+This isn't a bug introduced by this patch, but does calling=20
+dmem_cgroup_calculate_protection() here for isolated per-item queries cause=
+=20
+massive overhead on eviction paths?
 
-When dmem_cgroup_below_min() returns true, alloc_state->may_try_low is set
-to true here.
+Looking at the pre-existing dmem_cgroup_calculate_protection() implementati=
+on:
 
-Later in ttm_bo_evict_cb(), this causes the self-eviction skip check to be
-bypassed:
+kernel/cgroup/dmem.c:dmem_cgroup_calculate_protection() {
+    ...
+    css_for_each_descendant_pre(css, &limit_pool->cs->css) {
+        ...
+        page_counter_calculate_protection(climit, &found_pool->cnt, true);
 
-	if (!evict_walk->alloc_state->may_try_low &&
-			bo->resource->css =3D=3D evict_walk->alloc_state->charge_pool)
-		return 0;
+        if (found_pool =3D=3D test_pool)
+            break;
+    }
+    ...
+}
 
-Because dmem_cgroup_state_evict_valuable() allows a pool to evict from itse=
-lf,
-this means the cgroup will evict its own buffers instead of unprotected buf=
-fers
-from other cgroups. Will this prevent the cgroup from reaching its min limit
-guarantee?
+It performs a top-down pre-order traversal starting from root. When root is=
+=20
+NULL and falls back to the global root, it forces a traversal over almost t=
+he=20
+entire system's cgroups. Executing this full subtree walk repeatedly during=
+=20
+eviction scanning could lead to severe performance degradation.
+
+> +	return page_counter_read(&test->cnt) <=3D READ_ONCE(test->cnt.emin);
+
+[Severity: High]
+If the caller passes a root and a test pool where test is not a descendant=
+=20
+of root, dmem_cgroup_calculate_protection() will iterate only the descendan=
+ts=20
+of root, never find test, and exit without updating test->cnt.emin.
+
+Could this cause the function to read a stale emin value from a prior=20
+calculation and incorrectly return true, incorrectly shielding the cgroup=20
+from eviction?
+
+Since dmem uses global lists and doesn't have per-cgroup LRUs, encountering=
+=20
+non-descendants during eviction seems likely. Would it be safer to verify=20
+that test is a descendant of root and return false otherwise?
+
+> +}
+> +EXPORT_SYMBOL_GPL(dmem_cgroup_below_min);
+> +
+> +/**
+> + * dmem_cgroup_below_low() - Tests whether current usage is within low l=
+imit.
+> + *
+> + * @root: Root of the subtree to calculate protection for, or NULL to ca=
+lculate global protection.
+> + * @test: The pool to test the usage/low limit of.
+> + *
+> + * Return: true if usage is below low and the cgroup is protected, false=
+ otherwise.
+> + */
+> +bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
+> +			   struct dmem_cgroup_pool_state *test)
+> +{
+> +	if (root =3D=3D test || !pool_parent(test))
+> +		return false;
+> +
+> +	if (!root) {
+> +		for (root =3D test; pool_parent(root); root =3D pool_parent(root))
+> +			{}
+> +	}
+> +
+> +	/*
+> +	 * In mem_cgroup_below_low(), the memcg pendant, this call is missing.
+> +	 * mem_cgroup_below_low() gets called during traversal of the cgroup tr=
+ee, where
+> +	 * protection is already calculated as part of the traversal. dmem cgro=
+up eviction
+> +	 * does not traverse the cgroup tree, so we need to recalculate effecti=
+ve protection
+> +	 * here.
+> +	 */
+> +	dmem_cgroup_calculate_protection(root, test);
+> +	return page_counter_read(&test->cnt) <=3D READ_ONCE(test->cnt.elow);
+
+[Severity: High]
+Similarly to dmem_cgroup_below_min() above, does this missing ancestry chec=
+k=20
+also expose dmem_cgroup_below_low() to using stale elow protection values i=
+f=20
+test is not a descendant of root?
+
+> +}
+> +EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-dmemcg-agg=
-ressive-protect-v8-0-07af96681bf8@gmx.de?part=3D5
+ressive-protect-v8-0-07af96681bf8@gmx.de?part=3D1
