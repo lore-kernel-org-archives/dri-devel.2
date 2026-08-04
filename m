@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34A5BC55ABF
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:10:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FCB3C5518F
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5AF8A10E994;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5840A10E992;
 	Tue,  4 Aug 2026 10:10:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="JehKUtJI";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="bviWPcyC";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 994CC10E12F
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:09:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 28A1210E12F
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:09:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1785838196;
- bh=YqEY51AaClJsLFVXwpEXOrnUItYnhK9wUpsMaXBZvdQ=;
+ bh=BJ44gq7DJG+fqcEq/10trwLCTnEL2m5O1yzLhaGrkSE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=JehKUtJIn46HZsbsnSzOrv+IYdVv4lkPswPEWx+LiRHJhlzn9veHDDOnmMSHg7caE
- F4jOkOP3k+irrUXj7Fnnjq/fGVb3cHQGjrIkKrJ8MAEKHbC7wGOLCORm4y/S8TNx0F
- klBcj/8Zn3oUI6BXP8sPshDKVznkL58NvHThsKZe/dB/GU6x7Ej8tcFPtn3U7q6/Lh
- 9ljWSIwnSa3vmo8v0WVLXhY/TuaAuXomSso8pfZFGH91zigqCbzdOC4daoNZjX4Mp1
- YdPRLpupKpCV5DF0m5K7X+AUeGC/V0uJKMH5HZhWBvAdUI5bOb/SejdUB7Mc07E7XG
- Mc6j7qFIKdkbw==
+ b=bviWPcyC99z+IA7wiTxcqOblH4VmwfjWMVB/6d+IqG758ZeXbsq4F+lBszHtgoMee
+ TqST+krLCRNwOB36sxzzrvkkONLtuIEgAO7NnB4+t3jEeyYUNahs+E5MHv8819ny6S
+ /8PrqcqWhojms9q22T7Q/QfZmGQmU8wirV2ezlc+Vv5hDYJIZB/XKLsZcBvbBU80Tb
+ AeKYvgKlqTHmt1SInvFakmg+tTENwX4P97Vs4hW+z/N/RpnorT88yjAd3GC0fRlhL/
+ wA3mpMPqK5lIU+gmoH92HHlKNKR5z5M3wtGeizlw8ObhOxsS+aTVZfNGJzc1O6G55m
+ fQJuiF3ODaD9g==
 Received: from fedora-21.home (unknown [100.64.0.11])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id F1D8017E0FEA;
- Tue, 04 Aug 2026 12:09:55 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 7B5F917E107E;
+ Tue, 04 Aug 2026 12:09:56 +0200 (CEST)
 From: Boris Brezillon <boris.brezillon@collabora.com>
-Date: Tue, 04 Aug 2026 12:09:42 +0200
-Subject: [PATCH 03/12] drm/panthor: Move the debugfs initialization to
- panthor_device.c
+Date: Tue, 04 Aug 2026 12:09:43 +0200
+Subject: [PATCH 04/12] drm/panthor: Flush the cleanup_wq before destroying
+ the drm_device
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260804-panthor-unplug-fixes-v1-3-abbbd2d41b13@collabora.com>
+Message-Id: <20260804-panthor-unplug-fixes-v1-4-abbbd2d41b13@collabora.com>
 References: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
 In-Reply-To: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
 To: Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>
@@ -47,13 +47,13 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Boris Brezillon <boris.brezillon@collabora.com>
+ Boris Brezillon <boris.brezillon@collabora.com>, sashiko-bot@kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785838194; l=2729;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785838194; l=1855;
  i=boris.brezillon@collabora.com; s=20260429; h=from:subject:message-id;
- bh=YqEY51AaClJsLFVXwpEXOrnUItYnhK9wUpsMaXBZvdQ=;
- b=U3EzBc/BQN0Bv89K/9d/DmfbJwt2M85uvQHrzSb8V5OEf6wn8YE0BdBc1npdhOmWMH2PhELGX
- e2ztH04jcN8DBjd8TmnuTXyuIrZgwJ7kNXIfcqQ/zpkqOWZGyq1otfE
+ bh=BJ44gq7DJG+fqcEq/10trwLCTnEL2m5O1yzLhaGrkSE=;
+ b=COigHaAxvmSpC/bnWfhRWPhMjmV8cY9tQQbf2Evb/cDbimlOUB/2t6fGGjs4zjYwv2wM2GASN
+ KREVcpnLZIMCu9U0quMWjC+Zelc4949EUEcivColYwysru9y9qIuOaw
 X-Developer-Key: i=boris.brezillon@collabora.com; a=ed25519;
  pk=eN+ORdOgQY7d5U+0kA8h5bf67XdD8bhKbjD/TCHexSY=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -71,83 +71,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Those are per-device debugfs-files, so it makes sense to have the
-initialization logic in panthor_device.c.
+If we don't do that, we might face various UAFs, because the resource
+referenced by these work items might be gone.
 
+In order to flush the panthor_cleanup_wq before device destruction, we
+simply register a drmm action. This action is intentionally inserted
+before any of the subcomponent _init() function to make sure we flush
+any cleanup work that might have been queued in there if the
+initialization fails.
+
+Fixes: de8548813824 ("drm/panthor: Add the scheduler logical block")
+Fixes: 647810ec2476 ("drm/panthor: Add the MMU/VM logical block")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260625-panthor-signal-from-irq-v5-0-8836a74e0ef9@collabora.com?part=2
 Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
 ---
- drivers/gpu/drm/panthor/panthor_device.c |  9 +++++++++
- drivers/gpu/drm/panthor/panthor_device.h |  4 ++++
- drivers/gpu/drm/panthor/panthor_drv.c    | 10 +---------
- 3 files changed, 14 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/panthor/panthor_device.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
 diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/panthor/panthor_device.c
-index 1aa86d00646f..7d336f160d1f 100644
+index 7d336f160d1f..b7c55a6f4f08 100644
 --- a/drivers/gpu/drm/panthor/panthor_device.c
 +++ b/drivers/gpu/drm/panthor/panthor_device.c
-@@ -13,6 +13,7 @@
- #include <linux/reset.h>
- 
- #include <drm/drm_drv.h>
-+#include <drm/drm_file.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_print.h>
- 
-@@ -616,3 +617,11 @@ int panthor_device_suspend(struct device *dev)
- 	atomic_set(&ptdev->pm.state, PANTHOR_DEVICE_PM_STATE_SUSPENDED);
- 	return 0;
+@@ -167,6 +167,14 @@ static void panthor_device_free_page(struct drm_device *ddev, void *data)
+ 	__free_page(data);
  }
-+
-+#ifdef CONFIG_DEBUG_FS
-+void panthor_device_debugfs_init(struct drm_minor *minor)
+ 
++static void panthor_device_flush_cleanup_wq(struct drm_device *ddev, void *data)
 +{
-+	panthor_mmu_debugfs_init(minor);
-+	panthor_gem_debugfs_init(minor);
++	/* Make sure works queued to panthor_cleanup_wq are executed
++	 * before the device is destroyed.
++	 */
++	flush_workqueue(panthor_cleanup_wq);
 +}
-+#endif
-diff --git a/drivers/gpu/drm/panthor/panthor_device.h b/drivers/gpu/drm/panthor/panthor_device.h
-index 0fda64fbe5f2..a6b1a2a5fca4 100644
---- a/drivers/gpu/drm/panthor/panthor_device.h
-+++ b/drivers/gpu/drm/panthor/panthor_device.h
-@@ -403,6 +403,10 @@ int panthor_device_mmap_io(struct panthor_device *ptdev,
- int panthor_device_resume(struct device *dev);
- int panthor_device_suspend(struct device *dev);
- 
-+#ifdef CONFIG_DEBUG_FS
-+void panthor_device_debugfs_init(struct drm_minor *minor);
-+#endif
 +
- static inline int panthor_device_resume_and_get(struct panthor_device *ptdev)
+ int panthor_device_init(struct panthor_device *ptdev)
  {
- 	int ret = pm_runtime_resume_and_get(ptdev->base.dev);
-diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-index 46a3080b0b20..924a7ecd3733 100644
---- a/drivers/gpu/drm/panthor/panthor_drv.c
-+++ b/drivers/gpu/drm/panthor/panthor_drv.c
-@@ -1764,14 +1764,6 @@ static const struct file_operations panthor_drm_driver_fops = {
- 	.fop_flags = FOP_UNSIGNED_OFFSET,
- };
+ 	u32 *dummy_page_virt;
+@@ -220,6 +228,10 @@ int panthor_device_init(struct panthor_device *ptdev)
+ 	if (ret)
+ 		return ret;
  
--#ifdef CONFIG_DEBUG_FS
--static void panthor_debugfs_init(struct drm_minor *minor)
--{
--	panthor_mmu_debugfs_init(minor);
--	panthor_gem_debugfs_init(minor);
--}
--#endif
--
- /*
-  * PanCSF driver version:
-  * - 1.0 - initial interface
-@@ -1807,7 +1799,7 @@ static const struct drm_driver panthor_drm_driver = {
- 	.gem_prime_import_sg_table = panthor_gem_prime_import_sg_table,
- 	.gem_prime_import = panthor_gem_prime_import,
- #ifdef CONFIG_DEBUG_FS
--	.debugfs_init = panthor_debugfs_init,
-+	.debugfs_init = panthor_device_debugfs_init,
- #endif
- };
- 
++	ret = drmm_add_action(&ptdev->base, panthor_device_flush_cleanup_wq, NULL);
++	if (ret)
++		return ret;
++
+ 	ret = panthor_clk_init(ptdev);
+ 	if (ret)
+ 		return ret;
 
 -- 
 2.55.0
