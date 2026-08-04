@@ -4,49 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65499C55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 06:42:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65290C55172
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 06:48:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CCB8E10E672;
-	Tue,  4 Aug 2026 06:42:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C84D610E09E;
+	Tue,  4 Aug 2026 06:48:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="Pe7w/ejm";
+	dkim=pass (2048-bit key; unprotected) header.d=geanix.com header.i=@geanix.com header.b="Nn8YHZBx";
 	dkim-atps=neutral
-X-Greylist: delayed 56727 seconds by postgrey-1.36 at gabe;
- Tue, 04 Aug 2026 06:42:06 UTC
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch
- [109.224.244.108])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D4BC110E672
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 06:42:06 +0000 (UTC)
+Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch
+ [79.135.106.113])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DBE710E09E
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 06:48:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
- s=protonmail3; t=1785825724; x=1786084924;
- bh=31Ug+fA+RrUX7m+kiXo712hLEFUM8g1A+Ov7N/lwW1w=;
+ s=protonmail3; t=1785826110; x=1786085310;
+ bh=KqfKYGJNjUhLaSbht+pZlWC4kNkno5tAwM66cjF7pOo=;
  h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
  Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=Pe7w/ejmJtF3Zldi1kAmx1elH6px3iFzJjqppVszQs1k2qJGoSe07sDhioClu7k8t
- hfEKu6KbvZEk5dO0gjBSj1Ru4gMqs3xhojbnkDWsxNuNBMIo6ryEO1psWKjk1tIuyc
- yOBW7KRCoDwv2LE6nWuemGkjqf/WWobPieVSSaEHudpmQTt9PuPGFIKRYHdGuIUFNk
- E/6bveEHGnW5pXboiHwuOMbf8a6CG2qpAKOh+HOXlDUjvbuTGPeLPRstC0B7IUN688
- HwQ7Rhs6zwxRKBhj+EKPOphdT68EVrdidaLhGqIBG5C/YcDjvtlA08iWBH9EDGzsGE
- RWmM3wv6qPKLw==
-X-Pm-Submission-Id: 4hDkVK0ysCz1DGhD
+ b=Nn8YHZBxoxcm8q3IdKc0RZvj4sZ1ZWU1Zkg+S/aq3JRl55xBChJoBDqdBQ2Yg22L/
+ blueCFboPS3fBp1B6cykoqG5EL+aHLI5//+F0on4OIfFUgMWKM52932g1DneIZ6FXN
+ U2rc0UfXeocagPRhOv98GvF6rqBPgefqIKWTPWgQZU790VhBWgJT6ZmAEYXinGsnlP
+ Y/bEqGs4QHmX4LJ1EXVCLw2q71i/A+N4a45WgeOfeFo2LtYZsxld8pbv+jw4hMFLEL
+ 1o0FMUqNYeGfAN7/Wwhz6ydlXk3F4QcY92kr2D41DwKC2i4Vv4spaSw4c0B0wv9OYK
+ RdV2bP+tSKZ/g==
+X-Pm-Submission-Id: 4hDkdn21mVz2Sdm1
 From: Esben Haabendal <esben@geanix.com>
 To: <sashiko-bot@kernel.org>
 Cc: <sashiko-reviews@lists.linux.dev>,  <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH v3 1/3] drm/bridge: ti-sn65dsi83: Propagate error in
- sn65dsi83_reset_pipe()
-In-Reply-To: <20260803150412.BF11F1F000E9@smtp.kernel.org>
- (sashiko-bot@kernel.org's message of "Mon, 03 Aug 2026 15:04:12
+Subject: Re: [PATCH v3 2/3] drm/bridge: ti-sn65dsi83: Fix error handling in
+ sn65dsi83_reset_work()
+In-Reply-To: <20260803152112.5CC281F000E9@smtp.kernel.org>
+ (sashiko-bot@kernel.org's message of "Mon, 03 Aug 2026 15:21:11
  +0000")
 References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
- <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
- <6QecEBYszLlt-wRCd-IUkmVSkazILKAUnV8GyeWN-yOnVHHlKwWkc1E632SK5diLdL_qS6z4QTHRg1DqEGIY_A==@protonmail.internalid>
- <20260803150412.BF11F1F000E9@smtp.kernel.org>
-Date: Tue, 04 Aug 2026 08:41:52 +0200
-Message-ID: <87y0embd5b.fsf@geanix.com>
+ <20260803-ti-sn65dsi83-fixes-v3-2-9b403a405ccd@geanix.com>
+ <TKBCK7kXBFomt3_G6e_k5x4Azce7mNJH-pBKtQftoFH2IaNTAU1lbZd0nwutvpQD9ZhjDZGOxBjCFfBJG0fFmA==@protonmail.internalid>
+ <20260803152112.5CC281F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 08:48:25 +0200
+Message-ID: <87tspabcue.fsf@geanix.com>
 User-Agent: Gnus/5.13 (Gnus v5.13)
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,54 +63,86 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 <sashiko-bot@kernel.org> writes:
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Leaking an SRCU read lock on the error path in `sn65dsi83_reset_work()` due to an early return without calling `drm_bridge_exit()`.
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+>
+> Pre-existing issues:
+> - [Critical] Missing cancel_work_sync() for ctx->reset_work during driver=
+ teardown leads to a Use-After-Free.
+> - [High] Skipping enable_irq() on the error path causes an IRQ disable de=
+pth leak, leaving the interrupt permanently disabled.
 > --
 >
-> --- Patch [1]: [PATCH v3 1/3] drm/bridge: ti-sn65dsi83: Propagate error in sn65dsi83_reset_pipe() ---
-> commit d19637cc30dea31a13c6747fe2aa3733116ec5e5
+> --- Patch [2]: [PATCH v3 2/3] drm/bridge: ti-sn65dsi83: Fix error handlin=
+g in sn65dsi83_reset_work() ---
+> commit 58246b5ef131d7aeea7b5c2b693088e7255aa435
 > Author: Esben Haabendal <esben@geanix.com>
 >
-> drm/bridge: ti-sn65dsi83: Propagate error in sn65dsi83_reset_pipe()
+> drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
 >
-> Propagate the error code from drm_bridge_helper_reset_crtc(), so that
-> callers has a chance to handle the failure.
+> This commit fixes the error path in sn65dsi83_reset_work() by adding a
+> goto to ensure drm_bridge_exit() is called when sn65dsi83_reset_pipe()
+> fails, safely closing the critical section.
 >
->> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
->> index 42b451432bbb6..476f255bd34dd 100644
+>> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bri=
+dge/ti-sn65dsi83.c
 >> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
 >> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
->> @@ -403,7 +403,7 @@ static int sn65dsi83_reset_pipe(struct sn65dsi83 *sn65dsi83)
->>  	drm_modeset_drop_locks(&ctx);
->>  	drm_modeset_acquire_fini(&ctx);
->>
->> -	return 0;
->> +	return err;
->>  }
->>
->>  static void sn65dsi83_reset_work(struct work_struct *ws)
+>> @@ -419,11 +419,12 @@ static void sn65dsi83_reset_work(struct work_struc=
+t *ws)
+>
+> [Severity: Critical]
+> This is a pre-existing issue, but could this work function execute after
+> the device is unbound, resulting in a use-after-free?
+>
+> If the driver is removed and devres frees the ctx structure, the work
+> could still be pending since sn65dsi83_remove() does not appear to call
+> cancel_work_sync() before returning:
+>
+> sn65dsi83_remove() {
+>         ...
+>         drm_bridge_unplug(&ctx->bridge);
+>         // missing cancel_work_sync(&ctx->reset_work);
+> }
+>
+> If the workqueue executes sn65dsi83_reset_work() after teardown,
+> dereferencing ctx for drm_bridge_enter() might access freed memory.
+>
+>>  	ret =3D sn65dsi83_reset_pipe(ctx);
+>>  	if (ret) {
+>>  		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
+>> -		return;
+>> +		goto err_exit;
 >
 > [Severity: High]
-> Does propagating the error here cause an SRCU read lock leak?
+> This isn't a bug introduced by this patch, but doesn't jumping to err_exit
+> here leave the interrupt permanently disabled?
 >
-> By propagating the error from sn65dsi83_reset_pipe(), it is now possible
-> to hit the early return path in sn65dsi83_reset_work():
+> If a hardware error triggers the IRQ handler, sn65dsi83_handle_errors()
+> calls disable_irq_nosync(), which increments the IRQ disable depth. By
+> skipping the enable_irq() call on this error path, the depth counter
+> remains unbalanced.
 >
-> 	if (!drm_bridge_enter(&ctx->bridge, &idx))
-> 		return;
->
-> 	/* Reset the pipe */
-> 	ret = sn65dsi83_reset_pipe(ctx);
-> 	if (ret) {
-> 		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
-> 		return;
-> 	}
->
-> Because this early return skips the call to drm_bridge_exit(idx) at the
-> end of the function, wouldn't this leak the lock and cause a system hang
-> during drm_bridge_unplug() when synchronize_srcu() is called?
+> Would it be better to mask the interrupt source via hardware registers
+> on failure, and still call enable_irq() so the kernel's depth counter
+> remains balanced?
 
-Yes. This is resolved in patch 2. I will reorder the patches in next
-version.
+Nah. I would rather just balance the counter here.
+Calling enable_irq() on error should be the safe choice.
+As sn65dsi83_reset_pipe() have always been returning 0 until now, we
+have in practise been doing that unconditionally anyway.
 
-/Esben
+I will do that in next version.
+
+>
+>>  	}
+>>  	if (ctx->irq)
+>>  		enable_irq(ctx->irq);
+>>
+>> +err_exit:
+>>  	drm_bridge_exit(idx);
+>>  }
+>
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260803-ti-sn65d=
+si83-fixes-v3-0-9b403a405ccd@geanix.com?part=3D2
