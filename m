@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BD342C55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:35:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B3FAC55822
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 20:35:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 28CAA10EBBA;
-	Tue,  4 Aug 2026 20:35:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A798710EBB6;
+	Tue,  4 Aug 2026 20:35:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Bfn7vR4X";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="FVTN0/O4";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B44DE10EBBA
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:35:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1E2F10EBB6
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 20:35:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785875751;
- bh=rWZoNhz5BMbvrNfZAYlYjXVDVQ2Bbe1v+CkwZzedEG4=;
+ s=mail; t=1785875756;
+ bh=ytNYd4+/wsy7ZBmNcxlK2VLSwLzv+jqSmsriR2F+qoA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Bfn7vR4XHCG17fhPosNbrVkHAl1Zck+ZFSHjrgHfx9J2ezz1/nZffQdRsjp6EB0zk
- E/pF/xhKLyZgGxxchp6XFm03qJlSJlegDa0wVIAhUkJ+K54KlvaJdybkCg0+hhDdCU
- jm24U/qtbALd6Hku1VnPlVMveDS5PfnzNFN9mAndHdU8qWjCTrzl3f7SrgoLJzeIwB
- qApBXCplBDuoYN7PWjgDANwAumbsKUVQLX6whYa3pk5oT3Hdf0a6mje6JMV7GxURtP
- cIt/6cJSJ+KhOtOfHr9gcrLWd7CAFGMWcPQKwG3VJWsw+5+TMDnv5UJ9/DiONWBxZ6
- slWCXAAvaI7DQ==
+ b=FVTN0/O43VQOIrsgqZv6MtSq+vpypPXNkDGaKdNws3qHmcd5FMTrnCbGMF//ZXH0i
+ PW0s84FuXLBI80l/JiD6R4D3fDRH+pkMbYQbxK363yV6s1WKDVYAk0vr5fU2NsT5gB
+ F/WNNSzh09GyEJdJ8Cqb1AhKnEDvLwqwJSngisjVfthtnhpWx5nFfrrrAQE+wyhNNV
+ D3iDGg271mD8VgcCyCgIOSlBwfFVOyKlIRjALOruYilB1LzntaaR8NajjZOoI9U7tI
+ nRBpjV6SSJOXnoALgo/XRl5iGNL/ud1PKj7RlkVho1ypNehYOZbJwLYq9VA+nG/gFq
+ ReZivFmGpaHbQ==
 Received: from archlinux (unknown [100.64.1.80])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: leandrohrb)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B0C1317E0243;
- Tue, 04 Aug 2026 22:35:46 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E2A5C17E051A;
+ Tue, 04 Aug 2026 22:35:51 +0200 (CEST)
 From: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 To: louis.chauvet@bootlin.com
 Cc: airlied@gmail.com, alex.hung@amd.com, daniel@fooishbar.org,
@@ -40,9 +40,10 @@ Cc: airlied@gmail.com, alex.hung@amd.com, daniel@fooishbar.org,
  mripard@kernel.org, pekka.paalanen@collabora.com,
  robert.mader@collabora.com, simona@ffwll.ch, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 06/11] drm/vkms: rename struct vkms_color_lut::base to y
-Date: Tue,  4 Aug 2026 17:33:46 -0300
-Message-ID: <20260804203351.148521-7-leandro.ribeiro@collabora.com>
+Subject: [PATCH 07/11] drm/vkms: rename get_lut_index() to
+ get_uniform_lut_index()
+Date: Tue,  4 Aug 2026 17:33:47 -0300
+Message-ID: <20260804203351.148521-8-leandro.ribeiro@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260804203351.148521-1-leandro.ribeiro@collabora.com>
 References: <20260804203351.148521-1-leandro.ribeiro@collabora.com>
@@ -63,111 +64,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-No behavior change. In the following commits we'll add x, so y better
-matches that.
+In the next commits we'll add non-uniform LUTs, and this function will
+be used exclusively by uniform LUTs. So rename it to make this clearer.
 
 Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
 ---
- drivers/gpu/drm/vkms/tests/vkms_color_test.c |  2 +-
- drivers/gpu/drm/vkms/vkms_composer.c         | 10 +++++-----
- drivers/gpu/drm/vkms/vkms_drv.h              |  2 +-
- drivers/gpu/drm/vkms/vkms_luts.c             |  4 ++--
- 4 files changed, 9 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/vkms/tests/vkms_color_test.c | 28 ++++++++++----------
+ drivers/gpu/drm/vkms/vkms_composer.c         |  6 ++---
+ drivers/gpu/drm/vkms/vkms_composer.h         |  2 +-
+ 3 files changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/gpu/drm/vkms/tests/vkms_color_test.c b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-index 28614edb8eb1..cfcd7e8e7640 100644
+index cfcd7e8e7640..bb9d84377b97 100644
 --- a/drivers/gpu/drm/vkms/tests/vkms_color_test.c
 +++ b/drivers/gpu/drm/vkms/tests/vkms_color_test.c
-@@ -81,7 +81,7 @@ static const struct vkms_color_test_lerp_params color_test_lerp_cases[] = {
- };
- 
- static const struct vkms_color_lut test_linear_lut = {
--	.base = test_linear_array,
-+	.y = test_linear_array,
- 	.lut_length = ARRAY_SIZE(test_linear_array),
+@@ -86,31 +86,31 @@ static const struct vkms_color_lut test_linear_lut = {
  	.channel_value2index_ratio = 0xf000fll
  };
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index bd539ee4c5be..a022554e4b1a 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -114,12 +114,12 @@ VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut
- 	 */
- 	static_assert(sizeof(struct drm_color_lut) == sizeof(__u16) * 4);
  
--	lut_y_floor = &lut->base[drm_fixp2int(lut_index)];
-+	lut_y_floor = &lut->y[drm_fixp2int(lut_index)];
- 	if (drm_fixp2int(lut_index) == (lut->lut_length - 1))
- 		/* We're at the end of the LUT array, use same value for ceil and floor */
- 		lut_y_ceil = lut_y_floor;
- 	else
--		lut_y_ceil = &lut->base[drm_fixp2int_ceil(lut_index)];
-+		lut_y_ceil = &lut->y[drm_fixp2int_ceil(lut_index)];
- 
- 	floor_channel_value = lut_channel_value(lut_y_floor, channel);
- 	ceil_channel_value = lut_channel_value(lut_y_ceil, channel);
-@@ -132,7 +132,7 @@ EXPORT_SYMBOL_IF_KUNIT(apply_lut_to_channel_value);
- 
- static void apply_lut(const struct vkms_crtc_state *crtc_state, struct line_buffer *output_buffer)
+-static void vkms_color_test_get_lut_index(struct kunit *test)
++static void vkms_color_test_get_uniform_lut_index(struct kunit *test)
  {
--	if (!crtc_state->gamma_lut.base)
-+	if (!crtc_state->gamma_lut.y)
- 		return;
+ 	s64 lut_index;
+ 	int i;
  
- 	if (!crtc_state->gamma_lut.lut_length)
-@@ -641,7 +641,7 @@ void vkms_composer_worker(struct work_struct *work)
- 		s64 max_lut_index_fp;
- 		s64 u16_max_fp = drm_int2fixp(0xffff);
+-	lut_index = get_lut_index(&test_linear_lut, test_linear_array[0].red);
++	lut_index = get_uniform_lut_index(&test_linear_lut, test_linear_array[0].red);
+ 	KUNIT_EXPECT_EQ(test, drm_fixp2int(lut_index), 0);
  
--		crtc_state->gamma_lut.base = (struct drm_color_lut *)crtc->state->gamma_lut->data;
-+		crtc_state->gamma_lut.y = (struct drm_color_lut *)crtc->state->gamma_lut->data;
- 		crtc_state->gamma_lut.lut_length =
- 			crtc->state->gamma_lut->length / sizeof(struct drm_color_lut);
- 		max_lut_index_fp = drm_int2fixp(crtc_state->gamma_lut.lut_length - 1);
-@@ -649,7 +649,7 @@ void vkms_composer_worker(struct work_struct *work)
- 									       u16_max_fp);
- 
- 	} else {
--		crtc_state->gamma_lut.base = NULL;
-+		crtc_state->gamma_lut.y = NULL;
+ 	for (i = 0; i < test_linear_lut.lut_length; i++) {
+-		lut_index = get_lut_index(&test_linear_lut, test_linear_array[i].red);
++		lut_index = get_uniform_lut_index(&test_linear_lut, test_linear_array[i].red);
+ 		KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(lut_index), i);
  	}
  
- 	spin_unlock_irq(&out->composer_lock);
-diff --git a/drivers/gpu/drm/vkms/vkms_drv.h b/drivers/gpu/drm/vkms/vkms_drv.h
-index 1975843abe92..55a3ea184e44 100644
---- a/drivers/gpu/drm/vkms/vkms_drv.h
-+++ b/drivers/gpu/drm/vkms/vkms_drv.h
-@@ -159,7 +159,7 @@ struct vkms_plane {
- };
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_eotf, 0x0)), 0x0);
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x0)), 0x0);
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x101)), 0x1);
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0x202)), 0x2);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_uniform_lut_index(&srgb_eotf, 0x0)), 0x0);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0x0)), 0x0);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0x101)), 0x1);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0x202)), 0x2);
  
- struct vkms_color_lut {
--	struct drm_color_lut *base;
-+	struct drm_color_lut *y;
- 	size_t lut_length;
- 	s64 channel_value2index_ratio;
- };
-diff --git a/drivers/gpu/drm/vkms/vkms_luts.c b/drivers/gpu/drm/vkms/vkms_luts.c
-index d0e96df2c120..7b0c8eaf83b8 100644
---- a/drivers/gpu/drm/vkms/vkms_luts.c
-+++ b/drivers/gpu/drm/vkms/vkms_luts.c
-@@ -272,7 +272,7 @@ static struct drm_color_lut srgb_array[] = {
- };
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x101)), 0x1);
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_inv_eotf, 0x202)), 0x2);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int(get_uniform_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_inv_eotf, 0x0)), 0x0);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_inv_eotf, 0x101)), 0x1);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_inv_eotf, 0x202)), 0x2);
  
- const struct vkms_color_lut srgb_eotf = {
--	.base = srgb_array,
-+	.y = srgb_array,
- 	.lut_length = ARRAY_SIZE(srgb_array),
- 	.channel_value2index_ratio = 0xff00ffll
- };
-@@ -538,7 +538,7 @@ static struct drm_color_lut srgb_inv_array[] = {
- };
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xfefe)), 0xfe);
+-	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_lut_index(&srgb_eotf, 0xffff)), 0xff);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0xfefe)), 0xfe);
++	KUNIT_EXPECT_EQ(test, drm_fixp2int_ceil(get_uniform_lut_index(&srgb_eotf, 0xffff)), 0xff);
+ }
  
- const struct vkms_color_lut srgb_inv_eotf = {
--	.base = srgb_inv_array,
-+	.y = srgb_inv_array,
- 	.lut_length = ARRAY_SIZE(srgb_inv_array),
- 	.channel_value2index_ratio = 0xff00ffll
- };
+ static void vkms_color_test_lerp(struct kunit *test)
+@@ -392,7 +392,7 @@ static void vkms_color_ctm_3x4_bt709(struct kunit *test)
+ }
+ 
+ static struct kunit_case vkms_color_test_cases[] = {
+-	KUNIT_CASE(vkms_color_test_get_lut_index),
++	KUNIT_CASE(vkms_color_test_get_uniform_lut_index),
+ 	KUNIT_CASE(vkms_color_test_lerp),
+ 	KUNIT_CASE(vkms_color_test_linear),
+ 	KUNIT_CASE(vkms_color_srgb_inv_srgb),
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
+index a022554e4b1a..1a5e899e5b4a 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.c
++++ b/drivers/gpu/drm/vkms/vkms_composer.c
+@@ -93,19 +93,19 @@ static inline u16 lut_channel_value(const struct drm_color_lut *lut,
+ 	return 0;
+ }
+ 
+-VISIBLE_IF_KUNIT s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
++VISIBLE_IF_KUNIT s64 get_uniform_lut_index(const struct vkms_color_lut *lut, u16 channel_value)
+ {
+ 	s64 color_channel_fp = drm_int2fixp(channel_value);
+ 
+ 	return drm_fixp_mul(color_channel_fp, lut->channel_value2index_ratio);
+ }
+-EXPORT_SYMBOL_IF_KUNIT(get_lut_index);
++EXPORT_SYMBOL_IF_KUNIT(get_uniform_lut_index);
+ 
+ VISIBLE_IF_KUNIT u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
+ 						enum lut_channel channel)
+ {
+ 	const struct drm_color_lut *lut_y_floor, *lut_y_ceil;
+-	s64 lut_index = get_lut_index(lut, channel_value);
++	s64 lut_index = get_uniform_lut_index(lut, channel_value);
+ 	u16 floor_channel_value, ceil_channel_value;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/vkms/vkms_composer.h b/drivers/gpu/drm/vkms/vkms_composer.h
+index 04dd5646f672..fa003af12f85 100644
+--- a/drivers/gpu/drm/vkms/vkms_composer.h
++++ b/drivers/gpu/drm/vkms/vkms_composer.h
+@@ -19,7 +19,7 @@ enum lut_channel {
+ 
+ #if IS_ENABLED(CONFIG_KUNIT)
+ u16 lerp_u16(u16 a, u16 b, s64 t);
+-s64 get_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
++s64 get_uniform_lut_index(const struct vkms_color_lut *lut, u16 channel_value);
+ u16 apply_lut_to_channel_value(const struct vkms_color_lut *lut, u16 channel_value,
+ 			       enum lut_channel channel);
+ void apply_3x4_matrix(struct pixel_argb_s32 *pixel, const struct drm_color_ctm_3x4 *matrix);
 -- 
 2.55.0
 
