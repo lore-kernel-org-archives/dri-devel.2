@@ -4,75 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54494C55822
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 21:08:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C5C7C55ABA
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 21:09:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 937C210EBD5;
-	Tue,  4 Aug 2026 21:08:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 80D8110EBDC;
+	Tue,  4 Aug 2026 21:09:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="XQlQtUpf";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Pu9rBH1k";
 	dkim-atps=neutral
-Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com
- [209.85.216.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 547B610EBD5
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 21:08:56 +0000 (UTC)
-Received: by mail-pj1-f72.google.com with SMTP id
- 98e67ed59e1d1-38dc085b0a7so337964a91.2
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 14:08:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1785877736; x=1786482536;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Nz3aCp4Uyw3qY+MX7Sv/bu2ByRkx6w/quCe3kJ8ANw0=;
- b=XQlQtUpfsTUYj8Pu7naFwNhGzcclEBoXLmBRJ6AQYv9niICr4V3d01vSdsKvhY6K07
- 7djKv+WfQbH4I5yr1K1bDDVO5JF7U3YLHxvCcILaFbaOKBUsp7G1uV9BVUKVXFwZDc6L
- evZ4Lsx/+mAoPj5fWKlr8kiFK86iMLHYO5BSPuczmv8em+YEVjWlhlRwxr/yAi7M4vQ9
- zsARx+xPeSxb2oJ3KjXLT3emG1guVUzoUqJZ0MOSUjcqluDTOSzQl6Mm5WVVJvfz8Eey
- qletbeey1uxsXNIYOJvLaG/gZP7sIuWipbb19tW8rutwyfwIzzlBh1wgUxSFi+HHxHot
- zgGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785877736; x=1786482536;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Nz3aCp4Uyw3qY+MX7Sv/bu2ByRkx6w/quCe3kJ8ANw0=;
- b=XHTef9Os1V7JKo4GUx5646JC4Zu8gASXsR191x5Ngj9Z/31HM76PIWJ24Moyw56urP
- WQ2uFOyCyS7utYBot8JBdbVJz3DIb6mBd7lYFw83l9yuNwEhGcpew7hBcf3W1d7fk0LR
- XDFRdkteMpzIGR4g9oU6PRTZvsEYYK+AjAnko82NtkkEksA4cum5a9L5C2jf/SBDIefB
- +Kc62KD8yM45BIENZBlfAmpselnr72ODbXMlJb5jHx5UwLoBjNMADgwGT5HcaM7DSoXY
- 5qA6ER2Je5CB6vGlKop6rocwwDvyw6zOieZzNSxPGAzMs9SYGRmw6n2TFuCq3Gfr7ckS
- W4Aw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rol1b5YDowVBU84Nm+t0DVtrGapoAI7VLMFW3vm487V097B6c1OFSqxvsOOX+Efpx1Nn8MVtRFOObs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxzGwDWmyNigdjFuHEairzkVouGNuorHX47JcdMKgNpMTh5eKT0
- e1K7yZcVSx0/uh4uMLvCL6f1JLmJLvam0kxcNIWslkeBUGC0wj6P9zncpsTds8IscFkRsCycOaS
- mKGTBuw==
-X-Received: from pjsa12.prod.google.com ([2002:a17:90a:be0c:b0:38f:e6f2:5944])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by
- 2002:a17:90a:d644:b0:38e:2860:253f
- with SMTP id 98e67ed59e1d1-3903c582511mr1841710a91.12.1785877735649; Tue, 04
- Aug 2026 14:08:55 -0700 (PDT)
-Date: Tue, 4 Aug 2026 14:08:55 -0700
-In-Reply-To: <20260804120529.1730187-7-pbonzini@redhat.com>
-Mime-Version: 1.0
-References: <20260804120529.1730187-1-pbonzini@redhat.com>
- <20260804120529.1730187-7-pbonzini@redhat.com>
-Message-ID: <anJU5-5xi3bcW0jf@google.com>
-Subject: Re: [PATCH v2 6/6] kvm: return -EFAULT for writes to !VM_WRITE IO
- mappings
-From: Sean Christopherson <seanjc@google.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
- Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Christian Koenig <christian.koenig@amd.com>, 
- David Hildenbrand <david@kernel.org>, dri-devel@lists.freedesktop.org, 
- Fei Li <fei1.li@intel.com>, Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, 
- linux-s390@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
- Peter Xu <peterx@redhat.com>, 
- Sergio Lopez <slp@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Content-Type: text/plain; charset="us-ascii"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81E2110EBDC
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 21:09:36 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 359CB4398D;
+ Tue,  4 Aug 2026 21:09:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C979F1F000E9;
+ Tue,  4 Aug 2026 21:09:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785877776;
+ bh=QEoNqKl434OcZ9ol7VN+iY+WCGKC5wklOthnlL5AtoA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Pu9rBH1kiEntXN6r6rePk7bmacoaz7MXBGqkCHADxeTUiYczwKuM7jM4AE+u79+hf
+ 3OlYlDvFFXR0jZzkd2XeDfljEouqPRAeZs4qm0J3Sq3NsQOzzCNlUkOIXX2u7ZAp88
+ S6eszK+cD3HULtRp3L0bAwV762mtLwfFDV0Bz04E5cm3WscU+GssOjFcGZVD1AqtPp
+ kW9Lw5P+hLiJHnsWK6U8MO6Xse3e9UzXZ5Z61X4EDauvSwPGwSMi14n1v2SVy/JPN+
+ JxGhTKSddZ+TMXw9c4rYtY+dTvrSEHSvu1Hkb+5xnH4RyDgyd+XuPLRO27ns+R0Qrr
+ kLvmsHqTWY8og==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/6] video: logo: allow the boot logo to come from
+ the device tree
+To: "Max Pedraza" <maximpedraza@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260804225617.264861-3-maximpedraza@gmail.com>
+References: <20260804225617.264861-1-maximpedraza@gmail.com>
+ <20260804225617.264861-3-maximpedraza@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 21:09:35 +0000
+Message-Id: <20260804210935.C979F1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,34 +55,152 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-I strongly prefer "KVM:" for the scope, and it's waaay more common.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Premature freeing of device tree boot logo memory creates a race c=
+ondition with asynchronous framebuffer probes, leading to a NULL pointer de=
+reference.
+- [Medium] Unbounded kmalloc() allocation for device tree boot logo trigger=
+s a kernel warning and fails for sizes exceeding KMALLOC_MAX_SIZE.
+- [Medium] Silent fallback to searching the device tree root node if the /c=
+hosen node does not exist.
+--
 
- $ git log --pretty=oneline --after 2015.01.01 | grep "kvm:" | wc -l
- 1298
- $ git log --pretty=oneline --after 2015.01.01 | grep "KVM:" | wc -l
- 16249
+--- Patch [2]: [PATCH v2 2/6] video: logo: allow the boot logo to come from=
+ the device tree ---
+commit f460a2fda249375abd332c49e9ef32c7cd3a3f7b
+Author: Max Pedraza <maximpedraza@gmail.com>
 
-On Tue, Aug 04, 2026, Paolo Bonzini wrote:
-> KVM's behavior when the guest writes to a non-writable VMA is inconsistent.
-> For regular, page-backed mappings it returns KVM_PFN_ERR_FAULT and thus
-> returns -EFAULT to userspace (which is ABI, and relied upon by tests);
-> for VM_IO/VM_PFNMAP mappings instead it returns KVM_PFN_ERR_RO_FAULT
-> and thus exits to userspace with KVM_EXIT_MMIO.
-> 
-> This behavior for VM_{IO,PFNMAP} was added by commit bd2fae8da794 ("KVM:
-> do not assume PTE is writable after follow_pfn"), and even if it has been
-> in place for five years it is unlikely that it is relied upon by userspace,
-> since it is inconsistent with KVM itself.  Change hva_to_pfn() to return
-> KVM_PFN_ERR_FAULT for all non-writable VMAs, and restrict KVM_EXIT_MMIO
-> to the case of an explicitly read-only memslot.
-> 
-> Suggested-by: Sean Christopherson <seanjc@google.com>
-> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-> ---
+video: logo: allow the boot logo to come from the device tree
 
-Shortlog nit aside,
+Add CONFIG_LOGO_DT_CLUT224, which makes fb_find_logo() look for a node
+compatible with "linux,boot-logo-clut224" under /chosen before falling
+back to the logos built into the kernel image.
 
-Reviewed-by: Sean Christopherson <seanjc@google.com>
+> diff --git a/drivers/video/logo/logo.c b/drivers/video/logo/logo.c
+> index 91535f8848da9..7f8b04ecfa987 100644
+> --- a/drivers/video/logo/logo.c
+> +++ b/drivers/video/logo/logo.c
+
+[ ... ]
+
+> +static int logo_dt_parse(struct device_node *np)
+> +{
+> +	unsigned int clutsize, npixels, i;
+> +	unsigned char *clut, *data;
+> +	u32 width, height;
+> +	int len, ret;
+> +
+> +	ret =3D of_property_read_u32(np, "width", &width);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D of_property_read_u32(np, "height", &height);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!width || !height || (u64)width * height > LOGO_DT_MAX_PIXELS)
+> +		return -EINVAL;
+> +
+> +	npixels =3D width * height;
+> +
+> +	len =3D of_property_count_u8_elems(np, "clut");
+> +	if (len < 3 || len % 3)
+> +		return -EINVAL;
+> +
+> +	clutsize =3D len / 3;
+> +	if (clutsize > LOGO_DT_MAX_CLUT)
+> +		return -EINVAL;
+> +
+> +	ret =3D of_property_count_u8_elems(np, "data");
+> +	if (ret < 0)
+> +		return ret;
+> +	if ((unsigned int)ret !=3D npixels)
+> +		return -EINVAL;
+> +
+> +	clut =3D kmalloc(len, GFP_KERNEL);
+> +	if (!clut)
+> +		return -ENOMEM;
+> +
+> +	data =3D kmalloc(npixels, GFP_KERNEL);
+
+[Severity: Medium]
+Could this allocation trigger a kernel warning (WARN_ON_ONCE_GFP) and fail =
+if
+the device tree provides a valid boot logo larger than KMALLOC_MAX_SIZE?
+LOGO_DT_MAX_PIXELS is 32MB, but kmalloc() without __GFP_NOWARN will warn if
+it exceeds the maximum contiguous allocation size. Does this code need to u=
+se
+kvmalloc() instead, or restrict the size limit to KMALLOC_MAX_SIZE?
+
+> +	if (!data) {
+> +		ret =3D -ENOMEM;
+> +		goto err_free_clut;
+> +	}
+> +
+> +	ret =3D of_property_read_u8_array(np, "clut", clut, len);
+
+[ ... ]
+
+> +static const struct linux_logo *logo_dt_find(void)
+> +{
+> +	static bool probed;
+> +	struct device_node *np;
+> +	int ret;
+> +
+> +	if (probed)
+> +		return logo_dt_data ? &logo_dt_clut224 : NULL;
+> +
+> +	probed =3D true;
+> +
+> +	np =3D of_get_compatible_child(of_chosen, LOGO_DT_COMPATIBLE);
+
+[Severity: Medium]
+If the device tree lacks a /chosen node, of_chosen will be NULL. In that
+scenario, wouldn't of_get_compatible_child() silently fall back to iterating
+the children of the root node (of_root)? This seems to bypass the strict
+constraint mentioned in the commit message that the node must be located un=
+der
+/chosen.
+
+> +	if (!np)
+> +		return NULL;
+> +
+> +	if (of_device_is_available(np)) {
+> +		ret =3D logo_dt_parse(np);
+> +		if (ret)
+> +			pr_warn("logo: ignoring malformed %pOF node (%d)\n",
+> +				np, ret);
+> +	}
+> +
+> +	of_node_put(np);
+
+[ ... ]
+
+> @@ -32,6 +184,7 @@ static bool logos_freed;
+>  static int __init fb_logo_late_init(void)
+>  {
+>  	logos_freed =3D true;
+> +	logo_dt_free();
+
+[Severity: High]
+Can this introduce a race condition resulting in a NULL pointer dereference
+or use-after-free for framebuffer drivers that use async probing?
+
+fb_logo_late_init() executes as a late_initcall_sync during do_initcalls(),
+which happens before async_synchronize_full() guarantees async probes are
+complete. If an async probe caches the logo pointer via fb_find_logo(), and
+then fb_logo_late_init() frees the memory and clears the pointers, the async
+probe might dereference the freed memory later in fb_show_logo().
+
+>  	return 0;
+>  }
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804225617.2648=
+61-1-maximpedraza@gmail.com?part=3D2
