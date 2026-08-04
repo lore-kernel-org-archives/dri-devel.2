@@ -4,43 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B35EC55184
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:28:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A2857C55184
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 12:30:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7D88210EA33;
-	Tue,  4 Aug 2026 12:28:47 +0000 (UTC)
-X-Greylist: delayed 342 seconds by postgrey-1.36 at gabe;
- Tue, 04 Aug 2026 12:28:45 UTC
-Received: from linkmauve.fr (linkmauve.fr [82.65.109.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AFF0210EA08
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:28:45 +0000 (UTC)
-Received: by linkmauve.fr (Postfix, from userid 1000)
- id A077A70A045A; Tue, 04 Aug 2026 14:23:00 +0200 (CEST)
-Date: Tue, 4 Aug 2026 14:23:00 +0200
-From: Link Mauve <linkmauve@linkmauve.fr>
-To: Laura Nao <laura.nao@collabora.com>
-Cc: Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- rust-for-linux@vger.kernel.org, kernel@collabora.com,
- Deborah Brouwer <deborah.brouwer@collabora.com>
-Subject: Re: [PATCH v3] drm/tyr: add Job IRQ handling
-Message-ID: <anHZpHh_5CZhH5N3@desktop>
-References: <20260728-tyr-irq-v2-v3-1-9c9bc5c029c5@collabora.com>
-MIME-Version: 1.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEE2110E14A;
+	Tue,  4 Aug 2026 12:30:17 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K0enCvpu";
+	dkim-atps=neutral
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4E8310E14A
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 12:30:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E801860A83;
+ Tue,  4 Aug 2026 12:30:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411CC1F000E9;
+ Tue,  4 Aug 2026 12:30:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785846615;
+ bh=h6uTgvbzsfHztun3X6lhFFLMxhJuej9DVPBNS+33W74=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=K0enCvputhz/9LjsEu/IrIpuMarE7Ts377TNOShUIBV/rtGiKKiGOGEj329XPHSEn
+ JCkDuu1LDJlLg4WqZaEgEmfWfJp7fCMHH9+MsXOKuIvOrHaE7fzAxy0KiULU+zQEO8
+ ZoHWzSgt5fUrN7y0Rz6VuG6omM8W0kVnywlXNEGKcfvfFOvFo+HHcA6m5/n17ydWMO
+ FjYlSDj5c/v8kPylDYgYXqPFZv7G1NDQfgukNgbdxvkn54wxrIrzbM+iMEQsVP7nuZ
+ LMeVOx0NNP8BU5jDsh9pmQtx+/3aHrtNCUHnT4WM+68ZNecT+d80QVqhx4vQqB0RHL
+ 0c9pbIyM6RL9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/6] drm/shmem_helper: use vmf_insert_pfn_mkwrite()
+To: "Paolo Bonzini" <pbonzini@redhat.com>
+Cc: dri-devel@lists.freedesktop.org, "Heiko Carstens" <hca@linux.ibm.com>,
+ linux-s390@vger.kernel.org, kvm@vger.kernel.org, "Vasily
+ Gorbik" <gor@linux.ibm.com>, "Alexander Gordeev" <agordeev@linux.ibm.com>
+In-Reply-To: <20260804120529.1730187-3-pbonzini@redhat.com>
+References: <20260804120529.1730187-1-pbonzini@redhat.com>
+ <20260804120529.1730187-3-pbonzini@redhat.com>
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260728-tyr-irq-v2-v3-1-9c9bc5c029c5@collabora.com>
-Jabber-ID: linkmauve@linkmauve.fr
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 04 Aug 2026 12:30:13 +0000
+Message-Id: <20260804123015.411CC1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,105 +55,133 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On Mon, Aug 03, 2026 at 03:34:37PM +0200, Laura Nao wrote:
-> Add a threaded IRQ wrapper for Tyr interrupt sources and use it to
-> handle the firmware Job IRQ.
-> 
-> The Job IRQ reports requests from the CSF firmware, including global
-> interface requests and CSG attention bits. Only the GLB bit is currently
-> handled, as it will be used to check firmware readiness. CSG bits
-> handling will be added at a later stage. Add a Job IRQ handler that
-> masks the interrupt in the primary IRQ handler, processes pending raw
-> status in the threaded handler, clears the handled bit, and reenables
-> the mask before returning.
-> Add a wait queue and a bool flag so the handler can signal firmware
-> readiness when the GLB bit is set.
-[…]
-> diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
-> new file mode 100644
-> index 000000000000..6eeb1399a7b3
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tyr/fw/irq.rs
-> @@ -0,0 +1,105 @@
-[…]
-> +/// Requests a threaded IRQ registration for the Job IRQ.
-> +///
-> +/// # Safety
-> +///
-> +/// Callers must not `mem::forget()` the resulting registration or otherwise prevent its
-> +/// [`Drop`] implementation from running.
-> +pub(crate) unsafe fn job_irq_init<'a>(
-> +    pdev: &'a platform::Device<Bound>,
-> +    iomem: Arc<IoMem<'a>>,
-> +    fw_ready: Arc<AtomicBool>,
-> +    job_irq_wait: Arc<WaitQueue>,
-> +) -> Result<impl PinInit<ThreadedRegistration<'a, TyrIrq<JobIrq<'a>>>, Error> + 'a> {
-> +    iomem.write_reg(JOB_IRQ_MASK::zeroed().with_glb(true));
-> +    let job_irq = JobIrq {
-> +        iomem: iomem.clone(),
-> +        fw_ready,
-> +        job_irq_wait,
-> +    };
-> +    // SAFETY: The caller guarantees the resulting registration will not be leaked.
-> +    unsafe { TyrIrq::request(pdev, c_str!("job"), job_irq) }
+Pre-existing issues:
+- [Critical] The `.huge_fault` handler `drm_gem_shmem_any_fault` does not v=
+erify if the PMD-sized huge page fits entirely within the bounds of the VMA=
+, allowing a VMA boundary bypass.
+- [High] Incorrect page offset calculation in DRM shmem fault handlers caus=
+es the wrong pages to be mapped.
+--
 
-Nowadays we use the shorter c"job" way of creating a &CStr, and I think
-the macro will even generate warnings in some configurations (perhaps
-CLIPPY=1?).
+--- Patch [2]: [PATCH v2 2/6] drm/shmem_helper: use vmf_insert_pfn_mkwrite(=
+) ---
+commit 6ce5b52de7395aa4c0a50d399649686c52e613a9
+Author: Paolo Bonzini <pbonzini@redhat.com>
 
-> +}
-> +
-> +impl TyrIrqTrait for JobIrq<'_> {
-> +    fn read_status(&self) -> u32 {
-> +        self.iomem.read(JOB_IRQ_STATUS).into_raw()
-> +    }
-> +
-> +    fn clear_mask(&self) {
-> +        self.iomem.write_reg(JOB_IRQ_MASK::zeroed());
-> +    }
-> +
-> +    fn reenable_mask(&self) {
-> +        self.iomem.write_reg(JOB_IRQ_MASK::zeroed().with_glb(true));
-> +    }
-> +
-> +    fn read_raw_status(&self) -> u32 {
-> +        self.iomem.read(JOB_IRQ_RAWSTAT).into_raw()
-> +    }
-> +
-> +    fn clear_status(&self, status: u32) {
-> +        self.iomem.write_reg(JOB_IRQ_CLEAR::from_raw(status));
-> +    }
-> +
-> +    fn mask(&self) -> u32 {
-> +        JOB_IRQ_MASK::zeroed().with_glb(true).into_raw()
-> +    }
-> +
-> +    fn handle(&self, status: u32) {
-> +        // TODO: handle other Job IRQ events (e.g. CSG attention bits) here once
-> +        // support for them is added.
-> +        if JOB_IRQ_RAWSTAT::from_raw(status).glb() {
-> +            self.fw_ready.store(true, Ordering::Release);
-> +            self.job_irq_wait.wake_up_all();
-> +        }
-> +    }
-> +}
-> 
-> ---
-> base-commit: 98ae54f97175c4992b4e5bff53f3c6bc24f0f491
-> change-id: 20260728-tyr-irq-v2-0b3c5022be33
-> 
-> Best regards,
-> -- 
-> Laura Nao <laura.nao@collabora.com>
-> 
-> 
+drm/shmem_helper: use vmf_insert_pfn_mkwrite()
 
-Thanks,
+This ensures that KVM or VFIO correctly see a writable PTE when
+they request one. Otherwise, a guest write to an unpopulated
+PTE from a mapping backed by a DRM GEM BO triggers a VM exit
+with EFAULT.
 
--- 
-Link Mauve
+Link: https://lore.kernel.org/kvm/20260729072044.25796-1-slp@redhat.com/
+
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm=
+_gem_shmem_helper.c
+> index c989459eb2159..c81be3e973173 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -589,11 +589,25 @@ static void drm_gem_shmem_record_mkwrite(struct vm_=
+fault *vmf)
+>  	folio_mark_dirty(page_folio(shmem->pages[page_offset]));
+
+[Severity: High]
+This is a pre-existing issue, but does this page_offset calculation
+correctly handle the requested offset within the GEM object?
+
+When userspace mmaps a sub-range of a GEM object with a non-zero
+offset, or unmaps a prefix of the VMA, the core memory management
+sets vma->vm_pgoff to include the requested offset. Because
+page_offset evaluates to vmf->pgoff - vma->vm_pgoff, it calculates
+the offset relative to the VMA start, ignoring the requested offset
+within the GEM object itself.
+
+This can cause folio_mark_dirty() to mark the wrong folio dirty.
+The same calculation is present in drm_gem_shmem_any_fault(),
+which could lead to mapping the wrong physical pages.
+
+>  }
+> =20
+> +/*
+> + * Because the vm_ops have a .pfn_mkwrite() callback, vma_set_page_prot()
+> + * has cleared the write bit from vma->vm_page_prot.  vmf_insert_pfn()
+> + * would install a read-only entry even for a write fault, relying on a
+> + * second fault to reach .pfn_mkwrite() and upgrade it, but that second
+> + * fault never happens for fixup_user_fault() callers that directly
+> + * walk the page tables with follow_pfnmap_start().  To ensure that
+> + * they don't see the read-only entry, pass FAULT_FLAG_WRITE info down
+> + * to install a writable entry right away.  Because .pfn_mkwrite() is
+> + * not invoked, record the write afterwards.
+> + */
+>  static vm_fault_t try_insert_pfn(struct vm_fault *vmf, unsigned int orde=
+r,
+>  				 unsigned long pfn)
+>  {
+> +	bool write =3D vmf->flags & FAULT_FLAG_WRITE;
+> +	vm_fault_t ret =3D VM_FAULT_FALLBACK;
+> +
+>  	if (!order) {
+> -		return vmf_insert_pfn(vmf->vma, vmf->address, pfn);
+> +		ret =3D vmf_insert_pfn_mkwrite(vmf->vma, vmf->address, pfn, write);
+>  #ifdef CONFIG_ARCH_SUPPORTS_PMD_PFNMAP
+>  	} else if (order =3D=3D PMD_ORDER) {
+>  		unsigned long paddr =3D pfn << PAGE_SHIFT;
+> @@ -601,27 +615,15 @@ static vm_fault_t try_insert_pfn(struct vm_fault *v=
+mf, unsigned int order,
+> =20
+>  		if (aligned &&
+>  		    folio_test_pmd_mappable(page_folio(pfn_to_page(pfn)))) {
+> -			vm_fault_t ret;
+> -
+>  			pfn &=3D PMD_MASK >> PAGE_SHIFT;
+> -
+> -			/* Unlike PTEs which are automatically upgraded to
+> -			 * writeable entries, the PMD upgrades go through
+> -			 * .huge_fault(). Make sure we pass the "write" info
+> -			 * along in that case.
+> -			 * This also means we have to record the write fault
+> -			 * here, instead of in .pfn_mkwrite().
+> -			 */
+> -			ret =3D vmf_insert_pfn_pmd(vmf, pfn,
+> -						 vmf->flags & FAULT_FLAG_WRITE);
+> -			if (ret =3D=3D VM_FAULT_NOPAGE && (vmf->flags & FAULT_FLAG_WRITE))
+> -				drm_gem_shmem_record_mkwrite(vmf);
+> -
+> -			return ret;
+> +			ret =3D vmf_insert_pfn_pmd(vmf, pfn, write);
+
+[Severity: Critical]
+This is a pre-existing issue, but does the fault handler verify that a
+PMD-sized huge page fits entirely within the bounds of the VMA?
+
+The core __thp_vma_allowable_orders() skips VMA boundary checks by
+relying on the driver's .huge_fault handler to enforce them. However,
+drm_gem_shmem_any_fault() does not appear to check if
+vmf->address + PMD_SIZE <=3D vma->vm_end before delegating to
+vmf_insert_pfn_pmd() via try_insert_pfn().
+
+Could an unprivileged user create a 4KB VMA backed by a PMD-aligned GEM
+object, and fault it to install a 2MB PMD that overwrites adjacent VMA
+page tables?
+
+>  		}
+>  #endif
+>  	}
+> -	return VM_FAULT_FALLBACK;
+> +
+> +	if (ret =3D=3D VM_FAULT_NOPAGE && write)
+> +		drm_gem_shmem_record_mkwrite(vmf);
+> +	return ret;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804120529.1730=
+187-1-pbonzini@redhat.com?part=3D2
