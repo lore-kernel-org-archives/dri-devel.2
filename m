@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBBB6C55172
-	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:27:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BA1CC55172
+	for <dri-devel@archiver.kernel.org>; Tue,  4 Aug 2026 10:35:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B86F10E9A9;
-	Tue,  4 Aug 2026 10:27:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CBF3110E9C1;
+	Tue,  4 Aug 2026 10:35:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lsoPdNaX";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nZhaj9uJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCE1B10E150
- for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:27:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D55D710E154
+ for <dri-devel@lists.freedesktop.org>; Tue,  4 Aug 2026 10:35:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6222342E95;
- Tue,  4 Aug 2026 10:27:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D64F11F000E9;
- Tue,  4 Aug 2026 10:27:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 75DE140516;
+ Tue,  4 Aug 2026 10:35:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38CD51F000E9;
+ Tue,  4 Aug 2026 10:35:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785839262;
- bh=mhydXuZ0P/jB+Dnx798J7rPr03QAXfWzLNLr7V1SIxI=;
+ s=k20260515; t=1785839735;
+ bh=Oq5ZTEgXWSkJOMPU020uUPy8PiBLdDjGKP1GZGGEIxs=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lsoPdNaXUlsfqz7UfgwU+ZMgr/6KDAceznab0gwDgzVaKuMrgJEOaANWLsQV99Wxf
- jKco7XWbLNJBMZrnHErxszpx/cpJiGCzDqdYNnGSuGMmUhDrGG5SY++GDS1Rg2CX5h
- toHGyStz7CAQiXBYV4wj6NTAkNdSN3rygKuG/Jaf1iFHPTiF+s0FkvS7DvxWlwE/Bg
- WsUigQfZclO2iwOvA2Gx0Yid04mYgpuSQLO8XcmJkO6TMcDMZdui6kzaxIA1BLDJil
- PvgAWb8DV5KSKLz3//ytJhVbkgFx1Uk1NjDg+GcrCvnQaWH5c3cuQMbBTIbwb3KRbc
- nDKAMAi8GGD0A==
+ b=nZhaj9uJGK6lhjrgg+hxriTtjfWOYrbqlnlWLTMTTSAD8Jbg2INDZ9Y97ONS1Wbcm
+ WAjCthaXJAc9QModF2M03Mp5KR7IKNeb53pFTkB6q7/7YP/YC4fpfaWXKorKQ8lpVF
+ MdqpfptPSYQdgD+DMh5yoPxDU7X3mi3qDxxCeCAHx2y1SXkzsgz5ECDdLsYcGcJqZJ
+ 3lxXxroJn5Ey9vR5w7IstqGZBOrUwbvFfhkTQAT1pSIprteOxlngetsOT9C4L9A7To
+ X4bfus1a5cuyVds3A+KT3StVBhFEuJZAKMoFsGz8+OyWMBrqicmeKAnm36CVx+nTNn
+ 5wrs8MSPUazGQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 4/4] firmware: coreboot: Add CFR firmware attributes
- driver
-To: "Sean Rhodes" <sean@starlabs.systems>
+Subject: Re: [PATCH 02/12] drm/panthor: Further delay reset work enablement
+To: "Boris Brezillon" <boris.brezillon@collabora.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <4022650144cca8c242c6507825b29988adb6ac69.1785838269.git.sean@starlabs.systems>
-References: <cover.1785838269.git.sean@starlabs.systems>
- <4022650144cca8c242c6507825b29988adb6ac69.1785838269.git.sean@starlabs.systems>
+In-Reply-To: <20260804-panthor-unplug-fixes-v1-2-abbbd2d41b13@collabora.com>
+References: <20260804-panthor-unplug-fixes-v1-0-abbbd2d41b13@collabora.com>
+ <20260804-panthor-unplug-fixes-v1-2-abbbd2d41b13@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 04 Aug 2026 10:27:40 +0000
-Message-Id: <20260804102741.D64F11F000E9@smtp.kernel.org>
+Date: Tue, 04 Aug 2026 10:35:34 +0000
+Message-Id: <20260804103535.38CD51F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,74 +57,104 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Memory leak of enum label string when it contains invalid charac=
-ters.
+
+New issues:
+- [High] Calling disable_work_sync() on a work item from within the work it=
+em itself causes a deadlock.
+
+Pre-existing issues:
+- [High] A race condition during device resume can cause a hardware fault t=
+o be permanently ignored, leaving the reset.pending flag stuck at 1 and blo=
+cking all future resets.
+- [High] A race condition at the end of the reset work can cause a new hard=
+ware fault to be lost because `reset.pending` is cleared after interrupts a=
+re re-enabled.
 --
 
---- Patch [4]: [PATCH v11 4/4] firmware: coreboot: Add CFR firmware attribu=
-tes driver ---
-commit ea61591b8dd6ac619938eac5285db7c41217e27e
-Author: Sean Rhodes <sean@starlabs.systems>
+--- Patch [2]: [PATCH 02/12] drm/panthor: Further delay reset work enableme=
+nt ---
+commit 08177a6c8d92319bf18b6e18c4bb7d3f3023ca20
+Author: Boris Brezillon <boris.brezillon@collabora.com>
 
-firmware: coreboot: Add CFR firmware attributes driver
+drm/panthor: Further delay reset work enablement
 
-This commit adds a firmware-attributes driver for the coreboot CFR table
-entry to describe firmware setup options. It exposes runtime EFI
-variable-backed boolean, enum, and integer settings through sysfs.
+There's no point re-enabling the reset work before the DRM device
+registration succeeds, so move the enable_work() after the point where
+nothing can fail anymore, and in the unlikely event where a reset was
+pending, reschedule it.
 
-Link: https://doc.coreboot.org/drivers/cfr.html
-Link: https://doc.coreboot.org/drivers/cfr_internal.html
+> diff --git a/drivers/gpu/drm/panthor/panthor_device.c b/drivers/gpu/drm/p=
+anthor/panthor_device.c
+> --- a/drivers/gpu/drm/panthor/panthor_device.c
+> +++ b/drivers/gpu/drm/panthor/panthor_device.c
 
-> diff --git a/drivers/firmware/coreboot/coreboot-cfr.c b/drivers/firmware/=
-coreboot/coreboot-cfr.c
-> new file mode 100644
-> index 0000000000000..1dfb2d29046b6
-> --- /dev/null
-> +++ b/drivers/firmware/coreboot/coreboot-cfr.c
 [ ... ]
-> +static int coreboot_cfr_copy_enum_values(struct coreboot_cfr_setting *se=
-tting,
-> +					 const void *base, size_t len)
-> +{
-[ ... ]
-> +	for (;;) {
-> +		entry =3D coreboot_cfr_next_entry(&iterator);
-[ ... ]
-> +		value =3D &setting->values[setting->n_values];
-> +		value->label =3D coreboot_cfr_string_dup(label);
-> +		if (!value->label)
-> +			return -ENOMEM;
-> +		if (!coreboot_cfr_string_is_valid_label(value->label))
-> +			return -EINVAL;
 
-[Severity: Medium]
-Does this code leak the newly allocated value->label string?
+> @@ -300,6 +297,14 @@ int panthor_device_init(struct panthor_device *ptdev)
+>  	if (ret)
+>  		goto err_disable_autosuspend;
+> =20
+> +	/* Now that everything is initialized, we can enable the reset work.
+> +	 * If there was a reset pending, clear and reschedule, otherwise the
+> +	 * reset.pending bit is stuck.
+> +	 */
+> +	enable_work(&ptdev->reset.work);
+> +	if (atomic_cmpxchg(&ptdev->reset.pending, 1, 0))
+> +		panthor_device_schedule_reset(ptdev);
 
-When coreboot_cfr_string_is_valid_label() fails and returns -EINVAL,
-setting->n_values has not been incremented yet. If the caller then cleans up
-the error by calling coreboot_cfr_free_setting(), the cleanup loop:
+[Severity: High]
+Can this lead to a deadlock if the firmware boot fails?
 
-static void coreboot_cfr_free_setting(struct coreboot_cfr_setting *setting)
-{
-	unsigned int i;
+If panthor_fw_post_reset() fails during panthor_device_reset_work() in
+drivers/gpu/drm/panthor/panthor_device.c, it directly calls
+panthor_device_unplug().
 
-	for (i =3D 0; i < setting->n_values; i++)
-		kfree(setting->values[i].label);
-	...
+panthor_device_unplug() then unconditionally calls:
+disable_work_sync(&ptdev->reset.work);
 
-will skip freeing the string that was just allocated because setting->n_val=
-ues
-does not include it yet. Should kfree() be called on value->label before
-returning -EINVAL here?
+Since disable_work_sync() synchronously waits for the currently executing
+work item to complete, would this deadlock on itself if called from within
+the reset work?
+
+[Severity: High]
+This is a pre-existing issue, but is the same fix needed in
+panthor_device_resume()?
+
+In panthor_device_resume(), pm.state is set to ACTIVE without checking if a
+fault occurred. When resuming, pm.state starts as RESUMING and interrupts
+are re-enabled by panthor_device_resume_hw_components().
+
+If a fault fires before pm.state becomes ACTIVE, the interrupt handler calls
+panthor_device_schedule_reset(), which sets reset.pending to 1 but skips
+queuing the work because pm.state is not ACTIVE.
+
+When panthor_device_resume() later sets pm.state to ACTIVE without checking
+if pending became 1 (unlike the fix applied here in panthor_device_init),
+does this leave reset.pending stuck at 1 and block all future resets?
+
+[Severity: High]
+This is a pre-existing issue, but can a hardware fault be lost due to a race
+condition at the end of the reset work?
+
+In panthor_device_reset_work(), panthor_mmu_post_reset() and
+panthor_fw_post_reset() are called, which re-enable hardware interrupts.
+
+If a fault occurs immediately after, the interrupt handler calls
+panthor_device_schedule_reset(). Since reset.pending is still 1,
+the atomic_cmpxchg fails and no work is queued.
+
+Then, panthor_device_reset_work() executes:
+atomic_set(&ptdev->reset.pending, 0);
+
+Are faults occurring in this window silently ignored?
 
 > +
-> +		value->value =3D enum_value->value;
-> +		setting->n_values++;
-> +	}
-> +}
+>  	pm_runtime_put_autosuspend(ptdev->base.dev);
+>  	return 0;
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1785838269.gi=
-t.sean@starlabs.systems?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260804-panthor-un=
+plug-fixes-v1-0-abbbd2d41b13@collabora.com?part=3D2
