@@ -4,77 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 588A9C561E6
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 06:52:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD72C55838
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 06:52:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 23E7010F0E2;
-	Thu,  6 Aug 2026 06:52:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B796C10F0DF;
+	Thu,  6 Aug 2026 06:52:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=xbow.com header.i=@xbow.com header.b="RYZtimry";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=accessweb.be header.i=@accessweb.be header.b="F7rSiwJW";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 673D210E167
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 03:44:02 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-38e07ebd263so1187325a91.1
- for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 20:44:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=xbow.com; s=google; t=1785987842; x=1786592642; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=2jLtToL3PwaTAhWfeLF+tyVqbdrghdAzA8d8sJ1FHuA=;
- b=RYZtimryscbkFPdXS4nE6T0oeJi1i2QLMG3jGSKOzOQlnteT6Dgtx6Weaq50otmIBH
- m9Y/ltQDKhoMkDF833YI1a3pClLd+6blttYoZ8+iITzdJYYd9x6G//ts1k3fik0Vo0nP
- Gjh47/ENoah58KC9u+KpF26J/BixzNa2K5gyVypdI8Qt9urQon21AhMbpgUGxZUk+ELE
- 9wE6E2CVA+D2HgTMy8MniXFUysEmxUM/q/4hZ+av9PbK17EJ4FMkVmnP7JiPcJQs6Ist
- u+ik5RsWoBdwhG1SEWC600b6SPixxGnCo+zjJrpoo5NbOja2KEd7MNZpCrQCU46PbjXB
- kbaA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785987842; x=1786592642;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=2jLtToL3PwaTAhWfeLF+tyVqbdrghdAzA8d8sJ1FHuA=;
- b=MZaNR7xeMBG9MapIqcVLg6UpMrGzK0B4cP4p8zBxlpQw8dht2hANoxl3Tt0m4AzkPx
- b0YU8+HkHsVhtCUnmX9TI4JD8C00JxdX/Ej1YePy6UBaXkUhZZu2mt1DGcydg04j+c0O
- UU2WGDZzm6ASeWSaGGG1V+odbmjYfyJAIV34hqand35rFfJs2qxao6MBwlH2kIxAe39s
- +8OYY4TkQF5uP3jdjmI9cdv94puqAyum/n5TcOqUC08XtjcmwQekWN0VJJyBVbIxUGIc
- X37AVmcdWmmM3Fixn+33TJmpQ4iW+WbMRIv3QobVa6YBsXf4c994EEDeAKQ3wITURmzl
- 0t2w==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpu+4Y4fu82Y7fsA4uc0/+mIcrh+wx6WhYC1ZeAtPYXX1Wqaq3Hw9lE/AJg92eAWoXdSngESb0LST4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxS5L8nVV6B1QMG2z/B+nwecCLUFZngVu3UdLTtvYmRNHlb6cZc
- sGE/O1BHr7eCDojNJUY+gcLo+VUUfs+lU/roS8UopW6qPeZjMKBWtgiJQm1EuiOrCfM=
-X-Gm-Gg: AR+sD130dn8Ip+R/elwgsItywD8ZO5r5Db0eNRkyMyZtOGsaGZx+ZGVGek0tfJgxl9Y
- WoH5mcfpmTMKjWhBrvWaSm+PyC/Wfqzs5j3ExiVrR/ia6CTYHmJsq/qtaNU6OMhm+PvCXFFhfpy
- ThjVaJcFSlRHjI0TpK4Da6VGu6B847+m09jHwlDurhH4crPjlklAzaSlINnqoEq8GlA08WkWk7A
- sSgNq1j19GqKLiH/4W/8eUNpf63xlR6GHw0bbYsGJuXm3zZ2myTsqLpR53XWhhXFSwW4lbDzPay
- W4WS3gEKKQUrqwALXatXiq/2ataAPR081Y2P5V3CuHwzE7JhhITzkOFJL8IWZz97jxSEw8zw5XS
- uSRnXZnQ18maaCqwhSNtK7J9n/uDZAosK1/OsNB/x+NJsyk7/5ynemALf6c4LrF1TJR2k0tR7q9
- 2iDj5rtieCh+Kg69hUrjHzGdftO7uBM46QJ7vdkQrI6A51sJSnqxcv3V19YlgTfEEastPtf9tGq
- 5pLV8Z2JTeCII+387DhMUb5hLcC
-X-Received: by 2002:a17:90b:2d50:b0:38f:1f8:1fa with SMTP id
- 98e67ed59e1d1-3903c5ca8c2mr12349041a91.15.1785987841775; 
- Wed, 05 Aug 2026 20:44:01 -0700 (PDT)
-Received: from Mac.lan ([125.128.148.126]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39085f2c714sm569978a91.10.2026.08.05.20.43.58
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 05 Aug 2026 20:44:01 -0700 (PDT)
-From: Baul Lee <baul.lee@xbow.com>
-To: christian.koenig@amd.com, ray.huang@amd.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch
-Cc: matthew.auld@intel.com, matthew.brost@intel.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- federico.kirschbaum@xbow.com, stable@vger.kernel.org,
- Baul Lee <baul.lee@xbow.com>
-Subject: [PATCH] drm/ttm: clamp the prefault window to the buffer object
-Date: Thu,  6 Aug 2026 12:43:56 +0900
-Message-ID: <20260806034356.43681-1-baul.lee@xbow.com>
-X-Mailer: git-send-email 2.50.1
+X-Greylist: delayed 1136 seconds by postgrey-1.36 at gabe;
+ Wed, 05 Aug 2026 21:00:39 UTC
+Received: from pan.awservers.eu (pan.awservers.eu [149.202.17.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 74A7B10E24E
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 21:00:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=accessweb.be; s=default; h=Content-Transfer-Encoding:Content-Type:Subject:
+ From:Cc:To:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=fxxAvPqTAxUhxrKli4ShhvHTdIiQ0PK25MeGj4sJLvU=; b=F7rSiwJWtEl0UedHFaWY+P59rI
+ hdvFPLQ/ap8JcAUAUTx0zU6GED+bFycLBxFX1UxKYAXyJtxjVV8ftKTbO60ACHuu6zV7Y2F+TG5Ca
+ QpEGmefZgWZBfpWkwnC606WY9hY6TDtzVzseFAI6OO5WDRS4dcf9JoczTtM1KHcHTd+AFwUfrMkpk
+ laDujPtPvFZij13FtXaMdkyOhRKKZ5z9x9cu0DgJL3QUf9Yly3rmOV4bILIAZXAJF979hqc5VoD22
+ zWGu34Y16DrmUOYF9FuLBRc2qqO3d2+79gZjtvwlI6qoW7FC1u8T6oTXLsljB6Kc4zOiKsORqoOZd
+ HxgLyY2A==;
+Received: from [195.240.176.17] (port=54206 helo=[192.168.2.29])
+ by pan.awservers.eu with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+ (Exim 4.99.5) (envelope-from <jellis@accessweb.be>)
+ id 1wriQn-00000002MWn-1pR5; Wed, 05 Aug 2026 22:41:41 +0200
+Message-ID: <9a795e26-53de-41da-bdb8-9ced20b70e87@accessweb.be>
+Date: Wed, 5 Aug 2026 22:41:40 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: zack.rusin@broadcom.com
+Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
+From: Jellis Onsea | AccessWeb <jellis@accessweb.be>
+Subject: drm/vmwgfx: graphics memory not returned after all GEM objects are
+ released
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse,
+ please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pan.awservers.eu
+X-AntiAbuse: Original Domain - lists.freedesktop.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - accessweb.be
+X-Get-Message-Sender-Via: pan.awservers.eu: authenticated_id:
+ jellis@accessweb.be
+X-Authenticated-Sender: pan.awservers.eu: jellis@accessweb.be
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 X-Mailman-Approved-At: Thu, 06 Aug 2026 06:52:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,72 +73,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ttm_bo_vm_fault_reserved() derives two page indices from the caller's
-mmap(2) arguments and bounds only one of them:
+Hi Zack,
 
-	page_offset = ((address - vma->vm_start) >> PAGE_SHIFT) +
-		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
-	page_last = vma_pages(vma) + vma->vm_pgoff -
-		drm_vma_node_start(&bo->base.vma_node);
+I'm reporting a memory issue in vmwgfx where graphics memory is not 
+returned to the system even after every DRM client has released its GEM 
+objects. Only a reboot frees it. This comes out of KDE bug 523812, which 
+was closed as RESOLVED UPSTREAM with the assessment that this looks like 
+a driver-side leak rather than a compositor one.
 
-	if (unlikely(page_offset >= PFN_UP(bo->base.size)))
-		return VM_FAULT_SIGBUS;
+- Environment:
 
-bo->base.size appears once in the function, bounding page_offset on
-entry.  page_last comes straight from vma_pages(vma) and is the loop
-terminator:
+     Guest:      CachyOS (Arch-based), kernel 7.1.5 and 7.1.6
+     Host:       VMware Workstation on Windows, AMD Ryzen 9 7950X
+     Driver:     vmwgfx 2.21.0.0, VMware SVGA II
+     Renderer:   llvmpipe (LIBGL_ALWAYS_SOFTWARE=1, see note below)
+     Compositor: KWin 6.7.3, Plasma Wayland, 3 x 1920x1080 @ 60 Hz
+     RAM:        31 GiB, zram swap
+     3D accel:   disabled in the VM settings
 
-	if (unlikely(++page_offset >= page_last))
-		break;
+- What happens:
 
-so the object size never bounds it.  For an object of N pages, a fault
-on the last in-object page passes the entry test with page_offset
-N - 1, and the prefault loop then walks N..N+14, reading
-ttm->pages[page_offset] or
-ttm_bo_io_mem_pfn(bo, page_offset) and installing each frame with
-vmf_insert_pfn_prot().
+During normal desktop use, buffers of exactly 8355840 bytes accumulate. 
+That is 1920 x 1088 x 4 — one screen-sized 32-bit framebuffer with the 
+height padded to a multiple of 64. Growth is tied to rendering activity, 
+not to uptime: an unattended session leaked exactly zero bytes over 7.3 
+hours, while active use adds roughly 1.4 GB/hour.
 
-page_last exceeds the object whenever the VMA is longer than it.
-drm_gem_mmap_obj() rejects that on the DRM node, but the fbdev path
-reaches the object function through drm_gem_prime_mmap(), which does
-not.  It is also exceeded by a mapping no longer than the object taken
-at a nonzero file offset, so the handler needs its own bound.
+At 9 hours of uptime, kwin_wayland held 1846 GEM objects, 1553 of them 
+that exact size. All of them had pin_count = 0. At 34.5 hours it was 
+8057 objects.
 
-With a 128-page object mapped 192 pages long, one read fault at index
-N - 1 leaves the fifteen frames after the object readable through the
-mapping; on a fresh mapping, reading index N without first faulting
-N - 1 is SIGBUS.  For a system-memory placement the page array is
-over-read as well:
+- The measurement that points at the driver:
 
-  BUG: KASAN: slab-out-of-bounds in ttm_bo_vm_fault_reserved+0x248/0x57c
-  Read of size 8 at addr ffff0000078aac00 by task e1/219
-   __asan_load8+0x84/0xb0
-   ttm_bo_vm_fault_reserved+0x248/0x57c
-   ttm_bo_vm_fault+0xe4/0x140
-   __do_fault+0x6c/0x2f0
+I logged out of the Plasma session and logged back in, without 
+rebooting. That restarts the compositor (pid 2612 -> 3156650) and closes 
+its DRM fd, so the kernel drops all its GEM references.
 
-Clamp page_last to the object.
+                                   before logout      after re-login
+     GEM objects, all clients      8139               19
+     system_ttm usage              49.47 GB           45.80 GB
+     GPUActive (/proc/meminfo)     10.86 GB           11.06 GB
+     MemAvailable                  11.06 GB           13.32 GB
 
-Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+So: no DRM client held more than 19 GEM objects in total, yet roughly 11 
+GB remained accounted as GPUActive and was not returned. The ~2.3 GB 
+gained in MemAvailable is very likely just the browsers and editors from 
+the old session exiting, not graphics memory.
 
-Fixes: ba4e7d973dd0 ("drm: Add the TTM GPU memory manager subsystem.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Baul Lee <baul.lee@xbow.com>
----
- drivers/gpu/drm/ttm/ttm_bo_vm.c | 1 +
- 1 file changed, 1 insertion(+)
+A reboot immediately afterwards did return it:
 
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-index a80510489c45..14ebf6ee3c47 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
-@@ -212,6 +212,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
- 		vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
- 	page_last = vma_pages(vma) + vma->vm_pgoff -
- 		drm_vma_node_start(&bo->base.vma_node);
-+	page_last = min_t(unsigned long, page_last, PFN_UP(bo->base.size));
- 
- 	if (unlikely(page_offset >= PFN_UP(bo->base.size)))
- 		return VM_FAULT_SIGBUS;
--- 
-2.50.1 (Apple Git-155)
+     GPUActive     0.11 GB
+     RAM in use    4.5 GB of 31 GB   (was 18 GB before the reboot)
+
+- Caveats I want to be upfront avout:
+
+- system_ttm reporting 46-49 GB on a machine with 31 GiB of RAM is 
+something I cannot explain. My assumption is that TTM accounts pages it 
+has evicted to shmem, while GPUActive counts only resident ones. If that 
+assumption is wrong, the volume figures need reinterpreting. The object 
+counts and the fact that a reboot is required stand either way.
+- Summing the reported sizes of the GEM objects gives ~46 GB, which also 
+exceeds physical RAM, so that sum over-counts — presumably shared or 
+multiply-mapped objects. I would trust the counts, not that total.
+- This is a CachyOS kernel, not vanilla. I have not yet reproduced on 
+mainline. I am happy to test a vanilla or drm-tip kernel if that would 
+help; the machine reproduces this within a working day.
+- LIBGL_ALWAYS_SOFTWARE=1 is set here to work around an older, separate 
+vmwgfx surface-handle problem that crashed Chromium/Electron compositor 
+threads with SIGILL. The behaviour described above occurs with that 
+workaround in place.
+
+- Possibly related earlier work:
+
+I am aware of the dumb-buffer leak fixes in vmwgfx from the 6.10 era 
+("drm/vmwgfx: Fix handling of dumb buffers", "drm/vmwgfx: Fix dumb 
+buffer leak") and the rework that made GEM handles own the dumb buffer. 
+The buffers accumulating here are exactly screen-sized dumb buffers, so 
+this may well be in the same area, but on a much newer kernel, so either 
+something remains or it is a regression. I did not find an open report 
+matching this.
+
+- How to reproduce the measurements:
+
+     # object count and per-client totals (root)
+     grep -c bytes /sys/kernel/debug/dri/0/vmwgfx_gem_info
+     awk '/^ *pid/{p=$2" "$4} /bytes/{n[p]++; s[p]+=$2} \
+          END{for(k in n) printf "%-26s %6d objects %9.1f MB\n", k, 
+n[k], s[k]/1048576}' \
+         /sys/kernel/debug/dri/0/vmwgfx_gem_info | sort -k3 -rn
+
+     # pool usage (root)
+     awk '/usage:/{print $2}' /sys/kernel/debug/dri/0/system_ttm
+
+     # resident graphics memory
+     grep -E 'GPUActive|GPUReclaim' /proc/meminfo
+
+Use the desktop normally for a few hours; a browser window with a 
+looping CSS animation makes it measurable within minutes. Opening and 
+closing 32 windows produced no growth at all, so it is the continuous 
+rendering that drives it.
+
+Happy to run anything specific, apply a debug patch, or test a different 
+kernel.
+
+
+Regards,
+
+Jellis Onsea
+AccessWeb
