@@ -4,43 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34DF2C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 15:46:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6671CC55ABA
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 15:51:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A25410EF08;
-	Wed,  5 Aug 2026 15:46:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C19DB10E1B6;
+	Wed,  5 Aug 2026 15:51:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="clI16kA2";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DXosc+ss";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4F60B10EEE4
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 15:46:27 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EEDD040A80;
- Wed,  5 Aug 2026 15:46:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1761F00A3D;
- Wed,  5 Aug 2026 15:46:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785944786;
- bh=aJYinYe9eXqxWw8HSl8S3lWvFkOyc5xOhRpB5rBSP04=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=clI16kA2lTjbsz1Ei2Ztgp835aKbIp4ERcpGhtN42xC7bxeNQTQMY2Oeb6hHVBvC3
- 271f7z5HC1beCv0WhxUlsZYlvxyLnoN+uEngalk2hYaRXluw8iu56K+Y9x4ISOzdeE
- /KIbe3VITdYOKktdFj9q87UzyyZ/7r2zMQIxLR8wlP0lFKuilYoz7SmZeQXgpvj2nT
- qp2ka7CP4IUoGUFhJlZvNv1lXV+hny48iShKfdZPvNAlRnxRmCn2C/mS6GO7DZZA/Z
- d202b52h/qZalBsVb49N2OHZ8QsOLS9ayjBu4QRlaxVHK+ItiSN3jTy50J7U+rm2Xk
- vMVHQXsm5DnfQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 4/5] rust: Add dma_fence abstractions
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: media-ci@linuxtv.org, dri-devel@lists.freedesktop.org, ojeda@kernel.org
-In-Reply-To: <20260805145949.938505-6-phasta@kernel.org>
-References: <20260805145949.938505-2-phasta@kernel.org>
- <20260805145949.938505-6-phasta@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 15:46:25 +0000
-Message-Id: <20260805154626.5A1761F00A3D@smtp.kernel.org>
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BF6610E1B6
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 15:51:25 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4957952e0f8so915285e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 08:51:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785945084; x=1786549884; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=aqxi35qz8X0Jeybg10HKbsHNV5CZpS0quNYjwJCSOIM=;
+ b=DXosc+ssdIMuhZAlMUUSESEMH6d1tFIV0ML4pukyRtJAj3PxnJkhAI+58gQ6qe3QHW
+ Vyzeen3Cu2CNEyGVR42kfsVwspV+mbRYLuKNMdvYG4YDWr6d5gKhhM64aKM7GKKQ866F
+ 778RWab1hmu/KpWTxyC5TLV+Lvd+lOEB2VqWyTEeAzfSGP60ZYBNhgKIY9KJJ7r0c0Tz
+ kZ9u06YFZ7ONFejNOc160BY9gIH7MQGBsFH8uH4ZoW+QpnLokaTAyeAd4EzOVqZDdQ4Q
+ uWUfZ2RjYQqcDpz4+bZpv1araw7ofjXkEKb/aecs8z9stAJTpt8PgdQ64GK94fMtnsOi
+ s7rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785945084; x=1786549884;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=aqxi35qz8X0Jeybg10HKbsHNV5CZpS0quNYjwJCSOIM=;
+ b=jA0SaNa1vxdULCs1JrdooL2rHNeb5DMGhc57yANdm9ibohGTO6QXXQdLxcZJqUNrZK
+ 9hu64eIG/ayYpF2mPO6WCZhcjFPa51+tTFOe8uTgPfthvZ8uBQFE1Q3nkaShk6h9z26T
+ JRgSxLFtk9+UFuZ7exayb2EnaFMJVSue7U3gC55wj+3GqDGUY51csyxw8wtnxyuMsDHT
+ rlDyLW1cOrqvdgo0H3ryvpKXcrJqZMzEGsJI58ASp92jxeF+jnaaFqgQvRM2knWWd0D6
+ H75aflCy3bMmUCDXP3BdxQBBHcUS/kWCtCrnKBX1UYVZp9yYuotOLR6OPVIdLWSc6wQh
+ jCqg==
+X-Gm-Message-State: AOJu0YzkLdjoc3IY9lk4nHlaSsgUm9GuzhSOa96aoxpUgwOUe/nxFYhL
+ qcMWiEzV5u/DelGYxwFHDgvIMAg1yfa1lLwR9lGI0DWeD8ZwgG8uM3PpmA0/ampc
+X-Gm-Gg: AR+sD11LiAAatjWwiDIxNp5dTEgV/ZBOt/MrwgIohi4pderWxNCroCAli4SBOCMURRG
+ H4T8R1OIiox1oBDlT+iyF/wAW320NBccP2FnxV6wmSyqohFzpfXv9O6kUqr7Pgo0xrmbT7ozQGO
+ Ufdi5ArxNv+HMXE7BE0y7H0prXrw+ESkkd3Q3276WbngV7m4YNt0QQunBer208NLz2iqWMHJtkR
+ 6JA0adDOTKxAmzetZM0WTqGXTdtFNyZ3oDOCUYuGmlXsbVUZcrpHwqp90tpex2GgsQ8FZQscXCd
+ LtyMLtdGklw8qwBz4slApWr7thJHda+OQSdf5jg/1eb+uHHCFU25rERcY3Eby+iQQVIzJyPbFCo
+ JmR5ohxPEPRbVVn+UhLtN1dldlZaIuVXc7RKXOnRgbd+QemPee9G3KuMK7weFdqQX7mhUJ2ZRhc
+ K6oMuqxvJO5AAgVIQAbA6G06RCV+Jqg93WgA279yxHyoGF/8yqDtIjXmCrT2otKySl2yAq9a8k9
+ 6fHRXp7ZHyKYQ9fVFouAq+1Xlqaez8a+awaS7P1/p5fzcG4B7jW/7D7Jdsxr1RBvwj9
+X-Received: by 2002:a05:600c:1550:b0:493:ad11:6d5c with SMTP id
+ 5b1f17b1804b1-4994e7cf0dcmr48652415e9.4.1785945079009; 
+ Wed, 05 Aug 2026 08:51:19 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B86F10001BE789C6EE938EE.dsl.pool.telekom.hu.
+ [2001:4c4e:1b86:f100:1be:789c:6ee9:38ee])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4994e0356d4sm101820155e9.10.2026.08.05.08.51.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Aug 2026 08:51:18 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Subject: Re: [PATCH v2] drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace
+ connector property
+Date: Wed,  5 Aug 2026 17:51:04 +0200
+Message-ID: <20260805155107.11167-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260805154418.8133B1F00A3A@smtp.kernel.org>
+References: <20260805154418.8133B1F00A3A@smtp.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,109 +95,30 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Calling Fence::is_signaled() from within a fence callback for the =
-same fence will cause a deadlock.
-- [High] FenceContext::drop unconditionally calls rcu_barrier(), which can =
-lead to sleeping in atomic context panics and severe performance issues.
---
+Hi,
 
---- Patch [4]: [PATCH v9 4/5] rust: Add dma_fence abstractions ---
-commit 38c478417a422309c2a228acac8f860a0f96dd34
-Author: Philipp Stanner <phasta@kernel.org>
+Thank you for the review.
 
-rust: Add dma_fence abstractions
+The lifetime mismatch is real and worth spelling out precisely: hdmi is
+allocated with drmm_kzalloc() against the DRM device, while the HPD
+interrupt is registered with devm_request_threaded_irq() against the
+component's platform device, with hdmi as the cookie and IRQF_SHARED
+set. The bind error paths that follow the IRQ registration predate this
+patch: encoder init, dw_hdmi_qp_bind() and drm_bridge_connector_init()
+can all return with the handler still registered. This patch adds one
+more such return, which can only trigger if the property allocation
+fails under memory pressure.
 
-This commit introduces abstractions for C's dma_fence to be used by Rust GPU
-drivers. It implements DriverFence and Fence types to handle signaling,
-sequence numbering, and callback registration.
+So the issue is pre-existing, correctly flagged as such, and this change
+does not alter the exposure in any practical way. The clean fix looks
+orthogonal to this patch: register the IRQ with plain
+request_threaded_irq() and tie its release to the DRM device with
+drmm_add_action_or_reset(), so the handler cannot outlive the structure
+it dereferences. Happy to send that as a separate follow-up if the
+maintainers think it is worth doing.
 
-> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
-ence.rs
-> new file mode 100644
-> index 0000000000000..e61b4b2d8b8cc
-> --- /dev/null
-> +++ b/rust/kernel/dma_buf/dma_fence.rs
-[ ... ]
-> +#[pinned_drop]
-> +impl<T: FenceContextOps + Send + Sync> PinnedDrop for FenceContext<T> {
-> +    fn drop(self: Pin<&mut Self>) {
-> +        // TODO:
-> +        // It would be better if the fence context signals all forgotten=
- fences
-> +        // itself. To do so, it would keep a list of unsignaled fences. =
-That
-> +        // list members would have to be pre-allocated (see
-> +        // FenceCallback::new_fence_allocation()).
-> +        if self.nr_of_unsignaled_fences.load(Relaxed) !=3D 0 {
-> +            panic!("Forgotten fences in FenceContext.");
-> +        }
-> +
-> +        rcu_barrier();
-
-[Severity: High]
-Can dropping a FenceContext in atomic context cause a panic here?=20
-
-Because Rust drops objects implicitly when they go out of scope, a=20
-FenceContext dropped in an atomic context (such as inside an interrupt=20
-handler or under a spinlock) will trigger a 'sleeping in atomic context'=20
-panic since rcu_barrier() blocks system-wide.
-
-Even if dropped safely in process context, could waiting on a system-wide=20
-RCU barrier during the destruction of every FenceContext cause severe=20
-performance bottlenecks?
-
-[ ... ]
-> +    pub fn is_signaled(&self) -> bool {
-[ ... ]
-> +        // The fundamental reason is that the C backend currently does g=
-uard
-> +        // setting of the fence's signaled-bit with the fence's spinlock=
-, but
-> +        // reading is done locklessly.
-> +        //
-> +        // See commit c8a5d5ea3ba6a.
-> +
-> +        let _ =3D self.lock();
-> +
-> +        ret
-> +    }
-> +
-> +    fn lock(&self) -> FenceGuard {
-> +        let mut guard =3D FenceGuard {
-> +            inner: self.as_raw(),
-> +            flags: 0,
-> +        };
-> +
-> +        // SAFETY: fence is valid because self is valid. flag_ptr is
-> +        // merely a pointer to an integer, whose lifetime is tied to the=
- guard
-> +        // object.
-> +        unsafe { bindings::dma_fence_lock_irqsave(guard.inner, &raw mut =
-guard.flags) };
-
-[Severity: High]
-Could this result in a deadlock if Fence::is_signaled() is called from with=
-in=20
-a fence callback?
-
-When a fence is signaled, the C backend (dma_fence_signal_locked) acquires=
-=20
-the fence's spinlock and iterates over the registered callbacks, executing=
-=20
-them synchronously while holding the lock.
-
-If a Rust FenceCallback implementation calls is_signaled() on that same fen=
-ce,=20
-it invokes self.lock() which will attempt to acquire the exact same spinloc=
-k=20
-via dma_fence_lock_irqsave(), leading to a non-recursive spinlock deadlock.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805145949.9385=
-05-2-phasta@kernel.org?part=3D4
+Thanks,
+Igor
