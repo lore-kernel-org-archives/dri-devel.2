@@ -4,62 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1734C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 13:59:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D533C55ABA
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 14:02:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB41910E1FE;
-	Wed,  5 Aug 2026 13:59:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20F4410EE86;
+	Wed,  5 Aug 2026 14:02:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="b95gvb2T";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QyZEkpjs";
 	dkim-atps=neutral
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C5F6110E1FE
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 13:59:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
- s=201707; t=1785938349;
- bh=8ZKev4Gomd2h4BZnMddpS4sItcYMIlEiLKSOtv/oACM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=b95gvb2TP5dDfbztGLQkGg1Hsi8rixtPTT0hgwmZ9XUcMkRJ8rigLdQSh4aWOCfdz
- CIaOEgN96ojAF6jurM7yvXzvVQU/1+RpADhFufOUReH1qGjfq0lq04b1RpH9Hq53g9
- Bq/ZXpW7qGfEakb2jw486rve0G81KGFJ2WTLNDNY9VdrPfsF3pwhUI4dWbKghdUoc/
- +Vbe7vL7l61WpF3dThn7HKcDkusFrazYFY9/DzmJ0FAPmEP6+pHL/y2bqvQnwfVPZZ
- ZUgFQ5FVBqPGLymqLUrR+qUuR4smm3aE/seJs/rp5Z0JTLhuDFvl18wUnTFH83wK3e
- /MMTQALaNga0w==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (Client did not present a certificate)
- by mail.ozlabs.org (Postfix) with ESMTPSA id 4hFX836TVwz4w23;
- Wed, 05 Aug 2026 23:58:59 +1000 (AEST)
-Message-ID: <a0e71704-074a-415c-b910-d4e8b623874e@ozlabs.org>
-Date: Wed, 5 Aug 2026 14:58:55 +0100
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B0C010E231;
+ Wed,  5 Aug 2026 14:02:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3563C60A75;
+ Wed,  5 Aug 2026 14:02:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0FD1F00A3D;
+ Wed,  5 Aug 2026 14:02:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785938551;
+ bh=XRWb5KOEVWDmj5XvuNebEun46fEu4tFzPd9o5ylH/60=;
+ h=From:To:Cc:Subject:Date;
+ b=QyZEkpjsxpr2YCaxgQqR5NWoEfyHbZJxScOtLPPp7eRjwCmkd3k0Brz7k4Zz6YuI0
+ 6RUz1/MdItBOCUgsM0s5jGAdU0+Qj50Ao+Bi6fpN9LcApF9n7OypTQCFjpooaHeREY
+ 54GLQHgC2I4Z+8En3jmbyfzR2taHvq9yvM5B54qJNYesygL4SYtVHT6FwvAnjhQvcM
+ 5GbDMyYoYgWidBeZ3GzkMMkkIg7gV8ov3QHQ2iuWddf9Xk/VAsr0wOG+0YjWhPYX/N
+ clBVQeX+1ruLsPq9q6CpMVEwRFxBJXznry38lmVmSQ33mPe0+FWw6DDbnhzgz/7Tqj
+ xBl6ihwoyVY8Q==
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+ by mailfauth.phl.internal (Postfix) with ESMTP id 7CECCF40066;
+ Wed,  5 Aug 2026 10:02:30 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-01.internal (MEProxy); Wed, 05 Aug 2026 10:02:30 -0400
+X-ME-Sender: <xms:dkJzau4kz14AEHEXjYpAdT0osBQG4fTK3PxOvngTzGlJ7By4ZwXhVg>
+ <xme:dkJzatfse5xkoE5xnievQ4G8RcxJdQThBBTShA_ytC6BxbCrYUetcVTKhVdpuKA7-
+ vm6Kx5clCqGnmzAL10bdeh8os_zkab8gabNB_aqywV94o9bkBT2vkU>
+X-ME-Received: <xmr:dkJzanCJEtSjnuDFQ4jvyLVWMW5Ncz15tOGJCMQ1mvIE9glLa71TgkNPm0DgV_QHfQYRn5CZCwSgyGlVVVIZBDUxaIKkV0SQ>
+X-ME-Proxy-Cause: dmFkZTGRtrYNZhF5JTvsGTULw+IUY/287ZkyrdsJTMA43wyXDuUUdrHB1Jr4B1EpgXztPA
+ bGqSq+xQYNExBYBIlpmDi/vCofWluj4tPrdHN8TuaiLfiOjkZtBEupEh7uWywWVf3lgCsz
+ 8dndqHaz+h0+jaVMH1l1+RR1vf1lLJCOMhxtZNwbCy17lkoUyDmsFsTGfhA5h9abwZrWIX
+ jt54JnDcdlwZ7fGWPCMBMTqY79Da/HgQ6dLFTf/j7dLOc0ZFZIn0DwiGGVndev6yt90ZY3
+ 9YbidWxHc2qRIYu6LWbkLCfZn9BGng5qCwdYjLuv9i/TpljCo3XuozHKbmd38y1/ivXGMo
+ CbCesWkux3qM4m87XUG8TsksWyUKhGmQX/QJjbriw/npW7ZE0pksR5PP6VOWoHY4sEEPQ/
+ gJzQx+Jon5fz1A5ohM1ySeeKjSvuxf7lKaHnwtp/s+YXlSfuhIsC2gSJYFp+yybpOXgkRL
+ VJcCa76/Aa/QJJHsYmtzFM9KkpL2weU1mvDnMOo7ugaG9ZRPbZ07mUl6P63Xzr04OuqlAG
+ 4E0LjMag1b1jx8xuyfWizzvx+kToCjLc7k8XXFz4ie0m9B6oOwo+YtfcOTFCdEtPlJsz2a
+ kJbduhsIv7CSdmgXWfaHFdJ+LXsFYPfoz5LowliIqI/4wfLQ61x5x6XrAgcQ
+X-ME-Proxy: <xmx:dkJzasBiJaYqOqrCxs_zE3I7eNiKszFDI1EKzElMEDxNnWKNC_HRtg>
+ <xmx:dkJzapann1NaW3zNMRZ2Zk-sCv5tBB49-_pbPiubEAxTfHr_ijOn8w>
+ <xmx:dkJzapxqOW8Lkr1jaAfsbKHrIY8ot4QqzonvKUIHetJ_rKl3qKPLhQ>
+ <xmx:dkJzakfKCVH5xjgsrT6-gmVCQ2cx8F7Ys-PzVVL-TAKyxDJQftY-cw>
+ <xmx:dkJzanJok5Q2S6Jlu2a7M4AC8U_PMpijjhTrnJ_6CwjmHbj21NNBvpqd>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 5 Aug 2026 10:02:29 -0400 (EDT)
+From: Boqun Feng <boqun@kernel.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: Boqun Feng <boqun@kernel.org>, Mark Janes <mjanes@netflix.com>,
+ Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Priya Hosur <Priya.Hosur@amd.com>,
+ mythilam <mythilam@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] drm/amd/pm: Fix incorrect avg vcn utilization in gpu_metrics
+Date: Wed,  5 Aug 2026 07:02:21 -0700
+Message-ID: <20260805140227.44868-1-boqun@kernel.org>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-8-matt@ozlabs.org>
- <20260729115204.2a9a50b2@shazbot.org>
- <6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
- <20260804141022.71b6429d@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260804141022.71b6429d@shazbot.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,51 +89,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Alex,
+In a Strix Halo system, a >100 average_vcn_activity in gpu_metrics can
+be observed by running the following command:
 
-On 04/08/2026 21:10, Alex Williamson wrote:
-> On Thu, 30 Jul 2026 15:47:13 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
-> 
->> Hi Alex,
->>
->> On 29/07/2026 18:52, Alex Williamson wrote:
->>> On Wed, 15 Jul 2026 18:47:30 +0100
->>> Matt Evans <matt@ozlabs.org> wrote:  
->>>> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
->>>> index 9a1674c152aa..e2b4252e7c3f 100644
->>>> --- a/include/linux/vfio_pci_core.h
->>>> +++ b/include/linux/vfio_pci_core.h
->>>> @@ -134,6 +134,7 @@ struct vfio_pci_core_device {
->>>>  	bool			pm_intx_masked;
->>>>  	bool			pm_runtime_engaged;
->>>>  	bool			sriov_active;
->>>> +	bool			zap_bars_on_revoke;
->>>>  	struct pci_saved_state	*pci_saved_state;
->>>>  	struct pci_saved_state	*pm_save;
->>>>  	int			ioeventfds_nr;  
->>>
->>> This should be in the bitfield usage group since it's only modified at
->>> init time.  
->>
->> This was intentional, but happy to change it if you're certain ofc.  Is
->> it inconceivable that a sub-driver could set it after init?  I'd say
->> they _shouldn't_, but only review will stop them and this placement
->> intended to be cautious.  It seemed a low cost way to avoid issues
->> around synchronisation on the bitfield.
-> 
-> I'd agree with the statement that they shouldn't, it would be difficult
-> to synchronize setting the flag once there are any active mappings of
-> the BARs.  Also, if we put it in the bitfield category under the
-> comment that the value is only modified at setup/release, it documents
-> the intentions, hopefully to the extent the author or reviewers notice.
-> An argument can always be made to change it if there's a worthwhile use
-> case.  Thanks,
+    ffmpeg -hwaccel vappi -vappi_device /dev/dri/renderD128 -i \
+    ~/sample-10s.mp4 -vf hwupload,scale_vappi=format=nv12 -c:v \
+    h264_vappi /tmp/output.mp4
 
-Okay, book removed in favour of bit.
+This is incorrect because the value is supposed to be in [0-100] range.
 
-Thanks,
+The cause of the issue is that the metrics.VcnActivity reported by
+smu_cmn_get_metrics_table() is a permyriad value instead of a percentage
+value (e.g. smu_v14_0_0_get_smu_metrics_data() has a division by 100 to
+report the vcn_busy_percent). Therefore fix this by applying the same
+division in smu_v14_0_0_get_gpu_metrics().
 
+Reported-by: Mark Janes <mjanes@netflix.com>
+Signed-off-by: Boqun Feng <boqun@kernel.org>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Matt
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+index 568665265a13..1058338344b0 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+@@ -566,7 +566,8 @@ static ssize_t smu_v14_0_0_get_gpu_metrics(struct smu_context *smu,
+ 	gpu_metrics->temperature_skin = metrics.SkinTemp;
+ 
+ 	gpu_metrics->average_gfx_activity = metrics.GfxActivity;
+-	gpu_metrics->average_vcn_activity = metrics.VcnActivity;
++	/* metrics.VcnActivity is permyriad, convert it to percentage. */
++	gpu_metrics->average_vcn_activity = metrics.VcnActivity / 100;
+ 	memcpy(&gpu_metrics->average_ipu_activity[0],
+ 		&metrics.IpuBusy[0],
+ 		sizeof(uint16_t) * 8);
+-- 
+2.50.1 (Apple Git-155)
 
