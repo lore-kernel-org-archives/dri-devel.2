@@ -4,53 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A4B5C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 04:43:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D62AAC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 04:57:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AC8010E14E;
-	Wed,  5 Aug 2026 04:43:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A6C610E14C;
+	Wed,  5 Aug 2026 04:57:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="oIQ5WElP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bCFTf1JA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C43410E14D;
- Wed,  5 Aug 2026 04:43:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785905036; x=1817441036;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=iZUryQ1JGcwGzfLzR/LhB0prUQc9/c0XSXjY04aj37w=;
- b=oIQ5WElPYirllnqaXQhE8tAAewgIumxPko5QgfVwJ6EzjqUPw8Zbprg3
- dB4GSlU1o46y9y1LTaScuPwsatzPCh47Z+5nLTa4nFu7nmK78cepaRFDE
- 5ZXtHVmpUpj/PhTXaI/RzOpP6imsflb9vKBZtJr/ezGg3rGMVmkkjl9jQ
- cKb9Wt5mfU3z4JemOL3ShobN6v6PcQzwSX5tGn3UkCGJw+pGmOekO1K/3
- 1qXTfTK+p+t3jElrJ/M0N5LyMDA+qCCKGD7t4MMsCuiP/adcO/ID5Q4bc
- FpsrS7ZFVhDTDo01oqZ5jABXcbtQgYBSyrDzh5aHOGIxb4DnFzv+l0ZOo A==;
-X-CSE-ConnectionGUID: qscDZGo1RDO4e3T2pohTsA==
-X-CSE-MsgGUID: z0Fq1pfeQ9KhMdVKeEzv5g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86669077"
-X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="86669077"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
- by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 21:43:56 -0700
-X-CSE-ConnectionGUID: 85Yomf12RCCQoqACo/OBDg==
-X-CSE-MsgGUID: d8iqGzXYQACwsoQWRpew1g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="259057014"
-Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
- by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 21:43:55 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] drm/pagemap: Fix folio allocation fallback and use-after-put
-Date: Tue,  4 Aug 2026 21:43:49 -0700
-Message-Id: <20260805044349.3474498-1-matthew.brost@intel.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0589910E14C
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 04:57:09 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E1306600B1;
+ Wed,  5 Aug 2026 04:57:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EA521F000E9;
+ Wed,  5 Aug 2026 04:57:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785905828;
+ bh=v5n4PPdgPhb9MrvJhJbvNiwkub12R8p6AAChuWEWOd8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=bCFTf1JAYi+GUBTNgnFMBrFNy+u8vuhUd+t/a5cQIIQ/Jum7UPtzgAE2Xs4kbbEC/
+ i1GglMqe33kVVlir5C2KhL0W6Cgs6bUslJj1vrgYDWoDIrzT+C0wfKjaC8g8azlYK0
+ woNIIcIh0O4HNRhkCEjOyNOAl2zke0evnILYbAS6/EmsF8t9gCIZF06phagofvJ/Gk
+ t2KAv2jOfQ6yX9JX1o9uOdrIM2yWA8WgPuv7OdKqGPo1dhOE0Ku+bRabMy/I+b5Awn
+ PWEUaR9qVi17eaDnpLz6OMnhbYfHcW1LaPBYo8iUwOWNwduP4lkGGjNC3S2ep+FL/J
+ Om4XMv4vM5IUA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/pagemap: Fix folio allocation fallback and
+ use-after-put
+To: "Matthew Brost" <matthew.brost@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260805044349.3474498-1-matthew.brost@intel.com>
+References: <20260805044349.3474498-1-matthew.brost@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 04:57:07 +0000
+Message-Id: <20260805045708.6EA521F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,91 +53,91 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_pagemap_migrate_populate_ram_pfn() had two issues when populating
-RAM PFNs with higher-order folios:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] The order-0 allocation fallback loop causes a heap buffer over=
+flow and memory leaks when migrating a partial THP or when some subpages la=
+ck the MIGRATE_PFN_MIGRATE flag.
+--
 
-1. The higher-order vma_alloc_folio()/folio_alloc() calls did not pass
-   __GFP_NOWARN, so a THP allocation failure under memory pressure
-   would spam the kernel log, and there was no fallback path despite a
-   TODO comment stating one was needed. Add __GFP_NOWARN to the
-   higher-order allocation and, on failure, fall back to order-0
-   allocations for the entire range originally covered by the failed
-   higher-order allocation, leaving MIGRATE_PFN_COMPOUND unset for
-   those PFNs.
+--- Patch [1]: [PATCH] drm/pagemap: Fix folio allocation fallback and use-a=
+fter-put ---
+commit 0e0b48c51914bc3498ff387aa623528489adafed
+Author: Matthew Brost <matthew.brost@intel.com>
 
-2. In the free_pages error path, order was computed via
-   folio_order(page_folio(page)) *after* put_page(page) had already
-   dropped the reference, resulting in a use-after-free/put when that
-   was the last reference on the page. Compute order before releasing
-   the page.
+drm/pagemap: Fix folio allocation fallback and use-after-put
 
-Fixes: ddeda6136038 ("drm/pagemap: Allocate folios when possible")
+This commit fixes a missing __GFP_NOWARN in higher-order folio allocations
+and implements a fallback to order-0 allocations when THP allocation fails.
+It also fixes a use-after-free issue where folio_order() was called after
+dropping the page reference.
+
 Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-sonnet-5
-Signed-off-by: Matthew Brost <matthew.brost@intel.com>
----
- drivers/gpu/drm/drm_pagemap.c | 33 ++++++++++++++++++++++++++++-----
- 1 file changed, 28 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 892b325fa99b..fb939fda80e8 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -891,11 +891,34 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 
- 		order = folio_order(page_folio(src_page));
- 
--		/* TODO: Support fallback to single pages if THP allocation fails */
- 		if (vas)
--			folio = vma_alloc_folio(GFP_HIGHUSER, order, vas, addr);
-+			folio = vma_alloc_folio(GFP_HIGHUSER | __GFP_NOWARN, order, vas, addr);
- 		else
--			folio = folio_alloc(GFP_HIGHUSER, order);
-+			folio = folio_alloc(GFP_HIGHUSER | __GFP_NOWARN, order);
-+
-+		if (!folio && order) {
-+			/*
-+			 * Higher-order allocation failed, fall back to
-+			 * order-0 allocations for the entire range covered
-+			 * by the original higher-order allocation, without
-+			 * setting MIGRATE_PFN_COMPOUND, until we move past
-+			 * that range.
-+			 */
-+			unsigned long nr = NR_PAGES(order);
-+			unsigned long j;
-+
-+			for (j = 0; j < nr; j++, i++, addr += PAGE_SIZE) {
-+				folio = vas ?
-+					vma_alloc_folio(GFP_HIGHUSER, 0, vas, addr) :
-+					folio_alloc(GFP_HIGHUSER, 0);
-+				if (!folio)
-+					goto free_pages;
-+
-+				page = folio_page(folio, 0);
-+				mpfn[i] = migrate_pfn(page_to_pfn(page));
-+			}
-+			continue;
-+		}
- 
- 		if (!folio)
- 			goto free_pages;
-@@ -940,11 +963,11 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 		if (!page)
- 			goto next_put;
- 
-+		order = folio_order(page_folio(page));
-+
- 		put_page(page);
- 		mpfn[i] = 0;
- 
--		order = folio_order(page_folio(page));
--
- next_put:
- 		i += NR_PAGES(order);
- 	}
--- 
-2.34.1
+> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+> index 15c78eca180b7..407c7546e168a 100644
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+[ ... ]
+> @@ -886,11 +886,34 @@ static int drm_pagemap_migrate_populate_ram_pfn(str=
+uct vm_area_struct *vas,
+> =20
+>  		order =3D folio_order(page_folio(src_page));
+> =20
+> -		/* TODO: Support fallback to single pages if THP allocation fails */
+>  		if (vas)
+> -			folio =3D vma_alloc_folio(GFP_HIGHUSER, order, vas, addr);
+> +			folio =3D vma_alloc_folio(GFP_HIGHUSER | __GFP_NOWARN, order, vas, ad=
+dr);
+>  		else
+> -			folio =3D folio_alloc(GFP_HIGHUSER, order);
+> +			folio =3D folio_alloc(GFP_HIGHUSER | __GFP_NOWARN, order);
+> +
+> +		if (!folio && order) {
+> +			/*
+> +			 * Higher-order allocation failed, fall back to
+> +			 * order-0 allocations for the entire range covered
+> +			 * by the original higher-order allocation, without
+> +			 * setting MIGRATE_PFN_COMPOUND, until we move past
+> +			 * that range.
+> +			 */
+> +			unsigned long nr =3D NR_PAGES(order);
+> +			unsigned long j;
+> +
+> +			for (j =3D 0; j < nr; j++, i++, addr +=3D PAGE_SIZE) {
+> +				folio =3D vas ?
+> +					vma_alloc_folio(GFP_HIGHUSER, 0, vas, addr) :
+> +					folio_alloc(GFP_HIGHUSER, 0);
+> +				if (!folio)
+> +					goto free_pages;
+> +
+> +				page =3D folio_page(folio, 0);
+> +				mpfn[i] =3D migrate_pfn(page_to_pfn(page));
 
+[Severity: Critical]
+Can this fallback loop write past the end of the mpfn array?
+
+If the migration request only covers a partial THP, or if we are near the
+end of the npages limit, nr could be larger than the remaining entries=20
+(npages - i). Since this loop unconditionally increments i and writes to=20
+mpfn[i] nr times, it appears it could cause a heap buffer overflow.
+
+Additionally, this loop doesn't check if the subpages have the
+MIGRATE_PFN_MIGRATE flag set in src_mpfn. Can this cause memory leaks if we
+allocate and assign order-0 folios for subpages that weren't actually
+requested for migration and thus might not be cleaned up later?
+
+> +			}
+> +			continue;
+> +		}
+> =20
+>  		if (!folio)
+>  			goto free_pages;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805044349.3474=
+498-1-matthew.brost@intel.com?part=3D1
