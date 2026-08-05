@@ -4,85 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6671CC55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 15:51:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22885C55ABA
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 16:11:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C19DB10E1B6;
-	Wed,  5 Aug 2026 15:51:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77FB010E1EF;
+	Wed,  5 Aug 2026 16:11:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DXosc+ss";
+	dkim=pass (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="VB8njpiI";
 	dkim-atps=neutral
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5BF6610E1B6
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 15:51:25 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4957952e0f8so915285e9.2
- for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 08:51:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785945084; x=1786549884; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=aqxi35qz8X0Jeybg10HKbsHNV5CZpS0quNYjwJCSOIM=;
- b=DXosc+ssdIMuhZAlMUUSESEMH6d1tFIV0ML4pukyRtJAj3PxnJkhAI+58gQ6qe3QHW
- Vyzeen3Cu2CNEyGVR42kfsVwspV+mbRYLuKNMdvYG4YDWr6d5gKhhM64aKM7GKKQ866F
- 778RWab1hmu/KpWTxyC5TLV+Lvd+lOEB2VqWyTEeAzfSGP60ZYBNhgKIY9KJJ7r0c0Tz
- kZ9u06YFZ7ONFejNOc160BY9gIH7MQGBsFH8uH4ZoW+QpnLokaTAyeAd4EzOVqZDdQ4Q
- uWUfZ2RjYQqcDpz4+bZpv1araw7ofjXkEKb/aecs8z9stAJTpt8PgdQ64GK94fMtnsOi
- s7rg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785945084; x=1786549884;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=aqxi35qz8X0Jeybg10HKbsHNV5CZpS0quNYjwJCSOIM=;
- b=jA0SaNa1vxdULCs1JrdooL2rHNeb5DMGhc57yANdm9ibohGTO6QXXQdLxcZJqUNrZK
- 9hu64eIG/ayYpF2mPO6WCZhcjFPa51+tTFOe8uTgPfthvZ8uBQFE1Q3nkaShk6h9z26T
- JRgSxLFtk9+UFuZ7exayb2EnaFMJVSue7U3gC55wj+3GqDGUY51csyxw8wtnxyuMsDHT
- rlDyLW1cOrqvdgo0H3ryvpKXcrJqZMzEGsJI58ASp92jxeF+jnaaFqgQvRM2knWWd0D6
- H75aflCy3bMmUCDXP3BdxQBBHcUS/kWCtCrnKBX1UYVZp9yYuotOLR6OPVIdLWSc6wQh
- jCqg==
-X-Gm-Message-State: AOJu0YzkLdjoc3IY9lk4nHlaSsgUm9GuzhSOa96aoxpUgwOUe/nxFYhL
- qcMWiEzV5u/DelGYxwFHDgvIMAg1yfa1lLwR9lGI0DWeD8ZwgG8uM3PpmA0/ampc
-X-Gm-Gg: AR+sD11LiAAatjWwiDIxNp5dTEgV/ZBOt/MrwgIohi4pderWxNCroCAli4SBOCMURRG
- H4T8R1OIiox1oBDlT+iyF/wAW320NBccP2FnxV6wmSyqohFzpfXv9O6kUqr7Pgo0xrmbT7ozQGO
- Ufdi5ArxNv+HMXE7BE0y7H0prXrw+ESkkd3Q3276WbngV7m4YNt0QQunBer208NLz2iqWMHJtkR
- 6JA0adDOTKxAmzetZM0WTqGXTdtFNyZ3oDOCUYuGmlXsbVUZcrpHwqp90tpex2GgsQ8FZQscXCd
- LtyMLtdGklw8qwBz4slApWr7thJHda+OQSdf5jg/1eb+uHHCFU25rERcY3Eby+iQQVIzJyPbFCo
- JmR5ohxPEPRbVVn+UhLtN1dldlZaIuVXc7RKXOnRgbd+QemPee9G3KuMK7weFdqQX7mhUJ2ZRhc
- K6oMuqxvJO5AAgVIQAbA6G06RCV+Jqg93WgA279yxHyoGF/8yqDtIjXmCrT2otKySl2yAq9a8k9
- 6fHRXp7ZHyKYQ9fVFouAq+1Xlqaez8a+awaS7P1/p5fzcG4B7jW/7D7Jdsxr1RBvwj9
-X-Received: by 2002:a05:600c:1550:b0:493:ad11:6d5c with SMTP id
- 5b1f17b1804b1-4994e7cf0dcmr48652415e9.4.1785945079009; 
- Wed, 05 Aug 2026 08:51:19 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B86F10001BE789C6EE938EE.dsl.pool.telekom.hu.
- [2001:4c4e:1b86:f100:1be:789c:6ee9:38ee])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4994e0356d4sm101820155e9.10.2026.08.05.08.51.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Aug 2026 08:51:18 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com
+ [91.218.175.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C4D5710E1EF
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 16:11:38 +0000 (UTC)
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+ s=key1; t=1785946296;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IHF61EB+SsLoXve1ybclQN2pV+O68FAXJ9PAwn5MdGI=;
+ b=VB8njpiIdX8S+dVd9F0K0socGwbyAzSSnxk/TtuuaxfXVJJ73/jwKb25ifSYmjOztwQC4W
+ cYTZ+6W2Cw7EM/XmuZF4JqRFijKy3MaoKUYmwj6rRln5e1vhjja0YPhEuP5SvevASYa78w
+ Cl79KqbJ1siZKxczOP2XWQ+CQRScGm2jK7OUrTgInd5QVrpH8W85seLnOc6wpuLoUXYARb
+ zE8WZKZUp1PIKD1mthJj5pDaHbOtZXYTqbkzJb5QRLVOiK+pdI1L6VO3ZrvlGNE75VPM8q
+ Gc0q5PijOd98qZXPJgXtGRCO2g4gLgDDhMtXAgOm1STaeYl46Dh5DioK8YM13g==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 05 Aug 2026 18:11:30 +0200
+Message-Id: <DKH54FGH09FO.1UX5AMDXT97BF@cknow-tech.com>
+Cc: <linux-kernel@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>
 Subject: Re: [PATCH v2] drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace
  connector property
-Date: Wed,  5 Aug 2026 17:51:04 +0200
-Message-ID: <20260805155107.11167-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260805154418.8133B1F00A3A@smtp.kernel.org>
-References: <20260805154418.8133B1F00A3A@smtp.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Igor Paunovic" <royalnet026@gmail.com>, "Sandy Huang"
+ <hjc@rock-chips.com>, =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ "Andy Yan" <andy.yan@rock-chips.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Cristian
+ Ciocaltea" <cristian.ciocaltea@collabora.com>
+References: <20260805153416.8459-1-royalnet026@gmail.com>
+In-Reply-To: <20260805153416.8459-1-royalnet026@gmail.com>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,27 +66,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+On Wed Aug 5, 2026 at 5:33 PM CEST, Igor Paunovic wrote:
+> The RK3588 HDMI QP output never exposes the "Colorspace" connector
+> property, so userspace has no way to request BT.2020 colorimetry.
+>
+> Everything needed to signal it is already in place. The connector comes
+> from drm_bridge_connector_init(), which calls drmm_connector_hdmi_init()
+> and attaches "max bpc", "HDR_OUTPUT_METADATA" and the output color
+> format, and the HDMI state helper feeds conn_state->colorspace into the
+> AVI infoframe colorimetry bits via hdmi_generate_avi_infoframe() and
+> drm_hdmi_avi_infoframe_colorimetry(). dw-hdmi-qp then emits the
+> infoframe through its hdmi_write_avi_infoframe hook. Only the property
+> itself is missing, so conn_state->colorspace stays at its default and
+> the AVI infoframe always reports "no colorimetry data".
+>
+> The user-visible effect is that HDR is unavailable on every RK3588 HDMI
+> output. KWin (Plasma 6.x) requires "Colorspace" alongside
+> "HDR_OUTPUT_METADATA" and "max bpc" before it treats an output as
+> wide-gamut capable, so it never offers the HDR toggle.
+>
+> Create and attach the property right after the bridge connector is
+> initialised, as vc4_hdmi already does. Passing 0 to
+> drm_mode_create_hdmi_colorspace_property() selects the full HDMI
+> colorspace set defined by the core.
+>
+> Tested on an Orange Pi 5 Plus driving a Samsung Odyssey G70B: KWin now
+> offers the HDR toggle, the connector property switches to BT2020_RGB
+> once HDR is enabled, and the output runs 4K@144 at 10 bpc.
+>
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> ---
+> Changes in v2:
+> - Regenerated with git format-patch. v1 was a hand-assembled diff: it
+>   carried no "diff --git" header, no diffstat, and no function context on
+>   the @@ hunk header. That is the most likely reason it never showed up i=
+n
+>   patchwork and got no review in three weeks.
+> - Rebased onto drm-misc-next (97c03b32b28a), the right tree for this
+>   change. The hunk is unchanged apart from its new offset and the functio=
+n
+>   context that format-patch adds.
+> - Reworded the commit message to lead with the user-visible effect and to
+>   name the exact core path that consumes conn_state->colorspace.
+> - Trimmed the in-code comment to a single line; the reasoning now lives i=
+n
+>   the commit message instead. No functional change from v1: the two API
+>   calls and their placement are the same.
+> - An automated review of v1 flagged that returning an error from
+>   dw_hdmi_qp_rockchip_bind() leaves hdmi->hpd_work queued. That gap
+>   pre-dates this patch and is shared by every existing error path in
+>   bind() (drmm_encoder_init(), dw_hdmi_qp_bind(),
+>   drm_bridge_connector_init()), since cancel_delayed_work_sync() runs onl=
+y
+>   in dw_hdmi_qp_rockchip_unbind(), which the component framework does not
+>   call for a failed bind(). It is already being addressed in the HDMI 2.0
+>   series below ("Cancel pending HPD work on suspend", 30/69, and "Control
+>   the HPD IRQ line via the bridge HPD ops", 37/69), so this patch adds
+>   nothing for it.
+>
+> v1: https://lore.kernel.org/all/20260714202850.40999-1-royalnet026@gmail.=
+com/
+> HDMI 2.0 series: https://lore.kernel.org/all/20260731-dw-hdmi-qp-scramb-v=
+10-0-294364b2cf15@collabora.com/
 
-Thank you for the review.
+Explicitly adding the author of that patch set into the loop.
 
-The lifetime mismatch is real and worth spelling out precisely: hdmi is
-allocated with drmm_kzalloc() against the DRM device, while the HPD
-interrupt is registered with devm_request_threaded_irq() against the
-component's platform device, with hdmi as the cookie and IRQF_SHARED
-set. The bind error paths that follow the IRQ registration predate this
-patch: encoder init, dw_hdmi_qp_bind() and drm_bridge_connector_init()
-can all return with the handler still registered. This patch adds one
-more such return, which can only trigger if the property allocation
-fails under memory pressure.
+Cheers,
+  Diederik
 
-So the issue is pre-existing, correctly flagged as such, and this change
-does not alter the exposure in any practical way. The clean fix looks
-orthogonal to this patch: register the IRQ with plain
-request_threaded_irq() and tie its release to the DRM device with
-drmm_add_action_or_reset(), so the handler cannot outlive the structure
-it dereferences. Happy to send that as a separate follow-up if the
-maintainers think it is worth doing.
+>  drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu=
+/drm/rockchip/dw_hdmi_qp-rockchip.c
+> index 9c4cf68d79d5..35d04680d011 100644
+> --- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+> @@ -695,6 +695,13 @@ static int dw_hdmi_qp_rockchip_bind(struct device *d=
+ev, struct device *master,
+>  		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
+>  				     "Failed to init bridge connector\n");
+> =20
+> +	/* Passing 0 selects the full HDMI colorspace set defined by the core. =
+*/
+> +	ret =3D drm_mode_create_hdmi_colorspace_property(connector, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm_connector_attach_colorspace_property(connector);
+> +
+>  	return 0;
+>  }
+> =20
+>
+> base-commit: 97c03b32b28a9f7f13f768f2b06e1eaafe850e66
 
-Thanks,
-Igor
