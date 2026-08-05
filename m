@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48640C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 05:49:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 57FF2C55822
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 05:51:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F22710ECDB;
-	Wed,  5 Aug 2026 05:49:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85D3810ECC8;
+	Wed,  5 Aug 2026 05:51:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="I992aXxV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PSUN4mJQ";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E6BF10ECC8
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 05:49:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5907A10ECC8
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 05:51:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 4E76D600B1;
- Wed,  5 Aug 2026 05:49:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B55641F000E9;
- Wed,  5 Aug 2026 05:49:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9FFFC600B1;
+ Wed,  5 Aug 2026 05:51:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12BE31F000E9;
+ Wed,  5 Aug 2026 05:51:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785908967;
- bh=LujJQMUYrLsR40SlL6MQwegZqPRmljBFTFIr4QNHedo=;
+ s=k20260515; t=1785909075;
+ bh=yBeAjYBbUgXecUns1vOoIgVhTHmIOm7k45twEZthb7s=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=I992aXxV7e0K7pu+SINovy3HTndDATVGa+XNGsJ6Ogy4R5RBmvThNrlN0Eb1MD9LI
- xzDt3bk4y/C+rR2xJHeRANYoNiG8FiDKWma/Al1NtKURDGR/Uil3la+FFZG4OO7PLK
- MOGv3hTtJp6uNjymqDnDeFgXD149RA0v04vR6YJ8xJwXJ6ew+UeGs1di9sxtzs3577
- 60qO7FewtosXE8Lvn3C0M1qDyfuKoCr5adB5U01ijD5xBzlUMutndQ+pqlghhH/Twp
- 0CTCWwek2ka2l7y0hLhAV9O3aDDr85x1biTR9joq71z2VtEKVE5SDHGNy+qFECRLb/
- wP/KuEv5RxB2Q==
+ b=PSUN4mJQGyFDCaSjUfEri/KC4O0ctvjKmDP8rqab1W+WN1u1j+wPbWmyfzdXq1QUJ
+ iF6Nl/3a14yLYQhGKhpVFAzXvDuffCakI1S0zkxs3JlCoSOvWrAEPlcMsMy9tmvryI
+ 6+sBBhbLvbG8ZUPvGyrywJc6sLylEnqwXvroGLZqBg37wmfbwnroyh6I57Y5I4bg17
+ naG9DJDE5VvWhcna6HZ6iZzPwGny0CQbkd+2Wn+LeJ7beTNHL/xYilEG4X0j3tss9i
+ Ag4pG4qid0I7ZyFZ0FR0xCsvD9HPrRZL8E6Oa+ORzQhh5SUAoQrKxlqTBGbRS1MDfG
+ 6KNca7rnE/AEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 04/12] gpu: nova-core: mm: Add VramAddress type
+Subject: Re: [PATCH 03/12] rust: num: add Bounded::shr_exact
 To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>
-In-Reply-To: <20260805-pramin-split-v1-4-ff3e84a75dac@nvidia.com>
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, ojeda@kernel.org, "Danilo
+ Krummrich" <dakr@kernel.org>, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260805-pramin-split-v1-3-ff3e84a75dac@nvidia.com>
 References: <20260805-pramin-split-v1-0-ff3e84a75dac@nvidia.com>
- <20260805-pramin-split-v1-4-ff3e84a75dac@nvidia.com>
+ <20260805-pramin-split-v1-3-ff3e84a75dac@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 05:49:26 +0000
-Message-Id: <20260805054926.B55641F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 05:51:14 +0000
+Message-Id: <20260805055115.12BE31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,46 +60,48 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Nested import groups are used instead of the kernel vertical import=
- style.
+- [Low] The small abstraction function `shr_exact` is missing the `#[inline=
+]` attribute.
 --
 
---- Patch [4]: [PATCH 04/12] gpu: nova-core: mm: Add VramAddress type ---
-commit c94d87cb8d48e350527f7f52cc4f004c23fd4d17
-Author: Joel Fernandes <joelagnelf@nvidia.com>
+--- Patch [3]: [PATCH 03/12] rust: num: add Bounded::shr_exact ---
+commit fe8d74a80e41351c792119ee859ab7990c063f88
+Author: Eliot Courtney <ecourtney@nvidia.com>
 
-gpu: nova-core: mm: Add VramAddress type
+rust: num: add Bounded::shr_exact
 
-This commit adds the VramAddress type to represent a physical address in
-VRAM. It also includes arithmetic helpers, comparisons, and operator
-overloads required for address arithmetic.
+This commit adds shr_exact to shift a bounded value right only if it loses
+no set bits. This is useful for getting a shifted down integer while
+simultaneously checking that it is aligned.
 
-> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
-> new file mode 100644
-> index 0000000000000..dcd5e5e919bf2
-> --- /dev/null
-> +++ b/drivers/gpu/nova-core/mm.rs
-> @@ -0,0 +1,60 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +// SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION & AFFIL=
-IATES. All rights reserved.
-> +
-> +//! Memory management subsystems.
-> +
-> +#![expect(dead_code)]
-> +
-> +use core::{
-> +    fmt::LowerHex,
-> +    ops, //
-> +};
+> diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
+> index f263107f001ed..2695a7858d8ad 100644
+> --- a/rust/kernel/num/bounded.rs
+> +++ b/rust/kernel/num/bounded.rs
+[ ... ]
+> +    /// // A set bit would be shifted out.
+> +    /// let v =3D Bounded::<u32, 16>::new::<0xff01>();
+> +    /// let v_shifted: Option<Bounded<u32, 8>> =3D v.shr_exact::<8, _>();
+> +    ///
+> +    /// assert!(v_shifted.is_none());
+> +    /// ```
+> +    pub fn shr_exact<const SHIFT: u32, const RES: u32>(self) -> Option<B=
+ounded<T, RES>> {
 
 [Severity: Low]
-This isn't a bug, but does this follow the kernel vertical import style?=20
-According to the Rust coding guidelines, imports should be organized=20
-vertically rather than using nested import groups.
+This isn't a bug, but should this small abstraction function be annotated
+with #[inline]? According to the Rust subsystem coding guidelines, functions
+that are small or forwarding to a binding call should be annotated with
+#[inline].
 
-[ ... ]
+> +        let shifted =3D self.shr::<SHIFT, RES>();
+> +        if shifted.get() << SHIFT =3D=3D self.0 {
+> +            Some(shifted)
+> +        } else {
+> +            None
+> +        }
+> +    }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-pramin-spl=
-it-v1-0-ff3e84a75dac@nvidia.com?part=3D4
+it-v1-0-ff3e84a75dac@nvidia.com?part=3D3
