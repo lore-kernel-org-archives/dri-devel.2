@@ -4,45 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE41AC55182
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:46:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82A7AC55182
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:47:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E2B710ED4E;
-	Wed,  5 Aug 2026 07:46:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E82F310ED53;
+	Wed,  5 Aug 2026 07:47:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YNtUE0ag";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="1sy7+/Aj";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12DA510ED4E
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 07:46:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 27EAA600AE;
- Wed,  5 Aug 2026 07:46:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AD9B1F000E9;
- Wed,  5 Aug 2026 07:46:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785916012;
- bh=+K6TBh7eYfJ+ivUoJFixxZ48g2ahOZ8ykarz2J6sKqk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YNtUE0agrw025/Bsx330kLK59dvAXIUwrxyANCmUcrazEKsMrdVudcEP6ihrDKCIh
- ohKYjxZJw+pC1+CwWe8TkV+bBI6eQhLALytY7R7dFtUREy6urOHTRQ7Ir/rWtOWenV
- Fsiy3NDxcRe3Z5jKtQ277ey8GdFE0q0Uo1xbThv8wN2f4zuVRI+fHsBfcMv2zO46i+
- fX2ebMy9r2O29D4+8eonyDusuBuZERN4aciVKdRkqFt8+qT7+ukT0yFFIsjsRaK/r8
- waUE+kO+uAR7QjCfA6w46Gv7QiTIut0aBz9w1YpEkpNk32DqPlCr10hGTKxd57jTq1
- K45C027p8vMNg==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v5 v5 7/8] arm64: dts: rockchip: rk3576: add NPU
- (RKNN) nodes
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260805063826.95682-8-gahing@gahingwoo.com>
-References: <20260805063826.95682-1-gahing@gahingwoo.com>
- <20260805063826.95682-8-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 07:46:51 +0000
-Message-Id: <20260805074652.7AD9B1F000E9@smtp.kernel.org>
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9083110ED53
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 07:47:07 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id E1D0E1A13B9;
+ Wed,  5 Aug 2026 07:47:05 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9E278602AB;
+ Wed,  5 Aug 2026 07:47:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 8D4EA11C3430D; 
+ Wed,  5 Aug 2026 09:46:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1785916020; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=4/j8xH3wRPgHkMdxqEYEc/1jozPJiWxNH8edxlIgasU=;
+ b=1sy7+/AjanhCZ60M5+Rky55YxHDCX9h9e6e54zDljzRNaiF1njOxKblXhHtwTAPMtcIImm
+ JgP1KH6B1ehAfvw2uFDITwQZENWK6O1qOjdOQ22JHFqo/xOhhvifsZmvCxOQKLRIhY2B2w
+ 88+NCqnfbTfua09y5BtWUSsn2r5bSoJwZ1+SCsf534UFvLfv9xfqRz6ck7vklVoP7Z3NGz
+ wz6JIeCh1Rb1suocddvQXPCCKNiv05x70dMy3X4nfRbEmhHzCpk5ZCvvudW0dgp5vDYkyQ
+ E1HXdu6mnAhHM46fthXdAGlFm+Fncmc78FxoUT2Plz/wCiomwMzwtRm+nGcgRg==
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 1/3] drm/bridge: ti-sn65dsi83: Propagate error in
+ sn65dsi83_reset_pipe()
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Herve Codina <herve.codina@bootlin.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Linus Walleij <linusw@kernel.org>, 
+ Frieder Schrempf <frieder.schrempf@kontron.de>, Marek Vasut <marex@denx.de>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
+References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
+ <20260803-ti-sn65dsi83-fixes-v3-1-9b403a405ccd@geanix.com>
+Date: Wed, 05 Aug 2026 09:46:47 +0200
+Message-Id: <178591600766.274551.9164227801232973400.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,73 +71,29 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The device tree nodes are padded with fake power-domain dependen=
-cies to bypass the Linux driver core's single-domain auto-attach mechanism.
---
+On Mon, 03 Aug 2026 16:57:03 +0200, Esben Haabendal <esben@geanix.com> wrote:
 
---- Patch [7]: [RFC PATCH v5 v5 7/8] arm64: dts: rockchip: rk3576: add NPU =
-(RKNN) nodes ---
-commit 2901ef2a9f2683429a8cc97e3be5786a1b6b21b5
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+Hi Esben,
 
-arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+> Propagate the error code from drm_bridge_helper_reset_crtc(), so that
+> callers has a chance to handle the failure.
+> 
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
 
-Add the two RKNN cores and their IOMMUs for the rk3576. Both cores are
-disabled by default, and boards can enable what they wire up. The NPU
-power-domain resets are also added.
+Thanks for the improved patches!
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/d=
-ts/rockchip/rk3576.dtsi
-> --- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-[ ... ]
-> @@ -1832,6 +1840,74 @@ qos_npu_m1ro: qos@27f22100 {
-[ ... ]
-> +		rknn_core_0: npu@27700000 {
-> +			compatible =3D "rockchip,rk3576-rknn-core";
-[ ... ]
-> +			resets =3D <&cru SRST_A_RKNN0>;
-> +			reset-names =3D "srst_a";
-> +			power-domains =3D <&power RK3576_PD_NPU0>, <&power RK3576_PD_NPU1>;
+Patches 1-2 look like big fixes, so they need a Fixes tag along with 'Cc:
+stable'.
 
-[Severity: Medium]
-Are these power domains accurately describing the hardware topology, or are=
- they
-encoding a software workaround?=20
+Other than that they look OK to me.
 
-The commit message mentions that listing both domains prevents the driver c=
-ore
-from auto-attaching a single domain. Device trees should accurately describ=
-e the
-hardware instead of encoding software workarounds to bypass driver core beh=
-avior.
+Luca
 
-[ ... ]
-> +		rknn_core_1: npu@27708000 {
-> +			compatible =3D "rockchip,rk3576-rknn-core";
-[ ... ]
-> +			resets =3D <&cru SRST_A_RKNN1>;
-> +			reset-names =3D "srst_a";
-> +			power-domains =3D <&power RK3576_PD_NPU1>, <&power RK3576_PD_NPU0>;
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-[Severity: Medium]
-Will padding the power-domains list with RK3576_PD_NPU0 on rknn_core_1 cause
-unintended side effects?
-
-Since this artificially inflates the power-domain count to bypass the OS
-auto-attach mechanism, it appears it will cause the system to unnecessarily
-power on NPU0 when only Core 1 is active, wasting energy.
-
-> +			iommus =3D <&rknn_mmu_1>;
-> +			status =3D "disabled";
-> +		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805063826.9568=
-2-1-gahing@gahingwoo.com?part=3D7
