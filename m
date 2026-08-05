@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86D82C55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 16:37:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C456C56203
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 16:37:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A276610EF45;
-	Wed,  5 Aug 2026 16:37:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4721B10EF49;
+	Wed,  5 Aug 2026 16:37:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="KN1BBCwQ";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Ky3d2OFC";
 	dkim-atps=neutral
 Received: from CWXP265CU009.outbound.protection.outlook.com
  (mail-ukwestazon11021089.outbound.protection.outlook.com [52.101.100.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1E7FF10EF36
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 16:37:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C0F6010EF36
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 16:37:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ce5EQEQg1hp7S4kIrkEa+n0jVVQa+ZFKIvF3KpfTf/C6iLkdmF1I+Tv2RMs0L9PE+KXS8Yh6vUxfLHY8NSXE5/hBIIE4jqUTsphSHK4oK2IhlAU0JHhvJij10GEbADSn5WK1xxb46bZc4QLIuhqFPohtOXZaulRitQWUV8saUs2YL25JWgBxpgyJ14XxIxSpRKInTnTQgW4nrszNEVQekdj5SI7IgEwvAlE27Sk4Ihwy7aXB4vIpOvZu5UTs107mYlhmmsCmk1Xtno8Km3pfchJ0gTo6mZD97vgcT8TAF+3sNc09jLd28PzGhNZREB9F6gPPhyNP15LAJjQhPCNO7g==
+ b=VuOvIRIjTJBwFK/HU3Qi+KD5TUK/KBudxFQHiuiF+Ckx347d+scyhno1TGGzT7588lf191uGzcU/aqzo27M/6j3a9TtZxXZlI/LUUt+TE3cCgYKkrNnQwYaRqaN6MGPxaaJxOGw2+3O9f9UCtdVP6THUQvlNOUI4ihvdSCr20REaZVanizGUiTtA6e3s8Wezr7lJNQDaoch+8uuFroaeBm3pZt76yfzntbHcyUc66Odw2R1oJYrt9n+qmg9xLc3cgfrnMVngIMp0zWBPV6DGia8ycwii+eCPa2sbOJEubl38QCGcFpRVMB/8FkZwJQ3veAxSA5tPgO15YrMRyXgHYQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0+mMMys6gZ0hWRf/p1uTd+IXfQwdHaQOVVcCl5maNyI=;
- b=X/B+BwN/msuHJ92ziu3lx7ptqG9agNW/5Va5fbw17qkn/Ui49Tn6GIY1NB+cgcpqjOz6uLURNibkLoYRwOUF1hoIGxOWi86zlN547iVwJV6H33l23OyOPZgdWGK69laoH9CpXZtyo2bayQtE/aGHYWKZjAkJ6klOa+Eb73m8LDYkjdWH4SIUaZmxet7MgFEBQYvhRz1uBmU+s9xMSyylpWPA8RC64JyRSpglQcS3fMJ2EKc4YFhJIlkH+YX98j4JXniU6hzDOEQm3xRm7lKF1obGP1XLXrkQ8AbpiRV5+mjAG225PmKqKmFfAefZgYMKc9Zs+TF3ATc8FJTSRZd/kA==
+ bh=A4zGmAeiy+AGAGCbR+jYSkIZifHZDji7ckyLq5/X0sg=;
+ b=Vb8+vBcIQlXhYacjHODOYqmMJXGd7C3L+G867NIiBws9WQ6nz37kwzrpX6EBsWCkFYDAK9eyIhVnnHAuMOsD/ckxj5KPgP3prmdC70RiW4r0miZ8ERQ7E+lhAmO+jpJiZTYh+k/Cbz4FE0e5ZgAJ5JxHgDEQRM2Zfx1mqpbgYbrojze9aOlm99XmxhWRe1rtDimz+UNAteKO9lxsVOfcPCFcEEQqfAVsOcCSFh9XHldYQ6ig4SbDdIDf8bFv15dQY9/+uTLSqeRYv27TxYcLV7eDZqyOKy4FCSt29RSpGCOrBB3Cx04mgWOchzv97CasCJVnISS/RCeKDUvaBz1HRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0+mMMys6gZ0hWRf/p1uTd+IXfQwdHaQOVVcCl5maNyI=;
- b=KN1BBCwQB2EcaDzGoaWRIXkazuO2dPkRKVDwTLQmfrljzMTVmXRP8fvfwGp5E0ghibFT3mm9REvHptAqwKCtSu+RNAtb78MBzLZQGsXPP5UFOaNy31eCr9Jf/x157SBlSvL0Tka8e/EImacni+tb3a21qgu9lnrH8lWj4LTJ250=
+ bh=A4zGmAeiy+AGAGCbR+jYSkIZifHZDji7ckyLq5/X0sg=;
+ b=Ky3d2OFCwkEE2Fy9rxPIS9zq938HmN3YvyLZ5NW/uF3Jixw15ALUTQJIc5BNTS5btASdiWYzZHWUOyvW1GALsBLyZc1lId9+iV6ghU7kALa/VCi2sJDScwsGWuKMHeQeX1eXxm0PhJY79nB+RXMRt5KfNVTPBMKQyCr6ExN2DF4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
  by CWLP265MB3412.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:ea::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 16:37:10 +0000
+ 2026 16:37:09 +0000
 Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
  ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
  ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
- 16:37:10 +0000
+ 16:37:09 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Wed, 05 Aug 2026 17:35:59 +0100
-Subject: [PATCH v2 16/16] rust: io: register: unify handling of register
- with/without bitfields
+Date: Wed, 05 Aug 2026 17:35:58 +0100
+Subject: [PATCH v2 15/16] rust: io: register: remove `Register` trait and
+ cleanup macro
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-typed_register-v2-16-c3ca142220a0@garyguo.net>
+Message-Id: <20260805-typed_register-v2-15-c3ca142220a0@garyguo.net>
 References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
 In-Reply-To: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -67,11 +67,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785947819; l=7043;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785947819; l=6756;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=F10t3MNtS+cJHSoHP7GCekos+uPBPiDEMXkwyvWHJn0=;
- b=ED8CUudU9cl/ZAzgaLBKwqYH1wjmloWAcCEveY/y0I/6BYxaB9J6PZQ9sttXFtEtzOJwqn19Z
- eHA/fuygZSRDVPPOf08aBrlOQacrHnPhvRzjHdXxDqJNwuLc32n0z9n
+ bh=p13WzdC2A1rGj72lh5bQ22cWnQWa7BH0yxfz654p6CE=;
+ b=7Hu54Crzl8xfpC5zmFQa9DbbgK9ENlBAsnKYZdeSYa1tRYDnc+Pb9v/V9Bg2ntDD/Jp9iEsvs
+ 3H+t30CpGo1C24ryXiz2wXAfgglUG8W1ONulQb2ST8AAS/curZmYsLo
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0608.GBRP123.PROD.OUTLOOK.COM
@@ -80,65 +80,65 @@ X-ClientProxiedBy: LO4P123CA0608.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|CWLP265MB3412:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5ee376b-4354-4fba-ed76-08def30fcb98
+X-MS-Office365-Filtering-Correlation-Id: b05c025c-776b-49c3-107e-08def30fcb3b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|10070799003|1800799024|7416014|23010399003|376014|22082099003|18002099003|56012099006|3023799007|10067099003|921020;
-X-Microsoft-Antispam-Message-Info: bOyBZ+KjyXyTBYrhSWLQ/3Jh+UKoP1qX/xuWAK+7ryPaEgbZk814Hbd2yyLfHgio19PHRZelFnG0yVd3Z++mnDj4hNT7qbCouT0m1yQXwzMPo5y7KKoDjS1eUf3EnKNnvF+OiU0+u5dhZ1srilVPrudk/P7J+GXHaGgubQP9ajjsmVANhYBrZ409j8JIUTaj4K6Jq+BEB6k5fZ3h5dyBT+9b6Le1V7YMyyzMoJ95U0c4A/5Ts5jAxzOyqIPHtZug8WZiSSKLXklFFe/NVxaWgH/GxyFGxkpUGlJ75Z117R1m6qBY2/D1NfPmRb8JRTvYyvaoyGsS+XbbXLan/en49gfw3zIo6iljK6kLckOJFelv2F1vBr6M8La6SA0n0GUum1X4qP34wy4CcYjnmRGBVaM37myRUSgu86QoE+AKLnGdQ6xqc3UCa/Epg5ncp7GVJrbUfcnZBjqqefElkSAncgWZ444DFs+ZsIEx6lEzLDvf5azhrFof3R3RvlRmYxW23tmdVavVh0UeLSV9fvjy6n84mPf2DWLbdZ2S4vzfCQFBJQhuLd4fIilUdYyWCLZWk6zEToYejG61Xd23Rnj5SmN/SrscTpYq6Rt/8DquUzrM55c/T11yN1bFWcZWIXAPG7tEp1WOryH/cJJDVEZVyMHr/913awGCpcqCthZAWZwvqiaZj5VqLaBduwlv2tbGIEQxvcpq0Hg0S/0uf8VAcQ==
+ ARA:13230040|366016|10070799003|1800799024|7416014|23010399003|376014|22082099003|18002099003|56012099006|10067099003|921020;
+X-Microsoft-Antispam-Message-Info: dkuQ0dMXuwLbkpkfVpDwGn3+ZQVhw5cKeD5eeKfAqjSkzagtgCjj0AskVDf4KkEIkpHlpaV8Y3N+CKxfL42JtPp9lvaNnqzGLIFOj73t9EhX1jAwDUk6lO0Vck90FxIiZo4e9MbyWbTbRk63LWY3jfVHn+8VV26LWdHGcvD6jlF6z/ceLMVGI7jIiB8T9dkjxh/w9K5sDS6oMOwOUJUcclmSW62BSTNj7U5g+/MUUBxtd+V8NKFi/Lne0LBK0LrCRmTnB86MhNIerf+HNn5Ym+SgexzR748voY1N0KwW4EvKadYwG/beZXTp9qV4KQgBpeMTM4RDQfKccnXRdn1LQ46aZpimQTp7TTqZIooj+WlhS7v/g0ugJLJQn3iKLz9wq5uBg0iDdugApGhcFNHIRJ1EMR4khyOEPkljZW97Z7/B+oNI68c82pAqz5vVCf5XyXss5BhwI7q7CxleTgflqpxzRc40UcDZMFRagTwM8E/8Br/1iFVfkSHI5xD/74qzmi+ZkntvRCgME2AmDkKVnfM+iDu6C2n/LgC74nJcw60F/MgUpXbXz2fxSS/EALEk4Gx4HVQl4V+E+91cmBLs8+bMPwuhvg/fe7A0Xdbwrz7pPf7rXLhNcWqm3WGVj7l5S9DRXxrkQ7Mae3q2ryW31BpW+mBhXA8ysSnpIUfkRDs/qR43PBlkRcoZConw1GD0lezVuZFdq7SKRx9ZOSX99Q==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(3023799007)(10067099003)(921020);
+ SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(10067099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QW5PQXc3WVlZbVNKZHVhMWR1amh5MzVFNHd5bSsvNjdxNU5RQW1kcEgvNWg2?=
- =?utf-8?B?cnVvMVZRTVdmalNkdUJmYlJueDZZaVBlUVluREdBcmhOVHhrbW5tWEpzdE91?=
- =?utf-8?B?Ti9lUk5VWllHZ3ZEZ0F5WXdjb0xwbHVCc2VHMzM3OTZRbW5JR3NZR1czUWxY?=
- =?utf-8?B?bWpJUXFrYStsSmFrVUs2M3NuUDhWdnliZjZudzM2TXRuYWZkdWlHbzVrUnpp?=
- =?utf-8?B?SzF4M05JRnA1RDJ6MkFPbEVaTUFJV1hzcG1FQ1B3Q0pOb0g1OXk4RWp6eXJ2?=
- =?utf-8?B?bDJmaGVwMjdPZ0gzeVNHWTJySk9Rc29mbXE3VGxYYzliOTA5WEhNSnIrcnRk?=
- =?utf-8?B?QlA4TFZKUlBkWjFyM0dHTUVYaGlWNzFTMVoxOXlEUW1vb0dsYU55d1JENFBU?=
- =?utf-8?B?c2JxbkY5cWxHRm9YNkUyZ0hwMUMxVHAwQ1RIK3BzRUVrZlV2MTd6Z0E4ZFpk?=
- =?utf-8?B?dzY1dW5aczhoWmg3ZzRBbGJUTWdnM2YyaVJjcDNWanRXeVZUWjNKQy91akpz?=
- =?utf-8?B?VXVLcFk1OVp4dFdka3RYeVU0UngyK2Mzc1lyWmxGN016UjRvL0hRZjBEaWwv?=
- =?utf-8?B?TGRZVmZEQ3E4SklySGdCM1BCMXhqK3JkR2xSNDVYcHRhY3RkRUMwQ09DdUIw?=
- =?utf-8?B?ZGRPOFlONFR4cE03ZUtjY2kzSm9WQmx0dC9VdzBVRC91cnZpeTE1Nml3d2kv?=
- =?utf-8?B?Z2tMaG9lNlUxd2tvREZrdFhtazIxdHJ0OUxZa0dUdW1zMEQ4d1o5Sk4zNldC?=
- =?utf-8?B?emFsNTV1ZGhlM1JMMUduck5Ub0ppZUN2SDNZQkhCWFRVbVdqUFU2dDBYMkN3?=
- =?utf-8?B?aVpmNWszc1ZtcTVhYTd3bmlnbFVNdjVmQUhNeVh4Q0hRZUVNQ2pobnR0alFZ?=
- =?utf-8?B?aXFQT01hamw0VWVneVdQWVo3QUhYdWlVMFBlUlVTK0p1YWpJa2xXRFZqRDVm?=
- =?utf-8?B?cjJiak9obTZJODBIRWVmQy9LTjB6dHMvdGlzSWhlNkxmdkJvbzFsckhMV3Ry?=
- =?utf-8?B?THZISjVuZG5rb0t4emtxRHNWd2xRRE5iWGtOWDl4b2hzd2llY1plcndzclNJ?=
- =?utf-8?B?ZWZhYnkwc1lDaE9oWkM5VGRtdU5HWmJyek9Ca3hSdGRyMkplTlE1ZVVzMEpZ?=
- =?utf-8?B?Yms5L2ZFNkh2Mld6YkxrcVlQK2IzWEw4MWFId1BFUW1UY3ZRUklidWdtcE9a?=
- =?utf-8?B?QUI2N0FWcEZwK3lRWDZ1U25FUzFCc3B3bzhFZERXRUEwdmkwcG5IRFdFUVZQ?=
- =?utf-8?B?ZlFPcjJ2VzgzUzlPWXlyUDhidnhRRENZNTlCV2QwbUFTRlJqTWNHbjVZTFpE?=
- =?utf-8?B?Q0ZUZmVTMmcvdFdpbHRPV01NZkJMdWxRcEFTN0xCUnVyYmtWbFhCdjVrU2RS?=
- =?utf-8?B?TTBFZXRKd0htWFhGSjJQS1BERGlpM2xnOFV5ZXdnVHZkbkgvbVhWTkhPaXpH?=
- =?utf-8?B?KytXWUZxZmlFYTA3Tnd1WUpNWTl0c0sxNE1iR3RUZnM0QUdXTzJlcXh3eW9O?=
- =?utf-8?B?MmZ2MnkrQW1qNURodE9FaURoanpFaUhRVkhHREF2eDZPWmgwUFBORXNObDM1?=
- =?utf-8?B?aVI0KzBjeTRBZzBsVmNhRnZDaFR5ZUNxOTRteWtlVXJvQzhXVUs2S2VoZ2Yv?=
- =?utf-8?B?dHZVdjk0YlRYRWJudXJ3M3dnZExRaXVrNjEzTXA5eVgzeWd3RHBYSUluTThX?=
- =?utf-8?B?TnVSZHdSQk5uRnhjSXp0Szl6V2RKaDZ6QkczeWRkWUZuK3U2dDdySmtFTG9t?=
- =?utf-8?B?R055UGpscGpQU0FZVGNUNy9DL1k0RXgwYjZOWktQRWJUS0ZlZklydEw1RitR?=
- =?utf-8?B?RzNNbzdWLzBkM000QnZvNU9aeUhFblhPektiNWJmMTdlL0FqeDN2VFBuSHN4?=
- =?utf-8?B?Y25aZFdJQkVPZStXenpsNjN1cXRaMjZIaXdDZlozMCtzZHE1NzBGV3J5Z3hX?=
- =?utf-8?B?TlF2Z3RRMUhRL1B6bENCeGFEUENLS3pMSWN5RWFXUmtTaStOcys1cDA4VlRx?=
- =?utf-8?B?d0tZdkE1cjkwdkNVQXA2cFpXTVdFZmViZXUrNUFYdTNCUUF5eGFwSHJkZjc4?=
- =?utf-8?B?aEhGbG51Yy9RZ0czYTY3b2YyTTZ6QXdYN1BwQTM0dXZrUHRzKzNmdWw5L09O?=
- =?utf-8?B?QTlDWTRad3JwK2Rvb1ZIZW4yRnRPRnRaa0ZMNVUwSFUxUHNza05MRStySDJ0?=
- =?utf-8?B?TmNsTGJPMGd4dWM3bGVlSnNNUkxERGsvYVFOT083bXVIR0p1YVBkd3NpQTFE?=
- =?utf-8?B?Ny9TQmQwY0N1N2hweEFjL3NicnAzMkU5UVU5QlFINml1aklHNFFSZFVQdlJU?=
- =?utf-8?B?VG9pTW84Y0RjK1BDMHhIeC9BQVJPYkYwbVZPcVdLZWZFaVZvNC8wZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUt4NXc0a0lPa3haWXI4TUN2aU1NbHhFNyszRnMvc3dQVkhrTnpqNGc2V0p0?=
+ =?utf-8?B?b1pqdDdCdXd6L2lwNE04bDBSNzNsZDRWeFFrMnYwbmlrQWUwckI3MXVwQ05u?=
+ =?utf-8?B?QkhXMStQcmwvMStoWTZLK0pYQ2I1Uk8xN1BoQ1l6Mk9jcVF5VWNlSHUxcTZ4?=
+ =?utf-8?B?Tm9WVlZXNCtlMmRsY2NCVzZyOWJpR1EveUVER3dnTXByMGpoTTJTYlVxdGpZ?=
+ =?utf-8?B?QkVwWXdlaFRaNncyQ1FOVURhWHlKcXduRFFkWFVKdlgvbkNjOUdySWRKWGd2?=
+ =?utf-8?B?R3IvTUlaYlhnOWVOdTVZdkJSaG1PT01ZN1c5ajNxMGJlOWdmb1lXVkhmTFNa?=
+ =?utf-8?B?dHNneE1JemhyYU5qRDF4UEJZNXp4bjM0ZlZIanVWcEUvWktkSjFQRzF1YVhs?=
+ =?utf-8?B?ZjdXOG9TOFhFOEJ4TXYxUFBjV0IvUUdIZGNXd1U5MmFuVzU1ZXF4MmUza3Z4?=
+ =?utf-8?B?WXhoWDJMU0I1RStUMkQxZ1BlZndZVThvdzNjOG96NnlhMDdpeTh2c2ZsVXhJ?=
+ =?utf-8?B?RmVVb2dyeTNSMTNvRnUxVUVPT2tMSmM3aVZ1S2lqRm9NSWlaUDZzdi9IQndL?=
+ =?utf-8?B?RWYxTkdBbjU2RTdpd254UVdJQ0d6RWhwSFhvSTg0OC9kdmcvejNxLzBDNEdR?=
+ =?utf-8?B?VUp2UUI4WlE0QlUzZ1dNNDJGc2dKVUhROXl6YWF0ZGNWcFZrbW9Na1h5VUhv?=
+ =?utf-8?B?WlR2V1cwYVNQSENNUGhQVGUwVUQ0S1l0cmwwVDVVeHNnc0pDZDZlYnd2cC9F?=
+ =?utf-8?B?TXhCSW1HcUMxdkFEK1NubzRDZ09aTEIvT2NMUURFdWxjbEFQcXFFRE1YclVn?=
+ =?utf-8?B?R1Q1a0kxWVdGUTNHaHJWRzVBdDNPWUNWcWRDUVhJV1drVE1vOTkxQWNOZEI2?=
+ =?utf-8?B?Ynh5ekREMlllUGZibUhYQVdJSFk0cjdISVM2bDJydkNJRDFvTjFYWlJ3anFR?=
+ =?utf-8?B?aDIyR0FWTUF2b2lFbDY5T3FCbVNWYkJkREl0QlZHSDNzbVgyeDVsTFR3aWRF?=
+ =?utf-8?B?ZUoyMW92Vi9uRXVSWS9hbTlOTlFkOVRoL3RMMlRySXVoUFNHTE80UzFpSnFH?=
+ =?utf-8?B?enlnL1dUSUhxZitsWWk1YkZwQzhta0ViTkZXUHdiaDYrODBoa08raklsQm4x?=
+ =?utf-8?B?UkpDQUtUa3NJSFR1U09SaEVIS2NJQjdHV2ZOVUludjkxNzZqUGNCeDhRNFpj?=
+ =?utf-8?B?Z09sSUhpbHIwZmhueHZucHdQbFY2MGIvRThDLzNWd0czdXF2MHdnT2F4M005?=
+ =?utf-8?B?WWFWSDJYY0Q2UVRxYTJqNllJclRPMzRKa3ZZRmg3RXVRZHFxQk0wTlU5R0tG?=
+ =?utf-8?B?QkdsV3V2eTl2WUVrVFBXT215RDF2TFVaN2dWOWVvRXZiRHpNbnpFTHF0ejVE?=
+ =?utf-8?B?aGxMTWliN1Q2bFJiY3gra2ZmaGlXd2tmSm5mZlNERTFsdWR4OW9aVUk4bnpR?=
+ =?utf-8?B?NTdDRFhaQXB1a0drM0lQdy9oclFVdmp3a2Zsa1RtcTBaNHJiVkY2US9uQlo0?=
+ =?utf-8?B?cjZHYWt5M1RPYzJ4NEJ0Y2h3elBmKzQ4TE1aVkZIaFBlTkZ6RHNjOE5jTXhB?=
+ =?utf-8?B?anBsYTFIY254Z3BNRnFRSGRpNmtZRnRyUUQ3WW04UXlCN2lUcDVoc1RtRVZQ?=
+ =?utf-8?B?eUFjZDNzV0FEZXYrd3hPSG5reCtPWmlybVRGNmJsUmpRN1RsSUUzbHkySnVL?=
+ =?utf-8?B?RGlQajQ3aHBTY1dtcW9HcTBFcVFOZHRqVDVocFYxc1lXQXI3blJ5T01BOEJF?=
+ =?utf-8?B?RXNpa1I2OXFpY2c1dkJjSW9udEE5SlNhWXJPYUhUK0NaNnJrd0Rzc3JDSlE4?=
+ =?utf-8?B?QUMxTVVSWTdPNzFxSW5LT2U1dHppdU4vNEI5TWU1aSsrNlp2bW0vanYwWEY1?=
+ =?utf-8?B?SktudGlVcnFycjRISE9BOEZMaTNsbzhEbjd3bCttRmV4MXVUQnVGdW1pdGZK?=
+ =?utf-8?B?ZlU2SkRRMFdSMlllelRXVHlEL3BRdUZwTm5XK245dXBIRUFGVXV2dHZwWGxs?=
+ =?utf-8?B?OFRjd09qbHZmUStvakZOckVSd2Vvb0Z3TEZaUnhOcU1YYU9VTjcrNDNlNGx3?=
+ =?utf-8?B?Z3ZpajIwOGhWMS9IK3R3NExxVTJKRXh4aEk0TTZ0V2lRYmRhazZJUGxsdDE3?=
+ =?utf-8?B?ZUdQY0ttSXYydGwxcjhjK1VEZGR3YUkrL2dMbmRMS3N4Qld4NTRua3FtQTFN?=
+ =?utf-8?B?d0VnT3lMa1hsM2F3WnIxU2xTUTNaTEN2QzEwdnBtMU9zY0ZIMmU3blFjcUY2?=
+ =?utf-8?B?RUdZRlhKM0xUNWk3NGhZNlp4MWZjUjhMSnFsUm9RMGFyUVB2czl6ckFlMFho?=
+ =?utf-8?B?NkhHUWtrTmRRd0xQRmhqNFpDVDlXaGxXQm01NkExNmh3WDBLeVYzUT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5ee376b-4354-4fba-ed76-08def30fcb98
+X-MS-Exchange-CrossTenant-Network-Message-Id: b05c025c-776b-49c3-107e-08def30fcb3b
 X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 16:37:09.9909 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 16:37:09.3939 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jxP76ulo6v6NVpfwEIJZC2FBAO1VGOuKGdPo5jiQfB5E5KFg3auuFoj70n4fdie0PBt1Gg2T7cj2aC5fiHO42Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0UjhqpDbMJZ8DQhbKU4bVx9oR+fW7ATmF23WLCrgHT4WScefQ5gYRG8u5Yo0PulG4YiJk+MYaYjYxSjVGMeMgg==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB3412
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,211 +155,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Move the `FixedRegister` to be a property of register to become a property
-of type. Name the new trait `FixedIoLoc` indicating if I/O location of a
-type is unique for a specific base. Thus, bitfields become just a special
-case of this (where type is unique because we're generating it in the
-register macro).
+With the removal of relative registers, there are only two type of
+registers left, fixed register and register arrays. There is not much
+benefit in having a common super trait for them anymore, thus remove it,
+and cleanup the macro rules associated with it.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/io/register.rs | 123 ++++++++++++++++++++-------------------------
- 1 file changed, 54 insertions(+), 69 deletions(-)
+ rust/kernel/io/register.rs | 102 +++++++++++++++++++--------------------------
+ 1 file changed, 43 insertions(+), 59 deletions(-)
 
 diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index fe0e6763a600..80282c423868 100644
+index 295b06dd53a7..fe0e6763a600 100644
 --- a/rust/kernel/io/register.rs
 +++ b/rust/kernel/io/register.rs
-@@ -121,61 +121,15 @@
+@@ -121,8 +121,8 @@
      io::IoLoc, //
  };
  
+-/// Trait implemented by all registers.
+-pub trait Register: Sized {
++/// Trait implemented by registers with a fixed offset.
++pub trait FixedRegister: Sized {
+     /// Base type for this register.
+     type Base: ?Sized;
+ 
+@@ -132,9 +132,6 @@ pub trait Register: Sized {
+     const OFFSET: usize;
+ }
+ 
 -/// Trait implemented by registers with a fixed offset.
--pub trait FixedRegister: Sized {
--    /// Base type for this register.
--    type Base: ?Sized;
--
--    /// Start offset of the register.
--    ///
--    /// The interpretation of this offset depends on the type of the register.
--    const OFFSET: usize;
--}
+-pub trait FixedRegister: Register {}
 -
  /// Allows `()` to be used as the `location` parameter of [`Io::write`](super::Io::write) when
--/// passing a [`FixedRegister`] value.
-+/// passing a [`FixedIoLoc`] value.
+ /// passing a [`FixedRegister`] value.
  impl<Base: ?Sized, T> IoLoc<Base, T> for ()
- where
--    T: FixedRegister<Base = Base>,
--{
--    #[inline(always)]
--    fn offset(self) -> usize {
--        T::OFFSET
--    }
--}
--
--/// A [`FixedRegister`] carries its location in its type. Thus `FixedRegister` values can be used
--/// as an [`IoLoc`].
--impl<Base: ?Sized, T> IoLoc<Base, T> for T
--where
--    T: FixedRegister<Base = Base>,
-+    T: FixedIoLoc<Base>,
- {
-     #[inline(always)]
-     fn offset(self) -> usize {
--        T::OFFSET
--    }
--}
--
--/// Location of a fixed register.
--pub struct FixedRegisterLoc<T: FixedRegister>(PhantomData<T>);
--
--impl<T: FixedRegister> FixedRegisterLoc<T> {
--    /// Returns the location of `T`.
--    #[inline(always)]
--    // We do not implement `Default` so we can be const.
--    #[expect(clippy::new_without_default)]
--    pub const fn new() -> Self {
--        Self(PhantomData)
--    }
--}
--
--impl<Base: ?Sized, T> IoLoc<Base, T> for FixedRegisterLoc<T>
--where
--    T: FixedRegister<Base = Base>,
--{
--    #[inline(always)]
--    fn offset(self) -> usize {
--        T::OFFSET
-+        T::LOCATION.offset()
-     }
+@@ -200,7 +197,14 @@ fn offset(self) -> usize {
  }
  
-@@ -187,6 +141,11 @@ impl<Base: ?Sized, T> OffsetLoc<Base, T> {
-     pub const fn new(offset: usize) -> Self {
-         Self(offset, PhantomData)
-     }
+ /// Trait implemented by arrays of registers.
+-pub trait RegisterArray: Register {
++pub trait RegisterArray: Sized {
++    /// Base type for this register.
++    type Base: ?Sized;
 +
-+    #[inline]
-+    pub const fn const_offset(self) -> usize {
-+        self.0
-+    }
- }
- 
- impl<Base: ?Sized, T> IoLoc<Base, T> for OffsetLoc<Base, T> {
-@@ -265,6 +224,17 @@ fn try_at(idx: usize) -> Option<RegisterArrayLoc<Self>>
-     }
- }
- 
-+/// Trait implemented by types that indicate there is a fixed I/O location for this given type.
-+///
-+/// Implementors can be used with [`Io::write_reg`](super::Io::write_reg).
-+pub trait FixedIoLoc<Base: ?Sized>: Sized {
-+    /// Type of [`FixedIoLoc::location`].
-+    type Location: IoLoc<Base, Self>;
-+
-+    /// Location of this type within given base.
-+    const LOCATION: Self::Location;
-+}
-+
- /// Trait implemented by items that contain both a register value and the absolute I/O location at
- /// which to write it.
++    /// Start offset of the register.
++    ///
++    /// The interpretation of this offset depends on the type of the register.
++    const OFFSET: usize;
+     /// Number of elements in the registers array.
+     const SIZE: usize;
+     /// Number of bytes between the start of elements in the registers array.
+@@ -266,8 +270,8 @@ fn try_at(idx: usize) -> Option<RegisterArrayLoc<Self>>
  ///
-@@ -282,14 +252,14 @@ pub trait LocatedRegister<Base: ?Sized> {
+ /// Implementors can be used with [`Io::write_reg`](super::Io::write_reg).
+ pub trait LocatedRegister<Base: ?Sized> {
+-    /// Register value to write.
+-    type Value: Register;
++    /// Value to write.
++    type Value;
+     /// Full location information at which to write the value.
+     type Location: IoLoc<Base, Self::Value>;
  
- impl<Base: ?Sized, T> LocatedRegister<Base> for T
- where
--    T: FixedRegister<Base = Base>,
-+    T: FixedIoLoc<Base>,
- {
--    type Location = FixedRegisterLoc<Self::Value>;
-+    type Location = T::Location;
-     type Value = T;
- 
-     #[inline(always)]
--    fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
--        (FixedRegisterLoc::new(), self)
-+    fn into_io_op(self) -> (T::Location, T) {
-+        (T::LOCATION, self)
-     }
- }
- 
-@@ -577,6 +547,9 @@ macro_rules! register {
-     (base: $reg_base:ty;) => {};
- 
-     // Creates a register at a fixed offset of the MMIO space with provided type.
-+    //
-+    // This handles all of the fixed offset `@ offset`, alias of register `=> alias` and alias of
-+    // register array element `=> alias[idx]` cases.
-     (
-         base: $reg_base:ty;
-         // `$ty` cannot be `:ty` due to follow-set restrictions.
-@@ -593,10 +566,29 @@ macro_rules! register {
+@@ -601,11 +605,22 @@ macro_rules! register {
+         { $($fields:tt)* }
+         $($rest:tt)*
+     ) => {
+-        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(@io_base $reg_base; $name
+-            @ $crate::register!(@offset $(@ $offset)? $(=> $alias $([$alias_idx])?)?)
++        $crate::bitfield!(
++            #[allow(non_camel_case_types)]
++            $(#[$attr])* $vis struct $name($storage) { $($fields)* }
+         );
+-        $crate::register!(@io_fixed $(#[$attr])* $vis $name);
++
++        impl $crate::io::register::FixedRegister for $name {
++            type Base = $reg_base;
++
++            const OFFSET: usize =
++                $crate::register!(@offset $(@ $offset)? $(=> $alias $([$alias_idx])?)?);
++        }
++
++        $(#[$attr])*
++        $vis const $name: $crate::io::register::FixedRegisterLoc<$name> =
++            $crate::io::register::FixedRegisterLoc::<$name>::new();
++
          $crate::register!(base: $reg_base; $($rest)*);
      };
  
-+    // `#[unique]` indicates that this is the only register of this type in this given register.
-+    // Thus generate a `FixedIoLoc` impl for it as well.
-+    (
-+        base: $reg_base:ty;
-+        $(#[$attr:meta])* $vis:vis $name:ident: #[unique] $ty: ident $(:: $path_frag:ident)*
-+            $(@ $offset:literal)?
-+            $(=> $alias:path $([$alias_idx:expr])? )?;
-+        $($rest:tt)*
-+    ) => {
-+        impl $crate::io::register::FixedIoLoc<$reg_base> for $name {
-+            type Location = $crate::io::register::OffsetLoc<$reg_base, $ty $(:: $path_frag)*>;
-+            const LOCATION: Self::Location = $name;
-+        }
-+
-+        $crate::register!(
-+            base: $reg_base;
-+            $(#[$attr])* $vis $name: $ty $(:: $path_frag)*
-+                $(@ $offset)? $(=> $alias $([$alias_idx])? )?;
-+            $($rest)*
-+        );
-+    };
-+
-     // Creates a register at a fixed offset of the MMIO space.
--    //
--    // This handles all of the fixed offset `@ offset`, alias of register `=> alias` and alias of
--    // register array element `=> alias[idx]` cases.
-     (
-         base: $reg_base:ty;
+@@ -615,39 +630,36 @@ macro_rules! register {
          $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
-@@ -610,18 +602,11 @@ macro_rules! register {
+             [ $size:expr $(, stride = $stride:expr)? ] @ $offset:literal { $($fields:tt)* }
+         $($rest:tt)*
+-    ) => {
+-        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
+-        $crate::register!(@io_base $reg_base; $name @ $offset);
+-        $crate::register!(@io_array $vis $name
+-            [ $size, stride = $crate::register!(@stride $storage $(, $stride)?) ]
+-        );
+-        $crate::register!(base: $reg_base; $($rest)*);
+-    };
+-
+-    // All the rules below are private helpers.
+-
+-    // Generates the bitfield for the register.
+-    //
+-    // `#[allow(non_camel_case_types)]` is added since register names typically use
+-    // `SCREAMING_CASE`.
+-    (
+-        @bitfield $(#[$attr:meta])* $vis:vis struct $name:ident($storage:ty) { $($fields:tt)* }
+     ) => {
+         $crate::bitfield!(
+             #[allow(non_camel_case_types)]
              $(#[$attr])* $vis struct $name($storage) { $($fields)* }
          );
++
++        impl $crate::io::register::Array for $name {}
++
++        impl $crate::io::register::RegisterArray for $name {
++            type Base = $reg_base;
++
++            const OFFSET: usize = $offset;
++            const SIZE: usize = $size;
++            const STRIDE: usize = $crate::register!(@stride $storage $(, $stride)?);
++        }
++
++        $crate::register!(base: $reg_base; $($rest)*);
+     };
  
--        impl $crate::io::register::FixedRegister for $name {
++    // All the rules below are private helpers.
++
+     // Offset computation helper rules.
+     (@offset @ $offset:expr) => { $offset };
+-    (@offset => $alias:path) => { <$alias as $crate::io::register::Register>::OFFSET };
++    (@offset => $alias:path) => { <$alias as $crate::io::register::FixedRegister>::OFFSET };
+     (@offset => $alias:path [$idx:expr]) => {{
+         $crate::build_assert::static_assert!(
+             $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
+         );
+ 
+-        <$alias as $crate::io::register::Register>::OFFSET +
++        <$alias as $crate::io::register::RegisterArray>::OFFSET +
+             $idx * <$alias as $crate::io::register::RegisterArray>::STRIDE
+     }};
+ 
+@@ -657,32 +669,4 @@ macro_rules! register {
+         $stride
+     }};
+     (@stride $ty: ty) => { ::core::mem::size_of::<$ty>() };
+-
+-    // Implementations shared by all registers types.
+-    (@io_base $reg_base:ty; $name:ident @ $offset:expr) => {
+-        impl $crate::io::register::Register for $name {
 -            type Base = $reg_base;
 -
--            const OFFSET: usize =
--                $crate::register!(@offset $(@ $offset)? $(=> $alias $([$alias_idx])?)?);
+-            const OFFSET: usize = $offset;
 -        }
+-    };
+-
+-    // Implementations of fixed registers.
+-    (@io_fixed $(#[$attr:meta])* $vis:vis $name:ident) => {
+-        impl $crate::io::register::FixedRegister for $name {}
 -
 -        $(#[$attr])*
 -        $vis const $name: $crate::io::register::FixedRegisterLoc<$name> =
 -            $crate::io::register::FixedRegisterLoc::<$name>::new();
+-    };
 -
--        $crate::register!(base: $reg_base; $($rest)*);
-+        $crate::register!(
-+            base: $reg_base;
-+            $(#[$attr])* $vis $name: #[unique] $name $(@ $offset)? $(=> $alias $([$alias_idx])? )?;
-+            $($rest)*
-+        );
-     };
- 
-     // Creates an array of registers at a fixed offset of the MMIO space.
-@@ -653,7 +638,7 @@ impl $crate::io::register::RegisterArray for $name {
- 
-     // Offset computation helper rules.
-     (@offset @ $offset:expr) => { $offset };
--    (@offset => $alias:path) => { <$alias as $crate::io::register::FixedRegister>::OFFSET };
-+    (@offset => $alias:path) => { $alias.const_offset() };
-     (@offset => $alias:path [$idx:expr]) => {{
-         $crate::build_assert::static_assert!(
-             $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
+-    // Implementations of register arrays.
+-    (@io_array $vis:vis $name:ident [ $size:expr, stride = $stride:expr ]) => {
+-        impl $crate::io::register::Array for $name {}
+-
+-        impl $crate::io::register::RegisterArray for $name {
+-            const SIZE: usize = $size;
+-            const STRIDE: usize = $stride;
+-        }
+-    };
+ }
 
 -- 
 2.54.0
