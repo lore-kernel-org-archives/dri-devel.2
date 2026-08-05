@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80714C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 12:15:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94B92C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 12:23:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA8C810EE51;
-	Wed,  5 Aug 2026 12:15:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1B0D10E20A;
+	Wed,  5 Aug 2026 12:23:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K92hAgj4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="obuLpPZN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E830C10EE4B
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 12:15:05 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EC6A810E20A
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 12:23:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8D2DC40579;
- Wed,  5 Aug 2026 12:15:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4660F1F00A3A;
- Wed,  5 Aug 2026 12:15:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D3CE160A75;
+ Wed,  5 Aug 2026 12:23:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 607661F000E9;
+ Wed,  5 Aug 2026 12:23:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785932105;
- bh=QhsLfGLRwwYootvbfIdp4XxQcUqZ+MUKxuxCyHXsDTo=;
+ s=k20260515; t=1785932601;
+ bh=yGkT0vQ0zp/p3QgqkKlA4D865YPX8ZG9tTguALeR7dQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K92hAgj41qYUfN5ihhhvLJSU0QPS7oGmv55zknXpWFH0JnUFYyCxd5x48Xhi7LeLr
- aZCOgWlOkov5VTm/iOf/1+7XOaS+PoL/eceeqUObpm08jANVjAzf1BaqNS1/2iljsY
- dgKE/VcuGPsMKR+JHeSP8KC4+dyyXf9+FETNUevT83kEHXWK7v0CEs6wk1p9WyKio5
- JwXwjoltNODZ88LNUhm+UCERYBiY3Xy87ZeYRTipQccNiy94Zat/7K2FADPkNLJtn5
- wGqSg/Bkago3HN7CA0fUPm9CZdSJ+0W8W2lEY52qEtcTrk324YbHkmprVxAugQvly3
- 2eokwz8iRvCKQ==
+ b=obuLpPZN8CXWJxpTe05S7i8iKsNPqAQBjyqZm0lNyb5mJJtnsJf7ACFCTAQMpxuPs
+ B6ZULLytWhY76XTnzehJ5CPm2MY+G/WSOqJ24CPF5bCvHI/fRaPt/pFIy4YJ9MxEK7
+ uIWyDCZ6XuFyG5DvmHDzz7oIFk1TRffUlpClvXh65djrV7tq4DQJdNi6sOpObp92IB
+ 4jo9Qfq6Sumb2Ilu74Q04O48dqVVAlwn8zRL+Pqb64N1eGVqRqpWPZi/hJlCdASqd4
+ X93mLEriW5sfrkZ1hSOVZxe9mbgMYPyJmoiOovtaDI1tbUlvOpZeSIMMZi6+4Ep7//
+ /Ivtno9QRzXfg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/bridge: ti-sn65dsi83: Cancel reset_work on
- remove to avoid use-after-free
-To: "Fan Wu" <fanwu01@zju.edu.cn>
+Subject: Re: Patch "drm/dp: Read the PCON max FRL bandwidth only for HDMI
+ DFPs" has been added to the 6.12-stable tree
+To: gregkh@linuxfoundation.org
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260805115546.152786-1-fanwu01@zju.edu.cn>
-References: <20260805090804.78914-1-fanwu01@zju.edu.cn>
- <20260805115546.152786-1-fanwu01@zju.edu.cn>
+In-Reply-To: <2026080551-trimming-acting-66fa@gregkh>
+References: <2026080551-trimming-acting-66fa@gregkh>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 12:15:04 +0000
-Message-Id: <20260805121505.4660F1F00A3A@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 12:23:20 +0000
+Message-Id: <20260805122321.607661F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,163 +57,103 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Interrupt storm between drm_bridge_unplug() and disable_irq()
-
 Pre-existing issues:
-- [High] Spurious IRQ during probe causes NULL pointer dereference in sn65d=
-si83_reset_work()
-- [High] Leaked SRCU read lock in sn65dsi83_reset_work() error path
-- [High] Missing IRQ synchronization in sn65dsi83_release_resources() cause=
-s race condition
+- [High] Unvalidated access to `intel_dp->downstream_ports[2]` in `intel_dp=
+_check_frl_training` can lead to unintended DPCD writes on non-PCON branch =
+devices.
 --
 
---- Patch [1]: [PATCH v2] drm/bridge: ti-sn65dsi83: Cancel reset_work on re=
-move to avoid use-after-free ---
-commit 197f183cb3d12c2d5d1810b8f11c167e77438773
-Author: Fan Wu <fanwu01@zju.edu.cn>
+--- Patch [1]: Patch "drm/dp: Read the PCON max FRL bandwidth only for HDMI=
+ DFPs" has been added to the 6.12-stable tree ---
+commit 2ea84f7dc055ccb41f2cbb8400d14ddf081c3a76
+Author: gregkh@linuxfoundation.org <gregkh@linuxfoundation.org>
+Date:   Wed Aug 5 12:04:51 2026 +0000
 
-drm/bridge: ti-sn65dsi83: Cancel reset_work on remove to avoid use-after-fr=
-ee
+drm/dp: Read the PCON max FRL bandwidth only for HDMI DFPs
 
-The error recovery code queues reset_work from the threaded IRQ handler
-and polling monitor_work. Neither the remove path nor the probe failure
-path after the IRQ is registered drains that work before devres releases
-the bridge allocation.
+This commit updates drm_dp_get_pcon_max_frl_bw() to verify that the DFP is =
+an
+HDMI port and that detailed capability information is available before pars=
+ing
+the PCON max FRL bandwidth. This prevents misinterpreting DP descriptors as=
+ FRL
+bandwidth limits, which previously caused valid high-resolution display mod=
+es
+to be pruned on some adapters.
 
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/brid=
-ge/ti-sn65dsi83.c
-> index f9fdbf48c6b32..bf263f407cb2c 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-> @@ -996,6 +996,18 @@ static irqreturn_t sn65dsi83_irq(int irq, void *data)
->  	return IRQ_HANDLED;
->  }
+Link: https://patch.msgid.link/20260610193825.2933-1-alexander.kaplan@sms-m=
+edipool.de
+
+> diff --git a/drivers/gpu/drm/display/drm_dp_helper.c b/drivers/gpu/drm/di=
+splay/drm_dp_helper.c
+> index 6ee51003de3ce..e2fd2a8ac80d3 100644
+> --- a/drivers/gpu/drm/display/drm_dp_helper.c
+> +++ b/drivers/gpu/drm/display/drm_dp_helper.c
+> @@ -3145,6 +3145,18 @@ int drm_dp_get_pcon_max_frl_bw(const u8 dpcd[DP_RE=
+CEIVER_CAP_SIZE],
+>  	int bw;
+>  	u8 buf;
 > =20
-> +static void sn65dsi83_stop_error_recovery(struct sn65dsi83 *ctx)
-> +{
-> +	/* Block new bridge users and wait for existing critical sections. */
-> +	drm_bridge_unplug(&ctx->bridge);
+> +	if (!drm_dp_is_branch(dpcd))
+> +		return 0;
 > +
-> +	if (ctx->irq)
-> +		disable_irq(ctx->irq);
-
-[Severity: High]
-Could this ordering cause an interrupt storm leading to a CPU lockup?
-
-When drm_bridge_unplug() sets bridge->unplugged =3D true, if an IRQ fires b=
-efore
-disable_irq() is called, sn65dsi83_handle_errors() will see drm_bridge_ente=
-r()
-fail and return early:
-
-drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_handle_errors() {
-    ...
-	if (!drm_bridge_enter(&ctx->bridge, &idx))
-		return;
-    ...
-}
-
-Since this threaded IRQ handler returns IRQ_HANDLED without clearing the
-hardware interrupt or disabling the IRQ, will the IRQ core unmask the
-still-asserted interrupt line, causing it to immediately fire again and
-starve the teardown code?
-
-[Severity: High]
-This is a pre-existing issue, but will the addition of drm_bridge_unplug()
-here cause a system deadlock during driver unbind or probe failure?
-
-In the error path of sn65dsi83_reset_work(), if resetting the pipe fails,
-it returns early:
-
-drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_reset_work() {
-    ...
-	ret =3D sn65dsi83_reset_pipe(ctx);
-	if (ret) {
-		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
-		return;
-	}
-    ...
-}
-
-This early return skips drm_bridge_exit(idx), permanently leaking the SRCU
-read lock. If that happens, won't this new drm_bridge_unplug() call block
-forever in synchronize_srcu()?
-
+> +	if (dpcd[DP_DPCD_REV] < 0x11)
+> +		return 0;
 > +
-> +	cancel_delayed_work_sync(&ctx->monitor_work);
-> +	cancel_work_sync(&ctx->reset_work);
-> +}
+> +	if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DETAILED_CAP_INFO_AVAILABLE) =
+=3D=3D 0)
+> +		return 0;
 > +
->  static int sn65dsi83_probe(struct i2c_client *client)
->  {
-[ ... ]
-> @@ -1060,7 +1072,7 @@ static int sn65dsi83_probe(struct i2c_client *clien=
-t)
->  	return 0;
-> =20
->  err_remove_bridge:
-> -	drm_bridge_remove(&ctx->bridge);
-> +	sn65dsi83_stop_error_recovery(ctx);
+> +	if ((port_cap[0] & DP_DS_PORT_TYPE_MASK) !=3D DP_DS_PORT_TYPE_HDMI)
+> +		return 0;
+> +
 
 [Severity: High]
-This is a pre-existing issue, but can a spurious interrupt during probe
-cause a NULL pointer dereference?
+This is a pre-existing issue, but can unvalidated access to downstream_port=
+s[2]
+lead to unintended DPCD writes on non-PCON branch devices?
 
-If a spurious interrupt fires after devm_request_threaded_irq() is called
-in sn65dsi83_probe() but before the KMS driver calls drm_bridge_attach(),
-the threaded handler will schedule reset_work.
+Looking at intel_dp_check_frl_training() in
+drivers/gpu/drm/i915/display/intel_dp.c, downstream_ports[2] is evaluated
+without first ensuring DP_DETAILED_CAP_INFO_AVAILABLE is set and the port is
+an HDMI PCON:
 
-The worker then executes sn65dsi83_reset_pipe() which calls:
-
-drivers/gpu/drm/drm_bridge_helper.c:drm_bridge_helper_reset_crtc() {
+drivers/gpu/drm/i915/display/intel_dp.c:intel_dp_check_frl_training() {
     ...
-	struct drm_device *dev =3D encoder->dev;
+	if (!(intel_dp->downstream_ports[2] & DP_PCON_SOURCE_CTL_MODE) ||
+	    !intel_dp_is_hdmi_2_1_sink(intel_dp) ||
     ...
 }
 
-Since the bridge is not attached yet, bridge->encoder is NULL. Does this
-unconditionally crash if an early interrupt occurs?
+If a non-PCON multi-port branch device (e.g., a dock) without detailed
+capability info has an Analog (Type 1) or 'Other' (Type 3) port as its third
+downstream port, its short capability byte at downstream_ports[2] will have
+bit 0 set.
 
->  	return ret;
->  }
-> =20
-> @@ -1068,7 +1080,7 @@ static void sn65dsi83_remove(struct i2c_client *cli=
-ent)
->  {
->  	struct sn65dsi83 *ctx =3D i2c_get_clientdata(client);
-> =20
-> -	drm_bridge_unplug(&ctx->bridge);
-> +	sn65dsi83_stop_error_recovery(ctx);
->  }
+This incorrectly satisfies the DP_PCON_SOURCE_CTL_MODE check. If an HDMI 2.1
+display is connected, intel_dp_is_hdmi_2_1_sink() returns true. FRL training
+will fail, causing the driver to blindly execute a TMDS fallback and write =
+to
+DPCD register 0x305A (DP_PCON_HDMI_LINK_CONFIG_1):
 
-[Severity: High]
-This is a pre-existing issue, but does sn65dsi83_release_resources() contain
-a race condition with the IRQ handler?
-
-During display teardown, sn65dsi83_release_resources() disables the hardware
-interrupt and powers off the chip without synchronizing against the executi=
-ng
-IRQ handler:
-
-drivers/gpu/drm/bridge/ti-sn65dsi83.c:sn65dsi83_release_resources() {
+drivers/gpu/drm/i915/display/intel_dp.c:intel_dp_pcon_set_tmds_mode() {
     ...
-	if (ctx->irq) {
-		/* Disable irq */
-		regmap_write(ctx->regmap, REG_IRQ_EN, 0x0);
-		regmap_write(ctx->regmap, REG_IRQ_GLOBAL, 0x0);
-	}
+	ret =3D drm_dp_dpcd_writeb(&intel_dp->aux, DP_PCON_HDMI_LINK_CONFIG_1, buf=
+);
     ...
 }
 
-If the threaded IRQ handler sn65dsi83_handle_errors() runs concurrently,
-won't its I2C read fail due to the chip being powered down? It seems it
-would misinterpret this as a hardware error and improperly schedule
-reset_work while the display pipeline is being torn down.
+Should the i915 driver also verify DETAILED_CAP_INFO_AVAILABLE and
+DP_DS_PORT_TYPE_HDMI before evaluating downstream_ports[2] in this code pat=
+h?
+
+>  	buf =3D port_cap[2];
+>  	bw =3D buf & DP_PCON_MAX_FRL_BW;
+>
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805115546.1527=
-86-1-fanwu01@zju.edu.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/2026080551-trimming=
+-acting-66fa@gregkh?part=3D1
