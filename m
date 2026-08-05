@@ -4,66 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2783DC55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 14:19:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3186BC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 14:34:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4737E10EEAA;
-	Wed,  5 Aug 2026 14:19:31 +0000 (UTC)
-X-Greylist: delayed 8545 seconds by postgrey-1.36 at gabe;
- Wed, 05 Aug 2026 14:19:29 UTC
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [4.193.249.245])
- by gabe.freedesktop.org (Postfix) with ESMTP id D31AC10EEAA
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 14:19:29 +0000 (UTC)
-Received: from zju.edu.cn (unknown [10.98.66.117])
- by mtasvr (Coremail) with SMTP id _____wCHgD9gRnNqa6ZpAA--.20506S3;
- Wed, 05 Aug 2026 22:19:14 +0800 (CST)
-Received: from localhost.localdomain (unknown [10.98.66.117])
- by mail-app2 (Coremail) with SMTP id zC_KCgB358xgRnNqByiTAw--.7866S2;
- Wed, 05 Aug 2026 22:19:12 +0800 (CST)
-From: Fan Wu <fanwu01@zju.edu.cn>
-To: dri-devel@lists.freedesktop.org
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Marek Vasut <marex@denx.de>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Fan Wu <fanwu01@zju.edu.cn>
-Subject: [PATCH v3] drm/bridge: ti-sn65dsi83: Cancel reset_work on remove to
- avoid use-after-free
-Date: Wed,  5 Aug 2026 14:18:16 +0000
-Message-Id: <20260805141816.216900-1-fanwu01@zju.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260805115546.152786-1-fanwu01@zju.edu.cn>
-References: <20260805115546.152786-1-fanwu01@zju.edu.cn>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 34DF510E1FB;
+	Wed,  5 Aug 2026 14:34:20 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="pkE7pC8b";
+	dkim-atps=neutral
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 789CC10E1FB
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 14:34:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1785940456;
+ bh=NuteR2GfbUKtnXPLH6jkDUwWe6gW5kIJxdvOaBBSwmI=;
+ h=From:Date:Subject:To:Cc:From;
+ b=pkE7pC8bafQ7CDFSwkc4/wIPQn6pSPQ4UHXAiPmCZ+GQ4qEzAObt/YM9gOIGlJpBX
+ /N7rFXEeEAvRgA7xKWREhUtvqbWPxslgUbbK3P7b5b3B3/SxUsVaYMXsRj7+yp85HP
+ GAfKAMYXGsYN2gDXG3gjv85tu01B58ud39WoroVQQCq4ZVfTrjh6DVkdqroAOWXHa6
+ 8e+lgGGXvICCq250JZM86BaAclyZubPnJPKHjK7j8/Yj1PooGU7xTHw8IctTrBCOOQ
+ 2S4dXlz914KzBHG5nirwUvYAIsLM9WWTnh1RcASgH575X7F61JghaGzj9LRpzPo6qi
+ CJa5/+8SuJbOg==
+Received: from laura.lan (unknown [100.64.0.215])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: laura.nao)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id CD54A17E052F;
+ Wed, 05 Aug 2026 16:34:15 +0200 (CEST)
+From: Laura Nao <laura.nao@collabora.com>
+Date: Wed, 05 Aug 2026 16:33:25 +0200
+Subject: [PATCH v4] drm/tyr: add Job IRQ handling
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: zC_KCgB358xgRnNqByiTAw--.7866S2
-X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
-X-CM-DELIVERINFO: =?B?3EJdcwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
- sfncGSG+szpQCInt5Y8rbJUI2Ta2RgZfddM+Y1FlRj8fDxb1K3cJlUE22gKRBQ9mMNwa2M
- i+f+EPnglYqAJbTSbN0=
-X-Coremail-Antispam: 1Uk129KBj93XoWxuF43GFWDWw48KF47XryUCFX_yoWrXw1rpF
- 4fX390yrWvq3WI9a9FyF15Ary5Awnrta1rCr1kKw1Sva4rWa1Yq34kArWjgF1akFW8J3WY
- yFs0vFy8ArWUAFbCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
- sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
- 0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
- IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
- e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
- 0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
- xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
- CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
- xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
- kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
- MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
- 0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0E
- wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
- WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
- cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260805-tyr-irq-v2-v4-1-81a4701611c0@collabora.com>
+X-B4-Tracking: v=1; b=H4sIALRJc2oC/12OQQrCMBBFr1KyNpJOjDWuvIe4aKapDdRGJyVYS
+ u5uWhCqMJv34T1mZsGSs4Gdi5mRjS44P2Q47AqGXT3cLXdNZgYCjqKCEx8n4o5ePAIXRqISAMZ
+ KybLwJNu69xq73jJ3LoyeprUdYVm/Gb3N5Cs5QqVEi2XZKH1B3/e18VTv0T/Ykopyq/98EWXWN
+ WqDCgVoVP96SukDd1sY2OcAAAA=
+X-Change-ID: 20260728-tyr-irq-v2-0b3c5022be33
+To: Daniel Almeida <daniel.almeida@collabora.com>, 
+ Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ rust-for-linux@vger.kernel.org, kernel@collabora.com, 
+ Deborah Brouwer <deborah.brouwer@collabora.com>, 
+ Laura Nao <laura.nao@collabora.com>
+X-Mailer: b4 0.14.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,110 +74,340 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The error recovery code queues reset_work from the threaded IRQ handler
-and polling monitor_work. Neither device removal nor a probe failure after
-requesting the IRQ drains that work before devres releases the bridge
-allocation.
+Add a threaded IRQ wrapper for Tyr interrupt sources and use it to
+handle the firmware Job IRQ.
 
-Keep the IRQ disabled after it is requested and enable it only after the
-bridge has attached successfully. This prevents an IRQ during probe from
-queueing reset_work before bridge->encoder has been initialized.
+The Job IRQ reports requests from the CSF firmware, including global
+interface requests and CSG attention bits. Only the GLB bit is currently
+handled, as it will be used to check firmware readiness. CSG bits
+handling will be added at a later stage. Add a Job IRQ handler that
+masks the interrupt in the primary IRQ handler, processes pending raw
+status in the threaded handler, clears the handled bit, and reenables
+the mask before returning.
+Add a wait queue and a bool flag so the handler can signal firmware
+readiness when the GLB bit is set.
 
-On remove and the post-IRQ probe failure path, synchronously disable the
-IRQ before declaring the bridge unplugged. This prevents an asserted IRQ
-from repeatedly invoking a handler which can no longer acknowledge the
-device. drm_bridge_unplug() then blocks new DRM entry points and waits for
-existing bridge critical sections. Finally drain monitor_work and
-reset_work before devres can free the bridge allocation.
-
-This issue was found by an in-house static analysis tool.
-Compile-tested only; runtime testing is appreciated.
-
-Fixes: ad5c6ecef27e ("drm: bridge: ti-sn65dsi83: Add error recovery mechanism")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Co-developed-by: Daniel Almeida <daniel.almeida@collabora.com>
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+Co-developed-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Signed-off-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+Signed-off-by: Laura Nao <laura.nao@collabora.com>
 ---
-Changes since v2:
-  - Request the IRQ with IRQF_NO_AUTOEN and enable it only after the bridge
-    attaches, so it cannot fire during probe and queue reset_work before
-    bridge->encoder is initialized.
-  - Disable the IRQ before drm_bridge_unplug() in the teardown helper, so
-    an asserted level IRQ is acknowledged by the handler while it can still
-    enter the bridge instead of re-firing once the unplug barrier rejects
-    it.
+Changes in v4:
+- Replaced c_str! with C-String in irq.rs
+- Moved clear_status() before handle() in handle_threaded(), to avoid 
+  losing events if hw re-asserts the bit while handle() is running.
+- Only unmask interrupt sources in job_irq_init() when the handler is 
+  correctly registered.
+- Link to v3: https://lore.kernel.org/r/20260728-tyr-irq-v2-v3-1-9c9bc5c029c5@collabora.com
 
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
+Changes in v3:
+- Propagated request_threaded_irq_by_name safety requirement up the
+  call chain, made TyrIrq::request() and job_irq_init() unsafe
+- Dropped CSG bits masking, added TODO comment to note this will be
+  handled at a later stage. Reworded commit message to reflect the
+  change.
+- Added documentation for TyrIrqTrait, TyrIrq, JobIrq and job_irq_init()
+- Link to v2: https://lore.kernel.org/r/20260729-tyr-irq-v2-v2-1-c2750fc11d59@collabora.com
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 42b451432bbb..d7648b5d5636 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -296,9 +296,14 @@ static int sn65dsi83_attach(struct drm_bridge *bridge,
- 			    enum drm_bridge_attach_flags flags)
- {
- 	struct sn65dsi83 *ctx = bridge_to_sn65dsi83(bridge);
-+	int ret;
+Changes in v2:
+- Dropped Wait custom type in favor of WaitQueue
+- Renamed JobIrq lifetime to generic 'a
+
+This patch follows up to [1], which adds support for firmware loading
+and MCU booting to the Tyr driver. The changes included here were
+originally introduced in its v4[2], then dropped to reduce the scope of
+the series, and have been adjusted to work with the HRT (Higher-Ranked
+Lifetime Types) driver architecture recently introduced.
+
+The patch adds a threaded IRQ wrapper for the firmware Job interrupts,
+used to signal events from the global CSF (GLB) and Command Stream Group
+(CSG) interfaces.
+
+These changes will be later used to wait for global CSF interface
+readiness after firmware boot, as part of the CSF firmware interfaces
+support that will be submitted as a separate series.
+
+This patch is based on drm-rust-next and depends on:
+- [PATCH v2] rust: irq: make Registration compatible with lifetime-bound drivers[3]
+- [PATCH 0/5] rust: sync: add WaitQueue infrastructure[4]
+
+Note: [4] doesn't apply cleanly on drm-rust-next at the moment, due to
+missing changes in rust/kernel/sync/lock/spinlock.rs[5]. I've applied
+all dependencies and fixed conflicts for the purpose of testing this
+patch on top of drm-rust-next, a branch with these changes is available
+here: https://gitlab.freedesktop.org/laura.nao/linux/-/commits/b4/tyr-irq-v4
+
+[1] https://lore.kernel.org/all/20260728-fw-boot-b4-v10-0-9187aefa3f2f@collabora.com/ 
+[2] https://lore.kernel.org/rust-for-linux/20260424-b4-fw-boot-v4-v4-15-a5d91050789d@collabora.com/
+[3] https://lore.kernel.org/rust-for-linux/20260719153631.559341-1-dakr@kernel.org/
+[4] https://lore.kernel.org/rust-for-linux/20260726223613.1242940-1-dakr@kernel.org/
+[5] https://lore.kernel.org/all/20260302232154.861916-1-lyude@redhat.com/
+---
+ drivers/gpu/drm/tyr/driver.rs | 102 ++++++++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/tyr/fw.rs     |   1 +
+ drivers/gpu/drm/tyr/fw/irq.rs | 112 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 215 insertions(+)
+
+diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
+index d78ad9d292ff..e3f5c7956e65 100644
+--- a/drivers/gpu/drm/tyr/driver.rs
++++ b/drivers/gpu/drm/tyr/driver.rs
+@@ -1,5 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0 or MIT
  
--	return drm_bridge_attach(encoder, ctx->panel_bridge,
--				 &ctx->bridge, flags);
-+	ret = drm_bridge_attach(encoder, ctx->panel_bridge, &ctx->bridge,
-+				flags);
-+	if (!ret && ctx->irq)
-+		enable_irq(ctx->irq);
++use core::marker::PhantomPinned;
 +
-+	return ret;
+ use kernel::{
+     clk::{
+         Clk,
+@@ -21,6 +23,13 @@
+         poll,
+         Io, //
+     },
++    irq::{
++        Flags,
++        IrqReturn,
++        ThreadedHandler,
++        ThreadedIrqReturn,
++        ThreadedRegistration, //
++    },
+     new_mutex,
+     of,
+     platform,
+@@ -236,3 +245,96 @@ struct Regulators {
+     _mali: Regulator<regulator::Enabled>,
+     _sram: Regulator<regulator::Enabled>,
  }
- 
- static void sn65dsi83_detach(struct drm_bridge *bridge)
-@@ -997,6 +1004,19 @@ static irqreturn_t sn65dsi83_irq(int irq, void *data)
- 	return IRQ_HANDLED;
- }
- 
-+static void sn65dsi83_stop_error_recovery(struct sn65dsi83 *ctx)
-+{
-+	/* Stop the IRQ before the unplug barrier rejects its handler. */
-+	if (ctx->irq)
-+		disable_irq(ctx->irq);
 +
-+	/* Block new bridge users and wait for existing critical sections. */
-+	drm_bridge_unplug(&ctx->bridge);
++/// Trait describing the operations required to service a Tyr interrupt source.
++pub(crate) trait TyrIrqTrait: Sync {
++    /// Returns the masked interrupt status.
++    fn read_status(&self) -> u32;
 +
-+	cancel_delayed_work_sync(&ctx->monitor_work);
-+	cancel_work_sync(&ctx->reset_work);
++    /// Clears all bits in the mask register, disabling the interrupt sources.
++    fn clear_mask(&self);
++
++    /// Sets the mask register to re-enable the interrupt sources.
++    fn reenable_mask(&self);
++
++    /// Returns the raw interrupt status, regardless of the current mask.
++    fn read_raw_status(&self) -> u32;
++
++    /// Clears the given bits in the interrupt status register.
++    fn clear_status(&self, status: u32);
++
++    /// Returns the bitmask of interrupt sources handled by this instance.
++    fn mask(&self) -> u32;
++
++    /// Handles the given pending, unmasked interrupt bits.
++    fn handle(&self, status: u32);
 +}
 +
- static int sn65dsi83_probe(struct i2c_client *client)
- {
- 	const struct i2c_device_id *id = i2c_client_get_device_id(client);
-@@ -1039,7 +1056,8 @@ static int sn65dsi83_probe(struct i2c_client *client)
- 	if (client->irq) {
- 		ctx->irq = client->irq;
- 		ret = devm_request_threaded_irq(ctx->dev, ctx->irq, NULL, sn65dsi83_irq,
--						IRQF_ONESHOT, dev_name(ctx->dev), ctx);
-+						IRQF_ONESHOT | IRQF_NO_AUTOEN,
-+						dev_name(ctx->dev), ctx);
- 		if (ret)
- 			return dev_err_probe(dev, ret, "failed to request irq\n");
- 	}
-@@ -1061,7 +1078,7 @@ static int sn65dsi83_probe(struct i2c_client *client)
- 	return 0;
++/// A threaded IRQ wrapper shared by all Tyr interrupt sources.
++#[pin_data]
++pub(crate) struct TyrIrq<T: TyrIrqTrait> {
++    /// The interrupt source.
++    irq: T,
++    #[pin]
++    _pin: PhantomPinned,
++}
++
++impl<T: TyrIrqTrait> TyrIrq<T> {
++    /// Requests a threaded IRQ registration for `irq`, using `name` to look up the interrupt.
++    ///
++    /// # Safety
++    ///
++    /// Callers must not `mem::forget()` the resulting registration or otherwise prevent its
++    /// [`Drop`] implementation from running.
++    #[allow(dead_code)]
++    pub(crate) unsafe fn request<'a>(
++        pdev: &'a platform::Device<Bound>,
++        name: &'static CStr,
++        irq: T,
++    ) -> Result<impl PinInit<ThreadedRegistration<'a, Self>, Error> + 'a>
++    where
++        T: 'a,
++    {
++        let handler = try_pin_init!(Self {
++            irq,
++            _pin: PhantomPinned,
++        });
++
++        // SAFETY: The caller guarantees the resulting registration will not be leaked.
++        Ok(unsafe { pdev.request_threaded_irq_by_name(Flags::SHARED, name, name, handler) })
++    }
++
++    /// Returns a reference to the wrapped interrupt source.
++    pub(crate) fn irq(&self) -> &T {
++        &self.irq
++    }
++}
++
++impl<T: TyrIrqTrait> ThreadedHandler for TyrIrq<T> {
++    fn handle(&self) -> ThreadedIrqReturn {
++        let masked_status = self.irq.read_status();
++
++        if masked_status == 0 {
++            return ThreadedIrqReturn::None;
++        }
++        self.irq.clear_mask();
++        ThreadedIrqReturn::WakeThread
++    }
++
++    fn handle_threaded(&self) -> IrqReturn {
++        let mut ret = IrqReturn::None;
++
++        loop {
++            let raw_status = self.irq.read_raw_status() & self.irq.mask();
++            if raw_status == 0 {
++                break;
++            }
++            self.irq.clear_status(raw_status);
++            self.irq.handle(raw_status);
++            ret = IrqReturn::Handled;
++        }
++
++        self.irq.reenable_mask();
++        ret
++    }
++}
+diff --git a/drivers/gpu/drm/tyr/fw.rs b/drivers/gpu/drm/tyr/fw.rs
+index 47d25c901bd0..8162b9806c97 100644
+--- a/drivers/gpu/drm/tyr/fw.rs
++++ b/drivers/gpu/drm/tyr/fw.rs
+@@ -69,6 +69,7 @@
+     vm::Vm, //
+ };
  
- err_remove_bridge:
--	drm_bridge_remove(&ctx->bridge);
-+	sn65dsi83_stop_error_recovery(ctx);
- 	return ret;
- }
++pub(crate) mod irq;
+ mod parser;
  
-@@ -1069,6 +1086,6 @@ static void sn65dsi83_remove(struct i2c_client *client)
- {
- 	struct sn65dsi83 *ctx = i2c_get_clientdata(client);
- 
--	drm_bridge_unplug(&ctx->bridge);
-+	sn65dsi83_stop_error_recovery(ctx);
- }
- 
+ pub(super) const CSF_MCU_SHARED_REGION_START: u32 = 0x04000000;
+diff --git a/drivers/gpu/drm/tyr/fw/irq.rs b/drivers/gpu/drm/tyr/fw/irq.rs
+new file mode 100644
+index 000000000000..fcdc0097f2dd
+--- /dev/null
++++ b/drivers/gpu/drm/tyr/fw/irq.rs
+@@ -0,0 +1,112 @@
++// SPDX-License-Identifier: GPL-2.0 or MIT
++
++//! IRQ handling for the Job IRQ.
++//!
++//! The Job IRQ signals events from the MCU, including global interface acknowledgements.
++#![allow(dead_code)]
++
++use core::sync::atomic::{
++    AtomicBool,
++    Ordering, //
++};
++
++use kernel::{
++    device::Bound, //
++    io::Io,
++    irq::ThreadedRegistration,
++    platform,
++    prelude::*,
++    sync::{
++        Arc,
++        WaitQueue, //
++    },
++};
++
++use crate::{
++    driver::{
++        IoMem,
++        TyrIrq,
++        TyrIrqTrait, //
++    },
++    regs::job_control::{
++        JOB_IRQ_CLEAR,
++        JOB_IRQ_MASK,
++        JOB_IRQ_RAWSTAT,
++        JOB_IRQ_STATUS, //
++    }, //
++};
++
++// The Job IRQ, signalling requests or notification from the MCU.
++pub(crate) struct JobIrq<'a> {
++    /// GPU MMIO register mapping.
++    iomem: Arc<IoMem<'a>>,
++    /// Flag to signal firmware readiness.
++    fw_ready: Arc<AtomicBool>,
++    /// Wait queue used to signal firmware events to waiters.
++    job_irq_wait: Arc<WaitQueue>,
++}
++
++/// Requests a threaded IRQ registration for the Job IRQ.
++///
++/// # Safety
++///
++/// Callers must not `mem::forget()` the resulting registration or otherwise prevent its
++/// [`Drop`] implementation from running.
++pub(crate) unsafe fn job_irq_init<'a>(
++    pdev: &'a platform::Device<Bound>,
++    iomem: Arc<IoMem<'a>>,
++    fw_ready: Arc<AtomicBool>,
++    job_irq_wait: Arc<WaitQueue>,
++) -> Result<impl PinInit<ThreadedRegistration<'a, TyrIrq<JobIrq<'a>>>, Error> + 'a> {
++    let job_irq = JobIrq {
++        iomem,
++        fw_ready,
++        job_irq_wait,
++    };
++    // Ensure interrupt sources are disabled until the handler is registered.
++    job_irq.clear_mask();
++
++    // SAFETY: The caller guarantees the resulting registration will not be leaked.
++    let registration = unsafe { TyrIrq::request(pdev, c"job", job_irq) };
++
++    // Unmask once the handler has been successfully registered.
++    Ok(registration?.pin_chain(|reg| {
++        reg.handler().irq().reenable_mask();
++        Ok(())
++    }))
++}
++
++impl TyrIrqTrait for JobIrq<'_> {
++    fn read_status(&self) -> u32 {
++        self.iomem.read(JOB_IRQ_STATUS).into_raw()
++    }
++
++    fn clear_mask(&self) {
++        self.iomem.write_reg(JOB_IRQ_MASK::zeroed());
++    }
++
++    fn reenable_mask(&self) {
++        self.iomem.write_reg(JOB_IRQ_MASK::zeroed().with_glb(true));
++    }
++
++    fn read_raw_status(&self) -> u32 {
++        self.iomem.read(JOB_IRQ_RAWSTAT).into_raw()
++    }
++
++    fn clear_status(&self, status: u32) {
++        self.iomem.write_reg(JOB_IRQ_CLEAR::from_raw(status));
++    }
++
++    fn mask(&self) -> u32 {
++        JOB_IRQ_MASK::zeroed().with_glb(true).into_raw()
++    }
++
++    fn handle(&self, status: u32) {
++        // TODO: handle other Job IRQ events (e.g. CSG attention bits) here once
++        // support for them is added.
++        if JOB_IRQ_RAWSTAT::from_raw(status).glb() {
++            self.fw_ready.store(true, Ordering::Release);
++            self.job_irq_wait.wake_up_all();
++        }
++    }
++}
+
+---
+base-commit: 851d3e80fed6dbc749f06f8c5395aa16837a765f
+change-id: 20260728-tyr-irq-v2-0b3c5022be33
+
+Best regards,
 -- 
-2.51.0
+Laura Nao <laura.nao@collabora.com>
 
