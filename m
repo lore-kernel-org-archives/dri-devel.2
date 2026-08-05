@@ -4,45 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8C77C55822
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:10:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEF49C56201
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:12:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AD2710ED1E;
-	Wed,  5 Aug 2026 07:10:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4618A10ED21;
+	Wed,  5 Aug 2026 07:12:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="LPZ15+XP";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gQ+wCnf2";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0281A10ED1E
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 07:10:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EC920600B1;
- Wed,  5 Aug 2026 07:10:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57F761F000E9;
- Wed,  5 Aug 2026 07:10:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785913829;
- bh=aolS9Ca9raWdpg5QvzhPGa2r//yx13k7GNM0NsVuz54=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=LPZ15+XPe+SCp+z5EQNe4bTTP1MC9qBBkztTMpXZXaMD0PKyEOOYj6H/KoHrcbUwV
- hT4quAW06FkWX5QXAy+A7dTmocRPdzlIzB4Rg61nq8QN9FfZ9I5T+Hlbw+dbr1vD1E
- lfuuW4mjNpfK/KDHh6L45RGhyT2oHluu5/flAjt5TOo7KX0I+sTmRbfiwSdX2RNxQa
- vW/olyaNgnHAZrDaNZ/P8EXSKpx5NFT+zzSzfszJQnI6qZHeOWUJf9D6D1Q5i+2T/V
- /jDBbK9D3Uq2svFKuVOAdudVQqkYUKOzX7cz53d7obXrjqAe15SC2X5WIjJKMmOuVo
- 47IbspOomne7A==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v5 v5 3/8] dt-bindings: iommu: rockchip: allow the
- RK3576 NPU MMU clock set
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260805063826.95682-4-gahing@gahingwoo.com>
-References: <20260805063826.95682-1-gahing@gahingwoo.com>
- <20260805063826.95682-4-gahing@gahingwoo.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85BDF10ED21;
+ Wed,  5 Aug 2026 07:12:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785913924; x=1817449924;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=GXTzOiQJf39D8/Z8bMMrODn8dF7rIsoZeLCasiSFOWg=;
+ b=gQ+wCnf2ahM6PdomELIYFH8t9VYyFd2eU9yG94tXWWMPQeSmZLSoNY3C
+ lxKk/6wRPy6XY0+FfRPNRDEWWUrGuVS1BL1gtbna7UT3R+FYJy7g0JOBS
+ P87Iood9VZQ6qO6oW6da9v2xyaCHIw0qugANmCNqm1FtIJ5OE3k5v10/c
+ hN18+b/2R9q8Qq+BIQVmg0wRTHs08YgGJk8EPCEvctNwLPtL4zOue9zW5
+ n1uLPgiZiAe3AKLOi7iHIKWWq+VjqHYZjtEiceswIyAwqOtpWdBFmW+wZ
+ xMwgs74uCZ1E0HYk4kWKaes3aIxnb66tS1w7haL1aHlHLYV5b4crRL5Vj Q==;
+X-CSE-ConnectionGUID: r+SEKa5HT9+SHxI4tLykfw==
+X-CSE-MsgGUID: dY8vtIkASeOErIdVzacrJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="89003192"
+X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="89003192"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2026 00:12:02 -0700
+X-CSE-ConnectionGUID: Ng+5TPFfTk2J+5f4HjGuKQ==
+X-CSE-MsgGUID: y8FVGdmCTU+JAvzpaW9Cdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="260460909"
+Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
+ by orviesa010.jf.intel.com with ESMTP; 05 Aug 2026 00:11:58 -0700
+From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ rodrigo.vivi@intel.com
+Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona.vetter@ffwll.ch, mripard@kernel.org,
+ maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
+ anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
+ karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
+ Mallesh Koujalagi <mallesh.koujalagi@intel.com>
+Subject: [PATCH v13 0/4] Introduce cold reset recovery method 
+Date: Wed,  5 Aug 2026 12:41:53 +0530
+Message-ID: <20260805071152.1225416-6-mallesh.koujalagi@intel.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 07:10:28 +0000
-Message-Id: <20260805071029.57F761F000E9@smtp.kernel.org>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,92 +68,123 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Adding the three NPU clocks globally relaxes the maximum allowed=
- clocks to 5 for all Rockchip IOMMUs, disabling strict validation for older=
- hardware.
-- [Medium] The failure to introduce a distinct compatible string for the NP=
-U MMU hardware variant prevents the schema from enforcing its mandatory ext=
-ra clocks.
---
+Add support for handling errors that require a complete
+device power cycle (cold reset) to recover.
 
---- Patch [3]: [RFC PATCH v5 v5 3/8] dt-bindings: iommu: rockchip: allow th=
-e RK3576 NPU MMU clock set ---
-commit 1dfa4f75475ad14a765f82a9e6d6d985e8af62dc
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+Certain error conditions leave the device in a persistent hardware
+error state that cannot be cleared through existing recovery mechanisms
+such as driver reload or PCIe reset. In these cases, functionality can
+only be restored by performing a cold reset.
 
-dt-bindings: iommu: rockchip: allow the RK3576 NPU MMU clock set
+To support this, the series introduces a new DRM wedging recovery
+method, DRM_WEDGE_RECOVERY_COLD_RESET (BIT(4)). When a device is wedged
+with this method, the DRM core notifies userspace via a uevent that a cold
+reset is required. This allows userspace to take appropriate action to
+power-cycle the device.
 
-This commit expands the clocks and clock-names properties in the Rockchip I=
-OMMU
-binding to allow up to 5 items to support the RK3576 NPU MMU. It maintains a
-minimum item count of 2 to keep existing device trees valid.
+Example uevent received:
+  SUBSYSTEM=drm
+  WEDGED=cold-reset
+  DEVPATH=/devices/.../drm/card0
 
-> diff --git a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml =
-b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
-> index 6ce41d11ff5e5..a3cedcaaa9792 100644
-> --- a/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
-> +++ b/Documentation/devicetree/bindings/iommu/rockchip,iommu.yaml
-> @@ -42,14 +42,22 @@ properties:
->      minItems: 1
-> =20
->    clocks:
-> +    minItems: 2
->      items:
->        - description: Core clock
->        - description: Interface clock
-> +      - description: Compute clock, RK3576 NPU MMUs only
-> +      - description: Convolution buffer core clock, RK3576 NPU MMUs only
-> +      - description: Convolution buffer interface clock, RK3576 NPU MMUs=
- only
+v2:
+- Add use case: Handling errors from power management unit,
+  which requires a complete power cycle to
+  recover. (Christian)
+- Add several instead of number to avoid update. (Jani)
 
-[Severity: Medium]
-Does expanding the items list globally cause a regression by relaxing the
-maximum allowed clocks to 5 for all Rockchip IOMMUs?
+v3:
+- Update any scenario that requires cold-reset. (Riana)
+- Update document with generic scenario. (Riana)
+- Consistent with terminology. (Raag)
+- Remove already covered information.
+- Use PUNIT instead of PMU. (Riana)
+- Use consistent wordingi.
+- Remove log. (Raag)
 
-If older hardware variants specify 3, 4, or 5 clocks in their device trees,
-they will now silently pass schema validation. Would it be better to restri=
-ct
-the maximum clocks to 2 for older variants using an allOf: if-then
-conditional block?
+v4:
+- Rename cold reset to power cyclce. (Raag)
+- Update doc. (Raag/Riana)
+- Change commit message. (Raag)
+- Make function static. (Raag)
 
-Additionally, because the generic rockchip,rk3576-iommu compatible string is
-used for both standard and NPU MMUs, the schema forces minItems: 2 globally.
-Does the lack of a distinct compatible string for the NPU MMU hardware vari=
-ant
-introduce a regression where the schema is prevented from enforcing its
-mandatory extra clocks?
+v5:
+- Make it consistent with consumer expectations. (Raag)
+- Update commit message.
+- Remove unbind.
+- Simplify cold-reset script.
+- Remove kdoc for static function.
+- Remove xe_ prefix for static function.
 
-If a device tree node for the RK3576 NPU MMU is missing its required extra
-clocks, won't it silently pass validation but fail at runtime by dropping
-register writes?
+v6:
+- Drop "last resort" wording. (Riana)
+- Look up the hotplug slot in DEVPATH instead of scanning
+  every PCI slot on the system. (Raag)
+- Drop arbitrary sleep values from the example script.
+- Expand commit message to explain why SUR_DN is masked. (Raag/Riana)
+- Check Slot Implemented bit before reading Slot Capabilities, per
+  PCIe spec. (Riana)
+- Add debug log.
 
-> =20
->    clock-names:
-> +    minItems: 2
->      items:
->        - const: aclk
->        - const: iface
-> +      - const: npu
-> +      - const: aclk_cbuf
-> +      - const: hclk_cbuf
+v7:
+- Update recovery script. (Raag)
+- Handle surprise link down event properly. (Aravind/Riana)
+- Update commit message. (Riana)
+- Correct log message.
 
-[Severity: Medium]
-Similar to the clocks property above, does widening the clock-names property
-without conditional constraints cause a regression that allows invalid
-configurations for older hardware variants to silently pass validation?
+v8:
+- Add rescan instead of reset. (Raag)
+- Use find_usp_dev() in punit_error_handler() function.
 
-Should an allOf: if-then block be used here as well?
+v9:
+- Remove unwanted header. (Sashiko)
+- Removed #ifdef CONFIG_PCIEAER. (Riana)
+- Used pci_find_ext_capability() instead of usp->aer_cap.
+- Clear the PCI_ERR_UNC_SURPDN status bit (W1C) after
+  reset complete. (Lukas Wunner)
+- Use pci_clear_and_set_config_dword() helper.
 
-> =20
->    "#iommu-cells":
->      const: 0
+v10:
+- Rebase.
+- Fix column width. (Sashiko)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805063826.9568=
-2-1-gahing@gahingwoo.com?part=3D3
+v11:
+- Make udev rules in single line. (Sashiko)
+
+v12:
+- Trigger punit handler using fault-inject.
+
+v13:
+- Rebase.
+- Rename inject_punit_error to wedge_cold_reset. (Riana)
+- Sashiko corner case issue addressed with
+  commit 20bc4883c7c0 ("drm/xe/ras: Fix boot-time ras error processing").
+
+Cc: André Almeida <andrealmeid@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona.vetter@ffwll.ch>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+
+Mallesh Koujalagi (4):
+  drm: Add DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+  drm/doc: Document DRM_WEDGE_RECOVERY_COLD_RESET recovery method
+  drm/xe: Handle PUNIT errors by requesting cold-reset recovery
+  drm/xe/ras: Use fault-inject to trigger cold-reset wedge
+
+ Documentation/gpu/drm-uapi.rst  | 93 +++++++++++++++++++++++++++++++--
+ drivers/gpu/drm/drm_drv.c       |  2 +
+ drivers/gpu/drm/xe/xe_debugfs.c |  4 ++
+ drivers/gpu/drm/xe/xe_debugfs.h |  2 +
+ drivers/gpu/drm/xe/xe_ras.c     | 15 +++++-
+ include/drm/drm_device.h        |  1 +
+ 6 files changed, 111 insertions(+), 6 deletions(-)
+
+-- 
+2.48.1
+
