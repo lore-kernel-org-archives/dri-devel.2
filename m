@@ -4,43 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 893D4C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 06:22:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC761C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 06:29:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B9D410ECE3;
-	Wed,  5 Aug 2026 06:22:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A516410ECE9;
+	Wed,  5 Aug 2026 06:29:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FljSuZ6Q";
+	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="J5DMu+Ir";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 07CFF10ECE3
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 06:22:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9F6C94008D;
- Wed,  5 Aug 2026 06:22:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0481F000E9;
- Wed,  5 Aug 2026 06:22:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785910973;
- bh=qY7ldQ5SMZWi5lrpHoFFFZgWpcrZgEAqO3ikRy1/z3M=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FljSuZ6QUZ7RhNug2FyiHq0ZJEqcM6vFyK3gaBjuAA4ioZcqBOPPBlXGKy+72jJjH
- hpzO0DU9r3TOlCphZeslrARmxF10rB6Nc8K+U50qBxjLJ38AWC+lwUp+q/zUCY7yld
- Cpf8zcwL3hwBXaOIC4/6uTe3x+ckJji6jlefneIVdgyl0vb/4p9ejhtCI7rRAr1oCN
- Ju4cUeUrAA5jBsXfdSrdVfwxVAOkl6tpSvnJ3HpcsFs4WiX+qXJ7Vd+YRXR/gMq20n
- gzxOM4waIXqELsdk/V/DeCmReM9TXrOP5EZUxHacW+sMhshBHhwTRu7zWTRupT/3Gw
- MQBevZahn5l0A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] misc: fastrpc: avoid duplicate DMA mappings in
- fastrpc_create_maps()
-To: "Jianping Li" <jianping.li@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
-References: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 06:22:52 +0000
-Message-Id: <20260805062253.4D0481F000E9@smtp.kernel.org>
+Received: from lankhorst.se (unknown [141.105.120.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61C4410ECE9
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 06:29:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
+ s=default; t=1785911385;
+ bh=JnYkaSOObLN/XRdrLTaPT6Udx3US0Br8sz5SxnEoemg=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=J5DMu+IrzXu2p+HKBbZHMLJ0lAA3WywmS2Z2uqHGZ3bWiKjfnv+umhNlzkO0VMXEx
+ 4BD92548sQseiJ/QezJ0XTXZmmguyxArWaTJY39Je6ii4DSd1RTOYcfgedlHR19AZ2
+ mRtin2HTrlr/qzyz3wxZeyB6Ih49NYP122/lnhnBrXFYz7dunLWQmQsZrlmgmHg75+
+ dBuoGkMe1W4LM284ATqNFx9a8dAd2/Sk+BLMHNsHVpTPJ/ECZ6BluLjsWtq9y297ud
+ LiMoAT/CgDNgpMkFiOCrRxn+hvxAS/hpmNdAN/cNKJ5vK+udC45A84cqMU727uWBjE
+ hF5905zKSpESQ==
+Message-ID: <5f886290-bad0-42ac-9deb-e0ebd9fe5f5a@lankhorst.se>
+Date: Wed, 5 Aug 2026 08:30:59 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/6] cgroup,cgroup/dmem: Add
+ (dmem_)cgroup_common_ancestor helper
+To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Cc: Natalie Vock <nat@pixelcluster.dev>, Maxime Ripard <mripard@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
+ Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
+References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
+ <20260804-dmemcg-aggressive-protect-v8-2-07af96681bf8@gmx.de>
+ <b5b80acd-feea-408b-87eb-4264ffc7e2cd@lankhorst.se>
+ <7b2887b1-ecb7-4d6e-ad34-068ab1d7d41e@pixelcluster.dev>
+ <bd7c2432-a34b-400a-8351-ca4398b24981@lankhorst.se>
+ <anJSBu2zbo8_lG7N@quatroqueijos.cascardo.eti.br>
+Content-Language: en-US
+From: Maarten Lankhorst <dev@lankhorst.se>
+In-Reply-To: <anJSBu2zbo8_lG7N@quatroqueijos.cascardo.eti.br>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,183 +66,192 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
 
-New issues:
-- [Critical] Sharing DMA handle maps without taking a reference allows one =
-invocation to unmap the memory while a concurrent invocation is still activ=
-ely using it on the DSP, leading to IOMMU faults.
-- [High] A Time-Of-Check to Time-Of-Use (TOCTOU) race condition in `fastrpc=
-_get_args()` allows a concurrent thread to free a borrowed DMA handle map, =
-leading to a Host-Side Use-After-Free.
-- [High] A lockless Read-Modify-Write sequence on `mmap->flags` in `fastrpc=
-_put_args()` creates a data race that can be exploited to double-free a DMA=
- handle map.
 
-Pre-existing issues:
-- [High] DMA handle maps created during argument processing are permanently=
- leaked if the fastrpc invocation fails on error paths or is interrupted by=
- a signal.
---
+On 8/4/26 22:56, Thadeu Lima de Souza Cascardo wrote:
+> On Tue, Aug 04, 2026 at 10:41:25PM +0200, Maarten Lankhorst wrote:
+>> Hey,
+>>
+>> On 8/4/26 22:26, Natalie Vock wrote:
+>>> On 8/4/26 22:18, Maarten Lankhorst wrote:
+>>>>
+>>>>
+>>>> On 8/4/26 10:25, Natalie Vock wrote:
+>>>>> This helps to find a common subtree of two resources, which is important
+>>>>> when determining whether it's helpful to evict one resource in favor of
+>>>>> another.
+>>>>>
+>>>>> To facilitate this, add a common helper to find the ancestor of two
+>>>>> cgroups using each cgroup's ancestor array.
+>>>>>
+>>>>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+>>>>> ---
+>>>>>   include/linux/cgroup.h      | 21 +++++++++++++++++++++
+>>>>>   include/linux/cgroup_dmem.h |  9 +++++++++
+>>>>>   kernel/cgroup/dmem.c        | 41 +++++++++++++++++++++++++++++++++++++++++
+>>>>>   3 files changed, 71 insertions(+)
+>>>>>
+>>>>> diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
+>>>>> index f2aa46a4f871e..83a17ded1c516 100644
+>>>>> --- a/include/linux/cgroup.h
+>>>>> +++ b/include/linux/cgroup.h
+>>>>> @@ -623,6 +623,27 @@ static inline struct cgroup *cgroup_ancestor(struct cgroup *cgrp,
+>>>>>       return cgrp->ancestors[ancestor_level];
+>>>>>   }
+>>>>>   +/**
+>>>>> + * cgroup_common_ancestor - find common ancestor of two cgroups
+>>>>> + * @a: first cgroup to find common ancestor of
+>>>>> + * @b: second cgroup to find common ancestor of
+>>>>> + *
+>>>>> + * Find the first cgroup that is an ancestor of both @a and @b, if it exists
+>>>>> + * and return a pointer to it. If such a cgroup doesn't exist, return NULL.
+>>>>> + *
+>>>>> + * This function is safe to call as long as both @a and @b are accessible.
+>>>>> + */
+>>>>> +static inline struct cgroup *cgroup_common_ancestor(struct cgroup *a,
+>>>>> +                            struct cgroup *b)
+>>>>> +{
+>>>>> +    int level;
+>>>>> +
+>>>>> +    for (level = min(a->level, b->level); level >= 0; level--)
+>>>>> +        if (a->ancestors[level] == b->ancestors[level])
+>>>>> +            return a->ancestors[level];
+>>>>> +    return NULL;
+>>>>> +}
+>>>>> +
+>>>>>   /**
+>>>>>    * task_under_cgroup_hierarchy - test task's membership of cgroup ancestry
+>>>>>    * @task: the task to be tested
+>>>>> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+>>>>> index 1a88cd0c9eb00..9d72457c4cb9d 100644
+>>>>> --- a/include/linux/cgroup_dmem.h
+>>>>> +++ b/include/linux/cgroup_dmem.h
+>>>>> @@ -28,6 +28,8 @@ bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
+>>>>>                  struct dmem_cgroup_pool_state *test);
+>>>>>   bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
+>>>>>                  struct dmem_cgroup_pool_state *test);
+>>>>> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
+>>>>> +                                   struct dmem_cgroup_pool_state *b);
+>>>>>     void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
+>>>>>   #else
+>>>>> @@ -75,6 +77,13 @@ static inline bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
+>>>>>       return false;
+>>>>>   }
+>>>>>   +static inline
+>>>>> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
+>>>>> +                                   struct dmem_cgroup_pool_state *b)
+>>>>> +{
+>>>>> +    return NULL;
+>>>>> +}
+>>>>> +
+>>>>>   static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
+>>>>>   { }
+>>>>>   diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+>>>>> index 9df3b33c65046..a587611ca2235 100644
+>>>>> --- a/kernel/cgroup/dmem.c
+>>>>> +++ b/kernel/cgroup/dmem.c
+>>>>> @@ -762,6 +762,47 @@ bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
+>>>>>   }
+>>>>>   EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
+>>>>>   +/**
+>>>>> + * dmem_cgroup_get_common_ancestor(): Find the first common ancestor of two pools.
+>>>>> + * @a: First pool to find the common ancestor of.
+>>>>> + * @b: First pool to find the common ancestor of.
+>>>>> + *
+>>>>> + * Return: The first pool that is a parent of both @a and @b, or NULL if either @a or @b are NULL,
+>>>>> + * or if such a pool does not exist. A reference to the returned pool is grabbed and must be
+>>>>> + * released by the caller when it is done using the pool.
+>>>>> + */
+>>>>> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
+>>>>> +                                   struct dmem_cgroup_pool_state *b)
+>>>>> +{
+>>>>> +    struct cgroup *ancestor_cgroup;
+>>>>> +    struct cgroup_subsys_state *ancestor_css;
+>>>>> +    struct dmemcg_state *ancestor_dmemcs = NULL;
+>>>>> +    struct dmem_cgroup_pool_state *pool = NULL;
+>>>>> +
+>>>>> +    if (!a || !b)
+>>>>> +        return NULL;
+>>>>> +
+>>>>> +    ancestor_cgroup = cgroup_common_ancestor(a->cs->css.cgroup, b->cs->css.cgroup);
+>>>>> +    if (!ancestor_cgroup)
+>>>>> +        return NULL;
+>>>>> +
+>>>>> +    rcu_read_lock();
+>>>>> +    ancestor_css = cgroup_e_css(ancestor_cgroup, &dmem_cgrp_subsys);
+>>>>> +    if (css_tryget(ancestor_css))
+>>>>> +        ancestor_dmemcs = css_to_dmemcs(ancestor_css);
+>>>>> +    rcu_read_unlock();
+>>>>> +
+>>>>> +    if (ancestor_dmemcs) {
+>>>>> +        pool = get_cg_pool_unlocked(css_to_dmemcs(ancestor_css),
+>>>>> +                        a->region);
+>>>>> +        if (IS_ERR(pool))
+>>>>> +            pool = NULL;
+>>>> This should probably be a warn_on as this can never happen, sashiko is wrong here.
+>>>>
+>>>> If a and b are charged, all their ancestors are charged too. And when they share a
+>>>> common ancestor, then the common ancestor has to have an existing charged pool as
+>>>> well because there's a huge bug in the code otherwise.
+>>>>
+>>>>> +        css_put(ancestor_css);
+>>>>> +    }
+>>>>> +    return pool;
+>>>>> +}
+>>>>> +EXPORT_SYMBOL_GPL(dmem_cgroup_get_common_ancestor);
+>>>>> +
+>>>>>   static int dmem_cgroup_region_capacity_show(struct seq_file *sf, void *v)
+>>>>>   {
+>>>>>       struct dmem_cgroup_region *region;
+>>>>>
+>>>>
+>>>> Otherwise looks good, so feel free to extend my r-b to this patch too, and with that minor fix up commit it.
+>>>
+>>> Thanks a lot! Correct me if I'm wrong here as it's been a while, but I think sashiko's current comment about the css_put(ancestor_css) being wrong seems to have merit too? Since dmem_cgroup_pool_state_put() also puts a css reference but get_cg_pool_unlocked does not get another reference to the css on its own? (Kind of a footgun if you ask me, but not something for this series)
+>>>
+>>> Mind if I also drop the css_put() line while I'm at it and *then* (finally :D) commit?
+>> I'd keep the css_put for the failure case then.
+>>
+>> Since the get_cg_pool_unlocked() is a local function, it's less of an issue that it doesn't
+>> obtain a reference itself, as all callers outside dmemcg.c never notice.
+>>
+>> Maybe do a final round of testing too, in case it introduces new failures. :-)
+>>
+>> Especially device unload/reload might show double puts. But otherwise looks good to me.
+>>
+>> Kind regards,
+>> ~Maarten
+> 
+> I wrote the fixup at [1] that included that css_put. I will look into the
+> possibility of get_cg_pool_unlocked returning NULL or error. But I find
+> that unconditionally calling css_put here is wrong. If pool is NULL, it
+> needs to be called, because otherwise the css_tryget will be unbalanced.
+> 
+> The reason not to call it unconditionally is that it will be called when
+> dmem_cgroup_pool_state_put is caled, hence, balancing the css_tryget.
+> 
+> I also need to consider whether doing it outside the RCU section is fine.
+> 
+> I just looked here and one of the possibilities for pool to be NULL is that
+> the region is unregistered in a race condition. region->unregistered is
+> protected by dmemcg_lock, but that is taken by get_cg_pool_unlocked, so it
+> seems possible.
+> 
+> By the way, while testing the whole series, I see many different issues
+> here that I am still looking at as they may be otherwise hidden
+> pre-existing bugs.
 
---- Patch [1]: [PATCH v3] misc: fastrpc: avoid duplicate DMA mappings in fa=
-strpc_create_maps() ---
-commit 518577268f37fc91e27676af4609f0c0fa3363fc
-Author: Jianping Li <jianping.li@oss.qualcomm.com>
+region->unregistered would not be possible here. This means that the
+driver code is calling dmem_cgroup_get_common_ancestor while unregistering
+at the same time.
 
-misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
+There's a bigger problem in that case, the driver should first deallocate all
+its allocations before unregistering. The unregistered is intended for
+guarding against userspace access while unregistering, not against kernel
+tearing down a cgroup while it's still live.
 
-This patch changes DMA handle mappings to not take an extra reference
-count and tags them with FASTRPC_MAP_DMA_HANDLE. It re-validates the map in
-fastrpc_get_args() and modifies fastrpc_put_args() to only release maps
-flagged as FASTRPC_MAP_DMA_HANDLE to avoid duplicate mappings.
-
-Patch [v2]: https://lore.kernel.org/all/20260716113254.570-1-jianping.li@os=
-s.qualcomm.com/
-
-> diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-> index f3a49384586d1..59bf33cbed5af 100644
-> --- a/drivers/misc/fastrpc.c
-> +++ b/drivers/misc/fastrpc.c
-> [ ... ]
-> @@ -999,23 +1001,25 @@ static int fastrpc_create_maps(struct fastrpc_invo=
-ke_ctx *ctx)
->  	int i, err;
-> =20
->  	for (i =3D 0; i < ctx->nscalars; ++i) {
-> +		bool take_ref =3D i < ctx->nbufs;
-
-[Severity: Critical]
-By setting take_ref to false for DMA handles, does this allow concurrent
-invocations to share a map without incrementing its reference count?
-
-If one invocation finishes and drops the only reference in fastrpc_put_args=
-(),
-won't the SMMU mapping be torn down while another concurrent invocation is
-still actively using it on the DSP?
-
-> +		int mflags =3D 0;
-> =20
->  		if (ctx->args[i].fd =3D=3D 0 || ctx->args[i].fd =3D=3D -1 ||
->  		    ctx->args[i].length =3D=3D 0)
->  			continue;
-> =20
-> -		if (i < ctx->nbufs)
-> -			err =3D fastrpc_map_create(ctx->fl, ctx->args[i].fd,
-> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
-> -		else
-> -			err =3D fastrpc_map_attach(ctx->fl, ctx->args[i].fd,
-> -				 ctx->args[i].length, ctx->args[i].attr, &ctx->maps[i]);
-> +		/* Set the DMA handle mapping flag for DMA handles */
-> +		if (i >=3D ctx->nbufs)
-> +			mflags =3D FASTRPC_MAP_DMA_HANDLE;
-> +
-> +		err =3D fastrpc_map_create(ctx->fl, ctx->args[i].fd, ctx->args[i].leng=
-th,
-> +					 ctx->args[i].attr, &ctx->maps[i], take_ref, mflags);
-
-[Severity: High]
-This is a pre-existing issue, but does this code permanently leak DMA
-handles if an error occurs after map creation?
-
-If an error happens or a signal interrupts the process, the cleanup path
-fastrpc_context_free() intentionally omits freeing maps where
-i >=3D ctx->nbufs:
-
-drivers/misc/fastrpc.c:fastrpc_context_free() {
-	...
-	for (i =3D 0; i < ctx->nbufs; i++)
-		fastrpc_map_put(ctx->maps[i]);
-	...
-}
-
-Can an unprivileged user intentionally provide invalid arguments (e.g., bad
-payload size) to trigger a failure after map creation, causing an unbounded
-memory leak of orphaned DMA handles?
-
->  		if (err) {
->  			dev_err(dev, "Error Creating map %d\n", err);
->  			return -EINVAL;
->  		}
-> -
->  	}
-> +
->  	return 0;
->  }
-> [ ... ]
-> @@ -1143,6 +1147,16 @@ static int fastrpc_get_args(u32 kernel, struct fas=
-trpc_invoke_ctx *ctx)
->  		list[i].num =3D ctx->args[i].length ? 1 : 0;
->  		list[i].pgidx =3D i;
->  		if (ctx->maps[i]) {
-> +			/* It is possible that map is created with
-> +			 * mflags FASTRPC_MAP_DMA_HANDLE and take_ref
-> +			 * is false. Check if map still exists or is
-> +			 * being freed as take_ref is false
-> +			 */
-> +			if (fastrpc_map_lookup(ctx->fl, ctx->args[i].fd,
-> +					       &ctx->maps[i], false)) {
-> +				ctx->maps[i] =3D NULL;
-> +				return -EINVAL;
-> +			}
->  			pages[i].addr =3D ctx->maps[i]->dma_addr;
-
-[Severity: High]
-Is there a race condition between looking up the map and dereferencing it?
-
-Since fastrpc_map_lookup() is called with take_ref =3D false, it locklessly
-returns a pointer to the shared map without holding a reference. Could a
-concurrent thread finish its invocation and free this shared map before
-pages[i].addr =3D ctx->maps[i]->dma_addr is evaluated, resulting in a host-=
-side
-use-after-free?
-
-> +			pages[i].size =3D ctx->maps[i]->size;
->  		}
-> [ ... ]
-> @@ -1199,8 +1213,17 @@ static int fastrpc_put_args(struct fastrpc_invoke_=
-ctx *ctx,
->  	for (i =3D 0; i < FASTRPC_MAX_FDLIST; i++) {
->  		if (!fdlist[i])
->  			break;
-> -		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false))
-> +		/*
-> +		 * DMA handle maps are released when the DSP returns the corresponding=
- fd in
-> +		 * fdlist. The DSP is expected to return a specific fd only once in fd=
-list,
-> +		 * so no two fastrpc_put_args() paths should clear the DMA_HANDLE flag=
- for
-> +		 * the same map concurrently.
-> +		 */
-> +		if (!fastrpc_map_lookup(fl, (int)fdlist[i], &mmap, false) &&
-> +		    mmap->flags =3D=3D FASTRPC_MAP_DMA_HANDLE) {
-> +			mmap->flags =3D 0;
->  			fastrpc_map_put(mmap);
-> +		}
-
-[Severity: High]
-Does the lockless check of mmap->flags allow a double-free if concurrent
-invocations share the same fd?
-
-If two concurrent threads from the same user process share the same DMA
-handle fd, they share the same map object. When both invocations finish, th=
-ey
-could execute fastrpc_put_args() concurrently.
-
-If they reach this check at the same time, couldn't they both evaluate
-mmap->flags =3D=3D FASTRPC_MAP_DMA_HANDLE as true, clear the flag, and call
-fastrpc_map_put() twice on the same map?
-
->  	}
-> =20
->  	return ret;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805060940.4141=
-4-1-jianping.li@oss.qualcomm.com?part=3D1
+Kind regards,
+~Maarten Lankhorst
