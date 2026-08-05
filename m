@@ -4,44 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F15BC55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 11:54:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8058DC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 11:57:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B59310EE1E;
-	Wed,  5 Aug 2026 11:54:48 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CCBHroqz";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C350210EE1E
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 11:54:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8983140E5C;
- Wed,  5 Aug 2026 11:54:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA2E1F00A3A;
- Wed,  5 Aug 2026 11:54:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785930882;
- bh=e9sAbhG2PJdFm3FF3n9i1BS9t/hJSG51NvVKx5KHRMc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=CCBHroqzqQElr4HpfircDwD2YW767XWL/95S7CFgsHZrYyt71gdqFLr/o6hcVoEDQ
- b3SLEok7SnXPsd6SYG/Taf9XIAlmxaQEwAsTsuhnMiO1+MJ9L0Nn17OsQP0AngqbIc
- b5n4OtNljQ+MDW8QK6k5HihQdVyP4kI9h4eUe73YWqiAhWg3uxS8G/92Ev3h8dTrZ1
- Qs/+m1jJN+s3Qan00atFkrwh/eFpnb6+Pl7SazBLqRaJJh7yXLQRDGsc9UAegqkFKL
- E+33Uu00nAim2zPFZjwpjMnrTax9OkxSmgqfdlSiDpej01qcW03GTzKqp82mCMbiIZ
- BZrj39qZ04Chg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] mm/migrate_device: Apply the fault reference to the
- correct folio
-To: "Matthew Brost" <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260805113338.3742178-3-matthew.brost@intel.com>
-References: <20260805113338.3742178-1-matthew.brost@intel.com>
- <20260805113338.3742178-3-matthew.brost@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 11:54:41 +0000
-Message-Id: <20260805115442.4CA2E1F00A3A@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DFC8010EE06;
+	Wed,  5 Aug 2026 11:57:07 +0000 (UTC)
+X-Greylist: delayed 10059 seconds by postgrey-1.36 at gabe;
+ Wed, 05 Aug 2026 11:57:06 UTC
+Received: from zg8tmtyylji0my4xnjeumjiw.icoremail.net
+ (zg8tmtyylji0my4xnjeumjiw.icoremail.net [162.243.161.220])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 81A7E10EE06
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 11:57:06 +0000 (UTC)
+Received: from zju.edu.cn (unknown [10.98.66.117])
+ by mtasvr (Coremail) with SMTP id _____wAX4n36JHNq4D9pAA--.20355S3;
+ Wed, 05 Aug 2026 19:56:43 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+ by mail-app1 (Coremail) with SMTP id yy_KCgAnd5_5JHNqa4iKAw--.51924S2;
+ Wed, 05 Aug 2026 19:56:42 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: dri-devel@lists.freedesktop.org
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Marek Vasut <marex@denx.de>,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v2] drm/bridge: ti-sn65dsi83: Cancel reset_work on remove to
+ avoid use-after-free
+Date: Wed,  5 Aug 2026 11:55:46 +0000
+Message-Id: <20260805115546.152786-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260805090804.78914-1-fanwu01@zju.edu.cn>
+References: <20260805090804.78914-1-fanwu01@zju.edu.cn>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: yy_KCgAnd5_5JHNqa4iKAw--.51924S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?VLvJIwXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+ sfnVCjTgEH9dVomQuWcozCBBHsHPRTq1nu9Lig+QZosvpoMyN+4DStAKd0ilpoZmfYoolR
+ /bid1KQKukE0taufdXWp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxur4fJw4fCrWkZF15Ww47ZFc_yoW5Ww1UpF
+ sxW3s8C3ykXa1I9a9FyF15AFyYywnrtayrGrnrKw1fZa4Yqa15t34vkFWqqFyakFy8Jayj
+ vr4qyFWkZr47AFcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+ sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+ 0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+ IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+ e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+ xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+ CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+ xVWUJVWUGwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+ kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+ MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+ 0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0E
+ wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+ WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAI
+ cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU86c_DUUUUU==
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,131 +76,84 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+The error recovery code queues reset_work from the threaded IRQ handler
+and polling monitor_work. Neither the remove path nor the probe failure
+path after the IRQ is registered drains that work before devres releases
+the bridge allocation.
 
-Pre-existing issues:
-- [Critical] Error paths in `__migrate_device_pages` after a successful THP=
- split fail to clear `MIGRATE_PFN_MIGRATE` on tail pages, leading to uninit=
-ialized device memory being mapped into userspace.
-- [High] `folio_free_swap()` is only called on the head folio after splitti=
-ng a swap-backed THP, leaving tail folios improperly in the swap cache.
---
+Use drm_bridge_unplug() before stopping the work. It prevents a concurrent
+atomic commit from entering the bridge and re-arming monitor_work through
+monitor_start(), and waits for in-flight bridge critical sections to
+finish. Then disable the IRQ and drain monitor_work and reset_work.
 
---- Patch [2]: [PATCH 2/4] mm/migrate_device: Apply the fault reference to =
-the correct folio ---
-commit 4d89d00fc35f8db7c498dd86850a797d2e8c3d2b
-Author: Matthew Brost <matthew.brost@intel.com>
+Use the same shutdown sequence when attaching the DSI host fails. This
+prevents error recovery work queued by an early IRQ from accessing the
+devm-managed bridge after the failed probe returns.
 
-mm/migrate_device: Apply the fault reference to the correct folio
+This issue was found by an in-house static analysis tool.
+Compile-tested only; runtime testing is appreciated.
 
-This commit fixes a bug in __migrate_device_pages() where extra_cnt was
-calculated once for the head page and incorrectly applied to all sub-folios
-during a THP migration split. It moves the extra_cnt calculation inside the
-sub-folio loop so that the CPU fault reference is correctly applied only to
-the sub-folio containing the fault page.
+Fixes: ad5c6ecef27e ("drm: bridge: ti-sn65dsi83: Add error recovery mechanism")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+Changes since v1:
+  - Move drm_bridge_unplug() ahead of the work cancellation so a concurrent
+    atomic commit cannot re-arm monitor_work via monitor_start() after the
+    cancel.
+  - Drain from the probe-error path (err_remove_bridge) too, closing a UAF
+    where a spurious IRQ during probe queues reset_work and a later
+    -EPROBE_DEFER frees ctx.
+  - Factor the sequence into sn65dsi83_stop_error_recovery() shared by
+    both paths.
 
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index bf8d21857d380..5b078fcbec792 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -1201,7 +1201,7 @@ static void __migrate_device_pages(unsigned long *s=
-rc_pfns,
->  		struct page *page =3D migrate_pfn_to_page(src_pfns[i]);
->  		struct address_space *mapping;
->  		struct folio *newfolio, *folio;
-> -		int r, extra_cnt =3D 0;
-> +		int r;
->  		unsigned long nr =3D 1;
-> =20
->  		if (!newpage) {
+ drivers/gpu/drm/bridge/ti-sn65dsi83.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-[ ... ]
+diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+index 42b451432bbb..5f1a96856eac 100644
+--- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
++++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
+@@ -997,6 +997,18 @@ static irqreturn_t sn65dsi83_irq(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
+ 
++static void sn65dsi83_stop_error_recovery(struct sn65dsi83 *ctx)
++{
++	/* Block new bridge users and wait for existing critical sections. */
++	drm_bridge_unplug(&ctx->bridge);
++
++	if (ctx->irq)
++		disable_irq(ctx->irq);
++
++	cancel_delayed_work_sync(&ctx->monitor_work);
++	cancel_work_sync(&ctx->reset_work);
++}
++
+ static int sn65dsi83_probe(struct i2c_client *client)
+ {
+ 	const struct i2c_device_id *id = i2c_client_get_device_id(client);
+@@ -1061,7 +1073,7 @@ static int sn65dsi83_probe(struct i2c_client *client)
+ 	return 0;
+ 
+ err_remove_bridge:
+-	drm_bridge_remove(&ctx->bridge);
++	sn65dsi83_stop_error_recovery(ctx);
+ 	return ret;
+ }
+ 
+@@ -1069,6 +1081,6 @@ static void sn65dsi83_remove(struct i2c_client *client)
+ {
+ 	struct sn65dsi83 *ctx = i2c_get_clientdata(client);
+ 
+-	drm_bridge_unplug(&ctx->bridge);
++	sn65dsi83_stop_error_recovery(ctx);
+ }
+ 
+-- 
+2.51.0
 
-> @@ -1306,13 +1306,25 @@ static void __migrate_device_pages(unsigned long =
-*src_pfns,
-> =20
->  		BUG_ON(folio_test_writeback(folio));
-> =20
-
-[Severity: High]
-This is a pre-existing issue, but does calling folio_free_swap() only on the
-head page leave the tail pages in the swap cache?
-
-If a swap-backed THP is split into order-0 folios by
-migrate_vma_split_unmapped_folio() in __migrate_device_pages(), the local
-"folio" variable still points to the head page. The code just before this
-BUG_ON() calls:
-
-			if (mapping) {
-				if (!folio_test_anon(folio) ||
-				    !folio_free_swap(folio)) {
-
-Because this is outside the subpage loop, it only removes the head page from
-the swap cache. Later in the loop, when folio_migrate_mapping() is called
-for the tail pages, could they still be marked as swap cache and incorrectly
-replace their swap cache entries with device private pages?
-
-[Severity: Critical]
-This is a pre-existing issue, but do the error paths after a THP split fail=
- to
-clear MIGRATE_PFN_MIGRATE on tail pages?
-
-If the destination only allocates order-0 pages and the THP is successfully
-split in __migrate_device_pages(), the MIGRATE_PFN_MIGRATE flag is active on
-all tail pages in src_pfns. If a subsequent check fails, the code just befo=
-re
-this BUG_ON() does:
-
-				if (!folio_test_anon(folio) ||
-				    !folio_free_swap(folio)) {
-					src_pfns[i] &=3D ~MIGRATE_PFN_MIGRATE;
-					goto next;
-				}
-		} else if (folio_is_zone_device(newfolio)) {
-			src_pfns[i] &=3D ~MIGRATE_PFN_MIGRATE;
-			goto next;
-		}
-
-This clears the flag for the head page (src_pfns[i]), but not the tail page=
-s.
-Since the loop advances by "nr" at the "next" label, the tail pages keep th=
-eir
-migration flag. Could __migrate_device_finalize() then mistakenly assume th=
-ey
-migrated successfully and map uninitialized device memory into userspace?
-
-> -		if (migrate && migrate->fault_page =3D=3D page)
-> -			extra_cnt =3D 1;
->  		for (j =3D 0; j < nr && i + j < npages; j++) {
-> -			folio =3D page_folio(migrate_pfn_to_page(src_pfns[i+j]));
-> +			struct page *src_page =3D migrate_pfn_to_page(src_pfns[i+j]);
-> +			int extra_cnt =3D 0;
-> +
-> +			folio =3D page_folio(src_page);
->  			newfolio =3D page_folio(migrate_pfn_to_page(dst_pfns[i+j]));
-> =20
-> -			r =3D folio_migrate_mapping(mapping, newfolio, folio, extra_cnt);
-> +			/*
-> +			 * The CPU fault holds an extra reference on the folio
-> +			 * containing the fault page. @folio may have been
-> +			 * split above, so the fault page only accounts for an
-> +			 * extra reference on the folio it actually ended up
-> +			 * in, not on every folio of the original THP.
-> +			 */
-> +			if (migrate && migrate->fault_page =3D=3D src_page)
-> +				extra_cnt =3D 1;
-> +
-> +			r =3D folio_migrate_mapping(folio_mapping(folio), newfolio,
-> +						  folio, extra_cnt);
->  			if (r)
->  				src_pfns[i+j] &=3D ~MIGRATE_PFN_MIGRATE;
->  			else
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805113338.3742=
-178-1-matthew.brost@intel.com?part=3D2
