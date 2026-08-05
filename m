@@ -4,129 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E99C55838
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 00:31:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98652C55184
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 00:36:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C74C310E011;
-	Wed,  5 Aug 2026 00:31:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DCAB010EC30;
+	Wed,  5 Aug 2026 00:36:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="gi3EywTO";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UzfErMoK";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012025.outbound.protection.outlook.com
- [40.93.195.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FC9910E011
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 00:31:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u/VWBmXDRF4VtpqX64xJ8bfcf+EPW3Rs/etGxmPmQMBu838diGfwotYsqtKXHCgVERqS3c08m63tCpEcrAzHh3HJU9xFZEAdPnaAaixBOVm9lfz9pCjTQnqVVGG/sGSqpYH1rNSZNsGNEeTyHcP3oscCqcmyWVfAB6AQXoSaxDr7ENYVli6v1kFf6aa3/tqmQrqUC+V+nGOTSzKqQbhGBbmpMyhN8VVhOscBFLuULEru7UklnWwr+B4yQcZx+BBm9lzo8NfD9Qz2JW5tqK/5E6B0Mb28pldnm/7SBtEO7+VDh4Q0wXcpFsd1mdTGGM/qmhXMyOMt6k5+chWuXqwFTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rYU4P+GYPulSFJaSVmTLP9g7qHzI5DRa7qet0RyvrzE=;
- b=yRvfQfF5vciCKpBwivxS576/CMsCuEfry+mzFRviW8SOuMsmfvp+GcRJ19hOFU4CL/0V7mhF23TMvgck4ikeOupjP7sM2Na9V/O5C8cXJ7ks8bjQ5N3lrQ0I6M1red9ZBvn+QHk1UFYAP5mHqheEtSl3cPaTUPHO/7T7oL9YtHmZ4Xkc1v4R+6bUoPoQbxG7RZ4+MEIZIv9UC0lJ1m+rJUFAF/3Axxd5gVuCYz/S9WokGTAMRl2R57QNxw4ZMb4AOaP0Q6AyaiGQ0Ql/e4QDh6+sC5jSaFG80tL0QSM67K5+7Xg5WDyN5BBmw2hcRkysCOKxCU9gMgkeX3kdz8Gjxw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rYU4P+GYPulSFJaSVmTLP9g7qHzI5DRa7qet0RyvrzE=;
- b=gi3EywTO+TKihzslrS+JqGf2pB3/dEanUqcTmFcwO7/R/SwH3aYaVxCT8jJCpPCN+2S0j/4nhepf9lDpu1Ql//e327ZP6t4V7DtYJsOKeuv6bjC2LUc8IiZy6qyT33+s0wNzyxCJzuGgpXTJLGB36EAxLzRiQZvmmkfxCkso8WpcLi6FExtnwrEXcJOHrxWXsekT86DTMPMrtoiuufx1CUkbvbmJlKzUWKJcVGl1l3cLvf/yZGFXlB9y+vPJZUqRmBRU0Z32T61IxdWOVOfALekptsQHxClki9knzXjm4rQ0NIc7CCt+GOF8YC6+lWf+k2NIZGLoNmfZYFvnW//zvQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
- by PH7PR12MB7020.namprd12.prod.outlook.com (2603:10b6:510:1ba::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Wed, 5 Aug
- 2026 00:31:29 +0000
-Received: from LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
- ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0292.015; Wed, 5 Aug 2026
- 00:31:29 +0000
-Date: Tue, 4 Aug 2026 21:31:27 -0300
-From: Jason Gunthorpe <jgg@nvidia.com>
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Alex Williamson <alex@shazbot.org>, Matt Evans <matt@ozlabs.org>,
- Alex Mastro <amastro@fb.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Longfang Liu <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>,
- =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v5 1/9] PCI/P2PDMA: Split pool-related cleanup out of
- pci_p2pdma_release()
-Message-ID: <20260805003127.GJ27883@nvidia.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-2-matt@ozlabs.org>
- <20260728163343.2a39a8d1@shazbot.org>
- <20260729100840.GM12003@unreal>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729100840.GM12003@unreal>
-X-ClientProxiedBy: MN0P221CA0019.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:52a::33) To LV8PR12MB9620.namprd12.prod.outlook.com
- (2603:10b6:408:2a1::19)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B4B3F10E112
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 00:36:16 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9BC34600B1;
+ Wed,  5 Aug 2026 00:36:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324B51F000E9;
+ Wed,  5 Aug 2026 00:36:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785890175;
+ bh=7eQ5n/iGpSnvTqj4pTR3mrzSee7O5vh1QLpKl6Bg9h0=;
+ h=Date:From:Cc:To:In-Reply-To:References:Subject;
+ b=UzfErMoKx40e2blQeHBXSCWHrkWf3gT/4gPA6Ln90TDRy5NKPRSQqcxXUzzw04hr1
+ /myqb631zNn+dnijLZJGJP7BXHOJRqfLk0BCpDe+D+MlAMgBLbMpWg60+7zU+IXZjD
+ m7dumXj0+13Nwgae6uSZnM9GBZyMv7oR4I7MgXoQZXs/9BcYQE2HFIMIRXztOMk14n
+ uBt7WqVLibUdRfcy+HYtqV+4qTdryt6kXeRL0NtcMz/Miq0eRRwAgNG4xB0DmBDpAQ
+ oIfxDBLy/5rBqs6/Khh1sV2dcLO4uG5P8iBrVoW7iMzXLP39yjo2aEuZNHroM/xuO6
+ kWF3YyRd/ibyA==
+Date: Tue, 04 Aug 2026 19:36:14 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|PH7PR12MB7020:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a425439-cfd9-42b9-858f-08def288e3d0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|1800799024|366016|56012099006|10067099003|4143699003|5023799004|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: +DiBM4lVDeL0hk/0nHcW4nVS/E2UP3U3iCBON2IGwE1s0R7uD0p2R7HWnhdBnAO4DyVyu0hS5cJXgml2EThnF/gIiNH3dlWn5CcDW9WFKKPb0tzeC1SyxhjJ9KGwNfRHk0Eb/2x5JbAYhPOgK1neZiDvCoAfTaYSkRZ9aBv6bHMqmOrCV7kVUdykeEhIR/Y+NTEnUXDAzzYxcT7bltcfBrFMz8Qz8msDp+Tz8J20QVtimYRh3qGtduxIKa2fTCLkAk+ia8souO1JwM5aAg9na8F18oy0Z5NHaQ/aVZaQ3NlorcScJsaMBgiqTQNUDRyjgAp28Yccc9DWAKSXuafyPDqvK9Rj+3fbH4SLaWtXOpJFDnWUiq04Jca/y1YgUAaKts5M55D5TT2gSok1OZVF5dzG3c5hH8SDkjT5PzUQ3cu4NNvxbqygXoJusRviUWKLCUAT2l4KbPfNT9yZcmE5H8h5ppnJxUiujGeaJ63RA8t4FZgHy4cZYz4Iu5WB60jm9YcOVXVIFgtndFSpTqK7Y+OGEGzUGEOaD8LwkvUGc6hKTcqPWIktdxNGRJU5O+6xL25Pik92foRlslWmL23ighVW0cwuwDRg1gwfRT29/cbqKDEtWjqLIVwCbT0nUn5O95lS+B45jpzwKF9oyb3lydAKAjW76t1tSfNXCb9WMGY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LV8PR12MB9620.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(56012099006)(10067099003)(4143699003)(5023799004)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pSqoRAMR+5KUZxiGWN6MC3LZJr/O1bKOrF0dsPE4bIE6ZZY70CPrLitBkEFz?=
- =?us-ascii?Q?XTucMxn0GCmMK0gFCBeCqPKhFn07lF9F9cEWh0rMOvU+6U1+0uNxI0rRBIKu?=
- =?us-ascii?Q?O26hb40DpBwkAy1I3E8CBeiiOADHCTOhJY0qYXQ6N3HKtl7+bq9Nc/+ZyuY4?=
- =?us-ascii?Q?Jec4NITHYcj7yNnDQ+GoUys7oArJkTlgqLT16sYW1JWKnL7LoOsSli64RNRm?=
- =?us-ascii?Q?xsf54HZ3aieMwdloiWOBXBXZ4n04czsrb4QOxL8BCk3x/l3i3QEnBjkomihd?=
- =?us-ascii?Q?nt/zQ0eewChvpKU0yThkQYoYMO0sRh9zZbMuzaOx72jBiz2ZJahT6X5pl8KP?=
- =?us-ascii?Q?br97Ve0sDb/9u2b1Le8kN3FNxX6ysnGaisQ1mHM5I7F5kPXsJAKtVME8iQeW?=
- =?us-ascii?Q?k7s+C4IyNwW0Bl+wcICOedE+18HeK1afYlLe3bwWAiKClTXuYc1rHnINm7OE?=
- =?us-ascii?Q?kpB6TDeJEe2S5dFrFGmzuE8ppK/vmkVbG8LcfU8ZiQyRLb6Wh76FPIAnaEf5?=
- =?us-ascii?Q?TlchUy8w7vNip7GBPrOpxZLOwD/Vv7u0Vqg/BNUC++K06FaZEccT2x1Bkn2h?=
- =?us-ascii?Q?/oVb7G86KTNE02qfNCddOmp/iCBQIjyREIfsgm7ZmBUUmJSEgWYZCqhk+6N+?=
- =?us-ascii?Q?tKBn3t6ki/UBqAl/m34ib7IEPVyY58OeAYBDSiPrLqXK0JLtNVsRlhM2MJq4?=
- =?us-ascii?Q?ABdFyV8UKSoYueoI4yMz3mOD7vH7Yx6wf3syZKBNKRbKinFlOEQKpuTcJ+uP?=
- =?us-ascii?Q?jdLuqQrAG2leqqbid+iQ4Q89NIbm5yKl13dGLDxwhAFFMOdqEyEerELTPuCF?=
- =?us-ascii?Q?j+78hex6pvoCbKNymrf22nQOXMxAcfnInFIlIWTHSIHKBzBWVHLOVIEUB/cN?=
- =?us-ascii?Q?kurkzdcDP/PGinHQjsZfOamto19MPuB/8Gf4SPEEWuPV/Mb8T6+hWl4094pb?=
- =?us-ascii?Q?eu14DJQp3AHsipED/zqZ4sae/9i+q+q4bLv0HyBwi3KzwSzYoIlEC8V87jRZ?=
- =?us-ascii?Q?zBj18d0O1A7vLzEUrsMPlHAejAmQVA6poblRlX5DVZ0xriSlHlXXVh8fp+1Y?=
- =?us-ascii?Q?a3xbJmN4LbQISCEkQ+IW3jvdsBGxfOGDi7vhYxXiEkGXmhnhgA1+ZWIoXGiG?=
- =?us-ascii?Q?2irXKou3nxDqpo9v+SA4i0MeXbdO6qF8yzRLkj2kbyjdBGFdNNMzbzfpI/fm?=
- =?us-ascii?Q?P+aYI3s62j3D102uxBzHtWRJjC0mE+b5slNNWQO4j5EnVfNpZMvuZID0spIj?=
- =?us-ascii?Q?WLiKlYccRivFoPa/OSiiIMLQMrjKuhJ3QnZZzKrN23lAa7W6Fq125rjqfgnQ?=
- =?us-ascii?Q?BGIdWmPMBSLYJKfsyAFDzCw+kpoNctgWaIhwz/gA66caIs+6qF9SwnBY0MwA?=
- =?us-ascii?Q?wv98YhIgavWuFcx9T3hKMLxhajMzC08t1u8Qyxnr9GqL1Y46sOIobIks5S9G?=
- =?us-ascii?Q?hYehOJJ/l2g3iWECQmmJDMjgqkpAaK8o+HAxlC63fpaWI9cW6TSDMVKibSsN?=
- =?us-ascii?Q?1VQ1+JZMn3Bjo3Pm1wp390JMzsLqPv+4zcN57tkLXq6SSCJ0oeT4qkwFMVvk?=
- =?us-ascii?Q?RL4Vb7xRxTpSc1K2iPJTjKyZKdyc8dq84Z442qr/aOSduwmaRJ2SIhDMikqr?=
- =?us-ascii?Q?5Nd4xIF28X6TTqCa26YRMUOi/1ghxyoaL7YfsHIeYwy1w3hysEqY6d112kXq?=
- =?us-ascii?Q?bv1xhsvL4nknqBHnEQ0Ff7eRAltmayGT5H5fiw2fk+1HefT1r7pEspXTxc02?=
- =?us-ascii?Q?+6XUvTfg2w=3D=3D?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a425439-cfd9-42b9-858f-08def288e3d0
-X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 00:31:28.8152 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pMuyn9RJNjXGhplYeOa5Z4CfTe5tS7arb0cVzWuJwVhy+dy4TXRvDD8r0En0MGzW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7020
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ linux-fbdev@vger.kernel.org, 
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ dri-devel@lists.freedesktop.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ devicetree@vger.kernel.org, Geert Uytterhoeven <geert@linux-m68k.org>, 
+ linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Helge Deller <deller@gmx.de>
+To: Max Pedraza <maximpedraza@gmail.com>
+In-Reply-To: <20260804225617.264861-2-maximpedraza@gmail.com>
+References: <20260804225617.264861-1-maximpedraza@gmail.com>
+ <20260804225617.264861-2-maximpedraza@gmail.com>
+Message-Id: <178589017450.2494424.9339926059212534643.robh@kernel.org>
+Subject: Re: [PATCH v2 1/6] dt-bindings: display: add a device tree
+ supplied boot logo
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,25 +64,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 01:08:40PM +0300, Leon Romanovsky wrote:
-> I remember this concern when I wrote the patches and wanted to remove
-> RCU entirely. I revisited the Sashiko report, but reached the same
-> conclusion again.
+
+On Wed, 05 Aug 2026 00:56:12 +0200, Max Pedraza wrote:
+> Embedded products frequently need a product specific boot logo. Today the
+> only way to get one is to replace one of the logo_*_clut224.ppm files in
+> the kernel source tree, which bakes the image into the kernel image: a
+> change of branding, or a second product sharing the same board support,
+> requires a separate kernel build.
 > 
-> The "bug" reported by Sashiko does not exist. The two-layer split
-> ensures that p2p is bound to the driver's lifecycle. As a result,
-> pdev->p2pdma is assigned and cleared only once during the lifetime of
-> pdev.
+> Add a binding for a "linux,boot-logo-clut224" node, which carries the logo
+> in the same paletted format the built-in CLUT224 logos already use, plus a
+> few optional properties describing where on the screen it is drawn.
 > 
-> In this case, the RCU primitives are effectively NOPs, since nothing
-> will ever update that pointer.
+> The palette size is derived from the length of the "clut" property rather
+> than spelled out separately, and "data" holds plain palette indices; the
+> 32 entry offset the frame buffer layer reserves for the console is an
+> implementation detail and is applied by the kernel, not by the binding.
+> 
+> Signed-off-by: Max Pedraza <maximpedraza@gmail.com>
+> ---
+>  .../display/linux,boot-logo-clut224.yaml      | 131 ++++++++++++++++++
+>  MAINTAINERS                                   |   1 +
+>  2 files changed, 132 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/linux,boot-logo-clut224.yaml
+> 
 
-This sounds right to me too.
+My bot found errors running 'make dt_binding_check' on your patch:
 
-The lowest layer has no need of RCU at all, it just remains RCU
-because the genalloc layer wants it as part of its locking scheme.
+yamllint warnings/errors:
 
-So long as the genalloc gets the synchronize_rcu on destruction there
-is no bug.
+dtschema/dtc warnings/errors:
+Documentation/devicetree/bindings/display/linux,boot-logo-clut224.example.dtb: /: 'compatible' is a required property
+	from schema $id: http://devicetree.org/schemas/root-node.yaml
+Documentation/devicetree/bindings/display/linux,boot-logo-clut224.example.dtb: /: 'model' is a required property
+	from schema $id: http://devicetree.org/schemas/root-node.yaml
+Documentation/devicetree/bindings/display/linux,boot-logo-clut224.example.dtb: chosen: 'logo' does not match any of the regexes: '^framebuffer', '^pinctrl-[0-9]+$'
+	from schema $id: http://devicetree.org/schemas/chosen.yaml
 
-Jason
+doc reference errors (make refcheckdocs):
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260804225617.264861-2-maximpedraza@gmail.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
+
