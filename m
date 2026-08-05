@@ -4,85 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60F28C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 18:49:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B5AFC55ABA
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 18:56:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A5FFA10E0F7;
-	Wed,  5 Aug 2026 18:49:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 87DB710EE37;
+	Wed,  5 Aug 2026 18:56:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="DgMGd6oZ";
+	dkim=pass (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="fvnA+TH6";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7A6510E0F7
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 18:49:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785955780;
+X-Greylist: delayed 419 seconds by postgrey-1.36 at gabe;
+ Wed, 05 Aug 2026 18:56:03 UTC
+Received: from out-172.mta1.migadu.com (out-172.mta1.migadu.com
+ [95.215.58.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4EE5910EE37
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 18:56:03 +0000 (UTC)
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+ s=key1; t=1785955410;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=D/EU9EVSboKco9470bPT/jGMXPeGjUQzJn76uvcSda4=;
- b=DgMGd6oZX+At9VfgYLcI5XlseJvU5vmWzmcX54YI1N+tMCBCUSpzLOx5xV4zsqbyT9Od/8
- 4O4eWMeGcN7x2O5jgBr0/XfJcF+g4PvOdDjIWbQmxqdIwVa4nI/cLT7fNHV5aIjwppAtp7
- C/si1AAzCvyKWlTYjfBwRotrMddGlLQ=
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
- [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-175-hKYL_v9oPYe531cTVfwSMA-1; Wed, 05 Aug 2026 14:49:39 -0400
-X-MC-Unique: hKYL_v9oPYe531cTVfwSMA-1
-X-Mimecast-MFC-AGG-ID: hKYL_v9oPYe531cTVfwSMA_1785955779
-Received: by mail-qk1-f200.google.com with SMTP id
- af79cd13be357-92e55721a8cso128650585a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 11:49:39 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785955779; x=1786560579;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=3hJIV19g7hzV4U2eQYL2xphnDrR3wJqKfXXYljP96rg=;
- b=SczE1NXZFss8+y571I7eIKzOvq7OX/wxRap32b03T3uC7y8GyvnSx7YLfiPsuo8JCD
- ZHpIzmLaEA+RZ/26pUbgqXRbA8vNFKakU4dH0v2AiS+w6prWrwzrC/QtdynsN7TZg51H
- u/IJkzGf3d28e4H2V8+wzLpBdisJ9gW+AdMRUFe5bZxYn8zvlQHtkPrxuXSbEC8l4a5Y
- 9wb1fTGu2gFAL5S2cOXJWIJcu7dAX3HPLAHskqTdduCCh377MQ3lsYw+Fq/vfjiVmDf9
- LS7S5t9xGsw5weUSJCP+xWoUvn43YL+XuIyzdgz7TL6OhfbfSHKGTRHvmzjOkMxLGDwG
- K2iA==
-X-Gm-Message-State: AOJu0YxnXp9hsPsDW+zZJXC3pEZdWlPsEIyOQvezyXd3ZI+BbuLFZ5IR
- G5jPdzjLbsHA+iZ2xzgLsIH6LMOrD8HPTa8JIS0UfvVcoEoQidBVlVaCIAOLOsdHl+spY6WoNTc
- Is4XSEVJXFMXpL7A6ZK/pa5gLOmBWjtF7d/P3rq+gv+z35UkxoHAjIpKzcFsWmcy9Q5ljOQ==
-X-Gm-Gg: AR+sD11vgQwqrK2tCZeI+sBETwSli3dYjgX0E7n8zyeaslgq8hqLC4fEZ16W78HuB0c
- +gGmZoECMiMZuls+E/++ubSvORDQv4rFgdM6gBlBT1uoICZ1OSw5rSxOEcz7Wascd3TedIjX1lu
- KKWsaYuRq1P+PzmmfexilAMYn85hp8R/n166PrHp+mdnvLa1k7bNEfwfJk04gdIOy6vKIhB1KX9
- EeVqL6jzwnYjGk5mSpOyPL1hjHGEHWR9BsfEyCXtwDHUtMJCt+J8kzWNio/YOQw5BkFmJAPM3DW
- vlHTZsCe9oOQmMeDG/IobNmkjupftKc6+SIPa+cJFz2THpF81cTSNn4cxt6ZqSpHx8CZGLHs
-X-Received: by 2002:a05:620a:4090:b0:932:dd9a:cdd2 with SMTP id
- af79cd13be357-93649112c98mr804335485a.5.1785955779158; 
- Wed, 05 Aug 2026 11:49:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:4090:b0:932:dd9a:cdd2 with SMTP id
- af79cd13be357-93649112c98mr804329385a.5.1785955778639; 
- Wed, 05 Aug 2026 11:49:38 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9364a597e2asm215171585a.43.2026.08.05.11.49.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Aug 2026 11:49:38 -0700 (PDT)
-Message-ID: <46aebd6a4caddf377d61dc251e7b4838f409de6f.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: Wire up dmem cgroups
-From: lyude@redhat.com
-To: Natalie Vock <natalie.vock@gmx.de>, Danilo Krummrich <dakr@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann	 <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
-Date: Wed, 05 Aug 2026 14:49:37 -0400
-In-Reply-To: <20260410081322.5577-1-natalie.vock@gmx.de>
-References: <20260410081322.5577-1-natalie.vock@gmx.de>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: MgWH1e9EcHuFTFcyAb7n5Li9ThrA-jlYEHbh9DnKv_I_1785955779
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
+ bh=asjh1e4/12M1U47u0ygycydMMvDwaXnVjTSsGZZSUqA=;
+ b=fvnA+TH6tPFnMy8EEtLfbmcwGCHaFIKnEjq/xXwB96nA0KfwmreSMXYBKBSESKTENGftEt
+ t1eIchoAtsGfwfsYbDF1wKSrjhwkAY4qUA7zR8o+o+MLzPjD/+b30w+KXoyP24Bkym/Aot
+ BbFhURaY1InqkfMQZgIVNHjMfVnZbamW8oRvMPzV1Ca/0KyXlhjdEA3wlcuje0xpfV1s9v
+ G1MeObiamJcQpJgQZHwF8mf+0mHWQVe1qOA9kp9MEuJi4bjnlP+tPqW7vuRp2GDfBXGuFE
+ AEUV2KleJIy+UemZQ6RD47XLE98bkjq0kjVz4KdSOB1naqIXR4E0m8+UFA4vZA==
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 05 Aug 2026 20:43:27 +0200
+Message-Id: <DKH8CRTZT2XA.1WJNZORRS4109@cknow-tech.com>
+Cc: "Oded Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
+ "Jiaxing Hu" <gahing@gahingwoo.com>, "Heiko Stuebner" <heiko@sntech.de>
+Subject: Re: [PATCH v2] accel/rocket: request the core clocks by name
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Igor Paunovic" <royalnet026@gmail.com>, "Tomeu Vizoso"
+ <tomeu@tomeuvizoso.net>
+References: <20260729130743.128876-1-royalnet026@gmail.com>
+In-Reply-To: <20260729130743.128876-1-royalnet026@gmail.com>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,45 +62,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi! I'm sorry, I have no clue how this patch got overlooked. Thank you
-for the contribution.
+Hi Igor,
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+On Wed Jul 29, 2026 at 3:07 PM CEST, Igor Paunovic wrote:
+> rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
+> setting the .id members. The rocket_core array is allocated with
+> devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
+> .rdev, .dev and .index, so all four clk_bulk_data entries are requested
+> with a NULL con_id (unlike core->resets, whose ids are set a few lines
+> above).
+>
+> clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
+> of_parse_clkspec() only consults "clock-names" when a name was passed,
+> so the index stays 0 for all four entries. Every entry therefore ends up
+> holding a handle to the *first* clock of the DT "clocks" property, i.e.
+> ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
+> four different clocks.
+>
+> The consequence is that rocket_device_runtime_resume() prepares and
+> enables the AXI clock four times, while hclk, pclk and - most
+> importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
+> never prepared or enabled by this driver at all. The NPU still works
+> only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
+> its attach_dev() callback walks the device node with of_clk_get() and
+> adds every clock to the pm_clk list, so genpd happens to keep the
+> remaining clocks running. The bug is therefore latent today, but it
+> means the driver holds no reference to the clock that actually feeds the
+> NPU, which stands in the way of any future frequency scaling
+> (OPP/devfreq) work.
+>
+> Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
+> /sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
+> handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
+> two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
+> "fdab0000.npu" consumer at all - their only consumers are the
+> "npu@fdab0000" handles created by the power-domain driver via
+> of_clk_get().
 
-I will push this upstream in just a moment
+I have confirmed both the 'old' situation and the 'new' one on both my
+NanoPC-T6 LTS and NanoPC-T6 Plus (both RK3588), so feel free to add
 
-On Fri, 2026-04-10 at 10:13 +0200, Natalie Vock wrote:
-> Userspace can now make use of memory protection via dmem cgroups. Let
-> nouveau benefit from this as well by registering the vram region with
-> the dmem cgroup controller.
->=20
-> This patch adapts the approach amdgpu and Xe have taken for enabling
-> dmem cgroups.
->=20
-> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, Nan=
+oPC-T6 Plus
+
+
+Cheers,
+  Diederik
+
+>
+> Set the ids explicitly, in the order mandated by the binding
+> (Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
+> aclk, hclk, npu, pclk. After the change the driver holds one handle per
+> distinct clock and clk_bulk_prepare_enable() covers all four.
+>
+> Note that this is a user-visible tightening for out-of-tree DTs: the
+> old NULL-id requests resolved by index and succeeded no matter what
+> "clock-names" contained, while the named requests fail probe with
+> -ENOENT when one of the four names is missing. That is the right
+> outcome for in-tree users - the binding requires exactly these four
+> clock-names and rk3588-base.dtsi carries them on all three cores - but
+> a DT that relied on the permissive lookup goes from silently running on
+> the wrong clock handles to not probing at all, so record the change
+> here where git log will find it.
+>
+> Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
+> Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+> Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
 > ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_ttm.c | 5 +++++
-> =C2=A01 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> b/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> index ad01f922aa86a..860bca7e3ce28 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_ttm.c
-> @@ -188,6 +188,11 @@ nouveau_ttm_init_vram(struct nouveau_drm *drm)
-> =C2=A0
-> =C2=A0=09=09man->func =3D &nouveau_vram_manager;
-> =C2=A0
-> +=09=09man->cg =3D drmm_cgroup_register_region(drm->dev,
-> "vram",
-> +=09=09=09=09=09=09=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm-
-> >gem.vram_available);
-> +=09=09if (IS_ERR(man->cg))
-> +=09=09=09return PTR_ERR(man->cg);
-> +
-> =C2=A0=09=09ttm_resource_manager_init(man, &drm->ttm.bdev,
-> =C2=A0=09=09=09=09=09=C2=A0 drm->gem.vram_available >>
-> PAGE_SHIFT);
-> =C2=A0=09=09ttm_set_driver_manager(&drm->ttm.bdev, TTM_PL_VRAM,
-> man);
+> v2:
+>  - document that resolving by name is a behaviour change for DTs that
+>    do not carry all four clock-names (Jiaxing Hu)
+>  - collect Jiaxing's Reviewed-by
+> v1: https://lore.kernel.org/linux-rockchip/20260729092939.118779-1-royaln=
+et026@gmail.com/
+>
+> The same four id assignments are board-tested on RK3576 (ROCK 4D) as
+> part of Jiaxing's RK3576 enablement series (v2 6/8), so the change has
+> been exercised on two SoCs between us.
+>
+> Verified on RK3588 (Orange Pi 5 Plus): after the change clk_summary
+> shows one consumer handle per clock instead of four handles on aclk, the
+> NPU still powers up and down cleanly through runtime PM, and a
+> MobileNetV1 inference run via the Teflon TFLite delegate produces
+> bit-identical output tensors to the unpatched driver.
+>
+>  drivers/accel/rocket/rocket_core.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/ro=
+cket_core.c
+> index b3b2fa9..5dd260b 100644
+> --- a/drivers/accel/rocket/rocket_core.c
+> +++ b/drivers/accel/rocket/rocket_core.c
+> @@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get resets for core %d\n", c=
+ore->index);
+>
+> +	core->clks[0].id =3D "aclk";
+> +	core->clks[1].id =3D "hclk";
+> +	core->clks[2].id =3D "npu";
+> +	core->clks[3].id =3D "pclk";
+>  	err =3D devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
+>  	if (err)
+>  		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", c=
+ore->index);
+>
+> _______________________________________________
+> Linux-rockchip mailing list
+> Linux-rockchip@lists.infradead.org
+> http://lists.infradead.org/mailman/listinfo/linux-rockchip
 
