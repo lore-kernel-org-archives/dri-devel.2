@@ -4,33 +4,33 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C754C561E6
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 16:37:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42331C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 16:37:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A34BC10EF46;
-	Wed,  5 Aug 2026 16:37:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92E5A10EF3C;
+	Wed,  5 Aug 2026 16:37:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="oC73A+nV";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="QMNkJXVe";
 	dkim-atps=neutral
 Received: from CWXP265CU009.outbound.protection.outlook.com
  (mail-ukwestazon11021089.outbound.protection.outlook.com [52.101.100.89])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C67F10EF36
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 16:37:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7225310EF36
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 16:37:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=f7v27OAdi9DNQQnJNIdJOdZpXT/FpFZmWH962bc4pUE/wNenF9RE7NZggQXylyJ6kUjt/sskvs3cxLultdK4mihjarKZ7iA6fWoPHX7YFIbL9UKUR2/+mKJ0PePk2npFJ+/WKglNz0WEtLb7COf8N4FzpC8freg9wXyK5VlR4XUOxN3m2Y1QaGACFfVaZCLH6cNvSFL24NWy+qVFZymNk1Iom1MUGxRmvZnD5CQzsffK0jqE8e17ajOsOd/YFjXcx5Fd8DSVVBoC58TScJDi+u54snV82qeM/LWzgsuya2V66UbPC5GAMUQzt1cUB/CUdrCWlJxgTNoy/SGQn1ddaQ==
+ b=jC1X2zh9JnSvDzSZewe9V88yp2cL23oGN1fW1AUqZb/Q86WtEHpyfKk2h/dgZ/DLA/yz3iD6zWppAqrzPPrPg7DJqDEPbxkAdYjnMJNg1ui5gV3jLl8MgId6VbwkAIivYGyWBgVhBo/MTyZ4k2THqGRL6nk9yr2FSkUvfOcaVktMJJ+Ame65/hFE9vjl/T5Ed/6bp8S2RoHIX/P9v8tTDXL69wSzDKZ7M2ivVHAvYZi1INAsKaR7ZNeAtifV1pJKYhymRUDjvneH+xqYrTmWCu/8MFhmEOTZufsWHwfq5oJkCeIQy0dp1EAQ4gWZfo/5+L+2GLlLkguUzH1KvEFBcQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DzQlAr0qBA+EiXlfcPFXCAMOy2R0H9ERg+SIW5AEdEE=;
- b=q1n1m/vxtDl5MJijt+XOS8m9Qq9V3cbqdytNogKoBV4WlFNyaVxL6UV0NQtm0wCIqzPZrwoyUHhYdDxzOfPKQVVtWUb4K191Cut00yD3vIwcXcFPg5VKawIse8q7KrFBM6b7wIhADH8iX/qYPGu14w3GZW3KCbYptENkdWvZy2LILyGbvS/UmpLhY5kZJ72xazg+qi+/9OQcQ+QiT4ORBG88IIlKiet49U816xdsxQAJBDNN7TZIHobRspp3CcLbajQaoQrwmjsulfWw5sQlujEhFDb2rxRYBCSz0pj71JRBEE4zIct00P2ocSYA713djZHC5r/qNAV8fcgsfxeMfg==
+ bh=v0B9J7EtjFFOfqpNapB2NAxL9XvD5dlbr2Cpc+w+7pc=;
+ b=Fkw+UMFV2viwEhuJC2bR8i6EOXwpZkMW9bcNxuardHJcfLPqegjPBqhDPIXXGMxzgUWGat54YTCuib8NUI11f+kWNvsPZDa6EpoKXbdpEWxcj9nmRhqug+jqbbutFibXubWOFaicttViGm7qGFDf44Tpo5mAEbmqCmOUuSsFc+MZUMBwRRc+/+CFwJkIC78FknPRGzuxAibuFK1+LVMyTyQgc/F1M3YWiNiEZ2WplbUMs92yKkBo+aJhPT38kTGM31mSxAXPmixyLw+JX0AdZCM3D4Ev2upQ1M0eTDHVlEr0w1JIiToWgZTm/A6VmEoXCJwpDUDigLc6zrRKdNq9HA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DzQlAr0qBA+EiXlfcPFXCAMOy2R0H9ERg+SIW5AEdEE=;
- b=oC73A+nVGNStSeSE3OnJ+n5AJiF5RkZ+qjUgDDWkIUuKzSnTSUvu4UhrriV0Lxpz1gGx6GVwHh53UgsvcwlJyVD0/1cW+xihJ2wsg5IxWLKco9kdOHP8aG7J17yhjRNv6O2WQtOzbZlIf0XVOmH6RNaNohwIEN3k0f4fcyEj5nA=
+ bh=v0B9J7EtjFFOfqpNapB2NAxL9XvD5dlbr2Cpc+w+7pc=;
+ b=QMNkJXVe6CydLiyeABSpIu1fpGH3aerVFAMlYAw9Ld/gucFe3YBNJlvuX8FbhnyNb33asHCujE+gUYlR8RyMALdMuySuzLa0XgejD2pSXz7qom2z5LXrULIlKUwPPMNhHnLJFwQ+v84uDTny2HcuM7WlqJ2YPdizQbdRn7+boIk=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
@@ -43,11 +43,12 @@ Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
  ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
  16:37:08 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Wed, 05 Aug 2026 17:35:57 +0100
-Subject: [PATCH v2 14/16] rust: io: register: remove relative registers
+Date: Wed, 05 Aug 2026 17:35:56 +0100
+Subject: [PATCH v2 13/16] gpu: nova-core: convert hshub0 from relative
+ register to projection
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-typed_register-v2-14-c3ca142220a0@garyguo.net>
+Message-Id: <20260805-typed_register-v2-13-c3ca142220a0@garyguo.net>
 References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
 In-Reply-To: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -66,11 +67,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785947819; l=21551;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785947819; l=6702;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=3xB5ajs/rdjAAM4S5wz1ExH2hzUqJkEzTD4HHrEC3aM=;
- b=dZ/SG3yfdo0lfWI/LkeOLgVpdixvuREBb8hCa1R3KTR78kIDA//Yhc5xIbsTZW7GiofioNLdu
- rJlHes7mti1DY9qa7hPTdj+0CIkiH4/+q7BFykQWTlCiTiwaN8FbmJ5
+ bh=UcdRmVpzRIL5d6EXe2nVU7lPrMffwe962tEbCQsnEq8=;
+ b=v8NEDerkeR7e8881UUrHp7Lg06WNuZ9vjZ6x/ZMLFytw34MRRTvToNx9+q7DwCynlEezZvL2n
+ wxmOSZ5HYdAB2yeeAqJZE22WenvBRwqVdM6j6MfKywVu6DBvWKdbWpE
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0608.GBRP123.PROD.OUTLOOK.COM
@@ -79,65 +80,65 @@ X-ClientProxiedBy: LO4P123CA0608.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|CWLP265MB3412:EE_
-X-MS-Office365-Filtering-Correlation-Id: fe91a777-b827-4b81-546d-08def30fcae1
+X-MS-Office365-Filtering-Correlation-Id: e0a9809c-a15b-4df1-47ae-08def30fca86
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|10070799003|1800799024|7416014|23010399003|376014|22082099003|18002099003|56012099006|10067099003|921020;
-X-Microsoft-Antispam-Message-Info: CfaWPuzi/DAdWQXVXx97vDo+UG6S0mw5JQJRyKYiHEqjFBOXickAyRNp7itrgAyS7P31PjDvjPI7Cbv/rb0rn6aO72NTIUO/rAP79f9O2d0iG1jW+pYjFhShUExts4rxURUj0G1XB2tPUtrA/raCZotc/TFaj+9JxhpSF5110ETBiKcUo3v9fPGeOwbKuB+n0GsQtxTpWceNj0PgbrcoN4n8ZT9HQtV1r/AgNc5U+TTwK5GdKjEDqr7DFyhIg3a6cu1RoN1Kub3fjF9I+zrt0xsjo8Aqi9fVZ6MPZTlLMb1GAZ5QRjQakWm8G6wTcl7WwE17yXIl5u7WdlIFIN7fbbegG/uFvkYvFaSYav7z5PzWFbvfPOzYUXXNlibBhkkFSLrq8mrCUx2nNPN9iZOcXApqybFJ5NfTY45ehels2ewRTSApngPqxUSfCrKarQ7SXDzhFruZM+ZCRJOKypX7zMHSsaRfSDh6WVsDMuvRe5XIYhK9uXitlC1qdb4vl3+15eJK+7+AN69F4GRuEEw/rUzzSxsQ4xAgzMdzs1H5+iGQO6orJol3mON8Kj13TcWo7AhWc+ud6eYKx++JUziKs45Uw/rRpF0OJJFfD1v+RIKSySvpnfIQ2moo9h65a7WPas+rIlNGOcOJpf0q85xgS6ATHa2VQiRgK/rwh4cPT4iC5AWaZ7l5E8uaqeGxENaVGv5wzqFtJKiGxzcAe7wXeg==
+ ARA:13230040|366016|10070799003|1800799024|7416014|23010399003|376014|22082099003|18002099003|56012099006|6133799003|10067099003|921020;
+X-Microsoft-Antispam-Message-Info: 6vTxnPHMdP/x4Uuzp88i4psK5OiZfIY7QKQ8lzkym0AUerHVituXhSLfv/oeJyId6kLhoyyEWp8mRR8yR5wWHCe1i0GJhx+LMaB/g7+18zeUgRFJikDK1ltsfOPkVQTTPvpbCoulaGayCi/WzXp1nOhAslTzerHi9/9UAYYuw00GJOm9Ft3mt2RMc3POI7Cd5LAhpBWXW2ihyOHbjZrzRFHc1ykb5HOrlgBukuM6gvDFAAG9ca+A2SSs2OPWO4Ae0k/kGaH9VPhqG4OPH0dv5SYuP6Rg3FJe2wtk19Yn2MjR4o9hImGdWp56dlf/A5L3lenFv94n0fswKAc8axBAMbqlhGEjwsyi+KMLr1Xw7DUVSctJ43UrtII9NXvm6f6y6eQMhmSiRtrNDLb263JFy2lwu+kXozcoV3wGbQaWJ+xWZGBxTg3/M/f1k3+wuQ2ffy6WUP7H8tNkYmNFr0AiFGK9dyxUh8sE2Yt3Ik+xfQKbIdJvnbgrMe8LC4yjhLKKgS/sAoC3dwiTtZGMPtfIkr+Eff48FMPWZf80nax3iUE4YeVPZ3eBxfGTYum8EUud9T/pGzZjhI0b6y0+MHl7JEeuQiYHDtgY/FEwoW0Qh6mWdcT+s1qLGnlZUNf0W27kHe8MlOgINMG6NcWAbfRXo0q58U5wX3+vv8xHQoqqGE/kULx9a4fhA45xoLhSrJFxOHaeF3FIn1wUJClVgVXZXg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(10067099003)(921020);
+ SFS:(13230040)(366016)(10070799003)(1800799024)(7416014)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(6133799003)(10067099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?S0JjbHFnSlN3UDc0VFdOc000TGFpTStmSVVBUjB2UEU1NGRRRExhbGlGNG8r?=
- =?utf-8?B?b2w1UHVHVXdNbnNWZ2dBMmhIVHdYdHZlYTQ0a09yYnQrejZGMHdnaG1ZQXpQ?=
- =?utf-8?B?TXk3c2tjWlIxaHJtMmhpYXpoYm92V3lNOU5pMDl2VjgwNitpL1E1R0QzNGI0?=
- =?utf-8?B?a2JXNkMva01xM0NPT05DOTh2UlVaQU10OExKYUdleUgxU3k5NmxyVEFtaE42?=
- =?utf-8?B?cDloVVlIZFdnYnJ4MFExVVhPa2hpcmYybVA2TU56eHB6MXlyS0tvUVhxSkdV?=
- =?utf-8?B?NktwTHFBUmEyL0hjdVRMSVBaeDIvMXhaY3NWNTBEeDlla0dET2lSeWNOZUJt?=
- =?utf-8?B?M2FrS1BpZGtOak9aNXZvTUV2TS9Wek1KRzNyOS8yQWRkaklIbkNSNWtMRGJU?=
- =?utf-8?B?dlVteDRUQXFkMk14V1BDQWVxZkE3L3NJcXQvaGZrem83bXBsbjFFRzd1Y3Q0?=
- =?utf-8?B?L1R4VW1RRE5jOFJqTWpBK3RxWFBuWkZZNk9qZ0xiLzFSeit2Z3RMbUtqRS83?=
- =?utf-8?B?Tlg1cU53dTB1d0IvTkJzL0xtYjZJV1h1L0RwWWFRS1U5MTR3UDgvQlU3WkNj?=
- =?utf-8?B?d2d4a2ZqVHJhTS8zY0N6S241Ulk3bzVLVDVOVitHMkg4L2lCZXlRaUZUMElB?=
- =?utf-8?B?SXpwV3hjdFZ3MkJDajVHeWhLUjFkY1VCWlI2bUZENkY3aUZNVjA2L21zaE9y?=
- =?utf-8?B?SGErVU1NWmwwWCsySGZjcERRTE5zLy9PNXJRdkkvRFhhQnliekhGVTV4SFlH?=
- =?utf-8?B?SFFXNTlJRFpabVdpYXN1dkxsd0JwcmU0aXdnY1dKNm94VTkwN1NaZVE4Q3hZ?=
- =?utf-8?B?WkRWRDBsRnBscVpkZUlBVThtSjdMWjY2QmpQSFgrSHFORitPeDBMRUQrcFFs?=
- =?utf-8?B?VlJVYWp1ajNXcnBwTHBMc3F4Ym1oRDJjRktzUm91VnlpdzAreUs4TE9nUmJ0?=
- =?utf-8?B?VmdaNnlJUndvUEExVEhSR0w2bnJoQUZrNzBHSXcydEVWS3U5emkwdjErQ1c1?=
- =?utf-8?B?RFBYQkhrLzhqV0JuQ0hSbFRRUzBEa0JBNEQzSWtVdVFqOHJ4Z1dPQ1ZLMnI4?=
- =?utf-8?B?QWdzWFpKWEJvNUU1Y1NvMVRrVjhLL21GcE1FYWhhQnp2QU5IOW5CUzJVc3NY?=
- =?utf-8?B?MVpMYWU4bmlqSkg2Yk9MZmlxekdPNTQzeUJEQ3dBM2Z4aXhhSklEbW80Z0dr?=
- =?utf-8?B?a2FBU21JWjBDdU5WcHFWRHFwaWNlZzFYZjJzNTVqdnhJNUxyQzhQL3ZnUmp4?=
- =?utf-8?B?ZWtrVmVWWkJHbGJRMnR4UmZ3WXAycENvaWM5TmZhM1g3akIzZTZUTVZBUFF6?=
- =?utf-8?B?bkM4WGYyVHN6anhaK2VZL0NiVERqbElRUlY2cGsreXFienMvT0YwazhnOHhW?=
- =?utf-8?B?cCs1c1FQdU9yS0Q4b00ybjl1Lzk0QXN0RVF2eU1GRWVTNzg4S3FHdUE3a2Zq?=
- =?utf-8?B?cUIwUWVUV0piTzJGbmhkVHZFWXZMbEgyUzdZV0RKUFdLQ1VwWWJvemhCalJN?=
- =?utf-8?B?dGs1enhoZDMraUFZMkJNN2NKY2hpaktYM2FyeUtpb0xCU1pjaFBWVzRKeWtQ?=
- =?utf-8?B?eEVGMVZSRVZRUWZLRER2eUhMVUhsRkRHSDhZV3Y4QVE3Nk1TeittQnhsNWNJ?=
- =?utf-8?B?UXNncWpPOEJibDIxTEI1b0NlSGhoYnI3NEtONDBCZ2M4T1VLWkVpcmJvMjcv?=
- =?utf-8?B?N1o5cyt2dEZJZmRCYm8yMng1V2JUUTdSOGl6cnZEWTVoeHJxeFA4Mm1XZG5I?=
- =?utf-8?B?bzN4YnNPeTNET1FYZFRWb3dGb1BmVlFFVHhNblN4U2FhUktmbXdkdlMwZWYy?=
- =?utf-8?B?SXhqUCsxS09wRWlzMkdlM1E1cVd3ejIzdVpRQktKcVlKVDBsK1ZuT0JWM2lx?=
- =?utf-8?B?akJDWGZZREtvOHZ0YWRLS2RFWUVSSXFuanhpaDE0aWJLa3VWRm9kc1MyS3lE?=
- =?utf-8?B?VFN5ekZCbW1Ea1dhYm9oQTRndUEzMVpSelAxQ3dtbExzN3VJR1J0ZXVWdTFy?=
- =?utf-8?B?d3F1WUFKcFhwRnZKZW9ZVUlSVDg5cWtwaGQvRXpyMlJ5Qkh0NzBlNC9xdUdv?=
- =?utf-8?B?aWlERzJOV3JReEI4SnBkTFZhYmVreFNHd3FvaTk1dGdQMkdmRDFXV0VNMWhh?=
- =?utf-8?B?aHNLRXlZeW95VzZWY1gvWWZLY1RSZk1Bckhmci9CVkhKdm1mdEUvYm9iWEVp?=
- =?utf-8?B?L1pZSnU1RUEwbTY5bHF6a0ovWXZ2bTVpM2dZd0UzMGFLekVwR3FzTnc2WWJy?=
- =?utf-8?B?dVFNRndZQVprTFFrU0N4dnlaYU8yS3dsMTRoSmg1MFpXWUx5Mi9nQUJQMWlo?=
- =?utf-8?B?QW5IVHZLdkRFZWhuUlBLTHJmSUtzalB5clRpcWxOdDB0eWlpSEhTdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Zk1GTHA5bTFKRDR1K0lLd1RYQmxhd1R3NkhuQUJwN2hObFRmekdxdVN2NnNB?=
+ =?utf-8?B?Q0ZocEZkS0xUVmFNK1NoREtIejV6T2lCdTFaQXY3Skdjcnh1K0cvdy9SaWho?=
+ =?utf-8?B?N0tGQTRSS0Z3YjRxK1d2Z2syZHFoQVh5OG9nMVY2UnBwWWhia2lUVmltcVhm?=
+ =?utf-8?B?YjNOSG9hRGFMeGRuRTB1ajkwTERCbWpvZVozOVY4clFLY0FXT0h0TDBJWndT?=
+ =?utf-8?B?RlVxZ3J3aENCbUl2b3RBanZraVRVOGFVRkxGVlFtSTNvQWpIeXRMMkxRczVC?=
+ =?utf-8?B?RklJelNvZzZId00vTWw5OUVNYzRxVHJ6SUhsU25yTTZOQTFwUkxqQTlXWk5E?=
+ =?utf-8?B?bmdsdEY5eDh1RCt3S0Rlc05LL0ZjSnM4VHdzTUhTWmhWYUoxYU5UcGVkTEJZ?=
+ =?utf-8?B?RzIzZGRSTjdvaWh0NFhGQUEwS3B0SlpoVmZwekdtRmQ2a0ZWbzVvV2pkUkxa?=
+ =?utf-8?B?ZjVHbGMvMXFKTGVVKytIdXVCdnNRZXpmVDBBSThJWGh3ZjlicS95MjBuVkFk?=
+ =?utf-8?B?K05YQjUvNFU1SmtZV2JXRGV2UVd4R0N6SmJhRWRNSXEwMXFDTDFsRzBFdURE?=
+ =?utf-8?B?Y0dtODU4Nk9peTdSczdsRVg1Y1h5VkRiRFJDcG5oUFFKSDZNMUNGeUdFRnhx?=
+ =?utf-8?B?eDFBMm0wbjEybStHcVI5Y3d3T2IyU0sxNTloZXJSNDhlUTI1WEkzMmFuMnFy?=
+ =?utf-8?B?UDAxY3pFdWhRbUNJNjRGcDcxQkd5WDUrYmkzZ2lUaGo2MHhEZ21wandCYUhJ?=
+ =?utf-8?B?NjBRUG1mZGJ5Ulh0ZEVrNDA4ekgyZkZKeEt6VkJucHpvUityYWQwMDRxRzk1?=
+ =?utf-8?B?YktJVTZqSXcxSGJLQlREZVlON1lobjJJSlFFdldaeEtwTkNYVHl0REY3dENi?=
+ =?utf-8?B?L2lNSmRmUzc5eGJSUHA4eUJzbm1ST1ZmVWxmbTJqaFpBOE5RVmtEVVRBUXhR?=
+ =?utf-8?B?elVneHJvcmVUalJ3RDdkdGZsN1lkekg3d1ZCMjh1MkVtTzMrY2xXbWhKM3JZ?=
+ =?utf-8?B?eXZQVU1qazZQQjNUWFpBT1ZOVXBUc3pTcHNqcS9hekdlT0Q1WGNsT1Z6V3pz?=
+ =?utf-8?B?Q0JRc01hREJ1MUdBR2tlakY5bitacUdQZTZIbkZQRHBNMllRMEZqZFFNdjEr?=
+ =?utf-8?B?WHRCYUZodUw3V3NCNTh5bE1wK0pucUt5VWVkdzd6S1JRSEdnbFJQZ1l6Z1gv?=
+ =?utf-8?B?WityNFQ5NlV5Q1k0R2FoUHRsSCtNNGg1YmJCTGxJbEZzRkN2Sm1UM2JDUEla?=
+ =?utf-8?B?Q1oyU0I3eVdrSGF2Ui8wZzA0R2ZpeXcxTXp2ZXYyUU1ObXE1MTUvL3BuWDg1?=
+ =?utf-8?B?Lzg2ZTljOWxoTGk3QXR6N3NZRUQzNy8wcnlGR3ZiT0E4dG1vRWl6OGpQWnB2?=
+ =?utf-8?B?bmdYdlZJNnBYSkRxRWZuMFdVdTF1R3h2R3o2MGZBUytEbHdmbXkvNkpFS0Nm?=
+ =?utf-8?B?d0dkUURCV21EZDBRUUlvUklxZGJLMFFUeE9WVWpEbVM2VXNHT3U1bjZ3Mmsw?=
+ =?utf-8?B?eUlheHd5eEJ5VUtNV1pyUm1ySUo3VmVIcytDcDZqZTFoS1I4VkEwbm9oSHJl?=
+ =?utf-8?B?a28xUUdLV1BJM1dmMEsydHg5VGwydXFMYlhFZkw2blFyb0E3Mlh6OTNldG9Q?=
+ =?utf-8?B?aFJ3bGx0MmhXaDhXS25wMTFlZTJOZVFBOXRvc3RRN1VTUFZqdisyU3N5RGZa?=
+ =?utf-8?B?QkZOdU13WXh0aXZPbjd1eUdpbzdCbHUzYXJUNE0vMlQxZVd6cTAzZDQrbjFC?=
+ =?utf-8?B?dlkvVEs0SVlBamY2U1g0ZjRZOGt4TUdHV1VQNDE3R29oN1JJSWhpczBvVnVu?=
+ =?utf-8?B?VG84amFWbkoyZkdiQVdNQ3FiMDdzbDl3NUwxVGVVbWJTVWpkcm0zVzFSZ2xm?=
+ =?utf-8?B?ZDIzdjhGcVR2UHpHWHZvOTFaLzhIVU11eWVWMmIwQytiWm1MQ0QwZE1BcU4z?=
+ =?utf-8?B?czlEa1l4OTdoVkFUWUVicXJTdWNpNlc3Z05OVElFWGR3aXhMTjUvQURnaXAw?=
+ =?utf-8?B?M0tUaW9qTFJKYStrQVpUMSt0NHVuZ0ZxRyszYUh3K25VUGZqSll3T1NDVUw1?=
+ =?utf-8?B?OFdhUE10NVcvVjUzbmtRUjZBYlh4dmxmWG5aaTREVnpzTU5sWjFBSUhTUHhQ?=
+ =?utf-8?B?b0QxUC95LzZPUDhuc0E5YmJPcjBOcjJnMEM5R0dqSXpwVzcybndBREdXTkkw?=
+ =?utf-8?B?Y3hDeUVCaWkzRWRkcTZMNlROendqWjJnZE13ZnlLQkJvVHZSbTFyU3JpRnJx?=
+ =?utf-8?B?NjJ1QVBWZnhlU3J4eUsrRHUzSXZtQlVGWFFCVEtQTktFUEpQZW5oSTBkdURs?=
+ =?utf-8?B?KzNyRkVtcnhwVkhGRi9HOFNMNlM1MjlpQytpYjN6OW1CMGZLUFYrZz09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: fe91a777-b827-4b81-546d-08def30fcae1
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0a9809c-a15b-4df1-47ae-08def30fca86
 X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 16:37:08.7954 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 16:37:08.2039 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: V6zFLvVVgia/rQ2jRN6w/SysXUIjawrhLlXX+noOFn/qWI369gHBTvRZEr+VaAEZwAyeKEdtr0W7sJhqACDC1Q==
+X-MS-Exchange-CrossTenant-UserPrincipalName: aKJhfsbSgrMIfVEZuCwA5LzdoPPF87rCy7lehxUFhsy4xq/0aQb9NgE8TBtlzEwNVg8nCWcLtrB0lhjsnHZxqA==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWLP265MB3412
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,592 +155,187 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Relative registers can be better served by projection to subregion instead
-of ad-hoc handling in register macro. Projection composes better (e.g. it
-natively allows relative registers of relative registers without needing
-additional support).
-
-Remove relative register support, and update the documentation to
-demonstrate how projection and subregions can be used to achieve this
-instead.
+Similar to the PFALCON and PFALCON2 conversion, the hshub0 relative access
+can also be achieved cleanly with projection and a new base.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/io/register.rs | 474 +++++----------------------------------------
- 1 file changed, 52 insertions(+), 422 deletions(-)
+ drivers/gpu/nova-core/fb/hal/gb100.rs | 59 +++++++++++++++++------------------
+ drivers/gpu/nova-core/fb/regs.rs      | 19 ++++++-----
+ 2 files changed, 40 insertions(+), 38 deletions(-)
 
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index 49a61da106c7..295b06dd53a7 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -8,7 +8,7 @@
- //!
- //! Note: most of the items in this module are public so they can be referenced by the macro, but
- //! most are not to be used directly by users. Outside of the `register!` macro itself, the only
--//! items you might want to import from this module are [`WithBase`] and [`Array`].
-+//! items you might want to import from this module is [`Array`].
- //!
- //! # Simple example
- //!
-@@ -199,76 +199,6 @@ fn offset(self) -> usize {
+diff --git a/drivers/gpu/nova-core/fb/hal/gb100.rs b/drivers/gpu/nova-core/fb/hal/gb100.rs
+index d9e4d62ae632..9fa094939600 100644
+--- a/drivers/gpu/nova-core/fb/hal/gb100.rs
++++ b/drivers/gpu/nova-core/fb/hal/gb100.rs
+@@ -5,11 +5,10 @@
+ 
+ use kernel::{
+     io::{
+-        register::{
+-            RegisterBase,
+-            WithBase, //
+-        },
+-        Io, //
++        io_project,
++        register,
++        Io,
++        Mmio, //
+     },
+     num::Bounded,
+     prelude::*,
+@@ -21,7 +20,10 @@
+ };
+ 
+ use crate::{
+-    driver::Bar0,
++    driver::{
++        Bar0,
++        NovaRegisters, //
++    },
+     fb::{
+         hal::FbHal,
+         regs, //
+@@ -31,17 +33,26 @@
+ 
+ struct Gb100;
+ 
+-impl RegisterBase<regs::Hshub0Base> for Gb100 {
+-    const BASE: usize = 0x0087_0000;
++register! {
++    base: NovaRegisters;
++
++    HSHUB0: regs::Hshub0Registers @ 0x0087_0000;
++}
++
++#[inline]
++fn hshub0(bar: Bar0<'_>) -> Mmio<'_, regs::Hshub0Registers> {
++    io_project!(bar, build: HSHUB0)
+ }
+ 
+-fn read_sysmem_flush_page_gb100(bar: Bar0<'_>) -> u64 {
++fn read_sysmem_flush_page_gb100(hshub0: Mmio<'_, regs::Hshub0Registers>) -> u64 {
+     let lo = u64::from(
+-        bar.read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::of::<Gb100>())
++        hshub0
++            .read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO)
+             .adr(),
+     );
+     let hi = u64::from(
+-        bar.read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::of::<Gb100>())
++        hshub0
++            .read(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI)
+             .adr(),
+     );
+ 
+@@ -52,7 +63,7 @@ fn read_sysmem_flush_page_gb100(bar: Bar0<'_>) -> u64 {
+ ///
+ /// Both the primary and EG (egress) register pairs must be programmed to the same address,
+ /// as required by hardware.
+-fn write_sysmem_flush_page_gb100(bar: Bar0<'_>, addr: Bounded<u64, 52>) {
++fn write_sysmem_flush_page_gb100(hshub0: Mmio<'_, regs::Hshub0Registers>, addr: Bounded<u64, 52>) {
+     // CAST: lower 32 bits. Hardware ignores bits 7:0.
+     let addr_lo = *addr as u32;
+     let addr_hi = addr.shr::<32, 20>().cast::<u32>();
+@@ -60,24 +71,12 @@ fn write_sysmem_flush_page_gb100(bar: Bar0<'_>, addr: Bounded<u64, 52>) {
+     // Write HI first. The hardware will trigger the flush on the LO write.
+ 
+     // Primary HSHUB pair.
+-    bar.write(
+-        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::of::<Gb100>(),
+-        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi),
+-    );
+-    bar.write(
+-        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::of::<Gb100>(),
+-        regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo),
+-    );
++    hshub0.write_reg(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi));
++    hshub0.write_reg(regs::NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo));
+ 
+     // EG (egress) pair -- must match the primary pair.
+-    bar.write(
+-        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI::of::<Gb100>(),
+-        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi),
+-    );
+-    bar.write(
+-        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::of::<Gb100>(),
+-        regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo),
+-    );
++    hshub0.write_reg(regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI::zeroed().with_adr(addr_hi));
++    hshub0.write_reg(regs::NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO::zeroed().with_adr(addr_lo));
+ }
+ 
+ // This PMU reservation size is r570-specific.
+@@ -88,13 +87,13 @@ pub(super) const fn pmu_reserved_size_gb100() -> u32 {
+ 
+ impl FbHal for Gb100 {
+     fn read_sysmem_flush_page(&self, bar: Bar0<'_>) -> u64 {
+-        read_sysmem_flush_page_gb100(bar)
++        read_sysmem_flush_page_gb100(hshub0(bar))
+     }
+ 
+     fn write_sysmem_flush_page(&self, bar: Bar0<'_>, addr: u64) -> Result {
+         let addr = Bounded::<u64, 52>::try_new(addr).ok_or(EINVAL)?;
+ 
+-        write_sysmem_flush_page_gb100(bar, addr);
++        write_sysmem_flush_page_gb100(hshub0(bar), addr);
+ 
+         Ok(())
+     }
+diff --git a/drivers/gpu/nova-core/fb/regs.rs b/drivers/gpu/nova-core/fb/regs.rs
+index c27582e376e2..584488a3e012 100644
+--- a/drivers/gpu/nova-core/fb/regs.rs
++++ b/drivers/gpu/nova-core/fb/regs.rs
+@@ -2,7 +2,8 @@
+ 
+ use kernel::{
+     io::register,
+-    sizes::SizeConstants, //
++    prelude::*,
++    sizes::{SizeConstants, SZ_4K}, //
+ };
+ 
+ use crate::driver::NovaRegisters;
+@@ -65,31 +66,33 @@ pub(super) fn vga_workspace_addr(self) -> Option<u64> {
      }
  }
  
--/// Trait providing a base address to be added to the offset of a relative register to obtain
--/// its actual offset.
--///
--/// The `T` generic argument is used to distinguish which base to use, in case a type provides
--/// several bases. It is given to the `register!` macro to restrict the use of the register to
--/// implementors of this particular variant.
--pub trait RegisterBase<T> {
--    /// Base address to which register offsets are added.
--    const BASE: usize;
--}
--
--/// Trait implemented by all registers that are relative to a base.
--pub trait WithBase {
--    /// Family of bases applicable to this register.
--    type BaseFamily;
--
--    /// Returns the absolute location of this type when using `B` as its base.
--    #[inline(always)]
--    fn of<B: RegisterBase<Self::BaseFamily>>() -> RelativeRegisterLoc<Self, B>
--    where
--        Self: Register,
--    {
--        RelativeRegisterLoc::new()
--    }
--}
--
--/// Trait implemented by relative registers.
--pub trait RelativeRegister: Register + WithBase {}
--
--/// Location of a relative register.
--///
--/// This can either be an immediately accessible regular [`RelativeRegister`], or a
--/// [`RelativeRegisterArray`] that needs one additional resolution through
--/// [`RelativeRegisterLoc::at`].
--pub struct RelativeRegisterLoc<T: WithBase, B: ?Sized>(PhantomData<T>, PhantomData<B>);
--
--impl<T, B> RelativeRegisterLoc<T, B>
--where
--    T: Register + WithBase,
--    B: RegisterBase<T::BaseFamily> + ?Sized,
--{
--    /// Returns the location of a relative register or register array.
--    #[inline(always)]
--    // We do not implement `Default` so we can be const.
--    #[expect(clippy::new_without_default)]
--    pub const fn new() -> Self {
--        Self(PhantomData, PhantomData)
--    }
--
--    // Returns the absolute offset of the relative register using base `B`.
--    //
--    // This is implemented as a private const method so it can be reused by the [`IoLoc`]
--    // implementations of both [`RelativeRegisterLoc`] and [`RelativeRegisterArrayLoc`].
--    #[inline]
--    const fn offset(self) -> usize {
--        B::BASE + T::OFFSET
--    }
--}
--
--impl<SuperBase: ?Sized, T, B> IoLoc<SuperBase, T> for RelativeRegisterLoc<T, B>
--where
--    T: RelativeRegister<Base = SuperBase>,
--    B: RegisterBase<T::BaseFamily> + ?Sized,
--{
--    #[inline(always)]
--    fn offset(self) -> usize {
--        RelativeRegisterLoc::offset(self)
--    }
--}
--
- /// Trait implemented by arrays of registers.
- pub trait RegisterArray: Register {
-     /// Number of elements in the registers array.
-@@ -331,71 +261,6 @@ fn try_at(idx: usize) -> Option<RegisterArrayLoc<Self>>
+-/// Base of the GB10x HSHUB0 register window (`NV_HSHUB0_PRIV_BASE` in Open RM).
++/// The GB10x HSHUB0 register window (Base defined as `NV_HSHUB0_PRIV_BASE` in Open RM).
+ ///
+ /// The base is provided by the GB10x framebuffer HAL.
+-pub(super) struct Hshub0Base(());
++#[repr(align(4))]
++#[derive(FromBytes, IntoBytes)]
++pub(super) struct Hshub0Registers([u8; SZ_4K]);
+ 
+ register! {
+-    base: NovaRegisters;
++    base: Hshub0Registers;
+ 
+     // GB10x sysmem flush registers, relative to the HSHUB0 base. GB10x routes sysmembar
+     // through a primary and an EG (egress) pair that must both be programmed to the same
+     // address. Hardware ignores bits 7:0 of each LO register. The boot path uses a fixed
+     // HSHUB0 base, so the multiple runtime-discovered HSHUB bases are not needed here.
+-    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x00000e50 {
++    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x00000e50 {
+         31:0    adr => u32;
      }
- }
  
--/// Trait implemented by arrays of relative registers.
--pub trait RelativeRegisterArray: RegisterArray + WithBase {}
--
--/// Location of a relative array register.
--pub struct RelativeRegisterArrayLoc<
--    T: RelativeRegisterArray,
--    B: RegisterBase<T::BaseFamily> + ?Sized,
-->(RelativeRegisterLoc<T, B>, usize);
--
--impl<T, B> RelativeRegisterArrayLoc<T, B>
--where
--    T: RelativeRegisterArray,
--    B: RegisterBase<T::BaseFamily> + ?Sized,
--{
--    /// Returns the location of register `T` from the base `B` at index `idx`, with build-time
--    /// validation.
--    #[inline(always)]
--    pub fn new(idx: usize) -> Self {
--        build_assert!(idx < T::SIZE);
--
--        Self(RelativeRegisterLoc::new(), idx)
--    }
--
--    /// Attempts to return the location of register `T` from the base `B` at index `idx`, with
--    /// runtime validation.
--    #[inline(always)]
--    pub fn try_new(idx: usize) -> Option<Self> {
--        if idx < T::SIZE {
--            Some(Self(RelativeRegisterLoc::new(), idx))
--        } else {
--            None
--        }
--    }
--}
--
--/// Methods exclusive to [`RelativeRegisterLoc`]s created with a [`RelativeRegisterArray`].
--impl<T, B> RelativeRegisterLoc<T, B>
--where
--    T: RelativeRegisterArray,
--    B: RegisterBase<T::BaseFamily> + ?Sized,
--{
--    /// Returns the location of the register at position `idx`, with build-time validation.
--    #[inline(always)]
--    pub fn at(self, idx: usize) -> RelativeRegisterArrayLoc<T, B> {
--        RelativeRegisterArrayLoc::new(idx)
--    }
--
--    /// Returns the location of the register at position `idx`, with runtime validation.
--    #[inline(always)]
--    pub fn try_at(self, idx: usize) -> Option<RelativeRegisterArrayLoc<T, B>> {
--        RelativeRegisterArrayLoc::try_new(idx)
--    }
--}
--
--impl<SuperBase: ?Sized, T, B> IoLoc<SuperBase, T> for RelativeRegisterArrayLoc<T, B>
--where
--    T: RelativeRegisterArray<Base = SuperBase>,
--    B: RegisterBase<T::BaseFamily> + ?Sized,
--{
--    #[inline(always)]
--    fn offset(self) -> usize {
--        self.0.offset() + self.1 * T::STRIDE
--    }
--}
--
- /// Trait implemented by items that contain both a register value and the absolute I/O location at
- /// which to write it.
- ///
-@@ -430,8 +295,7 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// This documentation focuses on how to declare registers. See the [module-level
- /// documentation](mod@kernel::io::register) for examples of how to access them.
- ///
--/// There are 4 possible kinds of registers: fixed offset registers, relative registers, arrays of
--/// registers, and relative arrays of registers.
-+/// Registers can either be fixed offset registers or arrays of registers.
- ///
- /// ## Fixed offset registers
- ///
-@@ -529,122 +393,6 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// }
- /// ```
- ///
--/// ## Relative registers
--///
--/// Relative registers can be instantiated several times at a relative offset of a group of bases.
--/// For instance, imagine the following I/O space:
--///
--/// ```text
--///           +-----------------------------+
--///           |             ...             |
--///           |                             |
--///  0x100--->+------------CPU0-------------+
--///           |                             |
--///  0x110--->+-----------------------------+
--///           |           CPU_CTL           |
--///           +-----------------------------+
--///           |             ...             |
--///           |                             |
--///           |                             |
--///  0x200--->+------------CPU1-------------+
--///           |                             |
--///  0x210--->+-----------------------------+
--///           |           CPU_CTL           |
--///           +-----------------------------+
--///           |             ...             |
--///           +-----------------------------+
--/// ```
--///
--/// `CPU0` and `CPU1` both have a `CPU_CTL` register that starts at offset `0x10` of their I/O
--/// space segment. Since both instances of `CPU_CTL` share the same layout, we don't want to define
--/// them twice and would prefer a way to select which one to use from a single definition.
--///
--/// This can be done using the `Base + Offset` syntax when specifying the register's address:
--///
--/// ```ignore
--/// register! {
--///     ...
--///     pub RELATIVE_REG(u32) @ Base + 0x80 {
--///         ...
--///     }
--/// }
--/// ```
--///
--/// This creates a register with an offset of `0x80` from a given base.
--///
--/// `Base` is an arbitrary type (typically a ZST) to be used as a generic parameter of the
--/// [`RegisterBase`] trait to provide the base as a constant, i.e. each type providing a base for
--/// this register needs to implement `RegisterBase<Base>`.
--///
--/// The location of relative registers can be built using the [`WithBase::of`] method to specify
--/// its base. All relative registers implement [`WithBase`].
--///
--/// Here is the above layout translated into code:
--///
--/// ```no_run
--/// use kernel::{
--///     io::{
--///         register,
--///         register::{
--///             RegisterBase,
--///             WithBase,
--///         },
--///         Io,
--///         Region,
--///     },
--/// };
--/// # use kernel::io::Mmio;
--///
--/// // Type used to identify the base.
--/// pub struct CpuCtlBase;
--///
--/// // ZST describing `CPU0`.
--/// struct Cpu0;
--/// impl RegisterBase<CpuCtlBase> for Cpu0 {
--///     const BASE: usize = 0x100;
--/// }
--///
--/// // ZST describing `CPU1`.
--/// struct Cpu1;
--/// impl RegisterBase<CpuCtlBase> for Cpu1 {
--///     const BASE: usize = 0x200;
--/// }
--///
--/// // This makes `CPU_CTL` accessible from all implementors of `RegisterBase<CpuCtlBase>`.
--/// register! {
--///     base: Region<0x1000>;
--///
--///     /// CPU core control.
--///     pub CPU_CTL(u32) @ CpuCtlBase + 0x10 {
--///         0:0 start;
--///     }
--/// }
--///
--/// # fn test(io: Mmio<'_, Region<0x1000>>) {
--/// // Read the status of `Cpu0`.
--/// let cpu0_started = io.read(CPU_CTL::of::<Cpu0>());
--///
--/// // Stop `Cpu0`.
--/// io.write(WithBase::of::<Cpu0>(), CPU_CTL::zeroed());
--/// # }
--///
--/// // Aliases can also be defined for relative register.
--/// register! {
--///     base: Region<0x1000>;
--///
--///     /// Alias to CPU core control.
--///     pub CPU_CTL_ALIAS(u32) => CpuCtlBase + CPU_CTL {
--///         /// Start the aliased CPU core.
--///         1:1 alias_start;
--///     }
--/// }
--///
--/// # fn test2(io: Mmio<'_, Region<0x1000>>) {
--/// // Start the aliased `CPU0`, leaving its other fields untouched.
--/// io.update(CPU_CTL_ALIAS::of::<Cpu0>(), |r| r.with_alias_start(true));
--/// # }
--/// ```
--///
- /// ## Arrays of registers
- ///
- /// Some I/O areas contain consecutive registers that share the same field layout. These areas can
-@@ -741,115 +489,83 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// # }
- /// ```
- ///
--/// ## Relative arrays of registers
-+/// ## Relative registers
- ///
--/// Combining the two features described in the sections above, arrays of registers accessible from
--/// a base can also be defined:
-+/// There are cases where a register region is subdivided into small subregions, and you may wish to
-+/// have your register definition be relative to these subregions. This may be needed, for example,
-+/// if these subregions are instantiated several times, or you just want it for encapsulation
-+/// purpose.
- ///
--/// ```ignore
--/// register! {
--///     ...
--///     pub RELATIVE_REGISTER_ARRAY(u8)[10, stride = 4] @ Base + 0x100 {
--///         ...
--///     }
--/// }
-+/// For instance, imagine the following I/O space:
-+///
-+/// ```text
-+///           +-----------------------------+
-+///           |             ...             |
-+///           |                             |
-+///  0x100--->+------------CPU0-------------+
-+///           |                             |
-+///  0x110--->+-----------------------------+
-+///           |           CPU_CTL           |
-+///           +-----------------------------+
-+///           |             ...             |
-+///           |                             |
-+///           |                             |
-+///  0x200--->+------------CPU1-------------+
-+///           |                             |
-+///  0x210--->+-----------------------------+
-+///           |           CPU_CTL           |
-+///           +-----------------------------+
-+///           |             ...             |
-+///           +-----------------------------+
- /// ```
- ///
--/// Like relative registers, they implement the [`WithBase`] trait. However the return value of
--/// [`WithBase::of`] cannot be used directly as a location and must be further specified using the
--/// [`at`](RelativeRegisterLoc::at) method.
-+/// `CPU0` and `CPU1` both have a `CPU_CTL` register that starts at offset `0x10` of their I/O
-+/// space segment. Since both instances of `CPU_CTL` share the same layout, we don't want to define
-+/// them twice and would prefer a way to select which one to use from a single definition.
-+///
-+/// This can be done define a new type for the subregion, and then define registers that use the new
-+/// type as the base:
- ///
- /// ```no_run
- /// use kernel::{
- ///     io::{
-+///         io_project,
- ///         register,
--///         register::{
--///             RegisterBase,
--///             WithBase,
--///         },
- ///         Io,
- ///         Region,
- ///     },
- /// };
- /// # use kernel::io::Mmio;
--/// # fn get_scratch_idx() -> usize {
--/// #   0x15
--/// # }
--///
--/// // Type used as parameter of `RegisterBase` to specify the base.
--/// pub struct CpuCtlBase;
--///
--/// // ZST describing `CPU0`.
--/// struct Cpu0;
--/// impl RegisterBase<CpuCtlBase> for Cpu0 {
--///     const BASE: usize = 0x100;
--/// }
- ///
--/// // ZST describing `CPU1`.
--/// struct Cpu1;
--/// impl RegisterBase<CpuCtlBase> for Cpu1 {
--///     const BASE: usize = 0x200;
--/// }
-+/// // Subregion type. Make sure it has adequate size and alignment.
-+/// #[repr(align(4))]
-+/// #[derive(FromBytes, IntoBytes)]
-+/// pub struct CpuCtl([u8; 0x100]);
- ///
--/// // 64 per-cpu scratch registers, arranged as a contiguous array.
- /// register! {
- ///     base: Region<0x1000>;
- ///
--///     /// Per-CPU scratch registers.
--///     pub CPU_SCRATCH(u32)[64] @ CpuCtlBase + 0x00000080 {
--///         31:0 value;
--///     }
-+///     // Subregions can just be defined like normal registers.
-+///     CPU0: CpuCtl @ 0x100;
-+///     CPU1: CpuCtl @ 0x200;
- /// }
- ///
--/// # fn test(io: Mmio<'_, Region<0x1000>>) -> Result<(), Error> {
--/// // Read scratch register 0 of CPU0.
--/// let scratch = io.read(CPU_SCRATCH::of::<Cpu0>().at(0));
--///
--/// // Write the retrieved value into scratch register 15 of CPU1.
--/// io.write(WithBase::of::<Cpu1>().at(15), scratch);
--///
--/// // This won't build.
--/// // let cpu0_scratch_128 = io.read(CPU_SCRATCH::of::<Cpu0>().at(128)).value();
--///
--/// // Runtime-obtained array index.
--/// let scratch_idx = get_scratch_idx();
--/// // Access on a runtime index returns an error if it is out-of-bounds.
--/// let cpu0_scratch = io.read(
--///     CPU_SCRATCH::of::<Cpu0>().try_at(scratch_idx).ok_or(EINVAL)?
--/// ).value();
--/// # Ok(())
--/// # }
--///
--/// // Alias to `SCRATCH[8]` used to convey the firmware exit code.
-+/// // Then you can define new registers on the subregion.
- /// register! {
--///     base: Region<0x1000>;
-+///     base: CpuCtl;
- ///
--///     /// Per-CPU firmware exit status code.
--///     pub CPU_FIRMWARE_STATUS(u32) => CpuCtlBase + CPU_SCRATCH[8] {
--///         7:0 status;
-+///     /// CPU core control.
-+///     pub CPU_CTL(u32) @ 0x10 {
-+///         0:0 start;
- ///     }
- /// }
- ///
--/// // Non-contiguous relative register arrays can be defined by adding a stride parameter.
--/// // Here, each of the 16 registers of the array is separated by 8 bytes, meaning that the
--/// // registers of the two declarations below are interleaved.
--/// register! {
--///     base: Region<0x1000>;
--///
--///     /// Scratch registers bank 0.
--///     pub CPU_SCRATCH_INTERLEAVED_0(u32)[16, stride = 8] @ CpuCtlBase + 0x00000d00 {
--///         31:0 value;
--///     }
--///
--///     /// Scratch registers bank 1.
--///     pub CPU_SCRATCH_INTERLEAVED_1(u32)[16, stride = 8] @ CpuCtlBase + 0x00000d04 {
--///         31:0 value;
--///     }
--/// }
-+/// # fn test(io: Mmio<'_, Region<0x1000>>) {
-+/// // Read the status of `Cpu0`.
-+/// let cpu0_started = io_project!(io, build: CPU0).read(CPU_CTL);
- ///
--/// # fn test2(io: Mmio<'_, Region<0x1000>>) -> Result<(), Error> {
--/// let cpu0_status = io.read(CPU_FIRMWARE_STATUS::of::<Cpu0>()).status();
--/// # Ok(())
-+/// // Stop `Cpu0`.
-+/// io_project!(io, build: CPU0).write_reg(CPU_CTL::zeroed());
- /// # }
- /// ```
- #[macro_export]
-@@ -893,32 +609,6 @@ macro_rules! register {
-         $crate::register!(base: $reg_base; $($rest)*);
-     };
+-    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x00000e54 {
++    pub(super) NV_PFB_HSHUB_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x00000e54 {
+         19:0    adr;
+     }
  
--    // Creates a register at a relative offset from a base address provider.
--    (
--        base: $reg_base:ty;
--        $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) @ $base:ident + $offset:literal
--            { $($fields:tt)* }
--        $($rest:tt)*
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $reg_base; $name @ $offset);
--        $crate::register!(@io_relative $vis $name @ $base);
--        $crate::register!(base: $reg_base; $($rest)*);
--    };
--
--    // Creates an alias register of relative offset register `alias` with its own fields.
--    (
--        base: $reg_base:ty;
--        $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty) => $base:ident + $alias:ident
--            { $($fields:tt)* }
--        $($rest:tt)*
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $reg_base; $name @ $crate::register!(@offset => $alias));
--        $crate::register!(@io_relative $vis $name @ $base);
--        $crate::register!(base: $reg_base; $($rest)*);
--    };
--
-     // Creates an array of registers at a fixed offset of the MMIO space.
-     (
-         base: $reg_base:ty;
-@@ -934,40 +624,6 @@ macro_rules! register {
-         $crate::register!(base: $reg_base; $($rest)*);
-     };
+-    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ Hshub0Base + 0x000006c0 {
++    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_LO(u32) @ 0x000006c0 {
+         31:0    adr => u32;
+     }
  
--    // Creates an array of registers at a relative offset from a base address provider.
--    (
--        base: $reg_base:ty;
--        $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--            [ $size:expr $(, stride = $stride:expr)? ]
--            @ $base:ident + $offset:literal { $($fields:tt)* }
--        $($rest:tt)*
--    ) => {
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $reg_base; $name @ $offset);
--        $crate::register!(@io_relative_array $vis $name
--            [ $size, stride = $crate::register!(@stride $storage $(, $stride)?) ] @ $base + $offset
--        );
--        $crate::register!(base: $reg_base; $($rest)*);
--    };
--
--    // Creates an alias of register `idx` of relative array of registers `alias` with its own
--    // fields.
--    (
--        base: $reg_base:ty;
--        $(#[$attr:meta])* $vis:vis $name:ident ($storage:ty)
--            => $base:ident + $alias:ident [ $idx:expr ] { $($fields:tt)* }
--        $($rest:tt)*
--    ) => {
--        $crate::build_assert::static_assert!(
--            $idx < <$alias as $crate::io::register::RegisterArray>::SIZE
--        );
--
--        $crate::register!(@bitfield $(#[$attr])* $vis struct $name($storage) { $($fields)* });
--        $crate::register!(@io_base $reg_base; $name @ $crate::register!(@offset => $alias [$idx]));
--        $crate::register!(@io_relative $vis $name @ $base);
--        $crate::register!(base: $reg_base; $($rest)*);
--    };
--
-     // All the rules below are private helpers.
- 
-     // Generates the bitfield for the register.
-@@ -1020,15 +676,6 @@ impl $crate::io::register::FixedRegister for $name {}
-             $crate::io::register::FixedRegisterLoc::<$name>::new();
-     };
- 
--    // Implementations of relative registers.
--    (@io_relative $vis:vis $name:ident @ $base:ident) => {
--        impl $crate::io::register::WithBase for $name {
--            type BaseFamily = $base;
--        }
--
--        impl $crate::io::register::RelativeRegister for $name {}
--    };
--
-     // Implementations of register arrays.
-     (@io_array $vis:vis $name:ident [ $size:expr, stride = $stride:expr ]) => {
-         impl $crate::io::register::Array for $name {}
-@@ -1038,21 +685,4 @@ impl $crate::io::register::RegisterArray for $name {
-             const STRIDE: usize = $stride;
-         }
-     };
--
--    // Implementations of relative array registers.
--    (
--        @io_relative_array $vis:vis $name:ident [ $size:expr, stride = $stride:expr ]
--            @ $base:ident + $offset:literal
--    ) => {
--        impl $crate::io::register::WithBase for $name {
--            type BaseFamily = $base;
--        }
--
--        impl $crate::io::register::RegisterArray for $name {
--            const SIZE: usize = $size;
--            const STRIDE: usize = $stride;
--        }
--
--        impl $crate::io::register::RelativeRegisterArray for $name {}
--    };
+-    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ Hshub0Base + 0x000006c4 {
++    pub(super) NV_PFB_HSHUB_EG_PCIE_FLUSH_SYSMEM_ADDR_HI(u32) @ 0x000006c4 {
+         19:0    adr;
+     }
  }
 
 -- 
