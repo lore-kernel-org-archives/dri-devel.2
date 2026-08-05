@@ -4,55 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC761C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 06:29:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63C5EC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 06:38:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A516410ECE9;
-	Wed,  5 Aug 2026 06:29:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9238210E168;
+	Wed,  5 Aug 2026 06:38:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=lankhorst.se header.i=@lankhorst.se header.b="J5DMu+Ir";
+	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="P9kqzUXv";
+	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="flapXqY3";
 	dkim-atps=neutral
-Received: from lankhorst.se (unknown [141.105.120.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61C4410ECE9
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 06:29:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lankhorst.se;
- s=default; t=1785911385;
- bh=JnYkaSOObLN/XRdrLTaPT6Udx3US0Br8sz5SxnEoemg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=J5DMu+IrzXu2p+HKBbZHMLJ0lAA3WywmS2Z2uqHGZ3bWiKjfnv+umhNlzkO0VMXEx
- 4BD92548sQseiJ/QezJ0XTXZmmguyxArWaTJY39Je6ii4DSd1RTOYcfgedlHR19AZ2
- mRtin2HTrlr/qzyz3wxZeyB6Ih49NYP122/lnhnBrXFYz7dunLWQmQsZrlmgmHg75+
- dBuoGkMe1W4LM284ATqNFx9a8dAd2/Sk+BLMHNsHVpTPJ/ECZ6BluLjsWtq9y297ud
- LiMoAT/CgDNgpMkFiOCrRxn+hvxAS/hpmNdAN/cNKJ5vK+udC45A84cqMU727uWBjE
- hF5905zKSpESQ==
-Message-ID: <5f886290-bad0-42ac-9deb-e0ebd9fe5f5a@lankhorst.se>
-Date: Wed, 5 Aug 2026 08:30:59 +0200
+Received: from flow-a7-smtp.messagingengine.com
+ (flow-a7-smtp.messagingengine.com [103.168.172.142])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED14410E168
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 06:38:39 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailflow.phl.internal (Postfix) with ESMTP id 2AD4513802B4;
+ Wed,  5 Aug 2026 02:38:39 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-05.internal (MEProxy); Wed, 05 Aug 2026 02:38:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+ h=cc:cc:content-transfer-encoding:content-type:date:date:from
+ :from:in-reply-to:message-id:mime-version:reply-to:subject
+ :subject:to:to; s=fm1; t=1785911919; x=1785915519; bh=g6Uv9mO+P9
+ T5LeH7Cm34F3NFSCvKpL9kzp/edPA5KNU=; b=P9kqzUXvtO6wDSbLjg6lTBgtDL
+ xzeZ7ZaCxnWaONlnPaC378iTn+OI8hyZJnKooI/tPQ9i8CiGsBHssXuzoc+73lEY
+ TU3IUA0xoVYLdmgWpddNYHa2pHTCvt+IRnR1BeNMLHn/GUtQj5d56L0fo/d0ZGX6
+ GaquEJpTxrMjBJ3v8CPKZl3NKBIJ0to+ngxVT6B99l40EsVwFZ+p5godwGq4NVz8
+ 9H1QotCLIXkMrdvUjSDwxeagI6lfsY4EeqrZFv7LzPHlYlx8XbEj5cBuTcA94A3U
+ Bdg8Cgc8on8xrdPw1clEqIwvhHAlhb4ISL0onSEpX+HoH+b7xFfcif/95owg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1785911919; x=1785915519; bh=g6Uv9mO+P9T5LeH7Cm34F3NFSCvKpL9kzp/
+ edPA5KNU=; b=flapXqY34XmnMDe2Z5rt2I3zWtI8KbDgvh0ajSxilTB80LNQzpI
+ 2B276WucLblCyab04ou5Zl48Uqxj6xulp9sX/ebpoZVr000VeMYQfG8p0RC9dTnX
+ l0SJIrV4fCE7xwIoy+y/CUxCTvKm8LN6E3sr3uvBPT59se9cXOmeXcDYQh4qFYNY
+ OiyE4UXDtnbId8HBRn70RS+aggjuyX8eFEyDGBUAYMaOnfTGwTal9QjQBqqkTi1z
+ 3UsSr+KHcjVd/cbPyelNK414Zq6xS8SWbz6dPtzQgHBs+01Hr4qrHtTVoXIRvccZ
+ RkjENmRRwr0PCqg9r4Jejv6vVTFXm0l+HgA==
+X-ME-Sender: <xms:bdpyavTUOuXMTIof5YwAjj9KY7rlqjS0oc-SAkOexrqQvZQuSRUnxA>
+ <xme:bdpyaksreizHH1pVECUO8ZPeCvQhEs2jBA3m186UmjE78_oZIoHRsv9UFNtsHb4X1
+ CjYX65WvMOmfUkxpC-tHu4leuWzvOT2AeQ4754iomOXs_Np8m9CVRc>
+X-ME-Received: <xmr:bdpyatUQy-5zxYQzYmJ5MpRZ6q5tsDOB2UZPPe-quvpwPRPQKtNKPDfLsCjN9yhO7kdQzaCHjg>
+X-ME-Proxy-Cause: dmFkZTFB7fQjnmED8PXEjhEhpXGa0ZNyqxf1UtstvyQCP/Nnq5CY5r2eREKRNXTJtOFG5y
+ ScTdt2z/c+nZVvwiDjxZtexv8n6kk199CIyQpYqR3ohM0uw49uwTX3SP1VDWHkWRjGEwb1
+ fKlY1sNQhT2fOy19Q+2in9A8XhJxYHykx+EoISd5SsOkJuqjbtkeByJvNSdNKcd8xba2EY
+ G4UilfwYMhcxmiW+H56AOvTve0A4UY6iQYwPGUO8czIgt/Y1sz7l+JzwQHQWO0XRv6Gc6E
+ UOSMbjVJrmXNhnuag8oRBT7olYifwlbDrnlpW7Dc56FFTGFTGmRgGuZr+/R1efsHfT2ZVs
+ /eY1N09ZzzGtmqdX7+FJbZtbZINkEIWw5nWO96cdRd1Y2Ng3Wqmx5d02QJSjpxdVomLJle
+ I8Arpo+6mcn576C0GzQ3z0A83iv1O76LYvvvCJdFKoTxcipnU12PLDMRHdFeINi/RnJ3kY
+ YjU9llZvfibkxufeUiajgDUkzy+peZfDhetaG07O44jTX+ZOXfZxOuxKNUVSq9/mZPvhtE
+ DiYmzYMLXGgkqhhcVQFaxApPK3UCiZoPZ8TW/wS5gRU3GFIrw1Xn5mdxiNGMlZA978W4Gn
+ fBi0yKwr/iXnRtHbGLNdfqCGu5i/2N7tFLqjgglQwdxZ4m1345y1OboCE1Ow
+X-ME-Proxy: <xmx:bdpyaomZzcmHaI4-W7yqwuy4DeOlE2RX3A_Kj1gsNuuw2RAyyXFpsQ>
+ <xmx:bdpyagDIj8u2HiFVxy2OjWBUcSMyll0Vmiwb2e6-sNkOR5GiA-OD1g>
+ <xmx:bdpyat85MTleFYuxDOHt0eXpVcWbbf8QH2CnNJrny_oD6t2hbvBsZg>
+ <xmx:bdpyaiQkeZ8VL3nhPb-_buOdLr_Gq2NSvTRYahUC_9taeedM1g5Kyg>
+ <xmx:b9pyaog-InDByVK_ZI3Jd3vUy28hnqxstGB6YNIsTaNOyMhqFogKYUKr>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 5 Aug 2026 02:38:31 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
+ robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
+ ogabbay@kernel.org, zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com, alchark@flipper.net, chaoyi.chen@rock-chips.com,
+ dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [RFC PATCH v5 0/8] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Wed,  5 Aug 2026 18:38:18 +1200
+Message-ID: <20260805063826.95682-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/6] cgroup,cgroup/dmem: Add
- (dmem_)cgroup_common_ancestor helper
-To: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Cc: Natalie Vock <nat@pixelcluster.dev>, Maxime Ripard <mripard@kernel.org>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>,
- Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- cgroups@vger.kernel.org, dri-devel@lists.freedesktop.org
-References: <20260804-dmemcg-aggressive-protect-v8-0-07af96681bf8@gmx.de>
- <20260804-dmemcg-aggressive-protect-v8-2-07af96681bf8@gmx.de>
- <b5b80acd-feea-408b-87eb-4264ffc7e2cd@lankhorst.se>
- <7b2887b1-ecb7-4d6e-ad34-068ab1d7d41e@pixelcluster.dev>
- <bd7c2432-a34b-400a-8351-ca4398b24981@lankhorst.se>
- <anJSBu2zbo8_lG7N@quatroqueijos.cascardo.eti.br>
-Content-Language: en-US
-From: Maarten Lankhorst <dev@lankhorst.se>
-In-Reply-To: <anJSBu2zbo8_lG7N@quatroqueijos.cascardo.eti.br>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,189 +97,155 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+v4 was supposed to be a fixes only revision and its patch 4 was not.
+I trimmed the series out of my debugging tree and the trim missed
+rocket_job.c entirely, so 202 lines of ping-pong experiment went out
+with it, including a rocket_core_state_init() call that runs
+unconditionally from rocket_device_runtime_resume() and would therefore
+have replayed the RK3576 vendor init on RK3588 as well. Igor Paunovic
+caught it when he went to re-test, before it cost anyone else time.
+Sorry for the noise.
 
+That code is gone. rocket_job.c is back to +72 lines, which is v3 plus
+the two fixes v4 was meant to carry.
 
-On 8/4/26 22:56, Thadeu Lima de Souza Cascardo wrote:
-> On Tue, Aug 04, 2026 at 10:41:25PM +0200, Maarten Lankhorst wrote:
->> Hey,
->>
->> On 8/4/26 22:26, Natalie Vock wrote:
->>> On 8/4/26 22:18, Maarten Lankhorst wrote:
->>>>
->>>>
->>>> On 8/4/26 10:25, Natalie Vock wrote:
->>>>> This helps to find a common subtree of two resources, which is important
->>>>> when determining whether it's helpful to evict one resource in favor of
->>>>> another.
->>>>>
->>>>> To facilitate this, add a common helper to find the ancestor of two
->>>>> cgroups using each cgroup's ancestor array.
->>>>>
->>>>> Signed-off-by: Natalie Vock <natalie.vock@gmx.de>
->>>>> ---
->>>>>   include/linux/cgroup.h      | 21 +++++++++++++++++++++
->>>>>   include/linux/cgroup_dmem.h |  9 +++++++++
->>>>>   kernel/cgroup/dmem.c        | 41 +++++++++++++++++++++++++++++++++++++++++
->>>>>   3 files changed, 71 insertions(+)
->>>>>
->>>>> diff --git a/include/linux/cgroup.h b/include/linux/cgroup.h
->>>>> index f2aa46a4f871e..83a17ded1c516 100644
->>>>> --- a/include/linux/cgroup.h
->>>>> +++ b/include/linux/cgroup.h
->>>>> @@ -623,6 +623,27 @@ static inline struct cgroup *cgroup_ancestor(struct cgroup *cgrp,
->>>>>       return cgrp->ancestors[ancestor_level];
->>>>>   }
->>>>>   +/**
->>>>> + * cgroup_common_ancestor - find common ancestor of two cgroups
->>>>> + * @a: first cgroup to find common ancestor of
->>>>> + * @b: second cgroup to find common ancestor of
->>>>> + *
->>>>> + * Find the first cgroup that is an ancestor of both @a and @b, if it exists
->>>>> + * and return a pointer to it. If such a cgroup doesn't exist, return NULL.
->>>>> + *
->>>>> + * This function is safe to call as long as both @a and @b are accessible.
->>>>> + */
->>>>> +static inline struct cgroup *cgroup_common_ancestor(struct cgroup *a,
->>>>> +                            struct cgroup *b)
->>>>> +{
->>>>> +    int level;
->>>>> +
->>>>> +    for (level = min(a->level, b->level); level >= 0; level--)
->>>>> +        if (a->ancestors[level] == b->ancestors[level])
->>>>> +            return a->ancestors[level];
->>>>> +    return NULL;
->>>>> +}
->>>>> +
->>>>>   /**
->>>>>    * task_under_cgroup_hierarchy - test task's membership of cgroup ancestry
->>>>>    * @task: the task to be tested
->>>>> diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
->>>>> index 1a88cd0c9eb00..9d72457c4cb9d 100644
->>>>> --- a/include/linux/cgroup_dmem.h
->>>>> +++ b/include/linux/cgroup_dmem.h
->>>>> @@ -28,6 +28,8 @@ bool dmem_cgroup_below_min(struct dmem_cgroup_pool_state *root,
->>>>>                  struct dmem_cgroup_pool_state *test);
->>>>>   bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
->>>>>                  struct dmem_cgroup_pool_state *test);
->>>>> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
->>>>> +                                   struct dmem_cgroup_pool_state *b);
->>>>>     void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
->>>>>   #else
->>>>> @@ -75,6 +77,13 @@ static inline bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
->>>>>       return false;
->>>>>   }
->>>>>   +static inline
->>>>> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
->>>>> +                                   struct dmem_cgroup_pool_state *b)
->>>>> +{
->>>>> +    return NULL;
->>>>> +}
->>>>> +
->>>>>   static inline void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool)
->>>>>   { }
->>>>>   diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
->>>>> index 9df3b33c65046..a587611ca2235 100644
->>>>> --- a/kernel/cgroup/dmem.c
->>>>> +++ b/kernel/cgroup/dmem.c
->>>>> @@ -762,6 +762,47 @@ bool dmem_cgroup_below_low(struct dmem_cgroup_pool_state *root,
->>>>>   }
->>>>>   EXPORT_SYMBOL_GPL(dmem_cgroup_below_low);
->>>>>   +/**
->>>>> + * dmem_cgroup_get_common_ancestor(): Find the first common ancestor of two pools.
->>>>> + * @a: First pool to find the common ancestor of.
->>>>> + * @b: First pool to find the common ancestor of.
->>>>> + *
->>>>> + * Return: The first pool that is a parent of both @a and @b, or NULL if either @a or @b are NULL,
->>>>> + * or if such a pool does not exist. A reference to the returned pool is grabbed and must be
->>>>> + * released by the caller when it is done using the pool.
->>>>> + */
->>>>> +struct dmem_cgroup_pool_state *dmem_cgroup_get_common_ancestor(struct dmem_cgroup_pool_state *a,
->>>>> +                                   struct dmem_cgroup_pool_state *b)
->>>>> +{
->>>>> +    struct cgroup *ancestor_cgroup;
->>>>> +    struct cgroup_subsys_state *ancestor_css;
->>>>> +    struct dmemcg_state *ancestor_dmemcs = NULL;
->>>>> +    struct dmem_cgroup_pool_state *pool = NULL;
->>>>> +
->>>>> +    if (!a || !b)
->>>>> +        return NULL;
->>>>> +
->>>>> +    ancestor_cgroup = cgroup_common_ancestor(a->cs->css.cgroup, b->cs->css.cgroup);
->>>>> +    if (!ancestor_cgroup)
->>>>> +        return NULL;
->>>>> +
->>>>> +    rcu_read_lock();
->>>>> +    ancestor_css = cgroup_e_css(ancestor_cgroup, &dmem_cgrp_subsys);
->>>>> +    if (css_tryget(ancestor_css))
->>>>> +        ancestor_dmemcs = css_to_dmemcs(ancestor_css);
->>>>> +    rcu_read_unlock();
->>>>> +
->>>>> +    if (ancestor_dmemcs) {
->>>>> +        pool = get_cg_pool_unlocked(css_to_dmemcs(ancestor_css),
->>>>> +                        a->region);
->>>>> +        if (IS_ERR(pool))
->>>>> +            pool = NULL;
->>>> This should probably be a warn_on as this can never happen, sashiko is wrong here.
->>>>
->>>> If a and b are charged, all their ancestors are charged too. And when they share a
->>>> common ancestor, then the common ancestor has to have an existing charged pool as
->>>> well because there's a huge bug in the code otherwise.
->>>>
->>>>> +        css_put(ancestor_css);
->>>>> +    }
->>>>> +    return pool;
->>>>> +}
->>>>> +EXPORT_SYMBOL_GPL(dmem_cgroup_get_common_ancestor);
->>>>> +
->>>>>   static int dmem_cgroup_region_capacity_show(struct seq_file *sf, void *v)
->>>>>   {
->>>>>       struct dmem_cgroup_region *region;
->>>>>
->>>>
->>>> Otherwise looks good, so feel free to extend my r-b to this patch too, and with that minor fix up commit it.
->>>
->>> Thanks a lot! Correct me if I'm wrong here as it's been a while, but I think sashiko's current comment about the css_put(ancestor_css) being wrong seems to have merit too? Since dmem_cgroup_pool_state_put() also puts a css reference but get_cg_pool_unlocked does not get another reference to the css on its own? (Kind of a footgun if you ask me, but not something for this series)
->>>
->>> Mind if I also drop the css_put() line while I'm at it and *then* (finally :D) commit?
->> I'd keep the css_put for the failure case then.
->>
->> Since the get_cg_pool_unlocked() is a local function, it's less of an issue that it doesn't
->> obtain a reference itself, as all callers outside dmemcg.c never notice.
->>
->> Maybe do a final round of testing too, in case it introduces new failures. :-)
->>
->> Especially device unload/reload might show double puts. But otherwise looks good to me.
->>
->> Kind regards,
->> ~Maarten
-> 
-> I wrote the fixup at [1] that included that css_put. I will look into the
-> possibility of get_cg_pool_unlocked returning NULL or error. But I find
-> that unconditionally calling css_put here is wrong. If pool is NULL, it
-> needs to be called, because otherwise the css_tryget will be unbalanced.
-> 
-> The reason not to call it unconditionally is that it will be called when
-> dmem_cgroup_pool_state_put is caled, hence, balancing the css_tryget.
-> 
-> I also need to consider whether doing it outside the RCU section is fine.
-> 
-> I just looked here and one of the possibilities for pool to be NULL is that
-> the region is unregistered in a race condition. region->unregistered is
-> protected by dmemcg_lock, but that is taken by get_cg_pool_unlocked, so it
-> seems possible.
-> 
-> By the way, while testing the whole series, I see many different issues
-> here that I am still looking at as they may be otherwise hidden
-> pre-existing bugs.
+Tested on a Radxa ROCK 4D, on next-20260730.
 
-region->unregistered would not be possible here. This means that the
-driver code is calling dmem_cgroup_get_common_ancestor while unregistering
-at the same time.
+Changes in v5
+-------------
 
-There's a bigger problem in that case, the driver should first deallocate all
-its allocations before unregistering. The unregistered is intended for
-guarding against userspace access while unregistering, not against kernel
-tearing down a cgroup while it's still live.
+  * accel/rocket: the experiment code v4 shipped by mistake is removed.
+    No module parameters, no snapshot ioremap, no regcmd patching.
 
-Kind regards,
-~Maarten Lankhorst
+  * dt-bindings: the RK3576 nodes never validated against the RK3588
+    binding, which still described RK3588's shape only. Igor ran
+    dt-validate and found ten failures across the two cores: six clocks
+    and two power domains where the schema allowed four and one, and a
+    single reset where dtschema infers minItems from maxItems and so
+    requires two. The property ranges are widened and each SoC is pinned
+    back to its own shape in allOf, so nothing loosens for RK3588. I
+    checked that by giving an RK3588 node a fifth clock and confirming
+    the schema still rejects it.
+
+  * dt-bindings: new patch. The resets that patch 5 adds to the NPU power
+    domain nodes had no binding at all, and pd-node is
+    unevaluatedProperties: false at every level, so the DTS could not
+    validate. Also found by Igor.
+
+  * dt-bindings: new patch. The NPU MMU nodes carry five clocks and no
+    clock-names, which rockchip,iommu.yaml does not allow either. This
+    one is not cosmetic: with only aclk and iface enabled the MMU accepts
+    reads and silently drops register writes, which is what commit
+    841363ebb508 ("iommu/rockchip: Take all DT clocks") was for. The
+    schema is widened to match, minItems stays at 2 so every existing
+    devicetree is unaffected, and the DTS gets its clock-names back.
+    Found by the Sashiko bot.
+
+  * accel/rocket: the poll work checked its sequence number outside
+    job_lock, which narrowed the race it was meant to close rather than
+    closing it. poll_seq only moves under job_lock, in hw_submit, so the
+    check belongs there too. The shared part of the completion path is
+    split into a helper both callers use. Also from the bot.
+
+  * accel/rocket: rocket_job_fini() cancelled the poll after
+    drm_sched_fini(), but the completion path submits the job's next
+    task, and drm_sched_fini() does not wait for work already queued, so
+    a poll could arm the hardware while teardown was disabling clocks.
+    A dying flag now stops that before the scheduler goes away, and the
+    cancel stays after it so a job running at that moment cannot re-arm
+    the timer behind it. Also from the bot.
+
+  * rk3576-rock-4d.dts: the commit message now says why the supply is
+    marked always-on and why only core 0 is enabled, rather than leaving
+    both to be asked about.
+
+Igor, this is not the mechanical respin I said it would be. The last two
+items restructure rocket_job_handle_irq(), which is the RK3588 path as
+well, so it needs characterising rather than a repeat of your v3 bench.
+Both are gated on soc->poll_completion for behaviour, but the code
+underneath is shared. Thanks for reading the diff instead of trusting
+the cover letter.
+
+Verified on hardware, twice, with every debug knob off: the NPU probes
+with the two domain list, a known byte exact convolution stays byte exact
+six times over, running a different one and coming back is unchanged, and
+unbind/rebind rebinds cleanly and runs again with no warning.
+
+What is still wrong
+-------------------
+
+A single convolution is byte exact, and re-running it is byte exact every
+time. A different one after it computes nothing, while the resident one
+keeps working, and going back to it is byte exact again.
+
+Igor suggested on the v4 thread that this reads less like a register we
+fail to write and more like something the block never re-fetches, and
+that the useful question is whether the regcmd is read at all. That
+turned out to be the right question, and the answer is now measured.
+
+Overwriting the head of the regcmd buffer in place, just before OP_EN,
+changes nothing for a repeat submit: it computes byte exact from a buffer
+full of 0xdeadbeef. The same corruption on the first submit after a
+resume makes that job wrong. So some submits load their configuration and
+some run from resident state, and the write itself is confirmed by
+reading it back.
+
+Filling the output BOs with a marker byte just before OP_EN says what the
+failing submit does with that state. On a submit that computes, the
+marker is gone from every byte and the result is correct. On the submit
+that walls, the marker survives in 100% of the buffer.
+
+So the failing submit is a no-op. It does not read its configuration, it
+does not compute, and it never writes its output, which means it does not
+know where the output goes. It still looks like a completion, because
+INTERRUPT_RAW_STATUS PC_DONE is permanently latched and the poll
+condition is therefore always already true.
+
+I have to correct something in the v3 and v4 cover letters here. Both
+said the failing job "writes out a zero point surface", and I read that
+as the MAC producing nothing. That was wrong. A fresh shmem BO is zeroed,
+0x00 plus the +0x80 that teflon applies on readback is 128, and 128 is
+exactly what I had been calling the zero point fill. The buffer was never
+written at all. Nothing was ever measured about the MAC on this path.
+
+That also retires the ping-pong lead from the v3 thread, and not because
+the observation was wrong. The pointer is stuck, S_POINTER bit 0 reads
+back 1 whatever we write, but flipping it, selecting a bank the way
+rk3576_state_init does, and pulsing POINTER_PP_CLEAR are all null, the
+vendor does not switch banks per submit either, and adding its state_init
+verbatim changes nothing. The bank is about where a configuration lands,
+and the configuration is not being read in the first place.
+
+What is left is the condition under which the block loads at all. That is
+what I am chasing now, and suggestions are very welcome.
+
+I used Claude Opus 5 to trim this series out of my debugging tree and
+generate the diffs. It is also what missed the hunk in v4, so this time
+the trimmed tree was diffed against v3 patch by patch and grepped for
+every experiment symbol before sending.
+
+Jiaxing Hu (8):
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: allow the RK3576 NPU MMU clock set
+  pmdomain/rockchip: add optional per-domain power-on settle delay
+  pmdomain/rockchip: cycle optional power-domain resets on power-on
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: rk3576: add NPU (RKNN) nodes
+  arm64: dts: rockchip: rk3576-rock-4d: enable NPU
+
+ .../devicetree/bindings/iommu/rockchip,iommu.yaml  |   8 ++
+ .../bindings/npu/rockchip,rk3588-rknn-core.yaml    |  47 +++++++-
+ .../bindings/power/rockchip,power-controller.yaml  |   8 ++
+ arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts    |  10 ++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi           |  80 +++++++++++++-
+ drivers/accel/rocket/rocket_core.c                 |  26 ++++-
+ drivers/accel/rocket/rocket_core.h                 |  20 +++-
+ drivers/accel/rocket/rocket_device.c               |   4 +
+ drivers/accel/rocket/rocket_drv.c                  |  22 +++-
+ drivers/accel/rocket/rocket_job.c                  | 121 +++++++++++++++++++--
+ drivers/pmdomain/rockchip/pm-domains.c             |  71 ++++++++----
+ 11 files changed, 373 insertions(+), 44 deletions(-)
+
+--
+2.43.0
