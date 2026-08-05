@@ -4,83 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F326C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 15:34:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ED49C55ABA
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 15:36:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDF9910EEAE;
-	Wed,  5 Aug 2026 15:34:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9ABB10EECF;
+	Wed,  5 Aug 2026 15:36:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fk09xZF+";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="H8fEDiQ2";
 	dkim-atps=neutral
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E482B10EEAE
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 15:34:54 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-47df6a5655aso147599f8f.1
- for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 08:34:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785944093; x=1786548893; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=K7C5bX9yrteFlRiHmbAJKSV1MNI7QdrKD956BMaNNmc=;
- b=fk09xZF+tpxm2ta40Jh4nhIZa6lhU27axE3wUBVZZx11q2IORlNRqscnHGvKNmMYuz
- JGX4I87kDmZgv9s9qeMbWbxc8y/WFys21tLsQmHLxCT8h4GrZGJ5VS9tRbQAdQMq71W7
- Bo91DyyKp07U/NiAZZguhPeYRYyUQu2r1WYakbjt4GtBF/nK3ApHZWVnr7j+E3TlcH03
- Sr2AMy/o3PO9kt30N57SdcghAKPqc+OnzbO5S0n+kATLJ8m8ZXn266zSrurLk6/Vz/qM
- g++yzqvmmcjED2EkVm/q38ZY9U5iEKX2C8WZMcrWscvBWlhWQCYpF+GbtYIw8H3fHydQ
- lMZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785944093; x=1786548893;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=K7C5bX9yrteFlRiHmbAJKSV1MNI7QdrKD956BMaNNmc=;
- b=k3P5Fq3nuEvI1ticvbZ8vhXPcEzXGvxlYnRFF8pVG+j3yr4Hn0CHNefXC2B4kiEL1q
- vxfVIWRZx8zfBNpLA5IZGG4rOImrxqC8c02ftgvj2X5cz7qdVfh7pDsgo+f3WkrvA4pd
- WsVInHSd/VdZqkgHzi133LM9H4QsUrQVaiLuwme4gL/lxp3nvpELBCvQweH/Gvc7qxyr
- IW08+iUkR1v051H5EyJnzUUo8P7dZCLs5UeOIbICVpjQveVk6Ng0sw2Hp5sn6uEY2vQ/
- Df5TegpqxlFu66n6BPs+FyTJGrnbWamb/9dXa3Ury0T5J4nzGMdYgyqAywEegj0Cirs/
- g12A==
-X-Gm-Message-State: AOJu0Yw37fvjLUdLKC08MboTQP/OI/dv3ATujUQILi3LD4ZHxS05Z9tQ
- 2fMBEQPGwHw7ce9f91jCNev0+57DVv67LbwiXsP7XLbZ5WWjjmfYouIs
-X-Gm-Gg: AR+sD116uvsSqUSDFD7kAT4XHdpA2uBvoEXaIatSJTjSdBC2FTbOqi3RyaqKPMLJQh4
- 6ngOCzY9y1tw563f1+aOYg4k7UdZmKtB4kpBkNtJNzmflpJGTthnyLEV1M5v8yJWVkNwL9fIV68
- 5yxYjmBJlZiXrlejO+Jdc4789OAqgPmqRYg0ytjKfiwJW7DpfC407OAywg2TJVW1cDmAVT+iW5d
- tUEvvpKp3Gakb6lsaRKWSahe3+v+cZk8nD569DvWTRH3TtCE/y53lmq2yJYIP8DbpTgcd/UaJdG
- K2GBRk0g+Oaq/1v9WZvFssZBoCLYFoyohWCXMLiyrYhvG+Ac8cwSTsRSQkf0OjA6bXml6P3bZzi
- QFOQBR705A+njdqNma/4BBnySQEGg/AKDinBc5daNoBnyaAa6bfil4hG0EO1ewGMBDGKnebEN3i
- jNRKCSziKEM3CzLY/aW+n3kx591BiGeN6/2M6SLa7OnqhAaVlRxOE+DhjditSX+wEwo6LUdmCgZ
- 3SPrW/ApRLaF4np3VFaXni17kqHDImLau+zhDH0uEw/6GpIRxv7GGdeMy1LOxN5FvPK
-X-Received: by 2002:a05:600c:1549:b0:498:1371:660c with SMTP id
- 5b1f17b1804b1-4994e704bd5mr50927585e9.0.1785944093070; 
- Wed, 05 Aug 2026 08:34:53 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B86F10001BE789C6EE938EE.dsl.pool.telekom.hu.
- [2001:4c4e:1b86:f100:1be:789c:6ee9:38ee])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47febfda6afsm9047223f8f.3.2026.08.05.08.34.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Aug 2026 08:34:52 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH v2] drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace
- connector property
-Date: Wed,  5 Aug 2026 17:33:55 +0200
-Message-ID: <20260805153416.8459-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6982010EECF
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 15:36:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785944179; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=B9NH8tzwGNXvVBin7CP/ryrYN/Nzf4YWB1eQLfcmvR78ykfbvCVCsbyXTl4vQLdRv9Z6DIqQLU1StApVn/q1d1jzv62GlRviM/+H8dl4yiskP712XNtFVae7wnGKIHf1Mu98kTMMxcYBrlDniqv+7j2rAcLFbhSsMhafqXc63iY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785944179;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=eZ8yoGo952efns/OBm5iCX+Q1HBcqsTJ1juv/oJ+doc=; 
+ b=NQfB0LZQ6S7Y5T7XcslYroMwDtkLTHfBsqcVTOYaFO8exvYuw6dI34qp4jCC1tAguAQUTdqs8GW7bJcfh/+gMJEZIr0kFTVS6qeUFJtz2LkVNIHOjwaAZTIn6RFTjaIZ2/fTfv69FPDKrae+VbZsrBvMIMH13U+aZ6IN2LDM7eM=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785944179; 
+ s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
+ h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
+ bh=eZ8yoGo952efns/OBm5iCX+Q1HBcqsTJ1juv/oJ+doc=;
+ b=H8fEDiQ2taUmnCpqfECXXNNC8QPx70VxDDG3gmJIss9JCsaukridaFIrfYoxu9H9
+ DsbmnjJlKy4I0uyABZe/acOUra03AWhqFdVoEfwbrrFA+4cwsQ+iB0YaqJPF7lBIepr
+ tCfCabq9PvVdiyjYIpCcJmtzGdyQLNc3myvI8ON4=
+Received: by mx.zohomail.com with SMTPS id 1785944177660785.6057907562056;
+ Wed, 5 Aug 2026 08:36:17 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
+Subject: Re: [PATCH v9 4/5] rust: Add dma_fence abstractions
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <20260805145949.938505-6-phasta@kernel.org>
+Date: Wed, 5 Aug 2026 12:35:51 -0300
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Lyude Paul <lyude@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+ Joel Fernandes <joelagnelf@nvidia.com>,
+ Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt <rostedt@goodmis.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ FUJITA Tomonori <fujita.tomonori@gmail.com>,
+ Eliot Courtney <ecourtney@nvidia.com>,
+ Mirko Adzic <adzicmirko97@gmail.com>, Timur Tabi <ttabi@nvidia.com>,
+ Daniel del Castillo <delcastillodelarosadaniel@gmail.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <777CE025-C1AA-4C3F-9B56-CD157C8523E7@collabora.com>
+References: <20260805145949.938505-2-phasta@kernel.org>
+ <20260805145949.938505-6-phasta@kernel.org>
+To: Philipp Stanner <phasta@kernel.org>
+X-Mailer: Apple Mail (2.3826.700.81)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,85 +95,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The RK3588 HDMI QP output never exposes the "Colorspace" connector
-property, so userspace has no way to request BT.2020 colorimetry.
 
-Everything needed to signal it is already in place. The connector comes
-from drm_bridge_connector_init(), which calls drmm_connector_hdmi_init()
-and attaches "max bpc", "HDR_OUTPUT_METADATA" and the output color
-format, and the HDMI state helper feeds conn_state->colorspace into the
-AVI infoframe colorimetry bits via hdmi_generate_avi_infoframe() and
-drm_hdmi_avi_infoframe_colorimetry(). dw-hdmi-qp then emits the
-infoframe through its hdmi_write_avi_infoframe hook. Only the property
-itself is missing, so conn_state->colorspace stays at its default and
-the AVI infoframe always reports "no colorimetry data".
 
-The user-visible effect is that HDR is unavailable on every RK3588 HDMI
-output. KWin (Plasma 6.x) requires "Colorspace" alongside
-"HDR_OUTPUT_METADATA" and "max bpc" before it treats an output as
-wide-gamut capable, so it never offers the HDR toggle.
+> On 5 Aug 2026, at 11:59, Philipp Stanner <phasta@kernel.org> wrote:
+>=20
+> C's dma_fence's are synchronisation primitives that will be needed by =
+all
+> Rust GPU drivers.
+>=20
+> The dma_fence framework sets a number of rules, notably:
+>  - fences must only be signaled once
+>  - all fences must be signaled at some point
+>  - fence error codes must only be set before signaling
+>  - every pointer to a fence must be backed by a reference
+>=20
+> All those rules are being addressed by these abstractions.
+>=20
+> To cleanly decouple fence issuers and consumers, two types are =
+provided:
+>  - DriverFence: the only fence type that can be signaled and that
+>    carries driver-specific data.
+>  - Fence: the fence type to be shared with other drivers and / or
+>    userspace. The only type callbacks can be registered on.
+>    Cannot be signaled.
+>=20
+> Hereby, a Fence lives in the same chunk of memory as a DriverFence. =
+Both
+> share the refcount of the underlying C dma_fence. Since this
+> implementation does not provide a custom =
+dma_fence_backend_ops.release()
+> function, the memory is freed by the dma_fence backend once the =
+refcount
+> drops to 0.
+>=20
+> To create a DriverFence, the user must first allocate a
+> DriverFenceAllocation, so that the creation of the DriverFence later =
+on
+> can always succeed. Otherwise, deadlocks could occur if fences need to
+> be created in a GPU job submission path.
+>=20
+> Synchronization is ensured by the dma_fence backend.
+>=20
+> All DriverFence's created through this abstraction must be signaled by
+> the creator with an error code. In case a DriverFence drops without
+> being signaled beforehand, it is signaled with -ECANCELLED as its
+> error and a warning is printed. This allows the Rust abstraction to =
+very
+> cleanly decouple fence issuer and consumer by relying on the =
+decoupling
+> mechanisms in the C backend, which ensures through RCU and the
+> 'signaled' fence-flag that dma_fence_backend_ops functions cannot
+> access the potentially unloaded driver code anymore.
+>=20
+> Signalling fences on drop thus grants many advantages. Not signaling
+> fences on drop would risk deadlock and does not grant real advantages:
+> By definition only the drivers can ensure that a fence always =
+represents
+> the hardware's state correctly.
+>=20
+> This implementation models a DmaFenceContext object on which fences =
+are
+> to be created, thereby ensuring correct sequence numbering according =
+to
+> the timeline.
+>=20
+> dma_fence supports a variety of callbacks. The mandatory callbacks
+> (get_timeline_name() and get_driver_name()) are implemented in this
+> patch. For convenience, they store those name parameters in the fence
+> context, saving the driver from implementing these two callbacks.
+>=20
+> Support for other callbacks (like for hardware signaling) is prepared
+> for through the fact that both DriverFence and Fence live in the same
+> allocation, allowing for usage of container_of from the callback to
+> access the driver-specific data.
+>=20
+> It is expected that other callbacks, added in the future, also mostly
+> operate on the generic data in the FenceContext. To make this safe, =
+the
+> implementation ensures through a lifetime that a DriverFence cannot
+> outlive its FenceContext.
+>=20
+> Synchronization for dma_fence_ops callbacks is ensured by only running =
+the
+> Rust deconstructor delayed with call_rcu(), which prevents UAF-bugs
+> should a DriverFence drop while a Fence callback is currently =
+operating
+> on the associated driver data. Since they can also operate on the
+> FenceContext's data, its drop implementation also performs the =
+necessary
+> delay with rcu_barrier().
+>=20
+> An additional issue discovered during the review process of this code =
+is
+> that there is (currently) no mechanism in Rust to prevent someone from
+> circumventing the DriverFence's FenceContext-reference's lifetime by
+> "forgetting" the fence, e.g. with core::mem::forget(). This would =
+enable
+> UAF bugs on the FenceContext. Throw a panic if this happens and =
+document
+> a path towards a more robust solution.
+>=20
+> Add abstractions for dma_fence in Rust.
+>=20
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
+>=20
 
-Create and attach the property right after the bridge connector is
-initialised, as vc4_hdmi already does. Passing 0 to
-drm_mode_create_hdmi_colorspace_property() selects the full HDMI
-colorspace set defined by the core.
+Owing to the ongoing discussion in v8, I still think we could propose =
+some
+refinements in the future, like most source code out there :) But =
+overall this
+is a solid base to build upon and it doesn=E2=80=99t make sense to delay =
+seeking
+the =E2=80=9Cperfect=E2=80=9D solution, if such a thing even exists..
 
-Tested on an Orange Pi 5 Plus driving a Samsung Odyssey G70B: KWin now
-offers the HDR toggle, the connector property switches to BT2020_RGB
-once HDR is enabled, and the output runs 4K@144 at 10 bpc.
 
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
----
-Changes in v2:
-- Regenerated with git format-patch. v1 was a hand-assembled diff: it
-  carried no "diff --git" header, no diffstat, and no function context on
-  the @@ hunk header. That is the most likely reason it never showed up in
-  patchwork and got no review in three weeks.
-- Rebased onto drm-misc-next (97c03b32b28a), the right tree for this
-  change. The hunk is unchanged apart from its new offset and the function
-  context that format-patch adds.
-- Reworded the commit message to lead with the user-visible effect and to
-  name the exact core path that consumes conn_state->colorspace.
-- Trimmed the in-code comment to a single line; the reasoning now lives in
-  the commit message instead. No functional change from v1: the two API
-  calls and their placement are the same.
-- An automated review of v1 flagged that returning an error from
-  dw_hdmi_qp_rockchip_bind() leaves hdmi->hpd_work queued. That gap
-  pre-dates this patch and is shared by every existing error path in
-  bind() (drmm_encoder_init(), dw_hdmi_qp_bind(),
-  drm_bridge_connector_init()), since cancel_delayed_work_sync() runs only
-  in dw_hdmi_qp_rockchip_unbind(), which the component framework does not
-  call for a failed bind(). It is already being addressed in the HDMI 2.0
-  series below ("Cancel pending HPD work on suspend", 30/69, and "Control
-  the HPD IRQ line via the bridge HPD ops", 37/69), so this patch adds
-  nothing for it.
+Thanks for your hard work here!
 
-v1: https://lore.kernel.org/all/20260714202850.40999-1-royalnet026@gmail.com/
-HDMI 2.0 series: https://lore.kernel.org/all/20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com/
 
- drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-index 9c4cf68d79d5..35d04680d011 100644
---- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
-@@ -695,6 +695,13 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
- 		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
- 				     "Failed to init bridge connector\n");
- 
-+	/* Passing 0 selects the full HDMI colorspace set defined by the core. */
-+	ret = drm_mode_create_hdmi_colorspace_property(connector, 0);
-+	if (ret)
-+		return ret;
-+
-+	drm_connector_attach_colorspace_property(connector);
-+
- 	return 0;
- }
- 
-
-base-commit: 97c03b32b28a9f7f13f768f2b06e1eaafe850e66
--- 
-2.43.0
+Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
 
