@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED55EC55822
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:27:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B933CC55822
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 425B610ED32;
-	Wed,  5 Aug 2026 07:27:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C10B10E1E1;
+	Wed,  5 Aug 2026 07:30:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Kmp3dKrW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Hp/FBZ0W";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C1BA110ED32
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 07:27:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6129810E1E1
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 07:30:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E2A8A600AE;
- Wed,  5 Aug 2026 07:27:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56A121F000E9;
- Wed,  5 Aug 2026 07:27:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 53235600AE;
+ Wed,  5 Aug 2026 07:30:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44081F00A3A;
+ Wed,  5 Aug 2026 07:30:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785914849;
- bh=RRccaX1H44lv9wd4FtNsO6xk209xvOOtVd/Wd9QfG2Y=;
+ s=k20260515; t=1785915028;
+ bh=5Cm3Ho3Tzf6+u6xDvCxsRQXpAqlaj3PYU4giGGFmJDQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Kmp3dKrWD11ukmGoaYFBnZXfTek7LVTLT3VzewEb18mx1aMCLcxF3lFFkXgI3uWEK
- mVEJloYeTb66F5kOBCu48okLXTw2+GK/PphwhOb0DeZ2Nq6pIddrh2v+4m3YiFuGeX
- JAxqvfkNc9nyeGN+Xqx7WJS69gy59O+643Hir5OVnbB80+31jxsRNwTT2X6ng2+K1I
- wn4TXD5jBOd65+qOzbcI8fWp/KkcllgmDe1riYYcf2j6NQ8Sx3hhE6tW2kGFTLAOb1
- VIVGTPF2b3onJ43trn0bcDuxvdE+P2Z/ss6hgkotLp0x4qwnfydFK2z0qYo9IZpUMu
- JC+RYlzZh66fQ==
+ b=Hp/FBZ0WMu8yaR1Q61lGm54eun+V8PLxYdsbRI393CDKR0cg08wQ+H9v1ihQjZP23
+ 5m2qYUER5VlOldgUHwTRekMjtAI/nxN8JWwfXuYgF12FzEj38l8PXgPzT2RVpota8R
+ 7CJKbJLpT1UToq26p3s6RS++A9xHhzG1S41efxa3kw7NwBg6YFJM/5ispxaOFu0X4e
+ MlxuISAQw3Tldn763YMdzbh7KKSzmXSBrL0ySiCBDPIFeh/gBH+idCaPD12RLtcXr2
+ QtyKUvpXKM22qM2DJ5AIK3dX1gCZ0bzt2bkHlzriSiw95wlIy7Chnm00dbvOXLj2Ty
+ dxRuXCmFNWopQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v5 v5 5/8] pmdomain/rockchip: cycle optional
- power-domain resets on power-on
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260805063826.95682-6-gahing@gahingwoo.com>
-References: <20260805063826.95682-1-gahing@gahingwoo.com>
- <20260805063826.95682-6-gahing@gahingwoo.com>
+Subject: Re: [PATCH v13 3/4] drm/xe: Handle PUNIT errors by requesting
+ cold-reset recovery
+To: "Mallesh Koujalagi" <mallesh.koujalagi@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260805071152.1225416-9-mallesh.koujalagi@intel.com>
+References: <20260805071152.1225416-6-mallesh.koujalagi@intel.com>
+ <20260805071152.1225416-9-mallesh.koujalagi@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 07:27:28 +0000
-Message-Id: <20260805072729.56A121F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 07:30:26 +0000
+Message-Id: <20260805073027.D44081F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,57 +60,70 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Using dev_err() instead of dev_err_probe() for reset acquisition=
- leads to spurious boot warnings.
+
+Pre-existing issues:
+- [High] Unprotected concurrent access to `xe->wedged.method` can cause the=
+ `COLD_RESET` recovery method to be overwritten by the `DEFAULT` fallback m=
+ethod during simultaneous wedge declarations.
 --
 
---- Patch [5]: [RFC PATCH v5 v5 5/8] pmdomain/rockchip: cycle optional powe=
-r-domain resets on power-on ---
-commit a3723842ac037cc5513c93510e6b54bd305213be
-Author: Jiaxing Hu <gahing@gahingwoo.com>
+--- Patch [3]: [PATCH v13 3/4] drm/xe: Handle PUNIT errors by requesting co=
+ld-reset recovery ---
+commit 5edfcf29ea367e4df826b556199c8154b0704d81
+Author: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
 
-pmdomain/rockchip: cycle optional power-domain resets on power-on
+drm/xe: Handle PUNIT errors by requesting cold-reset recovery
 
-This commit cycles the resets for Rockchip power domains when they are powe=
-red
-on. This clears undefined bus interface states that can cause hangs on devi=
-ces
-like the RK3576 NPU on the first access after a cold power-on.
+This commit handles PUNIT errors by marking the device as wedged with
+DRM_WEDGE_RECOVERY_COLD_RESET, indicating that a full device power cycle
+is required to restore normal operation.
 
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/ro=
-ckchip/pm-domains.c
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-
+> diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
+> index 352f056fd9ef4..3033a377bace9 100644
+> --- a/drivers/gpu/drm/xe/xe_ras.c
+> +++ b/drivers/gpu/drm/xe/xe_ras.c
 [ ... ]
-
-> @@ -857,6 +866,14 @@ static int rockchip_pm_add_one_domain(struct rockchi=
-p_pmu *pmu,
->  	if (error)
->  		goto err_put_clocks;
+> @@ -254,6 +254,12 @@ static u8 handle_core_compute_errors(struct xe_ras_e=
+rror_array *arr)
+>  	return XE_RAS_RECOVERY_ACTION_RECOVERED;
+>  }
 > =20
-> +	pd->resets =3D of_reset_control_array_get_optional_exclusive(node);
-> +	if (IS_ERR(pd->resets)) {
-> +		error =3D PTR_ERR(pd->resets);
-> +		dev_err(pmu->dev, "%pOFn: failed to get resets: %d\n", node, error);
+> +static void punit_error_handler(struct xe_device *xe)
+> +{
+> +	xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
+> +	xe_device_declare_wedged(xe);
+> +}
+        ^^^^
 
-[Severity: Medium]
-Could this cause spurious boot warnings if the reset controller hasn't prob=
-ed
-yet?
+[Severity: High]
+This is a pre-existing issue, but can the COLD_RESET recovery method be lost
+here due to unprotected concurrent access to xe->wedged.method?
 
-When of_reset_control_array_get_optional_exclusive() returns -EPROBE_DEFER,
-dev_err() will log an unconditional error instead of handling the deferral
-silently. Should this use dev_err_probe() to cleanly handle deferred probes
-without adding spam to the kernel log?
+If a GT hang occurs concurrently with a PUNIT error, a race condition can
+overwrite the COLD_RESET escalation with the fallback method:
 
-> +		pd->resets =3D NULL;
-> +		goto err_unprepare_clocks;
-> +	}
-> +
->  	pd->num_qos =3D of_count_phandle_with_args(node, "pm_qos",
->  						 NULL);
+CPU1 (GT hang)
+xe_device_declare_wedged()
+// Evaluates as true (sees 0)
+    if (!xe->wedged.method)
+
+CPU2 (PUNIT error)
+punit_error_handler()
+    xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_COLD_RESET);
+
+CPU1 (GT hang)
+    // Overwrites COLD_RESET
+    xe_device_set_wedged_method(xe, DRM_WEDGE_RECOVERY_REBIND |=20
+                                    DRM_WEDGE_RECOVERY_BUS_RESET);
+
+Because xe->wedged.method is assigned directly and read in a check-then-act
+pattern without locking, both threads might pass the incorrect fallback met=
+hod
+to drm_dev_wedged_event().=20
+
+Could this cause userspace to perform a generic bus reset instead of the=20
+required full power cycle?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805063826.9568=
-2-1-gahing@gahingwoo.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805071152.1225=
+416-6-mallesh.koujalagi@intel.com?part=3D3
