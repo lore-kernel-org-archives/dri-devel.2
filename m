@@ -4,44 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B429C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 20:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2446DC55ABF
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 20:39:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3693A10E238;
-	Wed,  5 Aug 2026 20:34:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7910F10EFEB;
+	Wed,  5 Aug 2026 20:39:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W0oN9/Qa";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IEQKVUUG";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A22FD10EFD9
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 20:34:35 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D67710EFEB
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 20:39:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 58D7941636;
- Wed,  5 Aug 2026 20:34:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 121601F000E9;
- Wed,  5 Aug 2026 20:34:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 46A04433A6;
+ Wed,  5 Aug 2026 20:39:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FF291F000E9;
+ Wed,  5 Aug 2026 20:39:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785962075;
- bh=7FugTtMhHGKwqeTnwV3XNo8Rg4soyJoPsk2c8xjCVbY=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=W0oN9/QaKwXBexZSss1e/w7BPFk54Izz13FfC4uCdGHfvGaI8fJ0LRzlkwLfQJQSf
- iiXuwyIrDxlLMbdQvOQm6r9+fL7fB9FJP1ABQpEZrQTNIFV8wjDqSMVHugKF055EPN
- 73czCPq6MXggckoC6+CduBu+hTK3fB3GcB2coyTLI0NDWhBFIz4n92XGxVSuMd7dDM
- S7mGuAokWoQvCWrqcy8G61K4B5R4BBR98w1UrSXkVTj2dLPOMePiakc1tVfEYGnzLD
- SaEX6XMRFw3HRkK90Ec48/Pepq9MyHphql9qTkRvg6JOjmXYrT+YIUZ8Mn0Lz8BzhT
- MTDq3PAeCksLg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] mm/migrate_device: Fix THP splitting of a CPU
- faulted device private folio
-To: "Matthew Brost" <matthew.brost@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260805193536.3756457-3-matthew.brost@intel.com>
-References: <20260805193536.3756457-1-matthew.brost@intel.com>
- <20260805193536.3756457-3-matthew.brost@intel.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1785962396;
+ bh=HDyA1AHqV1GG5znDjIJMQn0uh8/N2gKM1KJPkKkMP1Q=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=IEQKVUUGYgAOPLuRXTcVmhOdc3PtY0k7BSdBbqZleZxR7mgiIDaPDpbHzCRItbKqQ
+ TiJc6rIaVvez4uxezNfnhwJkPpoAyA+2mpryh56weiQVj04QbK3i2GK/g3SobPoTKX
+ 8tmXIXXr8lQm1aNZ12uRPDThZUrKMGHOnVAPCBW+5HpGeCavZIe1tIBcLARa/Sa4pF
+ fJ7DIEQWOwQyMGwtY4A/e676AmDgeJB0XFWdws1lYJf6rU6DLHlCL01sgSQ0JFPFHn
+ rcCR4Ws1ki3c8Vqd7zBeGFuUdEmpclOJ8p9nS790tmxoIFRZ/C1LTLwyh8ll+SV3AE
+ HxITaHbeouFxQ==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 20:34:34 +0000
-Message-Id: <20260805203435.121601F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 05 Aug 2026 22:39:50 +0200
+Message-Id: <DKHATVF1WAE7.NGVXJQD12XQ@kernel.org>
+Subject: Re: [PATCH v2 2/3] rust: dma: rename dma_handle to dma_address
+Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
+ <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>, "Daniel
+ Almeida" <daniel.almeida@collabora.com>, "Andreas Hindborg"
+ <a.hindborg@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
+ <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>, "Tamir Duberstein"
+ <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
+ <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>
+To: "Robin Murphy" <robin.murphy@arm.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260805-falcon-dma-projections-v2-0-4cc9f3f13ee9@nvidia.com>
+ <20260805-falcon-dma-projections-v2-2-4cc9f3f13ee9@nvidia.com>
+ <3a87960b-8a20-4947-a8b5-d5197174317c@arm.com>
+In-Reply-To: <3a87960b-8a20-4947-a8b5-d5197174317c@arm.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,90 +69,44 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Wed Aug 5, 2026 at 1:32 PM CEST, Robin Murphy wrote:
+> To be fair, that is sort of the intent in the C API as well, to be clear=
+=20
+> that DMA addresses must not simply be treated as physical addresses, and=
+=20
+> aren't necessarily address-like in general e.g. comparing two=20
+> dma_handles is pretty meaningless, since they could have different=20
+> values but still refer to the same underlying memory, or vice-versa.=20
+> Adding or subtracting offsets within the bounds of the original=20
+> allocation/mapping size is pretty much the only arithmetic that _is_ vali=
+d.
 
-Pre-existing issues:
-- [High] Out-of-bounds write in `migrate_device_range()` and `migrate_devic=
-e_pfns()` when processing compound device private folios.
---
+Yes, I did suggest a dma::Range type [1] for this purpose, such that only t=
+his
+kind arithmetic is possible to do.
 
---- Patch [2]: [PATCH v2 2/5] mm/migrate_device: Fix THP splitting of a CPU=
- faulted device private folio ---
-commit 66cc9eb01f0258173048c3a225ebb9ca65d56410
-Author: Matthew Brost <matthew.brost@intel.com>
+The dma::Range type should have a method returning its embedded raw value w=
+hich
+then can be used to program registers etc.
 
-mm/migrate_device: Fix THP splitting of a CPU faulted device private folio
+This patch is only an intermediate step, that clarifies that intent of the
+current usage of dma_handle() (or now dma_address()), which is not to serve=
+ as a
+handle.
 
-This commit fixes two issues when splitting a device private THP during a C=
-PU
-fault: it drops and re-acquires the fault reference across the split to pre=
-vent
-it from failing, and walks the rmap to demote all PMD sized migration entri=
-es=20
-before splitting to prevent leaving stale huge PMDs in other VMAs.
+[1] https://github.com/Rust-for-Linux/linux/issues/1248
 
-[ ... ]
+> However at the Rust level, the abstraction itself can convey (and even=20
+> enforce!) most of that, so for the sake of clarity here, particularly if=
+=20
+> Rust programmers are likely to have their own expectations of what=20
+> "address" and "handle" mean, then I'm inclined to agree.
 
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index 1e24039f62b33..155a182c528f8 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -1187,8 +1268,7 @@ static void __migrate_device_pages(unsigned long *s=
-rc_pfns,
->  					goto next;
->  				}
->  				nr =3D 1 << folio_order(folio);
-> -				addr =3D migrate->start + i * PAGE_SIZE;
-> -				if (migrate_vma_split_unmapped_folio(migrate, i, addr, folio)) {
-> +				if (migrate_vma_split_unmapped_folio(migrate, i, folio)) {
->  					src_pfns[i] &=3D ~(MIGRATE_PFN_MIGRATE |
->  							 MIGRATE_PFN_COMPOUND);
->  					goto next;
+Yeah, as mentioned in the link below, the handle that represents the alloca=
+tion
+are the DMA container types (such as dma::Coherent) themselves.
 
-[Severity: High]
-This is a pre-existing issue, but does migrate_device_range() write out of
-bounds when processing a compound device private folio?
-
-Looking at mm/migrate_device.c:migrate_device_range(), the code iterates
-through pfns:
-
-	for (pfn =3D start, i =3D 0; i < npages; pfn++, i++) {
-		...
-		nr =3D folio_nr_pages(folio);
-		if (nr > 1) {
-			src_pfns[i] |=3D MIGRATE_PFN_COMPOUND;
-			for (j =3D 1; j < nr; j++)
-				src_pfns[i+j] =3D 0;
-			i +=3D j - 1;
-			pfn +=3D j - 1;
-		}
-	}
-
-If npages does not fully cover the compound folio, this loop writes zeroes
-into src_pfns without checking if i + j is less than npages. Because
-src_pfns is allocated by the caller to exactly npages in size, writing up
-to nr - 1 zeroes can overflow the array.
-
-The exact same missing bounds check appears in migrate_device_pfns():
-
-	for (i =3D 0; i < npages; i++) {
-		...
-		nr =3D folio_nr_pages(folio);
-		if (nr > 1) {
-			src_pfns[i] |=3D MIGRATE_PFN_COMPOUND;
-			for (j =3D 1; j < nr; j++)
-				src_pfns[i+j] =3D 0;
-			i +=3D j - 1;
-		}
-	}
-
-Could these loops be updated to check i + j < npages before writing?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805193536.3756=
-457-1-matthew.brost@intel.com?part=3D2
+>> Link: https://lore.kernel.org/all/DK75LUA4NLGI.3P29AIZQE20V2@kernel.org/
