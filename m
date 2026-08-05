@@ -4,124 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28214C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 11:43:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6EAADC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 11:47:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0126710EE14;
-	Wed,  5 Aug 2026 11:43:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B27DD10EE1D;
+	Wed,  5 Aug 2026 11:47:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Hq/yAZ3n";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cbBtjEdt";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011014.outbound.protection.outlook.com [52.101.62.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 356AA10EE0F;
- Wed,  5 Aug 2026 11:43:16 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sS7zh9vTQb5PaGPYAS8+P3lIjaERzsYHlRF4mETxhqflkPf3YCA5FZ7ZVXifKTVpPVf8W+Xlssv80XCoet5uofdL30Xd0iZ4R67wSlNsDcOakZCL4xMFNFlBumU2w/DhB6GT8BUmNP3l0mMmqrqAP8yLhQ0xMuGmei3mZVqZDHksMenENvS63Zzfw7Iz9XSLDtr8K/fAOeBd5Lsr8xJr3vR1HbiNEmKChQCQA/TbFlk/Ql81vuT7WS8YKvtV4EMmDVcGWsCyw+ArCN424lb4GhRWh2MCn66KJpVh99Ejzt8gXHxa/xgNkyi5zCAWuHnNObcaW1Iv86NstvJrkMTt8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eFdNpUrGn5XNk9h88UdwIJdYgvbumUWpKbhgc/Kibrc=;
- b=jiwjsWLF6SynAS59F3rHMvTLtV5jsw0SXI6QL7eBxKl84Jq/T8Q5aNLocbF7WkMRI4d8igShArIKNnU37VkNjWqh4uYWaTNhaaQDn+PH+za0DD4InxaZTvA55KXw6hZoXgrvonyQZi8jEc56bmUehSw7zmt1W3/mPYeOJvi1XeM4er0uLYK+3v9THXDvNoDx45O7gcMgSwrq5Ue/1KqsWplP4ysZat5Lb6/6T4a6cWjmEBrox2qqkX3Arvq8pQxwr9itlbm7302D44fBmP/tiGVBbKc5Y2/FWIy1+XOUsPNIzndj9vTtdudMNTAUjpXaTfjZ9/gKQxkDcx8E92Nvlw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eFdNpUrGn5XNk9h88UdwIJdYgvbumUWpKbhgc/Kibrc=;
- b=Hq/yAZ3n7EplcOcOgJ2FEZYJ3dAL+Aiq1HBEiGtTBGvQ3i/a+fKUzid4nWGemtsFdPtn1MOsLQhp6G6jBVnxhZwHZ6eYmmfiMGIuZkOQYFF7Fv5DckN//5x6CB0qup+btACLRik8ApfQRNpyhTHajKDxkYzhEG1piwC+R6il50A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB7578.namprd12.prod.outlook.com (2603:10b6:208:43d::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Wed, 5 Aug
- 2026 11:43:12 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
- 11:43:11 +0000
-Message-ID: <0ede7c4b-955e-4417-a58a-4a18a1f08790@amd.com>
-Date: Wed, 5 Aug 2026 13:43:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/radeon: restore hardware polling in
- fence_is_signaled to fix performance regression
-To: 2564278112@qq.com, alexander.deucher@amd.com
-Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Wang Jiang <jiangwang@kylinos.cn>
-References: <tencent_38CA3044B54F14EC7314032134C531AFA807@qq.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <tencent_38CA3044B54F14EC7314032134C531AFA807@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0354.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f4::11) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7578:EE_
-X-MS-Office365-Filtering-Correlation-Id: d33c4d00-aeef-45d0-3fe7-08def2e6ba4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|18002099003|22082099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: GjrhMetKPMj92TISG4g0wEE2+anIE8p5BDHY6twBL1kt3HpCE0hDjJbOkoL4ZBTJXAviiPNR39/WPG3HomSNlKaScSNmi0kSTXHshaW3BiRgE7QtFN+hkPwxAyl6Y92PQFC8UpiKJf4GNftobwkRClDOeFIcNdBL34909uyJNgGYyhjqggTKPrt5jDzndWjzMD2e/Ed2Dfc2tjoEtsUwIqasp41bHF2avZEdd4nbEfHDzO+g3rXXP2KL4oRJJejfPpkgP0+yGwWmg4cZKdDZDRddiVbpar3/0IJog1fR6yN9rOhrGJKUW/IC51Id0yd9Pnd0D6bcBgBQ64yt30C9RCROtESuYMcQRedMAVdQWSjj+EuLubfYJGwrZiYGE/UfYoHJNBhtvdHc6f1onKAtxpB4WQ5u45OIWvyODF+Ss57NgTRDST1hu4PuQlb5UdNaq5garzeGs8sun4BC9CihaFhC/bbdm5DMbbwoI++ZcaNncWHrHTYPmi3/xx1C54JuCVIySUF3JVx5lIEYN38/Elkh6pUGbiH6E2xA10DderuRewxajXtgtw3x9vrTqhIOMPKH5XKI3lyBAaZR2hmsY7BwOa41fbXeQSLLkICokaoMfFNA7Q2n22G9BuTYd3doLlnYfdhb6st33HN7exh+jg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFNqMDFmU0x0eUJxTlEyVWNNOXUreUw3b3VBOVgrOTdxL2w4czBvTXJEZFA3?=
- =?utf-8?B?Qys5SEU3MlZEbnUwK2VjcWd5V1BMRWdFQklOMGhsY295VzlSRDhDRmpRQVpX?=
- =?utf-8?B?OW0wUnN4a0JxWUZaS3Q1MjdsMjM0S3l4aG5SZWxkaXF4dVlZUFN5Qm5YcGV4?=
- =?utf-8?B?aWpUYzBNMGFwWkxMVXYyT0xqMVZnaGY4RDVTc3MxUjZwMTZmZEMrV1RuRXJp?=
- =?utf-8?B?N1N4UUJNbnJNZHZTa29HTUFzQ2ZhQXAyY3FuQW5QK3g3NmZvcVNqS3VOeDFm?=
- =?utf-8?B?THRSTVpPWStOWHJOTWpnZUUwWlp4blNUNElQdDVsZTR2WUZORHJEeDB6WnVL?=
- =?utf-8?B?SGxYdHdTdTlnNE1oemNZRFRYQmVEUVJSRmNDVGRPYWhFbGRZelVEUEpkMDRl?=
- =?utf-8?B?SERCSTRnNlU3b1JRQytyWVVvVXJoY0RPOVdIcTJvWUQ1NzVzTVdZZnovdW0z?=
- =?utf-8?B?dHRnUGlMRFB0dndhVzJqcUZ0elk5a21VUmhUL3lFNm1IdldzbFpKdDhCZHBa?=
- =?utf-8?B?Vk1OV3JDN2Nja3NjQ0xqeVp3Y0R1dzl3OE9XZFUzNFY0M2JHbmdYM2wxSWZI?=
- =?utf-8?B?UnVLLzhmQzZnNUJjQWZPbjRIMXhlNWIvWjlMMVc1b1BndDBkQkhIdzNUOS9a?=
- =?utf-8?B?K1dWY1dHbkYzTTNVYW1mTkxZT1pTZXhtaDBXYmxxUHVlVjBvVy9ZTjF1UkNl?=
- =?utf-8?B?Z2RQdk5YNEdRU1I3WnA4TFlqN1RCMndrL252MW0rNGQwdUM1WFNLVHovcFJs?=
- =?utf-8?B?bzYzbStmakc2eEVGZW1JTFVPUlZBNXJrbmh4d0JoVWcvdExCTnFTZGM1TjJQ?=
- =?utf-8?B?cU1EQXd4UXI0VmUvSjZJVTRyeDk0S0RFNTVLUjdqaWZJOHUrREFTbUNGb0cw?=
- =?utf-8?B?UUhWT2VFYWplVDRHbXJBUmNva2VHL1lqbWMzdlJpSHhEMFV4UXNVRjNmMTZQ?=
- =?utf-8?B?Y2JZa05rSFI0R3ZzQVh3SFFlSFVrc3hRT2R2QU91V3VMMVYzVXhUUFRoUk5t?=
- =?utf-8?B?MHIvSm1saDFtQmpERGorcFUxa2VmdVRkVmp6YVBtTUJ6UU9qb3grVG0yTU5F?=
- =?utf-8?B?OVpvRHdNRmlSRGVLYzE2U2RRdEc4TzhSNjAraVkzNUdGTHZvc3BoWkdKb1Qv?=
- =?utf-8?B?VFJwTk0rdERGNVFMNDZnS01yUmNWRkUzUHl2MTZkV05KVS8wWmV1a3hXaVor?=
- =?utf-8?B?KzNlOXBaQWJIdVJxM3ZCSnkvNVFyVlNEK2svWXlxNEhKajlpcEYreXVueU5C?=
- =?utf-8?B?ekRtUmtRMTVBRmdiY0x2WHNYbEd6TDJIL0RURXJCQTlKT2xOMFRLZFFVWHBP?=
- =?utf-8?B?OHh3c1VwTXZxaW1ZRnlGcGtPUmVPdk5ISHN6ZWdkNU4zOW53c1hwcUEwZXR0?=
- =?utf-8?B?U3BnaWJTZVlTMmIyL04zbFpRQXBKYUFleWVNQ3Ezam1vOHh2KzM1cXVveGZ3?=
- =?utf-8?B?T1EyNk9JMmpRZEN6RWJSSzI2dWJQelNRODA1T2VYek5VUDZpNUp5K3p3WVFh?=
- =?utf-8?B?MWQzdk01T3ZRc1lMa3BGaFpGL09sckZVU2hVWUdoZS9tOGQyRGpOSGVrQ01P?=
- =?utf-8?B?TjJ1cEdBRFp5eS9TNlBBdWgzMWNxd3Q4WlY4dUFSSXBqdWF1bUtkSVk5RGFq?=
- =?utf-8?B?YVR5WU5KaTA4b1JtUmo0Sm1qUTgxSTFXaHhSUkgzMVJEVFM5NStuVHlMNTdp?=
- =?utf-8?B?NTJhaDFpbDJTNkJwd3hlUmV2T2ptYndvQlo3Y0J1ZUdxVFF6TlVVeWs2WUV5?=
- =?utf-8?B?RFRBWGVBTGJac1NrTUt4UzdEODFrZDl1UHQ5ZjB4V3BZM2IyZ04yakhzSGht?=
- =?utf-8?B?TGhEUTlsUEtPWGJydkh4UFdFUTBPdzYwMXpTTVhTdXkzbFAwbzNYR2NlRC91?=
- =?utf-8?B?WUgrQ3JvRU1GYTFtN0JHMllxWjMwemNzVGpadmE3WmIyN0lwazRudVB5dER2?=
- =?utf-8?B?cUUrYUx6ODEwZGRVRHdaVGdqejRpeGhJT0JVb3lGcytYYk0xMlRac0dQZ2Zz?=
- =?utf-8?B?WXNFb0dhMFpiTFRkTVd5MlJNTk5xaTluNVlvMU1Sa1RSVFUwVm53VTFWNE5F?=
- =?utf-8?B?eCtObktkdkNmTkhDZFJ0aW1XVW9hN1Rwc2ZvU0xpR0l6bWF3NWc1b0lNTktz?=
- =?utf-8?B?SGZrU1FZTFFMb3ozNjdpOTBuMGFCZHNLdnJlSzNYZktpSTgzMzBoZ3J1Vk9M?=
- =?utf-8?B?YlRGcUkza2pqWU15bFc2R0Mrd0Y0bk11TERFdFZESnBsT0ZqNmxLbmxWVDJR?=
- =?utf-8?B?eGVhRUJCbUVLVlBkRWQ3VjQ1NE5hTW52MVp0ZTRTcWQydUVWYTVLYmthc2dz?=
- =?utf-8?Q?26B4XOL5OWsFW7o1Sf?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d33c4d00-aeef-45d0-3fe7-08def2e6ba4a
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 11:43:11.8092 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: WLhrZ0od8paSXaugyG2/8clG2VoQg59Ki7BqC74Kp5XU1rKxwWeCD95lRERKzGbh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7578
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4CF1310EE1C
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 11:47:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3EDB960A89;
+ Wed,  5 Aug 2026 11:47:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE95C1F00A3A;
+ Wed,  5 Aug 2026 11:47:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785930446;
+ bh=rzmWpsKWB9us/Ov+X48oZvYHsQ3nwfkd/YhbUgPU+pw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=cbBtjEdthp/vhpAbzcXV3zQDLg3jc3YW235ivDAHhrCh8RhRZw1LDNOxLd9N25qan
+ swRYAuCvAoR/Xpc03Kpd4w3roiQqHO62PSs+qjg31tAycUgo4Pii/idlgaPxRxE0rX
+ ato7kAwbLB1S7hIE6rpbcZ5RqEyzilMwGRpkFwH7VJfQzzNiU0v6QUxmP3UcY3uF6N
+ tRI1Mf8H2mvsxj+npYvXqDF8kJPhvtS473kMnPDOlI1vMJlN/sZHP1Bsf+vwL3NnMy
+ UoGdRypAyMhi0vfrfz5THfFASW9etNvf3Jfrqy8Z9ay5taKDN3g37KAGzH2uIAc9gq
+ 1pXbA3Xz/9e2g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] drm/pagemap: Fix folio allocation fallback and
+ use-after-put
+To: "Matthew Brost" <matthew.brost@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260805113338.3742178-4-matthew.brost@intel.com>
+References: <20260805113338.3742178-1-matthew.brost@intel.com>
+ <20260805113338.3742178-4-matthew.brost@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 05 Aug 2026 11:47:25 +0000
+Message-Id: <20260805114725.BE95C1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,68 +54,225 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
+New issues:
+- [Critical] Data corruption due to incorrect source page population during=
+ THP allocation fallback.
 
-On 7/30/26 03:56, 2564278112@qq.com wrote:
-> From: Wang Jiang <jiangwang@kylinos.cn>
-> 
-> Commit 9eb00b5f5697b ("drm/radeon: delete radeon_fence_process in
-> is_signaled, no deadlock") removed the hardware status check from
-> radeon_fence_is_signaled() to fix a self-deadlock caused by
-> wake_up_all(&rdev->fence_queue) being called with the fence queue
-> lock held.
-> 
-> However, removing the hardware poll entirely causes significant
-> performance regression (e.g. glxgears FPS drop) because the signaled
-> check becomes purely passive — it only reads the cached last_seq
-> without probing the GPU, so completed GPU work is not detected in
-> time, causing unnecessary CPU stalls in sync-heavy workloads.
-> 
-> Fix this by calling radeon_fence_read() directly in
-> radeon_fence_is_signaled() to poll the hardware fence counter
-> without updating last_seq or calling wake_up_all(). This restores
-> timely fence detection while avoiding the original deadlock, since
-> last_seq update and waiter wakeup remain solely in the interrupt
-> handler's responsibility.
-> 
-> Fixes: 9eb00b5f5697b ("drm/radeon: delete radeon_fence_process in is_signaled, no deadlock")
-> Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
-> ---
->  drivers/gpu/drm/radeon/radeon_fence.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
-> index 02a40e4750c7..047ec5a1d194 100644
-> --- a/drivers/gpu/drm/radeon/radeon_fence.c
-> +++ b/drivers/gpu/drm/radeon/radeon_fence.c
-> @@ -360,6 +360,18 @@ static bool radeon_fence_is_signaled(struct dma_fence *f)
->  	if (atomic64_read(&rdev->fence_drv[ring].last_seq) >= seq)
->  		return true;
->  
-> +	/*
-> +	* Poll hardware directly without updating last_seq.
-> +	* This allows immediate detection of signaled fences (performance)
-> +	* while leaving last_seq update and wake_up_all() to the interrupt
-> +	* handler, avoiding:
-> +	* 1. Deadlock from calling wake_up_all() with fence lock held
-> +	* 2. Wake event stealing by advancing last_seq without waking waiters
-> +	* 3. rw_semaphore usage in atomic/irq context (unsafe on PREEMPT_RT)
-> +	*/
-> +	if (radeon_fence_read(rdev, ring) >= (u32)seq)
-> +			return true;
-> +
+Pre-existing issues:
+- [Critical] Out-of-bounds DMA read during partial THP migrations because f=
+ull THP order is blindly encoded.
+- [High] Unconditionally setting MIGRATE_PFN_COMPOUND on destination PFNs b=
+reaks PTE-level migration and leaks THPs.
+--
 
-That check is not correct, you need to take wrap around into account.
+--- Patch [3]: [PATCH 3/4] drm/pagemap: Fix folio allocation fallback and u=
+se-after-put ---
+commit f92ba61577518de0d554e1323b18348b10e22b1a
+Author: Matthew Brost <matthew.brost@intel.com>
+Subject: drm/pagemap: Fix folio allocation fallback and use-after-put
 
-Try using __dma_fence_is_later() instead.
+This commit adds a fallback to order-0 allocations in
+drm_pagemap_migrate_populate_ram_pfn() if higher-order folio allocation
+fails without setting MIGRATE_PFN_COMPOUND. It also factors out source
+page population into drm_pagemap_migrate_populate_src_pages() and fixes a
+use-after-put when freeing pages.
 
-Regards,
-Christian.
-
->  	return false;
+> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+> index 892b325fa99b8..7610e233d238c 100644
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+[ ... ]
+> @@ -383,6 +383,58 @@ drm_pagemap_migrate_map_system_pages(struct device *=
+dev,
+>  	return 0;
 >  }
->  
+> =20
+> +/**
+> + * drm_pagemap_migrate_populate_src_pages() - Populate the source page a=
+rray
+> + * @pages: Array of source pages to populate
+> + * @src_mpfn: Source array of migrate PFNs
+> + * @dst_mpfn: Destination array of migrate PFNs
+> + * @npages: Number of pages in the arrays
+> + *
+> + * Populate @pages with the device pages the copy callback is to read fr=
+om.
+> + *
+> + * Entries are normally only populated at the head of each source folio,=
+ with
+> + * the copy callback deriving the rest of the folio from the order recor=
+ded in
+> + * the corresponding drm_pagemap_addr. That does not work where
+> + * drm_pagemap_migrate_populate_ram_pfn() had to demote a higher-order s=
+ource
+> + * folio to order-0 destination folios: the drm_pagemap_addr entries are=
+ then
+> + * per-page, and the copy callback needs a source page for each of them.
+> + * Populate every entry for those ranges.
+> + *
+> + * Note that the source folio itself is only split later, by
+> + * migrate_vma_pages() / migrate_device_pages(), so its order cannot be =
+used to
+> + * detect the demotion - the destination has to be inspected instead.
+> + */
+> +static void drm_pagemap_migrate_populate_src_pages(struct page **pages,
+> +						   unsigned long *src_mpfn,
+> +						   unsigned long *dst_mpfn,
+> +						   unsigned long npages)
+> +{
+> +	unsigned long i;
+> +
+> +	for (i =3D 0; i < npages;) {
+> +		struct page *page =3D migrate_pfn_to_page(src_mpfn[i]);
+> +		unsigned int order =3D 0;
+> +		unsigned long j, nr;
+> +
+> +		if (!page) {
+> +			i++;
+> +			continue;
+> +		}
+> +
+> +		order =3D folio_order(page_folio(page));
+> +		nr =3D NR_PAGES(order);
+> +
+> +		if (order && !(dst_mpfn[i] & MIGRATE_PFN_COMPOUND)) {
+> +			for (j =3D 0; j < nr && i + j < npages; j++)
+> +				pages[i + j] =3D folio_page(page_folio(page), j);
+                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^=
+^^^^
 
+[Severity: Critical]
+Can this result in data corruption by incorrectly assigning the head page?
+
+If migrate_vma_setup() is triggered by an unaligned VMA or partial migratio=
+n,
+it can collect a partial device-private THP and place a tail page in
+migrate.src[0].
+
+If the subsequent THP allocation fails and we fall back to order-0 allocati=
+ons
+without MIGRATE_PFN_COMPOUND, this loop handles the demotion. However, since
+page_folio(page) returns the head page, j =3D 0 will assign the head page r=
+ather
+than the correct subpage offset indicated by the original tail page.
+
+Could this cause user memory at the destination to be populated with the wr=
+ong
+data from the source?
+
+> +		} else {
+> +			pages[i] =3D page;
+> +		}
+> +
+> +		i +=3D nr;
+> +	}
+> +}
+[ ... ]
+> @@ -875,6 +927,7 @@ static int drm_pagemap_migrate_populate_ram_pfn(struc=
+t vm_area_struct *vas,
+>  		struct page *page =3D NULL, *src_page;
+>  		struct folio *folio;
+>  		unsigned int order =3D 0;
+> +		gfp_t gfp =3D GFP_HIGHUSER;
+> =20
+>  		if (!(src_mpfn[i] & MIGRATE_PFN_MIGRATE))
+>  			goto next;
+> @@ -890,12 +943,38 @@ static int drm_pagemap_migrate_populate_ram_pfn(str=
+uct vm_area_struct *vas,
+>  		}
+> =20
+>  		order =3D folio_order(page_folio(src_page));
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: Critical]
+This is a pre-existing issue, but does this unconditionally skip ahead by t=
+he
+full THP order, ignoring the actual bounds of a partial migration?
+
+If migrate_vma_setup() processes an unaligned VMA range backed by a device =
+THP,
+it collects tail pages and npages will be smaller than the THP size. This c=
+ode
+unconditionally allocates a THP matching the source's full order, and then
+later in this loop advances the index by the full order:
+
+    i +=3D NR_PAGES(order);
+
+When drm_pagemap_migrate_map_system_pages() subsequently encodes the full
+compound order into the DMA address, the driver's copy_to_ram callback reads
+the full THP size starting from the tail page.
+
+Could this lead to an out-of-bounds physical memory read and potential memo=
+ry
+corruption if the copy exceeds the source physical allocation boundaries?
+
+> +		if (order)
+> +			gfp |=3D __GFP_NOWARN;
+> =20
+> -		/* TODO: Support fallback to single pages if THP allocation fails */
+>  		if (vas)
+> -			folio =3D vma_alloc_folio(GFP_HIGHUSER, order, vas, addr);
+> +			folio =3D vma_alloc_folio(gfp, order, vas, addr);
+>  		else
+> -			folio =3D folio_alloc(GFP_HIGHUSER, order);
+> +			folio =3D folio_alloc(gfp, order);
+> +
+> +		if (!folio && order) {
+> +			/*
+> +			 * Higher-order allocation failed, fall back to
+> +			 * order-0 allocations for the entire range covered
+> +			 * by the original higher-order allocation, without
+> +			 * setting MIGRATE_PFN_COMPOUND, until we move past
+> +			 * that range.
+> +			 */
+> +			unsigned long nr =3D NR_PAGES(order);
+> +			unsigned long j;
+> +
+> +			gfp &=3D ~__GFP_NOWARN;
+> +			for (j =3D 0; j < nr && i < npages; j++, i++, addr +=3D PAGE_SIZE) {
+> +				folio =3D vas ?
+> +					vma_alloc_folio(gfp, 0, vas, addr) :
+> +					folio_alloc(gfp, 0);
+> +				if (!folio)
+> +					goto free_pages;
+> +
+> +				page =3D folio_page(folio, 0);
+> +				mpfn[i] =3D migrate_pfn(page_to_pfn(page));
+> +			}
+> +			continue;
+> +		}
+> =20
+>  		if (!folio)
+>  			goto free_pages;
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: High]
+This is a pre-existing issue, but does the code shortly after this point
+unconditionally set MIGRATE_PFN_COMPOUND on the destination PFNs?
+
+drm_pagemap_migrate_populate_ram_pfn() has the following sequence further d=
+own:
+
+    if (order)
+        mpfn[i] |=3D MIGRATE_PFN_COMPOUND;
+
+When migrate_vma_setup() processes a PTE-mapped THP or an unaligned range,
+it doesn't set MIGRATE_PFN_COMPOUND in the source PFN array. Because this
+function unconditionally sets it on the destination and skips subsequent en=
+tries
+by advancing the loop index by the full order, it creates a mismatch.
+
+Will migrate_vma_pages() see mismatched flags, fall back to PTE-by-PTE
+mapping, and skip the remaining entries because they are zeroed out, leaving
+the VMA partially unmapped and leaking the newly allocated THPs?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805113338.3742=
+178-1-matthew.brost@intel.com?part=3D3
