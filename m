@@ -4,121 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1D49C55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 15:29:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F326C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 15:34:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B23610E22A;
-	Wed,  5 Aug 2026 15:29:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CDF9910EEAE;
+	Wed,  5 Aug 2026 15:34:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="nTb2Eo/k";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fk09xZF+";
 	dkim-atps=neutral
-Received: from OS0P286CU010.outbound.protection.outlook.com
- (mail-japanwestazon11011057.outbound.protection.outlook.com [40.107.74.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0726110E22A
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 15:29:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tkWIaMYmTdqrSi/bdVW1MQio5GdIeM28shmbwA3WJXxgC7AdY0OGKOxThAfzcSs1cf13BOWXfaaE1eEUqqryEoKuyK6wNtPx+gIJHd8bH2KZjEKBsSQUBoDp4b3QHMLnn8VTibJMqOIuELcTfLDC3pc/JsP3EZO8knsE13qCG8uKTeYzOg9x8HrYUslLAPt4JbPssOkV65xMO+MAWBYABDKkeNXQV+0Q/LFv4iCZWXlMyxFMsPJ6beJDxQaGoN9/O1utq1Afvm82qnl8DaSLCp62pmZ19/wUl0DW61GUaXKGJUz8lbpqOFK3b9elICK4tAtAV8iqQJNVWl2kVW0/QQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EJZxlqZZ3HzQbfkzvQRixGm7aTeswz9NEetSr7b3fr4=;
- b=bxXhowvqLNbJFD/DascJU9bxuDASS5pkkqXJ7pBmpGjKyvTFspltgGsa2/EAZMbfrg3JXk0gzRfpuao07pRqkohyBGAfZ9w720jO3GEX2bPM4p2KJwM6A9QF2Il7GM4w1t3XtH8XsKIvJaLFhk/UbGtVwz4eRKC1OTowQtG/q7JnF1Nd+BQHBXaNqjrVOSkuJY8BkSWjLwyP458HEgpdosQBxktlNaVfxvwp1RB1/ZuH4Rye+kVWQCYfuBQKDvgHlpcZeRW/mfkAQjQSMT7SWg37QiSBKOyGlR+l0JkYjSjJERxMuoAoPaaYtYKY4yJG2MXY99H09RBaogPSGUyTxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EJZxlqZZ3HzQbfkzvQRixGm7aTeswz9NEetSr7b3fr4=;
- b=nTb2Eo/k2nCxW2SQeSI/MAFHxz3+imLl6oXkWMSra2fRxRJzVUzwTkuE4Xnw7TU0hiOFX08JqUMBrLpvJR3/3wmzFUqcDv0ZWt8Z3Dv/wIMAdAZb/jZycsjg8H9RE6c6pfZ8JppkFhKP+1gwfx0XcD2+JVFksE6Ata6jEaZYhiE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
- by TYRPR01MB13919.jpnprd01.prod.outlook.com (2603:1096:405:218::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 15:29:53 +0000
-Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
- ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0292.018; Wed, 5 Aug 2026
- 15:29:52 +0000
-Date: Wed, 5 Aug 2026 17:29:28 +0200
-From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E482B10EEAE
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 15:34:54 +0000 (UTC)
+Received: by mail-wr1-f52.google.com with SMTP id
+ ffacd0b85a97d-47df6a5655aso147599f8f.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 08:34:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785944093; x=1786548893; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=K7C5bX9yrteFlRiHmbAJKSV1MNI7QdrKD956BMaNNmc=;
+ b=fk09xZF+tpxm2ta40Jh4nhIZa6lhU27axE3wUBVZZx11q2IORlNRqscnHGvKNmMYuz
+ JGX4I87kDmZgv9s9qeMbWbxc8y/WFys21tLsQmHLxCT8h4GrZGJ5VS9tRbQAdQMq71W7
+ Bo91DyyKp07U/NiAZZguhPeYRYyUQu2r1WYakbjt4GtBF/nK3ApHZWVnr7j+E3TlcH03
+ Sr2AMy/o3PO9kt30N57SdcghAKPqc+OnzbO5S0n+kATLJ8m8ZXn266zSrurLk6/Vz/qM
+ g++yzqvmmcjED2EkVm/q38ZY9U5iEKX2C8WZMcrWscvBWlhWQCYpF+GbtYIw8H3fHydQ
+ lMZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785944093; x=1786548893;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=K7C5bX9yrteFlRiHmbAJKSV1MNI7QdrKD956BMaNNmc=;
+ b=k3P5Fq3nuEvI1ticvbZ8vhXPcEzXGvxlYnRFF8pVG+j3yr4Hn0CHNefXC2B4kiEL1q
+ vxfVIWRZx8zfBNpLA5IZGG4rOImrxqC8c02ftgvj2X5cz7qdVfh7pDsgo+f3WkrvA4pd
+ WsVInHSd/VdZqkgHzi133LM9H4QsUrQVaiLuwme4gL/lxp3nvpELBCvQweH/Gvc7qxyr
+ IW08+iUkR1v051H5EyJnzUUo8P7dZCLs5UeOIbICVpjQveVk6Ng0sw2Hp5sn6uEY2vQ/
+ Df5TegpqxlFu66n6BPs+FyTJGrnbWamb/9dXa3Ury0T5J4nzGMdYgyqAywEegj0Cirs/
+ g12A==
+X-Gm-Message-State: AOJu0Yw37fvjLUdLKC08MboTQP/OI/dv3ATujUQILi3LD4ZHxS05Z9tQ
+ 2fMBEQPGwHw7ce9f91jCNev0+57DVv67LbwiXsP7XLbZ5WWjjmfYouIs
+X-Gm-Gg: AR+sD116uvsSqUSDFD7kAT4XHdpA2uBvoEXaIatSJTjSdBC2FTbOqi3RyaqKPMLJQh4
+ 6ngOCzY9y1tw563f1+aOYg4k7UdZmKtB4kpBkNtJNzmflpJGTthnyLEV1M5v8yJWVkNwL9fIV68
+ 5yxYjmBJlZiXrlejO+Jdc4789OAqgPmqRYg0ytjKfiwJW7DpfC407OAywg2TJVW1cDmAVT+iW5d
+ tUEvvpKp3Gakb6lsaRKWSahe3+v+cZk8nD569DvWTRH3TtCE/y53lmq2yJYIP8DbpTgcd/UaJdG
+ K2GBRk0g+Oaq/1v9WZvFssZBoCLYFoyohWCXMLiyrYhvG+Ac8cwSTsRSQkf0OjA6bXml6P3bZzi
+ QFOQBR705A+njdqNma/4BBnySQEGg/AKDinBc5daNoBnyaAa6bfil4hG0EO1ewGMBDGKnebEN3i
+ jNRKCSziKEM3CzLY/aW+n3kx591BiGeN6/2M6SLa7OnqhAaVlRxOE+DhjditSX+wEwo6LUdmCgZ
+ 3SPrW/ApRLaF4np3VFaXni17kqHDImLau+zhDH0uEw/6GpIRxv7GGdeMy1LOxN5FvPK
+X-Received: by 2002:a05:600c:1549:b0:498:1371:660c with SMTP id
+ 5b1f17b1804b1-4994e704bd5mr50927585e9.0.1785944093070; 
+ Wed, 05 Aug 2026 08:34:53 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME
+ (20014C4E1B86F10001BE789C6EE938EE.dsl.pool.telekom.hu.
+ [2001:4c4e:1b86:f100:1be:789c:6ee9:38ee])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47febfda6afsm9047223f8f.3.2026.08.05.08.34.51
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 05 Aug 2026 08:34:52 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Sandy Huang <hjc@rock-chips.com>,
+ =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-renesas-soc@vger.kernel.org,
- linux-kernel@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v2 04/16] drm: renesas: rzg2l_mipi_dsi: Move global
- timings into hardware info struct
-Message-ID: <anNW2IVJilS11XuE@tom-desktop>
-References: <20260729125516.230757-1-biju.das.jz@bp.renesas.com>
- <20260729125516.230757-5-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260729125516.230757-5-biju.das.jz@bp.renesas.com>
-X-ClientProxiedBy: FR0P281CA0017.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::22) To TYRPR01MB13588.jpnprd01.prod.outlook.com
- (2603:1096:405:18d::7)
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+ Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH v2] drm/rockchip: dw_hdmi_qp: attach the HDMI Colorspace
+ connector property
+Date: Wed,  5 Aug 2026 17:33:55 +0200
+Message-ID: <20260805153416.8459-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYRPR01MB13919:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3a525c12-0085-4e64-6374-08def306650c
-X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|52116014|23010399003|366016|1800799024|38350700014|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 3qCj3yw7i7IFCQWe0gqOI7r5NP4ZzeG/s2dTUHbVo2XHfD+1TrutIp1wC+CxPh7rIdCMkd2DMSlhNy58ejfSwB6JTIdZ1OEjv1iI8DhUpzMqOiqX8NJTYro9u7jF6ltqoFZBL8Er4mmrf9aoX2hkjEolNsofhw3XhvVsqb/tq6VJ07gxycQUnqsffl7CQIm/xH59d4bPTCbr2uQun00e1ezXw7Ufnhh6kE78aaiVZpJNxrIUCnx9+YHbYguhdzH3QwItjVKuLc0gxfgT92yFohdJdppLvh+S8bupIZ4JWLs8EVwe/bJvDtTkle6I/w3+jW3r+ccfI8MvjfHpykep8/9DwFHx8CyoSOu3sxsoY8hApln9uAJsQCJYmc7HbSRz4SvfjLirfKYg43UhDSVZNCNKn+Zz9PqIj4noVEV6VBTcW/r7+ZLRID4XwCiSjcba8nOOwJYbbsfEiR2T1jOMzLDRPJSYYCo4fT/z6GBgka7Nl9mFEn145GfOqdprbD4YSfeaBbIQdJ/O9JNkC5qTgl0DxheSsBimfol4Ypnp9hi+2SH2vTzDNOZ/n463OOpC+iZPdZpf9zFVoSOF0bVjaj0ZLxE93gQQ/TocNCVqVt5zxKGLEEnq0Ln9TdWChyXtdClvufw1mOcW40vwRqndFimxVQZ40MbQRNhrsG/dzfclmbhS3pjKgGbp+LgDipuTTdIgJL1ehL7iz7PETxR2Rg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TYRPR01MB13588.jpnprd01.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(52116014)(23010399003)(366016)(1800799024)(38350700014)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?G0OvlIj3SYdns5IISFR5vw7mn5bvz1KhbaGyCG3m9eqOxwjIptRjfmABzqCA?=
- =?us-ascii?Q?vJ6b9s5Su9SozkqKfB9avf1ZRxJ5YRxi8kE3JGG6VEtwUW4wdvMfM65h5aoE?=
- =?us-ascii?Q?U+BMVAGG/+GTpXJsNofDw01ols96gcq9rqzRRsCwVPu/XNIrEzfKRabWnaIe?=
- =?us-ascii?Q?VNfZKR0K6nHnsVg1EhfgGmjCgvLdipP8RJu5ojfw1j2Ffunl7xl3D+6Lmj0e?=
- =?us-ascii?Q?rrxOqZxXIuXB0slyExIxlo4yqHQFvZcrWfFWu37eY/nb+Htru6b/mEQo+Ihj?=
- =?us-ascii?Q?XvkwbuUKk4oC7xWjNhLvgIRcp2tfjQkN1l4bb7wa0oSGMpU6lmNq7y2tcCJO?=
- =?us-ascii?Q?npeM/hyqT2t3COG9iHMdAV/BQBIc6/uDThSyH/fR9ok+65ko296u36SNi3b5?=
- =?us-ascii?Q?5JzFYp6vALHy44taKk++mVpaokvbnMOpzux9dz0bRP7FkjkGxGFvL3N2grOd?=
- =?us-ascii?Q?UFBaRoxE6perqVJWbr85dXq3Jcu/sNmTRGrnxSFHrrsJfyzlh1ScJbGqP35E?=
- =?us-ascii?Q?bNmb4HY2ApeDKNJvX3OyGlEEvF43F2Za81Vg/mpm1dYnKrbBD+U6ZlcLAWzO?=
- =?us-ascii?Q?x2aySCHxP6/4s0gOGTACuPIcT4YTpzxmzILN1sOxNhYF91/pSb/7P+WwPGfF?=
- =?us-ascii?Q?JAzJKavuqt8D5QqGeM+F2NAHIYVhDRMV2/bDOrsAyy++BdhRmNN1153YolQq?=
- =?us-ascii?Q?dqPSIcUTS0S3ErLcngBwVm4e0oMoOUb0w289dMTzT9seU3Ix4VcGZlmCJrmd?=
- =?us-ascii?Q?xDsSuV8vyxuqSegD+hbvWibLUXDgGWSMSfKE9BtIgFk5rtTe9ENlnlTL3ymn?=
- =?us-ascii?Q?xp4wyj5UQUXYKU/FLh6S3oZLnz9ytl5z4u2mrZj5EGDWRDW6LmDxI6sRiEKB?=
- =?us-ascii?Q?D6MxpIQvlPiossxZomJfDMnRyTerdK4DcWNYvk8qRim2A5i4RaJEXg3bMNpZ?=
- =?us-ascii?Q?40xyHzfVdhhHd7yMTd4HITTTcN78pdTIvjrhp8Dw+elcMOuDnlZ0JElVaFPc?=
- =?us-ascii?Q?v8ngtC7bU7RQaxvYepmkyT7+LOxymy3pb1m1SgYoN5IGxDikHHuq5CkSBmRQ?=
- =?us-ascii?Q?i5RI+qtXG0ZTCYL497dp8ZuH745XZCCmnhz94U+Y3UiCvdyL7jHejFEp4djT?=
- =?us-ascii?Q?AStMrp2LAu2YAYq18p/mI0rv2zNijc0XQvz3+97oUwZm1qOFfF/n6TRCQ4/o?=
- =?us-ascii?Q?RKwSzLxW3FAH37z7uMcqRJgxAFBhgu2Gna9WRpohBb56nA2JLghhIW9un9K8?=
- =?us-ascii?Q?l7v9GBgZa0znvp84kLRnPHznV8rS1M/6rbBmx0U7plfxCUGnetG5Pialwtvm?=
- =?us-ascii?Q?ct2Wu7ckUkIGB79tUCn4PCcGFz4IdmNoeUqZyGjH+lJ4xCfvty7dZW+e44Nx?=
- =?us-ascii?Q?25VRXk6IDnFmnEPSPpOeMW6H6YXcpmXVh2fWjBPthPLPqQZnAgq+tQnEoGcv?=
- =?us-ascii?Q?LWILQ2Vz6c/im4l5Vx3bGxdLwg+nHaMyGDgtaMbj+NoiuZzo/3ft2KtHo5PA?=
- =?us-ascii?Q?MhcDFbzSJ9Oreh9foT5UjR9gMUQI/YsCQcO8HSYtBkOhzUG7y6JY32aFwjh/?=
- =?us-ascii?Q?3cKFBPe33r9D26YvVBMQn3wRrJFTI3cqNY29y8+m3B4WQpmYrT/JM3nwVoXv?=
- =?us-ascii?Q?QlgZN618E2FottLXL9ZQplCwXSv6/GaZbetJAc9xy+ZtOzzGyQCCCp/r9Ayx?=
- =?us-ascii?Q?FlwMd8bEgCipDMAYY5jjSMnxv0DUtu0tYhqqHf5F+YXiwRYzEz6nZOH8Qeuw?=
- =?us-ascii?Q?z71qmgnQxFKg/aNOMLOGbYfK16GQSj3AhGcTJzuRFNzhgCTNBZL9?=
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3a525c12-0085-4e64-6374-08def306650c
-X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 15:29:52.5188 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HRgGfaKRdcvg8c4FTU1efIQI8gky3assBcA+HtG3Qec7Joc3XVXxjkBvZhilVW09uA446rSqxqR7Coh6mXB86Rjjg3rb8scMEeTFX0fOmgknGc2HsstQW4c9ObXwUB0s
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB13919
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,80 +96,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Biju,
-Thanks for your patch.
+The RK3588 HDMI QP output never exposes the "Colorspace" connector
+property, so userspace has no way to request BT.2020 colorimetry.
 
-On Wed, Jul 29, 2026 at 01:54:56PM +0100, Biju wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
-> 
-> Move rzg2l_mipi_dsi_global_timings and its array size out of the hardcoded
-> ARRAY_SIZE reference in rzg2l_mipi_dsi_dphy_init() and into the struct
-> rzg2l_mipi_dsi_hw_info. This allows future hardware variants to supply
-> their own timing tables rather than sharing a single global array, making
-> the driver more extensible without code duplication.
-> 
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-> ---
-> v1->v2:
->  * No change.
-> ---
->  drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c | 10 ++++++++--
->  1 file changed, 8 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> index 1538eeece2b5..180384c10264 100644
-> --- a/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> +++ b/drivers/gpu/drm/renesas/rz-du/rzg2l_mipi_dsi.c
-> @@ -54,6 +54,8 @@ struct rzg2l_mipi_dsi_hw_info {
->  		const u8 *table;
->  		const u8 table_size;
->  	} cpg_plldsi;
-> +	const struct rzg2l_mipi_dsi_timings *dsi_global_timings;
-> +	unsigned int num_dsi_global_timings;
->  	u32 phy_reg_offset;
->  	u32 link_reg_offset;
->  	u32 dphyctrl0_init_val;
-> @@ -488,8 +490,8 @@ static int rzg2l_mipi_dsi_dphy_init(struct rzg2l_mipi_dsi *dsi,
->  	u32 dphytim3;
->  
->  	/* All DSI global operation timings are set with recommended setting */
-> -	for (i = 0; i < ARRAY_SIZE(rzg2l_mipi_dsi_global_timings); ++i) {
-> -		dphy_timings = &rzg2l_mipi_dsi_global_timings[i];
-> +	for (i = 0; i < dsi->info->num_dsi_global_timings; ++i) {
-> +		dphy_timings = &dsi->info->dsi_global_timings[i];
->  		if (hsfreq <= dphy_timings->hsfreq_max)
->  			break;
->  	}
-> @@ -1519,6 +1521,8 @@ static const struct rzg2l_mipi_dsi_hw_info rzv2h_mipi_dsi_info = {
->  	.cpg_plldsi.limits = rzv2h_plldsi_limits,
->  	.cpg_plldsi.table = rzv2h_cpg_div_table,
->  	.cpg_plldsi.table_size = ARRAY_SIZE(rzv2h_cpg_div_table),
+Everything needed to signal it is already in place. The connector comes
+from drm_bridge_connector_init(), which calls drmm_connector_hdmi_init()
+and attaches "max bpc", "HDR_OUTPUT_METADATA" and the output color
+format, and the HDMI state helper feeds conn_state->colorspace into the
+AVI infoframe colorimetry bits via hdmi_generate_avi_infoframe() and
+drm_hdmi_avi_infoframe_colorimetry(). dw-hdmi-qp then emits the
+infoframe through its hdmi_write_avi_infoframe hook. Only the property
+itself is missing, so conn_state->colorspace stays at its default and
+the AVI infoframe always reports "no colorimetry data".
 
-> +	.dsi_global_timings = rzg2l_mipi_dsi_global_timings,
-> +	.num_dsi_global_timings = ARRAY_SIZE(rzg2l_mipi_dsi_global_timings),
+The user-visible effect is that HDR is unavailable on every RK3588 HDMI
+output. KWin (Plasma 6.x) requires "Colorspace" alongside
+"HDR_OUTPUT_METADATA" and "max bpc" before it treats an output as
+wide-gamut capable, so it never offers the HDR toggle.
 
-Are we sure that rzv2h use these new entries:
+Create and attach the property right after the bridge connector is
+initialised, as vc4_hdmi already does. Passing 0 to
+drm_mode_create_hdmi_colorspace_property() selects the full HDMI
+colorspace set defined by the core.
 
-	.dsi_global_timings  = rzg2l_mipi_dsi_global_timings,
-	.num_dsi_global_timings = ARRAY_SIZE(rzg2l_mipi_dsi_global_timings),
+Tested on an Orange Pi 5 Plus driving a Samsung Odyssey G70B: KWin now
+offers the HDR toggle, the connector property switches to BT2020_RGB
+once HDR is enabled, and the output runs 4K@144 at 10 bpc.
 
-?
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+---
+Changes in v2:
+- Regenerated with git format-patch. v1 was a hand-assembled diff: it
+  carried no "diff --git" header, no diffstat, and no function context on
+  the @@ hunk header. That is the most likely reason it never showed up in
+  patchwork and got no review in three weeks.
+- Rebased onto drm-misc-next (97c03b32b28a), the right tree for this
+  change. The hunk is unchanged apart from its new offset and the function
+  context that format-patch adds.
+- Reworded the commit message to lead with the user-visible effect and to
+  name the exact core path that consumes conn_state->colorspace.
+- Trimmed the in-code comment to a single line; the reasoning now lives in
+  the commit message instead. No functional change from v1: the two API
+  calls and their placement are the same.
+- An automated review of v1 flagged that returning an error from
+  dw_hdmi_qp_rockchip_bind() leaves hdmi->hpd_work queued. That gap
+  pre-dates this patch and is shared by every existing error path in
+  bind() (drmm_encoder_init(), dw_hdmi_qp_bind(),
+  drm_bridge_connector_init()), since cancel_delayed_work_sync() runs only
+  in dw_hdmi_qp_rockchip_unbind(), which the component framework does not
+  call for a failed bind(). It is already being addressed in the HDMI 2.0
+  series below ("Cancel pending HPD work on suspend", 30/69, and "Control
+  the HPD IRQ line via the bridge HPD ops", 37/69), so this patch adds
+  nothing for it.
 
-Kind regards,
-Tommaso
+v1: https://lore.kernel.org/all/20260714202850.40999-1-royalnet026@gmail.com/
+HDMI 2.0 series: https://lore.kernel.org/all/20260731-dw-hdmi-qp-scramb-v10-0-294364b2cf15@collabora.com/
 
->  	.phy_reg_offset = 0x10000,
->  	.link_reg_offset = 0,
->  	.min_dclk = 5440,
-> @@ -1530,6 +1534,8 @@ static const struct rzg2l_mipi_dsi_hw_info rzg2l_mipi_dsi_info = {
->  	.dphy_init = rzg2l_mipi_dsi_dphy_init,
->  	.dphy_exit = rzg2l_mipi_dsi_dphy_exit,
->  	.dphy_conf_clks = rzg2l_dphy_conf_clks,
-> +	.dsi_global_timings = rzg2l_mipi_dsi_global_timings,
-> +	.num_dsi_global_timings = ARRAY_SIZE(rzg2l_mipi_dsi_global_timings),
->  	.link_reg_offset = 0x10000,
->  	.dphyctrl0_init_val = DSIDPHYCTRL0_CAL_EN_HSRX_OFS | DSIDPHYCTRL0_CMN_MASTER_EN |
->  			      DSIDPHYCTRL0_RE_VDD_DETVCCQLV18 | DSIDPHYCTRL0_EN_BGR,
-> -- 
-> 2.43.0
-> 
+ drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+index 9c4cf68d79d5..35d04680d011 100644
+--- a/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_hdmi_qp-rockchip.c
+@@ -695,6 +695,13 @@ static int dw_hdmi_qp_rockchip_bind(struct device *dev, struct device *master,
+ 		return dev_err_probe(hdmi->dev, PTR_ERR(connector),
+ 				     "Failed to init bridge connector\n");
+ 
++	/* Passing 0 selects the full HDMI colorspace set defined by the core. */
++	ret = drm_mode_create_hdmi_colorspace_property(connector, 0);
++	if (ret)
++		return ret;
++
++	drm_connector_attach_colorspace_property(connector);
++
+ 	return 0;
+ }
+ 
+
+base-commit: 97c03b32b28a9f7f13f768f2b06e1eaafe850e66
+-- 
+2.43.0
+
