@@ -4,104 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A820C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 03:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF14DC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 04:06:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D685510E111;
-	Wed,  5 Aug 2026 03:48:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7EDDA10E147;
+	Wed,  5 Aug 2026 04:06:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="AX8qavCf";
+	dkim=pass (1024-bit key; unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.b="FgyUEkOS";
 	dkim-atps=neutral
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
- [209.85.128.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 852DB10E111
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 03:48:34 +0000 (UTC)
-Received: by mail-yw1-f176.google.com with SMTP id
- 00721157ae682-81ed000b507so5630947b3.0
- for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 20:48:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785901713; cv=none;
- d=google.com; s=arc-20260327;
- b=kPvZcXO0Qxngs9q4DMqxXVu3Errm7h8AHtou+Veqz/1Y7mvYU9BqZnIbVAOxmGxKAW
- z/CmhwDKAmgMr4AUEAs3kgW8JoyMKoSBmTCdd8LJHttYq+SIB5XHGOXjpvuciQZw5kuU
- OWV2I/UGE0wCeexgHnN5+jBKzUFtCnSBdmSHrO5y1mCxNiRCqtqkWjiNzT1n+rvkoZZP
- Y38uZlxKHDHZ3n3FECABJhDVaw5wU1oDDjFg4AZSgERpgg1b8WjFyfQQIXNtgSVBpLy9
- XOa48y+eF4mT57BpRX7y8nekL4xBWy1cuomdTxKFHFfzTPBNdo+kwTJt+a10I4ioQJ3w
- KXag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=j/NmALyDnaea82VN1dJT9y4h9uKdhWB1U02N76kyw3U=;
- fh=yU71NybHd+qBnSYHzPO/gGAQv5CX2S7YRXPxPPVRskE=;
- b=esWAt4GSXKeRf7TQd7NgVglBLHWFGR5qwtfxylG7ExuHbGfReJP3lvPPwnPwS5EBCy
- BLWXI3axO/kyppA6BIKQl5zCUq57fbrOQ7fP1kTG4p1YWxY+tDUZ2/ZZlLn9JTa1Xunz
- 2MwVk3/SKiZiBYpfIh3zpYuM3jykRlwsAffs/LoqNfa6eWlZTf2DAMjssvFOzrTKFNOk
- yBtKZOFRjMLqku3svCCkp9g+zCupG3Q0CvCw5IwhDpM2JuHQnCldJ8EWQk65SWj+uwSm
- hW5/MC94voFXp2JkRtujM+h9SjB8cvMdO2MZQTmymCYteNOZZXOXG0GS8SCQ5pCOTkt/
- j6bw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1785901713; x=1786506513;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=j/NmALyDnaea82VN1dJT9y4h9uKdhWB1U02N76kyw3U=;
- b=AX8qavCfS/hoVi9kTc/fAPCLxZ1oaTLsUDdbYq8xbONAbsqbsSlRl7J/IAgKbJqIDE
- njUm4A1Hx3Qlrt4JGvG7iZWkr6zk7UrV2iTZYVetamZx5J8sd6o4DOcT4o4WJ+VE7yTV
- Xq/rrWLp8Q7h8OU9HWO61nd5q7bcNO5+zInA4=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785901713; x=1786506513;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=j/NmALyDnaea82VN1dJT9y4h9uKdhWB1U02N76kyw3U=;
- b=bllybh5t+ZKtIw0i0iz7VetvOk8K+sq4ctaFSdNYck+n7gIoVe45gQ4hx8ihUkkTpp
- sKfttERqoUjfg2/Hc6D7YKdU/3U/mIM57zn2vzwdRlRQd6foe0QXoac7uxUolHxbTvAR
- YGQB4Yuy5TLL35oV5yDXFUBROgn7imTAFQ2x6cbGS9fI+iOzHlIX6xfLTgZWPgL1cVSC
- yMRmNEBCtzpCn69cgexePYsXyRC7MEjnMWNf5+J7Mn7vja6CqMTZqxE8ABID/XhITD3j
- QV8ijDdHKqerd0/bXm2ElYLcCjghY7/74tu7QH/uFbMhBribi0rCrCqe1bvJtcrmSMPz
- 66sQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoVL/7kdN0defS/dOH8/ft6y90Yyk1MXCaoKIvVHYQuqHePdOEmXntQVcwK3CHILHup4Ku+wAS5RR4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzTYED0ggKRf2cYNdwaUviOYk3GIsBxXKD0NhY2V0K7Zz/A4NzB
- xxlNc007TQLJUgnvbcW/H+OV5KxF1DIdkzSjsA2J2Q9JZ9Sbmbsu2QF7dNquBLqz3qxXgsugMjL
- ygCAukOEy1U15oIy4X+e5iC4FJNB19Ddl+f5bBVnq
-X-Gm-Gg: AR+sD10p2Ow/vMvQtittOProYoK38uC73RnY9rdjZ/SZVAUby1AYs+5HEuhBWXUV8kl
- gkJOOD5F7Vh5S4v+44/Ojot9yfypnl5grESJhAsSE0Tc63QsDraSBLcFlsInv2+7SkQDi3ugj9F
- AU8SYmT9+rvKBuOTvYEq38B53TfnxNqO7J1yLIGaFgD1GAvnt79ocHWn/RD37uHMEv/EHpG+91S
- G06gWXTlkhtazrG1zv9nqNaX/pyfSnK0+OMMBAOXjfLRkyHC4jjRxIhgVoJmGTt9BNzag2/L8vE
- pUmjWSiP4j2GKV/rE1wv6bd0f7CiQKCxUXppUYIs6gf26eYLuYL75qr5CddM3+b5WMBRUoicVUE
- =
-X-Received: by 2002:a05:690c:9a88:b0:81e:4e5d:484a with SMTP id
- 00721157ae682-82022294eb4mr22113487b3.2.1785901713089; Tue, 04 Aug 2026
- 20:48:33 -0700 (PDT)
+Received: from mail-m24102.xmail.ntesmail.com (mail-m24102.xmail.ntesmail.com
+ [45.195.24.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F209E10E147
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 04:06:52 +0000 (UTC)
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 48d284d12;
+ Wed, 5 Aug 2026 12:06:48 +0800 (GMT+08:00)
+Message-ID: <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
+Date: Wed, 5 Aug 2026 12:06:48 +0800
 MIME-Version: 1.0
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-43-angelogioacchino.delregno@collabora.com>
- <CAL_JsqJXpY8jHEgSHcHz4QZTFEZe8PLbO6vbpxWH4qobs0MPyA@mail.gmail.com>
- <f3837531-2949-4741-a23e-387317485c02@collabora.com>
- <CAL_JsqLVAQ6uhU0fGK_qnOn1x559ErWSJTKkSjr0z791thwD3w@mail.gmail.com>
-In-Reply-To: <CAL_JsqLVAQ6uhU0fGK_qnOn1x559ErWSJTKkSjr0z791thwD3w@mail.gmail.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 5 Aug 2026 11:48:22 +0800
-X-Gm-Features: AUfX_mymFrVaiYOLaCO3AlvD0Um00IkfLaFRQ7IWTs7XOa8ZsYdcyTa8_6zr7HM
-Message-ID: <CAGXv+5GeYZ_et3bH9Udf=C3f30-zuM1=Z1meU47RnofG0NL+dQ@mail.gmail.com>
-Subject: Re: [PATCH v2 42/46] dt-bindings: display: mediatek: Introduce MT8196
- 2D Sharpness Processor
-To: Rob Herring <robh@kernel.org>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- chunkuang.hu@kernel.org, 
- p.zabel@pengutronix.de, airlied@gmail.com, simona@ffwll.ch, 
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, 
- krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, justin.yeh@mediatek.com, 
- jason-jh.lin@mediatek.com, kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/10] Add HPD support for Rockchip Analogix DP
+To: =?UTF-8?Q?Heiko_St=C3=BCbner?= <heiko@sntech.de>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Andy Yan <andy.yan@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260804081717.741404-1-damon.ding@rock-chips.com>
+ <5609825.iZASKD2KPV@diego>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <5609825.iZASKD2KPV@diego>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9fd01a3dc903a8kunm1ce208566a0762
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZGUtDVkxKH0lPHk8aQk9NQ1YVFA
+ kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+ 9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+ b=FgyUEkOSbZ9/Qa2HsnMSqlJTDs3+ieUTOhT9JTG9m353+h07kHDJSkyJkiV1xSGLeuP1ZNOPNhW/UyyKHBrB0s88ZhkpPA9S9N/GUK+Ysde2voUzWUHSAaRZ6kSaywTHvGm6ytkbHBrkYeBqy2xriZHbFkzBzomG2mMnge3r4Gw=;
+ c=relaxed/relaxed; s=default; d=rock-chips.com; v=1; 
+ bh=46KglQXmBZaXhQzKYrdlIIgbE5Hkt8Onh1lXOlB0H+Y=;
+ h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,112 +73,231 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, Aug 5, 2026 at 2:19=E2=80=AFAM Rob Herring <robh@kernel.org> wrote:
->
-> On Tue, Jul 28, 2026 at 8:49=E2=80=AFAM AngeloGioacchino Del Regno
-> <angelogioacchino.delregno@collabora.com> wrote:
-> >
-> > On 7/28/26 15:40, Rob Herring wrote:
-> > > On Tue, Jul 14, 2026 at 6:45=E2=80=AFAM AngeloGioacchino Del Regno
-> > > <angelogioacchino.delregno@collabora.com> wrote:
-> > >>
-> > >> Add documentation for the Two-Dimension Sharpness Processor, or
-> > >> "TDSHP", found in many MediaTek SoCs including MT8196 and its
-> > >> variants.
-> > >>
-> > >> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno=
-@collabora.com>
-> > >> ---
-> > >>   .../mediatek/mediatek,mt8196-tdshp.yaml       | 98 +++++++++++++++=
-++++
-> > >>   1 file changed, 98 insertions(+)
-> > >>   create mode 100644 Documentation/devicetree/bindings/display/media=
-tek/mediatek,mt8196-tdshp.yaml
-> > >>
-> > >> diff --git a/Documentation/devicetree/bindings/display/mediatek/medi=
-atek,mt8196-tdshp.yaml b/Documentation/devicetree/bindings/display/mediatek=
-/mediatek,mt8196-tdshp.yaml
-> > >> new file mode 100644
-> > >> index 000000000000..ccd6a8443443
-> > >> --- /dev/null
-> > >> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,mt=
-8196-tdshp.yaml
-> > >> @@ -0,0 +1,98 @@
-> > >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > >> +%YAML 1.2
-> > >> +---
-> > >> +$id: http://devicetree.org/schemas/display/mediatek/mediatek,mt8196=
--tdshp.yaml#
-> > >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > >> +
-> > >> +title: MediaTek Display Two-Dimension Sharpness Processor (TDSHP)
-> > >> +
-> > >> +maintainers:
-> > >> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora=
-.com>
-> > >> +
-> > >> +description:
-> > >> +  The MediaTek 2D Sharpness Processor (TDSHP) is responsible for pe=
-rforming
-> > >> +  image sharpness adjustments/enhancements in a display pipeline.
-> > >> +  This hardware block supports adjusting the luma and contour 2d hi=
-stograms,
-> > >> +  frequency weighting, luma-chroma gain and others, with adaptive w=
-eights.
-> > >> +
-> > >> +properties:
-> > >> +  compatible:
-> > >> +    const: mediatek,mt8196-disp-tdshp
-> > >> +
-> > >> +  reg:
-> > >> +    maxItems: 1
-> > >> +
-> > >> +  clocks:
-> > >> +    maxItems: 1
-> > >> +
-> > >> +  power-domains:
-> > >> +    maxItems: 1
-> > >> +
-> > >> +  ports:
-> > >> +    $ref: /schemas/graph.yaml#/properties/ports
-> > >> +
-> > >> +    properties:
-> > >> +      port@0:
-> > >> +        $ref: /schemas/graph.yaml#/properties/port
-> > >> +
-> > >> +      port@1:
-> > >> +        $ref: /schemas/graph.yaml#/properties/port
-> > >> +
-> > >> +    required:
-> > >> +      - port@0
-> > >> +      - port@1
-> > >> +
-> > >> +  trigger-sources:
-> > >> +    maxItems: 1
-> > >> +
-> > >> +required:
-> > >> +  - compatible
-> > >> +  - reg
-> > >> +  - clocks
-> > >> +  - clock-names
-> > >
-> > > This causes a warning.
-> > >
-> > > Seems this is in linux-next already, but no reviews?
-> > >
-> > > Rob
-> >
-> > Wow. No idea how clock-names got into the list of required properties: =
-there is
-> > only one possible clock, and this doesn't need any clock-names at all.
-> >
-> > Same for the resizer binding.
-> > Sorry for the mistake.
->
-> Why is this still in linux-next?
+Hi Heiko,
 
-This is in your dt/next branch, applied 13 days ago. Maybe you applied it
-by mistake?
+On 8/5/2026 6:39 AM, Heiko Stübner wrote:
+> Hi Damon,
+> 
+> Am Dienstag, 4. August 2026, 10:17:07 Mitteleuropäische Sommerzeit schrieb Damon Ding:
+>> Display-connector mode (DP connector without HPD GPIO):
+>>
+>>    &edp_out_conn {
+>>        remote-endpoint = <&dp_con_in>;
+>>    };
+>>
+>>    dp-con {
+>>        compatible = "dp-connector";
+>>        label = "DP OUT";
+>>        type = "full-size";
+>>
+>>        port {
+>>            dp_con_in: endpoint {
+>>                remote-endpoint = <&edp_out_conn>;
+>>            };
+>>        };
+>>    };
+>>
+>> Display-connector mode (DP connector with HPD GPIO):
+>>
+>>    dp-con {
+>>        compatible = "dp-connector";
+>>        label = "DP OUT";
+>>        type = "full-size";
+>>        pinctrl-0 = <&edp0_hpd>;
+>>        pinctrl-names = "default";
+>>        hpd-gpios = <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+>>
+>>        port {
+>>            dp_con_in: endpoint {
+>>                remote-endpoint = <&edp_out_conn>;
+>>            };
+>>        };
+>>    };
+>>
+>> All four configurations detect cable plug/unplug events correctly.
 
+Thanks a lot for your testing and feedback. :-)
 
-ChenYu
+It seems my test setup gave me the false impression that those cases 
+worked well.
+
+> 
+> hmm, it wasn't working entirely for me though and was still running into
+> issues when the display was unplugged on boot.
+> 
+
+Are you seeing this boot‑unplug issue for both scenarios: DP‑connector 
+with HPD‑gpio paired with eDP without HPD‑gpio, and DP‑connector without 
+HPD‑gpio paired with eDP with HPD‑gpio? I.e. it wrongly reports 
+connected even with no display plugged in and proceeds into DRM 
+.atomic_enable()?
+
+> I wiggled around a bit like in the diff below and am now getting correct
+> plug and unplug events.
+
+Oh, I see. For the GPIO HPD case, the IRQ needs to be enabled early so 
+that plug‑in interrupts can be properly responded to. However GPIO HPD 
+does not require a runtime PM get. I will better separate these two 
+scenarios in the next version.
+
+> 
+> But of course, as the dp-variant of the connector does not provide
+> a "detect" and just the "hpd" functionality, it's missing the initial state.
+> 
+> I'm currently not sure how to find out _if_ a panel is connected on boot.
+> 
+
+Based on Dmitry's commit cb640b2ca546 ("drm/bridge: display‑connector: 
+don't set OP_DETECT for DisplayPorts"), HPD events from DP‑variant 
+connector should be handled by the upstream DP controller. Hence I added 
+analogix_dp_bridge_notify() to retrieve HPD status coming from downstream.
+
+As expected, under the bridge‑connector framework, the detect result 
+from Analogix DP should in theory reflect the actual connection status.
+Let's dig into this boot‑time initial‑state issue together.
+
+> 
+> In other review comments:
+> - the bridge could use devm_drm_of_get_bridge() as suggested in
+>    the documentation of drm_of_find_panel_or_bridge(), as that would
+>    remove the separate panel_bridge creation
+> - instead of using plat_data->next_bridge _inside_ the driver
+>    struct drm_bridge has a field next_bridge already.
+
+Great suggestions, I will incorporate them for the next version 
+alongside Sashiko's comments.
+
+Best regards,
+Damon
+
+> 
+> 
+> Heiko
+> 
+> 
+> ------- 8< -------
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 877e1b3ca7525..1388640a27de7 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -43,7 +43,7 @@ static const bool verify_fast_training;
+>   static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_device *dp)
+>   {
+>   	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_gpiod &&
+> -	       !dp->force_hpd;
+> +	       !dp->hpd_bridge && !dp->force_hpd;
+>   }
+>   
+>   static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+> @@ -72,7 +72,7 @@ static int analogix_dp_detect_hpd(struct analogix_dp_device *dp)
+>   	 * Trust connection status from downstream bridge (e.g.,
+>   	 * display-connector with hpd-gpios).
+>   	 */
+> -	if (dp->plat_data->next_bridge && dp->connection_notified)
+> +	if (dp->hpd_bridge && dp->connection_notified)
+>   		return 0;
+>   
+>   	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
+> @@ -926,10 +926,10 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
+>   	 */
+>   	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
+>   		status = connector_status_connected;
+> -
+> -	if (!analogix_dp_detect_hpd(dp))
+> +	else if (!analogix_dp_detect_hpd(dp))
+>   		status = connector_status_connected;
+>   
+> +printk("---> %s status %d\n", __func__, status);
+>   	return status;
+>   }
+>   
+> @@ -1044,7 +1044,7 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
+>   		goto out_dp_init;
+>   	}
+>   
+> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+>   		enable_irq(dp->irq);
+>   	return 0;
+>   
+> @@ -1187,7 +1187,7 @@ static void analogix_dp_bridge_disable(struct drm_bridge *bridge)
+>   	if (dp->dpms_mode != DRM_MODE_DPMS_ON)
+>   		return;
+>   
+> -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+> +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+>   		disable_irq(dp->irq);
+>   
+>   	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
+> @@ -1264,6 +1264,7 @@ static void analogix_dp_bridge_notify(struct drm_bridge *bridge, struct drm_conn
+>   	struct analogix_dp_device *dp = to_dp(bridge);
+>   
+>   	dp->connection_notified = (status == connector_status_connected);
+> +printk("---> %s connection_notified %d\n", __func__, dp->connection_notified);
+>   }
+>   
+>   static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+> @@ -1641,6 +1642,13 @@ static int analogix_dp_aux_done_probing(struct drm_dp_aux *aux)
+>   	if (ret && ret != -ENODEV)
+>   		return ret;
+>   
+> +	/*
+> +	 * There is a next link in the chain which is not a panel, we should
+> +	 * expect hotplug-information coming from there.
+> +	 */
+> +	if (plat_data->next_bridge && !drm_bridge_is_panel(plat_data->next_bridge))
+> +		dp->hpd_bridge = true;
+> +
+>   	return component_add(dp->dev, plat_data->ops);
+>   }
+>   
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> index d0fb25e543ea0..ecca3b87b4456 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> @@ -169,6 +169,7 @@ struct analogix_dp_device {
+>   	bool			fast_train_enable;
+>   	bool			psr_supported;
+>   	bool			last_bridge_is_panel;
+> +	bool			hpd_bridge;
+>   	bool			connection_notified;
+>   
+>   	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> index ec5950066f838..6f0d642739ffd 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> @@ -182,7 +182,7 @@ void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
+>   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+>   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+>   
+> -	if (dp->hpd_gpiod) {
+> +	if (dp->hpd_gpiod || dp->hpd_bridge) {
+>   		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
+>   	} else {
+>   		/*
+> @@ -438,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device *dp)
+>   {
+>   	u32 reg;
+>   
+> -	if (dp->hpd_gpiod)
+> +	if (dp->hpd_gpiod || dp->hpd_bridge)
+>   		return;
+>   
+>   	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
+> @@ -539,6 +539,9 @@ int analogix_dp_get_plug_in_status(struct analogix_dp_device *dp)
+>   	if (dp->hpd_gpiod) {
+>   		if (gpiod_get_value(dp->hpd_gpiod))
+>   			return 0;
+> +	} else if (dp->hpd_bridge) {
+> +		if (dp->connection_notified)
+> +			return 0;
+>   	} else {
+>   		reg = readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+>   		if (reg & HPD_STATUS)
+> 
+> 
+> 
+> 
+> 
+
