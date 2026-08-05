@@ -4,61 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2516FC56201
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:12:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DE1AC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 07:14:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A93B10ED38;
-	Wed,  5 Aug 2026 07:12:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 952FD10E1D6;
+	Wed,  5 Aug 2026 07:14:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JUP2Lt49";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="tqCVjOBw";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6E7F10ED29;
- Wed,  5 Aug 2026 07:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785913940; x=1817449940;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=q1gFeNDq84BdsoAleZRni7R2ADJJ+s/Qb/6cYOf7tMA=;
- b=JUP2Lt49RKu7iWI7jHzVYnV8vIgw8nyCWnUQtCV6WWc9wWzkL7XisZom
- UEgwCcVZ5anre1aF4BpoExwcG+Mng5P58PxUN6490lovkY121srbi3d7n
- efJIDEzuVT9TlgmNEGbNzk7xemPO/qNl74n4jYAHFqYvL14AEqVuJ4G+W
- oHL7+Seo2SHkGAGzjnDify5vLUwZRryA4DKC06uZKqddzoCaUldIJNSZw
- El5kBISk13tcUxgQB/ra0Vlk+WorGiUr1LlukzskZkB5sCALW1gxgigYj
- 9/Ay/s0IV6rgTZHsDNCOFZ263QJ7HF8CMH1aRgjzM4vY5e7cX4sYCtV4N Q==;
-X-CSE-ConnectionGUID: H7HvlpapSvSFT4JT//yRyQ==
-X-CSE-MsgGUID: YMDmvWfKS5Oh5bNDZK3L9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="89003247"
-X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="89003247"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2026 00:12:19 -0700
-X-CSE-ConnectionGUID: Wnl6cXlyTH2HFIbgp69CRg==
-X-CSE-MsgGUID: h0Pf+QXNQPO+eIpnNaC/pg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="260460969"
-Received: from jraag-z790m-itx-wifi.iind.intel.com ([10.190.239.23])
- by orviesa010.jf.intel.com with ESMTP; 05 Aug 2026 00:12:15 -0700
-From: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- rodrigo.vivi@intel.com
-Cc: andrealmeid@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona.vetter@ffwll.ch, mripard@kernel.org,
- maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
- anshuman.gupta@intel.com, badal.nilawar@intel.com, riana.tauro@intel.com,
- karthik.poosa@intel.com, sk.anirban@intel.com, raag.jadav@intel.com,
- Mallesh Koujalagi <mallesh.koujalagi@intel.com>
-Subject: [PATCH v13 4/4] drm/xe/ras: Use fault-inject to trigger cold-reset
- wedge
-Date: Wed,  5 Aug 2026 12:41:57 +0530
-Message-ID: <20260805071152.1225416-10-mallesh.koujalagi@intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260805071152.1225416-6-mallesh.koujalagi@intel.com>
-References: <20260805071152.1225416-6-mallesh.koujalagi@intel.com>
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C8F110E1D6
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 07:14:24 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 213B44E410F1;
+ Wed,  5 Aug 2026 07:14:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C8BD6602AB;
+ Wed,  5 Aug 2026 07:14:21 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 1A93411C34222; 
+ Wed,  5 Aug 2026 09:14:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1785914056; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=9ZRJc3/K8jWfYuPRvuIdzf0hyVL9OC6N5kDNbWjfFX8=;
+ b=tqCVjOBwzd66RZ+R5VqvCpQRKbHC9tDt22LgJvpIFoFGl/9VPLxu/QnvPPtK7MxWo7ioj3
+ 3kJl1+y5LvmpZZNlrs93oNd6VJ2aCjfS2fPXGRIEEjoyDB8na08K68qyfZNcdd35hRo82T
+ 6ZjT4FhZok5kLuqjtPm2UpX/52wVbAYIn9Fi/9d9irLbSady68k8GWAI9CiGgLGy+pEyg4
+ W/nN5wlScoiag7BBvg/hIo7bMggsJegNnRv8FenPGn0VqZ/cKnK2BhnAnK3Oen6WVS0pz+
+ 0sREcJ41v/Vx15b7MZeRKm/2Lik67aVkD3B5PNlXXYgk8geGGs3grVfthUH1tQ==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: linux-kernel@vger.kernel.org, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Andy Yan <andy.yan@rock-chips.com>, David Airlie <airlied@gmail.com>, 
+ dri-devel@lists.freedesktop.org, Fabio Estevam <festevam@gmail.com>, 
+ Frank Li <Frank.Li@nxp.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, imx@lists.linux.dev, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ Liu Ying <victor.liu@nxp.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, Robert Foss <rfoss@kernel.org>, 
+ Sandy Huang <hjc@rock-chips.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>
+In-Reply-To: <20260705163536.1850-5-wsa+renesas@sang-engineering.com>
+References: <20260705163536.1850-5-wsa+renesas@sang-engineering.com>
+Subject: Re: (subset) [PATCH 0/3] drm: remove unneeded 'fast_io' parameter
+ in regmap_config
+Message-Id: <178591404454.122884.10665232219542066367.b4-ty@b4>
+Date: Wed, 05 Aug 2026 09:14:04 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,97 +78,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Use the fault-inject framework to trigger the cold-reset
-wedge path (punit_error_handler()) for testing the
-wedge/recovery flow.
 
-Usage:
-  echo 100 > .../wedge_cold_reset/probability
-  echo 1   > .../wedge_cold_reset/times
+On Sun, 05 Jul 2026 18:35:35 +0200, Wolfram Sang wrote:
+> When using MMIO with regmap, fast_io is implied. No need to set it
+> again. No dependencies, can be applied directly to the subsystem tree.
+> Buildbot is happy, too.
+> 
+> 
+> Wolfram Sang (3):
+>   drm/bridge: remove unneeded 'fast_io' parameter in regmap_config
+>   drm/imx: remove unneeded 'fast_io' parameter in regmap_config
+>   drm/rockchip: remove unneeded 'fast_io' parameter in regmap_config
+> 
+> [...]
 
-Signed-off-by: Mallesh Koujalagi <mallesh.koujalagi@intel.com>
----
-v13:
-- Rename inject_punit_error to wedge_cold_reset. (Riana)
-- Sashiko corner case issue addressed with
-  commit 20bc4883c7c0 ("drm/xe/ras: Fix boot-time ras error processing").
----
- drivers/gpu/drm/xe/xe_debugfs.c | 4 ++++
- drivers/gpu/drm/xe/xe_debugfs.h | 2 ++
- drivers/gpu/drm/xe/xe_ras.c     | 7 +++++++
- 3 files changed, 13 insertions(+)
+Applied, thanks!
 
-diff --git a/drivers/gpu/drm/xe/xe_debugfs.c b/drivers/gpu/drm/xe/xe_debugfs.c
-index 8de78cd0aa03..acd34cc5dcbd 100644
---- a/drivers/gpu/drm/xe/xe_debugfs.c
-+++ b/drivers/gpu/drm/xe/xe_debugfs.c
-@@ -42,6 +42,7 @@
- 
- DECLARE_FAULT_ATTR(gt_reset_failure);
- DECLARE_FAULT_ATTR(inject_csc_hw_error);
-+DECLARE_FAULT_ATTR(wedge_cold_reset);
- 
- static bool csc_hw_error_available(struct xe_device *xe)
- {
-@@ -62,6 +63,8 @@ static struct {
- 	{ .name = "inject_csc_hw_error",
- 	  .attr = &inject_csc_hw_error,
- 	  .is_visible = csc_hw_error_available },
-+	{ .name = "wedge_cold_reset",
-+	  .attr = &wedge_cold_reset },
- };
- 
- /*
-@@ -76,6 +79,7 @@ bool xe_fault_##name(void)				\
- 
- FAULT_ACTION(gt_reset, gt_reset_failure)
- FAULT_ACTION(csc_hw_error, inject_csc_hw_error)
-+FAULT_ACTION(wedge_cold_reset, wedge_cold_reset)
- 
- static void xe_fault_inject_debugfs_register(struct xe_device *xe,
- 					     struct dentry *root)
-diff --git a/drivers/gpu/drm/xe/xe_debugfs.h b/drivers/gpu/drm/xe/xe_debugfs.h
-index cd56f7442b99..0dcd28fd7dc0 100644
---- a/drivers/gpu/drm/xe/xe_debugfs.h
-+++ b/drivers/gpu/drm/xe/xe_debugfs.h
-@@ -13,10 +13,12 @@ struct xe_device;
- #ifdef CONFIG_DEBUG_FS
- bool xe_fault_gt_reset(void);
- bool xe_fault_csc_hw_error(void);
-+bool xe_fault_wedge_cold_reset(void);
- void xe_debugfs_register(struct xe_device *xe);
- #else
- static inline bool xe_fault_gt_reset(void) { return false; }
- static inline bool xe_fault_csc_hw_error(void) { return false; }
-+static inline bool xe_fault_wedge_cold_reset(void) { return false; }
- static inline void xe_debugfs_register(struct xe_device *xe) { }
- #endif
- 
-diff --git a/drivers/gpu/drm/xe/xe_ras.c b/drivers/gpu/drm/xe/xe_ras.c
-index 3033a377bace..7cd17f4b444a 100644
---- a/drivers/gpu/drm/xe/xe_ras.c
-+++ b/drivers/gpu/drm/xe/xe_ras.c
-@@ -3,6 +3,7 @@
-  * Copyright © 2026 Intel Corporation
-  */
- 
-+#include "xe_debugfs.h"
- #include "xe_device.h"
- #include "xe_drm_ras.h"
- #include "xe_pm.h"
-@@ -415,6 +416,12 @@ enum xe_ras_recovery_action xe_ras_process_errors(struct xe_device *xe)
- 	size_t rlen;
- 	int ret;
- 
-+	if (xe_fault_wedge_cold_reset()) {
-+		xe_err(xe, "[RAS]: cold-reset wedge injected\n");
-+		punit_error_handler(xe);
-+		return XE_RAS_RECOVERY_ACTION_DISCONNECT;
-+	}
-+
- 	if (!xe->info.has_sysctrl)
- 		return XE_RAS_RECOVERY_ACTION_RESET;
- 
+[1/3] drm/bridge: remove unneeded 'fast_io' parameter in regmap_config
+      commit: ae2854a7622fa088a2cebd0ac51ef72226301e99
+
+Best regards,
 -- 
-2.48.1
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
 
