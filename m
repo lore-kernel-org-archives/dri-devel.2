@@ -4,63 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF2D5C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 21:20:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 987ECC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 21:46:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3226D10EFED;
-	Wed,  5 Aug 2026 21:20:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B8DD10E1AF;
+	Wed,  5 Aug 2026 21:46:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QG604EGK";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="jQBEO/WO";
+	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="Bu+wOcYj";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5545410EFED
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 21:20:41 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3EEA843915
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 21:20:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 217AEC19425
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 21:20:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1785964841;
- bh=Pk2hZUksDyFrhN6oEJEkudP14bFcT8jmDxRs1dtce68=;
- h=From:To:Subject:Date:From;
- b=QG604EGKSpIZ/NLoE4RLSTM10z1Z53hh+jUA97obCd2SJsVKc6k1e4vjAkurKvDJa
- J3HjJUQTO+hgCphnM98BUOSUe8sc8qX3LCiJsVosNszP5agqSj8wUskXyjzF0UUoEa
- fZq35t8gzL7NuL4qX4fM8j1pSEvajbxW+QAd6mD+X+pi12KU4W/yeGI3uWOJsvyfY1
- vp+qOrx/oSzh5oRchqGd/u9l66g356lwVpLU8CDOPRC7P9h8BrV4iI6H5RgCAVQogl
- n5/3vjYYXClyvhfukGLz142HnFEQqI83kSa5PigFIKtCVB87t9y7Joh4VpnwbycVIU
- 3lliAufv4wnGw==
-Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
- from userid 48) id 05793C41612; Wed,  5 Aug 2026 21:20:41 +0000 (UTC)
-From: bugzilla-daemon@kernel.org
-To: dri-devel@lists.freedesktop.org
-Subject: [Bug 221838] New: [Regression] Black screen / no backlight on resume
- from suspend in kernel 7.0.0-28-generic (Dell Precision M4800,
- Optimus Intel + Quadro K1100M on nouveau)
-Date: Wed, 05 Aug 2026 21:20:40 +0000
-X-Bugzilla-Reason: None
-X-Bugzilla-Type: new
-X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Product: Drivers
-X-Bugzilla-Component: Video(DRI - non Intel)
-X-Bugzilla-Version: 2.5
-X-Bugzilla-Keywords: 
-X-Bugzilla-Severity: high
-X-Bugzilla-Who: ekonom1@atlas.sk
-X-Bugzilla-Status: NEW
-X-Bugzilla-Resolution: 
-X-Bugzilla-Priority: P3
-X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
-X-Bugzilla-Flags: 
-X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
- op_sys bug_status bug_severity priority component assigned_to reporter
- cf_regression attachments.created
-Message-ID: <bug-221838-2300@https.bugzilla.kernel.org/>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Bugzilla-URL: https://bugzilla.kernel.org/
-Auto-Submitted: auto-generated
-MIME-Version: 1.0
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
+ [85.215.255.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EBA410E1AF
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 21:46:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785966374; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=XGC4FilKmjn421mrT8a6WFtwB5uiUMb9PTyCy4opGMOzXIdrSXNZ6B4CEc+V2o0ror
+ 2UE3MTXTKSuVW29qraXAG/F4AFKDBd3NdB3u4ATtFesrHlzdUXm5VC42XB25Pcs/dtbg
+ KqbNIxMj348NVat82/D2DHfyJqnF2VuMnf2og/BJ12POXht9DLgj+QlfobUG9+uUZUDV
+ qzWqd3v7VXsMeUw/OERG1iEm5XPh5XsYGM+rTGKRGfYFPEWba33IDDFPXOptRwcswU33
+ KCwjMxTJiO4Q7ZcHojbcZWsZvFub2frZAVxhZ3+BgQa97nNnbILwsjsfS7zFjv3Tl/Qp
+ XfRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1785966374;
+ s=strato-dkim-0002; d=strato.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=GuN8MV8+WpguvnvoA19q3S/k3/z11yozT5q2QZpB/J8=;
+ b=KPaZ4oGW1h/yKllx/lZw91hi71FdoulitmWsOwwOmfGsYVKouLuhXjJ3sXT27hOJVx
+ 48nuhlL0io8O3o8T4T3Da0AmcoC0BWiCtMF5JsfaB4iuuzjBWN9azXT+tFNCXMUQ7+f1
+ esWzV5T5RL8N6HreFbXHUfnyrFDHXFPmudNibHm2eYNBA6CDdJzVnAqXmMfBeoJppNS7
+ U53RtdYphop1Mk54oN9pyR+EuDJir16xi08lOz5X6EiBtYP/H0BNMMAu8DzZVpkCOmO1
+ 5x+uh1InKPqv4zBGCPZAoo/ebnF2uKOI1DCdRKCEJgAVKE6lbituLPQhSi4vHtwmzg2N
+ dZtQ==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1785966374;
+ s=strato-dkim-0002; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=GuN8MV8+WpguvnvoA19q3S/k3/z11yozT5q2QZpB/J8=;
+ b=jQBEO/WOugxisv1Y+4lAvT8vSEXT5/jRHCb4UzA7CkKUFg90eW9riQ3LgCtFFI8UDf
+ jUsZNqR5mcdwdDxx62I5Morbe9a1WJXlrT56SoDifO53io/T1ZgCLHf9z+FPJlGnlrHp
+ VOeHWa9rMJAKgYrFOJZf4JAPJs0iXvIgKZJs83rmUsPxqqH2adOQK/cXMMUEXxey+bxq
+ S6nzObSc9M+dZ0WoYACNZl+VLW6mAGeqGcTfBfJhr+8LbfIselfK+09BJCozRpkVqZM9
+ bcYXTCdOhh5cy8V2Nn+g57MSGxImEq0oboSUEAb9KMEl2O7tey+CvO+GvFsKWvEzIP6m
+ TfSg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1785966374;
+ s=strato-dkim-0003; d=goldelico.com;
+ h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
+ From:Subject:Sender;
+ bh=GuN8MV8+WpguvnvoA19q3S/k3/z11yozT5q2QZpB/J8=;
+ b=Bu+wOcYjHxYQJBmdagkO5TcFDfkEKYEjCwOvmTcqKCLutvp87Dz1PEK0ceEh9X3sAQ
+ +nx1/foj3JL7SaGxoEDQ==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ25oGlciNdEAAfky2+DDg1anEjIRYC+O6IISs"
+Received: from smtpclient.apple by smtp.strato.de (RZmta 55.5.6 AUTH)
+ with ESMTPSA id Q58eac275LkDRQh
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
+ with 256 ECDH bits, eq. 3072 bits RSA))
+ (Client did not present a certificate);
+ Wed, 5 Aug 2026 23:46:13 +0200 (CEST)
+Content-Type: text/plain;
+	charset=us-ascii
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
+Subject: Re: [PATCH v6] drm/omap: dsi: avoid sending bta sync all the time in
+ writes
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+In-Reply-To: <20260804-vm-upstr-v6-1-1bf3748b2fa3@kemnade.info>
+Date: Wed, 5 Aug 2026 23:46:02 +0200
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Tony Lindgren <tony@atomide.com>,
+ Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
+ Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Tomi Valkeinen <tomi.valkeinen@ti.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <76783B3E-BE29-4FCC-AEC6-9D4866C8D461@goldelico.com>
+References: <20260804-vm-upstr-v6-1-1bf3748b2fa3@kemnade.info>
+To: Andreas Kemnade <andreas@kemnade.info>
+X-Mailer: Apple Mail (2.3826.700.81.1.8)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,164 +105,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-https://bugzilla.kernel.org/show_bug.cgi?id=3D221838
+Hi,
 
-            Bug ID: 221838
-           Summary: [Regression] Black screen / no backlight on resume
-                    from suspend in kernel 7.0.0-28-generic (Dell
-                    Precision M4800, Optimus Intel + Quadro K1100M on
-                    nouveau)
-           Product: Drivers
-           Version: 2.5
-          Hardware: All
-                OS: Linux
-            Status: NEW
-          Severity: high
-          Priority: P3
-         Component: Video(DRI - non Intel)
-          Assignee: drivers_video-dri@kernel-bugs.osdl.org
-          Reporter: ekonom1@atlas.sk
-        Regression: No
+> Am 04.08.2026 um 10:37 schrieb Andreas Kemnade <andreas@kemnade.info>:
+> 
+> Some chips need configuration commands to be sent first, before they can
+> send data. TC358762 for example needs PPI_LPTXTIMECNT configured
+> and PPI_STARTPPI set to 1 to be able to transmit anything. To be able to
+> configure such chips, do not send bta sync during writes if no acks are
+> requested. Instead just wait for the packet to be sent to avoid FIFO
+> overflows. There might be more to do about acks, but there seem to be
+> virtually no users of that flag.
+> 
+> This came to light when fiddling with the Epson Moverio BT-200 display
+> which consists of 2 TC358762 bridges with SPI funneled through
+> to the unknown display chip. With that patch the bridge can be accessed,
+> Reading back registers works, when the above-mentioned registers are set.
+> 
+> In Command-Mode update, there was a nop sent, apparently the most
+> relevant part was the bta sync to actually force low power mode.
+> 
+> Video mode panel at OMAP4 (BT-200) and video mode at OMAP5 was tested.
+> 
+> Fixes: e70965386353e ("drm/omap: dsi: simplify write function")
+> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
+> ---
+> Changes in v6:
+> - clear errors on every write
+> - remove unneeded forward declaration
 
-Created attachment 310579
-  --> https://bugzilla.kernel.org/attachment.cgi?id=3D310579&action=3Dedit
-Full system diagnostics including current dmesg, acpidump, lspci, lsusb, and
-kernel logs
+Tested on Pyra 5.3 (video mode). No side-effects visible.
 
-More info about bug on link
-https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2161214
+BR,
+Nikolaus
 
-Hi, I am experiencing a regression in the latest Ubuntu kernel package.
 
-**Hardware & GPU details:**
-- Laptop: Dell Precision M4800
-- iGPU: Intel Corporation 4th Gen Core Processor Integrated Graphics Contro=
-ller
-- dGPU: NVIDIA Corporation GK107GLM [Quadro K1100M] (rev a1)
-- Driver in use: 'nouveau' (open-source kernel driver)
-- OS: Kubuntu 26.04 (Wayland)
 
-**Symptoms:**
-When waking up the laptop from suspend, the screen remains pitch black (no
-backlight turns on). The system is actually responsive in the background: w=
-hen
-I press my FIDO2 security key, it blinks, I can authenticate and the system
-unlocks, but the display output/backlight remains completely dead.
-
-**Regression confirmation:**
-- Kernel 7.0.0-28-generic: BROKEN (reproducible every time on resume, black
-screen)
-- Kernel 7.0.0-27-generic: OK (works perfectly, screen wakes up immediately=
- on
-resume)
-Since only the kernel version was changed and Mesa/KWin remained the same, =
-this
-is a clear kernel regression in the DRM/nouveau/i915 subsystem.
-
-ProblemType: Bug
-DistroRelease: Ubuntu 26.04
-Package: linux-image-7.0.0-28-generic 7.0.0-28.28
-ProcVersionSignature: Ubuntu 7.0.0-28.28-generic 7.0.12
-Uname: Linux 7.0.0-28-generic x86_64
-ApportVersion: 2.34.0-0ubuntu2
-Architecture: amd64
-CasperMD5CheckResult: unknown
-CurrentDesktop: KDE
-Date: Sat Jul 18 22:38:20 2026
-InstallationDate: Installed on 2026-04-28 (81 days ago)
-InstallationMedia: Kubuntu 26.04 "Resolute Raccoon" - Release amd64 (202604=
-23)
-IwDevWlp3s0Link: Not connected.
-MachineType: Dell Inc. Precision M4800
-ProcFB: 0 i915drmfb
-ProcKernelCmdLine: BOOT_IMAGE=3D/vmlinuz-7.0.0-28-generic
-root=3DUUID=3D0865911a-d995-4fff-b0d8-34f3e26f1603 ro quiet splash
-PulseList: Error: command ['pacmd', 'list'] failed with exit code 1: No
-PulseAudio daemon running, or not running as session daemon.
-SourcePackage: linux
-UpgradeStatus: No upgrade log present (probably fresh install)
-WifiSyslog:
-
-dmi.bios.date: 10/08/2018
-dmi.bios.release: 65.25
-dmi.bios.vendor: Dell Inc.
-dmi.bios.version: A25
-dmi.board.name: 0V5GVY
-dmi.board.vendor: Dell Inc.
-dmi.board.version: A00
-dmi.chassis.type: 9
-dmi.chassis.vendor: Dell Inc.
-dmi.modalias:
-dmi:bvnDellInc.:bvrA25:bd10/08/2018:br65.25:svnDellInc.:pnPrecisionM4800:pv=
-r00:rvnDellInc.:rn0V5GVY:rvrA00:cvnDellInc.:ct9:cvr:sku05CC:pfa:
-dmi.product.name: Precision M4800
-dmi.product.sku: 05CC
-dmi.product.version: 00
-dmi.sys.vendor: Dell Inc.
-***************
-INTRODUCTION AND FOCUS OF THE BUG REPORT (BUG REPORT, LINUX KERNEL, KUBUNTU)
-First, a quick note for the AI to ensure this transcription is correct: thi=
-s is
-a bug report regarding the Linux kernel on Kubuntu. Now, I will proceed to =
-the
-report itself.
-
-Dear developers, I would be very grateful if you could fix this bug. I real=
-ize
-that my computer is very, very old. That is one thing, but on the other han=
-d,
-Linux distributions are generally designed to support older hardware as wel=
-l.
-Therefore, I hope you will be willing to resolve this issue.
-
-NON-STANDARD SYSTEM SETTINGS AND SECURITY (FSCRYPT, SYSTEMD-HOMED, FINGERPR=
-INT)
-It is true that I have a slightly non-standard setup on Kubuntu. I have an
-encrypted home directory using fscrypt, and I also use systemd-homed with
-fingerprint authentication to unlock the computer and the login screen. It =
-is
-actually fortunate that I use this option=E2=80=94these fingerprints=E2=80=
-=94because it made it
-much easier to identify the bug and pinpoint where the error stems from. I =
-can
-assure you with absolute certainty, indeed with 100% confidence, that this =
-is
-related to the Linux kernel, specifically something in the graphics departm=
-ent,
-most likely the graphics drivers.
-
-BUG BEHAVIOR AND SYMPTOMS (BRIGHTNESS REGULATION, BLACK SCREEN, SLEEP MODE,
-FIDO2)
-It is important to supplement this bug report with additional information:
-whenever the very latest version of the Linux kernel is installed, it is
-accompanied by other symptoms. Specifically, I am unable to regulate the sc=
-reen
-brightness; it is permanently stuck, I believe, at the absolute lowest
-brightness level. Furthermore, as soon as I suspend the computer and wake it
-back up, the screen is 100% black, as if the computer were completely turned
-off and fails to turn on at all. We can reliably identify this as a
-graphics-related issue because, by looking at the flashing of the FIDO2
-security key, it is possible to deduce and conclude that I have successfully
-logged in. There are LEDs on it that clearly signal when a successful login=
- has
-occurred. Thus, everything was working completely fine, except for the sing=
-le
-fact that the screen remained black the entire time.
-
-THANKS TO THE DEVELOPERS AND CONCLUSION (BUG FIX, SUPPORT, THANKS)
-So, dear developers, I wish you success in fixing this. May it cost you as
-little work as possible, bring a great benefit, and may you manage to fix i=
-t as
-quickly as possible with minimal effort. That is my wish for you. I wish you
-the best of luck and thank you, developers, for your hard work.
-
-Additionally, as a piece of supplementary information, I personally believe
-that slightly non-standard configurations, such as home directory encryption
-via systemd-homed, should not play a large or significant role in this issu=
-e.
-
---=20
-You may reply to this email to add a comment.
-
-You are receiving this mail because:
-You are watching the assignee of the bug.=
