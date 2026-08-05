@@ -4,92 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C393C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 20:43:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85499C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 20:48:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73C3C10EFFE;
-	Wed,  5 Aug 2026 20:43:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E412B10E1E6;
+	Wed,  5 Aug 2026 20:48:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CyakLY39";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="GXNyso84";
 	dkim-atps=neutral
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
- [209.85.210.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9880B10EFFE
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 20:43:11 +0000 (UTC)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-84864086bfeso1240288b3a.1
- for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 13:43:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785962591; x=1786567391; darn=lists.freedesktop.org;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=FSorQdxLA2cwFX+rUnYn0LqweS5daHGY10an0vI1+II=;
- b=CyakLY39Cb9yWLukvb+5wXppAImF10DSjF/cq5qY7ZeLsT40K98BVPqkcqBUsOyFia
- XMiJ47ZMtc6PWCG28qmbXh1tyI+gHcuCQ56rXLjCe1nzDD4AhxlohpdqAIlU+yAfRVZL
- EkyfsU98tREso8gNzwyLLqiyvT5MJ3/bRbtGcfMGIuQ90x3Inu5bVkdRMdA1bAbyEpWY
- FSnb29hfGJVO3IHOPhDqIgFDRARzSG0eJAvZ0TF6b3tpZ3Aogvzoj0NkXjW5FAZbYqln
- 9rkeyPttEs/aks5J3Hjw2F1FJhJwo4zBF7G+gW9nEAKSoJCcHDHiKUlnuvLhn9VCDnFD
- ZCvA==
+Received: from mail-pf1-f226.google.com (mail-pf1-f226.google.com
+ [209.85.210.226])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF08210E1E6
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 20:48:33 +0000 (UTC)
+Received: by mail-pf1-f226.google.com with SMTP id
+ d2e1a72fcca58-848479c9bd5so1384881b3a.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 13:48:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785962591; x=1786567391;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :content-type:mime-version:subject:date:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=FSorQdxLA2cwFX+rUnYn0LqweS5daHGY10an0vI1+II=;
- b=OMZRPsYD3YVvtkaAPZRyODrPu4W3CG/SSaA9usGfaP0qBCeb8EEidfquU8kaimQf7o
- 5cJQwm5djeffoDS3/Qzjnmq09nivyq9UCwUbtgGOIiO4VmgTymme1RXUoFS5WFDjj3vR
- /27caq6UCFTl91L+45duqbfWmk3X76tEl9NYtEs1Cc4gYv6seayqGgTFbxm5O6jYkNN+
- jYGPIjSfY/oSZX3KI2toJd3RTvEv6Vvwo3GNFBazVnT8wjhne+jmqUPIZRlyIDjMalJi
- ilkxrpOSv8tmGVQxvX0PKAifq6PmZE9tqkd3o2ZfCGgJgSkbA1eFLaeOfvnAMvkkIPdG
- Cxgw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqVjz0Ty2WGOEmQFY/r9NLVGQvIO/JTJfNlmvEkkbMTSja1nWAk0vu+7UiqtlPGKrOrTZuRbluXQxY=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxpweIkNMSMw9zUXH5KyN65uy+B0UrG2a1qAis2Khjr2qoTEO1n
- 13ia9oQZHVvqait5NJzo5ksec/p2cHvUB+8IU0APTkYxdSmAm+SzEubU
-X-Gm-Gg: AR+sD12sb8AsAj6nflW+GPcxhWPP+0lB4NB83+gF1tNku7tpcc2fEeNWlU5Zr9hfpuQ
- EbEnhOSlsuW/Hu4GDeGNtSu/7I3Ouu47paVUZ4Bhtyibzzk0gQZSvc83ez3d1X1NwtxIZe3P8FP
- lbcdimbYWPucI/VKYl1byTzzhO6s3EGHhTVd2VZo7BU30ao45TkM/40oEXsHIsj4dd9qmBJPCtQ
- ZheScIHbGgWVpEO5qWXy9msPL7AkCGtxAtiPkVNUXBxKZAMnyP5bveLI5fpCddTGn4fJH3jZacd
- NRmH+UzicFa1y/Nm/prl2H2MrEndgk4Drsznw74MoT1zuiJ8ojwVomeVy7o/i1IUpJaW/DMma0O
- CyKeT7QMpp0RGNgTqySveIWWQePR5Qd0aXuE2hgL/c5FLin9HXLeGtJI89smWA3WF4/KIFBKxXl
- zgbb7/Y1zQRANoNQuRgYuXZ7nhdMbL02fbiNSXcitRNVWuqFLiN4xY9Xubf4RWE0RUIDI=
-X-Received: by 2002:a05:6a00:1388:b0:82f:3a1e:5618 with SMTP id
- d2e1a72fcca58-84f2e017478mr10698688b3a.22.1785962590863; 
- Wed, 05 Aug 2026 13:43:10 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:4d::])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84f459b9ed1sm15387b3a.44.2026.08.05.13.43.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Aug 2026 13:43:09 -0700 (PDT)
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-Date: Wed, 05 Aug 2026 13:42:45 -0700
-Subject: [PATCH net-next v8 3/3] selftests/net: devmem.py: add
- check_rx_large_niov
+ d=1e100.net; s=20251104; t=1785962913; x=1786567713;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=t/Tlp4jv36AXM3dbVTNPW86DHsKltSPiY4ymM/gQVSc=;
+ b=BFzVWbgbtFPwMupjUXTML1S9JXim2RI1a5776nd1Mc+a4x0otFmEhX7mazXkKgDfhm
+ n0rB+7S4XwpUqx0q+IGPpQj2A2ENv/t8W5vNVlGDXLRuCUn8CTOZoy5C/DgMKHWsamAQ
+ /Geu5SRRj1GHUWY3iWqkzhyqyUCYn6jBK7zJwELjFnFZvSN5jDzllyakjmO5TNTAxv1n
+ +FlwV9Hw4spd0RuFfI9udHKJnoOzOAs0XWDi7P+h2AtZnP3qEA5XcSG0NJnxtXpgMLBg
+ OibyOv7bEbObwb1zNR3F8TUIkYhqS7UvALBpcECXP4iuzt7aA5FYSOfFSflUFgPiqaMI
+ 0mZA==
+X-Gm-Message-State: AOJu0YzYwpno7n9y1ojAVJNL6Z5VkdKQfRQFRG8FbkvXPtueKgh1WVEd
+ 1URnTyPz2J4UtKweOH6DU4n2kZr9Zf2mnjt9v8viaeG/jMiRM00JqTsxKJ0AjcBhEw7o1hrYKVK
+ B6yCHPY/VSQtnea/LK1Zs5ase90U4Ims0L2n2IKT9mKG0Q/qQQClypvwFwefzhiYVNhp751o4Ur
+ UT0hhzMzVAOC+K18BXAjrlaGdsHxXX9BcUqzHfkTHEXc2/oh7nBc3mIykCbXCgmIYEfC68+dnFe
+ aoLTzRQEz8bltUAwR60
+X-Gm-Gg: AR+sD118CamMkoFve9kLxaJdl+1mrUd4gwmg7hBAcQm7YuDxYUpWcq6Z/YKzbC1omkv
+ jdr9N11lBNtet5eEBrnZthCZJxpsho/2ju84C3yWfDh0ni5khoVZC4i8/VhGl8evPVrsrsFu71T
+ 0BgOMPJW0ISSmgKookjBimAWto59MHmm6X43sK2riJ9oWv9FquMwA9fGx2boTiSmMW2e4MrVIeK
+ ieOztcmq0mT8jNNBrpuxX6mj0uqYyGn63Wo5WaxwCrdSl1RbDsqcwYz0GCheyt/nQdpecVh2wvF
+ 26W5I9dQQiCN5Jvmu9ZA16RJRz10qJuWmUhYPmdAdF0wQkzGDW0l1RjNfRNt9hQqsaJws7gXZP6
+ g4TSPmT+Y1d3dBwuYy58/oIOc8g9pS+6SnRFejCimf3rxezpGs1Rsk9AkHDGvuXAdAj08fpoGEw
+ eZA0uyt9IFDJjZJjBz95avFo9C+xdhVFFJ
+X-Received: by 2002:aa7:8884:0:b0:847:9315:fb8b with SMTP id
+ d2e1a72fcca58-84f2e031490mr10115079b3a.6.1785962912917; 
+ Wed, 05 Aug 2026 13:48:32 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+ by smtp-relay.gmail.com with ESMTPS id
+ 41be03b00d2f7-cbe706de4f3sm1143649a12.0.2026.08.05.13.48.31
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 05 Aug 2026 13:48:32 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lf1-f71.google.com with SMTP id
+ 2adb3069b0e04-5aec745104bso810332e87.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 13:48:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1785962910; x=1786567710;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=t/Tlp4jv36AXM3dbVTNPW86DHsKltSPiY4ymM/gQVSc=;
+ b=GXNyso84q/8pfB3cdNmBXnGZoUVI3q8/nUHlqAopl2ZIv3z3n+XEgj0RwUXij2Ws46
+ +QOILbDWKpKmqjNH2a7xiATK5/jvN/9ESXOcxnh0gISXWf3SOdrQqBtscIR4eUH+YJBu
+ wV1Go6YqRVs1LWtAPI1HzPuu7/Zlf1lLlLqYk=
+X-Received: by 2002:a05:6512:2388:b0:5b2:b7f2:f7e6 with SMTP id
+ 2adb3069b0e04-5b2f4b8f30emr1373588e87.14.1785962909940; 
+ Wed, 05 Aug 2026 13:48:29 -0700 (PDT)
+X-Received: by 2002:a05:6512:2388:b0:5b2:b7f2:f7e6 with SMTP id
+ 2adb3069b0e04-5b2f4b8f30emr1373579e87.14.1785962909345; Wed, 05 Aug 2026
+ 13:48:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-tcpdm-large-niovs-v8-3-3e0225e2808c@meta.com>
-References: <20260805-tcpdm-large-niovs-v8-0-3e0225e2808c@meta.com>
-In-Reply-To: <20260805-tcpdm-large-niovs-v8-0-3e0225e2808c@meta.com>
-To: Donald Hunter <donald.hunter@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Gerd Hoffmann <kraxel@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org, 
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net, 
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com, 
- dw@davidwei.uk, Joe Damato <joe@dama.to>, 
- Bobby Eshleman <bobbyeshleman@meta.com>
-X-Mailer: b4 0.14.3
+References: <9a795e26-53de-41da-bdb8-9ced20b70e87@accessweb.be>
+In-Reply-To: <9a795e26-53de-41da-bdb8-9ced20b70e87@accessweb.be>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Wed, 5 Aug 2026 16:48:16 -0400
+X-Gm-Features: AUfX_mwhbky-2rcaCh6V0vDmi9Pbpajrw3OQvpQy4TGuNhrfAm_h5omX-GsCUZI
+Message-ID: <CABQX2QOEP_g5HvC0Wfn9NZw_88uGjgkp-nJrXzkMXdVFBDh+iw@mail.gmail.com>
+Subject: Re: drm/vmwgfx: graphics memory not returned after all GEM objects
+ are released
+To: "Jellis Onsea | AccessWeb" <jellis@accessweb.be>
+Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com, 
+ Maaz Mombasawala <maaz.mombasawala@broadcom.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="000000000000d9f555065852e45b"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,248 +103,229 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Bobby Eshleman <bobbyeshleman@meta.com>
+--000000000000d9f555065852e45b
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add a new devmem test case for binding the dmabuf with rx-page-size=16K.
-The test sweeps RX payload sizes straddling the niov boundary to cover
-the sub-niov, exact-niov, and multi-niov RX paths.
+On Wed, Aug 5, 2026 at 4:41=E2=80=AFPM Jellis Onsea | AccessWeb
+<jellis@accessweb.be> wrote:
+>
+> Hi Zack,
+>
+> I'm reporting a memory issue in vmwgfx where graphics memory is not
+> returned to the system even after every DRM client has released its GEM
+> objects. Only a reboot frees it. This comes out of KDE bug 523812, which
+> was closed as RESOLVED UPSTREAM with the assessment that this looks like
+> a driver-side leak rather than a compositor one.
+>
+> - Environment:
+>
+>      Guest:      CachyOS (Arch-based), kernel 7.1.5 and 7.1.6
+>      Host:       VMware Workstation on Windows, AMD Ryzen 9 7950X
+>      Driver:     vmwgfx 2.21.0.0, VMware SVGA II
+>      Renderer:   llvmpipe (LIBGL_ALWAYS_SOFTWARE=3D1, see note below)
+>      Compositor: KWin 6.7.3, Plasma Wayland, 3 x 1920x1080 @ 60 Hz
+>      RAM:        31 GiB, zram swap
+>      3D accel:   disabled in the VM settings
+>
+> - What happens:
+>
+> During normal desktop use, buffers of exactly 8355840 bytes accumulate.
+> That is 1920 x 1088 x 4 =E2=80=94 one screen-sized 32-bit framebuffer wit=
+h the
+> height padded to a multiple of 64. Growth is tied to rendering activity,
+> not to uptime: an unattended session leaked exactly zero bytes over 7.3
+> hours, while active use adds roughly 1.4 GB/hour.
+>
+> At 9 hours of uptime, kwin_wayland held 1846 GEM objects, 1553 of them
+> that exact size. All of them had pin_count =3D 0. At 34.5 hours it was
+> 8057 objects.
+>
+> - The measurement that points at the driver:
+>
+> I logged out of the Plasma session and logged back in, without
+> rebooting. That restarts the compositor (pid 2612 -> 3156650) and closes
+> its DRM fd, so the kernel drops all its GEM references.
+>
+>                                    before logout      after re-login
+>      GEM objects, all clients      8139               19
+>      system_ttm usage              49.47 GB           45.80 GB
+>      GPUActive (/proc/meminfo)     10.86 GB           11.06 GB
+>      MemAvailable                  11.06 GB           13.32 GB
+>
+> So: no DRM client held more than 19 GEM objects in total, yet roughly 11
+> GB remained accounted as GPUActive and was not returned. The ~2.3 GB
+> gained in MemAvailable is very likely just the browsers and editors from
+> the old session exiting, not graphics memory.
+>
+> A reboot immediately afterwards did return it:
+>
+>      GPUActive     0.11 GB
+>      RAM in use    4.5 GB of 31 GB   (was 18 GB before the reboot)
+>
+> - Caveats I want to be upfront avout:
+>
+> - system_ttm reporting 46-49 GB on a machine with 31 GiB of RAM is
+> something I cannot explain. My assumption is that TTM accounts pages it
+> has evicted to shmem, while GPUActive counts only resident ones. If that
+> assumption is wrong, the volume figures need reinterpreting. The object
+> counts and the fact that a reboot is required stand either way.
+> - Summing the reported sizes of the GEM objects gives ~46 GB, which also
+> exceeds physical RAM, so that sum over-counts =E2=80=94 presumably shared=
+ or
+> multiply-mapped objects. I would trust the counts, not that total.
+> - This is a CachyOS kernel, not vanilla. I have not yet reproduced on
+> mainline. I am happy to test a vanilla or drm-tip kernel if that would
+> help; the machine reproduces this within a working day.
+> - LIBGL_ALWAYS_SOFTWARE=3D1 is set here to work around an older, separate
+> vmwgfx surface-handle problem that crashed Chromium/Electron compositor
+> threads with SIGILL. The behaviour described above occurs with that
+> workaround in place.
+>
+> - Possibly related earlier work:
+>
+> I am aware of the dumb-buffer leak fixes in vmwgfx from the 6.10 era
+> ("drm/vmwgfx: Fix handling of dumb buffers", "drm/vmwgfx: Fix dumb
+> buffer leak") and the rework that made GEM handles own the dumb buffer.
+> The buffers accumulating here are exactly screen-sized dumb buffers, so
+> this may well be in the same area, but on a much newer kernel, so either
+> something remains or it is a regression. I did not find an open report
+> matching this.
+>
+> - How to reproduce the measurements:
+>
+>      # object count and per-client totals (root)
+>      grep -c bytes /sys/kernel/debug/dri/0/vmwgfx_gem_info
+>      awk '/^ *pid/{p=3D$2" "$4} /bytes/{n[p]++; s[p]+=3D$2} \
+>           END{for(k in n) printf "%-26s %6d objects %9.1f MB\n", k,
+> n[k], s[k]/1048576}' \
+>          /sys/kernel/debug/dri/0/vmwgfx_gem_info | sort -k3 -rn
+>
+>      # pool usage (root)
+>      awk '/usage:/{print $2}' /sys/kernel/debug/dri/0/system_ttm
+>
+>      # resident graphics memory
+>      grep -E 'GPUActive|GPUReclaim' /proc/meminfo
+>
+> Use the desktop normally for a few hours; a browser window with a
+> looping CSS animation makes it measurable within minutes. Opening and
+> closing 32 windows produced no growth at all, so it is the continuous
+> rendering that drives it.
+>
+> Happy to run anything specific, apply a debug patch, or test a different
+> kernel.
 
-Silence pylint invalid-name (`with open() as f`) and too-many-arguments
-(ncdevmem_rx grew to 6 args) at file scope.
+Yea, this is because we never added explicit prime exports
+derefs/destroy ioctl's to kernel's drm uapi so all userspace assumes
+that prime always operates on gem buffers but that wasn't the case for
+vmwgfx so gem closing the resources created from fd handles did
+nothing on vmwgfx and every one of them leaked.
 
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
-Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
----
- tools/testing/selftests/drivers/net/hw/devmem.py   |  11 ++-
- .../testing/selftests/drivers/net/hw/devmem_lib.py | 109 +++++++++++++++++++--
- .../testing/selftests/drivers/net/hw/nk_devmem.py  |  10 +-
- 3 files changed, 119 insertions(+), 11 deletions(-)
+Maaz just submitted a fix for that to mesa:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/43386
+If you can I'd give that a try.
 
-diff --git a/tools/testing/selftests/drivers/net/hw/devmem.py b/tools/testing/selftests/drivers/net/hw/devmem.py
-index 031cf9905f65..82c11ffc4add 100755
---- a/tools/testing/selftests/drivers/net/hw/devmem.py
-+++ b/tools/testing/selftests/drivers/net/hw/devmem.py
-@@ -2,7 +2,8 @@
- # SPDX-License-Identifier: GPL-2.0
- 
- from os import path
--from devmem_lib import setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds
-+from devmem_lib import (setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds,
-+                        run_rx_large_niov)
- from lib.py import ksft_run, ksft_exit, ksft_disruptive
- from lib.py import NetDrvEpEnv
- 
-@@ -30,11 +31,17 @@ def check_rx_hds(cfg) -> None:
-     run_rx_hds(cfg)
- 
- 
-+def check_rx_large_niov(cfg) -> None:
-+    """Run the devmem RX test with rx-page-size = 16 KiB."""
-+    run_rx_large_niov(cfg)
-+
-+
- def main() -> None:
-     """Run the devmem test cases."""
-     with NetDrvEpEnv(__file__) as cfg:
-         setup_test(cfg, path.abspath(path.dirname(__file__) + "/ncdevmem"))
--        ksft_run([check_rx, check_tx, check_tx_chunks, check_rx_hds],
-+        ksft_run([check_rx, check_tx, check_tx_chunks, check_rx_hds,
-+                  check_rx_large_niov],
-                  args=(cfg,))
-     ksft_exit()
- 
-diff --git a/tools/testing/selftests/drivers/net/hw/devmem_lib.py b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
-index 0921ff03eb81..209ce3b041e5 100644
---- a/tools/testing/selftests/drivers/net/hw/devmem_lib.py
-+++ b/tools/testing/selftests/drivers/net/hw/devmem_lib.py
-@@ -1,6 +1,8 @@
- # SPDX-License-Identifier: GPL-2.0
-+# pylint: disable=invalid-name,too-many-arguments
- """Shared helpers for devmem TCP selftests."""
- 
-+import os
- import re
- 
- from lib.py import (bkg, cmd, defer, ethtool, rand_port, wait_port_listen,
-@@ -8,19 +10,82 @@ from lib.py import (bkg, cmd, defer, ethtool, rand_port, wait_port_listen,
-                     NetdevFamily)
- 
- 
--def require_devmem(cfg):
-+RX_PAGE_SIZE_DEFAULT = 0
-+RX_PAGE_SIZE_16K = 16384
-+
-+PROBE_RX_PAGE_SIZES = (RX_PAGE_SIZE_DEFAULT, RX_PAGE_SIZE_16K)
-+
-+NR_HUGEPAGES_FILE = "/proc/sys/vm/nr_hugepages"
-+
-+
-+def _is_aligned(value, alignment):
-+    """Equivalent of the kernel IS_ALIGNED(value, alignment).
-+
-+    alignment must be a power of two.
-+    """
-+    return (value & (alignment - 1)) == 0
-+
-+
-+def _restore_nr_hugepages(nr_hugepages):
-+    with open(NR_HUGEPAGES_FILE, 'w', encoding='utf-8') as f:
-+        f.write(str(nr_hugepages))
-+
-+
-+def _reserve_hugepages(want=64):
-+    """Raise nr_hugepages to @want and arrange for it to be restored."""
-+    with open(NR_HUGEPAGES_FILE, 'r+', encoding='utf-8') as f:
-+        nr_hugepages = int(f.read().strip())
-+        if nr_hugepages >= want:
-+            return
-+        f.seek(0)
-+        f.write(str(want))
-+    defer(_restore_nr_hugepages, nr_hugepages)
-+
-+
-+def _probe_devmem(cfg, rx_page_size):
-+    """Return True if ncdevmem can bind cfg.ifname at @rx_page_size."""
-+    probe_command = f"{cfg.bin_local} -f {cfg.ifname}"
-+    if rx_page_size != RX_PAGE_SIZE_DEFAULT:
-+        probe_command += f" -b {rx_page_size}"
-+    return cmd(probe_command, fail=False, shell=True).ret == 0
-+
-+
-+def require_devmem(cfg, rx_page_size=RX_PAGE_SIZE_DEFAULT):
-     """Probe ncdevmem on cfg.ifname and SKIP the test if devmem isn't supported."""
--    if not hasattr(cfg, "devmem_probed"):
--        probe_command = f"{cfg.bin_local} -f {cfg.ifname}"
--        cfg.devmem_supported = cmd(probe_command, fail=False, shell=True).ret == 0
--        cfg.devmem_probed = True
-+    if rx_page_size not in PROBE_RX_PAGE_SIZES:
-+        raise RuntimeError(
-+            f"rx-page-size={rx_page_size} is missing from "
-+            f"PROBE_RX_PAGE_SIZES, so it was never probed.")
- 
--    if not cfg.devmem_supported:
-+    if not hasattr(cfg, "devmem_supported"):
-+        _reserve_hugepages()
-+        # Probe every size upfront: in nk tests a leased queue may land in
-+        # ncdevmem's queue range and cause the probe to fail.
-+        cfg.devmem_supported = {size: _probe_devmem(cfg, size)
-+                                for size in PROBE_RX_PAGE_SIZES}
-+
-+    if not cfg.devmem_supported[RX_PAGE_SIZE_DEFAULT]:
-         raise KsftSkipEx("Test requires devmem support")
- 
-+    if rx_page_size != RX_PAGE_SIZE_DEFAULT:
-+        page_size = os.sysconf("SC_PAGE_SIZE")
-+        if not _is_aligned(rx_page_size, page_size):
-+            raise KsftSkipEx(
-+                f"rx-page-size={rx_page_size} is invalid for this platform "
-+                f"(must be a multiple of PAGE_SIZE={page_size})")
-+
-+        if not cfg.devmem_supported[rx_page_size]:
-+            raise KsftSkipEx(
-+                f"Test requires devmem rx-page-size={rx_page_size} support")
-+
- 
- def configure_nic(cfg):
-     """Channels, rings, RSS, queue lease for netkit devmem."""
-+    if not hasattr(cfg, "devmem_supported"):
-+        raise RuntimeError(
-+            "require_devmem() must be called before configure_nic(), which "
-+            "may lease a queue away and make later probes fail.")
-+
-     if not hasattr(cfg, 'netns'):
-         return
- 
-@@ -76,7 +141,8 @@ def set_flow_rule(cfg, port):
-     return int(re.search(r'ID (\d+)', output).group(1))
- 
- 
--def ncdevmem_rx(cfg, port, verify=True, fail_on_linear=False, flow_steer=False):
-+def ncdevmem_rx(cfg, port, verify=True, fail_on_linear=False, flow_steer=False,
-+                rx_page_size=RX_PAGE_SIZE_DEFAULT):
-     """Build the ncdevmem RX listener command."""
-     if hasattr(cfg, 'netns'):
-         flow_rule_id = set_flow_rule(cfg, port)
-@@ -96,6 +162,8 @@ def ncdevmem_rx(cfg, port, verify=True, fail_on_linear=False, flow_steer=False):
-         extras.append("-v 7")
-     if fail_on_linear:
-         extras.append("-L")
-+    if rx_page_size != RX_PAGE_SIZE_DEFAULT:
-+        extras.append(f"-b {rx_page_size}")
- 
-     parts = [cfg.bin_local, "-l", f"-f {ifname}", f"-s {addr}",
-              f"-p {port}", *extras]
-@@ -202,6 +270,33 @@ def run_tx_chunks(cfg):
-     ksft_eq(socat.stdout.strip(), "hello\nworld")
- 
- 
-+def run_rx_large_niov(cfg):
-+    """Run the devmem RX test with a large niov (rx-page-size > PAGE_SIZE).
-+
-+    Sweep payload sizes that straddle the niov boundary: below, equal to,
-+    and above rx_page_size, to exercise sub-niov, exact-niov, and multi-niov
-+    RX paths.
-+    """
-+    require_devmem(cfg, rx_page_size=RX_PAGE_SIZE_16K)
-+    _reserve_hugepages()
-+    configure_nic(cfg)
-+    netns = getattr(cfg, "netns", None)
-+
-+    for size in [1024, 4096, 8192, 16384, 32768, 65536]:
-+        port = rand_port()
-+        socat = socat_send(cfg, port)
-+        listen_cmd = ncdevmem_rx(cfg, port,
-+                                 flow_steer=not netns,
-+                                 rx_page_size=RX_PAGE_SIZE_16K)
-+        data_pipe = (f"yes $(echo -e \x01\x02\x03\x04\x05\x06) | "
-+                     f"head -c {size} | {socat}")
-+        with bkg(listen_cmd, exit_wait=True, ns=netns) as ncdevmem:
-+            wait_port_listen(port, proto="tcp", ns=netns)
-+            cmd(data_pipe, host=cfg.remote, shell=True)
-+        ksft_eq(ncdevmem.ret, 0,
-+                f"large-niov failed for payload size {size}")
-+
-+
- def run_rx_hds(cfg):
-     """Run the HDS test by running devmem RX across a segment size sweep."""
-     require_devmem(cfg)
-diff --git a/tools/testing/selftests/drivers/net/hw/nk_devmem.py b/tools/testing/selftests/drivers/net/hw/nk_devmem.py
-index 300ed2a70ab4..61c6f31f01e5 100755
---- a/tools/testing/selftests/drivers/net/hw/nk_devmem.py
-+++ b/tools/testing/selftests/drivers/net/hw/nk_devmem.py
-@@ -3,7 +3,8 @@
- """Test devmem TCP with netkit."""
- 
- import os
--from devmem_lib import setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds
-+from devmem_lib import (setup_test, run_rx, run_tx, run_tx_chunks, run_rx_hds,
-+                        run_rx_large_niov)
- from lib.py import ksft_run, ksft_exit, ksft_disruptive
- from lib.py import NetDrvContEnv
- 
-@@ -31,6 +32,11 @@ def check_nk_rx_hds(cfg) -> None:
-     run_rx_hds(cfg)
- 
- 
-+def check_nk_rx_large_niov(cfg) -> None:
-+    """Run the devmem RX large-niov test through netkit."""
-+    run_rx_large_niov(cfg)
-+
-+
- def main() -> None:
-     """Run the netkit devmem test cases."""
-     with NetDrvContEnv(__file__, rxqueues=2, primary_rx_redirect=True) as cfg:
-@@ -38,7 +44,7 @@ def main() -> None:
-                    os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                 "ncdevmem"))
-         ksft_run([check_nk_rx, check_nk_tx, check_nk_tx_chunks,
--                  check_nk_rx_hds], args=(cfg,))
-+                  check_nk_rx_hds, check_nk_rx_large_niov], args=(cfg,))
-     ksft_exit()
- 
- 
+z
 
--- 
-2.53.0-Meta
+--000000000000d9f555065852e45b
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
+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
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIPOq
+9q+e4ZZXQGtLobQNCxIl7aZuTHjY6ylLyxsIqw5LMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDgwNTIwNDgzMFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAEK9re/v7MMcMT6iSw2Pmj52LR5zTlcWjCcnqBp6
+MNxvFwoQcdDQT+LIyW4Cp1nLEIolZ5ct7Gt8p/0n/wc7Y1PB9PY5tqQBS6rvsHe6EYeY9St2mK88
+Q1h2lsJugzIBlg5iT9EuMErOU+ipS2wjuZuGgzZOjfAOifS/uTErd3wfuH0RfbOsvsxnX2KcCmCU
++Ss7sXeegtEf8TFi5nrDXUMTHXt19U3wVquhtafuGJR6Y2xXVfj7cytx+vkecVzBB6kgzrTuHUrk
+R7t0zEwa0OKTW/4uHHLzulngsTXOc0tq5HFVsjk4mJz60pEy4NWwq4niW9mjwaC+tokcWU4tjG4=
+--000000000000d9f555065852e45b--
