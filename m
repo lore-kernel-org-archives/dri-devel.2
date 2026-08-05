@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24FAFC561E6
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 23:10:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA170C56207
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 23:10:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D827C10F010;
-	Wed,  5 Aug 2026 23:10:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1E3D410F027;
+	Wed,  5 Aug 2026 23:10:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eCI0xsDr";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="EmFFC2cz";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F0F210E042;
- Wed,  5 Aug 2026 23:10:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B36710F010;
+ Wed,  5 Aug 2026 23:10:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785971450; x=1817507450;
+ t=1785971451; x=1817507451;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=/Jjq0f7O0WvJkLs4JYtXmw67Rzu5MIrXEQREZTu1NqM=;
- b=eCI0xsDr3XbYAZPXr9BgVitOFfMPxSdQhSnqx3zFB6mbUQHPrfTHwnLZ
- USziWKIVhfANaAZx3BqTU8s/iW3hyESe9szsFzRZHf0S/q1aDmXvnpjLx
- bp9NcgK41g8cqtM3YZ7kKXxDBmCfJQT7rV+PWfRuc/yOcSETGHGApmc1+
- S7eODP/LTca/wYI2GIC4ersDIV9bd5t8kMO6B6EP3yIcfCGOuo+wi9l6n
- 6b7Nzh+AXIw3i7v8m1bfkPCnBvj+9JLVZg1xo9P0yf0x/HYqPMO9eVy4S
- nPZPDMMTgNkpaiWhoGOZZAN10KpmeMm10F2PQLE0+6ifeNesoOBDHpHcd Q==;
-X-CSE-ConnectionGUID: MnfSCjwYTomOxu6UBMYi9w==
-X-CSE-MsgGUID: /oJNZQCmTaevUOyZHwWo3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="90376846"
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="90376846"
+ bh=0lyTOIeWDhVM9+t9ZjBtctLh8tev93wX9ypZPs331q0=;
+ b=EmFFC2cz/itg3SosaN8ArhDSouB5unrviEgy9eil1i8ys4pAasg1/nqw
+ Qep1q2dP8pRkQrPyEbXxhqu8/honMMBQvfIkiHoNdTyJEqqlgVa5HhVd1
+ qm6a0M1VYYiD8aZ5kkvoZfTSYrRoWPq3FEWTkKa4bHt1QfdPb1V+0t26e
+ HioyoPz6PEvx129myMtirFjo/JrsebB/UrrlT7a5hN19A4VealJSpHON2
+ KQpBhwJDArEZeuY1wc2KUinkQ4mEOq3J31Mu4d7PFy7+YwRXbcbDlIhTN
+ uzoPItasdKqD6QCgOr2sqWGK1yK4s6328d+3He20QUzCbkAkl30IumSQ7 g==;
+X-CSE-ConnectionGUID: IpIXOXvtSyWEJO6uBVdcVA==
+X-CSE-MsgGUID: lMapM3foRZixf+Ma1BoIpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="90376879"
+X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="90376879"
 Received: from fmviesa003.fm.intel.com ([10.60.135.143])
  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2026 16:10:49 -0700
-X-CSE-ConnectionGUID: dbZ5mZZVTkeTIfdkt0zbgA==
-X-CSE-MsgGUID: 9Pr+QSRTQgSOCeG8Ps6dLQ==
+ 05 Aug 2026 16:10:51 -0700
+X-CSE-ConnectionGUID: ioLIX4KjSZeTqDkxaD3SeA==
+X-CSE-MsgGUID: 7XkeOWqkTcmRm/99NBgSrg==
 X-ExtLoop1: 1
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2026 16:10:49 -0700
+ 05 Aug 2026 16:10:50 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-mm@kvack.org, linux-kernel@vger.kernel.org
@@ -61,10 +61,10 @@ Cc: Sashiko <sashiko-bot@kernel.org>,
  Simona Vetter <simona@ffwll.ch>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Francois Dugast <francois.dugast@intel.com>, stable@vger.kernel.org
-Subject: [PATCH v3 2/6] mm/migrate_device: Do not write past the end of the
- src_pfns array
-Date: Wed,  5 Aug 2026 16:10:37 -0700
-Message-Id: <20260805231041.3791771-3-matthew.brost@intel.com>
+Subject: [PATCH v3 4/6] drm/pagemap: dma-unmap pages before handling migration
+ errors
+Date: Wed,  5 Aug 2026 16:10:39 -0700
+Message-Id: <20260805231041.3791771-5-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260805231041.3791771-1-matthew.brost@intel.com>
 References: <20260805231041.3791771-1-matthew.brost@intel.com>
@@ -86,23 +86,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-migrate_device_range() and migrate_device_pfns() zero the tail entries
-of a large folio without checking them against @npages:
+drm_pagemap_migrate_unmap_pages() relies on the pages array to determine
+which pages require DMA unmapping. However,
+drm_pagemap_migration_unlock_put_pages() clears the array as part of its
+cleanup, leaving drm_pagemap_migrate_unmap_pages() with no valid page
+information if it is called afterward.
 
-	for (j = 1; j < nr; j++)
-		src_pfns[i+j] = 0;
-
-@nr comes from the folio, not from the array, so a folio that extends
-past the end of the range being migrated writes beyond src_pfns[].
-Callers size that array for @npages entries, so this corrupts whatever
-follows it.
-
-Bound the loop by @npages. The subsequent "i += j - 1" still terminates
-the outer loop correctly: on a bounded exit j is @npages - i, leaving i
-at @npages after the increment.
+Call drm_pagemap_migrate_unmap_pages() before
+drm_pagemap_migration_unlock_put_pages() so the pages array remains
+valid during DMA unmapping.
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+Fixes: f86ad0ed620c ("drm/gpusvm, drm/pagemap: Move migration functionality to drm_pagemap")
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
@@ -133,34 +128,49 @@ Cc: dri-devel@lists.freedesktop.org
 Cc: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Assisted-by: GitHub_Copilot:claude-opus-5
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
 ---
- mm/migrate_device.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_pagemap.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-index 162d29b2807a..ae9027421b80 100644
---- a/mm/migrate_device.c
-+++ b/mm/migrate_device.c
-@@ -1415,7 +1415,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
- 		nr = folio_nr_pages(folio);
- 		if (nr > 1) {
- 			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
--			for (j = 1; j < nr; j++)
-+			for (j = 1; j < nr && (i + j) < npages; j++)
- 				src_pfns[i+j] = 0;
- 			i += j - 1;
- 			pfn += j - 1;
-@@ -1449,7 +1449,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
- 		nr = folio_nr_pages(folio);
- 		if (nr > 1) {
- 			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
--			for (j = 1; j < nr; j++)
-+			for (j = 1; j < nr && (i + j) < npages; j++)
- 				src_pfns[i+j] = 0;
- 			i += j - 1;
- 		}
+diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+index 892b325fa99b..aef1fcea663d 100644
+--- a/drivers/gpu/drm/drm_pagemap.c
++++ b/drivers/gpu/drm/drm_pagemap.c
+@@ -1175,12 +1175,12 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
+ 		goto err_finalize;
+ 
+ err_finalize:
++	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
++					DMA_FROM_DEVICE, &state);
+ 	if (err)
+ 		drm_pagemap_migration_unlock_put_pages(npages, dst);
+ 	migrate_device_pages(src, dst, npages);
+ 	migrate_device_finalize(src, dst, npages);
+-	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
+-					DMA_FROM_DEVICE, &state);
+ 
+ err_free:
+ 	kvfree(buf);
+@@ -1305,14 +1305,14 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
+ 		goto err_finalize;
+ 
+ err_finalize:
+-	if (err)
+-		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
+-	migrate_vma_pages(&migrate);
+-	migrate_vma_finalize(&migrate);
+ 	if (dev)
+ 		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
+ 						npages, DMA_FROM_DEVICE,
+ 						&state);
++	if (err)
++		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
++	migrate_vma_pages(&migrate);
++	migrate_vma_finalize(&migrate);
+ err_free:
+ 	kvfree(buf);
+ err_out:
 -- 
 2.34.1
 
