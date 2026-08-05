@@ -4,45 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E68F4C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 22:06:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DDF9C56205
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 22:44:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E21E510F008;
-	Wed,  5 Aug 2026 22:06:31 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Dp7ulIMD";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F202210F008
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 22:06:29 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E5B6D60A5A;
- Wed,  5 Aug 2026 22:06:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CF241F000E9;
- Wed,  5 Aug 2026 22:06:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785967588;
- bh=l3Wo2XYfshVaZ0rM98x9x4q56oduGHnV+UciN8vsgxc=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Dp7ulIMD9ngw+yc8BQPqS4aJckj6vhSSql24wV768ItQU01ok6WpQqRvacSf3cfKw
- 2XbdkmjW2ZuJRiPuMKZ0XtOT+UUfSnV0aYWd7cb4zIAMVkbqgrx2nbbXiU4eO32cnI
- B1+f6prVtdvkxru09F7f7hjjMMaWkqVdUkpf77ggF0/lbP/6F7Ng4PrGJ91QQ1Qkg/
- Z8tJxIZxStL7etc9NJ+Z/Cn6V1Eb5BHMdzyIGeZzginuMJmk6z+umqeR1tFMEXIhWR
- Sfgf0cim28RrL9eJ/j6d08p6zCnzdv9priLTw6HOE3TYzT4pggz2B2qW6WQagCScMb
- r6mql1n8HLUdg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] rust: dma: add abstraction for the single-buffer
- streaming DMA API
-To: "Maurice Hieronymus" <mhi@mailbox.org>
-Cc: ojeda@kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
- Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260805-dma-streaming-v1-2-03974c86b141@mailbox.org>
-References: <20260805-dma-streaming-v1-0-03974c86b141@mailbox.org>
- <20260805-dma-streaming-v1-2-03974c86b141@mailbox.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 22:06:27 +0000
-Message-Id: <20260805220628.4CF241F000E9@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5091A10E08B;
+	Wed,  5 Aug 2026 22:44:39 +0000 (UTC)
+Received: from mail-oo1-f77.google.com (mail-oo1-f77.google.com
+ [209.85.161.77])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E96A10E244
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 22:44:38 +0000 (UTC)
+Received: by mail-oo1-f77.google.com with SMTP id
+ 006d021491bc7-6ab4aec4a14so1025291eaf.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 15:44:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785969877; x=1786574677;
+ h=content-type:to:from:subject:message-id:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=B/VG1ElgdBBDmS7WpjZAJKdiGrWimuTWHY0fHxv6+xo=;
+ b=LA6xGvvJM9TWVrV29hNhhovRJt2+H8kutjTzcFS8NUr4xGFoG9sq4bSg63cv3hhj7H
+ EIWte4MDuEZ1fNSqr9uZgKE7983/Y/zz4LftF7epJSYu0+y7geZrDCzUAwrXL+LENJ7a
+ nqyrTzWYYK0iyChMyP4aPtBCiHMIjNyNngBC8RDJQ0lM8b/QyQ6QYnUhSvRA0BGLxWxp
+ t6e31NIj7+QJxkQyRgHYI/+vcWAan50k1pC2dPfvJFDdmzSxSltmWoFQhwTr/27Lo65B
+ hFscMXTUn4kTiuIoYupIMk8vUPDdjQ0KxXDmirLSwh7SXItA8mp9R2ix9/clau3v+iKd
+ 9geA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoCbWXTdL5YR6Sh+oMO3gz6rHOaEJZF0tVyhfzcP6m8nVwcei0RZgPS+JQB98vtbhhThynXfJMuUZk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcNJZeA7sUq2PzwDU446J4vr6JIwqkYn2uWsMuaBYt3ptwW5du
+ +MvfV5BrR4ySfNzKJ9H7jN2ZNtYywdCHfkjZ8XiGHzYTs4Ee5YBUvOs6uBQY/X61+IzmsWqGWZs
+ 43fDHnt7/LjYOHnA2Dm/0kdaFZlUSMpFvtSISN2Zm1N4AB1IrHKK7ETajQu8=
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:4d07:b0:6ae:4959:e1c4 with SMTP id
+ 006d021491bc7-6ae96ed3e38mr5421908eaf.23.1785969877263; Wed, 05 Aug 2026
+ 15:44:37 -0700 (PDT)
+Date: Wed, 05 Aug 2026 15:44:37 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a73bcd5.01d0871a.3a0d52.0003.GAE@google.com>
+Subject: [syzbot] [intel-gfx?] general protection fault in i915_pci_probe
+From: syzbot <syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com>
+To: airlied@gmail.com, dri-devel@lists.freedesktop.org, 
+ intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, 
+ joonas.lahtinen@linux.intel.com, linux-kernel@vger.kernel.org, 
+ rodrigo.vivi@intel.com, simona@ffwll.ch, syzkaller-bugs@googlegroups.com, 
+ tursulin@ursulin.net
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,165 +61,131 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] StreamingCpuGuard unconditionally implements DerefMut, allowing sa=
-fe Rust code to mutate DMA_FROM_DEVICE buffers.
-- [High] Safe Rust code can bypass dma_sync_single_for_device by leaking St=
-reamingCpuGuard, causing a hardware data race.
-- [Medium] Panic in ContiguousBuffer::data() leaves the DMA buffer synced f=
-or the CPU without creating a guard.
-- [Low] Missing #[inline] annotations on small/forwarding methods in abstra=
-ctions.
---
+Hello,
 
---- Patch [2]: [PATCH 2/3] rust: dma: add abstraction for the single-buffer=
- streaming DMA API ---
-commit 5deae1f6c89c43e53f36e40c370843d948aa3422
-Author: Maurice Hieronymus <mhi@mailbox.org>
+syzbot found the following issue on:
 
-rust: dma: add abstraction for the single-buffer streaming DMA API
+HEAD commit:    848acc8ffe1b Merge tag 'fsverity-for-linus' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13245bb9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=145fa60d73086782
+dashboard link: https://syzkaller.appspot.com/bug?extid=db96c5ff032f4292a8dc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=101513b9580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=17245bb9580000
 
-Add Streaming, a safe abstraction around dma_map_single_attrs(). Between
-map and unmap the buffer belongs to the device, and the CPU may only access
-it in between a dma_sync_single_for_cpu() / dma_sync_single_for_device()
-pair.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-848acc8f.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6fb497cc0c8d/vmlinux-848acc8f.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/663ccee34982/bzImage-848acc8f.xz
 
-> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
-> index 8a8af5ab7feb8..cbaf30a2de864 100644
-> --- a/rust/kernel/dma.rs
-> +++ b/rust/kernel/dma.rs
-> @@ -621,6 +630,389 @@ fn data(&mut self) -> &mut Self::Data {
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
 
-[ ... ]
+e1000e 0000:00:02.0 eth1: removed PHC
+e1000e 0000:00:02.0 eth1: NIC Link is Down
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000003: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
+CPU: 2 UID: 0 PID: 5932 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:i915_pci_probe+0x57/0x480 drivers/gpu/drm/i915/i915_pci.c:961
+Code: 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 f6 03 00 00 48 b8 00 00 00 00 00 fc ff df 49 8b 6c 24 18 4c 8d 6d 1c 4c 89 ea 48 c1 ea 03 <0f> b6 04 02 4c 89 ea 83 e2 07 38 d0 7f 08 84 c0 0f 85 86 03 00 00
+RSP: 0018:ffffc900016bf9a0 EFLAGS: 00010207
+RAX: dffffc0000000000 RBX: ffff888023150000 RCX: 0000000000000000
+RDX: 0000000000000003 RSI: ffffffff85d8d20d RDI: ffffffff8c43a498
+RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: ffffffff8c43a480
+R13: 000000000000001c R14: ffffffff85d8d1f0 R15: ffff888023150130
+FS:  0000555583377500(0000) GS:ffff8880d5fd8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ff49e597e9c CR3: 0000000023b2c000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ local_pci_probe+0xdd/0x1b0 drivers/pci/pci-driver.c:332
+ pci_call_probe+0x176/0x800 drivers/pci/pci-driver.c:394
+ __pci_device_probe drivers/pci/pci-driver.c:455 [inline]
+ pci_device_probe+0x1cd/0x370 drivers/pci/pci-driver.c:489
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
+ device_driver_attach+0xd1/0x220 drivers/base/dd.c:1203
+ bind_store+0xf4/0x190 drivers/base/bus.c:267
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6ac/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f246059e019
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffe32b38f68 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f2460825fa0 RCX: 00007f246059e019
+RDX: 000000000000000d RSI: 0000200000000180 RDI: 0000000000000005
+RBP: 00007f246063500c R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f2460825fac R14: 00007f2460825fa0 R15: 00007f2460825fa0
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:i915_pci_probe+0x57/0x480 drivers/gpu/drm/i915/i915_pci.c:961
+Code: 89 fa 48 c1 ea 03 80 3c 02 00 0f 85 f6 03 00 00 48 b8 00 00 00 00 00 fc ff df 49 8b 6c 24 18 4c 8d 6d 1c 4c 89 ea 48 c1 ea 03 <0f> b6 04 02 4c 89 ea 83 e2 07 38 d0 7f 08 84 c0 0f 85 86 03 00 00
+RSP: 0018:ffffc900016bf9a0 EFLAGS: 00010207
+RAX: dffffc0000000000 RBX: ffff888023150000 RCX: 0000000000000000
+RDX: 0000000000000003 RSI: ffffffff85d8d20d RDI: ffffffff8c43a498
+RBP: 0000000000000000 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: ffffffff8c43a480
+R13: 000000000000001c R14: ffffffff85d8d1f0 R15: ffff888023150130
+FS:  0000555583377500(0000) GS:ffff8880d5fd8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007ff49e597e9c CR3: 0000000023b2c000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess):
+   0:	89 fa                	mov    %edi,%edx
+   2:	48 c1 ea 03          	shr    $0x3,%rdx
+   6:	80 3c 02 00          	cmpb   $0x0,(%rdx,%rax,1)
+   a:	0f 85 f6 03 00 00    	jne    0x406
+  10:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  17:	fc ff df
+  1a:	49 8b 6c 24 18       	mov    0x18(%r12),%rbp
+  1f:	4c 8d 6d 1c          	lea    0x1c(%rbp),%r13
+  23:	4c 89 ea             	mov    %r13,%rdx
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax <-- trapping instruction
+  2e:	4c 89 ea             	mov    %r13,%rdx
+  31:	83 e2 07             	and    $0x7,%edx
+  34:	38 d0                	cmp    %dl,%al
+  36:	7f 08                	jg     0x40
+  38:	84 c0                	test   %al,%al
+  3a:	0f 85 86 03 00 00    	jne    0x3c6
 
-> +    pub fn for_cpu(&mut self) -> StreamingCpuGuard<'_, C::Data> {
-> +        let dev =3D self.dev;
-> +        let dma_addr =3D self.dma_addr;
-> +        let direction =3D self.direction;
-> +        let size =3D self.container.size();
-> +
-> +        // SAFETY: By the type invariants, `dev` is bound and `dma_addr`=
- denotes a live mapping of
-> +        // `size` bytes established with `direction`, which is the range=
- synced here.
-> +        unsafe {
-> +            bindings::dma_sync_single_for_cpu(dev.as_raw(), dma_addr, si=
-ze, direction.into())
-> +        };
-> +
-> +        // INVARIANT: The buffer is now owned by the CPU, and dropping t=
-he guard hands it back.
-> +        StreamingCpuGuard {
-> +            data: self.container.data(),
 
-[Severity: Medium]
-If the custom ContiguousBuffer::data() implementation panics, does this
-leave the DMA buffer synced for the CPU without creating the guard? While
-the kernel currently uses panic=3Dabort, this sequence mutates global state
-(the DMA cache mapping) before a potentially panicking safe trait method
-call, which could violate panic safety guarantees. Could data() be
-evaluated before calling dma_sync_single_for_cpu()?
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-> +            dev,
-> +            dma_addr,
-> +            size,
-> +            direction,
-> +        }
-> +    }
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-[ ... ]
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-> +    fn unmap(&mut self) {
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-[Severity: Low]
-This isn't a bug, but according to the Rust kernel coding guidelines,
-functions in abstractions that are small or directly forward to a C
-binding should be annotated with #[inline]. Should this method have
-an #[inline] annotation?
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-> +        // SAFETY: By the type invariants, `self.dev` is bound and the m=
-apping is still live, with
-> +        // exactly the address, size, direction and attributes it was cr=
-eated with. Both callers
-> +        // run this at most once, so the mapping cannot be torn down twi=
-ce.
-> +        unsafe {
-> +            bindings::dma_unmap_single_attrs(
-> +                self.dev.as_raw(),
-> +                self.dma_addr,
-> +                self.container.size(),
-> +                self.direction.into(),
-> +                self.dma_attrs.as_raw(),
-> +            )
-> +        };
-> +    }
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-[ ... ]
-
-> +impl<T: ?Sized> Drop for StreamingCpuGuard<'_, T> {
-> +    fn drop(&mut self) {
-
-[Severity: High]
-Does relying on Drop to run dma_sync_single_for_device() allow safe Rust
-code to bypass the synchronization? If a driver calls for_cpu() and then
-passes the guard to core::mem::forget(), the mutable borrow ends without
-Drop ever being called. The driver could then safely call submit(),
-causing the device to interact with an unsynchronized buffer and breaking
-the explicit type invariant.
-
-> +        // SAFETY: By the type invariants, `self.dev` is bound and `self=
-.dma_addr` denotes a live
-> +        // mapping of `self.size` bytes established with `self.direction=
-`, which is the range
-> +        // synced here.
-> +        unsafe {
-> +            bindings::dma_sync_single_for_device(
-> +                self.dev.as_raw(),
-> +                self.dma_addr,
-> +                self.size,
-> +                self.direction.into(),
-> +            )
-> +        };
-> +    }
-> +}
-> +
-> +impl<T: ?Sized> Deref for StreamingCpuGuard<'_, T> {
-> +    type Target =3D T;
-> +
-> +    fn deref(&self) -> &Self::Target {
-
-[Severity: Low]
-This isn't a bug, but this small trait implementation in an abstraction
-might benefit from an #[inline] annotation to follow the Rust kernel
-coding guidelines.
-
-> +        self.data
-> +    }
-> +}
-> +
-> +impl<T: ?Sized> DerefMut for StreamingCpuGuard<'_, T> {
-> +    fn deref_mut(&mut self) -> &mut Self::Target {
-
-[Severity: Low]
-This isn't a bug, but this trait implementation could also use an
-#[inline] annotation.
-
-[Severity: High]
-Does this unconditional DerefMut implementation permit safe code to mutate
-buffers mapped with DataDirection::FromDevice? According to the DMA API,
-memory mapped with DMA_FROM_DEVICE must be treated as read-only by the CPU
-to avoid dirtying cache lines, which could asynchronously evict and
-overwrite the device's DMA writes in physical memory.
-
-> +        self.data
-> +    }
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-dma-stream=
-ing-v1-0-03974c86b141@mailbox.org?part=3D2
+If you want to undo deduplication, reply with:
+#syz undup
