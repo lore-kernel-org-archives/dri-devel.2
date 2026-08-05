@@ -4,41 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8677C56208
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 06:52:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C09EC55ABF
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 06:52:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA17810F0D3;
-	Thu,  6 Aug 2026 06:52:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30CA210F0E3;
+	Thu,  6 Aug 2026 06:52:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="X7uo5iM5";
+	dkim=pass (2048-bit key; unprotected) header.d=xbow.com header.i=@xbow.com header.b="MK1qRheC";
 	dkim-atps=neutral
-Received: from mail-4321.protonmail.ch (mail-4321.protonmail.ch [185.70.43.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D50510EE79
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 13:56:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=6kljpvv6hrglppv5cwl3usy5c4.protonmail; t=1785937905; x=1786197105;
- bh=chdGDX++TvBPFjBRHN0cQC/MRwsAhgfHznIjcup1gYY=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=X7uo5iM5/ktQ+sn/4GRGvmnwJW6UqbDVOkRS8oWXVJp8hZKKqIIFErA+wjsYi6BYu
- KoDKUWlY1aWWj5sA6bXpUhaJsj7erOM78EFrRFWjlKrVefmW3o0duWSaV6rKZbxLIY
- +CCter+fhZt77Jy8Gu3RTFmR3gEfyYWisSBsbfgFPivqp5oo7Mcpwpflqj3oPYJ4LM
- mgKUU3h04RbmuZOFStcWOdZUxGRdMkT+NAywJAv7GPYTUKeJZVQvbglG0lqp4WWvQ3
- t/XRiL6Vt086Im2uUwuKmNFRcZmXvBAU+B1koEZ+XkzfwzLAkn00yBH/kEM21LXVjv
- 1noH1sKOjxbnQ==
-Date: Wed, 05 Aug 2026 13:51:39 +0000
-To: lee@kernel.org, danielt@kernel.org
-From: Levente Szajko <raedrimhun@proton.me>
-Cc: jingoohan1@gmail.com, deller@gmx.de, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Levente Szajko <raedrimhun@proton.me>
-Subject: [PATCH] video: backlight: Use sysfs_emit() instead of sprintf()
-Message-ID: <20260805135027.43890-1-raedrimhun@proton.me>
-Feedback-ID: 100557472:user:proton
-X-Pm-Message-ID: 72184ef1d741a4d62fd5bcf41e6fb1132ae52a94
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B67EB10E1F2
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 12:44:47 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-ca97d139d5fso733735a12.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 05:44:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xbow.com; s=google; t=1785933887; x=1786538687; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=QBugC61SebRfHUYlxhe8LyjAwmlc8xHKfpXGCT71Nbs=;
+ b=MK1qRheCtqeaq1Tdn9SxY4VnUTXWKfhLWjgTdpyDs9He8ktzoFQ+dkcNb2K3H52lyk
+ N/iE5FGp9OBD/TOlllMIHNOwK00hG5W+R9Sednn5Jb6eenHY/jY51BrT9WR1ojMpZIc4
+ ge84xIPyMlDj5UC5eIPV5A8yKojTEyZJJ7EKX49t3MWI7Kd2UL0j3VjVJLsDudkk3RS6
+ khsfm/sftlnSn8lr0XlUBfYTRZxcFBve48j33fuTMqRTJxo4lP86bwjlPcu+yZSgIxMk
+ JtHfIm/HAIUSALvvahQ9Af4arvGvcEnaqEcabLrcwZrRqQ574yONLIsfyP1uBeQMRyhd
+ H7DA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785933887; x=1786538687;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=QBugC61SebRfHUYlxhe8LyjAwmlc8xHKfpXGCT71Nbs=;
+ b=Nm/D4cNqu+qswhYMng3FemYmpEppzIAAQBq8QMORREzYpWCcEtJhlhHinktaFJkx12
+ f+hBgmu5lU3N6jfxkmGV7I3Vjl9Ab6GdvCjdwVn34hA0zgRZfxzAhtS/OLsGJAObXeAA
+ 4gFPA5EmUIu1XIPx3Nulhd9e0CbIJTD4272raQQ3UiqY0Mxzvj5uUKLtUzSLn0tZGWzR
+ VJNbgkxKRbF2GbzRr/7DkJzurxteir/zOg9vfUmkXOa3/SW5Fvyq0WNlClF07VgBjvGb
+ qfiCLYyAIvcVf4fSX+8UhhXZAzfNeLUMoTvthYegY8jTfsXtVRkQunlWNUzhmWat/yTJ
+ fQFQ==
+X-Gm-Message-State: AOJu0YyZHeZEKN95IAjG/lIhShLi7/5uCRW849GjIfzB9ubImn5cPNCQ
+ 1yqhCgICm9Cw95uzVdsAu2w0lmeJLbGs6CThS+PJbl0HqaRv7EdMAJLXb7YZy0/2qf4=
+X-Gm-Gg: AR+sD12hJfH1wR9NC0+FtHIx0CuO8bQiEeordnDhj9wPsJfM8dxTbbqy1KAk3c0ZCVU
+ +vf2361lqKp2xI4SzMMzf7my2eaeal4nbwAG1m6DzZTL7wMX9FGxPOJUDLAZvHkPMz+W0l+GlV4
+ viFMi1BEQmUnWcByYxFFwjOjimUNN613FUtB0sPP6/0CPrWaR+VA1MiHi8OXQNHv9dXq7hlJxYN
+ sv4jgqDav/ufMhShZogaIj+JjSGIkc93P5thp73+Y56v0IvrGPbkB0aIG0dScukg3o5j+gLn67D
+ e7rQuHV1BO6A4MxS6uuBEH/BbsahuW+5a9UkvfRZsN1ybjGuQ1Zqiekd18t15Tvxv0JSUx1D5aQ
+ vMKtOkF3yRVwBlRwKBVnfNipzU7kZ1/cbk0/bpDCh1rw0U2qK9S7gtMf8XGqaEge7DzOr6TUjUb
+ Nf0fW3CRc3NdAE2hPufEBHkIopGXAXO6RXbhcoRVEQwPt9DjBI8Pns25qzT+E9ork5+jj9WMZkK
+ q1IlY60csEuSWUS9OPI5RSrAys4CT7ohWiqUvI=
+X-Received: by 2002:a05:6a00:4b43:b0:845:e2da:91a3 with SMTP id
+ d2e1a72fcca58-84f2e0276ddmr6987044b3a.30.1785933887134; 
+ Wed, 05 Aug 2026 05:44:47 -0700 (PDT)
+Received: from Mac.lan ([125.128.148.126]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cbe707cab37sm1546962a12.7.2026.08.05.05.44.44
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 05 Aug 2026 05:44:46 -0700 (PDT)
+From: Baul Lee <baul.lee@xbow.com>
+To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Baul Lee <baul.lee@xbow.com>
+Subject: [PATCH] drm/gem-dma: fix double GEM object put on the mmap error path
+Date: Wed,  5 Aug 2026 21:44:42 +0900
+Message-ID: <20260805124442.57426-1-baul.lee@xbow.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 06 Aug 2026 06:52:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,120 +86,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Replace sprintf() with sysfs_emit() in the sysfs show callbacks of
-backlight.c and lcd.c, as recommended by Documentation/filesystems/sysfs.rs=
-t.
+drm_gem_dma_mmap() drops a GEM reference when the DMA mapping fails:
 
-No functional change intended.
+	if (ret)
+		drm_gem_vm_close(vma);
 
-Signed-off-by: Levente Szajko <raedrimhun@proton.me>
+drm_gem_vm_close() puts vma->vm_private_data.  drm_gem_mmap_obj() has
+already pointed that at the object, and puts it again when the callback
+returns an error:
+
+	drm_gem_object_get(obj);
+	vma->vm_private_data = obj;
+	...
+	ret = obj->funcs->mmap(obj, vma);
+	if (ret)
+		goto err_drm_gem_object_put;
+
+One get, two puts: a failing dma_mmap_wc() or dma_mmap_pages() underflows
+the reference count and can free the object while the caller still holds
+it.
+
+The callee does not own that reference.  drm_gem_shmem_mmap() returns the
+error and leaves the put to the caller, and both callers do it,
+drm_gem_mmap_obj() as above and drm_gem_prime_mmap() from its own error
+path.  Drop the call.
+
+It was harmless until commit f49a51bfdc8e ("drm/shme-helpers: Fix
+dma_buf_mmap forwarding bug") moved the vm_private_data assignment ahead
+of the callback; before that the field was still NULL when the callback
+ran and drm_gem_vm_close() put nothing.
+
+exynos_drm_gem_mmap() and __tegra_gem_mmap() have the same error path.
+
+Fixes: f49a51bfdc8e ("drm/shme-helpers: Fix dma_buf_mmap forwarding bug")
+Cc: stable@vger.kernel.org
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
 ---
- drivers/video/backlight/backlight.c | 16 ++++++++--------
- drivers/video/backlight/lcd.c       |  6 +++---
- 2 files changed, 11 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/drm_gem_dma_helper.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/=
-backlight.c
-index a22d0bbb6e63..fc9bb303e8c5 100644
---- a/drivers/video/backlight/backlight.c
-+++ b/drivers/video/backlight/backlight.c
-@@ -139,7 +139,7 @@ static ssize_t bl_power_show(struct device *dev, struct=
- device_attribute *attr,
- {
- =09struct backlight_device *bd =3D to_backlight_device(dev);
-=20
--=09return sprintf(buf, "%d\n", bd->props.power);
-+=09return sysfs_emit(buf, "%d\n", bd->props.power);
+diff --git a/drivers/gpu/drm/drm_gem_dma_helper.c b/drivers/gpu/drm/drm_gem_dma_helper.c
+index 1c00a71ab3c9..a34561efd1ae 100644
+--- a/drivers/gpu/drm/drm_gem_dma_helper.c
++++ b/drivers/gpu/drm/drm_gem_dma_helper.c
+@@ -550,8 +550,6 @@ int drm_gem_dma_mmap(struct drm_gem_dma_object *dma_obj, struct vm_area_struct *
+ 				  dma_obj->vaddr, dma_obj->dma_addr,
+ 				  vma->vm_end - vma->vm_start);
+ 	}
+-	if (ret)
+-		drm_gem_vm_close(vma);
+ 
+ 	return ret;
  }
-=20
- static ssize_t bl_power_store(struct device *dev, struct device_attribute =
-*attr,
-@@ -180,7 +180,7 @@ static ssize_t brightness_show(struct device *dev,
- {
- =09struct backlight_device *bd =3D to_backlight_device(dev);
-=20
--=09return sprintf(buf, "%d\n", bd->props.brightness);
-+=09return sysfs_emit(buf, "%d\n", bd->props.brightness);
- }
-=20
- int backlight_device_set_brightness(struct backlight_device *bd,
-@@ -228,7 +228,7 @@ static ssize_t type_show(struct device *dev, struct dev=
-ice_attribute *attr,
- {
- =09struct backlight_device *bd =3D to_backlight_device(dev);
-=20
--=09return sprintf(buf, "%s\n", backlight_types[bd->props.type]);
-+=09return sysfs_emit(buf, "%s\n", backlight_types[bd->props.type]);
- }
- static DEVICE_ATTR_RO(type);
-=20
-@@ -237,7 +237,7 @@ static ssize_t max_brightness_show(struct device *dev,
- {
- =09struct backlight_device *bd =3D to_backlight_device(dev);
-=20
--=09return sprintf(buf, "%d\n", bd->props.max_brightness);
-+=09return sysfs_emit(buf, "%d\n", bd->props.max_brightness);
- }
- static DEVICE_ATTR_RO(max_brightness);
-=20
-@@ -251,9 +251,9 @@ static ssize_t actual_brightness_show(struct device *de=
-v,
- =09if (bd->ops && bd->ops->get_brightness) {
- =09=09rc =3D bd->ops->get_brightness(bd);
- =09=09if (rc >=3D 0)
--=09=09=09rc =3D sprintf(buf, "%d\n", rc);
-+=09=09=09rc =3D sysfs_emit(buf, "%d\n", rc);
- =09} else {
--=09=09rc =3D sprintf(buf, "%d\n", bd->props.brightness);
-+=09=09rc =3D sysfs_emit(buf, "%d\n", bd->props.brightness);
- =09}
- =09mutex_unlock(&bd->ops_lock);
-=20
-@@ -267,9 +267,9 @@ static ssize_t scale_show(struct device *dev,
- =09struct backlight_device *bd =3D to_backlight_device(dev);
-=20
- =09if (WARN_ON(bd->props.scale > BACKLIGHT_SCALE_NON_LINEAR))
--=09=09return sprintf(buf, "unknown\n");
-+=09=09return sysfs_emit(buf, "unknown\n");
-=20
--=09return sprintf(buf, "%s\n", backlight_scale_types[bd->props.scale]);
-+=09return sysfs_emit(buf, "%s\n", backlight_scale_types[bd->props.scale]);
- }
- static DEVICE_ATTR_RO(scale);
-=20
-diff --git a/drivers/video/backlight/lcd.c b/drivers/video/backlight/lcd.c
-index e918f57608ef..461e393837d3 100644
---- a/drivers/video/backlight/lcd.c
-+++ b/drivers/video/backlight/lcd.c
-@@ -77,7 +77,7 @@ static ssize_t lcd_power_show(struct device *dev, struct =
-device_attribute *attr,
-=20
- =09mutex_lock(&ld->ops_lock);
- =09if (ld->ops && ld->ops->get_power)
--=09=09rc =3D sprintf(buf, "%d\n", ld->ops->get_power(ld));
-+=09=09rc =3D sysfs_emit(buf, "%d\n", ld->ops->get_power(ld));
- =09else
- =09=09rc =3D -ENXIO;
- =09mutex_unlock(&ld->ops_lock);
-@@ -118,7 +118,7 @@ static ssize_t contrast_show(struct device *dev,
-=20
- =09mutex_lock(&ld->ops_lock);
- =09if (ld->ops && ld->ops->get_contrast)
--=09=09rc =3D sprintf(buf, "%d\n", ld->ops->get_contrast(ld));
-+=09=09rc =3D sysfs_emit(buf, "%d\n", ld->ops->get_contrast(ld));
- =09mutex_unlock(&ld->ops_lock);
-=20
- =09return rc;
-@@ -154,7 +154,7 @@ static ssize_t max_contrast_show(struct device *dev,
- {
- =09struct lcd_device *ld =3D to_lcd_device(dev);
-=20
--=09return sprintf(buf, "%d\n", ld->props.max_contrast);
-+=09return sysfs_emit(buf, "%d\n", ld->props.max_contrast);
- }
- static DEVICE_ATTR_RO(max_contrast);
-=20
---=20
-2.55.0
-
-
+-- 
+2.50.1 (Apple Git-155)
