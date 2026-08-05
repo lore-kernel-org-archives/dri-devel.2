@@ -4,51 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 849C5C56203
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 16:37:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C5E5C55ABA
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 16:37:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94D4C10EF3F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59F2610EF37;
 	Wed,  5 Aug 2026 16:37:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="Jukh3iAL";
+	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="xYMmDxmp";
 	dkim-atps=neutral
 Received: from CWXP265CU008.outbound.protection.outlook.com
  (mail-ukwestazon11020106.outbound.protection.outlook.com [52.101.195.106])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1110D10EF0D
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 16:37:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 091D510EF29
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 16:37:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=twrak0/rqlASzdm63+v4IbcDjCk7JYr7BILrxOK7gkCRrXAWBWJB86yoef7YoEtbte2oA7obkUXKvLjY3NGbb/0hKEj8HKyCMN3Xst7D8DU3dxC8SQFkBpNnVJ1JB5jIeOTl0YOjFdYko6H3VRt8398apcOHdov9hPTZYUzXOA/2Trhtovvui3eVZboS08KAU0i/ZStvTev+1upmxw3eUnPM4cZ634WGcmMLbeuCVtK+GOJJnLj70q/IF639WWqZbSY6x2gyl7dSKFNnNkVdspjNk2E0yVzqeE/3DjpNn5914aFXHXneQ++O75Elld3OJ2BXlgJToq7Bc3x4onjlxw==
+ b=hNLLFruRpO8UwiviiRWdHIk+2QoUHA1j/lhgAm3ZZoBSz3d2XieCtrbW9/eNLwWo8k/Z1ojsl3BAUd374F9AuwktXx0yey1wEUbNo+G2NswD/L2T51EQ6cISWa+4UDQpbQhntbhHU+76WoDWyGu8UIwMySOjk/bJZ0gS/ykeicWRjvkQyNB7WFS35/MlnVZyAbythi7yY2fthyYo5F2uRly91S5B+UO90jEKB/kOvWflPEhVHvNCmxQQQvyr6Dp5r4uANIJpA2K1Zb+VWKrU5bWnuiSfIF8aQ2vCfB2aT+sj8T0C7Q+OW3mNXRXzSeFJrw+p7Cj5969MiiE5uz+a0Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WZ1+xWdbI8qs26+1rjXes6seWKT/d3LmyIR+KZonVhM=;
- b=DFnSQhUClJW0UO+mg3HniUMqN/ACtKZvn0eG9YRqPW3Qhq5R/amEgCFMF6UegP5UUgobEBlgyCrl1ygh8iRoiNqGBCgHLwaxNb+RW8UuBWAjgQkjP+c09zv5HZfI6suQqA3JUyQnZMsLI+LGwRMHHV0/mFbC2iQnYRag2vxnL+BsEsZyhl+t/htwAItYfy/I53NeFfGzDA0qV8E5wrU0aT0HZtqu38Q0q5AN1x7Odv1Ma8ni/MJhHVAlhaRuD8G9+FIcCoQfN6SncUIYn1NW6J0JOvst/6jMsSXj2DMF2v1IZecTOXtBrI2oYfVRCGR37nBfdXBFY72EcMg+aI+riA==
+ bh=dvS/jlP6DOy9hGWhegPfAalUb3KtPmZmYDbiK7fztyc=;
+ b=p+azD5E9zTnBthCVJCadIYbL3u33dJw+vPOpJGd6LQlGAcquVxV5lYCC1Nzoc3Eo9KdU4EHnvm4XRzgAODUqBt59licwd7GT4pU9bh9rnPPRvyQ3i53uCdQpcCZvCWAyfz8H6Chkh5X1fmAeqkZUF+72ugHfpAa/WAyB2r95zQrA6K3deNLCQBqLcmpiWpzw3grsL5IONO2w25pTQjFDdPatMUQ2S3FrRIr0s9a+LY80qlpgCPqZ1rD4OHjTYWWJFOUWqB8BmUejs/kPlN8Kd4MuaYVF6gWY4AJ2smG2m3jpO19kvPVekGA5BALQwkA3ibtqo3bd+DnaX5QtouKyjQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
  dkim=pass header.d=garyguo.net; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WZ1+xWdbI8qs26+1rjXes6seWKT/d3LmyIR+KZonVhM=;
- b=Jukh3iALmvb6jwXsZMDHTUYfLtWVBuEYpSlpL3Z3yuWogmwQ22+/BOQQYmXG8eBeE0kOGYK5bCZdjVz8AUP1EotKyifxAkmPD3mOrDgKFhBD8R7hOO9yFGPyTC4mTG+OlrMkkaFxPH9UQgnCrQmhpYTfV1e1UKxQPrHmDGcMHlk=
+ bh=dvS/jlP6DOy9hGWhegPfAalUb3KtPmZmYDbiK7fztyc=;
+ b=xYMmDxmpRomyerujm7kq4Zn2yKkiad/2kZcwU60puprKD+NzaqujlLC2Qc+zc5fVLDCHG+yyIqwCgObyXl2MGXo+YiuVKfLlUHijATKXLF1kt+7czF7W0Ilxpq+YrKeZcTLQl3AwRROuGM1tpTlnHGtUlOM6ynZVox0A7XoPRo0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=garyguo.net;
 Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
  by LO2P265MB5822.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:26c::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 16:37:07 +0000
+ 2026 16:37:01 +0000
 Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
  ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
  ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
- 16:37:07 +0000
+ 16:37:01 +0000
 From: Gary Guo <gary@garyguo.net>
-Date: Wed, 05 Aug 2026 17:35:54 +0100
-Subject: [PATCH v2 11/16] rust: io: register: support fixed offset register
- without bitfield
+Date: Wed, 05 Aug 2026 17:35:46 +0100
+Subject: [PATCH v2 03/16] rust: io: support register projections
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-typed_register-v2-11-c3ca142220a0@garyguo.net>
+Message-Id: <20260805-typed_register-v2-3-c3ca142220a0@garyguo.net>
 References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
 In-Reply-To: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -67,11 +66,11 @@ Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-pci@vger.kernel.org, 
  Gary Guo <gary@garyguo.net>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785947819; l=3000;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785947818; l=5910;
  i=gary@garyguo.net; s=20221204; h=from:subject:message-id;
- bh=Mk3q2f5pRvd0nCg7W6kAzx7EEYWOQcCsfWANveUMhXk=;
- b=5P+em+g+ToV/Rt1UvTKk9A/GkTosuBGOitiBcN/k8ITaaz6e1/la/TTmqzrq1z60RPSsptgr0
- Nv47JJFlbOLAF5+f5x7/VgVF94m8hjq4oGwMqlEnRSdUUiX89ZpZK3A
+ bh=EbHCj1FMWHFtLfPDfgUWddDIprNCdd3K5CRvUw4dH70=;
+ b=RfksNUMRUkPiRtC741WaSv6nfB39pbLnibHBEmepJAyKzyWTVAZMiV3M66GKSNlfwOOuB+rzF
+ vV3A2AWwHYyABCpZz1kUtPrU7pJ+iQAXyb8fsC9nNcsOSdgJpWWBhH4
 X-Developer-Key: i=gary@garyguo.net; a=ed25519;
  pk=vB3uIX95SM4eVrIqo1DWNWKDKD2xzB+yLLLr0yOPYMo=
 X-ClientProxiedBy: LO4P123CA0608.GBRP123.PROD.OUTLOOK.COM
@@ -80,65 +79,65 @@ X-ClientProxiedBy: LO4P123CA0608.GBRP123.PROD.OUTLOOK.COM
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|LO2P265MB5822:EE_
-X-MS-Office365-Filtering-Correlation-Id: 53742004-aea0-4da1-c7a7-08def30fc9cb
+X-MS-Office365-Filtering-Correlation-Id: bd05853b-d950-4b58-b834-08def30fc682
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|7416014|1800799024|376014|23010399003|366016|3023799007|22082099003|18002099003|5023799004|56012099006|10067099003|921020;
-X-Microsoft-Antispam-Message-Info: Nz5a0FyX2MBzjXOzyfgMWcV4BLvZRnnuFZjusKiS3rJjiAVz74fv79dAcHo7I3wXsjMyINANqfq/e77wXnggyUd1sw7LzImGPfXCrmKcDPKs1uI8dL/Yv9WN6se3v40k3DlgFi3stmDEOw03a2LC+rKxxfH1tOzClzWuFqzjdW8cMjAFnXWhIW7ja1IJD/adEEwwZztt5JOb6x476RrxTqR33qZbzosZW+RFxnAnQtgdtkZjAWgWEeXbrdbpL3jG/orgxpDsdpQLXNL/v4DstowglzFlKZYfNOhKMumODmVH3Mf3j7FIHB/9s2FPet6NvR+6PWFhKDJGxZ5BknJ4vbDUtHOxwuGTwYehZ17FsWMyBO+AsLJGrNtdQgIL4eNSw+HrjD+ysNxtGHufotifsqK+4kOn1zsU6vF0sx5kJqzIpx3X+gIhRP+51BJnMP+spqwMt8LE8WU3ajXT+rM7EUmNmWWnmMmo18gyWgP6aMy3SlF3ztsOuFeWS1IBMTsMxGFFXLmqaEb6tczb4btuRMaSGLd8hejTp2hkW4sVGIPpA6oRcLeB7HYVGc40jeL/WrzaH3y65ax/fA0OnlOtOU3UFhMBvdpAjpLP+J5Hw9h9M5saghOE5p0aG2qMsWViJXjFgHXz07HpdcCwsA7M2RE9HKbio0x0GXrO3fCkFjcwPrQ+V2tgB4jHsNM/YMZC5hTDB+OZKtNRWMOkfT6wdg==
+ ARA:13230040|10070799003|7416014|1800799024|376014|23010399003|366016|6133799003|3023799007|22082099003|18002099003|5023799004|56012099006|10067099003|921020;
+X-Microsoft-Antispam-Message-Info: gxkp4bjHaZD44Wwc4eFrJPI713c6XlXzddkiF154kQdzoGrOLtBnzh3d4k2SAbckP9V4VOlWzt32pvudz+8XBIKh6BwYowURlfcS5gaOfAENBXxF0aitZK01B3GXwIeV43V3G3h+jAGkPPpEBg0u6yr4mwcW4kOgpAZR3VmES0q1ljBu3eb3CZU1U1MHiWaPan1Kux0WSkVed/WkkLKHRFhMJvFvekVrnshGIl1eijGkNsijR4myluH6Lnt2XvDxWF9JFbW9rqpNvoP/bEmaG06D4RPZkUo49h+CWUOutN0+OZm9zuV3nlapm/sjMxpOliseQ56ETqn78WeN9DI5Z4spm2J19MRoRcfBGuTkizVB/wpa6EJaEuLFhBGLUauHorEVOwb8Bl/Tqb2OELmaKZvgioW1gfaewRNajbFz5S88jO5xuCRT+LzBpBcEjV5j7IXD3VeFzWchSdH/u3rd0NJMam8r4vzL4hzXw5lf9d1OVfACTi38A/9UPcJ68+AtY3RWTN8ppC3BygipSJHumi2qaNGOfmmFAhyoBeJ35ZSlRRdkUQhO9xOaXsl0Qhovwvy5xbdYOZ0lBQateqa6HNDI/AlEhWqOZT5E3hK/4MobesirHiNz8hqGVf7Ji8aXQaQVWDYxf6Gv/m6a1WQWr6UBADfPKVMi2lGjGbSu7zYHPkqu5cvxPjpSGOuQiQ1Kr3/HFIoxg3fQdRWaY4MFrA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(7416014)(1800799024)(376014)(23010399003)(366016)(3023799007)(22082099003)(18002099003)(5023799004)(56012099006)(10067099003)(921020);
+ SFS:(13230040)(10070799003)(7416014)(1800799024)(376014)(23010399003)(366016)(6133799003)(3023799007)(22082099003)(18002099003)(5023799004)(56012099006)(10067099003)(921020);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b0IyZnoydzIyTnQvbDZPMENmbUNueHNJRk9TbFRMWHdLTUM2ZEFPaXptd3FF?=
- =?utf-8?B?aHhkM0FxWEZrbldjZlhqNVBRVitTYXc1eXhhRXVaUEduemxuSVo0Z2ZpQ3lV?=
- =?utf-8?B?RWJKUFpyYlh0QzRrMlU0elFtaVdmUEJQM2pSMmJacUJNcTN6aXc4cXpTVFly?=
- =?utf-8?B?ZHI1ZmtKZmRObCtkK3d2UkhCL0hmU2c0cVlGbkNPb2d2bTdNOTBDdlhZNWc0?=
- =?utf-8?B?VzRWaUVNZTlPWGZVdWtCendpOXIzK3cyR0h4T1lWL2g1TEFhN0U4cHIwczVW?=
- =?utf-8?B?YUNFYmQ1ZGM0eGlIQWw0SUR2Zm0yRTI1SXZBb2s1elVncFBWWXNiQ2kzTDE0?=
- =?utf-8?B?aGdSUUs5YTB3bW9USVdQU0JJSG85RnRTY1pJd21zNFNvMVN5MXhnQXh5UzEw?=
- =?utf-8?B?dTIreUxkaXQxaGVjVFJYZUIzQ05WRS91S3ZKQUQzeEJXUW0rMnBocTArZE8y?=
- =?utf-8?B?SGlTK1BZZFkxVGxwMEVqV0FEREdQQmx2Wi9OUG81c3FGK0NTTHU2Z1c0MkNv?=
- =?utf-8?B?M0M0cEhqR3ppOUhueGhPY3Qrbk5TbkFzVEIxcEZrNU5neWZHVjlLaWU4MXBQ?=
- =?utf-8?B?aWtaZjJNT253U3ZuTWxBMlpGQlpEamltcW9HQkNVM1JzMzMvSlQvTzU1OVNS?=
- =?utf-8?B?cUUzdjU2a0dtN2JBZksxUC9sZC9lN3NlNmZ4T1pNUWVkTGFTRXdFeEZxeHZl?=
- =?utf-8?B?VHZVNHRiREE3ZzNndncvZmcvK3ZNcEV2ZCtqV0MxeFI4anozTERVRTNxTk1t?=
- =?utf-8?B?cGFBZ3ovSUtlSW53K2xsbVpleXdWdThaejF5OHptTGJRNU9Xb0s3bU5Dc1I5?=
- =?utf-8?B?enRJQVdNZlc1Zk1SV09CRXJEaFV4aVNUWFdmVnpDSFo0blRYVnNSSU55THJK?=
- =?utf-8?B?R2V5MTU1ZjQ3TFArQ3BLdnplb2ZaRXF6Ymw5ZkI3d1ovTE1CbFJReC9pOG5F?=
- =?utf-8?B?NkZnak42V1JnSFlDNUpYUVJ2Q3lqVWlGVFpIVk1pSU0xbk5acDFPb25ZbWFz?=
- =?utf-8?B?VktsSldOSW9SRVQxeEtSVjBsMUtiTVpWd3YrN3JvWlBwdWJCSVk3eThUbVFp?=
- =?utf-8?B?MEU1YkZjcit5YkxBcTFzeVN1eDUzK3hmOWlQWXhuMDltd2dRNUw3QWN5b3V2?=
- =?utf-8?B?SUlJOUxCWE5VcElDMk5mZWd6WjgzSmdnRkR3dzh1c0FUVkdFY2FhVGFpMnY1?=
- =?utf-8?B?Y3NkOW95cWRLemdKQzNRKzlaS1JOVjBFN3E0eXZ3TldEN1N1dEUvNjJ0S3lK?=
- =?utf-8?B?dkFRK1hBUXQzTW9vbS9XaW91YUppY3UvWmdvZlh2cjJqT3d0VlpHeHhNZiti?=
- =?utf-8?B?K2NkWHZzT0JJejh4LzNSRDdNMUNVM1NGM0pSQnV5Y0cySDc4eVYxMjlJUkpo?=
- =?utf-8?B?ZkpxVTh0VG5oaGxaeVQrSHFTVHpGYnkyQTV0Y0pPQWVKWDdpVVpXY3FlemNO?=
- =?utf-8?B?UENUWHhNTThGaFdtT1NDdFk1YWEvek5RVEMrVk4yVy91WEdLR1FOa3lCZWNw?=
- =?utf-8?B?eDc3RFU3V2pPRDhlNmExZVVCRHE5MlMxVjZRTjQyaTFUcFJOSXR5TkxyMlJ3?=
- =?utf-8?B?S2ZVUFZxWGd3RU90Mk83SVVMTFVNQjM5MVZ2Mk5qbGcrTlp6V3FmQUViS3VL?=
- =?utf-8?B?eDB4SGh3dEEvK21HZ3g3UFhCVXpsTlY1TEhPVElVNDNKeDFyaGR3Rk1OYTVk?=
- =?utf-8?B?K2FGcDEzK2FvbTE3Yk04SGdQWlh4YTV2YW1OUG5FbmI3bk9FeGhNRTlYSHE1?=
- =?utf-8?B?dStWakYxeUQ1NnRrOUFHV3R4WHoyOEU1MkVwTGdHd1FQeUl3ZHA4Wk5XcDFH?=
- =?utf-8?B?ZmRvMm5mSDBITlRvNVZ3WUloYURIQzZXamRUejRwblJPOE9EeXZoTy9MNmFG?=
- =?utf-8?B?UzNWR0FtcWlrNmFNQXhWWmJRWnU3WnhMNzcvWjNnUGl5UGVKN2Z0Wmp5YnV3?=
- =?utf-8?B?V0s4YjcrMWxoejdMTWVFQ3BjMmJmeWpEUDMvVjEwTEJ0TzJ1Uk1VT1pVRHV1?=
- =?utf-8?B?WHNYL1p3NEV3N1lMM0x4aUt3Q0YvQStQTEtVRU1uMnJpcGRLb2lVQ1JvblRD?=
- =?utf-8?B?RHNHRUQrRXdzK0Q3WWk5M3VUUnRzYmg5NGRqRHRYNllkQ1Jsb1BWTytxaWhD?=
- =?utf-8?B?OFJuR2VqNS9Va2xNZ2tBdGE0Rnd5ZVVEQVQwQWdITkFqWk5OSFYrdFF0OUJH?=
- =?utf-8?B?M0piaFU3bzluK2M5Q0gwbTdpUzdtTTR2NGRkMGdOcHQ4WE5XZ05zdEF4aWdC?=
- =?utf-8?B?RURzL1hocVkxazNVK3VreXVPeDF6RjZadnEybHNmRTdCREVRa1c5Z0tML2o4?=
- =?utf-8?B?NjhvKzdRWkRYSFBKRVB3WHE1SURQYlkxR2VHWU9BWVFhSlBNS3RjZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWRJK0R6TXRnYnpROEVwODE5L2IwUlJPOFFzUmNPL2EvQlQ5VHdydmdTNmh5?=
+ =?utf-8?B?Rk9LUXZRbHNsL0hWN3RpQjBsMnZpT25DY3lPUDJneXZlT2FITTk4cnBkZDR5?=
+ =?utf-8?B?TUxzVzJ1aFBHaVpXZTdIek04QWlQQzk2ajhXMWhtakx0SEZmajU1TnFVdS9v?=
+ =?utf-8?B?Y2QyOERZbmorekJrOTdjcmNmYTFQM1AvRlVIOWtNTGQwZWpjNDdqRnE2bHlo?=
+ =?utf-8?B?YUNrN280b2k1czRrckpPNEp0UUhaYXJLSFk2dTF3amtwTDJ6ZktvUXFNMjlN?=
+ =?utf-8?B?Tm9NcXBGd3dJSVF0c2hRN2FHdkhKcmtzdmhNTEs2L2czOUhrZmo4QmxXQ0Fk?=
+ =?utf-8?B?RVY4ZXB3RHZmMm1neFZvd0E1MldHZUl3MG91b3hvWHB6WW53bGRHTTc3V1BB?=
+ =?utf-8?B?QTBiZlpMbjhhWTNFVlgxS05YSWM2QU83eERSSEswMVpDa0REVUJvZXBVbWRz?=
+ =?utf-8?B?NXZhT2d2M1pESlAvaXUvN1NaeEtnMFk3VFFPSXFGT2ZjaWtLR2tSNHdyZDZC?=
+ =?utf-8?B?cTJyQXh3TkhDcE1aamlPVWhiZXFTeEFocUZQUEZVRlQxRE0wc1dCNWRESldM?=
+ =?utf-8?B?OWFXYjgzQllUdnB6aDloMVRnbEVCcFZjcDk3OWljTkdRbENiZmc5MjV2L2RU?=
+ =?utf-8?B?NE1xYWMrM2pENUJiSy9VTDJPZjVzUjd6N1ZVOGlXbmF0RWZtT0RXN1YzRWEz?=
+ =?utf-8?B?ZmErRXlVS2VVaHRyQmRSUk5vNy95VUxBa2g0dmRLY0REYUMwSzM0dUhKZ2hs?=
+ =?utf-8?B?Zk5ZdnhLTEM2elBNQmNqMld4dEFKZHdMZ2dFVWZNa1grRGhaS1VZM3ZHaUZ2?=
+ =?utf-8?B?YWtoQmtuOG5TMlRTd0JDSEc2YmdLYnlPRFdZR3FKVVZRakJiUHZpdTJ3d2R1?=
+ =?utf-8?B?M3FuSW9tWkd2RElCbnRnSmNYakNvT3N4azFWT0RYOXlkOEJzNkxCSHM3d1g4?=
+ =?utf-8?B?Szdyd01abVB2TDF6dmVRMEVtRStqY2ZnMGN3akNINFZXMUx5ZklxMW9kaXNz?=
+ =?utf-8?B?Z3dvNWYvb1RneTlvUjNGbVo5NHlYdE1sUlhCKy84cnIxNjc3UkFVbSs1Rjl6?=
+ =?utf-8?B?bmRhaE41VlZaeGJWUXpkNm1uazltMUVicTRGc2ZzdWN0Tm9LUm9RM3lrZ0Fl?=
+ =?utf-8?B?RlNBTnBVOFZVMTc1ZjNheWpVbHRyeHViQlcyUThyQTFLbzR6ZXFzZHVlNzFa?=
+ =?utf-8?B?aXBvVjJnSVE1MUQvN2VRY2RJcUFiaHc2MG5sSUNvbHhGRGZPaG1lT3FiTHRM?=
+ =?utf-8?B?M0JMM3I2U05hZjRTMW5YZWJFMUR2dUlPcW1SbjN2ODIwNkhONW1TZXNCNkdB?=
+ =?utf-8?B?MjhpS2xxNXZObFFlL1lTNmlZUUx0c1kreEx0d0Y3TnQ0WlMzVXlMRXZLaTZU?=
+ =?utf-8?B?NE5tRmZDSDdvOS9xVDVudVpuU0lVZHFMdW9zOEkwN0pmU2lORHF5OHVPcy9R?=
+ =?utf-8?B?a25OeGxKWW5oUlAzeVZIaVRTUHRJdTZMc0RCeTEyR1FSNTlBdy9YbnBURDMw?=
+ =?utf-8?B?ckJVLzRmQ3VTMHRTYUwxZk9QamdLdjJTMmRXdStRdFpkLzY3d1o4QzEwRm53?=
+ =?utf-8?B?djBMbXNodzBYTlVKMDVlaUk1R1JCWHRHK0ViL21DR0xtZ1lWbjlPSGk0SG5j?=
+ =?utf-8?B?TmVaTVZGUmVDQjdiV2Q4b3VQT045bk1tM0p4a2RmZ0c3K1NLTG5VeTVHd09F?=
+ =?utf-8?B?NzdqRFZuM1ZYb2VQLzFLQW9ESTlnT0hXZHhZMDBqKzIxZ25IZElORml1bDd3?=
+ =?utf-8?B?Slhhb25wblpTdEloZ3hJM2wrYnNUK2ZQaXZ1cjN3SCtnK2hOa0xTeVV3MGRu?=
+ =?utf-8?B?MWNIR0tmYjVjVGxtb3FUckcwWFYvd2h0ak5ZaC8rRTJhKzVmZng4QUFycmFM?=
+ =?utf-8?B?YWpmSjk1d1BtOVBTRDF2eEwxUUxYTzV2WWwvalBPMW15d0w5cnBtMlZoajFY?=
+ =?utf-8?B?S0pVN01QUmdYb0pHT0JiNWtrc3pmUHh6ZXZ2ajgyQ2hBcjBwUlMxTncyN2k0?=
+ =?utf-8?B?UHJMYXhJM3ZNWkVaRksxRVRkbUhoYjVMRU1idWZZZlNGY0tZV0FjZ2ZaSXJF?=
+ =?utf-8?B?VU9iSmU3cG1BUG5mcjI5MGFORjhaYzNwOEJqRmN2blQ2U25vdUkzOVE3SEhF?=
+ =?utf-8?B?ZkJUL3l3MEEzVTNET1k2Y2RJcjhhMXhLN01BNjVPYzNZS3Q2dFZ4TmpTQVo5?=
+ =?utf-8?B?T2hFbnRzd1MyNklDaGY2d0RLcHZpcGtOUksyeG51S0FucDRmZytYTkNMS01O?=
+ =?utf-8?B?czk2OXdzQzV6aEdLdGJPU1FteXJ0cU9yUXZFQXNVNjA1b3lTTXpPY2xOenpI?=
+ =?utf-8?B?Z0o1OTEzSmhyeC9aNDQ3S2hMODd2eEp3L0NNT21nVWxpR2R1bnJHUT09?=
 X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53742004-aea0-4da1-c7a7-08def30fc9cb
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd05853b-d950-4b58-b834-08def30fc682
 X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 16:37:06.9777 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 16:37:01.5037 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0+VB7NpolkSBt+6pF5aQrX76h29gkmpfZJeJSTtJnPj2vJAwhUWH8KYJYk9M4WxxgYW6kFNiRJtCZLdtK4dxLQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: XpH8foBcvi1vJNPoOzOzIGeIv8XSY9HPlvu5ECR0UpN/S7A+EvDJxNnWXaK6LFl/h++i8QHk0b8fWqiTneE7pQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB5822
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -155,91 +154,153 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a rule to allow creating `IoLoc` in `regiser!()` using an existing type
-and not create a bitfield. Add an example to demonstrate this for FIFO
-registers.
+`IoLoc`s themselves just describe a projection from a region to a concrete
+register. Thus, support it in `io_project` macro too. Also, update methods
+that operate on `IoLoc` to use I/O projection.
 
-This rule is also going to be used to create subregions for registers; the
-example of doing so will be added later when relative registers are
-removed.
+Documentation of `io_project!` is not expanded yet as the example works
+better when `register!` type can specify base type. `io_read!` and
+`io_write!` gains the ability to operate on registers as corollary of the
+capability of `io_project!`. Examples are not added because `read` and
+`write` is still preferrably used instead.
 
 Signed-off-by: Gary Guo <gary@garyguo.net>
 ---
- rust/kernel/io/register.rs | 47 ++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 47 insertions(+)
+ rust/kernel/io.rs | 58 ++++++++++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 47 insertions(+), 11 deletions(-)
 
-diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-index dc800fc71172..49a61da106c7 100644
---- a/rust/kernel/io/register.rs
-+++ b/rust/kernel/io/register.rs
-@@ -182,6 +182,23 @@ fn offset(self) -> usize {
+diff --git a/rust/kernel/io.rs b/rust/kernel/io.rs
+index 71c6180ed745..ae18890866b6 100644
+--- a/rust/kernel/io.rs
++++ b/rust/kernel/io.rs
+@@ -295,7 +295,7 @@ fn transmute_neo<Src: IntoBytes, Dst: FromBytes>(val: Src) -> Dst {
+ ///
+ /// The layout of the type and the underlying primitive must match; this is enforced via const
+ /// assertions when I/O methods are used, as the type system cannot represent this.
+-/// [`IoRepr::from_repr`] and [`IoRepr::into_expr`] can be overridden for conversions, however it
++/// [`IoRepr::from_repr`] and [`IoRepr::into_repr`] can be overridden for conversions, however it
+ /// should be noted that they are only invoked on value read/write operations and are not invoked
+ /// on byte operations such as [`Io::copy_read`].
+ ///
+@@ -970,8 +970,7 @@ fn try_read<T, L>(self, location: L) -> Result<T>
+         L: IoLoc<Self::Target, T>,
+         Self::Backend: IoCapable<<T as IoRepr>::Repr>,
+     {
+-        let view = io_view::<Self, T>(self, location.offset())?;
+-        Ok(view.read_val())
++        Ok(io_read!(self, try: location))
+     }
+ 
+     /// Generic fallible write with runtime bounds check.
+@@ -1004,8 +1003,7 @@ fn try_write<T, L>(self, location: L, value: T) -> Result
+         L: IoLoc<Self::Target, T>,
+         Self::Backend: IoCapable<<T as IoRepr>::Repr>,
+     {
+-        let view = io_view::<Self, T>(self, location.offset())?;
+-        view.write_val(value);
++        io_write!(self, try: location, value);
+         Ok(())
+     }
+ 
+@@ -1084,7 +1082,7 @@ fn try_update<T, L, F>(self, location: L, f: F) -> Result
+         Self::Backend: IoCapable<<T as IoRepr>::Repr>,
+         F: FnOnce(T) -> T,
+     {
+-        let view = io_view::<Self, T>(self, location.offset())?;
++        let view = io_project!(self, try: location);
+         view.write_val(f(view.read_val()));
+         Ok(())
+     }
+@@ -1117,8 +1115,7 @@ fn read<T, L>(self, location: L) -> T
+         L: IoLoc<Self::Target, T>,
+         Self::Backend: IoCapable<<T as IoRepr>::Repr>,
+     {
+-        let view = io_view_assert::<Self, T>(self, location.offset());
+-        view.read_val()
++        io_read!(self, build: location)
+     }
+ 
+     /// Generic infallible write with compile-time bounds check.
+@@ -1149,8 +1146,7 @@ fn write<T, L>(self, location: L, value: T)
+         L: IoLoc<Self::Target, T>,
+         Self::Backend: IoCapable<<T as IoRepr>::Repr>,
+     {
+-        let view = io_view_assert::<Self, T>(self, location.offset());
+-        view.write_val(value)
++        io_write!(self, build: location, value);
+     }
+ 
+     /// Generic infallible write of a fully-located register value.
+@@ -1227,7 +1223,7 @@ fn update<T, L, F>(self, location: L, f: F)
+         Self::Backend: IoCapable<<T as IoRepr>::Repr>,
+         F: FnOnce(T) -> T,
+     {
+-        let view = io_view_assert::<Self, T>(self, location.offset());
++        let view = io_project!(self, build: location);
+         view.write_val(f(view.read_val()));
      }
  }
- 
-+#[doc(hidden)]
-+pub struct OffsetLoc<Base: ?Sized, T>(usize, PhantomData<(T, Base)>);
+@@ -1772,6 +1768,25 @@ pub unsafe fn project_view<U: ?Sized + KnownSize>(
+         // SAFETY: Per safety requirement.
+         unsafe { T::Backend::project_view::<T::Target, _>(self.0, ptr) }
+     }
 +
-+impl<Base: ?Sized, T> OffsetLoc<Base, T> {
-+    #[inline]
-+    pub const fn new(offset: usize) -> Self {
-+        Self(offset, PhantomData)
-+    }
-+}
-+
-+impl<Base: ?Sized, T> IoLoc<Base, T> for OffsetLoc<Base, T> {
 +    #[inline(always)]
-+    fn offset(self) -> usize {
-+        self.0
++    pub fn try_project_loc<U, L>(
++        self,
++        location: L,
++    ) -> Result<<T::Backend as IoBackend>::View<'a, U>>
++    where
++        L: IoLoc<T::Target, U>,
++    {
++        io_view::<_, U>(self.0, location.offset())
 +    }
-+}
 +
- /// Trait providing a base address to be added to the offset of a relative register to obtain
- /// its actual offset.
- ///
-@@ -499,6 +516,19 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- /// In this example, `SCRATCH_BOOT_STATUS` uses the same I/O address as `SCRATCH`, while providing
- /// its own `completed` field.
- ///
-+/// If you do not wish to have a bitfield defined, you can also create a register using an existing
-+/// type.
-+///
-+/// ```no_run
-+/// # use kernel::io::*;
-+/// register! {
-+///     base: Region<0x1000>;
-+///
-+///     /// TX FIFO register.
-+///     pub TX_FIFO: u32 @ 0x00001000;
-+/// }
-+/// ```
-+///
- /// ## Relative registers
- ///
- /// Relative registers can be instantiated several times at a relative offset of a group of bases.
-@@ -826,6 +856,23 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
- macro_rules! register {
-     (base: $reg_base:ty;) => {};
++    #[inline(always)]
++    pub fn project_loc<U, L>(self, location: L) -> <T::Backend as IoBackend>::View<'a, U>
++    where
++        L: IoLoc<T::Target, U>,
++    {
++        io_view_assert::<_, U>(self.0, location.offset())
++    }
+ }
  
-+    // Creates a register at a fixed offset of the MMIO space with provided type.
-+    (
-+        base: $reg_base:ty;
-+        // `$ty` cannot be `:ty` due to follow-set restrictions.
-+        $(#[$attr:meta])* $vis:vis $name:ident: $ty: ident $(:: $path_frag:ident)*
-+            $(@ $offset:literal)?
-+            $(=> $alias:path $([$alias_idx:expr])? )?;
-+        $($rest:tt)*
-+    ) => {
-+        $(#[$attr])* $vis
-+        const $name: $crate::io::register::OffsetLoc<$reg_base, $ty $(:: $path_frag)*> =
-+            $crate::io::register::OffsetLoc::new(
-+                $crate::register!(@offset $(@ $offset)? $(=> $alias $([$alias_idx])?)?)
-+            );
-+        $crate::register!(base: $reg_base; $($rest)*);
-+    };
+ /// Project an I/O type to a subview of it.
+@@ -1799,6 +1814,21 @@ pub unsafe fn project_view<U: ?Sized + KnownSize>(
+ #[macro_export]
+ #[doc(hidden)]
+ macro_rules! io_project {
++    // Register projection
++    ($io:expr, try: $ioloc:expr) => {{
++        #[allow(unused)]
++        use $crate::io::IoBase as _;
++        let view = $crate::io::ProjectHelper($io.as_view());
++        view.try_project_loc($ioloc)?
++    }};
++    ($io:expr, build: $ioloc:expr) => {{
++        #[allow(unused)]
++        use $crate::io::IoBase as _;
++        let view = $crate::io::ProjectHelper($io.as_view());
++        view.project_loc($ioloc)
++    }};
 +
-     // Creates a register at a fixed offset of the MMIO space.
-     //
-     // This handles all of the fixed offset `@ offset`, alias of register `=> alias` and alias of
++    // Field or index projection
+     ($io:expr, $($proj:tt)*) => {{
+         #[allow(unused)]
+         use $crate::io::IoBase as _;
+@@ -1869,6 +1899,12 @@ macro_rules! io_write {
+     (@parse [$io:expr] [$($proj:tt)*] [[$flavor:ident: $index:expr] $($rest:tt)*]) => {
+         $crate::io_write!(@parse [$io] [$($proj)* [$flavor: $index]] [$($rest)*])
+     };
++    (@parse [$io:expr] [] [try: $ioloc:expr, $($rest:tt)*]) => {
++        $crate::io_write!(@parse [$io] [try: $ioloc] [, $($rest)*])
++    };
++    (@parse [$io:expr] [] [build: $ioloc:expr, $($rest:tt)*]) => {
++        $crate::io_write!(@parse [$io] [build: $ioloc] [, $($rest)*])
++    };
+     ($io:expr, $($rest:tt)*) => {
+         $crate::io_write!(@parse [$io] [] [$($rest)*])
+     };
 
 -- 
 2.54.0
