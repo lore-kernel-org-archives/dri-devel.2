@@ -4,73 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CBD9FC55ABF
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 20:51:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81116C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 20:55:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4654010E25C;
-	Wed,  5 Aug 2026 20:51:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C81A410EFCB;
+	Wed,  5 Aug 2026 20:55:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=deltatee.com header.i=@deltatee.com header.b="B2nleLYT";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="lILzDJIh";
 	dkim-atps=neutral
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5DA10E25C
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 20:51:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
- MIME-Version:Date:Message-ID:content-disposition;
- bh=OVQs2iStLJLV1LuL3mHer5/8sWldCiZ2pfWHe8RSHTo=; b=B2nleLYTl/PeneSE7dR8lXX1mg
- nJApBwd7MAx4rT/cNskor7qwZndKWsVN2eDBy1cQaMwtn3tSTgRdlYzDnTlWxPfAGKWnljYxE/EkD
- uLXP/lP2gMFqcyUReTBIRs1tWAnjebu5tvEZYYA/IjrFOVkh1yDNzUScJThwCgZSDbhP6j9fKevmY
- PKADoN2CSxH8xFGS4WKBf/yCrAOHwuK6CixSyksjqaHQvTk/ZBJ8zXZU0vPaIJJq1FMu9NIVW/crK
- kyC58ekoblBVP9syZJFG6hH8ZIML5CSBhgMBeJMxGrQVo372RUjSV2wJ7lGmz17pwUiYIs3K8iMQp
- qJK5vUAw==;
-Received: from d172-219-145-25.abhsia.telus.net ([172.219.145.25]
- helo=[192.168.11.155]) by ale.deltatee.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.98.2)
- (envelope-from <logang@deltatee.com>) id 1wriZp-00000000pZu-2PYL;
- Wed, 05 Aug 2026 14:51:02 -0600
-Message-ID: <72c83c2e-fcbb-4925-ba50-5be01af359ad@deltatee.com>
-Date: Wed, 5 Aug 2026 14:50:46 -0600
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
+ [209.85.160.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2599510EFCB
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 20:55:17 +0000 (UTC)
+Received: by mail-qt1-f180.google.com with SMTP id
+ d75a77b69052e-52b6543169fso9402751cf.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 13:55:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1785963316; x=1786568116;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=dQeleUHR/VN3i/9olm3Eb+prEK3JwfisQyJRXtHvIlY=;
+ b=lILzDJIhyFb8bNx9+yb6K1vbAXXVEelaRvHW2G4C4Y3de/TX3XT7llLRUl0WVMLHRt
+ q4wR13NwUdfZ95F8ejIoUZSX96lCGYvqf/6fqWInO4jN9tzvTV1dvFJb8PG5G+DzYW66
+ ldmQstaiyxKq9kb4+m7HPdp9T3B12ZsDbxo+8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785963316; x=1786568116;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=dQeleUHR/VN3i/9olm3Eb+prEK3JwfisQyJRXtHvIlY=;
+ b=lCvlYO79PbspiATH1ET4EfzaGElha6myoTQNW5vZGVnhmm22TuzX4Drii6AcCa21Iv
+ GIQvCEtYHqD22JCzPQLEmUWG3FpBhmEIjyxw5yCuHy3ccLIU1OlP1Jtn7yrjt8otHoMr
+ 6Hr6itsUSol74UTeQEr6NmyMuIaswT9DxEt7AEkoVIl23KpF8BMPg6kWIANleDSQMZoV
+ c0Mlj4oH0SBnadXYx+pNG0htlVb2x5UAjJ9KxRE7LA8HlDN0owSdNlpc2KCA2/rP2UD3
+ YIP6LKFYexR7fT3ty/OJjH4QLecQFWbdocYZ+Ne4MrU/rzhJcKUw0o4hUQj3CnfvJ16k
+ Y/ug==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr92ypAUWaMVE9I5hSfLfmxA80aY2cvO3on9yIna0NSlaxxUlmEKXw85GbY8PghhkRn8DnnCLwSpgQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwT1O1OMtoOYAe1YXh23dViPJ6MNDHZERXCBZm6zDfGB/vhirWr
+ /BUvh7xLAoxjgorWxObLX33vH/rGTbHwyC3kGfKpJizRcv8z8wS5yI2hlPJMfVrvysTmBy1x0ua
+ T0wM=
+X-Gm-Gg: AR+sD120m9S71luP3XqRppDqWbAOGecH5kAvcEsMHFz0tg3RvyhP8+oNkNNKcK3Gz3l
+ PZ21lrh8m555UePEaJxsj8NPRL0jClvrKfWWJnv9ChzFvwJ/W18UTO6wt921dmR1YinsGp7zxk6
+ OUUqMjsVkDFKx7uXkz9OgWKyut1rOk6ZS4Bos1o4nWMYPKuF5nQpfc/ScUGYHsAUdevNoTtciaj
+ lhLTIYiFYoWansWe70WV54udztaDXc8L0S9GomC2rxB7Jr7Trk8rNppXslhFTKW5guY9totMdRy
+ ZyeddOSbj9ChXq/CcfNhN5Zl3JriiTJCC5qf4PyJABsSwuTa/zqRuM3+1rm+O0hTuNg3tzLN7hB
+ 1FZqXg6XH6+OvxjWSelQKu50oeevr/BHqa2UV2jSiUrnKdCTvAcY76qtMXGULWVwwd0lXStLAHk
+ iQeKPqqED2rzV3yTGYfBAHZ1n4mEzRYLUaJyI1tsf/SroYOTE4B9VQ5/BQpcKe3Plv9ryu/CQe3
+ 958xmLcwKkH8Ui5Y63bH4t3g38=
+X-Received: by 2002:ac8:58ce:0:b0:528:583:a6c6 with SMTP id
+ d75a77b69052e-52ce5f26afemr85354691cf.6.1785963315896; 
+ Wed, 05 Aug 2026 13:55:15 -0700 (PDT)
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com.
+ [209.85.219.42]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-9088008e6basm34447326d6.26.2026.08.05.13.55.13
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 05 Aug 2026 13:55:13 -0700 (PDT)
+Received: by mail-qv1-f42.google.com with SMTP id
+ 6a1803df08f44-8eeadbc5e21so9975046d6.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 13:55:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpMqgkchpTXRR6HCAjwPzgb+1xu5nW9S7KsWOcb43ezCqeCrdNO99DDSH0qPe240DDMkfOcOtYTjBg=@lists.freedesktop.org
+X-Received: by 2002:a05:6214:2aaa:b0:907:5451:8954 with SMTP id
+ 6a1803df08f44-9088125ac58mr97922226d6.16.1785963312611; Wed, 05 Aug 2026
+ 13:55:12 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Jason Gunthorpe <jgg@nvidia.com>, Matt Evans <matt@ozlabs.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Alex Williamson <alex@shazbot.org>,
- Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
- Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
- =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org, Longfang Liu <liulongfang@huawei.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-3-matt@ozlabs.org>
- <e90b0bd0-fb8e-4d4e-b282-609c26692e4a@ozlabs.org>
- <b30e75d8-37d6-478d-bc72-a9ed0b7e200c@deltatee.com>
- <20260805003914.GK27883@nvidia.com>
- <554c73c8-bc17-4336-8e38-f4cfe8d8b3fe@ozlabs.org>
- <20260805164052.GQ27883@nvidia.com>
-Content-Language: en-US
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20260805164052.GQ27883@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.219.145.25
-X-SA-Exim-Rcpt-To: jgg@nvidia.com, matt@ozlabs.org, leon@kernel.org,
- alex@shazbot.org, amastro@fb.com, bhelgaas@google.com, kevin.tian@intel.com,
- praan@google.com, mngyadam@amazon.de, dmatlack@google.com, bjorn@kernel.org,
- sumit.semwal@linaro.org, ankita@nvidia.com, christian.koenig@amd.com,
- apopple@nvidia.com, vivek.kasireddy@intel.com, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org, linux-pci@vger.kernel.org,
- liulongfang@huawei.com
-X-SA-Exim-Mail-From: logang@deltatee.com
-Subject: Re: [PATCH v5 2/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+References: <20260803-edp-v1-1-3e92dec1d56c@chromium.org>
+ <CAD=FV=XeW806uSg5JM95qHrfKUKXpC_z9BUaDv61wu0KGFry5A@mail.gmail.com>
+ <CAHc4DNLeDaa5gXjiJtmH_0gyCLVk+=MhziL60Uy4eh6-u9QWew@mail.gmail.com>
+In-Reply-To: <CAHc4DNLeDaa5gXjiJtmH_0gyCLVk+=MhziL60Uy4eh6-u9QWew@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 5 Aug 2026 13:55:01 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UHk0Q=4L8zQoaV4jNMv4ajUKH=8L=_C_KXwTxrgZ=bUw@mail.gmail.com>
+X-Gm-Features: AUfX_mzNHn3W0ag-OLAHaolyh6b6gBuxd2Ej5DSZwivUn_40Ge4Rg4cMPGBWXi4
+Message-ID: <CAD=FV=UHk0Q=4L8zQoaV4jNMv4ajUKH=8L=_C_KXwTxrgZ=bUw@mail.gmail.com>
+Subject: Re: [PATCH] drm/panel-edp: Add pre_unprepare delay
+To: Hsin-Te Yuan <yuanhsinte@chromium.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ Haikun Zhou <zhouhaikun5@huaqin.corp-partner.google.com>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,83 +109,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Hi,
 
+On Wed, Aug 5, 2026 at 4:11=E2=80=AFAM Hsin-Te Yuan <yuanhsinte@chromium.or=
+g> wrote:
+>
+> > Looks OK to me. Thank you for the thorough description.
+> >
+> > Reviewed-by: Douglas Anderson <dianders@chromium.org>
+> >
+> > Do you happen to know if any of the other TMA panels should also get
+> > this updated timing?
+> >
+> No, this is the only one the ODM reported so far.
+> >
+> > My thought would be to land this in drm-misc-next instead of
+> > drm-misc-fixes. Is that OK w/ you? I assume you just need a stable git
+> > hash to pick and it's not urgent for you to get this in through stable
+> > trees. Getting the updated timings is usually not massively
+> > time-critical and having bake time / avoiding merge conflicts is
+> > nice...
+> Yes, I'm fine with that. Actually the original commit is still in drm-mis=
+c-next,
+> so I guess this can't be landed in drm-misc-fixes.
+> >
+> > Assuming nothing else comes up, I'll try to land in the next few days.
+> > Usually I don't delay at all for panel timings, but since this changes
+> > an old panel I'll at least give it an extra day or two...
 
-On 2026-08-05 10:40, Jason Gunthorpe wrote:
-> On Wed, Aug 05, 2026 at 05:28:27PM +0100, Matt Evans wrote:
->> Hi both (Logan thanks for your comments!),
->>
->> On 05/08/2026 01:39, Jason Gunthorpe wrote:
->>> On Tue, Aug 04, 2026 at 10:19:11AM -0600, Logan Gunthorpe wrote:
->>>
->>>> There's a vague convention for this already: the term 'p2pmem' is often
->>>> used for cases where the driver uses the allocator, etc. (I think I had
->>>> this intention when I wrote the code and have since forgotten about
->>>> it).
->>>
->>> I've been calling it the genalloc layer and the core layer. p2pmem
->>> would be OK to refer to the genalloc stuff. So if you want to have
->>> CONFIG_PCI_P2PDMA and CONFIG_PCI_P2PMEM that seem sOk
->>>
->>>> code into it's own file, potentially renaming some functions. Then, in
->>>> the end, we would probably have a pcim_p2pdma_supported() function and a
->>>> pcim_p2pmem_supported() function, the latter being used by existing use
->>>> cases.
->>>
->>> Not quite sure why we need this?
->>
->> ( [1] )
->>
->>> Matt, the mlx5 stuff is the same as VFIO, it just uses the "core"
->>> layer and does not use the genalloc. So there shouldn't be an issue
->>> here, if the genalloc is off then the mlx5 stuff should still
->>> work. There shouldn't be a case where CONFIG_PCI_P2PDMA=y and mlx5 is
->>> broken?
->>
->> Oh, when CONFIG_PCI_P2PDMA=y it's all good.
->>
->> The issue is when CONFIG_PCI_P2PDMA=n, as mlx5 still seems to permit a
->> DMABUF export solely because pcim_p2pdma_provider() succeeds.  (This
->> patch's CONFIG_PCI_P2PDMA_CORE enables that.)  mlx5 assumes that getting
->> a provider means P2P DMA is also available.
-> 
-> That's my point, the mlx5 should work fine with CONFIG_PCI_P2PDMA_CORE
-> only or it is split wrong.
-> 
->> Later, DMABUF attach would fail, but it'd be good to keep the original
->> failure mode where UVERBS_METHOD_DMABUF_ALLOC fails early if no P2PDMA.
-> 
-> Why does it fail? It should not fail :)
-> 
->> I was thinking something trivial like the following would let things
->> like IB fail the DMABUF_ALLOC early still, instead of making the
->> assupmtion that having a provider means having P2P DMA.  E.g. OK
->> provider's available, but test for P2P DMA support too:
->>
->>  bool pcim_p2pdma_supported(void)
->>  {
-> 
-> it seems illogical, if you have a provider you have p2p dma, things
-> are split wrong if this is not true.
-> 
-> The split should be only around the genalloc and related
-> (sysfs,etc,etc) not anything mlx5 uses.
-> 
-> The only think that should stop working without genalloc (ie
-> CONFIG_PCI_P2PDMA=n) is nvme.
+Pushed to drm-misc-next:
 
-Hmm, seems I made a few mistakes in my reply. Though I'm less certain I
-understand the issue anymore.
-
-I did confuse in my response pcim_p2pdma_provider() and
-pcim_p2pdma_supported(). The later choice I really dislike. My thinking
-was we'd have two versions of pcim_p2p[dma|mem]_provider()... But I'm
-not sure that's necessary.
-
-I thought there were callers of pcim_p2pdma_provider() in the p2pmem
-code (non-core) section. But digging deeper today, it seems like
-pci_p2pdma_add_resource() is the one caller, which I'd expect would be
-compiled out when CONFIG_PCI_P2PDMA=n. Which seems fine. So I'm not sure
-I understand the root issue anymore.
-
-Logan
+[1/1] drm/panel-edp: Add pre_unprepare delay
+      commit: c8d3d795dd40c7fb35b39ebcb99ae5f2f1884b48
