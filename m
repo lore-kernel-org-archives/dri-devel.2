@@ -4,86 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE408C561E6
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 06:39:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1363DC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 06:45:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA3710ECF5;
-	Wed,  5 Aug 2026 06:39:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70A0410ED1C;
+	Wed,  5 Aug 2026 06:45:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="nnVc6o4S";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="i+xsd7rU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PJPk3UJG";
 	dkim-atps=neutral
-Received: from flow-a7-smtp.messagingengine.com
- (flow-a7-smtp.messagingengine.com [103.168.172.142])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27EE910ECF5
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 06:39:50 +0000 (UTC)
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
- by mailflow.phl.internal (Postfix) with ESMTP id 94FD713802B4;
- Wed,  5 Aug 2026 02:39:49 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
- by phl-compute-01.internal (MEProxy); Wed, 05 Aug 2026 02:39:49 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1785911989; x=
- 1785915589; bh=sgu7nAbq8Yx5koaOMKJWboxHdobCAGSow6z6pMfKPGU=; b=n
- nVc6o4SYwwZTj6Vk+l+xfiUe9OeptoP/QtL8JNdxvIZkQ5KoFuw/eKMh2fyqzcDE
- srF2dOzJA4hg8sYyLN77b6LUGSp9oZbiCbjb3mjOvNDB4vybbGWb4RQnlCcwUD81
- KLcV16KfnnuyIMEqjJOxaLA2kiGhp2E6br3WjtGDA37ZLlIKdmNWsOn1dLLFx62r
- fxVSYsvoPPtj6KfeToJyrQrcJARKjBBY+u7ta5xp/j8nMCjc8YMZrWHQ0faUbSNe
- 1JcFxOSvTWcQg1FqWWejRN4lEgbWypJas0d2PBDIF83+eEwFzGzSEggEnhM9DGEg
- RjfUnKqG6yv96dZzVO8PA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1785911989; x=1785915589; bh=s
- gu7nAbq8Yx5koaOMKJWboxHdobCAGSow6z6pMfKPGU=; b=i+xsd7rUchE64hOng
- 1d/N+OTO+yPwLPy8M2pVsjrUE7P7Ca7sI7ZSp99Zl+J6tyfxSCt8UHNG6O+9AW1b
- b1/GngK/9RQDu98v3IHAQJs7bvDX10Fa+8+uKGKy41+fAaEYfQZC63Zrj+DMCw3i
- MFeXtSRD/U5vSJf9+I13tZxbhBU0tJQ9QxloDVpnSy8854Kq3ZA5vgPdG+/6b73A
- ljVVSIc7Ke9eYMOgeTPNLPaX8m43iK/bp4GxnRd0QjbvdueWf0m3qFqeC29zqlEY
- y7zHL3/J+1PeOammtx73rs4m7VCeV9fm5vilblstSyOpWQbiMKqmWGK063qDEU5A
- YzwAQ==
-X-ME-Sender: <xms:tdpyalwDTzDvtCYRVykQjMJ1hDVJDmA2ZCksfzaaW1RDJQutMTx-jA>
- <xme:tdpyapNdoz1alAxVduo86h8xu4pHuwNWAh_XOD691wqFEA273TiAPDvsFrHSXNc4a
- 8hgki0T44RZ-aX-OfshzrHjqJEuacbz5eNJvV_b_MMyTbNmVrJLOoBo>
-X-ME-Received: <xmr:tdpyan0p4grVWgU1xRLTkuQHAmc60Py5Qu216I3oqlXKoF5qKriQjWindTnO1cZk2LBM74r4gQ>
-X-ME-Proxy-Cause: dmFkZTEMD1OFu076QwS9SFwNgP6f5aaFBOwJl5YptK3m8ebGw9lTTouZHPU4h9ndohppuA
- MqhtPKehSzM5cGKuNBr7L6AJ+uKJutNiohMQhyJKCTICyfajJ/xSmO114JbBqjULjhSC0i
- Xlbxa+pOAxXg2slJctiMdK5ps5AbzNH+rDDT9fXXq0g54RoxSPklkyLc3RP+86Tl3mTPLD
- /CWbaQf672RUMg9LfQxwI5O+ggniqgBk/wewxNq7ajt7vQQvywjAFU9vcqWNy4/76iwxXo
- 1STNvatirfOQsprQ3D+aYGRSjMJWxbKmD4Sm0dtan9ggAh4pCQ0vJVqSCJ6plnee8sAotn
- JIPDgs2IkNgZ0ZOs8jBCMoA7smDBf+rP2Oam7L0IFLsMWxzF3Vns/F57rEIAROCMT1PxWC
- HK0Mmy3KwiK6zDt7qxZMdN6LnjBHZoxeppGyMiwjLMfq1d9+StUlw9Bvn2R8KHgdUHcro0
- awb5zDKAi0vm+cISnCiCHH7VQahSSVdauGeTmhWTAb3+YzRdQgGLzOSt4UFiiOv6eGcBSr
- 8T3XM2+Z6rZAjiWRkmYqbqkz8Arz5hf1p5eQUIvKWE8SP1VflAt+mbgF9ZPwqiCWazwA6F
- p+6ZCsWTn7O5JhZZMWRbC/SlfTgk+ULmN1v0VrzK9aL+g0e2sQBEDy0k7nmg
-X-ME-Proxy: <xmx:tdpyahEJqupNNvQselDLjMiNe4ife2dY4smmWJGrfSuoBTMjD-B4Ew>
- <xmx:tdpyauh0_5Zk-9YPQmb-2cOFzv_SPtktRxa2qctp7UKh4t6t_XzixA>
- <xmx:tdpyaqdI9sKdpdCWYE8Xyf27G2skeFkgcViGENtLHw75vDxhStuoEg>
- <xmx:tdpyakwfCGTTSvlTy9GJHYYhkCcbkO9mVX_cvy1mxJwLi3JG89mApQ>
- <xmx:tdpyajAquqjKv3hUQGr-7NEswes9p9f6VEiDaWcz6yPdJOqaZmtR1til>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 5 Aug 2026 02:39:43 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, alchark@flipper.net, chaoyi.chen@rock-chips.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH v5 v5 8/8] arm64: dts: rockchip: rk3576-rock-4d: enable NPU
-Date: Wed,  5 Aug 2026 18:38:26 +1200
-Message-ID: <20260805063826.95682-9-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260805063826.95682-1-gahing@gahingwoo.com>
-References: <20260805063826.95682-1-gahing@gahingwoo.com>
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70CD510ED1C
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 06:45:47 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-38dc4553f62so695032a91.0
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 23:45:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785912347; x=1786517147; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3IeHonVU+uKZ8ZJ0JwyJk4mskUUQ64nNqMUIv81MkYQ=;
+ b=PJPk3UJGYSTMbSViDvcyirOYDyzsijwjbYCuirXLG1mi3IoXzflQ1pdF1Hbqr86A7v
+ mOGS3RZlx0bI7Ncl37hLdWxKwgtP2Fr/C1z7Cg6JEyOB3Ue6PEeAfcl0W+NRp1QIPMB4
+ 8vWgEb010HpRdwhKKSeYUzeDaFlej2+Y7uJmSgz/RmNgBzfdXL+se/+z5+ipXN8ZZ8sT
+ VLlT9MdPLq/gj+nGpW5XZ6NMYf3gB6/X99CtAnK6GTqaOKo4cO9rLyLkeZxHuC/GyprG
+ GJCyhDNt1THRUcnk+fW5KuXrzyShr+WXAB+7opCxdEAM4TiK5UtveVw1sHS7dRjokTqH
+ JPeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785912347; x=1786517147;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3IeHonVU+uKZ8ZJ0JwyJk4mskUUQ64nNqMUIv81MkYQ=;
+ b=sooZ6gwRv3uf9DaqolJuR0Mx+GlwG6Axz6ZvGTjy3TWe/a+c50eT5ZNGoZWM0MqzCI
+ JBg9xWLKQSKqIMuDIUTtGd6JTRQgUCbz2mPu7TjESVdwjTtS7AlfAXdWsJEJM6PKHxTh
+ qRfH+JyQduPd5aDcIQ2co6a5nE1zLGrmhtGLpBCq3JRX1V5EuS34u9zH5woE7hp4V5Fy
+ 5Lht8Fj2Ob1gLNyreFApXZtxvYANkYSwjwdAGpBwwdrQ6rlucUifR8+8HoXF4gihVs6r
+ JlWpK88vKfahIOYFBS1Y2xmRGk1MjyoQbY2FEhXGhPc20J9r6hvBWRZWj+3EcAO6NwVX
+ 10IA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq2DfYRi3hwvXofSTLj8nKUmbaC0u2/H0o0GIxuU3QR7R21wmJQAEZz5SfwGxZluA8JGi6GmwZsQ0E=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwST1bL4uOLLInpjTfbK4iSAUIPpTakKKkGC/rsnhc0Vy35UE7F
+ Bf2RWUgP7jkBdxftQPbHLoYfOy+TArXRXk/33kWfT5v4EcmF6Dand23M
+X-Gm-Gg: AR+sD10cwpYwvyME96zsruPa7ov99aTGSnMWSYaJ/iE48fz8VnaHM42uzsfFYEaRB51
+ 76xwhKlhx+F8Ra8/M2Rq9w27xRt1JoaBkQS9fwhIYt0V+H0Ojqch1muO/CttHeTrv+YOdXIdbB9
+ JNf8AQxdK1HDPwmG8dMPC8rOE23GoO/wdU3pWuPD0gyZxWdhuj931Ggb4S2Ws10Us1+aMnjA9Lt
+ QUrdDjapzm/jYo0P6kK7G5jJBu+tWF44WQj1TQ2td//f/wEVovyjlpR5/pV0XHJry3DXWPUbyqg
+ 6DfUD7eYirl0+q7jZW9wcYhK5AQLXG1Iz8ELP1n0uE9zL7XSB5OOIlJA7tObjFw2jXjlgicZqHf
+ urqCHX7rlE0+2MyxiAn0TrkarVb3bsPISNTluHYaFUCeC6xUvDeQF16LJTZUTV2zFFEopURLDgp
+ DQdHokTEU3dV6K986E780e/gllP0ZsAy13Lp3q2ynYaiBe/wqmfeYLuKBE3qYaVaFWSnfboakFd
+ aPeekHg5SPc0xD4Otb4
+X-Received: by 2002:a17:90b:3c06:b0:38d:e658:595a with SMTP id
+ 98e67ed59e1d1-3903c54f1fdmr4635061a91.2.1785912346774; 
+ Tue, 04 Aug 2026 23:45:46 -0700 (PDT)
+Received: from liuweife-desk2.sh.intel.com ([192.55.55.42])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-13fca926c0bsm10399086c88.14.2026.08.04.23.45.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 04 Aug 2026 23:45:46 -0700 (PDT)
+From: Weifeng Liu <weifeng.liu.z@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: matthew.brost@intel.com, jani.nikula@linux.intel.com,
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
+ tursulin@ursulin.net, dri-devel@lists.freedesktop.org,
+ Weifeng Liu <weifeng.liu.z@gmail.com>
+Subject: [PATCH] drm/i915: Make suspend idle wait uninterruptible
+Date: Wed,  5 Aug 2026 14:45:39 +0800
+Message-ID: <20260805064539.1034880-1-weifeng.liu.z@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -101,45 +89,210 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable rknn_core_0 and its IOMMU on the Radxa ROCK 4D and supply the
-core from vdd_npu_s0.
+wait_for_suspend() only handles -ETIME from the GT idle wait. However,
+the wait can also be interrupted by a pending signal while retiring
+requests or waiting for GuC messages, e.g., during the reboot process
+invoked by init. This skips the wedge and cleanup path and may leave
+suspend waiting indefinitely for a leaked wakeref.
 
-The supply is marked always-on because the NPU power domains are what
-gate the block here, and dropping the rail underneath them takes an
-async SError on the next power-on rather than a clean retry. Only
-rknn_core_0 is enabled: the driver binds one core per node and the
-second core is left to whoever can test it.
+Make only the suspend idle wait uninterruptible while preserving its
+existing timeout. Other callers remain interruptible, and the GT is
+still wedged only when the timeout expires.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Assisted-by: OpenCode:GPT-5.6-Sol
+Signed-off-by: Weifeng Liu <weifeng.liu.z@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/i915/gt/intel_gt.c            | 24 +++++++++++++++----
+ drivers/gpu/drm/i915/gt/intel_gt.h            |  1 +
+ drivers/gpu/drm/i915/gt/intel_gt_pm.c         |  3 ++-
+ drivers/gpu/drm/i915/gt/intel_gt_requests.c   |  8 ++++---
+ drivers/gpu/drm/i915/gt/intel_gt_requests.h   | 13 ++++++++--
+ drivers/gpu/drm/i915/gt/uc/intel_guc.h        |  3 ++-
+ .../gpu/drm/i915/gt/uc/intel_guc_submission.c |  5 ++--
+ drivers/gpu/drm/i915/gt/uc/intel_uc.h         |  6 +++--
+ 8 files changed, 47 insertions(+), 16 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-index 272af1012..965e0906b 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-@@ -442,6 +442,7 @@ regulator-state-mem {
- 			};
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.c b/drivers/gpu/drm/i915/gt/intel_gt.c
+index 5c7f862f7100..5eaa52f535d4 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt.c
+@@ -659,7 +659,9 @@ static void __intel_gt_disable(struct intel_gt *gt)
+ 	GEM_BUG_ON(intel_gt_pm_is_awake(gt));
+ }
  
- 			vdd_npu_s0: dcdc-reg2 {
-+				regulator-always-on;
- 				regulator-boot-on;
- 				regulator-enable-ramp-delay = <400>;
- 				regulator-min-microvolt = <550000>;
-@@ -869,3 +870,12 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi_in_vp0>;
- 	};
- };
+-int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
++static int __intel_gt_wait_for_idle(struct intel_gt *gt,
++				    bool interruptible,
++				    long timeout)
+ {
+ 	long remaining_timeout;
+ 
+@@ -667,10 +669,11 @@ int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
+ 	if (!intel_gt_pm_is_awake(gt))
+ 		return 0;
+ 
+-	while ((timeout = intel_gt_retire_requests_timeout(gt, timeout,
+-							   &remaining_timeout)) > 0) {
++	while ((timeout = __intel_gt_retire_requests_timeout(gt, interruptible,
++							     timeout,
++							     &remaining_timeout)) > 0) {
+ 		cond_resched();
+-		if (signal_pending(current))
++		if (interruptible && signal_pending(current))
+ 			return -EINTR;
+ 	}
+ 
+@@ -680,7 +683,18 @@ int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
+ 	if (remaining_timeout < 0)
+ 		remaining_timeout = 0;
+ 
+-	return intel_uc_wait_for_idle(&gt->uc, remaining_timeout);
++	return intel_uc_wait_for_idle(&gt->uc, interruptible,
++				      remaining_timeout);
++}
 +
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
++int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout)
++{
++	return __intel_gt_wait_for_idle(gt, true, timeout);
++}
 +
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
++int intel_gt_wait_for_idle_uninterruptible(struct intel_gt *gt, long timeout)
++{
++	return __intel_gt_wait_for_idle(gt, false, timeout);
+ }
+ 
+ int intel_gt_init(struct intel_gt *gt)
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt.h b/drivers/gpu/drm/i915/gt/intel_gt.h
+index 998ca029b73a..6c7e5415f1dc 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt.h
+@@ -143,6 +143,7 @@ void intel_gt_driver_release(struct intel_gt *gt);
+ void intel_gt_driver_late_release_all(struct drm_i915_private *i915);
+ 
+ int intel_gt_wait_for_idle(struct intel_gt *gt, long timeout);
++int intel_gt_wait_for_idle_uninterruptible(struct intel_gt *gt, long timeout);
+ 
+ void intel_gt_check_and_clear_faults(struct intel_gt *gt);
+ i915_reg_t intel_gt_perf_limit_reasons_reg(struct intel_gt *gt);
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_pm.c b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+index c7f59d60fac6..9fe31aa07ae8 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_pm.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_pm.c
+@@ -315,7 +315,8 @@ static void wait_for_suspend(struct intel_gt *gt)
+ 	if (!intel_gt_pm_is_awake(gt))
+ 		return;
+ 
+-	if (intel_gt_wait_for_idle(gt, I915_GT_SUSPEND_IDLE_TIMEOUT) == -ETIME) {
++	if (intel_gt_wait_for_idle_uninterruptible(gt,
++						   I915_GT_SUSPEND_IDLE_TIMEOUT) == -ETIME) {
+ 		/*
+ 		 * Forcibly cancel outstanding work and leave
+ 		 * the gpu quiet.
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.c b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+index 93298820bee2..b37e8f1d0b5c 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_requests.c
++++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.c
+@@ -130,8 +130,10 @@ void intel_engine_fini_retire(struct intel_engine_cs *engine)
+ 	GEM_BUG_ON(engine->retire);
+ }
+ 
+-long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout,
+-				      long *remaining_timeout)
++long __intel_gt_retire_requests_timeout(struct intel_gt *gt,
++					bool interruptible,
++					long timeout,
++					long *remaining_timeout)
+ {
+ 	struct intel_gt_timelines *timelines = &gt->timelines;
+ 	struct intel_timeline *tl, *tn;
+@@ -159,7 +161,7 @@ long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout,
+ 				mutex_unlock(&tl->mutex);
+ 
+ 				timeout = dma_fence_wait_timeout(fence,
+-								 true,
++								 interruptible,
+ 								 timeout);
+ 				dma_fence_put(fence);
+ 
+diff --git a/drivers/gpu/drm/i915/gt/intel_gt_requests.h b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
+index d2969f68dd64..9242f85f4040 100644
+--- a/drivers/gpu/drm/i915/gt/intel_gt_requests.h
++++ b/drivers/gpu/drm/i915/gt/intel_gt_requests.h
+@@ -12,8 +12,17 @@ struct intel_engine_cs;
+ struct intel_gt;
+ struct intel_timeline;
+ 
+-long intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout,
+-				      long *remaining_timeout);
++long __intel_gt_retire_requests_timeout(struct intel_gt *gt,
++					bool interruptible,
++					long timeout,
++					long *remaining_timeout);
++static inline long
++intel_gt_retire_requests_timeout(struct intel_gt *gt, long timeout,
++				 long *remaining_timeout)
++{
++	return __intel_gt_retire_requests_timeout(gt, true, timeout,
++						    remaining_timeout);
++}
+ static inline void intel_gt_retire_requests(struct intel_gt *gt)
+ {
+ 	intel_gt_retire_requests_timeout(gt, 0, NULL);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc.h b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+index 053780f562c1..b5f4fddf5c1d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc.h
+@@ -509,7 +509,8 @@ static inline void intel_guc_disable_msg(struct intel_guc *guc, u32 mask)
+ 	spin_unlock_irq(&guc->irq_lock);
+ }
+ 
+-int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout);
++int intel_guc_wait_for_idle(struct intel_guc *guc, bool interruptible,
++			    long timeout);
+ 
+ int intel_guc_deregister_done_process_msg(struct intel_guc *guc,
+ 					  const u32 *msg, u32 len);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 788e59cdfac9..aa74208c2b4e 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -680,14 +680,15 @@ int intel_guc_wait_for_pending_msg(struct intel_guc *guc,
+ 	return (timeout < 0) ? timeout : 0;
+ }
+ 
+-int intel_guc_wait_for_idle(struct intel_guc *guc, long timeout)
++int intel_guc_wait_for_idle(struct intel_guc *guc, bool interruptible,
++			    long timeout)
+ {
+ 	if (!intel_uc_uses_guc_submission(&guc_to_gt(guc)->uc))
+ 		return 0;
+ 
+ 	return intel_guc_wait_for_pending_msg(guc,
+ 					      &guc->outstanding_submission_g2h,
+-					      true, timeout);
++					      interruptible, timeout);
+ }
+ 
+ static int guc_context_policy_init_v70(struct intel_context *ce, bool loop);
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_uc.h b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+index 014bb7d83689..b62fe3b96b64 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_uc.h
++++ b/drivers/gpu/drm/i915/gt/uc/intel_uc.h
+@@ -96,9 +96,11 @@ uc_state_checkers(gsc, gsc_uc);
+ #undef uc_state_checkers
+ #undef __uc_state_checker
+ 
+-static inline int intel_uc_wait_for_idle(struct intel_uc *uc, long timeout)
++static inline int intel_uc_wait_for_idle(struct intel_uc *uc,
++					 bool interruptible,
++					 long timeout)
+ {
+-	return intel_guc_wait_for_idle(&uc->guc, timeout);
++	return intel_guc_wait_for_idle(&uc->guc, interruptible, timeout);
+ }
+ 
+ #define intel_uc_ops_function(_NAME, _OPS, _TYPE, _RET) \
 -- 
-2.43.0
+2.55.0
 
