@@ -4,92 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 987ECC55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 21:46:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9D6DC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 21:54:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0B8DD10E1AF;
-	Wed,  5 Aug 2026 21:46:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1FBB010E1DD;
+	Wed,  5 Aug 2026 21:54:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=goldelico.com header.i=@goldelico.com header.b="jQBEO/WO";
-	dkim=permerror (0-bit key) header.d=goldelico.com header.i=@goldelico.com header.b="Bu+wOcYj";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="lSlQpyqF";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="si/ptcw7";
 	dkim-atps=neutral
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
- [85.215.255.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EBA410E1AF
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 21:46:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785966374; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=XGC4FilKmjn421mrT8a6WFtwB5uiUMb9PTyCy4opGMOzXIdrSXNZ6B4CEc+V2o0ror
- 2UE3MTXTKSuVW29qraXAG/F4AFKDBd3NdB3u4ATtFesrHlzdUXm5VC42XB25Pcs/dtbg
- KqbNIxMj348NVat82/D2DHfyJqnF2VuMnf2og/BJ12POXht9DLgj+QlfobUG9+uUZUDV
- qzWqd3v7VXsMeUw/OERG1iEm5XPh5XsYGM+rTGKRGfYFPEWba33IDDFPXOptRwcswU33
- KCwjMxTJiO4Q7ZcHojbcZWsZvFub2frZAVxhZ3+BgQa97nNnbILwsjsfS7zFjv3Tl/Qp
- XfRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1785966374;
- s=strato-dkim-0002; d=strato.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=GuN8MV8+WpguvnvoA19q3S/k3/z11yozT5q2QZpB/J8=;
- b=KPaZ4oGW1h/yKllx/lZw91hi71FdoulitmWsOwwOmfGsYVKouLuhXjJ3sXT27hOJVx
- 48nuhlL0io8O3o8T4T3Da0AmcoC0BWiCtMF5JsfaB4iuuzjBWN9azXT+tFNCXMUQ7+f1
- esWzV5T5RL8N6HreFbXHUfnyrFDHXFPmudNibHm2eYNBA6CDdJzVnAqXmMfBeoJppNS7
- U53RtdYphop1Mk54oN9pyR+EuDJir16xi08lOz5X6EiBtYP/H0BNMMAu8DzZVpkCOmO1
- 5x+uh1InKPqv4zBGCPZAoo/ebnF2uKOI1DCdRKCEJgAVKE6lbituLPQhSi4vHtwmzg2N
- dZtQ==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1785966374;
- s=strato-dkim-0002; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=GuN8MV8+WpguvnvoA19q3S/k3/z11yozT5q2QZpB/J8=;
- b=jQBEO/WOugxisv1Y+4lAvT8vSEXT5/jRHCb4UzA7CkKUFg90eW9riQ3LgCtFFI8UDf
- jUsZNqR5mcdwdDxx62I5Morbe9a1WJXlrT56SoDifO53io/T1ZgCLHf9z+FPJlGnlrHp
- VOeHWa9rMJAKgYrFOJZf4JAPJs0iXvIgKZJs83rmUsPxqqH2adOQK/cXMMUEXxey+bxq
- S6nzObSc9M+dZ0WoYACNZl+VLW6mAGeqGcTfBfJhr+8LbfIselfK+09BJCozRpkVqZM9
- bcYXTCdOhh5cy8V2Nn+g57MSGxImEq0oboSUEAb9KMEl2O7tey+CvO+GvFsKWvEzIP6m
- TfSg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1785966374;
- s=strato-dkim-0003; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=GuN8MV8+WpguvnvoA19q3S/k3/z11yozT5q2QZpB/J8=;
- b=Bu+wOcYjHxYQJBmdagkO5TcFDfkEKYEjCwOvmTcqKCLutvp87Dz1PEK0ceEh9X3sAQ
- +nx1/foj3JL7SaGxoEDQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrQ25oGlciNdEAAfky2+DDg1anEjIRYC+O6IISs"
-Received: from smtpclient.apple by smtp.strato.de (RZmta 55.5.6 AUTH)
- with ESMTPSA id Q58eac275LkDRQh
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
- with 256 ECDH bits, eq. 3072 bits RSA))
- (Client did not present a certificate);
- Wed, 5 Aug 2026 23:46:13 +0200 (CEST)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.8\))
-Subject: Re: [PATCH v6] drm/omap: dsi: avoid sending bta sync all the time in
- writes
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20260804-vm-upstr-v6-1-1bf3748b2fa3@kemnade.info>
-Date: Wed, 5 Aug 2026 23:46:02 +0200
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Tony Lindgren <tony@atomide.com>,
- Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>,
- Linux-OMAP <linux-omap@vger.kernel.org>, Marek Vasut <marex@denx.de>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Tomi Valkeinen <tomi.valkeinen@ti.com>
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B73E10F00D
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 21:54:55 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hFkj93QfjzMlLG;
+ Wed, 05 Aug 2026 23:54:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1785966893;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=AWrGq5FfGPbk5wRVIp/rVvdqvVViGUev2j+DZUX901Q=;
+ b=lSlQpyqF+rYbCS4YYb2y2tgCFfkELlPu/lqY/GkBdaEbsiquLv2ZplFRmn7eOUPDbkPO+M
+ wyNgveF8NgRQCgIVgcgsndew0oW7AY8ubyHBQKQRVx2XhkVw7XfcFbiPEFdcoevJ9PyVuG
+ 5mVTHKSZVJSKCWV2uQvRU/CPHuDoPg5UXcZHrG7rY6Rk3nr/1nQ2pOAESTq4ntgNl7RBXo
+ tIZbD6sqQouThKpvpBPGF2TNSnGhMFz8Q7S0zYd5LzVBP2FZXJ+ILHAkskoIKYbrUeD57D
+ U65O9nohqVv+yYj4jEr3qX5Ged+xxZiyRhKXfk+cHudh0mhxsCRl4hwqb/KZ3g==
+From: Maurice Hieronymus <mhi@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1785966891;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=AWrGq5FfGPbk5wRVIp/rVvdqvVViGUev2j+DZUX901Q=;
+ b=si/ptcw7yk16FbgPem2WsZsvaMCS++UVHjAPJytxfvYMM3+w7LJgTvuNeGQGfyb7GFPG3y
+ vLeCVV0wz93XCEjm908WYOCVqb2TPaTCxarVOLw80djaEP/8ZdFMVvdLitnrcPbwWUBeVN
+ p1MJq37Mjh9cGX2L+GmaEBqBKv6J8mBtBU6qSR8RXVNMnZM7PfDEOUc1ApJVGfaLcvj4k1
+ AKClRAnOK9LJVhO6JbthiEX+2spFFppicJry4yRWMc4kYOSYmOCYF2ZNtRWutzgXdXCrqY
+ 8i0JeN+W/mUABSD+fjMJA7r/tm/c751eoZU/QmnNsJTp+MqsoSPjRPv534KYJw==
+Subject: [PATCH 0/3] rust: dma: add the single-buffer streaming DMA API
+Date: Wed, 05 Aug 2026 23:54:40 +0200
+Message-Id: <20260805-dma-streaming-v1-0-03974c86b141@mailbox.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <76783B3E-BE29-4FCC-AEC6-9D4866C8D461@goldelico.com>
-References: <20260804-vm-upstr-v6-1-1bf3748b2fa3@kemnade.info>
-To: Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: Apple Mail (2.3826.700.81.1.8)
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDc0NL3ZTcRN3ikqLUxNzMvHRdy2RTA9NEC3Mzg+QkJaCegqLUtMwKsHn
+ RsbW1ANqZdctfAAAA
+X-Change-ID: 20260719-dma-streaming-9c505a8760cb
+To: Danilo Krummrich <dakr@kernel.org>, 
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, Maurice Hieronymus <mhi@mailbox.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785966885; l=3776;
+ i=mhi@mailbox.org; s=20260525; h=from:subject:message-id;
+ bh=2dVycLvsf+ablzwvD6gYJ1AxRh3CCOReiMMp8dDPkvA=;
+ b=IkmI1CbZHU9BDY0LgkkEoqTa4zXwkM7qMxjtvNezzD4XpuqtG8bG0zYo+UZbpxv9vrnSJ6bXV
+ TtNTLKZ9xOxBnMHnIoxWdJO4u20+0biD9YbzlvKsSoBctKFv0s5Qau+
+X-Developer-Key: i=mhi@mailbox.org; a=ed25519;
+ pk=AHlEkGG3hpXZHntlEzF42Ip/LFyXWOgsNUvaHqAnV80=
+X-MBO-RS-META: tki8wurrqdkoh99emg51fadxw9djpcn3
+X-MBO-RS-ID: c2b6dd4a96dfe6fded4
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,39 +94,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+The Rust DMA abstraction covers `dma_alloc_coherent()` only. The streaming
+half (`dma_map_single()`) is missing.
 
-> Am 04.08.2026 um 10:37 schrieb Andreas Kemnade <andreas@kemnade.info>:
-> 
-> Some chips need configuration commands to be sent first, before they can
-> send data. TC358762 for example needs PPI_LPTXTIMECNT configured
-> and PPI_STARTPPI set to 1 to be able to transmit anything. To be able to
-> configure such chips, do not send bta sync during writes if no acks are
-> requested. Instead just wait for the packet to be sent to avoid FIFO
-> overflows. There might be more to do about acks, but there seem to be
-> virtually no users of that flag.
-> 
-> This came to light when fiddling with the Epson Moverio BT-200 display
-> which consists of 2 TC358762 bridges with SPI funneled through
-> to the unknown display chip. With that patch the bridge can be accessed,
-> Reading back registers works, when the above-mentioned registers are set.
-> 
-> In Command-Mode update, there was a nop sent, apparently the most
-> relevant part was the bta sync to actually force low power mode.
-> 
-> Video mode panel at OMAP4 (BT-200) and video mode at OMAP5 was tested.
-> 
-> Fixes: e70965386353e ("drm/omap: dsi: simplify write function")
-> Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
-> ---
-> Changes in v6:
-> - clear errors on every write
-> - remove unneeded forward declaration
+A streaming mapping is a temporary lease on memory the caller already owns:
+between map and unmap the buffer belongs to the device, and the CPU may only
+touch it in between a `dma_sync_single_for_cpu()` /
+`dma_sync_single_for_device()` pair. In C that protocol is left to the driver
+author, and getting it wrong is silent data corruption on non-coherent
+platforms. It is a borrow handover, so it can be expressed in the type
+system:
 
-Tested on Pyra 5.3 (video mode). No side-effects visible.
+    let mut dma = Streaming::new(dev, buf, DataDirection::Bidirectional)?;
 
-BR,
-Nikolaus
+    *dma.for_cpu() = 42;
 
+    let dma = dma.submit();
 
+    // Program `dma.dma_handle()` into the device and wait for the transfer.
+
+    // SAFETY: the transfer has been waited for.
+    let mut dma = unsafe { dma.complete() };
+
+    assert_eq!(*dma.for_cpu(), 42);
+
+`submit()` consumes the `Streaming` and returns a `StreamingInFlight`, the
+only source of the `DmaAddress`. It owns the buffer, so the contents are
+unreachable while a transfer may be in flight, no matter where the driver
+stores the address. That is what makes `for_cpu()` safe. Whether the device
+has finished cannot be checked by any abstraction, so `complete()` is the
+single `unsafe` operation. Dropping a `StreamingInFlight` without
+`complete()` leaks the mapping and the storage, with a warning: safe code
+cannot prove the device is done, so it is not allowed to unmap or free
+memory the device may still be using.
+
+Patch 1 adds `ContiguousBuffer`, describing storage `dma_map_single()`
+accepts: a single physically contiguous region in the kernel's linear
+mapping. Patch 2 adds the mapping itself. Patch 3 converts nova-core's
+`GspFwWprMeta`, a streaming workload written against the coherent API.
+
+One thing to note
+=================
+
+`Streaming` borrows a `&'a Device<Bound>` where `Coherent` and
+`SGTable<Owned<P>>` both hold an `ARef<Device>`. The DMA API may only be
+called while a driver is bound, and `Drop` unmaps, so a refcount does not
+express what the mapping needs [1]. The two existing types predate the
+`'bound` driver-core infrastructure; converting them is not part of this
+series.
+
+Testing
+=======
+
+Build-tested on x86_64 with `CLIPPY=1` and `rustfmtcheck`; the kernel crate
+doctests, including the new `Streaming` ones, pass under virtme-ng.
+
+Patch 3 is compile-tested only, I have no NVIDIA hardware; it touches the
+GSP boot path on all supported chipsets, so a Tested-by would be very
+welcome. However, I've tested it on my Rust EDU Driver locally [2] while
+using swiotlb=force to emulate bounce buffers on x86.
+
+[1] https://lore.kernel.org/all/20250306160907.GF354511@nvidia.com/
+[2] https://lore.kernel.org/rust-for-linux/20260620-b4-rust-pci-edu-driver-v2-0-6fd6684f2c14@mailbox.org/
+
+Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
+---
+Maurice Hieronymus (3):
+      rust: dma: add ContiguousBuffer trait for streaming DMA storage
+      rust: dma: add abstraction for the single-buffer streaming DMA API
+      gpu: nova-core: gsp: map the WPR meta for streaming DMA
+
+ drivers/gpu/nova-core/firmware/booter.rs |  11 +-
+ drivers/gpu/nova-core/gsp/boot.rs        |  20 +-
+ drivers/gpu/nova-core/gsp/hal.rs         |   4 +-
+ drivers/gpu/nova-core/gsp/hal/gh100.rs   |   4 +-
+ drivers/gpu/nova-core/gsp/hal/tu102.rs   |   4 +-
+ rust/helpers/dma.c                       |  35 +++
+ rust/kernel/dma.rs                       | 449 +++++++++++++++++++++++++++++++
+ 7 files changed, 515 insertions(+), 12 deletions(-)
+---
+base-commit: dc01dfb37b34beeefcfe1c3055364d41a4070c7e
+change-id: 20260719-dma-streaming-9c505a8760cb
+
+Best regards,
+-- 
+Maurice Hieronymus <mhi@mailbox.org>
 
