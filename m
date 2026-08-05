@@ -4,46 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1F26C55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 16:50:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97B9CC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 16:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FDB810EF55;
-	Wed,  5 Aug 2026 16:50:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EABE310EF56;
+	Wed,  5 Aug 2026 16:51:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="PC0KKQUv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="V1RTxSih";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1216E10EF53
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 16:50:45 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1B1CC10EF56
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 16:51:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 76E7E60A5A;
- Wed,  5 Aug 2026 16:50:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F7161F000E9;
- Wed,  5 Aug 2026 16:50:43 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 02B0F40D68;
+ Wed,  5 Aug 2026 16:51:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB7A1F000E9;
+ Wed,  5 Aug 2026 16:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785948644;
- bh=P2L6oRPUJO/v08DM1Y+l9EsgkljWMl9aO19tJttgYC0=;
+ s=k20260515; t=1785948671;
+ bh=iKC88PlcMQAy72Vp4zYxUh+UBhe4tddg7eRlo0Qvf/Q=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=PC0KKQUv+HPlTrpkmBkx+Mf0isYy4kSpmhXtCBsfJvFSj/uhV3Qepzhq+kyzbqjOv
- 4pqO2S0+s0JNNdNxpvaGnEj3ybG5TaHlQGvTvx6V2X5JRRvvcvN3oyRxPD+gSqFmmA
- J4jY664TyK2mZAqTpcNwEdHKxr899rWWqiEq5EplMuEUzYNxPHPPVdwoSsszY19QX7
- Eu4BIft28yNxfLpgDhLkiWQQfovaLTHgjuDLkm0AosdlboW2PHqFbUHdT0Zmy7310R
- 43MR4N2BE4Z7ul0wYsqpoRFuF8EPKBe6eGHFHjTmRjIoGz5QBMwPZRfvyakCcLOlT1
- JQ0THy8c1ncDQ==
+ b=V1RTxSihuVi8C9O/cfFnLvaC1QV2+byc2NyH9Fekj8rpivMVn7hkBuJVAzraxJ1Hj
+ AEo+QiYjhIX2tHt6V0ghEun7yeqrgRzNherRjhjnlYIODmvBPr1gsyc/swIyZuWhK+
+ H79TMnfaJzY5xR2oqbfhF2JTNJ7U/nFX4KMyC3lPtxpArCshHAR1gSgjy6acvfTu/I
+ mjIvjQDgucd/tqiePTi3F+tnu3/3jqUqrNQK0Hcq5rxf7tFA0RgbfadA5fCkVFDdUi
+ 9NwgIyRBUtbMUrzJPLKCtvSvvSk4n0TJDoCgUzEhAU1kaIK8h5dqOukremrD+NwwFF
+ 8Wei4ujpsoynQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/16] rust: io: register: support fixed offset
- register without bitfield
+Subject: Re: [PATCH v2 16/16] rust: io: register: unify handling of register
+ with/without bitfields
 To: "Gary Guo" <gary@garyguo.net>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, linux-pci@vger.kernel.org,
- ojeda@kernel.org, dri-devel@lists.freedesktop.org, "Danilo
- Krummrich" <dakr@kernel.org>
-In-Reply-To: <20260805-typed_register-v2-11-c3ca142220a0@garyguo.net>
+Cc: linux-pci@vger.kernel.org, "Danilo Krummrich" <dakr@kernel.org>, "Alexandre
+ Courbot" <acourbot@nvidia.com>, dri-devel@lists.freedesktop.org,
+ ojeda@kernel.org
+In-Reply-To: <20260805-typed_register-v2-16-c3ca142220a0@garyguo.net>
 References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
- <20260805-typed_register-v2-11-c3ca142220a0@garyguo.net>
+ <20260805-typed_register-v2-16-c3ca142220a0@garyguo.net>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 16:50:42 +0000
-Message-Id: <20260805165043.0F7161F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 16:51:10 +0000
+Message-Id: <20260805165111.8CB7A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,99 +62,53 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The `register!` macro documentation provides an example defining a =
-FIFO register (`TX_FIFO`) with a `u32` type. This violates the subsystem gu=
-idelines which mandate that FIFOs must use stream accessors (no byteswappin=
-g). Using a `u32` register type implies standard register access (e.g., `wr=
-itel`), which will byteswap on big-endian architectures and corrupt stream =
-data. Additionally, the macro's syntax rule `$ty: ident $(:: $path_frag:ide=
-nt)*` restricts the type to paths, preventing developers from directly spec=
-ifying a byte array (e.g., `[u8; 4]`) as the type to properly model a bytes=
-wap-free stream.
+- [Low] The documentation comment for `FixedIoLoc::Location` references `[`=
+FixedIoLoc::location`]`, which does not exist.
 --
 
---- Patch [11]: [PATCH v2 11/16] rust: io: register: support fixed offset r=
-egister without bitfield ---
-commit a13a899311e93c249f5925eff4ce304f82a4cb69
+--- Patch [16]: [PATCH v2 16/16] rust: io: register: unify handling of regi=
+ster with/without bitfields ---
+commit eee244bc141adb8220a5c6420bc3a94addf8572c
 Author: Gary Guo <gary@garyguo.net>
 
-rust: io: register: support fixed offset register without bitfield
+rust: io: register: unify handling of register with/without bitfields
 
-Add a rule to allow creating `IoLoc` in `regiser!()` using an existing type
-and not create a bitfield. Add an example to demonstrate this for FIFO
-registers.
+This commit unifies the handling of registers with and without bitfields by=
+ making the fixed location a property of the type. It replaces FixedRegiste=
+r with a new FixedIoLoc trait to indicate if a type's I/O location is uniqu=
+e for a specific base.
 
 > diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
-> index dc800fc711722..49a61da106c7d 100644
+> index fe0e6763a600e..80282c423868a 100644
 > --- a/rust/kernel/io/register.rs
 > +++ b/rust/kernel/io/register.rs
 
 [ ... ]
 
-> @@ -499,6 +516,19 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
->  /// In this example, `SCRATCH_BOOT_STATUS` uses the same I/O address as =
-`SCRATCH`, while providing
->  /// its own `completed` field.
->  ///
-> +/// If you do not wish to have a bitfield defined, you can also create a=
- register using an existing
-> +/// type.
-> +///
-> +/// ```no_run
-> +/// # use kernel::io::*;
-> +/// register! {
-> +///     base: Region<0x1000>;
-> +///
-> +///     /// TX FIFO register.
-> +///     pub TX_FIFO: u32 @ 0x00001000;
-
-[Severity: Low]
-Does this example promote an anti-pattern for FIFO access?
-
-Using u32 for a FIFO implies standard register I/O accessors (like writel or
-readl), which will perform byte-swapping on big-endian architectures.
-According to the I/O accessor subsystem guidelines, FIFOs should use stream
-accessors without byteswapping to prevent data corruption.
-
-Would it be better to avoid using a FIFO as the example here, or use a type
-that enforces stream semantics?
-
-> +/// }
-> +/// ```
-> +///
->  /// ## Relative registers
-
-[ ... ]
-
-> @@ -826,6 +856,23 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
->  macro_rules! register {
->      (base: $reg_base:ty;) =3D> {};
+> @@ -265,6 +224,17 @@ fn try_at(idx: usize) -> Option<RegisterArrayLoc<Sel=
+f>>
+>      }
+>  }
 > =20
-> +    // Creates a register at a fixed offset of the MMIO space with provi=
-ded type.
-> +    (
-> +        base: $reg_base:ty;
-> +        // `$ty` cannot be `:ty` due to follow-set restrictions.
-> +        $(#[$attr:meta])* $vis:vis $name:ident: $ty: ident $(:: $path_fr=
-ag:ident)*
+> +/// Trait implemented by types that indicate there is a fixed I/O locati=
+on for this given type.
+> +///
+> +/// Implementors can be used with [`Io::write_reg`](super::Io::write_reg=
+).
+> +pub trait FixedIoLoc<Base: ?Sized>: Sized {
+> +    /// Type of [`FixedIoLoc::location`].
 
 [Severity: Low]
-Does this macro rule prevent developers from specifying inline byte arrays
-(like [u8; 4]) as the register type?
+This isn't a bug, but does this intra-doc link point to a non-existent item?
+The trait defines a Location type and a LOCATION constant, but no location
+method or field, which will likely result in a broken rustdoc link.
 
-Since the type matcher is restricted to identifiers and paths, it seems
-developers wouldn't be able to directly define a byte array to properly mod=
-el
-a byteswap-free stream without defining a separate type alias first.
-
-Could this be adjusted to support array syntax, or is the limitation strict
-enough to require type aliases for stream buffers?
-
-> +            $(@ $offset:literal)?
-> +            $(=3D> $alias:path $([$alias_idx:expr])? )?;
-> +        $($rest:tt)*
-> +    ) =3D> {
+> +    type Location: IoLoc<Base, Self>;
+> +
+> +    /// Location of this type within given base.
+> +    const LOCATION: Self::Location;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-typed_regi=
-ster-v2-0-c3ca142220a0@garyguo.net?part=3D11
+ster-v2-0-c3ca142220a0@garyguo.net?part=3D16
