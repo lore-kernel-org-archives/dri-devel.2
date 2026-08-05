@@ -4,148 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91A3CC55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 19:08:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93DDEC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 19:12:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF6AE10E1C1;
-	Wed,  5 Aug 2026 19:08:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B88B610EF67;
+	Wed,  5 Aug 2026 19:12:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="mM0kYcc3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mf2CvlEv";
 	dkim-atps=neutral
-Received: from CWXP265CU010.outbound.protection.outlook.com
- (mail-ukwestazon11022110.outbound.protection.outlook.com [52.101.101.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45E6B10E1C1
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 19:08:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P1EOx/5fYvCLvqyrRdtevQrRsqSfeb3nZPTHm6iVYqZYKpnU53IT8jm8q0knqBz4vemytmZ6bQlJ8jVOuW7PtJBhWAelILpNf/GsIx3uWOQnwVseacG8AzPBDNn8rGJ9N6JMbZPUy5mcRYYt3cNvfQZUDRdmvlBtqPKjIWibc5+BN9rLs/a2/s1hqlgoLsnjhJlqSEbdGTLML1b3D1exdEeBLPkqeS8/zg9gDvnItv1U6VSTHC0nEwdEnYAMpgQ0l5YbFoZfOpa0qXmJnVe19LhLMQl344VNHIFWSGZdQAZXUF+emsD+JObx5lnBA7mjPLKLLNsfZPkMhWk5eRQwgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sPp4m/WvIoiEWOkzVlhX0LmXd5VncSdZuqX8H4yeCTw=;
- b=P0eGoPwWdEz/HlbmUr5/ectdD4YyLNJWKsfhCzI5W3QX10vMjmbHZsIHeLVTBgG/w8PYElZL35rl4jYbTDRxvIoIzC1HP4LxaMeJsQ5ChwleqTlGwQwZ/5szbijwHSJqPO1xcuXNempTqBkbtIsTBnyGxEP73MJeRazFIzlo93wC321tp5xtl+LYoEM8BGU8w//bjbjZjmVb6OuMeL3GzY0Mi3mbNw840ET4MUnLdbl/KbBypKVxjn/HVnxO8T2OYmAdMKe2gc8aB/0dQD6ChUeEM96n7YrGbKD5JaISRrZK8rfeQ0FbQhhfUN0+x6J8ojYYAa/KMtqLB3McaN01ZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sPp4m/WvIoiEWOkzVlhX0LmXd5VncSdZuqX8H4yeCTw=;
- b=mM0kYcc3EoW5HpdlRmd7JXV2lsxXk9fCBIPUNEfykJsRNYXi7q81lDrlhZsgViz7eA5BTIbqR3mhwLmgs3pgyqwn+MiCUGkuV92r5mpluRUlLXSYXm34f2Ae2b8UcF0Fj2F4ZZi9j0r54JA4srNM24Pgc1m93Gk704jLnlFN/uo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO6P265MB6144.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2b0::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 19:08:33 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0292.018; Wed, 5 Aug 2026
- 19:08:32 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 05 Aug 2026 20:08:31 +0100
-Message-Id: <DKH8VYS6DMRS.1K1JHX4IVMYZ0@garyguo.net>
-Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <rcu@vger.kernel.org>
-Subject: Re: [PATCH v9 3/5] rust: sync: Add abstraction for rcu_barrier()
-From: "Gary Guo" <gary@garyguo.net>
-To: "Philipp Stanner" <phasta@kernel.org>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Lyude Paul" <lyude@redhat.com>, "Paul E.
- McKenney" <paulmck@kernel.org>, "Frederic Weisbecker"
- <frederic@kernel.org>, "Neeraj Upadhyay" <neeraj.upadhyay@kernel.org>,
- "Joel Fernandes" <joelagnelf@nvidia.com>, "Josh Triplett"
- <josh@joshtriplett.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
- "Zqiang" <qiang.zhang@linux.dev>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Asahi Lina" <lina+kernel@asahilina.net>,
- "Burak Emir" <bqe@google.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "FUJITA
- Tomonori" <fujita.tomonori@gmail.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Mirko Adzic" <adzicmirko97@gmail.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Daniel del Castillo"
- <delcastillodelarosadaniel@gmail.com>, "Boris Brezillon"
- <boris.brezillon@collabora.com>
-X-Mailer: aerc 0.21.0
-References: <20260805145949.938505-2-phasta@kernel.org>
- <20260805145949.938505-5-phasta@kernel.org>
-In-Reply-To: <20260805145949.938505-5-phasta@kernel.org>
-X-ClientProxiedBy: LO4P265CA0142.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c4::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com
+ [209.85.208.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6807810EF67
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 19:12:32 +0000 (UTC)
+Received: by mail-lj1-f174.google.com with SMTP id
+ 38308e7fff4ca-39c74c469e8so10131111fa.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 12:12:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785957151; cv=none;
+ d=google.com; s=arc-20260327;
+ b=McwBSd4JrSF0WdruZzlxdG4RJh5l7m+B7IVtZvkTKuUMgxBYLGydk7d6TLVfffH5s/
+ yp/7dK6GNA+4rsBdfCR1S+tW2PiCHMtqw1o+CHjBnDTt9UhyW4kUecbq6Sw1bNdXkNDD
+ sOd6lmnS2Utlu01A+bGnhefIrzcy0KrDHsEjpDPxeQd868xjj6GqbOYGeN9oXKRVNjnP
+ N67oFRaOGXrCxKJjHb7RzOjHOLNspHwxw7ZGK2qAChKdwR0VfvP3cfo3Im90Knj8oUt5
+ 6pT/AQJfq1261MTQHoijQo4DdJ+C8FMaXABCGOP2xfkE+avrFo6u4xLaVu1RSANmJz+E
+ zbFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=Jj25GS/khGhFswCC3+7Qo87FpVSH8NsCUQcKoqvRGgo=;
+ fh=aE+wBCudF/gOybGiYNdGNsCMc8GX1x+3JHzzIbThrC8=;
+ b=NvUjXOp6ru3FzWsEPZOsSr08N78DJDJq2u76OhMFs/p6C9S3MxSNyISPG5ndKmkEng
+ 27Rx+lDrFhx/6YhTpPKNuBZO5QSFH+UyJ9wSwqis0d4XCNpRIUvAJFJlv7h3czLjpNc1
+ vzfBawOgpfeIs+GtomcEn6aFyivSQX8dkPWyEss+kxXyrTftUDYJ0BZpfDU2y5K8GGZ8
+ 1Npz9OiYYnb3YCD2cUhD5E3WAylmnKf57/DVEtnK1AsEsooxNMgqwbFbmoHhuvUpY2jT
+ PrrC6mC5bRKoFffy//BF4FNep0NJQ9Nw9KP09/3dr3dmmaEoWJAu9opjxd+/R7W99psz
+ tEnQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785957151; x=1786561951; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Jj25GS/khGhFswCC3+7Qo87FpVSH8NsCUQcKoqvRGgo=;
+ b=mf2CvlEvaGzJQjC6m0EWMCZuMP2lKxbSTvHuFd8kjNCE6GHw2Fqi2YdAP3o7G7JfdD
+ RPeRrJFZp2nFVypzOLHxy1nTbCPLyw+mzsC/gL2mzCgNt5yj4yL1BP8QKXrcsNNbMMop
+ RE2/R467fBsDMpD4JtJX23vblRCcojPpmij+/2jVt+lX/ygyngopOhOATz12W/oZUqFm
+ H5rAijEcEW4RjPDJuvbKh9Obe9yJu0DP9ENocuGYHX2L8ClOW+Z9Jgxgf/srTeAu6Ejt
+ 743uWB2KUKpAKtoKENNzjAuGpEZHDrRLXVc5heSwRngr6Qm+ujQ5kP4NLF6uqUZTrHjc
+ pMbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785957151; x=1786561951;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Jj25GS/khGhFswCC3+7Qo87FpVSH8NsCUQcKoqvRGgo=;
+ b=NnO8Ma0hrfnBsO2Zkaqqd9OVCUPg4LbxUaDwbfnamAMZ72/2Ad27pOLl4vMEbhKZrG
+ h+IkxqfObjKsN5LLRw4R+X19xvj7jXEp0FUz0i3IyXEGJKunLoRSApTD+ktoPuVlPO4P
+ SJ2J6FuutZu+gN6kA+jtxiOOZwsrPVMYntr4guc5VuCCQ8aRyHsFRlBt6acOx59TQ94t
+ kihd7qrwdmB0D661sOQJhsZHRmRPMqooRmbhSkA9wKkwi3YoHWn7qBKYB1z8tUvtVVkT
+ Q4FVkdSabRlyI7YIMrq7QoB0xvXzS7gHy+GElDa6Oggs6QmsRELx1K4nXSFH0pxiOLXt
+ tJrg==
+X-Gm-Message-State: AOJu0YwSoP+6Z5fgSD+fM+cf+An7e2BXqsY+p/F7ifavXRXCdvBv3xn0
+ FMnrL6qZK9dqS7vLnK3JoZnqTQxA6LnXTMNzSoASKUcGTidJN9pSeXGAiBne1WPh+MKB1eMwes8
+ XFtzkiY0Mb5zBoJsVRaxvEhi+BJ2pjFw=
+X-Gm-Gg: AR+sD10CgZES7HCdQu0xFwxl34yUl1EQkwuwUrfrsgZJgNoaYYINhVczb0zki7nqMcw
+ NkLMXCRUGjs0VnrxCAlVmWuNlGSBNy84eQLIj6RA7a8BSpBHIRZ1Q/EYRL2JjQQ7R76ADFoxAcn
+ UHLZyL96w5A2v8z1YQbyfckYZp2RU8wXrSjaqHjWP7ZsWn5yi1wzXjqruK9Wftnc98yBg8iNfY/
+ +/ZfUxq9cZUQJFQ5bcYYYPWs0raVr9IBERwvhK0ZqpofJTlehw278vvOzF4hlONxoijVPsm5EvB
+ 4N1F8BQzRhvkGo0Bn/LxKS7rjcLHE7dFpp2YusW4vrHBW+LNbZ+roYBWhyH+g/pA7DH7niltK23
+ 2nv2m2CagPcPzli7EJ4BzTnN6j9JuCOEDvhdDFwSjNYxRNA9H29Fpdfxhw9pDR4Y=
+X-Received: by 2002:a05:651c:2108:b0:39f:bc94:eba3 with SMTP id
+ 38308e7fff4ca-39fbc94eca4mr10172201fa.16.1785957150335; Wed, 05 Aug 2026
+ 12:12:30 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO6P265MB6144:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f20ec9d-08b8-4b1e-c9df-08def324f16b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|10070799003|366016|1800799024|921020|6133799003|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: WSzDE6KP42SAODiL4HCeH/KDX9JNnAmMYbM7iKBacaJBfR1oxy1At2VZq2iiR74MuRqxGjImHl7paX2Nu4tvLPI3Pad1Gy2PCACGiio7qf6kKjZDqMX62Z9YNDCo3Eabc+blqipBRmw584r2pV5BtYF/kOXfEP9eqrLp3qK1xzSeOAyNSj55H+pkVQ7mBQNUKnYTf7vGsN+mzMOdCWgPZdbcO6PvwgkdD1sWtFwjZbz6mtB28rBnEmnbCYQPUYhif8r+PGp79FKZV+lUsWVr4dJnI62HGJgWjJA3OB/aFMtxonRMbQtnewmVfqThY+zbeWCVCvFOBj/4qzubeFWRY15VoQNqt3rdDdJDCtTMw7T1AoeFwEmfrVIq37K2S3eBtC1T9K8x5GbDx6GGzn1AhEO8zELTY6llOFyjY1HEdJ0v/LQ/oZF7vpwMkJ80Oe3FT+30w0/uArtBUOcClh+IwyhLWXbFhDGsU9UVdzNFFQwC8lu0jFLXg0mNhYuCfTu8KgZiEUQ0KZW4VOJL3uZsNPCyr9o0Hi+VPER2H9Wt6Fk6BoDXpFnzU6UiaBgp504NacBWiVW5CZryKr2MI2gGkgWHONy1AP0+CNj7x65E7G7C7Q4E3+w2k+zPtCJHn1IucFcM6EV3c/xUc4l7YaCW3cJGi4186KS2Lus1v5BmbsZcY1ypaPzbGfsO+nwEBQZ8oj1fwkhkw2btZpJnQfV78A==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(366016)(1800799024)(921020)(6133799003)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGIxZFpvekJ0eVgyNzlIdjZrY29rMWwvK0IxVWRCNjFCRlJDdzRGc2xubFZ1?=
- =?utf-8?B?eXlKWldLZGEwRHRTMmlTU2xrNUM3TzVLQ0lpN2JtbVlsSmFxOWFvNTJzcnkw?=
- =?utf-8?B?R0xRZm9KUDYvemQ4MVZFb3lvbmplU2hFb09kaDZ4dEIwSWo4QWszRUhrdHNr?=
- =?utf-8?B?anRkTkZva0tzYnNvVk9NMDd5cUlvUU9GMDFBRHlSY2NHUVh6T2FhR2NMWXI1?=
- =?utf-8?B?cENlT0lXVUdsNCtTR1dTRGNTbk5RZ3ludDd0L0RLYk5TYkNzUEN4SU42NUow?=
- =?utf-8?B?Y24wWVljRU8zaHZOZ1UyRTcwQ2dCS2hyMXY1Sk9HeU13RDgzNG9HQ3cyZVJI?=
- =?utf-8?B?QVFMOHdvTXlHUzRjcllMMDRBQjFIR1hQVEUrbGJmMnBCcDB3UTBaazdpNkZn?=
- =?utf-8?B?d3QxaFBoSzNzRFJ6WlNsQkJ6Tk0wK09qMGc3SVlCOTVFKzFBVllReTlMMGRS?=
- =?utf-8?B?eUdTUkVONWZ1ZnI4NUdFeE54Z21EQkdLdnpzMzBpcFpzcDNuUUhZWGRxemxo?=
- =?utf-8?B?MFlIVml2bjkvVitxNmM2MDZCYTk2Vm1KRDBCWUg5YXMzVXpldDJ1VHZLc2p1?=
- =?utf-8?B?dkpNMms3cDkrQjRUeldXMHE2Qzl1bkFPZVJqdko1WTdzQnRHeHhYU2hDUmh4?=
- =?utf-8?B?LzRqcHYwQk14Z0NTanlGY2ZpMmJVQ3ZlZHFscG5QZ0lqZmZORHNMQVpXeFlV?=
- =?utf-8?B?WG5PUVVvVkxISk42N0NkWE45cXQ4MCsxWjhwUHRnY3pZV0d6dW0zeWFPQXh1?=
- =?utf-8?B?QmRDNTJiZWZnR2RFQ0ZJNk5kaTR4SklyREdMdGd4ZktJVThrdjQxWUgyS21x?=
- =?utf-8?B?QXlqY3FkNnhyOVZzcHJQcWQ5U1lnTTVjcGNwTzMwMnBlTWRQL0ZmcUpETEFn?=
- =?utf-8?B?T1FRMkh3KzRqcmpockN5ZWh3ZlRiTEpoUDg4WU9HWEFRRUJ3aW9pMDlHMlZr?=
- =?utf-8?B?M05jMWE5UXhTTHY2QmFTZkFOcWExM0RjMEFhMXlHaG4zVGRjV2t4eVRrVTcy?=
- =?utf-8?B?M2IxdkM5dUFMZG9WUmJyTlcybzFIY3F4QjV2SGU0VkhwT0VMTHc3UmJqWFJj?=
- =?utf-8?B?SXRFWGpPNkhZYXNoYTN5QjAvT2RCK3ZHZW1DWXh5V0lxNE5CR1Nlb3l6cHJQ?=
- =?utf-8?B?b1RCN0dWR05KdHNXekRzUE9YbktVR2pKVDdqNnFvZ2lHbW9QNmV0QjlQblZu?=
- =?utf-8?B?R2tSK1lHWnBTakE5UUFuaFNOZTZyN1h5NXVTamM5UkNacjg5aml0d3dBRDZI?=
- =?utf-8?B?SVlXc2p2OVVDdXFZNk42aG82SXRPMFltbVhDV0VJSlJPM2FIT1ZuVUJWVmdQ?=
- =?utf-8?B?ckF3dnMrNGlmVXNOUVFDdm1yNDJlZDJpeTczZzlXWlc1QUQ3VkpYTURXNVRK?=
- =?utf-8?B?b3VwWDZKK2cyU2pqL24wNDQrVGZ2OTRwaHJDNncwSFBEU0NvVkxnWkRSS3FI?=
- =?utf-8?B?U3A1WjVoOG03R2dlTUhCQnlGL3NyUmlIaHg0cFNOaEtFcFdBcGJxTDQyM3Fl?=
- =?utf-8?B?QmhrckJMSnhNUDk0YytCTXcwbHBHcm9wOEVvMUlIc29YVk1DWTZWckxMdWtv?=
- =?utf-8?B?NkVnZ0hDUUVDcGlMOVFUc3pSVGVIbXNCUGJ0U092Q0ZyNlNWV0pXNmM3VWlB?=
- =?utf-8?B?NDd0RlZmUEU4WGE3OE11TnNEMUNYSFd1anlQWlowdmtQNGYyRXBoS3hmd0ha?=
- =?utf-8?B?VDIraUlVY1ZTNTBaOGZmdnBINTNRM2hqaVFGWGhIdjk0WTMwaTlDY1E0ejdo?=
- =?utf-8?B?aWIwN0FTbzllbjJEMHBIQWRiSk5MTUlsbXVBWENvUFNIbGV0dVJLRTYwekZj?=
- =?utf-8?B?RFJPeWc5dXIzZkwySmdDRCsyT1dySStCTExXVHVGNklCT0tWTC9QbHRSbFk2?=
- =?utf-8?B?M0M2RkNYSkhCM3JOaUxHaERKOFhBRTlqeTB5bUVwYlhVNStXdk1oTXNySTFE?=
- =?utf-8?B?TGVvL2hobm5hU2Q5QkF1ZVRUWWVKWkg3SkRHZkwrRjh0OGZvcFcyZU1FTms4?=
- =?utf-8?B?OC9lQlJ4RVVqNGorVWVaN3hRalFnTS9FTE1GZDc0dnRuMVNFN3RsYmJkZ1Jt?=
- =?utf-8?B?NzFvNk9pY3NEYVJvYnpyWGhkaUNUelN6d1lxT0VyNjZnZnh6MTd5aXhlSys0?=
- =?utf-8?B?Q3lwWmVXVDd3NkkvS09MRVFOZzlyczFKK29rTEgxaFBlWUR0aUptbjF0cWtw?=
- =?utf-8?B?YnlGRGJPbERYV20xQzNMazZmZXEydk5IQzY4RElqT1NzYzV6ZnFaRi9HS0Q1?=
- =?utf-8?B?M2psMkpnck8xNldEOG1JRkUwSnlheHhHcVpwTG9KRDRVd3phRVNrQXhRWm9y?=
- =?utf-8?B?MDlqeWF6Q2dmWDNUUUxLMkhQdGlUWE5kQlVhazdEWXRhYjdyNmh2QT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f20ec9d-08b8-4b1e-c9df-08def324f16b
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 19:08:32.8749 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6nFcTt7H9AWK5ztZlB4E2xOwgxY5cavNJmVE+BDlEZAW7cZL+Klsd8cDFWSQeNFNXoakwB16WeQ1dXVnXKzjjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6144
+References: <20260730173643.256052-1-kieweg.leander@gmail.com>
+ <20260730173643.256052-2-kieweg.leander@gmail.com>
+ <20260731-petrel-of-fascinating-finesse-cd10ae@quoll>
+ <CAMwcS0hupV50NEOX1Fsi_tzRYXBecaummjAm=CFHO7xOT1uUXw@mail.gmail.com>
+ <c5f760db-2235-44c1-899c-b6ac023b3233@kernel.org>
+In-Reply-To: <c5f760db-2235-44c1-899c-b6ac023b3233@kernel.org>
+From: Leander Kieweg <kieweg.leander@gmail.com>
+Date: Wed, 5 Aug 2026 21:12:17 +0200
+X-Gm-Features: AUfX_mzKfgNk_kCeQMYfzhq1km2lC_2cZiboke2CNUawh4-Ik77RzF-dE-CyGAM
+Message-ID: <CAMwcS0jTwpigztHBTLv_sgFNLK0ERHDMzMGsBdi7josLHw56-g@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: Add GlandaGPU binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, u.kleine-koenig@baylibre.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,61 +108,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 5, 2026 at 3:59 PM BST, Philipp Stanner wrote:
-> rcu_barrier() is a frequently used C function which is always safe to be
-> called.
->
-> Add a safe abstraction for rcu_barrier().
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
+> openrisc is arch.
+> opencores is entire org. Are you saying that "Glanda" is this one:
+> https://www.glanda.com.au/
+> and opencores releases entire SoCs, thus they integrate their own IPs
+> there into final product. I agree though, that opencores should not
+> define standalone generic compatibles.
 
-Acked-by: Gary Guo <gary@garyguo.net>
+Fair, those precedents don't really hold up then.
 
-> ---
->  rust/kernel/sync/rcu.rs | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
-> index a32bef6e490b..7031ca5d2473 100644
-> --- a/rust/kernel/sync/rcu.rs
-> +++ b/rust/kernel/sync/rcu.rs
-> @@ -50,3 +50,23 @@ fn drop(&mut self) {
->  pub fn read_lock() -> Guard {
->      Guard::new()
->  }
-> +
-> +/// Wait until all in-flight call_rcu() callbacks complete.
+No relation to glanda.com.au, I wasn't even aware of that company.
+This is just a personal hobby project, not a company or organization.
 
-This misses some `` quoting but these can be applied on fixup.
+Given that, what would you suggest instead? I'm open to using a
+board-specific compatible as the primary match as discussed, or
+whatever naming scheme you'd consider appropriate for an individual's
+hobby project.
 
-Best,
-Gary
-
-> +///
-> +/// Note that this primitive does not necessarily wait for an RCU grace =
-period
-> +/// to complete.  For example, if there are no RCU callbacks queued anyw=
-here
-> +/// in the system, then rcu_barrier() is within its rights to return
-> +/// immediately, without waiting for anything, much less an RCU grace pe=
-riod.
-> +/// In fact, rcu_barrier() will normally not result in any RCU grace per=
-iods
-> +/// beyond those that were already destined to be executed.
-> +///
-> +/// In kernels built with CONFIG_RCU_LAZY=3Dy, this function also hurrie=
-s all
-> +/// pending lazy RCU callbacks.
-> +///
-> +/// Note that this is one of the RCU primitives which must not be called=
- in
-> +/// atomic context.
-> +#[inline]
-> +pub fn rcu_barrier() {
-> +    // SAFETY: `rcu_barrier()` is always safe to be called. It just migh=
-t wait for a grace period.
-> +    unsafe { bindings::rcu_barrier() };
-> +}
-
-
+Best regards,
+Leander
