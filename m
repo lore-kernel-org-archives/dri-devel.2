@@ -4,64 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63458C55822
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 06:04:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0FAE0C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 06:08:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65B7610ECDD;
-	Wed,  5 Aug 2026 06:04:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A26610E175;
+	Wed,  5 Aug 2026 06:08:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="igdJt2SW";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="hZFLiu3U";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2EF10ECDD;
- Wed,  5 Aug 2026 06:04:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785909883; x=1817445883;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=4Dx2yDPCkyFQMbp325MbRQe6G9ZLtqCxCXhBkxJvRzc=;
- b=igdJt2SWRJ+yHuXCUiJ5ApS3xXOlVeQ5mO3LT1o4x4V7uDPQf0w+VBgQ
- Q+06s3P3oy12/NwanLqG1zEtbX6aeaBWp0cqskfrtma3vpNuA0so5EUUg
- s1jMxihRNaDrqr7g99JdlslRDttoHu+9H/w230CujJeJESzL1iuKzyL8b
- ZUSmV8CrpM29KGd9McpdW9+TUuquNtAUm+F4jTW1XGyfp/wn9AmxxQKGU
- MepqqBRH49gSRjEqiz5FFuwqh3G1K22LTSfjOJilu/+IEylEPd+baoOqh
- hbIhLq+BSt7V+E+bIWrRNIRu+pcxnthh+siR8sFRyGgosM+wdCR2nANIL g==;
-X-CSE-ConnectionGUID: vZIVCj+xSumz4K1HZGBfRQ==
-X-CSE-MsgGUID: ec+sZfEcRra27gHM72gbtg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86483624"
-X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="86483624"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Aug 2026 23:04:42 -0700
-X-CSE-ConnectionGUID: lX7Ub0lbQMO/9qGURTdxDQ==
-X-CSE-MsgGUID: NYLygFFYQbyp8lJZGyzVlQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="291653100"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
- by orviesa002.jf.intel.com with ESMTP; 04 Aug 2026 23:04:39 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wrUk0-00000000Bjh-3RBH;
- Wed, 05 Aug 2026 06:04:36 +0000
-Date: Wed, 5 Aug 2026 14:03:16 +0800
-From: kernel test robot <lkp@intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Michal Wajdeczko <michal.wajdeczko@intel.com>,
- =?utf-8?Q?Micha=C5=82?= Winiarski <michal.winiarski@intel.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Guangshuo Li <lgs201920130244@gmail.com>
-Subject: Re: [PATCH] drm/xe/pf: clear pending packet on header init failure
-Message-ID: <202608051326.aRuRqBCC-lkp@intel.com>
-References: <20260708071502.722393-1-lgs201920130244@gmail.com>
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D48C110E175
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 06:08:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1785910112;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=W0Sm6aitHsc62gyEgQg2/9qpXlfx9wA/VX2KIRUAVSU=;
+ b=hZFLiu3UwUoW2CwdY6gEUvQDxXKoHngko7VL2leRakgVyhEHNySZZVGhEE3N85C9iKFZtE
+ SR9Xm6562dgTI6qF/wnLs+3EMkGa5lzbkFlQwNZPNsBXioSXpQIdxeRfedTBj5Lx0E0Qqr
+ h+mFlBMv4c+GA3DKqa1wBOQ5iaFmzb8=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-689-wG0B5mlVOuyQf8FpmZtO7A-1; Wed, 05 Aug 2026 02:08:31 -0400
+X-MC-Unique: wG0B5mlVOuyQf8FpmZtO7A-1
+X-Mimecast-MFC-AGG-ID: wG0B5mlVOuyQf8FpmZtO7A_1785910110
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-47f81362fb1so303827f8f.1
+ for <dri-devel@lists.freedesktop.org>; Tue, 04 Aug 2026 23:08:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785910110; x=1786514910;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=W0Sm6aitHsc62gyEgQg2/9qpXlfx9wA/VX2KIRUAVSU=;
+ b=ndDUbFt6XjWhQ8CWZRaYiNSaG/dqz2xS2BslvtPeoJzoDRNrRzHZkanWVGnr8trZC5
+ /21F6aLJDh884ZfOhDLVmbyl1s3q5F8rUQKi4tb15Tk5FZ3mFc1IfobsVLiG1bd+K12p
+ hy/HQYEba2oVy/9C349zHWkhPYJgOFFOTlMXDgkaBdpDMy0OMNsJ7zmaWP0LXtCS0kut
+ snU2yixC85G94ktaxh0Y6yly1qRBsenADetyYf4/OJvjYMKwWrovur73jG4xWYCUwRbc
+ jB7EfwLOe7E7ICNWfFFYkwAAg/UPl8KOfOQNbeiFT1SYiSWJ976j3JaK/ItG2Xy8USo5
+ iuIg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rr3t1hvcse34t0SQ+kLjbBlBXCL5MUxF54mth55FpbT1hED+7m5gPUNjwRaK9VpsXqnJnbNX0I4NRo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyoPn0O3c8Om+dexxf2qeMK75RVoBRntv5lpszhy2wNz1e5ZTbv
+ HwA+704yjk2owb6Ub7CfX2edzM4nYwvUODmakYQi1Gvg94IiqGJuLKCO+MwNT1uj09ReWSACP9M
+ uABCt2Asu7cwPyXTwXjKoeA6Lnj+SyxgYwhBeuBxElprGY4rV3i8/dyXsE8gjgdBaS/t+l7CrTk
+ 4erAkuXKRLsjD8uCE/Ol/ClRgpBwoDWvPYEnJoCIyyRJDM
+X-Gm-Gg: AR+sD13Fcbmn2v7N6kKStEKFrbWmle3RzgRZn8/IKZEE+rK9CJ4KLrjL5uJg382ia9V
+ tWkXy6h/mnYDs1aA0skpGpcmNfsG5o7rclRidksc75xNenQBmsMj2GAb5j+v5ZNqpIN9YT/2SeI
+ kLxfDC8fIgXq2FG7XAVGcLmV3i8Viemfz7DPJx4hH9dJ3XC/c846bo2F/DZ9poXvUHaTLEcib/R
+ 2ex03YrnaafrBnP6pYa0d1A0/PXmD28hDeC6CyctdWPkAZXP/8L+x/xI0c=
+X-Received: by 2002:adf:e012:0:20b0:47f:753c:5393 with SMTP id
+ ffacd0b85a97d-47fec4e888cmr5402596f8f.6.1785910109885; 
+ Tue, 04 Aug 2026 23:08:29 -0700 (PDT)
+X-Received: by 2002:adf:e012:0:20b0:47f:753c:5393 with SMTP id
+ ffacd0b85a97d-47fec4e888cmr5402532f8f.6.1785910109519; Tue, 04 Aug 2026
+ 23:08:29 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708071502.722393-1-lgs201920130244@gmail.com>
+References: <20260804120529.1730187-1-pbonzini@redhat.com>
+ <20260804120529.1730187-3-pbonzini@redhat.com>
+ <20260804161549.4cd9a66f@fedora-21.home>
+ <20260804161850.58c55c6e@fedora-21.home>
+ <CABgObfbAveuhkjXzmemvGtycmcmDePKABr8Q35Y9mZP0den5aA@mail.gmail.com>
+ <20260804164206.655874ce@fedora-21.home>
+In-Reply-To: <20260804164206.655874ce@fedora-21.home>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Wed, 5 Aug 2026 08:08:17 +0200
+X-Gm-Features: AUfX_mzo9t9ubVXz5xpYzVx4R9t4U8bdls__QKfQW65v6eCkMtC4FUkJ5hgXDI8
+Message-ID: <CABgObfY67mdG9QZ5__Q9GDrEq9Wutc42_tHo8YGSMOPnruZmsg@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] drm/shmem_helper: use vmf_insert_pfn_mkwrite()
+To: Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+ Alex Williamson <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, 
+ Christian Koenig <christian.koenig@amd.com>,
+ David Hildenbrand <david@kernel.org>, 
+ dri-devel@lists.freedesktop.org, Fei Li <fei1.li@intel.com>, 
+ Huang Rui <ray.huang@amd.com>, linux-mm@kvack.org, linux-s390@vger.kernel.org, 
+ Michal Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>,
+ Sergio Lopez <slp@redhat.com>, Sean Christopherson <seanjc@google.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: vBUP1-Mtq_HCO3TeyhxcyL2i6IBJqWyVWGLTqwdttac_1785910110
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,98 +107,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Guangshuo,
+On Tue, Aug 4, 2026 at 4:42=E2=80=AFPM Boris Brezillon
+<boris.brezillon@collabora.com> wrote:
+> Okay, I thought I'd ask to be sure, because of all the implementations
+> of pfn_mkwrite listed here [1], only drm_gem_shmem_helper.c and
+> kernel/events/core.c do that.
 
-kernel test robot noticed the following build errors:
+Also the vmwgfx one in patch 3; and for the !DAX case ext4 and XFS too
+(e.g. xfs_filemap_pfn_mkwrite gets to iomap_page_mkwrite, not to
+filemap_fault).
 
-[auto build test ERROR on drm-xe/drm-xe-next]
-[also build test ERROR on linus/master v7.2-rc6 next-20260804]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+> The rest have their "generic" fault
+> handler (by generic I mean a fault handler helper that covers all the
+> order/WRITE_FLAG combinations) called from pfn_mkwrite(), and return a
+> non-zero vm_fault_t.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/drm-xe-pf-clear-pending-packet-on-header-init-failure/20260805-104621
-base:   https://gitlab.freedesktop.org/drm/xe/kernel.git drm-xe-next
-patch link:    https://lore.kernel.org/r/20260708071502.722393-1-lgs201920130244%40gmail.com
-patch subject: [PATCH] drm/xe/pf: clear pending packet on header init failure
-config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260805/202608051326.aRuRqBCC-lkp@intel.com/config)
-compiler: powerpc64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260805/202608051326.aRuRqBCC-lkp@intel.com/reproduce)
+I see; I think you can do that, it is handled at
+https://elixir.bootlin.com/linux/v7.2-rc5/source/mm/memory.c#L2681 and
+indeed it returns VM_FAULT_NOPAGE. But it's more or work for no real
+reason. Your .pfn_mkwrite is a single line of code and it is clearer
+IMO if you can see that try_insert_pfn() is calling the same helper as
+.pfn_mkwrite().
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608051326.aRuRqBCC-lkp@intel.com/
+Paolo
 
-All error/warnings (new ones prefixed by >>):
-
-   drivers/gpu/drm/xe/xe_sriov_packet.c: In function 'xe_sriov_packet_write_single':
->> drivers/gpu/drm/xe/xe_sriov_packet.c:350:17: error: unknown type name 'rturn'
-     350 |                 rturn copied;
-         |                 ^~~~~
->> drivers/gpu/drm/xe/xe_sriov_packet.c:350:23: warning: unused variable 'copied' [-Wunused-variable]
-     350 |                 rturn copied;
-         |                       ^~~~~~
-
-
-vim +/rturn +350 drivers/gpu/drm/xe/xe_sriov_packet.c
-
-   313	
-   314	/**
-   315	 * xe_sriov_packet_write_single() - Write migration data to a single packet.
-   316	 * @xe: the &xe_device
-   317	 * @vfid: the VF identifier
-   318	 * @buf: start address of userspace buffer
-   319	 * @len: requested write size from userspace
-   320	 *
-   321	 * Return: number of bytes that has been successfully written,
-   322	 *	   -errno on failure.
-   323	 */
-   324	ssize_t xe_sriov_packet_write_single(struct xe_device *xe, unsigned int vfid,
-   325					     const char __user *buf, size_t len)
-   326	{
-   327		struct xe_sriov_packet **data = pf_pick_pending(xe, vfid);
-   328		ssize_t copied;
-   329		bool writing_hdr;
-   330		int ret;
-   331	
-   332		if (IS_ERR_OR_NULL(*data)) {
-   333			*data = xe_sriov_packet_alloc(xe);
-   334			if (!*data)
-   335				return -ENOMEM;
-   336		}
-   337	
-   338		writing_hdr = (*data)->hdr_remaining;
-   339		if (writing_hdr)
-   340			copied = pkt_hdr_write(*data, buf, len);
-   341		else
-   342			copied = pkt_data_write(*data, buf, len);
-   343	
-   344		if (copied < 0) {
-   345			if (writing_hdr && !(*data)->hdr_remaining) {
-   346				kfree(*data);
-   347				*data = NULL;
-   348			}
-   349	
- > 350			rturn copied;
-   351		}
-   352	
-   353		if ((*data)->hdr_remaining == 0 && (*data)->remaining == 0) {
-   354			ret = xe_sriov_pf_migration_restore_produce(xe, vfid, *data);
-   355			if (ret) {
-   356				xe_sriov_packet_free(*data);
-   357				*data = NULL;
-   358	
-   359				return ret;
-   360			}
-   361	
-   362			*data = NULL;
-   363		}
-   364	
-   365		return copied;
-   366	}
-   367	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
