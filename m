@@ -4,89 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3BA2EC55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 17:29:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5802FC55ABA
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 17:31:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9BB4310EF65;
-	Wed,  5 Aug 2026 17:29:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF9CD10E23C;
+	Wed,  5 Aug 2026 17:31:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="B5F9bV8U";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="ewaAUdXt";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C79C510EF74
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 17:29:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1785950966;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=NejjrKENKzWANlNw/++5ptDBbOGn/cuN0FJaDOx2asU=;
- b=B5F9bV8USZn1jXChpkkVNa6G7o+0ls0Ct/PugA8pmkZEmvtsuWJmwepdzpRwatXzR1dlAx
- QvKQaeRm6qdnHSlN2XWLw12aV3c4RiCV4fud3IB5o8me6SGKOUlI3kuRni9O4HONW4O5Ny
- xMibivX/PB1td3r8axSc9RRNM5QKmy0=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-278-ZMWEtkRaMSWCmOeZcAv15g-1; Wed, 05 Aug 2026 13:29:18 -0400
-X-MC-Unique: ZMWEtkRaMSWCmOeZcAv15g-1
-X-Mimecast-MFC-AGG-ID: ZMWEtkRaMSWCmOeZcAv15g_1785950957
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-930f5da3467so130059185a.2
- for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 10:29:18 -0700 (PDT)
+Received: from mail-yw1-f227.google.com (mail-yw1-f227.google.com
+ [209.85.128.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D6B6510E23C
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 17:31:12 +0000 (UTC)
+Received: by mail-yw1-f227.google.com with SMTP id
+ 00721157ae682-81ee6b2da98so18863617b3.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 10:31:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785950957; x=1786555757;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=f0EJjLd2CiUGDjKzo2WpgZtP8C/lKhszyy+rUI8pYGE=;
- b=mVggiilqpSMPVb7Z2EiMGmRUzvglrxC3g1Vbiw2pCgc6DKKpsF70QOfpsMN6gAoWxL
- UroeweDxKIyEQOwYy+AZda98Mrrb3AjU6qAQIGL4qNml3JkKyhe+77zpaiq2G8XlwrMY
- r5Ie0BNaF7ATOWuafEDDkmG/NlQnFdVPEapnX9xhSoVS1RD61IF9MT4X/X8GXjNFeJuY
- 9oCZ1BuvCE4RoOKb9+r2YSyJE9pqFUvhSyiwps5SuiCCl9Tvwxe6hM78qolma0BFkxo1
- WsC4MmI7tDV0pb+HeVs1kfRhughbXVHkfOUq4BQ4LNSZrtQcIX/cnUgS3RBA0Ob71FXn
- O/5g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrS5eo0fdTa8JW+vdrpn8zqiPsT4Bm8wJDAkkcNn2Rw+1D+iX4JNL/8xNb910+O8yo+Acj0/5tJNkA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwPuSOgU3FAO/igyQgqkNXhVJbnFwOW285oF990z4DEuIIQAVZv
- 1k31edvz9v5Xdkv5TAIz/gDTbO8V2DDWqraj80xx+x8/A+Z+uRkUuEpCDzX+MuT+MIhQ+Jn8hqp
- 9bVlfYZy3rjzTS30bTBinTx9/hS8FJu5PilsfWtPWJntCuR/sx4LoRZH7abMj1NhhpllPRQ==
-X-Gm-Gg: AR+sD116xNfakn46BcATNn4hPxt5ltTM66tmBPfcML98kroqf5lK+HLhPJJxs+zcACn
- ofnewPsZe2x3m3/wjXhffVIcbS9wT5+TzTH1dJy2YN1wsad7n+7q6/OJ9OZao+2hQIwyUKYT/Dt
- aYTosYr29GOhybRzd2uzwz8y5/V1ICBIu94TDz02qhVMFOnGTNYCWj7siHnI9lGUxpE3WXofUp+
- 98i0e/EbWjRlOmnBtxz2cbMSg/CIPo0RkWLRQQ7vfLg1m1QpNBO4h0XUHSkLHonslEVZtLpwec+
- iLMSb35/cuKCuZspUMITIfixK2EPsfwyNLm7xIikuP0N9wEA9qWa7+AP5QjSLcsj4mP/urno
-X-Received: by 2002:a05:620a:f12:b0:915:a111:86ae with SMTP id
- af79cd13be357-9364922a3ecmr742287685a.35.1785950957447; 
- Wed, 05 Aug 2026 10:29:17 -0700 (PDT)
-X-Received: by 2002:a05:620a:f12:b0:915:a111:86ae with SMTP id
- af79cd13be357-9364922a3ecmr742282985a.35.1785950956885; 
- Wed, 05 Aug 2026 10:29:16 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-9364a567666sm196142685a.33.2026.08.05.10.29.15
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Aug 2026 10:29:16 -0700 (PDT)
-Message-ID: <2de49c1551bef14f30776221c10e43ebf1305ff6.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau/disp: Prevent division-by-zero during
- DisplayPort link training transitions
-From: lyude@redhat.com
-To: Arjan Filius <iafilius@xs4all.nl>
-Cc: Danilo Krummrich <dakr@kernel.org>, nouveau@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Date: Wed, 05 Aug 2026 13:29:15 -0400
-In-Reply-To: <6BF6102D-CBBC-4C98-8E74-F2AD208A7169@xs4all.nl>
-References: <69D67A9F-1A56-4814-AE68-50559DED42AF@xs4all.nl>
- <d51b99262dd7feb96d245926fcec65890f35c59d.camel@redhat.com>
- <6BF6102D-CBBC-4C98-8E74-F2AD208A7169@xs4all.nl>
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43)
+ d=1e100.net; s=20251104; t=1785951072; x=1786555872;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ElROmpSx/9L+JYyyPkr8TVjendahB4BxKDQo8AyfQdM=;
+ b=bKHrzlIB8yK1AYlsh9cSr+wICKoUTDBzL9OXo/Jxq92ZknwjRdhcEwFSZrCB3oCfJp
+ QVwahduOUygG64j4sT6atWp1tJhqBC3NK0JgfjE0XHMvIIK/c5BfEbsbRzvvz/yOTCQ7
+ VkKVp8TTRX53XlRR+8Hx6soNh7K5eRBa6+t7rZzXE0bsqNicc0up3IFyJt3zwo3POMxM
+ VGHPjcNXEvdWWA4RQyhY/ICwotsTiNOmP1qDWPnDZUe2mx/GqwTJ9y/tM9RlS5mltvhD
+ d/4ue3tdmpYo5mutC8CQYIXwBFIEBUEACWbnMvSsmF/sinlLGuIPbGu6EWceIH7E2B/O
+ N4uw==
+X-Gm-Message-State: AOJu0Yw4cOy6du1T7NBWSf7ca4NZ4z2ViUFmZ4IqDy7N5p5GzXH0jD6F
+ VlrevPKzMeMWkt/6XJdB+YDhh8ex5MszbJIKd5maBGA7SeKwnz/TwvCbl7iUQ7GwA0YK7GuKNVf
+ 6tZZKdwg4jrlYQQGmZF0Q5o0dwXPLcN7hWnxvSJwHhXq4PkPPsWMXxQWc5R+kbwP9YmsQU4TxbV
+ 0jsdvlDzDflafmM6nGbBflENhK8MH1kMFTeqwvOCu88voyL5jhsscLbVcR33ME80yTxLRDVApK0
+ WBaxjg1gKQBLPlzliIV
+X-Gm-Gg: AR+sD10zlcWBo7w6voXRUSoet5NSHoFDKhOl2hDTgdY/vLUwyA2B7KcDjWdV7x9Ha0z
+ qPUS5NrPpmFxKQyqIumn0wKr5s09gY08qmKJMu9uYGdF5w4Gz5bbiLz6pGJon046QQamLcBKbNa
+ gfimSZfdDVkqymhGMbyW0XcC5Z/p5Oi0+gu10Mp39vnb4/qRbStNG7eWwKkNXRzQWID9GGtuvxW
+ /ZePoHKTS/jRVLOTIc4UPB0IXIocFryzb0Deesaq0NvKoT1rd5SgM1vdaokNVbEVr4EA0Z0MTB5
+ XAQt48jH50RFoVd4suVhfAb0KY/JcI5w2CHlOw2TUEFwrgWmh8rFA0j2Eh/AuZdkv1JW6l1cDc7
+ aGca3IqXXDtOweLC1kpHy3AbKHKhrDs34nFkXqHjS8/YMJhPsJXqB7RBluk4uBkTb3AzZ4Kk7s8
+ IYsdwjR4x6UBgu2p5ZdYMmsG7+o5aYbfzW
+X-Received: by 2002:a05:690c:6905:b0:81e:bbcd:f5c3 with SMTP id
+ 00721157ae682-820229cf17fmr50493557b3.36.1785951071388; 
+ Wed, 05 Aug 2026 10:31:11 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-27.dlp.protect.broadcom.com. [144.49.247.27])
+ by smtp-relay.gmail.com with ESMTPS id
+ 00721157ae682-82019edb265sm989957b3.23.2026.08.05.10.31.10
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Wed, 05 Aug 2026 10:31:11 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-47eaa4006a1so44570f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 10:31:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1785951070; x=1786555870;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=ElROmpSx/9L+JYyyPkr8TVjendahB4BxKDQo8AyfQdM=;
+ b=ewaAUdXtdaww1zV1gMjh7O4Nm5l8zS9ZxGQGe3aiS17zbuVVOrQnnYZUPxlZ3iPcPn
+ cUIhKF8swXXEuvzCQ1SJ42yP0pnI3q1l9qZ6EKUZXa3KNxx+5qmNBwWtV2CBIVpiHjmS
+ e/Aj866seRGmdtFnMqDvKDsr818f0LGGfQ+ME=
+X-Received: by 2002:a05:6000:40ca:b0:47d:f6a5:1fbb with SMTP id
+ ffacd0b85a97d-47ff4e602d4mr1361713f8f.13.1785951069894; 
+ Wed, 05 Aug 2026 10:31:09 -0700 (PDT)
+X-Received: by 2002:a05:6000:40ca:b0:47d:f6a5:1fbb with SMTP id
+ ffacd0b85a97d-47ff4e602d4mr1361602f8f.13.1785951069396; Wed, 05 Aug 2026
+ 10:31:09 -0700 (PDT)
 MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Nh0X8tW5E7TQdlSWxIUpntg7jFaF6yuZdye-QW0jyGc_1785950957
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+References: <CADZLCw7o5wO=+Zv2a7W9uc9AuiQDM-hEqki95eNfk8pv+L=_=A@mail.gmail.com>
+In-Reply-To: <CADZLCw7o5wO=+Zv2a7W9uc9AuiQDM-hEqki95eNfk8pv+L=_=A@mail.gmail.com>
+From: Ian Forbes <ian.forbes@broadcom.com>
+Date: Wed, 5 Aug 2026 12:30:56 -0500
+X-Gm-Features: AUfX_mwx8ydR82l7GMmiQPOYkNwdroTeAPzq15DN6pGSOOxYKaPuPUixadWplIk
+Message-ID: <CAO6MGth3Kye87-sveK8QUpHWkT6rDjcZL9TZK-eu2PtM9ZaR4Q@mail.gmail.com>
+Subject: Re: [BUG] drm/vmwgfx: vmw_cmdbuf_alloc leaks ~103 MiB/day of
+ unreclaimable slab via the fbdev damage worker
+To: =?UTF-8?B?0JTQuNC80LAg0JTRjNGP0YfQutC+0LI=?= <das.ogi4i@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, zack.rusin@broadcom.com, 
+ bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org, 
+ tzimmermann@suse.de
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="0000000000002000ec06585023aa"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,306 +104,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-JFYI - going to try to review/test this ASAP, just been sidetracked
-chasing some big runtime PM issues in nouveau atm :S
+--0000000000002000ec06585023aa
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 2026-07-17 at 10:15 +0200, Arjan Filius wrote:
-> Hello Lyude,
->=20
-> Yes, I did use generative AI to help refine and structure this (old)
-> patch.
-> It is completely based on work/debug/fixing I had done manually few
-> years back.=20
-> Generative AI helped me to send the message, but re-used my old
-> patched code, brushed up a bit.
-> And tested it this week on kernel 7.1.3, but previous tested on
-> 6.8.0.x and 6.9.9 kernels.
->=20
-> In 2024 i submitted a bug report/fix/workaround (to prevent a full
-> lockup every day) on the Freedesktop GitLab under Issue 377:
-> https://gitlab.freedesktop.org/drm/nouveau/-/issues/377
->=20
-> Back then, my local workaround was a bit less elegant, and had a few
-> extra checks/debug statements.
-> I had almost forgotten about the issue since my workaround was
-> running fine.
-> When I recently booted up a clean mainline 7.1.3 kernel and saw the
-> system freeze again within a day and every day,=20
-> and had to fsck my disks due to it, I remembered the fix I once
-> debugged and posted in 2024.=20
-> I wanted to see if I could find a cleaner, more elegant solution and
-> used AI for it, to see if the patch could be in a nicer place,=20
-> but ended up to basically reproduce the fix i had written in 2024
-> (without AI).
->=20
->=20
-> Regarding the two patches (A and B):=20
-> * **Patch B** was the version I compiled and tested locally with the
-> `nvkm_warn()` statement
-> =C2=A0 so I could verify in `dmesg` that the standby transitions were
-> actually triggering the block and being safely bypassed.
-> * **Patch A** is the exact same check but silent (without the warning
-> logs).
->=20
-> To avoid any confusion i repeat my patch, which does not produce any
-> logging every time,=20
-> but just avoids the lockup referencing null pointers when external
-> displays goes to sleep.
->=20
->=20
-> ```diff
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> index 51c045bdfcbb..ab1bc0898def 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> @@ -1157,6 +1157,10 @@ nv50_disp_super_2_2_dp(struct nvkm_head *head,
-> struct nvkm_ior *ior)
-> =C2=A0{
-> =C2=A0=09struct nvkm_subdev *subdev =3D &head->disp->engine.subdev;
-> =C2=A0
-> +=09/* If the DisplayPort link is inactive (0 lanes), skip
-> configuration */
-> +=09if (ior->dp.nr =3D=3D 0)
-> +=09=09return;
-> +
-> =C2=A0=09const u32 khz =3D head->asy.hz / 1000;
-> =C2=A0=09const u32 linkKBps =3D ior->dp.bw * 27000;
-> =C2=A0=09const u32 symbol =3D 100000;
-> ```
->=20
-> This completely fixes my lenovo T430(NVIDIA NVS 5400M) + 4338 Dock
-> and 2 external (multi-input) monitors freeze, proven over some years.
-> At the time the nvidia kernel driver on my T430 became an issue wih
-> newer kernels, and notice nouveau driver did pretty well too.
->=20
-> Hope this claries it.
->=20
-> Best regards,
-> Arjan Filius
->=20
->=20
-> > On 16 Jul 2026, at 22:40, lyude@redhat.com=C2=A0wrote:
-> >=20
-> > Hi, can you please clarify whether or not you used generative AI
-> > for
-> > this patch series? If so, this needs to be noted as part of the
-> > commit
-> > message. Additionally, both of these patches look to be identical
-> > except that one prints a message and the other doesn't. You can
-> > just
-> > send a single version, we will figure out how to handle that part
-> > after.
-> >=20
-> > On Thu, 2026-07-16 at 16:55 +0200, Arjan Filius wrote:
-> > > Dear Nouveau Maintainers,
-> > > =C2=A0
-> > > Please find below a proposed patch to prevent a division-by-zero
-> > > kernel oops and subsequent lockup in the Nouveau display
-> > > supervisor
-> > > engine when DisplayPort links transition to 0 active lanes. This
-> > > bug
-> > > was observed and patched/tested against the mainline kernel
-> > > version
-> > > **7.1.3**, but is present in all current upstream code.
-> > > =C2=A0
-> > > ---
-> > > =C2=A0
-> > > ### BRIEF EXPLANATION
-> > > =C2=A0
-> > > During screen sleep transitions or multi-input display switches
-> > > (KVM
-> > > switching), the active lane count of a DisplayPort link can
-> > > temporarily drop to 0 (`ior->dp.nr =3D=3D 0`).=20
-> > > =C2=A0
-> > > When this occurs, the DisplayPort supervisor function
-> > > `nv50_disp_super_2_2_dp` is invoked via modeset interrupts.
-> > > Without
-> > > an early-exit guard, the function attempts to perform
-> > > symbols/hblank
-> > > and link rate calculations that divide by `ior->dp.nr`, resulting
-> > > in
-> > > a kernel division-by-zero math exception, lockup, and system
-> > > freeze.
-> > > =C2=A0
-> > > This patch adds an early-exit check at the beginning of
-> > > `nv50_disp_super_2_2_dp` to abort display configuration when the
-> > > link
-> > > training lanes count is zero.
-> > >=20
-> > > *=C2=A0=C2=A0 **Tested Kernel Version:** `7.1.3` (mainline stable bra=
-nch)
-> > >=20
-> > > ---
-> > >=20
-> > > ### EXTREMELY DETAILED TECHNICAL BREAKDOWN
-> > >=20
-> > > #### 1. Hardware Context
-> > > This bug has been consistently reproduced on a Lenovo ThinkPad
-> > > T430
-> > > (Intel HD 4000 + discrete NVIDIA NVS 5400M / GF108 chipset)
-> > > connected
-> > > to a Lenovo ThinkPad Mini Dock Plus Series 3 (Model 4338) with
-> > > dual
-> > > external monitors on dock DisplayPorts (`DP-2` and `DP-3`).=20
-> > >=20
-> > > #### 2. Root Cause Analysis (Code Level)
-> > > Inside `drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c`, when
-> > > `ior-
-> > > > dp.nr =3D=3D 0`, the driver executes the following lines in
-> > > `nv50_disp_super_2_2_dp()`:
-> > >=20
-> > > *=C2=A0=C2=A0 **Line 1179:** Calculations for horizontal blank symbol=
-s:
-> > > =C2=A0=C2=A0=C2=A0 ```c
-> > > =C2=A0=C2=A0=C2=A0 h =3D h - (3 * ior->dp.ef) - (12 / ior->dp.nr);
-> > > =C2=A0=C2=A0=C2=A0 ```
-> > > *=C2=A0=C2=A0 **Line 1185:** Calculations for vertical blank symbols:
-> > > =C2=A0=C2=A0=C2=A0 ```c
-> > > =C2=A0=C2=A0=C2=A0 v =3D v - ((36 / ior->dp.nr) + 3) - 1;
-> > > =C2=A0=C2=A0=C2=A0 ```
-> > > *=C2=A0=C2=A0 **Line 1190:** Calculations for active link data rate:
-> > > =C2=A0=C2=A0=C2=A0 ```c
-> > > =C2=A0=C2=A0=C2=A0 link_data_rate =3D (khz * head->asy.or.depth / 8) =
-/ ior->dp.nr;
-> > > =C2=A0=C2=A0=C2=A0 ```
-> > >=20
-> > > In all three instances, the denominator `ior->dp.nr` is `0`,
-> > > causing
-> > > an immediate kernel math exception in the display workqueue
-> > > (`nouveau_display_hpd_work` or `nv50_disp_super`), locking up the
-> > > graphics pipeline, freezing the screen, and hanging any reboot
-> > > attempts (requiring a physical hard reset).
-> > >=20
-> > > #### 3. Daily Workday Trigger Scenario
-> > > 1.=C2=A0 The T430 (via dock) and a secondary workstation are both
-> > > connected to different inputs on the same external monitors.
-> > > 2.=C2=A0 The monitors' input sources are switched to the secondary
-> > > workstation.
-> > > 3.=C2=A0 At the end of the day, the secondary workstation goes to
-> > > sleep or
-> > > is shut down.
-> > > 4.=C2=A0 With no active inputs, the external monitors enter power-
-> > > saving
-> > > standby mode.
-> > > 5.=C2=A0 When the user subsequently wakes up or interacts with the
-> > > T430,
-> > > the driver attempts a modeset refresh. Since the monitors are
-> > > asleep
-> > > and inputs are switched away, the lanes count is read as `0`,
-> > > triggering the division-by-zero oops.
-> > >=20
-> > > #### 4. Stack Trace (Oops Log)
-> > > ```text
-> > > [di jul 23 10:28:25 2024] nouveau 0000:01:00.0: DRM: DDC
-> > > responded,
-> > > but no EDID for DP-2
-> > > [di jul 23 10:28:25 2024] nouveau 0000:01:00.0: DRM: DDC
-> > > responded,
-> > > but no EDID for DP-3
-> > > [di jul 23 10:28:26 2024] Workqueue: nvkm-disp nv50_disp_super
-> > > [nouveau]
-> > > [di jul 23 10:28:26 2024] RIP:
-> > > 0010:nv50_disp_super_2_2_dp+0xa7/0x320
-> > > [nouveau]
-> > > [di jul 23 10:28:26 2024]=C2=A0 ? nv50_disp_super_2_2_dp+0xa7/0x320
-> > > [nouveau]
-> > > [di jul 23 10:28:26 2024]=C2=A0 nv50_disp_super_2_2+0xf2/0x160
-> > > [nouveau]
-> > > [di jul 23 10:28:26 2024]=C2=A0 nv50_disp_super+0x139/0x280 [nouveau]
-> > > ```
-> > >=20
-> > > #### 5. Verification Proof (Bypass Log)
-> > > With the patch applied and running on kernel `7.1.3-custom #2`,
-> > > the
-> > > screen standby transition was bypassed cleanly. The driver caught
-> > > the
-> > > lane count of 0, bypassed display configuration, and proceeded to
-> > > put
-> > > the graphics chip into its low-power runtime suspend state
-> > > (`suspended`) without locking up the OS:
-> > > ```text
-> > > [45162.232371] nouveau 0000:01:00.0: disp: DP link is inactive
-> > > (lanes
-> > > =3D 0), skipping display configuration.
-> > > [45162.232402] nouveau 0000:01:00.0: disp: DP link is inactive
-> > > (lanes
-> > > =3D 0), skipping display configuration.
-> > > [45178.605627] nouveau 0000:01:00.0: timeout
-> > > [45178.605629] WARNING: nv50_disp_dmac_fini+0x168/0x1c0 [nouveau]
-> > > [45180.608524] nouveau 0000:01:00.0: disp: ch 1 fini timeout,
-> > > 8e061008
-> > > [45182.608521] nouveau 0000:01:00.0: timeout
-> > > [45182.608523] WARNING: nv50_disp_core_fini+0x143/0x190 [nouveau]
-> > > ```
-> > >=20
-> > > ---
-> > >=20
-> > > Signed-off-by: Arjan Filius <iafilius@xs4all.nl>
-> > > ---
-> > >=20
-> > > ### CHOOSE ONE OF THE PATCH OPTIONS BELOW TO APPEND:
-> > >=20
-> > > #### OPTION A: The Silent Production Patch (RECOMMENDED FOR
-> > > UPSTREAM)
-> > > *Note: Kernel maintainers generally reject warnings or print spam
-> > > for
-> > > expected hardware sleep/disconnect transitions. A silent return
-> > > is
-> > > the preferred upstream pattern.*
-> > >=20
-> > > ```diff
-> > > diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> > > b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> > > index 51c045bdfcbb..ab1bc0898def 100644
-> > > --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> > > +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> > > @@ -1157,6 +1157,10 @@ nv50_disp_super_2_2_dp(struct nvkm_head
-> > > *head,
-> > > struct nvkm_ior *ior)
-> > > =C2=A0{
-> > > =C2=A0=09struct nvkm_subdev *subdev =3D &head->disp->engine.subdev;
-> > > =C2=A0
-> > > +=09/* If the DisplayPort link is inactive (0 lanes), skip
-> > > configuration */
-> > > +=09if (ior->dp.nr =3D=3D 0)
-> > > +=09=09return;
-> > > +
-> > > =C2=A0=09const u32 khz =3D head->asy.hz / 1000;
-> > > =C2=A0=09const u32 linkKBps =3D ior->dp.bw * 27000;
-> > > =C2=A0=09const u32 symbol =3D 100000;
-> > > ```
-> > >=20
-> > > #### OPTION B: The Warning/Verbose Patch (What was tested
-> > > locally)
-> > > *Note: Prints warning logs to the kernel buffer for validation
-> > > and
-> > > troubleshooting.*
-> > >=20
-> > > ```diff
-> > > diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> > > b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> > > index 51c045bdfcbb..ab1bc0898def 100644
-> > > --- a/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> > > +++ b/drivers/gpu/drm/nouveau/nvkm/engine/disp/nv50.c
-> > > @@ -1157,6 +1157,12 @@ nv50_disp_super_2_2_dp(struct nvkm_head
-> > > *head,
-> > > struct nvkm_ior *ior)
-> > > =C2=A0{
-> > > =C2=A0=09struct nvkm_subdev *subdev =3D &head->disp->engine.subdev;
-> > > =C2=A0
-> > > +=09/* If the DisplayPort link is inactive (0 lanes), skip
-> > > configuration */
-> > > +=09if (ior->dp.nr =3D=3D 0) {
-> > > +=09=09nvkm_warn(subdev, "DP link is inactive (lanes =3D
-> > > 0),
-> > > skipping display configuration.\n");
-> > > +=09=09return;
-> > > +=09}
-> > > +
-> > > =C2=A0=09const u32 khz =3D head->asy.hz / 1000;
-> > > =C2=A0=09const u32 linkKBps =3D ior->dp.bw * 27000;
-> > > =C2=A0=09const u32 symbol =3D 100000;
-> > > ```
-> >=20
+On Wed, Aug 5, 2026 at 11:59=E2=80=AFAM =D0=94=D0=B8=D0=BC=D0=B0 =D0=94=D1=
+=8C=D1=8F=D1=87=D0=BA=D0=BE=D0=B2 <das.ogi4i@gmail.com> wrote:
+>
+> Hi,
+>
+> I have a reproducible, quantified kernel memory leak in vmwgfx on a headl=
+ess
+> VMware guest. It is attributed to a specific call site with slab_debug, a=
+nd I
+> have a clean causal test that stops it. I could not find this reported an=
+ywhere
+> - I searched the dri-devel archives, the mainline and 6.12.y git logs, an=
+d the
+> distro trackers.
+>
 
+Please recompile with KMEMLEAK and/or KASAN and share any output.
+
+Ian,
+
+--0000000000002000ec06585023aa
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
+
+MIIVIgYJKoZIhvcNAQcCoIIVEzCCFQ8CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
+ghKPMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
+VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
+AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
+AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
+NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
+26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
+hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
+ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
+pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
+71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
+G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
+Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
+4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
+x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
+ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
+gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
+1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
+YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
+b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
+c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
+AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
+bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
+IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
+Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
+dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
+nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
+AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
+mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
+5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
+CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
+F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
+bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
+YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
+bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
+LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
+RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
+xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
+jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
+vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
+TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
+sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
+D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
+DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
+BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
+VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
+zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGWDCCBECg
+AwIBAgIMdv+fjzxf0KFt9De7MA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI0MTEyODA2NDcxOVoXDTI2MTEyOTA2NDcxOVowgaUxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjETMBEGA1UEAxMKSWFuIEZvcmJlczEmMCQGCSqG
+SIb3DQEJARYXaWFuLmZvcmJlc0Bicm9hZGNvbS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQC2AMlK9RdoCw8arN33t70vxMApCT5iWUWUvifzr+uPD1yUo6FYiadl5yCjOgy5+a/b
+yDWISjqDL/DJ1OAopJ9LEPqznspPNSFvQ9pOB7Z3CIITWi2QoSJMjlmG2GIXLe3wQQJ9CVwF8Dlc
+V0fYJUiKJMCwvDmndOil8EtMA8j2T6taUZoQINiKQ0oDWgY6eYVv7AdPVIeOOs3noCyUL8AyA7Bl
+yoOPBB2/gk8VGcolEKgAAj+3hPbBF/d19x1bZzU3wABizBomVwykx5ms1nVXDbQajz8jqYECKWh9
+3OMo7BuC3TAClu5mLr2zs0Ccpp6NRRkjTF8WtCJ+jSnjFJGLAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF2lhbi5mb3JiZXNAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBSvJWzgGK7aSByS+CQVBVfM
+Xgm5azANBgkqhkiG9w0BAQsFAAOCAgEAfrWiLF3zrYq7D+KPNRaAP70FbxHeaiUfn27Hbu37Eefz
+xeJTcFZH04IEtXqpM3NWYZm4A/dFn/VQPbLCRaeXzpT2TESVH6EFY7BEF0rnSSlUbFyi000MnSH3
+h5m+MoyE+PzLqfzLBZS+EU/haCpPy6Nqhs3fPKG3w5VTnUPsAxXK7rSmkIDVNsvwRttuMq9KHJzH
+Bx51dP/z3mel4OuMjgrwHk5uNY1Sn1MZAUQztVUsWguyfoKcmhxXbBccR5DdEfBgDEbq8bicPQ3J
+kqEy1QZXJfHlJuAJIiEw7odGctwqLeGCU6cBLhnsg54ngjO3uYC6tIySul55MRxFKE8HIwIrx+D5
+2SwhDeVLZ8sTK40uPzW5xg5laOWVCvmy2b+cHCGzarUeIlYdtw0ejdH9Hbkm0G7IrDvjkhPa64gR
+6Q+m5CGRDk+8iWhieH6WFE4HL++BpZhoi+YsOkGU3DK0dA+pxQnXNcNw1s0eNbSUVwQzmlC4LqiK
+Gj5JV81HTPLhoAya57a9i28Fp5qHZiFnCq4HMvwiwY7IWe+UwUuueU199aTK80xNiS553vHc6FpI
+/vxGy+LveJqEtodfKqQKwDOVu//c1Lz3uergJHqFYTMykk5U95J3FG5q/7Mqe4RF6E9OgtuAJidS
+6Ca5anjLQ/qzIfTjoXX7TJSjPztehRQxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgx2/5+PPF/QoW30N7swDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEII+2
+n5znuGt0N1p3ybGb1QwHOmjg0ue5GTdlsrUfkbHVMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDgwNTE3MzExMFowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAGhsa6iSEtob6u7Fu7i5d2CVfrcgaCMWdXdFHilY
+varI391EoTjh28EKXwKRT/+fKVLyZ+CHeYQ4umGGG2fZdR0s21XECocsBverW1/X3rXytkDh78hG
+XXY16rly/p7QBheMCuFphuMRF70V4lukPesvdgHwqeaIXYhpOG9YjPioE7UVc3YIvB/K5biZUklP
+0oJZyMWRRnzrOQZ0Dr7YG8+CFHQhPMIE5/Zza1J60ndbO7SUOqx/lDEJlQlCh81KxI69Lv7OcD4Q
+hHG3jPzYt30YGN5ppj8BGXM/P0YQBVoJLI6EOeUevaJ9VAZZWkf+ag3SBJBBxvn623ZfKh1Yt0A=
+--0000000000002000ec06585023aa--
