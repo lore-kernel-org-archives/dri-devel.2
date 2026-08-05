@@ -4,99 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E60DFC55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 23:29:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC8BC55ABF
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 23:30:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54E6110E23F;
-	Wed,  5 Aug 2026 23:29:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5595D89209;
+	Wed,  5 Aug 2026 23:30:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NvPn1PG/";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aeLh2LTR";
 	dkim-atps=neutral
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BAF0410E23F
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 23:29:50 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-69c108fee7fso2250141a12.3
- for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 16:29:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785972589; cv=none;
- d=google.com; s=arc-20260327;
- b=G1Wp/ug/z7EqMhK5+yfmG6ES1rvtfacQEGjHgli4FPAPcqsW0Gw3Z69r4CF+pIYdBo
- igD50S/CsnXQXGUwSqqQ9KGdhkxcW4SbsPjzGBK9qJYEioltBM3Lmjb48h6U/ebV7qcq
- rTU/dyBDmFSYvFlTMxrnsV3P8SdKEolbDAR58yvO18POosH45w1JKQjsCwm3/zhHa5/6
- uvPWJYxtwsSPguxmWBfnbFNvJvNx79a8+nwvNH11Uo0Y38gV/981GJo2ayPIiFH03++9
- fx/0ONOIpy8JmxMGaqmUY/XyNUufwUGkpel8369dcSDcYw2MLZ6c6DkNLNpnXKNh3Qrj
- koNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=MTSoKJ2hblhaC6ZNsPcka3G1aJYd4eOopX2GWEssqdE=;
- fh=zEEk1Bsxg3c8XjE1vzFZbBEU2CGCWkCh0dBpo+mgl28=;
- b=DTl9XLNk/eGJhtZVgR4sbVKfygjD8Mq8wrOqfAejRDlRxZiDcLOKHHi3/0HLP8d4XR
- 0APHzlrsuKIZk86oE3QA32NQPphN8wq50AWQuYxoIEr/Q2Tj/1XgfElrkbhy/eYVN6+P
- grTMvo1Rvz1QL67vfUV6g0wRQYBUxWvw9UlZgcum8/XN4Z3g7bVwQrLY1YjT6hPzJMe2
- rnhwS4srYzYH8c1vhdDUvbYUAALLsLQ2xsaP7nIegSkU+Xhqs9bmKJhjfjYxMhOcsYWt
- yuEi4+yTmgmDRvjjFVnv758qOS8N5q6hx/3CeZJe2SwCA3of2nREbuII+37WNyu0nNAj
- ZzKQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785972589; x=1786577389; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=MTSoKJ2hblhaC6ZNsPcka3G1aJYd4eOopX2GWEssqdE=;
- b=NvPn1PG/3Gslimnu8XN/ZiZzrbBHqB5S29TbQqrbLQJJAkp7chR+SxP5HzOOjif9nx
- IT1KcPuUfPuR4hgdp7ArxJNDbIoXcZxoHkMFZ8IbGLtYygVcjSx+W62rHcpVMf4+8KFx
- D6CShfNFnlmYTZV3551Cfi8GqwkusflO0QRegtqorEZqHSO+AXWjqeyJKlmQyRvruOql
- yphLTKVWPCst6AkKKJKtakjHI2lhniItQv+ybX91B/OZZmRLS22BKv6DnB5VxSmn41VK
- WWEustGsvn2Bi8p/d679Lu+NAJLFfHFANBgB9x53SmY4LfRILqUW2pa8/sNSJ+YJYepH
- 1Zig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785972589; x=1786577389;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=MTSoKJ2hblhaC6ZNsPcka3G1aJYd4eOopX2GWEssqdE=;
- b=gCA7gcwjHZUh20wk5T7g0d+Og2XHd6l2D7z6uHM1Cr5ia8VGNt9sR+PNR69DtoEW14
- Xbn+EQEAnFL2jI2SbfNlaOWBmgdgRlb5PLqOW2cDhxpMR85Ay8qWQQjtrZoQ9V+4xORn
- Sse5loYk9BgaN9ATJ3UW4EPhxyj0CcM1pNPK5HvE+2l7lgMZfwDnQ4GTDjHxi9bZmb/9
- TFwUQjkx7PAps4RD2VP8joK1PtKgrB2zv91WrM/gRLYtYi2qc/0H2wuHzEUClJNweECE
- nn4igZ6cDOJlWlYGZGG3tYargbDKRyS9gR7xxXf3svsJxRMGDjeWit0YdNN0MRI7cyTj
- 958g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrSf9kiz+JaLSVO6IZx0HeVdqPR7yh/rAANAflJkcxEwwxMotI+qWkiJ9RMqGpaRakXkvORol55Tlk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoHxtdvCQmR7tnTpuct6i5CjCuyRYXjjURTDyey6N6Dzeq8B47
- jnyfchtNY6H3JL5m4HAtjBVtReCjTto/L+sG5ibsrWF6Je8KH52RBjQq9bMqJtKr03eZ4ks/MVV
- vyuthPZqbx1N7VD+kg//W2KGCXIP7eFw=
-X-Gm-Gg: AR+sD13qyZchqSKi+vwPbNxdJhGTcZIczr/yrPAl8mC5rf2rAjO/wIRVAVImB3fT5Da
- 5PuFLlVU5xbNPzycvhhZpyVxX7zt7eMN7GRR9A10eCFP03WlqNm0RMFj7K5sQKpJDBH5FpbXNKc
- BtZ3aZltvZZVG4o4OtY/PlqbsF7+NdDUzhLhAStZzq8BRyoTQzkw+wJ7hfQB6e76+q09ZaNYpEY
- Xj4cwqD8oEgl/qxLv4+5wVQ0OBHxhI/oCACFTYZl/zkaQQftjmp897rEHYlqoDkgBLBlB4/7t5z
- cGfXL9aHslVlv2SbDU50rifg0G29v51BvmIAERky73m2
-X-Received: by 2002:a05:6402:c45:b0:6a0:8885:e6ea with SMTP id
- 4fb4d7f45d1cf-6a14f0c51dfmr5738361a12.6.1785972588952; Wed, 05 Aug 2026
- 16:29:48 -0700 (PDT)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012066.outbound.protection.outlook.com [52.101.48.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0617889209;
+ Wed,  5 Aug 2026 23:30:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=osMQr3432q9GLGMfX9LLJvtnAcf4c8MI4vBg69dSmSvCTgFHBzEDZy/oKvKnFpoQnbNyWJl0hDOkCQrkrZzJRnhPiZdXLCkE8r6ljjEpv27piTWQt5K/bFeEYwzJqfuXYaTb6pLM43hmDmTwEWKsc0nY01ObA43HEQI8LRVdoYnSKSCL3ntW/UTr0YK3Ajd2q/s8aEFi0/t1q0zp8xMg19DaPno1isWdgOpeh/s94i5DFjb/4p+x4ntgb/o9ydqaSRw6Ht59b5bxnzzEpduRqN4qOz/mUOUqP4Nm/1x/wQWB5Vwd6AXS8tv6SLQ6i5vpZ/HIb1kxfv7K7zIhk9DE8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9Vnb3mDPGhiqAz5H2pGl3XQDYS5tAoP/c+MTxiTwzjc=;
+ b=W62A0OQIxmGgKLs5NVYBAv5SZl6lDBzyQTuYemjOtPA238IAouagRYiZ5speTxuGqklxKy1pANWBgCANR6AA5kvvt7xdXJdZqNcH9RjqIUeLYb+6njvJE5eIukOwA4SURc/jz4c4WCXfoMHn0NCxP0w/FYNiHGi7w5l0quQh8COVOFz8G4Khn1ULJn6NRyGHYW0T6mLvuoRcwMkAPWZ9b3xvMFaVUdQfOzUQ7bS1OcT9/tzsu1hOgBOzHySFQVNqBSK4zlzyHN3agBt3RPHnIHA3z6ZcmJ+65te2lP+h6RY5dnHGMAkWpamSJ4SOACRXhcs6CO09pT6R6owY+4o+xA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9Vnb3mDPGhiqAz5H2pGl3XQDYS5tAoP/c+MTxiTwzjc=;
+ b=aeLh2LTR4pYLfrRhhoqEqUetqw1l+X6ucZU/KSEw5DOATnM0R1GLTmDgpMRFbwBf7gA2VtvOBy2gLf3mgTWqiAq/Qi1MTDof2bz//TNbffHnycb7mAfW7ofwxdxOMF87m4eOB8YZehark711hCQIHfIPpb9O0zVTlukZZMeDTy2duXyBEnLpDdDvum1+cyyhz450P5Tnnos3fDygJ6m5qbVc8wfa/5SNHqL3z/xGfzm3tsp/0INS5ZOzsSNgPqSNZYBeHv9URPOwc7magv9VyMeQL5/I+xDmPKZe82WnwpeWy61S3ltkrTlEt2ugAUVc4MXCWBFzcRFfgupytV68XQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB5001.namprd12.prod.outlook.com (2603:10b6:610:61::18)
+ by CH2PR12MB9460.namprd12.prod.outlook.com (2603:10b6:610:27f::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Wed, 5 Aug
+ 2026 23:30:37 +0000
+Received: from CH2PR12MB5001.namprd12.prod.outlook.com
+ ([fe80::89e3:6df0:de90:8dfe]) by CH2PR12MB5001.namprd12.prod.outlook.com
+ ([fe80::89e3:6df0:de90:8dfe%3]) with mapi id 15.21.0292.018; Wed, 5 Aug 2026
+ 23:29:32 +0000
+Message-ID: <9d0dd5ab-8d30-45f7-a523-90d3df8dd5bd@nvidia.com>
+Date: Thu, 6 Aug 2026 09:29:19 +1000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/6] mm/migrate_device: Do not write past the end of
+ the src_pfns array
+To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Cc: Sashiko <sashiko-bot@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Usama Arif <usama.arif@linux.dev>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Francois Dugast <francois.dugast@intel.com>, stable@vger.kernel.org
+References: <20260805231041.3791771-1-matthew.brost@intel.com>
+ <20260805231041.3791771-3-matthew.brost@intel.com>
+Content-Language: en-US
+From: Balbir Singh <balbirs@nvidia.com>
+In-Reply-To: <20260805231041.3791771-3-matthew.brost@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MEWPR01CA0091.ausprd01.prod.outlook.com
+ (2603:10c6:220:1ce::16) To CH2PR12MB5001.namprd12.prod.outlook.com
+ (2603:10b6:610:61::18)
 MIME-Version: 1.0
-References: <20260804225617.264861-1-maximpedraza@gmail.com>
- <20260805140941.GA495716-robh@kernel.org>
-In-Reply-To: <20260805140941.GA495716-robh@kernel.org>
-From: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>
-Date: Thu, 6 Aug 2026 03:29:35 +0200
-X-Gm-Features: AUfX_mwz5ayJK-cjMOmnYRs5QzSleK6Vf1I78jG8sHW7TJviplVzPHQLkrOC4xU
-Message-ID: <CAEUXW=HQA7Hwo7m1s5=6mNsbLg3doc4rgg+_+6tTPD2sUxTQdA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/6] Boot logo supplied by the device tree
-To: Rob Herring <robh@kernel.org>
-Cc: Helge Deller <deller@gmx.de>, Geert Uytterhoeven <geert@linux-m68k.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Maxime Ripard <mripard@kernel.org>, 
- =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
- linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB5001:EE_|CH2PR12MB9460:EE_
+X-MS-Office365-Filtering-Correlation-Id: c60498c0-c280-4cb6-d06e-08def34966ca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|23010399003|376014|18002099003|22082099003|56012099006|4143699003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: Xr8EBQiox+wqyJH7Udv9Ja2NFezwTYovpCCe6Q8DzdcBtCHRUyHi80/mWvd+laPg15EvJJx6mcyAlOChO1kDFGyP1RxknbtmF89DmES85awqdZx7G2mRDRCdFWoAcVGO0Pp+3r1TMF1ibClLP232NP9/BD6T0XyQmI13VfvU9P2P9A8iiPweC2LJK2x06QioXXAoYoW+u/6yK8Xwqqfx1ROgDZlsXj5dtQDwumSKdyba/tXu2Pm8B/y5J8+xBOvhUayRAPk7qBXVeauKwDmCszlKI4GWDg/HuKmrIrPhzy5se/LZ4v9f5/gWSdK8+bYmodXbQqkj1sHjBx1IN7GfCyBxFdDfBL8LafG8Hk6u/2Kv8RQLEMzdiU4/2GFHa/YC3l7TpHy/aYn0WXA8YTn7QcC21aOagg9FLfxDXSExsgFADACzZhWLc5YEO3PNLgn+p+AaK81b8W2gjNmE1r17t5orxs+X3piTSgLdO24PWHJ8iIsJt8COFmHkYkaxpDLBGdDY4JDY2NJHprbunn24BZdhe9HCBlryE8p3STUnSS6TCSOlFvgxO5dMk9nSgF39bOb4KtpwkDM4OJAEnADuEjJja3waoyq33BsL+wbZp0WbsyDGc7N1vv644AfnsqX6cG0ccJDohNoygyQuL6kA9JQ7HPWCFL6zHlgWt7KBxi8=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB5001.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dXJLQnpDMjJFTWFUQS9kdXpnSGdvNlNPOVdHNWRMVVNNcnJmN2Z3YytCck5B?=
+ =?utf-8?B?SStoNDdOVk9aME1XODh6RGVtSFJJU3pQdzl0NWtDL1FZaHY1MUFXT0s4THVZ?=
+ =?utf-8?B?Yk8rdFNzdEJWaEozalZyNjF3ZXZuSkFXWk1vNUMxSzd1MHFDNDJKZ01KVW50?=
+ =?utf-8?B?SWVmZlhkd1JMelFYWkcrSkFqSHlTVWdWdnRNWkhDb1IwSk5hQTlCeHg4Z29E?=
+ =?utf-8?B?ME54YXRNS0M5L2ZYNjE1dzZaUE9IQkluS2d1aWZwWXFKZDZUNGtnRDBQelM2?=
+ =?utf-8?B?U1luUkZOclpKUitsVEZHWWY3ajRBTzNJQ0prL3UrczNYQmlqWGt0UC95WUkr?=
+ =?utf-8?B?OThLblJXTE5lVWVvQjNzVDZmaWFBK1FjV2ZhSkw2bktVajB3SS96YnlTUi8r?=
+ =?utf-8?B?cUVOb3lxdUhXRklaZTBweUtlQnRIWnR3eHpoS2NZVmpvU2FyZk83cGZ6bUlt?=
+ =?utf-8?B?dlpTQ2ZWZnFHcis5V3FBb1dPUkE3czNOVHBsNGp2WW5TMzVQcmp5L0piSktG?=
+ =?utf-8?B?SkgvUUlOeW1xRHNiSTFVTUozY3lLL1drUnZoWHZwd3o5ZlY1UGpUdmlxZ3lH?=
+ =?utf-8?B?T3hGREtoSllpQnFjRHVKMlpja2J1YStLaFM2UDdUVnBZd3RBOXpOUWFOMHR1?=
+ =?utf-8?B?bjU3QjdxVHNJWDh4LzIxMk1CeW4xaVg3cjJqeU9LV0NVcjVKZGFRd1lGTE5Z?=
+ =?utf-8?B?T0FaeFpWTEtURkpmV1RkVDU2L3VJTlM2RzB1bXkxTHJ4K2MveTNzaUx5emw1?=
+ =?utf-8?B?bE51OGt4dVlOS2wvTGdscWFWTDFYKzAzOHpXdHBocjBVVGxPWXZ5bmFHUU1E?=
+ =?utf-8?B?QXkrc3dONVdxV2xhVDdwb3VKSzZEMDBZNENjZjZHNWN2YlRHWnhqTXB4Vmdh?=
+ =?utf-8?B?VklQRmZIaThMWW1YQTNpOHdMOTMvSEhMeTFoU0ppLytxanhsVnRvckJHWXZG?=
+ =?utf-8?B?a2xNa3lXUWRJT3FNK2dPZDNNeGRFeEhGSi84dmhuWGh5dnU4UDJzSEYwMnBE?=
+ =?utf-8?B?amltUXFKTHJGRnJZVUxsU1c0bVJtS21JSytYVjVaRGc3SXBEVE1RK2VoSXU1?=
+ =?utf-8?B?SmhnN0RLQXI1T0l6ZFJnYUpFWThlUktiZzlpanZxRjNMZnNSNzlycHlQSWFM?=
+ =?utf-8?B?NjhlWG9JcERlbXZMODRYbmNDZmZmRlI4S1NHTEJuMk9uc0p6OEdnMmJ2WXNZ?=
+ =?utf-8?B?VG9LaXMrL09RVmt0aXdGMXJuTUwzN2IvSTJDd2VpNzJCNkZnZ2hmZURPMlBZ?=
+ =?utf-8?B?OHFqdGdxb3BhdnFwOEtLcGRJRTlQM0RmODluMmZtajU1eDE5TlY1eWdNdzc0?=
+ =?utf-8?B?MmcrSDRjQXBBYTBpMTh1d1JBM3M4Q2x2S2tiVi9ER3ZBM0k1MWxrQnR3RVBy?=
+ =?utf-8?B?VC9oeDJOaFpTaWRzbUJSQTZqdkt4UUFBTEdjYzVWLy9QQjlwWE16VVF1UlB2?=
+ =?utf-8?B?SWQ5d0VnZk9CV0RZay9vNlcvWS9PQzJMeXJPSjFGTm1kS2lSd3V4S1FrM1M5?=
+ =?utf-8?B?T3dvT0h1M0ZIc3VSVHF2UWk5UWJDbWk3MDU0eFJ1UFMxUkhGc3dnYnhFb3lS?=
+ =?utf-8?B?a3NsWDY1dkZyQnAxNFk0TUVMSjVzUlhkbGRSK1FOdGpyRnJIcVZFOXk5cUxP?=
+ =?utf-8?B?ZVRnZzdUZ0ZGMUxVTDR1ZGdQYjFqU2NVa0F3QytYRXI4em82WkwzRDErL1h5?=
+ =?utf-8?B?Tm53bFBIVVNJSHZqMkR4UzBxN2pURFNVWElubTEwOG9BWUhUQVlVcXRJaFRp?=
+ =?utf-8?B?NkFwT05HazJJWkp5OFpNeTRzVmNHSVBlRStEWmJXbTlEMUFBc29zK3JjWnVq?=
+ =?utf-8?B?dDM1VUwzWkZ4T3dBazVoem9UTE1OYm4xN1VUVmpjRHZ1S0pva2FOaFlsN2Ey?=
+ =?utf-8?B?N2l5b08xOGhLYlBtd3cxSWxWYlRTZ2dBckRkQTRicElxU1Q4MGY4Tno5Mk5P?=
+ =?utf-8?B?bktTQUNvK0FwYXdick5lb2tndXZNZE5GL3pDa0VoakhhTXBBd0cvL2NOT3Uv?=
+ =?utf-8?B?MEhTaU1za21IakJHa0Y1QUo5N1h2bzBtdytDM0E3MkgwVEdPQVNOdlRjb0gw?=
+ =?utf-8?B?V0xhcFNaNU5EVmlwQkY4M0czaDdSbXZjUEhaRmpXeWx2cHZWZTkzM0RCVTlC?=
+ =?utf-8?B?YWcrN3VEM1h0WThTc29xVGxxK2s1cU9jNWhWaEJ5N1NpWTJEL3lURjdkQzdw?=
+ =?utf-8?B?OEo2dTBYZWE5bTliM1RscGNEby9tWDRKNUhVYksvL1doYXJCZjVER1ozaFdy?=
+ =?utf-8?B?cUpqSnI5Nlhla0tTTGlhb2hLNy9QOFdDa1NnQVN5R0Y0bHlKQzZaejBYQVhV?=
+ =?utf-8?B?SHhQTmxMZ3VQc251RHkrcm5SbTlIYnNtTWUrUlJDNSs3dE1OZHQ3UT09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c60498c0-c280-4cb6-d06e-08def34966ca
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB5001.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 23:29:31.9423 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FZY2MxpiBh+ZqMQ3I1IH5IDUUOu+l6ogQ5k3nZbP9YEgktBGtHUISGZCcYGBXoDhlF0ryKR+67BEUUrCN+GpfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9460
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,126 +154,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-El mi=C3=A9, 5 ago 2026 a las 16:09, Rob Herring (<robh@kernel.org>) escrib=
-i=C3=B3:
-> Why is this linux specific? Don't people want to do a splash screen in
-> u-boot or other firmware?
+On 8/6/26 9:10 AM, Matthew Brost wrote:
+> migrate_device_range() and migrate_device_pfns() zero the tail entries
+> of a large folio without checking them against @npages:
+> 
+> 	for (j = 1; j < nr; j++)
+> 		src_pfns[i+j] = 0;
+> 
+> @nr comes from the folio, not from the array, so a folio that extends
+> past the end of the range being migrated writes beyond src_pfns[].
+> Callers size that array for @npages entries, so this corrupts whatever
+> follows it.
+> 
+> Bound the loop by @npages. The subsequent "i += j - 1" still terminates
+> the outer loop correctly: on a bounded exit j is @npages - i, leaving i
+> at @npages after the increment.
+> 
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+> Cc: Andrew Morton <akpm@linux-foundation.org>
+> Cc: David Hildenbrand <david@kernel.org>
+> Cc: Lorenzo Stoakes <ljs@kernel.org>
+> Cc: Zi Yan <ziy@nvidia.com>
+> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Cc: Liam R. Howlett <liam@infradead.org>
+> Cc: Nico Pache <nico.pache@linux.dev>
+> Cc: Ryan Roberts <ryan.roberts@arm.com>
+> Cc: Dev Jain <dev.jain@arm.com>
+> Cc: Barry Song <baohua@kernel.org>
+> Cc: Lance Yang <lance.yang@linux.dev>
+> Cc: Usama Arif <usama.arif@linux.dev>
+> Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+> Cc: Rakie Kim <rakie.kim@sk.com>
+> Cc: Byungchul Park <byungchul@sk.com>
+> Cc: Gregory Price <gourry@gourry.net>
+> Cc: Ying Huang <ying.huang@linux.alibaba.com>
+> Cc: Alistair Popple <apopple@nvidia.com>
+> Cc: Balbir Singh <balbirs@nvidia.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Cc: Francois Dugast <francois.dugast@intel.com>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-mm@kvack.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: stable@vger.kernel.org
+> Assisted-by: GitHub_Copilot:claude-opus-5
+> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+> ---
+>  mm/migrate_device.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index 162d29b2807a..ae9027421b80 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -1415,7 +1415,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
+>  		nr = folio_nr_pages(folio);
+>  		if (nr > 1) {
+>  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> -			for (j = 1; j < nr; j++)
+> +			for (j = 1; j < nr && (i + j) < npages; j++)
+>  				src_pfns[i+j] = 0;
 
-You are right, and I had not questioned the name. Looking at chosen.yaml,
-the split is clear: the "linux," properties are kernel-internal structures
-(initrd, kexec handover, the UEFI memory map), while anything a second
-implementation could reasonably consume has no prefix at all -- bootargs,
-bootsource, stdout-path, kaslr-seed. A boot logo is squarely in the second
-group, and simple-framebuffer, which this sits next to, carries no vendor
-prefix either.
+I have a similar patch lined up in my clean ups (that I am yet to send out), but
+the patch was more along the lines of
 
-There is a second Linux-ism in there that your question made me notice:
-the 224 in the format. That is 256 minus the 32 palette entries fbcon
-reserves for the console, which means nothing outside Linux. The 32 entry
-offset itself is already applied by the kernel rather than by the binding,
-so it is only the limit that leaks.
+  		nr = folio_nr_pages(folio);
++		if (nr > npages - i) {
++			migrate_device_folio_unlock(folio);
++			src_pfns[i] = 0;
++			continue;
++		}
++
 
-Rather than guess at the shape you would want, I would rather ask, since
-both the name and the format follow from your answer.
+This prevents partial selection, migrate_device_unmap() does take npages as an
+argument. We could change the increment of i here to skip past the entire folio.
 
-On the name: dropping the prefix would give something like
-"boot-logo-clut224", or "boot-logo" with the format named by a property.
-Is a bare, unprefixed compatible acceptable here, the way
-simple-framebuffer is, or would you rather see this described some other
-way entirely?
+I am OK with this change as well
 
-On the format, two options that I can see:
+>  			i += j - 1;
+>  			pfn += j - 1;
+> @@ -1449,7 +1449,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
+>  		nr = folio_nr_pages(folio);
+>  		if (nr > 1) {
+>  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
+> -			for (j = 1; j < nr; j++)
+> +			for (j = 1; j < nr && (i + j) < npages; j++)
+>  				src_pfns[i+j] = 0;
+>  			i += j - 1;
+>  		}
 
-  a) Keep a palette, but allow the full 256 entries, so that the limit
-     Linux applies is a kernel limitation rather than part of the binding.
-
-  b) Reuse the simple-framebuffer vocabulary, format =3D "r5g6b5" and so on=
-,
-     with raw pixels.
-
-I lean towards (a), because the palette is what makes carrying the image
-in the device tree viable at all: our own 800x480 logo is 17 KiB paletted
-and 768 KiB raw. But (b) reuses an existing vocabulary instead of adding
-one, and if you prefer it the reserved memory form still covers our case,
-so the in-tree image could go entirely.
-
-I will follow whichever you think is right; I would just rather not
-respin the binding twice.
-
-> What does /options/oem-logo look like? Why can't that be used?
-
-Two reasons, and the second is the real one.
-
-It is fixed at 64x64 monochrome (IEEE 1275-1994), stored in NVRAM. As a
-precedent for "firmware may carry a logo" it is exactly right, which is
-why the binding cites it, but it cannot express a product logo on a
-modern panel.
-
-More importantly, /options is the wrong node for something the kernel
-reads. Its own schema in dt-schema says it is "for passing data into and
-between firmware components" and that "it is ignored by operating
-systems", while /chosen is firmware to OS. So the oem-logo precedent
-argues for the idea and /chosen for the location, which is where Geert
-pointed the node in v2.
-
-> If you are going to put it in memory, why not just draw it into the
-> simple-framebuffer?
-
-I did not know about simplefb, and that is worth saying plainly: this
-started as a patch against 4.19 for a product, simpledrm did not exist
-then (5.14), and I never went looking for what the alternative would be
-today. So thank you for the question.
-
-I spent today testing it on the board rather than arguing about it. The
-result is that it does not work here, and I could not make it work:
-
-  - Added a simple-framebuffer node under /chosen pointing at U-Boot's
-    framebuffer, with the region declared in reserved-memory. simpledrm
-    binds cleanly at 0.62s and registers fb0. Nothing is visible.
-
-  - The panel is dark for that entire window. The backlight is a
-    pwm-backlight owned by the panel, and it is drm_panel_enable() that
-    calls backlight_enable() (drm_panel.c), which only happens at the
-    native driver's modeset, around 2.2s. So for as long as
-    simple-framebuffer is the only driver, there is no light.
-
-  - Forced the backlight on from probe with a local hack to pwm_bl.c, so
-    the panel is lit from about 1s. The image is still not there.
-
-  - Disabled the LCDC target module in the device tree entirely and booted
-    with clk_ignore_unused, so that nothing in Linux touches the
-    controller and it keeps whatever U-Boot left. Still nothing.
-
-  - Repeated all of it with simplefb instead of simpledrm. Same result.
-
-  - Read back the framebuffer memory through fb0 after boot: all zeros.
-
-So the pixels are gone by the time Linux can show them, and I have not
-found what clears them. I can say what it is not: not the choice of
-driver, not the modeset, and not the backlight. Somewhere between U-Boot
-jumping to the kernel and simpledrm probing, this platform stops
-displaying that memory.
-
-One smaller thing I noticed on the way: tilcdc came up as card1 and
-simpledrm stayed on card0, with no conflicting-framebuffer removal
-between them. Two DRM devices with the real one second is not a state I
-would want to ship either.
-
-There is also a case against this that does not depend on our hardware at
-all. U-Boot's Falcon mode boots the kernel straight from SPL, skipping
-U-Boot proper, and display initialisation normally lives in U-Boot proper
-rather than in SPL. On a Falcon boot there is therefore no firmware splash
-to hand over and nothing for a simple-framebuffer node to point at. That is
-not an obscure corner either: Falcon mode exists to shorten boot time,
-which is the same reason one cares about how early the logo appears in the
-first place. A logo the kernel can draw itself works the same way in both
-cases.
-
-I am not claiming the experimental result above generalises. It may well be
-specific to AM335x, or to how our U-Boot hands over. But on the hardware
-this series exists for, a firmware-drawn splash does not survive into the
-kernel, and the logo has to be drawn again once the native driver owns the
-display. That is the gap the series fills, and the reserved memory region
-is what gives the kernel the pixels to do it with.
-
-Max
+Reviewed-by: Balbir Singh <balbirs@nvidia.com>
