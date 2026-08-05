@@ -4,141 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECC8BC55ABF
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 23:30:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41264C55ABF
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 23:44:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5595D89209;
-	Wed,  5 Aug 2026 23:30:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58F1310E23D;
+	Wed,  5 Aug 2026 23:44:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="aeLh2LTR";
+	dkim=pass (2048-bit key; secure) header.d=sntech.de header.i=@sntech.de header.b="tD1/w/xj";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012066.outbound.protection.outlook.com [52.101.48.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0617889209;
- Wed,  5 Aug 2026 23:30:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=osMQr3432q9GLGMfX9LLJvtnAcf4c8MI4vBg69dSmSvCTgFHBzEDZy/oKvKnFpoQnbNyWJl0hDOkCQrkrZzJRnhPiZdXLCkE8r6ljjEpv27piTWQt5K/bFeEYwzJqfuXYaTb6pLM43hmDmTwEWKsc0nY01ObA43HEQI8LRVdoYnSKSCL3ntW/UTr0YK3Ajd2q/s8aEFi0/t1q0zp8xMg19DaPno1isWdgOpeh/s94i5DFjb/4p+x4ntgb/o9ydqaSRw6Ht59b5bxnzzEpduRqN4qOz/mUOUqP4Nm/1x/wQWB5Vwd6AXS8tv6SLQ6i5vpZ/HIb1kxfv7K7zIhk9DE8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9Vnb3mDPGhiqAz5H2pGl3XQDYS5tAoP/c+MTxiTwzjc=;
- b=W62A0OQIxmGgKLs5NVYBAv5SZl6lDBzyQTuYemjOtPA238IAouagRYiZ5speTxuGqklxKy1pANWBgCANR6AA5kvvt7xdXJdZqNcH9RjqIUeLYb+6njvJE5eIukOwA4SURc/jz4c4WCXfoMHn0NCxP0w/FYNiHGi7w5l0quQh8COVOFz8G4Khn1ULJn6NRyGHYW0T6mLvuoRcwMkAPWZ9b3xvMFaVUdQfOzUQ7bS1OcT9/tzsu1hOgBOzHySFQVNqBSK4zlzyHN3agBt3RPHnIHA3z6ZcmJ+65te2lP+h6RY5dnHGMAkWpamSJ4SOACRXhcs6CO09pT6R6owY+4o+xA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9Vnb3mDPGhiqAz5H2pGl3XQDYS5tAoP/c+MTxiTwzjc=;
- b=aeLh2LTR4pYLfrRhhoqEqUetqw1l+X6ucZU/KSEw5DOATnM0R1GLTmDgpMRFbwBf7gA2VtvOBy2gLf3mgTWqiAq/Qi1MTDof2bz//TNbffHnycb7mAfW7ofwxdxOMF87m4eOB8YZehark711hCQIHfIPpb9O0zVTlukZZMeDTy2duXyBEnLpDdDvum1+cyyhz450P5Tnnos3fDygJ6m5qbVc8wfa/5SNHqL3z/xGfzm3tsp/0INS5ZOzsSNgPqSNZYBeHv9URPOwc7magv9VyMeQL5/I+xDmPKZe82WnwpeWy61S3ltkrTlEt2ugAUVc4MXCWBFzcRFfgupytV68XQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from CH2PR12MB5001.namprd12.prod.outlook.com (2603:10b6:610:61::18)
- by CH2PR12MB9460.namprd12.prod.outlook.com (2603:10b6:610:27f::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Wed, 5 Aug
- 2026 23:30:37 +0000
-Received: from CH2PR12MB5001.namprd12.prod.outlook.com
- ([fe80::89e3:6df0:de90:8dfe]) by CH2PR12MB5001.namprd12.prod.outlook.com
- ([fe80::89e3:6df0:de90:8dfe%3]) with mapi id 15.21.0292.018; Wed, 5 Aug 2026
- 23:29:32 +0000
-Message-ID: <9d0dd5ab-8d30-45f7-a523-90d3df8dd5bd@nvidia.com>
-Date: Thu, 6 Aug 2026 09:29:19 +1000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/6] mm/migrate_device: Do not write past the end of
- the src_pfns array
-To: Matthew Brost <matthew.brost@intel.com>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Cc: Sashiko <sashiko-bot@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD1F810E23D
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 23:44:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
+ s=gloria202408;
+ h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+ References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+ bh=+FwJkaT/hBuV8xYdPramTwYaDQ7VYGl/Z+umXnAoKIs=; b=tD1/w/xj2z8hREey/TfYF1ABO7
+ y21ZLsCTa9wIQC3MOjhRpffUlxzN+wxHTLzvM0j476CRWg6G7JlRDpIzJVuQFOwN5NeIDw2TkUGWz
+ QkqymDXgowR2n5S1HHiOEGA8FiCX1skT2BHosPIv4tdO6+ndfv+nbrxQhzm7c9KoMDRI42vECjcIH
+ 0vAvMuBzvvnmB0iHLnKufq20Eb/hcQ58pr16ImBY9wSQjiLINg5KWEtgGqMKrZk8NMQAaMX0jiq/l
+ rN1Yw+qv/uJZZ2ihM0daZxtAEEpVOxHYwVAQ0aaRy1Hkc0s+jOuIl97syFcAj4z4LETom7b3E65rU
+ 5xe1M5dQ==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Francois Dugast <francois.dugast@intel.com>, stable@vger.kernel.org
-References: <20260805231041.3791771-1-matthew.brost@intel.com>
- <20260805231041.3791771-3-matthew.brost@intel.com>
-Content-Language: en-US
-From: Balbir Singh <balbirs@nvidia.com>
-In-Reply-To: <20260805231041.3791771-3-matthew.brost@intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MEWPR01CA0091.ausprd01.prod.outlook.com
- (2603:10c6:220:1ce::16) To CH2PR12MB5001.namprd12.prod.outlook.com
- (2603:10b6:610:61::18)
+ Andy Yan <andy.yan@rock-chips.com>, Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Sebastian Reichel <sebastian.reichel@collabora.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 00/10] Add HPD support for Rockchip Analogix DP
+Date: Thu, 06 Aug 2026 01:42:14 +0200
+Message-ID: <7775230.ejJDZkT8p0@diego>
+In-Reply-To: <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
+References: <20260804081717.741404-1-damon.ding@rock-chips.com>
+ <5609825.iZASKD2KPV@diego>
+ <29d483f3-2eb2-4886-a4fe-9b4b6d9d14f3@rock-chips.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB5001:EE_|CH2PR12MB9460:EE_
-X-MS-Office365-Filtering-Correlation-Id: c60498c0-c280-4cb6-d06e-08def34966ca
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|7416014|23010399003|376014|18002099003|22082099003|56012099006|4143699003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: Xr8EBQiox+wqyJH7Udv9Ja2NFezwTYovpCCe6Q8DzdcBtCHRUyHi80/mWvd+laPg15EvJJx6mcyAlOChO1kDFGyP1RxknbtmF89DmES85awqdZx7G2mRDRCdFWoAcVGO0Pp+3r1TMF1ibClLP232NP9/BD6T0XyQmI13VfvU9P2P9A8iiPweC2LJK2x06QioXXAoYoW+u/6yK8Xwqqfx1ROgDZlsXj5dtQDwumSKdyba/tXu2Pm8B/y5J8+xBOvhUayRAPk7qBXVeauKwDmCszlKI4GWDg/HuKmrIrPhzy5se/LZ4v9f5/gWSdK8+bYmodXbQqkj1sHjBx1IN7GfCyBxFdDfBL8LafG8Hk6u/2Kv8RQLEMzdiU4/2GFHa/YC3l7TpHy/aYn0WXA8YTn7QcC21aOagg9FLfxDXSExsgFADACzZhWLc5YEO3PNLgn+p+AaK81b8W2gjNmE1r17t5orxs+X3piTSgLdO24PWHJ8iIsJt8COFmHkYkaxpDLBGdDY4JDY2NJHprbunn24BZdhe9HCBlryE8p3STUnSS6TCSOlFvgxO5dMk9nSgF39bOb4KtpwkDM4OJAEnADuEjJja3waoyq33BsL+wbZp0WbsyDGc7N1vv644AfnsqX6cG0ccJDohNoygyQuL6kA9JQ7HPWCFL6zHlgWt7KBxi8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB5001.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(7416014)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dXJLQnpDMjJFTWFUQS9kdXpnSGdvNlNPOVdHNWRMVVNNcnJmN2Z3YytCck5B?=
- =?utf-8?B?SStoNDdOVk9aME1XODh6RGVtSFJJU3pQdzl0NWtDL1FZaHY1MUFXT0s4THVZ?=
- =?utf-8?B?Yk8rdFNzdEJWaEozalZyNjF3ZXZuSkFXWk1vNUMxSzd1MHFDNDJKZ01KVW50?=
- =?utf-8?B?SWVmZlhkd1JMelFYWkcrSkFqSHlTVWdWdnRNWkhDb1IwSk5hQTlCeHg4Z29E?=
- =?utf-8?B?ME54YXRNS0M5L2ZYNjE1dzZaUE9IQkluS2d1aWZwWXFKZDZUNGtnRDBQelM2?=
- =?utf-8?B?U1luUkZOclpKUitsVEZHWWY3ajRBTzNJQ0prL3UrczNYQmlqWGt0UC95WUkr?=
- =?utf-8?B?OThLblJXTE5lVWVvQjNzVDZmaWFBK1FjV2ZhSkw2bktVajB3SS96YnlTUi8r?=
- =?utf-8?B?cUVOb3lxdUhXRklaZTBweUtlQnRIWnR3eHpoS2NZVmpvU2FyZk83cGZ6bUlt?=
- =?utf-8?B?dlpTQ2ZWZnFHcis5V3FBb1dPUkE3czNOVHBsNGp2WW5TMzVQcmp5L0piSktG?=
- =?utf-8?B?SkgvUUlOeW1xRHNiSTFVTUozY3lLL1drUnZoWHZwd3o5ZlY1UGpUdmlxZ3lH?=
- =?utf-8?B?T3hGREtoSllpQnFjRHVKMlpja2J1YStLaFM2UDdUVnBZd3RBOXpOUWFOMHR1?=
- =?utf-8?B?bjU3QjdxVHNJWDh4LzIxMk1CeW4xaVg3cjJqeU9LV0NVcjVKZGFRd1lGTE5Z?=
- =?utf-8?B?T0FaeFpWTEtURkpmV1RkVDU2L3VJTlM2RzB1bXkxTHJ4K2MveTNzaUx5emw1?=
- =?utf-8?B?bE51OGt4dVlOS2wvTGdscWFWTDFYKzAzOHpXdHBocjBVVGxPWXZ5bmFHUU1E?=
- =?utf-8?B?QXkrc3dONVdxV2xhVDdwb3VKSzZEMDBZNENjZjZHNWN2YlRHWnhqTXB4Vmdh?=
- =?utf-8?B?VklQRmZIaThMWW1YQTNpOHdMOTMvSEhMeTFoU0ppLytxanhsVnRvckJHWXZG?=
- =?utf-8?B?a2xNa3lXUWRJT3FNK2dPZDNNeGRFeEhGSi84dmhuWGh5dnU4UDJzSEYwMnBE?=
- =?utf-8?B?amltUXFKTHJGRnJZVUxsU1c0bVJtS21JSytYVjVaRGc3SXBEVE1RK2VoSXU1?=
- =?utf-8?B?SmhnN0RLQXI1T0l6ZFJnYUpFWThlUktiZzlpanZxRjNMZnNSNzlycHlQSWFM?=
- =?utf-8?B?NjhlWG9JcERlbXZMODRYbmNDZmZmRlI4S1NHTEJuMk9uc0p6OEdnMmJ2WXNZ?=
- =?utf-8?B?VG9LaXMrL09RVmt0aXdGMXJuTUwzN2IvSTJDd2VpNzJCNkZnZ2hmZURPMlBZ?=
- =?utf-8?B?OHFqdGdxb3BhdnFwOEtLcGRJRTlQM0RmODluMmZtajU1eDE5TlY1eWdNdzc0?=
- =?utf-8?B?MmcrSDRjQXBBYTBpMTh1d1JBM3M4Q2x2S2tiVi9ER3ZBM0k1MWxrQnR3RVBy?=
- =?utf-8?B?VC9oeDJOaFpTaWRzbUJSQTZqdkt4UUFBTEdjYzVWLy9QQjlwWE16VVF1UlB2?=
- =?utf-8?B?SWQ5d0VnZk9CV0RZay9vNlcvWS9PQzJMeXJPSjFGTm1kS2lSd3V4S1FrM1M5?=
- =?utf-8?B?T3dvT0h1M0ZIc3VSVHF2UWk5UWJDbWk3MDU0eFJ1UFMxUkhGc3dnYnhFb3lS?=
- =?utf-8?B?a3NsWDY1dkZyQnAxNFk0TUVMSjVzUlhkbGRSK1FOdGpyRnJIcVZFOXk5cUxP?=
- =?utf-8?B?ZVRnZzdUZ0ZGMUxVTDR1ZGdQYjFqU2NVa0F3QytYRXI4em82WkwzRDErL1h5?=
- =?utf-8?B?Tm53bFBIVVNJSHZqMkR4UzBxN2pURFNVWElubTEwOG9BWUhUQVlVcXRJaFRp?=
- =?utf-8?B?NkFwT05HazJJWkp5OFpNeTRzVmNHSVBlRStEWmJXbTlEMUFBc29zK3JjWnVq?=
- =?utf-8?B?dDM1VUwzWkZ4T3dBazVoem9UTE1OYm4xN1VUVmpjRHZ1S0pva2FOaFlsN2Ey?=
- =?utf-8?B?N2l5b08xOGhLYlBtd3cxSWxWYlRTZ2dBckRkQTRicElxU1Q4MGY4Tno5Mk5P?=
- =?utf-8?B?bktTQUNvK0FwYXdick5lb2tndXZNZE5GL3pDa0VoakhhTXBBd0cvL2NOT3Uv?=
- =?utf-8?B?MEhTaU1za21IakJHa0Y1QUo5N1h2bzBtdytDM0E3MkgwVEdPQVNOdlRjb0gw?=
- =?utf-8?B?V0xhcFNaNU5EVmlwQkY4M0czaDdSbXZjUEhaRmpXeWx2cHZWZTkzM0RCVTlC?=
- =?utf-8?B?YWcrN3VEM1h0WThTc29xVGxxK2s1cU9jNWhWaEJ5N1NpWTJEL3lURjdkQzdw?=
- =?utf-8?B?OEo2dTBYZWE5bTliM1RscGNEby9tWDRKNUhVYksvL1doYXJCZjVER1ozaFdy?=
- =?utf-8?B?cUpqSnI5Nlhla0tTTGlhb2hLNy9QOFdDa1NnQVN5R0Y0bHlKQzZaejBYQVhV?=
- =?utf-8?B?SHhQTmxMZ3VQc251RHkrcm5SbTlIYnNtTWUrUlJDNSs3dE1OZHQ3UT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c60498c0-c280-4cb6-d06e-08def34966ca
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB5001.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 23:29:31.9423 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FZY2MxpiBh+ZqMQ3I1IH5IDUUOu+l6ogQ5k3nZbP9YEgktBGtHUISGZCcYGBXoDhlF0ryKR+67BEUUrCN+GpfQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB9460
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -154,98 +66,280 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/6/26 9:10 AM, Matthew Brost wrote:
-> migrate_device_range() and migrate_device_pfns() zero the tail entries
-> of a large folio without checking them against @npages:
-> 
-> 	for (j = 1; j < nr; j++)
-> 		src_pfns[i+j] = 0;
-> 
-> @nr comes from the folio, not from the array, so a folio that extends
-> past the end of the range being migrated writes beyond src_pfns[].
-> Callers size that array for @npages entries, so this corrupts whatever
-> follows it.
-> 
-> Bound the loop by @npages. The subsequent "i += j - 1" still terminates
-> the outer loop correctly: on a bounded exit j is @npages - i, leaving i
-> at @npages after the increment.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-> Cc: Andrew Morton <akpm@linux-foundation.org>
-> Cc: David Hildenbrand <david@kernel.org>
-> Cc: Lorenzo Stoakes <ljs@kernel.org>
-> Cc: Zi Yan <ziy@nvidia.com>
-> Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Cc: Liam R. Howlett <liam@infradead.org>
-> Cc: Nico Pache <nico.pache@linux.dev>
-> Cc: Ryan Roberts <ryan.roberts@arm.com>
-> Cc: Dev Jain <dev.jain@arm.com>
-> Cc: Barry Song <baohua@kernel.org>
-> Cc: Lance Yang <lance.yang@linux.dev>
-> Cc: Usama Arif <usama.arif@linux.dev>
-> Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-> Cc: Rakie Kim <rakie.kim@sk.com>
-> Cc: Byungchul Park <byungchul@sk.com>
-> Cc: Gregory Price <gourry@gourry.net>
-> Cc: Ying Huang <ying.huang@linux.alibaba.com>
-> Cc: Alistair Popple <apopple@nvidia.com>
-> Cc: Balbir Singh <balbirs@nvidia.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Cc: Maxime Ripard <mripard@kernel.org>
-> Cc: Thomas Zimmermann <tzimmermann@suse.de>
-> Cc: David Airlie <airlied@gmail.com>
-> Cc: Simona Vetter <simona@ffwll.ch>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Francois Dugast <francois.dugast@intel.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-mm@kvack.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Assisted-by: GitHub_Copilot:claude-opus-5
-> Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-> ---
->  mm/migrate_device.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
-> index 162d29b2807a..ae9027421b80 100644
-> --- a/mm/migrate_device.c
-> +++ b/mm/migrate_device.c
-> @@ -1415,7 +1415,7 @@ int migrate_device_range(unsigned long *src_pfns, unsigned long start,
->  		nr = folio_nr_pages(folio);
->  		if (nr > 1) {
->  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
-> -			for (j = 1; j < nr; j++)
-> +			for (j = 1; j < nr && (i + j) < npages; j++)
->  				src_pfns[i+j] = 0;
+Am Mittwoch, 5. August 2026, 06:06:48 Mitteleurop=C3=A4ische Sommerzeit sch=
+rieb Damon Ding:
+> Hi Heiko,
+>=20
+> On 8/5/2026 6:39 AM, Heiko St=C3=BCbner wrote:
+> > Hi Damon,
+> >=20
+> > Am Dienstag, 4. August 2026, 10:17:07 Mitteleurop=C3=A4ische Sommerzeit=
+ schrieb Damon Ding:
+> >> Display-connector mode (DP connector without HPD GPIO):
+> >>
+> >>    &edp_out_conn {
+> >>        remote-endpoint =3D <&dp_con_in>;
+> >>    };
+> >>
+> >>    dp-con {
+> >>        compatible =3D "dp-connector";
+> >>        label =3D "DP OUT";
+> >>        type =3D "full-size";
+> >>
+> >>        port {
+> >>            dp_con_in: endpoint {
+> >>                remote-endpoint =3D <&edp_out_conn>;
+> >>            };
+> >>        };
+> >>    };
+> >>
+> >> Display-connector mode (DP connector with HPD GPIO):
+> >>
+> >>    dp-con {
+> >>        compatible =3D "dp-connector";
+> >>        label =3D "DP OUT";
+> >>        type =3D "full-size";
+> >>        pinctrl-0 =3D <&edp0_hpd>;
+> >>        pinctrl-names =3D "default";
+> >>        hpd-gpios =3D <&gpio4 RK_PC1 GPIO_ACTIVE_HIGH>;
+> >>
+> >>        port {
+> >>            dp_con_in: endpoint {
+> >>                remote-endpoint =3D <&edp_out_conn>;
+> >>            };
+> >>        };
+> >>    };
+> >>
+> >> All four configurations detect cable plug/unplug events correctly.
+>=20
+> Thanks a lot for your testing and feedback. :-)
+>=20
+> It seems my test setup gave me the false impression that those cases=20
+> worked well.
+>=20
+> >=20
+> > hmm, it wasn't working entirely for me though and was still running into
+> > issues when the display was unplugged on boot.
+> >=20
+>=20
+> Are you seeing this boot=E2=80=91unplug issue for both scenarios: DP=E2=
+=80=91connector=20
+> with HPD=E2=80=91gpio paired with eDP without HPD=E2=80=91gpio, and DP=E2=
+=80=91connector without=20
+> HPD=E2=80=91gpio paired with eDP with HPD=E2=80=91gpio? I.e. it wrongly r=
+eports=20
+> connected even with no display plugged in and proceeds into DRM=20
+> .atomic_enable()?
 
-I have a similar patch lined up in my clean ups (that I am yet to send out), but
-the patch was more along the lines of
+Yep it's different. The analogix-dp gpio-hpd works correctly,  because the
+analogix driver can do gpiod_get_value() in analogix_dp_get_plug_in_status()
 
-  		nr = folio_nr_pages(folio);
-+		if (nr > npages - i) {
-+			migrate_device_folio_unlock(folio);
-+			src_pfns[i] = 0;
-+			continue;
-+		}
-+
+The dp-connector does not, as with the patch you pointed to, it lost
+that ability. So on boot a plugged in display is not detected correctly
+because there won't be a hotplug interrupt.
 
-This prevents partial selection, migrate_device_unmap() does take npages as an
-argument. We could change the increment of i here to skip past the entire folio.
+>=20
+> > I wiggled around a bit like in the diff below and am now getting correct
+> > plug and unplug events.
+>=20
+> Oh, I see. For the GPIO HPD case, the IRQ needs to be enabled early so=20
+> that plug=E2=80=91in interrupts can be properly responded to. However GPI=
+O HPD=20
+> does not require a runtime PM get. I will better separate these two=20
+> scenarios in the next version.
+>=20
+> >=20
+> > But of course, as the dp-variant of the connector does not provide
+> > a "detect" and just the "hpd" functionality, it's missing the initial s=
+tate.
+> >=20
+> > I'm currently not sure how to find out _if_ a panel is connected on boo=
+t.
+> >=20
+>=20
+> Based on Dmitry's commit cb640b2ca546 ("drm/bridge: display=E2=80=91conne=
+ctor:=20
+> don't set OP_DETECT for DisplayPorts"), HPD events from DP=E2=80=91varian=
+t=20
+> connector should be handled by the upstream DP controller. Hence I added=
+=20
+> analogix_dp_bridge_notify() to retrieve HPD status coming from downstream.
+>=20
+> As expected, under the bridge=E2=80=91connector framework, the detect res=
+ult=20
+> from Analogix DP should in theory reflect the actual connection status.
+> Let's dig into this boot=E2=80=91time initial=E2=80=91state issue togethe=
+r.
 
-I am OK with this change as well
+One idea I had was, is it possible to do a drm_dp_read_dpcd_caps()
+read during bind/... to see if something answers?
 
->  			i += j - 1;
->  			pfn += j - 1;
-> @@ -1449,7 +1449,7 @@ int migrate_device_pfns(unsigned long *src_pfns, unsigned long npages)
->  		nr = folio_nr_pages(folio);
->  		if (nr > 1) {
->  			src_pfns[i] |= MIGRATE_PFN_COMPOUND;
-> -			for (j = 1; j < nr; j++)
-> +			for (j = 1; j < nr && (i + j) < npages; j++)
->  				src_pfns[i+j] = 0;
->  			i += j - 1;
->  		}
+Thanks for all your work
+Heiko
 
-Reviewed-by: Balbir Singh <balbirs@nvidia.com>
+> > In other review comments:
+> > - the bridge could use devm_drm_of_get_bridge() as suggested in
+> >    the documentation of drm_of_find_panel_or_bridge(), as that would
+> >    remove the separate panel_bridge creation
+> > - instead of using plat_data->next_bridge _inside_ the driver
+> >    struct drm_bridge has a field next_bridge already.
+>=20
+> Great suggestions, I will incorporate them for the next version=20
+> alongside Sashiko's comments.
+>=20
+> Best regards,
+> Damon
+>=20
+> >=20
+> >=20
+> > Heiko
+> >=20
+> >=20
+> > ------- 8< -------
+> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drive=
+rs/gpu/drm/bridge/analogix/analogix_dp_core.c
+> > index 877e1b3ca7525..1388640a27de7 100644
+> > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> > @@ -43,7 +43,7 @@ static const bool verify_fast_training;
+> >   static bool analogix_dp_require_pm_for_hpd_irq(struct analogix_dp_dev=
+ice *dp)
+> >   {
+> >   	return analogix_dp_is_rockchip(dp->plat_data->dev_type) && !dp->hpd_=
+gpiod &&
+> > -	       !dp->force_hpd;
+> > +	       !dp->hpd_bridge && !dp->force_hpd;
+> >   }
+> >  =20
+> >   static void analogix_dp_init_dp(struct analogix_dp_device *dp)
+> > @@ -72,7 +72,7 @@ static int analogix_dp_detect_hpd(struct analogix_dp_=
+device *dp)
+> >   	 * Trust connection status from downstream bridge (e.g.,
+> >   	 * display-connector with hpd-gpios).
+> >   	 */
+> > -	if (dp->plat_data->next_bridge && dp->connection_notified)
+> > +	if (dp->hpd_bridge && dp->connection_notified)
+> >   		return 0;
+> >  =20
+> >   	while (timeout_loop < DP_TIMEOUT_LOOP_COUNT) {
+> > @@ -926,10 +926,10 @@ analogix_dp_bridge_detect(struct drm_bridge *brid=
+ge, struct drm_connector *conne
+> >   	 */
+> >   	if (dp->plat_data->next_bridge && dp->last_bridge_is_panel)
+> >   		status =3D connector_status_connected;
+> > -
+> > -	if (!analogix_dp_detect_hpd(dp))
+> > +	else if (!analogix_dp_detect_hpd(dp))
+> >   		status =3D connector_status_connected;
+> >  =20
+> > +printk("---> %s status %d\n", __func__, status);
+> >   	return status;
+> >   }
+> >  =20
+> > @@ -1044,7 +1044,7 @@ static int analogix_dp_set_bridge(struct analogix=
+_dp_device *dp)
+> >   		goto out_dp_init;
+> >   	}
+> >  =20
+> > -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+> > +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+> >   		enable_irq(dp->irq);
+> >   	return 0;
+> >  =20
+> > @@ -1187,7 +1187,7 @@ static void analogix_dp_bridge_disable(struct drm=
+_bridge *bridge)
+> >   	if (dp->dpms_mode !=3D DRM_MODE_DPMS_ON)
+> >   		return;
+> >  =20
+> > -	if (!analogix_dp_require_pm_for_hpd_irq(dp))
+> > +	if (!analogix_dp_require_pm_for_hpd_irq(dp) && !dp->hpd_bridge)
+> >   		disable_irq(dp->irq);
+> >  =20
+> >   	analogix_dp_set_analog_power_down(dp, POWER_ALL, 1);
+> > @@ -1264,6 +1264,7 @@ static void analogix_dp_bridge_notify(struct drm_=
+bridge *bridge, struct drm_conn
+> >   	struct analogix_dp_device *dp =3D to_dp(bridge);
+> >  =20
+> >   	dp->connection_notified =3D (status =3D=3D connector_status_connecte=
+d);
+> > +printk("---> %s connection_notified %d\n", __func__, dp->connection_no=
+tified);
+> >   }
+> >  =20
+> >   static const struct drm_bridge_funcs analogix_dp_bridge_funcs =3D {
+> > @@ -1641,6 +1642,13 @@ static int analogix_dp_aux_done_probing(struct d=
+rm_dp_aux *aux)
+> >   	if (ret && ret !=3D -ENODEV)
+> >   		return ret;
+> >  =20
+> > +	/*
+> > +	 * There is a next link in the chain which is not a panel, we should
+> > +	 * expect hotplug-information coming from there.
+> > +	 */
+> > +	if (plat_data->next_bridge && !drm_bridge_is_panel(plat_data->next_br=
+idge))
+> > +		dp->hpd_bridge =3D true;
+> > +
+> >   	return component_add(dp->dev, plat_data->ops);
+> >   }
+> >  =20
+> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drive=
+rs/gpu/drm/bridge/analogix/analogix_dp_core.h
+> > index d0fb25e543ea0..ecca3b87b4456 100644
+> > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+> > @@ -169,6 +169,7 @@ struct analogix_dp_device {
+> >   	bool			fast_train_enable;
+> >   	bool			psr_supported;
+> >   	bool			last_bridge_is_panel;
+> > +	bool			hpd_bridge;
+> >   	bool			connection_notified;
+> >  =20
+> >   	u8 dpcd[DP_RECEIVER_CAP_SIZE];
+> > diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/driver=
+s/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> > index ec5950066f838..6f0d642739ffd 100644
+> > --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> > +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+> > @@ -182,7 +182,7 @@ void analogix_dp_config_interrupt(struct analogix_d=
+p_device *dp)
+> >   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
+> >   	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
+> >  =20
+> > -	if (dp->hpd_gpiod) {
+> > +	if (dp->hpd_gpiod || dp->hpd_bridge) {
+> >   		analogix_dp_mute_hpd_interrupt(dp, HPD_IRQ);
+> >   	} else {
+> >   		/*
+> > @@ -438,7 +438,7 @@ void analogix_dp_init_hpd(struct analogix_dp_device=
+ *dp)
+> >   {
+> >   	u32 reg;
+> >  =20
+> > -	if (dp->hpd_gpiod)
+> > +	if (dp->hpd_gpiod || dp->hpd_bridge)
+> >   		return;
+> >  =20
+> >   	analogix_dp_clear_hotplug_interrupts(dp, HPD_IRQ);
+> > @@ -539,6 +539,9 @@ int analogix_dp_get_plug_in_status(struct analogix_=
+dp_device *dp)
+> >   	if (dp->hpd_gpiod) {
+> >   		if (gpiod_get_value(dp->hpd_gpiod))
+> >   			return 0;
+> > +	} else if (dp->hpd_bridge) {
+> > +		if (dp->connection_notified)
+> > +			return 0;
+> >   	} else {
+> >   		reg =3D readl(dp->reg_base + ANALOGIX_DP_SYS_CTL_3);
+> >   		if (reg & HPD_STATUS)
+> >=20
+> >=20
+> >=20
+> >=20
+> >=20
+>=20
+>=20
+
+
+
+
