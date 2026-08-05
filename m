@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2E87AC55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 11:51:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F15BC55ABA
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 11:54:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91F6C10EE17;
-	Wed,  5 Aug 2026 11:51:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B59310EE1E;
+	Wed,  5 Aug 2026 11:54:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U28CIvEv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CCBHroqz";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C0C4E10EE17
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 11:51:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C350210EE1E
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 11:54:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D7C3860A96;
- Wed,  5 Aug 2026 11:51:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 656191F000E9;
- Wed,  5 Aug 2026 11:51:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8983140E5C;
+ Wed,  5 Aug 2026 11:54:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CA2E1F00A3A;
+ Wed,  5 Aug 2026 11:54:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785930710;
- bh=BwSFO82QLmRv/SOI8LKMs/bi8oZekfh8xW9nfi+qU/c=;
+ s=k20260515; t=1785930882;
+ bh=e9sAbhG2PJdFm3FF3n9i1BS9t/hJSG51NvVKx5KHRMc=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=U28CIvEv4Py+AEX7c1nweE7WKyJkqSwMrKDL46bA+mzu4vc+HnSakj6TQOR0fcSfC
- PnQz4qc2wVGAa8nU80JWelx1RRmeeOIpwHRhOvBUL5L+XxjKqTn43g9uCDSPU9Qg5r
- vNzju1X4YVxWUjLTZrlSCUaMyHEpyBKpfwqrya8ItBlKRuKSHmez7NAXcTF5ke7tSM
- mBFQ1uZnR9/CHop9jAE99TK7D8E3VPbjIPukhaPSKaS81QjVBEm9/GyQDo7nlIJ/dq
- giQrr58ZK5tpICwPasdHe2SqmaRyXcwwWs+bE/+gK9Ps1onIyPbP/ZK7f5rwO1yFtH
- A2UzTR94UoOZg==
+ b=CCBHroqzqQElr4HpfircDwD2YW767XWL/95S7CFgsHZrYyt71gdqFLr/o6hcVoEDQ
+ b3SLEok7SnXPsd6SYG/Taf9XIAlmxaQEwAsTsuhnMiO1+MJ9L0Nn17OsQP0AngqbIc
+ b5n4OtNljQ+MDW8QK6k5HihQdVyP4kI9h4eUe73YWqiAhWg3uxS8G/92Ev3h8dTrZ1
+ Qs/+m1jJN+s3Qan00atFkrwh/eFpnb6+Pl7SazBLqRaJJh7yXLQRDGsc9UAegqkFKL
+ E+33Uu00nAim2zPFZjwpjMnrTax9OkxSmgqfdlSiDpej01qcW03GTzKqp82mCMbiIZ
+ BZrj39qZ04Chg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] drm/pagemap: Add fault injection for higher-order
- RAM folio allocation
+Subject: Re: [PATCH 2/4] mm/migrate_device: Apply the fault reference to the
+ correct folio
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260805113338.3742178-5-matthew.brost@intel.com>
+In-Reply-To: <20260805113338.3742178-3-matthew.brost@intel.com>
 References: <20260805113338.3742178-1-matthew.brost@intel.com>
- <20260805113338.3742178-5-matthew.brost@intel.com>
+ <20260805113338.3742178-3-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 11:51:49 +0000
-Message-Id: <20260805115150.656191F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 11:54:41 +0000
+Message-Id: <20260805115442.4CA2E1F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,68 +58,127 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The debugfs entry created for fault injection is not removed on mo=
-dule unload, leading to a memory leak and a use-after-free vulnerability.
+
+Pre-existing issues:
+- [Critical] Error paths in `__migrate_device_pages` after a successful THP=
+ split fail to clear `MIGRATE_PFN_MIGRATE` on tail pages, leading to uninit=
+ialized device memory being mapped into userspace.
+- [High] `folio_free_swap()` is only called on the head folio after splitti=
+ng a swap-backed THP, leaving tail folios improperly in the swap cache.
 --
 
---- Patch [4]: [PATCH 4/4] drm/pagemap: Add fault injection for higher-orde=
-r RAM folio allocation ---
-commit 20731b2cfca08a84398b3c52bd2ca16474a3a4f7
+--- Patch [2]: [PATCH 2/4] mm/migrate_device: Apply the fault reference to =
+the correct folio ---
+commit 4d89d00fc35f8db7c498dd86850a797d2e8c3d2b
 Author: Matthew Brost <matthew.brost@intel.com>
 
-drm/pagemap: Add fault injection for higher-order RAM folio allocation
+mm/migrate_device: Apply the fault reference to the correct folio
 
-This commit introduces a fault injection attribute to simulate the failure
-of higher-order allocations in drm_pagemap_migrate_populate_ram_pfn().
-The feature is exposed via a debugfs entry.
+This commit fixes a bug in __migrate_device_pages() where extra_cnt was
+calculated once for the head page and incorrectly applied to all sub-folios
+during a THP migration split. It moves the extra_cnt calculation inside the
+sub-folio loop so that the CPU fault reference is correctly applied only to
+the sub-folio containing the fault page.
 
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> index 7610e233d238c..01eb29ef023ce 100644
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index bf8d21857d380..5b078fcbec792 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -1201,7 +1201,7 @@ static void __migrate_device_pages(unsigned long *s=
+rc_pfns,
+>  		struct page *page =3D migrate_pfn_to_page(src_pfns[i]);
+>  		struct address_space *mapping;
+>  		struct folio *newfolio, *folio;
+> -		int r, extra_cnt =3D 0;
+> +		int r;
+>  		unsigned long nr =3D 1;
+> =20
+>  		if (!newpage) {
 
 [ ... ]
 
-> @@ -1540,6 +1564,16 @@ void drm_pagemap_destroy(struct drm_pagemap *dpage=
-map, bool is_atomic_or_reclaim
->  		kfree(dpagemap);
->  }
+> @@ -1306,13 +1306,25 @@ static void __migrate_device_pages(unsigned long =
+*src_pfns,
 > =20
-> +static int __init drm_pagemap_module_init(void)
-> +{
-> +#if defined(CONFIG_DEBUG_FS) && defined(CONFIG_FAULT_INJECTION)
-> +	fault_create_debugfs_attr("drm_pagemap_fault_inject", NULL,
-> +				  &migrate_to_ram_fault_inject);
-> +#endif
-> +	return 0;
-> +}
-> +module_init(drm_pagemap_module_init);
-> +
->  static void drm_pagemap_exit(void)
->  {
->  	flush_work(&drm_pagemap_work);
+>  		BUG_ON(folio_test_writeback(folio));
+> =20
 
 [Severity: High]
-Does this code leave dangling debugfs entries on module unload?
+This is a pre-existing issue, but does calling folio_free_swap() only on the
+head page leave the tail pages in the swap cache?
 
-In drm_pagemap_module_init(), fault_create_debugfs_attr() creates the
-drm_pagemap_fault_inject debugfs directory, which holds pointers to the
-migrate_to_ram_fault_inject struct located in the module's .data section.
+If a swap-backed THP is split into order-0 folios by
+migrate_vma_split_unmapped_folio() in __migrate_device_pages(), the local
+"folio" variable still points to the head page. The code just before this
+BUG_ON() calls:
 
-However, drm_pagemap_exit() doesn't seem to clean this up by tracking the
-dentry and calling debugfs_remove_recursive(). When the module is
-unloaded, the memory backing the fault attribute is freed, but the debugfs
-files remain.
+			if (mapping) {
+				if (!folio_test_anon(folio) ||
+				    !folio_free_swap(folio)) {
 
-Could reading or writing to these lingering debugfs files after the
-module is unloaded trigger a use-after-free?
+Because this is outside the subpage loop, it only removes the head page from
+the swap cache. Later in the loop, when folio_migrate_mapping() is called
+for the tail pages, could they still be marked as swap cache and incorrectly
+replace their swap cache entries with device private pages?
 
->  	if (WARN_ON(!llist_empty(&drm_pagemap_unhold_list)))
->  		disable_work_sync(&drm_pagemap_work);
->  }
+[Severity: Critical]
+This is a pre-existing issue, but do the error paths after a THP split fail=
+ to
+clear MIGRATE_PFN_MIGRATE on tail pages?
+
+If the destination only allocates order-0 pages and the THP is successfully
+split in __migrate_device_pages(), the MIGRATE_PFN_MIGRATE flag is active on
+all tail pages in src_pfns. If a subsequent check fails, the code just befo=
+re
+this BUG_ON() does:
+
+				if (!folio_test_anon(folio) ||
+				    !folio_free_swap(folio)) {
+					src_pfns[i] &=3D ~MIGRATE_PFN_MIGRATE;
+					goto next;
+				}
+		} else if (folio_is_zone_device(newfolio)) {
+			src_pfns[i] &=3D ~MIGRATE_PFN_MIGRATE;
+			goto next;
+		}
+
+This clears the flag for the head page (src_pfns[i]), but not the tail page=
+s.
+Since the loop advances by "nr" at the "next" label, the tail pages keep th=
+eir
+migration flag. Could __migrate_device_finalize() then mistakenly assume th=
+ey
+migrated successfully and map uninitialized device memory into userspace?
+
+> -		if (migrate && migrate->fault_page =3D=3D page)
+> -			extra_cnt =3D 1;
+>  		for (j =3D 0; j < nr && i + j < npages; j++) {
+> -			folio =3D page_folio(migrate_pfn_to_page(src_pfns[i+j]));
+> +			struct page *src_page =3D migrate_pfn_to_page(src_pfns[i+j]);
+> +			int extra_cnt =3D 0;
+> +
+> +			folio =3D page_folio(src_page);
+>  			newfolio =3D page_folio(migrate_pfn_to_page(dst_pfns[i+j]));
+> =20
+> -			r =3D folio_migrate_mapping(mapping, newfolio, folio, extra_cnt);
+> +			/*
+> +			 * The CPU fault holds an extra reference on the folio
+> +			 * containing the fault page. @folio may have been
+> +			 * split above, so the fault page only accounts for an
+> +			 * extra reference on the folio it actually ended up
+> +			 * in, not on every folio of the original THP.
+> +			 */
+> +			if (migrate && migrate->fault_page =3D=3D src_page)
+> +				extra_cnt =3D 1;
+> +
+> +			r =3D folio_migrate_mapping(folio_mapping(folio), newfolio,
+> +						  folio, extra_cnt);
+>  			if (r)
+>  				src_pfns[i+j] &=3D ~MIGRATE_PFN_MIGRATE;
+>  			else
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805113338.3742=
-178-1-matthew.brost@intel.com?part=3D4
+178-1-matthew.brost@intel.com?part=3D2
