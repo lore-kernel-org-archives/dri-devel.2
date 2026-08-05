@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA215C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 11:33:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F1DFC56203
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 11:33:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27F3710EDFF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 321C310EE08;
 	Wed,  5 Aug 2026 11:33:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="dc6Jhpbl";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HzsXHKGV";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3309D10EDFF;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBA3810EDFE;
  Wed,  5 Aug 2026 11:33:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785929625; x=1817465625;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=XFroAvYH17C1kIbfMY9Te9f7dnenPbxnYxawMiiS4nk=;
- b=dc6Jhpbl2iAAZu2SIWJBKpo8/9aOj41IJHnQmfYMcIY9owlYCuilq6Ix
- RlS/Ilf9kazOOTjxPrpF+G8zAMNTVD1PAFwZODUZ5UG5d4SKCxuq1jAxN
- B7TEXRfmouGDc9TTxPzjRrlQvXbWKScxrxlellwK/3vLHC6Km4oyJNqy4
- RLpQQ33qPgZf/geVTt6BtEqXLJsDObDyNBKrHBQKogvGeRKAlMvYZPLR8
- U5r2rcZ5Lh5D1kJLklXfYaatbOfOHehyG91e9oaHWxRDhSHQEqdDxcBcy
- a9+ubwzmv9BwhW8HExfL6JHT8+qAKwvEmn1B+FeLkwW9TCxi0AQe9S9Rr w==;
-X-CSE-ConnectionGUID: R/PLs/xrQpiZDInRCdhlkA==
-X-CSE-MsgGUID: 7eriFDEyTIqA/PxGWiTl3Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86358159"
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; d="scan'208";a="86358159"
+ t=1785929626; x=1817465626;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=ZxPU7quEySN5Hl4qRC5WeOO+MTXBZUcrGg6kx4/kNtY=;
+ b=HzsXHKGVVE66jmwwKlkP+56gBeVECnObgEulVQe6aL1+9DE07nic8+04
+ 3DLkE61T9tnHGZ9qg93T0wcWmTLqRAELdhjdgaTU6PwQbjkd6LZQx+wDX
+ eZKn7Z+HLfb3C3k9o6/A2ihWy41/PcSr3LzG5nbCaXki53V1x/9Njf6pU
+ 6XmfPYGxnTc7utZbz4Dq2oy/K4DaOkQc/iujFfZPgPSrMTX8pPt8pXNih
+ YPPnVR13IPQDpUguDLocMNBYTpLR33gr/TYGjVwf9HyMfhz+2r5UXkWN2
+ W4NgChfuwoH9Q1a63OMRVabYN1T1cOhqKDDrqxSUgg+EPgXBlqgfUonz+ g==;
+X-CSE-ConnectionGUID: Eb9QOtsvQ6mb96ja1BTD8Q==
+X-CSE-MsgGUID: JdiaT49LRneUc0ux8rlcuQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86358191"
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; d="scan'208";a="86358191"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2026 04:33:44 -0700
-X-CSE-ConnectionGUID: yffXgL7qQ8GKqJjwPIMxtg==
-X-CSE-MsgGUID: WKTCoPiMSbiE5AxVR+5rQA==
+ 05 Aug 2026 04:33:45 -0700
+X-CSE-ConnectionGUID: TlTSTTbZQ92hntgr1WOfMQ==
+X-CSE-MsgGUID: X+D8wfZAS76OZrI13c7G0A==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; d="scan'208";a="265289741"
+X-IronPort-AV: E=Sophos;i="6.25,206,1779174000"; d="scan'208";a="265289747"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2026 04:33:44 -0700
+ 05 Aug 2026 04:33:45 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-mm@kvack.org, linux-kernel@vger.kernel.org
@@ -60,11 +60,14 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Francois Dugast <francois.dugast@intel.com>
-Subject: [PATCH 0/4] Fix device page migration in low memory fallback
-Date: Wed,  5 Aug 2026 04:33:34 -0700
-Message-Id: <20260805113338.3742178-1-matthew.brost@intel.com>
+ Francois Dugast <francois.dugast@intel.com>, stable@vger.kernel.org
+Subject: [PATCH 2/4] mm/migrate_device: Apply the fault reference to the
+ correct folio
+Date: Wed,  5 Aug 2026 04:33:36 -0700
+Message-Id: <20260805113338.3742178-3-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260805113338.3742178-1-matthew.brost@intel.com>
+References: <20260805113338.3742178-1-matthew.brost@intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -83,34 +86,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-LLMs made my breakfast, lunch, and dinner. Not really. They served as an
-assistive tool while I performed the debugging, testing, and analysis
-needed to isolate the root cause in core MM while fixing a known DRM SVM
-issue involving THP allocation failures in the CPU fault-to-device page
-migration path.
+__migrate_device_pages() computed extra_cnt once, from the head page of
+the source folio, and then passed the same value to
+folio_migrate_mapping() for every one of the @nr sub-folios produced by
+migrate_vma_split_unmapped_folio().
 
-When a CPU faults on a device private PMD and the driver cannot allocate
-a compound destination folio, the source THP has to be split. That path
-is broken: the CPU fault reference makes the split always fail, and it
-demotes the PMD only in the faulting VMA, leaving any other VMA mapping
-the folio pointing a huge PMD at an order-0 page.
-The latter is memory corruption, previously masked by the former.
+The extra reference the CPU fault holds only exists on the single folio
+that ends up containing the fault page. Claiming it for all of them
+makes folio_migrate_mapping() expect one reference too many on every
+other sub-folio, so it returns -EAGAIN and MIGRATE_PFN_MIGRATE is
+cleared for them. Only the fault page would migrate; the remaining
+HPAGE_PMD_NR - 1 pages would be restored to device memory, and the
+faulting access would immediately fault again.
 
-The DRM side had its own problems in the same fallback: there was no
-order-0 fallback at all despite a TODO saying one was needed, the error
-path computed folio_order() after put_page(), and once the destination
-is demoted to order-0 the source page array has to be populated per
-page rather than per folio head, or the copy stops after one page.
+Compute extra_cnt per sub-folio instead, comparing against the source
+page for that entry.
 
-Validation was performed using xe_exec_system_allocator. The issue was
-initially discovered on systems configured with an artificially
-constrained memory footprint (mem=8G), where failures occurred
-intermittently. Error injection was then introduced to reliably
-reproduce the failure condition, enabling thorough validation of the
-fix. Results were confirmed through pass/fail A/B testing.
+While at it, use the sub-folio's own mapping rather than the mapping
+that was read from the pre-split folio.
 
-Matt
+This has been latent so far because the split it depends on could never
+succeed while the fault reference was held.
 
+Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migration")
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
@@ -140,20 +138,56 @@ Cc: Francois Dugast <francois.dugast@intel.com>
 Cc: dri-devel@lists.freedesktop.org
 Cc: linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
 Assisted-by: GitHub Copilot:claude-opus-5
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
+---
+ mm/migrate_device.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-Matthew Brost (4):
-  mm/migrate_device: Fix THP splitting of a CPU faulted device private
-    folio
-  mm/migrate_device: Apply the fault reference to the correct folio
-  drm/pagemap: Fix folio allocation fallback and use-after-put
-  drm/pagemap: Add fault injection for higher-order RAM folio allocation
-
- drivers/gpu/drm/drm_pagemap.c | 150 ++++++++++++++++++++++++++++------
- mm/migrate_device.c           | 120 +++++++++++++++++++++++----
- 2 files changed, 230 insertions(+), 40 deletions(-)
-
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index d1d81bbbf795..65a6a15dba4d 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -1191,7 +1191,7 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+ 		struct page *page = migrate_pfn_to_page(src_pfns[i]);
+ 		struct address_space *mapping;
+ 		struct folio *newfolio, *folio;
+-		int r, extra_cnt = 0;
++		int r;
+ 		unsigned long nr = 1;
+ 
+ 		if (!newpage) {
+@@ -1296,13 +1296,25 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+ 
+ 		BUG_ON(folio_test_writeback(folio));
+ 
+-		if (migrate && migrate->fault_page == page)
+-			extra_cnt = 1;
+ 		for (j = 0; j < nr && i + j < npages; j++) {
+-			folio = page_folio(migrate_pfn_to_page(src_pfns[i+j]));
++			struct page *src_page = migrate_pfn_to_page(src_pfns[i+j]);
++			int extra_cnt = 0;
++
++			folio = page_folio(src_page);
+ 			newfolio = page_folio(migrate_pfn_to_page(dst_pfns[i+j]));
+ 
+-			r = folio_migrate_mapping(mapping, newfolio, folio, extra_cnt);
++			/*
++			 * The CPU fault holds an extra reference on the folio
++			 * containing the fault page. @folio may have been
++			 * split above, so the fault page only accounts for an
++			 * extra reference on the folio it actually ended up
++			 * in, not on every folio of the original THP.
++			 */
++			if (migrate && migrate->fault_page == src_page)
++				extra_cnt = 1;
++
++			r = folio_migrate_mapping(folio_mapping(folio), newfolio,
++						  folio, extra_cnt);
+ 			if (r)
+ 				src_pfns[i+j] &= ~MIGRATE_PFN_MIGRATE;
+ 			else
 -- 
 2.34.1
 
