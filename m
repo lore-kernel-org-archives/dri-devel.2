@@ -4,61 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 834A5C55822
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 08:34:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACA92C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 08:36:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E729F10ED79;
-	Wed,  5 Aug 2026 08:34:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2022C10ED7A;
+	Wed,  5 Aug 2026 08:36:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="L7TKQLBB";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="RXcufmvT";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90C3510ED79
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 08:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785918894;
- bh=UaRsb8N+FmKkIzFPZNJZ7dje7nrLAfs+VL19giDr5as=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=L7TKQLBB6BDZcm/tjJnmwzEoc5YC0FRW3VY00t4Q16FzogLxYZ+jHrK54sykLORO/
- 68/awIHaf0drXn0LmsUw6CA9QBESng2mdWejWx1OaMJtMmtFlvUaFX/zjYefo+ttoh
- ItXOquinOrudxaEtNfl68mKH8sTNWiRdOAquGEtudkc9P6W6a/AY8jahW1y9iQSN9/
- Xj5+nxbkBBo7+eckCMlN+KRLyV/bm+krwtTPG26BAlYhv4xpZPYR5+ELCSoVW97Wi/
- Hd3vOJKh93z31JXt+vS8fQlLySj5zdE97dMLLZuLsLEAmMRI64MCvxaLzzWBiaxnUw
- 2NJsvgijF7YKA==
-Received: from fedora-21.home (unknown [100.64.0.11])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested)
- (Authenticated sender: bbrezillon)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 90A6C17E015B;
- Wed, 05 Aug 2026 10:34:53 +0200 (CEST)
-Date: Wed, 5 Aug 2026 10:34:48 +0200
-From: Boris Brezillon <boris.brezillon@collabora.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Alex Williamson
- <alex@shazbot.org>, bcm-kernel-feedback-list@broadcom.com, Christian Koenig
- <christian.koenig@amd.com>, David Hildenbrand <david@kernel.org>,
- dri-devel@lists.freedesktop.org, Fei Li <fei1.li@intel.com>, Huang Rui
- <ray.huang@amd.com>, linux-mm@kvack.org, linux-s390@vger.kernel.org, Michal
- Hocko <mhocko@suse.com>, Peter Xu <peterx@redhat.com>, Sergio Lopez
- <slp@redhat.com>, Sean Christopherson <seanjc@google.com>, Thomas
- Zimmermann <tzimmermann@suse.de>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] drm/shmem_helper: use vmf_insert_pfn_mkwrite()
-Message-ID: <20260805103448.44af3ff0@fedora-21.home>
-In-Reply-To: <CABgObfY67mdG9QZ5__Q9GDrEq9Wutc42_tHo8YGSMOPnruZmsg@mail.gmail.com>
-References: <20260804120529.1730187-1-pbonzini@redhat.com>
- <20260804120529.1730187-3-pbonzini@redhat.com>
- <20260804161549.4cd9a66f@fedora-21.home>
- <20260804161850.58c55c6e@fedora-21.home>
- <CABgObfbAveuhkjXzmemvGtycmcmDePKABr8Q35Y9mZP0den5aA@mail.gmail.com>
- <20260804164206.655874ce@fedora-21.home>
- <CABgObfY67mdG9QZ5__Q9GDrEq9Wutc42_tHo8YGSMOPnruZmsg@mail.gmail.com>
-Organization: Collabora
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 94F4810ED83
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 08:36:18 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id EC7254E41019;
+ Wed,  5 Aug 2026 08:36:16 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B2715602AB;
+ Wed,  5 Aug 2026 08:36:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 2BF2D11C34457; 
+ Wed,  5 Aug 2026 10:36:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1785918971; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=3pDiowYpu2EONJFNrbhy5sTaLE6FvJZitlqkCs5tFSs=;
+ b=RXcufmvTl3QrLSeb7DSI3liOEs/SFBEFZfs0mpJOU/7rPTa798p2AE6+RmX0B94eWB8JB7
+ ku5TMlynNO8C92EX0HFowfXScmuODEmoLGbhRZ3TaNdW2EZP6iInItv3qxiv9rOAzBd6VJ
+ CET8U1Lvk4A17exDZKBFou9y3Hryb6pwqrNgUwxJLJzjKCHMKSS5IdzrdkDVPQb3ToSci0
+ w0JH3ckcQ6iX5l/P1xpzYz/40qk5Zob2d/Bjh1Uer1IQCxYWeRy+JU/8m8V3khLTm33FiW
+ sF5Gpix5VHTA25IezyZB/1lT/wsQMfz6Hx5/gFwTY4A42E9SJlyr6FjHnDDNMQ==
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 1/4] drm/bridge: nwl-dsi: Limit LCDIF specific sync
+ override
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260803-nwl-dsi-fixes-v2-1-1809a0ac453f@geanix.com>
+References: <20260803-nwl-dsi-fixes-v2-0-1809a0ac453f@geanix.com>
+ <20260803-nwl-dsi-fixes-v2-1-1809a0ac453f@geanix.com>
+Date: Wed, 05 Aug 2026 10:36:01 +0200
+Message-Id: <178591896149.480618.5962943390958440515.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,62 +71,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 5 Aug 2026 08:08:17 +0200
-Paolo Bonzini <pbonzini@redhat.com> wrote:
+On Mon, 03 Aug 2026 16:56:19 +0200, Esben Haabendal <esben@geanix.com> wrote:
 
-> On Tue, Aug 4, 2026 at 4:42=E2=80=AFPM Boris Brezillon
-> <boris.brezillon@collabora.com> wrote:
-> > Okay, I thought I'd ask to be sure, because of all the implementations
-> > of pfn_mkwrite listed here [1], only drm_gem_shmem_helper.c and
-> > kernel/events/core.c do that. =20
->=20
-> Also the vmwgfx one in patch 3; and for the !DAX case ext4 and XFS too
-> (e.g. xfs_filemap_pfn_mkwrite gets to iomap_page_mkwrite, not to
-> filemap_fault).
+Hi Esben,
 
-Right, iomap_page_mkwrite() doesn't seem to update the PTE entry, it
-just records the access. But there's quite a bit of locking taking place
-before this recording is done, which we don't do in gem_shmem's
-pkf_mkwrite implementation. This brings me back to some question I asked
-in another thread where we were discussing another regression
-introduced by pfn_mkwrite addition to gem_shmem [1]: do we need to have
-the folio locked when recording the mkwrite? If we do, we probably need
-to surround the drm_gem_shmem_record_mkwrite() call in
-drm_gem_shmem_pfn_mkwrite() with a folio_lock/unlock() sequence.
+> When using DCSS with NWL, overriding the mode flags to enforce active high
+> sync is preventing the use of active low with downstream bridges, such as
+> ti-sn65dsi83, which will not see such mode flags set by the panel.
+> 
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
 
-For the record, the folio_mark_dirty() doc says:
+Is this a fix? If so, it should have Fixes: + Cc: stable.
 
- * The folio may not be truncated while this function is running.
- * Holding the folio lock is sufficient to prevent truncation, but some
- * callers cannot acquire a sleeping lock.  These callers instead hold
- * the page table lock for a page table which contains at least one page
- * in this folio.  Truncation will block on the page table lock as it
- * unmaps pages before removing the folio from its mapping.
+>
+>
+> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+> index 09992529f3d8..0fb10b686d1f 100644
+> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
+> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+> @@ -821,10 +823,13 @@ static int nwl_dsi_bridge_atomic_check(struct drm_bridge *bridge,
+>  				       struct drm_connector_state *conn_state)
+>  {
+>  	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
+> +	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
+>  
+>  	/* At least LCDIF + NWL needs active high sync */
+> -	adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
+> -	adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
+> +	if (dsi->endpoint == NWL_DSI_ENDPOINT_LCDIF) {
+> +		adjusted_mode->flags |= (DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC);
+> +		adjusted_mode->flags &= ~(DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC);
+> +	}
 
-I'm really sorry to hijack this thread like that, but now that I have
-people with a bit more MM knowledge looking at this stuff, I'm taking
-the opportunity to ask all the questions that were left unanswered back
-then :-/.
+In some sense, this patch is doing two things. One is the hunk above, doing
+what the commit message says...
 
->=20
-> > The rest have their "generic" fault
-> > handler (by generic I mean a fault handler helper that covers all the
-> > order/WRITE_FLAG combinations) called from pfn_mkwrite(), and return a
-> > non-zero vm_fault_t. =20
->=20
-> I see; I think you can do that, it is handled at
-> https://elixir.bootlin.com/linux/v7.2-rc5/source/mm/memory.c#L2681 and
-> indeed it returns VM_FAULT_NOPAGE. But it's more or work for no real
-> reason. Your .pfn_mkwrite is a single line of code and it is clearer
-> IMO if you can see that try_insert_pfn() is calling the same helper as
-> .pfn_mkwrite().
+> @@ -1103,11 +1107,12 @@ static int nwl_dsi_select_input(struct nwl_dsi *dsi)
+>  				      "No valid input endpoint found\n");
+>  			return -EINVAL;
+>  		}
+> +		dsi->endpoint = NWL_DSI_ENDPOINT_DCSS;
+>  	}
 
-Sure. As long as what we're doing is safe, I'm fine keeping
-drm_gem_shmem_pfn_mkwrite() as is and letting the core update the PTE
-props. It's just that, after reading all these implementations, I was
-skeptical (see the question around folio locking before mark_dirty(),
-for instance).
+...and this is a somewhat orthogonal change, changing the way the endpoint
+selection is stored: either as a bool (false = LCDIF, true = DCSS) or as an
+index (0 = LCDIF, 1 = DCSS). No problem with this change, I think it makes
+code more readable. Just I'd rather keep it as a separate cleanup patch.
 
-Anyway, thanks for chiming in.
+>  
+>  	DRM_DEV_INFO(dsi->dev, "Using %s as input source\n",
+> -		     (use_dcss) ? "DCSS" : "LCDIF");
+> -	ret = mux_control_try_select(dsi->mux, use_dcss);
+> +		     (dsi->endpoint == NWL_DSI_ENDPOINT_DCSS) ? "DCSS" : "LCDIF");
+> +	ret = mux_control_try_select(dsi->mux, dsi->endpoint == NWL_DSI_ENDPOINT_DCSS);
 
-[1]https://lore.kernel.org/dri-devel/20260313111851.4c1f89f3@fedora/
+The code here is not formally correct. mux_control_try_select() takes a
+state argument, which is an integer, but you are passing a bool. It would
+still work just because bools are mapped to 0/1. Looks like should simply
+become:
+
+	ret = mux_control_try_select(dsi->mux, dsi->endpoint);
+
+Luca
+
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
