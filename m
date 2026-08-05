@@ -4,97 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3B4BC561E6
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 13:55:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1734C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 13:59:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09AB110EE9B;
-	Wed,  5 Aug 2026 13:55:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB41910E1FE;
+	Wed,  5 Aug 2026 13:59:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I4yu93y3";
+	dkim=pass (2048-bit key; secure) header.d=ozlabs.org header.i=@ozlabs.org header.b="b95gvb2T";
 	dkim-atps=neutral
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
- [209.85.160.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9804710EE80
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 13:55:40 +0000 (UTC)
-Received: by mail-oa1-f41.google.com with SMTP id
- 586e51a60fabf-448b89f700fso937853fac.2
- for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 06:55:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785938140; cv=none;
- d=google.com; s=arc-20260327;
- b=sK4DokkLNpeplH9SFVF9fNdnj5CfLhiv/ZicdTXlduXdwu3r2kJgotfLQ1+kyJyUpO
- prHZEIl3nSiT5NgKTsHddKBEKXhmX73hjMc8AkBXuXV9eBSnKsizUfyAHfb49Ip6+e5S
- I412bF4vk+Wm/LkDPBjUzsOQkFNGZ/E197QNPSw60PFuYUiA0c4k9n98wmjgmda/+W8v
- GWznqryeOsXpGMwouGdVXQz0BvxIGqZ5LyNOwHS+QIQCX7S7AE7BQmJB5ng9PChAC8zH
- jfyhnZ2oI3/jtnBc1SunW6mk3z6AjJy45h4EDGItjPqiIjzClhmjQ65DH/2w/1Cmv5VQ
- AGSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=0T5/BwMbKCVTLYDKO3fObDhqOfeGegG11SJ0r26Jq64=;
- fh=AJ2AkGJUbe4FQ8EN8Zdt0k+1RX5SBdAIjBvPaMDaEVc=;
- b=GVTmyboYMSFfR1rKf7M+C8o8TRUzeErcY6YgcwrV6NmB+45CfgY6IK/F13T/qH62uu
- BtN+6fq6u2IiNaEnuu3mkMyCe0ItDaZcHvpnAFuwjGRDCh6cOgHSKkWVzhSDorXpyEj5
- Qb4Lr+af4mnpStMx+5LItwZeIjjjnpuk1U+wqAZBxshwQZu2krV+YemAuzAOzkyM0Pno
- f+6iiE41XqD7zKR6RoHKXbXEwqZXRrMwwEcWTHEUQm8BW9aMttFwT+OFUzYPdgXk2V7P
- Qvh56vPH0r2BKvsQy5NIGNjjKNd8Pi46eRi3DGpUeQH/2RqaRNozlr7UCORyNS4pf+fM
- Z1jQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785938140; x=1786542940; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=0T5/BwMbKCVTLYDKO3fObDhqOfeGegG11SJ0r26Jq64=;
- b=I4yu93y3/JKLqwoM8ILW8cNJmy4ZEX7zll+x/Kz/lkJtEjmKkFaebMEsrb/JCZzWvx
- PHYus5PW8rdnwZCcbWFuSCxJMGb5aHtY05s+rD7kWRB6S0Cp/zx/09rJ/AkpJYhpc20T
- fi3c43hh/6nqA37uoke5B2i8icfpTpH+H5ofd35Yo5SwKz/zkzcn8GVOUYD3vl99iOIq
- 6CRyNNm7G5oNCVEj6dnKT+Jhs/tDaIMKvSo64aEc3Wo/8ba7fvRo6x/rupcblIcTi/kA
- HwLQmWBcwH96+K45wDuWMRu8uwkurprMBC7kvM/VQ386JA3cNBT0ku++MjcKlPcVkadb
- v5QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785938140; x=1786542940;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=0T5/BwMbKCVTLYDKO3fObDhqOfeGegG11SJ0r26Jq64=;
- b=LhQwGdGKAqHiSQdybczsbvTBDG+diy4Pf75F7q6aY3D1D4MZp4uo6fkd1MNEcqT6mE
- cjAI3jDF0hNAqYVx9KZoYpOtI0JpYh8QS1d1tkIUnTLTb7ii8h3QoNEjS7IhQPvGp7aX
- ZQrJlr+NlM+AohoJ/jTOPHDEonP+bKPPAo3pSeLym2CQ4438CCw4BcBhCQ59xAHKuMQd
- vHxKS2bgEP9bxzqhz+dByDjmFUMNJqZKf9G16wjA9ajgUALdwLmsjti4PeuzgSRlG2Yz
- TnKW67XXTnHh/Dtv4qG/6chlnbRt20fQheYk9gRkLMXWRdvqljy6AbaZBDhiU+AuPTMh
- xXjw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrA0yh1CkGGH5WifMSNHBXcEFwT/3o5Uh1XoYg7/dPQwnTgJ/M2OQlAQBBmPiJ69gTgH0+tkrP1EDE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzcNFY9wxKTiO/90WWOaVj+KY7AOldSdWHUqTRCiD0EC5Cl9AlI
- bbDBOzwQBHhSi9kv9XsgjM8Tq+4ylgz0RpUk14zUbEhMkokTXp1XjRm+T9FR0ggAgxGaTnPEgcp
- su3WdSfWnxs6xV1kdm7Qp4x4PuKn0WtA=
-X-Gm-Gg: AR+sD13Upyblk5as+leznuWH1DtqFff2ZFHJ2Q7f5KcQCUYrBq5OB+3p9yO2PsvK9yH
- 9jgkLA3zjN7i9SFTAh0IGh7A2tzlotiSlRIEQgBnYw7nIGUo/8YUxXfd+sS+Q8C0rW9kM6SGY8s
- FarhEvgbcSjv16is1Fdyc47nURz03bqnBHLI+Q0mOraV/gHodR0/5qDnCnAJG/am62tdsuCX5zN
- GggcU6O+itwdt/3Ac2mpj0wqTwIJ1AumM9+pUnTF3hEWldLONC5EnerHYqDFpaDWodtF/9zO9Lu
- 2Etnlk/+I4jTLn00metypuWwUgOxDoG8OuNgsIZ8PjUQ3g==
-X-Received: by 2002:a05:6870:c145:b0:448:7ecd:583c with SMTP id
- 586e51a60fabf-4599ef66e57mr3421197fac.17.1785938139558; Wed, 05 Aug 2026
- 06:55:39 -0700 (PDT)
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5F6110E1FE
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 13:59:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+ s=201707; t=1785938349;
+ bh=8ZKev4Gomd2h4BZnMddpS4sItcYMIlEiLKSOtv/oACM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=b95gvb2TP5dDfbztGLQkGg1Hsi8rixtPTT0hgwmZ9XUcMkRJ8rigLdQSh4aWOCfdz
+ CIaOEgN96ojAF6jurM7yvXzvVQU/1+RpADhFufOUReH1qGjfq0lq04b1RpH9Hq53g9
+ Bq/ZXpW7qGfEakb2jw486rve0G81KGFJ2WTLNDNY9VdrPfsF3pwhUI4dWbKghdUoc/
+ +Vbe7vL7l61WpF3dThn7HKcDkusFrazYFY9/DzmJ0FAPmEP6+pHL/y2bqvQnwfVPZZ
+ ZUgFQ5FVBqPGLymqLUrR+qUuR4smm3aE/seJs/rp5Z0JTLhuDFvl18wUnTFH83wK3e
+ /MMTQALaNga0w==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (Client did not present a certificate)
+ by mail.ozlabs.org (Postfix) with ESMTPSA id 4hFX836TVwz4w23;
+ Wed, 05 Aug 2026 23:58:59 +1000 (AEST)
+Message-ID: <a0e71704-074a-415c-b910-d4e8b623874e@ozlabs.org>
+Date: Wed, 5 Aug 2026 14:58:55 +0100
 MIME-Version: 1.0
-References: <15b28cafab1b55f3e4cad9bb542847d22e776bda.1785616749.git.nlucasgit@gmail.com>
- <20260803152533.9008-1-royalnet026@gmail.com>
-In-Reply-To: <20260803152533.9008-1-royalnet026@gmail.com>
-From: Nathan Lucas <nlucasgit@gmail.com>
-Date: Wed, 5 Aug 2026 07:55:28 -0600
-X-Gm-Features: AUfX_mzExbPGJJsBny-YZnnSr1GCs-6bfdue8MaTV1Rrsd66Jj3Gf72et43uSvY
-Message-ID: <CACNCB+=APzutjqirzBCfkt-t5QRMOnr9j3pWT0RxEOkH3mkEug@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/display: fix BT.2020 YCbCr output CSC
- matrices for DCE
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
- siqueira@igalia.com, alexander.deucher@amd.com, joshua@froggi.es, 
- mwen@igalia.com, leorize+oss@disroot.org, alex.hung@amd.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-8-matt@ozlabs.org>
+ <20260729115204.2a9a50b2@shazbot.org>
+ <6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
+ <20260804141022.71b6429d@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20260804141022.71b6429d@shazbot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,58 +75,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Igor,
+Hi Alex,
 
-Thank you for taking the time to test the patches.  Your RX 580 should hit
-the new limited-range matrix in dce_transform.c which I was not able to
-directly test.
+On 04/08/2026 21:10, Alex Williamson wrote:
+> On Thu, 30 Jul 2026 15:47:13 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
+> 
+>> Hi Alex,
+>>
+>> On 29/07/2026 18:52, Alex Williamson wrote:
+>>> On Wed, 15 Jul 2026 18:47:30 +0100
+>>> Matt Evans <matt@ozlabs.org> wrote:  
+>>>> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+>>>> index 9a1674c152aa..e2b4252e7c3f 100644
+>>>> --- a/include/linux/vfio_pci_core.h
+>>>> +++ b/include/linux/vfio_pci_core.h
+>>>> @@ -134,6 +134,7 @@ struct vfio_pci_core_device {
+>>>>  	bool			pm_intx_masked;
+>>>>  	bool			pm_runtime_engaged;
+>>>>  	bool			sriov_active;
+>>>> +	bool			zap_bars_on_revoke;
+>>>>  	struct pci_saved_state	*pci_saved_state;
+>>>>  	struct pci_saved_state	*pm_save;
+>>>>  	int			ioeventfds_nr;  
+>>>
+>>> This should be in the bitfield usage group since it's only modified at
+>>> init time.  
+>>
+>> This was intentional, but happy to change it if you're certain ofc.  Is
+>> it inconceivable that a sub-driver could set it after init?  I'd say
+>> they _shouldn't_, but only review will stop them and this placement
+>> intended to be cautious.  It seemed a low cost way to avoid issues
+>> around synchronisation on the bitfield.
+> 
+> I'd agree with the statement that they shouldn't, it would be difficult
+> to synchronize setting the flag once there are any active mappings of
+> the BARs.  Also, if we put it in the bitfield category under the
+> comment that the value is only modified at setup/release, it documents
+> the intentions, hopefully to the extent the author or reviewers notice.
+> An argument can always be made to change it if there's a worthwhile use
+> case.  Thanks,
 
-Thanks again,
-Nathan
+Okay, book removed in favour of bit.
 
-On Mon, Aug 3, 2026 at 9:25=E2=80=AFAM Igor Paunovic <royalnet026@gmail.com=
-> wrote:
->
-> Hi Nathan,
->
-> I hit exactly this on a DCE 11.2 part, so here is a data point for the
-> path you could not test.
->
-> Setup: XFX RX 580 8GB (Polaris10, DCE 11.2) as an external GPU on an
-> Orange Pi 5 Plus (RK3588, arm64) over PCIe Gen3 x4, driving a Sony 65"
-> HDR10 TV at 3840x2160@60 with HDR enabled under KWin/Wayland. The sink
-> lists 3840x2160@60 only in its YCbCr 4:2:0 video data block and caps
-> TMDS at 300 MHz, so the stream comes out as PIXEL_ENCODING_YCBCR420
-> (confirmed in hardware: FMT_CONTROL =3D 0x002a0000, FMT_PIXEL_ENCODING =
-=3D 2),
-> and with the compositor setting Colorspace=3DBT2020_RGB the output color
-> space ends up COLOR_SPACE_2020_YCBCR_LIMITED.
->
-> My tree predates 51e6668ab4ba, so global_color_matrix[] had no BT.2020
-> row at all. That is worth recording as its own failure mode: with no
-> matching entry, dce110_opp_set_csc_default() programs no matrix and
-> configure_graphics_mode() leaves OUTPUT_CSC_GRPH_MODE at 0, so the
-> output CSC stays bypassed and plain RGB is fed to the 4:2:0 formatter
-> while the AVI infoframe declares YCbCr 4:2:0 with BT.2020 colorimetry.
-> The sink then applies a BT.2020 YCbCr to RGB matrix to RGB data: luma
-> lands on green, Cb/Cr sit near mid scale, and the picture is washed out
-> with a heavy green cast. SDR on the same link was fine, since it stays
-> on the BT.709 entry.
->
-> Applying 51e6668ab4ba plus this series on top of 7.0 fixes it: colors
-> are correct on that TV in HDR, across a reboot, with no amdgpu errors in
-> the log. As a cross-check, the same desktop on a second monitor driven
-> by a completely different pipeline (the SoC's own display controller)
-> now matches it.
->
-> I also booted 51e6668ab4ba without this series on the same setup and
-> could not tell the two apart by eye. That is not a counter-argument to
-> the fix, just a note on sensitivity: the compositor maps SDR content to
-> around 350 nits, so nothing gets near the top of the PQ range where the
-> full-range luma scaling would clip, and the residual difference stays
-> below what this TV's processing reveals.
->
-> Tested-by: Igor Paunovic <royalnet026@gmail.com>
->
-> Thanks,
-> Igor
+Thanks,
+
+
+Matt
+
