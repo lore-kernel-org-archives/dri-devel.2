@@ -4,45 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 946DDC55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 05:55:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63458C55822
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 06:04:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A84BB10E1C7;
-	Wed,  5 Aug 2026 05:55:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65B7610ECDD;
+	Wed,  5 Aug 2026 06:04:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f0atRIIw";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="igdJt2SW";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDC7010E1C7
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 05:55:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2166460A82;
- Wed,  5 Aug 2026 05:55:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FD541F000E9;
- Wed,  5 Aug 2026 05:55:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785909342;
- bh=uaa4Fo77CRhuJiLpH9r5tlDb3SJjfeRTrxDDsQMNlB0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=f0atRIIwXbTqaJ3RUCT6zrFC7gFjCoHRWsV60Gyovd1SO05BO64Fj1LnXqtX+Yw9T
- v21Qj3jPZ3JxxLlYkEL22JBQ+9aSTZNwVbblJksjlJ8uf32WOb7vJYepcANa/lOA1R
- W9K7cO/WiLXcjJ2LD3x+xFOPv8ejC4tTyJL3TKg9iVQhipQk2IDe82y7jXJ2XaZbod
- a3XUqyE5XirL2psaw8eWReVpSrdH8zS1G/EQ5G8ztsbpsejI4cMf/AdMYWlPJKxKGW
- /OaUezNhJsTpCVPh4YAb1ARMaaRDV5B7c8JF6Fp9Lc0D8sZLQAFx13coU8HLYEBjAm
- D3xb8p7aVxceQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 02/12] rust: num: reject Bounded::shr overshifts at
- build time
-To: "Eliot Courtney" <ecourtney@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, "Alexandre Courbot" <acourbot@nvidia.com>,
- "Danilo Krummrich" <dakr@kernel.org>, ojeda@kernel.org
-In-Reply-To: <20260805-pramin-split-v1-2-ff3e84a75dac@nvidia.com>
-References: <20260805-pramin-split-v1-0-ff3e84a75dac@nvidia.com>
- <20260805-pramin-split-v1-2-ff3e84a75dac@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 05:55:42 +0000
-Message-Id: <20260805055542.7FD541F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E2EF10ECDD;
+ Wed,  5 Aug 2026 06:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785909883; x=1817445883;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=4Dx2yDPCkyFQMbp325MbRQe6G9ZLtqCxCXhBkxJvRzc=;
+ b=igdJt2SWRJ+yHuXCUiJ5ApS3xXOlVeQ5mO3LT1o4x4V7uDPQf0w+VBgQ
+ Q+06s3P3oy12/NwanLqG1zEtbX6aeaBWp0cqskfrtma3vpNuA0so5EUUg
+ s1jMxihRNaDrqr7g99JdlslRDttoHu+9H/w230CujJeJESzL1iuKzyL8b
+ ZUSmV8CrpM29KGd9McpdW9+TUuquNtAUm+F4jTW1XGyfp/wn9AmxxQKGU
+ MepqqBRH49gSRjEqiz5FFuwqh3G1K22LTSfjOJilu/+IEylEPd+baoOqh
+ hbIhLq+BSt7V+E+bIWrRNIRu+pcxnthh+siR8sFRyGgosM+wdCR2nANIL g==;
+X-CSE-ConnectionGUID: vZIVCj+xSumz4K1HZGBfRQ==
+X-CSE-MsgGUID: ec+sZfEcRra27gHM72gbtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11865"; a="86483624"
+X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="86483624"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Aug 2026 23:04:42 -0700
+X-CSE-ConnectionGUID: lX7Ub0lbQMO/9qGURTdxDQ==
+X-CSE-MsgGUID: NYLygFFYQbyp8lJZGyzVlQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,205,1779174000"; d="scan'208";a="291653100"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+ by orviesa002.jf.intel.com with ESMTP; 04 Aug 2026 23:04:39 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wrUk0-00000000Bjh-3RBH;
+ Wed, 05 Aug 2026 06:04:36 +0000
+Date: Wed, 5 Aug 2026 14:03:16 +0800
+From: kernel test robot <lkp@intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Michal Wajdeczko <michal.wajdeczko@intel.com>,
+ =?utf-8?Q?Micha=C5=82?= Winiarski <michal.winiarski@intel.com>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Guangshuo Li <lgs201920130244@gmail.com>
+Subject: Re: [PATCH] drm/xe/pf: clear pending packet on header init failure
+Message-ID: <202608051326.aRuRqBCC-lkp@intel.com>
+References: <20260708071502.722393-1-lgs201920130244@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708071502.722393-1-lgs201920130244@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,73 +74,101 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Guangshuo,
 
-Pre-existing issues:
-- [Medium] The `Bounded` struct derives `Default`, which safely bypasses th=
-e required compile-time invariant checks in `Bounded::__new`.
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on drm-xe/drm-xe-next]
+[also build test ERROR on linus/master v7.2-rc6 next-20260804]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/drm-xe-pf-clear-pending-packet-on-header-init-failure/20260805-104621
+base:   https://gitlab.freedesktop.org/drm/xe/kernel.git drm-xe-next
+patch link:    https://lore.kernel.org/r/20260708071502.722393-1-lgs201920130244%40gmail.com
+patch subject: [PATCH] drm/xe/pf: clear pending packet on header init failure
+config: powerpc-allmodconfig (https://download.01.org/0day-ci/archive/20260805/202608051326.aRuRqBCC-lkp@intel.com/config)
+compiler: powerpc64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260805/202608051326.aRuRqBCC-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608051326.aRuRqBCC-lkp@intel.com/
+
+All error/warnings (new ones prefixed by >>):
+
+   drivers/gpu/drm/xe/xe_sriov_packet.c: In function 'xe_sriov_packet_write_single':
+>> drivers/gpu/drm/xe/xe_sriov_packet.c:350:17: error: unknown type name 'rturn'
+     350 |                 rturn copied;
+         |                 ^~~~~
+>> drivers/gpu/drm/xe/xe_sriov_packet.c:350:23: warning: unused variable 'copied' [-Wunused-variable]
+     350 |                 rturn copied;
+         |                       ^~~~~~
+
+
+vim +/rturn +350 drivers/gpu/drm/xe/xe_sriov_packet.c
+
+   313	
+   314	/**
+   315	 * xe_sriov_packet_write_single() - Write migration data to a single packet.
+   316	 * @xe: the &xe_device
+   317	 * @vfid: the VF identifier
+   318	 * @buf: start address of userspace buffer
+   319	 * @len: requested write size from userspace
+   320	 *
+   321	 * Return: number of bytes that has been successfully written,
+   322	 *	   -errno on failure.
+   323	 */
+   324	ssize_t xe_sriov_packet_write_single(struct xe_device *xe, unsigned int vfid,
+   325					     const char __user *buf, size_t len)
+   326	{
+   327		struct xe_sriov_packet **data = pf_pick_pending(xe, vfid);
+   328		ssize_t copied;
+   329		bool writing_hdr;
+   330		int ret;
+   331	
+   332		if (IS_ERR_OR_NULL(*data)) {
+   333			*data = xe_sriov_packet_alloc(xe);
+   334			if (!*data)
+   335				return -ENOMEM;
+   336		}
+   337	
+   338		writing_hdr = (*data)->hdr_remaining;
+   339		if (writing_hdr)
+   340			copied = pkt_hdr_write(*data, buf, len);
+   341		else
+   342			copied = pkt_data_write(*data, buf, len);
+   343	
+   344		if (copied < 0) {
+   345			if (writing_hdr && !(*data)->hdr_remaining) {
+   346				kfree(*data);
+   347				*data = NULL;
+   348			}
+   349	
+ > 350			rturn copied;
+   351		}
+   352	
+   353		if ((*data)->hdr_remaining == 0 && (*data)->remaining == 0) {
+   354			ret = xe_sriov_pf_migration_restore_produce(xe, vfid, *data);
+   355			if (ret) {
+   356				xe_sriov_packet_free(*data);
+   357				*data = NULL;
+   358	
+   359				return ret;
+   360			}
+   361	
+   362			*data = NULL;
+   363		}
+   364	
+   365		return copied;
+   366	}
+   367	
+
 --
-
---- Patch [2]: [PATCH 02/12] rust: num: reject Bounded::shr overshifts at b=
-uild time ---
-commit a9c888d83116c04cce01b982b58983e2d81e53c5
-Author: Eliot Courtney <ecourtney@nvidia.com>
-
-rust: num: reject Bounded::shr overshifts at build time
-
-This commit updates shr in the Bounded struct to reject shifts that are
-greater than or equal to the type's bit width at build time. This prevents
-runtime panics or masked shift amounts.
-
-> diff --git a/rust/kernel/num/bounded.rs b/rust/kernel/num/bounded.rs
-> index dafe77782d797..f263107f001ed 100644
-> --- a/rust/kernel/num/bounded.rs
-> +++ b/rust/kernel/num/bounded.rs
-
-[Severity: Medium]
-This is a pre-existing issue, but does deriving Default on Bounded safely
-bypass the required compile-time invariant checks?
-
-Looking at the struct definition in rust/kernel/num/bounded.rs:
-
-#[derive(Clone, Copy, Debug, Default, Hash)]
-pub struct Bounded<T: Integer, const N: u32>(T);
-
-The Bounded struct defines strict type invariants (such as N > 0 and
-N <=3D T::BITS) which are enforced at compile time in its __new
-constructor. However, deriving Default automatically implements a construct=
-or
-that initializes the tuple struct field via Self(T::default()), completely
-bypassing __new.
-
-Can safe downstream code construct an invalid instance using
-Bounded::<u32, 0>::default()?
-
-If this invalid instance is dereferenced, deref evaluates fits_within(0, 0),
-calculating 32 - 0 =3D 32. Does left-shifting by 32 bits then trigger a run=
-time
-panic in debug builds due to an overshift, or mask the shift amount in rele=
-ase
-builds?
-
-[ ... ]
-
-> @@ -485,6 +485,7 @@ pub fn cast<U>(self) -> Bounded<U, N>
->      /// assert_eq!(v_shifted.get(), 0xff);
->      /// ```
->      pub fn shr<const SHIFT: u32, const RES: u32>(self) -> Bounded<T, RES=
-> {
-> +        const { assert!(SHIFT < T::BITS) }
->          const { assert!(RES + SHIFT >=3D N) }
-> =20
->          // SAFETY: We shift the value right by `SHIFT`, reducing the num=
-ber of bits needed to
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805-pramin-spl=
-it-v1-0-ff3e84a75dac@nvidia.com?part=3D2
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
