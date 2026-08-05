@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7EB4C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 23:22:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32A18C55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 23:22:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDFBC10F014;
-	Wed,  5 Aug 2026 23:22:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C21C10F051;
+	Wed,  5 Aug 2026 23:22:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e92hBcal";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="IHALR4vD";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBE4410F02A
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 23:22:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E580B10F04B
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 23:22:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B780560A63;
- Wed,  5 Aug 2026 23:22:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 439271F000E9;
- Wed,  5 Aug 2026 23:22:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 97CAA439B1;
+ Wed,  5 Aug 2026 23:22:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F7F31F000E9;
+ Wed,  5 Aug 2026 23:22:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785972135;
- bh=1nDAYrxdiXcm45jg6uZSRGR8MdAeu+PcnGDPUvweFHI=;
+ s=k20260515; t=1785972171;
+ bh=lptXXMIBFREfBs7mBqSzJgiG933N8qrL9UVqL15v2ek=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=e92hBcalVHhlRwF9aW60wCN4bxf62iy4MdP/t710xs3soIeKzSjzj679NKszpcSGY
- /GF91jrhf+hrwXghhDi82UmMNt2+bgIa/syXNmDmC8WThxJPZS5xltw4rwf7z15Y/b
- 9gAPXhIegurVJ9boELjDStA9YfE2CFyZAMuBP+7aCzyNiHvDORgsweKmd7yBvRQPgH
- 5MCjQTxZZuzPBwrOeDV6kI4yvJVGZtxbUwxQ44ol6dqmYkvNddytT7NnNG6+g8QJzs
- FRpYtdsbDSDaOVmkFFpticudf3uVRSVXJEkM8sB3PPg/ftktqFf0d+41SOHZfZGzo7
- HDJotSk9J4hew==
+ b=IHALR4vDPV+PwJrWIz73C5OpXY0R4q2bgSRslxU2bm3QO8K3y0uHmwtr5hxslk/aC
+ 3i63+DWqzSjQF3gesesceCfewMmdflBGsHSME97JjXsZ8ZPUgM7bJEEkpKhpxR58J3
+ p4TKSWvNResD2I1vtpd+6cH7rOzGcIfrMmmiK/RiBJiJkf8W116oXh1qIkHuIKF2K6
+ fhgBhvvdRh/ZX1ocM19vahmdYYxRKFt6lT1cik2KKuMipDSv+xRKklGIR4SrskHS5I
+ iVD16yKNhWudy6En57eNumftOwHrMdOkWETfyv4y+Sz9PsAATY9HYxmyLJjQ5vfkCB
+ sr3UEngnXAGXw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/6] drm/pagemap: dma-unmap pages before handling
- migration errors
+Subject: Re: [PATCH v3 1/6] mm/migrate_device: Clear stale mapping after
+ freeing swapcache
 To: "Matthew Brost" <matthew.brost@intel.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260805231041.3791771-5-matthew.brost@intel.com>
+In-Reply-To: <20260805231041.3791771-2-matthew.brost@intel.com>
 References: <20260805231041.3791771-1-matthew.brost@intel.com>
- <20260805231041.3791771-5-matthew.brost@intel.com>
+ <20260805231041.3791771-2-matthew.brost@intel.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 05 Aug 2026 23:22:14 +0000
-Message-Id: <20260805232215.439271F000E9@smtp.kernel.org>
+Date: Wed, 05 Aug 2026 23:22:50 +0000
+Message-Id: <20260805232251.4F7F31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,68 +62,61 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Valid DMA address 0 is leaked because `drm_pagemap_migrate_unm=
-ap_pages` skips unmapping when `pagemap_addr[i].addr =3D=3D 0`, leading to =
-a stale IOMMU mapping and potential use-after-free.
+- [High] Missing `goto next;` causes aborted migration to corrupt page cach=
+e and page tables.
 --
 
---- Patch [4]: [PATCH v3 4/6] drm/pagemap: dma-unmap pages before handling =
-migration errors ---
-commit 449a54e82e1a7fd00fc19c70ae34414088711db1
-Author: Matthew Brost <matthew.brost@intel.com>
+--- Patch [1]: [PATCH v3 1/6] mm/migrate_device: Clear stale mapping after =
+freeing swapcache ---
+commit 36bc19904d5fb8100fc812248c9247ad225d6ebe
+Author: Arvind Yadav <arvind.yadav@intel.com>
 
-    drm/pagemap: dma-unmap pages before handling migration errors
+mm/migrate_device: Clear stale mapping after freeing swapcache
 
-This commit reorders the cleanup sequence during migration errors. It ensur=
-es
-that DMA unmapping occurs before the pages array is cleared, preventing mis=
-sing
-unmaps due to invalid page information.
+This commit fixes a bug in __migrate_device_pages() where a stale mapping
+is used after a folio is removed from the swap cache. It refreshes the
+mapping via folio_mapping() and resets 'nr' to 1 after a successful folio
+split to process the resulting order-0 folios independently.
 
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> index 892b325fa99b8..aef1fcea663d5 100644
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
-> @@ -1175,12 +1175,12 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_d=
-evmem *devmem_allocation)
->  		goto err_finalize;
-> =20
->  err_finalize:
-> +	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, d=
-st, npages,
-> +					DMA_FROM_DEVICE, &state);
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -1193,6 +1193,13 @@ static void __migrate_device_pages(unsigned long *=
+src_pfns,
+>  							 MIGRATE_PFN_COMPOUND);
+>  					goto next;
+>  				}
+> +
+> +				/*
+> +				 * reset nr so that only first after-split folio
+> +				 * is processed below
+> +				 */
+> +				VM_WARN_ON_ONCE(folio_test_large(folio));
+> +				nr =3D 1;
+>  			} else if ((src_pfns[i] & MIGRATE_PFN_MIGRATE) &&
+>  				(dst_pfns[i] & MIGRATE_PFN_COMPOUND) &&
+>  				!(src_pfns[i] & MIGRATE_PFN_COMPOUND)) {
+>  				src_pfns[i] &=3D ~MIGRATE_PFN_MIGRATE;
 
-[Severity: Critical]
-This is a pre-existing issue, but does the check inside
-drm_pagemap_migrate_unmap_pages() accidentally leak valid DMA address 0?
+[Severity: High]
+This is a pre-existing issue, but does this error path in
+__migrate_device_pages() miss a goto next statement?
 
-drivers/gpu/drm/drm_pagemap.c:drm_pagemap_migrate_unmap_pages() {
-    ...
-	if (!page || !pagemap_addr[i].addr || dma_mapping_error(dev, pagemap_addr[=
-i].addr))
-		goto next;
-    ...
-}
+When a non-compound source page is paired with a compound destination page,
+the code correctly clears the MIGRATE_PFN_MIGRATE flag to abort the
+migration, but it falls through instead of skipping to the next iteration.
 
-Since 0 is a valid DMA address on many platforms, skipping the unmap when
-pagemap_addr[i].addr =3D=3D 0 might leave a stale IOMMU mapping.=20
+Without a goto next, execution continues to the unconditional page cache
+migration loop at the bottom of the function. This calls
+folio_migrate_mapping(), which moves the page cache state to the new folio.
 
-When the page is subsequently freed, could a malicious userspace instruct t=
-he
-GPU to access this DMA address and cause memory corruption or an IOMMU
-use-after-free?
+Later, because MIGRATE_PFN_MIGRATE was cleared, migrate_vma_finalize() will
+restore the CPU page tables to map the old source page. Will this cause data
+corruption by desynchronizing the CPU page tables from the page cache?
 
->  	if (err)
->  		drm_pagemap_migration_unlock_put_pages(npages, dst);
->  	migrate_device_pages(src, dst, npages);
->  	migrate_device_finalize(src, dst, npages);
-> -	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, d=
-st, npages,
-> -					DMA_FROM_DEVICE, &state);
-> =20
->  err_free:
->  	kvfree(buf);
+>  			}
+>  		}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805231041.3791=
-771-1-matthew.brost@intel.com?part=3D4
+771-1-matthew.brost@intel.com?part=3D1
