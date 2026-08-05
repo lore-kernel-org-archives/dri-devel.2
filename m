@@ -4,82 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8ED49C55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 15:36:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EAD6BC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 15:42:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D9ABB10EECF;
-	Wed,  5 Aug 2026 15:36:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5069A10EEE3;
+	Wed,  5 Aug 2026 15:42:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="H8fEDiQ2";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XrHdS0iG";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6982010EECF
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 15:36:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785944179; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=B9NH8tzwGNXvVBin7CP/ryrYN/Nzf4YWB1eQLfcmvR78ykfbvCVCsbyXTl4vQLdRv9Z6DIqQLU1StApVn/q1d1jzv62GlRviM/+H8dl4yiskP712XNtFVae7wnGKIHf1Mu98kTMMxcYBrlDniqv+7j2rAcLFbhSsMhafqXc63iY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785944179;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=eZ8yoGo952efns/OBm5iCX+Q1HBcqsTJ1juv/oJ+doc=; 
- b=NQfB0LZQ6S7Y5T7XcslYroMwDtkLTHfBsqcVTOYaFO8exvYuw6dI34qp4jCC1tAguAQUTdqs8GW7bJcfh/+gMJEZIr0kFTVS6qeUFJtz2LkVNIHOjwaAZTIn6RFTjaIZ2/fTfv69FPDKrae+VbZsrBvMIMH13U+aZ6IN2LDM7eM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785944179; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=eZ8yoGo952efns/OBm5iCX+Q1HBcqsTJ1juv/oJ+doc=;
- b=H8fEDiQ2taUmnCpqfECXXNNC8QPx70VxDDG3gmJIss9JCsaukridaFIrfYoxu9H9
- DsbmnjJlKy4I0uyABZe/acOUra03AWhqFdVoEfwbrrFA+4cwsQ+iB0YaqJPF7lBIepr
- tCfCabq9PvVdiyjYIpCcJmtzGdyQLNc3myvI8ON4=
-Received: by mx.zohomail.com with SMTPS id 1785944177660785.6057907562056;
- Wed, 5 Aug 2026 08:36:17 -0700 (PDT)
-Content-Type: text/plain;
-	charset=utf-8
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v9 4/5] rust: Add dma_fence abstractions
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260805145949.938505-6-phasta@kernel.org>
-Date: Wed, 5 Aug 2026 12:35:51 -0300
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Lyude Paul <lyude@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
- Frederic Weisbecker <frederic@kernel.org>,
- Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
- Joel Fernandes <joelagnelf@nvidia.com>,
- Josh Triplett <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Lai Jiangshan <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Asahi Lina <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>,
- Lorenzo Stoakes <ljs@kernel.org>,
- FUJITA Tomonori <fujita.tomonori@gmail.com>,
- Eliot Courtney <ecourtney@nvidia.com>,
- Mirko Adzic <adzicmirko97@gmail.com>, Timur Tabi <ttabi@nvidia.com>,
- Daniel del Castillo <delcastillodelarosadaniel@gmail.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA8F610EEE3
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 15:42:32 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id C1FA0600AE;
+ Wed,  5 Aug 2026 15:42:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED161F000E9;
+ Wed,  5 Aug 2026 15:42:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785944551;
+ bh=3Y3CidiSbVUDVx7qpPrrdCLbI9YipBxRHM8J88Md87M=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=XrHdS0iGhh9OGmHgIzmtRlqcPP9e/o/hxQX6RxNXWAQMiuqYK9hkOqzQQqoCSWBoM
+ t6L9v13oi0n9dxdR7E8DufjdtqJKZNpU6jkjhrlUxGAKFst0mkBwF1kVRsKsh8j4wa
+ EiAFzhwDg/AYwPE0RAnftE4/cR6o894bRGVj2lsG5ydcGRt1zA1rZvWlz56KCL2B1A
+ 5Z+FaqgCw/7hcgc7mT6IzGyxgBFDtPfpnv7ZDIJdqFv4hB0f4ZndfgWx0k2SH4mGIZ
+ gU+1Ne5KIXflZ4MNzShWjwRuTj62xokUWxtvasHxDHZcAtzJrhIlcEC3bHMSXdLPOv
+ VnBCJ1OdXEYGw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/omap: Report HDMI hotplug events to the ASoC HDMI
+ codec
+To: "Ivaylo Dimitrov" <ivo.g.dimitrov.75@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260805152057.1291659-1-ivo.g.dimitrov.75@gmail.com>
+References: <20260805152057.1291659-1-ivo.g.dimitrov.75@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <777CE025-C1AA-4C3F-9B56-CD157C8523E7@collabora.com>
-References: <20260805145949.938505-2-phasta@kernel.org>
- <20260805145949.938505-6-phasta@kernel.org>
-To: Philipp Stanner <phasta@kernel.org>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Date: Wed, 05 Aug 2026 15:42:30 +0000
+Message-Id: <20260805154231.4ED161F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,126 +53,154 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] The HPD notification path lacks lifecycle synchronization with the=
+ audio driver, resulting in Use-After-Free vulnerabilities during driver un=
+bind. During removal, `hdmi4_unbind()` unregisters and frees `hdmi->audio_p=
+dev`, but the DRM bridge remains registered until `hdmi4_uninit_output()` i=
+s called later in `hdmi4_remove()`. An HPD event firing in this window will=
+ unconditionally dereference the freed `audio_pdev` in `hdmi4_bridge_hpd_no=
+tify()`. Additionally, while `omap_hdmi_audio_remove()` clears `ha->audio_h=
+pd`, it does not synchronize with ongoing executions of `hdmi_audio_hpd()`.=
+ Consequently, a concurrent HPD event that passes the NULL check can derefe=
+rence `struct hdmi_audio_data *ad` after it has been freed by `devres`, lea=
+ding to a kernel crash.
+- [High] The newly added ALSA jack and its kcontrols are never exposed to u=
+serspace because the jack is created after the sound card has been register=
+ed. In `omap_hdmi_audio_probe()`, `snd_soc_card_jack_new()` is incorrectly =
+called after `devm_snd_soc_register_card()`. `devm_snd_soc_register_card()`=
+ internally calls ALSA's `snd_card_register()`, which iterates and register=
+s all attached devices to userspace. ALSA devices created after `snd_card_r=
+egister()` require an explicit call to `snd_device_register()` to become vi=
+sible. Because ASoC does not do this for late-added jacks, the jack's input=
+ device and kcontrols are never created, completely breaking the intended f=
+unctionality.
+- [Medium] The patch intends to report HDMI hotplug events to the `omap-hdm=
+i-audio` ASoC codec, which is shared by both OMAP4 and OMAP5/DRA7 platforms=
+. However, the HPD notification callback (`.hpd_notify`) was only implement=
+ed for the HDMI4 bridge in `hdmi4.c`. The `hdmi5_bridge_funcs` structure in=
+ `hdmi5.c` was completely omitted. Consequently, the hotplug detection feat=
+ure will remain entirely non-functional on all OMAP5 and DRA7 hardware.
+--
 
+--- Patch [1]: [PATCH] drm/omap: Report HDMI hotplug events to the ASoC HDM=
+I codec ---
+commit afacde67dc4a81e706a39b2252a2c9a3309fb284
+Author: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
 
-> On 5 Aug 2026, at 11:59, Philipp Stanner <phasta@kernel.org> wrote:
->=20
-> C's dma_fence's are synchronisation primitives that will be needed by =
-all
-> Rust GPU drivers.
->=20
-> The dma_fence framework sets a number of rules, notably:
->  - fences must only be signaled once
->  - all fences must be signaled at some point
->  - fence error codes must only be set before signaling
->  - every pointer to a fence must be backed by a reference
->=20
-> All those rules are being addressed by these abstractions.
->=20
-> To cleanly decouple fence issuers and consumers, two types are =
-provided:
->  - DriverFence: the only fence type that can be signaled and that
->    carries driver-specific data.
->  - Fence: the fence type to be shared with other drivers and / or
->    userspace. The only type callbacks can be registered on.
->    Cannot be signaled.
->=20
-> Hereby, a Fence lives in the same chunk of memory as a DriverFence. =
-Both
-> share the refcount of the underlying C dma_fence. Since this
-> implementation does not provide a custom =
-dma_fence_backend_ops.release()
-> function, the memory is freed by the dma_fence backend once the =
-refcount
-> drops to 0.
->=20
-> To create a DriverFence, the user must first allocate a
-> DriverFenceAllocation, so that the creation of the DriverFence later =
-on
-> can always succeed. Otherwise, deadlocks could occur if fences need to
-> be created in a GPU job submission path.
->=20
-> Synchronization is ensured by the dma_fence backend.
->=20
-> All DriverFence's created through this abstraction must be signaled by
-> the creator with an error code. In case a DriverFence drops without
-> being signaled beforehand, it is signaled with -ECANCELLED as its
-> error and a warning is printed. This allows the Rust abstraction to =
-very
-> cleanly decouple fence issuer and consumer by relying on the =
-decoupling
-> mechanisms in the C backend, which ensures through RCU and the
-> 'signaled' fence-flag that dma_fence_backend_ops functions cannot
-> access the potentially unloaded driver code anymore.
->=20
-> Signalling fences on drop thus grants many advantages. Not signaling
-> fences on drop would risk deadlock and does not grant real advantages:
-> By definition only the drivers can ensure that a fence always =
-represents
-> the hardware's state correctly.
->=20
-> This implementation models a DmaFenceContext object on which fences =
-are
-> to be created, thereby ensuring correct sequence numbering according =
-to
-> the timeline.
->=20
-> dma_fence supports a variety of callbacks. The mandatory callbacks
-> (get_timeline_name() and get_driver_name()) are implemented in this
-> patch. For convenience, they store those name parameters in the fence
-> context, saving the driver from implementing these two callbacks.
->=20
-> Support for other callbacks (like for hardware signaling) is prepared
-> for through the fact that both DriverFence and Fence live in the same
-> allocation, allowing for usage of container_of from the callback to
-> access the driver-specific data.
->=20
-> It is expected that other callbacks, added in the future, also mostly
-> operate on the generic data in the FenceContext. To make this safe, =
-the
-> implementation ensures through a lifetime that a DriverFence cannot
-> outlive its FenceContext.
->=20
-> Synchronization for dma_fence_ops callbacks is ensured by only running =
-the
-> Rust deconstructor delayed with call_rcu(), which prevents UAF-bugs
-> should a DriverFence drop while a Fence callback is currently =
-operating
-> on the associated driver data. Since they can also operate on the
-> FenceContext's data, its drop implementation also performs the =
-necessary
-> delay with rcu_barrier().
->=20
-> An additional issue discovered during the review process of this code =
-is
-> that there is (currently) no mechanism in Rust to prevent someone from
-> circumventing the DriverFence's FenceContext-reference's lifetime by
-> "forgetting" the fence, e.g. with core::mem::forget(). This would =
-enable
-> UAF bugs on the FenceContext. Throw a panic if this happens and =
-document
-> a path towards a more robust solution.
->=20
-> Add abstractions for dma_fence in Rust.
->=20
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
->=20
+drm/omap: Report HDMI hotplug events to the ASoC HDMI codec
 
-Owing to the ongoing discussion in v8, I still think we could propose =
-some
-refinements in the future, like most source code out there :) But =
-overall this
-is a solid base to build upon and it doesn=E2=80=99t make sense to delay =
-seeking
-the =E2=80=9Cperfect=E2=80=9D solution, if such a thing even exists..
+This patch adds an optional HPD callback to omap_hdmi_audio_pdata and
+invokes it from the DRM HDMI bridge whenever the connector status changes.
+The HDMI audio driver registers an ASoC jack to report these state changes,
+and the disconnect path is fixed to take a runtime PM reference.
 
+> diff --git a/drivers/gpu/drm/omapdrm/dss/hdmi4.c b/drivers/gpu/drm/omapdr=
+m/dss/hdmi4.c
+> index e306247ed8a05..b466bbdae5ccc 100644
+> --- a/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> +++ b/drivers/gpu/drm/omapdrm/dss/hdmi4.c
+> @@ -432,9 +432,19 @@ static void hdmi4_bridge_hpd_notify(struct drm_bridg=
+e *bridge,
+>  				    enum drm_connector_status status)
+>  {
+>  	struct omap_hdmi *hdmi =3D drm_bridge_to_hdmi(bridge);
+> +	struct device *dev =3D &hdmi->audio_pdev->dev;
+> +	struct omap_hdmi_audio_pdata *ha =3D dev_get_platdata(dev);
 
-Thanks for your hard work here!
+[Severity: High]
+Does this introduce a use-after-free risk during driver unbind?
 
+Since hdmi4_unbind() unregisters and frees hdmi->audio_pdev, but the DRM
+bridge remains registered until hdmi4_remove() is called later, could an
+HPD event firing in this window unconditionally dereference the freed
+audio_pdev?
 
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
+[Severity: Medium]
+Since this adds the HPD notification callback for the HDMI4 bridge, should
+the hdmi5_bridge_funcs in hdmi5.c also implement the .hpd_notify callback so
+that the hotplug detection feature functions on OMAP5 and DRA7 hardware?
 
+> +
+> +	if (ha->audio_hpd)
+> +		ha->audio_hpd(dev, status =3D=3D connector_status_connected);
+> +
+> +	if (status =3D=3D connector_status_disconnected) {
+> +		if (hdmi_runtime_get(hdmi))
+> +			return;
+> =20
+> -	if (status =3D=3D connector_status_disconnected)
+>  		hdmi4_cec_set_phys_addr(&hdmi->core, CEC_PHYS_ADDR_INVALID);
+> +		hdmi_runtime_put(hdmi);
+> +	}
+>  }
+
+[ ... ]
+
+> diff --git a/sound/soc/ti/omap-hdmi.c b/sound/soc/ti/omap-hdmi.c
+> index e60f5b483fc57..333aa308979e5 100644
+> --- a/sound/soc/ti/omap-hdmi.c
+> +++ b/sound/soc/ti/omap-hdmi.c
+
+[ ... ]
+
+> @@ -380,19 +395,37 @@ static int omap_hdmi_audio_probe(struct platform_de=
+vice *pdev)
+>  		return ret;
+>  	}
+> =20
+> +	atomic_set(&ad->jack_state, -1);
+>  	ad->card =3D card;
+>  	snd_soc_card_set_drvdata(card, ad);
+> =20
+>  	dev_set_drvdata(dev, ad);
+> =20
+> +	ret =3D snd_soc_card_jack_new(
+> +		      card, "HDMI", SND_JACK_AVOUT, &ad->jack);
+> +	if (ret < 0) {
+
+[Severity: High]
+Is the jack actually exposed to userspace when created here?
+
+In omap_hdmi_audio_probe(), devm_snd_soc_register_card() has already been
+called earlier in the function. Since the card is already registered,
+wouldn't calling snd_soc_card_jack_new() after registration cause the jack
+to be excluded from the device registration process, meaning the input
+device and kcontrols are never created?
+
+> +		dev_err(dev, "Cannot create HDMI jack: %i\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	ha->audio_hpd =3D hdmi_audio_hpd;
+> +
+>  	return 0;
+>  }
+> =20
+> +static void omap_hdmi_audio_remove(struct platform_device *pdev)
+> +{
+> +	struct omap_hdmi_audio_pdata *ha =3D pdev->dev.platform_data;
+> +
+> +	ha->audio_hpd =3D NULL;
+> +}
+
+[Severity: High]
+Could this lead to a use-after-free if a concurrent HPD event is executing?
+
+While this clears ha->audio_hpd, it doesn't appear to synchronize with
+ongoing executions of hdmi_audio_hpd(). Could a concurrent HPD event pass
+the NULL check and dereference the ad struct after devres has freed it?
+
+> +
+>  static struct platform_driver hdmi_audio_driver =3D {
+>  	.driver =3D {
+>  		.name =3D DRV_NAME,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260805152057.1291=
+659-1-ivo.g.dimitrov.75@gmail.com?part=3D1
