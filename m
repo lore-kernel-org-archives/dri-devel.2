@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B208C55ABA
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 12:08:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BDEFC55174
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 12:09:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA12F10EE2A;
-	Wed,  5 Aug 2026 12:08:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 681A710EE4E;
+	Wed,  5 Aug 2026 12:09:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g6HuFQUS";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MRk0IEfc";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBD3B10EE2A
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 12:08:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C879A10EE46
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 12:09:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2B62D60A79;
- Wed,  5 Aug 2026 12:08:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56E231F000E9;
- Wed,  5 Aug 2026 12:08:23 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C57BD60A80;
+ Wed,  5 Aug 2026 12:09:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22C61F00A3E;
+ Wed,  5 Aug 2026 12:09:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785931703;
- bh=nhAcW/+UDMdkG6c5y7oZ1yCsNG3oC+pJExas9d6VyrU=;
+ s=korg; t=1785931765;
+ bh=G14+zML2NJJjzBGHvnk3sgv7YqWz2zpCG20lYrxzN9g=;
  h=Subject:To:Cc:From:Date;
- b=g6HuFQUSAkCqQMs08JQdenPmX2H3YhrvDKILJVmHM46OyPP7HRwDoQUAwuqOZQVKu
- P40D5JxhEGayPjxi6/MbgMWi5XFdhs6xo1MCQBekxl10fbygDQokXUVYpMf6++56Rz
- BIgK4PTPStVr0Ip2vW6J9V47CFP/rterS2kqMMwg=
+ b=MRk0IEfcVrwJL4ASxs5X4NHfeUzFgkIu51O+WMBuYqtjKgc51BuW/rlMZhkzsb2B7
+ EPES2SI6eTPAcifvVq4V2eYGQ0yeWs0Sp/peAbic+CnNNz7r9wXVOys92qqKXHMMsd
+ d1hUibfQUEM+PwO4aVj5MG916sGoCEgrvLdmzfEc=
 Subject: Patch "drm/dp: Read the PCON max FRL bandwidth only for HDMI DFPs"
- has been added to the 6.6-stable tree
+ has been added to the 6.1-stable tree
 To: alexander.kaplan@sms-medipool.de, ankit.k.nautiyal@intel.com,
  dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
  jani.nikula@intel.com, maarten.lankhorst@linux.intel.com,
  uma.shankar@intel.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 14:05:04 +0200
-Message-ID: <2026080504-monopoly-astonish-13a2@gregkh>
+Date: Wed, 05 Aug 2026 14:05:16 +0200
+Message-ID: <2026080516-marbled-unmindful-2415@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
@@ -62,12 +62,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/dp: Read the PCON max FRL bandwidth only for HDMI DFPs
 
-to the 6.6-stable tree which can be found at:
+to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-dp-read-the-pcon-max-frl-bandwidth-only-for-hdmi-dfps.patch
-and it can be found in the queue-6.6 subdirectory.
+and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -156,4 +156,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from alexander.kaplan@sms-medipool.de are
 
-queue-6.6/drm-dp-read-the-pcon-max-frl-bandwidth-only-for-hdmi-dfps.patch
+queue-6.1/drm-dp-read-the-pcon-max-frl-bandwidth-only-for-hdmi-dfps.patch
