@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E284DC56205
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 19:35:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60FBFC561E6
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 19:35:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D591110EFC8;
-	Wed,  5 Aug 2026 19:35:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9632610EFCA;
+	Wed,  5 Aug 2026 19:35:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Ke13pckN";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aFXJ7nl8";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C681110EFA7;
- Wed,  5 Aug 2026 19:35:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F1EE10E0FB;
+ Wed,  5 Aug 2026 19:35:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785958544; x=1817494544;
+ t=1785958543; x=1817494543;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=zZRj+b/NzvOD47gFxglRIPtyT0lDGG2KHr/65GQvaMk=;
- b=Ke13pckNIPO4ZgEemETs8OsjB9hjR805AtxjIPe3gd7H1rNnabhbKK1o
- +io7FWITJhozj5v3NMLEBruyxt0p2cLUPR7exGmg7ni3oiN3L/d0/NO+I
- D6UD1p7nTDjaTXR4gDVqcJAiZtKccIPfTCHrEVPc/Cxp11S5J+yHI64HB
- 11+qjp1Y05Vb+OwTXz/SL02RjW9ytMc/Y2DmGxOV/mxKl9Uelw8cevMDy
- V6m4zzwRZpcgaCrfQ2aE370c0ybfmnFVxoB6xB7g6Uo9+gNv6FqxQDmRh
- 7TgWEAVnWFS5vUndkoO2CoWRAYqSsBs5H/3tDKVdEitfFKDFtTZCdpoI6 Q==;
-X-CSE-ConnectionGUID: bnerN3L3SEWHgMtHVDBwRA==
-X-CSE-MsgGUID: HOTS+kg1SBKG7yS3XnMAug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="109332972"
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="109332972"
+ bh=0YG7iyYcbF3G1EFKh9ioNjadG3W1OhFnqKUemvuHbQY=;
+ b=aFXJ7nl8Xmg/f4pCVnXKOv7sXt4lReF8lalt/qP/NJB1GLFaD1E/Ee0M
+ 77FxEdEW6ED11ZWvmeW9/N3jCf/pnzfvNqMX6YUkeh5TLHM6e129WVbAT
+ JLWdrx2lt6QzKT7t7KefTmqQBmdcGTJ2oW4gpXEamLPgRdIAbTbhAcUYG
+ LXX2Bbe9Q7XXL4ML91YIhM7MFPYJqsBGNCUV2+q1aU3GnCfgqEppplu4j
+ KddoZM1nS95jjSXqm96W+GEadsKDLGRT+jALzSsHMujNU4ISrHe5Q5x3o
+ iEl2OPBjvoqW19ec5H7zvVpE4h6uBL1sM22bLC3shLOXLfPZ0jdQfJNhs g==;
+X-CSE-ConnectionGUID: 9Vxu77AJQIKmzxOyR45zOw==
+X-CSE-MsgGUID: ga2vXmbKSJaLLooI7GYldw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="109332919"
+X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="109332919"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2026 12:35:44 -0700
-X-CSE-ConnectionGUID: 9lSYi9ToSZiwsdkFe3a+OQ==
-X-CSE-MsgGUID: SAeRpc4fQWWc+k0u9sIZ1Q==
+ 05 Aug 2026 12:35:42 -0700
+X-CSE-ConnectionGUID: +IlgXOyXTU+bAoeSzcnfsg==
+X-CSE-MsgGUID: aH+F8fM8RHmiW/7pNd/qeA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="285263531"
+X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="285263519"
 Received: from gsse-cloud1.jf.intel.com ([10.54.39.91])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2026 12:35:43 -0700
+ 05 Aug 2026 12:35:42 -0700
 From: Matthew Brost <matthew.brost@intel.com>
 To: intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-mm@kvack.org, linux-kernel@vger.kernel.org
-Cc: Andrew Morton <akpm@linux-foundation.org>,
+Cc: Sashiko <sashiko-bot@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
  David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
  Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
  "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
@@ -61,10 +62,10 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Simona Vetter <simona@ffwll.ch>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Francois Dugast <francois.dugast@intel.com>, stable@vger.kernel.org
-Subject: [PATCH v2 4/5] drm/pagemap: Fix folio allocation fallback and
- use-after-put
-Date: Wed,  5 Aug 2026 12:35:35 -0700
-Message-Id: <20260805193536.3756457-5-matthew.brost@intel.com>
+Subject: [PATCH v2 1/5] mm/migrate_device: Clear MIGRATE_PFN_MIGRATE on all
+ sub-folios of a split THP
+Date: Wed,  5 Aug 2026 12:35:32 -0700
+Message-Id: <20260805193536.3756457-2-matthew.brost@intel.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260805193536.3756457-1-matthew.brost@intel.com>
 References: <20260805193536.3756457-1-matthew.brost@intel.com>
@@ -86,42 +87,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-drm_pagemap_migrate_populate_ram_pfn() had two issues when populating
-RAM PFNs with higher-order folios:
+migrate_vma_split_unmapped_folio() propagates MIGRATE_PFN_MIGRATE from
+the head entry to all HPAGE_PMD_NR entries of src_pfns[]. The two
+bailouts below it in __migrate_device_pages() only cleared the head, and
+the "next" label then advances by @nr, so the tails keep the flag and a
+valid destination without ever going through folio_migrate_mapping().
+migrate_vma_finalize() then maps unpopulated destination folios into
+userspace.
 
-1. The higher-order vma_alloc_folio()/folio_alloc() calls did not pass
-   __GFP_NOWARN, so a THP allocation failure under memory pressure
-   would spam the kernel log, and there was no fallback path despite a
-   TODO comment stating one was needed. Add __GFP_NOWARN to the
-   higher-order allocation and, on failure, fall back to order-0
-   allocations for the entire range originally covered by the failed
-   higher-order allocation, leaving MIGRATE_PFN_COMPOUND unset for
-   those PFNs.
+Clear the flag across the whole @nr range at both bailouts.
 
-2. In the free_pages error path, order was computed via
-   folio_order(page_folio(page)) *after* put_page(page) had already
-   dropped the reference, resulting in a use-after-free/put when that
-   was the last reference on the page. Compute order before releasing
-   the page.
-
-Introducing the fallback in 1. also requires the source page array
-handed to ->copy_to_ram() to be built differently. Both callers only
-populated the entry at the head of each source folio, relying on the
-copy callback to derive the rest of the folio from the order recorded
-in the matching drm_pagemap_addr. Once the destination has been demoted
-to order-0 folios the drm_pagemap_addr entries are per-page, so a source
-page is needed for every one of them; leaving them NULL makes the copy
-callback stop after the first page and the remainder of the range is
-never copied.
-
-The source folio is only split later, by migrate_vma_pages() /
-migrate_device_pages(), so its order cannot be used to detect the
-demotion - test the destination for MIGRATE_PFN_COMPOUND instead. Factor
-the array population out into drm_pagemap_migrate_populate_src_pages()
-and use it from both drm_pagemap_evict_to_ram() and
-__drm_pagemap_migrate_to_ram().
-
-Fixes: ddeda6136038 ("drm/pagemap: Allocate folios when possible")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migration")
 Cc: Andrew Morton <akpm@linux-foundation.org>
 Cc: David Hildenbrand <david@kernel.org>
 Cc: Lorenzo Stoakes <ljs@kernel.org>
@@ -154,206 +131,40 @@ Cc: linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
 Assisted-by: GitHub_Copilot:claude-opus-5
 Signed-off-by: Matthew Brost <matthew.brost@intel.com>
-
 ---
- v2: Add THP-mid-PMD invariant (Sashiko)
----
- drivers/gpu/drm/drm_pagemap.c | 128 +++++++++++++++++++++++++++-------
- 1 file changed, 103 insertions(+), 25 deletions(-)
+ mm/migrate_device.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 892b325fa99b..05eb7254028f 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -383,6 +383,58 @@ drm_pagemap_migrate_map_system_pages(struct device *dev,
- 	return 0;
- }
- 
-+/**
-+ * drm_pagemap_migrate_populate_src_pages() - Populate the source page array
-+ * @pages: Array of source pages to populate
-+ * @src_mpfn: Source array of migrate PFNs
-+ * @dst_mpfn: Destination array of migrate PFNs
-+ * @npages: Number of pages in the arrays
-+ *
-+ * Populate @pages with the device pages the copy callback is to read from.
-+ *
-+ * Entries are normally only populated at the head of each source folio, with
-+ * the copy callback deriving the rest of the folio from the order recorded in
-+ * the corresponding drm_pagemap_addr. That does not work where
-+ * drm_pagemap_migrate_populate_ram_pfn() had to demote a higher-order source
-+ * folio to order-0 destination folios: the drm_pagemap_addr entries are then
-+ * per-page, and the copy callback needs a source page for each of them.
-+ * Populate every entry for those ranges.
-+ *
-+ * Note that the source folio itself is only split later, by
-+ * migrate_vma_pages() / migrate_device_pages(), so its order cannot be used to
-+ * detect the demotion - the destination has to be inspected instead.
-+ */
-+static void drm_pagemap_migrate_populate_src_pages(struct page **pages,
-+						   unsigned long *src_mpfn,
-+						   unsigned long *dst_mpfn,
-+						   unsigned long npages)
-+{
-+	unsigned long i;
-+
-+	for (i = 0; i < npages;) {
-+		struct page *page = migrate_pfn_to_page(src_mpfn[i]);
-+		unsigned int order = 0;
-+		unsigned long j, nr;
-+
-+		if (!page) {
-+			i++;
-+			continue;
-+		}
-+
-+		order = folio_order(page_folio(page));
-+		nr = NR_PAGES(order);
-+
-+		if (order && !(dst_mpfn[i] & MIGRATE_PFN_COMPOUND)) {
+diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+index 908d2d4ec43a..d37a96cc6335 100644
+--- a/mm/migrate_device.c
++++ b/mm/migrate_device.c
+@@ -1199,10 +1199,14 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+ 				 * device private or coherent memory.
+ 				 *
+ 				 * Try to get rid of swap cache if possible.
++				 *
++				 * @folio may have been split into @nr folios
++				 * above, so clear all of them.
+ 				 */
+ 				if (!folio_test_anon(folio) ||
+ 				    !folio_free_swap(folio)) {
+-					src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
++					for (j = 0; j < nr && i + j < npages; j++)
++						src_pfns[i+j] &= ~MIGRATE_PFN_MIGRATE;
+ 					goto next;
+ 				}
+ 			}
+@@ -1210,7 +1214,8 @@ static void __migrate_device_pages(unsigned long *src_pfns,
+ 			/*
+ 			 * Other types of ZONE_DEVICE page are not supported.
+ 			 */
+-			src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
 +			for (j = 0; j < nr && i + j < npages; j++)
-+				pages[i + j] = folio_page(page_folio(page), j);
-+		} else {
-+			pages[i] = page;
-+		}
-+
-+		i += nr;
-+	}
-+}
-+
- /**
-  * drm_pagemap_migrate_unmap_pages() - Unmap pages previously mapped for GPU SVM migration
-  * @dev: The device for which the pages were mapped
-@@ -875,6 +927,7 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 		struct page *page = NULL, *src_page;
- 		struct folio *folio;
- 		unsigned int order = 0;
-+		gfp_t gfp = GFP_HIGHUSER;
- 
- 		if (!(src_mpfn[i] & MIGRATE_PFN_MIGRATE))
++				src_pfns[i+j] &= ~MIGRATE_PFN_MIGRATE;
  			goto next;
-@@ -891,11 +944,51 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
+ 		}
  
- 		order = folio_order(page_folio(src_page));
- 
--		/* TODO: Support fallback to single pages if THP allocation fails */
-+		/*
-+		 * A large source folio is always collected whole, at its head
-+		 * page, PMD aligned and flagged MIGRATE_PFN_COMPOUND: anything
-+		 * else is split before it reaches us, either by
-+		 * migrate_vma_collect_pmd() or, for the eviction path, by
-+		 * migrate_device_pfns(). Both the order-0 fallback below and
-+		 * drm_pagemap_migrate_populate_src_pages() rely on that, as
-+		 * they index the folio from @i.
-+		 */
-+		WARN_ON_ONCE(order &&
-+			     (src_page != folio_page(page_folio(src_page), 0) ||
-+			      !(src_mpfn[i] & MIGRATE_PFN_COMPOUND)));
-+
-+		if (order)
-+			gfp |= __GFP_NOWARN;
-+
- 		if (vas)
--			folio = vma_alloc_folio(GFP_HIGHUSER, order, vas, addr);
-+			folio = vma_alloc_folio(gfp, order, vas, addr);
- 		else
--			folio = folio_alloc(GFP_HIGHUSER, order);
-+			folio = folio_alloc(gfp, order);
-+
-+		if (!folio && order) {
-+			/*
-+			 * Higher-order allocation failed, fall back to
-+			 * order-0 allocations for the entire range covered
-+			 * by the original higher-order allocation, without
-+			 * setting MIGRATE_PFN_COMPOUND, until we move past
-+			 * that range.
-+			 */
-+			unsigned long nr = NR_PAGES(order);
-+			unsigned long j;
-+
-+			gfp &= ~__GFP_NOWARN;
-+			for (j = 0; j < nr && i < npages; j++, i++, addr += PAGE_SIZE) {
-+				folio = vas ?
-+					vma_alloc_folio(gfp, 0, vas, addr) :
-+					folio_alloc(gfp, 0);
-+				if (!folio)
-+					goto free_pages;
-+
-+				page = folio_page(folio, 0);
-+				mpfn[i] = migrate_pfn(page_to_pfn(page));
-+			}
-+			continue;
-+		}
- 
- 		if (!folio)
- 			goto free_pages;
-@@ -940,11 +1033,11 @@ static int drm_pagemap_migrate_populate_ram_pfn(struct vm_area_struct *vas,
- 		if (!page)
- 			goto next_put;
- 
-+		order = folio_order(page_folio(page));
-+
- 		put_page(page);
- 		mpfn[i] = 0;
- 
--		order = folio_order(page_folio(page));
--
- next_put:
- 		i += NR_PAGES(order);
- 	}
-@@ -1120,7 +1213,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	unsigned long *src, *dst;
- 	struct drm_pagemap_addr *pagemap_addr;
- 	void *buf;
--	int i, err = 0;
-+	int err = 0;
- 	unsigned int retry_count = 2;
- 
- 	npages = devmem_allocation->size >> PAGE_SHIFT;
-@@ -1160,15 +1253,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	if (err)
- 		goto err_finalize;
- 
--	for (i = 0; i < npages;) {
--		unsigned int order = 0;
--
--		pages[i] = migrate_pfn_to_page(src[i]);
--		if (pages[i])
--			order = folio_order(page_folio(pages[i]));
--
--		i += NR_PAGES(order);
--	}
-+	drm_pagemap_migrate_populate_src_pages(pages, src, dst, npages);
- 
- 	err = ops->copy_to_ram(pages, pagemap_addr, npages, NULL);
- 	if (err)
-@@ -1235,7 +1320,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 	struct drm_pagemap_addr *pagemap_addr;
- 	unsigned long start, end;
- 	void *buf;
--	int i, err = 0;
-+	int err = 0;
- 
- 	zdd = drm_pagemap_page_zone_device_data(page);
- 	if (time_before64(get_jiffies_64(), zdd->devmem_allocation->timeslice_expiration))
-@@ -1290,15 +1375,8 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 	if (err)
- 		goto err_finalize;
- 
--	for (i = 0; i < npages;) {
--		unsigned int order = 0;
--
--		pages[i] = migrate_pfn_to_page(migrate.src[i]);
--		if (pages[i])
--			order = folio_order(page_folio(pages[i]));
--
--		i += NR_PAGES(order);
--	}
-+	drm_pagemap_migrate_populate_src_pages(pages, migrate.src, migrate.dst,
-+					       npages);
- 
- 	err = ops->copy_to_ram(pages, pagemap_addr, npages, NULL);
- 	if (err)
 -- 
 2.34.1
 
