@@ -4,126 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 815E1C55174
-	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 17:05:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A073C55ABA
+	for <dri-devel@archiver.kernel.org>; Wed,  5 Aug 2026 17:21:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFE5E10E21C;
-	Wed,  5 Aug 2026 17:05:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D85D10EF63;
+	Wed,  5 Aug 2026 17:21:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="FItXcexz";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ltYOFZgF";
 	dkim-atps=neutral
-Received: from LO2P265CU024.outbound.protection.outlook.com
- (mail-uksouthazon11021118.outbound.protection.outlook.com [52.101.95.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9A40310E21C
- for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 17:05:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gM1onhiK3fL5QfHRzISnoLLfjfakailvJt7XBBhNMWTvC/JzdLz6FOUm+jWU2VXL6ANjXjRgJMzkysAXm1f36d9qxMAec6uzfbjbYv2TRDhTKE8v8MX+ONsnkwKpw9/wYJffmoai/wlGkFXBiD97xhDo1516fpU+hkPT4GnTyfV4r/6wERCCo6LOb67dgsWE9w4XQoCikAgRBuuLJ0VV/qjoX/GWiyvtRS/TDdEwftdsIqQt+yxTu5ewrC+i1YxhDoxFPvxZbYS6bBSnfhxu7cMHYKebyrR5EocdepOKBeLrlETimDgUUTSxDil7or99WPlvHvAZQaTwygUiCnmN0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zecMo195vCvXeznk3I1l7++ccgV7UJyYgTMbS5esC/I=;
- b=wwXfcJfqs6PD18dY4O2F3YW1bRCjKD4aMADGJEH8Y/jdeWo7j21u6gTvLahqlRgN6XY7ftPYv+uI8WgXT15+cryYlWyWoj8dUPp1erWZFRVzifg9VvBVwiP3wD2nO9JEPKQTYbHAhGhiAqF8mim9LOE60B63iJ4x0egkkZFcShvIhlIVKfD7mG/7q3TajY48VYSLBR0K+VeBGCC7ExeA5TmG6vKumFBtm812EmvHAIEMQOUC/l4RiucrqLvEeytKYKIOLB1G6MAHUwzsoV+n22Gf8fhDtSb2jD2vBRFftO0zuaK1RiWq7rhk62cxmPz4JBmYOOzVGe2Bf7fIjVhffw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zecMo195vCvXeznk3I1l7++ccgV7UJyYgTMbS5esC/I=;
- b=FItXcexz3orq57oWADBDk3t9FlB8GM/YL8Z/GNzupCMH1etj0KVtZa+2mvT++cyNLNcIaBmqYPmwvtTzMDIg1S8OOj1xdsns+8anJbu1Pftc5R+GAHViwqK1cVMQoViV1bIbP7OS/ItbY0YGzMBCMwrNjGI7iqYyjky12KvRhwg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
- by CWXP265MB2133.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:85::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 17:05:35 +0000
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
- 17:05:35 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 05 Aug 2026 18:05:35 +0100
-Message-Id: <DKH69TWL1U4Q.2LS506JVSYR8K@garyguo.net>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, <linux-pci@vger.kernel.org>,
- <ojeda@kernel.org>, <dri-devel@lists.freedesktop.org>, "Danilo Krummrich"
- <dakr@kernel.org>
-Subject: Re: [PATCH v2 11/16] rust: io: register: support fixed offset
- register without bitfield
-From: "Gary Guo" <gary@garyguo.net>
-To: <sashiko-reviews@lists.linux.dev>, "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.21.0
-References: <20260805-typed_register-v2-0-c3ca142220a0@garyguo.net>
- <20260805-typed_register-v2-11-c3ca142220a0@garyguo.net>
- <20260805165043.0F7161F000E9@smtp.kernel.org>
-In-Reply-To: <20260805165043.0F7161F000E9@smtp.kernel.org>
-X-ClientProxiedBy: LO4P123CA0092.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:191::7) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4b4::24)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A8D7610EF63
+ for <dri-devel@lists.freedesktop.org>; Wed,  5 Aug 2026 17:21:00 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2cc8311c6ddso1672305ad.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 10:21:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785950460; cv=none;
+ d=google.com; s=arc-20260327;
+ b=PqsbqDujhdz5CT5FUqOcOoFK7Oj5rVrRWfa9/wFxqu0+N7uhrIawTP3k0ulas3fXWi
+ BsY8K190V6NA24mykOzSDMDULQcdxAr11DEqv9vmo9th7cDkCoQIWJsfE2rP+ziWlPIC
+ nrQ0LkZIGdcjrIgHQmJX0cL5SBtrGewJIUsryr87ynnLFfrJZ2fid5/cA8GGB1OH33no
+ KQgc9x5c570CN0wlWBPC5Mp/oHYYzzEx7vAke/OqsYQajfkxtpo6l5Pn3vUGnAf4H6I7
+ uI2LT0Vdp5GqpSEcqUCpesgusyNzdTrPMuWe4bXYHnhz9zrgsqONzAMISNK9+zy4X9hH
+ sB+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=Cz1E8dA+nCFkDM0OHZhKzEI4Qib+t52DoabszOc2ICI=;
+ fh=e5DbOG/YqwIeyjj93Ejomc0Ej9PloV1aJfqUXaiyBos=;
+ b=fLfTxUGJKfW5jSpZ/L0+aAPrKgQghgZapWMjEhXuDwYmMret3YaYF6HyrVKWnBiDHm
+ wExb78XEdYwH/escTCzn9taK4UyP3wm99Yc+zhCvnQxaOVw/xNbRECIHLUKTu4FvgIRa
+ LaYmKnYU39OYOPz3sql3vTXZzDXg2lyrJf0WGmSS2drw9Hy650Sq4tvV2RA18/DbVAR0
+ D5WJEnT06jnbzp8PWEBK3BCXASWILU1GrImFJ300AgVdflBayr3xvJuwqsSp74A9jTDB
+ zG8HYeFwgLPATxgWz6YDNqRHTqCuv1dfu0klguZAkDnL66qkkSfKhdAGUSvYTFHFbmXX
+ ScAQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785950460; x=1786555260; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Cz1E8dA+nCFkDM0OHZhKzEI4Qib+t52DoabszOc2ICI=;
+ b=ltYOFZgF1F1Ux1hvtxfhpCkY+Dcl8KP7mwzmAmEnG02sT7ury6FQVVCova/sLj0Ulv
+ lzVYTYfjSUu8H05NKEh/jIeUKCgrj/16CkY+TJds041g2pK0BNzUNzXtZtZxWw29HwRM
+ 46Le+9kF4g0SxZXQ2U09sE7IF1b/qsqyyiUWBC6A/JAEv6g/7/+oABTE6Yo8KJRgKpz6
+ SkHHz4d0m6LLz995IvD9gM7Z0rux8f4qdYBPITjFvSsW122UwXclBJYCiC0XR6wzhuSJ
+ W9MpJWc7gG3RaITypy2LlcxRGbn/GK5cmXNVFGxDDCuOQGiXj5LKd5JISzrN+MT2cWmD
+ R1YA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785950460; x=1786555260;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=Cz1E8dA+nCFkDM0OHZhKzEI4Qib+t52DoabszOc2ICI=;
+ b=J276DXJ03FRA+wm+DoFfCuSUH6KXzOu2DuNvfV11lheU7vGVuePjuZIeseJrZf8qA1
+ jivjYDgEsM24l1O5TYHroCZ8TjHth99T78gzhhnBQF43l6v8XfMbCZft0hll60Mie8cD
+ 8Y9KGmxFlIxIAdXRrPWn3JKfHCZlJurhZXkyJYkmZWDH9EnWgavOBkAGoO/RrwWNjwS8
+ vlNwd1lWWEGMfup8NLCW1MTaYoYRX0VhnlQB9pV6zpAS7BSn/xmAl2XqetNVfkqAXD1l
+ LWOyk8CQAgKIC8s7qWfhYFR+M3RhqkC9DDykjowVzbVUF8bJ3nAsM6PRwb3l0ptDietN
+ 40Ww==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqA27Zx9oxALe5C3Od5Fun4DY9o4o3nAIMPhMNU13AJLPqUlrB2CLbaJ4tkK3YxGu65+gbrmeIWC90=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwlYn8FQXjtf94XpZHCnXb1hyMSqSAXOZHU6O9q+TzG1y4/cbIi
+ irexwBcLsMGy1EGqkha4qyQ327mm6ffmIEjGtsVm7Pm+sp71b1H+9ms9iiSyIWEz42xtkvW0SR7
+ CM8Z1N7fNLSg6kEt6UCq+UzfRTz7Q+yg=
+X-Gm-Gg: AR+sD11sxAYcUoNC2R1JAKKbxg+OKv6SgNrKH+JjJDNBP6wxs3V0lzwbOcJO693g75Y
+ Z675Y7Mx+QpcRRIpwugZbMyQ4yC0g28OMKVjlKf0Eo61q7s0+TcqFayJSoBWpA9t59ZLI8tgS9P
+ Jateru3Inz01fZ0aWZhOielICDlWQPhOcBYL740j/NnsH4a/yNqk4mqht2+N/ptrf4NtaE12emS
+ GBl1ZDHs8nwp+XXrHsvoXY3rcUUn1HjnjVmKc/N1SJF/1lqe53CLdvXsTDTC6DRpCN+f07cEwcM
+ 7hxzY1CJboNs7+Iq2PAiN7cH5EEs6YswlvLo+VwUWm0Mytikq3Z92S+UbpOVs2ujEAAzf55JnWF
+ jFibmZk3+1DVLU7gLMFQnwNH1hrfCcXO5mMIqPwLKrdeRgwfFOgu6ULRFYSvP
+X-Received: by 2002:a17:902:ec8a:b0:2c9:ed4a:c3a4 with SMTP id
+ d9443c01a7336-2d0ca1658f2mr73522915ad.0.1785950460122; Wed, 05 Aug 2026
+ 10:21:00 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|CWXP265MB2133:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8a89d9ed-4f96-40ca-0875-08def313c42d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|10070799003|366016|1800799024|6133799003|10067099003|5023799004|56012099006|4143699003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: XE/fWCmgXlD/hkQz7R/Dq+ZzrQsRU5d/W6TMt7+8F6GDXvdOMIkNMO6eAi96MaMyTSc68ATEvOpBsQTw5pZ6l4oGypDyHJy03bfW815ddQAS0stPnVr0uXMjl4M4R07+FzhPKHgZ9ScyhMHj1aN7IoKncPU5goYjiKSzk7pg7Sr6f4k4AmgBAfbSEsrKSoWppcK3AI2mB+SCjwy/oFatIDj9nKKe9DVlDPen8Lm5rDKl8dTn+UCoXAN4XPBsdc70f4O9wgaw89cUgmlZaGK8xWmjVKOORKxMroUJ9HdqnCASKlOSZ/EKXyoBY8yhS95A1dz8sSkdfnFRwYp9GY3W5hBXkS1YReZrZQB2jB7Ee6SMz3+55t7AX6BekR/zBrvwBnW3IJ+ao8hdvzhrd+5yBfozDIG8tejETa4Y8o6p5aDE+3oC5dXMlRmJSgLPy3OPZ75afkXOkExEyP+7fYwye1DbKjZgjG9Cfw57Wa7Y0qvJ+XAOXmgBL8MpnWBxaIwjuc2MqQAHuo6H2ifFFloG3ZU+lzMxSayLMLxCqU1fW1TXWrbeUe4Oyzem4a2oFCGEqXzkdIT7BQaP+gMuuf8koTnQjT5PMCWAnZVTCbP1Erb3wSMHaaVOVi/dX7RJEpPIldP1QxS6Q0zlyZoT2zJAZk79AeREhb8xqiO9Kqr5GqI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(10070799003)(366016)(1800799024)(6133799003)(10067099003)(5023799004)(56012099006)(4143699003)(18002099003)(22082099003)(3023799007);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K0Y3NkdMK0Rub09OWElvc0lDU2h0L1RnOThmS3kzdlg4UUQwcHdCT1ZabGVB?=
- =?utf-8?B?ZExTNnlkWG8wZ21LOXVDa2lKUDFBQ3FuSXU4aXVOSHNjeXFuYU5iN2xGNzRW?=
- =?utf-8?B?Mnl2dGNOR0I1cnEvaE5ZS3E2Q0EzQWhXa3FTeVFOM1JWZUI0akxyaVUwdjFH?=
- =?utf-8?B?aVpZZkR6aGRlZ0gyTUhLbFlrU3RZeFllL29sR3YyRm05RGtNWjljQ0NYWlNr?=
- =?utf-8?B?VnMwRXVMUytpUFA2S1ZoN0xhdWp1WU9rOHNQVWQxVUpPRXRDMjZFa0VXMnc4?=
- =?utf-8?B?RjU1aTZPdVlDOVFNazZWQituNnF3QXJSNnNUU29SZEhwckk2QlpyWnR4eVov?=
- =?utf-8?B?M1dPaWNHTkdNdW1LeEY4aEtnM0Y5STl2cE1rVlZoZU5zd1RJMFZFdkJ2OVpX?=
- =?utf-8?B?QzUyOEhZd09Zalc4NTd1TU1BYlgvbDN4ZlUyeGYzTmFWb2tmRnlzTFhDZEVy?=
- =?utf-8?B?dUQ2cEk4VjFJRGFabnVOck9aUHE4N3VQdTRkK0laL0FXMzZSRm5qKzNsdmRM?=
- =?utf-8?B?MmZGM0V5Mjh0WVVBQTdhcXdHTHZMTGtoMTVVYmRKL3JYSk5KWGFKcm5HOVBR?=
- =?utf-8?B?TkZTUUowNm1uSkI4aEdIa3NHbHJTREM3WjNmTnI1cERqN1NGdjRyZHVOZGlI?=
- =?utf-8?B?MjdqaXBBbXJDU3FHVHovK0tHWXRrOVZQNEtCa3NHOFI4OXN3UkZGZ3ZsQkgv?=
- =?utf-8?B?Njh4eW1CeDVZZVd4aDlpUnlWSy9JMmdoSXh2M3E1d3NsbVk4QnhvSGplTTRR?=
- =?utf-8?B?eWMraG9MS3VYdEJkTktiY0VpV1BLNlV3Zm5vTFJvUEhxRWtWKytDOW5UNWsr?=
- =?utf-8?B?MHE0c281bWlGdFhoTERuOFlsRnhTdW9wdndhWnFyejRxR1ZhQlgrZzhyL0VJ?=
- =?utf-8?B?Wko0MFNMSmF0WjNnZ3RRbDZaZUxEeXdrU09TcndNKzN2eDZlL0hNS0Vndy9o?=
- =?utf-8?B?NDRyS1B0Mk1LVjlCV0FrTUMzRU1GUFJVQmFoYUF6UzlUMjAvK3E1d3graVNy?=
- =?utf-8?B?WUtDZVA1czFlaTRxdll3MWxhcDJ4ZVBWdURJUThCVXBzMGNOSnNIbEJieUxw?=
- =?utf-8?B?a1VqUDlmR3llMmlEK25TV0t3dTI3SGo0d2pSR0E2NWxVbXhtSGtUYlRGQlBr?=
- =?utf-8?B?eDYrVE5WMTlLS3IxRnJHWEM4QUlwZkxKWTJaelU0Q29ZU3ZjUkVmMXRoZ1JD?=
- =?utf-8?B?MmozQ1RpOEd2RUx6Mm1YdmNlOVI1TWYyOVdjcERxRW1tYlZlUklHWjJLL1pE?=
- =?utf-8?B?WXgreDVUamNjZlVoOGpnV296ZzlXa1N2LzVpaE5sWmtRK0ZySTZ6ckFXclVY?=
- =?utf-8?B?U0c4QitIWi92RnZoRktLbzFrd0Q3SS83UHgxV1czVEowcHJEL2w4cHpldkpX?=
- =?utf-8?B?VVhFVkt1MjZURmhaWGh6bkNGbUMwWW1kOTJGcEtBSEg0ekJLVy8zK0czWmds?=
- =?utf-8?B?MTloOWY4V1ZUQWdiYlArWEtLaVZadFNzVEZLWWxDMmZqNW84Zkl1M2puWXFF?=
- =?utf-8?B?STdiZFhLMVQyMVQzODA3eFNBWjVVejlHUkNjTFdaVkZKTTN2K2s3b1hBTVlh?=
- =?utf-8?B?NndTdmFGQjE0T1NRdUN4UXg4UW5ySjlkVjV6d0dIN21iaHV5MUwyd2hKMVBS?=
- =?utf-8?B?NS9wcmdGeDFaVVdrVjg5WDh4TXNGMkkrKythWVNsajdxVWh6WmNHYUliNTVk?=
- =?utf-8?B?d3hGM3ZESVFId0JhclZwcm9VMHNDaWFTV3kreWpPbWNXcm04aVM0aHdmb2lE?=
- =?utf-8?B?dUVqMTFUdURmaDdJODhLOHV6Qmo5bXVVSWZldWFBa3RKc2p6TVNNK1R1MXo5?=
- =?utf-8?B?MktYNndhODRWbGV3NHVkcHZuamZvWkVnU0hWUXZ1UWhVN1pBYzg0VW5qVW1H?=
- =?utf-8?B?OGpFdWtaR2ZmSVBQM210R0dyY3ZrSjcybWVlUlg5bWIvNWdjVmNQcHRGcDBm?=
- =?utf-8?B?WXpjdm5ZekEzVFpySjJyVTA3a212UHQ5cXAwMUE2OEZTWmR6WmxmbUlKM3Nx?=
- =?utf-8?B?WndRbEQ0ZlVRTFlCRjd2dG1VU1crRDhjbUN2RUg4R3gzb2Z6WVYxMzJuYlJ2?=
- =?utf-8?B?alJYSlMrT1Zucm1NcHFzUVp1UlBCU1lKb3JyTmhMNDZBb3IzbkFqTk11cWY1?=
- =?utf-8?B?VWk0eTVyZGUxR2NITXAySlF2TVl5bWxXN0lPZ3Q0L2lmd3pBRG15SGNjUDFC?=
- =?utf-8?B?MUc1NElEMGF2aVphNUhFcE5yb2ZiZDJ2K0lITmg4bFdNaE11RmpRR0RDNEQ0?=
- =?utf-8?B?dThvUHBDQTFRV250NlVPSXpQS1NqcDQveVEyQ2tJb0RHeU0yTFBIZmFVZ0JM?=
- =?utf-8?B?QkRQd3FJd044R1ovOGJ5aDVhdVR6Q3poM0dlbWpoYjF5c01PLzhEdz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8a89d9ed-4f96-40ca-0875-08def313c42d
-X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 17:05:35.5185 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: grrxf6/Nxf5HrkD0S00Z71yGR8y/wNzdAK8MfBNKB3CghpKs3OybK0exBJtF472ktqou5TdIyLfMtjRc3PX4iA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CWXP265MB2133
+References: <0CoR7Z5B4-PH8GYYbWlZysVJpMnNLTFzTO0tBlOpJQNFiQ2CPrhdjyD4-4jQs4n0J_1QqovCd_EaYpclyigEKw==@protonmail.internalid>
+ <20260628095132.47753-1-trev@trevrosa.dev>
+ <87pkzw9aut.fsf@t14s.mail-host-address-is-not-set>
+In-Reply-To: <87pkzw9aut.fsf@t14s.mail-host-address-is-not-set>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Wed, 5 Aug 2026 19:20:45 +0200
+X-Gm-Features: AUfX_mwN2wRwvmcNPuq0EpEyS5qgayFtXbsdflDPhbgmFxUJf-YMOIqJTLTJEvs
+Message-ID: <CANiq72=wo4LOfa3hrJhTFr8UzkchW4QQtUespCTq7qRJvrr6CA@mail.gmail.com>
+Subject: Re: [PATCH v6] rust: aref: make `AlwaysRefCounted::inc_ref` an
+ associated function
+To: Andreas Hindborg <a.hindborg@kernel.org>
+Cc: Trevor Chan <trev@trevrosa.dev>, gregkh@linuxfoundation.org,
+ rafael@kernel.org, 
+ dakr@kernel.org, ojeda@kernel.org, paul@paul-moore.com, aliceryhl@google.com, 
+ airlied@gmail.com, simona@ffwll.ch, viro@zeniv.linux.org.uk, 
+ brauner@kernel.org, igor.korotin@linux.dev, vireshk@kernel.org, nm@ti.com, 
+ sboyd@kernel.org, m.wilczynski@samsung.com, boqun@kernel.org, 
+ gary@garyguo.net, axboe@kernel.dk, daniel.almeida@collabora.com, 
+ shankari.ak0208@gmail.com, lyude@redhat.com, j@jananu.net, lossin@kernel.org, 
+ acourbot@nvidia.com, markus.probst@posteo.de, driver-core@lists.linux.dev, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-block@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-fsdevel@vger.kernel.org, 
+ linux-mm@kvack.org, linux-pm@vger.kernel.org, linux-pci@vger.kernel.org, 
+ linux-pwm@vger.kernel.org, david.m.ertman@intel.com, iweiny@kernel.org, 
+ leon@kernel.org, bjorn3_gh@protonmail.com, tmgross@umich.edu, 
+ tamird@kernel.org, work@onurozkan.dev, sergeh@kernel.org, 
+ matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, jack@suse.cz, 
+ ljs@kernel.org, liam@infradead.org, bhelgaas@google.com, 
+ kwilczynski@kernel.org, ptikhomirov@virtuozzo.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -139,123 +127,15 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 5, 2026 at 5:50 PM BST, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Low] The `register!` macro documentation provides an example defining =
-a FIFO register (`TX_FIFO`) with a `u32` type. This violates the subsystem =
-guidelines which mandate that FIFOs must use stream accessors (no byteswapp=
-ing). Using a `u32` register type implies standard register access (e.g., `=
-writel`), which will byteswap on big-endian architectures and corrupt strea=
-m data. Additionally, the macro's syntax rule `$ty: ident $(:: $path_frag:i=
-dent)*` restricts the type to paths, preventing developers from directly sp=
-ecifying a byte array (e.g., `[u8; 4]`) as the type to properly model a byt=
-eswap-free stream.
-> --
+On Wed, Aug 5, 2026 at 11:26=E2=80=AFAM Andreas Hindborg <a.hindborg@kernel=
+.org> wrote:
 >
-> --- Patch [11]: [PATCH v2 11/16] rust: io: register: support fixed offset=
- register without bitfield ---
-> commit a13a899311e93c249f5925eff4ce304f82a4cb69
-> Author: Gary Guo <gary@garyguo.net>
->
-> rust: io: register: support fixed offset register without bitfield
->
-> Add a rule to allow creating `IoLoc` in `regiser!()` using an existing ty=
-pe
-> and not create a bitfield. Add an example to demonstrate this for FIFO
-> registers.
->
->> diff --git a/rust/kernel/io/register.rs b/rust/kernel/io/register.rs
->> index dc800fc711722..49a61da106c7d 100644
->> --- a/rust/kernel/io/register.rs
->> +++ b/rust/kernel/io/register.rs
->
-> [ ... ]
->
->> @@ -499,6 +516,19 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
->>  /// In this example, `SCRATCH_BOOT_STATUS` uses the same I/O address as=
- `SCRATCH`, while providing
->>  /// its own `completed` field.
->>  ///
->> +/// If you do not wish to have a bitfield defined, you can also create =
-a register using an existing
->> +/// type.
->> +///
->> +/// ```no_run
->> +/// # use kernel::io::*;
->> +/// register! {
->> +///     base: Region<0x1000>;
->> +///
->> +///     /// TX FIFO register.
->> +///     pub TX_FIFO: u32 @ 0x00001000;
->
-> [Severity: Low]
-> Does this example promote an anti-pattern for FIFO access?
->
-> Using u32 for a FIFO implies standard register I/O accessors (like writel=
- or
-> readl), which will perform byte-swapping on big-endian architectures.
-> According to the I/O accessor subsystem guidelines, FIFOs should use stre=
-am
-> accessors without byteswapping to prevent data corruption.
+> Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
 
-Sashiko is misunderstanding the use case here, this is for intent here is f=
-or
-PIO FIFO where you read one word as a time for a fixed location, not stream=
-ing
-(otherwise the signature here would be `pub TX_FIFO: [u32; FIFO_SIZE] @ ...=
-`).
+In case it helps, there was a v7 of this one:
 
-I'll see if I can have a better example in the next version. Perhaps
+  https://lore.kernel.org/rust-for-linux/20260628100731.64885-1-trev@trevro=
+sa.dev/#r
 
-    pub UART_RX: u8 @ ...;
-
-?
-
-Best,
-Gary
-
->
-> Would it be better to avoid using a FIFO as the example here, or use a ty=
-pe
-> that enforces stream semantics?
->
->> +/// }
->> +/// ```
->> +///
->>  /// ## Relative registers
->
-> [ ... ]
->
->> @@ -826,6 +856,23 @@ fn into_io_op(self) -> (FixedRegisterLoc<T>, T) {
->>  macro_rules! register {
->>      (base: $reg_base:ty;) =3D> {};
->> =20
->> +    // Creates a register at a fixed offset of the MMIO space with prov=
-ided type.
->> +    (
->> +        base: $reg_base:ty;
->> +        // `$ty` cannot be `:ty` due to follow-set restrictions.
->> +        $(#[$attr:meta])* $vis:vis $name:ident: $ty: ident $(:: $path_f=
-rag:ident)*
->
-> [Severity: Low]
-> Does this macro rule prevent developers from specifying inline byte array=
-s
-> (like [u8; 4]) as the register type?
->
-> Since the type matcher is restricted to identifiers and paths, it seems
-> developers wouldn't be able to directly define a byte array to properly m=
-odel
-> a byteswap-free stream without defining a separate type alias first.
->
-> Could this be adjusted to support array syntax, or is the limitation stri=
-ct
-> enough to require type aliases for stream buffers?
->
->> +            $(@ $offset:literal)?
->> +            $(=3D> $alias:path $([$alias_idx:expr])? )?;
->> +        $($rest:tt)*
->> +    ) =3D> {
-
-
+Cheers,
+Miguel
