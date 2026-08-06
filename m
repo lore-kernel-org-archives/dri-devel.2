@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B526EC56205
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:40:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2EB1C5AC7C
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:41:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D34510E379;
-	Thu,  6 Aug 2026 17:40:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00FCE10F278;
+	Thu,  6 Aug 2026 17:41:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hnNd2NY4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TWit1V+b";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3143010E379
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:40:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B38E010F278
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:41:38 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D1664413AB;
- Thu,  6 Aug 2026 17:40:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 668AB1F000E9;
- Thu,  6 Aug 2026 17:40:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1C09460AB0;
+ Thu,  6 Aug 2026 17:41:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 006971F00A3A;
+ Thu,  6 Aug 2026 17:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786038000;
- bh=HNbJ2lDAXNy6h9hE+GS0iEj13vS1uo9+AAkvbEu546A=;
+ s=k20260515; t=1786038097;
+ bh=s3RswFQrUR05cnJHO1BjzALxgHtciCAtUlOx1+pLfDQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=hnNd2NY4NmmA/iSY/jqizmaMibLPoW7TEVNRXo2UErvBtH4nkQbDmhsNT+9t5gYbc
- fvWGQo+huVhlUmIyuX3oRfV06OwUqmxKrU5EPxHnksSSmkV02iH+CnXVojC57XHL/3
- 6bwfb6O7QY98D4QqtO1ZG0b0lDHrEOkokVo53+IyJL7ryJYZ9zPHYDH3zmpyY60ySG
- 4JRU2eI0Fi6crTBr4QH587ZTFm1+hZ1L8DmaI7R2TV9WIPOxO0LzdAzRC7fZdQyVzW
- +KocwPqaC4S8JVzdFx2hs4CG2qUTeXQ9J6Kj8eEuQQNdIOlYi9v6ZwrNPhX5YSz7gB
- FLNGJAFBHfh7w==
+ b=TWit1V+buqfxMMd8COf0OmFj+cRiPfWQUZMv4h0Q1rDUFsp2Lw8mm7A4b96qSsKAP
+ yARjSKjXYpxcMpDfQAhlBcTfQ6+keJWyrG4b3nP3HapNyDMOeCjAUz8Hcj1gN1fZrA
+ x9HTsbNmSJ5e2x4Q5CE4a/Qg77fjbVkOdIy7MlKscxJwnSNOzY1TuGZ4bfPOvn39nJ
+ 6AU/Ljq73h2BT+vysi0t2oi34GZ9z3CoguKK8Vgxe/IAvjzfIYYRQMS9jEjjc+tceJ
+ nqiXfNGicuTN4i0c0mX0tkcNKtZ7sH+Xls7Hio6t1Q2A/aEH2h+gjW0pNGYF7sD4bj
+ eU3lobZF0JsuA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp: Fix
- sound DAI cells
+Subject: Re: [PATCH v11 14/21] drm/bridge: synopsys: dw-dp: Add Runtime PM
+ support
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-20-0d508505f383@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-14-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v11-20-0d508505f383@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v11-14-0d508505f383@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 17:39:59 +0000
-Message-Id: <20260806174000.668AB1F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 17:41:36 +0000
+Message-Id: <20260806174137.006971F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,51 +59,140 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Device Tree schema validation breakage for existing `rockchip,rk=
-3588-dp` configurations.
+- [High] Devm action unmasks the IRQ during driver unload due to skipped ru=
+ntime suspend, creating a Use-After-Free window.
+- [Medium] Asynchronous pm_runtime_put_autosuspend() in teardown paths race=
+s with pm_runtime_disable(), leaving the device powered on.
+- [Medium] The return value of dw_dp_runtime_resume() is ignored in dw_dp_p=
+robe() when runtime PM is disabled.
 --
 
---- Patch [20]: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp: Fi=
-x sound DAI cells ---
-commit 2c15bbfcf4dec184872abdf4c2e06063a52d1e2f
+--- Patch [14]: [PATCH v11 14/21] drm/bridge: synopsys: dw-dp: Add Runtime =
+PM support ---
+commit af390b7b3091a44b56036dc11fc278ff1a6d55a3
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+Subject: drm/bridge: synopsys: dw-dp: Add Runtime PM support
 
-dt-bindings: display: rockchip: dw-dp: Fix sound DAI cells
+This commit adds runtime power management stubs to the Synopsys DesignWare
+DisplayPort bridge driver. It splits the probe function to allow platform
+drivers to assign it early so that runtime events can be properly routed.
 
-The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
-to select the right interface.
-
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
-dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw=
--dp.yaml
-> index 2b0d9e23e9432..c4f8959dd65da 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.y=
-aml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.y=
-aml
-[ ... ]
-> @@ -83,7 +83,8 @@ properties:
->      maxItems: 1
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index 3af5b1f643c10..31f944e143ea5 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -1931,6 +1963,9 @@ static int dw_dp_bridge_attach(struct drm_bridge *b=
+ridge,
 > =20
->    "#sound-dai-cells":
-> -    const: 0
-> +    const: 1
-> +    description: 0 for I2S, 1 for S/PDIF
+>  	drm_dp_aux_unregister(&dp->aux);
+> =20
+> +err_runtime_pm_put:
+> +	pm_runtime_put_autosuspend(dp->dev);
+> +
+>  	return ret;
+>  }
+> =20
+> @@ -1941,6 +1976,9 @@ static void dw_dp_bridge_detach(struct drm_bridge *=
+bridge)
+>  	disable_irq(dp->irq);
+>  	cancel_work_sync(&dp->hpd_work);
+>  	drm_dp_aux_unregister(&dp->aux);
+> +
+> +	if (!dp->usbc_mode)
+> +		pm_runtime_put_autosuspend(dp->dev);
+>  }
 
 [Severity: Medium]
-Will this strict constraint update cause make dtbs_check validation to
-fail for existing in-tree device trees?
+Will this asynchronous pm_runtime_put_autosuspend() race with
+pm_runtime_disable() during device removal or probe failure?
 
-The mainline arch/arm64/boot/dts/rockchip/rk3588-base.dtsi still defines
-#sound-dai-cells =3D <0>; for DP nodes.
+In dw_dp_bridge_detach() and the error path of dw_dp_bridge_attach(), the
+driver drops its runtime reference using an asynchronous put. However,
+during component teardown or probe failure, this is quickly followed by the
+devm cleanup phase, which calls pm_runtime_disable() (registered via
+devm_pm_runtime_enable() in probe).
 
-While the commit message notes this breakage is intentional and will be
-fixed up separately, could changing the schema without the accompanying
-DTS updates cause automated CI validation failures and break bisectability?
+According to power management guidelines, pm_runtime_disable() cancels any
+pending asynchronous suspend timers. Because the put was asynchronous and t=
+he
+timer is cancelled before it expires, the device remains in the RPM_ACTIVE
+state and is never physically suspended, causing a power leak.
+
+Could a synchronous put (like pm_runtime_put_sync()) be used here instead?
+
+[ ... ]
+
+> @@ -2205,41 +2280,67 @@ struct dw_dp *dw_dp_probe(struct platform_device =
+*pdev, const struct dw_dp_plat_
+> +	/*
+> +	 * Disable IRQ a second time; this ensures the interrupt is only
+> +	 * enabled when the bridge is attached AND runtime PM is enabled.
+> +	 * Also register a devm action to restore the correct balance during
+> +	 * device removal.
+> +	 */
+> +	disable_irq(dp->irq);
+> +
+> +	ret =3D devm_add_action_or_reset(dev, dw_dp_enable_irq, dp);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Does this devm action risk a use-after-free by unmasking the interrupt duri=
+ng
+driver unload?
+
+The driver uses the interrupt disable depth as a refcount: IRQF_NO_AUTOEN
+(depth=3D1) plus the explicit disable_irq() in probe (depth=3D2). It expect=
+s two
+enable_irq() calls (attach and runtime_resume) to reach depth 0.
+
+If the device fails to runtime suspend during teardown (e.g., due to the
+pm_runtime_put_autosuspend() cancellation race described above),
+dw_dp_runtime_suspend() is skipped, and its corresponding disable_irq() is
+missed. When dw_dp_bridge_detach() calls disable_irq(), the depth only
+returns to 1.=20
+
+Later, the devm cleanup action dw_dp_enable_irq() decrements the depth.
+Since the depth was 1, it reaches 0 and physically unmasks the interrupt.
+
+If an interrupt fires in the small window between dw_dp_enable_irq() and
+free_irq(), dw_dp_irq() queues dp->hpd_work. Since cancel_work_sync() was
+already called in dw_dp_bridge_detach(), this requeues the work on a dp
+structure that is about to be freed by devres, resulting in a use-after-free
+when the workqueue runs.
+
+> +	if (dp->plat_data.autosuspend_delay > 0) {
+> +		pm_runtime_use_autosuspend(dev);
+> +		pm_runtime_set_autosuspend_delay(dev, dp->plat_data.autosuspend_delay);
+> +		ret =3D devm_pm_runtime_enable(dev);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	if (!pm_runtime_enabled(dev)) {
+> +		dw_dp_runtime_resume(dp);
+> +
+> +		ret =3D devm_add_action_or_reset(dev, dw_dp_manual_suspend, dp);
+> +		if (ret)
+> +			return ret;
+> +	}
+
+[Severity: Medium]
+Should the return value of dw_dp_runtime_resume() be checked here?
+
+When pm_runtime_enabled(dev) is false, dw_dp_runtime_resume() is called
+manually to power up the hardware, but its return value is ignored. If it
+fails (for example, if clk_prepare_enable() fails), it aborts early and
+leaves resources like aux_clk and the interrupt disabled.=20
+
+However, the probe continues and registers the dw_dp_manual_suspend devres
+action. During driver teardown, dw_dp_manual_suspend() unconditionally calls
+clk_disable_unprepare(dp->aux_clk) and disable_irq(dp->irq). Calling these
+on resources that were never enabled triggers subsystem warnings.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-synopsys-d=
-w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D20
+w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D14
