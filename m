@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B28EEC5AC81
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 20:24:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CCC1C5AC67
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 20:24:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CB2910F29D;
-	Thu,  6 Aug 2026 20:24:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA72A10F290;
+	Thu,  6 Aug 2026 20:24:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fp1FKM+e";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="it9dz7Pp";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 058D910F290;
- Thu,  6 Aug 2026 20:24:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 81CB910F290;
+ Thu,  6 Aug 2026 20:24:57 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 422B5600AF;
+ by tor.source.kernel.org (Postfix) with ESMTP id F324D60103;
+ Thu,  6 Aug 2026 20:24:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 790AF1F000E9;
  Thu,  6 Aug 2026 20:24:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 891461F00A3A;
- Thu,  6 Aug 2026 20:24:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786047876;
- bh=bUF1A3bcjWsndOSThJkFooCv37wa4dNhaU3NAGA1ezE=;
+ s=k20260515; t=1786047896;
+ bh=PZwB0kepe8H+9w+FQhSK8VcxxvTZJ+pddqATUquP6OA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=Fp1FKM+eLh5lvZtVWpPOiPsPqz5lQD/UnC4C7x8GrG+pqXLW/xDbNogoYOsEm4YZu
- J/f+dynwiGc8gWGd5RQ3MrJ05O0wWbz3sXxb1KnEMnfYdqhj56aavycaVzEqQymBvT
- +nBrYxwuCHQRPay/Be9u2UYokJcnPUUrnqTkaf9Eq7yB4yGD9u4MhGFAKa9nYMKsds
- IjwbQYKfqX5Oy5/O/z5PV9eOEegPxQ9JmqxSx+1zAliK8CxVgGEiMmUib3mc3JPSdC
- 7XJtV8wRQBXn0QDAnVa54BcLBuDpq9ttQsttWkB+QC1JhAbhVJmn3Y3EQjqb6mMR3v
- tpB3HXYshyITw==
+ b=it9dz7PpsOSLESWT8uwHQovZ/mvj67amjGnQ8gZRPpDJKKbsnlU1uSsY/1dLyMCXm
+ ba2y3JIf6FNk78aRrHS3h90Kr6M/zps4OruCQfkUBqboYjLqG80QbIkNDmz6dh6n8W
+ mQQ7kUuDbG1OKAQDp8JZG8nSMi9RF7HeuYHqCmUPZ7KC4oQGZ4ajukmQ1MKQXFGu9T
+ da2t8ur2ROVD5M9cVUNxBMGHOP2O4TEhTXJ1wpkcPwiLqj38eL+I6wV+tXv9o1uUMe
+ DYXAowI7nzDQEDDFNPCE9gJ9ol8ld4fAe+ZaBEx3jqA02FiOHvjBi2vKern8w0XtHY
+ 30sTdJBOieI1Q==
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Date: Thu, 06 Aug 2026 21:21:32 +0100
-Subject: [PATCH v4 07/20] mm/vma: fix self-merge check in copy_vma()
+Date: Thu, 06 Aug 2026 21:21:33 +0100
+Subject: [PATCH v4 08/20] tools/testing/vma: add tests for copy_vma()
+ self-merge
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-b4-scalable-cow-virt-pgoff-v4-7-ab318a350404@kernel.org>
+Message-Id: <20260806-b4-scalable-cow-virt-pgoff-v4-8-ab318a350404@kernel.org>
 References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
 In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>, 
@@ -98,12 +99,12 @@ Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org,
  dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
  linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5496; i=ljs@kernel.org;
- h=from:subject:message-id; bh=PoziUiui+lcnTYeWIW/Jvhg/0j22lR+6q9emZ8jY5cI=;
- b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJK3lzoWL7y96q3d3Zdrt2x0uQKZ88B2drsOjEHpQOuv
- 8XSnnKwd5SyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiptkM/6xsazxa/k0wrKzc
- VMJzt/X0oYb0Xz6JW7Ovv9rouCO/lJ3hf/095+r1Fjr83dcapircTzyaImbTqLLy3IL1NzPZSlR
- v8gEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2542; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=zAtkjtetOPzY9ZCvVmUG7AAWKdJxJJDvCD2O0e7vMx0=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJK3lyInr43/OZH39eLbKZLSetMY+o5wy2lUrZZ6kDq2
+ iXWu51ZO0pZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjARqXuMDFeKHKTsNJ7EiaUb
+ PnS1qhWtVE7Z9SV+XdrEE9Ys0v9UVRgZHk67+SqfQVCz8MXRWQ25+bMnhjzuvfSe13jeba8t/kz
+ ruAA=
 X-Developer-Key: i=ljs@kernel.org; a=openpgp;
  fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -121,143 +122,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The existing logic is very confusing so improve things. Firstly rename the
-confusing faulted_in_anon_vma variable to can_self_merge and update this
-when the page offset is updated.
+Assert that a VMA can be moved backwards, forwards and between a preceding
+VMA and its old self.
 
-What is being checked for is a 'self-merge' - that is between the VMA being
-remapped and its prior VMA (remember that this is copy_vma() - if a
-non-MREMAP_DONTUNMAP remap the original VMA is only removed afterwards).
+In the cases in which the VMA merges only with itself expect that to be
+achieved by expanding its old self, so assert that these function
+correctly.
 
-This can happen if the VMA is moved immediately adjacent to
-itself, either before or after it:
-
-		|----------------|----------------|
-		|		 |                |
-		v		 |		  v
-	|...............||---------------||...............|
-	|      new      ||      old      ||      new      |
-	|...............||---------------||---------------|
-
-In these cases the old VMA is simply expanded to cover the new range.
-
-It is also possible for the move to both self-merge and merge with a prior
-VMA if it is placed between a preceding VMA and its old self:
-
-				|---------------|
-				|		|
-				v		|
-	|---------------||...............||---------------|
-	|      prev     ||     new       ||     old       |
-	|---------------||...............||---------------|
-
-In this case, the old VMA is removed and 'prev' is expanded and replaces
-it.
-
-Since copy_vma_and_data() which calls copy_vma() intends to reference the
-old VMA after the merge, it must have this pointer updated.
-
-This kind of self-merge is not possible with a succeeding merge, as the
-merge always prefers to expand the preceding VMA if possible.
-
-copy_vma() accounts for this by explicitly checking to see if a self-merge
-occurred and updating the vmap pointer if so. However it incorrect did so
-even for a subsequent merge (this is simply a noop so it had no impact).
-
-So change this to only check for the case which matters - a backwards
-merge - and rearrange the parameters to make it clearer we're doing that -
-i.e. check new_vma->vm_start < old_vma_start (having already renamed
-vma_start to old_vma_start to make it clear this is the previous VMA).
-
-Also update the existing wall-of-text comment to be a lot clearer.
-
-While we're here, replace the VM_BUG_ON_VMA() with a VM_WARN_ON_ONCE_VMA()
-and update the VMA userland tests accordingly.
-
-No functional change intended.
+However in the case of a merge between a preceding VMA and itself the
+original VMA is removed, so assert that the preceding VMA replaces the one
+passed in as vmap and the merge is as expected.
 
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 ---
- mm/vma.c                         | 35 ++++++++++++++++-------------------
- tools/testing/vma/vma_internal.h |  1 +
- 2 files changed, 17 insertions(+), 19 deletions(-)
+ tools/testing/vma/tests/vma.c | 46 ++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 45 insertions(+), 1 deletion(-)
 
-diff --git a/mm/vma.c b/mm/vma.c
-index b5bc3eec961c..18c8f2546765 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1911,10 +1911,10 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	bool *need_rmap_locks)
- {
- 	struct vm_area_struct *vma = *vmap;
--	unsigned long vma_start = vma->vm_start;
-+	unsigned long old_vma_start = vma->vm_start;
- 	struct mm_struct *mm = vma->vm_mm;
- 	struct vm_area_struct *new_vma;
--	bool faulted_in_anon_vma = true;
-+	bool can_self_merge = false;
- 	VMA_ITERATOR(vmi, mm, addr);
- 	VMG_VMA_STATE(vmg, &vmi, NULL, vma, addr, addr + len);
+diff --git a/tools/testing/vma/tests/vma.c b/tools/testing/vma/tests/vma.c
+index 754a2da06321..0d40d7ba2181 100644
+--- a/tools/testing/vma/tests/vma.c
++++ b/tools/testing/vma/tests/vma.c
+@@ -33,7 +33,51 @@ static bool test_copy_vma(void)
+ 	struct mm_struct mm = {};
+ 	bool need_locks = false;
+ 	VMA_ITERATOR(vmi, &mm, 0);
+-	struct vm_area_struct *vma, *vma_new, *vma_next;
++	struct vm_area_struct *vma, *vma_prev, *vma_new, *vma_next, *vma_orig;
++
++	/* Move forwards, adjacent to old self - self-merge. */
++
++	vma = alloc_and_link_vma(&mm, 0x1000, 0x2000, 1, vma_flags);
++	vma_set_anonymous(vma);
++	vma_orig = vma;
++	vma_new = copy_vma(&vma, 0x2000, 0x1000, 1, &need_locks);
++	ASSERT_EQ(vma_new, vma_orig);
++	ASSERT_EQ(vma, vma_orig);
++	ASSERT_EQ(vma_new->vm_start, 0x1000);
++	ASSERT_EQ(vma_new->vm_end, 0x3000);
++
++	cleanup_mm(&mm, &vmi);
++
++	/* Move backwards, adjacent to old self - self-merge. */
++
++	vma = alloc_and_link_vma(&mm, 0x2000, 0x3000, 2, vma_flags);
++	vma_set_anonymous(vma);
++	vma_orig = vma;
++	vma_new = copy_vma(&vma, 0x1000, 0x1000, 2, &need_locks);
++	ASSERT_EQ(vma_new, vma_orig);
++	ASSERT_EQ(vma, vma_orig);
++	ASSERT_EQ(vma_new->vm_start, 0x1000);
++	ASSERT_EQ(vma_new->vm_end, 0x3000);
++
++	cleanup_mm(&mm, &vmi);
++
++	/*
++	 * Move backwards between prior VMA and old self - self-merge and vma
++	 * updated to a new VMA.
++	 */
++
++	vma_prev = alloc_and_link_vma(&mm, 0x1000, 0x2000, 1, vma_flags);
++	vma_set_anonymous(vma_prev);
++	vma = alloc_and_link_vma(&mm, 0x3000, 0x4000, 3, vma_flags);
++	vma_set_anonymous(vma);
++	vma_orig = vma;
++	vma_new = copy_vma(&vma, 0x2000, 0x1000, 3, &need_locks);
++	ASSERT_NE(vma_new, vma_orig);
++	ASSERT_EQ(vma_new, vma);
++	ASSERT_EQ(vma_new->vm_start, 0x1000);
++	ASSERT_EQ(vma_new->vm_end, 0x4000);
++
++	cleanup_mm(&mm, &vmi);
  
-@@ -1924,7 +1924,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	 */
- 	if (unlikely(vma_is_anonymous(vma) && !vma->anon_vma)) {
- 		pgoff = addr >> PAGE_SHIFT;
--		faulted_in_anon_vma = false;
-+		can_self_merge = true;
- 	}
+ 	/* Move backwards and do not merge. */
  
- 	/*
-@@ -1944,24 +1944,21 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
- 	new_vma = vma_merge_copied_range(&vmg);
- 
- 	if (new_vma) {
--		/*
--		 * Source vma may have been merged into new_vma
--		 */
--		if (unlikely(vma_start >= new_vma->vm_start &&
--			     vma_start < new_vma->vm_end)) {
-+		/* Self-merged and VMA replaced. */
-+		if (unlikely(new_vma->vm_start < old_vma_start &&
-+			     new_vma->vm_end > old_vma_start)) {
- 			/*
--			 * The only way we can get a vma_merge with
--			 * self during an mremap is if the vma hasn't
--			 * been faulted in yet and we were allowed to
--			 * reset the dst vma->vm_pgoff to the
--			 * destination address of the mremap to allow
--			 * the merge to happen. mremap must change the
--			 * vm_pgoff linearity between src and dst vmas
--			 * (in turn preventing a vma_merge) to be
--			 * safe. It is only safe to keep the vm_pgoff
--			 * linear if there are no pages mapped yet.
-+			 * The only way a VMA can both self-merge and be
-+			 * replaced is if the remap places the new VMA
-+			 * immediately prior to its old self ('next') and
-+			 * immediately after another VMA ('prev') causing the
-+			 * next to be removed and prev to be expanded to cover
-+			 * the entire range.
-+			 *
-+			 * This should only be possible if the page offset was
-+			 * updated, i.e. the VMA is unfaulted.
- 			 */
--			VM_BUG_ON_VMA(faulted_in_anon_vma, new_vma);
-+			VM_WARN_ON_ONCE_VMA(!can_self_merge, new_vma);
- 			*vmap = vma = new_vma;
- 		}
- 		*need_rmap_locks =
-diff --git a/tools/testing/vma/vma_internal.h b/tools/testing/vma/vma_internal.h
-index 4f6c5666ac07..8a48b231aa7a 100644
---- a/tools/testing/vma/vma_internal.h
-+++ b/tools/testing/vma/vma_internal.h
-@@ -53,6 +53,7 @@ typedef __bitwise unsigned int vm_fault_t;
- 
- #define VM_WARN_ON(_expr) (WARN_ON(_expr))
- #define VM_WARN_ON_ONCE(_expr) (WARN_ON_ONCE(_expr))
-+#define VM_WARN_ON_ONCE_VMA(_expr, _vma) (WARN_ON_ONCE(_expr))
- #define VM_WARN_ON_VMG(_expr, _vmg) (WARN_ON(_expr))
- #define VM_BUG_ON(_expr) (BUG_ON(_expr))
- #define VM_BUG_ON_VMA(_expr, _vma) (BUG_ON(_expr))
 
 -- 
 2.55.0
