@@ -4,44 +4,58 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49F5CC55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 09:01:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD66FC56203
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 09:02:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A20F10E2B5;
-	Thu,  6 Aug 2026 09:01:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 107E310E2C5;
+	Thu,  6 Aug 2026 09:02:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KBASob7v";
+	dkim=pass (2048-bit key; unprotected) header.d=bootlin.com header.i=@bootlin.com header.b="q/Hyx43t";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E0ECB10E2B5
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 09:01:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6032F60A9F;
- Thu,  6 Aug 2026 09:01:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C013F1F000E9;
- Thu,  6 Aug 2026 09:01:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786006882;
- bh=gtt+zplP1NQteJybU0xLiv3wJ4KT/lOlzhGGTNIRcm4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KBASob7vFaOgGODbTeQS5Tc3BJ4ei5vr6UYD/v90sbOI6u7NpgGPN9mH4bjsetee0
- ZwgsDwJSHOk8QKJIfkj2bQVa3kmh8DsSl8hpR4IKOZeqpk5SvYpzrcvhN4eeoyhLXY
- RUnxBhvbG7m+EU5FF6wMBG5TEDtHY2oDfQ7dcWXsHFcLjwCkKR/KEp/2TCBNSoU7LF
- SLnC8uER56a7KHo58rq6AmQrJjLnH7c/9IT62pe11m1luTQBF5exzbXG6UN0NaFDJ3
- v3WTWjYZO342LT55cAOIa01OzOU7nrZPLR5Gq1Is7OdUjROr7rkj6NMY5ttqJjeifw
- xEFuNdqNCscAw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/9] mm/kasan: use hw_pte_t for the early shadow PTE table
-To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
-Cc: bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
- damon@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260806083926.1807279-8-usama.anjum@arm.com>
-References: <20260806083926.1807279-1-usama.anjum@arm.com>
- <20260806083926.1807279-8-usama.anjum@arm.com>
-Content-Type: text/plain; charset=utf-8
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C21810E2C5
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 09:02:46 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 94B924E41109;
+ Thu,  6 Aug 2026 09:02:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 6239E602B8;
+ Thu,  6 Aug 2026 09:02:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 1985A11C35CFF; 
+ Thu,  6 Aug 2026 11:02:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1786006963; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=uRIVf7iQ1fG4KUvl36a6Xsu/iwEpmrbMKm/ZhCDmRvE=;
+ b=q/Hyx43tC7O/n23olEuApOmbILym2Q3faDBCZXk2hzcbfRLja2Ts44WypA6U96Ywgg0iG+
+ fy+zb5N7rL/wjJ2JwUnlWNA4rKkK5mNQpZE+/+rgYgsc/LuceWZtRNNpvDBFmjGi0gCTYC
+ uGTHfc0/fFwdvkjQ+of1zEaUmAQdDOcY74vOqwuBNTzuZcFSKqqM00JmhSEjObwneg0Sxw
+ Xz/yaiXmXTh7MyinUXDZOe+Ds38NK2wfNzP1KxhuO6fGhcLAO1osERyCoksrtfOXIHMF4u
+ /v6t8YLsqrfoYTR1Oum2FzXli/DbwXTq7LFr43anaXwoAxKeBMoHh2AHNCj3eQ==
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 09:01:21 +0000
-Message-Id: <20260806090121.C013F1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Thu, 06 Aug 2026 11:02:36 +0200
+Message-Id: <DKHQML180X88.1FWP1KUMGYDUS@bootlin.com>
+Subject: Re: [PATCH v3 0/3] drm/bridge: ti-sn65dsi83: Various fixes
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+To: "Esben Haabendal" <esben@geanix.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Herve Codina" <herve.codina@bootlin.com>,
+ "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>, "Laurent
+ Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Linus
+ Walleij" <linusw@kernel.org>, "Frieder Schrempf"
+ <frieder.schrempf@kontron.de>, "Marek Vasut" <marex@denx.de>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
+In-Reply-To: <20260803-ti-sn65dsi83-fixes-v3-0-9b403a405ccd@geanix.com>
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,82 +68,25 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Invalid non-present page table entry conversion in ptdump callback=
-s.
---
-
---- Patch [7]: [PATCH 7/9] mm/kasan: use hw_pte_t for the early shadow PTE =
-table ---
-commit 3ee38376d3d7f9e85666863e4080641fcf9b048b
-Author: Muhammad Usama Anjum <usama.anjum@arm.com>
-
-mm/kasan: use hw_pte_t for the early shadow PTE table
-
-kasan_early_shadow_pte is a complete PTE table rather than a standalone
-PTE value. Declare and define its elements as hw_pte_t so the object uses
-the PTE table storage type.
-
-[ ... ]
-
-> diff --git a/mm/ptdump.c b/mm/ptdump.c
-> index 376880071ca2a..8f19f20be3c44 100644
-> --- a/mm/ptdump.c
-> +++ b/mm/ptdump.c
-> @@ -19,7 +19,7 @@ static inline int note_kasan_page_table(struct mm_walk =
-*walk,
->  {
->  	struct ptdump_state *st =3D walk->private;
-> =20
-> -	st->note_page_pte(st, addr, kasan_early_shadow_pte[0]);
-> +	st->note_page_pte(st, addr, ptep_get(kasan_early_shadow_pte));
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since we are modifying the K=
-ASAN
-shadow table handling in ptdump, are the page extraction checks that lead h=
-ere
-safe for non-present entries?
-
-In mm/ptdump.c, callbacks like ptdump_pmd_entry() and ptdump_pud_entry()
-unconditionally call pmd_page() and pud_page() before checking if the entry
-is present:
-
-mm/ptdump.c:ptdump_pmd_entry() {
-    ...
-	pmd_t val =3D pmdp_get(pmd);
-
-#if defined(CONFIG_KASAN_GENERIC) || defined(CONFIG_KASAN_SW_TAGS)
-	if (pmd_page(val) =3D=3D virt_to_page(lm_alias(kasan_early_shadow_pte)))
-		return note_kasan_page_table(walk, addr);
-#endif
-    ...
-}
-
-User page tables can contain non-present swap or migration entries at the P=
-MD
-level. If pmd_page() (and equivalents like pud_page(), p4d_page(), pgd_page=
-())
-extracts a bogus PFN from a non-present entry, could this lead to an
-out-of-bounds array access and a NULL pointer dereference in the sparsemem
-arrays when pfn_to_page() is evaluated?
-
-Since ptdump can be invoked on user page tables via debugfs by users with r=
-ead
-access, could this trigger a kernel panic? Should these callbacks verify the
-entry is present before calling the page conversion functions?
-
-> =20
->  	walk->action =3D ACTION_CONTINUE;
+On Mon Aug 3, 2026 at 4:57 PM CEST, Esben Haabendal wrote:
+> This small series adds support for using SN65DSI84 in single-link mode wi=
+th
+> output to LVDS channel B, and provides a fix for a PLL locking issue.
 >
+> Signed-off-by: Esben Haabendal <esben@geanix.com>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806083926.1807=
-279-1-usama.anjum@arm.com?part=3D7
+With the planned changes (Fixes/Cc:stable tags, patches 1-2 swapped)
+applied you can send v4 with:
+
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+Luca
+
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
