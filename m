@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61B84C56203
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 00:39:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B2BBC55ABF
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 00:39:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A739E10E258;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ACF9410E279;
 	Thu,  6 Aug 2026 00:39:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="ZCouqlUo";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="aygFU4mT";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B359E10F053
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FAC310F03C
  for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 00:39:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1785976751;
- bh=fcI6NxAi0w9kYs3KWpEoGjJ9DJV5ajPSR9SnFAY0JFY=;
+ bh=0LdXuxOKKs318XAl4WSr1g2oS54qVCij4xOtaVQvuVc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ZCouqlUon+4oPxndlT3o5V1GekpaWkg/1cR+oRr5ipN4dFEeBNQ318Y6oML7rKMWb
- 6HGRi4aFlnE2AeUgHBHhMM7Rc3kYZBZRhZkO68sFeRS5P0ZF+qHX+fiEx5ik9chnuY
- xlE3NQzajJGa4El2CRytKPaGeWTEVPCR2JywjN+MqrKNi6pFJ8f4/pE3n2BoweJ/IU
- pt81XtNyKbqhVEnE0DjDW0nyEPSqufsVXm/ice/vqNy/Uo4EbxihnvpZUC1rPdEMmR
- VHNl+BT6bAFcKDSoUcJbrphySrj/68HzvpjKQSXtFsIyHQEBTaTme9QwnNUU3seC5P
- e1z2/Zk1Suz0A==
+ b=aygFU4mTDp+1SH72m5Ofw2/O47G50wrn7yD2XKs/A11vSoSMZZMo/JMa1h4R8wbYZ
+ rFRQfjV3usR/Z6jIrCfrGVS3SuuNE94hUVy8Umvvt5fUuzT+cRJOyVmf+4A1/AiS4v
+ lebHUUGFOUpT3em/h19j99wAWTPBMD70QsRCwjYeYtKLxKVRvOZIVdfQQpmh5PINwA
+ o1W8Y8xO7FVHgjkuFuAUvmj0E1ru8xfeqGpKE3BE4FwWu1T47uikEfnZwA65LWP+By
+ f8TzwWcfEJ6el8PKldIcGu+VPN2EPNNaPOZMyqbMM5NBnw6hWltFXZjz81IW9LB6YL
+ 6HEVpwbMWleEg==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 42DDF17E07DC;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 310AF17E07B6;
  Thu, 06 Aug 2026 02:39:11 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 9409548003D; Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
+ id 8DE08480031; Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 02:39:15 +0200
-Subject: [PATCH v10 09/21] drm/bridge: synopsys: dw-dp: Support
- MEDIA_BUS_FMT_FIXED
+Date: Thu, 06 Aug 2026 02:39:11 +0200
+Subject: [PATCH v10 05/21] drm/bridge: synopsys: dw-dp: Add missing mutex
+ cleanups on module removal
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v10-9-d84a26c303d6@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v10-5-d84a26c303d6@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -65,23 +65,24 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3804;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1166;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=fcI6NxAi0w9kYs3KWpEoGjJ9DJV5ajPSR9SnFAY0JFY=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpz1653pQP0kGVVseMikIvI0y2JwzOOmNQiZ
- 0kYQSoffk4274kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqc9euAAoJENju1/PI
- O/qa2gUP+wbkCNF37pnGW0Y1321xnOCnpa4hjp9MyvDns9J9eMSb0ZmmN7FHQXWwA2e/enUjQcb
- mxcX/TSDGfc71A2Wj0ZcOiVaXs6q9buW5I6XNmfook1LzWMkbfhKD4Merlo91rEa72btrnJH2br
- midg9+aAwsbp3tyrsPJ9LHBSjIfHHapjo3cjD0/AXwXBseV713s6s1zz1LxW8i/GS3UKeA8QBnY
- N1LnYxklUnlQ9V9NBUmopGuhQWBt3IQ97HWAL9+eGcygZSIm4vSg7zorayuZF0rQxXyD0esUyHY
- tpUnkJVMNLowKRVslxS9MmcelygGAcu6Zkb7lCw2mWvWJluIz1nDyzsbjjB/egFEsScFNw/OyFY
- aQi8BaAv6VHW9qo7ddZpvW1iCvbruQZXxYRK8ncuyte+1q/vbaOlM01lNDfwkoGGfaDWM7XLXm4
- Ot/4881z3eutuaeWjzKT/AI/XwdSK0ssCNWtl2isxNLYzkQZNSzmv2YnXgudu7jJkNd4W49E9W7
- X9Jiozj5T4ACf1wtwO8RReHXlJfEQ7h6A/3d4PLExiS6EOvB9FyWT8Tj7LTeuTLdYGkxtm/Idsm
- esTIVGRGjz6rV4AJVjUzPuRmlDB3veo78VVOgjiL7bT4xNulesHORRaszGoiyQM7knyYq/PvnES
- oSQDmwhq0Bv4a2LPq5IU3Mg==
+ bh=0LdXuxOKKs318XAl4WSr1g2oS54qVCij4xOtaVQvuVc=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpz163sM+axQnALjM17B31DOPMOywcgc+uEE
+ MIxnCsxa0zQK4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqc9etAAoJENju1/PI
+ O/qaLkQP/3yDnfT+ooSc0Fwcb/3ddyFGyD/pZJVslRSQJiX2xlE8WwBwQ1/Mid9Uk7D+ra0WSJX
+ sfI2jj24o9TYu8sA8k2EUVqu+r+aaMMdJArzS+O8O/sruf5t/HbjaItaEiRn6wa42M8abA9x+IE
+ six14RXAw8wm0wCCH8JAUVSqfOVqew1yH59XlWr1SMmrTNYTSbcP99d6wShkKruCB/Df//eG73f
+ Hf0tYk6oVcvV3tbPC5Tspp8qYSWGv11gKy0Ta+W8DTNOL7WoCsDd5WTUiUZ6Dgbuac5KmV6DVV+
+ KzX5OPxuPWewIV1ZjBGZFNturruA/7RihZX4kV19qSAUSDolijCWEk3uwOKlg9t/uoOtvH+ydWM
+ rPKUPgJh0VdNrks+FqRR3W5iuAli+Qhqni2gpq5FYtiHk1SdzSC6hKSFUC1dJJKLD5WsdFR6G/X
+ BXsKmh5bgZX8bAOAWWJqS2a2ErbqorrD+SAVrJz4NXaKannT7mdTHDANXB/0dUvfmxa15iI1duk
+ E7XnVimY49fD1z0ZEnn0BDUfHQa/y0OKXnuyn8x5jEHCZ9fnnCDUMFTKLwvRD7HnPCR2NYqUCUu
+ zOHdaeMjtba8QltnN1XhnDwEmr3TQFJAjySt1flCX332MI56Ixm4xutw8fBnivyJLEbQLuoa3pB
+ FLnupPlmt077YApYJR6Mp3A==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,91 +100,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
-DP chains as the last bridge in the chain (aux-hpd-bridge) does not
-implement atomic_get_output_bus_fmts(), which results in the generic
-drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
-instead. For decent support of this, two areas are changed:
+The driver is currently missing to fully clean up after itself. Ensure
+that the mutex is cleaned up.
 
-1. In atomic_check, resolving MEDIA_BUS_FMT_FIXED output format by
-   using the negotiated input format.
-
-2. Implementing a custom .atomic_get_input_bus_fmts hook that, on
-   MEDIA_BUS_FMT_FIXED, advertises all bandwidth-validated formats
-   from dw_dp_bridge_atomic_get_output_bus_fmts(). This lets the
-   upstream encoder negotiate the best mutually supported format.
-
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 34 +++++++++++++++++++++++++++++++--
- 1 file changed, 32 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index bd05ae9b044a..106978544cdf 100644
+index d3f93e9ba60a..7bd4befd84c8 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1537,6 +1537,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 				     struct drm_connector_state *conn_state)
- {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
- 	struct dw_dp *dp = bridge_to_dp(bridge);
- 	struct dw_dp_bridge_state *state;
- 	const struct dw_dp_output_format *fmt;
-@@ -1547,7 +1548,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 	state = to_dw_dp_bridge_state(bridge_state);
- 	mode = &state->mode;
+@@ -2044,10 +2044,13 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 	dp->pixel_mode = plat_data->pixel_mode;
+ 	dp->plat_data.max_link_rate = plat_data->max_link_rate;
  
--	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
-+	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
-+		out_bus_format = bridge_state->input_bus_cfg.format;
-+
-+	fmt = dw_dp_get_output_format(out_bus_format);
- 	if (!fmt)
- 		return -EINVAL;
+-	mutex_init(&dp->irq_lock);
+ 	INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
+ 	init_completion(&dp->complete);
  
-@@ -1829,6 +1833,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
- 	return output_fmts;
- }
- 
-+static u32 *
-+dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
-+				       struct drm_bridge_state *bridge_state,
-+				       struct drm_crtc_state *crtc_state,
-+				       struct drm_connector_state *conn_state,
-+				       u32 output_fmt,
-+				       unsigned int *num_input_fmts)
-+{
-+	/*
-+	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
-+	 * the bus format. In that case, advertise all formats supported by the
-+	 * DP link so the upstream encoder can negotiate the best match.
-+	 */
-+	if (output_fmt == MEDIA_BUS_FMT_FIXED)
-+		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
-+							       bridge_state,
-+							       crtc_state,
-+							       conn_state,
-+							       num_input_fmts);
++	ret = devm_mutex_init(dev, &dp->irq_lock);
++	if (ret)
++		return ERR_PTR(ret);
 +
-+	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
-+							 crtc_state, conn_state,
-+							 output_fmt,
-+							 num_input_fmts);
-+}
-+
- static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
- {
- 	struct dw_dp_bridge_state *state;
-@@ -1886,7 +1916,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
--	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
-+	.atomic_get_input_bus_fmts = dw_dp_bridge_atomic_get_input_bus_fmts,
- 	.atomic_get_output_bus_fmts = dw_dp_bridge_atomic_get_output_bus_fmts,
- 	.atomic_check = dw_dp_bridge_atomic_check,
- 	.mode_valid = dw_dp_bridge_mode_valid,
+ 	res = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(res))
+ 		return ERR_CAST(res);
 
 -- 
 2.53.0
