@@ -4,84 +4,160 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0D0CC55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 12:29:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D82C5AC7C
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 12:55:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 070F910E543;
-	Thu,  6 Aug 2026 12:29:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A475710E0A5;
+	Thu,  6 Aug 2026 12:55:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IDBq5CF2";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FlPHIRJF";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6963F10E543
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 12:29:10 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-38e3617ba36so2155475a91.3
- for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 05:29:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786019350; x=1786624150; darn=lists.freedesktop.org;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=PATN1j5zjfMqry81Ubt1Txf86+h6fghF2+e0J3o9yzQ=;
- b=IDBq5CF2kwTHdY2aOWRxhQ+cr2baFxmKp7bNTxNPPUzYpHD03d4jJtat/z3oq9stNj
- DN8StlEbhjUNw+lhPr4CqnyGNjEMOPmCaEivzUmm6juPGxcciL7IsjdGnYEnGK1scXKy
- EKkmhkbyN8zF+PYlZmRCXhZM98Rlq7IRZg43GlEJBr+ro3DR1TSZgoj5q/BtajyznR8g
- LxrEW8UceEuMdzQCnERmz+HiKxiZ+fGoszEZly4v2CmGO5uZlIUPH6nBZHoUPdg2NgaC
- Gmtqf3CNGKde+Gv/hWXWJqtXEoStW3twX0ZONUlx77Axgn5kWuAShbZoUIgyXWtHcZd3
- P1Iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786019350; x=1786624150;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=PATN1j5zjfMqry81Ubt1Txf86+h6fghF2+e0J3o9yzQ=;
- b=rBvwaWURkjsiWKgREu+uYuXGypaQGMxZEJ6GakthwoJPulS/NjzzTxupmB0PX//kLO
- gB/1lK/ItgZgw+eFm1oq0qxTcGrp4SBjccDm5x83EGclCuQPotUFf2urDgoZt2myQCTi
- 0BoZQdZaPPUD0Uv11JZ+HCgHbfn5gxQLB2hhgrZAviUAQ+lYPkVyFDFxfu3DmwjMqRnK
- z1D/pnGQFJeClLevJDulrExRzXhFmRZEbKVQwn8TNlkbd8BhZ/6j23sofFClVJuTXFNx
- r8gelDmxbPPojiGX8iImHAQ6bfQGkhQSAteClhoEfUtK3tMcgE9AWO/SqcescbPdQVSY
- O3jw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Roez7Fs4ZkzDDfp5PgKOhgijLpj5uAUVYNA6BCOxH7SrPc18YZbs2H1eQH0ZsVrwS2aJI4OVd6rGUg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyp9eEjVbIP+CF+VcvMdM/xBauSW5gEs+YSTYX1T+tHtwUCO2Hk
- jlGLNpvCtRqZ+ps81o2MwzURzuC2FZha8wShjvr7dRk6yWekjWCS92WtkwRFdP8=
-X-Gm-Gg: AR+sD13kt0MhcexYQWtAQoGFULhXcExWhfHnhaFken1AMrbU659KkbFpNJNlPb7BRdI
- PWE+i84BakiB4sktNKqIIlkuoo2cm8XoPaoUFWM0JJCsD10zGLM9YxpEW5Q0/S4Of3k+JJmXSUY
- Q+C9gwJzB19pDKnjJbmpH6XCKQGx193F8by/IMrMM/6VhWzFhBybiuOhhz1IB9J4Pel2nzJ//pW
- YcT4HJABPa1wD8VhJYAsXv+ZzcmiNFRGsPiLhiS8afSSbS2YKEfx7YIsmoIXBhFwnzBF9EAkriI
- ZR4CFracEakglX4KLvJnNCVQM4oNawEv1xSBmaj0TUhF3XrzfUKhdqJ673/B8l9ABaFkIAjfZaW
- hN3P9+0xMIHiF5RY4pswF5rq5XMEuREQGzsJncKJCnOIl2GGlqwuzwhiXjv3afVPH1QDGEWlzXR
- SbHz/jGVAP3g7LfJld50Cm86ecGATROIsq84ZqkqC7lqEDjl1rod6xkp37pVe+MDeXgFeLzQxSG
- O68qBmdsx7mKSNdgQmPzima
-X-Received: by 2002:a17:90a:da83:b0:38e:2c8f:a01a with SMTP id
- 98e67ed59e1d1-3903c5d2f8bmr14496686a91.11.1786019349803; 
- Thu, 06 Aug 2026 05:29:09 -0700 (PDT)
-Received: from localhost ([186.158.238.108]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39085dbf82csm1463292a91.1.2026.08.06.05.29.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 06 Aug 2026 05:29:08 -0700 (PDT)
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 06 Aug 2026 09:29:04 -0300
-Message-Id: <DKHV0NRB0DYQ.2EYHJ4T1FV9N7@gmail.com>
-Cc: "Brigham Campbell" <me@brighamcampbell.com>, "David Airlie"
- <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Shuah Khan"
- <skhan@linuxfoundation.org>, "Thomas Zimmermann" <tzimmermann@suse.de>,
- <linux-kernel@vger.kernel.org>, <linux-kernel-mentees@lists.linux.dev>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [PATCH] drm/mipi-dsi: docs: Mark mipi_dsi_compression_mode() as
- deprecated
-From: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>
-To: =?utf-8?q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260702194223.290763-1-nico.antinori.7@gmail.com>
-In-Reply-To: <20260702194223.290763-1-nico.antinori.7@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2272C10E0A5;
+ Thu,  6 Aug 2026 12:55:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786020955; x=1817556955;
+ h=date:from:to:cc:subject:message-id:
+ content-transfer-encoding:mime-version;
+ bh=Vd7/AXiHYxJLISZH4SjKNoHfd+xkzg+suxg1BcPS5bA=;
+ b=FlPHIRJFBOuDv2YC9YCSAuqIuaVVoRYrpQ4II/N1us7TZC80BxZhL9+a
+ mhcUGNuQ9IUwPbnuqH1SzLs9489rh7bRaPAvNc58jHBJHZS2CYwGlr5iH
+ EjRfTFI4m2kQqDdKY6J6vTGB4UjRzNzNutUar3yfIYuSw3WBZaaTAQm3p
+ aAceWrk+vZ+hJb5nJL0epE5++t6oNGqqTxOefKzoOJU7fgNjU4B2mIvMs
+ 64n2Czk5NOciqay6JYtobSBY/3wHcPKzw7vNgV4cogWW5OJEiuciv7wtC
+ 8jOJfHL37kHFbYYl7GdEDztdjFue31GfZXZN4oz7JbWzwfpC3GB7TNpZy w==;
+X-CSE-ConnectionGUID: jFLIqrBpT/S85lRx5fYiGA==
+X-CSE-MsgGUID: InfsYAroTumFZ0EdkMudGQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86624508"
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="86624508"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 05:55:54 -0700
+X-CSE-ConnectionGUID: 6kSHPqVCSFOYvlzBm9D4Jg==
+X-CSE-MsgGUID: NMwScCBbRMWmmqQ2c0BoLw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="285480319"
+Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
+ by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 05:55:53 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 6 Aug 2026 05:55:52 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45 via Frontend Transport; Thu, 6 Aug 2026 05:55:52 -0700
+Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.49) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 6 Aug 2026 05:55:52 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C90oE+8givo7RWkUvJIg8jPt7y6oqgRV/z0YmtQPNcullx0zPgbHY8V4qx+Tp1pvBC9vyB2F2iBRH6HN8mQu7IZhTdchmMNsqimMU7W89BRKYcG2bbpFPj1tOHXHy9WYx05z7bQDKyt3GmGyoA4V6+IlNVVgfiBDvMSZ6A29gqf9GCMi2vYx5HdTQ6WNfuFEO+xkrrqOmtFvtAeA2frbnT/1dmxklLlWjXSj5sJrnCWk5LnzFU98+PgHF+u4OYdRuTT+mpvdcqrJ/r3hQr4CVMqGdiLE4gsuQJKFgG8upsGO0eOpNioMPJVE1fwpDozRfN8F/uy6Z96gUHG2KrnL6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=bkkdyJ/zJHeK2w1vEuQ0CmCxaWBkHtGyugxTRc9YqdU=;
+ b=UDq761hdUrm/y7Vcjm6wyjMtJHuLW1tCrEbtvsUIOfkFxlM/k6Rme4vnotFSkrv4Ta+o7VsZas13lBU4pSlnaMGOlfFwpMuf06jDtszalI/Z4gDN4/3x7O4Syz6u+ElIcJjB/YNr3cXN9IWx3dFw0B2W9h3t+2ssBWIvj8gCAXa8v+R5+SWxXTNwE2NEBVbZUID+7zvktNhra9eEBZxCzOHn/i547mfzJRuJn0pGgSDblKMlcaDh3seHZevJ/8zgx9EXkwwl8dx6UTUBRShyiOLhR3HCJ3Mzp02Kcau5jyafde3Mciqy5v0SyIng74Rmk8RZkJ8tD6eKxciwfvGoOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
+ by PH0PR11MB5829.namprd11.prod.outlook.com (2603:10b6:510:140::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
+ 2026 12:55:46 +0000
+Received: from CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
+ ([fe80::a153:939c:df8c:f4fe%7]) with mapi id 15.21.0292.013; Thu, 6 Aug 2026
+ 12:55:46 +0000
+Date: Thu, 6 Aug 2026 08:55:39 -0400
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
+CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
+ <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
+ Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+ <dim-tools@lists.freedesktop.org>
+Subject: [PULL] drm-xe-fixes
+Message-ID: <anSESyrwICYHvZ59@intel.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BY3PR05CA0028.namprd05.prod.outlook.com
+ (2603:10b6:a03:254::33) To CO1PR11MB5073.namprd11.prod.outlook.com
+ (2603:10b6:303:92::23)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|PH0PR11MB5829:EE_
+X-MS-Office365-Filtering-Correlation-Id: 977f14a4-38ee-4dc6-d2a8-08def3ba0870
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|366016|1800799024|6133799003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: ZIxmuHqPX1TDeu3p74Mis1RL1e5qKgIXzs4B0tXjFsFuw0Mt3s4KAzXNRy4iNQkd+ccPwLW5voBmyMGeO6cdSAue6WTzUk6gg/LT69PEGq6LDRNj9HBPRHnMKCbEBqIgwErBKl1dTwPu96ddXw4w+owL7qMcCutYWmu/dywcnXMWniEAukuPc6PbCE/WkFeXfn/tPO5zDqzXyrRfhkyV5eAFSIYw3sSLO7CGLSn9urorA7NiQwqapAvJhUn9wZplLji50zoIk7JQ3NaBfWQK5tWNxHHnsx+zzRt88p01SXoq5bxXljVZNte35+AqZ/bxdTjlKzPFNRE7BakcM/LYxF2E06dhjpP+EnqbHuIcLaQdhPSi3M2JykFZRX/3V3XdhwuvEfnahEljws0zGXqZiYy+MCggOWPvHZykTM8f0zXRp30yeJaZ0+Mc9CdMu093f3e5UYO12jxZAUjKydGh6JA7bCO7lopzUNkpSli67CVEy/wCetIy8DVlMHdNwWhOY5a3wgONzhPXWMleJHLtox31xteeX3lJ6JPY4Bs5ojI1jhvvCxHqZgC7Xs93mDdWkMP+3RYQSLSKGM5J0HfZBq1CMMDDKr3/U9bbX7jRDWrrddFL265AnlOQr190oFmfciodTT9fnDEbgRjk7XNLxD53G7PLBI32tl87KdmZK6o=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0kwMXFJVzdmTGxOT0lNSWE3Z05md3NmOGJrZFFIZ052YVF2ZEd0UFl4TmU2?=
+ =?utf-8?B?V2RtQ3FDcmNyekhVYS90cEpDbXJVZTZIeDJXbnhPQjUrMXdqYkp5Vm5NY0cy?=
+ =?utf-8?B?RkprSkdmcXZja256RXNpVytiajE1NUhDRCtGUkZFTWRIT3ZYM2NzNU10Znh0?=
+ =?utf-8?B?d3B6MDdnY2l6V2cyM216b3pDU3hlTUQvOFpNTkd3ZmcxVzM5SzdwV1E5N0Uz?=
+ =?utf-8?B?UE5IaldZQnV3MUtJVE8rdUtuK2JSNDhpd3RPUWlmZlpqeS9Wb1AybFdwWHhJ?=
+ =?utf-8?B?T1hpU3N4SEZESEZFb2pQYmR3ZHU0SVdKVStlV3Z5V2VGMEdFVklTY2VKanFZ?=
+ =?utf-8?B?Y1NxMnc0M3JqT0t4RkptbXFOQm1XcDdmNDBRREVLUkxTVFFPMVlQUXVvWWd6?=
+ =?utf-8?B?Z1JFMm1tTlBRUFlSd0w3WEJ6V1FCakdJMVVtdEdDN2ptQTY0T0Q1aEhlNVlj?=
+ =?utf-8?B?em1hTEM1Mk5jUU1iUjVvZy93bEgxT3F5TTFaUGhMUGd5TjZ5ejg5NHJGRDJJ?=
+ =?utf-8?B?blZhVE44VGE4d0lYVmx5ZjMzMHVPYm1lS0dFeUxtNFF5OThGQ3kvbHFhVFRN?=
+ =?utf-8?B?WlRYcDFSb2tpZ3RtYTNIVkZuN0wwbmJWV3RLNDhNTDQvUVZFWlhEeDFuNVBh?=
+ =?utf-8?B?ZnMxaitNUVAxNEF1Njk2b0NLanpqK0hialVFQldzQnc0NWFwcWhESDYxaStZ?=
+ =?utf-8?B?eUhSaWNpUE51dW5qWlVNSk9BdXg2SmVGZVBMdS9JYzZORzVMa25qWUhtZWd3?=
+ =?utf-8?B?RnpEVHdZLy9NZDBFMHRMNGlNakVGMVZEUHRSak1vN2JMOVZCTDZ6MUNkazZi?=
+ =?utf-8?B?WTV5U0Y3TG9QSm9RQVcrZS9vRzUzY1Q3THNMei9HMTVNVjRlYndYQW5jekho?=
+ =?utf-8?B?NUx6ZFlXZ2RwZHlVdEdJUkVBMGZ5d093dk8zQUNUM2RhVGh5UmlNN21KNUpn?=
+ =?utf-8?B?ZWJrN0ozcHlDUW1LYWozMEpJeVpqWFlFK1ROaU9qZzlFOWx0QWQ3RSsrZDhC?=
+ =?utf-8?B?amJPVGdwM2drYVVtUTN1NnlzZU8vOURqMDBqMDJQN0t0aGpMWmxXR1BGQjVE?=
+ =?utf-8?B?a3BrVU1QazBOTmptVGZmSkNpQjlKckYyc2d4U1RtMXRnR1hTbGtUWllRM3NY?=
+ =?utf-8?B?RjlCR3dNOGRZREt6ZXA1cldnTk1kVlYxWUpwOEs5V245cnM3ODhvbEZRM0tM?=
+ =?utf-8?B?akZ4b0JRazBuM2tVa2xPMytyS2pxSGVPOVRaektlNzVLUjhvU1RlT0FJL2N5?=
+ =?utf-8?B?c3JGQndCZVFjRXBsYk9lblRXakx5UC9hRUtWZW80a3BWbGhZYzcwMitlT25Q?=
+ =?utf-8?B?d1lKWjNEZ2FkVmNGRkZDTUd6T0FLdkN0TmUwU0RHWGZGNEcxUkh0emNsdzhB?=
+ =?utf-8?B?Y3JKVXVBdEZvSS83Z0RocG0vbnBtRHA5YmpIN3ZkK1VmYXB4SjRlcVh5Zmdw?=
+ =?utf-8?B?UHVwN1Jjai91K1FpOE0zZUllaElqRVhwWjZaa3VRdUxsRTVJNDc3dDBFNHUv?=
+ =?utf-8?B?MzFJT294aWJYVzJQSG5lZnBhQUt2VkxkZUl5Qnl0VXgwdWwyQW9JQjBJVDV3?=
+ =?utf-8?B?bU1CcjRObHhuWTc3MTd2eEFFbnBOMG1xN2s1TGRCazYwckl4cUhTZ2IreEVD?=
+ =?utf-8?B?Ym9JZjJRaFBaU0xTL3Nldkt5RmFhMU94WTloVVRjdHIrN2JNSHo1K3JTWHla?=
+ =?utf-8?B?UzhmZGJSVUg3bU11T2ExTDYvNm5Pcko0NW9iMjViL1B4TkVCVjRkYVIzSEdM?=
+ =?utf-8?B?S3YycjZzdGJPL1hSbThzL3BGeE1YK3pOQlpLQXZhSURuZ29BQVh5dDdwYUxU?=
+ =?utf-8?B?MHJEYW5tanBMdEJvWmd0ZHZUbWpjZEFldDU5NDdZVVZtakJiRGNMcERkMHdF?=
+ =?utf-8?B?QzhDOUw2K3B1RTYrK1FKbTdDVk5vY1lPQi9Cd3NEQnJnNnB0Ujk4S1hQRnYz?=
+ =?utf-8?B?WGNTYm40eHdYMHdFYXlVOExBeCszUGFvTThsbXoxaE1kb1RLc3JVWmxpajdQ?=
+ =?utf-8?B?TTNpS2g5WGMrTmJKSHlyVG9nVWtiMm1aNHZqYTYrcHZ1SktDMTZsTHZnV2VF?=
+ =?utf-8?B?b2krODZ0eFhwSWFHNXk2TGJzcWt4T1ZjaWpBTEs1T1hRN01jcmphZnRaV2U5?=
+ =?utf-8?B?YU0xOUw5RG9XM21YcnZ4d0xzc0N5MnVLeGxWRUJCckxsYVo4bDdiMXF6NVJK?=
+ =?utf-8?B?d0lwZldEaDBlNjF5Z1FTb1h2bHN1QjN4ajBVQTREUjdyaW1jR1dBWXBxcFZU?=
+ =?utf-8?B?WEJOOThQaDg1dUNROGZNempqb2J4WlpHSTBkR24rUFV1ek1aaFpDNXlQa1Yv?=
+ =?utf-8?B?RWdYOStkaWdrelhvSXlkMWNkeGZodERldzF5VUVReEpNRTBSNnlRUT09?=
+X-Exchange-RoutingPolicyChecked: LwXQYaEN6dfUFXorLAPAyXSvwzKVstTBNyV/XLAMloKhCpHphr1wGmVnnIdnCUF5BrdVb5sDZza32qWWHtE7yPKGoyw9GEemxNfqdWXR/utvfy325ReIV9BqagUOyIGm0bOnzOD6+84sysFRNYHKtYWsDw+TnWVJDKOkFhY4wX26eXPWeYMCA7ujJWOIDQeI5QXeaA15LwtKXSsHl3m0esr/GbKsrUlJdaFU6db/s8Q3+Xgf3iW0WH7YJEGXUjWaCDP6dBAl7vX7obZVnavy4gqX8vyCg4eGHpp+e9YeNTWMcIjwBnFjCwG6z06DZ7WAMt+jVbfIznFXDNpvBr8XCg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 977f14a4-38ee-4dc6-d2a8-08def3ba0870
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 12:55:46.5873 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: v0+vu2loF0eituDk6LzKxqrc32NdCgpoYLNPm0fMi+ODN3OT8qYdM726ulP/Zhxfeov8cIwIcU4nBLNO2XPh+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5829
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,42 +173,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+Hi Dave and Sima,
 
-On Thu Jul 2, 2026 at 4:42 PM -03, Nicol=C3=A1s Antinori wrote:
-> The mipi_dsi_compression_mode() function is a thin wrapper around
-> mipi_dsi_compression_mode_ext(), which is already marked as deprecated.
-> Additionally, the non-deprecated mipi_dsi_compression_mode_multi()
-> alternative exists.
->
-> Document this deprecation to encourage developers to use the multi varian=
-t.
->
-> Signed-off-by: Nicol=C3=A1s Antinori <nico.antinori.7@gmail.com>
-> ---
->  drivers/gpu/drm/drm_mipi_dsi.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_ds=
-i.c
-> index 3ac1dd5ad640..9e20818f2de0 100644
-> --- a/drivers/gpu/drm/drm_mipi_dsi.c
-> +++ b/drivers/gpu/drm/drm_mipi_dsi.c
-> @@ -699,6 +699,8 @@ EXPORT_SYMBOL(mipi_dsi_compression_mode_ext);
->   * Enable or disable Display Stream Compression on the peripheral using =
-the
->   * default Picture Parameter Set and VESA DSC 1.1 algorithm.
->   *
-> + * This function is deprecated. Use mipi_dsi_compression_mode_multi() in=
-stead.
-> + *
->   * Return: 0 on success or a negative error code on failure.
->   */
->  int mipi_dsi_compression_mode(struct mipi_dsi_device *dsi, bool enable)
-> --
-> 2.47.3
+Only a couple drm-xe-fixes this round, and no drm-intel-fixes this week.
 
-Is there any feedback on this patch?
+Thanks,
+Rodrigo.
 
-Regards,
-Nicol=C3=A1s
+drm-xe-fixes-2026-08-06:
+- Fix memory leak in exec_queue_set_hang_replay_state (Michal)
+- Apply RCS/CCS yield policy to SR-IOV VFs (Marcin)
+The following changes since commit 075b74841bd0065a3bda3440873c747938e69b68:
+
+  Linux 7.2-rc6 (2026-08-02 16:24:24 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-08-06
+
+for you to fetch changes up to d1643db3b037b57f2af7f85c3821d6fe69c492f6:
+
+  drm/xe/uc: Apply RCS/CCS yield policy to SR-IOV VFs (2026-08-04 13:52:23 -0400)
+
+----------------------------------------------------------------
+- Fix memory leak in exec_queue_set_hang_replay_state (Michal)
+- Apply RCS/CCS yield policy to SR-IOV VFs (Marcin)
+
+----------------------------------------------------------------
+Marcin Bernatowicz (1):
+      drm/xe/uc: Apply RCS/CCS yield policy to SR-IOV VFs
+
+Michał Winiarski (1):
+      drm/xe: Fix memory leak in exec_queue_set_hang_replay_state()
+
+ drivers/gpu/drm/xe/xe_exec_queue.c | 3 +++
+ drivers/gpu/drm/xe/xe_uc.c         | 7 +++++--
+ 2 files changed, 8 insertions(+), 2 deletions(-)
