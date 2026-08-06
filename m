@@ -4,98 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F0BCC5ACA8
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 06:47:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9F51C5AC9F
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 06:47:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1013710F367;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C719410F386;
 	Fri,  7 Aug 2026 06:47:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qG5g/jhW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ooZHa6Zp";
 	dkim-atps=neutral
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD76E10F27A
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:37:56 +0000 (UTC)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-8200b55dc47so34221487b3.3
- for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 10:37:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786037876; cv=none;
- d=google.com; s=arc-20260327;
- b=gzZZCgA2IR1V1s7alrnv005Yr5y05Uotv6lx1PJ8DUWMPVlt0xWTiFII/bbQzbuO+Y
- rRuGPpa896xYikaesNSZ8cFIJ8tlk2Zbp1nfs1Khr8BwZdJOg2pzX62fhAUmBxxoH+jy
- j4WXY6i8iCXKHB8yLCJTRB8AfoipCNAfAJSJllkdvRCWg0CTlW2re73n7R71tMn8W6qK
- qx9EDrh/Fzt9UjC12qNTaAKBfjFeKwJ/GRg5PdWBIiPadf+ErLR26GzD5VqWnsfWE2mx
- 3lVcvV2sHT2SUoZHSVFBu6JWPAKWTXrQBZNwRrxds+NjqXgztuW70cldNstArwuxZNwd
- WYcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=D8kpHb54C2TKax53/YGs9dz5FGU1BqIxSNHBWOKdGh4=;
- fh=rjVtj1aWP+5XhX0PeVQJXSZ8HQWFCxagqHmGkq0Z0us=;
- b=SagSq804C0hxcOwPCYlJULQ3T8jzxnGUDlD/sHsxFA/Kk5tMp9QsG5AwL/DQbwrCy4
- STl9kjZHsIVUA7IqP3bLccgk9xzJv6YRVlEtR/mHmAvdjFz4VwpxU/WPXwZXBnsb86w+
- AAy8yFJ34wrMVSf+CfGCpYIrDDgtswh1GVFGOZUcoITwSX0+/Jw0it7aHqsYqHX3R8C1
- HZoEunNapoj1devCwbqeyngQUNhVV1dktHZiC69CNJzxGIq9ezHrUHuecXTerY1y6lBj
- +q35gQB8MFtqI7ioqtKaaEC1WV7KWu2M9ssRD/P4jdF5gXV30iN75wkfxvDhrKKZJk2L
- eYSQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com
+ [209.85.222.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE49010F30F
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 23:51:02 +0000 (UTC)
+Received: by mail-qk1-f176.google.com with SMTP id
+ af79cd13be357-92e5b048375so147770685a.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 16:51:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786037876; x=1786642676; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=D8kpHb54C2TKax53/YGs9dz5FGU1BqIxSNHBWOKdGh4=;
- b=qG5g/jhWIuwHmFn7SN+kjgrB/FkQZeisoBkm/yXUV/hQBSAI1iVh9Un96Md3rY0h0z
- NO+JKS1YtsaYdWWD0ZcwsPs5+1do3ND5kgurVX8IEG0kb6eZEi2TSwCL5Wy6yl4b2SlU
- yhgpmF0OftwEYZnCh2VZzjhIqaV7CIHle5WaOhg5ePUhaowK4E7wPn4U2YcBJzmLlHVc
- 2ediRzlBmpZlcTyeN//I5A/6SxIUPup9EZVYBfCWjz+vtjlO5xFueIjFuh9g/tV9inKY
- wA/f/3/CI1WmqQSQlp5F8j5+76q2x73Ozn9gfVtHup+qI/DLd4NmaA8yIwZRGUQD8VHE
- I6iw==
+ d=gmail.com; s=20251104; t=1786060262; x=1786665062; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Jn5M2DPxWkJRuSOq4XRDkDeVAclvZgLB7USjbXRxmNs=;
+ b=ooZHa6ZpvQyaTQTIxwDxzjECgJdMzQRpnvZFfhbwYaUA7GdwzjNKZCrUxLLY1oIaTg
+ /Esb8p5P70Pi7SStsWLnLwkhbLKg4yxq0AbXpo/6zbjiXDf8wsAGPrOeMQxlTkstoWUE
+ aWlw/Z9iFS+Yi4xaNH09UnDsIWLxvvPE8HrMM+8TA5qOfcWbExpndJSsB+Jqf4hfMSnV
+ FO/RM/XvLPDCHrBLfqa28NwmBA9Pj6dVMw84pOMlR9jQjrLOnA/06RlsWmMPfLbMtntX
+ 2Ley52kDC8o9lEEg3cd1N68O+s8a9Fo983n0E8YbY9vgvRql0+HmjRCQfDA5OcjlMgty
+ vasQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786037876; x=1786642676;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=D8kpHb54C2TKax53/YGs9dz5FGU1BqIxSNHBWOKdGh4=;
- b=GqIJUnYmbekN0Pefk+Gz4EAfDHSY1tuF2haYAINhRjHBME2uFlrhnABRswmpbbTsaU
- CNO6JGJQV3ftBqsJIHFhcayq32khZxsWv4ZzoAY/xQFoJvkVWneCbKOMdhDoHeENrk5Y
- HIdpy7udn+y4LqmhQMs2ZwsxTpCluNXuaxt9DiKhsVK42Vv9yxqpwBEl+BanUE/RJX/m
- sTlxUijdIE0XghzKc9/JsbYh/acRs0M7IWYD1Ksc/RFut31qljB6IwIcXWTE60oJKUcO
- 3vP/h3tVYQOUOIXdQo+hHnT4XGfOyLdpZ3QN/wYQ15YqIfWucR/SAZWCFZoN3IFHjaEP
- GxWA==
+ d=1e100.net; s=20251104; t=1786060262; x=1786665062;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Jn5M2DPxWkJRuSOq4XRDkDeVAclvZgLB7USjbXRxmNs=;
+ b=h6y6n4mze0oUoAvPXaj9b37VRzrRUXSOCe7q8/SVtHOBiQ9kGD6LFLnzhQdCJf1lhm
+ GuG77TeeMc7pgHKR2oQSRNgaJGeT2mMB3XSPnkjMF8g3PpdwmM2hsF0G8eMgpWanMbn6
+ b0P03qipqNMOwxqfW+ccyAXbiHruUJwG0f9/5yaIbAwz+hAGG3EZQYyift6M5slKZGaE
+ 0bj5YocxnaUrzjOMm1Pg1DdzpO12s5mV6j9mMJaQJ3b24thPduUDxUuZSE2xB+pPGXF4
+ hQKF+84Yq5Ulkrnyx2aFyO3+h/NvoKG07ykTkFiFTO7udkYiIevYCYz3Mw8vfOvTRTeZ
+ OPEQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoiTt01pBbyJB4ESvIAkFfqhK9mHgVE3wo0nytczRDF5xuEsm1kaarSLH0wzAJqEuyV02asW4BJpq4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzD5dO4IPy8d39hkjHtHUgiGxBe5Rlu8OgVLeOxKZiUWpTEt4hY
- h2QT2na0VypQyCIxXdCvMjrDAc5jrOSz5RwTKQgQgUrOPfl+cbQXFCIJNGBjvwJxYHe1uGXqoth
- NIRlOTDFjcDFpW/roeCGpkZVsnrUaZ9qgBI2y
-X-Gm-Gg: AR+sD108py33diu6OUMFaoEp31XkG8/mgUbGsrA6YjNwzR7aHCdRSNPu5u/oIX/TGtG
- z5xYz46Zxz2G1chQW0Sm67GunWS9abAh29nbbjlHr+Rlc0hK9e7HLgBYryeEuq8cxOTf8Gb7kBW
- o2Gab7VQbfe0WqbTmStJHle4z5uD6QZBlZMfW2DSFai9nmvmX8QV7WkIjySXtLXFAc3ofkJz9Sg
- IUqnKljrKjWralgzg+dOFLnt/hZX9PYIj6EJAzSsUp8Y83mheqOQBr/4s8kp2uK6mc678gZRQ4G
- TOV86nOmeaJ4lwRM1UpfaD2DdcA/+EVob49Idkc+7Ozk/YnZ0Fg78jr1EshsBLPTD8qZRtNjp/0
- BlE5g885IkswT15qwg4EqTE4hA/YHFOHE
-X-Received: by 2002:a05:690c:6c02:b0:81d:4174:6818 with SMTP id
- 00721157ae682-820222e4c47mr102819147b3.13.1786037875675; Thu, 06 Aug 2026
- 10:37:55 -0700 (PDT)
+ AHgh+RqmTE9n1IXSa4qSCdSakJnOj1ysybPZXiRz+ceniX++y91oAHeOGTkABNhNot35Cl05tcuvkwjlxgo=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yzcm4ga1JE024PBeVDKsQ/Ckb2ZycoauFKHrv0O1vjOIgV41jPk
+ 5RFBEiMIOYA4K1G01jozW011ER0LJLHGKI01YyKmx63YsOcvZNtTR/jR
+X-Gm-Gg: AR+sD13mb3mJ2IQLzPKAjMqIjDOWIdnpY2+WzT5Kpf6S4FgzDEYVD84gtQt28SztbFU
+ 5Nj3YkUSrfm6hp6jlBmzbdI0fKMvGFQnOpQQzPIanLZrsZpsOPwAe1BNqKPfAkrvy2ygvGIdmgY
+ v8TZ24oOpcX6pU9VNIft4EMlv7YX8iZXtia7Ukv221xaxlcGgnPTN63yuVa5e9Ek28KYRPTq7BB
+ mz1gQIcdSuEGzXo5xGTY7wpOgjOKJzygH7PUhBk15tI9acwIrx3UcbjKtN0cUVO8PMTFeiiI6hT
+ YpVR3/hVZOfmnzuVDHjuiZxGWv3SYo/xSrsdrVUVEzcCsB2DHIVDuvtALswFHlAqyKA8VvCNB3C
+ 0mfaGtmeTBAp6tiYqBAxgsZSo6YlP920oUYSEwuqMN9NqeFfLiF1oEzWlAH0I4uTh4QYUnSySXw
+ kn73QB1oRNpGZdvqbEKEbV8kfuR4tUxDzR/xvgQRKI9kgVBIFILQQ+RGb56t7LP528B6/xYVLkm
+ s5O9qcssC0NDQ6wEp/G6EDTKHEFM/X7l23EEqF5XkFMK+3NFGMCHyk=
+X-Received: by 2002:a05:620a:a2dc:20b0:92e:8aed:4785 with SMTP id
+ af79cd13be357-936490e7a4bmr1535882085a.25.1786060261714; 
+ Thu, 06 Aug 2026 16:51:01 -0700 (PDT)
+Received: from LAPTOP-DPAKMOI4.it.purdue.edu (pal-210-106-74.itap.purdue.edu.
+ [128.210.106.74]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-9366e258edesm25793285a.32.2026.08.06.16.51.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Aug 2026 16:51:01 -0700 (PDT)
+From: Yifei Gao <gyf161023@gmail.com>
+To: Srinivas Kandagatla <srini@kernel.org>,
+ Amol Maheshwari <amahesh@qti.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Arnd Bergmann <arnd@arndb.de>, Abel Vesa <abelvesa@kernel.org>,
+ Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ Yifei Gao <gyf161023@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH] misc: fastrpc: fix use-after-free in fastrpc_map_attach()
+ error path
+Date: Thu,  6 Aug 2026 23:50:54 +0000
+Message-ID: <20260806235056.456341-1-gyf161023@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260804021441.3054424-1-talesam@gmail.com>
- <CAHBRX4GYEKniGb8jw-h=QYPi=FpbWRKwHHnfw-K5wYiy6AWfJA@mail.gmail.com>
- <anJZt4PzCE5t49Qg@gsse-cloud1.jf.intel.com>
- <anOcGqIyrA8LUHo/@gsse-cloud1.jf.intel.com>
-In-Reply-To: <anOcGqIyrA8LUHo/@gsse-cloud1.jf.intel.com>
-From: =?UTF-8?B?VGFsZXMgQS4gTWVuZG9uw6dh?= <talesam@gmail.com>
-Date: Thu, 6 Aug 2026 14:37:43 -0300
-X-Gm-Features: AUfX_mzrBTONbYkxayjN2V6P4s7xW31SjVn7RfCgKTHZVTLxDuKWK5ijAujO2r4
-Message-ID: <CAHBRX4FpsT3CwSrpbLA7dUEpasJOFJxdHTNkU7W81RcQw50AOg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/3] drm/xe: diagnostics and workaround for GuC TLB
- invalidation ack stalls on ARL
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: intel-xe@lists.freedesktop.org, thomas.hellstrom@linux.intel.com, 
- rodrigo.vivi@intel.com, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 07 Aug 2026 06:47:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -112,170 +94,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-> You've been approved in our CI for future revs.
+map->table is set right after the attachment is mapped, before the
+len > map->size check. When that check fails and jumps to map_err, the
+error path manually calls dma_buf_detach() and dma_buf_put(), then falls
+through to fastrpc_map_put() -> fastrpc_free_map().
 
-Thanks!
+Since map->table is still non-NULL, fastrpc_free_map() repeats the
+cleanup: dma_buf_unmap_attachment_unlocked() dereferences the map->attach
+already freed by dma_buf_detach() (use-after-free read), and a second
+dma_buf_put() drops an extra reference on map->buf. As the exporting fd is
+typically still held by userspace, this imbalance can later lead to
+premature destruction of the dma_buf and a use-after-free.
 
-> Also I came across this issue on i915 for MTL [1] which appears to
-> indicate the same issue (ARL and MTL are very close and share the same Gu=
-C
-> firmware), the suggestion is to disable rc6. Unfortunately Xe
-> doesn't have a knob for this, but per [1] you can turn off rc6
-> in the BIOS. Maybe worth trying.
+The branch is reachable by an unprivileged process via
+FASTRPC_IOCTL_MEM_MAP with an fd whose dma-buf is smaller than the
+requested length, before any DSP invocation.
 
-Good find - that does look like the same ~2.3s signature, and it being
-visible on i915/MTL too is an important data point (Daniele asked
-exactly that in the other subthread).
+Clear map->table in the map_err path so the fastrpc_map_put() fallthrough
+does not operate on the already released attachment and buffer.
 
-On the rc6 angle: I ran an A/B experiment earlier that should be
-equivalent to disabling rc6 at the GT level - holding forcewake across
-the whole GT for hours (C6 residency pinned at 0ms for the entire
-window, verified) - and still hit 9 timeouts in a row, with the same
-~2.3s request-to-ack. So at least keeping the GT out of RC6 does not
-avoid the stall here. If the BIOS suggestion covers more than GT RC6
-(e.g. package C-states), that would be a different experiment - my
-consumer ASUS BIOS does not expose an rc6 knob, but I can look for
-C-state options if you think it is worth isolating.
+Fixes: 334f1a1cbe03 ("misc: fastrpc: Use fastrpc_map_put in fastrpc_map_create on fail")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-4-8
+Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+---
+ drivers/misc/fastrpc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Next on my side: switching to the GuC 70.72.1 build Daniele posted and
-reporting back, plus GuC logs from severe stalls are now attached to
-the gitlab issue.
+diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
+index f3a49384586d..d6be951d5538 100644
+--- a/drivers/misc/fastrpc.c
++++ b/drivers/misc/fastrpc.c
+@@ -915,6 +915,7 @@ static int fastrpc_map_attach(struct fastrpc_user *fl, int fd,
+ 
+ map_err:
+ 	dma_buf_detach(map->buf, map->attach);
++	map->table = NULL;
+ attach_err:
+ 	dma_buf_put(map->buf);
+ get_err:
+-- 
+2.43.0
 
-Thanks,
-Tales
-
-Em qua., 5 de ago. de 2026 =C3=A0s 17:25, Matthew Brost
-<matthew.brost@intel.com> escreveu:
->
-> On Tue, Aug 04, 2026 at 02:29:27PM -0700, Matthew Brost wrote:
-> > On Tue, Aug 04, 2026 at 01:34:19PM -0300, Tales A. Mendon=C3=A7a wrote:
-> > > Patchwork reports my address is not on the CI allowlist, so CI was no=
-t
-> > > triggered for this series:
-> > >
-> > >     Series author address 'talesam@gmail.com' is not on the allowlist=
-,
-> > > which prevents CI from being automatically triggered.
-> > >
-> > >   Could one of the project owners click 'retest' on the series (and/o=
-r
-> > > add me to the allowlist)? Series URL:
-> > >
-> > >     https://patchwork.freedesktop.org/series/171539/
-> > >
-> >
-> > We'd have to resend this ourselves. I can do this, but I've requested
-> > for you to be on our allow list as well. I'll ping here once that goes
-> > through.
-> >
->
-> You are approved on our CI for future patches.
->
-> Also I came across this issue in the i915 for MTL [1] which seems to
-> indicate the same issue (ARL and MTL are very close and share same GuC
-> firmware), the suggestion there is turn off rc6. Unfortunately Xe
-> doesn't have a knob to do this but according to [1] you can turn off rc6
-> in the BIOS. Might be worth a try.
->
-> Matt
->
-> [1] https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/14469
->
-> > Matt
-> >
-> > >   Thanks!
-> > >   Tales
-> > >
-> > >
-> > > Em seg., 3 de ago. de 2026 =C3=A0s 23:14, Tales A. Mendon=C3=A7a
-> > > <talesam@gmail.com> escreveu:
-> > > >
-> > > > Hi,
-> > > >
-> > > > This series is a follow-up to the TLB invalidation ack stall I have
-> > > > been debugging on ARL, tracked in:
-> > > >
-> > > >   https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8678
-> > > >
-> > > > Summary of the issue: with GuC 70.53.0 on ARL (reproduced on 7d51 a=
-nd
-> > > > 7dd1 machines here, plus an independent Arc Pro 130T report on the
-> > > > issue above), TLB invalidation acks intermittently stall for ~2.3s.
-> > > > The H2G request is consumed from the CTB immediately and the G2H CT=
-B
-> > > > is empty the whole time - the firmware simply does not send the ack
-> > > > until much later. The fence timeout fires at 2.25s and the ack land=
-s
-> > > > tens of ms after it. Userspace blocked on the invalidation (composi=
-tor
-> > > > buffer unmaps etc.) hitches for the full window.
-> > > >
-> > > > Patch 1 adds xe_devcoredump_gt() so this kind of hang - which has n=
-o
-> > > > exec queue or job to blame - leaves a devcoredump with the GuC log =
-and
-> > > > CT state behind (Matt suggested capturing devcoredumps when we
-> > > > discussed the issue; devcoredumps from both machines are attached t=
-o
-> > > > the issue above).
-> > > >
-> > > > Patch 2 logs when the ack for a timed out invalidation finally
-> > > > arrives. This is what established that the acks are late rather tha=
-n
-> > > > lost.
-> > > >
-> > > > Patch 3 is the RFC part: a delayed work that pokes the GuC (status
-> > > > register read, CT flush, doorbell ring) every 250ms while an ack is
-> > > > overdue. On my machines this converts the guaranteed 2.3s stall int=
-o a
-> > > > sub-500ms hiccup for the majority of occurrences; a minority of sev=
-ere
-> > > > episodes ignore 8-9 consecutive doorbells, which points at the GuC
-> > > > firmware being internally blocked for the whole window. Full data o=
-n
-> > > > the issue. I am happy to rework the approach (different delay,
-> > > > tying it to the G2H handler, dropping the status read, etc.) - main=
-ly
-> > > > I would like the firmware side investigated, since no host-side pok=
-e
-> > > > can fix the severe cases.
-> > > >
-> > > > Based on drm-tip. Tested for several days on both ARL machines unde=
-r
-> > > > desktop and VM-heavy workloads.
-> > > >
-> > > > Thanks,
-> > > > Tales
-> > > >
-> > > > Tales A. Mendon=C3=A7a (3):
-> > > >   drm/xe: Capture devcoredump on TLB invalidation timeout
-> > > >   drm/xe: Log when a timed out TLB invalidation ack finally arrives
-> > > >   drm/xe: Kick GuC while TLB invalidation acks are overdue
-> > > >
-> > > >  drivers/gpu/drm/xe/xe_devcoredump.c     |  68 ++++++++++++
-> > > >  drivers/gpu/drm/xe/xe_devcoredump.h     |   6 ++
-> > > >  drivers/gpu/drm/xe/xe_tlb_inval.c       | 131 ++++++++++++++++++++=
-+++-
-> > > >  drivers/gpu/drm/xe/xe_tlb_inval_types.h |  42 ++++++++
-> > > >  4 files changed, 243 insertions(+), 4 deletions(-)
-> > > >
-> > > > --
-> > > > 2.55.0
-> > > >
-> > >
-> > >
-> > > --
-> > > Com os cumprimentos,
-> > >
-> > > Tales A. Mendon=C3=A7a
-> > > talesam.org
-> > > communitybig.org
-
-
-
---=20
-Com os cumprimentos,
-
-Tales A. Mendon=C3=A7a
-talesam.org
-communitybig.org
