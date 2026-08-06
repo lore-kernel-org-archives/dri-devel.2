@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 014B5C56205
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:34:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7628CC5AC7C
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:36:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3405110F276;
-	Thu,  6 Aug 2026 17:34:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9812410F277;
+	Thu,  6 Aug 2026 17:36:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="g5jJ5m9G";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TJjJTpuY";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9687B10F276
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:34:01 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B67AB10F277
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:36:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0036260AB0;
- Thu,  6 Aug 2026 17:34:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CBB41F000E9;
- Thu,  6 Aug 2026 17:34:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 73C71415AB;
+ Thu,  6 Aug 2026 17:36:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0807C1F000E9;
+ Thu,  6 Aug 2026 17:36:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786037640;
- bh=axcjxoSREeS5VB7wx97hgdvzpChrofsLAJMy2BbsmyY=;
+ s=k20260515; t=1786037772;
+ bh=0RKZVfuZa99jY3AirSYoCBLlGcBW84Q07fUWGbKux70=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=g5jJ5m9GcDRQmX939ylSvmXntbQ4L1F5u6+pXYkbORKuZynDpsGYzNck1s+GBjxwo
- LFFVbgruoIs7u5U80T1Zu/x56p0Whiuedq//kUSjkUqDJArBRW6l5alEWceW5BGRKX
- gkaMJdj0hDM9qpznBkU1qmKLFxo71xY46gE3aCL1NxttP0+lSYv1p5kEAuVJYklicV
- iPUjchEYJaFwRyRIX+tBePMn1gLLLDrxK0ecL2j30mAvswUc0pBrMGhzRUkDFU87Re
- Y5OpwDwWpcri7CPlza8tiZaV2UTiK1o8x5KzSiV8kkhjuuuH197Xk9T4O3F58xcRwZ
- En1J1WD1zG15Q==
+ b=TJjJTpuY8vKMUL1H/kQ+/L/EBslis/rE/4fU7PfoE+6wb1dvMWAKm+6c9ouIyMJn0
+ 01WayQBYC08rq9uyGrslJhkMl30a9xgd38o2bVX/Njn3wIwIPfbYCDvsLERZi3Pvh+
+ X7+mzQuF+aBqnyOgc+myw7b/B8uort5negzzyvv5dkst9eApYmnMXm2BjLGdVa4SHk
+ +fE1Leu1und623TDdeqk3xNLtxgq6BqSwMdeaxc8t51U3CZHdqLiUKlZHtutfnn/kv
+ H/PAer/cmFWmLfsUSDH7MK4N3pFyVHNjHfGWEt1gnW3OYFc9Ou+ELVjdNPZIoQO2JI
+ FAJYETd49199g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 04/21] drm/bridge: synopsys: dw-dp: Document missing
- reset line deassert
+Subject: Re: [PATCH v11 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect
+ resource lifetimes in bind callback
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-4-0d508505f383@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, robh@kernel.org
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-2-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v11-4-0d508505f383@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v11-2-0d508505f383@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 17:33:59 +0000
-Message-Id: <20260806173400.5CBB41F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 17:36:11 +0000
+Message-Id: <20260806173612.0807C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,108 +59,79 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing completion reinitialization causes spurious AUX transfer s=
-uccesses
-- [High] HPD event state overwrite race drops hotplug events
+- [High] Use-After-Free and -EBUSY on re-bind due to missing drm_bridge_det=
+ach in component unbind.
 --
 
---- Patch [4]: [PATCH v11 04/21] drm/bridge: synopsys: dw-dp: Document miss=
-ing reset line deassert ---
-commit 34c619c6d4754597f7c81d207e5acfe482e8b36d
+--- Patch [2]: [PATCH v11 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect=
+ resource lifetimes in bind callback ---
+commit 8317a23524c759645b1aec330e9a401578a81a81
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm/bridge: synopsys: dw-dp: Document missing reset line deassert
+drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callb=
+ack
 
-This patch adds a comment explaining why the driver avoids using automatica=
-lly
-deasserting reset controls. Unbinding the device with the reset line deasse=
-rted
-can cause the SoC to hang if the shared power-domain is still active. The
-current reset handling remains unchanged.
+This commit moves the bridge allocation and resource requests from the bind
+callback to the probe callback using a new dw_dp_probe() helper. It also
+disables the IRQ in the detach callback to prevent spurious interrupts.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
 idge/synopsys/dw-dp.c
-> index 21d60e89126f0..52e3b37259a69 100644
+> index 60feb3d1e14bb..d7945f7fe9f05 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
 [ ... ]
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does dw_dp_aux_transfer()
-miss a completion reinitialization?
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_aux_transfer() {
-...
-	regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
-
-	status =3D wait_for_completion_timeout(&dp->complete, timeout);
-...
-}
-
-If a previous AUX transfer times out, wait_for_completion_timeout() returns=
- 0
-without decrementing the completion's done counter. If the hardware later
-generates an interrupt, the IRQ handler calls complete(&dp->complete).
-
-Will the next call to dw_dp_aux_transfer() immediately pass its
-wait_for_completion_timeout() without actually waiting for the new command =
-to
-complete?=20
-
-This could lead to reading stale or invalid hardware status.
+> @@ -1982,6 +1988,18 @@ static const struct regmap_config dw_dp_regmap_con=
+fig =3D {
+>  	.rd_table =3D &dw_dp_readable_table,
+>  };
+> =20
+> +int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+> +{
+> +	return drm_bridge_attach(encoder, &dp->bridge, NULL, DRM_BRIDGE_ATTACH_=
+NO_CONNECTOR);
+> +}
+> +EXPORT_SYMBOL_GPL(dw_dp_bind);
+> +
+> +void dw_dp_unbind(struct dw_dp *dp)
+> +{
+> +	/* nothing to do as bridge is detached automatically */
+> +}
+> +EXPORT_SYMBOL_GPL(dw_dp_unbind);
 
 [Severity: High]
-This is a pre-existing issue, but is there a hotplug event state overwrite =
-race
-between dw_dp_handle_hpd_event() and dw_dp_hpd_work()?
+Since the bridge allocation was moved to probe using devm, the bridge
+structure now outlives the component bind/unbind cycle. If the bridge is
+not explicitly detached here, does this cause issues during re-bind?
 
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_handle_hpd_event() {
-...
-	if (value & HPD_IRQ) {
-		dev_dbg(dp->dev, "IRQ from the HPD\n");
-		dp->hotplug.long_hpd =3D false;
-		regmap_write(dp->regmap, DW_DP_HPD_STATUS, HPD_IRQ);
-	}
+Specifically, if we unbind and re-bind the component, won't
+drm_bridge_attach() in dw_dp_bind() return -EBUSY because the bridge is
+still attached to the old encoder?
 
-	if (value & HPD_HOT_PLUG) {
-		dev_dbg(dp->dev, "Hot plug detected\n");
-		dp->hotplug.long_hpd =3D true;
-		regmap_write(dp->regmap, DW_DP_HPD_STATUS, HPD_HOT_PLUG);
-	}
-...
+Additionally, can this cause a use-after-free on driver removal? If the
+platform driver is removed while a DRM file descriptor is kept open, devm
+will free the dp structure. When the file descriptor is eventually closed,
+DRM core will call dw_dp_bridge_detach():
+
+static void dw_dp_bridge_detach(struct drm_bridge *bridge)
+{
+	struct dw_dp *dp =3D bridge_to_dp(bridge);
+
+	disable_irq(dp->irq);
+	cancel_work_sync(&dp->hpd_work);
+	...
 }
 
-If a long HPD event occurs, long_hpd is set to true and work is scheduled.
-If a short HPD event occurs before the workqueue runs, the interrupt handler
-overwrites long_hpd to false and calls schedule_work(), which coalesces with
-the pending work.
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_hpd_work() {
-...
-	if (!long_hpd) {
-		if (dw_dp_needs_link_retrain(dp)) {
-			ret =3D dw_dp_link_retrain(dp);
-			if (ret)
-				dev_warn(dp->dev, "Retrain link failed\n");
-		}
-	} else {
-		drm_helper_hpd_irq_event(dp->bridge.dev);
-	}
-...
-}
-
-When the work finally executes, it sees long_hpd =3D=3D false and fails to =
-call
-drm_helper_hpd_irq_event().=20
-
-Can this drop hotplug events, leaving userspace unaware of display connecti=
-ons?
+Since dp was already freed by devm, will accessing dp->irq and dp->hpd_work
+here crash? Should this unbind function explicitly call drm_bridge_detach()
+to prevent both the re-bind failure and the use-after-free?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-synopsys-d=
-w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D4
+w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D2
