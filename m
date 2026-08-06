@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14734C5ACA8
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:02:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B032C5ACC2
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:02:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C35A110E353;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C488610E361;
 	Thu,  6 Aug 2026 17:02:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="kclgAkry";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="b3U4Nl6c";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79C3E10E34F
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:02:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A2DC10E34C
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:02:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1786035745;
- bh=NCHXRPy+LHmwXdxbgtDdQU4HjaaTIm7gCF0WSF5xKIE=;
+ bh=rc2RzDgpPH5o2b0zMeMdVVBwWMU2wvQAig61MwLzEiI=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=kclgAkryddi/ggeMDdOFR0axFmRaZO+maq3eUJXUlC/LQ90NNxjoBU54CKnsHR5pp
- Eny4QMmlDwxY5yc60c8fOc95iWNIxRdXvgsYqp67wOO609i28fbSys6DfgWeTJrPfU
- 3mfDxFtnVdc3knnbhtZq9SEaKNaeOJBYo/r6/Vh6SfLquGYgBnBXuEAGJIAKDLTDqP
- +CDINSGalGF3SOWVSMxAoYwGx1f33/9ko23myMYTs0/vn8Rb0apvGDreIb1hnAgIxs
- BE1EFe3O93empM0YNIqHRg8hyXxHrEMPrqyIcRLSsUYcxnlnz20UZgiMx9G2/gfovG
- yORqFSXs5SxOg==
+ b=b3U4Nl6c+AeRUP/1MKzyrGBPaqcmq8XgT5CbHXpys4p1fgsUCUg9GWxEsoWo/9TpQ
+ W6T4lMIY/AosQH5WbvMHpxlCAVakxxTakPzAgEXn9dT6fplV74iBi9TJv9pBv8zPQt
+ mzxEb84hnl58f8t4GB/rgHf5spRja5w0ToApQgNRNQqGWN1N7ZNMF8aW9wkhYDYvjx
+ fQDl5+6bJJ/FbQ4bRkZLmS7FCCezsv3BB9eTu8+u5RfFiWyQwVL5zFS1OQp9RFvSw9
+ yxLV3sJK6oMLF9dhgkCS6YVPVe6czdz6akD+yntzOvWAgLroL3mIVXRqRdemg/BiwW
+ rqjITrI/hftBA==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 9628317E10B0;
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: sre)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 482E517E0F83;
  Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 00A6E480035; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
+ id F1B02480030; Thu, 06 Aug 2026 19:02:24 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 19:02:12 +0200
-Subject: [PATCH v11 06/21] drm/bridge: synopsys: dw-dp: Fix AUX transfer
- timeout race condition
+Date: Thu, 06 Aug 2026 19:02:10 +0200
+Subject: [PATCH v11 04/21] drm/bridge: synopsys: dw-dp: Document missing
+ reset line deassert
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v11-6-0d508505f383@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v11-4-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -68,21 +68,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  Sebastian Reichel <sebastian.reichel@collabora.com>, 
  Sashiko <sashiko-bot@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2162;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1609;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=NCHXRPy+LHmwXdxbgtDdQU4HjaaTIm7gCF0WSF5xKIE=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viCLK9cau+WT/e4i2y7zVBrDCfqPauJIP
- u9RypZzTrONF4kCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
- O/qaydIP/ixE6hIA212y0LRKuoC22VvVGE2JVyrPpjAYlG3QJKiAKFD8ZSoKFL9XJ9pCIBCyk2i
- R5ukXp4bNnParCTKl3uu4K5o9R6u/ZOfnrP8ZviL/zLM3EsC3+kfxsPVnEXpgtDFFeXbfZnfsu+
- qK4x9Dtx2qOXtZ7888G2WGWGMqDpXWKrqWOET23MrbV+qh6N07fFbSEEjuTzpC2Ncxk8fma7A/6
- bK+Uhn+SqO6+YhY2+pJV8ygRwaHdlO5WD69OIRFBYKaIEvcfDWriBkLEh+Jq95B9Ewekl6fOXp6
- LxbOuHE0YqbvME+Pvxi2xSEwwN6fpCwaQNXZc+cv6XIWuto/zxtByhYP3fc9kt97j6yc5Uz1f9a
- qKK6A8lDlyxSmswC0g8+2pGkTGD1M0jeKujSi54up9+HztAjQ9/BU3exDdUzy5YZWIzQ29t35NS
- 9Inoy8WKUQPzk/aHjRDXixfYnF4HGwN9VsCViWhYD1cLdStyKzvzQKbNTE75G/lvY3o8wFaAUr1
- t9HVVTGbThtFf3aZey7mSX4cl2syLd3OUW5vaV7QTcb+O9z4g74i8bHaNCGpKPqkUMsuMwIvAa8
- aq5tkghJ+E2rcr4ji02kf4PkPCizRXNJr055DqVgCqmPlzde0N06Zp6mTXoQX1653kEiTqGwvIR
- GEwFAnkI3PWmeP3W/RVE2AQ==
+ bh=rc2RzDgpPH5o2b0zMeMdVVBwWMU2wvQAig61MwLzEiI=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viDr4+NxDx8KwqSZwqspKCl31BaCO23/t
+ GBa3Dx6nqomkokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
+ O/qaj+sP/2YoP9r+VyQViNtrzlwAZePbVge3GnDl6TfX2LdjmQUJ/FxLiiH/Wjdwax/dGHeSVC/
+ KjxWit02cp8y2bO9DF1zEbwxM+2Cc/Q/mlFbw/NIvTyyrfw+vFVfgLokxqJn+7B+8MURkPQL9TV
+ mkTRpMj44BIY9dO0Q5GHGE1TFWBhTaE7W14uHwOKq5EwtxdHBzO/EKoBzxgrk+HidPZSdyXzZwb
+ 87rro5R2kg6oTwJtiacbALGJ/7cFnML2Pacyd/mYK1ih3ooglx2wq3yxxduYDGTPNisFKVV2nJ4
+ fFW1CNTRdASdxcvxhdWS2fw0FbCEeQID+SChYCTlHxawFLO+Bt9Qcd8cDRmxiouWjS4UBQb7lJD
+ pJWxg0QaGNc0DclD6bZmQ62WYQGoB11UQO9hzG5BOGVoHNzoQQN/C+SqlcaZ8HTHRucZr88sOuB
+ Ssp8qApgCQNftyk7tiIovux01RwMoEqVS+Xfjt73uhJa4utEfQegDBWNtiBWbisQAc6NHlXltG2
+ cG9+ruj3ILFkoGI8DhoUaXRSpgwFzdJ8ajFAMKJY1Keoik44+Pn1hY2CL6eLZ5Wc2w97Y5B8chm
+ 6shYSyyN5coP3MIe/NAOw4nGikCpyFYQxRCL3HZkpEiavXWBBj+ULbtK5qVRyj3sx2PGTwh8Smr
+ SYPMOxptmxLLbWUYixysqPQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -100,57 +100,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The DP AUX transfer method uses a completion triggered by an interrupt,
-which can timeout. If the function runs into the timeout and the
-interrupt fires afterwards, the following DP aux transfer completion
-would trigger immediately without waiting for the interrupt. This in
-turn means the next one would also be broken and so on.
+If the driver uses devm_reset_control_get_exclusive_deasserted() instead
+of devm_reset_control_get() and thus automatically deasserts during
+probe, the SoC will hang when the device is unbound.
 
-Fix this potential issue by re-initializing the completion directly
-before sending the AUX command.
+This does not happen, when runtime PM is being used (not yet supported
+in mainline), which suggests the power-domain involved requires this reset
+line to be deasserted.
 
-As this is racy (the interrupt might arrive between the completion
-re-init and the new command being programmed), also reset the AUX
-controller on timeouts and synchronize pending interrupts to gurantee
-that there are no pending AUX transfers when the dw_dp_aux_transfer()
-returns.
-
-Due to lack of a sink, which generates AUX timeouts, this change is
-effectively untested.
+Even with runtime PM there is no gurantee that the power-domain is
+disabled as it is shared. Considering the power-domain does not have
+the reset dependency described in DT, document the problem but leave
+things in the current state until a better solution is found as the
+reset line is deasserted by default on all supported platforms.
 
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index b1856418f441..2573ea2bb574 100644
+index 21d60e89126f..52e3b37259a6 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1466,6 +1466,8 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
- 	if (WARN_ON(msg->size > 16))
- 		return -E2BIG;
- 
-+	reinit_completion(&dp->complete);
-+
- 	switch (msg->request & ~DP_AUX_I2C_MOT) {
- 	case DP_AUX_NATIVE_WRITE:
- 	case DP_AUX_I2C_WRITE:
-@@ -1492,6 +1494,12 @@ static ssize_t dw_dp_aux_transfer(struct drm_dp_aux *aux,
- 	status = wait_for_completion_timeout(&dp->complete, timeout);
- 	if (!status) {
- 		dev_err(dp->dev, "timeout waiting for AUX reply\n");
-+		regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL,
-+				   AUX_RESET, FIELD_PREP(AUX_RESET, 1));
-+		usleep_range(10, 20);
-+		regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL,
-+				   AUX_RESET, FIELD_PREP(AUX_RESET, 0));
-+		synchronize_irq(dp->irq);
- 		return -ETIMEDOUT;
+@@ -2090,6 +2090,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *pdev, const struct dw_dp_plat_
+ 		return ERR_CAST(dp->hdcp_clk);
  	}
  
++	/*
++	 * This reset line is deasserted by default; asserting it hangs the SoC if the
++	 * related power-domain is still active.
++	 */
+ 	dp->rstc = devm_reset_control_get(dev, NULL);
+ 	if (IS_ERR(dp->rstc)) {
+ 		dev_err_probe(dev, PTR_ERR(dp->rstc), "failed to get reset control\n");
 
 -- 
 2.53.0
