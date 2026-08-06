@@ -4,60 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98157C56203
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 09:00:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 587FCC55ABF
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 09:00:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BBAAE10E2E0;
-	Thu,  6 Aug 2026 09:00:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 85CBC10F14D;
+	Thu,  6 Aug 2026 09:00:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CPVt8L2r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kFAdCt3O";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E47D510E2D5;
- Thu,  6 Aug 2026 09:00:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786006839; x=1817542839;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=lGar/s1DPflVHKKve1PaOMJe1sYMXcWp3AxUNxF5hG0=;
- b=CPVt8L2re5mRovrBFYb/6UqmiuLJ43fmGdQ5TzNP/7F2MnJQC15PO4G5
- A9+PEqJgAQxjAjXECQLHE30YKw+SoHfPUd9YUacOKgBorn/S3vH2npYs/
- f+09NP3vWAtCO5R/GkHSDFFUbfrYKdgsj2AiCelCpvlkAF+vKr70tuJIB
- xNAtzyj5J66LdnjTwlL2LexmGtMBnoCJJoshO9sVC9krh3YcMZmrnbZ51
- ObWq5/yrDJnDiTuUASKRV0ppyZx63Bo7M+NmtVNH+J2J6Cn2uN3Gb1gbs
- i3/wE8/0zJuUAFJXZODx4WiBRMCUDj6KNLiuBQQO1tkfcveAqTnu4c7v5 w==;
-X-CSE-ConnectionGUID: 54vdXReaT0aPmdxIC177Jg==
-X-CSE-MsgGUID: TpyB7A4jQ26l37ce1F+1gA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="97749660"
-X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="97749660"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 02:00:39 -0700
-X-CSE-ConnectionGUID: mFowUM6US9euMrXMwfF81g==
-X-CSE-MsgGUID: hMR6VTkITlScY4+WKlGPJw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="255790403"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.11])
- ([10.245.245.11])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 02:00:37 -0700
-Message-ID: <5675a0ee-a5ee-480e-9a02-b71225c1d86d@intel.com>
-Date: Thu, 6 Aug 2026 10:00:35 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4 2/2] gpu/tests/gpu_buddy: Add KUnit test for
- gpu_buddy_allocated_addr_to_block
-To: Tejas Upadhyay <tejas.upadhyay@intel.com>,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: arunpravin.paneerselvam@amd.com
-References: <20260806053624.3215216-4-tejas.upadhyay@intel.com>
- <20260806053624.3215216-6-tejas.upadhyay@intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260806053624.3215216-6-tejas.upadhyay@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C281810F144
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 09:00:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EF57060A9F;
+ Thu,  6 Aug 2026 09:00:45 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9031F000E9;
+ Thu,  6 Aug 2026 09:00:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786006845;
+ bh=76KutQ140xLoGJiHxtF05UpSwJ3YofiDfwlWKcagWBY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=kFAdCt3OHLMPBCo/UPP8xCDtFsWr08moBBuIFtsD9shG+cWOFp0mwNWiCsQqK1AVO
+ JrGlLnKRtiZkmo/ql65ghpk9mtAe89B7SCoAMuKVieZ3lBKDv0qOMdeizCwGWMT8nf
+ /uCqw+5Hfgimeq9aHU00PFD6QR7WX9vll0TTGIc8w2JcCpwjmYUOv9/NG7T0n+VDpd
+ Cg+iRqWlhuwZmMh/Rv+zIkBAmN0BHPovZ+dmaA126sRQcX8Mpv8yb3fFIL+IXq51gA
+ 2xeluD4HBXtgDJpfWovhR7AhE2LaKskv7DkCDV1ufygzQp6UbgAIErhDdCosMCC0uf
+ lcIG67KBiKoxA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/9] mm: use hw_pte_t for generic PTE table storage
+To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
+Cc: dri-devel@lists.freedesktop.org, damon@lists.linux.dev,
+ linux-perf-users@vger.kernel.org, bpf@vger.kernel.org
+In-Reply-To: <20260806083926.1807279-5-usama.anjum@arm.com>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-5-usama.anjum@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 09:00:43 +0000
+Message-Id: <20260806090044.CB9031F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,96 +54,150 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 06/08/2026 06:36, Tejas Upadhyay wrote:
-> Add a new KUnit test gpu_test_buddy_addr_to_block() that validates the
-> gpu_buddy_allocated_addr_to_block() helper which traces a address back
-> to its allocated buddy block.
-> 
-> The test covers:
-> - Exact address matching returns the correct allocated block
-> - An unallocated address inside the manager should return NULL
-> - An address outside the manager should return -ENXIO
-> 
-> v4(MattA):
-> - Add test for unaligned address
-> v3(Sashiko):
-> - remove unused target_addr variable
-> v2(Sashiko):
-> - Drop the mutex and lockdep annotation; standalone KUnit tests do
->    not register a driver lock.
-> 
-> Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Pre-existing issues:
+- [Critical] copy_present_ptes batches PTEs in shared mappings without FPB_=
+RESPECT_WRITE, granting the child process unintended write access to read-o=
+nly pages and bypassing filesystem write notification.
+- [High] Page walk callbacks wp_pte() and clean_record_pte() access hardwar=
+e bits on potentially non-present PTEs, risking metadata corruption.
+--
 
-> ---
->   drivers/gpu/tests/gpu_buddy_test.c | 45 ++++++++++++++++++++++++++++++
->   1 file changed, 45 insertions(+)
-> 
-> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
-> index 7df5c2ae83bb..04e425eb8bdd 100644
-> --- a/drivers/gpu/tests/gpu_buddy_test.c
-> +++ b/drivers/gpu/tests/gpu_buddy_test.c
-> @@ -1381,6 +1381,50 @@ static void gpu_test_buddy_alloc_exceeds_max_order(struct kunit *test)
->   	gpu_buddy_fini(&mm);
->   }
->   
-> +static void gpu_test_buddy_addr_to_block(struct kunit *test)
-> +{
-> +	struct gpu_buddy_block *allocated_block, *found_block;
-> +	LIST_HEAD(allocated_list);
-> +	const u64 test_size = SZ_4M + SZ_2M;
-> +	const u64 alloc_start = SZ_4M;
-> +	const u64 alloc_size = SZ_4K;
-> +	const u64 chunk_size = SZ_4K;
-> +	struct gpu_buddy mm;
-> +
-> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, test_size, chunk_size),
-> +			       "buddy_init failed\n");
-> +
-> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, alloc_start,
-> +							    alloc_start + alloc_size,
-> +							    alloc_size, chunk_size,
-> +							    &allocated_list, 0),
-> +			       "buddy_alloc failed\n");
-> +
-> +	allocated_block = list_first_entry(&allocated_list, struct gpu_buddy_block, link);
-> +	KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(allocated_block), alloc_start);
-> +	KUNIT_EXPECT_EQ(test, gpu_buddy_block_size(&mm, allocated_block), alloc_size);
-> +
-> +	found_block = gpu_buddy_allocated_addr_to_block(&mm, alloc_start);
-> +	KUNIT_EXPECT_PTR_EQ(test, found_block, allocated_block);
-> +
-> +	/* Unaligned address inside the allocated block (should resolve to the same block) */
-> +	found_block = gpu_buddy_allocated_addr_to_block(&mm, alloc_start + 16);
-> +	KUNIT_EXPECT_PTR_EQ(test, found_block, allocated_block);
-> +
-> +	/* An unallocated address inside the manager should return NULL. */
-> +	found_block = gpu_buddy_allocated_addr_to_block(&mm,
-> +							alloc_start - chunk_size);
-> +	KUNIT_EXPECT_NULL(test, found_block);
-> +
-> +	/* An address outside the manager should return -ENXIO. */
-> +	found_block = gpu_buddy_allocated_addr_to_block(&mm, test_size);
-> +	KUNIT_EXPECT_EQ(test, PTR_ERR(found_block), -ENXIO);
-> +
-> +	/* 3. Standard inline cleanup flow */
-> +	gpu_buddy_free_list(&mm, &allocated_list, 0);
-> +	gpu_buddy_fini(&mm);
-> +}
-> +
->   static int gpu_buddy_suite_init(struct kunit_suite *suite)
->   {
->   	while (!random_seed)
-> @@ -1405,6 +1449,7 @@ static struct kunit_case gpu_buddy_tests[] = {
->   	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
->   	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
->   	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
-> +	KUNIT_CASE(gpu_test_buddy_addr_to_block),
->   	{}
->   };
->   
+--- Patch [4]: [PATCH 4/9] mm: use hw_pte_t for generic PTE table storage -=
+--
+commit 9f475c080b8384027672c2a2cfdb3246a47fd906
+Author: Muhammad Usama Anjum <usama.anjum@arm.com>
+Subject: mm: use hw_pte_t for generic PTE table storage
 
+This commit converts generic page-table interfaces to use hw_pte_t pointers=
+ for
+table storage instead of pte_t pointers. It retains pte_t for logical PTE
+values, changing the vocabulary without altering representation or behavior.
+
+> diff --git a/mm/mapping_dirty_helpers.c b/mm/mapping_dirty_helpers.c
+> --- a/mm/mapping_dirty_helpers.c
+> +++ b/mm/mapping_dirty_helpers.c
+> @@ -31,7 +31,7 @@ struct wp_walk {
+>   * The function write-protects a pte and records the range in
+>   * virtual address space of touched ptes for efficient range TLB flushes.
+>   */
+> -static int wp_pte(pte_t *pte, unsigned long addr, unsigned long end,
+> +static int wp_pte(hw_pte_t *pte, unsigned long addr, unsigned long end,
+>  		  struct mm_walk *walk)
+>  {
+>  	struct wp_walk *wpwalk =3D walk->private;
+>  	pte_t ptent =3D ptep_get(pte);
+> =20
+>  	if (pte_write(ptent)) {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this code modify hardwa=
+re
+bits on non-present PTEs?
+
+The page walk callback wp_pte() processes all PTEs within a mapping range,
+including non-present entries like migration or swap entries. It checks
+pte_write() directly without verifying pte_present() first.
+
+If a swap or migration entry overlaps with hardware writable bits, this che=
+ck
+might pass, causing pte_wrprotect() to be called. This can silently corrupt
+swap or migration metadata, leading to memory corruption when the entry is
+later resolved.
+
+[ ... ]
+
+> @@ -86,7 +86,7 @@ struct clean_walk {
+>   * in the address_space, as well as the first and last of the bits
+>   * touched.
+>   */
+> -static int clean_record_pte(pte_t *pte, unsigned long addr,
+> +static int clean_record_pte(hw_pte_t *pte, unsigned long addr,
+>  			    unsigned long end, struct mm_walk *walk)
+>  {
+>  	struct wp_walk *wpwalk =3D walk->private;
+>  	struct clean_walk *cwalk =3D to_clean_walk(wpwalk);
+>  	pte_t ptent =3D ptep_get(pte);
+> =20
+>  	if (pte_dirty(ptent)) {
+
+[Severity: High]
+This is a pre-existing issue, but can this inadvertently corrupt non-present
+PTEs?
+
+Similar to wp_pte() above, clean_record_pte() evaluates pte_dirty() on the
+entry without checking if the PTE is actually present. Calling present-PTE
+accessors on non-present entries produces undefined results. If this evalua=
+tes
+to true for a swap or migration entry, calling pte_mkclean() will overwrite
+and corrupt the swap metadata.
+
+[ ... ]
+
+> diff --git a/mm/memory.c b/mm/memory.c
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+[ ... ]
+> @@ -1205,7 +1205,7 @@ static __always_inline void __copy_present_ptes(str=
+uct vm_area_struct *dst_vma,
+>   */
+>  static inline int
+>  copy_present_ptes(struct vm_area_struct *dst_vma, struct vm_area_struct =
+*src_vma,
+> -		 pte_t *dst_pte, pte_t *src_pte, pte_t pte, unsigned long addr,
+> +		 hw_pte_t *dst_pte, hw_pte_t *src_pte, pte_t pte, unsigned long addr,
+>  		 int max_nr, int *rss, struct folio **prealloc)
+>  {
+>  	fpb_t flags =3D FPB_MERGE_WRITE;
+>  	struct page *page;
+>  	struct folio *folio;
+>  	int err, nr;
+> =20
+>  	page =3D vm_normal_page(src_vma, addr, pte);
+>  	if (unlikely(!page))
+>  		goto copy_pte;
+> =20
+>  	folio =3D page_folio(page);
+> =20
+>  	if (unlikely(!*prealloc && folio_test_large(folio) && max_nr !=3D 1)) {
+>  		if (!(src_vma->vm_flags & VM_SHARED))
+>  			flags |=3D FPB_RESPECT_DIRTY;
+>  		if (vma_soft_dirty_enabled(src_vma))
+>  			flags |=3D FPB_RESPECT_SOFT_DIRTY;
+> =20
+>  		nr =3D folio_pte_batch_flags(folio, src_vma, src_pte, &pte, max_nr, fl=
+ags);
+
+[Severity: Critical]
+This is a pre-existing issue, but does this code allow read-only PTEs to be=
+come
+writable in the child process?
+
+In copy_present_ptes(), when batching PTEs for a shared mapping, the flags
+variable includes FPB_MERGE_WRITE but the FPB_RESPECT_WRITE flag is missing.
+This causes folio_pte_batch_flags() to group PTEs with differing write
+permissions.
+
+If a batch contains both writable and read-only PTEs (for example, a 4K page
+was made writable via page_mkwrite() while the rest of the THP remains
+read-only), FPB_MERGE_WRITE ensures the batched output PTE is marked writab=
+le.
+
+For shared mappings, __copy_present_ptes() calls pte_mkclean() but does not
+write-protect the PTE. Consequently, set_ptes() installs this clean but
+writable PTE across the entire batched range in the child process.
+
+When the child writes to these newly writable pages, the hardware sets the
+dirty bit without a page fault. This bypasses the filesystem write
+notifications, which can allow writes to unallocated blocks in sparse files
+and silently drop data.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806083926.1807=
+279-1-usama.anjum@arm.com?part=3D4
