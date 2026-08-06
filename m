@@ -4,89 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C8E5C55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 06:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B556AC55838
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 06:52:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 379D310F0CD;
-	Thu,  6 Aug 2026 06:36:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B60ED10E298;
+	Thu,  6 Aug 2026 06:52:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="1puoFuVj";
-	dkim=pass (2048-bit key; unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.b="G9C2+b4U";
+	dkim=pass (2048-bit key; unprotected) header.d=xbow.com header.i=@xbow.com header.b="aozPnEvJ";
 	dkim-atps=neutral
-Received: from flow-b6-smtp.messagingengine.com
- (flow-b6-smtp.messagingengine.com [202.12.124.141])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A76F910F0CD
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 06:36:05 +0000 (UTC)
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
- by mailflow.stl.internal (Postfix) with ESMTP id 995101300165;
- Thu,  6 Aug 2026 02:36:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-04.internal (MEProxy); Thu, 06 Aug 2026 02:36:05 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
- h=cc:cc:content-transfer-encoding:content-type:date:date:from
- :from:in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to; s=fm1; t=1785998164; x=
- 1786001764; bh=sgu7nAbq8Yx5koaOMKJWboxHdobCAGSow6z6pMfKPGU=; b=1
- puoFuVjNERzwVWN0t22cIXz+deO4xgXn/Yn+6FkOmLHlXm7cnNgXO0QN68aO9ILC
- LoiLk/7MWB9BDccQuLdx8iZlM8QB0Jg7YbzKXGuaMx/fTiGSrFIbyjbeKPFn1Hfy
- Bj+DSKqFdmB4Y+W4TlE9mHo4istLQZGxbOp28FytrB9vz/A6I1uXYfu3sXedhMU7
- jDtyFyVwjHm961xc6jzuZoa7jiKZlbM5oalpIVzDOaj4OaaT3mc0Ia8aaoWE9dDw
- Fv6/nkCs/qPc9rLzraCJg5d77l4fW1Wm4Mn0SGsA7Z7rThzisURGdBadHAh9kS8p
- NtUfBxsEp/Nrd10GoRg0g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:date:date:feedback-id:feedback-id:from:from
- :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
- :x-me-sender:x-sasl-enc; s=fm3; t=1785998164; x=1786001764; bh=s
- gu7nAbq8Yx5koaOMKJWboxHdobCAGSow6z6pMfKPGU=; b=G9C2+b4UWlPuB3JYP
- uLtmvJRPN4B6+j0SXyZff2fi/mbZNtkI5BsPTzii57azW83r4JPGnJn+oP87LlXu
- uzMK5FoIAp78F9XIfJDO/Bc9TlUCyZgtBB6LtaVq3KqvNDVgGlARRU9ZcwA03RKc
- fWAVBiJLW510K8TZ0MmP4hqyECLKIb1p7Y2Nbjl2fdlg5z02GLLJHkfNvfKTRbOf
- wxXfrhm2EfTTc3PgIb+AdKudyla9JZYzs5kR9mxlMLYtcjNaRG0cRj5wEtQilaQn
- FRPxJxcXywGFvrJ2OGuDbUWjgzaHA8gAmW5PpzvYkkuFUuEqE/XlrdFVAAT3z6+A
- 2n0zA==
-X-ME-Sender: <xms:VCt0ast72_PppLC-vbFNWAr4fmvLj9QXF77FP7toQlx2Tuo0fLzMzg>
- <xme:VCt0allGcodj5pUuAqPS3BSQ7an4MpprS47MBseXp7PZ33Qu6kor2-6nd80LEMab5
- dZxXofTHPGKHO43iIf56rsw-fz1566dDA6MgxrLIGnnlfeKCaE__UaS>
-X-ME-Received: <xmr:VCt0ajk2MoeANJT9Wdyf_MA9nQ9R8p1RXOvXsjkJUd5R6CK5bMjlsYAnEc-dHw5vdIcMhPYTjg>
-X-ME-Proxy-Cause: dmFkZTFONgeA2O3pwjIbPcMCTqIJqr8rt4x9wj1HWpKtWqUM08CHxAytH4b3Wcxne+7M9Y
- PXPM0VguFKPHRj7GsPgHOCGdBiHCvhUSS0VPsXiwRKvCWrXPAstwqnluAM2XfUZr49eWpS
- e+UecSjujmJ2AT270+mwV76lh/D6/9znIOY6mQx5cMF79T+XdTHspX14zKQTkVq2imOTsH
- vp93U39Lnk9e3xSvtrqjBURQNo6oCQMtbFhYzXBG6dEvWqKT8clHR5x+RedZsGjCkMON3x
- w67ON4vBChW2U2GPv48gIMgNJJLmEWZg5zEIGItcQU7FX5BKLMjAr+kfs3S2cJ4Ku2vNei
- eTyzZo7cemSdKbqcslTdF9+Fnu6Wnz4g9+SP/0PbxOIZE8eibAnqIUUyYrpwfADWd8/jkQ
- lyZiACxDgx6oXDCrfC75glZna01b4xAevCxCiaFfAJqGJP9faeFM9Zqtowd3xeiNo9JDG8
- sQZoBFeT/sjP33Sq6xmNDkviAk90SnbPS6sC/dCYlVmUFCE7qI6m0SKYsfQm7Z5BG1nfOl
- I3/74cQkajuQVirurXoz2U6V0p2pKZC8lAqpTB9XLjVAYR1m08HfIcgnKVrE/pnSXn2IHW
- kgORTPywBrs6TDNtcDLqwDCpnKfCeAZtwCPFUjdUjIzIasboxPsOfrMoZgqg
-X-ME-Proxy: <xmx:VCt0aojnAKsgkWNOX9a1LKyPFFgx-mQSnCJBRtXQd3VwGT7-mJ96lA>
- <xmx:VCt0atF1xf1Ud6hOaB97940z0VNbJ5I2zp9gom9BP1Cd33SsAsOPrw>
- <xmx:VCt0arblB6kuyR8R_IRRsl8evZYmQ2Dsa8DnadgUAAlAa30MJRqFpw>
- <xmx:VCt0aoOv8qyUnC-n_2c3zzJCIcFdlDdVGqC-7N1M-nCs7C_2ygC27w>
- <xmx:VCt0as3pvbaerTG75kRiWOpxwx6SbePvKk0caBaqAS4ASjQMqc-0KdN_>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 6 Aug 2026 02:35:56 -0400 (EDT)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net, heiko@sntech.de, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org, will@kernel.org,
- robin.murphy@arm.com, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, alchark@flipper.net, chaoyi.chen@rock-chips.com,
- diederik@cknow-tech.com, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [RFC PATCH v6 9/9] arm64: dts: rockchip: rk3576-rock-4d: enable NPU
-Date: Thu,  6 Aug 2026 18:34:13 +1200
-Message-ID: <20260806063413.350184-10-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260806063413.350184-1-gahing@gahingwoo.com>
-References: <20260806063413.350184-1-gahing@gahingwoo.com>
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4401110E167
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 03:43:49 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2ce87c7e3bbso16529905ad.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 05 Aug 2026 20:43:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=xbow.com; s=google; t=1785987829; x=1786592629; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=lB3t5AM9S8rNfa8MkksIa6QuMH30IsZNuofW0zacyos=;
+ b=aozPnEvJnAEYAQCdu/ZhzgLAVbBfoeOQl0orqjwQkruIcbIQY89ubxWk1HjeQlq89C
+ in1pSSsBHmM5aRnTXoZpNXsnBk9DjZk/0MtIQl6I/TXAn1RaiHNk04ThkRbOLK86zLII
+ YnyjuyTIbOVHGhlX4RIklXS7lRmjYzWj43qgQSjVnXIjwP229Y2qCsjm3vpSECMFpZw7
+ B+cjE5tmQkQbDHBoS35CECe2L9etV3VHkXkWCCkcsgdzyESoNEZuGtoyNoByoDpKOMK5
+ ao0xwLUyPtPra9PWCNy+Qk2GAoq6+MsFfOpCt5bpfIhc4v6eZoj4UnUdstxzVZ7Mc1EZ
+ QA9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785987829; x=1786592629;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lB3t5AM9S8rNfa8MkksIa6QuMH30IsZNuofW0zacyos=;
+ b=IxW/fKmALl18LJzHhGh2mjF/nLHRUwiGzd3aLPch04nwVuqjtged/6p/GYoyPY0J1D
+ XrUvLsZsF73i3crUcYfjksnhgXzyn26WyfQU17nlAC3gd0XRlR7RP9QpM1B97948Ye/N
+ tiAGlU/C+RaQXfcgCj7NC9fIlRZDHZb2uvsCEKvIBc+4s7EG0iXaGGsJtoxGFgtcrQSB
+ wbkMr0yB5MeJc3ySt3X/QFRSr+qzg6IVtUrKbw+GSJ71gghT/XImqPwplP0Sc8M1X6gZ
+ PW+kwbtac+SdjLPVYm1k7rSLR+kp7+Gc2bXhQDwdCG8PqypayQF26YPnhHWVZD+8S4rW
+ tZiA==
+X-Gm-Message-State: AOJu0YwRD0lHPGJqi1tceHdFFGgC9fHrf/wTft1QtLfTkO8BD2y7pA4a
+ A0/fweeg2rat5XjqohHHzXgj7LweAl7o/PdwVd6OpG6uSOD5XjsLHpq5nbH4sYV4cbM=
+X-Gm-Gg: AR+sD11dFj7FkZ85lvOPUF9wP+HxbzNwVqm/XBG7ZSAI8Qqb3LslMPlhs34THNOu+Xf
+ rWQHqjjpUQLmUF1hDYmZtLqxsky5LXJ5EBJz+1iiiQ1R4s7V3cQD++3Z2oxwzB7eXWPOXOEb7LC
+ cMolWHTo5ik3pz/mAtNduzikxftn8jt2apMltC4bkf9H1A3RPY0AE5wKJagE2HlE+OchaBfnWLC
+ ObuNwxGD1m7OEWWo4fEi7qyfHykSInEZtYoEdZW5Wq2A5PfGJheFI9e3k0Um6gfSwKcOYSfqQwG
+ F/c87+8K9ZYU5RHGPhz5hnkIfrGMt6DeTwh7hu5v5ZSzm2rFw/rvD8UNVv2zRb23ziDnY1UUYV1
+ PsCZU+6JKFFMSZdJ2B5OvA2dhvTuaJWVboy8g1+7KrUpoH3m8G6MwkfmkFJMEgryvzQExDxOiiF
+ BYl26JBNTTQEVI+BeATsSmWH49BJxYJkJrJhUvGumxYEUsM2eNYEXJMPEeFrVfC/Wp7qaFtdi2W
+ /UC628E1aNOY1fUaFwEqiKkzmHE
+X-Received: by 2002:a17:902:e94c:b0:2c8:4c29:afeb with SMTP id
+ d9443c01a7336-2d0ca7b5520mr151674245ad.8.1785987828619; 
+ Wed, 05 Aug 2026 20:43:48 -0700 (PDT)
+Received: from Mac.lan ([125.128.148.126]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2d0aa4c911esm23899715ad.66.2026.08.05.20.43.45
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 05 Aug 2026 20:43:48 -0700 (PDT)
+From: Baul Lee <baul.lee@xbow.com>
+To: patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ federico.kirschbaum@xbow.com, stable@vger.kernel.org,
+ Baul Lee <baul.lee@xbow.com>
+Subject: [PATCH] drm/gma500: bound the fbdev fault loop to the framebuffer
+Date: Thu,  6 Aug 2026 12:43:43 +0900
+Message-ID: <20260806034343.43629-1-baul.lee@xbow.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 06 Aug 2026 06:52:41 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,45 +87,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable rknn_core_0 and its IOMMU on the Radxa ROCK 4D and supply the
-core from vdd_npu_s0.
+psb_fbdev_vm_fault() maps as many frames as the caller asked for:
 
-The supply is marked always-on because the NPU power domains are what
-gate the block here, and dropping the rail underneath them takes an
-async SError on the next power-on rather than a clean retry. Only
-rknn_core_0 is enabled: the driver binds one core per node and the
-second core is left to whoever can test it.
+	unsigned long pfn = info->fix.smem_start >> PAGE_SHIFT;
+	unsigned long page_num = vma_pages(vma);
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+	for (i = 0; i < page_num; ++i) {
+		err = vmf_insert_mixed(vma, address, pfn);
+		...
+		address += PAGE_SIZE;
+		++pfn;
+	}
+
+The trip count is the VMA length and the pfn walks up from the
+framebuffer base.  info->fix.smem_len, the extent of the framebuffer, is
+not read anywhere in the handler, so a mapping longer than the
+framebuffer installs present PTEs for the physical frames above it.
+
+Nothing else on the path bounds the length.  psb_fbdev_fb_mmap() only
+requires vm_pgoff to be zero, and fb_mmap() passes the length through.
+
+On x86_64 an unprivileged process in group video mapped 4800 pages of a
+600-page framebuffer; every page was present and writable, and the 4200
+past the object were the frames above it in physical memory.  Nothing is
+logged: the kernel installs valid PTEs and every access through them
+comes from userspace.
+
+Reject a fault whose page offset is already past the framebuffer and
+clamp the loop to the frames the framebuffer owns.
+
+Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+
+Fixes: 0867b42113ec ("staging: gma500: Intel GMA500 staging driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Baul Lee <baul.lee@xbow.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/gma500/fbdev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-index 272af1012..965e0906b 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-@@ -442,6 +442,7 @@ regulator-state-mem {
- 			};
+diff --git a/drivers/gpu/drm/gma500/fbdev.c b/drivers/gpu/drm/gma500/fbdev.c
+index d1e93588234f..393a939a0c37 100644
+--- a/drivers/gpu/drm/gma500/fbdev.c
++++ b/drivers/gpu/drm/gma500/fbdev.c
+@@ -26,9 +26,15 @@ static vm_fault_t psb_fbdev_vm_fault(struct vm_fault *vmf)
+ 	unsigned long address = vmf->address - (vmf->pgoff << PAGE_SHIFT);
+ 	unsigned long pfn = info->fix.smem_start >> PAGE_SHIFT;
+ 	vm_fault_t err = VM_FAULT_SIGBUS;
++	unsigned long obj_pages = info->fix.smem_len >> PAGE_SHIFT;
+ 	unsigned long page_num = vma_pages(vma);
+ 	unsigned long i;
  
- 			vdd_npu_s0: dcdc-reg2 {
-+				regulator-always-on;
- 				regulator-boot-on;
- 				regulator-enable-ramp-delay = <400>;
- 				regulator-min-microvolt = <550000>;
-@@ -869,3 +870,12 @@ vp0_out_hdmi: endpoint@ROCKCHIP_VOP2_EP_HDMI0 {
- 		remote-endpoint = <&hdmi_in_vp0>;
- 	};
- };
++	if (vmf->pgoff >= obj_pages)
++		return VM_FAULT_SIGBUS;
++	if (page_num > obj_pages)
++		page_num = obj_pages;
 +
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
+ 	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+ 
+ 	for (i = 0; i < page_num; ++i) {
 -- 
-2.43.0
-
+2.50.1 (Apple Git-155)
