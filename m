@@ -4,130 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76F5AC56208
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 11:32:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88143C55ABF
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 11:39:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B07C010E30A;
-	Thu,  6 Aug 2026 11:32:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F3E2A10E30D;
+	Thu,  6 Aug 2026 11:39:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z98vwWYv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LhIkyQa3";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012017.outbound.protection.outlook.com [52.101.43.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DFF510E30A;
- Thu,  6 Aug 2026 11:32:28 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013063.outbound.protection.outlook.com
+ [40.93.196.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED17F10E30D
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 11:39:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jDmuRPB8qAOm39GbBVZNP8pnNerp8fD9vUHMYWv8FIKDBak1LFJH3WGmmBvGYk5UXjd2gi2B+7V3U3/yPyka3OBKej+3+usK/u43RJj5tKuv8ritsXG/qhngzYlpy+6SiBDzUrSBIcNm6afoOYAjqa81ioMSnWFpjQrKFZdh5ny1O1xi+msgwx11pKofhOfbexNeMK8RTQd2IIMZvOFRitRPkqlojjGWaew0pomDbX7xoVJwRMWwxekPQM6CDhpx37W7adpIVcK6pk5Nn2klbdUdSdvpWtuIB5l9L/A4CV/xkQuPUApq5uyfiEWmpevcyrxsi1fMIp/+q6/UFLKvpw==
+ b=MYlTB5fqGHSk6fyWSkmvUlKBFJ4wVXHwDLAiGPwb0YLIPNafkdbQIMgL2T4vwHn00ZTzypbREdrT5C3mHg1LtchSEo0Om+/I9MOPQ5PGMNnpMRbFXdAeuJB3oer72uBVswZyxV5Ve2pA7deSizW9OjqkYIn5v7JpHGXVxGM7Yy7H/VVzFGc26ZRy/ETMUKKvTKUK33o2nfGStuqq+DkGaSQHYxuepuD3TN5bhVEGRbtuhPiAo6mq1hk0XVA8A6ea1EVnR2nY9+vyHF7ZUdEfpdPKszEqFz4tvCwq/9oZPNWjpzmeKbcPrah2xKgk5VurSMEhMuJW6cRSEaaffA0Vgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eBTMInjPmxuttSEGqa5Xf4crMZTPLZ+peR7GhP0Luo4=;
- b=l5DgohdX68UFGdlZDSaB2LnESPVW/SJvQeWASg8ENedR32+eXu8I1Dzj7sNszmYu8Wsx9RsE26AeV42uR907FLcPoDPjDeYi6w3NbDGOVLqUzVUgnPklRuGEi6q1gUkK9H/5FV459ZjhXS09HA0mugeGRsIphbc1rrvSo8temBwfaA4HI/6rWHrQARDcmpxIWK+qAbKOrDJokpHDRR9G58BjxOA0lpOv4fDJg2cimxw6Zt1P+DNM/BWxp7ypDyNI8CSWKPsrN24CtoFDPEsyIeSPERpAgVFjVc8JtcydsWKUsE1IIJJiPGSzCOdHEEkXlFm4dG0khdUGaZ5FmhEb8Q==
+ bh=bBMVizR8HWKhU4KUEWaQ3bnap7Dnh9iSOvsfUeDI95A=;
+ b=wPuOYWx7ffFALq6TqaOfkYc+sF/Vz1DD46/UyCG1xM1KbJTiitEIBiwXhKZmmKrzY0TU1jAd+C2+xLK+Vzd8glsyYBu+6dGNCG0U8x5Bw+DXeygjc4TH5xbyrvjfiWFojO5WCar33pX2aY9PMakus2MZWDQqIs2Nxqs5fGjZRpRGvXrWEwIwzaq1BgUdl6bPswyfzm4qSzBh8oFokhfhTETDKKMvUxPGu0e17qf8ISb+Vl1UsTddUbYpHulOd9SUvV7QaRIskIy1B8Thv18SPhSJsXEjQFw821fUBlutk5x+PKOMmiNGHDLBLCZfZ2P8cqyIRGk0berTdVPToqBrxw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eBTMInjPmxuttSEGqa5Xf4crMZTPLZ+peR7GhP0Luo4=;
- b=z98vwWYvROBZ1nWzKO9E0xmonQsWIC/uE6mkJruKfsyz6VJ+8R7tnjPaPHo6MWDjFPaKJfE0b6ttKszeER/NbKg1he6U2mWgegaOFqSf+VH9CXQNu/luKGlj1CWg4MubZppnFvTFZXq7rEqXRS3zI+TobYqwiVr07MSGUGt8jJM=
+ bh=bBMVizR8HWKhU4KUEWaQ3bnap7Dnh9iSOvsfUeDI95A=;
+ b=LhIkyQa3pJ2NVWYeGES/pZbb21G2Igm5AfkvVFeAKyqCEburNgE7h5Kj/g2h9bbLAk7jGQ3yLtfaSFRteHBSleO4FGI/Fc3+ZoUDIynPMmmSUkwu80IMVAKt36BnaMWukk+4rKOky2/AABktt1NePGIV8IN1HuGoN7SYD5UDwss=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by CH8PR12MB9792.namprd12.prod.outlook.com (2603:10b6:610:2b5::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 11:32:25 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%3]) with mapi id 15.21.0292.019; Thu, 6 Aug 2026
- 11:32:25 +0000
-Message-ID: <843f7781-d75c-4f01-a977-04cf74ceb724@amd.com>
-Date: Thu, 6 Aug 2026 17:02:15 +0530
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ1PR12MB6219.namprd12.prod.outlook.com (2603:10b6:a03:456::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Thu, 6 Aug
+ 2026 11:39:03 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.021; Thu, 6 Aug 2026
+ 11:39:03 +0000
+Message-ID: <92b02f98-8b9e-4970-a1f7-f3b2c0fcd2d4@amd.com>
+Date: Thu, 6 Aug 2026 13:38:57 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4 2/2] gpu/tests/gpu_buddy: Add KUnit test for
- gpu_buddy_allocated_addr_to_block
-To: "Upadhyay, Tejas" <tejas.upadhyay@intel.com>,
- "Auld, Matthew" <matthew.auld@intel.com>,
- "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-References: <20260806053624.3215216-4-tejas.upadhyay@intel.com>
- <20260806053624.3215216-6-tejas.upadhyay@intel.com>
- <5675a0ee-a5ee-480e-9a02-b71225c1d86d@intel.com>
- <DS0PR11MB87188855F06D221DCF900AD381D22@DS0PR11MB8718.namprd11.prod.outlook.com>
- <002dcde7-5dc4-4fc4-93d9-984fe5e6344a@intel.com>
- <dc702b3c-fc47-4fb2-9619-c4115cbff5b8@amd.com>
- <DS0PR11MB8718001019A9FCB196EC1AD081D22@DS0PR11MB8718.namprd11.prod.outlook.com>
+Subject: Re: [PATCH] drm/ttm: clamp the prefault window to the buffer object
+To: Baul Lee <baul.lee@xbow.com>, ray.huang@amd.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch
+Cc: matthew.auld@intel.com, matthew.brost@intel.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ federico.kirschbaum@xbow.com, stable@vger.kernel.org
+References: <20260806034356.43681-1-baul.lee@xbow.com>
 Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <DS0PR11MB8718001019A9FCB196EC1AD081D22@DS0PR11MB8718.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4PR01CA0029.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:273::15) To CH0PR12MB5026.namprd12.prod.outlook.com
- (2603:10b6:610:e1::14)
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260806034356.43681-1-baul.lee@xbow.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR3P281CA0123.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::9) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|CH8PR12MB9792:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87ba2157-5935-40df-f45b-08def3ae6135
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6219:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47ac4028-efd8-4e95-1505-08def3af50e7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|11063799006|4143699003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: wsga04A5dN4Wnv/w385kCH1RytxuyWaMBO+ZZXdl4WZUd1LzNvFUK+NybDH/Ma2l/6/BXBTIK/2ugvxB3rHWwB86znNh3BikBJnE/X7z+Sf0QY65DJtvHffwM57N81TNO4TUfvyEhfOE3UqK/kSmpOMWY9QyftpFAaA+aaiwG1ua8yUZ8rutsot61ToASxT2LDdTZY4EVlh/LGY5s0yWMDCU7Ie+tHMwVVOpRLhsHO9aLexfe1MK/M/x6iaOCup4Wyvvod/z8JROWQSUvF2ZIs5ttpnUBU57VVsueeNHs4ehDrbWGQFCWhX0lYPLN7EDakhqEuEk/s38UjCp9H4/nY8Tw9zFuhyws1Lz4ABdqJ43guO59c+PGlMZbLmROgKZ3Aw49XzCrHDCKlv6STiE1Jx2myOo8CZlo2yOCh3bQRuhMaqEX7fmRR4qQR3U0WcT4FntILoizP5j9MHaWMevTYO39I0E8vU5Dipwf7qgG4SmdFLE3sE/9874RLOsoGEGbydtl1qO1A181RQ6xY97WZ82sHyITL4KvR+6OfkCvlyopcqNQ8qVnuj02+JxldIeJbeMuPPCtz3SdQzDaXaWiw+NZLBSDISnUMHPlHMtuojZBRkQp+BIlRM322S2+jwXewCPf+v/4ByO0613GlEF1FsQk/ASoQIm4j7Zk/8KtQo=
+ ARA:13230040|1800799024|366016|376014|7416014|23010399003|22082099003|18002099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: Xv0pYJpNCA2fK4JsU/+K/knzZ1vIgbr66r90F7wsz69EuREZV4D7hw6Wf5YHTJp1MZLya2LtSbri1vlG7SK8v16CWgKC6ChF+GPFdQhBAAXM067rmIKGXw5fhdZIx9N8//bfQbpFd3KJ3cOxhHdlssSYDeSoQ93gxCFoZB14hn5O7QhW6rJagHUFUys44Q2YZw7s7Dt4ulLPXwRHqqRdq+iA4JVf0sBtWKypjBFdrRBzA/fUplgHPdZx9GSYrv9xBNzVvTmbJzTx7lYThW67HvAxCQjvVAdzCPBgu3zEBYIPfuPB5CcvNdstOOAVXqlYYczvfqtOGJsSqMOFMgtzS+bgvAunP94TOQYO3zAwVNHJmcbZnl7Sf1Lm6EAD1znQtlwBFP3gsl9XIDQQ9rz50sNNaSNfaesWCZyubUb3wivG/s5RQVpDP0N9J9Pk1R7D5Sij/uTy/gh9PcaWXLhe4Eb2FCXqhIyJVMp/00f0IyvCqdJ10SksnuvTAnMF+EI9mvxWuO5CjpJB6BN7v+3WFd9V/7gS4EUVgT0NWSI0Jztf6z3A/hMl843fRi8I783hTEdijPDIy/lj6nxmg69xNeWPzGUuWjrDxfzizzzabRGizFPkpJd1oeGYR2wToVEXSxwocvwMtODZ1FcWmFR8Wgjlz9tiigFfanKeiBzeCrs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(11063799006)(4143699003)(10067099003)(56012099006);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RkN0cUx3Nk1ENnpkeWh2Y3BVY2IvNUgrNWpUaGZ5cFNDVE9tMXhQRks2TDNu?=
- =?utf-8?B?RVZMaHZYcTc3bTBsTW44ZW5RRlpPYlY1emVkRlBTY1BNeE13eGI4UjdKenU4?=
- =?utf-8?B?WXJWQlVxQVZHMXVtOS9zSDJUejFaYWhGWktwLy9XbitSZDdLaEVNYzV1WmtC?=
- =?utf-8?B?cmtvWlc1NGZVNUVzVVlhY0VSbHVNbWY1ZW15am5NRENYRG11amw2dDcwRVFE?=
- =?utf-8?B?L2xaV2hOSVh6SWU2ejcvY08wQnY1aElOQk5lVTRWNWpoL0JyelRPNlZLOGVa?=
- =?utf-8?B?a2VuTzJjTVh2TjlKQTRGQ3JWZWZWS21kRVZPcUhYSHN1azZaYzVMVzdxd0Vh?=
- =?utf-8?B?NzE5Njh2T3NxTlJ0N2lSSU03MXZ1NWxISS9jRk1oSzVsSURTVXFmb3ZTOW1E?=
- =?utf-8?B?WUlrTnRaRGpNZ2tNdUpkNm9BOWUyeHZqL1JwOWtlVnlpcnVHZUpLdTMxSVVQ?=
- =?utf-8?B?MEN0WCtjckdGb2F0QXZkNXZLb1pxS1lrNW8zYy9IbWR2T2k4QUY0V28rSDdJ?=
- =?utf-8?B?K09DcEVqMFlaSXRlZUpXcWJ0UFNBRmtucXN3RldwOTdQdlhJNGFWQzRPZDRt?=
- =?utf-8?B?cHMwYTM3VXRrek9Mc211L0dRTllDamNGNVFoQTJQZ0ZvQjNoWnR1cVhqNThX?=
- =?utf-8?B?Y1ZaRU9EU1Uxa2p0VjFveEhGdlBaa3Z6SUlKczhaSUg3eU0wRWJpeDdjZW1P?=
- =?utf-8?B?dWxaVVRiNVkwZWZuQ210U3pFMXRpQ2VReVoxMnB5WWRZTkhvMlMwdFdUWEc0?=
- =?utf-8?B?cWREdURHSmsxWTdQeWpCN0txRkthZTJQRm9HelNIVWVUWVY0OVI2Nk4xeHFE?=
- =?utf-8?B?dWZCellmZG14L29iampvdVJnMVVpVzJkSWZXQkNDUEJIenVjSWRDUlYrWE1B?=
- =?utf-8?B?MVdQYTAxa0pBQ1M3UWxPRUlNZ1lVY0ZhY0hQNEMyWVhZamx0NU9icWIwQVVZ?=
- =?utf-8?B?TGtzeFluamJnN2NDTUpZZ0EwZ3NudEpubkR1ODNFd3RMRjlpUElOU2JYNnRR?=
- =?utf-8?B?dXNRUGlDSkVnQ1VyTGdMajBGdHNIbVZ6dmtlMkwrT1RpN3ZscmppZ2pJU2NX?=
- =?utf-8?B?bUtNUFNqUXFhTVNDTHk0UXgwdUFJVzhoUG1ETlc2R1NWWDJIYjBFeXdXMEl0?=
- =?utf-8?B?MFpWdzlRcXQ1clFrdDJZTTlVWTNrWDZnRmpwU3BocHArcTZjc1JvL2plblFM?=
- =?utf-8?B?K1dFSEVKb2pKenUyNkRVQWhpL3JqWmM0bHlvc1pSQkFWOGRCV2hmOHphckJZ?=
- =?utf-8?B?bDE3TStTZUg4ZXRWTFc1SFdoaEVxVmFQMWg4ZUpyYXZpNi9vSHIzVmdJcEhN?=
- =?utf-8?B?dUQva3hNano2UiszTFZQdHg5L0JkRm1YUCtMS1pGSFlveEZLdEtrOTJOM1Ir?=
- =?utf-8?B?cVY4bzlpbFExd3Fkd0VuVjZyRWFTUjZRcUY2YjV6UlppUjZ0VjNCeHhMZFp0?=
- =?utf-8?B?NnRqb2hsMTJwOGhVUnJvcmxLeVhaRVQ2Ulp0NkhzZFdVdXMzYzNsYzhVVitG?=
- =?utf-8?B?RnBLanpjOWlpWXJFT2M0djIzbWp5Mk12c2RjRklhdWNMaWwrWmxhSkZKRnBY?=
- =?utf-8?B?Qnc5blFkQkQxTmVTUzVES0ZWblQ1cS9pa3FmcXZoVmpGdjZNRVFuendoUEFS?=
- =?utf-8?B?aFh5TWlDZU1YSWkyazA4VEdqeldiQ0dwU01xdmhzbmFjMXNCb1BLK3pGZGQr?=
- =?utf-8?B?eERKS2wzTzhURm1UZEYyeU9OOW9ramo1M3ZpSmo5NUNLNENpUUJjWHg4MGdI?=
- =?utf-8?B?SktrVGY1aHB0eDhQSWpwYWhNRXFRTVk3VFpFR2ZrME1lTExmT0htbGROL2hT?=
- =?utf-8?B?U0xHMXJtVDB6UE84ZzVrYk9OT0pCb0VxKy9mdERhbklSYjVKek8vbnpUVXNC?=
- =?utf-8?B?RFRPTlk3ZnpoRVV1cjl1SnlJdHpmd3Y1SXNGQy9Dditud3QwNTFMK3cxcjZQ?=
- =?utf-8?B?K2p0dlhiNjRna1h1cUYyUHVUWkVXMjVON0pTclVaSk14VWNYKzBnOGhLTWpE?=
- =?utf-8?B?L0paRWtmVXdFQWpnQkRNa2MwMmtCQjMxTlA0OHMvOUpLZkViQW44UUhtdlha?=
- =?utf-8?B?UXFYaUdtWjZMMTdJbS82S2o0UEVSVCtHQzd0VExrVVJJb3hHeTVxbWVYOGRB?=
- =?utf-8?B?ZlZFd1RtdDFxckZOWTI2TmgwTThlbDBSN3I3RU1BSWw2WFMrMWJRSndvNVZY?=
- =?utf-8?B?WFd3ZXlMeUZGeDV0czNZajRyRzRuQ20yd2VXOW10anR6OThtcXR6cnd4elR3?=
- =?utf-8?B?Y0NQWnhvVG1aUUVmMG5WNVRMSTU4ajBqTEkwTnRDMVNmZDhRRk02U2hDWTNy?=
- =?utf-8?B?eWRlNmtwK0pzcEFuL0xVR1dYMmk1TlFqdEZOeWt3L1I4MCtvQ1dTQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R28zdS9GZFk0NU5xekJ4b0gzQW9kUWxUZGxSUHFNL2xWMC85NmIzU05aSWh5?=
+ =?utf-8?B?aVBiMG1sMDVNOEM3TC93YUlzWWNRcXFoUjNjZXMzTmo2V2ZSc2RVQ2tlUU5O?=
+ =?utf-8?B?Ykg1ZHpvbE14V2dsL0ZUdmlzS2gzeGp2bmdZQU1RNjVkaVBsRGtwQys0S2ZY?=
+ =?utf-8?B?b2ZGNTNYcFhWczJIMHZGbEZQQWxOMmpSNkxTZ0lnbG9xVGZhU05YbDMzUzRi?=
+ =?utf-8?B?TmY5cGVRNW1RUmNoVGxjMDhRbXREZlVwWVJJZWdHcUE3QTdpTldFUEpKeHMy?=
+ =?utf-8?B?NTdNblVoVmgzam8zL1NickZCUktUaXZNN0wwa1M3eUdrcnhVTnVTbnQxN0Zu?=
+ =?utf-8?B?dGRKRDlmc2ZMVkRUTkFRbjl1WjdLcUk1NWxyc3d3VFg3b0xxK3BUVDZQM1pL?=
+ =?utf-8?B?QkhJY3AwdWtlQ3ZyOVFIUUFLMG55MlFJYVdycE0wSCtHd2x0S3h1aFVJR2lE?=
+ =?utf-8?B?MHlkRWxqTi9FWG9GRytodnNvTGJaQ1oweUp1V2ZmNFVnZFIzL3VaU3RmM0lZ?=
+ =?utf-8?B?ZUpvVDdtVDFJNHdldjAwemdYQkdGVGxpclZNcEdFNFA0TG1CL2xvZkdGUE9E?=
+ =?utf-8?B?aWlSNzZ0TW9sWlE4eXBQZTBmdHVBTUMxMkVMRUJXeDBVYnNaM2pIaTV0aGJT?=
+ =?utf-8?B?WXNadlgrQVlLenNtWlVsOGZvTGtOSG4zQ2JDc1owZUM1ZW1hdzdPeGhCajRs?=
+ =?utf-8?B?VVVuWGJkcG9VdjU2alpnNkhWSVNrVDhIbkQ3WXpHcGQra3lpc3BybGNramRE?=
+ =?utf-8?B?NkkrK2lYT1pzMTZHYXI5ME5IZmpRWGsrejBKQVBIUGt4L0Q0dlB5RVR1UVZL?=
+ =?utf-8?B?Y0pZYmVQSmdQb3ErdUptSjdpVklaU2VIcjhLR0hSdGJVSDZQejQ5NmU2bTNX?=
+ =?utf-8?B?b1FYbVZMc0NvaTk2SWswa09Jb1ZYTEsvWFl2VUtpZHpIN1M5ZGlrc0YvUG8x?=
+ =?utf-8?B?Qk5LeFZNTDVvQ1Zlall2ZkV2c0lNWHdYeVE1Z1RhcFFibUJyemRLbUpYbld6?=
+ =?utf-8?B?QXIyTVlFYytDNnhEWWhpT1pKbk1nZld1YkthL05vVHBhQzllR3RuR29KdlJU?=
+ =?utf-8?B?TVV6TytzT3JGNEtrdG5PSUdsREw2V0dKZEhMMzN4UWxmSlpRY3JHQUtucDFa?=
+ =?utf-8?B?NEw0ZTR5VHNBckhqM2diM0pVRE5jNmxwb25rTVVyL25rNkZabmJwdHo0dUFG?=
+ =?utf-8?B?TzNRTjF6RCs3Ykk1ZXJycEhRTU8vT0RtbGNKejNWSFNaRkNZQkZRNUhncUl0?=
+ =?utf-8?B?c3dQYm1qQUFoRVE0a0dCZE5nUGdhVnd2S2N4MW43cG5FNDIza0w3ZFRFUHhq?=
+ =?utf-8?B?dzdPVk5nV1pjRjRMK1hScDhaNzltL25sQnRzNEptWEJocUNabFk2bm56UUh2?=
+ =?utf-8?B?Z2JZb1pJMU5Nb29hbW9xMStjVkV6WXZuVkhxV01YWUVnTTNTeHFFUThIRTZn?=
+ =?utf-8?B?L3Jrc09LQ1lJWGIvNzBDamx3WFBydHZPUjNRRkJ3aXo3Z0NoNVBDQmVSbm92?=
+ =?utf-8?B?Ui9FUnRONEs5NlRxNjJiTElkSnprRVFQdHJrUmR0dmlGdjB3Sm40YitBQldL?=
+ =?utf-8?B?MEMxbzY1Yk5mbEw3YmZDbmdyMmE1SUNSdG9FRWtrOXRVRzBvbnQ4UEM0dUN6?=
+ =?utf-8?B?MDhHT3FqNTluTDl0R0N3NzE3ZTZwWGVkQ1d6SjRLVW1yMkR3dWJ5KzE5NUYx?=
+ =?utf-8?B?L1ZFYkkvRW9iYjQvVGpWNXVXVVNJWFQzaGR1anpyajd2b1VRS1FNTmZBWGRF?=
+ =?utf-8?B?RytvVlhYTDlyblZHK2pmRVBFVWEwNW5STE1OR3F5bkx2ejNHL2NQL08xUjI5?=
+ =?utf-8?B?NVpOUDNsNW0vREFDSmNRMmV1MmczaDJHWFM0a0VSeGVWclRYSWlIVzQzT2Zj?=
+ =?utf-8?B?aXk0ci9sVjM1MkdyTWcvMjYvd2pHRXJLcTliK0lHR1BVend6cXN5MDQ1UjhJ?=
+ =?utf-8?B?NnZSQWJGYW9UQkRkT1Q2MCt6eWtlM0ExL0FJMmxkSHBKWFcxcDk4d3d1M0J3?=
+ =?utf-8?B?Z2JKYzcvdHZnbytINXNSWHpPS0QrQ0swMU9yWjZXU3h1MVpnU0ZZOXYzWkwz?=
+ =?utf-8?B?TkY5UHdHV0NwUVRtUUhjb2xpby9rcTNKRzJ6c2JSd2tiTzhDQjd5MFZNSUFO?=
+ =?utf-8?B?ZmFPZzNvbmFBdHE1dnhZdTIrSTlIRG9hNTMydnJDdkVsdDZFZDlzYWpPYnpJ?=
+ =?utf-8?B?dXhNYy9DSWpNQXAvN3R2WEdHcTMvNFoxMkZtMGpKQzlPQmtjNWovQXpNUnQ4?=
+ =?utf-8?B?OWhHaXFnZ0kwYXRYeVpvZS9MTXVLQmRDUHBNMFBCY0hHMkxIWXZ6U25DYmNa?=
+ =?utf-8?Q?YOaDd2lR2PvkOm/XGY?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87ba2157-5935-40df-f45b-08def3ae6135
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR12MB5026.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47ac4028-efd8-4e95-1505-08def3af50e7
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 11:32:25.6327 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 11:39:03.7034 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uiwx5DIyAO8Ic9lYVa0H10PslqhzyChJSsfQGEy/a7gYwAMQ/nNzez+9v6EKYUFgKBNAVjNJ6Ha88+sNaczIFw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9792
+X-MS-Exchange-CrossTenant-UserPrincipalName: 0Z/4g7heFFYLTkEHV+qzoyNreBnN3t8t8UY17aCf1walss+eWC3eHg1n8kX82Oj0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6219
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,157 +139,89 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 8/6/26 05:43, Baul Lee wrote:
+> ttm_bo_vm_fault_reserved() derives two page indices from the caller's
+> mmap(2) arguments and bounds only one of them:
+> 
+>         page_offset = ((address - vma->vm_start) >> PAGE_SHIFT) +
+>                 vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
+>         page_last = vma_pages(vma) + vma->vm_pgoff -
+>                 drm_vma_node_start(&bo->base.vma_node);
+> 
+>         if (unlikely(page_offset >= PFN_UP(bo->base.size)))
+>                 return VM_FAULT_SIGBUS;
+> 
+> bo->base.size appears once in the function, bounding page_offset on
+> entry.  page_last comes straight from vma_pages(vma) and is the loop
+> terminator:
+> 
+>         if (unlikely(++page_offset >= page_last))
+>                 break;
+> 
+> so the object size never bounds it.  For an object of N pages, a fault
+> on the last in-object page passes the entry test with page_offset
+> N - 1, and the prefault loop then walks N..N+14, reading
+> ttm->pages[page_offset] or
+> ttm_bo_io_mem_pfn(bo, page_offset) and installing each frame with
+> vmf_insert_pfn_prot().
+> 
+> page_last exceeds the object whenever the VMA is longer than it.
+> drm_gem_mmap_obj() rejects that on the DRM node, but the fbdev path
+> reaches the object function through drm_gem_prime_mmap(), which does
+> not.  It is also exceeded by a mapping no longer than the object taken
+> at a nonzero file offset, so the handler needs its own bound.
+> 
+> With a 128-page object mapped 192 pages long,
+
+And exactly that sentence explains why this whole patch is superfluous.
+
+A 128 page object absolutely *can't* be mapped into 192 pages VMA!
+
+If we would allow that the driver side could crash extremely badly long before we even get here.
+
+Do you have any reproducer which exercises this?
+
+Regards,
+Christian.
 
 
-On 8/6/2026 4:48 PM, Upadhyay, Tejas wrote:
->
->> -----Original Message-----
->> From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
->> Sent: 06 August 2026 16:43
->> To: Auld, Matthew <matthew.auld@intel.com>; Upadhyay, Tejas
->> <tejas.upadhyay@intel.com>; intel-xe@lists.freedesktop.org; dri-
->> devel@lists.freedesktop.org
->> Subject: Re: [PATCH V4 2/2] gpu/tests/gpu_buddy: Add KUnit test for
->> gpu_buddy_allocated_addr_to_block
->>
->>
->>
->> On 8/6/2026 3:49 PM, Matthew Auld wrote:
->>> On 06/08/2026 10:46, Upadhyay, Tejas wrote:
->>>>
->>>>> -----Original Message-----
->>>>> From: Auld, Matthew <matthew.auld@intel.com>
->>>>> Sent: 06 August 2026 14:31
->>>>> To: Upadhyay, Tejas <tejas.upadhyay@intel.com>; intel-
->>>>> xe@lists.freedesktop.org; dri-devel@lists.freedesktop.org
->>>>> Cc: arunpravin.paneerselvam@amd.com
->>>>> Subject: Re: [PATCH V4 2/2] gpu/tests/gpu_buddy: Add KUnit test for
->>>>> gpu_buddy_allocated_addr_to_block
->>>>>
->>>>> On 06/08/2026 06:36, Tejas Upadhyay wrote:
->>>>>> Add a new KUnit test gpu_test_buddy_addr_to_block() that validates
->>>>>> the
->>>>>> gpu_buddy_allocated_addr_to_block() helper which traces a address
->>>>>> back to its allocated buddy block.
->>>>>>
->>>>>> The test covers:
->>>>>> - Exact address matching returns the correct allocated block
->>>>>> - An unallocated address inside the manager should return NULL
->>>>>> - An address outside the manager should return -ENXIO
->>>>>>
->>>>>> v4(MattA):
->>>>>> - Add test for unaligned address
->>>>>> v3(Sashiko):
->>>>>> - remove unused target_addr variable
->>>>>> v2(Sashiko):
->>>>>> - Drop the mutex and lockdep annotation; standalone KUnit tests do
->>>>>>      not register a driver lock.
->>>>>>
->>>>>> Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
->>>>> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
->>>> Hi Matt,
->>>>
->>>> Thanks for review. Since I don’t have merge rights on drm-tip, Would
->>>> you please help merging this series.
->>> I think Arun normally merges these. Arun, any objections? We need this
->>> for an upcoming driver feature (patches on the list), so wanted to
->>> land this API ahead of time. I don't think this will conflict much
->>> with the big rework you were doing.
->> No objections. Do you want me to merge the series below into drm-misc-
->> next?
->>
->> https://patchwork.freedesktop.org/series/171145/
-> Thanks. Yes, you pointed to the right series.
-Done. Merged into drm-misc-next.
->
-> Tejas
->> Regards,
->> Arun.
->>>> Tejas
->>>>>> ---
->>>>>>     drivers/gpu/tests/gpu_buddy_test.c | 45
->>>>> ++++++++++++++++++++++++++++++
->>>>>>     1 file changed, 45 insertions(+)
->>>>>>
->>>>>> diff --git a/drivers/gpu/tests/gpu_buddy_test.c
->>>>>> b/drivers/gpu/tests/gpu_buddy_test.c
->>>>>> index 7df5c2ae83bb..04e425eb8bdd 100644
->>>>>> --- a/drivers/gpu/tests/gpu_buddy_test.c
->>>>>> +++ b/drivers/gpu/tests/gpu_buddy_test.c
->>>>>> @@ -1381,6 +1381,50 @@ static void
->>>>> gpu_test_buddy_alloc_exceeds_max_order(struct kunit *test)
->>>>>>         gpu_buddy_fini(&mm);
->>>>>>     }
->>>>>>
->>>>>> +static void gpu_test_buddy_addr_to_block(struct kunit *test) {
->>>>>> +    struct gpu_buddy_block *allocated_block, *found_block;
->>>>>> +    LIST_HEAD(allocated_list);
->>>>>> +    const u64 test_size = SZ_4M + SZ_2M;
->>>>>> +    const u64 alloc_start = SZ_4M;
->>>>>> +    const u64 alloc_size = SZ_4K;
->>>>>> +    const u64 chunk_size = SZ_4K;
->>>>>> +    struct gpu_buddy mm;
->>>>>> +
->>>>>> +    KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, test_size,
->>>>> chunk_size),
->>>>>> +                   "buddy_init failed\n");
->>>>>> +
->>>>>> +    KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm,
->>>>> alloc_start,
->>>>>> + alloc_start +
->>>>> alloc_size,
->>>>>> + alloc_size,
->>>>> chunk_size,
->>>>>> + &allocated_list, 0),
->>>>>> +                   "buddy_alloc failed\n");
->>>>>> +
->>>>>> +    allocated_block = list_first_entry(&allocated_list, struct
->>>>> gpu_buddy_block, link);
->>>>>> +    KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(allocated_block),
->>>>> alloc_start);
->>>>>> +    KUNIT_EXPECT_EQ(test, gpu_buddy_block_size(&mm,
->>>>> allocated_block),
->>>>>> +alloc_size);
->>>>>> +
->>>>>> +    found_block = gpu_buddy_allocated_addr_to_block(&mm,
->>>>> alloc_start);
->>>>>> +    KUNIT_EXPECT_PTR_EQ(test, found_block, allocated_block);
->>>>>> +
->>>>>> +    /* Unaligned address inside the allocated block (should
->>>>>> resolve to the
->>>>> same block) */
->>>>>> +    found_block = gpu_buddy_allocated_addr_to_block(&mm,
->>>>>> +alloc_start
->>>>> + 16);
->>>>>> +    KUNIT_EXPECT_PTR_EQ(test, found_block, allocated_block);
->>>>>> +
->>>>>> +    /* An unallocated address inside the manager should return
->>>>>> NULL. */
->>>>>> +    found_block = gpu_buddy_allocated_addr_to_block(&mm,
->>>>>> +                            alloc_start -
->>>>> chunk_size);
->>>>>> +    KUNIT_EXPECT_NULL(test, found_block);
->>>>>> +
->>>>>> +    /* An address outside the manager should return -ENXIO. */
->>>>>> +    found_block = gpu_buddy_allocated_addr_to_block(&mm,
->>>>>> +test_size);
->>>>>> +    KUNIT_EXPECT_EQ(test, PTR_ERR(found_block), -ENXIO);
->>>>>> +
->>>>>> +    /* 3. Standard inline cleanup flow */
->>>>>> +    gpu_buddy_free_list(&mm, &allocated_list, 0);
->>>>>> +    gpu_buddy_fini(&mm);
->>>>>> +}
->>>>>> +
->>>>>>     static int gpu_buddy_suite_init(struct kunit_suite *suite)
->>>>>>     {
->>>>>>         while (!random_seed)
->>>>>> @@ -1405,6 +1449,7 @@ static struct kunit_case gpu_buddy_tests[] =
->>>>>> {
->>>>>>         KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
->>>>>>         KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
->>>>>> KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
->>>>>> +    KUNIT_CASE(gpu_test_buddy_addr_to_block),
->>>>>>         {}
->>>>>>     };
->>>>>>
+
+> one read fault at index
+> N - 1 leaves the fifteen frames after the object readable through the
+> mapping; on a fresh mapping, reading index N without first faulting
+> N - 1 is SIGBUS.  For a system-memory placement the page array is
+> over-read as well:
+> 
+>   BUG: KASAN: slab-out-of-bounds in ttm_bo_vm_fault_reserved+0x248/0x57c
+>   Read of size 8 at addr ffff0000078aac00 by task e1/219
+>    __asan_load8+0x84/0xb0
+>    ttm_bo_vm_fault_reserved+0x248/0x57c
+>    ttm_bo_vm_fault+0xe4/0x140
+>    __do_fault+0x6c/0x2f0
+> 
+> Clamp page_last to the object.
+> 
+> Discovered by XBOW, triaged by Baul Lee <baul.lee@xbow.com>
+> 
+> Fixes: ba4e7d973dd0 ("drm: Add the TTM GPU memory manager subsystem.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Baul Lee <baul.lee@xbow.com>
+> ---
+>  drivers/gpu/drm/ttm/ttm_bo_vm.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_vm.c b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> index a80510489c45..14ebf6ee3c47 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_vm.c
+> @@ -212,6 +212,7 @@ vm_fault_t ttm_bo_vm_fault_reserved(struct vm_fault *vmf,
+>                 vma->vm_pgoff - drm_vma_node_start(&bo->base.vma_node);
+>         page_last = vma_pages(vma) + vma->vm_pgoff -
+>                 drm_vma_node_start(&bo->base.vma_node);
+> +       page_last = min_t(unsigned long, page_last, PFN_UP(bo->base.size));
+> 
+>         if (unlikely(page_offset >= PFN_UP(bo->base.size)))
+>                 return VM_FAULT_SIGBUS;
+> --
+> 2.50.1 (Apple Git-155)
 
