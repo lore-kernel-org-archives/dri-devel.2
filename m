@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 275A2C5ACAC
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:02:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65495C5ACDC
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:02:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29D1E10EC20;
-	Thu,  6 Aug 2026 17:02:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99FDE10EAE4;
+	Thu,  6 Aug 2026 17:02:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="BDGHBD4s";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="NVITPhUP";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05C3310E361
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:02:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1F0A10E34F
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:02:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1786035746;
- bh=HJ4BFYGE+BpWSg5pZ0L+h8cPm9Opa0kg25ZJyYX3+8o=;
+ bh=oRTwAEvsdtAdQ3xeWlEgRs01pA0QwvbbaxWZXaVnR4M=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=BDGHBD4svxhT6TLZPCNKHZQ21TQdz7sAqGDBo9nZbEaP/Rm9PKzMv+9+4jlH+EI4P
- sbUT6T9naqBl2xRVqGOqvT5vUQsqqgNmvjSpIpfDCVx0zJ1qKL7iCl/aTX7k8e0613
- M86pXTB87PcxmWQwa46RU+koT6mUTzs/fpZ5RSFWW6e8KkDKYkRNMfw3P+mDg4LaYW
- eHhEaEFwZS9prK80/4vHOR0tPfZ5H5Z7rM62M1lstzpMN/r2dm0Apq4FP4+rWxca+T
- l+eaWZ1Yhlf9JRSjKWkQwwZDAb3tDs1warnr+Ojr85tx5MPGYiTU3iX01lHqSU4uJ4
- mrPWnFX1ssfEQ==
+ b=NVITPhUPm+E2bCAxfubkWxeXY6au6qJQc4/dYj2IOKnvPdF1D8ziM+nN/8vv2pcss
+ en44xonxTBT/Je/GsLqGaP+jcvXmTsrZoLf/YY46l6TPRVYezrVWEBha3/QghPgBLy
+ lbjCaNUuqkdhHlGtn0XyQ1lKAJ0gk27G+n9oFin/+ycPQ0TJXsOTDKprR/WdRW4DSI
+ 7VMOxC+amjJr/FRZBGRiEJ4EyCmtsfW2ATnbe56NAYd/hjUa8qOhvhGtKf6ILEvPjd
+ XlBvXZHj+v3jbdTdwXOT9NFr5Q+OCgdWyanxt5awG+PnCEfodiP1S7g2SiraSbwbzJ
+ K96MWQSGLetWA==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 06BF017E12A2;
- Thu, 06 Aug 2026 19:02:26 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E377817E1249;
+ Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 13FB0480065; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
+ id 0DD36480055; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 19:02:25 +0200
-Subject: [PATCH v11 19/21] drm/bridge: synopsys: dw-dp: Use regmap_set_bits
- in dw_dp_send_sdp
+Date: Thu, 06 Aug 2026 19:02:21 +0200
+Subject: [PATCH v11 15/21] drm/rockchip: dw_dp: Add runtime PM support
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v11-19-0d508505f383@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v11-15-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,21 +66,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1255;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2058;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=HJ4BFYGE+BpWSg5pZ0L+h8cPm9Opa0kg25ZJyYX3+8o=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viBeQd4T3g+Pzh1w/HSWJWhpMgYegO+Iy
- +9eatZnJLF9lokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
- O/qaLTEP/jVCr7EepydxLo/fMD/IdC1O0pgOGN9qsBbUljW+VAJ/GsyuKlQrhzvOXjBdaqJBOAG
- EE2kyD2KlLdPNd7RXU70h7NthOt/H3oiIA5rtRZsaXzGbGmnhT+kxNIKiEORLHQnK4iQQ/WSN9l
- LpH/bVfKyWJv49sDL8B0iLb0FS4YasU0LjK/nlhZoKizqZmJ3u59ZtqJq2bpz5ZnijRhrK7IQFe
- M37ZouER21fd/0esH0V8up7JkPk9lJGfNpgP0tR0X5tjFs8UXEr0rgP53ykJS3Lb0o9O8IFr/S6
- bnusAf+i38UEJF1APuGlW8eaArlJ8j228zcDip58D0DekagNGE+SHW+CVFbSeEQR33+u1tLt0VP
- uw84JdCBJ/mNpvx5P/mHkCpptCSH87GQxRBLqF/u9i9gb1u82WJR1lMYxTbMEP0dC1PY4n7nAjY
- 30/yfHuUTktTH6Sdb41x6yP4neBpyKR512ppIEiyM5NVhkq/VWR1ZLtqWF5Oi+Ij9k5TAJvFDJV
- DE+j3QIIUiyMwX6W4erupPzOe1aMIdFaurTNufu1UBTMXaiOOQf2mo5YCCMWRiVn5YGC+RE/T30
- U1+1ZqrSd0BdandxE191wmQQ59I3gC4TAZMxW+hPXEK/xlf7Eqp9qr1K3S3SzhPSbCPokskxATE
- PHLtFwpn42sgWaLKTvv0oEw==
+ bh=oRTwAEvsdtAdQ3xeWlEgRs01pA0QwvbbaxWZXaVnR4M=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viBugf7kmffLWiX1OgyTdCwCTPaeyaUDs
+ rciieB6Y4JvmYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
+ O/qaszIP/0DAaR/hYLDvWsgM90fNgIUOCUVWdLpAdJLvjbDTehiuKy4XldYAXULqubgYEu0ksLC
+ NYoQht5odetpFfbog3Nh5oaUhw7D4qLD+JbH2ECP/01GNOVnr7w1Y6GThw1EdMIdVtlfe5f1XgI
+ aZHssLkz//cq88AFQNbzaAu+uoeTyOadH7siM4tZMrP0YUZbZRxKvAiZReVClHeUHWDJT9X9hS6
+ 7KK36K+W9zgYbiczVOfI73NMWDwQze3SgXCHR9dW3cAxhJlHigiUINny3tVHwZnoupf/n5xQhOA
+ z8704oHlJEGs1l7UMHWxEk7PHHbjqa02akAeOQi5gTAtbJQhfGMqdoDItsdmgprVy3pIq/j2uRg
+ 11JZaY9dGBluIJHBQKs/uFxNb/5CzpbWkluKiMiN/IGdo3+OKTLTRuHmit/mPquKCspOhB6Uy5Q
+ PjPjGjT+/yTIfx1LqMpsPVbchVlrSoHObFNy/Lt35IekwbzgAQcVezJDAmrOVHlbEWrOiSfhAyo
+ CUteyvi4iGwTuIHjlMVwSsqUNx2nBZDdH9zABAVaZPfF7BfmHhtBa6PEWSOykwCz4khKNaxoyQY
+ /3YeUGZDAhwg/sjUQd5gRn+cTtQkvsQutP3YbP+nluoeWEe9bCjdKulynzspdxju0sCFhRZ4JUM
+ UGTTi7UKOvD03O+hZbWcquQ==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,39 +98,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Simplify dw_dp_send_sdp() a little bit by making use of
-regmap_set_bits.
-
-No functional change intended.
+Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
+DesignWare DisplayPort driver.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 10 ++++------
- 1 file changed, 4 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 39e21524a965..b610abf76ef7 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1070,14 +1070,12 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
- 			     FIELD_PREP(SDP_REGS, get_unaligned_le32(payload)));
+diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+index ffcfb887d0d2..770ab042a187 100644
+--- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+@@ -12,6 +12,7 @@
+ #include <linux/mfd/syscon.h>
+ #include <linux/of_device.h>
+ #include <linux/platform_device.h>
++#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ #include <linux/videodev2.h>
  
- 	if (sdp->flags & DW_DP_SDP_VERTICAL_INTERVAL)
--		regmap_update_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
--				   EN_VERTICAL_SDP << nr,
--				   EN_VERTICAL_SDP << nr);
-+		regmap_set_bits(dp->regmap, DW_DP_SDP_VERTICAL_CTRL,
-+				EN_VERTICAL_SDP << nr);
+@@ -231,6 +232,7 @@ static int dw_dp_rockchip_probe(struct platform_device *pdev)
+ 	if (IS_ERR(dp->vo_grf))
+ 		return PTR_ERR(dp->vo_grf);
  
- 	if (sdp->flags & DW_DP_SDP_HORIZONTAL_INTERVAL)
--		regmap_update_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
--				   EN_HORIZONTAL_SDP << nr,
--				   EN_HORIZONTAL_SDP << nr);
-+		regmap_set_bits(dp->regmap, DW_DP_SDP_HORIZONTAL_CTRL,
-+				EN_HORIZONTAL_SDP << nr);
- 
- 	return nr;
++	plat_data->autosuspend_delay = 500;
+ 	plat_data->max_link_rate = plat_data_const->max_link_rate;
+ 	plat_data->pixel_mode = plat_data_const->pixel_mode;
+ 	plat_data->hpd_sw_sel = dw_dp_rockchip_hpd_sw_sel;
+@@ -253,6 +255,24 @@ static void dw_dp_rockchip_remove(struct platform_device *pdev)
+ 	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
  }
+ 
++static int dw_dp_rockchip_runtime_suspend(struct device *dev)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
++
++	return dw_dp_runtime_suspend(dp->base);
++}
++
++static int dw_dp_rockchip_runtime_resume(struct device *dev)
++{
++	struct rockchip_dw_dp *dp = dev_get_drvdata(dev);
++
++	return dw_dp_runtime_resume(dp->base);
++}
++
++static const struct dev_pm_ops dw_dp_pm_ops = {
++	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_resume, NULL)
++};
++
+ static const struct rockchip_dw_dp_plat_data rk3588_dp_plat_data = {
+ 	.num_ctrls = 2,
+ 	.ctrl_ids = {0xfde50000, 0xfde60000},
+@@ -287,5 +307,6 @@ struct platform_driver dw_dp_driver = {
+ 	.driver = {
+ 		.name = "dw-dp",
+ 		.of_match_table = dw_dp_of_match,
++		.pm = pm_ptr(&dw_dp_pm_ops),
+ 	},
+ };
 
 -- 
 2.53.0
