@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33718C56205
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:27:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 180FDC5AC7C
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:29:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4AAD210F268;
-	Thu,  6 Aug 2026 17:27:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43B7310E35C;
+	Thu,  6 Aug 2026 17:29:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mGQm5Qv4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EBFaCwN2";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E4EB10F268
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:27:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A57CF10E35C
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:29:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2FB2840181;
- Thu,  6 Aug 2026 17:27:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 649EB1F000E9;
- Thu,  6 Aug 2026 17:27:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7891E415AB;
+ Thu,  6 Aug 2026 17:29:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0A261F000E9;
+ Thu,  6 Aug 2026 17:29:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786037248;
- bh=AjdcomlDAAvvRiuWm+EQSYMkRwUptGsL45Hfjs4igjg=;
+ s=k20260515; t=1786037377;
+ bh=NfIGvapZmrNP5/iFxVjJchGfYLISDrBmxSv5TDZiUqw=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mGQm5Qv4oBfknVqEP03CTdPEytaJqEUHQsbWztygjmIVWEXhcEGQjd9zQl0+67fTV
- QGFh5H2IynW4HUV5gG1NnKb0AAFHqyrY9nbojSlNT2/9SgupAP7x9OQ28/7AOTi0i8
- Av/eiRng+G9r/fsarMauQxtIyY0S/1GKT46O9Vj7crITBvN+8QGMrBtE5O+9oXxQRz
- OYlxUNby2dADA7RsYHjneWwt/Vf92+cr2+mONRYqZa0+NhbugenLQhYQJW91MwOcYZ
- oVA17LpmB7oUbzLFSGuVriSecES7TbWCQKhuzxU8w3M1XDUygs6WFqs3zzAWbbQjR1
- 9C6a4sYPu5aEA==
+ b=EBFaCwN2NahknnlTfkKKxUCn1AnoU7tVr9/IRR0uYm617vpen6cqdR0rx0Vy/gzy3
+ pupT5FrrN4lo3L0Z0rD6ksBySS2qaSmPmjkczuHRKtyrWIAGsuw1AMLW6hagMMgGmN
+ Fv9kkWCeEY8lLnGAr2PWLyi8rooKDzsle+pPWj1gLD5yOTfTwdoumG4R3WCNh5hFtz
+ hEtBdmnJtLMfuXsst3Zb9yeW7LH1QkeJ/a/Eh5716bwhVHxY/WybTbrkQNVhHvJCsB
+ GuQFD8/rfDSSyMKp8g1+3Fpsz5nEJ/q8MOcjsymfAauPBc0JoBgeYh9WWQuibZKPKK
+ 7fHOuJ3me7xew==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 13/21] drm/rockchip: dw_dp: Implement out-of-band
- HPD handling
+Subject: Re: [PATCH v11 03/21] drm/bridge: synopsys: dw-dp: Fix error
+ handling for DP link enablement
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org
-In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-13-0d508505f383@collabora.com>
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-3-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v11-13-0d508505f383@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v11-3-0d508505f383@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 17:27:26 +0000
-Message-Id: <20260806172727.649EB1F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 17:29:35 +0000
+Message-Id: <20260806172936.D0A261F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,133 +59,133 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Missing runtime PM acquisition in out-of-band HPD callbacks defe=
-ats the patch's purpose.
-- [Medium] dw_dp_rockchip_get_vo_grf() hard-fails instead of implementing t=
-he documented DT fallback for future platforms.
+
+New issues:
+- [High] Unconditional call to `drm_dp_link_power_down()` on error path cau=
+ses severe stalls when unplugged.
+
+Pre-existing issues:
+- [High] Missing `reinit_completion()` in `dw_dp_aux_transfer()` leads to s=
+purious AUX timeouts and data corruption.
+- [High] TOCTOU race condition between asynchronous HPD worker and non-bloc=
+king atomic disable.
 --
 
---- Patch [13]: [PATCH v11 13/21] drm/rockchip: dw_dp: Implement out-of-ban=
-d HPD handling ---
-commit 7506de24244286fa5e8735e9092296ca64dbef67
+--- Patch [3]: [PATCH v11 03/21] drm/bridge: synopsys: dw-dp: Fix error han=
+dling for DP link enablement ---
+commit a255c1363edf851c03c63d0e1832fe5878093ca6
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
+drm/bridge: synopsys: dw-dp: Fix error handling for DP link enablement
 
-drm/rockchip: dw_dp: Implement out-of-band HPD handling
+This commit introduces an enabled state variable in the link structure to
+ensure that the link is only disabled if it was properly enabled, preventing
+PHY power state mismatches. It also adds missing error handling to
+dw_dp_link_enable() to ensure the link enablement is an atomic operation.
 
-This commit implements out-of-band hotplug handling to receive external
-hotplug information from the USB-C state machine. It aims to prevent
-massive SError problems once runtime PM is implemented in the DP driver
-by moving the register access into the DP driver.
-
-> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
-rockchip/dw_dp-rockchip.c
-> index 38e8fe75718e4..9e49e7dbf420f 100644
-> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index d7945f7fe9f05..21d60e89126f0 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
 [ ... ]
 
-> @@ -23,12 +26,48 @@
+> @@ -1636,10 +1641,22 @@ static int dw_dp_link_enable(struct dw_dp *dp)
 > =20
->  #include "rockchip_drm_drv.h"
+>  	ret =3D drm_dp_link_power_up(&dp->aux, dp->link.revision);
+>  	if (ret < 0)
+> -		return ret;
+> +		goto err_phy_power_off;
 > =20
-> +#define ROCKCHIP_MAX_CTRLS 2
+>  	ret =3D dw_dp_link_train(dp);
+> +	if (ret < 0)
+> +		goto err_link_power_down;
 > +
-> +#define ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL BIT(10)
-> +#define ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG BIT(11)
-
-[ ... ]
-
-> +static void dw_dp_rockchip_hpd_sw_sel(void *data, bool force_hpd_from_sw)
-> +{
-> +	struct rockchip_dw_dp *dp =3D data;
-> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
+> +	dp->link.enabled =3D true;
+> =20
+> +	return 0;
 > +
-> +	regmap_write(dp->vo_grf, hpd_reg,
-> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_SEL, force_hpd_from_s=
-w));
+> +err_link_power_down:
+> +	drm_dp_link_power_down(&dp->aux, dp->link.revision);
 
-[Severity: Medium]
-Does this need to acquire a runtime PM reference before accessing the regis=
-ter?
+[Severity: High]
+Can this unconditionally stall the DRM commit worker during a hot-unplug ev=
+ent?
 
-Since this callback can be triggered asynchronously by an out-of-band event
-from the Type-C TCPM, writing to the vo_grf regmap while the DP controller
-is suspended might trigger the exact SError this patch intends to fix,
-once runtime PM is enabled.
+If dw_dp_link_enable() fails link training due to the display being unplugg=
+ed,
+this error path unconditionally executes drm_dp_link_power_down() without
+verifying if the hardware is still plugged in.
 
-> +}
+Because the sink is disconnected, DPCD writes over the AUX channel will
+repeatedly time out, stalling the DRM commit worker for hundreds of
+milliseconds. The existing cleanup code safely guards this with
+if (dw_dp_hpd_detect(dp)), but this new inline error path omits the check.
+
+> +	dw_dp_phy_xmit_enable(dp, 0);
 > +
-> +static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
-> +{
-> +	struct rockchip_dw_dp *dp =3D data;
-> +	u32 hpd_reg =3D dp->pdata->hpd_reg[dp->id];
-> +
-> +	dev_dbg(dp->dev, "Force HPD connected=3D%s\n", str_yes_no(hpd));
-> +
-> +	regmap_write(dp->vo_grf, hpd_reg,
-> +		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, hpd));
+> +err_phy_power_off:
+> +	phy_power_off(dp->phy);
+>  	return ret;
+>  }
 
-[Severity: Medium]
-Similarly, does this asynchronous callback need to ensure the DP power
-domain is active?
+[Severity: High]
+This isn't a bug introduced by this patch, but does dw_dp_aux_transfer() ha=
+ve
+a missing completion re-initialization that could cause data corruption?
 
-If an asynchronous hotplug event occurs without a runtime PM guarantee,
-could this register access crash the system?
+Looking at dw_dp_aux_transfer():
 
-> +}
+drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_aux_transfer() {
+    ...
+    status =3D wait_for_completion_timeout(&dp->complete, timeout);
+    ...
+}
 
-[ ... ]
+The wait relies on the completion state being clean, but because it is not
+re-initialized, a late interrupt from a previous timeout will prematurely
+satisfy this wait. This could cause the next transfer to immediately return
+without waiting for actual completion, returning stale data or falsely
+reporting timeouts.
 
-> +static struct regmap *dw_dp_rockchip_get_vo_grf(struct rockchip_dw_dp *d=
-p)
-> +{
-> +	struct device_node *np =3D dev_of_node(dp->dev);
-> +	struct of_phandle_args args;
-> +	struct regmap *regmap;
-> +	int ret;
-> +
-> +	ret =3D of_parse_phandle_with_args(np, "phys", "#phy-cells", 0, &args);
-> +	if (ret)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	/*
-> +	 * Limit this workaround to RK3576 and RK3588, potential future platfor=
-ms
-> +	 * reusing the driver should just add a VO GRF phandle in the DisplayPo=
-rt
-> +	 * controller DT node.
-> +	 */
-> +	if (!of_device_is_compatible(args.np, "rockchip,rk3576-usbdp-phy") &&
-> +	    !of_device_is_compatible(args.np, "rockchip,rk3588-usbdp-phy")) {
-> +		regmap =3D ERR_PTR(-ENODEV);
-> +		goto out_put_node;
-> +	}
+Should reinit_completion() be called before starting a transfer?
 
-[Severity: Medium]
-Does this hard-fail prevent the documented fallback?=20
+[Severity: High]
+This is a pre-existing issue, but is there a TOCTOU race condition between =
+the
+asynchronous HPD worker and non-blocking atomic disable?
 
-The comment mentions future platforms should add a VO GRF phandle directly
-in the DisplayPort controller node, but it looks like we return
-ERR_PTR(-ENODEV) here without ever attempting to parse the VO GRF property
-from np.
+Looking at dw_dp_link_retrain():
 
-If a future platform is missing the legacy phys property or uses a different
-PHY compatible string, it will hit these ERR_PTR(-ENODEV) returns and probe
-will fail instead of falling back to the documented scheme.
+drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_link_retrain() {
+    ...
+    if (!ret)
+        ret =3D dw_dp_link_train(dp);
+    ...
+}
 
-> +
-> +	regmap =3D syscon_regmap_lookup_by_phandle(args.np, "rockchip,vo-grf");
-> +
-> +out_put_node:
-> +	of_node_put(args.np);
-> +	return regmap;
-> +}
+And dw_dp_bridge_atomic_disable():
 
-[ ... ]
+drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_bridge_atomic_disable() {
+    ...
+    dw_dp_link_disable(dp);
+    ...
+}
+
+dw_dp_hpd_work() can trigger a link retrain asynchronously. It checks
+dw_dp_needs_link_retrain() without the connection_mutex, then acquires the =
+lock
+and unconditionally calls dw_dp_link_train().
+
+Since non-blocking atomic commits drop connection_mutex before
+dw_dp_bridge_atomic_disable() executes, the HPD worker can run concurrently
+with bridge teardown. If atomic_disable powers off the PHY, the HPD worker
+could blindly access the powered-down hardware, potentially causing a locku=
+p or
+crash.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-synopsys-d=
-w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D13
+w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D3
