@@ -4,87 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9988CC5AC81
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:02:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88897C56208
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:09:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DFC5B10E4A8;
-	Thu,  6 Aug 2026 17:02:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB4C10E9BE;
+	Thu,  6 Aug 2026 17:09:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Dl4BiTmB";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="GCiSK5T0";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7CAC10E36B
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:02:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786035745;
- bh=/lgBpexnadALM8qH0IRqFvISL085+4oJ6MSwbA/prjw=;
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 40D0510F24D
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:09:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 87E3D44017;
+ Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D319C2BCFF;
+ Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
+ t=1786036195; bh=gBeCwzgG77EObc2Yyji4wjMjI8hg1cHLHMj7opVab9g=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Dl4BiTmBokojrQFAJ+KNC2cWeneWlQRkZFPyeZ9W0YWx8BdaHmnqkI+3JEruFpHyu
- SwD4X90LRPV+M3U+mOcIseX1JlZi5JMrTSlcCEaPOjVh5JOsGON+KYyJ6qrRpnX7Rz
- 4bXVV5Q+DyRx3J0y31fbZFPM0KBRy1dWmcA+TcyryYEUbeNu09XwEEhs8IwWkAvcRp
- OD6lc96qILa1Mi9w+YNYh8jUxR+i9qnFJNuNDax8vCvVM2c0pWukdJL6kLxTeGoWuv
- ZCwvuF5P+BcKmRzZNhA0uLn8Cpti6KIfx+5ZFcYNRPhDjCWXRn3cB2TK5aDLn2mAfu
- Mvji9MM9m9faw==
-Received: from jupiter.universe (unknown [100.64.1.62])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519) (No client certificate requested)
- (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A022417E1104;
- Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
-Received: by jupiter.universe (Postfix, from userid 1000)
- id 03AF348003A; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 19:02:14 +0200
-Subject: [PATCH v11 08/21] drm/bridge: synopsys: dw-dp: Free output_fmts
- when none are valid
+ b=GCiSK5T0hiEC5OWWinNef8l0w0S59cnZ4eiis4qiKM2SP2J8mqKNWX/8+kBy1wv4u
+ 9gHtavzhiTJs6KYKfAHYZ6mNpieX2vkKWPHMOMp7og06IE446chia4qldYXcrJoFA8
+ Vkng0SCWDkUW53V5DimQevcIbSlDdhWFKvlPcC+M=
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 3F2B2C5AC81;
+ Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
+From: Alvin Sun <alvin.sun@linux.dev>
+Date: Fri, 07 Aug 2026 01:07:25 +0800
+Subject: [PATCH v3 3/8] rust: debugfs: add ScopeRef for existing dentries
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v11-8-0d508505f383@collabora.com>
-References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
-In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
-To: Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
+Message-Id: <20260807-tyr-debugfs-v2-v3-3-ff5595ac66ae@linux.dev>
+References: <20260807-tyr-debugfs-v2-v3-0-ff5595ac66ae@linux.dev>
+In-Reply-To: <20260807-tyr-debugfs-v2-v3-0-ff5595ac66ae@linux.dev>
+To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ Greg Kroah-Hartman <gregkh@kernel.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
- Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, kernel@collabora.com, 
- linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Sashiko <sashiko-bot@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1057;
- i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=/lgBpexnadALM8qH0IRqFvISL085+4oJ6MSwbA/prjw=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viBJeHTihB6rTSVJOQPkad+CcXtFBwZQU
- 2YBrUW0ZeE6lIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
- O/qau1IP/3lYGxq+/czWfeaJnqNvkT5jdwpaQg8ewclxUgoqe5A16+1c/9bcSdX3ddyzsIrmDaq
- VWW+hax0/gAeXR4AomcNFkgf8EBlTJ2iuzTCVZ2hrsCgPZpS7Z9DwkwO+ALfUUyIQ+Crg7Z7diE
- QChoH8CJkm9GLoxbnK4gOZd/yREd5ntFNEN5Po+MbOu3Bq3PoTM00q/NoFn3npGw0wNkdJvCdL9
- HoPbm+zGz4zf9pjmLKzBhotGKMiwTVAD48LX67ka16Fcptzxvz1hiESz52mln8ZRdFXcLyAdyjh
- GD++lMdLW/LJIzxDPehPKLMtlScP64ZN4+hJfERc4yBvDucRHfJwXq5ke4EN/lBYQaRjKr+4RVj
- ZawLsRronY/WrWqzRagbEMJB2koy7tELkoRlvkxEPos0r9nYQ8TyAakGw5hPZ5WakphOHnwGikF
- npO/6Dm4VfjCIpcdNOCjGS4z1t8ch/K+GNfp/fBkiLQgCF5OUlcV8ORG+eGfT5TXQCPaeUwLNAL
- Tu2sys+vEZXCwwe+YG3H7Hoeu1iNyY8GEIgjJiympR9jXc9yrifZeEPWw10AZgYzIhUbxvXJsHY
- Zk5cyDACWbh+aarpe/jOrbiEMwlsvKYHFWbNsKhOEEGwYA7/KL5mBZfgnKxFdYWJQafv9cm7R65
- BdhXzKXyvUe8FxMfSZnEjPg==
-X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
- fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org, Alvin Sun <alvin.sun@linux.dev>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786036192; l=5737;
+ i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
+ bh=gBeCwzgG77EObc2Yyji4wjMjI8hg1cHLHMj7opVab9g=;
+ b=fxzLoGbcjbRzQmSV14JVKvUk4fBi1ynRhqiyz7qnp7FIftA+IE4Nb9DENs0oXyil0ol6jTgeP
+ JEV56FGjnhKA1XGbIUv7oY2yk1r/Wc2/Ms4IZJbHAe1n4Z0EL0ROo+b
+X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
+ pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
+X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
+ auth_id=684
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,35 +85,182 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-If dw_dp_bandwidth_ok() returns false for all formats, *num_output_fmts
-might end up becoming 0. In this case functions calling it assume that
-nothing needs to be free'd, so free output_fmts within the function to
-avoid leaking memory.
+Add methods to construct debugfs abstractions from raw C dentry
+pointers. Needed by DRM debugfs_init callback to create ScopedDir
+from an existing dentry.
 
-Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Add ScopeRef<'a, T>, a debugfs directory handle that carries a
+reference to associated data of type T.
+
+Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ rust/kernel/debugfs.rs       | 84 ++++++++++++++++++++++++++++++++++++++++++--
+ rust/kernel/debugfs/entry.rs | 15 +++++++-
+ 2 files changed, 96 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index 8ceb139f1a72..d35dcd4a413f 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1820,6 +1820,11 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
- 		output_fmts[j++] = fmt->bus_format;
- 	}
+diff --git a/rust/kernel/debugfs.rs b/rust/kernel/debugfs.rs
+index d7b8014a64746..831d6750a34ba 100644
+--- a/rust/kernel/debugfs.rs
++++ b/rust/kernel/debugfs.rs
+@@ -24,7 +24,7 @@
+         PhantomData,
+         PhantomPinned, //
+     },
+-    ops::Deref,
++    ops::Deref, //
+ };
  
-+	if (j == 0) {
-+		kfree(output_fmts);
-+		output_fmts = NULL;
-+	}
+ mod traits;
+@@ -33,6 +33,7 @@
+     BinaryReaderMut,
+     BinaryWriter,
+     Reader,
++    SeqShow,
+     Writer, //
+ };
+ 
+@@ -51,6 +52,7 @@
+     FileOps,
+     ReadFile,
+     ReadWriteFile,
++    SeqReadFile,
+     WriteFile, //
+ };
+ 
+@@ -538,7 +540,7 @@ pub fn dir<'dir2>(&'dir2 self, name: &CStr) -> ScopedDir<'data, 'dir2> {
+         }
+     }
+ 
+-    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: &'static FileOps<T>) {
++    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: &FileOps<T>) {
+         #[cfg(CONFIG_DEBUG_FS)]
+         core::mem::forget(Entry::file(name, &self.entry, data, vtable));
+     }
+@@ -588,6 +590,14 @@ pub fn read_callback_file<T, F>(&self, name: &CStr, data: &'data T, _f: &'static
+         self.create_file(name, data, vtable)
+     }
+ 
++    /// Creates a seq_file debugfs file in this directory.
++    ///
++    /// The file's contents are produced by invoking [`SeqShow::show`] with
++    /// `data` on each read.
++    pub fn seq_file<S: SeqShow<U>, U: Sync>(&self, name: &CStr, data: &'data U) {
++        self.create_file(name, data, &<S as SeqReadFile<U>>::FILE_OPS)
++    }
 +
- 	*num_output_fmts = j;
+     /// Creates a read-write file in this directory.
+     ///
+     /// Reading the file uses the [`Writer`] implementation on `data`. Writing to the file uses
+@@ -721,4 +731,74 @@ fn new(name: &CStr) -> ScopedDir<'data, 'static> {
+             _phantom: PhantomData,
+         }
+     }
++
++    /// Creates a [`ScopedDir`] wrapping an existing debugfs dentry.
++    ///
++    /// Files created under this directory are not automatically removed on drop;
++    /// their lifetime is tied to the dentry owner.
++    ///
++    /// # Safety
++    ///
++    /// The caller must ensure the dentry remains valid for the lifetime of the
++    /// returned `ScopedDir`.
++    pub unsafe fn from_dentry(dentry: *mut bindings::dentry) -> Self {
++        let _ = dentry;
++        ScopedDir {
++            #[cfg(CONFIG_DEBUG_FS)]
++            // SAFETY: The caller guarantees the dentry is valid and outlives this `ScopedDir`.
++            entry: ManuallyDrop::new(unsafe { Entry::from_raw(dentry) }),
++            _phantom: PhantomData,
++        }
++    }
++}
++
++/// A reference to a debugfs directory that also holds a reference to
++/// associated data of type `T`.
++///
++/// Created from an existing debugfs dentry (e.g. the DRM debugfs root).
++/// `data` must remain valid while the debugfs files created under this
++/// scope may be accessed.
++pub struct ScopeRef<'a, T> {
++    #[cfg(CONFIG_DEBUG_FS)]
++    inner: ScopedDir<'a, 'a>,
++    data: &'a T,
++}
++
++impl<'a, T> ScopeRef<'a, T> {
++    /// Creates a [`ScopeRef`] from an existing debugfs dentry and a data reference.
++    ///
++    /// # Safety
++    ///
++    /// The caller must ensure that `dentry` remains valid for the lifetime of
++    /// the returned [`ScopeRef`] and that `data` remains valid while the
++    /// debugfs files created under this scope may be accessed.
++    pub unsafe fn new(dentry: *mut bindings::dentry, data: &'a T) -> Self {
++        let _ = dentry;
++        ScopeRef {
++            #[cfg(CONFIG_DEBUG_FS)]
++            // SAFETY: By the safety preconditions of `new`, `dentry` is valid
++            // and remains valid for the lifetime of the returned `ScopeRef`.
++            inner: unsafe { ScopedDir::from_dentry(dentry) },
++            data,
++        }
++    }
++
++    /// Creates a seq_file debugfs file in this directory.
++    ///
++    /// The file's contents are produced by invoking [`SeqShow::show`] with
++    /// `data` on each read.
++    #[cfg(CONFIG_DEBUG_FS)]
++    pub fn seq_file<S: SeqShow<T>>(&self, name: &CStr)
++    where
++        T: Sync,
++    {
++        self.inner.seq_file::<S, T>(name, self.data);
++    }
++
++    #[cfg(not(CONFIG_DEBUG_FS))]
++    pub fn seq_file<S: SeqShow<T>>(&self, _name: &CStr)
++    where
++        T: Sync,
++    {
++    }
+ }
+diff --git a/rust/kernel/debugfs/entry.rs b/rust/kernel/debugfs/entry.rs
+index 46aad64896ecb..7643ff0fa6093 100644
+--- a/rust/kernel/debugfs/entry.rs
++++ b/rust/kernel/debugfs/entry.rs
+@@ -8,7 +8,7 @@
+         CStr,
+         CStrExt as _, //
+     },
+-    sync::Arc,
++    sync::Arc, //
+ };
  
- 	return output_fmts;
+ use core::marker::PhantomData;
+@@ -87,6 +87,19 @@ pub(crate) unsafe fn dynamic_file<T>(
+ }
+ 
+ impl<'a> Entry<'a> {
++    /// Wraps a raw dentry pointer.
++    ///
++    /// # Safety
++    ///
++    /// The caller must ensure the dentry is valid and outlives this `Entry`.
++    pub(crate) unsafe fn from_raw(entry: *mut bindings::dentry) -> Self {
++        Self {
++            entry,
++            _parent: None,
++            _phantom: PhantomData,
++        }
++    }
++
+     pub(crate) fn dir(name: &CStr, parent: Option<&'a Entry<'_>>) -> Self {
+         let parent_ptr = match &parent {
+             Some(entry) => entry.as_ptr(),
 
 -- 
-2.53.0
+2.43.0
+
 
