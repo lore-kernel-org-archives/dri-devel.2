@@ -4,42 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFE58C55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 06:29:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20C32C55838
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 06:34:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7DE310E28F;
-	Thu,  6 Aug 2026 06:29:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CD3F10E29B;
+	Thu,  6 Aug 2026 06:34:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FZWGLcNC";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kj6sMOxy";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29E6A10E28F
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 06:29:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8750F10E29B
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 06:34:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BCA3340BFE;
- Thu,  6 Aug 2026 06:29:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74AC11F00A3A;
- Thu,  6 Aug 2026 06:29:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 28396418D7;
+ Thu,  6 Aug 2026 06:34:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B37E1F000E9;
+ Thu,  6 Aug 2026 06:34:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785997746;
- bh=ZDVKwe0tYfYuq8UUHc7YfyO53ZuAqx+bgTUppXsQ9Lk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=FZWGLcNCtrOSv3VQ7ypEoR2wp04o8/+eXo1A5Cp8vG7jFqALvDeQeJ4LWa4rkxz24
- J5Q8saHU1dVYE3uIxKdKjfMgg2adaFwM1ysKHaKHXB9a4r0F1dmY6E1omdrjqn/C6V
- 6UOevlE+xnKPCJxUsynX7+ddUOQJenuBmU+2rB0BwbHmf6f0qFi/KUBl73EbHlvrDQ
- SZwhqF1R6R7IrI6VC6GbtqvYLLS1R/ZYjLpcyO0M9G++W/WedrUQTJ8LYLcwjNrc5j
- o8ieudir/3spKzotWBZs3ESvYBP6f7DH790TK1Hp0oWM0z745cNOvlQwyt/5JM/sPE
- xTcbi5BrSpRdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/pagemap: Prevent double migration of device pages
-To: "Arvind Yadav" <arvind.yadav@intel.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260806061126.1499149-1-arvind.yadav@intel.com>
-References: <20260806061126.1499149-1-arvind.yadav@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 06:29:05 +0000
-Message-Id: <20260806062906.74AC11F00A3A@smtp.kernel.org>
+ s=k20260515; t=1785998057;
+ bh=aXg1rMIKmNTdTFekqThk0PQEaQIIk4Z++s/CEvY32hs=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=kj6sMOxyhJqy7VnazYtP8PQkAF+GsIaNb7tbT9ptHYwnYHA6PEBM1fbmwPGE/uAAs
+ juodLD4YNyk+MLgJWeV3dUyTDqxdQo6olWmkXawrPfQsT6Dsf95QgNoOgS34gjGcYb
+ zKmjQ3HcX4261SwejLk7x/tQa0tGsKBQ5yIKGwljrOOsmLHg2GUcgv/R1YUtJAQylf
+ dL7hYCTHRWavNqxVFqVooxbmLaH9qJ4IEs3ija3+nf9UETw9sxt+wgG//Nx9tblb69
+ jVgX39bu6AW1fa+yZSLxr1oCpfPzXmmhGz3IcTQuDCctw9sjPpfkp+guYQ4b0KGgEp
+ Gu9s7YsM6uDSw==
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch, 
+ samuel@sholland.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <75ad4947981f2dc33fd42c05ae0b0cedda7647bd.1785772659.git.jernej.skrabec@gmail.com>
+References: <cover.1785772659.git.jernej.skrabec@gmail.com>
+ <75ad4947981f2dc33fd42c05ae0b0cedda7647bd.1785772659.git.jernej.skrabec@gmail.com>
+Subject: Re: (subset) [PATCH 01/13] drm/sun4i: Fix V3s YUV scanline size
+Message-Id: <178599805478.3568999.5569213345510940143.b4-ty@kernel.org>
+Date: Thu, 06 Aug 2026 14:34:14 +0800
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,172 +59,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Mon, 03 Aug 2026 18:10:39 +0200, Jernej Skrabec wrote:
+> The VI scaler line buffer on V3s can hold 1024 pixels for subsampled
+> formats, not 2048 as currently claimed. Since coarse horizontal scaling
+> is engaged only once the source width exceeds that limit, YUV layers
+> wider than 1024 pixels are passed to the scaler unchanged and the
+> output is corrupted.
+> 
+> Use the value from the vendor driver.
+> 
+> [...]
 
-New issues:
-- [High] VMA virtual address changes (e.g., via mremap) break the retiremen=
-t bitmap indexing, leading to massive memory allocation failures or infinit=
-e page fault loops.
-- [Medium] High-order kzalloc scaling with user-controlled VMA size is high=
-ly susceptible to fragmentation failures.
+Applied to drm-misc-next in drm-misc, thanks!
 
-Pre-existing issues:
-- [High] Accessing folio metadata after dropping the page reference in the =
-error path.
-- [High] DMA mappings are leaked on error paths because the destination pag=
-e array is cleared before unmapping.
---
+[01/13] drm/sun4i: Fix V3s YUV scanline size
+        commit: abffce8b1eb5e119efccc51fc6a18ba38e2f6db6
+[02/13] drm/sun4i: vi scaler: Fix coefficient selection
+        commit: 5c31990b21f0b535732deb2b658b78b07464f56c
+[03/13] drm/sun4i: vi scaler: Restore opaque alpha in video modes
+        commit: 583d99165a85c3aaee924078c0f03c72e25644ac
+[04/13] drm/sun4i: tcon-top: Keep mixer routes distinct
+        commit: 62bac3202042a8cfd4d4969a6d057cebd8b7cc1a
+[05/13] drm/sun4i: tcon: Set output mux for DSI and LVDS
+        commit: 9c90199b39637ad94253c4fd8e7b1333ca1d3e0d
+[06/13] drm/sun4i: tcon: Drop TCON TOP device reference
+        commit: 8208832a38ff3d2560eb8a77a9d7a2f17d8ebcdc
+[07/13] drm/sun4i: hdmi: Don't leak sync polarity bits into packet control
+        commit: f5c3b1b0d228624786d22973a20c908c84e1a576
+[08/13] drm/sun4i: crtc: Propagate layer initialization error
+        commit: 7061ff05ed4a3cf16e83f7e3ad09cbd212508a32
+[09/13] drm/sun4i: tcon: Drop remote endpoint reference
+        commit: 3f77e4072630e2301efdbe521e7fca10311043ec
+[10/13] drm/sun4i: dw-hdmi: Drop TCON TOP port reference
+        commit: d2a242e5688a17b79c89cd966cd31820c5096d80
+[11/13] drm/sun4i: Drop node references while building component list
+        commit: 08a91f2a0664b73c2af9295ecbd441e852abe33c
+[12/13] drm/sun4i: hdmi-phy: Fix H6 8-bit MPLL config at 594 MHz
+        commit: 0ba6deddaae74f0539c0303bfb5f860adbe1a68b
 
---- Patch [1]: [PATCH v2] drm/pagemap: Prevent double migration of device p=
-ages ---
-commit 7672ff30a01aa092f294e4781fd86acb84ceecb0
-Author: Arvind Yadav <arvind.yadav@intel.com>
-drm/pagemap: Prevent double migration of device pages
+Best regards,
+-- 
+Chen-Yu Tsai <wens@kernel.org>
 
-A device page migrated to system memory by a CPU fault can remain
-referenced after migration completes. During this window, raw-PFN eviction
-can collect the same device PFN and migrate it again.
-
-> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-> --- a/drivers/gpu/drm/drm_pagemap.c
-> +++ b/drivers/gpu/drm/drm_pagemap.c
-> @@ -78,29 +85,38 @@ struct drm_pagemap_zdd {
->  static struct drm_pagemap_zdd *
-> -drm_pagemap_zdd_alloc(struct drm_pagemap *dpagemap)
-> +drm_pagemap_zdd_alloc(struct drm_pagemap *dpagemap, unsigned long start,
-> +		      unsigned long npages)
->  {
->  	struct drm_pagemap_zdd *zdd;
-> =20
-> -	zdd =3D kmalloc_obj(*zdd);
-> +	zdd =3D kzalloc(struct_size(zdd, retire_map, BITS_TO_LONGS(npages)),
-> +		      GFP_KERNEL);
-
-[Severity: Medium]
-Does this allocation scale linearly with a user-supplied VMA size?
-
-If a user maps a large region of device memory, this kzalloc request in
-drm_pagemap_zdd_alloc() might require a high-order contiguous allocation.
-This could fail easily on a fragmented system.
-
-Would it be safer to use kvzalloc here instead?
-
-[ ... ]
-
-> @@ -875,32 +875,25 @@ static int drm_pagemap_migrate_populate_ram_pfn
->  	return 0;
-> =20
->  free_pages:
->  	for (i =3D 0; i < npages;) {
->  		struct page *page =3D migrate_pfn_to_page(mpfn[i]);
->  		unsigned int order =3D 0;
-> =20
->  		if (!page)
->  			goto next_put;
-> =20
->  		put_page(page);
->  		mpfn[i] =3D 0;
-> =20
->  		order =3D folio_order(page_folio(page));
-
-[Severity: High]
-This is a pre-existing issue, but can this dereference freed memory?
-
-By the time folio_order() is called in the error path of
-drm_pagemap_migrate_populate_ram_pfn(), the reference to page has already
-been dropped via put_page(). This means the underlying folio metadata could
-be freed or reused before it is read.
-
-Should the order be cached before dropping the reference?
-
-[ ... ]
-
-> @@ -1295,10 +1295,12 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_d=
-evmem *devmem_allocation)
->  err_finalize:
->  	if (err)
->  		drm_pagemap_migration_unlock_put_pages(npages, dst);
->  	migrate_device_pages(src, dst, npages);
-> +	/* Raw-PFN eviction: array starts at allocation offset zero. */
-> +	drm_pagemap_retire_migrated_pages(src, npages, 0);
->  	migrate_device_finalize(src, dst, npages);
->  	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, d=
-st, npages,
->  					DMA_FROM_DEVICE, &state);
-
-[Severity: High]
-This is a pre-existing issue, but does this error path permanently leak DMA
-mappings?
-
-Looking at drm_pagemap_evict_to_ram(), if there is an error it calls
-drm_pagemap_migration_unlock_put_pages(), which sets the entries in the dst
-array to 0. When drm_pagemap_migrate_unmap_pages() subsequently runs using
-the same dst array, it skips unmapping because the entries are now null.
-
-Should the unmap occur before the array is zeroed?
-
-[ ... ]
-
-> @@ -1369,6 +1373,10 @@ static int __drm_pagemap_migrate_to_ram(struct vm_=
-area_struct *vas,
->  	if (end > vas->vm_end)
->  		end =3D vas->vm_end;
-> =20
-> +	/* Keep the range within the ZDD allocation so retirement offsets stay =
-valid. */
-> +	start =3D max(start, zdd->range_start);
-> +	end =3D min(end, zdd->range_start + (zdd->range_npages << PAGE_SHIFT));
-> +
->  	migrate.start =3D start;
->  	migrate.end =3D end;
->  	npages =3D npages_in_range(start, end);
-
-[Severity: High]
-What happens if userspace moves the VMA to a different virtual address via
-mremap?
-
-If the VMA is moved to a higher address, clipping against the static
-zdd->range_start in __drm_pagemap_migrate_to_ram() could result in start
-being greater than end. This would cause an underflow in npages_in_range(),
-leading to an extremely large kvcalloc attempt. If kvcalloc succeeds, the
-migrate_vma_setup() loop immediately exits and returns 0 migrated pages,
-which could result in an infinite page fault loop.
-
-How should we handle moved VMAs here?
-
-[ ... ]
-
-> @@ -1433,6 +1435,8 @@ static int __drm_pagemap_migrate_to_ram(struct vm_a=
-rea_struct *vas,
->  err_finalize:
->  	if (err)
->  		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
->  	migrate_vma_pages(&migrate);
-> +	drm_pagemap_retire_migrated_pages(migrate.src, npages,
-> +					  (start - zdd->range_start) >> PAGE_SHIFT);
->  	migrate_vma_finalize(&migrate);
->  	if (dev)
->  		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
->  						npages, DMA_FROM_DEVICE,
->  						&state);
-
-[Severity: High]
-This is a pre-existing issue, but does this error path permanently leak DMA
-mappings?
-
-Looking at __drm_pagemap_migrate_to_ram(), similar to the issue above, if
-there is an error it calls drm_pagemap_migration_unlock_put_pages() which
-zeroes the migrate.dst array. The subsequent call to
-drm_pagemap_migrate_unmap_pages() then skips unmapping because the entries
-are null.
-
-Should the unmap occur before the array is zeroed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806061126.1499=
-149-1-arvind.yadav@intel.com?part=3D1
