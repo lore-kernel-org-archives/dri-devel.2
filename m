@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7628CC5AC7C
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:36:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDBE5C5AC7C
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:37:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9812410F277;
-	Thu,  6 Aug 2026 17:36:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E9B410F279;
+	Thu,  6 Aug 2026 17:37:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TJjJTpuY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gmjT6ABk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B67AB10F277
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:36:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A0F010F279
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:37:10 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 73C71415AB;
- Thu,  6 Aug 2026 17:36:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0807C1F000E9;
- Thu,  6 Aug 2026 17:36:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8EE2360AB1;
+ Thu,  6 Aug 2026 17:37:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71E821F00A3E;
+ Thu,  6 Aug 2026 17:37:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786037772;
- bh=0RKZVfuZa99jY3AirSYoCBLlGcBW84Q07fUWGbKux70=;
+ s=k20260515; t=1786037829;
+ bh=/AmSBg+bSlHudXnKp0obu5ljE24U7DbCHe6qNShJI7c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=TJjJTpuY8vKMUL1H/kQ+/L/EBslis/rE/4fU7PfoE+6wb1dvMWAKm+6c9ouIyMJn0
- 01WayQBYC08rq9uyGrslJhkMl30a9xgd38o2bVX/Njn3wIwIPfbYCDvsLERZi3Pvh+
- X7+mzQuF+aBqnyOgc+myw7b/B8uort5negzzyvv5dkst9eApYmnMXm2BjLGdVa4SHk
- +fE1Leu1und623TDdeqk3xNLtxgq6BqSwMdeaxc8t51U3CZHdqLiUKlZHtutfnn/kv
- H/PAer/cmFWmLfsUSDH7MK4N3pFyVHNjHfGWEt1gnW3OYFc9Ou+ELVjdNPZIoQO2JI
- FAJYETd49199g==
+ b=gmjT6ABkxnj7zPhlY3vOj5BNCmR5bBeuToPnh9lV16fv5n9fwHWzoIWwbjckMTrSA
+ mjC+TiNnDuzrdK7uhfXTaoa4/YvBXluHHvCPFUlH9TUAT1al5uqTtufRgMpEO6jJeZ
+ 60CvSEO7lf7JeTUBcfKmsz29mJvWkfrkCaiCt5LNku+pq6mI4V6rN/HE7PVICBe/nI
+ dMYhUIspY8a3VMCTYPAGrz+CaR6HXHtIEw27O3+8yrMXbyZQP32981oDPxAs901rZ/
+ pKANyj2DpN1EB5VMISA1RwbZze+jtq9n1oZVMoF3krPX1XVa0w+q8n2i1JQI6cTSp0
+ HMCI5Jh/Kkv2A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect
- resource lifetimes in bind callback
+Subject: Re: [PATCH v11 01/21] drm/bridge: synopsys: dw-dp: Register DP AUX
+ on bridge attach
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, robh@kernel.org
-In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-2-0d508505f383@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-1-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v11-2-0d508505f383@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v11-1-0d508505f383@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 17:36:11 +0000
-Message-Id: <20260806173612.0807C1F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 17:37:07 +0000
+Message-Id: <20260806173708.71E821F00A3E@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,79 +59,166 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Use-After-Free and -EBUSY on re-bind due to missing drm_bridge_det=
-ach in component unbind.
+
+New issues:
+- [High] Moving `drm_dp_aux_unregister()` to the `.detach` bridge hook intr=
+oduces a use-after-free vulnerability during driver unbind.
+
+Pre-existing issues:
+- [High] Using `devm_` APIs inside the component `bind` callback causes res=
+ource leaks and permanent probe failures if the aggregate device defers pro=
+bing.
+- [High] Missing `reinit_completion()` in `dw_dp_aux_transfer()` leads to p=
+ermanent completion desynchronization after an initial timeout.
+- [High] Missing cancellation of `dp->hpd_work` during unbind/remove leads =
+to a Use-After-Free if a hotplug interrupt arrives just before the module i=
+s unloaded.
 --
 
---- Patch [2]: [PATCH v11 02/21] drm/bridge: synopsys: dw-dp: Fix incorrect=
- resource lifetimes in bind callback ---
-commit 8317a23524c759645b1aec330e9a401578a81a81
+--- Patch [1]: [PATCH v11 01/21] drm/bridge: synopsys: dw-dp: Register DP A=
+UX on bridge attach ---
+commit c6879b7a6958b5129284c9fb809eb29af0d93f7c
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm/bridge: synopsys: dw-dp: Fix incorrect resource lifetimes in bind callb=
-ack
-
-This commit moves the bridge allocation and resource requests from the bind
-callback to the probe callback using a new dw_dp_probe() helper. It also
-disables the IRQ in the detach callback to prevent spurious interrupts.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
+drm/bridge: synopsys: dw-dp: Register DP AUX on bridge attach
+   =20
+This commit delays the registration of the DP AUX device until the bridge
+is attached, and unregisters it in the detach hook. This helps ensure that
+it is only accessed when the DRM device is ready.
 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
 idge/synopsys/dw-dp.c
-> index 60feb3d1e14bb..d7945f7fe9f05 100644
+> index 8b8529e1723c8..60feb3d1e14bb 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 
 [ ... ]
 
-> @@ -1982,6 +1988,18 @@ static const struct regmap_config dw_dp_regmap_con=
-fig =3D {
->  	.rd_table =3D &dw_dp_readable_table,
->  };
+> @@ -1813,7 +1813,36 @@ static struct drm_bridge_state *dw_dp_bridge_atomi=
+c_duplicate_state(struct drm_b
+>  	return &state->base;
+>  }
 > =20
-> +int dw_dp_bind(struct dw_dp *dp, struct drm_encoder *encoder)
+> +static int dw_dp_bridge_attach(struct drm_bridge *bridge,
+> +			       struct drm_encoder *encoder,
+> +			       enum drm_bridge_attach_flags flags)
 > +{
-> +	return drm_bridge_attach(encoder, &dp->bridge, NULL, DRM_BRIDGE_ATTACH_=
-NO_CONNECTOR);
-> +}
-> +EXPORT_SYMBOL_GPL(dw_dp_bind);
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +	struct device *dev =3D dp->dev;
+> +	int ret;
 > +
-> +void dw_dp_unbind(struct dw_dp *dp)
-> +{
-> +	/* nothing to do as bridge is detached automatically */
-> +}
-> +EXPORT_SYMBOL_GPL(dw_dp_unbind);
+> +	dp->aux.dev =3D dev;
+> +	dp->aux.drm_dev =3D encoder->dev;
+> +	dp->aux.name =3D dev_name(dev);
+> +	dp->aux.transfer =3D dw_dp_aux_transfer;
 
 [Severity: High]
-Since the bridge allocation was moved to probe using devm, the bridge
-structure now outlives the component bind/unbind cycle. If the bridge is
-not explicitly detached here, does this cause issues during re-bind?
+This is a pre-existing issue, but does dw_dp_aux_transfer() permanently
+desynchronize after a single timeout?
 
-Specifically, if we unbind and re-bind the component, won't
-drm_bridge_attach() in dw_dp_bind() return -EBUSY because the bridge is
-still attached to the old encoder?
+If an AUX transaction times out, wait_for_completion_timeout() returns
+and dp->complete.done remains 0. When the late hardware interrupt
+eventually arrives, dw_dp_irq() calls complete(), setting done to 1.
 
-Additionally, can this cause a use-after-free on driver removal? If the
-platform driver is removed while a DRM file descriptor is kept open, devm
-will free the dp structure. When the file descriptor is eventually closed,
-DRM core will call dw_dp_bridge_detach():
+Since dw_dp_aux_transfer() lacks a preceding call to reinit_completion(),
+the very next AUX transfer will immediately succeed the wait without actual=
+ly
+waiting for the hardware, leading to premature reads of DW_DP_AUX_STATUS.
 
-static void dw_dp_bridge_detach(struct drm_bridge *bridge)
-{
-	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +
+> +	ret =3D drm_dp_aux_register(&dp->aux);
+> +	if (ret)
+> +		dev_err(dev, "Aux register failed: %d\n", ret);
+> +
+> +	return ret;
+> +}
+> +
+> +static void dw_dp_bridge_detach(struct drm_bridge *bridge)
+> +{
+> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
+> +
+> +	drm_dp_aux_unregister(&dp->aux);
 
-	disable_irq(dp->irq);
-	cancel_work_sync(&dp->hpd_work);
-	...
-}
+[Severity: High]
+Will moving drm_dp_aux_unregister() to the bridge detach hook cause a
+use-after-free if userspace keeps the DRM device open?
 
-Since dp was already freed by devm, will accessing dp->irq and dp->hpd_work
-here crash? Should this unbind function explicitly call drm_bridge_detach()
-to prevent both the re-bind failure and the use-after-free?
+If a process holds an open file descriptor for the DRM device while the
+driver is unbound, the DRM device's refcount prevents the bridge's detach
+hook from running immediately.
+
+The component's memory (like the dp structure) will be freed by the driver
+core during unbind, but the AUX char device remains registered. If userspace
+then reads or writes to the AUX device, dw_dp_aux_transfer() will
+dereference the freed memory.
+
+> +}
+> +
+
+[ ... ]
+
+> @@ -2064,37 +2083,33 @@ struct dw_dp *dw_dp_bind(struct device *dev, stru=
+ct drm_encoder *encoder,
+>  	ret =3D phy_init(dp->phy);
+>  	if (ret) {
+>  		dev_err_probe(dev, ret, "phy init failed\n");
+> -		goto unregister_aux;
+> +		return ERR_PTR(ret);
+>  	}
+> =20
+>  	ret =3D devm_add_action_or_reset(dev, dw_dp_phy_exit, dp);
+>  	if (ret)
+> -		goto unregister_aux;
+> +		return ERR_PTR(ret);
+> =20
+>  	dp->irq =3D platform_get_irq(pdev, 0);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can using devm_ APIs inside
+the component bind callback cause resource leaks?
+
+If the aggregate DRM device defers probing, the component framework undoes
+the bind, but it does not release the devm_ resources because the component
+device itself remains bound to its platform driver.
+
+When the aggregate device retries probing, dw_dp_bind() allocates them
+again. The calls to devm_request_threaded_irq() or
+devm_platform_ioremap_resource() will fail with -EBUSY, permanently
+preventing the pipeline from probing.
+
+>  	if (dp->irq < 0) {
+>  		ret =3D dp->irq;
+> -		goto unregister_aux;
+> +		return ERR_PTR(ret);
+>  	}
+> =20
+>  	ret =3D devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
+
+[ ... ]
+
+> @@ -2101,8 +2112,8 @@ EXPORT_SYMBOL_GPL(dw_dp_bind);
+> =20
+>  void dw_dp_unbind(struct dw_dp *dp)
+>  {
+> -	drm_dp_aux_unregister(&dp->aux);
+> +	/* nothing to do */
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but is it possible for an HPD interrupt to
+race with module unload?
+
+If an HPD interrupt triggers and schedules dp->hpd_work just before the
+driver is unbound, the global workqueue may execute dw_dp_hpd_work() after
+the devm_ cleanup path frees the dp structure.
+
+Does dw_dp_unbind() need a call to cancel_work_sync(&dp->hpd_work) to
+prevent a use-after-free?
+
+>  EXPORT_SYMBOL_GPL(dw_dp_unbind);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-synopsys-d=
-w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D2
+w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D1
