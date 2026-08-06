@@ -4,57 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B4ADC55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 00:07:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0BE1EC55174
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 00:39:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1521C10E1D4;
-	Thu,  6 Aug 2026 00:07:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C0B5510F03C;
+	Thu,  6 Aug 2026 00:39:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=daniel.almeida@collabora.com header.b="gqDpxPtP";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="QAy2JK5k";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F63B10E1D4
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 00:07:02 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785974811; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=F8szQjloI2HGbswnB6GC8fbCZwhihcCrn+BQ6UcWK/tSHtq+iBPuHO9TWxjDYJvUodIFhO7jGrP/kufDjIm1DxqDFnlz7YyTzqgaml1mQoIAVQFOYRYDatjwiu3USAa9USamYyIBSSy3CbeYEBbQK2CHBWKXmt0LsguhUbKTHOA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785974811;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=i0OYm55VnGqgGb0VFbxOmWFfxkHnHHoaKYh8LfQZVtM=; 
- b=SIeoYuWM+gvgFPcATFE6+tUlzSEJzyAwnzL+G3Kq68DtBMM1h3S1Y3QI4KAnJKOF8q/hL7QxtIrqqzG+2AgkRloaBuWsK3DKHjXDKpKGijG83U1qh7166zDWrxw3a4BC88D/f+hKc86KtwtEphbGh2I6tEgzYix/n7b2uMsEoMQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785974811; 
- s=zohomail; d=collabora.com; i=daniel.almeida@collabora.com;
- h=Content-Type:Mime-Version:Subject:Subject:From:From:In-Reply-To:Date:Date:Cc:Cc:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Reply-To;
- bh=i0OYm55VnGqgGb0VFbxOmWFfxkHnHHoaKYh8LfQZVtM=;
- b=gqDpxPtPAhkDzKfENdNEwBY1Ra4gzCP6UqsC/9mOqbkb9ujjqqe/dbj1SBK3j1O1
- Y3qNSWJQI/EwpnzQUVVuXVVGXFgaZs/YpDzqopvhYjktOPrVwgv0y64Z7XoBV1u/Si4
- Ry0+WFzY6E2elWwC7voNP1ZNRNnx+5QryZoW0r3w=
-Received: by mx.zohomail.com with SMTPS id 1785974809483389.16040687769885;
- Wed, 5 Aug 2026 17:06:49 -0700 (PDT)
-Content-Type: text/plain;
-	charset=us-ascii
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81\))
-Subject: Re: [PATCH v3 0/3] implement GPU reset API
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <20260708114358.957305-1-work@onurozkan.dev>
-Date: Wed, 5 Aug 2026 21:06:31 -0300
-Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org,
- dri-devel@lists.freedesktop.org, dakr@kernel.org, aliceryhl@google.com,
- airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org, boqun@kernel.org,
- gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
- a.hindborg@kernel.org, tmgross@umich.edu
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <ED267FF1-08A7-4C77-B0ED-F74D250DA93F@collabora.com>
-References: <20260708114358.957305-1-work@onurozkan.dev>
-To: =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>
-X-Mailer: Apple Mail (2.3826.700.81)
-X-ZohoMailClient: External
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D02B10E1D3
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 00:39:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1785976750;
+ bh=+kI5bMPxmKszrrlmZRhrrwGKt5vlPS+riQK99NPB3wM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+ b=QAy2JK5kux4tSxZVKkdlsIDYAt7+WrjtAEZEmG7zWFvKVCZhfyXLKtKdaZ7hmrAbI
+ 6Zl5yn4lGVeCEtbusiDza0XLFhx3oiT4wZpoKCuRjqxA43477vYfHgLCJeZEcRQZlR
+ zAUg8cdIbCaq+D/kledrJrK0+6JJs/nLPhE1vl3zR+mktG7lO9Oo4GvGjpnxNAAA9r
+ JPjlwFMr10VXhKs125Rno7ibhXhvooix3YaWuYx7Hge9KcrAKVKbU9oxrHD8NgaCdg
+ SJfO0BnJqs5J2A/OubrbYh1cKeF64Eq7G6MCcEsoxAd5DGLBVPM1od5FTeIkti/JGE
+ 6ppiV8naz62oQ==
+Received: from jupiter.universe (unknown [100.64.1.62])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: sre)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id D29D517E052F;
+ Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
+Received: by jupiter.universe (Postfix, from userid 1000)
+ id 87D1E480028; Thu, 06 Aug 2026 02:39:10 +0200 (CEST)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 06 Aug 2026 02:39:07 +0200
+Subject: [PATCH v10 01/21] drm/bridge: synopsys: dw-dp: Register DP AUX on
+ bridge attach
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260806-synopsys-dw-dp-improvements-v10-1-d84a26c303d6@collabora.com>
+References: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
+To: Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>, 
+ Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Alexey Charkov <alchark@flipper.net>, dri-devel@lists.freedesktop.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@collabora.com, 
+ linux-arm-kernel@lists.infradead.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3652;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=+kI5bMPxmKszrrlmZRhrrwGKt5vlPS+riQK99NPB3wM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGpz161XxASkSlzZQXOp8/+GsmxmqBn+xiC0U
+ 8UxrMEnInKOXIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqc9etAAoJENju1/PI
+ O/qa4y4QAIFJsqPdLNa8OBIaOQF6MJkQIkC8pcs6SK/c4+xA023pmhhGsLWhhj/khwNfrxnNJ3s
+ iEODziZZIezGptie9elbk12yG/rGOnyfC9f0XL9j+GZVXtpQUGcU67q0UvOWl3V0o8JvsdFr0UV
+ 9KdTzWv3X5BSPWSOfFSUNSNt5XZ3gytoOPJzfJyE81EG7nzKqPuD6O3buyMi0/vyo/kvcqC3yhN
+ gzKLEntc/h0Ct8+sWFtPWSo0Hn+zuCbnTIxfZuKMnL9hZ4U3L4nGIIPkEpKC2pCaIp4XuRR9xbF
+ SgnGLgMG6sJ8uR7n8hEX04UpCJBis6ectLD/2yR7j9CH+NyyrlXnwMbFywJ6BG8JnwXv/LGh4OV
+ RUfb0lbPYWGYW/r6ls2KPCOM20RJna2QIZlFYGUZo1Upzu1D85Mu/LDR8MP1zj2osV18G98AnTU
+ 5Z34W7rr3BHZMvtpFcCbOd9pJDnCi4JKZkwWEWRxcmeDnk1bjwygfy99kmzm6eVqiaVeugaeo4W
+ kehok619CAuHlga9+l5WLGDFdmTCGzYoOiNumryEO+Fsj8F+maytlnHASNcBnm5lV6Y/8dNMcpP
+ r+/ZQSu9QkVECHhRjbFXWmRawNSRU2KSh4wD8ZLr1yANMYdMSXtzuEnR4yfU8y0Hn53o2dKeOpJ
+ ZCCiL1kOu6GJ7mD6femcy7A==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,43 +100,125 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Onur,
+Unregister the DP AUX device at the right spot as documented in the
+drm_dp_aux_register() function description. This helps that it is
+only accessed when the DRM device is ready and the bridge is powered
+and initialized (further fixes are required for that).
 
-I went through this and Sami's downstream implementation as asked. I =
-think we
-can strike a middle ground here, because it looks like the two trees =
-need
-different things at the moment.
+Fixes: 86eecc3a9c2e ("drm/bridge: synopsys: Add DW DPTX Controller support library")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 55 +++++++++++++++++++++------------
+ 1 file changed, 35 insertions(+), 20 deletions(-)
 
-Upstream tyr today has no scheduler and no jobs. It seems like =
-everywhere we
-might want to issue resets can get a hold of &Device<Bound>: probe,
-ScopedQueue, IRQ handlers and etc. For this, I think your 'bound design =
-fits,
-and I'd like v4 to keep it.
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 8b8529e1723c..60feb3d1e14b 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1813,7 +1813,36 @@ static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_b
+ 	return &state->base;
+ }
+ 
++static int dw_dp_bridge_attach(struct drm_bridge *bridge,
++			       struct drm_encoder *encoder,
++			       enum drm_bridge_attach_flags flags)
++{
++	struct dw_dp *dp = bridge_to_dp(bridge);
++	struct device *dev = dp->dev;
++	int ret;
++
++	dp->aux.dev = dev;
++	dp->aux.drm_dev = encoder->dev;
++	dp->aux.name = dev_name(dev);
++	dp->aux.transfer = dw_dp_aux_transfer;
++
++	ret = drm_dp_aux_register(&dp->aux);
++	if (ret)
++		dev_err(dev, "Aux register failed: %d\n", ret);
++
++	return ret;
++}
++
++static void dw_dp_bridge_detach(struct drm_bridge *bridge)
++{
++	struct dw_dp *dp = bridge_to_dp(bridge);
++
++	drm_dp_aux_unregister(&dp->aux);
++}
++
+ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
++	.attach = dw_dp_bridge_attach,
++	.detach = dw_dp_bridge_detach,
+ 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
+@@ -2043,20 +2072,10 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	dp->aux.dev = dev;
+-	dp->aux.drm_dev = encoder->dev;
+-	dp->aux.name = dev_name(dev);
+-	dp->aux.transfer = dw_dp_aux_transfer;
+-	ret = drm_dp_aux_register(&dp->aux);
+-	if (ret) {
+-		dev_err_probe(dev, ret, "Aux register failed\n");
+-		return ERR_PTR(ret);
+-	}
+-
+ 	ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "Failed to attach bridge\n");
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	dw_dp_init_hw(dp);
+@@ -2064,37 +2083,33 @@ struct dw_dp *dw_dp_bind(struct device *dev, struct drm_encoder *encoder,
+ 	ret = phy_init(dp->phy);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "phy init failed\n");
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	ret = devm_add_action_or_reset(dev, dw_dp_phy_exit, dp);
+ 	if (ret)
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 
+ 	dp->irq = platform_get_irq(pdev, 0);
+ 	if (dp->irq < 0) {
+ 		ret = dp->irq;
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	ret = devm_request_threaded_irq(dev, dp->irq, NULL, dw_dp_irq,
+ 					IRQF_ONESHOT, dev_name(dev), dp);
+ 	if (ret) {
+ 		dev_err_probe(dev, ret, "failed to request irq\n");
+-		goto unregister_aux;
++		return ERR_PTR(ret);
+ 	}
+ 
+ 	return dp;
+-
+-unregister_aux:
+-	drm_dp_aux_unregister(&dp->aux);
+-	return ERR_PTR(ret);
+ }
+ EXPORT_SYMBOL_GPL(dw_dp_bind);
+ 
+ void dw_dp_unbind(struct dw_dp *dp)
+ {
+-	drm_dp_aux_unregister(&dp->aux);
++	/* nothing to do */
+ }
+ EXPORT_SYMBOL_GPL(dw_dp_unbind);
+ 
 
-I think the problem starts when the job queue lands, because now we =
-might find
-ourselves in places that only have access to the DRM device data which =
-has a
-'static bound and thus a hard requirement on Devres, AFAIU. I think we =
-can keep
-that in tyr-dev for now and land on top of your code later, if we shape =
-a few
-things accordingly. I will leave comments on 3/3.
-
-In any case, there are changes in !74 which I think are improvements =
-regardless
-of the 'bound vs devres question, and I also think v4 should come with a =
-user.
-How about adding the GLB_PING watchdog? It would exercise schedule(), =
-give
-ScopedQueue its first user and lets us test this on the board.
-
-Lastly, can you use b4 to manage the dependencies for this series, if =
-you
-haven't yet? It would make it easier to apply.
-
-
--- Daniel
+-- 
+2.53.0
 
