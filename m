@@ -4,160 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7D82C5AC7C
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 12:55:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3847C56208
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 13:06:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A475710E0A5;
-	Thu,  6 Aug 2026 12:55:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D9BFB10E28C;
+	Thu,  6 Aug 2026 13:06:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FlPHIRJF";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="fsSYEHfs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2272C10E0A5;
- Thu,  6 Aug 2026 12:55:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786020955; x=1817556955;
- h=date:from:to:cc:subject:message-id:
- content-transfer-encoding:mime-version;
- bh=Vd7/AXiHYxJLISZH4SjKNoHfd+xkzg+suxg1BcPS5bA=;
- b=FlPHIRJFBOuDv2YC9YCSAuqIuaVVoRYrpQ4II/N1us7TZC80BxZhL9+a
- mhcUGNuQ9IUwPbnuqH1SzLs9489rh7bRaPAvNc58jHBJHZS2CYwGlr5iH
- EjRfTFI4m2kQqDdKY6J6vTGB4UjRzNzNutUar3yfIYuSw3WBZaaTAQm3p
- aAceWrk+vZ+hJb5nJL0epE5++t6oNGqqTxOefKzoOJU7fgNjU4B2mIvMs
- 64n2Czk5NOciqay6JYtobSBY/3wHcPKzw7vNgV4cogWW5OJEiuciv7wtC
- 8jOJfHL37kHFbYYl7GdEDztdjFue31GfZXZN4oz7JbWzwfpC3GB7TNpZy w==;
-X-CSE-ConnectionGUID: jFLIqrBpT/S85lRx5fYiGA==
-X-CSE-MsgGUID: InfsYAroTumFZ0EdkMudGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86624508"
-X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="86624508"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 05:55:54 -0700
-X-CSE-ConnectionGUID: 6kSHPqVCSFOYvlzBm9D4Jg==
-X-CSE-MsgGUID: NMwScCBbRMWmmqQ2c0BoLw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="285480319"
-Received: from orsmsx901.amr.corp.intel.com ([10.22.229.23])
- by fmviesa002.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 05:55:53 -0700
-Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 6 Aug 2026 05:55:52 -0700
-Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
- ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45 via Frontend Transport; Thu, 6 Aug 2026 05:55:52 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.49) by
- edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 6 Aug 2026 05:55:52 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C90oE+8givo7RWkUvJIg8jPt7y6oqgRV/z0YmtQPNcullx0zPgbHY8V4qx+Tp1pvBC9vyB2F2iBRH6HN8mQu7IZhTdchmMNsqimMU7W89BRKYcG2bbpFPj1tOHXHy9WYx05z7bQDKyt3GmGyoA4V6+IlNVVgfiBDvMSZ6A29gqf9GCMi2vYx5HdTQ6WNfuFEO+xkrrqOmtFvtAeA2frbnT/1dmxklLlWjXSj5sJrnCWk5LnzFU98+PgHF+u4OYdRuTT+mpvdcqrJ/r3hQr4CVMqGdiLE4gsuQJKFgG8upsGO0eOpNioMPJVE1fwpDozRfN8F/uy6Z96gUHG2KrnL6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bkkdyJ/zJHeK2w1vEuQ0CmCxaWBkHtGyugxTRc9YqdU=;
- b=UDq761hdUrm/y7Vcjm6wyjMtJHuLW1tCrEbtvsUIOfkFxlM/k6Rme4vnotFSkrv4Ta+o7VsZas13lBU4pSlnaMGOlfFwpMuf06jDtszalI/Z4gDN4/3x7O4Syz6u+ElIcJjB/YNr3cXN9IWx3dFw0B2W9h3t+2ssBWIvj8gCAXa8v+R5+SWxXTNwE2NEBVbZUID+7zvktNhra9eEBZxCzOHn/i547mfzJRuJn0pGgSDblKMlcaDh3seHZevJ/8zgx9EXkwwl8dx6UTUBRShyiOLhR3HCJ3Mzp02Kcau5jyafde3Mciqy5v0SyIng74Rmk8RZkJ8tD6eKxciwfvGoOg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com (2603:10b6:303:92::23)
- by PH0PR11MB5829.namprd11.prod.outlook.com (2603:10b6:510:140::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 12:55:46 +0000
-Received: from CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe]) by CO1PR11MB5073.namprd11.prod.outlook.com
- ([fe80::a153:939c:df8c:f4fe%7]) with mapi id 15.21.0292.013; Thu, 6 Aug 2026
- 12:55:46 +0000
-Date: Thu, 6 Aug 2026 08:55:39 -0400
-From: Rodrigo Vivi <rodrigo.vivi@intel.com>
-To: Dave Airlie <airlied@gmail.com>, Simona Vetter <simona.vetter@ffwll.ch>
-CC: Jani Nikula <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, "Oded
- Gabbay" <ogabbay@kernel.org>, <dri-devel@lists.freedesktop.org>,
- <intel-gfx@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
- <dim-tools@lists.freedesktop.org>
-Subject: [PULL] drm-xe-fixes
-Message-ID: <anSESyrwICYHvZ59@intel.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BY3PR05CA0028.namprd05.prod.outlook.com
- (2603:10b6:a03:254::33) To CO1PR11MB5073.namprd11.prod.outlook.com
- (2603:10b6:303:92::23)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id AA76910E28C
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 13:06:24 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A08DB153B;
+ Thu,  6 Aug 2026 06:06:19 -0700 (PDT)
+Received: from [10.57.42.103] (unknown [10.57.42.103])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 1FB883F632;
+ Thu,  6 Aug 2026 06:06:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1786021583; bh=+1xfi0W07K1z1MC3MApW7voZeROhgwfoJlxbzKpR2r0=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=fsSYEHfsUZ15lnBqhHSfYJcvNTmm7IqWscjC/FMEEEuw2uLNkF95yPgrJDlyQ+xn7
+ W+FFUBn+sJrdbhfTmln/aTOh48TeobtdTpzrs0Iz/D14oocH0wH0i+UBBcQzd0G3aG
+ 1ekjRXZbD8Dus9sRkOobpdV9KHVLtXkbmOESIOMg=
+Message-ID: <3fcca119-82c1-421a-9822-d115dbc1a60b@arm.com>
+Date: Thu, 6 Aug 2026 14:06:17 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PR11MB5073:EE_|PH0PR11MB5829:EE_
-X-MS-Office365-Filtering-Correlation-Id: 977f14a4-38ee-4dc6-d2a8-08def3ba0870
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|366016|1800799024|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: ZIxmuHqPX1TDeu3p74Mis1RL1e5qKgIXzs4B0tXjFsFuw0Mt3s4KAzXNRy4iNQkd+ccPwLW5voBmyMGeO6cdSAue6WTzUk6gg/LT69PEGq6LDRNj9HBPRHnMKCbEBqIgwErBKl1dTwPu96ddXw4w+owL7qMcCutYWmu/dywcnXMWniEAukuPc6PbCE/WkFeXfn/tPO5zDqzXyrRfhkyV5eAFSIYw3sSLO7CGLSn9urorA7NiQwqapAvJhUn9wZplLji50zoIk7JQ3NaBfWQK5tWNxHHnsx+zzRt88p01SXoq5bxXljVZNte35+AqZ/bxdTjlKzPFNRE7BakcM/LYxF2E06dhjpP+EnqbHuIcLaQdhPSi3M2JykFZRX/3V3XdhwuvEfnahEljws0zGXqZiYy+MCggOWPvHZykTM8f0zXRp30yeJaZ0+Mc9CdMu093f3e5UYO12jxZAUjKydGh6JA7bCO7lopzUNkpSli67CVEy/wCetIy8DVlMHdNwWhOY5a3wgONzhPXWMleJHLtox31xteeX3lJ6JPY4Bs5ojI1jhvvCxHqZgC7Xs93mDdWkMP+3RYQSLSKGM5J0HfZBq1CMMDDKr3/U9bbX7jRDWrrddFL265AnlOQr190oFmfciodTT9fnDEbgRjk7XNLxD53G7PLBI32tl87KdmZK6o=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CO1PR11MB5073.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y0kwMXFJVzdmTGxOT0lNSWE3Z05md3NmOGJrZFFIZ052YVF2ZEd0UFl4TmU2?=
- =?utf-8?B?V2RtQ3FDcmNyekhVYS90cEpDbXJVZTZIeDJXbnhPQjUrMXdqYkp5Vm5NY0cy?=
- =?utf-8?B?RkprSkdmcXZja256RXNpVytiajE1NUhDRCtGUkZFTWRIT3ZYM2NzNU10Znh0?=
- =?utf-8?B?d3B6MDdnY2l6V2cyM216b3pDU3hlTUQvOFpNTkd3ZmcxVzM5SzdwV1E5N0Uz?=
- =?utf-8?B?UE5IaldZQnV3MUtJVE8rdUtuK2JSNDhpd3RPUWlmZlpqeS9Wb1AybFdwWHhJ?=
- =?utf-8?B?T1hpU3N4SEZESEZFb2pQYmR3ZHU0SVdKVStlV3Z5V2VGMEdFVklTY2VKanFZ?=
- =?utf-8?B?Y1NxMnc0M3JqT0t4RkptbXFOQm1XcDdmNDBRREVLUkxTVFFPMVlQUXVvWWd6?=
- =?utf-8?B?Z1JFMm1tTlBRUFlSd0w3WEJ6V1FCakdJMVVtdEdDN2ptQTY0T0Q1aEhlNVlj?=
- =?utf-8?B?em1hTEM1Mk5jUU1iUjVvZy93bEgxT3F5TTFaUGhMUGd5TjZ5ejg5NHJGRDJJ?=
- =?utf-8?B?blZhVE44VGE4d0lYVmx5ZjMzMHVPYm1lS0dFeUxtNFF5OThGQ3kvbHFhVFRN?=
- =?utf-8?B?WlRYcDFSb2tpZ3RtYTNIVkZuN0wwbmJWV3RLNDhNTDQvUVZFWlhEeDFuNVBh?=
- =?utf-8?B?ZnMxaitNUVAxNEF1Njk2b0NLanpqK0hialVFQldzQnc0NWFwcWhESDYxaStZ?=
- =?utf-8?B?eUhSaWNpUE51dW5qWlVNSk9BdXg2SmVGZVBMdS9JYzZORzVMa25qWUhtZWd3?=
- =?utf-8?B?RnpEVHdZLy9NZDBFMHRMNGlNakVGMVZEUHRSak1vN2JMOVZCTDZ6MUNkazZi?=
- =?utf-8?B?WTV5U0Y3TG9QSm9RQVcrZS9vRzUzY1Q3THNMei9HMTVNVjRlYndYQW5jekho?=
- =?utf-8?B?NUx6ZFlXZ2RwZHlVdEdJUkVBMGZ5d093dk8zQUNUM2RhVGh5UmlNN21KNUpn?=
- =?utf-8?B?ZWJrN0ozcHlDUW1LYWozMEpJeVpqWFlFK1ROaU9qZzlFOWx0QWQ3RSsrZDhC?=
- =?utf-8?B?amJPVGdwM2drYVVtUTN1NnlzZU8vOURqMDBqMDJQN0t0aGpMWmxXR1BGQjVE?=
- =?utf-8?B?a3BrVU1QazBOTmptVGZmSkNpQjlKckYyc2d4U1RtMXRnR1hTbGtUWllRM3NY?=
- =?utf-8?B?RjlCR3dNOGRZREt6ZXA1cldnTk1kVlYxWUpwOEs5V245cnM3ODhvbEZRM0tM?=
- =?utf-8?B?akZ4b0JRazBuM2tVa2xPMytyS2pxSGVPOVRaektlNzVLUjhvU1RlT0FJL2N5?=
- =?utf-8?B?c3JGQndCZVFjRXBsYk9lblRXakx5UC9hRUtWZW80a3BWbGhZYzcwMitlT25Q?=
- =?utf-8?B?d1lKWjNEZ2FkVmNGRkZDTUd6T0FLdkN0TmUwU0RHWGZGNEcxUkh0emNsdzhB?=
- =?utf-8?B?Y3JKVXVBdEZvSS83Z0RocG0vbnBtRHA5YmpIN3ZkK1VmYXB4SjRlcVh5Zmdw?=
- =?utf-8?B?UHVwN1Jjai91K1FpOE0zZUllaElqRVhwWjZaa3VRdUxsRTVJNDc3dDBFNHUv?=
- =?utf-8?B?MzFJT294aWJYVzJQSG5lZnBhQUt2VkxkZUl5Qnl0VXgwdWwyQW9JQjBJVDV3?=
- =?utf-8?B?bU1CcjRObHhuWTc3MTd2eEFFbnBOMG1xN2s1TGRCazYwckl4cUhTZ2IreEVD?=
- =?utf-8?B?Ym9JZjJRaFBaU0xTL3Nldkt5RmFhMU94WTloVVRjdHIrN2JNSHo1K3JTWHla?=
- =?utf-8?B?UzhmZGJSVUg3bU11T2ExTDYvNm5Pcko0NW9iMjViL1B4TkVCVjRkYVIzSEdM?=
- =?utf-8?B?S3YycjZzdGJPL1hSbThzL3BGeE1YK3pOQlpLQXZhSURuZ29BQVh5dDdwYUxU?=
- =?utf-8?B?MHJEYW5tanBMdEJvWmd0ZHZUbWpjZEFldDU5NDdZVVZtakJiRGNMcERkMHdF?=
- =?utf-8?B?QzhDOUw2K3B1RTYrK1FKbTdDVk5vY1lPQi9Cd3NEQnJnNnB0Ujk4S1hQRnYz?=
- =?utf-8?B?WGNTYm40eHdYMHdFYXlVOExBeCszUGFvTThsbXoxaE1kb1RLc3JVWmxpajdQ?=
- =?utf-8?B?TTNpS2g5WGMrTmJKSHlyVG9nVWtiMm1aNHZqYTYrcHZ1SktDMTZsTHZnV2VF?=
- =?utf-8?B?b2krODZ0eFhwSWFHNXk2TGJzcWt4T1ZjaWpBTEs1T1hRN01jcmphZnRaV2U5?=
- =?utf-8?B?YU0xOUw5RG9XM21YcnZ4d0xzc0N5MnVLeGxWRUJCckxsYVo4bDdiMXF6NVJK?=
- =?utf-8?B?d0lwZldEaDBlNjF5Z1FTb1h2bHN1QjN4ajBVQTREUjdyaW1jR1dBWXBxcFZU?=
- =?utf-8?B?WEJOOThQaDg1dUNROGZNempqb2J4WlpHSTBkR24rUFV1ek1aaFpDNXlQa1Yv?=
- =?utf-8?B?RWdYOStkaWdrelhvSXlkMWNkeGZodERldzF5VUVReEpNRTBSNnlRUT09?=
-X-Exchange-RoutingPolicyChecked: LwXQYaEN6dfUFXorLAPAyXSvwzKVstTBNyV/XLAMloKhCpHphr1wGmVnnIdnCUF5BrdVb5sDZza32qWWHtE7yPKGoyw9GEemxNfqdWXR/utvfy325ReIV9BqagUOyIGm0bOnzOD6+84sysFRNYHKtYWsDw+TnWVJDKOkFhY4wX26eXPWeYMCA7ujJWOIDQeI5QXeaA15LwtKXSsHl3m0esr/GbKsrUlJdaFU6db/s8Q3+Xgf3iW0WH7YJEGXUjWaCDP6dBAl7vX7obZVnavy4gqX8vyCg4eGHpp+e9YeNTWMcIjwBnFjCwG6z06DZ7WAMt+jVbfIznFXDNpvBr8XCg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 977f14a4-38ee-4dc6-d2a8-08def3ba0870
-X-MS-Exchange-CrossTenant-AuthSource: CO1PR11MB5073.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 12:55:46.5873 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: v0+vu2loF0eituDk6LzKxqrc32NdCgpoYLNPm0fMi+ODN3OT8qYdM726ulP/Zhxfeov8cIwIcU4nBLNO2XPh+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR11MB5829
-X-OriginatorOrg: intel.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] rust: dma: add abstraction for the single-buffer
+ streaming DMA API
+To: Maurice Hieronymus <mhi@mailbox.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Abdiel Janulgue <abdiel.janulgue@gmail.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>,
+ =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>, =?UTF-8?Q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org,
+ linux-kernel@vger.kernel.org, nova-gpu@lists.linux.dev,
+ dri-devel@lists.freedesktop.org
+References: <20260805-dma-streaming-v1-0-03974c86b141@mailbox.org>
+ <20260805-dma-streaming-v1-2-03974c86b141@mailbox.org>
+From: Robin Murphy <robin.murphy@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20260805-dma-streaming-v1-2-03974c86b141@mailbox.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -173,39 +69,539 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Dave and Sima,
+On 2026-08-05 10:54 pm, Maurice Hieronymus wrote:
+> Add `Streaming`, a safe abstraction around `dma_map_single_attrs()`.
+> 
+> Between map and unmap the buffer belongs to the device, and the CPU may
+> only access it in between a `dma_sync_single_for_cpu()` /
+> `dma_sync_single_for_device()` pair. The types encode that protocol:
+> 
+> - `Streaming` owns the backing storage, so no other CPU-side reference
+>    to the region exists.
+> - `submit()` consumes it and returns a `StreamingInFlight`, the only
+>    source of the `DmaAddress`. It owns the buffer, so the contents stay
+>    unreachable while a transfer may be in flight, no matter where the
+>    driver stores the address.
+> - `for_cpu()` is therefore safe: no transfer can have been started from
+>    a `Streaming`. It syncs for the CPU, returns a guard dereferencing to
+>    the contents, and syncs for the device again on drop.
+> - `complete()` turns a `StreamingInFlight` back into a `Streaming`.
+>    Whether the device has finished cannot be checked by any abstraction,
+>    so this is the one `unsafe` operation.
 
-Only a couple drm-xe-fixes this round, and no drm-intel-fixes this week.
+So while the for_cpu() operation itself is the one which could actually 
+break coherency and corrupt the buffer contents if the device is still 
+writing, we attribute that to the caller having to have erroneously 
+declared complete() already in order to be able to do so. But when used 
+correctly, we can cycle through complete()/for_cpu()/submit() to recycle 
+the same buffer and mapping for multiple transfers within the lifetime 
+of the Streaming object. Took me a moment to get it, but this seems like 
+a pretty OK design to me.
+
+> Dropping a `StreamingInFlight` leaks the mapping and the backing
+> storage, with a warning. A transfer may still be in flight: freeing the
+> storage would leave the device writing through a dangling handle, and
+> even unmapping could recycle a SWIOTLB bounce slot mid-transfer.
+> Reclaiming either takes the assertion only `complete()` can make, so an
+> early `?` return between `submit()` and `complete()` costs a leak
+> instead of a device-side use-after-free.
+> 
+> The mapping is torn down on drop of a `Streaming`, or by
+> `into_inner()`, which returns the backing storage. Unmapping already
+> hands the buffer back to the CPU, so `into_inner()` skips a
+> synchronization nothing would consume.
+> 
+> The `'a` lifetime binds the mapping to a `Device<Bound>`: the DMA API
+> may only be called while a driver is bound, and `Drop` unmaps.
+> 
+> `DataDirection::None` (a `BUG_ON()` in the DMA core) and empty buffers
+> (not representable by `dma_map_single()`) are rejected with `EINVAL`.
+> So are `DMA_ATTR_SKIP_CPU_SYNC`, which disables the implicit CPU cache
+> maintenance the type invariants are built on with no way to compensate
+> through this API, and `DMA_ATTR_MMIO`, which describes memory a
+> `ContiguousBuffer` cannot represent.
+
+Yeah, SKIP_CPU_SYNC is a little tricky as it effectively has two 
+different use-cases - one is publishing the same buffer to multiple 
+devices, which I guess might best be encapsulated as some new variant to 
+be created from an existing Streaming object and a different device, 
+while the other is effectively still the same model as here, just with 
+the object starting in, and/or being torn down directly from, the 
+for_cpu state.
+
+Indeed we can safely say that we should never need to accept MMIO here 
+though - dma_map_resource() can have its own Rust abstraction if and 
+when anyone wants that, and the P2P dma-buf business would also be its 
+own whole other issue anyway.
 
 Thanks,
-Rodrigo.
+Robin.
 
-drm-xe-fixes-2026-08-06:
-- Fix memory leak in exec_queue_set_hang_replay_state (Michal)
-- Apply RCS/CCS yield policy to SR-IOV VFs (Marcin)
-The following changes since commit 075b74841bd0065a3bda3440873c747938e69b68:
+> Signed-off-by: Maurice Hieronymus <mhi@mailbox.org>
+> ---
+>   rust/helpers/dma.c |  35 +++++
+>   rust/kernel/dma.rs | 392 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+>   2 files changed, 427 insertions(+)
+> 
+> diff --git a/rust/helpers/dma.c b/rust/helpers/dma.c
+> index 9fbeb507b08c..7e1e5c67431a 100644
+> --- a/rust/helpers/dma.c
+> +++ b/rust/helpers/dma.c
+> @@ -49,3 +49,38 @@ __rust_helper void rust_helper_dma_set_max_seg_size(struct device *dev,
+>   {
+>   	dma_set_max_seg_size(dev, size);
+>   }
+> +
+> +__rust_helper dma_addr_t rust_helper_dma_map_single_attrs(struct device *dev,
+> +							  void *ptr, size_t size,
+> +							  enum dma_data_direction dir,
+> +							  unsigned long attrs)
+> +{
+> +	return dma_map_single_attrs(dev, ptr, size, dir, attrs);
+> +}
+> +
+> +__rust_helper void rust_helper_dma_unmap_single_attrs(struct device *dev,
+> +						      dma_addr_t addr, size_t size,
+> +						      enum dma_data_direction dir,
+> +						      unsigned long attrs)
+> +{
+> +	dma_unmap_single_attrs(dev, addr, size, dir, attrs);
+> +}
+> +
+> +__rust_helper int rust_helper_dma_mapping_error(struct device *dev, dma_addr_t addr)
+> +{
+> +	return dma_mapping_error(dev, addr);
+> +}
+> +
+> +__rust_helper void rust_helper_dma_sync_single_for_cpu(struct device *dev,
+> +						       dma_addr_t addr, size_t size,
+> +						       enum dma_data_direction dir)
+> +{
+> +	dma_sync_single_for_cpu(dev, addr, size, dir);
+> +}
+> +
+> +__rust_helper void rust_helper_dma_sync_single_for_device(struct device *dev,
+> +							  dma_addr_t addr, size_t size,
+> +							  enum dma_data_direction dir)
+> +{
+> +	dma_sync_single_for_device(dev, addr, size, dir);
+> +}
+> diff --git a/rust/kernel/dma.rs b/rust/kernel/dma.rs
+> index 8a8af5ab7feb..cbaf30a2de86 100644
+> --- a/rust/kernel/dma.rs
+> +++ b/rust/kernel/dma.rs
+> @@ -24,6 +24,7 @@
+>       uaccess::UserSliceWriter,
+>   };
+>   use core::{
+> +    mem::ManuallyDrop,
+>       ops::{
+>           Deref,
+>           DerefMut, //
+> @@ -345,6 +346,14 @@ const fn const_cast(val: bindings::dma_data_direction) -> u32 {
+>           // is within the representable range of `u32`.
+>           wide_val as u32
+>       }
+> +
+> +    /// Returns whether this direction may be passed to a mapping or synchronization primitive.
+> +    ///
+> +    /// Equivalent to `valid_dma_direction()`; [`Self::None`] is a debugging aid the DMA core
+> +    /// rejects with a `BUG_ON()`.
+> +    const fn is_valid(self) -> bool {
+> +        !matches!(self, Self::None)
+> +    }
+>   }
+>   
+>   impl From<DataDirection> for bindings::dma_data_direction {
+> @@ -621,6 +630,389 @@ fn data(&mut self) -> &mut Self::Data {
+>       }
+>   }
+>   
+> +/// An abstraction of the `dma_map_single` API.
+> +///
+> +/// Unlike [`Coherent`], a streaming mapping is a temporary lease on memory the caller already
+> +/// owns: between mapping and unmapping the buffer belongs to the device, and the CPU may only
+> +/// access it in between a `dma_sync_single_for_cpu()` / `dma_sync_single_for_device()` pair.
+> +///
+> +/// [`Streaming`] owns the backing storage and is one of two states: [`submit`](Self::submit)
+> +/// consumes it and returns a [`StreamingInFlight`], the only source of the [`DmaAddress`];
+> +/// [`complete`](StreamingInFlight::complete) turns that back into a [`Streaming`], whose
+> +/// [`for_cpu`](Self::for_cpu) yields a [`StreamingCpuGuard`] dereferencing to the contents.
+> +///
+> +/// The mapping is torn down on drop of a [`Streaming`], or by [`into_inner`](Self::into_inner),
+> +/// which returns the backing storage. Dropping a [`StreamingInFlight`] instead leaks the mapping
+> +/// and the storage: safe code cannot prove the device is done, so it cannot be allowed to reclaim
+> +/// either.
+> +///
+> +/// The `'a` lifetime keeps the device bound for the life of the mapping.
+> +///
+> +/// # Examples
+> +///
+> +/// ```
+> +/// # use kernel::device::{Bound, Device};
+> +/// use kernel::dma::{
+> +///     DataDirection,
+> +///     Streaming, //
+> +/// };
+> +///
+> +/// # fn test(dev: &Device<Bound>) -> Result {
+> +/// let buf = KBox::new(0u64, GFP_KERNEL)?;
+> +/// let mut dma = Streaming::new(dev, buf, DataDirection::Bidirectional)?;
+> +///
+> +/// // The CPU prepares the buffer, and hands it back to the device by dropping the guard.
+> +/// *dma.for_cpu() = 42;
+> +///
+> +/// // Hand the buffer to the device; `dma` is consumed, so its contents are now unreachable.
+> +/// let dma = dma.submit();
+> +///
+> +/// // Program `dma.dma_handle()` and `dma.size()` into the device.
+> +///
+> +/// // SAFETY: For the sake of the example, assume the transfer has been waited for.
+> +/// let mut dma = unsafe { dma.complete() };
+> +///
+> +/// assert_eq!(*dma.for_cpu(), 42);
+> +/// # Ok::<(), Error>(()) }
+> +/// ```
+> +///
+> +/// # Invariants
+> +///
+> +/// * `dma_addr` denotes a live mapping of `container` for the lifetime of the instance, and
+> +///   `container`, `direction` and `dma_attrs` are unchanged since it was established.
+> +/// * `direction` is not [`DataDirection::None`].
+> +/// * The buffer is synchronized for the device whenever no [`StreamingCpuGuard`] borrowed from
+> +///   this instance is alive.
+> +pub struct Streaming<'a, C: ContiguousBuffer> {
+> +    container: C,
+> +    direction: DataDirection,
+> +    dma_addr: DmaAddress,
+> +    dma_attrs: Attrs,
+> +    dev: &'a device::Device<Bound>,
+> +}
+> +
+> +impl<'a, C: ContiguousBuffer> Streaming<'a, C> {
+> +    /// Maps `container` for streaming DMA in `direction`.
+> +    ///
+> +    /// Ownership of `container` is moved into the returned [`Streaming`]; the buffer belongs to
+> +    /// the device until [`for_cpu`](Self::for_cpu) is called.
+> +    ///
+> +    /// Returns [`EINVAL`] for an empty buffer, for [`DataDirection::None`], or if `dma_attrs`
+> +    /// contains [`DMA_ATTR_SKIP_CPU_SYNC`](attrs::DMA_ATTR_SKIP_CPU_SYNC) or
+> +    /// [`DMA_ATTR_MMIO`](attrs::DMA_ATTR_MMIO).
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// # use kernel::device::{Bound, Device};
+> +    /// use kernel::dma::{
+> +    ///     attrs::*,
+> +    ///     DataDirection,
+> +    ///     Streaming, //
+> +    /// };
+> +    ///
+> +    /// # fn test(dev: &Device<Bound>) -> Result {
+> +    /// let buf = KBox::new(0u64, GFP_KERNEL)?;
+> +    /// let dma = Streaming::new_with_attrs(
+> +    ///     dev,
+> +    ///     buf,
+> +    ///     DataDirection::ToDevice,
+> +    ///     DMA_ATTR_WEAK_ORDERING,
+> +    /// )?;
+> +    /// # Ok::<(), Error>(()) }
+> +    /// ```
+> +    pub fn new_with_attrs(
+> +        dev: &'a device::Device<Bound>,
+> +        mut container: C,
+> +        direction: DataDirection,
+> +        dma_attrs: Attrs,
+> +    ) -> Result<Self> {
+> +        // The DMA core `BUG_ON()`s on `DMA_NONE`, bail early.
+> +        if !direction.is_valid() {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        // The type invariants are built on the implicit CPU cache maintenance performed by
+> +        // `dma_map_single_attrs()` and `dma_unmap_single_attrs()`; `DMA_ATTR_SKIP_CPU_SYNC`
+> +        // disables it, with no way to compensate through this API. `DMA_ATTR_MMIO` describes
+> +        // memory a `ContiguousBuffer` cannot represent.
+> +        if dma_attrs.contains(attrs::DMA_ATTR_SKIP_CPU_SYNC)
+> +            || dma_attrs.contains(attrs::DMA_ATTR_MMIO)
+> +        {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        let size = container.size();
+> +
+> +        // `dma_map_single_attrs` cannot handle zero-length mappings, bail early.
+> +        if size == 0 {
+> +            return Err(EINVAL);
+> +        }
+> +
+> +        // SAFETY:
+> +        // - Device pointer is guaranteed as valid by the type invariant on `Device`.
+> +        // - By the safety requirements of `ContiguousBuffer`, `container.ptr()` points to a single
+> +        //   physically contiguous region of `size` bytes in the kernel's linear mapping.
+> +        // - `container` is moved into `Self` below, so the region stays alive and at a stable
+> +        //   address until the mapping is torn down in `Drop`.
+> +        let dma_addr = unsafe {
+> +            bindings::dma_map_single_attrs(
+> +                dev.as_raw(),
+> +                container.ptr(),
+> +                size,
+> +                direction.into(),
+> +                dma_attrs.as_raw(),
+> +            )
+> +        };
+> +
+> +        // SAFETY: Device pointer is valid per the above, and `dma_addr` was just returned by
+> +        // `dma_map_single_attrs()` for this device.
+> +        to_result(unsafe { bindings::dma_mapping_error(dev.as_raw(), dma_addr) })?;
+> +
+> +        // INVARIANT:
+> +        // - The mapping was just established with these exact parameters, none of which is
+> +        //   mutated afterwards.
+> +        // - `direction` was checked above.
+> +        Ok(Streaming {
+> +            container,
+> +            direction,
+> +            dma_addr,
+> +            dma_attrs,
+> +            dev,
+> +        })
+> +    }
+> +
+> +    /// Performs the same functionality as [`Streaming::new_with_attrs`], except the `dma_attrs`
+> +    /// is 0 by default.
+> +    #[inline]
+> +    pub fn new(
+> +        dev: &'a device::Device<Bound>,
+> +        container: C,
+> +        direction: DataDirection,
+> +    ) -> Result<Self> {
+> +        Self::new_with_attrs(dev, container, direction, Attrs(0))
+> +    }
+> +
+> +    /// Returns the size of the mapping in bytes.
+> +    #[inline]
+> +    pub fn size(&self) -> usize {
+> +        self.container.size()
+> +    }
+> +
+> +    /// Returns the direction this buffer was mapped with.
+> +    #[inline]
+> +    pub fn direction(&self) -> DataDirection {
+> +        self.direction
+> +    }
+> +
+> +    /// Hands the buffer to the device.
+> +    ///
+> +    /// This performs no synchronization: by the type invariants the buffer is already
+> +    /// synchronized for the device.
+> +    #[inline]
+> +    pub fn submit(self) -> StreamingInFlight<'a, C> {
+> +        StreamingInFlight(ManuallyDrop::new(self))
+> +    }
+> +
+> +    /// Transfers ownership of the buffer back to the CPU and returns a guard granting access to
+> +    /// its contents.
+> +    ///
+> +    /// Dropping the guard transfers ownership back to the device. If the buffer is not handed to
+> +    /// the device again, prefer [`into_inner`](Self::into_inner), which unmaps instead.
+> +    pub fn for_cpu(&mut self) -> StreamingCpuGuard<'_, C::Data> {
+> +        let dev = self.dev;
+> +        let dma_addr = self.dma_addr;
+> +        let direction = self.direction;
+> +        let size = self.container.size();
+> +
+> +        // SAFETY: By the type invariants, `dev` is bound and `dma_addr` denotes a live mapping of
+> +        // `size` bytes established with `direction`, which is the range synced here.
+> +        unsafe {
+> +            bindings::dma_sync_single_for_cpu(dev.as_raw(), dma_addr, size, direction.into())
+> +        };
+> +
+> +        // INVARIANT: The buffer is now owned by the CPU, and dropping the guard hands it back.
+> +        StreamingCpuGuard {
+> +            data: self.container.data(),
+> +            dev,
+> +            dma_addr,
+> +            size,
+> +            direction,
+> +        }
+> +    }
+> +
+> +    /// Tears the mapping down and returns the backing storage.
+> +    ///
+> +    /// Unmapping transfers ownership of the buffer back to the CPU, so no separate
+> +    /// [`for_cpu`](Self::for_cpu) is needed.
+> +    ///
+> +    /// # Examples
+> +    ///
+> +    /// ```
+> +    /// # use kernel::device::{Bound, Device};
+> +    /// use kernel::dma::{
+> +    ///     DataDirection,
+> +    ///     Streaming, //
+> +    /// };
+> +    ///
+> +    /// # fn test(dev: &Device<Bound>) -> Result {
+> +    /// let dma = Streaming::new(
+> +    ///     dev,
+> +    ///     KBox::new(0u64, GFP_KERNEL)?,
+> +    ///     DataDirection::FromDevice,
+> +    /// )?
+> +    /// .submit();
+> +    ///
+> +    /// // Program `dma.dma_handle()` into the device.
+> +    ///
+> +    /// // SAFETY: For the sake of the example, assume the transfer has been waited for.
+> +    /// let dma = unsafe { dma.complete() };
+> +    ///
+> +    /// // Take the buffer back; the mapping is gone once this returns.
+> +    /// let buf: KBox<u64> = dma.into_inner();
+> +    /// # Ok::<(), Error>(()) }
+> +    /// ```
+> +    pub fn into_inner(self) -> C {
+> +        let mut this = ManuallyDrop::new(self);
+> +
+> +        this.unmap();
+> +
+> +        // SAFETY: `this` is wrapped in a `ManuallyDrop`, so `Streaming::drop()` never runs and
+> +        // `this.container` is never read again. The remaining fields are all `Copy`.
+> +        unsafe { core::ptr::read(&this.container) }
+> +    }
+> +
+> +    /// Tears the mapping down.
+> +    ///
+> +    /// Shared by [`Drop`] and [`into_inner`](Self::into_inner), both of which run it exactly once.
+> +    fn unmap(&mut self) {
+> +        // SAFETY: By the type invariants, `self.dev` is bound and the mapping is still live, with
+> +        // exactly the address, size, direction and attributes it was created with. Both callers
+> +        // run this at most once, so the mapping cannot be torn down twice.
+> +        unsafe {
+> +            bindings::dma_unmap_single_attrs(
+> +                self.dev.as_raw(),
+> +                self.dma_addr,
+> +                self.container.size(),
+> +                self.direction.into(),
+> +                self.dma_attrs.as_raw(),
+> +            )
+> +        };
+> +    }
+> +}
+> +
+> +impl<C: ContiguousBuffer> Drop for Streaming<'_, C> {
+> +    fn drop(&mut self) {
+> +        self.unmap();
+> +    }
+> +}
+> +
+> +/// A [`Streaming`] mapping whose [`DmaAddress`] has been handed out.
+> +///
+> +/// Returned by [`Streaming::submit`]. It owns the buffer, so the contents are unreachable while
+> +/// it exists. [`complete`](Self::complete) is the only way back: it is the caller's assertion
+> +/// that the device has finished, which nothing else can establish. Dropping this instead leaks
+> +/// the mapping and the backing storage, since reclaiming either while the device may still
+> +/// access the buffer would be a use-after-free.
+> +pub struct StreamingInFlight<'a, C: ContiguousBuffer>(ManuallyDrop<Streaming<'a, C>>);
+> +
+> +impl<'a, C: ContiguousBuffer> StreamingInFlight<'a, C> {
+> +    /// Returns the DMA address to program into the device.
+> +    #[inline]
+> +    pub fn dma_handle(&self) -> DmaAddress {
+> +        self.0.dma_addr
+> +    }
+> +
+> +    /// Returns the size of the mapping in bytes.
+> +    #[inline]
+> +    pub fn size(&self) -> usize {
+> +        self.0.size()
+> +    }
+> +
+> +    /// Returns the direction this buffer was mapped with.
+> +    #[inline]
+> +    pub fn direction(&self) -> DataDirection {
+> +        self.0.direction()
+> +    }
+> +
+> +    /// Takes the buffer back from the device.
+> +    ///
+> +    /// This performs no synchronization; [`Streaming::for_cpu`] does that.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// The device must have finished accessing the buffer.
+> +    #[inline]
+> +    pub unsafe fn complete(self) -> Streaming<'a, C> {
+> +        let mut this = ManuallyDrop::new(self);
+> +
+> +        // SAFETY: `this` is wrapped in a `ManuallyDrop`, so `StreamingInFlight::drop()` never
+> +        // runs and `this.0` is never touched again.
+> +        unsafe { ManuallyDrop::take(&mut this.0) }
+> +    }
+> +}
+> +
+> +impl<C: ContiguousBuffer> Drop for StreamingInFlight<'_, C> {
+> +    fn drop(&mut self) {
+> +        // A transfer may still be in flight: freeing the storage would leave the device writing
+> +        // through a dangling handle, and unmapping could recycle a SWIOTLB bounce slot
+> +        // mid-transfer. Reclaiming either requires the assertion only `complete()` can make, so
+> +        // leak both.
+> +        dev_warn!(
+> +            self.0.dev,
+> +            "StreamingInFlight dropped without complete(); leaking the mapping and its storage\n"
+> +        );
+> +    }
+> +}
+> +
+> +/// A guard granting the CPU access to the contents of a [`Streaming`] buffer.
+> +///
+> +/// Returned by [`Streaming::for_cpu`]. Dropping it issues a `dma_sync_single_for_device()`, which
+> +/// hands the buffer back to the device.
+> +///
+> +/// # Invariants
+> +///
+> +/// * `dev`, `dma_addr`, `size` and `direction` describe the live mapping of the [`Streaming`] this
+> +///   guard borrows, and are unchanged for the lifetime of the guard.
+> +/// * `data` refers to exactly the mapped region.
+> +pub struct StreamingCpuGuard<'a, T: ?Sized> {
+> +    data: &'a mut T,
+> +    dev: &'a device::Device<Bound>,
+> +    dma_addr: DmaAddress,
+> +    size: usize,
+> +    direction: DataDirection,
+> +}
+> +
+> +impl<T: ?Sized> Drop for StreamingCpuGuard<'_, T> {
+> +    fn drop(&mut self) {
+> +        // SAFETY: By the type invariants, `self.dev` is bound and `self.dma_addr` denotes a live
+> +        // mapping of `self.size` bytes established with `self.direction`, which is the range
+> +        // synced here.
+> +        unsafe {
+> +            bindings::dma_sync_single_for_device(
+> +                self.dev.as_raw(),
+> +                self.dma_addr,
+> +                self.size,
+> +                self.direction.into(),
+> +            )
+> +        };
+> +    }
+> +}
+> +
+> +impl<T: ?Sized> Deref for StreamingCpuGuard<'_, T> {
+> +    type Target = T;
+> +
+> +    fn deref(&self) -> &Self::Target {
+> +        self.data
+> +    }
+> +}
+> +
+> +impl<T: ?Sized> DerefMut for StreamingCpuGuard<'_, T> {
+> +    fn deref_mut(&mut self) -> &mut Self::Target {
+> +        self.data
+> +    }
+> +}
+> +
+>   /// An abstraction of the `dma_alloc_coherent` API.
+>   ///
+>   /// This is an abstraction around the `dma_alloc_coherent` API which is used to allocate and map
+> 
 
-  Linux 7.2-rc6 (2026-08-02 16:24:24 -0700)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/drm/xe/kernel.git tags/drm-xe-fixes-2026-08-06
-
-for you to fetch changes up to d1643db3b037b57f2af7f85c3821d6fe69c492f6:
-
-  drm/xe/uc: Apply RCS/CCS yield policy to SR-IOV VFs (2026-08-04 13:52:23 -0400)
-
-----------------------------------------------------------------
-- Fix memory leak in exec_queue_set_hang_replay_state (Michal)
-- Apply RCS/CCS yield policy to SR-IOV VFs (Marcin)
-
-----------------------------------------------------------------
-Marcin Bernatowicz (1):
-      drm/xe/uc: Apply RCS/CCS yield policy to SR-IOV VFs
-
-Michał Winiarski (1):
-      drm/xe: Fix memory leak in exec_queue_set_hang_replay_state()
-
- drivers/gpu/drm/xe/xe_exec_queue.c | 3 +++
- drivers/gpu/drm/xe/xe_uc.c         | 7 +++++--
- 2 files changed, 8 insertions(+), 2 deletions(-)
