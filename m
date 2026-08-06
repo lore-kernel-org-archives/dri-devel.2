@@ -4,75 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35FD3C5AC67
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 18:01:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4517C56205
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 19:06:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5061010F284;
-	Thu,  6 Aug 2026 18:01:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D27CD10E384;
+	Thu,  6 Aug 2026 19:06:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Glz0rDcY";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="nA1aUYEN";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5222910F284
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 18:01:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1786039281; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=fI5hflcGYGR78Sx2OUja5rJ3MURm64Sfve2tS6OUsW/xi/ciIhu7qlzNryG1CTddv/s5oOXEyDo2W9ZKJ6lkIG8g90e6703g3Dk8blxOgbYEmH0iQctBJBjuJ6RNNXsVMsb+pvrZfYWyfXpMcTtOhJd9EHKGQIgnxwRd/cngbvI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1786039281;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=VvqVDCFd/DWfRyPbMPVLFfs2uBTy+cvknpQHmfC9ir0=; 
- b=TiyvRR/BkSubqsDw4jOEgMp400km0U/+8/U8GPOzmSE1oFK56nXO2mQ5LkJyxAMpEF5lLeF5DdQvopvSHdKuze/FykRY6FWFBbMLOQdnPVs8m3GOVkPV1iv628J/YDv8Ftbr28Unh1gPiEwQcLTVfayN5BVeiHH2ePc/xVgdRTA=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
- dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786039281; 
- s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=VvqVDCFd/DWfRyPbMPVLFfs2uBTy+cvknpQHmfC9ir0=;
- b=Glz0rDcYaFk9/2KrItwkKjHBTB6+FxhTaXberHy774dCEoBmZX9+ZqYuFsZQLacp
- YH8F3wg6Ef2bhrgdtkRZT2pwK1R8NifNEFYJ8E0tbEp68AO12u4bdhhGR3Z+4RheLWq
- Yat1cNeb6jvtisudhO1hnMn76UE5Q+zLvRL7JsEY=
-Received: by mx.zohomail.com with SMTPS id 1786039278681438.7405188318794;
- Thu, 6 Aug 2026 11:01:18 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
- id 1273C1808BD; Thu, 06 Aug 2026 20:01:13 +0200 (CEST)
-Date: Thu, 6 Aug 2026 20:01:13 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Chaoyi Chen <kernel@airkyi.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A9510E37D;
+ Thu,  6 Aug 2026 19:06:39 +0000 (UTC)
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 676Ftr4v4168306; Thu, 6 Aug 2026 19:06:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ corp-2025-04-25; bh=85JNUC8SyfLYyGobZYpdZmxyQGF0qjVqbjDUd/Wkets=; b=
+ nA1aUYENomsR9p7hfDkQr6KalTZrWQW8NET0IkudX6kxW006ofYrtz87Qku7QfJU
+ 1lbtfpVmJ42Q3AQE1tcbOw0dHj5dJSylYxq+m2+YcyLW9melEp/Zo40HFGHB54iG
+ OcTwtR+niQLcarL+4OWP5kUShgYJOMrLwxEqqSkY7Lj2zjgD/sgtw+C5rg7PDGAH
+ Gv3g1ppfRFvZh8DYeUX2gV+upEZO5qZ40tc03kMw1uUKshv2LOqjagJ3HbvFdCxa
+ 5hBpF9vOLZ/60dXew31tSvX4uLcqli6uolj+khGTMmHGGzK/4pK/rJL+YY5xBUHb
+ pPRuZrwRVaPtUZ7W/V2+uA==
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4fs8ugpqtf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 06 Aug 2026 19:06:26 +0000 (GMT)
+Received: from pps.filterd
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7)
+ with ESMTP id 676J0b6k024663; Thu, 6 Aug 2026 19:06:25 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 4fs78w56e3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 06 Aug 2026 19:06:25 +0000 (GMT)
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 676J6LgY011247;
+ Thu, 6 Aug 2026 19:06:24 GMT
+Received: from ca-mkp2.ca.oracle.com.com
+ (mpeterse-ol9.allregionaliads.osdevelopmeniad.oraclevcn.com
+ [100.100.251.135])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
+ 4fs78w56b9-3; Thu, 06 Aug 2026 19:06:24 +0000 (GMT)
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Borislav Petkov <bp@alien8.de>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jiri Pirko <jiri@resnulli.us>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>, 
- Vinod Koul <vkoul@kernel.org>, Chaoyi Chen <chaoyi.chen@rock-chips.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-phy@lists.infradead.org
-Subject: Re: [PATCH v6 3/7] drm/display: Add soft depend for
- aux-hpd-typec-dp-bridge module
-Message-ID: <anTLpHm_bIPSsdvz@venus>
-References: <20260804070730.68-1-kernel@airkyi.com>
- <20260804070730.68-4-kernel@airkyi.com>
+ Mark Brown <broonie@kernel.org>, Matthew Sakai <msakai@redhat.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Nicolas Palix <nicolas.palix@imag.fr>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Paolo Abeni <pabeni@redhat.com>, Ping-Ke Shih <pkshih@realtek.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sebastian Reichel <sre@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@verge.net.au>,
+ Stephen Boyd <sboyd@kernel.org>, Steve French <sfrench@samba.org>,
+ Takashi Iwai <tiwai@suse.com>, Thomas Renninger <trenn@suse.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Vinod Koul <vkoul@kernel.org>, Will Deacon <will@kernel.org>,
+ Yazen Ghannam <Yazen.Ghannam@amd.com>,
+ Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, cocci@inria.fr,
+ amd-gfx@lists.freedesktop.org, dmaengine@vger.kernel.org,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
+ iommu@lists.linux.dev, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-edac@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org,
+ netdev@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+Subject: Re: (subset) [PATCH 00/36] treewide: remove conditional returns with
+ no effect
+Date: Thu,  6 Aug 2026 15:06:08 -0400
+Message-ID: <178589207129.336697.9870225893827541543.b4-ty@oracle.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
+References: <20260723184538.3888637-1-ekffu200098@gmail.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="byd6tvu63oubmgfz"
-Content-Disposition: inline
-In-Reply-To: <20260804070730.68-4-kernel@airkyi.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.26.37
-X-ZohoMailClient: External
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-06_02,2026-08-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ spamscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 mlxscore=0
+ phishscore=0 mlxlogscore=672 suspectscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2606160000 definitions=main-2608060149
+X-Proofpoint-ORIG-GUID: XGMDaQGIFMb57T6Q2yvPQTQQt2debxfq
+X-Authority-Analysis: v=2.4 cv=XqnK/1F9 c=1 sm=1 tr=0 ts=6a74db32 b=1 cx=c_pps
+ a=e1sVV491RgrpLwSTMOnk8w==:117
+ a=e1sVV491RgrpLwSTMOnk8w==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=BqU2WV_vvsyTyxaotp0D:22 a=VwQbUJbxAAAA:8
+ a=Br-j9HdbvUlrMjNZj6IA:9 a=QEXdDO2ut3YA:10 a=5yU3S35YU4bGjq-dph-N:22
+ a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13510
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDE0OSBTYWx0ZWRfX6uIK9jT+2Jev
+ rYS5Xc6Wjv9hMYRtyD0NY9wioUhY1o9ts8S44XrOIykROIC2fMM+q3H5rjkub44bNgkLDQ3tnSe
+ fkx9LiuU0Ioed9eVzRB8PP2qYuZIVaHGDH9Vr333gSb2ZgsHD92v
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDE0OSBTYWx0ZWRfX43FUiflrVixJ
+ FNgAKsr+fsfl0ktZltC3fvW6MVFcRQRy/oySHj8nQQDMOHwfS94QLWHrXArK3j62D1c6aNzQrnl
+ 2DtOuGbPQocnjuSCI1ny1WWYx/7jkkjlcfyl+lp7TEesEfkx307+KuCZo0OgIxbIwfa72MWD4em
+ tn6/hMd/QXx6zH3wP5OlhrMzlp2qKgIxJlelAMfUWIkruyj4hnvKzGUkqPoF4QRZ71As9I8pV2j
+ DMm/cMIaHufC6lXcsuKfUk0yiqWTx1Zr8LtQAR498eW34hEj3pAMHucta0+1CKmEnv9EN7lkU/M
+ FG7jgW8yHOjl2TgueMJFzovO4heKYSqjW47oC3CHVujyZPMUqifsWdUKFoxdhd+EKhXdCEJL9b0
+ LGCES5HP/CdGIqj2UaaWymZGJVFVJ4RBD/aEk7/710HO5x59Z+gVx3LZGgty2YUYCbgJE7oGTWH
+ QPXliDM2eYx5QgvaSSBlrfWn/1V9lBD33lbCDCaI=
+X-Proofpoint-GUID: XGMDaQGIFMb57T6Q2yvPQTQQt2debxfq
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,82 +168,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Fri, 24 Jul 2026 03:45:02 +0900, Sang-Heon Jeon wrote:
 
---byd6tvu63oubmgfz
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 3/7] drm/display: Add soft depend for
- aux-hpd-typec-dp-bridge module
-MIME-Version: 1.0
+> While reading mm/memblock, I found a conditional return where both
+> branches return the same value:
+> 
+> 	err = do_something();
+> 	if (err)
+> 		return err;
+> 	return err;
+> 
+> [...]
 
-Hi,
+Applied to 7.3/scsi-queue, thanks!
 
-On Tue, Aug 04, 2026 at 03:07:26PM +0800, Chaoyi Chen wrote:
-> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
->=20
-> The aux-hpd-typec-dp-bridge module serves as a generic TypeC
-> DisplayPort HPD bridge and is not required by any other
-> module. Therefore, it will not be auto-loaded.
->=20
-> Given that the drm_display_helper module houses DisplayPort-related
-> helper code, add a MODULE_SOFTDEP() within it to suggest loading the
-> aux-hpd-typec-dp-bridge module beforehand.
->=20
-> Suggested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> ---
+[30/36] scsi: mpt3sas: remove conditional return with no effect
+        https://git.kernel.org/mkp/scsi/c/c79f9bf2d87f
 
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Tested-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Booting defconfig without manual HPD bridge registration works now :)
-
-Greetings,
-
--- Sebastian
-
->=20
-> (no changes since v6)
->=20
-> ---
->  drivers/gpu/drm/display/drm_display_helper_mod.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/gpu/drm/display/drm_display_helper_mod.c b/drivers/g=
-pu/drm/display/drm_display_helper_mod.c
-> index d8a6e6228773..f0152d6b0b2d 100644
-> --- a/drivers/gpu/drm/display/drm_display_helper_mod.c
-> +++ b/drivers/gpu/drm/display/drm_display_helper_mod.c
-> @@ -18,5 +18,6 @@ static void __exit drm_display_helper_module_exit(void)
->  	drm_dp_aux_dev_exit();
->  }
-> =20
-> +MODULE_SOFTDEP("pre: aux-hpd-typec-dp-bridge");
->  module_init(drm_display_helper_module_init);
->  module_exit(drm_display_helper_module_exit);
-> --=20
-> 2.53.0
->=20
-
---byd6tvu63oubmgfz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmp0y+gACgkQ2O7X88g7
-+po1aRAAoVOEYS4tq1yTJqRuHjwNUobsS9PYSr5qD/DQPC1oCG4gOnrFa6dbHHJq
-rUBAu1add5nl7fsbmBqBskTWJmavNvRP/MD1gFLf3O/2kaHGMTu8J/kGohL8lK1c
-ZmCWvUErRM40JPnmDgi+HyLrAfewMZS+gcxolhfB7dvbR47MWiBXV52aZ8umglFW
-arbLXrh6q8/ibncTclQ4NW6D0loqyrKhSdTLNtGisYCcwJzvLmGhZdCfGEIcdHz8
-B7l8pHmmcL2M5udlUV1TFp9f6PR37gMhPFF6eu1EY0nr6+6RAR6RcSXKmz7fH+2K
-FgWL3Cw9o2Q851SH3VDapSyi01F5NVHiDJZrUCuCl5VylS4xJ7ZohMXVqxhi/7BF
-wnQEOY92uKvJ8SZErnu/mxuyttYFn7QAh26REhCDfmOBkvguo6fskjKSqrCKpJsZ
-WCijZVU3WVoiZrhhp0NISmGU0qQu/+Gl6de6bYAZYh6ohdbhgu5oFSOlHQdK8cBI
-2pYuo7inWqpmh02xPRs1HFrnLQCptZMkm1VIBrIiVSam95dQqhSvRLqi7xeXu6Hu
-uYJzZ3c1gh8lRBqYaXBO/lWZ81/+uUVFXgFfHTvMNRrfFklmCOvus9i43qf/Z66k
-1z3ifHGU1tZVyDyyEqOXWPdvk4KwHtPgwI57NWSEgep83nQ8fnw=
-=6FUg
------END PGP SIGNATURE-----
-
---byd6tvu63oubmgfz--
+-- 
+Martin K. Petersen
