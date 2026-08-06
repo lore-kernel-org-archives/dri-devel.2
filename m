@@ -4,56 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E11DC55838
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 07:36:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A325EC55ABF
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 07:36:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7184E10E29F;
-	Thu,  6 Aug 2026 07:36:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A16910F105;
+	Thu,  6 Aug 2026 07:36:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="nRNEGTIv";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="RV2nYT9n";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010050.outbound.protection.outlook.com [52.101.85.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECEAF10E29F
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 07:36:35 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011025.outbound.protection.outlook.com [52.101.52.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AACD510F105
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 07:36:38 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RNDsam2Wk1mkFUJfKqb1MP5ha6bSIhRbqGV2JmqJwrMvji+uDsfnHTujqgrzUHQfS6CPycH/HbsuFuHd+4VSvH8xnCpKZzDqJ5gMG/mnYOUeLMSqOfwzXNTc+9I8BJqHW+cNGCy6y7XWrMxgmNSDmji2pEBpf4RscgnhYATblWN+5PMmUEaSxCxArLujV67j6C3MPqfWWb98KFpQ4eG94gdN7O1oHNkslgmLVdyDia/a3psOyc7NJ5bPh2rLARsD90aXBwiaucCfvdl6r/snyf0Ggqxjihg5Wi1hiPpjqh2tNLxbB3/q2UTZZxwuxLU/P5cXk251PRG26iN00Epq5A==
+ b=nMzF4k3LFGAmNF3sfYV78VaHFDW2e7+AHKRG6tgXk9iVclj+DFUsETYcEqjbk09IIii1XC6yxoPVotdHhoC0uaq8jlQjl0L9D7bOfcLFwob3iqAVZOcs3fhR5p9fBAf2z99IWAEhTwJj9xK+xKNdm073FhdfmfNJ+nzGJK5Il2W2loU++rPaSyGkI/fs5bmKi5trPLEfE1qIsdiKjpieHqqDeEmPGmFngfnVjuH9Cl37YpIs1F+imMq+x7AfNs9dkOBK83WyCaBT1NnLzdsXqkxmOD7hYdhhuYNBpcDUV6kV4CQIU3Z/gUdaSF8IaijHc0qCUqfxkjpCAst6z6K/Nw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2JUHTzv2uggcNwjZssefcw3SBSjsr6E3PakgIUWpqes=;
- b=t6OPphD+XaytW54u4CCSyQUsv2Bg4W3JCTuNAd25rdI2OlLPlzn6abgEKQ5ytPOvZXBuJe9E41J/7stlqaxIBLCWje6/Xuq10F0pzU8qgcVjCMqPxIOtIpfkp8dOFzHSkrdOYmYBsifQqk8kKRDEcgCygYelky9EEpoAG9LxNtoD0pJZbDSSa0a/n0f++whe+aKMIoklh3p2lOa7xiqSo6ayWRVQXYJd9RAsVtHAs1Ll0Rau4IarQ6OH40S90MMyjYXybLD4f7w/HUCTMXSqEZwa/W7IySkjhTCqrCw3ZTFM5S2F/TrI7LWW82VCWHFW/iDJbH7N7VEasCtgqLwv+g==
+ bh=dAYpAy8/2R8bDfnL6Bdl/75karKxdg5K3s6wbTei5Qs=;
+ b=wQld0cqOloBhlMN8r1n4d9kI29JgdaBIj4cv5x7++3jWuy6Sqs979joOvmS0gS5mNYizvlGjuD5RmF9++DH2KwR3k6HKXdj40sV65KmKiG8u0jm4zwyGEMDA8uHnqaoIBe96XC6GSHKJ8IU02J9OCFy2/6x69QfwnDOIFYHiPxCiyfA9PlAqPUt+jdrPo4BPRZpB3IUxMpMs9fDl7hoJ8za4SPR4BoKjPwshfL2YEKEMVQN8JfZT1VeF+1EeVp5XuuV5Da1q4ajywl+rasAn8fe1quDYbpAOib7ZWIxOwNyXK3A8HRwb1bXNw77UYwoXiYUKbpc5ijqqHd12VXp4fQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2JUHTzv2uggcNwjZssefcw3SBSjsr6E3PakgIUWpqes=;
- b=nRNEGTIvsLyXzKjMkh1eJkFeKyHNc+ZXfRdhoSUrOOAQwfEEPT92MiJkjAZE9QtPPKh0HxDHAIpZXO2l4tAXgYVEBhsRQZpGX+3LjAzPOOl72tk9JUNq8mO1qmhugXbqjtGycaSB99AAUQ5X+qq/Fj2BS3u1dfnldxWTZJaIR1AZJIdOMkEp18qt7OUTlJecL+AEA2h8rOJS+DG7gn1Et1Lg/uyRbZM/xNz6AJkmU899r6wnN31TCtrZcZ5d57Xw426ehtvzdYM9LnBoLfJopoxfRrFZel8ETYSG96Lqr75GE2kaWMN4DQlztvHX+f7HZoCFHc4baIKTsOyP6AHsqg==
+ bh=dAYpAy8/2R8bDfnL6Bdl/75karKxdg5K3s6wbTei5Qs=;
+ b=RV2nYT9nO4Q7K5KN2SbzDYvPIYWxUS/w+X3F5l9udHp3hGSQre9OnZ1Z84VyySTK8VA0Xm1SxXO2H4krxVZ93YTLCeeJb8AsoVB4lA70vxyyisV/5kNROAkzE0QWhKOk4Ki06fMKtxWwjb9Kq7OcNuqyxljRJfv9SiVwrEtCiJkWlRujfnoQTBiwIs0eVcyPWL1P0yJyOAH7cqB3QmDDzoOaw+Rbbft+Rm8EIW/hJTwWnBMs7TH3IS9VgeuwBPQx+n089g6HpmTMMv1UdxWBP5MrJbzjsEN7P9J8Icy9q4BSVMYqMoyixa8qXqLfTKONzFaVmWHXuUeTY2SwENUNjw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
  by CH3PR12MB8878.namprd12.prod.outlook.com (2603:10b6:610:17e::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 07:36:28 +0000
+ 2026 07:36:31 +0000
 Received: from CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
  ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
- 07:36:27 +0000
+ 07:36:31 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Subject: [PATCH v2 0/2] rust: add functions and traits for lossless integer
+Date: Thu, 06 Aug 2026 16:35:53 +0900
+Subject: [PATCH v2 1/2] rust: add functions and traits for lossless integer
  conversions
-Date: Thu, 06 Aug 2026 16:35:52 +0900
-Message-Id: <20260806-as_casts-v2-0-cb76a4d3a6ef@nvidia.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22MywrCMBBFf6VkbWQy9JG68j+kyJiHnYWtJCUoJ
- f9u2pWCy3O556wiusAuilO1iuASR56nAniohBlpujvJtrBAwEYpqCXFq6G4RNmS1hrJgOpRlPs
- zOM+vPXUZCo8clzm893JS2/onkpRUEghc39wsUu/PU2LLdDTzY4sWo4UOux8DZOuog9p7bKz+N
- oac8wfFtDOC0wAAAA==
-X-Change-ID: 20251104-as_casts-6a8882ac0192
+Message-Id: <20260806-as_casts-v2-1-cb76a4d3a6ef@nvidia.com>
+References: <20260806-as_casts-v2-0-cb76a4d3a6ef@nvidia.com>
+In-Reply-To: <20260806-as_casts-v2-0-cb76a4d3a6ef@nvidia.com>
 To: Alexandre Courbot <acourbot@nvidia.com>, 
  Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
@@ -71,73 +68,73 @@ Cc: John Hubbard <jhubbard@nvidia.com>,
  linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4PR01CA0085.jpnprd01.prod.outlook.com
- (2603:1096:405:36c::8) To CH2PR12MB3990.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYCP286CA0147.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:31b::10) To CH2PR12MB3990.namprd12.prod.outlook.com
  (2603:10b6:610:28::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|CH3PR12MB8878:EE_
-X-MS-Office365-Filtering-Correlation-Id: b610a7e1-bbfa-4ef6-f00a-08def38d6cb1
+X-MS-Office365-Filtering-Correlation-Id: 731de16a-452d-4087-dc70-08def38d6ee1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|23010399003|10070799003|366016|1800799024|921020|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: PtVBF4at6x1/9iUtQyTIjRW2RMV9R55RONKrQPsKqGuXO1wFYPJK2z0WRw0Zgaz6hyd0+eqCoTTbUbKf+Zq1TY6cEzf8MQDRqwCKLAUBmxmRkCooqRcBe6GAiTV51I5CpjC2Ireq1/w5jLCFBmb+eqHglj+8TYdoMG2PAsWXtgWtdFve/p0EIMtJEXgcaiZoYp0z020CE9mWnGudmuq5HoD3F7uoNbYVJ36GoPcvw3FZ8+GzsQlpqM/3M8omZixh4HxAwgR7RVDR9bn/5abJgysbgKCzJpHZgYcjhFTR3zT+lonRLLsmJDpqZAgKjPvKI/OpOYaLkOVkFfQ45ZGLlZTPGNFawh3qcUJ4CCIBEzH4mE+gHE4FWjIGfVoBnvxPovSDquZ8D+kbQOilZb2G0+AHinPY2KiFQhEjafX+ZRpofiCoJL4Ff/WBhkTEOm3/9SAlTsoptxFIaDVR53wdXanYpkjmruBK+I6mO26FFEb4CLewM2BEwOrw8m163buGyuqmkjfYDaoKApHGyzMEHk3zgQW0fQTYDliuqaD9Zyb4kGH3hhsWu9zzYs6SoYZ0Bq1QLnRJHG/5lB3C+L0nFmHqltiqDEgpjkHW1bxMgIfXZmkArYMQMUf1r3C3eU+698g2LVFIiBZ1/wSzyqthhnPcsQBTyZZEEZ0QmXEKstbbPe4TF+ISYEk7UiuQ2OJowYUAmzM0vRj3zie1ZbA3yg==
+ ARA:13230040|376014|7416014|23010399003|10070799003|366016|1800799024|921020|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: f2aa50bOpe6ZlTCWm2Vvs84sBkbhnDIOu5Y2N1qWPzPRCSlRdhv5+M8jE4T4zEoVMzGLE5fa0DImePXr9liGOwExRXDq4v31xDWmY7yNhz9cS+qtz1CqbdM/tcCamaM6XCTXcNCAcUEdnW9Ry722rzweoTFGO/PumPgXpJ+m0fhOjRqfVkY7JWoCAL3tMxbh0wXByuvRbael9H57NrHBSRyyp0oGvHbdlwzvDJSAwPzN2yrF5VHapPQUiFThrZF3aMxy9a1H7Pta1JrBu8bxbLPJN3i9xvKkcgaay5khKlOmxwwIv4MGIzssuWji49hS9lKcN3O/W2zudZcUWLrilyR+UjJ8uRZtlkT6GdCWnp+GP25y5/wHeMbnsHcDd8QHyBTjLbhRm3k0kP3pF7gb/HhqWBON2UhHwmP+7jw3cauNQS50JTmWXPmcQbD1+mpKfzx+cMHbVlybwHtg1g0uDJ5sUOXnCmkykNz03JpHVwlYce8pmWdo4mTVjvdwfWgvX32wzWl1uCjXquLpqCuWnxLHHP4ZtEA7eMmflvuWu7YIYJkYPByJpEPfRHXzUd9d25ADMYTvJQqR+1J+/dKQp01fQWGhmd3fD8I05kWrQ4Z9NZhko8Fi5ZVcGUKQ0mdGEAkk9Ahpzkku4O+0urxSs2PkiUSaqdAaBxFwDq1sMwgyypalGOpA0PPu9FUXuUrS/r8PBpY8+yvcwwKcnV949A==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(366016)(1800799024)(921020)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);
+ SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(366016)(1800799024)(921020)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEpnTURidlpRdVRtOHZuVnNLU2JlcW5rVjFGeUlGWnpocmZaZm9XdytWbmRJ?=
- =?utf-8?B?Q2krNGx3cFhrWmQvdHdIUVYzRklVZFRESGdaNUVrekVRUlUxVDVJeE5oMkMr?=
- =?utf-8?B?dlRNUm45V2t1UmNFZzg3ZnppWEVuQVpxdWVmNm1TN3NxUEJiWWV2Q3lMNEkx?=
- =?utf-8?B?bitNakJUbndIa1pDVHdGcVByeGNTQ1FCNW9paUwydmJoaHVFeU52TTZKZ1JL?=
- =?utf-8?B?Q1BSZTQwV1J1RzR4ZXVKSFFrNEFOOUMrQ3o4MmJ4RThkRU1MWFYxcmpnamtF?=
- =?utf-8?B?aVFvT3RFSXRsYzJUdmtqUFRQZDVqa1doNGpIZFFEK0JZVHA1dGs3TGVxeVlo?=
- =?utf-8?B?TDI3dGxPWEhBVWdpQWtrMkpjTm5Na1U1bFE4NWRsblZKZzU5dmU1cXN2MmZx?=
- =?utf-8?B?TnE1RXdSSU55NHpETEVIclo5KytXNjVqRkJzbzNGaGw4dmhxYTBQamlLRTVN?=
- =?utf-8?B?bEF0U3k3UnFkMmp6M3M4am5vUE9MMHVwZkZ4aWZueHdRVjI2dnJ3Nm5XUmR2?=
- =?utf-8?B?Zzd5ZHJxbktZKzRjN0JkVVpEcmU4RWwrZ1cyQjlRZzRxZDRFdnhzSEtGemFC?=
- =?utf-8?B?bHp3bUdKZUtNS21JYzZvUUJ6ZXVRdWVSUmltLzhPWVRrSkh6WG9oRGNleUhM?=
- =?utf-8?B?SHNNakFiVjROYzlRTHdraWFFVTZ3QlBCeC9xclVDdUFGUHN2K01LSmwvcDN5?=
- =?utf-8?B?ZVFkaWJBR3dWQjB3cHJHNzRSenM3RDBKaVEvdUhtaDRZNnBVR0poSkgrcUJQ?=
- =?utf-8?B?RVByemhQUXNyUGxxdFVDSDQrT0VtcXNwekJuZ0JrazhMOEh5empleDdaWmZa?=
- =?utf-8?B?QnRRRC94RXpjZW9mNVRTalNWYkFQbE9FNEE0WXNoenFPR3c2WXl3ZlI2NS9j?=
- =?utf-8?B?Q0pHTS9tUUtUemlYZ1dYVm9lSVN6TmNMaXpTR21rbDhjZTBPMkpBWUlEbGpo?=
- =?utf-8?B?MkpKZ3FzQXd1dEtMRDZtTTRwRDh3NTI4SEl6RkdFMWpHR2xweXozRlV5SGZG?=
- =?utf-8?B?YURGaWlBeVdqa3VlQkpkUitOcHE3c1BvYm01M3E0QkEya0JlVEFpRnM2T09m?=
- =?utf-8?B?VHdtNDM1UEZXK2VIVmhOQnRlUmJWRENtSHcyV0JIUmw3My9HZTEvNDhPdUtV?=
- =?utf-8?B?eTZNaUY5NnI3SkNZVHVHdU1sVTZpWEdNSVFHaHhUZitCcS9wMHl3VUhTTFhh?=
- =?utf-8?B?ZkhNMWw5dkVvbkU3Rm9UQ1RoejNXMHQvc1dEcExESjRPMzdwNG1tVklPdjYr?=
- =?utf-8?B?ZGUrbDFIbkNqTnVJaVhsbHFBZnIvQUg4TTdWZDJValFOZWtzT09yQlhlNWlr?=
- =?utf-8?B?MUV0WjZJQ3QwcXpLNGVpR3BnVmFrUU9TalhKd1dVci83b2cyUS90Y2R0eGdL?=
- =?utf-8?B?K3FQVEJobVpoOTNHT0ZVbUpHWkZjQVlzN010eTlqNnA5OTFxcllGcDQ0Qm82?=
- =?utf-8?B?VzhMcHpNME9uNW5obDhoZm0vcXVpZ3EyRG5NV3RoeUg5MXpkK0Q2QUJrNnVa?=
- =?utf-8?B?aTZhRVlLckw1cG5CK0FNZDlaWVVZUER6YmJ6N3I0cW1yMjRzSHpZTEgvQnhR?=
- =?utf-8?B?Vmx6VC9OZVk1RkNQU0dRRnRaZGluanJGaU16elVNVER2V2s5L2U5c1BzRURH?=
- =?utf-8?B?UkFERFN5MTcrQ0xMUDU3cWRGQXVmSDMxMGxzMkpHUm9Ocm1pRlB6MkdaNkF4?=
- =?utf-8?B?SmtnbzQzUFJJd2J3ZWpZQlBjKzRzRHZRU0JLR0NqZ3I1Nm5TQ3hMV1pQeXVL?=
- =?utf-8?B?V0tKYWJ2cGJyWlFjbXZWZjJhWGFBVjZHUTFxVFhWVm4wMkpiNGtzZitDc3ZM?=
- =?utf-8?B?VDRtSWNSdG5lZVRvS0FaUEVEMVFHdHczVlBwaGZrdFJzb0JsZFc5NE5aMUNL?=
- =?utf-8?B?T3ZmSHhaTEt6eDBrR20zRUhhLzdjMi9lNkJNSGFialZJeC9abkhnRTR0VHRo?=
- =?utf-8?B?TXQ5OU9WZTh4NjZBM1RySndEQ05pR2MybmxKa1MyV0s0Nm96Y0N0aXNCUjZU?=
- =?utf-8?B?SnhiR3Bvd1FYQjJiMTZyTUk5SG9qMDFTKzE0Q2wzVTN6aHhqdmhCOWEzZ05q?=
- =?utf-8?B?b2xBRU9qTWhmRG1kVmhGbkpyMkt0NHhWS2FQbzgwR29kVVdMWStUUHlKUkFF?=
- =?utf-8?B?eFhpdGpOVFZqVXdmRjc3RE1ONTRwWlBGdjF3a2l6Q2c3Ui9DOTc3SWRxT0dG?=
- =?utf-8?B?UjFPM1NVU3RQQXpoaVJFeENoN29mOWwxQjJiM3FkdC9PU2RIeXhuQlJ3UHNU?=
- =?utf-8?B?aDM4RzRMNnc4MVc1WDJhQU1HZVRaKzR1b0Y2bklYVFhJMG1mYlB2WjhnRkxK?=
- =?utf-8?B?OFp1cVFrV2t6dThYUTlPT1dNaFBHNTdKU3cxLzFkdWo2YzJOaXJpMHFwVkx6?=
- =?utf-8?Q?ZWc6FvT/1KfR1fNIRaBHuKuKGVWtMa0Z1mCoXv4qK8xYE?=
-X-MS-Exchange-AntiSpam-MessageData-1: QujSba6bKQc+KA==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TVEzdSthZUQ0djY2QW41ei9rSW5RMk51ZXRkVnd6ODJHVWM0T3pQOHRxOEJ4?=
+ =?utf-8?B?bjFTaW41ZkNVcm94dlFqbzE3VmxNdjYvZnhNWGRyOEw0bDUzS2p4Nm9aSG8y?=
+ =?utf-8?B?VHRDTHR6ajRHaGVXdFlyQjlJZnl6ODA3bVB0Q1NJanZTQnNNcDN6UGFDb0Ry?=
+ =?utf-8?B?T0c0VVhuVFAvR3BTTGQ5ZmkwT2ZvdTExb1lDS0hETEl0KzBBSnhUd3UzUStO?=
+ =?utf-8?B?eWFKeUNEa2VubEViRDBuTGFWZDN3WnJtUE5CWG9xLzJnQmVqaktuREJuL3Yz?=
+ =?utf-8?B?OEVMMEI1OU1yNWhrOEtMdVpEb2FGcnEyUTJ4U01HOUs1ZVdHcHFaS2RZZmJ2?=
+ =?utf-8?B?Vk5OK2d0VXBOZ2dRSXhnVEVieVFBZkx3RnNMdVRUa3BnSHo4aW1qSllpdlNU?=
+ =?utf-8?B?WGs5QmlzMDlhdXpTN3JBYm1ZUmdRSXhrbkhORHRteXFFc3Z4ZnJINHVhQUhF?=
+ =?utf-8?B?STRKR0ttM3JJVncwRjdMNHdmL2h1RS9LbS84TXQ2UEZYbU91M25PeFJZTWJu?=
+ =?utf-8?B?V2tNL2d5TFBXaGVWU3h4WDBOZlFvZTRSdXRuZFhEc2k3NzNNMVU3dUxBRmZH?=
+ =?utf-8?B?Q1ZyZm5teXQybDRrZ0wzY3lFNExxVU9GUzdLK2Y3d2JhS3lJeXZrOHJJeGZo?=
+ =?utf-8?B?UDhEQkdCVnkwalR5ZW1vQVNkSStKUm5QUjVQSFg4SkdrbzZ6c2dLT1gycTEy?=
+ =?utf-8?B?d1R2Z0h0T2lsWVdKN2oyN3RPUkZVb285WWQ5Q1VrTDVlN1NGaWFDMWkwMDZo?=
+ =?utf-8?B?TlhzQmtyVWpUb0Y3U2VnSDB3bG9wdEc5dWhiWExuZm1XZkpxSS9Mckp3a256?=
+ =?utf-8?B?WlQxbWVHQjJtcUJWVlJvenQ2N1hQcHVFdGxnaEFCOGcwNDdoVTJzdHduSkJE?=
+ =?utf-8?B?T3ZMVjRMWGM3UlN0VVp4UWdCMlFkc2I4WFl2VDIvdVZEMEZLRVJqUFN6Z1k1?=
+ =?utf-8?B?dTgrQzlpKzhyNW10Z21kMkNnSWdLMVZSR3R2MjY1RGRRSlRmRXRoNG0vbXRq?=
+ =?utf-8?B?aUtHRUYrdnBSVXo5VzZDMzVxcCthOXQrMzBta0luVDRUdG9UNGZKYjhFcExl?=
+ =?utf-8?B?L3o5blF1MGZjU3dhRWxXZjhrUFFlRnR2aFpKbGt5dUtDbzVaQis2VjBVRm5I?=
+ =?utf-8?B?Wk1WSjJjR00zcXhlckEzTGdJUXdUOHZxRkozMVRlQksyemNsOFlmSDFFWTEx?=
+ =?utf-8?B?RFQ4SGYwNnZWT0R6RkwwelFMeEExWmw3cFVmMktQUUNzUk0vUVRzLzEvVGtW?=
+ =?utf-8?B?QW1taExJc3hEWDBsZjhmeWk0Q0dZaCtCZnZVaDI0TldHRnU5YzdtQ0RxK2lU?=
+ =?utf-8?B?cGNUU1FEc0QrODYrZ0tmK3VtMWpLZ09WR0hIVFR5VVBFS3VmKzJIeHB2QmlX?=
+ =?utf-8?B?dkJ2U2ZTV3JPY2V5VDJxQ3duVU1LblNhZkVjeWpobWFFeVdjMkRZbWo3ZGVL?=
+ =?utf-8?B?b3ZtYmpabHZLcnBuVlJ5TlZDb29hZGpabzZUSGZaNk5YWEdqUWtETVN4NldT?=
+ =?utf-8?B?WDc2NFNBK1BHYjlrendaTGJoMXYrSFdzakRLUUpSemdUNkxZSTB5SlF2Q1pS?=
+ =?utf-8?B?RzVRSjhveUJRZ2gvejRzOUJLK2hpSExLcEt5OU1jU01iTHVPYURIUHcycVJx?=
+ =?utf-8?B?UFFjc045RnE3azkrems4Y1dPY01OVndRRm40Rmd3Y2RmcmZWbkNnR3Z5dWxp?=
+ =?utf-8?B?enFWUDhQNDVuWC9wZkRhUkFnUFE1RjhFV0VhQlJqN1pjWFlJTTN4YXZXdHdo?=
+ =?utf-8?B?bWZ3YjRmVnNMcnFwT0dsU3VOZ3JUeXVVSWJKM2t5ZzNHR2ZyQ1dmL0VJcVFC?=
+ =?utf-8?B?YUxHRTJjUHZtZzhkUGtmMXROcUxpU2svQ2VKQm5QZzVRQUF5akNMZ0t1cW52?=
+ =?utf-8?B?ZzFZSys0cUpQTytCQytDaUlET1JzYmlYV2FnVFlHYWNXSzJ5bTc2TXcvMEN3?=
+ =?utf-8?B?RDVOWi9Tajg3Z2lITDlvU3B2SzN3RC91cGM2SXBPU3h2YWxoYzNMbnhTZzhu?=
+ =?utf-8?B?VlhGb0FoOUxGZWZvK3pGVGxzbFY3eDJMUUFyQkFwYjhnREdKaXJnNHgyN2Vr?=
+ =?utf-8?B?UVB6cHBwWkhLRVpYN25CTHY2RDNhOUlHOVRNUHlKQXVpRWFWWm9qbkQrbWpv?=
+ =?utf-8?B?bkZENXBBTjZGNlFra1NOQzNhRkNRK2Y4ZWlSM0FxOHdlTXM1RmVRd2gwVUs3?=
+ =?utf-8?B?dnlTekhZNm5zcmRkOFJzOTlNQys2a2dadm1EeHlpOUp0L2NJT2srSzRSK1I0?=
+ =?utf-8?B?OGhhaG9xS0M5RG5Fd3BPMnBFOUFuMzdMWnh5SEF3UFg5UURXcUJlUEwxY0ZF?=
+ =?utf-8?B?Y215NXA4WUxlZHVEczIwcWRBdElkRitzMG12ZzdQVlVwYmp0T3VCYTFiOFp4?=
+ =?utf-8?Q?PWbc01fSQZZOn/25heb+ajAuth+ymkIIhXz1Tf94aYsBQ?=
+X-MS-Exchange-AntiSpam-MessageData-1: 2W9PwPqU3Je0Jg==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b610a7e1-bbfa-4ef6-f00a-08def38d6cb1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 731de16a-452d-4087-dc70-08def38d6ee1
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 07:36:27.5092 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 07:36:31.1075 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OQTzSaORLeCykk82Qh8FPoNj5Ps6AimI0bD6arCvV4dVFfeHoM/8XcflM4EzGOBwJdp57d7BUvSpmZoTwOt/aQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: LQkGmWiyuoN3BIAVUa+V78pVh9CPEHz092REHVhJCzcVBMYlPCjAy+2umhhG0YHxTIi5ZfcbnJAMIrA7GFSHJQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8878
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,65 +151,352 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This series introduces a copy of the lossless integer conversion
-functions/traits of `nova-core` into the `kernel` crate, and makes
-`nova-core` use them.
+The core library's `From` implementations do not cover conversions that
+are not portable or future-proof. For instance, even though it is safe
+today, `From<usize>` is not implemented for `u64` because of the
+possibility of supporting larger-than-64bit architectures in the future.
 
-This revision addresses the feedback received on v1 by making
-architecture-dependent conversions available via a dedicated `arch`
-sub-module to make it more obvious that they are not portable.
+However, the kernel supports a narrower set of architectures, with a
+considerable amount of code that is architecture-specific. This makes it
+helpful and desirable to provide more infallible conversions, lest we
+rely on the `as` keyword and carry the risk of silently losing data.
 
-This series is based on `rust-next`.
+Thus, introduce a new module `num::casts` that provides safe const
+functions performing more conversions allowed by the build target, as
+well as `FromSafeCast` and `IntoSafeCast` traits that are just
+extensions of `From` and `Into` to conversions that are known to be
+lossless.
 
+Some conversions are architecture-specific: for instance, converting a
+`u64` to a `usize` is only lossless on 64-bit platforms. These
+conversions are made available via a dedicated `arch` sub-module.
+
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Link: https://lore.kernel.org/rust-for-linux/DDK4KADWJHMG.1FUPL3SDR26XF@kernel.org/
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
-Changes in v2:
-- Move architecture-dependent conversions into `arch` sub-module, and
-  use dedicated trait names.
-- Use `use crate::` instead of `use kernel::` for kernel imports.
-- Replace use of `build_assert!` with `const_assert!` (Sashiko).
-- `#[inline]` all the functions (Sashiko).
-- Remove stray `#[allow(unused)]`.
-- Group kernel imports properly (Sashiko).
-- Do not reexport the contents of `casts` in `num`.
-- Link to v1: https://patch.msgid.link/20260727-as_casts-v1-0-6ea704ff25d8@nvidia.com
+ rust/kernel/num.rs       |   2 +
+ rust/kernel/num/casts.rs | 298 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 300 insertions(+)
 
-Changes in v1:
-- Update to latest version in `nova-core`.
-- Make `nova-core` use the kernel crate implementation and remove its
-  own.
-- Link to RFC: https://lore.kernel.org/r/20251104-as_casts-v1-1-0a0e95bd2a9f@nvidia.com
+diff --git a/rust/kernel/num.rs b/rust/kernel/num.rs
+index 8532b511384c..dbe848e30efe 100644
+--- a/rust/kernel/num.rs
++++ b/rust/kernel/num.rs
+@@ -5,6 +5,8 @@
+ use core::ops;
+ 
+ pub mod bounded;
++pub mod casts;
++
+ pub use bounded::*;
+ 
+ /// Designates unsigned primitive types.
+diff --git a/rust/kernel/num/casts.rs b/rust/kernel/num/casts.rs
+new file mode 100644
+index 000000000000..a44397541cfe
+--- /dev/null
++++ b/rust/kernel/num/casts.rs
+@@ -0,0 +1,298 @@
++// SPDX-License-Identifier: GPL-2.0
++
++//! Helpers for performing lossless integer casts.
++//!
++//! The `as` keyword can be used to perform casts between integer types, but it unfortunately makes
++//! no distinction between casts that are lossless, and casts from a larger type into a smaller one
++//! that might silently strip data away. Thus, its use in the kernel is discouraged in favor of
++//! [`From`] implementations.
++//!
++//! Conversely, there are casts that are lossless depending on the build architecture (such as
++//! casting [`usize`] to [`u64`] on 32 or 64 bit archs), but not supported by [`From`]
++//! implementations in the standard library because they are not portable. It does however make
++//! sense for the kernel to support these, if only for code that is architecture-specific.
++//!
++//! This module provides ways to perform such conversions safely:
++//!
++//! - A series of const functions (e.g. [`usize_as_u64`]) supporting safe conversions in const
++//!   context. Conversions supported by [`From`] implementations in the standard library are also
++//!   covered as the [`From`] trait cannot be used in const context.
++//! - Two extension traits, [`FromSafeCast`] and [`IntoSafeCast`], providing conversion methods
++//!   similar to [`From`] and [`Into`] for conversions that are safe to perform in the kernel, but
++//!   not supported by the standard library.
++//! - Another series of const functions (e.g. [`u64_into_u8`]) supporting the conversion of a const
++//!   value from a larger type into a smaller one, provided the value fits into the destination
++//!   type. This is useful if a constant is defined as a larger type, but needs to be used as a
++//!   smaller one.
++//! - An [`arch`] sub-module, defining more conversion functions that are only guaranteed to be
++//!   lossless for a given pointer size. These can only be used in code that is specific to a
++//!   given pointer size.
++//!
++//! # Examples
++//!
++//! ```
++//! use kernel::num::casts::{self, FromSafeCast, IntoSafeCast};
++//!
++//! // Conversion from const context.
++//! const USIZED_CONST: usize = casts::u8_as_usize(255u8);
++//!
++//! // Non-const conversions.
++//! let a = u64::from_safe_cast(4096usize);
++//! let b: u64 = 4096usize.into_safe_cast();
++//! ```
++
++use crate::prelude::*;
++
++/// Implements safe `as` conversion functions from a given type into a series of target types.
++///
++/// These functions can be used in place of `as`, with the guarantee that they will be lossless.
++macro_rules! impl_safe_as {
++    ($from:ty as { $($into:ty),* }) => {
++        $(
++        $crate::macros::paste! {
++            #[doc = ::core::concat!(
++                "Losslessly converts a [`",
++                ::core::stringify!($from),
++                "`] into a [`",
++                ::core::stringify!($into),
++                "`].")]
++            ///
++            /// This conversion is allowed as it is always lossless. Prefer this over the `as`
++            /// keyword to ensure no lossy casts are performed.
++            ///
++            /// This is for use from a `const` context. For non `const` use, prefer the
++            /// [`FromSafeCast`] and [`IntoSafeCast`] traits.
++            ///
++            /// # Examples
++            ///
++            /// ```
++            /// use kernel::num::casts;
++            ///
++            #[doc = ::core::concat!(
++                "assert_eq!(casts::",
++                ::core::stringify!($from),
++                "_as_",
++                ::core::stringify!($into),
++                "(1",
++                ::core::stringify!($from),
++                "), 1",
++                ::core::stringify!($into),
++                ");")]
++            /// ```
++            #[inline]
++            pub const fn [<$from _as_ $into>](value: $from) -> $into {
++                $crate::static_assert!(size_of::<$into>() >= size_of::<$from>());
++
++                value as $into
++            }
++        }
++        )*
++    };
++}
++
++// Valid `Into` transformations.
++impl_safe_as!(u8 as { u16, u32, u64, usize });
++impl_safe_as!(u16 as { u32, u64, usize });
++impl_safe_as!(u32 as { u64 });
++// A `usize` fits into a `u64` on all supported platforms.
++impl_safe_as!(usize as { u64 });
++// A `u32` fits into a `usize` on all supported platforms.
++impl_safe_as!(u32 as { usize });
++
++/// Extension trait providing guaranteed lossless cast to `Self` from `T`.
++///
++/// The standard library's `From` implementations do not cover conversions that are not portable or
++/// future-proof. For instance, even though it is safe today, `From<usize>` is not implemented for
++/// [`u64`] because of the possibility of needing to support larger-than-64bit architectures in the
++/// future.
++///
++/// The workaround is to either deal with the error handling of [`TryFrom`] for an operation that
++/// technically cannot fail, or to use the `as` keyword, which can silently strip data if the
++/// destination type is smaller than the source.
++///
++/// Both options are hardly acceptable for the kernel. It is also a much more architecture
++/// dependent environment, supporting only 32 and 64 bit architectures, with some modules
++/// explicitly depending on a specific bus width that could greatly benefit from infallible
++/// conversion operations.
++///
++/// Thus this extension trait that provides, for all architectures supported by the kernel,
++/// conversion methods between types for which such a cast is lossless.
++///
++/// In other words, this trait is implemented if, for all supported targets and with `t: T`, the
++/// `t as Self` operation is completely lossless.
++///
++/// Prefer this over the `as` keyword to guarantee that no lossy casts are performed.
++///
++/// If you need to perform a conversion in `const` context, use [`u32_as_usize`], [`usize_as_u64`],
++/// etc.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::num::casts::FromSafeCast;
++///
++/// assert_eq!(usize::from_safe_cast(0xf00u32), 0xf00usize);
++/// ```
++pub trait FromSafeCast<T> {
++    /// Create a `Self` from `value`. This operation is guaranteed to be lossless.
++    fn from_safe_cast(value: T) -> Self;
++}
++
++// A `usize` fits into a `u64` on all supported platforms.
++impl FromSafeCast<usize> for u64 {
++    #[inline]
++    fn from_safe_cast(value: usize) -> Self {
++        usize_as_u64(value)
++    }
++}
++
++// A `u32` fits into a `usize` on all supported platforms.
++impl FromSafeCast<u32> for usize {
++    #[inline]
++    fn from_safe_cast(value: u32) -> Self {
++        u32_as_usize(value)
++    }
++}
++
++/// Counterpart to the [`FromSafeCast`] trait, i.e. this trait is to [`FromSafeCast`] what [`Into`]
++/// is to [`From`].
++///
++/// See the documentation of [`FromSafeCast`] for the motivation.
++///
++/// # Examples
++///
++/// ```
++/// use kernel::num::casts::IntoSafeCast;
++///
++/// assert_eq!(0xf00usize, 0xf00u32.into_safe_cast());
++/// ```
++pub trait IntoSafeCast<T> {
++    /// Convert `self` into a `T`. This operation is guaranteed to be lossless.
++    fn into_safe_cast(self) -> T;
++}
++
++/// Reverse operation for types implementing [`FromSafeCast`].
++impl<S, T> IntoSafeCast<T> for S
++where
++    T: FromSafeCast<S>,
++{
++    #[inline]
++    fn into_safe_cast(self) -> T {
++        T::from_safe_cast(self)
++    }
++}
++
++/// Implements lossless conversion of a constant from a larger type into a smaller one.
++macro_rules! impl_const_into {
++    ($from:ty => { $($into:ty),* }) => {
++        $(
++        $crate::macros::paste! {
++            #[doc = ::core::concat!(
++                "Performs a build-time safe conversion of a [`",
++                ::core::stringify!($from),
++                "`] constant value into a [`",
++                ::core::stringify!($into),
++                "`].")]
++            ///
++            /// This checks at compile-time that the conversion is lossless, and triggers a build
++            /// error if it isn't.
++            ///
++            /// # Examples
++            ///
++            /// ```
++            /// use kernel::num::casts;
++            ///
++            /// // Succeeds because the value of the source fits into the destination's type.
++            #[doc = ::core::concat!(
++                "assert_eq!(casts::",
++                ::core::stringify!($from),
++                "_into_",
++                ::core::stringify!($into),
++                "::<1",
++                ::core::stringify!($from),
++                ">(), 1",
++                ::core::stringify!($into),
++                ");")]
++            /// ```
++            #[inline]
++            pub const fn [<$from _into_ $into>]<const N: $from>() -> $into {
++                // Make sure that the target type is smaller than the source one.
++                $crate::static_assert!($from::BITS >= $into::BITS);
++                // CAST: we statically enforced above that `$from` is larger than `$into`, so the
++                // `as` conversion will be lossless.
++                $crate::const_assert!(N >= $into::MIN as $from && N <= $into::MAX as $from);
++
++                N as $into
++            }
++        }
++        )*
++    };
++}
++
++impl_const_into!(usize => { u8, u16, u32 });
++impl_const_into!(u64 => { u8, u16, u32 });
++impl_const_into!(u32 => { u8, u16 });
++impl_const_into!(u16 => { u8 });
++
++/// Conversions that are only lossless for the current architecture.
++///
++/// # Portability
++///
++/// Callers of this module become dependent on the setting of `CONFIG_64BIT`. Use with caution, and
++/// never in code that is portable across pointer sizes.
++pub mod arch {
++    /// Trait identical to [`FromSafeCast`](super::FromSafeCast), but for conversions that are not
++    /// available on all architectures.
++    pub trait FromSafeCastArch<T> {
++        /// Create a `Self` from `value`. This operation is guaranteed to be lossless.
++        fn from_safe_cast_arch(value: T) -> Self;
++    }
++
++    /// Trait identical to [`IntoSafeCast`](super::IntoSafeCast), but for conversions that are not
++    /// available on all architectures.
++    pub trait IntoSafeCastArch<T> {
++        /// Convert `self` into a `T`. This operation is guaranteed to be lossless.
++        fn into_safe_cast_arch(self) -> T;
++    }
++
++    /// Reverse operation for types implementing [`FromSafeCastArch`].
++    impl<S, T> IntoSafeCastArch<T> for S
++    where
++        T: FromSafeCastArch<S>,
++    {
++        #[inline]
++        fn into_safe_cast_arch(self) -> T {
++            T::from_safe_cast_arch(self)
++        }
++    }
++
++    /// A `u64` fits into a `usize` on 64-bit platforms.
++    #[cfg(CONFIG_64BIT)]
++    #[inline]
++    pub const fn u64_as_usize(value: u64) -> usize {
++        value as usize
++    }
++
++    #[cfg(CONFIG_64BIT)]
++    impl FromSafeCastArch<u64> for usize {
++        #[inline]
++        fn from_safe_cast_arch(value: u64) -> Self {
++            u64_as_usize(value)
++        }
++    }
++
++    /// A `usize` fits into a `u32` on 32-bit platforms.
++    #[cfg(not(CONFIG_64BIT))]
++    #[inline]
++    pub const fn usize_as_u32(value: usize) -> u32 {
++        value as u32
++    }
++
++    #[cfg(not(CONFIG_64BIT))]
++    impl FromSafeCastArch<usize> for u32 {
++        #[inline]
++        fn from_safe_cast_arch(value: usize) -> Self {
++            usize_as_u32(value)
++        }
++    }
++}
 
----
-Alexandre Courbot (2):
-      rust: add functions and traits for lossless integer conversions
-      gpu: nova-core: use kernel lossless integer conversion module
-
- drivers/gpu/nova-core/falcon.rs                    |  12 +-
- drivers/gpu/nova-core/falcon/fsp.rs                |   4 +-
- drivers/gpu/nova-core/fb.rs                        |   2 +-
- drivers/gpu/nova-core/fb/hal/gb100.rs              |  11 +-
- drivers/gpu/nova-core/firmware.rs                  |   8 +-
- drivers/gpu/nova-core/firmware/booter.rs           |  10 +-
- drivers/gpu/nova-core/firmware/fwsec.rs            |   2 +-
- drivers/gpu/nova-core/firmware/fwsec/bootloader.rs |   2 +-
- drivers/gpu/nova-core/firmware/gsp.rs              |   7 +-
- drivers/gpu/nova-core/firmware/riscv.rs            |   6 +-
- drivers/gpu/nova-core/fsp.rs                       |   4 +-
- drivers/gpu/nova-core/gsp.rs                       |   4 +-
- drivers/gpu/nova-core/gsp/cmdq.rs                  |  24 +-
- drivers/gpu/nova-core/gsp/fw.rs                    |  42 +--
- drivers/gpu/nova-core/gsp/sequencer.rs             |   2 +-
- drivers/gpu/nova-core/num.rs                       | 211 ---------------
- drivers/gpu/nova-core/vbios.rs                     |   2 +-
- rust/kernel/num.rs                                 |   2 +
- rust/kernel/num/casts.rs                           | 298 +++++++++++++++++++++
- 19 files changed, 373 insertions(+), 280 deletions(-)
----
-base-commit: dc01dfb37b34beeefcfe1c3055364d41a4070c7e
-change-id: 20251104-as_casts-6a8882ac0192
-
-Best regards,
---  
-Alexandre Courbot <acourbot@nvidia.com>
+-- 
+2.55.0
 
