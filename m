@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E12FAC56205
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:44:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA6BEC5AC7C
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:45:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CAEC10E359;
-	Thu,  6 Aug 2026 17:44:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 18F6E10F27A;
+	Thu,  6 Aug 2026 17:45:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U4u2o6l7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Q8lxzZ1D";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D884C10E359
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:44:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69B5210F27A
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:45:33 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id AA8BB408BF;
- Thu,  6 Aug 2026 17:44:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48BEC1F000E9;
- Thu,  6 Aug 2026 17:44:41 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3D0C7413C8;
+ Thu,  6 Aug 2026 17:45:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E4A1F000E9;
+ Thu,  6 Aug 2026 17:45:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786038281;
- bh=9rN6BYKnjbscIaHnxKzNteyr1HEwInIW6JwkxxMa8Z4=;
+ s=k20260515; t=1786038333;
+ bh=oPUqdRKYVQBfPunEh46K+AnprcrTqVRPiGbD1DUlV7E=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=U4u2o6l7T0BcMHIzhPbROxysGYZtSWilr0ezRjCkA1kkN0Lw9A7+Y9xB15jj5BbI9
- D/nSueC8Eo+PKGe/C/uoVNKjYF9C0WI2dOh1fixh+ZPIky8CfovuaGX9fpd04BFybs
- b62iffyBfURjRwr0e/RZAAeo5MaK35RA54ChmAEJ6REDOYau3weq5N5hZphrKQ68vo
- DlQ+lz3oe7GZbwih5vl6gBZON899gFZyXmxzSql4ztFtNq/cgnz+T04xjt6Yu0azJB
- J3xS9eboWUHGh/H9E3cPnNy8HRlGhypmmsKHR4e1bRSwFH4J/uxeEoBTkwGqHhbA7N
- rRdjrLGqIKn8w==
+ b=Q8lxzZ1DsaBnP0Ukvhfg06fyhp5VY2690q6+Ex+vMvHQDoz38kpfh3+PskCnUgmCv
+ dW3SW6rvrioszvcF9nY/oRcL84NrqKLyT4zxQXOj0PmLpbHCKwUi5p1sl/rEzCuwUg
+ F76XDE59YETg5YGbEUF/6rOE9bXPN+ss1+MhH7qCL1ODtPo54Pl+Zd8lNXqEBx+Dqy
+ o7DBYk3CPZO25wbWfffxXbGa2yGluUruKZUml1TZSGoV64MGtn4k2nKaSNqYWvh5nB
+ aMFnP1oBNx3h0CobBTOyTRM00SWOrFmqAzVmolO+O7jTqUcLJHCixXcTWQjr3ZlwMh
+ gG4Opr7FuUoCg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 21/21] drm/bridge: synopsys: dw-dp: Add audio support
+Subject: Re: [PATCH v11 15/21] drm/rockchip: dw_dp: Add runtime PM support
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-21-0d508505f383@collabora.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org,
+ dri-devel@lists.freedesktop.org
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-15-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v11-21-0d508505f383@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v11-15-0d508505f383@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 17:44:40 +0000
-Message-Id: <20260806174441.48BEC1F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 17:45:31 +0000
+Message-Id: <20260806174532.C4E4A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,122 +58,86 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Sleeping functions executed in atomic context.
-- [High] Concurrent execution of ALSA audio callbacks and hardware reset ca=
-uses unprotected register accesses.
-- [Medium] Unchecked `regmap_read()` return value leads to use of uninitial=
-ized stack variable.
+- [Medium] The driver implements runtime PM support but lacks system sleep =
+callbacks, leaving the hardware fully powered on during system suspend.
+- [Medium] Using asynchronous autosuspend before devres teardown on driver =
+removal causes pending suspends to be cancelled, permanently leaking hardwa=
+re clocks.
 --
 
---- Patch [21]: [PATCH v11 21/21] drm/bridge: synopsys: dw-dp: Add audio su=
-pport ---
-commit eb4fb1ad87ba9ac01c09edc96621a5ee17d9b830
+--- Patch [15]: [PATCH v11 15/21] drm/rockchip: dw_dp: Add runtime PM suppo=
+rt ---
+commit ee7c08af7fc5043079230468fab4131c048586ea
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: drm/bridge: synopsys: dw-dp: Add audio support
 
-This commit implements audio support for the Synopsys DesignWare DisplayPort
-controller.
+drm/rockchip: dw_dp: Add runtime PM support
 
-> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
-idge/synopsys/dw-dp.c
-> index b610abf76ef77..df149c52fce0f 100644
-> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+Add support for runtime PM to the Rockchip RK3576/3588 Synopsys
+DesignWare DisplayPort driver.
+
+> diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/=
+rockchip/dw_dp-rockchip.c
+> index ffcfb887d0d2a..770ab042a1879 100644
+> --- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
 [ ... ]
-> @@ -1697,6 +1728,261 @@ static int dw_dp_link_enable(struct dw_dp *dp)
-[ ... ]
-> +static int dw_dp_audio_prepare(struct drm_bridge *bridge,
-> +			       struct drm_connector *connector,
-> +			       struct hdmi_codec_daifmt *daifmt,
-> +			       struct hdmi_codec_params *params)
-> +{
-[ ... ]
-> +	regmap_read(dp->regmap, DW_DP_CONFIG_REG1, &cfg1);
-> +	supported_audio_interfaces =3D FIELD_GET(AUDIO_SELECT, cfg1);
-
-[Severity: Medium]
-Since regmap_read() can fail and return an error code, can this leave cfg1
-uninitialized?
-
-If the read fails (e.g. due to a temporary bus issue), FIELD_GET() might
-extract bits from uninitialized stack memory, which could lead to rejecting
-valid audio formats or accepting invalid ones.
-
-[ ... ]
-> +static int dw_dp_audio_mute_stream(struct drm_bridge *bridge,
-> +				   struct drm_connector *connector,
-> +				   bool enable, int direction)
-> +{
-> +	struct dw_dp *dp =3D bridge_to_dp(bridge);
-> +
-> +	dev_dbg(dp->dev, "audio %smute\n", enable ? "" : "un");
-> +
-> +	guard(mutex)(&dp->audio_lock);
-> +
-> +	dp->audio_muted =3D enable;
-> +
-> +	regmap_update_bits(dp->regmap, DW_DP_AUD_CONFIG1, AUDIO_MUTE,
-> +			   FIELD_PREP(AUDIO_MUTE, enable));
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Can this ALSA audio callback conflict with a concurrent hardware reset?
-
-While dw_dp_audio_mute_stream() takes dp->audio_lock before updating
-DW_DP_AUD_CONFIG1, the DRM subsystem can concurrently call dw_dp_reset()
-to reset the controller:
-
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:dw_dp_reset() {
-	...
-	regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL, CONTROLLER_RESET,
-			   FIELD_PREP(CONTROLLER_RESET, 1));
-	...
-}
-
-Since dw_dp_reset() does not acquire dp->audio_lock before asserting the
-CONTROLLER_RESET, could dw_dp_audio_mute_stream() write to the IP while it
-is held in reset, resulting in a bus hang or dropped register updates?
-
-[ ... ]
-> @@ -1735,6 +2021,14 @@ static void dw_dp_bridge_atomic_enable(struct drm_=
-bridge *bridge,
->  		dev_err(dp->dev, "failed to enable video: %d\n", ret);
->  		return;
->  	}
-> +
-> +	scoped_guard(mutex, &dp->audio_lock) {
-> +		if (dp->audio_interface !=3D DW_DP_AUDIO_UNUSED) {
-> +			ret =3D __dw_dp_audio_enable(dp);
-> +			if (ret < 0)
-> +				dev_err(dp->dev, "failed to restore audio: %d\n", ret);
-> +		}
-> +	}
+> @@ -231,6 +232,7 @@ static int dw_dp_rockchip_probe(struct platform_devic=
+e *pdev)
+>  	if (IS_ERR(dp->vo_grf))
+>  		return PTR_ERR(dp->vo_grf);
+> =20
+> +	plat_data->autosuspend_delay =3D 500;
+>  	plat_data->max_link_rate =3D plat_data_const->max_link_rate;
+>  	plat_data->pixel_mode =3D plat_data_const->pixel_mode;
+>  	plat_data->hpd_sw_sel =3D dw_dp_rockchip_hpd_sw_sel;
+> @@ -253,6 +255,24 @@ static void dw_dp_rockchip_remove(struct platform_de=
+vice *pdev)
+>  	component_del(&pdev->dev, &dw_dp_rockchip_component_ops);
 >  }
 
-[Severity: High]
-Is it safe to acquire a sleeping mutex (dp->audio_lock) here?=20
+[Severity: Medium]
+When the driver is removed, component_del() unbinds the DRM pipeline, queui=
+ng
+an async autosuspend with the 500ms delay set in dw_dp_rockchip_probe().
 
-According to the DRM subsystem guidelines, bridge atomic enable callbacks
-execute in an atomic context during non-blocking commits, where sleeping
-functions are not allowed.
+Because dw_dp_rockchip_remove() returns immediately, devres teardown will c=
+all
+pm_runtime_disable() which cancels the pending autosuspend.
 
-Additionally, __dw_dp_audio_enable() called from this block contains a slee=
-p:
+Does this bypass dw_dp_runtime_suspend() and permanently leak the apb_clk
+and aux_clk clocks? Should there be a synchronous suspend here?
 
-drivers/gpu/drm/bridge/synopsys/dw-dp.c:__dw_dp_audio_enable() {
-	...
-	/* Wait for inf switch */
-	usleep_range(20, 40);
-	...
-}
+> +static int dw_dp_rockchip_runtime_suspend(struct device *dev)
+> +{
+> +	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
+> +
+> +	return dw_dp_runtime_suspend(dp->base);
+> +}
+> +
+> +static int dw_dp_rockchip_runtime_resume(struct device *dev)
+> +{
+> +	struct rockchip_dw_dp *dp =3D dev_get_drvdata(dev);
+> +
+> +	return dw_dp_runtime_resume(dp->base);
+> +}
+> +
+> +static const struct dev_pm_ops dw_dp_pm_ops =3D {
+> +	RUNTIME_PM_OPS(dw_dp_rockchip_runtime_suspend, dw_dp_rockchip_runtime_r=
+esume, NULL)
+> +};
 
-Could this usleep_range() cause deadlocks or kernel warnings when invoked
-from this atomic commit path?
+[Severity: Medium]
+The dev_pm_ops structure uses RUNTIME_PM_OPS but entirely omits
+SYSTEM_SLEEP_PM_OPS.
+
+During system suspend, pm_runtime_disable() cancels pending autosuspend tim=
+ers.
+
+Without system sleep callbacks (like pm_runtime_force_suspend), will the
+hardware remain in RPM_ACTIVE with clocks running throughout system sleep?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-synopsys-d=
-w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D21
+w-dp-improvements-v11-0-0d508505f383@collabora.com?part=3D15
