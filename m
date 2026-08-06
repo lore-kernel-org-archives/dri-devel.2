@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3683C55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 08:40:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D05DC55ABF
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 08:40:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D5EB10E2D8;
-	Thu,  6 Aug 2026 08:40:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADF6210E2D4;
+	Thu,  6 Aug 2026 08:40:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="PZG9EdTY";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="SCDN3dhS";
 	dkim-atps=neutral
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 1F9DB10E2D8;
- Thu,  6 Aug 2026 08:40:02 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTP id 1AA4410E302;
+ Thu,  6 Aug 2026 08:40:10 +0000 (UTC)
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 91F4019F0;
- Thu,  6 Aug 2026 01:39:57 -0700 (PDT)
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9E7E7153B;
+ Thu,  6 Aug 2026 01:40:05 -0700 (PDT)
 Received: from e142334-100.cambridge.arm.com (e142334-100.cambridge.arm.com
  [10.2.198.93])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id D66C63F632;
- Thu,  6 Aug 2026 01:39:53 -0700 (PDT)
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id E349C3F632;
+ Thu,  6 Aug 2026 01:40:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1786005601; bh=iynuOAJCPNuRyHhHF6oGom9ZpKtzcvQOC1dJwzRcJvM=;
+ t=1786005609; bh=iJ1Ndc5V3Xfq1tWscZTZQDNLVYCcoKPyTZqTCUohTZA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=PZG9EdTY1k5yypy3196H+wqk2/KNoPtVM/b9UYaFI6ZI3d24qfuLCJzRICQkyCkLc
- sFKziULNcmx7SYfTqR1bq57rbn7/KNqG7/Xk/gSlWU94DTBYVqXEPKUndhrDA8EsJE
- 22M3TfK+4A1Hh9u1/kuRYdSEUGb4ZkLFgLd50Kg4=
+ b=SCDN3dhSTWUZvm7NxWd7kT2BoSqz+CVAJ52EjmPO3XFFI5DgzdxTKarmA8W7w8CCM
+ vAytJ56KvsfJiBpTM3sWcsX5b4vufVL2p6PVM/2YavA5VjzU41jcEC/tN2j35rLOND
+ s5OV5gCpv0HvNaWN+KVLCNsfqo1phtuKS4Aoj7Iw=
 From: Muhammad Usama Anjum <usama.anjum@arm.com>
 To: Jani Nikula <jani.nikula@linux.intel.com>,
  Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
@@ -71,9 +71,9 @@ Cc: Muhammad Usama Anjum <usama.anjum@arm.com>, linux-kernel@vger.kernel.org,
  linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
  linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
  linux-perf-users@vger.kernel.org, damon@lists.linux.dev
-Subject: [PATCH 1/9] mm: introduce hw_pte_t for PTE table storage
-Date: Thu,  6 Aug 2026 09:38:39 +0100
-Message-ID: <20260806083926.1807279-2-usama.anjum@arm.com>
+Subject: [PATCH 2/9] mm: make hw_pte_t visible to generic PTE interfaces
+Date: Thu,  6 Aug 2026 09:38:40 +0100
+Message-ID: <20260806083926.1807279-3-usama.anjum@arm.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260806083926.1807279-1-usama.anjum@arm.com>
 References: <20260806083926.1807279-1-usama.anjum@arm.com>
@@ -94,83 +94,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-pte_t is used both for logical PTE values and for entries stored in a PTE
-table, so pte_t * does not distinguish a pointer to a copied value from a
-pointer to table storage.
+Later conversions use hw_pte_t in page-table checking, generic page-table
+helpers, and vmalloc interfaces. Include linux/pgtable_types.h from the
+headers that declare those interfaces before changing their types.
 
-Introduce hw_pte_t as the generic name for a PTE table element. Define it
-as a macro alias of pte_t by default. When an architecture selects
-ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
-This preserves the representation while allowing converted architectures
-to enforce the distinction at compile time.
-
-Keep the C type definitions behind an __ASSEMBLY__ check because
-architecture assembly sources can include this header indirectly. Include
-asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
-they previously obtained from that header.
+For vmalloc.h, replace the direct asm/page.h include with
+linux/pgtable_types.h. The latter includes asm/page.h, so pgprot_t remains
+available. It also provides either the default alias or the opted-in
+hw_pte_t wrapper.
 
 Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
 ---
 Changes since RFC v1:
-- Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
-- Exclude the C type definitions from assembly sources.
-- Update the description for the new opt-in model.
+- Clarify that the header provides both generic hw_pte_t definitions.
 ---
- MAINTAINERS                   |  1 +
- include/linux/pgtable_types.h | 17 +++++++++++++++++
- mm/Kconfig                    |  3 +++
- 3 files changed, 21 insertions(+)
- create mode 100644 include/linux/pgtable_types.h
+ include/linux/page_table_check.h | 2 ++
+ include/linux/pgtable.h          | 1 +
+ include/linux/vmalloc.h          | 2 +-
+ 3 files changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index e9c8567308a75..7169bea968cf5 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -16982,6 +16982,7 @@ F:	include/linux/mmu_notifier.h
- F:	include/linux/pagewalk.h
- F:	include/linux/pgalloc.h
- F:	include/linux/pgtable.h
-+F:	include/linux/pgtable_types.h
- F:	include/linux/ptdump.h
- F:	include/linux/vmpressure.h
- F:	include/linux/vmstat.h
-diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
-new file mode 100644
-index 0000000000000..70c3edd00a01b
---- /dev/null
-+++ b/include/linux/pgtable_types.h
-@@ -0,0 +1,17 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _LINUX_PGTABLE_TYPES_H
-+#define _LINUX_PGTABLE_TYPES_H
-+
-+#include <asm/page.h>
-+
-+#ifndef __ASSEMBLY__
-+
-+#ifdef CONFIG_ARCH_HAS_HW_PTE_T
-+typedef struct { pte_t __pte; } hw_pte_t;
-+#else
-+#define hw_pte_t pte_t
-+#endif
-+
-+#endif /* !__ASSEMBLY__ */
-+
-+#endif /* _LINUX_PGTABLE_TYPES_H */
-diff --git a/mm/Kconfig b/mm/Kconfig
-index 331daf7fcfab5..31ba9ebf4aafd 100644
---- a/mm/Kconfig
-+++ b/mm/Kconfig
-@@ -1316,6 +1316,9 @@ comment "GUP_TEST needs to have DEBUG_FS enabled"
- config GUP_GET_PXX_LOW_HIGH
- 	bool
+diff --git a/include/linux/page_table_check.h b/include/linux/page_table_check.h
+index 12268a32e8be1..12ee6d16ad339 100644
+--- a/include/linux/page_table_check.h
++++ b/include/linux/page_table_check.h
+@@ -7,6 +7,8 @@
+ #ifndef __LINUX_PAGE_TABLE_CHECK_H
+ #define __LINUX_PAGE_TABLE_CHECK_H
  
-+config ARCH_HAS_HW_PTE_T
-+	bool
++#include <linux/pgtable_types.h>
 +
- config DMAPOOL_TEST
- 	tristate "Enable a module to run time tests on dma_pool"
- 	depends on HAS_DMA
+ #ifdef CONFIG_PAGE_TABLE_CHECK
+ #include <linux/jump_label.h>
+ 
+diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
+index 8c093c119e5a8..cf595608cc4c4 100644
+--- a/include/linux/pgtable.h
++++ b/include/linux/pgtable.h
+@@ -4,6 +4,7 @@
+ 
+ #include <linux/pfn.h>
+ #include <asm/pgtable.h>
++#include <linux/pgtable_types.h>
+ 
+ #define PMD_ORDER	(PMD_SHIFT - PAGE_SHIFT)
+ #define PUD_ORDER	(PUD_SHIFT - PAGE_SHIFT)
+diff --git a/include/linux/vmalloc.h b/include/linux/vmalloc.h
+index aed121d729b01..b068e6ade4207 100644
+--- a/include/linux/vmalloc.h
++++ b/include/linux/vmalloc.h
+@@ -8,7 +8,7 @@
+ #include <linux/init.h>
+ #include <linux/list.h>
+ #include <linux/llist.h>
+-#include <asm/page.h>		/* pgprot_t */
++#include <linux/pgtable_types.h>	/* pgprot_t, hw_pte_t */
+ #include <linux/rbtree.h>
+ #include <linux/overflow.h>
+ 
 -- 
 2.47.3
 
