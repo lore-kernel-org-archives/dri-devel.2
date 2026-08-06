@@ -4,67 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B5CCC5AC67
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 22:54:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F11BCC5AC7A
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 23:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8203810E217;
-	Thu,  6 Aug 2026 22:54:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D35DD10E3A7;
+	Thu,  6 Aug 2026 23:10:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kLwLxnj6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="G/i27jAz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95FB510E217
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 22:54:25 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7109D407CB;
- Thu,  6 Aug 2026 22:54:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B43FC2BCB9;
- Thu,  6 Aug 2026 22:54:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786056864;
- bh=EswZbLIymDV78mlHCKO1X9RoDxtu8++4Db/0dUSTLg4=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=kLwLxnj6KstuqzXETBibV6jB28GfEYDFU1o/WcdPcdys6aQIjWr6ZdGGR7wVEqnm6
- sHwTZS6xSa+lUMv3nNOhvofYYx47ZyEfybDW4fZ0lQ8Cm62qG+maFBI0MUkirZmbJB
- udNqDJErKPaeo7RFVKNqmvW1EKEL0lOJmP7uIbOJWM5KcUhNk6QrDOP+4JJuZYg04s
- CYiOGeAuiJt16jn+GNArdolXqf3FC9G6iOvrF40MJSp3+x24joFeus6kn6WVaW0uTy
- Cbhtd4Wx8I6swWJGBRlnumMvon49+nUWoiyxR97BV0AU/2vfGk/q53+xcLVjNG2v/C
- nvlg6MDTB3sSw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 35AD9C5AC67;
- Thu,  6 Aug 2026 22:54:24 +0000 (UTC)
-From: Benjamin Leggett via B4 Relay <devnull+benjamin.edera.io@kernel.org>
-Date: Thu, 06 Aug 2026 18:54:22 -0400
-Subject: [PATCH] drm/virtio: use the DMA API for resource backing on Xen
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-virtgpu-xen-dma-v1-1-e499b345bbad@edera.io>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDCwMz3bLMopL0glLditQ83ZTcRF1TU8u0xCRzQyMjUwMloK6CotS0zAq
- widGxtbUAa8lnjGEAAAA=
-X-Change-ID: 20260806-virtgpu-xen-dma-559fab712250
-To: David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Chia-I Wu <olvaffe@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Ben Leggett <benjamin@edera.io>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786056863; l=5117;
- i=benjamin@edera.io; s=20260806; h=from:subject:message-id;
- bh=wOAOsTbxcJcarhT0acP0MXmZRyShNWCmuRTeZhTGsRo=;
- b=4+NAupK4c499Zt43GWkSTU3w6pT4fPZUWSAhfAyYMGcFp06hUfiwYUNZnTcyc9O+EaHbyldKx
- ZyC5JedYANLBElw059I+qxXEW+gPbCXP3xKdJ+zYukfWynE+t5Nf7q9
-X-Developer-Key: i=benjamin@edera.io; a=ed25519;
- pk=prj3m3DtYeYw1akLHnM/sXm8eau0Ar/IO93YoYnOr+I=
-X-Endpoint-Received: by B4 Relay for benjamin@edera.io/20260806 with
- auth_id=923
-X-Original-From: Benjamin Leggett <benjamin@edera.io>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A271E10E39B
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 23:10:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9A5DF600B0;
+ Thu,  6 Aug 2026 23:10:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27B4D1F000E9;
+ Thu,  6 Aug 2026 23:10:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786057802;
+ bh=SACzGqjHKYeCjSoe/GcL4vbB6sVgQfHsc1oubzr765k=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=G/i27jAzHIIdEdZUmF1qnRpiSUfvTZDfnabE/cvc8TB8RpXQy7RMAAx27/fCwMBNA
+ sNT8omiovSNr/GfWWnZihUydMlGofnoGvwYE5xVHgODA+FfB+heZGP0d1Ov8bc6hAF
+ eCkRQdT4jRcX7aygZmdIB2FS9ydbaQLqIBjOlIZH4odghWYD7RHO5F4ajPSOZVyD8E
+ V713vD7DKKGLmIZV9fMdrXCGV942STHPIQKHQ5w2dYAURyzB5FzvQwIGMO41tOmF1/
+ R6A//ufAJzNBLjY7h0QF8XsjGAJz7SSCIcAuYH9lWMsZtMvQheCNTLeQ6PFOuIAdYv
+ pvZEqL7JlRlnA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/virtio: use the DMA API for resource backing on Xen
+To: "Benjamin Leggett" <benjamin@edera.io>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260806-virtgpu-xen-dma-v1-1-e499b345bbad@edera.io>
+References: <20260806-virtgpu-xen-dma-v1-1-e499b345bbad@edera.io>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 23:10:01 +0000
+Message-Id: <20260806231002.27B4D1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,137 +52,76 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: benjamin@edera.io
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Benjamin Leggett <benjamin@edera.io>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On a Xen PV domain page addresses bear no relation to the real machine
-addresses the host would have to use to reach it.
-virtio_ring.c handles this correctly, vring_use_map_api() returns true
-for any xen_domain() regardless of VIRTIO_F_ACCESS_PLATFORM.
+Pre-existing issues:
+- [High] Missing dma_sync_sgtable_for_cpu() in guest-bound transfer paths c=
+auses data corruption with SWIOTLB bounce buffers.
+--
 
-virtio-gpu makes the same decision independently, but its copy
-looks only at the feature bit:
+--- Patch [1]: [PATCH] drm/virtio: use the DMA API for resource backing on =
+Xen ---
+commit 5102ee1180b3819921a73a9ff7e4e18ce5a910f1
+Author: Benjamin Leggett <benjamin@edera.io>
 
-	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
+drm/virtio: use the DMA API for resource backing on Xen
 
-QEMU does not set iommu_platform on virtio-vga by default, so
-VIRTIO_F_ACCESS_PLATFORM is not negotiated, use_dma_api is false, and
-virtio_gpu_object_shmem_init() describes the framebuffer's backing pages
-to the host with sg_phys().  Those are guest-physical addresses. In a PV
-domain they resolve, on the host side, to pages belonging to some other
-domain, so the host scans out unrelated memory.
+This commit enables the use of the DMA API for virtio-gpu resource backing
+on Xen PV domains, regardless of the VIRTIO_F_ACCESS_PLATFORM feature bit.
+It introduces virtio_gpu_use_dma_api() and updates the resource
+initialization and transfer paths to use it. This ensures that the host
+receives correct DMA addresses instead of guest-physical addresses when
+swiotlb is active.
 
-Move the decision into virtio_gpu_use_dma_api() and give it the
-xen_domain() check, like vring_use_map_api() has. This
-additionally enables the dma_sync_sgtable_for_device() calls in
-virtgpu_vq.c, which are required for correctness whenever swiotlb
-is in play.
+> diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio=
+/virtgpu_vq.c
+> index 905b1f42cd983..568fefd713e0f 100644
+> --- a/drivers/gpu/drm/virtio/virtgpu_vq.c
+> +++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
 
-Reproduced with a Xen 4.21 PV dom0 nested inside QEMU 8.2 with
-virtio-vga, on both a distro 6.8 kernel and 6.18 LTS. A PVH dom0
-works fine and doesn't need this fix because it is identity-mapped,
-only PV dom0s are affected.
+[ ... ]
 
-Fixes: a3b815f09bb8 ("drm/virtio: add iommu support.")
-Signed-off-by: Ben Leggett <benjamin@edera.io>
----
- drivers/gpu/drm/virtio/virtgpu_drv.h    | 20 ++++++++++++++++++++
- drivers/gpu/drm/virtio/virtgpu_object.c |  2 +-
- drivers/gpu/drm/virtio/virtgpu_vq.c     |  6 +++---
- 3 files changed, 24 insertions(+), 4 deletions(-)
+> @@ -1231,7 +1231,7 @@ void virtio_gpu_cmd_transfer_to_host_3d(struct virt=
+io_gpu_device *vgdev,
+>  	struct virtio_gpu_object *bo =3D gem_to_virtio_gpu_obj(objs->objs[0]);
+>  	struct virtio_gpu_transfer_host_3d *cmd_p;
+>  	struct virtio_gpu_vbuffer *vbuf;
+> -	bool use_dma_api =3D !virtio_has_dma_quirk(vgdev->vdev);
+> +	bool use_dma_api =3D virtio_gpu_use_dma_api(vgdev->vdev);
+> =20
+>  	if (virtio_gpu_is_shmem(bo) && use_dma_api)
+>  		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
+>  					    bo->base.sgt, DMA_TO_DEVICE);
 
-diff --git a/drivers/gpu/drm/virtio/virtgpu_drv.h b/drivers/gpu/drm/virtio/virtgpu_drv.h
-index 17a6a4d26516..09da7973387e 100644
---- a/drivers/gpu/drm/virtio/virtgpu_drv.h
-+++ b/drivers/gpu/drm/virtio/virtgpu_drv.h
-@@ -43,6 +43,8 @@
- #include <drm/drm_probe_helper.h>
- #include <drm/virtgpu_drm.h>
- 
-+#include <xen/xen.h>
-+
- #define DRIVER_NAME "virtio_gpu"
- #define DRIVER_DESC "virtio GPU"
- 
-@@ -60,6 +62,24 @@
- /* See virtio_gpu_ctx_create. One additional character for NULL terminator. */
- #define DEBUG_NAME_MAX_LEN 65
- 
-+/*
-+ * Whether the host must be told about resource backing pages by DMA address
-+ * rather than guest-physical address.
-+ *
-+ * This mirrors vring_use_map_api() in drivers/virtio/virtio_ring.c, including
-+ * its xen_domain() case.
-+ */
-+static inline bool virtio_gpu_use_dma_api(const struct virtio_device *vdev)
-+{
-+	if (!virtio_has_dma_quirk(vdev))
-+		return true;
-+
-+	if (xen_domain())
-+		return true;
-+
-+	return false;
-+}
-+
- struct virtio_gpu_object_params {
- 	unsigned long size;
- 	bool dumb;
-diff --git a/drivers/gpu/drm/virtio/virtgpu_object.c b/drivers/gpu/drm/virtio/virtgpu_object.c
-index 9bc0bd68c314..49899485be6f 100644
---- a/drivers/gpu/drm/virtio/virtgpu_object.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_object.c
-@@ -173,7 +173,7 @@ static int virtio_gpu_object_shmem_init(struct virtio_gpu_device *vgdev,
- 					struct virtio_gpu_mem_entry **ents,
- 					unsigned int *nents)
- {
--	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
-+	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
- 	struct scatterlist *sg;
- 	struct sg_table *pages;
- 	int si;
-diff --git a/drivers/gpu/drm/virtio/virtgpu_vq.c b/drivers/gpu/drm/virtio/virtgpu_vq.c
-index 905b1f42cd98..568fefd713e0 100644
---- a/drivers/gpu/drm/virtio/virtgpu_vq.c
-+++ b/drivers/gpu/drm/virtio/virtgpu_vq.c
-@@ -764,7 +764,7 @@ int virtio_gpu_panic_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
- 	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(objs->objs[0]);
- 	struct virtio_gpu_transfer_to_host_2d *cmd_p;
- 	struct virtio_gpu_vbuffer *vbuf;
--	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
-+	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
- 
- 	if (virtio_gpu_is_shmem(bo) && use_dma_api)
- 		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
-@@ -795,7 +795,7 @@ void virtio_gpu_cmd_transfer_to_host_2d(struct virtio_gpu_device *vgdev,
- 	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(objs->objs[0]);
- 	struct virtio_gpu_transfer_to_host_2d *cmd_p;
- 	struct virtio_gpu_vbuffer *vbuf;
--	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
-+	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
- 
- 	if (virtio_gpu_is_shmem(bo) && use_dma_api)
- 		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
-@@ -1231,7 +1231,7 @@ void virtio_gpu_cmd_transfer_to_host_3d(struct virtio_gpu_device *vgdev,
- 	struct virtio_gpu_object *bo = gem_to_virtio_gpu_obj(objs->objs[0]);
- 	struct virtio_gpu_transfer_host_3d *cmd_p;
- 	struct virtio_gpu_vbuffer *vbuf;
--	bool use_dma_api = !virtio_has_dma_quirk(vgdev->vdev);
-+	bool use_dma_api = virtio_gpu_use_dma_api(vgdev->vdev);
- 
- 	if (virtio_gpu_is_shmem(bo) && use_dma_api)
- 		dma_sync_sgtable_for_device(vgdev->vdev->dev.parent,
+[Severity: High]
+This is a pre-existing issue, but while enabling the DMA API for Xen PV
+domains, does this leave guest-bound transfers vulnerable to data corruption
+with SWIOTLB bounce buffers?
 
----
-base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
-change-id: 20260806-virtgpu-xen-dma-559fab712250
+While this patch ensures dma_sync_sgtable_for_device() is called for
+host-bound transfers (DMA_TO_DEVICE), it appears that guest-bound transfers
+are missing the corresponding CPU synchronization:
 
-Best regards,
--- 
-Benjamin Leggett <benjamin@edera.io>
+drivers/gpu/drm/virtio/virtgpu_vq.c:virtio_gpu_cmd_transfer_from_host_3d() {
+    ...
+    // Missing dma_sync_sgtable_for_cpu() or
+    // dma_sync_sgtable_for_device(..., DMA_FROM_DEVICE)
+}
 
+If a user-space application maps a virtio-gpu SHMEM buffer and triggers a
+VIRTIO_GPU_CMD_TRANSFER_FROM_HOST_3D via
+DRM_IOCTL_VIRTGPU_TRANSFER_FROM_HOST, will the CPU read stale data from
+the original backing pages?
 
+Because the driver never calls dma_sync_sgtable_for_cpu() when the transfer
+completes, it looks like the SWIOTLB will never copy the bounce buffer
+contents back to the original physical pages.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-virtgpu-xe=
+n-dma-v1-1-e499b345bbad@edera.io?part=3D1
