@@ -4,82 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE7AEC56205
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 16:31:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87032C5AC80
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 16:45:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C23DB10E348;
-	Thu,  6 Aug 2026 16:31:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E4DCF10E351;
+	Thu,  6 Aug 2026 16:45:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P1kXRt+y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OpRiGbVi";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4AA10E348
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 16:31:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1092360AB0;
- Thu,  6 Aug 2026 16:31:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135FF1F000E9;
- Thu,  6 Aug 2026 16:31:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786033864;
- bh=mVTwW0b2WURKlJNz5W6ur6Q9trw1irf346v/mtsQRWs=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=P1kXRt+yoIsWD7ulhfbS3urOuVuE0SbPvMDxieMb81wACWsaIkq5JOoANzW7S8NWx
- J4fqscMVF4IvMA4A+ZyRcGi0cMYWRm03UyH3hRQu7dJiZRCTeFLT3MM1bCRaAr1/dQ
- Wzyv+1ZLBNqWJj5KtPgT6L6qt2ViX4mrbhABS0c2K59hQ/rk5vF3QtJfGoYwVTs7Pm
- 8qo2h9eKBwfZAv5ivqMMODftIZf+/eIV2YydgQxJmFW66KSbq2aFP8It6DXFMsSP7E
- SJIUOL5KNIfVP1j2jZc4I9RAWvtZYm1iUOuYSejOF40J37fdh5bmrCbSSKxhHw9NgD
- YOSMfYvvnXfgg==
-Date: Thu, 6 Aug 2026 18:31:02 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, 
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>,
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, 
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-Message-ID: <anS0nxAwCXGWZRl9@orome>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
- <b1c1693d-02b4-4c5c-bb0a-1c2d87258d30@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DDE9310E339;
+ Thu,  6 Aug 2026 16:45:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786034753; x=1817570753;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=ejsE3VlpkC3lckrN2lcA+kcDvZd2cqeo/lYYqoRWyu8=;
+ b=OpRiGbViEUGRD6GSDbb0Tx7Ti8Sgiin21aWj5pe8vpaii2NOSDs4IcPg
+ RCJpSfSNdvOJdEzEb6ErUfS6RP+TsP+/VFQ//8g00zsCn8tRnD/DGD73e
+ 9z1X9K0Jj3FjatT116CeXxRHk/TsMigsJelNV8Qs5HrbU43lqIZYBKx1Y
+ m2dAVtdru4pLfSk2EAuAvqFdMUVI+B8h6/S8kY0lKLt1PpDLPUXxnPQ4+
+ bjiAd8d2a1dx074tZT9vLrm2T3kEVm2lcjv3aZ2f9czkFnO0v9afHXIIO
+ wz7iSTRc9pD/5SaWCoVbBBXC7aZ21giDiS08/gSKST6tTI23yLmN7XYqQ A==;
+X-CSE-ConnectionGUID: 4g3XSIXNRO+Avu4HJl2mKA==
+X-CSE-MsgGUID: WM8SV5voQ7a4MmcLqbWQ2g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86712315"
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="86712315"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 09:45:52 -0700
+X-CSE-ConnectionGUID: KpjMF5ZQR2qJsDTvdng6NA==
+X-CSE-MsgGUID: WYhB8H7KQBayau/ijWisBQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="285524503"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.11])
+ ([10.245.245.11])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 09:45:50 -0700
+Message-ID: <7d2e8cbf-ff8e-491c-8a59-d05025df8565@intel.com>
+Date: Thu, 6 Aug 2026 17:45:47 +0100
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="rscp6jw7dv2pn33g"
-Content-Disposition: inline
-In-Reply-To: <b1c1693d-02b4-4c5c-bb0a-1c2d87258d30@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/2] gpu/buddy: replace dual-tree/force_merge with
+ decoupled dirty tracker
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20260731070741.2654251-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260731070741.2654251-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,83 +74,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On 31/07/2026 08:07, Arunpravin Paneer Selvam wrote:
+> The current buddy allocator maintains separate clear_tree[] and
+> dirty_tree[] rbtrees per order, preventing coalescing between cleared
+> and dirty buddies. Under mixed workloads, this creates a merge barrier:
+> adjacent buddies frequently end up split across trees, forcing reliance
+> on __force_merge() during allocation.
+> 
+> __force_merge() performs an O(N x max_order) scan under the VRAM manager
+> lock, leading to allocation stalls and failures for large contiguous
+> requests even when sufficient total free memory is available.
+> 
+> Solution
+> 
+> Replace the dual-tree design with:
+> - A single free_tree[order] rbtree for dirty and mixed free blocks
+>    (fully cleared free blocks float outside this tree)
+> - A lightweight out-of-band dirty tracker (gpu_dirty_tracker)
+> 
+> Fully cleared free blocks are tracked outside the buddy trees using an
+> augmented interval rbtree, enabling O(log E) lookup of the largest
+> cleared extents.
+> 
+> Buddy coalescing is now unconditional in __gpu_buddy_free(), regardless
+> of clear/dirty state. This removes the merge barrier and eliminates the
+> need for __force_merge().
+> 
+> Benefits
+> 
+> - Correct high-order allocations after mixed clear/dirty workloads
+> - Elimination of O(N x max_order) merge cost from the allocation path
+> - O(log E) cleared-extent lookup replacing O(N) scans
+> - Predictable allocation latency under fragmentation
+> - Reduced complexity with a single tree per order
+> 
+> Test:
+> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000
+> 
+> Below data is from /sys/kernel/debug/dri/1/amdgpu_vram_mm:
+> 
+> Base (dual-tree), before VKCTS test:
+>    order- 6 free:   6 MiB,  blocks: 26
+>    order- 5 free:   1 MiB,  blocks: 15
+>    order- 4 free: 960 KiB,  blocks: 15
+>    order- 3 free:   5 MiB,  blocks: 171
+>    order- 2 free:   2 MiB,  blocks: 176
+>    order- 1 free:   1 MiB,  blocks: 165
+>    order- 0 free:  16 KiB,  blocks: 4
+> 
+> Base (dual-tree), after VKCTS test:
+>    order- 6 free: 768 KiB,  blocks: 3
+>    order- 5 free: 499 MiB,  blocks: 3999
+>    order- 4 free: 250 MiB,  blocks: 4001
+>    order- 3 free: 129 MiB,  blocks: 4157
+>    order- 2 free:  65 MiB,  blocks: 4161
+>    order- 1 free:  63 MiB,  blocks: 8138
+>    order- 0 free:  20 KiB,  blocks: 5
+> 
+> Dirty tracker, before VKCTS test:
+>    order- 6 free:   4 MiB,  blocks: 19
+>    order- 5 free:   2 MiB,  blocks: 18
+>    order- 4 free: 704 KiB,  blocks: 11
+>    order- 3 free:   5 MiB,  blocks: 168
+>    order- 2 free:   2 MiB,  blocks: 174
+>    order- 1 free:   1 MiB,  blocks: 167
+>    order- 0 free:  32 KiB,  blocks: 8
+> 
+> Dirty tracker, after VKCTS test:
+>    order- 6 free:   4 MiB,  blocks: 19
+>    order- 5 free:   2 MiB,  blocks: 18
+>    order- 4 free: 704 KiB,  blocks: 11
+>    order- 3 free:   5 MiB,  blocks: 168
+>    order- 2 free:   2 MiB,  blocks: 174
+>    order- 1 free:   1 MiB,  blocks: 167
+>    order- 0 free:  28 KiB,  blocks: 7
+> 
+> v2:
+>   - Code-style cleanup and minor refactoring
+>   - Renamed locals for clarity
+> 
+> v3:
+>   - Keep cleared blocks inside free_tree[] instead of floating them.
+>   - Add subtree_has_dirty rbtree augment for O(log N) dirty-first walk.
+> 
+> v4:
+>   - Fixed checkpatch warnings.
+>   - Optimized gpu_buddy_reset_clear() to a single post-order walk that
+>     flips block headers and recomputes the rbtree augment in one pass.
+>   - Propagate subtree_max_size top-down in insert_extent() so ancestors
+>     are not left with stale values on no-rotation inserts. (sashiko)
+>   - Drop the whole extent in gpu_dirty_tracker_mark_dirty() when the
+>     inside-split allocation fails, avoiding a stale clear claim. (sashiko)
+>   - Make gpu_dirty_tracker_find() alignment-aware and fall back to the
+>     dirty tree on steered failure to avoid spurious -ENOSPC. (sashiko)
+> 
+> v5:
+>   - Track dirty extents instead of cleared ones: steer dirty allocs onto
+>     tracked dirty windows and pick clear allocs via a free-tree augment,
+>     avoiding clear-memory wastage by keeping cleared free blocks untouched
+>     during dirty allocation.
+> 
+> v6:
+>   - Make __alloc_range_bias() return the highest/right-most address by
+>     default, establishing top-down as the intended placement for
+>     range-biased allocations.
+>   - Honour GPU_BUDDY_CLEAR_ALLOCATION in __alloc_range_bias() by steering
+>     the descent towards clear subtrees for non-top-down clear
+>     requests. (sashiko)
+>   - Skip dirty-tracker steering for offset-aligned requests so they keep
+>     their min_block_size alignment. (sashiko)
+>   - sashiko reported that the __GFP_NOFAIL dirty-extent allocations on
+>     the free path could deadlock during memory reclaim, since that is a
+>     GFP_KERNEL allocation on the free path; move to a per-tracker
+>     mempool so extent nodes are guaranteed without __GFP_NOFAIL.
+>     (sashiko)
+>   - Derive each free block's clear/dirty class from the blocks already
+>     in hand on split, free, alloc, trim and init instead of querying the
+>     dirty tracker, removing the tracker lookups from the hot paths.
+> 
+> v7:
+>   - Preserve mixed-block clear state in __gpu_buddy_free() when a mixed
+>     split child is re-merged after an undone split. (sashiko)
+>   - Prefer a fully-clear block over a mixed one of the same order via a
+>     single ordered clear-state max augment on free_tree[].
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
 
---rscp6jw7dv2pn33g
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-MIME-Version: 1.0
+<snip>
 
-On Wed, Jul 08, 2026 at 10:59:46AM +0200, David Hildenbrand (Arm) wrote:
-> On 7/1/26 18:08, Thierry Reding wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> >=20
-> > There is no technical reason why there should be a limited number of CMA
-> > regions, so extract some code into helpers and use them to create extra
-> > functions (cma_create() and cma_free()) that allow creating and freeing,
-> > respectively, CMA regions dynamically at runtime.
->=20
-> I'm confused. We still allow cma_create() only during __init, right?
->=20
-> Would we expect callers of cma_free() after __init? Or at which point?
+>   
+> @@ -620,13 +1100,18 @@ EXPORT_SYMBOL(gpu_buddy_reset_clear);
+>   void gpu_buddy_free_block(struct gpu_buddy *mm,
+>   			  struct gpu_buddy_block *block)
+>   {
+> +	u64 size = gpu_buddy_block_size(mm, block);
+> +	u64 offset = gpu_buddy_block_offset(block);
+> +
+>   	gpu_buddy_driver_lock_held(mm);
+>   	BUG_ON(!gpu_buddy_block_is_allocated(block));
+> -	mm->avail += gpu_buddy_block_size(mm, block);
+> -	if (gpu_buddy_block_is_clear(block))
+> -		mm->clear_avail += gpu_buddy_block_size(mm, block);
+>   
+> -	__gpu_buddy_free(mm, block, false);
+> +	mm->avail += size;
+> +	if (!gpu_buddy_block_is_clear(block))
+> +		gpu_dirty_tracker_mark_dirty(&mm->dirty, offset, size);
+> +
+> +	gpu_buddy_sync_clear_avail(mm);
+> +	__gpu_buddy_free(mm, block);
+>   }
+>   EXPORT_SYMBOL(gpu_buddy_free_block);
+>   
+> @@ -641,9 +1126,9 @@ static void __gpu_buddy_free_list(struct gpu_buddy *mm,
+>   
+>   	list_for_each_entry_safe(block, on, objects, link) {
+>   		if (mark_clear)
+> -			mark_cleared(block);
+> +			block->header |= GPU_BUDDY_HEADER_CLEAR;
+>   		else if (mark_dirty)
+> -			clear_reset(block);
+> +			block->header &= ~GPU_BUDDY_HEADER_CLEAR;
+>   		gpu_buddy_free_block(mm, block);
 
-The idea is to allow cma_create() at any point. I forgot to properly
-remove the various __init annotations to make that clear. I've done that
-for the next revision.
+Just a thought, not a blocker or anything. It looks possible that as you 
+loop through the blocks here you could easily extend the extent range if 
+you keep finding something contig to the current extent, and then turn 
+that into fewer mark_dirty() calls. If you ever encounter something 
+non-contig you call mark_dirty() with whatever extent range you have 
+now, and then start again. Obvious case is if you had a contig 
+allocation which is more than one block, which could be turned into one 
+mark_dirty().
 
-Technically cma_free() could happen any time a user no longer needs it.
-While we currently only do this on error-unwind, the Tegra VPR driver
-could technically be turned into a module and the entire region be torn
-down at that point, including calling cma_free() on all the chunks. I
-don't think we ever want to do that and it'd require a bit of tweaking
-to the OF reserved-memory code, but generally speaking I don't see why
-we wouldn't want to allow cma_create() and cma_free() at any time after
-__init.
-
-> > The static array of CMA areas cannot be replaced by dynamically created
-> > areas because for many of them, allocation must not fail and some cases
-> > may need to initialize them before the slab allocator is even available.
->=20
-> We can start with a memblock array of an initial size (like we do today).
->=20
-> Then, when you need more space, we can double the size (copying content a=
-nd
-> exchanging the pointer). Either allocate from memblock or from slab, if
-> available (slab_is_available).
->=20
-> memblock does something similar, see memblock_double_array().
-
-After replying to T.J. I think this static array is actually a nice
-feature in a way. It allows us to more easily make a distinction between
-the regular CMA regions created from reserved-memory regions that
-represent classic carveouts, and the more versatile CMA areas that could
-be used for any purpose.
-
-Telling the two types apart could obviously also be solved using some
-kind of flag stored with the CMA area, but at this point I don't really
-see a reason why the two lists would need to be unified.
-
-Thierry
-
---rscp6jw7dv2pn33g
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp0tsYACgkQ3SOs138+
-s6EDqQ//VPlX14ZCCWQFTzMM+CH1U7z90n2OI2r6sVAf3mIXAqF56hCOe1TSTHch
-SLJpzBAU/F15bA6jirr2jOS8SHr7N0C+ox5M2yoEGywgGsbTEOjWSvejWrHWkJ9m
-7fdcdEl/hB7yzbpBvDMxGiATg+0SwQrhy4Sp7105QzaPpE3/9dS5UXbQuhsbCcAy
-4fU7Xd3wOOLcxg5u7Fl0ggfWHiAX68o32alTzPijPaVubxFJ1RnLQLeNhTdwJv03
-nvh3RVR8dpDTY7hZbsTr/4r5+4L3ktGvufT5m3K0lImfKVb5hklsKVbNTnQMtJ+i
-nAC+BTofn33vMautsZwPhhAQeesfMSJkuNASPD9kqZ0U+b+W7XtmmkmwbigS2r9u
-1lajCmiV77/KeZazBydPFJzqt+0lEkLAwWtBAk+M/Fw0Lsx3/ycfApXqEtCv/Jfw
-G1oTIraXEv0tXgSbl0Q0zAY/TKTgTmtNqVNbLJh2VxhQiicJGiEYZ9w7i971TlUs
-obsrwFtpOrWdkBI8VFGUm59sNK7yjrl2XWpejZ+xmhY4GanpuNYf/Ki6nBhTn39r
-qUNyB63c492tlL7PYUHVx1tMFCMwDBPw9wg5Dn57++j5s3gmoAmgqaAykpl/tuhB
-lRoRWYWo4mgQ/C62svXRtyqVx5TMhQpRLrpQOAGdx4y6SF4GmGk=
-=TjKb
------END PGP SIGNATURE-----
-
---rscp6jw7dv2pn33g--
