@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA7D2C56208
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:10:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B68C5AC81
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:10:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4DBC410EB6D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4D2810F251;
 	Thu,  6 Aug 2026 17:09:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="i2bIAWzZ";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="c3jSDhDW";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 129DA10EB6D
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:09:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B026610E9BE
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B5B0044061;
+ by sea.source.kernel.org (Postfix) with ESMTP id 6DC9343C07;
  Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8CEBAC2BCFA;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3EF4CC2BCF6;
  Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1786036195; bh=0SevxM4QseTr6vo1UBUryrO8o+ks3okCtZz/y52EsJY=;
+ t=1786036195; bh=s/xpgHrjMnr3Dw/gDnMO8NhtKWrQpFIoMn7udGnLIvs=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=i2bIAWzZgpUXscjw333pAnU1FQNPuqMwNv6O8K77TvUTFrAOe+aFCppMOLY6LNUW9
- ZEIl7jP0SkEvZkL0Q6R0wwc+JcvSI/NdUM6pkp3ECvHVtju1wXRRu5NrLIfngVK+Uj
- 9xecXu19YwsAW0vwd6nS4CzBeGamKNnEjnOMYFO4=
+ b=c3jSDhDWgeOznBerPbsu3ZcDP6xZU5/4WreMuqt4IqsmD0TDyBsx+jaJGOA09ADJM
+ 1NJ7i83Q6pz8K/xP1HMgaDCWpfSBcuqP8UWh874XR/DmQLrk6cZLrw4zU52e5o7iib
+ PYmHfp+AA65ogwXUfRQyPBWL624Ukla3G9EaHTzk=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 77B1AC56208;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 1C1ABC56208;
  Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Fri, 07 Aug 2026 01:07:28 +0800
-Subject: [PATCH v3 6/8] rust: drm: gpuvm: add dump_gpuva_info to UniqueRefGpuVm
+Date: Fri, 07 Aug 2026 01:07:23 +0800
+Subject: [PATCH v3 1/8] rust: seq_file: add as_raw() method
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-tyr-debugfs-v2-v3-6-ff5595ac66ae@linux.dev>
+Message-Id: <20260807-tyr-debugfs-v2-v3-1-ff5595ac66ae@linux.dev>
 References: <20260807-tyr-debugfs-v2-v3-0-ff5595ac66ae@linux.dev>
 In-Reply-To: <20260807-tyr-debugfs-v2-v3-0-ff5595ac66ae@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -61,11 +61,11 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786036192; l=1591;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786036192; l=882;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=0SevxM4QseTr6vo1UBUryrO8o+ks3okCtZz/y52EsJY=;
- b=iQQbLPYqcK2qdOzUHwdC80CHg75KN+Z/RKSJaI4MvvRPMI1fCfbiWcsk1Ev5nNdhkboKAwdV9
- xbvlNvVyrgiC9ixL6YQ6Q9rWqSyBL9DoXrEDRUG250lfoT/Ei99JAGC
+ bh=s/xpgHrjMnr3Dw/gDnMO8NhtKWrQpFIoMn7udGnLIvs=;
+ b=0tjn5m4BoS1rIeOa3IpamfeD3PymWV6CSXh46fmc5jP6O99APRyjxXZX7OMXOZOBwcvkh7M+r
+ jRxRl23LhU7BZd4vol8NhoDBjhbTPCYAlUg0PFJWUbJLi2pSmEEHtW7
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -85,48 +85,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add method wrapping drm_debugfs_gpuva_info to dump GPU VA space
-mappings into a seq_file. Needed by the Tyr gpuvas debugfs file.
+Add a method to obtain a raw pointer to the underlying struct
+seq_file, needed for FFI calls into C (e.g. drm_debugfs_gpuva_info).
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/bindings/bindings_helper.h | 1 +
- rust/kernel/drm/gpuvm/mod.rs    | 9 +++++++++
- 2 files changed, 10 insertions(+)
+ rust/kernel/seq_file.rs | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/rust/bindings/bindings_helper.h b/rust/bindings/bindings_helper.h
-index 1124785e210b3..c3b2a86528934 100644
---- a/rust/bindings/bindings_helper.h
-+++ b/rust/bindings/bindings_helper.h
-@@ -30,6 +30,7 @@
- 
- #include <linux/acpi.h>
- #include <linux/gpu_buddy.h>
-+#include <drm/drm_debugfs.h>
- #include <drm/drm_device.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_file.h>
-diff --git a/rust/kernel/drm/gpuvm/mod.rs b/rust/kernel/drm/gpuvm/mod.rs
-index 20a08b3defeb8..9348b1c3064ec 100644
---- a/rust/kernel/drm/gpuvm/mod.rs
-+++ b/rust/kernel/drm/gpuvm/mod.rs
-@@ -312,6 +312,15 @@ pub fn data_ref(&self) -> &T {
-         unsafe { &*self.0.data.get() }
+diff --git a/rust/kernel/seq_file.rs b/rust/kernel/seq_file.rs
+index 518265558d66f..fbc75e0e77634 100644
+--- a/rust/kernel/seq_file.rs
++++ b/rust/kernel/seq_file.rs
+@@ -29,6 +29,12 @@ pub unsafe fn from_raw<'a>(ptr: *mut bindings::seq_file) -> &'a SeqFile {
+         unsafe { &*ptr.cast() }
      }
  
-+    /// Dumps GPU VA space info into a seq_file.
-+    ///
-+    /// Wraps the C `drm_debugfs_gpuva_info` function.
++    /// Returns a raw pointer to the underlying `struct seq_file`.
 +    #[inline]
-+    pub fn dump_gpuva_info(&self, m: &crate::seq_file::SeqFile) -> Result {
-+        // SAFETY: `m.as_raw()` and `self.as_raw()` are valid by the type invariants.
-+        to_result(unsafe { bindings::drm_debugfs_gpuva_info(m.as_raw(), self.as_raw()) })
++    pub fn as_raw(&self) -> *mut bindings::seq_file {
++        self.inner.get()
 +    }
 +
-     /// Access the data owned by this `UniqueRefGpuVm` mutably.
+     /// Used by the [`seq_print`] macro.
      #[inline]
-     pub fn data(&mut self) -> &mut T {
+     pub fn call_printf(&self, args: fmt::Arguments<'_>) {
 
 -- 
 2.43.0
