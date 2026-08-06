@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9250DC55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 00:58:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 622FAC55174
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 00:58:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC84B10F06B;
-	Thu,  6 Aug 2026 00:58:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9EEDC10F070;
+	Thu,  6 Aug 2026 00:58:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K9CoGpuc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QRZGIQoP";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37E7510F06B
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 031BA8826D
  for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 00:58:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id AF6B960A64;
- Thu,  6 Aug 2026 00:58:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230A61F00A3A;
- Thu,  6 Aug 2026 00:58:11 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E0F4460A63;
+ Thu,  6 Aug 2026 00:58:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5498E1F000E9;
+ Thu,  6 Aug 2026 00:58:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785977891;
- bh=mFEpnPMj9EIoExCVxyq+2h87FI1SbRMLY5sfqEC8B98=;
+ s=k20260515; t=1785977890;
+ bh=7AWH//gXPFLvXN3gdc4kzHqE9I2/zeqwyaviqZE30VY=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=K9CoGpucUblTXTb/Vx3dr2o4XkW+uup6EtzoxZYj2BKSKDGv1Zi8hp7+RQzASAgtD
- NarKW5gec6x42yZmr5xWU3xbDz2ud6n6z6rE4wzimlwUyaRySMI9CAZMBhY8eHy/98
- 5tr/SOxiJsEZmAE1hjqsey+HsuJvMe5g0pd38JkkOAv8ozfr3rsThK7lM8asCfwRMU
- 2X1o+Gs/Xp/aa+NB6p/Ib9RIhXbFhgRP8qXpTTHUAPGHbGXv9+lOrg+dwqvkNDzbty
- S4dY6D1XzmaTSps6PMCZYiim61Ub0FaBAOucY/s5PC56FwZkSfFoPM9/Py8KaxaF7P
- QAkE18l1MPlAA==
+ b=QRZGIQoPy+hRdOgZf/mK6glGGMRqNnzVqqtQx/5CMJ4SjK/o8B1dxgQXn7luYU+xp
+ GqmZWG3xz8JeYKyFZr7/b5rPUdDtfSwG05DmM04e/SsPtpkqIfSzVgcRei/KXyf9FF
+ Jn7nKjtfv+IGnhrMimdB2/XyJ9jLlXoQY0NO3mv3GxdpZuK7XcaVaIZPUZHpY3K+HI
+ a1B8Ugm8VSFACGzN/byRrzHmV4UbQuGHWHjpJxgZ+ApzTTVQVl5DYvanMD0X2z/f90
+ FAZLKZ70e4jIn1WcDkFtdNTHpGoOKepeLTQYuiCphGG4aPuhbgXnZLltOAlWqwBuyP
+ 7guuOpU36+R4w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 04/21] drm/bridge: synopsys: dw-dp: Document missing
- reset line deassert
+Subject: Re: [PATCH v10 05/21] drm/bridge: synopsys: dw-dp: Add missing
+ mutex cleanups on module removal
 To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260806-synopsys-dw-dp-improvements-v10-4-d84a26c303d6@collabora.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v10-5-d84a26c303d6@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v10-4-d84a26c303d6@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v10-5-d84a26c303d6@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 00:58:10 +0000
-Message-Id: <20260806005811.230A61F00A3A@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 00:58:09 +0000
+Message-Id: <20260806005810.5498E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,112 +59,118 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing reinit_completion in dw_dp_aux_transfer causes AUX transfe=
-r corruption after timeouts.
-- [High] Sleeping delay functions are used in atomic commit paths, violatin=
-g DRM subsystem guidelines.
+- [High] Missing cancellation of asynchronous hpd_work in devres teardown l=
+eads to Use-After-Free.
+- [High] TOCTOU race in dw_dp_link_retrain() can cause DP link training whi=
+le the PHY is powered off.
+- [High] Missing reinit_completion() in dw_dp_aux_transfer() breaks subsequ=
+ent AUX transfers after a timeout.
 --
 
---- Patch [4]: [PATCH v10 04/21] drm/bridge: synopsys: dw-dp: Document miss=
-ing reset line deassert ---
-commit c7f9030ef61e21ab471dde4c6e59c410a28a4503
+--- Patch [5]: [PATCH v10 05/21] drm/bridge: synopsys: dw-dp: Add missing m=
+utex cleanups on module removal ---
+commit 58a91370c6467a81d51233b812a70d21f2296081
 Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-drm/bridge: synopsys: dw-dp: Document missing reset line deassert
+drm/bridge: synopsys: dw-dp: Add missing mutex cleanups on module removal
 
-This commit documents an issue where the SoC will hang if the reset line
-is automatically deasserted during probe using
-devm_reset_control_get_exclusive_deasserted(). It leaves the existing
-devm_reset_control_get() call in place to avoid the hang.
+The driver is currently missing to fully clean up after itself. Ensure
+that the mutex is cleaned up.
 
 > diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
 idge/synopsys/dw-dp.c
-> index dd951fd447227..fd7663013faaa 100644
+> index fd7663013faaa..535af11e617c4 100644
 > --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 > +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-> @@ -2095,6 +2095,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *=
-pdev, const struct dw_dp_plat_
->  		return ERR_CAST(dp->hdcp_clk);
->  	}
+> @@ -2045,10 +2045,13 @@ struct dw_dp *dw_dp_probe(struct platform_device =
+*pdev, const struct dw_dp_plat_
+>  	dp->pixel_mode =3D plat_data->pixel_mode;
+>  	dp->plat_data.max_link_rate =3D plat_data->max_link_rate;
 > =20
-> +	/*
-> +	 * This reset line is deasserted by default; asserting it hangs the SoC=
- if the
-> +	 * related power-domain is still active.
-> +	 */
->  	dp->rstc =3D devm_reset_control_get(dev, NULL);
->  	if (IS_ERR(dp->rstc)) {
->  		dev_err_probe(dev, PTR_ERR(dp->rstc), "failed to get reset control\n");
+> -	mutex_init(&dp->irq_lock);
+>  	INIT_WORK(&dp->hpd_work, dw_dp_hpd_work);
 
 [Severity: High]
-This isn't a bug introduced by this patch, but while reviewing the DP driver
-I noticed a potential atomic context violation in dw_dp_link_train_fast():
+This isn't a bug introduced by this patch, but since we are fixing cleanups
+on module removal here, does the asynchronous hpd_work also need to be
+canceled during devres teardown?
 
-    ret =3D dw_dp_link_train_set_pattern(dp, DP_TRAINING_PATTERN_1);
-    if (ret)
-        goto out;
+If the driver is unbound, devm_request_threaded_irq will free the IRQ. If a
+hotplug event occurred right before this, hpd_work could be scheduled. Since
+there is no devm action to cancel the work, the work handler dw_dp_hpd_work=
+()
+could execute after devres has freed the struct dw_dp memory and destroyed
+the irq_lock mutex, leading to a use-after-free when it calls
+mutex_lock(&dp->irq_lock).
 
-    usleep_range(500, 1000);
-
-Can this sleep function be reached from atomic commit paths?
-
-Looking at dw_dp_bridge_atomic_enable(), it appears this function
-is called during the modeset. The DRM subsystem guide indicates that
-atomic enable callbacks run in an atomic context where sleeping
-is forbidden, which could lead to scheduling while atomic panics.
-
-Would it be better to replace usleep_range() with a non-sleeping
-delay like udelay() or ndelay() in this path?
+>  	init_completion(&dp->complete);
 
 [Severity: High]
-This is another pre-existing issue, but I noticed a potential problem with
-how wait_for_completion_timeout() is used in dw_dp_aux_transfer():
+This is also a pre-existing issue, but I noticed dw_dp_aux_transfer() uses
+this completion without reinitializing it.
 
-    value |=3D FIELD_PREP(AUX_CMD_TYPE, msg->request);
-    value |=3D FIELD_PREP(AUX_ADDR, msg->address);
+If an AUX transfer times out:
+
+dw_dp_aux_transfer() {
+    ...
     regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
-
     status =3D wait_for_completion_timeout(&dp->complete, timeout);
+    ...
+}
 
-Could this lead to stale data being read?=20
+wait_for_completion_timeout() returns 0 without consuming the completion's
+internal done count. If the hardware interrupt fires shortly after, the
+handler calls complete(&dp->complete), leaving the completion in a signaled
+state.
 
-If a previous AUX transfer times out and the hardware completes the
-interrupt shortly after, the completion's internal counter would increment.
-A subsequent call to dw_dp_aux_transfer() might return immediately from
-wait_for_completion_timeout() without waiting for the new transaction,
-causing the driver to read garbage data from the AUX status registers.
+Since dw_dp_aux_transfer() does not call reinit_completion() before starting
+a new transfer, will the next transfer immediately fall through
+wait_for_completion_timeout(), reading stale hardware status?
 
-Should there be a call to reinit_completion(&dp->complete) before
-writing to DW_DP_AUX_CMD?
+> =20
+> +	ret =3D devm_mutex_init(dev, &dp->irq_lock);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+>  	res =3D devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(res))
+>  		return ERR_CAST(res);
 
 [Severity: High]
-This is a pre-existing issue as well, but I noticed another potential
-atomic context violation in dw_dp_reset():
+This is another pre-existing issue not introduced by this patch, but looking
+at the hpd_work handler, is there a TOCTOU race in dw_dp_link_retrain() that
+can cause DP link training while the PHY is powered off?
 
-    disable_irq(dp->irq);
-    regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL, CONTROLLER_RESET,
-               FIELD_PREP(CONTROLLER_RESET, 1));
-    usleep_range(10, 20);
-    regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL, CONTROLLER_RESET,
-               FIELD_PREP(CONTROLLER_RESET, 0));
+dw_dp_link_retrain() checks the link state before acquiring the mutex:
 
-    dw_dp_init_hw(dp);
-    regmap_read_poll_timeout(dp->regmap, DW_DP_HPD_STATUS, val,
-                 FIELD_GET(HPD_HOT_PLUG, val), 200, 200000);
+dw_dp_link_retrain() {
+    if (!dw_dp_needs_link_retrain(dp))
+        return 0;
+    ...
+    drm_modeset_acquire_init(&ctx, 0);
+    for (;;) {
+        ret =3D drm_modeset_lock(&dev->mode_config.connection_mutex, &ctx);
+        ...
+    }
+    if (!ret)
+        ret =3D dw_dp_link_train(dp);
+    ...
+}
 
-Does dw_dp_bridge_atomic_disable() eventually call this reset function?
+dw_dp_link_retrain() is called asynchronously from hpd_work. Concurrently,
+userspace could issue an atomic commit to disable the display, which acquir=
+es
+connection_mutex and disables the link (powering off the PHY via
+dw_dp_link_disable).=20
 
-Since dw_dp_bridge_atomic_disable() is an atomic commit callback,
-using usleep_range() and regmap_read_poll_timeout() (which sleeps)
-here might cause system panics during a hot path.=20
-
-Might we need to switch to non-sleeping equivalents or move this
-initialization out of the atomic commit path?
+When the atomic commit releases the mutex, dw_dp_link_retrain() acquires it
+and unconditionally calls dw_dp_link_train(). Could this result in hardware
+lockups from attempting to read or write registers of a powered-off PHY?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-synopsys-d=
-w-dp-improvements-v10-0-d84a26c303d6@collabora.com?part=3D4
+w-dp-improvements-v10-0-d84a26c303d6@collabora.com?part=3D5
