@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F418FC5AD05
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:02:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93D20C5ACAE
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:02:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29DA810EFE8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EEA4B10F054;
 	Thu,  6 Aug 2026 17:02:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="IL84RrKq";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="CJI4LHmA";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B043C10E372
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:02:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0147F10E353
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:02:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1786035745;
- bh=6qZ7A1oz5Axgnpp4GtqPS8WNzAaEjziX3V59HPLoil0=;
+ s=mail; t=1786035746;
+ bh=jaeHYjvxDvN5MYMlI1b+NKWwckplfWJLIL504dhs+48=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=IL84RrKq9Qn/9nDJ4RKZCLffv8gFO4UGPPvekqyqJhxtl6uQ94/+qymqu0bYnOEoo
- Qin9UyUEhqzizwv47DjWM/oAOF+fIvydI8TMosmvnTrIhV+cKUVgOrMENA8eg96pPV
- yA10c4ASs388BDAKgwGCnKIW7UYl8vpXLAvN4x60dQIyUnbZMNd4gN7yxYG8eF3864
- 9Wra/WX7SfrNzVAzQtu+7VZogU4KBu0zYrZo3uOubTPxAUtcJBlQ2R1WorlmwBYR5u
- 1ZJetLcu4jxaqNoZSQG2XgXh4jRaLmYNVzUQjXPPsnDVMTVXEd0gj+Za/+kNla+A7A
- YagArL2WqcXiA==
+ b=CJI4LHmArxM/Fcq7RYQsrMfnzKu4bD+Lk4GP2TokKl/b8eyFpMKbfEi/xFGOixFnd
+ vvYApO+AeAEXJ0vGomyX4D+pTnTx0wIVEBp6Pw+wqNnwDdMwkZoHgWib20PeniFHkP
+ 1EmbQH6psgu5odrh6YNqShbEy5Axogb52mA/b7v6i/2bSfzZljiSfAf6xArhVF/Yo9
+ oTkNNY4vhbiVHPH+6GngyEXezlnCAh4UQrer3wuvBU9Z3CkyTpQY1JdpTI+qoNGucq
+ e1uw0JFn+UDwUhzsYBmhYQZn1Linvj9moLzHNF8AAbMAt/+q2NiwscLaPQixdt+90y
+ RlBCBnaqUpePQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id A6D2017E11E4;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id E720417E125C;
  Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 0545348003D; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
+ id 0F76E480061; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 19:02:15 +0200
-Subject: [PATCH v11 09/21] drm/bridge: synopsys: dw-dp: Support
- MEDIA_BUS_FMT_FIXED
+Date: Thu, 06 Aug 2026 19:02:22 +0200
+Subject: [PATCH v11 16/21] drm/bridge: synopsys: dw-dp: Protect
+ sdp_reg_bank from concurrent access
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v11-9-0d508505f383@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v11-16-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -67,21 +67,21 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-arm-kernel@lists.infradead.org, 
  Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3804;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2378;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=6qZ7A1oz5Axgnpp4GtqPS8WNzAaEjziX3V59HPLoil0=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viA2oLTbGPrfeF1fSUlY7wWRiqYYBQYG3
- 0WQreawGeBxuIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
- O/qacpQQAIAY+/RYcFy6YpPeU+CddLaw7vJg7XEWrOkvs4azi4PWuRJfEp8Hms61aQKA+qkil3o
- IijWR/tCOaiuSxiC8ylonyUL6vk6GOOvTol/4OiP5/QVq3tSMqFcAwtLAhvVfJRt9gA5mZJtDkX
- evidxQH5Tl2QJo2avPmVf02bydluGMSd2SzfRUbY2/Bjoo9kj4WukkkA0XdroatEoBmldJvrVyJ
- ydcexKFc1wVTd8t6kjpZarz4RzhBVlj+CyEovJUliRIKW7PITeQn50dZo0DepGsly7dO8j7Sq4P
- +ZntC0rAzcsqFsuAUSCY5VkDZjIrqKMpDOPKN1xw3BotzboH+uicTOXXamzJhuGEet7iHz79oMW
- bJxr9mCZ0Ec6n+QOLzu9+MRugdl33Q+xuzHdr/m5kH+A58aORd1JXnrfODhmB18NZ6F2j36X0GA
- Sl0Xx4FmGLxSroo3xL4moMFtMDoyOXNPcnH2IjYsZlIVHGrtbOCYXqLS8XI8yjEfCsuseYBwSFW
- MlkTSrjyER4/nphyvKfFtjFO5P3DgascOboRFMzp+7wE/H0+MteZqEXoGLckyrgliUnhyH7DmDG
- yWqQchJeaY59j/UCpwGCBbSigmK+Dcb2PyrQboIikKGMLWgvyC3L/R4LOYq/gB/VKXoGtnjQdzC
- C0Fe34cXu4FOfYatoqv8zMg==
+ bh=jaeHYjvxDvN5MYMlI1b+NKWwckplfWJLIL504dhs+48=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viA2wGszaznDWsbGdZj82hZjJEvwWXdzJ
+ rmcRsQKkag9hIkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
+ O/qaO6sP/joabeMEXY/hL4a9DczVI2MyXnBUbrRfhKigTFzS+WJbBjU5wbrZzLj+PYYsI+AvaaO
+ YPtkGmO0R8b2sauIMnTKG00SOY0BqDC2QlC+u9ckPU79xYvcMsxsYNnt1Agfah71ckd3JX4GLTD
+ bBK/bP2osq11LiQvVF5pe0USN1eGtFgJuaDf3BtBH8k9oBNwd+hGiM3A7XLKxSgjZVdZiPUpE+9
+ 4cZ2IHyDBwZuko3umw06FhymOg+m8vDRVlMwaRAtpK648b/B6GB/cj8ByuZSQajHRvBs5D6BpDd
+ PeZeJxRljhjyfn4GLIj+WWPcNCSyFfuRntlX8f17oln7iyclflwDZl3Pbwm6NWPXn+9J+/Eb02/
+ 4PRpOkat3jnCyNm2/Pubx3xJAlDn2wwbul4bhXqzBmzAsV00GjSyWf77bFzGl44yavrbUF6868v
+ WNIbifV6DWH6GbScEsaond91GWiGh1M2HWk95giksiLIP0LXuhbI2uzwT69Carjr7f9vvBIfSvv
+ CjJpb++p7bukrJrVT99VFKwuldKuurm1Muod7HUKN/F43r5AdVR5zUMg7NW5A1ji2DjldpVc85i
+ hhwXu/KrSYsD7FbRKTtA0MfCf0rXQbcuhXOsPMEUXSvddRInRuALLF9N76inNqRjanC0enSXDPR
+ fDE4O1bi2jRAOlMNCvyEzEg==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -99,91 +99,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add support for MEDIA_BUS_FMT_FIXED, which is e.g. requested for USB-C
-DP chains as the last bridge in the chain (aux-hpd-bridge) does not
-implement atomic_get_output_bus_fmts(), which results in the generic
-drm_atomic_bridge_chain_select_bus_fmts() code using MEDIA_BUS_FMT_FIXED
-instead. For decent support of this, two areas are changed:
+Right now sdp_reg_bank is only used during atomic enable/disable and
+thus there is no risk of two threads accidently claiming the same bit.
 
-1. In atomic_check, resolving MEDIA_BUS_FMT_FIXED output format by
-   using the negotiated input format.
-
-2. Implementing a custom .atomic_get_input_bus_fmts hook that, on
-   MEDIA_BUS_FMT_FIXED, advertises all bandwidth-validated formats
-   from dw_dp_bridge_atomic_get_output_bus_fmts(). This lets the
-   upstream encoder negotiate the best mutually supported format.
+This changes once more SDP users (like audio support) are added, so
+introduce a mutex to protect concurrent access to the bitmap.
 
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c | 34 +++++++++++++++++++++++++++++++--
- 1 file changed, 32 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 24 +++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index d35dcd4a413f..b9864a17c01d 100644
+index 31f944e143ea..31495a813e40 100644
 --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
 +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -1537,6 +1537,7 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 				     struct drm_connector_state *conn_state)
- {
- 	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+	unsigned int out_bus_format = bridge_state->output_bus_cfg.format;
- 	struct dw_dp *dp = bridge_to_dp(bridge);
- 	struct dw_dp_bridge_state *state;
- 	const struct dw_dp_output_format *fmt;
-@@ -1547,7 +1548,10 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 	state = to_dw_dp_bridge_state(bridge_state);
- 	mode = &state->mode;
+@@ -323,6 +323,8 @@ struct dw_dp {
+ 	struct dw_dp_hotplug hotplug;
+ 	/* Serialize hpd status access */
+ 	struct mutex irq_lock;
++	/* Serialize sdp_reg_bank access */
++	struct mutex sdp_lock;
  
--	fmt = dw_dp_get_output_format(bridge_state->output_bus_cfg.format);
-+	if (out_bus_format == MEDIA_BUS_FMT_FIXED)
-+		out_bus_format = bridge_state->input_bus_cfg.format;
-+
-+	fmt = dw_dp_get_output_format(out_bus_format);
- 	if (!fmt)
- 		return -EINVAL;
+ 	struct drm_dp_aux aux;
  
-@@ -1830,6 +1834,32 @@ static u32 *dw_dp_bridge_atomic_get_output_bus_fmts(struct drm_bridge *bridge,
- 	return output_fmts;
+@@ -1048,11 +1050,13 @@ static int dw_dp_send_sdp(struct dw_dp *dp, struct dw_dp_sdp *sdp)
+ 	u32 reg;
+ 	int i, nr;
+ 
+-	nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+-	if (nr < SDP_REG_BANK_SIZE)
+-		set_bit(nr, dp->sdp_reg_bank);
+-	else
+-		return -EBUSY;
++	scoped_guard(mutex, &dp->sdp_lock) {
++		nr = find_first_zero_bit(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
++		if (nr < SDP_REG_BANK_SIZE)
++			set_bit(nr, dp->sdp_reg_bank);
++		else
++			return -EBUSY;
++	}
+ 
+ 	reg = DW_DP_SDP_REGISTER_BANK + nr * 9 * 4;
+ 
+@@ -1709,7 +1713,8 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 		return;
+ 	}
+ 
+-	set_bit(0, dp->sdp_reg_bank);
++	scoped_guard(mutex, &dp->sdp_lock)
++		set_bit(0, dp->sdp_reg_bank);
+ 
+ 	ret = dw_dp_link_enable(dp);
+ 	if (ret < 0) {
+@@ -1753,7 +1758,8 @@ static void dw_dp_bridge_atomic_disable(struct drm_bridge *bridge,
+ 
+ 	dw_dp_video_disable(dp);
+ 	dw_dp_link_disable(dp);
+-	bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
++	scoped_guard(mutex, &dp->sdp_lock)
++		bitmap_zero(dp->sdp_reg_bank, SDP_REG_BANK_SIZE);
+ 	dw_dp_reset(dp);
+ 	pm_runtime_put_autosuspend(dp->dev);
  }
+@@ -2227,6 +2233,10 @@ int dw_dp_probe(struct dw_dp *dp)
+ 	if (ret)
+ 		return ret;
  
-+static u32 *
-+dw_dp_bridge_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
-+				       struct drm_bridge_state *bridge_state,
-+				       struct drm_crtc_state *crtc_state,
-+				       struct drm_connector_state *conn_state,
-+				       u32 output_fmt,
-+				       unsigned int *num_input_fmts)
-+{
-+	/*
-+	 * MEDIA_BUS_FMT_FIXED means the downstream bridge does not constrain
-+	 * the bus format. In that case, advertise all formats supported by the
-+	 * DP link so the upstream encoder can negotiate the best match.
-+	 */
-+	if (output_fmt == MEDIA_BUS_FMT_FIXED)
-+		return dw_dp_bridge_atomic_get_output_bus_fmts(bridge,
-+							       bridge_state,
-+							       crtc_state,
-+							       conn_state,
-+							       num_input_fmts);
++	ret = devm_mutex_init(dev, &dp->sdp_lock);
++	if (ret)
++		return ret;
 +
-+	return drm_atomic_helper_bridge_propagate_bus_fmt(bridge, bridge_state,
-+							 crtc_state, conn_state,
-+							 output_fmt,
-+							 num_input_fmts);
-+}
-+
- static struct drm_bridge_state *dw_dp_bridge_atomic_duplicate_state(struct drm_bridge *bridge)
- {
- 	struct dw_dp_bridge_state *state;
-@@ -1882,7 +1912,7 @@ static const struct drm_bridge_funcs dw_dp_bridge_funcs = {
- 	.atomic_duplicate_state = dw_dp_bridge_atomic_duplicate_state,
- 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
- 	.atomic_create_state = drm_atomic_helper_bridge_create_state,
--	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
-+	.atomic_get_input_bus_fmts = dw_dp_bridge_atomic_get_input_bus_fmts,
- 	.atomic_get_output_bus_fmts = dw_dp_bridge_atomic_get_output_bus_fmts,
- 	.atomic_check = dw_dp_bridge_atomic_check,
- 	.mode_valid = dw_dp_bridge_mode_valid,
+ 	res = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(res))
+ 		return PTR_ERR(res);
 
 -- 
 2.53.0
