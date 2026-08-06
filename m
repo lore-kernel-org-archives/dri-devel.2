@@ -4,35 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 767BAC5AC7C
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 16:21:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE7AEC56205
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 16:31:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B76D710E340;
-	Thu,  6 Aug 2026 16:21:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C23DB10E348;
+	Thu,  6 Aug 2026 16:31:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aalAEn7r";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P1kXRt+y";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC4A610E340
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 16:21:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4AA10E348
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 16:31:06 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0AC0A4166E;
- Thu,  6 Aug 2026 16:21:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3844E1F00A3A;
- Thu,  6 Aug 2026 16:21:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 1092360AB0;
+ Thu,  6 Aug 2026 16:31:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135FF1F000E9;
+ Thu,  6 Aug 2026 16:31:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786033305;
- bh=9OQRYxnEbL1vlfwxgT977i1AfPRqWf0vi68WNMX/Mqo=;
+ s=k20260515; t=1786033864;
+ bh=mVTwW0b2WURKlJNz5W6ur6Q9trw1irf346v/mtsQRWs=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=aalAEn7rNUlyRJPV20BjL3yI3iPPN+js6kl4wiCICluf+ZHpYklDJI/OsH7/3ARg6
- 6B8o11hfV2IPUN3Qq6QJmnNjXQC+59EpEP5WYdtoDSed9abq3u+doW4SPm6/oDr3T7
- WWaEaKql5HntTfMkY72NHSwnnY6fX/u97XSO3ci0teM4TfzFOTv5O8ebSGlHprBcY8
- llw1LEhloYGFMqTMz6BQvN3SKr+VR2DwYRLKw1W8OM9fFn1tKTbaycRrBHNmPXt+oU
- fLBXBy6hbmtPaffVx6Jj94F/NzDmzVT6Qs46zlC7UEKdcgz0I0lIyGDW38wbRt4aCm
- UPYrrB9vJfAAQ==
-Date: Thu, 6 Aug 2026 18:21:43 +0200
+ b=P1kXRt+yoIsWD7ulhfbS3urOuVuE0SbPvMDxieMb81wACWsaIkq5JOoANzW7S8NWx
+ J4fqscMVF4IvMA4A+ZyRcGi0cMYWRm03UyH3hRQu7dJiZRCTeFLT3MM1bCRaAr1/dQ
+ Wzyv+1ZLBNqWJj5KtPgT6L6qt2ViX4mrbhABS0c2K59hQ/rk5vF3QtJfGoYwVTs7Pm
+ 8qo2h9eKBwfZAv5ivqMMODftIZf+/eIV2YydgQxJmFW66KSbq2aFP8It6DXFMsSP7E
+ SJIUOL5KNIfVP1j2jZc4I9RAWvtZYm1iUOuYSejOF40J37fdh5bmrCbSSKxhHw9NgD
+ YOSMfYvvnXfgg==
+Date: Thu, 6 Aug 2026 18:31:02 +0200
 From: Thierry Reding <thierry.reding@kernel.org>
-To: "T.J. Mercier" <tjmercier@google.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
  Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
@@ -49,15 +49,14 @@ Cc: Rob Herring <robh@kernel.org>,
  Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
  Christian Borntraeger <borntraeger@linux.ibm.com>,
  Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, 
+ John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>, 
  Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
  Steven Rostedt <rostedt@goodmis.org>, 
  Masami Hiramatsu <mhiramat@kernel.org>,
@@ -72,15 +71,15 @@ Cc: Rob Herring <robh@kernel.org>,
  iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
  linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
 Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-Message-ID: <anSyU_-zArFch-an@orome>
+Message-ID: <anS0nxAwCXGWZRl9@orome>
 References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
  <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
- <CABdmKX2i_vxs3EgJgydEbXoTxqWe9g9pj=hqPKuwf0ge0SjZuQ@mail.gmail.com>
+ <b1c1693d-02b4-4c5c-bb0a-1c2d87258d30@kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="4gmnekg7ar3gl7m6"
+ protocol="application/pgp-signature"; boundary="rscp6jw7dv2pn33g"
 Content-Disposition: inline
-In-Reply-To: <CABdmKX2i_vxs3EgJgydEbXoTxqWe9g9pj=hqPKuwf0ge0SjZuQ@mail.gmail.com>
+In-Reply-To: <b1c1693d-02b4-4c5c-bb0a-1c2d87258d30@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,74 +96,82 @@ Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 
---4gmnekg7ar3gl7m6
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
+--rscp6jw7dv2pn33g
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
 MIME-Version: 1.0
 
-On Wed, Jul 08, 2026 at 04:49:31PM -0700, T.J. Mercier wrote:
-> On Wed, Jul 1, 2026 at 9:09=E2=80=AFAM Thierry Reding <thierry.reding@ker=
-nel.org> wrote:
-> >
+On Wed, Jul 08, 2026 at 10:59:46AM +0200, David Hildenbrand (Arm) wrote:
+> On 7/1/26 18:08, Thierry Reding wrote:
 > > From: Thierry Reding <treding@nvidia.com>
-> >
+> >=20
 > > There is no technical reason why there should be a limited number of CMA
 > > regions, so extract some code into helpers and use them to create extra
 > > functions (cma_create() and cma_free()) that allow creating and freeing,
 > > respectively, CMA regions dynamically at runtime.
-> >
+>=20
+> I'm confused. We still allow cma_create() only during __init, right?
+>=20
+> Would we expect callers of cma_free() after __init? Or at which point?
+
+The idea is to allow cma_create() at any point. I forgot to properly
+remove the various __init annotations to make that clear. I've done that
+for the next revision.
+
+Technically cma_free() could happen any time a user no longer needs it.
+While we currently only do this on error-unwind, the Tegra VPR driver
+could technically be turned into a module and the entire region be torn
+down at that point, including calling cma_free() on all the chunks. I
+don't think we ever want to do that and it'd require a bit of tweaking
+to the OF reserved-memory code, but generally speaking I don't see why
+we wouldn't want to allow cma_create() and cma_free() at any time after
+__init.
+
 > > The static array of CMA areas cannot be replaced by dynamically created
 > > areas because for many of them, allocation must not fail and some cases
 > > may need to initialize them before the slab allocator is even available.
-> > To account for this, keep these "early" areas in a separate list and
-> > track the dynamic areas in a separate list.
+>=20
+> We can start with a memblock array of an initial size (like we do today).
+>=20
+> Then, when you need more space, we can double the size (copying content a=
+nd
+> exchanging the pointer). Either allocate from memblock or from slab, if
+> available (slab_is_available).
+>=20
+> memblock does something similar, see memblock_double_array().
 
-Huh... going over this thread again I could've sworn that I had replied
-to this before, but I can't find any evidence of any reply.
+After replying to T.J. I think this static array is actually a nice
+feature in a way. It allows us to more easily make a distinction between
+the regular CMA regions created from reserved-memory regions that
+represent classic carveouts, and the more versatile CMA areas that could
+be used for any purpose.
 
-> Hi, It looks like you'll also need to update the CMA dma-buf heap's
-> add_cma_heaps init function so that it adds all the CMA areas, not
-> just the early ones.
-
-I would actually rather not do that. The case that we need this for is
-creating a special purpose dma-buf heap that's composed of multiple CMA
-areas. These areas must not be used by anyone else. Exposing these to
-the CMA dma-buf heap would allow anyone to allocate from individual
-chunks and throw off the accounting that we need to do in order to keep
-the protected memory from working correctly.
-
-Besides, given the dynamic nature of this means that the CMA dma-buf
-heap might already have probed when these dynamic CMA areas are added.
-So we would either need to have some way of notifying the CMA dma-buf
-heap of newly created areas or we might end up with an incomplete set
-of registered heaps.
-
-If you really insist, I could look into this, but I think it's actually
-a nice feature that the CMA dma-buf heap only registers these "early"
-areas and exposes them.
+Telling the two types apart could obviously also be solved using some
+kind of flag stored with the CMA area, but at this point I don't really
+see a reason why the two lists would need to be unified.
 
 Thierry
 
---4gmnekg7ar3gl7m6
+--rscp6jw7dv2pn33g
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp0tJQACgkQ3SOs138+
-s6Hx2A/+LyXBkYE0i4vOlsqA/Ydjj8c8/300xmhsRpFbwbpF3gTAquepUhv4ccLk
-pn6s3oOPckjHUjgqi17LCjM+dbGIQRiXZ5sHHuq69DOmSq6K43pvPWC9DQE3kICK
-i05UEwUTy2GyHSp229X6bMmMKYyl4WW9pde+bHXFO3IBdszOFd76qxdMqtl3agOv
-kfgnaTJezzmgsC1qP4etPKCdwHkxCcCO+r/IUp5vm8tuot9r3ZmBeyeLcSaboN0D
-RP21XS13WS+QLN/rZAXyBAVhrpNrTBOcQcI5CYrTXnDFkJYeQJEkd5ugPi/q2wr4
-KM8oHddCYYYHQyIEOG7pFcNGhonqPopbSVLN/BwII0fbmJXppQrdPyR4B3ZzsZzI
-51eP67NZSMCtnEqOeaqKYc629FRTyBsrMWfEhmHu19hAJb/p9PvkqxCIR+TlebSt
-HbuYY8JUEbz4Ck0Cb9FHGHsuYwsYkSKVpy0CpXnqkYEayTLU7dEHHpoKyTtS5Wvz
-w8fNZPuvXMWffnb1L+4nblBj2VNkJCSUvr3ZcgU0H6PlqcES02A5W6ectwCN/2R2
-STUcZd3vK2dFxCKRPHOx5+YyienQ9dBUapH7HwK01V0SFwh9m58TpMKmacD+y7vU
-Ns4RBrD6r3h3Ua+YybzB1+b9dqB8U4mzDp9x92jAksifc9ZHH5Y=
-=/fYh
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp0tsYACgkQ3SOs138+
+s6EDqQ//VPlX14ZCCWQFTzMM+CH1U7z90n2OI2r6sVAf3mIXAqF56hCOe1TSTHch
+SLJpzBAU/F15bA6jirr2jOS8SHr7N0C+ox5M2yoEGywgGsbTEOjWSvejWrHWkJ9m
+7fdcdEl/hB7yzbpBvDMxGiATg+0SwQrhy4Sp7105QzaPpE3/9dS5UXbQuhsbCcAy
+4fU7Xd3wOOLcxg5u7Fl0ggfWHiAX68o32alTzPijPaVubxFJ1RnLQLeNhTdwJv03
+nvh3RVR8dpDTY7hZbsTr/4r5+4L3ktGvufT5m3K0lImfKVb5hklsKVbNTnQMtJ+i
+nAC+BTofn33vMautsZwPhhAQeesfMSJkuNASPD9kqZ0U+b+W7XtmmkmwbigS2r9u
+1lajCmiV77/KeZazBydPFJzqt+0lEkLAwWtBAk+M/Fw0Lsx3/ycfApXqEtCv/Jfw
+G1oTIraXEv0tXgSbl0Q0zAY/TKTgTmtNqVNbLJh2VxhQiicJGiEYZ9w7i971TlUs
+obsrwFtpOrWdkBI8VFGUm59sNK7yjrl2XWpejZ+xmhY4GanpuNYf/Ki6nBhTn39r
+qUNyB63c492tlL7PYUHVx1tMFCMwDBPw9wg5Dn57++j5s3gmoAmgqaAykpl/tuhB
+lRoRWYWo4mgQ/C62svXRtyqVx5TMhQpRLrpQOAGdx4y6SF4GmGk=
+=TjKb
 -----END PGP SIGNATURE-----
 
---4gmnekg7ar3gl7m6--
+--rscp6jw7dv2pn33g--
