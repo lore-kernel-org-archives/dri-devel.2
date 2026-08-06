@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C9A4CC5AC7C
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:11:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 648CCC5AC80
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:11:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0659E10F262;
-	Thu,  6 Aug 2026 17:11:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A38C210F263;
+	Thu,  6 Aug 2026 17:11:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="Wcmv+tXk";
+	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="WirvFm+R";
 	dkim-atps=neutral
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16D0310F263
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:11:15 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF1B710F262
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:11:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
  s=mail; t=1786036273;
- bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
+ bh=s1hZgDXLqbyiz5DUeUQwLn7ax3yO4EnYmxwrae79gCo=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=Wcmv+tXk6Fb4ukbTjux//eab/6XloiLv47xLSu0piBtALKGWuCCTULgT9Q7o04xrd
- 1yHIrbzwBhubUZFovR+tXIeNpXQnjkU4EFOPpu546R7lFUofycGGMvfbt1UlxABzyE
- p147C0aJaiaqMws4cxpEUxoQloGfJXgJ9eR49jlrC6b3gf95ym7wZMB53iGmp+dz8c
- xZQMALcA+GgJ+EHqO4jSYbcSa9SvBvPOkJDSlTvXvNE8AF5tyYhx1ZypamOzFHoDt2
- el6q6y72xxf7U6iuBMp3TaHe6RdC0wx4YhqjSQG70qr+ZmJ+ytkRz8TUb2WEXWYIUA
- aPkuQgPC8RgqA==
+ b=WirvFm+RiFTu0g9N6PYyyoEDVGBf3ahkeemyMnrf86kTn8SLbBqsdw8aGsPy7Pyi4
+ KUclVAdkWwGEzZe47tjCH5aVL/ltDuUM18LNGsB86NMDgPcof1d18/2Nlw+ad2AJN/
+ f7ikQIzv1LtyxJN1Ubn5nlQl2LBPLX4IpktlMUUFFYZQFUDvXtMlJYfnnoAjMr+iWb
+ XpEFnm8cQC6t6wxjB8d5SY/nbRwzdlvj+rGLeoeh0rzlXXEd2rklq/iMbwrkE2mHGS
+ Bb+uFXd+h1yZDuyu9nfuBkvlS2gHjTY2EyryHL4/iInoCLcqy+NcmQ3+DK1VDBDf6l
+ jAVFnwQKoSdsQ==
 Received: from jupiter.universe (unknown [100.64.1.62])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519) (No client certificate requested)
  (Authenticated sender: sre)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 7CB5917E0742;
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 79DBC17E0110;
  Thu, 06 Aug 2026 19:11:13 +0200 (CEST)
 Received: by jupiter.universe (Postfix, from userid 1000)
- id 156D5480066; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
+ id 10DB5480062; Thu, 06 Aug 2026 19:02:25 +0200 (CEST)
 From: Sebastian Reichel <sebastian.reichel@collabora.com>
-Date: Thu, 06 Aug 2026 19:02:26 +0200
-Subject: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp: Fix sound
- DAI cells
+Date: Thu, 06 Aug 2026 19:02:23 +0200
+Subject: [PATCH v11 17/21] drm/bridge: synopsys: dw-dp: Drop useless
+ reservation of first slot
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-synopsys-dw-dp-improvements-v11-20-0d508505f383@collabora.com>
+Message-Id: <20260806-synopsys-dw-dp-improvements-v11-17-0d508505f383@collabora.com>
 References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 In-Reply-To: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -65,24 +65,23 @@ Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, kernel@collabora.com, 
  linux-arm-kernel@lists.infradead.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Sebastian Reichel <sebastian.reichel@collabora.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3153;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1300;
  i=sebastian.reichel@collabora.com; h=from:subject:message-id;
- bh=SwF3VHoRiI4Zsf33YHjX0UHR9rjLn/pkIELQ2nyar2c=;
- b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viCnbkq6Wdxp1KnetBT7jAFranUwSZgwO
- jTSOmd9xnPw2okCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
- O/qa3xcP/AkCAroNp68tJsgQXtw8A4H0ygxyK4SeKuD+dXMnpu0NmDnfkYb5QXdjPrGMy58s7mc
- ClCTEFQX4AgeyH5wPpAVA+W/bL/JOI3dv94lo5pT0EZuJo2LX/LfpXla7jNdHbqdCFbFdc9kUk0
- Nb0yCugXzpvY/eXaYT6Xq/UtTNc858js6R0Ie6Wn1hqU1iBgjbiBenIAVP8fo1zIo8hfV5i6sCN
- zeTANt5gx9BwXB85ty6siLwTsZjzBMnq5GPs/3BPgaZB5I+PmHKWs4yP/ZSUOfUcRriKEX1H2e+
- TkWwReae0wjGZVk1d3ReUYZzZc2zO18xyAsMVk9ePkeFEiCVBL0DgPOcIj0G62Jx56nv2yX2/8m
- eaY26CvFo8a8OblOPcsON+cF5YHPZ1q0z0hgwxVwuh6rCEqRpxLP4UkObXr1rC0IGCic1hBgreG
- GMRj0z9UEfobIXc3XGA54Uz2Lzagnc/L9ypk9SOwskkACbtnmyTCF3/LqwjkwGNG98+C5NQ53Xv
- 9Sxq0ETJkRlJAGNq7SwHVkuxZKuseyWhJV4S6iWNvFLJlFY6xkYhQGt+fy/u+aL1/LNwauXx/Zk
- Ea+kf3CFWI4NLGRU27qiXkjutEowg7crG+4bqYMoPwGZJQGW13Qsy6Cvj6fqULZxCGJKmDs4CG4
- O5GBbq6Ldyp6jnG3M3RgoPQ==
+ bh=s1hZgDXLqbyiz5DUeUQwLn7ax3yO4EnYmxwrae79gCo=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGp0viDeDCrcqe3xFH7Ml1Fvih4SvSx6fB36l
+ LeDp6SlArrrSokCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJqdL4gAAoJENju1/PI
+ O/qagycP+QGDG9sRV0ehMVE29lObtT8rRU+RPEVABIH1rhf7J04J8EztEjPvIkgCM+ckgFlaUVz
+ ed5rmMfbmffqrBKnMMo4zHJ6Gj4Q6nEJ9bZNZvqcIPvzaMT+EsMXKIdBe2GhIejsKXMu2LlGLYI
+ jSHNuFsqVnk8M+F0nj2xnijnxmjPWDMNMf2ElaeBg/xeMpON2lUOoyUQ3Hk+B1vyTZnueog+206
+ hus7H2KgFyLW85TEnd8P+DRGIgWv2t5HFDmCqABhC5yQ6i9C08JqpZII0zQMHCXDaqm506eg72z
+ Bdojs5fun+4S4lz6q9gRP60ffAJO3eOXeEvrFA8Ji9dCXkPmHNqs8aQsC04OjYKa6a0awXCe+Kd
+ BurOV364IvW5LdWgO8Eb7nR/EsqlY6iis31FJ0xKvRrjBfHFBy/+E6pYHhIWoDRbVZipN9vyqM2
+ 7+6M6l45jrqqXNI8/L8JujNZZA194GJmfoINW7Iuf3gBnU9U096obX+uBsMsNRLSEvIbP8wu47o
+ iRJwM1i9rcB0V71gVat8iz/BMsMvTBNb94mRpGDMAwxbm4xzgjBWAFARY0I/VyPn7C9AVH6jEMp
+ bRdx8n9BkNDDOXlaTs/5JaNBUK3PF4n8rir/cTmEo+VNZtgCyrNB6bVC+rfmHo5xEmB6gUjXO2N
+ iOQpII00KZDQyaPP1xfct3g==
 X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
  fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -100,86 +99,36 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
-to select the right interface.
+The origin of this reservation is unclear, but it is a problem in the
+atomic_enable code since it potentially races with the audio SDP
+reservation once that feature is added. I suppose it was either meant to
+be bitmap_zero(), but that is obviously not needed (and would also be a
+problem for audio support) or some left-over development code before the
+VSC SDP slot was allocated automatically.
 
-In addition to that the RK3576 DisplayPort controller is configured
-with Multi Stream Transport (MST) enabled for up to 3 displays and
-thus has a total of 6 DAI interfaces (I2S and S/PDIF for each possible
-stream). Meanwhile the RK3588 does not support MST and thus has only 2
-DAI interfaces.
+From my tests SDP slot 0 works fine and can be used. If SDP slot 0
+really needs to be reserved for some reason, the bit should be set in
+the probe function to ensure there are no race conditions.
 
-The binding update from this patch has only been tested with the simple
-single stream transport (SST) setup as the Linux driver does not yet
-support MST. Once MST support is added, the plan is to simply add more
-numbers to the argument, so that it looks like this for RK3576:
-
-0 = I2S on stream 0,
-1 = S/PDIF on stream 0
-2 = I2S on stream 1,
-3 = S/PDIF on stream 1
-4 = I2S on stream 2,
-5 = S/PDIF on stream 2
-
-As the arguments are not part of the binding itself the audio side
-is also ready for MST after this change.
-
-Switching '#sound-dai-cells' from 0 to 1 without keeping compatibility
-is an ABI break. The rationale for going that way is, that there is not
-a single known driver implementation for the current binding. It's also
-unclear how the current binding would be used (only support I2S or
-S/PDIF for stream 0?). The mainline rk3588 DTS include sets it to 0, but
-does not have any soundcard using the DAI. This will be fixed up
-separately. The RK3576 does not set it at all.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 ---
- .../devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml     | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/synopsys/dw-dp.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-index 2b0d9e23e943..c4f8959dd65d 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-@@ -25,7 +25,7 @@ description: |
-   * Supports up to 8/10 bits per color component
-   * Supports RBG, YCbCr4:4:4, YCbCr4:2:2, YCbCr4:2:0
-   * Pixel clock up to 594MHz
--  * I2S, SPDIF audio interface
-+  * I2S, S/PDIF audio interface
+diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+index 31495a813e40..d8682ccdfec8 100644
+--- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
++++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+@@ -1713,9 +1713,6 @@ static void dw_dp_bridge_atomic_enable(struct drm_bridge *bridge,
+ 		return;
+ 	}
  
- properties:
-   compatible:
-@@ -46,7 +46,7 @@ properties:
-       - description: DisplayPort AUX clock
-       - description: HDCP clock
-       - description: I2S interface clock
--      - description: SPDIF interfce clock
-+      - description: S/PDIF interfce clock
- 
-   clock-names:
-     minItems: 3
-@@ -83,7 +83,8 @@ properties:
-     maxItems: 1
- 
-   "#sound-dai-cells":
--    const: 0
-+    const: 1
-+    description: 0 for I2S, 1 for S/PDIF
- 
- required:
-   - compatible
-@@ -144,7 +145,7 @@ examples:
-         resets = <&cru SRST_DP0>;
-         phys = <&usbdp_phy0 PHY_TYPE_DP>;
-         power-domains = <&power RK3588_PD_VO0>;
--        #sound-dai-cells = <0>;
-+        #sound-dai-cells = <1>;
- 
-         ports {
-           #address-cells = <1>;
+-	scoped_guard(mutex, &dp->sdp_lock)
+-		set_bit(0, dp->sdp_reg_bank);
+-
+ 	ret = dw_dp_link_enable(dp);
+ 	if (ret < 0) {
+ 		dev_err(dp->dev, "failed to enable link: %d\n", ret);
 
 -- 
 2.53.0
