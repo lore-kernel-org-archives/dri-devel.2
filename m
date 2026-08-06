@@ -4,77 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DAFF4C56208
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 10:00:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 36667C55ABF
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 10:19:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 059A610E2B8;
-	Thu,  6 Aug 2026 10:00:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5391310F172;
+	Thu,  6 Aug 2026 10:19:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DCV0VvdY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OjJMntda";
 	dkim-atps=neutral
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
- [209.85.128.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3962210E2DF
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 10:00:01 +0000 (UTC)
-Received: by mail-wm1-f49.google.com with SMTP id
- 5b1f17b1804b1-495522bc0e2so614325e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 03:00:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786010399; x=1786615199; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=8102EMdRsA752wQbhXTdKaIRmXwR/nDaRkxmP1E6VH4=;
- b=DCV0VvdYMsaqd8YRqzANMEmeJsCCfRgDwX9p6A03qJeWVfze2oPaSwGlmocN/j21D5
- bft7GhGzx6hClGExmOsAwKsPyBnlOlCB9+TUvOKDUKQD0uGKSEh0qvmt1vIMo+GIfk1i
- dNXzMtcGUCHBc8N/GSZZPrqUbcjsirPewTNcr2XHpKcxqVSnguraaloEywvr4HAtw2aS
- 0v6SG8Cxyjq0jSf00bAhemTxnd1GFRh5pgJH2kWfaWpvIGtH/L/XInSV1LleMxt87+Rb
- xHDVlFDBIi3+Uh56Bs6As7n4NuhEs646xU6nbM7Z2j4QLtWvbBWnW/0pxiOspb1frU7u
- EaAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786010399; x=1786615199;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=8102EMdRsA752wQbhXTdKaIRmXwR/nDaRkxmP1E6VH4=;
- b=As1qD8G4uz1ByuJd6wuAEge/zp+sK3PKyCz32kRh0jzWJaxh7ytHEO+Z6blJP4BhV2
- 8eP9TQCDq2FO90Lm8WGPwfEynq8bBHjPA0uRMEOPrv4DrsiG1nj+/MDYktFoz7Dc64WZ
- 40b0ouHVinlUVPYIft0tGkvHveDEYuyr7dfPUGZD2SZ13EYNuz9seu7c4VQPMjIGlDY6
- BYti/9duupQBWJNpT4VZzWuHiB+aZjmITr77+VY4p5iMt6jXccP0dOqYHLVGqjqaHZLq
- Jk6AKuoGDWNc9JcLAV0/qBbSX8PUy8EKpTgetZTTuz+QWWoTVFT/p2/PqpQ63N4eHUML
- u/5Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrs4E6nRo8Oz0K9rUIF1OnudG8S8v2gvDCws2cCUiFoMIVW4Gy4Et7aH1qcSuUvJkQSxSytpAInaeg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz8XDSxrM5U7T8OR6LseoJWwiJpkfU8Cb1bcDd39X00/UMsAEtp
- 8rODom+81/hdKMQPuvd7NkAd+463lVpkkquAxgOAGLRoyI5sAvZriYqz
-X-Gm-Gg: AR+sD10W0tPMmtprhioVmui22Hh+ldJ0Vh9gYnDFwmuX0dJgQQn8Mq3BbOrzkMzO6Vd
- pEpjKiyCCOYO5dw6FDcOonHIui1HDWSBisfewHUpZ5rgVjIaz80kQz+73iSSCt6xlOrAsPzZ+0e
- lbcDm9nONFWlP83hgPiVsJiNxKi/aVcf6o2psq4v2EPd9B5Aroi1+ARtlrHIhkOAaRZxweOIA37
- +JbJ7uviy646yyvDxgqdx8CerHNzaP9HTvGwjKQAPy0eTAJh9UOWVs4tJcO4QMuDFmfWcRLbMS3
- 8fnBOEFs24nDuVJtG0dfYv/Jglr6kcKIWTqNWwBQWNqPULgE0Nb4nAb5miv3oIzsX1kj+poPJ7N
- BbZDOXxlXbWOrdHklg28DyxnlsL6WSCsljGmQZI4Ik52GDl4gCaopPj8kadlcuak4OuMfu+tooV
- aDpFwN07si0QrTyl8X17yi/5KJU5B5tocsTq/wtWHtKWF4htM/IO190WY7VtzdW2gb41H9JGfHi
- LSQWlm0lC2w9bQaJ3FSClGYqM94qUl5nOUVHvtUYxvmLEgxhCKD9J37nHZfIt64Dg==
-X-Received: by 2002:a05:600c:1393:b0:495:650b:4c61 with SMTP id
- 5b1f17b1804b1-4994e7d0166mr98743685e9.3.1786010399195; 
- Thu, 06 Aug 2026 02:59:59 -0700 (PDT)
-Received: from Neo.taile6b6ba.ts.net
- (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49954206d9dsm56510905e9.2.2026.08.06.02.59.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Aug 2026 02:59:58 -0700 (PDT)
-From: Marek Czernohous <mczernohous@gmail.com>
-To: nouveau@lists.freedesktop.org
-Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] drm/nouveau: nv04 FIFO cleanup + recovery for Tesla
-Date: Thu,  6 Aug 2026 11:59:57 +0200
-Message-ID: <20260806095957.1908908-1-mczernohous@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260806085228.1848994-1-mczernohous@gmail.com>
-References: <20260806085228.1848994-1-mczernohous@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C5E1310F15D;
+ Thu,  6 Aug 2026 10:19:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786011568; x=1817547568;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=NLnzG3DU/EL58GfX5igWM7vR1FgGPcuVwRQwBJ97EEI=;
+ b=OjJMntdabPa5iCEa6vrWQXYqkylG3TOWVqKa/VO6R2qDrJp2Mi/8PCxH
+ km1LoqP4Oevn4w2gVlsLpbz9uQXeKT4v6SdKNCTIBegkQDQP1MPcImUVk
+ SWMr4NY+Cbv6zx0YHJbyi4br6KoZ/d/SYMxXAAa3Eg6TR4G1FnkncNwx9
+ wmYRPzM05G14jprfMT9dKImKQfbzfZHTZAOjmk6wPZW/8BYp2cTeJeKP+
+ cgLdsDuADJo8jk9IYyRZxycImYpkPpXaw5aAhxZ81RIcRfBDsNbSTFt8s
+ pstNNJckGu3mZlmqwCOUD1vIv6kUrAfD4Hv7C/SlxrlUcXWPc4AVi5j5b Q==;
+X-CSE-ConnectionGUID: 5luD6MXwQQWCw6YpeYZfkA==
+X-CSE-MsgGUID: /9I9wI5EStG+X5iY11oixw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="86716269"
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="86716269"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 03:19:28 -0700
+X-CSE-ConnectionGUID: BS22+3/ZTtOYJgL2w5IyAw==
+X-CSE-MsgGUID: sFUCmVbXSrCwOU99QNbAzA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="266293085"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.11])
+ ([10.245.245.11])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 03:19:27 -0700
+Message-ID: <002dcde7-5dc4-4fc4-93d9-984fe5e6344a@intel.com>
+Date: Thu, 6 Aug 2026 11:19:24 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V4 2/2] gpu/tests/gpu_buddy: Add KUnit test for
+ gpu_buddy_allocated_addr_to_block
+To: "Upadhyay, Tejas" <tejas.upadhyay@intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: "arunpravin.paneerselvam@amd.com" <arunpravin.paneerselvam@amd.com>
+References: <20260806053624.3215216-4-tejas.upadhyay@intel.com>
+ <20260806053624.3215216-6-tejas.upadhyay@intel.com>
+ <5675a0ee-a5ee-480e-9a02-b71225c1d86d@intel.com>
+ <DS0PR11MB87188855F06D221DCF900AD381D22@DS0PR11MB8718.namprd11.prod.outlook.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <DS0PR11MB87188855F06D221DCF900AD381D22@DS0PR11MB8718.namprd11.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,43 +76,132 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Both findings are correct, thank you.
+On 06/08/2026 10:46, Upadhyay, Tejas wrote:
+> 
+> 
+>> -----Original Message-----
+>> From: Auld, Matthew <matthew.auld@intel.com>
+>> Sent: 06 August 2026 14:31
+>> To: Upadhyay, Tejas <tejas.upadhyay@intel.com>; intel-
+>> xe@lists.freedesktop.org; dri-devel@lists.freedesktop.org
+>> Cc: arunpravin.paneerselvam@amd.com
+>> Subject: Re: [PATCH V4 2/2] gpu/tests/gpu_buddy: Add KUnit test for
+>> gpu_buddy_allocated_addr_to_block
+>>
+>> On 06/08/2026 06:36, Tejas Upadhyay wrote:
+>>> Add a new KUnit test gpu_test_buddy_addr_to_block() that validates the
+>>> gpu_buddy_allocated_addr_to_block() helper which traces a address back
+>>> to its allocated buddy block.
+>>>
+>>> The test covers:
+>>> - Exact address matching returns the correct allocated block
+>>> - An unallocated address inside the manager should return NULL
+>>> - An address outside the manager should return -ENXIO
+>>>
+>>> v4(MattA):
+>>> - Add test for unaligned address
+>>> v3(Sashiko):
+>>> - remove unused target_addr variable
+>>> v2(Sashiko):
+>>> - Drop the mutex and lockdep annotation; standalone KUnit tests do
+>>>     not register a driver lock.
+>>>
+>>> Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
+>>
+>> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> 
+> Hi Matt,
+> 
+> Thanks for review. Since I don’t have merge rights on drm-tip, Would you please help merging this series.
 
-I checked them against mainline rather than against my downstream tree:
+I think Arun normally merges these. Arun, any objections? We need this 
+for an upcoming driver feature (patches on the list), so wanted to land 
+this API ahead of time. I don't think this will conflict much with the 
+big rework you were doing.
 
-1) nouveau_channel_del() frees the fence context first and only drops the
-   kill subscription later, among the nvif object teardown calls. The
-   subscribed handler reaches nouveau_fence_context_kill(chan->fence), so
-   a kill delivered in that window takes fctx->lock and walks
-   fctx->pending on a context that context_del() has already freed.
+> 
+> Tejas
+>>
+>>> ---
+>>>    drivers/gpu/tests/gpu_buddy_test.c | 45
+>> ++++++++++++++++++++++++++++++
+>>>    1 file changed, 45 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/tests/gpu_buddy_test.c
+>>> b/drivers/gpu/tests/gpu_buddy_test.c
+>>> index 7df5c2ae83bb..04e425eb8bdd 100644
+>>> --- a/drivers/gpu/tests/gpu_buddy_test.c
+>>> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+>>> @@ -1381,6 +1381,50 @@ static void
+>> gpu_test_buddy_alloc_exceeds_max_order(struct kunit *test)
+>>>    	gpu_buddy_fini(&mm);
+>>>    }
+>>>
+>>> +static void gpu_test_buddy_addr_to_block(struct kunit *test) {
+>>> +	struct gpu_buddy_block *allocated_block, *found_block;
+>>> +	LIST_HEAD(allocated_list);
+>>> +	const u64 test_size = SZ_4M + SZ_2M;
+>>> +	const u64 alloc_start = SZ_4M;
+>>> +	const u64 alloc_size = SZ_4K;
+>>> +	const u64 chunk_size = SZ_4K;
+>>> +	struct gpu_buddy mm;
+>>> +
+>>> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, test_size,
+>> chunk_size),
+>>> +			       "buddy_init failed\n");
+>>> +
+>>> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm,
+>> alloc_start,
+>>> +							    alloc_start +
+>> alloc_size,
+>>> +							    alloc_size,
+>> chunk_size,
+>>> +							    &allocated_list, 0),
+>>> +			       "buddy_alloc failed\n");
+>>> +
+>>> +	allocated_block = list_first_entry(&allocated_list, struct
+>> gpu_buddy_block, link);
+>>> +	KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(allocated_block),
+>> alloc_start);
+>>> +	KUNIT_EXPECT_EQ(test, gpu_buddy_block_size(&mm,
+>> allocated_block),
+>>> +alloc_size);
+>>> +
+>>> +	found_block = gpu_buddy_allocated_addr_to_block(&mm,
+>> alloc_start);
+>>> +	KUNIT_EXPECT_PTR_EQ(test, found_block, allocated_block);
+>>> +
+>>> +	/* Unaligned address inside the allocated block (should resolve to the
+>> same block) */
+>>> +	found_block = gpu_buddy_allocated_addr_to_block(&mm, alloc_start
+>> + 16);
+>>> +	KUNIT_EXPECT_PTR_EQ(test, found_block, allocated_block);
+>>> +
+>>> +	/* An unallocated address inside the manager should return NULL. */
+>>> +	found_block = gpu_buddy_allocated_addr_to_block(&mm,
+>>> +							alloc_start -
+>> chunk_size);
+>>> +	KUNIT_EXPECT_NULL(test, found_block);
+>>> +
+>>> +	/* An address outside the manager should return -ENXIO. */
+>>> +	found_block = gpu_buddy_allocated_addr_to_block(&mm, test_size);
+>>> +	KUNIT_EXPECT_EQ(test, PTR_ERR(found_block), -ENXIO);
+>>> +
+>>> +	/* 3. Standard inline cleanup flow */
+>>> +	gpu_buddy_free_list(&mm, &allocated_list, 0);
+>>> +	gpu_buddy_fini(&mm);
+>>> +}
+>>> +
+>>>    static int gpu_buddy_suite_init(struct kunit_suite *suite)
+>>>    {
+>>>    	while (!random_seed)
+>>> @@ -1405,6 +1449,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+>>>    	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+>>>    	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+>>>    	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
+>>> +	KUNIT_CASE(gpu_test_buddy_addr_to_block),
+>>>    	{}
+>>>    };
+>>>
+> 
 
-2) nouveau_channel_init() arms the subscription right after mapping userd
-   and creates the fence context at the end of the same function. The
-   backends publish the pointer before the context is usable:
-
-	fctx = chan->fence = kzalloc_obj(*fctx);
-	if (!fctx)
-		return -ENOMEM;
-
-	nouveau_fence_context_new(chan, &fctx->base);
-
-   and it is nouveau_fence_context_new() that runs spin_lock_init(&fctx->lock)
-   and INIT_LIST_HEAD(&fctx->pending). The NULL check in
-   nouveau_channel_kill() does not cover that window: chan->fence is
-   non-NULL and unusable, so the handler locks something that was never
-   initialised and walks a list head whose next pointer is still the NULL
-   left by kzalloc().
-
-Both are unreachable below Fermi today, which is exactly why they belong
-in this series: 2/3 lowers the gate to NV50 and 3/3 adds the caller that
-kills Tesla channels. This series is what makes them reachable, so
-shipping it without them would trade a recoverable fault for a
-use-after-free.
-
-I should have carried the first one from the start. It has been running
-on the reference machine since 2026-07-25, and my v2 cover letter
-described that same ordering and then dismissed it as "most of that
-window is harmless". That judgement was wrong.
-
-v3 will put both in front of the subscription change, as 1/5 and 2/5,
-with the remaining three unchanged apart from the rebase.
