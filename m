@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC933C5AC7A
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 21:07:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55B45C56208
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 21:08:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F5AA10F2D5;
-	Thu,  6 Aug 2026 21:07:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7B0610E341;
+	Thu,  6 Aug 2026 21:08:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UdTCVW/B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TWtGStVI";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A0AE10F2D5
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 21:07:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BFFD310E341
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 21:08:48 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 40E0443E10;
- Thu,  6 Aug 2026 21:07:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8311F000E9;
- Thu,  6 Aug 2026 21:07:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8432C41996;
+ Thu,  6 Aug 2026 21:08:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C10A1F000E9;
+ Thu,  6 Aug 2026 21:08:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786050461;
- bh=HdMMDFFFo7S+Q/encWLSaBaRIndV3dUEjky1IZr7hx8=;
+ s=k20260515; t=1786050528;
+ bh=sicgOMFNdQQpckSuuVCuL3qmID0aKxf2MAOVK6iqnEo=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UdTCVW/B0/czJO9pcQ82fyymIkJAfYqUW1aKOV9hocMjgAcW/AuS0sFK9Wy5cCGAj
- ctN2LnFLF5MEbPL9QT58jzY/HWAq7XzveqamIuUik2bcQCtnY2n3iY7JR9MSYMaWZO
- kb3qLqheszQd1Im2kbWqr4DIXWR6iHp3DCHUfNe5I6DdSlkVE2QMcNMjsn64kBRRo7
- C/9Dz6MryCf0D0HdubdzzGBD82z5/DZM6GDE4yqGcf4cqx0lxmuIlAi2pjeOW5zCCT
- X1BpPRmUtyGj967Q/MXG5u+GahwtXBgwfieRoWkp+iBR1/qY2RvGBWqKY069+JKRdo
- a1d3b0ryaYeZw==
+ b=TWtGStVIHcgm+hFyMhx0NDfCKB7yPdbEjcdT17bQM/NK3ZqvhkpGqyqn/bnDabpog
+ KNMjpU2BoZ2ymfqQ1UPPrLqgO9xif87oXQXdpK7Qm3ziMFZefSNCg07Ch555Kc6oai
+ LuGsGrrgslwheyWcKGlkcYRKdSF1raCBFYy8729sxlwVchrtg3PZfY/ob6WLi5QLHq
+ htzSCHlcGZQ57G2FAfPOZKn9JH0m8Pi/x+iYXVW4AB4csNc0Yasa2H5+sSAw7pdutA
+ sS0HYaWHnOHHq7uU3lAIlEZnuzXBKMnuRTsMfEUbt14Vbb0WZcV8yl8YPrtGUS1uON
+ 5t49bVUJ6/xWA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] drm/amd/display: Add HDMI 2.1 VRR support from
- HF-VSDB
+Subject: Re: [PATCH v2 4/4] drm/amd/display: Add HDMI ALLM support
 To: "Fangzhi Zuo" <jerry.zuo@amd.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260806205449.16806-4-jerry.zuo@amd.com>
+In-Reply-To: <20260806205449.16806-5-jerry.zuo@amd.com>
 References: <20260730171754.704049-1-jerry.zuo@amd.com>
  <20260806205449.16806-1-jerry.zuo@amd.com>
- <20260806205449.16806-4-jerry.zuo@amd.com>
+ <20260806205449.16806-5-jerry.zuo@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 21:07:40 +0000
-Message-Id: <20260806210740.ED8311F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 21:08:47 +0000
+Message-Id: <20260806210848.3C10A1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,74 +58,155 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The HF-VSDB VRR fallback is unconditionally overwritten to false=
- for HDMI TMDS sinks because they lack an AMD FreeSync VCP code.
+
+New issues:
+- [High] Enabling ALLM replaces the HDMI 1.4 VSIF with the HF-VSIF, droppin=
+g `hdmi_vic` signaling required for legacy 4K formats.
+
+Pre-existing issues:
+- [High] HDMI VRR (VTEM) is artificially restricted to FRL links, breaking =
+HDMI VRR over TMDS.
 --
 
---- Patch [3]: [PATCH v2 3/4] drm/amd/display: Add HDMI 2.1 VRR support fro=
-m HF-VSDB ---
-commit 3db5053c0ea2b238965bfd80def111ee342642b8
+--- Patch [4]: [PATCH v2 4/4] drm/amd/display: Add HDMI ALLM support ---
+commit 4ebe402fb25e863740386dee88638b0ecc01f7ba
 Author: Fangzhi Zuo <jerry.zuo@amd.com>
 
-drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
+drm/amd/display: Add HDMI ALLM support
 
-This commit adds support for HDMI 2.1 VRR capabilities derived from the
-HDMI Forum VSDB (HF-VSDB) as a fallback. It parses the VRR ranges and sets
-the FreeSync capability appropriately when an AMD VSDB is missing or invali=
-d.
+This commit adds HDMI 2.1 Auto Low-Latency Mode (ALLM) support by setting
+ALLM_Mode in the HF-VSIF. It builds the HF-VSIF when the sink advertises AL=
+LM
+and the content type is Game or Gaming-VRR is active.
+
+[ ... ]
 
 > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c =
 b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index df39bc70ec6c3..6cfd7526ab56a 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-[ ... ]
-> @@ -3856,6 +3865,59 @@ void amdgpu_dm_update_freesync_caps(struct drm_con=
-nector *connector,
-[ ... ]
+> @@ -1572,8 +1572,22 @@ create_stream_for_sink(struct drm_connector *conne=
+ctor,
+>  	update_stream_signal(stream, sink);
+> =20
+>  	if (stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A ||
+> -	    stream->signal =3D=3D SIGNAL_TYPE_HDMI_FRL)
+> -		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, false, f=
+alse);
+> +	    stream->signal =3D=3D SIGNAL_TYPE_HDMI_FRL) {
 > +		/*
-> +		 * If AMD VSDB didn't provide a valid FreeSync range, fall back to
-> +		 * the HDMI 2.1 VRR capability parsed from the HF-VSDB.
+> +		 * Enable HDMI ALLM (Auto Low-Latency Mode) when the sink
+> +		 * advertises ALLM in the SCDS and the content type is Game.
+> +		 * Setting content-type =3D Game is how userspace requests the
+> +		 * Sink's low-latency mode (HDMI GCTS HF1-56).
 > +		 */
-> +		if (!freesync_capable && connector->display_info.hdmi.vrr_cap.supporte=
-d) {
+> +		bool allm =3D connector->display_info.hdmi.allm &&
+> +			stream->content_type =3D=3D DISPLAY_CONTENT_TYPE_GAME;
+> +
+> +		drm_dbg_driver(dev,
+> +			       "ALLM: set mode: sink_allm=3D%d content_type=3D%d -> ALLM_Mode=
+=3D%d\n",
+> +			    connector->display_info.hdmi.allm, stream->content_type, allm);
+> +
+> +		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, allm, al=
+lm);
+
+[Severity: High]
+Does enabling ALLM replace the HDMI 1.4 VSIF with the HF-VSIF, dropping
+hdmi_vic signaling for legacy 4K formats?
+
+When ALLM is requested, calling mod_build_hf_vsif_infopacket() with allm=3D=
+true
+overrides the VSIF payload in vsp_infopacket.
+
+Looking at the implementation in info_packet.c:mod_build_hf_vsif_infopacket=
+():
+
+if (!bALLM) {
+        info_packet->sb[1] =3D 0x03;
+        ...
+} else {
+        info_packet->sb[1] =3D 0xD8;
+        ...
+
+This acts as a mutually exclusive switch rather than populating two separate
+info frames. If a user selects a display mode requiring hdmi_vic and sets t=
+he
+content type to Game, will this cause the display to lose format signaling =
+and
+result in a black screen or corrupted display?
+
 [ ... ]
-> +				if (amdgpu_dm_connector->max_vfreq -
-> +				    amdgpu_dm_connector->min_vfreq > 10)
-> +					freesync_capable =3D true;
 
-[Severity: Medium]
-Will this newly enabled HF-VSDB fallback be unconditionally overwritten to=
-=20
-false for HDMI TMDS sinks?
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b=
+/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> index cb49184813dee..c4bc6e717df93 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> @@ -252,6 +252,37 @@ void amdgpu_dm_update_freesync_state_on_stream(
+>  	new_stream->vrr_infopacket =3D vrr_infopacket;
 
-For a monitor advertising VRR only via HF-VSDB on an HDMI TMDS link, the
-AMD VSDB parsing fails, leaving sink->edid_caps.freesync_vcp_code as 0.
+[Severity: High]
+This is a pre-existing issue, but does restricting VTEM generation strictly=
+ to
+FRL links break HDMI VRR on HDMI 2.0 displays?
 
-While this new fallback block correctly sets freesync_capable to true, later
-in amdgpu_dm_update_freesync_caps(), there is an existing check:
+HDMI 2.1 VRR requires the VTEM packet to operate. Looking earlier in
+amdgpu_dm_update_freesync_state_on_stream():
 
-	if ((sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A ||
-		as_type =3D=3D FREESYNC_TYPE_PCON_IN_WHITELIST) &&
-		(!sink->edid_caps.freesync_vcp_code ||
-		(sink->edid_caps.freesync_vcp_code && !sink->mccs_caps.freesync_supported=
-)))
-		freesync_capable =3D false;
+if (new_stream->sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_FRL)
+        mod_build_infopacket_vtem(new_stream, &vrr_params, 0, &vrr_infopack=
+et);
 
-Since sink_signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A and freesync_vcp_code is 0,
-does this existing logic silently disable the fallback feature being
-introduced here?
+By checking for SIGNAL_TYPE_HDMI_FRL, it appears the driver will silently
+skip VTEM generation for TMDS-only sinks that support VRR (via firmware
+updates or HDMI 2.1 features on TMDS), causing VRR to fail to engage.
+
+>  	new_stream->allow_freesync =3D mod_freesync_get_freesync_enabled(&vrr_p=
+arams);
+> =20
+> +	/*
+> +	 * HDMI ALLM: transmit the HF-VSIF with ALLM_Mode=3D1 when the sink
+> +	 * advertises ALLM in the SCDS and either the content type is Game
+> +	 * (HF1-56) or Gaming-VRR is active (VRR_EN=3D1, HF1-58 step 8.3.1).
+> +	 * HDMI 2.1 7.6.6.
+> +	 */
+> +	if (new_stream->signal =3D=3D SIGNAL_TYPE_HDMI_TYPE_A ||
+> +	    new_stream->signal =3D=3D SIGNAL_TYPE_HDMI_FRL) {
+> +		struct dc_info_packet vsp_infopacket =3D {0};
+> +		bool sink_allm =3D aconn && aconn->base.display_info.hdmi.allm;
+> +		bool allm =3D sink_allm &&
+> +			(new_stream->content_type =3D=3D DISPLAY_CONTENT_TYPE_GAME ||
+> +			 vrr_params.state =3D=3D VRR_STATE_ACTIVE_VARIABLE ||
+> +			 vrr_params.state =3D=3D VRR_STATE_ACTIVE_FIXED);
+> +		bool allm_changed;
+> +
+> +		mod_build_hf_vsif_infopacket(new_stream, &vsp_infopacket, allm, allm);
+> +
+> +		allm_changed =3D memcmp(&new_stream->vsp_infopacket, &vsp_infopacket,
+> +				      sizeof(vsp_infopacket)) !=3D 0;
+> +		new_crtc_state->freesync_vrr_info_changed |=3D allm_changed;
+> +		new_stream->vsp_infopacket =3D vsp_infopacket;
+
+[Severity: High]
+As noted above in create_stream_for_sink(), does unconditionally replacing
+vsp_infopacket with the HF-VSIF here cause the display to lose hdmi_vic
+signaling when Gaming-VRR is active?
 
 > +
-> +				connector->display_info.monitor_range.min_vfreq =3D
-> +					amdgpu_dm_connector->min_vfreq;
-> +				connector->display_info.monitor_range.max_vfreq =3D
-> +					amdgpu_dm_connector->max_vfreq;
-> +			}
-> +		}
->  	}
+> +		if (allm_changed)
+> +			drm_dbg_driver(adev_to_drm(adev),
+> +				       "ALLM: flip on crtc=3D%u: sink_allm=3D%d content_type=3D%d vr=
+r_state=3D%d -> ALLM_Mode=3D%d\n",
+> +				    new_crtc_state->base.crtc->base.id,
+> +				    sink_allm,
+> +				    new_stream->content_type, vrr_params.state, allm);
+> +	}
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806205449.1680=
-6-1-jerry.zuo@amd.com?part=3D3
+6-1-jerry.zuo@amd.com?part=3D4
