@@ -4,44 +4,60 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D11FC55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 08:57:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98157C56203
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 09:00:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6334810E2D0;
-	Thu,  6 Aug 2026 08:57:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BBAAE10E2E0;
+	Thu,  6 Aug 2026 09:00:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XuqJXkF4";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="CPVt8L2r";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD09510E1F6
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 08:57:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 90A4B415FA;
- Thu,  6 Aug 2026 08:57:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2BF01F000E9;
- Thu,  6 Aug 2026 08:57:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786006624;
- bh=c/H7nzTYi6BF4atfEvy+zdPRq8nTLE/WDkGn5YmUguE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XuqJXkF4wbrEQAxo3nqLKqmFQFapXB9waPDXoQsaGr5tDjxrkJKIBCabmI1CMdgIR
- Q77k5rlz1g/mbYg0tq8vVsk+AMi2ec0uBpplqSC4EdPWDBcVnQe4dEi5oam6fLS5UK
- h8ICKMdv3kC2OkmtsGX6FJJ6K+4Do0vwqMf6C36DmIH6BA22fSYja410lvh/zQrbPV
- oUBgXL2twPkBbrS/yQ5cm5f3SfAG4cwtZvDXrZYjiIb6rIQB18i76jz2hXXgZR9ifh
- FQg/XacnA3fvzsUfjkhAnHGGZC1UC/buoRYm6k1hTITOrTMCQ51b01LUkIfFMmcSpa
- 2JR/o0f+QanCQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/9] mm: convert PTE table entries in ptep_get()
-To: "Muhammad Usama Anjum" <usama.anjum@arm.com>
-Cc: bpf@vger.kernel.org, linux-perf-users@vger.kernel.org,
- dri-devel@lists.freedesktop.org, damon@lists.linux.dev
-In-Reply-To: <20260806083926.1807279-6-usama.anjum@arm.com>
-References: <20260806083926.1807279-1-usama.anjum@arm.com>
- <20260806083926.1807279-6-usama.anjum@arm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 08:57:03 +0000
-Message-Id: <20260806085703.C2BF01F000E9@smtp.kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E47D510E2D5;
+ Thu,  6 Aug 2026 09:00:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786006839; x=1817542839;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=lGar/s1DPflVHKKve1PaOMJe1sYMXcWp3AxUNxF5hG0=;
+ b=CPVt8L2re5mRovrBFYb/6UqmiuLJ43fmGdQ5TzNP/7F2MnJQC15PO4G5
+ A9+PEqJgAQxjAjXECQLHE30YKw+SoHfPUd9YUacOKgBorn/S3vH2npYs/
+ f+09NP3vWAtCO5R/GkHSDFFUbfrYKdgsj2AiCelCpvlkAF+vKr70tuJIB
+ xNAtzyj5J66LdnjTwlL2LexmGtMBnoCJJoshO9sVC9krh3YcMZmrnbZ51
+ ObWq5/yrDJnDiTuUASKRV0ppyZx63Bo7M+NmtVNH+J2J6Cn2uN3Gb1gbs
+ i3/wE8/0zJuUAFJXZODx4WiBRMCUDj6KNLiuBQQO1tkfcveAqTnu4c7v5 w==;
+X-CSE-ConnectionGUID: 54vdXReaT0aPmdxIC177Jg==
+X-CSE-MsgGUID: TpyB7A4jQ26l37ce1F+1gA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="97749660"
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="97749660"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 02:00:39 -0700
+X-CSE-ConnectionGUID: mFowUM6US9euMrXMwfF81g==
+X-CSE-MsgGUID: hMR6VTkITlScY4+WKlGPJw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,208,1779174000"; d="scan'208";a="255790403"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.245.11])
+ ([10.245.245.11])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 02:00:37 -0700
+Message-ID: <5675a0ee-a5ee-480e-9a02-b71225c1d86d@intel.com>
+Date: Thu, 6 Aug 2026 10:00:35 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH V4 2/2] gpu/tests/gpu_buddy: Add KUnit test for
+ gpu_buddy_allocated_addr_to_block
+To: Tejas Upadhyay <tejas.upadhyay@intel.com>,
+ intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: arunpravin.paneerselvam@amd.com
+References: <20260806053624.3215216-4-tejas.upadhyay@intel.com>
+ <20260806053624.3215216-6-tejas.upadhyay@intel.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260806053624.3215216-6-tejas.upadhyay@intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,65 +70,96 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] ptep_get_lockless() fails to compile when both CONFIG_ARCH_HAS_HW_P=
-TE_T and CONFIG_GUP_GET_PXX_LOW_HIGH are enabled.
---
+On 06/08/2026 06:36, Tejas Upadhyay wrote:
+> Add a new KUnit test gpu_test_buddy_addr_to_block() that validates the
+> gpu_buddy_allocated_addr_to_block() helper which traces a address back
+> to its allocated buddy block.
+> 
+> The test covers:
+> - Exact address matching returns the correct allocated block
+> - An unallocated address inside the manager should return NULL
+> - An address outside the manager should return -ENXIO
+> 
+> v4(MattA):
+> - Add test for unaligned address
+> v3(Sashiko):
+> - remove unused target_addr variable
+> v2(Sashiko):
+> - Drop the mutex and lockdep annotation; standalone KUnit tests do
+>    not register a driver lock.
+> 
+> Signed-off-by: Tejas Upadhyay <tejas.upadhyay@intel.com>
 
---- Patch [5]: [PATCH 5/9] mm: convert PTE table entries in ptep_get() ---
-commit 697ecf53dc0bc83c57005a208e0294657ed963f8
-Author: Muhammad Usama Anjum <usama.anjum@arm.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
 
-mm: convert PTE table entries in ptep_get()
+> ---
+>   drivers/gpu/tests/gpu_buddy_test.c | 45 ++++++++++++++++++++++++++++++
+>   1 file changed, 45 insertions(+)
+> 
+> diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+> index 7df5c2ae83bb..04e425eb8bdd 100644
+> --- a/drivers/gpu/tests/gpu_buddy_test.c
+> +++ b/drivers/gpu/tests/gpu_buddy_test.c
+> @@ -1381,6 +1381,50 @@ static void gpu_test_buddy_alloc_exceeds_max_order(struct kunit *test)
+>   	gpu_buddy_fini(&mm);
+>   }
+>   
+> +static void gpu_test_buddy_addr_to_block(struct kunit *test)
+> +{
+> +	struct gpu_buddy_block *allocated_block, *found_block;
+> +	LIST_HEAD(allocated_list);
+> +	const u64 test_size = SZ_4M + SZ_2M;
+> +	const u64 alloc_start = SZ_4M;
+> +	const u64 alloc_size = SZ_4K;
+> +	const u64 chunk_size = SZ_4K;
+> +	struct gpu_buddy mm;
+> +
+> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, test_size, chunk_size),
+> +			       "buddy_init failed\n");
+> +
+> +	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, alloc_start,
+> +							    alloc_start + alloc_size,
+> +							    alloc_size, chunk_size,
+> +							    &allocated_list, 0),
+> +			       "buddy_alloc failed\n");
+> +
+> +	allocated_block = list_first_entry(&allocated_list, struct gpu_buddy_block, link);
+> +	KUNIT_EXPECT_EQ(test, gpu_buddy_block_offset(allocated_block), alloc_start);
+> +	KUNIT_EXPECT_EQ(test, gpu_buddy_block_size(&mm, allocated_block), alloc_size);
+> +
+> +	found_block = gpu_buddy_allocated_addr_to_block(&mm, alloc_start);
+> +	KUNIT_EXPECT_PTR_EQ(test, found_block, allocated_block);
+> +
+> +	/* Unaligned address inside the allocated block (should resolve to the same block) */
+> +	found_block = gpu_buddy_allocated_addr_to_block(&mm, alloc_start + 16);
+> +	KUNIT_EXPECT_PTR_EQ(test, found_block, allocated_block);
+> +
+> +	/* An unallocated address inside the manager should return NULL. */
+> +	found_block = gpu_buddy_allocated_addr_to_block(&mm,
+> +							alloc_start - chunk_size);
+> +	KUNIT_EXPECT_NULL(test, found_block);
+> +
+> +	/* An address outside the manager should return -ENXIO. */
+> +	found_block = gpu_buddy_allocated_addr_to_block(&mm, test_size);
+> +	KUNIT_EXPECT_EQ(test, PTR_ERR(found_block), -ENXIO);
+> +
+> +	/* 3. Standard inline cleanup flow */
+> +	gpu_buddy_free_list(&mm, &allocated_list, 0);
+> +	gpu_buddy_fini(&mm);
+> +}
+> +
+>   static int gpu_buddy_suite_init(struct kunit_suite *suite)
+>   {
+>   	while (!random_seed)
+> @@ -1405,6 +1449,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+>   	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+>   	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+>   	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
+> +	KUNIT_CASE(gpu_test_buddy_addr_to_block),
+>   	{}
+>   };
+>   
 
-ptep_get() now accepts a pointer to hw_pte_t storage but must continue to
-return a logical pte_t value. Add __pte_from_hw for both generic hw_pte_t
-definitions. Read the hw_pte_t table element atomically before converting
-it to pte_t.
-
-> diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-> index dad80d264aac2..1768421755a9c 100644
-> --- a/include/linux/pgtable.h
-> +++ b/include/linux/pgtable.h
-> @@ -493,7 +493,7 @@ static inline int pudp_set_access_flags(struct vm_are=
-a_struct *vma,
->  #ifndef ptep_get
->  static inline pte_t ptep_get(hw_pte_t *ptep)
->  {
-> -	return READ_ONCE(*ptep);
-> +	return __pte_from_hw(READ_ONCE(*ptep));
->  }
->  #endif
-
-[Severity: Low]
-Does this change cause a compilation failure in ptep_get_lockless() when
-CONFIG_GUP_GET_PXX_LOW_HIGH and CONFIG_ARCH_HAS_HW_PTE_T are both enabled?
-
-When CONFIG_ARCH_HAS_HW_PTE_T is enabled, hw_pte_t becomes a wrapper struct.
-However, ptep_get_lockless() still attempts to access pte_low and pte_high
-directly from the hw_pte_t pointer:
-
-include/linux/pgtable.h:ptep_get_lockless() {
-        ...
-	do {
-		pte.pte_low =3D ptep->pte_low;
-		smp_rmb();
-		pte.pte_high =3D ptep->pte_high;
-		smp_rmb();
-	} while (unlikely(pte.pte_low !=3D ptep->pte_low));
-        ...
-}
-
-Should ptep_get_lockless() be updated to handle the wrapper struct, perhaps
-by accessing the __pte member or extracting the logical pte_t first?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806083926.1807=
-279-1-usama.anjum@arm.com?part=3D5
