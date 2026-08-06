@@ -4,93 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 380F1C56205
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 16:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 767BAC5AC7C
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 16:21:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E7B910E33B;
-	Thu,  6 Aug 2026 16:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B76D710E340;
+	Thu,  6 Aug 2026 16:21:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="AVAdUL0G";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aalAEn7r";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8ED110E348
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 16:16:21 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4995b0343c1so425705e9.3
- for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 09:16:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1786032980; x=1786637780;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Mmh6B0a7r79J2eomONjpAfByXhOYwDWC3GxzEF2L44s=;
- b=AVAdUL0Gj4GtRQjPGvX4TwRANq6DDYAf4gyVKlv9Ij+bk5yuKizWqTuzjK25EKofrh
- PberPFPYhdwOIxJtG0eOyKe+Y0n1eBnvRD2WQU3OAVhIzEQPL/735wDb5kTfMCoeRgEh
- RgivAl8o0AK58mtnoY1YGTsqddiU8/gd+bNEI0s45Tj6o4rRFP2+ig80hGfC0E6gNzO0
- ZdFZ4LSmt0GG2fJ4EfNxAUTjRyO4G2JKrW0P8ZcJybyMTLTrnbKy1+ISoPTg/xcct5CD
- 8uS1MHBpsmpXQKJcCXNAPS8j/agW978xG0c44GJ9rcOD+PhqhMiuxHQNQ62/54H0lkLw
- JHYQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786032980; x=1786637780;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Mmh6B0a7r79J2eomONjpAfByXhOYwDWC3GxzEF2L44s=;
- b=UV439tu6Tg0X8CA2bF1D0B26iT2w4qWRFCfWNYJYO7EIdM8sQrcB9iwAkcwOzCCIuK
- i703g0VmIMvrIil+DcQzFvV0BEjLTjrb03h+uN2lixiCOS8TWM+F8bZQ9KMQutGpXFmz
- WI3adG4gZ3pkMq1FpmumY61Jtb6YdPg06EytBUL/TVQoqSYWZHAS0ouaadtXRkH7M+Uh
- cCzklspSGMF7ZvkM5aK6rM21ZEMO9Arlrgv2jK/dz007UeMRqPSB6QA5iZna3zMXtY1j
- OBvZjuTZby0xUjpz9MUgHNgnr64U8ajTEA8AnnvecoaCuNeLVxhcGj8//2ff0ZL7RFIK
- xaNg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpYx4MPqdhmp8TiMui4D2/HpvZFlQjEP598wEOu+eeZoHmqigSU8Gt3JmcOKHvaNTZ74Su1i0k9g1w=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzJIgr6EGymX8q8Ljj44svnzBk6u8UZiq409RllMfXIbkVj0LOC
- DMplEPmcZRmOIzFmARhkKy5bvnbXeHEPjrAZxX0KKmayHRaeYor5jIDorQx/pZohUiY=
-X-Gm-Gg: AR+sD11Gibhy7hNjw3OIbz/HD4rUR351gjqrO6hnRKX7azdu+HmqTQK5LhV7hHJpOxL
- N214zETQJrc2DyfASFuGKId24XACjH2K2HOhzVFSBbpVAjozVbtCwB0f4/znnejLkXdcURWYaIz
- WItalGeg2NVThEQLmPLL03mzXQdyH/P4f60NNVY+Sx+KfhzYL/kcp+crNKdBkgS4KCiM7XJa895
- R/s/e69aCvUQEn933zgE+ql6W14m7AQVnBOu5iX7+LEADp+o1qOG6Auu5BEDT8cRARx+6Qq8ZIX
- 7HMK2bSUUl0HamKxwBBwJk/GMgBtXSuJ6K5QcTjSAuWUBjz0eDwwEe/aTLUjrhyxwuwHLK5ISBs
- /kl6rFdjokjukha1qNeZWV6Jq3ailjR2WvaIOE9BsAvopZp2Fr7ps8dvUmBF0kgihOQlDnwH5PW
- pgKXhMFYyA1ztePy3WEczEyiii09/rLWfNl+rOQlBULvtTFEl6BGwxibXA5WA03kXUv+hzEmoM5
- qnX2BtNDx/ZczwwNRkDXgeFljtxndIwdLXyVmVBs8fmpaIB124vJ3JXcq6BOzHP
-X-Received: by 2002:a05:600c:4514:b0:496:bbce:f3 with SMTP id
- 5b1f17b1804b1-4994e71ed7bmr204456405e9.6.1786032979698; 
- Thu, 06 Aug 2026 09:16:19 -0700 (PDT)
-Received: from localhost
- (p200300f65f0171047dc1d03432df4abc.dip0.t-ipconnect.de.
- [2003:f6:5f01:7104:7dc1:d034:32df:4abc])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4995427a244sm69306845e9.10.2026.08.06.09.16.18
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Aug 2026 09:16:19 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v1] drm: Drop #include <linux/mod_devicetable.h> from
- <drm/display/drm_dp_aux_bus.h>
-Date: Thu,  6 Aug 2026 18:16:06 +0200
-Message-ID: <21c9390024479ec625ca7a2e7a5b959f04d85878.1786032838.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.55.0.11.g153666a7d9bb
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC4A610E340
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 16:21:46 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0AC0A4166E;
+ Thu,  6 Aug 2026 16:21:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3844E1F00A3A;
+ Thu,  6 Aug 2026 16:21:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786033305;
+ bh=9OQRYxnEbL1vlfwxgT977i1AfPRqWf0vi68WNMX/Mqo=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=aalAEn7rNUlyRJPV20BjL3yI3iPPN+js6kl4wiCICluf+ZHpYklDJI/OsH7/3ARg6
+ 6B8o11hfV2IPUN3Qq6QJmnNjXQC+59EpEP5WYdtoDSed9abq3u+doW4SPm6/oDr3T7
+ WWaEaKql5HntTfMkY72NHSwnnY6fX/u97XSO3ci0teM4TfzFOTv5O8ebSGlHprBcY8
+ llw1LEhloYGFMqTMz6BQvN3SKr+VR2DwYRLKw1W8OM9fFn1tKTbaycRrBHNmPXt+oU
+ fLBXBy6hbmtPaffVx6Jj94F/NzDmzVT6Qs46zlC7UEKdcgz0I0lIyGDW38wbRt4aCm
+ UPYrrB9vJfAAQ==
+Date: Thu, 6 Aug 2026 18:21:43 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: "T.J. Mercier" <tjmercier@google.com>
+Cc: Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Robin Murphy <robin.murphy@arm.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+ linux-mm@kvack.org, 
+ iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+Message-ID: <anSyU_-zArFch-an@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+ <CABdmKX2i_vxs3EgJgydEbXoTxqWe9g9pj=hqPKuwf0ge0SjZuQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2447;
- i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=fbV7D+k+bZ8MZrEOrq13qeiU0Crm7nfk+/VtzgrB+L4=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqdLNGtbVg8UQg91lU5lGnS4ixqD9PEdxBk74bh
- NzXSXOXkHeJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCanSzRgAKCRCPgPtYfRL+
- TvxqB/0QQev1Kv1PjVygUM1ZEsHPFbWtyhMT88+VadGi913lHhfyzXHxExBbqqFCnkWyJailURe
- MLn38BIvXDPH66WJq42YKRj8Dv9muPifnH0q/NqGi221kYG5jhoYE2nZEXkWlqA1YuazmhnGsi4
- Se0fjDPbJZ1hXZmcVXho+FV21MIHC7hiTmxmyFSlj86GPaeX29e3w1HRgtzjMIoW4QO925ovFci
- mFKagyzqlQ1+8GZvvZ1PPh7JmiYF9mC8MtKkGtgMxO2vaySdW+xQylYlU5faTxreXpUiwLEPebS
- jioCQ6S9jKAcpPYcxRecLZgT54kEDrfPM/fDxw3xOOJ8mppH
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+ protocol="application/pgp-signature"; boundary="4gmnekg7ar3gl7m6"
+Content-Disposition: inline
+In-Reply-To: <CABdmKX2i_vxs3EgJgydEbXoTxqWe9g9pj=hqPKuwf0ge0SjZuQ@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,51 +96,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Only .c files include <drm/display/drm_dp_aux_bus.h> (see
 
-	git grep -l drm_dp_aux_bus\\.h
+--4gmnekg7ar3gl7m6
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+MIME-Version: 1.0
 
-). From the device-id structures that <linux/mod_devicetable.h> provides
-there are:
+On Wed, Jul 08, 2026 at 04:49:31PM -0700, T.J. Mercier wrote:
+> On Wed, Jul 1, 2026 at 9:09=E2=80=AFAM Thierry Reding <thierry.reding@ker=
+nel.org> wrote:
+> >
+> > From: Thierry Reding <treding@nvidia.com>
+> >
+> > There is no technical reason why there should be a limited number of CMA
+> > regions, so extract some code into helpers and use them to create extra
+> > functions (cma_create() and cma_free()) that allow creating and freeing,
+> > respectively, CMA regions dynamically at runtime.
+> >
+> > The static array of CMA areas cannot be replaced by dynamically created
+> > areas because for many of them, allocation must not fail and some cases
+> > may need to initialize them before the slab allocator is even available.
+> > To account for this, keep these "early" areas in a separate list and
+> > track the dynamic areas in a separate list.
 
- - 8 files using struct auxiliary_device_id;
- - 2 files using struct i2c_device_id; and
- - 10 files using struct of_device_id
+Huh... going over this thread again I could've sworn that I had replied
+to this before, but I can't find any evidence of any reply.
 
-(and no other usages; see
+> Hi, It looks like you'll also need to update the CMA dma-buf heap's
+> add_cma_heaps init function so that it adds all the CMA areas, not
+> just the early ones.
 
-	git grep -l drm_dp_aux_bus\\.h | xargs grep -oh -E "\<(acpi_device_id|amba_id|ap_device_id|apr_device_id|auxiliary_device_id|bcma_device_id|ccw_device_id|cdx_device_id|coreboot_device_id|css_device_id|dfl_device_id|dmi_(device|system)_id|eisa_device_id|fsl_mc_device_id|hda_device_id|hid_device_id|hv_vmbus_device_id|i2c_device_id|i3c_device_id|ieee1394_device_id|input_device_id|ipack_device_id|isapnp_device_id|ishtp_device_id|mcb_device_id|mdio_device_id|mei_cl_device_id|mhi_device_id|mips_cdmm_device_id|of_device_id|parisc_device_id|pci_device_id|pci_epf_device_id|pcmcia_device_id|platform_device_id|pnp_(card_)?device_id|rio_device_id|rpmsg_device_id|sdio_device_id|sdw_device_id|serio_device_id|slim_device_id|spi_device_id|spmi_device_id|ssam_device_id|ssb_device_id|tb_service_id|tee_client_device_id|typec_device_id|ulpi_device_id|usb_device_id|vchiq_device_id|vio_device_id|virtio_device_id|wmi_device_id|x86_(cpu|device)_id|zorro_device_id|cpu_feature)\>" | sort | uniq -c
+I would actually rather not do that. The case that we need this for is
+creating a special purpose dma-buf heap that's composed of multiple CMA
+areas. These areas must not be used by anyone else. Exposing these to
+the CMA dma-buf heap would allow anyone to allocate from individual
+chunks and throw off the accounting that we need to do in order to keep
+the protected memory from working correctly.
 
-).
+Besides, given the dynamic nature of this means that the CMA dma-buf
+heap might already have probed when these dynamic CMA areas are added.
+So we would either need to have some way of notifying the CMA dma-buf
+heap of newly created areas or we might end up with an incomplete set
+of registered heaps.
 
-The 8 files using struct auxiliary_device_id already include
-<linux/auxiliary_bus.h>, the 2 files using struct i2c_device_id include
-<linux/i2c.h> and drm_dp_aux_bus.h itself includes <linux/device.h>
-which provide struct auxiliary_device_id, struct i2c_device_id and
-struct of_device_id respectively.
+If you really insist, I could look into this, but I think it's actually
+a nice feature that the CMA dma-buf heap only registers these "early"
+areas and exposes them.
 
-So the include of <linux/mod_devicetable.h> can just be dropped. This
-gets one step closer to being able to remove that header.
+Thierry
 
-Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
----
- include/drm/display/drm_dp_aux_bus.h | 1 -
- 1 file changed, 1 deletion(-)
+--4gmnekg7ar3gl7m6
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/include/drm/display/drm_dp_aux_bus.h b/include/drm/display/drm_dp_aux_bus.h
-index 8a0a486383c5..ca8db8ccc1f9 100644
---- a/include/drm/display/drm_dp_aux_bus.h
-+++ b/include/drm/display/drm_dp_aux_bus.h
-@@ -11,7 +11,6 @@
- #define _DP_AUX_BUS_H_
- 
- #include <linux/device.h>
--#include <linux/mod_devicetable.h>
- 
- /**
-  * struct dp_aux_ep_device - Main dev structure for DP AUX endpoints
+-----BEGIN PGP SIGNATURE-----
 
-base-commit: 1701fda2f58e345c050f4309971bdc07cd6146ba
--- 
-2.55.0.11.g153666a7d9bb
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp0tJQACgkQ3SOs138+
+s6Hx2A/+LyXBkYE0i4vOlsqA/Ydjj8c8/300xmhsRpFbwbpF3gTAquepUhv4ccLk
+pn6s3oOPckjHUjgqi17LCjM+dbGIQRiXZ5sHHuq69DOmSq6K43pvPWC9DQE3kICK
+i05UEwUTy2GyHSp229X6bMmMKYyl4WW9pde+bHXFO3IBdszOFd76qxdMqtl3agOv
+kfgnaTJezzmgsC1qP4etPKCdwHkxCcCO+r/IUp5vm8tuot9r3ZmBeyeLcSaboN0D
+RP21XS13WS+QLN/rZAXyBAVhrpNrTBOcQcI5CYrTXnDFkJYeQJEkd5ugPi/q2wr4
+KM8oHddCYYYHQyIEOG7pFcNGhonqPopbSVLN/BwII0fbmJXppQrdPyR4B3ZzsZzI
+51eP67NZSMCtnEqOeaqKYc629FRTyBsrMWfEhmHu19hAJb/p9PvkqxCIR+TlebSt
+HbuYY8JUEbz4Ck0Cb9FHGHsuYwsYkSKVpy0CpXnqkYEayTLU7dEHHpoKyTtS5Wvz
+w8fNZPuvXMWffnb1L+4nblBj2VNkJCSUvr3ZcgU0H6PlqcES02A5W6ectwCN/2R2
+STUcZd3vK2dFxCKRPHOx5+YyienQ9dBUapH7HwK01V0SFwh9m58TpMKmacD+y7vU
+Ns4RBrD6r3h3Ua+YybzB1+b9dqB8U4mzDp9x92jAksifc9ZHH5Y=
+=/fYh
+-----END PGP SIGNATURE-----
 
+--4gmnekg7ar3gl7m6--
