@@ -4,81 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7F0AAC56208
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 16:09:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 380F1C56205
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 16:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D874710E2AD;
-	Thu,  6 Aug 2026 16:09:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E7B910E33B;
+	Thu,  6 Aug 2026 16:16:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kKNEIVai";
+	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="AVAdUL0G";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3584892AA
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 16:09:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 40C4C43911;
- Thu,  6 Aug 2026 16:09:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4651F00A3E;
- Thu,  6 Aug 2026 16:09:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786032551;
- bh=J1mmhRLKDxaELj7616F3jLYF/axUtWF1l/JEzzjmppo=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=kKNEIVaiVH4wrn5oHK5ajPxUnFHB9+4/A/1LvM/uKTkDc0Tv9t57ZG0ITr9wXU8Xp
- dM7Cy6hGgHbZ/yeYTfWQ71Y57HgqRdmv1eKN2HCcuSEE4ilC3CtyGNaMO6veI78U67
- YcMqItiqFW5t/eUfTLQayfOrEOELuT08s9jUqHMsWIlKuGRS7h4T2GXPWrf4X6w2Zv
- tNNgofe3iP7rxX22Z7nlivDoSEEfrD+/jWedR6As/aEKkVkXWpqV8mSDDYNCbarkZ1
- SVWiBIPcCxOreaWD7DyyAbxr2eCgQZMraKPZN7mkuyWcqW1KUCi9T1+4s4zx6S89Zo
- 2vOjrgZWIe6og==
-Date: Thu, 6 Aug 2026 18:09:08 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, 
- iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-Message-ID: <anSuYvj1JU5K8xUO@orome>
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
- <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
- <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
- <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
- <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
- <ak_E4UxfnFJywJa7@orome>
- <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com>
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8ED110E348
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 16:16:21 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4995b0343c1so425705e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 09:16:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1786032980; x=1786637780;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Mmh6B0a7r79J2eomONjpAfByXhOYwDWC3GxzEF2L44s=;
+ b=AVAdUL0Gj4GtRQjPGvX4TwRANq6DDYAf4gyVKlv9Ij+bk5yuKizWqTuzjK25EKofrh
+ PberPFPYhdwOIxJtG0eOyKe+Y0n1eBnvRD2WQU3OAVhIzEQPL/735wDb5kTfMCoeRgEh
+ RgivAl8o0AK58mtnoY1YGTsqddiU8/gd+bNEI0s45Tj6o4rRFP2+ig80hGfC0E6gNzO0
+ ZdFZ4LSmt0GG2fJ4EfNxAUTjRyO4G2JKrW0P8ZcJybyMTLTrnbKy1+ISoPTg/xcct5CD
+ 8uS1MHBpsmpXQKJcCXNAPS8j/agW978xG0c44GJ9rcOD+PhqhMiuxHQNQ62/54H0lkLw
+ JHYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786032980; x=1786637780;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Mmh6B0a7r79J2eomONjpAfByXhOYwDWC3GxzEF2L44s=;
+ b=UV439tu6Tg0X8CA2bF1D0B26iT2w4qWRFCfWNYJYO7EIdM8sQrcB9iwAkcwOzCCIuK
+ i703g0VmIMvrIil+DcQzFvV0BEjLTjrb03h+uN2lixiCOS8TWM+F8bZQ9KMQutGpXFmz
+ WI3adG4gZ3pkMq1FpmumY61Jtb6YdPg06EytBUL/TVQoqSYWZHAS0ouaadtXRkH7M+Uh
+ cCzklspSGMF7ZvkM5aK6rM21ZEMO9Arlrgv2jK/dz007UeMRqPSB6QA5iZna3zMXtY1j
+ OBvZjuTZby0xUjpz9MUgHNgnr64U8ajTEA8AnnvecoaCuNeLVxhcGj8//2ff0ZL7RFIK
+ xaNg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpYx4MPqdhmp8TiMui4D2/HpvZFlQjEP598wEOu+eeZoHmqigSU8Gt3JmcOKHvaNTZ74Su1i0k9g1w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzJIgr6EGymX8q8Ljj44svnzBk6u8UZiq409RllMfXIbkVj0LOC
+ DMplEPmcZRmOIzFmARhkKy5bvnbXeHEPjrAZxX0KKmayHRaeYor5jIDorQx/pZohUiY=
+X-Gm-Gg: AR+sD11Gibhy7hNjw3OIbz/HD4rUR351gjqrO6hnRKX7azdu+HmqTQK5LhV7hHJpOxL
+ N214zETQJrc2DyfASFuGKId24XACjH2K2HOhzVFSBbpVAjozVbtCwB0f4/znnejLkXdcURWYaIz
+ WItalGeg2NVThEQLmPLL03mzXQdyH/P4f60NNVY+Sx+KfhzYL/kcp+crNKdBkgS4KCiM7XJa895
+ R/s/e69aCvUQEn933zgE+ql6W14m7AQVnBOu5iX7+LEADp+o1qOG6Auu5BEDT8cRARx+6Qq8ZIX
+ 7HMK2bSUUl0HamKxwBBwJk/GMgBtXSuJ6K5QcTjSAuWUBjz0eDwwEe/aTLUjrhyxwuwHLK5ISBs
+ /kl6rFdjokjukha1qNeZWV6Jq3ailjR2WvaIOE9BsAvopZp2Fr7ps8dvUmBF0kgihOQlDnwH5PW
+ pgKXhMFYyA1ztePy3WEczEyiii09/rLWfNl+rOQlBULvtTFEl6BGwxibXA5WA03kXUv+hzEmoM5
+ qnX2BtNDx/ZczwwNRkDXgeFljtxndIwdLXyVmVBs8fmpaIB124vJ3JXcq6BOzHP
+X-Received: by 2002:a05:600c:4514:b0:496:bbce:f3 with SMTP id
+ 5b1f17b1804b1-4994e71ed7bmr204456405e9.6.1786032979698; 
+ Thu, 06 Aug 2026 09:16:19 -0700 (PDT)
+Received: from localhost
+ (p200300f65f0171047dc1d03432df4abc.dip0.t-ipconnect.de.
+ [2003:f6:5f01:7104:7dc1:d034:32df:4abc])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4995427a244sm69306845e9.10.2026.08.06.09.16.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Aug 2026 09:16:19 -0700 (PDT)
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v1] drm: Drop #include <linux/mod_devicetable.h> from
+ <drm/display/drm_dp_aux_bus.h>
+Date: Thu,  6 Aug 2026 18:16:06 +0200
+Message-ID: <21c9390024479ec625ca7a2e7a5b959f04d85878.1786032838.git.u.kleine-koenig@baylibre.com>
+X-Mailer: git-send-email 2.55.0.11.g153666a7d9bb
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="awe2ln3pvo2iqnm5"
-Content-Disposition: inline
-In-Reply-To: <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2447;
+ i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
+ bh=fbV7D+k+bZ8MZrEOrq13qeiU0Crm7nfk+/VtzgrB+L4=;
+ b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBqdLNGtbVg8UQg91lU5lGnS4ixqD9PEdxBk74bh
+ NzXSXOXkHeJATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCanSzRgAKCRCPgPtYfRL+
+ TvxqB/0QQev1Kv1PjVygUM1ZEsHPFbWtyhMT88+VadGi913lHhfyzXHxExBbqqFCnkWyJailURe
+ MLn38BIvXDPH66WJq42YKRj8Dv9muPifnH0q/NqGi221kYG5jhoYE2nZEXkWlqA1YuazmhnGsi4
+ Se0fjDPbJZ1hXZmcVXho+FV21MIHC7hiTmxmyFSlj86GPaeX29e3w1HRgtzjMIoW4QO925ovFci
+ mFKagyzqlQ1+8GZvvZ1PPh7JmiYF9mC8MtKkGtgMxO2vaySdW+xQylYlU5faTxreXpUiwLEPebS
+ jioCQ6S9jKAcpPYcxRecLZgT54kEDrfPM/fDxw3xOOJ8mppH
+X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
+ fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,131 +106,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Only .c files include <drm/display/drm_dp_aux_bus.h> (see
 
---awe2ln3pvo2iqnm5
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-MIME-Version: 1.0
+	git grep -l drm_dp_aux_bus\\.h
 
-On Thu, Jul 16, 2026 at 12:43:56PM +0200, Marek Szyprowski wrote:
-> On 09.07.2026 17:59, Thierry Reding wrote:
-> > On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
-> >> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
-> >>> On 7/7/26 12:02, Marek Szyprowski wrote:
-> >>>> On 01.07.2026 18:08, Thierry Reding wrote:
-> >>>>> From: Thierry Reding <treding@nvidia.com>
-> >>>>>
-> >>>>> There is no technical reason why there should be a limited number o=
-f CMA
-> >>>>> regions, so extract some code into helpers and use them to create e=
-xtra
-> >>>>> functions (cma_create() and cma_free()) that allow creating and fre=
-eing,
-> >>>>> respectively, CMA regions dynamically at runtime.
-> >>>> Well, the technical reason for not creating cma regions dynamically =
-at
-> >>>> runtime is that on some architectures (like 32bit ARM) the early fix=
-up
-> >>>> for the region is needed to make it functional for DMA.
-> >>> Can you point me at the code that does that? Thanks!
-> >> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in=C2=A0
-> >> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappin=
-gs for
-> >> the CMA reserved region in linear map are remapped with 4k pages inste=
-ad
-> >> of the 1M sections, so later, it will be=C2=A0possible to alter the ma=
-ppings and
-> >> change them to coherent when needed (altering 1M sections is not possi=
-ble,
-> >> because each process has it's own level-1 array even for the kernel li=
-near
-> >> mapping).
-> >>
-> >>
-> >>
-> >> However, in the use case in this patchset the reserved region is only =
-shared
-> >> with buddy allocator by using the CMA infrastructure, not registered t=
-o the
-> >> regular DMA-mapping API, so it would work fine. I'm not convinced that=
- this
-> >> is the right API to use for this though.
-> > Are you saying you're not convinced that CMA is the right API to use for
-> > this? Or something else?
-> I read this again and indeed CMA seems to be right solution. I only wonder
-> why do You want to create the CMA areas dynamically? Imho it would work=
-=C2=A0if
-> You just create large enough CMA area on boot, what would automatically
-> share the memory with buddy allocator and then allocate dynamic VPR regio=
-ns
-> with cma_alloc(), potentially unmapping or marking the allocated region as
-> reserved in linear kernel mapping to avoid any potential speculative acce=
-ss
-> to the protected memory.
+). From the device-id structures that <linux/mod_devicetable.h> provides
+there are:
 
-Hi Marek,
+ - 8 files using struct auxiliary_device_id;
+ - 2 files using struct i2c_device_id; and
+ - 10 files using struct of_device_id
 
-sorry for missing your reply earlier.
+(and no other usages; see
 
-The reason why we want to create the CMA areas dynamically is because we
-want to split the secure memory into multiple areas. And the size and
-number of these areas may need to vary, so I didn't want to have to rely
-on rebuilding kernels with different numbers of maximum CMA areas
-depending on the chunk size that we choose.
+	git grep -l drm_dp_aux_bus\\.h | xargs grep -oh -E "\<(acpi_device_id|amba_id|ap_device_id|apr_device_id|auxiliary_device_id|bcma_device_id|ccw_device_id|cdx_device_id|coreboot_device_id|css_device_id|dfl_device_id|dmi_(device|system)_id|eisa_device_id|fsl_mc_device_id|hda_device_id|hid_device_id|hv_vmbus_device_id|i2c_device_id|i3c_device_id|ieee1394_device_id|input_device_id|ipack_device_id|isapnp_device_id|ishtp_device_id|mcb_device_id|mdio_device_id|mei_cl_device_id|mhi_device_id|mips_cdmm_device_id|of_device_id|parisc_device_id|pci_device_id|pci_epf_device_id|pcmcia_device_id|platform_device_id|pnp_(card_)?device_id|rio_device_id|rpmsg_device_id|sdio_device_id|sdw_device_id|serio_device_id|slim_device_id|spi_device_id|spmi_device_id|ssam_device_id|ssb_device_id|tb_service_id|tee_client_device_id|typec_device_id|ulpi_device_id|usb_device_id|vchiq_device_id|vio_device_id|virtio_device_id|wmi_device_id|x86_(cpu|device)_id|zorro_device_id|cpu_feature)\>" | sort | uniq -c
 
-The reason why we need to split up the protected memory into multiple
-CMA areas is that allocation patterns can create holes within a CMA
-area. For the VPR memory, however, we must ensure that there aren't any
-holes within the protected region because it is specified using a single
-base address and a size. So there is one contiguous region that can be
-marked protected.
+).
 
-If we were to use a single CMA area, we could get holes within an area
-that is marked protected and once the pages are returned to the buddy
-allocator with cma_release(), something else could be attempting to
-access it and cause an error because it is still protected.
+The 8 files using struct auxiliary_device_id already include
+<linux/auxiliary_bus.h>, the 2 files using struct i2c_device_id include
+<linux/i2c.h> and drm_dp_aux_bus.h itself includes <linux/device.h>
+which provide struct auxiliary_device_id, struct i2c_device_id and
+struct of_device_id respectively.
 
-The only way to make sure we get a single, resizable and contiguous
-region is by using multiple CMA areas and allocating the entire area
-once our allocations need to expand into that new area. So we're not in
-fact using much of the CMA infrastructure and actually need to duplicate
-some of it. We primarily need it for the page migration and reclaim
-functionality.
+So the include of <linux/mod_devicetable.h> can just be dropped. This
+gets one step closer to being able to remove that header.
 
-> In both cases You will probably won't need the DMA-mapping API on top of
-> it, although it might be even possible to partially use with by
-> registering custom dma_ops for the devices using the protected region
-> (assuming that it would support only DMA_ATTR_NO_KERNEL_MAPPING
-> allocations).
+Signed-off-by: Uwe Kleine-König (The Capable Hub) <u.kleine-koenig@baylibre.com>
+---
+ include/drm/display/drm_dp_aux_bus.h | 1 -
+ 1 file changed, 1 deletion(-)
 
-Yeah, I don't think we want the DMA API on top at all. The allocator has
-special needs, like clustered allocations to minimize fragmentation and
-keeping as few chunks activated as possible. We also want to avoid
-resize operations because they can be quite heavy depending on system
-load.
+diff --git a/include/drm/display/drm_dp_aux_bus.h b/include/drm/display/drm_dp_aux_bus.h
+index 8a0a486383c5..ca8db8ccc1f9 100644
+--- a/include/drm/display/drm_dp_aux_bus.h
++++ b/include/drm/display/drm_dp_aux_bus.h
+@@ -11,7 +11,6 @@
+ #define _DP_AUX_BUS_H_
+ 
+ #include <linux/device.h>
+-#include <linux/mod_devicetable.h>
+ 
+ /**
+  * struct dp_aux_ep_device - Main dev structure for DP AUX endpoints
 
-Thierry
+base-commit: 1701fda2f58e345c050f4309971bdc07cd6146ba
+-- 
+2.55.0.11.g153666a7d9bb
 
---awe2ln3pvo2iqnm5
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp0saEACgkQ3SOs138+
-s6HmUQ//RyPTgx2QiCZkziDzWhQ8YjQ9J8KlwiQnyLspOz+Na5x6bslbOl/AuuBd
-DCTC8+y/ax94aG30aB0SctUZLtHriGHwevA3J9hm/CfR1K72DsjLSDnkqujE5h7B
-QxLJyl9wyqStgOfJEl6PwA8H9VbDkdJNHJlmpFzeki7a5QHQR28b+FyoWOZGGutC
-YKiDlqpqQk1rs9d8WQ4M5w6JiRmImAI9YcoFP36b36oPf6/DziGOYjqCO6k9o1GI
-pKj8EV6as2MTKoCdsuwHiQo/f2gQfyquJF+yK6m62NZy6wyr1ceed6jmCoIcuuh6
-NKDs1AUWYdLhOVod22LHwn8GCjaDRkYHuUNgRtVrz5BgUuVUW/EmVieF/7BeRpna
-HZ+uWPa09LwQq0ma8cRTNEQykq4zhVKxshPlVGeFuRJqIQ7C3ba/4UCWEDtT4Dlj
-udGkgC059nR72DiCjPnQ40LV5naHw+dIkTt7uS2rh/xRih0ZW5bTc1ex3KvVq2H+
-wtjVSehARwHbIzU3ijuk3iNDaGRYZS99YYB5NjULlXGFeldz0M4qj8L/Gu684Kt0
-c0DFGObvF6isiTZgfuIwCNEEURIKdOut/DpqvFXcAmaAYvwvko7EPo4xwigfSapd
-63yY0m3zfV1lefYdShI86wkQ8t4KSbU6Vhoh/A0AUNc1mcNqir8=
-=PD/g
------END PGP SIGNATURE-----
-
---awe2ln3pvo2iqnm5--
