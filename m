@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD7E8C55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 08:52:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A0E2C561E6
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 08:52:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 752FC10E2B9;
-	Thu,  6 Aug 2026 08:52:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 661DE10E2C4;
+	Thu,  6 Aug 2026 08:52:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i+3gtN0w";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jqtihqCy";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7916310E2C4
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 08:52:34 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-495522bc0e2so566505e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 01:52:34 -0700 (PDT)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7D9310E2B9
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 08:52:33 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4956d1d9fb2so1889245e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 01:52:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786006353; x=1786611153; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786006352; x=1786611152; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=gH1ZijC9dBMRwcIQPOFxOSOLg1MiHZNn8LjvIG16PSY=;
- b=i+3gtN0wjl9xzxpWUwRNXEuknR76817eHoKMvi7VtpWC2pbjXN4WDemHVUcxQ7EhTw
- 5sfbHXfb/6N5TGhFLsFNZv83CBdaJMNoQ7keVS/u67+87iTXULMQq43Ti1Ch4Si3aKr9
- XKrNtj6Shl2xJYvpttQD5X4RhpQWBLSdJvcqE2nVUUxKRSr2NbBarUtqPsfhbqqQ2wJV
- 6phhySS7484yTm5ul/0tpwoGJvsZ4TT4aFzIZ4o9dkYfBUU/y4Uvdy//pbBTx4jSukTy
- 4/xBF56nxU2l/+Z34q0x2846JoypTZH1RJClNcJ/xlI0N4a0H7KpT+rkYwJIW1+F3wxK
- 5+3A==
+ bh=43GMMFZoVTY8+U+Ee+riXD/46xoLgGatma6l0KI0k2A=;
+ b=jqtihqCyzG9nHdayar2/W8I1abCeFyqZLg/LwSDCNLQEmO0VahkSn+jy2saisnrIi+
+ NQUCrKDI+GS+6y/p607sS+FydKnOebEotygOgcz8A6A0g2AZfJSeTqOgTa5GXUWURjK8
+ 0a2skxc2qkvzHtZjhxZPmZhVZ0N+kXlImNBqRojLuLh+Rok8jFdBU8tCdpQR7VG+rfWG
+ n8pTjoviRergJrIhglZ/PbyeDX69MNXt6LZV0ttl/KPrLwU9ye0qnX0oQN6hNjYa/ra7
+ RqrdWDPxqZYaOFC/chZsmRtS6VpLM3qsIuxhNK4owfnIodWwj63GdU9lUblLrbqYt5ZT
+ TQdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786006353; x=1786611153;
+ d=1e100.net; s=20251104; t=1786006352; x=1786611152;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=gH1ZijC9dBMRwcIQPOFxOSOLg1MiHZNn8LjvIG16PSY=;
- b=e+MnhZhsURbw6igzQjPbe/dFDaCB39HZ+LT10H39j2xZcyoJU1QpX3iqSXVaHWrNRy
- b/e/dlPUDaqt05U76Yfxy7IYffl5beBx4Ih17Bg9DGV7btDEeehpwW3XbbZS/iBw4AV0
- 7T/cP0n/cxk2/zboxbINREhjpKdEX3q5TEv9QWKO5lfTyut8K0vqhRHNldF1dU3RNVT+
- 5SaF1toCYpBC50ZKFh5brtwBhYZCiHizHlqEfOidM3pa8M56ilp1c61j2ouwxgDpBU7J
- AGjXexe3NsmebxKxQTOL9n2y1qGzS5UzF6uyHc3P6Pude8efdxGBWoYs3wS0hszB/l6+
- rXFQ==
+ bh=43GMMFZoVTY8+U+Ee+riXD/46xoLgGatma6l0KI0k2A=;
+ b=AMZk+rV4IJZ8l4aTN9NMP5J4gA30rM9Xd4hax7aC0WSVOEZ6mInN3DbhP52mOsCtux
+ AKkJotFgipDesuYYLppHd5KWwr8aiMBQIZg23KmI0SOIOI5HAlp+G8QB+Sbz6v2zsmwR
+ 9LxUjjgtq5L9bXSoTEZrRqQncwOLGOkeev6idRruah5fbUlJCG5SmREWCpTcEGzNEtiy
+ QOgbycQidJ5YdtTnPkL0lZTt/pJsPe70pGhIZscUMApDiU7mQq2sOZWmBcfzQSCfeyAz
+ EQXUN1YD+SkPcYVflcrwTocok4KBmYFVy/hxKjYSxxv4R6K2Dk4Zc4uOBGRYUx5L6bSq
+ ofPQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpFTdMca0APYbCqWvZfUkTMXoBoebGgtkdlZOcFFU6zdKIdC11ojCu7xN+Pm/QyPxA/+r5t/2tiQpU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwhWl7z9VuvWz1nirmaQvQJgHP5rWApxz3BtG+W1bUlbQJmu5NK
- KPTYJ7Z04khByvgzbxmJ68+klJfUqiCKyd1DLAw/wpxtdVoHlTzT0aCa
-X-Gm-Gg: AR+sD104b4ZYfikvSOXrAfo1yCzTlxzBPmuh8jGPnPkQ6ri1AXwX0l8HM1YN/UM+BQd
- djJDlERS6gxjBbggp4eR5nRy5/SAVxpf4CV91T20iCbQikN8UcpAFJP9xLfhggQqB5Kzsn9zxay
- W4y0ga8HDMpq9ffgKd7hVOYNtaN2A19NxXNtIn+vs39CMG1Zm2ztCDjhGmdm8CIUbpdstHtdnp/
- l76HOfUvWAgtmMmaUd2l7xrV5tqZW8upfxAGPTmbWS2wBGOb7uojRwGFOQa/FjOseIVz4ixWWTo
- S+Lu42uy/5FeL1SMJSzpu3hFVVwCDGxIXYGgk26aQuqUgUsl5ST/BdWwA7GT1qV4GEggrxEZVbX
- lKsKBOiaZYmgpZYBl+tAElJ/PXQO+AxaIXhjqnFWIdNPqsiKQ8jAmZlg1ha8E9GLRKTjjnS8b4h
- Xw3bxXQIgObMPOxVzyykzW1ZbawE+WLfqWWDUsXp2v+fuwtZjeKH+ONriKfZoPqldQaLZTj5raP
- eJYn7aecr04WtgW2MlGP4M9eTtC4hjZH21wg9ocE9tiSv+IzoxQGiw=
-X-Received: by 2002:a05:600c:1549:b0:498:1371:660c with SMTP id
- 5b1f17b1804b1-4994e704bd5mr85555625e9.0.1786006352729; 
- Thu, 06 Aug 2026 01:52:32 -0700 (PDT)
+ AHgh+Rrd7GhSL9NW4OmPvpGAtfUg0vT6GMx0/jXaouizvuv5jQokaq9nzpq/ge6T7tkRwa0SMqGOTM+JzOg=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZVJp93TBErHF4gO06FEQd2aXgQi3sYec5215pbpn4Egch5TUb
+ iiRKm1RJ95aUIMN4Oqf0VXteZqlxBaHzHK0B1OTMjXYc9zoWqSWvjdvm
+X-Gm-Gg: AR+sD11gk8RLxKnIlFaB589qi30Clgbl3eBVaPcWtf4pkDJMLBAiaKKw5Fc6RhSQZYH
+ yd+DqSt7xjUQTZk+ZJx/ZmkG8xFTl2mjnFGNOPWWQQPOb/I6HjeUK5gb5BNf/PP/aRscV06HYCG
+ vpGmx+6cE/YErKiUy7oBVHqrOHcsS3f7TrDqUdGA8mcO2FAURgW2fnZw6B1UrVhMDktd84ZTgJ/
+ c99OogK8WPSuWplKHbwZpd060T49d3AawXQjroov9RZxlYHD0LLN9PcLDipv+B8bUgGZ7iNeedh
+ Gbh2q8BW82WbPFzcEidoODvbHrGFGip+ZAIVpE4M1Tv7C1Yo1BmByDkhxk4q1EXhAgfDL+uN6kF
+ QA38l8r97QoL1RGaEurfeNqeR2TDF9iQc5YXlJPYnCmSElxbwTO4zgrIrHp4XeE0CDz/go3deYj
+ CPSiFOdJsyZH9hZ7f8J9YJNoUPK9VPf8JMfy1OJP4KvaDAUON3S2XZmgfR+arZJkB7Zi+k/HyYD
+ qUpaKK3C0rBB3Av/lTgvjWvPD8OErCinQ/fhtT+CUffkFWw1ugFM2d080Mji3Hvcw==
+X-Received: by 2002:a05:600c:b85:b0:495:4505:dad0 with SMTP id
+ 5b1f17b1804b1-4994e7ba5efmr93074145e9.2.1786006351804; 
+ Thu, 06 Aug 2026 01:52:31 -0700 (PDT)
 Received: from Neo.taile6b6ba.ts.net
  (ip-109-193-028-127.um39.pools.vodafone-ip.de. [109.193.28.127])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4995420cb4esm45985355e9.2.2026.08.06.01.52.31
+ 5b1f17b1804b1-4995420cb4esm45985355e9.2.2026.08.06.01.52.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Aug 2026 01:52:32 -0700 (PDT)
+ Thu, 06 Aug 2026 01:52:31 -0700 (PDT)
 From: Marek Czernohous <mczernohous@gmail.com>
 To: nouveau@lists.freedesktop.org
 Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 2/3] drm/nouveau: subscribe to channel-kill events on NV50
- and newer
-Date: Thu,  6 Aug 2026 10:52:27 +0200
-Message-ID: <20260806085228.1848994-3-mczernohous@gmail.com>
+Subject: [PATCH v2 1/3] drm/nouveau/fifo/nv04: filter benign CACHE_ERROR from
+ Mesa NV50 bind probe
+Date: Thu,  6 Aug 2026 10:52:26 +0200
+Message-ID: <20260806085228.1848994-2-mczernohous@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260806085228.1848994-1-mczernohous@gmail.com>
 References: <20260806085228.1848994-1-mczernohous@gmail.com>
@@ -94,50 +94,60 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Marek Czernohous <marek@czernohous.de>
 
-nouveau_channel_init() only subscribes to the channel-killed event for
-FERMI_CHANNEL_GPFIFO and newer. On NV50/Tesla the subscription therefore
-never happens, and nvkm_chan_error()'s NVKM_CHAN_EVENT_ERRORED is
-delivered into an empty notifier list.
+The Mesa userspace driver issues a method-0x0060 / data-0xbeef02xx
+binding probe on Tesla GPUs that ends up triggering CACHE_ERROR in the
+PFIFO interrupt handler. The probe is harmless and recovers cleanly,
+but it floods dmesg at error level on every X/Wayland session start.
 
-Today that is harmless, because nothing kills a channel on Tesla: the
-only nvkm_chan_error() callers are the Fermi and newer recovery paths.
-The next patch adds such a caller for Tesla, and without a subscriber
-the consequences are severe. nouveau_channel_killed() never runs, so
-nouveau_fence_context_kill() never runs either, and the pending fences
-of the killed channel are never signalled. Everything waiting on them
-waits forever: drm_atomic_helper_wait_for_fences() in the display commit
-tail waits uninterruptibly and without a timeout, and the TTM delayed
-delete workers wait in TASK_UNINTERRUPTIBLE. The user sees a frozen
-desktop on a machine that is otherwise alive; it stays that way for
-minutes until the fences time out, and a reboot clears it immediately.
-That is also a dma-fence contract violation: a fence must always be
-signalled, with an error if necessary.
+Filter that specific pattern down to debug level so dmesg stays clean
+while real CACHE_ERROR conditions are still logged at error level.
 
-Lower the class gate to NV50_CHANNEL_GPFIFO. The nvkm side is already
-class neutral: the KILLED case hangs the notifier on runl->chid->event,
-which every fifo owns since the runlist rework, and nvkm_uchan_uevent()
-does not discriminate by class. Pre-NV50 chips keep the old behaviour,
-so NV04 to NV40 are unaffected.
+Tested on an Apple Mac mini Late 2009 (MCP79, NVAC 0xac080b1): dmesg has
+no CACHE_ERROR spam during normal operation, the previously visible
+beef02xx pattern now only appears at debug level.
 
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Marek Czernohous <marek@czernohous.de>
 ---
- drivers/gpu/drm/nouveau/nouveau_chan.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../gpu/drm/nouveau/nvkm/engine/fifo/nv04.c   | 25 ++++++++++++++-----
+ 1 file changed, 19 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_chan.c b/drivers/gpu/drm/nouveau/nouveau_chan.c
-index 598513f60449..1db9fbd81f5c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_chan.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_chan.c
-@@ -363,7 +363,7 @@ nouveau_channel_init(struct nouveau_channel *chan, u32 vram, u32 gart)
- 	if (ret)
- 		return ret;
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv04.c b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv04.c
+index c4b8e567d86f..fa13cd55b593 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv04.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv04.c
+@@ -327,12 +327,25 @@ nv04_fifo_intr_cache_error(struct nvkm_fifo *fifo, u32 chid, u32 get)
  
--	if (chan->user.oclass >= FERMI_CHANNEL_GPFIFO) {
-+	if (chan->user.oclass >= NV50_CHANNEL_GPFIFO) {
- 		DEFINE_RAW_FLEX(struct nvif_event_v0, args, data,
- 				sizeof(struct nvif_chan_event_v0));
- 		struct nvif_chan_event_v0 *host =
+ 	if (!(pull0 & 0x00000100) ||
+ 	    !nv04_fifo_swmthd(device, chid, mthd, data)) {
+-		chan = nvkm_chan_get_chid(&fifo->engine, chid, &flags);
+-		nvkm_error(subdev, "CACHE_ERROR - "
+-			   "ch %d [%s] subc %d mthd %04x data %08x\n",
+-			   chid, chan ? chan->name : "unknown",
+-			   (mthd >> 13) & 7, mthd & 0x1ffc, data);
+-		nvkm_chan_put(&chan, flags);
++		/*
++		 * Filter benign Mesa NV50 bind probe: mthd 0x0060 with
++		 * data 0xbeef02xx is a harmless userspace probe on Tesla
++		 * GPUs and does not indicate an actual error condition.
++		 * Demote to debug to keep dmesg clean while still catching
++		 * real CACHE_ERROR events.
++		 */
++		if ((mthd & 0x1ffc) == 0x0060 &&
++		    (data & 0xffffff00) == 0xbeef0200) {
++			nvkm_debug(subdev, "CACHE_ERROR - ch %d subc %d mthd %04x data %08x (benign, skipped)\n",
++				   chid, (mthd >> 13) & 7, mthd & 0x1ffc, data);
++		} else {
++			chan = nvkm_chan_get_chid(&fifo->engine, chid, &flags);
++			nvkm_error(subdev, "CACHE_ERROR - "
++				   "ch %d [%s] subc %d mthd %04x data %08x\n",
++				   chid, chan ? chan->name : "unknown",
++				   (mthd >> 13) & 7, mthd & 0x1ffc, data);
++			nvkm_chan_put(&chan, flags);
++		}
+ 	}
+ 
+ 	nvkm_wr32(device, NV04_PFIFO_CACHE1_DMA_PUSH, 0);
 -- 
 2.54.0
 
