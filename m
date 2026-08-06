@@ -4,23 +4,23 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8C97C5AC7A
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 13:17:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46FCBC56208
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 13:17:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B32EB10ECC1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC62F10ED76;
 	Thu,  6 Aug 2026 13:17:36 +0000 (UTC)
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
  [185.203.200.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2AB4A10ECC1
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 13:17:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B544810ECC1
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 13:17:32 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de
  (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
  (Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
- by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D1CC4202122;
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5A76720210F;
  Thu, 06 Aug 2026 15:17:27 +0200 (CEST)
 Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
  by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1wrxyR-000664-2V;
+ (envelope-from <p.zabel@pengutronix.de>) id 1wrxyR-000664-0h;
  Thu, 06 Aug 2026 15:17:27 +0200
 From: Philipp Zabel <p.zabel@pengutronix.de>
 To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
@@ -40,11 +40,11 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
  Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
  venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>,
- Oleksij Rempel <o.rempel@pengutronix.de>,
  Philipp Zabel <p.zabel@pengutronix.de>
-Subject: [PATCH 7/7] drm/bridge: lt9211: Enable DSI burst mode for LT9211C
-Date: Thu,  6 Aug 2026 15:17:15 +0200
-Message-ID: <20260806131715.508557-8-p.zabel@pengutronix.de>
+Subject: [PATCH 6/7] drm/bridge: lt9211: use devm_drm_bridge_add and drop
+ lt9211_remove
+Date: Thu,  6 Aug 2026 15:17:14 +0200
+Message-ID: <20260806131715.508557-7-p.zabel@pengutronix.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260806131715.508557-1-p.zabel@pengutronix.de>
 References: <20260719-add-lt9211c-bridge-v6-2-e56d22152586@oss.qualcomm.com>
@@ -66,34 +66,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Oleksij Rempel <o.rempel@pengutronix.de>
+Use devm_drm_bridge_add() and remove the need to call
+drm_bridge_remove() manually. Drop the empty lt9211_remove().
 
-Enable the MIPI_DSI_MODE_VIDEO_BURST flag to produce stable LVDS output
-on RK3576. In non-burst mode, the bridge produces a horizontally
-unstable image on this platform.
-
-Tested with: AUO G185HAN01.0 dual-link LVDS panel via LT9211C bridge
-
-Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 Signed-off-by: Philipp Zabel <p.zabel@pengutronix.de>
 ---
- drivers/gpu/drm/bridge/lontium-lt9211.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/lontium-lt9211.c | 19 +++----------------
+ 1 file changed, 3 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/lontium-lt9211.c b/drivers/gpu/drm/bridge/lontium-lt9211.c
-index c82f7ee7134c..e34ee288e466 100644
+index 14afffcb2e4a..c82f7ee7134c 100644
 --- a/drivers/gpu/drm/bridge/lontium-lt9211.c
 +++ b/drivers/gpu/drm/bridge/lontium-lt9211.c
-@@ -1399,7 +1399,8 @@ static int lt9211_host_attach(struct lt9211 *ctx)
- 	dsi->format = MIPI_DSI_FMT_RGB888;
+@@ -1456,24 +1456,12 @@ static int lt9211_probe(struct i2c_client *client)
+ 	if (IS_ERR(ctx->regmap))
+ 		return PTR_ERR(ctx->regmap);
  
- 	if (ctx->chip_type == LT9211C) {
--		dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM;
-+		dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-+			MIPI_DSI_MODE_LPM;
- 	} else {
- 		dsi->mode_flags =
- 			MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
+-	dev_set_drvdata(dev, ctx);
+-	i2c_set_clientdata(client, ctx);
+-
+ 	ctx->bridge.of_node = dev->of_node;
+-	drm_bridge_add(&ctx->bridge);
+-
+-	ret = lt9211_host_attach(ctx);
++	ret = devm_drm_bridge_add(dev, &ctx->bridge);
+ 	if (ret)
+-		drm_bridge_remove(&ctx->bridge);
++		return ret;
+ 
+-	return ret;
+-}
+-
+-static void lt9211_remove(struct i2c_client *client)
+-{
+-	struct lt9211 *ctx = i2c_get_clientdata(client);
+-
+-	drm_bridge_remove(&ctx->bridge);
++	return lt9211_host_attach(ctx);
+ }
+ 
+ static const struct i2c_device_id lt9211_id[] = {
+@@ -1492,7 +1480,6 @@ MODULE_DEVICE_TABLE(of, lt9211_match_table);
+ 
+ static struct i2c_driver lt9211_driver = {
+ 	.probe = lt9211_probe,
+-	.remove = lt9211_remove,
+ 	.id_table = lt9211_id,
+ 	.driver = {
+ 		.name = "lt9211",
 -- 
 2.47.3
 
