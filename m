@@ -4,102 +4,108 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32CA5C56208
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 20:25:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C686C5AC82
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 20:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87D0510F2AF;
-	Thu,  6 Aug 2026 20:25:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F07010F2B3;
+	Thu,  6 Aug 2026 20:26:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eB74IWnd";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="XLaBEEfi";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 988BD10F2B1
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 20:25:52 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-38cfcb507a3so343643a91.0
- for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 13:25:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786047952; cv=none;
- d=google.com; s=arc-20260327;
- b=Xw9S2FoymN/b8BM1oGhBT69DmSEFkKmubtDpFPLc06z27OC/1PIrCZkoqdeM8xFkCE
- YZTrbguh53DWLQhZx3d8/kglrY9pCDJes1UFl+4gxePxQ/xU8PHz1uAPX/FpYIXvaEnr
- HQ4z6K2uJNeQu/e3CZrnzts8pTyWPs65xxM2we2tWXA1clEQWM4XnlCV0nUpRWyfHGYQ
- AShxl2SRoGO6xC0NHhTX9fi9V4rmH79WD6z8hhq7UlWUzK7JAUYCHvZwqLrXoMv+mqi+
- 58rFH2Q+/9okYZg1w643Iejl/eN2IzHbIEZrPXi5fzWph9rUWSIHMNaQ4aA/Y/Rkg3FW
- jIVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=UB/TLDxrBBY2QlfdHBPHAu0QzanH7iO9OxicGBoPGLA=;
- fh=wrFovJ1+CVvCSvN0ELbozPTRswruIohhLPPl5okbTAI=;
- b=NM1pSQ2SuV48XPmecC3MNx4mIg2nlbduP2LeuK12SOkKhyeCuKsXj5y86/DtGQIj4t
- AHn/Ju4hvkwl6b5SnfUNCZhWfcBOr5KUl6nPKBexuwjCHiE2+IL4JJwxmG0wSNVQyC7E
- rc2n6ckzGV25ZQ8fYqwo0XuLcd4GLjC+52CGM4RN5BsPqNllNUx6yvcWrMjrRc+aYGlH
- QYK8xZiTTO7L/4p1+tp3IXVdRirPZt5TE7QCigfpGk0UBd7dJjN8LGuqoJvpruaG7UBa
- zKDgwODKcZ6BVEOo+btLxECzeS0/LS7cDY6nCHDSql8s8K5GqsFtKHyXuggqzjQ1QRoJ
- 56ag==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786047952; x=1786652752; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=UB/TLDxrBBY2QlfdHBPHAu0QzanH7iO9OxicGBoPGLA=;
- b=eB74IWndRiG121Jq+oAkfL3Q/D/24KqWcB4BMJhPmLvvWdNxoUmsuJiJ8eTuZX75VF
- 2CcG7JELo/zVEM8+0y90QdLByXGsisea9EdWdKlC0WKLjvh7Y8u0S7GZUEMmbrx8wjbM
- PisQJuA2bx617Nadwj+WwkPk61YFE1kjIocm01qFoOgbmhvHfl3vybRwNwiQjwmmA3J9
- tuBrsWHvmO72Sni0Au2H4a5lVZ4jcVw6zY5EeeOF6qziLMONLDxgd3bSwzvPb79JTmen
- fyXWK4fNlOOsK4IhFoHk8bAhfW1RUobRHENvIZ9tWvbisXIIKuhH78a57Xd17XR6+8zb
- 0X7w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786047952; x=1786652752;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=UB/TLDxrBBY2QlfdHBPHAu0QzanH7iO9OxicGBoPGLA=;
- b=r3Oy1UpfsOq+Dk3MKkV8CevD2iEnS1kIowZB8v1r/AHbqUXc9bpAvjuM07D1xYO8zT
- /B1QjyQNKtxMG4Kx+8pQZR/43Vuik6cXKsujwxp/p/R2i3qFtAl/KWJGqA+FTfNHkvP/
- PGh4+PmiaJquXKLTHVWnO7mje+4EX34oPDs1iZBoEflNmcG95kfep8KU/2xKe8SKVlCe
- PFWo0Iam4LGSHZSOkNuoXZFZXCP+4a0csjinSLxjYqr0E5UIActNl0O+RxhwjJYcwTYw
- C/lyd6SNQW7qO8A5Kd9OXr8BpUt5zuZMzhRe2npAK5i+YrO3+S7ytQ0m1cbdutdBHSNG
- hGSQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrjRIqwa/FG506fthTuiFN5+YIRlBY8q0ilQgqVSGoSnjbyRtMNpLhcV7xqEAViZ5H+uqkEINpYzFc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyc4rtOk4c7Sjma/lpcJesW3Jqflnwnpw/HfpahMyYE9mLA4knl
- 9i7V2MgGa7M5SeFOXclY8O9Y/fPvbmgnwgD1nEm4w5BAx0i/GzhpfOcAwcfExnIYY/8HN0OkvEA
- xIt3LeGEp3/MwdaJTVSXOQUH6kp30n+ar+w==
-X-Gm-Gg: AR+sD10aaHYQxC2vGopA4zN4WkngIqsMp+0xnOtJYM67d2FA6RwRNPMybRGYHGoRzA1
- JjjfyRIUJusqrIV5U1L71guf6LnQVSyakrDUGryPFxvClkjKWZZnA+GqO6eIuhnl2v4ofI/FEnI
- WmahVDTGGlsXr1rHC5+A1oN1DUUN3SjHLb+a9fnhrR2xfdVo7PIilq65Bz1fhmaS9vv5qtwEYV4
- KTV+bqzov3q4XaTTZ10Z079q6z6gVztKzdT5/Zf7WAspOkfRa1wI4DULpHZYz8rFrBE/Dg4nizW
- JVheCiUba8fp+mmXfPIXar4mpG+xLqNqdQoXNFpFnz7JUpNISih9vvwcYKpjN8ZvL15KGQUe2Mz
- 8y10IH1mVQt2erk6KRE6fgCGbGlJPaIg=
-X-Received: by 2002:a17:90b:3a81:b0:381:28e0:6248 with SMTP id
- 98e67ed59e1d1-3903c510c3cmr11918552a91.1.1786047952031; Thu, 06 Aug 2026
- 13:25:52 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ADBA10F2AC;
+ Thu,  6 Aug 2026 20:25:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id E53A74087E;
+ Thu,  6 Aug 2026 20:25:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A10771F00A3D;
+ Thu,  6 Aug 2026 20:25:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786047958;
+ bh=9aEc+GpTkQ0+PyuSQU7RLIhs+vRcJAzmQsvl5QanIRU=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=XLaBEEfisdymhdMAkrk6t/WHMuk76cQnpPqVJx/MdqUpfsyAOq8O9FcCUK5GppgIp
+ w7FnNc6qQQ0UNCMPFsuI6Jax1IE0OYNlqFucf6RWEoE2XlOgVc4Rk3vK5+CSDdUmY8
+ p44YMxs/hfqSJ1P1IdejNuBo1hKTQF2e8eNGUSsxRik61Rl6PY8NtTMk8b3JbCFjKp
+ m5QGQy3/se94DfwMWTn7kQEjqaguvLEJoU8xj1Q/GGWvwP5FJuQZCK96QJNd1NVz/R
+ D8qLVd0suYrx9nGQDf1i8x/ZxFpE+E1WIcwD3tJYm9/xVPBEWRE1uUcx2IsGZD9/k2
+ SVtiXx///mnLw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 06 Aug 2026 21:21:36 +0100
+Subject: [PATCH v4 11/20] mm: clean up vma_address_end()
 MIME-Version: 1.0
-References: <20260806-amdgpu-fixes-v1-0-ce247012d4da@outlook.com>
- <20260806-amdgpu-fixes-v1-1-ce247012d4da@outlook.com>
- <75a5fe30-4ae4-450b-8053-2a4633c5115f@amd.com>
-In-Reply-To: <75a5fe30-4ae4-450b-8053-2a4633c5115f@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 6 Aug 2026 16:25:40 -0400
-X-Gm-Features: AUfX_mwniMh7P5P2yqjjnyFH_x3k9YJsgfjH2jDtORPTDpSehrDugpH-kLVXCOM
-Message-ID: <CADnq5_O3FeOFFmdR0tQx6cATN9PRmS43Q+4+HZTSXnb5HVUqvA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] drm/amdgpu: disallow multiple FENCE chunks in one
- submit
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: moonafterrain@outlook.com, Alex Deucher <alexander.deucher@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jammy Zhou <Jammy.Zhou@amd.com>, Madhav Chauhan <madhav.chauhan@amd.com>,
- Felix Kuehling <Felix.Kuehling@amd.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>,
- stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260806-b4-scalable-cow-virt-pgoff-v4-11-ab318a350404@kernel.org>
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Kees Cook <kees@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1986; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=p3P1FLjNmsKquOfKyZ9JRZehrfWrVy9CMy59xXBf5Js=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJK3lz4rtf2q3xF3rGaAu1zfh9Zdudted1+r7vBoOHDr
+ 6uNy3O3d5SyMIhxMciKKbI8/yK+P0gkbF7nBX83mDmsTCBDGLg4BWAiTFMZ/mc+EX+ZtKmTb31U
+ z6fvdm+/6MbrG2Xmsr7RP2Yf8Krx4mWG/66pky2Xek6cYnxu+bc7N/frhYs8qT6pY3HlUo7Wbpb
+ dVowA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,65 +121,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+vma_address_end() is a confusing function with a lot of moving parts so
+clean it up prior to extending it for anon page indexed mappings.
 
-On Thu, Aug 6, 2026 at 8:03=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com> wrote:
->
-> On 8/6/26 06:45, Junrui Luo via B4 Relay wrote:
-> > amdgpu_cs_pass1() dispatches on chunk_id once per chunk without
-> > rejecting repeated ids. p->uf_bo is a single-slot field, so a
-> > submission carrying two AMDGPU_CHUNK_ID_FENCE chunks runs
-> > amdgpu_cs_p1_user_fence() twice, and the second run overwrites
-> > p->uf_bo with a freshly referenced BO without dropping the reference
-> > taken by the first.
-> >
-> > amdgpu_cs_parser_fini() only unrefs the final p->uf_bo, so every FENCE
-> > chunk but the last leaks a BO reference. The leaked BO outlives handle
-> > close and process exit.
-> >
-> > Reject duplicate FENCE chunks the same way commit fec5f8e8c6bc
-> > ("drm/amdgpu: disallow multiple BO_HANDLES chunks in one submit") did
-> > for p->bo_list.
-> >
-> > Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-> > Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-> > Assisted-by: Claude:claude-opus-5
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
->
-> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> Thanks,
-> Christian.
->
-> > ---
-> >  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_cs.c
-> > index 5445f75741b5..9c514cb01096 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> > @@ -228,6 +228,10 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser=
- *p,
-> >                         if (size < sizeof(struct drm_amdgpu_cs_chunk_fe=
-nce))
-> >                                 goto free_partial_kdata;
-> >
-> > +                       /* Only a single user fence is allowed to simpl=
-ify handling. */
-> > +                       if (p->uf_bo)
-> > +                               goto free_partial_kdata;
-> > +
-> >                         ret =3D amdgpu_cs_p1_user_fence(p, p->chunks[i]=
-.kdata,
-> >                                                       &uf_offset);
-> >                         if (ret)
-> >
-> > --
-> > 2.51.2
-> >
-> >
->
+Const-ify some variables and establish pgoff_vma_start and pgoff_end
+variables to clearly identify the page offset for the start of the VMA and
+the end of the page offset range specified by the page walk.
+
+This simplifies the function significantly and lays the groundwork for a
+future change to update this function to account for anonymously page
+indexed folios.
+
+No functional change intended.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+ mm/internal.h | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/mm/internal.h b/mm/internal.h
+index 03145b8d0d56..98b067472ceb 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1079,22 +1079,24 @@ static inline unsigned long vma_anon_address(const struct vm_area_struct *vma,
+ }
+ 
+ /*
+- * Then at what user virtual address will none of the range be found in vma?
++ * At what user virtual address will none of the range be found in vma?
+  * Assumes that vma_address() already returned a good starting address.
+  */
+ static inline unsigned long vma_address_end(struct page_vma_mapped_walk *pvmw)
+ {
+-	struct vm_area_struct *vma = pvmw->vma;
+-	pgoff_t pgoff;
++	const pgoff_t pgoff_end = pvmw->pgoff + pvmw->nr_pages;
++	const struct vm_area_struct *vma = pvmw->vma;
++	pgoff_t pgoff_vma_start;
+ 	unsigned long address;
+ 
+ 	/* Common case, plus ->pgoff is invalid for KSM */
+ 	if (pvmw->nr_pages == 1)
+ 		return pvmw->address + PAGE_SIZE;
+ 
+-	pgoff = pvmw->pgoff + pvmw->nr_pages;
++	pgoff_vma_start = vma_start_pgoff(vma);
++
+ 	address = vma->vm_start +
+-		((pgoff - vma_start_pgoff(vma)) << PAGE_SHIFT);
++		((pgoff_end - pgoff_vma_start) << PAGE_SHIFT);
+ 	/* Check for address beyond vma (or wrapped through 0?) */
+ 	if (address < vma->vm_start || address > vma->vm_end)
+ 		address = vma->vm_end;
+
+-- 
+2.55.0
+
