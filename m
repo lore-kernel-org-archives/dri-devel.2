@@ -4,47 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 594DFC55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 13:14:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E822C55ABF
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 13:17:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F9E810E319;
-	Thu,  6 Aug 2026 13:14:38 +0000 (UTC)
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93ABC10E319
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 13:14:36 +0000 (UTC)
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 676DE3X4071670;
- Thu, 6 Aug 2026 22:14:03 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
- (authenticated bits=0)
- by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 676DE3C5071665
- (version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
- Thu, 6 Aug 2026 22:14:03 +0900 (JST)
- (envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <46b86d82-6ff4-458a-ac7e-cbbae214b4e5@I-love.SAKURA.ne.jp>
-Date: Thu, 6 Aug 2026 22:14:01 +0900
+	by gabe.freedesktop.org (Postfix) with ESMTP id BCB7B10E325;
+	Thu,  6 Aug 2026 13:17:26 +0000 (UTC)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F83910E325
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 13:17:25 +0000 (UTC)
+Received: from drehscheibe.grey.stw.pengutronix.de
+ (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+ (Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 2B1B6200F4F;
+ Thu, 06 Aug 2026 15:17:19 +0200 (CEST)
+Received: from dude05.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::54])
+ by drehscheibe.grey.stw.pengutronix.de with esmtp (Exim 4.96)
+ (envelope-from <p.zabel@pengutronix.de>) id 1wrxyJ-000664-0I;
+ Thu, 06 Aug 2026 15:17:19 +0200
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Vishnu Saini <vishnu.saini@oss.qualcomm.com>,
+ Yi Zhang <zhanyi@qti.qualcomm.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
+ Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
+ venkata.valluru@oss.qualcomm.com, Jessica Zhang <jesszhan0024@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Subject: [PATCH 0/7] Fixes for lt9211c
+Date: Thu,  6 Aug 2026 15:17:08 +0200
+Message-ID: <20260806131715.508557-1-p.zabel@pengutronix.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260719-add-lt9211c-bridge-v6-2-e56d22152586@oss.qualcomm.com>
+References: <20260719-add-lt9211c-bridge-v6-2-e56d22152586@oss.qualcomm.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] drm: use drm_warn() in
- validate_blend_mode_for_alpha_formats()
-To: Leandro Ribeiro <leandro.ribeiro@collabora.com>,
- dri-devel@lists.freedesktop.org
-Cc: airlied@gmail.com, broonie@kernel.org, daniels@collabora.com,
- jani.nikula@linux.intel.com, maarten.lankhorst@linux.intel.com,
- miguel.ojeda.sandonis@gmail.com, mripard@kernel.org,
- pekka.paalanen@collabora.com, simona@ffwll.ch, tytso@mit.edu,
- tzimmermann@suse.de, ville.syrjala@linux.intel.com,
- linux-kernel@vger.kernel.org
-References: <20260731154232.37020-1-leandro.ribeiro@collabora.com>
- <20260731154232.37020-2-leandro.ribeiro@collabora.com>
-Content-Language: en-US
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-In-Reply-To: <20260731154232.37020-2-leandro.ribeiro@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Virus-Status: clean
-X-Anti-Virus-Server: fsav104.rs.sakura.ne.jp
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,30 +64,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Who is supposed to take this patch?
+With these fixes
 
-Since this problem is preventing syzbot from testing changes in linux-next
-kernels for more than three weeks, I expect this patch to be applied
-as soon as possible.
+Tested-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-On 2026/08/01 0:42, Leandro Ribeiro wrote:
-> Commit 860e748bddcc ("drm: ensure blend mode supported if pixel format
-> with alpha exposed") introduced a WARN() to let driver developers know
-> that a previously valid behavior should now be changed.
-> 
-> But WARN() should not be used for that, as it's a kernel warning report
-> mechanism for conditions that are not expected to happen. It also
-> produces a stack trace. Instead, a simple warning-level log message
-> should have been used, as drivers were expected to trigger the
-> condition.
-> 
-> This is causing problems for fuzzers, as they may stop when encountering
-> a "BUG:" or "WARNING:" in the logs.
-> 
-> Replace WARN() with drm_warn() in this function, avoiding these issues.
-> 
-> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-> Signed-off-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
-> ---
->  drivers/gpu/drm/drm_mode_config.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
+on RK3576 with a 1080p60 panel @ 148.5 MHz.
+
+Feel free to squash any of these into v7.
+
+regards
+Philipp
+
+Oleksij Rempel (1):
+  drm/bridge: lt9211: Enable DSI burst mode for LT9211C
+
+Philipp Zabel (6):
+  drm/bridge: lt9211: drop delayed work
+  drm/bridge: lt9211: fix regmap_write error handling
+  drm/bridge: lt9211: use regmap_write_bits
+  drm/bridge: lt9211: reuse lt9211_configure_timing in
+    lt9211c_configure_timing
+  drm/bridge: lt9211: combine equal branches
+  drm/bridge: lt9211: use devm_drm_bridge_add and drop lt9211_remove
+
+ drivers/gpu/drm/bridge/lontium-lt9211.c | 189 ++++++++----------------
+ 1 file changed, 61 insertions(+), 128 deletions(-)
+
+-- 
+2.47.3
+
