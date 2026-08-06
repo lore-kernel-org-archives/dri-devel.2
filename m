@@ -4,39 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88897C56208
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:09:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05D82C5AC7C
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:10:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CB4C10E9BE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E51610F248;
 	Thu,  6 Aug 2026 17:09:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="GCiSK5T0";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="WQYihOQp";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40D0510F24D
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F16410F251
  for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:09:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 87E3D44017;
+ by sea.source.kernel.org (Postfix) with ESMTP id 9C17044038;
  Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D319C2BCFF;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 77ED7C2BD00;
  Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1786036195; bh=gBeCwzgG77EObc2Yyji4wjMjI8hg1cHLHMj7opVab9g=;
+ t=1786036195; bh=iSdF+luNjDPO6H6nxaSmDmulGRciqP5amMZxLEHVmtk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=GCiSK5T0hiEC5OWWinNef8l0w0S59cnZ4eiis4qiKM2SP2J8mqKNWX/8+kBy1wv4u
- 9gHtavzhiTJs6KYKfAHYZ6mNpieX2vkKWPHMOMp7og06IE446chia4qldYXcrJoFA8
- Vkng0SCWDkUW53V5DimQevcIbSlDdhWFKvlPcC+M=
+ b=WQYihOQpr9OUCtrDKYyegWaCG31o7Hd9BwYQaMAbaZhkvCJluV7Mtaggn64YttYaT
+ 4HAM2wJipbB239CAz/NY6yj7hMy3VWEmlNyYB3BANXJPSPGb80dZ/x4I9JvpOfjPtd
+ OEtmzz6IdLclICEO0sD9ulm/x1n0hZy/epox3Tv4=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3F2B2C5AC81;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 6251EC5AC9E;
  Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Fri, 07 Aug 2026 01:07:25 +0800
-Subject: [PATCH v3 3/8] rust: debugfs: add ScopeRef for existing dentries
+Date: Fri, 07 Aug 2026 01:07:27 +0800
+Subject: [PATCH v3 5/8] rust: drm: add debugfs_init callback to Driver
+ trait
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-tyr-debugfs-v2-v3-3-ff5595ac66ae@linux.dev>
+Message-Id: <20260807-tyr-debugfs-v2-v3-5-ff5595ac66ae@linux.dev>
 References: <20260807-tyr-debugfs-v2-v3-0-ff5595ac66ae@linux.dev>
 In-Reply-To: <20260807-tyr-debugfs-v2-v3-0-ff5595ac66ae@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -61,11 +62,11 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786036192; l=5737;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786036192; l=3893;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=gBeCwzgG77EObc2Yyji4wjMjI8hg1cHLHMj7opVab9g=;
- b=fxzLoGbcjbRzQmSV14JVKvUk4fBi1ynRhqiyz7qnp7FIftA+IE4Nb9DENs0oXyil0ol6jTgeP
- JEV56FGjnhKA1XGbIUv7oY2yk1r/Wc2/Ms4IZJbHAe1n4Z0EL0ROo+b
+ bh=iSdF+luNjDPO6H6nxaSmDmulGRciqP5amMZxLEHVmtk=;
+ b=ZldjwIosw8T4AUAs13rIIp40Yo3Ta8eNDnAr5ngOYS3vLm3zkVA0mRb6DELoNVnG9fQKRfVeV
+ YHc+XGZHlN/C8qSLi2v8IH7x7tqE7y07/E9u9bfQ6PXd/pxmR1sCYWx
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -85,180 +86,110 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add methods to construct debugfs abstractions from raw C dentry
-pointers. Needed by DRM debugfs_init callback to create ScopedDir
-from an existing dentry.
-
-Add ScopeRef<'a, T>, a debugfs directory handle that carries a
-reference to associated data of type T.
+Add debugfs_init method to the Driver trait, enabling Rust DRM drivers
+to populate debugfs entries during device registration.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/kernel/debugfs.rs       | 84 ++++++++++++++++++++++++++++++++++++++++++--
- rust/kernel/debugfs/entry.rs | 15 +++++++-
- 2 files changed, 96 insertions(+), 3 deletions(-)
+ rust/kernel/drm/device.rs | 41 ++++++++++++++++++++++++++++++++++++++++-
+ rust/kernel/drm/driver.rs | 11 +++++++++++
+ 2 files changed, 51 insertions(+), 1 deletion(-)
 
-diff --git a/rust/kernel/debugfs.rs b/rust/kernel/debugfs.rs
-index d7b8014a64746..831d6750a34ba 100644
---- a/rust/kernel/debugfs.rs
-+++ b/rust/kernel/debugfs.rs
-@@ -24,7 +24,7 @@
-         PhantomData,
-         PhantomPinned, //
-     },
--    ops::Deref,
-+    ops::Deref, //
- };
+diff --git a/rust/kernel/drm/device.rs b/rust/kernel/drm/device.rs
+index 7a3a0e21e9557..35fd514fec274 100644
+--- a/rust/kernel/drm/device.rs
++++ b/rust/kernel/drm/device.rs
+@@ -7,6 +7,7 @@
+ use crate::{
+     alloc::allocator::Kmalloc,
+     bindings,
++    debugfs,
+     device,
+     drm::{
+         self,
+@@ -170,7 +171,7 @@ const fn compute_features() -> u32 {
+         release: Some(Device::<T>::release),
+         master_set: None,
+         master_drop: None,
+-        debugfs_init: None,
++        debugfs_init: Some(Device::<T>::debugfs_init_callback),
  
- mod traits;
-@@ -33,6 +33,7 @@
-     BinaryReaderMut,
-     BinaryWriter,
-     Reader,
-+    SeqShow,
-     Writer, //
- };
- 
-@@ -51,6 +52,7 @@
-     FileOps,
-     ReadFile,
-     ReadWriteFile,
-+    SeqReadFile,
-     WriteFile, //
- };
- 
-@@ -538,7 +540,7 @@ pub fn dir<'dir2>(&'dir2 self, name: &CStr) -> ScopedDir<'data, 'dir2> {
-         }
+         gem_create_object: T::Object::ALLOC_OPS.gem_create_object,
+         prime_handle_to_fd: T::Object::ALLOC_OPS.prime_handle_to_fd,
+@@ -353,6 +354,44 @@ extern "C" fn release(ptr: *mut bindings::drm_device) {
+         unsafe { core::ptr::drop_in_place(this) };
      }
  
--    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: &'static FileOps<T>) {
-+    fn create_file<T: Sync>(&self, name: &CStr, data: &'data T, vtable: &FileOps<T>) {
-         #[cfg(CONFIG_DEBUG_FS)]
-         core::mem::forget(Entry::file(name, &self.entry, data, vtable));
-     }
-@@ -588,6 +590,14 @@ pub fn read_callback_file<T, F>(&self, name: &CStr, data: &'data T, _f: &'static
-         self.create_file(name, data, vtable)
-     }
- 
-+    /// Creates a seq_file debugfs file in this directory.
++    /// C callback for `drm_driver.debugfs_init`.
 +    ///
-+    /// The file's contents are produced by invoking [`SeqShow::show`] with
-+    /// `data` on each read.
-+    pub fn seq_file<S: SeqShow<U>, U: Sync>(&self, name: &CStr, data: &'data U) {
-+        self.create_file(name, data, &<S as SeqReadFile<U>>::FILE_OPS)
++    /// # Safety
++    ///
++    /// The DRM core guarantees that `minor` is valid and non-null, that
++    /// `minor->dev` is a valid `drm_device` embedded in a `Device<T>`.
++    unsafe extern "C" fn debugfs_init_callback(minor: *mut bindings::drm_minor) {
++        // SAFETY: `minor` is valid and non-null per the function's safety
++        // precondition.
++        let dev_ptr = unsafe { (*minor).dev };
++        // SAFETY: `minor` is valid per the function's safety precondition.
++        let debugfs_root = unsafe { (*minor).debugfs_root };
++
++        // Debugfs may be disabled.
++        if debugfs_root.is_null() {
++            return;
++        }
++
++        // SAFETY: `dev_ptr` points to a valid `drm_device` embedded in
++        // `Device<T>`.
++        let dev = unsafe { Self::from_raw(dev_ptr) };
++
++        // SAFETY: The device is in the registered state per the function's
++        // safety precondition.
++        let dev = unsafe { dev.assume_ctx::<Registered>() };
++
++        dev.registration_data_with(|reg_data| {
++            // SAFETY: `debugfs_root` is valid as long as the DRM device is
++            // registered. The debugfs proxy fops wait for in-progress file
++            // operations and block new ones during `debugfs_remove()`, so no
++            // access to `reg_data` can outlive it. `debugfs_remove()` runs
++            // before `Registration::drop` frees `reg_data`.
++            let dir = unsafe { debugfs::ScopeRef::new(debugfs_root, reg_data) };
++
++            T::debugfs_init(&dir);
++        });
 +    }
 +
-     /// Creates a read-write file in this directory.
+     /// Change the [`DeviceContext`] for a [`Device`].
      ///
-     /// Reading the file uses the [`Writer`] implementation on `data`. Writing to the file uses
-@@ -721,4 +731,74 @@ fn new(name: &CStr) -> ScopedDir<'data, 'static> {
-             _phantom: PhantomData,
-         }
-     }
+     /// # Safety
+diff --git a/rust/kernel/drm/driver.rs b/rust/kernel/drm/driver.rs
+index 08b2a318cf02a..f850b11fd5c53 100644
+--- a/rust/kernel/drm/driver.rs
++++ b/rust/kernel/drm/driver.rs
+@@ -6,6 +6,7 @@
+ 
+ use crate::{
+     bindings,
++    debugfs,
+     device,
+     drm,
+     error::to_result,
+@@ -138,6 +139,16 @@ pub trait Driver {
+     /// usable from the render node (i.e. marked DRM_RENDER_ALLOW), whereas
+     /// userspace processes using the master node can invoke any ioctl.
+     const FEAT_RENDER: bool = false;
 +
-+    /// Creates a [`ScopedDir`] wrapping an existing debugfs dentry.
++    /// Populates debugfs for this DRM device.
 +    ///
-+    /// Files created under this directory are not automatically removed on drop;
-+    /// their lifetime is tied to the dentry owner.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure the dentry remains valid for the lifetime of the
-+    /// returned `ScopedDir`.
-+    pub unsafe fn from_dentry(dentry: *mut bindings::dentry) -> Self {
-+        let _ = dentry;
-+        ScopedDir {
-+            #[cfg(CONFIG_DEBUG_FS)]
-+            // SAFETY: The caller guarantees the dentry is valid and outlives this `ScopedDir`.
-+            entry: ManuallyDrop::new(unsafe { Entry::from_raw(dentry) }),
-+            _phantom: PhantomData,
-+        }
-+    }
-+}
-+
-+/// A reference to a debugfs directory that also holds a reference to
-+/// associated data of type `T`.
-+///
-+/// Created from an existing debugfs dentry (e.g. the DRM debugfs root).
-+/// `data` must remain valid while the debugfs files created under this
-+/// scope may be accessed.
-+pub struct ScopeRef<'a, T> {
-+    #[cfg(CONFIG_DEBUG_FS)]
-+    inner: ScopedDir<'a, 'a>,
-+    data: &'a T,
-+}
-+
-+impl<'a, T> ScopeRef<'a, T> {
-+    /// Creates a [`ScopeRef`] from an existing debugfs dentry and a data reference.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure that `dentry` remains valid for the lifetime of
-+    /// the returned [`ScopeRef`] and that `data` remains valid while the
-+    /// debugfs files created under this scope may be accessed.
-+    pub unsafe fn new(dentry: *mut bindings::dentry, data: &'a T) -> Self {
-+        let _ = dentry;
-+        ScopeRef {
-+            #[cfg(CONFIG_DEBUG_FS)]
-+            // SAFETY: By the safety preconditions of `new`, `dentry` is valid
-+            // and remains valid for the lifetime of the returned `ScopeRef`.
-+            inner: unsafe { ScopedDir::from_dentry(dentry) },
-+            data,
-+        }
-+    }
-+
-+    /// Creates a seq_file debugfs file in this directory.
-+    ///
-+    /// The file's contents are produced by invoking [`SeqShow::show`] with
-+    /// `data` on each read.
-+    #[cfg(CONFIG_DEBUG_FS)]
-+    pub fn seq_file<S: SeqShow<T>>(&self, name: &CStr)
++    /// Called by the DRM core during registration. The `ScopeRef` provides
++    /// access to the device's `RegistrationData` for creating debugfs files.
++    fn debugfs_init(_dir: &debugfs::ScopeRef<'_, Self::RegistrationData<'_>>)
 +    where
-+        T: Sync,
-+    {
-+        self.inner.seq_file::<S, T>(name, self.data);
-+    }
-+
-+    #[cfg(not(CONFIG_DEBUG_FS))]
-+    pub fn seq_file<S: SeqShow<T>>(&self, _name: &CStr)
-+    where
-+        T: Sync,
++        Self: Sized,
 +    {
 +    }
  }
-diff --git a/rust/kernel/debugfs/entry.rs b/rust/kernel/debugfs/entry.rs
-index 46aad64896ecb..7643ff0fa6093 100644
---- a/rust/kernel/debugfs/entry.rs
-+++ b/rust/kernel/debugfs/entry.rs
-@@ -8,7 +8,7 @@
-         CStr,
-         CStrExt as _, //
-     },
--    sync::Arc,
-+    sync::Arc, //
- };
  
- use core::marker::PhantomData;
-@@ -87,6 +87,19 @@ pub(crate) unsafe fn dynamic_file<T>(
- }
- 
- impl<'a> Entry<'a> {
-+    /// Wraps a raw dentry pointer.
-+    ///
-+    /// # Safety
-+    ///
-+    /// The caller must ensure the dentry is valid and outlives this `Entry`.
-+    pub(crate) unsafe fn from_raw(entry: *mut bindings::dentry) -> Self {
-+        Self {
-+            entry,
-+            _parent: None,
-+            _phantom: PhantomData,
-+        }
-+    }
-+
-     pub(crate) fn dir(name: &CStr, parent: Option<&'a Entry<'_>>) -> Self {
-         let parent_ptr = match &parent {
-             Some(entry) => entry.as_ptr(),
+ /// The registration type of a `drm::Device`.
 
 -- 
 2.43.0
