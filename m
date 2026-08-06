@@ -4,45 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 588B6C56208
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 21:14:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46E78C56208
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 21:16:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA93810F2E6;
-	Thu,  6 Aug 2026 21:13:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B6EE10F2DE;
+	Thu,  6 Aug 2026 21:15:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iKz41C7w";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3TXapf29";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A695710F2E6
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 21:13:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4725D42B1A;
- Thu,  6 Aug 2026 21:13:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0901A1F000E9;
- Thu,  6 Aug 2026 21:13:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786050838;
- bh=c47GMJ11rYKnMFpI7qDVqrPzeSJ6nt7tiMOxZx+8Xyg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=iKz41C7wpI/TrrvY3nYERJytB0fN/B2yWOLHEaP6jYpxWLbdO8hKYK8+iX19c+px2
- N4H99OVMwYoyNiMIMFoHyQtiQRyxxTOnN3AHlIKpDZj5C/sDtU1DJKAifNrSbsKKkr
- lliHK1uPyYWIOcDZGITf13p8p7OKwtrN0a+jaI4f9IPPiEp6B+/sKsrK/86LwHBV83
- VwR/XJl/FQTcluv6cW/v2/tnM6Jo1cKLI4xMmZ4AvmaLy30BeRWdh9+4egoyrVmxc2
- GsoKeUaZi7ONfLZDeO5BHSd8+JklXLfxaoFQ7L+d9iha9to6RJ7/CaZmuSDcgfnwls
- kJi4AX06+ATCQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] drm/amd/display: Add 2.1 FreeSync support for
- AMD VSDB EDID Block
-To: "Fangzhi Zuo" <jerry.zuo@amd.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260806205449.16806-2-jerry.zuo@amd.com>
-References: <20260730171754.704049-1-jerry.zuo@amd.com>
- <20260806205449.16806-1-jerry.zuo@amd.com>
- <20260806205449.16806-2-jerry.zuo@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 21:13:57 +0000
-Message-Id: <20260806211358.0901A1F000E9@smtp.kernel.org>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010064.outbound.protection.outlook.com [52.101.61.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF9F10F2DE;
+ Thu,  6 Aug 2026 21:15:57 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MnSF+vVzbtdCRmDB5Yretyn0xF+5r6X97CCBGJEO4z+uuiokHTH8gY5Xvv321QTsozpJErLvAXfZaTGPFb3ulw4qbgYO5zwfsvuda89Oe9z0ni2YZ9dhfGu+FrT2nTV04bQDagtDvRezcgv5W98OhV4PzhevM9c6XcP2Kxi5oJRBqtR19rJ6RKZLKQrq81skih1vJlJa1Q3vofdfiubeF6g1laVfOEMRhA+tpt2xn5T3XrVH9rebxrDKd2ZJEZwLbQFwL1jVTjCObRAapljXuoo4ZG8DbVmuaLa4PD7w+mEz5MzbyPZ+39WpEBS5ljrBaOwnF6svBVuwpzTv5MDgaw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rDGwxgAvMxZs0HvEL/ItGcY3eK6lIYnh7F0drhgaOgU=;
+ b=w9E9QipaWyx/KON7LAG8Fcep9bbS0QeARLoex2aPdRTGgR6rEWFXzQzcVSq9AvPTR29UPv9c2sDzzmUhDCdNXaiam8kiVWpJfdDccuodq+HQeh8GceawVqVWw7PhVUnql6dOH4iqWZu1/AQL2snrtH/L5gQvxXxJ9ohHx9KXQ0QmSYjelqPs+6zNo3q7XOJajG5pPrVdi1C4O1Fg27nwssJ2GtX101YNPtJttuW6SbFqhKq+qHNHOFeVPoS1gsEXW3mSlVQjAm3XMQ2iIGFVu40vnMetD3yhrw0x2KdMO2UDZcKTClC8ywWHGMURUt3fiWlHGgwkV8QuIoSDtIzvUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rDGwxgAvMxZs0HvEL/ItGcY3eK6lIYnh7F0drhgaOgU=;
+ b=3TXapf29kJGvc+xfYa0j6LDPD1hPye/ujkmuvTHC0jdg0DFxjObrJ9Sm/XMQbzxABfFGzXWq2KWKicU90aCdovBqBJhZYQFsqnINDNvlfBWiqbhFZozbv2sgVGs0yhy736N4UjAI8QicgSQqYvmkB3e28RmUn7nWR2Ub75KFeQQ=
+Received: from SA9PR11CA0016.namprd11.prod.outlook.com (2603:10b6:806:6e::21)
+ by DS0PR12MB8768.namprd12.prod.outlook.com (2603:10b6:8:14f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Thu, 6 Aug
+ 2026 21:15:52 +0000
+Received: from SN1PEPF0002BA50.namprd03.prod.outlook.com
+ (2603:10b6:806:6e:cafe::4a) by SA9PR11CA0016.outlook.office365.com
+ (2603:10b6:806:6e::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.19 via Frontend Transport; Thu, 6
+ Aug 2026 21:15:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002BA50.mail.protection.outlook.com (10.167.242.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Thu, 6 Aug 2026 21:15:51 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 6 Aug
+ 2026 16:15:51 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 6 Aug 2026 16:15:50 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, radeon drm-fixes-7.2
+Date: Thu, 6 Aug 2026 17:15:38 -0400
+Message-ID: <20260806211538.994087-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA50:EE_|DS0PR12MB8768:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c24ab64-31ff-4029-9bd6-08def3ffe4c8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|56012099006|11063799006|10067099003|6133799003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info: 6FAWLRpctzEJFEcX0a2DYFRHTDV0n6yMgpIZOOZSv0hnwMst7fMDoQewn0cpBa2EWsrm7A24Px8hcQfpPLEPc3fwfonqoNYSks5uvMAHlQs9C6hb3ajKu3ww3RwmSEBzEi8oKI6h08cLOTDm7xYxSDUlh1x1U8kb+7cZzVbIAOZ7eoqHuKgYaDPtzF/w/qn8AwDygRCY9dBJLKsZRKhmoc5BadB65rcu4DCa/qeqH8fF/QbdauTYB6ZGu7ZIVuqY8hv8DAP7vhxzBTJB30XzAH/hOFtANw9GMdrJyRf/sa3zPODbAUnkb+c+FUz0fb28m9z7h6EdxsZjrTsjFCDg3jryV4TzxlUajazZrrBWmYlxOh7XjnjMBiBQRhoi19fvTNLrYjtGmNiooCGScR01LFAw4/YyZjrR3sTCrbKZv/XKxVQSFQOkuafdEDjfrbXlZ6GVVAfoE8erBcZZ1nV9Z64HxPJKTistHFPDFQNwLUcjMnZ7SU9LPVzIDIEsQfg6Faxf6KuN0uWKuhCggrf/d6TelB4ICzh7TILJBWAIWLLqx1GR42lB/ZDgBmScgJDlEMUTUETET6D6g38zD+ViHsfsQfeKA8BGG4dqYen/85XIsW/5aOJJMCQuA3bh6FvHAxXJ7NrDOYaEhgBxFrkVqg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: j8hp29nZaNBlSWpxvNtY+0haD3aO2kNX0/aKfYv2ufokxQt5VvISOs+d75LxlC3eyVVEK3+vPr2XokmLo3dUXX0fDqwc0O4/+7c0SeI8h8jXJ6kJ48wb5soh3MuJ7RaM8Xr8JFTdLKGd5Gk1HqmS8A7Ard7CR55DUcuu/oDRcROth18uIgZk3UdLx9igBZjBdEB5F9ZBijrdbuKtAiAk0t6bUQB6AUeMcMumrC3ZEteX+OK2CrVL1eCGs3BUnLVjV4V1Cw5NX08ZYXif8NXPxepIETsYeSmL9hxmH9W/YqQpjO08WSAkaWM2Kgkqicv4ewmrjemKKJ0iosXWs0jgCZJJT1KZZNB0+oy5lwXcqRGqBaqbqeawQfQeqzHwEAcrwa+AMLA/ED06mHDPwn204qrAZ+ZMOTaoVtNsWv7uR6cLMbvjteF5HksOLwOq9Jk0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 21:15:51.3112 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c24ab64-31ff-4029-9bd6-08def3ffe4c8
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA50.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8768
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,140 +106,98 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Dereferencing deprecated `new_stream->sink` pointer risks a NULL p=
-ointer dereference.
-- [High] VTEM packet overwrites the FreeSync SPD infopacket and is misroute=
-d to the hardware's SPD slot.
-- [Medium] Unconditional VTEM transmission to all HDMI FRL displays, includ=
-ing non-VRR sinks.
-- [Medium] 32-bit integer overflow when calculating `fieldRateInHz` for VTE=
-M packets in ultra-high bandwidth modes.
-- [Low] Unused parameter `signal` in `build_infopacket_header_vtem()`.
---
+Hi Dave, Simona,
 
---- Patch [1]: [PATCH v2 1/4] drm/amd/display: Add 2.1 FreeSync support for=
- AMD VSDB EDID Block ---
-commit b0ebd1a49b36a5e82edcd0396a4c4d22fe23f9d3
-Author: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Fixes for 7.2.
 
-drm/amd/display: Add 2.1 FreeSync support for AMD VSDB EDID Block
+The following changes since commit 075b74841bd0065a3bda3440873c747938e69b68:
 
-This commit adds 2.1 FreeSync support for AMD VSDB EDID block over HDMI FRL=
-.=20
-It updates the capability parsing to accept HDMI FRL signals and builds the=
-=20
-required VTEM info packet. The VTEM data set length is dynamically set to 0=
-=20
-when no VTEM feature is enabled to comply with HDMI GCTS.
+  Linux 7.2-rc6 (2026-08-02 16:24:24 -0700)
 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b=
-/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> index 7e484adb4120f..1fa078cdba527 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-> @@ -229,6 +230,9 @@ void amdgpu_dm_update_freesync_state_on_stream(
->  		&vrr_infopacket,
->  		pack_sdp_v1_3);
-> =20
-> +	if (new_stream->sink->sink_signal =3D=3D SIGNAL_TYPE_HDMI_FRL)
-            ^^^^^^^^^^^^^^^^
+are available in the Git repository at:
 
-[Severity: High]
-Can this dereference a NULL pointer? The sink pointer inside
-dc_stream_state is officially deprecated and could be NULL in headless or
-writeback scenarios. Would it be safer to use new_stream->signal here?
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.2-2026-08-06
 
-[Severity: Medium]
-Will this transmit VTEM packets even to sinks that do not support VRR or FV=
-A?
-There doesn't appear to be a check for vrr_params.send_info_frame, which
-could result in unconditional VTEM transmission to all HDMI FRL displays,
-potentially violating the HDMI 2.1 specifications.
+for you to fetch changes up to 8099bd08646544730ba8c9fc7c0ebf6773206e19:
 
-> +		mod_build_infopacket_vtem(new_stream, &vrr_params, 0, &vrr_infopacket);
-                                                                      ^^^^^=
-^^^^^^^^^^
+  drm/amd/display: allow self-refresh exit while entry is blocked (2026-08-06 14:34:44 -0400)
 
-[Severity: High]
-Does this overwrite the previously built AMD Vendor Specific InfoFrame
-(VSIF)? By passing &vrr_infopacket, the newly created VTEM packet is stored
-in the same local variable.
+----------------------------------------------------------------
+amd-drm-fixes-7.2-2026-08-06:
 
-Additionally, since dc_resource.c writes stream->vrr_infopacket exclusively
-to the hardware's SPD slot, will this cause the VTEM packet to be incorrect=
-ly
-transmitted through the SPD slot instead of the VTEM slot?
+amdgpu:
+- JPEG queue reset fixes
+- GC 12 fix
+- GMC 12.1 fixes
+- Lockdep false positive fix
+- Userq fix
+- Bounds checking fixes
+- Devcoredump fixes
+- DCN 2.0.1 fix
+- Aperture mapping fix
+- DC avmute fix
+- DC self refresh fix
 
-> +
->  	new_crtc_state->freesync_vrr_info_changed |=3D
->  		(memcmp(&new_crtc_state->vrr_infopacket,
->  			&vrr_infopacket,
-> diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.=
-c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-> index f5ac4bf32a784..e956c707ac507 100644
-> --- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
-> +++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+radeon:
+- Performance regression fix
 
-[ ... ]
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amdgpu/gmc12.1: implement tlb inv semaphore
+      drm/amdgpu/gmc12.1: fix MMHUB0 check in pasid tlb flush
 
-> @@ -644,6 +659,100 @@ void mod_build_hf_vsif_infopacket(const struct dc_s=
-tream_state *stream,
->  		info_packet->valid =3D true;
->  }
-> =20
-> +static void build_vtem_infopacket_data(const struct dc_stream_state *str=
-eam,
-> +		const struct mod_vrr_params *vrr, int fva_factor,
-> +		struct dc_info_packet *infopacket)
-> +{
-> +	unsigned int fieldRateInHz;
-> +
-> +	/* FVA Factor setting */
-> +	setFieldWithMask(&infopacket->sb[VTEM_MD0], MASK_VTEM_MD0__FVA_FACTOR_M=
-1,
-> +			(fva_factor > 0)?(fva_factor-1):0);
+Asad Kamal (2):
+      Revert "drm/amdgpu: fix aperture mapping leak"
+      drm/amdgpu: fix aperture iounmap skipped on device removal
 
-[ ... ]
+Candice Li (1):
+      drm/amdgpu: reject oversized IBs with per-ring packet limits
 
-> +		fieldRateInHz =3D stream->timing.pix_clk_100hz * 100;
-                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+David Weber (1):
+      drm/amd/display: allow self-refresh exit while entry is blocked
 
-[Severity: Medium]
-Can this multiplication overflow for ultra-high bandwidth modes? For displa=
-ys
-like 8K@120Hz, stream->timing.pix_clk_100hz * 100 could exceed the 32-bit
-unsigned integer limit before the subsequent division. Should this be cast
-to a 64-bit integer?
+Jesse Zhang (4):
+      drm/amdgpu: fix JPEG v5.0.0 queue reset failure in DPG mode
+      drm/amdgpu: fix JPEG v4.0.5 queue reset failure in DPG mode
+      drm/amdgpu: fix JPEG v5.3.0 queue reset failure in DPG mode
+      drm/amdgpu/userq: serialize queue map against GPU reset
 
-> +		fieldRateInHz /=3D stream->timing.h_total;
-> +		fieldRateInHz =3D (fieldRateInHz + stream->timing.v_total / 2)
-> +						/ stream->timing.v_total;
-> +
-> +	}
-> +
+Lijo Lazar (2):
+      drm/amdgpu: Use virtual alloc during coredump
+      drm/amdgpu: Allocate coredump ring buffers per ring
 
-[ ... ]
+Qiang Yu (1):
+      drm/amdgpu: read TRUNCATE_COORD_MODE on gfx12
 
-> +static void build_infopacket_header_vtem(enum signal_type signal,
-                                            ^^^^^^^^^^^^^^^^^^^^^^^
+Ray Wu (1):
+      drm/amd/display: Check for tg ops in dce110_set_avmute
 
-[Severity: Low]
-Is the signal parameter needed here? It doesn't appear to be evaluated or
-used anywhere within the body of this function.
+Travis K. Bangs (1):
+      drm/amd: Disable DP audio spread spectrum for Cyan Skillfish
 
-> +		struct dc_info_packet *infopacket)
-> +{
-> +	// HEADER
-> +
-> +	// HB0, HB1, HB2 indicates PacketType VTEMPacket
-> +	infopacket->hb0 =3D 0x7F;
+Vitaly Prosyak (1):
+      drm/amdgpu: Fix lockdep false positive in amdgpu_lockdep_init
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806205449.1680=
-6-1-jerry.zuo@amd.com?part=3D1
+Wang Jiang (1):
+      drm/radeon: restore hardware polling in fence_is_signaled to fix performance regression
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             | 27 ++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   | 54 ++++++++++++----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h   |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c        | 21 ++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            | 29 ++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  5 ++
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  5 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c             | 48 ++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c           | 21 +++++++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c           | 21 +++++++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c           | 21 +++++++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  5 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  6 ++-
+ .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |  5 +-
+ drivers/gpu/drm/radeon/radeon_fence.c              |  7 +++
+ 16 files changed, 216 insertions(+), 64 deletions(-)
