@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6282FC55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 05:00:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 602B5C55838
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 05:06:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 67E7B10F0AE;
-	Thu,  6 Aug 2026 05:00:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D95C10F0A8;
+	Thu,  6 Aug 2026 05:06:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cCD2hPEI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aZEJtGOP";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8FF10F0A8
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 05:00:07 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 80F1D10F0A8
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 05:06:30 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 31BF060A64;
- Thu,  6 Aug 2026 05:00:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B038C1F000E9;
- Thu,  6 Aug 2026 05:00:05 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6AD8660A80;
+ Thu,  6 Aug 2026 05:06:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0B11F000E9;
+ Thu,  6 Aug 2026 05:06:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785992405;
- bh=FHlLFuA02EUn0W2JnDd/48j6gUdW+5/LBmn7V/aI5u4=;
+ s=k20260515; t=1785992789;
+ bh=LwqG42IInCjXQtr+mvBn+K5GTgJBQfE2A1zgHP5fQS0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=cCD2hPEIkSDso4d5Z1InI75BxZ4ooAoqLUAulJivWpD86XugiOVSkKSqQyIqIL5DW
- HJX1KcQ4v1XOdn3tBgqX6WEVd6Zgg4hSgtB6l/4BCPkQeFQl5fIK4XZstiZOGOXqv3
- ZK8QzbgnAKP1Rj7xN5+VEhaRshSmLPDZgYH3BidZurPwoKJH7cqtkqJRVDppY/eHvD
- RQGf5Q+jH5qz/8/HhDTe5CbYZhln4rLCNYoVTN+dzET6rDOMiyOxZbc5dA6erI4T8E
- UTajN3yDdpWyVkbVUwGvg9smbwcPzvEXwIe66Vi9nVarquGZSd16p0GWzu9h4b3lrS
- /uuNuDjRle+cw==
+ b=aZEJtGOPCSNWRSLxlCqk+ZYcHmsGQ68FdZus+eUuaBdPDi1UvmYdu1YXBn7+SGH92
+ QxNVtjvFmXzqczCRHVEvhGNuwXLT1sT8rDf/c8X0d68bzasWfskJIvCXgwPpUVQoTH
+ Wi5J/qzjZDT2z3ZGwxhTtU2wvEfmXH2+O2I0F3/9SO7XlaPNpFvJZwb/jjcXJwqwFQ
+ wPv1RyhIUy3CqKwF5ajOJD7QRpCA/PQxHE/Z49i3zsle048SMF4QJgwOW+76QPZwvV
+ 4m6S1BDcoh4b/WsMVKizq763Lm9ROxEBZASPp10gnlSA6Y/sClXatn459DsshyO98i
+ iYPtdZYuwDlKQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/amdgpu: fix VM update overrun on non-4K page
- kernels
+Subject: Re: [PATCH 3/3] drm/amdgpu: add the BO-va mapping offset when
+ kmapping an IB
 To: "Junrui Luo" <moonafterrain@outlook.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260806-amdgpu-fixes-v1-2-ce247012d4da@outlook.com>
+In-Reply-To: <20260806-amdgpu-fixes-v1-3-ce247012d4da@outlook.com>
 References: <20260806-amdgpu-fixes-v1-0-ce247012d4da@outlook.com>
- <20260806-amdgpu-fixes-v1-2-ce247012d4da@outlook.com>
+ <20260806-amdgpu-fixes-v1-3-ce247012d4da@outlook.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 06 Aug 2026 05:00:05 +0000
-Message-Id: <20260806050005.B038C1F000E9@smtp.kernel.org>
+Date: Thu, 06 Aug 2026 05:06:28 +0000
+Message-Id: <20260806050628.EB0B11F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,87 +58,72 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [Critical] Unhandled error path leaks BOs and leaves dangling pointers to=
- a stack-allocated list, leading to stack corruption.
-- [High] Sub-page offset is dropped when mapping contiguous system memory o=
-n non-4K page kernels, causing data corruption.
+- [High] Incomplete bug fix: multiple CPU-side consumers of `amdgpu_cs_find=
+_mapping()` ignore `mapping->offset`, causing validation bypasses and incor=
+rect hardware programming.
 --
 
---- Patch [2]: [PATCH 2/3] drm/amdgpu: fix VM update overrun on non-4K page=
- kernels ---
-commit 250ebbca695a7882625e4e4f1a9f6af7c33fde76
+--- Patch [3]: [PATCH 3/3] drm/amdgpu: add the BO-va mapping offset when km=
+apping an IB ---
+commit d8bdec727584870cf6250f253ea262e5bbf96aef
 Author: Junrui Luo <moonafterrain@outlook.com>
-drm/amdgpu: fix VM update overrun on non-4K page kernels
 
-This commit fixes a VM update overrun bug in amdgpu_vm_update_range() on
-systems where the CPU page size is larger than the GPU page size. It clamps
-num_entries against the rounded-up value during the contiguity scan. This
-prevents an issue where an unprivileged caller could trigger a BUG_ON by
-mapping memory with a non-multiple GPU page count.
+drm/amdgpu: add the BO-va mapping offset when kmapping an IB
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_vm.c
-> index dc6a9d7dd0b28..365a1c4a45275 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -1193,8 +1193,9 @@ int amdgpu_vm_update_range(struct amdgpu_device *ad=
-ev, struct amdgpu_vm *vm,
->  				}
->  				if (!contiguous)
->  					count--;
-> -				num_entries =3D count *
-> -					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
-> +				num_entries =3D min(count *
-> +						  AMDGPU_GPU_PAGES_IN_CPU_PAGE,
-> +						  num_entries);
->  			}
+This patch fixes the CPU-side view of indirect buffers (IBs) in
+amdgpu_cs_patch_ibs(). It adds the missing mapping offset to the kmapped
+pointer so it accurately reflects the bytes programmed into the page tables.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index 9c514cb010966..a72cee871af3d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1047,7 +1047,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_par=
+ser *p,
+>  		if (r)
+>  			return r;
 > =20
->  			if (!contiguous) {
+> -		kptr +=3D va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
+> +		kptr +=3D m->offset + va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
 
 [Severity: High]
-This is a pre-existing issue, but does this code drop the sub-page offset
-when mapping contiguous memory?
+This is a pre-existing issue, but while this patch fixes the mapping offset
+calculation here, do we need to apply the same fix to other CPU-side consum=
+ers
+of amdgpu_cs_find_mapping()?
 
-In amdgpu_vm_update_range(), if a user maps system memory where
-PAGE_SIZE > AMDGPU_GPU_PAGE_SIZE at a sub-CPU-page offset and the pages are
-physically contiguous, addr is set to pages_addr[cursor.start >> PAGE_SHIFT=
-].
+The commit message notes that every other CPU-side consumer omits
+mapping->offset in the same way. Does this mean they are still vulnerable to
+incorrect hardware programming or validation bypasses?
 
-Because params.pages_addr is set to NULL, the sub-page offset
-(cursor.start & ~PAGE_MASK) is dropped. Could this cause the GPU to map
-memory starting from the beginning of the CPU page instead of the requested
-offset, returning incorrect data to the user?
+For example, when calculating the physical GPU address to patch into the UVD
+IB, amdgpu_uvd_cs_pass2() in drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c does n=
+ot
+include mapping->offset:
 
-[Severity: Critical]
-This is a pre-existing issue, but does the error_free path in this function
-leave dangling pointers to the stack-allocated params.tlb_flush_waitlist?
+	addr -=3D mapping->start * AMDGPU_GPU_PAGE_SIZE;
+	start +=3D addr;
 
-During amdgpu_vm_ptes_update() later in this loop, replaced page table
-entries are added to params.tlb_flush_waitlist, which is allocated on the
-stack in amdgpu_vm_update_range().
+Similar calculations omitting mapping->offset occur in:
+- drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c:amdgpu_vce_cs_reloc()
+- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c:vcn_v3_0_dec_msg()
+- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c:vcn_v4_0_dec_msg()
+- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c:amdgpu_dev_coredump_prin=
+t_ibs()
+- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c:amdgpu_userq_fence_read_w=
+ptr()
 
-If a subsequent operation fails, the code jumps to error_free:
+If a user submits a command stream with an IB mapped with a non-zero
+offset_in_bo, could this lead to hardware hangs by bypassing VCN codec
+validation, or corrupt UVD/VCE command stream physical address patching?
 
-		r =3D amdgpu_vm_ptes_update(&params, start, tmp, addr, flags);
-		if (r)
-			goto error_free;
-
-This bypasses the call to amdgpu_vm_pt_free_list() which would normally
-process and free the list.
-
-When the function returns, its stack frame is reclaimed, but the
-amdgpu_vm_bo_base entries in the software tree still have their vm_status
-list nodes pointing to this reclaimed stack memory.
-
-When the VM is later destroyed, amdgpu_vm_pt_free_root() traverses the tree
-and calls list_del() on these entries. Could this write to the dangling sta=
-ck
-pointers and cause arbitrary stack corruption?
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-amdgpu-fix=
-es-v1-0-ce247012d4da@outlook.com?part=3D2
+es-v1-0-ce247012d4da@outlook.com?part=3D3
