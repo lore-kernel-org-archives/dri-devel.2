@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89B68C5AC81
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:10:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 005B1C5AC80
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 17:10:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4D2810F251;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9E07C10F24D;
 	Thu,  6 Aug 2026 17:09:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="c3jSDhDW";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="avvL1WKa";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B026610E9BE
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0094710F25B
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 17:09:56 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6DC9343C07;
+ by sea.source.kernel.org (Postfix) with ESMTP id A4A534403E;
  Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3EF4CC2BCF6;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 66063C4AF10;
  Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux.dev; s=korg;
- t=1786036195; bh=s/xpgHrjMnr3Dw/gDnMO8NhtKWrQpFIoMn7udGnLIvs=;
+ t=1786036195; bh=3j8Y2VWzUHHVn7fnmcTtj47HwMwv4l28mSjidsjPSoc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=c3jSDhDWgeOznBerPbsu3ZcDP6xZU5/4WreMuqt4IqsmD0TDyBsx+jaJGOA09ADJM
- 1NJ7i83Q6pz8K/xP1HMgaDCWpfSBcuqP8UWh874XR/DmQLrk6cZLrw4zU52e5o7iib
- PYmHfp+AA65ogwXUfRQyPBWL624Ukla3G9EaHTzk=
+ b=avvL1WKaHglXcOAOA2zel1l+1ksbAw+1UkpdUlXsjlqQu2WYUKC9bqPT03NURbC6u
+ WsNJ9mpszf4PWp3c4hpMt8EnE4P3oE9avc6Q2/tg1WxcuE5tmk4nGaiOrz53En1lIk
+ kq4rJuWuE5CgxVPV2dOo/861cXjvWhha5scDFZ1M=
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1C1ABC56208;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 4F5E7C5AC80;
  Thu,  6 Aug 2026 17:09:55 +0000 (UTC)
 From: Alvin Sun <alvin.sun@linux.dev>
-Date: Fri, 07 Aug 2026 01:07:23 +0800
-Subject: [PATCH v3 1/8] rust: seq_file: add as_raw() method
+Date: Fri, 07 Aug 2026 01:07:26 +0800
+Subject: [PATCH v3 4/8] drm: move debugfs_init after dev->registered is set
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-tyr-debugfs-v2-v3-1-ff5595ac66ae@linux.dev>
+Message-Id: <20260807-tyr-debugfs-v2-v3-4-ff5595ac66ae@linux.dev>
 References: <20260807-tyr-debugfs-v2-v3-0-ff5595ac66ae@linux.dev>
 In-Reply-To: <20260807-tyr-debugfs-v2-v3-0-ff5595ac66ae@linux.dev>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -61,11 +61,11 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
  rust-for-linux@vger.kernel.org, driver-core@lists.linux.dev, 
  dri-devel@lists.freedesktop.org, Alvin Sun <alvin.sun@linux.dev>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786036192; l=882;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786036192; l=1535;
  i=alvin.sun@linux.dev; s=20260317; h=from:subject:message-id;
- bh=s/xpgHrjMnr3Dw/gDnMO8NhtKWrQpFIoMn7udGnLIvs=;
- b=0tjn5m4BoS1rIeOa3IpamfeD3PymWV6CSXh46fmc5jP6O99APRyjxXZX7OMXOZOBwcvkh7M+r
- jRxRl23LhU7BZd4vol8NhoDBjhbTPCYAlUg0PFJWUbJLi2pSmEEHtW7
+ bh=3j8Y2VWzUHHVn7fnmcTtj47HwMwv4l28mSjidsjPSoc=;
+ b=JiqjzmF+Hf6okmV2BctyiTvlTlQw9TRSdd+G41efvmY17FJHk84qA45UkSLTPkbLSsoATeJ8N
+ ZvYO/AEGRr5C24jfJdbWbNAbQ3qGz2fSbsOLSj0yI9+B9E7Ndp82GYq
 X-Developer-Key: i=alvin.sun@linux.dev; a=ed25519;
  pk=CHcwQp8GSoj25V/L1ZWNSQjWp9eSIb0s9LKr0Nm3WuE=
 X-Endpoint-Received: by B4 Relay for alvin.sun@linux.dev/20260317 with
@@ -85,31 +85,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Add a method to obtain a raw pointer to the underlying struct
-seq_file, needed for FFI calls into C (e.g. drm_debugfs_gpuva_info).
+The debugfs_init callback is called from drm_debugfs_register during
+drm_minor_register, before dev->registered is set to true. Move it to
+drm_dev_register after dev->registered = true so that callbacks see a
+fully registered device.
 
 Signed-off-by: Alvin Sun <alvin.sun@linux.dev>
 ---
- rust/kernel/seq_file.rs | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/drm_debugfs.c | 3 ---
+ drivers/gpu/drm/drm_drv.c     | 5 +++++
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/rust/kernel/seq_file.rs b/rust/kernel/seq_file.rs
-index 518265558d66f..fbc75e0e77634 100644
---- a/rust/kernel/seq_file.rs
-+++ b/rust/kernel/seq_file.rs
-@@ -29,6 +29,12 @@ pub unsafe fn from_raw<'a>(ptr: *mut bindings::seq_file) -> &'a SeqFile {
-         unsafe { &*ptr.cast() }
-     }
+diff --git a/drivers/gpu/drm/drm_debugfs.c b/drivers/gpu/drm/drm_debugfs.c
+index ae1c6126c2c59..38cf6ce387cc8 100644
+--- a/drivers/gpu/drm/drm_debugfs.c
++++ b/drivers/gpu/drm/drm_debugfs.c
+@@ -442,9 +442,6 @@ int drm_debugfs_register(struct drm_minor *minor, int minor_id)
+ 	/* TODO: Only for compatibility with drivers */
+ 	minor->debugfs_root = dev->debugfs_root;
  
-+    /// Returns a raw pointer to the underlying `struct seq_file`.
-+    #[inline]
-+    pub fn as_raw(&self) -> *mut bindings::seq_file {
-+        self.inner.get()
-+    }
+-	if (dev->driver->debugfs_init && dev->render != minor)
+-		dev->driver->debugfs_init(minor);
+-
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index e890052061f30..15669764fe625 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -1101,6 +1101,11 @@ int drm_dev_register(struct drm_device *dev, unsigned long flags)
+ 	dev->registered = true;
+ 	dev->unplugged = false;
+ 
++	/* Call debugfs_init after the device is fully registered. */
++	if (dev->driver->debugfs_init && dev->primary &&
++	    dev->render != dev->primary)
++		dev->driver->debugfs_init(dev->primary);
 +
-     /// Used by the [`seq_print`] macro.
-     #[inline]
-     pub fn call_printf(&self, args: fmt::Arguments<'_>) {
+ 	if (driver->load) {
+ 		ret = driver->load(dev, flags);
+ 		if (ret)
 
 -- 
 2.43.0
