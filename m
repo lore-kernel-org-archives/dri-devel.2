@@ -4,61 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFBD7C55ABF
-	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 00:53:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9250DC55ABF
+	for <dri-devel@archiver.kernel.org>; Thu,  6 Aug 2026 00:58:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15E1310F067;
-	Thu,  6 Aug 2026 00:53:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC84B10F06B;
+	Thu,  6 Aug 2026 00:58:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Eyt4aTfq";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="K9CoGpuc";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B97410F067
- for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 00:53:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785977607; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=Jpedgj2Xv0w84RfTWOIEKEHDoQN726jvzIoC7FRHpg1n1cVUXLz15UT7uWK7I5AgCTt9QNTSR8S331aHM5uQMBP30EL5jjWYZYGKyALvCL2paqaPKS93OhTcU6h7Vj8WaqPG/XFHuntSVVOKbYnrFWESC0Da8cv8wvPI09Mxyik=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785977607;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Y0o5aZmeUQ3l4Gcb28XZnKWO7jZtMVtIm69gJCsBCVM=; 
- b=iW6fO6pwOh4le/9HJDTe5y5ExvVnyH0aKadvfwRlU3DPlnBmECkMGQmyXsSVp4+uya+I3V/lqRkxY5RZOB1b4aT9rIXi+HjwLnIGjXHP74DApC5XaKGeA5tu3FEzEwktMIPZaBFIK91d6yh8Cyvf1hFQtvpzkP6fWSE7gbf4sYQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
- dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785977607; 
- s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=Y0o5aZmeUQ3l4Gcb28XZnKWO7jZtMVtIm69gJCsBCVM=;
- b=Eyt4aTfqq7B+CMdd/U3d8TCdoewcgR8RBWNW8r/+0Uy8D4MMHrsYiXu93a9f9z7p
- CG52LcW5KGFMROXNor2zgMoHRHR5eKsnUQ9MX+5bcqjg+gzTamiLB5AVvLG/W/aAdif
- 0jbGZlcU/JNbUWELSr9VzFzDV609QOBtrQHihNhg=
-Received: by mx.zohomail.com with SMTPS id 1785977605537152.33915577818743;
- Wed, 5 Aug 2026 17:53:25 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
- id F24E2180597; Thu, 06 Aug 2026 02:53:21 +0200 (CEST)
-Date: Thu, 6 Aug 2026 02:53:21 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Heiko Stuebner <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Sandy Huang <hjc@rock-chips.com>
-Subject: Re: [PATCH v9 00/22] Synopsys DisplayPort Controller improvements
- for Rockchip platforms
-Message-ID: <anPXvyL4sBjANnhm@venus>
-References: <20260803-synopsys-dw-dp-improvements-v9-0-2e6e46135312@collabora.com>
- <20260804135641.17170-1-royalnet026@gmail.com>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="lgiluf6bs5svv24h"
-Content-Disposition: inline
-In-Reply-To: <20260804135641.17170-1-royalnet026@gmail.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/285.956.17
-X-ZohoMailClient: External
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37E7510F06B
+ for <dri-devel@lists.freedesktop.org>; Thu,  6 Aug 2026 00:58:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id AF6B960A64;
+ Thu,  6 Aug 2026 00:58:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 230A61F00A3A;
+ Thu,  6 Aug 2026 00:58:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785977891;
+ bh=mFEpnPMj9EIoExCVxyq+2h87FI1SbRMLY5sfqEC8B98=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=K9CoGpucUblTXTb/Vx3dr2o4XkW+uup6EtzoxZYj2BKSKDGv1Zi8hp7+RQzASAgtD
+ NarKW5gec6x42yZmr5xWU3xbDz2ud6n6z6rE4wzimlwUyaRySMI9CAZMBhY8eHy/98
+ 5tr/SOxiJsEZmAE1hjqsey+HsuJvMe5g0pd38JkkOAv8ozfr3rsThK7lM8asCfwRMU
+ 2X1o+Gs/Xp/aa+NB6p/Ib9RIhXbFhgRP8qXpTTHUAPGHbGXv9+lOrg+dwqvkNDzbty
+ S4dY6D1XzmaTSps6PMCZYiim61Ub0FaBAOucY/s5PC56FwZkSfFoPM9/Py8KaxaF7P
+ QAkE18l1MPlAA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 04/21] drm/bridge: synopsys: dw-dp: Document missing
+ reset line deassert
+To: "Sebastian Reichel" <sebastian.reichel@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260806-synopsys-dw-dp-improvements-v10-4-d84a26c303d6@collabora.com>
+References: <20260806-synopsys-dw-dp-improvements-v10-0-d84a26c303d6@collabora.com>
+ <20260806-synopsys-dw-dp-improvements-v10-4-d84a26c303d6@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 06 Aug 2026 00:58:10 +0000
+Message-Id: <20260806005811.230A61F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,178 +55,116 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
---lgiluf6bs5svv24h
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v9 00/22] Synopsys DisplayPort Controller improvements
- for Rockchip platforms
-MIME-Version: 1.0
+Pre-existing issues:
+- [High] Missing reinit_completion in dw_dp_aux_transfer causes AUX transfe=
+r corruption after timeouts.
+- [High] Sleeping delay functions are used in atomic commit paths, violatin=
+g DRM subsystem guidelines.
+--
 
-Hello Igor,
+--- Patch [4]: [PATCH v10 04/21] drm/bridge: synopsys: dw-dp: Document miss=
+ing reset line deassert ---
+commit c7f9030ef61e21ab471dde4c6e59c410a28a4503
+Author: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-On Tue, Aug 04, 2026 at 03:56:40PM +0200, Igor Paunovic wrote:
-> You wrote in the cover letter that parts of this are untested, and asked =
-for
-> comments on the out-of-band hotplug callback.  I have been running this s=
-eries
-> on real hardware, so here is a report from the USB-C DP AltMode side.
->=20
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # RK3588, Orange Pi 5 Pl=
-us, USB-C DP AltMode
+drm/bridge: synopsys: dw-dp: Document missing reset line deassert
 
-Thanks. I've just send v10. I expect this to still work, but since
-quite some patches changed I did not carry this over.
+This commit documents an issue where the SoC will hang if the reset line
+is automatically deasserted during probe using
+devm_reset_control_get_exclusive_deasserted(). It leaves the existing
+devm_reset_control_get() call in place to avoid the hang.
 
-> Hardware and base
-> -----------------
->=20
->   Board:  Orange Pi 5 Plus (RK3588)
->   Kernel: v7.2-rc6 + rockchip-devel, pinned at 8c70065a3207, which carries
->           this series at v9 - including 03/22 "Fix error handling in
->           dw_dp_link_enable()", so this is v9 and not an earlier respin.
->           No local changes on top of any dw-dp patch.
->   PHY:    your rockchip-usbdp v13 series, from the same branch
->   Sink:   4K120-capable display, reached both directly and through a USB-C
->           dock, DP AltMode over the Type-C port
->=20
-> Results
-> -------
->=20
-> USB-C DP AltMode works.  I get 4K120 on the Type-C output, which on this =
-board
-> is a third display output that mainline does not otherwise light up at al=
-l.
-> The mode comes up at dclk 594 MHz, which is what 4:2:0 should give at that
-> resolution (two pixels per clock), and it survives a live modeset - I can=
- go
-> from 60 Hz to 120 Hz on a running desktop without unplugging the cable and
-> without dropping to a black screen.
->=20
-> That last part is the change I want to highlight.  On my previous kernel,=
- based
-> on v7.0 without this series and without the usbdp rework, touching the ca=
-ble
-> while the link was up was something I had to actively avoid, and a live 6=
-0->120
-> modeset gave me a black screen that needed a hard reset to recover from. =
- Both
-> of those are gone here.  Whatever the combination of the follow-up bridge=
- work
-> and the PHY re-init on orientation change is doing, from where I sit it i=
-s the
-> difference between "usable" and "do not touch".
->=20
-> I have not exercised the DP audio path (22/22) yet, and I have no board w=
-ith a
-> native DP connector or an HDMI bridge downstream, so I cannot say anything
-> about the code path you flagged as untested.
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/br=
+idge/synopsys/dw-dp.c
+> index dd951fd447227..fd7663013faaa 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
+> @@ -2095,6 +2095,10 @@ struct dw_dp *dw_dp_probe(struct platform_device *=
+pdev, const struct dw_dp_plat_
+>  		return ERR_CAST(dp->hdcp_clk);
+>  	}
+> =20
+> +	/*
+> +	 * This reset line is deasserted by default; asserting it hangs the SoC=
+ if the
+> +	 * related power-domain is still active.
+> +	 */
+>  	dp->rstc =3D devm_reset_control_get(dev, NULL);
+>  	if (IS_ERR(dp->rstc)) {
+>  		dev_err_probe(dev, PTR_ERR(dp->rstc), "failed to get reset control\n");
 
-heh, that's the most interesting ones regarding testing as I haven't
-tested the related paths in the driver. USB-C AltMode should be more
-or less the same on all RK3588/RK3576 boards.
+[Severity: High]
+This isn't a bug introduced by this patch, but while reviewing the DP driver
+I noticed a potential atomic context violation in dw_dp_link_train_fast():
 
-> On the out-of-band HPD callback
-> -------------------------------
->=20
-> You asked for comments, and I have a data point rather than a design opin=
-ion.
->=20
-> On this board the AUX channel is dead at boot until something kicks the T=
-ype-C
-> port controller.  The cause is on the firmware side rather than yours: the
-> board boots through EDK2, which has no TCPM, so it hands Linux a PHY that=
- was
-> never brought into a sane state and a port controller that has never
-> negotiated.  Nothing on the DP side can discover the sink until fusb302 is
-> poked, after which the link comes up normally and stays up.
+    ret =3D dw_dp_link_train_set_pattern(dp, DP_TRAINING_PATTERN_1);
+    if (ret)
+        goto out;
 
-That's needs to happen anyways independent of the boot process,
-since USB-C can be hot-plugged :)
+    usleep_range(500, 1000);
 
-> I mention it because it is exactly the shape of event your callback is fo=
-r: the
-> hotplug information arrives from outside the DP block, late, and the DP s=
-ide had
-> no way of knowing.  A separate callback rather than reusing hotplug_notif=
-y seems
-> right to me for that reason - the two really are different sources, and o=
-nly one
-> of them is something the DP block could ever have observed itself.  I can=
-not
-> tell you whether there is a cleaner mechanism, but I can tell you that the
-> separation matches how the hardware actually behaves here.
+Can this sleep function be reached from atomic commit paths?
 
-I'm well aware how the hardware works. That does not necessarily
-require a separate notifier, though. But the existing one does not
-work anyways as it does not distinguish the information source. That
-could be changed of course (but with quite some churn involved).
+Looking at dw_dp_bridge_atomic_enable(), it appears this function
+is called during the modeset. The DRM subsystem guide indicates that
+atomic enable callbacks run in an atomic context where sleeping
+is forbidden, which could lead to scheduling while atomic panics.
 
-> One neighbouring finding
-> ------------------------
->=20
-> While bringing this up I hit a bug that is not in your series but sits ri=
-ght
-> next to it, so it may be useful to you and to Cristian.
->=20
-> On RK3588, VP2's dclk was parented to the HDMI PHY clock.  When the HDMI =
-PHY is
-> not powered - which is the normal case if you are only driving the Type-C
-> output - that parent is dead, and DP gets no usable pixel clock: nothing =
-above
-> 640x480 comes up.  Re-parenting VP2's dclk to V0PLL in DT fixes it, and t=
-hat is
-> what the 4K120 above is running on.
->=20
-> I see Cristian's "Consolidate HDMI PHY PLL clock parent switch" (v3 09/14=
- of the
-> DW HDMI QP YUV series) touches the same parent-switch logic from the driv=
-er
-> side.  I have not yet worked out whether that series makes the DT change
-> unnecessary, or whether the two are complementary.  I will work that out =
-before
-> I send anything, but I would rather flag it here than have two people dis=
-cover
-> it separately.
->=20
-> Happy to run any specific case you want covered, or to retest on later
-> revisions.
+Would it be better to replace usleep_range() with a non-sleeping
+delay like udelay() or ndelay() in this path?
 
-Thanks.
+[Severity: High]
+This is another pre-existing issue, but I noticed a potential problem with
+how wait_for_completion_timeout() is used in dw_dp_aux_transfer():
 
-> Thanks for the series - it turns a port that did nothing on mainline into=
- my
-> main display output.
+    value |=3D FIELD_PREP(AUX_CMD_TYPE, msg->request);
+    value |=3D FIELD_PREP(AUX_ADDR, msg->address);
+    regmap_write(dp->regmap, DW_DP_AUX_CMD, value);
 
-Great. It's obviously too late for 7.3 now, but I hope to get all of
-this upstream in 7.4. It would be a nice start into 2027 :)
+    status =3D wait_for_completion_timeout(&dp->complete, timeout);
 
-Greetings,
+Could this lead to stale data being read?=20
 
--- Sebastian
+If a previous AUX transfer times out and the hardware completes the
+interrupt shortly after, the completion's internal counter would increment.
+A subsequent call to dw_dp_aux_transfer() might return immediately from
+wait_for_completion_timeout() without waiting for the new transaction,
+causing the driver to read garbage data from the AUX status registers.
 
---lgiluf6bs5svv24h
-Content-Type: application/pgp-signature; name="signature.asc"
+Should there be a call to reinit_completion(&dp->complete) before
+writing to DW_DP_AUX_CMD?
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+This is a pre-existing issue as well, but I noticed another potential
+atomic context violation in dw_dp_reset():
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmpz2vYACgkQ2O7X88g7
-+poa8g//V4lZXwFrUKn9W7pvGSKRbQKP4TMFkSKNnWNhOvBYSj9Lzsv9q/hhiVUZ
-lQFGT6wK56WTj1SdcWNxI59e0orTSGSea6gYdMX5BIB6erEkA5NA7QqAKaBc7Pce
-c2I94QDQ20waF3m6YUGdTHh6uBScK8PKtBcK80VYp0+CejhFIYj03aDkzGp6KGVF
-sb+/QSZCfEVSAATdBfWV7UqBqh4jXov+sC3zewDfEYXqY3wg0B9/PSklujUCCECF
-/aND5jg1s+vMqzxb7silXU0rJu5t5k8s4CU1ABtOc0KCKRuMHwif4yWeOlfcaSnJ
-UL1bBqcUW50r2dFxhJsmcySL9ORVUX770vnUTRmJBHxF5k/LNavI9cK1yKKlTmuO
-xfBwR8pJNh6ERdlcYqSsTUjvCdtbtVJUf4c+sagpg3tFX+zgxv2WXi5opJKZl7wc
-uSSUvLrDlvRwEoqAle8BdV2Tu0n8CwbDA4EiE1xUIZh17GjI1FER44D+0Uq/Dw7V
-IJjHoM7ek07RSBBwW9f8UGI4wMLrOGG78Fx50Fl+qOsuH19I9siKv2IaIqwRdudU
-dZ36Vb1extrrNz1yhWmpub7onTCWs+1Cw/X5RSbR8+kFw+w30r3gKDiUo0+gkQOb
-P4SFuJEmfglBS3UCQFTsuBVP9VnE2JsO4VQTcymOHRwEUf+QgLQ=
-=FbcJ
------END PGP SIGNATURE-----
+    disable_irq(dp->irq);
+    regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL, CONTROLLER_RESET,
+               FIELD_PREP(CONTROLLER_RESET, 1));
+    usleep_range(10, 20);
+    regmap_update_bits(dp->regmap, DW_DP_SOFT_RESET_CTRL, CONTROLLER_RESET,
+               FIELD_PREP(CONTROLLER_RESET, 0));
 
---lgiluf6bs5svv24h--
+    dw_dp_init_hw(dp);
+    regmap_read_poll_timeout(dp->regmap, DW_DP_HPD_STATUS, val,
+                 FIELD_GET(HPD_HOT_PLUG, val), 200, 200000);
+
+Does dw_dp_bridge_atomic_disable() eventually call this reset function?
+
+Since dw_dp_bridge_atomic_disable() is an atomic commit callback,
+using usleep_range() and regmap_read_poll_timeout() (which sleeps)
+here might cause system panics during a hot path.=20
+
+Might we need to switch to non-sleeping equivalents or move this
+initialization out of the atomic commit path?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260806-synopsys-d=
+w-dp-improvements-v10-0-d84a26c303d6@collabora.com?part=3D4
