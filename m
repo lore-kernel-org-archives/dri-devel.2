@@ -4,93 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9A1C1C5AC7C
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 11:28:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0246FC5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 11:47:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFF2610F467;
-	Fri,  7 Aug 2026 11:28:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0725E10E3BC;
+	Fri,  7 Aug 2026 11:47:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="GPVEdjja";
+	dkim=pass (1024-bit key; unprotected) header.d=chromium.org header.i=@chromium.org header.b="l4RLp1LN";
 	dkim-atps=neutral
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com
- [209.85.128.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE3FE10F467
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 11:28:20 +0000 (UTC)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-8201447e8cdso53321657b3.3
- for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 04:28:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786102099; cv=none;
- d=google.com; s=arc-20260327;
- b=oGtqI4/ygBZAVVWfY/u7xbhk/aY4qLCIP3NTTms4mjnB35R87R/dJqJmjl6HanKm7r
- IP/Qo7XOM7fyNbNeaa+eexCIv0vR/mF/E2jGyItA4xzQ1Nuw59TbaK61jZcFIS27YNdB
- DJ5Td407GdN6t65GxLfnzYR+3m0bmxtbGxwtnaXUA1Kjq1GIi7RM6KTzszWQrFA3s9DC
- ObkoDkJJd72EW/+ANnBd3IqwFdVM6U+UJbfmzij+weZFKRAmJ10XrZ5RuUiWeey5Cv2/
- n0wIEarXI/4RYIQReMhlGlEndeEMLeissmAgq35sQA6CqLsz95Pgel/U12+iJ71agk3O
- qWtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=evPdeY9komARrc1QEEJ5AZQbADWzS8s0ROrrP+Yue/U=;
- fh=vK+isC5gg4qh5yeqdjx3jTcVDlin1RBhCJuv1J0ecIc=;
- b=jAnXVMaQnasD3wlYPXCjmnimUmU3edlKlNr41dXW2F254+m7sDgXig4ttIu8B8mLf4
- 6Cmkc4oaUe5VwdWYkd4ANInfJB8fVKbfOPWPLxnJ+ASEx7+mhCFLvkZ0NsWRYtUjmfs3
- yfODpryPd1eVhiwv4uO72jjknLk9dZXs1reTmOIKaySEP2i2UdPFmVhG3ilLgnvWb3Pt
- txjVXj60JaiUuxXj0ofWWb+cHvChErKBwpqOTgGgKCRdg9J0ina8IleMjWiIR3I8KzFj
- diLAVYa19dng/F2ZhyM8BpfxSvZ8XZoo2k9Jv2iNFAgT+PtlFOT394Z6XKSayboBOId/
- NgaQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63F5D10E3BC
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 11:47:02 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-848479c9bd5so2968438b3a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 04:47:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1786102099; x=1786706899;
+ d=chromium.org; s=google; t=1786103222; x=1786708022;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=evPdeY9komARrc1QEEJ5AZQbADWzS8s0ROrrP+Yue/U=;
- b=GPVEdjjat76OtgYYbkG4MHhyfILUmbRRkDEP4g0vH5c7KH9EsqCDC61huSZWITNRX+
- S2+C2L8VJWK+BwNXKopHAYuIdTz/VqDtPZnQ+32Q0iz0qzwkWnUxxLvB6Fyk5ZqSxkcZ
- KM7ZeKHNzYUegRLCSsCPOEGZ1O7g/QPqfdBBE=
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ZhwYEHM2ubRYoBgnMQxxPYmFjqJ2ATlRS0+mstcmx4Q=;
+ b=l4RLp1LNzvCzVwOgixJXzoaS9kDD5CQ6CikQUe1rpsJs4MSaixKdzHjaSXbMhOvhEU
+ ihjrJUNXeyzqY7Xqum5lTO6xyZurcUVq+g4Mwe0BgeXsq27anmThNEY/oDaO+yvqVLFT
+ XQJosKg0FY3ja01wMioFB2DkDdrNSqlgsmktU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786102099; x=1786706899;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=evPdeY9komARrc1QEEJ5AZQbADWzS8s0ROrrP+Yue/U=;
- b=KGweuweD7H5ZwpfUab+Wb/i3v2VUUiyUWhGUCxacYc5pxEW4lTaR5FgDmXpiYqiqpg
- cZg0EKXCOLhbL/0u0P/F7TD9Iyuq8sd2f/rxryucc6tJ2vVc4hGZ/VTtIsvW2365hpjD
- ydaHoPi/U1KRqmqZtG0ZCHn9vS0clUszfqfjoMXPOZALmXm+cjU3nhqZ4VB+Y8mCskPU
- 5ghm04YqOP69kGgBefrAuI+i1xra2EIgMnIcY/eTn3vFtko5o2hwPqfCb9qV10JPJ/D1
- gr0BtwLj21eGc50QrDo7KKDE4ekq6ei1zGyHdQZH9GxZL//iSkh2PkRNgB4av91GgP2f
- xa/g==
-X-Gm-Message-State: AOJu0Yz51Qt4zWy40aO5/56NodmBs40XJUdtl5yv9bn03iJtgbJSs/5I
- uGiu7Y5EQ7fGNx+5cgjkaxKF0vhXchuNef3E+W0snmWlzYkEgFPp+hxiW8oSEyk17a/GQ1eDw3a
- ye3yIi86avx0BlBT/PqtU7A5IRh+KTlnmjhdkiR0p
-X-Gm-Gg: AR+sD10Me2xhm4pAjLHNZ95Tkc+4JzvbOWzu5/1PCO4vjK0KmPPcS7z5SjaWHfu3dqR
- RGWUSzbe12L3XBP3y/nrowotOenQ+Gnd5trRMo9LXkaX/N4NwdiwdRrHWgVHVhxz+TMUcXMS9ok
- BHz+i0rISyUruKOmisJvWq+LyCbk8qs5hXdgjJPkskgrCijGLvK8xrxWvQZbDyXhBZf3m6GEOOw
- RZ05vLHhrf/AK0t8qRi/IkbyzQ3AXGuz3Xo9LnYHh6HonDDgDivzshfUj4760ZxI6S+VrX06Wn4
- gK00ES6rz89r0v0iXo+f0oCRepROFu0A4KdXjr7nt2w+h9rf3f2cY5k6W7dCZPeky4cj7IqMbHA
- =
-X-Received: by 2002:a05:690c:c18:b0:820:b89:52c6 with SMTP id
- 00721157ae682-8202272eba1mr135462977b3.33.1786102099345; Fri, 07 Aug 2026
- 04:28:19 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260807104819.1295812-1-wenst@chromium.org>
-In-Reply-To: <20260807104819.1295812-1-wenst@chromium.org>
+ d=1e100.net; s=20251104; t=1786103222; x=1786708022;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=ZhwYEHM2ubRYoBgnMQxxPYmFjqJ2ATlRS0+mstcmx4Q=;
+ b=Tpxk9zdvnscrgnMZTekpcbA+usdU6WGyPkehFIbsQkoBtIREISCmoh+LbJcLP78EWl
+ BdX0A7NudMmw12yKmnhq63mHfyl4Rth1hZlq3da7/SFwD7yZJ8r5GiDHqEhIy8Ndu0Vz
+ h/SB0V6MyixpdeifZ6pCAXZfTMcSJjbnBR1diQw4esZkaS0Qk0fzV+eLq1Xao1r2oghk
+ Fm6r2ZhmaJ/yKxjjyhHO5CD9zvLStaMIQhOJH0N+Dm03i45vF0INYBJXL5Si8s8nCzte
+ GeR2bsdeq2B/Zc31kcpHU6I1oaxdGFT2YyJVLVd9FtKyRdOoBelRndHN2U4eSgqxpx99
+ YZbA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp7qNI3BqGHxs2o+h+kmyWDlQpPBmGbCCiFC3PqibFVXV6S4mF8lWn3FhwZHyIfCHMbdjWRiIvqQ0M=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyyd21B03+3Oq91vwIn4B7Jkq9TXQi/csiN9ZmGMg5PSVdTOJEM
+ /ZPuECb34+2HqMtYGcmIBhV6S2s5l9Gv89Xg5XoiekRI0hsmIZgJCjERghNqfcrtDg==
+X-Gm-Gg: AR+sD10m59kfmX3y97S8LVJQ1tbiR64OW/K2kGy65Sfdkhm2RhOUJiRPmv3eMaA1gXq
+ 79MEgT4VBG5I1Uk7+jqZJAEzFdL5KJllbGo1KcRIldrIytu+cWcyKYGx1sj1ybuxl7Y2bgdWNTH
+ AkGFU+5ER7LSkKscI2RcK9qW7IqIYVyvP085rv0M8rcq9E5tJ9GhmLi+ycgrspnNPPDdqpvz4uS
+ SjtVoBfrlY4EKXQFiqFo2NRGwzmn7SVtbH4C1a/o47rOP30+99r3XQ4Hplsi8nIYBmcrvoscEe6
+ D92KYbDJlb++lnFpY82Gt7bT5GfSRRTZXEc/aF0e+FCGkB6KmzWoJr67qf1mlwiFXJZR5V156qc
+ YpV6sHCUBpj3h+X2+3TW0Lb09Lhs4mDM26gL744lZTO6bjvDPwjXNftQ3nj6cCy2sDWF+AvEglP
+ yofP6f0ESKUj82M+rEH+lAYYjk7o9GsbgNU912W3NdmSw+zWKqFqn+LP+CcA8g4GXkIATwGxHWp
+ OECbxFTPgpj9+9oQo8OJqVVQdYTTtR4zuUOkgYtikNwyA==
+X-Received: by 2002:a05:6a00:b90:b0:848:6447:e09c with SMTP id
+ d2e1a72fcca58-84f2e152a10mr21860852b3a.39.1786103221911; 
+ Fri, 07 Aug 2026 04:47:01 -0700 (PDT)
+Received: from wenstp920.tpe.corp.google.com
+ ([2a00:79e0:201d:8:3622:c86b:3bef:6958])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cbe8f38839esm607634a12.29.2026.08.07.04.46.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Aug 2026 04:47:00 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Fri, 7 Aug 2026 19:28:08 +0800
-X-Gm-Features: AUfX_myPv-Zme9R39kLJ60coe-O7qq9OKUPB76y6Y9KxB5qC-BE6uWf9Zi-eh9c
-Message-ID: <CAGXv+5HEzgudvL+VdNniLjYaMDr_Rck2PP=qfe96jv0MphF5Eg@mail.gmail.com>
-Subject: Re: [PATCH RFC] drm/verisilicon: Switch to drm_fb_dma_get_addr() for
- framebuffer addresses
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH RFC v2] drm/verisilicon: Switch to drm_fb_dma_get_addr() for
+ framebuffer addresses
+Date: Fri,  7 Aug 2026 19:46:53 +0800
+Message-ID: <20260807114654.1373305-1-wenst@chromium.org>
+X-Mailer: git-send-email 2.55.0.654.g21b8a5bc05-goog
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,56 +89,119 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 7, 2026 at 6:48=E2=80=AFPM Chen-Yu Tsai <wenst@chromium.org> wr=
-ote:
->
-> The verisilicon driver has a custom framebuffer address calculating
-> helper that the common drm_fb_dma_get_addr() can substitute.
->
-> Differences from drm_fb_dma_get_addr():
->
-> - Uses drm_format_info_min_pitch() to calculate the horizontal offset;
->   however the driver does not support any of the blocked formats, so
->   this just ends up being the same as in drm_fb_dma_get_addr():
->   "cpp[plane] * y"
->
-> - Uses clipped source coordinates instead of non-clipped coordinates
->   as in drm_fb_dma_get_addr();
->
->   For the primary plane this doesn't matter, since the primary plane
->   must match the output, i.e. it cannot be clipped. Also this driver
->   doesn't support scaling.
->
->   For the cursor plane this seems wrong, as the clipping seems to be
->   done by the hardware, and thus the buffer address should be unclipped.
->
-> As such, it should be fine to use the common helper and drop the custom
-> code.
->
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> ---
->
-> This is only compile tested. I do not have the hardware.
-> ---
->  drivers/gpu/drm/verisilicon/vs_cursor_plane.c |  3 ++-
->  drivers/gpu/drm/verisilicon/vs_plane.c        | 20 -------------------
->  .../gpu/drm/verisilicon/vs_primary_plane.c    |  6 +++++-
->  3 files changed, 7 insertions(+), 22 deletions(-)
->
-> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/=
-drm/verisilicon/vs_cursor_plane.c
-> index fa4f601dd0c8..ae03d415d66b 100644
-> --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
-> @@ -176,7 +176,8 @@ static void vs_cursor_plane_atomic_update(struct drm_=
-plane *plane,
->                 break;
->         }
->
-> -       dma_addr =3D vs_fb_get_dma_addr(fb, &state->src);
-> +       /* hardware handles clipping as seen below */
-> +       dma_addr =3D drm_fb_dma_get_gem_addr(fb, 0);
+The verisilicon driver has a custom framebuffer address calculating
+helper that the common drm_fb_dma_get_addr() can substitute.
 
-Blah, I don't know what happened, but this doesn't compile.
+Differences from drm_fb_dma_get_addr():
 
-I'll send a new version.
+- Uses drm_format_info_min_pitch() to calculate the horizontal offset;
+  however the driver does not support any of the blocked formats, so
+  this just ends up being the same as in drm_fb_dma_get_addr():
+  "cpp[plane] * y"
+
+- Uses clipped source coordinates instead of non-clipped coordinates
+  as in drm_fb_dma_get_addr();
+
+  For the primary plane this doesn't matter, since the primary plane
+  must match the output, i.e. it cannot be clipped. Also this driver
+  doesn't support scaling.
+
+  For the cursor plane this seems wrong, as the clipping seems to be
+  done by the hardware, and thus the buffer address should be unclipped.
+
+As such, it should be fine to use the common helper and drop the custom
+code.
+
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+Changes since v1:
+- Fixed compile issues
+
+This is only compile tested. I do not have the hardware.
+---
+ drivers/gpu/drm/verisilicon/vs_cursor_plane.c |  4 +++-
+ drivers/gpu/drm/verisilicon/vs_plane.c        | 20 -------------------
+ .../gpu/drm/verisilicon/vs_primary_plane.c    |  7 ++++++-
+ 3 files changed, 9 insertions(+), 22 deletions(-)
+
+diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+index fa4f601dd0c8..59778433ae84 100644
+--- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+@@ -12,6 +12,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_fb_dma_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_atomic_helper.h>
+@@ -176,7 +177,8 @@ static void vs_cursor_plane_atomic_update(struct drm_plane *plane,
+ 		break;
+ 	}
+ 
+-	dma_addr = vs_fb_get_dma_addr(fb, &state->src);
++	/* hardware handles clipping as seen below */
++	dma_addr = drm_fb_dma_get_gem_addr(fb, state, 0);
+ 
+ 	regmap_write(dc->regs, VSDC_CURSOR_ADDRESS(output),
+ 		     lower_32_bits(dma_addr));
+diff --git a/drivers/gpu/drm/verisilicon/vs_plane.c b/drivers/gpu/drm/verisilicon/vs_plane.c
+index d81f7b8f4c65..38b8b536eccb 100644
+--- a/drivers/gpu/drm/verisilicon/vs_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_plane.c
+@@ -107,26 +107,6 @@ int drm_format_to_vs_format(u32 drm_format, struct vs_format *vs_format)
+ 	return 0;
+ }
+ 
+-dma_addr_t vs_fb_get_dma_addr(struct drm_framebuffer *fb,
+-			      const struct drm_rect *src_rect)
+-{
+-	struct drm_gem_dma_object *gem;
+-	dma_addr_t dma_addr;
+-
+-	/* Get the physical address of the buffer in memory */
+-	gem = drm_fb_dma_get_gem_obj(fb, 0);
+-
+-	/* Compute the start of the displayed memory */
+-	dma_addr = gem->dma_addr + fb->offsets[0];
+-
+-	/* Fixup framebuffer address for src coordinates */
+-	dma_addr += drm_format_info_min_pitch(fb->format, 0,
+-					      src_rect->x1 >> 16);
+-	dma_addr += (src_rect->y1 >> 16) * fb->pitches[0];
+-
+-	return dma_addr;
+-}
+-
+ struct drm_plane_state *vs_plane_duplicate_state(struct drm_plane *plane)
+ {
+ 	struct vs_plane_state *vs_state, *vs_state_old;
+diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane.c b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+index 1f2be41ae496..2750016a7f2c 100644
+--- a/drivers/gpu/drm/verisilicon/vs_primary_plane.c
++++ b/drivers/gpu/drm/verisilicon/vs_primary_plane.c
+@@ -8,6 +8,7 @@
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
+ #include <drm/drm_crtc.h>
++#include <drm/drm_fb_dma_helper.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_gem_atomic_helper.h>
+@@ -126,7 +127,11 @@ static void vs_primary_plane_atomic_update(struct drm_plane *plane,
+ 			   VSDC_FB_CONFIG_UV_SWIZZLE_EN,
+ 			   vs_state->format.uv_swizzle);
+ 
+-	dma_addr = vs_fb_get_dma_addr(fb, &state->src);
++	/*
++	 * Primary plane cannot be moved, no clipping is involved,
++	 * so the non-clipped framebuffer address can be used.
++	 */
++	dma_addr = drm_fb_dma_get_gem_addr(fb, state, 0);
+ 
+ 	regmap_write(dc->regs, VSDC_FB_ADDRESS(output),
+ 		     lower_32_bits(dma_addr));
+-- 
+2.55.0.654.g21b8a5bc05-goog
+
