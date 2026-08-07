@@ -4,43 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ADCFDC5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 13:50:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95137C5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 13:50:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C53FF10F4E9;
-	Fri,  7 Aug 2026 13:50:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C8C2F10F4E8;
+	Fri,  7 Aug 2026 13:50:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Cp0jaKCR";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="MRqvRaU0";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 204A510F4E8
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 13:50:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECDD810F4EC
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 13:50:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BE66143A4B;
+ by sea.source.kernel.org (Postfix) with ESMTP id C89DA41435;
+ Fri,  7 Aug 2026 13:50:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9781F00A3E;
  Fri,  7 Aug 2026 13:50:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 132021F00A3A;
- Fri,  7 Aug 2026 13:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786110636;
- bh=4DjfwV4ACAZUpRZw8MHQBqFBcbFpqFXHuRpYH05Uydg=;
- h=From:Subject:Date:To:Cc;
- b=Cp0jaKCRDnHCNEKuRgGcimB5c/OcwG/zvo7mP0N4Fa133BwLaa7BHfpAZRKIILPo6
- 7CjfGJ4tXc5ZG3JmqiAtktsJw0/1fbPBsODeqyAtXiuJqDiwy+0eT5ODBTu8Tvto1J
- Sbly6dpwQQkkx2IjEzzozvYHi9u+WDb/DN37BauhuqKeEnFPO9QYrWPkzwsUw2xf6b
- HmBujHQs0QlKI+EBXVHKerqIcDOGLAQ2/zICGf6VSpGoMMBboxC1LXehxtM6c/thcr
- OHFX3+PojipRuK5JkNDRNuB7hsPb7TdGzpFKFcjYwMIAEj34A+3zHg8LCJ+q7tdjLg
- HT0JC6CyGz4uw==
+ s=k20260515; t=1786110643;
+ bh=EwPefllU6d1ZOhpuz2HmPQx5BKCFxUJHa6Nznn6LyRE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=MRqvRaU0RAWLPqYnu2hVF4J5A/YLaMcCc9zGyL2HSxIqa/Mj0SL0oKlKbwt3k85om
+ /K+mY2Imhr15J0MQpohqmZx3hyI5PEo905yB/Iz/8GW23+RGf0MgL09nPRi/ZX4aCQ
+ Trxl3o2SIdim/srZsS61ZsLQcc67m5Oe8hHOAwiSkt02Ou6uM8FsSASn+yez70ZATR
+ N6FQ3VtTRJea/r6sSGDDFMCUJz76Mt6lR4H0cJeQq3OMQkbhrzJLLKULVBoysbLf+c
+ 9kP9g90IN29MxfINOrWOUfpOVoqKYxH2oqKURDtpC+GxAE3HGVlr6SDAen7o2JOfdv
+ 8v2yKob6okQxw==
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Subject: [PATCH RFC 0/5] allow kfree_nolock() handle kmalloc() objects
-Date: Fri, 07 Aug 2026 15:50:26 +0200
-Message-Id: <20260807-kfree_nolock_kmalloc-v1-0-ba993cbf7a60@kernel.org>
+Date: Fri, 07 Aug 2026 15:50:27 +0200
+Subject: [PATCH RFC 1/5] mm/slab: cleanup deferred free handling
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAKLidWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDc2MD3ey0otTU+Lz8nPzk7Pjs3MQcIEPXzMDM3NDcIC3FNDFFCai1oCg
- 1LbMCbGy0UpCbs1IsRLC4NCkrNbkEZKBSbS0APFcePH0AAAA=
-X-Change-ID: 20260730-kfree_nolock_kmalloc-6067170fd5ad
+Message-Id: <20260807-kfree_nolock_kmalloc-v1-1-ba993cbf7a60@kernel.org>
+References: <20260807-kfree_nolock_kmalloc-v1-0-ba993cbf7a60@kernel.org>
+In-Reply-To: <20260807-kfree_nolock_kmalloc-v1-0-ba993cbf7a60@kernel.org>
 To: Harry Yoo <harry@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
  Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
  Sumit Semwal <sumit.semwal@linaro.org>, 
@@ -77,39 +75,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is an initial RFC for something that could target 7.4 and
-definitely not earlier merge window. Based on
-slab/for-7.3/kfree_rcu_nolock
+In deferred_percpu_work_fn() we have a bunch of single-use local
+variables for the various llists. Remove them and access the lists
+directly.
 
-Currently kfree_nolock() can only handle objects from kmalloc_nolock().
-Removing this restriction means an easier to use API and might be useful
-in some situations. It means dealing properly with kfence, kmemleak and
-large kmalloc allocations. Some of the cases may end up being deferred
-to the irq_wor() but that's not a big issue.
-
-As a example of usefullness, convert a kfree_rcu() to kfree_nolock() in
-the scheduler code, where kfree_rcu() has been used as a workaround for
-kfree() being unsafe to call under pi_lock.
+In defer_free() make it more obvious and documented what we are doing.
+Also restrict guard(preempt) to only the necessary part.
 
 Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 ---
-Vlastimil Babka (SUSE) (5):
-      mm/slab: cleanup deferred free handling
-      mm/slab, kfence: support kfence objects in kfree_nolock()
-      mm/slab, kmemleak: handle kmemleak freeing in kfree_nolock()
-      mm/slab: handle large_kmalloc objects in kfree_nolock()
-      sched: use kfree_nolock() instead of kfree_rcu()
+ mm/slub.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
 
- include/linux/kfence.h   |   5 ++
- include/linux/kmemleak.h |  17 +++++
- kernel/sched/core.c      |   9 +--
- kernel/sched/sched.h     |   7 +--
- mm/kfence/core.c         |  14 +++++
- mm/kfence/kfence.h       |   5 +-
- mm/kmemleak.c            |  42 +++++++++++++
- mm/slub.c                | 157 +++++++++++++++++++++++++++++++++++++++--------
- 8 files changed, 215 insertions(+), 41 deletions(-)
----
-base-commit: 648294a02bfcd0eddae51877e3b30f8bbb2d4bb6
-change-id: 20260730-kfree_nolock_kmalloc-6067170fd5ad
+diff --git a/mm/slub.c b/mm/slub.c
+index b9aeb02a880f..044db93d64a0 100644
+--- a/mm/slub.c
++++ b/mm/slub.c
+@@ -6371,16 +6371,12 @@ static void free_to_pcs_bulk(struct kmem_cache *s, size_t size, void **p)
+ static void deferred_percpu_work_fn(struct irq_work *work)
+ {
+ 	struct deferred_percpu_work *dpw;
+-	struct llist_head *objs, *objs_by_rcu, *rcu_sheaves;
+ 	struct llist_node *llnode, *pos, *t;
+ 	struct slab_sheaf *sheaf, *next;
+ 
+ 	dpw = container_of(work, struct deferred_percpu_work, work);
+-	rcu_sheaves = &dpw->rcu_sheaves;
+-	objs = &dpw->objects;
+-	objs_by_rcu = &dpw->objects_by_rcu;
+ 
+-	llnode = llist_del_all(objs);
++	llnode = llist_del_all(&dpw->objects);
+ 	llist_for_each_safe(pos, t, llnode) {
+ 		struct kmem_cache *s;
+ 		struct slab *slab;
+@@ -6403,7 +6399,7 @@ static void deferred_percpu_work_fn(struct irq_work *work)
+ 		stat(s, FREE_SLOWPATH);
+ 	}
+ 
+-	llnode = llist_del_all(objs_by_rcu);
++	llnode = llist_del_all(&dpw->objects_by_rcu);
+ 	llist_for_each_safe(pos, t, llnode) {
+ 		void *head = pos;
+ 		void *objp = kvmalloc_obj_start_addr(head);
+@@ -6411,21 +6407,27 @@ static void deferred_percpu_work_fn(struct irq_work *work)
+ 		kvfree_call_rcu(head, objp);
+ 	}
+ 
+-	llnode = llist_del_all(rcu_sheaves);
++	llnode = llist_del_all(&dpw->rcu_sheaves);
+ 	llist_for_each_entry_safe(sheaf, next, llnode, llnode)
+ 		call_rcu(&sheaf->rcu_head, rcu_free_sheaf);
+ }
+ 
+-static void defer_free(struct kmem_cache *s, void *head)
++static void defer_free(struct kmem_cache *s, void *obj)
+ {
+ 	struct deferred_percpu_work *dpw;
++	struct llist_node *llnode;
+ 
+-	guard(preempt)();
++	/*
++	 * Place the llist node where the freepointer would be if we freed the
++	 * object immediately. That means we can write there safely, only need
++	 * to remove kasan tag first.
++	 */
++	llnode = kasan_reset_tag(obj) + s->offset;
+ 
+-	head = kasan_reset_tag(head);
++	guard(preempt)();
+ 
+ 	dpw = this_cpu_ptr(&deferred_percpu_work);
+-	if (llist_add(head + s->offset, &dpw->objects))
++	if (llist_add(llnode, &dpw->objects))
+ 		irq_work_queue(&dpw->work);
+ }
+ 
+
+-- 
+2.55.0
 
