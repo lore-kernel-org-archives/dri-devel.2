@@ -4,56 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63B2FC5AC9F
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:32:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4962C2A09B
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:32:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B211310F3BE;
-	Fri,  7 Aug 2026 04:32:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94C6410F3C2;
+	Fri,  7 Aug 2026 04:32:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="UKBoMg3g";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="gzgEUrla";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E554810F3BB;
- Fri,  7 Aug 2026 04:32:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66E4210F3BB;
+ Fri,  7 Aug 2026 04:32:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786077162; x=1817613162;
+ t=1786077164; x=1817613164;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=3QGv1N/SDsb/gINMVO1dvO+3L8S/GMFZKdB184mYUNE=;
- b=UKBoMg3grkCkcBYobSiJKxjOvp9W5n/KGWXWbGDE2zEVg/UDV4QnQvfh
- tEkqka+pNImqYB/QpyX5AVpupfaaIsoYHhW+uVD60AtXLnANjTme4QI7z
- x2h7nnnPOLBGUUiM9cSwy9QL/5OP2DCzlM/O0/Wd00THhpdmZv8UsrlM1
- cXwWA88TLhWbrQ9P/61ZD6uPJTndU69fkg9OmZb9Fu8DXsM44VdD6gSST
- 37OThzhRKltQTceafbYmahxydM0kHB42DVmKR/kfdHZW7FdsqnysaiX4z
- pvCyfU6lh0Ev7XPRHw9KMVeBDbjAGlESHoQjBlbvsoXIQM/BoIHg3TLha Q==;
-X-CSE-ConnectionGUID: 4fvEus8RSEGCHwP0XYfkzA==
-X-CSE-MsgGUID: cr1xdDCRTtOj32kH+vemFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619356"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619356"
+ bh=w065VMrjy391/TRCuqGOI/huMLewLyvhh6aRajdaMGw=;
+ b=gzgEUrlaPbmfE0GmrKtyJQo758XgT1E/ztCg9//jIXnDvCUJWaOOvfPd
+ Le8t88dsEXCGMGGFMqmql5WEHO2H1E5zLTdqnetFE4YTAhCgn/utdI/yl
+ eZ6YpMPAEvbUqvrHqdNIPk76VvB1MIdXhTHsXldmQqUc5WV7mC2Z/I+08
+ 133NtYhi8cWo0WssSApLDiaAhK4v94sAysV+Sp3WGMJo7A9BGuo773J1c
+ PdbVZvkuXsEzG8AX4bqkB3BXDhIxkNO4yIixGzZP2uzznqw5ltP75DgEL
+ mqdcNk3VPXpASexPkBeH2Enehlk+eohFGhbVH6eKKlqzHtzJZQo04K2Xb Q==;
+X-CSE-ConnectionGUID: DYFYstSZRfOxJiYhClBaNA==
+X-CSE-MsgGUID: dbo4ahFcQqqiJBzEbMdtpg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619359"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619359"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:32:42 -0700
-X-CSE-ConnectionGUID: FP55WbCpSzuQKfNSKcHObw==
-X-CSE-MsgGUID: hv7lnSgMTMK+bb+bRPVJBg==
+ 06 Aug 2026 21:32:44 -0700
+X-CSE-ConnectionGUID: 3msrh3maRA+if1vaPh/4Pg==
+X-CSE-MsgGUID: /uSWqYgbSPCj41mYljRLpA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666460"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666474"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:32:39 -0700
+ 06 Aug 2026 21:32:41 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH 29/44] drm/i915/hdmi: Add FRL port and mode clock valid
-Date: Fri,  7 Aug 2026 09:44:14 +0530
-Message-ID: <20260807041430.229038-30-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 30/44] drm/i915/hdmi_frl_dfm_regs: Define DFM registers
+Date: Fri,  7 Aug 2026 09:44:15 +0530
+Message-ID: <20260807041430.229038-31-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
 References: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,182 +73,58 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Vandita Kulkarni <vandita.kulkarni@intel.com>
 
-Add the clock valid checks for the HDMI FRL mode of transmission.
-
-Introduce hdmi_port_frl_clock_valid() which validates the FRL link
-rate against the maximum FRL rate and the source PHY (c10/c20 or LT),
-and a common hdmi_port_clock_valid() wrapper that dispatches to the
-TMDS or FRL helper based on frl_mode. Similarly add intel_hdmi_frl_clock()
-and a common intel_hdmi_clock() wrapper to compute the required clock
-for the selected mode of transmission.
-
-Wire these into intel_hdmi_mode_clock_valid() via the common wrappers.
-FRL mode is not enabled yet, so the callers pass frl_mode as false and
-the existing TMDS behaviour is unchanged. A subsequent change will
-compute frl_mode and enable FRL based validation.
+Add defines for HDMI FRL dataflow metering registers
+to take care of DFM values.
 
 Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 100 +++++++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_hdmi.h |   4 +-
- 2 files changed, 101 insertions(+), 3 deletions(-)
+ .../i915/display/intel_hdmi_frl_dfm_regs.h    | 36 +++++++++++++++++++
+ 1 file changed, 36 insertions(+)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm_regs.h
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 5a3241c054f7..7170546f4779 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -64,6 +64,7 @@
- #include "intel_hdmi.h"
- #include "intel_link_bw.h"
- #include "intel_lspcon.h"
-+#include "intel_lt_phy.h"
- #include "intel_panel.h"
- #include "intel_pfit.h"
- #include "intel_snps_phy.h"
-@@ -1921,6 +1922,78 @@ hdmi_port_tmds_clock_valid(struct intel_hdmi *hdmi,
- 	return MODE_OK;
- }
- 
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm_regs.h b/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm_regs.h
+new file mode 100644
+index 000000000000..bb5cb76b3806
+--- /dev/null
++++ b/drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm_regs.h
+@@ -0,0 +1,36 @@
++/* SPDX-License-Identifier: MIT */
 +/*
-+ * Returns the Fixed rate in 10 Kbps per lane required to support given
-+ * pixel rate.
-+ * Returns 0 for pixel rate demanding > 12 Gbps
++ * Copyright © 2022 Intel Corporation
 + */
-+static int intel_hdmi_frl_required_bitrate(int pixel_rate_10kbps)
-+{
-+	/*
-+	 * 3 lane configurations:
-+	 * 3 Gbps * 3 = 9 Gbps; 6 Gbps * 3 = 18 Gbps.
-+	 *
-+	 * 4 lane configurations:
-+	 * 6 Gbps * 4 = 24 Gbps; 8 Gbps * 4 = 32 Gbp;
-+	 * 10 Gbps * 4 = 40 Gbps; 12 Gbps * 4 = 48 Gbps.
-+	 */
-+	if (pixel_rate_10kbps <= FRL_GBPS_TO_10KBPS(9))
-+		return FRL_GBPS_TO_10KBPS(3);
 +
-+	if (pixel_rate_10kbps > FRL_GBPS_TO_10KBPS(9) &&
-+	    pixel_rate_10kbps <= FRL_GBPS_TO_10KBPS(18))
-+		return FRL_GBPS_TO_10KBPS(6);
++#ifndef __INTEL_HDMI_FRL_DFM_REGS_H__
++#define __INTEL_HDMI_FRL_DFM_REGS_H__
 +
-+	if (pixel_rate_10kbps > FRL_GBPS_TO_10KBPS(18) &&
-+	    pixel_rate_10kbps <= FRL_GBPS_TO_10KBPS(24))
-+		return FRL_GBPS_TO_10KBPS(6);
++#include "intel_display_reg_defs.h"
 +
-+	if (pixel_rate_10kbps > FRL_GBPS_TO_10KBPS(24) &&
-+	    pixel_rate_10kbps <= FRL_GBPS_TO_10KBPS(32))
-+		return FRL_GBPS_TO_10KBPS(8);
++#define _TRANS_HDMI_FRL_DFMRDCTL_A			0x600bc
++#define TRANS_HDMI_FRL_DFMRDCTL(dev_priv, trans)	_MMIO_TRANS2(dev_priv, \
++								     trans, \
++								     _TRANS_HDMI_FRL_DFMRDCTL_A)
++#define   TB_DIFF_MAX_OFFSET_MASK			REG_GENMASK(8, 0)
++#define   TB_DIFF_MAX_OFFSET(val)			REG_FIELD_PREP(TB_DIFF_MAX_OFFSET_MASK, val)
 +
-+	if (pixel_rate_10kbps > FRL_GBPS_TO_10KBPS(32) &&
-+	    pixel_rate_10kbps <= FRL_GBPS_TO_10KBPS(40))
-+		return FRL_GBPS_TO_10KBPS(10);
++#define _TRANS_HDMI_FRL_DFMWRCTL_A			0x600c0
++#define TRANS_HDMI_FRL_DFMWRCTL(dev_priv, trans)	_MMIO_TRANS2(dev_priv, \
++								     trans, \
++								     _TRANS_HDMI_FRL_DFMWRCTL_A)
++#define  TB_ACTUAL_OFFSET_MASK				REG_GENMASK(8, 0)
++#define  TB_ACTUAL_OFFSET(val)				REG_FIELD_PREP(TB_ACTUAL_OFFSET_MASK, val)
 +
-+	if (pixel_rate_10kbps > FRL_GBPS_TO_10KBPS(40) &&
-+	    pixel_rate_10kbps <= FRL_GBPS_TO_10KBPS(48))
-+		return FRL_GBPS_TO_10KBPS(12);
++#define _TRANS_HDMI_FRL_DFMTHRSH_A			0x600c4
++#define TRANS_HDMI_FRL_DFMTHRSH(dev_priv, trans)	_MMIO_TRANS2(dev_priv, \
++								     trans, \
++								     _TRANS_HDMI_FRL_DFMTHRSH_A)
++#define  RUN_LEN_THRESHOLD_MASK				REG_GENMASK(31, 24)
++#define  RUN_LEN_THRESHOLD(val)				REG_FIELD_PREP(RUN_LEN_THRESHOLD_MASK, val)
++#define  TB_MAX_THRESHOLD_MASK				REG_GENMASK(21, 12)
++#define  TB_MAX_THRESHOLD(val)				REG_FIELD_PREP(TB_MAX_THRESHOLD_MASK, val)
++#define  TB_MIN_THESHOLD_MASK				REG_GENMASK(9, 0)
++#define  TB_MIN_THESHOLD(val)				REG_FIELD_PREP(TB_MIN_THESHOLD_MASK, val)
 +
-+	/*
-+	 * pixel rate more than 48 Gbps rate, means more than
-+	 * 12 Gbps x 4 lanes. Such a rate not possible with FRL.
-+	 */
-+	return 0;
-+}
-+
-+static enum drm_mode_status
-+hdmi_port_frl_clock_valid(struct intel_hdmi *hdmi, int clock)
-+{
-+	struct intel_display *display = to_intel_display(hdmi);
-+
-+	if (DISPLAY_VER(display) >= 35)
-+		return intel_lt_phy_hdmi_frl_rate_valid(clock);
-+
-+	if (DISPLAY_VER(display) >= 14)
-+		return intel_cx0_phy_hdmi_frl_rate_valid(hdmi, clock);
-+
-+	return MODE_OK;
-+}
-+
-+static enum drm_mode_status
-+hdmi_port_clock_valid(struct intel_hdmi *hdmi,
-+		      int clock, bool respect_downstream_limits,
-+		      bool has_hdmi_sink, bool frl_mode)
-+{
-+	if (frl_mode)
-+		return hdmi_port_frl_clock_valid(hdmi, clock);
-+
-+	return hdmi_port_tmds_clock_valid(hdmi, clock,
-+					  respect_downstream_limits,
-+					  has_hdmi_sink);
-+}
-+
- int intel_hdmi_tmds_clock(int clock, int bpc,
- 			  enum intel_output_format sink_format)
- {
-@@ -1984,6 +2057,29 @@ static bool intel_hdmi_sink_bpc_possible(struct drm_connector *_connector,
- 	}
- }
- 
-+static
-+int intel_hdmi_frl_clock(int clock, int bpc, enum intel_output_format sink_format)
-+{
-+	int pixel_rate_kbps;
-+
-+	if (sink_format == INTEL_OUTPUT_FORMAT_YCBCR420)
-+		clock /= 2;
-+
-+	pixel_rate_kbps = clock * bpc * 3;
-+
-+	/* find the closest frl bit rate */
-+	return intel_hdmi_frl_required_bitrate(pixel_rate_kbps / 10);
-+}
-+
-+static
-+int intel_hdmi_clock(int clock, int bpc, enum intel_output_format sink_format, bool frl_mode)
-+{
-+	if (frl_mode)
-+		return intel_hdmi_frl_clock(clock, bpc, sink_format);
-+
-+	return intel_hdmi_tmds_clock(clock, bpc, sink_format);
-+}
-+
- static enum drm_mode_status
- intel_hdmi_mode_clock_valid(struct drm_connector *_connector, int clock,
- 			    bool has_hdmi_sink,
-@@ -2001,7 +2097,7 @@ intel_hdmi_mode_clock_valid(struct drm_connector *_connector, int clock,
- 	 * least one color depth is accepted.
- 	 */
- 	for (bpc = 12; bpc >= 8; bpc -= 2) {
--		int tmds_clock = intel_hdmi_tmds_clock(clock, bpc, sink_format);
-+		int hdmi_clock = intel_hdmi_clock(clock, bpc, sink_format, false);
- 
- 		if (!intel_hdmi_source_bpc_possible(display, bpc))
- 			continue;
-@@ -2010,7 +2106,7 @@ intel_hdmi_mode_clock_valid(struct drm_connector *_connector, int clock,
- 						  sink_format))
- 			continue;
- 
--		status = hdmi_port_tmds_clock_valid(hdmi, tmds_clock, true, has_hdmi_sink);
-+		status = hdmi_port_clock_valid(hdmi, hdmi_clock, true, has_hdmi_sink, false);
- 		if (status == MODE_OK)
- 			return MODE_OK;
- 	}
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index 5baa38d326e5..0e78e700ebf9 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -80,8 +80,10 @@ void hsw_read_infoframe(struct intel_encoder *encoder,
- 			void *frame, ssize_t len);
- void intel_hdmi_poll_for_scrambling_enable(const struct intel_crtc_state *crtc_state,
- 					   struct drm_connector *_connector);
--
- int intel_hdmi_sink_max_frl_rate(struct drm_connector *connector);
- int intel_hdmi_sink_dsc_max_frl_rate(struct drm_connector *connector);
- 
-+/* FRL rate per lane (Gbps) -> PHY PLL table units (10 kbps) */
-+#define FRL_GBPS_TO_10KBPS(rate)	((rate) * 100000)
-+
- #endif /* __INTEL_HDMI_H__ */
++#endif /* __INTEL_HDMI_FRL_DFM_REGS_H__ */
 -- 
 2.50.1
 
