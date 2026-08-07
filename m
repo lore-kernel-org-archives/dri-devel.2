@@ -4,97 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52A7EC5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 06:53:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED057C5AC82
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 06:59:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2716890FE;
-	Fri,  7 Aug 2026 06:53:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B68E10F38F;
+	Fri,  7 Aug 2026 06:59:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="iea25uz1";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="b6abVgzg";
 	dkim-atps=neutral
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37DB5890FE
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 06:53:47 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4953de5be0aso22602375e9.0
- for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 23:53:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1786085625; x=1786690425;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=nUIF+ZoBfnPhDtlVbHIbfV3H6x1dAyvkNT/RRT7NjLI=;
- b=iea25uz18bAfrHXHRY+y+pV+au4qU6inc7TQIUMZ4A8r6PPygVLU05m1W9nBGAbg+S
- 2nFeDllbG9myy6+GYZbV8L7Xj0TDNI0BXgMzOdRiLGS+QIA52UDdiwcJfiN/DW9hSeeu
- h2/0b2LWYcQRO2Xjrbr+XoxM/LtZP2gz8FYUwsTusmOExOP2YpX1Bb0Z1JFShW5ltQ2d
- sOzw1zNPNViXh+vUIihpbl7sOXHzsZ18eaCoaEFglwq3RIDPzyUWhOX5eYqDHk4MYpVe
- QIAMhckNH1Iy8vBAUWCCNrWgcWHfI5tvCXASapfal8ylDmlgLYIHojoShb4YlaqJJB2j
- bUGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786085625; x=1786690425;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=nUIF+ZoBfnPhDtlVbHIbfV3H6x1dAyvkNT/RRT7NjLI=;
- b=qZLYPhHsJw7wqXxnXL/xUtwufyfukyvh5k6bU3Ehjk2DtSnLNL2KRO66gy+NlJzMJJ
- fdDkrL4u8T0dG9iFSRjsuCspCkFdeB6eaDN+PNfGk5G24FH1Uly7xBurEQQp4GmuaOvQ
- 4XUTVyZr1wQ1IAsUYw6t3BfMDTYxMitx+n07CeQ/9GusGUulVDV8mNvBjrfrJWCQGlAE
- M31WvLlmZwuHzhdLHLgoeL2AJaT90yvygb6ZtYhd0nel82f+Bgufu43QgCf0sA/ZM2kA
- 4AM/+laBaA3dQH2C1CnvqOa0P/Zzn1w4r+dQYsHnouuuxx/Q9llhK1WLJvhsOTkKWBro
- 2+YA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RplIGoT13NJM9GQxEDJAb+ef8y7L5y++ihNuhjpNo8qWlHMKuBK3nno7/GZmEmUG2Rhe8E3C7z9NYo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxuyvd6aXhZ/RCAjPFsEsJd7W2O5/a1Ei4T6rlDb6Jvr1aw0oOY
- vqK7IRCzbyGtqkGhu4AstR0Af7FVB+q9JwEsf7J+NnJ4CvieBbTjnzVVte31Lhgq91w=
-X-Gm-Gg: AR+sD132bPcboRggLentcs+0ieMQzvl94ROq00Ex4KP0Ihk7qsH8rdgXYteZUSD1poK
- 7uATRvBml/YfGKhw/uRlb4EEEh4kSC0uxg46IcXIYj85lJPDDPNv8fvTctyZ85eoS5vNNO22bmS
- JPuxqH414ugDO1tXnm7YSbUexDJ7XKfnL1D89HpDy6mdwT43okO95PvKWp0DbrL1CUr1vj3RkwE
- 4fNPHiRI4AeqFABQVHD+P+gWZKzlONK/JmBgLId0gVcR2PNb/w6/+USv4xU7y4gVXs5yq5sF/qb
- +aYHWa+TaskPWQhd9fWCtWTMrrglXfmkR1mTBYh6xJ03PMvLXYoUUf/tIt60fE40rPf6DIDkR1s
- cqbv5ITVQvC4vSUab0ScKAmpZ0K4tdbLo2ybue37OG859NwxDjUVCb7qE1wdAK0m8lIoZMIOnv1
- PrJqOxRlopdv57N6PmPJnFUO936lL7oHxKGiMcSt/wTkGLMX0SVoA7VM4RiJUf01deSMkdrK3xh
- bBTuONz0MsR+B2ivHRKs1Ml4xKTksWLrhEDNV4/KgzUjky/6eyH
-X-Received: by 2002:a05:600c:4fcb:b0:495:5890:8f6c with SMTP id
- 5b1f17b1804b1-4995e084875mr16392445e9.7.1786085625549; 
- Thu, 06 Aug 2026 23:53:45 -0700 (PDT)
-Received: from localhost
- (p200300f65f017104bf0aa590e17c3201.dip0.t-ipconnect.de.
- [2003:f6:5f01:7104:bf0a:a590:e17c:3201])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-4995422016fsm98840415e9.8.2026.08.06.23.53.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Aug 2026 23:53:44 -0700 (PDT)
-Date: Fri, 7 Aug 2026 08:53:44 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Cody Kang <codykang.hk@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Yixun Lan <dlan@kernel.org>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, 
- devicetree@vger.kernel.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org, 
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH 05/17] phy: spacemit: add Innosilicon DP TX PHY driver
-Message-ID: <anWAmitXSFRUw1W2@monoceros>
-References: <20260724-k3-display-v1-0-f22a10a52867@gmail.com>
- <20260724-k3-display-v1-5-f22a10a52867@gmail.com>
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2724E10F368;
+ Fri,  7 Aug 2026 06:59:09 +0000 (UTC)
+Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6770Huoo016275; Fri, 7 Aug 2026 06:58:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=Ra4H8CAbtiN9wPr1aKFBAag6HNf0qB
+ uveAYY5O5upyA=; b=b6abVgzghGiyJP2Wlz0QxQ4Xlm4EEGD9Kpi/bbrlqUSFBE
+ peaClBZE7a6uUDxpMzlqxLdBYmzJ2Zv0Gov1Z/ABs95zQALrNBxETA0/pEucil/j
+ W+YyJwlwpe3OK1MAOCII7fcp3YeD9G589urjh/7H6praJpDu3PDyifCYlbxg55Wq
+ kegIhHrXFaKgEStmSWQn7LYsur2nUZn/xPNaUh2EUQxX/E75LETTqXwjtCkcIvTM
+ 6z2V+hipWhFW5E/1SdFcNJm3hHGg12nD12POK8woGUy/Cd3cVuoSGV0jyJiT1nQe
+ XgoPgNhStcc1pjBG2Dfbs0hQJW5cw8oy/wETB5bQ==
+Received: from ppma12.dal12v.mail.ibm.com
+ (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fvy00am7a-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 07 Aug 2026 06:58:32 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6776uLDe003221;
+ Fri, 7 Aug 2026 06:58:31 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fsu4qxspg-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Fri, 07 Aug 2026 06:58:31 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
+ [10.20.54.101])
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 6776wSir33882500
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 7 Aug 2026 06:58:29 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id D3B0620040;
+ Fri,  7 Aug 2026 06:58:28 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 4351E20043;
+ Fri,  7 Aug 2026 06:58:26 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.111.55.180])
+ by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Fri,  7 Aug 2026 06:58:26 +0000 (GMT)
+Date: Fri, 7 Aug 2026 08:58:24 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 6/9] mm: convert PTE table entry to pte
+Message-ID: <fab9fc78-1e1d-4d5b-a9ca-92f3ebd04108-agordeev@linux.ibm.com>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-7-usama.anjum@arm.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="pjrvltbz7ftd6xiv"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260724-k3-display-v1-5-f22a10a52867@gmail.com>
+In-Reply-To: <20260806083926.1807279-7-usama.anjum@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA0OSBTYWx0ZWRfX3Npn1dSDlp+R
+ fqhR9MpXZOAAKnyVJ8e3VxdJ3uPpsfM7vsZzpddpvCei+hGCUgHlBFVERXxX+W23gcpS04A1TAu
+ ZsTRXf6ZMD17BVZmsTCM0lUCa3PumjU=
+X-Authority-Analysis: v=2.4 cv=VPTtWdPX c=1 sm=1 tr=0 ts=6a758218 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
+ a=7CQSdrXTAAAA:8 a=VnNF1IyMAAAA:8 a=MkxDnzPc83ckttyupOUA:9 a=CjuIK1q_8ugA:10
+ a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-ORIG-GUID: 9g22-5Yiq-VIyR9utDe_g8M8U8wsuEOd
+X-Proofpoint-GUID: 9g22-5Yiq-VIyR9utDe_g8M8U8wsuEOd
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA0OSBTYWx0ZWRfX4qeGdjjX3Iob
+ oR2d/W90tNYt47jYoawp2wnB7y1FcZkNxxg7/PT57hDZR5feFluugIlRZ22mBQ/td/U5spNK5Sw
+ r8fBBZDJMOMHDyBDHn28hS5vFD1IBzJcw9uh6xxZ9XoecZCsQnhJUSSf9noMzRB2RMvDZxhPIkf
+ XMKQ1X4w4JsUHL/vsYXt9nxlaz1I/q7ljQgCtXwMvAVt1kijbs35mMQ7c76oGi39I1XSIpxXjmb
+ kIMcLde1EyTpmQmaPbN+E3LbUk4M/lkkgjjjvsZIBgTXWy3e0GMD7NaUrStoYwo4ESb8Z4Wsdqh
+ +581CUAUBwBVUa2TokmdsZzGbrL67tdrfft71SfQsy0ZlWFNR+iL1PR2Oez6zshpb+e7rynA9dG
+ f8FbSxO38FmGhTq0nvrdQcjHK2fKXR2vKx64CE0UHGLhgbh7cUWWpBSkiNUoiKjHZV0BphvCO4H
+ jlupay2/A2mIbK8uZUQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 malwarescore=0 bulkscore=0 spamscore=0 clxscore=1015
+ priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608070049
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,39 +151,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+On Thu, Aug 06, 2026 at 09:38:44AM +0100, Muhammad Usama Anjum wrote:
+> The non-MMU stub receives hw_pte_t but returns a logical pte_t
+> value. Convert the stored entry through __pte_from_hw() before
+> returning.
+> 
+> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> ---
+>  include/linux/hugetlb.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/include/linux/hugetlb.h b/include/linux/hugetlb.h
+> index bc0b9c65aa1d0..9e8b391aa4bc9 100644
+> --- a/include/linux/hugetlb.h
+> +++ b/include/linux/hugetlb.h
+> @@ -1283,7 +1283,7 @@ static inline pte_t huge_ptep_clear_flush(struct vm_area_struct *vma,
+>  #ifdef CONFIG_MMU
+>  	return ptep_get(ptep);
+>  #else
+> -	return *ptep;
+> +	return __pte_from_hw(*ptep);
 
---pjrvltbz7ftd6xiv
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 05/17] phy: spacemit: add Innosilicon DP TX PHY driver
-MIME-Version: 1.0
+But this is a direct dereferencing, which breaks the whole point, isn't it?
 
-Hello,
+What about introducing something like pte_t ptep_get_sw(hw_pte_t *ptep)
+to be used in exactly situations like this? With that the semantics of
+hw_pte_t pointers becomes straightforward and closes the still ongoing
+"storage vs lifetime" discussion:
 
-On Fri, Jul 24, 2026 at 11:16:37PM -0400, Cody Kang wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
+hw_pte_t*     points to HW-formatted page table entries
 
-Please drop the include for <linux/mod_devicetable.h>,
-<linux/platform_device.h> already provides of_device_id.
+ptep_get()    is used to obtain HW-linked/attached entries, and may wire
+              extra code like [1] or [2]
 
-Thanks
-Uwe
+ptep_get_sw() is used to obtain HW-unlinked/unattached entries and in
+              most cases is just a direct dereference
 
---pjrvltbz7ftd6xiv
-Content-Type: application/pgp-signature; name="signature.asc"
+The caller should always know whether the entry is attached or not, so
+confusions like [3] are avoided.
 
------BEGIN PGP SIGNATURE-----
+1. https://lore.kernel.org/linux-mm/20260526-kpkeys-v8-21-eaaacdacc67c@arm.com/
+2. https://lore.kernel.org/linux-s390/650903a4-0dd9-4e6b-9d4b-3c32c5657236-agordeev@linux.ibm.com/
+3. https://lore.kernel.org/linux-s390/b44e071d-7c9d-4e7e-a84d-4af3499a5a05@arm.com/
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmp1gPUACgkQj4D7WH0S
-/k5t1Af+IUdmJ1rwWz3XTKVvTnkiumXy+BBJlthTfpRB3pFeiGILfF6fTXLHen+q
-HI5KuCh4tnAo/jb3zLCDqO0RRmh14m5WlEgbMnFB9NGgBsbmj77K/WjLo2asTvFN
-zTn9nrSjAtcmoJs0h4hIB3zaaueCYiWTGq8S2lIKH5D3xMUy61+006h2s5Dtrzlc
-fHv743vCRkGoaGQWxHvpsgkx8Sp7WXEwZQyMaRvSggG2FiskKlV5pyM35siiJuAA
-re4sCShFRtGFOhGjKK+mM7y8skzgBNqDocWT4sYp0QYeW6w8nwNHyKh3KUN//afs
-1fDWRTlDMEJQqbI9K3OToPHbVguUIA==
-=glOr
------END PGP SIGNATURE-----
-
---pjrvltbz7ftd6xiv--
+>  #endif
+>  }
+>  
+> -- 
+> 2.47.3
+> 
