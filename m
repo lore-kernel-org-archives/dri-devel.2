@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D371C5AC7C
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 10:09:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50798C5AC7C
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 10:10:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9A410E3FE;
-	Fri,  7 Aug 2026 10:09:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 696FA10F445;
+	Fri,  7 Aug 2026 10:10:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qae7JKO1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fnB15Rwd";
 	dkim-atps=neutral
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6D4210E3FE
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 10:09:57 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-cbb85186d43so1746545a12.3
- for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 03:09:57 -0700 (PDT)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C689810F443
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 10:10:17 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-84862b0d5aeso3729120b3a.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 03:10:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786097397; x=1786702197; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786097417; x=1786702217; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
  bh=MQciLaflxhQrAIWokNvSZ9sUyM0S9LcjwfcEZLUvgpA=;
- b=Qae7JKO1i8xzRUZUp1GC1nP/k32gzmRybBY5aiP2K+64UP3N+jcQuZ0W29hoVMBpMp
- cUzRi84HrBmLY3RPwGKhbIrFT1ChJIYUEdXbvSnkablkKuT+8Jiv6BXjiTDz7jVatXxB
- LmQdGxL9akPvfQG5fa462wiMozIX+VEHuHIRt8BiE30kKVThzNAW/jKlwYKEyzSvz8Ud
- X/cZ1zNIrQIQguSTGv9eju69t5pGCij1wp8ej0kzkLccOWzPB0ET2lQHsUhgXaE7+6Sj
- Sb6QodSBvdb8P95fXtS7oI2JVIUu+jT36rX4/7r+R4znvSgkc+rW3xgXDMXXAJKGXeLC
- 2JeQ==
+ b=fnB15RwdlSZxRIEuuRI8Ss+gKMPANVGTIXLju/I+yxQXrwX9nXJlphqgz/ve+7rd9w
+ OfcX+lrfCWbLxVeo6F2lFflNzpaySXtXEfoIFPlsT3NpI3xZT2d/NrMM5leTtcMV/m1H
+ kXrRA8YoPRZLyiCthA/c/vXX3Nd7SdEX/nA6KfD7Q3og341QZ2Y71K0fGQdLK64sPN69
+ kgNkfB67tuBdE+B0Vcw5VTzgANIbtLyY7P+1po/NoFBlcxzO+ItPZyZEPxw2q3Uwpmmn
+ HEs2me/Ackg84dRkFmzk5N3hPDAgkrMiZBXH/yDyP0kmPFfqUz3jDlsCshtw+NfaejBY
+ fVZA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786097397; x=1786702197;
+ d=1e100.net; s=20251104; t=1786097417; x=1786702217;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
  bh=MQciLaflxhQrAIWokNvSZ9sUyM0S9LcjwfcEZLUvgpA=;
- b=Td1AqdYtBMIZ/qIfr5+Zit01AQ48CPhHLuhOUStmNTwAoOjCw8Qju2Fnlravildapk
- Tj3z87Pr8gE9GEzl6iWyPqN0gcwjYNfw6r4sgjM0OYkCmHeAGG1GIYhM1LQaHH0qwaRN
- oIfyjFVKexv8fg05MGRqk9KdrF8FhUE1wGcVE0ulvXFrT6Z0p0PmhOQLbxgTX4MmVqwY
- M8vdjsK0x1TUZQMWkMfHbUvCtwasqkoBoYLUia8bM+GJACxTojxeD/o6/O/SrEtHGNQF
- xeKc8JvgErlM+U6JuK4vz7inheEkN2R/vvURcyUn7aHV4APNMqhyF2nLbuB9tqA8WP3C
- 15DA==
+ b=tHu3w2G+ZpHsduFcFGbdtaJDHsO8fYWkxAfCEhRZ9b0dwRpDBYNSq3ACRfknH2cFCB
+ v+vJNHtOG/ckG5mGAwRt7gD9M6fwaRGIc598DR+mW3kW9SX59HVpuG6Oh6HrOqn6lE8P
+ +dAB1ifRysanEsrgJ/BMgB0sy5N/FZe7UYOKnEN9PpXBs1EICSGn2eR5dtgl0XXM1ESz
+ gpqFD5s2XEkvoZ68OSq9PkmxiQeMrpQ3xyZd6MoLV/fOEl3S56J1/U5TqLFP98Gxi0a1
+ 1x8lAvImZCafInrcFH64fnoOGQeu8P++4JIq30faM1cUKJQjA3/NFnfdPYbZWIp5hO85
+ sEtA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqLy7j2pOo+9U3hWqv6KOnNciIz36F18MgJuCKw84S/SpEY0PzTSNOlVu/Zp3keKPBBe3ofARZRWqM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx9OVHllVajjhn1zNry7Iy+kU3pD9DYwq7uEiief0I4NRwsEJw5
- oDKO7iKxcLeGuyIKF2dTwqX0TgP4wqD79T5Qt+zVldBNGUwF/7xXZe7a
-X-Gm-Gg: AR+sD13rj53RIKbmf9odNAP32Dp20UbTCI6aBQCyzmkOlaFncyVE6lXPTWEBdysGcjp
- /ZfYblsGY+qj9dRrsStlFE0UkHI5ddX008z0repGXg0QV9cjD/CHw+ZMfmZsZQsSWaPccttlpIn
- jejMZl1hz736sr4KYvV2yorIAt4Ry04Ggghf5z+w6NEvQpDSnR4VwafjlwxuVBrymN5fe+zCBdt
- jFaX/bN+k+B7f72gMDiejstrpihRrRityJoLnjzSIGTM5oJaDKekrc9UbXRHj0GAjqI9cCl2eXn
- xeTQppa7bzm8SK29Tbv3Ul4tDgHA2MAuY7x1zV2scxWuCN6bCBRWBBEI10ed6BB8jLzEIQODGLP
- +2HrwZ66Q6yA31UZqsbfqJY6/IrzUiT7TMoYLcDm6MKwuv9RH4D57R9ZqEVxAS1jindOYyHrcur
- tSJSkxvjQBauNNiiO79RLz52ANzMGeBycY5vJ3W//TmBvnGbeayIvQ7b3K/alQXYOT0K85ECcAs
- MA=
-X-Received: by 2002:a17:90b:224e:b0:38e:9ef9:eb97 with SMTP id
- 98e67ed59e1d1-3903c5c443dmr18527888a91.16.1786097397142; 
- Fri, 07 Aug 2026 03:09:57 -0700 (PDT)
+ AHgh+RpGknh3bLXX7E763vVeWkw1/w+FiYzv/+/smSU1jPNNDG2x0RjC6rHcGSl14yUcVWB8/A2xvkUZth0=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YydJ93aOPaDYclIco2YMFkNzbBvSohybsOX9mo6g/AWlzWN/FkX
+ +I/TkfytvR3op5NToX1atHEUpoxAKuHkE3xRVPSEOhoT9h6+3bmH4nJ7
+X-Gm-Gg: AR+sD11G9l3ReQK/EoJ0SSZYsw5DmC4gMbLcBBBFtqtu5PVdnz7RhaNcB3wzJedJNb5
+ lwlRmW5V+tlHgB6dY0TKkkHu9H2fh1Vz2SpVGcqYDEMinlNokPPqwC1r+DlZzb8Gpjmk8GEnvN4
+ N27NSAdm+gjXTvu/8k9OjrltmVmGRIJ9yxZMQ8U1PBvsCmN7LEHLkEnpwoGzoXP06jXAZWnYVAK
+ BRc2H3xCrlqYpgPgs7aLsD3fJaljdaWfPo3EM4+6S5kPKn5XyofxAcffLM/BfGeQAxojq2ZatvP
+ Q8twO30+7RqRJNHARUYPdsVXJhW6sqLjn9QWW+voDgUP4ekBxdsbOBskfLf4MBSAJ02+xrAddh8
+ AhN75QF+yMX2Yw7tagnKzGiWHSf8miOoMhFyY9tmBbaQc51dWJRLrN2u3X/M06om0hakXzD1ydK
+ l8AaqN9VJOFJ/vv3is2jrmtgR9ydRcKS7I8v51EtpUEsI4F42VNSNdGwqDoDNp7Gq9
+X-Received: by 2002:a05:6a00:2d0c:b0:84e:2382:f4f0 with SMTP id
+ d2e1a72fcca58-84f2dfc8ed4mr23153657b3a.4.1786097417043; 
+ Fri, 07 Aug 2026 03:10:17 -0700 (PDT)
 Received: from baineng-pc.. ([117.133.183.252])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39085de8ddcsm4363444a91.6.2026.08.07.03.09.50
+ d2e1a72fcca58-84f5a5528adsm795291b3a.45.2026.08.07.03.10.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Aug 2026 03:09:56 -0700 (PDT)
+ Fri, 07 Aug 2026 03:10:16 -0700 (PDT)
 From: Baineng Shou <shoubaineng@gmail.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -79,8 +78,8 @@ Cc: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
  Baineng Shou <shoubaineng@gmail.com>
 Subject: [PATCH v6 0/4] dma-buf: fix fd leak when copy_to_user() fails after
  fd_install()
-Date: Fri,  7 Aug 2026 18:09:37 +0800
-Message-Id: <20260807100941.1351356-1-shoubaineng@gmail.com>
+Date: Fri,  7 Aug 2026 18:10:02 +0800
+Message-Id: <20260807101006.1352561-1-shoubaineng@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
 References: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
