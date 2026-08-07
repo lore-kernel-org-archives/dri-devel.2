@@ -4,53 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4852EC5AC80
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 20:07:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE443C5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 20:16:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8645E10E35E;
-	Fri,  7 Aug 2026 20:07:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 137D510E117;
+	Fri,  7 Aug 2026 20:16:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=tuxedocomputers.com header.i=@tuxedocomputers.com header.b="hdRMQcG1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ASSFExhY";
 	dkim-atps=neutral
-Received: from mail.tuxedocomputers.com (mail.tuxedocomputers.com
- [157.90.84.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4989A10E24A;
- Fri,  7 Aug 2026 20:07:22 +0000 (UTC)
-Received: from wsembach-tuxedo.buero.augsburg.tuxedo.de
- (host-212-18-30-247.customer.m-online.net [212.18.30.247])
- (Authenticated sender: wse@tuxedocomputers.com)
- by mail.tuxedocomputers.com (Postfix) with ESMTPA id 4C42E2FC004D;
- Fri,  7 Aug 2026 22:07:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tuxedocomputers.com;
- s=default; t=1786133241;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=zcqw3phGqPumtEwKCvYGijd5ryFAPbT280s+LSCI/8c=;
- b=hdRMQcG1JSMcvMN0AD/lPeaLbjwOhOgCDiK2X/lxC3xbHrFsdeYv6PAAKbdGqHC1ouRHxe
- FsMDzl+9KPWqQTCRBBWySFrEQV40/cnWvD/6mGTMwvn/AVUH3PcFnD+P1yzxWO6k8vQt9A
- e2o+JRmZ+G/MRQsEtXGKe+MnGHn30Mk=
-Authentication-Results: mail.tuxedocomputers.com;
- auth=pass smtp.auth=wse@tuxedocomputers.com
- smtp.mailfrom=wse@tuxedocomputers.com
-From: Werner Sembach <wse@tuxedocomputers.com>
-To: jani.nikula@linux.intel.com, rodrigo.vivi@intel.com,
- joonas.lahtinen@linux.intel.com, tursulin@ursulin.net, airlied@gmail.com,
- simona@ffwll.ch, Suraj Kandpal <suraj.kandpal@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: wse@tuxedocomputers.com, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/1] drm/i915/display: Add quirk to force backlight type on
- some TUXEDO devices
-Date: Fri,  7 Aug 2026 22:04:30 +0200
-Message-ID: <20260807200709.464343-2-wse@tuxedocomputers.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260807200709.464343-1-wse@tuxedocomputers.com>
-References: <20260807200709.464343-1-wse@tuxedocomputers.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3ADBF10E117
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 20:16:49 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CF46A4340E;
+ Fri,  7 Aug 2026 20:16:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D7001F000E9;
+ Fri,  7 Aug 2026 20:16:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786133808;
+ bh=dnX0RUbhgS7aBIKdqZEV/ZrmyuH429jMlVNZNo5QXlI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ASSFExhYFFLpkfxazbaJ3osX07AD5/2d23qiyk8NYafd4b3ODccTHxbvIEjXi38jB
+ +6q22KIhpMV2NTb3fR82NO2Lrb/e29hatyR081oQoqLwhN3qqwXik6W0Vt8g7WnYI+
+ i+/qxrasUi4+4r6dmqunvAYpM2kGZT9Cx5eLZKQNSydfl80o9CUZ62sDMmUyaR5gZu
+ e8PLXG0KfgfBBeKvhmDygQRGiem7VVCGYRPn8Tq8s6ARToGh9+8lfrvPvvk698okdS
+ 8sTrgjMyamZIXMf8nRuzybwPA6N/2dYyD9dzGRwoO8TAVKWxIjYGsvscRK1cFC1Bfn
+ 1+rqd8EPJey8w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] PCI: vgaarb: Remove stale "not implemented" notes from
+ docs
+To: =?utf-8?b?Q2hyaXN0aWFuIE1lbGVuZGV6IE51w7Fleg==?= <chrismelnu@gmail.com>
+Cc: linux-pci@vger.kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260807200639.172487-1-chrismelnu@gmail.com>
+References: <20260807200639.172487-1-chrismelnu@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 20:16:47 +0000
+Message-Id: <20260807201648.7D7001F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,135 +53,174 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The display backlight on TUXEDO DX1708 and InsanityBook 15 v1 have a broken
-VBT in the AUO 12701 and AUO 12701 panels, but not others. They are
-advertising INTEL_BACKLIGHT_DISPLAY_DDI, but are actually failing to use
-the Intel interface. Adding a fallback to the VESA interface gives
-these devices a working backlight for both the broken and non broken
-panel VBTs.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Forcing the fallback can already be achieved via a module parameter,
-but this patch adds a quirk to apply this by default on the mentioned
-devices.
+New issues:
+- [Medium] The commit incorrectly removes the 'not implemented' TODO for th=
+e 'unlock all' command, even though its implementation remains fundamentall=
+y broken.
 
-This patch does not actually test for the exact panels as the ID that is
-used in the intel_dpcd_quirks list is sadly zeroed on the devices, but
-afaik all these devices use try_intel_interface first anyway so all the
-quirk does is to add the fallback to try_vesa_interface, so the behaviour
-on the devices not needing the quirk and fallback should functionally stay
-the same.
+Pre-existing issues:
+- [High] Use-After-Free in vga_arb_release due to unreferenced pci_dev poin=
+ters.
+- [High] Permanent global VGA lock resource leak when MAX_USER_CARDS is exc=
+eeded.
+- [High] Data race and Use-After-Free during unprotected vga_list iteration=
+ and concurrent FD accesses.
+--
 
-Fixes: f30fddb44023 ("Revert "drm/i915/backlight: Remove try_vesa_interface"")
-Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15679
-Cc: stable@vger.kernel.org
-Signed-off-by: Werner Sembach <wse@tuxedocomputers.com>
----
- .../drm/i915/display/intel_dp_aux_backlight.c | 22 ++++++++++++++++-
- drivers/gpu/drm/i915/display/intel_quirks.c   | 24 +++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_quirks.h   |  1 +
- 3 files changed, 46 insertions(+), 1 deletion(-)
+--- Patch [1]: [PATCH] PCI: vgaarb: Remove stale "not implemented" notes fr=
+om docs ---
+commit bbd78d4ec38a7ceee963b0e74ebab5896fceb191
+Author: Christian Melendez Nu=C3=B1ez <chrismelnu@gmail.com>
 
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-index 266e042e00237..d84def79c4bfb 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_aux_backlight.c
-@@ -41,6 +41,7 @@
- #include "intel_display_types.h"
- #include "intel_dp.h"
- #include "intel_dp_aux_backlight.h"
-+#include "intel_quirks.h"
- 
- /*
-  * DP AUX registers for Intel's proprietary HDR backlight interface. We define
-@@ -687,11 +688,30 @@ int intel_dp_aux_init_backlight_funcs(struct intel_connector *connector)
- 	struct drm_device *dev = connector->base.dev;
- 	struct intel_panel *panel = &connector->panel;
- 	bool try_intel_interface = false, try_vesa_interface = false;
-+	int enable_dpcd_backlight;
-+
-+	/*
-+	 * Some devices have a broken VBT in some Panels, but not others,
-+	 * advertising INTEL_BACKLIGHT_DISPLAY_DDI, but actually failing to use
-+	 * the Intel interface. Adding a fallback to the Vesa interface gives
-+	 * these devices a working backlight for both the broken and non broken
-+	 * panel VBTs.
-+	 *
-+	 * This fallback can not be made the general default as this has broken
-+	 * other devices in the past whose VBT correctly reports
-+	 * INTEL_BACKLIGHT_DISPLAY_DDI and whose PWM path is the actual
-+	 * backlight control, but whose DPCD optimistically advertises
-+	 * DP_EDP_BACKLIGHT_AUX_ENABLE_CAP / _BRIGHTNESS_AUX_SET_CAP.
-+	 */
-+	enable_dpcd_backlight = display->params.enable_dpcd_backlight;
-+	if (enable_dpcd_backlight == INTEL_DP_AUX_BACKLIGHT_AUTO &&
-+	    intel_has_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT))
-+		enable_dpcd_backlight = INTEL_DP_AUX_BACKLIGHT_ON;
- 
- 	/* Check the VBT and user's module parameters to figure out which
- 	 * interfaces to probe
- 	 */
--	switch (display->params.enable_dpcd_backlight) {
-+	switch (enable_dpcd_backlight) {
- 	case INTEL_DP_AUX_BACKLIGHT_OFF:
- 		return -ENODEV;
- 	case INTEL_DP_AUX_BACKLIGHT_AUTO:
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
-index 33245f44c0d50..89d82364ae45d 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.c
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.c
-@@ -100,6 +100,14 @@ static void quirk_disable_psr2(struct intel_display *display)
- 	drm_info(display->drm, "PSR2 support not currently available for this setup, applying disable PSR2 quirk\n");
- }
- 
-+static void quirk_enable_dpcd_backlight(struct intel_dp *intel_dp)
-+{
-+	struct intel_display *display = to_intel_display(intel_dp);
-+
-+	intel_set_dpcd_quirk(intel_dp, QUIRK_ENABLE_DPCD_BACKLIGHT);
-+	drm_info(display->drm, "Applying Enable DPCD Backlight quirk\n");
-+}
-+
- struct intel_quirk {
- 	int device;
- 	int subsystem_vendor;
-@@ -286,6 +294,22 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
- 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
- 		.hook = quirk_disable_edp_panel_replay,
- 	},
-+	/* TUXEDO InsanityBook 15 v1 */
-+	{
-+		.device = 0x591b,
-+		.subsystem_vendor = 0x1558,
-+		.subsystem_device = 0x9501,
-+		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
-+		.hook = quirk_enable_dpcd_backlight,
-+	},
-+	/* TUXEDO DX1708 */
-+	{
-+		.device = 0x3e9b,
-+		.subsystem_vendor = 0x1558,
-+		.subsystem_device = 0x8500,
-+		.sink_oui = SINK_OUI(0x38, 0xec, 0x11),
-+		.hook = quirk_enable_dpcd_backlight,
-+	},
- };
- 
- void intel_init_quirks(struct intel_display *display)
-diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
-index 970a4fe52fafc..4996419ae76bd 100644
---- a/drivers/gpu/drm/i915/display/intel_quirks.h
-+++ b/drivers/gpu/drm/i915/display/intel_quirks.h
-@@ -23,6 +23,7 @@ enum intel_quirk_id {
- 	QUIRK_EDP_LIMIT_RATE_HBR2,
- 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
- 	QUIRK_DISABLE_PSR2,
-+	QUIRK_ENABLE_DPCD_BACKLIGHT,
- };
- 
- void intel_init_quirks(struct intel_display *display);
--- 
-2.43.0
+PCI: vgaarb: Remove stale "not implemented" notes from docs
 
+This commit updates the vgaarb documentation and kerneldoc to remove
+"TODO: not implemented yet" notes for the "unlock all" and "target
+default" commands. It states that these commands are already fully handled
+in vga_arb_write().
+
+> - "unlock all" is handled in vga_arb_write() via the "all"
+>   strncmp branch, which releases both VGA_RSRC_LEGACY_IO and
+>   VGA_RSRC_LEGACY_MEM.
+
+[Severity: Medium]
+Is the "unlock all" command fully implemented and working as expected?
+
+Looking at vga_arb_write(), when the "all" branch is taken, it forces both
+flags:
+
+drivers/pci/vgaarb.c:vga_arb_write() {
+    ...
+    if (strncmp(curr_pos, "all", 3) =3D=3D 0)
+        io_state =3D VGA_RSRC_LEGACY_IO | VGA_RSRC_LEGACY_MEM;
+    ...
+}
+
+But later in the same function, it checks if the user actually holds these
+locks:
+
+drivers/pci/vgaarb.c:vga_arb_write() {
+    ...
+    if (io_state & VGA_RSRC_LEGACY_MEM && uc->mem_cnt =3D=3D 0) {
+        ret_val =3D -EINVAL;
+        goto done;
+    }
+    ...
+}
+
+If the user holds only one type of lock, wouldn't this fail with -EINVAL
+instead of unlocking the resources? Should the TODO disclaimer remain until
+this logic is fixed?
+
+
+> diff --git a/Documentation/gpu/vgaarbiter.rst b/Documentation/gpu/vgaarbi=
+ter.rst
+> index d1e953712cc29..c3a728130b545 100644
+> --- a/Documentation/gpu/vgaarbiter.rst
+> +++ b/Documentation/gpu/vgaarbiter.rst
+> @@ -65,8 +65,7 @@ write
+>          unlock <io_state>
+>                  release locks on target
+>          unlock all
+> -                release all locks on target held by this user (not imple=
+mented
+> -                yet)
+> +                release all locks on target held by this user
+
+[Severity: High]
+This is a pre-existing issue, but does closing the file descriptor lead to a
+use-after-free here?
+
+In vga_arb_write(), when a "target" command is processed, the code drops the
+reference to the PCI device:
+
+drivers/pci/vgaarb.c:vga_arb_write() {
+    ...
+    pci_dev_put(pdev);
+    ...
+}
+
+If the target PCI device is subsequently hot-unplugged and freed by the PCI
+subsystem, the pointers in priv->target and priv->cards[i].pdev are left
+dangling.=20
+
+When the user later closes the file descriptor, vga_arb_release() accesses
+the device unconditionally:
+
+drivers/pci/vgaarb.c:vga_arb_release() {
+    ...
+    vgaarb_dbg(&uc->pdev->dev, "uc->io_cnt =3D=3D %d, uc->mem_cnt =3D=3D %d=
+\n",
+               uc->io_cnt, uc->mem_cnt);
+    ...
+}
+
+Could this dereference the freed pointer if the device was removed?
+
+
+[Severity: High]
+This is a pre-existing issue, but can we permanently leak a global VGA lock
+if MAX_USER_CARDS is exceeded?
+
+When vga_arb_write() processes the "target" command, it sets priv->target
+before checking if the tracking array is full:
+
+drivers/pci/vgaarb.c:vga_arb_write() {
+    ...
+    priv->target =3D pdev;
+    for (i =3D 0; i < MAX_USER_CARDS; i++) {
+        ...
+    if (i =3D=3D MAX_USER_CARDS) {
+        ...
+        ret_val =3D  -ENOMEM;
+        goto done;
+    }
+    ...
+}
+
+If the user has 16 devices and targets a 17th, the function returns -ENOMEM
+but leaves priv->target set to the new device.
+
+If the user then sends a "lock io" command, it will acquire the global lock
+for this new device. Because the device isn't tracked in priv->cards, does
+vga_arb_release() fail to release this lock on close, leaking it permanentl=
+y?
+
+
+[Severity: High]
+This is a pre-existing issue, but is it safe to traverse the global vga_list
+without holding vga_lock?
+
+In vga_arb_write(), when resolving a target device, it calls vgadev_find():
+
+drivers/pci/vgaarb.c:vga_arb_write() {
+    ...
+    vgadev =3D vgadev_find(pdev);
+    ...
+}
+
+Which traverses the global list:
+
+drivers/pci/vgaarb.c:vgadev_find() {
+    ...
+    list_for_each_entry(vgadev, &vga_list, list) {
+        ...
+}
+
+If a VGA device is concurrently hot-plugged or unplugged, could this
+concurrent modification cause the iteration to dereference freed list nodes?
+
+Additionally, should concurrent accesses to the user's private struct,
+such as priv->target and priv->cards in vga_arb_write(), be protected by
+priv->lock to prevent data corruption when accessed by multiple threads?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807200639.1724=
+87-1-chrismelnu@gmail.com?part=3D1
