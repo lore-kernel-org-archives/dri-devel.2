@@ -4,56 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE5F2C2A09B
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 13:33:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CE75EC5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 13:50:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7B3810E411;
-	Fri,  7 Aug 2026 13:33:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 165FE10E415;
+	Fri,  7 Aug 2026 13:50:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="b0KVAaI/";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ippVWlRA";
 	dkim-atps=neutral
-Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com
- [95.215.58.188])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6405610E411
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 13:33:07 +0000 (UTC)
-Mime-Version: 1.0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
- s=key1; t=1786109585;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+n8Po8atSSkMnPysk0cqVTEi9Ye8QqiCHIVEioALzPE=;
- b=b0KVAaI/pv6kp+yfCYn3YYDHWnfZnrLzbBjAc7J0fWB0yU+BGkTD9gBklUKIRPlMGP1UmG
- iLV/byVAOt2RGu/78okKn+Az+NsAw7d7PZ7PV0xXRPvUgVxPrP2UgTk3Hity2+EvLn60vm
- K0hzqZEhHP5VaM8bovkIcDxp9lzroZkGHqTMJELbohLhTgjRxCSMl9z5B4HOfgB9YpYaLj
- LCpObAZHLExhCQeQjcEY9p8H0ulFZYXNCMiLqq9St4/9sjBimMDJsQX18r+07sNxx3WocS
- vYQBU3HJBxewZHW5DWg7X+V0cIlkORa87DI+z8yBQVn/isxzM6bX5N8Kg4WK4w==
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 07 Aug 2026 15:32:52 +0200
-Message-Id: <DKIR028TZNJ3.3BGQJYSWX2BMN@cknow-tech.com>
-Cc: <royalnet026@gmail.com>, <alchark@flipper.net>,
- <chaoyi.chen@rock-chips.com>, <dri-devel@lists.freedesktop.org>,
- <linux-rockchip@lists.infradead.org>, <iommu@lists.linux.dev>,
- <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [RFC PATCH v6 7/9] accel/rocket: add RK3576 NPU (RKNN) support
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Robin Murphy" <robin.murphy@arm.com>, "Diederik de Haas"
- <diederik@cknow-tech.com>, "Jiaxing Hu" <gahing@gahingwoo.com>,
- <tomeu@tomeuvizoso.net>, <heiko@sntech.de>, <robh@kernel.org>,
- <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <joro@8bytes.org>,
- <will@kernel.org>, <ulfh@kernel.org>, <p.zabel@pengutronix.de>,
- <ogabbay@kernel.org>, <zhangqing@rock-chips.com>
-References: <20260806063413.350184-1-gahing@gahingwoo.com>
- <20260806063413.350184-8-gahing@gahingwoo.com>
- <DKIKXY8XZVPF.3RFR4ISK6Y4QX@cknow-tech.com>
- <fb94bd28-fdbf-4f99-a6ff-b5ab18c64345@arm.com>
-In-Reply-To: <fb94bd28-fdbf-4f99-a6ff-b5ab18c64345@arm.com>
-X-Migadu-Flow: FLOW_OUT
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8CAF10E415
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 13:50:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 616306013A;
+ Fri,  7 Aug 2026 13:50:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D24F1F01558;
+ Fri,  7 Aug 2026 13:50:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1786110634;
+ bh=6Pngd1+tyHYJXvoH3LT/mzc5dyVaNfgGY4fbk9hQIUM=;
+ h=Subject:To:Cc:From:Date:In-Reply-To;
+ b=ippVWlRAdQvozLpxITTWipyQFjGzOe1bTXgN+xr2XI1PTGIZy97x69nSOJ/DXJIiN
+ AT/Ej6TChw7re43LeIrJcrOdvPYDOWfxhu/bqQ5Drzig0VMyMJyh/S1hpAwL9AoWJm
+ y5zhEVXKG2GExUhwe0YGhLig2eog+2+BOi0iFjb0=
+Subject: Patch "drm/tegra: fbdev: Remove offset into framebuffer memory" has
+ been added to the 6.6-stable tree
+To: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ sashal@kernel.org, treding@nvidia.com, tzimmermann@suse.de
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 07 Aug 2026 15:49:51 +0200
+In-Reply-To: <20260731155020.604703-2-sashal@kernel.org>
+Message-ID: <2026080751-tweezers-musky-515d@gregkh>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,64 +56,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri Aug 7, 2026 at 2:55 PM CEST, Robin Murphy wrote:
-> On 07/08/2026 9:48 am, Diederik de Haas wrote:
->> On Thu Aug 6, 2026 at 8:34 AM CEST, Jiaxing Hu wrote:
->>> The RK3576 has two cores of the same RKNN block and a few platform
->>> differences:
->>>
->>>   - the CBUF (convolution buffer) has its own clock domain, so the core
->>>     needs six clocks rather than four;
->>>   - the BIU reset moved into the power domain, leaving one reset here;
->>>   - the NPU spans two power domains, and a device with more than one is
->>>     skipped by the driver-core single-domain auto-attach, so the list h=
-as
->>>     to be attached explicitly;
->>>   - the DPU completion interrupt is armed exactly as on RK3588 but neve=
-r
->>>     reaches the GIC. The completion is visible in INTERRUPT_RAW_STATUS,
->>=20
->> I don't know if it's relevant, so just a data point:
->> - RK3588 has Cortex A-76 + A-55, which have an External GICv4
->> - RK3576 has Cortex A-72 + A-53, which have an External GICv3
->
-> Nope, RK3588 has GIC-600, which is very much v3 still. I guess RK3576=20
-> probably has GIC-500 like RK3399 given the CPUs, but that shouldn't make=
-=20
-> any meaningful difference here.
 
-Unsurprisingly, you're (almost) correct :)
-I looked at this document when I wrote that:
-https://www.arm.com/-/media/Arm%20Developer%20Community/PDF/Cortex-A%20R%20=
-M%20datasheets/Arm%20Cortex-A%20Comparison%20Table_v4.pdf
+This is a note to let you know that I've just added the patch titled
 
-But the RK3588 TRM Part 1 Chapter 11 'GIC600' says:
-"The GIC600 supports the GICv3 architecture ..."
-"The version of GIC600 is r1p6-00rel0."
+    drm/tegra: fbdev: Remove offset into framebuffer memory
 
-The RK3576 TRM Part 1 Chapter 13 'Generic Interrupt Controller (GIC)' says:
-"There is a generic interrupt controller (GIC400) in RK3576 which generates
-physical interrupts to Cortex-A53/Cortex-A72."
+to the 6.6-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-And RK3399 TRM Part 1 Chapter 11 'Generic Interrupt Controller (GIC)' says:
-"The GIC-500 in RK3399 provides registers for managing interrupt sources,
-interrupt behavior, and interrupt routing to one or more cores."
+The filename of the patch is:
+     drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
+and it can be found in the queue-6.6 subdirectory.
 
-Cheers,
-  Diederik
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-> If the interrupt never fires at all then possibly the signal depends on=
-=20
-> some additional clock or power domain in order to propagate, or it's=20
-> just described incorrectly; or if other interrupt sources within the=20
-> NPU/IOMMU do still work then maybe there's some additional masking=20
-> control that's been overlooked, or perhaps it it just terminally broken.
->
-> (And FWIW I'm also inclined to agree with the other comments that=20
-> refactoring existing code to make room for new stuff, then actually=20
-> adding the new stuff, should probably be two separate steps if it's not=
-=20
-> completely trivial)
->
-> Thanks,
-> Robin.
+
+From stable+bounces-294127-greg=kroah.com@vger.kernel.org Fri Jul 31 18:00:34 2026
+From: Sasha Levin <sashal@kernel.org>
+Date: Fri, 31 Jul 2026 11:50:20 -0400
+Subject: drm/tegra: fbdev: Remove offset into framebuffer memory
+To: stable@vger.kernel.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>, Sasha Levin <sashal@kernel.org>
+Message-ID: <20260731155020.604703-2-sashal@kernel.org>
+
+From: Thomas Zimmermann <tzimmermann@suse.de>
+
+[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
+
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.10+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/tegra/fbdev.c |    8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+--- a/drivers/gpu/drm/tegra/fbdev.c
++++ b/drivers/gpu/drm/tegra/fbdev.c
+@@ -75,7 +75,6 @@ static int tegra_fbdev_probe(struct drm_
+ 	struct fb_info *info = helper->info;
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+-	unsigned long offset;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+ 	int err;
+@@ -112,9 +111,6 @@ static int tegra_fbdev_probe(struct drm_
+ 
+ 	drm_fb_helper_fill_info(info, helper, sizes);
+ 
+-	offset = info->var.xoffset * bytes_per_pixel +
+-		 info->var.yoffset * fb->pitches[0];
+-
+ 	if (bo->pages) {
+ 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
+ 				 pgprot_writecombine(PAGE_KERNEL));
+@@ -126,9 +122,9 @@ static int tegra_fbdev_probe(struct drm_
+ 	}
+ 
+ 	info->flags |= FBINFO_VIRTFB;
+-	info->screen_buffer = bo->vaddr + offset;
++	info->screen_buffer = bo->vaddr;
+ 	info->screen_size = size;
+-	info->fix.smem_start = (unsigned long)(bo->iova + offset);
++	info->fix.smem_start = (unsigned long)(bo->iova);
+ 	info->fix.smem_len = size;
+ 
+ 	return 0;
+
+
+Patches currently in stable-queue which might be from sashal@kernel.org are
+
+queue-6.6/sysctl-treewide-constify-ctl_table_header-ctl_table_arg.patch
+queue-6.6/wifi-brcmfmac-set-f2-blocksize-to-256-for-bcm43752.patch
+queue-6.6/usb-gadget-f_tcm-synchronize-delayed-set_alt-with-teardown.patch
+queue-6.6/net-sxgbe-free-tx-rings-on-rx-allocation-failure.patch
+queue-6.6/usb-typec-ucsi-fix-race-condition-and-ordering-in-port-unregistration.patch
+queue-6.6/drm-fb-helper-allocate-and-release-fb_info-in-single-place.patch
+queue-6.6/pinctrl-qcom-sc8280xp-add-missing-wakeup-entries-for.patch
+queue-6.6/forcedeth-fix-uaf-of-txrx_stats-in-nv_remove.patch
+queue-6.6/hid-logitech-dj-standardise-hid_report_enum-variable.patch
+queue-6.6/scsi-libsas-fix-ha-resume-deadlock-and-hisi_sas-disk.patch
+queue-6.6/netfilter-nft_payload-fix-mask-build-for-partial-fie.patch
+queue-6.6/bluetooth-iso-fix-timeout-vs-sync_timeout-typo-in-ch.patch
+queue-6.6/net-sxgbe-check-descriptor-ring-allocation-failures.patch
+queue-6.6/ipvs-fix-the-checksum-validations.patch
+queue-6.6/mptcp-pm-avoid-code-duplication-to-lookup-endp.patch
+queue-6.6/spi-spi-cadence-move-tx-fifo-full-busy-wait-into-fif.patch
+queue-6.6/powerpc-boot-fix-simpleboot-cpu-node-lookup-check.patch
+queue-6.6/ata-sata_mv-accept-1-or-2-resources-in-platform-prob.patch
+queue-6.6/wifi-mac80211-validate-individual-twt-params-before-.patch
+queue-6.6/mm-hugetlb-fix-swap-entry-corruption-when-clearing-u.patch
+queue-6.6/dmaengine-idxd-fix-fdev-setup-failure-cleanup-in-idx.patch
+queue-6.6/asoc-max98090-fix-missing-is_err-before-ptr_err-on-m.patch
+queue-6.6/mptcp-pm-use-addr-entry-for-get_local_id.patch
+queue-6.6/sched-add-task_struct-faults_disabled_mapping.patch
+queue-6.6/libceph-add-doutc-and-_client-debug-macros-support.patch
+queue-6.6/gve-fix-rx-queue-stall-on-alloc-failure.patch
+queue-6.6/bluetooth-hci_sync-remove-unnecessary-hci_conn_get-i.patch
+queue-6.6/drm-mediatek-check-crtc-state-before-freeing.patch
+queue-6.6/usb-musb-omap2430-clean-up-probe-error-handling.patch
+queue-6.6/bluetooth-iso-clear-iso_data-always-when-detaching-c.patch
+queue-6.6/accel-qaic-use-sizeof-trans_hdr-for-transaction-leng.patch
+queue-6.6/pinctrl-amd-don-t-clear-s4-wake-bits-at-probe.patch
+queue-6.6/net-bridge-mrp-fix-option-tlv-length-in-mrp_test-fra.patch
+queue-6.6/gpio-pch-use-raw_spinlock_t-for-the-register-lock.patch
+queue-6.6/powerpc-boot-fix-treeboot-currituck-cpu-node-lookup-.patch
+queue-6.6/wifi-ath6kl-fix-use-after-free-in-aggr_reset_state.patch
+queue-6.6/wifi-brcmfmac-fix-43752-sdio-fwvid-incorrectly-labelled-as-cypress-cyw.patch
+queue-6.6/keys-make-keyring-key-chunk-byte-order-agree-with-ke.patch
+queue-6.6/hwmon-adt7470-fix-fans-stuck-in-manual-mode-on-i2c-e.patch
+queue-6.6/ata-ahci_ceva-fix-error-paths-in-ceva_ahci_platform_.patch
+queue-6.6/qede-sync-udp_tunnel-ports-outside-qede_lock-in-the-.patch
+queue-6.6/tracing-mmiotrace-reset-dropped_count-in-mmio_reset_.patch
+queue-6.6/netfilter-nf_conntrack_sip-widen-nat-rewrite-delta-t.patch
+queue-6.6/usb-typec-ucsi-split-connector-lock-classes.patch
+queue-6.6/ahci-introduce-ahci_ignore_port-helper.patch
+queue-6.6/mm-huge_memory-unlock-i_mmap_rwsem-before-releasing-.patch
+queue-6.6/bluetooth-l2cap-fix-uaf-in-l2cap_le_connect_rsp.patch
+queue-6.6/scsi-zfcp-fix-memory-leak-during-adapter-release-by-.patch
+queue-6.6/mptcp-pm-userspace-fix-use-after-free-in-get_local_id.patch
+queue-6.6/net-dsa-mt7530-error-out-on-failed-reads-in-mt7531-p.patch
+queue-6.6/scsi-libiscsi_tcp-bound-scsi-response-data-segment-t.patch
+queue-6.6/bluetooth-hci_conn-hold-conn-reference-in-abort_conn.patch
+queue-6.6/ipvs-do-not-mangle-icmp-replies-for-non-first-fragme.patch
+queue-6.6/phy-zynqmp-fix-clock-error-handling-in-xpsgtr_phy_in.patch
+queue-6.6/asoc-max98095-fix-missing-is_err-before-ptr_err-on-m.patch
+queue-6.6/hid-logitech-dj-fix-wrong-detection-of-bad-dj_short-.patch
+queue-6.6/rds-tcp-hold-the-rcu-lock-across-ipv6_chk_addr-in-rd.patch
+queue-6.6/hwmon-lm90-only-report-alarms-if-driver-is-ready.patch
+queue-6.6/ceph-print-cluster-fsid-and-client-global_id-in-all-debug-logs.patch
+queue-6.6/media-v4l2-fwnode-fix-subdev-owner-overwritten-in-v4l2_async_register_subdev_sensor.patch
+queue-6.6/wifi-brcmfmac-drain-bus_reset-work-on-device-removal.patch
+queue-6.6/hwmon-adt7470-fix-divide-by-zero-toctou-crash-in-fan.patch
+queue-6.6/mptcp-add-mptcp_userspace_pm_lookup_addr-helper.patch
+queue-6.6/hwmon-adt7470-fix-temperature-alarm-logic-in-hwmon_t.patch
+queue-6.6/ksmbd-return-success-for-deferred-final-close.patch
+queue-6.6/drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
+queue-6.6/drm-renesas-move-rz-g2l-mipi-dsi-driver-to-rz-du.patch
+queue-6.6/scsi-ufs-core-cancel-rtc-work-in-active-active-suspe.patch
+queue-6.6/hwmon-adt7470-fix-cache-updated-before-hardware-writ.patch
+queue-6.6/assoc_array-trim-the-final-shortcut-word-using-the-c.patch
+queue-6.6/usb-musb-omap2430-do-not-put-borrowed-of_node-in-probe.patch
+queue-6.6/ksmbd-fix-use-after-free-in-__close_file_table_ids.patch
+queue-6.6/netfilter-xt_hashlimit-validate-hashtable-supports-x.patch
+queue-6.6/scsi-target-iblock-fix-wrong-pr-ops-null-check-for-p.patch
+queue-6.6/hwmon-adt7470-fix-swapped-pwm3-and-pwm4-auto-mode-ma.patch
+queue-6.6/media-i2c-imx219-access-height-from-active-format-in-imx219_set_ctrl.patch
+queue-6.6/usb-typec-ucsi-only-enable-supported-notifications.patch
+queue-6.6/drm-i915-vrr-check-has_vrr-first-in-intel_vrr_is_capable.patch
+queue-6.6/ipv6-fib6-fix-null-deref-in-fib6_walk_continue-on-mu.patch
+queue-6.6/netfilter-br_netfilter-reallocate-headroom-if-necess.patch
+queue-6.6/keys-fix-out-of-bounds-read-in-keyring_get_key_chunk.patch
+queue-6.6/hwmon-adt7470-use-cached-pwm-frequency-value.patch
+queue-6.6/hwmon-pmbus-fix-return-value-from-pmbus_update_byte_.patch
+queue-6.6/phy-zynqmp-fix-runtime-pm-leak-on-probe-allocation-f.patch
+queue-6.6/scsi-libiscsi-fix-stale-data-leak-into-the-scsi-sens.patch
+queue-6.6/soc-qcom-ice-allow-explicit-votes-on-iface-clock-for.patch
+queue-6.6/spi-spi-cadence-supports-transmission-with-bits_per_.patch
+queue-6.6/sctp-close-udp-tunnel-sockets-during-netns-teardown.patch
+queue-6.6/ipvs-fix-places-with-wrong-packet-offsets.patch
+queue-6.6/drm-renesas-rzg2l_mipi_dsi-increase-reset-deassertion-delay.patch
+queue-6.6/hwmon-adt7470-fix-pwm-auto-temp-state-array-and-boun.patch
+queue-6.6/bluetooth-hci_sync-make-hci_cmd_sync_run_once-return.patch
+queue-6.6/hwmon-adt7470-fix-busy-loop-and-i2c-flooding-in-upda.patch
+queue-6.6/rxrpc-fix-irq-disabled-in-local_bh_enable.patch
+queue-6.6/hwmon-nct6775-core-fix-number-of-temperature-registe.patch
+queue-6.6/hwmon-nct6775-core-prevent-access-to-unsupported-wei.patch
+queue-6.6/dmaengine-sun6i-dma-fix-reclaim-descriptors-while-te.patch
+queue-6.6/media-i2c-imx219-drop-imx219_vts_-macros.patch
+queue-6.6/rds-fix-inet6_addr_lst-null-dereference-when-ipv6-is.patch
+queue-6.6/media-i2c-imx219-rename-vts-to-frm_length.patch
+queue-6.6/smb-client-fix-buffer-leaks-in-smb1-read-and-write.patch
+queue-6.6/scsi-target-clear-cmd_cnt-when-initial-counter-enrol.patch
+queue-6.6/bluetooth-hci_sync-fix-hci_conn_del-use-in-hci_le_cr.patch
+queue-6.6/net-phylink-put-link_gpio-if-phylink_create-fails.patch
+queue-6.6/btrfs-zoned-fix-deadlock-between-metadata-writeback-.patch
+queue-6.6/media-imx219-fix-maximum-frame-length-in-lines.patch
+queue-6.6/media-i2c-imx219-group-functions-by-purpose.patch
+queue-6.6/drm-i915-vrr-require-valid-min-max-vfreq-for-vrr.patch
+queue-6.6/media-i2c-imx219-don-t-store-the-current-mode-in-the-imx219-structure.patch
+queue-6.6/hwmon-nzxt-smart2-dma-align-output-buffer.patch
+queue-6.6/rhashtable-clear-stale-iter-p-on-table-restart.patch
+queue-6.6/drm-amdgpu-respect-placement-requirements-in-amdgpu_gtt_mgr-functions.patch
+queue-6.6/powerpc-boot-fix-treeboot-akebono-cpu-node-lookup-ch.patch
+queue-6.6/media-v4l-async-set-owner-for-async-sub-devices.patch
+queue-6.6/thunderbolt-prevent-xdomain-delayed-work-use-after-f.patch
+queue-6.6/netfilter-nf_tables-clone-set-on-flush-only.patch
+queue-6.6/ata-libahci_platform-support-non-consecutive-port-nu.patch
+queue-6.6/octeontx2-pf-set-correct-sequence-for-carrier-off-an.patch
+queue-6.6/net-mpls-initialize-rtm_tos-in-mpls_getroute.patch
+queue-6.6/ceph-fix-refcount-leak-in-ceph_readdir.patch
+queue-6.6/netfilter-nf_conntrack_expect-restore-helper-propaga.patch
+queue-6.6/bluetooth-btintel-validate-length-before-parsing-dia.patch
+queue-6.6/firmware-stratix10-svc-fix-memory-leaks-and-list-cor.patch
+queue-6.6/hid-logitech-dj-prevent-report_id_dj_short-related-u.patch
+queue-6.6/sctp-avoid-auth_enable-sysctl-uaf-during-netns-teardown.patch
+queue-6.6/iommu-sva-move-x86-disable-check-before-allocation.patch
+queue-6.6/media-i2c-imx219-calculate-crop-rectangle-dynamically.patch
+queue-6.6/net-do-not-send-icmp-ndisc-redirects-when-peer-alloc.patch
+queue-6.6/phy-zynqmp-postpone-getting-clock-rate-until-actuall.patch
+queue-6.6/can-isotp-check-register_netdevice_notifier-error-in.patch
