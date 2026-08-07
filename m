@@ -4,77 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96D1CC5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B701C5AE49
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 72B4610E660;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 86BE310E662;
 	Mon, 10 Aug 2026 06:38:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HYzJmrpd";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eQz6quij";
 	dkim-atps=neutral
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5A2010E013
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:42:34 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-4956869750eso2916135e9.2
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:42:34 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E1AD710E366
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 20:06:52 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4921eed3fa2so31551535e9.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 13:06:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786200153; x=1786804953; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=SjP/0fisv2D7yJeeOFlGdQEogU/eo5V7y2aRYQ0iQAI=;
- b=HYzJmrpdQrfRn9t3AxamFjUrM8p7JlwYlb/mIFhgl5QFILkpz6Q7iH//zSj8JJypNr
- PV4dhya/XWFLJUN0bbGCnYOfFkTZ1QcF3EcbS2t1cVovRc4ygxC59w6LeyElZa+gWupV
- XvMopNG/+oPtoC6vaG9vSPmJLSypNPGrYajQPDUA3ktOCLfiCCEBKZMTxj8zGps+yUVM
- xSWzjsKHC8rpmtVtnahyaDYr7TnGpiI7nIcUSLeqEx1xIdZRkwiOE0a2DA2JzjSuXWnQ
- 0UcTeteMMr1iMMrnTIjmGbsYW+6oYMXIQ8LFeL8sYAtmLK8WgEfC5PsTqo7Kg9f4ZcLe
- 9X0A==
+ d=gmail.com; s=20251104; t=1786133211; x=1786738011; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=DcvzOP3DsrMH8W1cQwtr2Rj2FiH385dungW6zjf9cLs=;
+ b=eQz6quijIbyZ7+f+iX9O1nJmuWZtyAGFYzZl4wTR6Uh1vQKwzaqtA2D43QkEpOLsBP
+ evfOpzMJl2M0dTbHN+GG5elmpkdKc5iBvJULwk9O4+gv5mLD2Cf+QHymCtFXY8gdgV+a
+ BQK306NMF25QQv/Lg1CsHaAx2i/XEXiERrTbALuTWrbXxdpFGwwyDopvPplomlrQ2Z5a
+ ZETyps/UF1zBNkwzxx/XcvSw2VoQcMGuE+Iu2UMLlGfWpSqZJtqzdxUz87Hrepeb2RM1
+ gExPFex0/GvoENHeBpL+gcV0xXbVvso8X4ukkEX2JgCPnu2LOY1dJlySukX04C5zYHvE
+ QJlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786200153; x=1786804953;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SjP/0fisv2D7yJeeOFlGdQEogU/eo5V7y2aRYQ0iQAI=;
- b=ONnVrN6lqDHXkWjQzr9AmXiaIi76/nwF6jBF1LE5LVPRAxCvH9O0G6+N2t2mSvgQeh
- q/gqofFAkxxcYQw3fsIqQzgrsNHSQmvnfe4mUH9TYTRra08DuPT+PngJMR9E1q4bJ7Gl
- b8gG7s0lm4vlGCI98CPbxV4Fnvtp+/lX3+MlXMUXHeRYu5ehNPi2In0p42e/TKPnpIbd
- AOjjbnI/EDpJcLSauV/zcQrgq8f1kuDls7vq0wbEB3UhrLKMNTxOS5yqv2+Z/hy4K2hk
- 4LNUd1MB58EMxwRL9wVYIcAnyA2AeTwd+8Sh98WtQMrJ0jA24hYtIs+kyzBPbb1TuKJe
- 1ERA==
+ d=1e100.net; s=20251104; t=1786133211; x=1786738011;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=DcvzOP3DsrMH8W1cQwtr2Rj2FiH385dungW6zjf9cLs=;
+ b=jg4klncZ8ySmU+FWRIsM6Rbss50A6h+8ip6S2Uuv9i0SdhJU8MexER5eoD5DEOYp/Q
+ PZ6MbF6NZlzLSewiRTBqG7LERRX8YhMSYLA/HMhL/AA5ie60xPX2TtSg7Ks6I+5/+rf3
+ HTOxikkylkYtJPXorE1J8li6gG66U41IjPchzzcmv09EoLWc7bYVTn6jIPIh3S8SBUly
+ 8nnS/vTl5ecf1P3cv3WhrdQWgyaZnxKqY6tjpNOEi469KT5zDuYyH/SS65hjzbNc6Qwy
+ nlExzSRM6nWbNmLkTscVGm2WeOfvvNTKJhnEaSP5hb5Rqnq64RuIhgKz4MgrA2iAyuM/
+ ZECA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrC6uyfoB6x3kwiervTrq/OFcSz42rTgOOhJiVw+l1LX+ggzNFNSPmzvRQLDIX3OcoVz64DRJ7LdDs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YywGu7Kzzm6fdzUXgRV5Xo/XtD+dEY7QXI6WXmt+bmSf44rjLkf
- uNe3tOG00/zITAp8UkV866yerA+XefYY8ios7WcDX6nsEwjuBQuyikSt
-X-Gm-Gg: AR+sD10vgwI4Kt/NuVw/4uLivrpT5osB2tj7zfZuIbU8yFm4UNXIKffzodqIQzVA8My
- 1387RliSMp1/y+ihItb/TPd59I6LiBpZtu9OdCXIB+aEP3nDwuMX+ugC5OxuVM/wvFAh/s+0Xx5
- ib0D4/NtuJM4xT9wneqkuvbvmpeT0rHsDGlfxYojkuLQe70qmCXxzpfikcNgy0fDdKnN9Xo2C1Q
- 76HNrX4oiplNeQLXa1IJv6yfVATnf/9jW6kfN2SOstJoTbWcoB+mjUUufcXtYL1OeSlSbB73+CZ
- pHc/bw2klyLyAbmwXmo1cZumN5HUnPgo0jnYdac3wNAZXCyaSfgb7KhL0eICAXICSAKi20s0+4/
- 2xY1USGhK2VqVykk0OaJrmBCJberAFqkzZhL46eAtOjpk3gptlbQpEJ3Irae2bW4y2CEqJu2WnE
- di1kCkapjInVocpRL3C86fW3Q1jvjhaD5AqKRq1DvgzIzTwTF+UEZXX6gdoAROczcyuWvELtNNj
- PpscF0uxn9eeWHVzIxWLSMelO/GnS6SKdpYGmwKnhoyoIGXl2NzDHrELqQ0SEaFk1CS4T/9r1pW
- sm//Cik81O4tCH364UwJ
-X-Received: by 2002:a05:600c:6b4e:b0:496:bbcb:b0bb with SMTP id
- 5b1f17b1804b1-4994e7e863amr318623325e9.18.1786200152966; 
- Sat, 08 Aug 2026 07:42:32 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-077-007-004-134.77.7.pool.telefonica.de. [77.7.4.134])
+ AHgh+RrO2xlSPnK27T2rIiUCVPm7OLguAguce2xTlrL85M0E1yHUHz4OzzLz4vw6v60/YPtRglQod0WgJsk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwurRME8v7IRfyA/gEbg58mBqccnGaMybdUHtNG4pHQSxZdtmVT
+ 2UtPSmddF8FebipZpiKUpcb8AWd4DeayqMU1QGMX3QuLEokN15iIJa29
+X-Gm-Gg: AR+sD12V6Sy0A77uwmRXufnEUN5rBEECPodYKC2cLNa0Pu4gOO230RSrKYSC+ACo5iH
+ 6IVpMsJOX/LM1wQUfUTiSgFuDM4xl2dIIe+PEJSDHUH+cwkmpGXi90fqllRNY0K1pJccvxlz93z
+ OBKtjQ34y0Hb3EHjsD4aLOk5dNyJIHk1ewNp9UiQYkr/qnrGciKLVEt10AXXt3VPidKzsXZkU8f
+ F/z75vwJXj/qBsEH+4wU1O3bBGKAvFCJXQvksBElHK8y543sufXVNNGXgq/dxMMYJWQFAT28ube
+ OesxvOSJRlsTsna0N8TwtHhfmDo079pZv0eGl88uBC7szRZevQzPLMgb2lN7539vEWv2VGyBrHt
+ thPhZ182ZlQt61XG2cWl90TBgRoprrE8+zwRsI5/jGPqEc64oknt97iK8hg343VsWFF1MATf7FF
+ lwXrlw2rdITYzPQyKWIXl7RiTSUI9dlXIdWtIYIaTrn+AQ64pF/Tk4lYa2dZwqpsjYJUGSdRBE5
+ nFP8yGkms6IxbmziZ0f
+X-Received: by 2002:a05:600c:1991:b0:493:e451:a9e1 with SMTP id
+ 5b1f17b1804b1-4994e7448d9mr312485465e9.2.1786133211126; 
+ Fri, 07 Aug 2026 13:06:51 -0700 (PDT)
+Received: from christian-ThinkPad-T470..
+ ([2a03:4460:170d:5700:848a:c270:b637:504d])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4995bdbe02esm97346925e9.1.2026.08.08.07.42.32
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 08 Aug 2026 07:42:32 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Helge Deller <deller@gmx.de>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] fbdev: clps711x-fb: Remove unreachable
- unregister_framebuffer() call
-Date: Sat,  8 Aug 2026 16:41:14 +0200
-Message-Id: <20260808144114.77505-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+ 5b1f17b1804b1-4995e9eb1a0sm67283895e9.5.2026.08.07.13.06.49
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Aug 2026 13:06:50 -0700 (PDT)
+From: =?UTF-8?q?Christian=20Melendez=20Nu=C3=B1ez?= <chrismelnu@gmail.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de, corbet@lwn.net,
+ skhan@linuxfoundation.org,
+ =?UTF-8?q?Christian=20Melendez=20Nu=C3=B1ez?= <chrismelnu@gmail.com>
+Subject: [PATCH] PCI: vgaarb: Remove stale "not implemented" notes from docs
+Date: Fri,  7 Aug 2026 22:06:39 +0200
+Message-Id: <20260807200639.172487-1-chrismelnu@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -92,34 +94,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The unregister_framebuffer() call in clps711x_fb_probe() is unreachable.
-register_framebuffer() failure jumps to the unwind label, while success
-returns immediately.
+The vgaarb kerneldoc and Documentation/gpu/vgaarbiter.rst both
+describe "unlock all" and "target default" as "(TODO: not
+implemented yet)". Both are actually implemented already:
 
-Remove it.
+- "unlock all" is handled in vga_arb_write() via the "all"
+  strncmp branch, which releases both VGA_RSRC_LEGACY_IO and
+  VGA_RSRC_LEGACY_MEM.
+- "target default" is handled in the same function via the
+  "default" strncmp branch, which resolves the target to
+  vga_default_device().
 
-Found with Clang's -Wunreachable-code.
+Drop the stale disclaimers so the documentation matches actual
+behavior.
 
-Fixes: 36462ac193088 ("fbdev: clps711x-fb: Replace check_fb in favor of struct fb_info.lcd_dev")
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+This is my first submission to the kernel; happy to take any
+feedback on the patch itself or how I should be doing this.
+
+Signed-off-by: Christian Melendez Nuñez <chrismelnu@gmail.com>
 ---
- drivers/video/fbdev/clps711x-fb.c | 2 --
- 1 file changed, 2 deletions(-)
+ Documentation/gpu/vgaarbiter.rst | 9 ++++-----
+ drivers/pci/vgaarb.c             | 7 +++----
+ 2 files changed, 7 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/video/fbdev/clps711x-fb.c b/drivers/video/fbdev/clps711x-fb.c
-index 7a7db7100499e..6789773b22fbe 100644
---- a/drivers/video/fbdev/clps711x-fb.c
-+++ b/drivers/video/fbdev/clps711x-fb.c
-@@ -329,8 +329,6 @@ static int clps711x_fb_probe(struct platform_device *pdev)
+diff --git a/Documentation/gpu/vgaarbiter.rst b/Documentation/gpu/vgaarbiter.rst
+index d1e953712cc2..c3a728130b54 100644
+--- a/Documentation/gpu/vgaarbiter.rst
++++ b/Documentation/gpu/vgaarbiter.rst
+@@ -65,8 +65,7 @@ write
+         unlock <io_state>
+                 release locks on target
+         unlock all
+-                release all locks on target held by this user (not implemented
+-                yet)
++                release all locks on target held by this user
+         decodes <io_state>
+                 set the legacy decoding attributes for the card
  
- 	return 0;
+@@ -74,9 +73,9 @@ write
+                 event if something changes on any card (not just the target)
  
--	unregister_framebuffer(info);
--
- out_fb_dealloc_cmap:
- 	regmap_update_bits(cfb->syscon, SYSCON_OFFSET, SYSCON1_LCDEN, 0);
- 	fb_dealloc_cmap(&info->cmap);
+         card_ID is of the form "PCI:domain:bus:dev.fn". It can be set to "default"
+-        to go back to the system default card (TODO: not implemented yet). Currently,
+-        only PCI is supported as a prefix, but the userland API may support other bus
+-        types in the future, even if the current kernel implementation doesn't.
++        to go back to the system default card. Currently, only PCI is supported
++        as a prefix, but the userland API may support other bus types in the
++        future, even if the current kernel implementation doesn't.
+ 
+ Note about locks:
+ 
+diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+index c360eee11dd9..4ae96ae60d8b 100644
+--- a/drivers/pci/vgaarb.c
++++ b/drivers/pci/vgaarb.c
+@@ -1008,10 +1008,9 @@ EXPORT_SYMBOL(vga_client_register);
+  * poll         : event if something change on any card (not just the target)
+  *
+  * card_ID is of the form "PCI:domain:bus:dev.fn". It can be set to "default"
+- * to go back to the system default card (TODO: not implemented yet).
+- * Currently, only PCI is supported as a prefix, but the userland API may
+- * support other bus types in the future, even if the current kernel
+- * implementation doesn't.
++ * to go back to the system default card. Currently, only PCI is supported
++ * as a prefix, but the userland API may support other bus types in the
++ * future, even if the current kernel implementation doesn't.
+  *
+  * Note about locks:
+  *
 -- 
-2.53.0
+2.34.1
 
