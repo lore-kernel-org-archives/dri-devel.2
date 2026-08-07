@@ -4,45 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C962C2A09B
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:06:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF07FC2A09B
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:06:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 97FF110F513;
-	Fri,  7 Aug 2026 15:06:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED5DF10E429;
+	Fri,  7 Aug 2026 15:06:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KNCX9Etr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GyeTa2Zy";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40C2A10E429
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:06:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 6E5B060051;
- Fri,  7 Aug 2026 15:06:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDED21F000E9;
- Fri,  7 Aug 2026 15:06:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786115170;
- bh=IksxDfdyGRteW5g2TlU26RLrf5nK8spnIwRAVc8SqZE=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KNCX9Etr1SQ+JZt+iDDCUbtz1fHaQOl+iCUjwW4hx5zifpG/t6Zw/Q7lz0fiL80Rs
- Dyab2n9L/vRNCnErqyt65GHUkkZMLoCrh1sDUf4IViM1FO3DeNAwM3IlDnrpa9u3Rx
- +JXppYV6tKc1ZbhGQebTqkXftvvH7/FlZ6hzBPeuDOlvgBIm3Fqd56a/DpJN26Y9ll
- +VsVMvt7Y4Cyh7sFfSnXZZ0vlXrtxA97i/Qy/sAAYNqLyU1WaLsVc24dHa9vEJQFVu
- ZpCvIbsaeALJtU0YcC0ZQSS9VMRBFDmTbUC8ic8jK0slyoFLxZ91/7NfufeCfS8WP1
- bIWVMZVpcTxOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 4/5] mm/slab: handle large_kmalloc objects in
- kfree_nolock()
-To: =?utf-8?b?Vmxhc3RpbWlsIEJhYmthIChTVVNFKQ==?= <vbabka@kernel.org>
-Cc: media-ci@linuxtv.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260807-kfree_nolock_kmalloc-v1-4-ba993cbf7a60@kernel.org>
-References: <20260807-kfree_nolock_kmalloc-v1-0-ba993cbf7a60@kernel.org>
- <20260807-kfree_nolock_kmalloc-v1-4-ba993cbf7a60@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 07 Aug 2026 15:06:09 +0000
-Message-Id: <20260807150609.CDED21F000E9@smtp.kernel.org>
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C41D810E429
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:06:41 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-471eeac43bfso2961885f8f.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 08:06:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786115200; x=1786720000; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=G28kgXcfjTi7WfcubT6ss2iDfVIyc9TJDmSGXp/+TIA=;
+ b=GyeTa2Zy3Sux5cj69LNolJh+DFeMv6BXL3kMlAGEq/SC1C2WeVdlBM775fSwnrhwl2
+ vcUNksSfEzKSKxSSAPN9yptjfPyahLw7NAHK48FgImIXjDv6cDcr5OTLOwXPTNWjIPz9
+ VUoBfSrh85FcyOZsyWnq7tgmnIM0M5gXyEEaYJ5TfyJnYSo4K4la3edBvwPMyBAUVCVb
+ y/DpN8ADLzKbVyuORAB/8klGXxnj9+7ObmRj5tduoYRmZlIk/QwazN+fd2E78iolSD3b
+ +MZYonDojflur8b435720XlABoNtSvPYRDam6nG7+4VMqtxYtdSlMEbmzFSuzlcYPunR
+ Xw3w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786115200; x=1786720000;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=G28kgXcfjTi7WfcubT6ss2iDfVIyc9TJDmSGXp/+TIA=;
+ b=V2wn9j0BJvdVdZVcNLs4emibouj/Mgr3R/aQs12U8F6EyenERA8PiFhQTn890RNpMi
+ O7F0cqOU4KTagNBfOI+4CV8s2B9GyXg8nbib1rouGqMmF54Im0ajftynektmZdp761lv
+ gAHGB6GZO+mrVQGwOhXMQMlrEs27jTHN6SUP8lGL3FgfLZeZRlx4EdzE2eimJkHDl7yc
+ WbkRiv3M9811kiW9GKNtSRY9uHq/Cpt8ZuM3UU1D1CTQHpNK1WXdo5YGm9Akp81vP4q5
+ oAK360iJhQPRY+BugUmPcixW2b21Y4PhrYRpTiT0o4aNcW2vvGZQeSMGhPTMXDafwgpE
+ Ddcw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp8jTEI+oVGtho4rG3R4Da1fZBqH5i6g2hYw++CIWlmGYsPt94EmOmFgo/zGMwKctiPPSENRutlxkQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzMlh/P5GXcA/qv4V/wLCfnTTokv/ZhjqrZjEI/GHyC2Jwo45QL
+ TQPCVjMgOFDsr0PKkwZ6cwUnWwSxQ7AYBcboa4l0cXQafwmiVeUqy16k
+X-Gm-Gg: AR+sD13lYcG6uJlV6LtR003UjOyi/C9wyDzBDcLZmBXa3+ZI2TH+OwCZuFrCw18MYPw
+ sXWDFHpsEouOHxr3f2ZCvOgNcBsgfw12zvghtFfTIxBirt6qlxZpG5qe6nVtoKOZcqe/0lcPGdt
+ oowZqdZLkQuipfHlvNPWilauB00/kKRAdJfLpzXZT2mnsZJWhhU0PEB6NU0/XjvXnyVpQJyZ7zG
+ sJkmkjOyt2VA2Is/qHPSp+avj66CmEZMOOjTmTijKU6lFft5L1+6bM7Z/0CT3ndgPXVKWpIDs/A
+ pL47CtQ+Ldv5tDIM1UfAno1PoODzjhAYTNTuyQkEKC6eU1O7DAgtYU/B5a+FIjvfgPbUCOu6uvx
+ 2GCxxDe3ICq5on019AreIF/lPvhdCDQnAAmVM0/UNim/cCF02ICw5VLjwdHUdxvB9o7OK7l2/IS
+ CUjC5Zszc8AQcydjC/f0dKBouszgliFZXHA9rZ+sv+hLEBQ0PqxhbYCvtJGK4Z63XsaphvtQ4ce
+ 7I=
+X-Received: by 2002:a05:6000:46cf:b0:475:3a97:8e2c with SMTP id
+ ffacd0b85a97d-47fec62d8b8mr28368415f8f.16.1786115199830; 
+ Fri, 07 Aug 2026 08:06:39 -0700 (PDT)
+Received: from jessie ([2a01:e0a:11a7:6110:b562:8bda:11ee:8074])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-480021f8f33sm7237899f8f.27.2026.08.07.08.06.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 07 Aug 2026 08:06:39 -0700 (PDT)
+From: Samuel Pitoiset <samuel.pitoiset@gmail.com>
+To: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org
+Cc: Samuel Pitoiset <samuel.pitoiset@gmail.com>
+Subject: [PATCH] drm/amd/display: Fix NULL pointer dereference in
+ amdgpu_dm_crtc_set_vblank()
+Date: Fri,  7 Aug 2026 16:58:55 +0200
+Message-ID: <20260807145855.83479-1-samuel.pitoiset@gmail.com>
+X-Mailer: git-send-email 2.54.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,136 +85,46 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Synchronous execution of __free_large_kmalloc_page in kfree_nolock=
-() violates NMI wait-context and corrupts vmstat counters
-- [High] Deferred clearing of PageLargeKmalloc bypasses double-free protect=
-ion, causing infinite loops
---
+amdgpu_dm_crtc_set_vblank() dereferences acrtc_state->stream when
+vblank is enabled/queried from DRM_IOCTL_MODE_CRTC_GET_SEQUENCE before
+a stream is attached to it.
 
---- Patch [4]: [PATCH RFC 4/5] mm/slab: handle large_kmalloc objects in kfr=
-ee_nolock() ---
-commit 9af1d6506b418b2d9de0922f293e12ee55babdd3
-Author: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+BUG: kernel NULL pointer dereference, address: 0000000000000008
+RIP: amdgpu_dm_crtc_set_vblank+0x6b/0x4d0 [amdgpu]
+Call Trace:
+ drm_vblank_enable
+ drm_vblank_get
+ drm_crtc_get_sequence_ioctl
+ drm_ioctl_kernel
+ drm_ioctl
 
-mm/slab: handle large_kmalloc objects in kfree_nolock()
-   =20
-Large kmalloc objects is the only remaining case that kfree_nolock()
-cannot handle from kmalloc() allocations. Note kmalloc_nolock() does not
-return large kmalloc objects.
+Reproduced by running VKCTS with WSI tests enabled on RADV.
 
-> diff --git a/mm/slub.c b/mm/slub.c
-> index 423b5bdb910bd..3be98faa9f0de 100644
-> --- a/mm/slub.c
-> +++ b/mm/slub.c
+Guard the enable path on acrtc_state->stream being non-NULL, matching
+the existing checks in this function.
 
-[ ... ]
+Fixes: 34d66bc7ff10 ("drm/amd/display: Fix Xorg desktop unresponsive on Replay panel")
+Signed-off-by: Samuel Pitoiset <samuel.pitoiset@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> @@ -6365,6 +6367,21 @@ static void free_to_pcs_bulk(struct kmem_cache *s,=
- size_t size, void **p)
->  	}
->  }
-> =20
-> +static inline void
-> +__free_large_kmalloc_page(struct page *page, unsigned int free_flags)
-> +{
-> +	unsigned int order =3D compound_order(page);
-> +
-> +	mod_lruvec_page_state(page, NR_SLAB_UNRECLAIMABLE_B,
-> +			      -(PAGE_SIZE << order));
-> +	__ClearPageLargeKmalloc(page);
-> +
-> +	if (free_flags & SLAB_FREE_NOLOCK)
-> +		free_frozen_pages_nolock(page, order);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 46d85457c77b..62eac6e65334 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -268,7 +268,7 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
+ 
+ 	irq_type = amdgpu_display_crtc_idx_to_irq_type(adev, acrtc->crtc_id);
+ 
+-	if (enable) {
++	if (enable && acrtc_state->stream) {
+ 		struct dc *dc = adev->dm.dc;
+ 		struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+ 		struct psr_settings *psr = &acrtc_state->stream->link->psr_settings;
+-- 
+2.54.0
 
-[Severity: High]
-Is it safe to execute this synchronously in NMI context on PREEMPT_RT kerne=
-ls?
-
-When kmemleak is disabled, kmemleak_may_need_free() returns false, which
-causes free_large_kmalloc() to call __free_large_kmalloc_page() synchronous=
-ly
-from kfree_nolock(), even in NMI context.
-
-This results in free_frozen_pages_nolock() attempting to acquire the zone
-lock, which is an rt_mutex (sleeping lock) on PREEMPT_RT, leading to a panic
-when called from NMI.
-
-Additionally, mod_lruvec_page_state() uses a non-atomic read-modify-write
-protected by local_irq_save() on architectures without
-CONFIG_HAVE_CMPXCHG_LOCAL. This fails to mask NMIs and can silently corrupt
-vmstat counters.
-
-Would it be better to always defer freeing large kmalloc pages in
-kfree_nolock() to avoid these issues?
-
-> +	else
-> +		free_frozen_pages(page, order);
-> +}
-> +
-
-[ ... ]
-
-> @@ -6712,9 +6756,11 @@ size_t ksize(const void *objp)
->  }
->  EXPORT_SYMBOL(ksize);
-> =20
-> -static void free_large_kmalloc(struct page *page, void *object)
-> +static void free_large_kmalloc(struct page *page, void *object,
-> +			       unsigned int free_flags)
->  {
->  	unsigned int order =3D compound_order(page);
-> +	bool nolock =3D free_flags & SLAB_FREE_NOLOCK;
-> =20
->  	if (WARN_ON_ONCE(!PageLargeKmalloc(page))) {
->  		dump_page(page, "Not a kmalloc allocation");
-> @@ -6724,14 +6770,16 @@ static void free_large_kmalloc(struct page *page,=
- void *object)
->  	if (WARN_ON_ONCE(order =3D=3D 0))
->  		pr_warn_once("object pointer: 0x%p\n", object);
-> =20
-> -	kmemleak_free(object);
-> +	if (!nolock)
-> +		kmemleak_free(object);
-> +
->  	kasan_kfree_large(object);
->  	kmsan_kfree_large(object);
-> =20
-> -	mod_lruvec_page_state(page, NR_SLAB_UNRECLAIMABLE_B,
-> -			      -(PAGE_SIZE << order));
-> -	__ClearPageLargeKmalloc(page);
-> -	free_frozen_pages(page, order);
-> +	if (unlikely(nolock && kmemleak_may_need_free(object)))
-> +		defer_free_large_kmalloc(object);
-
-[Severity: High]
-Could moving the __ClearPageLargeKmalloc() call to the asynchronous
-__free_large_kmalloc_page() bypass double-free protection?
-
-When a free is deferred via defer_free_large_kmalloc(), the PageLargeKmalloc
-flag remains set until the IRQ work executes. If the caller has a double-fr=
-ee
-bug and kfree_nolock() is called again on the same object during this windo=
-w,
-the WARN_ON_ONCE(!PageLargeKmalloc(page)) check at the start of
-free_large_kmalloc() will pass.
-
-This allows the second free to proceed and call defer_free_large_kmalloc()
-again. Since this uses llist_add() with the same llnode, it creates a circu=
-lar
-linked list (llnode->next =3D llnode). When deferred_percpu_work_fn() later
-processes this list with llist_for_each_safe(), it will loop infinitely and
-cause a hard lockup.
-
-> +	else
-> +		__free_large_kmalloc_page(page, free_flags);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807-kfree_nolo=
-ck_kmalloc-v1-0-ba993cbf7a60@kernel.org?part=3D4
