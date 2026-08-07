@@ -4,143 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 445F6C5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 10:05:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D371C5AC7C
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 10:09:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4207910E3F5;
-	Fri,  7 Aug 2026 10:05:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B9A410E3FE;
+	Fri,  7 Aug 2026 10:09:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="KKt/1nGi";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W+LrAxqJ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qae7JKO1";
 	dkim-atps=neutral
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05F0710E3F5
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 10:05:19 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6778IHsS493284
- for <dri-devel@lists.freedesktop.org>; Fri, 7 Aug 2026 10:05:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=fAWs1UURLeEUz5Iks1N6ZLGS
- oNm7yU/XEj25H4dV1/4=; b=KKt/1nGi4WfbGU2cFvbb3TgJclAIq/vVviHNWdTQ
- 6j5I9Mb3uTkTbzgIx4cHHrYqD3OvbOY9VwqjRcA4oH6qb/NljcTRos88FoMXBEVL
- HHTCJK2oyz4kQP3COyqg6LB4TuSM2jAZ4pV8buvtrltxU+xF+c+ZcNvwc6tp8zyW
- ehGuWdV/nCLAYVFlVeRid2bMQZsq8dBdLBSsuEn0hpQ7gCFJQVQlufFwfJSn4aZ9
- KNo6qbgf7VrGTGxMYWQqZwh8iz4dXdC3LrqEDvCeC9RCFDVWv2w6m1c1fynqcT+f
- dpKfhVcxFVLc0vbuhcp11ZW+ahJvMZdiSWPFSJu784hl4A==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
- [209.85.216.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6rbamm-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 10:05:17 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id
- 98e67ed59e1d1-38e7621655eso4822775a91.0
- for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 03:05:16 -0700 (PDT)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6D4210E3FE
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 10:09:57 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id
+ 41be03b00d2f7-cbb85186d43so1746545a12.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 03:09:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1786097116; x=1786701916;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ d=gmail.com; s=20251104; t=1786097397; x=1786702197; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=fAWs1UURLeEUz5Iks1N6ZLGSoNm7yU/XEj25H4dV1/4=;
- b=W+LrAxqJG5+CGs3DxCdKcYt4+TLZsg/wljt8PXcp/xqnkN53dth/B7ZkGeodCTXY/s
- CMHr1HEO9u5jHjaHk6J9gbVgcNDtYF0a2KauXPWLoKi4lyJKpjRap7Mc/DL6rXiZ2yzS
- bIn3auIrnDbrCwO7WVjgVgbIQ7Blb8dDKjUCNws1uaAcdhc4HvEflj/zYNP2GdlIBN8r
- CPt76ViOxGQAiEF9gKG5DSZVw6RxQD/EGJP70rj5Ij3/6mk9jwM5u+qEn5T4L4hxTuv/
- FkzAku7EQO4mDY3ptQgLCDR/c1gtA6NedWtEeR53o2SMDSesATB4+xkYoSscZOSZKVWn
- p37Q==
+ bh=MQciLaflxhQrAIWokNvSZ9sUyM0S9LcjwfcEZLUvgpA=;
+ b=Qae7JKO1i8xzRUZUp1GC1nP/k32gzmRybBY5aiP2K+64UP3N+jcQuZ0W29hoVMBpMp
+ cUzRi84HrBmLY3RPwGKhbIrFT1ChJIYUEdXbvSnkablkKuT+8Jiv6BXjiTDz7jVatXxB
+ LmQdGxL9akPvfQG5fa462wiMozIX+VEHuHIRt8BiE30kKVThzNAW/jKlwYKEyzSvz8Ud
+ X/cZ1zNIrQIQguSTGv9eju69t5pGCij1wp8ej0kzkLccOWzPB0ET2lQHsUhgXaE7+6Sj
+ Sb6QodSBvdb8P95fXtS7oI2JVIUu+jT36rX4/7r+R4znvSgkc+rW3xgXDMXXAJKGXeLC
+ 2JeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786097116; x=1786701916;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20251104; t=1786097397; x=1786702197;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=fAWs1UURLeEUz5Iks1N6ZLGSoNm7yU/XEj25H4dV1/4=;
- b=dW4/ED1CZZk0yG8bF/SLTWsNj57DwVpUTiMmVQLO/hV/dabt4Ica1J/Qq6d6lZjnyL
- Ab5rpeXmiWQR104T2YBGapaDFqFW97sbU83B02GJqEEI0/q1O6E9t3MyK1BMau/9Ufeb
- RAoNozBsC0yz+2pnr+07UixJCAZtnYOOm9NxYyA5AZsHRZRvwukfCB7wHqHor7hZ50oZ
- f2iaOLdEgVydQWrb0fjm9YDczGQoSgmXy6/bMV25Pkc+XF4KuODjk4MvY6LfSlAVf1vt
- UrkainbkbUMfiohlgaTSVeG+JUe1p0kAyDZ/Ps3njMu6LewNPsrj0f3Cni4G8C5THPWu
- /pQg==
+ bh=MQciLaflxhQrAIWokNvSZ9sUyM0S9LcjwfcEZLUvgpA=;
+ b=Td1AqdYtBMIZ/qIfr5+Zit01AQ48CPhHLuhOUStmNTwAoOjCw8Qju2Fnlravildapk
+ Tj3z87Pr8gE9GEzl6iWyPqN0gcwjYNfw6r4sgjM0OYkCmHeAGG1GIYhM1LQaHH0qwaRN
+ oIfyjFVKexv8fg05MGRqk9KdrF8FhUE1wGcVE0ulvXFrT6Z0p0PmhOQLbxgTX4MmVqwY
+ M8vdjsK0x1TUZQMWkMfHbUvCtwasqkoBoYLUia8bM+GJACxTojxeD/o6/O/SrEtHGNQF
+ xeKc8JvgErlM+U6JuK4vz7inheEkN2R/vvURcyUn7aHV4APNMqhyF2nLbuB9tqA8WP3C
+ 15DA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RquB7j4Zou/IvJ278qlF+irZtRC7oo+3AwOuUaV6VMEECtbc+giVAvcBsroP0MJgh+WVhCVyrl21Lk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywcarn4fv1L0mkX7EWosDn+zQiYEK8GVQAWArg7mbLCKKqUalUO
- 83ek84H7XImvv/Nku1N1gbQdpmJ3mryL9iOKCgL2MUkCTcQBmTJOmEW8wfi7GwLRnkwbqXOR/AJ
- fonMlOrdGJmd3lV3g4HxZd9+yO2xz7+nmu30AZNW3f+DDoijFLHnetRScO3Pe6fp90+cL1Uo=
-X-Gm-Gg: AR+sD12cNTm60p0HFF+AVMj5k2bm7qBHcY1l1NxNGIpfjk0401xVvZKQOQ+yuR7To7u
- LfbBNz5N8Vqj0PDhn5BmATYJaEeI7R1Pz4DxrjuKh4QsV4t8EGYHWtzaG+3uOZpDuNLy8Mf6OjC
- AuGHu8r7EqDXsJHPyYVTLItggL5LIIfoQRHPMIHKRr7vIGU3JvIfADHBtf3rGIfSgIhZ9vhIhbD
- MsEls2o8qo9ib6pDh/Hh4qc8uEnxLPaToScBThm+6zXcFU1Zo/y5b59degrIaMkB8gcU9XpVKlB
- v4ubcjPYLW2AToB6VQq8ud/9ruIC5mlgXvFiuru8ykRnvWx7n7UeLyhfAbOEe8meUH0/u8PtDFY
- TKQntR7XLKJthLw5tTodHX6R9JQ==
-X-Received: by 2002:a17:90a:fc47:b0:38d:f5bb:e0f4 with SMTP id
- 98e67ed59e1d1-3903c599361mr24076647a91.1.1786097115738; 
- Fri, 07 Aug 2026 03:05:15 -0700 (PDT)
-X-Received: by 2002:a17:90a:fc47:b0:38d:f5bb:e0f4 with SMTP id
- 98e67ed59e1d1-3903c599361mr24076598a91.1.1786097115298; 
- Fri, 07 Aug 2026 03:05:15 -0700 (PDT)
-Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+ AHgh+RqLy7j2pOo+9U3hWqv6KOnNciIz36F18MgJuCKw84S/SpEY0PzTSNOlVu/Zp3keKPBBe3ofARZRWqM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9OVHllVajjhn1zNry7Iy+kU3pD9DYwq7uEiief0I4NRwsEJw5
+ oDKO7iKxcLeGuyIKF2dTwqX0TgP4wqD79T5Qt+zVldBNGUwF/7xXZe7a
+X-Gm-Gg: AR+sD13rj53RIKbmf9odNAP32Dp20UbTCI6aBQCyzmkOlaFncyVE6lXPTWEBdysGcjp
+ /ZfYblsGY+qj9dRrsStlFE0UkHI5ddX008z0repGXg0QV9cjD/CHw+ZMfmZsZQsSWaPccttlpIn
+ jejMZl1hz736sr4KYvV2yorIAt4Ry04Ggghf5z+w6NEvQpDSnR4VwafjlwxuVBrymN5fe+zCBdt
+ jFaX/bN+k+B7f72gMDiejstrpihRrRityJoLnjzSIGTM5oJaDKekrc9UbXRHj0GAjqI9cCl2eXn
+ xeTQppa7bzm8SK29Tbv3Ul4tDgHA2MAuY7x1zV2scxWuCN6bCBRWBBEI10ed6BB8jLzEIQODGLP
+ +2HrwZ66Q6yA31UZqsbfqJY6/IrzUiT7TMoYLcDm6MKwuv9RH4D57R9ZqEVxAS1jindOYyHrcur
+ tSJSkxvjQBauNNiiO79RLz52ANzMGeBycY5vJ3W//TmBvnGbeayIvQ7b3K/alQXYOT0K85ECcAs
+ MA=
+X-Received: by 2002:a17:90b:224e:b0:38e:9ef9:eb97 with SMTP id
+ 98e67ed59e1d1-3903c5c443dmr18527888a91.16.1786097397142; 
+ Fri, 07 Aug 2026 03:09:57 -0700 (PDT)
+Received: from baineng-pc.. ([117.133.183.252])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be86f98esm5832917eec.6.2026.08.07.03.05.08
+ 98e67ed59e1d1-39085de8ddcsm4363444a91.6.2026.08.07.03.09.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Aug 2026 03:05:14 -0700 (PDT)
-Date: Fri, 7 Aug 2026 15:35:05 +0530
-From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Sunyun Yang <syyang@lontium.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, venkata.valluru@oss.qualcomm.com,
- Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH v9 1/2] dt-bindings: bridge: Add Lontium LT9611C(EX/UXD)
- MIPI DSI to HDMI driver
-Message-ID: <anWt0ZD/99ImqtGW@hu-mdsor-hyd.qualcomm.com>
-References: <20260804-lt9611c-v7-v9-0-3423a76856d3@oss.qualcomm.com>
- <20260804-lt9611c-v7-v9-1-3423a76856d3@oss.qualcomm.com>
- <20260806-gregarious-swinging-cormorant-f666e1@quoll>
+ Fri, 07 Aug 2026 03:09:56 -0700 (PDT)
+From: Baineng Shou <shoubaineng@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ "T . J . Mercier" <tjmercier@google.com>,
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
+ Sandeep Patil <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>,
+ Srinivas Kandagatla <srini@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Baineng Shou <shoubaineng@gmail.com>
+Subject: [PATCH v6 0/4] dma-buf: fix fd leak when copy_to_user() fails after
+ fd_install()
+Date: Fri,  7 Aug 2026 18:09:37 +0800
+Message-Id: <20260807100941.1351356-1-shoubaineng@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
+References: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806-gregarious-swinging-cormorant-f666e1@quoll>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA3NiBTYWx0ZWRfX4PN+SLfmQISg
- p+EAdlc6+ZliTmBR/EmReypkSh+z6n+T5jscrFvGGCE/c8ju7N7gWlHic0R38G6evmQslp9hVpk
- qHFFH3VlfqO1p0t6owcrOZHqH9TKr7uClUvUtwh5xzxsmPw7Dqy4UPuZKLHF+gtCPsYNqWUaRx+
- Pr7DviaxkLLrPhFWFWdoFsLoAHiJNaphN59GXLDv97HvWlTmCv9yLuyIn7ldS3wbQ5R9pK0bQQg
- l2iAUQfzf9eysNWGJpRNmYVSn43srgy8ZpTtcPHao6pRvdMcVdm8VINZXi+4HH5zqir7mb+plqR
- k3IhHbtVSsXUhC3nmtouWt3CDCTBxs+/66g//gnImdz09Fkqvhm8hlgTrDCpveix2n9CiAKqJ60
- vaTGaPt08Lye4Lf03xavVSG75z3yuJSk5LncQNHPD3dEioGPWzA8McFcIOr9Pcq6hi61hANgexA
- 5fkn/fnVjx8CZ6GGVGA==
-X-Authority-Analysis: v=2.4 cv=HPXz0Itv c=1 sm=1 tr=0 ts=6a75adde cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=Kz8-B0t5AAAA:8 a=JFLwbLnQxsueZ3v4IKMA:9 a=CjuIK1q_8ugA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=RuZk68QooNbwfxovefhk:22
-X-Proofpoint-ORIG-GUID: -4E1SmiU55boBV0_iWpvDVdkDRxGXsZB
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA3NiBTYWx0ZWRfX7tylRHMw8nbx
- YT5msFgSisAFiVTZvhXMMTpdR4kZfA3krivXvdQ5kTsiuKHpLNmQoUpIhtB1YlOKPObJFkm+g1f
- pIxl9lRfOabVgQvk6ZBQpLNkJ0slda0=
-X-Proofpoint-GUID: -4E1SmiU55boBV0_iWpvDVdkDRxGXsZB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 suspectscore=0 adultscore=0 spamscore=0 malwarescore=0
- bulkscore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608070076
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,25 +102,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 06, 2026 at 09:12:59AM +0200, Krzysztof Kozlowski wrote:
-> On Tue, Aug 04, 2026 at 06:10:14PM +0530, mohit.dsor@oss.qualcomm.com wrote:
-> > From: Sunyun Yang <syyang@lontium.com>
-> > 
-> > LT9611C(EX/UXD) is an I2C-controlled chip that Receiver signal/dual port
-> > mipi dsi and output hdmi, differences in hardware features:
-> > - LT9611C: supports 1-port mipi dsi to hdmi 1.4
-> > - LT9611EX: supports 2-port mipi dsi to hdmi 1.4
-> > - LT9611UXD: supports 2-port mipi dsi to hdmi 1.4/2.0
-> > 
-> > Signed-off-by: Sunyun Yang <syyang@lontium.com>
-> > Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
-> > ---
-> >  .../bindings/display/bridge/lontium,lt9611.yaml        | 18 ++++++++++++++++--
-> >  1 file changed, 16 insertions(+), 2 deletions(-)
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Thanks, Krzysztof.
-> 
-> Best regards,
-> Krzysztof
-> 
+Several drivers call dma_buf_fd() — which internally calls fd_install()
+— before copy_to_user() returns the fd number to userspace.  If
+copy_to_user() fails, the fd is already published in the caller's fd
+table but the ioctl returns an error, so userspace never learns the fd
+number.  Worse, the window between fd_install() and copy_to_user()
+allows other threads to observe and manipulate the fd (dup, close,
+SCM_RIGHTS), making any "close it on the failure path" fix unsafe.
+
+The fix is to split the allocation into three steps: reserve an fd with
+get_unused_fd_flags() (not yet visible to other threads), do
+copy_to_user(), and only then publish the fd with fd_install() via the
+new dma_buf_fd_install() helper.  On copy_to_user() failure,
+put_unused_fd() + dma_buf_put() cleanly unwind with no user-visible
+side effects.
+
+Patch 1 introduces dma_buf_fd_install() in dma-buf.c (wrapping
+fd_install() together with the DMA_BUF_TRACE call to preserve export
+tracing) and applies the fix to dma-heap.
+
+Patch 2 applies the same fix to fastrpc, which even had a comment
+acknowledging the problem could not be fixed before.
+
+Patch 3 replaces the bare fd_install() in drm_gem_prime_handle_to_fd()
+with dma_buf_fd_install() to restore tracepoint coverage for DRM PRIME
+exports (suggested by Christian König).
+
+Patch 4 adds a selftest to tools/testing/selftests/dmabuf-heaps/ that
+reproduces the fd-leak scenario (mprotect flip before the ioctl) and
+verifies the fd count is unchanged after a failed ioctl (suggested by
+Sumit Semwal).
+
+v1: https://lore.kernel.org/dri-devel/20260703080922.1838362-1-shoubaineng@gmail.com/
+v2: https://lore.kernel.org/dri-devel/20260710105430.3059661-1-shoubaineng@gmail.com/
+v3: https://lore.kernel.org/dri-devel/20260714114654.3885457-1-shoubaineng@gmail.com/
+
+Changes in v6:
+ - Rework the selftest (patch 4) per review: extract a count_open_fds()
+   helper, fix the copy_from_user() comment, fail (not skip) when the
+   ioctl does not return -1, drop the bogus mprotect-race mention, and
+   reword the result message.
+
+Changes in v5:
+ - Add selftest (patch 4) reproducing the fd-leak scenario (Sumit Semwal)
+
+Changes in v4:
+ - Add patch 3: drm/prime: use dma_buf_fd_install() (Christian König)
+ - Add Acked-by: Christian König to patches 1 and 2
+
+Changes in v3:
+ - Split into two patches (dma-heap + fastrpc separately)
+ - Add dma_buf_fd_install() to preserve trace_dma_buf_fd tracepoint
+ - Add fastrpc fix using the new helper (T.J. Mercier)
+
+Baineng Shou (4):
+  dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+  misc: fastrpc: don't publish fd before copy_to_user() succeeds
+  drm/prime: use dma_buf_fd_install() to preserve export tracing
+  selftests: dmabuf-heaps: add fd-leak-on-EFAULT regression test
+
+ drivers/dma-buf/dma-buf.c                     |  20 ++++
+ drivers/dma-buf/dma-heap.c                    |  80 ++++++-------
+ drivers/gpu/drm/drm_prime.c                   |   2 +-
+ drivers/misc/fastrpc.c                        |  16 +--
+ include/linux/dma-buf.h                       |   1 +
+ .../selftests/dmabuf-heaps/dmabuf-heap.c      | 113 +++++++++++++++++-
+ 6 files changed, 180 insertions(+), 52 deletions(-)
+
+-- 
+2.34.1
+
