@@ -4,51 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ACEEAC5AC7C
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 12:56:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48D7BC2A09B
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 13:00:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 96BDA10E16A;
-	Fri,  7 Aug 2026 12:56:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5F16F10E41E;
+	Fri,  7 Aug 2026 13:00:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="fzFGtKZv";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="sEJRfZU1";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="ExIx+e59";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id DAE9B10E16A
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 12:55:58 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 154911516;
- Fri,  7 Aug 2026 05:55:54 -0700 (PDT)
-Received: from [10.2.212.23] (e121345-lin.cambridge.arm.com [10.2.212.23])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5A5A23F9A2;
- Fri,  7 Aug 2026 05:55:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1786107358; bh=xfEgerLRPb7madfeMA7wFM70ghEiPOqFAV7kOwYDnuI=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=fzFGtKZvoitFZaUTdqu0c54B3XFfBCnXIAu/DR2Mq58FOkjjok0wWgUeiV77bfx2i
- 5q1rdjt9kOAEo6MqfhqtZKpEHpW1a4PCLERem8+pzB/f5B6iA0LCqEseD/LNCkk0CH
- gCGZKTgzam0wS2V+g0p36SPV6wRRpQ51dE0RYrRc=
-Message-ID: <fb94bd28-fdbf-4f99-a6ff-b5ab18c64345@arm.com>
-Date: Fri, 7 Aug 2026 13:55:53 +0100
+X-Greylist: delayed 440 seconds by postgrey-1.36 at gabe;
+ Fri, 07 Aug 2026 13:00:49 UTC
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 715AA10E41E
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 13:00:49 +0000 (UTC)
+From: Nam Cao <namcao@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1786107207;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=B4mifpDlB5CYk8EeRO5Kq/ALY2oICGCMbinicf4fy6c=;
+ b=sEJRfZU1fzV0uLT+f0n5227TugAYQ7YhuAcqd29nB+yy8Cn90FeyPZnccaXU4YwE8zZS7q
+ N+L/cE91GnL9iai8Dh/NkyCEefjVRiMK75EWsG/SYu1i7WKuMVxnHCq1Oh9JR6kJXEV1Kj
+ foUNGAOSaq0uW8Q4i4u0Qy962mtURexN54r9ArWswU4shg8XMNh7cGmiMXWPalqQud5ceM
+ FmA4SCWz/hsw7HJsXWyHq8s6nlzPauD+ndDhxp69fo8RE4M4jIH577UAJA/KdiQJAtQyW2
+ 6ld/0L78CTotHuA6mz9YYFm1d5/J3oCFOgn+PPnQV1DGREiiFDZgTiy4LD6lUQ==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1786107207;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=B4mifpDlB5CYk8EeRO5Kq/ALY2oICGCMbinicf4fy6c=;
+ b=ExIx+e59AsMBXTZ90pr6zvXLuEvwYAwLWeT1c3GVKwRD0QyyRBGwJpQAuxCJO0G7DoNyQd
+ LIFfh1eCjEZ/8XBQ==
+To: sh_def@163.com, andy@kernel.org, gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ sh_def@163.com, thomas.petazzoni@free-electrons.com, notro@tronnes.org
+Subject: Re: [PATCH] staging: fbtft: make dirty_lock IRQ-safe
+In-Reply-To: <20260804173712.176017-1-sh_def@163.com>
+References: <20260804173712.176017-1-sh_def@163.com>
+Date: Fri, 07 Aug 2026 14:53:26 +0200
+Message-ID: <87pkzu852x.fsf@yellow.woof>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v6 7/9] accel/rocket: add RK3576 NPU (RKNN) support
-To: Diederik de Haas <diederik@cknow-tech.com>,
- Jiaxing Hu <gahing@gahingwoo.com>, tomeu@tomeuvizoso.net, heiko@sntech.de,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joro@8bytes.org,
- will@kernel.org, ulfh@kernel.org, p.zabel@pengutronix.de,
- ogabbay@kernel.org, zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com, alchark@flipper.net, chaoyi.chen@rock-chips.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260806063413.350184-1-gahing@gahingwoo.com>
- <20260806063413.350184-8-gahing@gahingwoo.com>
- <DKIKXY8XZVPF.3RFR4ISK6Y4QX@cknow-tech.com>
-From: Robin Murphy <robin.murphy@arm.com>
-Content-Language: en-GB
-In-Reply-To: <DKIKXY8XZVPF.3RFR4ISK6Y4QX@cknow-tech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,40 +64,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 07/08/2026 9:48 am, Diederik de Haas wrote:
-> Hi Jiaxing,
-> 
-> On Thu Aug 6, 2026 at 8:34 AM CEST, Jiaxing Hu wrote:
->> The RK3576 has two cores of the same RKNN block and a few platform
->> differences:
->>
->>   - the CBUF (convolution buffer) has its own clock domain, so the core
->>     needs six clocks rather than four;
->>   - the BIU reset moved into the power domain, leaving one reset here;
->>   - the NPU spans two power domains, and a device with more than one is
->>     skipped by the driver-core single-domain auto-attach, so the list has
->>     to be attached explicitly;
->>   - the DPU completion interrupt is armed exactly as on RK3588 but never
->>     reaches the GIC. The completion is visible in INTERRUPT_RAW_STATUS,
-> 
-> I don't know if it's relevant, so just a data point:
-> - RK3588 has Cortex A-76 + A-55, which have an External GICv4
-> - RK3576 has Cortex A-72 + A-53, which have an External GICv3
+sh_def@163.com writes:
+> diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
+> index ca0c38221c16..193643d0329d 100644
+> --- a/drivers/staging/fbtft/fbtft-core.c
+> +++ b/drivers/staging/fbtft/fbtft-core.c
+> @@ -298,14 +298,20 @@ static void fbtft_mkdirty(struct fb_info *info, int y, int height)
+>  {
+>  	struct fbtft_par *par = info->par;
+>  	struct fb_deferred_io *fbdefio = info->fbdefio;
+> +	unsigned long flags;
+>  
+>  	/* Mark display lines/area as dirty */
+> -	spin_lock(&par->dirty_lock);
+> +	/*
+> +	 * fbcon takes dirty_lock while holding console_owner. Disable local
+> +	 * interrupts here so a printk hardirq cannot acquire console_owner
+> +	 * while dirty_lock is held and create the inverse lock ordering.
+> +	 */
 
-Nope, RK3588 has GIC-600, which is very much v3 still. I guess RK3576 
-probably has GIC-500 like RK3399 given the CPUs, but that shouldn't make 
-any meaningful difference here.
+Beside that reason, we also need spin_lock_irqsave() because
+fbtft_mkdirty() can be called in both task context and hardirq
+context. And this reason alone suffices and usually is why
+spin_lock_irqsave() is used, so I think a comment is not necessary.
 
-If the interrupt never fires at all then possibly the signal depends on 
-some additional clock or power domain in order to propagate, or it's 
-just described incorrectly; or if other interrupt sources within the 
-NPU/IOMMU do still work then maybe there's some additional masking 
-control that's been overlooked, or perhaps it it just terminally broken.
+But I am fine with it either way.
 
-(And FWIW I'm also inclined to agree with the other comments that 
-refactoring existing code to make room for new stuff, then actually 
-adding the new stuff, should probably be two separate steps if it's not 
-completely trivial)
+> +	spin_lock_irqsave(&par->dirty_lock, flags);
+>  	if (y < par->dirty_lines_start)
+>  		par->dirty_lines_start = y;
+>  	if (y + height - 1 > par->dirty_lines_end)
+>  		par->dirty_lines_end = y + height - 1;
+> -	spin_unlock(&par->dirty_lock);
+> +	spin_unlock_irqrestore(&par->dirty_lock, flags);
+>  
+>  	/* Schedule deferred_io to update display (no-op if already on queue)*/
+>  	schedule_delayed_work(&info->deferred_work, fbdefio->delay);
+> @@ -317,14 +323,15 @@ static void fbtft_deferred_io(struct fb_info *info, struct list_head *pagereflis
+>  	unsigned int dirty_lines_start, dirty_lines_end;
+>  	struct fb_deferred_io_pageref *pageref;
+>  	unsigned int y_low = 0, y_high = 0;
+> +	unsigned long flags;
+>  
+> -	spin_lock(&par->dirty_lock);
+> +	spin_lock_irqsave(&par->dirty_lock, flags);
+>  	dirty_lines_start = par->dirty_lines_start;
+>  	dirty_lines_end = par->dirty_lines_end;
+>  	/* set display line markers as clean */
+>  	par->dirty_lines_start = par->info->var.yres - 1;
+>  	par->dirty_lines_end = 0;
+> -	spin_unlock(&par->dirty_lock);
+> +	spin_unlock_irqrestore(&par->dirty_lock, flags);
 
-Thanks,
-Robin.
+fbtft_deferred_io() is executed in workqueue with interrupt enabled. So
+it can use spin_lock_irq() instead of spin_lock_irqsave(), right?
+
+Nam
