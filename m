@@ -4,47 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3BFAC5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:15:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CEB4C5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:20:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B21010E32E;
-	Fri,  7 Aug 2026 15:15:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A9C8F10F52E;
+	Fri,  7 Aug 2026 15:20:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1ctHpOp6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eYlxfCZc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6B1A10E425
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:15:19 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABCF310F524
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:20:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CF8F7600BB;
- Fri,  7 Aug 2026 15:15:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093CA1F000E9;
- Fri,  7 Aug 2026 15:15:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1786115718;
- bh=7g8Y+FgcmohVTs7tyS+7VOkxjtVPgvUC4Na94V0Aexk=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=1ctHpOp6FWrezPa8ErNITypHnWjC+E1y4JQa7IHpJKov5qAZfEoDvpFCmd2VG+tML
- Z37hjsdApXugyDC2n1eaeYnwf16i3y+onmcEEKpIio6R3SQVqmqm4jcczppsOTm1mw
- o2nGmv8r9kgWcSDzmMNahgFpCQZRQeU6vOAn722A=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 373/396] drm/tegra: fbdev: Remove offset into framebuffer
- memory
-Date: Fri,  7 Aug 2026 16:38:53 +0200
-Message-ID: <20260807143432.328519401@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807143424.272339768@linuxfoundation.org>
-References: <20260807143424.272339768@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by sea.source.kernel.org (Postfix) with ESMTP id 636A040797;
+ Fri,  7 Aug 2026 15:20:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 291B61F000E9;
+ Fri,  7 Aug 2026 15:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786116022;
+ bh=OYn+lFdkI7HNUp/5qsOyEJ7321jZVaacO1TWkOydQd4=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=eYlxfCZcKcx6a/u2p0M4QLMes6d751+UsTb9LYHxdPAeB3iw4dAwp+Hes0gXCojES
+ /3OEYdMxEMbm6dNhkV3zkNO1Dse3HARFBpe8Kgcgv0Dl7y+l5p0jjHjRrP7VVqi0Zj
+ P3+FSTlCdcH/J3uRwGRM3QsYRN5X0jLUZaT+gJaz7V46yl8Vw6hhj4aJluDRCZxxZG
+ tdJUQLBwEn0WG01kcRWYGReMc3XdcyLXQwY4VgM6E3gKFICDYFetfiTdPVwfwMSGa/
+ JSC70GZs0Qd5Y2Z8ChnzbZ+uC1kfNjmLdRhLGsj24ZsWcmp9/t45B2nuwUuR16v5iL
+ uKbhh/Umz8xhg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] accel/ivpu: fix usage_count leak when autosuspend_delay
+ is negative
+To: "Guangshuo Li" <lgs201920130244@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260807145416.2518999-1-lgs201920130244@gmail.com>
+References: <20260807145416.2518999-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 15:20:21 +0000
+Message-Id: <20260807152022.291B61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +53,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-------------------
+Pre-existing issues:
+- [High] Background work items scheduled by IRQ handlers are not flushed or=
+ canceled on the probe error path, leading to a Use-After-Free when devres =
+frees the device.
+--
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+--- Patch [1]: [PATCH] accel/ivpu: fix usage_count leak when autosuspend_de=
+lay is negative ---
+commit db53366ef5dbe7e33ab10b0d9f2d73d71bbd452a
+Author: Guangshuo Li <lgs201920130244@gmail.com>
 
-[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
+accel/ivpu: fix usage_count leak when autosuspend_delay is negative
 
-The screen_buffer field in struct fb_info contains the kernel address
-of the first byte of framebuffer memory. Do not add the display offset.
-This offset only describes scrolling during scanout.
+ivpu_pm_init() calls pm_runtime_use_autosuspend(), but the autosuspend
+setting is not disabled when the device is removed or when initialization
+fails. This patch adds pm_runtime_dont_use_autosuspend() to ivpu_pm_disable=
+()
+and the ivpu_dev_init() error path to prevent a usage_count leak.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-tegra@vger.kernel.org
-Cc: <stable@vger.kernel.org> # v3.10+
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/tegra/fbdev.c |    8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+> diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+> index 95120957f42a5..f8460aca189cd 100644
+> --- a/drivers/accel/ivpu/ivpu_drv.c
+> +++ b/drivers/accel/ivpu/ivpu_drv.c
+[ ... ]
+> @@ -776,13 +776,15 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
+> =20
+>  	ret =3D ivpu_boot(vdev);
+>  	if (ret)
+> -		goto err_ipc_fini;
+> +		goto err_pm_fini;
+> =20
+>  	ivpu_job_done_consumer_init(vdev);
+>  	ivpu_pm_enable(vdev);
+> =20
+>  	return 0;
+> =20
+> +err_pm_fini:
+> +	pm_runtime_dont_use_autosuspend(vdev->drm.dev);
 
---- a/drivers/gpu/drm/tegra/fbdev.c
-+++ b/drivers/gpu/drm/tegra/fbdev.c
-@@ -78,7 +78,6 @@ int tegra_fbdev_driver_fbdev_probe(struc
- 	struct fb_info *info = helper->info;
- 	unsigned int bytes_per_pixel;
- 	struct drm_framebuffer *fb;
--	unsigned long offset;
- 	struct tegra_bo *bo;
- 	size_t size;
- 	int err;
-@@ -118,9 +117,6 @@ int tegra_fbdev_driver_fbdev_probe(struc
- 
- 	drm_fb_helper_fill_info(info, helper, sizes);
- 
--	offset = info->var.xoffset * bytes_per_pixel +
--		 info->var.yoffset * fb->pitches[0];
--
- 	if (bo->pages) {
- 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
- 				 pgprot_writecombine(PAGE_KERNEL));
-@@ -132,9 +128,9 @@ int tegra_fbdev_driver_fbdev_probe(struc
- 	}
- 
- 	info->flags |= FBINFO_VIRTFB;
--	info->screen_buffer = bo->vaddr + offset;
-+	info->screen_buffer = bo->vaddr;
- 	info->screen_size = size;
--	info->fix.smem_start = (unsigned long)(bo->iova + offset);
-+	info->fix.smem_start = (unsigned long)(bo->iova);
- 	info->fix.smem_len = size;
- 
- 	return 0;
+[Severity: High]
+This is a pre-existing issue, but since we are modifying the error paths
+here, I noticed that background work items scheduled by IRQ handlers might
+not be flushed or canceled on the probe error path.
 
+If a hardware interrupt occurs during ivpu_boot() after enable_irq() is cal=
+led,
+the handler may queue irq_dct_work or context_abort_work. If a subsequent
+initialization step like ivpu_pm_dct_init() fails, the error path disables
+interrupts but skips flushing the queued works:
 
+ivpu_boot() {
+        ...
+        enable_irq(vdev->irq);
+        ...
+        ret =3D ivpu_pm_dct_init(vdev);
+        if (ret)
+                goto err_disable_ipc;
+        ...
+err_disable_ipc:
+        ivpu_ipc_disable(vdev);
+        ivpu_hw_irq_disable(vdev);
+        disable_irq(vdev->irq);
+        ...
+}
+
+The error is then returned to ivpu_dev_init(), which jumps to err_pm_fini
+where this new cleanup code is placed.
+
+Could this lead to a memory corruption scenario? Without cancel_work_sync()
+or flush_work() to halt pending tasks, devres might free the ivpu_device
+structure when probe fails. Any pending work items might later execute and
+dereference the freed pointer.
+
+>  err_ipc_fini:
+>  	ivpu_ipc_fini(vdev);
+>  err_fw_fini:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807145416.2518=
+999-1-lgs201920130244@gmail.com?part=3D1
