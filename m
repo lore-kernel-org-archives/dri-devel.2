@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D900BC5AC81
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:32:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD46C5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:32:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AB3B610F38C;
-	Fri,  7 Aug 2026 04:32:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5974410F395;
+	Fri,  7 Aug 2026 04:32:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bxYor9cB";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V/cdDn5v";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CA1010F38D;
- Fri,  7 Aug 2026 04:32:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8663910F38F;
+ Fri,  7 Aug 2026 04:32:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786077132; x=1817613132;
+ t=1786077135; x=1817613135;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=YWC7emFCzDjzfQp5RcPepwt0pFOV9+dFBOugUb3e0nw=;
- b=bxYor9cBupYjwRi/x+oC4DX/eXhU5xKu8MrrgBMZmQmLG01povJIr/Hb
- 2aQka8fMBnP2mtSGi9GTxytMdNBcctcuMzoWOZd50YLyoMvZdXtJ92Lho
- 73G4hYstYKAIoc/qFDlz+BAdcaokm8I8qfQ6Ro4dfwWy4ejvHBmtDL4Nr
- QRTKLOAHPtB+KJRKxP86z8UYRTWsFEF05vpVyv0W+kKbWl+10lzLkw5c2
- XTQENE+wAcsmNkOCmcAZ2nDb9heI8GWcb1oDUOAYm2fTV3uABTMKozDcG
- YhYA7qraItEdzeRf7K3h/ycCDAx5/ZX/OsEw6R+8MP+eh6FG8y7c1f7mg w==;
-X-CSE-ConnectionGUID: F0EluGUeTFKJRDAclfl3UA==
-X-CSE-MsgGUID: p5H+eW4EQiaN3WNmjdGisg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619274"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619274"
+ bh=KR4BiFuW2PUXLlR83AYvd7tvipUZMtrlnty26f/JSZk=;
+ b=V/cdDn5vyL2wSFa2SzSlvJRsA2APWTvdRROwgpGYUyKsB8IB3FB08jUP
+ 4ylhVqAoMceoNLv3zJSPOthVpXFCefxgmpMrAgZc+RyceoHWg0C3y7O0S
+ OddrAI0G/p98jZJqbd0Wk04ndoUFHrqmN+M08tUnGhnJ6PjCfcOK8Jk5B
+ MYuJjsI+lHGvbWW8BZaPVHoY7Z0SUJjsdrmJ+0zQWZdMdQI8A3Z8VYNvP
+ EwAmkGiDxV24gyw4dJ6zp9nMrI1e+6Pkf/xpJxyUMRoJBlAdwbKexRZ3l
+ 1vIGLBXWYw/ohfNh96Y+4OIlnd2UbyKRz7b/tZvHAdecxMAa4UuCUO424 A==;
+X-CSE-ConnectionGUID: xMSRXbjWTIi9EGpCV0pCNQ==
+X-CSE-MsgGUID: NDz7q0C3T6yBWA0o+lk9Lw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619276"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619276"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:32:12 -0700
-X-CSE-ConnectionGUID: yqXF2lYYRum+XZBjM1g4tg==
-X-CSE-MsgGUID: PlZiQUTHSvGV0HiDmqCU0Q==
+ 06 Aug 2026 21:32:14 -0700
+X-CSE-ConnectionGUID: hoCe66hOQd+1r/YN6DECgw==
+X-CSE-MsgGUID: xhHbApxKQbyZOvxgIB08WQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666194"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666201"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:32:09 -0700
+ 06 Aug 2026 21:32:12 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH 17/44] drm/i915/hdmi: Introduce intel_hdmi_frl_level() for
- per-lane TxFFE
-Date: Fri,  7 Aug 2026 09:44:02 +0530
-Message-ID: <20260807041430.229038-18-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 18/44] drm/i915/hdmi: Drive per-lane TxFFE during FRL link
+ training
+Date: Fri,  7 Aug 2026 09:44:03 +0530
+Message-ID: <20260807041430.229038-19-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
 References: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
@@ -73,136 +73,133 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-HDMI FRL link training tracks the TxFFE preset per lane: the sink
-issues per-lane Ln(x)_LTP_req requests over SCDC and the source owns
-an independent TxFFE counter for each lane.
-The PHY HDMI FRL buf-trans table is laid out so that index 1 + 3*N
-selects the normal-operation row for TxFFE level N.
+Hook the per-lane TxFFE state added by the previous patch into the
+HDMI FRL Link Training Sequence (LTS:3):
 
-Convert struct intel_hdmi.frl from a single link-wide ffe_level into
-a per-lane ffe_level[4] array plus a max_ffe_level cap, and expose
-intel_hdmi_frl_level(encoder, lane) which returns the buf-trans index
-that the PHY set_signal_levels() callback should program for that
-lane.
+ - Advertise FFE_Levels=3 (TxFFE0..TxFFE3) in SCDC 0x31, matching the
+   four TxFFE rows present in the PHY HDMI FRL buf-trans table.
 
-Wire it into intel_ddi_level(): on FRL the per-lane index is used,
-TMDS keeps the existing intel_ddi_hdmi_level() VBT/default path.
+ - On LTS:3 entry, after enabling TRANS_HDMI_FRL_ENABLE, call
+   encoder->set_signal_levels() so the PHY is programmed to TxFFE0
+   on every lane before the sink starts emitting Ln(x)_LTP_req.
 
-No functional change yet: ffe_level[] is always zero, so
-intel_hdmi_frl_level() returns the TxFFE0 row (index 1) on every
-lane, matching pre-existing behaviour. The training-side updates
-that drive ffe_level[] arrive in a follow-up patch.
+ - In intel_hdmi_train_lanes(), handle SCDC_FRL_CHNG_FFE (0xE) by
+   incrementing intel_hdmi->frl.ffe_level[lane], capped at
+   max_ffe_level. When any lane changed, reprogram the PHY via
+   encoder->set_signal_levels() before acknowledging the request.
+
+ - Always clear SCDC FLT_update (0x10 bit 5) after acting on a sink
+   request, as required by the HDMI spec.
+
+A forward declaration of clear_scdc_update_flags() is added so it
+can be called from intel_hdmi_train_lanes() without reordering the
+file.
 
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c      | 10 +++++---
- .../drm/i915/display/intel_display_types.h    |  3 ++-
- drivers/gpu/drm/i915/display/intel_hdmi.c     | 25 +++++++++++++++++--
- drivers/gpu/drm/i915/display/intel_hdmi.h     |  2 ++
- 4 files changed, 34 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 39 +++++++++++++++++++----
+ 1 file changed, 32 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index d6e7e7863d36..d1a60cdf55fa 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -1517,11 +1517,15 @@ int intel_ddi_level(struct intel_encoder *encoder,
- 	if (drm_WARN_ON_ONCE(display->drm, !trans))
- 		return 0;
- 
--	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI))
--		level = intel_ddi_hdmi_level(encoder, trans);
--	else
-+	if (intel_crtc_has_type(crtc_state, INTEL_OUTPUT_HDMI)) {
-+		if (intel_hdmi_is_frl(crtc_state->port_clock))
-+			level = intel_hdmi_frl_level(encoder, lane);
-+		else
-+			level = intel_ddi_hdmi_level(encoder, trans);
-+	} else {
- 		level = intel_ddi_dp_level(enc_to_intel_dp(encoder), crtc_state,
- 					   lane);
-+	}
- 
- 	if (drm_WARN_ON_ONCE(display->drm, level >= n_entries))
- 		level = n_entries - 1;
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index 00775ad9019c..942dbad802a6 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1722,9 +1722,10 @@ struct intel_hdmi {
- 		bool trained;
- 		int lanes;
- 		int rate_gbps;
--		int ffe_level;
- 		int rate_cap;
- 		bool reset_rate_cap;
-+		u8 max_ffe_level;
-+		u8 ffe_level[4];
- 	} frl;
- };
- 
 diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 2b0cdb0719e2..ba1543023373 100644
+index ba1543023373..db585c2af21d 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2554,7 +2554,27 @@ intel_hdmi_reset_frl_config(struct intel_hdmi *intel_hdmi)
- 	intel_hdmi->frl.trained = false;
- 	intel_hdmi->frl.lanes = 0;
- 	intel_hdmi->frl.rate_gbps = 0;
--	intel_hdmi->frl.ffe_level = 0;
-+	intel_hdmi->frl.max_ffe_level = 0;
-+	memset(intel_hdmi->frl.ffe_level, 0, sizeof(intel_hdmi->frl.ffe_level));
-+}
-+
-+/*
-+ * HDMI FRL training level is encoded as follows:
-+ *   i 0      : No FFE (LTP4 test mode)
-+ *   i 1+3*N  : TxFFE N normal operation (N = 0..3)
-+ *   i 1+3*N+1: TxFFE N de-emphasis only (LTP4 test mode)
-+ *   i 1+3*N+2: TxFFE N pre-shoot only  (LTP4 test mode)
-+ *
-+ * Normal operation returns 1 + 3 * ffe_level[lane].
-+ */
-+int intel_hdmi_frl_level(struct intel_encoder *encoder, int lane)
-+{
-+	struct intel_hdmi *intel_hdmi = enc_to_intel_hdmi(encoder);
-+
-+	if (lane < 0 || lane >= ARRAY_SIZE(intel_hdmi->frl.ffe_level))
-+		return 1;
-+
-+	return 1 + 3 * intel_hdmi->frl.ffe_level[lane];
- }
+@@ -3573,6 +3573,7 @@ static int clear_scdc_update_flags(struct intel_encoder *encoder, u8 flags)
  
- static void
-@@ -3763,6 +3783,7 @@ int intel_hdmi_start_frl(struct intel_encoder *encoder,
+ static bool
+ intel_hdmi_frl_prepare_lts2(struct intel_encoder *encoder,
++			    const struct intel_crtc_state *crtc_state,
+ 			    int frl_rate, int frl_lanes,
+ 			    int ffe_level)
+ {
+@@ -3598,7 +3599,12 @@ intel_hdmi_frl_prepare_lts2(struct intel_encoder *encoder,
+ 	if ((get_frl_update_flags(encoder) & SCDC_FLT_UPDATE))
+ 		clear_scdc_update_flags(encoder, SCDC_FLT_UPDATE);
+ 
+-	/* #TODO: Source shall program TxFFE = 0 for all active lanes */
++	/*
++	 * Program PHY to TxFFE0 on every lane before the sink
++	 * starts evaluating LTP patterns. ffe_level[] has already been
++	 * cleared by intel_hdmi_reset_frl_config().
++	 */
++	encoder->set_signal_levels(encoder, crtc_state);
+ 
+ 	if (drm_scdc_config_frl(adapter, frl_rate, frl_lanes, ffe_level) < 0) {
+ 		drm_dbg_kms(display->drm,
+@@ -3633,9 +3639,11 @@ intel_hdmi_train_lanes(struct intel_encoder *encoder,
+ 		       int ffe_level)
+ {
+ 	struct intel_display *display = to_intel_display(encoder);
++	struct intel_hdmi *intel_hdmi = enc_to_intel_hdmi(encoder);
+ 	enum transcoder trans = crtc_state->cpu_transcoder;
+ 	int num_lanes = crtc_state->frl.required_lanes;
+ 	enum drm_scdc_frl_ltp ltp[4];
++	bool ffe_changed = false;
+ 	u32 write_buf = 0;
+ 	int lane;
+ 
+@@ -3657,13 +3665,29 @@ intel_hdmi_train_lanes(struct intel_encoder *encoder,
+ 	for (lane = 0; lane < num_lanes; lane++) {
+ 		if (ltp[lane] >= SCDC_FRL_LTP1 && ltp[lane] <= SCDC_FRL_LTP8)
+ 			write_buf |= TRANS_HDMI_FRL_LTP(ltp[lane], lane);
+-		/* #TODO handle FFE change */
+-		else if (ltp[lane] == SCDC_FRL_CHNG_FFE)
+-			continue;
++		else if (ltp[lane] == SCDC_FRL_CHNG_FFE) {
++			/*
++			 * During FRL link training: Sink requests Source
++			 * to step TxFFE up by one for this lane. Cap at the
++			 * advertised max FFE level.
++			 */
++			if (intel_hdmi->frl.ffe_level[lane] <
++			    intel_hdmi->frl.max_ffe_level) {
++				intel_hdmi->frl.ffe_level[lane]++;
++				ffe_changed = true;
++			}
++		}
  	}
  
- 	intel_hdmi_reset_frl_config(intel_hdmi);
-+	intel_hdmi->frl.max_ffe_level = ffe_level;
+ 	intel_de_write(display, TRANS_HDMI_FRL_TRAIN(display, trans), write_buf);
+ 
++	/*
++	 * Reprogram per-lane PHY TxFFE before clearing FLT_update so the
++	 * sink evaluates the new preset on the next iteration.
++	 */
++	if (ffe_changed)
++		encoder->set_signal_levels(encoder, crtc_state);
++
+ 	clear_scdc_update_flags(encoder, SCDC_FLT_UPDATE);
+ 
+ 	return FRL_TRAIN_CONTINUE;
+@@ -3752,9 +3776,9 @@ static int get_next_frl_rate(int curr_rate_gbps)
+ 	return -EINVAL;
+ }
+ 
+-static int get_ffe_level(int rate_gbps)
++static int get_max_ffe_level(int rate_gbps)
+ {
+-	return 0;
++	return 3;
+ }
+ 
+ int intel_hdmi_start_frl(struct intel_encoder *encoder,
+@@ -3766,7 +3790,7 @@ int intel_hdmi_start_frl(struct intel_encoder *encoder,
+ 	struct intel_connector *intel_connector = intel_hdmi->attached_connector;
+ 	struct drm_connector *connector = &intel_connector->base;
+ 	int req_rate = crtc_state->frl.required_lanes * crtc_state->frl.required_rate;
+-	int ffe_level = get_ffe_level(req_rate);
++	int ffe_level = get_max_ffe_level(req_rate);
+ 	enum frl_lt_status status;
+ 	int next_rate = -EINVAL;
+ 
+@@ -3786,6 +3810,7 @@ int intel_hdmi_start_frl(struct intel_encoder *encoder,
+ 	intel_hdmi->frl.max_ffe_level = ffe_level;
  
  	if (!intel_hdmi_frl_prepare_lts2(encoder,
++					 crtc_state,
  					 crtc_state->frl.required_rate,
-@@ -3776,7 +3797,7 @@ int intel_hdmi_start_frl(struct intel_encoder *encoder,
- 	case FRL_TRAINING_PASSED:
- 		intel_hdmi->frl.trained = true;
- 		intel_hdmi->frl.rate_gbps = req_rate;
--		intel_hdmi->frl.ffe_level = ffe_level;
-+		intel_hdmi->frl.max_ffe_level = ffe_level;
- 		drm_dbg_kms(display->drm,
- 			    "[CONNECTOR:%d:%s] FRL Training Passed with rate=%d\n",
- 			    connector->base.id, connector->name,
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
-index 59a561ad28e0..5baa38d326e5 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.h
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
-@@ -68,6 +68,8 @@ int intel_hdmi_start_frl(struct intel_encoder *encoder,
- 			 const struct intel_crtc_state *crtc_state);
- void intel_hdmi_disable_frl(struct intel_encoder *encoder,
- 			    const struct intel_crtc_state *crtc_state);
-+void intel_hdmi_prepare_for_frl_mode(const struct intel_crtc_state *crtc_state);
-+int intel_hdmi_frl_level(struct intel_encoder *encoder, int lane);
- void hsw_write_infoframe(struct intel_encoder *encoder,
- 			 const struct intel_crtc_state *crtc_state,
- 			 unsigned int type,
+ 					 crtc_state->frl.required_lanes,
+ 					 ffe_level))
 -- 
 2.50.1
 
