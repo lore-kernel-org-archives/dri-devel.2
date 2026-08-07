@@ -4,138 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D94AC5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 13:05:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1665C5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 13:06:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8CA9310F4BD;
-	Fri,  7 Aug 2026 13:04:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDAEF10F4D1;
+	Fri,  7 Aug 2026 13:06:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=garyguo.net header.i=@garyguo.net header.b="EFQ6JLjv";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qyzxb9Np";
 	dkim-atps=neutral
-Received: from CWXP265CU008.outbound.protection.outlook.com
- (mail-ukwestazon11020123.outbound.protection.outlook.com [52.101.195.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 01F1510F4BD
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 13:04:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DilOBHx85W39MvYrcAqyaHD/BAdVWzRAkdVp4KkaFF1yLjxMebZh6G7Dp8G8Z8gpKXTuyT2VJgT3DXV7mw0MC6ONV7ZWbUhd+XaK4uXZSeAQIzzUq8YZINwAiif5IOxBcPfjjXt1dvVikWY0d1OHkgnkTXPHkq41emjhwc6UKwbOzuF9uYJmsi0iSscPIm0afRB7tjJz7XZVB9ekKoXDJKgzRHQZRkHxeeg0yQImAyT/w930XUp8vIoU4bkY6pxEkEBRgGHnOshtiWM9Ot/uevbg3qVZnvesn9689IQ4KxvfPKG+J53Wwjdcwc3mdihBYL4LBfHfzNwmx3X3RjuI6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gWXNHqTSFBgxyG395OO7kUtvj/6MRDCuk5ijMENUwEY=;
- b=axJnhOBnOl9R8kUbYDVph3kABvegR8Jhen2oJTTyzyaITQ+vYrTKr52/qpR9wxLk0O526gefJefyUrjUSag08yyqrBvdetBSiBHL/FRfwmsHF/9LR/4btJGiJCqcTqIGiZxsKbCSsPHu5/wh1rDIAEZxFWmmuL3mKa7vJjBLFgcs/MMK5itkI9Ix2UcjQ/X/+phvUmfnqMynQZGsl+nrQZoU97Ol1s7V0+ZIDYnCdQeOCvIKDVCS4ILnpUmiAQ7kQ7qY+GF+ahJ0EVA82qMsiL+MIkJF1fXv3J+7jZi9wdC8j7OfuukM29UakCCfBoJ/pCKgQKzwZ3UuaFskl47t9g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gWXNHqTSFBgxyG395OO7kUtvj/6MRDCuk5ijMENUwEY=;
- b=EFQ6JLjvkxpe+kcgQyHUUNpX6WyfXP17tqdoMdIs7neOl2GG29lzkT5wDDzNYURgI6Cn0ZH403kzsdG7E/YW0hunOvb1EH0NagaV7ft1DPXcll+MkiBG55mtOBxIef5AWwgpplyLnt3MuCdHyzAelYAe7S4vy+eKwAGyxGxQR0g=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO6P265MB6623.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:302::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.23; Fri, 7 Aug
- 2026 13:04:48 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0292.022; Fri, 7 Aug 2026
- 13:04:48 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 07 Aug 2026 14:04:47 +0100
-Message-Id: <DKIQEJX6H5A0.1D3POLLNZB9YS@garyguo.net>
-Cc: "Alexandre Courbot" <acourbot@nvidia.com>, "Alice Ryhl"
- <aliceryhl@google.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>, "Abdiel Janulgue" <abdiel.janulgue@gmail.com>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Andreas Hindborg"
- <a.hindborg@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Trevor Gross" <tmgross@umich.edu>, "Tamir Duberstein"
- <tamird@kernel.org>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- "John Hubbard" <jhubbard@nvidia.com>, "Alistair Popple"
- <apopple@nvidia.com>, "Timur Tabi" <ttabi@nvidia.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Zhi Wang" <zhiw@nvidia.com>,
- <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <driver-core@lists.linux.dev>,
- <rust-for-linux@vger.kernel.org>
-Subject: Re: [PATCH v2 2/3] rust: dma: rename dma_handle to dma_address
-From: "Gary Guo" <gary@garyguo.net>
-To: "Danilo Krummrich" <dakr@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>
-X-Mailer: aerc 0.21.0
-References: <20260805-falcon-dma-projections-v2-0-4cc9f3f13ee9@nvidia.com>
- <20260805-falcon-dma-projections-v2-2-4cc9f3f13ee9@nvidia.com>
- <3a87960b-8a20-4947-a8b5-d5197174317c@arm.com>
- <DKHATVF1WAE7.NGVXJQD12XQ@kernel.org>
-In-Reply-To: <DKHATVF1WAE7.NGVXJQD12XQ@kernel.org>
-X-ClientProxiedBy: LO4P123CA0626.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:294::11) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3ACD10F4C8
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 13:06:43 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CDB71600D8;
+ Fri,  7 Aug 2026 13:06:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03F5C1F000E9;
+ Fri,  7 Aug 2026 13:06:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1786108001;
+ bh=avZCRQbkpPaUbAJpLDXP70sHq/iZO29mcAxmY+IKOBU=;
+ h=Subject:To:Cc:From:Date:In-Reply-To;
+ b=Qyzxb9Np29/1omcZG3mInY6Tp3s7FSkXTDU30K/IGvJWUyhIgMMkvlaXAfwqYHoPr
+ /5dBzyM8Z8xe6gh3jPBtNIb+UkOQW5MkV/3iFyqlzL4+KjH1AyRDLxG55ZK/Gnfec4
+ a9m5X5n4MKvoUcT4nd+Ky53MJE64JIoD8LBSd3kk=
+Subject: Patch "drm/tegra: fbdev: Remove offset into framebuffer memory" has
+ been added to the 6.12-stable tree
+To: dri-devel@lists.freedesktop.org, gregkh@linuxfoundation.org,
+ sashal@kernel.org, treding@nvidia.com, tzimmermann@suse.de
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Fri, 07 Aug 2026 15:05:39 +0200
+In-Reply-To: <20260731111052.3596094-2-sashal@kernel.org>
+Message-ID: <2026080738-enzyme-registry-c810@gregkh>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO6P265MB6623:EE_
-X-MS-Office365-Filtering-Correlation-Id: ff94e2c5-8c3c-4605-dd98-08def48475a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|10070799003|366016|1800799024|7416014|376014|22082099003|18002099003|56012099006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: nsLf+0eGfyFmtSaKY4Ak2BBDOshBwSc5z5xKvGSsJmJCxMxFFmJAooblPl4dlrXpMh4I0Mq1oCJkbLtkxlk4YL/oTXHNyFsIbBlmsaeHDDf2z9HWd9UvdKKljMTqZCpnIXtzaRLrN1/JXv416IfYfUVJwtaMsUubISrV5TJUjwoF9gio7sXbMN/G2xUzm+yLbDm0r/6oQ67fRmQugGYk9kpYu/fhtGf/6/5FiTXDcmuV/Qy5kcRGQiNZ7N0Rt10tNzSJ9SnQGQjhEw0n7dhKaYRtyp6keFqJdiu9hfkGDFOiYSa5hSQ+W9bnJeMOux5iVjkdsxSzE/SNZ2DwwR0DNX3n7HSLrwet6K+vCMlGP0oJ9HIExWUbCKU36XFsSFEnF9jbacMTYElKGXH3ALWFrM2AU30v7SUBPDbRpBcUdfq+rB0lluickQPXS9y00YI98xsj2EpyMhDeV2dzTmARUFWuHCgwR6CBXi0MJ5vOkUxXFH22AExegDucOLQED7JkDSXtnjwqXH3hVoQTqmqzDGlscl4bjL5IajefcUzT0b6RxPaYs8iGl2Lw522T3q4F+8dQj3yjiYVBcDgmj+5oaJopb9wKmJIe1eRps+s6WSlGYS4iVZzcTKP+3MOeOVjLDlMio7JYGTortf/8shqAPmPdcWiyAvNfQd2UxnUvRTs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(10070799003)(366016)(1800799024)(7416014)(376014)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cmw2NGQwZXhEY3hiTHI4OHdQd3FxL3l4QTBTOXBRSG8wVGYxMkJPajkxL28z?=
- =?utf-8?B?Y3c3bmRhK29RRDVlU2g4RWFnZFpsZlRwclNrZnRaeGdoSEpjMDhsNC9YM1Rj?=
- =?utf-8?B?SEJqZWt2Z3RpR0RZU2VjRkhoa29tSjZiMmd3THhJZGhoNkdmaXVZQ29TK2FO?=
- =?utf-8?B?NmFtbExUUDIzYWJyUU44L0VPNTdhMlRidVZQNU5ES1NGVlVPNy9uQlM0TEt3?=
- =?utf-8?B?eGZoc3NudEFJV1c2dFo5Zm01eVQyeHdsZlA5U2tZVVJDaldWMVorcFJFS0Q3?=
- =?utf-8?B?dWxOdFI0eVR6cFg3VFpsY3pZaWk1SjRSTWI3aUJ5OUFvL2RQNG84cWw0YXA4?=
- =?utf-8?B?VTJjZ1Ira0lZNmN0WnIraldNMWg5dndUVGtnWGxoVFgxcVl1R0hGV2x6ZGV5?=
- =?utf-8?B?dzMrSVNJVzFTZkdiVUNudlMxT1l1aEVtMDBBOUZpT3J5SHJsNUM3dHI2MTFP?=
- =?utf-8?B?OWZHNVltYW1xRXByZzZtZ09qVXpYZkl2QXlxa0QrTzBjcmUxWHhNTGo2QzJK?=
- =?utf-8?B?TG9NM0s1RzFxTVI0T05QNUNyRk5yOEloM2xsWTk5b09OTmZBT3dMRkJmYlly?=
- =?utf-8?B?RHo2NzN5L2lUakFaTzJBT0hRc1NKWGdnVkhtbVhRdlpmdjVpUk5nNHczaGFx?=
- =?utf-8?B?OHFWNWhwOERyQ0dVd0V0Qjlsek1ieHArUjJHc1NlUHFGOFNzMGNCSUJUZTJX?=
- =?utf-8?B?QWlSckhrM1Y4ZnYvd0V1TEZvZ3FBVFlnaFQzS2NGUitZanZLSzJ1ZWc0LzFD?=
- =?utf-8?B?TWYySzNzQ2Z2WnFLbHlGYWxVT1BIRGFheUVQRTN4VEszOVpNWlRPbXRxNWt2?=
- =?utf-8?B?YUJyMDc5S2R5UnR3YlRtZlNGTWJnMlFDbmlTb2tHa1ZidVEvYk9VRkE1eTZK?=
- =?utf-8?B?R0hsaHVVZnRwaEdqZjJKS24vOVlTeFZwYkxFV0YyZGh5WGVXcG5SSFZCSGh3?=
- =?utf-8?B?M0FPMlB5NmZFZE82WFhySnlCalpvSHBDUXVDRXFWUjBNTWNJNy9XWFg2aWJO?=
- =?utf-8?B?VmdwVDVOYzFHVEcxb2UzajFJamVNNEpYMExJNDRIc2N0MUd0dDZJSWJzTmh2?=
- =?utf-8?B?cmRUMGdWM2xoaXJ6VzYvUG9IUFVsVjZsWlVCTTNiTWt2clQxSDBMaTZ1MzZq?=
- =?utf-8?B?b0JIQTlKSUM5TlgzbWZMeFpFbXhsRzEwS0ZYa3BmaEpJemQvYWVWczdXRTZP?=
- =?utf-8?B?VzRRelBCcWJlZUtta3ROeFR4NG1GU0hZR2ZiRE9Wc0dkZVZTRXZzbk5kNlZs?=
- =?utf-8?B?Q0RYSld4S3ZzaHB2NVBxM2VmbTIwRDNDUGF6cm4vcVhOSGlzYTM0WjBhWGVZ?=
- =?utf-8?B?d3h6VXVaK2lpTis2Z3NEV3pyU0ZHaEloOFkwQmY2SERUakhpc1htYk9zdFJx?=
- =?utf-8?B?V2FQMXg4K0FtMzAweklwTm9iU3ZpZjVYd1B3TEgzWGttRzBYVWJkcGhKb0pN?=
- =?utf-8?B?UUtxcjZxbjBUV29pOFpuamExUTErdU5jRE5SMW5IVEVwaTBQSGYwMFZwUmZP?=
- =?utf-8?B?WHpkWVlaMEU0d3E3TzBNQklyZVJ6WEpHMDNROG1nM01PbFJ1M2cxT01jcWpK?=
- =?utf-8?B?V0p2TWNMODJzOUZVbDZYUE5BUmY3WEtCK0VWczBOekthSDNTN0dIQUVRV0wr?=
- =?utf-8?B?eTBnaXBpMjdmbFB2aUZtakFlaC9JUjNwZXdBbEt2YUFEeVp3NHphQ2Q1SkJV?=
- =?utf-8?B?d29UaWFQcTRLRUJSOXJScllwYThaVXhDSUlhSFplcDRRWVJHNWJmWXZqSktM?=
- =?utf-8?B?TjhaMjYrUmd3eHVwd2FiemVBam5qL01tWGI1NEVVQnZSQ3RLR1pOZXZ1T01n?=
- =?utf-8?B?bFViUlVoeTA3Tnk0TVo4NnFjL1ROY01EdkM4UGgxU2ZKeDNDYUt0UDRIMytp?=
- =?utf-8?B?Mmd0OFJ4dWQ0QTlKMnhWcnE2SWFhbGoxeWwrTW1DWnVJcERWMEFTWUNKQ1VD?=
- =?utf-8?B?LzkrdU5oNlZ4aWtGTkU5Lzk3YUxFV3NtZnEvWjR6c1p0K2ZaRFFRa293ZC9U?=
- =?utf-8?B?RFJKbmU5RWwxbHhENWVVMDh6WjcrTWhwM3FZSFIzYjhHQk9iQ2ZHZkVmdmxO?=
- =?utf-8?B?WE9ncWRIdFlqSEJHVjc1dU1CK1Vpd3p3KzRVRTdCTnlBaGIvSGg2NXFFTHo4?=
- =?utf-8?B?c3crTGxjTTVyUUp3UnJXZWZ0VnZ4Q3hwRWtwRzJacmlXeTd6cmFLYStjT1Bm?=
- =?utf-8?B?UElSaCtzeDhHVU1mTUpXTHVzak16Z0ptbzFQbzl6VUlJUkJTc3Y5NnBwM0ky?=
- =?utf-8?B?MllDVmtZc1NTa0xhU3I2cEt3ZnNtaVRoODhSMThxYTdmZERKaHhiaEpnK1ZU?=
- =?utf-8?B?dFFpVUd2TExiVkFwdGwxTitXR282d3dEMWMyTC9sb0Q5SkxPRm1wUT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: ff94e2c5-8c3c-4605-dd98-08def48475a1
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 13:04:48.0457 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ap1daCNplDeLHXt8ziqRKARpzKK0utaqbRAsRmJdFtVq3YeDLJrx9DFHli9OjOR0JBSNaz5JRUVUsGL5YoypOA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6623
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
+X-stable: commit
+X-Patchwork-Hint: ignore 
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,58 +56,263 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed Aug 5, 2026 at 9:39 PM BST, Danilo Krummrich wrote:
-> On Wed Aug 5, 2026 at 1:32 PM CEST, Robin Murphy wrote:
->> To be fair, that is sort of the intent in the C API as well, to be clear=
-=20
->> that DMA addresses must not simply be treated as physical addresses, and=
-=20
->> aren't necessarily address-like in general e.g. comparing two=20
->> dma_handles is pretty meaningless, since they could have different=20
->> values but still refer to the same underlying memory, or vice-versa.=20
->> Adding or subtracting offsets within the bounds of the original=20
->> allocation/mapping size is pretty much the only arithmetic that _is_ val=
-id.
->
-> Yes, I did suggest a dma::Range type [1] for this purpose, such that only=
- this
-> kind arithmetic is possible to do.
->
-> The dma::Range type should have a method returning its embedded raw value=
- which
-> then can be used to program registers etc.
->
-> This patch is only an intermediate step, that clarifies that intent of th=
-e
-> current usage of dma_handle() (or now dma_address()), which is not to ser=
-ve as a
-> handle.
 
-I suppose with I/O projections now it's rarer that people need to operate o=
-n dma
-address directly? What do you envison as the use case for `dma::Range`?
+This is a note to let you know that I've just added the patch titled
 
-Also, I suppose we can also represent dma address ranges as `Io` views that=
- does
-not implement any accessor methods, so projection still works on them.
+    drm/tegra: fbdev: Remove offset into framebuffer memory
 
-Best,
-Gary
+to the 6.12-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
->
-> [1] https://github.com/Rust-for-Linux/linux/issues/1248
->
->> However at the Rust level, the abstraction itself can convey (and even=20
->> enforce!) most of that, so for the sake of clarity here, particularly if=
-=20
->> Rust programmers are likely to have their own expectations of what=20
->> "address" and "handle" mean, then I'm inclined to agree.
->
-> Yeah, as mentioned in the link below, the handle that represents the allo=
-cation
-> are the DMA container types (such as dma::Coherent) themselves.
->
->>> Link: https://lore.kernel.org/all/DK75LUA4NLGI.3P29AIZQE20V2@kernel.org=
-/
+The filename of the patch is:
+     drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
+and it can be found in the queue-6.12 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
 
+From stable+bounces-294035-greg=kroah.com@vger.kernel.org Fri Jul 31 13:23:29 2026
+From: Sasha Levin <sashal@kernel.org>
+Date: Fri, 31 Jul 2026 07:10:52 -0400
+Subject: drm/tegra: fbdev: Remove offset into framebuffer memory
+To: stable@vger.kernel.org
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>, Sasha Levin <sashal@kernel.org>
+Message-ID: <20260731111052.3596094-2-sashal@kernel.org>
+
+From: Thomas Zimmermann <tzimmermann@suse.de>
+
+[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
+
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.10+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/tegra/fbdev.c |    8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+--- a/drivers/gpu/drm/tegra/fbdev.c
++++ b/drivers/gpu/drm/tegra/fbdev.c
+@@ -75,7 +75,6 @@ static int tegra_fbdev_probe(struct drm_
+ 	struct fb_info *info = helper->info;
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+-	unsigned long offset;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+ 	int err;
+@@ -112,9 +111,6 @@ static int tegra_fbdev_probe(struct drm_
+ 
+ 	drm_fb_helper_fill_info(info, helper, sizes);
+ 
+-	offset = info->var.xoffset * bytes_per_pixel +
+-		 info->var.yoffset * fb->pitches[0];
+-
+ 	if (bo->pages) {
+ 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
+ 				 pgprot_writecombine(PAGE_KERNEL));
+@@ -126,9 +122,9 @@ static int tegra_fbdev_probe(struct drm_
+ 	}
+ 
+ 	info->flags |= FBINFO_VIRTFB;
+-	info->screen_buffer = bo->vaddr + offset;
++	info->screen_buffer = bo->vaddr;
+ 	info->screen_size = size;
+-	info->fix.smem_start = (unsigned long)(bo->iova + offset);
++	info->fix.smem_start = (unsigned long)(bo->iova);
+ 	info->fix.smem_len = size;
+ 
+ 	return 0;
+
+
+Patches currently in stable-queue which might be from sashal@kernel.org are
+
+queue-6.12/wifi-brcmfmac-set-f2-blocksize-to-256-for-bcm43752.patch
+queue-6.12/net-dsa-mt7530-check-bus-read-errors-in-the-mdio-reg.patch
+queue-6.12/um-set-parent-death-signal-for-userspace-process.patch
+queue-6.12/usb-gadget-f_tcm-synchronize-delayed-set_alt-with-teardown.patch
+queue-6.12/drm-xe-rtp-de-whitelist-oa-registers-for-all-hwe-s-f.patch
+queue-6.12/media-uapi-rkisp-correct-name-version-enum.patch
+queue-6.12/net-sxgbe-free-tx-rings-on-rx-allocation-failure.patch
+queue-6.12/rtase-fix-double-free-of-multi-frag-skb-on-dma-map-f.patch
+queue-6.12/usb-typec-ucsi-fix-race-condition-and-ordering-in-port-unregistration.patch
+queue-6.12/drm-xe-introduce-xe_gt_dbg_printer.patch
+queue-6.12/drm-fb-helper-allocate-and-release-fb_info-in-single-place.patch
+queue-6.12/drm-xe-rtp-maintain-oa-whitelists-separately.patch
+queue-6.12/pinctrl-qcom-sc8280xp-add-missing-wakeup-entries-for.patch
+queue-6.12/forcedeth-fix-uaf-of-txrx_stats-in-nv_remove.patch
+queue-6.12/alsa-hda-codecs-hdmi-disable-keep-alive-before-audio-format-change.patch
+queue-6.12/hid-logitech-dj-standardise-hid_report_enum-variable.patch
+queue-6.12/scsi-libsas-fix-ha-resume-deadlock-and-hisi_sas-disk.patch
+queue-6.12/netfilter-nft_payload-fix-mask-build-for-partial-fie.patch
+queue-6.12/bluetooth-iso-fix-timeout-vs-sync_timeout-typo-in-ch.patch
+queue-6.12/um-set-parent-death-signal-for-ubd-io-thread-process.patch
+queue-6.12/net-sxgbe-check-descriptor-ring-allocation-failures.patch
+queue-6.12/ipvs-fix-the-checksum-validations.patch
+queue-6.12/mptcp-pm-avoid-code-duplication-to-lookup-endp.patch
+queue-6.12/hwmon-ina2xx-fix-various-overflow-issues.patch
+queue-6.12/spi-spi-cadence-move-tx-fifo-full-busy-wait-into-fif.patch
+queue-6.12/powerpc-boot-fix-simpleboot-cpu-node-lookup-check.patch
+queue-6.12/ata-sata_mv-accept-1-or-2-resources-in-platform-prob.patch
+queue-6.12/drm-xe-rtp-generalize-whitelist_apply_to_hwe.patch
+queue-6.12/wifi-mac80211-validate-individual-twt-params-before-.patch
+queue-6.12/mm-hugetlb-fix-swap-entry-corruption-when-clearing-u.patch
+queue-6.12/dmaengine-idxd-fix-fdev-setup-failure-cleanup-in-idx.patch
+queue-6.12/asoc-max98090-fix-missing-is_err-before-ptr_err-on-m.patch
+queue-6.12/keys-trusted-dcp-fix-key_len-validation-and-calc_blo.patch
+queue-6.12/drm-xe-oa-de-whitelist-oa-registers-on-oa-stream-ope.patch
+queue-6.12/mptcp-pm-use-addr-entry-for-get_local_id.patch
+queue-6.12/drm-xe-rtp-save-oa-nonpriv-registers-to-register-sav.patch
+queue-6.12/bluetooth-hci_sync-remove-unnecessary-hci_conn_get-i.patch
+queue-6.12/drm-mediatek-check-crtc-state-before-freeing.patch
+queue-6.12/bluetooth-iso-clear-iso_data-always-when-detaching-c.patch
+queue-6.12/bluetooth-iso-fix-leaking-sk-after-socket-release.patch
+queue-6.12/hwmon-ina2xx-add-support-for-ina260.patch
+queue-6.12/accel-qaic-use-sizeof-trans_hdr-for-transaction-leng.patch
+queue-6.12/pinctrl-amd-don-t-clear-s4-wake-bits-at-probe.patch
+queue-6.12/net-bridge-mrp-fix-option-tlv-length-in-mrp_test-fra.patch
+queue-6.12/kmemleak-iommu-iova-fix-transient-kmemleak-false-positive.patch
+queue-6.12/gpio-pch-use-raw_spinlock_t-for-the-register-lock.patch
+queue-6.12/drm-xe-rtp-refactor-oag-mmio-trigger-register-whitel.patch
+queue-6.12/hwmon-ina2xx-add-support-for-ina234.patch
+queue-6.12/drm-xe-apply-whitelist-to-engine-save-restore.patch
+queue-6.12/powerpc-boot-fix-treeboot-currituck-cpu-node-lookup-.patch
+queue-6.12/wifi-ath6kl-fix-use-after-free-in-aggr_reset_state.patch
+queue-6.12/wifi-brcmfmac-fix-43752-sdio-fwvid-incorrectly-labelled-as-cypress-cyw.patch
+queue-6.12/keys-make-keyring-key-chunk-byte-order-agree-with-ke.patch
+queue-6.12/drm-xe-rtp-toggle-deny-bit-to-de-whitelist-oa-regs.patch
+queue-6.12/hwmon-adt7470-fix-fans-stuck-in-manual-mode-on-i2c-e.patch
+queue-6.12/net-airoha-fix-register-index-for-tx-fwd-counter-con.patch
+queue-6.12/ata-ahci_ceva-fix-error-paths-in-ceva_ahci_platform_.patch
+queue-6.12/qede-sync-udp_tunnel-ports-outside-qede_lock-in-the-.patch
+queue-6.12/tracing-mmiotrace-reset-dropped_count-in-mmio_reset_.patch
+queue-6.12/netfilter-nf_conntrack_sip-widen-nat-rewrite-delta-t.patch
+queue-6.12/drm-i915-hdcp-move-to-using-intel_display-in-intel_hdcp.patch
+queue-6.12/usb-typec-ucsi-split-connector-lock-classes.patch
+queue-6.12/ahci-introduce-ahci_ignore_port-helper.patch
+queue-6.12/drm-i915-hdcp-require-monotonically-increasing-seq_num_v.patch
+queue-6.12/net-udp_tunnel-fix-memory-leak-in-udp_tunnel_nic_unr.patch
+queue-6.12/bluetooth-iso-validate-sockaddr_iso-first-in-iso_soc.patch
+queue-6.12/net-libwx-fix-fdir-atr-queue-mismatch-for-software-v.patch
+queue-6.12/riscv-mm-fix-out-of-bounds-page-table-walk-during-me.patch
+queue-6.12/netfilter-nf_tables-make-nft_object-rhltable-per-tab.patch
+queue-6.12/mm-huge_memory-unlock-i_mmap_rwsem-before-releasing-.patch
+queue-6.12/bluetooth-l2cap-fix-uaf-in-l2cap_le_connect_rsp.patch
+queue-6.12/hwmon-ina226-add-support-for-sy24655.patch
+queue-6.12/scsi-zfcp-fix-memory-leak-during-adapter-release-by-.patch
+queue-6.12/mptcp-pm-userspace-fix-use-after-free-in-get_local_id.patch
+queue-6.12/hwmon-ina2xx-make-it-easier-to-add-more-devices.patch
+queue-6.12/net-dsa-mt7530-error-out-on-failed-reads-in-mt7531-p.patch
+queue-6.12/scsi-libiscsi_tcp-bound-scsi-response-data-segment-t.patch
+queue-6.12/bluetooth-hci_conn-hold-conn-reference-in-abort_conn.patch
+queue-6.12/ipvs-do-not-mangle-icmp-replies-for-non-first-fragme.patch
+queue-6.12/phy-zynqmp-fix-clock-error-handling-in-xpsgtr_phy_in.patch
+queue-6.12/asoc-max98095-fix-missing-is_err-before-ptr_err-on-m.patch
+queue-6.12/hid-logitech-dj-fix-wrong-detection-of-bad-dj_short-.patch
+queue-6.12/rds-tcp-hold-the-rcu-lock-across-ipv6_chk_addr-in-rd.patch
+queue-6.12/drm-xe-rtp-ensure-locking-ref-counting-for-oa-whitel.patch
+queue-6.12/um-add-os_set_pdeathsig-helper-function.patch
+queue-6.12/hwmon-lm90-only-report-alarms-if-driver-is-ready.patch
+queue-6.12/of-reserved_mem-add-code-to-dynamically-allocate-res.patch
+queue-6.12/bpf-reset-register-bounds-before-narrowing-retval-ra.patch
+queue-6.12/drm-xe-rtp-keep-track-of-non-oa-nonpriv-slots.patch
+queue-6.12/net-ethernet-mtk_eth_soc-support-named-irqs.patch
+queue-6.12/wifi-brcmfmac-drain-bus_reset-work-on-device-removal.patch
+queue-6.12/hwmon-adt7470-fix-divide-by-zero-toctou-crash-in-fan.patch
+queue-6.12/mptcp-add-mptcp_userspace_pm_lookup_addr-helper.patch
+queue-6.12/drm-sched-store-the-drm-client_id-in-drm_sched_fence.patch
+queue-6.12/of-reserved_mem-prevent-oob-when-too-many-dynamic-re.patch
+queue-6.12/hwmon-adt7470-fix-temperature-alarm-logic-in-hwmon_t.patch
+queue-6.12/ksmbd-return-success-for-deferred-final-close.patch
+queue-6.12/hwmon-ina2xx-add-support-for-has_alerts-configuratio.patch
+queue-6.12/drm-tegra-fbdev-remove-offset-into-framebuffer-memory.patch
+queue-6.12/scsi-ufs-core-cancel-rtc-work-in-active-active-suspe.patch
+queue-6.12/drm-exec-remove-the-index-parameter-from-drm_exec_for_each_locked_obj.patch
+queue-6.12/hwmon-adt7470-fix-cache-updated-before-hardware-writ.patch
+queue-6.12/assoc_array-trim-the-final-shortcut-word-using-the-c.patch
+queue-6.12/mm-kmemleak-fix-checksum-computation-for-per-cpu-objects.patch
+queue-6.12/ksmbd-fix-use-after-free-in-__close_file_table_ids.patch
+queue-6.12/drm-xe-wait-on-external-bo-kernel-fences-in-exec-ioctl.patch
+queue-6.12/drm-amdgpu-gfx-fix-cleaner-shader-ib-buffer-overflow.patch
+queue-6.12/netfilter-xt_hashlimit-validate-hashtable-supports-x.patch
+queue-6.12/scsi-target-iblock-fix-wrong-pr-ops-null-check-for-p.patch
+queue-6.12/net-ethernet-mtk_eth_soc-add-consts-for-irq-index.patch
+queue-6.12/hwmon-adt7470-fix-swapped-pwm3-and-pwm4-auto-mode-ma.patch
+queue-6.12/media-chips-media-wave5-support-cbp-profile.patch
+queue-6.12/um-use-os_set_pdeathsig-helper-in-winch-thread-proce.patch
+queue-6.12/idpf-fix-mailbox-irq-name-leak-on-request-failure.patch
+queue-6.12/drm-i915-vrr-check-has_vrr-first-in-intel_vrr_is_capable.patch
+queue-6.12/btrfs-fix-leaking-btrfs_fs_state_remounting-flag.patch
+queue-6.12/netfilter-br_netfilter-reallocate-headroom-if-necess.patch
+queue-6.12/idpf-adjust-txq-ring-count-minimum.patch
+queue-6.12/pinctrl-qcom-unconditionally-mark-gpio-as-wakeup-ena.patch
+queue-6.12/gpio-sloppy-logic-analyzer-fix-memory-leak-in-gpio_l.patch
+queue-6.12/keys-fix-out-of-bounds-read-in-keyring_get_key_chunk.patch
+queue-6.12/drm-amdgpu-fix-context-pstate-override-handling.patch
+queue-6.12/hwmon-sht3x-fix-unaligned-accesses.patch
+queue-6.12/mm-slab-prevent-unbounded-recursion-in-free-path-wit.patch
+queue-6.12/fs-proc-task_mmu-fix-pagemap_scan-written-state-for-.patch
+queue-6.12/hwmon-adt7470-use-cached-pwm-frequency-value.patch
+queue-6.12/hwmon-pmbus-fix-return-value-from-pmbus_update_byte_.patch
+queue-6.12/phy-zynqmp-fix-runtime-pm-leak-on-probe-allocation-f.patch
+queue-6.12/scsi-libiscsi-fix-stale-data-leak-into-the-scsi-sens.patch
+queue-6.12/tracing-mmiotrace-add-null-check-for-mmio_trace_arra.patch
+queue-6.12/drm-xe-rtp-add-ring_force_to_nonpriv_deny-to-oa-whit.patch
+queue-6.12/spi-spi-cadence-supports-transmission-with-bits_per_.patch
+queue-6.12/kunit-tool-skip-stty-when-stdin-is-not-a-tty.patch
+queue-6.12/um-preserve-errno-within-signal-handler.patch
+queue-6.12/ipvs-fix-places-with-wrong-packet-offsets.patch
+queue-6.12/hwmon-adt7470-fix-pwm-auto-temp-state-array-and-boun.patch
+queue-6.12/hwmon-ina2xx-shift-ina234-shunt-and-current-register.patch
+queue-6.12/drm-amdgpu-give-each-kernel-job-a-unique-id.patch
+queue-6.12/netconsole-avoid-oob-reads-msg-is-not-nul-terminated.patch
+queue-6.12/bluetooth-hci_sync-make-hci_cmd_sync_run_once-return.patch
+queue-6.12/hwmon-adt7470-fix-busy-loop-and-i2c-flooding-in-upda.patch
+queue-6.12/bluetooth-iso-avoid-deadlocks-in-iso_sock_timeout.patch
+queue-6.12/hwmon-nct6775-core-fix-number-of-temperature-registe.patch
+queue-6.12/hwmon-nct6775-core-prevent-access-to-unsupported-wei.patch
+queue-6.12/dmaengine-sun6i-dma-fix-reclaim-descriptors-while-te.patch
+queue-6.12/drm-xe-hold-a-dma-buf-reference-for-imported-bos.patch
+queue-6.12/sched-deadline-use-revised-wakeup-rule-only-for-runn.patch
+queue-6.12/rds-fix-inet6_addr_lst-null-dereference-when-ipv6-is.patch
+queue-6.12/media-i2c-imx219-rename-vts-to-frm_length.patch
+queue-6.12/smb-client-fix-buffer-leaks-in-smb1-read-and-write.patch
+queue-6.12/scsi-target-clear-cmd_cnt-when-initial-counter-enrol.patch
+queue-6.12/lib-alloc_tag-introduce-mem_alloc_profiling_permanen.patch
+queue-6.12/bluetooth-hci_sync-fix-hci_conn_del-use-in-hci_le_cr.patch
+queue-6.12/net-phylink-put-link_gpio-if-phylink_create-fails.patch
+queue-6.12/btrfs-zoned-fix-deadlock-between-metadata-writeback-.patch
+queue-6.12/media-imx219-fix-maximum-frame-length-in-lines.patch
+queue-6.12/tracing-remove-trace_event_fl_filtered-logic.patch
+queue-6.12/drm-i915-vrr-require-valid-min-max-vfreq-for-vrr.patch
+queue-6.12/um-set-parent-death-signal-for-write_sigio-thread-pr.patch
+queue-6.12/hwmon-nzxt-smart2-dma-align-output-buffer.patch
+queue-6.12/rhashtable-clear-stale-iter-p-on-table-restart.patch
+queue-6.12/drm-amdgpu-respect-placement-requirements-in-amdgpu_gtt_mgr-functions.patch
+queue-6.12/powerpc-boot-fix-treeboot-akebono-cpu-node-lookup-ch.patch
+queue-6.12/hwmon-ltc4282-fix-reading-the-minimum-alarm-voltage.patch
+queue-6.12/thunderbolt-prevent-xdomain-delayed-work-use-after-f.patch
+queue-6.12/ata-libahci_platform-support-non-consecutive-port-nu.patch
+queue-6.12/octeontx2-pf-set-correct-sequence-for-carrier-off-an.patch
+queue-6.12/net-mpls-initialize-rtm_tos-in-mpls_getroute.patch
+queue-6.12/um-set-parent-death-signal-for-winch-thread-process.patch
+queue-6.12/netfilter-nf_conntrack_expect-restore-helper-propaga.patch
+queue-6.12/bluetooth-btintel-validate-length-before-parsing-dia.patch
+queue-6.12/net-ethernet-mtk_eth_soc-pass-eth-to-mtk_handle_irq_.patch
+queue-6.12/drivers-hv-vmbus-replace-lockdep_hardirq_threaded-wi.patch
+queue-6.12/drm-xe-rename-___xe_bo_create_locked.patch
+queue-6.12/hid-logitech-dj-prevent-report_id_dj_short-related-u.patch
+queue-6.12/net-do-not-send-icmp-ndisc-redirects-when-peer-alloc.patch
+queue-6.12/phy-zynqmp-postpone-getting-clock-rate-until-actuall.patch
+queue-6.12/kunit-tool-terminate-kernel-under-test-on-sigint.patch
+queue-6.12/can-isotp-check-register_netdevice_notifier-error-in.patch
