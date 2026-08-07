@@ -4,53 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5AF73C5AC9E
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9F61C5AC81
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:32:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5DF9910F3B5;
-	Fri,  7 Aug 2026 04:32:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23BDD10F3B8;
+	Fri,  7 Aug 2026 04:32:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DL7q/ZLd";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BZ29NTLF";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F18F10F39E;
- Fri,  7 Aug 2026 04:32:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE24310F3B5;
+ Fri,  7 Aug 2026 04:32:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786077154; x=1817613154;
+ t=1786077157; x=1817613157;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=DAtUAKd0VXum2eO4HgdNTbuLt0Qs8kJUjncwgfFFIPs=;
- b=DL7q/ZLdkUkPWmOjXgMVJWqg1VJLWL0dWCBZle0bXxvaAnZR7uBWXYoI
- hMHqLikv7VUzWmG0JcegdwR1drqpWUn0tsGMfJdrD4GcdiMZUeZQVYr8w
- EC2eoY1ptZmY5hxZD08U/x9U6VpxC+bQ57YgmdhLososGUDmWASyqNSkk
- xcsLp0dDVREcEY2wOAO8f81Aa8rE1ElzITCD9W6zBjWIGlq+/4yETXZow
- rOXaH/0rnaVrlO9jvFSa7kcCpetQNrd8Xipe/jS35aor+lW+pqZezSb5V
- 3jDDR/szeedftGhxUfTvgqE3GHp1QvTgVwAhd2KZObjxG3u/zZ2VmgekU Q==;
-X-CSE-ConnectionGUID: R7Jb4Fj2TqCcfcCbJXYSrQ==
-X-CSE-MsgGUID: Fdk8rennRPicwgCXFrg5mA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619349"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619349"
+ bh=nmOTrBUVakJdbiMQ6u1ZFCRd3jehOIi7Z8OhafXgM7c=;
+ b=BZ29NTLFTXsD18aec2doAXArzG7S9qmZoFdAKzQxEsRn6pv1ZciiQ9NA
+ fA7b7zB8t/NTj+xxrqxG50maOiUgXl5B9bVYx+HNp1qPm0GS6HhkFunNa
+ z9nciJ6DKG2/PrmEjzkqgPCCiDiGq6jGpX5M69sYNJ1NlePgaCTZ/HzJ8
+ RRZCMV0VSNI2AfbPUSk5ivce8KV/GaFP9+hbX3Qe9qz8ex+5A7ATmt7qs
+ NCAwQVPaNVGrMOS572DanPmwBl6Qr4WYRpUTJTUPaptUcN7Rs4sL4ZPeV
+ W+UKjdNMpYOQ2KQbSZ6QoaGhSn5X+R3rCKhx4mBuSSXet02HpsmsMlVv/ A==;
+X-CSE-ConnectionGUID: 0Qm1dzPiRG+IlxHfnHxlBQ==
+X-CSE-MsgGUID: cvaAJzVnTOOz3QlbZTHbeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619352"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619352"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:32:34 -0700
-X-CSE-ConnectionGUID: vH6Bczi/QcCROxzK7I0Odg==
-X-CSE-MsgGUID: 0pGFjYKxSEWUNhdJWf5u3A==
+ 06 Aug 2026 21:32:37 -0700
+X-CSE-ConnectionGUID: dabYHJMVSkyJplyrI8xs8w==
+X-CSE-MsgGUID: aF0I5rLtSMeHc3YxnEb5rg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666402"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666423"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:32:32 -0700
+ 06 Aug 2026 21:32:34 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH 26/44] drm/i915/cx0: Add helper to check if the FRL rate is
+Subject: [PATCH 27/44] drm/i915/lt_phy: Add helper to check if the FRL rate is
  valid
-Date: Fri,  7 Aug 2026 09:44:11 +0530
-Message-ID: <20260807041430.229038-27-ankit.k.nautiyal@intel.com>
+Date: Fri,  7 Aug 2026 09:44:12 +0530
+Message-ID: <20260807041430.229038-28-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
 References: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
@@ -71,35 +71,28 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Introduce helper intel_cx0_phy_hdmi_frl_rate_valid() to check if the
-given FRL rate is supported for the c10/20 Phys.
+Introduce helper intel_lt_phy_hdmi_frl_rate_valid() to check if the
+given FRL rate is supported for the LT Phy.
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_cx0_phy.c | 23 ++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_cx0_phy.h |  1 +
- 2 files changed, 24 insertions(+)
+ drivers/gpu/drm/i915/display/intel_lt_phy.c | 16 ++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_lt_phy.h |  1 +
+ 2 files changed, 17 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.c b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-index 452062417ce9..4391bc4cb48a 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.c
-@@ -3868,3 +3868,26 @@ void intel_cx0pll_verify_plls(struct intel_display *display)
- 	intel_cx0pll_verify_tables(display, xe3lpd_c20_dp_edp_tables);
- 	intel_cx0pll_verify_tables(display, mtl_c20_hdmi_tables);
+diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+index 2c1da689fe00..f7265d32915d 100644
+--- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+@@ -2652,3 +2652,19 @@ void intel_lt_phy_verify_plls(struct intel_display *display)
+ 	intel_lt_phy_pll_verify_tables(display, xe3plpd_lt_edp_tables);
+ 	intel_lt_phy_pll_verify_tables(display, xe3plpd_lt_hdmi_tables);
  }
 +
-+enum drm_mode_status
-+intel_cx0_phy_hdmi_frl_rate_valid(struct intel_hdmi *hdmi, int clock_rate)
++enum drm_mode_status intel_lt_phy_hdmi_frl_rate_valid(int clock_rate)
 +{
-+	struct intel_digital_port *dig_port = hdmi_to_dig_port(hdmi);
-+	const struct intel_cx0pll_params *tables;
++	const struct intel_lt_phy_pll_params *tables = xe3plpd_lt_hdmi_tables;
 +	int i;
-+
-+	if (intel_encoder_is_c10phy(&dig_port->base))
-+		tables = mtl_c10_hdmi_tables;
-+	else
-+		tables = mtl_c20_hdmi_tables;
 +
 +	for (i = 0; tables[i].name; i++) {
 +		if (!intel_hdmi_is_frl(tables[i].clock_rate))
@@ -111,17 +104,17 @@ index 452062417ce9..4391bc4cb48a 100644
 +
 +	return MODE_CLOCK_RANGE;
 +}
-diff --git a/drivers/gpu/drm/i915/display/intel_cx0_phy.h b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-index 95c20eb4b4b7..b7785bcebecb 100644
---- a/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-+++ b/drivers/gpu/drm/i915/display/intel_cx0_phy.h
-@@ -84,5 +84,6 @@ void intel_lnl_mac_transmit_lfps(struct intel_encoder *encoder,
- void intel_mtl_tbt_pll_enable(struct intel_encoder *encoder,
- 			      const struct intel_crtc_state *crtc_state);
- void intel_mtl_tbt_pll_disable(struct intel_encoder *encoder);
-+enum drm_mode_status intel_cx0_phy_hdmi_frl_rate_valid(struct intel_hdmi *hdmi, int clock_rate);
+diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.h b/drivers/gpu/drm/i915/display/intel_lt_phy.h
+index 16de39484779..20714ecd9f62 100644
+--- a/drivers/gpu/drm/i915/display/intel_lt_phy.h
++++ b/drivers/gpu/drm/i915/display/intel_lt_phy.h
+@@ -49,5 +49,6 @@ void intel_xe3plpd_pll_enable(struct intel_encoder *encoder,
+ 			      const struct intel_dpll_hw_state *dpll_hw_state);
+ void intel_xe3plpd_pll_disable(struct intel_encoder *encoder);
+ void intel_lt_phy_verify_plls(struct intel_display *display);
++enum drm_mode_status intel_lt_phy_hdmi_frl_rate_valid(int clock_rate);
  
- #endif /* __INTEL_CX0_PHY_H__ */
+ #endif /* __INTEL_LT_PHY_H__ */
 -- 
 2.50.1
 
