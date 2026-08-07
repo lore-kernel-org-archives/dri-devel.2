@@ -4,77 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC873C5AE5D
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9EBBCC5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1E92A10E683;
-	Mon, 10 Aug 2026 06:38:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E3F1010E682;
+	Mon, 10 Aug 2026 06:38:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="icJ0yLkq";
+	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="Q5+hOW5b";
 	dkim-atps=neutral
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 58D3610E115
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:00 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-381b831d535so1168936a91.0
- for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786265339; x=1786870139; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=qSsyx07rdbg9BS6CDdvM5aa6FHTdoOSpWof0piChyTs=;
- b=icJ0yLkq6XRywZnrAA6KOci2aj0FcU7CWc1t/0745qrdQ4q0qKmKVi4/qBWz3Q+oGg
- 7+hcr1PBJV55udWS6/cmKMwxsrFo8bYarpEXsPtmUlhsHBWeGyff7P5ALIiNDi0/8U8c
- fag9iNCt1cFxagaBSKFEX/IZk00y25oZP2Tw50L5uzUSQAWt9HckUAAkDEj2uvWsfiwN
- J7d7Swq8tYyUeG8kZF01MfOknVVlSUGHok20MjP67z0tksjUtvtI51HUJq3yktI5ynEq
- yrmH8eiq/CLlQSJV2Qk1ti4CAGvFdGQIopFU5eyUzucXZ8ZTSt2i2Qchn8hsNWhLXLSE
- 8p8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786265339; x=1786870139;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=qSsyx07rdbg9BS6CDdvM5aa6FHTdoOSpWof0piChyTs=;
- b=WUmntC9LFNGRkMozzIgBz6X2b67nazKl9iVqDQPi2lQmolECqK9egcpt/3f98qoozk
- oDRpHuTTF0b/7m45bvqM6ZIN6REaMImzR2qVgQVlrAqGhnsW2psMt3yrMlvqRajfj0rJ
- n7bhZRkmTDabDF9b/a46HY2JmW0k2hGvRKU0tfkCuO10ngzqH5dkgGRK4nU19aml5ogj
- 9xF9DbY2GInS7QpZik1Ybey9/Hq+MzS45uaN3aICnJAfNX9vWIZSn7TWrzZy9Jon8emx
- 1qmw/M8/IZEx9vzOa+CFpju5JCMq2xMR+aEWDzud5R+5pEptTgT+090jgczLly5lXska
- zP1w==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq5XVuVczhu6JdqGjAwwMYC8VX81HEF7A/z/Ls4Gd8hIxKda0CkCFjmOH9k2MtKk/35AV/JD/4eMwk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yww202wj8ZJS3J8vVjfwE6mld5BDdkxjldJxz49iiVSm6oU13Pv
- YNDTP+mGVE8selVgQhvFC8cbyCCAHJhJlJfZzg5LuOfETdkXclaMVACM
-X-Gm-Gg: AR+sD13HQ7OMhFovKDYNA9umrrksNzHkpo3WBovttojpOtJhq1WqL/tNs41miSaIXWr
- mEbxZt0LfPrI1ruFRICR1SG4dspGO6R5NNB5OQA7xlhlVU71iZ99UYC4VEIRPR4L9vO248z3TOS
- 3Lvr/Q55X763s6zNmTsQ1jKtzmxWoRiZd+fGJn+W9k9kaN4OPSJ/3tqro8e2nPS0zSiprhDnKhS
- G94yXZTsgZkZ8n/VnkiOTeoX/3kFOwJPzbTxR+TTOklp8vxWjxZokKunP2mU4nNv7p8DWj3diBq
- E5omp7XmDy+ZfY4gm2KO+ox7bNTfBkLTUbWUlx+Ikokbo5cOC2gVMLIk/Weqq4HzO0ticmO3r8F
- bDWMfhe3h0RuyzsshG62zvpoHwlRXOVztCREZ94OOIvRD0R09GMOqb1/beKiAN+sHHpzLclp05I
- nyClLNsAytzyyHSiZV5egbFV5ekXnzPc3i1bi9jXvl2anQTc2GbArJBYwDzyORvfEWXyvALHEzg
- 7y5DHD1vfQ=
-X-Received: by 2002:a17:90b:2585:b0:38e:bbf1:de34 with SMTP id
- 98e67ed59e1d1-39261fdab5amr18507599a91.7.1786265339360; 
- Sun, 09 Aug 2026 01:48:59 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.205.91])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.48.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 01:48:58 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v4 0/6] drm/amdgpu: Robustness and safety fixes for ACA and
- RAS drivers
-Date: Sun,  9 Aug 2026 08:47:29 +0000
-Message-ID: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 62F6410E32E
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:15:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=IO
+ i80gEkYM4uCYQ1/ilhSdZhfEjteUdqJwxT+1+Y4ak=; b=Q5+hOW5bHEPF45VC9E
+ CLuFGpNP1vh5huW4DQWktedM9B0wFzwuT5mg7PeeGkvrhWvXwjCkNuEz5bt1LWbV
+ BgP+918a6Avap/TKHW/7ZtOVZCIddij2ezvv3qRxA4vQNcioqGsbXxmWCS4uiS74
+ xChi4hOQU16InFy6O0zJ5ukgI=
+Received: from localhost (unknown [])
+ by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id
+ _____wA3v_+c9XVqE1XXOQ--.26426S2; 
+ Fri, 07 Aug 2026 23:11:24 +0800 (CST)
+From: Hui Su <sh_def@163.com>
+To: andy@kernel.org
+Cc: gregkh@linuxfoundation.org, namcao@linutronix.de,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ sh_def@163.com, thomas.petazzoni@free-electrons.com, notro@tronnes.org
+Subject: [PATCH v2] staging: fbtft: make dirty_lock IRQ-safe
+Date: Fri,  7 Aug 2026 23:09:55 +0800
+Message-ID: <20260807150953.2811933-3-sh_def@163.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: _____wA3v_+c9XVqE1XXOQ--.26426S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGF15ZF48WF48urW8GFWkCrg_yoW5Zw15pa
+ 17ta45Ar48Ga1Fvr43Gr4DZF1a939Fkr4qkry0kw1fZ3W3Crs7WrykJFyrX3W0yrZxtrn5
+ CrWrK34fJw4UCw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRiYFJUUUUU=
+X-Originating-IP: [183.192.100.171]
+X-CM-SenderInfo: xvkbvvri6rljoofrz/xtbC6R2c+2p19Z08UwAA3L
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,50 +60,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series addresses several race conditions, boundary check
-bugs, logic inversions, NULL pointer checks, and buffer size
-parameters across the AMDGPU ACA (Accelerated Compute Architecture)
-and RAS driver subsystems.
+fbtft_mkdirty() can be reached from the fbcon rendering path while
+processing printk() in hardirq context. Meanwhile, dirty_lock is also
+taken by fbtft_deferred_io() in workqueue context with local interrupts
+enabled.
 
-v3 -> v4:
-  - Patch 3: Wrapped list_del_init() inside mgr->lock in
-    remove_aca_handle() and moved node unlinking prior to
-    aca_fini_error_cache(). This prevents infinite loops during
-    concurrent list traversal and stops background queries from
-    referencing destroyed error cache mutexes during teardown.
-  - Patch 6: Updated subject and moved cancel_work_sync() and
-    cancel_delayed_work_sync() prior to
-    mutex_destroy(&con->page_rsv_lock) in amdgpu_ras_recovery_fini()
-    to prevent work executing after lock destruction.
+Lockdep reports a possible IRQ lock inversion involving dirty_lock and
+console_owner. A hardirq can interrupt a CPU holding dirty_lock and
+enter the console rendering path, which can attempt to acquire
+dirty_lock again.
 
-v2 -> v3:
-  - Patch 3: Updated amdgpu_aca_get_error_data() to return 0 instead
-    of -EOPNOTSUPP for invalid handles, ensuring global RAS error
-    queries safely pass through non-ACA blocks without breaking
-    telemetry.
-  - Patch 6: Moved cancel_delayed_work_sync() in amdgpu_ras_fini()
-    prior to ACA subsystem and lock cleanup to avoid teardown races
-    and UAF.
+The following lockdep report was observed on an RK3566 system with
+CONFIG_PROVE_LOCKING enabled:
 
-v1 -> v2:
-  - Patch 3: Updated remove_aca_handle() to use list_del_init()
-    instead of list_del(), ensuring list_empty() properly evaluates
-    removed handles and avoiding potential UAF during device
-    teardown.
+  WARNING: possible irq lock inversion dependency detected
+  swapper/2/0 just changed the state of lock:
+  (console_owner){-...}-{0:0}
+  but this lock took another, HARDIRQ-unsafe lock in the past:
+  (&par->dirty_lock){+.+.}-{2:2}
 
-Sreeraj S Kurup (6):
-  drm/amdgpu/aca: Fix race condition and UAF in error cache logging
-  drm/amdgpu/aca: Add upper bounds check in aca_bank_hwip_is_matched
-  drm/amdgpu/aca: Fix inverted validation logic and list cleanup
-  drm/amdgpu/aca: Add missing NULL check for banks parameter in
-    aca_banks_add_bank
-  drm/amdgpu/aca: Fix off-by-one buffer size parameter in add_aca_sysfs
-  drm/amdgpu/ras: Fix delayed work cancellation order during teardown
+  CPU0                    CPU1
+  ----                    ----
+  lock(&par->dirty_lock);
+                         local_irq_disable();
+                         lock(console_owner);
+                         lock(&par->dirty_lock);
+  <Interrupt>
+    lock(console_owner);
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 41 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 11 +++----
- 2 files changed, 24 insertions(+), 28 deletions(-)
+  *** DEADLOCK ***
 
+Use spin_lock_irqsave() for fbtft_mkdirty() and spin_lock_irq() for
+fbtft_deferred_io(). They only access the dirty line range, so the
+IRQ-off regions remain short.
+
+Fixes: c296d5f9957c ("staging: fbtft: core support")
+Signed-off-by: Hui Su <sh_def@163.com>
+---
+Changes in v2:
+- Drop the comment explaining the lock ordering in fbtft_mkdirty().
+- Use spin_lock_irq() in fbtft_deferred_io(), since it runs in workqueue
+  context with interrupts enabled.
+
+v1: https://lore.kernel.org/lkml/20260804173712.176017-1-sh_def@163.com/
+
+ drivers/staging/fbtft/fbtft-core.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
+index ca0c38221c16..7925d974de80 100644
+--- a/drivers/staging/fbtft/fbtft-core.c
++++ b/drivers/staging/fbtft/fbtft-core.c
+@@ -298,14 +298,15 @@ static void fbtft_mkdirty(struct fb_info *info, int y, int height)
+ {
+ 	struct fbtft_par *par = info->par;
+ 	struct fb_deferred_io *fbdefio = info->fbdefio;
++	unsigned long flags;
+ 
+ 	/* Mark display lines/area as dirty */
+-	spin_lock(&par->dirty_lock);
++	spin_lock_irqsave(&par->dirty_lock, flags);
+ 	if (y < par->dirty_lines_start)
+ 		par->dirty_lines_start = y;
+ 	if (y + height - 1 > par->dirty_lines_end)
+ 		par->dirty_lines_end = y + height - 1;
+-	spin_unlock(&par->dirty_lock);
++	spin_unlock_irqrestore(&par->dirty_lock, flags);
+ 
+ 	/* Schedule deferred_io to update display (no-op if already on queue)*/
+ 	schedule_delayed_work(&info->deferred_work, fbdefio->delay);
+@@ -318,13 +319,13 @@ static void fbtft_deferred_io(struct fb_info *info, struct list_head *pagereflis
+ 	struct fb_deferred_io_pageref *pageref;
+ 	unsigned int y_low = 0, y_high = 0;
+ 
+-	spin_lock(&par->dirty_lock);
++	spin_lock_irq(&par->dirty_lock);
+ 	dirty_lines_start = par->dirty_lines_start;
+ 	dirty_lines_end = par->dirty_lines_end;
+ 	/* set display line markers as clean */
+ 	par->dirty_lines_start = par->info->var.yres - 1;
+ 	par->dirty_lines_end = 0;
+-	spin_unlock(&par->dirty_lock);
++	spin_unlock_irq(&par->dirty_lock);
+ 
+ 	/* Mark display lines as dirty */
+ 	list_for_each_entry(pageref, pagereflist, list) {
 -- 
-2.54.0
+2.43.0
 
