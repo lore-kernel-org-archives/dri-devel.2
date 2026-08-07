@@ -4,66 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEB3BC5AC7C
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 10:12:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C8FA8C5AC7C
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 10:12:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F0BE210F434;
-	Fri,  7 Aug 2026 10:12:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE89210F443;
+	Fri,  7 Aug 2026 10:12:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Scg+EeU+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BUzEGSd3";
 	dkim-atps=neutral
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6F72910F434
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 10:12:14 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-84e507b079dso2095337b3a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 03:12:14 -0700 (PDT)
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
+ [209.85.210.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E879710F443
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 10:12:20 +0000 (UTC)
+Received: by mail-pf1-f170.google.com with SMTP id
+ d2e1a72fcca58-84a652535dcso2156856b3a.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 03:12:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786097534; x=1786702334; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786097540; x=1786702340; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=3EaYXPThWNdkG4MwcQhWQJEAKHoDeZpU3BU1Rq69yw8=;
- b=Scg+EeU+dAs/b0/hp1QYJ32Qg6r2WuN0JFm88R8qwD2qZFtY5E667ZYJrOaiUKd1nV
- yg+RxSzkQCUrBkwDLSwNMiYUeOysvoUc0ghYI7Rj+NrW7hKDso0rLk/p08q9InHkxX2Y
- HwJMMY2qvTQMdmGUEzCKc6Fl3ZHR38x+Esfplfz83MRqt6a2JakdwsEoZo1PtdPMoTLB
- bJB4gyMlwndpqOUbaJVeOxRFKKi8Re99ppGGE8F2TLocmQRJ8/ePz1DixbLD2ev7n+/N
- G5T4f11VBSVncIZECt7vVaOdRpbIUYVMMsDVeI08zIGukfBbqATcEGw9/dKCIB2+wIc7
- nySw==
+ bh=8LdAoJKwXyAPy2Oxe1p5of7f27uz/x1w5QiaYqvn624=;
+ b=BUzEGSd3pZayvwrcqwnmeA2pNqViqjwkHFK9QbgHTdyxWANOhXfyuJgej9wfMtXV3K
+ zviFGHj21rDIZeaYLvp0WkcN/tNcmvEXarIzruBLV3bzRTNPx4Qmt51jU1dnJoWbKaqp
+ w3pUerzuLBv308lxb99LuVKCIjynYpThKFxP/q37M/E+eFKfBPEnmVCx2/HeDyBMZYyq
+ WQZidQ5eQK//Mf5IJeMtKyvEomQI/hg95Zs52BAMNv6FZ6EgSdIcphcF9RN5HH8fFtTI
+ bfYZvQuX4emqedXh3J0RMFzKG4Eh3zTW0a82fBFtrigKl0y61HW+yV4ojf23ti3gWi8M
+ bQGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786097534; x=1786702334;
+ d=1e100.net; s=20251104; t=1786097540; x=1786702340;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=3EaYXPThWNdkG4MwcQhWQJEAKHoDeZpU3BU1Rq69yw8=;
- b=lcj+3npmkDyV2KmvgXboU9btcQapK2s7rVDl8mUYgmaPyMGq/6QVWCmHw7uAtE5HkV
- enXXS6DqLCaPIb0ARz4TC5rqJ2w6fmwdgYQTMSMIk3bp0ON6+AwWafYbFLK91WQyE3As
- m5OFyn+clfMVeUuNd0urY3ZRoaiYXWCbBHFKE87GPpPKILWdghRRIGFmd2t7H7+XKuSR
- iKPN9nGbXnRDkxRpXes7fp+tYk+Jfq6K+U+gJ+FGuV2UXhcIiaYBZO1hYTaG8ffiyMwK
- RKaKqQQsi0wMkaSq97zbdFJJvGVvro9w0cfvBsuBBLERcqQxVsfkGG9VPlLRWvKRGwmT
- 8TXg==
+ bh=8LdAoJKwXyAPy2Oxe1p5of7f27uz/x1w5QiaYqvn624=;
+ b=q5WzuVTLOZ4t3AE/JQU6ynu85LiM/0Iw5RgxErRX4nLgGvs7F/w2+nvbm/tJqFGn2m
+ UXpWxOYGX6cn51mR1edpv3jLi1xjDhOCuHcMuIOeV/VmhyVB/YLAn5xVUsS3Ska9PkFM
+ Aahdkc3/alOg6EZWuxBF+zUqXY0T2s7SbTvzSFgu1L8ROzeTXk1jeSo0+LbLkwnKmxhv
+ ENoS1cuD9DKNFS+k+UyuaqNfqKV5OFW1J6/hm7rHeNnBTG7BdfJdQMBt2S0nMGFczQ3Q
+ uj/iHKNAY5iHgBCrLjQFd/vTBqTt77huiPcFHX5XGaD+lGDBK/TFXEhmo6Y66VBnO/+w
+ /Upw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqXbfXfaJz+DrXCcUvb/tgwexqJuE1CWhyYX7qK2eaQCTLzGktvQ2uV3ENOJNcg4sLeMBto2lU44pM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyUZkF4XmaavW2IWFfly0l6Nz2nnkEdM50gBs+8HDvX4ffF4+QN
- ntMnTjqnBytsDxHD2A1hbxgJVxDSM5g35ugG4CaW846dBOEbZ5wYI9Tb
-X-Gm-Gg: AR+sD11UH/UM3Ovzsfxdcmigklndszx6ezmqvq5hwJU5wnD6hqm3qDEbv+qASrvt25A
- NdXRBbDMyOeb2iliF4Rk9GNiQpDHP5Ckro9TwR6+ETGwy5XxQs6VEPk1v7G67BZRaTRpQcYOB9M
- a/TUpCRVfOuG1oTZCWMVC5mB6Rtznos/f4uEZZFMGFysk/VdibR012hDSGR7di/asJSaLjvI5F8
- jCjmlkR6/0/0V180y10CKwZCJuwOeTZART3YwaSi1BQ7iZcqhs/wQ6tF+bMaxdh1AyL8Qpmoqz4
- UYkgw+RfpgOLzPwwyEsRxDm+rWZpx+EAKsIdZZ3AWZeQaVjquxZL+QQS1fUHm7q2SYhNS4TtSZs
- QgekBXmOF7EMClWMa4wiNYxwKTMvX6+V0ZiGRBnygjejoppxseoUF0IVBDh2CnifxL9Huetz70A
- gdEeM3AYWhDraAx08gq+9P4Qn1RsC5UYAmd8Ff+WLfgvy3GRo44GfYZqVnne8zstECBaJDN+yV5
- zs=
-X-Received: by 2002:a05:6a00:2406:b0:845:a435:a2eb with SMTP id
- d2e1a72fcca58-84f2e094eacmr22879939b3a.31.1786097533847; 
- Fri, 07 Aug 2026 03:12:13 -0700 (PDT)
+ AHgh+Rqwy4YXgtscjx9v/7uUbnDgXehAxFeuWmxeEzlVRiP4AlXDveHSl94mKhZkZmjYam9uUOHRoHeBLmc=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzcL47q2TDVWT2NVHReDoMQuM9PegZ9gGbMWuCxQzfmY/FBKL/0
+ 18GsrA6v67wK38qikloKI4j9qTcfTWiGSrc5hwtxkPaktSwTj0p0rVun
+X-Gm-Gg: AR+sD12nh3+2js44qwJCMQuURMyDQJHw0TEgJM+eSeh60SeOdkMxlA6jh0sIhxh68hF
+ skXmZ5lnl8UcXjDrMVvRCfCvfRGYBr7fnVfeBYc7FfjK9o6yTVe6Ul9WfCYXAzuVDd/KDKcIO8C
+ 6byWtjN6Ykzfs9I7VqhzrEa5067RcQ2eMH3dQROixvK/5CIV4R5H6Xo75iCEhluGpLlBqiGoTA6
+ oYRpJS3XuN48IX7coDo61Qn3wdX8XbBeuJW4aK2nDMzjutwtcmjiQlbPADH250XggeP0TjM2TqA
+ cVs+r5sopAYF/WITuIBnIldzjHam6IoBAW7r8qGoQFkBotbSqDgpVzdXVrVrG/eAwnXwZaYdpw4
+ 3hQiKrnAMuQArbAF9ng+yokSaVIV7dxAFz14lr51bAIEEuwxuGYxA+HihngKSu6E5Abdkm+g5cp
+ WhiUdwCWMMz3X0N4PrRyyGO8jOWP3B9se+J9/MqMFUtIqij8Kx2EXu5PPDGq2qKSlp
+X-Received: by 2002:a05:6a00:32c3:b0:848:47d3:47ec with SMTP id
+ d2e1a72fcca58-84f2e0826afmr26947369b3a.31.1786097540308; 
+ Fri, 07 Aug 2026 03:12:20 -0700 (PDT)
 Received: from baineng-pc.. ([117.133.183.252])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84f5a5528adsm797510b3a.45.2026.08.07.03.12.07
+ d2e1a72fcca58-84f5a5528adsm797510b3a.45.2026.08.07.03.12.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Aug 2026 03:12:13 -0700 (PDT)
+ Fri, 07 Aug 2026 03:12:19 -0700 (PDT)
 From: Baineng Shou <shoubaineng@gmail.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -77,10 +76,10 @@ Cc: stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH v6 2/4] misc: fastrpc: don't publish fd before copy_to_user()
- succeeds
-Date: Fri,  7 Aug 2026 18:11:38 +0800
-Message-Id: <20260807101140.1357218-3-shoubaineng@gmail.com>
+Subject: [PATCH v6 3/4] drm/prime: use dma_buf_fd_install() to preserve export
+ tracing
+Date: Fri,  7 Aug 2026 18:11:39 +0800
+Message-Id: <20260807101140.1357218-4-shoubaineng@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260807101140.1357218-1-shoubaineng@gmail.com>
 References: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
@@ -103,65 +102,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-fastrpc_ioctl_alloc_dmabuf() calls dma_buf_fd() which installs the fd
-into the caller's fd table before copy_to_user() copies the fd number
-back to userspace.  If copy_to_user() fails, the fd is already visible
-to other threads in the same process but the ioctl returns -EFAULT.
-The existing comment in the code even acknowledges the problem:
+drm_gem_prime_handle_to_fd() open-codes fd reservation and install
+using get_unused_fd_flags() + fd_install() directly.  This bypasses
+the DMA_BUF_TRACE() call that dma_buf_fd() emits, so observability
+tools relying on the trace_dma_buf_fd tracepoint silently miss all
+DRM PRIME exports.
 
-  "The usercopy failed, but we can't do much about it, as dma_buf_fd()
-   already called fd_install()..."
+Replace the bare fd_install() with dma_buf_fd_install(), which wraps
+fd_install() together with DMA_BUF_TRACE(), restoring full tracepoint
+coverage.  No functional change; the fd lifecycle (get_unused_fd_flags
+→ work → install) is already correct.
 
-Now that dma_buf_fd_install() is available (introduced to fix the same
-issue in dma-heap), apply the same pattern here: reserve the fd with
-get_unused_fd_flags(), attempt copy_to_user(), and only on success call
-dma_buf_fd_install() to publish it atomically with the tracepoint.  On
-copy_to_user() failure, put_unused_fd() and dma_buf_put() cleanly
-unwind without any user-visible side effects.
+Note: this patch depends on dma_buf_fd_install() introduced in
+"dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
+[1].
 
-Fixes: 6cffd79504ce ("misc: fastrpc: Add support for dmabuf exporter")
-Cc: stable@vger.kernel.org
-Acked-by: Christian König <christian.koenig@amd.com>
+[1] https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubaineng@gmail.com/
+
+Suggested-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 ---
- drivers/misc/fastrpc.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/drm_prime.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/misc/fastrpc.c b/drivers/misc/fastrpc.c
-index f3a49384586d..c5143cd25767 100644
---- a/drivers/misc/fastrpc.c
-+++ b/drivers/misc/fastrpc.c
-@@ -1709,24 +1709,20 @@ static int fastrpc_dmabuf_alloc(struct fastrpc_user *fl, char __user *argp)
- 		return err;
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 9b44c78cd77f..fe3436d1235d 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
+ 		return PTR_ERR(dmabuf);
  	}
  
--	bp.fd = dma_buf_fd(buf->dmabuf, O_ACCMODE);
-+	bp.fd = get_unused_fd_flags(O_ACCMODE);
- 	if (bp.fd < 0) {
- 		dma_buf_put(buf->dmabuf);
--		return -EINVAL;
-+		return bp.fd;
- 	}
- 
- 	if (copy_to_user(argp, &bp, sizeof(bp))) {
--		/*
--		 * The usercopy failed, but we can't do much about it, as
--		 * dma_buf_fd() already called fd_install() and made the
--		 * file descriptor accessible for the current process. It
--		 * might already be closed and dmabuf no longer valid when
--		 * we reach this point. Therefore "leak" the fd and rely on
--		 * the process exit path to do any required cleanup.
--		 */
-+		put_unused_fd(bp.fd);
-+		dma_buf_put(buf->dmabuf);
- 		return -EFAULT;
- 	}
- 
-+	dma_buf_fd_install(buf->dmabuf, bp.fd);
-+
+-	fd_install(fd, dmabuf->file);
++	dma_buf_fd_install(dmabuf, fd);
+ 	*prime_fd = fd;
  	return 0;
  }
- 
 -- 
 2.34.1
 
