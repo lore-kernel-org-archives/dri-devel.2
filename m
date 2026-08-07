@@ -4,77 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26B10C5ACAB
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 14:56:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2637EC2A09B
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 14:57:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB4F210E41D;
-	Fri,  7 Aug 2026 14:56:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A15110E36A;
+	Fri,  7 Aug 2026 14:57:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m9+tIsNd";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0OiSKdHm";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A0DD10E36A
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 14:56:39 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2d02b4c3601so38651445ad.3
- for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 07:56:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786114599; x=1786719399; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=G/8xx2t4WO7QVCjZ7uGwrmqxOJTEUaxIvRYS3m/7Bno=;
- b=m9+tIsNdZ4U6leCYnziJeqmxy+iHFrR5r4z24BfnEXnR12GxezoB6k9MFwsXpKzIjD
- GHFXpYpAsHQw5qsyWojA422hbdC70O3ITlhNW3NUmzEa/v98+5HZcUeBR/mhQISh2kOx
- pgi/7GFWqDnxCFH1ZW3K23dfIooQhWmrA7EUXna+Jb6b8bmqRG+qRxOocgtHBYc4gITP
- 6V7dNSJooQz6mT0EkJ9eAFTZJZ7sj7ftzlfNrCYhBYUPmIvEFrm4e3l7Ra8JDPFUy09v
- BEoNVr7wVzBo08fpZACm3Eb/nYruZkdE2WQWp/a1knx11gp0/tz3INQnQ5abXuR9EU51
- 2r4Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786114599; x=1786719399;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=G/8xx2t4WO7QVCjZ7uGwrmqxOJTEUaxIvRYS3m/7Bno=;
- b=ZnReXSXN8PonKcgRFuCCS3rsWofm08JSGshpWX1BhpoVzaOGjCy02c2HuN2Tif/R8S
- v7sA8o48Hrzw5U3haRuSpiGr89hJB0NxR0aaQAMpupJGfrKyp9a1zY5H8pCKnnDhEu+3
- VwWi5lW5c6kZJIi4HsTNuEu2qjLnY8RGlQWVj/k8d3KIU+OLBPdcYyvgN1SMLbbGWkzT
- Y6nayrjkJG9BGBQlQVwBJoQe1HbJELczn4ffh1ScAJhYFTHjmeo0ZwCLFo+22sRYmlm+
- +/L+EkaG8XRuYA5/15ZeiGzS5t/tmBPNoY0/oPdUzAxTxNBLFPWaVKWR/sz86z1GQn6q
- D1fw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp2V2Hl1c8YojaWKh8PR6hgcCiol181TWfZ3RocmzukNDRkFTGfb18KsfXk1rHJaLXSd0VNm7QNacE=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzLhND6Ymsi5wsVzd/MIRmeCENddz3vjwERVNHBJ1irwOF6ZHIQ
- qNSxFQ4NgxRHWHHcYRWndIjeWCz8PH3/bpkFb+ypSmWWE9sr8o7G+PFG
-X-Gm-Gg: AR+sD11hhfXEt4Hug9v57Zqv5PVNMmbhMjl9Vz8zwMx6YiVddNtztlTI+4Deg6DCGHj
- yGdyUTCsVgLTnV0Ryw5IARG2J8fs5nC4bo+xa9Mt4L2jQYZUdMYJ/NL8oyQBT5TJJpZI7yfRsKR
- 2gmFml8qqCXG/0srX4j23mV1sJ3giuNSLEvtxOOfO2vKBrAAg76zx3pFiHehSFuiHrpno+VIZDR
- XZRYKu12YOJ4RnvTrSn0ZJ18ZSt9q35JN2w8wLOtlMSEDUN3Y6LfEo71P56Jp7SFMGj6iQXEs8n
- e7bjMbA2qfmO6geEhhedvP+IZOiFrBNIQPfdDpbvCmVRfhHluUk5kuS+Ps5hm8J0mFS1bUiRIuQ
- 0GCunz56M1NNaoMjWaGQbhVDYfQ1Av6M42eHXxTHHJLy5yQW3mdhUK8Y1qgh8BsOdEaQbV79ONc
- /UlAJql2bwkQj/bTRiRsUwXx4ucOUrSoMMl63wge+nSmw=
-X-Received: by 2002:a17:902:d485:b0:2c9:d55d:2d3 with SMTP id
- d9443c01a7336-2d2a20b6c2cmr23611005ad.15.1786114598695; 
- Fri, 07 Aug 2026 07:56:38 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d14dbeaa95sm10653235ad.38.2026.08.07.07.56.34
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Aug 2026 07:56:38 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Karol Wachowski <karol.wachowski@linux.intel.com>,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- Krystian Pradzynski <krystian.pradzynski@linux.intel.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>
-Subject: [PATCH] accel/ivpu: fix usage_count leak when autosuspend_delay is
- negative
-Date: Fri,  7 Aug 2026 22:54:16 +0800
-Message-ID: <20260807145416.2518999-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1943810E36A
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 14:57:34 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id DE8C2600AF;
+ Fri,  7 Aug 2026 14:57:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18FFF1F000E9;
+ Fri,  7 Aug 2026 14:57:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1786114653;
+ bh=i7qAU9PC85pfCMpTQw3RP3v9Z9elbZRQagbuUnQXWrc=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=0OiSKdHmExVI5i1sO+qICb7IuNeeWXFdiYR9Wi78F7D7XvzQzEEVBxxUMEcAw87Vc
+ QTgXpk/vxf/0qveEBQL0IeC04hEk44J72t3nmR5khc/9uMipB4CzbXFvsaPJRNz8uT
+ RhdA9ePb3WjFAZCOweLmSDuwoOLNh+wki8NOXQc0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 315/337] drm/tegra: fbdev: Remove offset into framebuffer
+ memory
+Date: Fri,  7 Aug 2026 16:38:38 +0200
+Message-ID: <20260807143425.357899490@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
+References: <20260807143418.516897842@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -92,61 +60,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-ivpu_pm_init() calls pm_runtime_use_autosuspend(), but the autosuspend
-setting is not disabled when the device is removed or when
-initialization fails after runtime PM setup.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-When the autosuspend delay is negative, the runtime PM core increments
-usage_count to prevent runtime suspend. Without a matching
-pm_runtime_dont_use_autosuspend(), this reference is not dropped and
-usage_count remains unbalanced.
+------------------
 
-Call pm_runtime_dont_use_autosuspend() from ivpu_pm_disable() to clean
-up the autosuspend state during normal device teardown. Also undo the
-autosuspend setting when ivpu_boot() fails after ivpu_pm_init().
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-This issue was found by manual code inspection.
+[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
 
-Fixes: 852be13f3bd3 ("accel/ivpu: Add PM support")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
+
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-tegra@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.10+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/accel/ivpu/ivpu_drv.c | 4 +++-
- drivers/accel/ivpu/ivpu_pm.c  | 1 +
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tegra/fbdev.c |    8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
-index 35e506074d5f..633c90e73f2c 100644
---- a/drivers/accel/ivpu/ivpu_drv.c
-+++ b/drivers/accel/ivpu/ivpu_drv.c
-@@ -756,13 +756,15 @@ static int ivpu_dev_init(struct ivpu_device *vdev)
+--- a/drivers/gpu/drm/tegra/fbdev.c
++++ b/drivers/gpu/drm/tegra/fbdev.c
+@@ -75,7 +75,6 @@ static int tegra_fbdev_probe(struct drm_
+ 	struct fb_info *info = helper->info;
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+-	unsigned long offset;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+ 	int err;
+@@ -112,9 +111,6 @@ static int tegra_fbdev_probe(struct drm_
  
- 	ret = ivpu_boot(vdev);
- 	if (ret)
--		goto err_ipc_fini;
-+		goto err_pm_fini;
+ 	drm_fb_helper_fill_info(info, helper, sizes);
  
- 	ivpu_job_done_consumer_init(vdev);
- 	ivpu_pm_enable(vdev);
+-	offset = info->var.xoffset * bytes_per_pixel +
+-		 info->var.yoffset * fb->pitches[0];
+-
+ 	if (bo->pages) {
+ 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
+ 				 pgprot_writecombine(PAGE_KERNEL));
+@@ -126,9 +122,9 @@ static int tegra_fbdev_probe(struct drm_
+ 	}
+ 
+ 	info->flags |= FBINFO_VIRTFB;
+-	info->screen_buffer = bo->vaddr + offset;
++	info->screen_buffer = bo->vaddr;
+ 	info->screen_size = size;
+-	info->fix.smem_start = (unsigned long)(bo->iova + offset);
++	info->fix.smem_start = (unsigned long)(bo->iova);
+ 	info->fix.smem_len = size;
  
  	return 0;
- 
-+err_pm_fini:
-+	pm_runtime_dont_use_autosuspend(vdev->drm.dev);
- err_ipc_fini:
- 	ivpu_ipc_fini(vdev);
- err_fw_fini:
-diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
-index c1ce8329790e..20dc8ec7d70a 100644
---- a/drivers/accel/ivpu/ivpu_pm.c
-+++ b/drivers/accel/ivpu/ivpu_pm.c
-@@ -445,6 +445,7 @@ void ivpu_pm_enable(struct ivpu_device *vdev)
- 
- void ivpu_pm_disable(struct ivpu_device *vdev)
- {
-+	pm_runtime_dont_use_autosuspend(vdev->drm.dev);
- 	pm_runtime_get_noresume(vdev->drm.dev);
- 	pm_runtime_forbid(vdev->drm.dev);
- }
--- 
-2.43.0
+
 
