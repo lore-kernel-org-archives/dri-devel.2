@@ -4,62 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B34D7C2A09B
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 17:59:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E95B1C5AC82
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 18:00:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D48810E435;
-	Fri,  7 Aug 2026 17:58:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05CB510E451;
+	Fri,  7 Aug 2026 18:00:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="OqvPtaZm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="agBcCM89";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB48910E435
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 17:58:58 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1786125530; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=QzJSbKGvx2PDYsGwY5DrXb4Mu5zyFa0nzmJ/Wq8DMJ1h4ZFn7ubt7DZqnidBwzz2EH3AuODm0AxnedWChB+KAhadpOrO1jeKje8pMzuhmoTN5BZFAGTSpOGHZWUbURN1st9pXqcpWcQ+ylBW/zx2HqS8rLvyx8fThC8hAGy357A=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1786125530;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=5X66dM6QHHWxY6bBMRQTS1JmqGd1+5fST36EM3XypzI=; 
- b=Tt/Ww/goqTmfvvPIWAwwx+SWH2heRAPbT4OWC0xgfdP4Gohyd51tUICycexLDBqLEm/g6ZmEU6eMr7LgRUdQJ+61Yv0vAn4RW1T4ez1fJzUQrjerDC3XGZuQCc1RwgCJwWT4xTeYw/ZaDaqBFUu2NgTqOVRfcvU3E8c82dKtLRc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
- dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786125530; 
- s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
- h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=5X66dM6QHHWxY6bBMRQTS1JmqGd1+5fST36EM3XypzI=;
- b=OqvPtaZmlVYUECV2meelrS5ctdP+Kzaf9EUb7/3lHk+5hYJHMC1uZoq3dh69kfhQ
- KIOhLQ6keuYnJFuW1ndRmRcvcilurdPqHur6ZDM9494YEcnEREcag7gKS96M0wfLtbY
- htGARHm2QrMDSqN3EICpalkv51x2Xxy4U9o77Zmo=
-Received: by mx.zohomail.com with SMTPS id 1786125527192874.9730414852983;
- Fri, 7 Aug 2026 10:58:47 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
- id E4007180895; Fri, 07 Aug 2026 19:58:43 +0200 (CEST)
-Date: Fri, 7 Aug 2026 19:58:43 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Rob Herring <robh@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- kernel@collabora.com
-Subject: Re: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp: Fix
- sound DAI cells
-Message-ID: <anYanfuZQT4Pz6lC@venus>
-References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v11-20-0d508505f383@collabora.com>
- <20260806174000.668AB1F000E9@smtp.kernel.org>
- <20260807155140.GA882294-robh@kernel.org>
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F10B10E451
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 18:00:17 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-385b78b4f9bso337562a91.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 11:00:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786125616; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ccJdA2Sxs2VY7ArIgSU1EP4/yktsrknM1WykrbZ8m8tBr9iqf9v7snuzQgCgFTe/ag
+ G3L6aClj4poZ7BMivNO3Vt+yd4+GjqotVmKVDD0d7LudZxsMseE9hpYoE/4dKPl/Kg5w
+ fA5IyOpzJ/po5udoJvNiAyKGPetbSPDS2eD+onsrXq1hSBclKM4Edp4y6u35DlYjLI/l
+ 4y6k37sXPbLHHkEA71Vo8qrQdMnTQguAFwMnvKFhC9B4Jhfs00XyPX7YSXr7tauXzPKX
+ MdIiPPQ/EEjIj1zqhQI1f83wu6FQAN6HHG41UjoldkU74AZ5E0SSU1LDGYs/Xc/EvoN5
+ 9LkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=c0Wfka9/KIPBq/ssH/NDLPL459qo1ui1yxSLFuyKvYk=;
+ fh=mrzz8JDXGSa7zsfcURUdmteMqvk97YQh+1XX2Eo4XrU=;
+ b=lFrAXOdTUIb/EXrdi39pZ8WGwd4Jejpi1WN4Pc+9jiTis6+cCES0z8vOdnvU/g/CdQ
+ iiEFr150X9I2E+o6daJ+MMSmHqW4h1ic8tDPiECrMFSuld2LlQlmyZusRAoiOXecD9dp
+ 8kl+II5Fl3XkeS6htBKZoFCUX6vhVG3HGEAV6GLYCn8keS/bvDZX7W3AKZ01JtgJOFuF
+ Rcn/VghatuvQ7d14ssFamY40lL7yUNL0cN7yoZQrcFm4jyDb8+TmDMvA6ZXXV/haYT8y
+ 1hBdrn2IwWvsbrSEGgHTzRx0zTe5ZS9uKB0rfdZSbdDn9llK0x+09oP0dqU/5IPJeUea
+ dDkQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786125616; x=1786730416; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=c0Wfka9/KIPBq/ssH/NDLPL459qo1ui1yxSLFuyKvYk=;
+ b=agBcCM897KQt7na8r8A+PwhAFPihIEb1iXbPxHCoFGEBYY/2qvWwhdRf+3esfyoZUd
+ ISPNYt+z0aXdl+eo9+u97RAi6hVoYniVh3wu4YoURiLO0VWhbRmbqnHgoG8jic360z+C
+ VNQ8jSdfjEYac/v4bUQNUcJatZaQIErMTi6TirsY1RZ846gnPIVDiNoqCzOpabeZPMyN
+ D0Srxwi97LP6BTg8b5ZMpGTc4AzGqihPtZNxUT+u7fpZO8u41e5sGcJ5ay37kZCBEnU4
+ s/IKKFDCUiHu+3j4K+5wjyuvmxxpsykAojByknFrhlLxb/+EgN8eRct6qMXq4+EOkHf1
+ U2gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786125616; x=1786730416;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=c0Wfka9/KIPBq/ssH/NDLPL459qo1ui1yxSLFuyKvYk=;
+ b=c5J8I9nHH94rM9Gpe5UDo3D+D15vdDm6buSamNY4gwAqrctM+Lu6qhr+eRFMmhPeu1
+ 2v9CcGCsgIgl6ae3e38W2NjHXuB/yqejOi6jRIGYtuM74o887IJnej57OxAESVWqX+2h
+ rt3P2nsGmIGihwRDv8mndtntyJsswoeHysHNRAara8mU/8eFaiTDdmq6XAjkqmiD+xRK
+ Is8crOi5c7s+boipY7qjYtCOH4Pq/nfpKFiVsi6ix5wXEVbTGo3pt+XoQPB3FDyRJGGc
+ 739W1lNp1WyJsXWTPNpoiRrGa9Oe5AJlmCnyvjhaGs278VBwN5HhZfJI8E9SQhRMfkQi
+ 0eWA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rqal9WGQcmGZWuXo1LoerjLbCtgXvBcNUvvBLvbxUIvPhyTjfsVf2kzJZUM8bj8PBC8oRmeManp8l4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx6brKOrvwZ6ShbWc1qgu69HKaDa3inMIo3pHeLNba9ZA4SoYPI
+ mLeHf+8w11lrnX+++wRrldSUnBBhaNWtyh9v+9OFiiAuT/POqgZU8X90/pmK/t/u74bSjJmToWH
+ Ea/d3gPcdSv/Ys59q/gcbh7zqaGE4UBc=
+X-Gm-Gg: AR+sD11u7WkUwkAiEJci8hKf0ZdC49m4wV+1zv+IlDuMD9TXwIVFp72vkewVsVlZR74
+ TRLK5jhgr556iSmk+7iGVsMpvmZoHbylpUwn62ozuIJDRVSYmlyRyRTAoj4K03LnSChqK9cm2k4
+ kAIZFttqdS0YCryZkv0K2Mhohw2aOPQhsxFL0VTE8+odVHv97cs5GDOhIu0Sy7s37ckNviE6zPJ
+ JR6BTJxPpUVrtxgaF4M8zVSt45MPwIX+Ygi6fgbbrh9GGry/ty1+vunI72dFc8hZ1q4Ngl0AckV
+ hESUJRWiBaH+2p3y50yuoZOTariRyA8W4aF67oZapzeX6UzEe7lF6NrDjL77I5LQmF/WKlPwhVE
+ YW+dq5t0l8htmGBVE7ZfCyiXiFJxKuCk=
+X-Received: by 2002:a17:90b:3a81:b0:36d:b30b:14ed with SMTP id
+ 98e67ed59e1d1-3903c6e93e6mr17347802a91.2.1786125616561; Fri, 07 Aug 2026
+ 11:00:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="xvnis4rjdghlkh7f"
-Content-Disposition: inline
-In-Reply-To: <20260807155140.GA882294-robh@kernel.org>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.10.1.5.2/286.110.97
-X-ZohoMailClient: External
+References: <20260807145855.83479-1-samuel.pitoiset@gmail.com>
+ <833bafaf-0167-4515-93cd-0828776741d2@igalia.com>
+In-Reply-To: <833bafaf-0167-4515-93cd-0828776741d2@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 7 Aug 2026 14:00:05 -0400
+X-Gm-Features: AUfX_mzxIXXmzkMgICxD6dw0ZAqFqvVs53r2e1rHpS5oqJZtmayLF777l1T9PvA
+Message-ID: <CADnq5_OnpUB1xVOc52g_-DJuKRTWSOJGrL9QHNUeWyC-mytumg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix NULL pointer dereference in
+ amdgpu_dm_crtc_set_vblank()
+To: Melissa Wen <mwen@igalia.com>
+Cc: Samuel Pitoiset <samuel.pitoiset@gmail.com>, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Alex Hung <alex.hung@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,104 +111,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
+Applied.  Thanks!
 
---xvnis4rjdghlkh7f
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp: Fix
- sound DAI cells
-MIME-Version: 1.0
-
-Hello Rob,
-
-On Fri, Aug 07, 2026 at 10:51:40AM -0500, Rob Herring wrote:
-> On Thu, Aug 06, 2026 at 05:39:59PM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [Medium] Device Tree schema validation breakage for existing `rockchi=
-p,rk3588-dp` configurations.
-> > --
-> >=20
-> > --- Patch [20]: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp=
-: Fix sound DAI cells ---
-> > commit 2c15bbfcf4dec184872abdf4c2e06063a52d1e2f
-> > Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-> >=20
-> > dt-bindings: display: rockchip: dw-dp: Fix sound DAI cells
-> >=20
-> > The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-> > possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
-> > to select the right interface.
-> >=20
-> > > diff --git a/Documentation/devicetree/bindings/display/rockchip/rockc=
-hip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchi=
-p,dw-dp.yaml
-> > > index 2b0d9e23e9432..c4f8959dd65da 100644
-> > > --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-=
-dp.yaml
-> > > +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-=
-dp.yaml
-> > [ ... ]
-> > > @@ -83,7 +83,8 @@ properties:
-> > >      maxItems: 1
-> > > =20
-> > >    "#sound-dai-cells":
-> > > -    const: 0
-> > > +    const: 1
-> > > +    description: 0 for I2S, 1 for S/PDIF
-> >=20
-> > [Severity: Medium]
-> > Will this strict constraint update cause make dtbs_check validation to
-> > fail for existing in-tree device trees?
-> >=20
-> > The mainline arch/arm64/boot/dts/rockchip/rk3588-base.dtsi still defines
-> > #sound-dai-cells =3D <0>; for DP nodes.
-> >=20
-> > While the commit message notes this breakage is intentional and will be
-> > fixed up separately, could changing the schema without the accompanying
-> > DTS updates cause automated CI validation failures and break bisectabil=
-ity?
->=20
-> Yes, and I don't love the intermittent warnings introduced. As long as=20
-> the warnings are on a downward trajectory, I won't notice...
->=20
-> Not saying you have to do something here, but this will get more=20
-> strict...
-
-I don't like it either, but it's the best I came up with. If DT is
-updated first, there will be a warning for the DAI cells being 1
-instead of 0. To fully avoid the warning I see these options:
-
-1. update DT binding and DTS in a single patch
-2. allow 0 and 1 in the binding with 0 not really working
-
-IMHO neither of those are great either, so I ended up with the
-series like this. Regarding the downward trajectory: RK3588 should
-be completley free of warnings in dtbs_check at the moment.
-
-Greetings,
-
--- Sebastian
-
---xvnis4rjdghlkh7f
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmp2HMwACgkQ2O7X88g7
-+pp+Ig//YTasKYth8R0rZG54e32jecsEgJeOQXkU9uTt+XNoLMdVLNAOSz2O1Vz0
-T0JwqtSO2hVj6tXqBQ4ZQmtE8FuPpKuUymgJtnOy2w9xSZP2aZzxjbZ6keQw9OEn
-4bifhadn1iLTmRrYHoA9IwCn7rSqfgyS5oebPFENqNEKIJ+b9rr+UF6OpxPcPbk5
-Z9hYf+NCddXja9C7OWTOYzyVMxaZ30coVr6jDidgrpZcZogXC5SsO7banHrQ71LE
-0nQ85i59W1paV/cYNlK6hU5s2Iw+kAL2JyQqqmE6buK5T2ZPYLNpmoom7bI9U65m
-CWKFUiHCWJDFB5Sor02KfokvWB9dOVS1TnVj1wxMyBjkAIoIJSd+h0J9RCDnok/d
-Cnzd7x1pR7XTcux+w+AE+bJ4w/YQRxYka/E33ntZRXpKXQO8BRjO6p4m0/1a4KqY
-0ChKQGMlDatl/oNhAXLRth/tCOGanMjr6bNXVh/0MkgtjGpRb2sA+vWd0kHNF3DJ
-nHZwYR+1kntUZpvT5MdIaOpJrFQ83J0xEeQ+uUyFfOjzlSItwr0oUAgnQIdltEwc
-cQ+OdwGr8wZm6s/AaPlEtakR7xUiofEUxhQMshASWhwRHL0nljCVXf36/vX7Sn03
-JTKhNxI08uW0Fm4b2DNyAEa4dZMGDhP/rUl0SutKeYVeutCZi8A=
-=kX1F
------END PGP SIGNATURE-----
-
---xvnis4rjdghlkh7f--
+On Fri, Aug 7, 2026 at 12:35=E2=80=AFPM Melissa Wen <mwen@igalia.com> wrote=
+:
+>
+>
+>
+> On 07/08/2026 16:58, Samuel Pitoiset wrote:
+> > amdgpu_dm_crtc_set_vblank() dereferences acrtc_state->stream when
+> > vblank is enabled/queried from DRM_IOCTL_MODE_CRTC_GET_SEQUENCE before
+> > a stream is attached to it.
+> >
+> > BUG: kernel NULL pointer dereference, address: 0000000000000008
+> > RIP: amdgpu_dm_crtc_set_vblank+0x6b/0x4d0 [amdgpu]
+> > Call Trace:
+> >   drm_vblank_enable
+> >   drm_vblank_get
+> >   drm_crtc_get_sequence_ioctl
+> >   drm_ioctl_kernel
+> >   drm_ioctl
+> >
+> > Reproduced by running VKCTS with WSI tests enabled on RADV.
+> >
+> > Guard the enable path on acrtc_state->stream being non-NULL, matching
+> > the existing checks in this function.
+> >
+> > Fixes: 34d66bc7ff10 ("drm/amd/display: Fix Xorg desktop unresponsive on=
+ Replay panel")
+> > Signed-off-by: Samuel Pitoiset <samuel.pitoiset@gmail.com>
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/d=
+rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> > index 46d85457c77b..62eac6e65334 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+> > @@ -268,7 +268,7 @@ static inline int amdgpu_dm_crtc_set_vblank(struct =
+drm_crtc *crtc, bool enable)
+> >
+> >       irq_type =3D amdgpu_display_crtc_idx_to_irq_type(adev, acrtc->crt=
+c_id);
+> >
+> > -     if (enable) {
+> > +     if (enable && acrtc_state->stream) {
+>
+> LGTM.
+>
+> Reviewed-by: Melissa Wen <mwen@igalia.com>
+>
+> +AMD display folks for visibility
+>
+> >               struct dc *dc =3D adev->dm.dc;
+> >               struct drm_vblank_crtc *vblank =3D drm_crtc_vblank_crtc(c=
+rtc);
+> >               struct psr_settings *psr =3D &acrtc_state->stream->link->=
+psr_settings;
+>
