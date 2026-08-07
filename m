@@ -4,55 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 510DAC5AC9E
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:33:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4EF3C5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:34:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0BA3410F3F9;
-	Fri,  7 Aug 2026 04:33:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECBAC10F3FB;
+	Fri,  7 Aug 2026 04:34:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="Nk30JXEV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bI+kdRRs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65E7E10F3F5;
- Fri,  7 Aug 2026 04:33:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDD7210F3F8;
+ Fri,  7 Aug 2026 04:34:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786077199; x=1817613199;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=5yHJCxYqhA9nAG6K7illmrW/E/n49XOJGW9yZjuHEwU=;
- b=Nk30JXEVNjxKRN+Tnnvmd8KI0uOMDWDkQMqEiSgRq27+ebR6uS45lvDY
- udJuLo+lvirbyAn52o0ADKjZzXF6KFYtRmmI+cBbxwGF+5GbkiQvLvAHk
- /qG8c5241wKEN5AP8tU9MN43szNtYmRjPnSbbZ+6UhqunjYn7cyw7J9pt
- +uOq+xI/cQBEoHCr57k9M7KegHYojwV8Hqi6KsUPhloavnV09az8l3y+g
- j4D1dRIPoNlxTbS2mHde8MjFY/dgEhIJhs2FX9KsFr9i/VHATtlYtQpXu
- oyiGUzjXaVagKv9HZ2rLhA/myd1PE15muU6o0yYSIL9HGvyMZdEeET+8l g==;
-X-CSE-ConnectionGUID: 7WQKgn2ESTmPZ5O5dF6f7Q==
-X-CSE-MsgGUID: LzeHT0C+TViona2lNp8dJA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619411"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619411"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:33:19 -0700
-X-CSE-ConnectionGUID: 1EgCgqP9RUGM3hVaOoyjwg==
-X-CSE-MsgGUID: yqDGL88hSfuePeEFJe24Hw==
+ t=1786077274; x=1817613274;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=AUi+gCo4kulH2npNlvS/HOJU4ckriZuI9b2wAGE7mVA=;
+ b=bI+kdRRsyimRTDS695ZOaIdm+xJoKT0NcPfCu94+Y+CLYd4jTBMCrtZR
+ GlecDgExViq7a/XBX18RuJvo2KaOGCph5hrljmxkuN+xvwslA+l5+tuJ9
+ b0DuteseuS4zYRKWVEGq6q2yXN6lS4uUisq7OIUXUHytHqBYW3A3AgrLr
+ 9XZJtZhESRlULMSB1lmzUJluKE0TnC9i0C+MSXyDQsLVyrcRw73Gu1WVx
+ ONg7kwrNtFHO5SPK9YD+w7rCrWi4OQ5da0/XQQJWx5mXBYrloSdFTgbne
+ qo0CwFO0utefhLK5e4aAypfyuE4SZ7da3DbI4N1jW1izfdMXhS3nUYTko g==;
+X-CSE-ConnectionGUID: +JFNlBUVTL+fZ3Uee3M13w==
+X-CSE-MsgGUID: HMtev+v/TrGuILCfXJsttw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="85653383"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="85653383"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 21:34:34 -0700
+X-CSE-ConnectionGUID: bDxFfp/sTOuFx1O/+pfPaQ==
+X-CSE-MsgGUID: OWYw+UjRQH22nuF15Ygnsw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666626"
-Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
- by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:33:16 -0700
-From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-To: intel-gfx@lists.freedesktop.org,
-	intel-xe@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
- uma.shankar@intel.com, ville.syrjala@linux.intel.com,
- suraj.kandpal@intel.com
-Subject: [PATCH 44/44] drm/i915/hdmi: Enable FRL based mode clock valid
-Date: Fri,  7 Aug 2026 09:44:29 +0530
-Message-ID: <20260807041430.229038-45-ankit.k.nautiyal@intel.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
-References: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="265773919"
+Received: from clke06vm103.fm.intel.com (HELO clke06vm103.amr.corp.intel.com)
+ ([10.80.128.218])
+ by orviesa003.jf.intel.com with ESMTP; 06 Aug 2026 21:34:34 -0700
+From: "Prabhakaran, Krishna" <krishna.prabhakaran@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch, sumit.semwal@linaro.org, christian.koenig@amd.com,
+ Krishna Prabhakaran <krishna.prabhakaran@intel.com>
+Subject: [PATCH 1/1] drm/i915/dmabuf: avoid global wbinvd on dma-buf import
+Date: Thu,  6 Aug 2026 21:33:26 -0700
+Message-ID: <20260807043326.556767-1-krishna.prabhakaran@intel.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -70,68 +70,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Vandita Kulkarni <vandita.kulkarni@intel.com>
+From: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
 
-Compute frl_mode based on the sink HDMI FRL capability and the maximum
-FRL rate, and pass it through intel_hdmi_mode_clock_valid() so that
-modes can be validated for FRL transmission.
+When i915 needs to make an imported dma-buf coherent for GPU access on
+non-LLC platforms, or for objects that bypass LLC, it currently calls
+wbinvd_on_all_cpus(). get_pages() runs whenever an imported buffer is
+pinned, so this triggers a whole-cache write-back and invalidate,
+broadcast by IPI to every CPU, on every execbuf submission involving an
+imported dma-buf. That stalls the entire machine for milliseconds and
+starves latency-sensitive work on unrelated cores (e.g. USB isochronous
+audio serviced on the VMM's main thread).
 
-Higher resolution modes like 8K@60, 4K@120 need FRL support. Platforms
-before MTL do not support FRL, so allow modes requiring more than 600MHz
-dotclock to be enumerated only on MTL+ where FRL is supported.
+A dma-buf sg_table is not guaranteed to be backed by struct pages, and
+the importer has no way to tell, so drm_clflush_sg() cannot be used
+here. Instead vmap the buffer and flush that virtual range with
+drm_clflush_virt_range(): x86 uses PIPT caches, so flushing one virtual
+alias evicts the cache lines for every alias of the same physical
+pages. This provides the required coherency, locally and without an IPI.
 
-Signed-off-by: Vandita Kulkarni <vandita.kulkarni@intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+Fall back to wbinvd only when the buffer cannot be vmapped or is backed
+by I/O memory, where there is no CPU-side range to clflush. The
+dma_resv lock required by dma_buf_vmap() is already held here via the
+imported object.
+
+Fixes: a035154da45d ("drm/i915/dmabuf: add paranoid flush-on-acquire")
+Signed-off-by: Krishna Prabhakaran <krishna.prabhakaran@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c | 26 +++++++++++++++-------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 1773b2096e9f..09e48314c34c 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -2091,6 +2091,7 @@ intel_hdmi_mode_clock_valid(struct drm_connector *_connector, int clock,
- 	struct intel_connector *connector = to_intel_connector(_connector);
- 	struct intel_display *display = to_intel_display(connector);
- 	struct intel_hdmi *hdmi = intel_attached_hdmi(connector);
-+	bool frl_mode = hdmi->has_sink_hdmi_21 && hdmi->max_frl_rate;
- 	enum drm_mode_status status = MODE_OK;
- 	int bpc;
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+index b43d34c7d641..1c1f3dc9c212 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_dmabuf.c
+@@ -10,6 +10,8 @@
  
-@@ -2100,7 +2101,7 @@ intel_hdmi_mode_clock_valid(struct drm_connector *_connector, int clock,
- 	 * least one color depth is accepted.
+ #include <asm/smp.h>
+ 
++#include <drm/drm_cache.h>
++
+ #include "gem/i915_gem_dmabuf.h"
+ #include "i915_drv.h"
+ #include "i915_gem_object.h"
+@@ -249,16 +251,24 @@ static int i915_gem_object_get_pages_dmabuf(struct drm_i915_gem_object *obj)
+ 	 * DG1 is special here since it still snoops transactions even with
+ 	 * CACHE_NONE. This is not the case with other HAS_SNOOP platforms. We
+ 	 * might need to revisit this as we add new discrete platforms.
+-	 *
+-	 * XXX: Consider doing a vmap flush or something, where possible.
+-	 * Currently we just do a heavy handed wbinvd_on_all_cpus() here since
+-	 * the underlying sg_table might not even point to struct pages, so we
+-	 * can't just call drm_clflush_sg or similar, like we do elsewhere in
+-	 * the driver.
  	 */
- 	for (bpc = 12; bpc >= 8; bpc -= 2) {
--		int hdmi_clock = intel_hdmi_clock(clock, bpc, sink_format, false);
-+		int hdmi_clock = intel_hdmi_clock(clock, bpc, sink_format, frl_mode);
+ 	if (i915_gem_object_can_bypass_llc(obj) ||
+-	    (!HAS_LLC(i915) && !IS_DG1(i915)))
+-		wbinvd_on_all_cpus();
++	    (!HAS_LLC(i915) && !IS_DG1(i915))) {
++		struct dma_buf *dma_buf = obj->base.import_attach->dmabuf;
++		struct iosys_map map;
++		int vmap_ret;
++
++		/* We already hold the dma_resv lock via the imported obj. */
++		vmap_ret = dma_buf_vmap(dma_buf, &map);
++		if (!vmap_ret && !map.is_iomem) {
++			drm_clflush_virt_range(map.vaddr, obj->base.size);
++			dma_buf_vunmap(dma_buf, &map);
++		} else {
++			if (!vmap_ret)
++				dma_buf_vunmap(dma_buf, &map);
++			wbinvd_on_all_cpus();
++		}
++	}
  
- 		if (!intel_hdmi_source_bpc_possible(display, bpc))
- 			continue;
-@@ -2109,7 +2110,7 @@ intel_hdmi_mode_clock_valid(struct drm_connector *_connector, int clock,
- 						  sink_format))
- 			continue;
+ 	__i915_gem_object_set_pages(obj, sgt);
  
--		status = hdmi_port_clock_valid(hdmi, hdmi_clock, true, has_hdmi_sink, false);
-+		status = hdmi_port_clock_valid(hdmi, hdmi_clock, true, has_hdmi_sink, frl_mode);
- 		if (status == MODE_OK)
- 			return MODE_OK;
- 	}
-@@ -2195,12 +2196,10 @@ intel_hdmi_mode_valid(struct drm_connector *_connector,
- 	}
- 
- 	/*
--	 * HDMI2.1 requires higher resolution modes like 8k60, 4K120 to be
--	 * enumerated only if FRL is supported. Current platforms do not support
--	 * FRL so prune the higher resolution modes that require doctclock more
--	 * than 600MHz.
-+	 * Platforms < MTL do not support FRL so prune the higher resolution
-+	 * modes that require doctclock more than 600MHz.
- 	 */
--	if (clock > 600000)
-+	if (!HAS_HDMI_FRL(display) && clock > 600000)
- 		return MODE_CLOCK_HIGH;
- 
- 	if (drm_mode_is_420_only(info, mode)) {
 -- 
-2.50.1
+2.43.0
 
