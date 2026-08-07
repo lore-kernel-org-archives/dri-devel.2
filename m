@@ -4,47 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6C2FAC2A09B
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:26:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF5DDC2A09B
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:27:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B84A10E424;
-	Fri,  7 Aug 2026 15:26:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B7C3210F52B;
+	Fri,  7 Aug 2026 15:27:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="J4qI5Qyb";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fmvd7Mn1";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2BF010E424
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:26:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB4410F52B
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:27:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D27F9600AF;
- Fri,  7 Aug 2026 15:26:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B4A31F000E9;
- Fri,  7 Aug 2026 15:26:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1786116410;
- bh=MVccxMXLtfsIWWTdqXAPqL3QBb0dRd2IS7vfZ7De4yc=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=J4qI5QybVr8X7+SGwOaiLyOankknlFKg6KnU5xlQmuDzSexSsgHhStkzj15/gpco+
- fKp/9CVhuP1aw/wtQR+WxGL43zFeejZc8VOiL0CsossMPJARWg6IQ8QqJ/saubYAnn
- o0Oj5oIpM/QSk765X05LRbJF+bD1g0+VZnIXrnKI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
- Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 223/261] drm/tegra: fbdev: Remove offset into framebuffer
- memory
-Date: Fri,  7 Aug 2026 16:39:40 +0200
-Message-ID: <20260807143420.179613583@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807143415.358597922@linuxfoundation.org>
-References: <20260807143415.358597922@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ by tor.source.kernel.org (Postfix) with ESMTP id B45C860051;
+ Fri,  7 Aug 2026 15:27:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57E851F00A3A;
+ Fri,  7 Aug 2026 15:27:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786116423;
+ bh=jFZjuVd5tYFoNKfwBYJUYFwZVQtaj2WhWsO8ncfQ2/Q=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Fmvd7Mn1Coz2VDHZUxYBa4c4+cN74ZlMrQeUBlriAe0EDptk2lQ0gwX0FKKPQ7U85
+ vVXvnwS7GncKIkB7JL5qvk1UNc5dc1SCkJU1kKkUEQyOdvjcrexH5XjJln3+Sb4f2Y
+ lTjE2RMdreO8gqAMPdeJm+2WaTNhm/5ScMZ3QZqBnLbcn77tyCaifEh1iOaTWRuU+0
+ NW/N6Jur/QGPwmhgxRRNtNuOIJbRm10pQxKopMzUXQEP8vYMPGhyqfQXZ9EaD5NCLv
+ qKX15Omi9QgtSahI7E+YSihVHoXfVxr/aTm1/IucPbr3lR9AJt4k2EEmN/068lDXH0
+ pg/Bn7W9J9ZUA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] staging: fbtft: make dirty_lock IRQ-safe
+To: "Hui Su" <sh_def@163.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260807150953.2811933-3-sh_def@163.com>
+References: <20260807150953.2811933-3-sh_def@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 15:27:03 +0000
+Message-Id: <20260807152703.57E851F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -57,65 +52,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-------------------
+Pre-existing issues:
+- [High] dirty_lock must be converted to raw_spinlock_t to prevent fatal ke=
+rnel panics on PREEMPT_RT.
+--
 
-From: Thomas Zimmermann <tzimmermann@suse.de>
+--- Patch [1]: [PATCH v2] staging: fbtft: make dirty_lock IRQ-safe ---
+commit 2781cf2c7f0e0cfa744e4747b9f7004477fdff7b
+Author: Hui Su <sh_def@163.com>
 
-[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
+staging: fbtft: make dirty_lock IRQ-safe
 
-The screen_buffer field in struct fb_info contains the kernel address
-of the first byte of framebuffer memory. Do not add the display offset.
-This offset only describes scrolling during scanout.
+This commit updates the dirty_lock acquisitions in fbtft_mkdirty() and
+fbtft_deferred_io() to use IRQ-safe variants. This prevents a possible
+IRQ lock inversion between dirty_lock and console_owner.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-tegra@vger.kernel.org
-Cc: <stable@vger.kernel.org> # v3.10+
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/tegra/fbdev.c |    8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+Link: https://lore.kernel.org/lkml/20260804173712.176017-1-sh_def@163.com/
 
---- a/drivers/gpu/drm/tegra/fbdev.c
-+++ b/drivers/gpu/drm/tegra/fbdev.c
-@@ -75,7 +75,6 @@ static int tegra_fbdev_probe(struct drm_
- 	struct fb_info *info = helper->info;
- 	unsigned int bytes_per_pixel;
- 	struct drm_framebuffer *fb;
--	unsigned long offset;
- 	struct tegra_bo *bo;
- 	size_t size;
- 	int err;
-@@ -112,9 +111,6 @@ static int tegra_fbdev_probe(struct drm_
- 
- 	drm_fb_helper_fill_info(info, helper, sizes);
- 
--	offset = info->var.xoffset * bytes_per_pixel +
--		 info->var.yoffset * fb->pitches[0];
--
- 	if (bo->pages) {
- 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
- 				 pgprot_writecombine(PAGE_KERNEL));
-@@ -126,9 +122,9 @@ static int tegra_fbdev_probe(struct drm_
- 	}
- 
- 	info->flags |= FBINFO_VIRTFB;
--	info->screen_buffer = bo->vaddr + offset;
-+	info->screen_buffer = bo->vaddr;
- 	info->screen_size = size;
--	info->fix.smem_start = (unsigned long)(bo->iova + offset);
-+	info->fix.smem_start = (unsigned long)(bo->iova);
- 	info->fix.smem_len = size;
- 
- 	return 0;
+> diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/f=
+btft-core.c
+> index ca0c38221c16b..7925d974de801 100644
+> --- a/drivers/staging/fbtft/fbtft-core.c
+> +++ b/drivers/staging/fbtft/fbtft-core.c
+> @@ -298,14 +298,15 @@ static void fbtft_mkdirty(struct fb_info *info, int=
+ y, int height)
+>  {
+>  	struct fbtft_par *par =3D info->par;
+>  	struct fb_deferred_io *fbdefio =3D info->fbdefio;
+> +	unsigned long flags;
+> =20
+>  	/* Mark display lines/area as dirty */
+> -	spin_lock(&par->dirty_lock);
+> +	spin_lock_irqsave(&par->dirty_lock, flags);
 
+[Severity: High]
+This isn't a bug introduced by this patch, but will this cause a kernel
+panic on PREEMPT_RT systems?
 
+The commit message notes that fbtft_mkdirty() can be reached from the fbcon
+rendering path while processing printk() in hardirq context. On PREEMPT_RT,
+spinlock_t is mapped to a sleepable rt_mutex. Acquiring a sleepable lock in
+true hardirq context will trigger a sleep-in-atomic bug.
+
+Since dirty_lock is accessed in true hardirq context, should the
+declaration of dirty_lock in struct fbtft_par be converted to a
+raw_spinlock_t and acquired via raw_spin_lock_irqsave() to safely
+synchronize under PREEMPT_RT?
+
+>  	if (y < par->dirty_lines_start)
+>  		par->dirty_lines_start =3D y;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807150953.2811=
+933-3-sh_def@163.com?part=3D1
