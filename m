@@ -4,95 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13836C5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:16:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB327C5AC9E
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:31:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A114010E2A3;
-	Fri,  7 Aug 2026 04:16:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0223110F326;
+	Fri,  7 Aug 2026 04:31:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="KyFQEPLV";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="AKjNoLun";
 	dkim-atps=neutral
-Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com
- [209.85.216.98])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D74B410E2A3
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 04:16:30 +0000 (UTC)
-Received: by mail-pj1-f98.google.com with SMTP id
- 98e67ed59e1d1-38dcbade417so2442479a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 21:16:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786076190; x=1786680990;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=RxAlb51bNK30kVtjLpS4IggHW08XbI4GH1qcR0Lm9Bo=;
- b=KFQC22lZQnfBEQcxfKM+cCfQp3eAVt7vMYurWzydhRBRStSWUrHcdnCUG0iHnPEY8k
- SfSqltmZIW8V1FZ2NS73xur4997Mv4z4KtCvlUPi+27FbSXGj8MFmRVSA8rkOqo+1y0P
- Tju9CPU5/8ZQ0/uJhJHY4UBPMezcxc2g2gWpEeSanMIJ8eyZnJFuqzWxDCLK4/k38dCl
- r2+l7OzlPOgp+nm8mNQCfEcdVECU4o75zfcJPCnsbXtNTXcdU1qItHEXyO/dMOShn+U6
- zDzKVfPMn9jIbuDO8r3HPxHBv5DNfM4n3/kvuFRVirmdg9+WIfZyYc5eRVwbJREufenx
- 9zdQ==
-X-Gm-Message-State: AOJu0YyzDsBHwiL8QrF/T7QD3RxjCcydS367fl3FbOi5viH4yb3ug/Mb
- mJEM++w5X3rH3PC4Cx5m8Q1Z8V2SowdQvxhhozNOlzatMwxGUYuYS2hr5Uswyo5CEUrtDA6W5X3
- tT8jwK73KR5ncRP3xwoCSwHXlMSbMOxwFtR5aWjiSNCJSoGCIyu+jTRCrauczJ6MNIWWVoIoQS9
- rLjTrCSUxFMWBdmkhdVX9ei8mikC38h30w/uXGARucxfhJ27XFQI0wOQdmOQW0YvEBr/qZNNuHh
- mbDYWCZcYSMqPNBykON
-X-Gm-Gg: AR+sD13mxh3ilj+69YVmq+q2xeO6DCZSzkej7CRPwpaUcnEsBOuOOpDd1YWo2Ak+/OD
- ddDenVLqYxGNHyz2w9usl+rHGQ0vvWY9ujtRz8w3CRzx4yXxyCMjITuZmhTeBXbl5aEV5Nl3YYI
- /zSjFVRcKKDs8u35oV7aWeHptIlgJmZG25edMkFr2++86M2IWmjQ0by47qm5BloDHUi0Gr9BNMf
- mtmUtsI7V1xRl3XEpi5AWUjWwJuddR4Nvj1Lcd8oJJXj5nCuYziD0bxgNNnC2UCRsBfSR3SZDq3
- dTT/EkTf69HcawxYMX66dKST2SdOdqKKlx17+ExvAcC8VG/3wYzfFUfcTmp3gbTMQvalMSNgpzf
- eS4bP+6Hb69ur7sqlF71gU87Qo8/1rvns+na4okdfqwITJocqsLtx+haIUWIPGqcOhCe/cdHG7U
- rBZOXfV4qP1tyR1SqomZHo5EiJ4sCZlA==
-X-Received: by 2002:a17:90b:264b:b0:380:71eb:4014 with SMTP id
- 98e67ed59e1d1-3903c5b2c25mr21103827a91.15.1786076189931; 
- Thu, 06 Aug 2026 21:16:29 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-0.dlp.protect.broadcom.com. [144.49.247.0])
- by smtp-relay.gmail.com with ESMTPS id
- 98e67ed59e1d1-39085dbe361sm1450542a91.2.2026.08.06.21.16.29
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 06 Aug 2026 21:16:29 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lf1-f72.google.com with SMTP id
- 2adb3069b0e04-5b291a1420fso1928964e87.2
- for <dri-devel@lists.freedesktop.org>; Thu, 06 Aug 2026 21:16:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1786076187; x=1786680987;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=RxAlb51bNK30kVtjLpS4IggHW08XbI4GH1qcR0Lm9Bo=;
- b=KyFQEPLViakIEBgBJATXYVhDEqV2Xf65ZL17hW7AVIqt77OKsA08hEmGAYt4HtOBqR
- 2glUIBrRabt46rrAG/GqQPtSYKDdQCm6emQjWN1NguJwuTq8OIRRtrsZvPGZrlK+Our7
- RCyksT3RyjL5n3KYq+u5TnTGmXwuow7N7tCC8=
-X-Received: by 2002:a05:6512:1cc:b0:5b2:e5b7:2419 with SMTP id
- 2adb3069b0e04-5b2f4b961e5mr2278091e87.5.1786076187207; 
- Thu, 06 Aug 2026 21:16:27 -0700 (PDT)
-X-Received: by 2002:a05:6512:1cc:b0:5b2:e5b7:2419 with SMTP id
- 2adb3069b0e04-5b2f4b961e5mr2278084e87.5.1786076186500; Thu, 06 Aug 2026
- 21:16:26 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D864A10F326;
+ Fri,  7 Aug 2026 04:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786077088; x=1817613088;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=eUhWUcXQTutgORprU3xdfeDnD5Wma5+eHKz1FjriSfE=;
+ b=AKjNoLunnmi3eo9g+Fklli5324DSitfqMgFgpQDaMk2cWqo6Ajr4R0OW
+ yoTn0uoaOUTIKMABsR5SCRag//dZGcDmSxKWS4L5PmFHp6TakTOMfsCix
+ yJbNjtcMBYsXxAvs1vcHbnS20M/Ce9kumPfwKUnMTIko9wYZgvGkGrb4E
+ hM/tWTEXSE786ch0dIBcHfd9wkQauKMHo5bbA6nhDnUBFjTl5oxGT2GXt
+ Z6xosvDr31LJKyEx0Ob7xYP4tkP0ezWaGf9IcO0sUo4+iU8KV0v/GoX+M
+ PKuCD1WLUtCsxCVNo+/AgfvR5fHwivfGRqn0GXM536i/oOHRPeX7JPItu A==;
+X-CSE-ConnectionGUID: wOw4BsoLR4eMneEX2fDhjw==
+X-CSE-MsgGUID: vD+O/EniSf6mtibhrMDnoA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619229"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619229"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 21:31:27 -0700
+X-CSE-ConnectionGUID: YUfP3+mPQp62TbhziOJ2BA==
+X-CSE-MsgGUID: 9bNQ05+hRXyl23/6L1Bjhg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666022"
+Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Aug 2026 21:31:24 -0700
+From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
+ uma.shankar@intel.com, ville.syrjala@linux.intel.com,
+ suraj.kandpal@intel.com
+Subject: [PATCH 00/44] Enable HDMI FRL for MTL+
+Date: Fri,  7 Aug 2026 09:43:45 +0530
+Message-ID: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-References: <CADZLCw7o5wO=+Zv2a7W9uc9AuiQDM-hEqki95eNfk8pv+L=_=A@mail.gmail.com>
- <CABQX2QNHpUbxT=GdHedVq1+Z0Qp82hYC1saHuHuWNX-0VvoRYw@mail.gmail.com>
- <CADZLCw5Z0ZStQN6HRfk3dZZ3abBVh0A_Ukt-jM4hPGe6NrtUcg@mail.gmail.com>
- <CABQX2QPndJ4xqTuEmDyykVkCPqtWNvRM2EupZvN2gU68j=NfLg@mail.gmail.com>
-In-Reply-To: <CABQX2QPndJ4xqTuEmDyykVkCPqtWNvRM2EupZvN2gU68j=NfLg@mail.gmail.com>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Fri, 7 Aug 2026 00:16:13 -0400
-X-Gm-Features: AUfX_myAuCP8FNKvb2Tm4A8hUAfl_hiVGb5GNv_GiMIC8zeBNz_89HIT8xAxQ_s
-Message-ID: <CABQX2QPDgdMtpvV6BQH1cQFsh3rT65G7ty_FB=+2FzqcMy117Q@mail.gmail.com>
-Subject: Re: [BUG] drm/vmwgfx: vmw_cmdbuf_alloc leaks ~103 MiB/day via fbdev
- damage worker
-To: =?UTF-8?B?0JTQuNC80LAg0JTRjNGP0YfQutC+0LI=?= <das.ogi4i@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, ian.forbes@broadcom.com, 
- bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org, 
- tzimmermann@suse.de,
- =?UTF-8?B?VmlsbGUgU3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000b5945006586d4458"
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,490 +68,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000b5945006586d4458
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+This series adds support for HDMI Fixed Rate Link (FRL) on MTL+ platforms.
+FRL is a high-bandwidth transmission mode required for modes that exceed
+the TMDS bandwidth limit.
 
-On Thu, Aug 6, 2026 at 12:08=E2=80=AFAM Zack Rusin <zack.rusin@broadcom.com=
-> wrote:
->
-> Sorry, are you using llm for replies? The email starts with multiple
-> paragraphs just to say, "Oh, yeah,", which, as a human, makes it
-> difficult to communicate :) If you could provide the data/logs and let
-> us do the analysis then it's just going to go a lot smoother. Can you
-> upload your logs somewhere? They haven't gone through. If you could
-> upload your vmware.log and the guest system log somewhere (some
-> pastebin is fine) that would be great.
->
-> z
->
-> On Wed, Aug 5, 2026 at 5:29=E2=80=AFPM =D0=94=D0=B8=D0=BC=D0=B0 =D0=94=D1=
-=8C=D1=8F=D1=87=D0=BA=D0=BE=D0=B2 <das.ogi4i@gmail.com> wrote:
-> >
-> > On Wed, Aug 5, 2026 at 10:36 PM Zack Rusin <zack.rusin@broadcom.com> wr=
-ote:
-> >
-> > Thanks both. Answers inline, but one thing up front:
-> >
-> > **The pools request revised the severity. The leak is ~5x larger than
-> > I reported.** Each leaked command buffer holds a 1024-byte DMA pool
-> > block in addition to the 256-byte kmalloc header, and DMA pool memory
-> > is not accounted in SUnreclaim - so every measurement in my original
-> > report was blind to 80% of it. Corrected figure is ~516 MiB/day, not
-> > ~103 MiB/day. Detail below.
-> >
-> > > Could you send us the full system log? (ideally journalctl -b, if not
-> > > then, dmesg, or /var/log/kern.lorg). I suspect you have some command
-> > > buffer errors in the kernel log that are causing this.
-> >
-> > No command buffer errors - the log is clean. Full journalctl -b and
-> > dmesg are attached/available on request, but the summary is:
-> >
-> > - 19 vmwgfx lines total, all at boot (t=3D3.84-3.91s), all
-> > informational. Nothing from vmwgfx after that at all.
-> > - Zero vmwgfx errors, warnings, or *ERROR* lines.
-> > - The only DRM error anywhere is "i915 *ERROR* PPS state mismatch",
-> > from a passed-through Intel GPU used for video transcoding. Not
-> > vmwgfx, and present from boot regardless of the leak.
-> > - 5 call traces in dmesg, all of them cgroup OOM kills of a
-> > kube-state-metrics pod hitting its own memory limit. Unrelated
-> > (and since fixed).
-> >
-> > One boot line is relevant though, since it confirms the allocator:
-> >
-> > [drm] Using command buffers with DMA pool.
-> >
-> > So the pool is being used as intended - it is only the release side
-> > that never happens, silently.
-> >
-> > > Based on your analysis disabling the cursor_blink is probably a
-> > > better workaround, i.e. "echo 0 > /sys/class/graphics/fbcon/cursor_bl=
-ink"
-> >
-> > Confirmed, and it identifies the exact driver. Measured over 600s
-> > windows by watching the vmw_cmdbuf_alloc live-object count in
-> > /sys/kernel/debug/slab/kmalloc-256/alloc_traces:
-> >
-> > cursor_blink=3D1 : 4.887 obj/sec (2932 objects / 600 s)
-> > cursor_blink=3D0 : 0.003 obj/sec (2 objects / 600 s)
-> >
-> > A ~1600x reduction; effectively zero.
-> >
-> > The rate pins the mechanism precisely. fbcon's cursor timer runs at
-> > HZ/5, and this kernel is CONFIG_HZ=3D250, so 50 jiffies =3D 200 ms =3D =
-5.0
-> > Hz. Measured 4.887 Hz. That is **one leaked command buffer per cursor
-> > blink tick**, with the small shortfall being scheduler jitter. It also
-> > agrees with the 4.89 obj/sec I derived independently from the age=3D
-> > field in my first mail.
-> >
-> > So on a completely idle headless guest, the blinking cursor alone
-> > leaks ~516 MiB/day.
-> >
-> > This is a much better workaround than the ones I listed originally -
-> > it keeps the console fully usable rather than blanking it. Thank you.
-> >
-> > One caveat for anyone else applying it: after an unbind/rebind cycle
-> > of vtcon0 I observed cursor_blink read back 0 while the leak was still
-> > running at the full 4.887 obj/sec. The attribute appears to
-> > under-report in that state, so it is worth confirming the leak
-> > actually stopped rather than trusting the read-back.
-> >
-> > > Besides the system logs i'd be also intersted in pool info, i.e. cat
-> > > /sys/bus/pci/devices/<vmwgfx card id>/pools .
-> >
-> > This is the interesting one.
-> >
-> > $ cat /sys/bus/pci/devices/0000:00:0f.0/pools
-> > poolinfo - 0.1
-> > vmwgfx inline cmdbuf 53875 53876 1024 13469
-> > vmwgfx cmdbuf 0 0 64 0
-> >
-> > Read as name / blocks-in-use / capacity / block-size / pages:
-> >
-> > - 53,875 of 53,876 blocks in use - the pool has grown to exactly
-> > accommodate every allocation and sits pinned at ~100% utilisation.
-> > - 13,469 pages =3D 52.6 MiB held. (13469 * 4096/1024 =3D 53876, which
-> > matches the stated capacity, so the reading is self-consistent.)
-> > - The non-inline "vmwgfx cmdbuf" pool is completely empty, so this
-> > is specific to the inline command buffer path.
-> >
-> > Taken at the same moment:
-> >
-> > $ sudo awk '/vmw_cmdbuf_alloc/{print $1; exit}' \
-> > /sys/kernel/debug/slab/kmalloc-256/alloc_traces
-> > 53872
-> >
-> > 53,872 kmalloc-256 headers against 53,875 pool blocks - a difference
-> > of 3, which is just allocations in flight between the two reads. So it
-> > is 1:1: every leaked command buffer pins both a 256-byte header and a
-> > 1024-byte DMA pool block, 1280 bytes total.
-> >
-> > Sanity check: 53,875 blocks / 4.887 per sec =3D 11,024 s =3D 3.06 hours=
- of
-> > active leaking, which matches the accumulated time the console was
-> > bound on this boot.
-> >
-> > Since dma_pool memory comes from dma_alloc_coherent rather than the
-> > slab allocator, none of it appears in SUnreclaim. That is why my
-> > original 103 MiB/day figure was low by 5x - it only ever counted the
-> > kmalloc headers.
-> >
-> > On Wed, Aug 5, 2026 at 8:30 PM Ian Forbes <ian.forbes@broadcom.com> wro=
-te:
-> > >
-> > > Please recompile with KMEMLEAK and/or KASAN and share any output.
-> >
-> > If the additional info provided is not enough, then I will recompile.
-> > Two notes on how I plan to do it:
-> >
-> > Debian ships neither CONFIG_DEBUG_KMEMLEAK nor CONFIG_KASAN, so this
-> > needs a custom build. I will do it in a clean throwaway Debian VM
-> > rather than on the host I reported from, for two reasons:
-> >
-> > 1. That host runs ZFS via DKMS, so its kernel is tainted
-> > (P/O/E). A report from an untainted kernel with nothing but
-> > Debian base installed is worth more, and removes any question
-> > about whether ZFS, Kubernetes or the passed-through i915 are
-> > involved.
-> > 2. KASAN's memory overhead is not viable on that host, but is fine
-> > on a bare VM.
-> >
-> > I will send kmemleak output, and KASAN separately if it turns up
-> > anything - though since kmemleak reports unreferenced allocations and
-> > KASAN reports memory errors, I expect kmemleak is the relevant one
-> > here unless you suspect corruption in the release path.
-> >
-> > Happy to test patches in the meantime; the reproducer is a stock
-> > Debian VMware guest with a text console, and I can toggle the leak on
-> > and off with cursor_blink.
-> >
-> > Thanks, Dmitry
-> >
-> >
-> > =D1=81=D1=80, 5 =D0=B0=D0=B2=D0=B3. 2026=E2=80=AF=D0=B3. =D0=B2 22:36, =
-Zack Rusin <zack.rusin@broadcom.com>:
-> > >
-> > > On Wed, Aug 5, 2026 at 12:59=E2=80=AFPM =D0=94=D0=B8=D0=BC=D0=B0 =D0=
-=94=D1=8C=D1=8F=D1=87=D0=BA=D0=BE=D0=B2 <das.ogi4i@gmail.com> wrote:
-> > > >
-> > > > Hi,
-> > > >
-> > > > I have a reproducible, quantified kernel memory leak in vmwgfx on a=
- headless
-> > > > VMware guest. It is attributed to a specific call site with slab_de=
-bug, and I
-> > > > have a clean causal test that stops it. I could not find this repor=
-ted anywhere
-> > > > - I searched the dri-devel archives, the mainline and 6.12.y git lo=
-gs, and the
-> > > > distro trackers.
-> > > >
-> > > > Summary
-> > > > =3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > > On a headless VMware guest with the text console bound to the vmwgf=
-x
-> > > > framebuffer, the fbdev-emulation damage worker issues a full atomic=
- commit for
-> > > > every console damage event, and vmwgfx leaks a command buffer on ea=
-ch one. The
-> > > > result is unreclaimable kernel slab growing linearly at ~103 MiB/da=
-y, never
-> > > > reclaimed under memory pressure, released only by reboot.
-> > > >
-> > > > Environment
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > > Kernel: 6.12.100+deb13-amd64 (Debian 13 stock, tracks 6.12.y)
-> > > > Guest: VMware Virtual Platform, BIOS 6.00; vmwgfx drives the virtua=
-l display
-> > > > Console: headless, administered over SSH; a single agetty on the co=
-nsole
-> > > > fb0: vmwgfxdrmfb
-> > > > vtcon0: "(M) frame buffer device", bind=3D1
-> > > > Config: CONFIG_HZ=3D250, CONFIG_SLUB_DEBUG=3Dy, CONFIG_STACKDEPOT=
-=3Dy
-> > > > (CONFIG_DEBUG_KMEMLEAK is not set in Debian's kernel)
-> > > >
-> > > > i915 is also loaded on this host (a passed-through GPU used for vid=
-eo
-> > > > transcoding) but is unrelated - the console framebuffer is vmwgfx.
-> > > >
-> > > > Symptom
-> > > > =3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > > SUnreclaim grows linearly at ~103 MiB/day and is never reclaimed un=
-der pressure.
-> > > > The growth is confined to the plain kmalloc-256 cache - notably *no=
-t*
-> > > > kmalloc-cg-256, so it is plain GFP_KERNEL from an in-kernel allocat=
-or rather
-> > > > than anything cgroup-accounted.
-> > > >
-> > > > Attribution
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > > Booted with slab_debug=3DU,kmalloc-256, then read
-> > > > /sys/kernel/debug/slab/kmalloc-256/alloc_traces, which ranks by liv=
-e object
-> > > > count:
-> > > >
-> > > > 41025 vmw_cmdbuf_alloc+0x40/0x200 [vmwgfx] waste=3D328200/8 age=3D2=
-54700/1301825/2351179 pid=3D9-208926 cpus=3D0-5
-> > > > vmw_cmdbuf_alloc+0x40/0x200 [vmwgfx]
-> > > > vmw_cmdbuf_reserve+0x142/0x170 [vmwgfx]
-> > > > vmw_cmd_ctx_reserve+0x24/0x60 [vmwgfx]
-> > > > vmw_stdu_bind_st+0x6b/0x100 [vmwgfx]
-> > > > vmw_stdu_primary_plane_atomic_update+0xa8/0x1d0 [vmwgfx]
-> > > > drm_atomic_helper_commit_planes+0x112/0x320 [drm_kms_helper]
-> > > > drm_atomic_helper_commit_tail+0x48/0x90 [drm_kms_helper]
-> > > > vmw_atomic_commit_tail+0x1b/0x80 [vmwgfx]
-> > > > commit_tail+0x91/0x130 [drm_kms_helper]
-> > > > drm_atomic_helper_commit+0x11a/0x140 [drm_kms_helper]
-> > > > drm_atomic_commit+0xa9/0xe0 [drm]
-> > > > drm_atomic_helper_dirtyfb+0x1c6/0x2a0 [drm_kms_helper]
-> > > > drm_fbdev_ttm_helper_fb_dirty+0x216/0x310 [drm_ttm_helper]
-> > > > drm_fb_helper_damage_work+0x94/0x170 [drm_kms_helper]
-> > > > process_one_work+0x174/0x330
-> > > > worker_thread+0x191/0x2f0
-> > > >
-> > > > The next-largest entry in that cache held 1056 objects - this one i=
-s ~30x
-> > > > everything else combined.
-> > > >
-> > > > Quantitative confirmation
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D
-> > > >
-> > > > With CONFIG_HZ=3D250, from the age=3Dmin/avg/max field above:
-> > > >
-> > > > - max age 2,351,179 jiffies =3D 9405 s =3D the full uptime at time =
-of reading
-> > > > - avg age is almost exactly half of max, which is the signature of =
-uniform
-> > > > allocation with zero frees
-> > > > - 41,025 objects over the 8386 s during which allocation was active
-> > > > =3D 4.89 objects/sec =3D 4.30 MiB/h =3D ~103 MiB/day
-> > > >
-> > > > That matches the independently measured SUnreclaim growth rate to w=
-ithin noise.
-> > > >
-> > > > Causal test
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > > Unbinding the text console from the framebuffer stops it instantly:
-> > > >
-> > > > # echo 0 > /sys/class/vtconsole/vtcon0/bind
-> > > >
-> > > > After that, the minimum object age jumped from 26 jiffies to 254,70=
-0 and kept
-> > > > climbing - i.e. no new allocations at all. SUnreclaim also dropped =
-~93 MiB
-> > > > immediately as the fbdev shadow buffer was released, and has been f=
-lat-to-
-> > > > falling since.
-> > > >
-> > > > Two things I checked so you don't have to
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > > This is not a recent regression. drivers/gpu/drm/vmwgfx/vmwgfx_cmdb=
-uf.c has had
-> > > > no functional change between v6.12 and current mainline - only the =
-command
-> > > > buffer ID addition (922f9de) and the treewide kmalloc -> kmalloc_ob=
-j
-> > > > conversions. vmwgfx_stdu.c is similarly untouched in the relevant p=
-aths, and
-> > > > nothing in the 6.12.y stable series touches cmdbuf, damage or dirty=
-fb handling.
-> > > > So this looks long-standing rather than newly introduced.
-> > > >
-> > > > It is also not caused by the fbdev-ttm conversion, which is the obv=
-ious suspect
-> > > > given the stack. drm_fbdev_ttm was a pure rename of drm_fbdev_gener=
-ic
-> > > > (aae4682e5d66, v6.10), and vmwgfx has used the generic DRM fbdev em=
-ulation since
-> > > > v6.2 (df42523c12f8, which deleted vmwgfx_fb.c). What did change at =
-v6.2 is that
-> > > > console damage now goes through a full atomic commit, which the old
-> > > > vmwgfx_fb.c did not do - but the leak itself is on the vmwgfx side.
-> > > >
-> > > > Possibly related
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > > There is an open, unresolved report of a different vmwgfx leak in t=
-he same
-> > > > atomic-commit path - Yuma Kakei, 12 Mar 2026, "[BUG] vmwgfx: Severe=
- Slab memory
-> > > > leak (radix_tree_node) with Wayland Atomic KMS" (kernels 6.17 / 7.0=
--rc3, KWin
-> > > > Wayland with Atomic KMS, stops with KWIN_DRM_NO_AMS=3D1). Ian Forbe=
-s proposed a
-> > > > patch; the reporter confirmed on 15 Mar 2026 that it did not fix it=
-.
-> > > >
-> > > > I do *not* claim these are the same bug - different slab caches, di=
-fferent
-> > > > trigger, different kernels. But both are vmwgfx leaking on every at=
-omic commit
-> > > > and stopping dead when the atomic path stops, so they may share a r=
-oot cause.
-> > > >
-> > > > Workarounds
-> > > > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> > > >
-> > > > - echo 0 > /sys/class/vtconsole/vtcon0/bind
-> > > > runtime, reversible, stops it immediately
-> > > >
-> > > > - drm_kms_helper.fbdev_emulation=3D0 on the kernel command line
-> > > > cleaner for a headless host; disables fbdev emulation outright so n=
-o
-> > > > damage worker exists. Must be set at boot.
-> > > >
-> > > > - modprobe.blacklist=3Dvmwgfx
-> > > > heavy-handed; loses all console output
-> > > >
-> > > > All three cost the virtual console, which is fine headless but is n=
-ot a general
-> > > > fix.
-> > > >
-> > > > Happy to test patches, run instrumented kernels, or provide further=
- data - the
-> > > > system reproduces this continuously and I can rebind the console at=
- will to
-> > > > toggle it on and off.
-> > > >
-> > > > Thanks, Dmitry
-> > >
-> > > Could you send us the full system log? (ideally journalctl -b, if not
-> > > then, dmesg, or /var/log/kern.lorg). I suspect you have some command
-> > > buffer errors in the kernel log that are causing this. Based on your
-> > > analysis disabling the cursor_blink is probably a better workaround,
-> > > i.e. "echo 0 > /sys/class/graphics/fbcon/cursor_blink" . Besides the
-> > > system logs i'd be also intersted in pool info, i.e. cat
-> > > /sys/bus/pci/devices/<vmwgfx card id>/pools .
+The series covers the core enabling:
+- SCDC helper additions for FRL link training
+- FRL link training state machine (LTS:2, LTS:3, LTS:P)
+- DDI enable/disable sequence updates for FRL mode
+- DFM (Data Flow Metering) computation and register programming
+- PHY (CX0/LT PHY) support for FRL rates
+- Mode validation and clock computation for FRL
 
-From the vmware.log that I was sent in private what is happening is
-that when the i915 driver that you passthrough to the vm loads, it
-takes the VGA arbiter, the abiter clears the io mem on vmwgfx and
-never restores it. So vmwgfx is broken by the loaded i915 driver
-because our communication channel to the device is wiped from
-underneath us. We keep queueing cb's and can't free them because we're
-waiting for some kind of notification from the device that it
-processed them but that will never happen.
+This is a work in progress. The primary goal at this stage is to get the
+overall design reviewed and the foundational patches landed before building
+on top.
 
-I think upstream commit cc6ed470caa2 (=E2=80=9Cdrm/i915/vga: Avoid VGA arbi=
-ter
-during intel_vga_disable() for iGPUs=E2=80=9D)
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
-id=3Dcc6ed470caa2
-will fix this. You can give it a try and if it fixes it for you, you
-can ask Ville for a backport.
+Lightly tested on PTL. Modes like 4K@120 are working. Higher resolution
+modes (e.g. 8K) require DSC which is not yet covered in this series, that
+work is ongoing.
 
-z
+Testing on other MTL+ platforms is also ongoing.
+Known gaps:
+- DSC over FRL not yet supported
+- Testing limited to MTL, PTL so far
 
---000000000000b5945006586d4458
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Feedback on the design and approach is welcome.
 
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIIte
-Kevtu89RVqfpM1Lkxapv0ODxk1QQ5yeFZ7jUMgh6MBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDgwNzA0MTYyN1owXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAGcEElWP1wKuFMTjpvw3HquvfISx8FTqoac2bNv6
-Mj2rxNL3S5dq3NTUxJgsfj33cEIx2M9yXMGqYet/s3MiK8IWPfNL6DA1chDUlPDtEf35OaLWdxy9
-9hUV4FdrkEPSRwlczz+x4AErKbfs3utGes/JlbKdjvld5tnaWBg29rMktaWudnvchczH/LJ2K3bV
-FlW2947A9xtJLcCpr8lX/ZpdOvwGY2KUzRMpj/PLEjRjxbi07zshxRFZLhyceQlM0/iR5fc9jp0k
-n4EgZsP6xq/FU1YzXTnx+m3n85qz3fwtS6fBYPiRMTk9VqJiXVhxVmqy3tqCIa8WRCi6uWyW8fY=
---000000000000b5945006586d4458--
+Ankit Nautiyal (28):
+  drm/i915/hdmi: Add new data members for FRL configuration
+  drm/i915/hdmi: Add FRL link rate cap
+  drm/drm_scdc_helper: Add SCDC helper funcs for FRL
+  drm/i915/display: Add registers for HDMI FRL configuration
+  drm/i915/display: Add new members in crtc_state for FRL configuration
+  drm/i915/intel_cx0_phy_regs: Add HDMI FRL SHIFT EN bit in
+    PORT_BUF_CTL_1
+  drm/i915/ddi: Update Transcoder/DDI registers with the frl bits
+  drm/i915/hdmi: Enable Scrambling only for TMDS mode
+  drm/i915/ddi: Simplify intel_ddi_enable()
+  drm/i915/ddi: Factor out common transcoder/vblank enable sequence
+  drm/i915/ddi: Update HDMI modeset sequence for MTL+
+  drm/i915/hdmi: Add function to prepare registers for FRL mode
+  drm/i915/hdmi: Add functions for FRL training state machine
+  drm/i915/intel_hdmi: Add helper to disable FRL
+  drm/i915/hdmi: Reduce FRL rate cap on rate change during training
+  drm/i915/hdmi: Add provision for FRL mode while computing output
+    format
+  drm/i915/cx0: Add helper to check if the FRL rate is valid
+  drm/i915/lt_phy: Add helper to check if the FRL rate is valid
+  drm/i915/hdmi_frl_dfm: Add support for DFM calculation with DSC
+  drm/i915/hdmi: Add helper to write FRL CFG register
+  drm/i915/hdmi_frl_dfm: Add helpers to read/write FRL DFM registers
+  drm/i915/hdmi_frl_dfm: Add function to compute FRL DFM config
+  drm/i915/hdmi: Add FRL clock computation based on DFM
+  drm/i915/hdmi: Add support for sending uevent to user for FRL training
+    failure
+  drm/i915/ddi: Wire FRL into the HDMI DDI enable/disable path
+  drm/i915/hdmi: Add read out for FRL state
+  drm/i915/display: Add FRL members to the state checker
+  drm/i915/hdmi: Compute output format for HDMI FRL mode
+
+Suraj Kandpal (7):
+  drm/i915/hdmi: Introduce intel_hdmi_frl_level() for per-lane TxFFE
+  drm/i915/hdmi: Drive per-lane TxFFE during FRL link training
+  drm/i915/ltphy: Add PLL tables for HDMI FRL
+  drm/i915/ltphy: Add safegaurd when calculation HDMI FRL state
+  drm/i915/ltphy: Calculate port clock for HDMI FRL
+  drm/i915/ltphy: Verify HDMI FRL tables
+  drm/i915/ddi_buf: Add Vswing table for HDMI FRL
+
+Vandita Kulkarni (9):
+  drm/i915/hdmi: Parse frl max link rate from vbt
+  drm/i915/hdmi: Rename port clock limit to specify tmds clock
+  drm/i915/hdmi: Rename port clock valid to specify tmds clock
+  drm/i915/hdmi: Add FRL port and mode clock valid
+  drm/i915/hdmi_frl_dfm_regs: Define DFM registers
+  drm/i915/hdmi_frl_dfm: Define frl_dfm structure
+  drm/i915/hdmi_frl_dfm: Add non dsc frl capacity computation helpers
+  drm/i915/hdmi_frl_dfm: Handle FRL Link M/N
+  drm/i915/hdmi: Enable FRL based mode clock valid
+
+ drivers/gpu/drm/display/drm_scdc_helper.c     | 212 +++++
+ drivers/gpu/drm/i915/Makefile                 |   1 +
+ drivers/gpu/drm/i915/display/intel_bios.c     |  53 ++
+ drivers/gpu/drm/i915/display/intel_bios.h     |   1 +
+ drivers/gpu/drm/i915/display/intel_cx0_phy.c  |  23 +
+ drivers/gpu/drm/i915/display/intel_cx0_phy.h  |   1 +
+ .../gpu/drm/i915/display/intel_cx0_phy_regs.h |   1 +
+ drivers/gpu/drm/i915/display/intel_ddi.c      | 162 +++-
+ .../drm/i915/display/intel_ddi_buf_trans.c    |  25 +
+ drivers/gpu/drm/i915/display/intel_display.c  |   9 +
+ .../gpu/drm/i915/display/intel_display_regs.h |  26 +
+ .../drm/i915/display/intel_display_types.h    |  38 +
+ drivers/gpu/drm/i915/display/intel_hdmi.c     | 808 +++++++++++++++-
+ drivers/gpu/drm/i915/display/intel_hdmi.h     |  14 +-
+ .../gpu/drm/i915/display/intel_hdmi_frl_dfm.c | 892 ++++++++++++++++++
+ .../gpu/drm/i915/display/intel_hdmi_frl_dfm.h | 126 +++
+ .../i915/display/intel_hdmi_frl_dfm_regs.h    |  36 +
+ drivers/gpu/drm/i915/display/intel_lt_phy.c   | 315 ++++++-
+ drivers/gpu/drm/i915/display/intel_lt_phy.h   |   1 +
+ drivers/gpu/drm/i915/display/intel_vbt_defs.h |   7 +
+ drivers/gpu/drm/xe/Makefile                   |   1 +
+ include/drm/display/drm_scdc.h                |  26 +
+ include/drm/display/drm_scdc_helper.h         |  22 +
+ 23 files changed, 2704 insertions(+), 96 deletions(-)
+ create mode 100644 drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.c
+ create mode 100644 drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm.h
+ create mode 100644 drivers/gpu/drm/i915/display/intel_hdmi_frl_dfm_regs.h
+
+-- 
+2.50.1
+
