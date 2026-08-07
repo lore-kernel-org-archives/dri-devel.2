@@ -4,56 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ED90C5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 08:12:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 201F7C5AC7C
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 08:36:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 268CB10F3F2;
-	Fri,  7 Aug 2026 08:12:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A0AF10F412;
+	Fri,  7 Aug 2026 08:36:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="X2wTpzpc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fji/6Q5q";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 311F310F3E3;
- Fri,  7 Aug 2026 08:12:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786090376; x=1817626376;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=NCQpnV7K8uJgarIb880S0h/yTjGVSqfoYbI0wk9aoYs=;
- b=X2wTpzpcfzZc9z+jLGFFg3pK+etXexKpkGncHqqVSzfxJK0AHwz3YbDO
- cxkHjVRghQ0OFXuoh3FXje74HMMP76m/3ldTmAgBHXjB2xcZoQY250cWr
- b8Zm5aZ8gq6q2wE06uYw8fpkJO1f2dhOegeQggIcYcxQcsnlZFKQYfWXU
- tge4fb5jz0b2OeMDzi4Z43vM7UVy5cWhXfj3kQ1ndT6Z9Heu+5fqKY4Aj
- RP6UIHI9voZsBLpcaxMyzPT70RWaNHK1Tip2o0mbknpJ3k4OGTgrh2RTn
- StvPBs9LZXcy9hn7nzD0d9GcyL2at7BS3KC9po+My1NKWWDZ+VuQ8wDwZ A==;
-X-CSE-ConnectionGUID: FfPE9C6+S4iyzlOpxcaAvA==
-X-CSE-MsgGUID: e9cTSGBOTX+OV+FZSsBrZA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86634770"
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; d="scan'208";a="86634770"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2026 01:12:55 -0700
-X-CSE-ConnectionGUID: Ze03zpLtTtuKzAc9nvD0UQ==
-X-CSE-MsgGUID: FEblLcQHQxaKJuUADk+FSw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; d="scan'208";a="266572808"
-Received: from varungup-desk.iind.intel.com ([10.190.238.71])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2026 01:12:52 -0700
-From: Arvind Yadav <arvind.yadav@intel.com>
-To: dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, himal.prasad.ghimiray@intel.com
-Subject: [PATCH v4] drm/pagemap: Prevent double migration of device pages
-Date: Fri,  7 Aug 2026 13:42:44 +0530
-Message-ID: <20260807081244.2229191-1-arvind.yadav@intel.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 665DB10F412
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 08:36:39 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6C34360A86;
+ Fri,  7 Aug 2026 08:36:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 034891F000E9;
+ Fri,  7 Aug 2026 08:36:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786091798;
+ bh=SuTrIiv51itiWgHUgwTfj629GgbdBkddkFy2tue62tg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fji/6Q5qs725eHq8uGGEZNJdMMmXEliK7WUIExsDZtaFKJ7TvsOz8bTXFkjMogf0x
+ mPcrIesYk1aPp/EKt1YjMSdR5w9BuLadLTSPc/kw8Gh4MEZFBTWhmf1pksmFkS7COH
+ gTCrcIKPXWnoGI2eoAfiqUOv8fhbeHAOft59QWUsxZS6EWBFA/GusKt7xsb0UsT8T2
+ cxj4D2MI38+BZSQUFvLtEJjmXlNWqARY/26iZuJS1yIlVSzwcm2AZ6PBtokzBQXg3u
+ keihiOYPhIv3z6aMf7vLplLDelHWyYcE16FrV6GfBDlERnHwR/mZW8DnsOXHpHydwr
+ MwF/1jEXONWNw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] drm/pagemap: Prevent double migration of device pages
+To: "Arvind Yadav" <arvind.yadav@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260807081244.2229191-1-arvind.yadav@intel.com>
+References: <20260807081244.2229191-1-arvind.yadav@intel.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 08:36:37 +0000
+Message-Id: <20260807083638.034891F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,342 +52,151 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-A device-private folio migrated to system memory by a CPU fault can
-remain reachable through the raw-PFN eviction path until migration
-finalization drops the source reference.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-If eviction selects the same device folio during this window, it can
-attempt to migrate the folio again. The second migration can leave an
-uncharged folio on an LRU list, causing folio_lruvec_lock_irqsave() to
-retry indefinitely and resulting in a soft lockup and RCU stall.
+Pre-existing issues:
+- [High] Double migration of device pages due to missing flag in peer-to-pe=
+er migration.
+- [High] DMA mappings are leaked on the error path because the destination =
+PFN array is zeroed out before unmapping.
+- [High] Use-after-free of folio metadata in the error path of `drm_pagemap=
+_migrate_populate_ram_pfn`.
+--
 
-Mark successfully migrated device folios using a low bit of their
-zone_device_data before migration finalization. Make raw-PFN eviction
-skip folios carrying this flag.
+--- Patch [1]: [PATCH v4] drm/pagemap: Prevent double migration of device p=
+ages ---
+commit ddf1406cd4fcd17693eecb3abf05b87068425942
+Author: Arvind Yadav <arvind.yadav@intel.com>
+Subject: drm/pagemap: Prevent double migration of device pages
 
-Mask the flag when retrieving the drm_pagemap_zdd pointer and preserve
-it when a device folio is split. Keeping the state on the physical folio
-also avoids depending on a virtual address that may change before a
-fault occurs.
+This patch addresses a double migration bug involving device-private folios.
+It flags successfully migrated device folios using a low bit in their
+zone_device_data before migration finalization, ensuring that raw-PFN
+eviction paths skip them.
 
-v2:
-- Replace the retired-PFN XArray with an embedded bitmap.(Matthew Brost)
-- Mark every base page covered by a migrated folio so retirement remains
-  valid if the folio is later split.
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+[ ... ]
+> @@ -1143,6 +1250,8 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_dev=
+mem *devmem_allocation)
+>  	if (err)
+>  		goto err_free;
+> =20
+> +	drm_pagemap_skip_retired_pages(src, npages);
+> +
+>  	err =3D drm_pagemap_migrate_populate_ram_pfn(NULL, NULL, npages, &mpage=
+s,
+>  						   src, dst, 0);
 
-v3:
-- Store the migrated state in a low bit of zone_device_data instead of
-  adding virtual-range and bitmap tracking to the ZDD. (Matthew Brost)
-- Mask the flag when retrieving the ZDD and preserve it when splitting
-  a folio.
-- Drop the pre-existing fixes already covered by Matthew Brost's series:
-  https://patchwork.freedesktop.org/series/171651/
+[Severity: High]
+This is a pre-existing issue, but does this call to
+drm_pagemap_migrate_populate_ram_pfn() trigger a use-after-free on its error
+path?
 
-v4:
-- Advance by the folio size only for migration entries marked with
-  MIGRATE_PFN_COMPOUND. (Sashiko)
+If page allocation fails inside drm_pagemap_migrate_populate_ram_pfn(), the
+cleanup path jumps to the free_pages label:
 
-The lockup was observed as:
-[10109.860465] watchdog: BUG: soft lockup - CPU#9 stuck for 26s! [kworker/u65:5:6557]
-[10109.860524] Tainted: [S]=CPU_OUT_OF_SPEC, [O]=OOT_MODULE
-[10109.860524] Hardware name: ASUS System Product Name/PRIME Z790-P WIFI, BIOS 0812 02/24/2023
-[10109.860525] Workqueue: xe_page_fault_work_queue xe_pagefault_queue_work [xe]
-[10109.860644] RIP: 0010:_raw_spin_unlock_irqrestore+0x57/0x80
-[10109.860655] Call Trace:
-[10109.860655]  <TASK>
-[10109.860657]  folio_lruvec_lock_irqsave+0x216/0x220
-[10109.860661]  ? __pfx_lru_add+0x10/0x10
-[10109.860665]  folio_batch_move_lru+0xc8/0x450
-[10109.860670]  ? lock_acquire+0xc4/0x2d0
-[10109.860674]  ? __folio_batch_add_and_move+0x60/0x2e0
-[10109.860677]  ? folio_migrate_mapping+0xa6/0x110
-[10109.860679]  ? folio_migrate_flags+0x13b/0x1b0
-[10109.860681]  ? __pfx_lru_add+0x10/0x10
-[10109.860683]  __folio_batch_add_and_move+0xe7/0x2e0
-[10109.860685]  ? dma_iova_try_alloc+0xb0/0x140
-[10109.860689]  folio_add_lru+0x64/0x80
-[10109.860691]  __migrate_device_finalize+0x12c/0x270
-[10109.860695]  migrate_device_finalize+0x10/0x20
-[10109.860698]  drm_pagemap_evict_to_ram+0x185/0x370 [drm_gpusvm_helper]
-[10109.860704]  ? drm_pagemap_evict_to_ram+0x96/0x370 [drm_gpusvm_helper]
-[10109.860709]  xe_svm_bo_evict+0x15/0x20 [xe]
-[10109.860819]  ? xe_svm_bo_evict+0x15/0x20 [xe]
-[10109.860921]  xe_bo_move+0x107e/0x1570 [xe]
-[10109.860992]  ? xe_ttm_tt_create+0x168/0x340 [xe]
-[10109.861059]  ? __up_read+0x98/0x2b0
-[10109.861061]  ? lock_is_held_type+0xa3/0x130
-[10109.861067]  ttm_bo_handle_move_mem+0xe8/0x1e0 [ttm]
-[10109.861075]  ttm_bo_evict+0x141/0x1c0 [ttm]
-[10109.861081]  ttm_bo_evict_cb+0x9f/0x100 [ttm]
-[10109.861086]  ttm_lru_walk_for_evict+0x84/0x190 [ttm]
-[10109.861091]  ? xe_ttm_vram_mgr_new+0x258/0x3a0 [xe]
-[10109.861198]  ttm_bo_alloc_resource+0x219/0x750 [ttm]
-[10109.861203]  ? ttm_bo_alloc_resource+0xa9/0x750 [ttm]
-[10109.861208]  ? lock_acquire+0xc4/0x2d0
-[10109.861214]  ttm_bo_validate+0x94/0x1c0 [ttm]
-[10109.861218]  ? ww_mutex_trylock+0x19d/0x3d0
-[10109.861219]  ? _raw_write_unlock+0x22/0x50
-[10109.861223]  ttm_bo_init_reserved+0x17d/0x1f0 [ttm]
-[10109.861228]  xe_bo_init_locked+0x20a/0x620 [xe]
-[10109.861294]  ? __pfx_xe_ttm_bo_destroy+0x10/0x10 [xe]
-[10109.861359]  ? mark_held_locks+0x46/0x90
-[10109.861361]  ? __create_object+0x68/0xc0
-[10109.861366]  __xe_bo_create_locked+0x384/0xa20 [xe]
-[10109.861432]  ? lock_acquire+0xc4/0x2d0
-[10109.861434]  ? xe_drm_pagemap_populate_mm+0xd3/0x340 [xe]
-[10109.861542]  xe_bo_create_locked+0x23/0x40 [xe]
-[10109.861609]  xe_drm_pagemap_populate_mm+0x12e/0x340 [xe]
-[10109.861707]  ? __lock_acquire+0x43e/0x2930
-[10109.861716]  drm_pagemap_populate_mm+0x74/0xe0 [drm_gpusvm_helper]
-[10109.861720]  xe_svm_alloc_vram+0xb5/0x2c0 [xe]
-[10109.861817]  ? seqcount_lockdep_reader_access.constprop.0+0x9f/0xc0
-[10109.861819]  ? ktime_get+0x23/0x130
-[10109.861821]  ? trace_hardirqs_on+0x22/0xe0
-[10109.861823]  ? seqcount_lockdep_reader_access.constprop.0+0x9f/0xc0
-[10109.861826]  __xe_svm_handle_pagefault+0x77d/0xbf0 [xe]
-[10109.861924]  ? rwsem_down_write_slowpath+0x43a/0x9a0
-[10109.861926]  ? _raw_spin_unlock_irq+0x27/0x70
-[10109.861928]  ? rwsem_down_write_slowpath+0x43a/0x9a0
-[10109.861929]  ? trace_hardirqs_on+0x22/0xe0
-[10109.861931]  ? _raw_spin_unlock_irq+0x27/0x70
-[10109.861933]  ? rwsem_down_write_slowpath+0x459/0x9a0
-[10109.861937]  xe_svm_handle_pagefault+0x3d/0xb0 [xe]
-[10109.862030]  xe_pagefault_queue_work+0x1a9/0x520 [xe]
-[10109.862122]  process_one_work+0x239/0x730
-[10109.862127]  worker_thread+0x200/0x3f0
-[10109.862130]  ? __pfx_worker_thread+0x10/0x10
-[10109.862132]  kthread+0x10d/0x150
-[10109.862133]  ? __pfx_kthread+0x10/0x10
-[10109.862135]  ret_from_fork+0x3bd/0x470
-[10109.862138]  ? __pfx_kthread+0x10/0x10
-[10109.862140]  ret_from_fork_asm+0x1a/0x30
-[10109.862146]  </TASK>
+free_pages:
+	for (i =3D 0; i < npages;) {
+		struct page *page =3D migrate_pfn_to_page(mpfn[i]);
+		unsigned int order =3D 0;
 
-Fixes: 99624bdff867 ("drm/gpusvm: Add support for GPU Shared Virtual Memory")
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
-Assisted-by: Claude:claude-opus-4-8
-Suggested-by: Matthew Brost <matthew.brost@intel.com>
-Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
----
- drivers/gpu/drm/drm_pagemap.c | 124 ++++++++++++++++++++++++++++++++--
- include/drm/drm_pagemap.h     |   8 ++-
- 2 files changed, 127 insertions(+), 5 deletions(-)
+		if (!page)
+			goto next_put;
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 892b325fa99b..c1112d492d64 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -1102,12 +1102,119 @@ void drm_pagemap_put(struct drm_pagemap *dpagemap)
- }
- EXPORT_SYMBOL(drm_pagemap_put);
- 
-+/**
-+ * drm_pagemap_page_get_flags() - Read the drm_pagemap flags of a device folio
-+ * @page: Pointer to a page of the device folio
-+ *
-+ * Return: The DRM_PAGEMAP_ZDD_FLAG_* bits encoded in zone_device_data.
-+ */
-+static unsigned long drm_pagemap_page_get_flags(struct page *page)
-+{
-+	struct folio *folio = page_folio(page);
-+
-+	return (unsigned long)folio_zone_device_data(folio) &
-+		DRM_PAGEMAP_ZDD_FLAG_MASK;
-+}
-+
-+/**
-+ * drm_pagemap_page_set_flags() - Set the drm_pagemap flags of a device folio
-+ * @page: Pointer to a page of the device folio
-+ * @flags: DRM_PAGEMAP_ZDD_FLAG_* bits to set
-+ *
-+ * Preserve any flags already encoded alongside the ZDD pointer.
-+ */
-+static void drm_pagemap_page_set_flags(struct page *page,
-+				       unsigned long flags)
-+{
-+	struct folio *folio = page_folio(page);
-+	struct drm_pagemap_zdd *zdd;
-+
-+	if (WARN_ON_ONCE(flags & ~DRM_PAGEMAP_ZDD_FLAG_MASK))
-+		return;
-+
-+	zdd = drm_pagemap_page_zone_device_data(page);
-+	flags |= drm_pagemap_page_get_flags(page);
-+	folio_set_zone_device_data(folio,
-+				   (void *)((unsigned long)zdd | flags));
-+}
-+
-+/**
-+ * drm_pagemap_retire_migrated_pages() - Record migrated device folios
-+ * @src_pfns: source array after migrate_vma_pages() or migrate_device_pages()
-+ * @npages: number of entries in @src_pfns
-+ *
-+ * Flag device folios that were successfully migrated to RAM before finalize
-+ * unlocks the sources. The migrated state is stored in the physical folio, so
-+ * it survives later folio splits and a subsequent raw-PFN eviction can skip it.
-+ */
-+static void drm_pagemap_retire_migrated_pages(unsigned long *src_pfns,
-+					      unsigned long npages)
-+{
-+	unsigned long i = 0;
-+
-+	while (i < npages) {
-+		struct page *page = migrate_pfn_to_page(src_pfns[i]);
-+		unsigned long nr = 1;
-+
-+		if (!page) {
-+			i++;
-+			continue;
-+		}
-+
-+		if (src_pfns[i] & MIGRATE_PFN_COMPOUND)
-+			nr = folio_nr_pages(page_folio(page));
-+
-+		if ((src_pfns[i] & MIGRATE_PFN_MIGRATE) &&
-+		    is_device_private_page(page))
-+			drm_pagemap_page_set_flags(page,
-+						   DRM_PAGEMAP_ZDD_FLAG_MIGRATED);
-+
-+		i += nr;
-+	}
-+}
-+
-+/**
-+ * drm_pagemap_skip_retired_pages() - Drop retired PFNs from a raw-PFN eviction
-+ * @src_pfns: source array after migrate_device_pfns() (MIGRATE_PFN encoded)
-+ * @npages: number of entries in @src_pfns
-+ *
-+ * Skip source folios already migrated to RAM, identified by the migrated flag
-+ * stored in the physical folio's zone_device_data.
-+ */
-+static void drm_pagemap_skip_retired_pages(unsigned long *src_pfns,
-+					   unsigned long npages)
-+{
-+	unsigned long i = 0;
-+
-+	while (i < npages) {
-+		struct page *page = migrate_pfn_to_page(src_pfns[i]);
-+		unsigned long nr = 1;
-+
-+		if (!page) {
-+			i++;
-+			continue;
-+		}
-+
-+		if (src_pfns[i] & MIGRATE_PFN_COMPOUND)
-+			nr = folio_nr_pages(page_folio(page));
-+
-+		if ((src_pfns[i] & MIGRATE_PFN_MIGRATE) &&
-+		    is_device_private_page(page) &&
-+		    (drm_pagemap_page_get_flags(page) &
-+		     DRM_PAGEMAP_ZDD_FLAG_MIGRATED))
-+			src_pfns[i] &= ~MIGRATE_PFN_MIGRATE;
-+
-+		i += nr;
-+	}
-+}
-+
- /**
-  * drm_pagemap_evict_to_ram() - Evict GPU SVM range to RAM
-  * @devmem_allocation: Pointer to the device memory allocation
-  *
-- * Similar to __drm_pagemap_migrate_to_ram but does not require mmap lock and
-- * migration done via migrate_device_* functions.
-+ * Similar to __drm_pagemap_migrate_to_ram(), but uses the
-+ * migrate_device_* helpers and does not require the mmap lock. Device
-+ * PFNs already migrated to RAM by either migration path are skipped.
-  *
-  * Return: 0 on success, negative error code on failure.
-  */
-@@ -1148,6 +1255,8 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	if (err)
- 		goto err_free;
- 
-+	drm_pagemap_skip_retired_pages(src, npages);
-+
- 	err = drm_pagemap_migrate_populate_ram_pfn(NULL, NULL, npages, &mpages,
- 						   src, dst, 0);
- 	if (err || !mpages)
-@@ -1178,6 +1287,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_devmem *devmem_allocation)
- 	if (err)
- 		drm_pagemap_migration_unlock_put_pages(npages, dst);
- 	migrate_device_pages(src, dst, npages);
-+	drm_pagemap_retire_migrated_pages(src, npages);
- 	migrate_device_finalize(src, dst, npages);
- 	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, dst, npages,
- 					DMA_FROM_DEVICE, &state);
-@@ -1308,6 +1418,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_area_struct *vas,
- 	if (err)
- 		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
- 	migrate_vma_pages(&migrate);
-+	drm_pagemap_retire_migrated_pages(migrate.src, npages);
- 	migrate_vma_finalize(&migrate);
- 	if (dev)
- 		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
-@@ -1360,13 +1471,18 @@ static vm_fault_t drm_pagemap_migrate_to_ram(struct vm_fault *vmf)
- static void drm_pagemap_folio_split(struct folio *orig_folio, struct folio *new_folio)
- {
- 	struct drm_pagemap_zdd *zdd;
-+	struct page *page;
-+	unsigned long flags;
- 
- 	if (!new_folio)
- 		return;
- 
- 	new_folio->pgmap = orig_folio->pgmap;
--	zdd = folio_zone_device_data(orig_folio);
--	folio_set_zone_device_data(new_folio, drm_pagemap_zdd_get(zdd));
-+	page = folio_page(orig_folio, 0);
-+	zdd = drm_pagemap_page_zone_device_data(page);
-+	flags = drm_pagemap_page_get_flags(page);
-+	folio_set_zone_device_data(new_folio,
-+				   (void *)((unsigned long)drm_pagemap_zdd_get(zdd) | flags));
- }
- 
- static const struct dev_pagemap_ops drm_pagemap_pagemap_ops = {
-diff --git a/include/drm/drm_pagemap.h b/include/drm/drm_pagemap.h
-index 95eb4b66b057..ebbd3b0ddf36 100644
---- a/include/drm/drm_pagemap.h
-+++ b/include/drm/drm_pagemap.h
-@@ -2,6 +2,7 @@
- #ifndef _DRM_PAGEMAP_H_
- #define _DRM_PAGEMAP_H_
- 
-+#include <linux/bits.h>
- #include <linux/dma-direction.h>
- #include <linux/hmm.h>
- #include <linux/memremap.h>
-@@ -339,6 +340,9 @@ struct drm_pagemap_migrate_details {
- 
- #if IS_ENABLED(CONFIG_ZONE_DEVICE)
- 
-+#define DRM_PAGEMAP_ZDD_FLAG_MIGRATED	BIT(0)
-+#define DRM_PAGEMAP_ZDD_FLAG_MASK	DRM_PAGEMAP_ZDD_FLAG_MIGRATED
-+
- int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
- 				  struct mm_struct *mm,
- 				  unsigned long start, unsigned long end,
-@@ -373,7 +377,9 @@ static inline struct drm_pagemap_zdd *drm_pagemap_page_zone_device_data(struct p
- {
- 	struct folio *folio = page_folio(page);
- 
--	return folio_zone_device_data(folio);
-+	return (struct drm_pagemap_zdd *)
-+		((unsigned long)folio_zone_device_data(folio) &
-+		 ~DRM_PAGEMAP_ZDD_FLAG_MASK);
- }
- 
- #else
--- 
-2.43.0
+		put_page(page);
+		mpfn[i] =3D 0;
 
+		order =3D folio_order(page_folio(page));
+
+Is it safe to read the folio_order metadata after put_page() has dropped the
+reference and potentially freed the page? It looks like this could result in
+garbage order values, leading to incorrect loop increments and missed clean=
+ups.
+
+>  	if (err || !mpages)
+>  		goto err_finalize;
+[ ... ]
+> @@ -1173,6 +1282,7 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_dev=
+mem *devmem_allocation)
+>  	if (err)
+>  		drm_pagemap_migration_unlock_put_pages(npages, dst);
+>  	migrate_device_pages(src, dst, npages);
+> +	drm_pagemap_retire_migrated_pages(src, npages);
+>  	migrate_device_finalize(src, dst, npages);
+>  	drm_pagemap_migrate_unmap_pages(devmem_allocation->dev, pagemap_addr, d=
+st, npages,
+>  					DMA_FROM_DEVICE, &state);
+
+[Severity: High]
+This is a pre-existing issue, but I am wondering if the peer-to-peer migrat=
+ion
+path is also vulnerable to this same double-migration bug?
+
+Looking at drm_pagemap_migrate_to_devmem(), it finalizes the migration
+without calling drm_pagemap_retire_migrated_pages() to set the flag on the
+source folio:
+
+err_aborted_migration:
+	migrate_vma_pages(&migrate);
+
+	for (i =3D 0; !err && i < npages;) {
+...
+	migrate_vma_finalize(&migrate);
+
+Could a concurrent eviction select the same device folio, fail to skip it
+since the migrated flag is missing, and attempt to migrate it again?
+
+[ ... ]
+> @@ -1303,6 +1413,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_a=
+rea_struct *vas,
+>  	if (err)
+>  		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
+>  	migrate_vma_pages(&migrate);
+> +	drm_pagemap_retire_migrated_pages(migrate.src, npages);
+>  	migrate_vma_finalize(&migrate);
+>  	if (dev)
+>  		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
+
+[Severity: High]
+This is a pre-existing issue, but does this error path permanently leak DMA
+mappings?
+
+If an error occurs, drm_pagemap_migration_unlock_put_pages() is called, whi=
+ch
+zeroes out the migrate.dst array internally:
+
+static void drm_pagemap_migration_unlock_put_pages(...)
+{
+...
+		drm_pagemap_migration_unlock_put_folio(folio);
+		migrate_pfn[i] =3D 0;
+...
+}
+
+Then shortly after, we pass that same zeroed array to
+drm_pagemap_migrate_unmap_pages().
+
+Inside drm_pagemap_migrate_unmap_pages(), it retrieves the page:
+
+		struct page *page =3D migrate_pfn_to_page(migrate_pfn[i]);
+
+		if (!page || !pagemap_addr[i].addr || dma_mapping_error(...))
+			goto next;
+
+Since the array entries were zeroed, migrate_pfn_to_page(0) returns NULL,
+causing the loop to bypass dma_unmap_page() entirely.
+
+>  						npages, DMA_FROM_DEVICE,
+>  						&state);
+>  err_free:
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807081244.2229=
+191-1-arvind.yadav@intel.com?part=3D1
