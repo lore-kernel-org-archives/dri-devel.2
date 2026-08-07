@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAD46C5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:32:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 33BDDC5AC81
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:32:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5974410F395;
-	Fri,  7 Aug 2026 04:32:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36C6B10F390;
+	Fri,  7 Aug 2026 04:32:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="V/cdDn5v";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="hvwf5n8W";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8663910F38F;
- Fri,  7 Aug 2026 04:32:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D2C710F391;
+ Fri,  7 Aug 2026 04:32:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786077135; x=1817613135;
+ t=1786077138; x=1817613138;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=KR4BiFuW2PUXLlR83AYvd7tvipUZMtrlnty26f/JSZk=;
- b=V/cdDn5vyL2wSFa2SzSlvJRsA2APWTvdRROwgpGYUyKsB8IB3FB08jUP
- 4ylhVqAoMceoNLv3zJSPOthVpXFCefxgmpMrAgZc+RyceoHWg0C3y7O0S
- OddrAI0G/p98jZJqbd0Wk04ndoUFHrqmN+M08tUnGhnJ6PjCfcOK8Jk5B
- MYuJjsI+lHGvbWW8BZaPVHoY7Z0SUJjsdrmJ+0zQWZdMdQI8A3Z8VYNvP
- EwAmkGiDxV24gyw4dJ6zp9nMrI1e+6Pkf/xpJxyUMRoJBlAdwbKexRZ3l
- 1vIGLBXWYw/ohfNh96Y+4OIlnd2UbyKRz7b/tZvHAdecxMAa4UuCUO424 A==;
-X-CSE-ConnectionGUID: xMSRXbjWTIi9EGpCV0pCNQ==
-X-CSE-MsgGUID: NDz7q0C3T6yBWA0o+lk9Lw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619276"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619276"
+ bh=HoVLfiX/3irH4ra+Z5Mf+l7uGsFJhiH1q8jEoRn2PcY=;
+ b=hvwf5n8WRgDfE14c5fONQrSMc5hsSYPY0LdSY3fNEFu+xD5QtG6sHfks
+ uU7E7GS3KkheIeaB+nTJACCZ+BkiNyPh40dqax61bc6WAMjVNUDNnEQ1D
+ Z5TP1Ef1ASSk9zB2/8mLJDjoqDCcNG9gdGv7Knkr5QBNkRdfVds3EEmmE
+ oPJjh2xpt5goFmxxmi1lKKQJaOWEO/Y77RMTaqbj+3KoPW7bnpZsC2M3K
+ uQbnNXXn65nh+ud23cBuLy7Jr1YChVixwnLW+pIKVqUS2Mmg+mUYrTUOn
+ Uuj704vmJVuxFVyxXKDrlvuAx7sm7ebizmh1D1oggV7r3uZ34SjxfUgbN Q==;
+X-CSE-ConnectionGUID: wdsoK//dSeeSZ5XQbSF7Cw==
+X-CSE-MsgGUID: yDwUxbp7QAylijK5aW25ig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619293"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619293"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:32:14 -0700
-X-CSE-ConnectionGUID: hoCe66hOQd+1r/YN6DECgw==
-X-CSE-MsgGUID: xhHbApxKQbyZOvxgIB08WQ==
+ 06 Aug 2026 21:32:17 -0700
+X-CSE-ConnectionGUID: a28ivlH2Rg+jjGOU8yb+jQ==
+X-CSE-MsgGUID: x8mXxKTQRZS3iHAhnx/MnQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666201"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666209"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:32:12 -0700
+ 06 Aug 2026 21:32:14 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH 18/44] drm/i915/hdmi: Drive per-lane TxFFE during FRL link
- training
-Date: Fri,  7 Aug 2026 09:44:03 +0530
-Message-ID: <20260807041430.229038-19-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 19/44] drm/i915/ltphy: Add PLL tables for HDMI FRL
+Date: Fri,  7 Aug 2026 09:44:04 +0530
+Message-ID: <20260807041430.229038-20-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
 References: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
@@ -73,133 +72,301 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Suraj Kandpal <suraj.kandpal@intel.com>
 
-Hook the per-lane TxFFE state added by the previous patch into the
-HDMI FRL Link Training Sequence (LTS:3):
+Add HDMI FRL Tables for LT PHY i.e for the rates of 3G, 6G, 8G,
+10G and 12G.
 
- - Advertise FFE_Levels=3 (TxFFE0..TxFFE3) in SCDC 0x31, matching the
-   four TxFFE rows present in the PHY HDMI FRL buf-trans table.
-
- - On LTS:3 entry, after enabling TRANS_HDMI_FRL_ENABLE, call
-   encoder->set_signal_levels() so the PHY is programmed to TxFFE0
-   on every lane before the sink starts emitting Ln(x)_LTP_req.
-
- - In intel_hdmi_train_lanes(), handle SCDC_FRL_CHNG_FFE (0xE) by
-   incrementing intel_hdmi->frl.ffe_level[lane], capped at
-   max_ffe_level. When any lane changed, reprogram the PHY via
-   encoder->set_signal_levels() before acknowledging the request.
-
- - Always clear SCDC FLT_update (0x10 bit 5) after acting on a sink
-   request, as required by the HDMI spec.
-
-A forward declaration of clear_scdc_update_flags() is added so it
-can be called from intel_hdmi_train_lanes() without reordering the
-file.
-
+Bspec: 74667
 Signed-off-by: Suraj Kandpal <suraj.kandpal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 39 +++++++++++++++++++----
- 1 file changed, 32 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/i915/display/intel_lt_phy.c | 270 ++++++++++++++++++++
+ 1 file changed, 270 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index ba1543023373..db585c2af21d 100644
---- a/drivers/gpu/drm/i915/display/intel_hdmi.c
-+++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -3573,6 +3573,7 @@ static int clear_scdc_update_flags(struct intel_encoder *encoder, u8 flags)
+diff --git a/drivers/gpu/drm/i915/display/intel_lt_phy.c b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+index 8fc6d230493f..a16401e42ed9 100644
+--- a/drivers/gpu/drm/i915/display/intel_lt_phy.c
++++ b/drivers/gpu/drm/i915/display/intel_lt_phy.c
+@@ -950,11 +950,281 @@ static const struct intel_lt_phy_pll_state xe3plpd_lt_hdmi_5p94 = {
+ 	},
+ };
  
- static bool
- intel_hdmi_frl_prepare_lts2(struct intel_encoder *encoder,
-+			    const struct intel_crtc_state *crtc_state,
- 			    int frl_rate, int frl_lanes,
- 			    int ffe_level)
- {
-@@ -3598,7 +3599,12 @@ intel_hdmi_frl_prepare_lts2(struct intel_encoder *encoder,
- 	if ((get_frl_update_flags(encoder) & SCDC_FLT_UPDATE))
- 		clear_scdc_update_flags(encoder, SCDC_FLT_UPDATE);
- 
--	/* #TODO: Source shall program TxFFE = 0 for all active lanes */
-+	/*
-+	 * Program PHY to TxFFE0 on every lane before the sink
-+	 * starts evaluating LTP patterns. ffe_level[] has already been
-+	 * cleared by intel_hdmi_reset_frl_config().
-+	 */
-+	encoder->set_signal_levels(encoder, crtc_state);
- 
- 	if (drm_scdc_config_frl(adapter, frl_rate, frl_lanes, ffe_level) < 0) {
- 		drm_dbg_kms(display->drm,
-@@ -3633,9 +3639,11 @@ intel_hdmi_train_lanes(struct intel_encoder *encoder,
- 		       int ffe_level)
- {
- 	struct intel_display *display = to_intel_display(encoder);
-+	struct intel_hdmi *intel_hdmi = enc_to_intel_hdmi(encoder);
- 	enum transcoder trans = crtc_state->cpu_transcoder;
- 	int num_lanes = crtc_state->frl.required_lanes;
- 	enum drm_scdc_frl_ltp ltp[4];
-+	bool ffe_changed = false;
- 	u32 write_buf = 0;
- 	int lane;
- 
-@@ -3657,13 +3665,29 @@ intel_hdmi_train_lanes(struct intel_encoder *encoder,
- 	for (lane = 0; lane < num_lanes; lane++) {
- 		if (ltp[lane] >= SCDC_FRL_LTP1 && ltp[lane] <= SCDC_FRL_LTP8)
- 			write_buf |= TRANS_HDMI_FRL_LTP(ltp[lane], lane);
--		/* #TODO handle FFE change */
--		else if (ltp[lane] == SCDC_FRL_CHNG_FFE)
--			continue;
-+		else if (ltp[lane] == SCDC_FRL_CHNG_FFE) {
-+			/*
-+			 * During FRL link training: Sink requests Source
-+			 * to step TxFFE up by one for this lane. Cap at the
-+			 * advertised max FFE level.
-+			 */
-+			if (intel_hdmi->frl.ffe_level[lane] <
-+			    intel_hdmi->frl.max_ffe_level) {
-+				intel_hdmi->frl.ffe_level[lane]++;
-+				ffe_changed = true;
-+			}
-+		}
- 	}
- 
- 	intel_de_write(display, TRANS_HDMI_FRL_TRAIN(display, trans), write_buf);
- 
-+	/*
-+	 * Reprogram per-lane PHY TxFFE before clearing FLT_update so the
-+	 * sink evaluates the new preset on the next iteration.
-+	 */
-+	if (ffe_changed)
-+		encoder->set_signal_levels(encoder, crtc_state);
++static const struct intel_lt_phy_pll_state xe3plpd_lt_hdmi_3g0 = {
++	.config = {
++		0x85,
++		0x2d,
++		0x0,
++	},
++	.addr_msb = {
++		0x87,
++		0x87,
++		0x87,
++		0x87,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++	},
++	.addr_lsb = {
++		0x10,
++		0x0c,
++		0x14,
++		0xe4,
++		0x0c,
++		0x10,
++		0x14,
++		0x18,
++		0x48,
++		0x40,
++		0x4c,
++		0x24,
++		0x44,
++	},
++	.data = {
++		{ 0x0,  0x4c, 0x2,  0x0  },
++		{ 0x5,  0xa,  0x27, 0x0  },
++		{ 0x80, 0x0,  0x0,  0x0  },
++		{ 0x4,  0x9,  0x1,  0x28 },
++		{ 0xf2, 0x2e, 0x83, 0x10 },
++		{ 0x80, 0x0f, 0xf9, 0x53 },
++		{ 0x84, 0x24, 0x0,  0x0  },
++		{ 0x0,  0xe0, 0x1,  0x0  },
++		{ 0x4b, 0x48, 0x0,  0x0  },
++		{ 0x27, 0x8,  0x0,  0x0  },
++		{ 0x5a, 0x13, 0x29, 0x13 },
++		{ 0x0,  0x40, 0xa0, 0x0  },
++		{ 0x0,  0x0,  0x0,  0x0  },
++	},
++};
 +
- 	clear_scdc_update_flags(encoder, SCDC_FLT_UPDATE);
++static const struct intel_lt_phy_pll_state xe3plpd_lt_hdmi_6g0 = {
++	.config = {
++		0x8d,
++		0x2d,
++		0x0,
++	},
++	.addr_msb = {
++		0x87,
++		0x87,
++		0x87,
++		0x87,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++	},
++	.addr_lsb = {
++		0x10,
++		0x0c,
++		0x14,
++		0xe4,
++		0x0c,
++		0x10,
++		0x14,
++		0x18,
++		0x48,
++		0x40,
++		0x4c,
++		0x24,
++		0x44,
++	},
++	.data = {
++		{ 0x0,  0x4c, 0x2,  0x0  },
++		{ 0x2,  0x8a, 0x27, 0x0  },
++		{ 0x80, 0x0,  0x0,  0x0  },
++		{ 0x4,  0x4,  0x80, 0xa8 },
++		{ 0xf2, 0x2e, 0x83, 0x10 },
++		{ 0x80, 0x0f, 0xf9, 0x53 },
++		{ 0x84, 0x24, 0x0,  0x0  },
++		{ 0x0,  0xe0, 0x1,  0x0  },
++		{ 0x4b, 0x48, 0x0,  0x0  },
++		{ 0x27, 0x8,  0x0,  0x0  },
++		{ 0x5a, 0x13, 0x29, 0x13 },
++		{ 0x0,  0x40, 0xa0, 0x0  },
++		{ 0x0,  0x0,  0x0,  0x0  },
++	},
++};
++
++static const struct intel_lt_phy_pll_state xe3plpd_lt_hdmi_8g0 = {
++	.config = {
++		0x95,
++		0x2d,
++		0x0,
++	},
++	.addr_msb = {
++		0x87,
++		0x87,
++		0x87,
++		0x87,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++	},
++	.addr_lsb = {
++		0x10,
++		0x0c,
++		0x14,
++		0xe4,
++		0x0c,
++		0x10,
++		0x14,
++		0x18,
++		0x48,
++		0x40,
++		0x4c,
++		0x24,
++		0x44,
++	},
++	.data = {
++		{ 0x0,  0x4c, 0x2,  0x0  },
++		{ 0x2,  0x8a, 0x34, 0x0  },
++		{ 0xaa, 0xaa, 0xaa, 0xaa },
++		{ 0x5,  0x4,  0x80, 0xa8 },
++		{ 0xf2, 0x22, 0x83, 0x10 },
++		{ 0x80, 0x0f, 0xf9, 0xb5 },
++		{ 0x84, 0x24, 0x0,  0x0  },
++		{ 0x0,  0xe0, 0x1,  0x0  },
++		{ 0x4b, 0x48, 0x0,  0x0  },
++		{ 0x27, 0x8,  0x0,  0x0  },
++		{ 0x5a, 0x13, 0x29, 0x13 },
++		{ 0x0,  0x40, 0xa0, 0x0  },
++		{ 0x0,  0x0,  0x0,  0x0  },
++	},
++};
++
++static const struct intel_lt_phy_pll_state xe3plpd_lt_hdmi_10g0 = {
++	.config = {
++		0x1d,
++		0x2d,
++		0x0,
++	},
++	.addr_msb = {
++		0x85,
++		0x85,
++		0x85,
++		0x85,
++		0x86,
++		0x86,
++		0x86,
++		0x86,
++		0x86,
++		0x00,
++		0x86,
++		0x86,
++		0x86,
++	},
++	.addr_lsb = {
++		0x10,
++		0x0c,
++		0x14,
++		0xe4,
++		0x0c,
++		0x10,
++		0x14,
++		0x18,
++		0x48,
++		0x00,
++		0x4c,
++		0x24,
++		0x44,
++	},
++	.data = {
++		{ 0x0,  0x4c, 0x2,  0x0  },
++		{ 0x1,  0x49, 0x20, 0x80 },
++		{ 0x6a, 0xaa, 0xaa, 0xab },
++		{ 0x0,  0x6,  0x4,  0x94 },
++		{ 0xfa, 0x1c, 0x83, 0x11 },
++		{ 0x80, 0x0f, 0xf9, 0x53 },
++		{ 0x84, 0x26, 0x4,  0x4  },
++		{ 0x0,  0xe0, 0x1,  0x0  },
++		{ 0x45, 0x48, 0x0,  0x0  },
++		{ 0x27, 0x8,  0x0,  0x0  },
++		{ 0x5a, 0x14, 0x2a, 0x14 },
++		{ 0x0,  0x5b, 0xe0, 0x8  },
++		{ 0x0,  0x0,  0x0,  0x0  },
++	},
++};
++
++static const struct intel_lt_phy_pll_state xe3plpd_lt_hdmi_12g0 = {
++	.config = {
++		0xa5,
++		0x2d,
++		0x0,
++	},
++	.addr_msb = {
++		0x87,
++		0x87,
++		0x87,
++		0x87,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++		0x88,
++	},
++	.addr_lsb = {
++		0x10,
++		0x0c,
++		0x14,
++		0xe4,
++		0x0c,
++		0x10,
++		0x14,
++		0x18,
++		0x48,
++		0x40,
++		0x4c,
++		0x24,
++		0x44,
++	},
++	.data = {
++		{ 0x0,  0x4c, 0x2,  0x0  },
++		{ 0x1,  0x49, 0x27, 0x0  },
++		{ 0x80, 0x0,  0x0,  0x0  },
++		{ 0x8,  0x4,  0x80, 0xb2 },
++		{ 0xf2, 0x2e, 0x83, 0x10 },
++		{ 0x80, 0x0f, 0xf9, 0x53 },
++		{ 0x84, 0x24, 0x0,  0x0  },
++		{ 0x0,  0xe0, 0x1,  0x0  },
++		{ 0x4b, 0x48, 0x0,  0x0  },
++		{ 0x27, 0x8,  0x0,  0x0  },
++		{ 0x5a, 0x14, 0x29, 0x14 },
++		{ 0x0,  0x40, 0xa0, 0x0  },
++		{ 0x0,  0x0,  0x0,  0x0  },
++	},
++};
++
+ static const struct intel_lt_phy_pll_params xe3plpd_lt_hdmi_tables[] = {
+ 	LT_PHY_PLL_HDMI_PARAMS(25200, xe3plpd_lt_hdmi_252),
+ 	LT_PHY_PLL_HDMI_PARAMS(74250, xe3plpd_lt_hdmi_742p5),
+ 	LT_PHY_PLL_HDMI_PARAMS(148500, xe3plpd_lt_hdmi_1p485),
+ 	LT_PHY_PLL_HDMI_PARAMS(594000, xe3plpd_lt_hdmi_5p94),
++	LT_PHY_PLL_HDMI_PARAMS(300000, xe3plpd_lt_hdmi_3g0),
++	LT_PHY_PLL_HDMI_PARAMS(600000, xe3plpd_lt_hdmi_6g0),
++	LT_PHY_PLL_HDMI_PARAMS(800000, xe3plpd_lt_hdmi_8g0),
++	LT_PHY_PLL_HDMI_PARAMS(1000000, xe3plpd_lt_hdmi_10g0),
++	LT_PHY_PLL_HDMI_PARAMS(1200000, xe3plpd_lt_hdmi_12g0),
+ 	{}
+ };
  
- 	return FRL_TRAIN_CONTINUE;
-@@ -3752,9 +3776,9 @@ static int get_next_frl_rate(int curr_rate_gbps)
- 	return -EINVAL;
- }
- 
--static int get_ffe_level(int rate_gbps)
-+static int get_max_ffe_level(int rate_gbps)
- {
--	return 0;
-+	return 3;
- }
- 
- int intel_hdmi_start_frl(struct intel_encoder *encoder,
-@@ -3766,7 +3790,7 @@ int intel_hdmi_start_frl(struct intel_encoder *encoder,
- 	struct intel_connector *intel_connector = intel_hdmi->attached_connector;
- 	struct drm_connector *connector = &intel_connector->base;
- 	int req_rate = crtc_state->frl.required_lanes * crtc_state->frl.required_rate;
--	int ffe_level = get_ffe_level(req_rate);
-+	int ffe_level = get_max_ffe_level(req_rate);
- 	enum frl_lt_status status;
- 	int next_rate = -EINVAL;
- 
-@@ -3786,6 +3810,7 @@ int intel_hdmi_start_frl(struct intel_encoder *encoder,
- 	intel_hdmi->frl.max_ffe_level = ffe_level;
- 
- 	if (!intel_hdmi_frl_prepare_lts2(encoder,
-+					 crtc_state,
- 					 crtc_state->frl.required_rate,
- 					 crtc_state->frl.required_lanes,
- 					 ffe_level))
 -- 
 2.50.1
 
