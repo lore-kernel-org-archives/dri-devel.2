@@ -4,97 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62184C5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 18:37:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 169CFC5AC9F
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 18:44:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91C0C10E42E;
-	Fri,  7 Aug 2026 18:37:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED33210E118;
+	Fri,  7 Aug 2026 18:44:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K0JY5uoM";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="QCXQwZq+";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012038.outbound.protection.outlook.com [52.101.53.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C155910E42E
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 18:37:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vKSXpUuomGLlHjKsXlsvtOe90r/tuyEcbk556AlM5UY92KcPFqFX/DHIdZPegBPsu6ScdeRvtIthjMoq9/6GbXmkADKcoayC9sLfBQvaGK7UEBERv9+4fv8F3Fy0Lz4gitZ7rhTX5xbZbpfC4UPk52kh9oORyPyBaWEGuPJOJgJPqCWJIHs9GtN/QzkMxXIrWZjgeBaSL5cJOG54YDBPVtjEOAXpR8oWjBqVEim/eNeGleOAKZTX6BvNL8Nb4NJ5NjSTxMcoWBGV50H6KjgofKd2OvKKPwZvkIrlviWOQ96z58wyLs0eKWOqDnSQ1uSINk0IsD8Xt9BaSctCYbDsNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5F2qRj3Sh8oV9NiZ3Miw51RBOmZf9OmlzqRc2CvzJ/Y=;
- b=cG1f5f5HoXe2xUyf/YJfn6zpZlS8PgIA5BF/nvyUU58J31UDhJfPm03XtUqxNF9dXtpMCQHJK08WlSQhIutU6EFx8UKhu3FkNvCRU/xr2x2uSJQADU8vD3rtbjYP4NENWT8HoX9/0BuOim922EOFOBDfrX3psaVXZMAUNQJFYJ1ixq0EgnEPSttcE2lVjLKteafJ+KUVRAea+jVkAyVZY4TJXptydxFdgObNiGGZa45QhuX7QKhVAKqkBlxV/kQsbqZK5rIZ2lQI7q683dPO2e+PAwDDOzaZFNwDQ/NMO8o2dBEb3zN/k4G49UUZLuRymtWzHa4AkJkW7pEWAb/Ihw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5F2qRj3Sh8oV9NiZ3Miw51RBOmZf9OmlzqRc2CvzJ/Y=;
- b=K0JY5uoMwTgV+sF5XlPYJla21suO8IIZfSBYPiFeQyZcsJDaqmsgYwUSVSqmCgUda8oWeyYEg/4+PNLq58lycBmW5Jbj7CkVTa1UV5Vyl+xtXreFN+jcohWRe6XgDVEmuTrd7i6y8RY3WaNS5Z62oDWQ4AnDPAiiaib8eUNPm+U=
-Received: from MN2PR15CA0059.namprd15.prod.outlook.com (2603:10b6:208:237::28)
- by BL3PR12MB6547.namprd12.prod.outlook.com (2603:10b6:208:38e::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Fri, 7 Aug
- 2026 18:37:50 +0000
-Received: from BL6PEPF0001AB76.namprd02.prod.outlook.com
- (2603:10b6:208:237:cafe::a7) by MN2PR15CA0059.outlook.office365.com
- (2603:10b6:208:237::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.24 via Frontend Transport; Fri, 7
- Aug 2026 18:37:49 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB76.mail.protection.outlook.com (10.167.242.169) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Fri, 7 Aug 2026 18:37:49 +0000
-Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
- 2026 13:37:49 -0500
-From: David Francis <David.Francis@amd.com>
-To: <dri-devel@lists.freedesktop.org>
-CC: David Francis <David.Francis@amd.com>, Tvrtko Ursulin
- <tvrtko.ursulin@igalia.com>, Christian Koenig <christian.koenig@amd.com>,
- Simona Vetter <simona.vetter@ffwll.ch>
-Subject: [PATCH] drm/gem: Fix and enable CHANGE_HANDLE
-Date: Fri, 7 Aug 2026 14:37:35 -0400
-Message-ID: <20260807183735.1019040-1-David.Francis@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0143910E461
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 18:44:29 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-6a156627e22so3524450a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 11:44:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=google; t=1786128268; x=1786733068;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=JvGVlcH7x6TGfUTjYN3iZdn+SL6UTSdew5rMIN/ak0Q=;
+ b=QCXQwZq+ClDerU+JlSphAFV78uS4+bXJpD6s3XKKqfArRsYrHCi3fRu17Abx4e/6+5
+ /e/dWO4rJjvPFLM7+NnmFlHRHPdFYgLZMa0KKO0XeN8CIzj1hiwn0rZoNudPMkOnNpER
+ AV9v+r6skjWmAlDWx7qsz0xSGU5efmASMXKwg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786128268; x=1786733068;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=JvGVlcH7x6TGfUTjYN3iZdn+SL6UTSdew5rMIN/ak0Q=;
+ b=ptFEKdPV4SFK6yDvSPQUyc4Lno3gr6eVmVzhfk949aNTEI5m3Twstzd6jZb1kdbv6i
+ XyJT1YNx56axaClON8cRMDbo0RWYt6pFdzns+6AFMAf7V7e1gxJiNmrXmLQOHuVpYY+n
+ AuF38YFXhz1tJEuOzJxfGsGEJB3RrTqzJ3Z+ODYPugCkbptR8L4jDw+tWYVTUdB80tFx
+ 1Bkc9Jo9MYfKJyF8Lk+DXSPgVLePop2vnzjkkYFPPVw4THEHHCXcyUJtdOt9eaWpUqqX
+ OxK63+gpF9rOavHp2V94H7nQXYQ9ilVN8SbMloRxPg2inWH/XlrAnG8n5ZH3NxnfAADK
+ F5AQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrovyMtt8X/wA/hopx8dw6VwC2Z8mMhohZUelruoFvCF+tNUPT8UNznvw3e1k7yU3rQJFU6r0VrxGQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxZLjKxnw1fAdwBLdCxaXD1fHy5d1VjAxKqER/IbadzgGXyZEsL
+ gtAsKCmTxwxco0dTLxw3VI442h+eKNweFqGbTFducT6tagMqB2kcCIDptJ8XQPEUAfUg9FrwTeB
+ NsYzKbkY=
+X-Gm-Gg: AR+sD12WhTKvaz41d3WpxiirhPCf3ewKkHf+w79NaHfReob9dgUwaFQ0fQ2r1ZPhZ9B
+ tTTYB5mGI/BlgDijGXt/boncxJBlWSMrH8iqXOXarN1ZfT81On4TOUmhciQACEyGu8QCjY2wcjS
+ /xXT0jg31F7U3fQV1NmkxqiCGKQqo0+FPR6ixD8mOcx+ewYBY2QyXCa4RgUko62hmv+BKAjULSL
+ +qTsj1MA7grN7cL1oAO39g3aa9edoH8ZIC8mx3Xrj4Fj2it3moSrGhjwVehCaxCr6FVA39NBDBA
+ TiBnxmUNdtgDbBha2o3UxFMgMlctrzIJa8XDdzGp2g4k1J32CiuwTGaKTpue7hJeB3MZVgYA7Xq
+ 1OueBDN0jA+pTFFJzMA2pTg+QSQv119vn34pvXyGsXMYup/cVMCu7K29poMZuzj3aQwAgxlh9+Z
+ 28pxcPjc+XrqZCXA20K2O773RaJJfclWIqAd9x4JCVXYvZKZgebwLE6waD8Z3uTH18yIw1ytFm4
+ 7LiMSqNhFtSrHWcgtBztbX77Z+K9nqTmw/Cuw==
+X-Received: by 2002:a05:6402:238a:b0:6a1:79de:f836 with SMTP id
+ 4fb4d7f45d1cf-6a1f4e4d875mr286929a12.5.1786128268273; 
+ Fri, 07 Aug 2026 11:44:28 -0700 (PDT)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com.
+ [209.85.218.44]) by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6a1e7d7812esm875519a12.31.2026.08.07.11.44.27
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 07 Aug 2026 11:44:27 -0700 (PDT)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-c169ae1cb26so433035366b.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 11:44:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqMVSJrIQK+N/r8GF3iZ3pfMwLh/KnmYW0Q18+qTtYXFiY3g2SA5S01HYO52F9rgAttqOUqGX4ZCOA=@lists.freedesktop.org
+X-Received: by 2002:a17:906:c153:b0:c0d:7c31:26a9 with SMTP id
+ a640c23a62f3a-c208d2df2d5mr36200466b.2.1786128266959; Fri, 07 Aug 2026
+ 11:44:26 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB76:EE_|BL3PR12MB6547:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6ef22378-e1e1-4bd4-e463-08def4b2fbb4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|23010399003|1800799024|36860700016|13003099007|6133799003|56012099006|11063799006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: jxv/TR24CbSMG3D6iG4k+vZ0ctpdV4Xz81eiFmuASWebJGTnCfYjs5Y6tx70y92cktGoW1g7f26m8lPgBbozpW5wmsDW9Y7eX2etwnCyi3dlB2GVXMLqi6G2+Gn97G//+/t1LSnR2KA1sNix4S3KFO9bgV3IN8RA1x80FD28LeJrpmiDewzgFQH3iiv/10JW9ovbWWHFXxfHvJnuvaXBgWLypC1PrtQMUayrILw9Cg7vFMg85iCXSmWxfXqzfVF3snLJ4jI3Iq9i9uDLblegg/0YJ6CO1MkgBJJfmzTzxsgwv+i2I+168KWDw8MtlcVHZ0ora6i6JS1yXj3gHX+x+EVDUPbx9LnfJQfHS6ihfRYZ3F8Vn1PCoizFNLhZuqpeoT/pMY9b3nLg+7YQb9SyuuUzWCRd8mbVFnu0sF4rLXhTMXRUPKs/s7mHInEnkAdlFtVmXNIU5MrB4b6sdzyWmhiGYNJq3fAoucME9FKUAv3fJTN50PFgJVfn1qXaprJdxb6P47Og1EkUY6dqdDo4IZhLE5XTq6uevpupG7ibj8lWPGc+iFfVj4pySVXROibWY5bXPlxSnWBzSDo3IREt6njdelupDcdQyUrxM08bhicGsynAEsRa8oxPZnWAY4RvKS5UeVmuUwA0UsOqsFrB82VHik3R4o9SY1gHNMFCu7o3iVQ3BWDVDdPgCVnn4HIj0lkQPH07axWJYSKGtYWb2g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(23010399003)(1800799024)(36860700016)(13003099007)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: E90RjGOWGTdu51SpYVSUiDR7+n//8ECzFtzVwFd+CJwxxG1fDMoViCFh62Q/9QEFAtV9OnaN/pOzNpOwE4n259wmxvSEIuTlO4GsCwciwyljPb2rwujqtnEALbIaMy1bV1UpQAniead6kIKmY7/9WoeT+aZa4xR5ZjQDL6t5n6huX50bzYINwTk+IgCTL2eKEdprhlpc3mjvX2g1dCDcnkPI+86J9oaDPCEU+O0zPtAwYzRDmGKr2ptJR0pIoetyHmkV9Bkpm5uNlNwgjntm4Ulkq3MuUv6j9tLCSmLJcL/prGcJPBg+UdE+mg5yEPwP5sPYvOAAcUfMfkf1auhQClhj5ve5ZqhpkNm0k5VRZTzoTVCjmgiGpj52HkHV1LdWiyYvqhxn+5KBeneALGB0/Jx+75nNTXyRwWusj50C9UJMMeZuR6AVYQt1OsDpgygV
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 18:37:49.7054 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ef22378-e1e1-4bd4-e463-08def4b2fbb4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB76.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6547
+References: <CAHk-=whiv=b+dAvjaZDsZkfUEzjZMSSLExDOWVcbJ0exsCj6_Q@mail.gmail.com>
+ <6874536d-ab1a-4dd7-a23f-2a071bda145e@lankhorst.se>
+ <CAHk-=wj5aE1yVMb8RM2AuNUHSMnQDaGT+Vy+At5ds1vxBA+Kng@mail.gmail.com>
+ <ahDAErDSE-SFA0oM@intel.com>
+ <CAHk-=whX59mtUnU2ayMWoDQX6Ee2NXLK2NxQ+dZnb-Qc_mF1hw@mail.gmail.com>
+ <af9278d3-4002-4e09-9bcf-bc75d1cf8145@lankhorst.se>
+ <CAADWXX-pfvA3mKWSjdahnihAXHQB2VP9BOJDCXonG3Q_nxurLg@mail.gmail.com>
+ <anYZ8nUFP5dnRy/h@gsse-cloud1.jf.intel.com>
+In-Reply-To: <anYZ8nUFP5dnRy/h@gsse-cloud1.jf.intel.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Fri, 7 Aug 2026 11:44:10 -0700
+X-Gmail-Original-Message-ID: <CAHk-=whjNj9WNGgGKRC-nqh9_yHxHTEtV2Hpa_+4gJ=e+Exdxw@mail.gmail.com>
+X-Gm-Features: AUfX_mylGnts_HhKz5OUdr1TkChd8YF5gFEyzSFicxqa-mKJ_sbIgq9Z5CWxI_0
+Message-ID: <CAHk-=whjNj9WNGgGKRC-nqh9_yHxHTEtV2Hpa_+4gJ=e+Exdxw@mail.gmail.com>
+Subject: Re: drm: xe: Kernel-submitted job timed out
+To: Matthew Brost <matthew.brost@intel.com>
+Cc: Maarten Lankhorst <dev@lankhorst.se>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ intel-xe@lists.freedesktop.org, 
+ dri-devel <dri-devel@lists.freedesktop.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,102 +108,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Make the following changes to CHANGE_HANDLE
-- Changing a non-existent handle to itself is ENOENT
-- idr_preload before idr_alloc
-- reject new_handle = 0 with EINVAL
+On Fri, 7 Aug 2026 at 10:46, Matthew Brost <matthew.brost@intel.com> wrote:
+>
+> I think we may have found one. I haven't been able to reproduce any
+> kernel job timeouts on drm-tip with this patch applied [1].
+>
+> If you're still seeing the issue on your end, it's probably worth
+> pulling it in.
 
-This patch will not be merged until the relevant igt-tests
-(https://gitlab.freedesktop.org/fdavid-amd/igt-gpu-tools)
-are reviewed, merged, and run to the satisfaction of everyone
-involved.
+Just checked: I haven't seen any "job timeout" cases since May 26, so
+it really seems to be a very rare occurrence for me.
 
-cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-cc: Christian Koenig <christian.koenig@amd.com>
-cc: Simona Vetter <simona.vetter@ffwll.ch>
-Signed-off-by: David Francis <David.Francis@amd.com>
----
- drivers/gpu/drm/drm_gem.c   | 29 +++++++++++++----------------
- drivers/gpu/drm/drm_ioctl.c |  3 +--
- 2 files changed, 14 insertions(+), 18 deletions(-)
+It might have been that something else changed too, of course - some
+user program behavior change could have simply made the trigger go
+away. Not that I know what such a trigger might have been.
 
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index e3ed684ddcf2..9a9b91256b8a 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -1015,19 +1015,6 @@ drm_gem_open_ioctl(struct drm_device *dev, void *data,
- 	return ret;
- }
- 
--/*
-- * This ioctl is disabled for security reasons but also it failed
-- * to follow process in terms of adding testing in igt and verifying
-- * all the corner cases which made fixing security bugs in it even
-- * harder than necessary.
-- *
-- * To re-enable this ioctl
-- * 1. land working IGT tests in igt-gpu-tools that cover
-- *    all corner cases and race conditions.
-- * 2. handle idr_preload
-- * 3. handle == 0
-- * 4. handle == new_handle semantics definition.
-- */
- int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 				struct drm_file *file_priv)
- {
-@@ -1039,14 +1026,22 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 		return -EOPNOTSUPP;
- 
- 	/* idr_alloc() limitation. */
--	if (args->new_handle > INT_MAX)
-+	if (args->new_handle == 0 || args->new_handle > INT_MAX)
- 		return -EINVAL;
- 	new_handle = args->new_handle;
- 
--	if (args->handle == new_handle)
--		return 0;
-+	if (args->handle == new_handle) {
-+		spin_lock(&file_priv->table_lock);
-+		if (idr_find(&file_priv->object_idr, args->handle))
-+			ret = 0;
-+		else
-+			ret = -ENOENT;
-+		spin_unlock(&file_priv->table_lock);
-+		return ret;
-+	}
- 
- 	mutex_lock(&file_priv->prime.lock);
-+	idr_preload(GFP_KERNEL);
- 	spin_lock(&file_priv->table_lock);
- 	ret = idr_alloc(&file_priv->object_idr, NULL, new_handle, new_handle + 1,
- 			GFP_NOWAIT);
-@@ -1060,10 +1055,12 @@ int drm_gem_change_handle_ioctl(struct drm_device *dev, void *data,
- 	if (IS_ERR_OR_NULL(obj)) {
- 		idr_remove(&file_priv->object_idr, new_handle);
- 		spin_unlock(&file_priv->table_lock);
-+		idr_preload_end();
- 		ret = -ENOENT;
- 		goto out_unlock;
- 	}
- 	spin_unlock(&file_priv->table_lock);
-+	idr_preload_end();
- 
- 	if (obj->dma_buf) {
- 		ret = drm_prime_add_buf_handle(&file_priv->prime, obj->dma_buf,
-diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index e2df4becce62..ff193155129e 100644
---- a/drivers/gpu/drm/drm_ioctl.c
-+++ b/drivers/gpu/drm/drm_ioctl.c
-@@ -660,8 +660,7 @@ static const struct drm_ioctl_desc drm_ioctls[] = {
- 	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CLOSE, drm_gem_close_ioctl, DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF(DRM_IOCTL_GEM_FLINK, drm_gem_flink_ioctl, DRM_AUTH),
- 	DRM_IOCTL_DEF(DRM_IOCTL_GEM_OPEN, drm_gem_open_ioctl, DRM_AUTH),
--	/* see drm_gem.c:drm_gem_change_handle_ioctl for why this is invalid */
--	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_invalid_op, DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF(DRM_IOCTL_GEM_CHANGE_HANDLE, drm_gem_change_handle_ioctl, DRM_RENDER_ALLOW),
- 
- 	DRM_IOCTL_DEF(DRM_IOCTL_MODE_GETRESOURCES, drm_mode_getresources, 0),
- 
--- 
-2.34.1
+Looking at the logs around the last two cases, one was just after a
+dnf update - maybe triggered by some restart swarm issue. The other
+was fairly soon after kicad had a core dump. The kicad core dump may
+have been a symptom of something going wrong, or the cause.
 
+I dunno. Nothing looks obvious, but clearly this is not biting me very
+often. Months in between events.
+
+               Linus
