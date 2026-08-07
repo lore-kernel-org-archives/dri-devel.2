@@ -4,48 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8582FC2A09B
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:51:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD0EDC5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:54:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8317810E445;
-	Fri,  7 Aug 2026 15:51:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A14CD10F53E;
+	Fri,  7 Aug 2026 15:54:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aYLkVVQ7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RFetetgo";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7616710E445
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:51:41 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1FCE410F53E
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:54:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 287CF4004A;
- Fri,  7 Aug 2026 15:51:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D80871F000E9;
- Fri,  7 Aug 2026 15:51:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6BA4742000;
+ Fri,  7 Aug 2026 15:54:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E8D1F000E9;
+ Fri,  7 Aug 2026 15:54:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786117901;
- bh=gIpqIEJ1hpxZU+jdGL2zT4kDorAYvLQD53HhekKbuRk=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=aYLkVVQ7c0l2WVoIIpbvPYPvfyKYPZRBAn185d7bbCQc6iaeaEep5onjdOqi8tPvl
- xSrATgH2XtMDnM5t2uasfEsrv0pOSnsQaCvo28W1bsjNLr47BLOPDB1C8jJ+JAzHIa
- Xb4cQObD0owIsW1Ewqp7lpSTIdI4NBWaoasK0AJEtgZOTUUlRDR14D3y33AMXjwx+V
- Q2S82vr+8GfZTXPTxbKiRw+KTWjjzt0IPdfJvSbwxtrUSu71dsXqETLnTj1cjGnUqc
- X/lLf6b5AFd4GODQCS/pJDF+RRyN7sSig8+zHrdLcw9Ml/XC59OlNWMci9E4IXEkTN
- 2qbZR2d1zwhwA==
-Date: Fri, 7 Aug 2026 10:51:40 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
- conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp: Fix
- sound DAI cells
-Message-ID: <20260807155140.GA882294-robh@kernel.org>
-References: <20260806-synopsys-dw-dp-improvements-v11-0-0d508505f383@collabora.com>
- <20260806-synopsys-dw-dp-improvements-v11-20-0d508505f383@collabora.com>
- <20260806174000.668AB1F000E9@smtp.kernel.org>
+ s=k20260515; t=1786118090;
+ bh=xDlurFDxUaKm0+DeKwG11I5Asqll1HaQOs3bWTM7T2A=;
+ h=From:Subject:Date:To:Cc;
+ b=RFetetgo7jgxk2hRoVBNP2thvqE1EPEabTG4g4lH092YzQbD/Odq965rNejDzleVE
+ J3ckOBjT8nkXZ3wNy9Nx4RPTK6m+askAC7z4QSWoQpfG4MxebffJpKPmv69UDX+6OL
+ iEVDLsrFQqAMjC3zb8GatM7NAYAeBLlhnRtZ8Mcce5gdM7SrXJqHkgyYk7Or7MAkVf
+ 1v73+4+H/NMIykEPIocARawL6LBt2xLJEDW2wFY+w7Ljr85NJJJx0OjEEz4tm8uqs7
+ VRYlNv+S0gcff4TM8qKclQrd/ETGd8YPtZJh6hMl1H2rsh9+vs6QAXsneltbsqhXC2
+ 1o0k2EvBe+C8g==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH v4 00/10] dma-buf: heaps: Add support for Tegra VPR
+Date: Fri, 07 Aug 2026 17:54:20 +0200
+Message-Id: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260806174000.668AB1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WPwWrDMBBEfyXoXImVLNtyTvmP0oMtb+RtEzmsX
+ NEQ/O+1YkoLPQ7Me8M8REImTOJ4eAjGTInmuAX7chB+6mNASeOWhQHTQA2tXDBwL/ONpR/t4E0
+ NnbdebP0b45m+nq7Xtz2nz+Ed/VIEpTFRWma+P8eyLr3i3QxgdG2bCpSFynTOSi2XiZD5rhhHi
+ uEUrj1dlJ+voqiz+YEb0MboRgN0qnJN7Zz7D38gR7yomcNOV790C/rPpVxJkKODczu4Vg+DPcV
+ MI/X78Lqu36G64F8wAQAA
+X-Change-ID: 20260507-tegra-vpr-cd4bc2509c4c
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Chun Ng <chunn@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
+ linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4495; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=cNpFkM+ZcxbrYyXoZiVbDg/M+vrbqp/SW9+T2kNjvg8=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqdf/COeJXZyRFVSTKd7+3r7oFtNF7xrGETRn4j
+ DEXKT18h/KJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCanX/wgAKCRDdI6zXfz6z
+ oX86EACf3u52ZHWbNE0gzPHk1VCKvHipIKLbzawEbY/eyFL+F3hj0f1oRk5u22tUVgR+XqqdgdU
+ gwYJjdIxng+xk3RWveQ2oBaMIzwMJwiykwHMNXFjTMWO7RYuWiz8hLNjGRNX/h6RZRGUa7rSqpc
+ ODAcuSqcvfgjqo//n+HcYlrTTme0RgMivbMPVwq/G7KLmDX/7m9mryCILkoR90jXSg0Ha1q8HLM
+ DxVa1dmvxpWECDYJU/uizu1XpnO9zKnxwMgHpyNwRTaajqkRB0AOGV1CbZ9mYSFbu1bp5IKwk7e
+ SwqEJxq9caikk5y6VUtj3udpbhhJkLqmgyQ1iRROgJ4Jdb0YGfmaMfcI7gpMADo9riMISSZ7BPb
+ KBLw3THjD8cjbJl9FeEgiiSWvZce1TCAZEfduXqjJNI9lLl1gpIz2Zz7JyN9gcDPYyjetrj3bFP
+ gOOJKTnB7mY4la1dVjl1x5RLq36hdfJhFvabG6qYclCsmQFgU17Oh/nbgiQtV/5S1wQgX5h4KJa
+ TiAbSxXHoiN+eL+PJL+Rx5bz5TEcblTUMPK+ub7afb3I9XHkM65Yaj/dE8ZVfmeviLNuhQktuAf
+ WXcrW3LRRxZH1TZWTSGjJwaUEcgrGaBx3zUoiECwB7n/9GpOfYfGp4P0FwZ4bqQ9EiWbyjmX1dC
+ fksdo8Ciavc0KLw==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,49 +113,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 06, 2026 at 05:39:59PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Device Tree schema validation breakage for existing `rockchip,rk3588-dp` configurations.
-> --
-> 
-> --- Patch [20]: [PATCH v11 20/21] dt-bindings: display: rockchip: dw-dp: Fix sound DAI cells ---
-> commit 2c15bbfcf4dec184872abdf4c2e06063a52d1e2f
-> Author: Sebastian Reichel <sebastian.reichel@collabora.com>
-> 
-> dt-bindings: display: rockchip: dw-dp: Fix sound DAI cells
-> 
-> The RK3588 and RK3576 DesignWare DisplayPort controllers both have two
-> possible DAI interfaces: I2S and S/PDIF. Thus an argument is needed to
-> to select the right interface.
-> 
-> > diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-> > index 2b0d9e23e9432..c4f8959dd65da 100644
-> > --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-> > +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,dw-dp.yaml
-> [ ... ]
-> > @@ -83,7 +83,8 @@ properties:
-> >      maxItems: 1
-> >  
-> >    "#sound-dai-cells":
-> > -    const: 0
-> > +    const: 1
-> > +    description: 0 for I2S, 1 for S/PDIF
-> 
-> [Severity: Medium]
-> Will this strict constraint update cause make dtbs_check validation to
-> fail for existing in-tree device trees?
-> 
-> The mainline arch/arm64/boot/dts/rockchip/rk3588-base.dtsi still defines
-> #sound-dai-cells = <0>; for DP nodes.
-> 
-> While the commit message notes this breakage is intentional and will be
-> fixed up separately, could changing the schema without the accompanying
-> DTS updates cause automated CI validation failures and break bisectability?
+This series adds support for the video protection region (VPR) used on
+Tegra SoC devices. It's a special region of memory that is protected
+from accesses by the CPU and used to store DRM protected content (both
+decrypted stream data as well as decoded video frames).
 
-Yes, and I don't love the intermittent warnings introduced. As long as 
-the warnings are on a downward trajectory, I won't notice...
+Patches 1 through 3 add DT binding documentation for the VPR and add the
+VPR to the list of memory-region items for display, host1x and NVDEC.
 
-Not saying you have to do something here, but this will get more 
-strict...
+Patch 4 adds bitmap_allocate(), which is like bitmap_allocate_region()
+but works on sizes that are not a power of two.
 
-Rob
+Patch 5 introduces new APIs needed by the Tegra VPR implementation that
+allow CMA areas to be dynamically created at runtime rather than using
+the fixed, system-wide list. This is used in this driver specifically
+because it can use an arbitrary number of these areas (though they are
+currently limited to 4).
+
+Patch 6 adds some infrastructure for DMA heap implementations to provide
+information through debugfs.
+
+The Tegra VPR implementation is added in patch 7. See its commit message
+for more details about the specifics of this implementation.
+
+Finally, patches 8-10 add the VPR placeholder node on Tegra234 and
+Tegra264 and hook it up to the host1x node so that it can make use of
+this region.
+
+Changes in v4:
+- Link to v3: https://patch.msgid.link/20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com
+- fully remove from linear map while chunks are active
+- address checkpatch.pl and Sashiko comments
+- improve error handling
+- remove freezer support
+
+Changes in v3:
+- Link to v2: https://patch.msgid.link/20260122161009.3865888-1-thierry.reding@kernel.org
+- introduce set_memory_device() and set_memory_normal()
+- rename VPR nodes to "protected"
+- add Tegra264 placeholder nodes
+
+Changes in v2:
+- Link to v1: https://patch.msgid.link/20250902154630.4032984-1-thierry.reding@gmail.com
+- Tegra VPR implementation is now more optimized to reduce the number of
+  (very slow) resize operations, and allows cross-chunk allocations
+- dynamic CMA areas are now trackd separately from static ones, but the
+  global number of CMA pages accounts for all areas
+
+Thierry
+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+Thierry Reding (10):
+      dt-bindings: reserved-memory: Document Tegra VPR
+      dt-bindings: display: tegra: Document memory regions
+      dt-bindings: gpu: host1x: Document memory-regions for NVDEC
+      bitmap: Add bitmap_allocate() function
+      mm/cma: Allow dynamically creating CMA areas
+      dma-buf: heaps: Add debugfs support
+      dma-buf: heaps: Add support for Tegra VPR
+      arm64: tegra: Add VPR placeholder node on Tegra234
+      arm64: tegra: Hook up VPR to host1x
+      arm64: tegra: Add VPR placeholder node on Tegra264
+
+ .../display/tegra/nvidia,tegra124-vic.yaml         |    8 +
+ .../bindings/display/tegra/nvidia,tegra186-dc.yaml |   10 +
+ .../bindings/display/tegra/nvidia,tegra20-dc.yaml  |   10 +-
+ .../display/tegra/nvidia,tegra20-host1x.yaml       |    7 +
+ .../bindings/gpu/host1x/nvidia,tegra234-nvdec.yaml |    8 +
+ .../nvidia,tegra-video-protection-region.yaml      |   75 ++
+ arch/arm/mm/dma-mapping.c                          |    2 +-
+ arch/arm64/boot/dts/nvidia/tegra234.dtsi           |   45 +
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi           |   33 +
+ arch/s390/mm/init.c                                |    2 +-
+ drivers/dma-buf/dma-heap.c                         |   56 +
+ drivers/dma-buf/heaps/Kconfig                      |   12 +
+ drivers/dma-buf/heaps/Makefile                     |    1 +
+ drivers/dma-buf/heaps/tegra-vpr.c                  | 1368 ++++++++++++++++++++
+ include/linux/bitmap.h                             |   25 +-
+ include/linux/cma.h                                |    8 +-
+ include/linux/dma-heap.h                           |    2 +
+ include/trace/events/tegra_vpr.h                   |   57 +
+ kernel/dma/contiguous.c                            |    2 +-
+ mm/cma.c                                           |  221 +++-
+ mm/cma.h                                           |    5 +-
+ mm/cma_debug.c                                     |    6 +-
+ mm/cma_sysfs.c                                     |    6 +-
+ mm/mm_init.c                                       |    4 +-
+ 24 files changed, 1912 insertions(+), 61 deletions(-)
+---
+base-commit: a6cebf4799ccfd3ea08e45abe5360414fd3822e1
+change-id: 20260507-tegra-vpr-cd4bc2509c4c
+
+Best regards,
+--  
+Thierry Reding <treding@nvidia.com>
+
