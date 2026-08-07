@@ -4,80 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47897C2A09B
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 13:08:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EE5F2C2A09B
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 13:33:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78CE210F4BC;
-	Fri,  7 Aug 2026 13:08:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7B3810E411;
+	Fri,  7 Aug 2026 13:33:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="svOgui+b";
+	dkim=pass (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="b0KVAaI/";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DE2F10F4BC
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 13:08:32 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-47fe89fb333so2074599f8f.3
- for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 06:08:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786108110; x=1786712910; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=XjfEMCqkZ88kBIhDMMBN1abXLKDzKlzUH+bF7MfZKwc=;
- b=svOgui+byGomaSPO13yDCMVLMdesAKhqJmqhTlbn761BQtN3yJxh/GqGy+Z30Gbvtc
- 0Yu9Wb8g2bHBrN4oYpdH4X1eJTYmMqzQQYtX3SZqcM987wRxnBNOX2aNosrAxtbcUpcG
- Mk/iZbv0Y4WAi9wowALLQmKtV4DB9p2dpKlSnzJb0tPDHBua68owBAWeAzAoG1bfRjsV
- dARXOVS0Wt3pmGrwAOlq4032kTtUvOgv3QKsz8H/RvcUxhEAr07v2EqTwhoB/Roa2c2d
- XY7xkEstFlfg0istfhk56tAAnP7OcpvubIdOFPHG7CWT7VCUHoJTFUDT4X//Ye5WExKI
- LfTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786108110; x=1786712910;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=XjfEMCqkZ88kBIhDMMBN1abXLKDzKlzUH+bF7MfZKwc=;
- b=rx/OOSa3mmxcBmXeBZgZpdAtHDT5lZGPA6fx5BIh1Hl7B73B4kgK9HxDDBtrWe5TOp
- rye+bQsoF5NNrFo+ju0WmEf6+yA6qtPVeFWGc1vJY/pUO/EmaugbwryDi7GiEha/FEmk
- 2BOE9ezeLELB2bcyNIz3w8PqCyzudYwSACRZVMD7w+wGD8QknU/75PFvOSRc3OsHkoNw
- zobyWe+ZwmjYWfAQhCYDNrYvHB0fHZVeCUB3YKVL/W8yB95LLmv2Ao2xy27fGVECcN/7
- Ohbe3ObBkqzaCJjY56ErkZXylv9Uuk8vhi/T2ha68sqnRBNylpIMR2ve5vPY5ofoUFJ+
- qkkw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoCGjSVLG5/b/Zk5VM/R9J+NoWF1L13IHJLbLTVXSLflgOhGdsxiYPM/2SMAGBKt4ufll28PuDZj/s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwnNhZxdXVjLbPVOQw2v3WPrdn2/nBTFMryIVDlp4L8JNRJnaz3
- 4tvrXLBBdFsOWawRzq0qQohSoIpTyTUEpR0trq348fq5zlxGzXBk5QFy
-X-Gm-Gg: AR+sD11otwmUkHIB7gx8Ll2ruMPpoQ5MmGUDl+3E0D1QfnwiWTbXdu8SuyByEZZDeZQ
- tUJEMWpSPzRd57X3lmcqJGiunYorrgu0bvSttHbTAXuhmbzOTawEs968Mo8Q/NO2cLsmIUYD9YD
- 23k4c8xCUDdK+JdPK1Ni45r05g1lgAjXKEdJ7z4WuPEFZnb+8PsKrsmeAx7Ul+jdxG1InyJS6HD
- lKIm3VE9e8w6PZag6WAu5BxecMEyIJTy1RgzOVx/GYEoZ9KVwg3/kP11jLHqU1OEIRH5r1hoRdz
- yuZo4W67ftgm86xXHa4vuiZA2MfnfXO9t7MMdks02T5qXctp+KfmfDEg7oER401/uVkn39odKlO
- MnQSt7JZouUsx9xiS8ytEnpfvCl5se8qrSZKNzoRKw7MYfWJnQ9ZM/Oa+uAt9scYBVSQqaBstPN
- zjpGA1inLnY4wvWahxmsD9nNm862ItwrbL8IFKdsysd6BLg17C1cY86kJM
-X-Received: by 2002:a5d:50c2:0:b0:47f:8e50:9411 with SMTP id
- ffacd0b85a97d-47fec52acc2mr26764789f8f.20.1786108110319; 
- Fri, 07 Aug 2026 06:08:30 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-480021501bcsm5754365f8f.9.2026.08.07.06.08.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Aug 2026 06:08:29 -0700 (PDT)
-Date: Fri, 7 Aug 2026 16:08:26 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Nam Cao <namcao@linutronix.de>
-Cc: sh_def@163.com, andy@kernel.org, gregkh@linuxfoundation.org,
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
- thomas.petazzoni@free-electrons.com, notro@tronnes.org
-Subject: Re: [PATCH] staging: fbtft: make dirty_lock IRQ-safe
-Message-ID: <anXYynas7E3oarx2@stanley.mountain>
-References: <20260804173712.176017-1-sh_def@163.com>
- <87pkzu852x.fsf@yellow.woof>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87pkzu852x.fsf@yellow.woof>
+Received: from out-188.mta1.migadu.com (out-188.mta1.migadu.com
+ [95.215.58.188])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6405610E411
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 13:33:07 +0000 (UTC)
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+ s=key1; t=1786109585;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=+n8Po8atSSkMnPysk0cqVTEi9Ye8QqiCHIVEioALzPE=;
+ b=b0KVAaI/pv6kp+yfCYn3YYDHWnfZnrLzbBjAc7J0fWB0yU+BGkTD9gBklUKIRPlMGP1UmG
+ iLV/byVAOt2RGu/78okKn+Az+NsAw7d7PZ7PV0xXRPvUgVxPrP2UgTk3Hity2+EvLn60vm
+ K0hzqZEhHP5VaM8bovkIcDxp9lzroZkGHqTMJELbohLhTgjRxCSMl9z5B4HOfgB9YpYaLj
+ LCpObAZHLExhCQeQjcEY9p8H0ulFZYXNCMiLqq9St4/9sjBimMDJsQX18r+07sNxx3WocS
+ vYQBU3HJBxewZHW5DWg7X+V0cIlkORa87DI+z8yBQVn/isxzM6bX5N8Kg4WK4w==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 07 Aug 2026 15:32:52 +0200
+Message-Id: <DKIR028TZNJ3.3BGQJYSWX2BMN@cknow-tech.com>
+Cc: <royalnet026@gmail.com>, <alchark@flipper.net>,
+ <chaoyi.chen@rock-chips.com>, <dri-devel@lists.freedesktop.org>,
+ <linux-rockchip@lists.infradead.org>, <iommu@lists.linux.dev>,
+ <linux-pm@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [RFC PATCH v6 7/9] accel/rocket: add RK3576 NPU (RKNN) support
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Robin Murphy" <robin.murphy@arm.com>, "Diederik de Haas"
+ <diederik@cknow-tech.com>, "Jiaxing Hu" <gahing@gahingwoo.com>,
+ <tomeu@tomeuvizoso.net>, <heiko@sntech.de>, <robh@kernel.org>,
+ <krzk+dt@kernel.org>, <conor+dt@kernel.org>, <joro@8bytes.org>,
+ <will@kernel.org>, <ulfh@kernel.org>, <p.zabel@pengutronix.de>,
+ <ogabbay@kernel.org>, <zhangqing@rock-chips.com>
+References: <20260806063413.350184-1-gahing@gahingwoo.com>
+ <20260806063413.350184-8-gahing@gahingwoo.com>
+ <DKIKXY8XZVPF.3RFR4ISK6Y4QX@cknow-tech.com>
+ <fb94bd28-fdbf-4f99-a6ff-b5ab18c64345@arm.com>
+In-Reply-To: <fb94bd28-fdbf-4f99-a6ff-b5ab18c64345@arm.com>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,37 +69,64 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 07, 2026 at 02:53:26PM +0200, Nam Cao wrote:
-> sh_def@163.com writes:
-> > diff --git a/drivers/staging/fbtft/fbtft-core.c b/drivers/staging/fbtft/fbtft-core.c
-> > index ca0c38221c16..193643d0329d 100644
-> > --- a/drivers/staging/fbtft/fbtft-core.c
-> > +++ b/drivers/staging/fbtft/fbtft-core.c
-> > @@ -298,14 +298,20 @@ static void fbtft_mkdirty(struct fb_info *info, int y, int height)
-> >  {
-> >  	struct fbtft_par *par = info->par;
-> >  	struct fb_deferred_io *fbdefio = info->fbdefio;
-> > +	unsigned long flags;
-> >  
-> >  	/* Mark display lines/area as dirty */
-> > -	spin_lock(&par->dirty_lock);
-> > +	/*
-> > +	 * fbcon takes dirty_lock while holding console_owner. Disable local
-> > +	 * interrupts here so a printk hardirq cannot acquire console_owner
-> > +	 * while dirty_lock is held and create the inverse lock ordering.
-> > +	 */
-> 
-> Beside that reason, we also need spin_lock_irqsave() because
-> fbtft_mkdirty() can be called in both task context and hardirq
-> context. And this reason alone suffices and usually is why
-> spin_lock_irqsave() is used, so I think a comment is not necessary.
-> 
-> But I am fine with it either way.
+On Fri Aug 7, 2026 at 2:55 PM CEST, Robin Murphy wrote:
+> On 07/08/2026 9:48 am, Diederik de Haas wrote:
+>> On Thu Aug 6, 2026 at 8:34 AM CEST, Jiaxing Hu wrote:
+>>> The RK3576 has two cores of the same RKNN block and a few platform
+>>> differences:
+>>>
+>>>   - the CBUF (convolution buffer) has its own clock domain, so the core
+>>>     needs six clocks rather than four;
+>>>   - the BIU reset moved into the power domain, leaving one reset here;
+>>>   - the NPU spans two power domains, and a device with more than one is
+>>>     skipped by the driver-core single-domain auto-attach, so the list h=
+as
+>>>     to be attached explicitly;
+>>>   - the DPU completion interrupt is armed exactly as on RK3588 but neve=
+r
+>>>     reaches the GIC. The completion is visible in INTERRUPT_RAW_STATUS,
+>>=20
+>> I don't know if it's relevant, so just a data point:
+>> - RK3588 has Cortex A-76 + A-55, which have an External GICv4
+>> - RK3576 has Cortex A-72 + A-53, which have an External GICv3
+>
+> Nope, RK3588 has GIC-600, which is very much v3 still. I guess RK3576=20
+> probably has GIC-500 like RK3399 given the CPUs, but that shouldn't make=
+=20
+> any meaningful difference here.
 
-AI always adds comments.  If we keep alowing obvious comments, the kernel
-will turn into reading the Terms and Conditions which are impossible to
-read in a single human life time.
+Unsurprisingly, you're (almost) correct :)
+I looked at this document when I wrote that:
+https://www.arm.com/-/media/Arm%20Developer%20Community/PDF/Cortex-A%20R%20=
+M%20datasheets/Arm%20Cortex-A%20Comparison%20Table_v4.pdf
 
-regards,
-dan carpenter
+But the RK3588 TRM Part 1 Chapter 11 'GIC600' says:
+"The GIC600 supports the GICv3 architecture ..."
+"The version of GIC600 is r1p6-00rel0."
 
+The RK3576 TRM Part 1 Chapter 13 'Generic Interrupt Controller (GIC)' says:
+"There is a generic interrupt controller (GIC400) in RK3576 which generates
+physical interrupts to Cortex-A53/Cortex-A72."
+
+And RK3399 TRM Part 1 Chapter 11 'Generic Interrupt Controller (GIC)' says:
+"The GIC-500 in RK3399 provides registers for managing interrupt sources,
+interrupt behavior, and interrupt routing to one or more cores."
+
+Cheers,
+  Diederik
+
+> If the interrupt never fires at all then possibly the signal depends on=
+=20
+> some additional clock or power domain in order to propagate, or it's=20
+> just described incorrectly; or if other interrupt sources within the=20
+> NPU/IOMMU do still work then maybe there's some additional masking=20
+> control that's been overlooked, or perhaps it it just terminally broken.
+>
+> (And FWIW I'm also inclined to agree with the other comments that=20
+> refactoring existing code to make room for new stuff, then actually=20
+> adding the new stuff, should probably be two separate steps if it's not=
+=20
+> completely trivial)
+>
+> Thanks,
+> Robin.
