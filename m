@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B28EFC5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 11:57:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C02DC5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 11:58:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 717AF10F497;
-	Fri,  7 Aug 2026 11:57:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 994EA10F49C;
+	Fri,  7 Aug 2026 11:58:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="q7ma/2wY";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U5mOQ1Sq";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 030BA10F48F;
- Fri,  7 Aug 2026 11:57:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=VyzaDBTNvUR9/B1sqINXHvb+oFPBhizMhgR5f230gNQ=; b=
- q7ma/2wYEIFq5GfvNK337yny/O3GThxl3rndF9lTVEePh5UyliT/zojX/5DLQP5aMBPfDpjRNCaSh
- p6kOy/oWdrR8kk8rOo5krkKYQ4KgmdUEKs7fko78SbJBd+LdlIg//qp/utfH8t5UO+HpUSdGAT/MI
- hIWmABdHfuWRueLEHjOrGMobh6XBAM2ffOeVcyJyNrvN2+c5BgIjb1KuMArSX0/i0A1YS0s7TA1a/
- h9aVoRPCZY01eUR6K30MoS22ZcIWuz5LSyjF6mQsLbXNfYNOql4Ldgc7Ve5q2ddKTehAy7bvfc7dL
- QJizZZW7c6QoN9WAIJkTPexeas4/+MDnvQ==;
-Received: from 84.125.127.96.dyn.user.ono.com ([84.125.127.96]
- helo=killbill.home) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wsJCT-00FPeE-UV; Fri, 07 Aug 2026 13:57:22 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: Dave Airlie <airlied@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com,
- siqueira@igalia.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch
-Cc: kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: use plane color_mgmt_changed to track
- colorop changes
-Date: Fri,  7 Aug 2026 13:56:21 +0200
-Message-ID: <20260807115712.22423-1-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D73910F498
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 11:57:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BFD694078B;
+ Fri,  7 Aug 2026 11:57:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82ED71F000E9;
+ Fri,  7 Aug 2026 11:57:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786103878;
+ bh=X9r0dQDrMEO78kHDH9Wl5wD7ZyinhdJttvcVaI8JSIU=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=U5mOQ1SqY/R+lmzWulZFWbdbzgFTseVn5hTyrGPpDPJo0JwOWfeZqjC89cK1+O8vT
+ fqybRHnc3xfiaRiRaepjsP0LYcJYDzopDr9OyJLnBnhC9JNPYReelRpdyUb2jz1LDp
+ H1jJsHM6JQyiywBFJxLdWSjLD1/h86oReBkS1kTGzFz3ZilR5BDsdL/pqDpY0sFcnF
+ 1iWlUYX/cLf3CuPzkUc+Q+FOVQcC0qoFWD7aThvPkqA8bXlUHmFF/h1zjOMuq3IeFA
+ Jg0sW4g3ydRxTnFv5bzdaBwSgS6Z2CVKUbOxaAwOLKuCTHXJ44SuToIOJWD73Duluf
+ 0E9esAdonIwgA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2] drm/verisilicon: Switch to drm_fb_dma_get_addr()
+ for framebuffer addresses
+To: "Chen-Yu Tsai" <wenst@chromium.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260807114654.1373305-1-wenst@chromium.org>
+References: <20260807114654.1373305-1-wenst@chromium.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 07 Aug 2026 11:57:58 +0000
+Message-Id: <20260807115758.82ED71F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,70 +53,135 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This is a resubmission of d79716401a95 ("drm/amd/display: use plane
-color_mgmt_changed to track colorop changes") whose change was reverted
-by 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of
-https://gitlab.freedesktop.org/agd5f/linux into drm-next") during a
-merge conflict resolution.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Original commit message:
+New issues:
+- [Medium] Removing software clipping for the cursor plane exposes a preexi=
+sting register programming bug, completely breaking cursor clipping.
+- [Low] Dangling prototype for `vs_fb_get_dma_addr()`.
 
-```
-Ensure the driver tracks changes in any colorop property of a plane
-color pipeline by using the same mechanism of CRTC color management and
-update plane color blocks when any colorop property changes. It fixes an
-issue observed on gamescope settings for night mode which is done via
-shaper/3D-LUT updates.
-```
+Pre-existing issues:
+- [High] NULL pointer dereference in plane atomic_disable functions when a =
+plane is newly assigned but invisible.
+- [High] `vs_primary_plane_atomic_disable` incorrectly enables the plane in=
+stead of disabling it.
+--
 
-Fixes: 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of https://gitlab.freedesktop.org/agd5f/linux into drm-next")
-Signed-off-by: Melissa Wen <mwen@igalia.com>
+--- Patch [1]: [PATCH RFC v2] drm/verisilicon: Switch to drm_fb_dma_get_add=
+r() for framebuffer addresses ---
+commit d8f5b888e2f48aaf1e83d6bb5aee579fe194f0ab
+Author: Chen-Yu Tsai <wenst@chromium.org>
 
----
+drm/verisilicon: Switch to drm_fb_dma_get_addr() for framebuffer addresses
 
-Hey,
+The verisilicon driver has a custom framebuffer address calculating
+helper that the common drm_fb_dma_get_addr() can substitute.
 
-I noticed this problem in the resolution of a merge conflict after
-testing drm-misc-next on SteamDeck with KMS colorop API support and
-verifying the issue of missing updates in nightlight-mode was back.
+> diff --git a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c b/drivers/gpu/=
+drm/verisilicon/vs_cursor_plane.c
+> index fa4f601dd0c87..59778433ae843 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_cursor_plane.c
 
-Let me know what are the right steps to address it.
+[ ... ]
 
-Thanks,
+> @@ -176,7 +177,8 @@ static void vs_cursor_plane_atomic_update(struct drm_=
+plane *plane,
+>  		break;
+>  	}
+> =20
+> -	dma_addr =3D vs_fb_get_dma_addr(fb, &state->src);
+> +	/* hardware handles clipping as seen below */
+> +	dma_addr =3D drm_fb_dma_get_gem_addr(fb, state, 0);
 
-Melissa
+[Severity: Medium]
+Since we are removing the software clipping workaround, does the hardware
+clipping actually work correctly here?
 
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Looking further down in vs_cursor_plane_atomic_update(), the hardware
+offsets are programmed without using the shift macros:
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 67b825cbb88f..d0e612371c8f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4202,7 +4202,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 			continue;
- 
- 		bundle->surface_updates[planes_count].surface = dc_plane;
--		if (new_pcrtc_state->color_mgmt_changed) {
-+		if (new_pcrtc_state->color_mgmt_changed || new_plane_state->color_mgmt_changed) {
- 			bundle->surface_updates[planes_count].gamma = &dc_plane->gamma_correction;
- 			bundle->surface_updates[planes_count].in_transfer_func = &dc_plane->in_transfer_func;
- 			bundle->surface_updates[planes_count].gamut_remap_matrix = &dc_plane->gamut_remap_matrix;
-@@ -6012,6 +6012,10 @@ static bool should_reset_plane(struct drm_atomic_commit *state,
- 	if (new_crtc_state->color_mgmt_changed)
- 		return true;
- 
-+	/* Plane color pipeline or its colorop changes. */
-+	if (new_plane_state->color_mgmt_changed)
-+		return true;
-+
- 	/*
- 	 * On zpos change, planes need to be reordered by removing and re-adding
- 	 * them one by one to the dc state, in order of descending zpos.
--- 
-2.53.0
+    regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+                       VSDC_CURSOR_CONFIG_X_OFF_MASK,
+                       -state->crtc_x);
 
+    regmap_update_bits(dc->regs, VSDC_CURSOR_CONFIG(output),
+                       VSDC_CURSOR_CONFIG_Y_OFF_MASK,
+                       -state->crtc_y);
+
+Because the unshifted small negative integer falls outside the masks, won't
+this evaluate to 0 during the bitwise AND, permanently programming the
+offsets to 0 and completely breaking cursor clipping?
+
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential NULL pointer
+dereference in the disable path that gets called just above this snippet.
+
+If userspace binds a previously unbound plane where old_plane_state->crtc
+is NULL, but places it entirely off-screen, the DRM core sets
+new_plane_state->visible =3D false and calls vs_cursor_plane_atomic_update(=
+).
+
+The code then calls vs_cursor_plane_atomic_disable():
+
+    if (!state->visible) {
+        vs_cursor_plane_atomic_disable(plane, atomic_state);
+        return;
+    }
+
+Inside vs_cursor_plane_atomic_disable(), and identically in
+vs_primary_plane_atomic_disable(), it fetches the CRTC from the old state,
+which is NULL, and directly dereferences it:
+
+    struct drm_crtc *crtc =3D state->crtc;
+    struct vs_crtc *vcrtc =3D drm_crtc_to_vs_crtc(crtc);
+    unsigned int output =3D vcrtc->id;
+
+Could this trigger a kernel panic if a malicious or buggy userspace
+submits this type of atomic modeset?
+
+[Severity: High]
+This is also a pre-existing issue, but looking at
+vs_primary_plane_atomic_disable(), the hardware appears to be enabled
+instead of disabled:
+
+    regmap_set_bits(dc->regs, VSDC_FB_CONFIG_EX(output),
+                    VSDC_FB_CONFIG_EX_FB_EN);
+
+Because regmap_set_bits() turns the plane on, won't the primary plane
+remain actively rendering when the DRM core disables it, causing the
+hardware state to diverge from the kernel state?
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_plane.c b/drivers/gpu/drm/ver=
+isilicon/vs_plane.c
+> index d81f7b8f4c650..38b8b536eccbd 100644
+> --- a/drivers/gpu/drm/verisilicon/vs_plane.c
+> +++ b/drivers/gpu/drm/verisilicon/vs_plane.c
+
+[ ... ]
+
+> @@ -107,26 +107,6 @@ int drm_format_to_vs_format(u32 drm_format, struct v=
+s_format *vs_format)
+>  	return 0;
+>  }
+> =20
+> -dma_addr_t vs_fb_get_dma_addr(struct drm_framebuffer *fb,
+> -			      const struct drm_rect *src_rect)
+> -{
+> -	struct drm_gem_dma_object *gem;
+> -	dma_addr_t dma_addr;
+
+[Severity: Low]
+Is the prototype for vs_fb_get_dma_addr() still declared in vs_plane.h?
+
+Should we remove it from drivers/gpu/drm/verisilicon/vs_plane.h as well
+to avoid leaving a dangling prototype?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807114654.1373=
+305-1-wenst@chromium.org?part=3D1
