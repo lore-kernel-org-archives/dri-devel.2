@@ -4,42 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3A88C2A09B
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:12:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3BFAC5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 15:15:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5553210E261;
-	Fri,  7 Aug 2026 15:12:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B21010E32E;
+	Fri,  7 Aug 2026 15:15:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Gv/khMhj";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1ctHpOp6";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C3F10E261
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:12:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6B1A10E425
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 15:15:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 12378600B0;
- Fri,  7 Aug 2026 15:12:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F341F00A3D;
- Fri,  7 Aug 2026 15:12:22 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CF8F7600BB;
+ Fri,  7 Aug 2026 15:15:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 093CA1F000E9;
+ Fri,  7 Aug 2026 15:15:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1786115542;
- bh=WCwstHwJRcdNCoJ/FLCABhJ/GNgetTYHbEgZFPW4rFk=;
+ s=korg; t=1786115718;
+ bh=7g8Y+FgcmohVTs7tyS+7VOkxjtVPgvUC4Na94V0Aexk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Gv/khMhj0fGKeWTWibZhipOvmhLmXebmvqPspKr3DvYIqCLr329B3jAit1UMFSJGV
- vESVtN/+r+xpE6q7G7YqdSozsWj3fkU6U8KsOquTJQ//xwt3j9pL8jOLxEZLQPh/TU
- lVln2VyJ3mwZ5KHn/Onjrkxz/mXN6voJCvk/SsoM=
+ b=1ctHpOp6FWrezPa8ErNITypHnWjC+E1y4JQa7IHpJKov5qAZfEoDvpFCmd2VG+tML
+ Z37hjsdApXugyDC2n1eaeYnwf16i3y+onmcEEKpIio6R3SQVqmqm4jcczppsOTm1mw
+ o2nGmv8r9kgWcSDzmMNahgFpCQZRQeU6vOAn722A=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Jani Nikula <jani.nikula@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- dri-devel@lists.freedesktop.org,
- Alexander Kaplan <alexander.kaplan@sms-medipool.de>,
- Uma Shankar <uma.shankar@intel.com>
-Subject: [PATCH 6.18 312/396] drm/dp: Read the PCON max FRL bandwidth only for
- HDMI DFPs
-Date: Fri,  7 Aug 2026 16:37:52 +0200
-Message-ID: <20260807143430.996625925@linuxfoundation.org>
+ Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, Thierry Reding <treding@nvidia.com>,
+ Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 373/396] drm/tegra: fbdev: Remove offset into framebuffer
+ memory
+Date: Fri,  7 Aug 2026 16:38:53 +0200
+Message-ID: <20260807143432.328519401@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260807143424.272339768@linuxfoundation.org>
 References: <20260807143424.272339768@linuxfoundation.org>
@@ -67,79 +64,58 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 ------------------
 
-From: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
+From: Thomas Zimmermann <tzimmermann@suse.de>
 
-commit e40e20ac089e32f1d910636155dc82e61e61dcf3 upstream.
+[ Upstream commit a18b6e30ecd69096beda4a0c96d2570900c3879a ]
 
-The PCON max FRL bandwidth field lives in byte 2 of the DFP Detailed
-Capability Info (DPCD 0x82 for the first DFP).
-The DP standard defines the meaning of descriptor bytes 1-3 strictly
-per DFP type, and for a DisplayPort type DFP all of them are
-reserved, with "read all 0s" semantics (DP v2.0, section 2.12.3,
-Table 2-183).
-The FRL bandwidth field is an HDMI DFP extension added by the VESA
-DP-to-HDMI PCON specification.
-drm_dp_get_pcon_max_frl_bw() however parses the byte without checking
-the DFP type, the branch presence or DETAILED_CAP_INFO_AVAILABLE.
-Without the latter the port descriptors are one byte wide and
-port_cap[2] is not even the right register.
+The screen_buffer field in struct fb_info contains the kernel address
+of the first byte of framebuffer memory. Do not add the display offset.
+This offset only describes scrolling during scanout.
 
-All neighbouring helpers parsing the same descriptor are scoped by
-the DFP type already, see for instance drm_dp_downstream_max_bpc()
-reading the same byte and returning 0 for a DP type DFP.
-amdgpu's DC parses the field only for HDMI(/DP++) detailed types as
-well.
-
-This is not theoretical.
-A Synaptics VMM7100 based USB-C to HDMI adapter with a macOS targeted
-firmware advertises a DisplayPort type DFP with the type byte
-replicated across the whole descriptor (08 08 08 08).
-i915 decodes that as "PCON limited to 18 Gbps FRL" and prunes every
-mode above ~750 MHz dotclock, including all the 4k@100/120 modes the
-sink EDID offers, while macOS drives 4k@120 through the same adapter
-just fine via DP DSC (and amdgpu's type-scoped parser would ignore
-the bogus field as well).
-
-Only parse the field for an HDMI DFP behind a DPCD 1.1+ branch
-device that reports detailed cap info, matching the type-scoped
-field layout of the spec and the rest of the helpers.
-
-Fixes: ce32a6239de6 ("drm/dp_helper: Add Helpers for FRL Link Training support for DP-HDMI2.1 PCON")
-Cc: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Cc: Uma Shankar <uma.shankar@intel.com> (v2)
-Cc: Jani Nikula <jani.nikula@intel.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Fixes: de2ba664c30f ("gpu: host1x: drm: Add memory manager and fb")
 Cc: dri-devel@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v5.12+
-Signed-off-by: Alexander Kaplan <alexander.kaplan@sms-medipool.de>
-Reviewed-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
-Link: https://patch.msgid.link/20260610193825.2933-1-alexander.kaplan@sms-medipool.de
+Cc: linux-tegra@vger.kernel.org
+Cc: <stable@vger.kernel.org> # v3.10+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Link: https://patch.msgid.link/20260421073646.144712-3-tzimmermann@suse.de
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/display/drm_dp_helper.c |   12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/tegra/fbdev.c |    8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
---- a/drivers/gpu/drm/display/drm_dp_helper.c
-+++ b/drivers/gpu/drm/display/drm_dp_helper.c
-@@ -3457,6 +3457,18 @@ int drm_dp_get_pcon_max_frl_bw(const u8
- 	int bw;
- 	u8 buf;
+--- a/drivers/gpu/drm/tegra/fbdev.c
++++ b/drivers/gpu/drm/tegra/fbdev.c
+@@ -78,7 +78,6 @@ int tegra_fbdev_driver_fbdev_probe(struc
+ 	struct fb_info *info = helper->info;
+ 	unsigned int bytes_per_pixel;
+ 	struct drm_framebuffer *fb;
+-	unsigned long offset;
+ 	struct tegra_bo *bo;
+ 	size_t size;
+ 	int err;
+@@ -118,9 +117,6 @@ int tegra_fbdev_driver_fbdev_probe(struc
  
-+	if (!drm_dp_is_branch(dpcd))
-+		return 0;
-+
-+	if (dpcd[DP_DPCD_REV] < 0x11)
-+		return 0;
-+
-+	if ((dpcd[DP_DOWNSTREAMPORT_PRESENT] & DP_DETAILED_CAP_INFO_AVAILABLE) == 0)
-+		return 0;
-+
-+	if ((port_cap[0] & DP_DS_PORT_TYPE_MASK) != DP_DS_PORT_TYPE_HDMI)
-+		return 0;
-+
- 	buf = port_cap[2];
- 	bw = buf & DP_PCON_MAX_FRL_BW;
+ 	drm_fb_helper_fill_info(info, helper, sizes);
  
+-	offset = info->var.xoffset * bytes_per_pixel +
+-		 info->var.yoffset * fb->pitches[0];
+-
+ 	if (bo->pages) {
+ 		bo->vaddr = vmap(bo->pages, bo->num_pages, VM_MAP,
+ 				 pgprot_writecombine(PAGE_KERNEL));
+@@ -132,9 +128,9 @@ int tegra_fbdev_driver_fbdev_probe(struc
+ 	}
+ 
+ 	info->flags |= FBINFO_VIRTFB;
+-	info->screen_buffer = bo->vaddr + offset;
++	info->screen_buffer = bo->vaddr;
+ 	info->screen_size = size;
+-	info->fix.smem_start = (unsigned long)(bo->iova + offset);
++	info->fix.smem_start = (unsigned long)(bo->iova);
+ 	info->fix.smem_len = size;
+ 
+ 	return 0;
 
 
