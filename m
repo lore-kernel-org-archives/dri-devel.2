@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 483F6C2A09B
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:33:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 547D9C5ACAC
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:33:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB32D10F3EC;
-	Fri,  7 Aug 2026 04:33:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A6E4010F3F1;
+	Fri,  7 Aug 2026 04:33:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="RA06VbBR";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KTidsSae";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E582D10F3E4;
- Fri,  7 Aug 2026 04:33:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AB8A10F3EE;
+ Fri,  7 Aug 2026 04:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786077187; x=1817613187;
+ t=1786077194; x=1817613194;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=bP8d8roSvuCRm4x48ZG34pZ6Vsycp8lnKRcLvGDD97w=;
- b=RA06VbBRSyjrWwjDDENbLnEar2LW2OZYFKB9pvU272u2YYM62l+RxANb
- fOwWCYnpIZDmK77Lb1asq8YEK2Eu21x2cKsxbekTcAWl2C3KHcOAutvSt
- g+RsXeB4UWdwEn+a4pIHTzJsGS84UBCMb8ZstEaukIoLjdzgPY0szQfv1
- GL6nN8yYnu2XWDbtKNVBkIueWjBNhgCo1kCsvkfsVG5CsqVRx6VaH0JOO
- sneDt7aHXq6AkOCzwMNq1Jpj2sY0c7DtYpMSejSBweNSZoYvgtUZyOISQ
- B5xWfFqcWmmJIP6cLYpfFj8/HZB9U1udie84DfgVT+oIFYm+KxVRVVNT1 Q==;
-X-CSE-ConnectionGUID: pYaLW6p1T8KmqfMXUQ3dxA==
-X-CSE-MsgGUID: El4opM1PRFm00zd+BCbj/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619390"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619390"
+ bh=CxtgEY15QGXEStnSZixGBpjoUuEoe0HCdHT5+FeSaE0=;
+ b=KTidsSaeLxWeDfQBRG4eg9Jd9fIVNkJlwgFYHi3IrRtc4ACc9hCHyRCh
+ L7OVv/W+765gHjyXWa7fSIWfCPW3FYhwDfqATy8D4F90WsimDdZk6y4h/
+ xrm5f6Jp/a5yLb6+H8l0ZKgC/4jgJ4rWQ/ir8YCnooVFtJB8ML1DirKTv
+ /UrkCmOxe3wbmXZc+bKNGEHpE0QXecChY/WcWdIhbpi9fhUxqxZA1PGdX
+ WGAgDArzGfEGK+6FkKTvMKx4MzV3qQQpv/sXv00V68IggDJOK1QKdyxq0
+ W0GYT3WXDju9jqJp0Eyv1P63jrv/tMBaramsLncJsHy+nKJNvxFtCygK8 w==;
+X-CSE-ConnectionGUID: PJTwYIjSQfmf25Mp1wwMUA==
+X-CSE-MsgGUID: Z8GkHhqGT2OpiZBWK1ck1g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619400"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619400"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:33:07 -0700
-X-CSE-ConnectionGUID: nDWJKKYyTVWoys4+6Dibnw==
-X-CSE-MsgGUID: m3H23htnT6S435Iv0XH3QQ==
+ 06 Aug 2026 21:33:14 -0700
+X-CSE-ConnectionGUID: kMhivC9WTQ6BbFtmNh6gaw==
+X-CSE-MsgGUID: uLJqneh6Sk68DVLx06+BYQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666572"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666602"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:33:04 -0700
+ 06 Aug 2026 21:33:11 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH 39/44] drm/i915/ddi: Wire FRL into the HDMI DDI enable/disable
- path
-Date: Fri,  7 Aug 2026 09:44:24 +0530
-Message-ID: <20260807041430.229038-40-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 42/44] drm/i915/display: Add FRL members to the state checker
+Date: Fri,  7 Aug 2026 09:44:27 +0530
+Message-ID: <20260807041430.229038-43-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
 References: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
@@ -71,85 +70,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Enable HDMI FRL in the DDI enable and disable sequences for MTL+:
+Plug in the FRL members to the state checker.
 
-Enable path (intel_ddi_enable_hdmi):
--Prepare for FRL mode before enabling D2D link.
--After the DDI buffer is enabled, run FRL link training. If FRL link
-training fails, disable FRL and notify userspace. On success, write
-DFM registers and enable the transcoder.
-
-Disable path (intel_ddi_post_disable_hdmi):
-Call intel_hdmi_disable_frl() after the DDI buffer is disabled to perform
-LTS:L teardown and clear the FRL function registers.
-
-Bspec:65750
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_ddi.c | 21 ++++++++++++++++++++-
- 1 file changed, 20 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
-index d1a60cdf55fa..6ee2c3119c9b 100644
---- a/drivers/gpu/drm/i915/display/intel_ddi.c
-+++ b/drivers/gpu/drm/i915/display/intel_ddi.c
-@@ -70,6 +70,7 @@
- #include "intel_gmbus.h"
- #include "intel_hdcp.h"
- #include "intel_hdmi.h"
-+#include "intel_hdmi_frl_dfm.h"
- #include "intel_hotplug.h"
- #include "intel_hti.h"
- #include "intel_lspcon.h"
-@@ -3217,6 +3218,8 @@ static void intel_ddi_post_disable_hdmi(struct intel_atomic_state *state,
- 		intel_ddi_disable_transcoder_clock(old_crtc_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 829d7a411dcc..ca429ea385c6 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5555,6 +5555,15 @@ intel_pipe_config_compare(const struct intel_crtc_state *current_config,
  
- 	intel_ddi_buf_disable(encoder, old_crtc_state);
-+	if (intel_crtc_has_type(old_crtc_state, INTEL_OUTPUT_HDMI))
-+		intel_hdmi_disable_frl(encoder, old_crtc_state);
+ 	PIPE_CONF_CHECK_I(set_context_latency);
  
- 	if (DISPLAY_VER(display) >= 12)
- 		intel_ddi_disable_transcoder_clock(old_crtc_state);
-@@ -3471,6 +3474,9 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
- 	struct intel_display *display = to_intel_display(encoder);
- 	struct intel_digital_port *dig_port = enc_to_dig_port(encoder);
- 	struct drm_connector *connector = conn_state->connector;
-+	struct intel_hdmi *intel_hdmi = &dig_port->hdmi;
-+	struct intel_connector *intel_connector =
-+		intel_hdmi->attached_connector;
- 	enum port port = encoder->port;
- 	u32 buf_ctl = 0;
- 
-@@ -3491,6 +3497,9 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
- 	if (has_buf_trans_select(display))
- 		hsw_prepare_hdmi_ddi_buffers(encoder, crtc_state);
- 
-+	if (DISPLAY_VER(display) >= 14 && crtc_state->frl.enable)
-+		intel_hdmi_prepare_for_frl_mode(crtc_state);
++	PIPE_CONF_CHECK_BOOL(frl.enable);
++	PIPE_CONF_CHECK_BOOL(frl.rsrc_sched_en);
++	PIPE_CONF_CHECK_I(frl.required_lanes);
++	PIPE_CONF_CHECK_I(frl.tb_borrowed);
++	PIPE_CONF_CHECK_I(frl.tb_actual);
++	PIPE_CONF_CHECK_I(frl.active_char_buf_threshold);
++	PIPE_CONF_CHECK_I(frl.link_m);
++	PIPE_CONF_CHECK_I(frl.link_n);
 +
- 	/* e. Enable D2D Link for C10/C20 Phy */
- 	mtl_ddi_enable_d2d(encoder);
- 
-@@ -3582,8 +3591,18 @@ static void intel_ddi_enable_hdmi(struct intel_atomic_state *state,
- 
- 	intel_ddi_buf_enable(encoder, buf_ctl);
- 
--	if (DISPLAY_VER(display) >= 14)
-+	if (DISPLAY_VER(display) >= 14) {
-+		if (crtc_state->frl.enable &&
-+		    intel_hdmi_start_frl(encoder, crtc_state) < 0) {
-+			intel_hdmi_disable_frl(encoder, crtc_state);
-+			schedule_work(&intel_connector->modeset_retry_work);
-+
-+			return;
-+		}
-+		intel_hdmi_frl_cfg_write(crtc_state);
-+		intel_hdmi_frl_dfm_write(crtc_state);
- 		intel_ddi_enable_transcoder_and_vblank(state, encoder, crtc_state);
-+	}
- 
- 	intel_hdmi_poll_for_scrambling_enable(crtc_state, connector);
- }
+ #undef PIPE_CONF_CHECK_X
+ #undef PIPE_CONF_CHECK_I
+ #undef PIPE_CONF_CHECK_LLI
 -- 
 2.50.1
 
