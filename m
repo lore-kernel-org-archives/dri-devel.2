@@ -4,145 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 101DCC5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 21:03:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F24C2A09B
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 21:08:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 45B5A10E45A;
-	Fri,  7 Aug 2026 21:03:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A5A410F5B9;
+	Fri,  7 Aug 2026 21:08:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="AR+k+BOq";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JM8fTG12";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FDEB10E45A;
- Fri,  7 Aug 2026 21:03:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1786136612; x=1786741412; i=w_armin@gmx.de;
- bh=ynAuYqRxpHHvvBQeKkL2i31ZDhBcUSyqeTHmWhd2yWU=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:From:To:
- Cc:References:In-Reply-To:Content-Type:Content-Transfer-Encoding:
- cc:content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=AR+k+BOqNe6TJTuONOW6tClhewKZVZLP7jbbvFlTzJgsdyZ+YDYSyznu/xemrSYh
- 5e3+pW7SxrSJ/p8ELKiaGXpfr8iYaNDd/jkZOt6BwArfREv1hnnMDCr/dl/i8x2nP
- 1wL06078VNW9W+KDxy9kHX1JdQX2nDf5vtGmKPu0uFEjnVq/PGWhuLjm/h+7le5+5
- fqxoJ2r80IKgLFOMLoRo+XURUowQ4WDtyCmfue+l9dm+qV1MhjrFB4QayzLf5R66x
- EIp4glIBRoVsfxK2JQZCFwXOW5j9Nn4ruZ8zaRNfcMNjGIpDrSGddp/ATZNdKmcdF
- fK+cUeQ3Ur0DbrouVQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MEm2D-1whDaB1b6x-008ngS; Fri, 07
- Aug 2026 23:03:32 +0200
-Message-ID: <59aadf0f-953c-4b7c-8c92-9dd9bc4f89de@gmx.de>
-Date: Fri, 7 Aug 2026 23:03:29 +0200
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com
+ [74.125.224.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8560610F5B9
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 21:08:30 +0000 (UTC)
+Received: by mail-yx1-f54.google.com with SMTP id
+ 956f58d0204a3-66896892b6cso5830009d50.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 14:08:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786136909; cv=none;
+ d=google.com; s=arc-20260327;
+ b=LbAid4ZStxfsCFSRuxC6t7bmlDpRT/Iu2SO0Iq9dR21RIrwTRqi/Pe14Q2CnrOY9pd
+ San+LNiwht17VD1t/WEbw7ZVa5/j2LKcjw+gKbGBFNNUMx7ScFJDEp2fiMbNalVjPjey
+ H9lmDMC81WFpfdjIEKYQYyy3RaOyUXJIsk9UrxLfYBBQstRN0adDuG0FSHoaLlD8IoRA
+ 5IUSj2WvJ8tTT8PZhb5R2mscYG1YTGWCw17A9SGYNvW9StN4n1Pe7ROGAqMmn7oHCJys
+ GKu98yxkQnf4xUde7Zn3gufXEqgygLbdD4qaEuThr0zp4UqKEvDVxYYSHmALbOtzt0yM
+ 6qqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :mime-version:dkim-signature;
+ bh=nt7G6PRGbVb32WbBIDt3TUteTbneyf7z9qhRgeC0QHM=;
+ fh=jB4zzpG4RiBzEqyCtcurCOYtGi/xRIni7Dp2F8WM78o=;
+ b=q3uj9qdzblm5wD5mLZ6D6riseTWzW/36lE/ahsndFMCZNhBFwShp3WdeysnhrfahHg
+ +mRcOzVNZzHf1Z8QS9zYRxOhTWYhc2+EyW/Sm/40tDC7JJxPnS7hEJtsvfakssfGsTKI
+ vTqccKwPC4aO6rbzIS/Tz5g/VWpGl8V6G9CLP1MhtinQ3n/TfTGa/FE4K1RlSaocJ4CC
+ UYCEor56i8CyoIu1b1pEjwPVSR5+BmxCGp5vJJ3Dx2slDHqnDSLHfy1NT2Zs2dBA4ccA
+ Yy29cWRILDvb2QGZDcm5pI7ne393MKNupK6l7W7B/SbLKpcOKTc4RLcpllNsigDEwmZU
+ CVEQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786136909; x=1786741709; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=nt7G6PRGbVb32WbBIDt3TUteTbneyf7z9qhRgeC0QHM=;
+ b=JM8fTG12Y7SijqOSbA2XncJHvB2/l/FwdNBA52PK5EcfKkG9pG+x6XRa1ZFmX8J4rL
+ IaDHmsjo30vHd0eity9FN2YOQTdI8xJiITgOa/G3dAOAMw6+4oi8bjA+8yd9nLstMeBw
+ 3RaPCtKVg2niZzyr+J6QmfuRIHzTYHSaqdfFuvH6hMeDIW8oZK2fNU/VK4hl7xVJptdO
+ Omij3wNzOCekW+5ItzzgulgCm70Y+HKfVhH4N9qB+F7cT86ersf0+pt+Fde+i9FpNN2J
+ e4XZu0TKU5neq5szRTKBHpoqpMgngRtKma19T6ERACGA5uzOhz/nlAshIS+2ZzeGt82V
+ dweA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786136909; x=1786741709;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=nt7G6PRGbVb32WbBIDt3TUteTbneyf7z9qhRgeC0QHM=;
+ b=Gq/6Z38W+jtYd/bE0SAwBi0NepQQSfgW1LWXHRU12lleZtGyIhCFTU513vHHl4hEyQ
+ AlM/+gwbn7JO/jJyc6oSZNQ0JlqT8pXElSeVptEwuijHcB+0oUL7XaNiwMYaLx9PO6Ka
+ OoAiry+0JIzTDmDNQs+Mn0oSypNB+C+RCiBtgFai+EXrr7dt+oyOEs4Z0KBTJTlen1nu
+ B49SdHvjVP32TWhA1UaVtGsYs4D/TRYrkC3x7vM3F9HJw50j8FY9oVv7RgSTa+C30ofz
+ 7ek49/LGTuYmB+4gNlNdI3aJNtthN4qc0hASG0G5g7yBrgfu3jVXNphuNKgNZ14OivB5
+ yMJQ==
+X-Gm-Message-State: AOJu0Ywt6aA0hlD6iJAGWhzh3e9jVVXkD8m8WQmyLtMji/H86HC+B7Ur
+ lbo3qekGAbwhN2a5j90yDXhZfo9UyEAMijEKFdcTFG/2JyC1ug8sOc4NZpuM+SmDe/TT2gvV41F
+ 3pPmiNlQNYQr8smwGl8ulImZvMlriap0=
+X-Gm-Gg: AR+sD10yV9vl1XRRyYvIpyIzQEPTuGAcW/kBRfra0A98iPhXAGRizFR0tPJPjQi2pjW
+ qnIPKwcAejKhvuu7WbAwoTHY29gMXlANg+bFzO7Lq+ueoVbnrJNi3P6MjYzZMKJa47C4XiZBlWX
+ SmaYU4uNdXNzXuMoUkT+uSAkYEkWvaWpbUfkI6M0xjt+x4nIJNlzouBwvY6bkjz5zABD1FEubwW
+ wBkufQo1+onn/mrpy6wsCKCydMTzhKFYw0YYD6Geln+s82EiJ3laeOAlozfOke5T+c3roTtR1jK
+ fYbDwtIos+YxoNkLIAawMtuInInI7m4kwiRpHyYBkuzJbVbkIzX4f2xBpe67p6w7t1+Yfh4szX0
+ EmAyLVEbCye9ppGeYvn+1nk72GoVqwjopJ+ZW7s2cVg==
+X-Received: by 2002:a05:690e:4550:10b0:667:af58:8d78 with SMTP id
+ 956f58d0204a3-6699ab62ad4mr11512555d50.37.1786136909139; Fri, 07 Aug 2026
+ 14:08:29 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] platform/wmi: Add aarch64 support
-From: Armin Wolf <W_Armin@gmx.de>
-To: hansg@kernel.org, ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux@weissschuh.net, rafael@kernel.org, lenb@kernel.org,
- linux-acpi@vger.kernel.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
- matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- intel-xe@lists.freedesktop.org
-References: <20260724025959.142826-1-W_Armin@gmx.de>
-Content-Language: en-US
-In-Reply-To: <20260724025959.142826-1-W_Armin@gmx.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:XhWPv/JKs4wg1ltPcjA54qJdjyQYAJWIMSfQd03vtac47SDDNdn
- 8VjSCgQ806r+Ys3YKucEiQIL6op5LNfCWBUZDrl74GW7ZUgltIaCaMdRFjvzDehSkQw395p
- XczQ0QCmtsEuQdRBq5uIyd2jW+EGD5vAIMZ8U2Ap4lGYlriV3kCZW5LqiU6SoK0v0LfamzK
- 17YvP00mXx/53FXvjRA3w==
-UI-OutboundReport: notjunk:1;M01:P0:JHOuLfo+bYw=;LeVQ+PkhJUxE5EPezqlRlsmB6Tn
- 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
+From: Dave Airlie <airlied@gmail.com>
+Date: Sat, 8 Aug 2026 07:08:17 +1000
+X-Gm-Features: AUfX_mwNbO5Z9WORFyl6ImQLSePjRDQ9K7jP8ru3iivtQsXWDr9QZtZvxU0eY8o
+Message-ID: <CAPM=9ty7AHCg=yvFJzcet0E8EJaW39ZWTBXcMjKfRv5gn_qKTg@mail.gmail.com>
+Subject: [git pull] drm fixes for 7.2-rc7
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Simona Vetter <simona.vetter@ffwll.ch>
+Cc: dri-devel <dri-devel@lists.freedesktop.org>,
+ LKML <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,54 +102,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Am 24.07.26 um 04:59 schrieb Armin Wolf:
+Hi Linus,
 
-> The aarch64-laptops project found out that some Windows-on-Arm
-> notebooks contain WMI-ACPI mapping devices (PNP0C14) that work
-> exactly like on x86. Those devices however are currently not
-> supported by the WMI driver core due to only supporting x86.
->
-> The first patch removes this restriction and allows the WMI
-> driver core to run on all architectures that support ACPI.
-> The second patch updates the acpi-video driver to take advantage
-> of the improved support for architectures other than x86, and
-> the last patch enables the generic WMI BMOF driver to support
-> aarch64 as well.
->
-> All patches have been tested on a ACPI-based aarch64 VM and
-> work just fine.
+Weekly fixes for drm, feels relatively quiet for the post-AI world,
+mostly amdgpu and xe with a few fixes across the board.
 
-Any thoughts about this series from the GPU driver people?
+Dave.
 
-Thanks,
-Armin Wolf
+drm-fixes-2026-08-08:
+drm fixes for 7.2-rc7
 
->
-> Changes since v2:
-> - fix Kconfig issue for the loongson-laptop driver
->
-> Changes  since v1:
-> - add additional tags
->
-> Armin Wolf (3):
->    platform/wmi: Remove dependency on CONFIG_X86
->    ACPI: video: Remove CONFIG_X86 handling from nvidia_wmi_ec_supported()
->    platform/x86: wmi-bmof: Move to generic WMI code
->
->   MAINTAINERS                                     |  2 +-
->   drivers/acpi/Kconfig                            |  2 +-
->   drivers/acpi/video_detect.c                     |  8 --------
->   drivers/gpu/drm/amd/amdgpu/Kconfig              |  4 +---
->   drivers/gpu/drm/gma500/Kconfig                  |  1 -
->   drivers/gpu/drm/i915/Kconfig                    |  1 -
->   drivers/gpu/drm/radeon/Kconfig                  |  4 +---
->   drivers/gpu/drm/xe/Kconfig                      |  5 ++---
->   drivers/platform/loongarch/Kconfig              |  1 +
->   drivers/platform/wmi/Kconfig                    | 14 +++++++++++++-
->   drivers/platform/wmi/Makefile                   |  4 ++++
->   drivers/platform/{x86/wmi-bmof.c => wmi/bmof.c} |  0
->   drivers/platform/x86/Kconfig                    | 12 ------------
->   drivers/platform/x86/Makefile                   |  3 ---
->   14 files changed, 24 insertions(+), 37 deletions(-)
->   rename drivers/platform/{x86/wmi-bmof.c => wmi/bmof.c} (100%)
->
+shmem:
+- check VMA boundaries for PMD mappings
+
+xe:
+- Fix memory leak in exec_queue_set_hang_replay_state
+- Apply RCS/CCS yield policy to SR-IOV VFs
+
+amdgpu:
+- JPEG queue reset fixes
+- GC 12 fix
+- GMC 12.1 fixes
+- Lockdep false positive fix
+- Userq fix
+- Bounds checking fixes
+- Devcoredump fixes
+- DCN 2.0.1 fix
+- Aperture mapping fix
+- DC avmute fix
+- DC self refresh fix
+
+radeon:
+- Performance regression fix
+
+panthor:
+- skip zero sized firmware segments
+- check VMA boundaries for PMD mappings
+
+bridge:
+- ps8640: propagate AUX transfer register errors
+
+amdxdna:
+- Improve error handling in amdxdna_insert_pages.
+
+v3d:
+- serialise scheduler timeouts
+The following changes since commit 075b74841bd0065a3bda3440873c747938e69b68=
+:
+
+  Linux 7.2-rc6 (2026-08-02 16:24:24 -0700)
+
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-08-08
+
+for you to fetch changes up to 5fb210754ed66ce2dbd3ccffd508df769ff0bcdc:
+
+  Merge tag 'amd-drm-fixes-7.2-2026-08-06' of
+https://gitlab.freedesktop.org/agd5f/linux into drm-fixes (2026-08-07
+21:01:05 +1000)
+
+----------------------------------------------------------------
+drm fixes for 7.2-rc7
+
+shmem:
+- check VMA boundaries for PMD mappings
+
+xe:
+- Fix memory leak in exec_queue_set_hang_replay_state
+- Apply RCS/CCS yield policy to SR-IOV VFs
+
+amdgpu:
+- JPEG queue reset fixes
+- GC 12 fix
+- GMC 12.1 fixes
+- Lockdep false positive fix
+- Userq fix
+- Bounds checking fixes
+- Devcoredump fixes
+- DCN 2.0.1 fix
+- Aperture mapping fix
+- DC avmute fix
+- DC self refresh fix
+
+radeon:
+- Performance regression fix
+
+panthor:
+- skip zero sized firmware segments
+- check VMA boundaries for PMD mappings
+
+bridge:
+- ps8640: propagate AUX transfer register errors
+
+amdxdna:
+- Improve error handling in amdxdna_insert_pages.
+
+v3d:
+- serialise scheduler timeouts
+
+----------------------------------------------------------------
+Alex Deucher (2):
+      drm/amdgpu/gmc12.1: implement tlb inv semaphore
+      drm/amdgpu/gmc12.1: fix MMHUB0 check in pasid tlb flush
+
+Asad Kamal (2):
+      Revert "drm/amdgpu: fix aperture mapping leak"
+      drm/amdgpu: fix aperture iounmap skipped on device removal
+
+Candice Li (1):
+      drm/amdgpu: reject oversized IBs with per-ring packet limits
+
+Christian A. Ehrhardt (2):
+      drm/shmem_helper: Check VMA boundaries for PMD mappings
+      drm/panthor: Check VMA boundaries for PMD mappings
+
+Dave Airlie (3):
+      Merge tag 'drm-xe-fixes-2026-08-06' of
+https://gitlab.freedesktop.org/drm/xe/kernel into drm-fixes
+      Merge tag 'drm-misc-fixes-2026-08-06' of
+https://gitlab.freedesktop.org/drm/misc/kernel into drm-fixes
+      Merge tag 'amd-drm-fixes-7.2-2026-08-06' of
+https://gitlab.freedesktop.org/agd5f/linux into drm-fixes
+
+David Weber (1):
+      drm/amd/display: allow self-refresh exit while entry is blocked
+
+Jesse Zhang (4):
+      drm/amdgpu: fix JPEG v5.0.0 queue reset failure in DPG mode
+      drm/amdgpu: fix JPEG v4.0.5 queue reset failure in DPG mode
+      drm/amdgpu: fix JPEG v5.3.0 queue reset failure in DPG mode
+      drm/amdgpu/userq: serialize queue map against GPU reset
+
+Lijo Lazar (2):
+      drm/amdgpu: Use virtual alloc during coredump
+      drm/amdgpu: Allocate coredump ring buffers per ring
+
+Lizhi Hou (2):
+      accel/amxdna: Fix page-insertion errors in amdxdna_insert_pages()
+      accel/amdxdna: Fix locally exploitable BUG_ON in amdxdna_insert_pages=
+()
+
+Marcin Bernatowicz (1):
+      drm/xe/uc: Apply RCS/CCS yield policy to SR-IOV VFs
+
+Ma=C3=ADra Canal (1):
+      drm/v3d: Serialize the scheduler timeout handlers
+
+Micha=C5=82 Winiarski (1):
+      drm/xe: Fix memory leak in exec_queue_set_hang_replay_state()
+
+Osama Abdelkader (1):
+      drm/panthor: skip zero-sized firmware sections
+
+Pengpeng Hou (1):
+      drm/bridge: ps8640: propagate AUX transfer register errors
+
+Qiang Yu (1):
+      drm/amdgpu: read TRUNCATE_COORD_MODE on gfx12
+
+Ray Wu (1):
+      drm/amd/display: Check for tg ops in dce110_set_avmute
+
+Travis K. Bangs (1):
+      drm/amd: Disable DP audio spread spectrum for Cyan Skillfish
+
+Vitaly Prosyak (1):
+      drm/amdgpu: Fix lockdep false positive in amdgpu_lockdep_init
+
+Wang Jiang (1):
+      drm/radeon: restore hardware polling in fence_is_signaled to fix
+performance regression
+
+ drivers/accel/amdxdna/amdxdna_gem.c                | 47 ++++++++++--------=
+-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             | 27 ++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c   | 54 ++++++++++++------=
+----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h   |  3 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c        | 21 ++++++---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            | 29 ++++++------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  5 ++
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c             |  5 ++
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c             | 48 ++++++++++++++++++=
+-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c           | 21 +++++++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c           | 21 +++++++--
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c           | 21 +++++++--
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |  5 ++
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c |  6 ++-
+ .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |  5 +-
+ drivers/gpu/drm/bridge/parade-ps8640.c             | 27 ++++++++---
+ drivers/gpu/drm/drm_gem_shmem_helper.c             |  6 ++-
+ drivers/gpu/drm/panthor/panthor_fw.c               |  3 ++
+ drivers/gpu/drm/panthor/panthor_gem.c              |  6 ++-
+ drivers/gpu/drm/radeon/radeon_fence.c              |  7 +++
+ drivers/gpu/drm/v3d/v3d_drv.h                      |  6 +++
+ drivers/gpu/drm/v3d/v3d_sched.c                    |  9 +++-
+ drivers/gpu/drm/xe/xe_exec_queue.c                 |  3 ++
+ drivers/gpu/drm/xe/xe_uc.c                         |  7 ++-
+ 25 files changed, 298 insertions(+), 96 deletions(-)
