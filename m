@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95BC7C5AC7A
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:33:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2558C5AC7A
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 04:33:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8018D10F3DF;
-	Fri,  7 Aug 2026 04:33:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72E5510F3EA;
+	Fri,  7 Aug 2026 04:33:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eoCvWHx1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="FEvXEJk6";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD9E10F3DF;
- Fri,  7 Aug 2026 04:33:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6478210F3EA;
+ Fri,  7 Aug 2026 04:33:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786077184; x=1817613184;
+ t=1786077189; x=1817613189;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=cWpXR0D92UHH8pNdJEE/BM1n+ase1elILYHN+SF2ouA=;
- b=eoCvWHx1rG7HP7pY8dA766NIUAJCWw7sBZ+tLyIMcu+JQB0JA43jrpcz
- CS/y3X0CNrcLOPL1c7R6NHf2GUpndoSkcn93ETcQoFn+odFUJhm0sy3rF
- UItJ2RsAiwI84RzrCkocP83w+b5RCpHfVw19S/IdWQvOBIUfkt2T4fSf0
- ZuocYtebdKoA68PQb8okMVOC7nEJV9aRzmPPZILCRZha6ErVoBOXUuaz6
- sRRMgXtbOlJP7lg6l2qgxoWGkfnH9J9CGOsu17ePwinyfjv7ALodqR2qM
- vpzXE5RtrM9RA8UDM7v3FQFPQaEO1u3mi0asmv8bJcKBLpN45jUu4zFHO w==;
-X-CSE-ConnectionGUID: YYSL9hbgTC+ziL23+QQ4Ag==
-X-CSE-MsgGUID: anHaM1xNR328i1ZByH43FA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619384"
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619384"
+ bh=ju+7p7XKNByosmUCgjLZS2zBlc/LKItxqNN1eplmTzE=;
+ b=FEvXEJk6dFbE8Si+JFgEdwZVKZNDK+tkyv1rM+OrKRAjMuZXqwnY3OF8
+ ljR3dLBxiHYZuLdr/b4RgonGE25FvEMG90+3boRQcVHVB56N23Oq+ofVo
+ uuHNCJdwrIoY6xdS1BSJm1S1jRUV1Lzjg2V9XdtHsZfPhfqlM318BJ6M2
+ 2cTw28dmsAFYcDTvtAYJlKDVb/qcrQYqE/jYXKBi+UIFjdI0LPfklez4X
+ X0LfNc4/zGal2QzsG2fgjalzZpWlraMT5/nEv6hgLq+wreAYWhA6mfQ0m
+ ogp+479EfAetNej7v8JFUUIVB5sCH79KKxgMYQEIqfXp3oi6KCsSdGm8Z A==;
+X-CSE-ConnectionGUID: xi/qBnEnTb2TticigkJkFw==
+X-CSE-MsgGUID: Y6R5OMt7Qey+KHj3teip4Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="86619392"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="86619392"
 Received: from fmviesa002.fm.intel.com ([10.60.135.142])
  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:33:04 -0700
-X-CSE-ConnectionGUID: k5YWus4fS1+I/63kKC/6BQ==
-X-CSE-MsgGUID: jsQiFSySSc2cucnPO3FX7Q==
+ 06 Aug 2026 21:33:09 -0700
+X-CSE-ConnectionGUID: tg6MCi29RwGhaE2ZrKZlSA==
+X-CSE-MsgGUID: 17lFVdZRSdqL4o68EQJl+w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666562"
+X-IronPort-AV: E=Sophos;i="6.25,209,1779174000"; d="scan'208";a="285666587"
 Received: from srr4-3-linux-103-aknautiy.iind.intel.com ([10.223.34.160])
  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Aug 2026 21:33:02 -0700
+ 06 Aug 2026 21:33:06 -0700
 From: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 To: intel-gfx@lists.freedesktop.org,
 	intel-xe@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, jani.nikula@linux.intel.com,
  uma.shankar@intel.com, ville.syrjala@linux.intel.com,
  suraj.kandpal@intel.com
-Subject: [PATCH 38/44] drm/i915/hdmi: Add support for sending uevent to user
- for FRL training failure
-Date: Fri,  7 Aug 2026 09:44:23 +0530
-Message-ID: <20260807041430.229038-39-ankit.k.nautiyal@intel.com>
+Subject: [PATCH 40/44] drm/i915/hdmi: Add read out for FRL state
+Date: Fri,  7 Aug 2026 09:44:25 +0530
+Message-ID: <20260807041430.229038-41-ankit.k.nautiyal@intel.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
 References: <20260807041430.229038-1-ankit.k.nautiyal@intel.com>
@@ -71,74 +70,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In case of HDMI FRL training failure for a given mode, the user
-should be sent a uevent signalling Link failure.
+Read out the FRL configuration and Data Flow Metering registers and
+fill the FRL members in crtc_state.
 
-Add support for sending uevent to userspace in case of link training
-failure.
+In subsequent changes these are added to the state checker and compared
+bwteen two crtc_states in intel_pipe_config_compare().
 
 Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_hdmi.c | 32 +++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ drivers/gpu/drm/i915/display/intel_ddi.c  |  3 ++
+ drivers/gpu/drm/i915/display/intel_hdmi.c | 35 +++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_hdmi.h |  1 +
+ 3 files changed, 39 insertions(+)
 
+diff --git a/drivers/gpu/drm/i915/display/intel_ddi.c b/drivers/gpu/drm/i915/display/intel_ddi.c
+index 6ee2c3119c9b..fc465683782a 100644
+--- a/drivers/gpu/drm/i915/display/intel_ddi.c
++++ b/drivers/gpu/drm/i915/display/intel_ddi.c
+@@ -4281,6 +4281,9 @@ static void intel_ddi_get_config(struct intel_encoder *encoder,
+ 	intel_read_dp_sdp(encoder, pipe_config, DP_SDP_ADAPTIVE_SYNC);
+ 
+ 	intel_audio_codec_get_config(encoder, pipe_config);
++
++	if (intel_crtc_has_type(pipe_config, INTEL_OUTPUT_HDMI))
++		intel_hdmi_frl_get_config(pipe_config);
+ }
+ 
+ void intel_ddi_get_clock(struct intel_encoder *encoder,
 diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.c b/drivers/gpu/drm/i915/display/intel_hdmi.c
-index 0977c7011dd3..e30adda6dac2 100644
+index e30adda6dac2..05d3bb40ca30 100644
 --- a/drivers/gpu/drm/i915/display/intel_hdmi.c
 +++ b/drivers/gpu/drm/i915/display/intel_hdmi.c
-@@ -71,6 +71,8 @@
- #include "intel_snps_phy.h"
- #include "intel_vrr.h"
+@@ -4099,3 +4099,38 @@ void intel_hdmi_frl_cfg_write(const struct intel_crtc_state *crtc_state)
  
-+#define HAS_HDMI_FRL(__display)		(DISPLAY_VER((__display)) >= 14)
-+
- bool intel_hdmi_is_frl(u32 clock)
- {
- 	static const u32 rates[] = { 300000, 600000, 800000, 1000000, 1200000 };
-@@ -3363,6 +3365,31 @@ void intel_infoframe_init(struct intel_digital_port *dig_port)
- 	}
+ 	intel_de_rmw(display, TRANS_HDMI_FRL_CFG(display, cpu_trans), 0, val);
  }
- 
-+/* Common code with DP, need to put in a common place */
-+static void intel_hdmi_modeset_retry_work_fn(struct work_struct *work)
++
++static void intel_hdmi_frl_cfg_read(struct intel_crtc_state *crtc_state)
 +{
-+	struct intel_connector *intel_connector;
-+	struct drm_connector *connector;
++	struct intel_display *display = to_intel_display(crtc_state);
++	enum transcoder cpu_trans = crtc_state->cpu_transcoder;
++	u32 val;
 +
-+	intel_connector = container_of(work, typeof(*intel_connector),
-+				       modeset_retry_work);
-+	connector = &intel_connector->base;
-+	DRM_DEBUG_KMS("[CONNECTOR:%d:%s]\n", connector->base.id,
-+		      connector->name);
++	val = intel_de_read(display, TRANS_HDMI_FRL_CFG(display, cpu_trans));
 +
-+	/* Grab the locks before changing connector property*/
-+	mutex_lock(&connector->dev->mode_config.mutex);
-+	/*
-+	 * Set connector link status to BAD and send a Uevent to notify
-+	 * userspace to do a modeset.
-+	 */
-+	drm_connector_set_link_status_property(connector,
-+					       DRM_MODE_LINK_STATUS_BAD);
-+	mutex_unlock(&connector->dev->mode_config.mutex);
-+	/* Send Hotplug uevent so userspace can reprobe */
-+	drm_kms_helper_hotplug_event(connector->dev);
++	if (val & TRANS_HDMI_FRL_ENABLE)
++		crtc_state->frl.enable = true;
++
++	crtc_state->frl.rsrc_sched_en =
++		REG_FIELD_GET(TRANS_HDMI_R_B_SCHED_ENABLE_MASK, val);
++	crtc_state->frl.active_char_buf_threshold =
++		REG_FIELD_GET(TRANS_HDMI_ACTIVE_CHAR_BUF_THRESH_MASK, val);
 +}
 +
- bool intel_hdmi_init_connector(struct intel_digital_port *dig_port,
- 			       struct intel_connector *intel_connector)
- {
-@@ -3436,6 +3463,11 @@ bool intel_hdmi_init_connector(struct intel_digital_port *dig_port,
- 	if (!intel_hdmi->cec_notifier)
- 		drm_dbg_kms(display->drm, "CEC notifier get failed\n");
- 
-+	/* Initialize the work for modeset in case of link train failure */
-+	if (HAS_HDMI_FRL(display))
-+		INIT_WORK(&intel_connector->modeset_retry_work,
-+			  intel_hdmi_modeset_retry_work_fn);
++void intel_hdmi_frl_get_config(struct intel_crtc_state *crtc_state)
++{
++	struct intel_display *display = to_intel_display(crtc_state);
 +
- 	return true;
- }
++	if (!HAS_HDMI_FRL(display))
++		return;
++
++	intel_hdmi_frl_cfg_read(crtc_state);
++
++	if (!crtc_state->frl.enable)
++		return;
++
++	crtc_state->frl.required_rate = crtc_state->port_clock / 100000;
++	crtc_state->frl.required_lanes = crtc_state->lane_count;
++
++	intel_hdmi_frl_dfm_read(crtc_state);
++}
+diff --git a/drivers/gpu/drm/i915/display/intel_hdmi.h b/drivers/gpu/drm/i915/display/intel_hdmi.h
+index 41d0a850ec76..cf5ccd308ce6 100644
+--- a/drivers/gpu/drm/i915/display/intel_hdmi.h
++++ b/drivers/gpu/drm/i915/display/intel_hdmi.h
+@@ -83,6 +83,7 @@ void intel_hdmi_poll_for_scrambling_enable(const struct intel_crtc_state *crtc_s
+ int intel_hdmi_sink_max_frl_rate(struct drm_connector *connector);
+ int intel_hdmi_sink_dsc_max_frl_rate(struct drm_connector *connector);
+ void intel_hdmi_frl_cfg_write(const struct intel_crtc_state *crtc_state);
++void intel_hdmi_frl_get_config(struct intel_crtc_state *crtc_state);
  
+ /* FRL rate per lane (Gbps) -> PHY PLL table units (10 kbps) */
+ #define FRL_GBPS_TO_10KBPS(rate)	((rate) * 100000)
 -- 
 2.50.1
 
