@@ -4,54 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED5F3C5AD05
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 22:53:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09042C5AD05
+	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 22:58:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B62610E473;
-	Fri,  7 Aug 2026 22:53:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43C7B89196;
+	Fri,  7 Aug 2026 22:58:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DFMO09xJ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iDcH522z";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F0FBD10E473
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 22:53:22 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DE5A189196
+ for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 22:58:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7B9844377A;
- Fri,  7 Aug 2026 22:53:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FE431F000E9;
- Fri,  7 Aug 2026 22:53:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 65FA940601;
+ Fri,  7 Aug 2026 22:58:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1850B1F00A3A;
+ Fri,  7 Aug 2026 22:58:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786143202;
- bh=i41oma5Ja4PWnv/hM+9O68L6lAk3EUk46AY6Mh0OmsA=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc;
- b=DFMO09xJuPM9m/JrH5YaW3v5mdkU7VdIpT8Bbvh7mByfonLzoUDmlpSswbXKl6iAP
- eFi9IY8NxzrpFbXrNdxALcTIVkPRyiAhyB065ZKqjw+OIgeEjigebDDlCMsC2YCrIM
- nO+8O1U6Tg0lim4GmtlPsMJS+sAykv3eZ6EQN/agn5lxGwkXpgSGQsfDv8sURfcGyn
- Abx3bssMlkVylvIg/ujmTeQQIkFRkxoTRM/SINtozwrkaCPHdrVnHcpRPtM0qA4YPY
- M5nliApzCjjr7fm6WeLNwWng43kWhomj2deY07qSKfGZIdHBPINYSBv17yNsMckYQK
- Hb/n8lTiOclGw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 198BC380CEF9; Fri,  7 Aug 2026 22:52:42 +0000 (UTC)
-Subject: Re: [git pull] drm fixes for 7.2-rc7
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9ty7AHCg=yvFJzcet0E8EJaW39ZWTBXcMjKfRv5gn_qKTg@mail.gmail.com>
-References: <CAPM=9ty7AHCg=yvFJzcet0E8EJaW39ZWTBXcMjKfRv5gn_qKTg@mail.gmail.com>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <CAPM=9ty7AHCg=yvFJzcet0E8EJaW39ZWTBXcMjKfRv5gn_qKTg@mail.gmail.com>
-X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
- tags/drm-fixes-2026-08-08
-X-PR-Tracked-Commit-Id: 5fb210754ed66ce2dbd3ccffd508df769ff0bcdc
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: bcc44b6785f216eb939226ade6e3910baa30516b
-Message-Id: <178614316086.2450666.8388885512321965812.pr-tracker-bot@kernel.org>
-Date: Fri, 07 Aug 2026 22:52:40 +0000
-To: Dave Airlie <airlied@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
- Simona Vetter <simona.vetter@ffwll.ch>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+ s=k20260515; t=1786143519;
+ bh=qgInBwua0KUqVGKuYZJWYzxoohAhBjTD4eh1gVZ7K0o=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=iDcH522zJTzA2rzdF1COT9Mk3P+fOQfQx4rc7GU5PEwIbnvkM4P8DVTqv9Jj2rzCL
+ SVNi1R/LH+2a6XUR9HD3jZXNO7XYQnBWqRWNgz8dngu/aVpjedIk886Hv/aOuSk/u6
+ Lmtuj8UtavBqD5SpF1az/9X6Us2c4J6Acjb+hEQ8qwSywzFWKDNNm0uHBw96av3dXg
+ tt0IheujypKLcoHNucMpdcSGTaUOL27nOAv11MxQ4osBJH5Ebktelqsgh3g/BYad4q
+ BVOIIigxP2eCJaJRu2x6caoD18RbP54rBsyLQFO0fx5Q/gghubRfr0I2942249/oG5
+ pcKp4SmXXKyoQ==
+Date: Fri, 7 Aug 2026 17:58:38 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Cody Kang <codykang.hk@gmail.com>
+Cc: linux-clk@vger.kernel.org, Albert Ou <aou@eecs.berkeley.edu>,
+ linux-riscv@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, spacemit@lists.linux.dev,
+ devicetree@vger.kernel.org, Maxime Ripard <mripard@kernel.org>,
+ linux-kernel@vger.kernel.org, Alexandre Ghiti <alex@ghiti.fr>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Brian Masney <bmasney@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Haylen Chu <heylenay@4d2.org>,
+ Yixun Lan <dlan@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Palmer Dabbelt <palmer@dabbelt.com>, linux-phy@lists.infradead.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Vinod Koul <vkoul@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ dri-devel@lists.freedesktop.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>
+Subject: Re: [PATCH RESEND 01/17] dt-bindings: display: spacemit: add K3
+ Saturn DPU controller
+Message-ID: <178614351779.2207398.16648513134637713806.robh@kernel.org>
+References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
+ <20260725-k3-display-v1-1-6de34d80e86c@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260725-k3-display-v1-1-6de34d80e86c@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,15 +72,18 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The pull request you sent on Sat, 8 Aug 2026 07:08:17 +1000:
 
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-08-08
+On Sat, 25 Jul 2026 00:51:10 -0400, Cody Kang wrote:
+> Document the Saturn display processing unit found on the SpacemiT K3 SoC.
+> The K3 instantiates two of them, one per display path. They share a
+> compatible: an instance differs only in which register window, interrupt,
+> clock and reset lines it takes.
+> 
+> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+> ---
+>  .../display/spacemit/spacemit,k3-saturn-dpu.yaml   | 132 +++++++++++++++++++++
+>  1 file changed, 132 insertions(+)
+> 
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/bcc44b6785f216eb939226ade6e3910baa30516b
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
