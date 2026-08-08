@@ -4,78 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4391FC55174
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 13:42:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68CE7C5AC67
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 13:50:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9F3FB10E039;
-	Sat,  8 Aug 2026 13:41:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C02CB10E1B3;
+	Sat,  8 Aug 2026 13:50:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z6cVKASU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kJMd9i9P";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA69010E1B3
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 13:41:58 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-38d489b6b71so417045a91.0
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 06:41:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786196518; x=1786801318; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=5x4mrfTwKDCuKeGOKJh1sjTyl1+66+prXU9ablIRt+g=;
- b=Z6cVKASU594RsbR2tHm7FGkQEozqNNAqz1g1Zjd+Rcs9EMTUUTi9IvbS2HMNIjO13h
- VmeGncwPCGwgg8i1L+4yqZPOtTIh5aVx3MemxI7rOY9DMkRMF3KzQTGdo4W7R7Jp1Kwb
- cZFxPBPf02AHalRh7DZNwqXTuz2zeZ/yogWl7fUaxQaI16MP5wBRTSN6Y9Or7HEpG852
- R6bMQ0+9unAL/qOKh/2gGwTbzBA46+cC2eXD+A0Pov5s7zveASqNoVC/RQhb8NihglI9
- tgXjljZykFhcgPdmzWh6DAymqc11HiyXnUmtGQaFsvxa9cjjAnQiSYSdkKNfBMat2GK6
- kcTg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786196518; x=1786801318;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=5x4mrfTwKDCuKeGOKJh1sjTyl1+66+prXU9ablIRt+g=;
- b=YwSddPsG+t0xgmJSTU+gYhK8Q5IYpn7wyhvCXI01w226ZSplvticvLLbZPAR9VDYqE
- 9h2j342/BDjgcOUb89gsLmzf4uY0JgwheB4Dtd8LOQp+AWUCszFGLvsjkZ/61+BYJFxz
- wZ5OiRYCgy7Ig/A1rFIHoJS0lKKXpco2Hh0o8ZokxnjUGoDU8zSYAaYKqrpzf5pufqEy
- 6keMA77YIsonO/ikoaO6gIuYLEaYiIszKBc7ZkfoX2Ai8ChwLyvyiaYqsVlfDpuaeQqv
- 2onDY0UkEEJbVjs7SOI4yosLh7LE1HcexhKHZBrmWPJ5DDXMvlaTTCpAmNk6aPh8DS0u
- 4ufQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoYAT8E18/ipXN6XktxgOedW4nkvuWFaXZQGPPhgG3pqMHBT30hnw2RRJt717NasfKBlxYNyvouCiM=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yywtt3WmKPZ9/P9jHiIeHZqC2aC2qPHsU/rJ7bzgYY8B0o9njEJ
- xonByJ8oYky5t9ZdCcbwwvI9L3MgAGYzl2zjQsENEdXQwBGQUZEOvwdj
-X-Gm-Gg: AR+sD107rTYm/dnIsOjP+FsH3GUcOe3Ej5wGUr5byM35vEotJo1AdiQ/RHtxwX7elws
- /keQI1g9wFbEIMrh09NvW8mZWzG5mYnwryPNlRc4bZjlNn44eAcAYZEz85FcNRU9VR8QiTQAgXk
- vItgbmW0Mt85ipEnFmS2C/Uz5281ZJT8Md8pWNJVocIhb0nj1+cXdrjmMUfhlEkB3GR+6unGcBL
- KW4xp6+PUt7ciNl6CQ/2otOQ+5e7tgjVOsl536J4h5g8akoZybh6o6BalpoUv69cIEMR02OXyeL
- vYpN0ZgF7kHnLReIDco4x+fkGPCshUREIW4jhNe63rbJJgY7eNRO0wWCncmmyoA4jiMPhdSo3v/
- mQoAI8w+fnQLwW8GM2TVGMhN/tanCj1P0LpUUkK+FQNmz/f+vQoZCrMtlQriQhlwA6ZbCPN0Yvb
- NNGYiacfjKeAXgixyq/S5fgLZMo73Gnr2jrp6wOwT69WqsBMwBIg==
-X-Received: by 2002:a17:90b:4e8d:b0:38d:ec31:4840 with SMTP id
- 98e67ed59e1d1-3903c5932femr32396260a91.13.1786196517998; 
- Sat, 08 Aug 2026 06:41:57 -0700 (PDT)
-Received: from lgs.. ([152.32.188.52]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3925fc6f13dsm6278888a91.1.2026.08.08.06.41.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 06:41:57 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 21:41:37 +0800
-Message-ID: <20260808134137.2864847-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 489E310E1B3
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 13:50:28 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 716E960054;
+ Sat,  8 Aug 2026 13:50:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C853C1F000E9;
+ Sat,  8 Aug 2026 13:50:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786197027;
+ bh=3zxx3/PzGwASfboZ9qvWP2qPW71D1PeGodgREbdfyV0=;
+ h=Date:From:To:Subject;
+ b=kJMd9i9PdZRXVQzMMeLTNSmjm/F0485RN+i1aVWNghmTI5yzQJPGNxEyGPIZM9jJA
+ maA/DNy3g4XzGkVnHZo+so2Myai0f5JTkZFk31USfOX8jnJUPOB8SxQc9MnHVrlvKg
+ R2v7Rx3q5J5mprgBGcU6RqsX0pWQscNVDmeD5O1oyr2F0My2lC7GOAiUCAMfRo7KOK
+ t1c0CTS9JZ1UawZMOh7Zo/16lYHsjLFjwNUi8KAUBBUUhXYTeCy1+Ep7/h/uk+msa9
+ KPtDbj5hsXg91kOubrl5F8srDzHA+dorERetv4zDDTSpKUhPO6ESuWe4pKxiFrtr2x
+ 6+pCwbs48Azhg==
+Date: Sat, 8 Aug 2026 15:50:22 +0200
+From: Helge Deller <deller@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ linux-kernel@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org
+Subject: [GIT PULL] fbdev fixes for v7.2-rc7
+Message-ID: <anc0HhpSwT_c7CTg@carbonx1>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,45 +55,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-nouveau_drm_device_init() calls pm_runtime_use_autosuspend(), but
-nouveau_drm_device_fini() does not call the matching
-pm_runtime_dont_use_autosuspend().
+Dear Linus,
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
-unbalanced.
+please pull a few important fixes for the core fbdev layer for kernel v7-2-rc7.
+All patches are tagged for stable, and most of them have been in for-next
+for some weeks.
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+Thanks!
+Helge
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the common
-device teardown path.
+----------------------------------------------------------------
+The following changes since commit 075b74841bd0065a3bda3440873c747938e69b68:
 
-This issue was found by manual code inspection.
+  Linux 7.2-rc6 (2026-08-02 16:24:24 -0700)
 
-Fixes: 5addcf0a5f0f ("nouveau: add runtime PM support (v0.9)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/nouveau/nouveau_drm.c | 1 +
- 1 file changed, 1 insertion(+)
+are available in the Git repository at:
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
-index e16f59b00f6f..1579a4b0785e 100644
---- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-@@ -585,6 +585,7 @@ nouveau_drm_device_fini(struct nouveau_drm *drm)
- 	if (nouveau_pmops_runtime()) {
- 		pm_runtime_get_sync(dev->dev);
- 		pm_runtime_forbid(dev->dev);
-+		pm_runtime_dont_use_autosuspend(dev->dev);
- 	}
- 
- 	nouveau_led_fini(dev);
--- 
-2.43.0
+  http://git.kernel.org/pub/scm/linux/kernel/git/deller/linux-fbdev.git tags/fbdev-for-7.2-rc7
 
+for you to fetch changes up to e033cbf3975a8465f879ebd5989dc35b04423a4d:
+
+  fbdev: bitblit: bound-check glyph index in bit_cursor() (2026-08-08 08:08:58 +0200)
+
+----------------------------------------------------------------
+fbdev core fixes for 7.2-rc7:
+
+A few patches for the core fbdev layer which stabilize or fix potential
+issues with text font rendering after screen rotation or after user
+initiated font changes and locking fixes for sysfb during modifications
+of the graphics mode database.
+
+----------------------------------------------------------------
+Melbin K Mathew (3):
+      fbdev: bound mode sysfs output to the sysfs buffer
+      fbdev: clear fb_info->mode before deleting a videomode
+      fbdev: serialize mode sysfs access with lock_fb_info()
+
+Mingyu Wang (1):
+      fbdev: core: Fix pointer desynchronization in fb_io_read()
+
+Rik van Riel (1):
+      fbdev: bitblit: bound-check glyph index in bit_cursor()
+
+Zizhi Wo (1):
+      fbdev: Fix out-of-bounds access when rotating console after font resize
+
+ drivers/video/fbdev/core/bitblit.c    |  9 ++++--
+ drivers/video/fbdev/core/fb_io_fops.c |  8 +++++
+ drivers/video/fbdev/core/fbcon.c      | 25 +++++++++++++++
+ drivers/video/fbdev/core/fbmem.c      |  5 ++-
+ drivers/video/fbdev/core/fbsysfs.c    | 59 ++++++++++++++++++++++++++++-------
+ 5 files changed, 91 insertions(+), 15 deletions(-)
