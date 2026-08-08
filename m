@@ -4,60 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C120FC5AD2B
-	for <dri-devel@archiver.kernel.org>; Fri,  7 Aug 2026 23:08:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1123C5AD05
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 00:59:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32A5010E3E1;
-	Fri,  7 Aug 2026 23:08:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD50410E483;
+	Sat,  8 Aug 2026 00:59:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fnEINRfI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e9sTGxuc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8925510E3E1
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 23:08:26 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id A1D386001A;
- Fri,  7 Aug 2026 23:08:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 238321F000E9;
- Fri,  7 Aug 2026 23:08:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786144105;
- bh=wQ0JD0AB/ZMckaLhyMCcytJcM09nVahiftP8BN/zRr4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=fnEINRfI/WLStiFHgYr/N4vDshm6MANIZ293vGjTgkzrxM9QK3Hpe/ipWqLpB8Nk2
- bW/kjk4FPdSBkuQtNkbkj8Uf5GqBo+ZqHzgzukevc1IOlnVdLNonX9i+Awx2kyBK75
- Vn7VDhMxtF6+1jS4/eDR1xCcJYmCSs66odGLe5emtBWSvtnEGuyUVI1xHc5L4Cz9pU
- MHEKjmP5IXncmal1qT1VdKixTr5Cyb9rX7KU4yLnlhFCjENjewgVIlftfdWVXHB3OG
- b3SV5BorbrpdPGg0xi/N2HjaSUa7bkr2IQ6WepaCNehV9qPEvLtkYCk0VGjZ2p/Ia8
- 8FhMav+rBrC3A==
-Date: Fri, 7 Aug 2026 18:08:24 -0500
-From: Rob Herring <robh@kernel.org>
-To: Cody Kang <codykang.hk@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FCDE10E483
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 00:59:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1786150744; x=1817686744;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=tDsgwi2+k+THwubQx+A8h/nHxkN0MXsHSi+73LAr1l8=;
+ b=e9sTGxucwP8CBTYH7k+gP62HlFh5W2aXNhJi5nDiD+e3XNTpX2kxBQ1z
+ l/PiKFoooyaH2FRQy6e3sulFBpWH4yF4kxKw5VVrfL3kHpGPJ9Emm3uE+
+ ZDMAa9+kw51PL/mwR/FiE34ZtU/bRlyECmWfUNcrWBHq8/NPaS0PavKdO
+ cQbIt7bivCZb/JN60/mohLeds6wC4xSNE/58j8PB6s5vt6ClrEBOW/fch
+ qNzbFSes2togTKJlBBowJSdyvOQveTWovDQTLkQZGbZnMwJ4p6DGbPa3n
+ 5WYsr2iSlNTggP/vA9lemUH+sx/Bk6ieYrHqgVBTHu0YxV9KxERugpbg3 g==;
+X-CSE-ConnectionGUID: 20iyZhznR06assl9UDWG/A==
+X-CSE-MsgGUID: iLXY3+0DQlmrOZ/s1p792w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="86841947"
+X-IronPort-AV: E=Sophos;i="6.25,211,1779174000"; d="scan'208";a="86841947"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 07 Aug 2026 17:59:04 -0700
+X-CSE-ConnectionGUID: oVI4r9TbROqmryREAQmPiQ==
+X-CSE-MsgGUID: 1u6Sx5aARbCQUu/2v1uMnQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,211,1779174000"; d="scan'208";a="256310033"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+ by fmviesa009.fm.intel.com with ESMTP; 07 Aug 2026 17:59:00 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wsVOr-00000000Jab-02ue;
+ Sat, 08 Aug 2026 00:58:57 +0000
+Date: Sat, 8 Aug 2026 08:58:47 +0800
+From: kernel test robot <lkp@intel.com>
+To: WenTao Liang <vulab@iscas.ac.cn>, Zack Rusin <zack.rusin@broadcom.com>,
+ dri-devel@lists.freedesktop.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ bcm-kernel-feedback-list@broadcom.com,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-clk@vger.kernel.org
-Subject: Re: [PATCH RESEND 04/17] dt-bindings: soc: spacemit: allow eDP/DP
- PHY PLL pixel clocks on K3 APMU
-Message-ID: <20260807230824.GA2220945-robh@kernel.org>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-4-6de34d80e86c@gmail.com>
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Hellstrom <thellstrom@vmware.com>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
+Subject: Re: [PATCH] fix: drm/vmwgfx: vmw_user_shader_alloc: fix base object
+ refcount leak on ttm_base_object_init failure
+Message-ID: <202608080849.rqxWdd9U-lkp@intel.com>
+References: <20260626150142.49732-1-vulab@iscas.ac.cn>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260725-k3-display-v1-4-6de34d80e86c@gmail.com>
+In-Reply-To: <20260626150142.49732-1-vulab@iscas.ac.cn>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,72 +78,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, Jul 25, 2026 at 12:51:13AM -0400, Cody Kang wrote:
-> The APMU's eDP pixel-clock muxes select the DP PHY PLLs as parents, so the
-> K3 syscon takes two clock inputs the other variants do not have.
-> 
-> Gate them behind the K3 compatible instead of widening the shared clock
-> list, so a non-K3 syscon cannot silently accept clocks it has no mux for.
-> 
-> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
-> ---
->  .../bindings/soc/spacemit/spacemit,k1-syscon.yaml  | 30 +++++++++++++++++++++-
->  1 file changed, 29 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml b/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
-> index d3a7c93c3c54..b8fc6632a392 100644
-> --- a/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
-> +++ b/Documentation/devicetree/bindings/soc/spacemit/spacemit,k1-syscon.yaml
-> @@ -31,14 +31,18 @@ properties:
->      maxItems: 1
->  
->    clocks:
-> -    maxItems: 4
-> +    minItems: 4
-> +    maxItems: 6
->  
->    clock-names:
-> +    minItems: 4
->      items:
->        - const: osc
->        - const: vctcxo_1m
->        - const: vctcxo_3m
->        - const: vctcxo_24m
-> +      - const: edp0_pll_pxclk
-> +      - const: edp1_pll_pxclk
->  
->    "#clock-cells":
->      const: 1
-> @@ -95,6 +99,30 @@ allOf:
->          - clocks
->          - clock-names
->          - "#clock-cells"
-> +  # Only the K3 APMU exposes the two eDP/DP PHY PLL pixel clocks as extra
-> +  # inputs (parents of its eDP pixel-clock muxes); every other variant has
-> +  # the four base oscillator inputs only.
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: spacemit,k3-syscon-apmu
-> +    then:
-> +      properties:
+Hi WenTao,
 
-> +        clocks:
-> +          minItems: 4
-> +          maxItems: 6
-> +        clock-names:
-> +          minItems: 4
-> +          maxItems: 6
-> +    else:
-> +      properties:
-> +        clocks:
-> +          minItems: 4
-> +          maxItems: 4
-> +        clock-names:
-> +          minItems: 4
-> +          maxItems: 4
+kernel test robot noticed the following build errors:
 
-4 is already the minimum, so it can be dropped on all of these.
+[auto build test ERROR on drm-misc/drm-misc-next]
+[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.2-rc6 next-20260807]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Rob
+url:    https://github.com/intel-lab-lkp/linux/commits/WenTao-Liang/fix-drm-vmwgfx-vmw_user_shader_alloc-fix-base-object-refcount-leak-on-ttm_base_object_init-failure/20260807-080356
+base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
+patch link:    https://lore.kernel.org/r/20260626150142.49732-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] fix: drm/vmwgfx: vmw_user_shader_alloc: fix base object refcount leak on ttm_base_object_init failure
+config: arm64-randconfig-002-20260807 (https://download.01.org/0day-ci/archive/20260808/202608080849.rqxWdd9U-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 12df34b8469b8095359de8c249cb1b2753fadeea)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260808/202608080849.rqxWdd9U-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608080849.rqxWdd9U-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/gpu/drm/vmwgfx/vmwgfx_shader.c:727:25: error: incompatible pointer types passing 'struct ttm_base_object *' to parameter of type 'struct ttm_base_object **' [-Wincompatible-pointer-types]
+     727 |                 ttm_base_object_unref(&ushader->base);
+         |                                       ^~~~~~~~~~~~~~
+   drivers/gpu/drm/vmwgfx/ttm_object.h:192:60: note: passing argument to parameter 'p_base' here
+     192 | extern void ttm_base_object_unref(struct ttm_base_object **p_base);
+         |                                                            ^
+   1 error generated.
+
+
+vim +727 drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
+
+   684	
+   685	static int vmw_user_shader_alloc(struct vmw_private *dev_priv,
+   686					 struct vmw_bo *buffer,
+   687					 size_t shader_size,
+   688					 size_t offset,
+   689					 SVGA3dShaderType shader_type,
+   690					 uint8_t num_input_sig,
+   691					 uint8_t num_output_sig,
+   692					 struct ttm_object_file *tfile,
+   693					 u32 *handle)
+   694	{
+   695		struct vmw_user_shader *ushader;
+   696		struct vmw_resource *res, *tmp;
+   697		int ret;
+   698	
+   699		ushader = kzalloc_obj(*ushader);
+   700		if (unlikely(!ushader)) {
+   701			ret = -ENOMEM;
+   702			goto out;
+   703		}
+   704	
+   705		res = &ushader->shader.res;
+   706		ushader->base.shareable = false;
+   707		ushader->base.tfile = NULL;
+   708	
+   709		/*
+   710		 * From here on, the destructor takes over resource freeing.
+   711		 */
+   712	
+   713		ret = vmw_gb_shader_init(dev_priv, res, shader_size,
+   714					 offset, shader_type, num_input_sig,
+   715					 num_output_sig, buffer,
+   716					 vmw_user_shader_free);
+   717		if (unlikely(ret != 0))
+   718			goto out;
+   719	
+   720		tmp = vmw_resource_reference(res);
+   721		ret = ttm_base_object_init(tfile, &ushader->base, false,
+   722					   VMW_RES_SHADER,
+   723					   &vmw_user_shader_base_release);
+   724	
+   725		if (unlikely(ret != 0)) {
+   726			vmw_resource_unreference(&tmp);
+ > 727			ttm_base_object_unref(&ushader->base);
+   728			goto out_err;
+   729		}
+   730	
+   731		if (handle)
+   732			*handle = ushader->base.handle;
+   733	out_err:
+   734		vmw_resource_unreference(&res);
+   735	out:
+   736		return ret;
+   737	}
+   738	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
