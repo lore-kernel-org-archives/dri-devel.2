@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A740C55174
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:34:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C003DC55174
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:46:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AE9F10E040;
-	Sat,  8 Aug 2026 14:34:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D823610E013;
+	Sat,  8 Aug 2026 14:46:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="A4e/XzRt";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Nyil7soq";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2723710E040
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:34:20 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9821010E013
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:46:31 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 37A3D6001A;
- Sat,  8 Aug 2026 14:34:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B0701F000E9;
- Sat,  8 Aug 2026 14:34:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C42DF6001A;
+ Sat,  8 Aug 2026 14:46:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 527D31F000E9;
+ Sat,  8 Aug 2026 14:46:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786199658;
- bh=zVeCiJ8tANcc1qocfD72/iLMxiPuk7WHV/Jh+NfsMJQ=;
+ s=k20260515; t=1786200390;
+ bh=x7yEimdBDGefL0tKKrBx9OkTaSAvwgLwsvDPPPBeMxQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=A4e/XzRtmx4M2zeajbyZ+dIBTsgXsWIKRGbxKDyk0qU5XyskeNBoA0UJdEiOdTo0e
- YgYz9rmYrjhr3TYS5Nn29MvTfqoLkASGy75onazDCun0hF5tH1nZf6Y/VMibfKb3XH
- Z3nC7NE3ukbuJW/lF6eFJ4KjexS/oFzgMpq5YUe4tF5kc65Fpdhm+WVkONSm+dmEJB
- najOZ+I0uQu6Vn4ediZQlc8vwJRziyeQHzI+6JZ5DZxWYkFaXGr0osPAvv+CXwqcFP
- ZTp0ebObLR5xSyNn0/yommWqr6gbBaILa6Mr9Yn6kibjLuFOsAtg944Eu6rvst93AC
- /aMdWmBuMwnFw==
+ b=Nyil7soqyFtakhWQKIj3WaIPi8l86jn3c0282AzufJOATxKu0FzfoQWDTBYvutjdw
+ MW91gafRHd/MkjfQccD+ZGUnDV5BD8eD8KnjPWcEvtI02zqpy12Z9YZWB3rKv5fDzq
+ TYT+mlSrmyurqLe+lO4jV9UqdhnWpJK+Ln9wypfKKkGIVzkiY8u0wxsM33kYB5wbuD
+ LpmLXU6TTibbs8n6gwWSnoffIpxURQakwRztNZARlhGLYJQGBTIEXSxPVFquGw2RAJ
+ srP6GXSobdBRiTYKDrui5buI48C4y21N+0bwxPc+zTsoqDnb/Ca4qNeK19anV28oQq
+ NBPIyiW/iYKTw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/tegra: gr3d: fix autosuspend cleanup during teardown
+Subject: Re: [PATCH] drm/tegra: nvdec: fix autosuspend cleanup during teardown
 To: "Guangshuo Li" <lgs201920130244@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260808142217.2893936-1-lgs201920130244@gmail.com>
-References: <20260808142217.2893936-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808142756.2898271-1-lgs201920130244@gmail.com>
+References: <20260808142756.2898271-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 14:34:18 +0000
-Message-Id: <20260808143418.7B0701F000E9@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 14:46:29 +0000
+Message-Id: <20260808144630.527D31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,74 +60,76 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Unreachable Code / Broken Power Management due to incorrect placem=
-ent of pm_runtime_enable()
-- [Medium] Guideline Violation: missing pm_ptr() wrapper for dev_pm_ops ass=
-ignment
+- [High] Unbalanced `pm_runtime_disable()` in `nvdec_remove()` and `nvdec_e=
+xit()` leads to a permanent `disable_depth` leak across bind/unbind cycles.
+- [High] Unconditional `dma_unmap_single()` of unallocated firmware memory =
+causes DMA API violations and potential IOMMU corruption.
 --
 
---- Patch [1]: [PATCH] drm/tegra: gr3d: fix autosuspend cleanup during tear=
-down ---
-commit 94bf3f52211b3cc132d2cfe856cc599ac46c8751
+--- Patch [1]: [PATCH] drm/tegra: nvdec: fix autosuspend cleanup during tea=
+rdown ---
+commit f6356a1a5e1501d81058f59a7327814564c32066
 Author: Guangshuo Li <lgs201920130244@gmail.com>
 
-drm/tegra: gr3d: fix autosuspend cleanup during teardown
+drm/tegra: nvdec: fix autosuspend cleanup during teardown
 
-This commit adds a missing pm_runtime_dont_use_autosuspend() call during
-driver removal.
+This commit fixes a reference count leak by adding a missing call to
+pm_runtime_dont_use_autosuspend() in nvdec_remove(). Without this, the
+runtime PM core increments usage_count if autosuspend is enabled with a
+negative delay, preventing runtime suspend during teardown.
 
-> gr3d_probe() calls pm_runtime_use_autosuspend(), but gr3d_remove()
-> does not call the matching pm_runtime_dont_use_autosuspend() during
-> teardown.
-
-[Severity: High]
-This is a pre-existing issue, but does the runtime PM initialization
-actually work as described?
-
-It appears pm_runtime_enable() and autosuspend configurations are placed in
-gr3d_runtime_resume() rather than gr3d_probe():
-
-drivers/gpu/drm/tegra/gr3d.c:gr3d_runtime_resume() {
-        ...
-        pm_runtime_enable(dev);
-        pm_runtime_use_autosuspend(dev);
-        pm_runtime_set_autosuspend_delay(dev, 500);
-        ...
-}
-
-Since the PM core initializes devices with runtime PM disabled, won't this
-callback never be invoked, leaving the device permanently in RPM_SUSPENDED
-from the PM core's perspective? Should these initialization calls be moved
-to gr3d_probe()?
-
-> diff --git a/drivers/gpu/drm/tegra/gr3d.c b/drivers/gpu/drm/tegra/gr3d.c
-> index 42e9656ab80c9..518bd21f52e2d 100644
-> --- a/drivers/gpu/drm/tegra/gr3d.c
-> +++ b/drivers/gpu/drm/tegra/gr3d.c
-> @@ -524,6 +524,7 @@ static void gr3d_remove(struct platform_device *pdev)
+> diff --git a/drivers/gpu/drm/tegra/nvdec.c b/drivers/gpu/drm/tegra/nvdec.c
+> index 7a38664e890e3..cb52459b2d79a 100644
+> --- a/drivers/gpu/drm/tegra/nvdec.c
+> +++ b/drivers/gpu/drm/tegra/nvdec.c
+> @@ -546,6 +546,7 @@ static void nvdec_remove(struct platform_device *pdev)
 >  {
->  	struct gr3d *gr3d =3D platform_get_drvdata(pdev);
+>  	struct nvdec *nvdec =3D platform_get_drvdata(pdev);
 > =20
 > +	pm_runtime_dont_use_autosuspend(&pdev->dev);
 >  	pm_runtime_disable(&pdev->dev);
->  	host1x_client_unregister(&gr3d->client.base);
->  }
 
-[Severity: Medium]
-This is a pre-existing issue, but when CONFIG_PM is disabled, does
-unconditionally assigning the dev_pm_ops structure create dead code?
+[Severity: High]
+This is a pre-existing issue, but does this sequence cause a permanent
+disable_depth leak across bind/unbind cycles?
 
-drivers/gpu/drm/tegra/gr3d.c:tegra_gr3d_driver {
-        ...
-        .pm =3D &tegra_gr3d_pm,
-        ...
+When nvdec_remove() calls pm_runtime_disable() here, it increments the
+disable_depth counter. The very next line calls host1x_client_unregister(),
+which triggers nvdec_exit().
+
+If nvdec_exit() calls pm_runtime_force_suspend(client->dev) without a
+matching pm_runtime_force_resume() later, it seems the depth is incremented
+a second time but only decremented once on the next probe.
+
+Will this prevent the device from powering on after a re-bind?
+
+>  	host1x_client_unregister(&nvdec->client.base);
+
+[Severity: High]
+This is also a pre-existing issue, but is it safe to unconditionally unmap
+the firmware memory during this teardown sequence?
+
+When host1x_client_unregister() triggers nvdec_exit(), it looks like
+nvdec_exit() unconditionally calls:
+
+drivers/gpu/drm/tegra/nvdec.c:nvdec_exit() {
+    ...
+    dma_unmap_single(nvdec->dev, nvdec->falcon.firmware.phys,
+                     nvdec->falcon.firmware.size, DMA_TO_DEVICE);
+    ...
 }
 
-Should this use the pm_ptr() wrapper like .pm =3D pm_ptr(&tegra_gr3d_pm) to
-ensure the callback functions do not get linked into the kernel when they c=
-an
-never execute?
+If the driver is unbound before the firmware is loaded (or on platforms
+where falcon firmware is never loaded), size and phys will be 0.
+
+Could calling dma_unmap_single() on an unmapped address violate the DMA API
+and cause IOMMU faults?
+
+This pattern appears to exist in the vic and nvjpg drivers as well.
+
+>  	falcon_exit(&nvdec->falcon);
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808142217.2893=
-936-1-lgs201920130244@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808142756.2898=
+271-1-lgs201920130244@gmail.com?part=3D1
