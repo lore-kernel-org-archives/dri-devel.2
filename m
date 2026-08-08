@@ -4,69 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CF80C5AD2B
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 10:07:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96D97C5AC67
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 10:23:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D1DA610E4B2;
-	Sat,  8 Aug 2026 10:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 84FEC10E02B;
+	Sat,  8 Aug 2026 10:23:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mNMAq61W";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="P0TIztDL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDB5F10E4AA;
- Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6DFA5432A3;
- Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B48BC2BCB8;
- Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786183654;
- bh=gUPN+M1TrpJU5VvlJKMa+SHlUKRGWi0Tsmx1lfmrOIs=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=mNMAq61Wh0+uTmLj95Muan3Y/xvizHBUv4wZT+6qXfpWLBRjYP2mVe0dWoUFD9ar0
- WfUrHCYj0oUCjj26Az2K3Uf4ABGZ5+gHWTuh1eHMr8mskgkV43lwyNvhPccZSoPWz9
- 52R4bCu8TpcFJ8a1XGr6hZQuYa/Td1yei4Os4OP5ip+RsA/LkfGlvY0im4WMm2PnND
- RvJ4R4bdfaJJf+hvfSN49cwE+FRixhnTM5K7HajlCBNhOhts1hQ8zsjGcsFtm6S/A1
- fdcPAvI7zx/2JhTMrxx8fVykzlDCnBizZzEelx0LuASf0yNfHToMYa+jGgBdKAzNMO
- 96dZ4r79kHVqQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 27EEEC5AC67;
- Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
-From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Sat, 08 Aug 2026 18:07:26 +0800
-Subject: [PATCH v2] drm/amdgpu: add the BO-va mapping offset when kmapping
- an IB
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260808-amdgpu-fixes-v2-1-36d66398601f@outlook.com>
-X-B4-Tracking: v=1; b=H4sIAN3/dmoC/x3LQQqAIBBA0avIrBNGF2VdJVqIjjaLTJQikO6et
- Hx8foNKhanCIhoUurnymTr0IMDtNkWS7LtBox7RoJH28DFfMvBDVc7OKgwWJ1IIfcmF/tCPdXv
- fD5LIg2xeAAAA
-X-Change-ID: 20260808-amdgpu-fixes-9ca10fa07e10
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jammy Zhou <Jammy.Zhou@amd.com>, Madhav Chauhan <madhav.chauhan@amd.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- Junrui Luo <moonafterrain@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2208;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=3FBj59YR9q4hNFYlTzD+oO1vogRrIbKjZwQeOYVwbY4=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrLL/j5LPXtkjmyZdbdzboX/ab4H+s35D75Blv2+7f
- ZR7uX/PlhcdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMBGtGIY/fJUxaotOOr/P
- uPCvbapvhFXwb+Zllak+D1aKfQl58qVlLcN/31milS8V3qhJeh2Yz7DC8dG3f40PLiwU79W5mPx
- /8sQIJgB7+VFO
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
- auth_id=909
-X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BE4C10E02B
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 10:23:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 6DF1D6001A;
+ Sat,  8 Aug 2026 10:23:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0AE61F000E9;
+ Sat,  8 Aug 2026 10:23:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786184593;
+ bh=LDsOqlAw9/4RkB/u0hMpbAK5eT/c/i6obPUvuBIcBOI=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=P0TIztDL7Q/dHlhzcN8Lom7/7ND4N0IacLvgxyRD07GdEBWDT0qZllvyX7wr6nRiG
+ MrKSc9qIi7ebtRW1YFZqVQyvQSohbtcNUkakqhCJ8m7PgSBfW+7ByQ+73yJ/MpDBE2
+ ULlFvaZDwcTRkQiwuRUxJ/vlo3q3tFNfEroDCZvfWp6zZBFdQhsqlVxIgsTa0lBtrK
+ JBz6ojGB482Bpv/fNC+tNW6GERLhLQdhqrbiw6O1caR3BtqAczPICKurNe5O6rL/HZ
+ FUt6IopzDiJkVHYutOr7djq23qxobrikHkC7isgJKE5J3++Ct2PkdVSNPAQmIHzpk9
+ vAjLq0zeDPArQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/amdgpu: add the BO-va mapping offset when
+ kmapping an IB
+To: "Junrui Luo" <moonafterrain@outlook.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260808-amdgpu-fixes-v2-1-36d66398601f@outlook.com>
+References: <20260808-amdgpu-fixes-v2-1-36d66398601f@outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 08 Aug 2026 10:23:12 +0000
+Message-Id: <20260808102312.F0AE61F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -79,70 +53,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: moonafterrain@outlook.com
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Junrui Luo <moonafterrain@outlook.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-amdgpu_cs_patch_ibs() derives the CPU-side view of a UVD/VCE/VCN
-indirect buffer from the BO returned by amdgpu_cs_find_mapping():
+New issues:
+- [Critical] The patch introduces a kernel memory out-of-bounds read/write =
+vulnerability on architectures where the system page size is greater than 4=
+KB (e.g., 64KB on ARM64 or PPC64) due to a pre-existing shift bug.
 
-    r = amdgpu_bo_kmap(aobj, (void **)&kptr);
-    kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
+Pre-existing issues:
+- [High] The patch incompletely fixes the `mapping->offset` omission. While=
+ it fixes `amdgpu_cs_patch_ibs()`, it explicitly ignores other CPU-side con=
+sumers of `amdgpu_cs_find_mapping()` (VCN, UVD, and VCE) that suffer from t=
+he identical bug, leaving a TOCTOU validation bypass and hardware programmi=
+ng errors.
+--
 
-amdgpu_bo_kmap() returns the start of the BO, so only the displacement
-of va_start inside the mapping is added.  The page tables, however, are
-programmed from mapping->offset (see amdgpu_vm_bo_update()), which
-records the offset_in_bo the client passed to AMDGPU_GEM_VA.  The GPU
-therefore resolves va_start to BO byte
+--- Patch [1]: [PATCH v2] drm/amdgpu: add the BO-va mapping offset when kma=
+pping an IB ---
+commit 38c532743ee774da4df8cab806dff666d610d7a1
+Author: Junrui Luo <moonafterrain@outlook.com>
 
-    m->offset + (va_start - m->start * AMDGPU_GPU_PAGE_SIZE)
+drm/amdgpu: add the BO-va mapping offset when kmapping an IB
 
-while the kernel inspects the byte m->offset lower.  Whenever an IB is
-submitted through a mapping created with a non-zero offset_in_bo, the
-two views disagree.
+This commit updates amdgpu_cs_patch_ibs() to add the m->offset term when
+calculating the kmapped pointer. This ensures the CPU and GPU views of the
+indirect buffer align when a mapping is created with a non-zero offset.
 
-Add the missing term so the kmapped pointer describes the same bytes the
-page tables do.
+Link: https://lore.kernel.org/r/20260806-amdgpu-fixes-v1-3-ce247012d4da@out=
+look.com
 
-Every other CPU-side consumer of amdgpu_cs_find_mapping() omits
-mapping->offset in the same way.
+> Every other CPU-side consumer of amdgpu_cs_find_mapping() omits
+> mapping->offset in the same way.
 
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
-Changes in v2:
-- Drop the Fixes tag.
-- Pick up Christian's Reviewed-by.
-- Resend standalone.
-- Link to v1: https://lore.kernel.org/r/20260806-amdgpu-fixes-v1-3-ce247012d4da@outlook.com
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[Severity: High]
+This is a pre-existing issue, but does vcn_v3_0_dec_msg() calculate the CPU
+pointer without including map->offset?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 5445f75741b5..17fe6d56e020 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1043,7 +1043,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_parser *p,
- 		if (r)
- 			return r;
- 
--		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
-+		kptr += m->offset + va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
- 
- 		if (ring->funcs->parse_cs) {
- 			memcpy(ib->ptr, kptr, ib->length_dw * 4);
+drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c:vcn_v3_0_dec_msg() {
+    ...
+    msg =3D ptr + addr - start;
+    ...
+}
 
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260808-amdgpu-fixes-9ca10fa07e10
+Could similar regressions be present in vcn_v4_0_dec_msg(),
+amdgpu_uvd_cs_pass2(), and amdgpu_vce_cs_reloc() where the physical GPU
+address or CPU pointer is calculated without the mapping offset?
 
-Best regards,
--- 
-Junrui Luo <moonafterrain@outlook.com>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index 5445f75741b53..17fe6d56e0206 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -1043,7 +1043,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_par=
+ser *p,
+>  		if (r)
+>  			return r;
+> =20
+> -		kptr +=3D va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
+> +		kptr +=3D m->offset + va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
 
+[Severity: Critical]
+Can this calculation lead to an out-of-bounds access if m->offset is inflat=
+ed
+during a mapping split?
 
+For example, if a pre-existing shift bug occurs on architectures with a sys=
+tem
+page size greater than 4KB, could adding m->offset push kptr out of bounds
+before it is used?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808-amdgpu-fix=
+es-v2-1-36d66398601f@outlook.com?part=3D1
