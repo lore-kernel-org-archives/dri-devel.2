@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91A0EC5AC67
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 670ECC55174
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:21:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E52E410E20F;
-	Sat,  8 Aug 2026 14:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C12D110E046;
+	Sat,  8 Aug 2026 14:21:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n1vexN9F";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="NKuoe5zV";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B508E10E20F
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:11:05 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E959810E046
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:21:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9E1326001A;
- Sat,  8 Aug 2026 14:11:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 354E31F000E9;
- Sat,  8 Aug 2026 14:11:04 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 227F26001A;
+ Sat,  8 Aug 2026 14:21:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69B0E1F000E9;
+ Sat,  8 Aug 2026 14:21:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786198264;
- bh=E4jBWcqnXjvJWaIuqgFU7OKfllDI2BHTZN+ENFFZzNw=;
+ s=k20260515; t=1786198898;
+ bh=2HwsiBoT4f/F1We5voVUOqU5VWyg3znaPVQNbGydKo0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=n1vexN9Fd93XCskSggtU1kiUIO6YCiBPsDRBjgzTa41nEjPJMClwUWZvNQhcrUmrK
- pN3K5FC7bry3A4f5ERtury8FnAUx7D9PQL8ZRqvQxXTRSaFXI7f3W0OVHQV0ossFF2
- Qq7XtWO1H1W7e/j98Z9D6kGJAFn79c1ieWjp1YCSSUM3rIJjeq71QcyaUAwh2ix+M5
- SBVeMGXuV3Mgii05zjfk4n3qhuWpHaSbxpKdQi97n5QvBzEW+YCTqh9cB33V1zmca/
- 6JeJP/JwVzCl65KazCCz9yigvcY3N/rmOFlvjG959pQdjzCKexxvSfbSw6Ad9PmjZV
- 6jNj1Stdp44oQ==
+ b=NKuoe5zV+jeHcJ/4yTq7qAQXg9wjFNUmjVlkKsSUvHKBcBgLLYD2YV06vg9oZpkMu
+ DcMdFFQnVLUHWgHa5GzYFrZc2kFMD2XH3dy7d6uDAitMTUMGJ46omUyiLxhdGFgVyK
+ uhIedScr7bFyqNpzI3b2C5HGezcpvC+RK7EF2xjHmBSL9bqpc16dkFQMQOtx7uVrXv
+ BS0WUMmwEccr4361yYSz0/NcqJveIR9iZprcds3As75C2ExA+DrzCClXj8/dhrQxuS
+ 2Z8X46i+C/0Tm+SVhZomAOdaSI6bpPP2DMdo8PhOK7ZfNU/zVY+ai81IMyZe4myKPR
+ /TnyRuXEV4phQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/panfrost: fix autosuspend cleanup during teardown
+Subject: Re: [PATCH] drm/tegra: gr2d: fix autosuspend cleanup during teardown
 To: "Guangshuo Li" <lgs201920130244@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260808135025.2872956-1-lgs201920130244@gmail.com>
-References: <20260808135025.2872956-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808140622.2887873-1-lgs201920130244@gmail.com>
+References: <20260808140622.2887873-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 14:11:03 +0000
-Message-Id: <20260808141104.354E31F000E9@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 14:21:37 +0000
+Message-Id: <20260808142138.69B0E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,102 +56,81 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [Critical] Calling pm_runtime_dont_use_autosuspend() before pm_runtime_di=
-sable() in the probe error path triggers a synchronous runtime suspend, cau=
-sing a fatal system crash when hardware is subsequently accessed.
-- [Medium] Calling `pm_runtime_dont_use_autosuspend()` before `pm_runtime_g=
-et_sync()` in `panfrost_remove()` causes an unnecessary synchronous suspend=
- followed immediately by a resume.
+- [Medium] The commit message falsely claims that gr2d_probe() calls pm_run=
+time_use_autosuspend(), and adds a redundant cleanup to gr2d_remove() based=
+ on this false premise.
 
 Pre-existing issues:
-- [High] Missing pm_runtime_put_noidle() at the end of panfrost_remove() pe=
-rmanently leaks the PM usage count on driver unbind.
-- [High] Premature drm_dev_register() exposes the device before initializat=
-ion is complete, risking UAF/Data Abort on the error path.
+- [High] Unbinding the gr2d driver while a DRM channel is open causes a Use=
+-After-Free when the DRM file is later closed by userspace.
 --
 
---- Patch [1]: [PATCH] drm/panfrost: fix autosuspend cleanup during teardow=
-n ---
-commit 20fb0c04bf706e7ac3773cb2ee067fc667a9f893
+--- Patch [1]: [PATCH] drm/tegra: gr2d: fix autosuspend cleanup during tear=
+down ---
+commit 9b1fea12d4967b1c2b4a943c3958df804b6cd6a8
 Author: Guangshuo Li <lgs201920130244@gmail.com>
 
-drm/panfrost: fix autosuspend cleanup during teardown
+    drm/tegra: gr2d: fix autosuspend cleanup during teardown
 
-This patch adds missing calls to pm_runtime_dont_use_autosuspend() during t=
-he
-probe error path and panfrost_remove(). It aims to ensure that the autosusp=
-end
-reference count is properly dropped during device teardown.
+This commit adds a pm_runtime_dont_use_autosuspend() call to the driver's
+remove function. It attempts to fix a leaked usage count reference that the
+commit message states was taken in gr2d_probe().
 
-> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
-nfrost/panfrost_drv.c
-> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-> @@ -1012,6 +1012,7 @@ static int panfrost_probe(struct platform_device *p=
-dev)
->  err_out2:
->  	drm_dev_unregister(&pfdev->base);
-
-[Severity: High]
-This is a pre-existing issue, but does registering the device before
-initializing the shrinker create a race condition here?
-
-If panfrost_gem_shrinker_init() fails, the probe aborts and calls
-drm_dev_unregister(), but this does not revoke open file descriptors. Can
-userspace race to open the device during this window and then trigger a
-use-after-free or data abort by accessing torn-down hardware mappings
-through the open file descriptor?
-
->  err_out1:
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
-
-[Severity: Critical]
-Does placing pm_runtime_dont_use_autosuspend() before pm_runtime_disable()
-trigger a synchronous suspend?
-
-When the usage count is zero, clearing the autosuspend flag causes an
-immediate idle check which synchronously powers off the hardware. Will the
-unconditional register accesses in panfrost_device_fini() then cause a fatal
-data abort since the hardware is already powered off?
-
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
-
-[ ... ]
-
-> @@ -1026,6 +1027,7 @@ static void panfrost_remove(struct platform_device =
-*pdev)
->  	drm_dev_unregister(&pfdev->base);
->  	panfrost_gem_shrinker_cleanup(&pfdev->base);
-> =20
-> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
->  	pm_runtime_get_sync(pfdev->base.dev);
+>     gr2d_probe() calls pm_runtime_use_autosuspend(), but gr2d_remove()
+>     does not call the matching pm_runtime_dont_use_autosuspend() during
+>     teardown.
 
 [Severity: Medium]
-Could this sequence cause the hardware to suspend and immediately resume?
+Is this description accurate?
 
-If the usage count is zero here, pm_runtime_dont_use_autosuspend() will
-synchronously power off the device. The subsequent pm_runtime_get_sync()
-will immediately power it back on before hardware teardown. Should the
-autosuspend cleanup happen after we ensure the device is awake?
+Looking at the code, gr2d_probe() does not call pm_runtime_use_autosuspend(=
+).
 
->  	pm_runtime_disable(pfdev->base.dev);
->  	panfrost_device_fini(pfdev);
+Furthermore, pm_runtime_dont_use_autosuspend() is already properly called
+during teardown inside gr2d_exit(), which is reached via
+host1x_client_unregister().
+
+Does this patch add a redundant cleanup based on an incorrect premise?
+
+> diff --git a/drivers/gpu/drm/tegra/gr2d.c b/drivers/gpu/drm/tegra/gr2d.c
+> index 21f4dd0fa6aff..8063e06b0b87a 100644
+> --- a/drivers/gpu/drm/tegra/gr2d.c
+> +++ b/drivers/gpu/drm/tegra/gr2d.c
+> @@ -293,6 +293,7 @@ static void gr2d_remove(struct platform_device *pdev)
+>  {
+>  	struct gr2d *gr2d =3D platform_get_drvdata(pdev);
+> =20
+> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+>  	host1x_client_unregister(&gr2d->client.base);
+>  }
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this function leak the
-power management usage count?
+This is a pre-existing issue, but does unbinding the driver here
+cause a use-after-free if a DRM channel remains open?
 
-The call to pm_runtime_get_sync() earlier in the function increments the
-usage count, but there is no matching pm_runtime_put_noidle() before the
-function exits. Since the struct device is tied to the platform device and
-outlives the driver binding, will this permanently break runtime power
-management by blocking future suspends if the driver is unbound and rebound?
+If an administrator unbinds the tegra-gr2d driver while userspace has a DRM
+channel open, gr2d_remove() will execute. The struct gr2d driver data will
+then be freed by devres.
+
+When userspace subsequently closes the DRM file descriptor,
+tegra_drm_postclose() calls tegra_drm_context_free(), which dereferences
+the freed client ops:
+
+drivers/gpu/drm/tegra/drm.c:tegra_drm_context_free() {
+    ...
+    context->client->ops->close_channel(context);
+    ...
+}
+
+Should the DRM layer be coordinated with to revoke active contexts before t=
+he
+device structure is destroyed?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808135025.2872=
-956-1-lgs201920130244@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808140622.2887=
+873-1-lgs201920130244@gmail.com?part=3D1
