@@ -4,63 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C1CEC55174
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:24:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8510CC55174
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:28:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 85ADC10E42B;
-	Sat,  8 Aug 2026 14:24:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFD6510E00D;
+	Sat,  8 Aug 2026 14:28:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hr3yNQWY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rM+Q2wff";
 	dkim-atps=neutral
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75E1F10E43B
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:24:33 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-38dc69c74b8so447100a91.0
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:24:33 -0700 (PDT)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 515F110E00D
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:28:12 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-8485ef63b68so932809b3a.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:28:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786199073; x=1786803873; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786199292; x=1786804092; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=BxpSzB8c18EmT5JtuB1eU+b+G1XkrOHh1hT/Xfy0Dn0=;
- b=Hr3yNQWYLGRieDSmE0rEtuesfPiTRBgXVw6X2OOQAJ0a71EEcZYRj6J4VOq0jJQNor
- gt4BTpsaK7w6Ff2l57o3sq/dmKLwLPbHfZ/bYFCk1Hz3CFPzz0fSen9Pm6VTh/lHCGVu
- 3vmaOsmKVIitnToOyuc7NK0TpeBAWGyGgQb+z/ocXYHrwXMWu5Yjtl8HT/kqIVLVE70V
- z1u1jgW1+BRQazj/44fhtfqppYh5oQ901S/r4NY6bilUtGFfYoNGigWqUojuXzuFcCl8
- B7pfv8ursAy88JSeppp41ipnF7CGKS8gms4tXu5Vp0xJJWqYgDpRPlAXfT54D0ylqPMc
- 69ww==
+ bh=JR3/zjA3xajDjkF0BbKi6bxrnqpn1dXC1eeAaooz27M=;
+ b=rM+Q2wffJgeDtdmXICQOeTLm2/6Qz1WwTBAX7dXHrXMJMbBeZbiT85yr43MoXZW2bW
+ aKcqWq8YoQdVvIY/jKTOoPIFWOWflhQTOuwmnbwWuXPifoGiq4X96rCJCDR4Q/FRTu57
+ wDpRjy0D7gULruU15JYWpHkBmMap8qwQ4DNSRebnclKuV5hVyUrFTPsqwHFXr3qJdg+4
+ ykVcnX2QZDJurxzZq3Xic3vgdyigCnviqfOhe6/LShkpVKzv4WIxvSzpxFmgWgxPV8qF
+ oY0bhO4FYX8fz30m4KZOsBUEk4pyjDM/LLI+IkUREET5G3zEXyFf8JSPEkLMvABAGumU
+ XKgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786199073; x=1786803873;
+ d=1e100.net; s=20251104; t=1786199292; x=1786804092;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=BxpSzB8c18EmT5JtuB1eU+b+G1XkrOHh1hT/Xfy0Dn0=;
- b=iajlJdKXAa1N0MjlD3qCSD6NP6GzWJO0V07DVcwptgwl94U3dUmmecQCtuE86ktAbX
- nJEXPm12vmzNfRp69nXp0W2QqrQepJ2dLh2Cu9T3QupyA2T9hXp7hJ1kaG5VEag/34s9
- mLASPOcisTH5j9FU5AcpN0yxOqXIUBEXomd68jvkgX/1o8XD6kTE0Jro/7vtJKL+ooHc
- xwyWylrzTMbfxeM0wERc8X1d5p/vEFMpzZ0ROX+tLqL4u+Otmhm3bEVDmDExIJ1TwfAz
- sIH9xfYcffki9Y6dqDhXL1xL5gvEm1lj3lyArKzcPjcwGO0MRBfxgHjE5eAKq7jnvFbO
- yI4w==
+ bh=JR3/zjA3xajDjkF0BbKi6bxrnqpn1dXC1eeAaooz27M=;
+ b=gSqvqwoTZV7BxtUjCEbhSdty6yWLqES+B15d7PMs3DeWnqxdWJppjUMk65O7vsoygk
+ H++zUkGfHTouuWx14Fkr+pTWWrft9d1kteVJZ7LxuQaA+z8qPdvmw94U3o9u++hS6GsH
+ wNlFUosUTRg8vntgplngveCQlqyFHipNGAEu3MR6RORiOZo5gTJdWHLMoYafYrd/VK9C
+ H9cb3cL6KJbXN6a5UU02m0HvVIDO7kXaK+HsygwOvMq6AqJxnaamMPv1d6h4RpwdGmlz
+ oRQfnL//+MZPHyQmj6kYDFLmsLtZgK2cpJwaInYFJculbuZRSL+RQLs5wGj4Cc5WeIQ0
+ 07SQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpI1YGYPbb4X7voRZl/9TwWzYSvRRwtriuTPeaRJM4b6otNKH2D7xZRUVDbc+v270sti8yj9yZE2L0=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzoeIlUdEMhjan+kkXvvR7Mojyzp7NXQE5PHSqOUT262sW/bT0c
- eZY57FJvkWTn8/gmjNI5e1E3zllwFEkvWKEvEck7t2AIbIOIIt+p/ZQF
-X-Gm-Gg: AR+sD11pGmMVvAKdaqfcjGU0oZ3iS66yD5b03dqrcOivAKXFQyXtKm4mQNXGwHMBsAj
- uX3FFrxadZfhlIcz4s/OpZ9yELFss1GaPd5TBIbXgyaakk4zwK0K15D+3LxU7LXhEl/CgvY3EQp
- 77jCoWVdT1THJX1r/TBfoaeyScxLWJmHTom0lM6Toaa3w43eTYX5tG3DCW6EqiEpcZwwigDSmtG
- uZD36oY/RiX+mr4A9+Cz4FMTzUFI3urcalu3WLeB0caavKpnocG2WT8CDHnCOO/aaSkWLP2UpE6
- NhNzTyMLryPKXefg2HdORwxtc8G5HnYg6je2Pa4i2bmmT8v1wo6QVWIClZTI04xdp3bxXwiC2Sc
- pjY86s8gO6wkmUY5DFiWsUJGVeYPY2yg3VQEpe2n8NcZYq13MpVg6UKh9DYVdFG3T0tPDHxKDqp
- z2DH4rCCSHCmxPeQ+WqkHL6HoHK0NI7ZyyH5VpINyxxzg=
-X-Received: by 2002:a17:90a:d010:b0:38d:eaec:4396 with SMTP id
- 98e67ed59e1d1-3903c58bdd2mr30385694a91.11.1786199072815; 
- Sat, 08 Aug 2026 07:24:32 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39085f2b2easm8638206a91.11.2026.08.08.07.24.28
+ AHgh+RraaILGKshjDELHCmfTszcXCdnvX+xhgc2jjzBqjP47katTZkHONNVarWczZf2W21Y61Vb2Qcs1ydM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyYM1Td6JqYIkVrpp1zOTepDkvIcQsFd8B79YEJW9CcSuVRb4qz
+ yZadUgjEL/XjPsylHbGVWtoykerY1Vw9upogyyu/wTW5k1eCAPmgz8xw
+X-Gm-Gg: AR+sD13ko2mgsRK0l2T+lTKfDii89WOa/5SzoSIc8M0ETHDBtm/hXkx/R997i2PQ765
+ UgFBjoOb3Pr62mLGN7ZNeIbCyfHTKTfY0ea1XAzGEnGzwmQq/qoELLIbnTSrerHkn03XOiL0Ai4
+ 4KpdXaTxaDsjJvc1xc5BEmOwh+U/7EpPzRxswrSzBSUKISa11FMofkBe0pF9lm66yQJ4qtF8vFL
+ 3qcpI+dhzBXcG2Bcgne0ZXNiFsiUUp6EkOmThB9XKljih5e0Unq5kQGCNnWVjueDKDB6T6DK/dU
+ F9svxccYBUTZW4SMBcQ8YS9GR2FZh6/8R2/CmDyI674YhOvl5MpciDXEUTtAaSr5V1XWbeTaHp1
+ 74DCFVeAou8sBh7WBb+5VUJgvf7gAal6YtZfN9xcn+bnkzi8T6aPRKOEJU7UrRZwUo31D2BE1D8
+ /yRVpSY/g/v4D9FKI33zSTqwaxfs6pNRoaQ7tV/5POUMRvPsqRyOjNO06F1g==
+X-Received: by 2002:a05:6a00:240a:b0:84e:538:476e with SMTP id
+ d2e1a72fcca58-84f2e0ed7fdmr30329697b3a.32.1786199291788; 
+ Sat, 08 Aug 2026 07:28:11 -0700 (PDT)
+Received: from lgs.. ([101.76.249.46]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84f5a51e9fcsm2177867b3a.36.2026.08.08.07.28.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 07:24:32 -0700 (PDT)
+ Sat, 08 Aug 2026 07:28:10 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
 To: Thierry Reding <thierry.reding@kernel.org>,
  Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
@@ -69,9 +68,9 @@ To: Thierry Reding <thierry.reding@kernel.org>,
  linux-kernel@vger.kernel.org
 Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/tegra: gr3d: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 22:22:16 +0800
-Message-ID: <20260808142217.2893936-1-lgs201920130244@gmail.com>
+Subject: [PATCH] drm/tegra: nvdec: fix autosuspend cleanup during teardown
+Date: Sat,  8 Aug 2026 22:27:56 +0800
+Message-ID: <20260808142756.2898271-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -90,7 +89,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gr3d_probe() calls pm_runtime_use_autosuspend(), but gr3d_remove()
+nvdec_probe() calls pm_runtime_use_autosuspend(), but nvdec_remove()
 does not call the matching pm_runtime_dont_use_autosuspend() during
 teardown.
 
@@ -113,21 +112,21 @@ Fixes: 62fa0a985e2c ("drm/tegra: Enable runtime PM during probe")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/gpu/drm/tegra/gr3d.c | 1 +
+ drivers/gpu/drm/tegra/nvdec.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/tegra/gr3d.c b/drivers/gpu/drm/tegra/gr3d.c
-index 1ec6ced959e4..5fd1fd32fcc0 100644
---- a/drivers/gpu/drm/tegra/gr3d.c
-+++ b/drivers/gpu/drm/tegra/gr3d.c
-@@ -534,6 +534,7 @@ static void gr3d_remove(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/tegra/nvdec.c b/drivers/gpu/drm/tegra/nvdec.c
+index 7a38664e890e..cb52459b2d79 100644
+--- a/drivers/gpu/drm/tegra/nvdec.c
++++ b/drivers/gpu/drm/tegra/nvdec.c
+@@ -546,6 +546,7 @@ static void nvdec_remove(struct platform_device *pdev)
  {
- 	struct gr3d *gr3d = platform_get_drvdata(pdev);
+ 	struct nvdec *nvdec = platform_get_drvdata(pdev);
  
 +	pm_runtime_dont_use_autosuspend(&pdev->dev);
  	pm_runtime_disable(&pdev->dev);
- 	host1x_client_unregister(&gr3d->client.base);
- }
+ 	host1x_client_unregister(&nvdec->client.base);
+ 	falcon_exit(&nvdec->falcon);
 -- 
 2.43.0
 
