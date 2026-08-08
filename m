@@ -4,52 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3724EC5B560
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01EA8C5B569
 	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:37:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F06F610E644;
-	Mon, 10 Aug 2026 06:37:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 234E710E647;
+	Mon, 10 Aug 2026 06:37:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="XwQx54XP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PE1Jo4OS";
 	dkim-atps=neutral
-Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D3C410E4B8
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 10:37:07 +0000 (UTC)
-Received: from localhost (37-74-132-17.biz.kpn.net [37.74.132.17])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
- server-digest SHA256) (No client certificate requested)
- by meve.dewith.io (Postfix) with ESMTPSA id EBD802405F;
- Sat,  8 Aug 2026 10:37:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
- t=1786185425;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=VSaDElFw+MnqgzYhA8gil00pUiBrcKmpVElDCxEHTOg=;
- b=XwQx54XPslzIhyxXiB6aSPF1Adj1QirMNYk6mQVdMqt4fC9iujdypzx1yq5owwh4w0h2pw
- ONb9k8aNGtNxwU8SNvMR7HuAxVESJ4sqaVm6lMg9NTuHNPPcwu0zDOpfplG/mfA6Kl7FOi
- ++w+Dlf6XsZgQLd0E7jBfsnoAafLRiU=
-Date: Sat, 8 Aug 2026 12:36:49 +0200
-From: Wim de With <wf@dewith.io>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH 2/2] backlight: Add support for Orient Chip OCP8178
-Message-ID: <ancGwXAICfur322a@dewith.io>
-References: <20260806201541.101304-1-wf@dewith.io>
- <20260806201541.101304-3-wf@dewith.io> <anV9EBIaZvoTz-lp@monoceros>
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E195F10E088
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 21:10:42 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2cacf197759so11473565ad.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 14:10:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786223442; x=1786828242; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6hwMQ2HMVOe/ZrnavsLxJJgOKuAnP/w9GzcsAMiyxO4=;
+ b=PE1Jo4OS/TB/1huSea82t2wcTgOuKeAljtlmgNaIZG1B50wih8E8UP1XbyFH+Q7vpk
+ 7Z7louzpaKJbM0pNeOJtw+jmDFac77We8RVGOQ2iGs5Y8NmJqBlNbdHyNVzuz85g36Xh
+ cdOS2DDKZwGddT3pLtlbciPGkWXvFy2mi6Kaoq1tGidKEfpTz905ZmlYaoQZfIN6uEL1
+ d/aFGU7Axj/qm79HQV8LaFaeeSPeJDgqJs/xen0t685/71TsYFgU/yWmH27YlmITrMfy
+ epp1TSSz+tSUfc6+vqNbTFW8V7WznI2CP/rGxKtLoGo+rwjtT6PybUEVlxX12kbUpM//
+ 3wGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786223442; x=1786828242;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=6hwMQ2HMVOe/ZrnavsLxJJgOKuAnP/w9GzcsAMiyxO4=;
+ b=NkN4CmhCkArcQC7RMISCSvXa7vupLvwM98Ns3gVLX7Phk0MYfU6BCn/QNjD4EmfNz9
+ 74X5pOdRtEUiNYwjH6MyTEKc4KG1ri5MuaSXFuSD6keRK9Jl4OvFmKBupVky5vKpEUow
+ mLoAHEhPMxATQEwt1N7ZT8qaIe4NQ97w4dYAVLfOqc8v9oJh7v515UlP99bxrAaHwa2i
+ CQNH04b8oZNHEy9z57bLtkhrgPWqcP6eF+pcOHTswCw8hCqBvr4ZjFjP0+JPd71Vx6h5
+ Ku6ShBgjfqEvFLF0OGwlZf8MIfPiXsvx9nPtwnk6PNaEwaWMqv1DUI40ipIkNYpQVO7d
+ g5JA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrUiyQXjpIXoa/+d/CRPjz1LiSMlZlmHfDhSEsqX2y8/JureTnuo65JZAqt3D3GYbDR0u7RAHDoZnI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8Nyw7p4MlXDK535lZ9wh9hq/XXtIukpZVO8LtA3TMQxGDLJ+G
+ BgHteX+IwdB1ojOzrPC12RAx6pgIJHRdxhinVBsPn64kA/lqBoEXBv6F
+X-Gm-Gg: AR+sD13WITNqE50fgZCpWAfdkqD9TB8a1pNRbUt8LXebW9AFJOQV4KbbkEtA7sGtu5Q
+ Jhi+24z+uLDuWsMyWB3VJIHqtqutVWqPECVV/cJf/IOWxMPdnwCi20PzhSf+VcJ3aaHmfQCUUeu
+ dAlS7FYKx8kVuWAPA4WaeQUjFYvbVmCq6nsu7Mc/sOVkuqxk0ywd+3cw3Hg292ai/doE9T5CoHK
+ 9Ql1c8rkMqAlrZ74wXxlpKnvdkmBCkwTT8ItINzRXhA2P9R4ZTjl+89JvSH4j/GiSJGs0e5qrau
+ IytrmqZv7KPIA87bdQMRwXMN7Z+3DVSSzG00tw3DYsWHg7ZjTQX/z3BrT2c8oxHAkmYYkDey1S5
+ aUnXjBE/r7X8ile0N6+zDdGwq/TbcqnRS/JJMye0sOdg3/Nn7+LsgibWhJE2A92azWhmgPLUEBN
+ O8Cnf4bxLlm6610lV1SRFfgGCu8EuN85mDmg5zFqJir9LbxPOcK+M79+qJ0mOx00qGf6f947Fkt
+ Qa8n5F7e6Q=
+X-Received: by 2002:a05:6a20:4322:b0:3c3:b57b:6285 with SMTP id
+ adf61e73a8af0-3cbc01b4a9bmr11804825637.13.1786223442339; 
+ Sat, 08 Aug 2026 14:10:42 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.204.72])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-315bec5aac2sm25713133eec.30.2026.08.08.14.10.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 Aug 2026 14:10:41 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH 4/5] drm/amdgpu/aca: Add missing NULL check for banks
+ parameter in aca_banks_add_bank
+Date: Sat,  8 Aug 2026 21:08:51 +0000
+Message-ID: <20260808210852.2938-5-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260808210852.2938-1-sreekuttan2156239@gmail.com>
+References: <20260808210852.2938-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <anV9EBIaZvoTz-lp@monoceros>
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,88 +94,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Fri, Aug 07, 2026 at 08:46:07AM +0200, Uwe Kleine-König wrote:
-> On Thu, Aug 06, 2026 at 10:15:41PM +0200, Wim de With wrote:
-> > +#include <linux/mod_devicetable.h>
-> > +#include <linux/platform_device.h>
-> 
-> Please don't use <linux/mod_devicetable.h> in new code.
-> <linux/platform_device.h> already provides struct of_device_id, so you
-> should be able to just drop the include for <linux/mod_devicetable.h>.
+aca_banks_add_bank() verified that the 'bank' parameter was non-NULL,
+but passed 'banks' directly into list_add_tail(&node->node, &banks->list)
+and incremented 'banks->nr_banks' without validating whether 'banks' was
+NULL.
 
-Sure, will do.
+Add a NULL check for 'banks' to prevent a kernel NULL pointer
+dereference if an invalid pointer is passed by a caller.
 
-> > +static void ocp8178_bl_write_u8(struct ocp8178_bl *ocp8178, u8 value)
-> > +{
-> > +	unsigned long flags;
-> > +
-> > +	gpiod_set_value(ocp8178->gpiod, 1);
-> > +	udelay(OCP8178_1W_T_START_US);
-> > +
-> > +	local_irq_save(flags);
-> > +
-> > +	for (int i = 7; i >= 0; i--) {
-> > +		if ((value >> i) & 1) {
-> > +			gpiod_set_value(ocp8178->gpiod, 0);
-> > +			udelay(OCP8178_1W_HIGH_BIT_T_LOW_US);
-> > +			gpiod_set_value(ocp8178->gpiod, 1);
-> > +			udelay(OCP8178_1W_HIGH_BIT_T_HIGH_US);
-> > +		} else {
-> > +			gpiod_set_value(ocp8178->gpiod, 0);
-> > +			udelay(OCP8178_1W_LOW_BIT_T_LOW_US);
-> > +			gpiod_set_value(ocp8178->gpiod, 1);
-> > +			udelay(OCP8178_1W_LOW_BIT_T_HIGH_US);
-> > +		}
-> > +	}
-> > +
-> > +	gpiod_set_value(ocp8178->gpiod, 0);
-> > +
-> > +	local_irq_restore(flags);
-> > +
-> > +	udelay(OCP8178_1W_T_EOS_US);
-> > +	gpiod_set_value(ocp8178->gpiod, 1);
-> > +}
-> 
-> Is this function open-coding stuff that already exists in drivers/w1?
-> (Just asking because you call that onewire).
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The datasheet calls this 1-Wire, but it is a proprietary protocol, not
-the 1-Wire protocol from Dallas Semiconductor that is implemented in
-drivers/w1.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index 1cddacb7c554..47f3bcd5de0b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -49,7 +49,7 @@ static int aca_banks_add_bank(struct aca_banks *banks, struct aca_bank *bank)
+ {
+ 	struct aca_bank_node *node;
+ 
+-	if (!bank)
++	if (!banks || !bank)
+ 		return -EINVAL;
+ 
+ 	node = kvzalloc_obj(*node);
+-- 
+2.54.0
 
-> > [...]
-> > +static int ocp8178_bl_probe(struct platform_device *pdev)
-> > +{
-> > +	[...]
-> > +
-> > +	dev_info(dev, "probed, brightness=%u/%u\n", brightness, max_brightness);
-> 
-> IMHO this is just noise once the code hits mainline. The amount of log
-> lines like these during boot is just annoying and makes it hard to
-> identify the relevant lines. So if you're confident that your driver
-> works, users are probably not interested in that line and you can drop
-> it (or degrade to dev_dbg).
-
-I'm confident that when the driver fails to load, a message is logged,
-so I'll downgrade it to dev_dbg.
-
-> > +static const struct of_device_id ocp8178_bl_of_match[] = {
-> > +	{ .compatible = "ocs,ocp8178" },
-> > +	{ /* sentinel */ }
-> > +};
-> > +MODULE_DEVICE_TABLE(of, ocp8178_bl_of_match);
-> > +
-> > +static struct platform_driver ocp8178_bl_driver = {
-> > +	.driver		= {
-> > +		.name		= "ocp8178-bl",
-> > +		.of_match_table	= ocp8178_bl_of_match,
-> > +	},
-> > +	.probe		= ocp8178_bl_probe,
-> 
-> I'm not a fan of aligning the = chars. But opinions differ.
-
-I have no strong opinions on this, so I'll go along with what the
-maintainer wants.
-
-Regards,
-Wim
