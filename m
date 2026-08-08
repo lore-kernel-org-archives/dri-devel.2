@@ -4,42 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69644C55174
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 13:32:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4391FC55174
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 13:42:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B39ED10E037;
-	Sat,  8 Aug 2026 13:32:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F3FB10E039;
+	Sat,  8 Aug 2026 13:41:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dtt/g4zw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z6cVKASU";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E83F010E037
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 13:32:34 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id BC8AC6001A;
- Sat,  8 Aug 2026 13:32:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ADCA1F000E9;
- Sat,  8 Aug 2026 13:32:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786195953;
- bh=47lKdowWjkDBMg+/B0nVS3LU/bH/oAHlp43wReLqAfk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dtt/g4zwt/qxOfTALAjrw7s53fRiD+M+krJMfbTVnaJE2vgyylCHBzlt44QfSuGuG
- i/EACFXPpABk37++HL2JYFSAYbVFJaDvmnXg7FZtDgvM4AEgm+JxhkjI2jH7aNgtEl
- Rw6xYww9DNfoCKRZviDNt2bHJRqglgfwnRKT6r8mpc7a1w1VhdX8Xwmymvh1qbI9uw
- 5hTGDJ7T4o2wUb9ZVCBUC6wyWjo7L84d9QXR0W/9AWzfy/pxIqyhjKWMf5k0q+891L
- I4remNMW0tvuXFA/RS6rZY5It3yCfOObuWJlj7/eFTEUhkV5TY/ahQ4cPYQNilJfcf
- BvKXnOCA7pX5A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teardown
-To: "Guangshuo Li" <lgs201920130244@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260808131624.2854412-1-lgs201920130244@gmail.com>
-References: <20260808131624.2854412-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 13:32:32 +0000
-Message-Id: <20260808133233.4ADCA1F000E9@smtp.kernel.org>
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AA69010E1B3
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 13:41:58 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-38d489b6b71so417045a91.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 06:41:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786196518; x=1786801318; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5x4mrfTwKDCuKeGOKJh1sjTyl1+66+prXU9ablIRt+g=;
+ b=Z6cVKASU594RsbR2tHm7FGkQEozqNNAqz1g1Zjd+Rcs9EMTUUTi9IvbS2HMNIjO13h
+ VmeGncwPCGwgg8i1L+4yqZPOtTIh5aVx3MemxI7rOY9DMkRMF3KzQTGdo4W7R7Jp1Kwb
+ cZFxPBPf02AHalRh7DZNwqXTuz2zeZ/yogWl7fUaxQaI16MP5wBRTSN6Y9Or7HEpG852
+ R6bMQ0+9unAL/qOKh/2gGwTbzBA46+cC2eXD+A0Pov5s7zveASqNoVC/RQhb8NihglI9
+ tgXjljZykFhcgPdmzWh6DAymqc11HiyXnUmtGQaFsvxa9cjjAnQiSYSdkKNfBMat2GK6
+ kcTg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786196518; x=1786801318;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=5x4mrfTwKDCuKeGOKJh1sjTyl1+66+prXU9ablIRt+g=;
+ b=YwSddPsG+t0xgmJSTU+gYhK8Q5IYpn7wyhvCXI01w226ZSplvticvLLbZPAR9VDYqE
+ 9h2j342/BDjgcOUb89gsLmzf4uY0JgwheB4Dtd8LOQp+AWUCszFGLvsjkZ/61+BYJFxz
+ wZ5OiRYCgy7Ig/A1rFIHoJS0lKKXpco2Hh0o8ZokxnjUGoDU8zSYAaYKqrpzf5pufqEy
+ 6keMA77YIsonO/ikoaO6gIuYLEaYiIszKBc7ZkfoX2Ai8ChwLyvyiaYqsVlfDpuaeQqv
+ 2onDY0UkEEJbVjs7SOI4yosLh7LE1HcexhKHZBrmWPJ5DDXMvlaTTCpAmNk6aPh8DS0u
+ 4ufQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoYAT8E18/ipXN6XktxgOedW4nkvuWFaXZQGPPhgG3pqMHBT30hnw2RRJt717NasfKBlxYNyvouCiM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yywtt3WmKPZ9/P9jHiIeHZqC2aC2qPHsU/rJ7bzgYY8B0o9njEJ
+ xonByJ8oYky5t9ZdCcbwwvI9L3MgAGYzl2zjQsENEdXQwBGQUZEOvwdj
+X-Gm-Gg: AR+sD107rTYm/dnIsOjP+FsH3GUcOe3Ej5wGUr5byM35vEotJo1AdiQ/RHtxwX7elws
+ /keQI1g9wFbEIMrh09NvW8mZWzG5mYnwryPNlRc4bZjlNn44eAcAYZEz85FcNRU9VR8QiTQAgXk
+ vItgbmW0Mt85ipEnFmS2C/Uz5281ZJT8Md8pWNJVocIhb0nj1+cXdrjmMUfhlEkB3GR+6unGcBL
+ KW4xp6+PUt7ciNl6CQ/2otOQ+5e7tgjVOsl536J4h5g8akoZybh6o6BalpoUv69cIEMR02OXyeL
+ vYpN0ZgF7kHnLReIDco4x+fkGPCshUREIW4jhNe63rbJJgY7eNRO0wWCncmmyoA4jiMPhdSo3v/
+ mQoAI8w+fnQLwW8GM2TVGMhN/tanCj1P0LpUUkK+FQNmz/f+vQoZCrMtlQriQhlwA6ZbCPN0Yvb
+ NNGYiacfjKeAXgixyq/S5fgLZMo73Gnr2jrp6wOwT69WqsBMwBIg==
+X-Received: by 2002:a17:90b:4e8d:b0:38d:ec31:4840 with SMTP id
+ 98e67ed59e1d1-3903c5932femr32396260a91.13.1786196517998; 
+ Sat, 08 Aug 2026 06:41:57 -0700 (PDT)
+Received: from lgs.. ([152.32.188.52]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3925fc6f13dsm6278888a91.1.2026.08.08.06.41.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 Aug 2026 06:41:57 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Dave Airlie <airlied@redhat.com>,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/nouveau: fix autosuspend cleanup during teardown
+Date: Sat,  8 Aug 2026 21:41:37 +0800
+Message-ID: <20260808134137.2864847-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,75 +88,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+nouveau_drm_device_init() calls pm_runtime_use_autosuspend(), but
+nouveau_drm_device_fini() does not call the matching
+pm_runtime_dont_use_autosuspend().
 
-Pre-existing issues:
-- [High] The GPU object and its associated resources are leaked if `dev_pm_=
-opp_of_find_icc_paths()` fails in `adreno_bind()`.
---
+If the autosuspend delay is set to a negative value while autosuspend
+is enabled, the runtime PM core increments usage_count to prevent
+runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+during teardown, this reference is not dropped and usage_count remains
+unbalanced.
 
---- Patch [1]: [PATCH] drm/msm/adreno: fix autosuspend cleanup during teard=
-own ---
-commit d01531efa3b8df1b3ab17728c644cfbadd605a8f
-Author: Guangshuo Li <lgs201920130244@gmail.com>
+The documentation for pm_runtime_use_autosuspend() also notes that it
+is important to undo it with pm_runtime_dont_use_autosuspend() at
+driver exit time, unless runtime PM was initially enabled with
+devm_pm_runtime_enable().
 
-drm/msm/adreno: fix autosuspend cleanup during teardown
+Add the missing pm_runtime_dont_use_autosuspend() call to the common
+device teardown path.
 
-This commit adds a missing pm_runtime_dont_use_autosuspend() call to
-adreno_gpu_cleanup() to properly drop the usage count during teardown.
+This issue was found by manual code inspection.
 
-> diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/ms=
-m/adreno/adreno_gpu.c
-> index 3370cd44382fe..f4b22e04f9135 100644
-> --- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> +++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-> @@ -1261,6 +1261,8 @@ void adreno_gpu_cleanup(struct adreno_gpu *adreno_g=
-pu)
->  	for (i =3D 0; i < ARRAY_SIZE(adreno_gpu->info->fw); i++)
->  		release_firmware(adreno_gpu->fw[i]);
-> =20
-> +	pm_runtime_dont_use_autosuspend(&gpu->pdev->dev);
-> +
->  	if (priv && pm_runtime_enabled(&priv->gpu_pdev->dev))
->  		pm_runtime_disable(&priv->gpu_pdev->dev);
+Fixes: 5addcf0a5f0f ("nouveau: add runtime PM support (v0.9)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-[Severity: High]
-This isn't a regression introduced by this patch, but I noticed a
-potential leak in adreno_bind().
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index e16f59b00f6f..1579a4b0785e 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -585,6 +585,7 @@ nouveau_drm_device_fini(struct nouveau_drm *drm)
+ 	if (nouveau_pmops_runtime()) {
+ 		pm_runtime_get_sync(dev->dev);
+ 		pm_runtime_forbid(dev->dev);
++		pm_runtime_dont_use_autosuspend(dev->dev);
+ 	}
+ 
+ 	nouveau_led_fini(dev);
+-- 
+2.43.0
 
-Looking at adreno_bind() in drivers/gpu/drm/msm/adreno/adreno_device.c:
-
-drivers/gpu/drm/msm/adreno/adreno_device.c:adreno_bind() {
-    ...
-	gpu =3D info->funcs->init(drm);
-	if (IS_ERR(gpu)) {
-		dev_warn(drm->dev, "failed to load adreno gpu\n");
-		return PTR_ERR(gpu);
-	}
-
-	ret =3D dev_pm_opp_of_find_icc_paths(dev, NULL);
-	if (ret)
-		return ret;
-    ...
-}
-
-During component binding in adreno_bind(), if dev_pm_opp_of_find_icc_paths()
-fails (which can happen with -EPROBE_DEFER), it returns immediately without
-calling gpu->funcs->destroy(gpu).
-
-Because component binding failed, the component framework will not call
-adreno_unbind(), which leaves resources allocated during
-info->funcs->init(drm) (like a6xx_gpu_init()) leaked. This happens on
-every probe deferral.
-
-Does this code leak the GPU object and its associated resources if
-dev_pm_opp_of_find_icc_paths() fails?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808131624.2854=
-412-1-lgs201920130244@gmail.com?part=3D1
