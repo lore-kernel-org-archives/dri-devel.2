@@ -4,65 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1123C5AD05
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 00:59:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212F3C5AD05
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 01:41:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD50410E483;
-	Sat,  8 Aug 2026 00:59:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3943710E49C;
+	Sat,  8 Aug 2026 01:41:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="e9sTGxuc";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="joAKtJ9a";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FCDE10E483
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 00:59:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1786150744; x=1817686744;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=tDsgwi2+k+THwubQx+A8h/nHxkN0MXsHSi+73LAr1l8=;
- b=e9sTGxucwP8CBTYH7k+gP62HlFh5W2aXNhJi5nDiD+e3XNTpX2kxBQ1z
- l/PiKFoooyaH2FRQy6e3sulFBpWH4yF4kxKw5VVrfL3kHpGPJ9Emm3uE+
- ZDMAa9+kw51PL/mwR/FiE34ZtU/bRlyECmWfUNcrWBHq8/NPaS0PavKdO
- cQbIt7bivCZb/JN60/mohLeds6wC4xSNE/58j8PB6s5vt6ClrEBOW/fch
- qNzbFSes2togTKJlBBowJSdyvOQveTWovDQTLkQZGbZnMwJ4p6DGbPa3n
- 5WYsr2iSlNTggP/vA9lemUH+sx/Bk6ieYrHqgVBTHu0YxV9KxERugpbg3 g==;
-X-CSE-ConnectionGUID: 20iyZhznR06assl9UDWG/A==
-X-CSE-MsgGUID: iLXY3+0DQlmrOZ/s1p792w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11868"; a="86841947"
-X-IronPort-AV: E=Sophos;i="6.25,211,1779174000"; d="scan'208";a="86841947"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 07 Aug 2026 17:59:04 -0700
-X-CSE-ConnectionGUID: oVI4r9TbROqmryREAQmPiQ==
-X-CSE-MsgGUID: 1u6Sx5aARbCQUu/2v1uMnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,211,1779174000"; d="scan'208";a="256310033"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
- by fmviesa009.fm.intel.com with ESMTP; 07 Aug 2026 17:59:00 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wsVOr-00000000Jab-02ue;
- Sat, 08 Aug 2026 00:58:57 +0000
-Date: Sat, 8 Aug 2026 08:58:47 +0800
-From: kernel test robot <lkp@intel.com>
-To: WenTao Liang <vulab@iscas.ac.cn>, Zack Rusin <zack.rusin@broadcom.com>,
- dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- bcm-kernel-feedback-list@broadcom.com,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Hellstrom <thellstrom@vmware.com>, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org, WenTao Liang <vulab@iscas.ac.cn>
-Subject: Re: [PATCH] fix: drm/vmwgfx: vmw_user_shader_alloc: fix base object
- refcount leak on ttm_base_object_init failure
-Message-ID: <202608080849.rqxWdd9U-lkp@intel.com>
-References: <20260626150142.49732-1-vulab@iscas.ac.cn>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D31710E491
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 01:40:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id D370341A3F;
+ Sat,  8 Aug 2026 01:40:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E051F000E9;
+ Sat,  8 Aug 2026 01:40:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786153257;
+ bh=NXm/SsYiv4ju2Xo/fyAJbZ1/yajU4AJnu1Qr1d7j8WA=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc;
+ b=joAKtJ9aDWLRW8g60N7rTz7Fk3n3zBec23EWuWHUcWd5HRqJVBkyk5WzNKzjUm85d
+ 9lsGEGYAKdlvH34Iw4D0SJhzT+OSm4I97ZiogX8In8C3QDlPx4sL/bJHQX8+z9I/xL
+ llWdFb+5gWtBqCI6caipTdq3EJ5h0snCEe5r3v584ZLlC4dIbfsFFuGlNZ1gWMXXjG
+ gPJYFRkePsgxKXugp6MgsJ6jx2YB/CLH5jYGJREspbCKJ7wNR1g4fjFpD2B6OMjnJi
+ 76Cubw0CLs7D2krtwFJV7n8r/JTSsAZEjTiFhC2xcn67UHTA3CEZG4Jtgx1r3vW0f4
+ mcuseiKZ7WFJg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 5696B380CEE4; Sat,  8 Aug 2026 01:40:17 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260626150142.49732-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v8 0/3] net: devmem: allow rx-buf-size > PAGE_SIZE
+ per binding
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <178615321588.2493713.16495466969438230257.git-patchwork-notify@kernel.org>
+Date: Sat, 08 Aug 2026 01:40:15 +0000
+References: <20260805-tcpdm-large-niovs-v8-0-3e0225e2808c@meta.com>
+In-Reply-To: <20260805-tcpdm-large-niovs-v8-0-3e0225e2808c@meta.com>
+To: Bobby Eshleman <bobbyeshleman@gmail.com>
+Cc: donald.hunter@gmail.com, kuba@kernel.org, davem@davemloft.net,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ andrew+netdev@lunn.ch, kraxel@redhat.com, vivek.kasireddy@intel.com,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, shuah@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
+ sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
+ almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
+ dw@davidwei.uk, joe@dama.to, bobbyeshleman@meta.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,98 +69,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi WenTao,
+Hello:
 
-kernel test robot noticed the following build errors:
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on daeinki-drm-exynos/exynos-drm-next drm/drm-next drm-i915/for-linux-next drm-i915/for-linux-next-fixes drm-tip/drm-tip linus/master v7.2-rc6 next-20260807]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On Wed, 05 Aug 2026 13:42:42 -0700 you wrote:
+> Every devmem dmabuf binding hands the page_pool PAGE_SIZE niovs today.
+> On NICs that consume one descriptor per netmem, this caps a single RX
+> descriptor at PAGE_SIZE and burns CPU on buffer churn.
+> 
+> In this series, we add a bind-time netlink attribute,
+> NETDEV_A_DMABUF_RX_BUF_SIZE, that lets userspace request a larger niov
+> size (power of two >= PAGE_SIZE). Drivers must opt in via
+> queue_mgmt_ops.QCFG_RX_PAGE_SIZE.
+> 
+> [...]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/WenTao-Liang/fix-drm-vmwgfx-vmw_user_shader_alloc-fix-base-object-refcount-leak-on-ttm_base_object_init-failure/20260807-080356
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20260626150142.49732-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] fix: drm/vmwgfx: vmw_user_shader_alloc: fix base object refcount leak on ttm_base_object_init failure
-config: arm64-randconfig-002-20260807 (https://download.01.org/0day-ci/archive/20260808/202608080849.rqxWdd9U-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 12df34b8469b8095359de8c249cb1b2753fadeea)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260808/202608080849.rqxWdd9U-lkp@intel.com/reproduce)
+Here is the summary with links:
+  - [net-next,v8,1/3] net: devmem: allow rx-page-size > PAGE_SIZE per dmabuf binding
+    https://git.kernel.org/netdev/net-next/c/b27a8560eec9
+  - [net-next,v8,2/3] selftests/net: ncdevmem: add -b option to set rx-page-size on bind
+    https://git.kernel.org/netdev/net-next/c/3e8c9ec4eb75
+  - [net-next,v8,3/3] selftests/net: devmem.py: add check_rx_large_niov
+    https://git.kernel.org/netdev/net-next/c/8ac4255c1e0c
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608080849.rqxWdd9U-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/gpu/drm/vmwgfx/vmwgfx_shader.c:727:25: error: incompatible pointer types passing 'struct ttm_base_object *' to parameter of type 'struct ttm_base_object **' [-Wincompatible-pointer-types]
-     727 |                 ttm_base_object_unref(&ushader->base);
-         |                                       ^~~~~~~~~~~~~~
-   drivers/gpu/drm/vmwgfx/ttm_object.h:192:60: note: passing argument to parameter 'p_base' here
-     192 | extern void ttm_base_object_unref(struct ttm_base_object **p_base);
-         |                                                            ^
-   1 error generated.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
-vim +727 drivers/gpu/drm/vmwgfx/vmwgfx_shader.c
-
-   684	
-   685	static int vmw_user_shader_alloc(struct vmw_private *dev_priv,
-   686					 struct vmw_bo *buffer,
-   687					 size_t shader_size,
-   688					 size_t offset,
-   689					 SVGA3dShaderType shader_type,
-   690					 uint8_t num_input_sig,
-   691					 uint8_t num_output_sig,
-   692					 struct ttm_object_file *tfile,
-   693					 u32 *handle)
-   694	{
-   695		struct vmw_user_shader *ushader;
-   696		struct vmw_resource *res, *tmp;
-   697		int ret;
-   698	
-   699		ushader = kzalloc_obj(*ushader);
-   700		if (unlikely(!ushader)) {
-   701			ret = -ENOMEM;
-   702			goto out;
-   703		}
-   704	
-   705		res = &ushader->shader.res;
-   706		ushader->base.shareable = false;
-   707		ushader->base.tfile = NULL;
-   708	
-   709		/*
-   710		 * From here on, the destructor takes over resource freeing.
-   711		 */
-   712	
-   713		ret = vmw_gb_shader_init(dev_priv, res, shader_size,
-   714					 offset, shader_type, num_input_sig,
-   715					 num_output_sig, buffer,
-   716					 vmw_user_shader_free);
-   717		if (unlikely(ret != 0))
-   718			goto out;
-   719	
-   720		tmp = vmw_resource_reference(res);
-   721		ret = ttm_base_object_init(tfile, &ushader->base, false,
-   722					   VMW_RES_SHADER,
-   723					   &vmw_user_shader_base_release);
-   724	
-   725		if (unlikely(ret != 0)) {
-   726			vmw_resource_unreference(&tmp);
- > 727			ttm_base_object_unref(&ushader->base);
-   728			goto out_err;
-   729		}
-   730	
-   731		if (handle)
-   732			*handle = ushader->base.handle;
-   733	out_err:
-   734		vmw_resource_unreference(&res);
-   735	out:
-   736		return ret;
-   737	}
-   738	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
