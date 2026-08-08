@@ -4,79 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ADD4C5B56F
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12FF6C5AE5D
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAD6210E650;
-	Mon, 10 Aug 2026 06:38:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09A5D10E654;
+	Mon, 10 Aug 2026 06:38:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JtyYo/qM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UtjX7y1c";
 	dkim-atps=neutral
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4331410E06A
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 21:10:23 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-ca7c1176317so496107a12.1
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 14:10:23 -0700 (PDT)
+Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7384210E037
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 13:30:57 +0000 (UTC)
+Received: by mail-pz2-f1.google.com with SMTP id
+ 41be03b00d2f7-ca8758e7e94so26228a12.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 06:30:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786223423; x=1786828223; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
- b=JtyYo/qMaVTVLQwobWbuprKNJ0N8N+x/T0ky2GQgwtmiVMFmFBdhwMRntOckXRUKQo
- HmXBWc8bx3nU+QJJfdk80U8pvHBsHpcUULlraaaqNirHfVkdrqKAGzzKNPjaWTaX2DEP
- s5J2ja+yvSczKvKcHIfXuwqZaZdBpn/aGWei8ubjJXM1QK0/y2wIMjv0evvTPjTj6ZdR
- SbsscUvBPGg9IMRtow0AeCZuPC3WblK0TF8+ZwbFtzF5T3ryknddjC3RZNoPxU6gzwT4
- Q4XbSvsT/0DLPmi0mIvTHFurRCxRCXK1UAq79ktr9H66fZI4t8u1KDMO7UyrZzDpBj9p
- lNrg==
+ d=gmail.com; s=20251104; t=1786195857; x=1786800657; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=6zYCYgrPHJ1R0IyDM9ZJHQW95fmf52/M7XVvd8snhDU=;
+ b=UtjX7y1cHeAzvB7F2x2IpZZ7WSH7Tey3nI0woqSqUjjuOyFDjNlPRuSbb8rRJi2OmD
+ MYlQU1LTZTt7S6iFLcWuemn2W9x7mD3HlTYpvHaJqnvP9Nmp0beITsUDXTU/AVCjobQj
+ jhJW2VAZe7g80m+WTtVTIa5qYgLCehPsbDPbVKlt1DB1xGCM6rz3dUBP4GKP1pcqeZIt
+ tru05FBhZ1ny9O+GC73F3e68j4rDo3WPKZqQtXNogzeYXdhaFmKpIu8imx94+zkwo7lX
+ Yo0C/c9y2OkluRIYSvC0A/Y15qZnpYvIzqdKPQLbiSJJBKIMeeFk3N92jSeaAy8p75QR
+ nkWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786223423; x=1786828223;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
- b=Q9HMfwTOMQjA6lkRiDijqFuM43c+qOZC22Z257Zq/kxTxswu8iLFMhPP72m9YrDLY0
- bjYUYpMmmNpY8xZUnfrsbpgqV9dRQF4NUyYr4Z5+xpWdg8ybZ2TfRw7tkLLo/uO8G5Tt
- 623JKl3T0Jo/kvThTOTFxDAI2sZOfhhcSkXRewNayr0LpwGqwVnMENjmkbJ6oTTIue1Y
- USHjwGgUQYzk462i/Ej6fKsQ+AaDV/yevYoMZGkPlDEL2PhzGz3JMFBdO3qulaPpHMlj
- fXpGLUQMcdCjuat1Ksbe5WWXLjCzL8S2lZcHmv2a2Qt83j5VN30KqFjBN5xexXGvUNod
- 6PIQ==
+ d=1e100.net; s=20251104; t=1786195857; x=1786800657;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=6zYCYgrPHJ1R0IyDM9ZJHQW95fmf52/M7XVvd8snhDU=;
+ b=WHqdhbCQyDsoME2y84Uo8w0j3ipyXhphKjEVR7IvaMWI4cZ3LnnTOeLHutiSR2MJxa
+ vYlt4HrqmvzYAD6cGQwpGDljHk9eQVz+zZkojUX/1K5ALkDztXcTILKjPl9A8EDj7In6
+ QZontQJtgxlX5lWdU2Kn5IxS0dE+gb31z/O1+rzYgodU+41/6U2gNI7jAqNwH2z6mwhp
+ HCSAVZuCL/CYCtfeVItg1qDYRRuNWw0qxJycr6ffILIc8jcIVbIwcGwuEfVynom9A80m
+ Noj9tlObWPlWTFMiRq8GTr4GEd3+3DE5Dw+PX76T6hy8REomrhQN22f8574ChO2GEVIH
+ 81xw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp3eBUOWhp8uudhl0exMr/UNRrMLzcORdlqxAeAfGndrHbuFLQvUZUjR7Qzvl5TiEiLh5IBBwpQgbg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YyJwD+r9NAnrJhmgqqK4SWVKIrZW5yO6ooGN8bptoVAyOjD61/b
- nsIXKBV8mpzLW71HibVWOhhpCEoVQmijXL++fN8K6HFZHZudsfdmKAoD
-X-Gm-Gg: AR+sD10ju0TH5MQkW7fmTulr/+c9i5Gwz6/v4IKq0bLRn+vB5P9KJeJUrBXJ53CnWBn
- JdzPOdnudBdGh4/fxwnvyhiMSCnA7800EM7Amhj/3mGxotwQPjN6quFl/6cFseL+d2v7l/3ik+a
- iGaSKo+V7jsj6lD06kQ0q2rET+PhADnC1wS7At9jeDUdHc99KeSNLpH3UPz2MnjfvH/aW9Vgl6p
- nb3qz1c2N5Rf8RyFn+DCjWBPBB93czDV03K9xPDb2dICnYPLCJIexvFZzLJigNfYpVGqN3Ri5ck
- rvRGh1Q/I+WFxKxslbSEdazfg+903nm9vCt+mAlJF5qstSSs062lQTwZ6gKNxzee0COHl1ErENY
- WjLxvnTA5bsbdHeMXthVh+9cBEN0T8oiQkdEetCzIW4gwirTXDRHXrmjpGzMpOs1CR9e0QoGTJa
- 1lwMBg78k5E8fK55yKGaDH5i3khU1uGPtGZ8n6zEa84BZm40wk18n4A5J05BpoGk5LAuTTub5AE
- bL+2ibzHmQ=
-X-Received: by 2002:a05:6a20:e211:b0:3c3:875d:c546 with SMTP id
- adf61e73a8af0-3cbce6cadc7mr10236790637.7.1786223422496; 
- Sat, 08 Aug 2026 14:10:22 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.204.72])
+ AHgh+Rokc9Tavj09bkY27fHGaJVSIc0yroJK04q6/FVIUaN4G2cEGuRAAV8D3zcUO1RhmYz+M8ttMW8bOgQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw71sNTssE/SFy6qyWA3JGNRVF7V7GfiTYbahxa55z+1jC04FKV
+ /n59r4FUfLdZrfvWQnFM6NAZEax1MrR/WgnEFZFVi5ureyks38C/7Fk8
+X-Gm-Gg: AR+sD13MVLZZ5I7n5jeCBHXP67U06ufzaptFfJKTyw88MCbG5kZxaPX6YnP5dsH4w1n
+ QzCEdiNTAGMXaEhVlEwHlqCzNmPvcYs37AXmThHFIsgbnuC6Q4h3C7E5J7Wi2J4QASrlo1A70NY
+ 1jLPIP2iXXkwXqC4SqrUmAWfNbhJhHy5kWWQC/xxbTSDK7nro34xlRioxlPgTZod92iw5fvRV0v
+ c+E6dzEmc+cNWVQoojhzvZti72KJnR6c7QBzTwxFF5jG7w+I7jrz/Gh1jAJg2gtr7bFgEtovPy/
+ P6IuPLCpXqZw6MklSg87yWh9XvZBuRLrfbYBw0+sEQcC13gXN5ct+dLg4ugkF2HQ+aFrN+bT1iR
+ /Vc1uDB/I3bib5lpM96Cn/yOZ3BXIb8qp2uYKTFlTP+KwULSaMDVMY1/zmz0xmx3LNYgChb3Eau
+ rqXn7Ykj6IcXEt2d+Zvz2pfVd3t/K9dT3NpkZ6uqSmluhhQ9g3Pw==
+X-Received: by 2002:a05:6a00:240c:b0:842:3838:cb03 with SMTP id
+ d2e1a72fcca58-84f6b778b44mr5395163b3a.11.1786195856790; 
+ Sat, 08 Aug 2026 06:30:56 -0700 (PDT)
+Received: from localhost ([2403:2c80:17:1e::20db])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315bec5aac2sm25713133eec.30.2026.08.08.14.10.19
+ d2e1a72fcca58-84f5a51e9a9sm2125357b3a.37.2026.08.08.06.30.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 14:10:22 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH 1/5] drm/amdgpu/aca: Fix race condition and UAF in error cache
- logging
-Date: Sat,  8 Aug 2026 21:08:48 +0000
-Message-ID: <20260808210852.2938-2-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260808210852.2938-1-sreekuttan2156239@gmail.com>
-References: <20260808210852.2938-1-sreekuttan2156239@gmail.com>
+ Sat, 08 Aug 2026 06:30:56 -0700 (PDT)
+Date: Sat, 08 Aug 2026 21:30:52 +0800
+Message-ID: <b66d3009f9cf310ca0f068999bd475ac.codykang.hk@gmail.com>
+From: Cody Kang <codykang.hk@gmail.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-clk@vger.kernel.org
+Subject: Re: [PATCH RESEND 12/17] drm/spacemit: add Innosilicon DP/eDP
+ controller bridge driver
+In-Reply-To: <5537a40f12e80b89e330f37032016de6f3b9f4c7.camel@pengutronix.de>
+References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
+ <20260725-k3-display-v1-12-6de34d80e86c@gmail.com>
+ <5537a40f12e80b89e330f37032016de6f3b9f4c7.camel@pengutronix.de>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,84 +105,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In aca_error_cache_log_bank_error(), find_bank_error() released
-aerr->lock prior to returning bank_error. This created a time-of-check
-to time-of-use (TOCTOU) race window where a concurrent caller of
-aca_log_aca_error() could acquire aerr->lock and free the bank_error
-node via aca_bank_error_remove().
+Hi Philipp,
 
-When execution returned to aca_error_cache_log_bank_error(),
-incrementing bank_error->count resulted in a Use-After-Free and
-potential kernel memory corruption. Additionally, bank_error->count
-was updated outside mutex lock protection.
+On Mon, 27 Jul 2026 09:49:58 +0200, Philipp Zabel wrote:
+> On Sa, 2026-07-25 at 00:51 -0400, Cody Kang via B4 Relay wrote:
+> > From: Cody Kang <codykang.hk@gmail.com>
+> >
+> > Add the DP/eDP controller that sits downstream of the Saturn DPU. Two
+> > identical instances share one compatible; the eDP-vs-DP role is board
+> > wiring, so it is taken from the devicetree: an eDP panel always sits
+> > under an aux-bus child node, an external DP connector never does.
+> >
+> > The link is driven through the generic PHY framework, so the controller
+> > never touches a PLL register. The controller's HPD interrupt is gated by
+> > the DP pixel clock, which can be off exactly when a plug has to be
+> > caught, so the connector is also polled and the interrupt path re-reads
+> > the live level when it does fire.
+> >
+> > Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+> > ---
+> >  drivers/gpu/drm/spacemit/Kconfig            |   19 +
+> >  drivers/gpu/drm/spacemit/Makefile           |    3 +
+> >  drivers/gpu/drm/spacemit/spacemit_inno_dp.c | 2443 +++++++++++++++++++++++++++
+> >  drivers/gpu/drm/spacemit/spacemit_inno_dp.h |  328 ++++
+> >  4 files changed, 2793 insertions(+)
+> >
+> [...]
+> > diff --git a/drivers/gpu/drm/spacemit/spacemit_inno_dp.c b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
+> > new file mode 100644
+> > index 000000000000..e88731d9b18b
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
+> > @@ -0,0 +1,2443 @@
+> [...]
+> > +static int inno_dp_probe(struct platform_device *pdev)
+> > +{
+> [...]
+> > +	dp->reset = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
+>
+> Since this is only asserted in probe and deasserted in remove, you
+> could use devm_reset_control_get_optional_exclusive_deasserted() [1].
 
-Fix this by acquiring aerr->lock at the start of
-aca_error_cache_log_bank_error() and holding it continuously across
-lookup, creation, and counter updates, while removing redundant
-internal lock acquisitions in helper functions.
+Thanks for the review. Will do in v2. The binding marks resets as
+required, which means I shouldn't use _optional in the first place.
+I will use the non-optional devm_reset_control_get_exclusive_deasserted().
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
+> [1] https://docs.kernel.org/driver-api/reset.html#c.devm_reset_control_get_optional_exclusive_deasserted
+>
+> > +	if (IS_ERR(dp->reset)) {
+> > +		ret = dev_err_probe(dev, PTR_ERR(dp->reset),
+> > +				    "failed to get reset\n");
+> > +		return ret;
+> > +	}
+> > +
+> > +	dp->pxclk = devm_clk_get(dev, "pxclk");
+> > +	if (IS_ERR(dp->pxclk)) {
+> > +		ret = dev_err_probe(dev, PTR_ERR(dp->pxclk),
+> > +				    "failed to get pxclk\n");
+> > +		return ret;
+> > +	}
+> > +
+> > +	if (dp->edp_mode) {
+> > +		dp->bridge.type = DRM_MODE_CONNECTOR_eDP;
+> > +		/*
+> > +		 * OP_DETECT is required: without it
+> > +		 * drm_bridge_connector_detect() hard-codes CONNECTED for any
+> > +		 * eDP connector and fbdev wedges at bind.
+> > +		 */
+> > +		dp->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
+> > +				 DRM_BRIDGE_OP_HPD;
+> > +	} else {
+> > +		dp->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
+> > +		/*
+> > +		 * No OP_HPD: the HPD interrupt is gated by the DP pixel clock.
+> > +		 * Leaving it out marks the connector POLL_CONNECT |
+> > +		 * POLL_DISCONNECT instead.
+> > +		 */
+> > +		dp->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
+> > +				 DRM_BRIDGE_OP_MODES;
+> > +	}
+> > +
+> > +	if (dp->reset) {
+>
+> This check is not necessary, reset_control_deassert() handles NULL
+> pointers.
+>
+> > +		ret = reset_control_deassert(dp->reset);
+>
+> If the _deasserted() variant is used above, this can be removed and the
+> reset control doesn't need to be stored in dp.
+>
+> > +		if (ret) {
+> > +			dev_err(dev, "failed to deassert reset: %d\n", ret);
+> > +			return ret;
+> > +		}
+> > +	}
+> > +
+> [...]
+> > +	return 0;
+> > +
+> > +err_clk:
+> > +	clk_disable_unprepare(dp->pxclk);
+> > +err_reset:
+> > +	if (dp->reset)
+> > +		reset_control_assert(dp->reset);
+>
+> Same as above. Remove the unnecessary check or manual assertion
+> entirely.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index db7858fe0c3d..d0d473082431 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -237,10 +237,8 @@ static struct aca_bank_error *new_bank_error(struct aca_error *aerr, struct aca_
- 	INIT_LIST_HEAD(&bank_error->node);
- 	memcpy(&bank_error->info, info, sizeof(*info));
- 
--	mutex_lock(&aerr->lock);
- 	list_add_tail(&bank_error->node, &aerr->list);
- 	aerr->nr_errors++;
--	mutex_unlock(&aerr->lock);
- 
- 	return bank_error;
- }
-@@ -249,22 +247,16 @@ static struct aca_bank_error *find_bank_error(struct aca_error *aerr, struct aca
- {
- 	struct aca_bank_error *bank_error = NULL;
- 	struct aca_bank_info *tmp_info;
--	bool found = false;
- 
--	mutex_lock(&aerr->lock);
- 	list_for_each_entry(bank_error, &aerr->list, node) {
- 		tmp_info = &bank_error->info;
- 		if (tmp_info->socket_id == info->socket_id &&
- 		    tmp_info->die_id == info->die_id) {
--			found = true;
--			goto out_unlock;
-+			return bank_error;
- 		}
- 	}
- 
--out_unlock:
--	mutex_unlock(&aerr->lock);
--
--	return found ? bank_error : NULL;
-+	return NULL;
- }
- 
- static void aca_bank_error_remove(struct aca_error *aerr, struct aca_bank_error *bank_error)
-@@ -306,11 +298,15 @@ int aca_error_cache_log_bank_error(struct aca_handle *handle, struct aca_bank_in
- 		return 0;
- 
- 	aerr = &error_cache->errors[type];
-+	mutex_lock(&aerr->lock);
- 	bank_error = get_bank_error(aerr, info);
--	if (!bank_error)
-+	if (!bank_error) {
-+		mutex_unlock(&aerr->lock);
- 		return -ENOMEM;
-+	}
- 
- 	bank_error->count += count;
-+	mutex_unlock(&aerr->lock);
- 
- 	return 0;
- }
--- 
-2.54.0
+Agree, all of these will be fixed in v2.
 
+Cody
