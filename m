@@ -4,44 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FB2CC5AD4E
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 11:27:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01B40C5AC67
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 11:28:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 82EFA10E02E;
-	Sat,  8 Aug 2026 11:27:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D80010E197;
+	Sat,  8 Aug 2026 11:28:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eu/N6N0W";
+	dkim=pass (2048-bit key; unprotected) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="RtPwgry/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FE1510E02E
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 11:27:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A90D843E15;
- Sat,  8 Aug 2026 11:27:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69CFB1F00A3A;
- Sat,  8 Aug 2026 11:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786188433;
- bh=qUB3yFcL+y4urKKC/DRr3wGAWn0/ntoUjaQ7HdDuNEo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eu/N6N0WaXbCiSqs6PO/YXt19R6XxwlWyy7ZGay9ya/6bqHQSegTILDKVV7iPiwmJ
- jxKn9dPh70pQKxeE2QvqXZisIGnL5n74SUMtxXhNXbB3Lbgc1qCm9xzhmwxADOuFY9
- pizERDfX8nVyVJv8A248qcE98cmtF1WqWZwWE6v8KNw7pdd+iAKw7/7Ve4ilhNuFKk
- erInhRJoGU/DK62UPNNstr5/e5PCH1G10spr0dJmRRmvqYXZjjfjmdv1U1XjFbIthp
- Ho1Rkn/SRsx1ESXWQ7lwS5R5UV9sU0dk3SMBCSGuGvdq/BCa7f3TFc+M5IQ8IdLh9C
- vNJHVWaAkXkow==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] drm/nouveau: bound sync and op counts in EXEC and
- VM_BIND
-To: "Junrui Luo" <moonafterrain@outlook.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260808-nouveau-fixes-v1-1-c3ebdc17a89c@outlook.com>
-References: <20260808-nouveau-fixes-v1-0-c3ebdc17a89c@outlook.com>
- <20260808-nouveau-fixes-v1-1-c3ebdc17a89c@outlook.com>
-Content-Type: text/plain; charset=utf-8
+Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com
+ [91.218.175.185])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5C7110E197
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 11:28:18 +0000 (UTC)
+Mime-Version: 1.0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cknow-tech.com;
+ s=key1; t=1786188496;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=nTiQEkGVBrasvVz8h8QknY2d4efiqb6H0T4s+eD983M=;
+ b=RtPwgry/cGWIE73k1OOPhyXIijIJRNCMYBRaHVyD1Z+u1QIXAj6XGI6cnrEw3pfnu7vVQH
+ w9IupxB3EOMxN8AELNZNIDUppeEOpS93Ph6S/wwbns1SXO72Q7cfRpNSZZ6P/2mYYzeAN/
+ vUl5AlUCPtzg9hptJ0G1lNu2keigXxcdFaZ9UtMSqwAi5RWWa8EQj+5WiCDfKOA2C3Tm4x
+ HtVhLZAH+pOcVdUUI+xLHIp3SR8oX1tk0XANscUQMl8+oA/J5dF16+eHms//VqcemYMdNi
+ 4G2srQgigDo9cS2ya9gThKXgFRXLQuCcFhFjraZs+qdylNC3l8JMYmUhP26r+Q==
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 11:27:12 +0000
-Message-Id: <20260808112713.69CFB1F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 08 Aug 2026 13:28:11 +0200
+Message-Id: <DKJIZ53ZYJ91.3KMAO0TX8X9XS@cknow-tech.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Detlev Casanova" <detlev.casanova@collabora.com>, "Andrzej Hajda"
+ <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
+ "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten Lankhorst"
+ <maarten.lankhorst@linux.intel.com>, "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>, "David Airlie"
+ <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+ <kernel@collabora.com>, <linux-rockchip@lists.infradead.org>
+Subject: Re: [PATCH] drm/bridge: dw-hdmi-qp: Return -EOPNOTSUPP in HDMI
+ audio functions
+References: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
+In-Reply-To: <20260519-fix-hdmi-audio-warnings-v1-1-9608966c993f@collabora.com>
+X-Migadu-Flow: FLOW_OUT
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,104 +63,92 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] Un-rate-limited error logging creates a potential log-spam DoS v=
-ector.
-- [Medium] Validation of flag-gated syscall parameters outside their flag s=
-cope.
-- [Low] Format string specifier mismatch in error logging for __u32 counts.
---
+Hi Detlev,
 
---- Patch [1]: [PATCH 1/2] drm/nouveau: bound sync and op counts in EXEC an=
-d VM_BIND ---
-commit 6d0adda3ff0dd4a0e4440dc92362fcb0ad993d9a
-Author: Junrui Luo <moonafterrain@outlook.com>
-Subject: drm/nouveau: bound sync and op counts in EXEC and VM_BIND
+On Tue May 19, 2026 at 8:00 PM CEST, Detlev Casanova wrote:
+> -EOPNOTSUPP is not logged as an error by the ASoC subsystem, but -ENODEV
+> is.
+> It also better represents the situation: The operation is currently not
+> supported (because clocks are not enabled and tmds_char_rate is
+> unavailable), but the hardware is present.
+>
+> Using -EOPNOTSUPP in the audio_prepare callback removes possible repeated
+> warning log lines when HDMI is not connected.
 
-This commit introduces upper bounds for sync and op counts in the EXEC and
-VM_BIND ioctls. By restricting the size of these counts, it prevents potent=
-ial
-excessive memory allocations that could trigger warnings or exhaust memory.
+IME/IMO that's a bit of an understatement as I got 10/100/1000s of these:
 
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_exec.c b/drivers/gpu/drm/nou=
-veau/nouveau_exec.c
-> index a08ab1cfea9be..7bdccbae53b1d 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_exec.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_exec.c
-> @@ -389,6 +389,18 @@ nouveau_exec_ioctl_exec(struct drm_device *dev,
->  		return nouveau_abi16_put(abi16, -EINVAL);
->  	}
+  hdmi-audio-codec hdmi-audio-codec.6.auto: ASoC error (-19): at snd_soc_da=
+i_prepare() on i2s-hifi
+
+In my test without this patch, I booted up my SBCs, logged in quickly and
+still got 60/120/270 of these errors in dmesg ... and I wasn't actually=20
+using HDMI at that time. Previously, more then once did it completely
+fill the dmesg buffer, removing/hiding the things I actually wanted to see.
+
+> Returning -EOPNOTSUPP in the audio_enable callback is also needed as it
+> avoids logging 0-valued ELD errors.
+
+I've seen those too, multiple times, although it didn't annoy me as much
+as the above one ... due to the (much) lower frequency. So
+
+1) Thanks a LOT for this patch :-D
+2) Feel free to include my
+
+Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # Rock 5B, NanoPC-T6=
+ LTS & Plus
+
+Cheers,
+  Diederik
+
+> When tmds_char_rate is available, the clocks are enabled and the
+> functions will keep returning 0 as before.
+>
+> Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+> ---
+>  drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c | 8 +++++---
+>  1 file changed, 5 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c b/drivers/gpu/d=
+rm/bridge/synopsys/dw-hdmi-qp.c
+> index d649a1cf07f5..270c8c47d853 100644
+> --- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> +++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi-qp.c
+> @@ -469,8 +469,10 @@ static int dw_hdmi_qp_audio_enable(struct drm_bridge=
+ *bridge,
+>  {
+>  	struct dw_hdmi_qp *hdmi =3D dw_hdmi_qp_from_bridge(bridge);
 > =20
-> +	if (unlikely(req->wait_count > NOUVEAU_MAX_SYNCS)) {
-> +		NV_PRINTK(err, cli, "exec wait count exceeds limit: %d max %d\n",
-> +			  req->wait_count, NOUVEAU_MAX_SYNCS);
-
-[Severity: Low]
-Are the format string specifiers correct here? The req->wait_count field is
-a __u32 type, so using %d will print large values as negative numbers.
-
-[Severity: Medium]
-Could this un-rate-limited NV_PRINTK log be intentionally triggered by
-userspace to spam the kernel log buffer and hide other messages?
-
-> +		return nouveau_abi16_put(abi16, -EINVAL);
-> +	}
+> -	if (hdmi->tmds_char_rate)
+> -		dw_hdmi_qp_mod(hdmi, 0, AVP_DATAPATH_PACKET_AUDIO_SWDISABLE, GLOBAL_SW=
+DISABLE);
+> +	if (!hdmi->tmds_char_rate)
+> +		return -EOPNOTSUPP;
 > +
-> +	if (unlikely(req->sig_count > NOUVEAU_MAX_SYNCS)) {
-> +		NV_PRINTK(err, cli, "exec sig count exceeds limit: %d max %d\n",
-> +			  req->sig_count, NOUVEAU_MAX_SYNCS);
-> +		return nouveau_abi16_put(abi16, -EINVAL);
-> +	}
-> +
->  	ret =3D nouveau_exec_ucopy(&args, req);
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_uvmm.c b/drivers/gpu/drm/nou=
-veau/nouveau_uvmm.c
-> index f5e4756b4de4a..bced1481674e7 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_uvmm.c
-> @@ -1807,6 +1807,24 @@ nouveau_uvmm_ioctl_vm_bind(struct drm_device *dev,
->  	if (unlikely(!nouveau_cli_uvmm_locked(cli)))
->  		return -ENOSYS;
+> +	dw_hdmi_qp_mod(hdmi, 0, AVP_DATAPATH_PACKET_AUDIO_SWDISABLE, GLOBAL_SWD=
+ISABLE);
 > =20
-> +	if (unlikely(req->op_count > NOUVEAU_VM_BIND_MAX_OPS)) {
-> +		NV_PRINTK(err, cli, "vm_bind op count exceeds limit: %d max %d\n",
-> +			  req->op_count, NOUVEAU_VM_BIND_MAX_OPS);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (unlikely(req->wait_count > NOUVEAU_MAX_SYNCS)) {
+>  	return 0;
+>  }
+> @@ -484,7 +486,7 @@ static int dw_hdmi_qp_audio_prepare(struct drm_bridge=
+ *bridge,
+>  	bool ref2stream =3D false;
+> =20
+>  	if (!hdmi->tmds_char_rate)
+> -		return -ENODEV;
+> +		return -EOPNOTSUPP;
+> =20
+>  	if (fmt->bit_clk_provider | fmt->frame_clk_provider) {
+>  		dev_err(hdmi->dev, "unsupported clock settings\n");
+>
+> ---
+> base-commit: 1a2ab0feaa23147e347b4d4cb79cb3fc392118eb
+> change-id: 20260519-fix-hdmi-audio-warnings-139062ec00b9
+>
+> Best regards,
+> -- =20
+> Detlev Casanova <detlev.casanova@collabora.com>
 
-[Severity: Medium]
-According to the userspace API documentation, sync objects are only accepted
-when DRM_NOUVEAU_VM_BIND_RUN_ASYNC is set in req->flags. If a user submits a
-VM_BIND ioctl without this flag, might wait_count and sig_count contain
-uninitialized garbage from userspace stack slots?
 
-If so, is it safe to validate these flag-gated parameters outside the scope
-of their flag check, rather than explicitly ignoring or rejecting them when
-the flag is absent?
-
-> +		NV_PRINTK(err, cli, "vm_bind wait count exceeds limit: %d max %d\n",
-> +			  req->wait_count, NOUVEAU_MAX_SYNCS);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if (unlikely(req->sig_count > NOUVEAU_MAX_SYNCS)) {
-> +		NV_PRINTK(err, cli, "vm_bind sig count exceeds limit: %d max %d\n",
-> +			  req->sig_count, NOUVEAU_MAX_SYNCS);
-> +		return -EINVAL;
-> +	}
-> +
->  	ret =3D nouveau_uvmm_vm_bind_ucopy(&args, req);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808-nouveau-fi=
-xes-v1-0-c3ebdc17a89c@outlook.com?part=3D1
