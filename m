@@ -4,78 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 674A7C5AE5D
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96D1CC5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53C7910E65F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72B4610E660;
 	Mon, 10 Aug 2026 06:38:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CyUzRy7F";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HYzJmrpd";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1FF7310E05B
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 05:13:14 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2cca0c5799eso7503125ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 22:13:14 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5A2010E013
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:42:34 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4956869750eso2916135e9.2
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:42:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786252393; x=1786857193; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=deoqn41jn4hqxaXBU0LER8gLC0cAyHmrQg56bcVPpQA=;
- b=CyUzRy7Fl9mcKpeXKlJZCE6dcn2r7CVUIjVqJQsWZpGdXa5kAEUarKf7MNB3LctRU9
- Vv8hbHbHq06ccSF6v8OJm33r5XWrscsteD/ROsiym+rGMPrNJ3w4kO3RsVfpRBJ5HfnF
- BOfRCu1GTeUMVMfYFMUKTEuhBvPlP5ddv4n0tFOW5Wx1LXOwBUYfO9o+Lfsnxe0rUG5W
- r50QTj552Udz9qnIjoW2WTQ3G3Fa9f4+9L6Qa+7UuoKauh+2o7DRkmpQEw/ZSV2m0dBb
- PFXEnXtc50ZNLOFJydOyZeOJT5WJ4QQxexnxd1rH1VS5ee8E5GPf7iSJHPF94idi3IMk
- 6fvQ==
+ d=gmail.com; s=20251104; t=1786200153; x=1786804953; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=SjP/0fisv2D7yJeeOFlGdQEogU/eo5V7y2aRYQ0iQAI=;
+ b=HYzJmrpdQrfRn9t3AxamFjUrM8p7JlwYlb/mIFhgl5QFILkpz6Q7iH//zSj8JJypNr
+ PV4dhya/XWFLJUN0bbGCnYOfFkTZ1QcF3EcbS2t1cVovRc4ygxC59w6LeyElZa+gWupV
+ XvMopNG/+oPtoC6vaG9vSPmJLSypNPGrYajQPDUA3ktOCLfiCCEBKZMTxj8zGps+yUVM
+ xSWzjsKHC8rpmtVtnahyaDYr7TnGpiI7nIcUSLeqEx1xIdZRkwiOE0a2DA2JzjSuXWnQ
+ 0UcTeteMMr1iMMrnTIjmGbsYW+6oYMXIQ8LFeL8sYAtmLK8WgEfC5PsTqo7Kg9f4ZcLe
+ 9X0A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786252393; x=1786857193;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=deoqn41jn4hqxaXBU0LER8gLC0cAyHmrQg56bcVPpQA=;
- b=NSaJtHt05x5v72nWqrOSo0noDwShAZdrfHkZDIKiYe4yiFNLMCAzvx2IJn/p7eU/aP
- /1HGO0oX9e7AOXyOiY7ZC7q+ZIwa6wP62ArI/0vV7er9apQZ+viYxlH3ufDQzmHIuZly
- evB2dimftxCgF1zw4X36CN/VRPtMrwn6FYUJnUmPd9hzCy2yPQVKGThlHOfUEIGfGxpC
- 3phjb9aXvSLr/Sk84ySq8vxwXV+TNdqkhGzwkBNQn6+c4kaCSD713SuvsIRAoQx2uLBS
- /zSI5wHRVw2bCYCxxH7waWLsgaw0Cx7aTgE7q9Rc+v2jplQJDFj68XqXKZtAkHb0l9ic
- XpKg==
+ d=1e100.net; s=20251104; t=1786200153; x=1786804953;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SjP/0fisv2D7yJeeOFlGdQEogU/eo5V7y2aRYQ0iQAI=;
+ b=ONnVrN6lqDHXkWjQzr9AmXiaIi76/nwF6jBF1LE5LVPRAxCvH9O0G6+N2t2mSvgQeh
+ q/gqofFAkxxcYQw3fsIqQzgrsNHSQmvnfe4mUH9TYTRra08DuPT+PngJMR9E1q4bJ7Gl
+ b8gG7s0lm4vlGCI98CPbxV4Fnvtp+/lX3+MlXMUXHeRYu5ehNPi2In0p42e/TKPnpIbd
+ AOjjbnI/EDpJcLSauV/zcQrgq8f1kuDls7vq0wbEB3UhrLKMNTxOS5yqv2+Z/hy4K2hk
+ 4LNUd1MB58EMxwRL9wVYIcAnyA2AeTwd+8Sh98WtQMrJ0jA24hYtIs+kyzBPbb1TuKJe
+ 1ERA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoxfHm2PYW4HctNRBQyowKC40wucuZA7f/1/ukjicfeVzk058tHOzZNKBYX+FHaC3GB4soUtFQzJlo=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwvRvdaF/eSJiR0nn/pJbjM3vs/pefy7wwuZPrEOqctx2r1s7Aq
- v1WozwIaKRos8fAWaDRyvT27DPkW2g8vJsoSuAu3/dm4Xgqgf8g5x9Df
-X-Gm-Gg: AR+sD12v0zHPpSr058oBDSc3mmx5CJs+tYT1GYaTib9i6kAK3E1XyOC+0oyBBp/DltC
- Dh9otYE6IbYeQVpvyh0NchxoBEXfjMN3CZ2P5cj5Rg4sTrWzPNLzG/79rsu7otTY+m3MaTuABq2
- AqjaGQsn5K861KWtQs8BYp6LA3BuYQSmNzxtlg2Hd30YkcsxH1msY/OM27MbNBA47tlxaJHZH3P
- bzIIgHfwkhod+KYlwE9mMLFwMJlF5cuOI6gFA+j4tof6MiZitWveQCRZXsO5gdq1j62/eDLgMN5
- MClu7su11jTPl+Xb6qbsAFC7m1sTbzDDqSnloQJEwCS9DQNAWBb2LX9CTUdXGN9h8pnopr/zWM5
- zLBQHDICGgSRApOWn5mplVImvZq6IHlM4d0tU/OJrhpvZOKrP9o6fuxIOai/57IHOHjF7G0p/Fn
- 1v/L9ar7L/QPEu2T3kEE+gHwV4GMqnCq1uWQflsc+bSUUlGYLKanhnkfgbxdWd+j/FfMcXPZfED
- cQzQNWEAWn7aNXg0cbdDOJR
-X-Received: by 2002:a17:902:f608:b0:2ce:d957:59c4 with SMTP id
- d9443c01a7336-2d2a8692dfamr135589535ad.6.1786252393509; 
- Sat, 08 Aug 2026 22:13:13 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.204.108])
+ AHgh+RrC6uyfoB6x3kwiervTrq/OFcSz42rTgOOhJiVw+l1LX+ggzNFNSPmzvRQLDIX3OcoVz64DRJ7LdDs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YywGu7Kzzm6fdzUXgRV5Xo/XtD+dEY7QXI6WXmt+bmSf44rjLkf
+ uNe3tOG00/zITAp8UkV866yerA+XefYY8ios7WcDX6nsEwjuBQuyikSt
+X-Gm-Gg: AR+sD10vgwI4Kt/NuVw/4uLivrpT5osB2tj7zfZuIbU8yFm4UNXIKffzodqIQzVA8My
+ 1387RliSMp1/y+ihItb/TPd59I6LiBpZtu9OdCXIB+aEP3nDwuMX+ugC5OxuVM/wvFAh/s+0Xx5
+ ib0D4/NtuJM4xT9wneqkuvbvmpeT0rHsDGlfxYojkuLQe70qmCXxzpfikcNgy0fDdKnN9Xo2C1Q
+ 76HNrX4oiplNeQLXa1IJv6yfVATnf/9jW6kfN2SOstJoTbWcoB+mjUUufcXtYL1OeSlSbB73+CZ
+ pHc/bw2klyLyAbmwXmo1cZumN5HUnPgo0jnYdac3wNAZXCyaSfgb7KhL0eICAXICSAKi20s0+4/
+ 2xY1USGhK2VqVykk0OaJrmBCJberAFqkzZhL46eAtOjpk3gptlbQpEJ3Irae2bW4y2CEqJu2WnE
+ di1kCkapjInVocpRL3C86fW3Q1jvjhaD5AqKRq1DvgzIzTwTF+UEZXX6gdoAROczcyuWvELtNNj
+ PpscF0uxn9eeWHVzIxWLSMelO/GnS6SKdpYGmwKnhoyoIGXl2NzDHrELqQ0SEaFk1CS4T/9r1pW
+ sm//Cik81O4tCH364UwJ
+X-Received: by 2002:a05:600c:6b4e:b0:496:bbcb:b0bb with SMTP id
+ 5b1f17b1804b1-4994e7e863amr318623325e9.18.1786200152966; 
+ Sat, 08 Aug 2026 07:42:32 -0700 (PDT)
+Received: from localhost.localdomain
+ (dynamic-077-007-004-134.77.7.pool.telefonica.de. [77.7.4.134])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be8a7395sm27095702eec.9.2026.08.08.22.13.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 22:13:13 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v3 2/6] drm/amdgpu/aca: Add upper bounds check in
- aca_bank_hwip_is_matched
-Date: Sun,  9 Aug 2026 05:11:56 +0000
-Message-ID: <20260809051200.3276-3-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
-References: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
+ 5b1f17b1804b1-4995bdbe02esm97346925e9.1.2026.08.08.07.42.32
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Sat, 08 Aug 2026 07:42:32 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: clps711x-fb: Remove unreachable
+ unregister_framebuffer() call
+Date: Sat,  8 Aug 2026 16:41:14 +0200
+Message-Id: <20260808144114.77505-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
@@ -94,36 +92,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In aca_bank_hwip_is_matched(), the 'type' parameter is used directly
-as an array index into aca_hwid_mcatypes[]. The function previously
-checked whether 'type' was equal to ACA_HWIP_TYPE_UNKNOW, but did not
-validate whether 'type' was less than ACA_HWIP_TYPE_COUNT or negative.
+The unregister_framebuffer() call in clps711x_fb_probe() is unreachable.
+register_framebuffer() failure jumps to the unwind label, while success
+returns immediately.
 
-If an invalid or out-of-bounds enum value is passed, an out-of-bounds
-memory read occurs on the aca_hwid_mcatypes array.
+Remove it.
 
-Fix this by validating that 'type' is strictly greater than
-ACA_HWIP_TYPE_UNKNOW and less than ACA_HWIP_TYPE_COUNT before
-performing the array lookup.
+Found with Clang's -Wunreachable-code.
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Fixes: 36462ac193088 ("fbdev: clps711x-fb: Replace check_fb in favor of struct fb_info.lcd_dev")
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/video/fbdev/clps711x-fb.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index d0d473082431..c76664af9902 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -138,7 +138,7 @@ static bool aca_bank_hwip_is_matched(struct aca_bank *bank, enum aca_hwip_type t
- 	int hwid, mcatype;
- 	u64 ipid;
+diff --git a/drivers/video/fbdev/clps711x-fb.c b/drivers/video/fbdev/clps711x-fb.c
+index 7a7db7100499e..6789773b22fbe 100644
+--- a/drivers/video/fbdev/clps711x-fb.c
++++ b/drivers/video/fbdev/clps711x-fb.c
+@@ -329,8 +329,6 @@ static int clps711x_fb_probe(struct platform_device *pdev)
  
--	if (!bank || type == ACA_HWIP_TYPE_UNKNOW)
-+	if (!bank || type <= ACA_HWIP_TYPE_UNKNOW || type >= ACA_HWIP_TYPE_COUNT)
- 		return false;
+ 	return 0;
  
- 	hwip = &aca_hwid_mcatypes[type];
+-	unregister_framebuffer(info);
+-
+ out_fb_dealloc_cmap:
+ 	regmap_update_bits(cfb->syscon, SYSCON_OFFSET, SYSCON1_LCDEN, 0);
+ 	fb_dealloc_cmap(&info->cmap);
 -- 
-2.54.0
+2.53.0
 
