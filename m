@@ -4,74 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFE86C55174
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DBA0C5AC67
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:08:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E083810E044;
-	Sat,  8 Aug 2026 14:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D55A310E04F;
+	Sat,  8 Aug 2026 14:08:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lShLWjyu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="r8F3hBhp";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47CDE10E044
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:01:57 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-38d489b6b71so425158a91.0
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:01:57 -0700 (PDT)
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D43C910E04F
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:08:37 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2cea3004256so5857345ad.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:08:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786197717; x=1786802517; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786198117; x=1786802917; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=LWQEkJchPYeC0ZoavYUr3xCkFVeRdSuQOuSKSluD+U8=;
- b=lShLWjyuz05lj7sipBy3R0AYDol0i0HqzuZf0aZi15Wqp8WVRJE8dCaT7biOUGj9ui
- Iao9CrHBR2SkbCBio9ul896sMc01foDFVLCQZZ9xT4sqt8VguGAPtyzg+dCNwNdRdwvI
- ZBO4odlmIHhM7OZdx2zOQmP8VjRWokNBm/5IZAd/rFkCRroAfoZUDym0Y5JxASj95yYv
- D/BtIELUkMhXEK0MHPzFwnhNZ9d/7ERQJCwDTtrO+EF7oLYaJrmq6FmpaGyW1WeflFkD
- LEEjBnh0TPuv02Dc4V/caUJZhTFm6Z4gcuber8qpvXjY+YzpyqejFGhX7QhQORPJq0WO
- UlmQ==
+ bh=xpXkiS1syNfL3SE9V9W6WDFdug7+uucLTLZ+bvyu9mM=;
+ b=r8F3hBhp9cgYy3xRmoEYnZSWx10TCk37+B93LMJRwOhaNFyR8r32kSGP9B8e0WMvwh
+ QrHOkgnordAZ6Z0OS4HisN0bYwbP3i4cn8XTKGzkRqVlhyTreV/IuUuCbyAGxIpILmDV
+ 5F1f6IMBT0P4IlNcLVrhiaB60AQ21lWYXdgxShYXW843CG+gBFtkJWiIMr8O37JuIMoZ
+ 8FwBTIc3MwylFxwm2jKWJ7m12aYvvFmmJcIn8/El19j1aR589wXyh9dewojGoBtSMgAT
+ JCD0fcOqChTnwDd7c8G1QJrATNEQQ3qeT2IUr1wERaWIGMuvx+bTMI+r08KztaohLq7L
+ Bbtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786197717; x=1786802517;
+ d=1e100.net; s=20251104; t=1786198117; x=1786802917;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=LWQEkJchPYeC0ZoavYUr3xCkFVeRdSuQOuSKSluD+U8=;
- b=Jp7KMjKT4ueFGeOcbLYPAZ5jra1+wMoOhxY2XOfZHSgqiUwj1bEIic5Cdkt5z8a++p
- MltAtXowKLGNMccfsyFQlQxnL6rdsZ6HqblqhA/9h9hDzbzSBlZeEXmZsLUVpy28zNCZ
- u4akSoSBwLEpb079TKKA5Q0wmmdUnK8l1/E/zvqjRhErW3cOS3i/Q9YxetFdpAfbInYh
- 4w/AHjvdPRpKA2ElEu97zSUF1BB+xyOKCcRlj1ZuOuWRtst2E6Vl+eqooHij1ftkgZSV
- ME2TIrAycvuEzoGsdZGIsB7cGszLEl5FxshzsRIIDmJF6yAsVKELfbawl3JEtZ9ZAYGX
- 60pg==
+ bh=xpXkiS1syNfL3SE9V9W6WDFdug7+uucLTLZ+bvyu9mM=;
+ b=DkxwY9tbd3c338zAUQEdkK7pTed9uh3ECITSQ1NV0Rms3FqroOZF9taR/GJRqV7BK9
+ rHEkLjht8mzdhSIq1AQ7MjJ3NAOhwDJ1QbN4pZEnpxn4POwopxtTkmUSj4PRkqtajhm2
+ VoihMK5xAUMfEihnrG6WkF5a9J9bJXdhnfjFWtXChGP83YwOQQgdNHNl4A5+Zh2lHKsv
+ +il3SRhmfDYKtvR4zC/gtVk8DqjMU9R0P9HxXJe9docXVPs0jlZtqDdMPx8UJFAofJYP
+ BaDqETxEM+jiFHSiR8eEVbLFE+gJnkQQ8UKqk19EJAYsPyZgnRaNiv9BvXXdFE0M2mti
+ nFZg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq+8ca2PPJKvzQGJbJID7DOSbcB9iG+RU4F+A3fwo52CWE+GFexMGq8WbPMjNPZiu6Qq9o8ZBm3aMA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzAGKLYlCWa2DUzNyxrPmeR3SoKw2bpD7f36T4W191npIuYhJ8X
- OowS9vql/tQEO8eX8bgnflQiAICcJOk2MVfyjbh5iKFXYx0FRSTuBReN
-X-Gm-Gg: AR+sD13GIl55yasxQJbh0Xk4XV/IINVxudN+6lJJvzfzqM7JNYjXmw9zM0WVbZRU4B1
- YF3JEaEU4/mZZJUFJzfnSn+KJkEDw0rVEtMhVoiClbea/T7BoF6Os46Km72icAUOTjFrRUEbtaU
- 2HI5zx/8m6Xc0UwWB4tCgam2XGYWWUEa0pIDlOFV8+IdHotNkyQPFlaJ0XxjISucA9a65AngHl1
- 1s0y5+iQpwG9Ti3jqjOYlQ7bVJX7szlkw62Ml7o8NESBAi59L3ZDrA6WFbGvsJM8T9jjeYH5aPC
- l85ya1oZsQ3AlK7siiZChfrpe1DTrv7TsJ8MEIDJt1m+HuuTXQO38vdY3vNAScOZA0PW0GkvSQf
- Gcf051Js7yAe+21WVTtngwjAjFLVrqbgk6z4qxUAzWJq3gQ9inPmsxj4XxFFbSzfAyAywh6PGvx
- 6h7Hl7W1IttDOobpHOrhUoauk+YeRmlbTZ23IL4SrNb+Q=
-X-Received: by 2002:a17:90b:3f43:b0:37c:6130:7a5b with SMTP id
- 98e67ed59e1d1-3903c54302bmr31739321a91.8.1786197716470; 
- Sat, 08 Aug 2026 07:01:56 -0700 (PDT)
+ AHgh+RpsXxazmUm4N8noZSCFOtlG9XR0VmmfBCGGqsgaCTO5LAb3TFGGQ7FNs96U4ftTosp5TDxfXla075s=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx8BdrY1gJMV3ysull1VmMg0HvIj/UXnPm10GuWH/EkiDVUftss
+ 33TeZ9p3YwRm7YK2pDsmc1VwQ4jDHcTfX225w3Xn+gtzfMbaMQG6bqdZ
+X-Gm-Gg: AR+sD11VvJUrAdx9lRFzU7bJVgYq2sZhdYdNbTdUtz/Up2S1SDZnqpLi+cFTCUyB+E2
+ EMjFZFlBtew9KeVJmQZgELVX+FtIWyaffSaklAOZeQR3OVFNS1Ql+gDgI84/Wwz+qW13LiO5eTV
+ quMyotZixqpKMqQaX9O3TfHj66ZCZned34z7DtGsDfxXNxRentZdLRmFInPbk74OLjUeLlV5bCh
+ ygVXPrgC4y0T2lPoiQSrNu2r1C114Vfj5yFIFVXWkpqAUqbnu1izP4GB93S63mQk+Aip1dn0jOv
+ c0TVKAMnynYaOtyBdKsaxXKKfl+GePWQ48K8X04OVMf6aYKmkefzcmXKEMVdICl1+3oyeata6ez
+ N1eMbMQTVSJEbLou/oGl4AqBToYvnHtepAP3FelBlKAmMvPGO9mG8M6OIqpv7NvFXUwc4DzRoNR
+ 1KgG4WjVeTgrDjD+775vGVKrivPyLZbBa3Nm9D8jlXa/o=
+X-Received: by 2002:a05:6a21:7007:b0:3b4:870e:6f44 with SMTP id
+ adf61e73a8af0-3cb85ffca47mr41360296637.35.1786198117342; 
+ Sat, 08 Aug 2026 07:08:37 -0700 (PDT)
 Received: from lgs.. ([2001:250:5800:1000::f280])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-39085dbf82csm8638162a91.1.2026.08.08.07.01.52
+ 41be03b00d2f7-cbe8f1af992sm1913171a12.14.2026.08.08.07.08.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 07:01:55 -0700 (PDT)
+ Sat, 08 Aug 2026 07:08:36 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dave Airlie <airlied@redhat.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>, Ion Agorria <ion@agorria.com>,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
 Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/radeon: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 21:59:42 +0800
-Message-ID: <20260808135942.2880971-1-lgs201920130244@gmail.com>
+Subject: [PATCH] drm/tegra: gr2d: fix autosuspend cleanup during teardown
+Date: Sat,  8 Aug 2026 22:06:22 +0800
+Message-ID: <20260808140622.2887873-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -90,9 +91,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-radeon_driver_load_kms() calls pm_runtime_use_autosuspend() for PX
-devices, but radeon_driver_unload_kms() does not call the matching
-pm_runtime_dont_use_autosuspend() during teardown.
+gr2d_probe() calls pm_runtime_use_autosuspend(), but gr2d_remove()
+does not call the matching pm_runtime_dont_use_autosuspend() during
+teardown.
 
 If the autosuspend delay is set to a negative value while autosuspend
 is enabled, the runtime PM core increments usage_count to prevent
@@ -105,29 +106,29 @@ driver exit time, unless runtime PM was initially enabled with
 devm_pm_runtime_enable().
 
 Add the missing pm_runtime_dont_use_autosuspend() call to the driver
-unload path.
+remove path.
 
 This issue was found by manual code inspection.
 
-Fixes: 10ebc0bc0934 ("drm/radeon: add runtime PM support (v2)")
+Fixes: ace01e2af387 ("drm/tegra: gr2d/gr3d: Contain PM in the gr*d_probe/gr*d_remove")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/gpu/drm/radeon/radeon_kms.c | 1 +
+ drivers/gpu/drm/tegra/gr2d.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon/radeon_kms.c
-index dc43fd790a9c..4a99c09f4164 100644
---- a/drivers/gpu/drm/radeon/radeon_kms.c
-+++ b/drivers/gpu/drm/radeon/radeon_kms.c
-@@ -71,6 +71,7 @@ void radeon_driver_unload_kms(struct drm_device *dev)
- 	if (radeon_is_px(dev)) {
- 		pm_runtime_get_sync(dev->dev);
- 		pm_runtime_forbid(dev->dev);
-+		pm_runtime_dont_use_autosuspend(dev->dev);
- 	}
+diff --git a/drivers/gpu/drm/tegra/gr2d.c b/drivers/gpu/drm/tegra/gr2d.c
+index 892e3450b281..95e8a14a9648 100644
+--- a/drivers/gpu/drm/tegra/gr2d.c
++++ b/drivers/gpu/drm/tegra/gr2d.c
+@@ -296,6 +296,7 @@ static void gr2d_remove(struct platform_device *pdev)
+ {
+ 	struct gr2d *gr2d = platform_get_drvdata(pdev);
  
- 	radeon_acpi_fini(rdev);
++	pm_runtime_dont_use_autosuspend(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ 	host1x_client_unregister(&gr2d->client.base);
+ }
 -- 
 2.43.0
 
