@@ -4,78 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DBA0C5AC67
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:08:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91A0EC5AC67
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:11:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D55A310E04F;
-	Sat,  8 Aug 2026 14:08:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E52E410E20F;
+	Sat,  8 Aug 2026 14:11:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="r8F3hBhp";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="n1vexN9F";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D43C910E04F
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:08:37 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2cea3004256so5857345ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:08:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786198117; x=1786802917; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=xpXkiS1syNfL3SE9V9W6WDFdug7+uucLTLZ+bvyu9mM=;
- b=r8F3hBhp9cgYy3xRmoEYnZSWx10TCk37+B93LMJRwOhaNFyR8r32kSGP9B8e0WMvwh
- QrHOkgnordAZ6Z0OS4HisN0bYwbP3i4cn8XTKGzkRqVlhyTreV/IuUuCbyAGxIpILmDV
- 5F1f6IMBT0P4IlNcLVrhiaB60AQ21lWYXdgxShYXW843CG+gBFtkJWiIMr8O37JuIMoZ
- 8FwBTIc3MwylFxwm2jKWJ7m12aYvvFmmJcIn8/El19j1aR589wXyh9dewojGoBtSMgAT
- JCD0fcOqChTnwDd7c8G1QJrATNEQQ3qeT2IUr1wERaWIGMuvx+bTMI+r08KztaohLq7L
- Bbtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786198117; x=1786802917;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=xpXkiS1syNfL3SE9V9W6WDFdug7+uucLTLZ+bvyu9mM=;
- b=DkxwY9tbd3c338zAUQEdkK7pTed9uh3ECITSQ1NV0Rms3FqroOZF9taR/GJRqV7BK9
- rHEkLjht8mzdhSIq1AQ7MjJ3NAOhwDJ1QbN4pZEnpxn4POwopxtTkmUSj4PRkqtajhm2
- VoihMK5xAUMfEihnrG6WkF5a9J9bJXdhnfjFWtXChGP83YwOQQgdNHNl4A5+Zh2lHKsv
- +il3SRhmfDYKtvR4zC/gtVk8DqjMU9R0P9HxXJe9docXVPs0jlZtqDdMPx8UJFAofJYP
- BaDqETxEM+jiFHSiR8eEVbLFE+gJnkQQ8UKqk19EJAYsPyZgnRaNiv9BvXXdFE0M2mti
- nFZg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpsXxazmUm4N8noZSCFOtlG9XR0VmmfBCGGqsgaCTO5LAb3TFGGQ7FNs96U4ftTosp5TDxfXla075s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx8BdrY1gJMV3ysull1VmMg0HvIj/UXnPm10GuWH/EkiDVUftss
- 33TeZ9p3YwRm7YK2pDsmc1VwQ4jDHcTfX225w3Xn+gtzfMbaMQG6bqdZ
-X-Gm-Gg: AR+sD11VvJUrAdx9lRFzU7bJVgYq2sZhdYdNbTdUtz/Up2S1SDZnqpLi+cFTCUyB+E2
- EMjFZFlBtew9KeVJmQZgELVX+FtIWyaffSaklAOZeQR3OVFNS1Ql+gDgI84/Wwz+qW13LiO5eTV
- quMyotZixqpKMqQaX9O3TfHj66ZCZned34z7DtGsDfxXNxRentZdLRmFInPbk74OLjUeLlV5bCh
- ygVXPrgC4y0T2lPoiQSrNu2r1C114Vfj5yFIFVXWkpqAUqbnu1izP4GB93S63mQk+Aip1dn0jOv
- c0TVKAMnynYaOtyBdKsaxXKKfl+GePWQ48K8X04OVMf6aYKmkefzcmXKEMVdICl1+3oyeata6ez
- N1eMbMQTVSJEbLou/oGl4AqBToYvnHtepAP3FelBlKAmMvPGO9mG8M6OIqpv7NvFXUwc4DzRoNR
- 1KgG4WjVeTgrDjD+775vGVKrivPyLZbBa3Nm9D8jlXa/o=
-X-Received: by 2002:a05:6a21:7007:b0:3b4:870e:6f44 with SMTP id
- adf61e73a8af0-3cb85ffca47mr41360296637.35.1786198117342; 
- Sat, 08 Aug 2026 07:08:37 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cbe8f1af992sm1913171a12.14.2026.08.08.07.08.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 07:08:36 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Jonathan Hunter <jonathanh@nvidia.com>,
- Svyatoslav Ryhel <clamor95@gmail.com>, Ion Agorria <ion@agorria.com>,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/tegra: gr2d: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 22:06:22 +0800
-Message-ID: <20260808140622.2887873-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B508E10E20F
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:11:05 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9E1326001A;
+ Sat,  8 Aug 2026 14:11:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 354E31F000E9;
+ Sat,  8 Aug 2026 14:11:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786198264;
+ bh=E4jBWcqnXjvJWaIuqgFU7OKfllDI2BHTZN+ENFFZzNw=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=n1vexN9Fd93XCskSggtU1kiUIO6YCiBPsDRBjgzTa41nEjPJMClwUWZvNQhcrUmrK
+ pN3K5FC7bry3A4f5ERtury8FnAUx7D9PQL8ZRqvQxXTRSaFXI7f3W0OVHQV0ossFF2
+ Qq7XtWO1H1W7e/j98Z9D6kGJAFn79c1ieWjp1YCSSUM3rIJjeq71QcyaUAwh2ix+M5
+ SBVeMGXuV3Mgii05zjfk4n3qhuWpHaSbxpKdQi97n5QvBzEW+YCTqh9cB33V1zmca/
+ 6JeJP/JwVzCl65KazCCz9yigvcY3N/rmOFlvjG959pQdjzCKexxvSfbSw6Ad9PmjZV
+ 6jNj1Stdp44oQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/panfrost: fix autosuspend cleanup during teardown
+To: "Guangshuo Li" <lgs201920130244@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260808135025.2872956-1-lgs201920130244@gmail.com>
+References: <20260808135025.2872956-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 08 Aug 2026 14:11:03 +0000
+Message-Id: <20260808141104.354E31F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,47 +52,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-gr2d_probe() calls pm_runtime_use_autosuspend(), but gr2d_remove()
-does not call the matching pm_runtime_dont_use_autosuspend() during
-teardown.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped.
+New issues:
+- [Critical] Calling pm_runtime_dont_use_autosuspend() before pm_runtime_di=
+sable() in the probe error path triggers a synchronous runtime suspend, cau=
+sing a fatal system crash when hardware is subsequently accessed.
+- [Medium] Calling `pm_runtime_dont_use_autosuspend()` before `pm_runtime_g=
+et_sync()` in `panfrost_remove()` causes an unnecessary synchronous suspend=
+ followed immediately by a resume.
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+Pre-existing issues:
+- [High] Missing pm_runtime_put_noidle() at the end of panfrost_remove() pe=
+rmanently leaks the PM usage count on driver unbind.
+- [High] Premature drm_dev_register() exposes the device before initializat=
+ion is complete, risking UAF/Data Abort on the error path.
+--
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the driver
-remove path.
+--- Patch [1]: [PATCH] drm/panfrost: fix autosuspend cleanup during teardow=
+n ---
+commit 20fb0c04bf706e7ac3773cb2ee067fc667a9f893
+Author: Guangshuo Li <lgs201920130244@gmail.com>
 
-This issue was found by manual code inspection.
+drm/panfrost: fix autosuspend cleanup during teardown
 
-Fixes: ace01e2af387 ("drm/tegra: gr2d/gr3d: Contain PM in the gr*d_probe/gr*d_remove")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/tegra/gr2d.c | 1 +
- 1 file changed, 1 insertion(+)
+This patch adds missing calls to pm_runtime_dont_use_autosuspend() during t=
+he
+probe error path and panfrost_remove(). It aims to ensure that the autosusp=
+end
+reference count is properly dropped during device teardown.
 
-diff --git a/drivers/gpu/drm/tegra/gr2d.c b/drivers/gpu/drm/tegra/gr2d.c
-index 892e3450b281..95e8a14a9648 100644
---- a/drivers/gpu/drm/tegra/gr2d.c
-+++ b/drivers/gpu/drm/tegra/gr2d.c
-@@ -296,6 +296,7 @@ static void gr2d_remove(struct platform_device *pdev)
- {
- 	struct gr2d *gr2d = platform_get_drvdata(pdev);
- 
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- 	host1x_client_unregister(&gr2d->client.base);
- }
--- 
-2.43.0
+> diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/pa=
+nfrost/panfrost_drv.c
+> --- a/drivers/gpu/drm/panfrost/panfrost_drv.c
+> +++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
+> @@ -1012,6 +1012,7 @@ static int panfrost_probe(struct platform_device *p=
+dev)
+>  err_out2:
+>  	drm_dev_unregister(&pfdev->base);
 
+[Severity: High]
+This is a pre-existing issue, but does registering the device before
+initializing the shrinker create a race condition here?
+
+If panfrost_gem_shrinker_init() fails, the probe aborts and calls
+drm_dev_unregister(), but this does not revoke open file descriptors. Can
+userspace race to open the device during this window and then trigger a
+use-after-free or data abort by accessing torn-down hardware mappings
+through the open file descriptor?
+
+>  err_out1:
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+
+[Severity: Critical]
+Does placing pm_runtime_dont_use_autosuspend() before pm_runtime_disable()
+trigger a synchronous suspend?
+
+When the usage count is zero, clearing the autosuspend flag causes an
+immediate idle check which synchronously powers off the hardware. Will the
+unconditional register accesses in panfrost_device_fini() then cause a fatal
+data abort since the hardware is already powered off?
+
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+
+[ ... ]
+
+> @@ -1026,6 +1027,7 @@ static void panfrost_remove(struct platform_device =
+*pdev)
+>  	drm_dev_unregister(&pfdev->base);
+>  	panfrost_gem_shrinker_cleanup(&pfdev->base);
+> =20
+> +	pm_runtime_dont_use_autosuspend(pfdev->base.dev);
+>  	pm_runtime_get_sync(pfdev->base.dev);
+
+[Severity: Medium]
+Could this sequence cause the hardware to suspend and immediately resume?
+
+If the usage count is zero here, pm_runtime_dont_use_autosuspend() will
+synchronously power off the device. The subsequent pm_runtime_get_sync()
+will immediately power it back on before hardware teardown. Should the
+autosuspend cleanup happen after we ensure the device is awake?
+
+>  	pm_runtime_disable(pfdev->base.dev);
+>  	panfrost_device_fini(pfdev);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this function leak the
+power management usage count?
+
+The call to pm_runtime_get_sync() earlier in the function increments the
+usage count, but there is no matching pm_runtime_put_noidle() before the
+function exits. Since the struct device is tied to the platform device and
+outlives the driver binding, will this permanently break runtime power
+management by blocking future suspends if the driver is unbound and rebound?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808135025.2872=
+956-1-lgs201920130244@gmail.com?part=3D1
