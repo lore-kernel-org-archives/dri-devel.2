@@ -4,76 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95E67C5AC67
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0CBC0C55174
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 14:49:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB5D010E03C;
-	Sat,  8 Aug 2026 14:49:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 762F810E061;
+	Sat,  8 Aug 2026 14:49:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ro3/+Rm/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DyFtR9oP";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BC9710E061
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:49:27 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-38101f85591so2685820a91.1
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:49:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786200567; x=1786805367; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=oj+LpxJwmFVdLd+RvTFySlTh8hVfSNWlJ1ThruNqG6Q=;
- b=ro3/+Rm/rq3gZyYvYLmbCpGs5HSqry3+MjeLxDsevMsPfQNfls9aHQXR6MhlV0r2Es
- lM5pVge4K2KvhEX8p7sj+QSKn2Ky6TxJ4KfGOdIM9bNOsSWYpZ0+ARkHUXvzHeVwFTuU
- Uc6Bc4YpBFkynjYPt1ufCgxtwoFW3u1tAX5/dBQXWRWdHcU8VjpdruieanFfWHRodnoA
- vvgHgyiiyfLzXCMtjCEVshcsgUFJL+d1l3nLUGJ0maPFsDXZJXMWmNd/RAXG7ailmacX
- ztw1aEwE6X8HZ7F+2RnwzqEk2dlhhFDm2PT8aYyE9gNXcV7Yxu2dW7ND9AE9QlpS/QpD
- yCaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786200567; x=1786805367;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=oj+LpxJwmFVdLd+RvTFySlTh8hVfSNWlJ1ThruNqG6Q=;
- b=Yg5S8Nw2SZyFvtt/wbsdoLT1x9eV8r5y3IHehzP9t2Of5tnwMOllSfdv4Iy20xj/zs
- KyDkR6Uyo3zfL0ScEcNWpuWiQ6C986cwWwt1bKVSpUeFk6VTR3hlObkHZFu/NsdO+hJr
- 2645/xnDUgpP35Nnc3yNZ3bZleT1fP80g1UHY/UmAC68vcADuJBBOdE/TyAC571H36OF
- inGxpvBTs92C6PXJx0ukAw3Gwu5BEl//pRX4NHwxiUKz+Xn23BhvDRXC9iimsVmyDsca
- opNeAMTD7RkuQZoC5C6bCcJyHFbo2L6gBsbt2q5wBDN6lqfIl3Sdkv+ECG9HmXKNdFJp
- becg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrWLhhox5hGIMsB/OMI6D7Kbc1TqPEAaTg1rmHZygvESaGttZEAOOMYEkx90QpeZMLUYztsnvRmxN8=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwHoR9uZg+jSHb6hOOPTdA0T4gLDaFUehZdHDa0YSInYLnG0CIq
- OL/EReMV5hpQtC9O3w42aKmMkJvtY7XsJFfRFg2KCg8ifkl+g8LSByXUriRQ7z3SOXo=
-X-Gm-Gg: AR+sD11K+BTNpQATU8wDOeE7HOxc9gStbQ94DKoqxRF2g4tsDchfcQMgaE/m7Y1ecAk
- G7Om8hYspJblmNZmTSgwWuOBTTMRxYOz0LUHi8V5XNoCCPlSsrbL5kdFGFsLkXiqdA9dSsyVsEz
- /edfbrY7UrgSog2DfCmo+hY/Z4Gsh5LvjbiFNDPQAcfX+0W6E5P8ezldC8f786Xd2hwZHrkujWk
- aJUGvAj6jr6Z3pdxKxP/EUwVTZPHsl+nChByRQh7SmR1UBUBh0lTBnIlrrv//yDGQHAzHEhjmM6
- lNXdP9B/JVQga49A6XubdcyMdAPgcCYElC5YbjHB1H0gnsY0TJu9COir/ngIddmu4wwoskgAbJt
- RuGcf9Kt1b9ynlLkIQ2Ufbr4ub8eIg2zW1IMQtGpFK/1HunU7Ox7o/VppFvRBAVrp3lBAgii7n0
- pjDD28fRv8Dj2sGn6jIaYkgyQ5bS78TcKueslhl2nkmmAI88Zhkg==
-X-Received: by 2002:a17:90a:ec86:b0:390:b3c5:e2c9 with SMTP id
- 98e67ed59e1d1-392846fd57fmr2663920a91.17.1786200566741; 
- Sat, 08 Aug 2026 07:49:26 -0700 (PDT)
-Received: from lgs.. ([36.255.223.70]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3925fd95270sm6365730a91.5.2026.08.08.07.49.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 07:49:26 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, intel-xe@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/xe: fix autosuspend cleanup during teardown
-Date: Sat,  8 Aug 2026 22:49:07 +0800
-Message-ID: <20260808144907.2918746-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5C5F10E061
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:49:38 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 9CF7A43674;
+ Sat,  8 Aug 2026 14:49:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 558F21F000E9;
+ Sat,  8 Aug 2026 14:49:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786200578;
+ bh=0ZStcWDxWQuBCzN1ruf/UDx0zlbk7o6usuSOu1ep2/w=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=DyFtR9oPuKWsgKqYtDqhnpT3B+eLQEUJf04EFyhlqecxU7Jda7yRgCtHeEFqf9xSD
+ NwHKsEmAkqYCuXOzesZe/CTr7bpk5f9tASP6uLmb00q9ejGuxNf+YEVj2Cn1SwHcwD
+ xGQuu7qGIpMY39k0YBn0KEsuS1sdnalgkmOHB+M7D9RK3ceRSpEG41dI4SPP1MwahV
+ HoSvH9BFzaZ5UbR846PmqRkQfH053P2zJa5djtipt8fbvSk4rlyeiOw0sBrOwi1sUI
+ h74Rr42Te3KZC4P1fTVe9lPZ4NfEjaQGa/402k9NoQ6Hneb+f8ZIeQ2JRvhCEZqAum
+ awya1hJTdmFuQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fbdev: clps711x-fb: Remove unreachable
+ unregister_framebuffer() call
+To: "Karl Mehltretter" <kmehltretter@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260808144114.77505-1-kmehltretter@gmail.com>
+References: <20260808144114.77505-1-kmehltretter@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 08 Aug 2026 14:49:37 +0000
+Message-Id: <20260808144938.558F21F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,47 +53,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-xe_pm_runtime_init() calls pm_runtime_use_autosuspend(), but
-xe_pm_runtime_fini() does not call the matching
-pm_runtime_dont_use_autosuspend() during teardown.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped.
+Pre-existing issues:
+- [High] Mixing manual framebuffer_release() with devm_lcd_device_register(=
+) creates a Use-After-Free vulnerability on module remove and probe error p=
+aths.
+--
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+--- Patch [1]: [PATCH] fbdev: clps711x-fb: Remove unreachable unregister_fr=
+amebuffer() call ---
+commit e41c02db93213803fd7424c13289c71da7816b02
+Author: Karl Mehltretter <kmehltretter@gmail.com>
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the runtime
-PM teardown path.
+    fbdev: clps711x-fb: Remove unreachable unregister_framebuffer() call
 
-This issue was found by manual code inspection.
+This commit removes an unreachable unregister_framebuffer() call in
+clps711x_fb_probe(). The code previously jumped to an unwind label on
+failure or returned immediately on success.
 
-Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/gpu/drm/xe/xe_pm.c | 1 +
- 1 file changed, 1 insertion(+)
+> diff --git a/drivers/video/fbdev/clps711x-fb.c b/drivers/video/fbdev/clps=
+711x-fb.c
+> index 7a7db7100499e..6789773b22fbe 100644
+> --- a/drivers/video/fbdev/clps711x-fb.c
+> +++ b/drivers/video/fbdev/clps711x-fb.c
+> @@ -329,8 +329,6 @@ static int clps711x_fb_probe(struct platform_device *=
+pdev)
+> =20
+>  	return 0;
+> =20
+> -	unregister_framebuffer(info);
+> -
+>  out_fb_dealloc_cmap:
+>  	regmap_update_bits(cfb->syscon, SYSCON_OFFSET, SYSCON1_LCDEN, 0);
+>  	fb_dealloc_cmap(&info->cmap);
 
-diff --git a/drivers/gpu/drm/xe/xe_pm.c b/drivers/gpu/drm/xe/xe_pm.c
-index 99562f691080..301789adaa21 100644
---- a/drivers/gpu/drm/xe/xe_pm.c
-+++ b/drivers/gpu/drm/xe/xe_pm.c
-@@ -518,6 +518,7 @@ static void xe_pm_runtime_fini(struct xe_device *xe)
- 	if (IS_SRIOV_VF(xe))
- 		return;
- 
-+	pm_runtime_dont_use_autosuspend(dev);
- 	pm_runtime_get_sync(dev);
- 	pm_runtime_forbid(dev);
- }
--- 
-2.43.0
+[Severity: High]
+This is a pre-existing issue, but does mixing manual framebuffer_release()
+with devm_lcd_device_register() create a use-after-free vulnerability on
+probe error paths and module removal?
 
+Because the LCD device is registered using devm_lcd_device_register(), its
+unregistration is deferred to the devres cleanup phase. This cleanup execut=
+es
+after clps711x_fb_probe() returns an error, or after clps711x_fb_remove()
+finishes.
+
+However, the driver manually frees the info structure and its private data =
+cfb
+via framebuffer_release() just below this unwind label:
+
+drivers/video/fbdev/clps711x-fb.c:clps711x_fb_probe() {
+    ...
+out_fb_release:
+        framebuffer_release(info);
+
+        return ret;
+}
+
+During the window between framebuffer_release() and devres cleanup, the LCD
+device remains fully visible in sysfs.
+
+Could a concurrent sysfs read of lcd_power trigger a use-after-free by
+accessing the already freed cfb pointer in clps711x_lcd_get_power()?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808144114.7750=
+5-1-kmehltretter@gmail.com?part=3D1
