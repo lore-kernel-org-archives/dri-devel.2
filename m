@@ -4,76 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D073EC5B567
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14FD1C5AE5D
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5C4410E65B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98B8510E658;
 	Mon, 10 Aug 2026 06:38:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NoX22I93";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=surriel.com header.i=@surriel.com header.b="ScPc/lfG";
 	dkim-atps=neutral
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3CB810E06A
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 21:09:58 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2d02b4c3601so7165285ad.3
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 14:09:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786223398; x=1786828198; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=JEDozRCApOyIBa6Mlu5Ff5h7lMmTA4l7LeQfPER4AT0=;
- b=NoX22I93gZXlztW3//XaIgTkz8FYFU2NGA/xsvfvXtAXGt1bLxKz3RhtZqupyXmagj
- oLLUxWQ2f8GexkuNv+mg1lFxzJitNPTVJnL1QhZRG2XPlx+nr0mp2ZXv127aJ31P7SU2
- 21ajRRQpAJsM2EL2LBJ6ZK5yilowvMJVRUtenflItYt/FsEstI4BII+XqErt2ky3wgSn
- vpTp9jxkIqchQyiPEqC6YrKgDw5ohcUfY9KyxFVUe8AhumcK5WTbaJqgVNm3eLIwflF5
- TNMAIQHePzRuh7VjFfzUEFkRWo/52hPL7eGAYO8BfRYbDBgLrdUy9ZmwEIZfeRVh/efd
- QyTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786223398; x=1786828198;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=JEDozRCApOyIBa6Mlu5Ff5h7lMmTA4l7LeQfPER4AT0=;
- b=p7RjNFovgTS6/UGlr5D6ls1NlfC0ieXt9zT+hxif0TuBI6Ha++VNed4k4zk8tMM1RO
- QtV+SMLHWxc8Jgx+4DagG+vl6CsX/TzH2ntG0U1FL9Es+tL8lGEqo3PlgfhCyRBlvMa5
- ghEy5WuU3AgZHyIsezTcpXA0NVvxUzu1g9Mloq2MQpBmhPuwEnz4XdrTp2yI1zurQMPh
- Naiu52NkHERIxlJENm+pnJR+OCfUzp/LSb+NP2RROJUhOgbGOt5RWvaSjwOu1e8o0Ka9
- 2FKUhwP3I5RMbNgL0PNBalH7+VtLkevZzNCZSfYhw6910aggJne880GB6r718htzqX0u
- xrBg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RprMnpEx8NoPsdpSkZsaMwY8Y+j5674FZ+Li7DduCCrZAFofuj630fayRfMKeLfZIPp8PqT6C5k18o=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz8Q+BqGKvmskcu+27xalrgF71Okd/znJwohaoxgi1hrQGXHY1b
- AMLyrYfTTTgMYILtkahIyRXHBmpHCERnZKZmqcfGEImhjUby0GfU4qiT
-X-Gm-Gg: AR+sD12FYl0t/FL6NN+v8mYIluvrKyKRWHfGZxe2CSP+Ibrmg5Z4F7TTbeJx2zvwAGi
- 6A0ZIt1wsEe3djds73OLD0nCdporNWyT7I3z+jJkgJ3aV64cicGC1PtpAgnycr6Q2JPrxqWHtZd
- 7Mh+ivKbnQJRCOWubUhbFs5NL5eZcDTuR3Hm/NDYSK6AHnWFXmUe3DAsFqppTGO/TcfHHPXC85e
- aCuQa3pNIzTpPNbpG8K8h6kXc6W01ER+QRAQNTQwnLaJzWp5H43032/uH51cQLHgCrsZYiYeQLB
- +VTWxOkJekeEEyRxPltn8pnh/IhzGzQUYGtBiPKdq3loAigFSqU1edSmWImdGpoVStjM5AfBpdM
- oDDH7b7YRuXOOSUqb4daAp4F2z44VekAvo0Nnp+u5e94A2Hq3hnhqKCu96HAoQlotyBBVhA7wbs
- jlbfBdvDxs54OSlgB9j6HlHi7rVM6H+qasInCnSzmr+W8T+ABJI1ojLoyIqM9Kdc5mhIacU2Zvl
- oSxuk9h1gQ=
-X-Received: by 2002:a05:6a20:d4b:b0:3c3:a722:59cc with SMTP id
- adf61e73a8af0-3cb85ea6f6bmr37753432637.22.1786223398152; 
- Sat, 08 Aug 2026 14:09:58 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.204.72])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315bec5aac2sm25713133eec.30.2026.08.08.14.09.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 14:09:57 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH 0/5] drm/amdgpu/aca: Robustness and safety fixes for ACA driver
-Date: Sat,  8 Aug 2026 21:08:47 +0000
-Message-ID: <20260808210852.2938-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
+X-Greylist: delayed 422 seconds by postgrey-1.36 at gabe;
+ Sat, 08 Aug 2026 02:27:26 UTC
+Received: from shelob.surriel.com (shelob.surriel.com [96.67.55.147])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8E53B10E374
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 02:27:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=surriel.com
+ ; s=mail;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:Sender:Reply-To:Content-ID:Content-Description:
+ Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+ In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+ List-Post:List-Owner:List-Archive;
+ bh=aS+8umnirCVOqmOWTTwMPe+YY743AtN0N7MiTrBSQLk=; b=ScPc/lfGajyFfBoJq6VglFRe1f
+ yhP5bGG04OuW9UT+eOJozTVRSM37YKwzbG1oBqu/MCuVip0RI1vdgga3sKKXcYsz2cUTs7LaAV65+
+ Fwa4z9xgTgGXNRSkMnuC0pk5XU/z+ZDzkBhvxinV8wq53wFsK+GmgOpHvnEoE/+cBRZ1LGC4+XvKy
+ 7ZETNeoqq6Kyvg5IWTOt/2gVx3Sxi+YONov4YRM731B1BLNInkAKbTGvHA8XZGRUau+0lASnG0wWl
+ DP974VYl1RbUpa69Bz3EVoqi4dxVBzXAoveWHIgvgH6HCDfaWEGPg3vN4PVWew6PTK2SKxrNZbUeX
+ 4BvgF2nQ==;
+Received: from [2601:18c:8100:a0e0:5a47:caff:fe78:8708] (helo=fangorn)
+ by shelob.surriel.com with esmtpsa (TLS1.2) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.97.1)
+ (envelope-from <riel@surriel.com>) id 1wsWfF-0000000035Y-1DX1;
+ Fri, 07 Aug 2026 22:19:57 -0400
+Date: Fri, 7 Aug 2026 22:19:56 -0400
+From: Rik van Riel <riel@surriel.com>
+To: Helge Deller <deller@gmx.de>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter
+ <simona@ffwll.ch>, Junjie Cao <junjie.cao@intel.com>,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: bitblit: bound-check glyph index in bit_cursor()
+Message-ID: <20260807221956.4e9dde5c@fangorn>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; x86_64-redhat-linux-gnu)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,22 +64,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series addresses several race conditions, boundary check bugs,
-logic inversions, NULL pointer checks, and buffer size parameters across
-the AMDGPU ACA (Accelerated Compute Architecture) driver subsystem:
+bit_cursor() fetches the glyph under the cursor with
 
-Sreeraj S Kurup (5):
-  drm/amdgpu/aca: Fix race condition and UAF in error cache logging
-  drm/amdgpu/aca: Add upper bounds check in aca_bank_hwip_is_matched
-  drm/amdgpu/aca: Fix inverted validation logic in
-    amdgpu_aca_get_error_data
-  drm/amdgpu/aca: Add missing NULL check for banks parameter in
-    aca_banks_add_bank
-  drm/amdgpu/aca: Fix off-by-one buffer size parameter in add_aca_sysfs
+	c =3D scr_readw(vc_pos);
+	src =3D vc_font.data + ((c & charmask) * w * height);
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 31 ++++++++++---------------
- 1 file changed, 12 insertions(+), 19 deletions(-)
+where charmask is 0x1ff when vc_hi_font_mask is set. The screen buffer
+value comes directly from scr_readw() and may be larger than the current
+font's glyph count.
 
--- 
-2.54.0
+Syzkaller triggers this via vcs_write(). The Call Trace shows
+vcs_write() in vc_screen.c writing an arbitrary 16-bit value with
+writev() to /dev/vcsa, which vcs_write_buf() in vc_screen.c stores via
+vcs_scr_writew() without checking charcount. The stored value is later
+read in bit_cursor() in bitblit.c.
+
+When the font is changed from a font with 512 glyphs to a font with
+256 glyphs, the screen buffer can retain characters with the high
+bit set from the previous mode, which could also produce the same=20
+out-of-bounds access.
+
+  BUG: KASAN: global-out-of-bounds in soft_cursor+0x378/0x6bc drivers/video=
+/fbdev/core/softcursor.c:70
+  Read of size 16 at addr ffff800086c57970
+
+  Call Trace:
+   soft_cursor+0x378/0x6bc drivers/video/fbdev/core/softcursor.c:70
+   bit_cursor+0xa90/0x1108 drivers/video/fbdev/core/bitblit.c:365
+   fbcon_cursor+0x344/0x498 drivers/video/fbdev/core/fbcon.c:1427
+   hide_cursor+0xdc/0x2d0 drivers/tty/vt/vt.c:883
+   update_region+0x100/0x18c drivers/tty/vt/vt.c:669
+   vcs_write+0x8ec/0xaf0 drivers/tty/vt/vc_screen.c:685
+
+bit_putcs_aligned() and bit_putcs_unaligned() already clamp the glyph
+index to vc_font.charcount. Apply the same clamp in bit_cursor() after
+extracting the attribute and masking, before indexing fontdata.
+
+The fix completes the bounds checking started in commit 18c4ef4e765a
+("fbdev: bitblit: bound-check glyph index in bit_putcs*"), which missed
+the cursor path.
+
+This change should be safe because the clamp reuses the existing
+contract from fbcon: charcount is maintained under console_lock in
+con_font_set() and fbcon_font_set(), and hi_font_mask is cleared when
+switching from 512 to 256 glyphs. When stale screen data with high bits
+remains after a font switch, or when vcs_write() stores an arbitrary
+value, clamping the index to 0 prevents the out-of-bounds read without
+changing cursor semantics =E2=80=94 the same fallback bit_putcs uses.
+
+Reported-by: syzbot+61b1db46218109869c14@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3D61b1db46218109869c14
+Link: https://lore.kernel.org/all/6a75205c.01d0871a.3a0d52.0032.GAE@google.=
+com/
+Fixes: 18c4ef4e765a ("fbdev: bitblit: bound-check glyph index in bit_putcs*=
+")
+Cc: stable@vger.kernel.org
+Assisted-by: Hermes:muse-spark-1.2 syzkaller
+Signed-off-by: Rik van Riel <riel@surriel.com>
+---
+ drivers/video/fbdev/core/bitblit.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/core/=
+bitblit.c
+index 65681dcc5930..39f44258d793 100644
+--- a/drivers/video/fbdev/core/bitblit.c
++++ b/drivers/video/fbdev/core/bitblit.c
+@@ -273,9 +273,14 @@ static void bit_cursor(struct vc_data *vc, struct fb_i=
+nfo *info, bool enable,
+ 	if (!vc->vc_font.data)
+ 		return;
+=20
+- 	c =3D scr_readw((u16 *) vc->vc_pos);
++	c =3D scr_readw((u16 *) vc->vc_pos);
+ 	attribute =3D get_attribute(info, c);
+-	src =3D vc->vc_font.data + ((c & charmask) * (w * vc->vc_font.height));
++	c &=3D charmask;
++
++	/* Clamp to font size, same as bit_putcs_aligned() */
++	if (c >=3D vc->vc_font.charcount)
++		c =3D 0;
++	src =3D vc->vc_font.data + (c * (w * vc->vc_font.height));
+=20
+ 	if (par->cursor_state.image.data !=3D (const char *)src ||
+ 	    par->cursor_reset) {
+--=20
+2.55.0
 
