@@ -4,42 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19973C5AC67
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 12:24:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D4D0C5AC67
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 12:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17FF810E1E8;
-	Sat,  8 Aug 2026 12:24:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 79A8210E00B;
+	Sat,  8 Aug 2026 12:29:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mBjJQqJS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nzPidFWo";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50E8110E1E8
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 12:24:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF69010E00B
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 12:29:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 53641600B1;
- Sat,  8 Aug 2026 12:24:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D58891F000E9;
- Sat,  8 Aug 2026 12:24:45 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8A0A2438E6;
+ Sat,  8 Aug 2026 12:29:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D2911F000E9;
+ Sat,  8 Aug 2026 12:29:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786191886;
- bh=F/VSYoUOlIj2maxKjzqkhTHJHc9PzCkk2TuDnQfJbV0=;
+ s=k20260515; t=1786192165;
+ bh=D27B7rUwYNKu8BK6bQ+KltFKtgror0TrKJJ6dpnEC8k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=mBjJQqJS1CQBG5U+S+/8z+nurtf4gNvWFFwZpHe92hkct5k9D5PPgrPKy0V/ctgiV
- cvEjjL+w5kgM84ZRgJQLbUYfYY/N/Y1Xdc28Oj6mTr6I4Q2A9PE7nS0/8MEPJwzgnG
- WvADx4U6JLjYdmRjQ7xCkI1H7o7k8nypKhQ3qC502dwarNqmmXf1YMKJCqovUYQn5P
- SuzhqzEb499oacxWfS3k/COi/8VkSG9wCPFHLmCH7SOMCi8rAqTi0OKbf2AA53SffU
- sgs6iMimpPGiAG071/nOnzsq/qJGvlP56TzbGdxBRmQ6m0oyyysqhzRFS5TwFZt1xs
- G1eGMIdySrcmg==
+ b=nzPidFWoy2B7UjlwFTEiOYjzjy1e4J0Tzkpbkr1aW6cbt/4NbrAz7fq3I2lC9lLNB
+ PJ3W5sdxgkxbTqjyWyrR//bhVhpOqEcKypYeFgivdpFh6p+SJE9xgb01l9+7m9GknB
+ 5sHd2P8WagpFBaU5fBhVTHFp0E4y4YSTX9pSrVhPBJFiJWexslZvk4DcA82b9/bVV/
+ ZezyxkqE1U4XiAPuXJnu+URpgZKQcJXlxOCtzgONej+8Tof4YqR+bUrexxwtf5DPkr
+ 30fq2ESuoxmuaUGBtEWAwghV1TayR9gCFhIgg8yknmGxrf38/JdCGUqMiXegbQo6Eg
+ Q3HieZJh5SEhQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/amdgpu: fix autosuspend cleanup during removal
+Subject: Re: [PATCH] drm/etnaviv: fix runtime PM cleanup during teardown
 To: "Guangshuo Li" <lgs201920130244@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260808120934.2813010-1-lgs201920130244@gmail.com>
-References: <20260808120934.2813010-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808121434.2815841-1-lgs201920130244@gmail.com>
+References: <20260808121434.2815841-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 12:24:45 +0000
-Message-Id: <20260808122445.D58891F000E9@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 12:29:24 +0000
+Message-Id: <20260808122925.4D2911F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,84 +60,59 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] If late initialization steps in `amdgpu_pci_probe()` fail, the err=
-or path skips hardware teardown and fails to unwind earlier registrations, =
-leading to resource leaks, zombie devices, and potential use-after-free.
+- [High] Workqueue `gpu->wq` is destroyed before the GPU is quiesced, leadi=
+ng to a Use-After-Free/kernel panic if an interrupt fires during unbind.
 --
 
---- Patch [1]: [PATCH] drm/amdgpu: fix autosuspend cleanup during removal -=
---
-commit c007137d62506190886d6bf0f4180137897883b4
+--- Patch [1]: [PATCH] drm/etnaviv: fix runtime PM cleanup during teardown =
+---
+commit 77333bf2f506b75e91ec774e0e32c5f41714ae15
 Author: Guangshuo Li <lgs201920130244@gmail.com>
 
-drm/amdgpu: fix autosuspend cleanup during removal
+drm/etnaviv: fix runtime PM cleanup during teardown
 
-This commit adds a missing pm_runtime_dont_use_autosuspend() call to the
-remove path. This ensures that the usage count is properly balanced and
-dropped, preventing issues where the runtime PM core keeps the device from
-suspending when the autosuspend delay is set to a negative value.
+etnaviv_gpu_platform_probe() calls pm_runtime_use_autosuspend() and
+enables runtime PM before registering the component. If component_add()
+fails, the probe path returns without undoing the autosuspend setting
+or disabling runtime PM. The remove path also disables runtime PM
+without calling the matching pm_runtime_dont_use_autosuspend().
 
-> amdgpu_pci_probe() calls pm_runtime_use_autosuspend(), but
-> amdgpu_pci_remove() does not call the matching
-> pm_runtime_dont_use_autosuspend().
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etna=
+viv/etnaviv_gpu.c
+> index 5c23182f4d33a..cf71e43614f84 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
+
+[ ... ]
+
+> @@ -1992,6 +1994,7 @@ static void etnaviv_gpu_platform_remove(struct plat=
+form_device *pdev)
+>  	struct etnaviv_gpu *gpu =3D dev_get_drvdata(&pdev->dev);
+> =20
+>  	component_del(&pdev->dev, &gpu_ops);
+> +	pm_runtime_dont_use_autosuspend(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+> =20
+>  	mutex_destroy(&gpu->lock);
 
 [Severity: High]
-This is a pre-existing issue, but while looking at amdgpu_pci_probe(), if l=
-ate
-initialization steps fail, the error path skips hardware teardown:
+This is a pre-existing issue, but since this patch fixes teardown paths, can
+this component teardown sequence lead to a use-after-free?
 
-drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c:amdgpu_pci_probe() {
-    ...
-	} else if (ret) {
-		goto err_pci;
-	}
+Looking at etnaviv_gpu_unbind(), which is called via component_del(), it
+destroys the workqueue before stopping the scheduler and quiescing the
+hardware:
 
-	ret =3D amdgpu_xcp_dev_register(adev, ent);
-	if (ret)
-		goto err_pci;
+    destroy_workqueue(gpu->wq);
+    etnaviv_sched_fini(gpu);
 
-	ret =3D amdgpu_amdkfd_drm_client_create(adev);
-	if (ret)
-		goto err_pci;
-    ...
-err_pci:
-	pci_disable_device(pdev);
-	return ret;
-}
+If an active GPU workload completes precisely in this window, the hardware
+raises an interrupt and irq_handler() executes:
 
-Can this leave a zombie DRM device exposed to userspace?
+    queue_work(gpu->wq, &gpu->sync_point_work);
 
-Because adev is allocated via devm_drm_dev_alloc(), devres handles cleanup =
-on
-probe failure by calling drm_dev_put(). The release callback
-(amdgpu_driver_release_kms) only calls amdgpu_device_fini_sw(), which frees
-memory and software state.
-
-Since the error path does not call amdgpu_driver_unload_kms(),
-amdgpu_device_fini_hw() is never executed. Hardware clocks, interrupts, and
-internal engines remain active while the backing memory is freed, which cou=
-ld
-lead to memory corruption.
-
-Furthermore, if drm_dev_register() succeeds but a subsequent step (like
-amdgpu_xcp_dev_register()) fails, the error path fails to call
-drm_dev_unregister(). Could this leave dangling sysfs nodes and device files
-that might trigger a use-after-free when userspace attempts to open them?
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_drv.c
-> index 0ab380ca7e645..5c33c19fd9bc5 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-> @@ -2557,6 +2557,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
->  	if (adev->pm.rpm_mode !=3D AMDGPU_RUNPM_NONE) {
->  		pm_runtime_get_sync(dev->dev);
->  		pm_runtime_forbid(dev->dev);
-> +		pm_runtime_dont_use_autosuspend(dev->dev);
->  	}
-> =20
->  	amdgpu_driver_unload_kms(dev);
+Does queuing work to a destroyed workqueue cause a kernel panic here?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808120934.2813=
-010-1-lgs201920130244@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808121434.2815=
+841-1-lgs201920130244@gmail.com?part=3D1
