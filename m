@@ -4,184 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8189C55174
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 05:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD255C55174
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 06:02:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65F4810E0E1;
-	Sat,  8 Aug 2026 05:44:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7F0A810E02F;
+	Sat,  8 Aug 2026 06:02:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=deller@gmx.de header.b="owuUf7E6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dQMMx411";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 534EE10E0E1
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 05:44:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1786167856; x=1786772656; i=deller@gmx.de;
- bh=Y6ndFd0K+Ui5j+P7AUsA4oPv7cE3yjCnSLpdqFQuFh0=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=owuUf7E6hvaxLiT78ZAy2tb6yOFsmpyFcjtf3mzj10LjKKVOJWoedc4kfcoaszum
- Chmxd/2pvZqalRDEAUt/1nkwxJ+DHo/t7PqOj239Q5qNUhnGj4iRFFBqVIlzF+Apz
- FJh2HAG2fKGyAAKTQcsfnkNsRFwvCHj5UJUCf0jbXfh/FtAXj1sqnt4AzEuw/A4nF
- ZQnL0z1Fkt3oWteYBTIlpC3X1rJd8fS6k1UJKdlQ3VBP5w6VBGNX554Uu/FSoJ5KU
- nevjI/zBwlRLLahbH0oCiIPa3eV3BkVx3gTcgwFfNJv4U8P8wdB1KyFuXddjG4omZ
- HWl0ltNg4TdT4bcE8w==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MEFvp-1wizbB0QNh-006eQ7; Sat, 08
- Aug 2026 07:44:16 +0200
-Message-ID: <79d240b9-3b22-4280-b15e-cf3f2bae983a@gmx.de>
-Date: Sat, 8 Aug 2026 07:44:11 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev: bitblit: bound-check glyph index in bit_cursor()
-To: Rik van Riel <riel@surriel.com>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
- Junjie Cao <junjie.cao@intel.com>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260807221956.4e9dde5c@fangorn>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <20260807221956.4e9dde5c@fangorn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 600CD10E02F
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 06:02:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2138543AC5
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 06:02:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id F406BC2BCC7
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 06:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1786168967;
+ bh=unUCd0bAxhX4g6VBtvxqdtM++UM52yCA951APoceZNY=;
+ h=From:To:Subject:Date:From;
+ b=dQMMx411i5MdmN90OirlAngHSubIdQ4rU07rGZHPtiAKY0/onP8MFOnOLjnBOHufM
+ kWXJsSCa9rCNyTeP7IhgcQMjXO0+lORqkUnjEXUr39xMA0QeufcYndjA3OfbAXk24/
+ 7e/pjL5ac9eg8u94VlwGkoXzX6fAlYAeHAgqi8M9MOBsiGtqaxukGPplCghKNWJNbN
+ I2+WHqWoaM+WktO1rpQDQfeKT/AZv72lP6NEcnzbW8CahFynTPsB2Eb69pDt1SBf/N
+ NXZeYU7JP20Re3QDIHcpo3dn8NWWDvg4bLWYAGeRza9f5pdkiGT120gbXWjKlo7XS1
+ Fb3poUoVnCHZQ==
+Received: by aws-us-west-2-korg-bugzilla-1.web.codeaurora.org (Postfix,
+ from userid 48) id D1653C3279F; Sat,  8 Aug 2026 06:02:46 +0000 (UTC)
+From: bugzilla-daemon@kernel.org
+To: dri-devel@lists.freedesktop.org
+Subject: [Bug 221852] New: X does not start (or does not show screen) on
+ DisplayPort of NVIDIA Quadro 600 with nouveau
+Date: Sat, 08 Aug 2026 06:02:46 +0000
+X-Bugzilla-Reason: None
+X-Bugzilla-Type: new
+X-Bugzilla-Watch-Reason: AssignedTo drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Product: Drivers
+X-Bugzilla-Component: Video(DRI - non Intel)
+X-Bugzilla-Version: 2.5
+X-Bugzilla-Keywords: 
+X-Bugzilla-Severity: normal
+X-Bugzilla-Who: takashi.yano@nifty.ne.jp
+X-Bugzilla-Status: NEW
+X-Bugzilla-Resolution: 
+X-Bugzilla-Priority: P3
+X-Bugzilla-Assigned-To: drivers_video-dri@kernel-bugs.osdl.org
+X-Bugzilla-Flags: 
+X-Bugzilla-Changed-Fields: bug_id short_desc product version rep_platform
+ op_sys bug_status bug_severity priority component assigned_to reporter
+ cf_regression attachments.created
+Message-ID: <bug-221852-2300@https.bugzilla.kernel.org/>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ruGUkklf3YuqOHefy51FCN/V/B/DQFpkXk3+xDsS7svbrXSbq/B
- A3ijGvzgwWjPptDFLHeNXmuC/FN3RVt/draghelFdbpUznZCTvLNfj4IR2W/WPC3+Wzti4n
- 4ZYzFvBEFeb50Pi1Udx6jzcWowXmP7javezXsrAQKBNeJWmMqjde4XE2pf2Nh4YMqSHPhgM
- gbZgc5J/ERTvHWXi3Ux4Q==
-UI-OutboundReport: notjunk:1;M01:P0:tLglxcC1jFk=;eqjFcTlKFh/kaoYDmg4CyKwb5FZ
- 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
- zBjuHWdnBgE4XVvJluQ=
+X-Bugzilla-URL: https://bugzilla.kernel.org/
+Auto-Submitted: auto-generated
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -197,67 +75,490 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 8/8/26 04:19, Rik van Riel wrote:
-> bit_cursor() fetches the glyph under the cursor with
->=20
-> 	c =3D scr_readw(vc_pos);
-> 	src =3D vc_font.data + ((c & charmask) * w * height);
->=20
-> where charmask is 0x1ff when vc_hi_font_mask is set. The screen buffer
-> value comes directly from scr_readw() and may be larger than the current
-> font's glyph count.
->=20
-> Syzkaller triggers this via vcs_write(). The Call Trace shows
-> vcs_write() in vc_screen.c writing an arbitrary 16-bit value with
-> writev() to /dev/vcsa, which vcs_write_buf() in vc_screen.c stores via
-> vcs_scr_writew() without checking charcount. The stored value is later
-> read in bit_cursor() in bitblit.c.
->=20
-> When the font is changed from a font with 512 glyphs to a font with
-> 256 glyphs, the screen buffer can retain characters with the high
-> bit set from the previous mode, which could also produce the same
-> out-of-bounds access.
->=20
->    BUG: KASAN: global-out-of-bounds in soft_cursor+0x378/0x6bc drivers/v=
-ideo/fbdev/core/softcursor.c:70
->    Read of size 16 at addr ffff800086c57970
->=20
->    Call Trace:
->     soft_cursor+0x378/0x6bc drivers/video/fbdev/core/softcursor.c:70
->     bit_cursor+0xa90/0x1108 drivers/video/fbdev/core/bitblit.c:365
->     fbcon_cursor+0x344/0x498 drivers/video/fbdev/core/fbcon.c:1427
->     hide_cursor+0xdc/0x2d0 drivers/tty/vt/vt.c:883
->     update_region+0x100/0x18c drivers/tty/vt/vt.c:669
->     vcs_write+0x8ec/0xaf0 drivers/tty/vt/vc_screen.c:685
->=20
-> bit_putcs_aligned() and bit_putcs_unaligned() already clamp the glyph
-> index to vc_font.charcount. Apply the same clamp in bit_cursor() after
-> extracting the attribute and masking, before indexing fontdata.
->=20
-> The fix completes the bounds checking started in commit 18c4ef4e765a
-> ("fbdev: bitblit: bound-check glyph index in bit_putcs*"), which missed
-> the cursor path.
->=20
-> This change should be safe because the clamp reuses the existing
-> contract from fbcon: charcount is maintained under console_lock in
-> con_font_set() and fbcon_font_set(), and hi_font_mask is cleared when
-> switching from 512 to 256 glyphs. When stale screen data with high bits
-> remains after a font switch, or when vcs_write() stores an arbitrary
-> value, clamping the index to 0 prevents the out-of-bounds read without
-> changing cursor semantics =E2=80=94 the same fallback bit_putcs uses.
->=20
-> Reported-by: syzbot+61b1db46218109869c14@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=3D61b1db46218109869c14
-> Link: https://lore.kernel.org/all/6a75205c.01d0871a.3a0d52.0032.GAE@goog=
-le.com/
-> Fixes: 18c4ef4e765a ("fbdev: bitblit: bound-check glyph index in bit_put=
-cs*")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Hermes:muse-spark-1.2 syzkaller
-> Signed-off-by: Rik van Riel <riel@surriel.com>
-> ---
->   drivers/video/fbdev/core/bitblit.c | 9 +++++++--
->   1 file changed, 7 insertions(+), 2 deletions(-)
-Patch applied to fbdev git tree.
-Thanks!
-Helge
+https://bugzilla.kernel.org/show_bug.cgi?id=3D221852
+
+            Bug ID: 221852
+           Summary: X does not start (or does not show screen) on
+                    DisplayPort of NVIDIA Quadro 600 with nouveau
+           Product: Drivers
+           Version: 2.5
+          Hardware: All
+                OS: Linux
+            Status: NEW
+          Severity: normal
+          Priority: P3
+         Component: Video(DRI - non Intel)
+          Assignee: drivers_video-dri@kernel-bugs.osdl.org
+          Reporter: takashi.yano@nifty.ne.jp
+        Regression: No
+
+Created attachment 310599
+  --> https://bugzilla.kernel.org/attachment.cgi?id=3D310599&action=3Dedit
+Proposed patch to fix the issue
+
+[Environment]
+- Base distribution: Debian GNU/Linux 13 (Trixie)
+- CPU: Intel(R) Xeon(R) CPU E3-1281 v3 @ 3.70GHz
+- Video card: Quadro 600
+
+[Issue]
+When starting X on NVIDIA Quadro 600 DisplayPort, X does not start correctly
+and does not show screen at all. I am using nouveau. This also happen with
+- Quadro 600 / 2000 / 4000
+- Quadro FX 1800
+The issue does not happen if DVI output is used.
+
+[Steps to reproduce]
+(1) Install Debian GNU/Linux 13.6 (Trixie) with X
+(2) Build latest linux kernel (7.2.0-rc6) and install on it
+(3) Reboot the system
+(4) Start X (or boot with Display Manager)
+
+[Solution]
+After some effort, I found that the attached patch resolves the issue.
+This essentially reverts a5a7379f6d9d ("drm/nouveau/kms/nv50-: split DP
+disable+enable into two modesets") and adds a workaround for Quadro FX
+1800.
+
+[dmesg log (partial)]
+[   37.200312] nouveau 0000:04:00.0: disp: ERROR 4 [INVALID_ARG] 84 [] chid=
+ 0
+mthd 0804 data 00882208
+[   37.200361] nouveau 0000:04:00.0: disp: ERROR 5 [INVALID_STATE] 05 [] ch=
+id 0
+mthd 0080 data 00000002
+[   37.200366] nouveau 0000:04:00.0: disp: Core:
+[   37.200374] nouveau 0000:04:00.0: disp:      0084: 02580320 -> 80000000
+[   37.200382] nouveau 0000:04:00.0: disp:      0088: f0000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200385] nouveau 0000:04:00.0: disp: Core - DAC 0:
+[   37.200392] nouveau 0000:04:00.0: disp:      0400: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200400] nouveau 0000:04:00.0: disp:      0404: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200406] nouveau 0000:04:00.0: disp:      0420: 00010000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200408] nouveau 0000:04:00.0: disp: Core - DAC 1:
+[   37.200416] nouveau 0000:04:00.0: disp:      0480: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200424] nouveau 0000:04:00.0: disp:      0484: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200431] nouveau 0000:04:00.0: disp:      04a0: 00010000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200433] nouveau 0000:04:00.0: disp: Core - DAC 2:
+[   37.200441] nouveau 0000:04:00.0: disp:      0500: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200449] nouveau 0000:04:00.0: disp:      0504: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200456] nouveau 0000:04:00.0: disp:      0520: 00010000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200458] nouveau 0000:04:00.0: disp: Core - SOR 0:
+[   37.200466] nouveau 0000:04:00.0: disp:      0600: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200467] nouveau 0000:04:00.0: disp: Core - SOR 1:
+[   37.200475] nouveau 0000:04:00.0: disp:      0640: 00000000 -> 00022801
+[   37.200477] nouveau 0000:04:00.0: disp: Core - SOR 2:
+[   37.200484] nouveau 0000:04:00.0: disp:      0680: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200486] nouveau 0000:04:00.0: disp: Core - SOR 3:
+[   37.200493] nouveau 0000:04:00.0: disp:      06c0: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200494] nouveau 0000:04:00.0: disp: Core - PIOR 0:
+[   37.200502] nouveau 0000:04:00.0: disp:      0700: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200504] nouveau 0000:04:00.0: disp: Core - PIOR 1:
+[   37.200511] nouveau 0000:04:00.0: disp:      0740: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200512] nouveau 0000:04:00.0: disp: Core - PIOR 2:
+[   37.200518] nouveau 0000:04:00.0: disp:      0780: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200520] nouveau 0000:04:00.0: disp: Core - HEAD 0:
+[   37.200528] nouveau 0000:04:00.0: disp:      0800: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200536] nouveau 0000:04:00.0: disp:      0804: 00841190=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200543] nouveau 0000:04:00.0: disp:      0808: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200551] nouveau 0000:04:00.0: disp:      080c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200558] nouveau 0000:04:00.0: disp:      0810: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200566] nouveau 0000:04:00.0: disp:      0814: 08ae0fa0=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200572] nouveau 0000:04:00.0: disp:      0818: 0004008f=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200580] nouveau 0000:04:00.0: disp:      081c: 00070097=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200587] nouveau 0000:04:00.0: disp:      0820: 08770f97=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200595] nouveau 0000:04:00.0: disp:      0824: 00000001=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200601] nouveau 0000:04:00.0: disp:      0828: 00000384=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200609] nouveau 0000:04:00.0: disp:      082c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200615] nouveau 0000:04:00.0: disp:      0830: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200623] nouveau 0000:04:00.0: disp:      0838: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200630] nouveau 0000:04:00.0: disp:      0840: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200638] nouveau 0000:04:00.0: disp:      0844: 00000430=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200644] nouveau 0000:04:00.0: disp:      0848: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200652] nouveau 0000:04:00.0: disp:      084c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200659] nouveau 0000:04:00.0: disp:      085c: 00000000 -> f0000001
+[   37.200667] nouveau 0000:04:00.0: disp:      0860: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200673] nouveau 0000:04:00.0: disp:      0864: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200681] nouveau 0000:04:00.0: disp:      0868: 08700f00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200687] nouveau 0000:04:00.0: disp:      086c: 00103c00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200695] nouveau 0000:04:00.0: disp:      0870: 0000cf00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200702] nouveau 0000:04:00.0: disp:      0874: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200710] nouveau 0000:04:00.0: disp:      0878: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200716] nouveau 0000:04:00.0: disp:      0880: 20000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200724] nouveau 0000:04:00.0: disp:      0884: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200730] nouveau 0000:04:00.0: disp:      089c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200738] nouveau 0000:04:00.0: disp:      08a0: 00000002=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200745] nouveau 0000:04:00.0: disp:      08a4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200753] nouveau 0000:04:00.0: disp:      08a8: 00040000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200759] nouveau 0000:04:00.0: disp:      08c0: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200767] nouveau 0000:04:00.0: disp:      08c4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200773] nouveau 0000:04:00.0: disp:      08c8: 08700f00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200781] nouveau 0000:04:00.0: disp:      08d4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200788] nouveau 0000:04:00.0: disp:      08d8: 08700f00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200796] nouveau 0000:04:00.0: disp:      08dc: 08700f00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200802] nouveau 0000:04:00.0: disp:      0900: 00000301=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200810] nouveau 0000:04:00.0: disp:      0904: 00000100=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200816] nouveau 0000:04:00.0: disp:      0910: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200824] nouveau 0000:04:00.0: disp:      0914: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200826] nouveau 0000:04:00.0: disp: Core - HEAD 1:
+[   37.200833] nouveau 0000:04:00.0: disp:      0c00: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200841] nouveau 0000:04:00.0: disp:      0c04: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200849] nouveau 0000:04:00.0: disp:      0c08: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200857] nouveau 0000:04:00.0: disp:      0c0c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200864] nouveau 0000:04:00.0: disp:      0c10: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200873] nouveau 0000:04:00.0: disp:      0c14: 00050008=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200881] nouveau 0000:04:00.0: disp:      0c18: 00000001=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200888] nouveau 0000:04:00.0: disp:      0c1c: 00010003=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200897] nouveau 0000:04:00.0: disp:      0c20: 00030004=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200903] nouveau 0000:04:00.0: disp:      0c24: 00000001=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200911] nouveau 0000:04:00.0: disp:      0c28: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200917] nouveau 0000:04:00.0: disp:      0c2c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200925] nouveau 0000:04:00.0: disp:      0c30: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200931] nouveau 0000:04:00.0: disp:      0c38: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200939] nouveau 0000:04:00.0: disp:      0c40: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200946] nouveau 0000:04:00.0: disp:      0c44: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200954] nouveau 0000:04:00.0: disp:      0c48: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200960] nouveau 0000:04:00.0: disp:      0c4c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200968] nouveau 0000:04:00.0: disp:      0c5c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200974] nouveau 0000:04:00.0: disp:      0c60: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200982] nouveau 0000:04:00.0: disp:      0c64: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200989] nouveau 0000:04:00.0: disp:      0c68: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.200997] nouveau 0000:04:00.0: disp:      0c6c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201003] nouveau 0000:04:00.0: disp:      0c70: 0000e900=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201011] nouveau 0000:04:00.0: disp:      0c74: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201017] nouveau 0000:04:00.0: disp:      0c78: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201025] nouveau 0000:04:00.0: disp:      0c80: 20000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201032] nouveau 0000:04:00.0: disp:      0c84: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201040] nouveau 0000:04:00.0: disp:      0c9c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201046] nouveau 0000:04:00.0: disp:      0ca0: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201054] nouveau 0000:04:00.0: disp:      0ca4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201060] nouveau 0000:04:00.0: disp:      0ca8: 00040000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201068] nouveau 0000:04:00.0: disp:      0cc0: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201075] nouveau 0000:04:00.0: disp:      0cc4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201083] nouveau 0000:04:00.0: disp:      0cc8: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201089] nouveau 0000:04:00.0: disp:      0cd4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201097] nouveau 0000:04:00.0: disp:      0cd8: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201103] nouveau 0000:04:00.0: disp:      0cdc: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201111] nouveau 0000:04:00.0: disp:      0d00: 00000300=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201118] nouveau 0000:04:00.0: disp:      0d04: 00000100=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201126] nouveau 0000:04:00.0: disp:      0d10: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   37.201132] nouveau 0000:04:00.0: disp:      0d14: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   39.200277] nouveau 0000:04:00.0: drm: core notifier timeout
+[   41.200331] nouveau 0000:04:00.0: drm: base-0: timeout
+[   46.604120] nouveau 0000:04:00.0: disp: ERROR 5 [INVALID_STATE] 05 [] ch=
+id 0
+mthd 0080 data 00000000
+[   46.604159] nouveau 0000:04:00.0: disp: Core:
+[   46.604175] nouveau 0000:04:00.0: disp:      0084: 02580320 -> 00000000
+[   46.604194] nouveau 0000:04:00.0: disp:      0088: f0000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604205] nouveau 0000:04:00.0: disp: Core - DAC 0:
+[   46.604219] nouveau 0000:04:00.0: disp:      0400: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604235] nouveau 0000:04:00.0: disp:      0404: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604250] nouveau 0000:04:00.0: disp:      0420: 00010000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604261] nouveau 0000:04:00.0: disp: Core - DAC 1:
+[   46.604273] nouveau 0000:04:00.0: disp:      0480: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604286] nouveau 0000:04:00.0: disp:      0484: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604297] nouveau 0000:04:00.0: disp:      04a0: 00010000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604302] nouveau 0000:04:00.0: disp: Core - DAC 2:
+[   46.604312] nouveau 0000:04:00.0: disp:      0500: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604327] nouveau 0000:04:00.0: disp:      0504: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604341] nouveau 0000:04:00.0: disp:      0520: 00010000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604352] nouveau 0000:04:00.0: disp: Core - SOR 0:
+[   46.604364] nouveau 0000:04:00.0: disp:      0600: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604374] nouveau 0000:04:00.0: disp: Core - SOR 1:
+[   46.604388] nouveau 0000:04:00.0: disp:      0640: 00000000 -> 00022801
+[   46.604398] nouveau 0000:04:00.0: disp: Core - SOR 2:
+[   46.604410] nouveau 0000:04:00.0: disp:      0680: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604415] nouveau 0000:04:00.0: disp: Core - SOR 3:
+[   46.604424] nouveau 0000:04:00.0: disp:      06c0: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604429] nouveau 0000:04:00.0: disp: Core - PIOR 0:
+[   46.604439] nouveau 0000:04:00.0: disp:      0700: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604443] nouveau 0000:04:00.0: disp: Core - PIOR 1:
+[   46.604453] nouveau 0000:04:00.0: disp:      0740: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604457] nouveau 0000:04:00.0: disp: Core - PIOR 2:
+[   46.604466] nouveau 0000:04:00.0: disp:      0780: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604471] nouveau 0000:04:00.0: disp: Core - HEAD 0:
+[   46.604481] nouveau 0000:04:00.0: disp:      0800: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604496] nouveau 0000:04:00.0: disp:      0804: 00841190=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604512] nouveau 0000:04:00.0: disp:      0808: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604527] nouveau 0000:04:00.0: disp:      080c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604542] nouveau 0000:04:00.0: disp:      0810: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604557] nouveau 0000:04:00.0: disp:      0814: 08ae0fa0=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604571] nouveau 0000:04:00.0: disp:      0818: 0004008f=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604581] nouveau 0000:04:00.0: disp:      081c: 00070097=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604591] nouveau 0000:04:00.0: disp:      0820: 08770f97=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604601] nouveau 0000:04:00.0: disp:      0824: 00000001=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604611] nouveau 0000:04:00.0: disp:      0828: 00000384=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604621] nouveau 0000:04:00.0: disp:      082c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604631] nouveau 0000:04:00.0: disp:      0830: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604640] nouveau 0000:04:00.0: disp:      0838: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604651] nouveau 0000:04:00.0: disp:      0840: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604666] nouveau 0000:04:00.0: disp:      0844: 00000430=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604680] nouveau 0000:04:00.0: disp:      0848: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604696] nouveau 0000:04:00.0: disp:      084c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604711] nouveau 0000:04:00.0: disp:      085c: 00000000 -> f0000001
+[   46.604726] nouveau 0000:04:00.0: disp:      0860: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604741] nouveau 0000:04:00.0: disp:      0864: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604753] nouveau 0000:04:00.0: disp:      0868: 08700f00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604763] nouveau 0000:04:00.0: disp:      086c: 00103c00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604773] nouveau 0000:04:00.0: disp:      0870: 0000cf00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604783] nouveau 0000:04:00.0: disp:      0874: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604793] nouveau 0000:04:00.0: disp:      0878: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604802] nouveau 0000:04:00.0: disp:      0880: 20000000 -> 85000000
+[   46.604813] nouveau 0000:04:00.0: disp:      0884: 00000000 -> 00000460
+[   46.604825] nouveau 0000:04:00.0: disp:      089c: 00000000 -> f0000001
+[   46.604839] nouveau 0000:04:00.0: disp:      08a0: 00000002=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604854] nouveau 0000:04:00.0: disp:      08a4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604869] nouveau 0000:04:00.0: disp:      08a8: 00040000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604885] nouveau 0000:04:00.0: disp:      08c0: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604899] nouveau 0000:04:00.0: disp:      08c4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604912] nouveau 0000:04:00.0: disp:      08c8: 08700f00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604927] nouveau 0000:04:00.0: disp:      08d4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604942] nouveau 0000:04:00.0: disp:      08d8: 08700f00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604958] nouveau 0000:04:00.0: disp:      08dc: 08700f00=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604974] nouveau 0000:04:00.0: disp:      0900: 00000301=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.604989] nouveau 0000:04:00.0: disp:      0904: 00000100=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605002] nouveau 0000:04:00.0: disp:      0910: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605017] nouveau 0000:04:00.0: disp:      0914: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605028] nouveau 0000:04:00.0: disp: Core - HEAD 1:
+[   46.605041] nouveau 0000:04:00.0: disp:      0c00: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605054] nouveau 0000:04:00.0: disp:      0c04: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605067] nouveau 0000:04:00.0: disp:      0c08: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605080] nouveau 0000:04:00.0: disp:      0c0c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605094] nouveau 0000:04:00.0: disp:      0c10: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605108] nouveau 0000:04:00.0: disp:      0c14: 00050008=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605122] nouveau 0000:04:00.0: disp:      0c18: 00000001=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605136] nouveau 0000:04:00.0: disp:      0c1c: 00010003=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605151] nouveau 0000:04:00.0: disp:      0c20: 00030004=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605166] nouveau 0000:04:00.0: disp:      0c24: 00000001=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605179] nouveau 0000:04:00.0: disp:      0c28: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605193] nouveau 0000:04:00.0: disp:      0c2c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605208] nouveau 0000:04:00.0: disp:      0c30: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605221] nouveau 0000:04:00.0: disp:      0c38: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605235] nouveau 0000:04:00.0: disp:      0c40: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605249] nouveau 0000:04:00.0: disp:      0c44: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605263] nouveau 0000:04:00.0: disp:      0c48: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605277] nouveau 0000:04:00.0: disp:      0c4c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605291] nouveau 0000:04:00.0: disp:      0c5c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605305] nouveau 0000:04:00.0: disp:      0c60: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605314] nouveau 0000:04:00.0: disp:      0c64: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605324] nouveau 0000:04:00.0: disp:      0c68: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605334] nouveau 0000:04:00.0: disp:      0c6c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605344] nouveau 0000:04:00.0: disp:      0c70: 0000e900=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605353] nouveau 0000:04:00.0: disp:      0c74: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605363] nouveau 0000:04:00.0: disp:      0c78: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605373] nouveau 0000:04:00.0: disp:      0c80: 20000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605383] nouveau 0000:04:00.0: disp:      0c84: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605396] nouveau 0000:04:00.0: disp:      0c9c: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605411] nouveau 0000:04:00.0: disp:      0ca0: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605425] nouveau 0000:04:00.0: disp:      0ca4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605439] nouveau 0000:04:00.0: disp:      0ca8: 00040000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605454] nouveau 0000:04:00.0: disp:      0cc0: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605470] nouveau 0000:04:00.0: disp:      0cc4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605486] nouveau 0000:04:00.0: disp:      0cc8: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605501] nouveau 0000:04:00.0: disp:      0cd4: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605517] nouveau 0000:04:00.0: disp:      0cd8: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605530] nouveau 0000:04:00.0: disp:      0cdc: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605545] nouveau 0000:04:00.0: disp:      0d00: 00000300=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605560] nouveau 0000:04:00.0: disp:      0d04: 00000100=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605573] nouveau 0000:04:00.0: disp:      0d10: 00000000=20=20=20=20=
+=20=20=20=20=20=20=20=20=20=20
+[   46.605587] nouveau 0000:04:00.0: disp:      0d14: 00000000
+
+--=20
+You may reply to this email to add a comment.
+
+You are receiving this mail because:
+You are watching the assignee of the bug.=
