@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3980DC5AD44
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 22:50:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 386DCC5AD48
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 23:26:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5B27410E041;
-	Sat,  8 Aug 2026 22:50:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 66BC710E092;
+	Sat,  8 Aug 2026 23:26:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bf/OZQrW";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="J2kIPwQJ";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1351D10E041
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 22:50:17 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9C14110E092
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 23:26:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8F04543E6B;
- Sat,  8 Aug 2026 22:50:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FFB31F000E9;
- Sat,  8 Aug 2026 22:50:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 66F8241372;
+ Sat,  8 Aug 2026 23:26:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C977C1F000E9;
+ Sat,  8 Aug 2026 23:26:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786229416;
- bh=6RbjhORfSbWb1r2z4FW2AGTSPopS5k7jGXyulzLvEgk=;
+ s=k20260515; t=1786231606;
+ bh=5r/7HEfK+cX34PmBGc8Vwb2p4lrukmMzFygQoaKetec=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Bf/OZQrWpwHdcrmX1Yi1LQf/2utOKRvJji3mK0z7GmRLE5tqy4gtVSHwe+SJypvS7
- TS7hXQPxgZjFDWs4xlS4JQVJBqfRt/OfpC+iMIR57EGScFJgbBF5/kCs9gfB8eTlVS
- b41DDIwVOCtbDm9M1ZquIYG7ZRAITVyDys/Nr7VWbrPPo+JjWvqYLHWMbI5wxmjn4G
- kCf20FuoqYMp5sIUWXTwEUnFW1rqJ1MheOtLnhy9pay2WCsl4H3YKzusm4FTDghsVG
- X1pUW75cLh+DRvVdJstLCTT91QV0jcR76sgBR9YlOm8umGJbV6qlZFBpn1J8j+66Ur
- fXsDTXqkzwtew==
+ b=J2kIPwQJ0DPNwut9gxQWNUJsri4amD31JaMrNtSg+8M7YPeFVxA+gUcgsOiguu9Yj
+ Z3OQ1t1MCbmNrwWEf9sHPfBS92/Hg0E9KmvCP2XkTzgr8qtS9WAp7lS3GWF4XiR/Jj
+ U0icrQE/r6UWrKpuKlmpA6+Ok3nEaEgIacmMdF9nZnpnlWN7shrhFCQifXbN4zwfew
+ VZm+88pT7WBdR9qXthnB66EMrat/rcy3JQIuI2guBFrC2VbYlu3HniyJYypdDtiokW
+ /SSOKoDlwMTmKo7KGAeZCUWEQTnZE4EPfuO7fZtLpXFyOZ1qN34AgWZ8OpP+WVJUU6
+ 5w3BaqryRHxbw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/5] drm/amdgpu/aca: Fix inverted validation logic
- and handle cleanup
-To: "Sreeraj S Kurup" <sreekuttan2156239@gmail.com>
+Subject: Re: [PATCH] drm/qxl: fix 32-bit overflow in the ALLOC_SURF size
+ computation
+To: "Aldo Ariel Panzardo" <qwe.aldo@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260808222742.2859-4-sreekuttan2156239@gmail.com>
-References: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
- <20260808222742.2859-4-sreekuttan2156239@gmail.com>
+In-Reply-To: <20260808230945.67525-1-qwe.aldo@gmail.com>
+References: <20260808230945.67525-1-qwe.aldo@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 22:50:15 +0000
-Message-Id: <20260808225016.4FFB31F000E9@smtp.kernel.org>
+Date: Sat, 08 Aug 2026 23:26:45 +0000
+Message-Id: <20260808232645.C977C1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,111 +61,99 @@ Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
 New issues:
-- [High] The logic change in `amdgpu_aca_get_error_data()` causes global RA=
-S error count queries to fail with `-EOPNOTSUPP` for non-ACA blocks.
+- [High] The integer overflow fix for surface size computation remains vuln=
+erable on 32-bit architectures due to wrap-around in the addition operation=
+ before the overflow check.
 
 Pre-existing issues:
-- [High] Delayed work `ras_counte_delay_work` is cancelled after ACA subsys=
-tems are torn down, leading to a TOCTOU race condition and use-after-destro=
-y of a mutex.
+- [High] A memory leak of a GEM object occurs if handle creation fails in `=
+qxl_gem_object_create_with_handle()`.
 --
 
---- Patch [3]: [PATCH v2 3/5] drm/amdgpu/aca: Fix inverted validation logic=
- and handle cleanup ---
-commit e884a156d93ba3896781b055b3f77054754fcf85
-Author: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+--- Patch [1]: [PATCH] drm/qxl: fix 32-bit overflow in the ALLOC_SURF size =
+computation ---
+commit 49a28e971687973dbde5077170aba70504fc31af
+Author: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-drm/amdgpu/aca: Fix inverted validation logic and handle cleanup
+drm/qxl: fix 32-bit overflow in the ALLOC_SURF size computation
+   =20
+The patch attempts to fix an integer overflow in the QXL_ALLOC_SURF ioctl
+by checking for multiplication overflow and bounding the result, but some
+edge cases remain.
 
-This commit fixes the validation logic in aca_handle_is_valid() and its
-caller amdgpu_aca_get_error_data() to properly process valid handles. It
-also changes remove_aca_handle() to use list_del_init() to prevent a
-potential use-after-free during device teardown.
+Cc: stable@vger.kernel.org
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_aca.c
-> index c76664af9902e..b4c1438a56d8c 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+> diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_io=
+ctl.c
+> index 591b026ceff9c..f245ead003802 100644
+> --- a/drivers/gpu/drm/qxl/qxl_ioctl.c
+> +++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
+
 [ ... ]
-> @@ -599,7 +596,7 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *a=
-dev, struct aca_handle *han
->  	if (!handle || !err_data)
->  		return -EINVAL;
+
+> @@ -386,12 +387,26 @@ int qxl_alloc_surf_ioctl(struct drm_device *dev, vo=
+id *data, struct drm_file *fi
+>  	struct drm_qxl_alloc_surf *param =3D data;
+>  	int handle;
+>  	int ret;
+> -	int size, actual_stride;
+> +	int actual_stride;
+> +	size_t size;
+>  	struct qxl_surface surf;
 > =20
-> -	if (aca_handle_is_valid(handle))
-> +	if (!aca_handle_is_valid(handle))
->  		return -EOPNOTSUPP;
+>  	/* work out size allocate bo with handle */
+> +	if (param->stride =3D=3D INT_MIN)
+> +		return -EINVAL;
+>  	actual_stride =3D param->stride < 0 ? -param->stride : param->stride;
+> -	size =3D actual_stride * param->height + actual_stride;
+> +	if (!actual_stride || !param->width || !param->height)
+> +		return -EINVAL;
+> +	/*
+> +	 * size =3D actual_stride * (height + 1), evaluated in a type that cann=
+ot
+> +	 * wrap, then bounded so it survives the int parameter of
+> +	 * qxl_gem_object_create().
+> +	 */
+> +	if (check_mul_overflow((size_t)actual_stride,
+> +			       (size_t)param->height + 1, &size))
+> +		return -EINVAL;
+
 [Severity: High]
-Does this logic change cause global RAS error count queries to fail for
-non-ACA blocks?
+On 32-bit platforms where size_t is 32 bits, can the addition
+(size_t)param->height + 1 wrap around before the overflow check occurs?
 
-Before this patch, zero-initialized handles (where handle->mask is 0) would
-cause aca_handle_is_valid() to return false. Since the check here wasn't
-negated, the code would bypass the -EOPNOTSUPP return and fall through to:
+For example, if userspace passes 0xFFFFFFFF for height, does this evaluate
+to 0, resulting in size =3D 0 and bypassing the overflow protection entirel=
+y?
 
-    if ((type < 0) || (!(BIT(type) & handle->mask)))
-        return  0;
+> +	if (size > INT_MAX)
+> +		return -EINVAL;
+> =20
+>  	surf.format =3D param->format;
+>  	surf.width =3D param->width;
 
-which gracefully returned 0.
+[Severity: High]
+This is a pre-existing issue, but does qxl_gem_object_create_with_handle()
+leak the GEM object if handle creation fails?
 
-With the new negated check, zero-initialized handles for non-ACA blocks (li=
-ke
-HDP) evaluate as invalid and immediately return -EOPNOTSUPP.
+Further down in qxl_alloc_surf_ioctl(), we call=20
+qxl_gem_object_create_with_handle(). Looking at that function in=20
+drivers/gpu/drm/qxl/qxl_gem.c:
 
-Could this overwrite the return value in the loop within
-amdgpu_ras_query_error_count() when iterating over RAS blocks?
-
-amdgpu_ras.c:amdgpu_ras_query_error_count() {
-    ...
-    list_for_each_entry(obj, &con->head, node) {
+int qxl_gem_object_create_with_handle(...)
+{
         ...
-        ret =3D amdgpu_ras_query_error_count_helper(adev, &ce, &ue, &info);
-    }
+        r =3D drm_gem_handle_create(file_priv, local_gobj, handle);
+        if (r)
+                return r;
+        ...
 }
 
-If a non-ACA block is queried at the end of the loop, this -EOPNOTSUPP could
-propagate up, completely breaking global RAS telemetry and preventing cached
-counters from updating.
-
-> =20
->  	if ((type < 0) || (!(BIT(type) & handle->mask)))
->  		return  0;
-[ ... ]
-> @@ -717,7 +714,7 @@ static void remove_aca_handle(struct aca_handle *hand=
-le)
->  	struct aca_handle_manager *mgr =3D handle->mgr;
-> =20
->  	aca_fini_error_cache(handle);
-> -	list_del(&handle->node);
-> +	list_del_init(&handle->node);
-[Severity: High]
-This is a pre-existing issue, but does this still leave a time-of-check to
-time-of-use race condition during device teardown?
-
-Looking at amdgpu_ras_fini(), the delayed work is cancelled after the ACA
-subsystems are torn down:
-
-amdgpu_ras.c:amdgpu_ras_fini() {
-    ...
-    amdgpu_aca_fini();
-    ...
-    cancel_delayed_work_sync(&con->ras_counte_delay_work);
-}
-
-If the delayed work runs concurrently, could it perform the lockless
-!list_empty(&handle->node) check in aca_handle_is_valid() and evaluate to
-true just before this teardown thread calls remove_aca_handle()?
-
-If remove_aca_handle() then unlinks the node and destroys the handle's mute=
-x,
-the worker thread might proceed into __aca_get_error_data() and attempt to
-lock a destroyed mutex.
-
->  	mgr->nr_handles--;
->  }
->
+If drm_gem_handle_create() fails, it returns without calling
+drm_gem_object_put() to drop the initial reference on local_gobj. Could
+a malicious userspace program repeatedly allocate surfaces until handle
+creation fails to exhaust memory?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808222742.2859=
--1-sreekuttan2156239@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808230945.6752=
+5-1-qwe.aldo@gmail.com?part=3D1
