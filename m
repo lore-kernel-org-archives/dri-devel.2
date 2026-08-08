@@ -4,48 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C678C5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:37:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BAE7C5B567
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:37:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD42010E641;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D733F10E643;
 	Mon, 10 Aug 2026 06:37:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=holtechnik.com header.i=@holtechnik.com header.b="lQuox7AE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bnqVXVGg";
 	dkim-atps=neutral
-X-Greylist: delayed 534 seconds by postgrey-1.36 at gabe;
- Sat, 08 Aug 2026 03:56:12 UTC
-Received: from hognose1.porkbun.com (hognose1.porkbun.com [35.82.102.206])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D991C10E4C9;
- Sat,  8 Aug 2026 03:56:12 +0000 (UTC)
-Received: from localhost.localdomain (192-184-175-24.fiber.dynamic.sonic.net
- [192.184.175.24])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (Client did not present a certificate)
- (Authenticated sender: phollinsky@holtechnik.com)
- by hognose1.porkbun.com (Postfix) with ESMTPSA id 7A35147EBFA;
- Sat,  8 Aug 2026 03:47:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=holtechnik.com;
- s=default; t=1786160838;
- bh=GGDdDAc8Bdsq+Kyf4eKQQ96PLRRuWdnU9xLbdBl+78A=;
- h=From:To:Cc:Subject:Date;
- b=lQuox7AE/mJCZ6rYgisH7+XRBEn6/29HUk+gg9HBv/g6o2QR5WkWN1KcZ565i2Z/f
- cfVGDC47qTAk5dYyMOVeN3CJS51kHD5hMcpzYeZI7uo6XjpHUxa0UtavcEViQqTDbG
- +IqLz18eBmKHOp7fvRd1ZMacTALiIQLCYdG5p6HA=
-From: Paul Hollinsky <phollinsky@holtechnik.com>
-To: sumit.garg@oss.qualcomm.com,
-	andersson@kernel.org
-Cc: mathieu.poirier@linaro.org, robin.clark@oss.qualcomm.com, lumag@kernel.org,
- abhinav.kumar@linux.dev, akhilpo@oss.qualcomm.com, konradybcio@kernel.org,
- mukesh.ojha@oss.qualcomm.com, cros-qcom-dts-watchers@chromium.org,
- linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-Subject: [REGRESSION] qcom PAS TZ API migration breaks GPU and modem on
- TrustZone without PAS (sc7180 trogdor)
-Date: Fri,  7 Aug 2026 20:47:16 -0700
-Message-ID: <20260808034716.58888-1-phollinsky@holtechnik.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5A6D410E08D
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 22:30:11 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-ca12086c06eso506412a12.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 15:30:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786228211; x=1786833011; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=S+lUmXf0M1/AoHp7ybgP/EVeQH1GTrMXgFQpOQU1h9c=;
+ b=bnqVXVGg+FusaZvKgn35571fxVSuhPC4Fg8yCX5zJmTjikCjWDnl8lis+ecrMb080A
+ CTpdzkiI1F3yD3+O64jY9ykmojT/jfDwqQFFlGERS72e/91NLZHDUhG03ypkiub4ld56
+ ft5SriaWWTTrnkzQykiUtA/Ilei2C9ML61n31aAyp46kHuGArbjJJgvvQ5ZvJeepaVOs
+ IrJluGAfz1quYJ5TeHlO6ttGuTLnRlodfiY0gMM0lt9JnpleIXm49ejXKPJoxinboHzD
+ 7y+qenLgqv2LAq5MzCTU9rkLe6gaMpVfVRig+eO+oON5aKONQ8EBf86lkaE0MwCUGu/B
+ CWmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786228211; x=1786833011;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=S+lUmXf0M1/AoHp7ybgP/EVeQH1GTrMXgFQpOQU1h9c=;
+ b=k2hhDerV97p6RWnvBqQ6OVecgUIPKvMekN6GD8Df9N2uU5wA5S6jNMztZsUE1Wb0mV
+ gKho1QyfucfODlvNUL4Ziy4LeORqnTGBgGmd4EXf/ZUl0wAjCyOuJuM6n7lwMZIbYK+4
+ WCkk9IHqw7hzM3v5ENrg452RXQdxKIH4u/HVXAti2lqTJYnFvrR32t7CM8jrrRuwL45w
+ MFm0FRm9bBOjTJ57zjjwgNwlnt4mQYLoS+T48UtGn0gdZBKH9Yf6wkX0I9r1BJfxvNjw
+ XLy/fQA1+RHFTRlHqQ8IZv/QGkxmTTc4v9KV0ut3kvdAUsoDRN656x+5hzWoPvFwS2EW
+ 9ERg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpPT6gdIYq81nI4IcZO7G7HwvxG1x+aOcJ4hvUDdIU+HaXiKT6tAwq7lr2I4n+7Lauljoy++IOwqms=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzmOY21BXudvTLbTjXYu5P/ylvBWpu8Y0AphwsObOMpVpzMTBqT
+ Hy3EicZUcnHHhCQigAqhanJQ1Z9TqM8b2zwQWqXg84wTN8utJMrvIHL6
+X-Gm-Gg: AR+sD11f+W6mPpPMBVZlCw0plbTnt/XJ4QRqrlOuM17RjPMEK20h4gDE8GIB0MhzAxr
+ OGSxxx3nkFNN/cuS/f48CdzQ1kfQ6mjvDuY/Py2Ikck8cY+qmAHglUa8UWSwjDaX9bKuJKdpOhH
+ Uziui2e5FFTSWhYNEWvXkSINEJB/l9Tsq52TRHF3SERk7Rd+gkhSaYK6aNJXBQGJAaqiEb/7Wdo
+ C8WutAxTaQ5djYGjr6CGwQW0nFs7YucRjLPx0EhAGAYYKcK+/l0f99RTswKfcprqGHCviKJffF2
+ fwunUAckSf+FWWVz+FRFDvUCHp9SbIFuDnv54F2e0c7fjq+L33SzjDttbaXi++Y7DJJwuxkrMLV
+ ZG9tmuEmvjHaQ+1HuPG5hZ1tPegTnKF4EIuQXoFvTcCJFZz0O3ysTOfjpADpBN8tHVH4dhgg67w
+ H9LcKMGFtU+48wexP4B9aurL+laWX9q3DUEwoPxivNUj+vE90g+vuxqYq8aRg8Urte0V67bP2xb
+ Qsrg8VE5gQ=
+X-Received: by 2002:a05:6a20:4309:b0:3c4:48da:8102 with SMTP id
+ adf61e73a8af0-3cbce930129mr10090468637.29.1786228210822; 
+ Sat, 08 Aug 2026 15:30:10 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.204.72])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-315beb877b4sm27463910eec.19.2026.08.08.15.30.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 Aug 2026 15:30:10 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v2 3/5] drm/amdgpu/aca: Fix inverted validation logic and
+ handle cleanup
+Date: Sat,  8 Aug 2026 22:27:40 +0000
+Message-ID: <20260808222742.2859-4-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
+References: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
@@ -64,245 +94,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+aca_handle_is_valid() returned false if !list_empty(&handle->node)
+evaluated to true. Because active registered handles have non-empty
+nodes in the handle list, valid handles evaluated as invalid.
+Consequently, amdgpu_aca_get_error_data() returned -EOPNOTSUPP
+whenever aca_handle_is_valid() evaluated to true.
 
-Two commits from the "firmware: qcom: Add OP-TEE PAS service support"
-series break the GPU and the modem on SC7180 Chromebooks (trogdor):
+Fix the logic in aca_handle_is_valid() to verify that the handle is
+non-NULL, contains a valid mask, and is currently registered in the
+list. Negate the check in amdgpu_aca_get_error_data() so valid
+handles are processed properly.
 
-  f3b1357673dd ("remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs")
-  0be72be03ca7 ("drm/msm: Switch to generic PAS TZ APIs")
+Additionally, update remove_aca_handle() to use list_del_init()
+instead of list_del(). Standard list_del() leaves node pointers
+poisoned, which causes !list_empty() in aca_handle_is_valid() to
+evaluate to true for removed handles, leading to a potential
+use-after-free during device teardown.
 
-Both are in linux-next as of next-20260805 and neither is in a released
-kernel yet, so there is still time to fix this before v7.3.
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-Seen on a Lenovo IdeaPad Duet 3 (sc7180-trogdor-wormdingler) booting
-next-20260805. Reverting the two commits separately and together on an
-otherwise unmodified next-20260805 confirms them: each revert restores
-its own subsystem and only its own. Config: QCOM_SCM=y, QCOM_PAS=y,
-QCOM_TZMEM=y, DRM_MSM=m, QCOM_Q6V5_MSS=m, and CONFIG_TEE is not set so
-QCOM_PAS_TEE cannot be enabled and the SCM backend is the only possible
-PAS provider here.
-
-Both commits also revert cleanly on their own: the series migrated the
-callers but left the qcom_scm_pas_*() API exported.
-
-#regzbot introduced: f3b1357673dd
-#regzbot title: qcom: GPU and modem fail to probe on TrustZone firmware without PAS
-
-(0be72be03ca7 from the same series is an independent second culprit)
-
-
-Symptoms
-========
-
-1. The GPU never initialises and userspace falls back to llvmpipe:
-
-  adreno 5000000.gpu: [drm:adreno_zap_shader_load] *ERROR* PAS is not available
-  msm_dpu ae01000.display-controller: [drm:adreno_load_gpu] *ERROR* gpu hw init failed: -517
-
-  That pair repeats on every DRM open.
-
-2. The modem remoteproc never probes:
-
-  4080000.remoteproc: deferred probe pending
-
-  On trogdor the modem is what loads the WLAN firmware, so ath10k_snoc
-  probes, creates wifi-firmware.0, then never receives QMI. Result: no
-  wifi at all.
-
-
-Why PAS is unavailable here
-===========================
-
-Both commits replace a qcom_scm_is_available() check with
-qcom_pas_is_available(). Those are not equivalent: the former asks
-whether the SCM transport is up, the latter whether the TrustZone
-firmware implements the peripheral authentication service.
-
-Trogdor's TZ does not implement PAS. I instrumented
-__qcom_scm_is_call_available() and the firmware answers coherently,
-yes to everything the platform actually uses, no only to PAS:
-
-  svc 0x06 cmd 0x01  IS_CALL_AVAIL      -> 1   (discovery itself works)
-  svc 0x02 cmd 0x01  PAS_INIT_IMAGE     -> 0
-  svc 0x02 cmd 0x05  PAS_AUTH_AND_RESET -> 0
-  svc 0x02 cmd 0x07  PAS_IS_SUPPORTED   -> 0
-  svc 0x0c cmd 0x16  MP_ASSIGN          -> 1   (used by ath10k MSA every boot)
-  svc 0x05 cmd 0x01  IO_READ            -> 1
-  svc 0x05 cmd 0x02  IO_WRITE           -> 1
-
-The third line is the one that matters. qcom_scm_probe() registers the
-SCM PAS backend only if qcom_scm_is_pas_available() (qcom_scm.c:2908):
-
-	if (qcom_scm_is_pas_available()) {
-		qcom_pas_ops_scm.dev = scm->dev;
-		qcom_pas_ops_register(&qcom_pas_ops_scm);
-	}
-
-and qcom_scm_is_pas_available() probes exactly
-QCOM_SCM_SVC_PIL / QCOM_SCM_PIL_PAS_AUTH_AND_RESET (svc 0x02 cmd 0x05),
-which returns 0 above. So qcom_pas_ops_register() is never called,
-ops_ptr stays NULL, and qcom_pas_is_available() (a plain
-!!smp_load_acquire(&ops_ptr)) is false for the lifetime of the boot.
-With CONFIG_TEE unset there is no OP-TEE backend to supply one either.
-
-That part is working as designed. The problem is that neither new call
-site actually needs PAS on this platform. The migration conflated "needs
-TrustZone memory protection" with "needs PAS".
-
-
-remoteproc
-==========
-
-sc7180_mss has need_mem_protection = true but need_pas_mem_setup = false.
-Its memory protection is qcom_scm_assign_mem(), a different TZ service
-(MP_ASSIGN above, which is available). Only the need_pas_mem_setup path
-issues PAS calls. Gating every need_mem_protection platform on PAS stops
-the modem probing at all.
-
-Six platforms specify need_mem_protection = true with
-need_pas_mem_setup = false:
-
-  sc7180_mss, sc7280_mss, sdm660_mss, sdm845_mss, msm8998_mss, msm8996_mss
-
-
-drm/msm
-=======
-
-Even before the SCM->PAS change, the ordering wasn't right here.
-
-zap_available is a static initialised to true (adreno_gpu.c:29), and it
-is only ever cleared inside zap_shader_load_mdt(). But
-adreno_zap_shader_load() checks for PAS *before* calling it:
-
-	if (!zap_available)		/* still true on the first call */
-		return -ENODEV;
-
-	if (!qcom_pas_is_available())	/* fails here, forever */
-		return -EPROBE_DEFER;
-
-	return zap_shader_load_mdt(...);	/* never reached */
-
-sc7180-trogdor.dtsi does /delete-node/ &gpu_zap_shader;, so the intended
-path on this board is: zap_shader_load_mdt() finds no zap-shader child,
-sets zap_available = false, returns -ENODEV, and the caller falls back to
-SECVID_TRUST_CNTL. ("Zap shader not enabled - using SECVID_TRUST_CNTL
-instead" appears on working v7.2 kernels.) With the PAS check in front of
-it, that discovery can never run, so the flag is never cleared and every
-subsequent call fails identically.
-
--EPROBE_DEFER is misleading here: it is not a probe return value.
-adreno_zap_shader_load() is called from a6xx_hw_init(), so nothing in
-the driver core retries it. It propagates up until adreno_load_gpu()
-returns NULL, and load_gpu() (msm_drv.c:200) re-attempts on every DRM
-open while priv->gpu is NULL. Each open fails the same way, and PAS can
-never become available in between.
-
-So the driver is consulting PAS before it knows whether it needs PAS.
-
-
-Suggested fix, drm/msm
-======================
-
-Given the above, I think the right fix is to move the availability check
-behind the DT discovery rather than restore the SCM check. Boards with no
-zap-shader node then never consult PAS at all, and boards that do have one
-keep the qcom_pas_is_available() gate the original patch was going for:
-
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
-@@ -52,6 +52,12 @@
- 		return -ENODEV;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index c76664af9902..b4c1438a56d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -586,10 +586,7 @@ static int __aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *h
  
-+	/* We need PAS to be able to load the firmware */
-+	if (!qcom_pas_is_available()) {
-+		DRM_DEV_ERROR(dev, "PAS is not available\n");
-+		return -EPROBE_DEFER;
-+	}
-+
- 	ret = of_reserved_mem_region_to_resource(np, 0, &r);
- 	if (ret) {
- 		zap_available = false;
-@@ -170,18 +176,11 @@
- int adreno_zap_shader_load(struct msm_gpu *gpu, u32 pasid)
+ static bool aca_handle_is_valid(struct aca_handle *handle)
  {
- 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
--	struct platform_device *pdev = gpu->pdev;
- 
- 	/* Short cut if we determine the zap shader isn't available/needed */
- 	if (!zap_available)
- 		return -ENODEV;
- 
--	/* We need PAS to be able to load the firmware */
--	if (!qcom_pas_is_available()) {
--		DRM_DEV_ERROR(&pdev->dev, "PAS is not available\n");
--		return -EPROBE_DEFER;
--	}
+-	if (!handle->mask || !list_empty(&handle->node))
+-		return false;
 -
- 	return zap_shader_load_mdt(gpu, adreno_gpu->info->zapfw, pasid);
+-	return true;
++	return handle && handle->mask && !list_empty(&handle->node);
  }
  
-
-I have this booting here: the GPU initialises and logs "Zap shader not
-enabled - using SECVID_TRUST_CNTL instead", as it did before the
-regression.
-
-
-Suggested fix, remoteproc
-=========================
-
-Keep an SCM gate for need_mem_protection and add a separate PAS gate for
-need_pas_mem_setup. This is what I did to get it working:
-
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -2079,7 +2079,16 @@ static int q6v5_probe(struct platform_device *pdev)
- 	if (!desc)
+ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *handle,
+@@ -599,7 +596,7 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *han
+ 	if (!handle || !err_data)
  		return -EINVAL;
  
--	if (desc->need_mem_protection && !qcom_pas_is_available())
-+	/*
-+	 * Memory protection is done through qcom_scm_assign_mem(), which needs
-+	 * SCM but not PAS. Only the memory setup path issues PAS calls, so
-+	 * requiring PAS for every need_mem_protection platform prevents the
-+	 * modem from probing at all on TZ firmware that offers no PAS.
-+	 */
-+	if (desc->need_mem_protection && !qcom_scm_is_available())
-+		return -EPROBE_DEFER;
-+
-+	if (desc->need_pas_mem_setup && !qcom_pas_is_available())
- 		return -EPROBE_DEFER;
+-	if (aca_handle_is_valid(handle))
++	if (!aca_handle_is_valid(handle))
+ 		return -EOPNOTSUPP;
  
- 	mba_image = desc->hexagon_mba_image;
+ 	if ((type < 0) || (!(BIT(type) & handle->mask)))
+@@ -717,7 +714,7 @@ static void remove_aca_handle(struct aca_handle *handle)
+ 	struct aca_handle_manager *mgr = handle->mgr;
+ 
+ 	aca_fini_error_cache(handle);
+-	list_del(&handle->node);
++	list_del_init(&handle->node);
+ 	mgr->nr_handles--;
+ }
+ 
+-- 
+2.54.0
 
-Unlike the drm/msm case there is no "remove the SCM dependency" argument
-to make here: mss calls qcom_scm_assign_mem() directly, so it is
-intrinsically an SCM client on these platforms.
-
-The SCM gate is definitely required here: qcom_scm_assign_mem()
-dereferences __scm->mempool without testing it (qcom_scm.c:1370), so
-removing the check would trigger a NULL dereference if the driver probes
-before qcom_scm has.
-
-
-On the API contract
-===================
-
-For what it is worth, the kernel-doc for qcom_pas_is_available()
-(qcom_pas.c:256) reads:
-
-  Note that it is mandatory for any PAS client to invoke this API.
-  If it returns true then only any other PAS API can be invoked.
-
-That is a guard to call before invoking a PAS API, not a statement that a
-driver touching TZ at all should refuse to probe without PAS.
-ipa_main.c:764 consults it only on the loader path that genuinely needs
-PAS rather than as a blanket probe precondition, which is the shape both
-fixes above are aiming for.
-
-Happy to send either or both as proper patches if this looks right to you,
-or to test whatever shape you prefer.
-
-All the best,
-Paul Hollinsky
