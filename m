@@ -4,56 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 212F3C5AD05
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 01:41:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12C2FC5AD2B
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 02:46:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3943710E49C;
-	Sat,  8 Aug 2026 01:41:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAE4A10E03B;
+	Sat,  8 Aug 2026 02:46:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="joAKtJ9a";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fhbqHRUJ";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D31710E491
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 01:40:59 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6D53810E03B
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 02:46:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D370341A3F;
- Sat,  8 Aug 2026 01:40:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E051F000E9;
- Sat,  8 Aug 2026 01:40:57 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6EED46001A;
+ Sat,  8 Aug 2026 02:46:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F07761F000E9;
+ Sat,  8 Aug 2026 02:46:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786153257;
- bh=NXm/SsYiv4ju2Xo/fyAJbZ1/yajU4AJnu1Qr1d7j8WA=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc;
- b=joAKtJ9aDWLRW8g60N7rTz7Fk3n3zBec23EWuWHUcWd5HRqJVBkyk5WzNKzjUm85d
- 9lsGEGYAKdlvH34Iw4D0SJhzT+OSm4I97ZiogX8In8C3QDlPx4sL/bJHQX8+z9I/xL
- llWdFb+5gWtBqCI6caipTdq3EJ5h0snCEe5r3v584ZLlC4dIbfsFFuGlNZ1gWMXXjG
- gPJYFRkePsgxKXugp6MgsJ6jx2YB/CLH5jYGJREspbCKJ7wNR1g4fjFpD2B6OMjnJi
- 76Cubw0CLs7D2krtwFJV7n8r/JTSsAZEjTiFhC2xcn67UHTA3CEZG4Jtgx1r3vW0f4
- mcuseiKZ7WFJg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 5696B380CEE4; Sat,  8 Aug 2026 01:40:17 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v8 0/3] net: devmem: allow rx-buf-size > PAGE_SIZE
- per binding
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <178615321588.2493713.16495466969438230257.git-patchwork-notify@kernel.org>
-Date: Sat, 08 Aug 2026 01:40:15 +0000
-References: <20260805-tcpdm-large-niovs-v8-0-3e0225e2808c@meta.com>
-In-Reply-To: <20260805-tcpdm-large-niovs-v8-0-3e0225e2808c@meta.com>
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: donald.hunter@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
- andrew+netdev@lunn.ch, kraxel@redhat.com, vivek.kasireddy@intel.com,
- sumit.semwal@linaro.org, christian.koenig@amd.com, shuah@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
- dw@davidwei.uk, joe@dama.to, bobbyeshleman@meta.com
+ s=k20260515; t=1786157210;
+ bh=CK3v4shHyZsbrYqEv+rIpNlNC+UOlK8g1WufY3ztiwY=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=fhbqHRUJ2ZiV5xFxEWEJooaPOUZuw1E+zaorOFHX4vM/mrhFqZKYpD4XWaUCzTgbq
+ tBcwK4azAfoGcoJdjfT/GVNCf3PlpjMWXZOdpDurclQKilJsYXgFtqEpEXA24lomPf
+ Rke2CJJUxdevpxqXm3R0NcsOXP1sVF/YHgPBomB1FKFsKYq7wEkYkJFnpm04BWO3a2
+ gmXdiWqToNM+MO3DWQIyqJozVBo5o1ihN8YSXU4ttg2imBmZYKkI7SmibC253/e1rK
+ HGV0GPe+2BYzSOG1Z3mrEEXo6VDFzAyfwep2YMXV5hHs3xPz/FjFdQ/a8t1zhz+bXo
+ Vks7EuneA2x1w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] fbdev: bitblit: bound-check glyph index in bit_cursor()
+To: "Rik van Riel" <riel@surriel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260807221956.4e9dde5c@fangorn>
+References: <20260807221956.4e9dde5c@fangorn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 08 Aug 2026 02:46:48 +0000
+Message-Id: <20260808024649.F07761F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,37 +52,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Pre-existing issues:
+- [High] The bounds checking for glyph indices is missing in software rotat=
+ion paths (fbcon_ccw.c, fbcon_cw.c, fbcon_ud.c), leaving them vulnerable to=
+ out-of-bounds heap reads.
+--
 
-On Wed, 05 Aug 2026 13:42:42 -0700 you wrote:
-> Every devmem dmabuf binding hands the page_pool PAGE_SIZE niovs today.
-> On NICs that consume one descriptor per netmem, this caps a single RX
-> descriptor at PAGE_SIZE and burns CPU on buffer churn.
-> 
-> In this series, we add a bind-time netlink attribute,
-> NETDEV_A_DMABUF_RX_BUF_SIZE, that lets userspace request a larger niov
-> size (power of two >= PAGE_SIZE). Drivers must opt in via
-> queue_mgmt_ops.QCFG_RX_PAGE_SIZE.
-> 
-> [...]
+--- Patch [1]: [PATCH] fbdev: bitblit: bound-check glyph index in bit_curso=
+r() ---
+commit eb8c6b0049962d4bc836a2579e035e53104adf59
+Author: Rik van Riel <riel@surriel.com>
 
-Here is the summary with links:
-  - [net-next,v8,1/3] net: devmem: allow rx-page-size > PAGE_SIZE per dmabuf binding
-    https://git.kernel.org/netdev/net-next/c/b27a8560eec9
-  - [net-next,v8,2/3] selftests/net: ncdevmem: add -b option to set rx-page-size on bind
-    https://git.kernel.org/netdev/net-next/c/3e8c9ec4eb75
-  - [net-next,v8,3/3] selftests/net: devmem.py: add check_rx_large_niov
-    https://git.kernel.org/netdev/net-next/c/8ac4255c1e0c
+fbdev: bitblit: bound-check glyph index in bit_cursor()
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+This commit adds bounds checking for the glyph index in bit_cursor() to pre=
+vent
+out-of-bounds reads when fetching glyphs. It addresses cases where the scre=
+en
+buffer contains values larger than the current font's glyph count, which can
+happen after a font resize or via malicious writes to /dev/vcsa.
 
+Link: https://lore.kernel.org/all/6a75205c.01d0871a.3a0d52.0032.GAE@google.=
+com/
+Closes: https://syzkaller.appspot.com/bug?extid=3D61b1db46218109869c14
 
+> diff --git a/drivers/video/fbdev/core/bitblit.c b/drivers/video/fbdev/cor=
+e/bitblit.c
+> index 65681dcc5930d..39f44258d793f 100644
+> --- a/drivers/video/fbdev/core/bitblit.c
+> +++ b/drivers/video/fbdev/core/bitblit.c
+> @@ -273,9 +273,14 @@ static void bit_cursor(struct vc_data *vc, struct fb=
+_info *info, bool enable,
+>  	if (!vc->vc_font.data)
+>  		return;
+> =20
+> - 	c =3D scr_readw((u16 *) vc->vc_pos);
+> +	c =3D scr_readw((u16 *) vc->vc_pos);
+>  	attribute =3D get_attribute(info, c);
+> -	src =3D vc->vc_font.data + ((c & charmask) * (w * vc->vc_font.height));
+> +	c &=3D charmask;
+> +
+> +	/* Clamp to font size, same as bit_putcs_aligned() */
+> +	if (c >=3D vc->vc_font.charcount)
+> +		c =3D 0;
+> +	src =3D vc->vc_font.data + (c * (w * vc->vc_font.height));
+
+[Severity: High]
+This isn't a bug introduced by this patch, but while checking the bounds for
+the glyph index in bitblit.c is a great fix, could similar out-of-bounds
+reads still occur in the software rotation paths?
+
+Looking at the rotation code (fbcon_ccw.c, fbcon_cw.c, fbcon_ud.c), the bou=
+nds
+checking appears to be missing entirely. For example, in fbcon_ccw.c:
+
+drivers/video/fbdev/core/fbcon_ccw.c:ccw_cursor() {
+    ...
+    c =3D scr_readw((u16 *) vc->vc_pos);
+    attribute =3D get_attribute(info, c);
+    src =3D par->rotated.buf + ((c & charmask) * (w * vc->vc_font.width));
+    ...
+}
+
+And in the putcs equivalents:
+
+drivers/video/fbdev/core/fbcon_ccw.c:ccw_putcs_aligned() {
+    ...
+    src =3D par->rotated.buf + (scr_readw(s--) & charmask) * cellsize;
+    ...
+}
+
+If a user loads a custom font with fewer than 256 or 512 glyphs (e.g., 100
+glyphs), the rotation buffer par->rotated.buf is sized dynamically based on
+charcount. If they then write an arbitrary 16-bit character index (e.g., 25=
+5)
+to the screen buffer via /dev/vcsa using vcs_write(), these rotated blit
+functions will mask the index with 0xff or 0x1ff and directly use it to ind=
+ex
+par->rotated.buf.=20
+
+Without clamping against vc->vc_font.charcount, wouldn't this result in
+reading past the end of the heap-allocated rotation buffer?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260807221956.4e9d=
+de5c@fangorn?part=3D1
