@@ -4,90 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12FF6C5AE5D
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07D53C5B56B
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 09A5D10E654;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A5D810E655;
 	Mon, 10 Aug 2026 06:38:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UtjX7y1c";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ffVqBwp+";
 	dkim-atps=neutral
-Received: from mail-pz2-f1.google.com (mail-pz2-f1.google.com [74.125.228.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7384210E037
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 13:30:57 +0000 (UTC)
-Received: by mail-pz2-f1.google.com with SMTP id
- 41be03b00d2f7-ca8758e7e94so26228a12.0
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 06:30:57 -0700 (PDT)
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF49F10E4D9
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 16:43:11 +0000 (UTC)
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-92e7c6ec9dbso23300685a.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 09:43:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786195857; x=1786800657; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=6zYCYgrPHJ1R0IyDM9ZJHQW95fmf52/M7XVvd8snhDU=;
- b=UtjX7y1cHeAzvB7F2x2IpZZ7WSH7Tey3nI0woqSqUjjuOyFDjNlPRuSbb8rRJi2OmD
- MYlQU1LTZTt7S6iFLcWuemn2W9x7mD3HlTYpvHaJqnvP9Nmp0beITsUDXTU/AVCjobQj
- jhJW2VAZe7g80m+WTtVTIa5qYgLCehPsbDPbVKlt1DB1xGCM6rz3dUBP4GKP1pcqeZIt
- tru05FBhZ1ny9O+GC73F3e68j4rDo3WPKZqQtXNogzeYXdhaFmKpIu8imx94+zkwo7lX
- Yo0C/c9y2OkluRIYSvC0A/Y15qZnpYvIzqdKPQLbiSJJBKIMeeFk3N92jSeaAy8p75QR
- nkWg==
+ d=gmail.com; s=20251104; t=1786207391; x=1786812191; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Lz/jE6jwP2/NdrVzpAXOIzj+A4PttFcfbpXJ2Xjln/8=;
+ b=ffVqBwp+jeiI2weu8qFY/AOEqBLMxcJ9D6eSzsfJ/OTBSTPmTLVwXkckP+WVYp1btz
+ 0bqppiKO+8b3Ph4PsPX8KCJyxR5qg0NHEiklzxi/IHAMnBQ+Qjj7qlsbsOK1/O1gtIWp
+ Quo/iQe+oLNNNbK188NImVw7gX6apdfNMu632VLeWgxiq9A1/whXTA/HIXAan8a1GzaM
+ W46St0KaZOEd05e/lV0nyszCZrAoeVD32rDnvB0zPk8JWDqihCvMHZwwLFZAGFrpNqmI
+ mFWaF6BfHVqIR60iAsiBR/ILNpRlWgvvscuQfQpblK0PfUw/5ogTGM/QzsVz7HYT7KEu
+ ofSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786195857; x=1786800657;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=6zYCYgrPHJ1R0IyDM9ZJHQW95fmf52/M7XVvd8snhDU=;
- b=WHqdhbCQyDsoME2y84Uo8w0j3ipyXhphKjEVR7IvaMWI4cZ3LnnTOeLHutiSR2MJxa
- vYlt4HrqmvzYAD6cGQwpGDljHk9eQVz+zZkojUX/1K5ALkDztXcTILKjPl9A8EDj7In6
- QZontQJtgxlX5lWdU2Kn5IxS0dE+gb31z/O1+rzYgodU+41/6U2gNI7jAqNwH2z6mwhp
- HCSAVZuCL/CYCtfeVItg1qDYRRuNWw0qxJycr6ffILIc8jcIVbIwcGwuEfVynom9A80m
- Noj9tlObWPlWTFMiRq8GTr4GEd3+3DE5Dw+PX76T6hy8REomrhQN22f8574ChO2GEVIH
- 81xw==
+ d=1e100.net; s=20251104; t=1786207391; x=1786812191;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Lz/jE6jwP2/NdrVzpAXOIzj+A4PttFcfbpXJ2Xjln/8=;
+ b=KUWKzwFXIkgsFq6EgVFiZR5jCVphbj65kn9Rtn1h5CSNMv2yD9MybjeiIXvaL5Aq8x
+ VGexsnA50vxq331dzpR/CNYeVGGmpAbututwYCY4+1q7eOtZ2Nn1CFCzq7dOzdhGYkgh
+ 5snJW/me69BMSgXNQdnJUGkDTmFLC9XWqBEnteXLnGZwG8olcDKOEISja69767FD/lXH
+ +P/EqLsSE+2e8jM7Tzuo9l1sBQoDg4UvKdXalbB6fFZ6z4zKO/rRlAxnB4VO/SJhzIGz
+ m2hZcrXyKia0TP8KBJFRsLAa4nkQ+spHIACpaybedXwLiCbkHU2TEZ75CpKmIFd/OIMj
+ mWQw==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rokc9Tavj09bkY27fHGaJVSIc0yroJK04q6/FVIUaN4G2cEGuRAAV8D3zcUO1RhmYz+M8ttMW8bOgQ=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw71sNTssE/SFy6qyWA3JGNRVF7V7GfiTYbahxa55z+1jC04FKV
- /n59r4FUfLdZrfvWQnFM6NAZEax1MrR/WgnEFZFVi5ureyks38C/7Fk8
-X-Gm-Gg: AR+sD13MVLZZ5I7n5jeCBHXP67U06ufzaptFfJKTyw88MCbG5kZxaPX6YnP5dsH4w1n
- QzCEdiNTAGMXaEhVlEwHlqCzNmPvcYs37AXmThHFIsgbnuC6Q4h3C7E5J7Wi2J4QASrlo1A70NY
- 1jLPIP2iXXkwXqC4SqrUmAWfNbhJhHy5kWWQC/xxbTSDK7nro34xlRioxlPgTZod92iw5fvRV0v
- c+E6dzEmc+cNWVQoojhzvZti72KJnR6c7QBzTwxFF5jG7w+I7jrz/Gh1jAJg2gtr7bFgEtovPy/
- P6IuPLCpXqZw6MklSg87yWh9XvZBuRLrfbYBw0+sEQcC13gXN5ct+dLg4ugkF2HQ+aFrN+bT1iR
- /Vc1uDB/I3bib5lpM96Cn/yOZ3BXIb8qp2uYKTFlTP+KwULSaMDVMY1/zmz0xmx3LNYgChb3Eau
- rqXn7Ykj6IcXEt2d+Zvz2pfVd3t/K9dT3NpkZ6uqSmluhhQ9g3Pw==
-X-Received: by 2002:a05:6a00:240c:b0:842:3838:cb03 with SMTP id
- d2e1a72fcca58-84f6b778b44mr5395163b3a.11.1786195856790; 
- Sat, 08 Aug 2026 06:30:56 -0700 (PDT)
-Received: from localhost ([2403:2c80:17:1e::20db])
+ AHgh+Rq5th5MRinLlWS72OeYATpM86s7BIFmBQ2ksn4ZpavxILXOgNHYC+mCxOE6JlE+nJrLu9jm6nsyZ04=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyfqoQSu6ld1Cuf8qpqGLXK4X97ofPNkxMS2sHDLiCDSRhYiN6K
+ ZuWkr3JLeYQ8XYE+v3pBaedUTJa54JJgs6DUIhk08X5ENonnZ+uM3z6h
+X-Gm-Gg: AR+sD11+OpBf6ny+HyyPzQ0eNxudUqyFpVVRBsx9W4/jFjBj5SY2ynK744TPCQemek7
+ lwBsg+IhcT7L+j57bw+KswmY9HGH1y9CpTwPSYRlmcEtqKdGbL0F1scYdZY6/cnLqEmXMbKaRWx
+ +wvRI5Ry38xBLtyRPfyTVKBs+8ssrQ5o8V7QwdTGO+5Gx6dSroNBuqdNRknxuQufDCZLur5QFTV
+ EXkmCGTtUICpCisB2wT7sOYTuE3/RhG048yRsZUDlXPWTHw23rFni3kgzoOzLQcp6UhJnRsW+l0
+ VnNNj+IKCXiTUIukLIlF8Nhhyx5WV8oLRtYXtPrGsAUKX4sNc78m+ImR/ZGYSgw+KiRSy3heip6
+ le+KVkZ1c7Onc8mzrgjuhLj3A9aNb2fvdvma8YpOLn5h9M91iyWNRLe9rSSv05+S+wAOw/mw7Lb
+ LwYKEswPfyAdguxOy5KpSaJw3g2E19e8rbfsVS3cS1PytI64y1CwzAgBmh73ApO2NBnc5f8xxoU
+ Gbu+ipDAkwl9KN8G0IvK3oC5wL4WFK8kZCSVAmjuqEQRtIPP+0YcXejUXwTxcgJKoFVz03/RRvt
+ qN3hUj6ltQ==
+X-Received: by 2002:a05:620a:44d2:b0:92e:6f45:dfdb with SMTP id
+ af79cd13be357-93648f51d58mr3084475285a.0.1786207390576; 
+ Sat, 08 Aug 2026 09:43:10 -0700 (PDT)
+Received: from JesseofTheNorth.internal ([2600:4041:502b:ea00::1408])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84f5a51e9a9sm2125357b3a.37.2026.08.08.06.30.54
+ af79cd13be357-9366e22695bsm402910885a.25.2026.08.08.09.43.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 06:30:56 -0700 (PDT)
-Date: Sat, 08 Aug 2026 21:30:52 +0800
-Message-ID: <b66d3009f9cf310ca0f068999bd475ac.codykang.hk@gmail.com>
-From: Cody Kang <codykang.hk@gmail.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-clk@vger.kernel.org
-Subject: Re: [PATCH RESEND 12/17] drm/spacemit: add Innosilicon DP/eDP
- controller bridge driver
-In-Reply-To: <5537a40f12e80b89e330f37032016de6f3b9f4c7.camel@pengutronix.de>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-12-6de34d80e86c@gmail.com>
- <5537a40f12e80b89e330f37032016de6f3b9f4c7.camel@pengutronix.de>
+ Sat, 08 Aug 2026 09:43:10 -0700 (PDT)
+From: Jesse Casco <jesse.casco@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, linux-phy@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: phy-qcom-qmp-combo: com_aux enable fails on a DP-only instance with
+ no USB half (Snapdragon X2 Elite / glymur)
+Date: Sat,  8 Aug 2026 12:41:48 -0400
+Message-ID: <20260808164148.123057-1-jesse.casco@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -105,114 +95,137 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Philipp,
+Hi,
 
-On Mon, 27 Jul 2026 09:49:58 +0200, Philipp Zabel wrote:
-> On Sa, 2026-07-25 at 00:51 -0400, Cody Kang via B4 Relay wrote:
-> > From: Cody Kang <codykang.hk@gmail.com>
-> >
-> > Add the DP/eDP controller that sits downstream of the Saturn DPU. Two
-> > identical instances share one compatible; the eDP-vs-DP role is board
-> > wiring, so it is taken from the devicetree: an eDP panel always sits
-> > under an aux-bus child node, an external DP connector never does.
-> >
-> > The link is driven through the generic PHY framework, so the controller
-> > never touches a PLL register. The controller's HPD interrupt is gated by
-> > the DP pixel clock, which can be off exactly when a plug has to be
-> > caught, so the connector is also polled and the interrupt path re-reads
-> > the live level when it does fire.
-> >
-> > Signed-off-by: Cody Kang <codykang.hk@gmail.com>
-> > ---
-> >  drivers/gpu/drm/spacemit/Kconfig            |   19 +
-> >  drivers/gpu/drm/spacemit/Makefile           |    3 +
-> >  drivers/gpu/drm/spacemit/spacemit_inno_dp.c | 2443 +++++++++++++++++++++++++++
-> >  drivers/gpu/drm/spacemit/spacemit_inno_dp.h |  328 ++++
-> >  4 files changed, 2793 insertions(+)
-> >
-> [...]
-> > diff --git a/drivers/gpu/drm/spacemit/spacemit_inno_dp.c b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
-> > new file mode 100644
-> > index 000000000000..e88731d9b18b
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
-> > @@ -0,0 +1,2443 @@
-> [...]
-> > +static int inno_dp_probe(struct platform_device *pdev)
-> > +{
-> [...]
-> > +	dp->reset = devm_reset_control_get_optional_exclusive(&pdev->dev, NULL);
->
-> Since this is only asserted in probe and deasserted in remove, you
-> could use devm_reset_control_get_optional_exclusive_deasserted() [1].
+On the ASUS Zenbook A16 (UX3607OA, Snapdragon X2 Elite Extreme, glymur /
+X2E94100) the internal HDMI output never produces a picture, and a second
+problem turns that into an unusable machine. I would like verification on
+the reading of both.
 
-Thanks for the review. Will do in v2. The binding marks resets as
-required, which means I shouldn't use _optional in the first place.
-I will use the non-optional devm_reset_control_get_exclusive_deasserted().
+The failure
 
-> [1] https://docs.kernel.org/driver-api/reset.html#c.devm_reset_control_get_optional_exclusive_deasserted
->
-> > +	if (IS_ERR(dp->reset)) {
-> > +		ret = dev_err_probe(dev, PTR_ERR(dp->reset),
-> > +				    "failed to get reset\n");
-> > +		return ret;
-> > +	}
-> > +
-> > +	dp->pxclk = devm_clk_get(dev, "pxclk");
-> > +	if (IS_ERR(dp->pxclk)) {
-> > +		ret = dev_err_probe(dev, PTR_ERR(dp->pxclk),
-> > +				    "failed to get pxclk\n");
-> > +		return ret;
-> > +	}
-> > +
-> > +	if (dp->edp_mode) {
-> > +		dp->bridge.type = DRM_MODE_CONNECTOR_eDP;
-> > +		/*
-> > +		 * OP_DETECT is required: without it
-> > +		 * drm_bridge_connector_detect() hard-codes CONNECTED for any
-> > +		 * eDP connector and fbdev wedges at bind.
-> > +		 */
-> > +		dp->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
-> > +				 DRM_BRIDGE_OP_HPD;
-> > +	} else {
-> > +		dp->bridge.type = DRM_MODE_CONNECTOR_DisplayPort;
-> > +		/*
-> > +		 * No OP_HPD: the HPD interrupt is gated by the DP pixel clock.
-> > +		 * Leaving it out marks the connector POLL_CONNECT |
-> > +		 * POLL_DISCONNECT instead.
-> > +		 */
-> > +		dp->bridge.ops = DRM_BRIDGE_OP_DETECT | DRM_BRIDGE_OP_EDID |
-> > +				 DRM_BRIDGE_OP_MODES;
-> > +	}
-> > +
-> > +	if (dp->reset) {
->
-> This check is not necessary, reset_control_deassert() handles NULL
-> pointers.
->
-> > +		ret = reset_control_deassert(dp->reset);
->
-> If the _deasserted() variant is used above, this can be removed and the
-> reset control doesn't need to be stored in dp.
->
-> > +		if (ret) {
-> > +			dev_err(dev, "failed to deassert reset: %d\n", ret);
-> > +			return ret;
-> > +		}
-> > +	}
-> > +
-> [...]
-> > +	return 0;
-> > +
-> > +err_clk:
-> > +	clk_disable_unprepare(dp->pxclk);
-> > +err_reset:
-> > +	if (dp->reset)
-> > +		reset_control_assert(dp->reset);
->
-> Same as above. Remove the unnecessary check or manual assertion
-> entirely.
+	Failed to enable clk 'com_aux': -16
+	phy phy-88e1000.phy.7: phy init failed --> -16
+	  clk_branch_toggle <- clk_branch2_enable <- qmp_combo_com_init
+	    <- qmp_combo_dp_init <- phy_init
 
-Agree, all of these will be fixed in v2.
+Plugging a display in afterwards produces only "phy_power_on was called
+before phy_init", and the connector comes up with nothing behind it:
 
-Cody
+	                      status         EDID      modes
+	nothing attached      disconnected   0 bytes   0
+	display attached      connected      0 bytes   0
+
+Why this looks like the driver and not the DT
+
+phy@88e1000 has no DWC3 behind it. The USB controllers on this board are
+a400000.usb (multiport), a600000.usb and a800000.usb; none is the tertiary
+instance phy@88e1000 would pair with. That PHY is DisplayPort-only here,
+and every tertiary clock sits at an enable count of 0 while the two PHYs
+that do have controllers sit at 1:
+
+	                                en prep     rate     hw  consumer
+	gcc_usb3_tert_phy_com_aux_clk    0   0    19200000   Y   88e1000.phy
+	gcc_usb3_tert_phy_aux_clk        0   0    19200000   N   88e1000.phy
+	gcc_usb3_tert_phy_pipe_clk       0   0   125000000   N   88e1000.phy
+	gcc_usb3_sec_phy_com_aux_clk     1   1    19200000   Y   fde000.phy
+	gcc_usb3_prim_phy_com_aux_clk    1   1    19200000   Y   fd5000.phy
+
+com_aux reports hw_enable = Y at an enable count of 0 -- the hardware reads
+as on while nothing in the framework has enabled it, which is what I would
+expect if clk_branch_toggle() polls the halt bit and times out at -EBUSY.
+
+qmp_combo_clk_init() fetches {aux, cfg_ahb, ref, com_aux} with
+devm_clk_bulk_get_optional(), and qmp_combo_com_init() enables the whole
+bulk unconditionally -- including com_aux, which on this instance never
+comes out of halt.
+
+I cannot say from outside the SoC why it does not, but I can narrow it. It
+is not a shared vote: gcc_usb3_tert_phy_com_aux_clk is BRANCH_HALT with
+enable_reg == halt_reg == 0xe1074, its own CBCR rather than a bit in a vote
+register, so enabling it waits on no other master. Its source is
+gcc_usb3_tert_phy_aux_clk_src, an XO-derived RCG, at enable count 0 here
+while the secondary instance's equivalent sits at 2. That leaves the
+block's own power/reset state, which on the two working instances is
+brought up by the DWC3 controller this one does not have. I would rather be
+told the mechanism than guess at it, which is much of why I am writing.
+
+Dropping com_aux from that node's clocks/clock-names makes the PHY
+initialise cleanly: no clk-branch warnings, EDID 0 -> 512 bytes, modes
+0 -> 32. That is legal, since the bulk get is _optional and cfg_ahb already
+demonstrates it -- cfg_ahb is absent from all three combo PHY nodes here and
+nothing complains. I do not think it is the right fix, though: the DT
+describes the PHY's clocks correctly, and it is the driver that enables them
+all regardless of whether the instance has a USB half.
+
+Reproduced on the merged upstream A16 DTS
+
+The machine daily-drives linux-next next-20260807 booting the merged board
+file, e8fbbca94db7 ("arm64: dts: qcom: glymur: Add Asus Zenbook A16
+(UX3607OA)"), which builds standalone. It fails identically, and everything
+above is from that boot. The only local DT delta is an unrelated
+arm,no-completion-irq on the SCMI transport.
+
+Konrad, the merged commit lists the HDMI port as working, and it does not
+work here, so I am sure I am missing something on my side: kernel revision,
+a prerequisite, or a difference between units. One thing I can rule out --
+booting your merged DTS, the board brings up all three USB controllers
+including &usb_mp, so that is not it. Any pointer on what to check next
+would be welcome.
+
+Also, msm_dp_aux_transfer does not time out when the PHY is down
+
+This is the part I would most like help with, because it turns a dead output
+into a dead machine. With com_aux present, plugging a display in puts the DP
+IRQ thread into uninterruptible sleep, and the compositor follows it in:
+
+	STAT  PID   WCHAN                  COMMAND
+	D     480   -                      irq/230-dp_display_isr
+	Dl+   4855  msm_dp_aux_transfer    Hyprland
+
+	# /proc/480/stack
+	[<0>] msm_dp_aux_transfer+0x1e4/0x868 [msm]
+	[<0>] drm_dp_dpcd_access+0x84/0x1a0 [drm_display_helper]
+	[<0>] drm_dp_dpcd_probe+0x50/0x150 [drm_display_helper]
+	[<0>] drm_dp_dpcd_read+0x12c/0x240 [drm_display_helper]
+	[<0>] drm_dp_read_dpcd_caps+0x48/0x270 [drm_display_helper]
+	[<0>] msm_dp_display_process_hpd_high.isra.0+0x50/0x240 [msm]
+	[<0>] msm_dp_hpd_plug_handle.isra.0+0x84/0x198 [msm]
+	[<0>] msm_dp_bridge_hpd_notify+0x94/0x2a0 [msm]
+
+The AUX transfer is waiting on hardware that was never initialised -- the
+"phy_power_on was called before phy_init" above is the same fact from the
+other end -- and it never gives up. The compositor holds the DRM master lock
+while stuck, so SIGKILL does not land and the session cannot be recovered.
+
+It is not specific to hotplug: rebooting with the display attached brings
+the machine up already wedged, same two tasks in the same function, with
+phy_power_on-before-phy_init logged at 2.3s and 11.8s. An attached HDMI
+display is enough to make the graphical session unusable from power-on, with
+no user action at all. It took a cold boot with the cable out to recover.
+
+An AUX transfer that cannot complete because the PHY is down seems like
+something that should fail rather than block forever, independently of
+whatever is wrong with com_aux. I have put the msm display maintainers on Cc
+rather than writing separately, since both halves are the same event seen
+from either side -- happy to split it out if you would rather keep the PHY
+thread clean.
+
+Environment
+
+  - ASUS Zenbook A16 UX3607OA, Snapdragon X2 Elite Extreme (glymur/X2E94100)
+  - linux-next next-20260807, merged upstream board DTS
+  - HDMI chain: hdmi-connector <- Parade PS185 (simple-bridge)
+    <- mdss_dp2 (af64000) <- phy@88e1000
+  - Reproduces on every boot
+
+I have the hardware and use it daily, so I am happy to test a patch or dump
+any register state that would help.
+
+I should be upfront that I am a hobbyist rather than a kernel developer, and
+this work was AI-assisted. The measurements are real and reproducible;
+please weigh my interpretation of them accordingly.
+
+Thanks,
+
+Jesse Casco
