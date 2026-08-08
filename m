@@ -4,57 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 238CDC5AE5D
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B582DC5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05E4310E69A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0EEF10E693;
 	Mon, 10 Aug 2026 06:38:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=accessweb.be header.i=@accessweb.be header.b="QXSSUo1S";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="KizvSMe6";
 	dkim-atps=neutral
-Received: from pan.awservers.eu (pan.awservers.eu [149.202.17.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AC0810E4BA
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 10:58:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=accessweb.be; s=default; h=Content-Transfer-Encoding:Content-Type:Subject:
- From:Cc:To:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
- Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
- :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
- List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3Ccy1tTRKYNxyFYaTMCpkNiMvnhQOjjAGul7K6mguCo=; b=QXSSUo1SgJpRVQbJjC+yUcSQeH
- YesHAsfNF6Mne5TG7xeBowgKToQhSJsiJkqqBfHnVgP4mVGn5aM8RO3uSybdOiD3quwnYjDuuV18w
- oVBYmKFTpr02+f3URd34Cj35Vq1nS1KPrmi8AWULYnaXY3S3E2VFHucw1sWUEcbxuZXRc/gGHOmfS
- NJ/ohDV8EoRDChh0RhKkIKku3/Jr/GckY7hHQHt9nvI6E28zzpdZr+hWqo/7WN8oJ2B+/IVDz0RM5
- clrkLKqkJu6AO+j87b+Jx/Vq6qaT12mWk1gOLsxNYJGm9PiUVjl+JPFH2JtOuPDjAnkE2yeT39JZL
- vT42xMRg==;
-Received: from [195.240.176.17] (port=38242 helo=[192.168.2.29])
- by pan.awservers.eu with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.99.5) (envelope-from <jellis@accessweb.be>)
- id 1wselD-00000008jjX-2F9R; Sat, 08 Aug 2026 12:58:39 +0200
-Message-ID: <66c0b5db-bea1-4608-be8f-bae437760d97@accessweb.be>
-Date: Sat, 8 Aug 2026 12:58:38 +0200
+Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
+ [109.224.244.105])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 11B8B10E0AA
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 23:33:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=co6yyqyzlrcc7d26slqtp2xwqa.protonmail; t=1786232031; x=1786491231;
+ bh=UeFex5hr/f3/r9BnbZHKSCTGlDzLV8Nd44sec1id9ms=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=KizvSMe6uD9nCcwE9pbisXXqwtGEBsEY49p6zabbFH6UpaSNjyt6AsU3Jgc73/74u
+ I4iD3qdBVAEGqCSBD9xYYeL7iNmfAZ/wuk0YEuGd9WGeYTpkWBWz/EYSOWHzsPEXKZ
+ sX1FBy4iylOZAtVtFkBZM34OzLnoGfBzw2tOWzAcqSjFpKWK/5/8faGvxhjD1kjJNb
+ DdWp7vC1ws2ZmRLTM3umUhaj7Tk76q09eacrEHRhhh4UkIPqb41KkC5gmCPQ7G/Yop
+ Ma9OAjs+KSfk+fFC6wJPQvwAqgLzNwrL7GjPNxgs4F65WKESq9UOBD5oolO2pOGCfP
+ 6a1wGH/4TrEqw==
+Date: Sat, 08 Aug 2026 23:33:45 +0000
+To: "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "dakr@kernel.org" <dakr@kernel.org>, "phasta@kernel.org" <phasta@kernel.org>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+From: Luke.Wildhardt@proton.me
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+Message-ID: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+Feedback-ID: 214028577:user:proton
+X-Pm-Message-ID: b2be153680247ee43884e865155ce540ad4365cb
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: maaz.mombasawala@broadcom.com, zack.rusin@broadcom.com
-Cc: dri-devel@lists.freedesktop.org, bcm-kernel-feedback-list@broadcom.com
-From: Jellis Onsea | AccessWeb <jellis@accessweb.be>
-Subject: Re: drm/vmwgfx: graphics memory not returned,after all GEM objects
- are released
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pan.awservers.eu
-X-AntiAbuse: Original Domain - lists.freedesktop.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - accessweb.be
-X-Get-Message-Sender-Via: pan.awservers.eu: authenticated_id:
- jellis@accessweb.be
-X-Authenticated-Sender: pan.awservers.eu: jellis@accessweb.be
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,115 +60,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Maaz, Zack,
+Since the DRM scheduler default policy was switched to FAIR in 7.2, sustain=
+ed 100% GPU load in-game on my RX 9070 XT causes severe performance degrada=
+tion. In the example title running through Proton, Project Silverfish, the =
+foreground application degrades to roughly 10 fps or freezes outright while=
+ audio continues, and the KDE Plasma Wayland session can lock up entirely, =
+requiring a reboot or killing the compositor to recover. The problem is not=
+ limited to games. Running the game in the background + alt tabbing, then p=
+laying a YouTube video can also cause the entire desktop to freeze.=20
 
-I have a test result, but not the one you asked for.. the bug stopped
-reproducing before I could test the patch, and the reason may be useful 
-to you.
+Then, if the game starts to stutter, either alt-tabbing, or opening up a me=
+nu in game (which reduced the load on the GPU) immediately stops the stutte=
+ring.=20
 
-Short version: enabling 3D acceleration on the VMware host made the leak 
-go away, with the stock distribution mesa. No patch involved.
+The issue is reliably reproducible under sustained GPU saturation, although=
+ the time-to-failure varies. Increasing shadow load (which decreases in-gam=
+e frame rate) substantially shortens the time-to-failure.
 
--- What I changed:
+In game, MangoHud does not reveal any frametime discrepancy.=20
 
-Until 7 August this guest ran with 3D acceleration disabled in the VM 
-settings, and additionally forced llvmpipe via LIBGL_ALWAYS_SOFTWARE=1. 
-That was the configuration in my original report.
+Bisection / test matrix
 
-I enabled 3D on the host and removed the LIBGL_ALWAYS_SOFTWARE override, 
-so the whole session -- kwin_wayland, plasmashell, clients -- now runs 
-on svga:
+Reproducer: Project Silverfish (Proton) at settings that saturate the GPU, =
+with a second GPU client active (browser video). Other titles show the same=
+ symptom under sustained load; I have not yet re-tested those specific titl=
+es against the fix.
 
-     OpenGL renderer string: SVGA3D; build: RELEASE;  LLVM;
-     Driver: VMware (SVGA3D)
-     mesa 26.1.6-arch3.1   (distribution build, NOT patched)
+Kernel=09Result
+torvalds/master stock=09FAIR (default)=09FAIL
+same as above + reverts below=09gpu_sched.sched_policy=3D2 (FAIR)=09FAIL
+same as above + reverts below=09gpu_sched.sched_policy=3D1 (FIFO)=09PASS
+7.1.5 release=09PASS
+drm-next=09FAIR (default)=09FAIL
 
--- Measurements:
+Reverted Commits:
 
-Sampled every 15 minutes. system_ttm and mob_ttm are the two TTM pools 
-from /sys/kernel/debug/dri/0/, "total" is their combined growth:
-
-session start        hours   system_ttm        mob_ttm         total objects
-  
-------------------------------------------------------------------------------
-     2026-08-02 20:37       7.8    4.73 -> 15.09   0.023 -> 0.023 
-+1355 MB/h   753 -> 2184
-     2026-08-03 04:36      34.8    0.11 -> 46.57   0.023 -> 0.023 
-+1367 MB/h    23 -> 8211
-     2026-08-04 15:37      33.1    0.10 -> 32.07   0.023 -> 0.023 
-+989 MB/h    31 -> 5586
-     2026-08-06 00:59      25.7    0.32 -> 17.07   0.023 -> 0.023 
-+667 MB/h    49 -> 2680
-     --- 3D enabled, svga in use from here ---
-     2026-08-07 02:48      15.6    0.06 ->  0.05   0.131 -> 0.216 
-+5 MB/h    85 ->  244
-     2026-08-07 18:35      18.2    0.08 ->  0.19   0.266 -> 0.555 
-+22 MB/h  1357 -> 3272
-
-Same machine, same kernel (7.1.6), same mesa package, comparable desktop 
-use. The last row is a full working day plus a night.
-
-Two details that may matter more than the totals:
-
-- --mob_ttm never moved in any of the four pre-3D sessions-- 409 samples 
-over four days, constant at 0.023 GB. With svga it moves. The memory is 
-coming out of a different pool.
-
-- --The dominant buffer changed size-- Without 3D it was 8355840 bytes = 
-1920 x 1088 x 4, height padded to a multiple of 64 -- the signature of a 
-dumb buffer. With svga it is 8294400 = 1920 x 1080 x 4, exactly the 
-screen, no padding.
-
-So the configuration I reported was not exercising the svga driver at 
-all, which was the question in my previous mail: the leak I measured was 
-on the dumb-buffer/kms_swrast path, not through gallium svga.
-
--- About the patch:
-
-I did build it, to be able to test properly: staging/26.1 at 2ed36c6 
-("svga: Pass buffer handle for fd handles for resource_from_handle()", 
-the backport of b460cff2 from your MR 43386). Verified it was actually 
-loaded.. the version string reads "Mesa 26.1.6 (git-2ed36c6b5d)" and the 
-vmw_winsys_to_dma_buffer symbol is present.
-
-I have not been able to give it a meaningful before/after, because in 
-the configuration where svga is in use the leak is already absent with 
-the unpatched driver. I am not claiming the patch is unnecessary -- I am 
-saying my machine no longer reproduces the problem it fixes.
-
-If it helps, I can put the guest back on 3D-disabled and measure there 
-with and without the patched build. Given the above I suspect it would 
-show nothing, since svga is not loaded in that configuration, but say 
-the word and I will run it.
-
--- One correction to something I nearly reported:
-
-While switching, plasmashell started segfaulting on "dmabuf import 
-failed to mmap". I was close to reporting that as a second driver bug. 
-It was not: I had left LIBGL_ALWAYS_SOFTWARE=1 in place, which 
-plasmashell honours but kwin does not (it goes through EGL). That left 
-the compositor on svga and a client on llvmpipe trying to CPU-map a 
-guest-backed buffer. With both on the same driver it is gone: 18 hours, 
-zero occurrences.
-
-The one thing that does look like a real bug is on the KDE side, not 
-yours: the failed mmap leads to SIGSEGV (si_code = SEGV_MAPERR) rather 
-than a blank thumbnail. I will report that to them separately.
-
--- Environment:
-
-     Guest:      CachyOS (Arch-based), kernel 7.1.6-1-cachyos
-     Host:       VMware Workstation on Windows, AMD Ryzen 9 7950X
-     Driver:     vmwgfx, VMware SVGA II, 3D acceleration now ENABLED
-     Compositor: KWin 6.7.4, Plasma Wayland, 3 x 1920x1080 @ 60 Hz
-     mesa:       26.1.6-arch3.1
-     max mob size: 1048576 KiB   (was 262144 KiB with 3D disabled)
+d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
+2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
+16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
+77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run que=
+ue
+45c211ddf92a drm/sched: Switch default policy to fair
+2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
 
 
-Happy to run anything specific, on either configuration.
+
+Kernel (failing):  7.2.0-rc6 (stock), also current drm-next
+Kernel (working):  7.2.0-rc6-default-revert-00006-g7e5de9b07e3d with sched_=
+policy=3D1
+                   7.1 release
+Distro:            Arch Linux
+Session:           KDE Plasma 6.7.4 / Wayland (KWin), Qt 6.11.1, KF 6.28.0
+CPU:               AMD Ryzen 9 9950X3D
+RAM:               64 GiB
+GPU:               Sapphire Pulse Radeon RX 9070 XT
+                   03:00.0 [1002:7550] rev c0, subsys Sapphire 1478
+Motherboard:       ASUS (AM5 / 800-series chipset)
+Mesa:              26.1.6-arch1.1 (RADV, driverVersion 26.1.6)
+Vulkan:            instance 1.4.357 / device 1.4.354
 
 
-Regards,
 
-Jellis Onsea
-AccessWeb
+
+On the same reverted kernel build, changing only gpu_sched.sched_policy fro=
+m 2 (FAIR) to 1 (FIFO) changes the result from reliably failing to passing =
+extended stress testing.
+
+
+
+Possible mitigation options
+
+Given that 7.2 is late in the release cycle and 77a6809f1dc3 removes FIFO/R=
+R as selectable policies, there is currently no runtime workaround for affe=
+cted systems.
+
+
+Revert 45c211ddf92a so FIFO remains the default while FAIR remains availabl=
+e for further testing.
+
+If necessary, also revert 77a6809f1dc3 and dependent changes to restore run=
+time policy selection.
+
+Alternatively, fix the underlying FAIR regression if a suitable fix can be =
+identified in time for 7.2.
+
+
+I mention the revert options because the justification for removing FIFO/RR=
+ included the absence of known regressions relative to those policies. This=
+ report appears to provide at least one counterexample.
+
+
+I am willing to test patches responsively and collect data if necessary. =
+=20
+
