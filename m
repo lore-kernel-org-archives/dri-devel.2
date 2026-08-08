@@ -4,74 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7085C55174
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 12:14:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0F711C5AC67
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 12:18:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E34B10E021;
-	Sat,  8 Aug 2026 12:14:48 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D51E10E14B;
+	Sat,  8 Aug 2026 12:18:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lUhJk817";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FlxBCaiM";
 	dkim-atps=neutral
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB26D10E14B
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 12:14:47 +0000 (UTC)
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-2d02b4c3601so4718815ad.3
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 05:14:47 -0700 (PDT)
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3567210E14B
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 12:18:04 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-ca7bea5e5b3so296238a12.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 05:18:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786191287; x=1786796087; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786191484; x=1786796284; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=fR3OipClJn+6ckgYC/3aH7kLb8zueZhnpSjG/5qdPqk=;
- b=lUhJk817M1r6Y1OLAlYUQlZcc73r8m5btFDx5hug1m7fv7CYZaOQe2CRi9oqcOnbt+
- Gnh0uiDURhTgsTnPMHZveo255bHxVpPt/Epq9PNF9h2uTsfrIVDP7PsJ2FPusuKLWo86
- CxYl/u2iPl04VTatuGHLjI51vn/xUXEQQeES1d6JcY+KFzwFTkYwWgx7uIo6bV7T6wci
- KVBLhML25aeGEEaQjPW5MOpCsu1cJltI0H1ocxReYqV7B3DMGYq0MhzNuQwL6diPM+cq
- 2kY0GkUrjAnN54M2O1ZxgqCHC0EqAO4tM3fpOKOx3UqfECrby/HjPGEdq3K+c7hiHHHZ
- JcSA==
+ bh=zCtw9XLhyYld5CLOFuXhhaanDpjQ78I0gCn1Zksv45A=;
+ b=FlxBCaiMZkUGNKR8D1aU6tR1a5f2W05ZNLs6lJG3L0Bu0EscKUQnMvFtb6mIPja0Wp
+ og+As984BZzNya3+SFMkZFry/kWaB/8pHXxh8gRU+R8VNNqcK8bDvutDsdbSvm+izWoX
+ J4GmEUv2cZ+LVgjfifpL6N5FvTvvsZDGF8KEV6E7OsGLtOhdjBzjHwt5bA6jALrQoGFf
+ 5QP39L0yK+dBK7OxPfelN1tqu+2WPVebCvFfSQ7Tn26h5TcexFSvcLCyNDDcqHBX9EgV
+ lUptHWBuAJIu+caJ1SrtTsnTNF5jpZFt+NEF79Hl5E9eE0QQcq2hD2wD87Zdt2oXbSge
+ ap6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786191287; x=1786796087;
+ d=1e100.net; s=20251104; t=1786191484; x=1786796284;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=fR3OipClJn+6ckgYC/3aH7kLb8zueZhnpSjG/5qdPqk=;
- b=InPCYtHkPbzcn4UFcFpBLOTmTArqNZ1fF+pBonPDqqJxK9Su1V5y/Zpw7w3zt9FioT
- 4u2tHbIemRBq4+gxgIO1GO2SAXGwQK6u76zDsPgsd80DY0hmOjyu4G15kUNsnMQ293fV
- MKC+VsHL7PymDEyuoqk0X3kTtMEgIAAxHpajCtqXRtIf6rRaCziPOWSGFv8X1+OXQKnE
- HNCmULRakc9pTSAZWLmcVCJKDNF+Wr2QsW7A/z+AfOLeb4RUqbdgSKl5KWYK15nulZML
- CY+542dDY7cQpTXrBSbE/xsCobglmeuX3R3SWdDcyySRtBohaQDuo1YgyWR7YZBn9+EB
- fujw==
+ bh=zCtw9XLhyYld5CLOFuXhhaanDpjQ78I0gCn1Zksv45A=;
+ b=S70U1Ii69rqnagUfPJKbNsXW+x0iAxbs8Hn3ETMubj+umI4WCVHIaNrb7ZJS5GEajw
+ GuAzKFR0XBxPN8TGbNMpyb5yKiNWQ/3I62+YqjHSWItiEGm+o299CQEetINA2LZBPGC9
+ JJeFSqL2O6HQcUicoezOieDkhWto2cIzlT4lj5CAMC4A53N6x9e9S05NnQk/du4zT9eS
+ I7aKa652IGxiMPqr8x1zy8SiS4qpTxcL+pImpt4gLZ9NrUQvQoC1DkGuXKZlbqBujucq
+ oZI/X2ElcdqEs8lTl755anB5b6tFIxaULeAjpnV4xBmOX5EYYfOfUWROJHCvv+K/pkSO
+ rNgg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rrw0UPlbkYqoqKID2J4ZQHb9JhUPKJ7SVyOLf+aybE2jGklvCNXhWAsSLbSoH0xNycRuOm94U496ZU=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxM9tsfpTwpGVhZuqmmnceF2ADmsFTUzlGG5xjXE/w0Cmrq7yPO
- nVBWc19bLoTBC3e6rSUudYhNh+Ojg8qsh6UW8weSCSnrf9Hx4RZAfFOf
-X-Gm-Gg: AR+sD10aGErUma0c7IUba3sxAJ+ZMZG0EWpPgrDVB+gCOcFJBF9HbfujB+hSd+qfI7C
- VGXa6UDhd/LBsPRcd9KtHahxAFV+ObINi2DOoTRYutGSnlv8/slXxSoeDoQKLRv81CT2beV3E9P
- 357N1JOYEDP4MfkA+fr6/8+D2WtUkS7AqRvVVClJAb21N/1t1Rh+q+euIsuH2L24LMRn1UBigK5
- +Ay70WAw2inrrXtI7lj4nCN6rbVlaDc18mh1wrizpZJ/MT2Ecrgj/qO6//2GMcuou9hA2n/OAru
- nhwkX4/PTvIHhbcY+43aCT9Ir7nW6UFUS6tldyEpkR6NmJZKBJiESii3uUg9ZEbMUv7rwQxyg+d
- YsnlsAbR7StNUxph02GnB27dY+cxWQ3l0jH76bRZENl3ykgyOVUvxz3gJ1lAiUPG+ip6fnSw8Q0
- GxFra9BsBHbq8N75UboBMn7vi3z1busZTykzcADiuKMd1P5XhqqJH8CRHS9g==
-X-Received: by 2002:a17:902:e945:b0:2ca:d151:383a with SMTP id
- d9443c01a7336-2d0ca98f97dmr360786285ad.20.1786191287049; 
- Sat, 08 Aug 2026 05:14:47 -0700 (PDT)
+ AHgh+Rq9WCTd4m62AIG4jj6pOD3lC/NgTxcGnOQoPtH8V1XOqse1uT67PyEWJmm0ELv5nodfZwbJQr9j+RM=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwfiCHPNYgKu1A39dLQtSjO1ZNM0++V5H1br5DW0GnaD93dEULy
+ IhOo2I+lCV0qtWSyVIBvBH7R6RcymhJt9z6MAlfyjJ45RVBymRThc8ac
+X-Gm-Gg: AR+sD11jttpINzEz6Q6ZhFnYX/2zbIaxjrfIbf5UGgPYOhflo9T4/A+Hbw3QHKVjlY3
+ P6foqUPqfYny/dRXsmQBcyImigjicB6lAxub8KRtoBN+lObAulBW4G5BHjWeV6EKYD/BQkzULEs
+ NCCFZXeNp1NLR5bGLQqE6iGQLSsvikkaw8u2mj9Qa0/Y+SoTav7V+OGbDHS6fF588khSWkX0lb0
+ vjUHk0DL0CU26ieE2Q8oxFc8Pm8dwGAeEj1lIIER9BkWUvM3y4H/VkXBGOzDc57ecByfqlB8YE3
+ ALwxYrmAtvQ3xyImcf1btHNHD+xc7910CPZ+Vn1OXywvmnuceTg3DwjuGsI+dDLgB/HiA5iXPMn
+ PokbFGoSUigpPuUGSgrEPPQUvBYvpXXDmWgYn70Kw0Qoovlrn8GcTeUdgzI+hzjcMyLVxaE5AcS
+ u1FAycd1p3E/RxzIENy3hzNUFGyJpIgbRXELrWub5eRuxN3T+ip5nSXRPjCMMmAawObHId
+X-Received: by 2002:a05:6a20:914b:b0:3c3:bbe6:95b1 with SMTP id
+ adf61e73a8af0-3cb85eef9d6mr29740341637.24.1786191483645; 
+ Sat, 08 Aug 2026 05:18:03 -0700 (PDT)
 Received: from lgs.. ([101.76.249.46]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d14ccdb26bsm18584345ad.22.2026.08.08.05.14.43
+ 41be03b00d2f7-cbe8f1b04e9sm1781742a12.12.2026.08.08.05.17.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 05:14:46 -0700 (PDT)
+ Sat, 08 Aug 2026 05:18:03 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
+To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- etnaviv@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Joonyoung Shim <jy0922.shim@samsung.com>, dri-devel@lists.freedesktop.org,
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
  linux-kernel@vger.kernel.org
 Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/etnaviv: fix runtime PM cleanup during teardown
-Date: Sat,  8 Aug 2026 20:14:34 +0800
-Message-ID: <20260808121434.2815841-1-lgs201920130244@gmail.com>
+Subject: [PATCH] drm/exynos: g2d: fix autosuspend cleanup on probe failure
+Date: Sat,  8 Aug 2026 20:17:52 +0800
+Message-ID: <20260808121752.2819486-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -90,16 +93,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-etnaviv_gpu_platform_probe() calls pm_runtime_use_autosuspend() and
-enables runtime PM before registering the component. If component_add()
-fails, the probe path returns without undoing the autosuspend setting
-or disabling runtime PM. The remove path also disables runtime PM
-without calling the matching pm_runtime_dont_use_autosuspend().
+g2d_probe() calls pm_runtime_use_autosuspend(), but its failure path
+does not call the matching pm_runtime_dont_use_autosuspend() before
+disabling runtime PM.
 
 If the autosuspend delay is set to a negative value while autosuspend
 is enabled, the runtime PM core increments usage_count to prevent
 runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
+during cleanup, this reference is not dropped and usage_count remains
 unbalanced.
 
 The documentation for pm_runtime_use_autosuspend() also notes that it
@@ -107,39 +108,30 @@ is important to undo it with pm_runtime_dont_use_autosuspend() at
 driver exit time, unless runtime PM was initially enabled with
 devm_pm_runtime_enable().
 
-Undo the autosuspend setting on both probe failure and device removal,
-and disable runtime PM on the component registration failure path.
+Add the missing pm_runtime_dont_use_autosuspend() call to the probe
+failure path before disabling runtime PM.
 
 This issue was found by manual code inspection.
 
-Fixes: a8c21a5451d8 ("drm/etnaviv: add initial etnaviv DRM driver")
+Fixes: d7f1642c90ab ("drm/exynos: add G2D driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_gpu.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/gpu/drm/exynos/exynos_drm_g2d.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-index c314b3cb5e70..7acf2ed651f3 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gpu.c
-@@ -1964,6 +1964,8 @@ static int etnaviv_gpu_platform_probe(struct platform_device *pdev)
- 	err = component_add(dev, &gpu_ops);
- 	if (err < 0) {
- 		dev_err(dev, "failed to register component: %d\n", err);
-+		pm_runtime_dont_use_autosuspend(dev);
-+		pm_runtime_disable(dev);
- 		return err;
- 	}
+diff --git a/drivers/gpu/drm/exynos/exynos_drm_g2d.c b/drivers/gpu/drm/exynos/exynos_drm_g2d.c
+index e92a4d872c41..98a5679258e2 100644
+--- a/drivers/gpu/drm/exynos/exynos_drm_g2d.c
++++ b/drivers/gpu/drm/exynos/exynos_drm_g2d.c
+@@ -1523,6 +1523,7 @@ static int g2d_probe(struct platform_device *pdev)
+ 	return 0;
  
-@@ -1975,6 +1977,7 @@ static void etnaviv_gpu_platform_remove(struct platform_device *pdev)
- 	struct etnaviv_gpu *gpu = dev_get_drvdata(&pdev->dev);
- 
- 	component_del(&pdev->dev, &gpu_ops);
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- 
- 	mutex_destroy(&gpu->lock);
+ err_put_clk:
++	pm_runtime_dont_use_autosuspend(dev);
+ 	pm_runtime_disable(dev);
+ err_destroy_workqueue:
+ 	destroy_workqueue(g2d->g2d_workq);
 -- 
 2.43.0
 
