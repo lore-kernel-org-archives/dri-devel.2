@@ -4,46 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B582DC5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08E7EC5AE49
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E0EEF10E693;
-	Mon, 10 Aug 2026 06:38:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A7AA10E69D;
+	Mon, 10 Aug 2026 06:38:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="KizvSMe6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JBR69Q6v";
 	dkim-atps=neutral
-Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
- [109.224.244.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11B8B10E0AA
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 23:33:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=co6yyqyzlrcc7d26slqtp2xwqa.protonmail; t=1786232031; x=1786491231;
- bh=UeFex5hr/f3/r9BnbZHKSCTGlDzLV8Nd44sec1id9ms=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=KizvSMe6uD9nCcwE9pbisXXqwtGEBsEY49p6zabbFH6UpaSNjyt6AsU3Jgc73/74u
- I4iD3qdBVAEGqCSBD9xYYeL7iNmfAZ/wuk0YEuGd9WGeYTpkWBWz/EYSOWHzsPEXKZ
- sX1FBy4iylOZAtVtFkBZM34OzLnoGfBzw2tOWzAcqSjFpKWK/5/8faGvxhjD1kjJNb
- DdWp7vC1ws2ZmRLTM3umUhaj7Tk76q09eacrEHRhhh4UkIPqb41KkC5gmCPQ7G/Yop
- Ma9OAjs+KSfk+fFC6wJPQvwAqgLzNwrL7GjPNxgs4F65WKESq9UOBD5oolO2pOGCfP
- 6a1wGH/4TrEqw==
-Date: Sat, 08 Aug 2026 23:33:45 +0000
-To: "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "dakr@kernel.org" <dakr@kernel.org>, "phasta@kernel.org" <phasta@kernel.org>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-From: Luke.Wildhardt@proton.me
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-Message-ID: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
-Feedback-ID: 214028577:user:proton
-X-Pm-Message-ID: b2be153680247ee43884e865155ce540ad4365cb
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D799810E092
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 23:10:02 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-cb5a6aa8760so345108a12.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 16:10:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786230602; x=1786835402; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=rH2W1wopjxMu7bNPTu3XbUp0wkIuNWweLs/V8E2Ud3Y=;
+ b=JBR69Q6vZ+ZTMB80/fmJRzOSvCKn7+zLH7BuRa2xy15EYx26xRxdD/QxBbCVnpPTP6
+ fN3MIsnF1LGzoqRx6bbvZxE/eGMBjGsRIppM65Sjk/4PvGKEzjvH2052Q3d3c9ObTTt5
+ rhCL97lK5/bBPN6BwOEoxdrHnC9InqNnLrHpBY2W2nopWqpW7ntkGYcV7L9FxUjN5DkN
+ W1QAlm2hdf7YmIAvfJB+GQrGXR2bG5nkyGzpjUZoMzjoqFbNcocuf1B5OtSnoWIclMwZ
+ tg4XC00FaWKr4347CfgVeWejsKWZaCGFGHtkmzSOvp3+jkN00qhBhKB4X/5CesShp4Ju
+ FvBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786230602; x=1786835402;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=rH2W1wopjxMu7bNPTu3XbUp0wkIuNWweLs/V8E2Ud3Y=;
+ b=rgMzmcRhUgyZnvQNhWantnbUC1hq2VXWsS1WUrKySlnfDLSMYYPFNhlXkoZdr1epoq
+ 9Mjeay7RjNClLgHNcryy0zdpqPFiX+bsK/J2cOsFIWuaOMhF5ObYOliINSk8wjk7fSDT
+ jF8BLf41OQ64MomiyaBAmwZebOE7zpgeBS4eKWQMkqjHwF1o46HKqhOD5lkAECyo81q0
+ mb9zoH8QO5C7WMFqz6WFgwTHU02r3WEYppHN7oXuK8byRV76NzNsAcpXi+4Ta73o+cQw
+ kr8N/rJfJBhk7JKwMfx23vqgS31q8+glpvVOUomm2P8/36u4gDXvhG1pO2w2qUJhhph8
+ jNaA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqCjXaiwAo6KtK9RfDt7dIghGBDxb6mAWTcPI53X1rJ6SdLH6ztgylmhMPtpaTLRUUXRlVui+5kyEw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzXm4SMw41TebOXFF5OdT+dsuA4GPwOSLOImQQgqi8f2ToG6Lff
+ yNxBzH6Jsq6oqf9WUVxLvZmhJVWKcK1EGTP7ql7m3dcTwLCyUh6Ec98G
+X-Gm-Gg: AR+sD10/nZclHNMeJPLHSBWN6FBzWjfm2qbVimkvmcBHNvNS51KPL1JCCjyd3R1ObfK
+ SYyWYwAJ1+MzWJ5uTO3pysPoy6sZ/KyE2ozyyMjDZu55SrtVS7mgQfK22l+HMTfweMK8KRKY9JN
+ /mF4LRX3XD3kJbMDNDPOOy840dtSuK0J+TCNu81H/7YeU2rlUtPxzxCJJiYLrqxTw5CzsfOnHJZ
+ P/hnJZwtGvlB6cAcNoFTny8sDABY9SHGwKzlBEKCyfW3qsZf+nN8T6O/kNGezPYf9w51enrSg7a
+ exTi7XAcvA/IfvVKfolAjY2bb9nthyvGmE91SjnpemKzF7E7jMzfgBhP5KjVS6RFPe9Z5hUfg45
+ 7Qhce4KHEyCeGmWoG8rQWPQ9JjNgez1/qTFbXXogRAYG2uP8Ah7hTZumqdEqUp38IVZaWH+DqcD
+ qzVr2UwjWlv0BqZHgIC0wvkjkizWU8GxZ5Dq4fEn3/iNa1N0q40Q0n
+X-Received: by 2002:a05:6a20:9c17:b0:3c4:397a:69b0 with SMTP id
+ adf61e73a8af0-3cbadc17561mr24004662637.21.1786230602271; 
+ Sat, 08 Aug 2026 16:10:02 -0700 (PDT)
+Received: from beelink.. ([186.22.57.86]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-315bec26a5dsm23319791eec.26.2026.08.08.16.09.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 Aug 2026 16:10:01 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Dave Airlie <airlied@redhat.com>,
+	Gerd Hoffmann <kraxel@redhat.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, virtualization@lists.linux.dev,
+ spice-devel@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH] drm/qxl: fix 32-bit overflow in the ALLOC_SURF size
+ computation
+Date: Sat,  8 Aug 2026 20:09:45 -0300
+Message-ID: <20260808230945.67525-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -60,96 +92,81 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since the DRM scheduler default policy was switched to FAIR in 7.2, sustain=
-ed 100% GPU load in-game on my RX 9070 XT causes severe performance degrada=
-tion. In the example title running through Proton, Project Silverfish, the =
-foreground application degrades to roughly 10 fps or freezes outright while=
- audio continues, and the KDE Plasma Wayland session can lock up entirely, =
-requiring a reboot or killing the compositor to recover. The problem is not=
- limited to games. Running the game in the background + alt tabbing, then p=
-laying a YouTube video can also cause the entire desktop to freeze.=20
+qxl_alloc_surf_ioctl() works out the backing size of a surface with
 
-Then, if the game starts to stutter, either alt-tabbing, or opening up a me=
-nu in game (which reduced the load on the GPU) immediately stops the stutte=
-ring.=20
+	actual_stride = param->stride < 0 ? -param->stride : param->stride;
+	size = actual_stride * param->height + actual_stride;
 
-The issue is reliably reproducible under sustained GPU saturation, although=
- the time-to-failure varies. Increasing shadow load (which decreases in-gam=
-e frame rate) substantially shortens the time-to-failure.
+where size and actual_stride are int and param->height is __u32.  Every
+operand comes straight from userspace through DRM_IOCTL_QXL_ALLOC_SURF,
+which is DRM_AUTH, and the expression is evaluated modulo 2^32 with no
+overflow check.
 
-In game, MangoHud does not reveal any frametime discrepancy.=20
+The wrapped value is what reaches qxl_bo_create(), which only rounds it
+up to a page.  The original width, height and stride are kept verbatim
+in bo->surf and are later handed to the device by qxl_hw_surface_alloc()
+together with the address of that undersized allocation, so the driver
+tells the host about a surface far larger than the memory backing it.
 
-Bisection / test matrix
+For example stride=4096, height=1048576 gives
+4096 * (1048576 + 1) = 0x1_0000_1000, which truncates to 4096: a
+one-page buffer object described to the device as a 4 GiB surface.
+Measured on 6.12.101 by probing mmap() lengths against the resulting
+GEM object, the backing is 4096 bytes while the surface declared to the
+device is 4294967296 bytes.
 
-Reproducer: Project Silverfish (Proton) at settings that saturate the GPU, =
-with a second GPU client active (browser video). Other titles show the same=
- symptom under sustained load; I have not yet re-tested those specific titl=
-es against the fix.
+Two smaller problems are fixed at the same time.  Negating param->stride
+is undefined for INT_MIN, and unlike QXL_ALLOC there is no rejection of
+a zero-sized request.
 
-Kernel=09Result
-torvalds/master stock=09FAIR (default)=09FAIL
-same as above + reverts below=09gpu_sched.sched_policy=3D2 (FAIR)=09FAIL
-same as above + reverts below=09gpu_sched.sched_policy=3D1 (FIFO)=09PASS
-7.1.5 release=09PASS
-drm-next=09FAIR (default)=09FAIL
+Compute the size in a type that cannot wrap, reject INT_MIN and zero
+dimensions, and bound the result so it still fits the int parameter of
+qxl_gem_object_create().
 
-Reverted Commits:
+Fixes: f64122c1f6ad ("drm: add new QXL driver. (v1.4)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+ drivers/gpu/drm/qxl/qxl_ioctl.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
-2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
-16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
-77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run que=
-ue
-45c211ddf92a drm/sched: Switch default policy to fair
-2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
-
-
-
-Kernel (failing):  7.2.0-rc6 (stock), also current drm-next
-Kernel (working):  7.2.0-rc6-default-revert-00006-g7e5de9b07e3d with sched_=
-policy=3D1
-                   7.1 release
-Distro:            Arch Linux
-Session:           KDE Plasma 6.7.4 / Wayland (KWin), Qt 6.11.1, KF 6.28.0
-CPU:               AMD Ryzen 9 9950X3D
-RAM:               64 GiB
-GPU:               Sapphire Pulse Radeon RX 9070 XT
-                   03:00.0 [1002:7550] rev c0, subsys Sapphire 1478
-Motherboard:       ASUS (AM5 / 800-series chipset)
-Mesa:              26.1.6-arch1.1 (RADV, driverVersion 26.1.6)
-Vulkan:            instance 1.4.357 / device 1.4.354
-
-
-
-
-On the same reverted kernel build, changing only gpu_sched.sched_policy fro=
-m 2 (FAIR) to 1 (FIFO) changes the result from reliably failing to passing =
-extended stress testing.
-
-
-
-Possible mitigation options
-
-Given that 7.2 is late in the release cycle and 77a6809f1dc3 removes FIFO/R=
-R as selectable policies, there is currently no runtime workaround for affe=
-cted systems.
-
-
-Revert 45c211ddf92a so FIFO remains the default while FAIR remains availabl=
-e for further testing.
-
-If necessary, also revert 77a6809f1dc3 and dependent changes to restore run=
-time policy selection.
-
-Alternatively, fix the underlying FAIR regression if a suitable fix can be =
-identified in time for 7.2.
-
-
-I mention the revert options because the justification for removing FIFO/RR=
- included the absence of known regressions relative to those policies. This=
- report appears to provide at least one counterexample.
-
-
-I am willing to test patches responsively and collect data if necessary. =
-=20
-
+diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_ioctl.c
+--- a/drivers/gpu/drm/qxl/qxl_ioctl.c
++++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
+@@ -23,6 +23,7 @@
+  *          Alon Levy
+  */
+ 
++#include <linux/overflow.h>
+ #include <linux/pci.h>
+ #include <linux/uaccess.h>
+ 
+@@ -386,12 +387,26 @@
+ 	struct drm_qxl_alloc_surf *param = data;
+ 	int handle;
+ 	int ret;
+-	int size, actual_stride;
++	int actual_stride;
++	size_t size;
+ 	struct qxl_surface surf;
+ 
+ 	/* work out size allocate bo with handle */
++	if (param->stride == INT_MIN)
++		return -EINVAL;
+ 	actual_stride = param->stride < 0 ? -param->stride : param->stride;
+-	size = actual_stride * param->height + actual_stride;
++	if (!actual_stride || !param->width || !param->height)
++		return -EINVAL;
++	/*
++	 * size = actual_stride * (height + 1), evaluated in a type that cannot
++	 * wrap, then bounded so it survives the int parameter of
++	 * qxl_gem_object_create().
++	 */
++	if (check_mul_overflow((size_t)actual_stride,
++			       (size_t)param->height + 1, &size))
++		return -EINVAL;
++	if (size > INT_MAX)
++		return -EINVAL;
+ 
+ 	surf.format = param->format;
+ 	surf.width = param->width;
