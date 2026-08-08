@@ -4,92 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D436C5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65C42C5AE49
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F19ED10E65C;
-	Mon, 10 Aug 2026 06:38:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A8E710E65E;
+	Mon, 10 Aug 2026 06:38:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gRwud9kB";
+	dkim=pass (1024-bit key; secure) header.d=dewith.io header.i=@dewith.io header.b="gnSL7tzt";
 	dkim-atps=neutral
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com
- [74.125.227.138])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 723B510E47E
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:14:29 +0000 (UTC)
-Received: by mail-pj2-f10.google.com with SMTP id
- d9443c01a7336-2cf49dc298bso4932955ad.0
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:14:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786198469; x=1786803269; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=cRCYRkrqsjrsSzRNFotYZZ98meWVRPcoRMuLiucayfo=;
- b=gRwud9kBsxa3fajgZdnFJOHGaAJMrrMk+9zttbc7w46c62Rj5lxv033ZynjH7vjHXb
- Aak+M9zfTPbDsBa4ZaF9h3IIOdqRArSh5f3yDzOW5354zraxqF3aHyZvMajnRWcUDx0Q
- 1ZQmAZPAE02oWS9msQMljo7IT2pfJzIpSR5siodjwcBZmMJyf4IKI254xwoVHazPBEww
- Z+ySehzlGInizRbV7gEaMOjMiaKxvqE/e6xHjwj7+IJ/k/lQrGPLDqRY/A4asLq0p0qV
- 02JrNmnbTMROA9+Tg0sZZB9YR3lXCqbCOQbFHR8y3U6s88F8NbGtDqo0XYYb9F3ioqTx
- ei6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786198469; x=1786803269;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=cRCYRkrqsjrsSzRNFotYZZ98meWVRPcoRMuLiucayfo=;
- b=BkMgVVLPiiZzrAN9otUc6vebIY+CL4rHbM84HQ6xS7RrXzUmLu9Q2xStxA2sQLgq6I
- Uvez3iOiJvxBWCRtp2O+zoPMSJdBk/5eJAWnjXSXyzEVjD5HpWK70TahkgwWv5pLg3s/
- XNVGHa/eI6JGwmfAMvTmvD+g0lWOr93al88IrgobpVqNiFg/++w6TvIue8Zy8W/b42t3
- IHF1vbh4Yo5o3i9kS6WDJ0gODdo+K2/G/1I+3sOLF50K7u2rfDzKRIT9sjTLso4stEsW
- bWxj+k237gv3LnuwGUy2kLZkpnOGq/H5kXrZJ3ow5bKT0OqPqlAZCCXOf/QxN0aa6txO
- 8MKw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RroLEDyWOyb/xhoJUHHSfusqbQgUM1EAqN7LGkHotioWRDc9nmjOOf+qxyZEzV5rfmpR4/9sfcpsBc=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx9JJ1PSkN3rSezaxCZrDFbGW6r85NaxHD4byestlB40yuG3ORY
- ojS+moTwbh5chuRPn1NmhhJwCJ25azL4tiNeGyaDKfdIYAc+UyyesdIU
-X-Gm-Gg: AR+sD12cDR/TkFXQYwNptPpCdRK6Ew5Y6FzGBe4lLAv/mP8kEq+EIp+6hnkCWO9quzt
- SR/sxpXrBLI67Kq+Xd+qFbh2ep8gY30Sbopa1ozjud3it8BG7fXmNLY3IsBNV++FT/NJkAZ6ZJC
- WPmVQSmdCqZ32FXonPVsLjY3Ow5PSvyT7qbZq12yj5NQUFx6AB7seqKL9KpRbxoxv7JqF7d7qJD
- KRlrO82SpObSp+i6EpBFeUQUPyRE5JnMdhToZ8MfxLA77PN4RiwTbG3E8wVA3vbGFutv2NiM4OZ
- KL5HQEwDaqhnFb1jDVQ7cTfu/ddtAbxclNE+uDLUYdNMn+EHFL04pZ2WynCCDGxTVdPx74ckQMF
- NA4LmeSmQUIP6jXiOhWZ2EH9/Z0lexs1iV6m70GpCjKQ+CFmguxag+Cu7w2S20WeF05rO5To8Zi
- 2Ls/2pnpAL+MloFInv8eg5GE3WovX+9To6iysmiJ8=
-X-Received: by 2002:a17:903:f90:b0:2c9:b2c1:13ec with SMTP id
- d9443c01a7336-2d294c225a1mr141926765ad.11.1786198469018; 
- Sat, 08 Aug 2026 07:14:29 -0700 (PDT)
-Received: from localhost ([2403:2c80:17:1e::20db])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d14dbeaa7bsm19180265ad.41.2026.08.08.07.14.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 07:14:28 -0700 (PDT)
-Date: Sat, 08 Aug 2026 22:14:25 +0800
-Message-ID: <16421007bf6b2a251ccf51cbb5bf3694.codykang.hk@gmail.com>
-From: Cody Kang <codykang.hk@gmail.com>
-To: Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Haylen Chu <heylenay@4d2.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, dri-devel@lists.freedesktop.org,
- linux-riscv@lists.infradead.org, devicetree@vger.kernel.org,
- spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH RESEND 05/17] phy: spacemit: add Innosilicon DP TX PHY
- driver
-In-Reply-To: <amnzTxDYtSBojHdY@monoceros>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-5-6de34d80e86c@gmail.com>
- <amnzTxDYtSBojHdY@monoceros>
+Received: from meve.dewith.io (meve.dewith.io [157.90.20.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D95AA10E4B8
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 10:37:05 +0000 (UTC)
+Received: from localhost (37-74-132-17.biz.kpn.net [37.74.132.17])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1)
+ server-digest SHA256) (No client certificate requested)
+ by meve.dewith.io (Postfix) with ESMTPSA id DBE5A20157;
+ Sat,  8 Aug 2026 10:37:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dewith.io; s=default; 
+ t=1786185424;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=YMBaPAYHToijBVahmID/bRSHm7hl1KFROWZe+Ee2lu8=;
+ b=gnSL7tztfhUSFv4oQ1kEHZvH5rbDhNeMvYW6eGeittWdRtE7jhARpF/TBJixsqlWe/aZdx
+ C5bUlSlk7nhWLGw3DwhFiJMczvTsHO+dk6+w3OkRAgby6vD3YkIlPf1TJY0zdtYBJr6FKq
+ hbZ0UrsItw7iW/+e8yIu1agKYQSu92U=
+Date: Sat, 8 Aug 2026 12:28:16 +0200
+From: Wim de With <wf@dewith.io>
+To: sashiko-reviews@lists.linux.dev
+Cc: lee@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH 2/2] backlight: Add support for Orient Chip OCP8178
+Message-ID: <A02AA15C-FF70-41E1-B2F7-1DC157CCB544@dewith.io>
+References: <20260806201541.101304-1-wf@dewith.io>
+ <20260806201541.101304-3-wf@dewith.io>
+ <20260806203654.542301F000E9@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260806203654.542301F000E9@smtp.kernel.org>
+User-Agent: K-9 Mail for Android
+X-K9mail-Identity: !l=5700&o=27&fo=27&pl=4796&po=0&qs=PREFIX&f=HTML&m=%2
+ 3%3AMTRjYmVhM2ItMTllMS00ZTVmLTlkNGUtYTgwNWZmMmI3MTBj%3AMTk%3D%3AMjI%3D&
+ p=4124&q=NONE
+X-TUID: LDDKbQpo27r7
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -106,21 +65,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Uwe,
+On Thu, Aug 06, 2026 at 08:36:53PM +0000, sashiko-bot@kernel.org wrote:
+> > +static void ocp8178_bl_write_u8(struct ocp8178_bl *ocp8178, u8 value)
+> > +{
+> > + unsigned long flags;
+> > +
+> > + gpiod_set_value(ocp8178->gpiod, 1);
+> > + udelay(OCP8178_1W_T_START_US);
+> > +
+> > + local_irq_save(flags);
+> > +
+> > + for (int i = 7; i >= 0; i--) {
+> > + if ((value >> i) & 1) {
+> > + gpiod_set_value(ocp8178->gpiod, 0);
+> 
+> [Severity: High]
+> Could this trigger a scheduling while atomic bug if the GPIO controller is
+> behind an I2C or SPI expander?
+> 
+> Since this bit-banging occurs inside a local_irq_save() block where hardware
+> interrupts are disabled, any GPIO accesses must not sleep. If the driver
+> is instantiated via Device Tree with a sleepable GPIO, gpiod_set_value()
+> will attempt to sleep in an atomic context.
 
-On Wed, 29 Jul 2026 14:36:31 +0200, Uwe Kleine-König wrote:
-> Hello,
->
-> On Sat, Jul 25, 2026 at 12:51:14AM -0400, Cody Kang via B4 Relay wrote:
-> > +#include <linux/mod_devicetable.h>
-> > [...]
-> > +#include <linux/platform_device.h>
->
-> <linux/platform_device.h> already makes sure that of_device_id
-> is available and <linux/mod_devicetable.h> will go away soon.
->
-> So please drop the latter #include.
+> Should probe() explicitly reject sleepable GPIOs by checking
+> gpiod_cansleep()?
 
-Thanks for the review. Will do in v2.
+I didn't realize that the spinlock safety is a property of the GPIO
+itself. Applying this suggestion means that we don't need to use
+gpiod_set_value_cansleep() at all in this driver.
 
-Cody
+I took inspiration from the ktd253 driver, which also has tight timing
+requirements on GPIO bit-banging. This driver does not check
+gpiod_cansleep() either and mixes gpiod_set_value() and
+gpiod_set_value_cansleep(), which is incorrect.
+
+> > + udelay(OCP8178_1W_HIGH_BIT_T_LOW_US);
+> > + gpiod_set_value(ocp8178->gpiod, 1);
+> > + udelay(OCP8178_1W_HIGH_BIT_T_HIGH_US);
+> > + } else {
+> > + gpiod_set_value(ocp8178->gpiod, 0);
+> > + udelay(OCP8178_1W_LOW_BIT_T_LOW_US);
+> > + gpiod_set_value(ocp8178->gpiod, 1);
+> > + udelay(OCP8178_1W_LOW_BIT_T_HIGH_US);
+> > + }
+> > + }
+> > +
+> > + gpiod_set_value(ocp8178->gpiod, 0);
+> > +
+> > + local_irq_restore(flags);
+> > +
+> > + udelay(OCP8178_1W_T_EOS_US);
+> > + gpiod_set_value(ocp8178->gpiod, 1);
+> 
+> [Severity: High]
+> Is there a risk that the end-of-sequence pulse gets extended arbitrarily here?
+> 
+> By calling local_irq_restore() while the GPIO is driven low, any pending
+> interrupts will run immediately. If system interrupt processing or softirqs
+> delay execution by more than 2.5ms (OCP8178_T_OFF_MS), the hardware will
+> interpret this extended low pulse as a command to disable the onewire mode.
+> 
+> This could cause the controller to unexpectedly power off and revert to PWM
+> mode, breaking backlight control.
+> 
+> Would it be safer to restore interrupts after the final gpiod_set_value()
+> call?
+
+This is indeed a problem and I'll fix it in v2. The datasheet states
+that T_EOS must be between 2 and 360 us. Interrupt handling may
+exceed this value.
+
+> > +static void ocp8178_bl_set_brightness(struct ocp8178_bl *ocp8178, u8 brightness)
+> > +{
+> > + u8 data = 0;
+> > +
+> > + dev_dbg(ocp8178->dev, "setting brightness to %u\n", brightness);
+> > +
+> > + data |= FIELD_PREP(OCP8178_DATA_ADDR, 0);
+> > + data |= FIELD_PREP(OCP8178_DATA_VALUE, brightness);
+> > +
+> > + ocp8178_bl_write_u8(ocp8178, OCP8178_DEVICE_ADDRESS);
+> > + ocp8178_bl_write_u8(ocp8178, data);
+> 
+> [Severity: Medium]
+> Does the controller require strict timing between the address and data bytes?
+> 
+> Since ocp8178_bl_write_u8() only disables interrupts for the duration of a
+> single byte, an interrupt could fire between these two calls. If the 1-wire
+> hardware state machine has a maximum idle time, arbitrary interrupt latency
+> in the inter-byte gap might cause the controller to reset and drop the
+> brightness update.
+
+For sending a single byte, we need to disable interrupts for about 58
+us. The datasheet doesn't put a maximum on T_START (which is the start
+of sequence period) so I would need to test the practical limitation.
+Regardless though, disabling interrupts for both writes would take 118
+us and I'm not sure if that is preferable over failing a brightness
+update in rare situations.
+
+> > +static const struct backlight_ops ocp8178_bl_ops = {
+> > + .options = BL_CORE_SUSPENDRESUME,
+> > + .update_status = ocp8178_bl_update_status,
+> > +};
+> 
+> [Severity: Medium]
+> Is BL_CORE_SUSPENDRESUME sufficient for restoring this hardware after suspend?
+> 
+> If the platform cuts power to the backlight controller during system suspend,
+> the hardware will wake up in its default PWM mode. The backlight core will
+> simply call update_status() on resume to restore brightness, but the onewire
+> brightness commands will be ignored because the onewire mode hasn't been
+> re-enabled.
+> 
+> Should the platform driver provide pm operations to re-execute
+> ocp8178_bl_enable_onewire() on system resume?
+
+I'm not sure if this is just LLM-hallucination or actually relevant.
+Should I account for the power cutting to the controller if the driver
+itself doesn't implement the power cutting?
