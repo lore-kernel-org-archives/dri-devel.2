@@ -4,101 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66AA1C5AD2B
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 09:58:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CF80C5AD2B
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 10:07:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAB4310E4AE;
-	Sat,  8 Aug 2026 09:58:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D1DA610E4B2;
+	Sat,  8 Aug 2026 10:07:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WqCsnuOU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mNMAq61W";
 	dkim-atps=neutral
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD03710E4B0
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 09:58:28 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-47df6a5655aso40661f8f.1
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 02:58:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786183107; x=1786787907; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=eukZ4Yw0lPupGVKUZsE6QR5EVi6K7EEsCGMJTKxA3Qg=;
- b=WqCsnuOU4cErmObY4cputhhf0tPZjewneS7e6xouL4Xj4uRV+0PFrCfo/ZLnl3VmBj
- 5LIqs7mH64anylpng6kUdsB5pxesbRm4uVQYbRbApCuDleKfZz+my5IBoAo8RwiBSP8b
- kUx/qBjqIeM0IfML0CTZEf9dKzJRWrBusur9fRq7x1+eGmCj1Ez284GLKlbDAi4Qw4K3
- sLaUjdZNftuxUP6sq/Yzot1nTAUmWuC2HW1Uw5MZIQqS60NFHR2k+zebuhuHi7XCjID+
- I7sV7kSYJLAELImbQ3mYPM0N3VmzRyBDFYYi5Kdos2P3lJZXKItXBOSYRVRsNrVdts8G
- 6/Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786183107; x=1786787907;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=eukZ4Yw0lPupGVKUZsE6QR5EVi6K7EEsCGMJTKxA3Qg=;
- b=B0AmQsCD+JRhE8ylVUt9nV5YqOD6zBuR24kWPvNKSSfBd1Bv2x1AhyzrXU3nfZnm6f
- Oa5vjjUI1I4aoM8HNFRXOqKiAd9htEZQuaVbwzIoOfoZTHbWB2t+w1UfFExOAsHpnrl+
- PkjWDsDBLoxvjJ1XuxH6SA9ghqgKVLVu8+26oX4Hu9YCnu4OszYK+MIWGYwPHdAJtecq
- mPTEa2bWk6MnrsBZjIdawjAUW1H/qaxy0ozPRqoWUW3bHw347XD4bffbwAdpp0+OURER
- NRLoM5Q5IlQorqJrf+hfnBgkkPDFm0aiOh+y+8QGpgUBFU5+hdk+AVxXGhNApCyQIlj9
- pllw==
-X-Gm-Message-State: AOJu0YzmnmAiPkuMNK4YXT3pmRgBumvKj3Tz5Tyln9ulIcajJYFhZvEc
- n94BHQxPhceUMi9TyWcoj+ba22TjE1M1N/EKfCmexn3GHG+1aT7Da8mDenill2kx
-X-Gm-Gg: AR+sD10eocxM8KL762QHA1J2hNoejRTn+3Kx4fHoFW2aNRpgF57zXOFynR+bmqvNnGS
- YPxhEdU8a/tydSynmzTAUMVpIZCm7daOQDRRb9BBMQW8JgubwQGIPwUeeC6tShBESSPckF7gdTy
- w9bEF2gp7swfBmc2f7Aj5iH7EJxui3LPk3FTfxE7Iz34qc+QXuQUt3oVDXIUMeJB3iL0PVhs+WJ
- SgMO81Hkk21pJrGmoS3F1xB7XCylszB3v9/en2HFx9Efme6yB7k7iNRp4m+r65BYTbZ/J91M6Mi
- q+vB92fTDmZg5SZemtX0rlZ1aNBN7OrnO3wi/73EA4VvUUvrFW/ShUNADJTq2Wm+3ZVRr3ykYF4
- cbMQmICDB/KOtSkS/34QgreLDH51hFzKWz3HLmKgkC9CRVqMNJk8o51hJ0eKS13r9XHtQ18Gvic
- qv6j1hI932BFWk6c7czUT9Sf0IbmgMjrMmS0WutN84M1w9gJNY0YdLTJrrkfmJiboTHz5UMwZuY
- 5LSMdmyg8B81po2h+wA0zPy2zbm6If9DIjg1FUjyuLqelzIOSvvZUg3qrZAnTtVoHo2o5FFPTIO
- Xzeppg==
-X-Received: by 2002:a5d:584c:0:b0:47f:959f:d5e with SMTP id
- ffacd0b85a97d-47fec487b60mr22022705f8f.0.1786183107204; 
- Sat, 08 Aug 2026 02:58:27 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B8E20009911270F4BEC2300.dsl.pool.telekom.hu.
- [2001:4c4e:1b8e:2000:9911:270f:4bec:2300])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-480020be8f3sm13255725f8f.0.2026.08.08.02.58.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 02:58:26 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- =?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
- Imre Deak <imre.deak@intel.com>,
- Ankit Nautiyal <ankit.k.nautiyal@intel.com>,
- Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 5/5] drm/bridge: synopsys: dw-dp: Add BT.2020 colorimetry
- support
-Date: Sat,  8 Aug 2026 11:57:24 +0200
-Message-ID: <20260808095749.9428-6-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260808095749.9428-1-royalnet026@gmail.com>
-References: <20260808095749.9428-1-royalnet026@gmail.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BDB5F10E4AA;
+ Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 6DFA5432A3;
+ Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B48BC2BCB8;
+ Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1786183654;
+ bh=gUPN+M1TrpJU5VvlJKMa+SHlUKRGWi0Tsmx1lfmrOIs=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=mNMAq61Wh0+uTmLj95Muan3Y/xvizHBUv4wZT+6qXfpWLBRjYP2mVe0dWoUFD9ar0
+ WfUrHCYj0oUCjj26Az2K3Uf4ABGZ5+gHWTuh1eHMr8mskgkV43lwyNvhPccZSoPWz9
+ 52R4bCu8TpcFJ8a1XGr6hZQuYa/Td1yei4Os4OP5ip+RsA/LkfGlvY0im4WMm2PnND
+ RvJ4R4bdfaJJf+hvfSN49cwE+FRixhnTM5K7HajlCBNhOhts1hQ8zsjGcsFtm6S/A1
+ fdcPAvI7zx/2JhTMrxx8fVykzlDCnBizZzEelx0LuASf0yNfHToMYa+jGgBdKAzNMO
+ 96dZ4r79kHVqQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 27EEEC5AC67;
+ Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Date: Sat, 08 Aug 2026 18:07:26 +0800
+Subject: [PATCH v2] drm/amdgpu: add the BO-va mapping offset when kmapping
+ an IB
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20260808-amdgpu-fixes-v2-1-36d66398601f@outlook.com>
+X-B4-Tracking: v=1; b=H4sIAN3/dmoC/x3LQQqAIBBA0avIrBNGF2VdJVqIjjaLTJQikO6et
+ Hx8foNKhanCIhoUurnymTr0IMDtNkWS7LtBox7RoJH28DFfMvBDVc7OKgwWJ1IIfcmF/tCPdXv
+ fD5LIg2xeAAAA
+X-Change-ID: 20260808-amdgpu-fixes-9ca10fa07e10
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jammy Zhou <Jammy.Zhou@amd.com>, Madhav Chauhan <madhav.chauhan@amd.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
+ Junrui Luo <moonafterrain@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2208;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=3FBj59YR9q4hNFYlTzD+oO1vogRrIbKjZwQeOYVwbY4=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrLL/j5LPXtkjmyZdbdzboX/ab4H+s35D75Blv2+7f
+ ZR7uX/PlhcdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMBGtGIY/fJUxaotOOr/P
+ uPCvbapvhFXwb+Zllak+D1aKfQl58qVlLcN/31milS8V3qhJeh2Yz7DC8dG3f40PLiwU79W5mPx
+ /8sQIJgB7+VFO
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,207 +79,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: moonafterrain@outlook.com
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The VSC SDP colorimetry is hardcoded: DEFAULT for RGB output and
-BT709_YCC for YCbCr. HDR compositors render into a BT.2020 container
-and need a way to tell the sink.
+From: Junrui Luo <moonafterrain@outlook.com>
 
-The legacy MSA MISC0 colorimetry bits cannot express BT.2020; DP 1.4a
-requires the VSC SDP revision 5 pixel encoding/colorimetry format
-indication, with MISC1 bit 6 set so the sink takes the format from the
-VSC SDP instead of MISC0. The driver already sets MISC1 bit 6 whenever
-it sends the VSC SDP, so only the trigger and the colorimetry values
-need extending:
+amdgpu_cs_patch_ibs() derives the CPU-side view of a UVD/VCE/VCN
+indirect buffer from the BO returned by amdgpu_cs_find_mapping():
 
-- store conn_state->colorspace in the bridge state during
-  atomic_check(), next to the negotiated format;
-- send the VSC SDP also when the colorspace is BT2020_RGB or
-  BT2020_YCC, not only for YCbCr 4:2:0 output;
-- map BT2020_RGB/BT2020_YCC to DP_COLORIMETRY_BT2020_RGB/
-  DP_COLORIMETRY_BT2020_YCC in the VSC SDP; every other colorspace
-  value keeps today's values. The dynamic range stays VESA for RGB and
-  CTA for YCbCr output.
+    r = amdgpu_bo_kmap(aobj, (void **)&kptr);
+    kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
 
-Sinks advertise VSC SDP colorimetry support in the DPCD
-(DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED). Without it BT.2020 cannot
-be signaled at all, so atomic_check() rejects such a request with
--EINVAL and userspace's TEST_ONLY probe learns the configuration is
-impossible; i915 instead silently omits the VSC SDP and scans out
-BT.2020 pixels without signaling them. A colorspace change on a live
-stream forces a modeset, so the VSC SDP is regenerated with the new
-colorimetry.
+amdgpu_bo_kmap() returns the start of the BO, so only the displacement
+of va_start inside the mapping is added.  The page tables, however, are
+programmed from mapping->offset (see amdgpu_vm_bo_update()), which
+records the offset_in_bo the client passed to AMDGPU_GEM_VA.  The GPU
+therefore resolves va_start to BO byte
 
-On the Rockchip side, create the DP Colorspace property with exactly
-the enum values the driver implements (Default, BT2020_RGB,
-BT2020_YCC). When the colorspace is BT.2020 and the negotiated bus
-format is YCbCr, program s->color_space = V4L2_COLORSPACE_BT2020 so
-the VOP2 uses its BT.2020 R'G'B' to Y'C'bC'r matrix for the CSC. For
-RGB output the pixels leave the VOP2 unconverted and the color space
-stays DEFAULT.
+    m->offset + (va_start - m->start * AMDGPU_GPU_PAGE_SIZE)
 
-Userspace that leaves the property at "Default" sees no change in
-behavior: the colorimetry mapping, the VSC SDP trigger and the VOP2
-CSC selection all take the previous paths.
+while the kernel inspects the byte m->offset lower.  Whenever an IB is
+submitted through a mapping created with a non-zero offset_in_bo, the
+two views disagree.
 
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Add the missing term so the kmapped pointer describes the same bytes the
+page tables do.
+
+Every other CPU-side consumer of amdgpu_cs_find_mapping() omits
+mapping->offset in the same way.
+
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/bridge/synopsys/dw-dp.c   | 44 +++++++++++++++++++----
- drivers/gpu/drm/rockchip/dw_dp-rockchip.c | 38 +++++++++++++++++++-
- 2 files changed, 74 insertions(+), 8 deletions(-)
+Changes in v2:
+- Drop the Fixes tag.
+- Pick up Christian's Reviewed-by.
+- Resend standalone.
+- Link to v1: https://lore.kernel.org/r/20260806-amdgpu-fixes-v1-3-ce247012d4da@outlook.com
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-dp.c b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-index ca997ea53e66..8f0ee9628dcc 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-dp.c
-@@ -306,6 +306,7 @@ struct dw_dp_bridge_state {
- 	u8 color_format;
- 	u8 bpc;
- 	u8 bpp;
-+	enum drm_colorspace colorspace;
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+index 5445f75741b5..17fe6d56e020 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+@@ -1043,7 +1043,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_parser *p,
+ 		if (r)
+ 			return r;
  
- struct dw_dp_sdp {
-@@ -1125,6 +1126,12 @@ static void dw_dp_clear_sdp(struct dw_dp *dp, int nr)
- 		clear_bit(nr, dp->sdp_reg_bank);
- }
+-		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
++		kptr += m->offset + va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
  
-+static bool dw_dp_colorspace_is_bt2020(enum drm_colorspace colorspace)
-+{
-+	return colorspace == DRM_MODE_COLORIMETRY_BT2020_RGB ||
-+	       colorspace == DRM_MODE_COLORIMETRY_BT2020_YCC;
-+}
-+
- static int dw_dp_send_vsc_sdp(struct dw_dp *dp)
- {
- 	struct dw_dp_bridge_state *state;
-@@ -1160,13 +1167,25 @@ static int dw_dp_send_vsc_sdp(struct dw_dp *dp)
- 		break;
- 	}
- 
--	if (state->color_format == DRM_OUTPUT_COLOR_FORMAT_RGB444) {
--		vsc.colorimetry = DP_COLORIMETRY_DEFAULT;
-+	switch (state->colorspace) {
-+	case DRM_MODE_COLORIMETRY_BT2020_RGB:
-+		vsc.colorimetry = DP_COLORIMETRY_BT2020_RGB;
-+		break;
-+	case DRM_MODE_COLORIMETRY_BT2020_YCC:
-+		vsc.colorimetry = DP_COLORIMETRY_BT2020_YCC;
-+		break;
-+	default:
-+		if (state->color_format == DRM_OUTPUT_COLOR_FORMAT_RGB444)
-+			vsc.colorimetry = DP_COLORIMETRY_DEFAULT;
-+		else
-+			vsc.colorimetry = DP_COLORIMETRY_BT709_YCC;
-+		break;
-+	}
-+
-+	if (state->color_format == DRM_OUTPUT_COLOR_FORMAT_RGB444)
- 		vsc.dynamic_range = DP_DYNAMIC_RANGE_VESA;
--	} else {
--		vsc.colorimetry = DP_COLORIMETRY_BT709_YCC;
-+	else
- 		vsc.dynamic_range = DP_DYNAMIC_RANGE_CTA;
--	}
- 
- 	drm_dp_vsc_sdp_pack(&vsc, &sdp.base);
- 
-@@ -1227,7 +1246,7 @@ static bool dw_dp_video_need_vsc_sdp(struct dw_dp *dp)
- 	if (state->color_format == DRM_OUTPUT_COLOR_FORMAT_YCBCR420)
- 		return true;
- 
--	return false;
-+	return dw_dp_colorspace_is_bt2020(state->colorspace);
- }
- 
- static int dw_dp_video_set_msa(struct dw_dp *dp,
-@@ -1644,10 +1663,21 @@ static int dw_dp_bridge_atomic_check(struct drm_bridge *bridge,
- 	state->color_format = fmt->color_format;
- 	state->bpc = fmt->bpc;
- 	state->bpp = fmt->bpp;
-+	state->colorspace = conn_state->colorspace;
-+
-+	/*
-+	 * BT.2020 cannot be signaled through the legacy MSA MISC0
-+	 * colorimetry bits; it requires the VSC SDP colorimetry format
-+	 * indication, which the sink must support.
-+	 */
-+	if (dw_dp_colorspace_is_bt2020(conn_state->colorspace) &&
-+	    !dp->link.vsc_sdp_supported)
-+		return -EINVAL;
- 
- 	old_conn_state = drm_atomic_get_old_connector_state(conn_state->state,
- 							    conn_state->connector);
--	if (!drm_connector_atomic_hdr_metadata_equal(old_conn_state, conn_state))
-+	if (!drm_connector_atomic_hdr_metadata_equal(old_conn_state, conn_state) ||
-+	    old_conn_state->colorspace != conn_state->colorspace)
- 		crtc_state->mode_changed = true;
- 
- 	if ((adjusted_mode->hsync_start - adjusted_mode->hdisplay) & 0x1) {
-diff --git a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-index c5bc178c0a50..798d82893f98 100644
---- a/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw_dp-rockchip.c
-@@ -69,6 +69,21 @@ static void dw_dp_rockchip_hpd_sw_cfg(void *data, bool hpd)
- 		     FIELD_PREP_WM16(ROCKCHIP_VO_GRF_DP_SINK_HPD_CFG, hpd));
- }
- 
-+static bool dw_dp_yuv_bus_format(u32 bus_format)
-+{
-+	switch (bus_format) {
-+	case MEDIA_BUS_FMT_UYYVYY10_0_5X30:
-+	case MEDIA_BUS_FMT_UYYVYY8_0_5X24:
-+	case MEDIA_BUS_FMT_YUYV10_1X20:
-+	case MEDIA_BUS_FMT_YUYV8_1X16:
-+	case MEDIA_BUS_FMT_YUV10_1X30:
-+	case MEDIA_BUS_FMT_YUV8_1X24:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
- static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
- 				      struct drm_crtc_state *crtc_state,
- 				      struct drm_connector_state *conn_state)
-@@ -102,7 +117,17 @@ static int dw_dp_encoder_atomic_check(struct drm_encoder *encoder,
- 	s->output_type = DRM_MODE_CONNECTOR_DisplayPort;
- 	s->bus_format = bus_format;
- 	s->bus_flags = di->bus_flags;
--	s->color_space = V4L2_COLORSPACE_DEFAULT;
-+
-+	/*
-+	 * For BT.2020 YCbCr output the VOP2 must use its BT.2020 R'G'B' to
-+	 * Y'C'bC'r matrix; BT.2020 RGB is passed through unconverted.
-+	 */
-+	if ((conn_state->colorspace == DRM_MODE_COLORIMETRY_BT2020_RGB ||
-+	     conn_state->colorspace == DRM_MODE_COLORIMETRY_BT2020_YCC) &&
-+	    dw_dp_yuv_bus_format(bus_format))
-+		s->color_space = V4L2_COLORSPACE_BT2020;
-+	else
-+		s->color_space = V4L2_COLORSPACE_DEFAULT;
- 
- 	return 0;
- }
-@@ -200,6 +225,17 @@ static int dw_dp_rockchip_bind(struct device *dev, struct device *master, void *
- 
- 	drm_connector_attach_hdr_output_metadata_property(connector);
- 
-+	ret = drm_mode_create_dp_colorspace_property(connector,
-+						     BIT(DRM_MODE_COLORIMETRY_DEFAULT) |
-+						     BIT(DRM_MODE_COLORIMETRY_BT2020_RGB) |
-+						     BIT(DRM_MODE_COLORIMETRY_BT2020_YCC));
-+	if (ret) {
-+		dw_dp_unbind(dp->base);
-+		return ret;
-+	}
-+
-+	drm_connector_attach_colorspace_property(connector);
-+
- 	return 0;
- }
- 
+ 		if (ring->funcs->parse_cs) {
+ 			memcpy(ib->ptr, kptr, ib->length_dw * 4);
+
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260808-amdgpu-fixes-9ca10fa07e10
+
+Best regards,
 -- 
-2.43.0
+Junrui Luo <moonafterrain@outlook.com>
+
 
