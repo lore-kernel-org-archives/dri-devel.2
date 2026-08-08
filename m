@@ -4,44 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6508AC5AD4E
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 19:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 331AFC5AD44
+	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 19:41:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8601210E03F;
-	Sat,  8 Aug 2026 19:16:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6122310E063;
+	Sat,  8 Aug 2026 19:41:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="SkANJnE3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OC/SxMU6";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AA5FA10E03F
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 19:16:22 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 09004600B1;
- Sat,  8 Aug 2026 19:16:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71A811F000E9;
- Sat,  8 Aug 2026 19:16:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786216581;
- bh=1LmS4K9yHEjXMug7q5I5LoqiYrVPNZDYbVB2Zbvt+5o=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SkANJnE36StCiQJPd2TAkuighZah7D78RyrY/0Fgam2fWD/wI8OJIrLJCi9xX1c1r
- Bohz/FlnGMgcrfif8+WZYQOyWZq4WZwj8ADMNkUAkk9QeRQYOw1mk+TRLKKIuSGpwY
- Y6Ee+tkXiU+ktpWUoEARQ53qA5QnAG7t+aBCgwpPSK62gtaRsnUNucCC3SWVfigh6r
- uL8gbCiQmucSbpDuHDc8vEyDfTHBaQoNRYSxu1d0tQ6Fsx4jEUWiljXlPWeMLCVPZu
- eXDRd03mazNlDSvx0vNyA9Yi1X1LUJ6qFhmU2LNUhMMTIRwBlh4xiRP1/CduQ/LTCi
- OiGQ4HZuvtvJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/panel: add Ilitek ILI7836A panel driver
-To: "Aaron Kling" <webgeek1234@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org,
- devicetree@vger.kernel.org
-In-Reply-To: <20260808-ili7836a-v1-2-07a7becc5636@gmail.com>
-References: <20260808-ili7836a-v1-0-07a7becc5636@gmail.com>
- <20260808-ili7836a-v1-2-07a7becc5636@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 19:16:20 +0000
-Message-Id: <20260808191621.71A811F000E9@smtp.kernel.org>
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DC2B10E063
+ for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 19:41:35 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-49557167508so4755765e9.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 12:41:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786218094; x=1786822894; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=gQVcGNcLq6m/6ixB9nJIXsf/NAsejBiY35GyaVjtWxw=;
+ b=OC/SxMU6eZrzbZZpxsRjYjwIIB1s88d90MJGFoSJPL2jkHrqLJIzgTQ3X2vG8pUOyp
+ 6F6d1ll1/asMQIRAK0jHDfe9MaqkdtBpS9RV5myWkDV3JsMXIeNzBY5WppFWTqg82YvE
+ 7z0khvRWlhkK3TApVPEIDejVBXYBLqvdvFcVHJ3hY2VDg/GYHEzIE6RGTBuwe9HEhkn7
+ S+qbXVdSuURtk9YRoQ54xGwtFGCCvAttHmjc//OvPdFplJkvvqJbmsGBhlo8GwCrV0MA
+ TvP6ecQTwn1QqBwwCPM+IcJNILloqKuAcWU+EJ5bkURUr/p4+qxSLJkk2xcPm/NY6te3
+ d34g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786218094; x=1786822894;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gQVcGNcLq6m/6ixB9nJIXsf/NAsejBiY35GyaVjtWxw=;
+ b=tYfooRjxEIlp8qdWQFMoFUyjTZrSCPP/+bcKcX77o42ChDR5Z1STMNkeTOs8bcnh78
+ Q8wNAkwQOxLk37aOrM2ys55OTc31HyPbwxkJt6WSLcKHgFcNa+Qv9JUGU0VtN/99pcPf
+ S+Z6ajR0RmvJUIs6ny2wowryvCOj2vlPj7kNcWQ2xztPVPQlRLgtDw5J1qF/UeRU6DpT
+ pWK7o6D2ZsCQ44WmiJBRmoRtWwuwT/F/JwedDt4GALNUaP/GKksjQLDUhrGV3YtN1iJ8
+ yIoSooNksDtI6NCeOazieTm6FpFLB5XuqgmIYRPrMAl2Bh+SabG9MNoQTQ8JwWXsC7TK
+ qd1g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqKMCSfjbo8W4HupZs9F9sPnPSp/VXm0gCdQK4XeArADoAJj5+w00JpnN81P9GdD52keAocFX1np3w=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YztJd5Bz+rkiziushHcaDGeR2I76lpOlIcsXMWnqQpFPRbQ2ZrC
+ 7SE1tCggfhzONK81mZDmrfWvr1iBjRhQ9w0HOTaFhsTwkegghvogVPAh
+X-Gm-Gg: AR+sD10jFeAFncBKNVvCTROmbY2bzboplo/+PAbx/lo0rO21KrH8dvC9zQy2+Gse6Ww
+ t0xUhP0khRhS/oQiVwCGT3LYQR2K7enCYDedru1Cg04y8DfggaG+1vVPp4EQlL4bZiaHNu6I3Fv
+ VLihrRz1DOu4vkZEFlNRNoiPAuBzm9r1D6gyZgrrerVyYxxyjROwFTxTqfjOu12xv030RyAy3g0
+ chVJ5BT0vM/3Pp9v1j4BoLRg/k2vHBxoJu4pz71kn8IdBhCMskZlYDDJPfgPpHmQUuE701EJYnL
+ NiVY6UzYjGV1Ayxdym8VKCtGzXY974qwOcUzTU3NPTT+pHYn+Ppc/sSnWHRpJnTYSjyz4Tb1vbf
+ 7tVkYHu4cSR1vfxpkRMD0gokeLokmtYkHUqjM66xYoH/LlIWa/XCl6uuE9U8FAS8fvYJoQr9s0t
+ LD270rwW1yvG9P8AD35fmECoJkLHekCr8WdcSkWCjVyZa+m9aXwxkKv0WMnG+e17hlp3I=
+X-Received: by 2002:a05:600c:3b20:b0:499:4893:97d3 with SMTP id
+ 5b1f17b1804b1-4994e7cb8ebmr390890085e9.13.1786218093825; 
+ Sat, 08 Aug 2026 12:41:33 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-480021e7b3fsm18742073f8f.20.2026.08.08.12.41.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 Aug 2026 12:41:33 -0700 (PDT)
+Date: Sat, 8 Aug 2026 22:41:28 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Asad Kamal <asad.kamal@amd.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lijo Lazar <lijo.lazar@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] drm/amd/pm: silence uninitialized variable warnings
+Message-ID: <aneGaKJUl_Jyu05n@stanley.mountain>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,135 +90,48 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Unbalanced panel operations due to missing .enable callback
-- [High] Unsafe backlight DSI transmissions without panel power state valid=
-ation
-- [High] Data race on `dsi->mode_flags` between backlight updates and panel=
- state changes
-- [Medium] Early return in backlight update callback leaks DSI mode state
-- [Medium] The get_modes callback ignores descriptor physical attributes an=
-d multiple modes
---
+Smatch complains that:
 
---- Patch [2]: [PATCH 2/2] drm/panel: add Ilitek ILI7836A panel driver ---
-commit 1ef963af27698ad0874d830a6b469bf1d540bc0b
-Author: Aaron Kling <webgeek1234@gmail.com>
-Subject: drm/panel: add Ilitek ILI7836A panel driver
+    drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu15/smu_v15_0_8_ppt.c:1964
+    smu_v15_0_8_set_performance_level() error: uninitialized symbol 'ret'.
 
-This commit introduces a new DRM panel driver for the Ilitek ILI7836A DDIC,
-initially supporting the Retroid Pocket Nova panel.
+In this line there is an "if (ret)" condition where "ret" is either
+zero or uninitialized.  Initialize "ret" at the start of the function to
+avoid a potential uninitialized variable bug.  But also delete the
+condition since it is never true.
 
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili7836a.c b/drivers/gpu/=
-drm/panel/panel-ilitek-ili7836a.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili7836a.c
-[ ... ]
-> +static int ili7836a_get_modes(struct drm_panel *panel,
-> +					struct drm_connector *connector)
-> +{
-> +	struct ili7836a_panel *ctx =3D to_ili7836a_panel(panel);
-> +
-> +	return drm_connector_helper_get_modes_fixed(connector, ctx->desc->modes=
-);
-> +}
+Fixes: 422b399b09c7 ("drm/amd/pm: Add od_edit_dpm_table support")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-[Severity: Medium]
-Does this ignore the physical dimensions and color depth defined in nova_de=
-sc?
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+index 59fdd2319b66..c78e611d2a25 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+@@ -1920,7 +1920,7 @@ static int smu_v15_0_8_set_performance_level(struct smu_context *smu,
+ 	struct smu_dpm_table *gfx_table = &dpm_context->dpm_tables.gfx_table;
+ 	struct smu_dpm_table *uclk_table = &dpm_context->dpm_tables.uclk_table;
+ 	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
+-	int ret;
++	int ret = 0;
+ 
+ 	switch (level) {
+ 	case AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM:
+@@ -1961,9 +1961,6 @@ static int smu_v15_0_8_set_performance_level(struct smu_context *smu,
+ 				SMU_DPM_TABLE_MAX(uclk_table);
+ 		}
+ 
+-		if (ret)
+-			goto out;
+-
+ 		smu_cmn_reset_custom_level(smu);
+ 
+ 		break;
+-- 
+2.53.0
 
-The descriptor explicitly defines width_mm, height_mm, and bpc, but
-drm_connector_helper_get_modes_fixed() only extracts a single fixed mode wi=
-thout
-populating the connector's physical size or color format information.
-Additionally, the num_modes property in the descriptor appears to be ignore=
-d.
-
-> +static enum drm_panel_orientation ili7836a_get_orientation(struct drm_pa=
-nel *panel)
-> +{
-> +	struct ili7836a_panel *ctx =3D to_ili7836a_panel(panel);
-> +
-> +	return ctx->orientation;
-> +}
-> +
-> +static const struct drm_panel_funcs ili7836a_panel_funcs =3D {
-> +	.prepare =3D ili7836a_prepare,
-> +	.unprepare =3D ili7836a_unprepare,
-> +	.disable =3D ili7836a_disable,
-> +	.get_modes =3D ili7836a_get_modes,
-> +	.get_orientation =3D ili7836a_get_orientation,
-> +};
-
-[Severity: High]
-Will this leave the panel permanently black after certain display power
-management transitions?
-
-The driver implements the .disable callback which sends DCS sleep commands,
-but it omits the corresponding .enable callback. Since drm_panel_enable()
-will be a no-op, the panel may remain in sleep mode without a full power
-cycle.
-
-> +
-> +static int ili7836a_bl_update_status(struct backlight_device *bl)
-> +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	int ret;
-> +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-
-[Severity: High]
-Can this cause DSI host transmission timeouts if called while the panel is
-powered down?
-
-The backlight device is accessible via sysfs independently of the panel's D=
-RM
-state. Writing to the brightness attribute while the panel regulators are
-disabled would execute DCS writes on an unpowered DSI bus.
-
-[Severity: High]
-Is there a data race on dsi->mode_flags here?
-
-Backlight updates can execute concurrently via sysfs while the DRM subsystem
-invokes panel enable/disable operations. Since the mode_flags bitmask is
-modified using non-atomic bitwise operations, a read-modify-write race
-could occur between this function and the DRM ioctl paths:
-
-ili7836a_on() {
-    ...
-    ctx->dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-}
-
-ili7836a_disable() {
-    ...
-    ctx->dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-}
-
-> +	if (ret < 0)
-> +		return ret;
-
-[Severity: Medium]
-If mipi_dsi_dcs_set_display_brightness_large() fails, does this early return
-permanently clear the MIPI_DSI_MODE_LPM bit?
-
-The error path exits before restoring the mode_flags, which might disrupt
-subsequent DSI communication.
-
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808-ili7836a-v=
-1-0-07a7becc5636@gmail.com?part=3D2
