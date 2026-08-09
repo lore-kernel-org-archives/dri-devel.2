@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3767C5AE49
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 13:31:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C04DC5AD4E
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 13:32:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 514BA10E571;
-	Sun,  9 Aug 2026 13:31:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E837110E577;
+	Sun,  9 Aug 2026 13:32:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UuVJzp4P";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j4Sa+1D5";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A816010E571
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 13:31:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E519510E577
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 13:32:36 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1D7C5600AB;
- Sun,  9 Aug 2026 13:31:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5776C1F000E9;
- Sun,  9 Aug 2026 13:31:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 409F560008;
+ Sun,  9 Aug 2026 13:32:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F325B1F000E9;
+ Sun,  9 Aug 2026 13:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786282303;
- bh=ejPdgbVfgw5V8U8PhcQ2tH70UH1Z9rPYw9PMMJnGwHU=;
+ s=k20260515; t=1786282356;
+ bh=lEXjqIf8lufJp/FLdgsOxISP2ZL1yVis2DgezW671Eg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UuVJzp4PYwlqPSwVgHUO7rSfedE3//qrQYrjLj56OhPQ1RPltuHwZJsvh2dKhLcA2
- IICF+agHlgbdqrCnrxpGFGp64D3eCO1bUq3Bj2Gr4U3cmo4clodrxv/RoGVZuiiv/I
- RI07nMXVlPIpqV+8FTWBcHbJdNTqC/yWoXl3aZjCk9RLxAXJylBbrGO5tMCkY57npf
- WnMOWY1b1NpLkNt3/BDowiWPi/ohpt+vinv7lZOdX5tE5DFK1seFmuybw/lvZZBUYt
- ASL8Pw4l8KP3zuMSQbGQinHlk1m2vP37YbGPdH6EF2f2mOO6GbEVOsYLQD3C0oR+KX
- U9E0YT6F8SJrg==
+ b=j4Sa+1D53xHlPJRHF0373NAIgSRcBvxs5xfHdWX5xScKwNUpESULi6rka9gDA2m2r
+ IXoNZei/AL2wSsXVbKJSloeYfEx5PXvTjtyn7VZsg6YhADWIyufgeNoZK6X1E9KxQ5
+ BKiGDS5VuJ5RuJpQ6mkAqBDS7BRmkNNwBx957Z39dsDu0s24oG7DVB7gBLJMGAoLxL
+ IyNBhjiU/ikyGueViLejDKoaNKIVNoH3lJu7w+wYln74BIXHsMBzg2FJAw2WoocOr8
+ XLYhv4dExjqiDjKWH3i8/spS7AReSWd48fWnc3GTHieAy7r5VmEFMMkSlofC8UBzI3
+ T7bgC9wj1QhnQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 09/17] drm/spacemit: add Saturn DPU hardware backend
+Subject: Re: [PATCH v2 08/17] drm/spacemit: add Saturn DPU core types,
+ cmdlist and display MMU
 To: "Cody Kang" <codykang.hk@gmail.com>
-Cc: neil.armstrong@linaro.org, olteanv@gmail.com, robh@kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, vkoul@kernel.org,
- dri-devel@lists.freedesktop.org, conor+dt@kernel.org
-In-Reply-To: <20260809-k3-display-v2-9-327d7910bf71@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, linux-phy@lists.infradead.org, vkoul@kernel.org,
+ robh@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
+In-Reply-To: <20260809-k3-display-v2-8-327d7910bf71@gmail.com>
 References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-9-327d7910bf71@gmail.com>
+ <20260809-k3-display-v2-8-327d7910bf71@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 13:31:42 +0000
-Message-Id: <20260809133143.5776C1F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 13:32:34 +0000
+Message-Id: <20260809133234.F325B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,331 +60,333 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 14 potential issue=
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
 (s) to consider:
-- [High] Dynamic memory allocation using GFP_KERNEL inside plane atomic upd=
-ate, disable, and CRTC flush paths.
-- [High] If cmdlist memory allocation fails, the driver falls back to direc=
-t MMIO writes during atomic updates, breaking transaction semantics.
-- [High] Unsynchronized lockless access to `flip_done` between ISR and time=
-r handler allows double `drm_crtc_vblank_put()`.
-- [High] Dereferencing `state->fb` without checking for NULL causes a crash=
- when configuring pixel blending for solid fill planes.
-- [High] Potential NULL pointer dereference of `state->fb` in `saturn_cal_l=
-ayer_fbcmem_size`.
-- [High] The `dpu_init` function uses the sleeping function `usleep_range()=
-` while executing from an atomic commit path.
-- [High] The `cfg_rdy_timer` is not synchronously cancelled during device t=
-eardown, leading to a potential use-after-free.
-- [High] The VBLANK ISR and timer handler directly access `crtc->state->eve=
-nt`, causing a race condition with concurrent atomic commits.
-- [High] Silently dropped cmdlist rows cause the hardware DMA to read out-o=
-f-bounds memory.
-- [Medium] Hardware clocks are disabled in the same forward order they were=
- enabled, violating clock dependencies.
-- [Medium] C bitfields are used for defining hardware DMA descriptor layout=
-s.
-- [Medium] Unchecked `drm_crtc_vblank_get` return value leads to refcount u=
-nderflow.
-- [Medium] Double-clearing of underrun interrupt status due to stale irq_ra=
-w snapshot.
-- [Medium] Useless and contextually incorrect read memory barrier (dma_rmb).
+- [Critical] Modifying the command list of unmodified planes during CRTC co=
+mmits leads to unbounded growth of `cl->nod_len` and DMA buffer overflow.
+- [High] Command list DMA buffers are embedded in transient atomic states, =
+leading to lifecycle conflicts and shared buffer corruption.
+- [High] Unconditional dereference of `priv->cmdlist_groups[i]` leads to a =
+NULL pointer dereference in `cmdlist_atomic_commit`.
+- [High] Directly accessing `plane->state` and `crtc->state` during atomic =
+commits creates TOCTOU races with subsequent non-blocking commits.
+- [High] Hardware DMMU reads out of bounds if the page table entries exceed=
+ the pre-allocated buffer size limit.
+- [High] NULL pointer dereference on `fb` in the `dpu_plane_info` tracepoin=
+t.
+- [High] Potential NULL pointer dereference of `a_crtc->crtc.dev` in `cmdli=
+st_regs_packing` if a plane is being disabled.
+- [High] Calling `spacemit_dmmu_map` sleeps in an atomic context and introd=
+uces data races on the command list.
+- [Medium] Unprotected read-modify-write on MMIO registers in the `__dpu_mm=
+io_field_write` macro.
+- [Medium] Unvalidated `rdma_id` is used directly as an array index, leadin=
+g to out-of-bounds writes.
 --
 
---- Patch [9]: [PATCH v2 09/17] drm/spacemit: add Saturn DPU hardware backe=
-nd ---
-commit 203a676effd210733651accaca4eebc02e32d9c2
+--- Patch [8]: [PATCH v2 08/17] drm/spacemit: add Saturn DPU core types, cm=
+dlist and display MMU ---
+commit 4c661acb763f61ae82caefcc3ef85c607c0b6ffe
 Author: Cody Kang <codykang.hk@gmail.com>
-Subject: drm/spacemit: add Saturn DPU hardware backend
 
-This commit adds the register-level programming of the Saturn instance,
-including clock and reset bring-up, scene control, and timing generator set=
-up.
-The backend is exposed as an ops table for the KMS layer.
+drm/spacemit: add Saturn DPU core types, cmdlist and display MMU
 
-> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c b/drivers/gpu/drm/=
-spacemit/dpu/dpu_saturn.c
+Register programming of the Saturn DPU is batched: the driver builds
+per-module register lists in memory and the hardware command-list
+engine replays them at frame boundaries, while scanout buffers are
+mapped through the DPU's private address translation unit (DMMU)
+rather than scanned out by physical address.
+
+> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_trace.h b/drivers/gpu/drm/s=
+pacemit/dpu/dpu_trace.h
+> index 0000000000000..abfe34a67a4bd 100644
 > --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c
+> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_trace.h
 [ ... ]
-> +static int dpu_disable_clocks(struct spacemit_crtc *a_crtc)
+> +	TP_fast_assign(
+> +			__entry->rdma_id =3D rdma_id;
+> +			__entry->src_w =3D state->src_w >> 16;
+> +			__entry->src_h =3D state->src_h >> 16;
+> +			__entry->src_x =3D state->src_x >> 16;
+> +			__entry->src_y =3D state->src_y >> 16;
+> +			__entry->crtc_w =3D state->crtc_w;
+> +			__entry->crtc_h =3D state->crtc_h;
+> +			__entry->crtc_x =3D state->crtc_x;
+> +			__entry->crtc_y =3D state->crtc_y;
+> +			__entry->width =3D fb->width;
+> +			__entry->height =3D fb->height;
+> +			__entry->format =3D fb->format->format;
+
+[Severity: High]
+Is it possible for fb to be NULL here?=20
+
+During a plane disable operation in the DRM atomic framework, the plane
+state will have a NULL framebuffer. Would this tracepoint cause a NULL
+pointer dereference when capturing these fields?
+
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_cmdlist.c b/drivers/gpu/dr=
+m/spacemit/spacemit_cmdlist.c
+> index 0000000000000..f4f14eaa12a0f 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_cmdlist.c
+[ ... ]
+> +void cmdlist_regs_packing(struct cmdlist *cl, enum cmdlist_mode_type mod,
+> +			  struct cmdlist_regs *cl_regs)
 > +{
-> +	struct dpu_clk_context *clk_ctx =3D &a_crtc->clk_ctx;
+[ ... ]
+> +	if (cl->type =3D=3D CMDLIST_PLANE) {
+> +		struct spacemit_plane_state *spacemit_pstate =3D
+> +				cl_to_spacemit_pstate(cl);
 > +
-> +	trace_dpu_disable_clocks(a_crtc->dev_id);
+> +		a_crtc =3D to_spacemit_crtc(spacemit_pstate->state.crtc);
 > +
-> +	clk_disable_unprepare(clk_ctx->pxclk);
-> +	clk_disable_unprepare(clk_ctx->mclk);
-> +	clk_disable_unprepare(clk_ctx->escclk);
+> +		drm_dbg(a_crtc->crtc.dev, "rch_id =3D %d, ch_y =3D %u\n",
+
+[Severity: High]
+When a plane is disabled, its state.crtc is set to NULL. Could a_crtc end
+up being NULL here, leading to a dereference when accessing
+a_crtc->crtc.dev for logging?
+
+> +			spacemit_pstate->rdma_id,
+> +			spacemit_pstate->state.crtc_y);
+> +	} else if (cl->type =3D=3D CMDLIST_CRTC) {
+[ ... ]
+> +void cmdlist_sort_by_group(struct drm_crtc *crtc)
+> +{
+> +	struct cmdlist *first_cl;
+> +	struct cmdlist *last_cl;
+> +	struct cmdlist *p;
+> +	struct cmdlist *prev;
+> +	struct drm_plane *plane;
+> +	struct spacemit_crtc_rdma *rdmas =3D
+> +			to_spacemit_crtc_state(crtc->state)->rdmas;
+> +	struct spacemit_drm_private *priv =3D crtc->dev->dev_private;
 > +
-> +	clk_disable_unprepare(clk_ctx->aclk);
-> +	clk_disable_unprepare(clk_ctx->dscclk);
+> +	drm_atomic_crtc_for_each_plane(plane, crtc) {
+> +		struct spacemit_plane_state *spacemit_pstate =3D
+> +			to_spacemit_plane_state(plane->state);
+
+[Severity: High]
+Does directly accessing the current plane->state create a TOCTOU race
+with subsequent non-blocking commits?=20
+
+In asynchronous commit tails, the DRM core swaps these pointers. Using
+plane->state directly instead of the passed drm_atomic_state might result
+in reading uncommitted state.
+
+> +		u32 rdma_id =3D spacemit_pstate->rdma_id;
+> +
+> +		first_cl =3D &spacemit_pstate->cl;
+> +		if (!first_cl->va)
+> +			continue;
+> +
+> +		last_cl =3D first_cl;
+> +		last_cl->next =3D NULL;
+
+[Severity: Critical]
+What happens to the command list of unmodified planes during CRTC commits?=
+=20
+
+It looks like we mutate last_cl->next for all active planes, even those
+not modified by the current commit. Later in cmdlist_atomic_commit(),
+cmdlist_fill_conf_row() appends configuration rows to it. Since the plane
+state isn't duplicated, does cl->nod_len grow unboundedly on every update
+until it overflows the fixed DMA buffer?
+
+> +
+> +		rdmas[rdma_id].in_use =3D true;
+> +		if (priv->cmdlist_groups[rdma_id]) {
 
 [Severity: Medium]
-Providers should usually be disabled after their consumers, but this matches
-the exact forward order they were enabled in dpu_enable_clocks().
+Is there a guarantee that rdma_id is within bounds?=20
 
-Are these clocks being disabled in the correct order?
+We are using it as an index into rdmas[] and priv->cmdlist_groups[]
+without validating it against the hardware limit (hwdev->rdma_nums) or
+checking for RDMA_INVALID_ID.
 
 [ ... ]
-> +static int dpu_init(struct spacemit_crtc *a_crtc)
+> +void cmdlist_atomic_commit(struct drm_crtc *crtc,
+> +			   struct drm_crtc_state *old_state)
 > +{
-> +	unsigned int timeout =3D 1000;
-> +	struct spacemit_drm_private *priv =3D a_crtc->crtc.dev->dev_private;
+> +	int i;
+> +	struct cmdlist *cur_cl, *first_cl;
+> +	struct spacemit_crtc *a_crtc =3D NULL;
+> +	u32 chy, addrl, addrh;
+> +	struct spacemit_drm_private *priv =3D crtc->dev->dev_private;
 > +	struct spacemit_hw_device *hwdev =3D priv->hwdev;
+> +	struct spacemit_crtc_rdma *cur_rdmas =3D
+> +			to_spacemit_crtc_state(crtc->state)->rdmas;
+
+[Severity: High]
+Similar to the plane state access earlier, does accessing crtc->state
+directly create a race condition with asynchronous commits?
+
+> +	struct spacemit_crtc_rdma *old_rdmas =3D
+> +			to_spacemit_crtc_state(old_state)->rdmas;
 > +
-> +	if (!a_crtc->clocks_on)
+> +	a_crtc =3D to_spacemit_crtc(crtc);
+> +
+> +	for (i =3D 0; i < hwdev->rdma_nums; i++) {
+> +		if (old_rdmas[i].in_use)
+> +			hwdev->enable_cmdlist(a_crtc, hwdev, i, false);
+> +
+> +		if (cur_rdmas[i].in_use) {
+> +			drm_dbg(crtc->dev, "cmdlist group =3D %d\n", i);
+> +			cur_cl =3D priv->cmdlist_groups[i];
+> +			first_cl =3D cur_cl;
+> +			while (cur_cl) {
+> +				hwdev->cmdlist_fill_conf_row(cur_cl, hwdev,
+> +					CMDLIST_CMP_INVALID);
+> +				cmdlist_dump_node(cur_cl);
+> +				cur_cl =3D cur_cl->next;
+> +			}
+> +			chy =3D cl_to_spacemit_pstate(first_cl)->state.crtc_y;
+
+[Severity: High]
+If cmdlist_sort_by_group() skips populating priv->cmdlist_groups[i]
+because first_cl->va was NULL, but cur_rdmas[i].in_use remains true
+(inherited from the old state before disabling), could cur_cl become NULL?
+
+If so, this would lead to a NULL pointer dereference when accessing
+first_cl or priv->cmdlist_groups[i]->pa just below.
+
+> +			addrl =3D (lower_32_bits(priv->cmdlist_groups[i]->pa) &
+> +				 CMDLIST_ADDRL_ALIGN_MASK) >> CMDLIST_ADDRL_ALIGN_BITS;
+[ ... ]
+> +int spacemit_cmdlist_alloc(struct device *dev, struct cmdlist *cl)
+> +{
+> +	if (cl->va)
 > +		return 0;
 > +
-> +	while (timeout) {
-> +		if (hwdev->get_cfg_rdy(a_crtc, hwdev) =3D=3D 0)
-> +			break;
-> +		usleep_range(100, 200);
+> +	cl->size =3D PER_CMDLIST_SIZE;
+> +	cl->va =3D dma_alloc_coherent(dev, cl->size, &cl->pa,
+> +				    GFP_KERNEL | __GFP_ZERO);
 
 [Severity: High]
-dpu_init() appears to be called from the CRTC's atomic enable sequence,
-where sleeping is strictly forbidden and can cause kernel warnings or
-deadlocks.
+Should the command list DMA buffer be embedded directly in the transient
+plane state?=20
 
-Is it safe to call a sleeping function like usleep_range() here?
+By skipping allocation when cl->va is non-NULL, duplicating plane states
+results in a shallow copy where all states share the same physical DMA
+buffer. Mutating this buffer during a new atomic commit might overwrite
+the command list actively being scanned out by the hardware.
 
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_dmmu.c b/drivers/gpu/drm/s=
+pacemit/spacemit_dmmu.c
+> index 0000000000000..ff4b3378a087c 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_dmmu.c
 [ ... ]
-> +static void dpu_uninit(struct spacemit_crtc *a_crtc)
+> +static inline void spacemit_dmmu_fill_pgtable(struct dpu_mmu_tbl *tbl,
+> +					      struct sg_table *sgt)
 > +{
-> +	struct spacemit_drm_private *priv =3D a_crtc->crtc.dev->dev_private;
-> +	struct spacemit_hw_device *hwdev =3D priv->hwdev;
+> +	struct sg_dma_page_iter dma_iter;
+> +	u32 max_entries =3D tbl->size / 4;
+> +	u32 *ttbr =3D tbl->va;
+> +	u32 i =3D 0, n =3D 0, temp =3D 0;
 > +
-> +	if (!a_crtc->clocks_on)
-> +		return;
-> +
-> +	trace_dpu_uninit(a_crtc->dev_id);
-> +	hwdev->irq_enable(a_crtc, false);
-> +}
-
-[Severity: High]
-If the driver unbinds while the timer is pending, the timer callback could
-execute on freed spacemit_crtc memory, leading to a use-after-free.
-
-Should there be a synchronous cancellation of cfg_rdy_timer here?
-
-[ ... ]
-> +static inline void dpu_isr_vblank(struct spacemit_crtc *a_crtc, bool *fl=
-ip)
-> +{
-> +	struct drm_crtc *crtc =3D &a_crtc->crtc;
-> +	struct drm_device *drm =3D crtc->dev;
-> +	struct drm_pending_vblank_event *event;
-> +
-> +	drm_crtc_handle_vblank(crtc);
-> +
-> +	if (*flip)
-> +		return;
-> +	*flip =3D true;
-> +
-> +	/*
-> +	 * event_lock serialises this against the commit arming
-> +	 * crtc->state->event.
-> +	 */
-> +	spin_lock(&drm->event_lock);
-> +	event =3D crtc->state->event;
-> +	if (event) {
-
-[Severity: High]
-The crtc->state can be swapped asynchronously by
-drm_atomic_helper_swap_state(), which could cause this handler to point to a
-new event and lose the old one if multiple commits are queued rapidly.
-
-Is it safe to directly dereference crtc->state->event dynamically from an
-asynchronous context?
-
-[ ... ]
-> +static u32 dpu_online_isr(struct spacemit_crtc *a_crtc)
-> +{
-[ ... ]
-> +	irq_raw =3D hwdev->get_int_sts(hwdev, dev_id);
-> +	trace_dpu_isr_status("ONLINE", irq_raw);
-> +	irq_bit =3D hwdev->get_irq_bit(INT_UNDERRUN, dev_id);
-> +	irq_ur_bit =3D irq_raw & irq_bit;
-> +	if (irq_ur_bit && !a_crtc->ur_reported) {
-> +		hwdev->clr_int_sts(a_crtc, irq_ur_bit, dev_id);
-> +		trace_dpu_isr_status("underrun", irq_ur_bit);
-> +		drm_err_ratelimited(a_crtc->crtc.dev, "underrun\n");
-> +		a_crtc->ur_reported =3D true;
-> +	}
-> +	irq_bit =3D hwdev->get_irq_bit(INT_CFG_RDY, dev_id);
-> +	if (irq_raw & irq_bit) {
-> +		hwdev->clr_int_sts(a_crtc, irq_bit, dev_id);
-> +		trace_dpu_isr_status("cfg_rdy_clr", irq_raw & irq_bit);
+> +	for_each_sgtable_dma_page(sgt, &dma_iter, 0) {
 > +		/*
-> +		 * A fired watchdog already sent the event and put this flip's
-> +		 * vblank reference; re-arming the vsync path would put twice.
+> +		 * atomic_check sized the table off this same fb; catch a drift
 > +		 */
-> +		if (timer_delete(&a_crtc->cfg_rdy_timer))
-> +			a_crtc->flip_done =3D false;
+> +		if (WARN_ON_ONCE(n + HW_ALIGN_TTB_NUM >=3D max_entries))
+> +			break;
 
 [Severity: High]
-If the timer executes on another CPU, timer_delete() returns 0 and both the
-ISR and the timer handler could execute lockless modifications to flip_done
-and call drm_crtc_vblank_put() twice.
+If we hit this WARN_ON_ONCE and break early, we don't communicate the
+truncated size back to the caller.=20
 
-Could this non-synchronous timer cancellation leave the callback running
-concurrently?
-
-[ ... ]
-> +	irq_bit =3D hwdev->get_irq_bit(INT_REST, dev_id) | irq_ur_bit;
-> +	if (irq_raw & irq_bit)
-> +		hwdev->clr_int_sts(a_crtc, irq_bit, dev_id);
-
-[Severity: Medium]
-The code takes a single snapshot of irq_raw at the start of the ISR, clears
-irq_ur_bit if present, and then clears it again here using the stale
-snapshot. A new underrun firing in that window could be cleared without
-being processed.
-
-Does double-clearing the underrun interrupt status risk losing interrupts?
-
-[ ... ]
-> +static void dpu_run(struct drm_crtc *crtc,
-> +		    struct drm_crtc_state *old_state)
-> +{
-[ ... ]
-> +	/* flush all config register writes before CFG_RDY is raised */
-> +	mb();
-> +
-> +	drm_crtc_vblank_get(crtc);
-
-[Severity: Medium]
-If getting the vblank fails, the reference is not taken, but the ISR still
-unconditionally calls drm_crtc_vblank_put(), which can lead to a vblank
-reference count underflow.
-
-Should the return value of drm_crtc_vblank_get() be checked?
-
-> +	if (hwdev->enable_cfg_irq)
-> +		hwdev->enable_cfg_irq(a_crtc, hwdev, true);
-> +
-> +	saturn_ctrl_cfg_ready(a_crtc, true);
-> +
-> +	if (unlikely(a_crtc->is_1st_f)) {
-> +		drm_dbg(a_crtc->crtc.dev, "DPU start\n");
-> +		a_crtc->is_1st_f =3D false;
-> +		saturn_ctrl_sw_start(a_crtc, true);
+> +		ttbr[n++] =3D (sg_page_iter_dma_address(&dma_iter) >> PAGE_SHIFT) & 0x=
+3FFFFFF;
 > +	}
-> +	dma_rmb();
-> +}
-
-[Severity: Medium]
-A read memory barrier strictly enforces ordering between CPU reads, but the
-preceding operation writes to DMA control registers to start the engine.
-
-Is this read memory barrier required here? It seems semantically out of
-place.
-
-> diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c b/drivers/gpu/=
-drm/spacemit/dpu/dpu_saturn_hee.c
-> --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c
 [ ... ]
-> +void saturn_hee_plane_update_hw_channel(struct drm_plane *plane)
+> +int spacemit_dmmu_map(struct drm_framebuffer *fb, struct dpu_mmu_tbl *mm=
+u_tbl,
+> +		      u8 tbu_id, struct cmdlist_regs *cl_rdma,
+> +		 struct drm_plane *plane)
 > +{
-[ ... ]
-> +	if (state->fb->format && state->fb->format->has_alpha &&
-> +	    pixel_alpha !=3D DRM_MODE_BLEND_PIXEL_NONE) {
+> +	struct spacemit_drm_private *priv =3D fb->dev->dev_private;
+> +	struct spacemit_hw_device *hwdev =3D priv->hwdev;
+> +	struct sg_table *sgt =3D NULL;
+> +	struct tbu_instance tbu =3D { };
+> +	u32 val;
+> +
+> +	sgt =3D drm_gem_shmem_get_pages_sgt(to_drm_gem_shmem_obj(fb->obj[0]));
 
 [Severity: High]
-For solid fill planes, state->fb is typically NULL. Evaluating
-state->fb->format without a NULL check could cause a kernel oops when
-userspace submits an atomic commit for a solid-color plane.
+Is it safe to call this here?=20
 
-Can state->fb be NULL here?
+drm_gem_shmem_get_pages_sgt() performs a sleepable allocation (GFP_KERNEL)
+and acquires a mutex. If called during atomic_update (the standard
+hardware programming phase), it sleeps in an atomic context.
 
-[ ... ]
-> +	cl_cmp =3D alloc_cmdlist_regs(CMPS_X_REG);
+If called during prepare_fb to avoid the atomic context, does mutating
+the cl_rdma buffer below introduce data races with the hardware
+processing the previous frame?
+
+> +	if (IS_ERR(sgt))
+> +		return PTR_ERR(sgt);
 > +
-> +	base =3D CMP_BASE_ADDR[a_crtc->dev_id];
-> +	dpu_write(hwdev, CMPS_X_REG, base, dst_w, mode->hdisplay, cl_cmp);
-> +	dpu_write(hwdev, CMPS_X_REG, base, dst_h, mode->vdisplay, cl_cmp);
-> +
-> +	SATURN_WRITE_COMPOSER_LAYER(00);
+> +	/* Every advertised format is single-planar */
+> +	tbu.ttb_pa[0] =3D mmu_tbl->pa;
+> +	tbu.tbu_va[0] =3D TBU_BASE_VA(tbu_id);
+> +	tbu.ttb_size[0] =3D roundup(fb->obj[0]->size, PAGE_SIZE) >> PAGE_SHIFT;
 
 [Severity: High]
-The alloc_cmdlist_regs macro internally uses kzalloc with GFP_KERNEL.
+Since tbu.ttb_size[0] is programmed to the full FB size regardless of
+whether spacemit_dmmu_fill_pgtable() truncated the table, could this
+cause the hardware DMMU to read out of bounds past the physical
+allocation of mmu_tbl?
 
-Can this allocation sleep in an atomic context and trigger deadlock warning=
-s,
-since it is called from the plane atomic update callback?
-
-Also, if this allocation fails and returns NULL, cl_cmp is passed directly =
-to
-SATURN_WRITE_COMPOSER_LAYER and dpu_write. The dpu_write logic falls back to
-direct MMIO writes when the command list is NULL.
-
-Does this bypass command list synchronization to VBLANK and risk applying
-partial state immediately?
-
-[ ... ]
-> +struct cmdlist_header {
-> +	u64 next_list_addr : 39;
-> +	/* reserved */
-> +	u32: 1;
-> +	u32 nod_len : 16;
-> +	/* 1: the last cmdlist node, 2: pending node, otherwise 0 */
-> +	u32 nod_type : 2;
-> +	u32 next_nod_secu : 1;
-> +	u64 wait_event_low    : 5;
-> +	u64 wait_event    : 59;
-> +	/* reserved */
-> +	u32: 5;
-> +};
-
-[Severity: Medium]
-Bitfield packing and ordering are heavily compiler and architecture depende=
-nt,
-which might produce incorrect structures in memory for the hardware DMA to
-read.
-
-Is it safe to use C bitfields for hardware DMA descriptor layouts?
-
-[ ... ]
-> +void saturn_hee_cmdlist_fill_data_row(struct cmdlist *cl, u32 strobe,
-> +				      u32 offset, u32 value[])
-> +{
-> +	struct cmdlist_row *row;
-> +	u8 i;
+> +
+> +	spacemit_dmmu_fill_pgtable(mmu_tbl, sgt);
 > +
 > +	/*
-> +	 * packing counts rows blindly; drop the row rather than the buffer end
+> +	 * enable =3D 1, fbc_mode =3D 0 (linear only)
+> +	 * single plane in bits [3:2]
 > +	 */
-> +	if (WARN_ONCE(CL_HEADER_SZ + (cl->nod_len + 1) * CL_ROW_SZ > cl->size,
-> +		      "cmdlist buffer full (rows %u)\n", cl->nod_len))
-> +		return;
+> +	val =3D 0x1;
+> +	/* tbu_burst_limit_en =3D 1, tlb_fetch_active_en =3D 1 */
+> +	val |=3D BIT(4) | BIT(5);
+> +	val =3D val | (DPU_QOS_URGENT << 8);
+> +	hwdev->rdma_dmmu(hwdev, tbu_id, &tbu, fb, val, cl_rdma, plane);
 
-[Severity: High]
-Since this function silently drops the row and returns void, the caller
-cmdlist_regs_packing() will blindly increment cl->nod_len regardless of
-buffer truncation.
-
-Could this inflated length cause the DMA engine to read past the end of the
-initialized buffer?
-
-> diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c b/drivers/gpu/d=
-rm/spacemit/dpu/saturn_fbcmem.c
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_dpu_reg.h b/drivers/gpu/dr=
+m/spacemit/spacemit_dpu_reg.h
+> index 0000000000000..a57ed34d38e2f 100644
 > --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c
+> +++ b/drivers/gpu/drm/spacemit/spacemit_dpu_reg.h
 [ ... ]
-> +int saturn_cal_layer_fbcmem_size(struct drm_plane *plane,
-> +				 struct drm_plane_state *state)
-> +{
-> +	struct spacemit_plane_state *pstate =3D to_spacemit_plane_state(state);
-> +	u32 drm_4cc_fmt =3D pstate->state.fb->format->format;
+> +#define __dpu_mmio_field_write(__addr, __mask, data)			\
+> +do {									\
+> +	if ((__mask) =3D=3D 0xffU)						\
+> +		writeb((u8)((data) & 0xffU), __addr);			\
+> +	else if ((__mask) =3D=3D 0xff00U)					\
+> +		writeb((u8)((data) & 0xffU), (__addr) + 1);		\
+> +	else if ((__mask) =3D=3D 0xff0000U)					\
+> +		writeb((u8)((data) & 0xffU), (__addr) + 2);		\
+> +	else if ((__mask) =3D=3D 0xff000000U)				\
+> +		writeb((u8)((data) & 0xffU), (__addr) + 3);		\
+> +	else if ((__mask) =3D=3D 0xffffU)					\
+> +		writew((u16)((data) & 0xffffU), __addr);		\
+> +	else if ((__mask) =3D=3D 0xffff0000U)				\
+> +		writew((u16)((data) & 0xffffU), (__addr) + 2);		\
+> +	else if ((__mask) =3D=3D 0xffffffffU)				\
+> +		writel((u32)(data), __addr);				\
+> +	else								\
+> +		writel((readl(__addr) & ~(__mask)) |			\
+> +		       FIELD_PREP(__mask, (u32)(data)), __addr);	\
 
-[Severity: High]
-If a plane is being disabled or is in a solid fill mode, the framebuffer
-pointer will be NULL, which would cause an immediate crash during the atomic
-check phase.
+[Severity: Medium]
+Could concurrent updates corrupt the hardware state here?=20
 
-Is it guaranteed that pstate->state.fb is non-NULL here?
+This is an unprotected read-modify-write sequence. If a register contains
+multiple fields updated from different contexts (e.g., process context
+during atomic commits and interrupt context during ISR handling), it
+might lose updates without a spinlock.
+
+> +} while (0)
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-k3-display=
--v2-0-327d7910bf71@gmail.com?part=3D9
+-v2-0-327d7910bf71@gmail.com?part=3D8
