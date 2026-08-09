@@ -4,90 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5CC8BC5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4317CC5B560
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 798E710E665;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4A7E10E667;
 	Mon, 10 Aug 2026 06:38:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kaskAhfu";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LJcSjUok";
 	dkim-atps=neutral
-Received: from mail-pj2-f0.google.com (mail-pj2-f0.google.com [74.125.227.128])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 610A910E03C
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 14:39:20 +0000 (UTC)
-Received: by mail-pj2-f0.google.com with SMTP id
- 98e67ed59e1d1-380f4166f80so526819a91.1
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 07:39:20 -0700 (PDT)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 831E710E0CB
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 05:13:45 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-84e507b079dso459481b3a.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 22:13:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786199960; x=1786804760; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=gLPlagPSnxq9fTONnyyz/3ddba5KQ5Gz9V5u0Vh5tVQ=;
- b=kaskAhfur9lI0Si/oHi1Of83xnOCXef5SCRQaScw9IaU9Gc6RCNR9+e4+JSrDgaEQL
- 1hEMx1pGjOvJkahaTkn1srphpEGSmDygX0QcjH/LGZ4+rb9GZU5aj05ZfzJC0figKZux
- Hm3ioZ8i8dPSnL2XFB/L/iGQ6xZi5O4wfGPeMwDeS88Qm8glgt+Wqs8LNOh5KzE4WBsi
- WxWQjITAfW6WC5A7csv64rBnV3EcGQ+LpJI1ib25c2WA9ksTXO5yQT7g5qQCQKy8HMwc
- GQR3VHC4h88h0n7nE82ghCcpJs/1tmsLxQjPAhMTEfPe+OuzlOvt5E3p0cwMPjUzVbQk
- JYNw==
+ d=gmail.com; s=20251104; t=1786252425; x=1786857225; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Jxy36nydTdeDBb8ceeDdse8qoQ8B4JIq+QDkrcZSSIw=;
+ b=LJcSjUokiCclrB5Xspc5rh5W9gAweGlVDZeRieIPm5F6UDSLvuuiiCtFOMZ16qKzP/
+ 5ttYtrgcXIIQTg3+tH9EqRM67n2sW82bhcDK5qyvUC4DfaW2d8xBz8eOUIVWbb9oGLKc
+ EwSotZQUo9EwkedMCT8OTYcYRsjOpTLoX3LT6pVLyGczHe5D5p41tQJwZoikpsVPOxrg
+ PQOzRBQ+bDGeI4ZVxJWSnSEdwawCZzHm2jjt+0KGP+E/qEi20Fqx6ZV65NMnpWrdQWOt
+ 4v+7/uidBfhDgEMyu1GEuqCmwZAeoqaCDG4IS5l+ByRTk3lKtIKOx95udyH+LRgK93jz
+ 4h0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786199960; x=1786804760;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=gLPlagPSnxq9fTONnyyz/3ddba5KQ5Gz9V5u0Vh5tVQ=;
- b=KBROo8iICce8/28n/URinJbTz2lwJGULyZXWuYTCEtYKBIcrJyHgf4/TDcb8wUnJSQ
- SR1OBUypojUFHMakde/Y+6moXpxrH2hIahG6DKL/spKJz5HV7j5RMkYLIrU7BgiZqZDI
- TKsGpP3H1HSEhbg1YCtyQtLcIHDol845JFHJUWUY1BNA6SLqtYBNjF9HkJyugLGqp2E9
- hiKnu68QtgT0Kc6O3nV0ZfaCs4bItuopY+lHN3breSk40b8ZG2B/LEO+bBDUqpJpUM26
- vsSLPupdvBlkvO/r228XlnBtrTAcrWLHOESIjHrMlkprPn4duhw6RRipC0AU9LV+n3ej
- LW3Q==
+ d=1e100.net; s=20251104; t=1786252425; x=1786857225;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Jxy36nydTdeDBb8ceeDdse8qoQ8B4JIq+QDkrcZSSIw=;
+ b=aSLnTGCPkijqv5CSouyoimWqvqQMCQAU6VUVbejmhCVbu0c8Pow7fCb8F/2vkXCwWH
+ XcgzhrOYMJTT2qghNI6TTDi86nstxyvTS5hcRH4wUSfGifOlYi9rQ6ljcY6Bm87PE/bI
+ c7M4xLB5D4unRCez5Jx/Z/c89AAK3jk2qcI/m73d/QftjJceKP00qP81neoTCeBXGTN0
+ iyaB6bt18RYWhJV+OxX7kEPtcYmKj7JMfMxhv07YASFu3qW2SDr0DT9sYZbuNThkd6p5
+ VN5vN+4cNaLBkfebkZuWAs6LD8hVvhCHymJrOTI/NHfIBmTjO4O/+AbE2UJY7soIGVzO
+ 7BOQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrC8XTm+oW1rrizqxXtO90xRKyqqHq4eoVhLo0gdGt3mj8KcC9sMvyM+9ZQyTc+GvU/IUNNvCLTArs=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw71YTEXMWSFiBkJAsmo5CI9zJWcjgaE8RLCqlB3ZIX7ECf6NK2
- aoL5TJ0y8nTOcu/tn9JTDikWOnXQt3sXfpTglvbFNcprz2f1oR96S2Te
-X-Gm-Gg: AR+sD119skBtbHzosL8Eo8H+F7IldFLOjxL8Az9MBJwXCUrb7ZM5U4jjdrXnjjluIsR
- YD+VprTMSPDT/TeoiPJGnG3rc35Y+COBIRe3TbFLaEJ/iWdgrCC4+pfc4s/GZk+3sy9IsVySuJ8
- oJlewx3b7WsUuzOZz+Yl2KXSovYcFc8CNz9H3iwtp26Hb6cPR5MB+xXd/UHUrlCdFm3EbIO3stz
- 0BO0zglgmyZFg5qzHXn/JfNS4FEi35F9rK71mGjQY+ifuPuQqULrOhhl80j9Ia1qsZRLpQgUCF0
- TVMvajdw23UykBiVUoTXWqC/gE6N+BPGME1GEmFD1iaC55dRdTyx5RC2DH7Ae1jk0d33qtu+zfG
- 28dtmkXPnjLXvm6kA9kl21rmC+6iIIizVAxTFvX2L+BPCQNUMdPSFjcsLOwnkk0vwboEA0n6bwc
- DPmtY29+Y1VR6a4LBNhiiXvS5f14/I2pNrQJuAVCU=
-X-Received: by 2002:a17:90b:2585:b0:38e:bbf1:de34 with SMTP id
- 98e67ed59e1d1-39261fdab5amr13832835a91.7.1786199959787; 
- Sat, 08 Aug 2026 07:39:19 -0700 (PDT)
-Received: from localhost ([2403:2c80:17:1e::20db])
+ AHgh+RoUD5/vAvIfUROH1hJOJHJJfIeN6iu9sbJVrYb953XEdEPA+dndIYZR8RJ6PxpPj7Mw0iaDE9tp8uk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHgNwRYS6o9D5xh0AtddGC5W66d1HEyYuNgwXaPNrlf0dlP511
+ MhxcGCUQ4YMW9tXUHSNsrmab6JqqRWWMttjFq2km78Be+k/8DRbFxUb0
+X-Gm-Gg: AR+sD103rz934GTGArtvcoAz2x7wVDMDQREIWhuT5ZLgq4XxJ12G/i426JBfm/lM22e
+ 7WETpaTeWIPHN5/D/aIQURhueDRlxjYHEzaiQeDLnfuXPp+1JwNannYO1IhkA4+KCDWy/Vqcquy
+ zYJDhrIwWWxhPbw84E09cDYs7DC9n3uCXJk35b3kT3RRjhgsw/spltYviaogRDv2UWr756r8FIX
+ bDdcN2PMlXsWZwPi1fBelzr3AZQN3fpgwXg7EBuZnhxyI/7AnazWA95kBNdRuvkdx5tWQl8ZBaw
+ YG4THQdI9xiB58bDTBHyZxQcgo2MNeUQAp3Y8kSM62x28UJz1wv4pFHGARlaUi4ofFKX0Q0noK0
+ k7bOkQXUIdIG82180ePeS3/L9NjqJO4S1MewZ/siAwwtHBjGesJsnaCTnk+uhEx414lPuH5rpv8
+ l+ez5RnUDnr15a+hVOrOn+kTStWGSwI55oLY4y7WIaKckyIEUe4kK8r03ThNv4tv2C/aN9UYmeP
+ RI6ubv81I6C
+X-Received: by 2002:a05:6a21:69a:b0:3c8:e313:8d42 with SMTP id
+ adf61e73a8af0-3cbce96f6dcmr12821608637.31.1786252424949; 
+ Sat, 08 Aug 2026 22:13:44 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.204.108])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3925fd95794sm6424491a91.7.2026.08.08.07.39.18
+ 5a478bee46e88-315be8a7395sm27095702eec.9.2026.08.08.22.13.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 07:39:19 -0700 (PDT)
-Date: Sat, 08 Aug 2026 22:39:16 +0800
-Message-ID: <ec84e2ba71be5e82a3afcf257129bf58.codykang.hk@gmail.com>
-From: Cody Kang <codykang.hk@gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Yixun Lan <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-clk@vger.kernel.org
-Subject: Re: [PATCH RESEND 03/17] dt-bindings: display: spacemit: add K3
- Innosilicon DP/eDP controller
-In-Reply-To: <20260807230404.GA2211679-robh@kernel.org>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-3-6de34d80e86c@gmail.com>
- <20260807230404.GA2211679-robh@kernel.org>
+ Sat, 08 Aug 2026 22:13:44 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v3 6/6] drm/amdgpu/ras: Cancel delayed work before ACA
+ teardown in amdgpu_ras_fini
+Date: Sun,  9 Aug 2026 05:12:00 +0000
+Message-ID: <20260809051200.3276-7-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
+References: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -105,102 +94,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Rob,
+In amdgpu_ras_fini(), cancel_delayed_work_sync() is currently called
+after ACA subsystems and locks are destroyed. If the delayed work
+(ras_counte_delay_work) runs concurrently during teardown, it can
+evaluate aca_handle_is_valid() right before remove_aca_handle()
+frees the handle and destroys its mutex, resulting in a use-after-free
+and locking violation.
 
-On Fri, 07 Aug 2026 18:04:04 -0500, Rob Herring wrote:
-> On Sat, Jul 25, 2026 at 12:51:12AM -0400, Cody Kang wrote:
-> > Both K3 instances are the same IP and share one compatible; which one
-> > behaves as eDP is decided by what its downstream port is wired to, not by
-> > which register window it sits in, so the binding does not distinguish them.
-> >
-> > Signed-off-by: Cody Kang <codykang.hk@gmail.com>
-> > ---
-> >  .../display/spacemit/spacemit,k3-inno-dp.yaml      | 140 +++++++++++++++++++++
-> >  1 file changed, 140 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/display/spacemit/spacemit,k3-inno-dp.yaml b/Documentation/devicetree/bindings/display/spacemit/spacemit,k3-inno-dp.yaml
-> > new file mode 100644
-> > index 000000000000..865ea310daaf
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/display/spacemit/spacemit,k3-inno-dp.yaml
-> > @@ -0,0 +1,140 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/display/spacemit/spacemit,k3-inno-dp.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: SpacemiT K3 Innosilicon DisplayPort / embedded DisplayPort Controller
-> > +
-> > +maintainers:
-> > +  - Cody Kang <codykang.hk@gmail.com>
-> > +
-> > +description:
-> > +  Innosilicon DisplayPort transmit controller integrated in the SpacemiT K3
-> > +  SoC. The K3 has two instances of the same block sharing one compatible;
-> > +  each acts as embedded or external DisplayPort depending on whether its
-> > +  output port drives a panel or a connector.
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: spacemit,k3-inno-dp
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  interrupts:
-> > +    maxItems: 1
-> > +    description: Link and hot-plug events.
-> > +
-> > +  clocks:
-> > +    items:
-> > +      - description: Pixel clock for the controller.
-> > +      - description:
-> > +          Pixel clock generated by the DP PHY PLL; the pixel clock above is
-> > +          parented onto it in use.
-> > +
-> > +  clock-names:
-> > +    items:
-> > +      - const: pxclk
-> > +      - const: pll
-> > +
-> > +  resets:
-> > +    maxItems: 1
-> > +    description: Controller-wide reset signal.
-> > +
-> > +  phys:
-> > +    maxItems: 1
-> > +    description: Phandle to the K3 Innosilicon DP PHY.
-> > +
-> > +  phy-names:
-> > +    items:
-> > +      - const: dp
-> > +
-> > +  ports:
-> > +    $ref: /schemas/graph.yaml#/properties/ports
-> > +
-> > +    properties:
-> > +      port@0:
-> > +        $ref: /schemas/graph.yaml#/properties/port
-> > +        description: Video input from the DPU.
-> > +
-> > +      port@1:
-> > +        $ref: /schemas/graph.yaml#/properties/port
-> > +        description: Output to the panel or to the DisplayPort connector.
-> > +
-> > +    required:
-> > +      - port@0
->
-> Shouldn't port@1 be required too?
+Move cancel_delayed_work_sync() to the beginning of amdgpu_ras_fini()
+to ensure all pending work is flushed and stopped before resource
+deallocation starts.
 
-Thanks for the review. Yes, will make port@1 required in v2 and
-describe the DP connector on the board side (dp-connector) so the
-graph is complete.
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> Otherwise,
->
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 764cd4950408..118716ad0437 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -4751,6 +4751,7 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
+ 	if (!adev->ras_enabled || !con)
+ 		return 0;
+ 
++	cancel_delayed_work_sync(&con->ras_counte_delay_work);
+ 	amdgpu_ras_critical_region_fini(adev);
+ 	mutex_destroy(&con->critical_region_lock);
+ 
+@@ -4785,8 +4786,6 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
+ 	if (AMDGPU_RAS_GET_FEATURES(con->features))
+ 		amdgpu_ras_disable_all_features(adev, 0);
+ 
+-	cancel_delayed_work_sync(&con->ras_counte_delay_work);
+-
+ 	amdgpu_ras_set_context(adev, NULL);
+ 	kfree(con);
+ 
+-- 
+2.54.0
 
-Thanks! Will pick up your Reviewed-by with that change in v2.
-
-Cody
