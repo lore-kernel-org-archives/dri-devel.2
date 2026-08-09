@@ -4,43 +4,152 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC5AEC5AC67
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 00:42:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB2A2C5AD2C
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 00:50:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4A5510E0CC;
-	Sun,  9 Aug 2026 00:42:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 754E710E0BC;
+	Sun,  9 Aug 2026 00:50:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j2R0r9Gr";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="kIqao121";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 340FE10E490
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 00:42:51 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2A90660008;
- Sun,  9 Aug 2026 00:42:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 837231F000E9;
- Sun,  9 Aug 2026 00:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786236169;
- bh=p3RRc9s/COF2UdacQi8r1joQkZuAQDc3RZk0YPKAYYg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=j2R0r9GrYzASt5ZRhFm6eMmF0JfvufUoIfJcuX7FhPm+rmzLL5kTD9FIJ8fFpJVex
- Wye2xRm+F4zr+TnamIh05hg8J6Lbh0PX0+IgcRuWWPtjZhS2WIK8w9iUu6c4fHdHqS
- HdIULNXM+NOzmrEAg3jICQioG53w4KzqC9PHjXT03lI/B90jPAJDlIQCtThw48AW1Q
- DEQf15a9iJSJJOrHic9fv55itSXAKlbWRCztFvRaphfqHr+mOKw8+Hm+qy1V0B1WEB
- otx5URU3Y6LyJEimPtC2uc3lFkVcWMftxrWZmQXbINY1pCiVTDwRWZFMbk4LDjlUFo
- 7xNs4Cyy8ENrQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] drm/qxl: fix 32-bit overflow in the ALLOC_SURF size
- computation
-To: "Aldo Ariel Panzardo" <qwe.aldo@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260809002621.122832-1-qwe.aldo@gmail.com>
-References: <20260809002621.122832-1-qwe.aldo@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
+ [209.85.160.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0FA3010E355
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 00:50:02 +0000 (UTC)
+Received: by mail-qt1-f171.google.com with SMTP id
+ d75a77b69052e-51c15a5b265so178111cf.0
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 17:50:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786236601; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Kd6jursfhiGcdRZBzTBp9k3Mar1oFQzj1SLRABRc5fK0YyIhfAm20k/tjF6yzqc2P6
+ GbciFabOzoaJFXQItUu/j7b8ix3MA14T+fsJPSSYYg2dgRgaq4VxhXGerYTyDcmBYij6
+ 2/b8Eq2rM0Q37koGjjEc2yGswJmm1jy5dEaq7LuIeiXYdANn7O5ydhQc5Gb8syE7UhtT
+ 40ENijBtvf5cU2jQDSGop1FiW6wySCeVM6EMSNVpcNuHQzMtSjh6VL9W4+6AJrEKe5Y8
+ 4OjTwXuL9ph7UpFM9ZPRjbtGIVUron/AdHjr6VCHu7wKAH9pr/8lNKyPS7u/+RiccfAx
+ fM1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=glHudYQR7Sx8Ip0RwDHznG86gS5ZxNzd6JiJvbqbi6Y=;
+ fh=j6aEvUOfPa/+MYpXklZuGu9vaAgE9Gf74jG55Lw+hTc=;
+ b=pKzjRXUrHln2oKYyFGxVWlsLXVQArUzwiWKp0DsQyZixKhfVCqWCuE5v6ELf0OCZF+
+ morlQtEJVbASaMOVOd1Bwd4aHUSULXzJCoSl7SyLRblnPyQ5u6gLxZ7vU1sCzVkygF5J
+ i8s7mI5M7EKmzibaLEdsP4N2SVRE3Ut1328Gu7zRzrlMumENG/LEHVEiv955jKR86PA1
+ YzcJ0GxOvNgGMrOrGSkGOv6SP+ri0/H5dwlersFJgbR6Vdt/b7ArVV38MKjGxVzl17X0
+ 9Cs1rtImz7Dq18C8jjkma+Gk0zrbGhb6BAh5zdP/c0/JpmzA07ncOmo/aKQYCoSiVnFN
+ ytug==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1786236601; x=1786841401;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=glHudYQR7Sx8Ip0RwDHznG86gS5ZxNzd6JiJvbqbi6Y=;
+ b=kIqao121XodBEGi30viH5tfAILvCJ/ziPgvnYex1TOvCfhfJOWYgvM38hfKmTBSPWm
+ HSqa3s1d9QngV819iwVu+usEKe/rtQ0JbiCLBKEd4UryYsgXAZQr+Iw2VBNkIbLhTs0u
+ 8WpGTejP4dV9WKRLoTWnIRkyffwNNGndrrDDGfCUvdwetRV1nXTPW42JXr/JOsecMuDn
+ DK2kC8bFvLL1c0V2j7aouzMn+CM+fbeBMT8eCXGojG5k0Z7dq4GMCHn9VY+2qy/8h8zK
+ 8VkxBVe6Nde1Jz2n1MMRDQBs7xzuomCFc2uILvZRPcJVcAMxQGPD1Yj8qaMxT09StqyC
+ OTxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786236601; x=1786841401;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=glHudYQR7Sx8Ip0RwDHznG86gS5ZxNzd6JiJvbqbi6Y=;
+ b=TfoaNWDMGD+3jUDWUdL7fRcXsFTYJ4ePKMbC0538lby8fg//1bY4ImDu8LWTsaw01x
+ Jf2AqO7CjVPUueF56iOv9Dkz8YcwduYEuSJ4kgTAcqxVte40vrKnHCcQY6E60LmzBOyn
+ WI8XVUsDIN/BkZ9F4cjhezFkBs4dIaALnCCFEpDvJBC0+6pMmilb/m6Ih7xh+HPvliKv
+ 6I6YIaA4tbcZb9AQQ9Yl7IrUgKPcfdp01AizOnX/dBdfNOuFVxvl1wPnYekEB6Z6jlLa
+ l4FVM8iLmimmmAyZFC3/XICWwuhAXoYl4hCUtfyaWXShhL/5rQ1KNUOY9q0NPOpNpD2K
+ FhQg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro/2HO3iEf+CaPSBHPr5wNxMiaXGRzrLRJRKpws7KSDoTbvPdyfqsT2wL3Kb7Xp4jS+9j60LYJRId8=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzXacQ+I5GWleXiLw5OLc9506dFuguuDAa2xwqTfKXKf5oDLoTD
+ LNysFsfYbv4HZ2a9oeZAqs9IrdzD3N9zTwCE3qpmu9fAmVSM2Q0V2jqvFrPOCY87T11uAy40ZZp
+ QHUYGOA//lIobKlPUfAs2JyxpWh7ImIpzZYhvAGg4
+X-Gm-Gg: AR+sD104LLJQX+1PIlhS/IX8QpWdvDz9aR8tVJqcov9BnzbcdN/DaHLlMhOfhVb0fW3
+ rPhep8pnZ/+pu6Xdb/W/FL2ND9BSqFAcagaqMcn+pmSYjsVKd/uIxUrdz9jP4OwUUG/PxWhc9uC
+ hEHqZXJ6Z3k5ihtWQ8NzFm2FM3+7iOE/u3LhZ7ZRcUwa9Bj5HvIHEahd5TWUPK6ZIRMejzM4mZ0
+ WI/SoCtqko0YnZhPg9ro/nB52fZzCpRPXLTVbQWBfnIKQhOCr5hSJgj1Dd29Ak6WQJKgl2HlaLQ
+ srArSWh+a61vCodvgS75btm5Q+EYrhtsNin5CIczOAo=
+X-Received: by 2002:ac8:7f4f:0:b0:52b:4ec6:52ba with SMTP id
+ d75a77b69052e-52d23c37702mr15746931cf.6.1786236600065; Sat, 08 Aug 2026
+ 17:50:00 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-3-ab318a350404@kernel.org>
+In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-3-ab318a350404@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sat, 8 Aug 2026 17:49:48 -0700
+X-Gm-Features: AUfX_mw1Q82W2dZ-6X55NWg9zTGU5sEbnBW6U_FzEZzOIU5ZiJmeQXvgECKsKPA
+Message-ID: <CAJuCfpGjE66Duhw0r8H0GKBFDExjroRar6n5MgVOOQjz4ZfTuA@mail.gmail.com>
+Subject: Re: [PATCH v4 03/20] mm: introduce linear_anon_page_index()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 00:42:49 +0000
-Message-Id: <20260809004249.837231F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,109 +162,193 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Thu, Aug 6, 2026 at 1:23=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.or=
+g> wrote:
+>
+> This function provides the anonymous equivalent of linear_page_index(),
+> instead offsetting based on the anonymous page offset of the VMA.
+>
+> It is valid only for anonymous or MAP_PRIVATE file-backed mappings, in
+> other words CoW mappings.
+>
+> For pure anon VMAs, this will be equal to linear_page_index().
+>
+> Assert that both of these invariants are true In linear_anon_page_index()
 
-Pre-existing issues:
-- [Critical] The command relocation processing lacks bounds checking on `ds=
-t_offset`, allowing userspace to perform arbitrary writes to kernel or VRAM=
- memory.
-- [High] The size computation in `qxl_alloc_surf_ioctl` prevents integer ov=
-erflows but fails to validate that the userspace-provided `stride` is mathe=
-matically sufficient for the `width` of the surface, leaving it vulnerable =
-to undersized VRAM allocations.
---
+s/In/in
 
---- Patch [1]: [PATCH v2] drm/qxl: fix 32-bit overflow in the ALLOC_SURF si=
-ze computation ---
-commit 0b850095b7d5d290c2b02556121eaeca53cced5b
-Author: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> and implement the algorithm in __linear_anon_page_index().
+>
+> Note that MAP_PRIVATE-/dev/zero mappings will satisfy vma_is_anonymous()
+> but not fulfill this invariant, so when asserting this we check
+> vma->vm_file to account for this.
+>
+> We do not update callsites yet, so no functional change intended.
+>
+> Also const-ify vma_is_anonymous() to make it compatible with the
+> const-ified linear_anon_page_index().
+>
+> While we're here, update linear_page_index() to be more succinct.
+>
+> VMA userland tests are also updated accordingly.
+>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  include/linux/mm.h              |  2 +-
+>  include/linux/pagemap.h         | 40 +++++++++++++++++++++++++++++++++++=
+++---
+>  tools/testing/vma/include/dup.h | 25 ++++++++++++++++++++++++-
+>  3 files changed, 62 insertions(+), 5 deletions(-)
+>
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index a3368c542947..da36a6cc907c 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -1556,7 +1556,7 @@ static inline void vma_desc_set_anonymous(struct vm=
+_area_desc *desc)
+>         desc->vm_ops =3D NULL;
+>  }
+>
+> -static inline bool vma_is_anonymous(struct vm_area_struct *vma)
+> +static inline bool vma_is_anonymous(const struct vm_area_struct *vma)
+>  {
+>         return !vma->vm_ops;
+>  }
+> diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
+> index c6fc783aaee5..0adfa6605653 100644
+> --- a/include/linux/pagemap.h
+> +++ b/include/linux/pagemap.h
+> @@ -1094,10 +1094,44 @@ static inline pgoff_t linear_page_delta(const str=
+uct vm_area_struct *vma,
+>  static inline pgoff_t linear_page_index(const struct vm_area_struct *vma=
+,
+>                                         const unsigned long address)
+>  {
+> -       pgoff_t pgoff;
+> +       return linear_page_delta(vma, address) + vma_start_pgoff(vma);
+> +}
+> +
+> +static inline pgoff_t __linear_anon_page_index(const struct vm_area_stru=
+ct *vma,
+> +               const unsigned long address)
+> +{
+> +       return linear_page_delta(vma, address) + vma_start_anon_pgoff(vma=
+);
+> +}
+> +
+> +/**
+> + * linear_anon_page_index() - Determine the absolute anonymous page offs=
+et of
+> + * @address within @vma.
+> + * @vma: An anonymous or MAP_PRIVATE file-backed VMA in which @address r=
+esides.
+> + * @address: The address whose absolute page offset is required.
+> + *
+> + * This returns the anonymous page offset of @address, which is the page=
+ offset
+> + * the address possessed at the time the VMA was first faulted.
+> + *
+> + * For anonymous mappings, this returns the same value as linear_page_in=
+dex().
+> + *
+> + * For MAP_PRIVATE file-backed mappings, this returns the anonymous page=
+ offset
+> + * of @address, which is the page offset the address possessed at the ti=
+me the
+> + * VMA was first faulted.
+> + *
+> + * It is not valid to call this function for shared file-backed mappings=
+.
+> + *
+> + * Returns: The absolute anonymous page offset of @address within @vma.
+> + */
+> +static inline pgoff_t linear_anon_page_index(const struct vm_area_struct=
+ *vma,
+> +               const unsigned long address)
+> +{
+> +       const pgoff_t pgoff =3D __linear_anon_page_index(vma, address);
+> +
+> +       VM_WARN_ON_ONCE(!vma_is_cow_mapping(vma));
 
-drm/qxl: fix 32-bit overflow in the ALLOC_SURF size computation
+As discussed off the list, this assertion works even for read-only
+anon mappings because, as you said, "there's no such thing as a pure
+anon mapping that is !VMA_MAYWRITE_BIT, there is no way to achieve
+that."
+It took me some time to see that after reading your discussion with
+David at [1] and [2], and I don't think it's very intuitive. Could you
+please add a comment explaining that? Maybe add a comment at
+vma_is_cow_mapping() definition since you are using the same assertion
+in another patch of this series?
 
-This commit fixes a 32-bit integer overflow in the QXL surface allocation
-ioctl by computing the backing size as u64 and checking it against INT_MAX.
-It also rejects zero dimensions and handles an INT_MIN stride properly.
+[1] https://lore.kernel.org/linux-mm/anBjpdMicqaGADr-@lucifer/
+[2] https://lore.kernel.org/linux-mm/anLyhaI6kW-EWk13@lucifer/
 
-> diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_io=
-ctl.c
-> index 591b026ceff9c..5f84a4cf9631d 100644
-> --- a/drivers/gpu/drm/qxl/qxl_ioctl.c
-> +++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
 
-[Severity: Critical]
-This is a pre-existing issue, but does qxl_process_single_command() lack
-bounds checking on dst_offset? A userspace client could send a QXL_EXECBUFF=
-ER
-ioctl with a maliciously crafted dst_offset. qxl_process_single_command()
-copies this without validating it against dst_bo->tbo.base.size:
 
-drivers/gpu/drm/qxl/qxl_ioctl.c:qxl_process_single_command() {
-	...
-	reloc_info[i].dst_offset =3D reloc.dst_offset;
-	...
-}
-
-Later, apply_reloc() calls qxl_bo_kmap_atomic_page() with this out-of-bounds
-offset and writes the source BO's physical address to it:
-
-drivers/gpu/drm/qxl/qxl_ioctl.c:apply_reloc() {
-	...
-	reloc_page =3D qxl_bo_kmap_atomic_page(qdev, info->dst_bo, info->dst_offse=
-t & PAGE_MASK);
-	*(uint64_t *)(reloc_page + (info->dst_offset & ~PAGE_MASK)) =3D qxl_bo_phy=
-sical_address(qdev, info->src_bo, info->src_offset);
-	...
-}
-
-Could this allow arbitrary local privilege escalation or system crashes from
-any DRM_AUTH client via out-of-bounds writes?
-
-> @@ -386,12 +386,24 @@ int qxl_alloc_surf_ioctl(struct drm_device *dev, vo=
-id *data, struct drm_file *fi
->  	struct drm_qxl_alloc_surf *param =3D data;
->  	int handle;
->  	int ret;
-> -	int size, actual_stride;
-> +	int actual_stride;
-> +	u64 size;
->  	struct qxl_surface surf;
-> =20
->  	/* work out size allocate bo with handle */
-> +	if (param->stride =3D=3D INT_MIN)
-> +		return -EINVAL;
->  	actual_stride =3D param->stride < 0 ? -param->stride : param->stride;
-> -	size =3D actual_stride * param->height + actual_stride;
-> +	if (!actual_stride || !param->width || !param->height)
-> +		return -EINVAL;
-> +	/*
-> +	 * size =3D actual_stride * (height + 1), computed in u64 so it cannot
-> +	 * wrap on any architecture, then bounded so it still fits the int
-> +	 * parameter of qxl_gem_object_create().
-> +	 */
-> +	size =3D (u64)actual_stride * ((u64)param->height + 1);
-> +	if (size > INT_MAX)
-> +		return -EINVAL;
-> =20
->  	surf.format =3D param->format;
->  	surf.width =3D param->width;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this allocation validate
-that the stride is mathematically sufficient for the width?
-
-If DRM_IOCTL_QXL_ALLOC_SURF is called with a huge param->width and a tiny
-actual_stride (e.g., 1), the size computation will pass the INT_MAX check,
-but fail to enforce stride >=3D width * bytes_per_pixel.
-
-Since the width is passed directly to the QXL host device, could the host
-subsequently overrun the guest VRAM outside the undersized allocated buffer
-when processing the surface?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809002621.1228=
-32-1-qwe.aldo@gmail.com?part=3D1
+> +       /* Account for MAP_PRIVATE-/dev/zero which is only semi-anonymous=
+. */
+> +       if (vma_is_anonymous(vma) && !vma->vm_file)
+> +               VM_WARN_ON_ONCE(pgoff !=3D linear_page_index(vma, address=
+));
+>
+> -       pgoff =3D linear_page_delta(vma, address);
+> -       pgoff +=3D vma_start_pgoff(vma);
+>         return pgoff;
+>  }
+>
+> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/=
+dup.h
+> index 40ad83936b28..4c58487b764e 100644
+> --- a/tools/testing/vma/include/dup.h
+> +++ b/tools/testing/vma/include/dup.h
+> @@ -1428,7 +1428,7 @@ static inline void vma_iter_set(struct vma_iterator=
+ *vmi, unsigned long addr)
+>         mas_set(&vmi->mas, addr);
+>  }
+>
+> -static inline bool vma_is_anonymous(struct vm_area_struct *vma)
+> +static inline bool vma_is_anonymous(const struct vm_area_struct *vma)
+>  {
+>         return !vma->vm_ops;
+>  }
+> @@ -1621,3 +1621,26 @@ static inline pgprot_t vma_get_page_prot(const str=
+uct vm_area_struct *vma)
+>  {
+>         return vma_flags_to_page_prot(vma->flags);
+>  }
+> +
+> +static inline pgoff_t __linear_anon_page_index(const struct vm_area_stru=
+ct *vma,
+> +                                              const unsigned long addres=
+s)
+> +{
+> +       pgoff_t pgoff;
+> +
+> +       pgoff =3D linear_page_delta(vma, address);
+> +       pgoff +=3D vma_start_anon_pgoff(vma);
+> +       return pgoff;
+> +}
+> +
+> +static inline pgoff_t linear_anon_page_index(const struct vm_area_struct=
+ *vma,
+> +               const unsigned long address)
+> +{
+> +       const pgoff_t pgoff =3D __linear_anon_page_index(vma, address);
+> +
+> +       VM_WARN_ON_ONCE(!vma_is_cow_mapping(vma));
+> +       /* Account for MAP_PRIVATE-/dev/zero which is only semi-anonymous=
+. */
+> +       if (vma_is_anonymous(vma) && !vma->vm_file)
+> +               VM_WARN_ON_ONCE(pgoff !=3D linear_page_index(vma, address=
+));
+> +
+> +       return pgoff;
+> +}
+>
+> --
+> 2.55.0
+>
