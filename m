@@ -4,81 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3509CC5AE49
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1ECA8C5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EF4010E687;
-	Mon, 10 Aug 2026 06:38:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6442A10E68B;
+	Mon, 10 Aug 2026 06:38:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iEjnHm9y";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="G3D06lMQ";
 	dkim-atps=neutral
-Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 171BE10E037
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 12:51:12 +0000 (UTC)
-Received: by mail-pj2-f9.google.com with SMTP id
- 98e67ed59e1d1-38ed4d37526so362499a91.1
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 05:51:12 -0700 (PDT)
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E2C6E10E126
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 16:53:51 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4994c49f588so10238525e9.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 09:53:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786193471; x=1786798271; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=OlRrA389d9FWYi8l3Quvar4ELxprzGoBLCcCx6MN668=;
- b=iEjnHm9yWuypE0vwIYZKc3eznlf2xvOs8jQX0VkZVC6mpe0FuYe4VSj/QwrXo+QQ4Y
- t+XVBTFml/WfSOWf475TIfWP1qTWQHmJYqVazZOQfTmFBm274aUnQTLCxbCT5UInFndW
- U9v/mrfeoiIQns+/KE819DrTZDZhKDJKH3w0o0L7krNhuHnd7+AWKz4mfVtjjkebkHkD
- KvygcaVa6otclSVvmkl0aJny7vdnekIsDv5LVe6BbPCc8JGdH/FCRgSSLVZPoJrD/1Fk
- Tinm07/ERLeRXEoGoTlCExdJjNMkIMtIKp796NxPEvDMmn48oLIzdMzyEap2Q2bwO+cI
- LkCQ==
+ d=gmail.com; s=20251104; t=1786294430; x=1786899230; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=5/XLgqYK873A1GIVt6yKDgXm2bgfPi9SEqbj4J+hicw=;
+ b=G3D06lMQfcMrcFE5b/LH3wgrAgpYfSvU7eT/lx6fnewM4JXkuMxH8zCprAYS3AqstP
+ qGm3S2YlPRE1hkM+K0QDVKOKeToSY3VWHxWDXUl8HEP5oHIY5RAiKhzruCdE3NWTNLCU
+ BeGMrC+XCaRfn4wDScGkC6hNi320+0tblf7VppEkUPcJWiBijD8eB5/FZeRlMLyoqBAP
+ fM+N2WLAR5RA6vkR+cDKNk6ldryBteDkvzw2q9BPoUiaXPYARXMEYQnTYS5Qz3Gc9nUa
+ VAhK/xo2gPD7mnkcdUxwimg/vnRkKSyXYgtBqFeI3l7w0FbAUjO2PiZ2FBr6PWQCL8DL
+ pEjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786193471; x=1786798271;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=OlRrA389d9FWYi8l3Quvar4ELxprzGoBLCcCx6MN668=;
- b=L9nXt+IsJ4ebHwtpovIMOkAfhCjqqLEyE+Xum79DXqKcsbHViGPM1SNBOxerbv1E+S
- M1BhVsb/sf4tC5tAwHhqLWIMUeyTWEGRQ5BFyKPCSSv+C8Umo6Plg3VNJkqeJjqvKSnq
- +fzMWY0b3Pf0GI9nGofYk+2NuIYetOGR0WsIQQUZG7nrWOWtxN5maNLVS3oCfUg0WGrw
- dIltX4v7DNmMmWRW1GuifV4uV9ymtfpz1SdKBQX+4s6SxnYIIdiIsjCkK//hZlwhmVaF
- Lzn9Ebz5FXly+Rts9L69eOyuF9vK3PaZkFZ1FTHwYdvDRo+S6TxNRlDwgNKi8tR+/BP4
- MNnw==
+ d=1e100.net; s=20251104; t=1786294430; x=1786899230;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=5/XLgqYK873A1GIVt6yKDgXm2bgfPi9SEqbj4J+hicw=;
+ b=eQhKZPAvxQ3bdXUt9aIcOIpsNcUk30O+oPdSO92CW8Iy7SCNqBaomrY3EKfAzPYmn7
+ k1o9IDupg1TqO6sHNhlTWRg1odAtgHgu9p3huqbbp60rtAFMKoX8u5PlC5svOdTDuJTT
+ KD4YV0O3w+pDUV5MnfhTL4qsu/S0KtRdsyXLJk66MA8nGfIoI9vVsheNgmDtE4i8WQTt
+ H6xJBzRPj2iDBFnuXVAKwTvCUp6KrUgse4FlJ4hckU8MsIaEI0jI6YQS/AE5FhVbfzuS
+ D5peNeOyle3wEJqjXHY5tp0YwnIwlX7UxMKXs62V7VV7YKBfgQNGrMw8AOc6mAR9qWK6
+ 2ScA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rqz+wtloSKZPrswbi7GISxw8Q4aVBAevPntY2zKXzO4VCxEPZ/UvHcLpyIm6YC8gw5Uqz5PlSS5szk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwX2vUzIrmYKqtjGIMVhl79uv43URslWMLuXHgWN7o1BEqbUAgB
- yFTgFG5F+xxxfBRfr2gkSs82HTAa/nmWUoimPXRNORB0xRCG3p77I+QB
-X-Gm-Gg: AR+sD11KXjMXBtL6p45STSo0QxykkYpnEYRNFowQ5G4QZmdYLWHUZnaMQITbMJnLDRw
- +zfjx5eaLsU4w+RNuR00niu5M/VWkjsO5t+U024mbn9+R98mjL3QuTwfjolcDhxB8S9lTh8UGKR
- l6ZMljMcc1wX4b/tvlFuZRS52RPq83tnt4AkuSI7DHoHvo1EorBJV4R09gsKJmEEHAfIYyIozj+
- 2/1oQO+7OSxYOwU66aGJMYvCqm3phYcC+03u/SSqJXk+NifoghAa4EiocKqCmmQ+/tyfZVTVJYa
- GqMEGX6JS+ovaLVz4yh24RrWvXJ0LrpXKcsGEbWjkE1vB6XxDCe1nCF4Kyj4gGBPEoAEQw8QESj
- 34J+99M/DsLYjTGBQ8iU11o+OY0cjYpBTTWz5dtaJy/PJpAJTqCq7hpyoi1k09KlCgddtzodxBR
- s1nDBKir8KJwA1yNpdH1mIK0jj2ssaz71xZ4FlKmI=
-X-Received: by 2002:a05:6a21:6f15:b0:3ab:2fa:756c with SMTP id
- adf61e73a8af0-3cbce6cb53bmr8991053637.1.1786193471349; 
- Sat, 08 Aug 2026 05:51:11 -0700 (PDT)
-Received: from localhost ([2403:2c80:17:1e::20db])
+ AHgh+Rpij5wIEsKhrUcARIzT/7thETddqSj1zhMyj4ybgBuu9lgHCScVz7+Jq2/zQUChcwsxqJtHxIB6rGs=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwiFLut9dBFVMR8ahEiyJq78ZFM5JhKDlGc7/n8Hm01Af4TsZb3
+ Ti4aciCfqEHHFo0VTslmQtj9d14TEs86euCHPw1xfzLKJ+6nS7s9P4j44IHiuUe+
+X-Gm-Gg: AR+sD12o3Us6c+9b85zZHzt+pBB04BrMoyKTWgpOvRL/BwpWqqOzUbYRBKIhOvTZiX/
+ YdbLnKuB3CgdyUxJgo/4+VYLGOTeB1U0Y8bIGMRTFdSl7FQiOpfBSc/WChIXwU6pWMidBPd7/xb
+ pmf5+Q53W1wJ8PdiZOuMMY0XLorpXDUGrJ6RSdcgQOwgc9WlJAvQVJ7xKiF1Q3+pF1HR4jXmtds
+ KVi9v/ymqrBj8CeGvbGoXO+nEbkczYN78wAMg5Pc72/bhF7i5mzJ7pXpyNGTocOQIk/zQ4omwNp
+ v3XFNkD/OJcQvCS6Hki+gKdfM9AvGeX/M62kKhLxQE5AMOBOATPLCgWmMoYLROvzqL9lq+Yqyjs
+ BDYUgn4+juFom2HqXOaB5TYzj5YC8ls61O8GyMqmM7lFnXRZ7MQlwMl49kjtfsL151CCUssCjsU
+ i21Rs+jgkSaFSfyBhp9Y70+R+z628cZn2okk3zVCxKzyOEESbo1q0Su6gLi2ktuWamOWC9uZg1e
+ LwJmgphYSDLZ+sKH2B++/ixkL8DKFONbz6HGrFslSKx+xQ98OcFtA==
+X-Received: by 2002:a05:600c:45d5:b0:495:69eb:27d3 with SMTP id
+ 5b1f17b1804b1-4996247a562mr148297525e9.8.1786294429885; 
+ Sun, 09 Aug 2026 09:53:49 -0700 (PDT)
+Received: from torre-GIGABYTE-B550-AORUS-ELITE-V2
+ (212.pool95-21-2.static.orange.es. [95.21.2.212])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cbe8f35b0c3sm1846702a12.15.2026.08.08.05.51.10
+ ffacd0b85a97d-480020be8f3sm23599092f8f.0.2026.08.09.09.53.48
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 05:51:10 -0700 (PDT)
-Date: Sat, 08 Aug 2026 20:51:07 +0800
-Message-ID: <b0499978adf9f603e5da621f0056a139.codykang.hk@gmail.com>
-From: Cody Kang <codykang.hk@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- robh@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com,
- dri-devel@lists.freedesktop.org, vkoul@kernel.org, sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND 12/17] drm/spacemit: add Innosilicon DP/eDP
- controller bridge driver
-In-Reply-To: <20260725050438.302CF1F000E9@smtp.kernel.org>
-References: <20260725-k3-display-v1-0-6de34d80e86c@gmail.com>
- <20260725-k3-display-v1-12-6de34d80e86c@gmail.com>
- <20260725050438.302CF1F000E9@smtp.kernel.org>
+ Sun, 09 Aug 2026 09:53:49 -0700 (PDT)
+From: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>
+To: Christian Koenig <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>
+Cc: =?UTF-8?q?=C3=93scar=20Meg=C3=ADa=20L=C3=B3pez?= <megia.oscar@gmail.com>, 
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, linux-kernel-mentees@lists.linux.dev,
+ stable@vger.kernel.org
+Subject: [PATCH v4] Memory leak error in qxl unbind
+Date: Sun,  9 Aug 2026 18:53:14 +0200
+Message-ID: <20260809165326.164763-1-megia.oscar@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:38:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,322 +93,331 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Sat, 25 Jul 2026 05:04:37 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 11 potential issue(s) to consider:
-> - [High] Custom EDID read function bypasses DRM core and breaks I2C repeated-start (MOT) rules, corrupting EDID reads for blocks > 0 or on active adapters.
-> - [High] The hardirq handler returns `IRQ_NONE` after clearing hardware interrupt flags, permanently disabling the IRQ line.
-> - [High] Late attachment of the eDP panel bridge violates drm_bridge_connector architecture and breaks panel support if the panel probes asynchronously.
-> - [High] DP Transfer Unit (TU) miscalculation due to pixel clock truncation.
-> - [High] The IRQ handler returns `IRQ_NONE` without clearing the hardware interrupt when `drm_dev_enter()` fails, leading to an interrupt storm.
-> - [High] `spacemit_dp_bridge_atomic_create_state` returns an error pointer instead of `NULL` on allocation failure, causing a kernel crash in the DRM core.
-> - [High] The hardirq handler calls regmap functions which use a sleepable lock on PREEMPT_RT.
-> - [Medium] The atomic_check and mode_valid callbacks access DPCD link capabilities without holding mode_lock, leading to data races with the hotplug IRQ handler.
-> - [Medium] The DP IRQ handler silently drops hotplug notifications because drm_bridge_hpd_notify() is a no-op when DRM_BRIDGE_OP_HPD is omitted.
-> - [Medium] Calling clk_set_parent() on an already enabled clock.
-> - [Medium] Resetting the AUX controller without holding aux->hw_mutex races with concurrent AUX transfers.
-> --
->
-> --- Patch [12]: [PATCH RESEND 12/17] drm/spacemit: add Innosilicon DP/eDP controller bridge driver ---
-> commit b7eace372254ab27e120213d38c3a656b2a195b8
-> Author: Cody Kang <codykang.hk@gmail.com>
->
-> drm/spacemit: add Innosilicon DP/eDP controller bridge driver
->
-> Add the DP/eDP controller that sits downstream of the Saturn DPU. Two
-> identical instances share one compatible; the eDP-vs-DP role is board
-> wiring, so it is taken from the devicetree.
->
-> > diff --git a/drivers/gpu/drm/spacemit/spacemit_inno_dp.c b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
-> > index 0000000000000..e88731d9b18bf
-> > --- /dev/null
-> > +++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
-> > @@ -248,16 +248,10 @@
-> >  static inline struct spacemit_dp_bridge_state *
-> >  to_spacemit_dp_bridge_state(struct drm_bridge_state *state)
-> >  {
-> >  	return container_of(state, struct spacemit_dp_bridge_state, base);
-> >  }
-> >
-> >  static const struct regmap_config spacemit_dp_regmap_config = {
-> >  	.name		= "dp",
-> >  	.reg_bits	= 32,
-> >  	.val_bits	= 32,
-> >  	.reg_stride	= 4,
-> >  	.max_register	= 0x3ffc,	/* full 0x4000 reg region from binding */
-> >  };
->
-> [Severity: High]
-> Is it safe to omit use_raw_spinlock from the regmap configuration? Because
-> this is not set to true, the regmap defaults to a sleepable lock on
-> PREEMPT_RT. This causes a BUG when regmap read/write functions are called
-> from the hardirq handler spacemit_dp_irq_handler().
+I discovered an OOM after run the script below
+(I updated it and added a sleep to allow enough time for the cache to
+recover):
 
-The handler is force-threaded on PREEMPT_RT (no IRQF_NO_THREAD), so
-the regmap spinlock is fine there.
+while [ 1 -eq 1 ]; do\
+  i=$((i+1)); echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/unbind;\
+  if (($i%1000==0)); then\
+    echo i=$i; free;\
+    grep nr_free_pages /proc/vmstat;\
+    grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
+    sync; echo 3 > /proc/sys/vm/drop_caches;\
+    echo 1 > /proc/sys/vm/compact_memory;\
+    sleep 10s;\
+    free;\
+    grep nr_free_pages /proc/vmstat;\
+    grep -E "PageTables|VmallocUsed|Slab|Reclaimable" /proc/meminfo;\
+    uptime;\
+  fi;\
+  echo 0000:00:01.0 > /sys/bus/pci/drivers/qxl/bind;\
+ done
 
-> > [ ... ]
-> > @@ -661,16 +661,10 @@
-> >  static void spacemit_dp_link_disable(struct spacemit_dp_dev *dp)
-> >  {
-> >  	regmap_write_bits(dp->regs, DP_VIDEO_VSAMPLE_REG,
-> >  			  DP_VIDEO_STREAM_ENABLE,
-> >  			  FIELD_PREP(DP_VIDEO_STREAM_ENABLE, 0));
-> >  	spacemit_dp_phy_off(dp);
-> >
-> >  	regmap_write_bits(dp->regs, DP_SOFT_RESET, DP_AUX_RESET,
-> >  			  FIELD_PREP(DP_AUX_RESET, 0x1));
->
-> [Severity: Medium]
-> Could this reset corrupt concurrent AUX transfers? Modifying the AUX
-> hardware in spacemit_dp_link_disable() without holding the aux->hw_mutex
-> could race against a userspace or deferred transfer, potentially wedging
-> the controller.
+The OOM isn't just a simple leak; it's a refcount corruption which renders
+the list_lru fix dead code after the first mid-init failure.
 
-All driver-internal AUX users serialize on mode_lock; the EDID
-rework below also serializes with the userspace i2c node.
+Here's the chain:
 
-> > [ ... ]
-> > @@ -936,15 +936,10 @@
-> >  static void spacemit_dp_hw_set_msa_and_enable_video(struct spacemit_dp_dev *dp,
-> >  						    const struct drm_display_mode *mode,
-> >  					       enum spacemit_dp_link_rate rate,
-> >  					       enum spacemit_dp_lane_count lanes,
-> >  		u32 color_format)
-> >  {
-> >  	u64 hb_num;
-> >  	u32 link_rate;
-> >  	u32 fp; /* Pixel clock in MHz */
-> >  	u32 bpp, misc0;
-> >  	u32 tu, tu_frac, tu_int, rd_thres;
-> >  	u32 hsync_len;
-> >
-> >  	/* mode->clock unit is kHz, fp unit is MHz */
-> >  	if (dp->use_ext_pixel_clock)
-> >  		fp = dp->pixel_clock / 1000;
-> >  	else
-> >  		fp = mode->clock / 1000;
->
-> [Severity: High]
-> Can this truncation of the pixel clock to an integer MHz value cause DP
-> FIFO underflows or overflows? For non-integer MHz pixel clocks like
-> 148.5 MHz, this truncates to 148, introducing precision errors in the
-> Transfer Unit (TU) calculations which results in corrupted video.
+Bug 1: ttm_pool_type_init() does not check return from list_lru_init().
 
-The values are vendor-faithful and board-proven at 4K; computing in
-kHz is a possible later refinement, not a v2 change.
+Fix: Check the return value from list_lru_init() and propagate the error.
 
-> > [ ... ]
-> > @@ -1286,13 +1286,10 @@
-> >  static int spacemit_dp_conn_get_edid_block(void *data, u8 *buf,
-> >  					   unsigned int block, size_t len)
-> >  {
-> >  	struct spacemit_dp_dev *dp = data;
-> >  	unsigned int start = block * EDID_LENGTH;
-> >  	u8 segment = block >> 1;
-> >  	int ret, retry;
-> >  	size_t offset;
-> >
-> >  	if (segment) {
-> >  		for (retry = 0; retry < 3; retry++) {
-> >  			ret = spacemit_dp_aux_i2c_write(dp,
-> >  				SPACEMIT_DP_DDC_SEGMENT_ADDR, &segment, 1);
->
-> [Severity: High]
-> Does this custom EDID read function bypass the Middle-Of-Transaction (MOT)
-> rules for I2C repeated-start? Issuing writes and reads without the MOT flag
-> resets the DDC segment pointer to 0, breaking EDID reads for displays with
-> multiple EDID blocks (block >= 1) or on active adapters.
+Bug 2: ttm_pool_fini() does not destroy list lru with list_lru_destroy().
 
-Will rework in v2: the custom reader becomes one i2c_transfer per
-block on the aux I2C adapter, so the DP I2C-over-AUX core chains
-segment, offset and data with MOT, and 3+ block EDIDs work.
+Fix: Add list_lru_destroy() after ttm_pool_type_fini().
 
-> > [ ... ]
-> > @@ -1632,15 +1632,10 @@
-> >  static int spacemit_dp_bridge_atomic_check(struct drm_bridge *bridge,
-> >  					   struct drm_bridge_state *bridge_state,
-> >  				      struct drm_crtc_state *crtc_state,
-> >  				      struct drm_connector_state *conn_state)
-> >  {
-> >  	struct spacemit_dp_dev *dp = container_of(bridge,
-> >  						  struct spacemit_dp_dev,
-> >  						  bridge);
-> >  	struct spacemit_dp_bridge_state *st =
-> >  			to_spacemit_dp_bridge_state(bridge_state);
-> >  	const struct drm_display_mode *mode = &crtc_state->adjusted_mode;
-> >  	int bpp;
-> >  	u32 req_bw;
-> >  	int i;
-> >
-> >  	/* A single output bus format, see ->atomic_get_output_bus_fmts(). */
-> >  	st->color_format = SOC_VIDEO_RGB_8BIT;
-> >  	bpp = spacemit_dp_get_bpp(dp, st->color_format);
-> >  	req_bw = spacemit_dp_calc_required_bw(mode, bpp);
-> >
-> >  	/* No caps yet: leave idx unset and let ->atomic_enable() retry. */
-> >  	if (!dp->link.max_rate || !dp->link.max_num_lanes) {
->
-> [Severity: Medium]
-> Could reading the DPCD link capabilities here race with the hotplug IRQ
-> handler? Accessing the dp->link capabilities in
-> spacemit_dp_bridge_atomic_check() without holding mode_lock might observe
-> intermediate or torn states if a concurrent interrupt triggers a capability
-> re-read, leading to transient rejections of valid modes.
+Bug 3: ttm_pool_mgr_init() does not check ttm_pool_type_init() return
+and does not free pool if returns error.
 
-detect(), enable and the EDID paths all serialize on mode_lock.
+Fix: Move up shrinker_alloc(), check ttm_pool_type_init() return and free
+pool types and shrinker if non-zero and return error.
 
-> > [ ... ]
-> > @@ -1705,10 +1705,10 @@
-> >  static struct drm_bridge_state *
-> >  spacemit_dp_bridge_atomic_create_state(struct drm_bridge *bridge)
-> >  {
-> >  	struct spacemit_dp_bridge_state *new;
-> >
-> >  	new = kzalloc_obj(*new);
-> >  	if (!new)
-> >  		return ERR_PTR(-ENOMEM);
->
-> [Severity: High]
-> Should this return NULL on allocation failure instead of an error pointer?
-> The DRM core's reset helper assigns the returned state directly without
-> checking for errors. Returning an error pointer here causes a fatal page
-> fault when the DRM core later dereferences it.
+Bug 4: ttm_pool_mgr_fini() does not destroy the list_lru.
 
-ERR_PTR is what the bridge core expects here;
-drm_bridge_atomic_create_priv_state() checks IS_ERR().
+Fix: Add list_lru_destroy() after ttm_pool_type_fini().
 
-> > [ ... ]
-> > @@ -1742,16 +1742,10 @@
-> >  static int spacemit_dp_edp_link_panel(struct drm_dp_aux *aux)
-> >  {
-> >  	struct spacemit_dp_dev *dp = container_of(aux, struct spacemit_dp_dev,
-> >  						  aux);
-> >  	struct drm_bridge *next;
-> >  	int ret;
-> >
-> >  	next = devm_drm_of_get_bridge(dp->dev, dp->dev->of_node, 1, 0);
-> >  	if (IS_ERR(next))
-> >  		return PTR_ERR(next);
-> >
-> >  	dp->next_bridge = next;
-> >
-> >  	/*
-> >  	 * A non-NULL bridge.encoder means .attach already ran: late-chain
-> >  	 * panel-edp.
-> >  	 */
-> >  	if (dp->bridge.encoder) {
-> >  		ret = drm_bridge_attach(dp->bridge.encoder, next,
-> >  					&dp->bridge,
-> >  					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
->
-> [Severity: High]
-> Does dynamically attaching the panel bridge late bypass connector
-> initialization? If the eDP panel defers its probe,
-> drm_bridge_connector_init() builds the connector without the panel bridge.
-> Attaching it here later violates the drm_bridge_connector architecture and
-> breaks panel support, because the connector will lack the panel's mode or
-> EDID operations.
+Fixed check for an empty shrinker_list.
 
-Handled by design: the aux-bus done-probing callback late-chains
-with DRM_BRIDGE_ATTACH_NO_CONNECTOR and re-fires detection; both
-probe orders are exercised on hardware. See the comment above
-spacemit_dp_edp_link_panel().
+This patch depends on patch ("[PATCH v3] drm/qxl: fix use-after-free in
+qxl_irq_handler on PCI"), link [1] below.
 
-> > [ ... ]
-> > @@ -1782,10 +1782,10 @@
-> >  static irqreturn_t spacemit_dp_irq_handler(int irq, void *data)
-> >  {
-> >  	struct spacemit_dp_dev *dp = data;
-> >  	irqreturn_t ret = IRQ_NONE;
-> >  	int idx;
-> >
-> >  	if (!drm_dev_enter(dp->drm, &idx))
-> >  		return IRQ_NONE;
->
-> [Severity: High]
-> Will returning IRQ_NONE here without clearing the hardware interrupt cause
-> an interrupt storm? If an interrupt fires while the DRM device is
-> unregistered (such as during module unload), the handler exits without
-> acknowledging the hardware interrupt, causing it to continuously fire and
-> stall the CPU.
+Assisted-by: OpenCode:1.17.18-Big Pickle/DeepSeek V4 Flash
+Assisted-by: claude.ai:Sonnet 5
+Link: https://lore.kernel.org/lkml/
+20260727110212.64913-1-megia.oscar@gmail.com/ [1]
+Link: https://lore.kernel.org/dri-devel/
+20260731053047.24503-1-megia.oscar@gmail.com/ [2]
+Cc: <stable@vger.kernel.org> # 7.1.0
+Fixes: 444e2a19d7fd ("ttm/pool: port to list_lru. (v2)")
+Signed-off-by: Óscar Megía López <megia.oscar@gmail.com>
+---
+Changes in v2:
+ - Bug 1: ttm_global_init ignores ttm_pool_mgr_init() return.
+   If shrinker_alloc() fails under memory pressure, ttm_pool_mgr_init
+   returns -ENOMEM with pool types already initialized (64 list_lru_init
+   calls done). ttm_global_init ignored this and returned 0, leaving orphaned
+   pool types with a NULL mm_shrinker.
 
-Only reachable during unbind while the line is being torn down.
+   Fix: Check ret from ttm_pool_mgr_init; if non-zero, goto out cleans up
+   refcount + debugfs.
 
-> > [ ... ]
-> > @@ -1796,11 +1796,10 @@
-> >  	/*
-> >  	 * Only compare here: the authoritative connector_status update
-> >  	 * happens in the thread under mode_lock, via .detect().
-> >  	 */
-> >  	if (spacemit_dp_hw_detect_hpd(dp) != READ_ONCE(dp->connector_status))
-> >  		ret = IRQ_WAKE_THREAD; /* Call hotplug_event */
-> >  	spacemit_dp_hw_clean_hpd(dp);
-> >
-> >  	drm_dev_exit(idx);
-> >  	return ret;
-> >  }
->
-> [Severity: High]
-> Is it safe to return IRQ_NONE after clearing the hardware interrupt flags?
-> If the logical state has not changed (e.g. from a transient hardware
-> glitch), returning IRQ_NONE causes the kernel's spurious interrupt detector
-> to eventually disable the IRQ line, which results in all future hotplug
-> events being permanently missed.
+ - Bug 2: ttm_pool_mgr_init leaks pool types on shrinker_alloc failure
+   If shrinker_alloc fails after all 64 pool types were list_lru_init'd,
+   the function returned -ENOMEM without undoing them. With Bug 1 now
+   triggering proper error handling, this undo is necessary.
 
-Real; will return IRQ_HANDLED in v2 when a latched HPD event was
-consumed.
+   Fix: err_shrinker: label that finalizes + destroys all 64 pool types
+   before returning.
 
-> > [ ... ]
-> > @@ -1813,11 +1813,10 @@
-> >  static irqreturn_t spacemit_dp_hotplug_event_handler(int irq, void *data)
-> >  {
-> >  	struct spacemit_dp_dev *dp = data;
-> >  	enum drm_connector_status status;
-> >  	int idx;
-> >
-> >  	if (!drm_dev_enter(dp->drm, &idx))
-> >  		return IRQ_HANDLED;
-> >
-> >  	/*
-> >  	 * .detect() owns mode_lock and re-reads the sink caps on a fresh plug
-> >  	 */
-> >  	status = spacemit_dp_bridge_detect(&dp->bridge, dp->connector);
-> >  	drm_bridge_hpd_notify(&dp->bridge, status);
->
-> [Severity: Medium]
-> Will this hotplug notification be silently dropped? Since
-> DRM_BRIDGE_OP_HPD is not set for the DP bridge during inno_dp_probe(), the
-> bridge->hpd_cb is NULL, making drm_bridge_hpd_notify() a no-op and forcing
-> the DRM core to rely entirely on periodic polling.
+Changes in v3:
+ - Fix: "Unchecked list_lru_init() return value in ttm_pool_type_init()
+   causes a deterministic NULL pointer dereference in the newly added
+   error path."
+   Now check list_lru_init return value in ttm_pool_type_init() and
+   returns error if any.
 
-Deliberate: the HPD interrupt is gated by the DP pixel clock, so
-the connector is polled instead, and the IRQ path still refreshes
-status early when it does fire. Documented at the ops assignment.
+ - Solved pre-existing issues reported by kernel test robot:
+   - [High] `ttm_pool_type_init()` ignores the return value of
+     `list_lru_init()`, leading to a NULL pointer dereference
+     if allocation fails.
 
-> > [ ... ]
-> > @@ -2338,10 +2338,15 @@
-> >  static int inno_dp_probe(struct platform_device *pdev)
-> >  {
-> >  	struct device *dev = &pdev->dev;
-> > [ ... ]
-> >  	if (dp->pxclk) {
-> >  		ret = clk_prepare_enable(dp->pxclk);
-> >  		if (ret) {
-> >  			dev_err(dev, "failed to enable pxclk: %d\n", ret);
-> >  			goto err_reset;
-> >  		}
-> >  	}
-> > [ ... ]
-> >  	if (dp->pxclk) {
-> >  		ret = clk_set_parent(dp->pxclk, dp->pll_clk);
->
-> [Severity: Medium]
-> Can calling clk_set_parent() on an already enabled clock cause hardware
-> glitches? The pxclk is prepared and enabled earlier in inno_dp_probe(), and
-> reparenting a running clock without hardware-specific glitch-free muxing
-> can lock up downstream logic.
+     Fix: get return value from list_lru_init and return error if any.
 
-The mux is reparented before the display is enabled; nothing scans
-while it switches at probe.
+   - [High] `ttm_pool_shrink()` assumes `shrinker_list` is never empty,
+     causing memory corruption and crashes during module unload
+     if triggered.
 
-Cody
+     Fix: Check if shrinker_list is empty and return 0 if it is empty.
+
+Changes in v4:
+ - removed check return value in ttm_pool_mgr_init, now in new patch
+ ("[PATCH] ttm: Add error handling for ttm_pool_mgr_init()")
+ link [2] above.
+ - Fixed check empty shrinker_list.
+ - Check return value from ttm_pool_type_init.
+ - Move up shrinker_alloc.
+ - Deleted dput(backup_fault_inject.dname);
+ - Fixed issue [High] The patch introduces a use-after-free race condition
+   between `ttm_pool_type_fini()` and the active memory shrinker
+   `ttm_pool_shrink()` by calling `list_lru_destroy()` prematurely as
+   reported by kernel test robot.
+
+   Fix: separate ttm_pool_type_fini and list_lru_destroy. Then, add
+   ttm_pool_synchronize_shrinkers between them.
+---
+ drivers/gpu/drm/ttm/ttm_pool.c | 135 ++++++++++++++++++++++++++++-----
+ 1 file changed, 115 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 278bbe7a11ad..183836f2df34 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -354,17 +354,23 @@ static struct page *ttm_pool_type_take(struct ttm_pool_type *pt, int nid)
+ }
+ 
+ /* Initialize and add a pool type to the global shrinker list */
+-static void ttm_pool_type_init(struct ttm_pool_type *pt, struct ttm_pool *pool,
++static int ttm_pool_type_init(struct ttm_pool_type *pt, struct ttm_pool *pool,
+ 			       enum ttm_caching caching, unsigned int order)
+ {
++	int ret = 0;
++
+ 	pt->pool = pool;
+ 	pt->caching = caching;
+ 	pt->order = order;
+-	list_lru_init(&pt->pages);
++	ret = list_lru_init(&pt->pages);
++	if (ret)
++		return ret;
+ 
+ 	spin_lock(&shrinker_lock);
+ 	list_add_tail(&pt->shrinker_list, &shrinker_list);
+ 	spin_unlock(&shrinker_lock);
++
++	return 0;
+ }
+ 
+ static enum lru_status pool_move_to_dispose_list(struct list_head *item,
+@@ -438,6 +444,9 @@ static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
+ 	struct ttm_pool_type *pt;
+ 	unsigned int num_pages;
+ 
++	if ((shrinker_list.prev == &shrinker_list) && (shrinker_list.next == &shrinker_list))
++		return 0;
++
+ 	down_read(&pool_shrink_rwsem);
+ 	spin_lock(&shrinker_lock);
+ 	pt = list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
+@@ -1198,6 +1207,17 @@ void ttm_pool_fini(struct ttm_pool *pool)
+ 	 * that no shrinker is concurrently freeing pages from the pool.
+ 	 */
+ 	ttm_pool_synchronize_shrinkers();
++
++	for (i = 0; i < TTM_NUM_CACHING_TYPES; ++i) {
++		for (j = 0; j < NR_PAGE_ORDERS; ++j) {
++			struct ttm_pool_type *pt;
++
++			pt = ttm_pool_select_type(pool, i, j);
++			if (pt != &pool->caching[i].orders[j])
++				continue;
++			list_lru_destroy(&pt->pages);
++		}
++	}
+ }
+ EXPORT_SYMBOL(ttm_pool_fini);
+ 
+@@ -1376,6 +1396,54 @@ static inline u64 ttm_get_node_memory_size(int nid)
+ 	return managed_pages * PAGE_SIZE;
+ }
+ 
++static void ttm_pool_type_fini_and_list_lru_destroy(unsigned int nr)
++{
++	unsigned int i;
++
++	if (nr == 0)
++		return;
++
++	for (i = 0; i < nr; ++i) {
++		ttm_pool_type_fini(&global_write_combined[i]);
++		ttm_pool_type_fini(&global_uncached[i]);
++		ttm_pool_type_fini(&global_dma32_write_combined[i]);
++		ttm_pool_type_fini(&global_dma32_uncached[i]);
++	}
++
++	/* We removed the pool types from the LRU, but we need to also make sure
++	 * that no shrinker is concurrently freeing pages from the pool.
++	 */
++	ttm_pool_synchronize_shrinkers();
++
++	for (i = 0; i < nr; ++i) {
++		list_lru_destroy(&global_write_combined[i].pages);
++		list_lru_destroy(&global_uncached[i].pages);
++		list_lru_destroy(&global_dma32_write_combined[i].pages);
++		list_lru_destroy(&global_dma32_uncached[i].pages);
++	}
++
++}
++
++static void ttm_pool_type_fini_and_list_lru_destroy_partial(
++				struct ttm_pool_type *types[], unsigned int n)
++{
++	unsigned int k;
++
++	if (n == 0)
++		return;
++
++	for (k = 0; k < n; ++k)
++		ttm_pool_type_fini(types[k]);
++
++	/* We removed the pool types from the LRU, but we need to also make sure
++	 * that no shrinker is concurrently freeing pages from the pool.
++	 */
++	ttm_pool_synchronize_shrinkers();
++
++	for (k = 0; k < n; ++k)
++		list_lru_destroy(&types[k]->pages);
++}
++
+ /**
+  * ttm_pool_mgr_init - Initialize globals
+  *
+@@ -1386,6 +1454,8 @@ static inline u64 ttm_get_node_memory_size(int nid)
+ int ttm_pool_mgr_init(unsigned long num_pages)
+ {
+ 	unsigned int i;
++	int ret = 0;
++	struct ttm_pool_type *types_free[3];
+ 
+ 	int nid;
+ 	for_each_node(nid) {
+@@ -1400,15 +1470,53 @@ int ttm_pool_mgr_init(unsigned long num_pages)
+ 	spin_lock_init(&shrinker_lock);
+ 	INIT_LIST_HEAD(&shrinker_list);
+ 
++	mm_shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE, "drm-ttm_pool");
++	if (!mm_shrinker)
++		return -ENOMEM;
++
+ 	for (i = 0; i < NR_PAGE_ORDERS; ++i) {
+-		ttm_pool_type_init(&global_write_combined[i], NULL,
++		ret = ttm_pool_type_init(&global_write_combined[i], NULL,
+ 				   ttm_write_combined, i);
+-		ttm_pool_type_init(&global_uncached[i], NULL, ttm_uncached, i);
++		if (ret) {
++			ttm_pool_type_fini_and_list_lru_destroy(i);
++			shrinker_free(mm_shrinker);
++			return ret;
++		}
++
++		ret = ttm_pool_type_init(&global_uncached[i], NULL, ttm_uncached, i);
++		if (ret) {
++			types_free[0] = &global_write_combined[i];
++			ttm_pool_type_fini_and_list_lru_destroy_partial(types_free, 1);
+ 
+-		ttm_pool_type_init(&global_dma32_write_combined[i], NULL,
++			ttm_pool_type_fini_and_list_lru_destroy(i);
++			shrinker_free(mm_shrinker);
++			return ret;
++		}
++
++		ret = ttm_pool_type_init(&global_dma32_write_combined[i], NULL,
+ 				   ttm_write_combined, i);
+-		ttm_pool_type_init(&global_dma32_uncached[i], NULL,
++		if (ret) {
++			types_free[0] = &global_write_combined[i];
++			types_free[1] = &global_uncached[i];
++			ttm_pool_type_fini_and_list_lru_destroy_partial(types_free, 2);
++
++			ttm_pool_type_fini_and_list_lru_destroy(i);
++			shrinker_free(mm_shrinker);
++			return ret;
++		}
++
++		ret = ttm_pool_type_init(&global_dma32_uncached[i], NULL,
+ 				   ttm_uncached, i);
++		if (ret) {
++			types_free[0] = &global_write_combined[i];
++			types_free[1] = &global_uncached[i];
++			types_free[2] = &global_dma32_write_combined[i];
++			ttm_pool_type_fini_and_list_lru_destroy_partial(types_free, 3);
++
++			ttm_pool_type_fini_and_list_lru_destroy(i);
++			shrinker_free(mm_shrinker);
++			return ret;
++		}
+ 	}
+ 
+ #ifdef CONFIG_DEBUG_FS
+@@ -1422,10 +1530,6 @@ int ttm_pool_mgr_init(unsigned long num_pages)
+ #endif
+ #endif
+ 
+-	mm_shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE, "drm-ttm_pool");
+-	if (!mm_shrinker)
+-		return -ENOMEM;
+-
+ 	mm_shrinker->count_objects = ttm_pool_shrinker_count;
+ 	mm_shrinker->scan_objects = ttm_pool_shrinker_scan;
+ 	mm_shrinker->batch = TTM_SHRINKER_BATCH;
+@@ -1443,16 +1547,7 @@ int ttm_pool_mgr_init(unsigned long num_pages)
+  */
+ void ttm_pool_mgr_fini(void)
+ {
+-	unsigned int i;
+-
+-	for (i = 0; i < NR_PAGE_ORDERS; ++i) {
+-		ttm_pool_type_fini(&global_write_combined[i]);
+-		ttm_pool_type_fini(&global_uncached[i]);
+-
+-		ttm_pool_type_fini(&global_dma32_write_combined[i]);
+-		ttm_pool_type_fini(&global_dma32_uncached[i]);
+-	}
+-
+ 	shrinker_free(mm_shrinker);
++	ttm_pool_type_fini_and_list_lru_destroy(NR_PAGE_ORDERS);
+ 	WARN_ON(!list_empty(&shrinker_list));
+ }
+-- 
+2.55.0
+
