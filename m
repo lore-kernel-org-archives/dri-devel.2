@@ -4,46 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66B13C5AC80
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 08:28:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DC1DEC5AD4E
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 08:28:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDBAC10E0E9;
-	Sun,  9 Aug 2026 08:28:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E670B10E0F2;
+	Sun,  9 Aug 2026 08:28:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=disroot.org header.i=@disroot.org header.b="EZJv+0tc";
+	dkim=pass (2048-bit key; secure) header.d=disroot.org header.i=@disroot.org header.b="JY4v5OMr";
 	dkim-atps=neutral
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6757C10E0E9
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:28:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D897410E0F2
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:28:21 +0000 (UTC)
 Received: from mail01.layka.lan (localhost [127.0.0.1])
- by disroot.org (Postfix) with ESMTP id 441624311E;
- Sun, 09 Aug 2026 10:28:04 +0200 (CEST)
+ by disroot.org (Postfix) with ESMTP id A863742B7B;
+ Sun, 09 Aug 2026 10:28:20 +0200 (CEST)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id TKNuF9xN9AOk; Sun,  9 Aug 2026 10:28:03 +0200 (CEST)
+ id mdd-XtsM1l3B; Sun,  9 Aug 2026 10:28:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
- t=1786264083; bh=5QRgRuns4zmF+gog8Y8zKAsY0zWas35xtUPB392I1/s=;
- h=From:Subject:Date:To:Cc;
- b=EZJv+0tcIsLwxPnEi0byDnAaiCG4kdaBfBnLTFiCTg7gAspwh3rDpAGOmOQdNsOde
- dhts8OZp+vOJz5wYbcdQCSwvK7B3CDwdCqYLR4z1O3ZwGQy1dm3N/urHP9IVxHWJ3y
- LIwbp3P0CRlkDVHcEu4iGohTvF1MBIcumKiKFpZ+xKfovbU0KDlKAFICQNc+hbf0cV
- WTnqiC532HQBasDZNNIm3O0/ml/nC8RglSi2IzRY8uLcqdopcJXVFuEwcCHTN6AMrx
- kgS+rYA71nQTTjvwh0WT3QML/p3mMjjMP3v8yY+3s/aeiCJ6Yq2prPAfDWEP+T5BKL
- r54KD2COOTfEw==
+ t=1786264099; bh=KkCb88jpb3D1kBUtynsLp4Zj81VOJWY1vhwCs7mKWUQ=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=JY4v5OMrLxpPHP7l7QywxqzjAeSxTspZqScFRu4EJK4V6S6t/AuLIQ9RRSj5fEI0x
+ jubozgpW5qQjOkumZ3F2xx0revjNE1GPvLL/xSsqg9OI8i6N5s2ezTO0cL50cyeXl3
+ bBzcNXcEIg8GaQqvdXgMAXkHwimK8S4AGNImPKIJ8olKKp4JFtwUt9uQ6tHpyQRE3N
+ XUE+IB0f9vbPU6aLbKO8YrTqrBMXzZ2b18AsSG7yAsOSUAeOiTTnoV8FL/oFJ0g2it
+ SsmzNvrAQBND4+yX/weFlmLD2vfH0UldbN86SBcMqYRW958Ij+rv3uX8HUUL4MiN5G
+ WOFJ6xPgQ2Slg==
 From: Kaustabh Chakraborty <kauschluss@disroot.org>
-Subject: [PATCH v4 0/3] Fixes and enhancements for Exynos (7870) DSIM
- bridge driver
-Date: Sun, 09 Aug 2026 13:57:40 +0530
-Message-Id: <20260809-exynos-dsim-fixes-v4-0-ca67c51e61b7@disroot.org>
+Date: Sun, 09 Aug 2026 13:57:41 +0530
+Subject: [PATCH v4 1/3] drm/bridge: samsung-dsim: enable MFLUSH_VS for
+ Exynos 7870 DSIM
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBAF0KuYrq1pZ4ASV97DuKjtAF1ITUsaC
- OHuFjbESFz+P/lvZhYpOIrseppZoOSi830OxfnETKf7lrizOTMQUAkJBadx6n3kNroXb9xIkZd
- Yo6101QiFLO/egbZDnt0fOXcuDj5M24sk1/afliQXXAJYUSgNaOXNuhi8Hy4+tGz1EuwGiPrIg
- GzoulRUSxQa9K+Bu6EAjwzMhjAoNUn7JGO+jWVZPlndrW48AQAA
-X-Change-ID: 20260124-exynos-dsim-fixes-5383d6a6f073
+Message-Id: <20260809-exynos-dsim-fixes-v4-1-ca67c51e61b7@disroot.org>
+References: <20260809-exynos-dsim-fixes-v4-0-ca67c51e61b7@disroot.org>
+In-Reply-To: <20260809-exynos-dsim-fixes-v4-0-ca67c51e61b7@disroot.org>
 To: Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
  Marek Szyprowski <m.szyprowski@samsung.com>, 
  Andrzej Hajda <andrzej.hajda@intel.com>, 
@@ -77,57 +74,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Since v6.17, there is a regression for the Exynos 7870 DSIM driver. The
-display occasionally had random aberration when the panel was turned on.
-The first patch addresses that.
+Commit a36c533ad3e1 ("drm/bridge: samsung-dsim: Always flush display
+FIFO on vsync pulse") intends to enable FIFO flushing at v-sync pulse by
+not setting the active-low MFLUSH_VS bit.
 
-The second patch replaces an implicit loop for waiting for PLL
-stabilization with an interrupt-based solution, which should be more
-reliable. This solution was suggested by Inki Dae in a discussion of an
-earlier patch series sent by me. For further details, refer to its
-commit description.
+However, in Exynos 7870 DSIM, the MFLUSH_VS bit is active-high. There is
+no publicly available documentation to the best of my knowledge, but
+downstream kernel code [1] supports this claim. Enable the bit for
+Exynos 7870.
 
+Fixes: a36c533ad3e1 ("drm/bridge: samsung-dsim: Always flush display FIFO on vsync pulse")
+Cc: stable@vger.kernel.org # v6.17 and later
+Link: https://github.com/samsungexynos7870/android_kernel_samsung_exynos7870/blob/a3762bb1761ae/drivers/video/fbdev/exynos/decon_7870/dsim_reg_7870.c#L699 [1]
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
 Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
 ---
-Changes in v4:
-- Clarify active-hight MFLUSH_VS in code comment (Luca Seresoli)
-- Move aperture_remove_all_conflicting_devices() before
-  component_bind_all() (Sashiko)
-- Change `timeout` type to unsigned long (Inki Dae)
-- Correct typo s/Calcutate/Calculate (Inki Dae)
-- Correct inverted condition waiting for PLL stable completion
-  (Inki Dae)
-- Do not exclusively conclude IRQ routine for PLL_STABLE interrupt
-  (Inki Dae)
-- Explicitly enable PLL_STABLE and SW_RST_RELEASE interrupts during
-  reset action (Inki Dae)
-- Wait for SW_RST_RELEASE interrupt before setting up clock (Inki Dae)
-- Fall back to bit testing for PLL stabilization when timed out
-- Link to v3: https://patch.msgid.link/20260723-exynos-dsim-fixes-v3-0-0c31ae1dbecc@disroot.org
+ drivers/gpu/drm/bridge/samsung-dsim.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-Changes in v3:
-- Add patch for removing conflicting devices for DRM (Sam Day)
-- Link to v2: https://lore.kernel.org/r/20260208-exynos-dsim-fixes-v2-0-a857e8130a2a@disroot.org
+diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/bridge/samsung-dsim.c
+index 25ab475309e8..fc42acc6b9ef 100644
+--- a/drivers/gpu/drm/bridge/samsung-dsim.c
++++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+@@ -1089,6 +1089,13 @@ static int samsung_dsim_init_link(struct samsung_dsim *dsi)
+ 			reg |= DSIM_HBP_DISABLE_MODE;
+ 		if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_NO_HSA)
+ 			reg |= DSIM_HSA_DISABLE_MODE;
++
++		/*
++		 * For some hardware types, DSIM_MFLUSH_VS bit needs to be
++		 * enabled as its active-high.
++		 */
++		if (dsi->plat_data->hw_type == DSIM_TYPE_EXYNOS7870)
++			reg |= DSIM_MFLUSH_VS;
+ 	}
+ 
+ 	if (dsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
 
-Changes in v2:
-- drop now-not-required [v1 1/3] (Marek Szyprowski)
-- Link to v1: https://lore.kernel.org/r/20260124-exynos-dsim-fixes-v1-0-122d047a23d1@disroot.org
-
----
-Kaustabh Chakraborty (3):
-      drm/bridge: samsung-dsim: enable MFLUSH_VS for Exynos 7870 DSIM
-      drm/bridge: samsung-dsim: use DSIM interrupt to wait for PLL stability
-      drm/exynos: remove simplefb nodes before init
-
- drivers/gpu/drm/bridge/samsung-dsim.c   | 56 +++++++++++++++++++++++++--------
- drivers/gpu/drm/exynos/exynos_drm_drv.c |  6 ++++
- include/drm/bridge/samsung-dsim.h       |  1 +
- 3 files changed, 50 insertions(+), 13 deletions(-)
----
-base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
-change-id: 20260124-exynos-dsim-fixes-5383d6a6f073
-
-Best regards,
---  
-Kaustabh Chakraborty <kauschluss@disroot.org>
+-- 
+2.54.0
 
