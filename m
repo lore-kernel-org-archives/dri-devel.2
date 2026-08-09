@@ -4,75 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5DA7C5B571
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 438DDC5B560
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C1AB10E64E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD56F10E64F;
 	Mon, 10 Aug 2026 06:37:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pYcEhLtX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="cO5kQgwS";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D1A210E043
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 22:29:29 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-c9e607d81fcso344246a12.2
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 15:29:29 -0700 (PDT)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F5D910E149
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 09:04:43 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2ce98cb8165so7858185ad.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 02:04:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786228169; x=1786832969; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786266282; x=1786871082; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=l7mobE6iuvRSDNq5l6lCLR+AOwfPsO7VXjaRec5r9EE=;
- b=pYcEhLtX/m/JyuyasHWdyevFuMgK4zZm+WALPEsDO0sUuTVORahWbqEpiTmq7fOAKP
- edXL+2d6fFDWvKrf6tcI6CXR8YEDFU20nAKPFWIQmDd9WtpIeQraPZ+pnc9gvZG16C45
- Xkb78DleOXPfUmGHxI8NXritWEYFImsFIGOkbN6uurUJ88zOHIO1Eu2irzEeriv7dkXG
- AQD/t2FZtiBOD8ufUBir7IHyptmuo6rJDMzNsQf0rG4Phh0rkHmq/BB/7ZLctPG9Ae6j
- rw1VxcUWVVuhRDu27QmCbT42mxcjTfAqRhH4R86woBqE++gX0kTtXsh+DrEizp7dGSeK
- EGrw==
+ bh=qP4+vU5/u2vGQjsfNEJwm0ao6bE0Fdbcd+FhWpWbiq8=;
+ b=cO5kQgwS2Ay945TKg+pmULSVsD0m2yQliEiankWJPSqb7JBTG6XmQnD8OraNDwhbHV
+ oL92o6RiRC0T2hklGvUITK32lRMmeNqlDGujS5ruDtiWGnapWjEthRc8S1Nsny0rTp36
+ pFYrUUdnf921mOZxj2uPm1LHJrMRtvji70bmw1gwiM25+J635jZxgED6mcFaXBVxuNHp
+ hJaWxRFMLiI799zse5kdiY0n2X+d1OrC9FStCE9OeNZ5ZpDhYTacJdGtmT1rub1/WrOs
+ nPgNmFjwOwkl4hEPEaK4RsRkeFxBjslFp7Pbq2G+1zSdscDbxOdn5Y4Q6rnt7Xi+kjEE
+ jNFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786228169; x=1786832969;
+ d=1e100.net; s=20251104; t=1786266282; x=1786871082;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=l7mobE6iuvRSDNq5l6lCLR+AOwfPsO7VXjaRec5r9EE=;
- b=Kmemj85DJNnWWRGES1tMu7q/684/xqXYAcJkU5sWJN7hSzztjQbRrrv8ptenfviAeH
- 0vzkxwJ0brShyzmaMufz5lqvNHL1UvK1AfRfrTY+92R6et6SrYvzAU1hwlaX1g34R7vq
- gAxUAcCbHTrPFqlgw7uYydsU7v5VonLYGSeJRwxHL8A4o6137Ak16iccPyS0KBXc0ewJ
- dd6OzTHet0Ydhdwa1mpbYGAU7LVt9B9TfX6KxJsw0U8nym8aAPiOcH5Ph0EnFh8etmVm
- W0IWZvtTo/84wI90/tAyTdTqpMj5m2sQzjv00pr8rIRNmX5Nj17YiUpXllEZ4zubEwcF
- SEmA==
+ bh=qP4+vU5/u2vGQjsfNEJwm0ao6bE0Fdbcd+FhWpWbiq8=;
+ b=TIy7kVWjv/00LsgyS6Z24Mjcw1CPLniW1QXsoTyRXGJpwgOuV9DhOvKOBudAJTOyZ8
+ +bF2+WREnM5V9UP7D7QlmvdkYseN1d6URsh0GnRNElgh82eo73eveolZ9gGt5/3b5AH8
+ 3rFaeNHUci1qCZUUzHh7MpnxXwmkMBe5POYeoypVGiluTzhw7z/a57F9lEd9sc+WMp1d
+ 8GkOFR6ubMd6WQwXueNQQVY1TL9sj4ZxCIE2oFtUzoviim48d6k6L3VGakGsEEdf7Rg5
+ t6TMvXyBx63uNM75op+1j12+QHjmd/vP8xsTA20HDADDulx+Y1hNvrFoF74hHiNn2rr8
+ 9GSw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoWQp8OFp6PbXpcdtt/9b5dZEeu8hgE6c4re3fZfdXXMP4CeqlrrUbJCNmd+GHKDg70LlQfnBKwmFg=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzX4MK4mvlz0QH5CcYspf+k1X4n6ZYzRRvb2xbWOhzMXzAUbSWv
- JF9Pif9nIkoEZ0NPdU+KSMz6e3Z9ir2YobHEbqCNWcHXnyoPt6pM+tnzHNGm7wJ7
-X-Gm-Gg: AR+sD13v4sSkDyyENw7jboqdXO2IsYAcok/H0ipdplqa6KYQNwaUiZ2Ac/QH8JTe0AV
- 6kvOLc725zQ8vwkLC0RuAmPXc8r0rtjLxA6K5wHUujy/fzFHbwIhQg3ROSrFFRhzioPEN+DScAS
- LUxxveVSNSi7ltq6SBEKlTVIUpUklrIAhi5BiikoCCa0+AFeWLnLMAbP3lD3pNK1DJ1x1D0b+kq
- fs+kXEmK8YUpt5Md2r4klLNzjz5E0AlwpAZf5mdxjPnN51ysEvkFsELKpl+pEhhdZ7PA8e2jmJO
- k1gMw+/Il+uwpQCbhxVzX5or2AXMLTnXjw5UD+4LHEnifsX/4EgMgxly7Hh1TulN+0TNqsFJ2JG
- kqRCTbH4VfKeToBRjST2cpilX3kjryv2nclBTGF8WqyOp+penHZ8KqNl6UB/daNfVERSnOerTfP
- 5Phiv63JDCZeAjyRNDd8/DrHxCgwgae2jk89HbeDu/KMvJOOVroYQHAIf+VPX/I/rX0eTmmTIe8
- zjXxZWaDllyTiXgHGVKHg==
-X-Received: by 2002:a05:6a20:7349:b0:3c6:3c5b:f2e1 with SMTP id
- adf61e73a8af0-3cbadcfcacfmr19149793637.32.1786228168911; 
- Sat, 08 Aug 2026 15:29:28 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.204.72])
+ AHgh+RococFlxSnq/fPh9lCd+PlMK0Jkd2cAUV4LNkLDbwLXw1L65QAcos4LlmNu2qbRlNtR9z16HXt1TMw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyk1/zZkEOUOS6xiZLG0qJx3RfPcLYlBiJjO1/sWYlU6Rw16q4d
+ OU4aWXXCuGABTEXqu+zTWabKJzbGBGPMLbmIcJztjl9SPT07yjysggVx
+X-Gm-Gg: AR+sD11Xv/1YXX98iLuPgCbvW3ebJlDLxioz/HQEijXwHpY3uO3QWZbFj1gwVj0GXG5
+ 1s/2HSxOgJWkwzMqnFBC9UcHFPMvYGA+Ngd/1bNk6gb6kyBcBuQt87Tkfsc/TUdS/EmBbRJWlIG
+ rd4ZQ5iPZ8O/v3k8zc4nAcqhjtBK/KEYODs270X7H5p8ZPZeVK3xgHuLEBarwwR+HBNE1U2dALl
+ Jy79KJICW2H5H7IxVzGOBhvxwz2WdZjV5RRBXKZyctjG6o41/RzWDqmrG8Od1SjEofme4KkVuqQ
+ P88aW8FHDSzMsXCfMcNPcmtEIcpcmSn8qlm5PxUicmIuGL0JLOJSqXOOPn6wEMPZ3vgvK2IddLY
+ BVaRmPbvkKizJMhU17HuNdivxMpvPWx13DfRK3I7wEObYhRlIG1FFPTCZ/BhY67eXh+HqyB+ZvI
+ JNYVT+FFnlj3X7kW2fpC6SnPuNd6nZFV34irJAjNsWzebpiSIA/s6LnPCd3FNXtZXwQgfxJIde2
+ 8LQnOOYHYb9fJFcRwinuueQSrnHNMluRK4bVyEWxI6C
+X-Received: by 2002:a17:902:e885:b0:2ca:53f7:3c69 with SMTP id
+ d9443c01a7336-2d2b2e60fa4mr116531885ad.9.1786266282292; 
+ Sun, 09 Aug 2026 02:04:42 -0700 (PDT)
+Received: from deepanshu-kernel-hacker..
+ ([2405:201:682f:383f:746c:8928:e990:23a8])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315beb877b4sm27463910eec.19.2026.08.08.15.29.25
+ 5a478bee46e88-315bec68468sm30828864eec.31.2026.08.09.02.04.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 15:29:28 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v2 0/5] drm/amdgpu/aca: Robustness and safety fixes for ACA
- driver
-Date: Sat,  8 Aug 2026 22:27:37 +0000
-Message-ID: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
+ Sun, 09 Aug 2026 02:04:41 -0700 (PDT)
+From: Deepanshu Kartikey <kartikey406@gmail.com>
+To: jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, airlied@gmail.com,
+ simona@ffwll.ch
+Cc: chris@chris-wilson.co.uk, intel-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Deepanshu Kartikey <kartikey406@gmail.com>,
+ syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+Subject: [PATCH] drm/i915: Guard against NULL driver_data in i915_pci_probe()
+Date: Sun,  9 Aug 2026 14:34:30 +0530
+Message-ID: <20260809090430.20577-1-kartikey406@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
@@ -91,26 +93,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-This patch series addresses several race conditions, boundary check bugs,
-logic inversions, NULL pointer checks, and buffer size parameters across
-the AMDGPU ACA (Accelerated Compute Architecture) driver subsystem.
+pci_match_device() can return the dummy pci_device_id_any entry
+when a device is force-bound via sysfs driver_override, in which
+case ->driver_data is unset (NULL). i915_pci_probe() casts it to
+struct intel_device_info * unconditionally and dereferences
+intel_info->require_force_probe, causing a NULL-ptr-deref.
 
-v1 -> v2:
-  - Patch 3: Updated remove_aca_handle() to use list_del_init() instead
-    of list_del(), ensuring list_empty() properly evaluates removed
-    handles and avoiding potential UAF during device teardown.
+Reported-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=db96c5ff032f4292a8dc
+Tested-by: syzbot+db96c5ff032f4292a8dc@syzkaller.appspotmail.com
+Fixes: 42f5551d2769 ("drm/i915: Split out the PCI driver interface to i915_pci.c")
+Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
+---
+ drivers/gpu/drm/i915/i915_pci.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Sreeraj S Kurup (5):
-  drm/amdgpu/aca: Fix race condition and UAF in error cache logging
-  drm/amdgpu/aca: Add upper bounds check in aca_bank_hwip_is_matched
-  drm/amdgpu/aca: Fix inverted validation logic and handle cleanup
-  drm/amdgpu/aca: Add missing NULL check for banks parameter in
-    aca_banks_add_bank
-  drm/amdgpu/aca: Fix off-by-one buffer size parameter in add_aca_sysfs
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 33 ++++++++++---------------
- 1 file changed, 13 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/gpu/drm/i915/i915_pci.c b/drivers/gpu/drm/i915/i915_pci.c
+index 82415af47d54..2f03f95945f1 100644
+--- a/drivers/gpu/drm/i915/i915_pci.c
++++ b/drivers/gpu/drm/i915/i915_pci.c
+@@ -958,6 +958,9 @@ static int i915_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		(struct intel_device_info *) ent->driver_data;
+ 	int err;
+ 
++	if (!intel_info)
++		return -ENODEV;
++
+ 	if (intel_info->require_force_probe && !id_forced(pdev->device)) {
+ 		dev_info(&pdev->dev,
+ 			 "Your graphics device %04x is not properly supported by i915 in this\n"
 -- 
-2.54.0
+2.43.0
 
