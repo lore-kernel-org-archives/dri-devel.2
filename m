@@ -4,78 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D3BC5AE49
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 114A8C5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07AA710E690;
-	Mon, 10 Aug 2026 06:38:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7590E10E68C;
+	Mon, 10 Aug 2026 06:38:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PqKi0mzT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZG09p04m";
 	dkim-atps=neutral
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4BAEB10E115
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:08 +0000 (UTC)
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-2caed617615so10846685ad.3
- for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:08 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3150310E163
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 14:47:00 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-38fdeaed181so1268190a91.1
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 07:47:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786265347; x=1786870147; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786286820; x=1786891620; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
- b=PqKi0mzT9RpvT/V9AP9sOZFv+LpVKzN8uZOIebDxh/KHGIGOTlYLRheWVA3Q5AyZv7
- VXLjK2NAbHY4f5Q+dahSg8/zUh26z48Cp+XDQomTQh9LXN1kjshRDwFGKHrfXfsXAMJ9
- yj/c/u2N6mrgHW5yzOi3tCEA4GT/jfHhQgjbcKsOcmDPTHuO3ldHZGN+edYYGbE+xSKA
- 9TG0ZU4w42+kQhzBjXRx0Ot1CIWYt1rD912SRAVDr3bBGm8XL16jwb6qIEocbOmUJ9nm
- SO2SMQ1c/MXB60sJ7mIDaG1UrJgcT7IeOjMRu2FkDB3ClnFrlwIaDBZl4jpvfdI8Pbej
- 4W0Q==
+ bh=TTdDEO4C2pVqpnKnvMmpty/7Skli343KUkxbaW4hUmA=;
+ b=ZG09p04mXy4F6+d4ciqrsws1XEPJHrRD44OIur2v3Rj7gD6UmVg9eu1+nawfMlayyZ
+ 7TE7cjHWNzC8Ff1d23kGFe4DWCrZclth6EwjTcUScoPjgPPRneOE5yWbvuXre/40d/IA
+ 5W6Q2AUMvsC/ZdZJwM4FvydlYZ5Xw29Th5xv+hDPpBNcIa97P+hJ1MuAkUtdlkiMHrSV
+ GLw0gvX39Zy5vfmr4e9IWlJMo4LZIOY5mMI8rdqOufr04TNQE65HwToKX77tELqa0Glz
+ trxryPpUSFazMnqEPzmF00aAjZWq+FmQtel8MPifxj01nRlkAw1UrRS4io+YvrGZ1jgO
+ WP+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786265347; x=1786870147;
+ d=1e100.net; s=20251104; t=1786286820; x=1786891620;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
- b=HByyhmdfQ5D3uiYrFJ6pm7iu9usbTyOemdwhv/r9DGDioy6ztbAVg0uAng3RE+VpFL
- F/fjD73n/6GLUiPB2I7KC3cFtuDwSNoBp0HuTUffnHBUGZivBS7QqK9KmJQb5gGoUdr3
- HJclvAxwFUrDEXxf4juM4PFwIEryTP9rgh4wuJOaoJr4rfGy5pKDo2SsJCBeXYVKwCL5
- EgFZolbw/CCUGuLz0z0Qon9q84wfG8M0nRR17SK6zWnH5bQkU24OrEKyFpaU1drzhhyU
- irQlWNJo6BgQ5hLKPGUbvjXROOtvJJyDOFdrq/C8eZlsdZ8AOa0rQgnfjNj8rjRW++IP
- /GDA==
+ bh=TTdDEO4C2pVqpnKnvMmpty/7Skli343KUkxbaW4hUmA=;
+ b=ewO1TQ+wF94nINRpi+fPXPUZ9eljvApyLChn6T4+A3fvirIq5Yk39ua3ZMiMnid2YP
+ RlX/k8EJJgvaQqGYXjQbAmi6bkmVG2fa6LMfNphDWgsl/pMWKCX5BY/kYdEwEiNepdSk
+ 39Q7urTXkrrqsQAegd/2e6Q4+XNZDybvDFxQFgZZQDiyISKsjqCYkZH48C18lTIJJFgW
+ lGz2UYZFhj4h47/vf26Sfo4MFfH54V77svn7YNkPl/daEsriddzeoTUl8JUrcwK9z1Z9
+ Sp5nBhmCjTv+TfO+diQSCPgAYETb5ZvK7M/GXXhxNT7mczYY6giVfL0ObwxSl8uloXPu
+ NbSg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr3UiQu4WcGYP/iAOj9Rj95PxhGUKehc39Fj1+SkVCY53BKaaVF4L9Bl4B9vXK6ApsGd9PTf7LdXBI=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxsGNhrlgrUrk5uW6kQFccfaxnQHIJftHcp3hccD+OxjCN117Q2
- UYiohLcgMJZUH8wQCy7RAzGPWngdVgoxUn3T+yOTeFNJBoomklbb3BmQ
-X-Gm-Gg: AR+sD10PpsNWFY/IzvtgltzuxYZILCANHc9U2UHbzKie9j0lityfpcacu9rcZ/VjULl
- 9mbsgWdHGtVvyzXCe89qdEPwXM0W75bJO5ksItqvihHx75xPCd2Wk/Xwwjw6xFINMFW8B6eyG8Q
- URBxPkJ7zdQkfsHAZWHn/TNA2LhNUGnwZBH8jmo17BgGiyTnUq2wU7uws2ewS7MqMXeGHRDI9YP
- VIrEPf1yyEO8ag5dxsDk73pPTO8C5Oddw8+ZGVYitmhWu8u0Cwwjon7dWvkByOKbbgFD99PXAXO
- BgpyNElJpZnu9QVSF8RTLiYqQiDfEYQHGoxOXDPjQTSzrmKvynkvY9Ngfm2J0JhPOW67AGG3Ej5
- F/8mJxYx4mE+ce4/hN843ODUwth8siee6a2QwvhbXBCS5CMMLVZEWOkwoWEIiQjHeSvXT+sYdtc
- qBQyFJWe8PJNOGypXlNBt+DoLdeEyXWvb+tHmTyns9VJnvoX3ITTyNjmXPTDyQKHDWGxoGr3cZf
- BJxPbmhgKo=
-X-Received: by 2002:a05:6a20:9e0e:b0:3c3:66c5:68cc with SMTP id
- adf61e73a8af0-3cb85efa4f9mr44179451637.21.1786265347177; 
- Sun, 09 Aug 2026 01:49:07 -0700 (PDT)
+ AHgh+RrYkLE6Wg1qr4YPoNIZe3OUOnxLzaZyYtfd+UFwaf10nwIvNRi/F5uuzs6UhKnuMmkce+tXi9DGYYU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyN3Ey93tLuZYW+tA1phwLAm/3jd6OxCVT0hJ5g3Z64J0KI7BVq
+ IVCiV25jhxaBYN0sPJeuonEk2S3ffckrGPYfJjR6J4z/Cu/dEjTBl5CN
+X-Gm-Gg: AR+sD13hX9JxKT3XlRuPK9fZhNtMOMRSzA2Cfd3N4oOS5FeOD7HgK7Gg33LufpkLAZ2
+ eR/ES4jelbM6YSmmApAlHyVTVfsEmbL5sIswbYzWbgslQ9+N9P0a3Kyr4a33xDPc+KVUgiYdMfa
+ SVGXkuC/PeL1HglPm3076K83GMGYnW+tE26Hba4U1vDtUYKiB5SwCCdw2HMF2121ITQTu3J3Izg
+ fBbnkEawtu4QlTIebKX3tCssvdLdV56Fs6qF5gp/Qr5MhLpdOQ/iJsJ3VriEQFAtoZoveyq9ugO
+ 9ZvjZR+b1Pw1Zh3xfFaUI1Xhn2O5L2wVYENfXDSfMvFYwQdDPxr3gwuKZeRubNUNLjDsT5TvjeG
+ H28Vxr+tHL2BX54RZvB2IJTjTYuLydFy44HRm0GPOAHzn4ANHR0eRJB3ZLD+2m093/VDfrTNgTr
+ sn+7GrfBu29y0O/zwIIB7WpgIfFyG6vwJJ4lzz1Hz4FzelkoZsdOpIMkT8cmUSySQ09OrIvaqim
+ Wv4D0dmD08=
+X-Received: by 2002:a17:90b:3889:b0:38f:57f0:1f5d with SMTP id
+ 98e67ed59e1d1-3903c5c4491mr34362200a91.15.1786286819656; 
+ Sun, 09 Aug 2026 07:46:59 -0700 (PDT)
 Received: from localhost.localdomain ([103.178.205.91])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.49.03
+ a92af1059eb24-14101b7ad29sm25911224c88.13.2026.08.09.07.46.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 01:49:06 -0700 (PDT)
+ Sun, 09 Aug 2026 07:46:59 -0700 (PDT)
 From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 To: alexander.deucher@amd.com,
 	christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v4 1/6] drm/amdgpu/aca: Fix race condition and UAF in error
- cache logging
-Date: Sun,  9 Aug 2026 08:47:30 +0000
-Message-ID: <20260809084735.9743-2-sreekuttan2156239@gmail.com>
+Subject: [PATCH v5 4/4] drm/amdgpu/ras: Fix delayed work cancellation order
+ during teardown
+Date: Sun,  9 Aug 2026 14:44:51 +0000
+Message-ID: <20260809144451.35431-5-sreekuttan2156239@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
-References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+In-Reply-To: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
+References: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
@@ -94,84 +94,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In aca_error_cache_log_bank_error(), find_bank_error() released
-aerr->lock prior to returning bank_error. This created a time-of-check
-to time-of-use (TOCTOU) race window where a concurrent caller of
-aca_log_aca_error() could acquire aerr->lock and free the bank_error
-node via aca_bank_error_remove().
+In amdgpu_ras_recovery_fini(), mutex_destroy(&con->page_rsv_lock) was
+called prior to cancel_work_sync(&con->recovery_work) and
+cancel_delayed_work_sync(&con->page_retirement_dwork).
 
-When execution returned to aca_error_cache_log_bank_error(),
-incrementing bank_error->count resulted in a Use-After-Free and
-potential kernel memory corruption. Additionally, bank_error->count
-was updated outside mutex lock protection.
+If pending work ran during teardown, it could attempt to acquire
+page_rsv_lock after its destruction, leading to a locking violation and
+potential use-after-free.
 
-Fix this by acquiring aerr->lock at the start of
-aca_error_cache_log_bank_error() and holding it continuously across
-lookup, creation, and counter updates, while removing redundant
-internal lock acquisitions in helper functions.
+Fix this by moving cancel_work_sync(&con->recovery_work) and
+cancel_delayed_work_sync(&con->page_retirement_dwork) before
+mutex_destroy(&con->page_rsv_lock), ensuring both work items are
+synchronously canceled while the lock remains intact.
 
 Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index db7858fe0c3d..d0d473082431 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -237,10 +237,8 @@ static struct aca_bank_error *new_bank_error(struct aca_error *aerr, struct aca_
- 	INIT_LIST_HEAD(&bank_error->node);
- 	memcpy(&bank_error->info, info, sizeof(*info));
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 764cd4950408..1d6b4300d80a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -3994,15 +3994,14 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
+ 	if (con->page_retirement_thread)
+ 		kthread_stop(con->page_retirement_thread);
  
--	mutex_lock(&aerr->lock);
- 	list_add_tail(&bank_error->node, &aerr->list);
- 	aerr->nr_errors++;
--	mutex_unlock(&aerr->lock);
++	cancel_work_sync(&con->recovery_work);
++	cancel_delayed_work_sync(&con->page_retirement_dwork);
++
+ 	atomic_set(&con->page_retirement_req_cnt, 0);
+ 	atomic_set(&con->poison_creation_count, 0);
  
- 	return bank_error;
- }
-@@ -249,22 +247,16 @@ static struct aca_bank_error *find_bank_error(struct aca_error *aerr, struct aca
- {
- 	struct aca_bank_error *bank_error = NULL;
- 	struct aca_bank_info *tmp_info;
--	bool found = false;
+ 	mutex_destroy(&con->page_rsv_lock);
  
--	mutex_lock(&aerr->lock);
- 	list_for_each_entry(bank_error, &aerr->list, node) {
- 		tmp_info = &bank_error->info;
- 		if (tmp_info->socket_id == info->socket_id &&
- 		    tmp_info->die_id == info->die_id) {
--			found = true;
--			goto out_unlock;
-+			return bank_error;
- 		}
- 	}
- 
--out_unlock:
--	mutex_unlock(&aerr->lock);
+-	cancel_work_sync(&con->recovery_work);
 -
--	return found ? bank_error : NULL;
-+	return NULL;
- }
+-	cancel_delayed_work_sync(&con->page_retirement_dwork);
+-
+ 	amdgpu_ras_ecc_log_fini(&con->umc_ecc_log);
  
- static void aca_bank_error_remove(struct aca_error *aerr, struct aca_bank_error *bank_error)
-@@ -306,11 +298,15 @@ int aca_error_cache_log_bank_error(struct aca_handle *handle, struct aca_bank_in
- 		return 0;
- 
- 	aerr = &error_cache->errors[type];
-+	mutex_lock(&aerr->lock);
- 	bank_error = get_bank_error(aerr, info);
--	if (!bank_error)
-+	if (!bank_error) {
-+		mutex_unlock(&aerr->lock);
- 		return -ENOMEM;
-+	}
- 
- 	bank_error->count += count;
-+	mutex_unlock(&aerr->lock);
- 
- 	return 0;
- }
+ 	mutex_lock(&con->recovery_lock);
 -- 
 2.54.0
 
