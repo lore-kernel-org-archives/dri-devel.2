@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86628C5AC80
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 09:09:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AD662C5AD4E
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 09:11:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E95B10E115;
-	Sun,  9 Aug 2026 09:09:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2EE610E532;
+	Sun,  9 Aug 2026 09:11:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="kHWGwyNx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lNrBQ7/J";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 811A510E115
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 09:09:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3BFD10E4CB
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 09:11:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7FB9F438DF;
- Sun,  9 Aug 2026 09:09:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A1F1F000E9;
- Sun,  9 Aug 2026 09:09:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C4C9760008;
+ Sun,  9 Aug 2026 09:11:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BBCE1F000E9;
+ Sun,  9 Aug 2026 09:11:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786266561;
- bh=OAxx3kJLY3bHaf2gK1XAtKnLGmanKqZ8lck6hjA4OG4=;
+ s=k20260515; t=1786266687;
+ bh=TlmjOAMYRoLARnygbODrulTQWh6Dc13+9Ozx9RDjFpE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kHWGwyNx/cSumu2VjB6Qazjl1m8v5GayE7pHO3l1fu7hHw3yGETWCGhlt0eE3w6Yn
- h2rxqgbimJN9/rTDn+ljZ5TVbMkSfaZ7bRIMW9wt0W5Q/8aTB/w1IdUA0mFjj8f0u6
- skHdtGmzKUKhf+OHYE5zGNCsvGs+xXfqp6s6V2e5HgQDI39aGuY4KJMlqrjmi/k0TA
- M1+forERJeaPjCDTdFSPoiHx4w6IChfval7UmFE4Agum+cWjVaeESIjPEoQudUxlGy
- tHqc2V/mYPB5kshNK+opy9AyzSpVBOPByZIkVB+gwriziditHmCJ/ZvlhHhw97V2GA
- HLBxS+xf33UAA==
+ b=lNrBQ7/JHGKppV/LSbgVQfoOVyZ1jw05Bvo2ru/6La9QnpxU96kaWTKtjC92cXzI/
+ j0sOzhmMd0bw/CS3b4hc4YjFxBiWxSBeBQ6Hid0cMlRRjykmjDE1eqkf49OTbU9ek8
+ UVxNdL7n2oYWF0HNPi02h9O8p7eifYI3ELzzHsSm+CqmqssLDEtbgr1TwH6D5WzbgN
+ wx8oAh066dCl1/UQqP5lTYLDz+TPl0emoDVMoIgCtcUC7JPbEfBQFsnt0Evz/QJ0kd
+ QV8XZ3KEJVm+cN8jWlK2Ebm/ywvH0toUX9eXWs6mW/KqnwZDX47IV5EYRz9AuJV7aX
+ Sly9YZEs24YRw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] drm/bridge: samsung-dsim: enable MFLUSH_VS for
- Exynos 7870 DSIM
-To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
+Subject: Re: [PATCH v4 3/6] drm/amdgpu/aca: Fix inverted validation logic
+ and list cleanup
+To: "Sreeraj S Kurup" <sreekuttan2156239@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260809-exynos-dsim-fixes-v5-1-6e63dc6c238f@disroot.org>
-References: <20260809-exynos-dsim-fixes-v5-0-6e63dc6c238f@disroot.org>
- <20260809-exynos-dsim-fixes-v5-1-6e63dc6c238f@disroot.org>
+In-Reply-To: <20260809084735.9743-4-sreekuttan2156239@gmail.com>
+References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+ <20260809084735.9743-4-sreekuttan2156239@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 09:09:20 +0000
-Message-Id: <20260809090921.45A1F1F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 09:11:26 +0000
+Message-Id: <20260809091127.5BBCE1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,87 +58,127 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [High] Invalid memory free causing SLUB corruption.
+- [Low] Build failure due to missing `lock` member in `struct aca_handle_ma=
+nager`.
+
 Pre-existing issues:
-- [High] Hardware misidentification of Exynos 7870 causing incorrect displa=
-y initialization sequence.
+- [High] TOCTOU race in `amdgpu_aca_get_error_data` and lockless list trave=
+rsal in `aca_dispatch_bank`.
 --
 
---- Patch [1]: [PATCH v5 1/3] drm/bridge: samsung-dsim: enable MFLUSH_VS fo=
-r Exynos 7870 DSIM ---
-commit 4604aa815a722cdb66f92b628f8218c57c5a77bb
-Author: Kaustabh Chakraborty <kauschluss@disroot.org>
+--- Patch [3]: [PATCH v4 3/6] drm/amdgpu/aca: Fix inverted validation logic=
+ and list cleanup ---
+commit 248bb6795a4ccf19c8da116fbb952cdd7829d1fb
+Author: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 
-drm/bridge: samsung-dsim: enable MFLUSH_VS for Exynos 7870 DSIM
+drm/amdgpu/aca: Fix inverted validation logic and list cleanup
 
-This commit enables the active-high MFLUSH_VS bit for the Exynos 7870 DSIM
-hardware to properly flush the display FIFO at v-sync pulse. It fixes an
-issue introduced by a previous commit that assumed MFLUSH_VS was active-low
-across all hardware.
+This patch fixes inverted logic in aca_handle_is_valid() so that registered
+handles evaluate as valid. It also modifies remove_aca_handle() to unlink=20
+nodes under a lock and explicitly free the handle.
 
-Link: https://github.com/samsungexynos7870/android_kernel_samsung_exynos787=
-0/blob/a3762bb1761ae/drivers/video/fbdev/exynos/decon_7870/dsim_reg_7870.c#=
-L699 [1]
-
-> diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/brid=
-ge/samsung-dsim.c
-> index e2fc69fc51b60..6260c091c3df8 100644
-> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
-> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-> @@ -1089,6 +1089,13 @@ static int samsung_dsim_init_link(struct samsung_d=
-sim *dsi)
->  			reg |=3D DSIM_HBP_DISABLE_MODE;
->  		if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_NO_HSA)
->  			reg |=3D DSIM_HSA_DISABLE_MODE;
-> +
-> +		/*
-> +		 * For some hardware types, DSIM_MFLUSH_VS bit needs to be
-> +		 * enabled as its active-high.
-> +		 */
-> +		if (dsi->plat_data->hw_type =3D=3D DSIM_TYPE_EXYNOS7870)
-> +			reg |=3D DSIM_MFLUSH_VS;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_aca.c
+> index c76664af9902e..c35f6be2ef774 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+> @@ -586,10 +586,7 @@ static int __aca_get_error_data(struct amdgpu_device=
+ *adev, struct aca_handle *h
+> =20
+>  static bool aca_handle_is_valid(struct aca_handle *handle)
+>  {
+> -	if (!handle->mask || !list_empty(&handle->node))
+> -		return false;
+> -
+> -	return true;
+> +	return handle && handle->mask && !list_empty(&handle->node);
+>  }
+> =20
+>  int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_han=
+dle *handle,
+> @@ -599,8 +596,8 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *a=
+dev, struct aca_handle *han
+>  	if (!handle || !err_data)
+>  		return -EINVAL;
+> =20
+> -	if (aca_handle_is_valid(handle))
+> -		return -EOPNOTSUPP;
+> +	if (!aca_handle_is_valid(handle))
+> +		return 0;
 
 [Severity: High]
-This is a pre-existing issue, but since this patch adds specific support for
-DSIM_TYPE_EXYNOS7870, does the samsung_dsim_hw_is_exynos() macro also need
-to be updated to include it?
+This is a pre-existing issue, but does adding the lock in remove_aca_handle=
+()
+actually prevent background queries from referencing destroyed mutexes?
 
-Currently, that macro is defined as:
+The commit message notes that unlinking under a lock stops background queri=
+es
+from referencing destroyed error cache mutexes. However, since
+amdgpu_aca_get_error_data() still calls aca_handle_is_valid() locklessly, a
+background thread can evaluate !list_empty(&handle->node) to true and get
+preempted.=20
 
-include/drm/bridge/samsung-dsim.h:
-#define samsung_dsim_hw_is_exynos(hw) \
-	((hw) >=3D DSIM_TYPE_EXYNOS3250 && (hw) <=3D DSIM_TYPE_EXYNOS5433)
+Concurrent driver teardown in remove_aca_handle() can then unlink the handle
+and destroy its mutexes. When the background thread resumes and enters
+__aca_get_error_data(), won't it still lock a destroyed mutex?
 
-Because DSIM_TYPE_EXYNOS7870 falls outside this range, the macro evaluates
-to false for the Exynos 7870. This causes the driver to incorrectly treat
-it as an i.MX device in several places.
+Furthermore, aca_dispatch_bank() iterates mgr->list locklessly, which seems
+like it will still race with list modifications in remove_aca_handle().
 
-For example, further down in this same samsung_dsim_init_link() function,
-it will incorrectly apply the i.MX-specific non-continuous clock lane
-configuration:
-
-	if (driver_data->has_clklane_stop &&
-	    dsi->mode_flags & MIPI_DSI_CLOCK_NON_CONTINUOUS) {
-		if (!samsung_dsim_hw_is_exynos(dsi->plat_data->hw_type))
-			reg |=3D DSIM_NON_CONTINUOUS_CLKLANE;
-
-It also causes samsung_dsim_atomic_pre_enable() to call samsung_dsim_init()
-early:
-
-	if (!samsung_dsim_hw_is_exynos(dsi->plat_data->hw_type)) {
-		ret =3D samsung_dsim_init(dsi);
-
-which breaks the expected Exynos DSI host initialization order.
-
-Will this hardware misidentification cause display initialization failures
-on Exynos 7870 hardware?
-
->  	}
 > =20
->  	if (dsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
+>  	if ((type < 0) || (!(BIT(type) & handle->mask)))
+>  		return  0;
+
+[ ... ]
+
+> @@ -716,9 +713,13 @@ static void remove_aca_handle(struct aca_handle *han=
+dle)
+>  {
+>  	struct aca_handle_manager *mgr =3D handle->mgr;
+> =20
+> -	aca_fini_error_cache(handle);
+> -	list_del(&handle->node);
+> +	mutex_lock(&mgr->lock);
+
+[Severity: Low]
+Does struct aca_handle_manager actually have a lock field?=20
+
+Looking at drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h, the struct only contains
+a list head and nr_handles. Attempting to lock mgr->lock appears to cause a
+build failure.
+
+> +	list_del_init(&handle->node);
+>  	mgr->nr_handles--;
+> +	mutex_unlock(&mgr->lock);
+> +	aca_fini_error_cache(handle);
+> +	kfree(handle);
+> +
+
+[Severity: High]
+Is it safe to call kfree(handle) here?=20
+   =20
+Looking at amdgpu_ras_bind_aca() in drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c,
+the handle is passed as an interior pointer to the embedded aca_handle field
+of struct ras_manager:
+
+amdgpu_ras_bind_aca() {
+    ...
+    return amdgpu_aca_add_handle(adev, &obj->aca_handle, ...);
+}
+
+Calling kfree() on an embedded struct rather than a standalone heap allocat=
+ion
+will trigger a SLUB invalid-free kernel panic during driver teardown.
+
+>  }
+> =20
+>  static void remove_aca_sysfs(struct aca_handle *handle)
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-exynos-dsi=
-m-fixes-v5-0-6e63dc6c238f@disroot.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809084735.9743=
+-1-sreekuttan2156239@gmail.com?part=3D3
