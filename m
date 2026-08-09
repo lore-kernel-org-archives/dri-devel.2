@@ -4,78 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14F7EC5AE5D
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12D3BC5AE49
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB7010E68E;
-	Mon, 10 Aug 2026 06:38:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 07AA710E690;
+	Mon, 10 Aug 2026 06:38:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qsVZzUHx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PqKi0mzT";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 63C4010E08D
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 22:29:51 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-38f0f132f56so2450718a91.0
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 15:29:51 -0700 (PDT)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4BAEB10E115
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:08 +0000 (UTC)
+Received: by mail-pl1-f169.google.com with SMTP id
+ d9443c01a7336-2caed617615so10846685ad.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786228191; x=1786832991; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786265347; x=1786870147; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
  bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
- b=qsVZzUHxzQVLLM78YHWlVGv+hhnS7uO6Z3VC5PVYgDzJb9CeHk/ZlXeOXZFPJZWrpG
- TwlLB9AIBG+i39lzdPV6BRlhV60trbyJCnD2x6pOJUPacGzxHL+z8CIrRzhQG05UdYL7
- pl8EzPgTP/Aed9rwd0dhcPhQfpsxkMik59Y3lcXv8UtoYDCqO9awNmE1fKNRIvJ/OIV7
- lH+Bs4lxMLuoJW06s/kWPeo2iLqnfoQctR2o4zI3+uLr2afOpsBhspDjfKdQ67TyjQKj
- IIRvzss5Iq7x3wdtHedyhDrJLoklr6Y8NyvHP5S3fbPAHeK0CPZG+YuPIhjewN/6TY+K
- BMyw==
+ b=PqKi0mzT9RpvT/V9AP9sOZFv+LpVKzN8uZOIebDxh/KHGIGOTlYLRheWVA3Q5AyZv7
+ VXLjK2NAbHY4f5Q+dahSg8/zUh26z48Cp+XDQomTQh9LXN1kjshRDwFGKHrfXfsXAMJ9
+ yj/c/u2N6mrgHW5yzOi3tCEA4GT/jfHhQgjbcKsOcmDPTHuO3ldHZGN+edYYGbE+xSKA
+ 9TG0ZU4w42+kQhzBjXRx0Ot1CIWYt1rD912SRAVDr3bBGm8XL16jwb6qIEocbOmUJ9nm
+ SO2SMQ1c/MXB60sJ7mIDaG1UrJgcT7IeOjMRu2FkDB3ClnFrlwIaDBZl4jpvfdI8Pbej
+ 4W0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786228191; x=1786832991;
+ d=1e100.net; s=20251104; t=1786265347; x=1786870147;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
  bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
- b=DK6pDpTQZ+UWS3dtPEYq6RDLvi4equnbuZeh/OxSvgC2oqULBgzUfKBfjuF5OF18RK
- Px+HnmSMmaUePLBBTf7QpgZKMWk2KYv4boB9BQESYzdcwxXbGyxejPfbpSavzJnNVs/K
- UpOOSX2zVEvakkax18XCCf8IL7PaL5ml/uTMVpNmKEEpMrpEmvPCs66zE+9guvH5zYak
- zdEc2O7vlITrGUNDG/h8UtgBJCylcsbolRjDaJ1fO99xqN6k2ruEa1c9OXaaGWFJYaS6
- N7G1U1Cw3gdhOB28ALdEpdPXLlMGHEY8qTNIRMeVEgjn2HgIWJZYK+0g5knW0RMJ44z/
- BQDg==
+ b=HByyhmdfQ5D3uiYrFJ6pm7iu9usbTyOemdwhv/r9DGDioy6ztbAVg0uAng3RE+VpFL
+ F/fjD73n/6GLUiPB2I7KC3cFtuDwSNoBp0HuTUffnHBUGZivBS7QqK9KmJQb5gGoUdr3
+ HJclvAxwFUrDEXxf4juM4PFwIEryTP9rgh4wuJOaoJr4rfGy5pKDo2SsJCBeXYVKwCL5
+ EgFZolbw/CCUGuLz0z0Qon9q84wfG8M0nRR17SK6zWnH5bQkU24OrEKyFpaU1drzhhyU
+ irQlWNJo6BgQ5hLKPGUbvjXROOtvJJyDOFdrq/C8eZlsdZ8AOa0rQgnfjNj8rjRW++IP
+ /GDA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqoOhRLI8mHvZUSj1f0Gk8xWAXO3XuY4nWiEIYX/4k/CshPQRdcMhAgkJ06IqLyxA34tq2TP61hYjk=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwI7W9l3JSWIXepjNEmHc824uHupy5vRS25H5mPe74KnlmhLg9V
- pBoVnuZF9eDlDg5KV1prgmdU4E3gLGIRUQaCngNBzVL4YWSt7EpfVa7+
-X-Gm-Gg: AR+sD127acquMJQk7b3qHb34tnnYHDLMBYD9W5LlTfXL/gVzF+FgWAyLFFKz4pUBu9Q
- F0D4eM72mLvVLbxQ6rMYFUqKxzO4n5gSX6/yuAZ6pxi2UvBG4rPNl+2b++O/NfrNqtOigptXEOQ
- 2HSaFTDNTkm4wRb6r7yHhyOZzcCjwSGe5NNrH9hgo7RG6f89qQsK7oYCox5IAvYoW+aTGH7PaT5
- pWTtA2UsqhuVxSPgm1oUbKmTXpvR3bfvxzsSBgKSELlbStWA8p4Ryp7aivxrkcpGDwTdner/43K
- NzCSGWkKBWPlgpJ5TgwRqbafulMo2Ti6arp0RS9iJvKjZJp1doDB9SZL7L8F5QmZWWM3R9scsEe
- Zay9H5HSrD3CxE+VFskJBXLi9IWgl1HwtQTud35SukKHY60CHP/e5DSo9DlLjLohIyAaSLhj1Ai
- uPMrucmVZx8vPweOI8bYzrOgJqXaPLNJPK2IUuRlQbb/0uKdrCB8TEkrDI3mco9IMLdqSW8EgRn
- P0YZXlAtRY=
-X-Received: by 2002:a17:90a:dfcf:b0:38f:cfe2:fd3a with SMTP id
- 98e67ed59e1d1-392847505bfmr4213335a91.15.1786228190844; 
- Sat, 08 Aug 2026 15:29:50 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.204.72])
+ AHgh+Rr3UiQu4WcGYP/iAOj9Rj95PxhGUKehc39Fj1+SkVCY53BKaaVF4L9Bl4B9vXK6ApsGd9PTf7LdXBI=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxsGNhrlgrUrk5uW6kQFccfaxnQHIJftHcp3hccD+OxjCN117Q2
+ UYiohLcgMJZUH8wQCy7RAzGPWngdVgoxUn3T+yOTeFNJBoomklbb3BmQ
+X-Gm-Gg: AR+sD10PpsNWFY/IzvtgltzuxYZILCANHc9U2UHbzKie9j0lityfpcacu9rcZ/VjULl
+ 9mbsgWdHGtVvyzXCe89qdEPwXM0W75bJO5ksItqvihHx75xPCd2Wk/Xwwjw6xFINMFW8B6eyG8Q
+ URBxPkJ7zdQkfsHAZWHn/TNA2LhNUGnwZBH8jmo17BgGiyTnUq2wU7uws2ewS7MqMXeGHRDI9YP
+ VIrEPf1yyEO8ag5dxsDk73pPTO8C5Oddw8+ZGVYitmhWu8u0Cwwjon7dWvkByOKbbgFD99PXAXO
+ BgpyNElJpZnu9QVSF8RTLiYqQiDfEYQHGoxOXDPjQTSzrmKvynkvY9Ngfm2J0JhPOW67AGG3Ej5
+ F/8mJxYx4mE+ce4/hN843ODUwth8siee6a2QwvhbXBCS5CMMLVZEWOkwoWEIiQjHeSvXT+sYdtc
+ qBQyFJWe8PJNOGypXlNBt+DoLdeEyXWvb+tHmTyns9VJnvoX3ITTyNjmXPTDyQKHDWGxoGr3cZf
+ BJxPbmhgKo=
+X-Received: by 2002:a05:6a20:9e0e:b0:3c3:66c5:68cc with SMTP id
+ adf61e73a8af0-3cb85efa4f9mr44179451637.21.1786265347177; 
+ Sun, 09 Aug 2026 01:49:07 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.205.91])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315beb877b4sm27463910eec.19.2026.08.08.15.29.47
+ 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.49.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 15:29:50 -0700 (PDT)
+ Sun, 09 Aug 2026 01:49:06 -0700 (PDT)
 From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 To: alexander.deucher@amd.com,
 	christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v2 1/5] drm/amdgpu/aca: Fix race condition and UAF in error
+Subject: [PATCH v4 1/6] drm/amdgpu/aca: Fix race condition and UAF in error
  cache logging
-Date: Sat,  8 Aug 2026 22:27:38 +0000
-Message-ID: <20260808222742.2859-2-sreekuttan2156239@gmail.com>
+Date: Sun,  9 Aug 2026 08:47:30 +0000
+Message-ID: <20260809084735.9743-2-sreekuttan2156239@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
-References: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
+In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
