@@ -4,45 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2904DC5AE49
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 13:35:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E34C5AD4E
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 13:36:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CB4610E57C;
-	Sun,  9 Aug 2026 13:35:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 199C410E15E;
+	Sun,  9 Aug 2026 13:36:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="e785woHM";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="cGJtBLTi";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E26510E57C
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 13:35:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC5FF10E15E
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 13:36:05 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5372060008;
- Sun,  9 Aug 2026 13:35:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0581F000E9;
- Sun,  9 Aug 2026 13:35:42 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 48F9760008;
+ Sun,  9 Aug 2026 13:36:05 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A711F000E9;
+ Sun,  9 Aug 2026 13:36:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786282543;
- bh=ugjGOriiU0Y2ChGNDbvl2kZUdWr9sAEtGxiFxyxChyg=;
+ s=k20260515; t=1786282565;
+ bh=P5Bg/oaykp14rin3RjiNprNpcavQbQmhK7o7+wKpbOM=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=e785woHMjnNjaj5kZw3qn4bBB48fUKAC855tvn7aeWigr/z3Gp5VELgEQTE7DJoXH
- qfT12sLiYpgZrZmnE7vDBNAqD82oiJD9OsT8032KcEvEt7Ewut59pfqdhzkQZDr+KP
- YW65vm8cMJmBVP4zy9pPUnqiH3vjuAG2Gus3P/L7KL8YE3Bx8w1tlfplQhcCl+YTDR
- SD9FAeYH0K0D0q4n159U8r1JnzOjm8T2FTJ02Y8jGZwDncKcz7GXRVlJefyF6/8mBV
- m0XSTlhGKxHP5b3+AfziDpQUiK9kB6xhAIsRK2PjacmtbS9p5j2iloQD+qEGf9ZZ9H
- TiW39iG4lgPaQ==
+ b=cGJtBLTis3iW0UOkE02bKdNuR5JXUvkvsJtMJwIQ5nn3ETvBsKFcEL+UJC5IpwiLn
+ QDoYKl/525z3GRLfIVtzw+3bzL8VljPyHEM6SKbuiv6ryahKYPdsodG2157nmmP8ns
+ sbbC9azdV9zpm04YDOHDSUDD+X/N6ZkqrqLnPkneBfgUTU166bQx7m8MqdciPBAkHX
+ Ws76Mkad+J1wX4JubxVBtZqjpwDbDHZEuDJfwIeJ4Gu6HYypkXgKJI6NFcI0ky/epJ
+ ZEqaHXbx+k1KioR0gF+KIgGu5ENXLokf/nYwrsNWvLg2Km04V2ihagWu/rdEkuS2DP
+ z29R7hnGdqv0w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/17] drm/spacemit: add Saturn DPU DRM device driver
+Subject: Re: [PATCH v2 12/17] drm/spacemit: add Innosilicon DP/eDP
+ controller bridge driver
 To: "Cody Kang" <codykang.hk@gmail.com>
-Cc: linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org,
- conor+dt@kernel.org, dri-devel@lists.freedesktop.org,
- neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org
-In-Reply-To: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+Cc: neil.armstrong@linaro.org, robh@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-phy@lists.infradead.org, olteanv@gmail.com, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, vkoul@kernel.org
+In-Reply-To: <20260809-k3-display-v2-12-327d7910bf71@gmail.com>
 References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
- <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+ <20260809-k3-display-v2-12-327d7910bf71@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 13:35:41 +0000
-Message-Id: <20260809133542.3E0581F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 13:36:03 +0000
+Message-Id: <20260809133604.45A711F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,183 +60,271 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] The driver calls sleeping delay functions (`usleep_range()`) from =
-within CRTC atomic enable and disable callbacks, violating DRM atomic conte=
-xt rules.
-- [Medium] Setting drm_mode_config.max_width and max_height to a single CRT=
-C's maximum resolution breaks multi-monitor support.
-- [Medium] Missing error check after `drm_of_component_match_add()` inside =
-the OF component loop causes device node reference leaks on subsequent iter=
-ations.
+- [High] Premature bridge and component registration before eDP panel probe=
+ completion breaks `drm_bridge_connector`.
+- [High] Incorrect lock acquired before calling `drm_connector_set_link_sta=
+tus_property`.
+- [High] Infinite modeset loop caused by partial clearing of link capabilit=
+ies on training failure.
+- [Medium] Data race on DPCD and link capabilities during `mode_valid` and =
+`atomic_check`.
+- [Medium] AUX hardware reset during modesets races with concurrent AUX tra=
+nsfers.
+- [Medium] Stale AUX interrupt status causes false completions on subsequen=
+t transfers.
 --
 
---- Patch [11]: [PATCH v2 11/17] drm/spacemit: add Saturn DPU DRM device dr=
-iver ---
-commit cbbaf4042bf32b29313b65d5c670b16c44e0fb03
+--- Patch [12]: [PATCH v2 12/17] drm/spacemit: add Innosilicon DP/eDP contr=
+oller bridge driver ---
+commit 67f4fc821826b59800af024c1981f9d4c8be1a74
 Author: Cody Kang <codykang.hk@gmail.com>
+Subject: drm/spacemit: add Innosilicon DP/eDP controller bridge driver
 
-drm/spacemit: add Saturn DPU DRM device driver
+This commit introduces the DisplayPort/embedded DisplayPort controller
+bridge driver for the SpacemiT Saturn DPU. It leverages the generic PHY
+framework and provides hotplug detection alongside link training mechanisms.
 
-Add the DRM device for the SpacemiT K3 Saturn display processing unit
-and hook the driver up to the build. The SoC has two DPU instances;
-each drives one CRTC that scans out a single primary plane in linear
-RGB at up to 3840x2160@60 and feeds a downstream DP/eDP controller
-over an OF-graph endpoint. Buffers use drm_gem_shmem_helper. The
-AFBC/compressed decode path is not exposed and writeback is not
-implemented.
-
-> diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c b/drivers/gpu/drm/sp=
-acemit/spacemit_drm.c
-> new file mode 100644
 > --- /dev/null
-> +++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
+> +++ b/drivers/gpu/drm/spacemit/spacemit_inno_dp.c
+[ ... ]
+> +static void spacemit_dp_modeset_retry_work(struct work_struct *work)
+> +{
+> +	struct spacemit_dp_dev *dp =3D container_of(work, struct spacemit_dp_de=
+v,
+> +						  modeset_retry_work);
+> +	struct drm_connector *connector =3D dp->connector;
+> +
+> +	if (!connector)
+> +		return;
+> +
+> +	mutex_lock(&connector->dev->mode_config.mutex);
+> +	drm_connector_set_link_status_property(connector,
+> +					       DRM_MODE_LINK_STATUS_BAD);
+> +	mutex_unlock(&connector->dev->mode_config.mutex);
+
+[Severity: High]
+Does this acquire the correct lock? The DRM core requires the caller to hold
+mode_config.connection_mutex (a drm_modeset_lock) to protect connection
+state. Calling drm_connector_set_link_status_property with just the
+standard mode_config.mutex triggers a lockdep warning and leaves the state
+unprotected against concurrent atomic commits.
 
 [ ... ]
-
-> +int spacemit_drm_mode_config_init(struct drm_device *drm)
+> +static ssize_t spacemit_dp_aux_transfer(struct drm_dp_aux *aux,
+> +					struct drm_dp_aux_msg *msg)
 > +{
-> +	int ret;
+[ ... ]
+> +	regmap_write_bits(dp->regs, DP_AUX_START_REG, DP_AUX_START,
+> +			  FIELD_PREP(DP_AUX_START, 0));
+> +	regmap_write_bits(dp->regs, DP_AUX_START_REG, DP_AUX_START,
+> +			  FIELD_PREP(DP_AUX_START, 1));
 > +
-> +	ret =3D drmm_mode_config_init(drm);
+> +	timeout =3D jiffies + msecs_to_jiffies(200);
+> +	ret =3D -ETIMEDOUT;
+> +
+> +	while (1) {
+> +		regmap_read(dp->regs, DP_GENERAL_INTERRUPT, &val);
+> +		val =3D FIELD_GET(DP_AUX_REPLY_EVENT_INT_STA, val);
+> +		if (val) {
+> +			ret =3D 0;
+> +			break;
+> +		}
+> +		if (time_after(jiffies, timeout))
+> +			break;
+> +		usleep_range(100, 110);
+> +	}
+> +
+> +	if (ret) {
+> +		if (retries < SPACEMIT_DP_AUX_MAX_RETRIES) {
+> +			retries++;
+> +			spacemit_dp_aux_hw_reset(dp);
+> +			dev_dbg(dp->dev,
+> +				"AUX timeout, cmd=3D0x%x addr=3D0x%x size=3D%zu retry %d/%d\n",
+> +				cmd, msg->address, msg->size, retries, SPACEMIT_DP_AUX_MAX_RETRIES);
+> +			goto retry_eio;
+> +		}
+> +
+> +		dev_err(dp->dev,
+> +			"AUX transfer timeout, req: 0x%x, cmd: 0x%x, addr: 0x%x, size %zu\n",
+> +			msg->request, cmd, msg->address, msg->size);
+> +		return ret;
+
+[Severity: Medium]
+If a transfer times out and this returns -ETIMEDOUT, is the
+DP_AUX_REPLY_EVENT_INT_STA interrupt bit left uncleared?
+
+If the hardware completes the transaction shortly after the timeout expires,
+this bit will be set. Since the next AUX transfer does not clear this bit
+before starting, its polling loop will instantly see the stale event bit and
+incorrectly assume the new transfer has completed.
+
+Could this lead to reading garbage data and corrupting DPCD or EDID reads?
+
+[ ... ]
+> +static int spacemit_dp_hw_read_sink_caps(struct spacemit_dp_dev *dp)
+> +{
+> +	ssize_t ret;
+> +	u8 max_bw;
+> +	int retry;
+> +
+> +	for (retry =3D 0; retry < SPACEMIT_DP_SINK_READY_RETRIES; retry++) {
+> +		if (retry) {
+> +			spacemit_dp_aux_hw_reset(dp);
+
+[Severity: Medium]
+Can this reset disrupt concurrent AUX transfers initiated by userspace?
+
+The driver issues a hardware reset to the AUX controller here and in
+spacemit_dp_link_disable() without holding dp->aux.hw_mutex. If a concurrent
+AUX transfer is initiated (e.g., via /dev/drm_dp_auxN) while a modeset or
+detect operation is occurring, the hardware reset could corrupt or abort the
+in-flight transfer.
+
+[ ... ]
+> +static enum drm_mode_status
+> +spacemit_dp_bridge_mode_valid(struct drm_bridge *bridge,
+> +			      const struct drm_display_info *info,
+> +			 const struct drm_display_mode *mode)
+> +{
+> +	struct spacemit_dp_dev *dp =3D container_of(bridge,
+> +						  struct spacemit_dp_dev,
+> +						  bridge);
+> +	unsigned int max_link_rate, max_lanes;
+> +	u64 max_bw, req_bw;
+> +	const unsigned int bpp =3D 24;
+> +
+> +	/*
+> +	 * drm_dp_max_link_rate() is in 10 kHz units; clamp to what the PHY can
+> +	 * do.
+> +	 */
+> +	max_link_rate =3D min_t(unsigned int, drm_dp_max_link_rate(dp->dpcd),
+> +			      SPACEMIT_DP_SOURCE_MAX_RATE / 10);
+
+[Severity: Medium]
+Is it safe to read dp->dpcd here without holding dp->mode_lock?
+
+These hardware capability properties are updated in
+spacemit_dp_hw_read_sink_caps(), which runs from the hotplug threaded IRQ
+handler while holding dp->mode_lock. Reading them here without the lock
+could expose a data race where concurrent hotplug events result in torn
+reads of the capabilities array.
+
+[ ... ]
+> +static void spacemit_dp_bridge_atomic_enable(struct drm_bridge *bridge,
+> +					     struct drm_atomic_commit *state)
+> +{
+[ ... ]
+> +	if (!trained) {
+> +		dev_err(dp->dev,
+> +			"no usable link config; leaving video disabled (%u kHz x%u lanes)\n",
+> +			dp->link.max_rate, dp->link.max_num_lanes);
+> +		/*
+> +		 * The caps may be from a sink that has since been swapped out.
+> +		 */
+> +		dp->link.max_rate =3D 0;
+> +		dp->link.max_num_lanes =3D 0;
+> +
+> +		/*
+> +		 * Deferred: we are inside the commit and hold the modeset
+> +		 * locks.
+> +		 */
+> +		schedule_work(&dp->modeset_retry_work);
+> +		return;
+> +	}
+
+[Severity: High]
+Does clearing dp->link.max_rate but not the raw dp->dpcd array cause an
+infinite modeset loop on training failure?
+
+When link training fails, the driver sets max_rate to 0 and schedules a link
+status retry but leaves the raw dp->dpcd array untouched. When the hotplug
+event prompts userspace to request a new modeset:
+
+spacemit_dp_bridge_mode_valid() will accept the failing mode because it
+reads from the unchanged dp->dpcd.
+
+spacemit_dp_bridge_atomic_check() will accept it because max_rate is 0,
+causing it to unconditionally return success.
+
+spacemit_dp_bridge_atomic_enable() then attempts to train the link again,
+fails again, and repeats the cycle indefinitely, wedging the display server.
+
+[ ... ]
+> +static int spacemit_dp_bridge_atomic_check(struct drm_bridge *bridge,
+> +					   struct drm_bridge_state *bridge_state,
+> +				      struct drm_crtc_state *crtc_state,
+> +				      struct drm_connector_state *conn_state)
+> +{
+[ ... ]
+> +	/* No caps yet: leave idx unset and let ->atomic_enable() retry. */
+> +	if (!dp->link.max_rate || !dp->link.max_num_lanes) {
+> +		st->link_cfg_idx =3D -1;
+> +		return 0;
+> +	}
+
+[Severity: Medium]
+Similar to the read in spacemit_dp_bridge_mode_valid(), is it safe to read
+the dp->link properties without holding dp->mode_lock here?
+
+[ ... ]
+> +static int inno_dp_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	/*
+> +	 * eDP hands panel power, enable-GPIO and backlight to panel-edp over
+> +	 * the AUX bus. A DP instance has no aux-bus child and takes the
+> +	 * -ENODEV path.
+> +	 */
+> +	if (dp->edp_mode) {
+> +		ret =3D devm_of_dp_aux_populate_bus(&dp->aux,
+> +						  spacemit_dp_edp_link_panel);
+> +		if (ret) {
+> +			dev_err_probe(dev, ret,
+> +				"eDP: failed to populate aux-bus panel\n");
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * drm_bridge_attach() expects the bridge to already be on the global
+> +	 * list.
+> +	 */
+> +	ret =3D devm_drm_bridge_add(dev, &dp->bridge);
+> +	if (ret) {
+> +		dev_err(dev, "failed to register DP bridge: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	platform_set_drvdata(pdev, dp);
+> +
+> +	/*
+> +	 * The handler needs bind-created state, so keep the line disabled until
+> +	 * bind.
+> +	 */
+> +	ret =3D devm_request_threaded_irq(dev, dp->irq, spacemit_dp_irq_handler,
+> +					spacemit_dp_hotplug_event_handler,
+> +					IRQF_NO_AUTOEN, dev_name(dev), dp);
 > +	if (ret)
 > +		return ret;
 > +
-> +	drm->mode_config.min_width =3D 1;
-> +	drm->mode_config.min_height =3D 1;
-> +	/* K3 user manual: each DPU scans out at most 3840x2160@60 */
-> +	drm->mode_config.max_width =3D 3840;
-> +	drm->mode_config.max_height =3D 2160;
-
-[Severity: Medium]
-Will setting max_width and max_height to a single CRTC's maximum resolution
-break multi-monitor support?
-
-These values dictate the maximum dimensional bounds for the entire DRM
-framebuffer, not just a single CRTC's scanout. Windowing systems allocating
-a single large framebuffer to span all connected monitors might fail if they
-attempt to configure side-by-side dual monitors exceeding 3840x2160.
-
-> +
-> +	drm->mode_config.funcs =3D &spacemit_drm_mode_config_funcs;
-> +	drm->mode_config.helper_private =3D &spacemit_drm_mode_config_helper;
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +int spacemit_drm_of_component_probe(struct device *dev)
-> +{
-> +	struct device_node *ports, *port, *ep;
-> +	struct device_node *remote;
-> +	struct component_match *match =3D NULL;
-
-[ ... ]
-
-> +	for_each_child_of_node(ports, port) {
-> +		if (!of_node_name_eq(port, "port"))
-> +			continue;
-> +		for_each_child_of_node(port, ep) {
-> +			if (!of_node_name_eq(ep, "endpoint"))
-> +				continue;
-> +			remote =3D of_graph_get_remote_port_parent(ep);
-> +			if (!remote)
-> +				continue;
-> +			if (of_device_is_available(remote))
-> +				drm_of_component_match_add(dev, &match,
-> +							   compare_of, remote);
-
-[Severity: Medium]
-Could this loop leak an OF device node reference on subsequent iterations
-if drm_of_component_match_add() fails and returns an error pointer?
-
-If drm_of_component_match_add() encounters a memory allocation failure, it
-sets the match pointer to ERR_PTR(-ENOMEM). Because this loop does not
-check IS_ERR(match) to break out early, subsequent iterations will pass the
-error pointer back into the function.
-
-Internally, drm_of_component_match_add() unconditionally calls of_node_get()
-to increment the reference count, but component_match_add_release()
-immediately returns without registering a release callback when the match
-pointer is already an error.
-
-> +			of_node_put(remote);
-> +		}
-> +	}
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/spacemit/spacemit_crtc.c b/drivers/gpu/drm/s=
-pacemit/spacemit_crtc.c
-> --- a/drivers/gpu/drm/spacemit/spacemit_crtc.c
-> +++ b/drivers/gpu/drm/spacemit/spacemit_crtc.c
-
-[ ... ]
-
->  static void spacemit_crtc_atomic_enable(struct drm_crtc *crtc,
->  					struct drm_atomic_commit *old_state)
->  {
->  	struct spacemit_crtc *a_crtc =3D to_spacemit_crtc(crtc);
->  	struct spacemit_drm_private *priv =3D crtc->dev->dev_private;
->  	int idx;
->  	int ret;
->=20
->  	if (!drm_dev_enter(crtc->dev, &idx))
->  		return;
->=20
->  	trace_spacemit_crtc_atomic_enable(a_crtc->dev_id);
->=20
->  	/*
->  	 * U-Boot leaves its boot-logo pipeline running. Hard-stop it with the
->  	 * resets alone; the clocks are not ours to gate until we have enabled
->  	 * them.
->  	 */
->  	if (unlikely(a_crtc->first_modeset)) {
->  		ret =3D reset_control_bulk_assert(ARRAY_SIZE(priv->pipe_resets),
->  						priv->pipe_resets);
->  		if (ret)
->  			dev_warn(a_crtc->dev,
->  				 "failed to assert resets: %d\n", ret);
->  		usleep_range(10000, 20000);
+> +	ret =3D component_add(dev, &spacemit_dp_ops);
 
 [Severity: High]
-Does this code call a sleeping function from within atomic context?
+Does registering the component here before the eDP panel finishes probing
+break drm_bridge_connector?
 
-CRTC atomic enable callbacks execute in atomic context, where sleeping is
-strictly forbidden. Calling usleep_range() here can cause kernel warnings,
-system instability, and potential deadlocks.
+The driver calls devm_drm_bridge_add() and component_add() right after
+asking the AUX bus to asynchronously probe the eDP panel. This signals to
+the DRM master that this component is ready, prompting it to bind and build
+the connector immediately.
 
->  		a_crtc->first_modeset =3D false;
->  	}
-
-[ ... ]
-
->  static int dpu_pm_suspend(struct device *dev)
->  {
->  	struct spacemit_drm_private *priv =3D dev_get_drvdata(dev);
->  	struct spacemit_crtc *a_crtc =3D priv->a_crtc;
->  	int ret;
->=20
->  	/*
->  	 * Assert before gating: a reset asserted into an already-gated block
->  	 * has no clock edges to propagate on and leaves the register file
->  	 * untouched.
->  	 */
->  	ret =3D reset_control_bulk_assert(ARRAY_SIZE(priv->pipe_resets),
->  					priv->pipe_resets);
->  	if (ret)
->  		dev_warn(dev, "failed to assert resets: %d\n", ret);
->  	usleep_range(10000, 20000);
-
-[Severity: High]
-Is this sleeping function also reached from atomic context?
-
-Because dpu_pm_suspend() is called during CRTC atomic disable (via
-spacemit_crtc_atomic_disable()), this usleep_range() call also occurs in an
-atomic context where sleeping is forbidden.
+Since drm_bridge_connector_init() captures the capabilities of the bridge
+chain statically, the late attachment of the panel bridge in
+spacemit_dp_edp_link_panel() goes unnoticed by the connector. This results
+in the eDP panel missing its modes and panel-specific properties.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-k3-display=
--v2-0-327d7910bf71@gmail.com?part=3D11
+-v2-0-327d7910bf71@gmail.com?part=3D12
