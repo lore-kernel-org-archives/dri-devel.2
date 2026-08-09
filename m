@@ -4,101 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74D8EC5AC67
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 00:24:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC5AEC5AC67
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 00:42:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7016910E096;
-	Sun,  9 Aug 2026 00:24:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4A5510E0CC;
+	Sun,  9 Aug 2026 00:42:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=ixit.cz header.i=@ixit.cz header.b="Lw1zNMvP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j2R0r9Gr";
 	dkim-atps=neutral
-X-Greylist: delayed 523 seconds by postgrey-1.36 at gabe;
- Sun, 09 Aug 2026 00:24:34 UTC
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 904F110E096
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 00:24:34 +0000 (UTC)
-Received: from [10.0.0.182] (unknown [10.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 98FAF53403C2;
- Sun, 09 Aug 2026 02:15:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1786234548;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=fym+rIWHIDcUWR0bh1YY54sEJnC/9VU0C02dKADplZI=;
- b=Lw1zNMvPJvpnJY4SkUBSuaPHogsktNtZm5gcesYygM7FR3yqQtZXePlYyUPpkh5cn5jM2a
- gI6o0qQ5MBNrGqvOmaya+vRTFLxf3jJ+EZkyHl6HJR8Js4U7rpzs2GZ5HydSWI8g6R7vrO
- bnEMiaezvoT8wqSJSTCpVqeokkOc1Fk=
-Message-ID: <33cfb55f-80e0-407b-94eb-1357e8d77593@ixit.cz>
-Date: Sun, 9 Aug 2026 02:15:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Pixel 3 display fixes
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- Casey Connolly <casey.connolly@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Marijn Suijten <marijn.suijten@somainline.org>, Vinod Koul
- <vkoul@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260809-fix-blueline-panel-v1-0-e7f3a6beb1fa@ixit.cz>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260809-fix-blueline-panel-v1-0-e7f3a6beb1fa@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 340FE10E490
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 00:42:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2A90660008;
+ Sun,  9 Aug 2026 00:42:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 837231F000E9;
+ Sun,  9 Aug 2026 00:42:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786236169;
+ bh=p3RRc9s/COF2UdacQi8r1joQkZuAQDc3RZk0YPKAYYg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=j2R0r9GrYzASt5ZRhFm6eMmF0JfvufUoIfJcuX7FhPm+rmzLL5kTD9FIJ8fFpJVex
+ Wye2xRm+F4zr+TnamIh05hg8J6Lbh0PX0+IgcRuWWPtjZhS2WIK8w9iUu6c4fHdHqS
+ HdIULNXM+NOzmrEAg3jICQioG53w4KzqC9PHjXT03lI/B90jPAJDlIQCtThw48AW1Q
+ DEQf15a9iJSJJOrHic9fv55itSXAKlbWRCztFvRaphfqHr+mOKw8+Hm+qy1V0B1WEB
+ otx5URU3Y6LyJEimPtC2uc3lFkVcWMftxrWZmQXbINY1pCiVTDwRWZFMbk4LDjlUFo
+ 7xNs4Cyy8ENrQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] drm/qxl: fix 32-bit overflow in the ALLOC_SURF size
+ computation
+To: "Aldo Ariel Panzardo" <qwe.aldo@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260809002621.122832-1-qwe.aldo@gmail.com>
+References: <20260809002621.122832-1-qwe.aldo@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 09 Aug 2026 00:42:49 +0000
+Message-Id: <20260809004249.837231F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,50 +53,109 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Would make sense implement SWIRE "support" (which is here NO-OP)?
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I guess device-tree should document that SWIRE is used, even when kernel doesn't 
-have to do anything?
+Pre-existing issues:
+- [Critical] The command relocation processing lacks bounds checking on `ds=
+t_offset`, allowing userspace to perform arbitrary writes to kernel or VRAM=
+ memory.
+- [High] The size computation in `qxl_alloc_surf_ioctl` prevents integer ov=
+erflows but fails to validate that the userspace-provided `stride` is mathe=
+matically sufficient for the `width` of the surface, leaving it vulnerable =
+to undersized VRAM allocations.
+--
 
-e.g. something like - into the device DT?
+--- Patch [1]: [PATCH v2] drm/qxl: fix 32-bit overflow in the ALLOC_SURF si=
+ze computation ---
+commit 0b850095b7d5d290c2b02556121eaeca53cced5b
+Author: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-&pmi8998_labibb {
-        qcom,swire-control;
-};
+drm/qxl: fix 32-bit overflow in the ALLOC_SURF size computation
 
-David
+This commit fixes a 32-bit integer overflow in the QXL surface allocation
+ioctl by computing the backing size as u64 and checking it against INT_MAX.
+It also rejects zero dimensions and handles an INT_MIN stride properly.
 
-On 09/08/2026 02:04, David Heidelberg via B4 Relay wrote:
-> Fix panel not recovering after unprepare and backlight intensity.
-> 
-> I extensively reproduced the vendor bootloader sequence, but after the
-> boot isn't possible to do the full initialization of the display (at
-> least on Pixel 3, and panel can't be found anywhere else).
-> 
-> The downstream, due to having attached touchscreen reusing same
-> supplies, never turns the panel off. Let's do the same.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
-> David Heidelberg (2):
->        drm/panel: lg-sw43408: do not assert reset across unprepare
->        drm/panel: lg-sw43408: use the full DCS brightness range
-> 
->   drivers/gpu/drm/panel/panel-lg-sw43408.c | 14 ++++++++++----
->   1 file changed, 10 insertions(+), 4 deletions(-)
-> ---
-> base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
-> change-id: 20260809-fix-blueline-panel-af2b7c967f2d
-> 
-> Best regards,
-> --
-> David Heidelberg <david@ixit.cz>
-> 
-> 
+> diff --git a/drivers/gpu/drm/qxl/qxl_ioctl.c b/drivers/gpu/drm/qxl/qxl_io=
+ctl.c
+> index 591b026ceff9c..5f84a4cf9631d 100644
+> --- a/drivers/gpu/drm/qxl/qxl_ioctl.c
+> +++ b/drivers/gpu/drm/qxl/qxl_ioctl.c
 
--- 
-David Heidelberg
+[Severity: Critical]
+This is a pre-existing issue, but does qxl_process_single_command() lack
+bounds checking on dst_offset? A userspace client could send a QXL_EXECBUFF=
+ER
+ioctl with a maliciously crafted dst_offset. qxl_process_single_command()
+copies this without validating it against dst_bo->tbo.base.size:
 
+drivers/gpu/drm/qxl/qxl_ioctl.c:qxl_process_single_command() {
+	...
+	reloc_info[i].dst_offset =3D reloc.dst_offset;
+	...
+}
+
+Later, apply_reloc() calls qxl_bo_kmap_atomic_page() with this out-of-bounds
+offset and writes the source BO's physical address to it:
+
+drivers/gpu/drm/qxl/qxl_ioctl.c:apply_reloc() {
+	...
+	reloc_page =3D qxl_bo_kmap_atomic_page(qdev, info->dst_bo, info->dst_offse=
+t & PAGE_MASK);
+	*(uint64_t *)(reloc_page + (info->dst_offset & ~PAGE_MASK)) =3D qxl_bo_phy=
+sical_address(qdev, info->src_bo, info->src_offset);
+	...
+}
+
+Could this allow arbitrary local privilege escalation or system crashes from
+any DRM_AUTH client via out-of-bounds writes?
+
+> @@ -386,12 +386,24 @@ int qxl_alloc_surf_ioctl(struct drm_device *dev, vo=
+id *data, struct drm_file *fi
+>  	struct drm_qxl_alloc_surf *param =3D data;
+>  	int handle;
+>  	int ret;
+> -	int size, actual_stride;
+> +	int actual_stride;
+> +	u64 size;
+>  	struct qxl_surface surf;
+> =20
+>  	/* work out size allocate bo with handle */
+> +	if (param->stride =3D=3D INT_MIN)
+> +		return -EINVAL;
+>  	actual_stride =3D param->stride < 0 ? -param->stride : param->stride;
+> -	size =3D actual_stride * param->height + actual_stride;
+> +	if (!actual_stride || !param->width || !param->height)
+> +		return -EINVAL;
+> +	/*
+> +	 * size =3D actual_stride * (height + 1), computed in u64 so it cannot
+> +	 * wrap on any architecture, then bounded so it still fits the int
+> +	 * parameter of qxl_gem_object_create().
+> +	 */
+> +	size =3D (u64)actual_stride * ((u64)param->height + 1);
+> +	if (size > INT_MAX)
+> +		return -EINVAL;
+> =20
+>  	surf.format =3D param->format;
+>  	surf.width =3D param->width;
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this allocation validate
+that the stride is mathematically sufficient for the width?
+
+If DRM_IOCTL_QXL_ALLOC_SURF is called with a huge param->width and a tiny
+actual_stride (e.g., 1), the size computation will pass the INT_MAX check,
+but fail to enforce stride >=3D width * bytes_per_pixel.
+
+Since the width is passed directly to the QXL host device, could the host
+subsequently overrun the guest VRAM outside the undersized allocated buffer
+when processing the surface?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809002621.1228=
+32-1-qwe.aldo@gmail.com?part=3D1
