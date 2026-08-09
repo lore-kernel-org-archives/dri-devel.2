@@ -4,103 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6112DC5AD4E
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 07:33:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66B13C5AC80
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 08:28:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 441EB10E0E4;
-	Sun,  9 Aug 2026 07:33:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDBAC10E0E9;
+	Sun,  9 Aug 2026 08:28:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="d9CB4Ayp";
+	dkim=pass (2048-bit key; secure) header.d=disroot.org header.i=@disroot.org header.b="EZJv+0tc";
 	dkim-atps=neutral
-X-Greylist: delayed 318 seconds by postgrey-1.36 at gabe;
- Sun, 09 Aug 2026 07:33:56 UTC
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.134])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69FEB10E0E4;
- Sun,  9 Aug 2026 07:33:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oldschoolsolutions.biz; s=s1-ionos; t=1786260834; x=1786865634;
- i=jens.glathe@oldschoolsolutions.biz;
- bh=b13z1BQp+A4wvohJY6qb+Vk7IxT1A2JtapJ7LUSfiXs=;
- h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
- References:From:In-Reply-To:Content-Type:
- Content-Transfer-Encoding:cc:content-transfer-encoding:
- content-type:date:from:message-id:mime-version:reply-to:subject:
- to;
- b=d9CB4AypEnG1wn4awXNfk7Ecw11J0+WGGNulMX8+LdzG/Paq4/O/vIrtZEQ3aL2F
- xKOnzdFRnXJF+CuiJD01O91FHIm3RPAKotqh/Cb1OJW4yciPDbSOBSl9N6NIWODvJ
- lN7QLPeH1Q4kyp/BewjvejHKlnolWCbRqLBqxeSCigs2hhVdNiX3p6hXDL7km55EQ
- 7Z1oQdOHl1H+J2as6n4HqS8EJrJl5jpTgq7bm+onl4mhMqWbPTrTmRpWZ39qL0g/v
- ktRFG9nG9c6/FQnAHZHCLpUfxggRzJ9m2JEmPuQwYHJlsqk6jy61/N0t9PAR3zlun
- xsWRApmo6NaZGZEDpg==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue009
- [212.227.15.167]) with ESMTPSA (Nemesis) id 1Mt6wz-1x8q6i3nPF-00xMo1; Sun, 09
- Aug 2026 09:28:10 +0200
-Message-ID: <ae78a94b-4feb-4ef0-8f1a-71786a101ed7@oldschoolsolutions.biz>
-Date: Sun, 9 Aug 2026 09:28:07 +0200
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6757C10E0E9
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:28:06 +0000 (UTC)
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+ by disroot.org (Postfix) with ESMTP id 441624311E;
+ Sun, 09 Aug 2026 10:28:04 +0200 (CEST)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id TKNuF9xN9AOk; Sun,  9 Aug 2026 10:28:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+ t=1786264083; bh=5QRgRuns4zmF+gog8Y8zKAsY0zWas35xtUPB392I1/s=;
+ h=From:Subject:Date:To:Cc;
+ b=EZJv+0tcIsLwxPnEi0byDnAaiCG4kdaBfBnLTFiCTg7gAspwh3rDpAGOmOQdNsOde
+ dhts8OZp+vOJz5wYbcdQCSwvK7B3CDwdCqYLR4z1O3ZwGQy1dm3N/urHP9IVxHWJ3y
+ LIwbp3P0CRlkDVHcEu4iGohTvF1MBIcumKiKFpZ+xKfovbU0KDlKAFICQNc+hbf0cV
+ WTnqiC532HQBasDZNNIm3O0/ml/nC8RglSi2IzRY8uLcqdopcJXVFuEwcCHTN6AMrx
+ kgS+rYA71nQTTjvwh0WT3QML/p3mMjjMP3v8yY+3s/aeiCJ6Yq2prPAfDWEP+T5BKL
+ r54KD2COOTfEw==
+From: Kaustabh Chakraborty <kauschluss@disroot.org>
+Subject: [PATCH v4 0/3] Fixes and enhancements for Exynos (7870) DSIM
+ bridge driver
+Date: Sun, 09 Aug 2026 13:57:40 +0530
+Message-Id: <20260809-exynos-dsim-fixes-v4-0-ca67c51e61b7@disroot.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] driver core: platform: / drm/msm: dp: Delay applying
- clock defaults
-To: Stephan Gerhold <stephan.gerhold@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Michael Turquette
- <mturquette@baylibre.com>, Dmitry Baryshkov <lumag@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Abel Vesa <abel.vesa@linaro.org>, Michael Walle <mwalle@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Val Packett <val@packett.cool>
-References: <20250814-platform-delay-clk-defaults-v1-0-4aae5b33512f@linaro.org>
-Content-Language: en-US
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-In-Reply-To: <20250814-platform-delay-clk-defaults-v1-0-4aae5b33512f@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:2BjJNVrz4XFnwJd/V7HuJABJZBpMXLf+6xBaN1lUxPDyi34rF2Q
- 4shHNOqea7V5mBPoxmM9tUSlohrKQgZtZ1JjIJ8xy1XShVkQOx4cuIsqIfbbUefWdWTcWLp
- Iy8aaK44NRpsbbX94f4gFjnsCYv+weFLnuicNBdDNO6yJTPEoIJkFRHej3MUdg0rF95Xavk
- 3OPHFKXwbvK8zYbRCqeag==
-UI-OutboundReport: notjunk:1;M01:P0:APdvwCEtwJg=;Gf9uOs0e9Xt3U9yhI1BCruR+uky
- 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
- =
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33NQQ6CMBAF0KuYrq1pZ4ASV97DuKjtAF1ITUsaC
+ OHuFjbESFz+P/lvZhYpOIrseppZoOSi830OxfnETKf7lrizOTMQUAkJBadx6n3kNroXb9xIkZd
+ Yo6101QiFLO/egbZDnt0fOXcuDj5M24sk1/afliQXXAJYUSgNaOXNuhi8Hy4+tGz1EuwGiPrIg
+ GzoulRUSxQa9K+Bu6EAjwzMhjAoNUn7JGO+jWVZPlndrW48AQAA
+X-Change-ID: 20260124-exynos-dsim-fixes-5383d6a6f073
+To: Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+ Kaustabh Chakraborty <kauschluss@disroot.org>, stable@vger.kernel.org
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,55 +77,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi there,
+Since v6.17, there is a regression for the Exynos 7870 DSIM driver. The
+display occasionally had random aberration when the panel was turned on.
+The first patch addresses that.
 
-On 14.08.25 11:18, Stephan Gerhold wrote:
-> Currently, the platform driver core always calls of_clk_set_defaults()
-> before calling the driver probe() function. This will apply any
-> "assigned-clock-parents" and "assigned-clock-rates" specified in the dev=
-ice
-> tree. However, in some situations, these defaults cannot be safely appli=
-ed
-> before the driver has performed some early initialization. Otherwise, th=
-e
-> clock operations might fail or the device could malfunction.
->
-> This is the case for the DP/DSI controller on some Qualcomm platforms. W=
-e
-> use assigned-clock-parents there to bind the DP/DSI link clocks to the P=
-HY,
-> but this fails if the PHY is not already powered on. We often bypass thi=
-s
-> problem because the boot firmware already sets up the correct clock pare=
-nt,
-> but this is not always the case.
+The second patch replaces an implicit loop for waiting for PLL
+stabilization with an interrupt-based solution, which should be more
+reliable. This solution was suggested by Inki Dae in a discussion of an
+earlier patch series sent by me. For further details, refer to its
+commit description.
 
-I have this case on the Lenovo Ideapad Slim5x 14Q8X9, on the HDMI port.=20
-when booted without an active HDMI connected device and hotplugged=20
-later, it produces these errors (and no display):
+Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+---
+Changes in v4:
+- Clarify active-hight MFLUSH_VS in code comment (Luca Seresoli)
+- Move aperture_remove_all_conflicting_devices() before
+  component_bind_all() (Sashiko)
+- Change `timeout` type to unsigned long (Inki Dae)
+- Correct typo s/Calcutate/Calculate (Inki Dae)
+- Correct inverted condition waiting for PLL stable completion
+  (Inki Dae)
+- Do not exclusively conclude IRQ routine for PLL_STABLE interrupt
+  (Inki Dae)
+- Explicitly enable PLL_STABLE and SW_RST_RELEASE interrupts during
+  reset action (Inki Dae)
+- Wait for SW_RST_RELEASE interrupt before setting up clock (Inki Dae)
+- Fall back to bit testing for PLL stabilization when timed out
+- Link to v3: https://patch.msgid.link/20260723-exynos-dsim-fixes-v3-0-0c31ae1dbecc@disroot.org
 
+Changes in v3:
+- Add patch for removing conflicting devices for DRM (Sam Day)
+- Link to v2: https://lore.kernel.org/r/20260208-exynos-dsim-fixes-v2-0-a857e8130a2a@disroot.org
 
-[=C2=A0 552.501910] [drm:dpu_encoder_phys_vid_wait_for_commit_done:545] [d=
-pu=20
-error]vblank timeout: 2021300
-[=C2=A0 552.501927] [drm:dpu_kms_wait_for_commit_done:527] [dpu error]wait=
-=20
-for commit done returned -110
-[=C2=A0 552.540863] [drm:dpu_encoder_frame_done_timeout:2731] [dpu=20
-error]enc40 frame done timeout
+Changes in v2:
+- drop now-not-required [v1 1/3] (Marek Szyprowski)
+- Link to v1: https://lore.kernel.org/r/20260124-exynos-dsim-fixes-v1-0-122d047a23d1@disroot.org
 
-When cold-plugged this works, and can be hot-plugged later.
+---
+Kaustabh Chakraborty (3):
+      drm/bridge: samsung-dsim: enable MFLUSH_VS for Exynos 7870 DSIM
+      drm/bridge: samsung-dsim: use DSIM interrupt to wait for PLL stability
+      drm/exynos: remove simplefb nodes before init
 
-Further investigation showed that the main link clock doesn't come up=20
-regardless of what is done, unless it was initialized by the boot=20
-firmware before. Applying this series (found by Val, thanks again)=20
-solved this issue.
+ drivers/gpu/drm/bridge/samsung-dsim.c   | 56 +++++++++++++++++++++++++--------
+ drivers/gpu/drm/exynos/exynos_drm_drv.c |  6 ++++
+ include/drm/bridge/samsung-dsim.h       |  1 +
+ 3 files changed, 50 insertions(+), 13 deletions(-)
+---
+base-commit: 290aaf24a551d5a0dce037e3fab30820f9113a10
+change-id: 20260124-exynos-dsim-fixes-5383d6a6f073
 
-Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-
-> [...]
-
-with best regards
-
-Jens
+Best regards,
+--  
+Kaustabh Chakraborty <kauschluss@disroot.org>
 
