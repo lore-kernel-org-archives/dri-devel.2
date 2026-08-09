@@ -4,44 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11710C5AD4E
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 18:44:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15909C5AD4E
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 19:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7AD10E0B4;
-	Sun,  9 Aug 2026 18:44:55 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eKZA6PHl";
-	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0AA3510E0B4
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 18:44:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 79279410B2;
- Sun,  9 Aug 2026 18:44:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B9B1F00A3A;
- Sun,  9 Aug 2026 18:44:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786301093;
- bh=f2Ph6cWE1E2ebXrfPD+OQ4qq/lXHkSSgmsZrnriYdvU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eKZA6PHlcxnXCYXD7WRjCZhiH8D3t0oWtqA3RmJujmRAJa1avfvDr71jbzy109qjN
- p+d0UsU7tMDA2KeGnZq2Cv5Ql8JdSf77ufhYCN/kgaUlL148Id2ZBYM+XnuJEF//tF
- bkp+/YRGW2QQjwuLY2rRCjaz4nw72Z/YXKb2K6jqDmyNcTVLu5IU2rFKm/tN2Zq6Jm
- D4ZMGLBydolXmGSV6f9/jO2/jb0pSrSXtzdcUiNY4MAUgc5Un2/a4tbvI0n5wNwrSi
- ncRRmY3uxY/zAn3tgxEhBIOb3p67n9sPVzorNWhFy4g8NczMfpkOtxDuVHHHt6w40J
- iLEvs+ID3kfCg==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 11/12] virtio: expose device memory buffer occupancy
- over debugfs
-To: "Alexander Graf" <graf@amazon.com>
-Cc: dri-devel@lists.freedesktop.org, nvdimm@lists.linux.dev
-In-Reply-To: <20260809182010.32931-12-graf@amazon.com>
-References: <20260809182010.32931-1-graf@amazon.com>
- <20260809182010.32931-12-graf@amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 18:44:52 +0000
-Message-Id: <20260809184453.14B9B1F00A3A@smtp.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41EEC10E0E7;
+	Sun,  9 Aug 2026 19:14:27 +0000 (UTC)
+Received: from mail-oo1-f79.google.com (mail-oo1-f79.google.com
+ [209.85.161.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1AC110E0E7
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 19:14:25 +0000 (UTC)
+Received: by mail-oo1-f79.google.com with SMTP id
+ 006d021491bc7-6ae4622d842so1013593eaf.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 12:14:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786302865; x=1786907665;
+ h=content-type:to:from:subject:message-id:date:mime-version
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=GidNn0OMKrjDQ21kBazeerlBT2Ktqq4wU0/ri2a78Bk=;
+ b=NpXk1NeeHWpDQYTh0ax7Agu10w2R/EEewPlonMgMK1xvFD5kVdQeKa/QvQCzhkNuAp
+ uUiuDtt0gF8jBlXjs9/urE9b+mxcLmIAvT0NZGEDAW7sEl9ZcYsxK9VzaQVkpULl0ry1
+ RLLdNwhNaHnJecVn+KDq4i+mM94PutjnUOBB3I3wIE0c4jg4p4vigbMLB9BDV4KPDFHT
+ x+9NwKJuhckq6aPMxkhGblhklKoXUPZE8dx4HbSgQqUW2pGBxU42o4yTlk1MOR5e+knx
+ OdTBo2xBeHqTkcez3BrMsGB1Uw4nIMQ5aiYQpVmhJP1u2q4Fk2ocjtUt0lfeYEm/MzJd
+ J6Jw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqBxfBOEUpTJMtTcQSspLZmDxKaH/O9TZcxPniG5Bjn2QXMAXZ8zZQtPqXhwGuPpv3N7pvEKfd8oM4=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwT98BYQ0Zu9z62H+QTEgNPMej6D0tqWN6/OVmFqOup49YhucWZ
+ Iwu3zfl0OFqsOugBDyzfbMmZFS8q0bEmmnu1wghkF2t369c0J4ineO1lP3OBdYhxXnHquTyzQ1f
+ KI8qAiApj07vSHSWC7brgGomsq9p1LsvlrUxdjD23eZ1cBN3zWIUmaPuoWaE=
+MIME-Version: 1.0
+X-Received: by 2002:a05:6820:1990:b0:6ae:84e6:2de0 with SMTP id
+ 006d021491bc7-6b042143dd7mr7749464eaf.26.1786302865071; Sun, 09 Aug 2026
+ 12:14:25 -0700 (PDT)
+Date: Sun, 09 Aug 2026 12:14:25 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a78d191.b50370da.49fe0.0041.GAE@google.com>
+Subject: [syzbot] [media?] [dri?] WARNING in udmabuf_create
+From: syzbot <syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com>
+To: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
+ kraxel@redhat.com, linaro-mm-sig@lists.linaro.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ sumit.semwal@linaro.org, syzkaller-bugs@googlegroups.com, 
+ vivek.kasireddy@intel.com
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,79 +61,90 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] `virtio_dmb_hiwater_set` contains a TOCTOU race with `virtio_dmb=
-_inc_used` that can cause the high-water mark to be permanently set lower t=
-han the current total usage.
---
+Hello,
 
---- Patch [11]: [RFC PATCH 11/12] virtio: expose device memory buffer occup=
-ancy over debugfs ---
-commit 821ee4cbeac917d62e62a95c88f58236d2f6db9c
-Author: Alexander Graf <graf@amazon.com>
+syzbot found the following issue on:
 
-virtio: expose device memory buffer occupancy over debugfs
+HEAD commit:    6b8c8af514d7 Add linux-next specific files for 20260807
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=10b34149580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=6d343b54cc50df0f
+dashboard link: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
+compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11e8c079580000
 
-This commit adds debugfs files to expose the memory occupancy of virtio
-device memory buffers when CONFIG_VIRTIO_DEBUG is enabled. It introduces
-counters for total allocated pages, allocation failures, and a high-water
-mark to track peak usage.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/71ff4edcb608/disk-6b8c8af5.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/1f5fa331d8f2/vmlinux-6b8c8af5.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/f993558ec63b/bzImage-6b8c8af5.xz
 
-> diff --git a/drivers/virtio/virtio_dmb.c b/drivers/virtio/virtio_dmb.c
-> index 42126f928bc06..fe556d585f244 100644
-> --- a/drivers/virtio/virtio_dmb.c
-> +++ b/drivers/virtio/virtio_dmb.c
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
 
-[ ... ]
+------------[ cut here ]------------
+!(flags & __GFP_NOWARN)
+WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x792/0x820 mm/slub.c:7013, CPU#1: syz.0.17/5840
+Modules linked in:
+CPU: 1 UID: 0 PID: 5840 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:__kvmalloc_node_noprof+0x792/0x820 mm/slub.c:7013
+Code: ff 48 c7 c7 70 f7 c8 8e 48 89 de e8 a8 3d eb 02 e9 1f fc ff ff 48 c7 c7 b0 f7 c8 8e 48 89 de e8 94 3d eb 02 e9 50 fc ff ff 90 <0f> 0b 90 31 db e9 08 fe ff ff 90 0f 0b 90 e9 57 ff ff ff 49 83 7f
+RSP: 0018:ffffc900044ffae0 EFLAGS: 00010246
+RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000000080000001
+RDX: 0000008000000000 RSI: ffffffff8c4c7660 RDI: ffffffff8c4c7620
+RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
+R10: 0000000000000006 R11: 0000000000000000 R12: 0000008000000000
+R13: 00000000000028c0 R14: 0000001000000000 R15: ffffffff865110fc
+FS:  0000555557138500(0000) GS:ffff88812500c000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007fb692c70000 CR3: 0000000079676000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ init_udmabuf drivers/dma-buf/udmabuf.c:193 [inline]
+ udmabuf_create+0x2dc/0xf50 drivers/dma-buf/udmabuf.c:386
+ udmabuf_ioctl_create drivers/dma-buf/udmabuf.c:465 [inline]
+ udmabuf_ioctl+0x1f3/0x300 drivers/dma-buf/udmabuf.c:496
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x510 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7fb692d9e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffc7e6eab08 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00007fb693025fa0 RCX: 00007fb692d9e0d9
+RDX: 0000200000000200 RSI: 0000000040187542 RDI: 0000000000000003
+RBP: 00007fb692e35024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007fb693025fac R14: 00007fb693025fa0 R15: 00007fb693025fa0
+ </TASK>
 
-> +static int virtio_dmb_hiwater_set(void *data, u64 val)
-> +{
-> +	struct virtio_dmb *dmb =3D data;
-> +
-> +	/* Restarting the measurement is the only meaningful write. */
-> +	if (val)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Restart from what is allocated now rather than from zero, so that
-> +	 * the file never reports a peak below the occupancy it is read
-> +	 * alongside.
-> +	 */
-> +	atomic_long_set(&dmb->used_hiwater,
-> +			atomic_long_read(&dmb->total_used));
 
-[Severity: Medium]
-Can this sequence result in the high-water mark being set lower than the
-current total usage due to a race condition?
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-If a write to the debugfs used_pages_hiwater file occurs concurrently with
-new allocations, could we see the following sequence:
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-Thread A reads total_used (e.g., 10) in virtio_dmb_hiwater_set().
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Thread B allocates memory in virtio_dmb_inc_used(), increasing both
-total_used and used_hiwater (e.g., to 110).
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
-Thread A then blindly overwrites used_hiwater with the stale value (10)
-using atomic_long_set().
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
-This seems to contradict the comment above it, leaving used_hiwater
-substantially lower than total_used. Is there a way to safely read and
-update this to avoid a time-of-check to time-of-use race?
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
-> +
-> +	return 0;
-> +}
-> +DEFINE_DEBUGFS_ATTRIBUTE(virtio_dmb_hiwater_fops, virtio_dmb_hiwater_get,
-> +			 virtio_dmb_hiwater_set, "%llu\n");
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809182010.3293=
-1-1-graf@amazon.com?part=3D11
+If you want to undo deduplication, reply with:
+#syz undup
