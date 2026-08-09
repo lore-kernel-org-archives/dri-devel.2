@@ -4,43 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BDB19C5AD44
-	for <dri-devel@archiver.kernel.org>; Sat,  8 Aug 2026 23:33:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 698A0C5AC67
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 00:04:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A352610E0A7;
-	Sat,  8 Aug 2026 23:33:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A08B10E0AA;
+	Sun,  9 Aug 2026 00:04:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="fG0+o7WU";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QQgoIgyw";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADAC610E0A7
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 23:33:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 7C17540896;
- Sat,  8 Aug 2026 23:33:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209DD1F000E9;
- Sat,  8 Aug 2026 23:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786232027;
- bh=wkx6iPNHmeMxG4tLtWs1q9Eq8B0iaqNOIjUMRkqw4h8=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fG0+o7WUfvsKjYm0hKVeB07C4jCAB/6lcIjSWeABGcdxx3HLhD0oVsXcoqayeGmbt
- lw4Srp6lZZucToXs8DVLLef+jJIzmCLOzm2AnFzYb4cvsEEqFwgG7e2RL/ZhVUg9qc
- MZwohdT6Ckjga1p5ASTmDct9Dwyll9PWgwizpaTFet9pAm1cae7iJF/JpXTt6oPfCx
- 776LRt1fn9IWKC7HnGIbgRX20R47LxA3f0lxaE1px99vuk4khm/fY5/oGnnMwjj5Tk
- NO60CVRb93OOJWcT7irtJd8/728v5ATE0ujenjqMb0v2i+drHfqTWjA5yUMDcKnLPt
- j05WRkVyVtEhA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/vmwgfx: return an error when a shared GB surface
- has no backup buffer
-To: "Aldo Ariel Panzardo" <qwe.aldo@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260808231002.67559-1-qwe.aldo@gmail.com>
-References: <20260808231002.67559-1-qwe.aldo@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 08 Aug 2026 23:33:46 +0000
-Message-Id: <20260808233347.209DD1F000E9@smtp.kernel.org>
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C88B310E0AA
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 00:04:33 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2ADD34349C;
+ Sun,  9 Aug 2026 00:04:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E6C29C2BCF6;
+ Sun,  9 Aug 2026 00:04:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1786233873;
+ bh=cnjW0OV5yEuMWySyTpsZRr+wpmPAX3P799FsmymAxdA=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=QQgoIgywMIpadYR4TP4094IJGbcE9vj7QZF+fKzPSa6xEPMncZ6JcLP/92mBLEtYM
+ 2Cxc4ScJ5ZlMoXM2nEZvCAg4vR3YwZWC6OIimKM+V3y8vLPcdSLmTxuKfmQldE94ws
+ g7GolwWqr6F9ubi/3A8SWtV44BXHtqi2Dpk57PSADJXCt08XSqtEbCMwMfbUe3HnDn
+ idxfQpBADsCo0o6hJEFMAuTECDOxp3ekkcJW6y7DNIdMQvKv2ImRhQoxisffO6QJAy
+ aPYO3m7abDo1xJZgrsfYNSpy+UKIJIf47SYjtRYdfJS0rn4U10cplFinRG6aP1wnF6
+ L7P5eljWe9mtg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id C6648C5AD4E;
+ Sun,  9 Aug 2026 00:04:32 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sun, 09 Aug 2026 02:04:29 +0200
+Subject: [PATCH 1/2] drm/panel: lg-sw43408: do not assert reset across
+ unprepare
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260809-fix-blueline-panel-v1-1-e7f3a6beb1fa@ixit.cz>
+References: <20260809-fix-blueline-panel-v1-0-e7f3a6beb1fa@ixit.cz>
+In-Reply-To: <20260809-fix-blueline-panel-v1-0-e7f3a6beb1fa@ixit.cz>
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Vinod Koul <vkoul@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2463; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=vaTzxrXfaQrlrCdE0j9EYWvjB43LMXXQ+G8L9Lh3xSA=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqd8QP1mp4a1fJi/0SGyhfU3kakYdv1RCwF5Z7Y
+ 5fYQdyoLf+JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCanfEDwAKCRBgAj/E00kg
+ cq8QD/4nUf5vmQp8+4Zal7U3Px51MFdTKG+Af0nUi7kBwInQQ/rGFHVnWjfkwqTeXb2QEC7+eGK
+ AHR186QIKzUWvUG1e4WzoCqq+hp/0UCz8+l5gX0enjMGBNmYzUbIjqTOwt2MnVt3sNOn6+kOl0t
+ cg0KIMTdy6KZaVhYsRqWtEHoRvjtO06k546UfiYIQL+kG3QwUPYC857QMQc4E8nBdQxE9lEWJ6s
+ 4u7G9Wntg7SwJeETBSuk43K8aOVCJswIqfAfzMMdyMozUz+rhp3XPpZuw5Yfeu+iJUZi8ytgRyh
+ DljCC77POyGZJ/iUeQBz5zka/yl/NHDeFwFWqgbriu8AUuFy75Ey+7E7ehAX+Mt3KFUplGrcOTo
+ 31bIrc1RV70c1SAkQpb4MVzpV6MkuGjPtFRAlsnSeIxWsYNukf463K827PblRouxNDuqNMZGdWU
+ amDjRD7NYAXhVReNixv/jzaBkI0pLWKtN6arM4Yao8IrTT6HoWr6kFqJEs/s6C+tbWmZPP6/4IN
+ fPBirHAsZQzcyKot2xZ7edjX+GvdNwBi6LNZ1f5ldsneT6nE4COv/ZDSAWjnNqDStcKqmvz40Ff
+ wM7X1S4MhMjYTWl7YRPZv93CEbyYBuUMpmCIXn7c8s5P027dN9dbB3sReXM2UoWAd5pertrOHID
+ uEz3PvmdfF3h4qQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,161 +88,73 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: david@ixit.cz
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+From: David Heidelberg <david@ixit.cz>
 
-Pre-existing issues:
-- [Critical] TOCTOU race on `srf->res.guest_memory_bo` leading to a NULL po=
-inter dereference in `drm_gem_handle_create`.
-- [Critical] Lockless accesses to `guest_memory_bo` after releasing `cmdbuf=
-_mutex` can lead to a Use-After-Free or NULL pointer dereference.
-- [High] Leaked DRM handle on error paths in `vmw_gb_surface_reference_inte=
-rnal` when processing a PRIME file descriptor.
-- [High] GEM handle leak in `vmw_gb_surface_define_internal` when initializ=
-ation fails after handle creation.
-- [Medium] The function `vmw_gb_surface_reference_internal` fails to popula=
-te the `buffer_byte_stride` field in the extended reply structure.
---
+Asserting the reset GPIO in unprepare() and leaving it asserted puts
+the DDIC into a state it never recovers from: after the following
+prepare() the panel answers all DCS commands, reports display-on with
+clean self-diagnostics, and its configuration registers read back
+identical to a working panel, but it never lights up again.
 
---- Patch [1]: [PATCH] drm/vmwgfx: return an error when a shared GB surface=
- has no backup buffer ---
-commit 6bbaf49225562d900a468ed3b35d8995cea03c99
-Author: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+On the Pixel 3, vddi is shared with the touchscreen controller and
+remains powered while the panel is off, so with this driver the DDIC
+sits in reset with its logic rail up for the whole blank period - a
+state the vendor stack never creates: the vendor firmware only toggles
+reset as part of a full power-on sequence, and the vendor OS never
+power-cycles the panel at all (LP mode is used instead).
 
-drm/vmwgfx: return an error when a shared GB surface has no backup buffer
+Leave reset alone in unprepare(); prepare() performs the regular reset
+sequence anyway.
 
-This commit fixes a missing error assignment in
-vmw_gb_surface_reference_internal() when a shared GB surface lacks a backup
-buffer. By returning -EINVAL instead of 0, it prevents the ioctl from
-returning uninitialized stack memory to userspace.
+Without this, the Pixel 3 display never comes back after the first
+blank/unblank cycle.
 
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c b/drivers/gpu/drm/vm=
-wgfx/vmwgfx_surface.c
-> index bd0563741e89d..014f674744ac3 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_surface.c
-> @@ -1720,6 +1720,7 @@ vmw_gb_surface_reference_internal(struct drm_device=
- *dev,
->  	srf =3D &user_srf->srf;
->  	if (!srf->res.guest_memory_bo) {
->  		DRM_ERROR("Shared GB surface is missing a backup buffer.\n");
-> +		ret =3D -EINVAL;
->  		goto out_bad_resource;
->  	}
+Since there isn't any other panel or device using this DDIC, this
+approach seems resoanble to address the issue.
 
-[Severity: Critical]
-This is a pre-existing issue, but does this lockless check create a TOCTOU
-race?
+Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/gpu/drm/panel/panel-lg-sw43408.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-If a concurrent thread detaches the backup buffer and sets guest_memory_bo =
-to
-NULL under cmdbuf_mutex, the lockless check here might pass, but a NULL poi=
-nter
-would then be dereferenced in drm_gem_handle_create():
-
-drivers/gpu/drm/vmwgfx/vmwgfx_surface.c:vmw_gb_surface_reference_internal()=
+diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+index 293826c5006b9..0bf8e08f10b9c 100644
+--- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
++++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+@@ -50,18 +50,24 @@ static int sw43408_unprepare(struct drm_panel *panel)
+ 	int ret;
+ 
+ 	mipi_dsi_dcs_set_display_off_multi(&ctx);
+ 
+ 	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
+ 
+ 	mipi_dsi_msleep(&ctx, 100);
+ 
+-	gpiod_set_value(sw43408->reset_gpio, 1);
+-
++	/*
++	 * Keep reset deasserted: vddi may stay powered (it is shared with
++	 * the touchscreen on Pixel 3) and holding the DDIC in reset while
++	 * its logic rail is up puts it into a state that no init sequence
++	 * recovers from - the panel keeps answering DCS commands and
++	 * reports display-on, but never lights up again. The vendor stack
++	 * only ever toggles reset as part of a powered-up init sequence.
++	 */
+ 	ret = regulator_bulk_disable(ARRAY_SIZE(sw43408_supplies), sw43408->supplies);
+ 
+ 	return ret ? : ctx.accum_err;
+ }
+ 
+ static int sw43408_program(struct drm_panel *panel)
  {
-...
-	mutex_lock(&dev_priv->cmdbuf_mutex);
-	ret =3D drm_gem_handle_create(file_priv,
-				    &srf->res.guest_memory_bo->tbo.base,
-				    &backup_handle);
-	mutex_unlock(&dev_priv->cmdbuf_mutex);
-...
-}
+ 	struct sw43408_panel *sw43408 = to_panel_info(panel);
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does taking this error path =
-leak
-a DRM handle?
+-- 
+2.55.0
 
-When handle_type =3D=3D DRM_VMW_HANDLE_PRIME, vmw_surface_handle_reference(=
-) adds a
-reference to the file's handle table. The cleanup path at out_bad_resource
-drops the object reference but doesn't remove the newly created handle from=
- the
-file:
 
-drivers/gpu/drm/vmwgfx/vmwgfx_surface.c:vmw_gb_surface_reference_internal()=
- {
-...
-out_bad_resource:
-	ttm_base_object_unref(&base);
-
-	return ret;
-}
-
->  	metadata =3D &srf->metadata;
-
-[Severity: Critical]
-This is a pre-existing issue, but are there unsafe lockless accesses to
-guest_memory_bo later in this function?
-
-After releasing cmdbuf_mutex, the function populates mapping handles and si=
-zes
-by locklessly dereferencing srf->res.guest_memory_bo:
-
-drivers/gpu/drm/vmwgfx/vmwgfx_surface.c:vmw_gb_surface_reference_internal()=
- {
-...
-	rep->crep.buffer_map_handle =3D
-		drm_vma_node_offset_addr(
-			&srf->res.guest_memory_bo->tbo.base.vma_node);
-	rep->crep.buffer_size =3D srf->res.guest_memory_bo->tbo.base.size;
-...
-}
-
-Could this lead to a NULL pointer dereference or Use-After-Free if another
-thread detaches or frees the backup buffer concurrently?
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but does this function fail to
-populate the buffer_byte_stride field in the extended reply structure?
-
-drivers/gpu/drm/vmwgfx/vmwgfx_surface.c:vmw_gb_surface_reference_internal()=
- {
-...
-	rep->creq.version =3D drm_vmw_gb_surface_v1;
-	rep->creq.svga3d_flags_upper_32_bits =3D
-		SVGA3D_FLAGS_UPPER_32(metadata->flags);
-	rep->creq.multisample_pattern =3D metadata->multisample_pattern;
-	rep->creq.quality_level =3D metadata->quality_level;
-	rep->creq.must_be_zero =3D 0;
-...
-}
-
-[Severity: High]
-This is a pre-existing issue, but does vmw_gb_surface_define_internal() lea=
-k a
-GEM handle when initialization fails?
-
-If any initialization fails after vmw_gem_object_create_with_handle()
-successfully allocates a GEM buffer object and registers backup_handle, the
-cleanup path fails to call drm_gem_handle_delete():
-
-drivers/gpu/drm/vmwgfx/vmwgfx_surface.c:vmw_gb_surface_define_internal() {
-...
-		ret =3D vmw_gem_object_create_with_handle(dev_priv, file_priv,
-							res->guest_memory_size,
-							&backup_handle,
-							&res->guest_memory_bo);
-	}
-
-	if (unlikely(ret !=3D 0)) {
-		vmw_resource_unreference(&res);
-		goto out_unlock;
-	}
-...
-out_unlock:
-	vmw_resource_unreference(&tmp);
-	vmw_resource_unreference(&res);
-	return ret;
-}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260808231002.6755=
-9-1-qwe.aldo@gmail.com?part=3D1
