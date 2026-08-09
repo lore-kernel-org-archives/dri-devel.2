@@ -4,42 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D641C5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8780FC5AE49
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 756CB10E685;
-	Mon, 10 Aug 2026 06:38:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8285210E696;
+	Mon, 10 Aug 2026 06:38:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="mO0UAWfR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FAbd/z6E";
 	dkim-atps=neutral
-Received: from mail-244105.protonmail.ch (mail-244105.protonmail.ch
- [109.224.244.105])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 789C410E118
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 18:28:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1786127266; x=1786386466;
- bh=q4tdgJ5bQ15uNoWudEz5stteCUVUlugliOhQ72saDn4=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=mO0UAWfRmLjFYYrFgy52olWJr5A10Q+jJcQ7uoQPtexz7i3NfUwzGcShdTPrSTq7P
- xfz4+dRsNQoAxoUjBGmYvus4QbQKl+l7k1ehWle77qSz7V/zUOYiYJMM5t7aM5O+iu
- O6mW8BG/3fAyGac0BBJSncVuKQUDgyYcqvGsV3mSJRiRvW1lq62HdUZV1MQnBXQUsI
- 3xD4mACBppEJ6sBBS8YPxUfDxKT9Zt3PdKSk0aVT7vettxKRjEIJrmah5vUbc/rvEf
- dT34lD7JWir4U0fmHYt+2LuhzEYf+UjDkixd/AaS5vcjftjP5MmdXNzUhkdiomBCVv
- wSGZWEPpF1tZQ==
-Date: Fri, 07 Aug 2026 18:27:40 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Satyajit Roy <edu042sjroy@proton.me>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, Ilya.Bakoulin@amd.com,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: Fix BT2020 YCbCr limited range output CSC
-Message-ID: <20260807182724.51018-1-edu042sjroy@proton.me>
-Feedback-ID: 147615787:user:proton
-X-Pm-Message-ID: ee450151c8c5bd5973580ddd300b54931e63ea7b
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7AEAC10E148
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 13:25:43 +0000 (UTC)
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-2cace91f112so9878115ad.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 06:25:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786281943; x=1786886743; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=kfmNB6Xrai7eTejryQxi97VAY3eGViiWgp3/xoXdPsU=;
+ b=FAbd/z6E/9qw4VgBDoLrLZf7xhHLidHHrExsReqEbXESuO/+1bki8b/JFIA/JAd0D7
+ zypAlr2aJqyYRlRQR9vrj2FdKWNF/1m854yD4GUOOz7r/eW8xy5cYH0EaXylhjnTyic4
+ MVHpqrwXzv5PnwsXEE3LEKGqRjPNaPvHsKnXW+EH4iPQpI+WvUd73Krasq+2JJbtCR+s
+ QXk7++lreYOGjM8LHDmgiFnSp4zooragJ7vzpyKU07Brg2BFbFqGAeZ7vjAh8IqXUWx2
+ YuYMSpd5rnDUsvHuuOgxh0Y88X0ph8S+SPabt1RDaRKPQWpP6o8x/fc/ufG+ZVXM8gV4
+ 8Ndw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786281943; x=1786886743;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=kfmNB6Xrai7eTejryQxi97VAY3eGViiWgp3/xoXdPsU=;
+ b=P/Mjshp7KtjCOqUY3lRG9Tpj0ST5K7K3nQHa+pngCNQPix681aGFl6qPIbk0e7hIcu
+ gYcB1wcWGsJgY8d/cCm/4m929iKjGAsUNm6I0nO5AIkrW5P586fy+zTFowlObPRPBWF7
+ mMWp81SUOtzV6cjZ63JefEwFjYanUe+fqhBKhaKWeoL/P6FNZbZhnZJIJyds9GJID75j
+ s8OAUpymWrxBfmDbx59Ozns7xt6VDHsYoCthWU8Ot2vOeafyBgtBE0DPI93ukN1pu53t
+ 0h0ckEvoKXC350xGpuB1INtcOtEhwvLVjVRKCB0UgKVjERgaKir2MI45/irSBHtZN9nH
+ u8Dg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrRbrHfh/wcoY5U91bTNIoSJAlUNKIluk1wbVpY9stQovi5GqrkrHwL5I3R0/tIYScJ3ZPMtK7WkjU=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxitq9xiukltv3eoDvAsft+3EsMLnP9DWFNl4vEwfntcIc6mYxn
+ h9qAQEHRmIqzRVr4vt+qSEM9otDlhSchNRhDWpySPo0oBT82Ax/OEMHV
+X-Gm-Gg: AR+sD13B6ceSdp/f4Jw9oDuepaTYns+bua4zHQBSM8201AaAULA2BruoxDagwwe/wJc
+ y7PGB0Z7JWYjCQXrh0tgJnq39Cf6lZU02QywUSWyySeiTJAxHQnksM6PLyPGMkbG5jIQmwNo/RW
+ 39bX1/z6PzMb4xdZEZccTRv628i6ue9wdb4DDM3GOYxdO3qG7+BNCx+aVM4KioYXq1ZUR78Dwue
+ A/O5fgCCVaQT212Y89QjtYLm4QfaPOKu4ByXcRdQ0jQmr7KMfVNUf6z5oBOq+pHgTXLWM/wXsXZ
+ Mqp9d5f8zXk7KnApcEBIu5ALnglV5EYroMljEMzgOml4OdTvGwJPdDkPldd27YDTF+1gL8gbMGs
+ ZGGeiNk5W+lFiDxhXDzcWpHYiapximVoLibjgeZYhVNZmq5Qe3dcY5B3vJHizZy9v8boMmxGPbI
+ D9sV5FTjkzH3dviEvdGzQwCiFkCujma1gFhoot/UjAsQ31sIZU7cDx
+X-Received: by 2002:a05:6a20:a114:b0:3c3:7cfe:b337 with SMTP id
+ adf61e73a8af0-3cb85f88bf2mr37654661637.30.1786281942902; 
+ Sun, 09 Aug 2026 06:25:42 -0700 (PDT)
+Received: from beelink.. ([186.22.57.86]) by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-315be86fc7bsm31512690eec.1.2026.08.09.06.25.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Aug 2026 06:25:41 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH] drm/vmwgfx: reject SURFACE_DMA commands smaller than body +
+ suffix
+Date: Sun,  9 Aug 2026 10:25:14 -0300
+Message-ID: <20260809132514.421679-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,90 +92,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Satyajit Roy <sroy14@alum.utk.edu>
+vmw_cmd_dma() locates the SVGA3dCmdSurfaceDMASuffix at the end of the
+command and dereferences it:
 
-COLOR_SPACE_2020_YCBCR_LIMITED and COLOR_SPACE_2020_YCBCR_FULL
-currently select the same output CSC matrix. The matrix uses
-full-amplitude BT2020 coefficients, so the limited-range output path
-does not scale luma and chroma to their limited-range code ranges.
+	suffix = (SVGA3dCmdSurfaceDMASuffix *)((unsigned long) &cmd->body +
+					       header->size - sizeof(*suffix));
+	if (unlikely(suffix->suffixSize != sizeof(*suffix))) {
 
-When the output is signaled as limited-range YCbCr, a sink that honors
-the quantization range expands those values again. This produces
-incorrect output levels and is particularly visible with PQ HDR.
+header->size comes straight from userspace through DRM_IOCTL_VMW_EXECBUF
+(DRM_RENDER_ALLOW) and is only bounded from above: vmw_cmd_check()
+rejects header->size > SVGA_CMD_MAX_DATASIZE and commands that do not fit
+the buffer, and struct vmw_cmd_entry carries no per-command minimum size.
+There is no lower bound. When header->size is smaller than sizeof(*suffix)
+the pointer arithmetic underflows and the read of suffix->suffixSize is an
+out-of-bounds read ahead of the command; when it is smaller than the body
+plus the suffix, the body accesses that follow are out of bounds as well.
 
-On Navi33/DCN 3.2.1 over HDMI, the AVI InfoFrame advertises limited
-range while the existing output CSC produces full-amplitude BT2020
-YCbCr values. Using the limited-range matrix restores the expected
-PQ HDR output levels.
+Reject the command before computing the suffix pointer when header->size
+cannot hold both the fixed body and the trailing suffix.
 
-Add a separate output CSC matrix for BT2020 YCbCr limited range. Scale
-luma by 219/255 and chroma by 224/255 while retaining the appropriate
-limited-range offsets. Keep the existing matrix unchanged for full
-range.
+Found by a syzkaller instance fuzzing the vmwgfx command stream:
 
-Fixes: 07bc2dcbcf40 ("drm/amd/display: Fix BT2020 YCbCr limited/full range =
-input")
+  BUG: KASAN: vmalloc-out-of-bounds in vmw_cmd_dma+0x508/0x5b0
+  Read of size 4 ...
+   vmw_cmd_dma+0x508/0x5b0 drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+   vmw_execbuf_process+0xd06/0x35f0
+   vmw_execbuf_ioctl+0x1cc/0x5a0
+
+Fixes: cbd75e97a525 ("drm/vmwgfx: Make sure user-space can't DMA across buffer object boundaries v2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- .../drm/amd/display/dc/core/dc_hw_sequencer.c  | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/driver=
-s/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 90d754d192f1..f264bb880aee 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -61,6 +61,7 @@ enum dc_color_space_type {
- =09COLOR_SPACE_YCBCR601_TYPE,
- =09COLOR_SPACE_YCBCR709_TYPE,
- =09COLOR_SPACE_YCBCR2020_TYPE,
-+=09COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
- =09COLOR_SPACE_YCBCR601_LIMITED_TYPE,
- =09COLOR_SPACE_YCBCR709_LIMITED_TYPE,
- =09COLOR_SPACE_YCBCR709_BLACK_TYPE,
-@@ -116,6 +117,10 @@ static const struct out_csc_color_matrix_type output_c=
-sc_matrix[] =3D {
- =09=09{ 0x1000, 0xF149, 0xFEB7, 0x1004,
- =09=09  0x0868, 0x15B2, 0x01E6, 0x201,
- =09=09  0xFB88, 0xF478, 0x1000, 0x1004} },
-+=09{ COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
-+=09=09{ 0x0E0E, 0xF313, 0xFEDF, 0x1004,
-+=09=09  0x0738, 0x12A2, 0x01A1, 0x0201,
-+=09=09  0xFC13, 0xF5DF, 0x0E0E, 0x1004} },
- =09{ COLOR_SPACE_YCBCR709_BLACK_TYPE,
- =09=09{ 0x0000, 0x0000, 0x0000, 0x1000,
- =09=09  0x0000, 0x0000, 0x0000, 0x0200,
-@@ -186,7 +191,16 @@ static bool is_ycbcr2020_type(
- {
- =09bool ret =3D false;
-=20
--=09if (color_space =3D=3D COLOR_SPACE_2020_YCBCR_LIMITED || color_space =
-=3D=3D COLOR_SPACE_2020_YCBCR_FULL)
-+=09if (color_space =3D=3D COLOR_SPACE_2020_YCBCR_FULL)
-+=09=09ret =3D true;
-+=09return ret;
-+}
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+index 6b921db2dcd2..02eb383f91b5 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_execbuf.c
+@@ -1524,6 +1524,12 @@ static int vmw_cmd_dma(struct vmw_private *dev_priv,
+ 	bool dirty;
+ 
+ 	cmd = container_of(header, typeof(*cmd), header);
 +
-+static bool is_ycbcr2020_limited_type(enum dc_color_space color_space)
-+{
-+=09bool ret =3D false;
++	if (unlikely(header->size < sizeof(cmd->body) + sizeof(*suffix))) {
++		VMW_DEBUG_USER("Invalid SURFACE_DMA command size.\n");
++		return -EINVAL;
++	}
 +
-+=09if (color_space =3D=3D COLOR_SPACE_2020_YCBCR_LIMITED)
- =09=09ret =3D true;
- =09return ret;
- }
-@@ -217,6 +231,8 @@ static enum dc_color_space_type get_color_space_type(en=
-um dc_color_space color_s
- =09=09type =3D COLOR_SPACE_YCBCR601_LIMITED_TYPE;
- =09else if (is_ycbcr709_limited_type(color_space))
- =09=09type =3D COLOR_SPACE_YCBCR709_LIMITED_TYPE;
-+=09else if (is_ycbcr2020_limited_type(color_space))
-+=09=09type =3D COLOR_SPACE_YCBCR2020_LIMITED_TYPE;
- =09else if (is_ycbcr2020_type(color_space))
- =09=09type =3D COLOR_SPACE_YCBCR2020_TYPE;
- =09else if (color_space =3D=3D COLOR_SPACE_YCBCR709)
---=20
-2.53.0
-
+ 	suffix = (SVGA3dCmdSurfaceDMASuffix *)((unsigned long) &cmd->body +
+ 					       header->size - sizeof(*suffix));
+ 
+-- 
+2.43.0
 
