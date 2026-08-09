@@ -4,44 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67D0DC5AC80
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 05:54:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43BD0C5AD2C
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 06:07:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 501CB10E0D4;
-	Sun,  9 Aug 2026 05:54:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C74E10E0D9;
+	Sun,  9 Aug 2026 06:07:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aRTGTe76";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nRIoj6KL";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D98510E0D4
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 05:53:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3DD6D41179;
- Sun,  9 Aug 2026 05:53:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB1581F000E9;
- Sun,  9 Aug 2026 05:53:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786254839;
- bh=56YqllMQT4PZJcnBh4e9140daSJLoz5rkyKtVXpAEdQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aRTGTe76HYbHR3UQZE0fEVAhyUH6hAc93wQiILPE6I0Idg7HKYmLAyd1ctLs0czIp
- CQPUy6nh4J1YOl3Jg/1S83Bzg/gqcm6AJA0bgacBeDpbbVsRO7kZNReRYx66yFSabl
- L92yaKmCr0uPnWK4Du31o/9s77qU7jIt8sQ8rXGdXpMR7s1kWDwjx5IRuOQnESawBz
- jFfyJyXYGqMOWuS5MSnnXnIJFXCJkiIV40IOx8tuZXCz5qUy9qgaZ8F9FPdVqXR2PV
- P7GhNmxPQ47SOhBpxM2+9ttjro7kZ1JmxnTGEZ07QIp4CiU8xfnF+3wLDGvbUUXhXb
- au0Ny64yWl5HA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 6/6] drm/amdgpu/ras: Cancel delayed work before ACA
- teardown in amdgpu_ras_fini
-To: "Sreeraj S Kurup" <sreekuttan2156239@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260809051200.3276-7-sreekuttan2156239@gmail.com>
-References: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
- <20260809051200.3276-7-sreekuttan2156239@gmail.com>
-Content-Type: text/plain; charset=utf-8
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
+ [209.85.167.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D318110E0DC
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 06:07:05 +0000 (UTC)
+Received: by mail-lf1-f42.google.com with SMTP id
+ 2adb3069b0e04-5b15c6fb864so534920e87.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 23:07:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786255624; cv=none;
+ d=google.com; s=arc-20260327;
+ b=XBBxFJV1ZOOopk5HbaTzkIH4q378TNBx5V4VH7Eplkfch1wxyUgN9lWz1pcHGnWcP1
+ a6WUGuy1djMBMKiHOC9kEoC7RCoaD14pkQ2euXVz1em9tbYkC4C9mG8J3H3VMKDJw3rX
+ DGwlWXIC0Ck6Gy4ujdNmUsC1HH17qrNhCCKPnvSztWsnmdkCG4kP/XMTSTCQ7wIOM63w
+ oO13XKdeFGWqRPnPtjyz+LQnfk+CSdP1V1ikIt0AnAaUwvmhN9IYoEADMM+SJ0NdFOAN
+ htVU2fzGewIfmv0qN28hlrv0uItb08LoTDvAeJDk0hv9XG2iYf4ApxF7ZuclLRs0jdgU
+ Bcng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=YpmkqxittInrChlb+wwaxzd9ar8fv5VvkAor8BQUeUM=;
+ fh=ZhQqGQI0irpxGcxffaHosCPRzD7m1lm9BiV5CAnMnyo=;
+ b=BI4DSZOEiudL9RKwj5ynZq445kh6anvkrjBnhkzOmAsHJIDxjA2XkAs0kGzYTGCeY+
+ jG72/SdX5Vz9SJZXl0VNrebVJkcVikvTt2J8Kam3sCUaniFM53fxEIuXG17JqJtn4XP8
+ ji4H1fUTa/JGtnAypP0ryEvK23A6h2xpcrH/7HX+VcsZmW6OhJ98Tfq5q6tUk7Hl8LVv
+ kza0JMU7JShiR4V4XDFOpPSupBRKVpm2dF6dYs0SJWC6yaDY5zmUQ3NU1p06H4ljs9Zd
+ s4yodlFEbYhzYZUHgzA/zSDOdJnxT5O5wSanr+W8SShEYKNRnJdSAWKQvm+jHPWQK72o
+ pIeA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786255624; x=1786860424; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=YpmkqxittInrChlb+wwaxzd9ar8fv5VvkAor8BQUeUM=;
+ b=nRIoj6KLON7ayIl9ULLDYWsOHhOIEMvSELDybw/sasYdAmDKB/n01i2bEmdB4BWwoj
+ xmqoKuj9McA3Jf7faGjAlrnKxChhjXrbDkr3G9sfd4HGAan+tlY4bZgNp2IDCmwEks3j
+ jbuLRO6LM7Tg7Dz4Q5DodPSVF8RhsBdbwLfuFy8rTI52Sz2KETutvT29hZz2VJklmJqY
+ ueqn3QLjplSLU7U7gNZvgg6SvpoX6sCIWOv4ltXUIs2PajxO1Hwc88lmLyy4dkIQUauM
+ IanUJhMIubADeYYrS/1drkWM+KUBBBzJHkVwGddQ+H9vqkB5SPEUv7AG5KcyXFLm20c+
+ mcVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786255624; x=1786860424;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=YpmkqxittInrChlb+wwaxzd9ar8fv5VvkAor8BQUeUM=;
+ b=kKCdWFEq6gYhXYsYiY1Tw7yuSpC+gD+RgztXfZp5YB6QmafBPsMkD3fDoKrG9IiWOe
+ 1YOkUJeRAxjGESEFsoAWP5SSc8vZVsiV9yau4Gjc3oqJIzN93cwdh7pvLk1fAKUtRWGP
+ EAGT2iu9OqsVsCz7GLm28GjR+E0MuR8m8h/yvWStl+dvwKx610IEQm92S7cgx6O40cOl
+ Cel5HuWlb+LA4eyxRv4UzERLfVZDr5bJUL/add2DK0nhdOETC7LKK4KpLkDpnIQUtctY
+ KdoarId+lReid3ptAVC5rks+86hIClkLE5kuY1ExPMGfF1AQ/hTbp3FzZ7S2Vk2osnbT
+ RntQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp3HxGMIJdvYd9J7w5ULg9G0a9EBg8hfC4TRaGt/e970E0+QgcDGHEzGeuAiQoiUP2qBOHHnVpeSlQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yy+0A7GVcLhD9BXAfYIN9MDkdke8isgOYPN02LkPuUhcqCx22rc
+ DgTczZMC5SI3KmsqPwTmz9zcpALpF1fbX9oZbdUL8tHdLKX0HhZDbXorT5veGyv+0QrWE8M9qsp
+ F+FRFg94uqATD/qfA2bz8uVsAicfcb/8=
+X-Gm-Gg: AR+sD121XXF6V969zjBRuuh5lG0K6dw5GwDSFNpuoBGTbZ9xlzwgdrnHyunW4FXsUUG
+ ER96m9h1CJD8f26v1K0tm+TrFPf8XM/rMDHLanURzzGW+i8EFRkEI6hv9WM7XArUqp6BjJAIHNd
+ XEB9a/xCHoMhrUF4Lvtv1rlPqmHOQrVUt3NvmnHuMOyJBW+aUIRBsXJfvuojm12fsH1AEDxnaai
+ ZuyChd+AHQUxuPOsvKtkh0aZ6Be6Tsf1CMgY2VOtNwoKL0q6DGOlH019Z+mFSCnIxRanKjonPuK
+ fRLhTX+R4DDcu0KcWck1UOz+AAeA8axBJBaBZPSV/KR1f2RKJxl11r1lmlh+OB1wJoQQAbjkb2b
+ /DIPRdoZrChHTSJsWDSb29eFLyRwL8A==
+X-Received: by 2002:a05:6512:68c:b0:5b1:5f7e:1ca2 with SMTP id
+ 2adb3069b0e04-5b30b770f9amr1464459e87.32.1786255623565; Sat, 08 Aug 2026
+ 23:07:03 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260725-tegra-coherent-wc-v1-1-dfdcc929c21b@gmail.com>
+ <67fe34eebafe657b3221ac39838440b294c60444.camel@lynxeye.de>
+In-Reply-To: <67fe34eebafe657b3221ac39838440b294c60444.camel@lynxeye.de>
+From: Aaron Kling <webgeek1234@gmail.com>
+Date: Sun, 9 Aug 2026 01:06:51 -0500
+X-Gm-Features: AUfX_mx8KQxE55mPFvf4bCdi1Ci4tN_R-8PURcVW83QA94nVGU1-lMotJniGcXI
+Message-ID: <CALHNRZ9Jg=NQ-i5G8q4vdOgwgUUKDAdi0+VXUnHU2Ctpo74YAw@mail.gmail.com>
+Subject: Re: [PATCH RFC] drm/nouveau: Use write-combined maps for coherent on
+ Tegra
+To: dev@lynxeye.de
+Cc: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Faith Ekstrand <faith.ekstrand@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 05:53:58 +0000
-Message-Id: <20260809055358.EB1581F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -54,82 +111,81 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Tue, Jul 28, 2026 at 3:38=E2=80=AFAM Lucas Stach <dev@lynxeye.de> wrote:
+>
+> Am Samstag, dem 25.07.2026 um 18:28 -0500 schrieb Aaron Kling via B4
+> Relay:
+> > From: Faith Ekstrand <faith.ekstrand@collabora.com>
+> >
+> > On Tegra devices, uncached maps traslate to device memory, causing
+> > unaligned accesses by userspace resulting in a SIGBUS. Instead, use
+> > write-combined maps to ensure proper access.
+> >
+> This is not only an issue on Tegra. All ARM64 platforms translate
+> uncached to device memory, which does not support unaligned access. So
+> the issue could happen in the same way when connecting a discrete GPU
+> to a ARM64 platform with PCIe support.
+>
+> I would argue that there is no downside to always using write combined
+> memory for coherent buffers. You gain potentially faster writes while
+> the only issue is that writes may get delayed visibility at the device
+> side. However, I don't think anyone uses coherent buffers to modify the
+> content from the CPU side while the device is operating on the buffer.
+> For all regular use-case the memory barrier in FIRE_RING() will make
+> sure that the buffered writes are visible to the device before the
+> commands using the buffer are made visible to the device.
 
-Pre-existing issues:
-- [High] Race condition and Locking Violation / Use-After-Free in `amdgpu_r=
-as_recovery_fini` where `page_rsv_lock` is destroyed before `page_retiremen=
-t_dwork` is reliably canceled.
---
+Should I send a new revision that sets write combined for all coherent
+then? I only have Tegra devices to verify this on, so I can't attest
+to how this affects discrete cards.
 
---- Patch [6]: [PATCH v3 6/6] drm/amdgpu/ras: Cancel delayed work before AC=
-A teardown in amdgpu_ras_fini ---
-commit dd2776768892778a29776f233fd342f5f59be385
-Author: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Aaron
 
-drm/amdgpu/ras: Cancel delayed work before ACA teardown in amdgpu_ras_fini
-   =20
-In amdgpu_ras_fini(), cancel_delayed_work_sync() is currently called
-after ACA subsystems and locks are destroyed. This patch moves it to the
-beginning to ensure all pending work is flushed and stopped before resource
-deallocation starts, preventing a use-after-free and locking violation.
-
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_ras.c
-> index 764cd49504083..118716ad04379 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-> @@ -4751,6 +4751,7 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
->  	if (!adev->ras_enabled || !con)
->  		return 0;
-> =20
-> +	cancel_delayed_work_sync(&con->ras_counte_delay_work);
->  	amdgpu_ras_critical_region_fini(adev);
->  	mutex_destroy(&con->critical_region_lock);
-
-[Severity: High]
-This is a pre-existing issue, but while looking at this fix for early delay=
-ed
-work cancellation, I noticed a very similar pattern in
-amdgpu_ras_recovery_fini():
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c:amdgpu_ras_recovery_fini() {
-    ...
-	do {
-		flush_delayed_work(&con->page_retirement_dwork);
-		ret =3D amdgpu_ras_schedule_retirement_dwork(con, 0);
-	} while (ret && max_flush_timeout--);
-
-	...
-
-	mutex_destroy(&con->page_rsv_lock);
-
-	cancel_work_sync(&con->recovery_work);
-
-	cancel_delayed_work_sync(&con->page_retirement_dwork);
-    ...
-}
-
-If the loop exhausts its max_flush_timeout, it exits while the delayed work
-is still pending. The code then proceeds to call
-mutex_destroy(&con->page_rsv_lock) before calling
-cancel_delayed_work_sync(&con->page_retirement_dwork).
-
-If the delayed work (page_retirement_dwork) runs after the page_rsv_lock
-mutex is destroyed, could it attempt to acquire the destroyed mutex in
-amdgpu_ras_reserve_page(), leading to a locking violation and
-use-after-free?
-
-Should cancel_delayed_work_sync(&con->page_retirement_dwork) be moved above
-mutex_destroy(&con->page_rsv_lock) here as well?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809051200.3276=
--1-sreekuttan2156239@gmail.com?part=3D6
+> Regards,
+> Lucas
+>
+> > Signed-off-by: Faith Ekstrand <faith.ekstrand@collabora.com>
+> > Co-developed-by: Aaron Kling <webgeek1234@gmail.com>
+> > Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+> > ---
+> > This patch is marked RFC because there is not complete confidence that
+> > the change is correct. Without this change, nouveau can easily hit
+> > sigbus errors in Android UI rendering via nvk or running vulkan deqp
+> > tests on Tegra. Changing coherent maps to use write-combined stops the
+> > crashing, but it is unknown what the performance impact is, if any.
+> > ---
+> >  drivers/gpu/drm/nouveau/nouveau_sgdma.c | 9 ++++++---
+> >  1 file changed, 6 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/nouveau/nouveau_sgdma.c b/drivers/gpu/drm/=
+nouveau/nouveau_sgdma.c
+> > index fa3b4ebf38a83..10f6ef1c541bd 100644
+> > --- a/drivers/gpu/drm/nouveau/nouveau_sgdma.c
+> > +++ b/drivers/gpu/drm/nouveau/nouveau_sgdma.c
+> > @@ -72,9 +72,12 @@ nouveau_sgdma_create_ttm(struct ttm_buffer_object *b=
+o, uint32_t page_flags)
+> >       struct nouveau_sgdma_be *nvbe;
+> >       enum ttm_caching caching;
+> >
+> > -     if (nvbo->force_coherent)
+> > -             caching =3D ttm_uncached;
+> > -     else if (drm->agp.bridge)
+> > +     if (nvbo->force_coherent) {
+> > +             if (drm->client.device.info.platform =3D=3D NV_DEVICE_INF=
+O_V0_SOC)
+> > +                     caching =3D ttm_write_combined;
+> > +             else
+> > +                     caching =3D ttm_uncached;
+> > +     } else if (drm->agp.bridge)
+> >               caching =3D ttm_write_combined;
+> >       else
+> >               caching =3D ttm_cached;
+> >
+> > ---
+> > base-commit: 1a1757b76427f6201bfe0bf1bea9f7574f332a93
+> > change-id: 20260725-tegra-coherent-wc-19941d1a5a60
+> >
+> > Best regards,
