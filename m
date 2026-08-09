@@ -4,42 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80DC4C5AD7B
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 17:04:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E532C5AD7B
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 17:35:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA52110E126;
-	Sun,  9 Aug 2026 17:04:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1176D10E19C;
+	Sun,  9 Aug 2026 17:35:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j2ItyCRJ";
+	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="hziQrg/R";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A3E7510E126
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 17:04:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 48A1A41B0E;
- Sun,  9 Aug 2026 17:04:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 007951F000E9;
- Sun,  9 Aug 2026 17:04:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786295065;
- bh=Z3qbR6feuwzRaPQMtjcfZuaGPcTSzia7FiIaE8jX/4A=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=j2ItyCRJov2wmbcmzpe0KfFHZyLOgFxHZdFpblBULqexMf4yyAsFTljC5rMFeP1xy
- yy79pdQEZnmZETpYS2wDcg62xS4rkRPkOjmZ/krvYd6yEi1rTzb1zJHZiQLR4vUw1e
- uYopaaeYw2FwAN1ndcO9J4Zbt/7xVboKQyeZLPZA1ygwZjac9KB3T+ZlRbebAzHesy
- myoLcBEimAAvqpCRO1CTuHWD/B2sryNzwtcDUqpf5duKxyZM1dk6LCJRzYaI4nPqU2
- /BTLAdey/zhrbrPj369OZR3HxvjvfUG8s2YirtlRlmrZTkvTyP2SEEL5sAzVfCGyG9
- +fJE2uDtsTGZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] Memory leak error in qxl unbind
-To: =?utf-8?b?w5NzY2FyIE1lZ8OtYSBMw7NwZXo=?= <megia.oscar@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260809165326.164763-1-megia.oscar@gmail.com>
-References: <20260809165326.164763-1-megia.oscar@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 17:04:24 +0000
-Message-Id: <20260809170425.007951F000E9@smtp.kernel.org>
+Received: from mail-ot1-f100.google.com (mail-ot1-f100.google.com
+ [209.85.210.100])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AD02410E19C
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 17:35:30 +0000 (UTC)
+Received: by mail-ot1-f100.google.com with SMTP id
+ 46e09a7af769-7eb545db3afso881063a34.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 10:35:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786296929; x=1786901729;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=1A2f+IE9x32lo4cEOs3hQjptkhcDmHQtxpnFUygtuO4=;
+ b=FaUpzc9zoLfUE9igqWqf6npBT1XR0HLg3MUWfGkHAEcMQTeZxPn4Jfxv1EqJi7zWsK
+ 1z0DiNxnHeQwCgD61UwmiQl6QsO8PSXN+zc/5q60Kwg8lfSNJXMFyzokPtEIcjiKMOQC
+ 3ZVi1i8Ty8ssbW1MHrH0noGTlUQSL8tTzs6sv2NSw/2TK/YxqXwVYOmPyhtRXydwEFGl
+ MhrHizqmPFUvugf0RIJIejUenD54OAaVMfM0jzWckM/aEjA7XYDM+frQv89koK6GIyE3
+ Cp4V57ja2fwdC+mAODphZ0e5wqdLPtdDzKSaqA6LpZH1nkOCevhrg9UJJM9vw7h7F8t0
+ tmTg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro2wa4G8Fg1GSn0N1AQYLTkIQOlL4EWG4zGUAP+ygTOUlPfbWtLBBVAmD7ZlEqOexBa2wbMhEY/Nsw=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yyh4Wu37+sm+i1qGT+X0k0chE6nK1fk1E0r+UwTpN06mG8AbtzJ
+ TnKTD/RgaYm8zWJhP87su+j3ZTGs5kjQ80lQCwN73RIwiCRpdS28l6IKdrXJA8JOa25+EGxzmNR
+ fNskn4Xf1KK7TwVLAROoLDE8IiotO04Ypqa3QEKJ4oPjcAhAd6twmQHZ8kvrFqEjxLnHcrdtHTg
+ dWwpxfkcHZ4/W16zx3iCIs9k51ABeHvR5FA8GQ3HiGTyW/EuIjGv2dF3sxnmjIWsh6lJf4eCNfU
+ Vi8FBE4/0ve4VoI9YWH
+X-Gm-Gg: AR+sD12cQY9eh1aT+N1QtJktO/zGrRycr3794LcXVgR+LL+ecMID8684hS8vyQTRivo
+ NQ+ZmPzyzvnyPM37cTB40OQDJEMYhvmt8rZhbDqSIDj1BjxWYA7j9VW/1pse6Ft+rI5nF1HFjCX
+ c3iZS/UDusc2yUZMn8ktW+1zuwoBojLSpmZvZZzFYxdTsftW3ynUGLIBAgwu3uKuU98qYDiRMhj
+ fTmPGn5+sYRdHwYOYUS4zIgDVcOFl/ldaYDo5vP18PkWVte75TsXKCceUisHhbxkjppsxnDYS+b
+ CKeiL0xlpy6Kvk4tYozmSOsiB0+aCxH89gUhfVx7JHzmNOtTaQtn+0YcYhVuAR0ueRLObQ1v89c
+ wZoWk6Nt/SKHTpy0k3FL7K16/Aw4h42kFNVB3hsY0H2bAEkrV4LVodUAfYSgPQ9UniJ7LK06z7D
+ y/2bnw0bfyqPa/FFnIb0Ny+tWde11hPK00
+X-Received: by 2002:a05:6830:82e5:b0:7ea:b8c:4198 with SMTP id
+ 46e09a7af769-7f3691ac609mr9547283a34.8.1786296928958; 
+ Sun, 09 Aug 2026 10:35:28 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
+ (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
+ by smtp-relay.gmail.com with ESMTPS id
+ 46e09a7af769-7f35b7e4eb4sm539977a34.7.2026.08.09.10.35.27
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Sun, 09 Aug 2026 10:35:28 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-lf1-f69.google.com with SMTP id
+ 2adb3069b0e04-5b291a1420fso882573e87.2
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 10:35:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=broadcom.com; s=google; t=1786296926; x=1786901726;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=1A2f+IE9x32lo4cEOs3hQjptkhcDmHQtxpnFUygtuO4=;
+ b=hziQrg/RZeNoq5iVJMP1Og11xRuIbeRRT2kjc+49gmhhYywOeIh9UojvaWVrqoXz/I
+ FziyADQ9TpQ/OXoQOXkA4zoZZzYcEtfODCt/syinGO58h5y2Y6+5av1AHkKrIjE6DHfw
+ n4SaCcYp32Izu0MkXaJQYNlVpjv1hyVAsDGGw=
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoORfAhAuHn1vwwptogb13kVCijUrAdJcOjZNIHwkr/FfwUHwMN9rOfIq9kuGfFtL87pPCaV9bgiXg=@lists.freedesktop.org
+X-Received: by 2002:a05:6512:1d1:b0:5b2:9358:b854 with SMTP id
+ 2adb3069b0e04-5b30b77a58emr1308524e87.42.1786296925704; 
+ Sun, 09 Aug 2026 10:35:25 -0700 (PDT)
+X-Received: by 2002:a05:6512:1d1:b0:5b2:9358:b854 with SMTP id
+ 2adb3069b0e04-5b30b77a58emr1308515e87.42.1786296925094; Sun, 09 Aug 2026
+ 10:35:25 -0700 (PDT)
+MIME-Version: 1.0
+References: <20260808231002.67559-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260808231002.67559-1-qwe.aldo@gmail.com>
+From: Zack Rusin <zack.rusin@broadcom.com>
+Date: Sun, 9 Aug 2026 13:35:11 -0400
+X-Gm-Features: AUfX_mzYwGPWCMi5xRzWakDTU1VYIQNch6sjAGS4IVT-E0jXJbnOWJ5YtIPHpJM
+Message-ID: <CABQX2QOWeCRBKXPv7gZrCXE9FuesWn0_3SEC33RjPDJHgPUxHw@mail.gmail.com>
+Subject: Re: [PATCH] drm/vmwgfx: return an error when a shared GB surface has
+ no backup buffer
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature";
+ micalg=sha-256; boundary="000000000000bdb5f30658a0a997"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,136 +109,216 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Critical] The patch adds error cleanup to `ttm_pool_mgr_init()` (freeing=
- the shrinker and destroying pools), but the caller (`ttm_global_init()`) i=
-gnores its return value. This leads to double-frees and NULL pointer derefe=
-rences during teardown.
-- [High] `ttm_pool_init()` ignores the newly added return value of `ttm_poo=
-l_type_init()`, resulting in guaranteed NULL pointer dereferences during te=
-ardown if initialization fails.
-- [High] Lockless TOCTOU data race on `shrinker_list` emptiness check in `t=
-tm_pool_shrink()` leads to invalid pointer dereference and memory corruptio=
-n.
---
+--000000000000bdb5f30658a0a997
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---- Patch [1]: [PATCH v4] Memory leak error in qxl unbind ---
-commit ed37ece8c0ad50e1a16deff6653abfe2c17eb1a0
-Author: =C3=93scar Meg=C3=ADa L=C3=B3pez <megia.oscar@gmail.com>
-Subject: Memory leak error in qxl unbind
+On Sat, Aug 8, 2026 at 7:10=E2=80=AFPM Aldo Ariel Panzardo <qwe.aldo@gmail.=
+com> wrote:
+>
+> vmw_gb_surface_reference_internal() rejects a surface without a backup
+> buffer by logging an error and jumping to the exit label, but it never
+> sets ret on that path:
+>
+>         ret =3D vmw_surface_handle_reference(dev_priv, file_priv, req->si=
+d,
+>                                            req->handle_type, &base);
+>         if (unlikely(ret !=3D 0))
+>                 return ret;
+>         ...
+>         if (!srf->res.guest_memory_bo) {
+>                 DRM_ERROR("Shared GB surface is missing a backup buffer.\=
+n");
+>                 goto out_bad_resource;
+>         }
+>         ...
+> out_bad_resource:
+>         ttm_base_object_unref(&base);
+>
+>         return ret;
+>
+> ret is still 0 from the successful vmw_surface_handle_reference() above,
+> so the function returns success while leaving *rep completely unwritten.
+> The other goto to the same label is inside an if (ret !=3D 0) block and s=
+o
+> carries a real error; this one is the only path that reaches the label
+> with ret =3D=3D 0.
+>
+> The caller then copies that untouched output structure to user space.
+> For DRM_VMW_GB_SURFACE_REF, vmw_gb_surface_reference_ioctl() passes a
+> stack local:
+>
+>         struct drm_vmw_gb_surface_ref_ext_rep rep_ext;
+>         int ret;
+>
+>         ret =3D vmw_gb_surface_reference_internal(dev, req, &rep_ext, fil=
+e_priv);
+>
+>         if (unlikely(ret !=3D 0))
+>                 return ret;
+>
+>         rep->creq =3D rep_ext.creq.base;
+>         rep->crep =3D rep_ext.crep;
+>
+> so 48 + 24 =3D 72 bytes of an uninitialised stack variable are copied int=
+o
+> the ioctl buffer, and drm_ioctl() copies that buffer back out.  The ioctl
+> is a DRM_IOWR of exactly 72 bytes, so in_size =3D=3D out_size and the cor=
+e
+> does not zero any tail.  DRM_VMW_GB_SURFACE_REF is DRM_RENDER_ALLOW, so
+> this is reachable by an unprivileged local user through a render node.
+>
+> What actually leaks depends on how the kernel was built.  With
+> CONFIG_INIT_STACK_ALL_ZERO, which is the Kconfig default whenever the
+> compiler supports it and therefore what the major distributions ship,
+> rep_ext is zeroed on function entry and user space receives 72 zero
+> bytes.  With CONFIG_INIT_STACK_NONE the contents are whatever the
+> previous call at that stack depth left behind; on a test kernel built
+> that way, 53 of the 72 bytes came back non-zero and several of them were
+> kernel pointers.  So the information disclosure is configuration
+> dependent, but the control flow defect is not: on every configuration
+> the ioctl reports success and hands back a reply that was never
+> produced, which user space cannot distinguish from a real one.
+>
+> The path was correct when the ioctl was introduced in a97e21923b42
+> ("drm/vmwgfx: Hook up guest-backed surfaces"): ret was initialised to
+> -EINVAL and the first assignment to it came after this goto, so the
+> label really did return -EINVAL.  14b1c33e8429 split the handler into
+> vmw_gb_surface_reference_internal() and moved the
+> vmw_surface_handle_reference() call - and with it the first assignment
+> to ret - above the check, which left the initialiser dead and this path
+> returning 0.  The dead initialiser was removed later, as a Coverity
+> "unused value", by c594285f30fa ("drm/vmwgfx: remove redundant
+> assignment to variable ret"); that removal was correct in itself.
+>
+> The driver already knows the request failed - it logs an error - so
+> report that to the caller.
+>
+> Fixes: 14b1c33e8429 ("drm/vmwgfx: Add new ioctl for GB surface create and=
+ reference")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 
-This commit addresses an OOM leak and refcount corruption in qxl unbind.
-It adds proper cleanup and error propagation for list_lru_init() failures
-during TTM pool initialization to ensure pool types are not left orphaned.
+Hi, thanks for the patch! Did you forget to disclose the llm used to
+find and fix it? I'm asking because that commit description is very
+hard to read for what is essentially "ret hasn't been correctly
+assigned, returning stale success status and leading to possible
+invalid reads in userspace". Plus, I'd like to know how to handle the
+commits referenced in the description. In general, I'd trust them if
+you have looked them up yourself by hand but I'll need to validate a
+lot more carefully if they're llm generated.
 
-Link: https://lore.kernel.org/lkml/20260727110212.64913-1-megia.oscar@gmail=
-.com/
-Link: https://lore.kernel.org/dri-devel/20260731053047.24503-1-megia.oscar@=
-gmail.com/
+We probably also want to add a ttm_ref_object_base_unref(tfile,
+base->handle); to the out_bad_resource section because before with
+this function returning success it, accidently, made userspace still
+call DRM_VMW_UNREF_SURFACE balencing out the ttm file reference count.
+Now we're just going to be leaking the reference added by
+ttm_ref_object_add in vmw_surface_handle_reference.
 
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
-l.c
-> index 1bf37023fed66..6821fadf1a8d0 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-> @@ -374,17 +374,23 @@ static struct page *ttm_pool_type_take(struct ttm_p=
-ool_type *pt, int nid)
->  }
-> =20
->  /* Initialize and add a pool type to the global shrinker list */
-> -static void ttm_pool_type_init(struct ttm_pool_type *pt, struct ttm_pool=
- *pool,
-> +static int ttm_pool_type_init(struct ttm_pool_type *pt, struct ttm_pool =
-*pool,
->  			       enum ttm_caching caching, unsigned int order)
+z
 
-[Severity: High]
-Since this function now returns an error code instead of void, do all calle=
-rs
-check the new return value?
+--000000000000bdb5f30658a0a997
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-Looking at ttm_pool_init() in drivers/gpu/drm/ttm/ttm_pool.c:
-
-    ttm_pool_type_init(pt, pool, i, j);
-
-If ttm_pool_type_init() returns an error, pt->shrinker_list remains
-zero-initialized. Later, when ttm_pool_fini() calls ttm_pool_type_fini(),
-it unconditionally runs:
-
-    list_del(&pt->shrinker_list);
-
-Will this cause a NULL pointer dereference on the zero-initialized list head
-during teardown?
-
-[ ... ]
-> @@ -458,6 +464,9 @@ static unsigned int ttm_pool_shrink(int nid, unsigned=
- long num_to_free)
->  	struct ttm_pool_type *pt;
->  	unsigned int num_pages;
-> =20
-> +	if ((shrinker_list.prev =3D=3D &shrinker_list) && (shrinker_list.next =
-=3D=3D &shrinker_list))
-> +		return 0;
-> +
->  	down_read(&pool_shrink_rwsem);
->  	spin_lock(&shrinker_lock);
->  	pt =3D list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
-
-[Severity: High]
-Is it safe to check if shrinker_list is empty without holding shrinker_lock?
-
-If the list becomes empty between this check and acquiring shrinker_lock
-(for example, if a concurrent thread calls ttm_pool_type_fini() during
-device teardown), list_first_entry() will execute on an empty list.
-
-This would return a pointer to the list head itself cast to a struct
-ttm_pool_type pointer, which could lead to memory corruption when
-list_move_tail() and list_lru_walk_node() are invoked on this invalid
-pointer.
-
-Could this check be safely moved inside the critical section?
-
-[ ... ]
-> @@ -1506,15 +1576,53 @@ int ttm_pool_mgr_init(unsigned long num_pages)
->  	spin_lock_init(&shrinker_lock);
->  	INIT_LIST_HEAD(&shrinker_list);
-> =20
-> +	mm_shrinker =3D shrinker_alloc(SHRINKER_NUMA_AWARE, "drm-ttm_pool");
-> +	if (!mm_shrinker)
-> +		return -ENOMEM;
-> +
->  	for (i =3D 0; i < NR_PAGE_ORDERS; ++i) {
-> -		ttm_pool_type_init(&global_write_combined[i], NULL,
-> +		ret =3D ttm_pool_type_init(&global_write_combined[i], NULL,
->  				   ttm_write_combined, i);
-> -		ttm_pool_type_init(&global_uncached[i], NULL, ttm_uncached, i);
-> +		if (ret) {
-> +			ttm_pool_type_fini_and_list_lru_destroy(i);
-> +			shrinker_free(mm_shrinker);
-> +			return ret;
-> +		}
-
-[Severity: Critical]
-If ttm_pool_mgr_init() fails here, does the caller properly handle the
-returned error?
-
-If the caller (ttm_global_init()) ignores this error and continues executio=
-n,
-mm_shrinker is left pointing to freed memory while execution proceeds.
-
-Then during module unload, ttm_pool_mgr_fini() unconditionally calls:
-
-    shrinker_free(mm_shrinker);
-    ttm_pool_type_fini_and_list_lru_destroy(NR_PAGE_ORDERS);
-
-Could this lead to a double-free of mm_shrinker and potential NULL pointer
-dereferences on the partially destroyed list structures?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809165326.1647=
-63-1-megia.oscar@gmail.com?part=3D1
+MIIVIgYJKoZIhvcNAQcCoIIVEzCCFQ8CAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
+ghKPMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
+VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
+AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
+AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
+NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
+26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
+hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
+ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
+pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
+71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
+G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
+Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
+4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
+x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
+ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
+gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
+AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
+1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
+YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
+b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
+c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
+AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
+bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
+IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
+Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
+dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
+nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
+AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
+mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
+5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
+CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
+F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
+bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
+YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
+bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
+LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
+RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
+xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
+jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
+vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
+TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
+sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
+D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
+DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
+BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
+VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
+zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
+tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
+2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
+phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
+a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
+ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
+07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
+SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGWDCCBECg
+AwIBAgIMYT8cPnonh1geNIT5MA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
+ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
+MDIzMB4XDTI0MTEyODA2NTUwOVoXDTI2MTEyOTA2NTUwOVowgaUxCzAJBgNVBAYTAlVTMRMwEQYD
+VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
+MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjETMBEGA1UEAxMKWmFjayBSdXNpbjEmMCQGCSqG
+SIb3DQEJARYXemFjay5ydXNpbkBicm9hZGNvbS5jb20wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAw
+ggEKAoIBAQCwQ8KpnuEwUOX0rOrLRj3vS0VImknKwshcmcfA9VtdEQhJHGDQoNjaBEFQHqLqn4Lf
+hqEGUo+nKhz2uqGl2MtQFb8oG+yJPCFPgeSvbiRxmeOwSP0jrNADVKpYpy4UApPqS+UfVQXKbwbM
+6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
+SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
+uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
+Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
+b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
+dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
+BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
+Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
+oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
+A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
+A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
+s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
+SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
+QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
+fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
+iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
+3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
+91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
+06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
+b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
+VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
+VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
+QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIOci
+EHorKLbUnuvupB2U1yz6/yRGJggoos0VGryvGVZeMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
+HAYJKoZIhvcNAQkFMQ8XDTI2MDgwOTE3MzUyNlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
+ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
+YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFO1v8vhVAvqm4vNoZ1pKvPpeKJir85f+Clm8yQR
+5JkNqkI5gX7CS33HvTfHzJpekzX/1sULldybVYFYGaQG7QPWZ+dwmmrm0xZOqA7JM46VNzBEIIm1
+tglSdECo3f77G2VUwadedEv0CQs6iQZmE73yyudWluT/DLjZVSw53a7wnk5NKHVuKtcDu1kZ5v61
+hiegaQ+R7NJVg16Q2U1b3h/Fldgdmc1oMYvUDhtg0BMTwlaDVInAAyqDCzp3oOdPe4MLpdfccm8S
+VBRPtH2lsjzYs++EC3qj3N9xkxcqAB7nfhqtmBhmDc7KedxsGHcp48Wo8/Yp30cdBisY3VtHHXc=
+--000000000000bdb5f30658a0a997--
