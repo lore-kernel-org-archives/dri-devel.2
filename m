@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 311D1C5AD4E
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 09:14:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE35CC5AC80
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 09:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6052A89F35;
-	Sun,  9 Aug 2026 09:14:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB06910E12B;
+	Sun,  9 Aug 2026 09:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JuQHd5BQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dEF6s7YI";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FEAC89F35
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 09:14:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5695410E12B
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 09:19:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8F57F42BB7;
- Sun,  9 Aug 2026 09:14:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52B161F000E9;
- Sun,  9 Aug 2026 09:14:35 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B9034600B1;
+ Sun,  9 Aug 2026 09:19:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F2971F00A3A;
+ Sun,  9 Aug 2026 09:19:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786266875;
- bh=DaPEiC5BXE8OUeycQRq6xrlEJHCXli1koNObLFUZjyE=;
+ s=k20260515; t=1786267188;
+ bh=1GUgyTiJyvq4zZVmFSoazK5CqyxD0DeiMolCvFee+PE=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=JuQHd5BQ5B5xeRX7ZBcM5MmRoF98rYnpBgsfyiwpyiZFZLiUSr8ek5v9Hy6L/tC0b
- wbI66eZ6GPXsxA0VTABrPXgDuFIYG43W7yf3lDY6OJD4oATcwAuK+CuNc8u5lMmHPi
- gz784QmPhXzf069tDB9iftIN5Mb5hjONXJXZD/7DcO8mnDrvq3Xk8O/w5HQ8bqF6/5
- cZ0/JLT+0EnvVv4G9Whp0It8xcoMgLv6iPuwCsHPj4MoeYMx9P1RZQ+s75kwKc5xXO
- NAjuzj2UYdqi4kT4vQUvdukb4PaWGzN48IOWyvQZ9G9SYQa1wG4LSkxXcKcQYgOf/W
- rl+ywT/80TebQ==
+ b=dEF6s7YI30Re1g1F433CrtbIKm5dd8lUrrJvLNIyq0Ox8LwUjC401AJbT3CNHuG/Z
+ DkVUuwOHDQL3uyUK10piuHlPMBB3fKan0G/z/eczopqkrFTsgJ8Aq/ksT4QiPcWvG5
+ 9MpRtgVieEJHA9Z2u2pTHr5U++zTAVFbL8YqT2N1HiTNGXMO22lJy/88IOaaLXbCZo
+ DdQFPYQrbC8czExp7qRuu/8628pO2fteKMJkFGXTqkgSawwuzkjVgsdiT5gEijAwiT
+ 4AOLjM776O/oG5H0DtZ5hlLP5u9bmTu2hWv//Rt1vYEXp7xMy1tiCGkoOry7EXS9bB
+ OS86Tsv3AdUQA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/3] drm/bridge: samsung-dsim: use DSIM interrupt to
- wait for PLL stability
-To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
+Subject: Re: [PATCH v4 4/6] drm/amdgpu/aca: Add missing NULL check for banks
+ parameter in aca_banks_add_bank
+To: "Sreeraj S Kurup" <sreekuttan2156239@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260809-exynos-dsim-fixes-v5-2-6e63dc6c238f@disroot.org>
-References: <20260809-exynos-dsim-fixes-v5-0-6e63dc6c238f@disroot.org>
- <20260809-exynos-dsim-fixes-v5-2-6e63dc6c238f@disroot.org>
+In-Reply-To: <20260809084735.9743-5-sreekuttan2156239@gmail.com>
+References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+ <20260809084735.9743-5-sreekuttan2156239@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 09:14:34 +0000
-Message-Id: <20260809091435.52B161F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 09:19:47 +0000
+Message-Id: <20260809091948.4F2971F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,132 +58,131 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Using `wait_for_completion_timeout()` with a short, sub-jiffy time=
-out leads to premature expiration and spurious display initialization failu=
-res.
-- [High] An early return in the interrupt handler causes `DSIM_INT_PLL_STAB=
-LE` events to be silently discarded if they coalesce with `DSIM_INT_SW_RST_=
-RELEASE`.
+
+New issues:
+- [Low] The added NULL check for the `banks` parameter is dead code and int=
+roduces unnecessary branching because the parameter is structurally guarant=
+eed to never be NULL.
+- [Low] The `lock` member referenced in `remove_aca_handle()` does not exis=
+t in `struct aca_handle_manager`, resulting in a compilation failure.
+
+Pre-existing issues:
+- [High] Concurrent traversal and modification of `mgr->list` without holdi=
+ng `mgr->lock` on the reader side causes a severe data race.
 --
 
---- Patch [2]: [PATCH v5 2/3] drm/bridge: samsung-dsim: use DSIM interrupt =
-to wait for PLL stability ---
-commit 9e7e8160e685bf48c532c28ad86a19b0799f53ce
-Author: Kaustabh Chakraborty <kauschluss@disroot.org>
+--- Patch [4]: [PATCH v4 4/6] drm/amdgpu/aca: Add missing NULL check for ba=
+nks parameter in aca_banks_add_bank ---
+commit 613bad660f79f7955828e89d88180e64def84678
+Author: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 
-drm/bridge: samsung-dsim: use DSIM interrupt to wait for PLL stability
+drm/amdgpu/aca: Add missing NULL check for banks parameter in aca_banks_add=
+_bank
+   =20
+aca_banks_add_bank() verified that the 'bank' parameter was non-NULL,
+but passed 'banks' directly into list_add_tail(&node->node, &banks->list)
+and incremented 'banks->nr_banks' without validating whether 'banks' was
+NULL.
 
-This commit replaces a busy-wait polling loop for checking PLL stability
-with an interrupt-driven completion mechanism.
+Add a NULL check for 'banks' to prevent a kernel NULL pointer
+dereference if an invalid pointer is passed by a caller.
 
-Link: https://lore.kernel.org/r/CAAQKjZMLMbwDVZRb5+Xb_5yz3AEP4uuzFJMuuZy9NF=
-Du13VU5w@mail.gmail.com
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_aca.c
+> index c35f6be2ef774..dcddeb3816285 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+> @@ -49,7 +49,7 @@ static int aca_banks_add_bank(struct aca_banks *banks, =
+struct aca_bank *bank)
+>  {
+>  	struct aca_bank_node *node;
+> =20
+> -	if (!bank)
+> +	if (!banks || !bank)
 
-> diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/brid=
-ge/samsung-dsim.c
-> index 6260c091c3df8..216a7cc9d5c55 100644
-> --- a/drivers/gpu/drm/bridge/samsung-dsim.c
-> +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
+[Severity: Low]
+Is this NULL check for banks necessary?
+
+The parameter banks in aca_banks_add_bank() is always the address of a local
+stack variable (&banks or &de_banks) in all of its calling paths (e.g., from
+aca_banks_update() and aca_banks_generate_cper()), which means it can never
+be NULL. Does this introduce unnecessary dead code and branching?
+
+>  		return -EINVAL;
+> =20
+>  	node =3D kvzalloc_obj(*node);
+
 [ ... ]
-> @@ -849,19 +854,33 @@ static unsigned long samsung_dsim_set_pll(struct sa=
-msung_dsim *dsi,
->  	if (dsi->swap_dn_dp_data)
->  		reg |=3D DSIM_PLL_DPDNSWAP_DAT;
-> =20
-> +	/*
-> +	 * The PLL_TIMER value is the product of the timeout delay and the APB
-> +	 * bus clock rate. Calculate the timeout delay on-the-fly here.
-> +	 * It is assumed that the bus clock is the first clock in the provided
-> +	 * bulk clock data.
-> +	 */
-> +	timeout_us =3D 100;
-> +	bus_clk_mhz =3D clk_get_rate(dsi->driver_data->clk_data[0].clk) / HZ_PE=
-R_MHZ;
-> +	if (bus_clk_mhz)
-> +		timeout_us =3D max(driver_data->reg_values[PLL_TIMER] / bus_clk_mhz,
-> +				 timeout_us);
-> +
-> +	reinit_completion(&dsi->pll_stabilized);
->  	samsung_dsim_write(dsi, DSIM_PLLCTRL_REG, reg);
-> =20
-> -	timeout =3D 3000;
-> -	do {
-> -		if (timeout-- =3D=3D 0) {
-> -			dev_err(dsi->dev, "PLL failed to stabilize\n");
-> -			return 0;
-> -		}
-> +	if (!wait_for_completion_timeout(&dsi->pll_stabilized,
-> +					 usecs_to_jiffies(timeout_us))) {
+
+
+There are also a couple of other issues in this area related to the aca
+handle list:
+
+[Severity: Low]
+Can this code compile successfully?
+
+The lock member referenced in remove_aca_handle() does not exist in
+struct aca_handle_manager:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h:
+struct aca_handle_manager {
+	struct list_head list;
+	int nr_handles;
+};
+
+Attempting to reference mgr->lock here:
+
+drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c:remove_aca_handle() {
+    ...
+	mutex_lock(&mgr->lock);
+	list_del_init(&handle->node);
+	mgr->nr_handles--;
+	mutex_unlock(&mgr->lock);
+    ...
+}
+
+appears to result in a compilation failure since lock is not defined in the
+struct.
+
 
 [Severity: High]
-Does this code risk premature timeout expiration?
+This isn't a bug introduced by this patch, but there is an explicit attempt
+to fix it here. Could this concurrent traversal cause a data race?
 
-When timeout_us is 100, usecs_to_jiffies(100) translates to 1 jiffy on
-standard kernel configurations (e.g., HZ=3D1000 or lower). Passing a 1-jiffy
-timeout to wait_for_completion_timeout() only guarantees waiting until the
-next timer tick, which can expire almost immediately depending on tick
-alignment.
+While the writer side in remove_aca_handle() attempts to use mgr->lock:
 
-This might cause spurious failures to initialize the display PLL, since the
-robust 3000-iteration polling loop has been replaced with a single register
-read after this wait.
+drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c:remove_aca_handle() {
+    ...
+	mutex_lock(&mgr->lock);
+	list_del_init(&handle->node);
+	mgr->nr_handles--;
+	mutex_unlock(&mgr->lock);
+    ...
+}
 
->  		if (driver_data->has_legacy_status_reg)
->  			reg =3D samsung_dsim_read(dsi, DSIM_STATUS_REG);
->  		else
->  			reg =3D samsung_dsim_read(dsi, DSIM_LINK_STATUS_REG);
-> -	} while ((reg & BIT(driver_data->pll_stable_bit)) =3D=3D 0);
-> +
-> +		if (!(reg & BIT(driver_data->pll_stable_bit))) {
-> +			dev_err(dsi->dev, "PLL failed to stabilize\n");
-> +			return 0;
-> +		}
-> +	}
-> =20
->  	dsi->hs_clock =3D fout;
-> =20
-[ ... ]
-> @@ -1586,7 +1605,8 @@ static irqreturn_t samsung_dsim_irq(int irq, void *=
-dev_id)
->  	samsung_dsim_write(dsi, DSIM_INTSRC_REG, status);
-> =20
->  	if (status & DSIM_INT_SW_RST_RELEASE) {
-> -		unsigned long mask =3D ~(DSIM_INT_RX_DONE |
-> +		unsigned long mask =3D ~(DSIM_INT_PLL_STABLE |
-> +				       DSIM_INT_RX_DONE |
->  				       DSIM_INT_SFR_FIFO_EMPTY |
->  				       DSIM_INT_SFR_HDR_FIFO_EMPTY |
->  				       DSIM_INT_RX_ECC_ERR |
-> @@ -1596,8 +1616,10 @@ static irqreturn_t samsung_dsim_irq(int irq, void =
-*dev_id)
->  		return IRQ_HANDLED;
->  	}
-> =20
-> -	if (!(status & (DSIM_INT_RX_DONE | DSIM_INT_SFR_FIFO_EMPTY |
-> -			DSIM_INT_PLL_STABLE)))
-> +	if (status & DSIM_INT_PLL_STABLE)
-> +		complete(&dsi->pll_stabilized);
+The reader side traverses mgr->list without holding any lock or using RCU
+primitives:
 
-[Severity: High]
-Can DSIM_INT_PLL_STABLE events be silently discarded here if they coalesce
-with DSIM_INT_SW_RST_RELEASE?
+drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c:aca_dispatch_bank() {
+    ...
+	if (list_empty(&mgr->list))
+		return 0;
 
-If both DSIM_INT_SW_RST_RELEASE and DSIM_INT_PLL_STABLE are set
-simultaneously in status (which may happen if reset and PLL initialization
-run concurrently on platforms where wait_for_reset is false), the code insi=
-de
-the if (status & DSIM_INT_SW_RST_RELEASE) block executes and returns
-IRQ_HANDLED early.
+	list_for_each_entry(handle, &mgr->list, node) {
+		if (!aca_bank_is_valid(handle, bank, type))
+			continue;
+    ...
+}
 
-Since the interrupts are already cleared in hardware by the
-samsung_dsim_write(dsi, DSIM_INTSRC_REG, status) call earlier in this funct=
-ion,
-complete(&dsi->pll_stabilized) would be skipped entirely, potentially causi=
-ng
-the waiter to time out.
+If a background RAS query or sysfs read (which calls aca_dispatch_bank())
+traverses mgr->list while remove_aca_handle() concurrently unlinks and frees
+a node during teardown, could this lead to a use-after-free or list
+corruption and a kernel panic? The fix appears incomplete because it only
+syntactically locks the writer side without adding synchronization to the
+reader side.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-exynos-dsi=
-m-fixes-v5-0-6e63dc6c238f@disroot.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809084735.9743=
+-1-sreekuttan2156239@gmail.com?part=3D4
