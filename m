@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2931EC5AC80
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 08:41:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DB85C5AC80
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 08:48:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E81B89798;
-	Sun,  9 Aug 2026 08:41:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E51010E101;
+	Sun,  9 Aug 2026 08:48:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="YHohP8tQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="DmhWotkp";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA37489798
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:41:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 657FE10E101
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:48:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E957541FD8;
- Sun,  9 Aug 2026 08:41:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC67A1F000E9;
- Sun,  9 Aug 2026 08:41:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B2F4A40D9F;
+ Sun,  9 Aug 2026 08:48:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C3431F00A3A;
+ Sun,  9 Aug 2026 08:48:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786264883;
- bh=9nrrActF2t8Vhd0iVOAfMqMElJ+KQ8x6Jq8VFKA6V5I=;
+ s=k20260515; t=1786265331;
+ bh=9n0AOzYsq+T3EC64PHwI/c6cuYDYmPBylv1uhEToX7s=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YHohP8tQCTbS6q8eKxZPLVNu94mQo2G6BbCrBOYqCebpO0O/3udo3DfOdnCK1zl+1
- fZ2VESHFBYTLfGkP46NO0v0zT8KcbHGeVuilKo6FDu4C9W/Grqpqr3ebiBd5U14rvs
- /OE6SqpekvzpTXvEdDQvs/hac8TmdsRraDtP35ilI3O9b8ezgpyAad6cpNbc8/T1+S
- y62F3r8jPvn+YHJlquKD/vZEWbM7jT3USQhqpims8qDM9lqVrFPn5yxuVTO/zSfMXj
- B5zt2GuNwxeSntCasixU8PmsZDe9BpDArzdBopMgp5QQB0QqEQqaBWc17iEmjLfkdw
- /cDyfznCElnxg==
+ b=DmhWotkpzVQlqcZHjNqgubrgpNkp1vcv7zMi6FlVdomVZYUM2DjjwuPHdu8e+bu5U
+ KAi4cgYp18+xN8icvSd0GPa0/ahZbSP9OstIwLQkpri5OfRgGwa6zZKNk9jfoZUvOE
+ DcHclezrIVQnVJGUyCsnKJ0t16zYYHICnPKzxa5v2QBXSa1OkAlfWhHHYRkjkDUEUf
+ W1C58xkgaFWup+PVvt8IG8UdnCfw2FN2ikyebnVfVQhCmlF8J2cvtsHIlVjJPsWS8j
+ pw69RjDTQqIU4b2n0pqh+VAFa1rwU773Nvw1DV7rtYPRlGorly52l6VogysNm5TN7M
+ 4WaChUyt4K/rw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 1/3] drm/bridge: samsung-dsim: enable MFLUSH_VS for
- Exynos 7870 DSIM
+Subject: Re: [PATCH v4 2/3] drm/bridge: samsung-dsim: use DSIM interrupt to
+ wait for PLL stability
 To: "Kaustabh Chakraborty" <kauschluss@disroot.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260809-exynos-dsim-fixes-v4-1-ca67c51e61b7@disroot.org>
+In-Reply-To: <20260809-exynos-dsim-fixes-v4-2-ca67c51e61b7@disroot.org>
 References: <20260809-exynos-dsim-fixes-v4-0-ca67c51e61b7@disroot.org>
- <20260809-exynos-dsim-fixes-v4-1-ca67c51e61b7@disroot.org>
+ <20260809-exynos-dsim-fixes-v4-2-ca67c51e61b7@disroot.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 08:41:23 +0000
-Message-Id: <20260809084123.AC67A1F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 08:48:50 +0000
+Message-Id: <20260809084851.6C3431F00A3A@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,124 +58,156 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
 
+New issues:
+- [High] An early return in the interrupt handler permanently drops the new=
+ly added `DSIM_INT_PLL_STABLE` interrupt on platforms that do not wait for =
+a reset completion.
+- [High] The jiffy-based timeout for waiting on the PLL stabilization compl=
+etion can expire prematurely, leading to spurious initialization failures.
+
 Pre-existing issues:
-- [High] Unchecked NULL pointer from `of_device_get_match_data()` leads to =
-kernel panic in probe.
-- [High] Hardware polling loop for lane stop states terminates prematurely =
-and lacks a time-bound delay.
-- [High] Macro `samsung_dsim_hw_is_exynos()` incorrectly evaluates to false=
- for `DSIM_TYPE_EXYNOS7870`.
+- [High] `devm_clk_bulk_get()` overwrites a statically allocated global clo=
+ck data array, breaking multi-instance platforms.
+- [High] The return value of `samsung_dsim_enable_clock()` is ignored in `s=
+amsung_dsim_init()`, causing silent hardware initialization failures.
 --
 
---- Patch [1]: [PATCH v4 1/3] drm/bridge: samsung-dsim: enable MFLUSH_VS fo=
-r Exynos 7870 DSIM ---
-commit 6317440f4c2cdec241fc86381b097531928140af
+--- Patch [2]: [PATCH v4 2/3] drm/bridge: samsung-dsim: use DSIM interrupt =
+to wait for PLL stability ---
+commit 2d251655e36dcc7e05ab4e2b1dc184bbb561aeb9
 Author: Kaustabh Chakraborty <kauschluss@disroot.org>
 
-drm/bridge: samsung-dsim: enable MFLUSH_VS for Exynos 7870 DSIM
+drm/bridge: samsung-dsim: use DSIM interrupt to wait for PLL stability
 
-Commit a36c533ad3e1 ("drm/bridge: samsung-dsim: Always flush display
-FIFO on vsync pulse") intends to enable FIFO flushing at v-sync pulse by
-not setting the active-low MFLUSH_VS bit. This commit enables the bit
-for Exynos 7870 since it is active-high on this hardware.
+This commit transitions the PLL stabilization wait in the samsung-dsim driv=
+er
+from a busy loop to an interrupt-driven completion. It calculates a dynamic
+timeout and updates the IRQ handler to complete the wait when the PLL is
+stable.
 
-Link: https://github.com/samsungexynos7870/android_kernel_samsung_exynos787=
-0/blob/a3762bb1761ae/drivers/video/fbdev/exynos/decon_7870/dsim_reg_7870.c#=
-L699 [1]
+Link: https://lore.kernel.org/r/CAAQKjZMLMbwDVZRb5+Xb_5yz3AEP4uuzFJMuuZy9NF=
+Du13VU5w@mail.gmail.com
 
 > diff --git a/drivers/gpu/drm/bridge/samsung-dsim.c b/drivers/gpu/drm/brid=
 ge/samsung-dsim.c
-> index e2fc69fc51b60..6260c091c3df8 100644
 > --- a/drivers/gpu/drm/bridge/samsung-dsim.c
 > +++ b/drivers/gpu/drm/bridge/samsung-dsim.c
-> @@ -1089,6 +1089,13 @@ static int samsung_dsim_init_link(struct samsung_d=
-sim *dsi)
->  			reg |=3D DSIM_HBP_DISABLE_MODE;
->  		if (dsi->mode_flags & MIPI_DSI_MODE_VIDEO_NO_HSA)
->  			reg |=3D DSIM_HSA_DISABLE_MODE;
-> +
-> +		/*
-> +		 * For some hardware types, DSIM_MFLUSH_VS bit needs to be
-> +		 * enabled as its active-high.
-> +		 */
-> +		if (dsi->plat_data->hw_type =3D=3D DSIM_TYPE_EXYNOS7870)
-> +			reg |=3D DSIM_MFLUSH_VS;
->  	}
+[ ... ]
+> @@ -849,19 +854,33 @@ static unsigned long samsung_dsim_set_pll(struct sa=
+msung_dsim *dsi,
+>  	if (dsi->swap_dn_dp_data)
+>  		reg |=3D DSIM_PLL_DPDNSWAP_DAT;
 > =20
->  	if (dsi->mode_flags & MIPI_DSI_MODE_NO_EOT_PACKET)
+> +	/*
+> +	 * The PLL_TIMER value is the product of the timeout delay and the APB
+> +	 * bus clock rate. Calculate the timeout delay on-the-fly here.
+> +	 * It is assumed that the bus clock is the first clock in the provided
+> +	 * bulk clock data.
+> +	 */
+> +	timeout_us =3D 100;
+> +	bus_clk_mhz =3D clk_get_rate(dsi->driver_data->clk_data[0].clk) / HZ_PE=
+R_MHZ;
 
 [Severity: High]
-This isn't a bug introduced by this patch, but since Exynos 7870 support is
-being actively modified here, does the samsung_dsim_hw_is_exynos() macro ne=
-ed
-updating to include DSIM_TYPE_EXYNOS7870?
+This is a pre-existing issue, but does using dsi->driver_data->clk_data here
+expose a data race on multi-instance setups? In samsung_dsim_probe(),
+devm_clk_bulk_get() writes the acquired clock pointers directly into the
+shared global static array referenced by driver_data. On multi-instance
+platforms, a second instance overwrites the clocks of the first, and unbind=
+ing
+either instance causes clk_bulk_put() to free the other instance's clocks,
+leading to a double-free on the second unbind.
 
-Currently, it evaluates to false for Exynos 7870 because the macro strictly
-checks up to DSIM_TYPE_EXYNOS5433:
+> +	if (bus_clk_mhz)
+> +		timeout_us =3D max(driver_data->reg_values[PLL_TIMER] / bus_clk_mhz,
+> +				 timeout_us);
+> +
+> +	reinit_completion(&dsi->pll_stabilized);
+>  	samsung_dsim_write(dsi, DSIM_PLLCTRL_REG, reg);
+> =20
+> -	timeout =3D 3000;
+> -	do {
+> -		if (timeout-- =3D=3D 0) {
+> -			dev_err(dsi->dev, "PLL failed to stabilize\n");
+> -			return 0;
+> -		}
+> +	if (!wait_for_completion_timeout(&dsi->pll_stabilized,
+> +					 usecs_to_jiffies(timeout_us))) {
 
-include/drm/bridge/samsung-dsim.h:
-#define samsung_dsim_hw_is_exynos(hw) \
-	((hw) >=3D DSIM_TYPE_EXYNOS3250 && (hw) <=3D DSIM_TYPE_EXYNOS5433)
+[Severity: High]
+Could this jiffy-based timeout expire prematurely and lead to spurious
+initialization failures? The dynamically calculated timeout_us is around
+100-300us, which evaluates to 1 jiffy via usecs_to_jiffies(). A call to
+wait_for_completion_timeout(..., 1) sleeps until the next timer tick, which
+can happen in less than 1us. If the timeout expires prematurely, the fallba=
+ck
+code checks the status register exactly once, and if the PLL hasn't stabili=
+zed
+in that narrow window, it aborts.
 
-This causes the driver to erroneously execute the i.MX early initialization
-path in samsung_dsim_atomic_pre_enable() and incorrectly set the
-DSIM_NON_CONTINUOUS_CLKLANE bit further down in samsung_dsim_init_link().
+>  		if (driver_data->has_legacy_status_reg)
+>  			reg =3D samsung_dsim_read(dsi, DSIM_STATUS_REG);
+>  		else
+>  			reg =3D samsung_dsim_read(dsi, DSIM_LINK_STATUS_REG);
+> -	} while ((reg & BIT(driver_data->pll_stable_bit)) =3D=3D 0);
+> +
+> +		if (!(reg & BIT(driver_data->pll_stable_bit))) {
+> +			dev_err(dsi->dev, "PLL failed to stabilize\n");
+> +			return 0;
+> +		}
+> +	}
+[ ... ]
+> @@ -1586,7 +1605,8 @@ static irqreturn_t samsung_dsim_irq(int irq, void *=
+dev_id)
+>  	samsung_dsim_write(dsi, DSIM_INTSRC_REG, status);
+> =20
+>  	if (status & DSIM_INT_SW_RST_RELEASE) {
+> -		unsigned long mask =3D ~(DSIM_INT_RX_DONE |
+> +		unsigned long mask =3D ~(DSIM_INT_PLL_STABLE |
+> +				       DSIM_INT_RX_DONE |
+>  				       DSIM_INT_SFR_FIFO_EMPTY |
+>  				       DSIM_INT_SFR_HDR_FIFO_EMPTY |
+>  				       DSIM_INT_RX_ECC_ERR |
+> @@ -1596,8 +1616,10 @@ static irqreturn_t samsung_dsim_irq(int irq, void =
+*dev_id)
+>  		return IRQ_HANDLED;
+>  	}
+
+[Severity: High]
+Does this unconditional early return drop the newly added DSIM_INT_PLL_STAB=
+LE
+interrupt? On platforms where wait_for_reset is false, samsung_dsim_init()
+triggers a software reset and immediately enables the clock without waiting.
+Both the DSIM_INT_SW_RST_RELEASE and DSIM_INT_PLL_STABLE interrupts can fire
+concurrently. If coalesced, the handler clears both hardware interrupts,
+processes the reset, and executes this early return in samsung_dsim_irq(),
+skipping the DSIM_INT_PLL_STABLE check entirely.
 
 [ ... ]
-
-> 	/* Check clock and data lane state are stop state */
-> 	timeout =3D 100;
-> 	do {
-> 		if (timeout-- =3D=3D 0) {
-> 			dev_err(dsi->dev, "waiting for bus lanes timed out\n");
-> 			return -EFAULT;
-> 		}
->=20
-> 		if (driver_data->has_legacy_status_reg)
-> 			reg =3D samsung_dsim_read(dsi, DSIM_STATUS_REG);
-> 		else
-> 			reg =3D samsung_dsim_read(dsi, DSIM_DPHY_STATUS_REG);
-> 		if ((reg & DSIM_STOP_STATE_DAT(lanes_mask))
-> 		    !=3D DSIM_STOP_STATE_DAT(lanes_mask))
-> 			continue;
-> 	} while (!(reg & (DSIM_STOP_STATE_CLK | DSIM_TX_READY_HS_CLK)));
+> @@ -1635,9 +1657,9 @@ static int samsung_dsim_init(struct samsung_dsim *d=
+si)
+>  	if (driver_data->reg_values[RESET_TYPE] =3D=3D DSIM_FUNCRST)
+>  		samsung_dsim_enable_lane(dsi, BIT(dsi->lanes) - 1);
+> =20
+> -	samsung_dsim_enable_clock(dsi);
+>  	if (driver_data->wait_for_reset)
+>  		samsung_dsim_wait_for_reset(dsi);
+> +	samsung_dsim_enable_clock(dsi);
 
 [Severity: High]
-This is a pre-existing issue, but can this hardware polling loop terminate
-prematurely?
+This is a pre-existing issue, but should the return value of
+samsung_dsim_enable_clock() be checked here? If samsung_dsim_set_pll() fails
+and returns 0, the ignored -EFAULT allows the driver to continue
+initialization with a broken clock state, computing a byte_clock of 0, writ=
+ing
+0s to PHY timing registers, and leaving the hardware in an unusable state.
 
-If the clock lane happens to be ready but the data lanes are not, the
-continue statement jumps to the loop condition evaluation. The condition
-evaluates to false, causing the loop to exit successfully instead of waiting
-for the data lanes.
-
-Also, should this loop include a time-bound delay (like ndelay) to prevent
-premature aborts on faster processors?
-
-[ ... ]
-
-[Severity: High]
-This is a pre-existing issue elsewhere in the file, but can we hit a NULL
-pointer dereference in samsung_dsim_probe() if the driver is bound via sysf=
-s?
-
-If a platform device is manually created and the driver is bound via sysfs
-(e.g., via "echo samsung-dsim > bind") without an associated device tree no=
-de,
-of_device_get_match_data() returns NULL:
-
-samsung_dsim_probe() {
-    ...
-    dsi->plat_data =3D of_device_get_match_data(dev);
-    dsi->driver_data =3D samsung_dsim_types[dsi->plat_data->hw_type];
-    ...
-}
-
-Does this need a NULL check before dereferencing dsi->plat_data?
+>  	samsung_dsim_set_phy_ctrl(dsi);
+>  	samsung_dsim_init_link(dsi);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-exynos-dsi=
-m-fixes-v4-0-ca67c51e61b7@disroot.org?part=3D1
+m-fixes-v4-0-ca67c51e61b7@disroot.org?part=3D2
