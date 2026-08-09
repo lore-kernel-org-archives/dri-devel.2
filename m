@@ -4,43 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9746BC5AD4E
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 19:33:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC0DBC5AD5A
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 19:58:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D060E10E1D8;
-	Sun,  9 Aug 2026 19:33:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA4FD10E1C2;
+	Sun,  9 Aug 2026 19:58:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Zvu5iflv";
+	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="cO068ybS";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="qGvkZcwA";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B729F10E1D8
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 19:33:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CF50E600AB;
- Sun,  9 Aug 2026 19:33:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FFA91F000E9;
- Sun,  9 Aug 2026 19:33:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786303984;
- bh=MZfmLPR63Q609QPzuEjEPjGB1ylOqpXGZKJybMkWG/0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Zvu5iflvlUot7ieKTHpJeGYN0hv2TYfp/erjqiVyDiOw5lf9x7Be4yOk+NzCvNf+j
- UjaBGfu5oq7qI00knvYWk6X+I/jY2n/vtHsPr8hODGoMK31pg2zCz7QmXEecJjNN+b
- 4YcOHeg8/l/0gmSJZ6rX6VwCS5RpfQsKOpYQwK4nCwscUONXL+RX5sZ5vFoU8bR0c0
- 5cL88WBT7cRuHQ26NwssvWsMYJlM1hJSy0eSoIbgU0sr27BrPWucSZ/m8cLToaDkLT
- O73OKqCxnry2tggcBcGqaFaE/mF5H9vYt4EHU/YbowP9pv0Pekdz5gbOa+NZA1QkJG
- hpbNXfxcX8Gzg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/6] drm: Add drm_timeout_rel_to_jiffies()
-To: =?utf-8?b?TWHDrXJhIENhbmFs?= <mcanal@igalia.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260809-drm-timeout-helpers-v1-2-2de67405a145@igalia.com>
-References: <20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com>
- <20260809-drm-timeout-helpers-v1-2-2de67405a145@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 19:33:03 +0000
-Message-Id: <20260809193304.4FFA91F000E9@smtp.kernel.org>
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 599B710E1C2
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 19:58:41 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hJ7xB5sxvz8v05;
+ Sun, 09 Aug 2026 21:58:38 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1786305518;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dYZ3oDU/XfSEn16rDkLYoq3IW5P2xX4KakGGecDGTgM=;
+ b=cO068ybSh3T1kOr9bvIG0KkVDMmjmEka0nNrMKuNQXn4FuwpsXSXhWHkviA6FNodr3uB9k
+ Q1UkdLumo6W6xLNhNfbtMKS9iPGLbJhWCD6jO+5MD+njA3MqCq3Sqg0x9RC6exuRN3EC0E
+ 1+SyrGiAsVMk74pUxQ2IFv5CI4mA66SOD9S76nn7g3g9G2h3DTO3BbryejjPc9Vk/1/wCm
+ Mp4rK7q8GagChjzXRg2TZVA2Lp+2rWTZcuhACL8B85Ip9KTTTvdhOTAOOuE9aQxby4l5fn
+ H0g1A35H5Cm70sWvjxDqeowQwUBxXK88FFgt8xz62ESY2orQ6SlwP7dYS9oKPQ==
+Authentication-Results: outgoing_mbo_mout;
+ dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=qGvkZcwA;
+ spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org
+ designates 2001:67c:2050:b231:465::202 as permitted sender)
+ smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; t=1786305517;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=dYZ3oDU/XfSEn16rDkLYoq3IW5P2xX4KakGGecDGTgM=;
+ b=qGvkZcwA2kZzcjAV8LgK8Ryth00jv21+l3Egded4gKhmLNFPHk7DsLmPlOhSwRPqJAfsS2
+ 76EK7/s7fwFsKJZVtZ0oc9Rz5La6OOlG0zxbQ/RPwg9jqh3YPhTrmDFFDFYKc6kzGxQ7dM
+ y+rA/+ZYNccEAfQO43/OBUtUVLndFnlrds7GbX7fePNOHSod2jzawGPeyM90LGUo4Uc0xW
+ 5wj/jfcFay/k03eOfpUFfQC2hdnTXwJlB6fwMe9+uzgdUIiCb2D7eLRBD2vC3EdXA/i1Pl
+ TBPcgkUUZ3Dqvjpf5KOqn3cfarWKSH+BWF1HFl32mSD8sXj55aBXScYVS1ltng==
+To: dri-devel@lists.freedesktop.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ David Airlie <airlied@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Maxime Ripard <mripard@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] drm/rcar-du: dsi: Implement DSI command TX using AXI memory
+ access
+Date: Sun,  9 Aug 2026 21:58:06 +0200
+Message-ID: <20260809195831.842907-1-marek.vasut+renesas@mailbox.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: ob1gw3moqdbhkyqi61u88a7wt6oakxhx
+X-MBO-RS-ID: 6b5b9a330ba6ff7d48f
+X-Rspamd-Queue-Id: 4hJ7xB5sxvz8v05
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,83 +83,143 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The overflow guard in `drm_timeout_rel_to_jiffies()` is ineffect=
-ive on 64-bit architectures, failing to prevent internal `u64` wrap-around =
-in `nsecs_to_jiffies64()` for specific inputs.
---
+Currently, the driver supports register access mode for DSI command
+transfer, which limits both TX and RX to only 16 Bytes long packets.
+Implement support for DSI command TX using AXI memory access mode,
+which extends the packet transfer length up to 128 Bytes long in LP
+and 1024 Bytes long in HS. Support for DSI command RX using the AXI
+access mode is not implemented due to missing test hardware.
 
---- Patch [2]: [PATCH 2/6] drm: Add drm_timeout_rel_to_jiffies() ---
-commit c015d0990b1688d1fc81fe1000d64e7430d1d234
-Author: Ma=C3=ADra Canal <mcanal@igalia.com>
+The implementation allocates a DMAble 4k page. In case the command
+transfer is longer than 16 Bytes, the payload is copied into the
+page and sent out using the AXI access mode, otherwise the register
+access mode is used.
 
-drm: Add drm_timeout_rel_to_jiffies()
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: David Airlie <airlied@gmail.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>
+Cc: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ .../gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   | 42 +++++++++++++++----
+ 1 file changed, 35 insertions(+), 7 deletions(-)
 
-This commit introduces drm_timeout_rel_to_jiffies() to convert relative=20
-nanosecond timeouts into jiffies. It is intended for drivers whose wait UAP=
-I=20
-takes a duration instead of an absolute deadline, and includes an overflow=
-=20
-check to safely handle large values.
+diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+index 6e46d6d99f3c0..c25218ca4320a 100644
+--- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
++++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+@@ -8,6 +8,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
++#include <linux/dma-mapping.h>
+ #include <linux/io.h>
+ #include <linux/iopoll.h>
+ #include <linux/math64.h>
+@@ -75,6 +76,9 @@ struct rcar_mipi_dsi {
+ 	unsigned long mode_flags;
+ 	unsigned int num_data_lanes;
+ 	unsigned int lanes;
++
++	void *cmd_axi_cpu;
++	dma_addr_t cmd_axi_dma;
+ };
+ 
+ struct dsi_setup_info {
+@@ -977,6 +981,7 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
+ 					      bool is_rx_xfer)
+ {
+ 	const bool is_tx_long = mipi_dsi_packet_format_is_long(msg->type);
++	const bool is_tx_axi = !is_rx_xfer && is_tx_long && (msg->tx_len > 16);
+ 	struct rcar_mipi_dsi *dsi = host_to_rcar_mipi_dsi(host);
+ 	struct mipi_dsi_packet packet;
+ 	u8 payload[16] = { 0 };
+@@ -987,9 +992,14 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
+ 	if (ret)
+ 		return ret;
+ 
+-	/* Configure LP or HS command transfer. */
+-	rcar_mipi_dsi_write(dsi, TXCMSETR, (msg->flags & MIPI_DSI_MSG_USE_LPM) ?
+-					   TXCMSETR_SPDTYP : 0);
++	/* Configure LP or HS and register or AXI command transfer. */
++	rcar_mipi_dsi_write(dsi, TXCMSETR, ((msg->flags & MIPI_DSI_MSG_USE_LPM) ?
++					    TXCMSETR_SPDTYP : 0) |
++					   (is_tx_axi ? TXCMSETR_LPPDACC : 0));
++
++	/* Configure DMA source address for AXI command transfer. */
++	if (is_tx_axi)
++		rcar_mipi_dsi_write(dsi, TXCMADDRSET0R, dsi->cmd_axi_dma);
+ 
+ 	/* Register access mode for RX transfer. */
+ 	if (is_rx_xfer)
+@@ -1011,7 +1021,10 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct mipi_dsi_host *host,
+ 			    TXCMPHDR_DATA1(packet.header[2]) |
+ 			    TXCMPHDR_DATA0(packet.header[1]));
+ 
+-	if (is_tx_long) {
++	if (is_tx_axi) {
++		memcpy(dsi->cmd_axi_cpu, packet.payload,
++		       min(msg->tx_len, 128));
++	} else if (is_tx_long) {
+ 		memcpy(payload, packet.payload,
+ 		       min(msg->tx_len, sizeof(payload)));
+ 
+@@ -1162,10 +1175,16 @@ static ssize_t rcar_mipi_dsi_host_transfer(struct mipi_dsi_host *host,
+ 	struct rcar_mipi_dsi *dsi = host_to_rcar_mipi_dsi(host);
+ 	int ret;
+ 
+-	if (msg->tx_len > 16 || msg->rx_len > 16) {
+-		/* ToDo: Implement Memory on AXI bus command mode. */
++	if (msg->tx_len > 1024 || msg->rx_len > 16) {
++		/* ToDo: Implement Memory on AXI bus RX command mode. */
+ 		dev_warn(dsi->dev,
+-			 "Register-based command mode supports only up to 16 Bytes long payload\n");
++			 "Command mode supports only up to 1024B long TX and 16B long RX payload\n");
++		return -EOPNOTSUPP;
++	}
++
++	if ((msg->flags & MIPI_DSI_MSG_USE_LPM) && msg->tx_len > 128) {
++		dev_warn(dsi->dev,
++			 "Command mode in LP supports only up to 128B long TX payload\n");
+ 		return -EOPNOTSUPP;
+ 	}
+ 
+@@ -1276,6 +1295,13 @@ static int rcar_mipi_dsi_probe(struct platform_device *pdev)
+ 	dsi->dev = &pdev->dev;
+ 	dsi->info = of_device_get_match_data(&pdev->dev);
+ 
++	dsi->cmd_axi_cpu = dma_alloc_coherent(&pdev->dev, SZ_4K, &dsi->cmd_axi_dma,
++					      GFP_KERNEL | GFP_DMA32);
++	if (!dsi->cmd_axi_cpu) {
++		return dev_err_probe(&pdev->dev, -ENOMEM,
++				     "Failed to allocate DSI AXI Access command buffer\n");
++	}
++
+ 	ret = rcar_mipi_dsi_parse_dt(dsi);
+ 	if (ret < 0)
+ 		return ret;
+@@ -1309,6 +1335,8 @@ static void rcar_mipi_dsi_remove(struct platform_device *pdev)
+ {
+ 	struct rcar_mipi_dsi *dsi = platform_get_drvdata(pdev);
+ 
++	dma_free_coherent(&pdev->dev, SZ_4K, dsi->cmd_axi_cpu, dsi->cmd_axi_dma);
++
+ 	mipi_dsi_host_unregister(&dsi->host);
+ }
+ 
+-- 
+2.53.0
 
-> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
-> index 78e9f65e54779..30ad3e8ebc92a 100644
-> --- a/drivers/gpu/drm/drm_timeout.c
-> +++ b/drivers/gpu/drm/drm_timeout.c
-[ ... ]
-> @@ -45,3 +46,31 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout=
-_nsec)
->  	return timeout_jiffies64 + 1;
->  }
->  EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
-> +
-> +/**
-> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative =
-value
-[ ... ]
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
-> +{
-> +	/* make 0 timeout means poll, as for the absolute variant */
-> +	if (timeout_nsec =3D=3D 0)
-> +		return 0;
-> +
-> +	/* nsecs_to_jiffies64() does not guard against overflow */
-> +	if ((NSEC_PER_SEC % HZ) !=3D 0 &&
-> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >=3D MAX_JIFFY_OFFSET / HZ)
-> +		return MAX_JIFFY_OFFSET;
-
-[Severity: Medium]
-Is this overflow guard effective on 64-bit architectures?
-
-On 64-bit systems, MAX_JIFFY_OFFSET is around ~4.6e18, so MAX_JIFFY_OFFSET =
-/ HZ
-is roughly ~4.6e16. Since timeout_nsec is a u64, div_u64(timeout_nsec, NSEC=
-_PER_SEC)
-can never exceed ~1.8e10, meaning this condition is mathematically impossib=
-le to
-trigger on 64-bit platforms.
-
-Because the guard can never be met, can highly specific inputs cause
-nsecs_to_jiffies64() to silently wrap around internally?
-
-For example, when HZ makes nsecs_to_jiffies64() use the n * 9 calculation, a
-carefully chosen timeout_nsec (like ~64.9 years, or around 2049638230412172=
-402
-ns) could wrap around internally to a near-zero jiffies value, resulting in=
- a
-premature timeout.
-
-> +
-> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + =
-1);
-> +}
-> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809-drm-timeou=
-t-helpers-v1-0-2de67405a145@igalia.com?part=3D2
