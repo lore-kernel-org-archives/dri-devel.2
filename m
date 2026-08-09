@@ -4,77 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 003C0C5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51AFEC5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A413D10E640;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC2A510E648;
 	Mon, 10 Aug 2026 06:38:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="MMl/dngS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LtITbrJ7";
 	dkim-atps=neutral
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E529010E521
- for <dri-devel@lists.freedesktop.org>; Sat,  8 Aug 2026 17:13:31 +0000 (UTC)
-Received: by mail-qv1-f42.google.com with SMTP id
- 6a1803df08f44-8ff88549786so5048376d6.3
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 10:13:31 -0700 (PDT)
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9771910E115
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:47 +0000 (UTC)
+Received: by mail-pg1-f177.google.com with SMTP id
+ 41be03b00d2f7-c96b08cdd1cso660776a12.0
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786209211; x=1786814011; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=1zSCFYsJi/YGsDjjzu9hgHmFBCe9GvVmfnZf9x92NT8=;
- b=MMl/dngSCfTORLG1fEzP8Wf49i4LFh2EE7U+SjG2JeWtObI5nm+vtwRurCPwXahEV8
- z7ka4xaZbNRvLo+EXLpXBp4KL5dWUdP9rRm9zQ2aQF/5Kb00HOpeizWFXEAGBweUEn0y
- ZWRRdfi/e1dY8RZVlv7EfIYI1XVUU42fHt1OoVLcYz1Qmk33k+s+Cfpuns0QaRFz9TId
- UPkmDVNFnwcp90/9XSbzFzn4xH/QbaYqC/bFLVar1YXN9EMJHQ18NYlqhLQDjhBfl7X9
- rEvWF2v4E2Sgjt1IrkBqpg42Yx398uv3a2KjIXtUToXmTL4SlhN6NbmO8cdP7ybJ68Hc
- IeAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786209211; x=1786814011;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1786265387; x=1786870187; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=1zSCFYsJi/YGsDjjzu9hgHmFBCe9GvVmfnZf9x92NT8=;
- b=bVXsax50uCfCOGwt3c90IlqaCk2xDsIkH2ymuIrnz9YVe5gQ+rrdWJ4bhkM+UWoBTq
- 0kQg7d+nDpNRb/GvL5jqa3OlXStnbz7PK6jfwDoz7lW11K3qHR8Q11RqsxfntFrKouk+
- ep9v6RyONmHZCXsW9f2+21Yok5hZ+yTuTccjiPMGO5bf/8cHPJeEb04J/ao1Ru7OMsNQ
- ZllE1CtbJnVHQVBR2Z77KZtWkDuca7MPmOBc2tiObqEvXciPTQWVEh3wsmksM/upA4uD
- VSXHeMO20B67TlXrvK/o/qYcKBCuH5AR4ssyVYfDjPY8Fam+ddrLx46GbGiq0ocWY5Ya
- xbhA==
+ bh=82v9sYNKKB3ALGXPfLnFRe1IYhxbaPWojRznailPiqg=;
+ b=LtITbrJ7uDzMBhMHq5qSzDiSmVbZxEx/PeTs/um62OKtaT4ku0N/L/cBHKz3n4ucKB
+ zShY/ewK0MaIvLW66xX5E1bAY6OQzZXentwilPq/tQLhDIxz4gzpwoRwUfzHfaHl1wtL
+ RZiw5rIMt7ia32EAdMzMGEZXWxXgAHHuM+ZXXQW4A7mw/D6PO2wADx2+huukpxbq63Rx
+ ClnvKCx4VtqbbLMBuODjiJgGaXIYvpg//pGiBDpqU6mX33XG9QPsOMHhsU/vftlTWBos
+ VWhFY/MG9hLO04AT6agTsEAKN+y1vT5fBFotkk9MIR5t88Rf6yGAQx4328y2uong5unD
+ wFgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786265387; x=1786870187;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=82v9sYNKKB3ALGXPfLnFRe1IYhxbaPWojRznailPiqg=;
+ b=ia2Hkvy/8ofEDocj3SEX2+YDhnjQwunN1RLij4OcZ12z/usbFjnr4KLHwmeRRSwNWC
+ SVqlzu1m9XjLF5Suoh4iXL/J6uXdZeQXinAwzKvnlcd3GDIeQv8Kss+WvC3nIL4QVsX9
+ JSY/1UITqFBisXDqAJ+yifd0A4ModhSaqoR0xPZJuRxiBSd8NUootach/+83+QXHNTJI
+ k0j0CIy6hCCWB7MjeZNBpa56cT/+83pCBAvum9zZfuS4IGkPCZ/pIyl1A/zBJMgnH/00
+ Fqhk9Yos7aQxcgTOh2HuVS6KWXcnyIWZ8oz+UigvAiNe2YSJVnB3duQo84uBKLRTpalm
+ 7oYg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoOydjoY41s1gi+AZ1OKt6PAZ2bEoNhe/BqF7Cf08v5oz4LcIIOIgrZz7ojFXlRjQL2+gQVF02tMuA=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxoGyhKJx4oIUGCrcFNX1blcu2GAVi1fRB0wUAC+rV5C8M/M6b8
- HbJmrdLjtG0dN5cFpCCQzH90UbyYElblZ6GQoqfHu/HvgzqIGb/1SIWsjaB94UeDcx59mw==
-X-Gm-Gg: AR+sD10k1QJFDAjdSAJXlkG8Nq7t+u+B14Dg37VSGQjQzstsG3JObx++LAA5eN3qYKh
- Db8NATP6YtueExbcNuF7gbAIaMKpNO/eQsLu+h3YmlygzZPGYlwrdb/+vf16pE8T3gu/xig0U+y
- 7C20lLyvI9+Oqc1CrHKUDXOsDGfTlR5lfoc3CyjHGGvdlWen4f8EzlOu8wOhaaSRx6avTvefwHP
- 2kZi9NbbFoMO/RROQoqfL3tkPEDGlAgDz27XyJbJEREWb3qiTC64x7AugmLOxRyd4QBWdQaWcEC
- y/dVZHBA2tMwiReKS6/ZS2fYdsvRbgTrfj2ys7XytsOo7pkUls0NUP+QrrdTqxGoBWa9AXo0xYN
- xZadti541XknsaSPkXxulCRwsN/7/BbLKAhpT7KirXWviFSQW4/cu1vsFVosh2g7EmeZE1/B/Uj
- EUVpVPSB3ADaP88y1JG46pdIiLJXEtLQmkJcbfLhnlGLXCTGVy/3MV2s0ilxXAOtaFaVQu+CoJG
- viOXR97EvavKmVh6S454GIpXhqDgmUrwmcM0gmrRGIhdlV/oSrB031okaRRGiyZGrZ1JrEs4w==
-X-Received: by 2002:ad4:5ca9:0:b0:8ee:fbc5:8110 with SMTP id
- 6a1803df08f44-908813d33e8mr359375546d6.32.1786209210858; 
- Sat, 08 Aug 2026 10:13:30 -0700 (PDT)
-Received: from JesseofTheNorth.internal ([2600:4041:502b:ea00::1408])
+ AHgh+RqxcPSTRiGJrA4wbw6eRH8yuzoA8ZrTi47r40j2HB6cOh1V4OQBZnF5P4X1nws7Ivlw0Ed2UnLZTiQ=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz5ATYm+Y5WCO+8tKOEVcK4PgblMRlTNLobjE2MVLrNjB81lSXq
+ 8e/+H58nzIXtLZ2UjhCIgrTU9+v7h5Gr/awSS/97YhJnqi3dUGA7TAig
+X-Gm-Gg: AR+sD10+mcm52Zfv1Ewkw8kxKHPBfTWDflKJ5dcicQMDpvIjGdKZwE7aQfkfFVpwhnM
+ 8jlBt28brSumiZHYlo4XjvZa0FovQ5lKOidLk1HjnL/GB9RQOT446iuuy2zh1vnYvbyGtpdLCcS
+ lg57fxTdKp9AZ1WcO6oDfojpnskXn46W8NjqRc8I5HjXW8qMeCxftFxjPH1uZ6b/lUBs5rM3kbK
+ RRaRKOiq1tgOPYBhHD5IrT0bFuyiHCPU7CH8jsmce1X48uvZFigZ75C+AuuMXLvlLoeLTdXz9st
+ YV6+EjXWnXCP6EBkhgsSo+VyXDX2OQ45z8ZqO7HBMOwFCFwYT5/qu1VuBGvWluFm/g1RdWsaAOM
+ Her7g4ewdXGMas/rs9XBYpUUr3OEaoXLzdh4ptjimvi5++B+q4mkY9qIFSUW7s4wNRZyGFgmw5a
+ boZ0lq30oEY5lVLjXXOmUzZ7jdJs26mjKFGnlon9qztvG2r+0UyEBCpx0EcJ9GRWQf3FZV+p+xn
+ N4g7jgcirw=
+X-Received: by 2002:a05:6a21:600f:b0:3c3:8651:b317 with SMTP id
+ adf61e73a8af0-3cb85e2b72fmr40290617637.10.1786265386693; 
+ Sun, 09 Aug 2026 01:49:46 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.205.91])
  by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-908a93258cbsm34265286d6.33.2026.08.08.10.13.29
+ 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.49.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 10:13:29 -0700 (PDT)
-From: Jesse Casco <jesse.casco@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/msm/dp: skip PUSH_IDLE when the link was never enabled
-Date: Sat,  8 Aug 2026 13:13:25 -0400
-Message-ID: <20260808171325.133041-1-jesse.casco@gmail.com>
-X-Mailer: git-send-email 2.55.0
+ Sun, 09 Aug 2026 01:49:46 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v4 3/6] drm/amdgpu/aca: Fix inverted validation logic and list
+ cleanup
+Date: Sun,  9 Aug 2026 08:47:32 +0000
+Message-ID: <20260809084735.9743-4-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
@@ -93,83 +94,76 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-msm_dp_display_atomic_enable() returns early when link training fails,
-leaving ->power_on false and the main link down.
-msm_dp_display_atomic_disable() nevertheless writes DP_STATE_CTRL_PUSH_IDLE
-and waits for an idle-pattern completion that cannot arrive, so every failed
-enable is followed by "PUSH_IDLE pattern timedout".
+aca_handle_is_valid() returned false if !list_empty(&handle->node)
+evaluated to true. Because active registered handles have non-empty
+nodes in the handle list, valid handles evaluated as invalid.
+Consequently, amdgpu_aca_get_error_data() returned -EOPNOTSUPP
+whenever aca_handle_is_valid() evaluated to true.
 
-Every other step of the teardown is already gated on that flag:
-msm_dp_display_disable(), called from .atomic_post_disable(), returns early
-on !power_on. The PUSH_IDLE write is the only one that is not, so the
-controller's runtime-PM reference is then dropped without the link having
-been taken down.
+Fix the logic in aca_handle_is_valid() to verify that the handle is
+non-NULL, contains a valid mask, and is currently registered in the
+list. Update amdgpu_aca_get_error_data() to check for invalid
+handles and return 0 instead of -EOPNOTSUPP so non-ACA blocks in
+global RAS queries pass through safely without breaking error
+telemetry.
 
-On glymur (Snapdragon X2 Elite) the consequence is not a warning. The SoC
-does not survive it: TrustZone force-stops the SOCCP and ADSP remote
-processors and the machine resets silently about 50 ms later, with no oops
-and no panic. On an ASUS Zenbook A16 (UX3607OA), whose eDP panel does not
-currently train, this reproduces without any compositor or GPU involvement:
+Additionally, modify remove_aca_handle() to unlink handle->node
+under mgr->lock using list_del_init() prior to calling
+aca_fini_error_cache(). Standard list_del() leaves node pointers
+poisoned, causing !list_empty() in aca_handle_is_valid() to evaluate
+to true for removed handles. Unlinking under lock first prevents
+concurrent list traversals from racing on node pointers and stops
+background queries from referencing destroyed error cache mutexes during
+handle teardown.
 
-  # eDP enable has already failed with "Failed link training (rc=-104)"
-  echo 1 > /sys/class/graphics/fb0/blank
-
-  [535.645455] === marker ===
-  [535.694833] qcom_q6v5_pas d00000.remoteproc: fatal error received: \
-                 sys_m_smsm.c:512:TZ force stop
-  [535.694875] remoteproc remoteproc0: crash detected in soccp: type fatal error
-  [535.728857] qcom_q6v5_pas 6800000.remoteproc: fatal error received: \
-                 sys_m_smsm.c:783:err fatal notification received from TZ
-  <SoC reset>
-
-Gate the PUSH_IDLE write on ->power_on so the disable path is consistent
-with the rest of the teardown. With this applied the same sequence is
-harmless and the machine stays up; without it, it resets every time.
-
-The unconditional write dates back to the original DP driver
-(c943b4948b58 ("drm/msm/dp: add displayPort driver support")), but the
-surrounding code has been restructured several times since, so no Fixes:
-tag is offered.
-
-Note that the eDP link-training failure that exposes this on the A16 is a
-separate problem in the glymur eDP PHY and is reported separately; this
-change is about not damaging the machine when training fails, for whatever
-reason.
-
-Tested on ASUS Zenbook A16 (UX3607OA), Snapdragon X2 Elite Extreme, on
-linux-next next-20260803 and next-20260807. The machine has since been
-running next-20260807 with this patch as its daily driver.
-
-Assisted-by: Anthropic:Claude-Opus-5
-Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 ---
- drivers/gpu/drm/msm/dp/dp_display.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index bc646d172..5d2ddf180 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1458,6 +1458,20 @@ void msm_dp_display_atomic_disable(struct msm_dp *dp)
-
- 	msm_dp_display = container_of(dp, struct msm_dp_display_private, msm_dp_display);
-
-+	/*
-+	 * If .atomic_enable() bailed out - link training failure is the common
-+	 * case - the mainlink was never brought up and ->power_on stayed false.
-+	 * Driving the PUSH_IDLE pattern into a controller that was never
-+	 * enabled times out, and .atomic_post_disable() then drops the
-+	 * controller's runtime-PM reference without tearing the PHY back down,
-+	 * because msm_dp_display_disable() returns early on !power_on.  On
-+	 * glymur (Snapdragon X2 Elite) that combination is answered by a
-+	 * TrustZone-level SOCCP/ADSP force-stop and a silent SoC reset.
-+	 * There is nothing to push idle, so leave it alone.
-+	 */
-+	if (!dp->power_on)
-+		return;
-+
- 	msm_dp_ctrl_push_idle(msm_dp_display->ctrl);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index c76664af9902..c35f6be2ef77 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -586,10 +586,7 @@ static int __aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *h
+ 
+ static bool aca_handle_is_valid(struct aca_handle *handle)
+ {
+-	if (!handle->mask || !list_empty(&handle->node))
+-		return false;
+-
+-	return true;
++	return handle && handle->mask && !list_empty(&handle->node);
  }
+ 
+ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *handle,
+@@ -599,8 +596,8 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *han
+ 	if (!handle || !err_data)
+ 		return -EINVAL;
+ 
+-	if (aca_handle_is_valid(handle))
+-		return -EOPNOTSUPP;
++	if (!aca_handle_is_valid(handle))
++		return 0;
+ 
+ 	if ((type < 0) || (!(BIT(type) & handle->mask)))
+ 		return  0;
+@@ -716,9 +713,13 @@ static void remove_aca_handle(struct aca_handle *handle)
+ {
+ 	struct aca_handle_manager *mgr = handle->mgr;
+ 
+-	aca_fini_error_cache(handle);
+-	list_del(&handle->node);
++	mutex_lock(&mgr->lock);
++	list_del_init(&handle->node);
+ 	mgr->nr_handles--;
++	mutex_unlock(&mgr->lock);
++	aca_fini_error_cache(handle);
++	kfree(handle);
++
+ }
+ 
+ static void remove_aca_sysfs(struct aca_handle *handle)
+-- 
+2.54.0
 
---
-2.55.0
