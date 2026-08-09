@@ -4,51 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15909C5AD4E
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 19:14:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54C0BC5AD4E
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 19:24:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41EEC10E0E7;
-	Sun,  9 Aug 2026 19:14:27 +0000 (UTC)
-Received: from mail-oo1-f79.google.com (mail-oo1-f79.google.com
- [209.85.161.79])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1AC110E0E7
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 19:14:25 +0000 (UTC)
-Received: by mail-oo1-f79.google.com with SMTP id
- 006d021491bc7-6ae4622d842so1013593eaf.3
- for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 12:14:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786302865; x=1786907665;
- h=content-type:to:from:subject:message-id:date:mime-version
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GidNn0OMKrjDQ21kBazeerlBT2Ktqq4wU0/ri2a78Bk=;
- b=NpXk1NeeHWpDQYTh0ax7Agu10w2R/EEewPlonMgMK1xvFD5kVdQeKa/QvQCzhkNuAp
- uUiuDtt0gF8jBlXjs9/urE9b+mxcLmIAvT0NZGEDAW7sEl9ZcYsxK9VzaQVkpULl0ry1
- RLLdNwhNaHnJecVn+KDq4i+mM94PutjnUOBB3I3wIE0c4jg4p4vigbMLB9BDV4KPDFHT
- x+9NwKJuhckq6aPMxkhGblhklKoXUPZE8dx4HbSgQqUW2pGBxU42o4yTlk1MOR5e+knx
- OdTBo2xBeHqTkcez3BrMsGB1Uw4nIMQ5aiYQpVmhJP1u2q4Fk2ocjtUt0lfeYEm/MzJd
- J6Jw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqBxfBOEUpTJMtTcQSspLZmDxKaH/O9TZcxPniG5Bjn2QXMAXZ8zZQtPqXhwGuPpv3N7pvEKfd8oM4=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwT98BYQ0Zu9z62H+QTEgNPMej6D0tqWN6/OVmFqOup49YhucWZ
- Iwu3zfl0OFqsOugBDyzfbMmZFS8q0bEmmnu1wghkF2t369c0J4ineO1lP3OBdYhxXnHquTyzQ1f
- KI8qAiApj07vSHSWC7brgGomsq9p1LsvlrUxdjD23eZ1cBN3zWIUmaPuoWaE=
+	by gabe.freedesktop.org (Postfix) with ESMTP id E20B210E1BB;
+	Sun,  9 Aug 2026 19:24:23 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g1xTUeSg";
+	dkim-atps=neutral
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16AFC10E19D;
+ Sun,  9 Aug 2026 19:24:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:From:Reply-To;
+ bh=yHtI0GTJKZWQQM48YiGVBosfJ5t3iFf0mkcvrRXiOn8=; b=g1xTUeSg51O4bUdhefKhXMn48m
+ eZ18qa9+xVNwavh1O83za4RYsnBbTQIOASFqd6Tt6pqUoXEfNsPpzHGC9dNroJIofjDNB7+zx4MSr
+ DNIyTmV22h3Z6qqKOLg3Z1DsSmTDqVNJGl31TQivtH/2BUnX/c71WCfXfxin/RBnwKrFvxUq65W4o
+ TS2gLQkwty41kO2rmEKrNKjapY9RI4aQOTv1R2zp1tkw0rzGo2vutoqtti6OhtGP9Au3rwtczllXv
+ N9pmNFkyNtOH51zQPjMaojhuSjN/mIrTKqEUZwlwliQdgcwne/KtNxmlcO1GvqlwJ5wcNuA339yGg
+ GKBtPP6Q==;
+Received: from [187.36.208.132] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wt982-00GH3T-VN; Sun, 09 Aug 2026 21:24:15 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/6] drm: Consolidate the wait timeout conversion helpers
+Date: Sun, 09 Aug 2026 16:23:56 -0300
+Message-Id: <20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1990:b0:6ae:84e6:2de0 with SMTP id
- 006d021491bc7-6b042143dd7mr7749464eaf.26.1786302865071; Sun, 09 Aug 2026
- 12:14:25 -0700 (PDT)
-Date: Sun, 09 Aug 2026 12:14:25 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a78d191.b50370da.49fe0.0041.GAE@google.com>
-Subject: [syzbot] [media?] [dri?] WARNING in udmabuf_create
-From: syzbot <syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com>
-To: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
- kraxel@redhat.com, linaro-mm-sig@lists.linaro.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- sumit.semwal@linaro.org, syzkaller-bugs@googlegroups.com, 
- vivek.kasireddy@intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSQqAQAwF0atI1gbaebiKuBD7qwEn0iqCeHcbl
+ 29R9ZCDChzVwUOKS5xsq0cUBtRP3TqCxXpTbOLclKZiqwsfsmA7D54w71DHWZYWCdKyqGxEvtw
+ Vg9z/tWnf9wOy1b7vZQAAAA==
+X-Change-ID: 20260809-drm-timeout-helpers-55473e4879d1
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2350; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=MRMSakOMqZA3Q6YErOvuIuxgMa52nLU22dBKpEwYEAI=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqeNPYgZ913Y8c2sxGuDwnLGJ4MCKfBIKu5r1/0
+ U3y0n1qt2iJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCanjT2AAKCRA/8w6Kdoj6
+ qiKQCACNdTNhaEDzYocVFmwr90TRWOA6EWci83pGWlvszT4OpAlfoJs4nqDlHePAwbIrU5GVbWT
+ frAbM3RODGBkfLM0+LVw0ImoiVuiEbczSth3GN8WZCMB2+7dzGHT/fz0LAxzoFWtHzJ91FKmkG5
+ zoF1wK2FnP+1Kx5DhaOlvii1/Q0WxsJVeUFMuhxNFYIuXKxjDG6qRc0/pnQuFArMjb5CK7p3ZVI
+ 9N2K/dEHGzLBO3vQKyo4FRK0gQ64Pxt3ZvB2+14rQzAeguv+ydx7xggV/2QZR1pysCpjZRET6NE
+ 2uue9zvwDlEQumeFg6niMM01QH7ru7UBZt1RdVK/IQVQBc3g
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,87 +82,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hello,
+DRM wait ioctls express their timeout in one of two ways: as an absolute
+deadline in ns, or as a duration in ns. The core has a helper for the first
+form, drm_timeout_abs_to_jiffies(), which panfrost, lima, tegra, xe and
+some accel drivers use. However, there is no equivalent for the second
+form, so the drivers that take a duration convert it themselves.
 
-syzbot found the following issue on:
+For example, i915 has a local helper to handle the relative timeout case,
+and v3d carries a copy of it. This series moves that conversion into a DRM
+helper called drm_timeout_rel_to_jiffies(), next to the absolute variant,
+and converts the drivers that were open-coding either form.
 
-HEAD commit:    6b8c8af514d7 Add linux-next specific files for 20260807
-git tree:       linux-next
-console output: https://syzkaller.appspot.com/x/log.txt?x=10b34149580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6d343b54cc50df0f
-dashboard link: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=11e8c079580000
+This series becomes particularly relevant as the new helper will be used
+in the next version of the series "drm/vc4: Switch to DRM GPU scheduler"
+[1]. With this series, we avoid another duplication of the
+nsecs_to_jiffies_timeout() function (and thanks Tvrtko for the suggestion).
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/71ff4edcb608/disk-6b8c8af5.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/1f5fa331d8f2/vmlinux-6b8c8af5.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/f993558ec63b/bzImage-6b8c8af5.xz
+PATCH 1 moves drm_timeout_abs_to_jiffies() out of drm_syncobj.c and into a
+file of its own, so that both helpers live together. PATCH 2 adds a helper
+for the relative variant. Patches 3 to 6 convert amdgpu, v3d, i915 and vc4.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
+Let me know your thoughts about it.
 
-------------[ cut here ]------------
-!(flags & __GFP_NOWARN)
-WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x792/0x820 mm/slub.c:7013, CPU#1: syz.0.17/5840
-Modules linked in:
-CPU: 1 UID: 0 PID: 5840 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:__kvmalloc_node_noprof+0x792/0x820 mm/slub.c:7013
-Code: ff 48 c7 c7 70 f7 c8 8e 48 89 de e8 a8 3d eb 02 e9 1f fc ff ff 48 c7 c7 b0 f7 c8 8e 48 89 de e8 94 3d eb 02 e9 50 fc ff ff 90 <0f> 0b 90 31 db e9 08 fe ff ff 90 0f 0b 90 e9 57 ff ff ff 49 83 7f
-RSP: 0018:ffffc900044ffae0 EFLAGS: 00010246
-RAX: 0000000000000100 RBX: 0000000000000000 RCX: 0000000080000001
-RDX: 0000008000000000 RSI: ffffffff8c4c7660 RDI: ffffffff8c4c7620
-RBP: 00000000ffffffff R08: 00000000000028c0 R09: 00000000ffffffff
-R10: 0000000000000006 R11: 0000000000000000 R12: 0000008000000000
-R13: 00000000000028c0 R14: 0000001000000000 R15: ffffffff865110fc
-FS:  0000555557138500(0000) GS:ffff88812500c000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007fb692c70000 CR3: 0000000079676000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- init_udmabuf drivers/dma-buf/udmabuf.c:193 [inline]
- udmabuf_create+0x2dc/0xf50 drivers/dma-buf/udmabuf.c:386
- udmabuf_ioctl_create drivers/dma-buf/udmabuf.c:465 [inline]
- udmabuf_ioctl+0x1f3/0x300 drivers/dma-buf/udmabuf.c:496
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x510 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7fb692d9e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007ffc7e6eab08 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00007fb693025fa0 RCX: 00007fb692d9e0d9
-RDX: 0000200000000200 RSI: 0000000040187542 RDI: 0000000000000003
-RBP: 00007fb692e35024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007fb693025fac R14: 00007fb693025fa0 R15: 00007fb693025fa0
- </TASK>
+[1] https://lore.kernel.org/dri-devel/20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com/T/
 
+Best regards,
+- Maíra
 
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Maíra Canal (6):
+      drm: Move drm_timeout_abs_to_jiffies() to drm_timeout.c
+      drm: Add drm_timeout_rel_to_jiffies()
+      drm/amdgpu: Use drm_timeout_abs_to_jiffies()
+      drm/v3d: Use drm_timeout_rel_to_jiffies()
+      drm/i915: Use drm_timeout_rel_to_jiffies()
+      drm/vc4: Use drm_timeout_rel_to_jiffies()
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+ drivers/gpu/drm/Makefile                 |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c  | 16 +------
+ drivers/gpu/drm/drm_syncobj.c            | 33 --------------
+ drivers/gpu/drm/drm_timeout.c            | 76 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c | 17 ++-----
+ drivers/gpu/drm/v3d/v3d_bo.c             |  3 +-
+ drivers/gpu/drm/v3d/v3d_drv.h            | 10 -----
+ drivers/gpu/drm/vc4/vc4_gem.c            |  3 +-
+ include/drm/drm_utils.h                  |  1 +
+ 9 files changed, 87 insertions(+), 73 deletions(-)
+---
+base-commit: dc2f9f7fed1a8ea5290f9f60c6310d497e85e666
+change-id: 20260809-drm-timeout-helpers-55473e4879d1
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
