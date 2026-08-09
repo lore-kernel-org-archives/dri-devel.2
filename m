@@ -4,59 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1341BC5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 15BB5C5AE49
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:39:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1EA810E678;
-	Mon, 10 Aug 2026 06:38:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 695F910E694;
+	Mon, 10 Aug 2026 06:38:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="GUtZnMhb";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IFQhh9j+";
 	dkim-atps=neutral
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com
- [162.62.57.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF6410E03E
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 01:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1786240768; bh=uEmMr/SZK/TIaWoHbQ3q9ghn3gK6KxbhUQcK+NWFVAE=;
- h=Date:To:Cc:From:Subject;
- b=GUtZnMhbToBBeMUAevb6jXjaJTL9W2PpgOasv9l5t1SmVImvum9MoX1diBHKNa9DS
- LTBYju3IW6C/BqSlxfEYoxfDOF5TPvnLaKBJK8iJlhocmBe1emQHxLwDuVOL2jMOCE
- 9QFLscsqYqlyQxaByi804jzXggXE4PQZHaj8B1qU=
-Received: from [IPV6:2409:8a00:7893:9e40:542c:be54:7415:4303]
- ([2409:8a00:7893:9e40:542c:be54:7415:4303])
- by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
- id E8E362D0; Sun, 09 Aug 2026 09:58:14 +0800
-X-QQ-mid: xmsmtpt1786240694t69dn9xkh
-Message-ID: <tencent_CD62BCA17CDEAE677233BDA9A0D9455E5708@qq.com>
-X-QQ-XMAILINFO: No7DFzN00JnRVM9oEWjk6jDgCfDsjqAiWO5pbWclUjWSDbc4CInAg4Lh/0zPRh
- 7vxuedA6d1VL3h943Bqa8E53F1OQSs/5hDaA9R9x118odEttk3t9tsoUE/UKfc1dK6MIggaMUtR8
- ipCkvoeMu0r7Je2QrAthYOzwynyUfAISU1d7hur1qeUuh6t9mBcAOCXomUh5KAOrMy73Uhd6+dOj
- UxfQ0qGsd+tsSLJYpqgw/mmRMgvpEdziaqFCIGeS4Rx7sQKZSrY5JZqeS/V/Aeg0+0cO9QQ2nY8v
- Nn8PSGstiw8oU/02SByOiCzhv02hnTHwDYq089YPTxFYWG4RDVTeqPcF4AScMHnhFBU1kX75I32B
- wbBIHK+ZgLCn0rjLdfEEjWxXkwqPtx6ccFbnomcTRmrlCccmAM/5YqI4wVPd1+xmY9FdtyQQT1ZJ
- g4ojUEok2/cccb9sotQhFQFDNpGFM7bDM1uwBvAKvPaYbGDv4rLMJs+VYqgp0ML+8g9BP3HBmd+k
- asVbBH4Tz5ibrHFEAJhZ2/UX12X/sxLsJ4r1DLsJZJmcCOlfKLoa80195CYd7tRhfXyqnFc3B9mG
- psvid2fsTqTH3rVf1/pFgiAIR/a543imrY53koa65jtscww1ECXw9fIAp1WQltAhIyPTWYdLvSYJ
- omOkXPBHPMMpwMVnPsyNdZdvRTAzvLaUTtV/Yx9RGhDljG3IwIhtaGEDJdsFYKH/40c/TCsGw/Wo
- 5IFIv8wZsgJWe6VUcrfc4T/o4kSXNDRlKSuBbrwaudIYIrCjiqcSRyNfJoDZBQ7nN179lJFQKXRg
- GxgMw6N2aDJffVaENVEjexdcigejRJGp556bX/tVzUJGFlOVCpmeeSJieJAwvHZ1oO7ok0Wf5RAY
- U1f5rtjksbbAz/iNEZoysSZ9+FEP6wbDWFo8Zj4lfI0j8ZpBpUWnJuurHkrQuRXkBFbZx3K4y92l
- IdqbfQ5eTxDdcbPM12pRPbRI/N5o1XlH2Ja4fJ8Zpri6xP+VJICjh3ugziYkmQYNSWwvcBMdjk8X
- FzNPvydzQie+bA5MqDFpGar4QF/+Xex3Iy/EKIKxtG4pCTbOQr52y07sdM5zuPu+/1g3c3Hzhgub
- 1j+N5woVwO3RSXZZs=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-OQ-MSGID: <8170ae9d-8649-4a17-b427-569aa2c4c806@qq.com>
-Date: Sun, 9 Aug 2026 09:58:13 +0800
+Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
+ [209.85.128.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D00610E0E7
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 18:34:23 +0000 (UTC)
+Received: by mail-yw1-f182.google.com with SMTP id
+ 00721157ae682-81ee6b2da98so15618217b3.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 11:34:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786300462; cv=none;
+ d=google.com; s=arc-20260327;
+ b=C+2JuFictok4Dwqzs2Wo9y8dm92TS1Q3LZdgxXInxWJ9o/p8AWLj63tOf+imrYW66q
+ gvs9I+5RkOYeph6I27626sIOLbv+akrBCoAe8aEA4cwFgaH7HdnZRxitSr0nDwt9GOCK
+ 8fbTZPcxZuRZspkQ4A6VZjKHiApT1V6wcAUlwhFk7LabKo7xmyta3gVKFYFgvUSaSHc2
+ 2UeOh7SjfwCq6JEvHBnwfgrWCfDSR0xuMj9+I4ZYp+oBOl+qK+K898bNdE531uXKcD82
+ lgIDQ51iVZxMto+j+CcrNdRJAdF1K7W9tVrhxyvPUR+Y7SzWCT1m3NxtWNWRZpQrjDP+
+ m5aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=GIT1CkndZoPFGz2aHXZk381lfAI936YVS/8/Au1pb8A=;
+ fh=otjR1ydunTJk0fPS51Ls3JXICOEaW9x5X/pvorWC7rE=;
+ b=Po8mBbG5I24JVx++GRRD8Bj4a3ZNmrZH2KImVc9St+kY7+hIrSKyXYENu/KoETvzwv
+ Cj8PS6R8uRVtmWccMVjmHp3uVG+4TH5X8nmt23blr2XUYdzI9Pvk2QTdSmBISP9P4ZPY
+ 3R6jiTmBxeQaoAKJN1+5n4rOeDSjgWbAzK29FgMmLN/2VY+Su18bxtJ1pymg82z4PkD6
+ SSMY6iQpODQ7aA/J7C8wwILZ0hadPE9IdKU7ajdLfX+vBrieVvHELQHeHokOSuPLben/
+ D6PhHNa4ohzFwPRi16axJgpJiPswfVx14R2ndMTwXW5B1a8Prlv2zSuv+TpQ6Ij9GIU4
+ l0dw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786300462; x=1786905262; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=GIT1CkndZoPFGz2aHXZk381lfAI936YVS/8/Au1pb8A=;
+ b=IFQhh9j+pqp04wTem3j1glY+3AxxzvTLKAEgSoQfdb8GybsY2yAR/9f5Hczx+rAltU
+ 9CQAIj+6esHqRqrEhr5k89sd0b2Y/yfLa02GgQt8ForU9thgXXMkqU2Akdpue9b74NBE
+ s8sK8VFQ/Yqi8mwLzAzuF3s/WPmy7JDcZytVtBzw+dVMRs2CxDo2bUSGWfFq43QN5rGp
+ 79Zzr7cyOHxdBlT5MuCTBQ8NfwUIVZqN0KW9/PPSTi/THOaw8K4mD9+XljVElinSwGC4
+ PKc24lQZInXrybNwMG4u4U5YXcJe2cnNWy4RPs2ZoicaGPaZCZxju3mo0b18cRWic6af
+ CuHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786300462; x=1786905262;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=GIT1CkndZoPFGz2aHXZk381lfAI936YVS/8/Au1pb8A=;
+ b=Um/YCMrWFOgRmuTinWbCzd0zDrcEfeFIdzqCEkdDI7/JopxgUyOMKr8mok7mAeZnoX
+ lFd6ZMqHAbR5FYBwfg53hGwLD2m8A71HzQTcTfvRc3RCDHw9oKKihReok4U2i0kEACPU
+ fsx3Vfhgfn3pgedXpXYgCa5l+yTY8v0XAXQ2Xzo6untoUDvWGrkMl3snT2cKo5gJcp6A
+ hpv1rI+EQcA9iWQ3BL+shhBxhkJjDLJZkk+G/ROYBnJBN8KdgIWJaz+XHIiEVF0SAc+p
+ iNVcbhrU2burLs16rdsRAECeByFQqLA9PwDG7mu9kkMMqdQZN6blYOKxFSFDyM0FTFNJ
+ /nMw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoAgY0qFYLRya7xy01ehVm6c50gSwMrsOn0lQ/Am15N3I8d5chBJLBqrQ4suZZpJshfxp1b+ZWKpXk=@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwCimetV4BHPQXHRZ+dnBRNZCHeUKNNu9EoZQhNoPuf2DZ6jqr4
+ phWBtllKdBUSTnuANNWnLTxMELdxm10v0ose6RWY/JHaFqeNt4B5TOz2kEHJMNftjYevNew+rTu
+ pJH8IXVPNAXY9NsJYxrDUWnzrihCdO00=
+X-Gm-Gg: AR+sD12IZwnd5MOMwUyugbh8mYc1eOgQyXqTRYmlEbTYvmAN+NZari+8xMQbvm4AWZM
+ C25/Z3iNwXDMwr0LQilWISswqVgmtKcqA8b9tJz7VXeEZM+r8W4SX4KqMX8VVlYw8EoHDrqrK/q
+ nQxGsLqHOHGzmzTYATZm9Mh+DRZGB+zfHB+C/hr2qnPgGWpuxs3KlLGtZylnNwDbMO4C+xy7+zK
+ dF9pR6RLz64544tJlGD4j9rCYeS+qBpbuHUrQQuVnaK059MMI4qAKBy991uV2zasv9ylddXsozs
+ EH1B4iJtBcS5QpDCk9Gxnwta3bv3sTurOqSqQtPyaFI=
+X-Received: by 2002:a05:690c:a9e:b0:81d:489e:8847 with SMTP id
+ 00721157ae682-825728d10f0mr95488087b3.2.1786300462179; Sun, 09 Aug 2026
+ 11:34:22 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: dri-devel@lists.freedesktop.org, netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-From: Yang Zi <2959243019@qq.com>
-Subject: [BUG] KASAN: slab-use-after-free in enqueue_timer (re-armed timer on
- freed skbuff) [mgag200] [syzkaller]
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
+References: <20260808231002.67559-1-qwe.aldo@gmail.com>
+ <CABQX2QOWeCRBKXPv7gZrCXE9FuesWn0_3SEC33RjPDJHgPUxHw@mail.gmail.com>
+In-Reply-To: <CABQX2QOWeCRBKXPv7gZrCXE9FuesWn0_3SEC33RjPDJHgPUxHw@mail.gmail.com>
+From: Aldo Ariel <qwe.aldo@gmail.com>
+Date: Sun, 9 Aug 2026 15:34:11 -0300
+X-Gm-Features: AUfX_mxm52pL0I996Nl3gAUsnN_6w12VYsp16aNvkJbsr4Xro1BwUGpF6YHyfns
+Message-ID: <CAP48HftXmnzuhGQRcmproerVA9YYQGdytsei1+Vnjg_MKEaDww@mail.gmail.com>
+Subject: Re: [PATCH] drm/vmwgfx: return an error when a shared GB surface has
+ no backup buffer
+To: Zack Rusin <zack.rusin@broadcom.com>
+Cc: Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: multipart/alternative; boundary="00000000000082b2710658a17cf1"
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:38:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -72,183 +111,331 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi,
+--00000000000082b2710658a17cf1
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-While fuzzing the kernel with syzkaller (KASAN), I triggered a
-slab-use-after-free in the core timer wheel. A periodic (self-rearming) IPv6
-addrconf `rs_timer` was fired in softirq after its host skbuff had already been
-freed, and its `mod_timer()` wrote into the freed slab slot.
+Hi Zack, thanks for the careful review.
 
-Reproducer summary :
+I used an LLM only to help with the analysis. The work behind it is
+manual, though =E2=80=94 I audit the vmwgfx code by hand and run instrument=
+ed
+builds of the driver (KASAN/KMSAN under syzkaller).
 
-    BUG: KASAN: slab-use-after-free in enqueue_timer+0x59/0x280 kernel/time/timer.c:616
-    BUG: KASAN: slab-use-after-free in hlist_add_head include/linux/list.h:1075 [inline]
-    Write of size 8 at addr ffff8880164ac28c8 by task syz.0.4/818
-    Call trace:
-      __run_timers -> expire_timers -> call_timer_fn
-        addrconf_rs_timer  net/ipv6/addrconf.c:4061
-        addrconf_mod_rs_timer  net/ipv6/addrconf.c:332
-        __mod_timer -> enqueue_timer  kernel/time/timer.c:612
-          hlist_add_head  list.h:1075   <-- UAF Write (8B)
+This particular bug came from reading vmw_gb_surface_reference_internal()
+rather than from a fuzzer. I confirmed the disclosure by building with
+CONFIG_INIT_STACK_NONE and watching the reply come back with 53 of the 72
+bytes non-zero, several of them kernel pointers =E2=80=94 so the impact is
+measured, not assumed. (KASAN wouldn't flag this one on its own, since
+it's an uninitialised-stack read.)
 
-The corrupted 704-byte object belongs to `skbuff_small_head` (offset 584,
-i.e. the embedded timer_list region). It was allocated by an skb that mgag200's
-uevent broadcast created during driver registration/probe, and released via
-`consume_skb -> skb_free_head -> kfree`. The timer base still holds an active,
-rearming RK/RS timer pointing into that freed object; when the softirq fires
-it re-queues it, writing 8 bytes and corrupting the freed slab.
+The three commits I referenced (a97e21923b42, 14b1c33e8429, c594285f30fa) I
+traced by hand through the git history.
 
-Root cause:  a device / driver with an active, self-rearming IPv6 `addrconf` RS
-timer is torn down (device removed/unloaded - e.g. mgag200 remove path) without
-first cancelling the timer with `del_timer_sync()`. Once the host object is
-freed, the pending timer re-arms itself on freed memory (classic mode-B family:
-“timer not removed on driver shutdown → cascade UAF”).
+Agreed the description is far too long for what it is; I'll cut it down.
 
-The crash stack trace shows below:
+And thanks for the ttm_ref_object_base_unref() catch =E2=80=94 you're right=
+ that
+-EINVAL turns the previously-balanced reference into a leak (user space
+no longer calls DRM_VMW_UNREF_SURFACE). I'll drop it on the error path in
+v2.
 
-BUG: KASAN: slab-use-after-free in hlist_add_head include/linux/list.h:1075 [inline]
-BUG: KASAN: slab-use-after-free in enqueue_timer+0x59/0x280 kernel/time/timer.c:616
-Write of size 8 at addr ffff8880164288c8 by task syz.0.4/818
+v2 coming with both changes.
 
-CPU: 0 UID: 0 PID: 818 Comm: syz.0.4 Tainted: G        W  O        7.1.0 #2 PREEMPT(lazy) 
-Tainted: [W]=WARN, [O]=OOT_MODULE
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
-Call Trace:
- <IRQ>
- dump_stack_lvl+0xa2/0xd0 lib/dump_stack.c:120
- print_address_description+0x77/0x200 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- hlist_add_head include/linux/list.h:1075 [inline]
- enqueue_timer+0x59/0x280 kernel/time/timer.c:616
- __mod_timer+0x625/0x840 kernel/time/timer.c:-1
- addrconf_mod_rs_timer+0x36/0xd0 net/ipv6/addrconf.c:332
- addrconf_rs_timer+0x280/0x320 net/ipv6/addrconf.c:4061
- call_timer_fn+0xfb/0x2c0 kernel/time/timer.c:1748
- expire_timers kernel/time/timer.c:1799 [inline]
- __run_timers kernel/time/timer.c:2374 [inline]
- __run_timer_base+0x4ad/0x6d0 kernel/time/timer.c:2386
- run_timer_base kernel/time/timer.c:2395 [inline]
- run_timer_softirq+0x32/0x70 kernel/time/timer.c:2405
- handle_softirqs+0x1a2/0x560 kernel/softirq.c:622
- __do_softirq kernel/softirq.c:656 [inline]
- invoke_softirq kernel/softirq.c:496 [inline]
- __irq_exit_rcu+0xa7/0x180 kernel/softirq.c:735
- irq_exit_rcu+0x9/0x20 kernel/softirq.c:752
- instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1061 [inline]
- sysvec_apic_timer_interrupt+0x6e/0x80 arch/x86/kernel/apic/apic.c:1061
- </IRQ>
- <TASK>
- asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:697
-RIP: 0010:__orc_find arch/x86/kernel/unwind_orc.c:103 [inline]
-RIP: 0010:orc_module_find arch/x86/kernel/unwind_orc.c:121 [inline]
-RIP: 0010:orc_find arch/x86/kernel/unwind_orc.c:248 [inline]
-RIP: 0010:unwind_next_frame+0x474/0x14a0 arch/x86/kernel/unwind_orc.c:510
-Code: c1 f8 02 49 c1 ed 3f 49 01 c5 49 83 e5 fe 4b 8d 1c 6f 48 89 df e8 7c 8a 50 00 4b 63 04 6f 48 01 d8 4c 39 e0 76 bf 4b 8d 2c 6f <48> 83 c5 fc 49 39 ef 76 c3 48 8b 04 24 48 2b 44 24 30 48 c1 f8 02
-RSP: 0018:ffff88800b91e5a0 EFLAGS: 00000202
-RAX: ffffffffc002e234 RBX: ffffffffc0283d2c RCX: ffffffff81349f04
-RDX: 0000000000000000 RSI: dffffc0000000000 RDI: ffffffffc0283d2c
-RBP: ffffffffc0283d2c R08: 00000000000200ec R09: ffffffffffffffff
-R10: dffffc0000000000 R11: ffffffff814fd3d0 R12: ffffffffc000f3d3
-R13: 00000000000016ac R14: ffffffffc026ffac R15: ffffffffc0280fd4
- arch_stack_walk+0x131/0x160 arch/x86/kernel/stacktrace.c:25
- stack_trace_save+0x45/0x70 kernel/stacktrace.c:122
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x72/0x90 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5296 [inline]
- __kmalloc_noprof+0x237/0x6e0 mm/slub.c:5308
- <alloc::raw_vec::RawVecInner>::finish_grow+0x7d/0xb0 [kt_runtime]
- <alloc::raw_vec::RawVec<u8>>::grow_one+0x3f/0x70 [kt_runtime]
- __kerneltracker_log_integer_cmp_with_graph+0x174/0x590 [kt_runtime]
- mgag200_g200_init_registers drivers/gpu/drm/mgag200/mgag200_g200.c:48 [inline] [mgag200]
- mgag200_g200_device_create+0x55df/0x5a40 drivers/gpu/drm/mgag200/mgag200_g200.c:392 [mgag200]
- </TASK>
+Thanks,
+Aldo
 
-Allocated by task 814:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- unpoison_slab_object mm/kasan/common.c:340 [inline]
- __kasan_slab_alloc+0x4b/0x60 mm/kasan/common.c:366
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4570 [inline]
- slab_alloc_node mm/slub.c:4899 [inline]
- kmem_cache_alloc_node_noprof+0x1db/0x5e0 mm/slub.c:4951
- kmalloc_reserve net/core/skbuff.c:613 [inline]
- __alloc_skb+0x230/0x4a0 net/core/skbuff.c:713
- alloc_skb include/linux/skbuff.h:1385 [inline]
- alloc_uevent_skb+0x5c/0x120 lib/kobject_uevent.c:289
- uevent_net_broadcast_untagged lib/kobject_uevent.c:326 [inline]
- kobject_uevent_net_broadcast+0x23f/0x420 lib/kobject_uevent.c:410
- kobject_uevent_env+0x447/0x450 lib/kobject_uevent.c:611
- driver_register+0x1e2/0x220 drivers/base/driver.c:257
- drm_pci_register_driver_if_modeset+0x125/0xf20 drivers/gpu/drm/mgag200/mgag200_bmc.c:24 [mgag200]
- do_init_module+0x125/0x3f0 kernel/module/main.c:3106
- init_module_from_file kernel/module/main.c:3777 [inline]
- idempotent_init_module kernel/module/main.c:3789 [inline]
- __do_sys_finit_module kernel/module/main.c:3815 [inline]
- __se_sys_finit_module+0x2c7/0x410 kernel/module/main.c:3799
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x14b/0x490 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+El dom, 9 de ago de 2026, 14:35, Zack Rusin <zack.rusin@broadcom.com>
+escribi=C3=B3:
 
-Freed by task 135:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- kasan_save_free_info+0x40/0x50 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x3a/0x60 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2689 [inline]
- slab_free mm/slub.c:6251 [inline]
- kfree+0x1c1/0x550 mm/slub.c:6566
- skb_kfree_head net/core/skbuff.c:1075 [inline]
- skb_free_head net/core/skbuff.c:1087 [inline]
- skb_release_data+0x5a6/0x690 net/core/skbuff.c:1114
- skb_release_all net/core/skbuff.c:1189 [inline]
- __kfree_skb net/core/skbuff.c:1203 [inline]
- consume_skb+0x106/0x180 net/core/skbuff.c:1436
- netlink_recvmsg+0x3a9/0x570 net/netlink/af_netlink.c:1977
- sock_recvmsg_nosec net/socket.c:1138 [inline]
- sock_recvmsg+0x138/0x140 net/socket.c:1160
- ____sys_recvmsg+0xf5/0x280 net/socket.c:2919
- ___sys_recvmsg+0x117/0x300 net/socket.c:2961
- __sys_recvmsg net/socket.c:2994 [inline]
- __do_sys_recvmsg net/socket.c:3000 [inline]
- __se_sys_recvmsg net/socket.c:2997 [inline]
- __x64_sys_recvmsg+0xd5/0x170 net/socket.c:2997
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x14b/0x490 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
+> On Sat, Aug 8, 2026 at 7:10=E2=80=AFPM Aldo Ariel Panzardo <qwe.aldo@gmai=
+l.com>
+> wrote:
+> >
+> > vmw_gb_surface_reference_internal() rejects a surface without a backup
+> > buffer by logging an error and jumping to the exit label, but it never
+> > sets ret on that path:
+> >
+> >         ret =3D vmw_surface_handle_reference(dev_priv, file_priv, req->=
+sid,
+> >                                            req->handle_type, &base);
+> >         if (unlikely(ret !=3D 0))
+> >                 return ret;
+> >         ...
+> >         if (!srf->res.guest_memory_bo) {
+> >                 DRM_ERROR("Shared GB surface is missing a backup
+> buffer.\n");
+> >                 goto out_bad_resource;
+> >         }
+> >         ...
+> > out_bad_resource:
+> >         ttm_base_object_unref(&base);
+> >
+> >         return ret;
+> >
+> > ret is still 0 from the successful vmw_surface_handle_reference() above=
+,
+> > so the function returns success while leaving *rep completely unwritten=
+.
+> > The other goto to the same label is inside an if (ret !=3D 0) block and=
+ so
+> > carries a real error; this one is the only path that reaches the label
+> > with ret =3D=3D 0.
+> >
+> > The caller then copies that untouched output structure to user space.
+> > For DRM_VMW_GB_SURFACE_REF, vmw_gb_surface_reference_ioctl() passes a
+> > stack local:
+> >
+> >         struct drm_vmw_gb_surface_ref_ext_rep rep_ext;
+> >         int ret;
+> >
+> >         ret =3D vmw_gb_surface_reference_internal(dev, req, &rep_ext,
+> file_priv);
+> >
+> >         if (unlikely(ret !=3D 0))
+> >                 return ret;
+> >
+> >         rep->creq =3D rep_ext.creq.base;
+> >         rep->crep =3D rep_ext.crep;
+> >
+> > so 48 + 24 =3D 72 bytes of an uninitialised stack variable are copied i=
+nto
+> > the ioctl buffer, and drm_ioctl() copies that buffer back out.  The ioc=
+tl
+> > is a DRM_IOWR of exactly 72 bytes, so in_size =3D=3D out_size and the c=
+ore
+> > does not zero any tail.  DRM_VMW_GB_SURFACE_REF is DRM_RENDER_ALLOW, so
+> > this is reachable by an unprivileged local user through a render node.
+> >
+> > What actually leaks depends on how the kernel was built.  With
+> > CONFIG_INIT_STACK_ALL_ZERO, which is the Kconfig default whenever the
+> > compiler supports it and therefore what the major distributions ship,
+> > rep_ext is zeroed on function entry and user space receives 72 zero
+> > bytes.  With CONFIG_INIT_STACK_NONE the contents are whatever the
+> > previous call at that stack depth left behind; on a test kernel built
+> > that way, 53 of the 72 bytes came back non-zero and several of them wer=
+e
+> > kernel pointers.  So the information disclosure is configuration
+> > dependent, but the control flow defect is not: on every configuration
+> > the ioctl reports success and hands back a reply that was never
+> > produced, which user space cannot distinguish from a real one.
+> >
+> > The path was correct when the ioctl was introduced in a97e21923b42
+> > ("drm/vmwgfx: Hook up guest-backed surfaces"): ret was initialised to
+> > -EINVAL and the first assignment to it came after this goto, so the
+> > label really did return -EINVAL.  14b1c33e8429 split the handler into
+> > vmw_gb_surface_reference_internal() and moved the
+> > vmw_surface_handle_reference() call - and with it the first assignment
+> > to ret - above the check, which left the initialiser dead and this path
+> > returning 0.  The dead initialiser was removed later, as a Coverity
+> > "unused value", by c594285f30fa ("drm/vmwgfx: remove redundant
+> > assignment to variable ret"); that removal was correct in itself.
+> >
+> > The driver already knows the request failed - it logs an error - so
+> > report that to the caller.
+> >
+> > Fixes: 14b1c33e8429 ("drm/vmwgfx: Add new ioctl for GB surface create
+> and reference")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+>
+> Hi, thanks for the patch! Did you forget to disclose the llm used to
+> find and fix it? I'm asking because that commit description is very
+> hard to read for what is essentially "ret hasn't been correctly
+> assigned, returning stale success status and leading to possible
+> invalid reads in userspace". Plus, I'd like to know how to handle the
+> commits referenced in the description. In general, I'd trust them if
+> you have looked them up yourself by hand but I'll need to validate a
+> lot more carefully if they're llm generated.
+>
+> We probably also want to add a ttm_ref_object_base_unref(tfile,
+> base->handle); to the out_bad_resource section because before with
+> this function returning success it, accidently, made userspace still
+> call DRM_VMW_UNREF_SURFACE balencing out the ttm file reference count.
+> Now we're just going to be leaking the reference added by
+> ttm_ref_object_add in vmw_surface_handle_reference.
+>
+> z
+>
 
-The buggy address belongs to the object at ffff888016428680
- which belongs to the cache skbuff_small_head of size 704
-The buggy address is located 584 bytes inside of
- freed 704-byte region [ffff888016428680, ffff888016428940)
+--00000000000082b2710658a17cf1
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x16428
-head: order:2 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0x100000000000040(head|node=0|zone=1)
-page_type: f5(slab)
-raw: 0100000000000040 ffff888008b8adc0 dead000000000122 0000000000000000
-raw: 0000000000000000 0000000800130013 00000000f5000000 0000000000000000
-head: 0100000000000040 ffff888008b8adc0 dead000000000122 0000000000000000
-head: 0000000000000000 0000000800130013 00000000f5000000 0000000000000000
-head: 0100000000000002 ffffffffffffff01 00000000ffffffff 00000000ffffffff
-head: ffff8880164291c0 0000000000000000 00000000ffffffff 0000000000000004
-page dumped because: kasan: bad access detected
+<div dir=3D"auto">Hi Zack, thanks for the careful review.<div dir=3D"auto">=
+<br></div><div dir=3D"auto">I used an LLM only to help with the analysis. T=
+he work behind it is</div><div dir=3D"auto">manual, though =E2=80=94 I audi=
+t the vmwgfx code by hand and run instrumented</div><div dir=3D"auto">build=
+s of the driver (KASAN/KMSAN under syzkaller).</div><div dir=3D"auto"><br><=
+/div><div dir=3D"auto">This particular bug came from reading vmw_gb_surface=
+_reference_internal()</div><div dir=3D"auto">rather than from a fuzzer. I c=
+onfirmed the disclosure by building with</div><div dir=3D"auto">CONFIG_INIT=
+_STACK_NONE and watching the reply come back with 53 of the 72</div><div di=
+r=3D"auto">bytes non-zero, several of them kernel pointers =E2=80=94 so the=
+ impact is</div><div dir=3D"auto">measured, not assumed. (KASAN wouldn&#39;=
+t flag this one on its own, since</div><div dir=3D"auto">it&#39;s an uninit=
+ialised-stack read.)</div><div dir=3D"auto"><br></div><div dir=3D"auto">The=
+ three commits I referenced (a97e21923b42, 14b1c33e8429, c594285f30fa) I tr=
+aced by hand through the git history.</div><div dir=3D"auto"><br></div><div=
+ dir=3D"auto">Agreed the description is far too long for what it is; I&#39;=
+ll cut it down.</div><div dir=3D"auto"><br></div><div dir=3D"auto">And than=
+ks for the ttm_ref_object_base_unref() catch =E2=80=94 you&#39;re right tha=
+t</div><div dir=3D"auto">-EINVAL turns the previously-balanced reference in=
+to a leak (user space</div><div dir=3D"auto">no longer calls DRM_VMW_UNREF_=
+SURFACE). I&#39;ll drop it on the error path in</div><div dir=3D"auto">v2.<=
+/div><div dir=3D"auto"><br></div><div dir=3D"auto">v2 coming with both chan=
+ges.</div><div dir=3D"auto"><br></div><div dir=3D"auto">Thanks,</div><div d=
+ir=3D"auto">Aldo</div></div><br><div class=3D"gmail_quote gmail_quote_conta=
+iner"><div dir=3D"ltr" class=3D"gmail_attr">El dom, 9 de ago de 2026, 14:35=
+, Zack Rusin &lt;<a href=3D"mailto:zack.rusin@broadcom.com">zack.rusin@broa=
+dcom.com</a>&gt; escribi=C3=B3:<br></div><blockquote class=3D"gmail_quote" =
+style=3D"margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex">On =
+Sat, Aug 8, 2026 at 7:10=E2=80=AFPM Aldo Ariel Panzardo &lt;<a href=3D"mail=
+to:qwe.aldo@gmail.com" target=3D"_blank" rel=3D"noreferrer">qwe.aldo@gmail.=
+com</a>&gt; wrote:<br>
+&gt;<br>
+&gt; vmw_gb_surface_reference_internal() rejects a surface without a backup=
+<br>
+&gt; buffer by logging an error and jumping to the exit label, but it never=
+<br>
+&gt; sets ret on that path:<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D vmw_surface_handle_reference(=
+dev_priv, file_priv, req-&gt;sid,<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =
+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 req-&gt;handle_type, &amp;base);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (unlikely(ret !=3D 0))<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return re=
+t;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0...<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!srf-&gt;res.guest_memory_bo) {<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0DRM_ERROR=
+(&quot;Shared GB surface is missing a backup buffer.\n&quot;);<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out_=
+bad_resource;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0...<br>
+&gt; out_bad_resource:<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ttm_base_object_unref(&amp;base);<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return ret;<br>
+&gt;<br>
+&gt; ret is still 0 from the successful vmw_surface_handle_reference() abov=
+e,<br>
+&gt; so the function returns success while leaving *rep completely unwritte=
+n.<br>
+&gt; The other goto to the same label is inside an if (ret !=3D 0) block an=
+d so<br>
+&gt; carries a real error; this one is the only path that reaches the label=
+<br>
+&gt; with ret =3D=3D 0.<br>
+&gt;<br>
+&gt; The caller then copies that untouched output structure to user space.<=
+br>
+&gt; For DRM_VMW_GB_SURFACE_REF, vmw_gb_surface_reference_ioctl() passes a<=
+br>
+&gt; stack local:<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0struct drm_vmw_gb_surface_ref_ext_rep=
+ rep_ext;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int ret;<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0ret =3D vmw_gb_surface_reference_inte=
+rnal(dev, req, &amp;rep_ext, file_priv);<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (unlikely(ret !=3D 0))<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return re=
+t;<br>
+&gt;<br>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rep-&gt;creq =3D rep_ext.creq.base;<b=
+r>
+&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0rep-&gt;crep =3D rep_ext.crep;<br>
+&gt;<br>
+&gt; so 48 + 24 =3D 72 bytes of an uninitialised stack variable are copied =
+into<br>
+&gt; the ioctl buffer, and drm_ioctl() copies that buffer back out.=C2=A0 T=
+he ioctl<br>
+&gt; is a DRM_IOWR of exactly 72 bytes, so in_size =3D=3D out_size and the =
+core<br>
+&gt; does not zero any tail.=C2=A0 DRM_VMW_GB_SURFACE_REF is DRM_RENDER_ALL=
+OW, so<br>
+&gt; this is reachable by an unprivileged local user through a render node.=
+<br>
+&gt;<br>
+&gt; What actually leaks depends on how the kernel was built.=C2=A0 With<br=
+>
+&gt; CONFIG_INIT_STACK_ALL_ZERO, which is the Kconfig default whenever the<=
+br>
+&gt; compiler supports it and therefore what the major distributions ship,<=
+br>
+&gt; rep_ext is zeroed on function entry and user space receives 72 zero<br=
+>
+&gt; bytes.=C2=A0 With CONFIG_INIT_STACK_NONE the contents are whatever the=
+<br>
+&gt; previous call at that stack depth left behind; on a test kernel built<=
+br>
+&gt; that way, 53 of the 72 bytes came back non-zero and several of them we=
+re<br>
+&gt; kernel pointers.=C2=A0 So the information disclosure is configuration<=
+br>
+&gt; dependent, but the control flow defect is not: on every configuration<=
+br>
+&gt; the ioctl reports success and hands back a reply that was never<br>
+&gt; produced, which user space cannot distinguish from a real one.<br>
+&gt;<br>
+&gt; The path was correct when the ioctl was introduced in a97e21923b42<br>
+&gt; (&quot;drm/vmwgfx: Hook up guest-backed surfaces&quot;): ret was initi=
+alised to<br>
+&gt; -EINVAL and the first assignment to it came after this goto, so the<br=
+>
+&gt; label really did return -EINVAL.=C2=A0 14b1c33e8429 split the handler =
+into<br>
+&gt; vmw_gb_surface_reference_internal() and moved the<br>
+&gt; vmw_surface_handle_reference() call - and with it the first assignment=
+<br>
+&gt; to ret - above the check, which left the initialiser dead and this pat=
+h<br>
+&gt; returning 0.=C2=A0 The dead initialiser was removed later, as a Coveri=
+ty<br>
+&gt; &quot;unused value&quot;, by c594285f30fa (&quot;drm/vmwgfx: remove re=
+dundant<br>
+&gt; assignment to variable ret&quot;); that removal was correct in itself.=
+<br>
+&gt;<br>
+&gt; The driver already knows the request failed - it logs an error - so<br=
+>
+&gt; report that to the caller.<br>
+&gt;<br>
+&gt; Fixes: 14b1c33e8429 (&quot;drm/vmwgfx: Add new ioctl for GB surface cr=
+eate and reference&quot;)<br>
+&gt; Cc: <a href=3D"mailto:stable@vger.kernel.org" target=3D"_blank" rel=3D=
+"noreferrer">stable@vger.kernel.org</a><br>
+&gt; Signed-off-by: Aldo Ariel Panzardo &lt;<a href=3D"mailto:qwe.aldo@gmai=
+l.com" target=3D"_blank" rel=3D"noreferrer">qwe.aldo@gmail.com</a>&gt;<br>
+<br>
+Hi, thanks for the patch! Did you forget to disclose the llm used to<br>
+find and fix it? I&#39;m asking because that commit description is very<br>
+hard to read for what is essentially &quot;ret hasn&#39;t been correctly<br=
+>
+assigned, returning stale success status and leading to possible<br>
+invalid reads in userspace&quot;. Plus, I&#39;d like to know how to handle =
+the<br>
+commits referenced in the description. In general, I&#39;d trust them if<br=
+>
+you have looked them up yourself by hand but I&#39;ll need to validate a<br=
+>
+lot more carefully if they&#39;re llm generated.<br>
+<br>
+We probably also want to add a ttm_ref_object_base_unref(tfile,<br>
+base-&gt;handle); to the out_bad_resource section because before with<br>
+this function returning success it, accidently, made userspace still<br>
+call DRM_VMW_UNREF_SURFACE balencing out the ttm file reference count.<br>
+Now we&#39;re just going to be leaking the reference added by<br>
+ttm_ref_object_add in vmw_surface_handle_reference.<br>
+<br>
+z<br>
+</blockquote></div>
 
-Memory state around the buggy address:
- ffff888016428780: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff888016428800: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff888016428880: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                              ^
- ffff888016428900: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
- ffff888016428980: fc fc fc fc fc fc fc fc fa fb fb fb fb fb fb fb
-
-Regards,
-Yang Zi
-
+--00000000000082b2710658a17cf1--
