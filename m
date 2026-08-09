@@ -4,79 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DF7CC5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1C44C5AE5D
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDABA10E67B;
-	Mon, 10 Aug 2026 06:38:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C1D210E67C;
+	Mon, 10 Aug 2026 06:38:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Vby2HHiU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PoEEBZ4J";
 	dkim-atps=neutral
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9ED2810E11A
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 08:52:06 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2cace91f112so8814475ad.0
- for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 01:52:06 -0700 (PDT)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6CCC510E05B
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 05:33:27 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-cbe6295f05bso2390337a12.1
+ for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 22:33:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786265526; x=1786870326; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=c/m4TAD904Gpx4jOO1f1keOOyQGwoQabIUB++Z17kjo=;
- b=Vby2HHiUSTa0dlvG7FaLi5H5IXH7AfPzr/dSjYLSdWUFxufhBztSfQ/t1F45eVEG53
- AjrpOumeYpruhzOUVzMBwm9aF6Y+lVPDzGN7VkihsbyJq/BCemWGrRMUisTyfSJApr9a
- NdPI4E7YB6EUDTT20hT1msD9K0I4L9fHzr9KCx6vGVSiOUsfWNcZFV+V4rr7Q7yA0Lcs
- AeJa+FSpM8OezbYGv1gRDVUtOmtSLsbTXBdIEoNjSNxpBGf5T5Vv9JPGXabp+ieVeLMf
- b5+np4SQYU6TW27OswGI2EAHZ5makFEriDUBUt2MSsV3/iwOZKXbAUYlNdrx7Pyx5RpX
- N2GQ==
+ d=gmail.com; s=20251104; t=1786253607; x=1786858407; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Iiw60go6Fssc+w6jEvdK+NtF+fsX/PqKIb7cNVI3nSc=;
+ b=PoEEBZ4JgQAVDr0YXWRQxsjQbXboeGiSm1aYDR3OBo6yNXkORSxWGUO4oChD4yo6It
+ z1IDjdvFNH82rgOl4HLqTudLhJmeR0OEzTzBcdk4BPdcHUpybkIJHX8LwVieQCr6tH3K
+ +zmdIK7Ub1PVNogWx7h+tvRL0n2RinDK+V9VX/A6CpZQ3CZmWeZjk6fkpC8XIwYfwFm5
+ ka7AFP8Uhabib7PQLA7o4QRb+FXq3d2mBqPdwbGLQYLUZYSWL9yYP3fz5b8kDB1TV8Q9
+ mqO3gAV+waoD8NVx9g7IAVo2wam6ZxEUSLOju6KAkRbRDBosUHlocgfmY3ROIyjWvewF
+ 2R0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786265526; x=1786870326;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=c/m4TAD904Gpx4jOO1f1keOOyQGwoQabIUB++Z17kjo=;
- b=DSy49sr3vk+hvRY/SMM7A+W61Ru5ReHA9R+PUu8VLvGYsndL7NvAcpGPK1igow0Zwj
- 1jMptVAIOGYWO1ev3JUJ2D8QqD8epKhAhXWsLonAnZGZxYHAr21bCeMiRsxUHMCGWIQA
- FuWewRtJvBQFuWZBg+0iq/k1ZB7AZ+QrlpDclpxsNywLC1MePhJcA7q+Az4zBTP4HV6Z
- bBEd6ERnW2+UmEW+7N9GS0obws4SzHXueflqNnaHvgo1XCSGHfe75Zk0uPrFj1EShTFL
- 6nEIJvUlBtGnup1AeIsMTSjaMLWMM1ztONsp6Z3KvYgS5JY92QxXBL2XF3hIfkH97DSi
- TFLw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqYCYdZmblku3ipDEKv3j/jfx1bMvz0xw6tBwkQb5gin31BXFLq0sC6lv2tK5RrhYdMV4L3JO/Jpnw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwGSd0J0vjqFsdDCkAr8b17SjRhpOtGHHrJdwpsufP/C3QWiMPR
- +9FcEec1Zun1+TJPukmcBDrLKZXTYnfbhy8BsqWS5jlsa+uCFgSTo4Ym
-X-Gm-Gg: AR+sD10bD3jZSzMU4bWb3Mxl8Yviv/GHzfkVElkSFVI5mZvgTDw6deq+M9whDioi2/y
- H+BNJYIDMOob2esuZGeB5ll1SXs483oWhRmpVN1yXUNY0xYGNIcaBp33Z5oJPOVfLfqOcFe08sP
- SUBrywHq64MYbIdPvZ7NOveeLhL6ZUXZzewzuc7UDXOJht0PZjHApFUayR/Ty3Kbz98WYX+Opj6
- aIrdPUlGCk/2A3WhuFKkIWCTLiJBVn4m3Gj9Huiv0cSBWVOWpnEA9P+KguRhTpQyQne2HINcGj1
- XcC9a3dlCHNpJFPxp4XXRjOXUtbI8/6rDQ59GvhtSqB7NK+L3mEausksqQGWAkuo+g8dB5bgZjk
- R8ywQF91WUIorT68wjRHO1Y0vRQ/WEGtuxhn4aMBO83XdND7FShf1bGrZLYCy8TjdJjHE1u/khm
- GNuAgVP4QkavrFJYNtD+wuzI3LjEIcXtFImWWmQaIOZR8bFfrOzWcwX9/LF1Djtvlj0vbYP5lWF
- tCA+pUKyfE=
-X-Received: by 2002:a05:6a20:a111:b0:3bf:7eb5:9459 with SMTP id
- adf61e73a8af0-3cb85ef9202mr36500133637.20.1786265525696; 
- Sun, 09 Aug 2026 01:52:05 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.205.91])
+ d=1e100.net; s=20251104; t=1786253607; x=1786858407;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=Iiw60go6Fssc+w6jEvdK+NtF+fsX/PqKIb7cNVI3nSc=;
+ b=FH34olos8dRCUZpkhPXCii9bLnwqR2wuTs3T+Tv44BGQ17nc+buyxoS1NArnqNG8EQ
+ C3RGQAoQ/YlgxQ2dNvuSUGhSslaEIiKZP/iObjHrLkyzEJTYF9VcN/D7QwfIQDVYqT0P
+ QMid8cpNT4ur/6RoBZEBTFdQHPLwYPkcWST9DfKP7NeQ94CIOiEF3+Zzt9bpDKVkoo5e
+ UAAGRRWGdxcTSJ1djtIcUezzUHN6SFhfJYM7uljcsPLzEHkDENyST0u7ox6SKghPdHIt
+ 10rRZmsot8Zs5HNAO0J22U7eMm0sYRbYs5xsq/eoFJU4bYJkNWa4YPVZbgUnVORoOuBE
+ BQpA==
+X-Gm-Message-State: AOJu0YzSr4eAfJVqNjro2ZYGaXHLGd91yqXemsG7SlpGjdgDRmZa+8Zc
+ 7D3ENKBvpc5QMyBSy29lvXGIglT9xOkH2Ww1I7Y677d3jLIAIe7X2vW4
+X-Gm-Gg: AR+sD133Qidjy4XbbFuN+CqBkljNEvIT9+aD8/u5ZufWD6FZRaqm6N0OdYD6Bks9mpp
+ nFNFbTne+1YPwZI8W+7HyJNwKHZI5k+tuN3XZ5CVOST94VSCj68sXl1r/c/nOUXFlQkrSCAXC52
+ 6FHyBL7vCclKwnmXQBb0x3llIRlAxOPffuEDRPElOCWcK/1Ib4CuuJvmlc7xLzmyXEnBqhCnxKk
+ eJW0i3VVQyvj/ObLuvh0ymVMHk2wtFRoA6FiYrjKZMVc94FTgLMUwPhVN+fwgKzaywlrcOCcT+7
+ K2kHCxIcRXnMRDkUaKJCzvWP1ylUdfpME0B8l7bUcIX97ch2fQxsiEd8u96CXk15kDxP70xXRo+
+ CTc20RdWuUs2L675t5EQ+xZXyf+czWAZO04ZHE/bC89cX6/IDG4S598sByRpm2iKgUFFPOK+9NY
+ tauQjPxVuGhOtlBTNM9/J1SoJHZAoUEXlAzHVJvgkLadJa+S4Eckx0qHMEyR6T
+X-Received: by 2002:a05:6a20:7fa6:b0:3bf:ee42:192 with SMTP id
+ adf61e73a8af0-3cbd37eeb4emr10610214637.6.1786253606859; 
+ Sat, 08 Aug 2026 22:33:26 -0700 (PDT)
+Received: from preetish-pc.. ([36.255.86.159])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.52.02
+ 5a478bee46e88-315beb88413sm44390386eec.18.2026.08.08.22.33.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 01:52:05 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v4 6/6] drm/amdgpu/ras: Fix delayed work cancellation order
- during teardown
-Date: Sun,  9 Aug 2026 08:47:35 +0000
-Message-ID: <20260809084735.9743-7-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
-References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+ Sat, 08 Aug 2026 22:33:26 -0700 (PDT)
+From: Preetish Amballi <amballip@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Preetish Amballi <amballip@gmail.com>
+Subject: [PATCH] staging: fbtft: Fix wrong controller name in fb_bd663474
+Date: Sun,  9 Aug 2026 11:02:53 +0530
+Message-ID: <20260809053253.14537-1-amballip@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -94,66 +88,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-In amdgpu_ras_fini(), cancel_delayed_work_sync() is currently called
-after ACA subsystems and locks are destroyed. Similarly, in
-amdgpu_ras_recovery_fini(), mutex_destroy(&con->page_rsv_lock) is
-called before cancel_delayed_work_sync(&con->page_retirement_dwork).
+The file fb_bd663474.c is a driver for the BD663474 LCD controller,
+but the comment header and MODULE_DESCRIPTION incorrectly reference
+'uPD161704' — a copy-paste error from fb_upd161704.c.
 
-If delayed work runs while teardown is in progress, it can attempt
-to acquire destroyed mutexes, leading to locking violations and
-potential use-after-free conditions.
+Fix the comment and MODULE_DESCRIPTION to say 'BD663474' instead of
+'uPD161704'.
 
-Fix this by moving cancel_delayed_work_sync() and cancel_work_sync()
-prior to mutex destruction and subsystem teardown in both functions,
-ensuring all pending work is synchronously canceled while locks
-remain intact.
-
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Signed-off-by: Preetish Amballi <amballip@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/staging/fbtft/fb_bd663474.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 764cd4950408..23b9844d9f1c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3994,15 +3994,14 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
- 	if (con->page_retirement_thread)
- 		kthread_stop(con->page_retirement_thread);
+diff --git a/drivers/staging/fbtft/fb_bd663474.c b/drivers/staging/fbtft/fb_bd663474.c
+index 1629c2c440a9..c34f859043ef 100644
+--- a/drivers/staging/fbtft/fb_bd663474.c
++++ b/drivers/staging/fbtft/fb_bd663474.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0+
+ /*
+- * FB driver for the uPD161704 LCD Controller
++ * FB driver for the BD663474 LCD Controller
+  *
+  * Copyright (C) 2014 Seong-Woo Kim
+  *
+@@ -166,6 +166,6 @@ MODULE_ALIAS("platform:" DRVNAME);
+ MODULE_ALIAS("spi:bd663474");
+ MODULE_ALIAS("platform:bd663474");
  
-+	cancel_work_sync(&con->recovery_work);
-+	cancel_delayed_work_sync(&con->page_retirement_dwork);
-+
- 	atomic_set(&con->page_retirement_req_cnt, 0);
- 	atomic_set(&con->poison_creation_count, 0);
- 
- 	mutex_destroy(&con->page_rsv_lock);
- 
--	cancel_work_sync(&con->recovery_work);
--
--	cancel_delayed_work_sync(&con->page_retirement_dwork);
--
- 	amdgpu_ras_ecc_log_fini(&con->umc_ecc_log);
- 
- 	mutex_lock(&con->recovery_lock);
-@@ -4751,6 +4750,8 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- 	if (!adev->ras_enabled || !con)
- 		return 0;
- 
-+	cancel_delayed_work_sync(&con->ras_counte_delay_work);
-+
- 	amdgpu_ras_critical_region_fini(adev);
- 	mutex_destroy(&con->critical_region_lock);
- 
-@@ -4785,8 +4786,6 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- 	if (AMDGPU_RAS_GET_FEATURES(con->features))
- 		amdgpu_ras_disable_all_features(adev, 0);
- 
--	cancel_delayed_work_sync(&con->ras_counte_delay_work);
--
- 	amdgpu_ras_set_context(adev, NULL);
- 	kfree(con);
- 
+-MODULE_DESCRIPTION("FB driver for the uPD161704 LCD Controller");
++MODULE_DESCRIPTION("FB driver for the BD663474 LCD Controller");
+ MODULE_AUTHOR("Seong-Woo Kim");
+ MODULE_LICENSE("GPL");
 -- 
-2.54.0
+2.43.0
 
