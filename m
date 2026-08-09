@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF5C3C5B561
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 13:15:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE4DEC5B55D
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 13:15:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1C6B10E578;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 72EA210E56E;
 	Sun,  9 Aug 2026 13:15:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bFTBZBIe";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VDrlU8hv";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 521E710E155
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 13:15:23 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D1E8E10E140
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 13:15:22 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 40F7244EEF;
- Sun,  9 Aug 2026 13:15:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 219BBC2BCF5;
- Sun,  9 Aug 2026 13:15:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E16364500E;
+ Sun,  9 Aug 2026 13:15:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BF6E7C32786;
+ Sun,  9 Aug 2026 13:15:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786281322;
- bh=TJKB9gAU8hAV/dp4YGZIrl98K3SXxpdpaQ+kxnNhMsw=;
+ s=k20201202; t=1786281321;
+ bh=vKDbRg4XZkgHrtO10qse7GVmheGJdzt6mePjP73cFlY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=bFTBZBIe3rg1Q4Enak9VZP5g939pWRHlTWxgUQgLGl0GTpmMbI7Vf1NHiPIlzhwtu
- Dmc9GMiYE7Ol84WtrdGRFAsDEPERyZyna1wRvrNhQwesBOykQdG0ZuQ0dxD7rOxiur
- mUHN8eyAT0eRNjKmcr3CIhFzWYIEfetEtnzWm6HwgONG413E59PJYH3cOzHEx7ZDrk
- ffvWTiscVD7WkURxIZphbBckmc7srAE+nxdcGqGP4vYg6oknuGPzT/aslx3q6ljvWJ
- I6mvJeezcqsbUHxKZOl2UhDTJIIRXTT/TdZXpN73ECjfCuFPTkkVhT4RorCSpYXs0x
- 6w1T1EPaVbNZA==
+ b=VDrlU8hvT5rqwUD0/4XgOm6cN3J5w+qoRGpMVvfzXblecbUsBiDnZPtXPdfESlxA7
+ Ec7UiL7oVxtPA6HDKrIG3qD/Y/k4V6nOAuCR/yJf3HQzt80IG1co177opkDm/gGfPR
+ UfXX/LRHpo+lWcbq/ZeG/lA+wk51j/1CXgmoOsh0NhdW3Bmpl7L5J5/G6rzBSuQB97
+ ZbY+50IO9w1e8r9YYW2rNNKmsE+MxMPy+gfE3rFQ2E34f8tq7XXVH8FiH4mGb7ZCgx
+ ujPi+kPpM6z5Tg7P7QRjnCtXXJR22q++xOQZtPd+SluQvVZVFYEDygzEYPrzg0EJyL
+ V31M5LEwk5N7g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 0D34AC5AD4E;
- Sun,  9 Aug 2026 13:15:22 +0000 (UTC)
+ by smtp.lore.kernel.org (Postfix) with ESMTP id A6F26C5AD7B;
+ Sun,  9 Aug 2026 13:15:21 +0000 (UTC)
 From: Cody Kang via B4 Relay <devnull+codykang.hk.gmail.com@kernel.org>
-Date: Sun, 09 Aug 2026 21:14:25 +0800
-Subject: [PATCH v2 16/17] riscv: dts: spacemit: k3-com260-ifx: enable the
- DisplayPort output
+Date: Sun, 09 Aug 2026 21:14:22 +0800
+Subject: [PATCH v2 13/17] MAINTAINERS: add SpacemiT K3 display driver entry
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260809-k3-display-v2-16-327d7910bf71@gmail.com>
+Message-Id: <20260809-k3-display-v2-13-327d7910bf71@gmail.com>
 References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
 In-Reply-To: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -62,11 +61,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
  linux-clk@vger.kernel.org, Cody Kang <codykang.hk@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786281298; l=1996;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786281298; l=990;
  i=codykang.hk@gmail.com; s=codykang; h=from:subject:message-id;
- bh=bDzCEbg4Ro8zSSgw6S6oLDaHK3U8ySxkW2QdyX9XeEQ=;
- b=PxUeBROVtI/bhvyeufA2ol0EOCQM47kl/BlTY0uhkjcmZ2NM5vq743ZQSfSmVnGnGt5qx5RbG
- pESN31dKvBPApSkV8r8qTHMr0Wwiv4nTD3haNUT9lUFD6lkP5LG9nNj
+ bh=uE//zxGHdM4vouTm7VJyhpSaodElUoNAgs+MFj3YrE4=;
+ b=HsG8S4sGhDTpwnC8X70jlY2o1/CvltfjMRBHZVAdSD/xf4d4GzoxH6Zo2wJZBdGtzkt5d13WA
+ ZVva0mj0VbpAvha5Aw5jH0tuaOCPDC5pqcXdOTyh98XsBnX9YRkQoEQ
 X-Developer-Key: i=codykang.hk@gmail.com; a=ed25519;
  pk=Osn6/cs9Su/mHHw4P19cmVc3v2FMQfiWahjsN0vEkuk=
 X-Endpoint-Received: by B4 Relay for codykang.hk@gmail.com/codykang with
@@ -90,85 +89,39 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Cody Kang <codykang.hk@gmail.com>
 
-CoM260-IFX carries a single DisplayPort output, so the second DPU and
-the DisplayPort controller it feeds are enabled.
+Cover the Saturn DPU, the Innosilicon DP/eDP controller, the DP PHY and
+their bindings.
 
 Signed-off-by: Cody Kang <codykang.hk@gmail.com>
 
 ---
 v2:
-- describe the DP receptacle (dp-connector) and link it to dp1 port@1
-  (Rob Herring, on patch 03)
+- no change
 ---
- arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 27 ++++++++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi   | 11 +++++++++++
- 2 files changed, 38 insertions(+)
+ MAINTAINERS | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-index 238bb03d0e9e2..ec87c281e02c6 100644
---- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-+++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
-@@ -5,6 +5,7 @@
-  */
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6dea93a419624..9f2910a17c387 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25436,6 +25436,16 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/i2c/spacemit,k1-i2c.yaml
+ F:	drivers/i2c/busses/i2c-k1.c
  
- #include "k3-com260.dtsi"
-+#include "k3-display.dtsi"
- 
- / {
- 	model = "SpacemiT K3 CoM260 IFX";
-@@ -18,4 +19,30 @@ aliases {
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
++SPACEMIT K3 DISPLAY DRIVER
++M:	Cody Kang <codykang.hk@gmail.com>
++L:	dri-devel@lists.freedesktop.org
++L:	linux-riscv@lists.infradead.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/display/spacemit/
++F:	Documentation/devicetree/bindings/phy/spacemit,k3-inno-dp-phy.yaml
++F:	drivers/gpu/drm/spacemit/
++F:	drivers/phy/spacemit/phy-k3-inno-dp.c
 +
-+	connector {
-+		compatible = "dp-connector";
-+		label = "DP1";
-+		type = "full-size";
-+
-+		port {
-+			dp1_connector_in: endpoint {
-+				remote-endpoint = <&dp1_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&dpu1_crtc0 {
-+	status = "okay";
-+};
-+
-+&dp1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&dp1_3_cfg>;
-+	status = "okay";
-+};
-+
-+&dp1_out {
-+	remote-endpoint = <&dp1_connector_in>;
- };
-diff --git a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-index 2f36eba20f1ee..dbe8db4a8b764 100644
---- a/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-+++ b/arch/riscv/boot/dts/spacemit/k3-pinctrl.dtsi
-@@ -22,6 +22,17 @@ dp1-pins {
- 		};
- 	};
- 
-+	/omit-if-no-ref/
-+	dp1_3_cfg: dp1-3-cfg {
-+		dp1-pins {
-+			pinmux = <K3_PADCONF(72, 4)>;	/* dp1 hpd */
-+
-+			bias-disable;
-+			drive-strength = <25>;
-+			power-source = <3300>;
-+		};
-+	};
-+
- 	gmac0_rgmii_0_cfg: gmac0-rgmii-0-cfg {
- 		gmac0-rgmii-0-pins {
- 			pinmux = <K3_PADCONF(0, 1)>,	/* gmac0_rxdv */
+ SPANISH DOCUMENTATION
+ M:	Carlos Bilbao <carlos.bilbao@kernel.org>
+ R:	Avadhut Naik <avadhut.naik@amd.com>
 
 -- 
 2.43.0
