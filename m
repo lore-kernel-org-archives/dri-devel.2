@@ -4,99 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E532C5AD7B
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 17:35:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF6D4C5AE5D
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 17:46:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1176D10E19C;
-	Sun,  9 Aug 2026 17:35:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7BCB10E18E;
+	Sun,  9 Aug 2026 17:46:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=broadcom.com header.i=@broadcom.com header.b="hziQrg/R";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="UabY2i2O";
 	dkim-atps=neutral
-Received: from mail-ot1-f100.google.com (mail-ot1-f100.google.com
- [209.85.210.100])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD02410E19C
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 17:35:30 +0000 (UTC)
-Received: by mail-ot1-f100.google.com with SMTP id
- 46e09a7af769-7eb545db3afso881063a34.0
- for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 10:35:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786296929; x=1786901729;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=1A2f+IE9x32lo4cEOs3hQjptkhcDmHQtxpnFUygtuO4=;
- b=FaUpzc9zoLfUE9igqWqf6npBT1XR0HLg3MUWfGkHAEcMQTeZxPn4Jfxv1EqJi7zWsK
- 1z0DiNxnHeQwCgD61UwmiQl6QsO8PSXN+zc/5q60Kwg8lfSNJXMFyzokPtEIcjiKMOQC
- 3ZVi1i8Ty8ssbW1MHrH0noGTlUQSL8tTzs6sv2NSw/2TK/YxqXwVYOmPyhtRXydwEFGl
- MhrHizqmPFUvugf0RIJIejUenD54OAaVMfM0jzWckM/aEjA7XYDM+frQv89koK6GIyE3
- Cp4V57ja2fwdC+mAODphZ0e5wqdLPtdDzKSaqA6LpZH1nkOCevhrg9UJJM9vw7h7F8t0
- tmTg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Ro2wa4G8Fg1GSn0N1AQYLTkIQOlL4EWG4zGUAP+ygTOUlPfbWtLBBVAmD7ZlEqOexBa2wbMhEY/Nsw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yyh4Wu37+sm+i1qGT+X0k0chE6nK1fk1E0r+UwTpN06mG8AbtzJ
- TnKTD/RgaYm8zWJhP87su+j3ZTGs5kjQ80lQCwN73RIwiCRpdS28l6IKdrXJA8JOa25+EGxzmNR
- fNskn4Xf1KK7TwVLAROoLDE8IiotO04Ypqa3QEKJ4oPjcAhAd6twmQHZ8kvrFqEjxLnHcrdtHTg
- dWwpxfkcHZ4/W16zx3iCIs9k51ABeHvR5FA8GQ3HiGTyW/EuIjGv2dF3sxnmjIWsh6lJf4eCNfU
- Vi8FBE4/0ve4VoI9YWH
-X-Gm-Gg: AR+sD12cQY9eh1aT+N1QtJktO/zGrRycr3794LcXVgR+LL+ecMID8684hS8vyQTRivo
- NQ+ZmPzyzvnyPM37cTB40OQDJEMYhvmt8rZhbDqSIDj1BjxWYA7j9VW/1pse6Ft+rI5nF1HFjCX
- c3iZS/UDusc2yUZMn8ktW+1zuwoBojLSpmZvZZzFYxdTsftW3ynUGLIBAgwu3uKuU98qYDiRMhj
- fTmPGn5+sYRdHwYOYUS4zIgDVcOFl/ldaYDo5vP18PkWVte75TsXKCceUisHhbxkjppsxnDYS+b
- CKeiL0xlpy6Kvk4tYozmSOsiB0+aCxH89gUhfVx7JHzmNOtTaQtn+0YcYhVuAR0ueRLObQ1v89c
- wZoWk6Nt/SKHTpy0k3FL7K16/Aw4h42kFNVB3hsY0H2bAEkrV4LVodUAfYSgPQ9UniJ7LK06z7D
- y/2bnw0bfyqPa/FFnIb0Ny+tWde11hPK00
-X-Received: by 2002:a05:6830:82e5:b0:7ea:b8c:4198 with SMTP id
- 46e09a7af769-7f3691ac609mr9547283a34.8.1786296928958; 
- Sun, 09 Aug 2026 10:35:28 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-20.dlp.protect.broadcom.com. [144.49.247.20])
- by smtp-relay.gmail.com with ESMTPS id
- 46e09a7af769-7f35b7e4eb4sm539977a34.7.2026.08.09.10.35.27
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sun, 09 Aug 2026 10:35:28 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-lf1-f69.google.com with SMTP id
- 2adb3069b0e04-5b291a1420fso882573e87.2
- for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 10:35:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1786296926; x=1786901726;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=1A2f+IE9x32lo4cEOs3hQjptkhcDmHQtxpnFUygtuO4=;
- b=hziQrg/RZeNoq5iVJMP1Og11xRuIbeRRT2kjc+49gmhhYywOeIh9UojvaWVrqoXz/I
- FziyADQ9TpQ/OXoQOXkA4zoZZzYcEtfODCt/syinGO58h5y2Y6+5av1AHkKrIjE6DHfw
- n4SaCcYp32Izu0MkXaJQYNlVpjv1hyVAsDGGw=
-X-Forwarded-Encrypted: i=1;
- AHgh+RoORfAhAuHn1vwwptogb13kVCijUrAdJcOjZNIHwkr/FfwUHwMN9rOfIq9kuGfFtL87pPCaV9bgiXg=@lists.freedesktop.org
-X-Received: by 2002:a05:6512:1d1:b0:5b2:9358:b854 with SMTP id
- 2adb3069b0e04-5b30b77a58emr1308524e87.42.1786296925704; 
- Sun, 09 Aug 2026 10:35:25 -0700 (PDT)
-X-Received: by 2002:a05:6512:1d1:b0:5b2:9358:b854 with SMTP id
- 2adb3069b0e04-5b30b77a58emr1308515e87.42.1786296925094; Sun, 09 Aug 2026
- 10:35:25 -0700 (PDT)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B419110E17A;
+ Sun,  9 Aug 2026 17:46:27 +0000 (UTC)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 679FW1sE3277678; Sun, 9 Aug 2026 17:45:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=pp1; bh=1V46XsJ2ASYOMqPQa9NRG149ty7O7K
+ B1wPG7dfwq0b8=; b=UabY2i2O0DFebgnB5Itk1pRi3/Htbxgsnj9zfMhYyXAq+k
+ yF4QkmQIRPAjVGN5n1TRYRA93L73U7SajNdDfI3dDHHhuVPIhOocLrBCQRPGo6fO
+ zRUesLej41tQv0v/OKC288JhXJxpOKbIav1Tz2cpvXyghY1uWfY3xJlpLdnQWSkO
+ g9By3jcVfZdNthUqy8R7s35WFAUQpmZ+ICuM5XKofi9TBR9lWHWDncMDr7e2p4Pd
+ ahAwkkpqBsFsqnU9UxNpc/YeN9/xorzOtztL+lqAorMkbJvqxaDn+ti/Ykb1NS4P
+ GkIfLBl2FlcgU/0FYB7OxhPqwp9WpNOjoazF1Vnw==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fwvq94twx-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 09 Aug 2026 17:45:48 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 679HfJG7012053;
+ Sun, 9 Aug 2026 17:45:47 GMT
+Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fxf5vt2bb-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Sun, 09 Aug 2026 17:45:47 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com
+ [10.20.54.104])
+ by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 679HjjQR34275656
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Sun, 9 Aug 2026 17:45:45 GMT
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 0842520040;
+ Sun,  9 Aug 2026 17:45:45 +0000 (GMT)
+Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 7C40720043;
+ Sun,  9 Aug 2026 17:45:42 +0000 (GMT)
+Received: from li-008a6a4c-3549-11b2-a85c-c5cc2836eea2.ibm.com (unknown
+ [9.87.135.220])
+ by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+ Sun,  9 Aug 2026 17:45:42 +0000 (GMT)
+Date: Sun, 9 Aug 2026 19:45:41 +0200
+From: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Muhammad Usama Anjum <usama.anjum@arm.com>
+Cc: Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Dimitri Sivanich <dimitri.sivanich@hpe.com>, Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Helge Deller <deller@gmx.de>, Juergen Gross <jgross@suse.com>,
+ Stefano Stabellini <sstabellini@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ David Hildenbrand <david@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Uladzislau Rezki <urezki@gmail.com>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>,
+ Andrii Nakryiko <andrii@kernel.org>, Eduard Zingerman <eddyz87@gmail.com>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, SJ Park <sj@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Leon Romanovsky <leon@kernel.org>, Miaohe Lin <linmiaohe@huawei.com>,
+ Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>, ziy@nvidia.com, pfalcato@suse.de,
+ ryan.roberts@arm.com, linux-kernel@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-parisc@vger.kernel.org, xen-devel@lists.xenproject.org,
+ linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org, kasan-dev@googlegroups.com,
+ linux-trace-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, damon@lists.linux.dev
+Subject: Re: [PATCH 1/9] mm: introduce hw_pte_t for PTE table storage
+Message-ID: <4a42c498-58ca-46f4-819f-da14cfba154f-agordeev@linux.ibm.com>
+References: <20260806083926.1807279-1-usama.anjum@arm.com>
+ <20260806083926.1807279-2-usama.anjum@arm.com>
+ <3db8233c-3785-444e-b2eb-3e5fc5cb2f17-agordeev@linux.ibm.com>
+ <eef14e97-20cd-4b08-ae22-7636af049b09@arm.com>
 MIME-Version: 1.0
-References: <20260808231002.67559-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260808231002.67559-1-qwe.aldo@gmail.com>
-From: Zack Rusin <zack.rusin@broadcom.com>
-Date: Sun, 9 Aug 2026 13:35:11 -0400
-X-Gm-Features: AUfX_mzYwGPWCMi5xRzWakDTU1VYIQNch6sjAGS4IVT-E0jXJbnOWJ5YtIPHpJM
-Message-ID: <CABQX2QOWeCRBKXPv7gZrCXE9FuesWn0_3SEC33RjPDJHgPUxHw@mail.gmail.com>
-Subject: Re: [PATCH] drm/vmwgfx: return an error when a shared GB surface has
- no backup buffer
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Cc: Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature";
- micalg=sha-256; boundary="000000000000bdb5f30658a0a997"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <eef14e97-20cd-4b08-ae22-7636af049b09@arm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: ehRYw8QMBCJQ6XIfQUmc1xOZ8VBocr8y
+X-Authority-Analysis: v=2.4 cv=PbDPQChd c=1 sm=1 tr=0 ts=6a78bccc cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=kj9zAlcOel0A:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=7CQSdrXTAAAA:8
+ a=7ZejAh3qsUrew3BXsuMA:9 a=CjuIK1q_8ugA:10 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA5MDE1OCBTYWx0ZWRfX8PAJydAF9Sdz
+ 7Q3LQNawdCCW5p3S9Cbrhno/+8i0akWT9oxXen6S0nUhBQsH880/7RsGl95VX21rT54x9YhFqi1
+ 20KERD3HCbwvoqxx4T70j96cVKwA2YxlZ6l2xOFcmMWRehBEI40oNe5oKbokVHGzUV8t5ZkpMSK
+ ns0C/90GTY6G7Afmg3i4iWKGKI/x2MSzhpkhUmia4LUS0tqD/uSG8uJudCOs75ncoAMtIyBtPts
+ SBc2vAEfXkhI2UuaiCwcdAwFVnvK8EgubcrGc/SgeNggiVPjDgs5qWQ8+vOIPtcC9cEpr02poOB
+ Lg7APmO3Rx8vA6tguusRIZ4Fs8vWJdm8vnK+m2H0UOB6WahoA26KXbJqrB0927hzkoKT62s0AOf
+ RGde2c8tcj7xMXKNQULCZu1ZlHt1NIVwRcJ45XzbncbVNxXZWhcoK8gsn97hT6hSSx+Fo3N5VVF
+ ELeKceQfHYIaUoeswKw==
+X-Proofpoint-ORIG-GUID: ehRYw8QMBCJQ6XIfQUmc1xOZ8VBocr8y
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA5MDE1OCBTYWx0ZWRfX40Jd01nPAYq/
+ 0UVJDKsUAxNz/IYIJFjnAhSgQRETCQqeUcuCeVy3WJaqKm5o/wyOjpQIKh0TKZ3HawAxontKM5X
+ Anm2JSFRi6CK3bLpHrJPHohn6MgFj5w=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-09_05,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 impostorscore=0 malwarescore=0 adultscore=0
+ clxscore=1015 priorityscore=1501 suspectscore=0 phishscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608090158
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,213 +153,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
---000000000000bdb5f30658a0a997
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Fri, Aug 07, 2026 at 04:24:00PM +0100, Muhammad Usama Anjum wrote:
+> On 07/08/2026 8:09 am, Alexander Gordeev wrote:
+> > On Thu, Aug 06, 2026 at 09:38:39AM +0100, Muhammad Usama Anjum wrote:
+> >> pte_t is used both for logical PTE values and for entries stored in a PTE
+> >> table, so pte_t * does not distinguish a pointer to a copied value from a
+> >> pointer to table storage.
+> >>
+> >> Introduce hw_pte_t as the generic name for a PTE table element. Define it
+> >> as a macro alias of pte_t by default. When an architecture selects
+> >> ARCH_HAS_HW_PTE_T, define it as a structure containing a pte_t instead.
+> >> This preserves the representation while allowing converted architectures
+> >> to enforce the distinction at compile time.
+> >>
+> >> Keep the C type definitions behind an __ASSEMBLY__ check because
+> >> architecture assembly sources can include this header indirectly. Include
+> >> asm/page.h so consumers such as linux/vmalloc.h retain the page definitions
+> >> they previously obtained from that header.
+> >>
+> >> Signed-off-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> >> ---
+> >> Changes since RFC v1:
+> >> - Add the ARCH_HAS_HW_PTE_T opt-in and generic wrapper definition.
+> >> - Exclude the C type definitions from assembly sources.
+> >> - Update the description for the new opt-in model.
+> >> ---
+> >>  MAINTAINERS                   |  1 +
+> >>  include/linux/pgtable_types.h | 17 +++++++++++++++++
+> >>  mm/Kconfig                    |  3 +++
+> >>  3 files changed, 21 insertions(+)
+> >>  create mode 100644 include/linux/pgtable_types.h
+> >>
+> >> diff --git a/MAINTAINERS b/MAINTAINERS
+> >> index e9c8567308a75..7169bea968cf5 100644
+> >> --- a/MAINTAINERS
+> >> +++ b/MAINTAINERS
+> >> @@ -16982,6 +16982,7 @@ F:	include/linux/mmu_notifier.h
+> >>  F:	include/linux/pagewalk.h
+> >>  F:	include/linux/pgalloc.h
+> >>  F:	include/linux/pgtable.h
+> >> +F:	include/linux/pgtable_types.h
+> >>  F:	include/linux/ptdump.h
+> >>  F:	include/linux/vmpressure.h
+> >>  F:	include/linux/vmstat.h
+> >> diff --git a/include/linux/pgtable_types.h b/include/linux/pgtable_types.h
+> >> new file mode 100644
+> >> index 0000000000000..70c3edd00a01b
+> >> --- /dev/null
+> >> +++ b/include/linux/pgtable_types.h
+> >> @@ -0,0 +1,17 @@
+> >> +/* SPDX-License-Identifier: GPL-2.0 */
+> >> +#ifndef _LINUX_PGTABLE_TYPES_H
+> >> +#define _LINUX_PGTABLE_TYPES_H
+> >> +
+> >> +#include <asm/page.h>
+> >> +
+> >> +#ifndef __ASSEMBLY__
+> >> +
+> >> +#ifdef CONFIG_ARCH_HAS_HW_PTE_T
+> >> +typedef struct { pte_t __pte; } hw_pte_t;
+> > 
+> > On s390 it fails to compile once we do typedef hw_pte_t *pgtable_t
+> > in asm/page.h. m68k, powerpc and sparc may also have such problem.
+> > 
+> > The below declaration helps to resolve it using forward declaration
+> > and without meddling with headers, though I do not like it much:
+> > 
+> > typedef struct __hw_pte_t { pte_t __pte; } hw_pte_t;
+> Thank you for testing it out on s390.
+> 
+> As __hw_pte_t isn't being used yet in this series, would s390 enablement
+> patches add __hw_pte_t to this definition?
 
-On Sat, Aug 8, 2026 at 7:10=E2=80=AFPM Aldo Ariel Panzardo <qwe.aldo@gmail.=
-com> wrote:
->
-> vmw_gb_surface_reference_internal() rejects a surface without a backup
-> buffer by logging an error and jumping to the exit label, but it never
-> sets ret on that path:
->
->         ret =3D vmw_surface_handle_reference(dev_priv, file_priv, req->si=
-d,
->                                            req->handle_type, &base);
->         if (unlikely(ret !=3D 0))
->                 return ret;
->         ...
->         if (!srf->res.guest_memory_bo) {
->                 DRM_ERROR("Shared GB surface is missing a backup buffer.\=
-n");
->                 goto out_bad_resource;
->         }
->         ...
-> out_bad_resource:
->         ttm_base_object_unref(&base);
->
->         return ret;
->
-> ret is still 0 from the successful vmw_surface_handle_reference() above,
-> so the function returns success while leaving *rep completely unwritten.
-> The other goto to the same label is inside an if (ret !=3D 0) block and s=
-o
-> carries a real error; this one is the only path that reaches the label
-> with ret =3D=3D 0.
->
-> The caller then copies that untouched output structure to user space.
-> For DRM_VMW_GB_SURFACE_REF, vmw_gb_surface_reference_ioctl() passes a
-> stack local:
->
->         struct drm_vmw_gb_surface_ref_ext_rep rep_ext;
->         int ret;
->
->         ret =3D vmw_gb_surface_reference_internal(dev, req, &rep_ext, fil=
-e_priv);
->
->         if (unlikely(ret !=3D 0))
->                 return ret;
->
->         rep->creq =3D rep_ext.creq.base;
->         rep->crep =3D rep_ext.crep;
->
-> so 48 + 24 =3D 72 bytes of an uninitialised stack variable are copied int=
-o
-> the ioctl buffer, and drm_ioctl() copies that buffer back out.  The ioctl
-> is a DRM_IOWR of exactly 72 bytes, so in_size =3D=3D out_size and the cor=
-e
-> does not zero any tail.  DRM_VMW_GB_SURFACE_REF is DRM_RENDER_ALLOW, so
-> this is reachable by an unprivileged local user through a render node.
->
-> What actually leaks depends on how the kernel was built.  With
-> CONFIG_INIT_STACK_ALL_ZERO, which is the Kconfig default whenever the
-> compiler supports it and therefore what the major distributions ship,
-> rep_ext is zeroed on function entry and user space receives 72 zero
-> bytes.  With CONFIG_INIT_STACK_NONE the contents are whatever the
-> previous call at that stack depth left behind; on a test kernel built
-> that way, 53 of the 72 bytes came back non-zero and several of them were
-> kernel pointers.  So the information disclosure is configuration
-> dependent, but the control flow defect is not: on every configuration
-> the ioctl reports success and hands back a reply that was never
-> produced, which user space cannot distinguish from a real one.
->
-> The path was correct when the ioctl was introduced in a97e21923b42
-> ("drm/vmwgfx: Hook up guest-backed surfaces"): ret was initialised to
-> -EINVAL and the first assignment to it came after this goto, so the
-> label really did return -EINVAL.  14b1c33e8429 split the handler into
-> vmw_gb_surface_reference_internal() and moved the
-> vmw_surface_handle_reference() call - and with it the first assignment
-> to ret - above the check, which left the initialiser dead and this path
-> returning 0.  The dead initialiser was removed later, as a Coverity
-> "unused value", by c594285f30fa ("drm/vmwgfx: remove redundant
-> assignment to variable ret"); that removal was correct in itself.
->
-> The driver already knows the request failed - it logs an error - so
-> report that to the caller.
->
-> Fixes: 14b1c33e8429 ("drm/vmwgfx: Add new ioctl for GB surface create and=
- reference")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+I hope there is a better solution. As I noted m68k, powerpc and sparc
+may also be affected, so I would suggest to look into those as well.
+I would prefer s390 to use the generic one rather than circumvent a
+compile error in a custom way.
 
-Hi, thanks for the patch! Did you forget to disclose the llm used to
-find and fix it? I'm asking because that commit description is very
-hard to read for what is essentially "ret hasn't been correctly
-assigned, returning stale success status and leading to possible
-invalid reads in userspace". Plus, I'd like to know how to handle the
-commits referenced in the description. In general, I'd trust them if
-you have looked them up yourself by hand but I'll need to validate a
-lot more carefully if they're llm generated.
-
-We probably also want to add a ttm_ref_object_base_unref(tfile,
-base->handle); to the out_bad_resource section because before with
-this function returning success it, accidently, made userspace still
-call DRM_VMW_UNREF_SURFACE balencing out the ttm file reference count.
-Now we're just going to be leaking the reference added by
-ttm_ref_object_add in vmw_surface_handle_reference.
-
-z
-
---000000000000bdb5f30658a0a997
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-6U6qgI8F5eiKsQyE0HgYrQJx/sDs9LLVZlaNiA3U8M8CgEnb8VhuH3BN/yXphhEQdJXb1TyaJA60
-SmHcZdEQZbl4EjwUcs3UIowmI/Mhi7ADQB7VNsO/BaOVBEQk53xH+4djY/cg7jvqTTeliY05j2Yx
-uwwXcDC4mWjGzxAT5DVqC8fKQvon1uc2heorHb555+sLdwYxAgMBAAGjggHYMIIB1DAOBgNVHQ8B
-Af8EBAMCBaAwgZMGCCsGAQUFBwEBBIGGMIGDMEYGCCsGAQUFBzAChjpodHRwOi8vc2VjdXJlLmds
-b2JhbHNpZ24uY29tL2NhY2VydC9nc2djY3I2c21pbWVjYTIwMjMuY3J0MDkGCCsGAQUFBzABhi1o
-dHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMwZQYDVR0gBF4wXDAJ
-BgdngQwBBQMBMAsGCSsGAQQBoDIBKDBCBgorBgEEAaAyCgMCMDQwMgYIKwYBBQUHAgEWJmh0dHBz
-Oi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRvcnkvMAkGA1UdEwQCMAAwQQYDVR0fBDowODA2
-oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNvbS9nc2djY3I2c21pbWVjYTIwMjMuY3JsMCIG
-A1UdEQQbMBmBF3phY2sucnVzaW5AYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8G
-A1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1UdDgQWBBQNDn2m/OLuDx9YjEqPLCDB
-s/VKNTANBgkqhkiG9w0BAQsFAAOCAgEAF463syOLTQkWZmEyyR60W1sM3J1cbnMRrBFUBt3S2NTY
-SJ2NAvkTAxbPoOhK6IQdaTyrWi8xdg2tftr5FC1bOSUdxudY6dipq2txe7mEoUE6VlpJid/56Mo4
-QJRb6YiykQeIfoJiYMKsyuXWsTB1rhQxlxfnaFxi8Xy3+xKAeX68DcsHG3ZU0h1beBURA44tXcz6
-fFDNPQ2k6rWDFz+XNN2YOPqfse2wEm3DXpqNT79ycU7Uva7e51b8XdbmJ6XVzUFmWzhjXy5hvV8z
-iF+DvP+KT1/bjO6aNL2/3PWiy1u6xjnWvobHuAYVrXxQ5wzk8aPOnED9Q8pt2nqk/UIzw2f67Cn9
-3CxrVqXUKm93J+rupyKVTGgKO9T1ODVPo665aIbM72RxSI9Wsofatm2fo8DWOkrfs29pYfy6eECl
-91qfFMl+IzIVfDgIrEX6gSngJ2ZLaG6L+/iNrUxHxxsaUmyDwBbTfjYwr10H6NKES3JaxVRslnpF
-06HTTciJNx2wowbYF1c+BFY4r/19LHygijIVa+hZEgNuMrVLyAamaAKZ1AWxTdv8Q/eeNN3Myq61
-b1ykTSPCXjBq/03CMF/wT1wly16jYjLDXZ6II/HYyJt34QeqnBENU9zXTc9RopqcuHD2g+ROT7lI
-VLi5ffzC8rVliltTltbYPc7F0lAvGKAxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYD
-VQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBD
-QSAyMDIzAgxhPxw+eieHWB40hPkwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIOci
-EHorKLbUnuvupB2U1yz6/yRGJggoos0VGryvGVZeMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEw
-HAYJKoZIhvcNAQkFMQ8XDTI2MDgwOTE3MzUyNlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQME
-ASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJ
-YIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAFO1v8vhVAvqm4vNoZ1pKvPpeKJir85f+Clm8yQR
-5JkNqkI5gX7CS33HvTfHzJpekzX/1sULldybVYFYGaQG7QPWZ+dwmmrm0xZOqA7JM46VNzBEIIm1
-tglSdECo3f77G2VUwadedEv0CQs6iQZmE73yyudWluT/DLjZVSw53a7wnk5NKHVuKtcDu1kZ5v61
-hiegaQ+R7NJVg16Q2U1b3h/Fldgdmc1oMYvUDhtg0BMTwlaDVInAAyqDCzp3oOdPe4MLpdfccm8S
-VBRPtH2lsjzYs++EC3qj3N9xkxcqAB7nfhqtmBhmDc7KedxsGHcp48Wo8/Yp30cdBisY3VtHHXc=
---000000000000bdb5f30658a0a997--
+> This could have been avoided if each architecture defined its own hw_pte_t.
+> But for now we are keeping the generic definition of hw_pte_t.
+> 
+> > 
+> >> +#else
+> >> +#define hw_pte_t pte_t
+> >> +#endif
+> >> +
+> >> +#endif /* !__ASSEMBLY__ */
+> >> +
+> >> +#endif /* _LINUX_PGTABLE_TYPES_H */
+> >> diff --git a/mm/Kconfig b/mm/Kconfig
+> >> index 331daf7fcfab5..31ba9ebf4aafd 100644
+> >> --- a/mm/Kconfig
+> >> +++ b/mm/Kconfig
+> >> @@ -1316,6 +1316,9 @@ comment "GUP_TEST needs to have DEBUG_FS enabled"
+> >>  config GUP_GET_PXX_LOW_HIGH
+> >>  	bool
+> >>  
+> >> +config ARCH_HAS_HW_PTE_T
+> >> +	bool
+> >> +
+> >>  config DMAPOOL_TEST
+> >>  	tristate "Enable a module to run time tests on dma_pool"
+> >>  	depends on HAS_DMA
+> >> -- 
+> >> 2.47.3
+> >>
+> 
+> -- 
+> Thanks,
+> Usama
+> 
