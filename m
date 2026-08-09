@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 466C6C5B568
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 13:15:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9D4CC5B567
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 13:15:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5691810E560;
-	Sun,  9 Aug 2026 13:15:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9050510E579;
+	Sun,  9 Aug 2026 13:15:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="gbmdMSpS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="oIZbW8Wr";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 69AC510E155
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0695A10E07A
  for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 13:15:22 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3685042E5F;
- Sun,  9 Aug 2026 13:15:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 15B6EC32782;
- Sun,  9 Aug 2026 13:15:21 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BD28844F61;
+ Sun,  9 Aug 2026 13:15:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 93F15C2BCFA;
+ Sun,  9 Aug 2026 13:15:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786281321;
- bh=/d3ng0iwmoGKVPv9q5wEYTtGLb4FtDk6DQ0ivHeDc9g=;
+ s=k20201202; t=1786281320;
+ bh=8IMEYD3n6yT8ZSbC1ZnVI+oSqA0c5prW8Yu3yOGSG30=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=gbmdMSpSYn3fJaea+HkzZGsUng8C3CbC6a+b8ppsYw7JZDBWGaPrDpUqhsE1YoxfG
- CTkdi+A0VpZPagas7CvZHU8l+rsnRFtPM9sOpkmxjuXkXNaC/HVKI2oTonTsJpARnC
- Pm8sYTX99VZ1KYckZRa14lXbKQ/mZanXRZuYgTyruFjXQnOW4GAtZlZSbnBj3zJluQ
- ekxjQMCJVpVzLGCb3Qnr+oJQyXh4fyRT377j3ubNvxUMRnZhEvGabM81ZLHlrmGGqn
- VCjFI7ilPARjSDJQEkd0s2wgwdhr/j3NoincMQIqHIkmkBmwFWVARMjWRUytm8mVSk
- W6wPLVHvVOzdQ==
+ b=oIZbW8WrItwMHYpdn4Hf75VXs8fnpDhQ4NwjdheyknMEB7eCP75ZPWyM9XuR1VplY
+ TAmnGznDsqF/i0SZiPkfTaKe4MhMe8szqIMKJu1oFkKWTVD2v/Sz+8mAKbGkytlFUZ
+ +p2RpRHBmhnEQki9bfDyxcN0+zOOgIskLr4qjZPfBXm41wpsGGYLCMxcCc9fDiD/0a
+ B7Fo5A6/jgLWPykW8uKmRoSi23bT+WLaTOrNb8zgpKxXW5YdWwrQERcZnOwGgIRLWh
+ U8fAEvbA6WhTK7tM1NbW1d26BZficW/R167rR5sIYu9bSx29VWl7Te1DMja0fLDlLf
+ WXP7ckvNCXWqQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id F1D43C5AD6A;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 7EA62C5AD68;
  Sun,  9 Aug 2026 13:15:20 +0000 (UTC)
 From: Cody Kang via B4 Relay <devnull+codykang.hk.gmail.com@kernel.org>
-Date: Sun, 09 Aug 2026 21:14:18 +0800
-Subject: [PATCH v2 09/17] drm/spacemit: add Saturn DPU hardware backend
+Date: Sun, 09 Aug 2026 21:14:14 +0800
+Subject: [PATCH v2 05/17] phy: spacemit: add Innosilicon DP TX PHY driver
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260809-k3-display-v2-9-327d7910bf71@gmail.com>
+Message-Id: <20260809-k3-display-v2-5-327d7910bf71@gmail.com>
 References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
 In-Reply-To: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -61,11 +61,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
  linux-clk@vger.kernel.org, Cody Kang <codykang.hk@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786281298; l=55357;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786281298; l=32412;
  i=codykang.hk@gmail.com; s=codykang; h=from:subject:message-id;
- bh=8hwJ7Fn80JOi9JLv1fWAkqFqKCqJGfcEfnOARuG1R3w=;
- b=nOH7kTCZPhKQRgEJRwcaPcWgQgJ3TBljSnIa8R9AI8oNHWqNF5FmD5OJsNeqUj2Jdiqc39kOv
- iMcue02XKOYBqL6zxhgeMmdnlU4xqngQRYAKzCPNsd4RL3rR65Db3DC
+ bh=eiAZGYRnjMdS7Ttf5CCg6aP5MonclwmGSHwFKFiDmik=;
+ b=NS2m4pt67V1TljSXyH7wKHLFQEhYRgyXvoH1SBFoywEwznBiv15Yct3ffYLnPU0dp2RYPLa6B
+ ZHeX5fwwuX4ApI76mnc8FOL5P9RsSav3S6ofOLotVQ6LCvb29x7W1tD
 X-Developer-Key: i=codykang.hk@gmail.com; a=ed25519;
  pk=Osn6/cs9Su/mHHw4P19cmVc3v2FMQfiWahjsN0vEkuk=
 X-Endpoint-Received: by B4 Relay for codykang.hk@gmail.com/codykang with
@@ -89,1658 +89,1036 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
 From: Cody Kang <codykang.hk@gmail.com>
 
-Add the register-level programming of one Saturn instance: clock and
-reset bring-up, scene control and timing generator setup, RDMA channel
-and composer layer programming, FBC line-buffer budgeting, interrupt
-dispatch and the cfg-ready/vsync handshake that paces commits. The
-backend is exposed as an ops table and hardware descriptor to be
-aggregated by the KMS layer in an upcoming patch.
+The PHY's registers are interleaved into its parent DP controller's MMIO
+window rather than a window of its own, so it probes as a child of the
+controller, carries no reg or reset, and reaches its registers through
+the controller's regmap.
+
+It registers its pixel PLL as a clock provider. That lets the display
+controller ask for a mode's pixel rate through clk_set_rate(), and it
+lets the APMU pixel-clock mux parent to the PHY through the clock
+framework. Without it the controller and PHY would have to know each
+other's registers.
 
 Signed-off-by: Cody Kang <codykang.hk@gmail.com>
 
 ---
 v2:
-- drop the dead INT_VSYNC_UPDATE clear; the enum member goes away in
-  patch 08 (Sashiko)
-- drop the cmdlist parameter from saturn_hee_crtc_cmdlist(), matching
-  the crtc_cmdlist op change in patch 08
+- drop the mod_devicetable.h include (Uwe Kleine-Koenig)
+- unwind the lanes and pixel PLL on the power_on lock-timeout paths
+  (Sashiko)
+- document why power_off keeps the MPLL up: it feeds the 16 MHz AUX
+  reference, and AUX must survive link drops (Sashiko)
+- register the PHY and clock providers last in probe (Sashiko)
 ---
- drivers/gpu/drm/spacemit/dpu/dpu_saturn.c          | 479 +++++++++++
- drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c      | 896 +++++++++++++++++++++
- drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c       | 152 ++++
- drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.h       |  21 +
- drivers/gpu/drm/spacemit/dpu/saturn_regs/ops_hee.h |  51 ++
- 5 files changed, 1599 insertions(+)
+ drivers/phy/spacemit/Kconfig          |  13 +
+ drivers/phy/spacemit/Makefile         |   1 +
+ drivers/phy/spacemit/phy-k3-inno-dp.c | 967 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 981 insertions(+)
 
-diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c b/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c
+diff --git a/drivers/phy/spacemit/Kconfig b/drivers/phy/spacemit/Kconfig
+index 50b0005acf663..098f33998f732 100644
+--- a/drivers/phy/spacemit/Kconfig
++++ b/drivers/phy/spacemit/Kconfig
+@@ -23,3 +23,16 @@ config PHY_SPACEMIT_K1_USB2
+ 	help
+ 	  Enable this to support K1 USB 2.0 PHY driver. This driver takes care of
+ 	  enabling and clock setup and will be used by K1 udc/ehci/otg/xhci driver.
++
++config PHY_SPACEMIT_K3_INNO_DP
++	tristate "SpacemiT K3 Innosilicon DisplayPort PHY driver"
++	depends on (ARCH_SPACEMIT || COMPILE_TEST) && OF
++	depends on COMMON_CLK
++	select GENERIC_PHY
++	select REGMAP
++	help
++	  Enable support for the Innosilicon DisplayPort transmit PHY
++	  integrated in the SpacemiT K3 SoC. The PHY shares its MMIO window
++	  with its parent DP/eDP controller (drivers/gpu/drm/spacemit/) and
++	  exposes lane / rate / vswing / pre-emphasis control through the
++	  generic PHY framework.
+diff --git a/drivers/phy/spacemit/Makefile b/drivers/phy/spacemit/Makefile
+index a821a21d61422..960c5827f5e5f 100644
+--- a/drivers/phy/spacemit/Makefile
++++ b/drivers/phy/spacemit/Makefile
+@@ -1,3 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ obj-$(CONFIG_PHY_SPACEMIT_K1_PCIE)		+= phy-k1-pcie.o
+ obj-$(CONFIG_PHY_SPACEMIT_K1_USB2)		+= phy-k1-usb2.o
++obj-$(CONFIG_PHY_SPACEMIT_K3_INNO_DP)		+= phy-k3-inno-dp.o
+diff --git a/drivers/phy/spacemit/phy-k3-inno-dp.c b/drivers/phy/spacemit/phy-k3-inno-dp.c
 new file mode 100644
-index 0000000000000..3dee5d422ffc2
+index 0000000000000..42ebfc347b84b
 --- /dev/null
-+++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn.c
-@@ -0,0 +1,479 @@
-+// SPDX-License-Identifier: GPL-2.0
++++ b/drivers/phy/spacemit/phy-k3-inno-dp.c
+@@ -0,0 +1,967 @@
++// SPDX-License-Identifier: GPL-2.0-only
 +/*
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
++ * SpacemiT K3 Innosilicon DisplayPort PHY driver.
 + *
++ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
 + */
 +
-+#include <linux/delay.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/wait.h>
-+#include <linux/workqueue.h>
-+#include <linux/clk.h>
++#include <linux/bitfield.h>
++#include <linux/bitops.h>
 +#include <linux/clk-provider.h>
++#include <linux/delay.h>
++#include <linux/iopoll.h>
 +#include <linux/module.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/pm_qos.h>
-+#include <linux/regmap.h>
 +#include <linux/of.h>
-+#include <linux/of_graph.h>
-+#include <linux/types.h>
-+#include <linux/math64.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_gem.h>
-+#include "dpu_saturn.h"
-+#include "saturn_fbcmem.h"
-+#include "../spacemit_cmdlist.h"
-+#include "../spacemit_dmmu.h"
-+#include "../spacemit_dpu_reg.h"
-+#include "../spacemit_drm.h"
-+#include <video/display_timing.h>
-+#include "../spacemit_dpu_ids.h"
-+#include "saturn_regs/ops_hee.h"
++#include <linux/phy/phy.h>
++#include <linux/phy/phy-dp.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
 +
-+#define CREATE_TRACE_POINTS
-+#include "dpu_trace.h"
++/* Offsets are into the parent controller's MMIO window */
++#define DPTX_PHY_CTRL			0x0100
++#define DPTX_PHY_CTRL_XMIT_EN		GENMASK(20, 17)
++#define DPTX_PHY_CTRL_NUM_LANES		GENMASK(6, 5)
++#define DPTX_PHY_CTRL_RATE		GENMASK(1, 0)
 +
-+#define TOTAL_RDMA_MEMSIZE	(68 * 1024)
-+static const struct dpu_format_id primary_fmts[] = {
-+	{ DRM_FORMAT_XRGB8888, 8, 32 }, /* RDMA_FMT_XRGB_8888 */
-+	{ DRM_FORMAT_ARGB8888, 4, 32 }, /* RDMA_FMT_ARGB_8888 */
-+	{ DRM_FORMAT_XBGR8888, 9, 32 }, /* RDMA_FMT_XBGR_8888 */
-+	{ DRM_FORMAT_ABGR8888, 5, 32 }, /* RDMA_FMT_ABGR_8888 */
-+	{ DRM_FORMAT_RGBX8888, 10, 32 }, /* RDMA_FMT_RGBX_8888 */
-+	{ DRM_FORMAT_RGBA8888, 6, 32 }, /* RDMA_FMT_RGBA_8888 */
-+	{ DRM_FORMAT_BGRX8888, 11, 32 }, /* RDMA_FMT_BGRX_8888 */
-+	{ DRM_FORMAT_BGRA8888, 7, 32 }, /* RDMA_FMT_BGRA_8888 */
-+	{ DRM_FORMAT_ABGR2101010, 1, 32 }, /* RDMA_FMT_ABGR_2101010 */
-+	{ DRM_FORMAT_RGB888, 12, 24 }, /* RDMA_FMT_RGB_888 */
-+	{ DRM_FORMAT_BGR888, 13, 24 }, /* RDMA_FMT_BGR_888 */
-+	{ DRM_FORMAT_RGB565, 22, 16 }, /* RDMA_FMT_RGB_565 */
-+	{ DRM_FORMAT_BGR565, 23, 16 }, /* RDMA_FMT_BGR_565 */
++/* One 6-bit slot per lane; only the low 4 bits of each slot are used. */
++#define DPTX_PHY_LANE_TRIM		0x0104
++#define DPTX_PHY_LANE_BITS_PER		6
++#define DPTX_PHY_LANE_FIELD_MASK	0xf	/* preemp[1:0] | vswing[1:0] */
++#define DPTX_PHY_LANE_VSWING_SHIFT	2	/* within the lane field */
++
++/* MPLL is the link PLL (lane rate) */
++#define DPTX_ANA_MPLL			0x0180
++#define DPTX_ANA_MPLL_FBDIV_LBIT	GENMASK(31, 24)
++#define DPTX_ANA_MPLL_FBDIV_HBIT	GENMASK(19, 16)
++#define DPTX_ANA_MPLL_PREDIV		GENMASK(13, 8)
++#define DPTX_ANA_MPLL_LOCKED		BIT(7)
++#define DPTX_ANA_MPLL_DACPD		BIT(5)
++#define DPTX_ANA_MPLL_DSMPD		BIT(4)
++#define DPTX_ANA_MPLL_PD		BIT(0)
++
++#define DPTX_ANA_MPLL_FRAC		0x0184
++#define DPTX_ANA_MPLL_FRAC_LBIT		GENMASK(23, 16)
++#define DPTX_ANA_MPLL_FRAC_MBIT		GENMASK(15, 8)
++#define DPTX_ANA_MPLL_FRAC_HBIT		GENMASK(7, 0)
++
++#define DPTX_ANA_MPLL_DIV		0x0188
++#define DPTX_ANA_MPLL_VCOCLK_DIV8_EN	BIT(16)
++#define DPTX_ANA_MPLL_POSTDIVEN		BIT(11)
++#define DPTX_ANA_MPLL_POSTDIV		GENMASK(10, 8)
++
++/* PREPLL is the pixel PLL exposed as a clock. */
++#define DPTX_ANA_PREPLL			0x0190
++#define DPTX_ANA_PREPLL_FBDIV2_LBIT	GENMASK(31, 24)
++#define DPTX_ANA_PREPLL_FBDIV2_HBIT	GENMASK(19, 16)
++#define DPTX_ANA_PREPLL_PREDIV		GENMASK(13, 8)
++#define DPTX_ANA_PREPLL_LOCKED		BIT(7)
++#define DPTX_ANA_PREPLL_DACPD		BIT(5)
++#define DPTX_ANA_PREPLL_DSMPD		BIT(4)
++#define DPTX_ANA_PREPLL_PCLK_NORMAL	BIT(1)
++#define DPTX_ANA_PREPLL_PD		BIT(0)
++
++#define DPTX_ANA_PREPLL_DIV		0x0194
++#define DPTX_ANA_PREPLL_PRECLK_DIVM	GENMASK(17, 16)
++#define DPTX_ANA_PREPLL_PRECLK_DIVAUX	GENMASK(12, 8)
++
++#define DPTX_ANA_PREPLL_CTRL		0x0198
++#define DPTX_ANA_PREPLL_PCLKDIV5_EN	BIT(31)
++#define DPTX_ANA_PREPLL_PCLK_DIVAUX	GENMASK(28, 24)
++#define DPTX_ANA_PREPLL_LOCK_BYPEN	BIT(17)
++#define DPTX_ANA_PREPLL_HDMI_EN		BIT(9)
++#define DPTX_ANA_PREPLL_DP_EN		BIT(8)
++
++#define DPTX_ANA_PREPLL_FRAC		0x019c
++#define DPTX_ANA_PREPLL_FRAC2_LBIT	GENMASK(23, 16)
++#define DPTX_ANA_PREPLL_FRAC2_MBIT	GENMASK(15, 8)
++#define DPTX_ANA_PREPLL_FRAC2_HBIT	GENMASK(7, 0)
++
++#define DPTX_ANA_TX_CTRL		0x01a0
++#define DPTX_ANA_MPLL_CLKDIV_16M	GENMASK(13, 8)
++
++/* PRECLK_DIVM register value -> divide factor */
++static const u8 k3_inno_dp_divm_factors[] = { 1, 2, 3, 5 };
++
++#define DPTX_VCO_MIN_KHZ		1000000
++#define DPTX_VCO_MAX_KHZ		3000000
++#define DPTX_PLL_FRAC_MOD		(1 << 24)
++#define DPTX_PLL_ERR_TOLERANCE		10
++
++struct k3_inno_dp_phy {
++	struct device	*dev;
++	struct regmap	*regmap;
++	struct phy	*phy;
++	u8		lanes;		/* tracks last set_lanes */
++
++	struct clk_hw	pxclk_hw;	/* the PREPLL's pixel clock */
++	unsigned long	pxclk_rate;	/* last programmed PREPLL rate */
++	u32		ref_clk_khz;	/* PLL reference */
 +};
 +
-+static const struct spacemit_hw_rdma saturn_hee_rdmas[] = {
-+	{FORMAT_RGB},
-+	{FORMAT_RGB},
-+	{FORMAT_RGB},
-+	{FORMAT_RGB},
-+};
-+
-+static const u32 saturn_hee_fbcmem_sizes[] = {
-+	89600, /* 87.5k */
-+	15360, /* 16k */
-+};
-+
-+const struct spacemit_hw_device k3_saturn_dpu = {
-+	.plane_nums = 1,
-+	.crtc_nums = 2,
-+	.rdma_nums = ARRAY_SIZE(saturn_hee_rdmas),
-+	.rdmas = saturn_hee_rdmas,
-+	.n_formats = ARRAY_SIZE(primary_fmts),
-+	.formats = primary_fmts,
-+	.n_fbcmems = ARRAY_SIZE(saturn_hee_fbcmem_sizes),
-+	.fbcmem_sizes = saturn_hee_fbcmem_sizes,
-+	.enable_vsync = saturn_hee_enable_vsync,
-+	.enable_cfg_irq = saturn_hee_enable_cfg_irq,
-+	.cfg_ready = saturn_hee_cfg_ready,
-+	.sw_start = saturn_hee_sw_start,
-+	.irq_enable = saturn_hee_irq_enable,
-+	.dpu_init = saturn_hee_dpu_init,
-+	.plane_update_hw_channel = saturn_hee_plane_update_hw_channel,
-+	.plane_disable_hw_channel = saturn_hee_plane_disable_hw_channel,
-+	.conf_dpuctrl = saturn_hee_conf_dpuctrl,
-+	.get_cfg_rdy = saturn_hee_get_cfg_rdy,
-+	.get_int_sts = saturn_hee_get_int_sts,
-+	.get_irq_bit = saturn_hee_get_irq_bit,
-+	.clr_int_sts = saturn_hee_clr_int_sts,
-+	.enable_cmdlist = saturn_hee_enable_cmdlist,
-+	.cfg_cmdlist = saturn_hee_cfg_cmdlist,
-+	.rdma_dmmu = saturn_hee_rdma_dmmu,
-+	.get_cl_rdma_buf = saturn_hee_get_cl_rdma_buf,
-+	.cmdlist_fill_data_row = saturn_hee_cmdlist_fill_data_row,
-+	.cmdlist_fill_conf_row = saturn_hee_cmdlist_fill_conf_row,
-+	.crtc_cmdlist = saturn_hee_crtc_cmdlist,
-+	.cmdlist_dump_node = saturn_hee_cmdlist_dump_node,
-+};
-+
-+void saturn_enable_irq_mask(struct spacemit_crtc *a_crtc, bool enable,
-+			    u32 offset, u32 mask)
++static int k3_inno_dp_phy_power_on(struct phy *phy)
 +{
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	if (!hwdev->base) {
-+		drm_err(a_crtc->crtc.dev, "hwdev->base is NULL\n");
-+		return;
-+	}
-+
-+	if (!a_crtc->clocks_on)
-+		return;
-+
-+	regmap_update_bits(hwdev->regmap, offset, mask, enable ? mask : 0);
-+}
-+
-+int dpu_parse_clocks(struct device *dev, struct dpu_clk_context *clk_ctx)
-+{
-+	clk_ctx->pxclk = devm_clk_get(dev, "pxclk");
-+	if (IS_ERR(clk_ctx->pxclk))
-+		return dev_err_probe(dev, PTR_ERR(clk_ctx->pxclk),
-+				     "failed to get pxclk\n");
-+
-+	clk_ctx->mclk = devm_clk_get(dev, "mclk");
-+	if (IS_ERR(clk_ctx->mclk))
-+		return dev_err_probe(dev, PTR_ERR(clk_ctx->mclk),
-+				     "failed to get mclk\n");
-+
-+	clk_ctx->escclk = devm_clk_get(dev, "escclk");
-+	if (IS_ERR(clk_ctx->escclk))
-+		return dev_err_probe(dev, PTR_ERR(clk_ctx->escclk),
-+				     "failed to get escclk\n");
-+
-+	clk_ctx->aclk = devm_clk_get(dev, "aclk");
-+	if (IS_ERR(clk_ctx->aclk))
-+		return dev_err_probe(dev, PTR_ERR(clk_ctx->aclk),
-+				     "failed to get aclk\n");
-+
-+	clk_ctx->dscclk = devm_clk_get(dev, "dscclk");
-+	if (IS_ERR(clk_ctx->dscclk))
-+		return dev_err_probe(dev, PTR_ERR(clk_ctx->dscclk),
-+				     "failed to get dscclk\n");
-+
-+	return 0;
-+}
-+
-+static int dpu_enable_clocks(struct spacemit_crtc *a_crtc)
-+{
-+	struct dpu_clk_context *clk_ctx = &a_crtc->clk_ctx;
-+	struct drm_crtc *crtc = &a_crtc->crtc;
-+	struct drm_display_mode *mode = &crtc->mode;
-+	u64 clk_val;
-+	u64 set_clk_val;
++	struct k3_inno_dp_phy *p = phy_get_drvdata(phy);
++	u32 lane_en;
++	u32 val;
 +	int ret;
 +
-+	ret = clk_prepare_enable(clk_ctx->pxclk);
-+	if (ret)
-+		goto err;
-+	set_clk_val = mode->clock * 1000;
-+	if (set_clk_val) {
-+		set_clk_val = clk_round_rate(clk_ctx->pxclk, set_clk_val);
-+		clk_val = clk_get_rate(clk_ctx->pxclk);
-+		if (clk_val != set_clk_val) {
-+			clk_set_rate(clk_ctx->pxclk, set_clk_val);
-+			drm_dbg(crtc->dev, "pxclk=%lld\n", clk_val);
-+		}
++	switch (p->lanes) {
++	case 1:
++		lane_en = 0x1;
++		break;
++	case 2:
++		lane_en = 0x3;
++		break;
++	case 4:
++	default:
++		lane_en = 0xf;
++		break;
 +	}
 +
-+	ret = clk_prepare_enable(clk_ctx->mclk);
++	ret = regmap_write_bits(p->regmap, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PD, 0);
 +	if (ret)
-+		goto err_pxclk;
-+	clk_val = clk_get_rate(clk_ctx->mclk);
-+	if (clk_val != DPU_MCLK_DEFAULT) {
-+		clk_val = clk_round_rate(clk_ctx->mclk, DPU_MCLK_DEFAULT);
-+		clk_set_rate(clk_ctx->mclk, clk_val);
-+		drm_dbg(crtc->dev, "mclk=%lld\n", clk_val);
++		return ret;
++	ret = regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
++				DPTX_ANA_PREPLL_PD, 0);
++	if (ret)
++		return ret;
++	usleep_range(2000, 4000);
++
++	ret = regmap_write_bits(p->regmap, DPTX_PHY_CTRL,
++				DPTX_PHY_CTRL_XMIT_EN,
++				FIELD_PREP(DPTX_PHY_CTRL_XMIT_EN, lane_en));
++	if (ret)
++		return ret;
++	usleep_range(2000, 4000);
++
++	ret = regmap_read_poll_timeout(p->regmap, DPTX_ANA_MPLL, val,
++				       val & DPTX_ANA_MPLL_LOCKED,
++				       2000, 10 * 1000);
++	if (ret) {
++		dev_err(p->dev, "DP PHY core PLL lock timed out\n");
++		goto err_power_down;
 +	}
 +
-+	/* The escape clock only has to run for the "esc" reset to propagate. */
-+	ret = clk_prepare_enable(clk_ctx->escclk);
-+	if (ret)
-+		goto err_mclk;
-+
-+	ret = clk_prepare_enable(clk_ctx->aclk);
-+	if (ret)
-+		goto err_escclk;
-+	clk_val = clk_get_rate(clk_ctx->aclk);
-+	if (clk_val != a_crtc->aclk) {
-+		set_clk_val = clk_round_rate(clk_ctx->aclk, a_crtc->aclk);
-+		if (set_clk_val != clk_val) {
-+			clk_set_rate(clk_ctx->aclk, set_clk_val);
-+			drm_dbg(crtc->dev, "aclk %llu -> %llu\n", clk_val,
-+				set_clk_val);
-+		}
++	ret = regmap_read_poll_timeout(p->regmap, DPTX_ANA_PREPLL, val,
++				       val & DPTX_ANA_PREPLL_LOCKED,
++				       2000, 10 * 1000);
++	if (ret) {
++		dev_err(p->dev, "DP PHY pixel PLL lock timed out\n");
++		goto err_power_down;
 +	}
 +
-+	ret = clk_prepare_enable(clk_ctx->dscclk);
-+	if (ret)
-+		goto err_aclk;
-+
-+	trace_dpu_enable_clocks(a_crtc->dev_id);
 +	return 0;
 +
-+err_aclk:
-+	clk_disable_unprepare(clk_ctx->aclk);
-+err_escclk:
-+	clk_disable_unprepare(clk_ctx->escclk);
-+err_mclk:
-+	clk_disable_unprepare(clk_ctx->mclk);
-+err_pxclk:
-+	clk_disable_unprepare(clk_ctx->pxclk);
-+err:
-+	drm_err(crtc->dev, "failed to enable DPU clocks: %d\n", ret);
++	/*
++	 * The PHY core does not call power_off after a failed power_on, so
++	 * park what power_off parks. Not the MPLL: see power_off.
++	 */
++err_power_down:
++	regmap_write_bits(p->regmap, DPTX_PHY_CTRL, DPTX_PHY_CTRL_XMIT_EN, 0);
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
++			  DPTX_ANA_PREPLL_PD);
 +	return ret;
 +}
 +
-+static int dpu_disable_clocks(struct spacemit_crtc *a_crtc)
-+{
-+	struct dpu_clk_context *clk_ctx = &a_crtc->clk_ctx;
-+
-+	trace_dpu_disable_clocks(a_crtc->dev_id);
-+
-+	clk_disable_unprepare(clk_ctx->pxclk);
-+	clk_disable_unprepare(clk_ctx->mclk);
-+	clk_disable_unprepare(clk_ctx->escclk);
-+
-+	clk_disable_unprepare(clk_ctx->aclk);
-+	clk_disable_unprepare(clk_ctx->dscclk);
-+
-+	return 0;
-+}
-+
-+u8 spacemit_plane_hw_get_format_id(u32 format)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(primary_fmts); i++) {
-+		if (primary_fmts[i].format == format)
-+			return primary_fmts[i].id;
-+	}
-+
-+	return SPACEMIT_DPU_INVALID_FORMAT_ID;
-+}
-+
-+static void saturn_enable_vsync(struct spacemit_crtc *a_crtc, bool enable)
-+{
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	trace_saturn_enable_vsync("vsync", enable);
-+	hwdev->enable_vsync(a_crtc, hwdev, enable);
-+}
-+
-+void spacemit_cfg_rdy_timer_handler(struct timer_list *t)
-+{
-+	struct spacemit_crtc *a_crtc = timer_container_of(a_crtc, t,
-+							  cfg_rdy_timer);
-+	struct drm_crtc *crtc = &a_crtc->crtc;
-+	struct drm_device *drm = crtc->dev;
-+	struct drm_pending_vblank_event *event;
-+	unsigned long flags;
-+
-+	drm_err_ratelimited(drm, "CFG_RDY handshake timeout\n");
-+	trace_saturn_ctrl_cfg_ready_timer(a_crtc->dev_id);
-+
-+	a_crtc->flip_done = true;
-+
-+	spin_lock_irqsave(&drm->event_lock, flags);
-+	event = crtc->state->event;
-+	if (event) {
-+		crtc->state->event = NULL;
-+		drm_crtc_send_vblank_event(crtc, event);
-+	}
-+	spin_unlock_irqrestore(&drm->event_lock, flags);
-+
-+	drm_crtc_vblank_put(crtc);
-+}
-+
-+static void saturn_ctrl_cfg_ready(struct spacemit_crtc *a_crtc, bool enable)
-+{
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	trace_saturn_ctrl_cfg_ready(a_crtc->dev_id, enable);
-+	mod_timer(&a_crtc->cfg_rdy_timer, jiffies + msecs_to_jiffies(3000));
-+	hwdev->cfg_ready(a_crtc, hwdev);
-+}
-+
-+static void saturn_ctrl_sw_start(struct spacemit_crtc *a_crtc, bool enable)
-+{
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	trace_saturn_ctrl_sw_start(a_crtc->dev_id, enable);
-+
-+	hwdev->sw_start(a_crtc, hwdev);
-+}
-+
-+static int dpu_init(struct spacemit_crtc *a_crtc)
-+{
-+	unsigned int timeout = 1000;
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	if (!a_crtc->clocks_on)
-+		return 0;
-+
-+	while (timeout) {
-+		if (hwdev->get_cfg_rdy(a_crtc, hwdev) == 0)
-+			break;
-+		usleep_range(100, 200);
-+		timeout--;
-+	}
-+	if (timeout == 0)
-+		drm_err(a_crtc->crtc.dev, "wait for cfg ready timed out\n");
-+
-+	hwdev->dpu_init(a_crtc);
-+
-+	return 0;
-+}
-+
-+static void dpu_uninit(struct spacemit_crtc *a_crtc)
-+{
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	if (!a_crtc->clocks_on)
-+		return;
-+
-+	trace_dpu_uninit(a_crtc->dev_id);
-+	hwdev->irq_enable(a_crtc, false);
-+}
-+
-+static inline void dpu_isr_vblank(struct spacemit_crtc *a_crtc, bool *flip)
-+{
-+	struct drm_crtc *crtc = &a_crtc->crtc;
-+	struct drm_device *drm = crtc->dev;
-+	struct drm_pending_vblank_event *event;
-+
-+	drm_crtc_handle_vblank(crtc);
-+
-+	if (*flip)
-+		return;
-+	*flip = true;
-+
-+	/*
-+	 * event_lock serialises this against the commit arming
-+	 * crtc->state->event.
-+	 */
-+	spin_lock(&drm->event_lock);
-+	event = crtc->state->event;
-+	if (event) {
-+		/*
-+		 * Consume it exactly once, even against a concurrent
-+		 * commit_hw_done().
-+		 */
-+		crtc->state->event = NULL;
-+		drm_crtc_send_vblank_event(crtc, event);
-+	}
-+	spin_unlock(&drm->event_lock);
-+
-+	drm_crtc_vblank_put(crtc);
-+}
-+
-+u32 saturn_conf_dpuctrl_rdma(struct spacemit_crtc *a_crtc)
-+{
-+	struct drm_crtc *crtc = &a_crtc->crtc;
-+	struct drm_plane *plane;
-+	u32 rdma_en = 0;
-+
-+	drm_atomic_crtc_for_each_plane(plane, crtc) {
-+		u32 rdma_id = to_spacemit_plane_state(plane->state)->rdma_id;
-+
-+		if (rdma_id != RDMA_INVALID_ID)
-+			rdma_en |= (1 << rdma_id);
-+	}
-+
-+	trace_dpuctrl("rdma_en", rdma_en);
-+
-+	return rdma_en;
-+}
-+
-+static u32 dpu_online_isr(struct spacemit_crtc *a_crtc)
-+{
-+	u32 irq_raw, irq_bit, irq_ur_bit;
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	int dev_id = a_crtc->dev_id;
-+
-+	trace_dpu_isr(a_crtc->dev_id);
-+
-+	irq_raw = hwdev->get_int_sts(hwdev, dev_id);
-+	trace_dpu_isr_status("ONLINE", irq_raw);
-+	irq_bit = hwdev->get_irq_bit(INT_UNDERRUN, dev_id);
-+	irq_ur_bit = irq_raw & irq_bit;
-+	if (irq_ur_bit && !a_crtc->ur_reported) {
-+		hwdev->clr_int_sts(a_crtc, irq_ur_bit, dev_id);
-+		trace_dpu_isr_status("underrun", irq_ur_bit);
-+		drm_err_ratelimited(a_crtc->crtc.dev, "underrun\n");
-+		a_crtc->ur_reported = true;
-+	}
-+	irq_bit = hwdev->get_irq_bit(INT_CFG_RDY, dev_id);
-+	if (irq_raw & irq_bit) {
-+		hwdev->clr_int_sts(a_crtc, irq_bit, dev_id);
-+		trace_dpu_isr_status("cfg_rdy_clr", irq_raw & irq_bit);
-+		/*
-+		 * A fired watchdog already sent the event and put this flip's
-+		 * vblank reference; re-arming the vsync path would put twice.
-+		 */
-+		if (timer_delete(&a_crtc->cfg_rdy_timer))
-+			a_crtc->flip_done = false;
-+		a_crtc->ur_reported = false;
-+		if (hwdev->enable_cfg_irq)
-+			hwdev->enable_cfg_irq(a_crtc, hwdev, false);
-+	}
-+	irq_bit = hwdev->get_irq_bit(INT_VSYNC, dev_id);
-+	if (irq_raw & irq_bit) {
-+		hwdev->clr_int_sts(a_crtc, irq_bit, dev_id);
-+		trace_dpu_isr_status("vsync", irq_raw & irq_bit);
-+		dpu_isr_vblank(a_crtc, &a_crtc->flip_done);
-+	}
-+	irq_bit = hwdev->get_irq_bit(INT_REST, dev_id) | irq_ur_bit;
-+	if (irq_raw & irq_bit)
-+		hwdev->clr_int_sts(a_crtc, irq_bit, dev_id);
-+
-+	return 0;
-+}
-+
-+static void dpu_run(struct drm_crtc *crtc,
-+		    struct drm_crtc_state *old_state)
-+{
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	trace_dpu_run(a_crtc->dev_id);
-+
-+	if (hwdev->conf_dpuctrl)
-+		hwdev->conf_dpuctrl(crtc, old_state);
-+
-+	/* flush all config register writes before CFG_RDY is raised */
-+	mb();
-+
-+	drm_crtc_vblank_get(crtc);
-+	if (hwdev->enable_cfg_irq)
-+		hwdev->enable_cfg_irq(a_crtc, hwdev, true);
-+
-+	saturn_ctrl_cfg_ready(a_crtc, true);
-+
-+	if (unlikely(a_crtc->is_1st_f)) {
-+		drm_dbg(a_crtc->crtc.dev, "DPU start\n");
-+		a_crtc->is_1st_f = false;
-+		saturn_ctrl_sw_start(a_crtc, true);
-+	}
-+	dma_rmb();
-+}
-+
-+static void dpu_enable_vsync(struct spacemit_crtc *a_crtc)
-+{
-+	saturn_enable_vsync(a_crtc, true);
-+}
-+
-+static void dpu_disable_vsync(struct spacemit_crtc *a_crtc)
-+{
-+	saturn_enable_vsync(a_crtc, false);
-+}
-+
-+const struct dpu_core_ops dpu_saturn_ops = {
-+	.init = dpu_init,
-+	.uninit = dpu_uninit,
-+	.run = dpu_run,
-+	.online_isr = dpu_online_isr,
-+	.enable_clk = dpu_enable_clocks,
-+	.disable_clk = dpu_disable_clocks,
-+	.enable_vsync = dpu_enable_vsync,
-+	.disable_vsync = dpu_disable_vsync,
-+	.cal_layer_fbcmem_size = saturn_cal_layer_fbcmem_size,
-+	.adjust_rdma_fbcmem = saturn_adjust_rdma_fbcmem,
-+};
-diff --git a/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c b/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c
-new file mode 100644
-index 0000000000000..ee9334d6561b8
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/dpu/dpu_saturn_hee.c
-@@ -0,0 +1,896 @@
-+// SPDX-License-Identifier: GPL-2.0
 +/*
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-+ *
++ * Asymmetric with power_on on purpose: the MPLL stays up because it also
++ * feeds the 16 MHz AUX reference (DPTX_ANA_MPLL_CLKDIV_16M), and AUX must
++ * keep working while the link is down (EDID, DPCD, panel detection). The
++ * controller parks the PHY through here on every link drop, including
++ * right after bind.
 + */
-+
-+#include <linux/delay.h>
-+#include <linux/dma-mapping.h>
-+#include <linux/wait.h>
-+#include <linux/workqueue.h>
-+#include <linux/clk.h>
-+#include <linux/clk-provider.h>
-+#include <linux/module.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/pm_qos.h>
-+#include <linux/regmap.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_blend.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_gem.h>
-+#include "dpu_saturn.h"
-+#include "saturn_fbcmem.h"
-+#include "../spacemit_cmdlist.h"
-+#include "../spacemit_dmmu.h"
-+#include "../spacemit_dpu_reg.h"
-+#include <video/display_timing.h>
-+#include "../spacemit_dpu_ids.h"
-+#include "saturn_regs/ops_hee.h"
-+#include "saturn_regs/reg_map_hee.h"
-+
-+#include "dpu_trace.h"
-+
-+#define SATURN_WRITE_TBU_REGS(hwdev, base, reg_id, cl_tbu) \
-+do {\
-+	dpu_write(hwdev, MMU_TBU_REG, base, tbu_base_addr##reg_id##_low, \
-+		  tbu->ttb_pa[reg_id] & 0xFFFFFFFF, cl_tbu); \
-+	dpu_write(hwdev, MMU_TBU_REG, base, tbu_base_addr##reg_id##_high, \
-+		  (tbu->ttb_pa[reg_id] >> 32) & 0xFFF, cl_tbu); \
-+	dpu_write(hwdev, MMU_TBU_REG, base, tbu_va##reg_id, \
-+		 (tbu->tbu_va[reg_id] >> 12), cl_tbu); \
-+	dpu_write(hwdev, MMU_TBU_REG, base, \
-+		  tbu_size##reg_id, tbu->ttb_size[reg_id], cl_tbu); \
-+	dpu_write(hwdev, MMU_TBU_REG, base, \
-+		  vsync_update_en, 1, cl_tbu); \
-+} while (0)
-+
-+#define SATURN_WRITE_RDMA_ADDR_REG(hwdev, reg_id, rdma_id, addr, cl_rdma) \
-+do { \
-+	if (hwdev) { \
-+		dpu_write(hwdev, RDMA_PATH_X_REG, RDMA_BASE_ADDR[rdma_id], \
-+			  base_addr##reg_id##_low_ly0, (addr) & 0xFFFFFFFF, \
-+			  cl_rdma); \
-+		dpu_write(hwdev, RDMA_PATH_X_REG, RDMA_BASE_ADDR[rdma_id], \
-+			  base_addr##reg_id##_high_ly0, ((addr) >> 32) & 0xFFF, \
-+			  cl_rdma); \
-+	} \
-+} while (0)
-+
-+static const u32 RDMA_BASE_ADDR[] = {
-+	RDMA0_BASE_ADDR,
-+	RDMA1_BASE_ADDR,
-+	RDMA2_BASE_ADDR,
-+	RDMA3_BASE_ADDR,
-+};
-+
-+static const u32 CMP_BASE_ADDR[] = {
-+	CMP0_BASE_ADDR,
-+	CMP1_BASE_ADDR,
-+	CMP2_BASE_ADDR,
-+};
-+
-+static const u32 TMG_BASE_ADDR[] = {
-+	0,
-+	TMG0_BASE_ADDR,
-+	0,
-+};
-+
-+static const u32 MMU_TBU_BASE_ADDR_ARRAY[] = {
-+	TBU0_ADDR, TBU1_ADDR, TBU2_ADDR, TBU3_ADDR,
-+	TBU4_ADDR, TBU5_ADDR, TBU6_ADDR, TBU7_ADDR,
-+};
-+
-+void saturn_hee_enable_vsync(struct spacemit_crtc *a_crtc, struct spacemit_hw_device *hwdev,
-+			     bool enable)
++static int k3_inno_dp_phy_power_off(struct phy *phy)
 +{
-+	u32 offset = DPU_INT_BASE_ADDR + DPU_ONLINE_IRQ_MSK;
-+	u32 mask = saturn_hee_get_irq_bit(INT_VSYNC, a_crtc->dev_id);
++	struct k3_inno_dp_phy *p = phy_get_drvdata(phy);
 +
-+	saturn_enable_irq_mask(a_crtc, enable, offset, mask);
++	regmap_write_bits(p->regmap, DPTX_PHY_CTRL, DPTX_PHY_CTRL_XMIT_EN, 0);
++	usleep_range(2000, 4000);
++
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
++			  DPTX_ANA_PREPLL_PD);
++	usleep_range(2000, 4000);
++
++	return 0;
 +}
 +
-+void saturn_hee_enable_cfg_irq(struct spacemit_crtc *a_crtc, struct spacemit_hw_device *hwdev,
-+			       bool enable)
++static int k3_inno_dp_phy_set_lanes(struct k3_inno_dp_phy *p, u8 lanes)
 +{
-+	u32 offset = DPU_INT_BASE_ADDR + DPU_ONLINE_IRQ_MSK;
-+	u32 mask = saturn_hee_get_irq_bit(INT_CFG_RDY, a_crtc->dev_id);
++	u32 val;
++	int ret;
 +
-+	saturn_enable_irq_mask(a_crtc, enable, offset, mask);
-+}
-+
-+void saturn_hee_cfg_ready(struct spacemit_crtc *a_crtc,
-+			  struct spacemit_hw_device *hwdev)
-+{
-+	u32 base = DPU_SCENE_CTL_ADDR(a_crtc->dev_id);
-+
-+	saturn_enable_irq_mask(a_crtc, true,
-+		DPU_INT_BASE_ADDR + DPU_ONLINE_IRQ_MSK,
-+		saturn_hee_get_irq_bit(INT_UNDERRUN, a_crtc->dev_id));
-+	a_crtc->ur_mask_armed = true;
-+	dpu_write(hwdev, DPU_CTL_REG, base, both_cfg_rdy, 1);
-+}
-+
-+void saturn_hee_sw_start(struct spacemit_crtc *a_crtc,
-+			 struct spacemit_hw_device *hwdev)
-+{
-+	u32 base;
-+
-+	base = DPU_SCENE_CTL_ADDR(a_crtc->dev_id);
-+	dpu_write_reg(hwdev, DPU_CTL_REG, base, sw_start, 1);
-+}
-+
-+static void saturn_init_tmg(struct spacemit_crtc *a_crtc)
-+{
-+	u32 base = 0;
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	struct drm_crtc *crtc = &a_crtc->crtc;
-+	struct drm_display_mode *mode = &crtc->mode;
-+	u16 vfp, vbp, vsync, hfp, hbp, hsync;
-+	void __iomem *tmg_addr;
-+	u32 value;
-+
-+	/* dev_id names the composer type, not the DPU instance: use TMG0. */
-+	tmg_addr = hwdev->base + TMG0_BASE_ADDR;
-+
-+	hsync = mode->hsync_end - mode->hsync_start;
-+	hbp = mode->htotal - mode->hsync_end;
-+	hfp = mode->hsync_start - mode->hdisplay;
-+	vsync = mode->vsync_end - mode->vsync_start;
-+	vbp = mode->vtotal - mode->vsync_end;
-+	vfp = mode->vsync_start - mode->vdisplay;
-+	trace_drm_display_mode_info(mode);
-+
-+	base = TMG_BASE_ADDR[a_crtc->dev_id];
-+	if (base) {
-+		dpu_write(hwdev, TMG_REG, base, disp_ready_man_en, 0);
-+		dpu_write(hwdev, TMG_REG, base, background_r, 0);
-+		dpu_write(hwdev, TMG_REG, base, background_g, 0x0);
-+		dpu_write(hwdev, TMG_REG, base, background_b, 0xff);
-+		dpu_write(hwdev, TMG_REG, base, eof_1st_ln_dly_num, vfp - 7);
-+		dpu_write(hwdev, TMG_REG, base, eof_2nd_ln_dly_num, vfp - 6);
-+		dpu_write(hwdev, TMG_REG, base, split_en, 0);
-+		dpu_write(hwdev, TMG_REG, base, cmd_screen, 0);
-+		dpu_write(hwdev, TMG_REG, base, cmd_wait_en, 0);
-+		dpu_write(hwdev, TMG_REG, base, cmd_wait_te, 0);
-+		dpu_write(hwdev, TMG_REG, base, sof_pre_ln_num, 0);
-+		dpu_write(hwdev, TMG_REG, base, hfp, hfp);
-+		dpu_write(hwdev, TMG_REG, base, hbp, hbp);
-+		dpu_write(hwdev, TMG_REG, base, vfp, vfp);
-+		dpu_write(hwdev, TMG_REG, base, vbp, vbp);
-+		dpu_write(hwdev, TMG_REG, base, hsync_width, hsync);
-+		dpu_write(hwdev, TMG_REG, base, vsync_width, vsync);
-+		dpu_write(hwdev, TMG_REG, base, hsp, 1);
-+		dpu_write(hwdev, TMG_REG, base, vsp, 1);
-+		dpu_write(hwdev, TMG_REG, base, h_active, mode->hdisplay);
-+		dpu_write(hwdev, TMG_REG, base, v_active, mode->vdisplay);
-+		dpu_write(hwdev, TMG_REG, base, fm_timing_en, 1);
-+		dpu_write(hwdev, TMG_REG, base, user, a_crtc->out_format);
-+	}
-+
-+	value = readl(tmg_addr + 0x14);
-+	value &= 0xFFFF0000;
-+	value |= vfp;
-+	writel(value, tmg_addr + 0x14);
-+
-+	/* align vsync with hsync */
-+	value = readl(tmg_addr + 0x3c);
-+	value |= 0x01;
-+	writel(value, tmg_addr + 0x3c);
-+}
-+
-+static void saturn_init_regs(struct spacemit_crtc *a_crtc)
-+{
-+	u32 base = 0;
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	base = CMP_BASE_ADDR[a_crtc->dev_id];
-+	dpu_write(hwdev, CMPS_X_REG, base, bg_color_b, 0x0);
-+	dpu_write(hwdev, CMPS_X_REG, base, bg_color_r, 0x0);
-+	dpu_write(hwdev, CMPS_X_REG, base, bg_color_g, 0x0);
-+	dpu_write(hwdev, CMPS_X_REG, base, bg_color_a, 0xFF);
-+	dpu_write(hwdev, CMPS_X_REG, base, module_enable, 1);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer00_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer01_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer02_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer03_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer04_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer05_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer06_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer07_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer08_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer09_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer10_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer11_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer12_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer13_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer14_en, 0);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer15_en, 0);
-+
-+	base = DPU_TOP_BASE_ADDR;
-+
-+	base = EE_ADDR;
-+	dpu_write(hwdev, EE_REG, base, m_benable, 0);
-+
-+	saturn_init_tmg(a_crtc);
-+}
-+
-+static void saturn_setup_dma_top(struct spacemit_crtc *a_crtc)
-+{
-+	u32 base = DMA_TOP_BASE_ADDR;
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	dpu_write(hwdev, DMA_TOP_REG, base, image_rr_ratio, 0x10);
-+	dpu_write(hwdev, DMA_TOP_REG, base, pixel_num_th, 4);
-+
-+	dpu_write(hwdev, DMA_TOP_REG, base, rdma_timeout_limit, 0xFFFE);
-+	dpu_write(hwdev, DMA_TOP_REG, base, wdma_timeout_limit, 0xFFFF);
-+}
-+
-+static void saturn_setup_mmu_top(struct spacemit_crtc *a_crtc)
-+{
-+	unsigned int rd_outs_num = 0;
-+	u32 base = MMU_TOP_BASE_ADDR;
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	rd_outs_num = RD_OUTS_NUM / 2;
-+
-+	dpu_write(hwdev, MMU_TOP_REG, base, rdma_timelimit, RDMA_TIMELIMIT);
-+
-+	dpu_write(hwdev, MMU_TOP_REG, base, sram0_tlb_axi_port_sel, 0);
-+	dpu_write(hwdev, MMU_TOP_REG, base, sram1_tlb_axi_port_sel, 0);
-+	dpu_write(hwdev, MMU_TOP_REG, base, dmac0_rd_outs_num, rd_outs_num);
-+	dpu_write(hwdev, MMU_TOP_REG, base, dmac1_rd_outs_num, rd_outs_num);
-+}
-+
-+void saturn_hee_irq_enable(struct spacemit_crtc *a_crtc, bool enable)
-+{
-+	u32 offset = DPU_INT_BASE_ADDR + DPU_ONLINE_IRQ_MSK;
-+	u32 mask;
-+
-+	trace_saturn_irq_enable("irq online", enable);
-+	mask = saturn_hee_get_irq_bit(INT_UNDERRUN, a_crtc->dev_id) |
-+	       saturn_hee_get_irq_bit(INT_CFG_RDY, a_crtc->dev_id);
-+	if (enable) {
-+		struct spacemit_drm_private *priv =
-+				a_crtc->crtc.dev->dev_private;
-+
-+		/*
-+		 * Ack first: a surviving status bit would fire as the mask
-+		 * opens.
-+		 */
-+		regmap_write(priv->hwdev->regmap,
-+			     DPU_INT_BASE_ADDR + DPU_ONLINE_IRQ_STS, mask);
-+	}
-+	saturn_enable_irq_mask(a_crtc, enable, offset, mask);
-+	a_crtc->ur_mask_armed = true;
-+}
-+
-+void saturn_hee_dpu_init(struct spacemit_crtc *a_crtc)
-+{
-+	saturn_init_regs(a_crtc);
-+	saturn_setup_dma_top(a_crtc);
-+	saturn_setup_mmu_top(a_crtc);
-+	saturn_hee_irq_enable(a_crtc, true);
-+}
-+
-+#define SATURN_WRITE_COMPOSER_LAYER(id_name) \
-+do {\
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _colorkey_en,	\
-+		  0, cl_cmp);					\
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _blend_mode,	\
-+		  blend_mode, cl_cmp);				\
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _blend_sel,	\
-+		  alpha_sel, cl_cmp);				\
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _layer_alpha,	\
-+		  alpha, cl_cmp);					\
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _alpha_ratio,	\
-+		  0, cl_cmp);					\
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _area_left,	\
-+		  crtc_x, cl_cmp);					\
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _area_top,	\
-+		  crtc_y, cl_cmp);					\
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _area_right,	\
-+		  crtc_x + crtc_w - 1, cl_cmp);			\
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _area_bottom,	\
-+		  crtc_y + crtc_h - 1, cl_cmp);			\
-+	if (unlikely(solid_en)) { \
-+		dpu_write(hwdev, CMPS_X_REG, base,				\
-+			  layer ## id_name ## _solid_color_r,			\
-+			  solid_r, cl_cmp);			\
-+		dpu_write(hwdev, CMPS_X_REG, base,				\
-+			  layer ## id_name ## _solid_color_g,			\
-+			  solid_g, cl_cmp);			\
-+		dpu_write(hwdev, CMPS_X_REG, base,				\
-+			  layer ## id_name ## _solid_color_b,			\
-+			  solid_b, cl_cmp);			\
-+		dpu_write(hwdev, CMPS_X_REG, base,				\
-+			  layer ## id_name ## _solid_color_a,			\
-+			  solid_a, cl_cmp);			\
-+		dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _solid_en,	\
-+			  1, cl_cmp);				\
-+	} else { \
-+		dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _solid_en,	\
-+			  0, cl_cmp);				\
-+		dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _dma_id,	\
-+			  rdma_id, cl_cmp);			\
-+	} \
-+	dpu_write(hwdev, CMPS_X_REG, base, layer ## id_name ## _en, 1, cl_cmp); \
-+} while (0)
-+
-+static void saturn_write_fbcmem_regs(struct spacemit_hw_device *hwdev,
-+				     struct drm_plane_state *state, u32 rdma_id,
-+				     u32 base, struct cmdlist_regs *cl_rdma)
-+{
-+	struct drm_crtc_state *crtc_state = state->crtc->state;
-+	const struct spacemit_crtc_rdma *rdmas =
-+			to_spacemit_crtc_state(crtc_state)->rdmas;
-+	u32 size  = rdmas[rdma_id].fbcmem.size;
-+	u32 start = rdmas[rdma_id].fbcmem.start;
-+	bool map   = rdmas[rdma_id].fbcmem.map;
-+
-+	dpu_write_word(hwdev, base, 31, map << 28 | start << 16 | size,
-+		       cl_rdma);
-+}
-+
-+
-+void saturn_hee_plane_update_hw_channel(struct drm_plane *plane)
-+{
-+	struct drm_plane_state *state = plane->state;
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(state->crtc);
-+	struct drm_framebuffer *fb = plane->state->fb;
-+	struct spacemit_plane_state *spacemit_plane_state =
-+			to_spacemit_plane_state(state);
-+	struct cmdlist_regs *cl_cmp = NULL;
-+	u32 rdma_id = spacemit_plane_state->rdma_id;
-+	u8 alpha = state->alpha >> 8;
-+	u16 pixel_alpha = state->pixel_blend_mode;
-+	u32 src_w, src_h, src_x, src_y;
-+	u32 crtc_w, crtc_h, crtc_x, crtc_y;
-+	u32 alpha_sel, blend_mode = 0;
-+	struct drm_display_mode *mode = &state->crtc->mode;
-+
-+	u32 base;
-+	bool solid_en = false;
-+	u32 solid_a, solid_r, solid_g, solid_b;
-+	struct spacemit_drm_private *priv = plane->dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	struct cmdlist_regs *cl_rdma = a_crtc->cl_rdma;
-+
-+	trace_spacemit_plane_update_hw_channel("rdma_id", rdma_id);
-+
-+	src_w = state->src_w >> 16;
-+	src_h = state->src_h >> 16;
-+	src_x = state->src_x >> 16;
-+	src_y = state->src_y >> 16;
-+
-+	crtc_w = state->crtc_w;
-+	crtc_h = state->crtc_h;
-+	crtc_x = state->crtc_x;
-+	crtc_y = state->crtc_y;
-+
-+	drm_dbg(plane->dev, "crtc_x %u crtc_y %u\n", crtc_x, crtc_y);
-+
-+	if (rdma_id == RDMA_INVALID_ID)
-+		solid_en = true;
-+
-+	trace_dpu_plane_info(state, fb, rdma_id, alpha, state->rotation);
-+
-+	/* For solid color both src_w and src_h are 0 */
-+	if (!solid_en) {
-+		base = RDMA_BASE_ADDR[rdma_id];
-+		/* linear scanout only: the FBC decode path is not exposed */
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, layer_mode, 0, cl_rdma);
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, layer_cmpsr_id,
-+			  a_crtc->dev_id, cl_rdma);
-+		/*
-+		 * force online-mode routing whatever the bootloader left behind
-+		 */
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, is_offline, 0, cl_rdma);
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, is_two_layers, 0,
-+			  cl_rdma);
-+
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, img_width_ly0,
-+			  fb->width, cl_rdma);
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, img_height_ly0,
-+			  fb->height, cl_rdma);
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, bbox_start_x_ly0, src_x,
-+			  cl_rdma);
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, bbox_start_y_ly0, src_y,
-+			  cl_rdma);
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, bbox_end_x_ly0,
-+			  src_x + src_w - 1, cl_rdma);
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, bbox_end_y_ly0,
-+			  src_y + src_h - 1, cl_rdma);
-+
-+		saturn_write_fbcmem_regs(hwdev, state, rdma_id, base, cl_rdma);
-+
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, rot_mode_ly0, 0,
-+			  cl_rdma);
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, uv_swap, 0, cl_rdma);
-+		dpu_write(hwdev, RDMA_PATH_X_REG, base, pixel_format,
-+			  spacemit_plane_state->format, cl_rdma);
-+	} else {
-+		/* Constant-fill layer: zero-size source, transparent black. */
-+		solid_r = 0;
-+		solid_g = 0;
-+		solid_b = 0;
-+		solid_a = 0;
-+	}
-+
-+	switch (pixel_alpha) {
-+	case DRM_MODE_BLEND_COVERAGE:
-+		blend_mode = 0x0;
++	switch (lanes) {
++	case 1:
++		val = 0;
 +		break;
-+	case DRM_MODE_BLEND_PREMULTI:
-+		blend_mode = 0x1;
++	case 2:
++		val = 1;
 +		break;
-+	case DRM_MODE_BLEND_PIXEL_NONE:
-+		blend_mode = 0x0;
++	case 4:
++		val = 2;
 +		break;
 +	default:
-+		drm_err(plane->dev, "unsupported blend mode for pixel alpha\n");
++		return -EINVAL;
 +	}
 +
-+	if (state->fb->format && state->fb->format->has_alpha &&
-+	    pixel_alpha != DRM_MODE_BLEND_PIXEL_NONE) {
-+		if (alpha != 0xff)
-+			alpha_sel = 0x2;
-+		else
-+			alpha_sel = 0x1;
-+	} else {
-+		blend_mode = 0x0;
-+		alpha_sel = 0x0;
-+	}
++	ret = regmap_write_bits(p->regmap, DPTX_PHY_CTRL,
++				DPTX_PHY_CTRL_NUM_LANES,
++				FIELD_PREP(DPTX_PHY_CTRL_NUM_LANES, val));
++	if (ret)
++		return ret;
 +
-+	cl_cmp = alloc_cmdlist_regs(CMPS_X_REG);
-+
-+	base = CMP_BASE_ADDR[a_crtc->dev_id];
-+	dpu_write(hwdev, CMPS_X_REG, base, dst_w, mode->hdisplay, cl_cmp);
-+	dpu_write(hwdev, CMPS_X_REG, base, dst_h, mode->vdisplay, cl_cmp);
-+
-+	SATURN_WRITE_COMPOSER_LAYER(00);
-+	cmdlist_regs_packing(crtc_to_cl(plane->state->crtc), CMDLIST_MOD_COMP,
-+			     cl_cmp);
-+	free_cmdlist_regs(cl_cmp);
++	p->lanes = lanes;
++	return 0;
 +}
 +
-+void saturn_hee_plane_disable_hw_channel(struct drm_plane *plane,
-+					 struct drm_plane_state *old_state)
-+{
-+	u8 dev_id = to_spacemit_crtc(old_state->crtc)->dev_id;
-+	u32 base = CMP_BASE_ADDR[dev_id];
-+	u32 rdma_id = to_spacemit_plane_state(old_state)->rdma_id;
-+	struct spacemit_drm_private *priv = plane->dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	struct cmdlist_regs *cl_cmp = NULL;
-+
-+	trace_spacemit_plane_disable_hw_channel(0, rdma_id);
-+	cl_cmp = alloc_cmdlist_regs(CMPS_X_REG);
-+	dpu_write(hwdev, CMPS_X_REG, base, layer00_en, 0, cl_cmp);
-+
-+	cmdlist_regs_packing(crtc_to_cl(old_state->crtc), CMDLIST_MOD_COMP,
-+			     cl_cmp);
-+	free_cmdlist_regs(cl_cmp);
-+}
-+
-+void saturn_hee_conf_dpuctrl(struct drm_crtc *crtc,
-+			     struct drm_crtc_state *old_state)
-+{
-+	u32 rdma_en = 0;
-+	u32 base;
-+	u32 pp_base = POST_PIPE_ADDR;
-+	struct spacemit_drm_private *priv = crtc->dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+	struct spacemit_crtc *a_crtc = to_spacemit_crtc(crtc);
-+	struct drm_display_mode *mode = &crtc->mode;
-+	struct drm_crtc_state *crtc_state = a_crtc->crtc.state;
-+	struct spacemit_crtc_state *spacemit_crtc_state =
-+			to_spacemit_crtc_state(crtc_state);
-+	struct cmdlist *cl = NULL;
-+	struct cmdlist_regs *pp_cl = NULL;
-+
-+	base = DPU_SCENE_CTL_ADDR(a_crtc->dev_id);
-+	rdma_en = saturn_conf_dpuctrl_rdma(a_crtc);
-+
-+	pp_cl = alloc_cmdlist_regs(POSTPIPE_REG);
-+	/*
-+	 * postpipe should be configured no matter whether pq function is on or
-+	 * off
-+	 */
-+	dpu_write_word(hwdev, pp_base, 0, 0, pp_cl);
-+	dpu_write(hwdev, POSTPIPE_REG, pp_base, m_inwidth, mode->hdisplay,
-+		  pp_cl);
-+	dpu_write(hwdev, POSTPIPE_REG, pp_base, m_inheight, mode->vdisplay,
-+		  pp_cl);
-+
-+	cmdlist_regs_packing(crtc_to_cl(crtc), CMDLIST_MOD_COMP, pp_cl);
-+	free_cmdlist_regs(pp_cl);
-+
-+	cmdlist_sort_by_group(crtc);
-+	cmdlist_atomic_commit(crtc, old_state);
-+
-+	dpu_write(hwdev, DPU_CTL_REG, base, nml_scl_en, 0);
-+	dpu_write(hwdev, DPU_CTL_REG, base, nml_rch_en, rdma_en);
-+	dpu_write(hwdev, DPU_CTL_REG, base, timing_inter0, 8);
-+	dpu_write(hwdev, DPU_CTL_REG, base, timing_inter1, 8);
-+	dpu_write(hwdev, DPU_CTL_REG, base, video_mod, 1);
-+	dpu_write(hwdev, DPU_CTL_REG, base, dbg_mod, 0);
-+
-+	dpu_write(hwdev, DPU_CTL_REG, base, nml_outctl_en, 0x1);
-+	dpu_write(hwdev, DPU_CTL_REG, base, nml_frm_timing_en, 2);
-+	cl = &spacemit_crtc_state->cl;
-+	if (cl->va) {
-+		crtc_cmdlist_sort_by_group(a_crtc);
-+		crtc_cmdlist_atomic_commit(a_crtc);
-+	}
-+}
-+
-+u32 saturn_hee_get_cfg_rdy(struct spacemit_crtc *a_crtc,
-+			   struct spacemit_hw_device *hwdev)
-+{
-+	u32 base = DPU_SCENE_CTL_ADDR(a_crtc->dev_id);
-+
-+	return dpu_read_word(hwdev, base, 2);
-+}
-+
-+u32 saturn_hee_get_int_sts(struct spacemit_hw_device *hwdev, int dev_id)
-+{
-+	/* Both K3 DPU instances are wired as COMPOSER1 (see master_bind). */
-+	if (dev_id != COMPOSER1)
-+		return 0;
-+
-+	return dpu_read_word(hwdev, DPU_INT_BASE_ADDR, 12);
-+}
-+
-+static const struct spacemit_crtc_irq_bitfield {
-+	enum spacemit_dpu_irq irq_id;
-+	u32 irq_bit;
-+} irq_list[] = {
-+	[INT_UNDERRUN] = {INT_UNDERRUN, DPU_INT_FRM_TIMING_UNFLOW},
-+	[INT_CFG_RDY] = {INT_CFG_RDY, DPU_INT_CFG_RDY_CLR},
-+	[INT_VSYNC] = {INT_VSYNC, DPU_INT_FRM_TIMING_VSYNC},
-+	[INT_EOF] = {INT_EOF, DPU_INT_FRM_TIMING_EOF},
-+	[INT_REST] = {INT_REST, DPU_REST_INT_BITS},
++struct k3_inno_dp_mpll_cfg {
++	unsigned int link_rate;		/* Mbps per lane */
++	u8 prediv;
++	u16 fbdiv;
++	u32 frac;
++	u8 postdiv;
++	u8 postdiv_en;
++	u8 frac_pd;
++	u8 vcoclk_div8_en;
++	u8 clk_16mdiv;
 +};
 +
-+u32 saturn_hee_get_irq_bit(enum spacemit_dpu_irq irq_id, int dev_id)
-+{
-+	if (irq_id >= ARRAY_SIZE(irq_list))
-+		return 0;
-+
-+	if (dev_id == COMPOSER1 || dev_id == COMPOSER2)
-+		return irq_list[irq_id].irq_bit;
-+	else
-+		return 0;
-+}
-+
-+void saturn_hee_clr_int_sts(struct spacemit_crtc *a_crtc, u32 data, int dev_id)
-+{
-+	struct spacemit_drm_private *priv = a_crtc->crtc.dev->dev_private;
-+	struct spacemit_hw_device *hwdev = priv->hwdev;
-+
-+	/* Both K3 DPU instances are wired as COMPOSER1 (see master_bind). */
-+	if (dev_id != COMPOSER1)
-+		return;
-+
-+	regmap_write(hwdev->regmap, DPU_INT_BASE_ADDR + DPU_ONLINE_IRQ_STS,
-+		     data);
-+	if ((saturn_hee_get_irq_bit(INT_UNDERRUN, dev_id) & data) &&
-+	    a_crtc->ur_mask_armed) {
-+		saturn_enable_irq_mask(a_crtc, false,
-+			DPU_INT_BASE_ADDR + DPU_ONLINE_IRQ_MSK,
-+			saturn_hee_get_irq_bit(INT_UNDERRUN, dev_id));
-+		a_crtc->ur_mask_armed = false;
-+	}
-+}
-+
-+void saturn_hee_enable_cmdlist(struct spacemit_crtc *a_crtc, struct spacemit_hw_device *hwdev,
-+			       int id, bool enable)
-+{
-+	u32 val = 0;
-+	u32 base = 0;
-+	struct drm_crtc *crtc = &a_crtc->crtc;
-+	struct drm_crtc_state *crtc_state = crtc->state;
-+	struct spacemit_crtc_state *spacemit_state =
-+			to_spacemit_crtc_state(crtc_state);
-+	struct spacemit_crtc_rdma *rdmas = spacemit_state->rdmas;
-+
-+	base = DPU_SCENE_CTL_ADDR(a_crtc->dev_id);
-+
-+	dpu_write_reg_arr(hwdev, DPU_CTL_TOP_REG, DPU_CTRL_BASE_ADDR,
-+			  dpu_ctl_top_reg_0, id, cmdlist_rch_en,
-+			  enable ? 1 : 0);
-+	val = dpu_read_reg(hwdev, DPU_CTL_REG, base, nml_rch_vrt_reuse);
-+	if (enable && rdmas[id].use_cnt > 1)
-+		val |= (1 << id);
-+	else
-+		val &= ~(1 << id);
-+
-+	dpu_write(hwdev, DPU_CTL_REG, base, nml_rch_vrt_reuse, val);
-+}
-+
-+void saturn_hee_cfg_cmdlist(struct spacemit_hw_device *hwdev, int id, u32 chy,
-+			    u32 addrl, u32 addrh)
-+{
-+	dpu_write_reg_arr(hwdev, CMDLIST_REG, CMDLIST_BASE_ADDR,
-+			  cmdlist_reg_48, id, cmdlist_ch_y_first, chy);
-+	dpu_write_reg_arr(hwdev, CMDLIST_REG, CMDLIST_BASE_ADDR,
-+			  cmdlist_reg_0, id, cmdlist_ch_start_addrl, addrl);
-+	dpu_write_reg_arr(hwdev, CMDLIST_REG, CMDLIST_BASE_ADDR,
-+			  cmdlist_reg_16, id, cmdlist_ch_start_addrh, addrh);
-+}
-+
-+void saturn_hee_rdma_dmmu(struct spacemit_hw_device *hwdev, u8 tbu_id, struct tbu_instance *tbu,
-+			  struct drm_framebuffer *fb, u32 val, struct cmdlist_regs *cl_rdma,
-+			  struct drm_plane *plane)
-+{
-+	u32 base;
-+	u8 rdma_id = tbu_id / 2;
-+	struct cmdlist_regs *cl_tbu = NULL;
-+
-+	SATURN_WRITE_RDMA_ADDR_REG(hwdev, 0, rdma_id, tbu->tbu_va[0], cl_rdma);
-+	SATURN_WRITE_RDMA_ADDR_REG(hwdev, 1, rdma_id, tbu->tbu_va[1], cl_rdma);
-+	SATURN_WRITE_RDMA_ADDR_REG(hwdev, 2, rdma_id, tbu->tbu_va[2], cl_rdma);
-+
-+	base = RDMA_BASE_ADDR[rdma_id];
-+	dpu_write(hwdev, RDMA_PATH_X_REG, base, rdma_stride0_layer0,
-+		  fb->pitches[0], cl_rdma);
-+	dpu_write(hwdev, RDMA_PATH_X_REG, base, rdma_stride1_layer0,
-+		  fb->pitches[1], cl_rdma);
-+
-+	cl_tbu = alloc_cmdlist_regs(MMU_TBU_REG);
-+	base = MMU_TBU_BASE_ADDR_ARRAY[tbu_id];
-+	SATURN_WRITE_TBU_REGS(hwdev, base, 0, cl_tbu);
-+	SATURN_WRITE_TBU_REGS(hwdev, base, 1, cl_tbu);
-+	SATURN_WRITE_TBU_REGS(hwdev, base, 2, cl_tbu);
-+
-+	dpu_write_word(hwdev, base, 0, val, cl_tbu);
-+	cmdlist_regs_packing(plane_to_cl(plane), CMDLIST_MOD_DMMU, cl_tbu);
-+	free_cmdlist_regs(cl_tbu);
-+}
-+
-+static u32 saturn_get_cl_chy_addr(void)
-+{
-+	return CMDLIST_BASE_ADDR + CMDLIST_CH_Y;
-+}
-+
-+static u32 saturn_get_cl_start_cmps_y_addr(void)
-+{
-+	return DPU_CTRL_BASE_ADDR + CMDLIST_CH_START_CMPS_Y;
-+}
-+
-+static u32 saturn_get_cl_cfg_rdy_addr(void)
-+{
-+	return DPU_CTRL_BASE_ADDR + CMDLIST_CFG_READY;
-+}
-+
-+int saturn_hee_get_cl_rdma_buf(struct spacemit_crtc *a_crtc)
-+{
-+	a_crtc->cl_rdma = alloc_cmdlist_regs(RDMA_PATH_X_REG);
-+	if (!a_crtc->cl_rdma)
-+		return -ENOMEM;
-+	else
-+		return 0;
-+}
-+
-+struct cmdlist_header {
-+	u64 next_list_addr : 39;
-+	/* reserved */
-+	u32: 1;
-+	u32 nod_len : 16;
-+	/* 1: the last cmdlist node, 2: pending node, otherwise 0 */
-+	u32 nod_type : 2;
-+	u32 next_nod_secu : 1;
-+	u64 wait_event_low    : 5;
-+	u64 wait_event    : 59;
-+	/* reserved */
-+	u32: 5;
++static const struct k3_inno_dp_mpll_cfg k3_inno_dp_mpll_cfgs[] = {
++	{
++		.link_rate	= 1620,
++		.prediv		= 0x02,
++		.fbdiv		= 0x87,
++		.frac		= 0,
++		.postdiv	= 0,
++		.postdiv_en	= 1,
++		.frac_pd	= 0x3,
++		.vcoclk_div8_en	= 1,
++		.clk_16mdiv	= 12,
++	}, {
++		.link_rate	= 2700,
++		.prediv		= 0x02,
++		.fbdiv		= 0xe1,
++		.frac		= 0,
++		.postdiv	= 0,
++		.postdiv_en	= 1,
++		.frac_pd	= 0x3,
++		.vcoclk_div8_en	= 1,
++		.clk_16mdiv	= 21,
++	}, {
++		.link_rate	= 5400,
++		.prediv		= 0x02,
++		.fbdiv		= 0xe1,
++		.frac		= 0,
++		.postdiv	= 0,
++		.postdiv_en	= 0,
++		.frac_pd	= 0x3,
++		.vcoclk_div8_en	= 0,
++		.clk_16mdiv	= 42,
++	},
 +};
 +
-+struct cmdlist_row {
-+	u32 module_cfg_addr   : 19;
-+	u32 module_cfg_strobe : 12;
-+	/* the last row tag = 1, else tag = 0. */
-+	u32 row_eof_tag       : 1;
-+	u32 module_regs[3];
-+};
-+
-+/* DMA stream layout consumed by the cmdlist engine; sizes are load-bearing. */
-+static_assert(sizeof(struct cmdlist_header) == 16);
-+static_assert(sizeof(struct cmdlist_row) == 16);
-+
-+#define CL_HEADER_SZ sizeof(struct cmdlist_header)
-+#define CL_ROW_SZ    sizeof(struct cmdlist_row)
-+
-+#define CMDLIST_RDMA_CFG_RDY(ch) BIT(ch)
-+#define CMDLIST_CMPS_CFG_RDY(ch) BIT((ch) + 20)
-+
-+#define CMDLIST_WAIT_EVENT_BIT_RDMA_RELOAD BIT(4)
-+#define CMDLIST_WAIT_EVENT_BIT_CMPS_RELOAD BIT(6)
-+
-+void saturn_hee_cmdlist_fill_data_row(struct cmdlist *cl, u32 strobe,
-+				      u32 offset, u32 value[])
++static void k3_inno_dp_phy_program_mpll(struct k3_inno_dp_phy *p,
++					const struct k3_inno_dp_mpll_cfg *cfg)
 +{
-+	struct cmdlist_row *row;
-+	u8 i;
++	struct regmap *rm = p->regmap;
 +
 +	/*
-+	 * packing counts rows blindly; drop the row rather than the buffer end
++	 * Shared with an unwired HDMI path: select DP first, otherwise the
++	 * PLLs still lock but nothing reaches the lanes and AUX times out.
 +	 */
-+	if (WARN_ONCE(CL_HEADER_SZ + (cl->nod_len + 1) * CL_ROW_SZ > cl->size,
-+		      "cmdlist buffer full (rows %u)\n", cl->nod_len))
-+		return;
++	regmap_write_bits(rm, DPTX_ANA_PREPLL_CTRL, DPTX_ANA_PREPLL_DP_EN,
++		DPTX_ANA_PREPLL_DP_EN);
++	regmap_write_bits(rm, DPTX_ANA_PREPLL_CTRL, DPTX_ANA_PREPLL_HDMI_EN, 0);
 +
-+	row = (struct cmdlist_row *)((char *)cl->va + CL_HEADER_SZ) + cl->nod_len;
-+	row->module_cfg_addr = offset >> 2;
-+	row->module_cfg_strobe = strobe;
++	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PD,
++		FIELD_PREP(DPTX_ANA_MPLL_PD, 1));
++	usleep_range(2000, 4000);
 +
-+	for (i = 0; i < CMDLIST_ROW_REGS; i++)
-+		if (strobe & CMDLIST_REG_STROBE(i))
-+			row->module_regs[i] = value[i];
++	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PREDIV,
++		FIELD_PREP(DPTX_ANA_MPLL_PREDIV, cfg->prediv));
++	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_FBDIV_LBIT,
++		FIELD_PREP(DPTX_ANA_MPLL_FBDIV_LBIT, cfg->fbdiv & 0xff));
++	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_FBDIV_HBIT,
++		FIELD_PREP(DPTX_ANA_MPLL_FBDIV_HBIT, (cfg->fbdiv >> 8) & 0xf));
++	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_DACPD,
++		FIELD_PREP(DPTX_ANA_MPLL_DACPD, (cfg->frac_pd >> 1) & 0x1));
++	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_DSMPD,
++		FIELD_PREP(DPTX_ANA_MPLL_DSMPD, cfg->frac_pd & 0x1));
++
++	regmap_write_bits(rm, DPTX_ANA_MPLL_FRAC, DPTX_ANA_MPLL_FRAC_LBIT,
++		FIELD_PREP(DPTX_ANA_MPLL_FRAC_LBIT, cfg->frac & 0xff));
++	regmap_write_bits(rm, DPTX_ANA_MPLL_FRAC, DPTX_ANA_MPLL_FRAC_MBIT,
++		FIELD_PREP(DPTX_ANA_MPLL_FRAC_MBIT, (cfg->frac >> 8) & 0xff));
++	regmap_write_bits(rm, DPTX_ANA_MPLL_FRAC, DPTX_ANA_MPLL_FRAC_HBIT,
++		FIELD_PREP(DPTX_ANA_MPLL_FRAC_HBIT, (cfg->frac >> 16) & 0xff));
++
++	regmap_write_bits(rm, DPTX_ANA_MPLL_DIV, DPTX_ANA_MPLL_POSTDIV,
++		FIELD_PREP(DPTX_ANA_MPLL_POSTDIV, cfg->postdiv));
++	regmap_write_bits(rm, DPTX_ANA_MPLL_DIV, DPTX_ANA_MPLL_POSTDIVEN,
++		FIELD_PREP(DPTX_ANA_MPLL_POSTDIVEN, cfg->postdiv_en));
++	regmap_write_bits(rm, DPTX_ANA_MPLL_DIV, DPTX_ANA_MPLL_VCOCLK_DIV8_EN,
++		FIELD_PREP(DPTX_ANA_MPLL_VCOCLK_DIV8_EN, cfg->vcoclk_div8_en));
++
++	regmap_write_bits(rm, DPTX_ANA_TX_CTRL, DPTX_ANA_MPLL_CLKDIV_16M,
++		FIELD_PREP(DPTX_ANA_MPLL_CLKDIV_16M, cfg->clk_16mdiv));
++
++	regmap_write_bits(rm, DPTX_ANA_PREPLL_CTRL, DPTX_ANA_PREPLL_LOCK_BYPEN,
++		FIELD_PREP(DPTX_ANA_PREPLL_LOCK_BYPEN, 1));
++
++	regmap_write_bits(rm, DPTX_ANA_MPLL, DPTX_ANA_MPLL_PD,
++		FIELD_PREP(DPTX_ANA_MPLL_PD, 0));
++	usleep_range(2000, 4000);
 +}
 +
-+void saturn_hee_cmdlist_fill_conf_row(struct cmdlist *cl, struct spacemit_hw_device *hwdev,
-+				      u8 dev_id)
++static int k3_inno_dp_phy_set_rate(struct k3_inno_dp_phy *p,
++				   unsigned int link_rate)
 +{
-+	struct cmdlist_header *header;
-+	struct cmdlist_row *row;
-+	struct spacemit_plane_state *spacemit_pstate = NULL;
-+	u8 rch_id = 0;
-+	u32 wait_event_bits = 0, cfg_rdy_bits = 0;
-+	int cur_crtc_y = -1, cur_crtc_h = -1, next_crtc_y = -1;
++	const struct k3_inno_dp_mpll_cfg *cfg = NULL;
++	unsigned int i;
++	u32 sel;
 +
-+	/*
-+	 * CRTC-level cmdlists live inside a crtc_state; only planes have one.
-+	 */
-+	if (cl->type == CMDLIST_PLANE) {
-+		spacemit_pstate = cl_to_spacemit_pstate(cl);
-+		rch_id = spacemit_pstate->rdma_id;
++	switch (link_rate) {
++	case 1620:
++		sel = 0;
++		break;
++	case 2700:
++		sel = 1;
++		break;
++	case 5400:
++		sel = 2;
++		break;
++	default:
++		return -EINVAL;
 +	}
 +
-+	/* At most three rows are appended below; bail before overrunning. */
-+	if (WARN_ONCE(CL_HEADER_SZ + (cl->nod_len + 3) * CL_ROW_SZ > cl->size,
-+		      "cmdlist buffer full (type %u, rows %u)\n",
-+		      cl->type, cl->nod_len))
-+		return;
-+
-+	header = (struct cmdlist_header *)(cl->va);
-+	row = (struct cmdlist_row *)((char *)header + CL_HEADER_SZ + cl->nod_len * CL_ROW_SZ);
-+	if (cl->next) {
-+		if (dev_id == CMDLIST_CMP_INVALID) {
-+			trace_u64_data("rch_id", rch_id);
-+			row->module_cfg_addr = ((saturn_get_cl_chy_addr() + rch_id * 4) >> 2);
-+		} else {
-+			trace_u64_data("dev_id", dev_id);
-+			row->module_cfg_addr = ((saturn_get_cl_chy_addr() + (5 + dev_id) * 4) >> 2);
++	for (i = 0; i < ARRAY_SIZE(k3_inno_dp_mpll_cfgs); i++) {
++		if (k3_inno_dp_mpll_cfgs[i].link_rate == link_rate) {
++			cfg = &k3_inno_dp_mpll_cfgs[i];
++			break;
 +		}
-+		row->module_cfg_strobe = CMDLIST_REG_STROBE(0);
-+		if (cl->cmdlist_ch_y_other != CMDLIST_SENTINEL_POISON)
-+			next_crtc_y = cl->cmdlist_ch_y_other;
-+		else if (cl->next->type == CMDLIST_PLANE)
-+			next_crtc_y = cl_to_spacemit_pstate(cl->next)->state.crtc_y;
-+		else
-+			next_crtc_y = 0;
-+		row->module_regs[0] = next_crtc_y;
-+		cl->nod_len++;
-+		row++;
 +	}
-+
-+	if (cl->type == CMDLIST_PLANE) {
-+		if (cl->rch_start_cmps_y != CMDLIST_SENTINEL_POISON)
-+			cur_crtc_y = cl->rch_start_cmps_y;
-+		else
-+			cur_crtc_y = cl_to_spacemit_pstate(cl)->state.crtc_y;
-+		cur_crtc_h = cl_to_spacemit_pstate(cl)->state.crtc_h;
-+		/* the cmdlist nodes don't belong to the same plane */
-+		if (next_crtc_y != -1 && cl_to_spacemit_pstate(cl->next) != spacemit_pstate &&
-+		    (cur_crtc_y + cur_crtc_h + 24) > next_crtc_y) {
-+			drm_err_ratelimited(spacemit_pstate->state.crtc->dev,
-+				"invalid gap: cur_y=%d cur_h=%d next_y=%d\n",
-+				cur_crtc_y, cur_crtc_h, next_crtc_y);
-+		}
-+		row->module_cfg_addr = (saturn_get_cl_start_cmps_y_addr() + rch_id * 4) >> 2;
-+		row->module_cfg_strobe = CMDLIST_REG_STROBE(0);
-+		row->module_regs[0] =
-+				(cur_crtc_y >= 24) ? (cur_crtc_y - 24) : 0;
-+		cl->nod_len++;
-+		row++;
-+	}
-+
-+	if (cl->mode_mask & CMDLIST_MOD_RDMA) {
-+		wait_event_bits |= CMDLIST_WAIT_EVENT_BIT_RDMA_RELOAD;
-+		cfg_rdy_bits |= CMDLIST_RDMA_CFG_RDY(rch_id);
-+	}
-+	if (cl->mode_mask & CMDLIST_MOD_COMP) {
-+		wait_event_bits |= CMDLIST_WAIT_EVENT_BIT_CMPS_RELOAD;
-+		cfg_rdy_bits |= CMDLIST_CMPS_CFG_RDY(dev_id);
-+	}
-+	row->module_cfg_addr = (saturn_get_cl_cfg_rdy_addr()) >> 2;
-+	row->module_cfg_strobe = CMDLIST_REG_STROBE(0);
-+	row->module_regs[0] = cfg_rdy_bits;
-+	row->row_eof_tag = 1;
-+	cl->nod_len++;
-+	row++;
-+
-+	if (cl->next)
-+		header->next_list_addr = cl->next->pa;
-+	else
-+		header->nod_type = 1;
-+	header->nod_len = cl->nod_len + 1; /* include header */
-+	header->wait_event_low = wait_event_bits & 0x1F;
-+	header->wait_event = wait_event_bits >> 5;
-+}
-+
-+void saturn_hee_crtc_cmdlist(struct spacemit_hw_device *hwdev,
-+			     struct spacemit_drm_private *priv, u8 crtc_id, u8 dev_id)
-+{
-+	u32 val = 0;
-+
-+	dpu_write_reg_arr(hwdev, CMDLIST_REG, CMDLIST_BASE_ADDR, cmdlist_reg_48,
-+			  hwdev->rdma_nums + 2 + crtc_id, cmdlist_ch_y_first,
-+			  val);
-+
-+	val = (lower_32_bits(priv->cmdlist_groups[hwdev->rdma_nums + crtc_id]->pa) &
-+	       CMDLIST_ADDRL_ALIGN_MASK) >> CMDLIST_ADDRL_ALIGN_BITS;
-+	dpu_write_reg_arr(hwdev, CMDLIST_REG, CMDLIST_BASE_ADDR, cmdlist_reg_0,
-+			  hwdev->rdma_nums + 2 + crtc_id,
-+			  cmdlist_ch_start_addrl, val);
-+	val = upper_32_bits(priv->cmdlist_groups[hwdev->rdma_nums + crtc_id]->pa);
-+	dpu_write_reg_arr(hwdev, CMDLIST_REG, CMDLIST_BASE_ADDR, cmdlist_reg_16,
-+			  hwdev->rdma_nums + 2 + crtc_id,
-+			  cmdlist_ch_start_addrh, val);
-+	dpu_write_reg_arr(hwdev, DPU_CTL_TOP_REG, DPU_CTRL_BASE_ADDR,
-+			  dpu_ctl_top_reg_10, dev_id, cmdlist_cmps_top_en, 1);
-+	dpu_write_reg_arr(hwdev, DPU_CTL_TOP_REG, DPU_CTRL_BASE_ADDR,
-+			  dpu_ctl_top_reg_10, dev_id, cmdlist_cmps_other_en, 1);
-+
-+	priv->cmdlist_groups[hwdev->rdma_nums + crtc_id] = NULL;
-+}
-+
-+#define DUMP_BUF_LEN	100
-+void saturn_hee_cmdlist_dump_node(struct cmdlist *cl)
-+{
-+	struct cmdlist_header *header = (struct cmdlist_header *)(cl->va);
-+	ssize_t ret = 0;
-+	char tmp[DUMP_BUF_LEN] = {0x0};
-+
-+	ret += scnprintf(tmp + ret, sizeof(tmp) - ret, "header: ");
-+	ret += scnprintf(tmp + ret, sizeof(tmp) - ret, "next_addr:0x%llx ",
-+			 (unsigned long long)header->next_list_addr);
-+	ret += scnprintf(tmp + ret, sizeof(tmp) - ret, "rows:%d ",
-+			 header->nod_len);
-+	ret += scnprintf(tmp + ret, sizeof(tmp) - ret, "type:%d ",
-+			 header->nod_type);
-+	ret += scnprintf(tmp + ret, sizeof(tmp) - ret, "event_low:0x%llx ",
-+			 (unsigned long long)header->wait_event_low);
-+	ret += scnprintf(tmp + ret, sizeof(tmp) - ret, "event:0x%llx ",
-+			 (unsigned long long)header->wait_event);
-+	trace_plat_cmdlist_dump_node(tmp);
-+
-+	for (int i = 0; i < header->nod_len - 1; i++) {
-+		struct cmdlist_row *row = (struct cmdlist_row *)((char *)header + CL_HEADER_SZ) + i;
-+		u32 addr = row->module_cfg_addr << 2;
-+
-+		ret = 0;
-+		ret += scnprintf(tmp + ret, sizeof(tmp) - ret,
-+				 "row[%4d:tag:%d]: ", i, row->row_eof_tag);
-+
-+		for (int j = 0; j < CMDLIST_ROW_REGS; j++) {
-+			if (row->module_cfg_strobe & CMDLIST_REG_STROBE(j))
-+				ret += scnprintf(tmp + ret, sizeof(tmp) - ret,
-+						 "[%#10x:%#10x]", addr + j * 4,
-+						 row->module_regs[j]);
-+			else
-+				ret += scnprintf(tmp + ret, sizeof(tmp) - ret,
-+						 "%#11x:%#11x", addr + j * 4,
-+						 row->module_regs[j]);
-+		}
-+		trace_plat_cmdlist_dump_node(tmp);
-+	}
-+}
-diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c b/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c
-new file mode 100644
-index 0000000000000..144716ec9b80c
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.c
-@@ -0,0 +1,152 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-+ *
-+ */
-+
-+#include <linux/stddef.h>
-+#include <linux/export.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_mode.h>
-+#include <drm/drm_fourcc.h>
-+#include "../spacemit_cmdlist.h"
-+#include "saturn_fbcmem.h"
-+
-+int get_raw_data_plane_rdma_mem_size(u32 drm_4cc_fmt, u32 plane_crop_width,
-+				     u32 *output_mem_size)
-+{
-+	u32 ret_mem_size = 0;
-+	const struct drm_format_info *info = NULL;
-+
-+	info = drm_format_info(drm_4cc_fmt);
-+	if (info->cpp[0] == 0 || info->num_planes != 1 || info->is_yuv)
++	if (!cfg)
 +		return -EINVAL;
 +
-+	/* 64-byte rounding is a dpu hardware request */
-+	ret_mem_size = roundup(plane_crop_width * info->cpp[0], 64);
-+	ret_mem_size = ret_mem_size / 32;
++	k3_inno_dp_phy_program_mpll(p, cfg);
 +
-+	if (output_mem_size)
-+		*output_mem_size = ret_mem_size;
++	return regmap_write_bits(p->regmap, DPTX_PHY_CTRL,
++				 DPTX_PHY_CTRL_RATE,
++				 FIELD_PREP(DPTX_PHY_CTRL_RATE, sel));
++}
++
++static int k3_inno_dp_phy_set_voltages(struct k3_inno_dp_phy *p,
++				       struct phy_configure_opts_dp *opts)
++{
++	u8 lane;
++	int ret;
++
++	for (lane = 0; lane < opts->lanes; lane++) {
++		unsigned int shift = lane * DPTX_PHY_LANE_BITS_PER;
++		u32 mask = DPTX_PHY_LANE_FIELD_MASK << shift;
++		u32 val  = (((opts->voltage[lane] & 0x3) << DPTX_PHY_LANE_VSWING_SHIFT) |
++			    (opts->pre[lane] & 0x3)) << shift;
++
++		ret = regmap_write_bits(p->regmap, DPTX_PHY_LANE_TRIM, mask,
++					val);
++		if (ret)
++			return ret;
++	}
 +
 +	return 0;
 +}
 +
-+int saturn_cal_layer_fbcmem_size(struct drm_plane *plane,
-+				 struct drm_plane_state *state)
++static int k3_inno_dp_phy_configure(struct phy *phy,
++				    union phy_configure_opts *opts)
 +{
-+	struct spacemit_plane_state *pstate = to_spacemit_plane_state(state);
-+	u32 drm_4cc_fmt = pstate->state.fb->format->format;
-+	u32 crop_w = pstate->state.src_w >> 16;
++	struct k3_inno_dp_phy *p = phy_get_drvdata(phy);
++	int ret;
 +
-+	/* Only linear sizing: the compressed path is not exposed. */
-+	return get_raw_data_plane_rdma_mem_size(drm_4cc_fmt, crop_w,
-+						&pstate->fbcmem_size);
-+}
++	if (opts->dp.set_lanes) {
++		ret = k3_inno_dp_phy_set_lanes(p, opts->dp.lanes);
++		if (ret)
++			return ret;
++	}
 +
-+/* Even RDMA (0, 2, ...): sole owner of the front of its fbc memory bank. */
-+static int saturn_fbcmem_place_even(struct spacemit_hw_device *hwdev,
-+				    struct spacemit_crtc_rdma *rdmas,
-+				    u32 *fbc_mems_left, u8 index)
-+{
-+	u32 cur_rdma_fbcmem_size = rdmas[index].fbcmem.size;
-+	u32 pri_fbcmem_size = hwdev->fbcmem_sizes[index / 2] / FBCMEM_UNIT;
++	if (opts->dp.set_rate) {
++		ret = k3_inno_dp_phy_set_rate(p, opts->dp.link_rate);
++		if (ret)
++			return ret;
++	}
 +
-+	if (cur_rdma_fbcmem_size > pri_fbcmem_size)
-+		return -ENOSPC;
-+
-+	/* The preceding odd RDMA may not already share this bank. */
-+	if (index > 0 && rdmas[index - 1].fbcmem.map)
-+		return -ENOSPC;
-+
-+	rdmas[index].fbcmem.start = 0;
-+	rdmas[index].fbcmem.map = true;
-+	fbc_mems_left[index / 2] -= cur_rdma_fbcmem_size;
++	if (opts->dp.set_voltages) {
++		ret = k3_inno_dp_phy_set_voltages(p, &opts->dp);
++		if (ret)
++			return ret;
++	}
 +
 +	return 0;
 +}
 +
-+/* Odd RDMA takes what is left of its own bank, spilling into the next. */
-+static int saturn_fbcmem_place_odd(struct spacemit_hw_device *hwdev,
-+				   struct spacemit_crtc_rdma *rdmas,
-+				   u32 *fbc_mems_left, u8 index)
++static u32 k3_inno_dp_div64(u64 *n, u32 base)
 +{
-+	u32 cur_rdma_fbcmem_size = rdmas[index].fbcmem.size;
-+	u32 pri_fbcmem_size = hwdev->fbcmem_sizes[index / 2] / FBCMEM_UNIT;
-+	u8 rdma_nums = hwdev->rdma_nums;
-+	u8 sec_fbcmem_index;
-+	u32 sec_fbcmem_size;
++	return do_div(*n, base);
++}
 +
-+	if (cur_rdma_fbcmem_size <= fbc_mems_left[index / 2]) { /* not share fbc mem */
-+		rdmas[index].fbcmem.map = false;
-+		rdmas[index].fbcmem.start =
-+				pri_fbcmem_size - fbc_mems_left[index / 2];
-+		rdmas[index].fbcmem.size = fbc_mems_left[index / 2]; /* use all the mem left */
-+		fbc_mems_left[index / 2] = 0;
++static int k3_inno_dp_better_cfg(bool new_valid, bool new_is_int, u8 new_pre, u32 new_vco,
++				 bool best_valid, bool best_is_int, u8 best_pre, u32 best_vco)
++{
++	if (!new_valid)
++		return 0;
++	if (!best_valid)
++		return 1;
++
++	if (new_is_int && !best_is_int)
++		return 1;
++	if (!new_is_int && best_is_int)
++		return 0;
++
++	if (new_pre < best_pre)
++		return 1;
++	if (new_pre > best_pre)
++		return 0;
++
++	if (new_vco > best_vco)
++		return 1;
++
++	return 0;
++}
++
++struct k3_inno_dp_prepll_cfg {
++	u32 target_pclk_khz;
++	u32 vco_freq_khz;
++	u8 prediv;
++	u16 fbdiv;
++	u32 frac_pd;
++	u32 frac;
++	u8 div5_en;
++	u8 divm;
++	u8 divaux;
++	u8 divp;
++	u32 actual_pclk_khz;
++	bool valid;
++};
++
++static const struct k3_inno_dp_prepll_cfg k3_inno_dp_prepll_cfgs[] = {
++	{ 614400, 2460000, 0x05, 512,  0x3, 0x0, 0x0, 0x1, 0x01, 0x1, 614400, true },
++	{ 594000, 2376000, 0x01, 99,   0x3, 0x0, 0x0, 0x1, 0x01, 0x1, 594000, true },
++	{ 551040, 2760000, 0x05, 574,  0x3, 0x0, 0x1, 0x0, 0x00, 0x0, 551040, true },
++	{ 533250, 2130000, 0x08, 711,  0x3, 0x0, 0x0, 0x1, 0x01, 0x1, 533250, true },
++	{ 443250, 1770000, 0x08, 591,  0x3, 0x0, 0x0, 0x1, 0x01, 0x1, 443250, true },
++	{ 375000, 3000000, 0x01, 125,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 375000, true },
++	{ 372000, 2980000, 0x01, 124,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 372000, true },
++	{ 348500, 2790000, 0x06, 697,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 348500, true },
++	{ 307200, 1540000, 0x01, 64,   0x3, 0x0, 0x1, 0x0, 0x00, 0x0, 307200, true },
++	{ 297000, 2376000, 0x01, 99,   0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 297000, true },
++	{ 280000, 1680000, 0x01, 70,   0x3, 0x0, 0x0, 0x2, 0x01, 0x1, 280000, true },
++	{ 277440, 2770000, 0x05, 578,  0x3, 0x0, 0x0, 0x3, 0x01, 0x1, 277440, true },
++	{ 245760, 2457600, 0x05, 512,  0x3, 0x0, 0x0, 0x3, 0x01, 0x1, 245760, true },
++	{ 241500, 1932000, 0x02, 161,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 241500, true },
++	{ 236000, 2830000, 0x01, 118,  0x3, 0x0, 0x0, 0x0, 0x06, 0x1, 236000, true },
++	{ 204800, 2048000, 0x03, 256,  0x3, 0x0, 0x0, 0x3, 0x01, 0x1, 204800, true },
++	{ 193250, 2320000, 0x08, 773,  0x3, 0x0, 0x0, 0x0, 0x06, 0x1, 193250, true },
++	{ 189000, 1510000, 0x01,  63,  0x3, 0x0, 0x0, 0x0, 0x04, 0x1, 189000, true },
++	{ 187500, 3000000, 0x01, 125,  0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 187500, true },
++	{ 162000, 2592000, 0x01, 108,  0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 162000, true },
++	{ 156000, 2810000, 0x01, 117,  0x3, 0x0, 0x0, 0x0, 0x09, 0x1, 156000, true },
++	{ 150000, 3000000, 0x01, 125,  0x3, 0x0, 0x0, 0x0, 0x0a, 0x1, 150000, true },
++	{ 148500, 2376000, 0x01, 99,   0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 148500, true },
++	{ 146000, 1750000, 0x01, 73,   0x3, 0x0, 0x0, 0x0, 0x06, 0x1, 146000, true },
++	{ 142860, 2860000, 0x14, 2381, 0x3, 0x0, 0x0, 0x0, 0x0a, 0x1, 142860, true },
++	{ 140000, 2520000, 0x01, 105,  0x3, 0x0, 0x0, 0x0, 0x09, 0x1, 140000, true },
++	{ 138500, 2220000, 0x03, 277,  0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 138500, true },
++	{ 122000, 2930000, 0x01, 122,  0x3, 0x0, 0x0, 0x0, 0x0c, 0x1, 122000, true },
++	{ 121750, 2920000, 0x04, 487,  0x3, 0x0, 0x0, 0x0, 0x0c, 0x1, 121750, true },
++	{ 108000, 2810000, 0x01, 117,  0x3, 0x0, 0x0, 0x0, 0x0d, 0x1, 108000, true },
++	{ 106500, 1700000, 0x01,  71,  0x3, 0x0, 0x0, 0x0, 0x08, 0x1, 106500, true },
++	{ 83500,  2000000, 0x02, 167,  0x3, 0x0, 0x0, 0x0, 0x0c, 0x1, 83500,  true },
++	{ 79500,  2540000, 0x01, 106,  0x3, 0x0, 0x0, 0x0, 0x10, 0x1, 79500,  true },
++	{ 75000,  3000000, 0x01, 125,  0x3, 0x0, 0x0, 0x0, 0x14, 0x1, 75000,  true },
++	{ 74250,  2376000, 0x01,  99,  0x3, 0x0, 0x0, 0x0, 0x10, 0x1, 74250,  true },
++	{ 65000,  1560000, 0x01,  65,  0x3, 0x0, 0x0, 0x0, 0x0c, 0x1, 65000,  true },
++	{ 40000,  2880000, 0x01, 120,  0x3, 0x0, 0x0, 0x0, 0x12, 0x2, 40000,  true },
++	{ 27000,  2810000, 0x01, 117,  0x3, 0x0, 0x0, 0x0, 0x1a, 0x2, 27000,  true },
++	{ 25600,  2300000, 0x01,  96,  0x3, 0x0, 0x0, 0x0, 0x0f, 0x3, 25600,  true },
++	{ 25200,  2520000, 0x01, 105,  0x3, 0x0, 0x0, 0x0, 0x19, 0x2, 25200,  true },
++};
++
++static u64 k3_inno_dp_abs_diff(u64 a, u64 b)
++{
++	return (a > b) ? (a - b) : (b - a);
++}
++
++static u32 k3_inno_dp_pll_rate_khz(u8 pre, u16 fb, u32 frac,
++				   u32 ref_clk_khz, u32 total_div)
++{
++	u64 vco_hz;
++	u64 ref_hz = (u64)ref_clk_khz * 1000;
++	u64 int_part;
++	u64 frac_part;
++
++	/* Integer part: (Ref * FB) / Pre */
++	int_part = ref_hz * fb;
++	int_part += (pre / 2);
++	k3_inno_dp_div64(&int_part, pre);
++
++	/* Fractional part: (Ref * Frac) / (Pre * 2^24) */
++	frac_part = ref_hz * frac;
++
++	frac_part += (pre / 2);
++	k3_inno_dp_div64(&frac_part, pre);
++
++	frac_part += (DPTX_PLL_FRAC_MOD / 2);
++	k3_inno_dp_div64(&frac_part, DPTX_PLL_FRAC_MOD);
++
++	vco_hz = int_part + frac_part;
++
++	/* Final Rate = VCO / total_div */
++	vco_hz += (total_div / 2);
++	k3_inno_dp_div64(&vco_hz, total_div);
++
++	vco_hz += 500;
++	k3_inno_dp_div64(&vco_hz, 1000);
++
++	return (u32)vco_hz;
++}
++
++static int k3_inno_dp_prepll_div_total(const struct k3_inno_dp_prepll_cfg *cfg,
++				       u32 *div_total)
++{
++	if (!cfg || !div_total || !cfg->valid)
++		return -EINVAL;
++
++	/* div5_en fixes div_total at 5; divp is unused on this path */
++	if (cfg->div5_en) {
++		*div_total = 5;
 +		return 0;
 +	}
 +
-+	/* Need to share the next bank's fbc mem. */
-+	sec_fbcmem_index = (index / 2 + 1) % (rdma_nums / 2);
-+	sec_fbcmem_size = hwdev->fbcmem_sizes[sec_fbcmem_index] / FBCMEM_UNIT;
-+	if (cur_rdma_fbcmem_size > fbc_mems_left[index / 2] + sec_fbcmem_size)
-+		return -ENOSPC;
++	if (!cfg->divp)
++		return -EINVAL;
 +
-+	if (index == rdma_nums - 1) { /* last rdma id */
-+		/* bank 0 is already in use */
-+		if (fbc_mems_left[0] != hwdev->fbcmem_sizes[0] / FBCMEM_UNIT)
-+			return -ENOSPC;
++	if (cfg->divaux == 1) {
++		if (cfg->divm >= ARRAY_SIZE(k3_inno_dp_divm_factors))
++			return -EINVAL;
 +
-+		rdmas[index].fbcmem.size =
-+				fbc_mems_left[index / 2] + sec_fbcmem_size;
-+		cur_rdma_fbcmem_size = rdmas[index].fbcmem.size;
++		*div_total = 2 * k3_inno_dp_divm_factors[cfg->divm] * cfg->divp;
++		return 0;
 +	}
-+	fbc_mems_left[sec_fbcmem_index] -= (cur_rdma_fbcmem_size - fbc_mems_left[index / 2]);
-+	rdmas[index].fbcmem.start = pri_fbcmem_size - fbc_mems_left[index / 2];
-+	rdmas[index].fbcmem.map = true;
-+	fbc_mems_left[index / 2] = 0;
++
++	if (cfg->divaux < 2)
++		return -EINVAL;
++
++	*div_total = 2 * cfg->divaux * cfg->divp;
++	return 0;
++}
++
++static bool k3_inno_dp_prepll_cfg_matches(const struct k3_inno_dp_prepll_cfg *cfg,
++					  u32 target_pclk_khz,
++					 u32 ref_clk_khz)
++{
++	u32 div_total;
++	u32 actual_pclk_khz;
++
++	if (k3_inno_dp_prepll_div_total(cfg, &div_total))
++		return false;
++
++	actual_pclk_khz = k3_inno_dp_pll_rate_khz(cfg->prediv, cfg->fbdiv,
++						  cfg->frac, ref_clk_khz,
++						  div_total);
++
++	if (cfg->actual_pclk_khz &&
++	    k3_inno_dp_abs_diff(actual_pclk_khz,
++				cfg->actual_pclk_khz) > DPTX_PLL_ERR_TOLERANCE)
++		return false;
++
++	return k3_inno_dp_abs_diff(actual_pclk_khz,
++				    target_pclk_khz) <= DPTX_PLL_ERR_TOLERANCE;
++}
++
++static const struct k3_inno_dp_prepll_cfg *k3_inno_dp_find_prepll_cfg(u32 pclk_khz,
++								      u32 ref_clk_khz)
++{
++	const struct k3_inno_dp_prepll_cfg *best_match = NULL;
++	u32 min_diff = 0xFFFFFFFF;
++	int num_configs = ARRAY_SIZE(k3_inno_dp_prepll_cfgs);
++
++	for (int i = 0; i < num_configs; i++) {
++		u32 current_target = k3_inno_dp_prepll_cfgs[i].target_pclk_khz;
++		u32 diff = k3_inno_dp_abs_diff(pclk_khz, current_target);
++
++		if (diff == 0 && k3_inno_dp_prepll_cfg_matches(&k3_inno_dp_prepll_cfgs[i],
++							       pclk_khz, ref_clk_khz)) {
++			return &k3_inno_dp_prepll_cfgs[i];
++		}
++
++		if ((pclk_khz / 100) == (current_target / 100) &&
++		    k3_inno_dp_prepll_cfg_matches(&k3_inno_dp_prepll_cfgs[i],
++						  pclk_khz, ref_clk_khz)) {
++			return &k3_inno_dp_prepll_cfgs[i];
++		}
++
++		if (diff < min_diff && diff < 500 &&
++		    k3_inno_dp_prepll_cfg_matches(&k3_inno_dp_prepll_cfgs[i],
++						  pclk_khz, ref_clk_khz)) {
++			min_diff = diff;
++			best_match = &k3_inno_dp_prepll_cfgs[i];
++		}
++	}
++
++	return best_match;
++}
++
++static int k3_inno_dp_solve_frac(u32 target_vco_khz, u32 ref_clk_khz,
++				 u8 *best_pre, u16 *best_fb, u32 *best_frac)
++{
++	u64 min_err = ~0ULL;
++	int found = 0;
++	bool best_is_int = false;
++	int pre;
++
++	for (pre = 1; pre <= 63; pre++) {
++		u64 ref_clk_hz = (u64)ref_clk_khz * 1000;
++		u64 target_vco_hz = (u64)target_vco_khz * 1000;
++
++		/*
++		 * Calculate required multiplier: Mult = (TargetVCO * Pre) / Ref
++		 */
++		u64 num = target_vco_hz * pre;
++		u64 den = ref_clk_hz;
++		u64 remainder;
++		u64 fb_val;
++		u64 frac_val;
++		u64 actual_vco;
++		u64 diff;
++		bool current_is_int;
++
++		fb_val = num;
++		remainder = k3_inno_dp_div64(&fb_val, (u32)den);
++
++		if (fb_val > 4095)
++			continue;
++
++		/* Frac = (Remainder * 2^24 + Ref/2) / Ref */
++		frac_val = remainder * DPTX_PLL_FRAC_MOD;
++		frac_val += (den / 2);
++		k3_inno_dp_div64(&frac_val, (u32)den);
++
++		if (frac_val > 0xFFFFFF)
++			frac_val = 0xFFFFFF;
++
++		/* VCO = (Ref * FB / Pre) + (Ref * Frac / (Pre * 2^24)) */
++		{
++			u64 vco_int, vco_frac;
++
++			vco_int = ref_clk_hz * fb_val;
++			k3_inno_dp_div64(&vco_int, pre);
++			vco_frac = ref_clk_hz * frac_val;
++			k3_inno_dp_div64(&vco_frac, pre);
++			k3_inno_dp_div64(&vco_frac, DPTX_PLL_FRAC_MOD);
++
++			actual_vco = vco_int + vco_frac;
++		}
++
++		diff = k3_inno_dp_abs_diff(actual_vco, target_vco_hz);
++		current_is_int = (frac_val == 0);
++
++		if (diff < min_err) {
++			min_err = diff;
++			*best_pre = pre;
++			*best_fb = (u16)fb_val;
++			*best_frac = (u32)frac_val;
++			best_is_int = current_is_int;
++			found = 1;
++		} else if (diff == min_err) {
++			if (current_is_int && !best_is_int) {
++				*best_pre = pre;
++				*best_fb = (u16)fb_val;
++				*best_frac = (u32)frac_val;
++				best_is_int = true;
++				found = 1;
++			}
++		}
++	}
++
++	return found ? 0 : -EINVAL;
++}
++
++/* divaux must be 1 for the DivM path and > 1 for the DivAux path. */
++static void k3_inno_dp_try_prepll(u32 target_pclk_khz, u32 ref_clk_khz,
++				  u32 div_total, u8 div5_en, u8 divaux,
++				  u8 divm, u8 divp,
++				  struct k3_inno_dp_prepll_cfg *best)
++{
++	struct k3_inno_dp_prepll_cfg curr = {0};
++	u32 target_vco = target_pclk_khz * div_total;
++	u32 actual_pclk;
++	u32 frac;
++	u16 fb;
++	u8 pre;
++
++	if (target_vco < DPTX_VCO_MIN_KHZ || target_vco > DPTX_VCO_MAX_KHZ)
++		return;
++
++	if (k3_inno_dp_solve_frac(target_vco, ref_clk_khz, &pre, &fb, &frac))
++		return;
++
++	actual_pclk = k3_inno_dp_pll_rate_khz(pre, fb, frac, ref_clk_khz,
++					      div_total);
++	if (k3_inno_dp_abs_diff(actual_pclk, target_pclk_khz) > DPTX_PLL_ERR_TOLERANCE)
++		return;
++
++	curr.valid = true;
++	curr.vco_freq_khz = target_vco;
++	curr.actual_pclk_khz = actual_pclk;
++	curr.prediv = pre;
++	curr.fbdiv = fb;
++	curr.frac = frac;
++	curr.frac_pd = (frac == 0) ? 3 : 0;
++	curr.div5_en = div5_en;
++	curr.divaux = divaux;
++	curr.divm = divm;
++	curr.divp = divp;
++
++	if (k3_inno_dp_better_cfg(curr.valid, curr.frac == 0, curr.prediv,
++				  curr.vco_freq_khz, best->valid,
++				    best->frac == 0, best->prediv,
++				    best->vco_freq_khz))
++		*best = curr;
++}
++
++static int k3_inno_dp_solve_prepll(u32 target_pclk_khz, u32 ref_clk_khz,
++				   struct k3_inno_dp_prepll_cfg *cfg)
++{
++	struct k3_inno_dp_prepll_cfg best = {0};
++	int pclk_div;
++	int i;
++
++	/* Strategy 1: Div5 path (VCO = PCLK * 5) */
++	k3_inno_dp_try_prepll(target_pclk_khz, ref_clk_khz, 5, 1, 0, 0, 0,
++			      &best);
++
++	for (pclk_div = 1; pclk_div <= 31; pclk_div++) {
++		/* Strategy 2: DivM path */
++		for (i = 0; i < ARRAY_SIZE(k3_inno_dp_divm_factors); i++)
++			k3_inno_dp_try_prepll(target_pclk_khz, ref_clk_khz,
++				2 * k3_inno_dp_divm_factors[i] * pclk_div, 0, 1,
++				i, pclk_div, &best);
++
++		/* Strategy 3: DivAux path */
++		for (i = 2; i <= 31; i++)
++			k3_inno_dp_try_prepll(target_pclk_khz, ref_clk_khz,
++					      2 * i * pclk_div,
++					      0, i, 0, pclk_div, &best);
++	}
++
++	if (!best.valid)
++		return -EINVAL;
++
++	*cfg = best;
++	return 0;
++}
++
++static void k3_inno_dp_program_prepll(struct k3_inno_dp_phy *p,
++				      const struct k3_inno_dp_prepll_cfg *cfg)
++{
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
++		FIELD_PREP(DPTX_ANA_PREPLL_PD, 1));
++	usleep_range(2000, 4000);
++
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PREDIV,
++		FIELD_PREP(DPTX_ANA_PREPLL_PREDIV, cfg->prediv));
++
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
++		DPTX_ANA_PREPLL_FBDIV2_LBIT,
++		FIELD_PREP(DPTX_ANA_PREPLL_FBDIV2_LBIT, cfg->fbdiv & 0xFF));
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
++		DPTX_ANA_PREPLL_FBDIV2_HBIT,
++		FIELD_PREP(DPTX_ANA_PREPLL_FBDIV2_HBIT, (cfg->fbdiv >> 8) & 0xF));
++
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_DACPD,
++		FIELD_PREP(DPTX_ANA_PREPLL_DACPD, (cfg->frac_pd >> 1) & 0x1));
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_DSMPD,
++		FIELD_PREP(DPTX_ANA_PREPLL_DSMPD, cfg->frac_pd & 0x1));
++
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_FRAC,
++		DPTX_ANA_PREPLL_FRAC2_LBIT,
++		FIELD_PREP(DPTX_ANA_PREPLL_FRAC2_LBIT, cfg->frac & 0xFF));
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_FRAC,
++		DPTX_ANA_PREPLL_FRAC2_MBIT,
++		FIELD_PREP(DPTX_ANA_PREPLL_FRAC2_MBIT, (cfg->frac >> 8) & 0xFF));
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_FRAC,
++		DPTX_ANA_PREPLL_FRAC2_HBIT,
++		FIELD_PREP(DPTX_ANA_PREPLL_FRAC2_HBIT, (cfg->frac >> 16) & 0xFF));
++
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_DIV,
++		DPTX_ANA_PREPLL_PRECLK_DIVM,
++		FIELD_PREP(DPTX_ANA_PREPLL_PRECLK_DIVM, cfg->divm));
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_DIV,
++		DPTX_ANA_PREPLL_PRECLK_DIVAUX,
++		FIELD_PREP(DPTX_ANA_PREPLL_PRECLK_DIVAUX, cfg->divaux));
++
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_CTRL,
++		DPTX_ANA_PREPLL_PCLKDIV5_EN,
++		FIELD_PREP(DPTX_ANA_PREPLL_PCLKDIV5_EN, cfg->div5_en));
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL_CTRL,
++		DPTX_ANA_PREPLL_PCLK_DIVAUX,
++		FIELD_PREP(DPTX_ANA_PREPLL_PCLK_DIVAUX, cfg->divp));
++
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL,
++		DPTX_ANA_PREPLL_PCLK_NORMAL,
++		FIELD_PREP(DPTX_ANA_PREPLL_PCLK_NORMAL, 1));
++	usleep_range(2000, 4000);
++
++	regmap_write_bits(p->regmap, DPTX_ANA_PREPLL, DPTX_ANA_PREPLL_PD,
++		FIELD_PREP(DPTX_ANA_PREPLL_PD, 0));
++	usleep_range(2000, 4000);
++}
++
++#define to_k3_inno_dp_phy_clk(_hw) \
++	container_of(_hw, struct k3_inno_dp_phy, pxclk_hw)
++
++static unsigned long k3_inno_dp_pxclk_recalc_rate(struct clk_hw *hw,
++						  unsigned long parent_rate)
++{
++	struct k3_inno_dp_phy *p = to_k3_inno_dp_phy_clk(hw);
++
++	return p->pxclk_rate;
++}
++
++static int k3_inno_dp_pxclk_determine_rate(struct clk_hw *hw,
++					   struct clk_rate_request *req)
++{
++	struct k3_inno_dp_phy *p = to_k3_inno_dp_phy_clk(hw);
++	const struct k3_inno_dp_prepll_cfg *cfg;
++	struct k3_inno_dp_prepll_cfg solved;
++	u32 khz = div_u64(req->rate, 1000);
++	int ret;
++
++	cfg = k3_inno_dp_find_prepll_cfg(khz, p->ref_clk_khz);
++	if (cfg) {
++		req->rate = (unsigned long)cfg->actual_pclk_khz * 1000;
++		return 0;
++	}
++
++	ret = k3_inno_dp_solve_prepll(khz, p->ref_clk_khz, &solved);
++	if (ret)
++		return ret;
++
++	req->rate = (unsigned long)solved.actual_pclk_khz * 1000;
 +
 +	return 0;
 +}
 +
-+int saturn_adjust_rdma_fbcmem(struct spacemit_hw_device *hwdev,
-+			      struct spacemit_crtc_rdma *rdmas)
++static int k3_inno_dp_pxclk_set_rate(struct clk_hw *hw, unsigned long rate,
++				     unsigned long parent_rate)
 +{
-+	int ret = -ENOSPC;
-+	u8 index = 0;
-+	u32 *fbc_mems_left = NULL;
-+	u8 rdma_nums = hwdev->rdma_nums;
++	struct k3_inno_dp_phy *p = to_k3_inno_dp_phy_clk(hw);
++	const struct k3_inno_dp_prepll_cfg *cfg;
++	struct k3_inno_dp_prepll_cfg solved;
++	u32 khz = div_u64(rate, 1000);
++	int ret;
 +
-+	fbc_mems_left = kzalloc_objs(*fbc_mems_left, rdma_nums / 2);
-+	if (!fbc_mems_left) {
-+		ret = -ENOMEM;
-+		goto free;
-+	}
-+	for (index = 0; index < rdma_nums / 2; index++)
-+		fbc_mems_left[index] = hwdev->fbcmem_sizes[index] / FBCMEM_UNIT;
-+
-+	for (index = 0; index < rdma_nums; index++) {
-+		int err;
-+
-+		if (rdmas[index].fbcmem.size == 0)
-+			continue;
-+
-+		if (index % 2 == 0)
-+			err = saturn_fbcmem_place_even(hwdev, rdmas,
-+						       fbc_mems_left, index);
-+		else
-+			err = saturn_fbcmem_place_odd(hwdev, rdmas,
-+						      fbc_mems_left, index);
-+		if (err) {
-+			ret = err;
-+			goto free;
++	cfg = k3_inno_dp_find_prepll_cfg(khz, p->ref_clk_khz);
++	if (!cfg) {
++		ret = k3_inno_dp_solve_prepll(khz, p->ref_clk_khz, &solved);
++		if (ret) {
++			dev_err(p->dev, "no PLL setting for %lu Hz\n", rate);
++			return ret;
 +		}
++		cfg = &solved;
 +	}
-+	ret = 0;
 +
-+free:
-+	kfree(fbc_mems_left);
++	k3_inno_dp_program_prepll(p, cfg);
++	p->pxclk_rate = (unsigned long)cfg->actual_pclk_khz * 1000;
 +
-+	return ret;
++	return 0;
 +}
-diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.h b/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.h
-new file mode 100644
-index 0000000000000..a4998dbc682fe
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/dpu/saturn_fbcmem.h
-@@ -0,0 +1,21 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef _SATURN_FBCMEM_H_
-+#define _SATURN_FBCMEM_H_
 +
-+#include <drm/drm_plane.h>
-+#include "../spacemit_crtc.h"
-+#include "../spacemit_dpu_reg.h"
-+#include "dpu_saturn.h"
++static const struct clk_ops k3_inno_dp_pxclk_ops = {
++	.recalc_rate	= k3_inno_dp_pxclk_recalc_rate,
++	.determine_rate	= k3_inno_dp_pxclk_determine_rate,
++	.set_rate	= k3_inno_dp_pxclk_set_rate,
++};
 +
-+#define FBCMEM_UNIT	(32) /* fbcmem is 32 bytes per unit */
++static const struct phy_ops k3_inno_dp_phy_ops = {
++	.power_on	= k3_inno_dp_phy_power_on,
++	.power_off	= k3_inno_dp_phy_power_off,
++	.configure	= k3_inno_dp_phy_configure,
++	.owner		= THIS_MODULE,
++};
 +
-+int get_raw_data_plane_rdma_mem_size(u32 drm_4cc_fmt, u32 plane_crop_width,
-+				     u32 *output_mem_size);
++static int k3_inno_dp_phy_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct k3_inno_dp_phy *p;
++	struct phy_provider *provider;
++	struct clk_init_data init = {};
++	int ret;
 +
-+int saturn_cal_layer_fbcmem_size(struct drm_plane *plane,
-+				 struct drm_plane_state *state);
++	p = devm_kzalloc(dev, sizeof(*p), GFP_KERNEL);
++	if (!p)
++		return -ENOMEM;
 +
-+int saturn_adjust_rdma_fbcmem(struct spacemit_hw_device *hwdev,
-+			      struct spacemit_crtc_rdma *rdmas);
++	p->dev = dev;
 +
-+#endif
-diff --git a/drivers/gpu/drm/spacemit/dpu/saturn_regs/ops_hee.h b/drivers/gpu/drm/spacemit/dpu/saturn_regs/ops_hee.h
-new file mode 100644
-index 0000000000000..791f002d29a41
---- /dev/null
-+++ b/drivers/gpu/drm/spacemit/dpu/saturn_regs/ops_hee.h
-@@ -0,0 +1,51 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
-+ *
-+ */
++	p->regmap = dev_get_regmap(dev->parent, "dp");
++	if (!p->regmap)
++		return dev_err_probe(dev, -ENODEV,
++				     "parent DP regmap not available\n");
 +
-+#ifndef _SATURN_hee_OPS_H_
-+#define _SATURN_hee_OPS_H_
++	p->phy = devm_phy_create(dev, dev->of_node, &k3_inno_dp_phy_ops);
++	if (IS_ERR(p->phy))
++		return dev_err_probe(dev, PTR_ERR(p->phy),
++				     "failed to create DP PHY\n");
 +
-+#include "../../spacemit_crtc.h"
++	phy_set_drvdata(p->phy, p);
 +
-+void saturn_hee_enable_vsync(struct spacemit_crtc *a_crtc,
-+			     struct spacemit_hw_device *hwdev, bool enable);
-+void saturn_hee_enable_cfg_irq(struct spacemit_crtc *a_crtc,
-+			       struct spacemit_hw_device *hwdev, bool enable);
-+void saturn_hee_cfg_ready(struct spacemit_crtc *a_crtc,
-+			  struct spacemit_hw_device *hwdev);
-+void saturn_hee_sw_start(struct spacemit_crtc *a_crtc,
-+			 struct spacemit_hw_device *hwdev);
-+void saturn_hee_dpu_init(struct spacemit_crtc *a_crtc);
-+void saturn_hee_plane_update_hw_channel(struct drm_plane *plane);
-+void saturn_hee_plane_disable_hw_channel(struct drm_plane *plane,
-+					 struct drm_plane_state *old_state);
-+void saturn_hee_irq_enable(struct spacemit_crtc *a_crtc, bool enable);
-+void saturn_hee_conf_dpuctrl(struct drm_crtc *crtc,
-+			     struct drm_crtc_state *old_state);
-+u32 saturn_hee_get_cfg_rdy(struct spacemit_crtc *a_crtc,
-+			   struct spacemit_hw_device *hwdev);
-+u32 saturn_hee_get_int_sts(struct spacemit_hw_device *hwdev, int dev_id);
-+u32 saturn_hee_get_irq_bit(enum spacemit_dpu_irq irq_id, int dev_id);
-+void saturn_hee_clr_int_sts(struct spacemit_crtc *a_crtc, u32 data, int dev_id);
-+void saturn_hee_enable_cmdlist(struct spacemit_crtc *a_crtc,
-+			       struct spacemit_hw_device *hwdev, int id,
-+			       bool enable);
-+void saturn_hee_cfg_cmdlist(struct spacemit_hw_device *hwdev, int id, u32 chy,
-+			    u32 addrl, u32 addrh);
-+void saturn_hee_rdma_dmmu(struct spacemit_hw_device *hwdev, u8 tbu_id,
-+			  struct tbu_instance *tbu, struct drm_framebuffer *fb,
-+			  u32 val, struct cmdlist_regs *cl_rdma,
-+			  struct drm_plane *plane);
-+int saturn_hee_get_cl_rdma_buf(struct spacemit_crtc *a_crtc);
-+void saturn_hee_cmdlist_fill_data_row(struct cmdlist *cl, u32 strobe,
-+				      u32 offset, u32 value[]);
-+void saturn_hee_cmdlist_fill_conf_row(struct cmdlist *cl,
-+				      struct spacemit_hw_device *hwdev,
-+				      u8 dev_id);
-+void saturn_hee_crtc_cmdlist(struct spacemit_hw_device *hwdev,
-+			     struct spacemit_drm_private *priv, u8 crtc_id,
-+			     u8 dev_id);
-+void saturn_hee_cmdlist_dump_node(struct cmdlist *cl);
-+#endif
++	/* PHY takes a 24 MHz reference clock */
++	p->ref_clk_khz = 24000;
++
++	/* The APMU pixel-clock mux references this clock by name. */
++	of_property_read_string(dev->of_node, "clock-output-names", &init.name);
++	if (!init.name)
++		init.name = dev_name(dev);
++	init.ops = &k3_inno_dp_pxclk_ops;
++	init.parent_names = NULL;
++	init.num_parents = 0;
++	init.flags = 0;
++	p->pxclk_hw.init = &init;
++
++	ret = devm_clk_hw_register(dev, &p->pxclk_hw);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to register pixel clock\n");
++
++	ret = devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
++					  &p->pxclk_hw);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to add pixel clock provider\n");
++
++	/* Providers last: nothing may resolve a half-initialized PHY. */
++	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
++	if (IS_ERR(provider))
++		return dev_err_probe(dev, PTR_ERR(provider),
++				     "failed to register PHY provider\n");
++
++	return 0;
++}
++
++static const struct of_device_id k3_inno_dp_phy_of_match[] = {
++	{ .compatible = "spacemit,k3-inno-dp-phy" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, k3_inno_dp_phy_of_match);
++
++static struct platform_driver k3_inno_dp_phy_driver = {
++	.probe = k3_inno_dp_phy_probe,
++	.driver = {
++		.name		= "spacemit-k3-inno-dp-phy",
++		.of_match_table	= k3_inno_dp_phy_of_match,
++	},
++};
++module_platform_driver(k3_inno_dp_phy_driver);
++
++MODULE_DESCRIPTION("SpacemiT K3 Innosilicon DisplayPort PHY driver");
++MODULE_AUTHOR("Cody Kang <codykang.hk@gmail.com>");
++MODULE_LICENSE("GPL");
 
 -- 
 2.43.0
