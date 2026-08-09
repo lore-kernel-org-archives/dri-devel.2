@@ -4,153 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2814C5AC67
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 00:51:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0013DC5AD2C
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 02:12:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CE76110E355;
-	Sun,  9 Aug 2026 00:51:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D312110E03E;
+	Sun,  9 Aug 2026 02:12:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="UtdosKga";
+	dkim=pass (2048-bit key; unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.b="DptccLmk";
 	dkim-atps=neutral
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0A5510E355
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 00:51:22 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id
- d75a77b69052e-51c15a5b265so178431cf.0
- for <dri-devel@lists.freedesktop.org>; Sat, 08 Aug 2026 17:51:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786236682; cv=none;
- d=google.com; s=arc-20260327;
- b=TOj0t8ZwkOAnvh4LLwRR6Z2YrY37lWKZq8KObSlciGGh8Xoc3vms1c2bCRJlhxQKh0
- 5VCsN+GjxAuo2MbRjIYniB2owy7+kpQ6ajB1K0wNCl6L7s+klK4mln3EzJBCDrlYztqV
- r922E3MR07W6PLjUaddNu96RrSvPMXVe792hCOynL3APAm0byt3QcihnnwXnrJFcLMZu
- EUE3JVAoNhz9pKuPTsnGnoPBTPcvnYHT6oCiKr/uCb1gn9EqP54tzGLSSJqWTHllRPk6
- GhgTygfWqmegtDG+S6wukSiU4EdFNIaU2Gb9DsyvVfjzqq7M51IsLWxjD2T+vUHmNUOF
- N44g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=5t26LPlL2x6rRQWr8/8g+glnpY16lnjlFmjLTvMppKc=;
- fh=shBZ0P6t/D96q2gHiTmLf4ZbmvxVBgAr4B49BtEoVBM=;
- b=FcME7YWwpd8QjxJAF+MqgCJ+jOBMs8BnjYaMNtEN43mv18fwu/1d7unNmZXy0rEPb5
- mIOKE1kUPnCpcCShB4AoWFM3BbxAMSwEzGh4poN1KSfHICe/WZA4B2278GexoA4fkNlP
- 3C++q7p9heKUqHm2cR7AukwzrS5waiJBiqqOjjtFAUbX7/Gbv8YX2h2tZggDldX0wnzC
- 0hBSwSr3Bcvhm45X99q9oQxwj69AWl9Zme1rIHwn1VOLYgU6JVjzbdeGU7Ms+TxqhqRi
- ZcfIxvJOgfXuLN3N4qfyTgYkP1VMzFf1VDn/QdEr1slCAvXMgBG+nHud2KCYRoKjbY4/
- w+lQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1786236682; x=1786841482;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=5t26LPlL2x6rRQWr8/8g+glnpY16lnjlFmjLTvMppKc=;
- b=UtdosKgaJEa/ycrZmFSMbHmkbVI/FIeVVLnZBQfcg6LrBWg5y1Z64cqhquiShRKeCJ
- 7URg6DzjfHjzBBREjpNdxNGOxrOckxoC/dFe0geS729KL0KoVw1kyi/bVHZSYIL60DSz
- qRZza1vXX/MvtoihRRrVCsx3OnsE5sGfxUmaDs8Y100iwT6SEfRFx/+lLmaJ/jvvywk3
- 448bb5Ys0uVnOdRR6YBIIlKDOZYUxLCgYKR3QMQ3aoM3bcqPqQ2S9/MGFwRi0KDLBiai
- WYga7axH9kN/jPBKgD7qX6UmMzPBCzAKeYLjo59wxsIqvsRfkGShelt2Od6KNrjpAEYQ
- Qqzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786236682; x=1786841482;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=5t26LPlL2x6rRQWr8/8g+glnpY16lnjlFmjLTvMppKc=;
- b=mFh6mzbs0gzOLc/GKVuTiafrYUJiqzoL+c94s/lWlSbqkwWZaavIBPCgxw5eQGLo5R
- 4IU/uaCpvAIbbRJUQ5St07dYDzl72Y4VRRb/JcFprylo1oBk7JWP/4wVDnbHS7rxuYMv
- 5dbxwooa0GDwXWMPAb9pM9HF8M3tVRMCGC5nijN32H6R+MfvpDSy4q1pccoCIHxzb/y4
- S/9COhAZnMmmt1zf05g2G350Zz8qG7miB9jiCzlk98WA5B1ocmaTI/WDBN0veZ6Uz+bg
- W7EfXJHPWpTwS73HbeMORb6bkWXQF1hQVAFRZ6tcQGeVfIrpz2C7zFLDiz7UTXVO5xbZ
- /vGw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rp4UEUZq9JskQWRANDcgvDBgR8WHuor4EOfn4/wF07R6bXPaxeQP/NJq/sCA9x8eErBcwsZgljXV7s=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxfAaq2o/kJOUXsavAqxjU71OyKmlpQBpZ0vcxXwerEYzQIA8ym
- Twro2GXgJJVDgnOIskwgoMFkUyIc4j3hPf0XgTAtlR5d9o+qbwGtLe/q14eoqYfyzMFukUNgmn9
- fhvGRvKvU3YcmX5M7bjdIH6mngf23C+WUD9Tfbxj6
-X-Gm-Gg: AR+sD10m2fMIL8yyl1hJ/WvFEFM0Q3CDHdx6r/3vPVsYf7q4GZtvkI97rkTj1F3YgNA
- tNVRvisheNVVvm1bE21H+k2zWtp8+wShh8hjsvrN6uD2NviqTpUALQzUJRmZOywqOGjaAyv5t/g
- SmVP/0LW+JHmMVkTnjCWeGeKlMsaxRq5Nz4dSvrw+Qpl96M+YXc9+xwTILtXPI1YdtnGib9tY/P
- ylMlPaG8jHA2PuWEdJVB+k46XC3HlWQf39OWkgMYoVVOILr4xsLZrZ4okC5/HakNxcd2XYGd6sy
- d8NeKbIBpPhwXq+bpVflN6/FU3W+ZsVZ9MswjF8y/YE=
-X-Received: by 2002:a05:622a:2c2:b0:517:5d71:84e5 with SMTP id
- d75a77b69052e-52d28104052mr10844831cf.5.1786236681095; Sat, 08 Aug 2026
- 17:51:21 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-1-ab318a350404@kernel.org>
-In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-1-ab318a350404@kernel.org>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Sat, 8 Aug 2026 17:51:10 -0700
-X-Gm-Features: AUfX_mwrAfErRpWaGdsaXjFbVsuLxmBdhaCS8dBRSF7bNpazo-ZM1X1L3isxLV8
-Message-ID: <CAJuCfpFAA1H2pOi6EOarNtrdzLQDJyhm6QOGsfZ4SFTuM5eiLQ@mail.gmail.com>
-Subject: Re: [PATCH v4 01/20] mm/vma: introduce VMA anon page offset field and
- add helpers
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Peter Xu <peterx@redhat.com>, Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Janosch Frank <frankja@linux.ibm.com>, 
- Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, 
- Vasily Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>,
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
- Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Jiri Olsa <jolsa@kernel.org>, 
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
- James Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
- John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
- Kairui Song <kasong@tencent.com>, 
- Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
- Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>,
- linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- linux-kselftest@vger.kernel.org, kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010004.outbound.protection.outlook.com [52.101.201.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E5CB10E03E
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 02:12:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iWPmXjBPvLkvIVUSavojhrZsLGrBMIGkrwb55dYXdojdyv8LZ5iMk64CsE/1NDtB1TYTxlhSaI85yU+GDv87/URedvfzEJRZHYulsirg/8bohYWcw/2jN/MA65Ul/1t+0M3DvfA7JFKifL5Kbdj8CZm0rF7dVrHo4OJxF9XVNhO6LCvODYTYp3TTcKP0Wx23gGqNSUrp7higsBxdvG6mCX/tyXG4cmNVDumU2S6+zL0LhEfgmoRyz3xK7cSOm6ossHIcEVCgJN6z1sC7KIqZrpNTuDlKyEXif0PhuVqzSZxOuRLPslthqeW/qVqyBJTzyE3d4KBJcssyMhVNijTS0A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fPCdzmeq/MgXyYntPi4m/sguf961AXSTocar9DXw6aA=;
+ b=pdRbKQDCo6HsDoJj8nxOlU/CbdtL0JTrfKfFTZh9gbwk56UvcujZHafP22MXNhpQcXYMibS43z+mc+tdwMbYKK+faEJozN/tzw1zhMCSszsQgrgjH1eP1617D4GG++Dl4DO2MF1krqgARzBCihIcVV4/mLvd8WfDmHA3ZuYp3QWKwOGmvfh2V65VJ+O/p7561NfI8VIVbL02JXphzVSJcsBI8/CIdTWIzSxZnCwyetC7Air+Wmw+jQtWZuuI8mkAG8Qj5v7N0xSUSeBzC9mLY3gaFHmNByuBv1d9yODoFbSOZofftuv4fprHyMmU4URsx+LAx0T31kkxDI+XkCC+Rg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fPCdzmeq/MgXyYntPi4m/sguf961AXSTocar9DXw6aA=;
+ b=DptccLmkTfAwruQTarKMBZfJmp1C0xYNAYnEzTsd0SS34fEF6D+QXoT/EidxoYcOlPmg+B/yzaVbOCLpPSxE9cKUlHKO/R/t38NPugvGW2cfGOp+5OOQ7OTpx/9VU/1SNIA7E9Wt4nbtc045ApRR8HdJ3+khPZ7eno+ogy66aedQdIDOuSh7HGxb69oCojMILSeI76tB902vFgcvxQqldDaIfOrYKRFvfPZ7Ev/rwERgAYZ4oQpHYQgor8GDjfmgN7L1AfDFl/fAxsExDQnJGb4wIJketBTpuep99IldBwj1qttZaOx1y591IclaUWC7mqoljfg0DL76jCq3AB5Mzg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com (2603:10b6:610:28::18)
+ by PH7PR12MB6762.namprd12.prod.outlook.com (2603:10b6:510:1ac::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Sun, 9 Aug
+ 2026 02:12:17 +0000
+Received: from CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989]) by CH2PR12MB3990.namprd12.prod.outlook.com
+ ([fe80::7de1:4fe5:8ead:5989%4]) with mapi id 15.21.0292.018; Sun, 9 Aug 2026
+ 02:12:17 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 09 Aug 2026 11:12:13 +0900
+Message-Id: <DKK1S09OWP6A.361WY739QCTUE@nvidia.com>
+Cc: "Eliot Courtney" <ecourtney@nvidia.com>, "Danilo Krummrich"
+ <dakr@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun
+ Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
+ <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Trevor
+ Gross" <tmgross@umich.edu>, "Tamir Duberstein" <tamird@kernel.org>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Yury Norov"
+ <yury.norov@gmail.com>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
+ <simona@ffwll.ch>, "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>, "Thomas Zimmermann"
+ <tzimmermann@suse.de>, "Jonathan Corbet" <corbet@lwn.net>, "Shuah Khan"
+ <skhan@linuxfoundation.org>, <driver-core@lists.linux.dev>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <linux-doc@vger.kernel.org>
+Subject: Re: [PATCH 02/12] rust: num: reject Bounded::shr overshifts at
+ build time
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Miguel Ojeda" <miguel.ojeda.sandonis@gmail.com>
 Content-Transfer-Encoding: quoted-printable
+References: <20260805-pramin-split-v1-0-ff3e84a75dac@nvidia.com>
+ <20260805-pramin-split-v1-2-ff3e84a75dac@nvidia.com>
+ <DKIRNHGHK4O6.2IRJZGM6W79B@nvidia.com>
+ <CANiq72kYqPySwS8ci84CEsvjJqCTBjrveSx14xxnNWJZWRFAuw@mail.gmail.com>
+In-Reply-To: <CANiq72kYqPySwS8ci84CEsvjJqCTBjrveSx14xxnNWJZWRFAuw@mail.gmail.com>
+X-ClientProxiedBy: TY6P286CA0007.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b8::6) To CH2PR12MB3990.namprd12.prod.outlook.com
+ (2603:10b6:610:28::18)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PR12MB3990:EE_|PH7PR12MB6762:EE_
+X-MS-Office365-Filtering-Correlation-Id: aeaa697a-c938-4ce6-6fd5-08def5bba2be
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|7416014|1800799024|366016|10070799003|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: VkW6N1asg57nKenNFeZexu9LbRp6tD1pjB8vNLa0m5Vv/Fr04vDOwEsrNMHLMDvJxyVZrMxhLJ0438tjVeBx32d8mptgNJeYUQi9ZpFDgl7qmI2FD04Q6ZtltG0asFIRqluC/4zwoYD690IyICuHWtSIMKqekiPCF1lH0CUZkX6CfP18i1edy7l3AbnC7aRAE1PMGOjeb/9ilJZitJa/mSWgf0P0pY4JollTMqIbstsaWpzDoILFkuQOCCJbn3FfIDsbnx6yejiBsPBXUgi3sN6jHrUbly0L+z3QM3afBXDauE8/tZwdDkTJfUeUxsYMvs/0ID3GC8eerhGnBmxmqthxFFbmrVdF75rNGSMgNiF73r11ulA03SWs8wV7YfTo8HUDeLJyqHrO3C8+MK4SFmqPu+O62GkU5uOxhSPPUit+rVRFhUXIvv0+W5lBNviIrVbAme5Ir5H6Bb5rOoiR57/59ybLG2B4PMAYx9ebV6uwMtaUDoLtWPEgy/IVtGJP4Fnz7VLxofwxO8hLxaJ+3FCR5Be+GzfoVq2brxthrta/R2bGqT8HOlWSFsgmjlc/cRrRemRMbTyJCctuMUD9BwjhvqdKQCDIM4BWbB4uvnGvnI7/WsbKegoYzwMB6Zq70b/oCsUGLDa/l4EUSm+1ZjReExBZpcW3dPx59tsB8kU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB3990.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(10070799003)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Zm9zMTBZRGNaSnFPREVUK0k3d3k2RXYrcFNVc1pZSXFkTEtJTnIxVjRNeEFy?=
+ =?utf-8?B?NGU2K0xHWjZZQ2w5bURjWHUwaTRjYVphRjhsVk9zMGZSeEYySnlYSHNxWEdp?=
+ =?utf-8?B?cXlTcWNZWk9jWklrUlp2SVhkRHFFVG9PaFNyMkhwTng5NlJHVXFOU3RLNkR1?=
+ =?utf-8?B?U093M2djemU3cmNGTWZYRDVpZTJ3d2hnVmI3ZUREMUlZditzN2FPL2c1dHBo?=
+ =?utf-8?B?cUU0WTdVZVVhQXRvdWhrRlI0eG8zZk9LVTBOVzNoVTFXZlQ5empiU3Uxci9q?=
+ =?utf-8?B?ZjJ3T0R0QzFaR3U4ZU9hWFNKYlM3YXhVeUtJWTZaR0xSaTRoZGtRYzN3UWNP?=
+ =?utf-8?B?RmQwV1ZyeUQxY3FXK2wwVXV6czlnSHdGTGxKc0krQ1V2QVZ4Nnd4K01DSUl6?=
+ =?utf-8?B?dHNMczE0VXE3c0EwTWFzbWwrWm5xTXFidkJ1cWUyL0t2dkZuS3FnY1pHK1Vx?=
+ =?utf-8?B?bytoQS91T0JxdDlKODE3RkdUQ200czdmYzVRRDRGOWQzNnpJeElwM2VOYXdT?=
+ =?utf-8?B?WDd6NnhKc0ZONVF0SklsS1haK1hVYmN2WU9hV05rek5pMUZPV255akpjYm81?=
+ =?utf-8?B?UzBjUm5wOGFycWxnVzlEYWo1Q1JaU0M2TEpjMjh6QUJVRHY2dzRzTUhBOUNF?=
+ =?utf-8?B?bXhxbEUzcGY1OFV0MzlPMnJyZnVtczdSS29lbFgwbndMYWpPMEEwUTFXemts?=
+ =?utf-8?B?RTJldEpvWlB1R0JUSys1dUlHb1ZIL2UvWUZydVZBbkoyblY3NEswL2NyeHZ5?=
+ =?utf-8?B?TW5uWTkvais3QmlBL3BXUUlXOWh6eEdkc0pjZTV5M2NyVHN4Q2pqRXlyTkZC?=
+ =?utf-8?B?bU5IL0pmSWlrNXoyZ2dqUXB6bE52a2xBMVhoOWxVTFRvOXFiSVVjdnRkOTJQ?=
+ =?utf-8?B?cDdya0RQbndjTFVRMEpCelo2azRMR1o2ckVsd0ptYlJDUU95RzM5WGgxc2FZ?=
+ =?utf-8?B?L0tobStvWjM5OVhYR3BkS0ZYVXFzdW5uZ2h1L1M0c244amF3aGVqMVphaU1y?=
+ =?utf-8?B?cHRtZXdvU2k2NVE0NVFNaGVZVURYdktSSldmSEtPVjNzOFkrYXowZ05uZVVL?=
+ =?utf-8?B?SkMzWEJ3UzlzVUpyd1NUeGNTandQdjVZV1lMYWg4MWt1UFd6QzdKY25IL3ps?=
+ =?utf-8?B?YWRNeEoxTzBqeVBmdFpxTktIWWt1dGVkMUEwMkZOWmlia1JPdU1WcjhkTExo?=
+ =?utf-8?B?MXdpTUNjemtGM2ZKNGsyM25oeXF6T0Z4OUVVMGl1bmFHdFJGVTVzd0Z3aU8z?=
+ =?utf-8?B?c001L1NDMEtnYit5ZDR6VjFaM1RYZkJoTEFWNEFjdjN5VHZReTBuZTgyenlz?=
+ =?utf-8?B?TlFoYTZmOEFqRUNyVndRZ3drbmlIOUliVE9SNlQvVVgvM0N6cG5Ya25yK0tG?=
+ =?utf-8?B?aStnT1RHZHZENW1ObkZOM1dLcHBmQVFrd1FXcHlZNTkvRzF2YkwvQkJrZXE1?=
+ =?utf-8?B?WEJTMlp2OE1rcHVaU0NYMVNqU1Zta21WcWtkN0JGN2xwRjhtRDVMVXBwNi8v?=
+ =?utf-8?B?VnNHYjJBeHZZTUM0ajllQWZtVUNLdkhhREUxSHJMZTBOTHhZeHhhQ0NOZmhK?=
+ =?utf-8?B?R2FEaHNGSFZvcHRuYWpqWGZiOWd2UEJJVkVLdGpvSXNkWWVzb0lrSXEwL2h3?=
+ =?utf-8?B?S0xDeWNwYUtIeFEzbS9ON1JpRWFBZFRHSTlZRXFIelZJUU9xMjI5enFMblpk?=
+ =?utf-8?B?UnpCbjBSMlNuUHphYktpUnVLNFZCTEhSU2Yrdk81aWVVRkd1RWVzTzhsMEZB?=
+ =?utf-8?B?Si8xY1Zva0lWWmowaWlVdzZ1S2dCWHJ6Qno0dUFBYlZ0cmVsSzRqMXhQcE9G?=
+ =?utf-8?B?SnpBNGdON2JFYjZESFo2d1Jwb3FiWmdlUTJ6eGFoekNOUFQ3YnovaHBkM1FS?=
+ =?utf-8?B?WEJ0MzVyaFVpNng0bUJHVFNnL21hUTBDQUdINDFiS2pKTHZ5cW9IOHFwby9Q?=
+ =?utf-8?B?eld2b1pkZitVRStpcHlKSndEbUo3LytJQlQxb21UZ0RmSjZETDM0QWU1K0xL?=
+ =?utf-8?B?ZXdGQWhhV1FJL2gwZXk1VDFZWjNEOGkvbks1VEgwNmZVSDFJUEdCWFZEOVUx?=
+ =?utf-8?B?cS82M01JY0VWU3BSVmlRRnhNMkt3enE1SXhpQnhuUDZHWk9ZY21NaVhqMDBU?=
+ =?utf-8?B?Z3pkLzlOd3A4VGlwcTV1bXFZeWloVlVZM0l3bzV6ZjlETmFkWGJFemFSMXFP?=
+ =?utf-8?B?UzZpK25Hd1psc3MvYkp4MWxmcnNLVklPYTZKMUNTbUw2TmZobEtSYy9JZ2x1?=
+ =?utf-8?B?Wm4yUVFHWGxpRjlva296M1BKMUhjZUo0VGVCTkd3YUJUbk1sdXhCQ1ZTS1N6?=
+ =?utf-8?B?NFV1cVF5STZPNmxmV2NKOFRpYWdzOWpOVzRiSGdqV1dmelBnanBtYys3ZGZE?=
+ =?utf-8?Q?qIlDvse7aQ0EEh1lqUqxY/luFWLPHYjFwuGohHn4XAWCO?=
+X-MS-Exchange-AntiSpam-MessageData-1: JKqkI3ZrOHXg4Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aeaa697a-c938-4ce6-6fd5-08def5bba2be
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB3990.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2026 02:12:17.2580 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QQCudIGLfbzMyZ/5iEg8XZQsBqJYiNWH0CEg3gX8hTy7nHjEJTj4b/GCuzwxkUJF8++jkie8ATMQwb5eij7kYw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6762
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,285 +154,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Thu, Aug 6, 2026 at 1:22=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.or=
-g> wrote:
+On Sat Aug 8, 2026 at 2:12 AM JST, Miguel Ojeda wrote:
+> On Fri, Aug 7, 2026 at 4:03=E2=80=AFPM Alexandre Courbot <acourbot@nvidia=
+.com> wrote:
+>>
+>> Indeed it looks like this would panic with the kernel build, and can be
+>> easily caught at build-time since `SHIFT` is a constant.
+>>
+>> Acked-by: Alexandre Courbot <acourbot@nvidia.com>
 >
-> Establish fields in vm_area_struct to store the anonymous page offset of
-> VMAs.
->
-> Initially, the anonymous page offset of a VMA is vma->vm_start >>
-> PAGE_SHIFT.
->
-> When a VMA is remapped to new_address its anonymous page offset is either
-> updated to new_address >> PAGE_SHIFT if unfaulted or, if faulted, remains
-> equal to the anonymous page offset it had when first faulted.
->
-> Currently, anonymous folios belonging to CoW'd MAP_PRIVATE-mapped
-> file-backed VMAs are tracked by their file offsets. By adding anonymous
-> offset as a property of VMAs, we can now track them by their anonymous pa=
-ge
-> offset instead.
->
-> By tracking this, we provide the means by which to eliminate this
-> inconsistency, and more importantly lay the foundations for future work f=
-or
-> the scalable CoW anonymous rmap rework.
->
-> This patch simply adds the fields and some simple helpers. Subsequent
-> patches will update mm code to make use of these fields correctly.
->
-> The fields chosen are packed in the VMA such that, for 64-bit kernel
-> builds, no additional space is taken up.
->
-> The first field is present on cacheline 0 containing key VMA fields, and
-> the second on cacheline 3, which contains file-backed reverse mapping
-> fields.
->
-> Given the relative time spent accessing reverse mapping fields as well as
-> updating them, there shouldn't be any performance impact here from false
-> sharing.
->
-> Update the VMA userland tests to account for this change.
->
-> No callsites are updated yet, so no functional change intended.
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Xu Xin <xu.xin16@zte.com.cn>
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  include/linux/mm.h              | 59 +++++++++++++++++++++++++++++++++++=
-++++++
->  include/linux/mm_types.h        | 12 +++++++++
->  mm/vma.h                        | 14 ++++++++++
->  mm/vma_init.c                   |  1 +
->  tools/testing/vma/include/dup.h | 26 ++++++++++++++++++
->  5 files changed, 112 insertions(+)
->
-> diff --git a/include/linux/mm.h b/include/linux/mm.h
-> index 87feaa5a2b78..df78847f5f07 100644
-> --- a/include/linux/mm.h
-> +++ b/include/linux/mm.h
-> @@ -4393,6 +4393,65 @@ static inline pgoff_t vma_last_pgoff(const struct =
-vm_area_struct *vma)
->         return vma_end_pgoff(vma) - 1;
->  }
->
-> +/**
-> + * vma_start_anon_pgoff() - Get the anonymous page offset of the start o=
-f @vma
-> + * @vma: The VMA whose anonymous page offset is required.
-> + *
-> + * If unfaulted, then this is vma->vm_start >> PAGE_SHIFT, if faulted th=
-en the
-> + * anonymous page offset at the time of first fault.
-> + *
-> + * If the VMA is anonymous, this returns the same value as vma_start_pgo=
-ff().
-> + *
-> + * This value is used for tracking MAP_PRIVATE file-backed mappings by t=
-heir
-> + * anonymous page offset.
+> Do you want me to take it this cycle? And maybe the next one too?
 
-I assume this function should not be used with shared file-backed
-mappings, right? If so, maybe add a comment like the one you have for
-linear_anon_page_index(): "It is not valid to call this function for
-shared file-backed mappings."?
+If this works for you it would remove them off the plate. OTOH I don't
+think we will have another user besides PRAMIN for the short term, so
+next cycle together with the rest of the series would work as well, as
+long as they are merged into the same tree.
 
-
-
-> + *
-> + * Returns: The anonymous page offset of the start of @vma.
-> + */
-> +static inline pgoff_t vma_start_anon_pgoff(const struct vm_area_struct *=
-vma)
-> +{
-> +       pgoff_t pgoff =3D 0;
-> +
-> +#ifdef CONFIG_64BIT
-> +       pgoff +=3D vma->__vm_anon_pgoff_hi;
-> +       pgoff <<=3D 32;
-> +#endif
-> +       pgoff +=3D vma->__vm_anon_pgoff_lo;
-> +       return pgoff;
-> +}
-> +
-> +/**
-> + * vma_end_anon_pgoff() - Get the anonymous page offset of the exclusive=
- end of
-> + * @vma.
-> + * @vma: The VMA whose end anonymous page offset is required.
-> + *
-> + * This returns the anonymous exclusive end page offset of @vma, which i=
-s useful
-> + * for expressing page offset ranges.
-> + *
-> + * See the description of vma_start_anon_pgoff() for a description of VM=
-A
-> + * anonymous page offsets.
-> + *
-> + * Returns: The exclusive end anonymous page offset of @vma.
-> + */
-> +static inline pgoff_t vma_end_anon_pgoff(const struct vm_area_struct *vm=
-a)
-> +{
-> +       return vma_start_anon_pgoff(vma) + vma_pages(vma);
-> +}
-> +
-> +/**
-> + * vma_last_anon_pgoff() - Get the anonymous page offset of the last pag=
-e in
-> + * @vma.
-> + * @vma: The VMA whose last anonymous page offset is required.
-> + *
-> + * See the description of vma_start_anon_pgoff() for a description of VM=
-A
-> + * anonymous page offsets.
-> + *
-> + * Returns: The last anonymous page offset of @vma.
-> + */
-> +static inline pgoff_t vma_last_anon_pgoff(const struct vm_area_struct *v=
-ma)
-> +{
-> +       return vma_end_anon_pgoff(vma) - 1;
-> +}
-> +
->  static inline unsigned long vma_desc_size(const struct vm_area_desc *des=
-c)
->  {
->         return desc->end - desc->start;
-> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-> index 939b5ea8c9e0..ebf0d912be7d 100644
-> --- a/include/linux/mm_types.h
-> +++ b/include/linux/mm_types.h
-> @@ -967,6 +967,11 @@ struct vm_area_struct {
->          */
->         unsigned int vm_lock_seq;
->  #endif
-> +       /*
-> +        * Low 32-bits of anonymous page offset.
-> +        * See vma_start_anon_pgoff() comment for details.
-> +        */
-> +       unsigned int __vm_anon_pgoff_lo;
->         /*
->          * A file's MAP_PRIVATE vma can be in both i_mmap tree and anon_v=
-ma
->          * list, after a COW of one of the file pages.  A MAP_SHARED vma
-> @@ -1041,6 +1046,13 @@ struct vm_area_struct {
->  #ifdef CONFIG_DEBUG_LOCK_ALLOC
->         struct lockdep_map vmlock_dep_map;
->  #endif
-> +#endif
-> +#ifdef CONFIG_64BIT
-> +       /*
-> +        * High 32-bits of anonymous page offset.
-> +        * See vma_start_anon_pgoff() comment for details.
-> +        */
-> +       unsigned int __vm_anon_pgoff_hi;
->  #endif
->         /*
->          * For areas with an address space and backing store,
-> diff --git a/mm/vma.h b/mm/vma.h
-> index 0bc7d521e976..54ed7c744e3b 100644
-> --- a/mm/vma.h
-> +++ b/mm/vma.h
-> @@ -283,6 +283,20 @@ static inline void vma_set_pgoff(struct vm_area_stru=
-ct *vma, pgoff_t pgoff)
->         vma->vm_pgoff =3D pgoff;
->  }
->
-> +static inline void __vma_set_anon_pgoff(struct vm_area_struct *vma, pgof=
-f_t pgoff)
-> +{
-> +#ifdef CONFIG_64BIT
-> +       vma->__vm_anon_pgoff_hi =3D pgoff >> 32;
-> +#endif
-> +       vma->__vm_anon_pgoff_lo =3D pgoff & GENMASK(31, 0);
-> +}
-> +
-> +static inline void vma_set_anon_pgoff(struct vm_area_struct *vma, pgoff_=
-t pgoff)
-> +{
-> +       vma_assert_can_modify(vma);
-> +       __vma_set_anon_pgoff(vma, pgoff);
-> +}
-> +
->  static inline void vma_add_pgoff(struct vm_area_struct *vma, pgoff_t del=
-ta)
->  {
->         vma_assert_can_modify(vma);
-> diff --git a/mm/vma_init.c b/mm/vma_init.c
-> index 715feee283f0..baa7e82f47e3 100644
-> --- a/mm/vma_init.c
-> +++ b/mm/vma_init.c
-> @@ -51,6 +51,7 @@ static void vm_area_init_from(const struct vm_area_stru=
-ct *src,
->         dest->vm_end =3D src->vm_end;
->         dest->anon_vma =3D src->anon_vma;
->         dest->vm_pgoff =3D vma_start_pgoff(src);
-> +       __vma_set_anon_pgoff(dest, vma_start_anon_pgoff(src));
->         dest->vm_file =3D src->vm_file;
->         dest->vm_private_data =3D src->vm_private_data;
->         vm_flags_init(dest, src->vm_flags);
-> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/=
-dup.h
-> index c52b23773cd2..26d9210b1e8b 100644
-> --- a/tools/testing/vma/include/dup.h
-> +++ b/tools/testing/vma/include/dup.h
-> @@ -577,6 +577,7 @@ struct vm_area_struct {
->          */
->         unsigned int vm_lock_seq;
->  #endif
-> +       unsigned int __vm_anon_pgoff_lo;
->
->         /*
->          * A file's MAP_PRIVATE vma can be in both i_mmap tree and anon_v=
-ma
-> @@ -612,6 +613,9 @@ struct vm_area_struct {
->  #ifdef CONFIG_PER_VMA_LOCK
->         /* Unstable RCU readers are allowed to read this. */
->         refcount_t vm_refcnt;
-> +#endif
-> +#ifdef CONFIG_64BIT
-> +       unsigned int __vm_anon_pgoff_hi;
->  #endif
->         /*
->          * For areas with an address space and backing store,
-> @@ -1320,6 +1324,28 @@ static inline pgoff_t vma_end_pgoff(const struct v=
-m_area_struct *vma)
->         return vma_start_pgoff(vma) + vma_pages(vma);
->  }
->
-> +static inline pgoff_t vma_start_anon_pgoff(const struct vm_area_struct *=
-vma)
-> +{
-> +       pgoff_t pgoff =3D 0;
-> +
-> +#ifdef CONFIG_64BIT
-> +       pgoff +=3D vma->__vm_anon_pgoff_hi;
-> +       pgoff <<=3D 32;
-> +#endif
-> +       pgoff +=3D vma->__vm_anon_pgoff_lo;
-> +       return pgoff;
-> +}
-> +
-> +static inline pgoff_t vma_end_anon_pgoff(const struct vm_area_struct *vm=
-a)
-> +{
-> +       return vma_start_anon_pgoff(vma) + vma_pages(vma);
-> +}
-> +
-> +static inline pgoff_t vma_last_anon_pgoff(const struct vm_area_struct *v=
-ma)
-> +{
-> +       return vma_end_anon_pgoff(vma) - 1;
-> +}
-> +
->  static inline int vfs_mmap_prepare(struct file *file, struct vm_area_des=
-c *desc)
->  {
->         return file->f_op->mmap_prepare(desc);
->
-> --
-> 2.55.0
->
+Thanks!
+Alex.
