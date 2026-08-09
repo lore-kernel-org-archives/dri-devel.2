@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE35CC5AC80
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 09:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A04DFC5AD4E
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 09:23:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB06910E12B;
-	Sun,  9 Aug 2026 09:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81E4610E294;
+	Sun,  9 Aug 2026 09:23:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dEF6s7YI";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="EmctPLPI";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5695410E12B
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 09:19:50 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 590FE10E294
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 09:23:53 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B9034600B1;
- Sun,  9 Aug 2026 09:19:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F2971F00A3A;
- Sun,  9 Aug 2026 09:19:48 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id AB78460008;
+ Sun,  9 Aug 2026 09:23:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388231F000E9;
+ Sun,  9 Aug 2026 09:23:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786267188;
- bh=1GUgyTiJyvq4zZVmFSoazK5CqyxD0DeiMolCvFee+PE=;
+ s=k20260515; t=1786267432;
+ bh=J2WIlAa5WxBs7CWbjKaD823Mvlqiv5py3eU6GGo/h14=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dEF6s7YI30Re1g1F433CrtbIKm5dd8lUrrJvLNIyq0Ox8LwUjC401AJbT3CNHuG/Z
- DkVUuwOHDQL3uyUK10piuHlPMBB3fKan0G/z/eczopqkrFTsgJ8Aq/ksT4QiPcWvG5
- 9MpRtgVieEJHA9Z2u2pTHr5U++zTAVFbL8YqT2N1HiTNGXMO22lJy/88IOaaLXbCZo
- DdQFPYQrbC8czExp7qRuu/8628pO2fteKMJkFGXTqkgSawwuzkjVgsdiT5gEijAwiT
- 4AOLjM776O/oG5H0DtZ5hlLP5u9bmTu2hWv//Rt1vYEXp7xMy1tiCGkoOry7EXS9bB
- OS86Tsv3AdUQA==
+ b=EmctPLPIQ7aR4t4lBguBbxcnznZr3LEgOpbA3erNYlcqgHtmpAxi1EIR8QhoIl6tc
+ XR935P8LJdBJjqQE/GnfcQBA8pEonl+zkIumBqWhpx9RWOkXszIpgJ/iEv0gno4GyO
+ vZOONw2J7XwQ+kWjFixdc8JWz/FrTXCDutsIFInxWgTibSqSU5/cxMfhrXkWzO+ZeL
+ hv6GHDCCXoxAR4QUyX5Vv9Kvjclc7hW7pvvWXKTvzDjwYS2zvXtHieDQ+wbigzO5SK
+ nc5K3F43tTvNXCgN4B/sTzxV4MKTGpm0QP6r2zxzS2uVEVIkqxE0rSBfL6YCAD1tN7
+ gltha/E1DiWSg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/6] drm/amdgpu/aca: Add missing NULL check for banks
- parameter in aca_banks_add_bank
+Subject: Re: [PATCH v4 6/6] drm/amdgpu/ras: Fix delayed work cancellation
+ order during teardown
 To: "Sreeraj S Kurup" <sreekuttan2156239@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260809084735.9743-5-sreekuttan2156239@gmail.com>
+In-Reply-To: <20260809084735.9743-7-sreekuttan2156239@gmail.com>
 References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
- <20260809084735.9743-5-sreekuttan2156239@gmail.com>
+ <20260809084735.9743-7-sreekuttan2156239@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 09:19:47 +0000
-Message-Id: <20260809091948.4F2971F00A3A@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 09:23:51 +0000
+Message-Id: <20260809092352.388231F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,131 +58,78 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
-New issues:
-- [Low] The added NULL check for the `banks` parameter is dead code and int=
-roduces unnecessary branching because the parameter is structurally guarant=
-eed to never be NULL.
-- [Low] The `lock` member referenced in `remove_aca_handle()` does not exis=
-t in `struct aca_handle_manager`, resulting in a compilation failure.
-
 Pre-existing issues:
-- [High] Concurrent traversal and modification of `mgr->list` without holdi=
-ng `mgr->lock` on the reader side causes a severe data race.
+- [Critical] Widened race condition allowing delayed work to be re-queued, =
+leading to a Use-After-Free.
 --
 
---- Patch [4]: [PATCH v4 4/6] drm/amdgpu/aca: Add missing NULL check for ba=
-nks parameter in aca_banks_add_bank ---
-commit 613bad660f79f7955828e89d88180e64def84678
+--- Patch [6]: [PATCH v4 6/6] drm/amdgpu/ras: Fix delayed work cancellation=
+ order during teardown ---
+commit 0a6b2c827639f23d781a308f6731a9c602763c4a
 Author: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 
-drm/amdgpu/aca: Add missing NULL check for banks parameter in aca_banks_add=
-_bank
-   =20
-aca_banks_add_bank() verified that the 'bank' parameter was non-NULL,
-but passed 'banks' directly into list_add_tail(&node->node, &banks->list)
-and incremented 'banks->nr_banks' without validating whether 'banks' was
-NULL.
+drm/amdgpu/ras: Fix delayed work cancellation order during teardown
 
-Add a NULL check for 'banks' to prevent a kernel NULL pointer
-dereference if an invalid pointer is passed by a caller.
+This commit reorders the cancellation of delayed work in amdgpu_ras_fini()
+and amdgpu_ras_recovery_fini(). It moves cancel_delayed_work_sync() and
+cancel_work_sync() before mutex destruction and subsystem teardown to
+prevent work handlers from attempting to acquire destroyed locks.
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_aca.c
-> index c35f6be2ef774..dcddeb3816285 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-> @@ -49,7 +49,7 @@ static int aca_banks_add_bank(struct aca_banks *banks, =
-struct aca_bank *bank)
->  {
->  	struct aca_bank_node *node;
-> =20
-> -	if (!bank)
-> +	if (!banks || !bank)
-
-[Severity: Low]
-Is this NULL check for banks necessary?
-
-The parameter banks in aca_banks_add_bank() is always the address of a local
-stack variable (&banks or &de_banks) in all of its calling paths (e.g., from
-aca_banks_update() and aca_banks_generate_cper()), which means it can never
-be NULL. Does this introduce unnecessary dead code and branching?
-
->  		return -EINVAL;
-> =20
->  	node =3D kvzalloc_obj(*node);
-
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ras.c
+> index 764cd49504083..23b9844d9f1ca 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
 [ ... ]
+> @@ -4751,6 +4750,8 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
+>  	if (!adev->ras_enabled || !con)
+>  		return 0;
+> =20
+> +	cancel_delayed_work_sync(&con->ras_counte_delay_work);
+> +
 
+[Severity: Critical]
+This isn't a bug introduced by this patch, but by moving this
+cancel_delayed_work_sync() earlier in amdgpu_ras_fini(), does this widen a =
+race
+condition that could lead to a Use-After-Free?
 
-There are also a couple of other issues in this area related to the aca
-handle list:
+If a userspace process calls the AMDGPU_CTX_OP_QUERY_STATE2 ioctl concurren=
+tly
+with device teardown, amdgpu_ctx_query2() can asynchronously re-queue the w=
+ork:
 
-[Severity: Low]
-Can this code compile successfully?
-
-The lock member referenced in remove_aca_handle() does not exist in
-struct aca_handle_manager:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_aca.h:
-struct aca_handle_manager {
-	struct list_head list;
-	int nr_handles;
-};
-
-Attempting to reference mgr->lock here:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c:remove_aca_handle() {
+drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c:amdgpu_ctx_query2() {
     ...
-	mutex_lock(&mgr->lock);
-	list_del_init(&handle->node);
-	mgr->nr_handles--;
-	mutex_unlock(&mgr->lock);
+    schedule_delayed_work(&con->ras_counte_delay_work,
+                          msecs_to_jiffies(AMDGPU_RAS_COUNTE_DELAY_MS));
     ...
 }
 
-appears to result in a compilation failure since lock is not defined in the
-struct.
+Because the ioctl lacks drm_dev_enter() synchronization, it can re-arm the =
+work
+after this cancellation but before the end of amdgpu_ras_fini().
 
+When kfree(con) is called later in amdgpu_ras_fini(), will the re-armed
+ras_counte_delay_work access the freed con structure?
 
-[Severity: High]
-This isn't a bug introduced by this patch, but there is an explicit attempt
-to fix it here. Could this concurrent traversal cause a data race?
-
-While the writer side in remove_aca_handle() attempts to use mgr->lock:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c:remove_aca_handle() {
-    ...
-	mutex_lock(&mgr->lock);
-	list_del_init(&handle->node);
-	mgr->nr_handles--;
-	mutex_unlock(&mgr->lock);
-    ...
-}
-
-The reader side traverses mgr->list without holding any lock or using RCU
-primitives:
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c:aca_dispatch_bank() {
-    ...
-	if (list_empty(&mgr->list))
-		return 0;
-
-	list_for_each_entry(handle, &mgr->list, node) {
-		if (!aca_bank_is_valid(handle, bank, type))
-			continue;
-    ...
-}
-
-If a background RAS query or sysfs read (which calls aca_dispatch_bank())
-traverses mgr->list while remove_aca_handle() concurrently unlinks and frees
-a node during teardown, could this lead to a use-after-free or list
-corruption and a kernel panic? The fix appears incomplete because it only
-syntactically locks the writer side without adding synchronization to the
-reader side.
+>  	amdgpu_ras_critical_region_fini(adev);
+>  	mutex_destroy(&con->critical_region_lock);
+> =20
+[ ... ]
+> @@ -4785,8 +4786,6 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
+>  	if (AMDGPU_RAS_GET_FEATURES(con->features))
+>  		amdgpu_ras_disable_all_features(adev, 0);
+> =20
+> -	cancel_delayed_work_sync(&con->ras_counte_delay_work);
+> -
+>  	amdgpu_ras_set_context(adev, NULL);
+>  	kfree(con);
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809084735.9743=
--1-sreekuttan2156239@gmail.com?part=3D4
+-1-sreekuttan2156239@gmail.com?part=3D6
