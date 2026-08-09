@@ -4,114 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30B53C5AE5D
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2154FC5AD4E
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 06:38:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C992410E671;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3E6A10E677;
 	Mon, 10 Aug 2026 06:38:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ATpW9KhA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gFrLQ3za";
 	dkim-atps=neutral
-Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com
- [209.85.161.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC3FD10E26E
- for <dri-devel@lists.freedesktop.org>; Fri,  7 Aug 2026 17:51:01 +0000 (UTC)
-Received: by mail-oo1-f48.google.com with SMTP id
- 006d021491bc7-6b03e59a9b4so209612eaf.3
- for <dri-devel@lists.freedesktop.org>; Fri, 07 Aug 2026 10:51:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786125061; cv=none;
- d=google.com; s=arc-20260327;
- b=RKwALQkKuoFMvIeDgUJHVZIwTC+bL4xm+BuplKNtZdx+WxMpVBUxm+mmQaqw4Nr5td
- cbH56hs+7uoF5ImNghX6Cs+/DN1moQ1rw3plix31SKKG+gWvtrem9gWRYm8B9Tl6DVOH
- WTh9ezUpUJPAakZ+HOo0sTo2fdAgWpfENKP3QVy3zeHy5SJ2sMp35H4hxN+IU9dfJ/1u
- 6HBDpK41qnpwbeHMLLpf4i5490f+sB98FLRPuHOY96Q7sACk6DTZak3x4yQSyxebNRex
- XgYEEkQ98cXkbfQeAqH4B+Fx/0SeqDnoqGwleRBxOw7FMq0KprenLIGBaHRD2J36Kq4p
- iBug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=lRjAT478Uz3ZQXBeUJ/wQtNqpl6lKAtydNqvVxPKT04=;
- fh=0DcgYhH/Uc7bKxl+LBYM4zAtwghUoOVts+QzscfRmBE=;
- b=ioKnGYLH6tQy57CuXNt9QRu/TYqdka2DaIvMiQHPhN8x1C10tXwUFKMYLf/T29aQKf
- Uu1GWdxvBcKJ+PCgsAjTRloZJKI3dlHDGkuGRNHWEmLgWeBgCBhdpVglXRc+NgzHlt5q
- FMZAMohaNMmXsCvGr6KIcx2a+95SCDhgg6XDbpTEAQQDsILzn/tOF5rmXOukEgM3V4j7
- 8as/FhxtL2HlWIEfrgogv4JuuD5r+sqzYn5B3d8DpGAJNqNw1gBPP0EpKhmV3bpy1Bno
- vAMcVZ5TwQFRgJ8nvLhCJH2PEEyqSch+qli2kQZWGBf8zjhbkNsC00h9FTbsf/o/bLZd
- 0wYA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD8FB10E1A8
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 17:37:22 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-8efb708b1a0so5793796d6.3
+ for <dri-devel@lists.freedesktop.org>; Sun, 09 Aug 2026 10:37:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786125061; x=1786729861; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=lRjAT478Uz3ZQXBeUJ/wQtNqpl6lKAtydNqvVxPKT04=;
- b=ATpW9KhAf397b2tQUhTT/WXt3OqcaN/lgJyZWYJgJBS4YqIPHPIW3d5Nag1PXAe5m3
- /3GEx97T7Y9RWBy/aL3HtE+MEYWE8xKTKPmXJXjVzIN8LyeIPBzLjM8myl/k16+9HkQX
- j9B30bN6vITh1TnE2Nwx5hT3fZ4BJYEMMPvC1BgVFUioZXcM6KbGShUVXWsb9ef+z2Pr
- tWSPCe8Sx8FRnIhCpn1FwLGvngprbflNiX/7z6WJra9bldFbq/SwZIW2wK/iRFvDDQWu
- 7nOq8sn8GuETm2+lSCbV8poO6bdPonycQwpng3tEheQZScBsyjfpcgo2Eq5hhdPor4UH
- 94cQ==
+ d=gmail.com; s=20251104; t=1786297041; x=1786901841; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=UDwhP+SNEQonzNCu80xIUxXIG/Qn0ez/r1xaxvU+zXo=;
+ b=gFrLQ3zat/iG+pVuctZQtmJ3b76mAoipqXDfwH1IO939mAvZb9I6mZD8OIPNiQaZlN
+ DLF7cXE2BzNvFr8RgedYdpZ/B0ytG0GDDFgLKWdHleI6NkjaFekKF8ivCTtW8DY/WJpK
+ 3qHOic9M2QBavcS1maqvSO9AMzQtHicWJoykavP4fU9ViduesuWEucloZR3CjTvzNKBY
+ 5/Drc4b1CRVqxTck9iqREwIS/agoJymkerGU/R54gKbngbRTY/6Hs54rlgzyn+a/nyez
+ AWh83gS/JHt0imC3YS3g1OB5tjudNEXQ8Pd0qqY2cvIK3GZw4VL1iJjb6idif3VXR7uu
+ KEoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786125061; x=1786729861;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=lRjAT478Uz3ZQXBeUJ/wQtNqpl6lKAtydNqvVxPKT04=;
- b=s03lQJzSj3UUwtYgvKdJL6JYc1uHEPnLeqn2TV1zHnZrYj8XFn6Gx1Jo2FLhU+abht
- ir4+cVlYt3U2HYzvBQENFzfnsS6XlA1tGgQ+CR/FE9QVzZsq7IMHNyb0TWXs+5VekXLq
- 9tqoisMDbUsoUsIMWG7w63CNzKpdDF9Zz1i9fvqeG18kbq13sYmJ8SHjUxRGBZM24E34
- irA4xXAEhlUm6wHQ3hIM8sBWlOJYNAIukAwnyb+vzvVza+r3GhPgvvIFDMVAAYu2M9tQ
- 51xZlqatmihHH7WPxUB+1iZD9Iuuvx/294Ji0Sb3kJniLTFFNYF80n3oxrvchVTfkul6
- ojnA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqlEkUNLw3Xwi4Pdvwd4LTCdqqnEj3WaQH2GVuDX+qmB11z0SNe36F55ZQd45tEHhyaB5F0V6DqJNw=@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yz1aOjrNXeELCoZp6CPqhVEWxF/nNhwK5JMNkeFPDPQS+vUlxuq
- WbNEsCbcTKJKNtqNkdj1rkrAXeXDacigpXRjy87TYtDcxgl52l7XW+0kRC6+Et89YwzLv12swgn
- OFlw+5nxEqIA2N6iGLdMpLi34ylWJZQg=
-X-Gm-Gg: AR+sD11QDdDfh6qngY4UYiqvc4syTbm5y58kLCdLgvfTqAdkeEdSDnH11FK0CuiJx/m
- QqN11NSGHoPENkaOIB2E1cZo9WRO5kHa7VYbqklkievtlOcj8hQjMExYcgv0JfEb5G+4vB+bRHc
- vuyHRyA3y8+HgswwozxcdZOawZLSrmDEcU67pAywTQ+y1FsCizfChQ/x0Bwdt/Zzu2C7KVnxJeC
- mtPWvTUyza1lJ3v2bYPGxdOYI6hXvLmipF98wXGW7YGFMPZ1pfO8gJ9fNh1zNK5frbXceDRNDZy
- 9qs1AW6KVhjSKUnKeDbOBDdbTv69ul3kH7UUdSM5L0d36KXgk5NaPu04t8+RSssyLH1prm5jj4g
- MTQ==
-X-Received: by 2002:a05:6820:811:b0:6b0:40d9:8ac6 with SMTP id
- 006d021491bc7-6b041f594b5mr991109eaf.9.1786125060721; Fri, 07 Aug 2026
- 10:51:00 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1786297041; x=1786901841;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=UDwhP+SNEQonzNCu80xIUxXIG/Qn0ez/r1xaxvU+zXo=;
+ b=noy7Z9e2/BnoVlRq6Vj957mvgTx2A8CMtMtNOnAwLVJBLaX1Yp7nnjGB1y8oX3mVaA
+ kKFOorAK7Dq7gwsAYrJO9FQIzWImfBgsRkA6p4cWBcwfSUdeJyD6ecnqtRpTW5DfHxQC
+ JCudRON1houeM5jHazRHCVChbTpOqM3o34/ceaEpP+/a8YSTi3ahuz6ZKMdMPO+rqyDJ
+ lLrMxinEILkgSk5qiGEhFyigObT97nyRx8/rWt0Ov1cN46Dt3VaA9tJ1qcduH2nJRzR1
+ 1v1YN8juGjJrO9xXO/kaA2J3PNoe6sUsenwdSkIjEKMG1l/g2Ujv/6NHESn2lEhv0kOU
+ UINw==
+X-Gm-Message-State: AOJu0YypvFMjNBzUAA2Zh6p7EnDO60r76tIThvdeixu6NQ8nvqofcwT6
+ RshbF23N6qd3/y3tTbucsP9pGqyAd1VeOUUu4FytLiCaiVq3m6RlvPOi
+X-Gm-Gg: AR+sD13jVKdqG5B9bdS3MpSzF96mND5CiFqpX2Q4blskHCvwrFvJnUGiDhgV1VeHvSX
+ kuvRCppk0N83KSLiC3lEx4h4Mipt8tFznYenwB8JXrJY1rBnw322F7UfTmb60JKk9lSQeZ+dUTQ
+ Kx2QsAG+s5A/8Ti/iMbDlE5NT6sQW2u+kDxVJ2lu64i3cGITzCJBc58EX4Lt7GlQy2KWtRsb8Ei
+ xQnfYrT+n9XNW9ZrzEh61MH1trO4vZg2jJkeHDJ0/1Vex7Z5uubPSaBHfHudxxDtQCoXEIIFIcN
+ EipdZXaK4Y1EBUE3mLil4R7Za3FoH4ksMwqV5qjDzYkT/n/MoIMZ2BAnhcaiVuuoBgSfNPOQpON
+ eliDjtHO9Ywc5hprDpf9cOUxg7f4V5rwQQ0YosujyLphVFSU1VGE3uTccKcfvoQWaPibmS1vBsX
+ 0VXVlcNCdJlOHPK+4mkcmfp8VBXI4qABTp34n7HEkWXLmkvRhhCk2k1j4AQNQwhOx+fIpPW4DqF
+ kj9F+rgjeHJ8W4U8ZMR1vc1bAGw
+X-Received: by 2002:a05:6214:4f06:b0:908:9045:217a with SMTP id
+ 6a1803df08f44-908904526e0mr330626976d6.29.1786297041447; 
+ Sun, 09 Aug 2026 10:37:21 -0700 (PDT)
+Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
+ by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-908a918ec9fsm55388176d6.5.2026.08.09.10.37.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Aug 2026 10:37:21 -0700 (PDT)
+From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, chris@chris-wilson.co.uk,
+ Shuangpeng Bai <shuangpeng.kernel@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH] drm/i915/gem: Fix request use-after-free in active_engine()
+Date: Sun,  9 Aug 2026 13:36:46 -0400
+Message-ID: <20260809173646.3292361-1-shuangpeng.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260728091804.382753-1-wenst@chromium.org>
- <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
- <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com>
- <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
- <36f2775a-d332-4913-8e9e-ca0429c3f713@collabora.com>
- <amswFn2qWkvypMH8@redhat.com>
- <CAGb2v65yEtUH5LQ=kGL1io-urha12iOute=D2bbG872YXbK4fQ@mail.gmail.com>
-In-Reply-To: <CAGb2v65yEtUH5LQ=kGL1io-urha12iOute=D2bbG872YXbK4fQ@mail.gmail.com>
-From: YoungJoon Lee <getfeus@gmail.com>
-Date: Sat, 8 Aug 2026 02:50:47 +0900
-X-Gm-Features: AUfX_mw5H1veunrAd0DWILURr17Bo7nhldWDJMLG41xotTB7eMODtkVZIaJFjgA
-Message-ID: <CA+m4KrDpcdJZBXT5wN+NHV+BtLLT-suhamCmzg+gUhamvbPR8Q@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: wens@kernel.org
-Cc: Brian Masney <bmasney@redhat.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chen-Yu Tsai <wenst@chromium.org>, 
- Stephen Boyd <sboyd@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
- Alessio Belle <alessio.belle@imgtec.com>,
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:37:47 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:38:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,193 +88,73 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Hi Chen-Yu,
+active_engine() walks timeline->requests in reverse under RCU and takes a
+temporary reference before inspecting each request. However, it drops that
+reference in the loop body before list_for_each_entry_reverse() advances
+the cursor.
 
-A follow-up on the GX6250 issue.
+Concurrent retirement can unlink the same request and drop its base
+reference while active_engine() holds the temporary reference. The put in
+active_engine() may then be final, freeing or recycling the request before
+the loop step reads rq->link.prev. SLAB_TYPESAFE_BY_RCU does not defer that
+reuse.
 
-I ran the diagnostic test I mentioned in my previous reply, and I now
-have a reproducible system hang along with HWRT/free-list lifetime
-traces.
+Open-code the reverse walk and cache the previous request while the current
+request is still referenced. The next request remains protected by
+i915_request_get_rcu() and validated against the timeline before use.
 
-I built a diagnostic kernel with temporary tracing around the PowerVR
-HWRT and free-list lifetime paths, and ran:
+An i915 mock selftest forced retirement between the active check and cursor
+advance. The vulnerable tree reached the final request release and
+kmem_cache_free(), while the fixed tree completed the same ordering without
+accessing rq after the put.
 
-PVR_I_WANT_A_BROKEN_VULKAN_DRIVER=3D1 glmark2-es2-drm
+Fixes: 3cfea8c97c93 ("drm/i915/gem: Hold request reference for canceling an active context")
+Cc: stable@vger.kernel.org # v5.10+
+Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+---
+ drivers/gpu/drm/i915/gem/i915_gem_context.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-The test was run from multi-user.target with no display manager running.
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_context.c b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+index c58ffa5a8fa6..ff5c892a0176 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_context.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_context.c
+@@ -1361,7 +1361,7 @@ static bool __cancel_engine(struct intel_engine_cs *engine)
+ static struct intel_engine_cs *active_engine(struct intel_context *ce)
+ {
+ 	struct intel_engine_cs *engine = NULL;
+-	struct i915_request *rq;
++	struct i915_request *rq, *prev;
+ 
+ 	if (intel_context_has_inflight(ce))
+ 		return intel_context_inflight(ce);
+@@ -1375,7 +1375,8 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
+ 	 * (and onto a new timeline->requests list).
+ 	 */
+ 	rcu_read_lock();
+-	list_for_each_entry_reverse(rq, &ce->timeline->requests, link) {
++	rq = list_last_entry(&ce->timeline->requests, typeof(*rq), link);
++	while (!list_entry_is_head(rq, &ce->timeline->requests, link)) {
+ 		bool found;
+ 
+ 		/* timeline is already completed upto this point? */
+@@ -1387,9 +1388,14 @@ static struct intel_engine_cs *active_engine(struct intel_context *ce)
+ 		if (likely(rcu_access_pointer(rq->timeline) == ce->timeline))
+ 			found = i915_request_active_engine(rq, &engine);
+ 
++		/* Cache the cursor before the put, which may release rq. */
++		if (!found)
++			prev = list_prev_entry(rq, link);
+ 		i915_request_put(rq);
+ 		if (found)
+ 			break;
++
++		rq = prev;
+ 	}
+ 	rcu_read_unlock();
+ 
 
-This time glmark2 progressed past the point where it had previously
-failed, but later the entire system became unresponsive during the
-desktop/blur part of the benchmark.
+base-commit: a59f57e2aa127c5354168d2ec4bac920df1be4f4
+-- 
+2.43.0
 
-At that point:
-
-- SSH stopped responding
-- local keyboard and VT switching stopped responding
-- the system required a hard power cycle
-
-The HWRT teardown trace immediately before the hang was interesting.
-
-Normal HWRT destruction repeatedly looked like this:
-
-dataset-release
--> HWRTDATA cleanup data=3D1, err=3D0
--> HWRTDATA cleanup data=3D0, err=3D0
--> free-list release slot=3D0
--> free-list release slot=3D1
-
-For the last HWRT visible before the machine stopped responding, the
-trace ended at:
-
-pvr-hwrt: dataset-release hwrt=3Dffff0000c0c62800 ...
-pvr-hwrt: cleanup hwrt=3Dffff0000c0c62800 data=3D1 err=3D0 ...
-pvr-hwrt: cleanup hwrt=3Dffff0000c0c62800 data=3D0 err=3D0 ...
-
-There was no further PowerVR trace before the system hung.
-
-Therefore, I do not think I can conclude that the free-list reference
-counting itself is the root cause.
-
-What I can say from this instrumentation is that both HWRTDATA cleanup
-calls returned successfully, and the trace stopped before
-hwrt_fini_kernel_structure() reached its first free-list release
-message.
-
-The tracing is intentionally verbose and may affect timing, so I do
-not want to over-interpret the exact failure point.
-
-I have the diagnostic patch, the full kernel log, the HWRT/free-list
-lifetime trace, and the glmark2 output available.
-
-Would it be useful for me to send these to the Imagination/DRM mailing
-lists now, or is there a particular person or list you would prefer me
-to report this to?
-
-If there are specific additional tracepoints you would like around
-hwrt_data_fini_fw_structure() or hwrt_fini_common_fw_structure(), I
-can build another diagnostic kernel and reproduce the issue again.
-
-Thanks again for taking a look.
-
-Best regards,
-YoungJoon Lee
-
-2026=E5=B9=B47=E6=9C=8830=E6=97=A5(=E6=9C=A8) 21:38 Chen-Yu Tsai <wens@kern=
-el.org>:
->
-> On Thu, Jul 30, 2026 at 7:06=E2=80=AFPM Brian Masney <bmasney@redhat.com>=
- wrote:
-> >
-> > Hi Angelo and Chen-Yu,
-> >
-> > On Thu, Jul 30, 2026 at 10:23:14AM +0200, AngeloGioacchino Del Regno wr=
-ote:
-> > > On 7/30/26 06:51, Chen-Yu Tsai wrote:
-> > > > On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Regno
-> > > > <angelogioacchino.delregno@collabora.com> wrote:
-> > > > >
-> > > > > On 7/28/26 15:13, Chen-Yu Tsai wrote:
-> > > > > > On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@r=
-edhat.com> wrote:
-> > > > > > > On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
-> > > > > > > > Hi everyone,
-> > > > > > > >
-> > > > > > > > This is v4 of my MT8173 PowerVR GPU support series.
-> > > > > > > >
-> > > > > > > > This time around Mesa was ready for basic testing, using bo=
-th vulkanmark
-> > > > > > > > and glmark2-es2-drm (with Zink). Details below.
-> > > > > > > >
-> > > > > > > > Changes since v3 (all in the clk driver patch):
-> > > > > > > > - Changed pm_runtime_put() to pm_runtime_put_sync()
-> > > > > > > > - Added missing of_node_put() in remove function
-> > > > > > > >
-> > > > > > > > Changes since v2 (all in the clk driver patch):
-> > > > > > > > - Made COMMON_CLK_MT8173_MFGTOP depend on PM
-> > > > > > > >     - Needed since the driver implements PM domains using t=
-he generic PM
-> > > > > > > >       domain library, which also depends on PM
-> > > > > > > >     - Fixes build breakage (kernel test robot)
-> > > > > > > > - Fixed "RST_DELAY_CNT" name (Brian)
-> > > > > > > > - Dropped unused mfg_desc (Brian)
-> > > > > > > > - Added check of clk_prepare_enable()'s return value in
-> > > > > > > >     clk_mt8173_mfgtop_power_on() (Brian)
-> > > > > > > > - Saved error value for return in IS_ERR(data->clk_26m) bra=
-nch
-> > > > > > > >     (Dan Carpenter / kernel test robot w/ smatch)
-> > > > > > > >
-> > > > > > > > Changes since v1:
-> > > > > > > > - Adapted to changed DT bindings
-> > > > > > > > - Dropped driver change
-> > > > > > > > - Use same power domain for "a" and "b" GPU power domains
-> > > > > > > >
-> > > > > > > >
-> > > > > > > > This series enables the PowerVR GPU found in the MT8173 SoC=
-, found in
-> > > > > > > > some Chromebooks.
-> > > > > > >
-> > > > > > > I'm making a pull for Stephen for the clk changes. Should pat=
-ches 1,2,4
-> > > > > > > go through the clk tree? Patches 3,5 go through the DRM tree?
-> > > > > >
-> > > > > > Only patches 1 and 2 should go through the clock tree.
-> > > > > >
-> > > > > > Patch 3, 4, 5 can all go through the soc tree if Angelo wants t=
-o pick up
-> > > > > > DT binding patches. Otherwise I can push patch 3 through drm-mi=
-sc.
-> > > > > >
-> > > > >
-> > > > > Not sure if I can really take the DRM bindings patch through soc.
-> > > > >
-> > > > > I will take the devicetree ones exactly right now, even though it=
-'s going to
-> > > > > give warnings.
-> > > >
-> > > > Apologies for missing this, but the first DT patch depends on the c=
-lk DT
-> > > > bindings patch for the clk ID macros. This is causing build errors =
-in
-> > > > linux-next right now.
-> > > >
-> > > > Not sure how we can fix this right now.
-> > > >
-> > > > Brian, would it be possible for you to split out that patch into a
-> > > > separate immutable branch for Angelo to merge?
-> >
-> > Yes, I can split things out and make an immutable branch this morning.
-> > But it sounds too late for that.
-> >
-> > > >
-> > > > Otherwise Angelo might need to drop the DT patches until the next c=
-ycle.
-> > >
-> > > Yeah, that's so bad.
-> > > I'd be happy to be able to resolve this, but it's too late on my side=
-.
-> > >
-> > > I should've checked the DT patches more carefully, my bad: I got a bi=
-t too excited
-> > > to finally see this PowerVR stuff working on MT8173 and going upstrea=
-m.
-> > >
-> > > Sadly, I have to drop the devicetree patches :-(
-> >
-> > Chen-Yu: Could Angelo add an Acked-by to the three patches, and then I =
-send
-> > Stephen an additional pull with just those patches? Do you think he'd
-> > pull that?
->
-> (replying from my @kernel.org address again because I don't feel like
->  pulling out my work laptop.)
->
-> I think the question is whether the soc & dt maintainers would be bothere=
-d
-> by it or not.
->
-> No need to sweat over it though. It's not like the GPU driver is producti=
-on
-> ready anyway. We can just merge the DT patches in the next cycle. :)
->
->
-> ChenYu
