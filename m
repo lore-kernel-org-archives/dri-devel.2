@@ -4,71 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D1EBC5AD5A
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 20:01:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 643F2C5AD4E
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 20:05:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 818C810E5BA;
-	Sun,  9 Aug 2026 20:01:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E9BF10E5B2;
+	Sun,  9 Aug 2026 20:05:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="Due7pVUu";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="xQHZnjd+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UHZtAQyd";
 	dkim-atps=neutral
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 493CB10E5B2
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 20:01:39 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hJ80d5L5hzKmD5;
- Sun, 09 Aug 2026 22:01:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1786305697;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fQcYfBCZZMtnsgJnUDgQokMrOafV77vdez+yaEZc47s=;
- b=Due7pVUuwbYyb6yBWTmUnE8+otUI445vtW0+rrWiAGlMPfWkRudHa4PSOfX2JemJWwCLIU
- JdDXxyAUjFSFzLsHl7+iWAV2ThGUeWIKTph3Ep2NbIgwWKNDpuM/ph4lRoBbV0jD7XjfQs
- oaJZ//qSNG/stmXbjXP3TQsojvb0nsb1GDyPttnh+XX+ZdiLb/wMDAMCeZlKxFvzHx4u0a
- RH9AZRR2XFYIJy+94n0mkzU7kTGOPZXhyOkMkEGxqXzq6qOfaupRhnZEnYTGfAkzxfh6qq
- mcRtyltLLniMtqNqwgXnhAjaUYUKSjL+oTVIMPCa7Qty7B4HfQQI9YAoqYODpw==
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; t=1786305696;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=fQcYfBCZZMtnsgJnUDgQokMrOafV77vdez+yaEZc47s=;
- b=xQHZnjd+lxxQLcsJ2q/6ANQZEP0YayQ1Q7IvCtlwqgzMU2yUzrkFf/itJf+PhGB+YgrxOy
- Ik1UfWty9jkQD95Kc8uIEbbAjHlkE1GGo40FNpuAgOAjKgt+2OcA3aTB/C2zLrqRBLeCnr
- HESbIwYTt3xM81e+oPpWfbmFJ6ReRW7JuyUkHj1qWGq5ofXEJF0Z1YWBhaqi1E46qmVX9g
- 8VcS/6SczUznlz28YPSFX2dauSXCAuRoE0kYpsNGiAwxaFLBYeBbEXF1UPFTb/Y0Biv277
- befwKaFGTeorqfV/5Lzz8PXuGj3Z4pZM3TLtdTMqKovOdswHfbVBBseqNN6bVg==
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- David Airlie <airlied@gmail.com>, Jessica Zhang <jesszhan0024@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org
-Subject: [PATCH 4/4] drm/panel: ilitek-ili9882t: Add support for Ilitek
- ILI79600A-based panels
-Date: Sun,  9 Aug 2026 21:58:53 +0200
-Message-ID: <20260809200107.842945-4-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260809200107.842945-1-marek.vasut+renesas@mailbox.org>
-References: <20260809200107.842945-1-marek.vasut+renesas@mailbox.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: 859a69f184f28dd62af
-X-MBO-RS-META: otw4443bc657krtwobbqc3deq98pyiyb
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04B8D10E5B2
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 20:05:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 36865600B1;
+ Sun,  9 Aug 2026 20:05:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B735E1F000E9;
+ Sun,  9 Aug 2026 20:05:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786305912;
+ bh=Md7wY/ruwLujf4Bte3bYw31vpaiymTb59DJrGh3F1zM=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=UHZtAQyd+EktTSjeOffm6S4RAcZVBkb0KsbhjJ6BAEqiIvGT+SK6TSi5+9cgP4Fra
+ nKO0/wLTFpfsiuRWUyBandUeMXVlUc7wHWvMLbOQy0VYgjRcFlef6HYnD/SW+Z8nZs
+ mzgetU2udzvSPLuQL/R60Qn5l/G0QCpfXwdJsg3pAxPLuFq0CR9343ZmfM48NbeAZi
+ 5XO7IHSxF8Jy2IeKNI90Qj9w6gfj34q9sSKesZFhrEAabG8gTqdnlbdPtNtcYj5LRm
+ o2RDId4s4LdOjIGqGxqQ/dQEnaLfqr2VBKIkou2jJDIajYc6yZIaH1av1QTA9RXkrq
+ Kd0jq01AQW7Aw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/rcar-du: dsi: Implement DSI command TX using AXI
+ memory access
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: dri-devel@lists.freedesktop.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260809195831.842907-1-marek.vasut+renesas@mailbox.org>
+References: <20260809195831.842907-1-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 09 Aug 2026 20:05:12 +0000
+Message-Id: <20260809200512.B735E1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,300 +53,131 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-The Ilitek ILI79600A display controller is similar to the ILI9882T and can
-be supported within the existing `panel-ilitek-ili9882t.c` driver.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] High Speed (HS) AXI command payload is silently truncated to 128 b=
+ytes.
+- [High] Use-After-Free of the AXI DMA buffer during device removal due to =
+teardown order inversion.
+- [High] Large TX payloads combined with an RX or ACK request are forced in=
+to register mode and truncated.
+- [Medium] Memory leak of the DMA coherent buffer on probe error paths.
+--
 
-This patch extends the ILI9882T driver to handle ILI79600A-based panels,
-such as the 10" Raspberry Pi Touch Display 2. The ILI79600A uses a similar
-command sequence and initialization flow, with minor differences in power
-supply configuration and timing.
+--- Patch [1]: [PATCH] drm/rcar-du: dsi: Implement DSI command TX using AXI=
+ memory access ---
+commit b5f3f6a7ebb3a67c9d4682699f04e9f66eb46473
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: devicetree@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-renesas-soc@vger.kernel.org
----
- drivers/gpu/drm/panel/panel-ilitek-ili9882t.c | 231 ++++++++++++++++++
- 1 file changed, 231 insertions(+)
+drm/rcar-du: dsi: Implement DSI command TX using AXI memory access
+   =20
+This commit implements support for DSI command TX using AXI memory access
+mode. It extends the packet transfer length up to 128 Bytes long in LP and
+1024 Bytes long in HS by allocating a DMAble 4k page for large transfers.
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-index 24e72ad0d29a1..5581100a1f8a5 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9882t.c
-@@ -133,6 +133,207 @@ static const struct drm_dsc_config tianma_il79900a_dsc = {
- 	.flatness_min_qp = 3,
- };
- 
-+static int rpi_10inch_init(struct ili9882t *ili)
-+{
-+	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
-+
-+	mipi_dsi_usleep_range(&ctx, 5000, 5100);
-+
-+	il79900a_switch_page(&ctx, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x00, 0x42);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x01, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x02, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x03, 0x00);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x04, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x05, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x06, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x07, 0x00);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x08, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x09, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0a, 0x71);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0c, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0e, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0d, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0f, 0x00);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x30, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x31, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x32, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x33, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x34, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x35, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x36, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x37, 0x28);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x38, 0x29);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x39, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3A, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3B, 0x15);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3C, 0x17);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3D, 0x09);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3E, 0x0D);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3F, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x40, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x41, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x42, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x43, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x44, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x45, 0x02);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x48, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x49, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4A, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4B, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4C, 0x07);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4D, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4E, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4F, 0x28);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x50, 0x29);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x51, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x52, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x53, 0x14);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x54, 0x16);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x55, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x56, 0x0C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x57, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x58, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x59, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5A, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5B, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5C, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5D, 0x02);
-+
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x2C, 0xB0);
-+
-+	il79900a_switch_page(&ctx, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x07, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x06, 0xD2);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x53, 0x1F);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5E, 0x40);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x84, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x29, 0x3A);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x2A, 0x3B);
-+
-+	il79900a_switch_page(&ctx, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x20, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x21, 0x3C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x22, 0xFA);
-+
-+	il79900a_switch_page(&ctx, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x87, 0x2C);
-+
-+	il79900a_switch_page(&ctx, 0x05);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x61, 0x8F);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x6D, 0xBB);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x5A, 0x7C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x67, 0x7C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x54, 0x92);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x55, 0x92);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x40, 0xD2);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x46, 0x70);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x30, 0x47);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x7A, 0x89);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA4, 0x0B);
-+
-+	il79900a_switch_page(&ctx, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xC0, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xC1, 0x7);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCA, 0x58);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCB, 0x2);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCE, 0x58);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xCF, 0x2);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x10, 0x0);
-+
-+	il79900a_switch_page(&ctx, 0x0b);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x76, 0x55);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x78, 0x68);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x77, 0x0D);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x79, 0x60);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x7A, 0x10);
-+
-+	il79900a_switch_page(&ctx, 0x08);
-+	mipi_dsi_dcs_write_seq_multi(&ctx,
-+				     0xE0, 0x00, 0x1E, 0x3F,
-+				     0x68, 0x7D, 0x72, 0x86,
-+				     0x89, 0x92, 0x8E, 0xA5,
-+				     0xA8, 0xAA, 0xBD, 0xB8,
-+				     0xBE, 0xC5, 0xD6, 0xCD,
-+				     0xC3, 0xDA, 0xEB, 0xED);
-+	mipi_dsi_dcs_write_seq_multi(&ctx,
-+				     0xE1, 0x00, 0x1E, 0x3F,
-+				     0x68, 0x7D, 0x72, 0x86,
-+				     0x89, 0x92, 0x8E, 0xA5,
-+				     0xA8, 0xAA, 0xBD, 0xB8,
-+				     0xBE, 0xC5, 0xD6, 0xCD,
-+				     0xC3, 0xDA, 0xEB, 0xED);
-+
-+	il79900a_switch_page(&ctx, 0x14);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x85, 0xCC);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x87, 0x91);
-+
-+	il79900a_switch_page(&ctx, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x11, 0x3);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x12, 0x34);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x10, 0x1);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x13, 0x4);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x14, 0xBB);
-+
-+	il79900a_switch_page(&ctx, 0x0b);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x94, 0x88);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x95, 0x23);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x96, 0x0B);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x97, 0x0B);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x98, 0xC6);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x99, 0xC6);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA6, 0x47);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA7, 0x77);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA8, 0x5);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xA9, 0x5);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xAA, 0xBA);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xAB, 0xBA);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xBD, 0x92);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0xBE, 0xE0);
-+
-+	il79900a_switch_page(&ctx, 0x0e);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x14, 0x3);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x12, 0x0);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x13, 0x4);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x11, 0x1);
-+
-+	il79900a_switch_page(&ctx, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x80, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x82, 0x11);
-+	il79900a_switch_page(&ctx, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x82, 0x2C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x85, 0x2C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x87, 0x2C);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x88, 0xEC);
-+	il79900a_switch_page(&ctx, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x4, 0x1);
-+	il79900a_switch_page(&ctx, 0x11);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0C, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x3C, 0x80);
-+
-+	il79900a_switch_page(&ctx, 0x06);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0E, 0x0);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x0E, 0x3F);
-+	mipi_dsi_dcs_write_seq_multi(&ctx, 0x10, 0x0);
-+
-+	il79900a_switch_page(&ctx, 0x00);
-+	mipi_dsi_dcs_set_tear_on_multi(&ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&ctx);
-+
-+	mipi_dsi_msleep(&ctx, 120);
-+
-+	mipi_dsi_dcs_set_display_on_multi(&ctx);
-+
-+	mipi_dsi_msleep(&ctx, 20);
-+
-+	return ctx.accum_err;
-+};
-+
- static int starry_ili9882t_init(struct ili9882t *ili)
- {
- 	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
-@@ -670,6 +871,19 @@ static int ili9882t_enable(struct drm_panel *panel)
- 	return 0;
- }
- 
-+static const struct drm_display_mode rpi_10inch_default_mode = {
-+	.clock = 166666,
-+	.hdisplay = 1200,
-+	.hsync_start = 1200 + 28,
-+	.hsync_end = 1200 + 28 + 10,
-+	.htotal = 1200 + 28 + 10 + 30,
-+	.vdisplay = 1920,
-+	.vsync_start = 1920 + 238,
-+	.vsync_end = 1920 + 238 + 4,
-+	.vtotal = 1920 + 238 + 4 + 28,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
- static const struct drm_display_mode starry_ili9882t_default_mode = {
- 	.clock = 165280,
- 	.hdisplay = 1200,
-@@ -696,6 +910,20 @@ static const struct drm_display_mode tianma_il79900a_default_mode = {
- 	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
- };
- 
-+static const struct panel_desc rpi_10inch_desc = {
-+	.modes = &rpi_10inch_default_mode,
-+	.bpc = 8,
-+	.size = {
-+		.width_mm = 135,
-+		.height_mm = 216,
-+	},
-+	.lanes = 4,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+		      MIPI_DSI_MODE_LPM,
-+	.init = rpi_10inch_init,
-+};
-+
- static const struct panel_desc starry_ili9882t_desc = {
- 	.modes = &starry_ili9882t_default_mode,
- 	.bpc = 8,
-@@ -866,6 +1094,9 @@ static void ili9882t_remove(struct mipi_dsi_device *dsi)
- }
- 
- static const struct of_device_id ili9882t_of_match[] = {
-+	{ .compatible = "raspberrypi,dsi-10inch",
-+	  .data = &rpi_10inch_desc
-+	},
- 	{ .compatible = "starry,ili9882t",
- 	  .data = &starry_ili9882t_desc
- 	},
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c b/drivers/gp=
+u/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> index 6e46d6d99f3c0..c25218ca4320a 100644
+> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c
+> @@ -977,6 +981,7 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(struct =
+mipi_dsi_host *host,
+>  					      bool is_rx_xfer)
+>  {
+>  	const bool is_tx_long =3D mipi_dsi_packet_format_is_long(msg->type);
+> +	const bool is_tx_axi =3D !is_rx_xfer && is_tx_long && (msg->tx_len > 16=
+);
 
+[Severity: High]
+If a caller requests a transfer with a payload larger than 16 bytes and also
+expects a response or requests an ACK (MIPI_DSI_MSG_REQ_ACK), is_tx_axi
+evaluates to false. Will this cause the hardware to be misconfigured?
+
+The packet header is instructed to transmit the full msg->tx_len, but since
+it falls back to register mode, the payload is truncated to 16 bytes in the
+TXCMPPD* registers. Does this lead to sending stale data or hardware
+timeouts?
+
+>  	struct rcar_mipi_dsi *dsi =3D host_to_rcar_mipi_dsi(host);
+>  	struct mipi_dsi_packet packet;
+
+[ ... ]
+
+> @@ -1011,7 +1021,10 @@ static ssize_t rcar_mipi_dsi_host_tx_transfer(stru=
+ct mipi_dsi_host *host,
+>  			    TXCMPHDR_DATA1(packet.header[2]) |
+>  			    TXCMPHDR_DATA0(packet.header[1]));
+> =20
+> -	if (is_tx_long) {
+> +	if (is_tx_axi) {
+> +		memcpy(dsi->cmd_axi_cpu, packet.payload,
+> +		       min(msg->tx_len, 128));
+
+[Severity: High]
+Does this silently truncate High Speed (HS) AXI command payloads to 128
+bytes?=20
+
+The validation in rcar_mipi_dsi_host_transfer() explicitly allows up to 1024
+bytes in HS mode, but this memcpy() caps the copy at 128 bytes regardless of
+the actual requested transfer size.
+
+> +	} else if (is_tx_long) {
+>  		memcpy(payload, packet.payload,
+>  		       min(msg->tx_len, sizeof(payload)));
+
+[ ... ]
+
+> @@ -1276,6 +1295,13 @@ static int rcar_mipi_dsi_probe(struct platform_dev=
+ice *pdev)
+>  	dsi->dev =3D &pdev->dev;
+>  	dsi->info =3D of_device_get_match_data(&pdev->dev);
+> =20
+> +	dsi->cmd_axi_cpu =3D dma_alloc_coherent(&pdev->dev, SZ_4K, &dsi->cmd_ax=
+i_dma,
+> +					      GFP_KERNEL | GFP_DMA32);
+> +	if (!dsi->cmd_axi_cpu) {
+> +		return dev_err_probe(&pdev->dev, -ENOMEM,
+> +				     "Failed to allocate DSI AXI Access command buffer\n");
+> +	}
+> +
+>  	ret =3D rcar_mipi_dsi_parse_dt(dsi);
+>  	if (ret < 0)
+>  		return ret;
+
+[Severity: Medium]
+Does this leak the DMA coherent buffer on probe error paths?=20
+   =20
+If an error occurs during rcar_mipi_dsi_probe() after dma_alloc_coherent()
+succeeds (such as in rcar_mipi_dsi_parse_dt() or clock setup), the function
+returns directly without calling dma_free_coherent().
+
+[ ... ]
+
+> @@ -1309,6 +1335,8 @@ static void rcar_mipi_dsi_remove(struct platform_de=
+vice *pdev)
+>  {
+>  	struct rcar_mipi_dsi *dsi =3D platform_get_drvdata(pdev);
+> =20
+> +	dma_free_coherent(&pdev->dev, SZ_4K, dsi->cmd_axi_cpu, dsi->cmd_axi_dma=
+);
+> +
+>  	mipi_dsi_host_unregister(&dsi->host);
+>  }
+
+[Severity: High]
+Could this create a use-after-free of the AXI DMA buffer during device
+removal?=20
+
+The DMA buffer is freed before mipi_dsi_host_unregister() is called.
+Unregistering the host detaches child DSI panels, triggering their remove
+callbacks. If a panel driver sends DSI commands (like entering sleep mode)
+during unbind, it will attempt to memcpy() into the already-freed
+dsi->cmd_axi_cpu buffer.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809195831.8429=
+07-1-marek.vasut+renesas@mailbox.org?part=3D1
