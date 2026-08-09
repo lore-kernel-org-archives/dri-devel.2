@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D418C5AC80
-	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 15:05:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCC39C5AD4E
+	for <dri-devel@archiver.kernel.org>; Sun,  9 Aug 2026 15:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F1C210E11F;
-	Sun,  9 Aug 2026 15:05:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E226810E161;
+	Sun,  9 Aug 2026 15:30:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ILalhED9";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TyPBNHt3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAF0010E11F
- for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 15:05:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5B0D10E161
+ for <dri-devel@lists.freedesktop.org>; Sun,  9 Aug 2026 15:30:56 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2D2E060008;
- Sun,  9 Aug 2026 15:05:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7689D1F000E9;
- Sun,  9 Aug 2026 15:05:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8B5F0412F0;
+ Sun,  9 Aug 2026 15:30:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43A3B1F000E9;
+ Sun,  9 Aug 2026 15:30:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786287928;
- bh=XuuhrURlO5OC0JB5ok3gEw3UoiEiZJExHQ1dQz2C11c=;
+ s=k20260515; t=1786289456;
+ bh=LJcax5g21osnPIo6IVBehWxfRbhxLzam5MlmrU5BhrQ=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ILalhED9CDQ4Q8EbQyz0UsXIUSBTFKFJPtbwXY7H1tO0UtS1FvV2Rn7e7FZIE65Ct
- 4kdNXGSB/sZ/YkmFRjEVd9GQPPOqvbHBdwi7hBfPFMcFR/tkDgviZJA29u1v2l6Uk/
- gRULdfAUnse/4slGHs/894KjmgZ33LDpSNLNAJcyCslBUnUN09UfU0PQ4ymzrZO4PB
- 8QHVGu9twdxzO//d97csKF0VmU44lv1aoM8JhSEHlvDtj/7iNKa0iyJJIYkrF4KRiY
- ZuEL3PfqEcOwZHE8Sk3zuOmZCxNPLkTIudln1FOvTor9db5ZVH9j4W03g24i75b6Vh
- QZpMQSXOaBMIQ==
+ b=TyPBNHt3H1UzB2NMJOW69Cvhsrs1k04u0XEREE5ci46+L4uZLB5SJPjd6eOZmrCbb
+ g53oNddKQO73a/7W6QgsemrQQw2cxI2t/E3pLvMAZlfRrCIDMgbveTEIaS1eLPKi9N
+ /FnNLzHzRXCizBTa7EZSHZjdXYcBxbrJRcm4KDqsD1nd2BUQx77D74lIPJ4SRDwT75
+ fcK98xN/7Ui8m+xxh4FV6OuURJT7mN7lHR0onQuh/UVg11ZonFwIoVyukF72mY0F5b
+ vHiYNHesQshgFV80TjOmv4lWGaciP/1nOgMRcnzPEty42q6eMdKqRtKvmY1RZKAeIZ
+ Roml+oyPYlglA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/4] drm/amdgpu/aca: Fix inverted validation logic
- and list cleanup
+Subject: Re: [PATCH v5 4/4] drm/amdgpu/ras: Fix delayed work cancellation
+ order during teardown
 To: "Sreeraj S Kurup" <sreekuttan2156239@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20260809144451.35431-4-sreekuttan2156239@gmail.com>
+In-Reply-To: <20260809144451.35431-5-sreekuttan2156239@gmail.com>
 References: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
- <20260809144451.35431-4-sreekuttan2156239@gmail.com>
+ <20260809144451.35431-5-sreekuttan2156239@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 09 Aug 2026 15:05:27 +0000
-Message-Id: <20260809150528.7689D1F000E9@smtp.kernel.org>
+Date: Sun, 09 Aug 2026 15:30:55 +0000
+Message-Id: <20260809153056.43A3B1F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,88 +58,156 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Concurrent execution of lockless list traversal and `remove_aca_ha=
-ndle` leads to TOCTOU use-after-free or hard infinite loops due to `list_de=
-l_init()`.
+
+Pre-existing issues:
+- [High] A TOCTOU race in sysfs/debugfs handlers can lead to a NULL pointer=
+ dereference because `con->eh_data` is freed in `amdgpu_ras_recovery_fini()=
+` before the sysfs and debugfs interfaces are removed.
+- [High] The delayed work `ras_counte_delay_work` can iterate over the `con=
+->head` list while it is being concurrently modified without locks by `amdg=
+pu_ras_disable_all_features()`.
+- [High] `amdgpu_ras_critical_region_init()` is incorrectly called inside t=
+he teardown function `amdgpu_ras_recovery_fini()`, rendering the feature no=
+n-functional and needlessly allocating memory that is immediately freed.
+- [High] The MCA notifier is unregistered at the end of `amdgpu_ras_recover=
+y_fini`, after locks are destroyed and data is freed, allowing use-after-fr=
+ee and locking violations.
 --
 
---- Patch [3]: [PATCH v5 3/4] drm/amdgpu/aca: Fix inverted validation logic=
- and list cleanup ---
-commit 2db17afc321c2a877e8d6ebfef5f2cce5ce3142f
+--- Patch [4]: [PATCH v5 4/4] drm/amdgpu/ras: Fix delayed work cancellation=
+ order during teardown ---
+commit 1c0d53c82e9e39018aa03ebc14a76ad3fb030607
 Author: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 
-drm/amdgpu/aca: Fix inverted validation logic and list cleanup
+drm/amdgpu/ras: Fix delayed work cancellation order during teardown
 
-This commit fixes aca_handle_is_valid() to properly check for valid handles=
-=20
-rather than empty nodes. It also changes remove_aca_handle() to use=20
-list_del_init() before destroying the error cache, ensuring the handle is=20
-recognized as unregistered before its resources are freed.
+In amdgpu_ras_recovery_fini(), mutex_destroy(&con->page_rsv_lock) was
+called prior to cancel_work_sync(&con->recovery_work) and
+cancel_delayed_work_sync(&con->page_retirement_dwork).
 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_aca.c
-> index c76664af9902e..d48f2c4d6c845 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-[ ... ]
-> @@ -599,8 +596,8 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *a=
-dev, struct aca_handle *han
->  	if (!handle || !err_data)
->  		return -EINVAL;
+If pending work ran during teardown, it could attempt to acquire
+page_rsv_lock after its destruction, leading to a locking violation and
+potential use-after-free.
+
+Fix this by moving cancel_work_sync(&con->recovery_work) and
+cancel_delayed_work_sync(&con->page_retirement_dwork) before
+mutex_destroy(&con->page_rsv_lock), ensuring both work items are
+synchronously canceled while the lock remains intact.
+
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ras.c
+> index 764cd49504083..1d6b4300d80aa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+> @@ -3994,15 +3994,14 @@ static int amdgpu_ras_recovery_fini(struct amdgpu=
+_device *adev)
+>  	if (con->page_retirement_thread)
+>  		kthread_stop(con->page_retirement_thread);
 > =20
-> -	if (aca_handle_is_valid(handle))
-> -		return -EOPNOTSUPP;
-> +	if (!aca_handle_is_valid(handle))
-> +		return 0;
-
-[Severity: High]
-Does this lockless validity check introduce a time-of-check to time-of-use
-(TOCTOU) race window?
-
-During driver teardown, amdgpu_ras_fini() calls amdgpu_aca_fini() (which=20
-eventually destroys handles and their mutexes) before it cancels=20
-ras_counte_delay_work.
-
-If the worker calls this function concurrently, it could pass this lockless=
-=20
-validity check right before remove_aca_handle() destroys the error cache and
-its lock. This would result in a use-after-free or an attempt to lock a=20
-destroyed mutex when the worker attempts to use the handle in=20
-aca_log_aca_error().
-
->  	if ((type < 0) || (!(BIT(type) & handle->mask)))
->  		return  0;
-[ ... ]
-> @@ -716,9 +713,10 @@ static void remove_aca_handle(struct aca_handle *han=
-dle)
->  {
->  	struct aca_handle_manager *mgr =3D handle->mgr;
-> =20
-> -	aca_fini_error_cache(handle);
-> -	list_del(&handle->node);
-> +	list_del_init(&handle->node);
->  	mgr->nr_handles--;
-> +	aca_fini_error_cache(handle);
+> +	cancel_work_sync(&con->recovery_work);
+> +	cancel_delayed_work_sync(&con->page_retirement_dwork);
 > +
->  }
+>  	atomic_set(&con->page_retirement_req_cnt, 0);
+>  	atomic_set(&con->poison_creation_count, 0);
+> =20
+>  	mutex_destroy(&con->page_rsv_lock);
+> =20
+> -	cancel_work_sync(&con->recovery_work);
+> -
+> -	cancel_delayed_work_sync(&con->page_retirement_dwork);
+> -
+>  	amdgpu_ras_ecc_log_fini(&con->umc_ecc_log);
+> =20
+>  	mutex_lock(&con->recovery_lock);
 
 [Severity: High]
-Could the use of list_del_init() here cause an infinite loop for concurrent=
-=20
-list iterators?
+This isn't a bug introduced by this patch, but could this lead to a NULL
+pointer dereference during driver unload?
 
-When list_del_init() removes the node, it reinitializes the node by pointin=
-g=20
-its next and prev pointers to itself.=20
+amdgpu_ras_recovery_fini() sets con->eh_data to NULL and frees it just after
+this lock is acquired. However, sysfs interfaces are not removed until
+amdgpu_ras_fs_fini() is called later.
 
-There are functions like aca_dispatch_bank() that iterate over mgr->list=20
-locklessly. If a concurrent iterator is on this node exactly when it is=20
-removed, following the self-referential next pointer will cause the iterato=
-r=20
-to loop on this node infinitely, leading to an RCU stall or hard lockup.
+If a concurrent read in amdgpu_ras_badpages_read() checks con->eh_data outs=
+ide
+the lock, blocks on recovery_lock, and resumes after the teardown function =
+has
+freed it:
+
+amdgpu_ras_badpages_read() {
+        ...
+        mutex_lock(&con->recovery_lock);
+        data =3D con->eh_data;
+        if (start < data->count) {
+        ...
+}
+
+It will dereference the now-NULL con->eh_data when evaluating
+start < data->count.
+
+
+[Severity: High]
+This is a pre-existing issue, but does the unregistration of the MCA notifi=
+er
+happen too late?
+
+Right after this diff context, amdgpu_ras_recovery_fini() unregisters the M=
+CA
+notifier via amdgpu_unregister_bad_pages_mca_notifier(). This happens after
+con->page_rsv_lock is destroyed and con->eh_data is freed.
+
+If a hardware Machine Check Exception (MCE) occurs during this window,
+amdgpu_bad_page_notifier() executes and calls amdgpu_ras_add_bad_pages(),
+which attempts to acquire the already-destroyed con->page_rsv_lock in
+amdgpu_ras_reserve_page():
+
+amdgpu_ras_reserve_page() {
+        ...
+        mutex_lock(&con->page_rsv_lock);
+        ...
+}
+
+
+[Severity: High]
+This isn't a bug introduced by this patch, but is it intentional that
+amdgpu_ras_critical_region_init() is called during teardown?
+
+Just after the diff context in amdgpu_ras_recovery_fini(), we have:
+
+        amdgpu_ras_critical_region_init(adev);
+#ifdef CONFIG_X86_MCE_AMD
+        amdgpu_unregister_bad_pages_mca_notifier(adev);
+#endif
+
+This function allocates memory for a critical region and adds it to
+con->critical_region_head. Because it is called during teardown, the critic=
+al
+region list remains empty during normal operation, causing
+amdgpu_ras_check_critical_address() to always return false. When the driver
+unloads, the memory is pointlessly allocated and then freed shortly after.
+
+
+[Severity: High]
+This is a pre-existing issue, but could ras_counte_delay_work cause a
+use-after-free or list corruption during driver teardown?
+
+During teardown, amdgpu_ras_disable_all_features() locklessly iterates over
+con->head using list_for_each_entry_safe() and removes nodes.
+
+However, ras_counte_delay_work is not synchronously canceled until after th=
+is
+occurs in amdgpu_ras_fini(). If the delayed work executes concurrently, it =
+calls
+amdgpu_ras_query_error_count(), which locklessly iterates over con->head:
+
+amdgpu_ras_query_error_count() {
+        ...
+        list_for_each_entry(obj, &con->head, node) {
+        ...
+}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260809144451.3543=
-1-1-sreekuttan2156239@gmail.com?part=3D3
+1-1-sreekuttan2156239@gmail.com?part=3D4
