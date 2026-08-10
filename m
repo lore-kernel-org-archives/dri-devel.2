@@ -4,70 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA210C5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 03:42:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D187C5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 03:53:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF7D610E5F2;
-	Mon, 10 Aug 2026 03:42:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B895410E5F5;
+	Mon, 10 Aug 2026 03:53:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=airkyi.com header.i=@airkyi.com header.b="dRS99o+g";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="JVEgfhZj";
 	dkim-atps=neutral
-Received: from bg5.exmail.qq.com (bg5.exmail.qq.com [43.154.155.102])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B69310E5F1
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 03:42:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=airkyi.com;
- s=altu2504; t=1786333313;
- bh=C5tR/xZjU5Pjmrm51dDg8L9m7GNYl37L5TgCsOvaI4k=;
- h=From:To:Subject:Date:Message-Id;
- b=dRS99o+g8vD/obsNw4R7aYNWO/i+ydeI7v2OqDhYougwFRwkLmfTGTfuJdpC5rapJ
- hIIzYHX9iMdgl3luZ0k+JYR1cnyRSi11Js+M4bwP7fvmmrBM1XjWzguLgRz9SdkJTo
- NgX9evnZSfb0Ko9BPdqrf71fgMp3hSBUjiedVgas=
-X-QQ-mid: esmtpgz11t1786333311t415aa3d0
-X-QQ-Originating-IP: I7zcKriExk/3nyhItJweEb4li2giQHM0Lm/5oQJxjNQ=
-Received: from DESKTOP-8BT1A2O.localdomain ( [61.154.14.86])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Mon, 10 Aug 2026 11:41:47 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 18107200135916440458
-From: Chaoyi Chen <kernel@airkyi.com>
-To: Sandy Huang <hjc@rock-chips.com>,
- =?UTF-8?q?Heiko=20St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject: [PATCH v3 1/3] drm/rockchip: dsi: Add maximum per lane bit rate
- calculation
-Date: Mon, 10 Aug 2026 11:41:37 +0800
-Message-Id: <20260810034139.148-2-kernel@airkyi.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260810034139.148-1-kernel@airkyi.com>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BF56610E5F5
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 03:53:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 66DDA42BB8;
+ Mon, 10 Aug 2026 03:53:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297691F000E9;
+ Mon, 10 Aug 2026 03:53:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786334027;
+ bh=vTGUT2vq5aLXBzkFf9c5BvQ/GXTXPRjiBUlV2WlbSBk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=JVEgfhZj1Mm4IUl6wDenOafg6fe4q+IJjV0OVF6u47os52kFjUWPkpxAUq1CLYvbr
+ +8bbooD6rE0yUv4TVJkXLyn+HzqD6zOKJVa7C0OfzilSS2vYTb6veF16Dnne/6P3Mt
+ o+vbwq2y7AWP1/rD+HOl0yYaSIGQjb7vCZngqKbRKLA2zmKPF8+x3hmUQBMdIfrNM1
+ TluRWKIAzDTTUcY2b4TnGEH6Ib2o2iEkGQNQKeRcsiSyrgV6frmxYZR0cBA4fMmKhj
+ E58UblRAqt6hlLKBxYcLOqULRMeba/pgbPrwTKDrmu84p28Prl9lpq807AuZS5aqi1
+ PlrkzwuV/OpUQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] drm/rockchip: dsi: Relax the lane rate margin
+ requirements
+To: "Chaoyi Chen" <kernel@airkyi.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260810034139.148-4-kernel@airkyi.com>
 References: <20260810034139.148-1-kernel@airkyi.com>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:airkyi.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: N5QhsOwzP0INdtBiy8KQCyGjOjliEqi8EZ8vyRnROOE7KlwmIMaQsqYJ
- RHnQi9Rude2L87GLcE7Bg62oXpHsUWFmDSVepM0WJu85CYrbECwIvEvZIuiqC0PTwfrNoba
- 5wOBvqFHhOMoSHo/qLDwcvarJBtO4KYM7H04HZAHldt3iIK61Mr4RM33la+1BTScyB1PL/b
- HrZOf6wc9jpM/f6EX5PFTl3RRAdFBZbDzrfrPGT+IFSI0V7MwdZuelDant5zfesfKEr08R+
- 36S4BkyllifJvilxY7KBTygBXn2cGZQd3o2xEc2VZOypAo1Ov4kf2T2+yOHlWEXehs4L47B
- rvt79G0MpwLsqWzYxRlJBxKiJ/6R6eWWxdK5iOB/QwdtQcMDMP6Tz4/h2vF0hXdqXsXMl/C
- RpB/yckWAjoug43VjPcjecsq5h49xtXHOL1VibzmSL3+Ey/zGL41o0nsZKeWpJcl2coyrWb
- jSY2cP3ehju7QSkHJX1QF2xhl22iauslRvhNK9R1ctSLpToPEGYN1uQw+QcpCoIQzeThaln
- jr6Rj3bS4jMCeBESAFOtUB+u8/ydu21OV5DXkT1ABFndEr5uUvmmyfAZK/Wgd2YxBCWehjq
- G0bvHHgrDFzpV/V6CvVjn2vzkhgbY3qB/z4adlY8C1x8zkAWWUZm0UNYynTcSk4TJrVtcEm
- fQEMFsjqL+RNYG48SL4xPKB2dYzSjJU/AjzBTGULMzkluj7w4vsnNt+ogtOTTrAK6EtJ8rG
- LQGWpdlmJ+d5Uwjihs1WLt/I1XlhRI1i9yOvgXaR6hD1pOL+BxsnFZTkPr59zUXrQu6YeTw
- mFGZIxBwLcIKmb4iBqXMTgdKbJoscfBpJbKsua/0hU2xUNYnDLKaMtSPjhar/nlraOrgc+9
- Vw1WmSBz7UmqLHLd6sTf0XCu2lzIFvaYLNgLnHcU2OwHgeP9/ayPgo9fRR2UITMEPItJwY4
- z38ZYde4/gwnG8iA1udbFunGS4W5MFa7JSqI1LJqtmS2Mkpvr4SW2U4xgCXTsp7h75H9Z28
- sY9IPS/Q==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
+ <20260810034139.148-4-kernel@airkyi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 10 Aug 2026 03:53:46 +0000
+Message-Id: <20260810035347.297691F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,146 +54,106 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Different chips have varying support for the maximum bit rate per lane.
+New issues:
+- [High] Integer division truncation in bandwidth calculation causes DSI li=
+nk underflow when combined with the newly reduced margin.
 
-Add calculation for the maximum per lane bit rate for various chip
-platforms.
+Pre-existing issues:
+- [High] 32-bit signed integer overflow in PHY pixel clock calculation for =
+displays with high pixel clocks (> 214.7 MHz).
+- [High] Unsigned long overflow on 32-bit platforms within the core PHY con=
+figuration calculation.
+--
 
-Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
----
-Changes in v3:
-- Rebase to Linux v7.2
+--- Patch [3]: [PATCH v3 3/3] drm/rockchip: dsi: Relax the lane rate margin=
+ requirements ---
+commit 93b5a610ac5007bdda923b4d779bc2ab6fd40792
+Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
 
-Changes in v2:
-- Fix the unit conversion for max_mbps.
-- Split the lane rate calculation into a separate patch.
+drm/rockchip: dsi: Relax the lane rate margin requirements
 
----
- drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+The commit reduces the DSI lane rate margin from 25% to about 11% to
+accommodate platforms limited to 1Gbps lane rates. It updates the lane rate
+calculation in dw_mipi_dsi_get_lane_mbps() and adjusts the PHY configuration
+parameter accordingly.
 
-diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-index 3547d91b25d3..1060abec9f29 100644
---- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-@@ -268,6 +268,7 @@ struct rockchip_dw_dsi_chip_data {
- 
- 	unsigned int flags;
- 	unsigned int max_data_lanes;
-+	unsigned long max_bit_rate_per_lane;
- };
- 
- struct dw_mipi_dsi_rockchip {
-@@ -565,7 +566,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
- 	int bpp;
- 	unsigned long mpclk, tmp;
- 	unsigned int target_mbps = 1000;
--	unsigned int max_mbps = dppa_map[ARRAY_SIZE(dppa_map) - 1].max_mbps;
-+	unsigned int max_mbps;
- 	unsigned long best_freq = 0;
- 	unsigned long fvco_min, fvco_max, fin, fout;
- 	unsigned int min_prediv, max_prediv;
-@@ -573,6 +574,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const struct drm_display_mode *mode,
- 	unsigned long _fbdiv, best_fbdiv;
- 	unsigned long min_delta = ULONG_MAX;
- 
-+	max_mbps = dsi->cdata->max_bit_rate_per_lane / USEC_PER_SEC;
- 	dsi->format = format;
- 	bpp = mipi_dsi_pixel_format_to_bpp(dsi->format);
- 	if (bpp < 0) {
-@@ -1503,6 +1505,7 @@ static const struct rockchip_dw_dsi_chip_data px30_chip_data[] = {
- 						PX30_DSI_FORCETXSTOPMODE), 0),
- 
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1000000000UL,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1515,6 +1518,7 @@ static const struct rockchip_dw_dsi_chip_data rk3128_chip_data[] = {
- 						RK3128_DSI_FORCERXMODE |
- 						RK3128_DSI_FORCETXSTOPMODE), 0),
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1000000000UL,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1527,6 +1531,7 @@ static const struct rockchip_dw_dsi_chip_data rk3288_chip_data[] = {
- 		.lcdsel_lit = FIELD_PREP_WM16_CONST(RK3288_DSI0_LCDC_SEL, 1),
- 
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1500000000UL,
- 	},
- 	{
- 		.reg = 0xff964000,
-@@ -1535,6 +1540,7 @@ static const struct rockchip_dw_dsi_chip_data rk3288_chip_data[] = {
- 		.lcdsel_lit = FIELD_PREP_WM16_CONST(RK3288_DSI1_LCDC_SEL, 1),
- 
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1500000000UL,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1547,6 +1553,7 @@ static const struct rockchip_dw_dsi_chip_data rk3368_chip_data[] = {
- 						RK3368_DSI_FORCETXSTOPMODE |
- 						RK3368_DSI_FORCERXMODE), 0),
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1500000000UL,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1634,6 +1641,7 @@ static const struct rockchip_dw_dsi_chip_data rk3399_chip_data[] = {
- 
- 		.flags = DW_MIPI_NEEDS_PHY_CFG_CLK | DW_MIPI_NEEDS_GRF_CLK,
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1500000000UL,
- 	},
- 	{
- 		.reg = 0xff968000,
-@@ -1658,6 +1666,7 @@ static const struct rockchip_dw_dsi_chip_data rk3399_chip_data[] = {
- 
- 		.flags = DW_MIPI_NEEDS_PHY_CFG_CLK | DW_MIPI_NEEDS_GRF_CLK,
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1500000000UL,
- 
- 		.dphy_rx_init = rk3399_dphy_tx1rx1_init,
- 		.dphy_rx_power_on = rk3399_dphy_tx1rx1_power_on,
-@@ -1674,6 +1683,7 @@ static const struct rockchip_dw_dsi_chip_data rk3506_chip_data[] = {
- 			     FIELD_PREP_WM16_CONST(RK3506_DSI_FORCERXMODE, 0) |
- 			     FIELD_PREP_WM16_CONST(RK3506_DSI_FORCETXSTOPMODE, 0)),
- 		.max_data_lanes = 2,
-+		.max_bit_rate_per_lane = 1500000000UL,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1687,6 +1697,7 @@ static const struct rockchip_dw_dsi_chip_data rk3568_chip_data[] = {
- 			     FIELD_PREP_WM16_CONST(RK3568_DSI0_TURNDISABLE, 0) |
- 			     FIELD_PREP_WM16_CONST(RK3568_DSI0_FORCERXMODE, 0)),
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1200000000UL,
- 	},
- 	{
- 		.reg = 0xfe070000,
-@@ -1696,6 +1707,7 @@ static const struct rockchip_dw_dsi_chip_data rk3568_chip_data[] = {
- 			     FIELD_PREP_WM16_CONST(RK3568_DSI1_TURNDISABLE, 0) |
- 			     FIELD_PREP_WM16_CONST(RK3568_DSI1_FORCERXMODE, 0)),
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1200000000UL,
- 	},
- 	{ /* sentinel */ }
- };
-@@ -1708,6 +1720,7 @@ static const struct rockchip_dw_dsi_chip_data rv1126_chip_data[] = {
- 			     FIELD_PREP_WM16_CONST(RV1126_DSI_FORCERXMODE, 0) |
- 			     FIELD_PREP_WM16_CONST(RV1126_DSI_FORCETXSTOPMODE, 0)),
- 		.max_data_lanes = 4,
-+		.max_bit_rate_per_lane = 1000000000UL,
- 	},
- 	{ /* sentinel */ }
- };
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gp=
+u/drm/rockchip/dw-mipi-dsi-rockchip.c
+> index 557708bc4faa4..bb2b35571af73 100644
+> --- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+> @@ -589,8 +589,8 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const stru=
+ct drm_display_mode *mode,
+> =20
+>  	mpclk =3D DIV_ROUND_UP(mode->clock, MSEC_PER_SEC);
+>  	if (mpclk) {
+> -		/* take 1 / 0.8, since mbps must big than bandwidth of RGB */
+> -		tmp =3D mpclk * (bpp / lanes) * 10 / 8;
+> +		/* take 1 / 0.9, since mbps must big than bandwidth of RGB */
+> +		tmp =3D mpclk * (bpp / lanes) * 10 / 9;
 
+[Severity: High]
+Does the integer division (bpp / lanes) cause a truncation that leads to DSI
+link underflow with this new reduced margin?
+
+For example, with a panel using RGB666 (18 bpp) over 4 lanes, (18 / 4)
+evaluates to 4 instead of 4.5.
+
+With the old margin (10 / 8), the multiplier was 4 * 1.25 =3D 5.0, which sa=
+fely
+exceeded the 4.5 raw multiplier requirement.
+
+With the new margin (10 / 9), the allocated bandwidth calculation becomes
+4 * 10 / 9 =3D 4.44. Since 4.44 is strictly less than 4.5, the configured l=
+ane
+rate provides less bandwidth than the raw pixel payload requires, which cou=
+ld
+lead to FIFO underflows.
+
+[ ... ]
+
+> @@ -600,7 +600,7 @@ dw_mipi_dsi_get_lane_mbps(void *priv_data, const stru=
+ct drm_display_mode *mode,
+> =20
+>  	/* for external phy only a the mipi_dphy_config is necessary */
+>  	if (dsi->phy) {
+> -		phy_mipi_dphy_get_default_config(mode->clock * 1000 * 10 / 8,
+> +		phy_mipi_dphy_get_default_config(mode->clock * 1000 * 10 / 9,
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does mode->clock * 1000 * 10
+silently overflow 32-bit signed integers for high pixel clocks?
+
+Because mode->clock is a signed 32-bit integer (representing kHz) and the
+literals are also 32-bit signed ints, the intermediate product overflows
+INT_MAX (2,147,483,647) for any pixel clock exceeding ~214.7 MHz. The result
+would wrap to a negative value.
+
+[Severity: High]
+This is a pre-existing issue, but does passing this margined pixel clock
+to phy_mipi_dphy_get_default_config() overflow on 32-bit platforms?
+
+When the inflated pixel clock reaches phy_mipi_dphy_calc_config() in
+drivers/phy/phy-core-mipi-dphy.c, it computes:
+
+    hs_clk_rate =3D pixel_clock * bpp;
+
+On 32-bit architectures, pixel_clock is a 32-bit unsigned long. If
+mode->clock is roughly 165 MHz, pixel_clock becomes
+165,000 * 1000 * 10 / 9 =3D 183,333,333. Multiplying by bpp (e.g., 24) gives
+4,400,000,000, which silently overflows the 32-bit ULONG_MAX before the
+result is assigned to the 64-bit hs_clk_rate.
+
+>  						 bpp, lanes,
+>  						 &dsi->phy_opts.mipi_dphy);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810034139.148-=
+1-kernel@airkyi.com?part=3D3
