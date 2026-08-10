@@ -4,87 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A72E1C5AC82
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:07:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C54E1C5B569
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:13:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ECBB410E1C5;
-	Mon, 10 Aug 2026 09:07:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 106C510E75E;
+	Mon, 10 Aug 2026 09:12:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=samsung.com header.i=@samsung.com header.b="HPsvRX7C";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RTAXF7xo";
 	dkim-atps=neutral
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA3C810E1C5
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:07:32 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260810090730euoutp02f7b9709c04b553a5c0d5fadac9823431~KZnQV0R580704107041euoutp02R;
- Mon, 10 Aug 2026 09:07:30 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260810090730euoutp02f7b9709c04b553a5c0d5fadac9823431~KZnQV0R580704107041euoutp02R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1786352851;
- bh=ySuGWbXUDGRFaGMKt5Y7z0dskEZPyGt9AbN/dMvXf1U=;
- h=Date:From:Subject:To:Cc:In-Reply-To:References:From;
- b=HPsvRX7C15j1heJymtevQXoi/AnN/UmZgnpt+LPxF3VYvuPtRJ3PYpNdLnmaXR0Ag
- 59kf/XM9EHs3O50nSy+7hCuFxp4Q55Xi5/hdzAIdCWJOo8JxnrbbHOV1ClSd71HV0d
- r4jlBz+O8JAs/tO9cz+lHcFefZSDAVIP9ORDDg9o=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260810090730eucas1p23ceee7c50d9b5f62e163a92c91aa20de~KZnPjUrlt0040900409eucas1p2L;
- Mon, 10 Aug 2026 09:07:30 +0000 (GMT)
-Received: from [106.120.50.46] (unknown [106.120.50.46]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260810090727eusmtip10eb84a9d5031d28278c93306c2caa136~KZnNUvdOP2715827158eusmtip1g;
- Mon, 10 Aug 2026 09:07:27 +0000 (GMT)
-Message-ID: <8a988f86-e497-4e9b-92db-c9b454467df5@samsung.com>
-Date: Mon, 10 Aug 2026 11:07:26 +0200
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013000.outbound.protection.outlook.com
+ [40.93.196.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4A69F10E756;
+ Mon, 10 Aug 2026 09:12:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Wc/KhzSzY7x9iCWEmT8ruXsp+k6nXoOcEal/VOfpz4VQzHV/PgWEcFKmkNiigXTG3UILacOy+qsDffkvzKUokkiq9DdW+cbwh3Bg08AfjB82eYkT2Ul/ANaPy+EbyqaLcWQ2NWAoQHT/0N8NhNQLS6aHRhzroh0WrHaLZgm0m6DvZKGX0PaFta6Paq7ovMa8iapHoT0KUacCOqIt0ebEahqTsS6OTVuYtCDkTGoPPO2ReqC4c0aRwAtE/8Dm5NISddM9SGbjawI40HwsvbCI5ISGIy1bPQB+XLhREMJNlETDzhlANN3hZ0oCc9sPBPJj9hqHt3Rcn2vdvf29JabHnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RxaveEQGp+h/rJHZ2P+sFo0B/bBq0GhEtQPmS/OlokQ=;
+ b=AsaPjperwP9Kr0TDQ8MIESNOGT/kggE6pqHsaRnHmCIlcKdKzFkupCgdnTnYZlg915s4QqQBSaCa6eQwA64at/A2PryshUV29Hwc2n6e8ygYItdORNoFuD4lQYkSqaK6UKrEgZ9hJqD8/1HIjiJBEESoJr4vy9Kcd63s8vWbnMjxbuC6zzvhNmNFKHY3zXfE2hICzJJsT27OoF6HqLPm0xvNQkdn95Hv26RHJbOyj+FgCC8nridiZb/2IumNdUN7TpkyO3NJ8xJS33k8rpara819L4UOZCOSWyg33iBiI6ZkHFcWe9nDvlCt8JQGl8pkkVxBAES/u4x4STgHq2GxoQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RxaveEQGp+h/rJHZ2P+sFo0B/bBq0GhEtQPmS/OlokQ=;
+ b=RTAXF7xor26xxYVnOzvXmovmj5OJa+ZQPTgJa5io9ymxJLdnP24FULD4swcFhXd+GxnQE2/+bDGaaYGHSAZuvabalem8Riw5v7sss8G2Dn6yGWzFX8PhYBVKhK00JHvSD3C/n82TFEPaKL6Mvv9Mu8jR/B/OJ8M3sdnBMFLeXE8=
+Received: from BL1PR13CA0194.namprd13.prod.outlook.com (2603:10b6:208:2be::19)
+ by CH3PR12MB8851.namprd12.prod.outlook.com (2603:10b6:610:180::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 09:12:50 +0000
+Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
+ (2603:10b6:208:2be:cafe::68) by BL1PR13CA0194.outlook.office365.com
+ (2603:10b6:208:2be::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.11 via Frontend Transport; Mon,
+ 10 Aug 2026 09:12:50 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 09:12:50 +0000
+Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 10 Aug
+ 2026 04:12:47 -0500
+From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
+ <Arunpravin.PaneerSelvam@amd.com>
+Subject: [PATCH v8 2/2] gpu/tests/buddy: add dirty tracker performance KUnit
+ test
+Date: Mon, 10 Aug 2026 14:42:31 +0530
+Message-ID: <20260810091231.11936-2-Arunpravin.PaneerSelvam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260810091231.11936-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20260810091231.11936-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Mikko
- Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, Rasmus
- Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
- <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
- Gorbik <gor@linux.ibm.com>, Christian Borntraeger
- <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Andrew
- Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
- R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
- Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
- Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, Sumit Semwal
- <sumit.semwal@linaro.org>, Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
- John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Steven Rostedt
- <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
- Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas
- <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-s390@vger.kernel.org, linux-mm@kvack.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org, linux-trace-kernel@vger.kernel.org
-Content-Language: en-US
-In-Reply-To: <anSuYvj1JU5K8xUO@orome>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260810090730eucas1p23ceee7c50d9b5f62e163a92c91aa20de
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
-X-EPHeader: CA
-X-CMS-RootMailID: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
- <CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
- <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
- <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
- <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
- <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com> <ak_E4UxfnFJywJa7@orome>
- <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com> <anSuYvj1JU5K8xUO@orome>
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|CH3PR12MB8851:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed56c984-92cd-490d-90eb-08def6bf8d2e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|10067099003|11063799006|56012099006|5023799004|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: oZfxxG+U2j+9r2bv7KehGDSH+6WD8yA8HRxJwgCZxJAX6sr7LNb4WRJn/eV5F4TfYajiwNfDUQb6vDtHq9jiUkoOFwVsCepM5EQBhQjYkJrdkraKMulDU6w2Wztx/fB+kU/G7Nd9IS5Y7R9xjsa8G6qHZu6pM1hubC8I68eUp1wmygJmF3KYO6BAZqIq0JstUhUYt0jn7m66vzpYpfu3m3r6isr4rcJHMxavy3VODDecr04CAPu2qAYcVEvllkiP8jUJM0a4BhvdzOcKxqIv+IcXv0OgJHOz9cV4kYLlGQFLqAviGm//ywSZAlJk4/PTTPBp6LdajX6ipm3Gt1GMFTGbPuqK08XpcGtpZfENjK7V3a931+nmM9ZR+aUgu8kYP7IsK+TZTUe1u3E2KZEOYXzvpjpKyfJKF5i+P2OLkgouBHfGMN+9k3HkeJAex/8mqECihlsPF3qkQcUGnZjDwOpXvtX7/H9U8YoyzhIE4jivRh/DGim+RIUshXZWddqbwnq4dBI5enPnVujpHrJFOd5YopN346vdpHHZLJ6Vu8WhBGAvCIKuLkNNwhUx03Vp33HbBkuu0y6T4XzvGJXa/H4I1Lx/sC0SlIlReIs0mvctu96ZNPzPFLtqlsefckvZi08snHqy3hF8/EAz8Hc6SQi4KCq0gpKtfuvWeeQYL9rnigb+QhYuWEjs4zM/dI7DL4WVrYA1bU0CjOCVIYdziQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(10067099003)(11063799006)(56012099006)(5023799004)(6133799003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: LKt+YGkoN5HidR1BV4bAt47WeKDRA3Pq0VKHhW+O2UZ87Dca5eQBvFl0ubx1pGzM+V/v8zxA+w9PsejaCTxFkdzOtiDW/CI/dXFJwD3qphJSKOxreBaiwnoxLtiq8pmWfpPcrxureDmy0M8RQYT/mVP9nnP0A1vkTjiHi37WOWlrgHVqq92DGq4Ktzc/dpT0ssJuyt9e5pfAqaBI57g437U/L6JPVcaISZCZKvFh5+956PiwpFgEekrAaZlzwVBQiBMSS0M+gURPwzcZnZ4ljrsP3x6vtbBzH1qcrt1PronwdgOAc4Znl6ZJ2lIexbejI4zRa3rW0BKSU8xyNmTtoIGWS20h4QyBYaFHatIfbuJyvp9dQUW8J1AI9+mvnok4Dn9yyGx/sDmIl+k6knjeXtc6f4higD2oF0IPGntboo6hOWIl+UJ7f8LDY7B19jKX
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 09:12:50.0573 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed56c984-92cd-490d-90eb-08def6bf8d2e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD4.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8851
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,106 +115,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On 06.08.2026 18:09, Thierry Reding wrote:
-> On Thu, Jul 16, 2026 at 12:43:56PM +0200, Marek Szyprowski wrote:
->> On 09.07.2026 17:59, Thierry Reding wrote:
->>> On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
->>>> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
->>>>> On 7/7/26 12:02, Marek Szyprowski wrote:
->>>>>> On 01.07.2026 18:08, Thierry Reding wrote:
->>>>>>> From: Thierry Reding <treding@nvidia.com>
->>>>>>>
->>>>>>> There is no technical reason why there should be a limited number of CMA
->>>>>>> regions, so extract some code into helpers and use them to create extra
->>>>>>> functions (cma_create() and cma_free()) that allow creating and freeing,
->>>>>>> respectively, CMA regions dynamically at runtime.
->>>>>> Well, the technical reason for not creating cma regions dynamically at
->>>>>> runtime is that on some architectures (like 32bit ARM) the early fixup
->>>>>> for the region is needed to make it functional for DMA.
->>>>> Can you point me at the code that does that? Thanks!
->>>> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in 
->>>> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappings for
->>>> the CMA reserved region in linear map are remapped with 4k pages instead
->>>> of the 1M sections, so later, it will be possible to alter the mappings and
->>>> change them to coherent when needed (altering 1M sections is not possible,
->>>> because each process has it's own level-1 array even for the kernel linear
->>>> mapping).
->>>>
->>>>
->>>>
->>>> However, in the use case in this patchset the reserved region is only shared
->>>> with buddy allocator by using the CMA infrastructure, not registered to the
->>>> regular DMA-mapping API, so it would work fine. I'm not convinced that this
->>>> is the right API to use for this though.
->>> Are you saying you're not convinced that CMA is the right API to use for
->>> this? Or something else?
->> I read this again and indeed CMA seems to be right solution. I only wonder
->> why do You want to create the CMA areas dynamically? Imho it would work if
->> You just create large enough CMA area on boot, what would automatically
->> share the memory with buddy allocator and then allocate dynamic VPR regions
->> with cma_alloc(), potentially unmapping or marking the allocated region as
->> reserved in linear kernel mapping to avoid any potential speculative access
->> to the protected memory.
-> Hi Marek,
->
-> sorry for missing your reply earlier.
->
-> The reason why we want to create the CMA areas dynamically is because we
-> want to split the secure memory into multiple areas. And the size and
-> number of these areas may need to vary, so I didn't want to have to rely
-> on rebuilding kernels with different numbers of maximum CMA areas
-> depending on the chunk size that we choose.
->
-> The reason why we need to split up the protected memory into multiple
-> CMA areas is that allocation patterns can create holes within a CMA
-> area. For the VPR memory, however, we must ensure that there aren't any
-> holes within the protected region because it is specified using a single
-> base address and a size. So there is one contiguous region that can be
-> marked protected.
->
-> If we were to use a single CMA area, we could get holes within an area
-> that is marked protected and once the pages are returned to the buddy
-> allocator with cma_release(), something else could be attempting to
-> access it and cause an error because it is still protected.
->
-> The only way to make sure we get a single, resizable and contiguous
-> region is by using multiple CMA areas and allocating the entire area
-> once our allocations need to expand into that new area. So we're not in
-> fact using much of the CMA infrastructure and actually need to duplicate
-> some of it. We primarily need it for the page migration and reclaim
-> functionality.
+Add gpu_test_buddy_dirty_tracker_performance to demonstrate the key
+advantage of the decoupled dirty-tracker design over the old dual-tree
+/ force_merge approach.
 
-This still looks over-engineered. I understand that in case of a single CMA
+The test runs two scenarios on a 4 GiB pool after alternating
+clear/dirty fragmentation at 4 KiB granularity:
 
-area using cma_alloc() is not enough for Your use-case, but You already
+  1. Contiguous 4 GiB alloc: the old design requires __force_merge()
+     to rebuild max_order from scratch; the new design coalesces during
+     free() so the alloc is O(log N).
 
-pointed that You need to have custom method of managing which part of memory
+       old (force_merge) - 71 ms
+       dirty tracker design - 17 ms
 
-is assigned to secure world, so wouldn't it be much simpler just to add
+  2. Repeated 256 KiB alloc throughput: the old design pays
+     __force_merge() on every alloc; the new design does not.
 
-cma_alloc_exact_range() -like function and keep using a single, boot-time
+       old (force_merge) - 95 ms
+       dirty tracker design - 24 ms
 
-defined CMA area? Then in instead of creating and deleting CMA areas
+v2:
+ - Force a contiguous 256 KiB allocation in the repeated-alloc loop so
+   the baseline actually exercises __force_merge(). (sashiko)
 
-dynamically, You just 'allocate' respective ranges from the single CMA area
+Assisted-by: Claude:claude-opus-4-8
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+---
+ drivers/gpu/tests/gpu_buddy_test.c | 114 +++++++++++++++++++++++++++++
+ 1 file changed, 114 insertions(+)
 
-and manage them on You own (like in current patchset).
-
->> In both cases You will probably won't need the DMA-mapping API on top of
->> it, although it might be even possible to partially use with by
->> registering custom dma_ops for the devices using the protected region
->> (assuming that it would support only DMA_ATTR_NO_KERNEL_MAPPING
->> allocations).
-> Yeah, I don't think we want the DMA API on top at all. The allocator has
-> special needs, like clustered allocations to minimize fragmentation and
-> keeping as few chunks activated as possible. We also want to avoid
-> resize operations because they can be quite heavy depending on system
-> load.
-
-That's okay.
-
-Best regards
+diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
+index 198d8dc4e3f0..4dc54ed33269 100644
+--- a/drivers/gpu/tests/gpu_buddy_test.c
++++ b/drivers/gpu/tests/gpu_buddy_test.c
+@@ -283,6 +283,119 @@ static void gpu_test_buddy_fragmentation_performance(struct kunit *test)
+ 	gpu_buddy_fini(&mm);
+ }
+ 
++static void gpu_test_buddy_dirty_tracker_performance(struct kunit *test)
++{
++	struct gpu_buddy_block *block, *tmp;
++	unsigned long elapsed_ms;
++	LIST_HEAD(clear_blocks);
++	LIST_HEAD(dirty_blocks);
++	LIST_HEAD(allocated);
++	struct gpu_buddy mm;
++	LIST_HEAD(results);
++	ktime_t start, end;
++	int i, count;
++
++	/*
++	 * Contiguous alloc latency after alternating clear/dirty fragmentation
++	 *
++	 * Fill a 4 GiB pool with 4 KiB allocations, partition them into
++	 * alternating cleared and dirty sets, then free both.  In the old
++	 * dual-tree design every adjacent buddy pair has one cleared half and
++	 * one dirty half, so the pair sits on opposite sides of the clear/dirty
++	 * merge barrier and cannot be coalesced at free() time.  The pool
++	 * stays fully fragmented and the subsequent contiguous 4 GiB allocation
++	 * has to invoke __force_merge() to climb back up to max_order before
++	 * it can succeed.  With the dirty-tracker design buddy pairs coalesce
++	 * unconditionally during free(), so the pool is already at max_order
++	 * before the timed alloc begins and __force_merge() is not needed.
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
++			       "buddy_init failed\n");
++
++	for (i = 0; i < SZ_4G / SZ_4K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
++							      &allocated, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_4K);
++
++	count = 0;
++	list_for_each_entry_safe(block, tmp, &allocated, link) {
++		if (count++ % 2 == 0)
++			list_move_tail(&block->link, &clear_blocks);
++		else
++			list_move_tail(&block->link, &dirty_blocks);
++	}
++
++	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
++
++	start = ktime_get();
++	KUNIT_ASSERT_FALSE_MSG(test,
++			       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4G, SZ_4K,
++						      &results,
++						      GPU_BUDDY_CONTIGUOUS_ALLOCATION),
++			       "contiguous alloc failed\n");
++	end = ktime_get();
++	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
++
++	kunit_info(test, "Contiguous alloc after fragmentation: %lu ms\n",
++		   elapsed_ms);
++
++	gpu_buddy_free_list(&mm, &results, 0);
++	gpu_buddy_fini(&mm);
++
++	/*
++	 * Repeated alloc throughput from a maximally fragmented pool
++	 *
++	 * Fill a 4 GiB pool with 4 KiB allocations, free even-indexed blocks
++	 * as cleared and odd-indexed blocks as dirty.  The alternating pattern
++	 * ensures every adjacent buddy pair has one cleared half and one dirty
++	 * half, so each pair lands on opposite sides of the old merge barrier.
++	 * Each of the 16 384 x 256 KiB allocations in the timed loop asks for a
++	 * single contiguous block (size == min_block_size, CONTIGUOUS flag), so
++	 * it cannot be satisfied by 64 stray 4 KiB blocks: under the old design
++	 * every alloc has to pay the __force_merge() cost to rebuild a 256 KiB
++	 * block.  With the dirty-tracker design the pool collapses to one
++	 * max_order block during free(), so each alloc is a simple O(log N)
++	 * split.
++	 */
++	KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_init(&mm, SZ_4G, SZ_4K),
++			       "buddy_init failed\n");
++
++	for (i = 0; i < SZ_4G / SZ_4K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_4K, SZ_4K,
++							      &allocated, 0),
++				       "buddy_alloc hit an error size=%u\n", SZ_4K);
++
++	count = 0;
++	list_for_each_entry_safe(block, tmp, &allocated, link) {
++		if (count++ % 2 == 0)
++			list_move_tail(&block->link, &clear_blocks);
++		else
++			list_move_tail(&block->link, &dirty_blocks);
++	}
++
++	gpu_buddy_free_list(&mm, &clear_blocks, GPU_BUDDY_CLEARED);
++	gpu_buddy_free_list(&mm, &dirty_blocks, 0);
++
++	start = ktime_get();
++	for (i = 0; i < SZ_4G / SZ_256K; i++)
++		KUNIT_ASSERT_FALSE_MSG(test,
++				       gpu_buddy_alloc_blocks(&mm, 0, SZ_4G, SZ_256K, SZ_256K,
++							      &results,
++							      GPU_BUDDY_CONTIGUOUS_ALLOCATION),
++				       "buddy_alloc hit an error size=%u\n", SZ_256K);
++	end = ktime_get();
++	elapsed_ms = ktime_to_ms(ktime_sub(end, start));
++
++	kunit_info(test, "Repeated 256 KiB allocs from fragmented pool: %lu ms\n",
++		   elapsed_ms);
++
++	gpu_buddy_free_list(&mm, &results, 0);
++	gpu_buddy_fini(&mm);
++}
++
+ static void gpu_test_buddy_alloc_range_bias(struct kunit *test)
+ {
+ 	u32 mm_size, size, ps, bias_size, bias_start, bias_end, bias_rem;
+@@ -1490,6 +1603,7 @@ static struct kunit_case gpu_buddy_tests[] = {
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_range_bias),
+ 	KUNIT_CASE_SLOW(gpu_test_buddy_fragmentation_performance),
++	KUNIT_CASE_SLOW(gpu_test_buddy_dirty_tracker_performance),
+ 	KUNIT_CASE(gpu_test_buddy_alloc_exceeds_max_order),
+ 	KUNIT_CASE(gpu_test_buddy_offset_aligned_allocation),
+ 	KUNIT_CASE(gpu_test_buddy_subtree_offset_alignment_stress),
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+2.34.1
 
