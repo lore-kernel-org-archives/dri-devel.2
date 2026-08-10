@@ -4,79 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9EBAC5AD4E
-	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:49:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 353D4C5AC82
+	for <dri-devel@archiver.kernel.org>; Mon, 10 Aug 2026 09:52:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADD9D10E774;
-	Mon, 10 Aug 2026 09:49:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E14B10E6EA;
+	Mon, 10 Aug 2026 09:51:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imgtec.com header.i=@imgtec.com header.b="yXNEbkc7";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="aAYjQZ5e";
 	dkim-atps=neutral
-Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
- [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4513F10E774
- for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:49:17 +0000 (UTC)
-Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
- by mx08-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 67A9U37K2088876; Mon, 10 Aug 2026 10:49:07 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=y
- LkRR1FWr254pW8cLoADgzmmBb2CwdfpaH0idLf9pDY=; b=yXNEbkc7mI+FPJxSS
- 2ae382osyfUmE9o9EZDpjaR/1wtycERt0nLy30JdqMr/Qpe0MNBQUDmmfi/1g/QN
- iNfnJjkJiU3emjI97UjOxZGzOUFKkBiv32CGljXXGEs3hd3iUvQt32Z+ain+x+z7
- Dsq0Ml7oaoV/Y3rx47DHnlDLMWxOXzDFQj0EnZtTmz6HBdTz+BXDw5+Vk1lMWMFa
- jxtM5CYIz35btoyBa+Ne7VsOqhSsJFGdC/hBJWAqr6hGjLY2U/re5hbWU8jdMRDn
- JUfaKwMa51YiDV+OxE9jz+NgppNMsNLvY2i4cxbaa9VTyumkyIDR2vY1JFNwB2Vy
- Lrbmg==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4fwtqqhckj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Mon, 10 Aug 2026 10:49:07 +0100 (BST)
-Received: from np-m-daniel1.kl.imgtec.org (172.25.4.227) by
- HHMAIL01.hh.imgtec.org (10.100.10.19) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Mon, 10 Aug 2026 10:49:06 +0100
-Message-ID: <07351b55d157cec6fd342599a4af5ea6ab74ce1c.camel@imgtec.com>
-Subject: Re: [PATCH v2] drm/imagination: Align rogue_fwif_hwrtdata to 64 bytes
-From: Luigi Santivetti <luigi.santivetti@imgtec.com>
-To: Michal Wilczynski <m.wilczynski@samsung.com>, Frank Binns
- <frank.binns@imgtec.com>, Matt Coster <matt.coster@imgtec.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alessio Belle
- <Alessio.Belle@imgtec.com>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "kernel
- test robot" <lkp@intel.com>
-Date: Mon, 10 Aug 2026 10:49:05 +0100
-In-Reply-To: <20260805-fix_imagination-v2-1-7391a13c891f@samsung.com>
-References: <CGME20260805193726eucas1p122ba1e7c33d06a993a985637e909bd41@eucas1p1.samsung.com>
- <20260805-fix_imagination-v2-1-7391a13c891f@samsung.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC6210E6EA
+ for <dri-devel@lists.freedesktop.org>; Mon, 10 Aug 2026 09:51:57 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 27A6A42E4F;
+ Mon, 10 Aug 2026 09:51:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD5701F000E9;
+ Mon, 10 Aug 2026 09:51:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786355517;
+ bh=ULSQMoMCiSaEOOLZSXj0/cajC4id9pwkEbtrgiElQLo=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=aAYjQZ5eceBNB0d+Kd/TDZLrnJL2bpaPnnD/3jWiHxTN0gY2SZEyRxvfPrzsn/V0L
+ pMgExWD+e+LkN0LqAHXaWDGxBXWVio8XrUESmORwmZ3o7G6FrvStetDgKlwU0bTpcT
+ zQ7CWQFdURvqk3IFPnGFxQHlH1FwZVGWJ6FdUThsLx9eUunfRUh2cVpnYvKC9ERt8I
+ oxhiMx0nOSfzTdCu1B1423Hh88W+mIxIUjFyjxF8ZeRS9tLZ2+oVALnZE9kTYcN/SH
+ TREJHHHEE9xWHLV++KBmGKInB3ZPE7VRDCQBbTad9MUVH/PsuMkzRrIyoAcWl6zPon
+ E6lO6seSX/vkw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6] drm/pagemap: Prevent double migration of device pages
+To: "Arvind Yadav" <arvind.yadav@intel.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20260810092845.2776097-1-arvind.yadav@intel.com>
+References: <20260810092845.2776097-1-arvind.yadav@intel.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
-MIME-Version: 1.0
-X-Originating-IP: [172.25.4.227]
-X-Proofpoint-GUID: cRqVMtB3ziH0zHmEOUBdx-BT3tt_kSf5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDA4MyBTYWx0ZWRfXz9vMr32DCAbT
- fmu4BSSkeOOvj5FM24FiVTRZSl8mNivBZEWgIxzGTt+mAFBNk3J90+qNNNiju8+d9aURKLvVA4k
- FyyoGwmp1Oama7ZuY5UXNkVdOefqBl6NJySwuoDhSzQCgZNtTYs9lS9jcHzq96D41fgRk4QQSOv
- VBrW0KKF1M8i8Kdw+KZywGatspgC0oXJYlVYIfCHY1AglBNZ3hlNs0v6BxsXGz5AYDJYkzvGhVe
- AUIkOhn8YGAHCb6L3WciSr94QZo356ovPPcTdMfG5BCIsYaFpBfns+fhBm0LRcqVVBH1ywUzV6M
- ZQbLvMQoUVxdzI+d+pZj1Tu5aTqD+89wsLjDmeefgFXH6OcaWYTLVA0huXljH1TLb/PhA1BbtMm
- hjqPO7ngZ9bbveCT1/fXFsQyxz+63ntK+AEW0erZ0c8rACno6YWrdL374dLyob35336on8PqivA
- NwpGw2/wwN7GwlEVjXw==
-X-Authority-Analysis: v=2.4 cv=fsTsol4f c=1 sm=1 tr=0 ts=6a799e93 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=eoBRZU4O7WcA:10 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=VwQbUJbxAAAA:8 a=QyXUC8HyAAAA:8 a=hD80L64hAAAA:8 a=r_1tXGB3AAAA:8
- a=Us2G9mFh6sP1UL_tPTwA:9 a=QEXdDO2ut3YA:10 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: cRqVMtB3ziH0zHmEOUBdx-BT3tt_kSf5
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDA4MyBTYWx0ZWRfX1hW/Kj4+miXH
- qa0c95cWtQd4rBMROF0cxc+JLZXTmVm4OEewQLnK+Vx3jTD2LltrcYjO+F7L0D/QexIdQew/oXV
- R9kRtoyddOHyMXDdb0TFq4YTCOD1nPE=
+Date: Mon, 10 Aug 2026 09:51:55 +0000
+Message-Id: <20260810095156.DD5701F000E9@smtp.kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,69 +52,159 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Errors-To: dri-devel-bounces@lists.freedesktop.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 
-On Wed, 2026-08-05 at 21:37 +0200, Michal Wilczynski wrote:
-> The build fails on RISC-V using GCC because `SIZE_CHECK(struct
-> rogue_fwif_hwrtdata, 384)` expects 384 bytes, but the compiler generates
-> a 336-byte structure.
->=20
-> This is due to an alignment conflict: the inner member `cleanup_state`
-> requires 64-byte alignment, but the outer struct is explicitly marked
-> `__aligned(8)`.
->=20
-> While GCC on ARM64 implicitly pads the size to a multiple of 64, GCC on
-> RISC-V strictly respects the 8-byte outer alignment, resulting in a size
-> mismatch.
->=20
-> Fix this by aligning the entire structure to 64 bytes, which resolves
-> the contradiction and forces the correct 384 byte size on all
-> architectures.
->=20
-> Fixes: a26f067feac1 ("drm/imagination: Add FWIF headers")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes:
-> https://lore.kernel.org/oe-kbuild-all/202512131851.1WNXk3BC-lkp@intel.com=
-/
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Reviewed-by: Luigi Santivetti <luigi.santivetti@imgtec.com>
+New issues:
+- [High] Data race on folio->page.zone_device_data due to non-atomic read-m=
+odify-write.
 
-> ---
-> Changes in v2:
-> - EDITME: describe what is new in this series revision.
-> - EDITME: use bulletpoints and terse descriptions.
-> - Link to v1:
-> https://lore.kernel.org/r/20251222-fix_imagination-v1-1-0ac80a2ff317@sams=
-ung.com
-> ---
-> =C2=A0drivers/gpu/drm/imagination/pvr_rogue_fwif.h | 2 +-
-> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
-> b/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
-> index
-> 172886be4c820a32ae1b08d62bf0814250f2a9bd..1ba2a167a38b31911e0846923e4dc70=
-626f5
-> ca65 100644
-> --- a/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
-> +++ b/drivers/gpu/drm/imagination/pvr_rogue_fwif.h
-> @@ -2170,7 +2170,7 @@ struct rogue_fwif_hwrtdata {
-> =C2=A0	bool geom_caches_need_zeroing __aligned(4);
-> =C2=A0
-> =C2=A0	struct rogue_fwif_cleanup_ctl cleanup_state __aligned(64);
-> -} __aligned(8);
-> +} __aligned(64);
-> =C2=A0
-> =C2=A0/*
-> =C2=A0
-> *************************************************************************=
-*****
->=20
-> ---
-> base-commit: 8f0b4cce4481fb22653697cced8d0d04027cb1e8
-> change-id: 20251222-fix_imagination-8ef0c94122c4
->=20
-> Best regards,
+Pre-existing issues:
+- [Critical] Out-of-bounds write in migrate_device_pfns and migrate_device_=
+range.
+- [High] Use-after-free when accessing page metadata after dropping the ref=
+erence.
+- [High] DMA mappings are leaked in error paths because unmapping is skippe=
+d when the PFN array is zeroed.
+--
 
+--- Patch [1]: [PATCH v6] drm/pagemap: Prevent double migration of device p=
+ages ---
+commit 8398dc4cfadc132c4a2fb375e9dd9f211e6bb842
+Author: Arvind Yadav <arvind.yadav@intel.com>
+drm/pagemap: Prevent double migration of device pages
+
+A device-private folio migrated to system memory by a CPU fault can
+remain reachable through the raw-PFN eviction path until migration
+finalization drops the source reference.
+
+> diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
+> --- a/drivers/gpu/drm/drm_pagemap.c
+> +++ b/drivers/gpu/drm/drm_pagemap.c
+
+[ ... ]
+
+> +static void drm_pagemap_page_set_flags(struct page *page,
+> +				       unsigned long flags)
+> +{
+> +	struct folio *folio =3D page_folio(page);
+> +	unsigned long old;
+> +
+> +	if (WARN_ON_ONCE(flags & ~DRM_PAGEMAP_ZDD_FLAG_MASK))
+> +		return;
+> +
+> +	old =3D (unsigned long)folio_zone_device_data(folio);
+> +	folio_set_zone_device_data(folio, (void *)(old | flags));
+> +}
+
+[Severity: High]
+Can this non-atomic read-modify-write race with concurrent lockless readers?
+
+If a CPU fault handler calls __drm_pagemap_migrate_to_ram() and reads this
+pointer locklessly via drm_pagemap_page_zone_device_data(), and this functi=
+on
+updates it concurrently, could the lack of READ_ONCE()/WRITE_ONCE() protect=
+ion
+result in a torn pointer read and subsequent pointer corruption?
+
+[ ... ]
+
+> @@ -1148,6 +1253,8 @@ int drm_pagemap_evict_to_ram(struct drm_pagemap_dev=
+mem *devmem_allocation)
+>  	if (err)
+>  		goto err_free;
+> =20
+> +	drm_pagemap_skip_retired_pages(src, npages);
+> +
+>  	err =3D drm_pagemap_migrate_populate_ram_pfn(NULL, NULL, npages, &mpage=
+s,
+>  						   src, dst, 0);
+
+[Severity: Critical]
+This is a pre-existing issue, but does migrate_device_pfns() (called just
+before this snippet) have an out-of-bounds write if the migrated memory ran=
+ge
+ends midway through a large folio?
+
+Looking at migrate_device_pfns() in mm/migrate_device.c:
+
+	for (j =3D 1; j < nr; j++)
+		src_pfns[i+j] =3D 0;
+
+Since the inner loop doesn't check if i + j < npages, if a caller passes an
+array of pfns where the last elements belong to a large folio, this clears
+subsequent elements past the end of the src_pfns array, potentially corrupt=
+ing
+adjacent memory like the dst array.
+
+[Severity: High]
+This is also a pre-existing issue, but is there a use-after-free in the err=
+or
+cleanup path of drm_pagemap_migrate_populate_ram_pfn() called here?
+
+When cleaning up after a failure, the code drops the page reference and then
+immediately accesses its metadata to determine the loop advancement step:
+
+drm_pagemap_migrate_populate_ram_pfn() {
+...
+free_pages:
+	...
+	put_page(page);
+	mpfn[i] =3D 0;
+
+	order =3D folio_order(page_folio(page));
+...
+}
+
+If put_page() drops the last reference and frees the page, isn't the
+subsequent call to folio_order(page_folio(page)) accessing freed memory?
+
+[ ... ]
+
+> @@ -1308,6 +1418,7 @@ static int __drm_pagemap_migrate_to_ram(struct vm_a=
+rea_struct *vas,
+>  	if (err)
+>  		drm_pagemap_migration_unlock_put_pages(npages, migrate.dst);
+>  	migrate_vma_pages(&migrate);
+> +	drm_pagemap_retire_migrated_pages(migrate.src, npages);
+>  	migrate_vma_finalize(&migrate);
+>  	if (dev)
+>  		drm_pagemap_migrate_unmap_pages(dev, pagemap_addr, migrate.dst,
+
+[Severity: High]
+This is a pre-existing issue, but are DMA mappings leaked in this error pat=
+h?
+
+If an error occurs, drm_pagemap_migration_unlock_put_pages() is called
+which zeroes out the migrate.dst array:
+
+drm_pagemap_migration_unlock_put_pages() {
+	...
+	drm_pagemap_migration_unlock_put_folio(folio);
+	migrate_pfn[i] =3D 0;
+	...
+}
+
+Subsequently, drm_pagemap_migrate_unmap_pages() is called to unmap the DMA
+addresses, but it explicitly skips entries where the page is NULL:
+
+drm_pagemap_migrate_unmap_pages() {
+	...
+	if (!page || !pagemap_addr[i].addr || dma_mapping_error(dev, pagemap_addr[=
+i].addr))
+		goto next;
+	...
+}
+
+Since all pages in the array were just zeroed, migrate_pfn_to_page() will
+return NULL for all of them, bypassing the unmap and leaving the DMA mappin=
+gs
+orphaned.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260810092845.2776=
+097-1-arvind.yadav@intel.com?part=3D1
